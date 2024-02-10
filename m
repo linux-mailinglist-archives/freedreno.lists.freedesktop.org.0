@@ -2,62 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D05DF8503C0
-	for <lists+freedreno@lfdr.de>; Sat, 10 Feb 2024 10:53:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FB3D8503C3
+	for <lists+freedreno@lfdr.de>; Sat, 10 Feb 2024 10:55:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A237C11247C;
-	Sat, 10 Feb 2024 09:53:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B681C10E5E0;
+	Sat, 10 Feb 2024 09:55:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UNGoSI6b";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="CkpFPrvG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com
- [209.85.219.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97BC411247C
- for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 09:53:15 +0000 (UTC)
-Received: by mail-yb1-f177.google.com with SMTP id
- 3f1490d57ef6-dc6d8bd612dso1789738276.1
- for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 01:53:15 -0800 (PST)
+Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
+ [209.85.219.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28FF610E5E0
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 09:55:12 +0000 (UTC)
+Received: by mail-yb1-f182.google.com with SMTP id
+ 3f1490d57ef6-dc6cbe1ac75so1414597276.1
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 01:55:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707558795; x=1708163595; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1707558911; x=1708163711; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=paMHnlZbd0L+LSbZCuSA2TzUf7f5lSfJb2Dcn2AqQWc=;
- b=UNGoSI6bajP/gTnpBq4PgVNwrL882XYKT/Tb+3HiHs1+t7phVvAFAuQrlfxMVK8mTW
- cQu8pQ868u5/PLIKGmmM1QlFAgaoccMADQaIxbBssHrIHnZ0kpVEtfY2ujtrYOsGoiTy
- 4xw2sJV2nwgC2uWJ+BOv6HaiovvPyFBf6JLQ59MY0pmV2Sjgz/kq+nEXpUVo1AVtBRw2
- i96dn+WXoBY6LVGGsAeB6AVIZEW+80/3q/65l6Ui8V5ZRdZJMaIQVC86ZHDUABXJFbxN
- aLTZCU023/4kxuiai3MqbjnvPDzKkJLQ83POVRSfEyurAi6wSsALv4J9RUo1mM1p81NN
- I6ig==
+ bh=BwKRO335TL12T1ugNIYuUs2JClpMBYM/9p0MgS1ZsMw=;
+ b=CkpFPrvGQAMq6DU1Xl7BESY2sdN5b0i4Sq9wew1x/iCGA8OZWER4u79DmqWwNu27V6
+ ykBm1OUuHXra6EXul/iYLbze/CnBR9it03CN0LqUj01EkpLAvXJvu7h1JJAXR0Mi9gu5
+ fRaDeZgDyb/fZYAnzwPxdGqQuTgSuG4W7WjXTheVMMPn+Cx+9Bmm3b2cR3kVG1qTfFeX
+ J/65ka383JYxwDRKBqN5PIivWUgUznxjgxwgS/TK4KrauvohtlhuMYmS38ippgMwSS5Q
+ rHYX7nQZC2SDvWD9eiaHCAacv7xd8C0DBmqFnpBi4OylPs7u5TQ06d9LsKa2wu6teGeQ
+ ouLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707558795; x=1708163595;
+ d=1e100.net; s=20230601; t=1707558911; x=1708163711;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=paMHnlZbd0L+LSbZCuSA2TzUf7f5lSfJb2Dcn2AqQWc=;
- b=WOOBqKooJUObE8qU/XzXG+SY264OdksRprrOhf9RBNU5Gvg94DI0UL9sh6dekyb6Ko
- 204UrX47n5RlbuQDQ2DlJUj8pyCkzWKzBfJFnmPVkMaLDcbL1kF2HRhCIfpS6WHS7bA1
- 1zO9g40uicBFDm3NRHh5L5NRKNCXR1RVoLadqGGYEJXXcCyOfYimNV3xbMu1iEXq62pk
- k1raeJqfC4l8HRMZFsSyOJ4YO7YiGP3KOuVb63Zibb9woAGSqi7dSbA1egnx9VT8q02x
- mD++eLhTXnjMH6XdcWYPf3rkttpxLUS30eWf6yAwcm5sE/piqEzuVykEYLKH7TC1XDEs
- moxg==
-X-Gm-Message-State: AOJu0Ywc8+56GxyowYbeGiMAsesMWL8HzHiXyhYU2t6KYBG09Jn4HLeF
- cnvi1w7gWtGi9reTuy31pBZav4kO5BlmBVLGWg9+dAAV/h/drCftBsGcxS0LFhyT1rWOnR7WpB7
- +dvurPiscRDcqLCr3iwAJ8G4XCG3WAgqyEjmKkA==
-X-Google-Smtp-Source: AGHT+IEt0icZ3HR90tgs9nZHGdrHeqyx5vG0a8WaZsSVBg9mGCCy3byO6qznkQZSNknMA4a0NfGh5osh8gRgsT4Yais=
-X-Received: by 2002:a25:b117:0:b0:dc7:4439:d14d with SMTP id
- g23-20020a25b117000000b00dc74439d14dmr1348647ybj.54.1707558794810; Sat, 10
- Feb 2024 01:53:14 -0800 (PST)
+ bh=BwKRO335TL12T1ugNIYuUs2JClpMBYM/9p0MgS1ZsMw=;
+ b=ukZkNsapGi9krbVHaK0a3oWn6+wCMzZxED7gLq17UemjjRH9GTtW9eE+xpYFZzOFKO
+ poSIhQU4w89l7B7/NemDaZ6Nzi/EiYWMNElc0ep+2BHnC18uCu+tmOa+Mz6Is2DWLfKY
+ Ex522qCmquEOr/6xV02hwwLl21FGWhX+HtKcoXx5aZxT4OeT4CjhMUal6azhi2lYHcH4
+ hbGpmUOJX2ieLDGKrncDXh3KemdBMyp2crdCHpUTmUAvSuyM0gv23dMC6wPpQwWW8njJ
+ OlMQuSlN75nXoV0Ul/HI6ozmthZ1/JYID7X6MaaL+33P5YFRtmE+HmH/LHvyHguHmq/y
+ 2IfA==
+X-Gm-Message-State: AOJu0YyoqAIySCFz75Xkx2TTaqqpd3WCmHo2fepPzEaG1gPzHmrSR7yr
+ OKZDGEhqRCByEwG2e2d7/jK+tdTQ6VKr5TCTTmuCjhIWJd1j4Fyr0N6bDok5rmbTmfX06zdEONd
+ 7CJnm1Qgx/dMxr+NpMWe7HokHja3eJxeK63tKFQ==
+X-Google-Smtp-Source: AGHT+IGHSanBc/5P0KYgb1X3eLxidccmytEEnZo/ritl6ETykacuJJJ7mViK1X+VYMRMhGiedJA+mXbN9stbHWSubxk=
+X-Received: by 2002:a25:6954:0:b0:dc6:f0ac:6b74 with SMTP id
+ e81-20020a256954000000b00dc6f0ac6b74mr2845262ybc.15.1707558911270; Sat, 10
+ Feb 2024 01:55:11 -0800 (PST)
 MIME-Version: 1.0
 References: <20240210015223.24670-1-quic_parellan@quicinc.com>
- <20240210015223.24670-12-quic_parellan@quicinc.com>
-In-Reply-To: <20240210015223.24670-12-quic_parellan@quicinc.com>
+ <20240210015223.24670-13-quic_parellan@quicinc.com>
+In-Reply-To: <20240210015223.24670-13-quic_parellan@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 10 Feb 2024 11:53:04 +0200
-Message-ID: <CAA8EJprUf_TVUo+aWPm-dL10wxLu+UF6c7h8DhZwKZRXGvfqEA@mail.gmail.com>
-Subject: Re: [PATCH v2 11/19] drm/msm/dp: change clock related programming for
- YUV420 over DP
+Date: Sat, 10 Feb 2024 11:55:00 +0200
+Message-ID: <CAA8EJppppDiaQdEzX7WnFA8rFJQBTHJUQq4o6kZtfzTm5Y=nnA@mail.gmail.com>
+Subject: Re: [PATCH v2 12/19] drm/msm/dp: move parity calculation to dp_utils
 To: Paloma Arellano <quic_parellan@quicinc.com>
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org, 
@@ -82,25 +81,67 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Sat, 10 Feb 2024 at 03:52, Paloma Arellano <quic_parellan@quicinc.com> wrote:
 >
-> Change all relevant DP controller related programming for YUV420 cases.
-> Namely, change the pixel clock math to consider YUV420 and modify the
-> MVID programming to consider YUV420.
+> Parity calculation is necessary for VSC SDP implementation. Therefore
+> create new files dp_utils.c and dp_utils.h and move the parity
+> calculating functions here. This ensures that they are usable by SDP
+> programming in both dp_catalog.c and dp_audio.c
 >
 > Changes in v2:
->         - Move configuration control progamming to a different commit
->         - Slight code simplification
->         - Add VSC SDP check when doing mode_pclk_khz division in
->           dp_bridge_mode_valid
+>         - Create new files dp_utils.c and dp_utils.h
+>         - Move the parity calculation to these new files instead of
+>           having them in dp_catalog.c and dp_catalog.h
 >
 > Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_catalog.c | 5 ++++-
->  drivers/gpu/drm/msm/dp/dp_catalog.h | 2 +-
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 9 ++++++---
->  drivers/gpu/drm/msm/dp/dp_display.c | 4 ++++
->  4 files changed, 15 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/msm/Makefile      |   3 +-
+>  drivers/gpu/drm/msm/dp/dp_audio.c | 101 +++++-------------------------
+>  drivers/gpu/drm/msm/dp/dp_utils.c |  71 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/dp/dp_utils.h |  22 +++++++
+>  4 files changed, 110 insertions(+), 87 deletions(-)
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_utils.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_utils.h
+
+[skipped]
+
+> diff --git a/drivers/gpu/drm/msm/dp/dp_utils.h b/drivers/gpu/drm/msm/dp/dp_utils.h
+> new file mode 100644
+> index 0000000000000..c062e29d07898
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/dp/dp_utils.h
+> @@ -0,0 +1,22 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2024, The Linux Foundation. All rights reserved.
+> + */
+> +
+> +#ifndef _DP_UTILS_H_
+> +#define _DP_UTILS_H_
+> +
+> +#define HEADER_BYTE_0_BIT       0
+> +#define PARITY_BYTE_0_BIT       8
+> +#define HEADER_BYTE_2_BIT       0
+> +#define PARITY_BYTE_2_BIT       8
+> +#define HEADER_BYTE_1_BIT      16
+> +#define PARITY_BYTE_1_BIT      24
+> +#define HEADER_BYTE_3_BIT      16
+> +#define PARITY_BYTE_3_BIT      24
+
+Nit: it is usually 0-1-2-3 rather than 0-2-1-3.
+
+With that fixed:
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+> +
+> +u8 dp_utils_get_g0_value(u8 data);
+> +u8 dp_utils_get_g1_value(u8 data);
+> +u8 dp_utils_calculate_parity(u32 data);
+> +
+> +#endif /* _DP_UTILS_H_ */
+> --
+> 2.39.2
+>
+
 
 -- 
 With best wishes
