@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA0048503B4
-	for <lists+freedreno@lfdr.de>; Sat, 10 Feb 2024 10:41:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D71008503B7
+	for <lists+freedreno@lfdr.de>; Sat, 10 Feb 2024 10:44:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E818B10FF17;
-	Sat, 10 Feb 2024 09:41:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A241E112450;
+	Sat, 10 Feb 2024 09:44:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="T8Mia3aE";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="we/8+t0u";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DFEE10FF17
- for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 09:41:54 +0000 (UTC)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-dc236729a2bso1643446276.0
- for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 01:41:54 -0800 (PST)
+Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com
+ [209.85.219.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DFCD112456
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 09:43:59 +0000 (UTC)
+Received: by mail-yb1-f177.google.com with SMTP id
+ 3f1490d57ef6-dc755afdecfso1293602276.2
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 01:43:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707558113; x=1708162913; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1707558238; x=1708163038; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=FmQjmWLV7DJRRFljU/pPBQtvGGLrbs70ePm8J5kL2KY=;
- b=T8Mia3aEwI217R3xP8LKwN0v1suXM8t69O74K/XwHU+XNxm8HhW5YnY3Uor7no8Ik4
- YWiDFY+5htUbMz0iGojh6xD0qpVlPil5XrEiGU9aBmcGl4yHCwmET5DUB3JW9Gln/g6e
- szRpGLZk9Uwyvp/91pQmeALY6ItVqX8tm/HtDeHW3nckNuiVSTFeJ4m5GyFPSWGHQdgv
- GLDLwNaw1xlKXTIZ9N8NbAHsNcFnKqf9OROSrsIwAYrYuf2DWJh0oZIM4EMN/WBz6yjE
- PA1IqF9d/Nvk/ZuZEVFNeQmc39qHVnu4NBrX81s2AFtYnniw8M/xftm+TF0+eWfcXod3
- hhyw==
+ bh=+RI3dWBvWyqq/yEA1r1jf7HN95TUMuR4sMgCLHlYNCo=;
+ b=we/8+t0ushi+A67C0UAH4QcGe5UtYj9YHiT0q6tS6DvnUh5BZCni0DQctYZ47/Ij6y
+ EkyVClbun17F2hi1OYiSUs3JRp/jOEEKOrGcBGuMwUxTpxpcqlO4+vutZKjLfUI356TW
+ Ys4GWXQzip63wBNIVr836VXsYZlzfmQrYMLNz6KkbB2EicJqCfu5/hmHiOXXLEywpmBG
+ dKIqoGq2i/iIKTsjgDgh3iG1/G1+aMGrUh2L+9uo28CJ7goh4w7vYYYP/oLCL6To4Whm
+ abRxDHnQBytzu/SUs/pOcQpNKm0TQFjwTmaVvPtXxzYcNXzA4fSFcjyxRDs+n0Im/k35
+ YMSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707558113; x=1708162913;
+ d=1e100.net; s=20230601; t=1707558238; x=1708163038;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=FmQjmWLV7DJRRFljU/pPBQtvGGLrbs70ePm8J5kL2KY=;
- b=IN5W7b52XIVzU8wsouanfj7JA07WWSaigDMJgTPHqmI6gcp54ySRqW1J2YXg9KS/cx
- fXtUsThI2m/Ywkg8v9MW5yW2bzQd8mDNJxSP2p/LvbV3DlsRsfNqK7sY3YdGhh47/b3S
- AOJXA1+xdKNRm6NT3aMt//j6GaGMENGcwhuPM5XuV1xEXq9CVhw7UrUyA83mplGrRZBr
- 6IWQmhbLBJNWelEK22c4u5MiUG5sLhOVSUV8jh2c05dEtpiG3pWDu8/oVSBDbzCbUOXs
- +7kVXnI105IFFDmnYHgPJPY6Q1dLuy7z6dLb/kD6+JcBRNhWFCwN0YEtXBvk+W020kRh
- AXXw==
-X-Gm-Message-State: AOJu0YyvppLxujVIAfoDSbnSCT/Vuv0IXDreDok0g+KO/NYpBDJSYccf
- UnSr5Sme8uKKzCMQnW2Gaypd+egxGcIqJmNbDfIXALfpw8nIEW8pfqmfSjGR+rNU0J0e297p88p
- t/17wIUnKz8sAoRCdSgtp3wchZKgIs0dWYzSdeQ==
-X-Google-Smtp-Source: AGHT+IE54M281Vieh3wZ0YBgqDx/AuBch5Pznwg9hx0yJY6dS7xj/fAxE3wJf/efdw9syQBI4/GbJ8uHf0sc1c5S73U=
-X-Received: by 2002:a05:6902:1b0b:b0:dc2:3237:ee61 with SMTP id
- eh11-20020a0569021b0b00b00dc23237ee61mr1873660ybb.53.1707558113541; Sat, 10
- Feb 2024 01:41:53 -0800 (PST)
+ bh=+RI3dWBvWyqq/yEA1r1jf7HN95TUMuR4sMgCLHlYNCo=;
+ b=W4GJDpPQOFtdmcQGGETAhkaDVVVRYwdZhxzt1IZj0kWuPHgKR7V+amrxwgYUkBIHdL
+ DwyJFn8nSHal67bsInP6V+KFxHFgG1+RPINJeF8/n1yjLbIN1prxFTwRWWuka60zksuD
+ O3mIfMo1tVETfHPApFCE0NXtSq5thjrlRZ50RsxAeOZgAh+YQwGw7jONQpyfE/OVVvY8
+ OvsoN19wQnPN+rVUS/pqKRudFDUJofOpr6kjCCVULe6MJ7atp049YZa/ZKvevu/4pPmu
+ qc9KA3uavumcyNiU4KeZbZwX2QULCncEuKIAF8K/DRWsEjpF+JPhKF0yp77j9Wrdgk2r
+ /CZw==
+X-Gm-Message-State: AOJu0YyInlEwlxTHkFkPnKm5TKv7fujoqug1k+nGoaiCrU5lMQEKccqH
+ 8psVH7P6RNlumlCI3jtyVYj1bXCqf8V/yHVtf1+jf4hhNzvK+VcKifskceEirO1bzfNwJyf8l3m
+ zpRauW95uX03fs2A1BVf+2Q+jo+mtMVihcqcuug==
+X-Google-Smtp-Source: AGHT+IGxEsODyIQpa3+puvUQSQAHWgFROHjBlYgNuoD0UH4Y1xDQcQ9joz75lQkRTpTguUXW4Z8MIDNAxAlhshGy4+E=
+X-Received: by 2002:a25:246:0:b0:dbd:4883:44ce with SMTP id
+ 67-20020a250246000000b00dbd488344cemr1345322ybc.32.1707558238734; Sat, 10 Feb
+ 2024 01:43:58 -0800 (PST)
 MIME-Version: 1.0
 References: <20240210015223.24670-1-quic_parellan@quicinc.com>
- <20240210015223.24670-5-quic_parellan@quicinc.com>
-In-Reply-To: <20240210015223.24670-5-quic_parellan@quicinc.com>
+ <20240210015223.24670-9-quic_parellan@quicinc.com>
+In-Reply-To: <20240210015223.24670-9-quic_parellan@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 10 Feb 2024 11:41:42 +0200
-Message-ID: <CAA8EJprduMsCwuXBOR2rATKJp+2+1R-L8+xSL6yBRE9CmdZnzg@mail.gmail.com>
-Subject: Re: [PATCH v2 04/19] drm/msm/dpu: allow
- dpu_encoder_helper_phys_setup_cdm to work for DP
+Date: Sat, 10 Feb 2024 11:43:47 +0200
+Message-ID: <CAA8EJprtCLn2s3xj1VeOZ4-Ot79PGNfk2Bv8fqPLeGWD71+XNg@mail.gmail.com>
+Subject: Re: [PATCH v2 08/19] drm/msm/dp: check if VSC SDP is supported in DP
+ programming
 To: Paloma Arellano <quic_parellan@quicinc.com>
 Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org, 
@@ -82,18 +82,13 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Sat, 10 Feb 2024 at 03:52, Paloma Arellano <quic_parellan@quicinc.com> wrote:
 >
-> Generalize dpu_encoder_helper_phys_setup_cdm to be compatible with DP.
+> In the DP driver, check if VSC SDP is supported and propagate this value
+> to dp_panel. In dp_display's dp_mode, the out_fmt_is_yuv_420 parameter
+> must also utilize this value since YUV420 is only allowed when VSC SDP
+> is supported.
 >
 > Changes in v2:
->         - Minor formatting changes
->         - Move the modification of the dimesions for CDM setup to a new
->           patch
->
-> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-> ---
->  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  4 +--
->  .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 27 ++++++++++---------
->  2 files changed, 16 insertions(+), 15 deletions(-)
+>         - Move DP programming when VSC SDP is supported to this patch
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
