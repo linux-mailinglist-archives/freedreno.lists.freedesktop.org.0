@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12CC38503D1
-	for <lists+freedreno@lfdr.de>; Sat, 10 Feb 2024 11:15:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0F988503D5
+	for <lists+freedreno@lfdr.de>; Sat, 10 Feb 2024 11:17:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68A2A11269E;
-	Sat, 10 Feb 2024 10:15:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BADC11126A6;
+	Sat, 10 Feb 2024 10:16:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zvXOmDhc";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GFvYFppb";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
- [209.85.219.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3CB71126A2
- for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 10:15:52 +0000 (UTC)
-Received: by mail-yb1-f182.google.com with SMTP id
- 3f1490d57ef6-dc755afdecfso1306724276.2
- for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 02:15:52 -0800 (PST)
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
+ [209.85.219.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A2981126B1
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 10:16:58 +0000 (UTC)
+Received: by mail-yb1-f172.google.com with SMTP id
+ 3f1490d57ef6-dc755afdecfso1307158276.2
+ for <freedreno@lists.freedesktop.org>; Sat, 10 Feb 2024 02:16:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707560152; x=1708164952; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1707560217; x=1708165017; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=nTueEFOakGyv2InDAGvYZKbL+VubaYqrJvCf8EJK9lE=;
- b=zvXOmDhcUCNBDJHNK1d1AcQU8/layoQ3XBKt7owpmokZZIcycsXzdi9wiOZv9QK52Q
- 14ZQYxNatyg2wEIb60N5+ZEVEJasg3FOLw2R1oUt9/8hE4K1Fq3F8oeuf+5GhtlcjqA0
- LoCEN2036kjMyhgFeO0eTUC/hHf+DWovzLzJ3NlPByvfwQCYVuon+PsyGuoYnKpq8zP5
- DdzD8E7icJpQb4VJsxPm5S+gXyJkxKSdgiP3gpxsyEIiyBbHm7D1wg6ozUt6EDpALRG8
- dFwfGbrAEY9h+3os0TqfzbVwQt0ZL5fTlm8K29VQgHfzH8PY0U41lhpT7mxd4TqQxGT7
- 4c9A==
+ bh=C3MtzCYDqA/NU9qAlKY3Nym0nximObQq5aVuIq2lscI=;
+ b=GFvYFppbehmTuFtp9I42icFt+NvEa6i0RIOIBb4Mv5+DbUJa/JzSrjEGddydgKfEhj
+ 39T3HD5rG50K4zYPoZKOab9oRJd8qClcrCstDtGrcAwHnUL4jvLM/J7g54ib1rphwj1X
+ seIVV8qwXMZlAZ+q3D+0jVZlzMvxX4O9U5yg9PMVo50SOmPObEwkqbVhI8x45Pe1ybt0
+ 1oTGW77cJ3n/TsnBpVt7o39FkZB5Ktt6hImuPVhVzJarujFMyARUi6cf8ImLnN+nOEFX
+ PdktFPsUxuL5NISQQ+e3Q/HXPO4YjcZtG6SEKVMfh1qeaXSQJqf2UH/Ny87EjyYhIIbv
+ DGqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707560152; x=1708164952;
+ d=1e100.net; s=20230601; t=1707560217; x=1708165017;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=nTueEFOakGyv2InDAGvYZKbL+VubaYqrJvCf8EJK9lE=;
- b=UrBwdB0ROy0C6sa5fBU/BvJeT/qOCa/ToTDowAYMSGh+jb6fQOH5Wo4a3eYSTTgji4
- K0Mi4qd5DjpKHKV6ZQ5kZnOT42XomJpJMjGOCPGkh0QSt/Tj+Rn9ANCMcIvpFEjM3APY
- q989afszp8zBquqCKgEtD8cr0azXbPmN23Ukp7loM9qr2eKzE306hYkC2OqBUEFQlUmb
- k9S1tNOLj3k3NnUMjNNlMuml2WfijnzFygQ0f6Xzv/YpSDiVK47GLEKx2Y+erb6S52ib
- wlEY971Nnmd7dEkTfApAdgRK9iuZjBrFLbsj9HQlXHJSiLWcjStnAVrEadZKI/Wj2wwU
- pBVg==
-X-Gm-Message-State: AOJu0YwRK3WTwZCb3LP+irsuX8+p1+TifVN7uNzIEWdHuPtgBmHFOKDz
- S6aMuyF1pJ6/+tiOMetTDkUzEkrFxnantYt2v4baWg/7Mt2PADPoCTx7iCUYYKjO/loNfyin+gV
- Wm+VymSX+kYA//IWR7POrspG5JWTI/ZLCUh9n8g==
-X-Google-Smtp-Source: AGHT+IH3pyRrF+bOTqZSKxC6d1uuPmJw/Ln+Vm5zM36cx+v+NuNLqQtQuSRqJnbCNZnhzilvIHKApUIQFwXeMRFi5qI=
-X-Received: by 2002:a25:d08f:0:b0:dc6:48fc:65e4 with SMTP id
- h137-20020a25d08f000000b00dc648fc65e4mr1465961ybg.40.1707560151817; Sat, 10
- Feb 2024 02:15:51 -0800 (PST)
+ bh=C3MtzCYDqA/NU9qAlKY3Nym0nximObQq5aVuIq2lscI=;
+ b=pi9f2NPjzpTHXaI7vXY/CMhuI7D+6DsdatqJCV2IxvraW/skdlEYUK2isGr8ZjaPw2
+ OKBWRyja16/QnA8EP6sag/qfk2xu/rJiP7aXa+k8ZtNqiPrlfabriUopyX0cbNTxwXA0
+ rcqhfHlUXTRFTlmw8Ufiai7Ftn5Vj1ChMKItzxRx6Rk/n1SqB2cq+5pxQE5Lhwp2W25V
+ CevFIj1DXqZjipqYaSO16wiCJLZVrhsHwqD2Myxc2Uvon3uTA+CdA+SzscyK2SwwEFaR
+ 0RLRX1FiF6xaHQ/uxU8SQRl0fHCJDW6oojxLmACQSGxMngM4L3aGbgvJsbhpJ04Iekct
+ cNpQ==
+X-Gm-Message-State: AOJu0YwM8KopwrLSom8J9MH0ItSiTzvlKHIEwnsFzO/5j561vonNB/PE
+ eJavZuQoDjxgT/8sg2R7TCuRpRS6jZvhwFHGU8MSkp8MGVarMp//wmGk/ljck1MN2rbfPPlT8WC
+ JTmqrw0NoK8xhcjUQ9BksyNzuGLA0inYYB3VHRA==
+X-Google-Smtp-Source: AGHT+IHdeAwmz3vGqp+XhFSJbc9rlyCFILsXvjJJGq4rBxVBKBCiDLH6H086hg5mXLncPgLUg/Kv5DUESDy6lfLssVs=
+X-Received: by 2002:a25:fc02:0:b0:dc6:4b66:2636 with SMTP id
+ v2-20020a25fc02000000b00dc64b662636mr1324733ybd.19.1707560217563; Sat, 10 Feb
+ 2024 02:16:57 -0800 (PST)
 MIME-Version: 1.0
 References: <20240210015223.24670-1-quic_parellan@quicinc.com>
- <20240210015223.24670-15-quic_parellan@quicinc.com>
-In-Reply-To: <20240210015223.24670-15-quic_parellan@quicinc.com>
+ <20240210015223.24670-16-quic_parellan@quicinc.com>
+In-Reply-To: <20240210015223.24670-16-quic_parellan@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 10 Feb 2024 12:15:41 +0200
-Message-ID: <CAA8EJpq0GqJapkLMuGSK7CqJ5mAJJJPf0MQWER9Mb6ErHmXrog@mail.gmail.com>
-Subject: Re: [PATCH v2 14/19] drm/msm/dpu: add support of new peripheral flush
- mechanism
+Date: Sat, 10 Feb 2024 12:16:46 +0200
+Message-ID: <CAA8EJpqq+H1gdy2pJo0Up=5w0mYTPRu2_1swEBNfyAMXztQanA@mail.gmail.com>
+Subject: Re: [PATCH v2 15/19] drm/msm/dp: enable SDP and SDE periph flush
+ update
 To: Paloma Arellano <quic_parellan@quicinc.com>
-Cc: freedreno@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- robdclark@gmail.com, seanpaul@chromium.org, swboyd@chromium.org, 
- quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com, 
- marijn.suijten@somainline.org, neil.armstrong@linaro.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org, 
+ swboyd@chromium.org, quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com, 
+ quic_khsieh@quicinc.com, marijn.suijten@somainline.org, 
+ neil.armstrong@linaro.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,24 +82,98 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Sat, 10 Feb 2024 at 03:52, Paloma Arellano <quic_parellan@quicinc.com> wrote:
 >
-> From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> DP controller can be setup to operate in either SDP update flush mode or
+> peripheral flush mode based on the DP controller hardware version.
 >
-> Introduce a peripheral flushing mechanism to decouple peripheral
-> metadata flushing from timing engine related flush.
+> Starting in DP v1.2, the hardware documents require the use of
+> peripheral flush mode for SDP packets such as PPS OR VSC SDP packets.
+>
+> In-line with this guidance, lets program the DP controller to use
+> peripheral flush mode starting DP v1.2
 >
 > Changes in v2:
->         - Fixed some misalignment issues
+>         - Use the original dp_catalog_hw_revision() function to
+>           correctly check the DP HW version
 >
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 17 +++++++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h | 10 ++++++++++
->  2 files changed, 27 insertions(+)
+>  drivers/gpu/drm/msm/dp/dp_catalog.c | 17 +++++++++++++++++
+>  drivers/gpu/drm/msm/dp/dp_catalog.h |  1 +
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c    |  1 +
+>  drivers/gpu/drm/msm/dp/dp_reg.h     |  2 ++
+>  4 files changed, 21 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> index 0f28a4897b7b7..bc64dde5b7459 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> @@ -440,6 +440,23 @@ void dp_catalog_ctrl_config_misc(struct dp_catalog *dp_catalog,
+>         dp_write_link(catalog, REG_DP_MISC1_MISC0, misc_val);
+>  }
+>
+> +void dp_catalog_setup_peripheral_flush(struct dp_catalog *dp_catalog)
+> +{
+> +       u32 mainlink_ctrl, hw_revision;
+> +       struct dp_catalog_private *catalog = container_of(dp_catalog,
+> +                               struct dp_catalog_private, dp_catalog);
+> +
+> +       mainlink_ctrl = dp_read_link(catalog, REG_DP_MAINLINK_CTRL);
+> +
+> +       hw_revision = dp_catalog_hw_revision(dp_catalog);
+> +       if (hw_revision >= DP_HW_VERSION_1_2)
+> +               mainlink_ctrl |= DP_MAINLINK_FLUSH_MODE_SDE_PERIPH_UPDATE;
+> +       else
+> +               mainlink_ctrl |= DP_MAINLINK_FLUSH_MODE_UPDATE_SDP;
+> +
+> +       dp_write_link(catalog, REG_DP_MAINLINK_CTRL, mainlink_ctrl);
+> +}
+> +
+>  void dp_catalog_ctrl_config_msa(struct dp_catalog *dp_catalog,
+>                                         u32 rate, u32 stream_rate_khz,
+>                                         bool fixed_nvid, bool is_ycbcr_420)
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> index 5b3a7ba40d55f..9e2b05544f610 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> @@ -98,6 +98,7 @@ void dp_catalog_ctrl_config_ctrl(struct dp_catalog *dp_catalog, u32 config);
+>  void dp_catalog_ctrl_lane_mapping(struct dp_catalog *dp_catalog);
+>  void dp_catalog_ctrl_mainlink_ctrl(struct dp_catalog *dp_catalog, bool enable);
+>  void dp_catalog_ctrl_psr_mainlink_enable(struct dp_catalog *dp_catalog, bool enable);
+> +void dp_catalog_setup_peripheral_flush(struct dp_catalog *dp_catalog);
+>  void dp_catalog_ctrl_config_misc(struct dp_catalog *dp_catalog, u32 cc, u32 tb);
+>  void dp_catalog_ctrl_config_msa(struct dp_catalog *dp_catalog, u32 rate,
+>                                 u32 stream_rate_khz, bool fixed_nvid, bool is_ycbcr_420);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index beef86b1aaf81..f1e7b0a5ee5d1 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -170,6 +170,7 @@ static void dp_ctrl_configure_source_params(struct dp_ctrl_private *ctrl)
+>
+>         dp_catalog_ctrl_lane_mapping(ctrl->catalog);
+>         dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, true);
+> +       dp_catalog_setup_peripheral_flush(ctrl->catalog);
+>
+>         dp_ctrl_config_ctrl(ctrl);
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
+> index 2983756c125cd..6ac66532b47a4 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_reg.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+> @@ -102,6 +102,8 @@
+>  #define DP_MAINLINK_CTRL_ENABLE                        (0x00000001)
+>  #define DP_MAINLINK_CTRL_RESET                 (0x00000002)
+>  #define DP_MAINLINK_CTRL_SW_BYPASS_SCRAMBLER   (0x00000010)
+> +#define DP_MAINLINK_FLUSH_MODE_UPDATE_SDP      (0x00800000)
+> +#define DP_MAINLINK_FLUSH_MODE_SDE_PERIPH_UPDATE       (0x01800000)
+
+Just one bit here, please.
+
+>  #define DP_MAINLINK_FB_BOUNDARY_SEL            (0x02000000)
+>
+>  #define REG_DP_STATE_CTRL                      (0x00000004)
+> --
+> 2.39.2
+>
 
 
 -- 
