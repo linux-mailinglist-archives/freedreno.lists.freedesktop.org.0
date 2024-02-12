@@ -2,74 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BC42851559
-	for <lists+freedreno@lfdr.de>; Mon, 12 Feb 2024 14:36:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98C6785160B
+	for <lists+freedreno@lfdr.de>; Mon, 12 Feb 2024 14:55:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03A8D10E706;
-	Mon, 12 Feb 2024 13:36:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BE2C10E749;
+	Mon, 12 Feb 2024 13:55:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XQCadbS7";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="al1Un7OB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB0010E9AC
- for <freedreno@lists.freedesktop.org>; Mon, 12 Feb 2024 13:36:11 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-410ca9e851bso7004835e9.3
- for <freedreno@lists.freedesktop.org>; Mon, 12 Feb 2024 05:36:11 -0800 (PST)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 855FD10E749
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Feb 2024 13:55:26 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-33b815b182fso676528f8f.3
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Feb 2024 05:55:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707744970; x=1708349770; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1707746125; x=1708350925; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :references:cc:to:content-language:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=74ExFZRZ6onRvv/q7DNU+xV1ydzYGkcZ6r0iw+QAiOw=;
- b=XQCadbS7K9B40kaZRiWea5cl1fYgEiE3pP3ESQr/CVuWKl5nOxoWWjGV65NkNUuZcp
- Fcji9WLLMC28dmHEHidGLLFBu6hm9vDDPcXXSQNW6tTqcIOPBpuqLwonT7qe/jYqtXgo
- +y1a7q/9mFAj01wmTE6hbrWL5MkqoJ99xopPpTmci2rwjKmwzCyyL/xGTzGPTduwJ+mK
- gkQ3y41V5cxd9qPGEyzjy/awWxKCIGXS4l/zm0+9d/5JfT2JtwW3grMFiayPT9zCt8xu
- XSo9zhbBWAOrfhgygtvftNHLHVkf9FRwvlHzDh7kkrplGKoJKK5CE/eqiuYDEp9VhvwN
- cMbA==
+ :reply-to; bh=rPZItga0K6a/d3qYmA5SX0F5b4igv+uCIQlz3f+nZfg=;
+ b=al1Un7OBACy7h36bc1H4Cwrkm31K2OybTs7TMuoJNAtCIMx+u+FadsOWp6o5moVdai
+ Z4QTu4/1yG2sbs3euYg2d+NR5WkeA64d+uEsuNYArF5k9MTpvtNAkpY7XS2xiicuTDPb
+ Lj69M8x+HdHfosiFeRC/xbvcssJY2QhnsB4td0MiedFi6HBZKyTBPhSbOfmGoWk67wxk
+ 9O6V7vOhAvk+dltzvFQnn6Y1i0edhnBBQByzVC6vkZVcdsTIF3RLRJN6NLKCQSbPC6n5
+ XpUJ1fMLdJ/KLqdwNEuKv5V5KICr51AE6u3wdOOPcTrvwHYEO0l8YFqKyoy554LUF5B4
+ axZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707744970; x=1708349770;
+ d=1e100.net; s=20230601; t=1707746125; x=1708350925;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :references:cc:to:content-language:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to;
- bh=74ExFZRZ6onRvv/q7DNU+xV1ydzYGkcZ6r0iw+QAiOw=;
- b=hzlymbjg9Tg8oKJ2I2K3uwZxQtpuduoKXjrRYQ2mI5ye+Tp01nEB4nyrxcA4sUFZP+
- RQGYYeg3Fx167udu/pyyZ9vAkQ1GwQwtpxPK5g2ZL1v3eEQqmZJmdqu457TdWcThIv1l
- UHwGgixLdr4mx/m2ysrlsGvzIOYCt5THsyjQxlyuqG7mnIjOa+hVl17gkjF07M2Hzda5
- KuXDc6IcEdGo8VrEGfCYO8o4e6x5cQaCtS7Utjj8DKFYHat00rjPA9Em+PuEDatzEQVA
- Gyx8drlNCNeXgad+sMhZ/qifyWfpHvyq27aNouVLvhF3zjZ3EqyNsRh6tdUGzwEJs5KB
- Fwnw==
+ bh=rPZItga0K6a/d3qYmA5SX0F5b4igv+uCIQlz3f+nZfg=;
+ b=i0QxCWElttqfULQSajlVeewj40Rm6TuCcn/WXXQ1YQnEiLLKlR55Q1yhsLs7pHGdQQ
+ PzhtudOMml2HF/sLMqToL7g1+GQ8IMfgIIt/u+OOBYJHUhbiIpkL26+4GeZiLpC0imiL
+ mg9MYdoiP8R0Mjs+ywSqQyKBF4M+7iGs7UfknHdlVK0vvUg613IFF96NiaXUD9b91OAr
+ iGY490XOi41fwIS4UK+Kr9m/mcji8KfhITMqsTmA2NLj8ZE3jkWq5jH2KzKGzV8a2daB
+ 2ReRiqfoenmszQ0+NqtiM7bNB8PW7TEAAkaF0snr425zkC6GG0+RsOW2rLIS10ZO4b5z
+ SKcA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWFtBouWtw0/Ru8QFJfwwvSsGxmBCDuf2ZiwG/LCia0xt6f8ya9CmOU++zdkQlRW6JuoMK/9OIjfpCh82OMjS1Ol78Mz21bQz+DoF7Iz4xA
-X-Gm-Message-State: AOJu0Yxw0MDYBo5/osV2XDqWawIXiF1iToI5LCPQDCB8xLtSQK22OEVL
- VOUlYPsql45fPEOOqpU//+T5rkKB87I+Hw19jpoZp5kHuCgFhPpXC6MLe+37WPM=
-X-Google-Smtp-Source: AGHT+IHxiOespFpZaN9WenVMCi5tYoRC71Rge5Y/lysp6dckeGcJpXUwPmAH8chS3wwMFs1t7xyxGw==
-X-Received: by 2002:a05:600c:1d07:b0:410:cf4f:68e1 with SMTP id
- l7-20020a05600c1d0700b00410cf4f68e1mr2395117wms.2.1707744969631; 
- Mon, 12 Feb 2024 05:36:09 -0800 (PST)
+ AJvYcCWYVfAKpBeD+zbl55uA7pKeZedOsfyFlZCMbdGIby243aopPWnafAM5YMtzLnXSvK0ruUuElgocZECAY9op6mddcfZxvgNcnq5NO+ZssU0k
+X-Gm-Message-State: AOJu0Yx6jTfJCsZdybeHdIlhew/pLLQoTH5JIohDt8+pHThP4xflA1ej
+ 8v1zlEHjP58pEkSYtNrPZ20fCT2ernJabN8oWtt488pYrFzoH4XIaov5gxKrg6U=
+X-Google-Smtp-Source: AGHT+IG7KY1/dGz5O9hkR94hPzKo0X0u3+e+5j1NEGuM5qVmSOXQKof4lVhHGwJ6xxSDf7MW8jNfAQ==
+X-Received: by 2002:adf:ffcc:0:b0:33b:72f2:2283 with SMTP id
+ x12-20020adfffcc000000b0033b72f22283mr4536501wrs.17.1707746124778; 
+ Mon, 12 Feb 2024 05:55:24 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCWCgnvirB9i9+S1u6JvMGnDSR/MdRPev3xT/whgmQ3kVizbkAlZA6Q0amVId/eUHGe8k/yZRvTSqCMNwDOl0JzBXkyvE8QSjDdkA1qxcheaCT8SpThUMPtSdxo5dn/ahCA4JJmVi0Pl0uanONdqVVO16y2xNLpHg1oMPpxRnNjT82gYNeIXw7esqqfNFyvimfbE9Z+jn/a6Wan6hy6ocxx86SKVOl0JvefGcsL56lxsjK1K8SmA+cZqKG2fiJPH56R2dnM7iUUcKWqm6wa919z2W5filsIGkf33d5Q/vsWIpVXXGXLowBc2VwRgba5WNkwfO9Aea5XLVez+xsSubmQ7Fqmn2/Onqii8wOquLC4QjpDm8YI5LN6sO7k/AD43OnB9kl8jJxByl5AlSww/6EryO0twX0dZAD086dWX7hvHaWoavbmtRYd/RiUpT+UOEZWtxGTIPsOpVpXYNwTH4e5sNnVLb+qlo/0C5Ecr/rAry7HhSmbSEMGMM+yZUbH+eSVewZiu6gCj6nDOWKLEVzXgEBqV2DAX48zO+ROPK0DdWAVN+Lslkz/Y32lqTbgsueS4mL5fFcLnP3rlZwGojJf2AjWEQ982/6BTK1r6068bXcSvVtSAK1rgvAWdhILammp+266OHfTfL3XKy242uF1sg3nCLAtJzuNFFXXnuHrubbuelj27cXprV1z7Wx2SlQskdg1lQpqIvDH8z+sDlWcdPI+Yvkn9DnkSCyEsv0ef3kreyYHbMwI+NTNOBjVxuatQeNx36fCRFmqCtaQ13gbMtHuM5yvj0hKMTz7ca4rPsPf35v+xbfl9DEDh5EFpvJZyNw==
+ AJvYcCVkTD1yETNCUWfYwYCnpQdU5FS7SXa7H6wVPKrdy75+Sc7wy7dhEcOGBxivwS8upXzw9QSUx1H9UjRq76n9r4PVgnrWMUd0VH06GG/8U7GJqcHc4krhSmF60TYGvNcqZKM2WQAwv8Vdc5vKz0Hu8ODUgi998rEPcD0aVet908xw7RzW952PBXlzbOu2Mq/ZwM6T1KTyv0+yzmAshAyjWt5P5w3Cw1NttKbn9pqMnHM5B+jFiCT+uGYyDv64f++9FIU/DGFlelj6KCV7KRzDCOZKYvioTfwYoJB1/Ma3peqWGRWx9l8pwZmCCJNG/DzYs/rXm981E00zEJyiBU01WMVnC3jBdozdPWWJHWiN9SfxQgYM7EyysBMG5PXSHi8mXqwToUWJRQp2eBRsqykQFViyHIp6+U8sBRd8/ZvuWqKGGa6+wPHe+zGdGr5LC/mcniH936J+EmU1QfN5U58z4AFBB4xY9npKCEce7xDA9USySSod4bDRyLme8XB+B4NkRyDcy8RjOfZtLcXGr8TkoRulZkRsFeM2b8W3HSaEyKynPjz4ZNVUYa2enZUNXWTTaz668GOR/PFgmXcQfKxGFSnaUAdoS+V1aYmoaqJB5+Yle732nfv8RrVmngYZjSDpQvET2DSQJXhUC9EiX+7WxVKZzPiRTzFX7pibS2TbDnOZDnjXIFUDhHUVA6FeyOAfJ0s2vUo1wN7+atYwCOznpyE7BMywwfp+1d4uZNLhJ7icFqrfeDgVC6BtcUw+iM4d5nnuoxcsz0p1DQj7crxYWZ1zkyHt4ZS9MAgeWZm1qLqhvcfyx4RzTfF8WciP
 Received: from ?IPV6:2a01:e0a:982:cbb0:fcee:f026:296d:135f?
  ([2a01:e0a:982:cbb0:fcee:f026:296d:135f])
  by smtp.gmail.com with ESMTPSA id
- t20-20020a7bc3d4000000b0040fff3382casm8592379wmj.46.2024.02.12.05.36.08
+ r10-20020a056000014a00b0033b1c321070sm6865830wrx.31.2024.02.12.05.55.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Feb 2024 05:36:09 -0800 (PST)
-Message-ID: <fff6f6e1-ca2d-4f15-b891-d9b52de8a72f@linaro.org>
-Date: Mon, 12 Feb 2024 14:36:08 +0100
+ Mon, 12 Feb 2024 05:55:24 -0800 (PST)
+Message-ID: <575f4d10-6022-4e9f-9b0e-221ea2d20fc6@linaro.org>
+Date: Mon, 12 Feb 2024 14:55:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 5/5] arm64: dts: qcom: sm8650-qrd: enable GPU
+Subject: Re: [PATCH 4/5] arm64: dts: qcom: sm8650: add GPU nodes
 Content-Language: en-US, fr
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -78,14 +78,14 @@ Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>,
  Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev
+ Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev
 References: <20240212-topic-sm8650-gpu-v1-0-708a40b747b5@linaro.org>
- <20240212-topic-sm8650-gpu-v1-5-708a40b747b5@linaro.org>
- <CAA8EJpryCXUxs69ockt0TN4LOuBB-4dZkLYHUZyN1Uq0isMjYg@mail.gmail.com>
+ <20240212-topic-sm8650-gpu-v1-4-708a40b747b5@linaro.org>
+ <70caf0d0-28f5-48b9-b10e-5541488dd982@linaro.org>
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
  GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
@@ -111,7 +111,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro Developer Services
-In-Reply-To: <CAA8EJpryCXUxs69ockt0TN4LOuBB-4dZkLYHUZyN1Uq0isMjYg@mail.gmail.com>
+In-Reply-To: <70caf0d0-28f5-48b9-b10e-5541488dd982@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -130,49 +130,48 @@ Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 12/02/2024 14:32, Dmitry Baryshkov wrote:
-> On Mon, 12 Feb 2024 at 12:37, Neil Armstrong <neil.armstrong@linaro.org> wrote:
->>
->> Add path of the GPU firmware for the SM8650-QRD board
+On 12/02/2024 11:50, Konrad Dybcio wrote:
+> On 12.02.2024 11:37, Neil Armstrong wrote:
+>> Add GPU nodes for the SM8650 platform.
 >>
 >> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 >> ---
->>   arch/arm64/boot/dts/qcom/sm8650-qrd.dts | 8 ++++++++
->>   1 file changed, 8 insertions(+)
+>>   arch/arm64/boot/dts/qcom/sm8650.dtsi | 169 +++++++++++++++++++++++++++++++++++
+>>   1 file changed, 169 insertions(+)
 >>
->> diff --git a/arch/arm64/boot/dts/qcom/sm8650-qrd.dts b/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
->> index 8515498553bf..7151f3dc67c4 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
->> +++ b/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
->> @@ -525,6 +525,14 @@ &ipa {
->>          status = "okay";
->>   };
->>
->> +&gpu {
->> +       status = "okay";
+>> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+>> index c455ca4e6475..f6f9e603fb2f 100644
+>> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+>> @@ -2582,6 +2582,131 @@ tcsr: clock-controller@1fc0000 {
+>>   			#reset-cells = <1>;
+>>   		};
+>>   
+>> +		gpu: gpu@3d00000 {
+>> +			compatible = "qcom,adreno-43051401", "qcom,adreno";
+>> +			reg = <0x0 0x03d00000 0x0 0x40000>,
+>> +			      <0x0 0x03d9e000 0x0 0x1000>,
+>> +			      <0x0 0x03d61000 0x0 0x800>;
+>> +			reg-names = "kgsl_3d0_reg_memory",
+>> +				    "cx_mem",
+>> +				    "cx_dbgc";
 >> +
->> +       zap-shader {
->> +               firmware-name = "qcom/sm8650/gen70900_zap.mbn";
+>> +			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
+>> +
+>> +			iommus = <&adreno_smmu 0 0x0>,
+>> +				 <&adreno_smmu 1 0x0>;
+>> +
+>> +			operating-points-v2 = <&gpu_opp_table>;
+>> +
+>> +			interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
+>> +			interconnect-names = "gfx-mem";
 > 
-> But why? For sm8450 / sm8550 we had "a730_zap.mbn" and "a740_zap.mbn"
+> ICC should be unnecessary
 
-No idea why, this is the vendor's fw name, it uses the chipid (2 for sm8550, 9 for sm8650) instead of the commercial name like the seq file (gen70900_sqe.fw).
+Ack I'll remove
 
 Neil
 
 > 
->> +       };
->> +};
->> +
->>   &mdss {
->>          status = "okay";
->>   };
->>
->> --
->> 2.34.1
->>
-> 
-> 
+> Konrad
 
