@@ -2,63 +2,106 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC6B2851062
-	for <lists+freedreno@lfdr.de>; Mon, 12 Feb 2024 11:13:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF03685110F
+	for <lists+freedreno@lfdr.de>; Mon, 12 Feb 2024 11:37:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBB0A10EBCF;
-	Mon, 12 Feb 2024 10:13:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8151410EC0A;
+	Mon, 12 Feb 2024 10:37:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fo9DNKFn";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NyXiGQY+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A130010E0F6;
- Mon, 12 Feb 2024 10:13:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707732826; x=1739268826;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=b5yCS+oa4RLidNsPnjoIz0El0jlSvCjtFpTobsF8c/k=;
- b=fo9DNKFnhdrevyyYcYHqoj7WGzop9KU2liawJ5LI2AIU2d9GW9XRFGk6
- o8E9y8aa1K001wuIgkAgPiUZDcydgq0yvqO30VxoZDaoKsCuLEP0g2WCq
- W+nD4NPDDt6ij14Zz8EgnaMGuaKm22NDc9BJFdK+2S+xZ794zs/9tlVE3
- b07b/pfqc9d6mWqB3/iab1dwkUUCrfzs+mb1P+UKhikzzaodd2SABLoJ3
- O67e9MDS2HXf4Stoc64RFckdrqoisvXFO73CkIru2dT8Snhk4El9rZjHt
- eoYrF6Uii8G/PpQbx1D4RYN+JT83tH1doExaDmsVrBi1bJaD5OECYEqby Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10981"; a="1581053"
-X-IronPort-AV: E=Sophos;i="6.05,262,1701158400"; 
-   d="scan'208";a="1581053"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2024 02:13:44 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,262,1701158400"; 
-   d="scan'208";a="7296805"
-Received: from belyakov-mobl.ccr.corp.intel.com (HELO localhost)
- ([10.252.63.91])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2024 02:13:39 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Cc: Paloma Arellano <quic_parellan@quicinc.com>, robdclark@gmail.com,
- freedreno@lists.freedesktop.org, dmitry.baryshkov@linaro.org,
- intel-gfx@lists.freedesktop.org, ville.syrjala@linux.intel.com,
- quic_jesszhan@quicinc.com, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drm/dp: add an API to indicate if sink supports VSC SDP
-In-Reply-To: <20240210202704.977303-1-quic_abhinavk@quicinc.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240210202704.977303-1-quic_abhinavk@quicinc.com>
-Date: Mon, 12 Feb 2024 12:13:34 +0200
-Message-ID: <87il2u9ei9.fsf@intel.com>
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A54810EC00
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Feb 2024 10:37:36 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-33b86bc3e7dso222436f8f.1
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Feb 2024 02:37:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1707734255; x=1708339055; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=AGeqgEbmqsbfk3RnMJf9oWlOyzbWan5F35nXvDZlbY8=;
+ b=NyXiGQY+a1UlJ0chOOS3/BXqEowr4XbEXVNXLbpK4F/gVPJVl/vfKXZ7MEaV5J7Lfr
+ keQvhjyWFqpG97jHrCnBfaNj3NeERfLp3AiboG6bhM0/mTAgKPRuOptfZ9Q57nW1AgVv
+ 7kTdXca/gbBgRkS5e+Vd4zw7YxKxCijQrSdJy35f41eqj2492+1WzdPS4O0Rkq2U04KG
+ BnNsJW90kAyOF32TQZslT//Q9OFajwzzC67H3l6ObdGFtiMKpv0YiHOW6lCegG1hKbgU
+ /GKo/D4C2/c3cnXvokRjGOGyTopsn099cMIp5UB3e6WpX3mVuD8ywX5iyLkzTIq8X/o4
+ vYOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707734255; x=1708339055;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=AGeqgEbmqsbfk3RnMJf9oWlOyzbWan5F35nXvDZlbY8=;
+ b=QtQZZVL6Gtvo53y08xHdXK/Dxo/5IIICcSIAwFVYneicWbuKh84C6i3D4zMNgB4mp/
+ oAv8P1ocU9PIj+ybLkBgE4KMzxV8bWuf1WPF0wK4Vk5Wvfxmy7zXbuxMbWd0jdPdBvAb
+ oYr7K/2LdnSAXBWUJFbCThXXI9qOFUgVIjQUtw8QPIizbwWrsqZVSMO6Bmc7+clZx+wh
+ QR79FBOHeKbFdF5YtcgtlNa1W1lPbcfyuLslcIJGCV0uYlip42dRO18rv5MDuklkB+6r
+ 92zp+WNSYLevAM4rCgWIQvPyTLb49zqZlZLqkOo0r11wff899xpcCoy5q09gXnUoRbp7
+ UZRA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVBsdlLgh7LyQ4+KFesTNosF/KCyMf9h7lc4FfVlNTywbXrJD8zU7yY1r5IZu1g+2kulyCnkSMojFYc3L+wpunPOT7IKcU5kUcP/NUS5Hnn
+X-Gm-Message-State: AOJu0YyvvViwZ7fGjKKFKkBJkYuNetr27jS0P+1EDR2liw+hz8So3Pqb
+ 0gcJGHgFojyXG0/D5/VyMOY54HWowS+rE/w1+iaSECtXcRE/KRmmS+ZFHF9IONU=
+X-Google-Smtp-Source: AGHT+IEFdHM9DPpHcRwXMfc1akm3prQrLo2OqMS8tdCmINovJ9SVS1kKFcoqCiUNMY2LSNPYq5djpg==
+X-Received: by 2002:adf:e502:0:b0:33b:7944:c3c5 with SMTP id
+ j2-20020adfe502000000b0033b7944c3c5mr2611341wrm.10.1707734254573; 
+ Mon, 12 Feb 2024 02:37:34 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUmId5I/w5BR6DtxvrxeEAwWxlupzFvPdV+nzmpyvD3AQaB/XlIK/Mz7iKn8yyOttmwqQzO3jPBlUBMIdQG7VjIfDGAq9C9X/ZBU5SkqEqN0Fl/BkgPRiL9XGPm2NNyL1LkBtJNMeW0Nk4AUQZf2JbGi3Sl9QQQw9bXjpHHgaDOW2GR3CxFEgEXL5R6CN9c3yZjrO6wstHsNnlPq8+mIbAkkpmNVFgysoVtJlli59Pv55+xV1zA0bWWMYYxHWIH6h6/DL2aZ3YaHa4CEstSHaHzUaBG7q42Lt+HgBHfts8H//QhaR8+M0PGiyBRh35HKdQp2qASADW9mMWkiry9G8M4m7EToiY/pnyJFnSKLzbuOIcCjiHYnCGy5yBFXJUYO867qt0aiZOl53LFPvKzJPRqsHIFNj8yRAQ1zeuu1d+PYlcz0V6Y6ZX6ANGAO/M0F7x6UjZJJH6C45UIR8LVk0WHPrm89LPFefpGwYqE/4oiqOb1uP8dx/ONGKuMdy4MbH7k9k8iQdxocnAsii6fZyoXTOzeBIfJP2ZEP2hykYFEwzjmJ7qHEBSTHE5UWK7eMuOHKr8j/jb4rnEb+nqbSGKlXNVAxkJV/lgz4heBsjjyLRAjbl1zDyHOz52pbK55YIuQM/y/TltPJi6ugBm2VagyRzPhwIt1IKMRo03vFu9YFkM49LUBpwRqHTxuaVnERfj8PLIhZIXepI0iQza8KcXuRKS5JtUcbQSia9R1Tl7M/ralhpnyvFMZ6HVmSghlxygheWu8mhWSPL3mWndmJjvN3EOaxK6IwZdaeeh96vkOIlxarhYeATJ6YJcVxeZMvzCIDEdHiIloPxbCnXZaePLc4OmRl4+ksPm5hSk=
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
+ by smtp.gmail.com with ESMTPSA id
+ f14-20020a056000128e00b0033b50e0d493sm6404188wrx.59.2024.02.12.02.37.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Feb 2024 02:37:34 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH 0/5] drm/msm: Add support for the A750 GPU found on the
+ SM8650 platform
+Date: Mon, 12 Feb 2024 11:37:29 +0100
+Message-Id: <20240212-topic-sm8650-gpu-v1-0-708a40b747b5@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOn0yWUC/x3MQQ5AMBBA0avIrE1SE6VcRSyowSzQtIikcXeN5
+ Vv8HyGwFw7QZhE83xLk2BOKPAO7DvvCKFMykKJSkTJ4Hk4shs1UWuHiLixNM2kmS2NRQ8qc51m
+ ef9n17/sBgVxxc2IAAAA=
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ iommu@lists.linux.dev, Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.12.4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1816;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=A28mYhUDB9oRP8F12OtBxkw1cw1ciKnKbEzOFwRp3DY=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlyfTqaPw7Mg4iK72Rftn29yA4DDPKGhDoW9VhU50l
+ MHnYUPSJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZcn06gAKCRB33NvayMhJ0XffD/
+ 0dlM3LxjzviVCefCZEiEYUMeCmN1LifE0PAQaBfxfcOYHcLseB2thwisyqSRjLVy5I8Ewg1lny/ZgH
+ SfVb3jEnVkZU/2To5Dwoo3hZP/Rr3at4XjbMrJMK6wITMYsNtmu3/ujRmRVjfTpYJ59bHkM/lh81lD
+ OyjD16xrrD9JZvwouJBBHI8Svwu4HWrdlqb/vZg0mpl7TiCKi1m7GcwAC7SPOn7qtqepCudqHEeR5H
+ j2b+ClNmvQAbRO+JWI8W5d/AJY16Qgd+P+tFZd78X5tbSA6r8SGzpR71X2+i+VhFpqqSNAdWFJqCNl
+ BGynhTC2980c4Lqmb9m0zA+xaA6Qns2Y+lzXER4zX/PLRPje+4FB2rTM+ahhrO5nXw3crtTA5wBFff
+ j1fGxkZgwv2+pmgSr11ZRKad6t2i16xbpoyw/gVaUUNRb2fa4PLfJs5P1mF3TnmjpmOYUEeXMLqvfR
+ a4q3LwkrlLgKQdTUpmY9xvdyYIh1x7F5WpAbtD91ZWG+yFLJTxVY0tiPTwFcE6x006JxmKXrLpVckI
+ FTbTydU9xaVWLTgb0i+3o/BisgbkDEzyNADMEejXIWeQK44wsOT4jYjwRLFTePnysA5aUR70NKAm4b
+ RKXMTXm3CYLh6sS41bHqs/BmjUhJJgwIuFMWWnao/0HXTDYU6doBeX4tMcMw==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,84 +117,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 10 Feb 2024, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> From: Paloma Arellano <quic_parellan@quicinc.com>
->
-> YUV420 format is supported only in the VSC SDP packet and not through
-> MSA. Hence add an API which indicates the sink support which can be used
-> by the rest of the DP programming.
->
-> changes in v3:
-> 	- fix the commit title prefix to drm/dp
-> 	- get rid of redundant !!
-> 	- break out this change from series [1] to get acks from drm core
-> 	  maintainers
->
-> Changes in v2:
-> 	- Move VSC SDP support check API from dp_panel.c to
-> 	  drm_dp_helper.c
->
-> [1]: https://patchwork.freedesktop.org/series/129180/
->
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->  drivers/gpu/drm/display/drm_dp_helper.c | 21 +++++++++++++++++++++
->  include/drm/display/drm_dp_helper.h     |  1 +
->  2 files changed, 22 insertions(+)
->
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-> index b1ca3a1100da..7a851f92b249 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -2916,6 +2916,27 @@ void drm_dp_vsc_sdp_log(const char *level, struct device *dev,
->  }
->  EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
->  
-> +/**
-> + * drm_dp_vsc_sdp_supported() - check if vsc sdp is supported
-> + * @aux: DisplayPort AUX channel
-> + * @dpcd: DisplayPort configuration data
-> + *
-> + * Returns true if vsc sdp is supported, else returns false
-> + */
-> +bool drm_dp_vsc_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE])
-> +{
-> +	u8 rx_feature;
-> +
-> +	if (drm_dp_dpcd_readb(aux, DP_DPRX_FEATURE_ENUMERATION_LIST, &rx_feature) != 1) {
-> +		drm_dbg_dp(aux->drm_dev, "failed to read DP_DPRX_FEATURE_ENUMERATION_LIST\n");
-> +		return false;
-> +	}
-> +
-> +	return (dpcd[DP_DPCD_REV] >= DP_DPCD_REV_13) &&
-> +		(rx_feature & DP_VSC_SDP_EXT_FOR_COLORIMETRY_SUPPORTED);
+Unlike the the very close A740 GPU on the SM8550 SoC, the A750 GPU
+doesn't have an HWCFG block but a separate register set.
 
-I guess you could bail out early without further dpcd access with the
-dpcd rev check?
+The missing registers are added in the a6xx.xml.h file that would
+require a subsequent sync and the non-existent hwcfg is handled
+in a6xx_set_hwcg().
 
-BR,
-Jani.
+The A750 GPU info are added under the adreno_is_a750() macro and
+the ADRENO_7XX_GEN3 family id.
 
+This adds:
+- the GMU and SMMU bindings
+- DRM driver changes
+- DT nodes
 
-> +}
-> +EXPORT_SYMBOL(drm_dp_vsc_sdp_supported);
-> +
->  /**
->   * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
->   * @dpcd: DisplayPort configuration data
-> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-> index 863b2e7add29..948381b2b0b1 100644
-> --- a/include/drm/display/drm_dp_helper.h
-> +++ b/include/drm/display/drm_dp_helper.h
-> @@ -100,6 +100,7 @@ struct drm_dp_vsc_sdp {
->  
->  void drm_dp_vsc_sdp_log(const char *level, struct device *dev,
->  			const struct drm_dp_vsc_sdp *vsc);
-> +bool drm_dp_vsc_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
->  
->  int drm_dp_psr_setup_time(const u8 psr_cap[EDP_PSR_RECEIVER_CAP_SIZE]);
+Dependencies: None
 
+Tested using Mesa's !26934 Merge Request [0] on the SM8650-QRD
+and with kmscube & vkcube to test basic rendering.
+
+[0] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26934
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Neil Armstrong (5):
+      dt-bindings: display/msm/gmu: Document Adreno 750 GMU
+      dt-bindings: arm-smmu: Document SM8650 GPU SMMU
+      drm: msm: add support for A750 GPU
+      arm64: dts: qcom: sm8650: add GPU nodes
+      arm64: dts: qcom: sm8650-qrd: enable GPU
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |   1 +
+ .../devicetree/bindings/iommu/arm,smmu.yaml        |   7 +-
+ arch/arm64/boot/dts/qcom/sm8650-qrd.dts            |   8 +
+ arch/arm64/boot/dts/qcom/sm8650.dtsi               | 169 +++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h              |   8 +
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   2 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  29 +++-
+ drivers/gpu/drm/msm/adreno/adreno_device.c         |  14 ++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   9 +-
+ 9 files changed, 241 insertions(+), 6 deletions(-)
+---
+base-commit: 84baf172e2fa30d6d6d0fb8ed076b47e836b74f1
+change-id: 20240208-topic-sm8650-gpu-489d5e2c2b17
+
+Best regards,
 -- 
-Jani Nikula, Intel
+Neil Armstrong <neil.armstrong@linaro.org>
+
