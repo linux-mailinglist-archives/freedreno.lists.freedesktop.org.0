@@ -2,71 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EE62852ED3
-	for <lists+freedreno@lfdr.de>; Tue, 13 Feb 2024 12:10:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D219852EF4
+	for <lists+freedreno@lfdr.de>; Tue, 13 Feb 2024 12:18:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D85510E38D;
-	Tue, 13 Feb 2024 11:10:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72C0710E3F9;
+	Tue, 13 Feb 2024 11:18:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AxiKoaMx";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rNDJnxzG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com
- [209.85.219.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 235FB10E3A1
- for <freedreno@lists.freedesktop.org>; Tue, 13 Feb 2024 11:10:34 +0000 (UTC)
-Received: by mail-yb1-f175.google.com with SMTP id
- 3f1490d57ef6-dc6cbe1ac75so3322237276.1
- for <freedreno@lists.freedesktop.org>; Tue, 13 Feb 2024 03:10:34 -0800 (PST)
+Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
+ [209.85.219.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CCB710E3B1
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Feb 2024 11:18:14 +0000 (UTC)
+Received: by mail-yb1-f173.google.com with SMTP id
+ 3f1490d57ef6-dc6cbe1ac75so3326652276.1
+ for <freedreno@lists.freedesktop.org>; Tue, 13 Feb 2024 03:18:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707822633; x=1708427433; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1707823093; x=1708427893; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ou+rxKAaHbbML85Kt1koJK934V+YLP7xcnMtHJXjmAs=;
- b=AxiKoaMx6fdY9a7Dz6EXWj+keV8MyxEDIn0TTgASdTA6n0Oq9kTefLAkj6/Jl/QA64
- /EakPU49kWNUuDFIZvI565hDedg3PMszc+xtl+qnhT6LhMpC/8FW1mNVGPVGR2Rukrl3
- fxjF3vKtjoHj3qNeHUdHPpjnb4iikQhUBVKZZDfaHUl2TP5SNwQZKzJRbAn3fK2SIuDl
- QcK9/iZou2B0fhAMlrFAYQ1BbSzFuM/FI4khgnisk9lLCIgRboLnuOxWph+5IJLhdnjb
- 9jhVw3BCOJ4WvA8++6IYAhYFAO4EpbbvAnnqI8DBHAFRdYq5zG85o0ZscjrsoR38HJRq
- JkgQ==
+ bh=f6L9sPVuw/xEO6Dhj1zgSlfDhHIbvMMFflBRHa07Z3s=;
+ b=rNDJnxzGLJnETxQATv9VuOsGTX5seQiXM2JuJFM8FM9fIGwskBYHUI8DY6K0xq4Ktk
+ osmPoGqBay1DFoj8wJp/zjWjRDzx9cZ1LmpGYgMnRXJr5zeANNVpcHPe/Nj9/Q2gaMyp
+ nzz/sgXyWcbe6udZO6eIA96hfih9uAtPpYJjmQ1caaABbzn7TDDWcwCVdMHM5k/dv1N8
+ rEsruT6EyXxENr+QpXo24wDX2onzh2OVJjaZ2gKkbmSwwmsN5BQ/4RjkBQzAGE8Ylq3q
+ NLzKXwI8Pm6ni+8Yf0JgrDu9rF85dKzjfRKWCwxZaf5ycPkdh+j9P22xKk4s4cNFkYfs
+ PK7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707822633; x=1708427433;
+ d=1e100.net; s=20230601; t=1707823093; x=1708427893;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ou+rxKAaHbbML85Kt1koJK934V+YLP7xcnMtHJXjmAs=;
- b=CDsGLx/k1NalaRII+/UtqYXDqMy4Isnu5tOlTtH2VXIHci0udb7NB0ceHpzK9O2WhQ
- TY0KUJzyZ/buZ2e7n9RHL6i7G9J8W7utMxBEbZ6KkaEN1iZjUfgRn1zjQ5vDyxo+37G+
- gp3iddWVQHUQfm4vSzRIJXir8PwtEmqM9mqP4Fpo3j/9ffDF108WNL8dE7/ZJjvz3nER
- as9/M/EAobno3EBECsWaMsFSsJsFDVYYHoTNcR8xAAm9BtfFcgFKbDM6JyFKpoPZoUnR
- 1Jh80jbGdsyLTKUxQ6c0Oz5YFElUO7D9pUjZNudc8gd0el+Y9nH67aAHmELbZ6qJST2m
- doAA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU1LsW6dHfIjf5c0FxUxVWegjqIlaUjWRWVj0EczlxnUsacJ2DjpYJ+4x39lbQx1q98mo5+g08dodaVFs5bJLdZyCAGlhwD8I0k+c+mLFM+
-X-Gm-Message-State: AOJu0Yw/QS0fSePp9XNDmvQot7PLkIwNOOYNwGsKaPIlENXNKoy6NTno
- 0BGZY1S69v+O8TvOVoAjjC4zwG0kIBtB6kmyNmB3H12OlYMtKUm9+qpiSmyYj+UE12yi82y5+Xb
- c8+Kvt7/deIrE3DEAUzOvoU9znCmOk0Lvbkzzog==
-X-Google-Smtp-Source: AGHT+IEeEeSBcZ/sB6u7T/sqmPls2dQZZl/LCtnYYAwE7YzlZ4/C1fbTiGX3NHjTUOn8UG5vNpVHmaaB7Z2L9ykNceE=
-X-Received: by 2002:a05:6902:2607:b0:dcc:5b7e:ddfe with SMTP id
- dw7-20020a056902260700b00dcc5b7eddfemr1248774ybb.4.1707822633587; Tue, 13 Feb
- 2024 03:10:33 -0800 (PST)
+ bh=f6L9sPVuw/xEO6Dhj1zgSlfDhHIbvMMFflBRHa07Z3s=;
+ b=cuKxfPcRpnCp7GNg+CBMm0L9ZI/62g5fkbJFCsWcbPPgvrp2Pf4e8c/JDptfk2yIkr
+ QYjjWBpdJd0EP9CGLbWN77k/yCVbDp5CqyjXS0UX6WXNmnWGC5uG16tQryeoDAMUhVPK
+ SWiPNteaBJc6mEIFQHxTTpLppLZy1d+bQ631YOD1mldL+BiK82YQreORaNn66p80bqxz
+ w10bebQ3O4MzgxxDK5zC2Ah5fkrDJHMTzZ1SJ8+HOA5MMDVOomS0QYe5mGDGHsGB/K8I
+ BnqInjlVqjUPS6/HqlsjY+gc3yEroHITELphtJEq5hPhjDd6I8lycgF2AVdmrGLyLtNq
+ 5qZg==
+X-Gm-Message-State: AOJu0Yz+BBcnk+QSmHmqElFV8WPwHK4WDHHvyT3FPGeBOKDJUaiumIas
+ nX4zlwkBXygNepD5/aV7FMz4cgD/gLpU07mU7sQX93T2VF+7eNut7z1QJHS3Zx+DuuYQG6WjY3m
+ /EFaQ70VUP1AZCF8Kod3c9cBAJix1HEM9ScpeXA==
+X-Google-Smtp-Source: AGHT+IFg4epJvCP1Qw8gt9ZyFhF+q9oJBh/4R2edV6TBPLI//eGf4oeTN91oQKPOcGjYVXfTHUvqHl1GDBNQODY+ums=
+X-Received: by 2002:a25:6e03:0:b0:dc6:c252:75fe with SMTP id
+ j3-20020a256e03000000b00dc6c25275femr1453941ybc.10.1707823093581; Tue, 13 Feb
+ 2024 03:18:13 -0800 (PST)
 MIME-Version: 1.0
-References: <20221114170635.1406534-9-dmitry.baryshkov@linaro.org>
- <a61a3561-0dde-472b-b8a5-451703f6d8ee@quicinc.com>
-In-Reply-To: <a61a3561-0dde-472b-b8a5-451703f6d8ee@quicinc.com>
+References: <20240210015223.24670-1-quic_parellan@quicinc.com>
+ <20240210015223.24670-17-quic_parellan@quicinc.com>
+In-Reply-To: <20240210015223.24670-17-quic_parellan@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 13 Feb 2024 13:10:22 +0200
-Message-ID: <CAA8EJpoJUZDUxpA1+LJTEVRaMQJrpZ7iU9_dZ3uQvzPKE_UUfg@mail.gmail.com>
-Subject: Re: [PATCH v1 08/10] iommu/arm-smmu-qcom: Merge table from
- arm-smmu-qcom-debug into match data
-To: Pratyush Brahma <quic_pbrahma@quicinc.com>
-Cc: andersson@kernel.org, devicetree@vger.kernel.org, 
- freedreno@lists.freedesktop.org, iommu@lists.linux.dev, joro@8bytes.org, 
- konrad.dybcio@somainline.org, krzysztof.kozlowski+dt@linaro.org, 
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
- quic_saipraka@quicinc.com, robdclark@gmail.com, robh+dt@kernel.org, 
- robin.murphy@arm.com, vkoul@kernel.org, will@kernel.org
+Date: Tue, 13 Feb 2024 13:18:02 +0200
+Message-ID: <CAA8EJprttbMgM=HEwctePZOwKny+nM2=qRJsPWmP4Ar0H8ATEg@mail.gmail.com>
+Subject: Re: [PATCH v2 16/19] drm/msm/dpu: modify encoder programming for CDM
+ over DP
+To: Paloma Arellano <quic_parellan@quicinc.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org, 
+ swboyd@chromium.org, quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com, 
+ quic_khsieh@quicinc.com, marijn.suijten@somainline.org, 
+ neil.armstrong@linaro.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,74 +80,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 13 Feb 2024 at 12:29, Pratyush Brahma <quic_pbrahma@quicinc.com> wrote:
+On Sat, 10 Feb 2024 at 03:53, Paloma Arellano <quic_parellan@quicinc.com> wrote:
 >
-> Hi
+> Adjust the encoder format programming in the case of video mode for DP
+> to accommodate CDM related changes.
 >
-> Patch [1] introduces a use after free bug in the function
-> "qcom_smmu_create()" in file: drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> wherein devm_krealloc() frees the old pointer marked by "smmu" but it is
-> still being accessed later in qcom_smmu_impl_data() in the same function
-> as:
+> Changes in v2:
+>         - Move timing engine programming to a separate patch from this
+>           one
+>         - Move update_pending_flush_periph() invocation completely to
+>           this patch
+>         - Change the logic of dpu_encoder_get_drm_fmt() so that it only
+>           calls drm_mode_is_420_only() instead of doing additional
+>           unnecessary checks
+>         - Create new functions msm_dp_needs_periph_flush() and it's
+>           supporting function dpu_encoder_needs_periph_flush() to check
+>           if the mode is YUV420 and VSC SDP is enabled before doing a
+>           peripheral flush
 >
-> qsmmu->cfg = qcom_smmu_impl_data(smmu);
+> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 35 +++++++++++++++++++
+>  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  | 13 +++++++
+>  .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  | 19 ++++++++++
+>  drivers/gpu/drm/msm/dp/dp_display.c           | 18 ++++++++++
+>  drivers/gpu/drm/msm/msm_drv.h                 | 17 ++++++++-
+>  5 files changed, 101 insertions(+), 1 deletion(-)
 >
-> The current patchset [2] implicitly fixes this issue as it doesn't
-> access the freed ptr in the line:
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 7e7796561009a..6280c6be6dca9 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -222,6 +222,41 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
+>         15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
+>  };
 >
-> qsmmu->cfg = data->cfg;
->
-> Hence, can this patchset[2] be propagated to branches where patchset[1]
-> has been propagated already? The bug is currently present in all branches
-> that have patchset[1] but do not have patchset[2].
->
-> RFC:
->
-> This bug would be reintroduced if patchset [3] is accepted. This makes
-> the path prone to such errors as it relies on the
-> developer's understanding on the internal implementation of devm_krealloc().
+> +u32 dpu_encoder_get_drm_fmt(struct dpu_encoder_phys *phys_enc)
+> +{
+> +       struct drm_encoder *drm_enc;
+> +       struct dpu_encoder_virt *dpu_enc;
+> +       struct drm_display_info *info;
+> +       struct drm_display_mode *mode;
+> +
+> +       drm_enc = phys_enc->parent;
+> +       dpu_enc = to_dpu_encoder_virt(drm_enc);
+> +       info = &dpu_enc->connector->display_info;
+> +       mode = &phys_enc->cached_mode;
+> +
+> +       if (drm_mode_is_420_only(info, mode))
+> +               return DRM_FORMAT_YUV420;
+> +
+> +       return DRM_FORMAT_RGB888;
+> +}
+> +
+> +bool dpu_encoder_needs_periph_flush(struct dpu_encoder_phys *phys_enc)
+> +{
+> +       struct drm_encoder *drm_enc;
+> +       struct dpu_encoder_virt *dpu_enc;
+> +       struct msm_display_info *disp_info;
+> +       struct msm_drm_private *priv;
+> +       struct drm_display_mode *mode;
+> +
+> +       drm_enc = phys_enc->parent;
+> +       dpu_enc = to_dpu_encoder_virt(drm_enc);
+> +       disp_info = &dpu_enc->disp_info;
+> +       priv = drm_enc->dev->dev_private;
+> +       mode = &phys_enc->cached_mode;
+> +
+> +       return phys_enc->hw_intf->cap->type == INTF_DP && phys_enc->hw_cdm &&
 
-realloc is a basic function. Not understanding it is a significant
-problem for the developer.
+Do we really need to check for phys_enc->hw_cdm here?
 
-> Hence, a better fix IMO, would be to remove the confusion around the
-> freed "smmu" ptr in the following way:
+> +              msm_dp_needs_periph_flush(priv->dp[disp_info->h_tile_instance[0]], mode);
+> +}
+>
+>  bool dpu_encoder_is_widebus_enabled(const struct drm_encoder *drm_enc)
+>  {
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> index f43d57d9c74e1..211a3d90eb690 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> @@ -341,6 +341,19 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
+>   */
+>  unsigned int dpu_encoder_helper_get_dsc(struct dpu_encoder_phys *phys_enc);
+>
+> +/**
+> + * dpu_encoder_get_drm_fmt - return DRM fourcc format
+> + * @phys_enc: Pointer to physical encoder structure
+> + */
+> +u32 dpu_encoder_get_drm_fmt(struct dpu_encoder_phys *phys_enc);
+> +
+> +/**
+> + * dpu_encoder_needs_periph_flush - return true if physical encoder requires
+> + *     peripheral flush
+> + * @phys_enc: Pointer to physical encoder structure
+> + */
+> +bool dpu_encoder_needs_periph_flush(struct dpu_encoder_phys *phys_enc);
+> +
+>  /**
+>   * dpu_encoder_helper_split_config - split display configuration helper function
+>   *     This helper function may be used by physical encoders to configure
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> index f562beb6f7971..3f102b2813ca8 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> @@ -413,8 +413,15 @@ static int dpu_encoder_phys_vid_control_vblank_irq(
+>  static void dpu_encoder_phys_vid_enable(struct dpu_encoder_phys *phys_enc)
+>  {
+>         struct dpu_hw_ctl *ctl;
+> +       struct dpu_hw_cdm *hw_cdm;
+> +       const struct dpu_format *fmt = NULL;
+> +       u32 fmt_fourcc = DRM_FORMAT_RGB888;
+>
+>         ctl = phys_enc->hw_ctl;
+> +       hw_cdm = phys_enc->hw_cdm;
+> +       if (hw_cdm)
+> +               fmt_fourcc = dpu_encoder_get_drm_fmt(phys_enc);
 
-Could you please post a proper patch, which can be reviewed and
-accepted or declined?
+Please move if(hw_cdm) inside dpu_encoder_get_drm_fmt().
+
+> +       fmt = dpu_get_dpu_format(fmt_fourcc);
+
+Can this be moved into dpu_encoder_helper_phys_setup_cdm() ? Or maybe
+we can move both calls into the helper? I mean, fmt_fourcc is not used
+at all if the CDM is not used.
 
 >
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> index 549ae4dba3a6..6dd142ce75d1 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> @@ -463,11 +463,12 @@ static struct arm_smmu_device
-> *qcom_smmu_create(struct arm_smmu_device *smmu,
->          qsmmu = devm_krealloc(smmu->dev, smmu, sizeof(*qsmmu), GFP_KERNEL);
->          if (!qsmmu)
->                  return ERR_PTR(-ENOMEM);
-> +       smmu = &qsmmu->smmu;
+>         DPU_DEBUG_VIDENC(phys_enc, "\n");
 >
->          qsmmu->smmu.impl = impl;
->          qsmmu->cfg = data->cfg;
+> @@ -423,6 +430,8 @@ static void dpu_encoder_phys_vid_enable(struct dpu_encoder_phys *phys_enc)
 >
-> -       return &qsmmu->smmu;
-> +       return smmu;
->   }
+>         dpu_encoder_helper_split_config(phys_enc, phys_enc->hw_intf->idx);
 >
-> This is similar to the patch[4] which I've sent in-reply-to patch[3].
-> Will send a formal patch if you think this approach is better.
+> +       dpu_encoder_helper_phys_setup_cdm(phys_enc, fmt, CDM_CDWN_OUTPUT_HDMI);
+> +
+>         dpu_encoder_phys_vid_setup_timing_engine(phys_enc);
 >
-> Please let me know your thoughts.
+>         /*
+> @@ -438,6 +447,16 @@ static void dpu_encoder_phys_vid_enable(struct dpu_encoder_phys *phys_enc)
+>         if (ctl->ops.update_pending_flush_merge_3d && phys_enc->hw_pp->merge_3d)
+>                 ctl->ops.update_pending_flush_merge_3d(ctl, phys_enc->hw_pp->merge_3d->idx);
+>
+> +       if (ctl->ops.update_pending_flush_cdm && phys_enc->hw_cdm)
+> +               ctl->ops.update_pending_flush_cdm(ctl, hw_cdm->idx);
+> +
+> +       /*
+> +        * Peripheral flush must be updated whenever flushing SDP packets is needed.
+> +        * SDP packets are required for any YUV format (YUV420, YUV422, YUV444).
+> +        */
+> +       if (ctl->ops.update_pending_flush_periph && dpu_encoder_needs_periph_flush(phys_enc))
+> +               ctl->ops.update_pending_flush_periph(ctl, phys_enc->hw_intf->idx);
+> +
+>  skip_flush:
+>         DPU_DEBUG_VIDENC(phys_enc,
+>                 "update pending flush ctl %d intf %d\n",
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 4b04388719363..ebcc76ef1d590 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1397,6 +1397,24 @@ void __exit msm_dp_unregister(void)
+>         platform_driver_unregister(&dp_display_driver);
+>  }
+>
+> +bool msm_dp_is_yuv_420_enabled(const struct msm_dp *dp_display,
+> +                              const struct drm_display_mode *mode)
+> +{
+> +       struct dp_display_private *dp;
+> +       const struct drm_display_info *info;
+> +
+> +       dp = container_of(dp_display, struct dp_display_private, dp_display);
+> +       info = &dp_display->connector->display_info;
+> +
+> +       return dp->panel->vsc_sdp_supported && drm_mode_is_420_only(info, mode);
+> +}
+> +
+> +bool msm_dp_needs_periph_flush(const struct msm_dp *dp_display,
+> +                              const struct drm_display_mode *mode)
+> +{
+> +       return msm_dp_is_yuv_420_enabled(dp_display, mode);
+> +}
+> +
+>  bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
+>  {
+>         struct dp_display_private *dp;
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index 16a7cbc0b7dd8..b876ebd48effe 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -387,7 +387,10 @@ void __exit msm_dp_unregister(void);
+>  int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+>                          struct drm_encoder *encoder);
+>  void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display);
+> -
+> +bool msm_dp_is_yuv_420_enabled(const struct msm_dp *dp_display,
+> +                              const struct drm_display_mode *mode);
+> +bool msm_dp_needs_periph_flush(const struct msm_dp *dp_display,
+> +                              const struct drm_display_mode *mode);
+>  bool msm_dp_wide_bus_available(const struct msm_dp *dp_display);
+>
+>  #else
+> @@ -409,6 +412,18 @@ static inline void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm
+>  {
+>  }
+>
+> +static inline bool msm_dp_is_yuv_420_enabled(const struct msm_dp *dp_display,
+> +                                            const struct drm_display_mode *mode)
+> +{
+> +       return false;
+> +}
+> +
+> +static inline bool msm_dp_needs_periph_flush(const struct msm_dp *dp_display,
+> +                                            const struct drm_display_mode *mode)
+> +{
+> +       return false;
+> +}
+> +
+>  static inline bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
+>  {
+>         return false;
+> --
+> 2.39.2
+>
 
-None of the other implementations does this. If you are going to fix
-qcom implementation, please fix all implementations. However a better
-option might be to change arm-smmu to remove devm_krealloc() usage at
-all.
 
-
-
---
+-- 
 With best wishes
 Dmitry
