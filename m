@@ -2,69 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D219852EF4
-	for <lists+freedreno@lfdr.de>; Tue, 13 Feb 2024 12:18:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 848A5852FBA
+	for <lists+freedreno@lfdr.de>; Tue, 13 Feb 2024 12:42:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72C0710E3F9;
-	Tue, 13 Feb 2024 11:18:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5791B10E5F7;
+	Tue, 13 Feb 2024 11:42:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rNDJnxzG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZGgT/ET7";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
- [209.85.219.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CCB710E3B1
- for <freedreno@lists.freedesktop.org>; Tue, 13 Feb 2024 11:18:14 +0000 (UTC)
-Received: by mail-yb1-f173.google.com with SMTP id
- 3f1490d57ef6-dc6cbe1ac75so3326652276.1
- for <freedreno@lists.freedesktop.org>; Tue, 13 Feb 2024 03:18:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707823093; x=1708427893; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=f6L9sPVuw/xEO6Dhj1zgSlfDhHIbvMMFflBRHa07Z3s=;
- b=rNDJnxzGLJnETxQATv9VuOsGTX5seQiXM2JuJFM8FM9fIGwskBYHUI8DY6K0xq4Ktk
- osmPoGqBay1DFoj8wJp/zjWjRDzx9cZ1LmpGYgMnRXJr5zeANNVpcHPe/Nj9/Q2gaMyp
- nzz/sgXyWcbe6udZO6eIA96hfih9uAtPpYJjmQ1caaABbzn7TDDWcwCVdMHM5k/dv1N8
- rEsruT6EyXxENr+QpXo24wDX2onzh2OVJjaZ2gKkbmSwwmsN5BQ/4RjkBQzAGE8Ylq3q
- NLzKXwI8Pm6ni+8Yf0JgrDu9rF85dKzjfRKWCwxZaf5ycPkdh+j9P22xKk4s4cNFkYfs
- PK7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707823093; x=1708427893;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=f6L9sPVuw/xEO6Dhj1zgSlfDhHIbvMMFflBRHa07Z3s=;
- b=cuKxfPcRpnCp7GNg+CBMm0L9ZI/62g5fkbJFCsWcbPPgvrp2Pf4e8c/JDptfk2yIkr
- QYjjWBpdJd0EP9CGLbWN77k/yCVbDp5CqyjXS0UX6WXNmnWGC5uG16tQryeoDAMUhVPK
- SWiPNteaBJc6mEIFQHxTTpLppLZy1d+bQ631YOD1mldL+BiK82YQreORaNn66p80bqxz
- w10bebQ3O4MzgxxDK5zC2Ah5fkrDJHMTzZ1SJ8+HOA5MMDVOomS0QYe5mGDGHsGB/K8I
- BnqInjlVqjUPS6/HqlsjY+gc3yEroHITELphtJEq5hPhjDd6I8lycgF2AVdmrGLyLtNq
- 5qZg==
-X-Gm-Message-State: AOJu0Yz+BBcnk+QSmHmqElFV8WPwHK4WDHHvyT3FPGeBOKDJUaiumIas
- nX4zlwkBXygNepD5/aV7FMz4cgD/gLpU07mU7sQX93T2VF+7eNut7z1QJHS3Zx+DuuYQG6WjY3m
- /EFaQ70VUP1AZCF8Kod3c9cBAJix1HEM9ScpeXA==
-X-Google-Smtp-Source: AGHT+IFg4epJvCP1Qw8gt9ZyFhF+q9oJBh/4R2edV6TBPLI//eGf4oeTN91oQKPOcGjYVXfTHUvqHl1GDBNQODY+ums=
-X-Received: by 2002:a25:6e03:0:b0:dc6:c252:75fe with SMTP id
- j3-20020a256e03000000b00dc6c25275femr1453941ybc.10.1707823093581; Tue, 13 Feb
- 2024 03:18:13 -0800 (PST)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 426AF10E5EC;
+ Tue, 13 Feb 2024 11:42:10 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 857A961347;
+ Tue, 13 Feb 2024 11:42:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ED0DC433C7;
+ Tue, 13 Feb 2024 11:42:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1707824521;
+ bh=1GtEqKV+wQs0MT2SIs+9S6c4LRpp7sxXEmK272Gtxpg=;
+ h=Date:From:To:Cc:Subject:From;
+ b=ZGgT/ET7ls9NrBGdLxIAC0UWI4xJYDbxoV9/v+C/uAWRn0JFRVxM93plQwxAKyLBb
+ Hly2wL+syAtopYQ6Vb0znNINhkDdxjsOgd6XDrJ/vYfJnBPNgL70AQ6H4UdXSvYzRn
+ Zx1Qzk++dZx9WWT/Iuwgjuo7p5Fd0dchYjhkL2a9GRD1nLavEoBWbEp0L4ySefp8Zf
+ HN1WV6a5QHbOLs1Ffj2qyxMCx3LgyOW0TfSGwARG1bByAPHEJ0DBI4EhmkzsduosLi
+ 9E6eiG7fR899DrgOlWWMXVGz+feqhf4OLNnJi8uOoR6VgK9cWa1nfDbJADd58FIJDz
+ OCMMIQT1kIujA==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+ (envelope-from <johan@kernel.org>) id 1rZrB2-000000007yd-1wrs;
+ Tue, 13 Feb 2024 12:42:17 +0100
+Date: Tue, 13 Feb 2024 12:42:16 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+Cc: Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>,
+ quic_jesszhan@quicinc.com, quic_sbillaka@quicinc.com,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: drm/msm: DisplayPort regressions in 6.8-rc1
+Message-ID: <ZctVmLK4zTwcpW3A@hovoldconsulting.com>
 MIME-Version: 1.0
-References: <20240210015223.24670-1-quic_parellan@quicinc.com>
- <20240210015223.24670-17-quic_parellan@quicinc.com>
-In-Reply-To: <20240210015223.24670-17-quic_parellan@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 13 Feb 2024 13:18:02 +0200
-Message-ID: <CAA8EJprttbMgM=HEwctePZOwKny+nM2=qRJsPWmP4Ar0H8ATEg@mail.gmail.com>
-Subject: Re: [PATCH v2 16/19] drm/msm/dpu: modify encoder programming for CDM
- over DP
-To: Paloma Arellano <quic_parellan@quicinc.com>
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org, 
- swboyd@chromium.org, quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com, 
- quic_khsieh@quicinc.com, marijn.suijten@somainline.org, 
- neil.armstrong@linaro.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,229 +66,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 10 Feb 2024 at 03:53, Paloma Arellano <quic_parellan@quicinc.com> wrote:
->
-> Adjust the encoder format programming in the case of video mode for DP
-> to accommodate CDM related changes.
->
-> Changes in v2:
->         - Move timing engine programming to a separate patch from this
->           one
->         - Move update_pending_flush_periph() invocation completely to
->           this patch
->         - Change the logic of dpu_encoder_get_drm_fmt() so that it only
->           calls drm_mode_is_420_only() instead of doing additional
->           unnecessary checks
->         - Create new functions msm_dp_needs_periph_flush() and it's
->           supporting function dpu_encoder_needs_periph_flush() to check
->           if the mode is YUV420 and VSC SDP is enabled before doing a
->           peripheral flush
->
-> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 35 +++++++++++++++++++
->  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  | 13 +++++++
->  .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  | 19 ++++++++++
->  drivers/gpu/drm/msm/dp/dp_display.c           | 18 ++++++++++
->  drivers/gpu/drm/msm/msm_drv.h                 | 17 ++++++++-
->  5 files changed, 101 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 7e7796561009a..6280c6be6dca9 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -222,6 +222,41 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
->         15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
->  };
->
-> +u32 dpu_encoder_get_drm_fmt(struct dpu_encoder_phys *phys_enc)
-> +{
-> +       struct drm_encoder *drm_enc;
-> +       struct dpu_encoder_virt *dpu_enc;
-> +       struct drm_display_info *info;
-> +       struct drm_display_mode *mode;
-> +
-> +       drm_enc = phys_enc->parent;
-> +       dpu_enc = to_dpu_encoder_virt(drm_enc);
-> +       info = &dpu_enc->connector->display_info;
-> +       mode = &phys_enc->cached_mode;
-> +
-> +       if (drm_mode_is_420_only(info, mode))
-> +               return DRM_FORMAT_YUV420;
-> +
-> +       return DRM_FORMAT_RGB888;
-> +}
-> +
-> +bool dpu_encoder_needs_periph_flush(struct dpu_encoder_phys *phys_enc)
-> +{
-> +       struct drm_encoder *drm_enc;
-> +       struct dpu_encoder_virt *dpu_enc;
-> +       struct msm_display_info *disp_info;
-> +       struct msm_drm_private *priv;
-> +       struct drm_display_mode *mode;
-> +
-> +       drm_enc = phys_enc->parent;
-> +       dpu_enc = to_dpu_encoder_virt(drm_enc);
-> +       disp_info = &dpu_enc->disp_info;
-> +       priv = drm_enc->dev->dev_private;
-> +       mode = &phys_enc->cached_mode;
-> +
-> +       return phys_enc->hw_intf->cap->type == INTF_DP && phys_enc->hw_cdm &&
+Hi,
 
-Do we really need to check for phys_enc->hw_cdm here?
+Since 6.8-rc1 the internal eDP display on the Lenovo ThinkPad X13s does
+not always show up on boot.
 
-> +              msm_dp_needs_periph_flush(priv->dp[disp_info->h_tile_instance[0]], mode);
-> +}
->
->  bool dpu_encoder_is_widebus_enabled(const struct drm_encoder *drm_enc)
->  {
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> index f43d57d9c74e1..211a3d90eb690 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> @@ -341,6 +341,19 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
->   */
->  unsigned int dpu_encoder_helper_get_dsc(struct dpu_encoder_phys *phys_enc);
->
-> +/**
-> + * dpu_encoder_get_drm_fmt - return DRM fourcc format
-> + * @phys_enc: Pointer to physical encoder structure
-> + */
-> +u32 dpu_encoder_get_drm_fmt(struct dpu_encoder_phys *phys_enc);
-> +
-> +/**
-> + * dpu_encoder_needs_periph_flush - return true if physical encoder requires
-> + *     peripheral flush
-> + * @phys_enc: Pointer to physical encoder structure
-> + */
-> +bool dpu_encoder_needs_periph_flush(struct dpu_encoder_phys *phys_enc);
-> +
->  /**
->   * dpu_encoder_helper_split_config - split display configuration helper function
->   *     This helper function may be used by physical encoders to configure
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> index f562beb6f7971..3f102b2813ca8 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> @@ -413,8 +413,15 @@ static int dpu_encoder_phys_vid_control_vblank_irq(
->  static void dpu_encoder_phys_vid_enable(struct dpu_encoder_phys *phys_enc)
->  {
->         struct dpu_hw_ctl *ctl;
-> +       struct dpu_hw_cdm *hw_cdm;
-> +       const struct dpu_format *fmt = NULL;
-> +       u32 fmt_fourcc = DRM_FORMAT_RGB888;
->
->         ctl = phys_enc->hw_ctl;
-> +       hw_cdm = phys_enc->hw_cdm;
-> +       if (hw_cdm)
-> +               fmt_fourcc = dpu_encoder_get_drm_fmt(phys_enc);
+The logs indicate problems with the runtime PM and eDP rework that went
+into 6.8-rc1:
 
-Please move if(hw_cdm) inside dpu_encoder_get_drm_fmt().
+	[    6.006236] Console: switching to colour dummy device 80x25
+	[    6.007542] [drm:dpu_kms_hw_init:1048] dpu hardware revision:0x80000000
+	[    6.007872] [drm:drm_bridge_attach [drm]] *ERROR* failed to attach bridge /soc@0/phy@88eb000 to encoder TMDS-31: -16
+	[    6.007934] [drm:dp_bridge_init [msm]] *ERROR* failed to attach panel bridge: -16
+	[    6.007983] msm_dpu ae01000.display-controller: [drm:msm_dp_modeset_init [msm]] *ERROR* failed to create dp bridge: -16
+	[    6.008030] [drm:_dpu_kms_initialize_displayport:588] [dpu error]modeset_init failed for DP, rc = -16
+	[    6.008050] [drm:_dpu_kms_setup_displays:681] [dpu error]initialize_DP failed, rc = -16
+	[    6.008068] [drm:dpu_kms_hw_init:1153] [dpu error]modeset init failed: -16
+	[    6.008388] msm_dpu ae01000.display-controller: [drm:msm_drm_kms_init [msm]] *ERROR* kms hw init failed: -16
+	
+and this can also manifest itself as a NULL-pointer dereference:
 
-> +       fmt = dpu_get_dpu_format(fmt_fourcc);
+	[    7.339447] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+	
+	[    7.643705] pc : drm_bridge_attach+0x70/0x1a8 [drm]
+	[    7.686415] lr : drm_aux_bridge_attach+0x24/0x38 [aux_bridge]
+	
+	[    7.769039] Call trace:
+	[    7.771564]  drm_bridge_attach+0x70/0x1a8 [drm]
+	[    7.776234]  drm_aux_bridge_attach+0x24/0x38 [aux_bridge]
+	[    7.781782]  drm_bridge_attach+0x80/0x1a8 [drm]
+	[    7.786454]  dp_bridge_init+0xa8/0x15c [msm]
+	[    7.790856]  msm_dp_modeset_init+0x28/0xc4 [msm]
+	[    7.795617]  _dpu_kms_drm_obj_init+0x19c/0x680 [msm]
+	[    7.800731]  dpu_kms_hw_init+0x348/0x4c4 [msm]
+	[    7.805306]  msm_drm_kms_init+0x84/0x324 [msm]
+	[    7.809891]  msm_drm_bind+0x1d8/0x3a8 [msm]
+	[    7.814196]  try_to_bring_up_aggregate_device+0x1f0/0x2f8
+	[    7.819747]  __component_add+0xa4/0x18c
+	[    7.823703]  component_add+0x14/0x20
+	[    7.827389]  dp_display_probe+0x47c/0x568 [msm]
+	[    7.832052]  platform_probe+0x68/0xd8
 
-Can this be moved into dpu_encoder_helper_phys_setup_cdm() ? Or maybe
-we can move both calls into the helper? I mean, fmt_fourcc is not used
-at all if the CDM is not used.
+Users have also reported random crashes at boot since 6.8-rc1, and I've
+been able to trigger hard crashes twice when testing an external display
+(USB-C/DP), which may also be related to the DP regressions.
 
->
->         DPU_DEBUG_VIDENC(phys_enc, "\n");
->
-> @@ -423,6 +430,8 @@ static void dpu_encoder_phys_vid_enable(struct dpu_encoder_phys *phys_enc)
->
->         dpu_encoder_helper_split_config(phys_enc, phys_enc->hw_intf->idx);
->
-> +       dpu_encoder_helper_phys_setup_cdm(phys_enc, fmt, CDM_CDWN_OUTPUT_HDMI);
-> +
->         dpu_encoder_phys_vid_setup_timing_engine(phys_enc);
->
->         /*
-> @@ -438,6 +447,16 @@ static void dpu_encoder_phys_vid_enable(struct dpu_encoder_phys *phys_enc)
->         if (ctl->ops.update_pending_flush_merge_3d && phys_enc->hw_pp->merge_3d)
->                 ctl->ops.update_pending_flush_merge_3d(ctl, phys_enc->hw_pp->merge_3d->idx);
->
-> +       if (ctl->ops.update_pending_flush_cdm && phys_enc->hw_cdm)
-> +               ctl->ops.update_pending_flush_cdm(ctl, hw_cdm->idx);
-> +
-> +       /*
-> +        * Peripheral flush must be updated whenever flushing SDP packets is needed.
-> +        * SDP packets are required for any YUV format (YUV420, YUV422, YUV444).
-> +        */
-> +       if (ctl->ops.update_pending_flush_periph && dpu_encoder_needs_periph_flush(phys_enc))
-> +               ctl->ops.update_pending_flush_periph(ctl, phys_enc->hw_intf->idx);
-> +
->  skip_flush:
->         DPU_DEBUG_VIDENC(phys_enc,
->                 "update pending flush ctl %d intf %d\n",
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 4b04388719363..ebcc76ef1d590 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1397,6 +1397,24 @@ void __exit msm_dp_unregister(void)
->         platform_driver_unregister(&dp_display_driver);
->  }
->
-> +bool msm_dp_is_yuv_420_enabled(const struct msm_dp *dp_display,
-> +                              const struct drm_display_mode *mode)
-> +{
-> +       struct dp_display_private *dp;
-> +       const struct drm_display_info *info;
-> +
-> +       dp = container_of(dp_display, struct dp_display_private, dp_display);
-> +       info = &dp_display->connector->display_info;
-> +
-> +       return dp->panel->vsc_sdp_supported && drm_mode_is_420_only(info, mode);
-> +}
-> +
-> +bool msm_dp_needs_periph_flush(const struct msm_dp *dp_display,
-> +                              const struct drm_display_mode *mode)
-> +{
-> +       return msm_dp_is_yuv_420_enabled(dp_display, mode);
-> +}
-> +
->  bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
->  {
->         struct dp_display_private *dp;
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index 16a7cbc0b7dd8..b876ebd48effe 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -387,7 +387,10 @@ void __exit msm_dp_unregister(void);
->  int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
->                          struct drm_encoder *encoder);
->  void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display);
-> -
-> +bool msm_dp_is_yuv_420_enabled(const struct msm_dp *dp_display,
-> +                              const struct drm_display_mode *mode);
-> +bool msm_dp_needs_periph_flush(const struct msm_dp *dp_display,
-> +                              const struct drm_display_mode *mode);
->  bool msm_dp_wide_bus_available(const struct msm_dp *dp_display);
->
->  #else
-> @@ -409,6 +412,18 @@ static inline void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm
->  {
->  }
->
-> +static inline bool msm_dp_is_yuv_420_enabled(const struct msm_dp *dp_display,
-> +                                            const struct drm_display_mode *mode)
-> +{
-> +       return false;
-> +}
-> +
-> +static inline bool msm_dp_needs_periph_flush(const struct msm_dp *dp_display,
-> +                                            const struct drm_display_mode *mode)
-> +{
-> +       return false;
-> +}
-> +
->  static inline bool msm_dp_wide_bus_available(const struct msm_dp *dp_display)
->  {
->         return false;
-> --
-> 2.39.2
->
+I've opened an issue here:
 
+	https://gitlab.freedesktop.org/drm/msm/-/issues/51
 
--- 
-With best wishes
-Dmitry
+but I also want Thorsten's help to track this so that it gets fixed
+before 6.8 is released.
+
+#regzbot introduced: v6.7..v6.8-rc1
+
+The following series is likely the culprit:
+
+	https://lore.kernel.org/all/1701472789-25951-1-git-send-email-quic_khsieh@quicinc.com/
+
+Johan
