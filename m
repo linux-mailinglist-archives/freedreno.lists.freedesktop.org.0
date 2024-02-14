@@ -2,84 +2,104 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16E2F855415
-	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 21:36:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC2EF8554AF
+	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 22:24:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0A9710E128;
-	Wed, 14 Feb 2024 20:36:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 622E610E428;
+	Wed, 14 Feb 2024 21:24:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="mCk/bBot";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pGpLZdzi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DCF010E128;
- Wed, 14 Feb 2024 20:36:03 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41EJsvv5017502; Wed, 14 Feb 2024 20:36:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=nsIWBstOsK6ubKtb2lLsZtsb2va6QvCDF7mcm2BfHpo=; b=mC
- k/bBotH/I/pvfLnGUx/4IR0pJ+7JIhgk4RthraEFV4LqSKiomit6sC5v6mMDJawe
- kOwY0cuc1SVFRM+VcFM0attfGoyOPSeQUqu04m5qpqX1wSOdblh/PPujzkMZsTe7
- FNy7joIUI5W8lXwRrQVRXRfuMjLun3wzlRFYviAX7cIV5eUyfsMoQZ0HmxZUHtvi
- XPtYiOil/Zc55rFcEkl8hy1lmsq5OEMk1xi1eqeKOfveoAT6if+M05QF2W0FCB7p
- m0lZuYOKZAT5KAHX7aiOm6zUgi0tblJLHCnvPU3wNElaOjx1tXKZdwertK2hWEVy
- fEFo03Bs3q6qikkEfeDA==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w9435r2mc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Feb 2024 20:36:01 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41EKa0MX015552
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Feb 2024 20:36:00 GMT
-Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 14 Feb
- 2024 12:35:59 -0800
-Message-ID: <63bba15b-6d8d-5ba8-d99d-8cd2dd763262@quicinc.com>
-Date: Wed, 14 Feb 2024 12:35:58 -0800
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33E3910E482
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 21:24:49 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2d0cdbd67f0so2307111fa.3
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 13:24:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1707945888; x=1708550688; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=5GynGv5hpMUN3bzrSGDn2ezOmfgm2bwcrCwWDNKglf8=;
+ b=pGpLZdziRYYp7i/bCpiDWfNzIiDz+2mioDXMiLlIBKmLNDowv8OHYvMz+Cj4gFFbxW
+ fvmYgjyEqC/3M97khNfE0SBZf6IFL3cfyxj+pOe8eij5iaOS1ejT64Omlrwv14LdBhj6
+ b+XGvVeQNfwVTyRboP/4nGNgtAR9e3I4+fTi+tQv/+HLKPDt2Q1LDNbDsJZo+h85z1bG
+ EIaQx17It4fGMn4abhrUZsLBo5ekYtO5iD6RvmCzb8KpvoZYHbDn2opE/vZf15+1q17C
+ CYIyPRRHyvo/C+d6HgnxQffi9ofdo9qAZMwa37ASAhY07tt2MgQBPzGw63r6WQGvL8rA
+ /q3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707945888; x=1708550688;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5GynGv5hpMUN3bzrSGDn2ezOmfgm2bwcrCwWDNKglf8=;
+ b=lg+MQUKjGzNVqu6bMmY4PQMMZJx6CB6LG82q/4QownbYMbhpUojsP6YqYRVuHfFhnW
+ rvnnaxb08WGoSzLbJfD0OuicuH8sVVtKffZbxeMOSoECdt8Qk5yDQLVwThNTFome7Tyu
+ DmVEONPN2hGjJ74O9yBWqXsXlU7XUdlT2hTsHDBQAz5wEabGyZFYaIR436nak2tOIEQO
+ DRZi2XylGX9IjKJdjSZIm4aUWD6bCtKcN94xSIHg8E+STt/tf+UV9Yn3Zr8cgAfxtcq5
+ kHcoCuXAmWz4MlSThrt6k+w5NxrrCGokwsMroWnS3c7dumeoUZgnJGJRRGZpVYDEb24P
+ ADBA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWqgDHpa2fBJlkFurrO3teZYsihp4c47dXuJIIyEtYnlcqCBMeZtz5/+JcPpFzL0BTRFfQaqbdjtjTog61bKK8mez6KBF93kb7b2FTRhtk+
+X-Gm-Message-State: AOJu0Ywn5Ex9xF04o2GJK3icbulXmGBIyouw9zz9xkL6lVET//l5Gh2a
+ D5iNCD3zXjlcTGMPBsQr8R9HFfrkwgqmxGd8hfJC0a8C5Dm/+USMnQ6XFiR8ifg=
+X-Google-Smtp-Source: AGHT+IF1zYdQY6Fg3pr3occ/bPpC/RBb0lJyFppghQlbMqzmwH+rJFKs5cbfkYYL9QR5yTiHTT5DJA==
+X-Received: by 2002:a2e:bc22:0:b0:2d0:d49d:5c32 with SMTP id
+ b34-20020a2ebc22000000b002d0d49d5c32mr3821749ljf.12.1707945885714; 
+ Wed, 14 Feb 2024 13:24:45 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUbAg+u9fa+uaW2FdbLd4HsrqBm6PIhpHLl+GdKvVpJB98+OPPX6yXBsYCzepwXsb8X3U0ZOhQSdgaMznUTvdJX/w+N3Nxjzs9gu/PuzgxyhI0lkYbqY5eod0OKErk0JDsYQINnR9sqdaW+P+/NU32PESLVmh+aLwNyrrXY8H7/+wYy82GakF/Dfthy03dcHlwRuYl2DR/sa2qet8lQh2hwIEmEC/crrhrLtwatSJy6xGhjb9C1FsgO7L5AALFvJBfuVHt9E96G44z3mtHUSFVQ2kQHNaLeIv1hgHyrTYJTIMscB1mwTJ6qFA+vtUq5GZn+N/6yFVAveZNLdh1FvhtLZRC1N1J9+WIczTZRh+Dfc4518WfTLbIeGDYLRPZcsa+TfkNU7axufVo2kMzIa4cTiMlu8aK/R62cVDy3VpM4P6TgXhamzjz7377OPtmY13NRyl/SKKDiYEbD9yATZINL7DNwFodBBwJtp+/VNonqUlBUxTQaGUVZ89C4rZR04S6UJr2vnaLDMV7qS2BfX50F7OJnIs2wZWDepwxLheWVQDnDDx1fzBFI5p4V3FqEsROKMq+TrgOry6+emIqgt3MKUWp4jnVrZFROUDMLLGaP3LoDqlZ3rZxsvpZ54wqdKMEiZalo9jUZa6a1CZR+4k37BQykYDH5wXuifarevL+FyTtuXdgK1u9OD6HWO4i1PFgWnSZQCRHJwvdmVRTz8EHeujiXeXXP8DUH9aiViudCPw==
+Received: from [127.0.1.1] ([188.24.162.93]) by smtp.gmail.com with ESMTPSA id
+ r16-20020aa7c150000000b0056399fa69absm257298edp.26.2024.02.14.13.24.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Feb 2024 13:24:45 -0800 (PST)
+From: Abel Vesa <abel.vesa@linaro.org>
+Subject: [PATCH v2 0/4] drm/msm: Add display support for X1E80100
+Date: Wed, 14 Feb 2024 23:24:29 +0200
+Message-Id: <20240214-x1e80100-display-v2-0-cf05ba887453@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v2] drm/msm/dpu: make "vblank timeout" more useful
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
- Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20240208-fd-dpu-debug-timeout-v2-1-9f907f1bdd87@linaro.org>
- <1cb90bff-ce5b-c6d1-a3df-24f6306f833a@quicinc.com>
- <CAA8EJpotiHKT_NYphDs0-vhpvsybgTW281XDYbteUx8qOX=v4g@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpotiHKT_NYphDs0-vhpvsybgTW281XDYbteUx8qOX=v4g@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 3b57zRcZ-7YoW2kAKWXOlAFdamm67T9M
-X-Proofpoint-ORIG-GUID: 3b57zRcZ-7YoW2kAKWXOlAFdamm67T9M
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-14_12,2024-02-14_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- lowpriorityscore=0 mlxscore=0 suspectscore=0 spamscore=0
- priorityscore=1501 malwarescore=0 adultscore=0 bulkscore=0 mlxlogscore=875
- clxscore=1015 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401310000 definitions=main-2402140159
+X-B4-Tracking: v=1; b=H4sIAI0vzWUC/2WNQQqDMBAAv1JybsompkV76j+Kh8SsuhAS2bSii
+ H9v9NrjDAyziYxMmMXzsgnGmTKlWEBfL6IbbRxQki8sNOhKaVByUViDApCe8hTsKq15VNoYAGd
+ 7UTJnM0rHNnZjCeM3hCInxp6W8/NuC4+UP4nXczurwx4HA0o3/4dZSZDgG3S1vhvfwytQtJxui
+ QfR7vv+A+899G7GAAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@linaro.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+X-Mailer: b4 0.12.4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1722; i=abel.vesa@linaro.org; 
+ h=from:subject:message-id;
+ bh=3fqkWRAWEhMvUeo5imQmShT7g1nWczGCo+8D0wU2SRQ=; 
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBlzS+SsgOP2uNOWDXJJI7JxGc/yaoyN7/cVmOR3
+ J7kdEYEE3CJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZc0vkgAKCRAbX0TJAJUV
+ VlLhEACrW1OJirPhYh8H2yBMdiFHi72cmk4nG7isKN5Xr2qPxg3vSiTHWZjhWVFG3xG+h46TqQr
+ PzfWVLbkXMAa8xhi5q8TbqtJDmi2SeT1/R66V4l9gv3eNOqtjAgsg8wEuFKcjGlRoL/aJjXcAL8
+ ijg0Z9lSPBZpTzHG8KdcddQIIrUgqsRaphjUH8OAU2hgnC57hrToShWXQlA0L7Y0ajUP+QdJxSh
+ mxwmZuKVj3HTCyx6b59wQqJXxS1k9uviaKbC3Vu7aVzRZAkx5dTSxb8Eeh3uv1fNri0L1wXuoPK
+ uic/0FYyqmsmBSYF+5K6RsiOKUUsmpJdzO6s/I51WqUCYdRxi932DXkGMx+Vv9nCJk1JHVC8CdQ
+ ZdIAQvQumEexBkBvYOiFWjqa7+/+K3BsNw8ABDSy2tuvexgi2IZw8/CqP+iaLg7xI+r15z7mJlA
+ aTTPy2H0Xyxn8Wqp+CW7N+clCO66c4r5lSuU5wka1N2PMGIJUfrOBl4xLLMVMG8X/wY4lpK/bsS
+ MOgACkl8shukkAshAi0gSuIWB8fQiAigh7VLqvjgzlny65cotybXCjVx6NuAaTayvXUkT1C29IK
+ xMyGy8qD9uTtu6rJjAVpDlDogJDMm0DFw5Pkp/4nGhWMROohaPPYYvRjjj6LZ8NDBGs0xZh65vy
+ Tdi6r+iAt+IAbJQ==
+X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,75 +115,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This patchset adds support for display for X1E80100.
+The support for embedded DisplayPort on this platform will not
+be enabled using the connetor type from driver match data,
+but through some 'is-edp' property via DT. This subsequent work
+will be part of a separate patchset.
 
+Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+---
+Changes in v2:
+- Dropped the 4th patch:
+  "drm/msm/dp: Try looking for link-frequencies into the port@0's endpoint first"
+- Fixed the qcom,x1e80100-mdss schema by including some missing headers
+  in the example
+- Added TODO comment for reg_bus_bw
+- Switched to SDMA features mask
+- Added Krzysztof's R-b tag to mdss schema patch
+- Added Dmitry's R-b tag to the dpu patch
+- Link to v1: https://lore.kernel.org/r/20240129-x1e80100-display-v1-0-0d9eb8254df0@linaro.org
 
-On 2/14/2024 11:20 AM, Dmitry Baryshkov wrote:
-> On Wed, 14 Feb 2024 at 20:02, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 2/8/2024 6:50 AM, Dmitry Baryshkov wrote:
->>> We have several reports of vblank timeout messages. However after some
->>> debugging it was found that there might be different causes to that.
->>> To allow us to identify the DPU block that gets stuck, include the
->>> actual CTL_FLUSH value into the timeout message and trigger the devcore
->>> snapshot capture.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>> Changes in v2:
->>> - Added a call to msm_disp_snapshot_state() to trigger devcore dump
->>>     (Abhinav)
->>> - Link to v1: https://lore.kernel.org/r/20240106-fd-dpu-debug-timeout-v1-1-6d9762884641@linaro.org
->>> ---
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 3 ++-
->>>    1 file changed, 2 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->>> index d0f56c5c4cce..a8d6165b3c0a 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->>> @@ -489,7 +489,8 @@ static int dpu_encoder_phys_vid_wait_for_commit_done(
->>>                (hw_ctl->ops.get_flush_register(hw_ctl) == 0),
->>>                msecs_to_jiffies(50));
->>>        if (ret <= 0) {
->>> -             DPU_ERROR("vblank timeout\n");
->>> +             DPU_ERROR("vblank timeout: %x\n", hw_ctl->ops.get_flush_register(hw_ctl));
->>> +             msm_disp_snapshot_state(phys_enc->parent->dev);
->>
->>
->> There is no rate limiting in this piece of code unfortunately. So this
->> will flood the number of snapshots.
-> 
-> Well... Yes and no. The devcoredump will destroy other snapshots if
-> there is a pending one. So only the console will be flooded and only
-> in case when MSM_DISP_SNAPSHOT_DUMP_IN_CONSOLE is enabled.
-> 
+---
+Abel Vesa (4):
+      dt-bindings: display/msm: document MDSS on X1E80100
+      dt-bindings: display/msm: Document the DPU for X1E80100
+      drm/msm: mdss: Add X1E80100 support
+      drm/msm/dpu: Add X1E80100 support
 
-Yes, true but at the same time this makes it hard to capture a good dump 
-as potentially every vblank you could timeout so this destroy/create 
-cycle wont end.
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   4 +-
+ .../bindings/display/msm/qcom,x1e80100-mdss.yaml   | 252 ++++++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   | 449 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                     |  13 +
+ 7 files changed, 721 insertions(+), 1 deletion(-)
+---
+base-commit: 85a96a047f413da4b663919a4ced39a4715c6835
+change-id: 20231201-x1e80100-display-a46324400baf
 
->>
->> Short-term solution is you can go with a vblank_timeout_cnt and reset it
->> in the enable() like other similar error counters.
->>
->> long-term solution is we need to centralize these error locations to one
->> single dpu_encoder_error_handler() with a single counter and the error
->> handler will print out the error code along with the snapshot instead of
->> the snapshot being called from all over the place.
->>
->>
->>
->>>                return -ETIMEDOUT;
->>>        }
->>>
->>>
->>> ---
->>> base-commit: 39676dfe52331dba909c617f213fdb21015c8d10
->>> change-id: 20240106-fd-dpu-debug-timeout-e917f0bc8063
->>>
->>> Best regards,
-> 
-> 
-> 
+Best regards,
+-- 
+Abel Vesa <abel.vesa@linaro.org>
+
