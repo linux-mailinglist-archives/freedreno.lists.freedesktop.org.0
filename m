@@ -2,76 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AB0D8543E3
-	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 09:15:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6728854408
+	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 09:29:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B428F10E4FF;
-	Wed, 14 Feb 2024 08:15:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B7B110E583;
+	Wed, 14 Feb 2024 08:29:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xZ3uOlr8";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WbOf/DOz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
- [209.85.219.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D9E710E511
- for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 08:15:39 +0000 (UTC)
-Received: by mail-yb1-f170.google.com with SMTP id
- 3f1490d57ef6-dc74435c428so5044405276.2
- for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 00:15:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707898538; x=1708503338; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=EKXGtE0o7nACfq6pe512roREe48CDHHUhw9NIs9DgqY=;
- b=xZ3uOlr8GM+Qp7uGyglB+XlL4GsUz3k0hefFBVNf/Si73TG8c8MU48EWuNTOUKIl9T
- L44HsKktvM+1/Q3T2lJgL5f0BQx+xT1ukUyXMKDILZbNfGmqiXdOrW+NTJZetfrcV5j7
- P64Rz/Zl8njNpt+vOXJjAQiQgjB/dDukSZdJs2BKeN4J05WutknzjDDYOoylTRhb9qAW
- UlIEK9tuKaBQrt8fo5tKxdUnP6Anrm/XVvOGiXx7EuqchIrKk1Zr756H7H2Sz4/Yl34t
- XgwSYam0kVKuqnDqs4n1KZmanQsup/iifAoPRpeQNx+DckQ4XHtfYBDaxpsTWvOP8wBN
- WY+A==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8059810E583
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 08:29:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1707899390;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Vb/g1159e0DO4hnfKwx1FD37+ejv2muFNbaldYH/o+A=;
+ b=WbOf/DOzNJhNMPt1goI1XfasuprSc8+6yRqXY2+0+0FI3xzI2wzSCo+VbOY8ioaoNgPjsi
+ llvD91D00yfXBVyQ0+6Fv4J5hE6Ea6Pf+qzhOotylb2FW4cYu4EYkl6bgfwMyMS0b97Nii
+ rjVWDPIp+sQTwF3osNqUEuxrDiAGzXs=
+Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
+ [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-496-RZliZ4ENNuSX2ACSiXiy3Q-1; Wed, 14 Feb 2024 03:29:48 -0500
+X-MC-Unique: RZliZ4ENNuSX2ACSiXiy3Q-1
+Received: by mail-lf1-f70.google.com with SMTP id
+ 2adb3069b0e04-51151b8de86so4924630e87.1
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 00:29:48 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707898538; x=1708503338;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=EKXGtE0o7nACfq6pe512roREe48CDHHUhw9NIs9DgqY=;
- b=aw3l9mewTiNe1tdqtXb7SAMRfKKHsjFeF+SnIw0F5ufkYnEcMUa/UrA3cAHaQUFaNh
- 1mP05xlFeuiQKXYfuyKdvolarhlQxvONrddT4kVvNZUGy3k+W4b8t7B97187tod01FCG
- bUbuaVp+aPATERrOPAip9BLVAzqpdQABve6zOYPC/RnNQuZvTI7evszuttGRYSLwuH0M
- glz65/qj00BeeEoMERiILYre/cOs2ZYKsBInjvdHJ2JjdGcayNohk5xpCqIKrSsa1AUp
- zaIHmO7bqNLi8iKFxVK5FWp8ui70ZPzg/H+j8I71aFfNseRYq0cpOPRWQa0jYtcofcBu
- Nc/w==
+ d=1e100.net; s=20230601; t=1707899387; x=1708504187;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Vb/g1159e0DO4hnfKwx1FD37+ejv2muFNbaldYH/o+A=;
+ b=onMP+6lLBWvSCdHOJkZzRjJk/bExb1oQcOy9wsQIrKJo+pXUvn6MR01lADhlAPsGIX
+ y1GHr3ThxXzjBZLCkv5b50Hu14YHFBGobYknsH+OBEHDTM9McUHODsvrejmyJd2M5o0A
+ j1o+HWwB7rWfTgp/uplYyIp0ceFWdSJp8s+X8eyaIL7o4CKtxvrIyCxwHAky8ajMqmMq
+ vmxd3rTn16o0mtIvtFQiF2YqXgpjlqelT7ws3/yRrWBWW7nwfvL+oEGkpz/jB2Vnu8UR
+ LhAOkWDmyS62ff802rDaAIvyw9SFynuGPum5UAgvm1L6tFt1YUBiGDPwEFIKTlJ9VSK4
+ E4yQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWt64TfaC/ZISDoXPjpBTcZUHJXF9rHw4e6P/uCyqRcT28ml6WveDWPfmTjhZltXjlxwGZ6P45+bzbW+DFGFrS/1dbso6t5tQ2Pj80BIs0S
-X-Gm-Message-State: AOJu0YyoSPDoznnV7WRKuI2I9KN39Fp1gJjCnR09ABdPU3vPa2WpNq+O
- IjQqaTSaI3lE3GH6UQI9LWl6YMu335E0eGB+SGC9kfhddU6bKrOSeoMpBmjzEeDFDrNrutmXOgC
- tWZm3wHDvt7bdXHMzhujO3xnxR6epUlzezZwzsA==
-X-Google-Smtp-Source: AGHT+IFI6XgUc51w44SGa4dFJZmddk/Aj01+ufuewKBsrzYVS9b+Kup4A4AKPQTJHjDr+FyB9b7AIUFcQMO+GV9FPR8=
-X-Received: by 2002:a5b:dc6:0:b0:dcd:36c1:ecb7 with SMTP id
- t6-20020a5b0dc6000000b00dcd36c1ecb7mr1383363ybr.54.1707898537795; Wed, 14 Feb
- 2024 00:15:37 -0800 (PST)
-MIME-Version: 1.0
-References: <20240213234513.2411604-1-quic_abhinavk@quicinc.com>
-In-Reply-To: <20240213234513.2411604-1-quic_abhinavk@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 14 Feb 2024 10:15:27 +0200
-Message-ID: <CAA8EJpo0yeLyCkVvLFX7wUEV4+i+ORbaCB2qxN0izaWLdFqCrA@mail.gmail.com>
-Subject: Re: [PATCH] drm/dp: move intel_dp_vsc_sdp_pack() to generic helper
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: dri-devel@lists.freedesktop.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
+ AJvYcCV2Qv32vYJLvN40iX8MyAU5o41JHHUHc01BNbHuLQs5fUyfdWCsJ+n9RBN1WvSfl4s95/VsbPs6cyv3kl9xc+QQuC5iA3UvIsPg5xbK9SKY
+X-Gm-Message-State: AOJu0YzKLlKGljFw36Znil8RhsDwm9KFpNpDB31nkY0ILgEIOpVooCP4
+ EZIuCpjpaUCVModC6dTwV8eyqOOKwPPSxpS1sGF92bXHeCq/v5MUJqTnBX+WOudfsNsa93ysb9p
+ 05uc6JxR4WXYesmxeTcnTlNKHq/1SRoxp8OijXNkB+M1BxpW3obMPw5oTrjAL5Dm4Kw==
+X-Received: by 2002:a05:6512:31d2:b0:511:6bbb:7ff4 with SMTP id
+ j18-20020a05651231d200b005116bbb7ff4mr1650172lfe.28.1707899387157; 
+ Wed, 14 Feb 2024 00:29:47 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEsLfgWG/30yrRsS8j6eyKwETXq3//aeDhjygzrlpII45P5KOddG3karYL+WkrkvZKL5sO5Sw==
+X-Received: by 2002:a05:6512:31d2:b0:511:6bbb:7ff4 with SMTP id
+ j18-20020a05651231d200b005116bbb7ff4mr1650160lfe.28.1707899386794; 
+ Wed, 14 Feb 2024 00:29:46 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVRJ5ra1Ww+fJK/5MMBRDzXr77JRTW+837gGQewt9e0TsXZDVffQkOcLqCpaO+UdjsKVB9ZOPD2U+h9i88g1DtSXMeY843Bt50MpnDUs4Lim21DIJXTf039lhSinIOjE7EqPwLfNc9D4R2/4h3RlF/pSPC5VDImI44l846EuDjqOKhRLUYXz1erKJabwn2k2f5UI+gudFD0p63bGI9JeTJ5MPSiTUA+AzcrQrPHMziCufhmxIsKt8n3IO0jNTEpdCo8jkReoJj56R5Xgn8j3gFCbTo3rQBVYNwOAoHIEJWvEl+RggDYFZ6Fb1rlO9RVWiYqkfwBNwGHoKgBivpCgj39F18nY8b4W6qztthYuIkracHTLCdiKk8lq3Zz8/XvX0MkG2+P9z6pwnaeGkSNoNWNRIELp1k=
+Received: from localhost (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ az17-20020adfe191000000b0033b87c2725csm6133062wrb.104.2024.02.14.00.29.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Feb 2024 00:29:46 -0800 (PST)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, robdclark@gmail.com, 
- freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- ville.syrjala@linux.intel.com, quic_jesszhan@quicinc.com, 
- linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ Daniel Vetter <daniel@ffwll.ch>, Helen Koike <helen.koike@collabora.com>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH] drm: ci: use clk_ignore_unused for apq8016
+In-Reply-To: <20240213193931.2300211-1-dmitry.baryshkov@linaro.org>
+References: <20240213193931.2300211-1-dmitry.baryshkov@linaro.org>
+Date: Wed, 14 Feb 2024 09:29:45 +0100
+Message-ID: <87plwzjvnq.fsf@minerva.mail-host-address-is-not-set>
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,233 +95,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 14 Feb 2024 at 01:45, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
-> intel_dp_vsc_sdp_pack() can be re-used by other DRM drivers as well.
-> Lets move this to drm_dp_helper to achieve this.
->
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> writes:
 
-My preference would be to have packing functions in
-drivers/video/hdmi.c, as we already have
-hdmi_audio_infoframe_pack_for_dp() there.
+Hello Dmitry,
 
+> If the ADV7511 bridge driver is compiled as a module, while DRM_MSM is
+> built-in, the clk_disable_unused congests with the runtime PM handling
+> of the DSI PHY for the clk_prepare_lock(). This causes apq8016 runner to
+> fail without completing any jobs ([1]). Drop the BM_CMDLINE which
+> duplicate the command line from the .baremetal-igt-arm64 clause and
+> enforce the clk_ignore_unused kernelarg instead to make apq8016 runner
+> work.
+>
+
+Agree that this is the only practical option for the short term...
+
+> [1] https://gitlab.freedesktop.org/drm/msm/-/jobs/54990475
+>
+> Fixes: 0119c894ab0d ("drm: Add initial ci/ subdirectory")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/display/drm_dp_helper.c | 78 +++++++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_dp.c | 73 +----------------------
->  include/drm/display/drm_dp_helper.h     |  3 +
->  3 files changed, 84 insertions(+), 70 deletions(-)
->
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-> index b1ca3a1100da..066cfbbf7a91 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -2916,6 +2916,84 @@ void drm_dp_vsc_sdp_log(const char *level, struct device *dev,
->  }
->  EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
->
-> +/**
-> + * drm_dp_vsc_sdp_pack() - pack a given vsc sdp into generic dp_sdp
-> + * @vsc: vsc sdp initialized according to its purpose as defined in
-> + *       table 2-118 - table 2-120 in DP 1.4a specification
-> + * @sdp: valid handle to the generic dp_sdp which will be packed
-> + * @size: valid size of the passed sdp handle
-> + *
-> + * Returns length of sdp on success and error code on failure
-> + */
-> +ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
-> +                           struct dp_sdp *sdp, size_t size)
 
-I know that you are just moving the function. Maybe there can be
-patch#2, which drops the size argument? The struct dp_sdp already has
-a defined size. The i915 driver just passes sizeof(sdp), which is more
-or less useless.
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
-> +{
-> +       size_t length = sizeof(struct dp_sdp);
-> +
-> +       if (size < length)
-> +               return -ENOSPC;
-> +
-> +       memset(sdp, 0, size);
-> +
-> +       /*
-> +        * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
-> +        * VSC SDP Header Bytes
-> +        */
-> +       sdp->sdp_header.HB0 = 0; /* Secondary-Data Packet ID = 0 */
-> +       sdp->sdp_header.HB1 = vsc->sdp_type; /* Secondary-data Packet Type */
-> +       sdp->sdp_header.HB2 = vsc->revision; /* Revision Number */
-> +       sdp->sdp_header.HB3 = vsc->length; /* Number of Valid Data Bytes */
-> +
-> +       if (vsc->revision == 0x6) {
-> +               sdp->db[0] = 1;
-> +               sdp->db[3] = 1;
-> +       }
-> +
-> +       /*
-> +        * Revision 0x5 and revision 0x7 supports Pixel Encoding/Colorimetry
-> +        * Format as per DP 1.4a spec and DP 2.0 respectively.
-> +        */
-> +       if (!(vsc->revision == 0x5 || vsc->revision == 0x7))
-> +               goto out;
-> +
-> +       /* VSC SDP Payload for DB16 through DB18 */
-> +       /* Pixel Encoding and Colorimetry Formats  */
-> +       sdp->db[16] = (vsc->pixelformat & 0xf) << 4; /* DB16[7:4] */
-> +       sdp->db[16] |= vsc->colorimetry & 0xf; /* DB16[3:0] */
-> +
-> +       switch (vsc->bpc) {
-> +       case 6:
-> +               /* 6bpc: 0x0 */
-> +               break;
-> +       case 8:
-> +               sdp->db[17] = 0x1; /* DB17[3:0] */
-> +               break;
-> +       case 10:
-> +               sdp->db[17] = 0x2;
-> +               break;
-> +       case 12:
-> +               sdp->db[17] = 0x3;
-> +               break;
-> +       case 16:
-> +               sdp->db[17] = 0x4;
-> +               break;
-> +       default:
-> +               WARN(1, "Missing case %d\n", vsc->bpc);
-> +               return -EINVAL;
-> +       }
-> +
-> +       /* Dynamic Range and Component Bit Depth */
-> +       if (vsc->dynamic_range == DP_DYNAMIC_RANGE_CTA)
-> +               sdp->db[17] |= 0x80;  /* DB17[7] */
-> +
-> +       /* Content Type */
-> +       sdp->db[18] = vsc->content_type & 0x7;
-> +
-> +out:
-> +       return length;
-> +}
-> +EXPORT_SYMBOL(drm_dp_vsc_sdp_pack);
-> +
->  /**
->   * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
->   * @dpcd: DisplayPort configuration data
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index f5ef95da5534..e94db51aeeb7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4110,73 +4110,6 @@ intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
->         return false;
->  }
+>  drivers/gpu/drm/ci/test.yml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> -static ssize_t intel_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
-> -                                    struct dp_sdp *sdp, size_t size)
-> -{
-> -       size_t length = sizeof(struct dp_sdp);
-> -
-> -       if (size < length)
-> -               return -ENOSPC;
-> -
-> -       memset(sdp, 0, size);
-> -
-> -       /*
-> -        * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
-> -        * VSC SDP Header Bytes
-> -        */
-> -       sdp->sdp_header.HB0 = 0; /* Secondary-Data Packet ID = 0 */
-> -       sdp->sdp_header.HB1 = vsc->sdp_type; /* Secondary-data Packet Type */
-> -       sdp->sdp_header.HB2 = vsc->revision; /* Revision Number */
-> -       sdp->sdp_header.HB3 = vsc->length; /* Number of Valid Data Bytes */
-> -
-> -       if (vsc->revision == 0x6) {
-> -               sdp->db[0] = 1;
-> -               sdp->db[3] = 1;
-> -       }
-> -
-> -       /*
-> -        * Revision 0x5 and revision 0x7 supports Pixel Encoding/Colorimetry
-> -        * Format as per DP 1.4a spec and DP 2.0 respectively.
-> -        */
-> -       if (!(vsc->revision == 0x5 || vsc->revision == 0x7))
-> -               goto out;
-> -
-> -       /* VSC SDP Payload for DB16 through DB18 */
-> -       /* Pixel Encoding and Colorimetry Formats  */
-> -       sdp->db[16] = (vsc->pixelformat & 0xf) << 4; /* DB16[7:4] */
-> -       sdp->db[16] |= vsc->colorimetry & 0xf; /* DB16[3:0] */
-> -
-> -       switch (vsc->bpc) {
-> -       case 6:
-> -               /* 6bpc: 0x0 */
-> -               break;
-> -       case 8:
-> -               sdp->db[17] = 0x1; /* DB17[3:0] */
-> -               break;
-> -       case 10:
-> -               sdp->db[17] = 0x2;
-> -               break;
-> -       case 12:
-> -               sdp->db[17] = 0x3;
-> -               break;
-> -       case 16:
-> -               sdp->db[17] = 0x4;
-> -               break;
-> -       default:
-> -               MISSING_CASE(vsc->bpc);
-> -               break;
-> -       }
-> -       /* Dynamic Range and Component Bit Depth */
-> -       if (vsc->dynamic_range == DP_DYNAMIC_RANGE_CTA)
-> -               sdp->db[17] |= 0x80;  /* DB17[7] */
-> -
-> -       /* Content Type */
-> -       sdp->db[18] = vsc->content_type & 0x7;
-> -
-> -out:
-> -       return length;
-> -}
-> -
->  static ssize_t
->  intel_dp_hdr_metadata_infoframe_sdp_pack(struct drm_i915_private *i915,
->                                          const struct hdmi_drm_infoframe *drm_infoframe,
-> @@ -4269,8 +4202,8 @@ static void intel_write_dp_sdp(struct intel_encoder *encoder,
->
->         switch (type) {
->         case DP_SDP_VSC:
-> -               len = intel_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
-> -                                           sizeof(sdp));
-> +               len = drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
-> +                                         sizeof(sdp));
->                 break;
->         case HDMI_PACKET_TYPE_GAMUT_METADATA:
->                 len = intel_dp_hdr_metadata_infoframe_sdp_pack(dev_priv,
-> @@ -4297,7 +4230,7 @@ void intel_write_dp_vsc_sdp(struct intel_encoder *encoder,
->         struct dp_sdp sdp = {};
->         ssize_t len;
->
-> -       len = intel_dp_vsc_sdp_pack(vsc, &sdp, sizeof(sdp));
-> +       len = drm_dp_vsc_sdp_pack(vsc, &sdp, sizeof(sdp));
->
->         if (drm_WARN_ON(&dev_priv->drm, len < 0))
->                 return;
-> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-> index 863b2e7add29..f8db34a2f7a5 100644
-> --- a/include/drm/display/drm_dp_helper.h
-> +++ b/include/drm/display/drm_dp_helper.h
-> @@ -813,4 +813,7 @@ int drm_dp_bw_overhead(int lane_count, int hactive,
->                        int bpp_x16, unsigned long flags);
->  int drm_dp_bw_channel_coding_efficiency(bool is_uhbr);
->
-> +ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
-> +                           struct dp_sdp *sdp, size_t size);
-> +
->  #endif /* _DRM_DP_HELPER_H_ */
-> --
-> 2.34.1
->
+> diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
+> index 355b794ef2b1..b9f864e062df 100644
+> --- a/drivers/gpu/drm/ci/test.yml
+> +++ b/drivers/gpu/drm/ci/test.yml
+> @@ -119,7 +119,7 @@ msm:apq8016:
+>      DRIVER_NAME: msm
+>      BM_DTB: https://${PIPELINE_ARTIFACTS_BASE}/arm64/apq8016-sbc-usb-host.dtb
+>      GPU_VERSION: apq8016
+> -    BM_CMDLINE: "ip=dhcp console=ttyMSM0,115200n8 $BM_KERNEL_EXTRA_ARGS root=/dev/nfs rw nfsrootdebug nfsroot=,tcp,nfsvers=4.2 init=/init $BM_KERNELARGS"
 
+Maybe add a comment here explaining why the clk_ignore_unused param is
+needed ? (basically what you have in your commit message), that way it
+could be dropped once the underlying issue is fixed.
+
+> +    BM_KERNEL_EXTRA_ARGS: clk_ignore_unused
+>      RUNNER_TAG: google-freedreno-db410c
+>    script:
+>      - ./install/bare-metal/fastboot.sh
+> -- 
+> 2.39.2
+>
 
 -- 
-With best wishes
-Dmitry
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
