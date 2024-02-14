@@ -2,84 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6728854408
-	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 09:29:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22F8C85441F
+	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 09:37:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B7B110E583;
-	Wed, 14 Feb 2024 08:29:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E543610E469;
+	Wed, 14 Feb 2024 08:37:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WbOf/DOz";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ayz4q27C";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8059810E583
- for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 08:29:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1707899390;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Vb/g1159e0DO4hnfKwx1FD37+ejv2muFNbaldYH/o+A=;
- b=WbOf/DOzNJhNMPt1goI1XfasuprSc8+6yRqXY2+0+0FI3xzI2wzSCo+VbOY8ioaoNgPjsi
- llvD91D00yfXBVyQ0+6Fv4J5hE6Ea6Pf+qzhOotylb2FW4cYu4EYkl6bgfwMyMS0b97Nii
- rjVWDPIp+sQTwF3osNqUEuxrDiAGzXs=
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
- [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-496-RZliZ4ENNuSX2ACSiXiy3Q-1; Wed, 14 Feb 2024 03:29:48 -0500
-X-MC-Unique: RZliZ4ENNuSX2ACSiXiy3Q-1
-Received: by mail-lf1-f70.google.com with SMTP id
- 2adb3069b0e04-51151b8de86so4924630e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 00:29:48 -0800 (PST)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
+ [209.85.208.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 534AF10E2F2
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 08:37:11 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id
+ 38308e7fff4ca-2d109e82bd0so20647771fa.3
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 00:37:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1707899829; x=1708504629; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=fNyVYl5PFuqcAOEEMT/+9lJuDqPpS3TsSRcu66K/yHg=;
+ b=ayz4q27COHV4yWCtnJqUJ4S5HDmSEIp8sc3WHBnxkogu+O+QyMgFQZzj7sU8H3BsEt
+ P/WpkcBxdco/x9z26S0SvDoTmdZEZYSWeH0aDKaSp44dpe+xyLxjeyI+oh3q10fPUP7h
+ dRsrJcjwepkSRh35vPp892m35aJKGMMUIilFJwTcKqtOByRzA6piePvZRN0GsX1seh4k
+ /+UO+wc13FuOLRt8L7Bp3BkafhXV/BgxuDl9niGkvK2UCdHroxPJ8MCPGwSRzM5P9N11
+ n3y4tlwCzXi4c2aVyJmbRFG9+W61apX0j2ZsSSiCWJWvYlWQsxdIvswkHHeMT6OdZAeJ
+ zQAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707899387; x=1708504187;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Vb/g1159e0DO4hnfKwx1FD37+ejv2muFNbaldYH/o+A=;
- b=onMP+6lLBWvSCdHOJkZzRjJk/bExb1oQcOy9wsQIrKJo+pXUvn6MR01lADhlAPsGIX
- y1GHr3ThxXzjBZLCkv5b50Hu14YHFBGobYknsH+OBEHDTM9McUHODsvrejmyJd2M5o0A
- j1o+HWwB7rWfTgp/uplYyIp0ceFWdSJp8s+X8eyaIL7o4CKtxvrIyCxwHAky8ajMqmMq
- vmxd3rTn16o0mtIvtFQiF2YqXgpjlqelT7ws3/yRrWBWW7nwfvL+oEGkpz/jB2Vnu8UR
- LhAOkWDmyS62ff802rDaAIvyw9SFynuGPum5UAgvm1L6tFt1YUBiGDPwEFIKTlJ9VSK4
- E4yQ==
+ d=1e100.net; s=20230601; t=1707899829; x=1708504629;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=fNyVYl5PFuqcAOEEMT/+9lJuDqPpS3TsSRcu66K/yHg=;
+ b=L+1f9rRqQFhYb3MxPt3Bog0ml98tEZyZBfiiUOC+KWujx8S4wJcv9LYGM05475Qy3h
+ rUFUpjZ3btvIaCxCFx9w7rea1V7pv2FQ2O4ES5i/6AAPSpb8Ndr9ql43YFlEvR1G0y5L
+ Z0yGGo6cUgo4Um2kM24loqLB0azFw9KCRW84NyN8w2Cxc0bFOtYBlnAdIwcGofFR5xqL
+ VAV3j21ME0dj4k009r3joruTu5jPYkLbQsTXrODpU6FUyPO6XSf8s7KAMczpdLGWHACh
+ smdTNubFk4huG0DrfOQpXzMs9sAaMgEyyEc1rSeH54Bdvw7RTHAcMrykou132XqFexkT
+ N/7Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV2Qv32vYJLvN40iX8MyAU5o41JHHUHc01BNbHuLQs5fUyfdWCsJ+n9RBN1WvSfl4s95/VsbPs6cyv3kl9xc+QQuC5iA3UvIsPg5xbK9SKY
-X-Gm-Message-State: AOJu0YzKLlKGljFw36Znil8RhsDwm9KFpNpDB31nkY0ILgEIOpVooCP4
- EZIuCpjpaUCVModC6dTwV8eyqOOKwPPSxpS1sGF92bXHeCq/v5MUJqTnBX+WOudfsNsa93ysb9p
- 05uc6JxR4WXYesmxeTcnTlNKHq/1SRoxp8OijXNkB+M1BxpW3obMPw5oTrjAL5Dm4Kw==
-X-Received: by 2002:a05:6512:31d2:b0:511:6bbb:7ff4 with SMTP id
- j18-20020a05651231d200b005116bbb7ff4mr1650172lfe.28.1707899387157; 
- Wed, 14 Feb 2024 00:29:47 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEsLfgWG/30yrRsS8j6eyKwETXq3//aeDhjygzrlpII45P5KOddG3karYL+WkrkvZKL5sO5Sw==
-X-Received: by 2002:a05:6512:31d2:b0:511:6bbb:7ff4 with SMTP id
- j18-20020a05651231d200b005116bbb7ff4mr1650160lfe.28.1707899386794; 
- Wed, 14 Feb 2024 00:29:46 -0800 (PST)
+ AJvYcCVuJ5FSBaGEMh0yq8PHnKR+mbnxkdPuS8Al+X/2yBgZNz2EG75CTDrvNCEL381RHnH0nIwtlO/PEBRCc5o4gRnFvbf6ZXV2Qe6lbpQADXtz
+X-Gm-Message-State: AOJu0Yxlx0ThKOQZn+cIVXxROwjhkpbxUCoxvOtIeDMST5uNYhI45kyF
+ ZBzMxFMuqTnGQA8IECBxGWm23O6Z8oqLFNLohWUVWBHdt7injF9dMBOaGU7XGmI=
+X-Google-Smtp-Source: AGHT+IESjS4v4O4IHu7zLNFREuyQ+kQhHPlDn4XXTnrj7CrGdmKCVUDHMgznemDujddsMvwh+7i69Q==
+X-Received: by 2002:a2e:9dd3:0:b0:2d0:cd24:24c3 with SMTP id
+ x19-20020a2e9dd3000000b002d0cd2424c3mr1418345ljj.53.1707899829397; 
+ Wed, 14 Feb 2024 00:37:09 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCVRJ5ra1Ww+fJK/5MMBRDzXr77JRTW+837gGQewt9e0TsXZDVffQkOcLqCpaO+UdjsKVB9ZOPD2U+h9i88g1DtSXMeY843Bt50MpnDUs4Lim21DIJXTf039lhSinIOjE7EqPwLfNc9D4R2/4h3RlF/pSPC5VDImI44l846EuDjqOKhRLUYXz1erKJabwn2k2f5UI+gudFD0p63bGI9JeTJ5MPSiTUA+AzcrQrPHMziCufhmxIsKt8n3IO0jNTEpdCo8jkReoJj56R5Xgn8j3gFCbTo3rQBVYNwOAoHIEJWvEl+RggDYFZ6Fb1rlO9RVWiYqkfwBNwGHoKgBivpCgj39F18nY8b4W6qztthYuIkracHTLCdiKk8lq3Zz8/XvX0MkG2+P9z6pwnaeGkSNoNWNRIELp1k=
-Received: from localhost (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- az17-20020adfe191000000b0033b87c2725csm6133062wrb.104.2024.02.14.00.29.46
+ AJvYcCXg78QslHrsDT2+naoGhAfKLkRKLC8r6TiToOHCSZbeIj3fyJZGhzBaUo2CP8B3/PXwrBX65FVyCY2US5pEt6U8YBE+H+YR1bTIoixxD7yAtkFC1WuSfTIYXLDRrfL0+mJBkhGApnL4xMRhiWZEcTGCU4vrNTfZyEyhdFiwdq4CF0FVTQRddcemlmCOUnSeGKEeDr1yP2uoQvxKNP9O0LbNHHCgo74wZ3WS2Bw2mvRgJe7A90+LcYvbVxIswlP6jXR9rLTsJLmeNsdCWGGatlS73uNaTBBtyuNT+Nk1Egzf4M1/hTrR4IMEAEd0u0q4uYmRuJlAYPt7iutspQ4cje82GwRaYWrH1VQ2osqrs9FQ8u2351oj8zpqKmJDC9mLtPZiSL8yRa8=
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ z28-20020a05651c023c00b002d0c14e4f94sm793294ljn.74.2024.02.14.00.37.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Feb 2024 00:29:46 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Wed, 14 Feb 2024 00:37:08 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, Helen Koike <helen.koike@collabora.com>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH] drm: ci: use clk_ignore_unused for apq8016
-In-Reply-To: <20240213193931.2300211-1-dmitry.baryshkov@linaro.org>
-References: <20240213193931.2300211-1-dmitry.baryshkov@linaro.org>
-Date: Wed, 14 Feb 2024 09:29:45 +0100
-Message-ID: <87plwzjvnq.fsf@minerva.mail-host-address-is-not-set>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org,
+ Javier Martinez Canillas <javierm@redhat.com>
+Subject: [PATCH v2] drm: ci: use clk_ignore_unused for apq8016
+Date: Wed, 14 Feb 2024 10:37:08 +0200
+Message-Id: <20240214083708.2323967-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,58 +87,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org> writes:
+If the ADV7511 bridge driver is compiled as a module, while DRM_MSM is
+built-in, the clk_disable_unused congests with the runtime PM handling
+of the DSI PHY for the clk_prepare_lock(). This causes apq8016 runner to
+fail without completing any jobs ([1]). Drop the BM_CMDLINE which
+duplicate the command line from the .baremetal-igt-arm64 clause and
+enforce the clk_ignore_unused kernelarg instead to make apq8016 runner
+work.
 
-Hello Dmitry,
+[1] https://gitlab.freedesktop.org/drm/msm/-/jobs/54990475
 
-> If the ADV7511 bridge driver is compiled as a module, while DRM_MSM is
-> built-in, the clk_disable_unused congests with the runtime PM handling
-> of the DSI PHY for the clk_prepare_lock(). This causes apq8016 runner to
-> fail without completing any jobs ([1]). Drop the BM_CMDLINE which
-> duplicate the command line from the .baremetal-igt-arm64 clause and
-> enforce the clk_ignore_unused kernelarg instead to make apq8016 runner
-> work.
->
-
-Agree that this is the only practical option for the short term...
-
-> [1] https://gitlab.freedesktop.org/drm/msm/-/jobs/54990475
->
-> Fixes: 0119c894ab0d ("drm: Add initial ci/ subdirectory")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-
+Fixes: 0119c894ab0d ("drm: Add initial ci/ subdirectory")
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
 
->  drivers/gpu/drm/ci/test.yml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
-> index 355b794ef2b1..b9f864e062df 100644
-> --- a/drivers/gpu/drm/ci/test.yml
-> +++ b/drivers/gpu/drm/ci/test.yml
-> @@ -119,7 +119,7 @@ msm:apq8016:
->      DRIVER_NAME: msm
->      BM_DTB: https://${PIPELINE_ARTIFACTS_BASE}/arm64/apq8016-sbc-usb-host.dtb
->      GPU_VERSION: apq8016
-> -    BM_CMDLINE: "ip=dhcp console=ttyMSM0,115200n8 $BM_KERNEL_EXTRA_ARGS root=/dev/nfs rw nfsrootdebug nfsroot=,tcp,nfsvers=4.2 init=/init $BM_KERNELARGS"
+Changes in v2:
+- Added a comment, describing the issue and a way to reproduce it
+  (Javier)
 
-Maybe add a comment here explaining why the clk_ignore_unused param is
-needed ? (basically what you have in your commit message), that way it
-could be dropped once the underlying issue is fixed.
+---
+ drivers/gpu/drm/ci/test.yml | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-> +    BM_KERNEL_EXTRA_ARGS: clk_ignore_unused
->      RUNNER_TAG: google-freedreno-db410c
->    script:
->      - ./install/bare-metal/fastboot.sh
-> -- 
-> 2.39.2
->
-
+diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
+index 7ffb620d7398..e64205286a27 100644
+--- a/drivers/gpu/drm/ci/test.yml
++++ b/drivers/gpu/drm/ci/test.yml
+@@ -119,7 +119,10 @@ msm:apq8016:
+     DRIVER_NAME: msm
+     BM_DTB: https://${PIPELINE_ARTIFACTS_BASE}/arm64/apq8016-sbc-usb-host.dtb
+     GPU_VERSION: apq8016
+-    BM_CMDLINE: "ip=dhcp console=ttyMSM0,115200n8 $BM_KERNEL_EXTRA_ARGS root=/dev/nfs rw nfsrootdebug nfsroot=,tcp,nfsvers=4.2 init=/init $BM_KERNELARGS"
++    # disabling unused clocks congests with the MDSS runtime PM trying to
++    # disable those clocks and causes boot to fail.
++    # Reproducer: DRM_MSM=y, DRM_I2C_ADV7511=m
++    BM_KERNEL_EXTRA_ARGS: clk_ignore_unused
+     RUNNER_TAG: google-freedreno-db410c
+   script:
+     - ./install/bare-metal/fastboot.sh
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+2.39.2
 
