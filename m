@@ -2,92 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3211885518B
-	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 19:08:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF89B855216
+	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 19:30:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 016F110E2C4;
-	Wed, 14 Feb 2024 18:08:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95B2010E090;
+	Wed, 14 Feb 2024 18:30:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="TXffvLL/";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="PZrV3WMV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E52AF10E2C4;
- Wed, 14 Feb 2024 18:08:49 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34DA910E090;
+ Wed, 14 Feb 2024 18:30:34 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41EEkTSM021017; Wed, 14 Feb 2024 18:08:41 GMT
+ 41EIOta0027586; Wed, 14 Feb 2024 18:30:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  message-id:date:mime-version:subject:to:cc:references:from
  :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=DPjmKb4R5eZwFF3QzQ/xQJH8OZvY7FFNlHqFMG3ehL8=; b=TX
- ffvLL/02npLV1td5n0eS1FLOC7RnqOMVj8T9jRiy+vvMHsiogIx9XNciWCysODGR
- kAMyDL7yTACoPUEGkLdqmbNpqZG0MnrEmpy1vAyPUkVB+Ea2uK+UdYR5ohlm0K/E
- RkKOuHUhJ1vOGNXpkGEc8B4lFQ4jSLHESkhn8m1gH0E3k7ycubR8ekwKA/b8or48
- hsZ0HRYLii0WbwoTtSoIdzYBZ1bkSQba3pypCSKsX/uDKUM1x18Rbgi9uN7Bjaez
- 0Nfi1Oybbqalrk/s47C4LVZzTOvgc+0aiH9ga/bm7vB1N/zV7+DGvY+/WalHcpOB
- hhGtxTNe+YmCsVoPLwYQ==
+ qcppdkim1; bh=2deMRAtXjOx3KxStLyno63r2bNhoEH669ShXSH+f1Uc=; b=PZ
+ rV3WMVYfMvPEAPKTHBWJQQ3FrBh0JNZ/H0Np0d7lL9EMrX2Wofn5iWyOJLZRkZWu
+ az8QfVehHZdyhfAjp94/jdBZT6xkoLbx2KxLMeMzEKlnfdiyN3qvSshMAXQrNZrl
+ yATZ7eyyBQVE/AUDfNm2A+hqjqyNp1XFbnIL57qBagSmj111L4gU25Ia2ZPqdxva
+ R8d21iky0JDIuEQVi4LS6O8hP0NJ5tRybaJZyuhPvv1VHphzSqKIz3Yqn6p6SS1I
+ JO9xvmqP7RpIvYCGe3pSzCBsrdHuOxcIJwp2UEnCuj6RUySvRzs6BzWCFx8TUmaY
+ 0fcEo5c1vVMSywK6qeFw==
 Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w8kkrhwg2-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w92fxg1vc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Feb 2024 18:08:41 +0000 (GMT)
+ Wed, 14 Feb 2024 18:30:29 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41EI8ead017295
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41EIUStg010863
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Feb 2024 18:08:40 GMT
+ Wed, 14 Feb 2024 18:30:28 GMT
 Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 14 Feb
- 2024 10:08:38 -0800
-Message-ID: <fa63e9c1-3cec-41df-c643-33950346b76c@quicinc.com>
-Date: Wed, 14 Feb 2024 10:08:38 -0800
+ 2024 10:30:27 -0800
+Message-ID: <e3a15487-1697-579a-f8fb-9d681f1af272@quicinc.com>
+Date: Wed, 14 Feb 2024 10:30:26 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/dp: move intel_dp_vsc_sdp_pack() to generic helper
+Subject: Re: [PATCH v3 01/12] drm/atomic-helper: split not-scaling part of
+ drm_atomic_helper_check_plane_state
 Content-Language: en-US
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-CC: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- <dri-devel@lists.freedesktop.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tvrtko.ursulin@linux.intel.com>,
- <robdclark@gmail.com>, <freedreno@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <quic_jesszhan@quicinc.com>,
- <linux-kernel@vger.kernel.org>, <intel-xe@lists.freedesktop.org>
-References: <20240213234513.2411604-1-quic_abhinavk@quicinc.com>
- <CAA8EJpo0yeLyCkVvLFX7wUEV4+i+ORbaCB2qxN0izaWLdFqCrA@mail.gmail.com>
- <eb8b3bac-5f97-8efd-721e-08e9544be3f8@quicinc.com>
- <Zc0AR6pdLzDjCrAB@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+CC: Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20230914050706.1058620-1-dmitry.baryshkov@linaro.org>
+ <20230914050706.1058620-2-dmitry.baryshkov@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <Zc0AR6pdLzDjCrAB@intel.com>
+In-Reply-To: <20230914050706.1058620-2-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: UsOqeXAcExC59bnYnEJ0YVT3hP9tdPvm
-X-Proofpoint-ORIG-GUID: UsOqeXAcExC59bnYnEJ0YVT3hP9tdPvm
+X-Proofpoint-GUID: Wo99eYzPPBHobiGD5cmXAkWT0EL2VO0o
+X-Proofpoint-ORIG-GUID: Wo99eYzPPBHobiGD5cmXAkWT0EL2VO0o
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2024-02-14_10,2024-02-14_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 mlxlogscore=999
- clxscore=1015 priorityscore=1501 adultscore=0 bulkscore=0
- lowpriorityscore=0 mlxscore=0 malwarescore=0 suspectscore=0 phishscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401310000 definitions=main-2402140142
+ adultscore=0 suspectscore=0
+ mlxscore=0 bulkscore=0 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 clxscore=1015 mlxlogscore=999 lowpriorityscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401310000 definitions=main-2402140143
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,280 +98,191 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 2/14/2024 10:02 AM, Ville Syrjälä wrote:
-> On Wed, Feb 14, 2024 at 09:17:34AM -0800, Abhinav Kumar wrote:
->>
->>
->> On 2/14/2024 12:15 AM, Dmitry Baryshkov wrote:
->>> On Wed, 14 Feb 2024 at 01:45, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>
->>>> intel_dp_vsc_sdp_pack() can be re-used by other DRM drivers as well.
->>>> Lets move this to drm_dp_helper to achieve this.
->>>>
->>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>
->>> My preference would be to have packing functions in
->>> drivers/video/hdmi.c, as we already have
->>> hdmi_audio_infoframe_pack_for_dp() there.
->>>
->>
->> My preference is drm_dp_helper because it already has some VSC SDP stuff
->> and after discussion with Ville on IRC, I decided to post it this way.
->>
->> hdmi_audio_infoframe_pack_for_dp() is an exception from my PoV as the
->> hdmi audio infoframe fields were re-used and packed into a DP SDP
->> thereby re-using the existing struct hdmi_audio_infoframe .
->>
->> This is not like that. Here we pack from struct drm_dp_vsc_sdp to struct
->> dp_sdp both of which had prior usages already in this file.
->>
->> So it all adds up and makes sense to me to be in this file.
->>
->> I will let the other DRM core maintainers comment on this.
->>
->> Ville, Jani?
+On 9/13/2023 10:06 PM, Dmitry Baryshkov wrote:
+> The helper drm_atomic_helper_check_plane_state() runs several checks on
+> plane src and dst rectangles, including the check whether required
+> scaling fits into the required margins. The msm driver would benefit
+> from having a function that does all these checks except the scaling
+> one. Split them into a new helper called
+> drm_atomic_helper_check_plane_noscale().
 > 
-> Yeah, I'm not sure bloating the (poorly named) hdmi.c with all
-> SDP stuff is a great idea. Since other related stuff already
-> lives in the drm_dp_helper.c that seems reasonable to me at this
-> time. And if we get a decent amount of this then probably all
-> DP SDP stuff should be extracted into its own file.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/drm_atomic_helper.c | 110 ++++++++++++++++++++++------
+>   include/drm/drm_atomic_helper.h     |   7 ++
+>   2 files changed, 96 insertions(+), 21 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> index 292e38eb6218..2d7dd66181c9 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -825,11 +825,9 @@ drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
+>   EXPORT_SYMBOL(drm_atomic_helper_check_wb_encoder_state);
+>   
+>   /**
+> - * drm_atomic_helper_check_plane_state() - Check plane state for validity
+> + * drm_atomic_helper_check_plane_noscale() - Check plane state for validity
+>    * @plane_state: plane state to check
+>    * @crtc_state: CRTC state to check
+> - * @min_scale: minimum @src:@dest scaling factor in 16.16 fixed point
+> - * @max_scale: maximum @src:@dest scaling factor in 16.16 fixed point
+>    * @can_position: is it legal to position the plane such that it
+>    *                doesn't cover the entire CRTC?  This will generally
+>    *                only be false for primary planes.
+> @@ -845,19 +843,16 @@ EXPORT_SYMBOL(drm_atomic_helper_check_wb_encoder_state);
+>    * RETURNS:
+>    * Zero if update appears valid, error code on failure
+>    */
+> -int drm_atomic_helper_check_plane_state(struct drm_plane_state *plane_state,
+> -					const struct drm_crtc_state *crtc_state,
+> -					int min_scale,
+> -					int max_scale,
+> -					bool can_position,
+> -					bool can_update_disabled)
+> +int drm_atomic_helper_check_plane_noscale(struct drm_plane_state *plane_state,
+> +					  const struct drm_crtc_state *crtc_state,
+> +					  bool can_position,
+> +					  bool can_update_disabled)
+>   {
+>   	struct drm_framebuffer *fb = plane_state->fb;
+>   	struct drm_rect *src = &plane_state->src;
+>   	struct drm_rect *dst = &plane_state->dst;
+>   	unsigned int rotation = plane_state->rotation;
+>   	struct drm_rect clip = {};
+> -	int hscale, vscale;
+>   
+>   	WARN_ON(plane_state->crtc && plane_state->crtc != crtc_state->crtc);
+>   
+> @@ -883,17 +878,6 @@ int drm_atomic_helper_check_plane_state(struct drm_plane_state *plane_state,
+>   
+>   	drm_rect_rotate(src, fb->width << 16, fb->height << 16, rotation);
+>   
 
-Yes, thanks.
+Do we need to do the rotation even for noscale before validation?
 
-> There are of course a few overlaps here andthere (the audio SDP
-> I guess, and the CTA infoframe SDP). But I'm not sure that actually
-> needs any SDP specific stuff in hdmi.c, or could we just let hdmi.c
-> deal with the actual CTA-861 stuff and then have the DP SDP code
-> wrap that up in its own thing externally? Dunno, haven't really
-> looked at the details.
-> 
+> -	/* Check scaling */
+> -	hscale = drm_rect_calc_hscale(src, dst, min_scale, max_scale);
+> -	vscale = drm_rect_calc_vscale(src, dst, min_scale, max_scale);
+> -	if (hscale < 0 || vscale < 0) {
+> -		drm_dbg_kms(plane_state->plane->dev,
+> -			    "Invalid scaling of plane\n");
+> -		drm_rect_debug_print("src: ", &plane_state->src, true);
+> -		drm_rect_debug_print("dst: ", &plane_state->dst, false);
+> -		return -ERANGE;
+> -	}
+> -
+>   	if (crtc_state->enable)
+>   		drm_mode_get_hv_timing(&crtc_state->mode, &clip.x2, &clip.y2);
+>   
+> @@ -921,6 +905,90 @@ int drm_atomic_helper_check_plane_state(struct drm_plane_state *plane_state,
+>   
+>   	return 0;
+>   }
+> +EXPORT_SYMBOL(drm_atomic_helper_check_plane_noscale);
+> +
+> +/**
+> + * drm_atomic_helper_check_plane_scale() - Check whether plane can be scaled
+> + * @plane_state: plane state to check
+> + * @min_scale: minimum @src:@dest scaling factor in 16.16 fixed point
+> + * @max_scale: maximum @src:@dest scaling factor in 16.16 fixed point
+> + *
+> + * Checks that a desired plane scale fits into the min_scale..max_scale
+> + * boundaries.
+> + * Drivers that provide their own plane handling rather than helper-provided
+> + * implementations may still wish to call this function to avoid duplication of
+> + * error checking code.
+> + *
+> + * RETURNS:
+> + * Zero if update appears valid, error code on failure
+> + */
+> +int drm_atomic_helper_check_plane_scale(struct drm_plane_state *plane_state,
+> +					int min_scale,
+> +					int max_scale)
+> +{
+> +	struct drm_framebuffer *fb = plane_state->fb;
+> +	struct drm_rect src;
+> +	struct drm_rect dst;
+> +	int hscale, vscale;
+> +
+> +	if (!plane_state->visible)
+> +		return 0;
+> +
+> +	src = drm_plane_state_src(plane_state);
+> +	dst = drm_plane_state_dest(plane_state);
+> +
+> +	drm_rect_rotate(&src, fb->width << 16, fb->height << 16, plane_state->rotation);
+> +
 
-Thats a good way to look at it. this packing is from DP spec and not CTA 
-so makes more sense to be in this file.
+Does this need to be accompanied by a drm_rect_rotate_inv()?
 
-In that case, R-b?
-
->>
->>>> ---
->>>>    drivers/gpu/drm/display/drm_dp_helper.c | 78 +++++++++++++++++++++++++
->>>>    drivers/gpu/drm/i915/display/intel_dp.c | 73 +----------------------
->>>>    include/drm/display/drm_dp_helper.h     |  3 +
->>>>    3 files changed, 84 insertions(+), 70 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
->>>> index b1ca3a1100da..066cfbbf7a91 100644
->>>> --- a/drivers/gpu/drm/display/drm_dp_helper.c
->>>> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
->>>> @@ -2916,6 +2916,84 @@ void drm_dp_vsc_sdp_log(const char *level, struct device *dev,
->>>>    }
->>>>    EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
->>>>
->>>> +/**
->>>> + * drm_dp_vsc_sdp_pack() - pack a given vsc sdp into generic dp_sdp
->>>> + * @vsc: vsc sdp initialized according to its purpose as defined in
->>>> + *       table 2-118 - table 2-120 in DP 1.4a specification
->>>> + * @sdp: valid handle to the generic dp_sdp which will be packed
->>>> + * @size: valid size of the passed sdp handle
->>>> + *
->>>> + * Returns length of sdp on success and error code on failure
->>>> + */
->>>> +ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
->>>> +                           struct dp_sdp *sdp, size_t size)
->>>
->>> I know that you are just moving the function. Maybe there can be
->>> patch#2, which drops the size argument? The struct dp_sdp already has
->>> a defined size. The i915 driver just passes sizeof(sdp), which is more
->>> or less useless.
->>>
->>
->> Yes this is a valid point, I also noticed this. I can post it on top of
->> this once we get an agreement and ack on this patch first.
->>
->>>> +{
->>>> +       size_t length = sizeof(struct dp_sdp);
->>>> +
->>>> +       if (size < length)
->>>> +               return -ENOSPC;
->>>> +
->>>> +       memset(sdp, 0, size);
->>>> +
->>>> +       /*
->>>> +        * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
->>>> +        * VSC SDP Header Bytes
->>>> +        */
->>>> +       sdp->sdp_header.HB0 = 0; /* Secondary-Data Packet ID = 0 */
->>>> +       sdp->sdp_header.HB1 = vsc->sdp_type; /* Secondary-data Packet Type */
->>>> +       sdp->sdp_header.HB2 = vsc->revision; /* Revision Number */
->>>> +       sdp->sdp_header.HB3 = vsc->length; /* Number of Valid Data Bytes */
->>>> +
->>>> +       if (vsc->revision == 0x6) {
->>>> +               sdp->db[0] = 1;
->>>> +               sdp->db[3] = 1;
->>>> +       }
->>>> +
->>>> +       /*
->>>> +        * Revision 0x5 and revision 0x7 supports Pixel Encoding/Colorimetry
->>>> +        * Format as per DP 1.4a spec and DP 2.0 respectively.
->>>> +        */
->>>> +       if (!(vsc->revision == 0x5 || vsc->revision == 0x7))
->>>> +               goto out;
->>>> +
->>>> +       /* VSC SDP Payload for DB16 through DB18 */
->>>> +       /* Pixel Encoding and Colorimetry Formats  */
->>>> +       sdp->db[16] = (vsc->pixelformat & 0xf) << 4; /* DB16[7:4] */
->>>> +       sdp->db[16] |= vsc->colorimetry & 0xf; /* DB16[3:0] */
->>>> +
->>>> +       switch (vsc->bpc) {
->>>> +       case 6:
->>>> +               /* 6bpc: 0x0 */
->>>> +               break;
->>>> +       case 8:
->>>> +               sdp->db[17] = 0x1; /* DB17[3:0] */
->>>> +               break;
->>>> +       case 10:
->>>> +               sdp->db[17] = 0x2;
->>>> +               break;
->>>> +       case 12:
->>>> +               sdp->db[17] = 0x3;
->>>> +               break;
->>>> +       case 16:
->>>> +               sdp->db[17] = 0x4;
->>>> +               break;
->>>> +       default:
->>>> +               WARN(1, "Missing case %d\n", vsc->bpc);
->>>> +               return -EINVAL;
->>>> +       }
->>>> +
->>>> +       /* Dynamic Range and Component Bit Depth */
->>>> +       if (vsc->dynamic_range == DP_DYNAMIC_RANGE_CTA)
->>>> +               sdp->db[17] |= 0x80;  /* DB17[7] */
->>>> +
->>>> +       /* Content Type */
->>>> +       sdp->db[18] = vsc->content_type & 0x7;
->>>> +
->>>> +out:
->>>> +       return length;
->>>> +}
->>>> +EXPORT_SYMBOL(drm_dp_vsc_sdp_pack);
->>>> +
->>>>    /**
->>>>     * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
->>>>     * @dpcd: DisplayPort configuration data
->>>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
->>>> index f5ef95da5534..e94db51aeeb7 100644
->>>> --- a/drivers/gpu/drm/i915/display/intel_dp.c
->>>> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
->>>> @@ -4110,73 +4110,6 @@ intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
->>>>           return false;
->>>>    }
->>>>
->>>> -static ssize_t intel_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
->>>> -                                    struct dp_sdp *sdp, size_t size)
->>>> -{
->>>> -       size_t length = sizeof(struct dp_sdp);
->>>> -
->>>> -       if (size < length)
->>>> -               return -ENOSPC;
->>>> -
->>>> -       memset(sdp, 0, size);
->>>> -
->>>> -       /*
->>>> -        * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
->>>> -        * VSC SDP Header Bytes
->>>> -        */
->>>> -       sdp->sdp_header.HB0 = 0; /* Secondary-Data Packet ID = 0 */
->>>> -       sdp->sdp_header.HB1 = vsc->sdp_type; /* Secondary-data Packet Type */
->>>> -       sdp->sdp_header.HB2 = vsc->revision; /* Revision Number */
->>>> -       sdp->sdp_header.HB3 = vsc->length; /* Number of Valid Data Bytes */
->>>> -
->>>> -       if (vsc->revision == 0x6) {
->>>> -               sdp->db[0] = 1;
->>>> -               sdp->db[3] = 1;
->>>> -       }
->>>> -
->>>> -       /*
->>>> -        * Revision 0x5 and revision 0x7 supports Pixel Encoding/Colorimetry
->>>> -        * Format as per DP 1.4a spec and DP 2.0 respectively.
->>>> -        */
->>>> -       if (!(vsc->revision == 0x5 || vsc->revision == 0x7))
->>>> -               goto out;
->>>> -
->>>> -       /* VSC SDP Payload for DB16 through DB18 */
->>>> -       /* Pixel Encoding and Colorimetry Formats  */
->>>> -       sdp->db[16] = (vsc->pixelformat & 0xf) << 4; /* DB16[7:4] */
->>>> -       sdp->db[16] |= vsc->colorimetry & 0xf; /* DB16[3:0] */
->>>> -
->>>> -       switch (vsc->bpc) {
->>>> -       case 6:
->>>> -               /* 6bpc: 0x0 */
->>>> -               break;
->>>> -       case 8:
->>>> -               sdp->db[17] = 0x1; /* DB17[3:0] */
->>>> -               break;
->>>> -       case 10:
->>>> -               sdp->db[17] = 0x2;
->>>> -               break;
->>>> -       case 12:
->>>> -               sdp->db[17] = 0x3;
->>>> -               break;
->>>> -       case 16:
->>>> -               sdp->db[17] = 0x4;
->>>> -               break;
->>>> -       default:
->>>> -               MISSING_CASE(vsc->bpc);
->>>> -               break;
->>>> -       }
->>>> -       /* Dynamic Range and Component Bit Depth */
->>>> -       if (vsc->dynamic_range == DP_DYNAMIC_RANGE_CTA)
->>>> -               sdp->db[17] |= 0x80;  /* DB17[7] */
->>>> -
->>>> -       /* Content Type */
->>>> -       sdp->db[18] = vsc->content_type & 0x7;
->>>> -
->>>> -out:
->>>> -       return length;
->>>> -}
->>>> -
->>>>    static ssize_t
->>>>    intel_dp_hdr_metadata_infoframe_sdp_pack(struct drm_i915_private *i915,
->>>>                                            const struct hdmi_drm_infoframe *drm_infoframe,
->>>> @@ -4269,8 +4202,8 @@ static void intel_write_dp_sdp(struct intel_encoder *encoder,
->>>>
->>>>           switch (type) {
->>>>           case DP_SDP_VSC:
->>>> -               len = intel_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
->>>> -                                           sizeof(sdp));
->>>> +               len = drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
->>>> +                                         sizeof(sdp));
->>>>                   break;
->>>>           case HDMI_PACKET_TYPE_GAMUT_METADATA:
->>>>                   len = intel_dp_hdr_metadata_infoframe_sdp_pack(dev_priv,
->>>> @@ -4297,7 +4230,7 @@ void intel_write_dp_vsc_sdp(struct intel_encoder *encoder,
->>>>           struct dp_sdp sdp = {};
->>>>           ssize_t len;
->>>>
->>>> -       len = intel_dp_vsc_sdp_pack(vsc, &sdp, sizeof(sdp));
->>>> +       len = drm_dp_vsc_sdp_pack(vsc, &sdp, sizeof(sdp));
->>>>
->>>>           if (drm_WARN_ON(&dev_priv->drm, len < 0))
->>>>                   return;
->>>> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
->>>> index 863b2e7add29..f8db34a2f7a5 100644
->>>> --- a/include/drm/display/drm_dp_helper.h
->>>> +++ b/include/drm/display/drm_dp_helper.h
->>>> @@ -813,4 +813,7 @@ int drm_dp_bw_overhead(int lane_count, int hactive,
->>>>                          int bpp_x16, unsigned long flags);
->>>>    int drm_dp_bw_channel_coding_efficiency(bool is_uhbr);
->>>>
->>>> +ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
->>>> +                           struct dp_sdp *sdp, size_t size);
->>>> +
->>>>    #endif /* _DRM_DP_HELPER_H_ */
->>>> --
->>>> 2.34.1
->>>>
->>>
->>>
-> 
+> +	hscale = drm_rect_calc_hscale(&src, &dst, min_scale, max_scale);
+> +	vscale = drm_rect_calc_vscale(&src, &dst, min_scale, max_scale);
+> +	if (hscale < 0 || vscale < 0) {
+> +		drm_dbg_kms(plane_state->plane->dev,
+> +			    "Invalid scaling of plane\n");
+> +		drm_rect_debug_print("src: ", &plane_state->src, true);
+> +		drm_rect_debug_print("dst: ", &plane_state->dst, false);
+> +		return -ERANGE;
+> +	}
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_atomic_helper_check_plane_scale);
+> +
+> +/**
+> + * drm_atomic_helper_check_plane_state() - Check plane state for validity
+> + * @plane_state: plane state to check
+> + * @crtc_state: CRTC state to check
+> + * @min_scale: minimum @src:@dest scaling factor in 16.16 fixed point
+> + * @max_scale: maximum @src:@dest scaling factor in 16.16 fixed point
+> + * @can_position: is it legal to position the plane such that it
+> + *                doesn't cover the entire CRTC?  This will generally
+> + *                only be false for primary planes.
+> + * @can_update_disabled: can the plane be updated while the CRTC
+> + *                       is disabled?
+> + *
+> + * Checks that a desired plane update is valid, and updates various
+> + * bits of derived state (clipped coordinates etc.). Drivers that provide
+> + * their own plane handling rather than helper-provided implementations may
+> + * still wish to call this function to avoid duplication of error checking
+> + * code.
+> + *
+> + * RETURNS:
+> + * Zero if update appears valid, error code on failure
+> + */
+> +int drm_atomic_helper_check_plane_state(struct drm_plane_state *plane_state,
+> +					const struct drm_crtc_state *crtc_state,
+> +					int min_scale,
+> +					int max_scale,
+> +					bool can_position,
+> +					bool can_update_disabled)
+> +{
+> +	int ret;
+> +
+> +	ret = drm_atomic_helper_check_plane_noscale(plane_state, crtc_state, can_position, can_update_disabled);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return drm_atomic_helper_check_plane_scale(plane_state, min_scale, max_scale);
+> +}
+>   EXPORT_SYMBOL(drm_atomic_helper_check_plane_state);
+>   
+>   /**
+> diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
+> index 536a0b0091c3..32ac55aea94e 100644
+> --- a/include/drm/drm_atomic_helper.h
+> +++ b/include/drm/drm_atomic_helper.h
+> @@ -52,6 +52,13 @@ int drm_atomic_helper_check_modeset(struct drm_device *dev,
+>   int
+>   drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder,
+>   					 struct drm_connector_state *conn_state);
+> +int drm_atomic_helper_check_plane_noscale(struct drm_plane_state *plane_state,
+> +					  const struct drm_crtc_state *crtc_state,
+> +					  bool can_position,
+> +					  bool can_update_disabled);
+> +int drm_atomic_helper_check_plane_scale(struct drm_plane_state *plane_state,
+> +					int min_scale,
+> +					int max_scale);
+>   int drm_atomic_helper_check_plane_state(struct drm_plane_state *plane_state,
+>   					const struct drm_crtc_state *crtc_state,
+>   					int min_scale,
