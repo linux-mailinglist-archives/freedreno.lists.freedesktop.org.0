@@ -2,81 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FBFA8552F5
-	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 20:10:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE345855311
+	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 20:17:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D76F10E196;
-	Wed, 14 Feb 2024 19:10:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B558210E337;
+	Wed, 14 Feb 2024 19:17:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bTZPDRYP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="b2fuhNJV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
- [209.85.219.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEE9410E194
- for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 19:10:36 +0000 (UTC)
-Received: by mail-yb1-f182.google.com with SMTP id
- 3f1490d57ef6-dbed0710c74so2242276.1
- for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 11:10:36 -0800 (PST)
+Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
+ [209.85.219.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5AAF10E887
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 19:17:18 +0000 (UTC)
+Received: by mail-yb1-f173.google.com with SMTP id
+ 3f1490d57ef6-dcc86086c9fso2209346276.3
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 11:17:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707937836; x=1708542636; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1707938238; x=1708543038; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Uq831+oypzfGO9lO95Fszd/4mrvaWFJLcRrSZ1YqWm8=;
- b=bTZPDRYPjYBqCNRhnf8d7we8w1ERzIk31tvOD2cuF8EuUYhXIMva/KmofOeo9hVgHX
- JKbfonA1wUNIYL1j1O8busQYoWcWTgAviOJgoO01iEnrAiwn8VW5ORVpnBdJ2H+Zl4Ue
- M1ceewVLJED2uQSz5L5u4bMtMdeCw0s6WKKgaYZW7lv2SxAca7jzSCSDzcdjgRVrgEgi
- yp+tl+rXwNsIeglcQy5bwgPDqaRksq33cSonRoluhqcbZmpl5Qoo359f1p8zS1UtCvE/
- zbYNCg+pLToXSROIcyxTkNk8VetUUJD+B9K36NrIo4DbRxOmFylss/mJfDCW7TXHAhHG
- sEaw==
+ bh=gDsAswXM/Fg8rNrNvE9IyqvJefpDY8QqPMNfM2SbGso=;
+ b=b2fuhNJVhvm7QkssIImV0frIfstcCgE5JXM2gL+sfCwwoJQtDQ4J8Pj0mS0A4FpjgC
+ YOv+0O8eStHoxb0Gmq7gRCURqKHO6d0zljFKqDcr+9T+EjdzpjxEq0WrpDNs5atVxtMM
+ 6NtPUYEaBRr2xTaF93dxvRfUVtPUGypcieQ3hikxBGI2NB9TZ4I0HLKOZp2PkMkBfakf
+ XS80I11eLbkMzUtGWWodvhMH/XnODgDsU/1LZIrJmqwLZd0mAXtxVoYLZVWl1Jdhfe76
+ ZzGmszwQGsJ+7MXfiZ6frtrvJgQDnUDiBIOUjJa4R6n9Q7j6ZAoda+T3oM1a5DsMKRvC
+ g6jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707937836; x=1708542636;
+ d=1e100.net; s=20230601; t=1707938238; x=1708543038;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Uq831+oypzfGO9lO95Fszd/4mrvaWFJLcRrSZ1YqWm8=;
- b=QzDgIyrZLuldVUURcHYz/STThLxuaOL5hPDVBQRQklwys1VES7+kJAN6qm/GNDY5AP
- OGL3EODD8E3F/A4jvUsajl/nqLzv1RWzuJZeY9mFY192jJQ+Bnjj6BAnFow+ShHSUsKG
- 42bJTm+f04dFy/0Zf2abn8FvgwproymA4zIa717Gd/YDlSluprDqYDZQRTnpcryNTco+
- zz5AOgKavM1SBsI5V50v8vQYvLo6qub7E0Vs5Z/FBhS13Rl5wUFzXU9ec8nW30g5aLUw
- 1TemeYpwrdMM7PD5PR3hFXyOj9MhZ/Z7xW5bGeLMTf95bgSdlEy071DQT3ADiuQd2cUw
- Zxbw==
+ bh=gDsAswXM/Fg8rNrNvE9IyqvJefpDY8QqPMNfM2SbGso=;
+ b=eBCBXCdHAVFnQWkok00NYgkLUxvtEIFm2X2g2Sy7Ppj5FmEr+XKgz6dakiq9zYjMol
+ 25y6N1YpocoXy0/YeGafRXEkQub/lO67Od7BdrPhRyCM1OLvcx76mUe3CkZnodAbRY56
+ RRxoU+V0KsyrWAQpkeNDsfH4nWvGa0r3pBQa8C1Hy57uU2d+YhMSpEsESbHLf/FtbvDa
+ qBS2RKjavhbHBbi1P5A9cm+E13D9drNipAkXbl1PPdQqWfXfDI9mEVzKrcuKZ7gJMxWk
+ mN7edRPTfru1Jw0VpqiSgRPeworCn7pso+ARF6s/hUaEm+qDQVI7A3MxWee9mnWAJDsK
+ 6nNw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWWIyrFys68nRylLpDH5ee9jrR8HsQ446ogF8zA9vB+cEbE08UiNKc0mkAq4honC87TZDv4/v4ohVxZoSQsab1rKm63YgZ9DdcgCCdFjWOV
-X-Gm-Message-State: AOJu0YwNWfnsssokWg5V9UikTCgXFny4n82Ds8HMgS13lld56UAszRgA
- KZwOrkJD2cY1ZJCuL1Ys8DZne/jT6S+zu0F7LLS8IpzrIUoEjt7itotkHLyqC7UQDz7vdOYAf1k
- WypuReR8i/z1Iha/qtP4CJJ/Gc5f7OJo7Z7EF/Q==
-X-Google-Smtp-Source: AGHT+IFmsVR2aJSFUOiWSYzFcUYy50TjKK+2YxD61ipvFBAbBI+bFm3GfY2tdB3QV5bM1o3Q0AKeikm65DKhHmKecag=
-X-Received: by 2002:a25:83cf:0:b0:dcd:5c7:8466 with SMTP id
- v15-20020a2583cf000000b00dcd05c78466mr3316434ybm.44.1707937835898; Wed, 14
- Feb 2024 11:10:35 -0800 (PST)
+ AJvYcCW7810J2Un6gY22XuknahUPYo28Adk2ucEEU3aMAVgZU76fkDIXZFalWCUyr9lke7IfTR3WbVW/cc4POTD6L/p9Be8AihT3o2tBhDZJbDL3
+X-Gm-Message-State: AOJu0YyVRFr1DvPdt3QUVRFpSsDqyI3yulqhpsRkH25QR0AH7iuXD3E+
+ y6c15S+9y+d88lZ7vzmFs+IIP+EoktqzlY8SkvYzqyFLnSvqx9SUC2YZycKeOXRuzcvshJuiuv7
+ KGxm3WTKhmUmptQ/cy9cqIO95wMQ6IiqgBeIAvG+gXhquLcLU
+X-Google-Smtp-Source: AGHT+IFpGF9vZuRtc3AROUP4xNXEOWTbmXO4DabWLZwpSvMWDXLOGtVO/xnAKG91VzrP0hw5IUJ7H045MpoTmgzeNx8=
+X-Received: by 2002:a5b:e90:0:b0:dc7:45df:a04c with SMTP id
+ z16-20020a5b0e90000000b00dc745dfa04cmr3357608ybr.43.1707938237167; Wed, 14
+ Feb 2024 11:17:17 -0800 (PST)
 MIME-Version: 1.0
-References: <20240213234513.2411604-1-quic_abhinavk@quicinc.com>
- <CAA8EJpo0yeLyCkVvLFX7wUEV4+i+ORbaCB2qxN0izaWLdFqCrA@mail.gmail.com>
- <eb8b3bac-5f97-8efd-721e-08e9544be3f8@quicinc.com>
- <Zc0AR6pdLzDjCrAB@intel.com>
- <fa63e9c1-3cec-41df-c643-33950346b76c@quicinc.com>
-In-Reply-To: <fa63e9c1-3cec-41df-c643-33950346b76c@quicinc.com>
+References: <20230914050706.1058620-1-dmitry.baryshkov@linaro.org>
+ <20230914050706.1058620-2-dmitry.baryshkov@linaro.org>
+ <Zc0ITrmhQ8CWMXMq@intel.com> <Zc0KsfrI57XL7Efk@intel.com>
+In-Reply-To: <Zc0KsfrI57XL7Efk@intel.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 14 Feb 2024 21:10:24 +0200
-Message-ID: <CAA8EJppqMZFG=wN3kdn75Mx6zYX58LDJHV6Vv3Zuk=bw-h3mRg@mail.gmail.com>
-Subject: Re: [PATCH] drm/dp: move intel_dp_vsc_sdp_pack() to generic helper
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- dri-devel@lists.freedesktop.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, robdclark@gmail.com, 
- freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- quic_jesszhan@quicinc.com, linux-kernel@vger.kernel.org, 
- intel-xe@lists.freedesktop.org
+Date: Wed, 14 Feb 2024 21:17:06 +0200
+Message-ID: <CAA8EJppv9xW1S6=eYr41Z0KG3AnsNs7+rLXWWCZ5TNetuqXuUw@mail.gmail.com>
+Subject: Re: [PATCH v3 01/12] drm/atomic-helper: split not-scaling part of
+ drm_atomic_helper_check_plane_state
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org, 
+ Stephen Boyd <swboyd@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -94,115 +86,268 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 14 Feb 2024 at 20:08, Abhinav Kumar <quic_abhinavk@quicinc.com> wro=
-te:
+On Wed, 14 Feb 2024 at 20:47, Ville Syrj=C3=A4l=C3=A4
+<ville.syrjala@linux.intel.com> wrote:
 >
->
->
-> On 2/14/2024 10:02 AM, Ville Syrj=C3=A4l=C3=A4 wrote:
-> > On Wed, Feb 14, 2024 at 09:17:34AM -0800, Abhinav Kumar wrote:
-> >>
-> >>
-> >> On 2/14/2024 12:15 AM, Dmitry Baryshkov wrote:
-> >>> On Wed, 14 Feb 2024 at 01:45, Abhinav Kumar <quic_abhinavk@quicinc.co=
-m> wrote:
-> >>>>
-> >>>> intel_dp_vsc_sdp_pack() can be re-used by other DRM drivers as well.
-> >>>> Lets move this to drm_dp_helper to achieve this.
-> >>>>
-> >>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >>>
-> >>> My preference would be to have packing functions in
-> >>> drivers/video/hdmi.c, as we already have
-> >>> hdmi_audio_infoframe_pack_for_dp() there.
-> >>>
-> >>
-> >> My preference is drm_dp_helper because it already has some VSC SDP stu=
-ff
-> >> and after discussion with Ville on IRC, I decided to post it this way.
-> >>
-> >> hdmi_audio_infoframe_pack_for_dp() is an exception from my PoV as the
-> >> hdmi audio infoframe fields were re-used and packed into a DP SDP
-> >> thereby re-using the existing struct hdmi_audio_infoframe .
-> >>
-> >> This is not like that. Here we pack from struct drm_dp_vsc_sdp to stru=
-ct
-> >> dp_sdp both of which had prior usages already in this file.
-> >>
-> >> So it all adds up and makes sense to me to be in this file.
-> >>
-> >> I will let the other DRM core maintainers comment on this.
-> >>
-> >> Ville, Jani?
+> On Wed, Feb 14, 2024 at 08:37:02PM +0200, Ville Syrj=C3=A4l=C3=A4 wrote:
+> > On Thu, Sep 14, 2023 at 08:06:55AM +0300, Dmitry Baryshkov wrote:
+> > > The helper drm_atomic_helper_check_plane_state() runs several checks =
+on
+> > > plane src and dst rectangles, including the check whether required
+> > > scaling fits into the required margins. The msm driver would benefit
+> > > from having a function that does all these checks except the scaling
+> > > one. Split them into a new helper called
+> > > drm_atomic_helper_check_plane_noscale().
 > >
-> > Yeah, I'm not sure bloating the (poorly named) hdmi.c with all
-> > SDP stuff is a great idea. Since other related stuff already
-> > lives in the drm_dp_helper.c that seems reasonable to me at this
-> > time. And if we get a decent amount of this then probably all
-> > DP SDP stuff should be extracted into its own file.
-> >
+> > What's the point in eliminating a nop scaling check?
 >
-> Yes, thanks.
->
-> > There are of course a few overlaps here andthere (the audio SDP
-> > I guess, and the CTA infoframe SDP). But I'm not sure that actually
-> > needs any SDP specific stuff in hdmi.c, or could we just let hdmi.c
-> > deal with the actual CTA-861 stuff and then have the DP SDP code
-> > wrap that up in its own thing externally? Dunno, haven't really
-> > looked at the details.
-> >
->
-> Thats a good way to look at it. this packing is from DP spec and not CTA
-> so makes more sense to be in this file.
->
-> In that case, R-b?
->
-> >>
-> >>>> ---
-> >>>>    drivers/gpu/drm/display/drm_dp_helper.c | 78 ++++++++++++++++++++=
-+++++
-> >>>>    drivers/gpu/drm/i915/display/intel_dp.c | 73 +-------------------=
----
-> >>>>    include/drm/display/drm_dp_helper.h     |  3 +
-> >>>>    3 files changed, 84 insertions(+), 70 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/d=
-rm/display/drm_dp_helper.c
-> >>>> index b1ca3a1100da..066cfbbf7a91 100644
-> >>>> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> >>>> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> >>>> @@ -2916,6 +2916,84 @@ void drm_dp_vsc_sdp_log(const char *level, st=
-ruct device *dev,
-> >>>>    }
-> >>>>    EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
-> >>>>
-> >>>> +/**
-> >>>> + * drm_dp_vsc_sdp_pack() - pack a given vsc sdp into generic dp_sdp
-> >>>> + * @vsc: vsc sdp initialized according to its purpose as defined in
-> >>>> + *       table 2-118 - table 2-120 in DP 1.4a specification
-> >>>> + * @sdp: valid handle to the generic dp_sdp which will be packed
-> >>>> + * @size: valid size of the passed sdp handle
-> >>>> + *
-> >>>> + * Returns length of sdp on success and error code on failure
-> >>>> + */
-> >>>> +ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
-> >>>> +                           struct dp_sdp *sdp, size_t size)
-> >>>
-> >>> I know that you are just moving the function. Maybe there can be
-> >>> patch#2, which drops the size argument? The struct dp_sdp already has
-> >>> a defined size. The i915 driver just passes sizeof(sdp), which is mor=
-e
-> >>> or less useless.
-> >>>
-> >>
-> >> Yes this is a valid point, I also noticed this. I can post it on top o=
-f
-> >> this once we get an agreement and ack on this patch first.
-> >>
+> Actually, what are you even doing in there? Are you saying that
+> the hardware has absolutely no limits on how much it can scale
+> in either direction?
 
-From my side, with the promise of the size fixup.
+No, I'm just saying that the scaling ability depends on the rotation
+and other plane properties. So I had to separate the basic plane
+checks and the scaling check.
+Basic (noscale) plane check source and destination rectangles, etc.
+After that the driver identifies possible hardware pipe usage and
+after that it can perform a scaling check.
 
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+> >
+> > >
+> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > ---
+> > >  drivers/gpu/drm/drm_atomic_helper.c | 110 ++++++++++++++++++++++----=
+--
+> > >  include/drm/drm_atomic_helper.h     |   7 ++
+> > >  2 files changed, 96 insertions(+), 21 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/dr=
+m_atomic_helper.c
+> > > index 292e38eb6218..2d7dd66181c9 100644
+> > > --- a/drivers/gpu/drm/drm_atomic_helper.c
+> > > +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> > > @@ -825,11 +825,9 @@ drm_atomic_helper_check_wb_encoder_state(struct =
+drm_encoder *encoder,
+> > >  EXPORT_SYMBOL(drm_atomic_helper_check_wb_encoder_state);
+> > >
+> > >  /**
+> > > - * drm_atomic_helper_check_plane_state() - Check plane state for val=
+idity
+> > > + * drm_atomic_helper_check_plane_noscale() - Check plane state for v=
+alidity
+> > >   * @plane_state: plane state to check
+> > >   * @crtc_state: CRTC state to check
+> > > - * @min_scale: minimum @src:@dest scaling factor in 16.16 fixed poin=
+t
+> > > - * @max_scale: maximum @src:@dest scaling factor in 16.16 fixed poin=
+t
+> > >   * @can_position: is it legal to position the plane such that it
+> > >   *                doesn't cover the entire CRTC?  This will generall=
+y
+> > >   *                only be false for primary planes.
+> > > @@ -845,19 +843,16 @@ EXPORT_SYMBOL(drm_atomic_helper_check_wb_encode=
+r_state);
+> > >   * RETURNS:
+> > >   * Zero if update appears valid, error code on failure
+> > >   */
+> > > -int drm_atomic_helper_check_plane_state(struct drm_plane_state *plan=
+e_state,
+> > > -                                   const struct drm_crtc_state *crtc=
+_state,
+> > > -                                   int min_scale,
+> > > -                                   int max_scale,
+> > > -                                   bool can_position,
+> > > -                                   bool can_update_disabled)
+> > > +int drm_atomic_helper_check_plane_noscale(struct drm_plane_state *pl=
+ane_state,
+> > > +                                     const struct drm_crtc_state *cr=
+tc_state,
+> > > +                                     bool can_position,
+> > > +                                     bool can_update_disabled)
+> > >  {
+> > >     struct drm_framebuffer *fb =3D plane_state->fb;
+> > >     struct drm_rect *src =3D &plane_state->src;
+> > >     struct drm_rect *dst =3D &plane_state->dst;
+> > >     unsigned int rotation =3D plane_state->rotation;
+> > >     struct drm_rect clip =3D {};
+> > > -   int hscale, vscale;
+> > >
+> > >     WARN_ON(plane_state->crtc && plane_state->crtc !=3D crtc_state->c=
+rtc);
+> > >
+> > > @@ -883,17 +878,6 @@ int drm_atomic_helper_check_plane_state(struct d=
+rm_plane_state *plane_state,
+> > >
+> > >     drm_rect_rotate(src, fb->width << 16, fb->height << 16, rotation)=
+;
+> > >
+> > > -   /* Check scaling */
+> > > -   hscale =3D drm_rect_calc_hscale(src, dst, min_scale, max_scale);
+> > > -   vscale =3D drm_rect_calc_vscale(src, dst, min_scale, max_scale);
+> > > -   if (hscale < 0 || vscale < 0) {
+> > > -           drm_dbg_kms(plane_state->plane->dev,
+> > > -                       "Invalid scaling of plane\n");
+> > > -           drm_rect_debug_print("src: ", &plane_state->src, true);
+> > > -           drm_rect_debug_print("dst: ", &plane_state->dst, false);
+> > > -           return -ERANGE;
+> > > -   }
+> > > -
+> > >     if (crtc_state->enable)
+> > >             drm_mode_get_hv_timing(&crtc_state->mode, &clip.x2, &clip=
+.y2);
+> > >
+> > > @@ -921,6 +905,90 @@ int drm_atomic_helper_check_plane_state(struct d=
+rm_plane_state *plane_state,
+> > >
+> > >     return 0;
+> > >  }
+> > > +EXPORT_SYMBOL(drm_atomic_helper_check_plane_noscale);
+> > > +
+> > > +/**
+> > > + * drm_atomic_helper_check_plane_scale() - Check whether plane can b=
+e scaled
+> > > + * @plane_state: plane state to check
+> > > + * @min_scale: minimum @src:@dest scaling factor in 16.16 fixed poin=
+t
+> > > + * @max_scale: maximum @src:@dest scaling factor in 16.16 fixed poin=
+t
+> > > + *
+> > > + * Checks that a desired plane scale fits into the min_scale..max_sc=
+ale
+> > > + * boundaries.
+> > > + * Drivers that provide their own plane handling rather than helper-=
+provided
+> > > + * implementations may still wish to call this function to avoid dup=
+lication of
+> > > + * error checking code.
+> > > + *
+> > > + * RETURNS:
+> > > + * Zero if update appears valid, error code on failure
+> > > + */
+> > > +int drm_atomic_helper_check_plane_scale(struct drm_plane_state *plan=
+e_state,
+> > > +                                   int min_scale,
+> > > +                                   int max_scale)
+> > > +{
+> > > +   struct drm_framebuffer *fb =3D plane_state->fb;
+> > > +   struct drm_rect src;
+> > > +   struct drm_rect dst;
+> > > +   int hscale, vscale;
+> > > +
+> > > +   if (!plane_state->visible)
+> > > +           return 0;
+> > > +
+> > > +   src =3D drm_plane_state_src(plane_state);
+> > > +   dst =3D drm_plane_state_dest(plane_state);
+> > > +
+> > > +   drm_rect_rotate(&src, fb->width << 16, fb->height << 16, plane_st=
+ate->rotation);
+> > > +
+> > > +   hscale =3D drm_rect_calc_hscale(&src, &dst, min_scale, max_scale)=
+;
+> > > +   vscale =3D drm_rect_calc_vscale(&src, &dst, min_scale, max_scale)=
+;
+> > > +   if (hscale < 0 || vscale < 0) {
+> > > +           drm_dbg_kms(plane_state->plane->dev,
+> > > +                       "Invalid scaling of plane\n");
+> > > +           drm_rect_debug_print("src: ", &plane_state->src, true);
+> > > +           drm_rect_debug_print("dst: ", &plane_state->dst, false);
+> > > +           return -ERANGE;
+> > > +   }
+> > > +
+> > > +   return 0;
+> > > +}
+> > > +EXPORT_SYMBOL(drm_atomic_helper_check_plane_scale);
+> > > +
+> > > +/**
+> > > + * drm_atomic_helper_check_plane_state() - Check plane state for val=
+idity
+> > > + * @plane_state: plane state to check
+> > > + * @crtc_state: CRTC state to check
+> > > + * @min_scale: minimum @src:@dest scaling factor in 16.16 fixed poin=
+t
+> > > + * @max_scale: maximum @src:@dest scaling factor in 16.16 fixed poin=
+t
+> > > + * @can_position: is it legal to position the plane such that it
+> > > + *                doesn't cover the entire CRTC?  This will generall=
+y
+> > > + *                only be false for primary planes.
+> > > + * @can_update_disabled: can the plane be updated while the CRTC
+> > > + *                       is disabled?
+> > > + *
+> > > + * Checks that a desired plane update is valid, and updates various
+> > > + * bits of derived state (clipped coordinates etc.). Drivers that pr=
+ovide
+> > > + * their own plane handling rather than helper-provided implementati=
+ons may
+> > > + * still wish to call this function to avoid duplication of error ch=
+ecking
+> > > + * code.
+> > > + *
+> > > + * RETURNS:
+> > > + * Zero if update appears valid, error code on failure
+> > > + */
+> > > +int drm_atomic_helper_check_plane_state(struct drm_plane_state *plan=
+e_state,
+> > > +                                   const struct drm_crtc_state *crtc=
+_state,
+> > > +                                   int min_scale,
+> > > +                                   int max_scale,
+> > > +                                   bool can_position,
+> > > +                                   bool can_update_disabled)
+> > > +{
+> > > +   int ret;
+> > > +
+> > > +   ret =3D drm_atomic_helper_check_plane_noscale(plane_state, crtc_s=
+tate, can_position, can_update_disabled);
+> > > +   if (ret < 0)
+> > > +           return ret;
+> > > +
+> > > +   return drm_atomic_helper_check_plane_scale(plane_state, min_scale=
+, max_scale);
+> > > +}
+> > >  EXPORT_SYMBOL(drm_atomic_helper_check_plane_state);
+> > >
+> > >  /**
+> > > diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic=
+_helper.h
+> > > index 536a0b0091c3..32ac55aea94e 100644
+> > > --- a/include/drm/drm_atomic_helper.h
+> > > +++ b/include/drm/drm_atomic_helper.h
+> > > @@ -52,6 +52,13 @@ int drm_atomic_helper_check_modeset(struct drm_dev=
+ice *dev,
+> > >  int
+> > >  drm_atomic_helper_check_wb_encoder_state(struct drm_encoder *encoder=
+,
+> > >                                      struct drm_connector_state *conn=
+_state);
+> > > +int drm_atomic_helper_check_plane_noscale(struct drm_plane_state *pl=
+ane_state,
+> > > +                                     const struct drm_crtc_state *cr=
+tc_state,
+> > > +                                     bool can_position,
+> > > +                                     bool can_update_disabled);
+> > > +int drm_atomic_helper_check_plane_scale(struct drm_plane_state *plan=
+e_state,
+> > > +                                   int min_scale,
+> > > +                                   int max_scale);
+> > >  int drm_atomic_helper_check_plane_state(struct drm_plane_state *plan=
+e_state,
+> > >                                     const struct drm_crtc_state *crtc=
+_state,
+> > >                                     int min_scale,
+> > > --
+> > > 2.39.2
+> >
+> > --
+> > Ville Syrj=C3=A4l=C3=A4
+> > Intel
+>
+> --
+> Ville Syrj=C3=A4l=C3=A4
+> Intel
+
 
 
 --=20
