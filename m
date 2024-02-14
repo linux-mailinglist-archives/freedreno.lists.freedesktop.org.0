@@ -2,50 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 988EE854A94
-	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 14:36:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4589854A86
+	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 14:31:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6348310E268;
-	Wed, 14 Feb 2024 13:36:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1DD410E0C7;
+	Wed, 14 Feb 2024 13:31:06 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="fwcGPp+r";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 1064 seconds by postgrey-1.36 at gabe;
- Wed, 14 Feb 2024 13:36:41 UTC
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B541E10E268
- for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 13:36:40 +0000 (UTC)
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1raFA0-0008JP-Ud; Wed, 14 Feb 2024 14:18:49 +0100
-Message-ID: <4737bc92-e4e5-4266-a249-d122f15e7ab9@leemhuis.info>
-Date: Wed, 14 Feb 2024 14:18:48 +0100
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2530110E0C7;
+ Wed, 14 Feb 2024 13:31:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1707917462;
+ bh=fU/LrTKEOEr5qvUuOXDDcynEiayORw54tUhot/f1gRA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=fwcGPp+rtBiSfVOn3UpxTB+PoBw3/Vlj0xLtM0e3+noBcIw6s8e42LOe6v/QdZzyy
+ JDVdgdDBK01sheQTF4e2Eian70HHDtLKgc8mpFGVvDNDvZWNxZ4Tn7H/wUz9w571Zn
+ oo+Bv0Z3aJM1K5ocKcyiJ/p+IskkWPTyxPnM8LXOQIKs+ZsHJ6BRM2LjoYqZXOkANL
+ c/ZGxSIYuGhQMGCGvihDvmsqFLDHcqisxGKpVcJEDj6NvNCPNj3G6sNbjRcQ60MxCH
+ DoJUzJsBQTZQ8SrNvTsV1od1nzElIKUWyjyHrAJwbiIjaLDQuzI5fajIhLD5yRj5iA
+ fFr9wL7n7Kulw==
+Received: from [100.95.196.25] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: koike)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 7DC0E378203F;
+ Wed, 14 Feb 2024 13:30:58 +0000 (UTC)
+Message-ID: <c1078d13-5375-4c3f-93b7-40a1ea22f0dc@collabora.com>
+Date: Wed, 14 Feb 2024 10:30:51 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: drm/msm: DisplayPort regressions in 6.8-rc1
-Content-Language: en-US, de-DE
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Johan Hovold
- <johan@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Bjorn Andersson <quic_bjorande@quicinc.com>, quic_jesszhan@quicinc.com,
- quic_sbillaka@quicinc.com, dri-devel@lists.freedesktop.org,
+Subject: Re: [PATCH v2] drm: ci: use clk_ignore_unused for apq8016
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- regressions@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <ZctVmLK4zTwcpW3A@hovoldconsulting.com>
- <343710b1-f0f4-5c05-70e6-3c221cdc9580@quicinc.com>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-In-Reply-To: <343710b1-f0f4-5c05-70e6-3c221cdc9580@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1707917801;
- 1376b419; 
-X-HE-SMSGID: 1raFA0-0008JP-Ud
+ Javier Martinez Canillas <javierm@redhat.com>
+References: <20240214083708.2323967-1-dmitry.baryshkov@linaro.org>
+Content-Language: en-US
+From: Helen Koike <helen.koike@collabora.com>
+In-Reply-To: <20240214083708.2323967-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,102 +63,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13.02.24 19:00, Abhinav Kumar wrote:
-> 
-> Thanks for the report.
-> 
-> I do agree that pm runtime eDP driver got merged that time but I think
-> the issue is either a combination of that along with DRM aux bridge
-> https://patchwork.freedesktop.org/series/122584/ OR just the latter as
-> even that went in around the same time.
 
-In that case allow me a stupid question from the cheap seats:
 
-Is there anything affected users can do to help getting us closer to the
-real problem? Like testing a specific commit or two before or after the
-merge of one of those features for example? That might help to rule out
-a few things.
+On 14/02/2024 05:37, Dmitry Baryshkov wrote:
+> If the ADV7511 bridge driver is compiled as a module, while DRM_MSM is
+> built-in, the clk_disable_unused congests with the runtime PM handling
+> of the DSI PHY for the clk_prepare_lock(). This causes apq8016 runner to
+> fail without completing any jobs ([1]). Drop the BM_CMDLINE which
+> duplicate the command line from the .baremetal-igt-arm64 clause and
+> enforce the clk_ignore_unused kernelarg instead to make apq8016 runner
+> work.
+> 
+> [1] https://gitlab.freedesktop.org/drm/msm/-/jobs/54990475
+> 
+> Fixes: 0119c894ab0d ("drm: Add initial ci/ subdirectory")
+> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Ciao, Thorsten
+Acked-by: Helen Koike <helen.koike@collabora.com>
 
-> Thats why perhaps this issue was not seen with the chromebooks we tested
-> on as they do not use pmic_glink (aux bridge).
+Thanks
+Helen
+
+> ---
 > 
-> So we will need to debug this on sc8280xp specifically or an equivalent
-> device which uses aux bridge.
+> Changes in v2:
+> - Added a comment, describing the issue and a way to reproduce it
+>    (Javier)
 > 
-> On 2/13/2024 3:42 AM, Johan Hovold wrote:
->> Hi,
->>
->> Since 6.8-rc1 the internal eDP display on the Lenovo ThinkPad X13s does
->> not always show up on boot.
->>
->> The logs indicate problems with the runtime PM and eDP rework that went
->> into 6.8-rc1:
->>
->>     [    6.006236] Console: switching to colour dummy device 80x25
->>     [    6.007542] [drm:dpu_kms_hw_init:1048] dpu hardware
->> revision:0x80000000
->>     [    6.007872] [drm:drm_bridge_attach [drm]] *ERROR* failed to
->> attach bridge /soc@0/phy@88eb000 to encoder TMDS-31: -16
->>     [    6.007934] [drm:dp_bridge_init [msm]] *ERROR* failed to attach
->> panel bridge: -16
->>     [    6.007983] msm_dpu ae01000.display-controller:
->> [drm:msm_dp_modeset_init [msm]] *ERROR* failed to create dp bridge: -16
->>     [    6.008030] [drm:_dpu_kms_initialize_displayport:588] [dpu
->> error]modeset_init failed for DP, rc = -16
->>     [    6.008050] [drm:_dpu_kms_setup_displays:681] [dpu
->> error]initialize_DP failed, rc = -16
->>     [    6.008068] [drm:dpu_kms_hw_init:1153] [dpu error]modeset init
->> failed: -16
->>     [    6.008388] msm_dpu ae01000.display-controller:
->> [drm:msm_drm_kms_init [msm]] *ERROR* kms hw init failed: -16
->>     
->> and this can also manifest itself as a NULL-pointer dereference:
->>
->>     [    7.339447] Unable to handle kernel NULL pointer dereference at
->> virtual address 0000000000000000
->>     
->>     [    7.643705] pc : drm_bridge_attach+0x70/0x1a8 [drm]
->>     [    7.686415] lr : drm_aux_bridge_attach+0x24/0x38 [aux_bridge]
->>     
->>     [    7.769039] Call trace:
->>     [    7.771564]  drm_bridge_attach+0x70/0x1a8 [drm]
->>     [    7.776234]  drm_aux_bridge_attach+0x24/0x38 [aux_bridge]
->>     [    7.781782]  drm_bridge_attach+0x80/0x1a8 [drm]
->>     [    7.786454]  dp_bridge_init+0xa8/0x15c [msm]
->>     [    7.790856]  msm_dp_modeset_init+0x28/0xc4 [msm]
->>     [    7.795617]  _dpu_kms_drm_obj_init+0x19c/0x680 [msm]
->>     [    7.800731]  dpu_kms_hw_init+0x348/0x4c4 [msm]
->>     [    7.805306]  msm_drm_kms_init+0x84/0x324 [msm]
->>     [    7.809891]  msm_drm_bind+0x1d8/0x3a8 [msm]
->>     [    7.814196]  try_to_bring_up_aggregate_device+0x1f0/0x2f8
->>     [    7.819747]  __component_add+0xa4/0x18c
->>     [    7.823703]  component_add+0x14/0x20
->>     [    7.827389]  dp_display_probe+0x47c/0x568 [msm]
->>     [    7.832052]  platform_probe+0x68/0xd8
->>
->> Users have also reported random crashes at boot since 6.8-rc1, and I've
->> been able to trigger hard crashes twice when testing an external display
->> (USB-C/DP), which may also be related to the DP regressions.
->>
->> I've opened an issue here:
->>
->>     https://gitlab.freedesktop.org/drm/msm/-/issues/51
->>
->> but I also want Thorsten's help to track this so that it gets fixed
->> before 6.8 is released.
->>
->> #regzbot introduced: v6.7..v6.8-rc1
->>
->> The following series is likely the culprit:
->>
->>     https://lore.kernel.org/all/1701472789-25951-1-git-send-email-quic_khsieh@quicinc.com/
->>
->> Johan
+> ---
+>   drivers/gpu/drm/ci/test.yml | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> 
+> diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
+> index 7ffb620d7398..e64205286a27 100644
+> --- a/drivers/gpu/drm/ci/test.yml
+> +++ b/drivers/gpu/drm/ci/test.yml
+> @@ -119,7 +119,10 @@ msm:apq8016:
+>       DRIVER_NAME: msm
+>       BM_DTB: https://${PIPELINE_ARTIFACTS_BASE}/arm64/apq8016-sbc-usb-host.dtb
+>       GPU_VERSION: apq8016
+> -    BM_CMDLINE: "ip=dhcp console=ttyMSM0,115200n8 $BM_KERNEL_EXTRA_ARGS root=/dev/nfs rw nfsrootdebug nfsroot=,tcp,nfsvers=4.2 init=/init $BM_KERNELARGS"
+> +    # disabling unused clocks congests with the MDSS runtime PM trying to
+> +    # disable those clocks and causes boot to fail.
+> +    # Reproducer: DRM_MSM=y, DRM_I2C_ADV7511=m
+> +    BM_KERNEL_EXTRA_ARGS: clk_ignore_unused
+>       RUNNER_TAG: google-freedreno-db410c
+>     script:
+>       - ./install/bare-metal/fastboot.sh
