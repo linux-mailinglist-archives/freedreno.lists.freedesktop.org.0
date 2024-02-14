@@ -2,87 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41E3C854234
-	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 05:59:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AB0D8543E3
+	for <lists+freedreno@lfdr.de>; Wed, 14 Feb 2024 09:15:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12F7E10E334;
-	Wed, 14 Feb 2024 04:59:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B428F10E4FF;
+	Wed, 14 Feb 2024 08:15:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="VAAgy3v+";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xZ3uOlr8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A15D10E334
- for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 04:59:30 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41E4lLWY016894; Wed, 14 Feb 2024 04:59:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=J5dw5NdwV5Wy8v/c5P6wBJjzKMEYcDWvV01sDtAgRUY=; b=VA
- Agy3v+Kb51xaStEdrJWwC/NAEDFG6+VQ2EHb4mjX75xKOV8KxlN0hcAYA9WBUIwj
- vGMa79XzAmNWelkDQ+X53QVRwcb11Cryn84R9keVr0Jty2J77gx+oBr/NywLRDoj
- y2B3pwZ7v0zMbn/Pq4b12pXW+gIG3JACRHTGgI7k36l5LrtBiJ79pj0vb5loS2yP
- MU2TfJhjeD4Hy9O02X747IaDnnGG3amO8VHkbXj5ePBxUsAgKld+tevAbU/8Nbx4
- RY0B++0QveHQbzeeHjMdTwpXazjfmtiEpD7AIiblzgTKCniNhstu22O2TNgnWnDv
- Bhb5fiD44X7zwiMrdffA==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w8448t7tp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Feb 2024 04:59:15 +0000 (GMT)
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.45.79.139])
- by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41E4xE5k026181
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Feb 2024 04:59:14 GMT
-Received: from [10.214.25.202] (10.80.80.8) by nasanex01c.na.qualcomm.com
- (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 13 Feb
- 2024 20:59:09 -0800
-Message-ID: <8a2a4ae4-26d3-40f2-b87b-336093a1ec8f@quicinc.com>
-Date: Wed, 14 Feb 2024 10:29:06 +0530
+Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
+ [209.85.219.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D9E710E511
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 08:15:39 +0000 (UTC)
+Received: by mail-yb1-f170.google.com with SMTP id
+ 3f1490d57ef6-dc74435c428so5044405276.2
+ for <freedreno@lists.freedesktop.org>; Wed, 14 Feb 2024 00:15:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1707898538; x=1708503338; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=EKXGtE0o7nACfq6pe512roREe48CDHHUhw9NIs9DgqY=;
+ b=xZ3uOlr8GM+Qp7uGyglB+XlL4GsUz3k0hefFBVNf/Si73TG8c8MU48EWuNTOUKIl9T
+ L44HsKktvM+1/Q3T2lJgL5f0BQx+xT1ukUyXMKDILZbNfGmqiXdOrW+NTJZetfrcV5j7
+ P64Rz/Zl8njNpt+vOXJjAQiQgjB/dDukSZdJs2BKeN4J05WutknzjDDYOoylTRhb9qAW
+ UlIEK9tuKaBQrt8fo5tKxdUnP6Anrm/XVvOGiXx7EuqchIrKk1Zr756H7H2Sz4/Yl34t
+ XgwSYam0kVKuqnDqs4n1KZmanQsup/iifAoPRpeQNx+DckQ4XHtfYBDaxpsTWvOP8wBN
+ WY+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707898538; x=1708503338;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=EKXGtE0o7nACfq6pe512roREe48CDHHUhw9NIs9DgqY=;
+ b=aw3l9mewTiNe1tdqtXb7SAMRfKKHsjFeF+SnIw0F5ufkYnEcMUa/UrA3cAHaQUFaNh
+ 1mP05xlFeuiQKXYfuyKdvolarhlQxvONrddT4kVvNZUGy3k+W4b8t7B97187tod01FCG
+ bUbuaVp+aPATERrOPAip9BLVAzqpdQABve6zOYPC/RnNQuZvTI7evszuttGRYSLwuH0M
+ glz65/qj00BeeEoMERiILYre/cOs2ZYKsBInjvdHJ2JjdGcayNohk5xpCqIKrSsa1AUp
+ zaIHmO7bqNLi8iKFxVK5FWp8ui70ZPzg/H+j8I71aFfNseRYq0cpOPRWQa0jYtcofcBu
+ Nc/w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWt64TfaC/ZISDoXPjpBTcZUHJXF9rHw4e6P/uCyqRcT28ml6WveDWPfmTjhZltXjlxwGZ6P45+bzbW+DFGFrS/1dbso6t5tQ2Pj80BIs0S
+X-Gm-Message-State: AOJu0YyoSPDoznnV7WRKuI2I9KN39Fp1gJjCnR09ABdPU3vPa2WpNq+O
+ IjQqaTSaI3lE3GH6UQI9LWl6YMu335E0eGB+SGC9kfhddU6bKrOSeoMpBmjzEeDFDrNrutmXOgC
+ tWZm3wHDvt7bdXHMzhujO3xnxR6epUlzezZwzsA==
+X-Google-Smtp-Source: AGHT+IFI6XgUc51w44SGa4dFJZmddk/Aj01+ufuewKBsrzYVS9b+Kup4A4AKPQTJHjDr+FyB9b7AIUFcQMO+GV9FPR8=
+X-Received: by 2002:a5b:dc6:0:b0:dcd:36c1:ecb7 with SMTP id
+ t6-20020a5b0dc6000000b00dcd36c1ecb7mr1383363ybr.54.1707898537795; Wed, 14 Feb
+ 2024 00:15:37 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 08/10] iommu/arm-smmu-qcom: Merge table from
- arm-smmu-qcom-debug into match data
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: <andersson@kernel.org>, <devicetree@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <iommu@lists.linux.dev>,
- <konrad.dybcio@somainline.org>, <krzysztof.kozlowski+dt@linaro.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-arm-msm@vger.kernel.org>, <quic_saipraka@quicinc.com>,
- <robdclark@gmail.com>, <robh+dt@kernel.org>, <robin.murphy@arm.com>,
- <vkoul@kernel.org>, <will@kernel.org>, <joro@8bytes.org>,
- <quic_guptap@quicinc.com>, Pavan Kondeti <quic_pkondeti@quicinc.com>
-References: <20221114170635.1406534-9-dmitry.baryshkov@linaro.org>
- <a61a3561-0dde-472b-b8a5-451703f6d8ee@quicinc.com>
- <CAA8EJpoJUZDUxpA1+LJTEVRaMQJrpZ7iU9_dZ3uQvzPKE_UUfg@mail.gmail.com>
-From: Pratyush Brahma <quic_pbrahma@quicinc.com>
-In-Reply-To: <CAA8EJpoJUZDUxpA1+LJTEVRaMQJrpZ7iU9_dZ3uQvzPKE_UUfg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01c.na.qualcomm.com (10.45.79.139)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: cMw8gIWXHn67I5PMbVm_WYWQlK0UxZUH
-X-Proofpoint-GUID: cMw8gIWXHn67I5PMbVm_WYWQlK0UxZUH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-13_16,2024-02-12_03,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 mlxlogscore=999
- phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
- spamscore=0 suspectscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2401310000
- definitions=main-2402140036
+References: <20240213234513.2411604-1-quic_abhinavk@quicinc.com>
+In-Reply-To: <20240213234513.2411604-1-quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 14 Feb 2024 10:15:27 +0200
+Message-ID: <CAA8EJpo0yeLyCkVvLFX7wUEV4+i+ORbaCB2qxN0izaWLdFqCrA@mail.gmail.com>
+Subject: Re: [PATCH] drm/dp: move intel_dp_vsc_sdp_pack() to generic helper
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: dri-devel@lists.freedesktop.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, robdclark@gmail.com, 
+ freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ ville.syrjala@linux.intel.com, quic_jesszhan@quicinc.com, 
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,92 +87,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Wed, 14 Feb 2024 at 01:45, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+> intel_dp_vsc_sdp_pack() can be re-used by other DRM drivers as well.
+> Lets move this to drm_dp_helper to achieve this.
+>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-On 2/13/2024 4:40 PM, Dmitry Baryshkov wrote:
-> On Tue, 13 Feb 2024 at 12:29, Pratyush Brahma <quic_pbrahma@quicinc.com> wrote:
->> Hi
->>
->> Patch [1] introduces a use after free bug in the function
->> "qcom_smmu_create()" in file: drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
->> wherein devm_krealloc() frees the old pointer marked by "smmu" but it is
->> still being accessed later in qcom_smmu_impl_data() in the same function
->> as:
->>
->> qsmmu->cfg = qcom_smmu_impl_data(smmu);
->>
->> The current patchset [2] implicitly fixes this issue as it doesn't
->> access the freed ptr in the line:
->>
->> qsmmu->cfg = data->cfg;
->>
->> Hence, can this patchset[2] be propagated to branches where patchset[1]
->> has been propagated already? The bug is currently present in all branches
->> that have patchset[1] but do not have patchset[2].
-Can you please comment on your thoughts on this as well?
->>
->> RFC:
->>
->> This bug would be reintroduced if patchset [3] is accepted. This makes
->> the path prone to such errors as it relies on the
->> developer's understanding on the internal implementation of devm_krealloc().
-> realloc is a basic function. Not understanding it is a significant
-> problem for the developer.
->
->> Hence, a better fix IMO, would be to remove the confusion around the
->> freed "smmu" ptr in the following way:
-> Could you please post a proper patch, which can be reviewed and
-> accepted or declined?
-Sure, will do.
->
->> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
->> b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
->> index 549ae4dba3a6..6dd142ce75d1 100644
->> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
->> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
->> @@ -463,11 +463,12 @@ static struct arm_smmu_device
->> *qcom_smmu_create(struct arm_smmu_device *smmu,
->>           qsmmu = devm_krealloc(smmu->dev, smmu, sizeof(*qsmmu), GFP_KERNEL);
->>           if (!qsmmu)
->>                   return ERR_PTR(-ENOMEM);
->> +       smmu = &qsmmu->smmu;
->>
->>           qsmmu->smmu.impl = impl;
->>           qsmmu->cfg = data->cfg;
->>
->> -       return &qsmmu->smmu;
->> +       return smmu;
->>    }
->>
->> This is similar to the patch[4] which I've sent in-reply-to patch[3].
->> Will send a formal patch if you think this approach is better.
->>
->> Please let me know your thoughts.
-> None of the other implementations does this. If you are going to fix
-> qcom implementation, please fix all implementations.
-Ohh okay. Wasn't aware that this may be an issue in other 
-implementations as well.
-Will check and raise a formal patch.
->   However a better
-> option might be to change arm-smmu to remove devm_krealloc() usage at
-> all.
->
-Can you please elaborate on your thoughts on how removing devm_krealloc()
-usage would be better? Is it because this implementation is error prone 
-or do you
-think this isn't required at all?
+My preference would be to have packing functions in
+drivers/video/hdmi.c, as we already have
+hdmi_audio_infoframe_pack_for_dp() there.
 
-
-I agree on your previous comment that realloc is a basic function and 
-developers
-should understand that before using it. But as you've pointed out that 
-implementations other than
-qcom may also have this issue, I'm inclined to think that the usage of 
-the api is quite error prone and
-there may be some room for improving the usage text perhaps or some 
-other way.
+> ---
+>  drivers/gpu/drm/display/drm_dp_helper.c | 78 +++++++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_dp.c | 73 +----------------------
+>  include/drm/display/drm_dp_helper.h     |  3 +
+>  3 files changed, 84 insertions(+), 70 deletions(-)
 >
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index b1ca3a1100da..066cfbbf7a91 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -2916,6 +2916,84 @@ void drm_dp_vsc_sdp_log(const char *level, struct device *dev,
+>  }
+>  EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
+>
+> +/**
+> + * drm_dp_vsc_sdp_pack() - pack a given vsc sdp into generic dp_sdp
+> + * @vsc: vsc sdp initialized according to its purpose as defined in
+> + *       table 2-118 - table 2-120 in DP 1.4a specification
+> + * @sdp: valid handle to the generic dp_sdp which will be packed
+> + * @size: valid size of the passed sdp handle
+> + *
+> + * Returns length of sdp on success and error code on failure
+> + */
+> +ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
+> +                           struct dp_sdp *sdp, size_t size)
+
+I know that you are just moving the function. Maybe there can be
+patch#2, which drops the size argument? The struct dp_sdp already has
+a defined size. The i915 driver just passes sizeof(sdp), which is more
+or less useless.
+
+> +{
+> +       size_t length = sizeof(struct dp_sdp);
+> +
+> +       if (size < length)
+> +               return -ENOSPC;
+> +
+> +       memset(sdp, 0, size);
+> +
+> +       /*
+> +        * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
+> +        * VSC SDP Header Bytes
+> +        */
+> +       sdp->sdp_header.HB0 = 0; /* Secondary-Data Packet ID = 0 */
+> +       sdp->sdp_header.HB1 = vsc->sdp_type; /* Secondary-data Packet Type */
+> +       sdp->sdp_header.HB2 = vsc->revision; /* Revision Number */
+> +       sdp->sdp_header.HB3 = vsc->length; /* Number of Valid Data Bytes */
+> +
+> +       if (vsc->revision == 0x6) {
+> +               sdp->db[0] = 1;
+> +               sdp->db[3] = 1;
+> +       }
+> +
+> +       /*
+> +        * Revision 0x5 and revision 0x7 supports Pixel Encoding/Colorimetry
+> +        * Format as per DP 1.4a spec and DP 2.0 respectively.
+> +        */
+> +       if (!(vsc->revision == 0x5 || vsc->revision == 0x7))
+> +               goto out;
+> +
+> +       /* VSC SDP Payload for DB16 through DB18 */
+> +       /* Pixel Encoding and Colorimetry Formats  */
+> +       sdp->db[16] = (vsc->pixelformat & 0xf) << 4; /* DB16[7:4] */
+> +       sdp->db[16] |= vsc->colorimetry & 0xf; /* DB16[3:0] */
+> +
+> +       switch (vsc->bpc) {
+> +       case 6:
+> +               /* 6bpc: 0x0 */
+> +               break;
+> +       case 8:
+> +               sdp->db[17] = 0x1; /* DB17[3:0] */
+> +               break;
+> +       case 10:
+> +               sdp->db[17] = 0x2;
+> +               break;
+> +       case 12:
+> +               sdp->db[17] = 0x3;
+> +               break;
+> +       case 16:
+> +               sdp->db[17] = 0x4;
+> +               break;
+> +       default:
+> +               WARN(1, "Missing case %d\n", vsc->bpc);
+> +               return -EINVAL;
+> +       }
+> +
+> +       /* Dynamic Range and Component Bit Depth */
+> +       if (vsc->dynamic_range == DP_DYNAMIC_RANGE_CTA)
+> +               sdp->db[17] |= 0x80;  /* DB17[7] */
+> +
+> +       /* Content Type */
+> +       sdp->db[18] = vsc->content_type & 0x7;
+> +
+> +out:
+> +       return length;
+> +}
+> +EXPORT_SYMBOL(drm_dp_vsc_sdp_pack);
+> +
+>  /**
+>   * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
+>   * @dpcd: DisplayPort configuration data
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index f5ef95da5534..e94db51aeeb7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -4110,73 +4110,6 @@ intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
+>         return false;
+>  }
+>
+> -static ssize_t intel_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
+> -                                    struct dp_sdp *sdp, size_t size)
+> -{
+> -       size_t length = sizeof(struct dp_sdp);
+> -
+> -       if (size < length)
+> -               return -ENOSPC;
+> -
+> -       memset(sdp, 0, size);
+> -
+> -       /*
+> -        * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
+> -        * VSC SDP Header Bytes
+> -        */
+> -       sdp->sdp_header.HB0 = 0; /* Secondary-Data Packet ID = 0 */
+> -       sdp->sdp_header.HB1 = vsc->sdp_type; /* Secondary-data Packet Type */
+> -       sdp->sdp_header.HB2 = vsc->revision; /* Revision Number */
+> -       sdp->sdp_header.HB3 = vsc->length; /* Number of Valid Data Bytes */
+> -
+> -       if (vsc->revision == 0x6) {
+> -               sdp->db[0] = 1;
+> -               sdp->db[3] = 1;
+> -       }
+> -
+> -       /*
+> -        * Revision 0x5 and revision 0x7 supports Pixel Encoding/Colorimetry
+> -        * Format as per DP 1.4a spec and DP 2.0 respectively.
+> -        */
+> -       if (!(vsc->revision == 0x5 || vsc->revision == 0x7))
+> -               goto out;
+> -
+> -       /* VSC SDP Payload for DB16 through DB18 */
+> -       /* Pixel Encoding and Colorimetry Formats  */
+> -       sdp->db[16] = (vsc->pixelformat & 0xf) << 4; /* DB16[7:4] */
+> -       sdp->db[16] |= vsc->colorimetry & 0xf; /* DB16[3:0] */
+> -
+> -       switch (vsc->bpc) {
+> -       case 6:
+> -               /* 6bpc: 0x0 */
+> -               break;
+> -       case 8:
+> -               sdp->db[17] = 0x1; /* DB17[3:0] */
+> -               break;
+> -       case 10:
+> -               sdp->db[17] = 0x2;
+> -               break;
+> -       case 12:
+> -               sdp->db[17] = 0x3;
+> -               break;
+> -       case 16:
+> -               sdp->db[17] = 0x4;
+> -               break;
+> -       default:
+> -               MISSING_CASE(vsc->bpc);
+> -               break;
+> -       }
+> -       /* Dynamic Range and Component Bit Depth */
+> -       if (vsc->dynamic_range == DP_DYNAMIC_RANGE_CTA)
+> -               sdp->db[17] |= 0x80;  /* DB17[7] */
+> -
+> -       /* Content Type */
+> -       sdp->db[18] = vsc->content_type & 0x7;
+> -
+> -out:
+> -       return length;
+> -}
+> -
+>  static ssize_t
+>  intel_dp_hdr_metadata_infoframe_sdp_pack(struct drm_i915_private *i915,
+>                                          const struct hdmi_drm_infoframe *drm_infoframe,
+> @@ -4269,8 +4202,8 @@ static void intel_write_dp_sdp(struct intel_encoder *encoder,
+>
+>         switch (type) {
+>         case DP_SDP_VSC:
+> -               len = intel_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
+> -                                           sizeof(sdp));
+> +               len = drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
+> +                                         sizeof(sdp));
+>                 break;
+>         case HDMI_PACKET_TYPE_GAMUT_METADATA:
+>                 len = intel_dp_hdr_metadata_infoframe_sdp_pack(dev_priv,
+> @@ -4297,7 +4230,7 @@ void intel_write_dp_vsc_sdp(struct intel_encoder *encoder,
+>         struct dp_sdp sdp = {};
+>         ssize_t len;
+>
+> -       len = intel_dp_vsc_sdp_pack(vsc, &sdp, sizeof(sdp));
+> +       len = drm_dp_vsc_sdp_pack(vsc, &sdp, sizeof(sdp));
+>
+>         if (drm_WARN_ON(&dev_priv->drm, len < 0))
+>                 return;
+> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> index 863b2e7add29..f8db34a2f7a5 100644
+> --- a/include/drm/display/drm_dp_helper.h
+> +++ b/include/drm/display/drm_dp_helper.h
+> @@ -813,4 +813,7 @@ int drm_dp_bw_overhead(int lane_count, int hactive,
+>                        int bpp_x16, unsigned long flags);
+>  int drm_dp_bw_channel_coding_efficiency(bool is_uhbr);
+>
+> +ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
+> +                           struct dp_sdp *sdp, size_t size);
+> +
+>  #endif /* _DRM_DP_HELPER_H_ */
 > --
-> With best wishes
-> Dmitry
-Thanks,
-Pratyush
+> 2.34.1
+>
+
+
+-- 
+With best wishes
+Dmitry
