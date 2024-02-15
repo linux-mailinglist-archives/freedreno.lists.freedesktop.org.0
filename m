@@ -2,77 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96019856CE0
-	for <lists+freedreno@lfdr.de>; Thu, 15 Feb 2024 19:40:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9ACC856D5A
+	for <lists+freedreno@lfdr.de>; Thu, 15 Feb 2024 20:09:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4361C10E22C;
-	Thu, 15 Feb 2024 18:40:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 834CD10E22C;
+	Thu, 15 Feb 2024 19:08:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="sMXcn+xH";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="U3nj8npf";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
- [209.85.219.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40E1310E750
- for <freedreno@lists.freedesktop.org>; Thu, 15 Feb 2024 18:40:37 +0000 (UTC)
-Received: by mail-yb1-f172.google.com with SMTP id
- 3f1490d57ef6-d9b9adaf291so1014463276.1
- for <freedreno@lists.freedesktop.org>; Thu, 15 Feb 2024 10:40:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708022436; x=1708627236; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=JglBwXSntLlCbyjy/GHZdM028F64P17qowaUV5IhPx0=;
- b=sMXcn+xHC4Lf5KjDe80PYWtttccB5YN3LfAxAtneiYt8/23NRj4gGdXvxF3FqM5pob
- 2K3lp8wUsj4ryZRfqOOG+/efBX/hIC7ygHmg+IegUFejWO2YeLFDxfIkwCtQYrtnMd23
- qQCMOnVM/mK0HeQCDxKg12AYzNy+Wcq24sT6F+tsF4Uh1FDgdiigzHHXprZOyXdZueeF
- d9ybz4bUSXDPWTyw3matOQaZLHao2aWTzUJtFAXruU4ZxmB8IcIo7a0fKsF3XCx9XMPI
- wWkYy11Xx4Sxd+Hot+dy3p+9ZdvQQs8ZIDsHLCLDdCfculmcxyZWx3zYro0I504oKN/+
- 6NMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708022436; x=1708627236;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=JglBwXSntLlCbyjy/GHZdM028F64P17qowaUV5IhPx0=;
- b=Hcyawze7old9jbDAw86KwaC34lkbAY6IVpQza5Tnhny421A5wmZvF1fNCvgQUp/eK6
- Ef1LmbTnqGARF+tp5zmLUAuVXDZR02kpPaeHf+6qnp2g2+PFvWS7H2O/cgutKU0lsono
- qDPpTIXZbYdfUG8VgloKAgAzdrLOOAMFMCSIJFHCgUVb0cfTIH4VV+sQYrLhJhU9RzMd
- HyEFkQkVaWkQH/Wuesk36JINn5kiI+moG/S5d25ufGSCtAiMCpdx9SUwGLyDbZkSbsuN
- 1vlxK5nbJkIq8DM8ZI2glE8ofryPvcGrddCcW+2acHzwCU26voEsdacGXI1mG5hYBwOs
- g2sQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXu/ooyuoU0DbXTMvB20nH8yrTxgvMkAgIBTYVM6B8+XPNqXku3alhpMzRpadAuYToMoAIInT1IZM3EVKe5zB6ygLYNwQh6C2wQxlD6BNSH
-X-Gm-Message-State: AOJu0YyV1NdkqNXLnwAF9My3jnuTNZ9x6L4Pmzcn6GMQU15YhYAgo49k
- doac9xysaQVLzJU7E+4syHgKC+HBhFcgK0u1cvwnaqNmMzXfhrLpqT8uuDYZlUhlHnK1e/QxMeT
- QCWqneGFn88A/lx8+9PHdfnKa2IyYysLnazGocA==
-X-Google-Smtp-Source: AGHT+IGBc1DKEt44dJP+HARF8uN8GAF96QgYekZsW2BRKFHllOv5Vc7K0jzqLyY+mmENRqYLN1HGEXEPUYCDbI13GTo=
-X-Received: by 2002:a25:6b11:0:b0:dc6:4713:bbf1 with SMTP id
- g17-20020a256b11000000b00dc64713bbf1mr2476660ybc.21.1708022436155; Thu, 15
- Feb 2024 10:40:36 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B3A810E22C;
+ Thu, 15 Feb 2024 19:08:55 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41FG4MuE031791; Thu, 15 Feb 2024 19:08:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=8WHqq+J
+ PABcr9TUapr2Y2fy9p+O1+fPjCNfuvXj4B+g=; b=U3nj8npfAnNfCxDhFSwx0ox
+ Pv5duhUZK4vETAWTCoAe5j/MKCEyv9imxXl83Dnm4hGEVtz7yShqyAbkzmRvx8ll
+ 9wZEcN6dCvSa4aBx/ksxJtHxuxKkbZ/3LexeCGtczny+7lpj1yMUy/ndPT2f/V/L
+ 8sztCAhB46O7ndnULj00uGZECcanbYyzD8tyq8SAoI1SfmXXqAXL3r7kjnplWmKM
+ YujT5exyEojDuRGVxak0TMCh1rP1oB1EIOJtMD4IZE4UGJqbnG42++npNg2q1SPO
+ VDMO+aUbmxxxSxSG+3deHhLlOI9g54+iuuZBTs5nw2Rnq95Tz51++WZF2z4UHmQ=
+ =
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w9e4h1t72-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 15 Feb 2024 19:08:45 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41FJ8ido010080
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 15 Feb 2024 19:08:44 GMT
+Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Thu, 15 Feb 2024 11:08:43 -0800
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tvrtko.ursulin@linux.intel.com>
+CC: Abhinav Kumar <quic_abhinavk@quicinc.com>, <robdclark@gmail.com>,
+ <freedreno@lists.freedesktop.org>, <dmitry.baryshkov@linaro.org>,
+ <intel-gfx@lists.freedesktop.org>, <ville.syrjala@linux.intel.com>,
+ <quic_jesszhan@quicinc.com>, <linux-kernel@vger.kernel.org>,
+ <intel-xe@lists.freedesktop.org>
+Subject: [PATCH v2] drm/dp: move intel_dp_vsc_sdp_pack() to generic helper
+Date: Thu, 15 Feb 2024 11:08:34 -0800
+Message-ID: <20240215190834.3222812-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240214180347.1399-1-quic_parellan@quicinc.com>
- <20240214180347.1399-14-quic_parellan@quicinc.com>
- <CAA8EJppCxHrcUYRdtGJYmjLYu=VwX3KbPXZ4YNsCzagkMEPvLQ@mail.gmail.com>
- <917eadef-0d84-be62-9ef2-9048dea97144@quicinc.com>
- <CAA8EJprroq8mcAgaPMO_g-XrpbaGOfZhjCDQ-4vxHy5Ae9iY3w@mail.gmail.com>
- <8f0ef8a0-9075-8bb4-e08e-58e35f6ab116@quicinc.com>
- <CAA8EJprWzyJpU4Q-o7qEgTytG_pUfoiBMos+LF-MdcmMpYHYkQ@mail.gmail.com>
-In-Reply-To: <CAA8EJprWzyJpU4Q-o7qEgTytG_pUfoiBMos+LF-MdcmMpYHYkQ@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 15 Feb 2024 20:40:24 +0200
-Message-ID: <CAA8EJpr8WLC26rVU2YVhB1tt6VYny5MPXPwQ7CTGf5eRfNJpDw@mail.gmail.com>
-Subject: Re: [PATCH v3 13/19] drm/msm/dp: add VSC SDP support for YUV420 over
- DP
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Paloma Arellano <quic_parellan@quicinc.com>,
- freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- robdclark@gmail.com, seanpaul@chromium.org, swboyd@chromium.org, 
- quic_jesszhan@quicinc.com, quic_khsieh@quicinc.com, 
- marijn.suijten@somainline.org, neil.armstrong@linaro.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: T7dngG2H_HaB3-eFianvs3eRmlcF3_dr
+X-Proofpoint-ORIG-GUID: T7dngG2H_HaB3-eFianvs3eRmlcF3_dr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-15_18,2024-02-14_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0
+ impostorscore=0 adultscore=0 mlxscore=0 phishscore=0 malwarescore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 mlxlogscore=999
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401310000 definitions=main-2402150154
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,163 +96,210 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 15 Feb 2024 at 19:03, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On Thu, 15 Feb 2024 at 18:39, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >
-> >
-> >
-> > On 2/15/2024 12:40 AM, Dmitry Baryshkov wrote:
-> > > On Wed, 14 Feb 2024 at 22:15, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> > >>
-> > >>
-> > >>
-> > >> On 2/14/2024 11:39 AM, Dmitry Baryshkov wrote:
-> > >>> On Wed, 14 Feb 2024 at 20:04, Paloma Arellano <quic_parellan@quicinc.com> wrote:
-> > >>>>
-> > >>>> Add support to pack and send the VSC SDP packet for DP. This therefore
-> > >>>> allows the transmision of format information to the sinks which is
-> > >>>> needed for YUV420 support over DP.
-> > >>>>
-> > >>>> Changes in v3:
-> > >>>>           - Create a new struct, msm_dp_sdp_with_parity, which holds the
-> > >>>>             packing information for VSC SDP
-> > >>>>           - Use drm_dp_vsc_sdp_pack() to pack the data into the new
-> > >>>>             msm_dp_sdp_with_parity struct instead of specifically packing
-> > >>>>             for YUV420 format
-> > >>>>           - Modify dp_catalog_panel_send_vsc_sdp() to send the VSC SDP
-> > >>>>             data using the new msm_dp_sdp_with_parity struct
-> > >>>>
-> > >>>> Changes in v2:
-> > >>>>           - Rename GENERIC0_SDPSIZE macro to GENERIC0_SDPSIZE_VALID
-> > >>>>           - Remove dp_sdp from the dp_catalog struct since this data is
-> > >>>>             being allocated at the point used
-> > >>>>           - Create a new function in dp_utils to pack the VSC SDP data
-> > >>>>             into a buffer
-> > >>>>           - Create a new function that packs the SDP header bytes into a
-> > >>>>             buffer. This function is made generic so that it can be
-> > >>>>             utilized by dp_audio
-> > >>>>             header bytes into a buffer
-> > >>>>           - Create a new function in dp_utils that takes the packed buffer
-> > >>>>             and writes to the DP_GENERIC0_* registers
-> > >>>>           - Split the dp_catalog_panel_config_vsc_sdp() function into two
-> > >>>>             to disable/enable sending VSC SDP packets
-> > >>>>           - Check the DP HW version using the original useage of
-> > >>>>             dp_catalog_hw_revision() and correct the version checking
-> > >>>>             logic
-> > >>>>           - Rename dp_panel_setup_vsc_sdp() to
-> > >>>>             dp_panel_setup_vsc_sdp_yuv_420() to explicitly state that
-> > >>>>             currently VSC SDP is only being set up to support YUV420 modes
-> > >>>>
-> > >>>> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-> > >>>> ---
-> > >>>>    drivers/gpu/drm/msm/dp/dp_catalog.c | 113 ++++++++++++++++++++++++++++
-> > >>>>    drivers/gpu/drm/msm/dp/dp_catalog.h |   7 ++
-> > >>>>    drivers/gpu/drm/msm/dp/dp_ctrl.c    |   4 +
-> > >>>>    drivers/gpu/drm/msm/dp/dp_panel.c   |  55 ++++++++++++++
-> > >>>>    drivers/gpu/drm/msm/dp/dp_reg.h     |   3 +
-> > >>>>    drivers/gpu/drm/msm/dp/dp_utils.c   |  48 ++++++++++++
-> > >>>>    drivers/gpu/drm/msm/dp/dp_utils.h   |  18 +++++
-> > >>>>    7 files changed, 248 insertions(+)
-> > >>>>
-> > >>>> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> > >>>> index 5d84c089e520a..61d5317efe683 100644
-> > >>>> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-> > >>>> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> > >>>> @@ -901,6 +901,119 @@ int dp_catalog_panel_timing_cfg(struct dp_catalog *dp_catalog)
-> > >>>>           return 0;
-> > >>>>    }
-> > >>>>
-> > >>>> +static void dp_catalog_panel_send_vsc_sdp(struct dp_catalog *dp_catalog,
-> > >>>> +                                         struct msm_dp_sdp_with_parity *msm_dp_sdp)
-> > >>>> +{
-> > >>>> +       struct dp_catalog_private *catalog;
-> > >>>> +       u32 val;
-> > >>>> +
-> > >>>> +       if (!dp_catalog) {
-> > >>>> +               DRM_ERROR("invalid input\n");
-> > >>>> +               return;
-> > >>>> +       }
-> > >>>> +
-> > >>>> +       catalog = container_of(dp_catalog, struct dp_catalog_private, dp_catalog);
-> > >>>> +
-> > >>>> +       val = ((msm_dp_sdp->vsc_sdp.sdp_header.HB0) << HEADER_BYTE_0_BIT |
-> > >>>> +              (msm_dp_sdp->pb.PB0 << PARITY_BYTE_0_BIT) |
-> > >>>> +              (msm_dp_sdp->vsc_sdp.sdp_header.HB1) << HEADER_BYTE_1_BIT |
-> > >>>> +              (msm_dp_sdp->pb.PB1 << PARITY_BYTE_1_BIT));
-> > >>>> +       dp_write_link(catalog, MMSS_DP_GENERIC0_0, val);
-> > >>>> +
-> > >>>> +       val = ((msm_dp_sdp->vsc_sdp.sdp_header.HB2) << HEADER_BYTE_2_BIT |
-> > >>>> +              (msm_dp_sdp->pb.PB2 << PARITY_BYTE_2_BIT) |
-> > >>>> +              (msm_dp_sdp->vsc_sdp.sdp_header.HB3) << HEADER_BYTE_3_BIT |
-> > >>>> +              (msm_dp_sdp->pb.PB3 << PARITY_BYTE_3_BIT));
-> > >>>> +       dp_write_link(catalog, MMSS_DP_GENERIC0_1, val);
-> > >>>
-> > >>> I still think that this is not the way to do it. Could you please
-> > >>> extract the function that takes struct dp_sdp_header, calculates
-> > >>> padding and writes resulting data to the hardware? This way we can
-> > >>> reuse it later for all the dp_audio stuff.
-> > >>>
-> > >>
-> > >> hmmm ... dp_utils_pack_sdp_header() does that you are asking for right?
-> > >>
-> > >> OR are you asking for another function like:
-> > >>
-> > >> 1) rename dp_utils_pack_sdp_header() to dp_utils_calc_sdp_parity()
-> > >> 2) dp_utils_pack_sdp() takes two u32 to pack the header and parity
-> > >> together and we move the << HEADER_BYTE_xx | part to it
-> > >>
-> > >> dp_catalog_panel_send_vsc_sdp() just uses these two u32 to write the
-> > >> headers.
-> > >
-> > > I'm really looking for the following function:
-> > >
-> > > void dp_catalog_panel_send_vsc_sdp(struct dp_catalog *dp_catalog,
-> > > struct dp_sdp *dp_sdp)
-> > > {
-> > >      dp_write_vsc_header(dp_catalog, MMSS_DP_GENERIC0_0, &dp_sdp->sdp_header);
-> > >      dp_write_vsc_packet(dp_catalog, MMSS_DP_GENERIC0_2, dp_sdp);
-> > > }
-> > >
-> > > Then dp_audio functions will be able to fill struct dp_sdp_header and
-> > > call dp_write_vsc_header (or whatever other name for that function)
-> > > directly.
-> > >
-> >
-> > I think there is some misunderstanding here.
-> >
-> > Audio does not write or use generic_0 registers. It uses audio infoframe
-> > SDP registers. So the catalog function of audio will not change.
->
-> Sure, that's why I added the register to the `dp_write_vsc_header` prototype.
->
-> E.g.:
->
-> void dp_audio_stream_sdp(...)
-> {
->     struct dp_sdp_header hdr;
->     hdr.HB0 = 0;
->     hdr.HB1 = 0x2;
->     hdr.HB2 = ...;
->     hdr.HB3 = audio->nchannels - 1;
->     dp_write_vsc_header(dp_catalog, MMSS_DP_AUDIO_STREAM_0, &hdr);
-> }
->
->
-> >
-> > The only part common between audio and vsc sdp is the parity byte
-> > calculation and the packing of parity and header bytes into 2 u32s.
-> >
-> > Thats why I wrote that we will have a common util between audio and vsc
-> > sdp only to pack the data but the catalog functions will be different.
-> >
+intel_dp_vsc_sdp_pack() can be re-used by other DRM drivers as well.
+Lets move this to drm_dp_helper to achieve this.
 
-After an offline discussion, let's start with the dp_util function
-packing struct dp_sdp_header into u32[2], then we can decide on the
-fate of the dp_audio stuff later on.
+changes in v2:
+	- rebased on top of drm-tip
 
+Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/display/drm_dp_helper.c | 78 +++++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.c | 71 +---------------------
+ include/drm/display/drm_dp_helper.h     |  3 +
+ 3 files changed, 83 insertions(+), 69 deletions(-)
 
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 8d6ce46471ae..6c91f400ecb1 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -2913,6 +2913,84 @@ void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc)
+ }
+ EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
+ 
++/**
++ * drm_dp_vsc_sdp_pack() - pack a given vsc sdp into generic dp_sdp
++ * @vsc: vsc sdp initialized according to its purpose as defined in
++ *       table 2-118 - table 2-120 in DP 1.4a specification
++ * @sdp: valid handle to the generic dp_sdp which will be packed
++ * @size: valid size of the passed sdp handle
++ *
++ * Returns length of sdp on success and error code on failure
++ */
++ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
++			    struct dp_sdp *sdp, size_t size)
++{
++	size_t length = sizeof(struct dp_sdp);
++
++	if (size < length)
++		return -ENOSPC;
++
++	memset(sdp, 0, size);
++
++	/*
++	 * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
++	 * VSC SDP Header Bytes
++	 */
++	sdp->sdp_header.HB0 = 0; /* Secondary-Data Packet ID = 0 */
++	sdp->sdp_header.HB1 = vsc->sdp_type; /* Secondary-data Packet Type */
++	sdp->sdp_header.HB2 = vsc->revision; /* Revision Number */
++	sdp->sdp_header.HB3 = vsc->length; /* Number of Valid Data Bytes */
++
++	if (vsc->revision == 0x6) {
++		sdp->db[0] = 1;
++		sdp->db[3] = 1;
++	}
++
++	/*
++	 * Revision 0x5 and revision 0x7 supports Pixel Encoding/Colorimetry
++	 * Format as per DP 1.4a spec and DP 2.0 respectively.
++	 */
++	if (!(vsc->revision == 0x5 || vsc->revision == 0x7))
++		goto out;
++
++	/* VSC SDP Payload for DB16 through DB18 */
++	/* Pixel Encoding and Colorimetry Formats  */
++	sdp->db[16] = (vsc->pixelformat & 0xf) << 4; /* DB16[7:4] */
++	sdp->db[16] |= vsc->colorimetry & 0xf; /* DB16[3:0] */
++
++	switch (vsc->bpc) {
++	case 6:
++		/* 6bpc: 0x0 */
++		break;
++	case 8:
++		sdp->db[17] = 0x1; /* DB17[3:0] */
++		break;
++	case 10:
++		sdp->db[17] = 0x2;
++		break;
++	case 12:
++		sdp->db[17] = 0x3;
++		break;
++	case 16:
++		sdp->db[17] = 0x4;
++		break;
++	default:
++		WARN(1, "Missing case %d\n", vsc->bpc);
++		return -EINVAL;
++	}
++
++	/* Dynamic Range and Component Bit Depth */
++	if (vsc->dynamic_range == DP_DYNAMIC_RANGE_CTA)
++		sdp->db[17] |= 0x80;  /* DB17[7] */
++
++	/* Content Type */
++	sdp->db[18] = vsc->content_type & 0x7;
++
++out:
++	return length;
++}
++EXPORT_SYMBOL(drm_dp_vsc_sdp_pack);
++
+ /**
+  * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
+  * @dpcd: DisplayPort configuration data
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 217196196e50..a9458df475e2 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -4089,73 +4089,6 @@ intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
+ 	return false;
+ }
+ 
+-static ssize_t intel_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
+-				     struct dp_sdp *sdp, size_t size)
+-{
+-	size_t length = sizeof(struct dp_sdp);
+-
+-	if (size < length)
+-		return -ENOSPC;
+-
+-	memset(sdp, 0, size);
+-
+-	/*
+-	 * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
+-	 * VSC SDP Header Bytes
+-	 */
+-	sdp->sdp_header.HB0 = 0; /* Secondary-Data Packet ID = 0 */
+-	sdp->sdp_header.HB1 = vsc->sdp_type; /* Secondary-data Packet Type */
+-	sdp->sdp_header.HB2 = vsc->revision; /* Revision Number */
+-	sdp->sdp_header.HB3 = vsc->length; /* Number of Valid Data Bytes */
+-
+-	if (vsc->revision == 0x6) {
+-		sdp->db[0] = 1;
+-		sdp->db[3] = 1;
+-	}
+-
+-	/*
+-	 * Revision 0x5 and revision 0x7 supports Pixel Encoding/Colorimetry
+-	 * Format as per DP 1.4a spec and DP 2.0 respectively.
+-	 */
+-	if (!(vsc->revision == 0x5 || vsc->revision == 0x7))
+-		goto out;
+-
+-	/* VSC SDP Payload for DB16 through DB18 */
+-	/* Pixel Encoding and Colorimetry Formats  */
+-	sdp->db[16] = (vsc->pixelformat & 0xf) << 4; /* DB16[7:4] */
+-	sdp->db[16] |= vsc->colorimetry & 0xf; /* DB16[3:0] */
+-
+-	switch (vsc->bpc) {
+-	case 6:
+-		/* 6bpc: 0x0 */
+-		break;
+-	case 8:
+-		sdp->db[17] = 0x1; /* DB17[3:0] */
+-		break;
+-	case 10:
+-		sdp->db[17] = 0x2;
+-		break;
+-	case 12:
+-		sdp->db[17] = 0x3;
+-		break;
+-	case 16:
+-		sdp->db[17] = 0x4;
+-		break;
+-	default:
+-		MISSING_CASE(vsc->bpc);
+-		break;
+-	}
+-	/* Dynamic Range and Component Bit Depth */
+-	if (vsc->dynamic_range == DP_DYNAMIC_RANGE_CTA)
+-		sdp->db[17] |= 0x80;  /* DB17[7] */
+-
+-	/* Content Type */
+-	sdp->db[18] = vsc->content_type & 0x7;
+-
+-out:
+-	return length;
+-}
+-
+ static ssize_t
+ intel_dp_hdr_metadata_infoframe_sdp_pack(struct drm_i915_private *i915,
+ 					 const struct hdmi_drm_infoframe *drm_infoframe,
+@@ -4248,8 +4181,8 @@ static void intel_write_dp_sdp(struct intel_encoder *encoder,
+ 
+ 	switch (type) {
+ 	case DP_SDP_VSC:
+-		len = intel_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
+-					    sizeof(sdp));
++		len = drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
++					  sizeof(sdp));
+ 		break;
+ 	case HDMI_PACKET_TYPE_GAMUT_METADATA:
+ 		len = intel_dp_hdr_metadata_infoframe_sdp_pack(dev_priv,
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index d02014a87f12..8474504d4c88 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -812,4 +812,7 @@ int drm_dp_bw_overhead(int lane_count, int hactive,
+ 		       int bpp_x16, unsigned long flags);
+ int drm_dp_bw_channel_coding_efficiency(bool is_uhbr);
+ 
++ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
++			    struct dp_sdp *sdp, size_t size);
++
+ #endif /* _DRM_DP_HELPER_H_ */
 -- 
-With best wishes
-Dmitry
+2.34.1
+
