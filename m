@@ -2,118 +2,105 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B98D6855D13
-	for <lists+freedreno@lfdr.de>; Thu, 15 Feb 2024 09:58:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25E08855DB1
+	for <lists+freedreno@lfdr.de>; Thu, 15 Feb 2024 10:20:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8893410E35B;
-	Thu, 15 Feb 2024 08:58:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECA6F10E46A;
+	Thu, 15 Feb 2024 09:20:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YPsJyR3q";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xjadAem4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
- [209.85.208.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 791C910E3B8
- for <freedreno@lists.freedesktop.org>; Thu, 15 Feb 2024 08:58:56 +0000 (UTC)
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-2d0e520362cso6489971fa.2
- for <freedreno@lists.freedesktop.org>; Thu, 15 Feb 2024 00:58:56 -0800 (PST)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28E0C10E46A
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Feb 2024 09:20:32 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-33b2960ff60so939531f8f.1
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Feb 2024 01:20:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707987534; x=1708592334; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=thSm/NaAqUDsrmdo57qMDQ5CJPadtCEGhN2rge4I/tg=;
- b=YPsJyR3q1ho5jOEy7DncnNu91JuPBrGzJx9TDT0/u0e/prK21GaubCa449IrVuG4N4
- nSZ4QzDrlfStFM9QfCGwYZpj6ggiVhiHnjkmziO0VJOViiKF47hscUXc8K6KfnJgFcrM
- jr6sKiMx/pNHno6zKMpAWCgPcb8X7zAyOXw27/RYWkK+9PZlzo3NJESQKWi3NI0Qicfm
- kw/Ut7pHb+bF1Wb1HxswVtNc6Z96qIOfWJsN7YYU3mxq/bIPcHL8RmhAYQM5vmCbNCT/
- ws6IwN+NZl8wnU9/sAi8UiWtRkjFUk3ICV5hKTrMjWg4NIe21NWuaXut1fGWo3MMZaWP
- A6og==
+ d=linaro.org; s=google; t=1707988830; x=1708593630; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=sCJIqfXANTyxQ1cWg0J7Xq3pgA1x4Oyiz3VOApAbg7U=;
+ b=xjadAem4CExCAJHSd0OYRYwAKOezT4M7Ke4t+FHI/XxnogBxfWdsGNnQNzKrahNFWh
+ 26UlVkOt3IoRAxuI4rS6hRMNn5c/fEAqN81yuSkHOxPfOvfF8X/r8Zk/tNbja7pqbyff
+ lDqzTXZx/dyJJoxc1QLPkOtTR3ahI2z69ooewMLnlRXCdmUoNUa/gxv1Mn4CPyyK10uQ
+ Nimggnl//LDFSYJSuSg0d0ZVKzsRYVMMauj81DcCs7pN/juqf1qjqqCQX94SqY+QV+xz
+ 4XvVq/FtICOYa0z2dUqTTqEfWLyJEVOyhwIVl5LE7Yz6YTq9O5W8mVVYJG2dpS9xWpJz
+ PmOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707987534; x=1708592334;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=thSm/NaAqUDsrmdo57qMDQ5CJPadtCEGhN2rge4I/tg=;
- b=tz2btvHaF8c9U8JDLBaOLVuI698ozeIucCUYNFhKckp6idLiYgNU5Zi573j7Kq7veI
- mxC6LGrJosQKPXuqijH7PsFSHJfNCC7hgORwPcbDhV2pBcXG+RfsNZTTrwHdOYN4+LKw
- IpaokdMwf/D3P96/FUjFCQwBoB8W17TQ/ftEaDa1ZHpl+ULl1bPidVi/e4w7z7TV6mz6
- PLFw6+relGyWQk1iRlt9x7ZfL/vEDrGKd/uhS8R49ESy0qRGRhqr2H7T9+9VkfuJ1lFf
- mGrzFYVEStfH7QYadsvC/HD16Yv7bltdYEYu7yIGcEV4lEYxP9ueqSApfEwlVKei/bJi
- tvJg==
+ d=1e100.net; s=20230601; t=1707988830; x=1708593630;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=sCJIqfXANTyxQ1cWg0J7Xq3pgA1x4Oyiz3VOApAbg7U=;
+ b=Pfn1KHNviCI4NT5mBflgkw6fxDwVsX3joCWmwX2B2Oe3dJlx//bbhTk5lyOdO5VLbf
+ AFgEe4OZWdkLpHF/vN6shvZCsIFCPpMRJ4WCcSnegGKd/QjOXn/S7ztKdWkE/xgEol2l
+ 4lEXAiEcVcHva1NJ6PHl0mcBEDsM6VUM0pIBoMr7Rw6eQzuje8NQnKvO+C/L/ISCfZ7p
+ IHhMuip1X5ZekY9L5YFlRMp/Om88+KaUuPAO37DJn+WC3gE8A5zIBB3IUiYc3PDEPTTl
+ z1JwNJlCiADOy87gwq3HVNQhLld1N8AOqZD++UBzUPexUkpQM1hgmpFbeN9fdgy24+Qf
+ BC6A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVUWd6tdB4F4sd2b69h49vN77mPPVc7xrGgvUL6MxA74uGSpX653dsnNi+HguMiUHQQFAyHdZi0o7KdPqpAOcTQygFFuW8tfGIHwGLg5e3O
-X-Gm-Message-State: AOJu0YzgusJCTH6sNZ1bR/rXLmzccuVyBkwe/3Kt12xaQ0zRZknEsvRG
- Syg3/rbx6vMUYzfIUmyrFbrGzHzLS2m+gKVHMynlb5DShsSADSJ87v3/+DDoAuk=
-X-Google-Smtp-Source: AGHT+IHKg6BKjhzeos5aBRrK7kpueZ7SscUJfjJ3GKRg9xsS0chtvU+B6KhAY4Ng3oin0rL4VZwv5g==
-X-Received: by 2002:a2e:8805:0:b0:2d1:1df8:9ddd with SMTP id
- x5-20020a2e8805000000b002d11df89dddmr706979ljh.27.1707987534530; 
- Thu, 15 Feb 2024 00:58:54 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:4589:7160:c264:fa3b?
- ([2a01:e0a:982:cbb0:4589:7160:c264:fa3b])
+ AJvYcCX7/x6jrUa3RPcX/1nmKpCSgO18i8VEfPzpdKfh827rMTfwbbVLp049ZxUNEyhUJtPA7FEY4aoRpAHLFnIVxPDzAC9QzaZwS6Tk23h+2yru
+X-Gm-Message-State: AOJu0YzCshs/wpNyaYAcbIK4vMTve7DHbJV2GpKGJrxgoAfNB/tsjEsw
+ 9/V2/vrhVmGWOsp4W9pDlgvnsl17JgaSFbldikCMBGcXMhkDAdjz07sOKa0SFVc=
+X-Google-Smtp-Source: AGHT+IEzIX1zQSb8A6KxIEeLGYgLf9voInovtkhGG2UhbsN7a14+GKlnqiOaIdXdfVUStV6dDYTqFQ==
+X-Received: by 2002:a05:6000:107:b0:33b:68d2:c5c9 with SMTP id
+ o7-20020a056000010700b0033b68d2c5c9mr1080779wrx.8.1707988830565; 
+ Thu, 15 Feb 2024 01:20:30 -0800 (PST)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- n16-20020a5d51d0000000b0033cefb84b16sm1101386wrv.52.2024.02.15.00.58.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Feb 2024 00:58:54 -0800 (PST)
-Message-ID: <6aea55e7-2ca6-444c-b111-e3cc45bd28a5@linaro.org>
-Date: Thu, 15 Feb 2024 09:58:52 +0100
+ l8-20020adfa388000000b0033b66c2d61esm1156435wrb.48.2024.02.15.01.20.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Feb 2024 01:20:30 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v2 0/6] drm/msm: Add support for the A750 GPU found on the
+ SM8650 platform
+Date: Thu, 15 Feb 2024 10:20:22 +0100
+Message-Id: <20240215-topic-sm8650-gpu-v2-0-6be0b4bf2e09@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH 3/5] drm: msm: add support for A750 GPU
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev
-References: <20240212-topic-sm8650-gpu-v1-0-708a40b747b5@linaro.org>
- <20240212-topic-sm8650-gpu-v1-3-708a40b747b5@linaro.org>
- <b5d76a25-045a-4acd-ad20-d28855b40222@linaro.org>
- <bcad544c-7ca2-4b4f-805b-4ccaedbd091c@linaro.org>
- <13d65685-b306-43ad-b9ca-a799f2cf73e5@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <13d65685-b306-43ad-b9ca-a799f2cf73e5@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFbXzWUC/2WNyw6CMBBFf4XM2jHTSbHVFf9hWPCoMInSpkWiI
+ fy7lbhzeU5yz10huSguwaVYIbpFkvgpAx8K6MZmGhxKnxmYWBOTxdkH6TA97KkkHMITtT33peO
+ OW2Ugz0J0N3ntyWudeZQ0+/jeHxb1tb+Y4v/YopDQkG00tUabtqzuMjXRH30coN627QOHQsx7s
+ QAAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ iommu@lists.linux.dev, Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.12.4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2303;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=oKbyhmQGCK031NDJvd+F9DRL6rEnKmMTN5jcd28ewGo=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlzdda1ja3qYhAQD7TxJTXjXvRhkZhcdgfDhtOGB6t
+ eX40jEuJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZc3XWgAKCRB33NvayMhJ0dKTD/
+ 9nfYKPsMq1aO/WX60Xfgt6f16R8W7MWflfkynuv7YMpLAyGWDhQOfa7do6lQyxZF2YnwHshnk5YDqK
+ dpGFlzMbP3+/zsMVADh2Vy0Rj1FtwUhggfW/IQ2I3UT3IA2MdXedNxVUq4rJBiXdjEsrkoWgAHofSh
+ /rNgcsKpu+aEuP9qRCSCMhdYBjVWBU0/ubDi1qnarYadzUqSoAdGgE2hdV1NVrLtmevG4A6PKAjgP4
+ mIaQLOrLSuLsvcpOo3cBLYUwSPpHZWQlX4aH0ZPmteXd1Z6iRWE/ynBE2mylsOp2jaKITp1NQnfiJw
+ 7VKLUt56d3yGbqAzm8yylY+5199zJcQ3iKZLq0wpU5cgBEcKC0iZpJ6r4w4N2PQV70Qmi0MrPPo8Df
+ RK82H8IgsRwkTtUerZsLpJ4ktXizoJCtNZ6Yrk9X2zg01oFvhPDyynhh7NfksxuhrO1bPiC7YT3Ccv
+ desZDq2p5PWEl9g77A5OXuN/M0/ZgTtrFztrqZb2kzk5RRTmA+6Ig0WhF/2rn9qOs6BzwndTc2y5fA
+ RBvb8z5e1EuCKwQMzpcjdab9pZIg6FSVE0Et1MLBAI3M5p7N8zFA+ftQis9Q3KWYcgLfk9NmNY49xO
+ rtPWO4swkMjDEwDuFZAEiJx2VnGuFsaVvSUNZptT+CULYH0fWDDIWW1kfrWA==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,160 +113,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14/02/2024 22:43, Konrad Dybcio wrote:
-> On 12.02.2024 15:45, Neil Armstrong wrote:
->> On 12/02/2024 11:46, Konrad Dybcio wrote:
->>> On 12.02.2024 11:37, Neil Armstrong wrote:
->>>> Add support for the A750 GPU found on the SM8650 platform
->>>>
->>>> Unlike the the very close A740 GPU on the SM8550 SoC, the A750 GPU
->>>> doesn't have an HWCFG block but a separate register set.
->>>>
->>>> The missing registers are added in the a6xx.xml.h file that would
->>>> require a subsequent sync and the non-existent hwcfg is handled
->>>> in a6xx_set_hwcg().
->>>
->>> These should also be submitted to mesa to make sure the next header sync
->>> doesn't wipe them
->>
->> Ack submitting them right now: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27576
-> 
-> Thanks
-> 
->>
->>>
->>> [...]
->>>
->>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>> @@ -958,10 +958,11 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
->>>>        struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->>>>        struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
->>>>        const struct adreno_reglist *reg;
->>>> +    bool skip_programming = !(adreno_gpu->info->hwcg || adreno_is_a7xx(adreno_gpu));
->>>
->>> is_a750?
->>
->> OK right, I was thinking of the next gpu which will probably also miss an hwcfg
->>
->>>
->>>>        unsigned int i;
->>>>        u32 val, clock_cntl_on, cgc_mode;
->>>>    -    if (!adreno_gpu->info->hwcg)
->>>> +    if (skip_programming)
->>>>            return;
->>>>          if (adreno_is_a630(adreno_gpu))
->>>> @@ -982,6 +983,25 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
->>>>                  state ? 0x5555 : 0);
->>>>        }
->>>>    +    if (!adreno_gpu->info->hwcg) {
->>>
->>> I don't think this block of code is reachable now, no?
->>
->> It is because we didn't skip when adreno_is_a7xx(adreno_gpu)
-> 
-> Ahh I misread the brackets within the assignment
-> 
->>
->>>
->>> Maybe remove the skip_programming and if_a750 here?
->> This would require:
->>>> -    if (!adreno_gpu->info->hwcg || )
->>>> +    if (!(adreno_gpu->info->hwcg || adreno_is_a750(adreno_gpu)))
->>
->> and:
->>
->>>> +    if (adreno_is_a750(adreno_gpu)) {
->>
->> But if the next gpu also doesn't have an hwcfg, we will need to use
->> the current design...
->>
->> I just tried with:
->> ====================><===============================
->> @@ -961,7 +961,7 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
->>          unsigned int i;
->>          u32 val, clock_cntl_on, cgc_mode;
->>
->> -       if (!adreno_gpu->info->hwcg)
->> +       if (!(adreno_gpu->info->hwcg || adreno_is_a750(adreno_gpu)))
->>                  return;
->>
->>          if (adreno_is_a630(adreno_gpu))
->> @@ -982,6 +982,25 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
->>                            state ? 0x5555 : 0);
->>          }
->>
->> +       if (adreno_is_a750(adreno_gpu)) {
->> +               gpu_write(gpu, REG_A7XX_RBBM_CLOCK_CNTL_GLOBAL, 1);
->> +               gpu_write(gpu, REG_A7XX_RBBM_CGC_GLOBAL_LOAD_CMD, state ? 1 : 0);
->> +
->> +               if (state) {
->> +                       gpu_write(gpu, REG_A7XX_RBBM_CGC_P2S_TRIG_CMD, 1);
->> +
->> +                       if (gpu_poll_timeout(gpu, REG_A7XX_RBBM_CGC_P2S_STATUS, val,
->> +                                            val & A7XX_RBBM_CGC_P2S_STATUS_TXDONE, 1, 10)) {
->> +                               dev_err(&gpu->pdev->dev, "RBBM_CGC_P2S_STATUS TXDONE Poll failed\n");
->> +                               return;
->> +                       }
->> +
->> +                       gpu_write(gpu, REG_A7XX_RBBM_CLOCK_CNTL_GLOBAL, 0);
->> +               }
->> +
->> +               return;
->> +       }
->> +
->>          val = gpu_read(gpu, REG_A6XX_RBBM_CLOCK_CNTL);
->>
->>          /* Don't re-program the registers if they are already correct */
->> ====================><===============================
->>
->> And it works fine, does it work it for you ?
-> 
-> Let's keep it as-is in the original submission, as I've mentioned, I had
-> misread the code
+Unlike the the very close A740 GPU on the SM8550 SoC, the A750 GPU
+doesn't have an HWCFG block but a separate register set.
 
-Ack thanks
+The missing registers are added in the a6xx.xml.h file that would
+require a subsequent sync and the non-existent hwcfg is handled
+in a6xx_set_hwcg().
 
-Neil
+The A750 GPU info are added under the adreno_is_a750() macro and
+the ADRENO_7XX_GEN3 family id.
 
-> 
-> Konrad
-> 
->>
->>>
->>>> +        gpu_write(gpu, REG_A7XX_RBBM_CLOCK_CNTL_GLOBAL, 1);
->>>> +        gpu_write(gpu, REG_A7XX_RBBM_CGC_GLOBAL_LOAD_CMD, state ? 1 : 0);
->>>> +
->>>> +        if (state) {
->>>> +            gpu_write(gpu, REG_A7XX_RBBM_CGC_P2S_TRIG_CMD, 1);
->>>> +
->>>> +            if (gpu_poll_timeout(gpu, REG_A7XX_RBBM_CGC_P2S_STATUS, val,
->>>> +                         val & BIT(0), 1, 10)) {
->>>
->>> We should define that bit name (the err suggests it's
->>> REG_A7XX_RBBM_GCC_P2S_STATUS_TXDONE or so)
->>>
->>> [...]
->>>
->>>> +static inline int adreno_is_a750(struct adreno_gpu *gpu)
->>>> +{
->>>> +    return gpu->info->chip_ids[0] == 0x43051401;
->>>> +}
->>>> +
->>>>    /* Placeholder to make future diffs smaller */
->>>
->>> Please also remove this comment now that it's invalid
->>
->> Ack
->>
->>>
->>> Konrad
->>
->> Thanks,
->> Neil
->>
+This adds:
+- the GMU and SMMU bindings
+- DRM driver changes
+- DT nodes
+
+Dependencies: None
+
+Tested using Mesa's !26934 Merge Request [0] on the SM8650-QRD
+and with kmscube & vkcube to test basic rendering.
+
+[0] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26934
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v2:
+- Added separate a6xx.xml.h sync from https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27576
+- Collected review tags
+- Inlined skip_programming
+- Use A7XX_RBBM_CGC_P2S_STATUS_TXDONE instead of BIT(0)
+- Drop now useless placeholder comment
+- Removed interconnect properties
+- Rebased on current linux-next
+- Link to v1: https://lore.kernel.org/r/20240212-topic-sm8650-gpu-v1-0-708a40b747b5@linaro.org
+
+---
+Neil Armstrong (6):
+      dt-bindings: display/msm/gmu: Document Adreno 750 GMU
+      dt-bindings: arm-smmu: Document SM8650 GPU SMMU
+      drm/msm/a6xx: Add missing regs for A750
+      drm/msm: add support for A750 GPU
+      arm64: dts: qcom: sm8650: add GPU nodes
+      arm64: dts: qcom: sm8650-qrd: enable GPU
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |   1 +
+ .../devicetree/bindings/iommu/arm,smmu.yaml        |   7 +-
+ arch/arm64/boot/dts/qcom/sm8650-qrd.dts            |   8 +
+ arch/arm64/boot/dts/qcom/sm8650.dtsi               | 166 +++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h              |   9 ++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   2 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  28 +++-
+ drivers/gpu/drm/msm/adreno/adreno_device.c         |  14 ++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  10 +-
+ 9 files changed, 238 insertions(+), 7 deletions(-)
+---
+base-commit: 5a30f6bdb84228f160b331eed2ccfde00bfb3ab4
+change-id: 20240208-topic-sm8650-gpu-489d5e2c2b17
+
+Best regards,
+-- 
+Neil Armstrong <neil.armstrong@linaro.org>
 
