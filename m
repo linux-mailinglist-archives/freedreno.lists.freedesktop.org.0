@@ -2,58 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31050855BB4
-	for <lists+freedreno@lfdr.de>; Thu, 15 Feb 2024 08:34:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4155C855C43
+	for <lists+freedreno@lfdr.de>; Thu, 15 Feb 2024 09:20:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A82E10E04F;
-	Thu, 15 Feb 2024 07:34:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9EDE10E299;
+	Thu, 15 Feb 2024 08:20:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iE9KG+M2";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dDgBfl0A";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCB8C10E04F;
- Thu, 15 Feb 2024 07:34:46 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E2D7E61BE2;
- Thu, 15 Feb 2024 07:34:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861E8C433C7;
- Thu, 15 Feb 2024 07:34:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1707982485;
- bh=d+coCdfl5TyzHkk2WHZ+6VQlZcOEjRLYjvg5P+9S/hE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iE9KG+M2oePyVUW3RrTA0ExjRqKVcdYIfbnqEtUrmCKOvA0eQ2MPYQhk99pnediQD
- TknsEmBjtw7UbFKznE+PoJzrSX9j7C+uH4OrHqSjTehLZt8FWI13FOvIqrUYYsMR5U
- qg3NZboZQhqFrvswRID5EYi1dNWSfXYoOeLbAz/mXq0fQnaRhow517pXOCwyb4eNIZ
- fWUu83J1E8wkdWc6ssdus8cNUnrB1GORbs/l39QoUHc4Vb5EuAcfTBGA6wVb3lnol/
- u20DWpibC0Wii+RMLczbYihIqWOq3dWoQYcOygFlTYSerrw9578QnJLjF5S8/+5Y4g
- Br7dpYR86wGDA==
-Received: from johan by xi.lan with local (Exim 4.97.1)
- (envelope-from <johan@kernel.org>) id 1raWGv-000000002Gp-4Agb;
- Thu, 15 Feb 2024 08:35:06 +0100
-Date: Thu, 15 Feb 2024 08:35:05 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@chromium.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/msm: Wire up tlb ops
-Message-ID: <Zc2-qVd0gtErdbKe@hovoldconsulting.com>
-References: <20240213172340.228314-1-robdclark@gmail.com>
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
+ [209.85.128.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57B0310E299
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Feb 2024 08:20:16 +0000 (UTC)
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-607d9c4fa90so1781717b3.2
+ for <freedreno@lists.freedesktop.org>; Thu, 15 Feb 2024 00:20:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1707985215; x=1708590015; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Do6lkICkviYxGolQ4jKofjndpLLNdGDEYdxEGQGE5Qw=;
+ b=dDgBfl0Aw+oxosmw9plfTEhkFeCopKmKBWnaSsayEg8Fe6km2+0m0ioCsPGEhk3G2V
+ TpFVe3WV+dI5elgvPkv6ypeHjLRvnFCzSMObRXir5CDbQy4utAfL9Jl7pzCCZzIJWOE8
+ tsaXCUrur17Lw7uGX/NjdIdfbs8tjcSDse5rMXEqA4SP9xcMZ+sBZuSUV05XJW6TfeL3
+ br3nb3z/KixDbCyNxzWkiZ1F0fOgzEl29R1k9o1fU5NlgCiZpCc0hAo/GZ4DcvOinEKg
+ VIkdNezZZoV50LvActld77/ulGO0h6hHL1BVtwEzPi5NPC60Mxwcwce/rSZwz2UGuptj
+ eKDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707985215; x=1708590015;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Do6lkICkviYxGolQ4jKofjndpLLNdGDEYdxEGQGE5Qw=;
+ b=YElrxVoKMHLlaxQO1JJNXQCGiefmlGlp3ziCgGtErl1oG47FZ3Gpb1SkbyUSmGZCal
+ Yx9igU9Xc8R97XwocBlhGA0GegqOWPOm6pmIWwUKQz80gJ3X1sEBQi2ZwWp+Gxxfa1d1
+ GR4TpocMvHOrDn5XNknG+A6W/F8gWlfex9rH3glHVCuQ2AzWZsIRS8PwX/QG4qN2XVGq
+ J/qXxz3ww3mtoqmtdLprzjdYQ1X57x0JL6LOwS8taiRjK+AYjZND8C3mI0mxsMn+Ktz0
+ EKcwN9AMfC/3TvHYD06PQAf6m9Wi7Qs/dPL1jM5reSpZeN1np5yBQ6AMxchGQ01iQNiO
+ IFdQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWi2iiWQIjbppVa8z6FVZX6HA08vtF/OEqAc/wULFzMPf0Q2MXUOwPRLpOpdcM7qZQmJq1El0FjST0aaZW/0xP6iThWTinitKKwC46onZZj
+X-Gm-Message-State: AOJu0YwykpRgcEuP2ZpFW9lpP+kgxqHbp6xAOE2g303oeg0aqfqr7Swb
+ g71Pu70D6xD5cI4GSkvkLyZdZQ9GBbVmgC0/EjQ3ewS1slet0s2NIemGzWGftFNpIIa4i51xSVX
+ PvwDh0Ipfld5fbEyr9vZv8vbtWamAVNWtu/ny9Q==
+X-Google-Smtp-Source: AGHT+IFR0BaawAwJFtSrOqTIsOaDiPK3hJcwFuKA/JF3s/kl+o1cA1+0zvrdu4dUcz7SxN9wKGH+LLMJUUmzevFC5+c=
+X-Received: by 2002:a25:848d:0:b0:dc6:be64:cfd1 with SMTP id
+ v13-20020a25848d000000b00dc6be64cfd1mr899082ybk.36.1707985215265; Thu, 15 Feb
+ 2024 00:20:15 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240213172340.228314-1-robdclark@gmail.com>
+References: <20240214-x1e80100-display-v2-0-cf05ba887453@linaro.org>
+ <20240214-x1e80100-display-v2-3-cf05ba887453@linaro.org>
+In-Reply-To: <20240214-x1e80100-display-v2-3-cf05ba887453@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 15 Feb 2024 10:20:05 +0200
+Message-ID: <CAA8EJpobjxa4-Yu_mZxUPiFEcmA0OyxtM4umR1OvBg_WB4pj5Q@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] drm/msm: mdss: Add X1E80100 support
+To: Abel Vesa <abel.vesa@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,27 +88,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 13, 2024 at 09:23:40AM -0800, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> The brute force iommu_flush_iotlb_all() was good enough for unmap, but
-> in some cases a map operation could require removing a table pte entry
-> to replace with a block entry.  This also requires tlb invalidation.
-> Missing this was resulting an obscure iova fault on what should be a
-> valid buffer address.
-> 
-> Thanks to Robin Murphy for helping me understand the cause of the fault.
-> 
-> Cc: Robin Murphy <robin.murphy@arm.com>
-> Fixes: b145c6e65eb0 ("drm/msm: Add support to create a local pagetable")
+On Wed, 14 Feb 2024 at 23:24, Abel Vesa <abel.vesa@linaro.org> wrote:
+>
+> Add support for MDSS on X1E80100.
+>
+> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/msm_mdss.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 
-Sounds like you're missing a
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Cc: stable@vger.kernel.org
-
-here? Or is there some reason not to backport this fix (to 5.9 and later
-kernels)?
-
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-
-Johan
+-- 
+With best wishes
+Dmitry
