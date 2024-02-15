@@ -2,60 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30D4A85590B
-	for <lists+freedreno@lfdr.de>; Thu, 15 Feb 2024 03:56:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31050855BB4
+	for <lists+freedreno@lfdr.de>; Thu, 15 Feb 2024 08:34:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 014F510E169;
-	Thu, 15 Feb 2024 02:56:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A82E10E04F;
+	Thu, 15 Feb 2024 07:34:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m8kV5y6k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iE9KG+M2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 828D010E162;
- Thu, 15 Feb 2024 02:56:45 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCB8C10E04F;
+ Thu, 15 Feb 2024 07:34:46 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 9AEB4CE24BD;
- Thu, 15 Feb 2024 02:56:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96A3AC433F1;
- Thu, 15 Feb 2024 02:56:38 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id E2D7E61BE2;
+ Thu, 15 Feb 2024 07:34:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861E8C433C7;
+ Thu, 15 Feb 2024 07:34:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1707965798;
- bh=yvs/U+kUCiyR07Pib58VdwJ/XOtbMmpXBVFg4jf9vAU=;
+ s=k20201202; t=1707982485;
+ bh=d+coCdfl5TyzHkk2WHZ+6VQlZcOEjRLYjvg5P+9S/hE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=m8kV5y6kZ/Vq0xa+v6cnaIZ5mCEfJLuZhxYRRbS4uom1kKgd4IgZmx+P2paZdUoD9
- bBIP2NcGelcd8lU6kzotI/tmMaV0o4//INI6K64AdimC6Re9I6uwV4EjyZZfNSCh3e
- OA/SA7mUUyH5uh6CqN5PjG8XEeHh/TvBq2uGd7FZ8GCkPnZdRmp6P38GFDxTwmY6sF
- Z1N3C1/HSiRKP4ckhs4Kdo97oPTlZzLT/geHtRTEEOucJi19W3eISooC4qLbJuGsBk
- cek5KQZPrMXNJaAxPyyNIyynL11Vl6l23EGS6emrDBZnsUGbjRUZ3FRl/AhMQMoen9
- a0lXiOTa3/75w==
-Date: Wed, 14 Feb 2024 20:56:36 -0600
-From: Rob Herring <robh@kernel.org>
-To: Abel Vesa <abel.vesa@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ b=iE9KG+M2oePyVUW3RrTA0ExjRqKVcdYIfbnqEtUrmCKOvA0eQ2MPYQhk99pnediQD
+ TknsEmBjtw7UbFKznE+PoJzrSX9j7C+uH4OrHqSjTehLZt8FWI13FOvIqrUYYsMR5U
+ qg3NZboZQhqFrvswRID5EYi1dNWSfXYoOeLbAz/mXq0fQnaRhow517pXOCwyb4eNIZ
+ fWUu83J1E8wkdWc6ssdus8cNUnrB1GORbs/l39QoUHc4Vb5EuAcfTBGA6wVb3lnol/
+ u20DWpibC0Wii+RMLczbYihIqWOq3dWoQYcOygFlTYSerrw9578QnJLjF5S8/+5Y4g
+ Br7dpYR86wGDA==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+ (envelope-from <johan@kernel.org>) id 1raWGv-000000002Gp-4Agb;
+ Thu, 15 Feb 2024 08:35:06 +0100
+Date: Thu, 15 Feb 2024 08:35:05 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Rob Clark <robdclark@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@chromium.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] dt-bindings: display/msm: Document the DPU for
- X1E80100
-Message-ID: <20240215025636.GA2577530-robh@kernel.org>
-References: <20240214-x1e80100-display-v2-0-cf05ba887453@linaro.org>
- <20240214-x1e80100-display-v2-2-cf05ba887453@linaro.org>
+ Bjorn Andersson <andersson@kernel.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/msm: Wire up tlb ops
+Message-ID: <Zc2-qVd0gtErdbKe@hovoldconsulting.com>
+References: <20240213172340.228314-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240214-x1e80100-display-v2-2-cf05ba887453@linaro.org>
+In-Reply-To: <20240213172340.228314-1-robdclark@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,34 +69,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Feb 14, 2024 at 11:24:31PM +0200, Abel Vesa wrote:
-> Document the DPU for Qualcomm X1E80100 platform in the SM8650 schema, as
-> they are similar.
+On Tue, Feb 13, 2024 at 09:23:40AM -0800, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-> ---
->  Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+> The brute force iommu_flush_iotlb_all() was good enough for unmap, but
+> in some cases a map operation could require removing a table pte entry
+> to replace with a block entry.  This also requires tlb invalidation.
+> Missing this was resulting an obscure iova fault on what should be a
+> valid buffer address.
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-> index a01d15a03317..c4087cc5abbd 100644
-> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-> @@ -13,7 +13,9 @@ $ref: /schemas/display/msm/dpu-common.yaml#
->  
->  properties:
->    compatible:
-> -    const: qcom,sm8650-dpu
-> +    enum:
-> +      - qcom,sm8650-dpu
-> +      - qcom,x1e80100-dpu
+> Thanks to Robin Murphy for helping me understand the cause of the fault.
+> 
+> Cc: Robin Murphy <robin.murphy@arm.com>
+> Fixes: b145c6e65eb0 ("drm/msm: Add support to create a local pagetable")
 
-Patch 1 uses this in the example, so this patch needs to come first.
+Sounds like you're missing a
 
->  
->    reg:
->      items:
-> 
-> -- 
-> 2.34.1
-> 
+Cc: stable@vger.kernel.org
+
+here? Or is there some reason not to backport this fix (to 5.9 and later
+kernels)?
+
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+
+Johan
