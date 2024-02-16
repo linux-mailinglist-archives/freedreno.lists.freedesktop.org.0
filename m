@@ -2,81 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0FE7856D79
-	for <lists+freedreno@lfdr.de>; Thu, 15 Feb 2024 20:16:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 163E0857957
+	for <lists+freedreno@lfdr.de>; Fri, 16 Feb 2024 10:52:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30E3410E908;
-	Thu, 15 Feb 2024 19:16:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB58D10E530;
+	Fri, 16 Feb 2024 09:52:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="IPDFJBIj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c9JY2yn4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BF5F10E729;
- Thu, 15 Feb 2024 19:16:15 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41FIhcOV028350; Thu, 15 Feb 2024 19:16:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=qcppdkim1; bh=5JKqmrk
- fJABfYZUDeP6CxLqjc+esD9/niU7UB8pF9iE=; b=IPDFJBIjt6eQ3pMXlX7H4MJ
- Jy8ekGzdDGT/b3K9EY2X+c42Jj8vaCoCZunrr764X61cxU4Dvs7Y8gBgnyccLaF9
- SPYsw8VMllI26tQfEPNhHCsIGCbZ3vak6PZ2vFZwM0mn3JHcOeHCIANeBDm1qtUn
- 86BfRWY7WK1xl5ANFJhhHEnpBdeWfHDybRM5N0+02638dnPepqaQopD8uWumOpYL
- fSvNIMKiRWgChbdUfWnDmd6FoS1yGF7SBpRJc/GziIWQeBp+arbqGPw8F+9aqAhc
- fybf/O9Y7y+4uLF6Mk6sqVYTvxMNZNveZSN/xfHX3EFVq3ytL9ynqqmnmlVuFoQ=
- =
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w9fkf9s4k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Feb 2024 19:16:08 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41FJG7NR021010
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Feb 2024 19:16:07 GMT
-Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Thu, 15 Feb 2024 11:16:06 -0800
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, Maarten Lankhorst
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EBF210E187;
+ Fri, 16 Feb 2024 09:52:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1708077124; x=1739613124;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=1DmYPShGc1WqUllF/gBgHGJAcAVWQWXf2YSAvLKPay0=;
+ b=c9JY2yn4aIqQXuMhK47puFQnbOrYO7GPCZliex8X34k7QMZ+ypIMo7xQ
+ HR0ifF53J9uQDmXMJCjl3DINRTTD3QGZW+QzU8RuUGlqmq4E9TebCs+6z
+ mwUhQZjWeEVbMFKG47hq5t4Xo4ESCkfgEv/TfOsUCMiH7ZSNY2r0qqLnA
+ eZoEYiHC1UuLQ3GAfbev2ONpGDdoMuJzPgCEvtMCndAAXVlZpR/OL8Is5
+ lblJKPTF0OfAjd6dyxOMHrWy20s8NnP/7O42TBJT2YKG1O9jmY8zzyrMU
+ NwmnneuZ9RlBuGwGTKo1g6Po2SX8kV6ddKeDtLI9aIRyxDdu7k+apxV36 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10985"; a="13305123"
+X-IronPort-AV: E=Sophos;i="6.06,164,1705392000"; d="scan'208";a="13305123"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2024 01:52:04 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10985"; a="935815479"
+X-IronPort-AV: E=Sophos;i="6.06,164,1705392000"; d="scan'208";a="935815479"
+Received: from pshishpo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.48.79])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2024 01:51:57 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-CC: Paloma Arellano <quic_parellan@quicinc.com>, <robdclark@gmail.com>,
- <freedreno@lists.freedesktop.org>, <dmitry.baryshkov@linaro.org>,
- <intel-gfx@lists.freedesktop.org>, <jani.nikula@linux.intel.com>,
- <ville.syrjala@linux.intel.com>, <quic_jesszhan@quicinc.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v5] drm/dp: add an API to indicate if sink supports VSC SDP
-Date: Thu, 15 Feb 2024 11:15:56 -0800
-Message-ID: <20240215191556.3227259-1-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.34.1
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tvrtko.ursulin@linux.intel.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, robdclark@gmail.com,
+ freedreno@lists.freedesktop.org, dmitry.baryshkov@linaro.org,
+ intel-gfx@lists.freedesktop.org, ville.syrjala@linux.intel.com,
+ quic_jesszhan@quicinc.com, linux-kernel@vger.kernel.org,
+ intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v2] drm/dp: move intel_dp_vsc_sdp_pack() to generic helper
+In-Reply-To: <20240215190834.3222812-1-quic_abhinavk@quicinc.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20240215190834.3222812-1-quic_abhinavk@quicinc.com>
+Date: Fri, 16 Feb 2024 11:51:54 +0200
+Message-ID: <87eddc4tz9.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 06Dg6ymyuWe8JYZebRgPmoLvB9lxHZX7
-X-Proofpoint-GUID: 06Dg6ymyuWe8JYZebRgPmoLvB9lxHZX7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-15_18,2024-02-14_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0
- adultscore=0 lowpriorityscore=0 impostorscore=0 mlxlogscore=999
- spamscore=0 bulkscore=0 suspectscore=0 mlxscore=0 phishscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401310000 definitions=main-2402150154
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,85 +75,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Paloma Arellano <quic_parellan@quicinc.com>
+On Thu, 15 Feb 2024, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> intel_dp_vsc_sdp_pack() can be re-used by other DRM drivers as well.
+> Lets move this to drm_dp_helper to achieve this.
+>
+> changes in v2:
+> 	- rebased on top of drm-tip
+>
+> Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-YUV420 format is supported only in the VSC SDP packet and not through
-MSA. Hence add an API which indicates the sink support which can be used
-by the rest of the DP programming.
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-changes in v5:
-	- rebased on top of drm-tip
+> ---
+>  drivers/gpu/drm/display/drm_dp_helper.c | 78 +++++++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_dp.c | 71 +---------------------
+>  include/drm/display/drm_dp_helper.h     |  3 +
+>  3 files changed, 83 insertions(+), 69 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index 8d6ce46471ae..6c91f400ecb1 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -2913,6 +2913,84 @@ void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc)
+>  }
+>  EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
+>  
+> +/**
+> + * drm_dp_vsc_sdp_pack() - pack a given vsc sdp into generic dp_sdp
+> + * @vsc: vsc sdp initialized according to its purpose as defined in
+> + *       table 2-118 - table 2-120 in DP 1.4a specification
+> + * @sdp: valid handle to the generic dp_sdp which will be packed
+> + * @size: valid size of the passed sdp handle
+> + *
+> + * Returns length of sdp on success and error code on failure
+> + */
+> +ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
+> +			    struct dp_sdp *sdp, size_t size)
+> +{
+> +	size_t length = sizeof(struct dp_sdp);
+> +
+> +	if (size < length)
+> +		return -ENOSPC;
+> +
+> +	memset(sdp, 0, size);
+> +
+> +	/*
+> +	 * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
+> +	 * VSC SDP Header Bytes
+> +	 */
+> +	sdp->sdp_header.HB0 = 0; /* Secondary-Data Packet ID = 0 */
+> +	sdp->sdp_header.HB1 = vsc->sdp_type; /* Secondary-data Packet Type */
+> +	sdp->sdp_header.HB2 = vsc->revision; /* Revision Number */
+> +	sdp->sdp_header.HB3 = vsc->length; /* Number of Valid Data Bytes */
+> +
+> +	if (vsc->revision == 0x6) {
+> +		sdp->db[0] = 1;
+> +		sdp->db[3] = 1;
+> +	}
+> +
+> +	/*
+> +	 * Revision 0x5 and revision 0x7 supports Pixel Encoding/Colorimetry
+> +	 * Format as per DP 1.4a spec and DP 2.0 respectively.
+> +	 */
+> +	if (!(vsc->revision == 0x5 || vsc->revision == 0x7))
+> +		goto out;
+> +
+> +	/* VSC SDP Payload for DB16 through DB18 */
+> +	/* Pixel Encoding and Colorimetry Formats  */
+> +	sdp->db[16] = (vsc->pixelformat & 0xf) << 4; /* DB16[7:4] */
+> +	sdp->db[16] |= vsc->colorimetry & 0xf; /* DB16[3:0] */
+> +
+> +	switch (vsc->bpc) {
+> +	case 6:
+> +		/* 6bpc: 0x0 */
+> +		break;
+> +	case 8:
+> +		sdp->db[17] = 0x1; /* DB17[3:0] */
+> +		break;
+> +	case 10:
+> +		sdp->db[17] = 0x2;
+> +		break;
+> +	case 12:
+> +		sdp->db[17] = 0x3;
+> +		break;
+> +	case 16:
+> +		sdp->db[17] = 0x4;
+> +		break;
+> +	default:
+> +		WARN(1, "Missing case %d\n", vsc->bpc);
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* Dynamic Range and Component Bit Depth */
+> +	if (vsc->dynamic_range == DP_DYNAMIC_RANGE_CTA)
+> +		sdp->db[17] |= 0x80;  /* DB17[7] */
+> +
+> +	/* Content Type */
+> +	sdp->db[18] = vsc->content_type & 0x7;
+> +
+> +out:
+> +	return length;
+> +}
+> +EXPORT_SYMBOL(drm_dp_vsc_sdp_pack);
+> +
+>  /**
+>   * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
+>   * @dpcd: DisplayPort configuration data
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 217196196e50..a9458df475e2 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -4089,73 +4089,6 @@ intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
+>  	return false;
+>  }
+>  
+> -static ssize_t intel_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
+> -				     struct dp_sdp *sdp, size_t size)
+> -{
+> -	size_t length = sizeof(struct dp_sdp);
+> -
+> -	if (size < length)
+> -		return -ENOSPC;
+> -
+> -	memset(sdp, 0, size);
+> -
+> -	/*
+> -	 * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
+> -	 * VSC SDP Header Bytes
+> -	 */
+> -	sdp->sdp_header.HB0 = 0; /* Secondary-Data Packet ID = 0 */
+> -	sdp->sdp_header.HB1 = vsc->sdp_type; /* Secondary-data Packet Type */
+> -	sdp->sdp_header.HB2 = vsc->revision; /* Revision Number */
+> -	sdp->sdp_header.HB3 = vsc->length; /* Number of Valid Data Bytes */
+> -
+> -	if (vsc->revision == 0x6) {
+> -		sdp->db[0] = 1;
+> -		sdp->db[3] = 1;
+> -	}
+> -
+> -	/*
+> -	 * Revision 0x5 and revision 0x7 supports Pixel Encoding/Colorimetry
+> -	 * Format as per DP 1.4a spec and DP 2.0 respectively.
+> -	 */
+> -	if (!(vsc->revision == 0x5 || vsc->revision == 0x7))
+> -		goto out;
+> -
+> -	/* VSC SDP Payload for DB16 through DB18 */
+> -	/* Pixel Encoding and Colorimetry Formats  */
+> -	sdp->db[16] = (vsc->pixelformat & 0xf) << 4; /* DB16[7:4] */
+> -	sdp->db[16] |= vsc->colorimetry & 0xf; /* DB16[3:0] */
+> -
+> -	switch (vsc->bpc) {
+> -	case 6:
+> -		/* 6bpc: 0x0 */
+> -		break;
+> -	case 8:
+> -		sdp->db[17] = 0x1; /* DB17[3:0] */
+> -		break;
+> -	case 10:
+> -		sdp->db[17] = 0x2;
+> -		break;
+> -	case 12:
+> -		sdp->db[17] = 0x3;
+> -		break;
+> -	case 16:
+> -		sdp->db[17] = 0x4;
+> -		break;
+> -	default:
+> -		MISSING_CASE(vsc->bpc);
+> -		break;
+> -	}
+> -	/* Dynamic Range and Component Bit Depth */
+> -	if (vsc->dynamic_range == DP_DYNAMIC_RANGE_CTA)
+> -		sdp->db[17] |= 0x80;  /* DB17[7] */
+> -
+> -	/* Content Type */
+> -	sdp->db[18] = vsc->content_type & 0x7;
+> -
+> -out:
+> -	return length;
+> -}
+> -
+>  static ssize_t
+>  intel_dp_hdr_metadata_infoframe_sdp_pack(struct drm_i915_private *i915,
+>  					 const struct hdmi_drm_infoframe *drm_infoframe,
+> @@ -4248,8 +4181,8 @@ static void intel_write_dp_sdp(struct intel_encoder *encoder,
+>  
+>  	switch (type) {
+>  	case DP_SDP_VSC:
+> -		len = intel_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
+> -					    sizeof(sdp));
+> +		len = drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
+> +					  sizeof(sdp));
+>  		break;
+>  	case HDMI_PACKET_TYPE_GAMUT_METADATA:
+>  		len = intel_dp_hdr_metadata_infoframe_sdp_pack(dev_priv,
+> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> index d02014a87f12..8474504d4c88 100644
+> --- a/include/drm/display/drm_dp_helper.h
+> +++ b/include/drm/display/drm_dp_helper.h
+> @@ -812,4 +812,7 @@ int drm_dp_bw_overhead(int lane_count, int hactive,
+>  		       int bpp_x16, unsigned long flags);
+>  int drm_dp_bw_channel_coding_efficiency(bool is_uhbr);
+>  
+> +ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
+> +			    struct dp_sdp *sdp, size_t size);
+> +
+>  #endif /* _DRM_DP_HELPER_H_ */
 
-changes in v4:
-	- bail out early if dpcd rev check fails
-
-changes in v3:
-	- fix the commit title prefix to drm/dp
-	- get rid of redundant !!
-	- break out this change from series [1] to get acks from drm core
-	  maintainers
-
-Changes in v2:
-	- Move VSC SDP support check API from dp_panel.c to
-	  drm_dp_helper.c
-
-[1]: https://patchwork.freedesktop.org/series/129180/
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/gpu/drm/display/drm_dp_helper.c | 23 +++++++++++++++++++++++
- include/drm/display/drm_dp_helper.h     |  2 ++
- 2 files changed, 25 insertions(+)
-
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 8d6ce46471ae..61b11cb45245 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2913,6 +2913,29 @@ void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc)
- }
- EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
- 
-+/**
-+ * drm_dp_vsc_sdp_supported() - check if vsc sdp is supported
-+ * @aux: DisplayPort AUX channel
-+ * @dpcd: DisplayPort configuration data
-+ *
-+ * Returns true if vsc sdp is supported, else returns false
-+ */
-+bool drm_dp_vsc_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE])
-+{
-+	u8 rx_feature;
-+
-+	if (dpcd[DP_DPCD_REV] < DP_DPCD_REV_13)
-+		return false;
-+
-+	if (drm_dp_dpcd_readb(aux, DP_DPRX_FEATURE_ENUMERATION_LIST, &rx_feature) != 1) {
-+		drm_dbg_dp(aux->drm_dev, "failed to read DP_DPRX_FEATURE_ENUMERATION_LIST\n");
-+		return false;
-+	}
-+
-+	return (rx_feature & DP_VSC_SDP_EXT_FOR_COLORIMETRY_SUPPORTED);
-+}
-+EXPORT_SYMBOL(drm_dp_vsc_sdp_supported);
-+
- /**
-  * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
-  * @dpcd: DisplayPort configuration data
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index d02014a87f12..36351f3cdba9 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -100,6 +100,8 @@ struct drm_dp_vsc_sdp {
- 
- void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc);
- 
-+bool drm_dp_vsc_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
-+
- int drm_dp_psr_setup_time(const u8 psr_cap[EDP_PSR_RECEIVER_CAP_SIZE]);
- 
- static inline int
 -- 
-2.34.1
-
+Jani Nikula, Intel
