@@ -2,71 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E3A9857AE4
-	for <lists+freedreno@lfdr.de>; Fri, 16 Feb 2024 12:04:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F073C857AE5
+	for <lists+freedreno@lfdr.de>; Fri, 16 Feb 2024 12:04:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C41910E71E;
-	Fri, 16 Feb 2024 11:04:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 622CC10E5F9;
+	Fri, 16 Feb 2024 11:04:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="c93XHcC2";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="u3yIeUPY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EB1610E71E
- for <freedreno@lists.freedesktop.org>; Fri, 16 Feb 2024 11:03:55 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4124d8f9915so2081265e9.2
- for <freedreno@lists.freedesktop.org>; Fri, 16 Feb 2024 03:03:55 -0800 (PST)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 362BB10EAE6
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Feb 2024 11:03:56 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-411d715c401so14816375e9.1
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Feb 2024 03:03:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708081433; x=1708686233; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=PB1x09n9EY53cKGEtrLSo/nG2NPG4AocGBYm52rVvBM=;
- b=c93XHcC2ag5Qhhw00IVPZQmea2tePJwFG6zUbmKdNhpPVxHAZqB9+7e2Q74OBZyDg/
- ujdDGXJoHIwbPQokDvTUJ3Xxjral9pBrsFfGcLOec5N34itfID1vkMsgGENKuv1uTXAg
- ZA3Z2rOy9H10Nd2BrUnC9S3zhPXnaNU12w5eqgUANOhTzd8RMlUHQSpeuar2T/iu9Ljc
- PxtkEMWyiwjaT6ZamODYAynREQrtLDZTtts34RNpenvGEcqqXWg5vj5VcuVcA3LcCrvo
- 2FNAtPPWOjKtSBKZJlXhMYHsmWhbkjkxoHk2DwW/i5auE87og4MfiXtf85bWfdQxwS+j
- mtvA==
+ d=linaro.org; s=google; t=1708081434; x=1708686234; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=M3p79qEtfp2ZjIJ+XTjXE+1hnr3OUwv786b7yeYiOaw=;
+ b=u3yIeUPYAFEuTlSQmaOZ7fdih03mLZPz5WN3pcuWmcmaj1HkS2fhBXhsvFCeYe7ofu
+ Hy6ubhvTm819eM3W+I5k+cQpEYmlCUOWtpV6gqe6w5nFDzOibO/eCGrTKrySJ6QuInOW
+ 6a5V3cPzhGikt3OZ+hSBgW6DfEeVPlRL1eUd0AWqoufKZ/wvPAFBzPfO8Nzg0RwvKzYh
+ 8aBPDfPOz/d2P5vJCqLS4ZeAfTd6zmxfcocb5t/uu+CbxznLoaxaNokGE9LUvPoygkCE
+ 3JmOnDJFhGbQ/qfDWDyLpq3CRbB7xdnZWA8VtEY6EHYaKcjucozGLdOUreoBF0lyHy1c
+ FrwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708081433; x=1708686233;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PB1x09n9EY53cKGEtrLSo/nG2NPG4AocGBYm52rVvBM=;
- b=hbJMc3XBNwW1Z+6k1IeLITZJsmjO/4fQ2j5WBBPgcBlNRQpoev0potiq36s1/BsF25
- XeJlAfuGBqDZas546WZCvR9lFkXVP5ofDdyMfpCvdQcc1VQS5YCxIDlAZAKWFhNT4MOm
- YtcOGZV4nbn/RiJmZbE+Ah3NIVOaXM3HlvYNhpSO4lWZEcxZxctc9VAVoZfcWTcGxVxD
- mrMpDrCTySrXJScxyCpZmc7UEmaJTgwgo0brxvRMB0zsgZoEIK/At0cm5tzpNGb2wPiS
- KaXqBoAmoAQRmSv/Z0lMk02Z1N+vMMPbhrrxhEx3XKL+jNuUeNj2LLhjcm850NJhkXPl
- yqWA==
+ d=1e100.net; s=20230601; t=1708081434; x=1708686234;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=M3p79qEtfp2ZjIJ+XTjXE+1hnr3OUwv786b7yeYiOaw=;
+ b=jp2H9I/v1t8WkGqOYAvDOM8tBbsx5zby2IR++ZJtGDS8eX6GB8E0nNQE6bjemzc6G2
+ 228jLKevfJR2l5+EffLaGH4a16kJ27x8vC3MPN6AWkC/iw2cVtx1A2yOmyQiCW8sI6Kv
+ To2TOL3yCvz1WPmM//QIazaaikjrOzDMfz5M+FBbnWOSwfMooEVwUbPOarSAzuI7FvFc
+ /lLfJgHmnNHFEzrlpWQGEFzdXjYCe9gasHD/a/UUL1Bh/WaW5/kLrX7cZu5unh/wz7ew
+ 9+dcu/Q273Vn/Jmo7UHy5lGgcms8cgtXupZPW9uNB0InamsrG4X4Uq29wnNpakjJ+kMU
+ x3Pw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUT+3HQLHdMRGiYNeyUSaeMavdKtJNNXykaOGSXh+O2IzD0luTFpK0d5uPkh5TdPaxvSuF2nuI1Rzm6JUvXyPX600i+Of7Ej4uEarNexcAg
-X-Gm-Message-State: AOJu0YwxSB0gtGlESy6EM33LEtdwCbQI7knhjiTGMYNiJpSPLuPR8y4U
- 6jfmF6Uo0I0nT1xgsK2Ind9qz4S4N5EhG1SgcSCGfd8+mcnfzyGZTn/wrlbpY4A=
-X-Google-Smtp-Source: AGHT+IGdb4ensyCIsGPJM7F0VY29Yu/WCltb5zVpSxiuhAMGAeJyprzsZkYB3SyvWQv3EtBA22VOkw==
-X-Received: by 2002:a05:600c:198a:b0:412:1e23:e378 with SMTP id
- t10-20020a05600c198a00b004121e23e378mr2816457wmq.27.1708081433310; 
- Fri, 16 Feb 2024 03:03:53 -0800 (PST)
+ AJvYcCWq9Lz1Q/J57T/J8zt8BVoa80Dqva7TzwVUM6ydVZbQ8nx9K8u3QVxxrx6y5W7X7CIIR/YpkDwO/30PPZJZz92mDpf9UmtuWhuVyroqf+zH
+X-Gm-Message-State: AOJu0YzHTntB/YHF0YferA4j33IWSA3lugS8QRfl975G05q4uTUj08UQ
+ OqYjpx3c+Fg1Eltpm7M7Qc4IJyC8ZXGI/QsVFBObtrKYdQpaNHTjS3S3+jGxsaE=
+X-Google-Smtp-Source: AGHT+IGBdNL8KeMG/RG+D3xrVj+pgMbj754F04oy4yi1RpZ6V0RRLQa/LsZkNh4S2dCingJr9VMEQQ==
+X-Received: by 2002:a05:600c:198f:b0:40f:ddc8:f804 with SMTP id
+ t15-20020a05600c198f00b0040fddc8f804mr3001191wmq.17.1708081434548; 
+ Fri, 16 Feb 2024 03:03:54 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- r2-20020a05600c35c200b004123b049f86sm1993174wmq.37.2024.02.16.03.03.52
+ r2-20020a05600c35c200b004123b049f86sm1993174wmq.37.2024.02.16.03.03.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Feb 2024 03:03:52 -0800 (PST)
+ Fri, 16 Feb 2024 03:03:54 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: [PATCH v3 0/7] drm/msm: Add support for the A750 GPU found on the
- SM8650 platform
-Date: Fri, 16 Feb 2024 12:03:47 +0100
-Message-Id: <20240216-topic-sm8650-gpu-v3-0-eb1f4b86d8d3@linaro.org>
+Date: Fri, 16 Feb 2024 12:03:48 +0100
+Subject: [PATCH v3 1/7] dt-bindings: display/msm/gmu: Document Adreno 750 GMU
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIABNBz2UC/23NQQ6CMBCF4auQrq0ZxpYWV97DuKBQYBKlpMVGQ
- 7i7hbjQ6PJ/yXwzs2A92cCO2cy8jRTIDSkOu4zVfTV0llOTmiGgAATNJzdSzcNNFxJ4N9650GU
- jLdZocsXS2ehtS4+NPF9S9xQm55/bh5iv6xvL8ReLOQeuQFcCjBLKyNOVhsq7vfMdW7WIn4L8I
- 2ASCmPBCNOihfJLWJblBdgefTrzAAAA
+Message-Id: <20240216-topic-sm8650-gpu-v3-1-eb1f4b86d8d3@linaro.org>
+References: <20240216-topic-sm8650-gpu-v3-0-eb1f4b86d8d3@linaro.org>
+In-Reply-To: <20240216-topic-sm8650-gpu-v3-0-eb1f4b86d8d3@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
@@ -87,20 +84,20 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.12.4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2554;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=852;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=88200XhLDsXacy4SUSb4HPXY0yhpQByIXc7VIaR90QQ=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlz0EUmjR87lIPCfi/Gb7UFQg438WdU0lWU7qVfQOr
- uENaJoeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZc9BFAAKCRB33NvayMhJ0cW1EA
- DH6fQ5F4pT1r6Ym1YBG1uanj27R0Rd0ajpmw/qZ0rm6nT9k84uMuaGZYNoRR1A+8Rt8XZo1p2gxkC5
- erG+1yjhFuLMVzmMnlGShi1mcpuz/gmQIyfvP9jasd/RLi3Q+pQIZyFpRysyOSo3xDn/IZ55CsRVrW
- acRQ8/U4EWpo9YFlhELxf12PSvNX5g6NoJub9hyGwIs47/Igm1xP6CG4yVfRcJJk5VltNo1x5WevFf
- ytATAhGfb4T2tpAljgPf+kL1yPpEHLSzf6NEyT3v1aGiJQ2At3a/8KMBxuA3XYqSVFFCNfLTav+5JX
- gPq5fnDEkmRudgosN1w1EdyKz6wRIAB06g65mFmFzvi4+WQ374QEdxe0DA+8ErBO82fJ1u8bzk+f4Y
- ikSU7Vi7mlFBfcMpVgTJjlceBAXEkpCu9YOS6cBFS4VlsJbQ219oTSw47igyGWo66B6VJNBZa+cXCw
- G8cwmm192O5Ik8Ac0Nxk9ErtDcM9hRFoMeWhIe7hmwiQnT3Vx0hitq3nX7Li4zQdC2dFCdUqUBVc8T
- pbnFHaRwcTROZ3y2F3nnuhJFQSkV+C95SF/xYEludWs0JhGSGwT8T1nG1VDFIRr8lfxlb7YkRg0q73
- onvN/ISIwGAoSgeWwuRs4Zlsle3ZBwnVrhBm8O8LhR1J0Z5I7kByt0c0gnQQ==
+ bh=7rJgqOrASH1+9XrvkT4uAGIQBP7+drYr4P1tenEnLrU=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlz0EVKmuMnelD+jPOCbPUzTsHxLthOrLTOHgLjSTa
+ xPs9FyKJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZc9BFQAKCRB33NvayMhJ0UhfD/
+ oDuWdTNYoa15dCO3oA5HvDkWIEClqPqQZHvjaUyI02QCzOQZbQS7T7thHZbOFed88h2oi6jIbXWzgV
+ KxWH7h8S+J7gQL4u5XD9bhu5Vcgt4wqA+DABnmw2rxLW3UrwVUkiPnnG95WLAheF81uTwWkWjFfgLX
+ y1XQ7DMFEmSUgEubL7Q3WAyicXwmHy26yaqP/Et0eGr7vrRSPwLJuPkXp4JNSZ5itASbwbEItH8PVu
+ SncEDTCd8qFewiyGcpenZiCcy/1KNythe/3892+ASMfBHrU3bfAxkHGusUoG75tHoxkfnA+XpjIx4j
+ YbIjYFCotP4yelFiFH0ll2Jy4japCWmcRYNg9bjZK7cRqXUjuIT1CPtZYllK4RC8JWY5Kg4PxPNFZP
+ kTHo3d3pIPQs1EfRodWBPD3BOM0Vir6ynTmSchUKvskzoG4RUtPx2iu44CEvZ1LWVoe4tj44QQnNtA
+ bs+omtQ3D3SkHCQ/04RN+kLEZtBIXrSzdNOV4eLdvPN6yzDvXq0GpNVUIVAJeTrueIS1tDhmghfzLi
+ F9PuzzDWB+BSPKDkfkYCK6dWICYAjdb02YJuuC1zuN5gBd8r+dBhyuBMRgOBFd2YjERvpVuX9GU5Fd
+ SD5S4DilqNQ8hWaCpNhf6b3skPzzzmSq5FTK+/cGKy8Tn2KWa4l+597zsTdQ==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -118,70 +115,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Unlike the the very close A740 GPU on the SM8550 SoC, the A750 GPU
-doesn't have an HWCFG block but a separate register set.
+Document the Adreno 750 GMU found on the SM8650 platform.
 
-The missing registers are added in the a6xx.xml.h file that would
-require a subsequent sync and the non-existent hwcfg is handled
-in a6xx_set_hwcg().
-
-The A750 GPU info are added under the adreno_is_a750() macro and
-the ADRENO_7XX_GEN3 family id.
-
-This adds:
-- the GMU and SMMU bindings
-- DRM driver changes
-- DT nodes
-
-Dependencies: None
-
-Tested using Mesa's !26934 Merge Request [0] on the SM8650-QRD
-and with kmscube & vkcube to test basic rendering.
-
-[0] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26934
-
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-Changes in v3:
-- Fixed smmu bindings if condition for GMU smmu
-- Collected reviews
-- Link to v2: https://lore.kernel.org/r/20240215-topic-sm8650-gpu-v2-0-6be0b4bf2e09@linaro.org
+ Documentation/devicetree/bindings/display/msm/gmu.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes in v2:
-- Added separate a6xx.xml.h sync from https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27576
-- Collected review tags
-- Inlined skip_programming
-- Use A7XX_RBBM_CGC_P2S_STATUS_TXDONE instead of BIT(0)
-- Drop now useless placeholder comment
-- Removed interconnect properties
-- Rebased on current linux-next
-- Link to v1: https://lore.kernel.org/r/20240212-topic-sm8650-gpu-v1-0-708a40b747b5@linaro.org
+diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+index 4e1c25b42908..b3837368a260 100644
+--- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
++++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+@@ -224,6 +224,7 @@ allOf:
+             enum:
+               - qcom,adreno-gmu-730.1
+               - qcom,adreno-gmu-740.1
++              - qcom,adreno-gmu-750.1
+     then:
+       properties:
+         reg:
 
----
-Neil Armstrong (7):
-      dt-bindings: display/msm/gmu: Document Adreno 750 GMU
-      dt-bindings: arm-smmu: fix SM8[45]50 GPU SMMU if condition
-      dt-bindings: arm-smmu: Document SM8650 GPU SMMU
-      drm/msm/a6xx: Add missing regs for A750
-      drm/msm: add support for A750 GPU
-      arm64: dts: qcom: sm8650: add GPU nodes
-      arm64: dts: qcom: sm8650-qrd: enable GPU
-
- .../devicetree/bindings/display/msm/gmu.yaml       |   1 +
- .../devicetree/bindings/iommu/arm,smmu.yaml        |  17 ++-
- arch/arm64/boot/dts/qcom/sm8650-qrd.dts            |   8 +
- arch/arm64/boot/dts/qcom/sm8650.dtsi               | 166 +++++++++++++++++++++
- drivers/gpu/drm/msm/adreno/a6xx.xml.h              |   9 ++
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   2 +
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  28 +++-
- drivers/gpu/drm/msm/adreno/adreno_device.c         |  14 ++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  10 +-
- 9 files changed, 247 insertions(+), 8 deletions(-)
----
-base-commit: 2c3b09aac00d7835023bbc4473ee06696be64fa8
-change-id: 20240208-topic-sm8650-gpu-489d5e2c2b17
-
-Best regards,
 -- 
-Neil Armstrong <neil.armstrong@linaro.org>
+2.34.1
 
