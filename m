@@ -2,68 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE23C857AEC
-	for <lists+freedreno@lfdr.de>; Fri, 16 Feb 2024 12:04:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65E9A858338
+	for <lists+freedreno@lfdr.de>; Fri, 16 Feb 2024 18:01:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 399C210EB13;
-	Fri, 16 Feb 2024 11:04:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38BCF10EC3C;
+	Fri, 16 Feb 2024 17:01:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rWYRQMEd";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xSIdQ3uw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 387E010EAFB
- for <freedreno@lists.freedesktop.org>; Fri, 16 Feb 2024 11:04:04 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5128d914604so1412505e87.3
- for <freedreno@lists.freedesktop.org>; Fri, 16 Feb 2024 03:04:04 -0800 (PST)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
+ [209.85.208.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B34A10EC3F
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Feb 2024 17:01:20 +0000 (UTC)
+Received: by mail-ed1-f50.google.com with SMTP id
+ 4fb4d7f45d1cf-5620595f743so2935670a12.3
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Feb 2024 09:01:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708081442; x=1708686242; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=M4VUVivuxhBItwCnLx0xGdHQH3tLZmkPnVy151EVhso=;
- b=rWYRQMEdHKZFZpFE6OGpYr9DXWK3dNdelT44ZprkQY3qil6H2BMRtFrql+owYspK1c
- 5m4bZahKFsuKNJiiy3KluRdFtPm6dcCB7krctdifOkIwRJ/ncfb8WqRF++m7Fwh3+8dV
- rc8f8uLoLxnUppVV0fog/E/7ZFcKYVGwjwj2K2kwQa4WWaiRBuvWa7BKrNvjOd20XCo5
- 3YWPrwJz1ot25VlQ+Tfy30n1m+1togH9RTHtLZIQbStD4c48DbsjNBMQVd++IQwlWPNA
- t2uq1hynSC0yEmUUWUz5O2eSCdMbU5OkzbzfXFGahR8o14LquJ7MdBMuwXE/H8m9kRC5
- Ul0A==
+ d=linaro.org; s=google; t=1708102878; x=1708707678; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=p1UcFz1FGckNLw1XlmxhxjVgBjfCwoT7hcC1xOssOlI=;
+ b=xSIdQ3uw8NIjk3Cw/wkzJ5/yvvMcFihUkI4ov5hC17n9Px6TTjSfm3tZNHH8b6P4Uv
+ dJLMKFvmXtFAZkSvCywhKnn8+KFyLXSol+iAb74lVCOKOzwqffBzSmUCKKIxTJnbkugD
+ KrZHQ5LGgoOjmHKDAsy/KP9bBc6rrRQdUhPxNzIXNyAEODk6sMSkr70oDwrM/7whCrh6
+ j1x0G1YtOTWpnKe3Q5grcD0nd1o2qkGhFB1PQM/Mby50bIUymrJ1Gqb5qljWuq8dxK9n
+ 6fk9feoDDotPN7ZOrpskvBIWjDdKeJV2WOh2yUDINnBP3aJa1pHVT13mODaULGbUeHBq
+ g9ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708081442; x=1708686242;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=M4VUVivuxhBItwCnLx0xGdHQH3tLZmkPnVy151EVhso=;
- b=WG6u+QolOtfgkenwvDab3jos7SoruUe23grGD3GrJHE0bwKT2WwU8GtrnWGcmmiAfy
- e0eyjAiG4jfwfFFAxJeec9/pxGspGV718nptqB7luJFcdJMRSZ4Mjb53xsKQgd4rbbJE
- CMoMThgH11OX7IwE+oCQSEWIncLY3Hr+pJmt/q8T2cJoQwC2xnLqftNPkNXgTFjSWaLc
- eoU9W9Z9snUpfGSBLGBAewwBecMRR7kAjFqYMtHOWDUvlF5vQrh6J/ZmHBF+wchP3zmT
- Tkf0S127D4leWxJGFHmGmk5Hgc5THJqqIECyx9WKkRmOKqpukH+D5KhMjh5JTLbQPWx1
- At1w==
+ d=1e100.net; s=20230601; t=1708102878; x=1708707678;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=p1UcFz1FGckNLw1XlmxhxjVgBjfCwoT7hcC1xOssOlI=;
+ b=Mh9ZDG/k7NotWDN4MEhhMeLW+qx4oJzZPlEXdlq8rU1vFeRijLbqzpAXwIQFlWYxbq
+ GrlvObJYDjYiGVf3+IsZJAR4/Yhim5VwkfbG8AK71TIO34+9HdP8HqA45YsaSItwSueP
+ P2r5pJt7/dJq7Nk09L3HpHNL/xak1xOLdEsu3l5MaTcFATNKhRYdFNQzBsjCfjE9M2Ek
+ +ujUL1bdo8qVM6XVQOMhQYEnMTbg2OFr5pmMrTDIAVIuBpVNKpHy17bTQIS0ueyC3HGk
+ dzEFrkbrG1GH9FQszFt/EYf9bNWLgwLmHaUqQqFANdBFE70WvGdAKWQJyTPj29QT5YQD
+ o4Uw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXM1KvdxBVfsDs7wn0QXk6sx1dvKwvqpXT/SVlkZVYGyufd4LIdzfhZjRsyjGnmBhmL20+ExWD5XKerTFmRGT+IcLgawcoch4OmjJ7GuxSO
-X-Gm-Message-State: AOJu0YxDO3FCIdNAedOv+VvqDLAJ32KPxcOUole/GksI7CKJFG7I+UuJ
- LEnJ6SdAeGimfUmeWqzpAJrOg4hSfBuP9q/zyG+zA+O/wKeQQcFcCyorrhaKqIk=
-X-Google-Smtp-Source: AGHT+IHxB3djXOGZfctfeVjRtqPgl9AKJgisKXW/R9yWRkrHNQlUHO3cV2qVMp5FEgY5CP4mPAbs/A==
-X-Received: by 2002:a19:5e17:0:b0:511:ac7d:97ea with SMTP id
- s23-20020a195e17000000b00511ac7d97eamr3150124lfb.64.1708081442471; 
- Fri, 16 Feb 2024 03:04:02 -0800 (PST)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
- by smtp.gmail.com with ESMTPSA id
- r2-20020a05600c35c200b004123b049f86sm1993174wmq.37.2024.02.16.03.04.01
+ AJvYcCWMpMBBpn0sWdfFK/Zmr+qcu5IZgn9ERuYRKrdLj+MS6m/UPUizMC3V+EDCO0P9mePddMtgzipEjUNH3fImxhw8VAdgKuO7hnLIzSeQbFZJ
+X-Gm-Message-State: AOJu0YxWOEy3IOxtTAdKTxcionOp6kU0C+1MW5mw+qSJak4L1kzvcRx4
+ PDAoFuBuG7tZACvNjuc6km9C/xbHh93Da99NZy6ipmtWXXV1hFWI+ekxC2AaXwE=
+X-Google-Smtp-Source: AGHT+IHKQOQB0YGj0ov9AvBSyG6g37XAlR8RWH9o87R5qxWdfqq2CXR/ocGh+Qm9/bbxo+8iSy3IAg==
+X-Received: by 2002:a05:6402:28f:b0:560:c951:57ba with SMTP id
+ l15-20020a056402028f00b00560c95157bamr4631607edv.26.1708102878588; 
+ Fri, 16 Feb 2024 09:01:18 -0800 (PST)
+Received: from [127.0.1.1] ([188.24.162.93]) by smtp.gmail.com with ESMTPSA id
+ u20-20020aa7d894000000b00563a6c9fd71sm159706edq.16.2024.02.16.09.01.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Feb 2024 03:04:01 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 16 Feb 2024 12:03:54 +0100
-Subject: [PATCH v3 7/7] arm64: dts: qcom: sm8650-qrd: enable GPU
+ Fri, 16 Feb 2024 09:01:18 -0800 (PST)
+From: Abel Vesa <abel.vesa@linaro.org>
+Subject: [PATCH v3 0/4] drm/msm: Add display support for X1E80100
+Date: Fri, 16 Feb 2024 19:01:04 +0200
+Message-Id: <20240216-x1e80100-display-v3-0-28b1c33ac8c0@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240216-topic-sm8650-gpu-v3-7-eb1f4b86d8d3@linaro.org>
-References: <20240216-topic-sm8650-gpu-v3-0-eb1f4b86d8d3@linaro.org>
-In-Reply-To: <20240216-topic-sm8650-gpu-v3-0-eb1f4b86d8d3@linaro.org>
+X-B4-Tracking: v=1; b=H4sIANCUz2UC/22NQQ7CIBQFr9KwFvP5pYquvIdxAS20JAQaUNKm6
+ d2l3Rijy3nJm1lI0tHqRK7VQqLONtngC9SHirSD9L2mtitMELBmCIxOTAtgALSzaXRyppKfauQ
+ cQElDyk3JpKmK0rdDOfqXc2UcozZ22jv3R+HBpmeI857NbFu3AgeGl99CZhQodBetBDa8M3Bz1
+ ssYjiH2ZLNl/BiQ8T8GLIbWQKOkEGfe1F+GdV3fLEbD+QgBAAA=
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
@@ -71,34 +72,32 @@ To: Rob Clark <robdclark@gmail.com>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, 
+ Rob Herring <robh+dt@kernel.org>, 
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- iommu@lists.linux.dev, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>
+ linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@linaro.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailer: b4 0.12.4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=771;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=eK619A8Ja/rJOcWssIzBbWM6D0kuHt0880KvRuYuMKM=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlz0EXgNVUxVocIorRrq0+P4C1WxED54Xsx9AbKddq
- wgYEbneJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZc9BFwAKCRB33NvayMhJ0YOAD/
- 9ZA0e00w5hdxUVtWcA6R6L8Sgxzl3TGs4M3N2DO257wMbYrseQYYIgISUaSYCbllijwpWn1MBoP8Qd
- kzme7tsEGbUVLG9O6BJPJbjX09Zv7bXFZVw9RycdKfud7WcBFwmzeqpRbC7QwjLciEp8zDR7znYBqV
- haPQJktNh0x/DL7qpS5EQ3VaKKLL1pQiTBjBNCKPsGaDS+Cqkam4OmvgE7b/l3cLSdMZrIrLxwMejY
- uhvkCzU0vPLhb8Jq9mCQ1qtn08KIiyMEcwTKtgmByA1HeGgDfqiaM2g1otALWizNT7rgK4UawovqPd
- FDd4LqZFqfELA5MCRnccpH6cBKOpygQPnTvNLUDHVnQOmHFYw+Z2mtWZZ1r+OoS8i5Np0BsS8/lVIh
- eG2fNRzvP2bMWyMNFmvFBaJ7iFLOF1+Hg5rf0p1cmhL0i44NaMJUTU55ETQG07vaI576kx8EySb38r
- FSYOk1qFs39QNdP0Im4SfbF0JmSDnmfiu8/yTBNkkAjm8hPNqZIk30Ff8E79573ZtHkrk3QT1X02bT
- S8ktDMv0EQkAkRe5UTAoxMeDd9LRLPU/H1jCPotM9oPddQn5Tu+Eta6m3nz2eAHYhymFLrbRehF+oy
- /bZ3CeZECCad5xmda0Mz37zofKY/CPQaeae/Pv0QG6vSxXdAsaFD4yNhkLaA==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2021; i=abel.vesa@linaro.org; 
+ h=from:subject:message-id;
+ bh=0iFXpBAkOI5XFf8B+lBsw7By4yXHr24NnEal53Y4B9U=; 
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBlz5TSztKm9Y1ReskOBVpTZu0w//CBKZim1KNW8
+ Fk0rx9kfouJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZc+U0gAKCRAbX0TJAJUV
+ VlCMD/wJQ0F811zULMoG88tizqg5woFm+ExkHS4/mFScQnxjO+250VkA5TNSBM6eDMDqTEYM47x
+ Fe1ZqYKqiUvTfjFtiFv2tmdT/vUewNdtQBNNlhaW/3f5NG2E9/xONI03hY6Tf9lQHpEK8B5Q92i
+ peLKidNcBoXsOAfufe0rMntPTxGyGYtb3eAs5/N+S+bb17O+HabqxNqSmf2PBKQLLqbRxvc9Kzq
+ PMiLF0PkOc22GI7MObDQG7poVcrLMF0zcVaWrBrBO6feSCKlx7S770Szrki1hNi5xyakOuEj5ik
+ 7cTnPjvjqJyOqgoYot5JYIKc0BdiBhcOqDtXmTLa3pemCeg4eufj4ZflFg6ds5kzssC1M4lUOT7
+ WOC7klglnEEEL6zJxkOuvgLjUj64dQJXMoTm7a69k4xLU/MDRa3sZCJQKRbziF4PNFTjr8/DOCO
+ eerJ2dt/af/vs7Jwnz/buOATn+c4m7Uy+2P3fG6iWvLBZsB6+hUiiVv6ACpzLJTUTKlNG5n8Ma5
+ sNjNnsfp6ZpfdaQjabrJfus/PZ3jAcwhCagh+nLo/Hj+Su4QelJxhp68ajzoKF0OOBckjZIrRE9
+ aEQ36y1kFLJu7ATRCzJYHYuXxurcbZgAs8Zr4LOKDN2hmJwFRkmtNxgSuCXS5dePxFZbZUngk69
+ AMzRJnKXWtf0tWA==
+X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,34 +113,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add path of the GPU firmware for the SM8650-QRD board
+This patchset adds support for display for X1E80100.
+The support for embedded DisplayPort on this platform will not
+be enabled using the connetor type from driver match data,
+but through some 'is-edp' property via DT. This subsequent work
+will be part of a separate patchset.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8650-qrd.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Changes in v3:
+- Added Dmitry's R-b tag to the mdss patch
+- Swapped order of first two patches, as suggested by Rob
+- Added "additionalProperties: true" to all pattern properties in MDSS
+  schema
+- Link to v2: https://lore.kernel.org/r/20240214-x1e80100-display-v2-0-cf05ba887453@linaro.org
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650-qrd.dts b/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
-index b07cac2e5bc8..dc91f0bf4b8c 100644
---- a/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
-@@ -766,6 +766,14 @@ &ipa {
- 	status = "okay";
- };
- 
-+&gpu {
-+	status = "okay";
-+
-+	zap-shader {
-+		firmware-name = "qcom/sm8650/gen70900_zap.mbn";
-+	};
-+};
-+
- &lpass_tlmm {
- 	spkr_1_sd_n_active: spkr-1-sd-n-active-state {
- 		pins = "gpio21";
+Changes in v2:
+- Dropped the 4th patch:
+  "drm/msm/dp: Try looking for link-frequencies into the port@0's endpoint first"
+- Fixed the qcom,x1e80100-mdss schema by including some missing headers
+  in the example
+- Added TODO comment for reg_bus_bw
+- Switched to SDMA features mask
+- Added Krzysztof's R-b tag to mdss schema patch
+- Added Dmitry's R-b tag to the dpu patch
+- Link to v1: https://lore.kernel.org/r/20240129-x1e80100-display-v1-0-0d9eb8254df0@linaro.org
 
+---
+Abel Vesa (4):
+      dt-bindings: display/msm: Document the DPU for X1E80100
+      dt-bindings: display/msm: Document MDSS on X1E80100
+      drm/msm: mdss: Add X1E80100 support
+      drm/msm/dpu: Add X1E80100 support
+
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   4 +-
+ .../bindings/display/msm/qcom,x1e80100-mdss.yaml   | 253 ++++++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   | 449 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                     |  13 +
+ 7 files changed, 722 insertions(+), 1 deletion(-)
+---
+base-commit: 85a96a047f413da4b663919a4ced39a4715c6835
+change-id: 20231201-x1e80100-display-a46324400baf
+
+Best regards,
 -- 
-2.34.1
+Abel Vesa <abel.vesa@linaro.org>
 
