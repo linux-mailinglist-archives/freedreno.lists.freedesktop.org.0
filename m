@@ -2,64 +2,107 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 163E0857957
-	for <lists+freedreno@lfdr.de>; Fri, 16 Feb 2024 10:52:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E3A9857AE4
+	for <lists+freedreno@lfdr.de>; Fri, 16 Feb 2024 12:04:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB58D10E530;
-	Fri, 16 Feb 2024 09:52:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C41910E71E;
+	Fri, 16 Feb 2024 11:04:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c9JY2yn4";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="c93XHcC2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EBF210E187;
- Fri, 16 Feb 2024 09:52:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1708077124; x=1739613124;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=1DmYPShGc1WqUllF/gBgHGJAcAVWQWXf2YSAvLKPay0=;
- b=c9JY2yn4aIqQXuMhK47puFQnbOrYO7GPCZliex8X34k7QMZ+ypIMo7xQ
- HR0ifF53J9uQDmXMJCjl3DINRTTD3QGZW+QzU8RuUGlqmq4E9TebCs+6z
- mwUhQZjWeEVbMFKG47hq5t4Xo4ESCkfgEv/TfOsUCMiH7ZSNY2r0qqLnA
- eZoEYiHC1UuLQ3GAfbev2ONpGDdoMuJzPgCEvtMCndAAXVlZpR/OL8Is5
- lblJKPTF0OfAjd6dyxOMHrWy20s8NnP/7O42TBJT2YKG1O9jmY8zzyrMU
- NwmnneuZ9RlBuGwGTKo1g6Po2SX8kV6ddKeDtLI9aIRyxDdu7k+apxV36 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10985"; a="13305123"
-X-IronPort-AV: E=Sophos;i="6.06,164,1705392000"; d="scan'208";a="13305123"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2024 01:52:04 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10985"; a="935815479"
-X-IronPort-AV: E=Sophos;i="6.06,164,1705392000"; d="scan'208";a="935815479"
-Received: from pshishpo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.48.79])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2024 01:51:57 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tvrtko.ursulin@linux.intel.com>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, robdclark@gmail.com,
- freedreno@lists.freedesktop.org, dmitry.baryshkov@linaro.org,
- intel-gfx@lists.freedesktop.org, ville.syrjala@linux.intel.com,
- quic_jesszhan@quicinc.com, linux-kernel@vger.kernel.org,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v2] drm/dp: move intel_dp_vsc_sdp_pack() to generic helper
-In-Reply-To: <20240215190834.3222812-1-quic_abhinavk@quicinc.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240215190834.3222812-1-quic_abhinavk@quicinc.com>
-Date: Fri, 16 Feb 2024 11:51:54 +0200
-Message-ID: <87eddc4tz9.fsf@intel.com>
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EB1610E71E
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Feb 2024 11:03:55 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4124d8f9915so2081265e9.2
+ for <freedreno@lists.freedesktop.org>; Fri, 16 Feb 2024 03:03:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1708081433; x=1708686233; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=PB1x09n9EY53cKGEtrLSo/nG2NPG4AocGBYm52rVvBM=;
+ b=c93XHcC2ag5Qhhw00IVPZQmea2tePJwFG6zUbmKdNhpPVxHAZqB9+7e2Q74OBZyDg/
+ ujdDGXJoHIwbPQokDvTUJ3Xxjral9pBrsFfGcLOec5N34itfID1vkMsgGENKuv1uTXAg
+ ZA3Z2rOy9H10Nd2BrUnC9S3zhPXnaNU12w5eqgUANOhTzd8RMlUHQSpeuar2T/iu9Ljc
+ PxtkEMWyiwjaT6ZamODYAynREQrtLDZTtts34RNpenvGEcqqXWg5vj5VcuVcA3LcCrvo
+ 2FNAtPPWOjKtSBKZJlXhMYHsmWhbkjkxoHk2DwW/i5auE87og4MfiXtf85bWfdQxwS+j
+ mtvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708081433; x=1708686233;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=PB1x09n9EY53cKGEtrLSo/nG2NPG4AocGBYm52rVvBM=;
+ b=hbJMc3XBNwW1Z+6k1IeLITZJsmjO/4fQ2j5WBBPgcBlNRQpoev0potiq36s1/BsF25
+ XeJlAfuGBqDZas546WZCvR9lFkXVP5ofDdyMfpCvdQcc1VQS5YCxIDlAZAKWFhNT4MOm
+ YtcOGZV4nbn/RiJmZbE+Ah3NIVOaXM3HlvYNhpSO4lWZEcxZxctc9VAVoZfcWTcGxVxD
+ mrMpDrCTySrXJScxyCpZmc7UEmaJTgwgo0brxvRMB0zsgZoEIK/At0cm5tzpNGb2wPiS
+ KaXqBoAmoAQRmSv/Z0lMk02Z1N+vMMPbhrrxhEx3XKL+jNuUeNj2LLhjcm850NJhkXPl
+ yqWA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUT+3HQLHdMRGiYNeyUSaeMavdKtJNNXykaOGSXh+O2IzD0luTFpK0d5uPkh5TdPaxvSuF2nuI1Rzm6JUvXyPX600i+Of7Ej4uEarNexcAg
+X-Gm-Message-State: AOJu0YwxSB0gtGlESy6EM33LEtdwCbQI7knhjiTGMYNiJpSPLuPR8y4U
+ 6jfmF6Uo0I0nT1xgsK2Ind9qz4S4N5EhG1SgcSCGfd8+mcnfzyGZTn/wrlbpY4A=
+X-Google-Smtp-Source: AGHT+IGdb4ensyCIsGPJM7F0VY29Yu/WCltb5zVpSxiuhAMGAeJyprzsZkYB3SyvWQv3EtBA22VOkw==
+X-Received: by 2002:a05:600c:198a:b0:412:1e23:e378 with SMTP id
+ t10-20020a05600c198a00b004121e23e378mr2816457wmq.27.1708081433310; 
+ Fri, 16 Feb 2024 03:03:53 -0800 (PST)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
+ by smtp.gmail.com with ESMTPSA id
+ r2-20020a05600c35c200b004123b049f86sm1993174wmq.37.2024.02.16.03.03.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Feb 2024 03:03:52 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v3 0/7] drm/msm: Add support for the A750 GPU found on the
+ SM8650 platform
+Date: Fri, 16 Feb 2024 12:03:47 +0100
+Message-Id: <20240216-topic-sm8650-gpu-v3-0-eb1f4b86d8d3@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABNBz2UC/23NQQ6CMBCF4auQrq0ZxpYWV97DuKBQYBKlpMVGQ
+ 7i7hbjQ6PJ/yXwzs2A92cCO2cy8jRTIDSkOu4zVfTV0llOTmiGgAATNJzdSzcNNFxJ4N9650GU
+ jLdZocsXS2ehtS4+NPF9S9xQm55/bh5iv6xvL8ReLOQeuQFcCjBLKyNOVhsq7vfMdW7WIn4L8I
+ 2ASCmPBCNOihfJLWJblBdgefTrzAAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ iommu@lists.linux.dev, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.12.4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2554;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=88200XhLDsXacy4SUSb4HPXY0yhpQByIXc7VIaR90QQ=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlz0EUmjR87lIPCfi/Gb7UFQg438WdU0lWU7qVfQOr
+ uENaJoeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZc9BFAAKCRB33NvayMhJ0cW1EA
+ DH6fQ5F4pT1r6Ym1YBG1uanj27R0Rd0ajpmw/qZ0rm6nT9k84uMuaGZYNoRR1A+8Rt8XZo1p2gxkC5
+ erG+1yjhFuLMVzmMnlGShi1mcpuz/gmQIyfvP9jasd/RLi3Q+pQIZyFpRysyOSo3xDn/IZ55CsRVrW
+ acRQ8/U4EWpo9YFlhELxf12PSvNX5g6NoJub9hyGwIs47/Igm1xP6CG4yVfRcJJk5VltNo1x5WevFf
+ ytATAhGfb4T2tpAljgPf+kL1yPpEHLSzf6NEyT3v1aGiJQ2At3a/8KMBxuA3XYqSVFFCNfLTav+5JX
+ gPq5fnDEkmRudgosN1w1EdyKz6wRIAB06g65mFmFzvi4+WQ374QEdxe0DA+8ErBO82fJ1u8bzk+f4Y
+ ikSU7Vi7mlFBfcMpVgTJjlceBAXEkpCu9YOS6cBFS4VlsJbQ219oTSw47igyGWo66B6VJNBZa+cXCw
+ G8cwmm192O5Ik8Ac0Nxk9ErtDcM9hRFoMeWhIe7hmwiQnT3Vx0hitq3nX7Li4zQdC2dFCdUqUBVc8T
+ pbnFHaRwcTROZ3y2F3nnuhJFQSkV+C95SF/xYEludWs0JhGSGwT8T1nG1VDFIRr8lfxlb7YkRg0q73
+ onvN/ISIwGAoSgeWwuRs4Zlsle3ZBwnVrhBm8O8LhR1J0Z5I7kByt0c0gnQQ==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,214 +118,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 15 Feb 2024, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> intel_dp_vsc_sdp_pack() can be re-used by other DRM drivers as well.
-> Lets move this to drm_dp_helper to achieve this.
->
-> changes in v2:
-> 	- rebased on top of drm-tip
->
-> Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Unlike the the very close A740 GPU on the SM8550 SoC, the A750 GPU
+doesn't have an HWCFG block but a separate register set.
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+The missing registers are added in the a6xx.xml.h file that would
+require a subsequent sync and the non-existent hwcfg is handled
+in a6xx_set_hwcg().
 
-> ---
->  drivers/gpu/drm/display/drm_dp_helper.c | 78 +++++++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_dp.c | 71 +---------------------
->  include/drm/display/drm_dp_helper.h     |  3 +
->  3 files changed, 83 insertions(+), 69 deletions(-)
->
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-> index 8d6ce46471ae..6c91f400ecb1 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -2913,6 +2913,84 @@ void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc)
->  }
->  EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
->  
-> +/**
-> + * drm_dp_vsc_sdp_pack() - pack a given vsc sdp into generic dp_sdp
-> + * @vsc: vsc sdp initialized according to its purpose as defined in
-> + *       table 2-118 - table 2-120 in DP 1.4a specification
-> + * @sdp: valid handle to the generic dp_sdp which will be packed
-> + * @size: valid size of the passed sdp handle
-> + *
-> + * Returns length of sdp on success and error code on failure
-> + */
-> +ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
-> +			    struct dp_sdp *sdp, size_t size)
-> +{
-> +	size_t length = sizeof(struct dp_sdp);
-> +
-> +	if (size < length)
-> +		return -ENOSPC;
-> +
-> +	memset(sdp, 0, size);
-> +
-> +	/*
-> +	 * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
-> +	 * VSC SDP Header Bytes
-> +	 */
-> +	sdp->sdp_header.HB0 = 0; /* Secondary-Data Packet ID = 0 */
-> +	sdp->sdp_header.HB1 = vsc->sdp_type; /* Secondary-data Packet Type */
-> +	sdp->sdp_header.HB2 = vsc->revision; /* Revision Number */
-> +	sdp->sdp_header.HB3 = vsc->length; /* Number of Valid Data Bytes */
-> +
-> +	if (vsc->revision == 0x6) {
-> +		sdp->db[0] = 1;
-> +		sdp->db[3] = 1;
-> +	}
-> +
-> +	/*
-> +	 * Revision 0x5 and revision 0x7 supports Pixel Encoding/Colorimetry
-> +	 * Format as per DP 1.4a spec and DP 2.0 respectively.
-> +	 */
-> +	if (!(vsc->revision == 0x5 || vsc->revision == 0x7))
-> +		goto out;
-> +
-> +	/* VSC SDP Payload for DB16 through DB18 */
-> +	/* Pixel Encoding and Colorimetry Formats  */
-> +	sdp->db[16] = (vsc->pixelformat & 0xf) << 4; /* DB16[7:4] */
-> +	sdp->db[16] |= vsc->colorimetry & 0xf; /* DB16[3:0] */
-> +
-> +	switch (vsc->bpc) {
-> +	case 6:
-> +		/* 6bpc: 0x0 */
-> +		break;
-> +	case 8:
-> +		sdp->db[17] = 0x1; /* DB17[3:0] */
-> +		break;
-> +	case 10:
-> +		sdp->db[17] = 0x2;
-> +		break;
-> +	case 12:
-> +		sdp->db[17] = 0x3;
-> +		break;
-> +	case 16:
-> +		sdp->db[17] = 0x4;
-> +		break;
-> +	default:
-> +		WARN(1, "Missing case %d\n", vsc->bpc);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* Dynamic Range and Component Bit Depth */
-> +	if (vsc->dynamic_range == DP_DYNAMIC_RANGE_CTA)
-> +		sdp->db[17] |= 0x80;  /* DB17[7] */
-> +
-> +	/* Content Type */
-> +	sdp->db[18] = vsc->content_type & 0x7;
-> +
-> +out:
-> +	return length;
-> +}
-> +EXPORT_SYMBOL(drm_dp_vsc_sdp_pack);
-> +
->  /**
->   * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
->   * @dpcd: DisplayPort configuration data
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 217196196e50..a9458df475e2 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4089,73 +4089,6 @@ intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
->  	return false;
->  }
->  
-> -static ssize_t intel_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
-> -				     struct dp_sdp *sdp, size_t size)
-> -{
-> -	size_t length = sizeof(struct dp_sdp);
-> -
-> -	if (size < length)
-> -		return -ENOSPC;
-> -
-> -	memset(sdp, 0, size);
-> -
-> -	/*
-> -	 * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
-> -	 * VSC SDP Header Bytes
-> -	 */
-> -	sdp->sdp_header.HB0 = 0; /* Secondary-Data Packet ID = 0 */
-> -	sdp->sdp_header.HB1 = vsc->sdp_type; /* Secondary-data Packet Type */
-> -	sdp->sdp_header.HB2 = vsc->revision; /* Revision Number */
-> -	sdp->sdp_header.HB3 = vsc->length; /* Number of Valid Data Bytes */
-> -
-> -	if (vsc->revision == 0x6) {
-> -		sdp->db[0] = 1;
-> -		sdp->db[3] = 1;
-> -	}
-> -
-> -	/*
-> -	 * Revision 0x5 and revision 0x7 supports Pixel Encoding/Colorimetry
-> -	 * Format as per DP 1.4a spec and DP 2.0 respectively.
-> -	 */
-> -	if (!(vsc->revision == 0x5 || vsc->revision == 0x7))
-> -		goto out;
-> -
-> -	/* VSC SDP Payload for DB16 through DB18 */
-> -	/* Pixel Encoding and Colorimetry Formats  */
-> -	sdp->db[16] = (vsc->pixelformat & 0xf) << 4; /* DB16[7:4] */
-> -	sdp->db[16] |= vsc->colorimetry & 0xf; /* DB16[3:0] */
-> -
-> -	switch (vsc->bpc) {
-> -	case 6:
-> -		/* 6bpc: 0x0 */
-> -		break;
-> -	case 8:
-> -		sdp->db[17] = 0x1; /* DB17[3:0] */
-> -		break;
-> -	case 10:
-> -		sdp->db[17] = 0x2;
-> -		break;
-> -	case 12:
-> -		sdp->db[17] = 0x3;
-> -		break;
-> -	case 16:
-> -		sdp->db[17] = 0x4;
-> -		break;
-> -	default:
-> -		MISSING_CASE(vsc->bpc);
-> -		break;
-> -	}
-> -	/* Dynamic Range and Component Bit Depth */
-> -	if (vsc->dynamic_range == DP_DYNAMIC_RANGE_CTA)
-> -		sdp->db[17] |= 0x80;  /* DB17[7] */
-> -
-> -	/* Content Type */
-> -	sdp->db[18] = vsc->content_type & 0x7;
-> -
-> -out:
-> -	return length;
-> -}
-> -
->  static ssize_t
->  intel_dp_hdr_metadata_infoframe_sdp_pack(struct drm_i915_private *i915,
->  					 const struct hdmi_drm_infoframe *drm_infoframe,
-> @@ -4248,8 +4181,8 @@ static void intel_write_dp_sdp(struct intel_encoder *encoder,
->  
->  	switch (type) {
->  	case DP_SDP_VSC:
-> -		len = intel_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
-> -					    sizeof(sdp));
-> +		len = drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
-> +					  sizeof(sdp));
->  		break;
->  	case HDMI_PACKET_TYPE_GAMUT_METADATA:
->  		len = intel_dp_hdr_metadata_infoframe_sdp_pack(dev_priv,
-> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-> index d02014a87f12..8474504d4c88 100644
-> --- a/include/drm/display/drm_dp_helper.h
-> +++ b/include/drm/display/drm_dp_helper.h
-> @@ -812,4 +812,7 @@ int drm_dp_bw_overhead(int lane_count, int hactive,
->  		       int bpp_x16, unsigned long flags);
->  int drm_dp_bw_channel_coding_efficiency(bool is_uhbr);
->  
-> +ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
-> +			    struct dp_sdp *sdp, size_t size);
-> +
->  #endif /* _DRM_DP_HELPER_H_ */
+The A750 GPU info are added under the adreno_is_a750() macro and
+the ADRENO_7XX_GEN3 family id.
 
+This adds:
+- the GMU and SMMU bindings
+- DRM driver changes
+- DT nodes
+
+Dependencies: None
+
+Tested using Mesa's !26934 Merge Request [0] on the SM8650-QRD
+and with kmscube & vkcube to test basic rendering.
+
+[0] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26934
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v3:
+- Fixed smmu bindings if condition for GMU smmu
+- Collected reviews
+- Link to v2: https://lore.kernel.org/r/20240215-topic-sm8650-gpu-v2-0-6be0b4bf2e09@linaro.org
+
+Changes in v2:
+- Added separate a6xx.xml.h sync from https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27576
+- Collected review tags
+- Inlined skip_programming
+- Use A7XX_RBBM_CGC_P2S_STATUS_TXDONE instead of BIT(0)
+- Drop now useless placeholder comment
+- Removed interconnect properties
+- Rebased on current linux-next
+- Link to v1: https://lore.kernel.org/r/20240212-topic-sm8650-gpu-v1-0-708a40b747b5@linaro.org
+
+---
+Neil Armstrong (7):
+      dt-bindings: display/msm/gmu: Document Adreno 750 GMU
+      dt-bindings: arm-smmu: fix SM8[45]50 GPU SMMU if condition
+      dt-bindings: arm-smmu: Document SM8650 GPU SMMU
+      drm/msm/a6xx: Add missing regs for A750
+      drm/msm: add support for A750 GPU
+      arm64: dts: qcom: sm8650: add GPU nodes
+      arm64: dts: qcom: sm8650-qrd: enable GPU
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |   1 +
+ .../devicetree/bindings/iommu/arm,smmu.yaml        |  17 ++-
+ arch/arm64/boot/dts/qcom/sm8650-qrd.dts            |   8 +
+ arch/arm64/boot/dts/qcom/sm8650.dtsi               | 166 +++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h              |   9 ++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   2 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  28 +++-
+ drivers/gpu/drm/msm/adreno/adreno_device.c         |  14 ++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  10 +-
+ 9 files changed, 247 insertions(+), 8 deletions(-)
+---
+base-commit: 2c3b09aac00d7835023bbc4473ee06696be64fa8
+change-id: 20240208-topic-sm8650-gpu-489d5e2c2b17
+
+Best regards,
 -- 
-Jani Nikula, Intel
+Neil Armstrong <neil.armstrong@linaro.org>
+
