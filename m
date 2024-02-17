@@ -2,84 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46923858F1B
-	for <lists+freedreno@lfdr.de>; Sat, 17 Feb 2024 12:39:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2D5E859050
+	for <lists+freedreno@lfdr.de>; Sat, 17 Feb 2024 16:03:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BADF10E2AA;
-	Sat, 17 Feb 2024 11:39:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA0ED10E388;
+	Sat, 17 Feb 2024 15:03:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="tFTGe24g";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sk6Bj7qn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D52A10E202
- for <freedreno@lists.freedesktop.org>; Sat, 17 Feb 2024 11:39:51 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-563cb3ba9daso2493709a12.3
- for <freedreno@lists.freedesktop.org>; Sat, 17 Feb 2024 03:39:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708169989; x=1708774789; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=1C+Hkp9mF5Xdg3l0hgYcA9Z6irk/GvuEVb1RZfBg7lc=;
- b=tFTGe24gkDePc5zek43Pc9VhMWAgs5NiumxIrtqkqfyJmrfjfIneXpnXOQ/Skpi4dM
- mLylbYkGfsAGMzsSSYfR2QXQXWogej1CvD30IB20mkTkozJNKoQRbiqEMNoI/KQXdr/o
- 2c3XumbR5rhaxkltwq7499aVeImgEXkY0IHJS/nxkL2elRSV+/oPHGqGfXujP6rUpAHn
- CNrHFw/IzDooeF3sjtEaqR8fYi3AQMv7XRBhxciayZ7JGrPSizU+Vr1qltVD6PSVc/8v
- G+LxVfWWoRGJ5PpsDTOsktpxIMahUWj9o9W1YNzp7JAPQB+4PYYYfRKPleo4AUJ++xLL
- wqKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708169989; x=1708774789;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1C+Hkp9mF5Xdg3l0hgYcA9Z6irk/GvuEVb1RZfBg7lc=;
- b=DANJAxD2H8yjlXvbazG9nDk3dju9C9BhUVpXUK8T0dDBfBEfVWzkMCF0PukpQNDJC5
- muG7876nThyW+O29W/tNn8qApZubYGRYCKV143jjyMnBWcckMwbDZA3CWMpn4Ml543/k
- qul2RPWSa0c2yLpcTy3s89i2u86LBYlBnMRKPmY3hJ459ugISQUBCYOGxbKZjR0guib9
- UFC1fxfJgb8w2eOk3/G8z+GzQOUMbCTRuGRrP/M6cA8bwHBlVWH2YBC385dekPuJTw8t
- Swrfkj38HFAUophCihlLQkRxw0IF8FWp1O+4bw5UiwPAWENJsezkC350a0HH/UiUJ8eY
- 7q6Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWOZFSv58+6yk6EXcJTOYzjxLwzci2EMyT++9d+jgmxvXYjCbQUWagM9m2jl4TTEdg4fe0IZqOaIE+KALcdlioCitpTJxea7ahEKnWcZss2
-X-Gm-Message-State: AOJu0YwEICE62TIre272AKJl3SeCcdLSSJLhDZYQQKTvX5Wd2DITOOHX
- Ww89eYZTV4jSE20AGDRXYf1EJzLnriC3HFpj5K7KH3k3E+wPK9cfyNlPmBYR9Wc=
-X-Google-Smtp-Source: AGHT+IHC8q9jk1V+NICBbpC1WNnMyrhtKdpmvofzMtMFylRK1DYfLGy8RvSLVqogHDYFEu79JIpj6g==
-X-Received: by 2002:aa7:d313:0:b0:564:2fbb:a869 with SMTP id
- p19-20020aa7d313000000b005642fbba869mr524179edq.38.1708169989449; 
- Sat, 17 Feb 2024 03:39:49 -0800 (PST)
-Received: from linaro.org ([188.24.162.93]) by smtp.gmail.com with ESMTPSA id
- ek23-20020a056402371700b0055edfb81384sm803108edb.60.2024.02.17.03.39.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Feb 2024 03:39:48 -0800 (PST)
-Date: Sat, 17 Feb 2024 13:39:46 +0200
-From: Abel Vesa <abel.vesa@linaro.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Sean Paul <sean@poorly.run>, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Herring <robh+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robdclark@gmail.com>,
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 243F610E3C5;
+ Sat, 17 Feb 2024 15:03:07 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 4B8F2CE09F2;
+ Sat, 17 Feb 2024 15:03:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FF3FC43399;
+ Sat, 17 Feb 2024 15:03:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1708182183;
+ bh=RYGrgArfEQO1hz4ZDJrYc151D2jwcPj4HsJMgduGqdg=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Sk6Bj7qnkUtxpPu7r0OWOEKX33/NEitQ5TtRnYdKJx+5sZ2r+IdHyM4505BXrMdz7
+ GQebIt2mgAB3H+iuiVvivn25osbNIPGGdUUA6Sy7we/HmOoNHmvZ29aY/D1v/3OXKD
+ P0bwBYQVv0Ddw4ZaTUT+gKpRcQrYUqIJMifT/Fi8HGaiNqwKjJbCouYHnoGUUkhJwI
+ Bbf7tsUiicb0WSQafeUfOO4SvhcBn4jAy7CpR1tGSBqOarXQ+/gZF8xYjmsOgZNnzD
+ AqUCkvJtcEa+vQ7aB1sdYH+ZhJa3h5ARzbrw4zE8XlUbS07GjIwzvSopeuJnp/v7Nw
+ PeCQwYiphYhEw==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+ (envelope-from <johan+linaro@kernel.org>) id 1rbMDW-000000001Vm-1iMa;
+ Sat, 17 Feb 2024 16:03:02 +0100
+From: Johan Hovold <johan+linaro@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [PATCH v3 2/4] dt-bindings: display/msm: Document MDSS on X1E80100
-Message-ID: <ZdCbAjnga8HCMdYf@linaro.org>
-References: <20240216-x1e80100-display-v3-0-28b1c33ac8c0@linaro.org>
- <20240216-x1e80100-display-v3-2-28b1c33ac8c0@linaro.org>
- <170810832158.3497594.1997532394027797497.robh@kernel.org>
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Vinod Koul <vkoul@kernel.org>
+Cc: Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ Johan Hovold <johan+linaro@kernel.org>
+Subject: [PATCH 0/6] soc: qcom: pmic_glink_altmode: fix drm bridge
+ use-after-free
+Date: Sat, 17 Feb 2024 16:02:22 +0100
+Message-ID: <20240217150228.5788-1-johan+linaro@kernel.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <170810832158.3497594.1997532394027797497.robh@kernel.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,50 +74,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24-02-16 12:32:02, Rob Herring wrote:
-> 
-> On Fri, 16 Feb 2024 19:01:06 +0200, Abel Vesa wrote:
-> > Document the MDSS hardware found on the Qualcomm X1E80100 platform.
-> > 
-> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-> > ---
-> >  .../bindings/display/msm/qcom,x1e80100-mdss.yaml   | 253 +++++++++++++++++++++
-> >  1 file changed, 253 insertions(+)
-> > 
-> 
-> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> on your patch (DT_CHECKER_FLAGS is new in v5.13):
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dts:24:18: fatal error: dt-bindings/clock/qcom,x1e80100-dispcc.h: No such file or directory
->    24 |         #include <dt-bindings/clock/qcom,x1e80100-dispcc.h>
->       |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> compilation terminated.
-> make[2]: *** [scripts/Makefile.lib:419: Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb] Error 1
-> make[2]: *** Waiting for unfinished jobs....
-> make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1428: dt_binding_check] Error 2
-> make: *** [Makefile:240: __sub-make] Error 2
-> 
+Starting with 6.8-rc1 the internal display sometimes fails to come up on
+machines like the Lenovo ThinkPad X13s and the logs indicate that this
+is due to a regression in the DRM subsystem [1].
 
-These bindings headers are already in -next.
+This series fixes a race in the pmic_glink_altmode driver which was
+exposed / triggered by the transparent DRM bridges rework that went into
+6.8-rc1 and that manifested itself as a bridge failing to attach and
+sometimes triggering a NULL-pointer dereference.
 
-> doc reference errors (make refcheckdocs):
-> 
-> See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240216-x1e80100-display-v3-2-28b1c33ac8c0@linaro.org
-> 
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
-> 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
-> Please check and re-submit after running the above command yourself. Note
-> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> your schema. However, it must be unset to test all examples with your schema.
-> 
+The intermittent hard resets that have also been reported since 6.8-rc1
+unfortunately still remains and suggests that we are dealing with two
+separate regressions. There is some indication that also the hard resets
+(e.g. due to register accesses to unclocked hardware) are also due to
+changes in the DRM subsystem as it happens around the time that the eDP
+panel and display controller would be initialised during boot (the
+runtime PM rework?). This remains to be verified, however.
+
+Included is also a fix for a related OF node reference leak in the
+aux-hpd driver found through inspection when reworking the driver.
+
+The use-after-free bug is triggered by a probe deferral and highlighted
+some further bugs in the involved drivers, which were registering child
+devices before deferring probe. This behaviour is not correct and can
+both trigger probe deferral loops and potentially also further issues
+with the DRM bridge implementation.
+
+This series can either go through the Qualcomm SoC tree (pmic_glink) or
+the DRM tree. The PHY patches do not depend on the rest of the series
+and could possibly be merged separately through the PHY tree.
+
+Whichever gets this to mainline the fastest.
+
+Johan
+
+
+[1] https://lore.kernel.org/lkml/ZctVmLK4zTwcpW3A@hovoldconsulting.com/
+
+
+Johan Hovold (5):
+  drm/bridge: aux-hpd: fix OF node leaks
+  drm/bridge: aux-hpd: separate allocation and registration
+  soc: qcom: pmic_glink_altmode: fix drm bridge use-after-free
+  phy: qcom-qmp-combo: fix drm bridge registration
+  phy: qcom-qmp-combo: fix type-c switch registration
+
+Rob Clark (1):
+  soc: qcom: pmic_glink: Fix boot when QRTR=m
+
+ drivers/gpu/drm/bridge/aux-hpd-bridge.c   | 70 ++++++++++++++++++-----
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 16 +++---
+ drivers/soc/qcom/pmic_glink.c             | 21 +++----
+ drivers/soc/qcom/pmic_glink_altmode.c     | 16 +++++-
+ include/drm/bridge/aux-bridge.h           | 15 +++++
+ 5 files changed, 102 insertions(+), 36 deletions(-)
+
+-- 
+2.43.0
+
