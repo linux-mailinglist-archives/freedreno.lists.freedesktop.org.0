@@ -2,82 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B11AC8589AB
-	for <lists+freedreno@lfdr.de>; Sat, 17 Feb 2024 00:03:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9FB2858E2B
+	for <lists+freedreno@lfdr.de>; Sat, 17 Feb 2024 09:57:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C58AD10ED18;
-	Fri, 16 Feb 2024 23:03:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5219410E68E;
+	Sat, 17 Feb 2024 08:57:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Ab6y4qs0";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jLDIylYr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1919710ED16;
- Fri, 16 Feb 2024 23:03:05 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41GMPtbI002978; Fri, 16 Feb 2024 23:03:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- qcppdkim1; bh=ILzb6aKN2MjDQVs26DskX3I+ET9WbODrzd0bVH+kB/8=; b=Ab
- 6y4qs0GafZziIzqzwBm61JmTNysY6rwz/x827XVxU/4Wej2JzOVGNOIU2EeDgtqd
- DQgkls4eu0DoraofBiF2/5U0UNTFP6Du+CfQsl+YTHwWxlHDJNc629NbrvFa7UEj
- SH2qVsQoOJ78acL9BZDEBXpmuVGZ5BjYOMjB6r6pr39N/5SGov9326MkHJri7YrD
- e2G5nAikePdCyULj2S9y5ygEuZMvEcPouXrnUKMGOUCS/ssPY5Z5X95ko+1XP9li
- cSJcLCIV4lEH7iD/aufjcF0KRP7Rn3znTcsYY1YsYez6DhecCxIyc7itrxN2Z83c
- p4BXGAZJyJQex+xcfCqg==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w9xv9j4wr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Feb 2024 23:03:02 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41GN31n6031595
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Feb 2024 23:03:01 GMT
-Received: from hu-parellan-lv.qualcomm.com (10.49.16.6) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Fri, 16 Feb 2024 15:03:01 -0800
-From: Paloma Arellano <quic_parellan@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-CC: Paloma Arellano <quic_parellan@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <robdclark@gmail.com>, <seanpaul@chromium.org>, <swboyd@chromium.org>,
- <dmitry.baryshkov@linaro.org>, <quic_abhinavk@quicinc.com>,
- <quic_jesszhan@quicinc.com>, <quic_khsieh@quicinc.com>,
- <marijn.suijten@somainline.org>, <neil.armstrong@linaro.org>
-Subject: [PATCH v4 19/19] drm/msm/dp: allow YUV420 mode for DP connector when
- CDM available
-Date: Fri, 16 Feb 2024 15:02:07 -0800
-Message-ID: <20240216230228.26713-20-quic_parellan@quicinc.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20240216230228.26713-1-quic_parellan@quicinc.com>
-References: <20240216230228.26713-1-quic_parellan@quicinc.com>
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
+ [209.85.128.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BA9D10E69A
+ for <freedreno@lists.freedesktop.org>; Sat, 17 Feb 2024 08:56:59 +0000 (UTC)
+Received: by mail-yw1-f175.google.com with SMTP id
+ 00721157ae682-6080f44d128so2782687b3.2
+ for <freedreno@lists.freedesktop.org>; Sat, 17 Feb 2024 00:56:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1708160218; x=1708765018; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=RUEfzjoew9j+QLs5DN2Fo+ki26fkaj9Og/wwuf6tOns=;
+ b=jLDIylYrmS7O36xR/hJAsisENWoz3MOoB8aeozeol7tXpkQm9IW8Z18plZNSXxc5gi
+ v2WmtrbC4Ys+TGrf34w+xjZ6Y3BDshXf37VTMAHI8AJz9ae3V44WtRAYk1mvRfHqJqlg
+ +/x8VWORaQj25SaKZ+4oxQhsgh+kk7IeGSurP+bCh3jDgUmfcSOzh71pNAgqJJtJdxN1
+ wmH8+rrSm5LPQVfNNFAJTSM74d2BR0bhm7O5d5M/72NWtqyuc/5aBhegtwTK2P8yPX/9
+ I5gbiH9/C62Mvb2mP2Pwv7XhVYrDjALRwL7PZj3VzYl9cm3vfecK4wDx2IOzVcqGDhB8
+ uc7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708160218; x=1708765018;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=RUEfzjoew9j+QLs5DN2Fo+ki26fkaj9Og/wwuf6tOns=;
+ b=w9kG4+/s7+KlsWRM94dqOGVA2Wp2JDLQZ2vmK34S3tVUGPwq8maSLxtF+hE/8fUuUx
+ 1ACOgQHcmtTBuOAqjPjDckn8fWogFVznjP5a1jFOJ1oQspvszrISGv+XT1mwM48iTKVN
+ 2iSGbm5ZdS8WA/A3ZpTmZDh7g9oX0IY5gSFJX3EBzqz6FZ4c0YiQtLLwLfxR4xFwRlVP
+ DMZPNTaNYJ1do4IsRtW2PM7P+K+shL6lsQpSJRgBL4Yu+e0jhnZ19fhmWiRryGJF72fk
+ FfZ5SaHVxJ3YTNq+xF6N2ekgvpgfssBpmggbynzjPGBp7P6zQ/TQabLpL9UckvvhfzUm
+ oS9A==
+X-Gm-Message-State: AOJu0YyAYX6WThxFYaY2iQWDPJ8ZlMnbP7FADso0RJoAKfpUb5Z4XNbY
+ AnoRNuCO5uVL67W80n44No63kC8q7IUcQDua/ISeLmrYg1Pj5QrCpyGDTn+cbSlMycb6NzV0GO8
+ jpB1nxhHLQkv3PCorGMgSZOJ2jhk9fZ7BzAEaog==
+X-Google-Smtp-Source: AGHT+IFerLn7GLlc3VOTSIvWnsCD6LuQEAoqpzxWLTMZrPS7z58TSphiolDLjdJf80miHTuyaRcphS8gR1GQK/QsW/8=
+X-Received: by 2002:a81:6c8b:0:b0:608:a11:2d25 with SMTP id
+ h133-20020a816c8b000000b006080a112d25mr2150392ywc.41.1708160217854; Sat, 17
+ Feb 2024 00:56:57 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: pm5ESVFT_ukpJP33zQDGkbMqq4hrwGgh
-X-Proofpoint-GUID: pm5ESVFT_ukpJP33zQDGkbMqq4hrwGgh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-16_22,2024-02-16_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015
- bulkscore=0 adultscore=0 mlxscore=0 priorityscore=1501 suspectscore=0
- spamscore=0 phishscore=0 lowpriorityscore=0 mlxlogscore=999
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401310000 definitions=main-2402160182
+References: <20240216230228.26713-1-quic_parellan@quicinc.com>
+ <20240216230228.26713-14-quic_parellan@quicinc.com>
+In-Reply-To: <20240216230228.26713-14-quic_parellan@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sat, 17 Feb 2024 10:56:46 +0200
+Message-ID: <CAA8EJppO4FcJJex8mBbPoDyUbkn4zFvDFR0h3sOY75Qth15Rng@mail.gmail.com>
+Subject: Re: [PATCH v4 13/19] drm/msm/dp: add VSC SDP support for YUV420 over
+ DP
+To: Paloma Arellano <quic_parellan@quicinc.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org, 
+ swboyd@chromium.org, quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com, 
+ quic_khsieh@quicinc.com, marijn.suijten@somainline.org, 
+ neil.armstrong@linaro.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,134 +80,468 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-All the components of YUV420 over DP are added. Therefore, let's mark the
-connector property as true for DP connector when the DP type is not eDP
-and when there is a CDM block available.
+On Sat, 17 Feb 2024 at 01:03, Paloma Arellano <quic_parellan@quicinc.com> wrote:
+>
+> Add support to pack and send the VSC SDP packet for DP. This therefore
+> allows the transmision of format information to the sinks which is
+> needed for YUV420 support over DP.
+>
+> Changes in v4:
+>         - Remove struct msm_dp_sdp_with_parity
+>         - Use dp_utils_pack_sdp_header() to pack the SDP header and
+>           parity bytes into a buffer
+>         - Use this buffer when writing the VSC SDP data in
+>           dp_catalog_panel_send_vsc_sdp()
+>         - Write to all of the MMSS_DP_GENERIC0 registers instead of just
+>           the ones with non-zero values
+>
+> Changes in v3:
+>         - Create a new struct, msm_dp_sdp_with_parity, which holds the
+>           packing information for VSC SDP
+>         - Use drm_dp_vsc_sdp_pack() to pack the data into the new
+>           msm_dp_sdp_with_parity struct instead of specifically packing
+>           for YUV420 format
+>         - Modify dp_catalog_panel_send_vsc_sdp() to send the VSC SDP
+>           data using the new msm_dp_sdp_with_parity struct
+>
+> Changes in v2:
+>         - Rename GENERIC0_SDPSIZE macro to GENERIC0_SDPSIZE_VALID
+>         - Remove dp_sdp from the dp_catalog struct since this data is
+>           being allocated at the point used
+>         - Create a new function in dp_utils to pack the VSC SDP data
+>           into a buffer
+>         - Create a new function that packs the SDP header bytes into a
+>           buffer. This function is made generic so that it can be
+>           utilized by dp_audio
+>           header bytes into a buffer
+>         - Create a new function in dp_utils that takes the packed buffer
+>           and writes to the DP_GENERIC0_* registers
+>         - Split the dp_catalog_panel_config_vsc_sdp() function into two
+>           to disable/enable sending VSC SDP packets
+>         - Check the DP HW version using the original useage of
+>           dp_catalog_hw_revision() and correct the version checking
+>           logic
+>         - Rename dp_panel_setup_vsc_sdp() to
+>           dp_panel_setup_vsc_sdp_yuv_420() to explicitly state that
+>           currently VSC SDP is only being set up to support YUV420 modes
+>
+> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_catalog.c | 107 ++++++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/dp/dp_catalog.h |   7 ++
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c    |   4 ++
+>  drivers/gpu/drm/msm/dp/dp_panel.c   |  55 ++++++++++++++
+>  drivers/gpu/drm/msm/dp/dp_reg.h     |   3 +
+>  drivers/gpu/drm/msm/dp/dp_utils.c   |  56 +++++++++++++++
+>  drivers/gpu/drm/msm/dp/dp_utils.h   |   4 ++
+>  7 files changed, 236 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> index 5d84c089e520a..c6e57812a239e 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> @@ -901,6 +901,113 @@ int dp_catalog_panel_timing_cfg(struct dp_catalog *dp_catalog)
+>         return 0;
+>  }
+>
+> +static void dp_catalog_panel_send_vsc_sdp(struct dp_catalog *dp_catalog, struct dp_sdp *vsc_sdp,
+> +                                         u32 *header)
+> +{
+> +       struct dp_catalog_private *catalog;
+> +       u32 val;
+> +       int i;
+> +
+> +       if (!dp_catalog) {
+> +               DRM_ERROR("invalid input\n");
+> +               return;
+> +       }
 
-Changes in v3:
-	- Move setting the connector's ycbcr_420_allowed parameter so
-	  that it is not dependent on if the dp_display is not eDP
+We are two or three levels deep in the dp_catalog. Do we really need
+to check that dp_catalog is not NULL?
 
-Changes in v2:
-	- Check for if dp_catalog has a CDM block available instead of
-	  checking if VSC SDP is allowed when setting the dp connector's
-	  ycbcr_420_allowed parameter
+Side note: I think we should drop most of such checks. They add
+nothing, just clobber the code.
 
-Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 4 +++-
- drivers/gpu/drm/msm/dp/dp_display.c     | 4 ++--
- drivers/gpu/drm/msm/dp/dp_drm.c         | 6 +++++-
- drivers/gpu/drm/msm/dp/dp_drm.h         | 3 ++-
- drivers/gpu/drm/msm/msm_drv.h           | 5 +++--
- 5 files changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 723cc1d821431..8d326fb36550a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -565,6 +565,7 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
- {
- 	struct drm_encoder *encoder = NULL;
- 	struct msm_display_info info;
-+	bool yuv_supported;
- 	int rc;
- 	int i;
- 
-@@ -583,7 +584,8 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
- 			return PTR_ERR(encoder);
- 		}
- 
--		rc = msm_dp_modeset_init(priv->dp[i], dev, encoder);
-+		yuv_supported = !!dpu_kms->catalog->cdm;
-+		rc = msm_dp_modeset_init(priv->dp[i], dev, encoder, yuv_supported);
- 		if (rc) {
- 			DPU_ERROR("modeset_init failed for DP, rc = %d\n", rc);
- 			return rc;
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index b5a67835ce6d1..a435847f1d948 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1472,7 +1472,7 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
- }
- 
- int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
--			struct drm_encoder *encoder)
-+			struct drm_encoder *encoder, bool yuv_supported)
- {
- 	struct dp_display_private *dp_priv;
- 	int ret;
-@@ -1488,7 +1488,7 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
- 		return ret;
- 	}
- 
--	dp_display->connector = dp_drm_connector_init(dp_display, encoder);
-+	dp_display->connector = dp_drm_connector_init(dp_display, encoder, yuv_supported);
- 	if (IS_ERR(dp_display->connector)) {
- 		ret = PTR_ERR(dp_display->connector);
- 		DRM_DEV_ERROR(dev->dev,
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index 46e6889037e88..a819a4ff76a9f 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -353,7 +353,8 @@ int dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
- }
- 
- /* connector initialization */
--struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct drm_encoder *encoder)
-+struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct drm_encoder *encoder,
-+					    bool yuv_supported)
- {
- 	struct drm_connector *connector = NULL;
- 
-@@ -364,6 +365,9 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct dr
- 	if (!dp_display->is_edp)
- 		drm_connector_attach_dp_subconnector_property(connector);
- 
-+	if (yuv_supported)
-+		connector->ycbcr_420_allowed = true;
-+
- 	drm_connector_attach_encoder(connector, encoder);
- 
- 	return connector;
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
-index b3d684db2383b..45e57ac25a4d9 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.h
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.h
-@@ -19,7 +19,8 @@ struct msm_dp_bridge {
- 
- #define to_dp_bridge(x)     container_of((x), struct msm_dp_bridge, bridge)
- 
--struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct drm_encoder *encoder);
-+struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display, struct drm_encoder *encoder,
-+					    bool yuv_supported);
- int dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
- 			struct drm_encoder *encoder);
- 
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index b876ebd48effe..37335777f5c09 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -385,7 +385,7 @@ static inline struct drm_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_
- int __init msm_dp_register(void);
- void __exit msm_dp_unregister(void);
- int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
--			 struct drm_encoder *encoder);
-+			 struct drm_encoder *encoder, bool yuv_supported);
- void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display);
- bool msm_dp_is_yuv_420_enabled(const struct msm_dp *dp_display,
- 			       const struct drm_display_mode *mode);
-@@ -403,7 +403,8 @@ static inline void __exit msm_dp_unregister(void)
- }
- static inline int msm_dp_modeset_init(struct msm_dp *dp_display,
- 				       struct drm_device *dev,
--				       struct drm_encoder *encoder)
-+				       struct drm_encoder *encoder,
-+				       bool yuv_supported)
- {
- 	return -EINVAL;
- }
+> +       catalog = container_of(dp_catalog, struct dp_catalog_private, dp_catalog);
+> +
+> +       dp_write_link(catalog, MMSS_DP_GENERIC0_0, header[0]);
+> +       dp_write_link(catalog, MMSS_DP_GENERIC0_1, header[1]);
+> +
+> +       for (i = 0; i < sizeof(vsc_sdp->db); i += 4) {
+> +               val = ((vsc_sdp->db[i]) | (vsc_sdp->db[i + 1] << 8) | (vsc_sdp->db[i + 2] << 16) |
+> +                      (vsc_sdp->db[i + 3] << 24));
+> +               dp_write_link(catalog, MMSS_DP_GENERIC0_2 + i, val);
+> +       }
+> +}
+> +
+> +static void dp_catalog_panel_update_sdp(struct dp_catalog *dp_catalog)
+> +{
+> +       struct dp_catalog_private *catalog;
+> +       u32 hw_revision;
+> +
+> +       catalog = container_of(dp_catalog, struct dp_catalog_private, dp_catalog);
+> +
+> +       hw_revision = dp_catalog_hw_revision(dp_catalog);
+> +       if (hw_revision < DP_HW_VERSION_1_2 && hw_revision >= DP_HW_VERSION_1_0) {
+> +               dp_write_link(catalog, MMSS_DP_SDP_CFG3, 0x01);
+> +               dp_write_link(catalog, MMSS_DP_SDP_CFG3, 0x00);
+> +       }
+> +}
+> +
+> +void dp_catalog_panel_enable_vsc_sdp(struct dp_catalog *dp_catalog, struct dp_sdp *vsc_sdp,
+> +                                    u32 *header)
+> +{
+> +       struct dp_catalog_private *catalog;
+> +       u32 cfg, cfg2, misc;
+> +
+> +       if (!dp_catalog) {
+> +               DRM_ERROR("invalid input\n");
+> +               return;
+> +       }
+> +
+> +       catalog = container_of(dp_catalog, struct dp_catalog_private, dp_catalog);
+> +
+> +       cfg = dp_read_link(catalog, MMSS_DP_SDP_CFG);
+> +       cfg2 = dp_read_link(catalog, MMSS_DP_SDP_CFG2);
+> +       misc = dp_read_link(catalog, REG_DP_MISC1_MISC0);
+> +
+> +       cfg |= GEN0_SDP_EN;
+> +       dp_write_link(catalog, MMSS_DP_SDP_CFG, cfg);
+> +
+> +       cfg2 |= GENERIC0_SDPSIZE_VALID;
+> +       dp_write_link(catalog, MMSS_DP_SDP_CFG2, cfg2);
+> +
+> +       dp_catalog_panel_send_vsc_sdp(dp_catalog, vsc_sdp, header);
+> +
+> +       /* indicates presence of VSC (BIT(6) of MISC1) */
+> +       misc |= DP_MISC1_VSC_SDP;
+> +
+> +       drm_dbg_dp(catalog->drm_dev, "vsc sdp enable=1\n");
+> +
+> +       pr_debug("misc settings = 0x%x\n", misc);
+> +       dp_write_link(catalog, REG_DP_MISC1_MISC0, misc);
+> +
+> +       dp_catalog_panel_update_sdp(dp_catalog);
+> +}
+> +
+> +void dp_catalog_panel_disable_vsc_sdp(struct dp_catalog *dp_catalog)
+> +{
+> +       struct dp_catalog_private *catalog;
+> +       u32 cfg, cfg2, misc;
+> +
+> +       if (!dp_catalog) {
+> +               DRM_ERROR("invalid input\n");
+> +               return;
+> +       }
+> +
+> +       catalog = container_of(dp_catalog, struct dp_catalog_private, dp_catalog);
+> +
+> +       cfg = dp_read_link(catalog, MMSS_DP_SDP_CFG);
+> +       cfg2 = dp_read_link(catalog, MMSS_DP_SDP_CFG2);
+> +       misc = dp_read_link(catalog, REG_DP_MISC1_MISC0);
+> +
+> +       cfg &= ~GEN0_SDP_EN;
+> +       dp_write_link(catalog, MMSS_DP_SDP_CFG, cfg);
+> +
+> +       cfg2 &= ~GENERIC0_SDPSIZE_VALID;
+> +       dp_write_link(catalog, MMSS_DP_SDP_CFG2, cfg2);
+> +
+> +       /* switch back to MSA */
+> +       misc &= ~DP_MISC1_VSC_SDP;
+> +
+> +       drm_dbg_dp(catalog->drm_dev, "vsc sdp enable=0\n");
+> +
+> +       pr_debug("misc settings = 0x%x\n", misc);
+> +       dp_write_link(catalog, REG_DP_MISC1_MISC0, misc);
+> +
+> +       dp_catalog_panel_update_sdp(dp_catalog);
+> +}
+> +
+>  void dp_catalog_panel_tpg_enable(struct dp_catalog *dp_catalog,
+>                                 struct drm_display_mode *drm_mode)
+>  {
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> index 6cb5e2a243de2..4bdc087410a68 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> @@ -9,6 +9,7 @@
+>  #include <drm/drm_modes.h>
+>
+>  #include "dp_parser.h"
+> +#include "dp_utils.h"
+>  #include "disp/msm_disp_snapshot.h"
+>
+>  /* interrupts */
+> @@ -30,6 +31,9 @@
+>
+>  #define DP_AUX_CFG_MAX_VALUE_CNT 3
+>
+> +#define DP_HW_VERSION_1_0      0x10000000
+> +#define DP_HW_VERSION_1_2      0x10020000
+> +
+>  /* PHY AUX config registers */
+>  enum dp_phy_aux_config_type {
+>         PHY_AUX_CFG0,
+> @@ -124,6 +128,9 @@ u32 dp_catalog_ctrl_read_phy_pattern(struct dp_catalog *dp_catalog);
+>
+>  /* DP Panel APIs */
+>  int dp_catalog_panel_timing_cfg(struct dp_catalog *dp_catalog);
+> +void dp_catalog_panel_enable_vsc_sdp(struct dp_catalog *dp_catalog, struct dp_sdp *vsc_sdp,
+> +                                    u32 *header);
+> +void dp_catalog_panel_disable_vsc_sdp(struct dp_catalog *dp_catalog);
+>  void dp_catalog_dump_regs(struct dp_catalog *dp_catalog);
+>  void dp_catalog_panel_tpg_enable(struct dp_catalog *dp_catalog,
+>                                 struct drm_display_mode *drm_mode);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index bffb7bac2c2c8..a42b29f9902c1 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1947,6 +1947,8 @@ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
+>         dp_io = &ctrl->parser->io;
+>         phy = dp_io->phy;
+>
+> +       dp_catalog_panel_disable_vsc_sdp(ctrl->catalog);
+> +
+>         /* set dongle to D3 (power off) mode */
+>         dp_link_psm_config(ctrl->link, &ctrl->panel->link_info, true);
+>
+> @@ -2021,6 +2023,8 @@ int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
+>         dp_io = &ctrl->parser->io;
+>         phy = dp_io->phy;
+>
+> +       dp_catalog_panel_disable_vsc_sdp(ctrl->catalog);
+> +
+>         dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
+>
+>         dp_catalog_ctrl_reset(ctrl->catalog);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+> index db1942794f1a4..417655dca2bba 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> @@ -4,6 +4,7 @@
+>   */
+>
+>  #include "dp_panel.h"
+> +#include "dp_utils.h"
+>
+>  #include <drm/drm_connector.h>
+>  #include <drm/drm_edid.h>
+> @@ -281,6 +282,56 @@ void dp_panel_tpg_config(struct dp_panel *dp_panel, bool enable)
+>         dp_catalog_panel_tpg_enable(catalog, &panel->dp_panel.dp_mode.drm_mode);
+>  }
+>
+> +static int dp_panel_setup_vsc_sdp_yuv_420(struct dp_panel *dp_panel)
+> +{
+> +       struct dp_catalog *catalog;
+> +       struct dp_panel_private *panel;
+> +       struct dp_display_mode *dp_mode;
+> +       struct drm_dp_vsc_sdp vsc_sdp_data;
+> +       struct dp_sdp vsc_sdp;
+> +       ssize_t len;
+> +       u32 header[2];
+> +       int rc = 0;
+> +
+> +       if (!dp_panel) {
+> +               DRM_ERROR("invalid input\n");
+> +               rc = -EINVAL;
+> +               return rc;
+
+return -EINVAL directly.
+
+> +       }
+> +
+> +       panel = container_of(dp_panel, struct dp_panel_private, dp_panel);
+> +       catalog = panel->catalog;
+> +       dp_mode = &dp_panel->dp_mode;
+> +
+> +       memset(&vsc_sdp_data, 0, sizeof(vsc_sdp_data));
+> +
+> +       /* VSC SDP header as per table 2-118 of DP 1.4 specification */
+> +       vsc_sdp_data.sdp_type = DP_SDP_VSC;
+> +       vsc_sdp_data.revision = 0x05;
+> +       vsc_sdp_data.length = 0x13;
+> +
+> +       /* VSC SDP Payload for DB16 */
+> +       vsc_sdp_data.pixelformat = DP_PIXELFORMAT_YUV420;
+> +       vsc_sdp_data.colorimetry = DP_COLORIMETRY_DEFAULT;
+> +
+> +       /* VSC SDP Payload for DB17 */
+> +       vsc_sdp_data.bpc = dp_mode->bpp / 3;
+> +       vsc_sdp_data.dynamic_range = DP_DYNAMIC_RANGE_CTA;
+> +
+> +       /* VSC SDP Payload for DB18 */
+> +       vsc_sdp_data.content_type = DP_CONTENT_TYPE_GRAPHICS;
+> +
+> +       len = dp_utils_pack_vsc_sdp(&vsc_sdp_data, &vsc_sdp, header);
+> +       if (len < 0) {
+> +               DRM_ERROR("unable to pack vsc sdp\n");
+> +               return len;
+> +       }
+
+So, at this point we have the header data both in vsc_sdp.sdp_header
+and in the packed header. The relationship between them becomes less
+obvious. Could you please pack dp_sdp_header into u32[2] just before
+writing it? It really makes little sense to pass both at the same
+time.
+
+> +
+> +       dp_catalog_panel_enable_vsc_sdp(catalog, &vsc_sdp, header);
+> +
+> +       return rc;
+
+return 0;
+
+> +}
+> +
+>  void dp_panel_dump_regs(struct dp_panel *dp_panel)
+>  {
+>         struct dp_catalog *catalog;
+> @@ -344,6 +395,10 @@ int dp_panel_timing_cfg(struct dp_panel *dp_panel)
+>         catalog->dp_active = data;
+>
+>         dp_catalog_panel_timing_cfg(catalog);
+> +
+> +       if (dp_panel->dp_mode.out_fmt_is_yuv_420)
+> +               dp_panel_setup_vsc_sdp_yuv_420(dp_panel);
+> +
+>         panel->panel_on = true;
+>
+>         return 0;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
+> index 78785ed4b40c4..aa9f6c3e4ddeb 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_reg.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+> @@ -142,6 +142,7 @@
+>  #define DP_MISC0_SYNCHRONOUS_CLK               (0x00000001)
+>  #define DP_MISC0_COLORIMETRY_CFG_SHIFT         (0x00000001)
+>  #define DP_MISC0_TEST_BITS_DEPTH_SHIFT         (0x00000005)
+> +#define DP_MISC1_VSC_SDP                       (0x00004000)
+>
+>  #define DP_MISC0_COLORIMERY_CFG_LEGACY_RGB     (0)
+>  #define DP_MISC0_COLORIMERY_CFG_CEA_RGB                (0x04)
+> @@ -204,9 +205,11 @@
+>  #define MMSS_DP_AUDIO_CTRL_RESET               (0x00000214)
+>
+>  #define MMSS_DP_SDP_CFG                                (0x00000228)
+> +#define GEN0_SDP_EN                            (0x00020000)
+>  #define MMSS_DP_SDP_CFG2                       (0x0000022C)
+>  #define MMSS_DP_AUDIO_TIMESTAMP_0              (0x00000230)
+>  #define MMSS_DP_AUDIO_TIMESTAMP_1              (0x00000234)
+> +#define GENERIC0_SDPSIZE_VALID                 (0x00010000)
+>
+>  #define MMSS_DP_AUDIO_STREAM_0                 (0x00000240)
+>  #define MMSS_DP_AUDIO_STREAM_1                 (0x00000244)
+> diff --git a/drivers/gpu/drm/msm/dp/dp_utils.c b/drivers/gpu/drm/msm/dp/dp_utils.c
+> index 3a44fe738c004..5577e2366a520 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_utils.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_utils.c
+> @@ -4,9 +4,12 @@
+>   */
+>
+>  #include <linux/types.h>
+> +#include <drm/drm_print.h>
+>
+>  #include "dp_utils.h"
+>
+> +#define DP_SDP_HEADER_SIZE             8
+> +
+>  u8 dp_utils_get_g0_value(u8 data)
+>  {
+>         u8 c[4];
+> @@ -71,3 +74,56 @@ u8 dp_utils_calculate_parity(u32 data)
+>
+>         return parity_byte;
+>  }
+> +
+> +ssize_t dp_utils_pack_sdp_header(struct dp_sdp_header *sdp_header, u32 *header_buff)
+> +{
+> +       size_t length;
+> +       u8 header, parity;
+> +
+> +       length = sizeof(header_buff);
+> +       if (length < DP_SDP_HEADER_SIZE)
+> +               return -ENOSPC;
+> +
+> +       memset(header_buff, 0, sizeof(header_buff));
+> +
+> +       /* HEADER BYTE 0 */
+> +       header = sdp_header->HB0;
+> +       parity = dp_utils_calculate_parity(header);
+> +       header_buff[0]   = ((header << HEADER_BYTE_0_BIT) | (parity << PARITY_BYTE_0_BIT));
+
+Drop extra parentheses, please. Also it might be easier to just call:
+
+header_buff[0] = FIELD_PREP(HEADER_0_MASK, sdp_header->HB0) |
+     FIELD_PREP(PARITY_0_MASK, dp_utils_calculate_parity(sdp_header->HB0) |
+     FIELD_PREP(HEADER_1_MASK, sdp_header->HB1) |
+     FIELD_PREP(PARITY_1_MASK, dp_utils_calculate_parity(sdp_header->HB1);
+
+This is more error proof and (I think) easier to comprehend.
+
+> +
+> +       /* HEADER BYTE 1 */
+> +       header = sdp_header->HB1;
+> +       parity = dp_utils_calculate_parity(header);
+> +       header_buff[0]  |= ((header << HEADER_BYTE_1_BIT) | (parity << PARITY_BYTE_1_BIT));
+> +
+> +       /* HEADER BYTE 2 */
+> +       header = sdp_header->HB2;
+> +       parity = dp_utils_calculate_parity(header);
+> +       header_buff[1]   = ((header << HEADER_BYTE_2_BIT) | (parity << PARITY_BYTE_2_BIT));
+> +
+> +       /* HEADER BYTE 3 */
+> +       header = sdp_header->HB3;
+> +       parity = dp_utils_calculate_parity(header);
+> +       header_buff[1]  |= ((header << HEADER_BYTE_3_BIT) | (parity << PARITY_BYTE_3_BIT));
+> +
+> +       return length;
+> +}
+> +
+> +ssize_t dp_utils_pack_vsc_sdp(struct drm_dp_vsc_sdp *vsc, struct dp_sdp *vsc_sdp, u32 *header)
+> +{
+> +       ssize_t len;
+> +
+> +       len = drm_dp_vsc_sdp_pack(vsc, vsc_sdp, sizeof(*vsc_sdp));
+> +       if (len < 0) {
+> +               DRM_ERROR("unable to pack vsc sdp\n");
+> +               return len;
+> +       }
+> +
+> +       len = dp_utils_pack_sdp_header(&vsc_sdp->sdp_header, header);
+> +       if (len < 0) {
+> +               DRM_ERROR("unable to pack sdp header\n");
+> +               return len;
+> +       }
+> +
+> +       return len;
+> +}
+> diff --git a/drivers/gpu/drm/msm/dp/dp_utils.h b/drivers/gpu/drm/msm/dp/dp_utils.h
+> index 5a505cbf3432b..9d1057bd5a24c 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_utils.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_utils.h
+> @@ -6,6 +6,8 @@
+>  #ifndef _DP_UTILS_H_
+>  #define _DP_UTILS_H_
+>
+> +#include <drm/display/drm_dp_helper.h>
+> +
+>  #define HEADER_BYTE_0_BIT       0
+>  #define PARITY_BYTE_0_BIT       8
+>  #define HEADER_BYTE_1_BIT      16
+> @@ -18,5 +20,7 @@
+>  u8 dp_utils_get_g0_value(u8 data);
+>  u8 dp_utils_get_g1_value(u8 data);
+>  u8 dp_utils_calculate_parity(u32 data);
+> +ssize_t dp_utils_pack_sdp_header(struct dp_sdp_header *sdp_header, u32 *header_buff);
+> +ssize_t dp_utils_pack_vsc_sdp(struct drm_dp_vsc_sdp *vsc, struct dp_sdp *vsc_sdp, u32 *header);
+>
+>  #endif /* _DP_UTILS_H_ */
+> --
+> 2.39.2
+>
+
+
 -- 
-2.39.2
-
+With best wishes
+Dmitry
