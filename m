@@ -2,70 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF91185947D
-	for <lists+freedreno@lfdr.de>; Sun, 18 Feb 2024 05:13:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E75A185948A
+	for <lists+freedreno@lfdr.de>; Sun, 18 Feb 2024 05:18:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 855EF10E0A8;
-	Sun, 18 Feb 2024 04:13:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5C8210E08A;
+	Sun, 18 Feb 2024 04:18:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VP7CSjYX";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="sV4zdIZo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
- [209.85.219.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62A5210E09C
- for <freedreno@lists.freedesktop.org>; Sun, 18 Feb 2024 04:13:51 +0000 (UTC)
-Received: by mail-yb1-f173.google.com with SMTP id
- 3f1490d57ef6-dc745927098so2840452276.3
- for <freedreno@lists.freedesktop.org>; Sat, 17 Feb 2024 20:13:51 -0800 (PST)
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
+ [209.85.128.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A5C210E08A
+ for <freedreno@lists.freedesktop.org>; Sun, 18 Feb 2024 04:18:03 +0000 (UTC)
+Received: by mail-yw1-f175.google.com with SMTP id
+ 00721157ae682-607eefeea90so20645177b3.1
+ for <freedreno@lists.freedesktop.org>; Sat, 17 Feb 2024 20:18:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708229630; x=1708834430; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708229882; x=1708834682; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=F3T5HFHmi3CM0xKiFsfU8xvakCYZHbxMf+HiMKicUfQ=;
- b=VP7CSjYXe8c3Z3qBD1cjJ6HLc8aLtgX+7St7juTATppG4jAq9aRN0QvMrY3QF5zCQu
- KQ4cozCZwYeStcmHX37gNcger9ottekEXuC/EX/mC80eVyxP377Zgw90j0/RIOS0+ZF0
- IqpLFnsK+VyWtXdTLHDwfMYUNDAwnfScXJdrp0ikTUp3fZ7JM6KS6TpsAHdxbmxANVgP
- Umk+W11tQ/+3nYPKNBqBWnLfqK4DATarZZTwggZTAP4Qcv77KDnGfHn2dx3n4fdccetp
- cJkIWSCufjm9hbyWWmKFMS7uD/C6M7bJ/Yd/93u9b27dND44Hsvt9nuB3mZhGc80EWQW
- nryQ==
+ bh=EzD4Pv6p9Be8l8eNEWsH1WgYTIMlRyAnHGABnOcxnhU=;
+ b=sV4zdIZolUU1Irtqv6S1d3Eg/OwTaoigYIgxYabHDh0DjLwoJaLNwLr8uJJgDxYm5p
+ Cudcb6x4G1LMR/Le9KgQ84ZNyQFt2xvEEvOnkYiF+D8b+BsUiYPvDcbJ/MNmAwfRmdo7
+ DGqiPDWzyYGVYePUYeQ7Ep75qjQJZ9p0PooKfqUJ4GrV7cRYWEf+udJA0dPJLKbv7RLm
+ wLSwFMVMCWXQk570bWLcYcxTaiC8+eQAnfn7nMLhYVwuesTi7jU/WyLBd9qL9SiXlL4M
+ bxJ7wSCvEF79UomChjP/3cZpWdJYPdliidBG9nVYz2UCnO07hIG6F5fw4QTQIEcLbl9x
+ tSsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708229630; x=1708834430;
+ d=1e100.net; s=20230601; t=1708229882; x=1708834682;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=F3T5HFHmi3CM0xKiFsfU8xvakCYZHbxMf+HiMKicUfQ=;
- b=XN/pL7/pULuei3bkns024jQWbeXiWfz78WWMHAeJiJ3qPfjnx4wOiK0OLIWNQ1NL4M
- t58nXFfGwdLGA7c8SgGiGHwl+J2/dTTexE0dli6K8erPwjYr1ApsvJB/K6KJNlylVexs
- FUxH0SYzjDYtDGpufKkgeV1Z8HV1YSO3xz25tyKeGCUgMMuxRtS71ZhOYI2hWn7pDKLJ
- CLaLquUxyd5NnI9jyX/ES3cPN0D0RFbT8wjPRq87sbudypV37zX3DeYbkFfaPgOZusLR
- bnHBcqS7CMgnAQ1ZxJDkI/kbtG8eCTTz1B0N9O6gc0WCT9gTeoDZ8813YU8pcjOoOXGE
- 4PnA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUe2xcSV5S87aqLyJLZMjIZkcoB/SJK8IaSMJg7MHhRAEpRBAslYWfP72gqftHopkiOKu5FlJWnDf0+xblTV8TbOxr5avo+P2NUxYRUTGYy
-X-Gm-Message-State: AOJu0YyaZ6nyez48wl3Rb+a5EKPr3pi0oXePtQT2LRLlTcSDCuxBCUwJ
- Llr/vMyX1vsbQEW85BEynoPQr8Qvut8bw0F0reGKaWzHGrHiC4XxwXf7yTvUaQhSNIxeprzIDOe
- nYCCIxaFuER5A8Mf9tiFL1oT/2Z02TyAkBEuDAA==
-X-Google-Smtp-Source: AGHT+IGNdSCdpONwmK45JNto+Twc09//VCm5Uc1QpJQkACoXcDwACt6GCtz1nfem5gmgMEOmkzcqy2WxKLXHoj8/i60=
-X-Received: by 2002:a25:d689:0:b0:dc6:bbeb:d889 with SMTP id
- n131-20020a25d689000000b00dc6bbebd889mr8114737ybg.52.1708229630382; Sat, 17
- Feb 2024 20:13:50 -0800 (PST)
+ bh=EzD4Pv6p9Be8l8eNEWsH1WgYTIMlRyAnHGABnOcxnhU=;
+ b=M5oXMvFEMAYq8koQ6x9uq/fyScz5qpsE/Q3e/5R0l9N5ocMswX8CIB+4UXDtkCej8l
+ 8+Y4C40Zs5VfVl5CrKiS3Tbv/5os0cmSFrNqzK37Njmjz/YOXrPYce7n4BtvVWU0P0mO
+ FNAYVP9Px945Tc8oloCP24LRQ/af9fFIOKrEqSxTVSSsmLeFvNcjzdBiy3yjZJjORUiB
+ i5x/9dNgkT5iB/DW8zpmdra7U1JTwI8JqIICrtcJMKj/emUOdK35/sK3j0ooYtAGb2Nf
+ G2eI3DRhXwYFSP82a4sae2gvlfQrpRhYUKSKHg4JdK/gwfYYtG02NzfpQrVcfoKXj0Qa
+ AMEQ==
+X-Gm-Message-State: AOJu0YwDmKsHIVUxOQwGCK96l9RAMw3AJju0LFw42V4sVvrfHpLW3Llw
+ y2qEKjVB61naSsud3b0bX+o6EDOz1ITba8FldJwQCXIBKELwzBc9wYGn9L7f77mZlmAPiO3OTjU
+ b0KmVKf0aVCYjIxskYqn53yqmBw7VDrW4yk/dPA==
+X-Google-Smtp-Source: AGHT+IEpgMf3VvMWakVwv7fghI9Fa7G7wYfMJAdAyHJSmdQW1S3Ff0ESfxQKn12qZsKW7JtlMbzrJ7Lgo1P4FfdpkMU=
+X-Received: by 2002:a05:690c:16:b0:608:b86:7c9f with SMTP id
+ bc22-20020a05690c001600b006080b867c9fmr2610027ywb.7.1708229882487; Sat, 17
+ Feb 2024 20:18:02 -0800 (PST)
 MIME-Version: 1.0
-References: <20240218041204.2522828-1-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20240218041204.2522828-1-dmitry.baryshkov@linaro.org>
+References: <20240216230228.26713-1-quic_parellan@quicinc.com>
+ <20240216230228.26713-17-quic_parellan@quicinc.com>
+In-Reply-To: <20240216230228.26713-17-quic_parellan@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 18 Feb 2024 06:13:39 +0200
-Message-ID: <CAA8EJpoXN_paysLhg=T8wRAiQWBHq-LLVrig_OYwRTbosn5WQQ@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/ci: update IGT test names
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Helen Koike <helen.koike@collabora.com>
-Cc: Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Date: Sun, 18 Feb 2024 06:17:51 +0200
+Message-ID: <CAA8EJpoVFEXRCnePop20cv7vy0+=gsZ_cgdgkLSoQ0QsHjNYdg@mail.gmail.com>
+Subject: Re: [PATCH v4 16/19] drm/msm/dpu: modify encoder programming for CDM
+ over DP
+To: Paloma Arellano <quic_parellan@quicinc.com>
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org, 
+ swboyd@chromium.org, quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com, 
+ quic_khsieh@quicinc.com, marijn.suijten@somainline.org, 
+ neil.armstrong@linaro.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,21 +80,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 18 Feb 2024 at 06:12, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
+On Sat, 17 Feb 2024 at 01:03, Paloma Arellano <quic_parellan@quicinc.com> wrote:
 >
-> Since the addition of testlist.txt the IGT has changed some of test
-> names. Some test names were changed to use '-' instead of '_'. In other
-> cases tests were just renamed. Follow those changes.
+> Adjust the encoder format programming in the case of video mode for DP
+> to accommodate CDM related changes.
 >
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Changes in v4:
+>         - Remove hw_cdm check in dpu_encoder_needs_periph_flush()
+>         - Remove hw_cdm check when getting the fmt_fourcc in
+>           dpu_encoder_phys_vid_enable()
+>
+> Changes in v2:
+>         - Move timing engine programming to a separate patch from this
+>           one
+>         - Move update_pending_flush_periph() invocation completely to
+>           this patch
+>         - Change the logic of dpu_encoder_get_drm_fmt() so that it only
+>           calls drm_mode_is_420_only() instead of doing additional
+>           unnecessary checks
+>         - Create new functions msm_dp_needs_periph_flush() and it's
+>           supporting function dpu_encoder_needs_periph_flush() to check
+>           if the mode is YUV420 and VSC SDP is enabled before doing a
+>           peripheral flush
+>
+> Signed-off-by: Paloma Arellano <quic_parellan@quicinc.com>
 > ---
->  drivers/gpu/drm/ci/testlist.txt | 1888 ++++++++++++++-----------------
->  1 file changed, 844 insertions(+), 1044 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 35 +++++++++++++++++++
+>  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  | 13 +++++++
+>  .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  | 16 +++++++++
+>  drivers/gpu/drm/msm/dp/dp_display.c           | 18 ++++++++++
+>  drivers/gpu/drm/msm/msm_drv.h                 | 17 ++++++++-
+>  5 files changed, 98 insertions(+), 1 deletion(-)
+>
 
-Forgot to add:
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Reported-by: Rob Clark <robdclark@chromium.org>
 
 -- 
 With best wishes
