@@ -2,57 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A462859076
-	for <lists+freedreno@lfdr.de>; Sat, 17 Feb 2024 16:22:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A581F8593CE
+	for <lists+freedreno@lfdr.de>; Sun, 18 Feb 2024 02:17:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D019E10E069;
-	Sat, 17 Feb 2024 15:22:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2AEC10E048;
+	Sun, 18 Feb 2024 01:17:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DU23ssNV";
+	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=lausen.nl header.i=@lausen.nl header.b="R4fZS/B3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F373210E069;
- Sat, 17 Feb 2024 15:22:12 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 18889CE09E6;
- Sat, 17 Feb 2024 15:22:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32BC7C433F1;
- Sat, 17 Feb 2024 15:22:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1708183330;
- bh=pnmjMtj6LUKSLk2ge6TNKEdB5HeEr+uuqdYKp1VAbK4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DU23ssNVRNEU/rAOjwOWef06YUBznmP6qaEPZeRmZHrV+pGneYJCIWEwsOnaXllcZ
- tDfuHD234Qh/hGc/luVN4cqfJwpbk/AYuM/X//gxknluCTgMjU9csI8zjoG7VFd9y+
- HSmx8CkAlukSPWwOsN2vvH1E4odRYx94ztQwk2y1wbP7Hr8temgVUKtC9SgaJjAI5B
- BaG7OFD1ODbbyG3/JXRe+jL1T8vjq3ju4f2V66sndaPIcNTjE2wq6FZGxM2bpbEGnJ
- ESmQ52WVUFg4ui4nPnUwdmsQBhq6hCY8Xw+XoaCj+wDat6PWn6val5QyD5Sqjh9A8B
- 1dJdW88kRPXKw==
-Received: from johan by xi.lan with local (Exim 4.97.1)
- (envelope-from <johan@kernel.org>) id 1rbMW1-000000001dK-0sfA;
- Sat, 17 Feb 2024 16:22:09 +0100
-Date: Sat, 17 Feb 2024 16:22:09 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Bjorn Andersson <quic_bjorande@quicinc.com>,
- quic_jesszhan@quicinc.com, quic_sbillaka@quicinc.com,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, regressions@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: drm/msm: DisplayPort regressions in 6.8-rc1
-Message-ID: <ZdDPISS5ntrWSPf_@hovoldconsulting.com>
-References: <ZctVmLK4zTwcpW3A@hovoldconsulting.com>
+X-Greylist: delayed 401 seconds by postgrey-1.36 at gabe;
+ Sun, 18 Feb 2024 01:17:21 UTC
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 778BD10E048
+ for <freedreno@lists.freedesktop.org>; Sun, 18 Feb 2024 01:17:21 +0000 (UTC)
+Received: (qmail 3207 invoked by uid 990); 18 Feb 2024 01:10:38 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unkown) (::1)
+ by devico.uberspace.de (Haraka/3.0.1) with ESMTPSA;
+ Sun, 18 Feb 2024 02:10:37 +0100
+Message-ID: <85581fad-da8f-4550-a1c8-8f2996425dcd@lausen.nl>
+Date: Sat, 17 Feb 2024 20:10:33 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZctVmLK4zTwcpW3A@hovoldconsulting.com>
+User-Agent: Mozilla Thunderbird
+Subject: [REGRESSION] sc7180-trogdor-lazor image corruption regression for
+ USB-C DP Alt Mode ([PATCH 0/2] Add param for the highest bank bit)
+To: Connor Abbott <cwabbott0@gmail.com>, freedreno@lists.freedesktop.org
+References: <20231207213048.1377147-1-cwabbott0@gmail.com>
+Content-Language: en-US
+Cc: regressions@lists.linux.dev
+From: Leonard Lausen <leonard@lausen.nl>
+In-Reply-To: <20231207213048.1377147-1-cwabbott0@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Bar: --
+X-Rspamd-Report: BAYES_HAM(-2.824112) XM_UA_NO_VERSION(0.01) MIME_GOOD(-0.1)
+X-Rspamd-Score: -2.914112
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lausen.nl; s=uberspace;
+ h=from; bh=5oedLdsqy6OWfXEMO82O5bny7kMtEr2OWUJTn0tyfy8=;
+ b=R4fZS/B3RJlZem7AJpmOdVxzVV85hLEU6hzl7QJJFbwBdw4Hb1eJxkaBXLbGpvEBc5iF0O88PS
+ z0eBNOPTaKnXGqaOwlJMdrzQXq2lkeRhpMnQ46GfkUtKhmfbhwXtWy+VGIQEYyiLfr4srYXgQhWw
+ F1PjVxNlKbaNqYk2rFSl7L0vDrvWjKwUQ+3Gq66Yy5MKRYvLhvDor7tCw/ZvmDvIqKMXCLAN4bsh
+ zs6LXtzmkv5jeYk1keDiRUyGWkfTTt8BPL8AbAmbu9DIAiMNJg1celwlcsePwU3df0dhC2IDR27F
+ 94MflZLwmg7O85isI9ZUfk0d18SaYDGHt9vSdVdVM+AAcXwYSPwj+XBNGrMcWQiEyOHmkipNtMBo
+ TC1o2R4llXZggcDKlQ4oz2lK8/u3d6qMz8YO4XQe/3qOJpznAktM//In4ISOEmPLUgTowa0cHyfN
+ SKx7PJCUVXLegzKIF6JqzLP4RQdcTqzEI/4Ld6+sRpVZFV6SUAGtNZD7466k/xPSUwS7/SG6N9sb
+ IKc9PNsadvctn8O5rmlG8vxhr6jchQxrMRhbh4aF/UZ8TLExV/ImgrUPwr9j8K5O11BKM969BAS1
+ Xn9ibvbamCsr5kQdgRVke+ICteozmXMj6GheAyzBFcII1RQaDaDslTeNWiGK0uOrrXZaCWg9Yqiz
+ U=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,29 +67,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 13, 2024 at 12:42:17PM +0100, Johan Hovold wrote:
+Hi Connor,
 
-> Since 6.8-rc1 the internal eDP display on the Lenovo ThinkPad X13s does
-> not always show up on boot.
+unfortunately, your series https://patchwork.freedesktop.org/series/127529/ has introduced a regression for external displays connected through USB-C DP Alt Mode, at least on sc7180-trogdor-lazor devices. Do you think it's possible to  fix this before the 6.8 release or would it be better to revert the series? I'm happy to help testing any fixes. The issue is also tracked at https://gitlab.freedesktop.org/drm/msm/-/issues/49.
+
+Thank you
+Leonard
+
+#regzbot introduced: 8814455a0e54ca353b4b0ad5105569d3fdb945cc
+
+On 12/7/23 16:30, Connor Abbott wrote:
+> The highest bank bit is a parameter that influences the Adreno tiling
+> scheme. It is programmed by the kernel, and is supposed to be based on
+> the DRAM configuration. In order for Mesa to tile/until images itself,
+> it needs to know this parameter, and because it's programmed by the
+> kernel, the kernel should be the source of truth.
 > 
-> The logs indicate problems with the runtime PM and eDP rework that went
-> into 6.8-rc1:
+> Mesa series: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26578
 > 
-> 	[    6.007872] [drm:drm_bridge_attach [drm]] *ERROR* failed to attach bridge /soc@0/phy@88eb000 to encoder TMDS-31: -16
-	
-> and this can also manifest itself as a NULL-pointer dereference:
+> Connor Abbott (2):
+>   drm/msm: Refactor UBWC config setting
+>   drm/msm: Add param for the highest bank bit
 > 
-> 	[    7.339447] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-> 	
-> 	[    7.643705] pc : drm_bridge_attach+0x70/0x1a8 [drm]
-
-#regzbot ^introduced: 2bcca96abfbf
-
-It looks like it may have been possible to hit this also before commit
-2bcca96abfbf ("soc: qcom: pmic-glink: switch to DRM_AUX_HPD_BRIDGE") and
-the transparent bridge rework in 6.8-rc1 even if that has not yet been
-confirmed.
-
-The above is what made this trigger since 6.8-rc1 however.
-
-Johan
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  21 ++---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 101 +++++++++++++-----------
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c |   3 +
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h |   9 +++
+>  include/uapi/drm/msm_drm.h              |   1 +
+>  5 files changed, 82 insertions(+), 53 deletions(-)
+> 
