@@ -2,81 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6086085970A
-	for <lists+freedreno@lfdr.de>; Sun, 18 Feb 2024 14:07:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31510859711
+	for <lists+freedreno@lfdr.de>; Sun, 18 Feb 2024 14:13:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B690110E0E9;
-	Sun, 18 Feb 2024 13:06:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7136410E137;
+	Sun, 18 Feb 2024 13:13:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZaUXZMs6";
+	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=lausen.nl header.i=@lausen.nl header.b="iy5TpIw8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
- [209.85.128.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C02BF10E0E7
- for <freedreno@lists.freedesktop.org>; Sun, 18 Feb 2024 13:06:57 +0000 (UTC)
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-608342633b8so907137b3.1
- for <freedreno@lists.freedesktop.org>; Sun, 18 Feb 2024 05:06:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708261616; x=1708866416; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=YBVRcSBBuxFaTxHHxCFDbpb9aYFi0NsXjnHpoTC9kRk=;
- b=ZaUXZMs6OrmEXaNW0qlNtp5XhjrBixfHeFeQMu4S0EzF4WbkpEtNAdgrp62b7odS7j
- oW3CB0uyondGrP/UbZhMuJ13U55jUvKLpE1w8L/2FE1VsikbZyPllEkDFo0hGP099EPt
- ueqZ+YKBLxg+ozVVzPwqE7sHaF7oCNOMRvzBt3DFp9dEzQqE1J7dTzfDvQdyDPJ8bpHa
- cMAciKqwwF2kGHeADuBDDGHZ7yAabVHy3nm1XKWoUZ92gsd9OljZE6F9pMhCcd/bZbeM
- j/CRKeczlKVlkGW8QA1rSaKhQI16wHqfsVVYJjl1F2Ik2yeZMUIzifqfEmKxNscy8vWD
- Q6Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708261616; x=1708866416;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=YBVRcSBBuxFaTxHHxCFDbpb9aYFi0NsXjnHpoTC9kRk=;
- b=SBTo2q1UcAqO+LEINVLDFk7cIn/3DTFZLABjDQJAuv8dLBkTNvZH6e/lK5Bomfkqjb
- BTFDf2B+axPif7c8w70SAEuNkr6WSaNVUQp83z1ndk+HNWvU/kvX0u721UTTh3ZES1UM
- 3MPi4+4L79V1fPwvahEvMZRkfFXdvBQKNbdOAoKdlCwSMUsz4Lrg8dPyDUP6iPGEuKSP
- UjOFQyCNtGfKTVvw96on5f/tQdHK7nP4QpKF7Ge9dOsNCvWl1L8H2HZwm3jBo+Z2DuEh
- rCHME2lygL1wdAmjwBf8I701gC/ZRAE5uff/mHFzgOYr318W+IAwdvvc//lCQ06/1C1U
- fXQg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX5rv+vPxAU1tTdTOBoTYtly6nducZ1XEHpDS6MXfgETAgIENJUZCQRm579DkNizKKzv+Iu2FQLortsC0w+ptc3D/xjtiHvxyNSrIGE6tzn
-X-Gm-Message-State: AOJu0Ywy7+qVDGdbnRjQDYxmiZ4WNIw1wnKB0LoPfuAPZHovkN986nTF
- QYI6IQ+IUTztcMxZZMdJfMwFTGKdT87gXl0xFyJNWkXi/L1AIvj7Rsd7x9JH8fJlYnt6/0pW2T1
- Ylm/w4D8YSuadoGlUjv+EbNgoZdsCKwMoT0Gd3Q==
-X-Google-Smtp-Source: AGHT+IFwAgLxBZXblOBulsbnsc4LQ+Pe2xER0SSlfwoxqWLXlBGUgn+4tkOT1j2KFCAC8mjhS4ohhc82TcyeI7dNm+U=
-X-Received: by 2002:a0d:e2d6:0:b0:607:8c84:d474 with SMTP id
- l205-20020a0de2d6000000b006078c84d474mr9844866ywe.31.1708261616529; Sun, 18
- Feb 2024 05:06:56 -0800 (PST)
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0ACDE10E137
+ for <freedreno@lists.freedesktop.org>; Sun, 18 Feb 2024 13:13:02 +0000 (UTC)
+Received: (qmail 22200 invoked by uid 990); 18 Feb 2024 13:13:00 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unkown) (::1)
+ by devico.uberspace.de (Haraka/3.0.1) with ESMTPSA;
+ Sun, 18 Feb 2024 14:13:00 +0100
+Message-ID: <3639aa97-5681-4704-ac91-388d751dbc72@lausen.nl>
+Date: Sun, 18 Feb 2024 08:12:56 -0500
 MIME-Version: 1.0
-References: <20240216-x1e80100-display-v3-0-28b1c33ac8c0@linaro.org>
- <20240216-x1e80100-display-v3-2-28b1c33ac8c0@linaro.org>
- <170810832158.3497594.1997532394027797497.robh@kernel.org>
- <ZdCbAjnga8HCMdYf@linaro.org>
-In-Reply-To: <ZdCbAjnga8HCMdYf@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 18 Feb 2024 15:06:45 +0200
-Message-ID: <CAA8EJpqCKWih1OeMsynMHkS6CAoDTsgRXcv5YAPZNvLT3MfA8g@mail.gmail.com>
-Subject: Re: [PATCH v3 2/4] dt-bindings: display/msm: Document MDSS on X1E80100
-To: Abel Vesa <abel.vesa@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Sean Paul <sean@poorly.run>,
- Maxime Ripard <mripard@kernel.org>, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Rob Herring <robh+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark <robdclark@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] sc7180-trogdor-lazor image corruption regression for
+ USB-C DP Alt Mode ([PATCH 0/2] Add param for the highest bank bit)
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Connor Abbott <cwabbott0@gmail.com>, freedreno@lists.freedesktop.org,
+ regressions@lists.linux.dev
+References: <20231207213048.1377147-1-cwabbott0@gmail.com>
+ <85581fad-da8f-4550-a1c8-8f2996425dcd@lausen.nl>
+ <cf95947d-8bec-4f95-9e08-2d942723cafc@linaro.org>
+Content-Language: en-US
+From: Leonard Lausen <leonard@lausen.nl>
+In-Reply-To: <cf95947d-8bec-4f95-9e08-2d942723cafc@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: ---
+X-Rspamd-Report: BAYES_HAM(-2.99991) XM_UA_NO_VERSION(0.01) MIME_GOOD(-0.1)
+X-Rspamd-Score: -3.08991
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lausen.nl; s=uberspace;
+ h=from; bh=yaFLPSiI1CV3Pb147sgWxT4eZhlhqqyrt5YoLH9j6Ks=;
+ b=iy5TpIw8mYhLEcX0yEzkuY7e9av3QXIiUK8NPZAvCoHkHRWGTHlV9rdvffjMs3DbbT66QSjwrQ
+ w2rSyVMuZJFgKLKMlSUoNgUkqcZavs2UcOSkuAicsE7odnVbkbq1pNRZIiHcq2JeEb69m8Zah3HO
+ Mht6NuZsw+cfId+zUe0f/Smn8NN+z1ZJlVKq31KRHR3lGupdG8D5PGGQyiVxi5sn23uzDxOomIDV
+ aoXiSc3Kpzp0MxJw3QUKEvO2JWHkNnGqqXeT7+OlCyCtrhGgurmTTrddo8PYNFl/VEApQiqXfweg
+ ZOK8uSSJvPDDaVD8koZjLd5WrU5PrwXxX5xn6aPaOn2UwxdbDxnFcOo84TetCMRrUODHSI4qgejU
+ 9zwtlpZUGVTHTvzRdfPtUtBmGgtHjTb7r7afxtUFk9AYkKpY1MH40hgB/S2dGvk0p5ADdiyUHZY4
+ fUVqQhyKhoLFhszDiNMnR1SLdEpa7O44nemfGt5dPuVKxGvfEUHyH0wzP1oObfNApNy29mjEpV0h
+ N3v7U4F5C3/QgPIX9D1l4C5OeDKOOzVclc8FfrssFOAzG/5lfHoI/3j+Vfyy8k++XvH2TFyh3QSr
+ U3CURcMh/RGqjsJvbvcN5jBjSHxAMyIOCvirWKTMLCRwp71zThEWnVywki/bIUdltUwf8ZAHQLYE
+ s=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,43 +68,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 17 Feb 2024 at 13:39, Abel Vesa <abel.vesa@linaro.org> wrote:
->
-> On 24-02-16 12:32:02, Rob Herring wrote:
-> >
-> > On Fri, 16 Feb 2024 19:01:06 +0200, Abel Vesa wrote:
-> > > Document the MDSS hardware found on the Qualcomm X1E80100 platform.
-> > >
-> > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> > > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-> > > ---
-> > >  .../bindings/display/msm/qcom,x1e80100-mdss.yaml   | 253 +++++++++++++++++++++
-> > >  1 file changed, 253 insertions(+)
-> > >
-> >
-> > My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> > on your patch (DT_CHECKER_FLAGS is new in v5.13):
-> >
-> > yamllint warnings/errors:
-> >
-> > dtschema/dtc warnings/errors:
-> > Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dts:24:18: fatal error: dt-bindings/clock/qcom,x1e80100-dispcc.h: No such file or directory
-> >    24 |         #include <dt-bindings/clock/qcom,x1e80100-dispcc.h>
-> >       |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > compilation terminated.
-> > make[2]: *** [scripts/Makefile.lib:419: Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb] Error 1
-> > make[2]: *** Waiting for unfinished jobs....
-> > make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1428: dt_binding_check] Error 2
-> > make: *** [Makefile:240: __sub-make] Error 2
-> >
->
-> These bindings headers are already in -next.
+Hi Dmitry,
 
-However they are not a part of the drm/msm branch. We can probably
-merge the rest of the patches from the series (once patch 1, DPU
-bindings, gets reviewed) and merge this one in the next cycle. Does
-that sound suitable?
+thank you for sharing a patch. I tested and can confirm it fixes the issue.
 
--- 
-With best wishes
-Dmitry
+Best regards
+Leonard
+
+On 2/17/24 23:04, Dmitry Baryshkov wrote:
+> Hi Leonard,
+> 
+> On Sun, 18 Feb 2024 at 03:17, Leonard Lausen <leonard@lausen.nl> wrote:
+>>
+>> Hi Connor,
+>>
+>> unfortunately, your series https://patchwork.freedesktop.org/series/127529/ has introduced a regression for external displays connected through USB-C DP Alt Mode, at least on sc7180-trogdor-lazor devices. Do you think it's possible to  fix this before the 6.8 release or would it be better to revert the series? I'm happy to help testing any fixes. The issue is also tracked at https://gitlab.freedesktop.org/drm/msm/-/issues/49.
+> 
+> Please check whether this quick fix works for you
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index c9c55e2ea584..f097577a99ad 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1325,6 +1325,11 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+>  static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+>  {
+>      struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> +
+> +    /* a618 is using the hw default values */
+> +    if (adreno_is_a618(adreno_gpu))
+> +        return;
+> +
+>      /*
+>       * We subtract 13 from the highest bank bit (13 is the minimum value
+>       * allowed by hw) and write the lowest two bits of the remaining value
+> 
+> 
