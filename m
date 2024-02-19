@@ -2,58 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CE7985A348
-	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 13:31:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA27885A342
+	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 13:31:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBA9410E3B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D88C110E3AF;
 	Mon, 19 Feb 2024 12:30:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nIdbP1rp";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="v+cFTfya";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83D2810E393
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 12:30:50 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-5129cdae3c6so2585902e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 04:30:50 -0800 (PST)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4680510E39C
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 12:30:51 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-512a96e44e2so1927898e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 04:30:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708345848; x=1708950648; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708345849; x=1708950649; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6sp39V9/P58ZsOOZzf2qvTJrJfggpOrhkMb0iBsxVm0=;
- b=nIdbP1rpiYE0vzQyxWnG60CAJqCJv9Bnr53afdB3RCH0FT+S4sTFG3bGRiCBPTkYrz
- HMiBuKXMpHywJcwyoHnrN+CjmDOwS/EBYDn4/bhFJvmTd/soJMXMCv2y9DZekx0oMgK4
- OgDh/RMvRLwrYxq71jj8kez3qFDGfezCr7Lm0Vdtj0NXqB4t+rytGayz/f3owWs4Lv/3
- DDMSPCqsnzhgHcVih5iWyr96npsR9B1b4pO7FEoOnlJ0XqtZ9HSEqbebQlNLzTfu1qsN
- fWS4srtpa/dQ5DafIYQddY3itajFoD/qGPc9C1HXQXYpZq75B4cviZWaKbwopaZ1rt4G
- baHg==
+ bh=rIWqlE1cPX165do3NEp9Vd40+qOG9WCTV6W/duazB5M=;
+ b=v+cFTfyaLwSVG6vbulRpCOL0qJZ/4wcBUYABmVUIrd9ALGfWufcYzJXpmUv4kGI2Hk
+ vEcdtTzwh5G/zk0mGx8WD7rZ4LqzoeUEu/8OoCCeVifTxNgyKXU8YsS9+k9mqgtQ7LFH
+ vyDDzSxsDo0uEdfl2nDDeUbtZ/M0iQ7ofqoBHaaJEG51bMArE7/4HBXpx0lAeZqLGqRT
+ xH3wkVW6ebGZZogC/bKCljphxOochBazuVTkRI3gZ+6Nb+0iQqkJLIWFaBlEqcBFO3l9
+ 884AM2SfXG9q1S1iS1jd5BmWPY2M4qrG8VDyQXkiy7BZHCUFvHgQZvvmOmclcg3ib59t
+ kjnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708345848; x=1708950648;
+ d=1e100.net; s=20230601; t=1708345849; x=1708950649;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6sp39V9/P58ZsOOZzf2qvTJrJfggpOrhkMb0iBsxVm0=;
- b=bDnHHJIhLHSvRVE0/FeyBHRwKJZA6Dy/8QAN5VgDdpgDyXXozQblSC99cOcVpWtnot
- EVal8MQv1K4mt1Wr0w/MDNN0kfpe8lq2ins71RXYVDtGPcM0mwMFIklT2dhRD+bnfhBg
- pVYd7zmSJzUpuDUamY3I7PMjxv28RIuWsxol7S5iT9p5Qe5X94BVCHQshxSttOT7Xi80
- PlVXn0uAqiSE1MrwpgrqMt+TtXq3yhHUkFk2cKLF/bDhZge3hHVLV/+aGFbp5FL4fy+M
- J/OsXxKdIXMzkKTcyHu382IGWIBHh3p4TUNOIfofzOLuAJhPwsSHODYKKJUgCXZ1j61f
- hpcQ==
+ bh=rIWqlE1cPX165do3NEp9Vd40+qOG9WCTV6W/duazB5M=;
+ b=GIAGbYzmZuadNoXYT+BLX6dH6t21XAbwJpIlfJ9pT8I7mzikpnPpOneqU+qMmr6Eh3
+ XIKW7i1FaQeBx1DI/UprURE2iH/mc4YPYZYkvHpmQKor1dvA0byOf//gOUhOgEMuiqTb
+ rDzd7pZNIFNkguxCRTLRceFq0jDj0NB2Fyl5q1uNgZJhqsIxD1d+rPaDkU/uOyx2SyWw
+ GnvNfNMO/ieFqJUuvqjidTOBSm+MtoxZ83bonu8z41kOE2jFuwhBt4jeNE0E81uKzr1o
+ swxKVSYa4Hf5QNOBW+3Xu2Utv0gYWleurRFiIij9PxjwLJ3TXCh9HeZ1S/upmRjsS5p3
+ xYhw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUOG+olQMM3Gbu+h2OXf2763LQ2NCUK7ANpe6Hmei0D05tcpiAYRkbYkxewM1oDjAyajA45M57sHchqJ97fdc5E6nQjC2Gjv01ySrdrNwR9
-X-Gm-Message-State: AOJu0YzOFxgpmPEpRlqvukYFMc7g49f3oT+sB74v26e/ivxmS3hi1FX/
- BGCJqzSXp+fADvubhlidGvklLgTi+PDnVKaQPeY2WoudkPPWa2WlXtH5ZAfNII8=
-X-Google-Smtp-Source: AGHT+IFoZP6/ZG8y/H4k48B54cjghy50oBw/WDFb9BTk0tJ7f6x7I94swyk/24k8TDQUDaXjP0IOpA==
-X-Received: by 2002:a05:6512:220d:b0:512:ac4c:abf7 with SMTP id
- h13-20020a056512220d00b00512ac4cabf7mr2834148lfu.65.1708345848701; 
- Mon, 19 Feb 2024 04:30:48 -0800 (PST)
+ AJvYcCVwCdqeWTrq4Ts5BAhOkD3r/kpMOsBU0bF+oBmpdOcOg0nq4PusszIDnwLr8jgqeMlEWNm6Zv663OHtRXiBp9RzBpTbF84kmKOHH0xY1JwD
+X-Gm-Message-State: AOJu0Yymfg+sTVT9IGBplfvDuiyvWo9odDUhmpanaUweGRZb1tVm5nJY
+ 2ZFtv2HkJ1GSK1spfceWod1zDmicYbxrCVLudp33JtZos4kY78JeA7sHyRYOmgs=
+X-Google-Smtp-Source: AGHT+IFgAhvmZh5LxpfhxpuBO8bVNoLr52ZnhCi1bbOTANuMQKRN0YvmuCTEPJPwH7nXK+wPUAek/A==
+X-Received: by 2002:a19:ee13:0:b0:512:aaf2:f2f7 with SMTP id
+ g19-20020a19ee13000000b00512aaf2f2f7mr2579515lfb.23.1708345849425; 
+ Mon, 19 Feb 2024 04:30:49 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- i6-20020ac25226000000b00512bde4cddfsm90466lfl.148.2024.02.19.04.30.47
+ i6-20020ac25226000000b00512bde4cddfsm90466lfl.148.2024.02.19.04.30.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Mon, 19 Feb 2024 04:30:48 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
@@ -63,17 +63,14 @@ To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Stephen Boyd <swboyd@chromium.org>,
- Carl Vanderlip <quic_carlv@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>
-Subject: Re: [PATCH v4 0/4] drm/msm: provide migration path from MDP5 to DPU
- driver
-Date: Mon, 19 Feb 2024 14:30:35 +0200
-Message-Id: <170834569501.2610898.9932991844381586058.b4-ty@linaro.org>
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v4 0/5] drm/msm/dpu: remove
+ dpu_encoder_phys_ops::atomic_mode_set callback
+Date: Mon, 19 Feb 2024 14:30:36 +0200
+Message-Id: <170834569502.2610898.892456628815949762.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240208-fd-migrate-mdp5-v4-0-945d08ef3fa8@linaro.org>
-References: <20240208-fd-migrate-mdp5-v4-0-945d08ef3fa8@linaro.org>
+In-Reply-To: <20240208-fd_remove_phys_ops_atomic_mode_set-v4-0-caf5dcd125c0@linaro.org>
+References: <20240208-fd_remove_phys_ops_atomic_mode_set-v4-0-caf5dcd125c0@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -93,33 +90,31 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Thu, 08 Feb 2024 17:01:07 +0200, Dmitry Baryshkov wrote:
-> Over the last several years the DPU driver has been actively developed,
-> while the MDP5 is mostly in the maintenance mode. This results in some
-> features being available only in the DPU driver. For example, bandwidth
-> scaling, writeback support, properly supported bonded DSI aka dual DSI
-> support, DSC (display stream compression).
+On Thu, 08 Feb 2024 17:20:40 +0200, Dmitry Baryshkov wrote:
+> The dpu_encoder_phys_ops::atomic_mode_set() callback is mostly
+> redundant. Implementations only set the IRQ indices there. Move
+> statically allocated IRQs to dpu_encoder_phys_*_init() and set
+> dynamically allocated IRQs in the irq_enable() callback.
 > 
-> All the pre-SDM845 platforms were originally supported by the MDP5
-> driver only. However it is possible and easy to support some of the
-> older SoCs in the DPU driver. For example in the v5.18 it got
-> support for MSM8998.  This can not be considered as a proper migration,
-> since there msm8998.dtsi didn't describe the display hardware
-> beforehand. Instead new bindings were added, making MSM8998 just another
-> display hardware to be supported by the DPU driver.
+> The writeback backend of the dpu_encoder is the only user of the
+> dpu_encoder_phys_ops::atomic_check() callback. Move corresponding code
+> to the DPU's drm_writeback_connector implementation (dpu_writeback.c)
+> and drop corresponding callback code.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/4] drm/msm/mdss: generate MDSS data for MDP5 platforms
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/d2570ee67a47
-[2/4] drm/msm/dpu: support binding to the mdp5 devices
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/39b06ed6d4f3
-[3/4] drm/msm: add a kernel param to select between MDP5 and DPU drivers
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/b8b123187035
-[4/4] drm/msm/dpu: add support for SDM660 and SDM630 platforms
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/7204df5e7e68
+[1/5] drm/msm/dpu: split irq_control into irq_enable and _disable
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/c6f60037bfa0
+[2/5] drm/msm/dpu: split _dpu_encoder_resource_control_helper()
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/ca8c1fd3eed8
+[3/5] drm/msm/dpu: drop dpu_encoder_phys_ops.atomic_mode_set
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/d13f638c9b88
+[4/5] drm/msm/dpu: move writeback's atomic_check to dpu_writeback.c
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/71174f362d67
+[5/5] drm/msm/dpu: drop dpu_encoder_phys_ops::atomic_check()
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/b0b621f41b45
 
 Best regards,
 -- 
