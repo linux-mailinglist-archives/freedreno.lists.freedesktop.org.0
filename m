@@ -2,86 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1145D85A1EC
-	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 12:28:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 568E585A217
+	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 12:37:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7985689B46;
-	Mon, 19 Feb 2024 11:28:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F346610E338;
+	Mon, 19 Feb 2024 11:37:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iW49KJJs";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RN/K2qp5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EBF189B46
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 11:28:49 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-56454c695e6so1601354a12.0
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 03:28:49 -0800 (PST)
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
+ [209.85.128.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F5F910E338
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 11:37:42 +0000 (UTC)
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-607c5679842so41481877b3.2
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 03:37:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708342127; x=1708946927; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=nCyAWccqRzJ02Jr3HnjydtbclYSZbIBmeAFchAjZvoE=;
- b=iW49KJJs6DX7qebl5vturza0BLqzq/cOiBr67vpRSPSgGZhtfgDgNJf7S++YCHMwDc
- 0T5xU7IQNmP0tAefpVfhjm4gV/a3CwCqRg2c0p4dLrhPaAnCSSzcHiW2j8BxjSZR5DYY
- jOY7JVFbUaTThsW7rc8AimYNdNQfHRtGrjCOw2OR0/94oQImL3W1VzDL4u0kVLshYsH0
- IbtzyApqatYt+YQYBIGNf07QLBDxu4cui3nL1Rh+suv4daN8NW8V9MAhPn0w74BBMP6K
- 0hqVLWXOOVzD3qK32pUwmw8T4qY6Tm7gxTQw8LpdtASkJsNzs/z9gbSzNMtQbFRJY7LG
- Augg==
+ d=linaro.org; s=google; t=1708342661; x=1708947461; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=GaUyZ50XjXvDF8jY3Q3ZEC7jLE1bXKIRWKK8kFzpxxY=;
+ b=RN/K2qp524fZKa5yjuCCBCt5FgCh2HIQx42GrE1yJrO+XBMFwZEKAIoLqhGyCQi7WQ
+ eu3vEmeM8VTqK+lt1wxLAFhqhzNeiFyDfiyDTUi9JbFZN8bhFxCSAtzjwgeGgMUTMA4j
+ yZQAakBd50rSHybRuXPv0MyjUAS2MLOlE9qTEKlzt9Y0ByLk4Ioj6oeneJAlQbdaw/4F
+ pnPl1OGhVJuljiTIZL0zax2jyJVPrdU2DQaotr1COx5ceo/ip35edvlgU6cLcwJGKHRw
+ 44FkRy4U3yQH4zPXi6GPGsYPo05cozViIm6TOfT8njx7va4rJYdZlk/nVWA5vpN+1DOy
+ NkFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708342127; x=1708946927;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nCyAWccqRzJ02Jr3HnjydtbclYSZbIBmeAFchAjZvoE=;
- b=FJ8u0rUKlbSYhLnHY2Z5qWEn/bhwjXTHtVWlcAbLMfX2y6KCzqrqKMcdMryh4HnFUo
- U4ugYP2e5kbOk+tqylATQV5X8qHuO5DLos41T/d9K71dvYmRKexIJYgfAU6rSlq3vO6u
- +QV3viKh4BqO21/vtCDRO0w3+Nw+TvzN4QkZW+VNvVTtwGfg+YpZhWrJBXcwv/bDxRwr
- NhdfNDGM2U/a1TMA2pWmZ4w0o+5NsrT4GPLf6Y1zm60n7yiFSC4gMVkwCLXvag6yqEPu
- gjoMO2YEwkQF/IkMQhiwwPMiI7IP3qb0x5KoOpdJwVj9gdnRI7rSR0pQLD41bpphYzNY
- SQbg==
+ d=1e100.net; s=20230601; t=1708342661; x=1708947461;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GaUyZ50XjXvDF8jY3Q3ZEC7jLE1bXKIRWKK8kFzpxxY=;
+ b=aI4QYxjb6JGsxJCVjB8vuZObtoHQuK2i2hzBfyKEUxt+BbgAytxS+705PafOiXPoK1
+ 7Ob1SBEqAgJB+/Z3dbXkIGfhHGxbY4mgRensO1hOo/CLWmSOKIzbsk1vJfTeBKHNc9Lh
+ GtjG+9kN30p+mroWXbLzzITK7eChG7unY3rXL4A2NQglB9MlC2ujMH5uK/ZhP2sH2MKv
+ NusDJVuauBKSA8/wLRzzgT+/LSpnkD5W8z4REbjKOQnC/eARuvsyQ3s7sB1OT0/Nl3Kv
+ SKthepqjVeEWQKDQFmlmrsCHL/Y1bDWPBjoAWwBXxVUBvaKqi1Q5TfASj1DFRffLslmy
+ 0Kkw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV5cNQbqarfxrW78kmiCeFhGfSyF0B7giusgZJYOPjc64KYwPCam37VoyhpNXVgbBKtE97GF8+iTNVi/jpv3M9F0hwHcWIB0Vw0mgv0LLIZ
-X-Gm-Message-State: AOJu0YzGp4U9fWWJxwKOZeqHuBxYp9vBB1KlIU6a0qsuhsk3bZAq6eun
- GCiZwH1eM+qgkis+ROw0zyftB0TAKGtd3iLsDRvRQ/25PksKwd1PrDljI+gOCmc=
-X-Google-Smtp-Source: AGHT+IE3Zoj5Kw00K+Q1Oq/u8jQF4xulPdA6ZClow24TWEYwMXrNi35dMdqJQqanNvP5Txi3Qumx2Q==
-X-Received: by 2002:aa7:d304:0:b0:564:4647:947d with SMTP id
- p4-20020aa7d304000000b005644647947dmr3745838edq.3.1708342127493; 
- Mon, 19 Feb 2024 03:28:47 -0800 (PST)
-Received: from linaro.org ([188.24.162.93]) by smtp.gmail.com with ESMTPSA id
- e26-20020a50d4da000000b00564024b7845sm2797505edj.38.2024.02.19.03.28.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Feb 2024 03:28:47 -0800 (PST)
-Date: Mon, 19 Feb 2024 13:28:45 +0200
-From: Abel Vesa <abel.vesa@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Sean Paul <sean@poorly.run>,
- Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Rob Herring <robh+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robdclark@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 2/4] dt-bindings: display/msm: Document MDSS on X1E80100
-Message-ID: <ZdM7beFZPyHKJnEU@linaro.org>
-References: <20240216-x1e80100-display-v3-0-28b1c33ac8c0@linaro.org>
- <20240216-x1e80100-display-v3-2-28b1c33ac8c0@linaro.org>
- <170810832158.3497594.1997532394027797497.robh@kernel.org>
- <ZdCbAjnga8HCMdYf@linaro.org>
- <CAA8EJpqCKWih1OeMsynMHkS6CAoDTsgRXcv5YAPZNvLT3MfA8g@mail.gmail.com>
+ AJvYcCUvJl9iGGfOHBZ74/FQhvyFisXIc7euPdw68c0XEQKhnV/yEak0C/WpMh0cUq4AK6+eBZlWn4xDDkWzxsarVlcBxqFBy4cShgtwRcvni3GT
+X-Gm-Message-State: AOJu0Yw6w03d1lz9DUXSXChX5zuRu55KLahEjK3+D4/8kadf6eX2HB8C
+ DveaUGTs/p+31JT4BnA+dkyFkfxp8cDNhhiHCD8dUTsIhQwf9fiOt9EuRBjUmqSSdR3Y8Fum7bk
+ YqgUMyppNJW7loGAY7fl5e2k1MYBLDR8S9voeew==
+X-Google-Smtp-Source: AGHT+IGQ1WnS7mBk+2g+qAwDGntsHIztsi8TubTD1INdibjvREVQvyi8hjDez2VQ2B6iwhTX0PVK/T0srPtjJXHbaAA=
+X-Received: by 2002:a0d:dd94:0:b0:607:a0cf:d9ff with SMTP id
+ g142-20020a0ddd94000000b00607a0cfd9ffmr11328416ywe.31.1708342661019; Mon, 19
+ Feb 2024 03:37:41 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAA8EJpqCKWih1OeMsynMHkS6CAoDTsgRXcv5YAPZNvLT3MfA8g@mail.gmail.com>
+References: <20240208-fd-migrate-mdp5-v4-0-945d08ef3fa8@linaro.org>
+ <20240208-fd-migrate-mdp5-v4-2-945d08ef3fa8@linaro.org>
+ <9a4bf513-4390-3e36-f3b7-f9fef1c296fd@quicinc.com>
+ <CAA8EJpoVivjg2KKVgf725C2cwMCOk=JK6hz65ewTheBAb8t_vQ@mail.gmail.com>
+In-Reply-To: <CAA8EJpoVivjg2KKVgf725C2cwMCOk=JK6hz65ewTheBAb8t_vQ@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 19 Feb 2024 13:37:29 +0200
+Message-ID: <CAA8EJprrVnb-5fhq9oc6PanoM8hY1fhBv0NvmcXhbAC9yJGmLA@mail.gmail.com>
+Subject: Re: [PATCH v4 2/4] drm/msm/dpu: support binding to the mdp5 devices
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,47 +84,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24-02-18 15:06:45, Dmitry Baryshkov wrote:
-> On Sat, 17 Feb 2024 at 13:39, Abel Vesa <abel.vesa@linaro.org> wrote:
+On Fri, 9 Feb 2024 at 20:58, Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On Fri, 9 Feb 2024 at 20:44, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 > >
-> > On 24-02-16 12:32:02, Rob Herring wrote:
+> >
+> >
+> > On 2/8/2024 7:01 AM, Dmitry Baryshkov wrote:
+> > > Existing MDP5 devices have slightly different bindings. The main
+> > > register region is called `mdp_phys' instead of `mdp'. Also vbif
+> > > register regions are a part of the parent, MDSS device. Add support for
+> > > handling this binding differences.
 > > >
-> > > On Fri, 16 Feb 2024 19:01:06 +0200, Abel Vesa wrote:
-> > > > Document the MDSS hardware found on the Qualcomm X1E80100 platform.
-> > > >
-> > > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> > > > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-> > > > ---
-> > > >  .../bindings/display/msm/qcom,x1e80100-mdss.yaml   | 253 +++++++++++++++++++++
-> > > >  1 file changed, 253 insertions(+)
-> > > >
-> > >
-> > > My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> > > on your patch (DT_CHECKER_FLAGS is new in v5.13):
-> > >
-> > > yamllint warnings/errors:
-> > >
-> > > dtschema/dtc warnings/errors:
-> > > Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dts:24:18: fatal error: dt-bindings/clock/qcom,x1e80100-dispcc.h: No such file or directory
-> > >    24 |         #include <dt-bindings/clock/qcom,x1e80100-dispcc.h>
-> > >       |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > > compilation terminated.
-> > > make[2]: *** [scripts/Makefile.lib:419: Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb] Error 1
-> > > make[2]: *** Waiting for unfinished jobs....
-> > > make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1428: dt_binding_check] Error 2
-> > > make: *** [Makefile:240: __sub-make] Error 2
+> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > ---
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 98 ++++++++++++++++++++++++++-------
+> > >   drivers/gpu/drm/msm/msm_drv.h           |  3 +
+> > >   drivers/gpu/drm/msm/msm_io_utils.c      | 13 +++++
+> > >   3 files changed, 93 insertions(+), 21 deletions(-)
 > > >
 > >
-> > These bindings headers are already in -next.
-> 
-> However they are not a part of the drm/msm branch. We can probably
-> merge the rest of the patches from the series (once patch 1, DPU
-> bindings, gets reviewed) and merge this one in the next cycle. Does
-> that sound suitable?
+> > I thought we had agreed on a quite version of msm_ioremap_mdss for
+> > vbif_nrt_phys?
+> >
+> > Anyway, its not something to block this change. Hence,
+>
+> Excuse me, I'll fix it when applying, if I don't forget.
 
-Fine by me.
+I took another glance. The  msm_ioremap_mdss is already quiet (it is
+not printing warnings if the resource is not present), so this should
+be fine by default. But I'll make a note that we might be able to
+replace most of msm_ioremap functions with the standard devm ioremap
+functions.
 
-> 
-> -- 
-> With best wishes
-> Dmitry
+-- 
+With best wishes
+Dmitry
