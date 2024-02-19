@@ -2,82 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2193985A339
-	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 13:30:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D1F385A33D
+	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 13:30:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE8AC10E378;
-	Mon, 19 Feb 2024 12:30:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E260710E39A;
+	Mon, 19 Feb 2024 12:30:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="wGVxy9wJ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="h0hVlqCx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9ADF10E378
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 12:30:46 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-512b700c8ebso835250e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 04:30:46 -0800 (PST)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DDCA10E378
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 12:30:47 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-512be87a0f3so179757e87.3
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 04:30:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708345844; x=1708950644; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708345845; x=1708950645; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=D7cz6IUziBIbxMgivwszuy8eOIkjtw8gK8yFchWpzBU=;
- b=wGVxy9wJQwXRkIYhKA+/aeWCwX66QeGM71n1aOS0TJ9kfoSt06E9XfLk2Fq+6buHQX
- bwFdJE09DvmpTiuzZzO3RRs3AIMLWwDzsZFb6YxvWT+YJD3PuijuOtpKNZ/d4vHdv/m8
- IxC/F+FSdGMK0GffeGwZ0MuAR8hk9y30pQNhYfQyxCLHtlKy0ZI1kQtkkyhubf08oqWP
- kq77bw/7QrtXjRlGRyu+yKFOVRsZoVYFefdbibwDqv/w0728vVtfuYQ5WPs1IDdmQiLr
- 7GIWAzjsJLRQpcbdsLgowih/bglHGijA+m2lhopgOwTRTcNVP8wdLA9zTZCOC6yYItqn
- TJ6Q==
+ bh=TU3RgHxGlzb++qXf2E7iGo81GOpfMcen8bTfd0uPCOw=;
+ b=h0hVlqCxQokU7UAWxqciUAMv6k22X8kEZk1+u+M6lP6tMxGAcmfa+eUkPGggxFRMwO
+ 6M51yW0MLPiVbB3BAQkeBZQ5KwS5Yah3GPmWDz+lypH9NXlTdRmNGFOA8SHQNU3N23Zn
+ Apg2rF7eVGAB4r85IdfHCJOsxkxvuoyeRuRFdtnw2tAudM71K+AjDUUNSl3jvs7wahQf
+ 9ePyqU5C23KbYpCzksJPhdJGpcBMs/sT2RgJH2+BwZ1nyOFJ7kcJEE4zvVTlsLXnkaWS
+ gZcy5s+VPIOSv6dLZ7+vZfJSpu4ArPC63WKwHXUN/R4G2Q806HmCOaFmPAic8IXbrOD0
+ aHuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708345844; x=1708950644;
+ d=1e100.net; s=20230601; t=1708345845; x=1708950645;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=D7cz6IUziBIbxMgivwszuy8eOIkjtw8gK8yFchWpzBU=;
- b=M7VXfylohS5gRgfpy7+RnEuRn7QBpS913m+yeHXxXX2wNvZOjw2kPKdqSq+S35sCnE
- m9aYTdGWbFtf/XflAN2OjiMulSedYdFi1VH1GroW8PAGQNueqAHDKRi15mYHWx97rmfH
- bCsJdUWFAC8Sc98ANc4jO6/HfxOAO55gnNnO6Fy3R5m9Uevp4myVQ350moknpMxYUk02
- ueWxtP95/0SZDHBJBCm1ATGPrGu5tt+6qLH/oRoFrv/TnGc1lmfZS9wyJPButpBaCT4d
- VKiojnFJiBs1FT2+RD5IJqOhne8UyP/1VTgSU91ZJyi/0thbHdKRhjNcPZgTD1D8MdyM
- 7QAw==
+ bh=TU3RgHxGlzb++qXf2E7iGo81GOpfMcen8bTfd0uPCOw=;
+ b=U6Dt9DBsIcdIbX7qaPUjGDYgA2R0+4lBk2ypbwxOmhuXHBW8cMkSe3Xf63inARazX7
+ +EBwKcNgS6JJji47pWPUO+lSwYiezBypHKvQLm37tanmSm1g10T8aOEW1kkoB+7EhOo1
+ Ti+raxqd1lCVTCjzAiu0PafbsmlOBPuUZhyilSB2fOp4mXcwZvt3AsAyqnvFOEvv7h8z
+ YgFvKE8IIcJa6eh0CTka/XnWQQZr+HEA2yjA54ocHAQ9xxxQ0IANUVI49NKVlzwNPkvB
+ OLCaL1baHUz9dykIKSECxuTqXK0vI+oQFtbc4OkkT5jhkNyy32Jajuek1cvfqnHrUNd9
+ kKRg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUzUdn3sqY4AM9W/Hs/JTxyi0QNa41pgrGLgf7UHfuYnkP2qafnZ1BfmWYs+7T2zClTKrIgdbpglsBSFWUSRRcQ+FAWztTMvwt8d1Rrc48P
-X-Gm-Message-State: AOJu0Yxfixm7dmhUcyRBsAX77OjXlDDAdhPon8u1w0TBuAyOaS3VluU4
- bKgtLlnyBuW4X7a/RV0EX8XXY5mEFoBUpcL9vX1bVLmsX4KA/FLfTLPKWjjQMO0=
-X-Google-Smtp-Source: AGHT+IGoP4Kc9T7+0vrUb3lFQohpsZ0w3oy4cAILJsX2XN0cHTj8EK4Nqbp0ilMeo3oHJesO9tXkfA==
-X-Received: by 2002:ac2:5e8d:0:b0:512:912f:4bb with SMTP id
- b13-20020ac25e8d000000b00512912f04bbmr5296326lfq.68.1708345844597; 
- Mon, 19 Feb 2024 04:30:44 -0800 (PST)
+ AJvYcCXxTHuthRM1WTLNIWH9GChR3QEpnPPOoaWWoNKvGE9I9GHEVZReK+I8LpH+Zl5NyLeGxhV4QzfMKwPBbzrCLR6u1Q06wAt5jqYuxW9iTPBS
+X-Gm-Message-State: AOJu0YwDv1+/lMv53hCFMvt34hLls0/Doyuf1iV9lPX9HWqtbfVtHaPM
+ VihXBBT8J0kxnOdinNmE5zXvWE+1HFC2WEmH1XrWDcaQZVJk73t2LsVoRQnI3AU=
+X-Google-Smtp-Source: AGHT+IHLK/rYF6Py4Eo3rBlxE89glGNXj0zjcGYdPTtAeNi/U0O/DpqKeN1TdI78YmnZYby2duc5vA==
+X-Received: by 2002:a19:5513:0:b0:511:b3fd:76b0 with SMTP id
+ n19-20020a195513000000b00511b3fd76b0mr7566336lfe.23.1708345845307; 
+ Mon, 19 Feb 2024 04:30:45 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  i6-20020ac25226000000b00512bde4cddfsm90466lfl.148.2024.02.19.04.30.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Mon, 19 Feb 2024 04:30:44 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Adam Skladowski <a39.skl@gmail.com>
-Cc: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/8] MSM8976 MDSS/GPU/WCNSS support
-Date: Mon, 19 Feb 2024 14:30:30 +0200
-Message-Id: <170834569497.2610898.8605974222285085772.b4-ty@linaro.org>
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Colin Ian King <colin.i.king@gmail.com>
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH][next] drm/msm/dp: Fix spelling mistake "enale" -> "enable"
+Date: Mon, 19 Feb 2024 14:30:31 +0200
+Message-Id: <170834569502.2610898.13062983632738279958.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240121194221.13513-1-a39.skl@gmail.com>
-References: <20240121194221.13513-1-a39.skl@gmail.com>
+In-Reply-To: <20240212091639.2397424-1-colin.i.king@gmail.com>
+References: <20240212091639.2397424-1-colin.i.king@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -97,28 +91,15 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sun, 21 Jan 2024 20:40:58 +0100, Adam Skladowski wrote:
-> This patch series provide support for display subsystem, gpu
-> and also adds wireless connectivity subsystem support.
+On Mon, 12 Feb 2024 09:16:39 +0000, Colin Ian King wrote:
+> There is a spelling mistake in a drm_dbg_dp message. Fix it.
 > 
-> Adam Skladowski (8):
->   arm64: dts: qcom: msm8976: Add IOMMU nodes
->   dt-bindings: dsi-controller-main: Document missing msm8976 compatible
->   dt-bindings: msm: qcom,mdss: Include ommited fam-b compatible
->   arm64: dts: qcom: msm8976: Add MDSS nodes
->   dt-bindings: drm/msm/gpu: Document AON clock for A506/A510
->   arm64: dts: qcom: msm8976: Add Adreno GPU
->   arm64: dts: qcom: msm8976: Declare and wire SDC pins
->   arm64: dts: qcom: msm8976: Add WCNSS node
 > 
-> [...]
 
 Applied, thanks!
 
-[2/8] dt-bindings: dsi-controller-main: Document missing msm8976 compatible
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/db36595c6889
-[3/8] dt-bindings: msm: qcom,mdss: Include ommited fam-b compatible
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/3b63880de42b
+[1/1] drm/msm/dp: Fix spelling mistake "enale" -> "enable"
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/fb750eefc492
 
 Best regards,
 -- 
