@@ -2,75 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89DFB85A33E
-	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 13:30:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A95385A340
+	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 13:30:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1871910E38D;
-	Mon, 19 Feb 2024 12:30:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A2C610E3B1;
+	Mon, 19 Feb 2024 12:30:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DdIoeY2U";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AN+qG3rm";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D35EA10E38D
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 12:30:48 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-512b84bdaf1so747115e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 04:30:48 -0800 (PST)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A62F810E38D
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 12:30:49 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-512b700c8ebso835311e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 04:30:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708345847; x=1708950647; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708345848; x=1708950648; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nvrkezDo1rHjICZL2s/PVn57PqWpvp8fU/617NnrWFE=;
- b=DdIoeY2UAgY23G0zsfZRcy6UZ2sgFGjqNl45wNQyxOWu/aSP3QSi6RrwTEFsoukqI9
- lucP8HXS42KjP0gu/U+vfSJyY2AepudcWBnKzqAt4EsRDPpdQXfQtbR/UWh2EsiQ85iS
- makK5XScabwHdMk+bG0IG+tuROhCIud85zb+mIPlVPXydgF0rsBNhfH7Nji1FzfSC8jZ
- Gy9fQebjUzkHx71PG1BzRqfaydtoV2SYqGD93SVUoj+UbXZxVR1lQYO5R54PbQpIT5eZ
- 0q4b2b5WeYPnfTjN7sKn9tF3jFL44iplly18vx04judTBZdwdLClDsfQZxaHRUALI0gA
- /D1Q==
+ bh=bqUC7cuIQqkJ0gS7eqwu1gxHdis9+l+nkFywUCkY/qk=;
+ b=AN+qG3rm8vnWK+i/rS2B3s2Tu2perbiEoClyycWdaBn/QhpW/ZaxbGuplfA9i+Q5bZ
+ wv+TFc6L6sRWxA6vgGfcrDnyEpAOHGVpbga1WfMQXy1DcJHN9YMiOWPIpNMwQzQLKuMr
+ xl2Q5nCOwIiYN8LwENWFcB3qV0YxKm7YAl7RZLZMlBeOXFifnAWleEgQlutFvSjJZPVn
+ xrH6ulx50hyGEyCfOo3oKl4bUqQOrS5Ob29eJvmJmUYqNC1CNLFndOxAOkY+V4RL1SmX
+ EUXeJP2RzNaaSGOnJ8+GTQEbrChtq4cM7Tt0naboxT01PfJQg4YOoZT5YBAuPJE6OWyY
+ w2sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708345847; x=1708950647;
+ d=1e100.net; s=20230601; t=1708345848; x=1708950648;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nvrkezDo1rHjICZL2s/PVn57PqWpvp8fU/617NnrWFE=;
- b=hNLRZEx6f7EKd8JfRYrVZxmXWQZ9kf6dGW+Dkip3XlvW4UNUb49utZfsl8IArXYhoK
- sj97EEcand6jCzxoK9O00xvIpGt7uYZO7BLhOceuaMOS5h+gGixp3Dbh+bzJEDIIeuNF
- myoKqR6w/R9yUgG8kEOXvKTX1sioxLDuOrKjI5WEmiUNJbPgMBRAMEWnbODIFQS6pQLB
- 0VZ+zh6pbEmLF2vDHbSBMsSBO7OSt8EWcb2UuP5HLl+69qhbkkYjAihw3J9biDPkBqia
- L0gnc+mcWEh4rev86WAtS82++1eJyx6Xaca5/rByAAWcYVVaWQaXW5yV0d0G14rwsV1D
- DFYQ==
+ bh=bqUC7cuIQqkJ0gS7eqwu1gxHdis9+l+nkFywUCkY/qk=;
+ b=FUqA+Qk0yJbPMHrhqYFL8iUo3AJRsP3sU8wWVB2LJCU6FayUX3Xfwh4Is0clLc73Gt
+ BDAkj7zn4yFuOoHimgOe9KVHOyud3iim/VatSCBilqaODaN5y6uVzJcDFLYYtnv85f8s
+ mmfCIdrgRcZ+Fh8lJYzbtgsPa49wnGGRCt3ysVgqsbC/mUm0Z5xzVelkxCJMeyw4FJZm
+ mVZX0Fzeeec48qHxK/yuL6TWUKW+w6n7tuQBqgK/T729lF7X1ZX9f6zShuxREcRetGLj
+ szNMj+0h2m3QgYhQq14yqQFWHkN8asH/gaoFJI7LGOTSWBdoxgZIjTaEPMf2irk+qzWf
+ i8aQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU6FmGu2PEDVByaXlZWeIGrBhJCqnd7VSiH2R30PSuLZ1Bn1UmHmaHvSwBWBYsceNygeVI4gpYZT6ABBHKbynxP38ZyquFG7N6yrxSI85Ip
-X-Gm-Message-State: AOJu0YxKuLV5rpPwADJhCjgIlJf0sTReacnsEAt0prFhUU2bs4DcdnfM
- Acq33X25tuGgxZNt3RJ/PEFlq/vQ3gvJpcUGVz1yamRNUjTEDMx3C3be/lcjEeY=
-X-Google-Smtp-Source: AGHT+IFDU3sQwKWrHgyZRrzoOm3yG95OWAiaYRW2V2ZKFFmF/CCC8Nh72finlmtQYDZPlBB5ipFAfQ==
-X-Received: by 2002:a05:6512:3ba5:b0:511:2e7c:768f with SMTP id
- g37-20020a0565123ba500b005112e7c768fmr10094521lfv.46.1708345846969; 
- Mon, 19 Feb 2024 04:30:46 -0800 (PST)
+ AJvYcCWVXB1Gqz6srG5PvYdxh/FaKWl+EhNgqTUfGXGzzDoiipOVmbveQoWQQxIspJ5mYFEjNofJ5BXPCsZ+B/WQQJ1j3o20/MeWOAy6dP1sKeQc
+X-Gm-Message-State: AOJu0YwsO9gQipw3Wsivc67qP84jNmbyKo0MGhUW4QLEEmahr5lVjosn
+ yYQU0svUaA9zgkTCBg4Y8txDzRCWKdfozbI/tyrwsFae0/iL6RtTUYLruTi3q1g=
+X-Google-Smtp-Source: AGHT+IHNdPSE3GczBi9T0DN9rQxAmvZca5C9487Cr1vL/kGDEv0s4gJKgLoYiqB9g73htQAToLy7/Q==
+X-Received: by 2002:ac2:5f72:0:b0:512:b051:7b06 with SMTP id
+ c18-20020ac25f72000000b00512b0517b06mr1986283lfc.31.1708345847746; 
+ Mon, 19 Feb 2024 04:30:47 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- i6-20020ac25226000000b00512bde4cddfsm90466lfl.148.2024.02.19.04.30.46
+ i6-20020ac25226000000b00512bde4cddfsm90466lfl.148.2024.02.19.04.30.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Feb 2024 04:30:46 -0800 (PST)
+ Mon, 19 Feb 2024 04:30:47 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Stephen Boyd <swboyd@chromium.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH RESEND 0/5] drm/msm: cleanup private obj handling
-Date: Mon, 19 Feb 2024 14:30:33 +0200
-Message-Id: <170834569500.2610898.14807948698250442590.b4-ty@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Subject: Re: [PATCH RESEND v3 00/15] drm/msm/dp: clear power and parser
+ submodules away
+Date: Mon, 19 Feb 2024 14:30:34 +0200
+Message-Id: <170834569505.2610898.6936484745958965912.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231203000532.1290480-1-dmitry.baryshkov@linaro.org>
-References: <20231203000532.1290480-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20240126-dp-power-parser-cleanup-v3-0-098d5f581dd3@linaro.org>
+References: <20240126-dp-power-parser-cleanup-v3-0-098d5f581dd3@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -90,29 +92,50 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sun, 03 Dec 2023 03:05:27 +0300, Dmitry Baryshkov wrote:
-> Note: I'm resending this patch series as I haven't got any feedback from
-> the drm core maintainers to the first patch.
+On Fri, 26 Jan 2024 20:26:19 +0200, Dmitry Baryshkov wrote:
+> Reshuffle code in the DP driver, cleaning up clocks and DT parsing and
+> dropping the dp_power and dp_parser submodules.
 > 
-> While debugging one of the features in DRM/MSM I noticed that MSM
-> subdrivers still wrap private object access with manual modeset locking.
-> Since commit b962a12050a3 ("drm/atomic: integrate modeset lock with
-> private objects") this is no longer required, as the DRM framework
-> handles private objects internally. Drop these custom locks, while also
-> cleaning up the surrounding code.
+> Initially I started by looking onto stream_pixel clock handling only to
+> find several wrapping layers around a single clocks. After inlining
+> and/or dropping them (and thus dp_power submodule), it was more or less
+> natural to continue cleaning up the dp_parser until it got removed
+> completely.
 > 
 > [...]
 
 Applied, thanks!
 
-[2/5] drm/msm/dpu: finalise global state object
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/49e27d3c9cd6
-[3/5] drm/msm/dpu: drop global_state_lock
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/abbf3108bc63
-[4/5] drm/msm/mdp5: migrate SMP dumping to using atomic_print_state
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/f9c27e649a0d
-[5/5] drm/msm/mdp5: drop global_state_lock
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/ffa0c87f172b
+[01/15] drm/msm/dp: drop unused parser definitions
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/08c5b691ee54
+[02/15] drm/msm/dp: drop unused fields from dp_power_private
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/9aeb50ea0ea9
+[03/15] drm/msm/dp: parse DT from dp_parser_get
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/31a01db14b90
+[04/15] drm/msm/dp: inline dp_power_(de)init
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/47103b582412
+[05/15] drm/msm/dp: fold dp_power into dp_ctrl module
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/17cb153f81df
+[06/15] drm/msm/dp: simplify stream clocks handling
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/9bd0946d5ca1
+[07/15] drm/msm/dp: stop parsing clock names from DT
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/77d0243a3313
+[08/15] drm/msm/dp: split dp_ctrl_clk_enable into four functuions
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/e518c27218c6
+[09/15] drm/msm/dp: move phy_configure_opts to dp_ctrl
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/b4745f741e79
+[10/15] drm/msm/dp: remove PHY handling from dp_catalog.c
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/64eba0d63c70
+[11/15] drm/msm/dp: handle PHY directly in dp_ctrl
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/f304bda5bfda
+[12/15] drm/msm/dp: move all IO handling to dp_catalog
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/1577814118e7
+[13/15] drm/msm/dp: move link property handling to dp_panel
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/3ffe15b30a63
+[14/15] drm/msm/dp: move next_bridge handling to dp_display
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/b3b1d122a80b
+[15/15] drm/msm/dp: drop dp_parser
+        https://gitlab.freedesktop.org/lumag/msm/-/commit/6215f1558bab
 
 Best regards,
 -- 
