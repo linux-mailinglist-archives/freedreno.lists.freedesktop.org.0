@@ -2,53 +2,96 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCFDE892F10
-	for <lists+freedreno@lfdr.de>; Sun, 31 Mar 2024 10:42:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F421892F0B
+	for <lists+freedreno@lfdr.de>; Sun, 31 Mar 2024 10:39:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96CB810E1C6;
-	Sun, 31 Mar 2024 08:42:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2EC10E996;
+	Sun, 31 Mar 2024 08:39:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="RKGXI8r5";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="V0Hnawn2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0359310E9BA;
- Thu, 15 Feb 2024 16:05:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Subject:From:To:MIME-Version:Date:Message-ID:Content-Type:
- Sender:Reply-To:Cc:Content-Transfer-Encoding:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=F7i2wcZPXzPlISGZ5Rwmm2JMfVHrFuKhNZ+KW9wD2+k=; b=RKGXI8r5Zt/4vWBnoTOtikLYBd
- tUFZAJwddN/u8Mw0uMCpHxPoJS/ozuESe0tzMLRrb4Y0bWJdS/mriDYvFdDk792g7M6747tsqE5qn
- f0vVXpgogDQ9D1z1qUNH8LHZhHOCG1RKOiaoiuhIS6IGQj73J/TaRNVf/vm3JG+x8Dng1Xhh0O5X0
- WtwDJpFRY31Xk1jg0aTHqAhpCa0Sx8+VSvGl+Yc5WzfWSqwN+lsG7dxUQjsHLoCfcSgqT4b8lbnDg
- m0h/KVeLsIIpAxljrdsq83Dp935Jz+9NQXT5GVRkkrGTbCxD4kJYHUOdxYMhVS3Qe+Ibj1bc7GXdV
- uTfLZYZQ==;
-Received: from c-71-59-88-35.hsd1.nj.comcast.net ([71.59.88.35]
- helo=[192.168.1.99]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1raeF7-0007OW-TO; Thu, 15 Feb 2024 17:05:46 +0100
-Content-Type: multipart/alternative;
- boundary="------------gTR4d6Hug0celd0p923byl7c"
-Message-ID: <0efcdfe3-ea9e-43e5-ab07-6d69dca2c04a@igalia.com>
-Date: Thu, 15 Feb 2024 11:05:40 -0500
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F3C010E26E
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 14:54:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1708354484;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OMYS7v5Ok4uhxIdc2zHomIdyNjZUgRNIUjrOuStgLv4=;
+ b=V0Hnawn2uDs3dvP8AcyV28BeB46TJSL1IASUHhwbTaPL/bE953A4gimP3lJ0sqKWykrzy9
+ vtWic+EQFI+Z5mj49c3c2mqXFak4GhKOyByPGSu8OF5pNqVdwzg0iLYzlH1A0rjRdg2zip
+ dIPjs0/qVM0m7db7dcpPBu8Ep5LAQ6o=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-451-3ym6PxU2O5-w3SV-ZG_sYQ-1; Mon, 19 Feb 2024 09:54:42 -0500
+X-MC-Unique: 3ym6PxU2O5-w3SV-ZG_sYQ-1
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-42dbff437acso39878551cf.3
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 06:54:42 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708354477; x=1708959277;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OMYS7v5Ok4uhxIdc2zHomIdyNjZUgRNIUjrOuStgLv4=;
+ b=NGyPE1Pv5Bn62ErpkJOnunAFT9xygORuBvdtCCiNtbYG8DpoTeLJznE3+kwwaEoPQ9
+ bQiP8OVeGaz81dXR+YpoOux9hQ/KUbMSWrRJvFpLOdvEKyMsh/aJL/1//GVYEx4lFOxU
+ AXG/DFqCbHeoAaQAvtz5juopZoTGT9FWdCcygLPmvw50pEIEhACIKgMpygJZeCqlASPo
+ gg91+s4n2vGuuC3F6zivNqbMkDS9U7H/HDzw2S2yrSCCGKHfsRbrcZ0TKKvFL1PkACkQ
+ G8xxeGTnvIIkOGrvHNlGRifrU7Axb5oNGf9Zb5t6DxKBO0EasKgdqfDM8OFvL7CNh1Sr
+ 4FkA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU5mTEONjWqvlVB9lXca879KZKxvV7ktcWxc092i35LIS3UgaU+HKBfxbW+//3rlGztqsmqplV3+cPlMp82zod4s9fAufTCpDNmjlUYmKGD
+X-Gm-Message-State: AOJu0YzVx1mOKueYxwX8S3n1qccxath4YMXwnBvCPnjPnRLaOsEcZ+TE
+ 2I/WyHPzzj6Uj2pUTedu/4PxyLkpRh8HTbjfZp/WEUqZX/e3BgvdWJ5+tz7+dGzocW/EQHgcARk
+ /9vfcdWCpR7s3qvGCRkw3RYnKQRk0dfpiFS8DVOYBm7LLWAGwZiD2DeXuBKIKm4MsZA==
+X-Received: by 2002:a05:622a:4c9:b0:42c:6efe:bd18 with SMTP id
+ q9-20020a05622a04c900b0042c6efebd18mr16322039qtx.66.1708354477432; 
+ Mon, 19 Feb 2024 06:54:37 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IH2SRj7oP99HukQNscKw184xu2cciwlZWte3i1zo3pAwLyipyYhg0yaFUb6YVYkigJP95EVrg==
+X-Received: by 2002:a05:622a:4c9:b0:42c:6efe:bd18 with SMTP id
+ q9-20020a05622a04c900b0042c6efebd18mr16321995qtx.66.1708354477081; 
+ Mon, 19 Feb 2024 06:54:37 -0800 (PST)
+Received: from fedora ([2600:1700:1ff0:d0e0::37])
+ by smtp.gmail.com with ESMTPSA id
+ g6-20020ac80706000000b0042e1a872e54sm432517qth.22.2024.02.19.06.54.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Feb 2024 06:54:36 -0800 (PST)
+Date: Mon, 19 Feb 2024 08:54:33 -0600
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH 3/8] clk: qcom: clk-alpha-pll: Add HUAYRA_2290 support
+Message-ID: <u7beg6ui3i6nxoaulc3o7ghfkvcsy46ps53k3jynrurdwn6o7o@ppyqoz4jsotc>
+References: <20240219-topic-rb1_gpu-v1-0-d260fa854707@linaro.org>
+ <20240219-topic-rb1_gpu-v1-3-d260fa854707@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: events@lists.x.org, xorg-devel@lists.x.org,
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- libre-soc-dev@lists.libre-soc.org, elections@x.org, members@x.org,
- xorg@lists.freedesktop.org
-From: Christopher Michael <cmichael@igalia.com>
-Subject: 2024 X.Org Board of Directors Elections Nomination period is NOW
-X-Mailman-Approved-At: Sun, 31 Mar 2024 08:42:37 +0000
+In-Reply-To: <20240219-topic-rb1_gpu-v1-3-d260fa854707@linaro.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Sun, 31 Mar 2024 08:38:57 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,118 +107,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------gTR4d6Hug0celd0p923byl7c
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On Mon, Feb 19, 2024 at 02:35:48PM +0100, Konrad Dybcio wrote:
+> Commit 134b55b7e19f ("clk: qcom: support Huayra type Alpha PLL")
+> introduced an entry to the alpha offsets array, but diving into QCM2290
+> downstream and some documentation, it turned out that the name Huayra
+> apparently has been used quite liberally across many chips, even with
+> noticeably different hardware.
+> 
+> Introduce another set of offsets and a new configure function for the
+> Huayra PLL found on QCM2290. This is required e.g. for the consumers
+> of GPUCC_PLL0 to properly start.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  drivers/clk/qcom/clk-alpha-pll.c | 45 ++++++++++++++++++++++++++++++++++++++++
+>  drivers/clk/qcom/clk-alpha-pll.h |  3 +++
+>  2 files changed, 48 insertions(+)
+> 
+> diff --git a/drivers/clk/qcom/clk-alpha-pll.c b/drivers/clk/qcom/clk-alpha-pll.c
+> index 8a412ef47e16..61b5abd13782 100644
+> --- a/drivers/clk/qcom/clk-alpha-pll.c
+> +++ b/drivers/clk/qcom/clk-alpha-pll.c
+> @@ -244,6 +244,19 @@ const u8 clk_alpha_pll_regs[][PLL_OFF_MAX_REGS] = {
+>  		[PLL_OFF_OPMODE] = 0x30,
+>  		[PLL_OFF_STATUS] = 0x3c,
+>  	},
+> +	[CLK_ALPHA_PLL_TYPE_HUAYRA_2290] =  {
+> +		[PLL_OFF_L_VAL] = 0x04,
+> +		[PLL_OFF_ALPHA_VAL] = 0x08,
+> +		[PLL_OFF_USER_CTL] = 0x0c,
+> +		[PLL_OFF_CONFIG_CTL] = 0x10,
+> +		[PLL_OFF_CONFIG_CTL_U] = 0x14,
+> +		[PLL_OFF_CONFIG_CTL_U1] = 0x18,
+> +		[PLL_OFF_TEST_CTL] = 0x1c,
+> +		[PLL_OFF_TEST_CTL_U] = 0x20,
+> +		[PLL_OFF_TEST_CTL_U1] = 0x24,
+> +		[PLL_OFF_OPMODE] = 0x28,
+> +		[PLL_OFF_STATUS] = 0x38,
+> +	},
+>  };
+>  EXPORT_SYMBOL_GPL(clk_alpha_pll_regs);
+>  
+> @@ -779,6 +792,38 @@ static long clk_alpha_pll_round_rate(struct clk_hw *hw, unsigned long rate,
+>  	return clamp(rate, min_freq, max_freq);
+>  }
+>  
+> +void clk_huayra_2290_pll_configure(struct clk_alpha_pll *pll, struct regmap *regmap,
+> +				   const struct alpha_pll_config *config)
+> +{
+> +	clk_alpha_pll_write_config(regmap, PLL_CONFIG_CTL(pll), config->config_ctl_val);
+> +	clk_alpha_pll_write_config(regmap, PLL_CONFIG_CTL_U(pll), config->config_ctl_hi_val);
+> +	clk_alpha_pll_write_config(regmap, PLL_CONFIG_CTL_U1(pll), config->config_ctl_hi1_val);
+> +	clk_alpha_pll_write_config(regmap, PLL_TEST_CTL(pll), config->test_ctl_val);
+> +	clk_alpha_pll_write_config(regmap, PLL_TEST_CTL_U(pll), config->test_ctl_hi_val);
+> +	clk_alpha_pll_write_config(regmap, PLL_TEST_CTL_U1(pll), config->test_ctl_hi1_val);
+> +	clk_alpha_pll_write_config(regmap, PLL_L_VAL(pll), config->l);
+> +	clk_alpha_pll_write_config(regmap, PLL_ALPHA_VAL(pll), config->alpha);
+> +	clk_alpha_pll_write_config(regmap, PLL_USER_CTL(pll), config->user_ctl_val);
+> +
+> +	/* Set PLL_BYPASSNL */
+> +	regmap_update_bits(regmap, PLL_MODE(pll), PLL_BYPASSNL, PLL_BYPASSNL);
+> +
+> +	/* Wait 5 us between setting BYPASS and deasserting reset */
+> +	mb();
+> +	udelay(5);
+> +
+> +	/* Take PLL out from reset state */
+> +	regmap_update_bits(regmap, PLL_MODE(pll), PLL_RESET_N, PLL_RESET_N);
+> +
+> +	/* Wait 50us for PLL_LOCK_DET bit to go high */
+> +	mb();
+> +	usleep_range(50, 55);
 
-We are seeking nominations for candidates for election to the X.Org 
-Foundation Board of Directors. All X.Org Foundation members are eligible 
-for election to the board.
+I *think* you'd want to use a read to ensure your write goes through
+prior to your sleep... from memory-barriers.txt:
 
-Nominations for the 2024 election are now open and will remain open 
-until 23:59 UTC on 26 February 2024.
+	5. A readX() by a CPU thread from the peripheral will complete before
+	   any subsequent delay() loop can begin execution on the same thread.
+	   This ensures that two MMIO register writes by the CPU to a peripheral
+	   will arrive at least 1us apart if the first write is immediately read
+	   back with readX() and udelay(1) is called prior to the second
+	   writeX():
 
-The Board consists of directors elected from the membership. Each year, 
-an election is held to bring the total number of directors to eight. The 
-four members receiving the highest vote totals will serve as directors 
-for two year terms.
+		writel(42, DEVICE_REGISTER_0); // Arrives at the device...
+		readl(DEVICE_REGISTER_0);
+		udelay(1);
+		writel(42, DEVICE_REGISTER_1); // ...at least 1us before this.
 
-The directors who received two year terms starting in 2023 were 
-Arkadiusz Hiler, Christopher Michael, Lyude Paul, and Daniel Vetter. 
-They will continue to serve until their term ends in 2024. Current 
-directors whose term expires in 2024 are Emma Anholt, Mark Filion, 
-Ricardo Garcia, and Alyssa Rosenzweig.
-<https://rosenzweig.io/>
-
-A director is expected to participate in the fortnightly IRC meeting to 
-discuss current business and to attend the annual meeting of the X.Org 
-Foundation, which will be held at a location determined in advance by 
-the Board of Directors.
-
-A member may nominate themselves or any other member they feel is 
-qualified. Nominations should be sent to the Election Committee at 
-elections@x.org.
-
-Nominees shall be required to be current members of the X.Org 
-Foundation, and submit a personal statement of up to 200 words that will 
-be provided to prospective voters. The collected statements, along with 
-the statement of contribution to the X.Org Foundation in the member's 
-account page on http://members.x.org, will be made available to all 
-voters to help them make their voting decisions.
-
-Nominations, membership applications or renewals and completed personal 
-statements must be received no later than 23:59 UTC on 26 February 2024.
-
-The slate of candidates will be published 04 March 2024 and candidate 
-Q&A will begin then. The deadline for Xorg membership applications and 
-renewals is 07 March 2024.
+also https://youtu.be/i6DayghhA8Q?si=7lp0be35q1HRmlnV&t=1677
+for more references on this topic.
 
 
-Cheers,
+> +
+> +	/* Enable PLL output */
+> +	regmap_update_bits(regmap, PLL_MODE(pll), PLL_OUTCTRL, PLL_OUTCTRL);
+> +}
+> +EXPORT_SYMBOL(clk_huayra_2290_pll_configure);
+> +
+>  static unsigned long
+>  alpha_huayra_pll_calc_rate(u64 prate, u32 l, u32 a)
+>  {
+> diff --git a/drivers/clk/qcom/clk-alpha-pll.h b/drivers/clk/qcom/clk-alpha-pll.h
+> index fb6d50263bb9..91d3d6f19eae 100644
+> --- a/drivers/clk/qcom/clk-alpha-pll.h
+> +++ b/drivers/clk/qcom/clk-alpha-pll.h
+> @@ -29,6 +29,7 @@ enum {
+>  	CLK_ALPHA_PLL_TYPE_BRAMMO_EVO,
+>  	CLK_ALPHA_PLL_TYPE_STROMER,
+>  	CLK_ALPHA_PLL_TYPE_STROMER_PLUS,
+> +	CLK_ALPHA_PLL_TYPE_HUAYRA_2290,
+>  	CLK_ALPHA_PLL_TYPE_MAX,
+>  };
+>  
+> @@ -191,6 +192,8 @@ extern const struct clk_ops clk_alpha_pll_rivian_evo_ops;
+>  
+>  void clk_alpha_pll_configure(struct clk_alpha_pll *pll, struct regmap *regmap,
+>  			     const struct alpha_pll_config *config);
+> +void clk_huayra_2290_pll_configure(struct clk_alpha_pll *pll, struct regmap *regmap,
+> +				   const struct alpha_pll_config *config);
+>  void clk_fabia_pll_configure(struct clk_alpha_pll *pll, struct regmap *regmap,
+>  				const struct alpha_pll_config *config);
+>  void clk_trion_pll_configure(struct clk_alpha_pll *pll, struct regmap *regmap,
+> 
+> -- 
+> 2.43.2
+> 
+> 
 
-Christopher Michael, on behalf of the X.Org BoD
-
-
---------------gTR4d6Hug0celd0p923byl7c
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>We are seeking nominations for candidates for election to the
-      X.Org Foundation Board of Directors. All X.Org Foundation members
-      are eligible for election to the board.</p>
-    <p>Nominations for the 2024 election are now open and will remain
-      open until 23:59 UTC on 26 February 2024.</p>
-    The Board consists of directors elected from the membership. Each
-    year, an election is held to bring the total number of directors to
-    eight. The four members receiving the highest vote totals will serve
-    as directors for two year terms.
-    <p>The directors who received two year terms starting in 2023 were <span
-        class="createlink">Arkadiusz Hiler, </span><span
-        class="createlink">Christopher Michael, </span><span
-        class="createlink">Lyude Paul, and Daniel Vetter</span>. They
-      will continue to serve until their term ends in 2024. Current
-      directors whose term expires in 2024 are <span class="createlink">Emma
-        Anholt, </span><span class="createlink">Mark Filion, </span><span
-        class="createlink">Ricardo Garcia, and Alyssa Rosenzweig.</span><a
-        href="https://rosenzweig.io/"><br>
-      </a></p>
-    <p>A director is expected to participate in the fortnightly IRC
-      meeting to discuss current business and to attend the annual
-      meeting of the X.Org Foundation, which will be held at a location
-      determined in advance by the Board of Directors.</p>
-    <p>A member may nominate themselves or any other member they feel is
-      qualified. Nominations should be sent to the Election Committee at
-      <a class="moz-txt-link-abbreviated" href="mailto:elections@x.org">elections@x.org</a>.<br>
-    </p>
-    <p>Nominees shall be required to be current members of the X.Org
-      Foundation, and submit a personal statement of up to 200 words
-      that will be provided to prospective voters. The collected
-      statements, along with the statement of contribution to the X.Org
-      Foundation in the member's account page on <a class="moz-txt-link-freetext" href="http://members.x.org">http://members.x.org</a>,
-      will be made available to all voters to help them make their
-      voting decisions.</p>
-    <p>Nominations, membership applications or renewals and completed
-      personal statements must be received no later than 23:59 UTC on 26
-      February 2024.</p>
-    <p>The slate of candidates will be published 04 March 2024 and
-      candidate Q&amp;A will begin then. The deadline for Xorg
-      membership applications and renewals is 07 March 2024.</p>
-    <p><br>
-    </p>
-    <p>Cheers,</p>
-    <p>Christopher Michael, on behalf of the X.Org BoD</p>
-    <p><br>
-    </p>
-    <p></p>
-  </body>
-</html>
-
---------------gTR4d6Hug0celd0p923byl7c--
