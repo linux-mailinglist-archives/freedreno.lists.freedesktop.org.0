@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1948B85A679
-	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 15:53:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A405D85A686
+	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 15:54:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC38F10E364;
-	Mon, 19 Feb 2024 14:53:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 211CE10E26E;
+	Mon, 19 Feb 2024 14:54:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="orJaLeh9";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GGwreiAy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
- [209.85.128.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4265710E354
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 14:53:47 +0000 (UTC)
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-607dec82853so38314457b3.3
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 06:53:47 -0800 (PST)
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F055310E37D
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 14:54:44 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-6084e809788so3197247b3.1
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 06:54:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708354426; x=1708959226; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708354484; x=1708959284; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=uHNd0ZyJA4gTbxBaC9YDXwkG/RiI5KMLPKGCG7+Wzlo=;
- b=orJaLeh94m/pIABPYgOI3SSWiVu0EqXzdUVQ0VGBWxGlqUXjyokFYwuUFxtw0YELqV
- 62Qg1EWggQnba49EFI6MAThn5MC9EMXn8W1DsEbg0gZUG4AFCYwz778t0BqCYYrLe7fQ
- MzO8jwqRnlw4REwwgJXQAjyeBA8XalTvVT2iOW68qKuO1LyTcXipizveL6KqN5+p/Cvo
- yOmIrLtgBw+4j/bjjW292UPgRrKY42pmXkNz8BUoYJQ2DdLz6xKMXsmxKgpb14QKk+sc
- XKUXiDi1Xkkgvd9o5/5qgGNV+UIlgaLGiQ+t//kzqN+n9GRmbr7Wb5uaoGH1r8nRhRAc
- rccg==
+ bh=/+Vf6X891RpEKNXrdBrteASyRB3a3/HliSNBQV8d1lo=;
+ b=GGwreiAyUJWWwDl/pmeMKXAa26tg/Zb6joibQowkrL0x8wt+ACL2eguI0Ux+PYjzWS
+ 6a19iJ41849VeQtf+nO24XwvV3c6aNCzMEJjw3eY7n2Swr3CRRJ75SLtDF+PGabmDYKs
+ ngI8qusT+6iJ1xjGEUOSMc5TW8ldFG67H9HIYcTk7DhSRh31DAjo7h6E7CYDKyk7y1jq
+ COi9q+AnglOT83VfnbPBDQ61nQ1KlaDH3EmbgDItyPoyPg1jK+Klv5qJyKM5qBYbTl4m
+ Pcg91pltGmObwMaluPOdLObZgpSZ44eme6MD9V2A0+QGGThzDiMgqYf31l/rZSFgQ1pq
+ /ODw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708354426; x=1708959226;
+ d=1e100.net; s=20230601; t=1708354484; x=1708959284;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=uHNd0ZyJA4gTbxBaC9YDXwkG/RiI5KMLPKGCG7+Wzlo=;
- b=Fls/WfDb28SSYpddQSV4ozROAe+H6JH0v3SeK0/BEI40BADJU95D8XmhbXHLWzVnN/
- /xShDiaBwfeFMbbUhKPpfMwP/i2dnBlDgm12l16zc+fxWTxFcJjx62mtYQ43n2G6uxah
- CLVB6bR2enlGNLs3kicVc0aL9IS8sCWP1lO1KvtZplkTGeJurLbTw2a43KBflRshw/Du
- 9xgWx7nEadOUFGU9ILCJVUqUaC+2iA+aL1SaaTkglKdy9Y4sACUcGe6viscv3Qs35Eq6
- 1G4Crf1c94SaJ+VH7Rl+nmCq4AYvDPUsdUjPFnReQSCgQQEfra6p0ebo5GBKU0yjmJQ4
- XwQQ==
+ bh=/+Vf6X891RpEKNXrdBrteASyRB3a3/HliSNBQV8d1lo=;
+ b=uUKQ+Fhg2KVMiW7QiBmfVXvKDZj9FntnhbHeWZx2tKBbprDjSuezK4GWEFqly0stzD
+ unyVBXER82mbklbgDojd0hzzlX+62xKZOIDG8Wa0iAVF0WbBy1bNc0USpSa1rc0izITi
+ b7HH6+fyxUx4RfC1xsH+beVC97CUlmhQQKnTzQ5lMvHdUbqlSYrvf+dtn4imqbb6gGf4
+ QTJkUZ7iJ0xdToglRL+PS0k6FUShwJDYmQMsbAuL5I/VjFF8ip6g5xlm7WqM4XLke7Xx
+ 108ZC4WjdTHrezliAJQh1Wg1GzTxnu1VuKT4TqJ8Tz8cVeLUWCZYO7rhq1/3dxYWGMQF
+ 7Pzw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXRojByPGHAEabBQ3SbtHkOHOPTygkc4UcFtlHm1vUuWzyBivyw39ShJY3EIbZXKq8akQ4zFkGYi1o2JHOySRyt2xHmukdVji56jG58agi/
-X-Gm-Message-State: AOJu0YwHtEANj67T7pMIJW/3F6oPzn9DlJXwhgL0kFBpVlsP4xWqsn4W
- 7BgF6XIa5TSH/ZdCz4NAk/Vm+jMShbbI+7GBA2X1cyS6WXS9LOedLzjuwYZk/x5FyUHZ9uHF5Sx
- 97crZbnjXMnZFmiT0ekQd0SJ6mDuMsXQH6C/nRQ==
-X-Google-Smtp-Source: AGHT+IHY/le6C7LNc0DIav/5O65P9EcFeh1YIyPzIjc+EV5s2EcaI1Ea6U5pWMuSdfWLBVIgW0qC8w2mR4a/yKRxOBo=
-X-Received: by 2002:a81:5287:0:b0:607:9d63:f5f5 with SMTP id
- g129-20020a815287000000b006079d63f5f5mr12422677ywb.12.1708354426245; Mon, 19
- Feb 2024 06:53:46 -0800 (PST)
+ AJvYcCVocp7m9kF39fVo5V1DHfp399V7TVHNoHbOWe94bUKAg/QARt4ps93sNE2vbBAFLaXpC4xSdNLq/91wcJFDLxDqhkQiyJUHiZUCkc3cvGMe
+X-Gm-Message-State: AOJu0Yyu7ar5ORVYY7TiT95U0ARWVpH/CHdgL31O/iHFXyBZYOfeAhR2
+ JlADWkGimdR+DTePSWNwbBKvRncMtQ+m+x2iR7dkUY/YJGErs7qp61GJeHwi5l/ZUPwAIuS5Q9W
+ 2RihxZp+tcjRKSi8iyUcXHbYsZ6WNUdrBcu9/5g==
+X-Google-Smtp-Source: AGHT+IHg7XEOTTrtpgQqphtP3Xw9sPuPWwJbqow3gZN5qRELJzU++tbN2bRulnySBEDH7nL4PxT+8aS1knEIIJLBbCc=
+X-Received: by 2002:a81:a185:0:b0:608:59a5:4ad1 with SMTP id
+ y127-20020a81a185000000b0060859a54ad1mr39629ywg.22.1708354483969; Mon, 19 Feb
+ 2024 06:54:43 -0800 (PST)
 MIME-Version: 1.0
 References: <20240219-topic-rb1_gpu-v1-0-d260fa854707@linaro.org>
- <20240219-topic-rb1_gpu-v1-3-d260fa854707@linaro.org>
-In-Reply-To: <20240219-topic-rb1_gpu-v1-3-d260fa854707@linaro.org>
+ <20240219-topic-rb1_gpu-v1-4-d260fa854707@linaro.org>
+In-Reply-To: <20240219-topic-rb1_gpu-v1-4-d260fa854707@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 19 Feb 2024 16:53:35 +0200
-Message-ID: <CAA8EJpq8XvQm9B3RZq9PNMqA5VAqKUyVn5qt8-WEYMQMWniDZA@mail.gmail.com>
-Subject: Re: [PATCH 3/8] clk: qcom: clk-alpha-pll: Add HUAYRA_2290 support
+Date: Mon, 19 Feb 2024 16:54:33 +0200
+Message-ID: <CAA8EJpq46Wn+gWKL81_zMxyddUpJRuKHDrx=4Q2DvbwufmWHWA@mail.gmail.com>
+Subject: Re: [PATCH 4/8] clk: qcom: Add QCM2290 GPU clock controller driver
 To: Konrad Dybcio <konrad.dybcio@linaro.org>
 Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
  Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
@@ -93,117 +93,17 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Mon, 19 Feb 2024 at 15:36, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
 >
-> Commit 134b55b7e19f ("clk: qcom: support Huayra type Alpha PLL")
-> introduced an entry to the alpha offsets array, but diving into QCM2290
-> downstream and some documentation, it turned out that the name Huayra
-> apparently has been used quite liberally across many chips, even with
-> noticeably different hardware.
->
-> Introduce another set of offsets and a new configure function for the
-> Huayra PLL found on QCM2290. This is required e.g. for the consumers
-> of GPUCC_PLL0 to properly start.
+> Add a driver for the GPU clock controller block found on the QCM2290 SoC.
 >
 > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->  drivers/clk/qcom/clk-alpha-pll.c | 45 ++++++++++++++++++++++++++++++++++++++++
->  drivers/clk/qcom/clk-alpha-pll.h |  3 +++
->  2 files changed, 48 insertions(+)
->
-> diff --git a/drivers/clk/qcom/clk-alpha-pll.c b/drivers/clk/qcom/clk-alpha-pll.c
-> index 8a412ef47e16..61b5abd13782 100644
-> --- a/drivers/clk/qcom/clk-alpha-pll.c
-> +++ b/drivers/clk/qcom/clk-alpha-pll.c
-> @@ -244,6 +244,19 @@ const u8 clk_alpha_pll_regs[][PLL_OFF_MAX_REGS] = {
->                 [PLL_OFF_OPMODE] = 0x30,
->                 [PLL_OFF_STATUS] = 0x3c,
->         },
-> +       [CLK_ALPHA_PLL_TYPE_HUAYRA_2290] =  {
-> +               [PLL_OFF_L_VAL] = 0x04,
-> +               [PLL_OFF_ALPHA_VAL] = 0x08,
-> +               [PLL_OFF_USER_CTL] = 0x0c,
-> +               [PLL_OFF_CONFIG_CTL] = 0x10,
-> +               [PLL_OFF_CONFIG_CTL_U] = 0x14,
-> +               [PLL_OFF_CONFIG_CTL_U1] = 0x18,
-> +               [PLL_OFF_TEST_CTL] = 0x1c,
-> +               [PLL_OFF_TEST_CTL_U] = 0x20,
-> +               [PLL_OFF_TEST_CTL_U1] = 0x24,
-> +               [PLL_OFF_OPMODE] = 0x28,
-> +               [PLL_OFF_STATUS] = 0x38,
-> +       },
-
-Can you please move them next to the standard huayra PLL regs?
-
->  };
->  EXPORT_SYMBOL_GPL(clk_alpha_pll_regs);
->
-> @@ -779,6 +792,38 @@ static long clk_alpha_pll_round_rate(struct clk_hw *hw, unsigned long rate,
->         return clamp(rate, min_freq, max_freq);
->  }
->
-> +void clk_huayra_2290_pll_configure(struct clk_alpha_pll *pll, struct regmap *regmap,
-> +                                  const struct alpha_pll_config *config)
-> +{
-> +       clk_alpha_pll_write_config(regmap, PLL_CONFIG_CTL(pll), config->config_ctl_val);
-> +       clk_alpha_pll_write_config(regmap, PLL_CONFIG_CTL_U(pll), config->config_ctl_hi_val);
-> +       clk_alpha_pll_write_config(regmap, PLL_CONFIG_CTL_U1(pll), config->config_ctl_hi1_val);
-> +       clk_alpha_pll_write_config(regmap, PLL_TEST_CTL(pll), config->test_ctl_val);
-> +       clk_alpha_pll_write_config(regmap, PLL_TEST_CTL_U(pll), config->test_ctl_hi_val);
-> +       clk_alpha_pll_write_config(regmap, PLL_TEST_CTL_U1(pll), config->test_ctl_hi1_val);
-> +       clk_alpha_pll_write_config(regmap, PLL_L_VAL(pll), config->l);
-> +       clk_alpha_pll_write_config(regmap, PLL_ALPHA_VAL(pll), config->alpha);
-> +       clk_alpha_pll_write_config(regmap, PLL_USER_CTL(pll), config->user_ctl_val);
-> +
-> +       /* Set PLL_BYPASSNL */
-> +       regmap_update_bits(regmap, PLL_MODE(pll), PLL_BYPASSNL, PLL_BYPASSNL);
-> +
-> +       /* Wait 5 us between setting BYPASS and deasserting reset */
-> +       mb();
-> +       udelay(5);
-> +
-> +       /* Take PLL out from reset state */
-> +       regmap_update_bits(regmap, PLL_MODE(pll), PLL_RESET_N, PLL_RESET_N);
-> +
-> +       /* Wait 50us for PLL_LOCK_DET bit to go high */
-> +       mb();
-> +       usleep_range(50, 55);
-> +
-> +       /* Enable PLL output */
-> +       regmap_update_bits(regmap, PLL_MODE(pll), PLL_OUTCTRL, PLL_OUTCTRL);
-> +}
-> +EXPORT_SYMBOL(clk_huayra_2290_pll_configure);
-> +
->  static unsigned long
->  alpha_huayra_pll_calc_rate(u64 prate, u32 l, u32 a)
->  {
-> diff --git a/drivers/clk/qcom/clk-alpha-pll.h b/drivers/clk/qcom/clk-alpha-pll.h
-> index fb6d50263bb9..91d3d6f19eae 100644
-> --- a/drivers/clk/qcom/clk-alpha-pll.h
-> +++ b/drivers/clk/qcom/clk-alpha-pll.h
-> @@ -29,6 +29,7 @@ enum {
->         CLK_ALPHA_PLL_TYPE_BRAMMO_EVO,
->         CLK_ALPHA_PLL_TYPE_STROMER,
->         CLK_ALPHA_PLL_TYPE_STROMER_PLUS,
-> +       CLK_ALPHA_PLL_TYPE_HUAYRA_2290,
-
-Also next to standard huayra PLL, please.
-
->         CLK_ALPHA_PLL_TYPE_MAX,
->  };
->
-> @@ -191,6 +192,8 @@ extern const struct clk_ops clk_alpha_pll_rivian_evo_ops;
->
->  void clk_alpha_pll_configure(struct clk_alpha_pll *pll, struct regmap *regmap,
->                              const struct alpha_pll_config *config);
-> +void clk_huayra_2290_pll_configure(struct clk_alpha_pll *pll, struct regmap *regmap,
-> +                                  const struct alpha_pll_config *config);
->  void clk_fabia_pll_configure(struct clk_alpha_pll *pll, struct regmap *regmap,
->                                 const struct alpha_pll_config *config);
->  void clk_trion_pll_configure(struct clk_alpha_pll *pll, struct regmap *regmap,
->
-> --
-> 2.43.2
+>  drivers/clk/qcom/Kconfig         |   9 +
+>  drivers/clk/qcom/Makefile        |   1 +
+>  drivers/clk/qcom/gpucc-qcm2290.c | 423 +++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 433 insertions(+)
 >
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
