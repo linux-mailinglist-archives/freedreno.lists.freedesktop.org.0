@@ -2,67 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 657A385A4BE
+	by mail.lfdr.de (Postfix) with ESMTPS id CD88D85A4BF
 	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 14:36:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7D810E364;
-	Mon, 19 Feb 2024 13:36:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A279610E376;
+	Mon, 19 Feb 2024 13:36:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="J/r9hzB7";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="a/nBPMZK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 445E210E313
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 13:36:06 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-55f50cf2021so5938492a12.1
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 05:36:06 -0800 (PST)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F56410E313
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 13:36:09 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-5649c25369aso931060a12.2
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 05:36:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708349764; x=1708954564; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708349767; x=1708954567; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Vm4+HsWSLi5Bqiq8guveLonPTq6IX1sdSS8MIp6iya8=;
- b=J/r9hzB7MxMI+Am8GdZ85xwn5PoN7AyUQ8SN63tftVaOa0MYKwp63BF4KlITKszABs
- pZHvfh12vEkk/CjM0rvPT9RoGmIk5thzlfC+dKIJHvA4pcAnxs6U4UxDuXI0V7I/dM6l
- w1LpbVj7Fj6qeT8OCTQKWEegzGdUqHA2Dc8+3zy7XeQ0ZnZi1ikJXMlmPOsWaG+spiBG
- 0snCTyLGRTVx4wgehYPK8VFPxOlXFuCTcS0UHgwz0+PFhLwbnwPNvnqG3AjJUHOTsdqh
- 9vICSLejyWGxgJ/bZovr2zJ8dAgcneJ8YBCKtDe2P/ynhsMuf/GbSDZYIIr0tq9A6zJA
- jq5A==
+ :reply-to; bh=EDFtd1C6W8+z/D4oBojXzEo0MFOHKoG2NOfGOeLFv6c=;
+ b=a/nBPMZKvMXElPehRP9W3mUofFCxu3aK+ZWMo4pQgoT1gvqtFhtWJkImjrgtxyBtMI
+ 9VnUiKRt3LR0VS6YqE1ux2UkVAPs7dNwpf0bnJX57IlN76Vn5pu82rEzD58GrbMx3SqX
+ OVYxN4Ure7mhOPfZnG0FlI5cGvafjjh+i3ELs4fuGN3n5km30PtrhF8JL0xB2458Ba+z
+ F9QqtyzprhxX+tMRKVpXyEFAvEbP55o6hBMVtGOYKoumFlWD3EoPApwoSuFFdOTfrQuz
+ p419Qtc+K0LcHJuOZ12Tq/wUNGU5HPZujfzDYj1s0QFIpz8HQTwoGDsB3V5U+B1j4xql
+ SMAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708349764; x=1708954564;
+ d=1e100.net; s=20230601; t=1708349767; x=1708954567;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Vm4+HsWSLi5Bqiq8guveLonPTq6IX1sdSS8MIp6iya8=;
- b=RXZWwGBl4ns8TF3WVRv5U8BBC+2LN7Z3UnT31p11HLppqSYtSNutS9XiJ38LveeEl9
- XCFte/c4BpvvM/fenC9S5xgbr9kzNCgc9lC6w+QDbHu2YQD9r4XFtLf9eNHm2kbdUT5M
- aKc8qcVAKP0fpE0i9/n5U4Em5T5hjBFc1ab3iABROtUgi8kdDZ3IS6JeBVicqlKP7ndn
- AEIhWnc8XvpHumnxGA6g8GynO1Pa9GKxh0x8C7uKjHE7aX8ftqr6bUKYoPiLwbYZPqLT
- hUZ1OkJ0aano5Gk2ZZcpLTKJQIffrQQ9nUsbLp+pBW3ewJCL1hwsiWX3SPh7RHQWBhdX
- vnoA==
+ bh=EDFtd1C6W8+z/D4oBojXzEo0MFOHKoG2NOfGOeLFv6c=;
+ b=lZuU6U2y8sFwga6/UJ/OXFJZSKHX5lxXNvdeOhv5fz+T4UN7yeBJG7/wR7tpPyDSsZ
+ 0wpm4gBH9+9RmOjjXycpCSBUL/khVMBsWsHE7VayfHDxw3s6fTg1ePxVI0SO+q7j7huJ
+ 55xbeNTMMniGZXZ0OaUxlE5uX9rPrpJMbUEy1Y/mxrxHDKcj/ZvYN9wcsVCI0EHj58YC
+ qIDvICja4L4OKL2pcgS8N4itoER30kTN2ELhHaihH/PMbnZoLb0CvZKB05eVaIT0rb7s
+ pK9fwwmxKWZUx86aBfproROsmeSssfPOEiMJQH+7WxU4ED+30mFmoogmIougsf+I03WE
+ Khzw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXlQmhKJajaMFg+baQNfFo+OOUlhxgiSv4SRd/1UX/jNe1pBTd/YjcF48nCgPbQF74MubOZj8zot14K5k6ll2GCuMzLoIebE2z6s96hbiCw
-X-Gm-Message-State: AOJu0YzzJAycgMnSRM2tvX0ehSSIoWn3fs/w/3OBW33laF74R0FSzY7t
- yOp6I2jJUY8DheEP1l8GaPPFOYBmPd7HIb7te6xsJNykUlNpxKtdpdw01DgyE13sP2Nax11/GyU
- 2
-X-Google-Smtp-Source: AGHT+IHV7bK4ehHh9S5n4E8JdbICBeyKCog4TBxeQJc7jVSQ6sgYL2AGYMpXguUVOZv4iBTFSYicGw==
-X-Received: by 2002:aa7:d959:0:b0:564:3191:f407 with SMTP id
- l25-20020aa7d959000000b005643191f407mr4013903eds.12.1708349764412; 
- Mon, 19 Feb 2024 05:36:04 -0800 (PST)
+ AJvYcCWm236bBuISACwTl3AG/Qco1xk7SKKOuoZYmuxo1PyZiRv01cvNBr3v4KEtMH1EgNP4CXiiEctiW4NfYp59MfkZZsOSVeUAPfmnySNIYiGV
+X-Gm-Message-State: AOJu0YyBwN7RtYq0LCgWpV1PS2EN/GEcXDJvbaZ1ZqNXvMW/A8SeGRYz
+ ZuDcjqUI1iY7s43xGSvbopRAZRypW68GVVKBXIrrkMdy8NYGoNMR3vPfAcGLsoY=
+X-Google-Smtp-Source: AGHT+IHcY/jmN1CahbTZpalD29/Injnjyxx742wPBMQHK911Hmm+agbpDEvGFC5DMtm4072JH0z4Dg==
+X-Received: by 2002:aa7:d382:0:b0:564:69be:6e86 with SMTP id
+ x2-20020aa7d382000000b0056469be6e86mr2364504edq.0.1708349767419; 
+ Mon, 19 Feb 2024 05:36:07 -0800 (PST)
 Received: from [10.167.154.1] (078088045141.garwolin.vectranet.pl.
  [78.88.45.141]) by smtp.gmail.com with ESMTPSA id
- q29-20020a50cc9d000000b00563a3ff30basm2900168edi.59.2024.02.19.05.36.02
+ q29-20020a50cc9d000000b00563a3ff30basm2900168edi.59.2024.02.19.05.36.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Feb 2024 05:36:04 -0800 (PST)
+ Mon, 19 Feb 2024 05:36:07 -0800 (PST)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Mon, 19 Feb 2024 14:35:46 +0100
-Subject: [PATCH 1/8] dt-bindings: arm-smmu: Add QCM2290 GPU SMMU
+Date: Mon, 19 Feb 2024 14:35:47 +0100
+Subject: [PATCH 2/8] dt-bindings: clock: Add Qcom QCM2290 GPUCC
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240219-topic-rb1_gpu-v1-1-d260fa854707@linaro.org>
+Message-Id: <20240219-topic-rb1_gpu-v1-2-d260fa854707@linaro.org>
 References: <20240219-topic-rb1_gpu-v1-0-d260fa854707@linaro.org>
 In-Reply-To: <20240219-topic-rb1_gpu-v1-0-d260fa854707@linaro.org>
 To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
@@ -81,11 +80,11 @@ Cc: Marijn Suijten <marijn.suijten@somainline.org>,
  linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1708349759; l=1444;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1708349759; l=3746;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=iLSWFU0PEB/wfyF1Nv5EVeYr19/e5DAihIhWgNDJAow=;
- b=71RQnNARetoCSKqpzfQqO6Lapq/qBgUH5HXLBQdA6ZcDXcoSaL+2ynFTnCmi9jFSY8Q7b8KzZ
- O5iL+UfQEyvAPDXeCzVYV8yaVrWJofN/Mv+M8WmxZgIBOjFSCjpHxRD
+ bh=KHcmvINhJktJpppGgwULcqvLybPcSbgdTRhruWN1EGg=;
+ b=NaBvuZXGfNqiXM+yEApolRkCjYx+y/6MOaCnl4/saDR6RxS+H19AcURQQ3xL9s1DIJWPv3piV
+ 7kE09+GRuIVBIzkVJIDvLMhuz1i4zyjDATa4Q78cYVazSmKNUX6FuQw
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -103,42 +102,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The GPU SMMU on QCM2290 nicely fits into the description we already have
-for SM61[12]5. Add it.
+Add device tree bindings for graphics clock controller for Qualcomm
+Technology Inc's QCM2290 SoCs.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../bindings/clock/qcom,qcm2290-gpucc.yaml         | 76 ++++++++++++++++++++++
+ include/dt-bindings/clock/qcom,qcm2290-gpucc.h     | 32 +++++++++
+ 2 files changed, 108 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-index a4042ae24770..4a8d4022aebc 100644
---- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-+++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-@@ -83,6 +83,7 @@ properties:
-       - description: Qcom Adreno GPUs implementing "qcom,smmu-500" and "arm,mmu-500"
-         items:
-           - enum:
-+              - qcom,qcm2290-smmu-500
-               - qcom,sa8775p-smmu-500
-               - qcom,sc7280-smmu-500
-               - qcom,sc8280xp-smmu-500
-@@ -462,6 +463,7 @@ allOf:
-         compatible:
-           items:
-             - enum:
-+                - qcom,qcm2290-smmu-500
-                 - qcom,sm6115-smmu-500
-                 - qcom,sm6125-smmu-500
-             - const: qcom,adreno-smmu
-@@ -534,7 +536,6 @@ allOf:
-               - cavium,smmu-v2
-               - marvell,ap806-smmu-500
-               - nvidia,smmu-500
--              - qcom,qcm2290-smmu-500
-               - qcom,qdu1000-smmu-500
-               - qcom,sc7180-smmu-500
-               - qcom,sc8180x-smmu-500
+diff --git a/Documentation/devicetree/bindings/clock/qcom,qcm2290-gpucc.yaml b/Documentation/devicetree/bindings/clock/qcom,qcm2290-gpucc.yaml
+new file mode 100644
+index 000000000000..a16cb7e87e26
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/qcom,qcm2290-gpucc.yaml
+@@ -0,0 +1,76 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/qcom,qcm2290-gpucc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm Graphics Clock & Reset Controller on QCM2290
++
++maintainers:
++  - Konrad Dybcio <konradybcio@kernel.org>
++
++description: |
++  Qualcomm graphics clock control module provides the clocks, resets and power
++  domains on Qualcomm SoCs.
++
++  See also::
++    include/dt-bindings/clock/qcom,qcm2290-gpucc.h
++
++properties:
++  compatible:
++    - const: qcom,qcm2290-gpucc
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: AHB interface clock,
++      - description: SoC CXO clock
++      - description: GPLL0 main branch source
++      - description: GPLL0 div branch source
++
++  '#clock-cells':
++    const: 1
++
++  '#reset-cells':
++    const: 1
++
++  '#power-domain-cells':
++    const: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - '#clock-cells'
++  - '#reset-cells'
++  - '#power-domain-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/qcom,gcc-qcm2290.h>
++    #include <dt-bindings/clock/qcom,rpmcc.h>
++    #include <dt-bindings/power/qcom-rpmpd.h>
++
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        clock-controller@5990000 {
++            compatible = "qcom,qcm2290-gpucc";
++            reg = <0x0 0x05990000 0x0 0x9000>;
++            clocks = <&gcc GCC_GPU_CFG_AHB_CLK>,
++                     <&rpmcc RPM_SMD_XO_CLK_SRC>,
++                     <&gcc GCC_GPU_GPLL0_CLK_SRC>,
++                     <&gcc GCC_GPU_GPLL0_DIV_CLK_SRC>;
++            power-domains = <&rpmpd QCM2290_VDDCX>;
++            required-opps = <&rpmpd_opp_low_svs>;
++            #clock-cells = <1>;
++            #reset-cells = <1>;
++            #power-domain-cells = <1>;
++        };
++    };
++...
+diff --git a/include/dt-bindings/clock/qcom,qcm2290-gpucc.h b/include/dt-bindings/clock/qcom,qcm2290-gpucc.h
+new file mode 100644
+index 000000000000..7c76dd05278f
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,qcm2290-gpucc.h
+@@ -0,0 +1,32 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.
++ * Copyright (c) 2024, Linaro Limited
++ */
++
++#ifndef _DT_BINDINGS_CLK_QCOM_GPU_CC_QCM2290_H
++#define _DT_BINDINGS_CLK_QCOM_GPU_CC_QCM2290_H
++
++/* GPU_CC clocks */
++#define GPU_CC_AHB_CLK			0
++#define GPU_CC_CRC_AHB_CLK		1
++#define GPU_CC_CX_GFX3D_CLK		2
++#define GPU_CC_CX_GMU_CLK		3
++#define GPU_CC_CX_SNOC_DVM_CLK		4
++#define GPU_CC_CXO_AON_CLK		5
++#define GPU_CC_CXO_CLK			6
++#define GPU_CC_GMU_CLK_SRC		7
++#define GPU_CC_GX_GFX3D_CLK		8
++#define GPU_CC_GX_GFX3D_CLK_SRC		9
++#define GPU_CC_PLL0			10
++#define GPU_CC_SLEEP_CLK		11
++#define GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK	12
++
++/* Resets */
++#define GPU_GX_BCR			0
++
++/* GDSCs */
++#define GPU_CX_GDSC			0
++#define GPU_GX_GDSC			1
++
++#endif
 
 -- 
 2.43.2
