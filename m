@@ -2,114 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DDE985A139
-	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 11:43:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1145D85A1EC
+	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 12:28:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE4F10E2D9;
-	Mon, 19 Feb 2024 10:43:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7985689B46;
+	Mon, 19 Feb 2024 11:28:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AoalEGL2";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iW49KJJs";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B0F110E2D1
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 10:43:53 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-512bb2ed1f7so439793e87.3
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 02:43:53 -0800 (PST)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EBF189B46
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 11:28:49 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-56454c695e6so1601354a12.0
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 03:28:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708339431; x=1708944231; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=4Kggm66I2y/vi1EeOvhEU59nPGFhYTXx3hwaaB0gBno=;
- b=AoalEGL2KKx0B9ZPkIPwSKuQM84OwvD+envfpVaC0p80npic3Rp+qwzj90X2uW3KWm
- KQAWGrcYLY2pHUhkoV3zWRKb2+kHF58FhR152CC4CS+wiu9NlPrzroQWnQRHTgk+5iCA
- 3IX+3xkGFcAA71DndRrX7xyuyKo8N6c149P0TCmloApO7N49pcPyJxG1IaMV2jW5SjIb
- 0pZsSvCbIbwUwVYC6nEfCWyXxo5f2Gy24XiYieYD3yyQ+YXepKMWqcCXtXiBHjgdQyK9
- 7q94lGQjDHpMhmJSQC76VRRY6lYjSQsQS0+HPOOaYI7EsBz0A5sRLLf9Z1+r7F7tCNl+
- Dc9w==
+ d=linaro.org; s=google; t=1708342127; x=1708946927; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=nCyAWccqRzJ02Jr3HnjydtbclYSZbIBmeAFchAjZvoE=;
+ b=iW49KJJs6DX7qebl5vturza0BLqzq/cOiBr67vpRSPSgGZhtfgDgNJf7S++YCHMwDc
+ 0T5xU7IQNmP0tAefpVfhjm4gV/a3CwCqRg2c0p4dLrhPaAnCSSzcHiW2j8BxjSZR5DYY
+ jOY7JVFbUaTThsW7rc8AimYNdNQfHRtGrjCOw2OR0/94oQImL3W1VzDL4u0kVLshYsH0
+ IbtzyApqatYt+YQYBIGNf07QLBDxu4cui3nL1Rh+suv4daN8NW8V9MAhPn0w74BBMP6K
+ 0hqVLWXOOVzD3qK32pUwmw8T4qY6Tm7gxTQw8LpdtASkJsNzs/z9gbSzNMtQbFRJY7LG
+ Augg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708339431; x=1708944231;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4Kggm66I2y/vi1EeOvhEU59nPGFhYTXx3hwaaB0gBno=;
- b=NEoOxg8WHLrHVjcjcpU6HMRdkYMOrRXvp2ciYaYL02glhGEDI7B0LrmFYb9S4rPkyv
- uHE63rt069wiujum0och8YIwhCjlWQk6Uuochsi2LKXNtzWXlg6jwkxUlD2t1qlos0IX
- NN2d5EzXY1RwwgpoL6HiSP+v1Tn/aAt+N6IHaVECyAiC3sYY6663nS6OYlD1ayNn9u9A
- UBSqL3YR6YH2QI54jOHKgD01Pwe/ppUFXXjq7zRdt2s/b7FBROqO7+DdaSaQ1kj2C37m
- 4el0pZT/t/Y+heVKn8e783iZh6vT8zSuiipBv5p6OXS7+E1nnKxPWByOCVCh+C2wmHCL
- S8IA==
+ d=1e100.net; s=20230601; t=1708342127; x=1708946927;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nCyAWccqRzJ02Jr3HnjydtbclYSZbIBmeAFchAjZvoE=;
+ b=FJ8u0rUKlbSYhLnHY2Z5qWEn/bhwjXTHtVWlcAbLMfX2y6KCzqrqKMcdMryh4HnFUo
+ U4ugYP2e5kbOk+tqylATQV5X8qHuO5DLos41T/d9K71dvYmRKexIJYgfAU6rSlq3vO6u
+ +QV3viKh4BqO21/vtCDRO0w3+Nw+TvzN4QkZW+VNvVTtwGfg+YpZhWrJBXcwv/bDxRwr
+ NhdfNDGM2U/a1TMA2pWmZ4w0o+5NsrT4GPLf6Y1zm60n7yiFSC4gMVkwCLXvag6yqEPu
+ gjoMO2YEwkQF/IkMQhiwwPMiI7IP3qb0x5KoOpdJwVj9gdnRI7rSR0pQLD41bpphYzNY
+ SQbg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXxzABrpi8QFN2R9bV0XqMqBdm/VuzagfgODGJniS2v5a+SJKg54zrf1Cs8V5ZW5DSdb5iWxLPDJ4/oauqQIrhWzD8XJzF/zUKuDydyReen
-X-Gm-Message-State: AOJu0YyHmmy07YAp2AtVy3f7iMy7RibqQtb78kgNboMwIStaO1URSbo3
- xw2TCvXL99jBC4tLdep0ukbhBsASwBUIdseNHvgh2bT2mwlBsqmESuEFl9URX5w=
-X-Google-Smtp-Source: AGHT+IElz4TjU8D2lkNBcsMPEFJNte9kkFpP/echmyo2LLc0c99lFChPflTVKFN/lBqt9pVsTI42jw==
-X-Received: by 2002:a19:8c5d:0:b0:511:1790:e3dd with SMTP id
- i29-20020a198c5d000000b005111790e3ddmr7555086lfj.54.1708339431427; 
- Mon, 19 Feb 2024 02:43:51 -0800 (PST)
-Received: from [192.168.192.135] (078088045141.garwolin.vectranet.pl.
- [78.88.45.141]) by smtp.gmail.com with ESMTPSA id
- e11-20020a19690b000000b00512bdc911f5sm74051lfc.271.2024.02.19.02.43.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Feb 2024 02:43:50 -0800 (PST)
-Message-ID: <9c66c731-50a5-4dca-a3cf-e8042136c715@linaro.org>
-Date: Mon, 19 Feb 2024 11:43:48 +0100
+ AJvYcCV5cNQbqarfxrW78kmiCeFhGfSyF0B7giusgZJYOPjc64KYwPCam37VoyhpNXVgbBKtE97GF8+iTNVi/jpv3M9F0hwHcWIB0Vw0mgv0LLIZ
+X-Gm-Message-State: AOJu0YzGp4U9fWWJxwKOZeqHuBxYp9vBB1KlIU6a0qsuhsk3bZAq6eun
+ GCiZwH1eM+qgkis+ROw0zyftB0TAKGtd3iLsDRvRQ/25PksKwd1PrDljI+gOCmc=
+X-Google-Smtp-Source: AGHT+IE3Zoj5Kw00K+Q1Oq/u8jQF4xulPdA6ZClow24TWEYwMXrNi35dMdqJQqanNvP5Txi3Qumx2Q==
+X-Received: by 2002:aa7:d304:0:b0:564:4647:947d with SMTP id
+ p4-20020aa7d304000000b005644647947dmr3745838edq.3.1708342127493; 
+ Mon, 19 Feb 2024 03:28:47 -0800 (PST)
+Received: from linaro.org ([188.24.162.93]) by smtp.gmail.com with ESMTPSA id
+ e26-20020a50d4da000000b00564024b7845sm2797505edj.38.2024.02.19.03.28.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Feb 2024 03:28:47 -0800 (PST)
+Date: Mon, 19 Feb 2024 13:28:45 +0200
+From: Abel Vesa <abel.vesa@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Herring <robh@kernel.org>, Sean Paul <sean@poorly.run>,
+ Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Herring <robh+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ David Airlie <airlied@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 2/4] dt-bindings: display/msm: Document MDSS on X1E80100
+Message-ID: <ZdM7beFZPyHKJnEU@linaro.org>
+References: <20240216-x1e80100-display-v3-0-28b1c33ac8c0@linaro.org>
+ <20240216-x1e80100-display-v3-2-28b1c33ac8c0@linaro.org>
+ <170810832158.3497594.1997532394027797497.robh@kernel.org>
+ <ZdCbAjnga8HCMdYf@linaro.org>
+ <CAA8EJpqCKWih1OeMsynMHkS6CAoDTsgRXcv5YAPZNvLT3MfA8g@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH v2 1/1] drm/msm/adreno: Add support for SM7150 SoC
- machine
-Content-Language: en-US
-To: Danila Tikhonov <danila@jiaxyga.com>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch,
- johan+linaro@kernel.org, quic_bjorande@quicinc.com
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20240218195007.89960-1-danila@jiaxyga.com>
- <20240218195007.89960-2-danila@jiaxyga.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
- BB/OmIWU6X+LZW6P88ZmHe+KeyABLMP5s1tJNK1j4ntT7mECcWZDzafPWF4F6m4WJOG27kTJ
- HGWdmtO+RvadOVi6CoUDqALsmfS3MUG5Pj2Ne9+0jRg4hEnB92AyF9rW2G3qisFcwPgvatt7
- TXD5E38mLyOPOUyXNj9XpDbt1hNwKQfiidmPh5e7VNAWRnW1iCMMoKqzM1Anzq7e5Afyeifz
- zRcQPLaqrPjnKqZGL2BKQSZDh6NkI5ZLRhhHQf61fkWcUpTp1oDC6jWVfT7hwRVIQLrrNj9G
- MpPzrlN4YuAqKeIer1FMt8cq64ifgTzxHzXsMcUdclzq2LTk2RXaPl6Jg/IXWqUClJHbamSk
- t1bfif3SnmhA6TiNvEpDKPiT3IDs42THU6ygslrBxyROQPWLI9IL1y8S6RtEh8H+NZQWZNzm
- UQ3imZirlPjxZtvz1BtnnBWS06e7x/UEAguj7VHCuymVgpl2Za17d1jj81YN5Rp5L9GXxkV1
- aUEwONM3eCI3qcYm5JNc5X+JthZOWsbIPSC1Rhxz3JmWIwP1udr5E3oNRe9u2LIEq+wH/toH
- kpPDhTeMkvt4KfE5m5ercid9+ZXAqoaYLUL4HCEw+HW0DXcKDwARAQABzShLb25yYWQgRHli
- Y2lvIDxrb25yYWQuZHliY2lvQGxpbmFyby5vcmc+wsGOBBMBCAA4FiEEU24if9oCL2zdAAQV
- R4cBcg5dfFgFAmQ5bqwCGwMFCwkIBwIGFQoJCAsCBBYCAwECHgECF4AACgkQR4cBcg5dfFjO
- BQ//YQV6fkbqQCceYebGg6TiisWCy8LG77zV7DB0VMIWJv7Km7Sz0QQrHQVzhEr3trNenZrf
- yy+o2tQOF2biICzbLM8oyQPY8B///KJTWI2khoB8IJSJq3kNG68NjPg2vkP6CMltC/X3ohAo
- xL2UgwN5vj74QnlNneOjc0vGbtA7zURNhTz5P/YuTudCqcAbxJkbqZM4WymjQhe0XgwHLkiH
- 5LHSZ31MRKp/+4Kqs4DTXMctc7vFhtUdmatAExDKw8oEz5NbskKbW+qHjW1XUcUIrxRr667V
- GWH6MkVceT9ZBrtLoSzMLYaQXvi3sSAup0qiJiBYszc/VOu3RbIpNLRcXN3KYuxdQAptacTE
- mA+5+4Y4DfC3rUSun+hWLDeac9z9jjHm5rE998OqZnOU9aztbd6zQG5VL6EKgsVXAZD4D3RP
- x1NaAjdA3MD06eyvbOWiA5NSzIcC8UIQvgx09xm7dThCuQYJR4Yxjd+9JPJHI6apzNZpDGvQ
- BBZzvwxV6L1CojUEpnilmMG1ZOTstktWpNzw3G2Gis0XihDUef0MWVsQYJAl0wfiv/0By+XK
- mm2zRR+l/dnzxnlbgJ5pO0imC2w0TVxLkAp0eo0LHw619finad2u6UPQAkZ4oj++iIGrJkt5
- Lkn2XgB+IW8ESflz6nDY3b5KQRF8Z6XLP0+IEdLOOARkOW7yEgorBgEEAZdVAQUBAQdAwmUx
- xrbSCx2ksDxz7rFFGX1KmTkdRtcgC6F3NfuNYkYDAQgHwsF2BBgBCAAgFiEEU24if9oCL2zd
- AAQVR4cBcg5dfFgFAmQ5bvICGwwACgkQR4cBcg5dfFju1Q//Xta1ShwL0MLSC1KL1lXGXeRM
- 8arzfyiB5wJ9tb9U/nZvhhdfilEDLe0jKJY0RJErbdRHsalwQCrtq/1ewQpMpsRxXzAjgfRN
- jc4tgxRWmI+aVTzSRpywNahzZBT695hMz81cVZJoZzaV0KaMTlSnBkrviPz1nIGHYCHJxF9r
- cIu0GSIyUjZ/7xslxdvjpLth16H27JCWDzDqIQMtg61063gNyEyWgt1qRSaK14JIH/DoYRfn
- jfFQSC8bffFjat7BQGFz4ZpRavkMUFuDirn5Tf28oc5ebe2cIHp4/kajTx/7JOxWZ80U70mA
- cBgEeYSrYYnX+UJsSxpzLc/0sT1eRJDEhI4XIQM4ClIzpsCIN5HnVF76UQXh3a9zpwh3dk8i
- bhN/URmCOTH+LHNJYN/MxY8wuukq877DWB7k86pBs5IDLAXmW8v3gIDWyIcgYqb2v8QO2Mqx
- YMqL7UZxVLul4/JbllsQB8F/fNI8AfttmAQL9cwo6C8yDTXKdho920W4WUR9k8NT/OBqWSyk
- bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
- nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
- izWDgYvmBE8=
-In-Reply-To: <20240218195007.89960-2-danila@jiaxyga.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAA8EJpqCKWih1OeMsynMHkS6CAoDTsgRXcv5YAPZNvLT3MfA8g@mail.gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,21 +97,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 18.02.2024 20:50, Danila Tikhonov wrote:
-> SM7150 has 5 power levels which correspond to 5 speed-bin values: 0,
-> 128, 146, 167, 172. Speed-bin value is calulated as FMAX/4.8MHz round up
-> to zero decimal places.
+On 24-02-18 15:06:45, Dmitry Baryshkov wrote:
+> On Sat, 17 Feb 2024 at 13:39, Abel Vesa <abel.vesa@linaro.org> wrote:
+> >
+> > On 24-02-16 12:32:02, Rob Herring wrote:
+> > >
+> > > On Fri, 16 Feb 2024 19:01:06 +0200, Abel Vesa wrote:
+> > > > Document the MDSS hardware found on the Qualcomm X1E80100 platform.
+> > > >
+> > > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> > > > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> > > > ---
+> > > >  .../bindings/display/msm/qcom,x1e80100-mdss.yaml   | 253 +++++++++++++++++++++
+> > > >  1 file changed, 253 insertions(+)
+> > > >
+> > >
+> > > My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+> > > on your patch (DT_CHECKER_FLAGS is new in v5.13):
+> > >
+> > > yamllint warnings/errors:
+> > >
+> > > dtschema/dtc warnings/errors:
+> > > Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dts:24:18: fatal error: dt-bindings/clock/qcom,x1e80100-dispcc.h: No such file or directory
+> > >    24 |         #include <dt-bindings/clock/qcom,x1e80100-dispcc.h>
+> > >       |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > > compilation terminated.
+> > > make[2]: *** [scripts/Makefile.lib:419: Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb] Error 1
+> > > make[2]: *** Waiting for unfinished jobs....
+> > > make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1428: dt_binding_check] Error 2
+> > > make: *** [Makefile:240: __sub-make] Error 2
+> > >
+> >
+> > These bindings headers are already in -next.
 > 
-> Also a618 on SM7150 uses a615 zapfw. Add a squashed version (.mbn).
+> However they are not a part of the drm/msm branch. We can probably
+> merge the rest of the patches from the series (once patch 1, DPU
+> bindings, gets reviewed) and merge this one in the next cycle. Does
+> that sound suitable?
+
+Fine by me.
+
 > 
-> Add this as machine = "qcom,sm7150", because speed-bin values are
-> different from atoll (sc7180/sm7125).
-> 
-> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
-> ---
-
-Sorry for the mess on the previous thread!
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-
-Konrad
+> -- 
+> With best wishes
+> Dmitry
