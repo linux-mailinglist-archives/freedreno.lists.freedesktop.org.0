@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA27885A342
-	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 13:31:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF8F385A349
+	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 13:31:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D88C110E3AF;
-	Mon, 19 Feb 2024 12:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0310210E3B3;
+	Mon, 19 Feb 2024 12:30:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="v+cFTfya";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JB6R4EJz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4680510E39C
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 014B010E3A1
  for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 12:30:51 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-512a96e44e2so1927898e87.2
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5112bd13a4fso5678859e87.0
  for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 04:30:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708345849; x=1708950649; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708345850; x=1708950650; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rIWqlE1cPX165do3NEp9Vd40+qOG9WCTV6W/duazB5M=;
- b=v+cFTfyaLwSVG6vbulRpCOL0qJZ/4wcBUYABmVUIrd9ALGfWufcYzJXpmUv4kGI2Hk
- vEcdtTzwh5G/zk0mGx8WD7rZ4LqzoeUEu/8OoCCeVifTxNgyKXU8YsS9+k9mqgtQ7LFH
- vyDDzSxsDo0uEdfl2nDDeUbtZ/M0iQ7ofqoBHaaJEG51bMArE7/4HBXpx0lAeZqLGqRT
- xH3wkVW6ebGZZogC/bKCljphxOochBazuVTkRI3gZ+6Nb+0iQqkJLIWFaBlEqcBFO3l9
- 884AM2SfXG9q1S1iS1jd5BmWPY2M4qrG8VDyQXkiy7BZHCUFvHgQZvvmOmclcg3ib59t
- kjnQ==
+ bh=dLdl6L9B9xNN7MHktxsnfp97MoBYqe0FWbydEm457Kk=;
+ b=JB6R4EJzwBuo1DtXsaevwGvMBkxQssehpwARUdc83cAB5uWVNR+yECV0Ybr8s9+7Xj
+ PVdgs3RsVkn5M9z3RGdfcaX6RmFEJvS15iqi6LdLLpNn1KHFJGdZMZME8d+riyLVDOSf
+ oHrqySR8cPlKDZYIFmF/tAx2Ya5JTsWys3/8jIXlj/IBnSiR8MdNYhccckoLHpNqwL5W
+ /HuE1zHEABBLXIO4x3Q7iP1W+MKoqhf2SdYRutovGp0kncqP9V5Hnsqkm3TRaO5Ik5OA
+ 23uKp1YXuJ8o53xLPej3eUAKrYolizZ5v4W3So3Fgyq7Q8NJ0o+B/D19bfpKvBcrr24s
+ c4bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708345849; x=1708950649;
+ d=1e100.net; s=20230601; t=1708345850; x=1708950650;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rIWqlE1cPX165do3NEp9Vd40+qOG9WCTV6W/duazB5M=;
- b=GIAGbYzmZuadNoXYT+BLX6dH6t21XAbwJpIlfJ9pT8I7mzikpnPpOneqU+qMmr6Eh3
- XIKW7i1FaQeBx1DI/UprURE2iH/mc4YPYZYkvHpmQKor1dvA0byOf//gOUhOgEMuiqTb
- rDzd7pZNIFNkguxCRTLRceFq0jDj0NB2Fyl5q1uNgZJhqsIxD1d+rPaDkU/uOyx2SyWw
- GnvNfNMO/ieFqJUuvqjidTOBSm+MtoxZ83bonu8z41kOE2jFuwhBt4jeNE0E81uKzr1o
- swxKVSYa4Hf5QNOBW+3Xu2Utv0gYWleurRFiIij9PxjwLJ3TXCh9HeZ1S/upmRjsS5p3
- xYhw==
+ bh=dLdl6L9B9xNN7MHktxsnfp97MoBYqe0FWbydEm457Kk=;
+ b=oT5yEQGzPJM4oNwZuM9m4e9W1dosFbPFGDpMCvlrN1+a0elUTtXPCzwS2snAFiqER8
+ FexxH9cP4HtsDCT6bW9LXnleEmVIrG7nISNj45TBiQI5QbQnO7OFcfr8nB8RzkPbAOAv
+ zmu2ACzoWBu7GLhtZJ/aq4jLAH7ZdgKVvDbQKZaQgEtRavHHTYvSwz1a0R7z4uct6dy1
+ Vc84JbwFPZktymIRfHNVgBBWVXes+0aX44ym0cEj6v0gEbLHhyHNo9FPKV0+0TA+A6+t
+ B6LlBrfXoxb86CH27ekXHWhEbnWUs580Yu2Er6pFeeCI4tf3NHeuf0a50AYbILX6tQqD
+ S0Fg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVwCdqeWTrq4Ts5BAhOkD3r/kpMOsBU0bF+oBmpdOcOg0nq4PusszIDnwLr8jgqeMlEWNm6Zv663OHtRXiBp9RzBpTbF84kmKOHH0xY1JwD
-X-Gm-Message-State: AOJu0Yymfg+sTVT9IGBplfvDuiyvWo9odDUhmpanaUweGRZb1tVm5nJY
- 2ZFtv2HkJ1GSK1spfceWod1zDmicYbxrCVLudp33JtZos4kY78JeA7sHyRYOmgs=
-X-Google-Smtp-Source: AGHT+IFgAhvmZh5LxpfhxpuBO8bVNoLr52ZnhCi1bbOTANuMQKRN0YvmuCTEPJPwH7nXK+wPUAek/A==
-X-Received: by 2002:a19:ee13:0:b0:512:aaf2:f2f7 with SMTP id
- g19-20020a19ee13000000b00512aaf2f2f7mr2579515lfb.23.1708345849425; 
- Mon, 19 Feb 2024 04:30:49 -0800 (PST)
+ AJvYcCVgl4R68KGU21V71SiITmRZqCTmAV5W/IKYeKBcCu9mn5J18Uj/d+NVEZn28tGCsz0JVX3VCKMsG6eS3UF0qXR1FVpizWuyMURdeWmJC0TN
+X-Gm-Message-State: AOJu0YzhZdUw2Uo1DjZCoxciNrQPQfv+Vu/95YwHp3X00A678I8BxZk+
+ F0c9Z773oC3hQcSCWDNuNB75/m7Fx8U5Qc8e9eg/yzybTAhe/mqVeF0k7kGON2A=
+X-Google-Smtp-Source: AGHT+IG4n9z+P4jhtHzfI5X+mxNuENsOtOdDiJUHwHqh4kGT2UQhJzmzdXFxjOh2c+QYHhltd7P3mA==
+X-Received: by 2002:a05:6512:ba5:b0:512:9b12:bc47 with SMTP id
+ b37-20020a0565120ba500b005129b12bc47mr3143954lfv.10.1708345850152; 
+ Mon, 19 Feb 2024 04:30:50 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- i6-20020ac25226000000b00512bde4cddfsm90466lfl.148.2024.02.19.04.30.48
+ i6-20020ac25226000000b00512bde4cddfsm90466lfl.148.2024.02.19.04.30.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Feb 2024 04:30:48 -0800 (PST)
+ Mon, 19 Feb 2024 04:30:49 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>,
@@ -64,13 +64,13 @@ To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v4 0/5] drm/msm/dpu: remove
- dpu_encoder_phys_ops::atomic_mode_set callback
-Date: Mon, 19 Feb 2024 14:30:36 +0200
-Message-Id: <170834569502.2610898.892456628815949762.b4-ty@linaro.org>
+Subject: Re: [PATCH v4] drm/msm/dsi: Document DSC related pclk_rate and
+ hdisplay calculations
+Date: Mon, 19 Feb 2024 14:30:37 +0200
+Message-Id: <170834569502.2610898.13932222713163869175.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240208-fd_remove_phys_ops_atomic_mode_set-v4-0-caf5dcd125c0@linaro.org>
-References: <20240208-fd_remove_phys_ops_atomic_mode_set-v4-0-caf5dcd125c0@linaro.org>
+In-Reply-To: <20240208-fd_document_dsc_pclk_rate-v4-1-56fe59d0a2e0@linaro.org>
+References: <20240208-fd_document_dsc_pclk_rate-v4-1-56fe59d0a2e0@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -90,31 +90,16 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Thu, 08 Feb 2024 17:20:40 +0200, Dmitry Baryshkov wrote:
-> The dpu_encoder_phys_ops::atomic_mode_set() callback is mostly
-> redundant. Implementations only set the IRQ indices there. Move
-> statically allocated IRQs to dpu_encoder_phys_*_init() and set
-> dynamically allocated IRQs in the irq_enable() callback.
+On Thu, 08 Feb 2024 17:23:08 +0200, Dmitry Baryshkov wrote:
+> Provide actual documentation for the pclk and hdisplay calculations in
+> the case of DSC compression being used.
 > 
-> The writeback backend of the dpu_encoder is the only user of the
-> dpu_encoder_phys_ops::atomic_check() callback. Move corresponding code
-> to the DPU's drm_writeback_connector implementation (dpu_writeback.c)
-> and drop corresponding callback code.
 > 
-> [...]
 
 Applied, thanks!
 
-[1/5] drm/msm/dpu: split irq_control into irq_enable and _disable
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/c6f60037bfa0
-[2/5] drm/msm/dpu: split _dpu_encoder_resource_control_helper()
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/ca8c1fd3eed8
-[3/5] drm/msm/dpu: drop dpu_encoder_phys_ops.atomic_mode_set
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/d13f638c9b88
-[4/5] drm/msm/dpu: move writeback's atomic_check to dpu_writeback.c
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/71174f362d67
-[5/5] drm/msm/dpu: drop dpu_encoder_phys_ops::atomic_check()
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/b0b621f41b45
+[1/1] drm/msm/dsi: Document DSC related pclk_rate and hdisplay calculations
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/3b56d27ba157
 
 Best regards,
 -- 
