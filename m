@@ -2,75 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 327BF85A34B
-	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 13:31:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91E7885A35B
+	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 13:31:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1985B10E3B6;
-	Mon, 19 Feb 2024 12:30:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B41B10E3B6;
+	Mon, 19 Feb 2024 12:31:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="wSnggt/F";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LhBGA0v1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8B9F10E3A7
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 12:30:55 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-5112bd13a4fso5678938e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 04:30:55 -0800 (PST)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 551DD10E3B6
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 12:30:56 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-5120ecfd75cso6206877e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 04:30:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1708345854; x=1708950654; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kVcz4T5lUX/p2dpLrBnJfdqrXGy/EYfTfCTW6sdiHL0=;
- b=wSnggt/F10UyNdOxKgWZ83VBghfjJ33OkqPq7qW7J2CK6XcyIa2UTzu9iX6CydQhWO
- aqa+8W7/sbeImRYAF4znhwXHU//gJQ1yHQL7KTVaSaPUxmvS6JZUHFY2W+syL2gK3nbR
- uZhZkQ1UW41go8+YUYqNMHX5QJfhUsjWmo8t2kcWLHeVSIre68/P3nXZojQwFgvs/aQS
- KZxKOqsstJ3Vjk8vX7K9WUexixtQ3JfAfpYuiaSpMvQGP0RaUA7mvgzUajVqXS8Vu58v
- oulGQhkhcAzePP5oEvhigq+ITJ61eiNjJFq/GoYXpnX5Q6tK+nVWAsNLgnWn16iFBT+W
- XaVg==
+ bh=InV03Ory8WK5p4H1r4kGN4/4DZ3sZm57s/DE6ff4jSU=;
+ b=LhBGA0v1bsngbclPwoiKYNjOqR6o5gIFcOevoUQSljtd1W6679QzRn+R+LIql4WTPb
+ dqmmUaJCmNLR38KS/2Mtzox6uMfAsyFrXCBr3rnwz2L4drV/yaSn1yhxx0+cosuqQ6Qk
+ 7JaLwEZz364dCyLTs/W7tkzzZV82TfwcFsOGyTkdrDkA2VTmAyV2LZMKSbzdRUPIjIxQ
+ fErW2fXDdOGPQ+DKKulw7eyWggJUmnEpkeTCQTtrcsqLuX42nfb2cCdgwdzn/IeFz92I
+ mlp2phgJKlArDVQERflWN4otTj/8QuOB8XDbspZY+jXuwJ+HVzLnALeY6KxM6I7qGp2N
+ fLOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1708345854; x=1708950654;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kVcz4T5lUX/p2dpLrBnJfdqrXGy/EYfTfCTW6sdiHL0=;
- b=FwMqBolOLXF2ZFxvF3QLvyo2RC15S2Apjph8ITw4TcRGI+u/P1BRcE8eab1FcO7VN7
- bbiyslBMHCRroqhbCY/UleKczGHIDudp6XQH+szMyWVBNlkyAHo0P0EEgRFh8CRlcWSd
- fuFrtNk/CDHMCosKk29KQw2F7KW6UsqoJlzlpTqiAWcmF3LMwuyGiFL2IyI4qWtxdrP4
- Ytwtzf6jjJQ1gfp1VTpTt0sBQrwiqxSg/bOlUrIGWAosyrCIfp5P3H3lDQfXLuhDU9at
- 51DcUaagkNd6fIr+YQvUuqpjDE6rNzLd5bLSHTfKl+kmSONcsrDGm/Yf7OIonRnf9Tzp
- MOKQ==
+ bh=InV03Ory8WK5p4H1r4kGN4/4DZ3sZm57s/DE6ff4jSU=;
+ b=ChtEVZ//l3t2Xht04/ebHcxWw4QOBS4xNyhlE6J/qBzYxDxzchScn1l3ufJiRDACXz
+ hD5JRBK0RUXnJMpemHMzI0WXjFF7tPvmAGbwGI39ykesG74tYkazuaAQ0Homem/uStbr
+ jLea0LnE2aBemBDwekjkyzaTF1mZrpcqrEg7L6qX4rP6DKbeesNBClmt52OAUZT+V8Jx
+ liX915UzL2VWr1mWL4znEgAl5z+j4Yxk9HxwbHd7UloxX21L9guS4NbeU1luqeFbAs/d
+ g7cJAMSE91a/NsU943ep0k436jvAjeswbXrQZ2c1VHcYv0mKNOh96N8Gax3HJoG20dZi
+ BGYw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVf1wSIy+A7sRxVSZp5JE5MlCBl7NRNUbcJnOa06VojjfX2pDfh6pn2quyHOP8L6Q05t93g1PQMPMyXnphsGw6n7bwrsJp7WWcfLqe1dPGV
-X-Gm-Message-State: AOJu0YwqsWQUC+mmskD5HCGCTFjihT6/+EZu+tshE2ZGMeE9IpwYVIjq
- sO8p+3NgpBjlHqBM8/Pk5pOZYSMzLWIyYMrh8MNXm8HqhWO1u96Ap6wO0BNujII=
-X-Google-Smtp-Source: AGHT+IEPbgwbriAHQa/3aZrBt+n+k4H+sVUGdpUdH32pyxMo7FQlMDDN6LMaGZPj9i2Wa5EUvNTXvQ==
-X-Received: by 2002:a05:6512:3b1e:b0:512:bccf:eb03 with SMTP id
- f30-20020a0565123b1e00b00512bccfeb03mr498859lfv.26.1708345853805; 
- Mon, 19 Feb 2024 04:30:53 -0800 (PST)
+ AJvYcCVckn7az3oynwyZUIGQfNFsLqAZpk3z1+hzX2j0M4/zZh8Uxdxf1oTo7n3i2Z755KSdA0MWfHOfY4ZuES63VGZYQH53QzSfALcVUuPRuwJs
+X-Gm-Message-State: AOJu0YwzdJJmOY9w9B+0tZRTLdS7fe9WRa/WodEBjd9Psz5ftlasB93H
+ ktFypn9g1GmKloSQza6D33k7kpONdZXhwbGtBuVL/Ai1lrxXI7NRGYe+0M2gWp4=
+X-Google-Smtp-Source: AGHT+IEcY4yQmQxAJ4WiHYNwm13YvwEPV231BSoILkJGjdFG/MMBbHe/M71wgEdW0/b/Egu1Mq4h0g==
+X-Received: by 2002:a05:6512:3ba8:b0:512:a743:3ce3 with SMTP id
+ g40-20020a0565123ba800b00512a7433ce3mr4488709lfv.23.1708345854485; 
+ Mon, 19 Feb 2024 04:30:54 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
  i6-20020ac25226000000b00512bde4cddfsm90466lfl.148.2024.02.19.04.30.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Feb 2024 04:30:53 -0800 (PST)
+ Mon, 19 Feb 2024 04:30:54 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run,
- swboyd@chromium.org, dianders@chromium.org, vkoul@kernel.org,
- daniel@ffwll.ch, airlied@gmail.com, agross@kernel.org,
- andersson@kernel.org, Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com,
- quic_sbillaka@quicinc.com, marijn.suijten@somainline.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6] drm/msm/dpu: improve DSC allocation
-Date: Mon, 19 Feb 2024 14:30:42 +0200
-Message-Id: <170834569499.2610898.923684601788968526.b4-ty@linaro.org>
+Subject: Re: [PATCH] dt-bindings: display: msm: sm8650-mdss: Add missing
+ explicit "additionalProperties"
+Date: Mon, 19 Feb 2024 14:30:43 +0200
+Message-Id: <170834569504.2610898.11072295234530995616.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <1702580172-30606-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1702580172-30606-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <20240202222338.1652333-1-robh@kernel.org>
+References: <20240202222338.1652333-1-robh@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -90,25 +96,16 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Thu, 14 Dec 2023 10:56:12 -0800, Kuogee Hsieh wrote:
-> At DSC V1.1 DCE (Display Compression Engine) contains a DSC encoder.
-> However, at DSC V1.2 DCE consists of two DSC encoders, one has an odd
-> index and another one has an even index. Each encoder can work
-> independently. But only two DSC encoders from same DCE can be paired
-> to work together to support DSC merge mode at DSC V1.2. For DSC V1.1
-> two consecutive DSC encoders (start with even index) have to be paired
-> to support DSC merge mode.  In addition, the DSC with even index have
-> to be mapped to even PINGPONG index and DSC with odd index have to be
-> mapped to odd PINGPONG index at its data path in regardless of DSC
-> V1.1 or V1.2. This patch improves DSC allocation mechanism with
-> consideration of those factors.
+On Fri, 02 Feb 2024 16:23:37 -0600, Rob Herring wrote:
+> In order to check schemas for missing additionalProperties or
+> unevaluatedProperties, cases allowing extra properties must be explicit.
 > 
-> [...]
+> 
 
 Applied, thanks!
 
-[1/1] drm/msm/dpu: improve DSC allocation
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/858ddb64f1ff
+[1/1] dt-bindings: display: msm: sm8650-mdss: Add missing explicit "additionalProperties"
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/4825b207002a
 
 Best regards,
 -- 
