@@ -2,82 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42DBA85AE39
-	for <lists+freedreno@lfdr.de>; Mon, 19 Feb 2024 23:16:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F241785B3E7
+	for <lists+freedreno@lfdr.de>; Tue, 20 Feb 2024 08:25:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1544310E076;
-	Mon, 19 Feb 2024 22:16:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDC1810E0A1;
+	Tue, 20 Feb 2024 07:25:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="tKsVl9GP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y6WSjOKx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A06810E076
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 22:16:28 +0000 (UTC)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-dcbd1d4904dso5307997276.3
- for <freedreno@lists.freedesktop.org>; Mon, 19 Feb 2024 14:16:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708380987; x=1708985787; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=vuTySsKzEO2OmI0ErX6jaDfKcwaUj4TjQngL5AX3Egg=;
- b=tKsVl9GPPNq7k3qys749cFkAx/c5OU9UfiOcn5rEKqBSiQUqPBC/xvuXcFoO8Kp1Tn
- 7vMa4FUoGKPeTEU1Ve1OEMWQ7jA0cRPNZoCx9/S9e2G3DFe/eramZ7XbOkanS9OfHOyR
- 4jgEbTn60j+uRzX8MsswYJO+Wy1rljDCh9/ryrhuYlmW/FfaZf1WHsjtD86oTpONq/2Z
- HE3L7diXQsLsx+pmlgz+w+PSWL+dWL4T5RlMFvR75gt///G5IgmW8Q4DxvBP7P/KJaNB
- /RmHoV8N79D7BuLAnq3UnYx9ZEEAkK9/Sq8+xnom0h+efemnE6LnZOsChPU+zzBn29nW
- PKMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708380987; x=1708985787;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vuTySsKzEO2OmI0ErX6jaDfKcwaUj4TjQngL5AX3Egg=;
- b=UqMVbJ69R+CJa2cKBaetWzZoOUs5FSQ807eCPqDi5krwMvWpdy8DEeYIyn1cd5zk1Z
- aOhBMSJCzmplTfigYvG02AxHshioNk66Ff42xu6fTr4mFjHojg9ziuoEN3Z2ZQO3jI+l
- TVh2VCOyKV+N847VddSYz/iGzHQJ2GzEqO2nVYKmxQqRk5fiXupPQTgj2UP9pffF0h7Z
- QMP+bOZyajNHIp4vJ9M5s2RPwQbBNWs6Wg3tQfhQYt1TIQvbURfsr5meJA0nWpE2wUer
- 0CF5WeS4TFa0Co8g1gEyF3KApwceZKNfm+msxjdLmMGUEfcVnqC8/IoA1QJSpKLggNwY
- Zlcg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVnzbhk1whkj49sk3ty9TaJsvipQa9iNji1sgwotpyn/wyjO7Itx61DWG46yEHWYFF+m2R/FcIulOIEwRC4hJn7GaApJBgbWlUIIbF25Z8r
-X-Gm-Message-State: AOJu0Yzl6MKTSfzfWcaVowXYRticOsIpwfDSGPArvEmUr4zfUtNoKtxP
- /hAoMzTNLjzGLIw8w1k14W1AfIYu6q1SFeTqwgomGtOkG+OD8L8oDiWCMy8OuvU50pI3UZqpBWJ
- btC6nm1ue0bNMPJnIyfSHYj/ZJ2fYKxqw/zzMoA==
-X-Google-Smtp-Source: AGHT+IH0q4G0NXDEX6RVYpZcdEntLJmn3kJY/UlQlPbUsZWH3aZT8Y8yzl3n5AhYDOYefhK8BUnY9HP1u6mwOkNWfWE=
-X-Received: by 2002:a81:431f:0:b0:608:e2f:e3d2 with SMTP id
- q31-20020a81431f000000b006080e2fe3d2mr6514646ywa.22.1708380987231; Mon, 19
- Feb 2024 14:16:27 -0800 (PST)
-MIME-Version: 1.0
-References: <20240219-topic-rb1_gpu-v1-0-d260fa854707@linaro.org>
- <20240219-topic-rb1_gpu-v1-8-d260fa854707@linaro.org>
- <CAA8EJppPvXfkz=wVca8aFBhFaVUe9+OiVzcQUq7D8zPbK+T1FQ@mail.gmail.com>
- <b73e329a-02a4-46e0-bda4-5d5fae0a1180@linaro.org>
-In-Reply-To: <b73e329a-02a4-46e0-bda4-5d5fae0a1180@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 20 Feb 2024 00:16:16 +0200
-Message-ID: <CAA8EJpqxYdjKx54Oph3=+H-42+cKpw=t=5GGJq54FVcOa26TDQ@mail.gmail.com>
-Subject: Re: [PATCH 8/8] arm64: dts: qcom: qrb2210-rb1: Enable the GPU
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, 
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4605610E02A;
+ Tue, 20 Feb 2024 07:25:02 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 63889CE1312;
+ Tue, 20 Feb 2024 07:24:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96CECC433C7;
+ Tue, 20 Feb 2024 07:24:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1708413898;
+ bh=Km8gZMkJB7vNwcEvKJf3Z5MjG8s2kLrFv7d6SMKvVC4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Y6WSjOKxHt9TBefi2fivgCw5sGg4pib4PrIDZmtoesOTgo80CtchhROVw3pw0FeqR
+ Pc9MGfrCfAKPZbAgDQVs+NvTqOslO+bcwY0+bPdxSK2Sx7n0x9RIur2VOHGKxXS5q1
+ ZojucTaTTOXH7nqkaDAr7oKNW9keBDciLLBBztXj3jG96Dqy7egDtQFdz8u2Q2iBJt
+ aWy2UUb55Fmr0MdRm5gJysrUBrLO6+m7+7BBeis1O8wXCAb8JBXQ17KOHFtUMJxzgm
+ /zoywKFK7JfGrRP4yu7ts9/D14Ft57GqR0srDYm1N84JAeD8Tp4Vli9+dIMNop2M/1
+ B2HwmHPKoXLyg==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+ (envelope-from <johan@kernel.org>) id 1rcKUp-0000000024l-2ZkS;
+ Tue, 20 Feb 2024 08:24:56 +0100
+Date: Tue, 20 Feb 2024 08:24:55 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: Johan Hovold <johan+linaro@kernel.org>, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
  Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-kernel@lists.infradead.org, 
- iommu@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>, 
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Vinod Koul <vkoul@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Rob Clark <robdclark@gmail.com>
+Subject: Re: [PATCH 1/6] drm/bridge: aux-hpd: fix OF node leaks
+Message-ID: <ZdRTx2lmHBVlcLub@hovoldconsulting.com>
+References: <20240217150228.5788-2-johan+linaro@kernel.org>
+ <c95f5ff3-8dad-4302-9384-92a9b83f7bdc@web.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c95f5ff3-8dad-4302-9384-92a9b83f7bdc@web.de>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,42 +79,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 19 Feb 2024 at 23:37, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->
-> On 19.02.2024 15:49, Dmitry Baryshkov wrote:
-> > On Mon, 19 Feb 2024 at 15:36, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
-> >>
-> >> Enable the A702 GPU (also marketed as "3D accelerator by qcom [1], lol).
+On Mon, Feb 19, 2024 at 06:48:30PM +0100, Markus Elfring wrote:
+> > The two device node references taken during allocation need to be
+> > dropped when the auxiliary device is freed.
+> …
+> > +++ b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
+> …
+> > @@ -74,6 +75,8 @@ struct device *drm_dp_hpd_bridge_register(struct device *parent,
 > >
-> > Is it not?
->
-> Sure, every electronic device is also a heater, I suppose.. I found
-> this wording extremely funny though
+> >  	ret = auxiliary_device_init(adev);
+> >  	if (ret) {
+> > +		of_node_put(adev->dev.platform_data);
+> > +		of_node_put(adev->dev.of_node);
+> >  		ida_free(&drm_aux_hpd_bridge_ida, adev->id);
+> >  		kfree(adev);
+> >  		return ERR_PTR(ret);
+> 
+> The last two statements are also used in a previous if branch.
+> https://elixir.bootlin.com/linux/v6.8-rc5/source/drivers/gpu/drm/bridge/aux-hpd-bridge.c#L63
+> 
+> How do you think about to avoid such a bit of duplicate source code
+> by adding a label here?
 
-3D accelerator is a bit outdated term, but it's still valid. Well,
-unless using A702 makes 3D applications run slower than when using
-llvmpipe.
+No, the current code is fine and what you are suggesting is in any case
+unrelated to this fix.
 
-> >> [1] https://docs.qualcomm.com/bundle/publicresource/87-61720-1_REV_A_QUALCOMM_ROBOTICS_RB1_PLATFORM__QUALCOMM_QRB2210__PRODUCT_BRIEF.pdf
-> >> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> >
-> > With the exception of the commit message:
->
-> :(
->
-> Konrad
->
-> >
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >
-> >> ---
-> >>  arch/arm64/boot/dts/qcom/qrb2210-rb1.dts | 8 ++++++++
-> >>  1 file changed, 8 insertions(+)
-> >
-> >
+If this function ever grows a third error path like that, I too would
+consider it however.
 
-
-
--- 
-With best wishes
-Dmitry
+Johan
