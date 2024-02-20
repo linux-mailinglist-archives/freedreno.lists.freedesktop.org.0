@@ -2,88 +2,103 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A5B385BD43
-	for <lists+freedreno@lfdr.de>; Tue, 20 Feb 2024 14:35:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2812085BE69
+	for <lists+freedreno@lfdr.de>; Tue, 20 Feb 2024 15:16:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4156510E3F1;
-	Tue, 20 Feb 2024 13:35:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E372F10E447;
+	Tue, 20 Feb 2024 14:16:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="lRhPtfZ3";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GIywPFcl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 783FF10E3ED
- for <freedreno@lists.freedesktop.org>; Tue, 20 Feb 2024 13:35:48 +0000 (UTC)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-60866ce76dfso5078547b3.2
- for <freedreno@lists.freedesktop.org>; Tue, 20 Feb 2024 05:35:48 -0800 (PST)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43DAC10E447
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Feb 2024 14:16:12 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-2d220e39907so55593821fa.1
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Feb 2024 06:16:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708436147; x=1709040947; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=80bDR9xsJVYz/T1iI+xnPV8UhHBUEFxKf9UJFof0JFA=;
- b=lRhPtfZ3CEwlE4watSHiZ4Yn8hZCTWQEnq4ZH4CpdvIDGq6QPiNquCr5ZAGWmKBdAD
- mYFFKrVxYwPn1WOvHUQCNDqFGiSfh21yh5ARcvnz1WmAw0OzHtfpjzAoKKj2uvNc9AUl
- /YNLY1rZqCrBEABTF/l5ZmqJdHWf1cc01qfmEmdOLs6EP7Y79thD7Nn6DZErNe8w+Mnz
- 17dlEpIWkmv22nt1PUlyu1WZjgmEY/BdvhW1Nk87341BO9Kg6b7ne8vIa0D6ryPLCxC6
- OhazQTvfULPtSiEZXeqVMIHIvodjWx2QJo2deSki2a7dg160nn4rwIVjoBnijGkqC450
- 2BMA==
+ d=linaro.org; s=google; t=1708438570; x=1709043370; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=v2Td2TNrjEN7a0rVuoz6czqXirIflgboIWJrSXb6sbE=;
+ b=GIywPFcl7bU20myKSkamoeNOHV+2hPF6GYxrRmEBBV62NZPGHbLf9Q8lrt1iBWaayG
+ ac4nEMruOw5FyFp7Y5HEi9UBIaHpsioC1Hwo8Z1cCegyeUdV/6dDoiIeEiDowPmixOoA
+ 7L4FGdpG5BcVyjpoo2hif7lpKoKQgzLHWIUs0RP69qYTTPzVq/WUrTlbbyC8HiQVpsV8
+ EP8hD3AtCZJMOa5xShC9TiH8fCO/vVa4yvR2aBw4eFQCCxYxOaCJugO4RtYgbfEB0zGN
+ JmOHROYUs7r94AeADFKXZgA5dbQo/n01jjmACLYiCNHiUeVjY2XuJ1zdgv1BGOLFaC1r
+ /YdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708436147; x=1709040947;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=80bDR9xsJVYz/T1iI+xnPV8UhHBUEFxKf9UJFof0JFA=;
- b=TXLEaXaUtidWl986VuRBNTCEDEIJi8OLPMYvTJRgeXUvAtIXM8mD7f3BxNWcxt3WF0
- cjG1brd47+z1jnc95ZE2YI8Hem58zma75OBwYWt0uOXKPKtfNYRW8GP1810dkF4eZMtB
- ILp31SFcA+jszgZLvJvM+38xsjzWjOZJFseP965qw3IH46AR1UgqMkQtx1qc1ZiV7+F5
- /rL7HYI9fBLj3WxWkC/CFbnU38bVN6jlDGWo+PMcxeXkAqU4xgpGYb/Z8Kj/bdtHGArl
- zlbrme7Qm7Vhbm8pSQZPhq25qM0CXijgSY8NokpPDlCyK8WjaazoVZp134f9mWQKNuLn
- kyUg==
+ d=1e100.net; s=20230601; t=1708438570; x=1709043370;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=v2Td2TNrjEN7a0rVuoz6czqXirIflgboIWJrSXb6sbE=;
+ b=PuGCt1M3agrAEI/QosOFSXAgGO3kwCyRKUlN4Wrpaije4bwd4BXUH/bnKx9gx8AHhQ
+ blhUIYiIo1as7cKlRm4Tv/ZTnkVozUs+0mVpWGLYlRnFM6qEgZptARkeY6lpNzjrlRCG
+ JVjY71D+oFqnse3npXQraqEyAy5MSmojebsqt8bQxASlDcXolwCU62RbCMydD/jgPiiZ
+ UbWkTAClKFE9wp1nLzHsvAr4dD5DaZqLCmH9zshEB5gCsvVdTma5j8+HxRmMA0snkEJ3
+ /rIwBGOY/VGrhtPm016etF3n0LTzdgZuQIKfnmAqmcrQluybXXiz5ymUKoyHxGKb9Oae
+ SpFg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUqcHg0PAVqhgmOCIeQ/0RY3dPZmXnrUS3AHsJaKVmcIfRzogXCdyLpEFUly9XM4K5X9IXy7tHrBlrv2EBbCfKKUG1g3mlGsroaHVKyv7WX
-X-Gm-Message-State: AOJu0YydsIATcGDaqm1ty62WzhWQtmur0o9F6QGR1uuCep5dIU6eSDFX
- XBC1UyoyWYyYUlxQcX/wGGae3U6DAnr4S+HGUUVj/FEm73IrueIfy5nY/XZinNFEjX+5miZyjBK
- MYsoYtTdf7a/Dq+3Ye6C/C8rRxbe/DQAoRpVWMA==
-X-Google-Smtp-Source: AGHT+IFblLCJUAfvYsxAzrxnfj6+lmkywotENdKnj1jtMtxOZ6aZ30kx1UQMoBV7aylB0LH/E8+wrC1HtazKHPBbsVw=
-X-Received: by 2002:a81:7994:0:b0:607:7e73:fce1 with SMTP id
- u142-20020a817994000000b006077e73fce1mr16601552ywc.26.1708436146800; Tue, 20
- Feb 2024 05:35:46 -0800 (PST)
+ AJvYcCVsyh8J0XrLnVoEwx9+9TmXHw9vu17skPDNSWWjRtxIVNkEmXO4Xp5cjB46hSMHxBIZN14GfiRCscZFcGrdQoUEJ0ihKXGzOoivspy2EaXb
+X-Gm-Message-State: AOJu0Yys1qAqA4HidlhKm1Mc4T1Vo/QF83xzHOuTC1Hs7NDORukJvaH7
+ zD+WCnmdHSlW7yoG3wPOvDp/PQ18T8Pw+vV1AU1UhwEtK+XSdeRmccqsN6Bh6Qk=
+X-Google-Smtp-Source: AGHT+IFOSEeoJnbaHyMnGgA+ZXg4/jNIvZL9WnPF804ful9dH+0xLvjUzFdtefQJ5iv8rXCafIUGDQ==
+X-Received: by 2002:ac2:4d84:0:b0:512:adba:2d9d with SMTP id
+ g4-20020ac24d84000000b00512adba2d9dmr5632265lfe.14.1708438570171; 
+ Tue, 20 Feb 2024 06:16:10 -0800 (PST)
+Received: from [127.0.1.1] ([188.24.162.93]) by smtp.gmail.com with ESMTPSA id
+ s8-20020a170906500800b00a3de4c7bf00sm3998534ejj.79.2024.02.20.06.16.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Feb 2024 06:16:09 -0800 (PST)
+From: Abel Vesa <abel.vesa@linaro.org>
+Subject: [PATCH v4 0/4] drm/msm: Add display support for X1E80100
+Date: Tue, 20 Feb 2024 16:15:55 +0200
+Message-Id: <20240220-x1e80100-display-v4-0-971afd9de861@linaro.org>
 MIME-Version: 1.0
-References: <20240217150228.5788-2-johan+linaro@kernel.org>
- <c95f5ff3-8dad-4302-9384-92a9b83f7bdc@web.de>
- <ZdRTx2lmHBVlcLub@hovoldconsulting.com>
- <1afc87c-2c1f-df10-a0c8-2a267d44122@inria.fr>
- <CAA8EJppH9ey97yKFUccNLHhMKs3eUS55+rY0tXm_a6KGp9jtug@mail.gmail.com>
- <4938592e-3f7c-c1ae-dce3-fd1ca363296@inria.fr>
-In-Reply-To: <4938592e-3f7c-c1ae-dce3-fd1ca363296@inria.fr>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 20 Feb 2024 15:35:35 +0200
-Message-ID: <CAA8EJpq88ZKLFBuAvDuDSMD_DkPpMmBDZG_kQyUrSs-Noqm2SQ@mail.gmail.com>
-Subject: Re: [PATCH 1/6] drm/bridge: aux-hpd: fix OF node leaks
-To: Julia Lawall <julia.lawall@inria.fr>
-Cc: Johan Hovold <johan@kernel.org>, Markus Elfring <Markus.Elfring@web.de>, 
- Johan Hovold <johan+linaro@kernel.org>, freedreno@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org, kernel-janitors@vger.kernel.org, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Bjorn Andersson <andersson@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Vinod Koul <vkoul@kernel.org>, 
- LKML <linux-kernel@vger.kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABu01GUC/23OQQrCMBAF0KtI1kZmJqlGV95DXEzS1AZKKokWR
+ Xp3025U6vJ/mPfnJbJPwWdxWL1E8kPIoY8l6PVKuJbjxctQlywISCEBygd6Awgg65CvHT8l660
+ irQEsN6KcWc5e2sTRteUw3ruulNfkm/CYd07nktuQb316zrMDTu20oAFpv1wYUIKEeu+toUrXD
+ Ry7EDn1mz5dxKQN9BEI9R+BiuAaqCwbs9OVWgjqW9j+EVQRyFh0SrEz7veHcRzfR6jImUoBAAA
+ =
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@linaro.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2342; i=abel.vesa@linaro.org; 
+ h=from:subject:message-id;
+ bh=+c+uzrOpdn07JJ5Qe8bduej7vzyjISIkL3aTdvUotpw=; 
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBl1LQfBxdTi1BQQL3lITfc+y4flWf8plONsFo12
+ F9XUKyW1C6JAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZdS0HwAKCRAbX0TJAJUV
+ Vqp0D/9uvgP2TpKhX1DILfvHjT1/h9BUJZzL3agXqXe9hYJsQr69ug+Gg6jMEqFxME4TD5G2mZt
+ pWIVdvWGoPuZkbDEyzdGVmbyr1tiF/TTi6YxZN3e50YVXl4fLf2yxlvT1JGX2yGZhI3CLpDTRf5
+ xq9wnCjOKShAJ3KqqIH3+OPjK/CBw8FgS2cVZ/72DHFSsYzEkwxjBdVXkEaDDm9G/WvG1ulDzjM
+ 0M3KglSxfZJKHeq4v2CulS2Ew4i8fmudQ0L3caC1EjvRU+siOAR9iKxklE/hQ2VP2ITRdeIJugX
+ n0kAem3egHPqld4kTmEb/Zfk08taiU6QfwgmrPsBo6FfV/wv/NU2lJSErTyJXExNOCSk3XAfOKm
+ vBs+IBJZzXN23h95AM3TelwGAG/RuD3TbuUS+cFpRQI5NAOMM6fY7A7R7LYz3i284GjyTozvFSE
+ UqWF5G+dGKvhgl1XsBuWxAgDG81Spodqm6QpviJmt8qX5EUIu+m6P87HZE80k7bknHDhyelDHnu
+ QZUzEqak2Jek1i9Sq4qmvlYZThIE7BJNvfQDSSM/FI47PxOtaZMNEFf5W2VYszRKnsWhf/eWZCr
+ ohujJ9mVU6SdaZSZyYepV4R2jrxlTrlEsQLYLa5oCZpWpCt3fvKWSDie0DpyFsggYkneZMkmS96
+ vjcrEqyVtvEVcrw==
+X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,65 +114,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 20 Feb 2024 at 14:56, Julia Lawall <julia.lawall@inria.fr> wrote:
->
->
->
-> On Tue, 20 Feb 2024, Dmitry Baryshkov wrote:
->
-> > On Tue, 20 Feb 2024 at 13:52, Julia Lawall <julia.lawall@inria.fr> wrot=
-e:
-> > >
-> > >
-> > >
-> > > On Tue, 20 Feb 2024, Johan Hovold wrote:
-> > >
-> > > > On Mon, Feb 19, 2024 at 06:48:30PM +0100, Markus Elfring wrote:
-> > > > > > The two device node references taken during allocation need to =
-be
-> > > > > > dropped when the auxiliary device is freed.
-> > > > > =E2=80=A6
-> > > > > > +++ b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-> > > > > =E2=80=A6
-> > > > > > @@ -74,6 +75,8 @@ struct device *drm_dp_hpd_bridge_register(str=
-uct device *parent,
-> > > > > >
-> > > > > >   ret =3D auxiliary_device_init(adev);
-> > > > > >   if (ret) {
-> > > > > > +         of_node_put(adev->dev.platform_data);
-> > > > > > +         of_node_put(adev->dev.of_node);
-> > > > > >           ida_free(&drm_aux_hpd_bridge_ida, adev->id);
-> > > > > >           kfree(adev);
-> > > > > >           return ERR_PTR(ret);
-> > > > >
-> > > > > The last two statements are also used in a previous if branch.
-> > > > > https://elixir.bootlin.com/linux/v6.8-rc5/source/drivers/gpu/drm/=
-bridge/aux-hpd-bridge.c#L63
-> > > > >
-> > > > > How do you think about to avoid such a bit of duplicate source co=
-de
-> > > > > by adding a label here?
-> > > >
-> > > > No, the current code is fine and what you are suggesting is in any =
-case
-> > > > unrelated to this fix.
-> > > >
-> > > > If this function ever grows a third error path like that, I too wou=
-ld
-> > > > consider it however.
-> > >
-> > > I guess these of_node_puts can all go away shortly with cleanup anywa=
-y?
-> >
-> > I'm not sure about it. Those are long-living variables, so they are
-> > not a subject of cleanup.h, are they?
->
-> OK, I didn't look at this code in detail, but cleanup would just call
-> of_node_put, not actually free the data.
+This patchset adds support for display for X1E80100.
+The support for embedded DisplayPort on this platform will not
+be enabled using the connetor type from driver match data,
+but through some 'is-edp' property via DT. This subsequent work
+will be part of a separate patchset.
 
-Yes. The nodes should be put either in case of the failure or (if
-everything goes fine) at the device unregistration.
+Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+---
+Changes in v4:
+- Dropped all references to clocks IDs from MDSS schema, along with all
+  headers includes, and replaced with bogus phandles, all to avoid
+  dependecies.
+- Added Krzysztof's R-b tag to DPU schema patch.
+- Link to v3: https://lore.kernel.org/r/20240216-x1e80100-display-v3-0-28b1c33ac8c0@linaro.org
 
---=20
-With best wishes
-Dmitry
+Changes in v3:
+- Added Dmitry's R-b tag to the mdss patch
+- Swapped order of first two patches, as suggested by Rob
+- Added "additionalProperties: true" to all pattern properties in MDSS
+  schema
+- Link to v2: https://lore.kernel.org/r/20240214-x1e80100-display-v2-0-cf05ba887453@linaro.org
+
+Changes in v2:
+- Dropped the 4th patch:
+  "drm/msm/dp: Try looking for link-frequencies into the port@0's endpoint first"
+- Fixed the qcom,x1e80100-mdss schema by including some missing headers
+  in the example
+- Added TODO comment for reg_bus_bw
+- Switched to SDMA features mask
+- Added Krzysztof's R-b tag to mdss schema patch
+- Added Dmitry's R-b tag to the dpu patch
+- Link to v1: https://lore.kernel.org/r/20240129-x1e80100-display-v1-0-0d9eb8254df0@linaro.org
+
+---
+Abel Vesa (4):
+      dt-bindings: display/msm: Document the DPU for X1E80100
+      dt-bindings: display/msm: Document MDSS on X1E80100
+      drm/msm: mdss: Add X1E80100 support
+      drm/msm/dpu: Add X1E80100 support
+
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   4 +-
+ .../bindings/display/msm/qcom,x1e80100-mdss.yaml   | 251 ++++++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   | 449 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                     |  13 +
+ 7 files changed, 720 insertions(+), 1 deletion(-)
+---
+base-commit: 2d5c7b7eb345249cb34d42cbc2b97b4c57ea944e
+change-id: 20231201-x1e80100-display-a46324400baf
+
+Best regards,
+-- 
+Abel Vesa <abel.vesa@linaro.org>
+
