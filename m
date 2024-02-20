@@ -2,116 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C05B585C89B
-	for <lists+freedreno@lfdr.de>; Tue, 20 Feb 2024 22:23:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC98185CAD8
+	for <lists+freedreno@lfdr.de>; Tue, 20 Feb 2024 23:40:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9868910E5AB;
-	Tue, 20 Feb 2024 21:23:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF80510E59D;
+	Tue, 20 Feb 2024 22:40:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FOBRlLUP";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="B4bN5/3K";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7080C10E5B3
- for <freedreno@lists.freedesktop.org>; Tue, 20 Feb 2024 21:23:49 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-512b700c8ebso3328927e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 20 Feb 2024 13:23:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708464227; x=1709069027; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BQN1gJBuYdnaMz2lZP1Vhemjh7XxE9ird9ZL5Hi+qmE=;
- b=FOBRlLUPDoEGddu1cK0kNdukBbc/NW9Ve2mpO55ZDGL+82gzdjaG3T8BTr21rp5CIU
- FD0ZvfxFp3nus40dZbEygY9CHpcguY/jhxlpj4OYb4MGeZBzXlfBJ9OoaSPzigyfCLq+
- WzyOd/Z82byzxkUUTHR52FGTOHclTIYB5qc0P4Cq8n2ytsW4MJomIZgZLsSZbV5k6yre
- 7JcUbfQT1U2XvV9AIkwDdISU6hcUsiGouPEz02N6+rNSP+jbkO3EznyYV2rk5JRR0f4S
- 7lE82HKxyzhz0jDJJLyos0uddJNz+5m5nTAggfc+vMYn8pLVTjy2ejHWUhayn5mFdAG5
- ZrHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708464227; x=1709069027;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BQN1gJBuYdnaMz2lZP1Vhemjh7XxE9ird9ZL5Hi+qmE=;
- b=vjX7aytQtuYV+/z1xKmaspJJDI2SPkaDroFMMjzX3KN1pQcrm5xboeL2P3XtNAF/9a
- x/3BLgcmK++VMJnU4tavssN58ZcF+XViIDaRcM5alahbIo0EH1SlX1AABKqs4n02HI+r
- QMn++wXePANjofdQuv6Hkpejye0fiZqW7XjCVjmbK1ao4RdTaTdOM8cVjmJpPxygEDHJ
- E3X+qcejqBT3NnSM4fb+QZK6L0GsUX3zuBPWxc5e4wXl6AzI23TtI36K//OG0fmVYy4l
- cpGQHJ2gnITfwgO48RdwXGXUa12qmqbot7WGsWxEkabG2abEaGqL0vkz2XRECNNoe7MP
- IdrA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX+nPvtJHqHTlI7xiulT1/1qbzqsGLx5nf4RBYVmY31Zwm8oASo+cLdfl2yqx1HUwqhrzg4M9AgPhTvM0WMtg4m/Fqv7Vq0xzOMDrAvagc9
-X-Gm-Message-State: AOJu0YxFizIMZxZROQZHygiSNdGY8o7pvU1GTWlUUoM2dvwYM0S/d6zz
- uS+mhEKpAS/JQL9IfoFVDzafEPH07YBBTe5bPnFKN3oqBGf4QX1mlxTHbqjNrfo=
-X-Google-Smtp-Source: AGHT+IGUGRVWsh1lOrSwTwSBnK+MNgr79zGnGLrlETgeDUz79QjMadUApjmPNi/qsoaLXat8TR3+ew==
-X-Received: by 2002:a19:e003:0:b0:512:bf99:7d80 with SMTP id
- x3-20020a19e003000000b00512bf997d80mr2723866lfg.1.1708464227159; 
- Tue, 20 Feb 2024 13:23:47 -0800 (PST)
-Received: from [192.168.192.135] (078088045141.garwolin.vectranet.pl.
- [78.88.45.141]) by smtp.gmail.com with ESMTPSA id
- i29-20020ac25b5d000000b005118a6de76esm1407778lfp.162.2024.02.20.13.23.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Feb 2024 13:23:46 -0800 (PST)
-Message-ID: <c87d715a-d6fe-4ccd-adc5-d98d4837a120@linaro.org>
-Date: Tue, 20 Feb 2024 22:23:43 +0100
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E857910E4A0;
+ Tue, 20 Feb 2024 22:40:35 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41KMaWOp006858; Tue, 20 Feb 2024 22:40:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=DzgSSjiF7MER59HcHRdD0KQPa4VTP7amKqzcZKrkGcE=; b=B4
+ bN5/3Ko+uKUY4iWdMcs0gjISPVK33vQAAyVl7udYyUZzp/oaDv3EQ+r9T48eAaGZ
+ a7t5tlBuFBu5KQSRVX1wRZtEi3ETcOvRysP61X4LpxfiFu26exKMcWg+QX8CqMey
+ kcQ4XbRQjTAuSa8+VYUaZXZuquHEi8/2oDG1Y8u75alp99YbD/VDBwYhMdXebB7m
+ zhXZvcERFTaCgy+RrvuQDTOno4QekBMgThIaB/Ow8k+NkaYZQ5PFKhpWUy8YVQAw
+ /fT24ofbN3cdTnzmwdJlta+NYClIKa0j+NonYSBLqfhuBx1aRq6HPq7KN2NlKsX4
+ RM2VsRnfG0+/U/A824PA==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wd21s8cd0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 Feb 2024 22:40:32 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41KMeVAd007363
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 Feb 2024 22:40:31 GMT
+Received: from [10.110.62.85] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 20 Feb
+ 2024 14:40:31 -0800
+Message-ID: <69d152d2-6a25-9ff4-ce6b-c4790247a661@quicinc.com>
+Date: Tue, 20 Feb 2024 14:40:30 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sm6115: fix USB PHY configuration
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2] drm/msm/dpu: make "vblank timeout" more useful
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Cc: Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-References: <20240220173104.3052778-1-dmitry.baryshkov@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- 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
- izWDgYvmBE8=
-In-Reply-To: <20240220173104.3052778-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20240208-fd-dpu-debug-timeout-v2-1-9f907f1bdd87@linaro.org>
+ <1cb90bff-ce5b-c6d1-a3df-24f6306f833a@quicinc.com>
+ <CAA8EJpotiHKT_NYphDs0-vhpvsybgTW281XDYbteUx8qOX=v4g@mail.gmail.com>
+ <63bba15b-6d8d-5ba8-d99d-8cd2dd763262@quicinc.com>
+ <CAA8EJpqHmVBry9FyJ6HRB+qdVcVNN3Q7rHZz1daZL1Sz6yeZ=A@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJpqHmVBry9FyJ6HRB+qdVcVNN3Q7rHZz1daZL1Sz6yeZ=A@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: t9crU5pOJDLNHXaEgNhV7Rf5up6tcKsS
+X-Proofpoint-GUID: t9crU5pOJDLNHXaEgNhV7Rf5up6tcKsS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-20_06,2024-02-20_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0
+ priorityscore=1501 adultscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ clxscore=1015 mlxscore=0 suspectscore=0 mlxlogscore=910 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2402120000
+ definitions=main-2402200163
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,17 +97,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20.02.2024 18:31, Dmitry Baryshkov wrote:
-> The patch adding Type-C support for sm6115 was misapplied. All the
-> orientation switch configuration ended up at the UFS PHY node instead of
-> the USB PHY node. Move the data bits to the correct place.
+
+
+On 2/19/2024 3:52 AM, Dmitry Baryshkov wrote:
+> On Wed, 14 Feb 2024 at 22:36, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 2/14/2024 11:20 AM, Dmitry Baryshkov wrote:
+>>> On Wed, 14 Feb 2024 at 20:02, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 2/8/2024 6:50 AM, Dmitry Baryshkov wrote:
+>>>>> We have several reports of vblank timeout messages. However after some
+>>>>> debugging it was found that there might be different causes to that.
+>>>>> To allow us to identify the DPU block that gets stuck, include the
+>>>>> actual CTL_FLUSH value into the timeout message and trigger the devcore
+>>>>> snapshot capture.
+>>>>>
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>> ---
+>>>>> Changes in v2:
+>>>>> - Added a call to msm_disp_snapshot_state() to trigger devcore dump
+>>>>>      (Abhinav)
+>>>>> - Link to v1: https://lore.kernel.org/r/20240106-fd-dpu-debug-timeout-v1-1-6d9762884641@linaro.org
+>>>>> ---
+>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 3 ++-
+>>>>>     1 file changed, 2 insertions(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+>>>>> index d0f56c5c4cce..a8d6165b3c0a 100644
+>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+>>>>> @@ -489,7 +489,8 @@ static int dpu_encoder_phys_vid_wait_for_commit_done(
+>>>>>                 (hw_ctl->ops.get_flush_register(hw_ctl) == 0),
+>>>>>                 msecs_to_jiffies(50));
+>>>>>         if (ret <= 0) {
+>>>>> -             DPU_ERROR("vblank timeout\n");
+>>>>> +             DPU_ERROR("vblank timeout: %x\n", hw_ctl->ops.get_flush_register(hw_ctl));
+>>>>> +             msm_disp_snapshot_state(phys_enc->parent->dev);
+>>>>
+>>>>
+>>>> There is no rate limiting in this piece of code unfortunately. So this
+>>>> will flood the number of snapshots.
+>>>
+>>> Well... Yes and no. The devcoredump will destroy other snapshots if
+>>> there is a pending one. So only the console will be flooded and only
+>>> in case when MSM_DISP_SNAPSHOT_DUMP_IN_CONSOLE is enabled.
+>>>
+>>
+>> Yes, true but at the same time this makes it hard to capture a good dump
+>> as potentially every vblank you could timeout so this destroy/create
+>> cycle wont end.
 > 
-> Fixes: a06a2f12f9e2 ("arm64: dts: qcom: qrb4210-rb2: enable USB-C port handling")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+> Excuse me, maybe I miss something. On the first timeout the snapshot
+> is created. It is held by the kernel until it is fully read out from
+> the userspace. Other snapshots will not interfere with this snapshot.
+> 
 
-So that's why UFS stopped working and I couldn't for the life of
-me guess why..
+For every new snapshot a new devcoredump device will be created which 
+should remain till it has been read. But now this will be created every 
+blank. IMO, this is really too much data for no reason.
 
+Subsequent vblank timeouts are not going to give any new information 
+compared to the existing snapshot of the first vblank timeout thats why 
+we should just create the snapshot when the first error happens and stop.
 
-Konrad
+For other frame done timeouts, infact subsequent timeouts without any 
+sort of recovery in between are quite misleading because hardware was 
+already not able to fetch the previous frame so it will most likely not 
+fetch the next one either till it has recovered. Typically thats why 
+these vblank timeouts happen in a flurry as the hardware never really 
+recovered from the first timeout.
+
+> Or are you worried that snapshotting takes time, so taking a snapshot
+> will also interfere with the vblank timings for the next vblank?
+> 
+
+Yes this is another point.
