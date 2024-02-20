@@ -2,72 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8A8F85BCE5
-	for <lists+freedreno@lfdr.de>; Tue, 20 Feb 2024 14:11:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A5B385BD43
+	for <lists+freedreno@lfdr.de>; Tue, 20 Feb 2024 14:35:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E36110E30A;
-	Tue, 20 Feb 2024 13:11:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4156510E3F1;
+	Tue, 20 Feb 2024 13:35:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KpkZM8M5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="lRhPtfZ3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DDF010E30A;
- Tue, 20 Feb 2024 13:11:48 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-33d32f74833so1620779f8f.3; 
- Tue, 20 Feb 2024 05:11:48 -0800 (PST)
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 783FF10E3ED
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Feb 2024 13:35:48 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-60866ce76dfso5078547b3.2
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Feb 2024 05:35:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708434707; x=1709039507; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708436147; x=1709040947; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Jh0XLZKxGstbU+73Iunkxnq9ZWdTIJGh34NljKi+HTQ=;
- b=KpkZM8M5RTiuIAYUITa6uI1u9XPXfXdTduhlK3hLkZNmcxx9jsQmuB/VQVcs2FLcA+
- 3ekEZC6+OxN/2NXXFoT44Q90kiN8Zfvz1P2g/Avj6saIcefcKVWea887mh55ifgbxicq
- FPs9JNsd3tXfjEIW0c/+kwTta7PAJua8GFYqIUIEsFk46KI3E03sZfc1UK+k1PN43F4Q
- F3BjzT8pe+sZVC04VtOFbmrmuIa5nsd6Q/PbXQLWX12YKPoe0XjWynZOmAvCYm8cb+MO
- aGkue8pUtCAlxDzQ+RdomHHLkxYhYT7HU61mmeqc9Qb5nhIw+XnVMrMTd2ZrCfUCoVtb
- rg3A==
+ bh=80bDR9xsJVYz/T1iI+xnPV8UhHBUEFxKf9UJFof0JFA=;
+ b=lRhPtfZ3CEwlE4watSHiZ4Yn8hZCTWQEnq4ZH4CpdvIDGq6QPiNquCr5ZAGWmKBdAD
+ mYFFKrVxYwPn1WOvHUQCNDqFGiSfh21yh5ARcvnz1WmAw0OzHtfpjzAoKKj2uvNc9AUl
+ /YNLY1rZqCrBEABTF/l5ZmqJdHWf1cc01qfmEmdOLs6EP7Y79thD7Nn6DZErNe8w+Mnz
+ 17dlEpIWkmv22nt1PUlyu1WZjgmEY/BdvhW1Nk87341BO9Kg6b7ne8vIa0D6ryPLCxC6
+ OhazQTvfULPtSiEZXeqVMIHIvodjWx2QJo2deSki2a7dg160nn4rwIVjoBnijGkqC450
+ 2BMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708434707; x=1709039507;
+ d=1e100.net; s=20230601; t=1708436147; x=1709040947;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Jh0XLZKxGstbU+73Iunkxnq9ZWdTIJGh34NljKi+HTQ=;
- b=OCjZ9rABLmv+cSw+m2myoJy1xWpGtTmiZG5pFRVkHNB0axpXm6M4dG6q1bHIpPJwtZ
- F40xy8qVTPyKwKcnqHjB/+0714F/hpDip+rhnUY6m+V9Z2ufDLeB1P6Ei26aIG5t5O3/
- etF5BZxUZGNzP4MdqkpHIIX+qakRllqVW533AGFN3CLS31c+jT+AuUw2/1vyAZ+GrCjz
- 2P/r3/4WhXNG+jmOnLsLP4BR3KdBRJU3mlTy/pWxaDbc+L4qSD82afZ1qdqGHnQzW6gC
- KB7lsyTe9UfcN7iXAiAi2pEIBXxN6sd+1b6iif9W9FI2SG3oBdkrDbm1f5+ucOYLjM7j
- SB3Q==
+ bh=80bDR9xsJVYz/T1iI+xnPV8UhHBUEFxKf9UJFof0JFA=;
+ b=TXLEaXaUtidWl986VuRBNTCEDEIJi8OLPMYvTJRgeXUvAtIXM8mD7f3BxNWcxt3WF0
+ cjG1brd47+z1jnc95ZE2YI8Hem58zma75OBwYWt0uOXKPKtfNYRW8GP1810dkF4eZMtB
+ ILp31SFcA+jszgZLvJvM+38xsjzWjOZJFseP965qw3IH46AR1UgqMkQtx1qc1ZiV7+F5
+ /rL7HYI9fBLj3WxWkC/CFbnU38bVN6jlDGWo+PMcxeXkAqU4xgpGYb/Z8Kj/bdtHGArl
+ zlbrme7Qm7Vhbm8pSQZPhq25qM0CXijgSY8NokpPDlCyK8WjaazoVZp134f9mWQKNuLn
+ kyUg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVVuKv1cklV4d5zZZn9sMMxNOuD5/3SVU//Rpme1K0OCAqGRHEczmcvbX3Es9pPR2Or1hteWwvfDjCFips05bmoW7upZfxRg8hDT4FwC9yuExD1yeZSXcdIQD+9bNZn+VbDLpTxx3mU2hqGbQNpQqVj
-X-Gm-Message-State: AOJu0Yx7s0STYHp9m3Iwp0joIzG1Ln3fu/8k+l9obt8KBWf2Bygv9940
- Lw5102JXDCHs6Egd1oLqPXKBCq71JQwa86lo1mpJ0dqe/X2gt5Y+gpTScN2qXv7RBOxm4s1UnDq
- 4cJ+LqoWios329HE6vMiCfCjwwvQ=
-X-Google-Smtp-Source: AGHT+IFnUvbzWhpd3T+gixNS1N5rv8Q8mcjl8T3JlDQNt374EKAfm+9Mxk0703OTixhgMtiaE7371hMTrKQScrdqjgo=
-X-Received: by 2002:adf:f60d:0:b0:33d:27cf:6208 with SMTP id
- t13-20020adff60d000000b0033d27cf6208mr6344072wrp.7.1708434706815; Tue, 20 Feb
- 2024 05:11:46 -0800 (PST)
+ AJvYcCUqcHg0PAVqhgmOCIeQ/0RY3dPZmXnrUS3AHsJaKVmcIfRzogXCdyLpEFUly9XM4K5X9IXy7tHrBlrv2EBbCfKKUG1g3mlGsroaHVKyv7WX
+X-Gm-Message-State: AOJu0YydsIATcGDaqm1ty62WzhWQtmur0o9F6QGR1uuCep5dIU6eSDFX
+ XBC1UyoyWYyYUlxQcX/wGGae3U6DAnr4S+HGUUVj/FEm73IrueIfy5nY/XZinNFEjX+5miZyjBK
+ MYsoYtTdf7a/Dq+3Ye6C/C8rRxbe/DQAoRpVWMA==
+X-Google-Smtp-Source: AGHT+IFblLCJUAfvYsxAzrxnfj6+lmkywotENdKnj1jtMtxOZ6aZ30kx1UQMoBV7aylB0LH/E8+wrC1HtazKHPBbsVw=
+X-Received: by 2002:a81:7994:0:b0:607:7e73:fce1 with SMTP id
+ u142-20020a817994000000b006077e73fce1mr16601552ywc.26.1708436146800; Tue, 20
+ Feb 2024 05:35:46 -0800 (PST)
 MIME-Version: 1.0
-References: <20240218134434.2531636-1-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20240218134434.2531636-1-dmitry.baryshkov@linaro.org>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Tue, 20 Feb 2024 13:11:35 +0000
-Message-ID: <CACu1E7Hi7JgCAneOfK-M32o6Okzsqm_uOT_qsmiKWC5ZBzEMsA@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/a6xx: skip programming of UBWC registers for a618
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- Leonard Lausen <leonard@lausen.nl>
+References: <20240217150228.5788-2-johan+linaro@kernel.org>
+ <c95f5ff3-8dad-4302-9384-92a9b83f7bdc@web.de>
+ <ZdRTx2lmHBVlcLub@hovoldconsulting.com>
+ <1afc87c-2c1f-df10-a0c8-2a267d44122@inria.fr>
+ <CAA8EJppH9ey97yKFUccNLHhMKs3eUS55+rY0tXm_a6KGp9jtug@mail.gmail.com>
+ <4938592e-3f7c-c1ae-dce3-fd1ca363296@inria.fr>
+In-Reply-To: <4938592e-3f7c-c1ae-dce3-fd1ca363296@inria.fr>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 20 Feb 2024 15:35:35 +0200
+Message-ID: <CAA8EJpq88ZKLFBuAvDuDSMD_DkPpMmBDZG_kQyUrSs-Noqm2SQ@mail.gmail.com>
+Subject: Re: [PATCH 1/6] drm/bridge: aux-hpd: fix OF node leaks
+To: Julia Lawall <julia.lawall@inria.fr>
+Cc: Johan Hovold <johan@kernel.org>, Markus Elfring <Markus.Elfring@web.de>, 
+ Johan Hovold <johan+linaro@kernel.org>, freedreno@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, kernel-janitors@vger.kernel.org, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Bjorn Andersson <andersson@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Vinod Koul <vkoul@kernel.org>, 
+ LKML <linux-kernel@vger.kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -85,67 +99,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Feb 18, 2024 at 1:44=E2=80=AFPM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
+On Tue, 20 Feb 2024 at 14:56, Julia Lawall <julia.lawall@inria.fr> wrote:
 >
-> Historically the Adreno driver has not been updating memory
-> configuration registers on a618 (SC7180 platform) implying that the
-> default configuration is fine. After the rework performed in the commit
-> 8814455a0e54 ("drm/msm: Refactor UBWC config setting") the function
-> a6xx_calc_ubwc_config() still contained this shortcut and did not
-> calculate UBWC configuration. However the function which now actually
-> updates hardware registers, a6xx_set_ubwc_config(), doesn't contain such
-> check. Thus it ends up rewriting hardware registers with the default
-> (incorrect) values. Add the !a618 check to this function.
 >
-> Reported-by: Leonard Lausen <leonard@lausen.nl>
-> Link: https://gitlab.freedesktop.org/drm/msm/-/issues/49
-> Fixes: 8814455a0e54 ("drm/msm: Refactor UBWC config setting")
-> Cc: Connor Abbott <cwabbott0@gmail.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
 >
-> Note, a proper fix would be to incorporate actual values for sc7180
-> and drop the a618 shortcuts. However it might take some time to
-> materialize and to be properly tested. As such, I propose to merge this
-> for 6.8, keeping the existing behaviour.
+> On Tue, 20 Feb 2024, Dmitry Baryshkov wrote:
+>
+> > On Tue, 20 Feb 2024 at 13:52, Julia Lawall <julia.lawall@inria.fr> wrot=
+e:
+> > >
+> > >
+> > >
+> > > On Tue, 20 Feb 2024, Johan Hovold wrote:
+> > >
+> > > > On Mon, Feb 19, 2024 at 06:48:30PM +0100, Markus Elfring wrote:
+> > > > > > The two device node references taken during allocation need to =
+be
+> > > > > > dropped when the auxiliary device is freed.
+> > > > > =E2=80=A6
+> > > > > > +++ b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
+> > > > > =E2=80=A6
+> > > > > > @@ -74,6 +75,8 @@ struct device *drm_dp_hpd_bridge_register(str=
+uct device *parent,
+> > > > > >
+> > > > > >   ret =3D auxiliary_device_init(adev);
+> > > > > >   if (ret) {
+> > > > > > +         of_node_put(adev->dev.platform_data);
+> > > > > > +         of_node_put(adev->dev.of_node);
+> > > > > >           ida_free(&drm_aux_hpd_bridge_ida, adev->id);
+> > > > > >           kfree(adev);
+> > > > > >           return ERR_PTR(ret);
+> > > > >
+> > > > > The last two statements are also used in a previous if branch.
+> > > > > https://elixir.bootlin.com/linux/v6.8-rc5/source/drivers/gpu/drm/=
+bridge/aux-hpd-bridge.c#L63
+> > > > >
+> > > > > How do you think about to avoid such a bit of duplicate source co=
+de
+> > > > > by adding a label here?
+> > > >
+> > > > No, the current code is fine and what you are suggesting is in any =
+case
+> > > > unrelated to this fix.
+> > > >
+> > > > If this function ever grows a third error path like that, I too wou=
+ld
+> > > > consider it however.
+> > >
+> > > I guess these of_node_puts can all go away shortly with cleanup anywa=
+y?
+> >
+> > I'm not sure about it. Those are long-living variables, so they are
+> > not a subject of cleanup.h, are they?
+>
+> OK, I didn't look at this code in detail, but cleanup would just call
+> of_node_put, not actually free the data.
 
-If we do this then there's a chance that 6.8 will report a broken
-value for MSM_PARAM_HIGHEST_BANK_BIT, which is going to require
-otherwise unnecessary workarounds in [1] for quite a while once I fix
-up a618 support. Can you at least dump what the default is to make
-sure that the value we report matches what's being programmed?
+Yes. The nodes should be put either in case of the failure or (if
+everything goes fine) at the device unregistration.
 
-[1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26578
-
-Connor
-
-
->
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.c
-> index c9c55e2ea584..07d60dfacd23 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1325,6 +1325,11 @@ static void a6xx_calc_ubwc_config(struct adreno_gp=
-u *gpu)
->  static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
->  {
->         struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
-> +
-> +       /* a618 is using the hw default values */
-> +       if (adreno_is_a618(gpu))
-> +               return;
-> +
->         /*
->          * We subtract 13 from the highest bank bit (13 is the minimum va=
-lue
->          * allowed by hw) and write the lowest two bits of the remaining =
-value
-> --
-> 2.39.2
->
+--=20
+With best wishes
+Dmitry
