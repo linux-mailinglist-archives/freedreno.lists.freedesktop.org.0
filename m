@@ -2,72 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 266D485BF71
-	for <lists+freedreno@lfdr.de>; Tue, 20 Feb 2024 16:08:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E116785C217
+	for <lists+freedreno@lfdr.de>; Tue, 20 Feb 2024 18:12:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF21910E4B0;
-	Tue, 20 Feb 2024 15:08:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AFD010E56C;
+	Tue, 20 Feb 2024 17:12:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Z2U0+Vhw";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PCxuIIM3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91FC910E4A6
- for <freedreno@lists.freedesktop.org>; Tue, 20 Feb 2024 15:08:03 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-607f8482b88so39170887b3.0
- for <freedreno@lists.freedesktop.org>; Tue, 20 Feb 2024 07:08:03 -0800 (PST)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D64310E56C
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Feb 2024 17:12:19 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-512bde3d197so2205088e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 20 Feb 2024 09:12:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708441682; x=1709046482; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=aqJwFAkkc43vrSyN9lwc8naI853QjkeHrfLLwt5JeQE=;
- b=Z2U0+VhwmldL9ytR3qDPnbTSD3i+7bx9FMk12kI0NVIw82ctbitKVbGGZl2iXEWAed
- Uuu2BZs13IN8mzBsqANiiyGrGRgfr8gelqvE9NlWT4WjEp//yXTGWCXNiFxW6/wjpq76
- ljpaah0YvptQ433RAEC7op8t3kn2nNWlAQShPWVw686RH5BUz2Dx17eruvRjqYDAU+kM
- B5KtgVdi25eQdoUrybOpKL8/I2WnXJlI3MzCQvkJkmnF/EbVlLvdAsLySmfl9yJwVLbt
- R6S72/kf459fCLU9mg8mBXZ4Sp2aME6RdWUT5LJI2P7uWSiGRQElYgI7yWOtDO3WMNNs
- qz2g==
+ d=linaro.org; s=google; t=1708449137; x=1709053937; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TGyEb9tL97pZ41i0EqJWHQnAWHv94eJvvrEZG1SYwN4=;
+ b=PCxuIIM3Rx9wvMgYVJgSTusUCIhUOaK31H5+rms15upvmOa8UWrG2LdNqmHfhr9S0C
+ j50Z3IzrYcT7Z52SXcKWDglTG4soDpw0tP5mO7HNKmKoPWWlts10/lT4m+btHvWz8fzV
+ csPG3efDyrlReCOUNcJFMImJxfF2STxHbI5Q0JGYGSwtohgRYHZIx821DcVxwC+bXtm/
+ r74sUiKuuDNJhZdOYF0Eezir8TVE4fsdJx13N6Rl9Ua5jzVohV0a4WeE2gwO3vxvxxv8
+ pBJZJ4mk2aCenbuXzSOIdJW7tIC4MjvKaCCz1YGqp98V+6oyUU7sqzezYgTzP/NBW5vy
+ 6hFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708441682; x=1709046482;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1708449137; x=1709053937;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=aqJwFAkkc43vrSyN9lwc8naI853QjkeHrfLLwt5JeQE=;
- b=tsHRtnY/1meOH1n0QVwcNdFplG9R/ZFITpc6KbrRfKqNxTg1wsc7xpWR/t89xMXQSz
- Q/skxWlMc+167P2RAc7RDC6XhdLAXaLbC+JpS/5pAsFZpK1XKGWkJHsc7qDoIvoXnb38
- Zf2qAbiP+jcrQnKVJ5wMRKpqhoU65afsY/zrAhUKYkQ7DAdvkVvXnmpzOP2ad0AzsntY
- PdMBMLszIqHCyxVj9TfX/itoiNrPlK8OCyIZZWYM0f0rxJMUyAkxb3TBml+gFlJm04YV
- S+CfJezYT1Bmbwrg4FNfGro+NXIDvBbyhA+2nbtW0QjsDvrSaQx3+WJh88gTCRuAu7xP
- HrgA==
+ bh=TGyEb9tL97pZ41i0EqJWHQnAWHv94eJvvrEZG1SYwN4=;
+ b=C4dZQsOXVrJD/h8PXoFLFP9SK0HAADdL7iQSdRUSdnM8HEvrpoiH2yB4xv9s3+HrJu
+ ZkqtZ/FOwNdCHn+BBA6eSy2TXIdwhYoPegu309mntS0Vzc8/DDp7KznlwzHEiHuenTrh
+ cdYpwUVaqinDc7BaMMUUVDsM4ckZZXVwceUb08cB+yFwBkWqCrhaULrm0REiKoe0P6tK
+ FZZcwwzw23SEl3GvPw6M1bmNnj3VqBTIlkxdA+Zj1oL+UcAmukNRCkhRfyf4vP7xTdiN
+ T0uSefeFnuV7l1m//Q17i4W7pCM7UsMWRr/Uis1EJmNLG9dC56Kc4otIqp2JoYqY1byS
+ /uhA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWAKEKHjFZnEU5nMSmka5e9QiwmjL5n4HFo4lU+vaUkku+NIi3Aj9p21QSlW/50niFC+8FYxIO7xL6S+KZwpCRT5r9pJ6XIUD74oS0eLKJ7
-X-Gm-Message-State: AOJu0YyV+Tbpz5J4nzXhVg5aEUSal1mpUxeGZK45JmVb1EIZTmL100+s
- pDLeIwF3iYDQOCynqDhJ6W1lbC3W8HeOYEOs9/7Ejtvp57Eu6HxJ6aT+c7sRCzTDtiKbCJUg5gR
- FLFTMguP5OwdRT2iDLr0NdKwE7gtI3hwA4PvOkg==
-X-Google-Smtp-Source: AGHT+IHdekKqXY/wwhv1RRDJOaN+kUY/5Ujob9vjM/5eL8M11cX2uP3kIvac0Jr5M2dmGLVcBO8zTmi1JscWBwxIIoI=
-X-Received: by 2002:a05:690c:f90:b0:604:9551:f595 with SMTP id
- df16-20020a05690c0f9000b006049551f595mr16731907ywb.50.1708441680946; Tue, 20
- Feb 2024 07:08:00 -0800 (PST)
-MIME-Version: 1.0
-References: <20240220121741.2994222-1-dmitry.baryshkov@linaro.org>
- <54a3f3d9-ad3e-4828-96c0-61dd81c61d76@collabora.com>
-In-Reply-To: <54a3f3d9-ad3e-4828-96c0-61dd81c61d76@collabora.com>
+ AJvYcCXW/oHgRU3V5W7te6I2k0RNhv1bOJ/ir3/TIazJUswvde/fW8P67LQn6iDtfpBZ1EyvvsFtas9mA3zxF6iVT2+WNb18AfU3LUw6ZjA1rVho
+X-Gm-Message-State: AOJu0YzoEraU8SHn/zVSgQkCsuHTdve+Xpe5pwJt00un24G9VosFs/CK
+ mNckmVQuD0m+OJdlwaju60zyyPgj4IOv05UAjkvw73G4eLF7MEmtjUMzP4hqr9g=
+X-Google-Smtp-Source: AGHT+IHo+GK9ZXl9LYc2lAxVTvWicxEOUKQReV4nK7xoVkyUuUfNwOLUZWdQgB6teQ4vznlTC4n3Hg==
+X-Received: by 2002:a05:6512:e9e:b0:512:bdca:bb5d with SMTP id
+ bi30-20020a0565120e9e00b00512bdcabb5dmr3907542lfb.4.1708449137216; 
+ Tue, 20 Feb 2024 09:12:17 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (dzyjmhyyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a00e:a300::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ b8-20020ac25628000000b00512c8d9c8a0sm240802lff.113.2024.02.20.09.12.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Feb 2024 09:12:16 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 20 Feb 2024 17:07:49 +0200
-Message-ID: <CAA8EJpqaWHVqf8+EbkBktftPzPU0qq00PGhsoxYztRFuXDHv7w@mail.gmail.com>
-Subject: Re: [PATCH] drm: ci: uprev IGT
-To: Helen Koike <helen.koike@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+Date: Tue, 20 Feb 2024 19:12:10 +0200
+Subject: [PATCH] drm/msm/a6xx: specify UBWC config for sc7180
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20240220-fd-sc7180-explicit-ubwc-v1-1-611a58091724@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAGrd1GUC/x3MSQqAMAxA0atI1gZibXG4irjQmmpAVFonEO9uc
+ fkW/z8Q2AsHqJMHPJ8SZF0isjQBO3XLyChDNChSmpQidAMGW2QlId/bLFZ2PPrLoqbK5K4zptI
+ FxHrz7OT+z037vh92pKZiaQAAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Connor Abbott <cwabbott0@gmail.com>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ Leonard Lausen <leonard@lausen.nl>
+X-Mailer: b4 0.12.4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1745;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=BnIHUEr8mYm7RtcY6EIoREgODeHWv+l5ytTt0UKBG8g=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl1N1wx/mMxixCVwdRRTD/ucyIwKcwBbXBvC30g
+ rD2Iyw2+UWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZdTdcAAKCRCLPIo+Aiko
+ 1T8iB/4w9oI2xjlbk3C6OJx+Kq76dR5a36rY2818UsGabyH8zrIrLvQ1reO94havjNuL5TOlL9k
+ Rh0xKkeO8Vy/cgIVyYC9pKJ6CU0d7SXKzXfPFHsrwbBKyolMMLm99NXX6ex+FtU+ZtFcLArMikx
+ XcqrbDFKFhSBGFg1KIQjIq8ydqS6XByYClfWwKkbAPcvxe+kAdjM2eXWj+IF0APg+FQSPMHoZhp
+ 2luSTFnVRuoOAH94mr9JC8svyYMjlDEGPX2x4kT/jvcZx/b6f2j8f4e9ytgCVVdV9/yM78Ja3Dd
+ QZiKQZqgP2vFyRjC9uKtqFF2Cv7oqev6Fbh6jJodA9JRdkhK
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,46 +101,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 20 Feb 2024 at 16:31, Helen Koike <helen.koike@collabora.com> wrote:
->
->
->
-> On 20/02/2024 09:17, Dmitry Baryshkov wrote:
-> > Bump IGT revision to pick up Rob Clark's fixes for the msm driver:
-> >
-> > - msm_submit@invalid-duplicate-bo-submit,Fail
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->
-> Do you have a gitlab pipeline link I can check?
+Historically the Adreno driver has not been updating memory
+configuration registers on a618 (SC7180 platform) implying that the
+default configuration is fine. After the rework performed in the commit
+8814455a0e54 ("drm/msm: Refactor UBWC config setting") the function
+a6xx_calc_ubwc_config() still contained this shortcut and did not
+calculate UBWC configuration. However the function which now actually
+updates hardware registers, a6xx_set_ubwc_config(), doesn't contain such
+check.
 
-For the drm/msm, same as before (it had this fix in). But at this
-point I should probably run it again for the full set of devices.
+Rather than adding the check to a6xx_set_ubwc_config(), fill in the
+UBWC config for a618 (based on readings from SC7180).
 
->
-> Thanks
-> Helen
->
-> > ---
-> >   drivers/gpu/drm/ci/gitlab-ci.yml | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml b/drivers/gpu/drm/ci/gitlab-ci.yml
-> > index 8b82e6656924..47e567b4f7a7 100644
-> > --- a/drivers/gpu/drm/ci/gitlab-ci.yml
-> > +++ b/drivers/gpu/drm/ci/gitlab-ci.yml
-> > @@ -5,7 +5,7 @@ variables:
-> >     UPSTREAM_REPO: git://anongit.freedesktop.org/drm/drm
-> >     TARGET_BRANCH: drm-next
-> >
-> > -  IGT_VERSION: d2af13d9f5be5ce23d996e4afd3e45990f5ab977
-> > +  IGT_VERSION: 3f2879fef93c0c546a2f1c0aa48a9cc2a594b9d2
-> >
-> >     DEQP_RUNNER_GIT_URL: https://gitlab.freedesktop.org/anholt/deqp-runner.git
-> >     DEQP_RUNNER_GIT_TAG: v0.15.0
+Reported-by: Leonard Lausen <leonard@lausen.nl>
+Link: https://gitlab.freedesktop.org/drm/msm/-/issues/49
+Fixes: 8814455a0e54 ("drm/msm: Refactor UBWC config setting")
+Cc: Connor Abbott <cwabbott0@gmail.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index c9c55e2ea584..dc80e5940f51 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1292,9 +1292,8 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+ 		gpu->ubwc_config.ubwc_mode = 1;
+ 	}
+ 
+-	/* a618 is using the hw default values */
+ 	if (adreno_is_a618(gpu))
+-		return;
++		gpu->ubwc_config.highest_bank_bit = 14;
+ 
+ 	if (adreno_is_a619_holi(gpu))
+ 		gpu->ubwc_config.highest_bank_bit = 13;
 
+---
+base-commit: 41c177cf354126a22443b5c80cec9fdd313e67e1
+change-id: 20240220-fd-sc7180-explicit-ubwc-40953fa55947
 
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
