@@ -2,64 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3F6485ED61
-	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 00:50:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A052685ED64
+	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 00:50:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66B4310E021;
-	Wed, 21 Feb 2024 23:50:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD5A10E837;
+	Wed, 21 Feb 2024 23:50:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="B7wwDdKP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="h6lhgayA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
  [209.85.219.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6EE910E021
- for <freedreno@lists.freedesktop.org>; Wed, 21 Feb 2024 23:50:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15A2810E837
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Feb 2024 23:50:46 +0000 (UTC)
 Received: by mail-yb1-f170.google.com with SMTP id
- 3f1490d57ef6-d9b9adaf291so5375120276.1
- for <freedreno@lists.freedesktop.org>; Wed, 21 Feb 2024 15:50:24 -0800 (PST)
+ 3f1490d57ef6-dc74e33fe1bso7042845276.0
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Feb 2024 15:50:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708559423; x=1709164223; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708559445; x=1709164245; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=/XpZt7hzwc3jNcQDwZUZ5vMVTQ3xQ4U9NKZbGKi742g=;
- b=B7wwDdKP4mj/bhWrSY+HxFpjgC5q0SbnDkLi2WXoZ2IplJcNsoXvcIVRMbTlXJpSjC
- Zi9D0UsUfNzhPMHbMKmSF1UDNVTp2p5IBplZJszw8lUV70G8JHIuJOI4LyL6zYd0E1GR
- RB+nOsypVh9r3OSrQUE04xEov58joDwUbDCcydjk1MoKZzNx/rV+XPanMwUxI96Vs+qg
- mqHesYnaXBCHAMlghxaq7OhiWAhOhMVY35NW/UOlmGidYI42yiwZfmNImALe06iCpTC4
- gaGMOM36H+rOnxg6uymVA0YC3XP3t4vHTkUvz00eHJVLx6Hh5lKz4I8809zNnocVs1oJ
- ja2A==
+ bh=dRyWhwvB+YgxB8WYY/8RDhojBr0l/X72f+I+EDyaksA=;
+ b=h6lhgayA3Mf0xg51KT9zmdVH949PnTB3NmOCkUFsuB2Qpw2dv2D7j/qXr+BgXD83Cj
+ 1THFV5fb1zZrhrBjJgUvUrSc3asSh1t0kmfz9FHNO5cTd3vMyF8i7krbFg7axZbHuhwe
+ eS/E0y+nz/uKhZ0+fAWxf5R/L4qbrsKsrph4uZ3gS38RsfQsfMYRENJEpL49VflHuaXn
+ +xxIa6ryUfjkZcQHqDJCRYmmdwjuFCPYLC0pXWYUNhQDoTgu+dBPftA+jlLxtt5K64Oy
+ l6mYRyfm7r7OiXUt5IvMSD5r9XfGtwjf2B5N2RYmH0hci23whjWl0stZRr1XBOc6jagQ
+ j0Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708559423; x=1709164223;
+ d=1e100.net; s=20230601; t=1708559445; x=1709164245;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=/XpZt7hzwc3jNcQDwZUZ5vMVTQ3xQ4U9NKZbGKi742g=;
- b=gmtQ70fA7FzW+xKZvbzTES05h23gMMBHItiZoxVxhRiIDo38snwg4rIx8cM7npb2Ac
- hCk0htGO3G4GLeTbF5CX9c66mIlPq3LBfLnqe03t9kQQ3DCsIxEpeigQfwi64DIjdYtk
- vOykKBTxG5WK3LbcjL5Z98iP0ILvfacdPKWuhua1Q2i15p4zrC/2PqyR0lR4EOTiUGyx
- ZNouE0xD8qjTBr7tWA5jlBWZ2WH1eA+pNYFDLLueZhkquJCj0Tbo1xRcCdQizc/aQbYE
- 6G2LkjPOp1K7IiZhHisM9ED+SEQOxGy0EMk4eN7iBF1NGPuyGkY0x50RXh5oDgQT/Ou1
- 2f7A==
+ bh=dRyWhwvB+YgxB8WYY/8RDhojBr0l/X72f+I+EDyaksA=;
+ b=uIj+hLEI0B+/9NjJRv8GFseCV+QJU0aYIfXu7hrGFZ56Bq8Yb/pm6r2MDdB6y76VVn
+ 9ZCXF23dz+QiAacqrrvkTdoJytX24WbNilG7N6RrJ9LJwR3XYrp6JCZFTzCoT3mMD5c/
+ n4+p1hy+pJMg5UpGHLch8alvuaOQB8fWg2N/Mql+09IJlnfuJqNaDcS6etUcJtXVlsdk
+ 5/DDX1awG4WDLo08ixujCXFDyzPXOUjGM+VfrhpuK4aw+y3SQF6+mBdN56K+p3YiL1I9
+ IY/OpMUZi94nE83LphSYppFdH/QhbZSCDBfakYRw1Q3gNkSwvVV7hg9yXnOEuKwSZl42
+ kRRA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVQROgve/GNlLC/CnTWPkCTviEefgF55ZjNazA2N1ahCPwE9304y/HVd0Iqow7KBeLirQsGCPGPi1/Yrb6MhAYBkKj4RXRDMVuengE2+jxi
-X-Gm-Message-State: AOJu0YzuHmDT4SfMdYpJJgCKdDj2DPfnMHmRuFQ2CYNhn0QYnykyuKj1
- CG7FWpPva9QPayJUYAB4abePytuey+H+Rqap1YgewoXvi4GnsU32qHyvoX2DiMJLa+1nrDR5+0/
- JK7FMiampsMPn0dh74hdordIsnCcaPFxlZsVjzg==
-X-Google-Smtp-Source: AGHT+IGFCpzYN9Tvhba/FP/G+LXkXROeoh+7TE5DeZAwGefezlUG4taS3kLJsE2C4lj2w55Q3QXgdigZ/ja3jgLbmO0=
-X-Received: by 2002:a05:6902:220f:b0:dc7:48f8:ce2e with SMTP id
- dm15-20020a056902220f00b00dc748f8ce2emr1016956ybb.37.1708559423600; Wed, 21
- Feb 2024 15:50:23 -0800 (PST)
+ AJvYcCUgQjcVizmJ4JQ3Lrd840HMAJ09nfXZAAlpMRiVg0Qh2LaiykuEz+Xp0AKqCrWrnUXXf2mFWKNl3ix5bcBZgamAGtVrBTj2QKLoveU39lCx
+X-Gm-Message-State: AOJu0YzNm/OiyezlQQYRQl+BEGx2xR3UT4driScG5yxEIbUovMb1XwT/
+ SpA253rudELZPSxwzDVhWbE4HTqnLWNb9smsUZB1h7ZTIq3fPDluEapH1wuGBoEzSu6mOu3UYB9
+ tyXnNCjL2K7/V95ALtdlscABf1svXkPRatuNyUw==
+X-Google-Smtp-Source: AGHT+IHU3Y06Sp27kn+vm0riOHx7jAbAYGiCMmYl9aItPwEeAoJ6loAk6SaQpv3mn4p+wcmpr6CrNg3BZNb7xYkUQRU=
+X-Received: by 2002:a25:8d01:0:b0:dc6:c2b2:c039 with SMTP id
+ n1-20020a258d01000000b00dc6c2b2c039mr882350ybl.41.1708559445157; Wed, 21 Feb
+ 2024 15:50:45 -0800 (PST)
 MIME-Version: 1.0
 References: <20240221-rb3gen2-dp-connector-v1-0-dc0964ef7d96@quicinc.com>
- <20240221-rb3gen2-dp-connector-v1-6-dc0964ef7d96@quicinc.com>
-In-Reply-To: <20240221-rb3gen2-dp-connector-v1-6-dc0964ef7d96@quicinc.com>
+ <20240221-rb3gen2-dp-connector-v1-7-dc0964ef7d96@quicinc.com>
+In-Reply-To: <20240221-rb3gen2-dp-connector-v1-7-dc0964ef7d96@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 22 Feb 2024 01:50:12 +0200
-Message-ID: <CAA8EJppAVehWUeLAqEAq8A3nq-o2g=8GK--XRVWtDV7-0BCskA@mail.gmail.com>
-Subject: Re: [PATCH 6/9] arm64: dts: qcom: qcs6490-rb3gen2: Enable USB role
- switching
+Date: Thu, 22 Feb 2024 01:50:34 +0200
+Message-ID: <CAA8EJpq=kFhdqbnLXLLdQ3AkYb=vNOzjn1hMoNJx8qEJ4FLx-Q@mail.gmail.com>
+Subject: Re: [PATCH 7/9] arm64: dts: qcom: qcs6490-rb3gen2: Introduce USB
+ redriver
 To: Bjorn Andersson <quic_bjorande@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -89,101 +89,20 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Thu, 22 Feb 2024 at 01:19, Bjorn Andersson <quic_bjorande@quicinc.com> wrote:
 >
-> With the ADSP remoteproc loaded pmic_glink can be introduced and wired
-> up to provide role and orientation switching signals.
+> The RB3gen2 has a USB redriver on APPS_I2C, enable the bus and introduce
+> the redriver. The plumbing with other components is kept separate for
+> clarity.
 >
 > Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 > ---
->  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 48 +++++++++++++++++++++++++++-
->  1 file changed, 47 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> index ab498494caea..079bf43b14cc 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> @@ -121,6 +121,41 @@ debug_vm_mem: debug-vm@d0600000 {
->                 };
->         };
->
-> +       pmic-glink {
-> +               compatible = "qcom,qcm6490-pmic-glink", "qcom,pmic-glink";
-> +
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +
-> +               connector@0 {
-> +                       compatible = "usb-c-connector";
-> +                       reg = <0>;
-> +                       power-role = "dual";
-> +                       data-role = "dual";
-> +
-> +                       ports {
-> +                               #address-cells = <1>;
-> +                               #size-cells = <0>;
-> +
-> +                               port@0 {
-> +                                       reg = <0>;
-> +
-> +                                       pmic_glink_hs_in: endpoint {
-> +                                               remote-endpoint = <&usb_1_dwc3_hs>;
-> +                                       };
-> +                               };
-> +
-> +                               port@1 {
-> +                                       reg = <1>;
-> +
-> +                                       pmic_glink_ss_in: endpoint {
-> +                                               remote-endpoint = <&usb_1_dwc3_ss>;
+>  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 
-This should be connected to the QMP PHY rather than to the USB host.
-
-Also it might be better to squash this patch with the patch 8. Or at
-least to get redriver into the picture in this patch (and keep only
-display-related parts in that patch).
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 
-> +                                       };
-> +                               };
-> +                       };
-> +               };
-> +       };
-> +
->         vph_pwr: vph-pwr-regulator {
->                 compatible = "regulator-fixed";
->                 regulator-name = "vph_pwr";
-> @@ -476,7 +511,16 @@ &usb_1 {
->  };
->
->  &usb_1_dwc3 {
-> -       dr_mode = "peripheral";
-> +       dr_mode = "otg";
-> +       usb-role-switch;
-> +};
-> +
-> +&usb_1_dwc3_hs {
-> +       remote-endpoint = <&pmic_glink_hs_in>;
-> +};
-> +
-> +&usb_1_dwc3_ss {
-> +       remote-endpoint = <&pmic_glink_ss_in>;
->  };
->
->  &usb_1_hsphy {
-> @@ -491,6 +535,8 @@ &usb_1_qmpphy {
->         vdda-phy-supply = <&vreg_l6b_1p2>;
->         vdda-pll-supply = <&vreg_l1b_0p912>;
->
-> +       orientation-switch;
-> +
->         status = "okay";
->  };
->
->
-> --
-> 2.25.1
->
 
 
---
+-- 
 With best wishes
 Dmitry
