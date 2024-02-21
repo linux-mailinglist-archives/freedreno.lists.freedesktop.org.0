@@ -2,64 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D073385ED39
-	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 00:42:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1572A85ED42
+	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 00:43:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8687310E837;
-	Wed, 21 Feb 2024 23:42:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86A8510E83D;
+	Wed, 21 Feb 2024 23:43:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OE5a03Gn";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="glIR0tjP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C46F10E833
- for <freedreno@lists.freedesktop.org>; Wed, 21 Feb 2024 23:42:22 +0000 (UTC)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-dcbc6a6808fso7662530276.2
- for <freedreno@lists.freedesktop.org>; Wed, 21 Feb 2024 15:42:22 -0800 (PST)
+Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com
+ [209.85.219.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE9E310E83B
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Feb 2024 23:43:16 +0000 (UTC)
+Received: by mail-yb1-f178.google.com with SMTP id
+ 3f1490d57ef6-dcbd1d4904dso8016900276.3
+ for <freedreno@lists.freedesktop.org>; Wed, 21 Feb 2024 15:43:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708558941; x=1709163741; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708558996; x=1709163796; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=C/dj756VosTuwMpPJNGyW3MhpcrxAFO76cK11lx7rxo=;
- b=OE5a03GnNNcsHneVBZv0JdNRNZXh/rPiRcQhCIVA+a/VhfMKRhyVxnySxLi0sv/Vgq
- olG0MC4CzuNUVreMeQoISziA1gBAifRna7Ml1QqK6ywok+/1VT8erWJZTp7i5quZLlKM
- HR3CRsfDS/ouzFxwOL6U++es71cNMQpOv3MbK/lHAqxFF2+Cvi83RDjndkgeZzwRkMPH
- TCTIZQtOXU/mKqnAeu/NJv9o0NCJPyGuftetLl49Lsjf410B3oJmJfce7EcJ7kNRKQlu
- /IPHTy9YZIR1VzN/9Gmix52f7l93o0ycy6leaAP1rDKD2REdLyqgZ7+e28yFxlfl9yib
- bbTg==
+ bh=WFR+rdCdcNXgjwmjuY7WFWRvujdikiPSr9iXFhu+1EA=;
+ b=glIR0tjPHcjOPcYYF7UOXanIOB5tpM8r8xmJGpAz1YRBTMuDIe3AUOuQEhoMAAbHGW
+ Q+TKDs8wJQhzt8fo3mfx6DJ0a33AbuxpF01tyvIteg3UE4NjUU7jvosu39y2WsdD+uor
+ 0oS/tMzbx51RVJ1cvqk0l43Cod2fFZufwm5cR9S/k8cX+uOP9EH0psRE5K+OpEBoYLZf
+ FYgNaoe3MFiHU/FEQ0RY133QQWa5EX9kvrv/n9kzb6jzxW+s5Bj4jNNd8aXL3lX1TrXU
+ 0t3xjV3B84yrwkduFbu7K6z6NhGfnzFBFQu0DbyrBcZ445o5jmJ0RaWcEw4D3ADO0W5v
+ n5uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708558941; x=1709163741;
+ d=1e100.net; s=20230601; t=1708558996; x=1709163796;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=C/dj756VosTuwMpPJNGyW3MhpcrxAFO76cK11lx7rxo=;
- b=dZA/XU2tlongGZWn1BH4l5yGwdEVrzDBRj7dJtn5UDIjh5N8HYrBlrFxU5Em791OMo
- 04SP2Cf5BNytc7BASlCaEMblgmr/tcUlHsDJK4QOA0YaqowRahmsNOEgpSQG9hAUtNyn
- uLIBxxo1sZyPrf/o3qlB8fVNFy5rVtWEY8Wgx3ztBdVFUJqApfjLNvVVaKO1fMqOwCkY
- EJWwwTW2Jw6g1IghQ2xGcNnFZEM5213tarUQT+892WxLG2vlwkO8D+ZeYmd3Qj9C3cfB
- G4+qbjsQSj6qN/mRpwTXYzCXhgV4ZAhb6/zSCSQvDHulw6CVDQ/gdt9oFgy1Mr1ro40p
- cPSg==
+ bh=WFR+rdCdcNXgjwmjuY7WFWRvujdikiPSr9iXFhu+1EA=;
+ b=IR0ntG2oQrdJiHi+BIBEBUgPH6wHPXkxsxN4fyb/Mv64PvWUgsz0AHqu7KoIHEujXa
+ PzaQ5+gzQWUbjvvNPSvnYJ6v9rNeshC8ZF8XKULj4m7Qu4VX42RgFCcqV017y8Nqs4AF
+ 3/RtwaDBSM2OKsHAtvBWdY3ljbQeofuG02AaVTVkl7K1FShptTOl5eByQNpnZHWKS506
+ E4996fj3veW6gHboEduD1yGZQJf9KpxDtCl3WgG3zscgLlCXKR4zZjz/VFitDbjCoZWH
+ Y5KuYPvdgPwC3wtxEHqPrJHnJMghKLXybeMytanw9hwHRT574IAVZYnqJmPyDDXNiwGJ
+ E4gA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV5A2QgxYfHWn/PUTNtoc4sTaCcgZWuGAD+ZFqZw9UiTFyJj8kvH4OQXsMsj+oMSHhtMYTeZ/4jhd7EEM6+uDiQV2mTbcK04w19ReMXmOOD
-X-Gm-Message-State: AOJu0Yx3IDboqzJLe9H6AEPwBRwWXg8nQzikVCqGY6sHqYC0Si9cxeCk
- x74mrX/4eX5N4+K0pOE1RC5X+cPQXIx1U1biJoUDxKSlw0ByV2/loIMfg47TXjqgY8jZUZ7Gl7S
- gxhM35+tlNS80MA5oiiZr51A0R3wDpkZ01Mn3DA==
-X-Google-Smtp-Source: AGHT+IEPTkax+cblPH2B3OK6zkJGmVKi10jTkKNhhoD5CPKfbwC59MAyFljD4sz8HRB3ajKPgQOsU016PTTq8M/17rY=
-X-Received: by 2002:a25:1e41:0:b0:dcc:67a7:430 with SMTP id
- e62-20020a251e41000000b00dcc67a70430mr834243ybe.15.1708558941152; Wed, 21 Feb
- 2024 15:42:21 -0800 (PST)
+ AJvYcCW08uoT4f6an+e3KpauPFbA8HlJOMxg27+cXZRB1orEXY9mx4CnrbGR/sAWoAdT3hTru6D7CmiACSVu0T1Lt4bJIMoDviZQXyA43/C7UiXO
+X-Gm-Message-State: AOJu0YxiWk2xpHMfdgl0by+lTyMCSPCEEcRHSbeoQPHbFTEsS2xeBERY
+ vv6Bs5qG7nw2U87Kg6mDkpfQvgy05A9Hl4/d5QOsJx/MMiDOOjSNmKCWfgnAuD8A9fN0XC/2G/H
+ cts7fHszorxkBNDpAt3608Om79aEveHkvS4ratYmZ5Iam+61t
+X-Google-Smtp-Source: AGHT+IFjJBtN7MtXNcf/QQ3e4+26sEK2XOSpTmqDfd6w2TNPck5yPGYCu8CgXttPPvLLkfQppUj/9j3CGsKu8RzEuYE=
+X-Received: by 2002:a25:b1a0:0:b0:dcc:693e:b396 with SMTP id
+ h32-20020a25b1a0000000b00dcc693eb396mr916615ybj.2.1708558995841; Wed, 21 Feb
+ 2024 15:43:15 -0800 (PST)
 MIME-Version: 1.0
 References: <20240221-rb3gen2-dp-connector-v1-0-dc0964ef7d96@quicinc.com>
- <20240221-rb3gen2-dp-connector-v1-5-dc0964ef7d96@quicinc.com>
-In-Reply-To: <20240221-rb3gen2-dp-connector-v1-5-dc0964ef7d96@quicinc.com>
+ <20240221-rb3gen2-dp-connector-v1-2-dc0964ef7d96@quicinc.com>
+In-Reply-To: <20240221-rb3gen2-dp-connector-v1-2-dc0964ef7d96@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 22 Feb 2024 01:42:10 +0200
-Message-ID: <CAA8EJpqtj-+PaUWeXH32_jfNaOUM+V-H0j5mZSW+rcaAQTdMzg@mail.gmail.com>
-Subject: Re: [PATCH 5/9] arm64: dts: qcom: qcs6490-rb3gen2: Enable adsp and
- cdsp
+Date: Thu, 22 Feb 2024 01:43:04 +0200
+Message-ID: <CAA8EJppPM9M0Jsb=GtqE4sdzWsKewEwkgKtF=Kb+n0tXZNSHkA@mail.gmail.com>
+Subject: Re: [PATCH 2/9] arm64: dts: qcom: sc7280: Make eDP/DP controller
+ default DP
 To: Bjorn Andersson <quic_bjorande@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -89,48 +89,21 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Thu, 22 Feb 2024 at 01:19, Bjorn Andersson <quic_bjorande@quicinc.com> wrote:
 >
-> Define firmware paths and enable the ADSP and CDSP remoteprocs.
+> The newly introduced mechanism for selecting eDP mode allow us to make a
+> DisplayPort controller operate in eDP mode, but not the other way
+> around. The qcom,sc7280-edp compatible is obviously tied to eDP, so this
+> would not allow us to select DisplayPort-mode.
+>
+> Switch the compatible of the mdss_edp instance and make it eDP for the
+> SC7280 qcard.
 >
 > Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 > ---
->  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> index 32313f47602a..ab498494caea 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> @@ -451,6 +451,16 @@ &qupv3_id_0 {
->         status = "okay";
->  };
->
-> +&remoteproc_adsp {
-> +       firmware-name = "qcom/qcs6490/rb3gen2/adsp.mbn";
+>  arch/arm64/boot/dts/qcom/sc7280-qcard.dtsi | 2 ++
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi       | 2 +-
+>  2 files changed, 3 insertions(+), 1 deletion(-)
 
-This should be either
-
-       firmware-name = "qcom/qcs6490/adsp.mbn";
-
-or
-
-       firmware-name = "qcom/qcs6490/Vendor/rb3gen2/adsp.mbn";
-
-
-> +       status = "okay";
-> +};
-> +
-> +&remoteproc_cdsp {
-> +       firmware-name = "qcom/qcs6490/rb3gen2/cdsp.mbn";
-> +       status = "okay";
-> +};
-> +
->  &tlmm {
->         gpio-reserved-ranges = <32 2>, /* ADSP */
->                                <48 4>; /* NFC */
->
-> --
-> 2.25.1
->
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 
 -- 
