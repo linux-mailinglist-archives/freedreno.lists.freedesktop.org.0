@@ -2,62 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F02285D215
-	for <lists+freedreno@lfdr.de>; Wed, 21 Feb 2024 09:05:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 484F285E6FC
+	for <lists+freedreno@lfdr.de>; Wed, 21 Feb 2024 20:12:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1C4010E319;
-	Wed, 21 Feb 2024 08:05:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3A2E10E082;
+	Wed, 21 Feb 2024 19:12:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eK6ijRXR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YW4lAoCQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E94F810E277;
- Wed, 21 Feb 2024 08:05:32 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 30350CE1C78;
- Wed, 21 Feb 2024 08:05:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68B0DC433C7;
- Wed, 21 Feb 2024 08:05:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1708502729;
- bh=Tpr/yec3AGC4Lc2eJDg1OjnAD9sBLP7h0jxhyqIYTUQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=eK6ijRXRympTy7Dlryxc1+ccz+sSc9s0V1MK9EzciMsOwCX31RlKWS1sIRNlLJZOl
- nNXm/VKIPBSVHaaNT4XyAGeUwcPHOffWPNyCwwX0+nJCVmevA9E8CLAmGbhFpzDN5i
- gNF1JoS+qJE4Du1iQMrDeb0MtjwdodkrHmvMa+4mVt5chON5GQBTtJVUNvDNQwEUCa
- 0HIEAJejS3pOB2BbCfmA/xZODMcpB6TjHBgD1ZtL4YmsLwENycTADaiN9TTZnwfMf+
- zT2IK655ADuV66esW14ijM7EDLGHrRR4PSXMazD2xJGOMUn2JbiYJplEH9ruicueIK
- +V/92rXlMN8Bw==
-Received: from johan by xi.lan with local (Exim 4.97.1)
- (envelope-from <johan@kernel.org>) id 1rchbe-000000004Sj-2sC5;
- Wed, 21 Feb 2024 09:05:30 +0100
-Date: Wed, 21 Feb 2024 09:05:30 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Bjorn Andersson <quic_bjorande@quicinc.com>,
- quic_jesszhan@quicinc.com, quic_sbillaka@quicinc.com,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, regressions@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: drm/msm: Second DisplayPort regression in 6.8-rc1
-Message-ID: <ZdWuygp4HuRVXvyl@hovoldconsulting.com>
-References: <ZctVmLK4zTwcpW3A@hovoldconsulting.com>
- <343710b1-f0f4-5c05-70e6-3c221cdc9580@quicinc.com>
- <ZczFhVjHIm55JTfO@hovoldconsulting.com>
- <ZdDNcrf4KpflGeYQ@hovoldconsulting.com>
- <ZdMwZa98L23mu3u6@hovoldconsulting.com>
- <2df31f2d-8271-d966-158a-27c6e0581d72@quicinc.com>
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB07B10E082;
+ Wed, 21 Feb 2024 19:12:38 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4126f486429so16143435e9.0; 
+ Wed, 21 Feb 2024 11:12:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1708542757; x=1709147557; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fdMTQBKI2yKY2jABhK10F1qxiB1GKnnPjOlYF9Y2al4=;
+ b=YW4lAoCQ+dsZkCrRMM8dEoycny6ZUyHrfPL6X9nkfoSx02detVHd9xY/VRAFkV+2yf
+ Dgn244tXB/jzaQmO5iRaY9g2Q3t0AyKHJqGhaUTVdwEikWCuUvz/8OnUxrqJFrWPLBje
+ J5d8CGuqCye6nwquZC5p9EaEPbFm5Iwlenfs9V8tPjmkxfqJ8BvUUK3YxOK57uR7XvCw
+ FkxfFuIASkd388pLItPOvUZjsk2DFe9AU6An//wR5GsD7BPDhbzFXhX5saGeQjpdQzmV
+ nZ7zYLUkrVGFQHph+3l5j7rEjmsSEED86yO21l2i5Ofu34U1FAWSSs7VNVnPE8ySlpPa
+ piRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708542757; x=1709147557;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fdMTQBKI2yKY2jABhK10F1qxiB1GKnnPjOlYF9Y2al4=;
+ b=nRtl4lNXLqCt1UzCWmGGJon6f2Xzj3+66HiSFVkibJlfRX25Z6b1lHafoSG09k45CV
+ 2ZhPDsbt91FKmt43ifji6fJtKYxTk8SR+fTZMjNHiEGfrp/TYs0ejQuxk1UQaqHDB/8/
+ P96lm3LngEiPIEXvYqu9SxxgWeIrVYFa2HOJEZd+h3G4UREopk0EZjiSGq9ERf32Cneo
+ MyH/lv1kR3dAHKZeR/vBIzhd0IDy1jSTDMMN6kepNb/SyNZGgNjPnp1Jyydpdbc8qmN0
+ kM7m5O5V4oPBJRJ/8kDpzB8hQZD149/9iDKwWo6AhNvQbG/3iK4cF57wzhA7epdhgSwk
+ oIpA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVIpUGqOaPXTBBsBY/LDn7mlvQRMUJNIFiovQSn25Mlp+KDbv/OdlatpYuB3wUSdaji6pb7IWDjZBHT1h3H4iDOiRF4X4nc7NcsxbZZbFtpPt2G2GMzqPHBgtZ0kE9JxZYPnhuCiOx0qaS5aX1eDeeG
+X-Gm-Message-State: AOJu0YwHtR70KEq/RRRGDD9sdkrD0Xqzxko7BfanPxNi+YXdcPkkK6NG
+ YMHTA/e6tRFxQrwAOV1BUoWTl8skL323e4ecFgBG6hzjv2bVNzNCavbrNg8g5F+EqhDJC8hEdhj
+ k8Jf5HcMIHVZ1jsStMhNes69/Xww=
+X-Google-Smtp-Source: AGHT+IGD7ehTmv5eFbRAQGIiNkkDuDo7MnHWuKvd9ELBymc/9wxgFnsfKcZhnfnKyI5cHiG44phK22cbnVo2wRf+Nv0=
+X-Received: by 2002:a05:600c:3788:b0:410:c148:2a4b with SMTP id
+ o8-20020a05600c378800b00410c1482a4bmr15875081wmr.37.1708542756436; Wed, 21
+ Feb 2024 11:12:36 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2df31f2d-8271-d966-158a-27c6e0581d72@quicinc.com>
+References: <20240220-fd-sc7180-explicit-ubwc-v1-1-611a58091724@linaro.org>
+In-Reply-To: <20240220-fd-sc7180-explicit-ubwc-v1-1-611a58091724@linaro.org>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Wed, 21 Feb 2024 19:12:25 +0000
+Message-ID: <CACu1E7Gi_-a4u_B7NmKAX70OgWwVBe1CMpSSGKwdUtAS1v5hdQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm/a6xx: specify UBWC config for sc7180
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ Leonard Lausen <leonard@lausen.nl>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,108 +83,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 20, 2024 at 01:19:54PM -0800, Abhinav Kumar wrote:
-> On 2/19/2024 2:41 AM, Johan Hovold wrote:
+On Tue, Feb 20, 2024 at 5:12=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> Historically the Adreno driver has not been updating memory
+> configuration registers on a618 (SC7180 platform) implying that the
+> default configuration is fine. After the rework performed in the commit
+> 8814455a0e54 ("drm/msm: Refactor UBWC config setting") the function
+> a6xx_calc_ubwc_config() still contained this shortcut and did not
+> calculate UBWC configuration. However the function which now actually
+> updates hardware registers, a6xx_set_ubwc_config(), doesn't contain such
+> check.
+>
+> Rather than adding the check to a6xx_set_ubwc_config(), fill in the
+> UBWC config for a618 (based on readings from SC7180).
+>
+> Reported-by: Leonard Lausen <leonard@lausen.nl>
+> Link: https://gitlab.freedesktop.org/drm/msm/-/issues/49
+> Fixes: 8814455a0e54 ("drm/msm: Refactor UBWC config setting")
+> Cc: Connor Abbott <cwabbott0@gmail.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-> > It seems my initial suspicion that at least some of these regressions
-> > were related to the runtime PM work was correct. The hard resets happens
-> > when the DP controller is runtime suspended after being probed:
+Thanks!
 
-> > [   17.074925] bus: 'platform': __driver_probe_device: matched device aea0000.displayport-controller with driver msm-dp-display
-> > [        Starting Network Time Synchronization...
-> > [   17.112000] msm-dp-display aea0000.displayport-controller: dp_display_probe - populate aux bus
-> > [   17.125208] msm-dp-display aea0000.displayport-controller: dp_pm_runtime_resume
-> >           Starting Record System Boot/Shutdown in UTMP...
-> >           Starting Virtual Console Setup...
-> > [  OK  ] Finished Load/Save Screen Backlight Brightness of backlight:backlight.
-> > [   17.197909] msm-dp-display aea0000.displayport-controller: dp_pm_runtime_suspend
-> > [   17.198079] probe of aea0Format: Log Type - Time(microsec) - Message - Optional Info
-> > Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
-> > S - QC_IMAGE_VERSION_STRING=BOOT.MXF.1.1-00470-MAKENA-1
-> > S - IMAGE_VARIANT_STRING=SocMakenaWP
-> > S - OEM_IMAGE_VERSION_STRING=crm-ubuntu92
-> > 
-> >    < machine is reset by hypervisor >
-> > 
-> > Presumably the reset happens when controller is being shut down while
-> > still being used by the EFI framebuffer.
-> 
-> I am not sure if we can conclude like that. Even if we shut off the 
-> controller when the framebuffer was still being fetched that should only 
-> cause a blank screen and not a reset because we really don't trigger a 
-> new register write / read while its fetching so as such there is no new 
-> hardware access.
+Reviewed-by: Connor Abbott <cwabbott0@gmail.com>
 
-It specifically looks like the reset happens when shutting down the PHY,
-that is, the call to dp_display_host_phy_exit(dp) in
-dp_pm_runtime_suspend() never returns.
-
-That seems like more than a coincidence to me.
- 
-> One thing I must accept is that there are two differences between 
-> sc8280xp where we are hitting these resets and sc7180/sc7280 chromebooks 
-> where we tested it more thoroughly without any such issues:
-> 
-> 1) with the chromebooks we have depthcharge and not the QC UEFI.
-> 
-> If we are suspecting a hand-off issue here, will it help if we try to 
-> disable the display in EFI by using "fastboot oem select-display-panel 
-> none" (assuming this is a fastboot enabled device) and see if you still 
-> hit the reset issue?
-
-No, we don't have fastboot.
-
-But as I mentioned I still do see resets when I instrument the code to
-not shut down the display, which could indicate more than one issue
-here.
-
-> 2) chromebooks used "internal_hpd" whereas the pmic_glink method used in 
-> the sc8280xp.
-> 
-> I am still checking if there are any code paths in the eDP/DP driver 
-> left exposed due to this difference with pm_runtime which can cause 
-> this. I am wondering if some sort of drm tracing will help to narrow 
-> down the reset point.
-> 
-> > In the cases where the machines survives boot, the controller is never
-> > suspended.
-> > 
-> > When investigating this I've also seen intermittent:
-> > 
-> > 	[drm:dp_display_probe [msm]] *ERROR* device tree parsing failed
-> 
-> So this error I think is because in dp_parser_parse() ---> 
-> dp_parser_ctrl_res(), we also have a devm_phy_get().
-> 
-> This can return -EDEFER if the phy driver has not yet probed.
-> 
-> I checked the other things inside dp_parser_parse(), others calls seem 
-> to be purely DT parsing except this one. I think to avoid the confusion, 
-> we should move devm_phy_get() outside of DT parsing into a separate call 
-> or atleast add an error log inside devm_phy_get() failure below to 
-> indicate that it deferred
-> 
->          io->phy = devm_phy_get(&pdev->dev, "dp");
->          if (IS_ERR(io->phy))
->                  return PTR_ERR(io->phy);
-> 
-> If my hypothesis is correct on this, then this error log (even though 
-> misleading) should be harmless for this issue because if we hit 
-> DRM_ERROR("device tree parsing failed\n"); we will skip the 
-> devm_pm_runtime_enable().
-
-Yeah, this seems to be the case as boot appears to recover from this, so
-this may indeed be a probe deferral.
-
-Probe deferrals should not be logged as errors however, so the fix is
-not to add another error message but rather to suppress the current one
-(e.g. using dev_err_probe()).
-
-> > Has anyone given some thought to how the framebuffer handover is
-> > supposed to work? It seems we're currently just relying on luck with
-> > timing.
-
-Any comments to this? It seems we should not be shutting down (runtime
-suspend) the display during boot as can currently happen.
-
-Johan
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index c9c55e2ea584..dc80e5940f51 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1292,9 +1292,8 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu=
+ *gpu)
+>                 gpu->ubwc_config.ubwc_mode =3D 1;
+>         }
+>
+> -       /* a618 is using the hw default values */
+>         if (adreno_is_a618(gpu))
+> -               return;
+> +               gpu->ubwc_config.highest_bank_bit =3D 14;
+>
+>         if (adreno_is_a619_holi(gpu))
+>                 gpu->ubwc_config.highest_bank_bit =3D 13;
+>
+> ---
+> base-commit: 41c177cf354126a22443b5c80cec9fdd313e67e1
+> change-id: 20240220-fd-sc7180-explicit-ubwc-40953fa55947
+>
+> Best regards,
+> --
+> Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
