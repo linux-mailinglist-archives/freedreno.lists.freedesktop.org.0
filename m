@@ -2,72 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 484F285E6FC
-	for <lists+freedreno@lfdr.de>; Wed, 21 Feb 2024 20:12:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AAC385ECA2
+	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 00:19:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3A2E10E082;
-	Wed, 21 Feb 2024 19:12:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A85E710E82C;
+	Wed, 21 Feb 2024 23:19:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YW4lAoCQ";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="THqXg8nE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB07B10E082;
- Wed, 21 Feb 2024 19:12:38 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4126f486429so16143435e9.0; 
- Wed, 21 Feb 2024 11:12:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708542757; x=1709147557; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fdMTQBKI2yKY2jABhK10F1qxiB1GKnnPjOlYF9Y2al4=;
- b=YW4lAoCQ+dsZkCrRMM8dEoycny6ZUyHrfPL6X9nkfoSx02detVHd9xY/VRAFkV+2yf
- Dgn244tXB/jzaQmO5iRaY9g2Q3t0AyKHJqGhaUTVdwEikWCuUvz/8OnUxrqJFrWPLBje
- J5d8CGuqCye6nwquZC5p9EaEPbFm5Iwlenfs9V8tPjmkxfqJ8BvUUK3YxOK57uR7XvCw
- FkxfFuIASkd388pLItPOvUZjsk2DFe9AU6An//wR5GsD7BPDhbzFXhX5saGeQjpdQzmV
- nZ7zYLUkrVGFQHph+3l5j7rEjmsSEED86yO21l2i5Ofu34U1FAWSSs7VNVnPE8ySlpPa
- piRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708542757; x=1709147557;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=fdMTQBKI2yKY2jABhK10F1qxiB1GKnnPjOlYF9Y2al4=;
- b=nRtl4lNXLqCt1UzCWmGGJon6f2Xzj3+66HiSFVkibJlfRX25Z6b1lHafoSG09k45CV
- 2ZhPDsbt91FKmt43ifji6fJtKYxTk8SR+fTZMjNHiEGfrp/TYs0ejQuxk1UQaqHDB/8/
- P96lm3LngEiPIEXvYqu9SxxgWeIrVYFa2HOJEZd+h3G4UREopk0EZjiSGq9ERf32Cneo
- MyH/lv1kR3dAHKZeR/vBIzhd0IDy1jSTDMMN6kepNb/SyNZGgNjPnp1Jyydpdbc8qmN0
- kM7m5O5V4oPBJRJ/8kDpzB8hQZD149/9iDKwWo6AhNvQbG/3iK4cF57wzhA7epdhgSwk
- oIpA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVIpUGqOaPXTBBsBY/LDn7mlvQRMUJNIFiovQSn25Mlp+KDbv/OdlatpYuB3wUSdaji6pb7IWDjZBHT1h3H4iDOiRF4X4nc7NcsxbZZbFtpPt2G2GMzqPHBgtZ0kE9JxZYPnhuCiOx0qaS5aX1eDeeG
-X-Gm-Message-State: AOJu0YwHtR70KEq/RRRGDD9sdkrD0Xqzxko7BfanPxNi+YXdcPkkK6NG
- YMHTA/e6tRFxQrwAOV1BUoWTl8skL323e4ecFgBG6hzjv2bVNzNCavbrNg8g5F+EqhDJC8hEdhj
- k8Jf5HcMIHVZ1jsStMhNes69/Xww=
-X-Google-Smtp-Source: AGHT+IGD7ehTmv5eFbRAQGIiNkkDuDo7MnHWuKvd9ELBymc/9wxgFnsfKcZhnfnKyI5cHiG44phK22cbnVo2wRf+Nv0=
-X-Received: by 2002:a05:600c:3788:b0:410:c148:2a4b with SMTP id
- o8-20020a05600c378800b00410c1482a4bmr15875081wmr.37.1708542756436; Wed, 21
- Feb 2024 11:12:36 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0B7A10E828;
+ Wed, 21 Feb 2024 23:19:21 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41LNEoYG028626; Wed, 21 Feb 2024 23:19:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:subject:date:message-id:mime-version:content-type
+ :content-transfer-encoding:to:cc; s=qcppdkim1; bh=CelsGDIFSPLJqy
+ fTWpBCJuduVZTYRQTelZocddmgQHE=; b=THqXg8nE2G+HwdHynohBH/K53Zm95a
+ L3p8ffLBH29wrdHUk4cScjB8uYh/dS/oDKncmYlTa0pBNdzDFJ3zTwhNZneTpzq+
+ ppEeu1N7yd7WYzj8o6XU8Av/lq9Uv7XSrspjrJfsDdT+5KMPDF19XI9hEaEnd/6M
+ PrB0+KgUHKe7pdzboJ7eq9ERLjXFrs9ly+dt3yOPX/spFodD27Os3qvtVeHkB9qN
+ 1ZhJ3pJ9WVWCuPBY13K1flu4EiMgFqyou1xFJT3HBCgLRJVUO7936i8C8zoTKq4P
+ bseTt6ONdybGVXpA0z55EngPsgcUSIYAF3rRvjxA7Pc/RBZkZIEbcdsg==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wdfx4hmpv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 21 Feb 2024 23:19:14 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41LNJDok020290
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 21 Feb 2024 23:19:13 GMT
+Received: from [169.254.0.1] (10.49.16.6) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 21 Feb
+ 2024 15:19:13 -0800
+From: Bjorn Andersson <quic_bjorande@quicinc.com>
+Subject: [PATCH 0/9] arm64: dts: qcom: qcs6490-rb3gen2: Enable two displays
+Date: Wed, 21 Feb 2024 15:19:08 -0800
+Message-ID: <20240221-rb3gen2-dp-connector-v1-0-dc0964ef7d96@quicinc.com>
 MIME-Version: 1.0
-References: <20240220-fd-sc7180-explicit-ubwc-v1-1-611a58091724@linaro.org>
-In-Reply-To: <20240220-fd-sc7180-explicit-ubwc-v1-1-611a58091724@linaro.org>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Wed, 21 Feb 2024 19:12:25 +0000
-Message-ID: <CACu1E7Gi_-a4u_B7NmKAX70OgWwVBe1CMpSSGKwdUtAS1v5hdQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/a6xx: specify UBWC config for sc7180
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOyE1mUC/x3MQQqEMAxA0atI1hOo0YV6FXExbVPNJpVUhgHp3
+ S0u3+L/GwqbcIGlu8H4J0WyNvSfDsLx1Z1RYjOQo9GRm9H8sLMSxhNDVuVwZUMfY/LTTCmRg5a
+ exkn+73bdan0AX5LCMGYAAAA=
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- Leonard Lausen <leonard@lausen.nl>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <cros-qcom-dts-watchers@chromium.org>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, Bjorn Andersson <quic_bjorande@quicinc.com>
+X-Mailer: b4 0.12.4
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1708557553; l=1606;
+ i=quic_bjorande@quicinc.com; s=20230915; h=from:subject:message-id;
+ bh=UawKxY/wNEpZe/K6ZSBOrWoORz1ZeMn1m4HSMFS0WhU=;
+ b=VgHOPv2y0TUisMlKhdQwzFNj5emloYz3HorglSQbNjzyMT9whYMj6lmIabHBG2z6g66EgDik7
+ LYpk2ossgV5CnDvwjylGFbmrNVdkMoKcSOFYoQ3jE1FCHk+GxvdbYh9
+X-Developer-Key: i=quic_bjorande@quicinc.com; a=ed25519;
+ pk=VkhObtljigy9k0ZUIE1Mvr0Y+E1dgBEH9WoLQnUtbIM=
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: V37K1f2kbY2gyjU0XptpF_1ASXcal3l1
+X-Proofpoint-GUID: V37K1f2kbY2gyjU0XptpF_1ASXcal3l1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-21_09,2024-02-21_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0
+ mlxlogscore=544 clxscore=1011 mlxscore=0 malwarescore=0 impostorscore=0
+ priorityscore=1501 phishscore=0 spamscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2402120000 definitions=main-2402210184
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,58 +105,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 20, 2024 at 5:12=E2=80=AFPM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> Historically the Adreno driver has not been updating memory
-> configuration registers on a618 (SC7180 platform) implying that the
-> default configuration is fine. After the rework performed in the commit
-> 8814455a0e54 ("drm/msm: Refactor UBWC config setting") the function
-> a6xx_calc_ubwc_config() still contained this shortcut and did not
-> calculate UBWC configuration. However the function which now actually
-> updates hardware registers, a6xx_set_ubwc_config(), doesn't contain such
-> check.
->
-> Rather than adding the check to a6xx_set_ubwc_config(), fill in the
-> UBWC config for a618 (based on readings from SC7180).
->
-> Reported-by: Leonard Lausen <leonard@lausen.nl>
-> Link: https://gitlab.freedesktop.org/drm/msm/-/issues/49
-> Fixes: 8814455a0e54 ("drm/msm: Refactor UBWC config setting")
-> Cc: Connor Abbott <cwabbott0@gmail.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+RB3Gen2 is capable of producing DisplayPort output on a dedicated
+mini-DP connector and USB Type-C.
 
-Thanks!
+Utilize Abel's work for DP vs eDP selection to allow configuring both
+controllers in DP-mode, then enable the two output paths.
 
-Reviewed-by: Connor Abbott <cwabbott0@gmail.com>
+Tested by driving fbcon to 4k@60 + 4k@30 concurrently.
 
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.c
-> index c9c55e2ea584..dc80e5940f51 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1292,9 +1292,8 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu=
- *gpu)
->                 gpu->ubwc_config.ubwc_mode =3D 1;
->         }
->
-> -       /* a618 is using the hw default values */
->         if (adreno_is_a618(gpu))
-> -               return;
-> +               gpu->ubwc_config.highest_bank_bit =3D 14;
->
->         if (adreno_is_a619_holi(gpu))
->                 gpu->ubwc_config.highest_bank_bit =3D 13;
->
-> ---
-> base-commit: 41c177cf354126a22443b5c80cec9fdd313e67e1
-> change-id: 20240220-fd-sc7180-explicit-ubwc-40953fa55947
->
-> Best regards,
-> --
-> Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->
+Depends on https://lore.kernel.org/linux-arm-msm/20240220-x1e80100-display-v4-0-971afd9de861@linaro.org/
+
+Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+---
+Bjorn Andersson (9):
+      drm/msm/dp: Add DP support to combo instance in SC7280
+      arm64: dts: qcom: sc7280: Make eDP/DP controller default DP
+      arm64: dts: qcom: sc7280: Enable MDP turbo mode
+      arm64: dts: qcom: qcs6490-rb3gen2: Add DP output
+      arm64: dts: qcom: qcs6490-rb3gen2: Enable adsp and cdsp
+      arm64: dts: qcom: qcs6490-rb3gen2: Enable USB role switching
+      arm64: dts: qcom: qcs6490-rb3gen2: Introduce USB redriver
+      arm64: dts: qcom: qcs6490-rb3gen2: Enable USB Type-C display
+      arm64: defconfig: Enable sc7280 display and gpu clock controllers
+
+ arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 154 ++++++++++++++++++++++++++-
+ arch/arm64/boot/dts/qcom/sc7280-qcard.dtsi   |   2 +
+ arch/arm64/boot/dts/qcom/sc7280.dtsi         |   7 +-
+ arch/arm64/configs/defconfig                 |   2 +
+ drivers/gpu/drm/msm/dp/dp_display.c          |   9 +-
+ 5 files changed, 170 insertions(+), 4 deletions(-)
+---
+base-commit: aba508318eec7acad2373296279d6447fd35f83f
+change-id: 20240209-rb3gen2-dp-connector-bddfb892ff20
+
+Best regards,
+-- 
+Bjorn Andersson <quic_bjorande@quicinc.com>
+
