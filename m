@@ -2,68 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5874885FD96
-	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 17:06:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A98085FDB6
+	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 17:11:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D5CF10E9B1;
-	Thu, 22 Feb 2024 16:06:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB10D10E2D8;
+	Thu, 22 Feb 2024 16:11:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KWJbfB7i";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Wcgi/ear";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A51310E9A7;
- Thu, 22 Feb 2024 16:06:11 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6FECB618A2;
- Thu, 22 Feb 2024 16:06:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8F2C433F1;
- Thu, 22 Feb 2024 16:06:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1708617968;
- bh=C+TptrLEyKVQZgqziz2FhHnXNxbrMuek3GwWVcpvIo4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KWJbfB7iIrJzA5wgM//VQpK+Eg1Jl7jsjd4SEzbxStIlH2+3ip1yzmyPSHymB5rIP
- +kuPH04cJMfNIEEuP8KlSRti8JVt9Q1OQ9+RCo5Q9bLhbBmhXKKx2VNjyDHEsPbBbK
- txObfjquCti+EIcWW907dO1EI2N0f0pR6lZPMso9UMv/vXM84tR6cV66jS+yrMXDSc
- 8+pkoyUMMrMhNi298AylQnGdWqe7h7vQly7yRH6YyKSy2fZiubV7K+QbbHmfavTyza
- fKszN2T/ofej2aQ5sp9beXBRSLahj63YnaDP2IIUwJMH/YOkGHj2yPLuL2IiNgV98j
- r05Ygwua981+A==
-Received: from johan by xi.lan with local (Exim 4.97.1)
- (envelope-from <johan@kernel.org>) id 1rdBaM-0000000087I-3fOL;
- Thu, 22 Feb 2024 17:06:10 +0100
-Date: Thu, 22 Feb 2024 17:06:10 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Johan Hovold <johan+linaro@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org
-Subject: Re: [PATCH 2/6] drm/bridge: aux-hpd: separate allocation and
- registration
-Message-ID: <Zddw8uhFwcwILhK0@hovoldconsulting.com>
-References: <20240217150228.5788-1-johan+linaro@kernel.org>
- <20240217150228.5788-3-johan+linaro@kernel.org>
- <cyzl3m67daaijpwhcwx53tk7tgrvw4kxiz7cj6bhx5xxwh6fuj@u2l674nlp4th>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5803A10E2D8;
+ Thu, 22 Feb 2024 16:11:38 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41ME0Uw0004898; Thu, 22 Feb 2024 16:11:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=VkGlsO5Mrfm3ug1ikkXZ4Ko+065GQMTl3KKTloxaHRI=; b=Wc
+ gi/ear9ii7PqqSdoUkOjrnztKdKVFRyHlKKtvpDEkavoLTOtgN5L5Toc45h2Dg03
+ cySRywimZGBcub6CmgYXa/CgTDYN/Hm95MQbTSIWLjX5uigTPIKyz+4UGWig1dyK
+ qFKtqBcYu0C6HI/bahlTIIVGdMM5AC1Rj5mSlXZtFdVA9dVTH187pcC8nNYG+hh4
+ /C4DGzUXK9hR717dUEp58GuAETcwSWd6En21QTaVO1QaqUmowNqGruhNdOHeuo+X
+ 3gQbClyKk1YOIHPZQNKn53l7U1Vsdx6KsU966EE8FOm5rKTeqQlQboZcD21RcoRS
+ ZPevnel8sDaTpHTgYkcg==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wdwmd1yt8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 22 Feb 2024 16:11:31 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41MGBUNA018720
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 22 Feb 2024 16:11:30 GMT
+Received: from [10.216.18.198] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 22 Feb
+ 2024 08:11:24 -0800
+Message-ID: <407ea19a-17a2-471b-80e9-1c35dbc21bb4@quicinc.com>
+Date: Thu, 22 Feb 2024 21:41:20 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cyzl3m67daaijpwhcwx53tk7tgrvw4kxiz7cj6bhx5xxwh6fuj@u2l674nlp4th>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/9] arm64: dts: qcom: qcs6490-rb3gen2: Enable USB role
+ switching
+To: Bjorn Andersson <quic_bjorande@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ "Marijn Suijten" <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ <cros-qcom-dts-watchers@chromium.org>, "Bjorn Andersson"
+ <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>
+References: <20240221-rb3gen2-dp-connector-v1-0-dc0964ef7d96@quicinc.com>
+ <20240221-rb3gen2-dp-connector-v1-6-dc0964ef7d96@quicinc.com>
+Content-Language: en-US
+From: Krishna Kurapati PSSNV <quic_kriskura@quicinc.com>
+In-Reply-To: <20240221-rb3gen2-dp-connector-v1-6-dc0964ef7d96@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Vdf4OS8I7J8VXnlr-FvlAMW764c5s7EW
+X-Proofpoint-ORIG-GUID: Vdf4OS8I7J8VXnlr-FvlAMW764c5s7EW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-22_12,2024-02-22_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ impostorscore=0 mlxlogscore=999 suspectscore=0 malwarescore=0 spamscore=0
+ bulkscore=0 priorityscore=1501 phishscore=0 mlxscore=0 clxscore=1011
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2402120000 definitions=main-2402220127
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,36 +101,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Feb 21, 2024 at 08:06:41PM -0600, Bjorn Andersson wrote:
-> On Sat, Feb 17, 2024 at 04:02:24PM +0100, Johan Hovold wrote:
-> > diff --git a/drivers/gpu/drm/bridge/aux-hpd-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-> [..]
-> > +/**
-> > + * devm_drm_dp_hpd_bridge_add - register a HDP DisplayPort bridge
+
+
+On 2/22/2024 4:49 AM, Bjorn Andersson wrote:
+> With the ADSP remoteproc loaded pmic_glink can be introduced and wired
+> up to provide role and orientation switching signals.
 > 
-> kernel-doc wants () after function names.
-
-I don't think that's required for the symbol name here even if some
-subsystems (drivers) use it.
-
-> > + * @dev: struct device to tie registration lifetime to
-> > + * @adev: bridge auxiliary device to be registered
-> > + *
-> > + * Returns: zero on success or a negative errno
+> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+> ---
+>   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 48 +++++++++++++++++++++++++++-
+>   1 file changed, 47 insertions(+), 1 deletion(-)
 > 
-> and "Return:" without the 's'.
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> index ab498494caea..079bf43b14cc 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> @@ -121,6 +121,41 @@ debug_vm_mem: debug-vm@d0600000 {
+>   		};
+>   	};
+>   
+> +	pmic-glink {
+> +		compatible = "qcom,qcm6490-pmic-glink", "qcom,pmic-glink";
+> +
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		connector@0 {
+> +			compatible = "usb-c-connector";
+> +			reg = <0>;
+> +			power-role = "dual";
+> +			data-role = "dual";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +
+> +					pmic_glink_hs_in: endpoint {
+> +						remote-endpoint = <&usb_1_dwc3_hs>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					pmic_glink_ss_in: endpoint {
+> +						remote-endpoint = <&usb_1_dwc3_ss>;
+> +					};
+> +				};
 
-This was a mistake however. Perhaps whoever applies this can drop it, or
-I can send a v2.
+For the role switching part:
+Tested-By: Krishna Kurapati PSSNV <quic_kriskura@quicinc.com>
 
-Side note: Looks like there are more instances with an 's' than without
-under driver/gpu/drm...
+Regards,
+Krishna,
 
-> This could however be done in a separate patch, as the file is already
-> wrong in this regard.
-> 
-> Reviewed-by: Bjorn Andersson <andersson@kernel.org>
 
-Thanks for reviewing.
-
-Johan
