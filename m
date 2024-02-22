@@ -2,35 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D30DD85EEA0
-	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 02:22:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7940285EEE3
+	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 03:06:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 720C310E021;
-	Thu, 22 Feb 2024 01:22:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92E4010E852;
+	Thu, 22 Feb 2024 02:06:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZYHtQU7M";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OYfgohSQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80E8D10E021;
- Thu, 22 Feb 2024 01:22:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74DF010E852;
+ Thu, 22 Feb 2024 02:06:46 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6532861636;
- Thu, 22 Feb 2024 01:22:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48717C433F1;
- Thu, 22 Feb 2024 01:22:29 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 79E16616EA;
+ Thu, 22 Feb 2024 02:06:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A01CC433F1;
+ Thu, 22 Feb 2024 02:06:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1708564951;
- bh=8Gg4bD6vnGa/ihYXZ1047KooWejaE+1erFa2VYXuF9E=;
+ s=k20201202; t=1708567605;
+ bh=Ybci3+TcYCfWUtyyK9oMeVMAce0zLcjOP2WOB1QozRI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZYHtQU7Mv/GCNI0yL8RMHsMF/ZegGIuZqV+ymww3V9s7XwbHQuKONVFzVA7hoonpI
- Jt/gLGnHD0CvJdG+Mqw5AEFnU3GgV+xkqlrOT1l0JhTkj7p18G0ZQABJIZgph8HBDR
- Icuv+0JngsPayepXdzwql7ysTCIyE76+qJ4WOsxO2zmeIbt/oeTFqsp0rYZALvzCp6
- P9PsjhAD3oAD/mHFbJWY/ff0T++CL8XzhNPiqQXo1Z2O5CCm/IWQAAVS+0hoDZf9Cb
- wOOW7BfGDgkfbVPYL+8oRxyzeW8H/tSTwnRSD62aMFLrF8KrRaWpdAqCpl1woHNF9X
- gLuN5sqBp2c7Q==
-Date: Wed, 21 Feb 2024 19:22:27 -0600
+ b=OYfgohSQYfx5MuNjkVKbPMcSliwWc4XdYPqIUBvIvU4KT/boyIp106nCyVqD021Sd
+ njg8Y4SdVFb5APDaQCYE2FZLojpASoRlm7m+focW1sr1wY5c1CzFAEp1Ag2fBVoJrT
+ nzkinUd0UTlLcpG28vbMYlglF6egqdoraXipCtlKZ9oB0pbQR+DiuK2gfCFqa/iMVe
+ oKBs87RNBKE5mMumkZsCJzbM3ew6tSls7bY5/3Yt59MZZEj1Q2ukrajX2bvO7RUFH5
+ Vbx0/AuXX/AKEjWdBndtBOwymR7Hqck94bPygq4Jjs+1eidMFEX2QfAoI1iSTeXNyY
+ mxbTcAqfLSiKg==
+Date: Wed, 21 Feb 2024 20:06:41 -0600
 From: Bjorn Andersson <andersson@kernel.org>
 To: Johan Hovold <johan+linaro@kernel.org>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,14 +50,15 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org
-Subject: Re: [PATCH 1/6] drm/bridge: aux-hpd: fix OF node leaks
-Message-ID: <j3t72nmsbhe6jdbnvmdsqmosokth65cpbtzoyr7rcddb5xzioa@nu5le67dpyod>
+Subject: Re: [PATCH 2/6] drm/bridge: aux-hpd: separate allocation and
+ registration
+Message-ID: <cyzl3m67daaijpwhcwx53tk7tgrvw4kxiz7cj6bhx5xxwh6fuj@u2l674nlp4th>
 References: <20240217150228.5788-1-johan+linaro@kernel.org>
- <20240217150228.5788-2-johan+linaro@kernel.org>
+ <20240217150228.5788-3-johan+linaro@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240217150228.5788-2-johan+linaro@kernel.org>
+In-Reply-To: <20240217150228.5788-3-johan+linaro@kernel.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,45 +74,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Feb 17, 2024 at 04:02:23PM +0100, Johan Hovold wrote:
-> The two device node references taken during allocation need to be
-> dropped when the auxiliary device is freed.
-> 
-> Fixes: 6914968a0b52 ("drm/bridge: properly refcount DT nodes in aux bridge drivers")
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+On Sat, Feb 17, 2024 at 04:02:24PM +0100, Johan Hovold wrote:
+> diff --git a/drivers/gpu/drm/bridge/aux-hpd-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
+[..]
+> +/**
+> + * devm_drm_dp_hpd_bridge_add - register a HDP DisplayPort bridge
+
+kernel-doc wants () after function names.
+
+> + * @dev: struct device to tie registration lifetime to
+> + * @adev: bridge auxiliary device to be registered
+> + *
+> + * Returns: zero on success or a negative errno
+
+and "Return:" without the 's'.
+
+This could however be done in a separate patch, as the file is already
+wrong in this regard.
 
 Reviewed-by: Bjorn Andersson <andersson@kernel.org>
 
 Regards,
 Bjorn
-
-> ---
->  drivers/gpu/drm/bridge/aux-hpd-bridge.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/bridge/aux-hpd-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-> index bb55f697a181..9e71daf95bde 100644
-> --- a/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-> +++ b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-> @@ -25,6 +25,7 @@ static void drm_aux_hpd_bridge_release(struct device *dev)
->  	ida_free(&drm_aux_hpd_bridge_ida, adev->id);
->  
->  	of_node_put(adev->dev.platform_data);
-> +	of_node_put(adev->dev.of_node);
->  
->  	kfree(adev);
->  }
-> @@ -74,6 +75,8 @@ struct device *drm_dp_hpd_bridge_register(struct device *parent,
->  
->  	ret = auxiliary_device_init(adev);
->  	if (ret) {
-> +		of_node_put(adev->dev.platform_data);
-> +		of_node_put(adev->dev.of_node);
->  		ida_free(&drm_aux_hpd_bridge_ida, adev->id);
->  		kfree(adev);
->  		return ERR_PTR(ret);
-> -- 
-> 2.43.0
-> 
