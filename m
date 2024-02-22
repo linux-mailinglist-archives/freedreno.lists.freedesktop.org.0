@@ -2,90 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A98085FDB6
-	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 17:11:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03B0B85FF6E
+	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 18:32:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB10D10E2D8;
-	Thu, 22 Feb 2024 16:11:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62DF110E9C3;
+	Thu, 22 Feb 2024 17:32:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Wcgi/ear";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MN/uiAI4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5803A10E2D8;
- Thu, 22 Feb 2024 16:11:38 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41ME0Uw0004898; Thu, 22 Feb 2024 16:11:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=VkGlsO5Mrfm3ug1ikkXZ4Ko+065GQMTl3KKTloxaHRI=; b=Wc
- gi/ear9ii7PqqSdoUkOjrnztKdKVFRyHlKKtvpDEkavoLTOtgN5L5Toc45h2Dg03
- cySRywimZGBcub6CmgYXa/CgTDYN/Hm95MQbTSIWLjX5uigTPIKyz+4UGWig1dyK
- qFKtqBcYu0C6HI/bahlTIIVGdMM5AC1Rj5mSlXZtFdVA9dVTH187pcC8nNYG+hh4
- /C4DGzUXK9hR717dUEp58GuAETcwSWd6En21QTaVO1QaqUmowNqGruhNdOHeuo+X
- 3gQbClyKk1YOIHPZQNKn53l7U1Vsdx6KsU966EE8FOm5rKTeqQlQboZcD21RcoRS
- ZPevnel8sDaTpHTgYkcg==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wdwmd1yt8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 22 Feb 2024 16:11:31 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41MGBUNA018720
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 22 Feb 2024 16:11:30 GMT
-Received: from [10.216.18.198] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 22 Feb
- 2024 08:11:24 -0800
-Message-ID: <407ea19a-17a2-471b-80e9-1c35dbc21bb4@quicinc.com>
-Date: Thu, 22 Feb 2024 21:41:20 +0530
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
+ [209.85.128.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77AD110E9C5
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 17:32:28 +0000 (UTC)
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-6083cabc2f9so48500157b3.1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 09:32:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1708623147; x=1709227947; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=uHYuztdiqcnoWxT8IYhA0vORd3mYh+h0ETbBCJU2hFs=;
+ b=MN/uiAI4inwFB6j9UXVTSf3vdW8CTMsHKA1Bav9YMrPZ4hm1L5Qw292JsoGFvW4DhR
+ nvHPaKir1vA6z/g8D1kPcDRdwp1H074lfMU4bhonyjJNV5LH5vakLUbowtCSBzjcIrCP
+ lTOP5WKblaCWps1Q4FujD9qLF6WwdV0c9uV9vUXo7rnMnHvsdkahq0FEI/zhsz3ytTKU
+ qjSwx5OsFjjh3W/n11ehpk6nWFZ/gDXM40yryYGp2uv/sC2JN0p1M7zgO5C8S9uNw8TU
+ ovPnnkthKq49IHRGu4aQNNpOx2yHEcNwDWwSIkHM+gYlYZMsrzUauVSIBzY87X60jAGt
+ UsSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708623147; x=1709227947;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uHYuztdiqcnoWxT8IYhA0vORd3mYh+h0ETbBCJU2hFs=;
+ b=nOzgT1bqvT9ohyklkQxFbX5a2JGfZ3yKOCIFXhzdyh9ezUWLW6odvcDunQv3uXW1/m
+ J351emEkaAHZeLkxEeymxPpTQ+mrzQENscT7s/nA/l5ARO+UDkxI+IlG2vUUggeebJeo
+ c6kexdeyc4oBqI2XMbYXuE8mYRanHtOfRI9IeoG/wKRhbz0dI7PY6Tayfjmq6dLKKuv7
+ KtGeTfePpwBCnQumK982ljCGFbNvXXYCUyDVy3gyfOwREr2DxF6/4weAiXg4cHP+frgt
+ O47NK14gDINjls4ZKJV7rcLB4X+sU9vkKybk7vlC+pbPWncNryn5XaAaoi/rOYB34m1n
+ Olog==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWHNa2tVjctXoYarYvbu0kHH5DZHYD1GcWX+3BbQ+RXNnk8HgKfPndqBE7H3MsULomiuS2DfafsnNq0lhsqCS4EKyliWyqZhdgy+Cd6RVO/
+X-Gm-Message-State: AOJu0Yw4q1yA/cNxwYjjx9cl52TWlebgcvxtZkFFA4U29c/wc3rHCcjO
+ fkm4gpNmByRA1OyiSAGR6/lSvGdKBxJPGEOsXSrADJ4b378vjOFbj2Vx0xvNt1mr0B4Z83IAFwb
+ 8TwQbSpu8RBoH9DC3bwT2FKxVucXjAPQgw39YJw==
+X-Google-Smtp-Source: AGHT+IEChpsE7RSvYtvlDilze7tlEfcebE5fWeV9v6TUsqyy6KJBLB0hOKOdzrs9KYPLmaKn2wbmU4LNaaPxNFAv0eU=
+X-Received: by 2002:a81:6c0f:0:b0:608:7488:8691 with SMTP id
+ h15-20020a816c0f000000b0060874888691mr6826857ywc.38.1708623147287; Thu, 22
+ Feb 2024 09:32:27 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/9] arm64: dts: qcom: qcs6490-rb3gen2: Enable USB role
- switching
-To: Bjorn Andersson <quic_bjorande@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- "Marijn Suijten" <marijn.suijten@somainline.org>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- <cros-qcom-dts-watchers@chromium.org>, "Bjorn Andersson"
- <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>
 References: <20240221-rb3gen2-dp-connector-v1-0-dc0964ef7d96@quicinc.com>
- <20240221-rb3gen2-dp-connector-v1-6-dc0964ef7d96@quicinc.com>
-Content-Language: en-US
-From: Krishna Kurapati PSSNV <quic_kriskura@quicinc.com>
-In-Reply-To: <20240221-rb3gen2-dp-connector-v1-6-dc0964ef7d96@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: Vdf4OS8I7J8VXnlr-FvlAMW764c5s7EW
-X-Proofpoint-ORIG-GUID: Vdf4OS8I7J8VXnlr-FvlAMW764c5s7EW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-22_12,2024-02-22_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- impostorscore=0 mlxlogscore=999 suspectscore=0 malwarescore=0 spamscore=0
- bulkscore=0 priorityscore=1501 phishscore=0 mlxscore=0 clxscore=1011
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2402120000 definitions=main-2402220127
+ <20240221-rb3gen2-dp-connector-v1-3-dc0964ef7d96@quicinc.com>
+ <CAA8EJpo=9vhM+5YzaFxUoYRuEWQyrMS8wLNPSF3K=bN5JwWyDw@mail.gmail.com>
+ <8313a7c3-3ace-4dee-ad27-8f51a06cd58c@linaro.org>
+ <CAA8EJpqFj5nf8d_=Uoup7qg+nQrxqQU-DHbL3uSP138m9AcXLw@mail.gmail.com>
+ <8fcb5816-2d59-4e27-ba68-8e0ed6e7d839@linaro.org>
+ <CAA8EJporaUuddHHqpyYHiYSu=toHmrDxSHf9msZUJoym4Nz72g@mail.gmail.com>
+ <20240222150423.GI2936378@hu-bjorande-lv.qualcomm.com>
+In-Reply-To: <20240222150423.GI2936378@hu-bjorande-lv.qualcomm.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 22 Feb 2024 19:32:15 +0200
+Message-ID: <CAA8EJpqd=1KV_dN8AURQDcFDDyO+YtbC59gM7ftt+HohGM93hg@mail.gmail.com>
+Subject: Re: [PATCH 3/9] arm64: dts: qcom: sc7280: Enable MDP turbo mode
+To: Bjorn Andersson <quic_bjorande@quicinc.com>
+Cc: Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Douglas Anderson <dianders@chromium.org>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ cros-qcom-dts-watchers@chromium.org, 
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,61 +94,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Thu, 22 Feb 2024 at 17:04, Bjorn Andersson <quic_bjorande@quicinc.com> wrote:
+>
+> On Thu, Feb 22, 2024 at 11:46:26AM +0200, Dmitry Baryshkov wrote:
+> > On Thu, 22 Feb 2024 at 11:28, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+> > >
+> > >
+> > >
+> > > On 2/22/24 10:04, Dmitry Baryshkov wrote:
+> > > > On Thu, 22 Feb 2024 at 10:56, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+> > > >>
+> > > >>
+> > > >>
+> > > >> On 2/22/24 00:41, Dmitry Baryshkov wrote:
+> > > >>> On Thu, 22 Feb 2024 at 01:19, Bjorn Andersson <quic_bjorande@quicinc.com> wrote:
+> > > >>>>
+> > > >>>> The max frequency listed in the DPU opp-table is 506MHz, this is not
+> > > >>>> sufficient to drive a 4k@60 display, resulting in constant underrun.
+> > > >>>>
+> > > >>>> Add the missing MDP_CLK turbo frequency of 608MHz to the opp-table to
+> > > >>>> fix this.
+> > > >>>
+> > > >>> I think we might want to keep this disabled for ChromeOS devices. Doug?
+> > > >>
+> > > >> ChromeOS devices don't get a special SoC
+> > > >
+> > > > But they have the sc7280-chrome-common.dtsi, which might contain a
+> > > > corresponding /delete-node/ .
+> > >
+> > > What does that change? The clock rates are bound to the
+> > > SoC and the effective values are limited by link-frequencies
+> > > or the panel driver.
+> >
+> > Preventing the DPU from overheating? Or spending too much power?
+> >
+>
+> Perhaps I'm misunderstanding the implementation then, are we always
+> running at the max opp? I thought the opp was selected based on the
+> current need for performance?
+
+Yes. My concern was whether the Chrome people purposely skipped this
+top/turbo freq for any reason. In such a case, surprising them by
+adding it to all platforms might be not the best idea. I hope Doug can
+comment here.
 
 
-On 2/22/2024 4:49 AM, Bjorn Andersson wrote:
-> With the ADSP remoteproc loaded pmic_glink can be introduced and wired
-> up to provide role and orientation switching signals.
-> 
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-> ---
->   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 48 +++++++++++++++++++++++++++-
->   1 file changed, 47 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> index ab498494caea..079bf43b14cc 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> @@ -121,6 +121,41 @@ debug_vm_mem: debug-vm@d0600000 {
->   		};
->   	};
->   
-> +	pmic-glink {
-> +		compatible = "qcom,qcm6490-pmic-glink", "qcom,pmic-glink";
-> +
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		connector@0 {
-> +			compatible = "usb-c-connector";
-> +			reg = <0>;
-> +			power-role = "dual";
-> +			data-role = "dual";
-> +
-> +			ports {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				port@0 {
-> +					reg = <0>;
-> +
-> +					pmic_glink_hs_in: endpoint {
-> +						remote-endpoint = <&usb_1_dwc3_hs>;
-> +					};
-> +				};
-> +
-> +				port@1 {
-> +					reg = <1>;
-> +
-> +					pmic_glink_ss_in: endpoint {
-> +						remote-endpoint = <&usb_1_dwc3_ss>;
-> +					};
-> +				};
-
-For the role switching part:
-Tested-By: Krishna Kurapati PSSNV <quic_kriskura@quicinc.com>
-
-Regards,
-Krishna,
-
-
+-- 
+With best wishes
+Dmitry
