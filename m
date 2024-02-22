@@ -2,67 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93EBC85F7AA
-	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 13:05:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0543785F7B1
+	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 13:06:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E15710E8FF;
-	Thu, 22 Feb 2024 12:05:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA7F10E911;
+	Thu, 22 Feb 2024 12:06:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yYNPZWaO";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="D+PUJ1Uc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 653C810E902
- for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 12:05:53 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-a3f1bf03722so317272766b.1
- for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 04:05:53 -0800 (PST)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1940E10E909
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 12:06:34 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-a3eafbcb1c5so498638566b.0
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 04:06:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708603551; x=1709208351; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=VhNTP5JSQFFpkkI45lmtwLKszfADT7dwrioks7vMsQQ=;
- b=yYNPZWaOLIEphImc7mugFD1ElrbIKYzcH+aYnTwvNJCFZ/ztDISCsJ5GepeDxdSHjQ
- LqDitBdSQpozy8v4NXxfqKNcGxUNUtVZKHA8q0QQ8UQ3yx4ai21dTONuDhKXLl5sXBRz
- +5o7ZP2H09KHnfD3D+Xq3QMSV5d0YR+X2QLt35iuTuE0CLp9QpxvcmFC66i5XgzZoxWt
- qQ7Wm7bd7QoRUfYjcUHSG630g1fkMe/YvhGyYBOgpvtKQCcVrvegk5rYQ+g7awXAwmy7
- Nt4dSWS5k9hxY7jRXXv6aW4WzmEo8yCjejwJsCtWFiMLbq7a8vkjRZONbZjeCSw4wvxe
- 5fXg==
+ d=linaro.org; s=google; t=1708603592; x=1709208392; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=XHa5235f3kt9jZfGjaBEmGnvg17AThIfGkA6Ms6UFUA=;
+ b=D+PUJ1UcTSzo+Xd/QHM4DlO/GzcB/mQK4+0+I159K50waAk7oCh9L977RoDMgdjQxL
+ zQkBeS8yNZDfrlVDMy+85LNd/fgwiilggBfbAPa7drbvoumz+yMTcvakW9Y9C+lHVk7S
+ c+CpDpM+JeYwvwdv/2HVtxaKSLx+ywOfW/i3G/w8l8nVMJZ3sdFQtRrMzT+tRDcW5g7S
+ 3oqtsKm7nnt1gkcPv/m6nbo06O6A7L8n/IIo0V8YamGYlZ+N2CZbU+YZ8Q8JTkQndimE
+ 2FrY2wfPi5W/8xCdu8RtCT1uNzPAeChnBxfgbAJnEzYY0TOXmdhrBszPnijGtDBefWY7
+ 0cJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708603551; x=1709208351;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VhNTP5JSQFFpkkI45lmtwLKszfADT7dwrioks7vMsQQ=;
- b=bdcORZjalg+eLkxiaQq4bJNt3fgcS8Hir6o6wN3c9f2/5VFr+5ISEnYKdpVAoYki3s
- AGqVmvRdvLtShSsu1BY0o0Use3V4+OOH8kp4HyZPrMF7rex04zNzrr6AqJfbjig4cjxO
- WRgaNbqeY8aPNZv6Ak7aDzzW6Xi4o8/iyIn3bVi0Fh7etaZl3h8x+DkY+y2l39yyH9TP
- P4GlduO5iexxmiwvpXSpF5RfdeTQR6/dsHQJjsev4SSS4a4r9xucpf9Sj2o59OCnc3nB
- 3E0hbklD+xzpwsaLOuvrTn6Q3CwS/3nx+tZmF7+wzkr2IyYHYADGrFFsq8neLlo72hc+
- ns1Q==
+ d=1e100.net; s=20230601; t=1708603592; x=1709208392;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=XHa5235f3kt9jZfGjaBEmGnvg17AThIfGkA6Ms6UFUA=;
+ b=LixsNoprwh8rj6SJ0LH5lDTDw0zrFHtTUyPi28T+C7qlIxKtJBG60gjUqxP6IlpezD
+ BF18l7nu9KI75XqodlY/KjJDYlqJRLxroZjx04tn08l4DYIdEyDi1h8oSn05aSfYVdm+
+ xkdmYcIx9TRiC9gMUKVZ5Li3rjWQMNC6b217hJFltMovGhqJ+oDACpRrBHpwo8AaIbE3
+ ng9cMpE8Jzgi5X+d3WGPZP3QN98EyMXviLYlwaK7bZuBEbTOTMU8AiFeAtCv9mv+7JhN
+ q6grFofX+APzBKZe2WK0x7f5MN1TbxkDesc8TBPHYTKuVsDkdVJbogdjxjXVaOquh+8G
+ eOfw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX13quenKOkUB9CGQGG8UWfN0eu7rDSjHDyKFDcAB1q2qWBNCiXiQgTnZx+8D2gthiReYfPEM+B+PkUcvijcVJR8E+Ez1YS64lwWNtKXVGd
-X-Gm-Message-State: AOJu0YyLb90FQNLGHUzI0LwFGNisiKFhLSYLglGCNdBbSkw2WMX2V1RP
- 6jFimXEKjGdUtT7AjGe6YfbxM6QATZ9UYlhce0EkqcKh26MbrPVLM3IFkSwqJCw=
-X-Google-Smtp-Source: AGHT+IF0gq7oB19JRQfFEFdJ3i5QsdYD92leThmo951Mg2PKlUcdNRsBde2z2MI+ZKWkTEbzC/a84Q==
-X-Received: by 2002:a17:907:b9ca:b0:a3f:2247:bb59 with SMTP id
- xa10-20020a170907b9ca00b00a3f2247bb59mr4009151ejc.61.1708603551444; 
- Thu, 22 Feb 2024 04:05:51 -0800 (PST)
+ AJvYcCUsxH2e35WAnwxpBMC0NbE7BXPnWsstlrcXhsdKB5nuiLLEV8cXHML3BSYIT6n1rCaa4fb+dvXO4tZtu7282S3VfhAy2iDBFJ7klTegE6xH
+X-Gm-Message-State: AOJu0Yy22ZMIyoIsPwhw4LYfPGV+CWLaNxVzG7FNjQ1dSx0jaNhyEmqz
+ p7bxFFv09Ai3DjhRJzgyk8u02PpiAAkJJpPErzu0UozYbU1q4wIi+mV90kUkpc8=
+X-Google-Smtp-Source: AGHT+IHvla7m4ZYgc3jjkIaynn5M6ot4IzHI5Wb7Kz375HfTJBfGN/z83SI+l/ELrpL/guKZwGYY+Q==
+X-Received: by 2002:a17:906:1c05:b0:a3f:804f:c1a4 with SMTP id
+ k5-20020a1709061c0500b00a3f804fc1a4mr1267372ejg.74.1708603592180; 
+ Thu, 22 Feb 2024 04:06:32 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.222.116])
  by smtp.gmail.com with ESMTPSA id
- y2-20020a170906470200b00a3d0dd84276sm5890564ejq.184.2024.02.22.04.05.48
+ y2-20020a170906470200b00a3d0dd84276sm5890564ejq.184.2024.02.22.04.06.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Feb 2024 04:05:50 -0800 (PST)
-Message-ID: <bd13fb09-8602-45e3-8d03-db7a8a0afb7e@linaro.org>
-Date: Thu, 22 Feb 2024 13:05:46 +0100
+ Thu, 22 Feb 2024 04:06:31 -0800 (PST)
+Message-ID: <4a812d27-26e4-4358-a9f5-33ac66086769@linaro.org>
+Date: Thu, 22 Feb 2024 13:06:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] dt-bindings: arm-smmu: fix SM8[45]50 GPU SMMU if
- condition
+Subject: Re: [PATCH v3 3/7] dt-bindings: arm-smmu: Document SM8650 GPU SMMU
+Content-Language: en-US
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
@@ -81,8 +80,7 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  iommu@lists.linux.dev
 References: <20240216-topic-sm8650-gpu-v3-0-eb1f4b86d8d3@linaro.org>
- <20240216-topic-sm8650-gpu-v3-2-eb1f4b86d8d3@linaro.org>
-Content-Language: en-US
+ <20240216-topic-sm8650-gpu-v3-3-eb1f4b86d8d3@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -128,7 +126,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240216-topic-sm8650-gpu-v3-2-eb1f4b86d8d3@linaro.org>
+In-Reply-To: <20240216-topic-sm8650-gpu-v3-3-eb1f4b86d8d3@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -147,13 +145,12 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 16/02/2024 12:03, Neil Armstrong wrote:
-> The if condition for the SM8[45]50 GPU SMMU is too large,
-> add the other compatible strings to the condition to only
-> allow the clocks for the GPU SMMU nodes.
+> Document the GPU SMMU found on the SM8650 platform.
 > 
-> Fixes: 4fff78dc2490 ("dt-bindings: arm-smmu: Document SM8[45]50 GPU SMMU")
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
