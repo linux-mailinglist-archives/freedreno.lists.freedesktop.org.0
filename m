@@ -2,149 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 179FB86024D
-	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 20:09:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E4C08602CB
+	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 20:40:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA6BC10EA3D;
-	Thu, 22 Feb 2024 19:09:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C65D610EA54;
+	Thu, 22 Feb 2024 19:40:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aDikd+rq";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="SBe17f+4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6CB010EA3D;
- Thu, 22 Feb 2024 19:09:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1708628970; x=1740164970;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=/uQIqYFMFeMPyC7DwE8SzNHtllNO+OXhGmumgx39xDI=;
- b=aDikd+rqiMLSToStdRamAV3/ncanflkPnF85rBgYmSTzeTg+biLB896m
- 0XdJc2//SSuKQmsv+PNkEBEJUFhGb6DSP1S4OV3eWLwHKhDZzk5IB52yE
- lpFTO/TUM8Ftwg8POopOEjYqz73o2hVBSeNsjwnd+zpirqcdliVdm8p9E
- BJk8KFe4q2d3JQlFTQX5EpgVMR6X1KvMXpVq5LM3BaH8DTQddfUamuII3
- s/Ca9SBr1iPGY7VgoXrvap+Ki8dKZyN2L/D/lY0fQ7yGvpIfOtv/GcU+G
- 2oGq1HQqd/6b9/DeXo5Z5mndU27LV24AdilYWDgOoeIKyLY9IT9unugH8 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="20320525"
-X-IronPort-AV: E=Sophos;i="6.06,179,1705392000"; d="scan'208";a="20320525"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2024 11:09:30 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="913572585"
-X-IronPort-AV: E=Sophos;i="6.06,179,1705392000"; d="scan'208";a="913572585"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by fmsmga002.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 22 Feb 2024 11:09:29 -0800
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Thu, 22 Feb 2024 11:09:28 -0800
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35 via Frontend Transport; Thu, 22 Feb 2024 11:09:28 -0800
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.169)
- by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48F3610EA50;
+ Thu, 22 Feb 2024 19:40:42 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41M6n8G6020267; Thu, 22 Feb 2024 19:40:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=vnYtwIw
+ K/xafM1SrF8XGxwPzsQ4lrNMSqTXe0pY/xcM=; b=SBe17f+4pciaMz0yJ8AUe3M
+ BOh4tZXbGOTC5oKqN00aXW+muKjequETfq0ifyFPJDp5WkgrXYeb77WNgPeRvuGc
+ 79furCacDPNRtwJQ3S55dDJAN67xMPC++tt6N6HzCh1NyjGlJJCFyGp2lKmt24jB
+ HTVMMMN0AOYzrJTABGzawUFjQLhgw2m1Y4L+8SgWfO4SFcIe7ywqJZeguPpZ1qga
+ XzyaZU4v5tkK2XT30C9b7aHzNuQMBHTB0IoBEqomuT9XTYTyjJc2VRr1InbGbzhy
+ SOvKtGQBNRtgUHHrYs8WEmRZqhX0KxX4X/uWgJHW2+5KVeHL4sy0AP3OVqCB/oQ=
+ =
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3we1b0jd2j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 22 Feb 2024 19:40:38 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41MJebPX018257
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 22 Feb 2024 19:40:37 GMT
+Received: from hu-parellan-lv.qualcomm.com (10.49.16.6) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Thu, 22 Feb 2024 11:09:28 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CyC6xGj1K7WcPYMF6UuTUs1fq5ZZphbA1jXYwdJPcuhEovidjXm4bW/mwjWEbWeQItjSV5mS55Qa6JX9RNvQmZ58Q4QduBERRtCfD5N6Ad6yrH0N29WYGoT0E54As7xEymJiWYeR4dtR2KbuWD9tFHn9/oAkZuvCjgRnvfv+SM4xU53+6JfG+tA0XqRNEJXG+o1kwh/UYRU8CqAf63J5wfmhAikZGX9nz6CwaR03/VQ03B2eKVhIKUAlrhFuZkfjA2GHx/9UZ6o7jEKPV/kuGJdf5B7t6KTuCNALNZiPLR5/+IxtdzjiwBuyk+f2bw4ZEWf37aybXLNmE2cZzj23Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ue3dhNHyDa3Vqk8fwdoorWHziYMn8Nr3B7VA2KDopXM=;
- b=gwOUkw0BhFESzk1WlwqHOhJNTc+EcUdYOov6iOR7R8vrP7NwiUmXcJ5zm9YjK7t+9mpPydXxdSNKQ4vvpVr2U3fI+D+1VfEGRU+JoJflsd7iuVU01zYKb1WO/HEA13ayfjGOeJQ4Ow2KQr/i0e9+YidOgxikIItUnA8phint/AMInzd7RBZFQXE3ct/WHIbDAmFdactrqKyvuM2moTH2UfHjfGnFZlo35ghGf7EPYco7I85jHT2fSuwEh3t2j5RDHM/IHmS25Z6tHd2MNMEz0c8T4ppkpilrb5X016rwXBHCeKLcdQwU9/Yja4c48w/YTr9fJG0SWmX/MJJzvCggSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MN0PR11MB6059.namprd11.prod.outlook.com (2603:10b6:208:377::9)
- by SN7PR11MB6800.namprd11.prod.outlook.com (2603:10b6:806:260::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.42; Thu, 22 Feb
- 2024 19:09:22 +0000
-Received: from MN0PR11MB6059.namprd11.prod.outlook.com
- ([fe80::a7f1:384c:5d93:1d1d]) by MN0PR11MB6059.namprd11.prod.outlook.com
- ([fe80::a7f1:384c:5d93:1d1d%4]) with mapi id 15.20.7339.009; Thu, 22 Feb 2024
- 19:09:22 +0000
-Date: Thu, 22 Feb 2024 14:09:16 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-CC: <dri-devel@lists.freedesktop.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tvrtko.ursulin@linux.intel.com>, <robdclark@gmail.com>,
- <freedreno@lists.freedesktop.org>, <dmitry.baryshkov@linaro.org>,
- <intel-gfx@lists.freedesktop.org>, <ville.syrjala@linux.intel.com>,
- <quic_jesszhan@quicinc.com>, <linux-kernel@vger.kernel.org>,
- <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH v3 2/2] drm/dp: drop the size parameter from
- drm_dp_vsc_sdp_pack()
-Message-ID: <Zdeb3DHQ_WMTp8zR@intel.com>
-References: <20240220195348.1270854-1-quic_abhinavk@quicinc.com>
- <20240220195348.1270854-2-quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20240220195348.1270854-2-quic_abhinavk@quicinc.com>
-X-ClientProxiedBy: BYAPR01CA0021.prod.exchangelabs.com (2603:10b6:a02:80::34)
- To MN0PR11MB6059.namprd11.prod.outlook.com
- (2603:10b6:208:377::9)
+ 15.2.1118.40; Thu, 22 Feb 2024 11:40:37 -0800
+From: Paloma Arellano <quic_parellan@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+CC: Paloma Arellano <quic_parellan@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <robdclark@gmail.com>, <seanpaul@chromium.org>, <swboyd@chromium.org>,
+ <dmitry.baryshkov@linaro.org>, <quic_abhinavk@quicinc.com>,
+ <quic_jesszhan@quicinc.com>, <quic_khsieh@quicinc.com>,
+ <marijn.suijten@somainline.org>, <neil.armstrong@linaro.org>
+Subject: [PATCH v5 00/19] Add support for CDM over DP
+Date: Thu, 22 Feb 2024 11:39:45 -0800
+Message-ID: <20240222194025.25329-1-quic_parellan@quicinc.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR11MB6059:EE_|SN7PR11MB6800:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f3a1377-b527-4535-8e1c-08dc33d9c713
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hXvytRYnGPgLs9Kthut+G1GsTmmlZhCOc4R4oiG3mbLAtcOfyHI981DxqVDtjP4rdg6VupRrOduwC1Nu7Tu1dVhJe22IcjVq1+WI1DkcFV/JexBZiaMqy46pl7psAqxif00KkwNZggLJl3VmjPG2C7BD6eAlxUlbkumlQfPykltARm3dSCgPKo8HW7Ec02nfGCwll8dYmIW2yLfDrguqE5twx6GW+vh1iVdBPeBgTV4mYziXsdYGNbOpDE+NUS+JyaA54mRcPdPZGDSrKtBJ59ajZIlQrTwfwCdu81BdWFwG5vwkqU5g9un8p1VDzo/fkHxqAo0a6/Q3+UkP0fY30rgIoEusu7sN6YP9gVl2Ej0LeMc21ilXP7R1OUvHBr4QkA71OddP9bHxTyUHbwHBOssRvtVuk7GVIT8i/NKZcDkOnjbLCZDftQ/1n40gQcekEUi+g5ZYSDPO2ZpglI3CatBH8gnWUsww4BDZ52buG9hehSoypzRxu5m5I6rOH2u/YvsLV2l3S+nQhkwYYJDyOnlsbdkknUiKb8UW4EbC0lg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR11MB6059.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Vkop/vfiJZxDCjzZx7QmuTRX1Vt6CgSbRk9Kd44JX6yViQ6h9HO5shxlTfqm?=
- =?us-ascii?Q?u87qi3752CyEtP7Zka5IGBSP5+aXTSc8vWlAg64nniBD2fRDTf9vci1svXit?=
- =?us-ascii?Q?+9mHo3jPVpb5bIngp2Z334mNG6E26vdie2lasg1LuDGkg0hXThXwjfcA0gHM?=
- =?us-ascii?Q?//seJMHWtB7mRDa3JV8XmOOlMThW9iUgEuQvGZduIBePFivpKQ5BuyWjqHIM?=
- =?us-ascii?Q?YMyQzyu3+pMFvKCiqE7r0C5aYf4yFW4LJtXiMmpIppM4yaU0YBrnIA4UhhgC?=
- =?us-ascii?Q?/njBBVGOzx5W8Uo++y/5wzVl4ELRhNbGDl/1mDiCsRLs8tfON0K3NM4QWWvl?=
- =?us-ascii?Q?FxHi1N9j7T9CZC+HEi4tkk/K/FFDTfU2aJpxdoGVHXS0O8iCBmeOa5H3o8S8?=
- =?us-ascii?Q?G/YLNTIoH43wHb+p/MLDOJk9kw0cwS7xx5hF+q7qXO9/uQxbQ2ELIH1+nit7?=
- =?us-ascii?Q?35jHdbNUDkMOH8Tx+SOUBpTcny1+la1rn75n3iAXduZV0qWMmxi+Uwzq8XQU?=
- =?us-ascii?Q?/qTjdz5UbokigIVrWLwcJEV+oibi3DlEaHo5Gj6GOLs2h0Xl3eWSkq8il3U9?=
- =?us-ascii?Q?oWbhihMLszIPIE5NvdDohn8zE6PPxSSH4XIVtkGJMM6M4aN5RHwyo18UzB6w?=
- =?us-ascii?Q?rih2CWl+2MswHs7r+aU9QIxhtQV6cot8rhElhwYodilvGbs8MR3bapmAl4tN?=
- =?us-ascii?Q?FcfvrB21nVkHBPZiID9hDk0ujAKnKBjO3TuzzIGF5Q27g5iKOdcgtIgyfAss?=
- =?us-ascii?Q?uFh/KyilS8JZSO5o9zow8k/OwS0iSM8MABfaAVjuEd3bjezBIme9QHZAt1nj?=
- =?us-ascii?Q?rOTkEHcL1aDc/tYce2NEm81wPdT8zIfUDHUcUhlJYBTVnL1i9esqp7sRRtLj?=
- =?us-ascii?Q?zL5FXC8/YIjaJii6RSfaTPYbuE6bsG9CgcTagKX7vHbiICkX+s7Frn8K+LH5?=
- =?us-ascii?Q?jYgqgBiENEXytIjxEDf8Dlg/WP5ucvrXUzezD/mr2p/x9rPGVPCVd9xy4ISQ?=
- =?us-ascii?Q?dMpesRaXNR0gvjjRIelhEcZo6a1/0LsDUxCndFo8GBeQJwXrIIMHp+E5zKlU?=
- =?us-ascii?Q?L3vhYtbc6gI3fMNuX5gi9xfYpicNFYL50isBJE5j0hku1RSailK/5Hv/xB/e?=
- =?us-ascii?Q?vDLmhWZBrZh1Dypx/bDovDoBalA1kXBSiblK/K1aoqyhD9vhZJHVffJWLG8a?=
- =?us-ascii?Q?l6stkrFv/VWY9+E1mXdagUUovaBMDMVpYtg13saH3QOvHiRj5DfQN+9FEEEp?=
- =?us-ascii?Q?wMr/mxI4JZJG1bnUXVxwTn99GhGIzF2dm0iVz0mE2audwaFx6jtE3Far0cXq?=
- =?us-ascii?Q?RJb7Ni9sHUXCdkJ2MSPK8sfzQprB/ZuON/GLsNzVc7mjfUoJ0riokHQPp2F2?=
- =?us-ascii?Q?9O5c1dM9F0uwUXmoQECQtIE4XPU5D2dVmssRWAspxdBsPzvKzqJPZDo59Flj?=
- =?us-ascii?Q?nDfqqeqBIamQnVSEsS5QXHBvTXiHy6/pT9LK3l6PMMZN+5zFZAfnJxaFlYMD?=
- =?us-ascii?Q?rWmDF0NWsc69aeB3rAhe/cgW5r4JmhPnmNm+PZ/ast3wnsZ1ebLz/WEevHRH?=
- =?us-ascii?Q?LsO3UrGESCNz1DIK8DyV/VxpBggd/M5l7eX+0J0i+AnpiMjqnqpGkz7wM8Y/?=
- =?us-ascii?Q?CA=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f3a1377-b527-4535-8e1c-08dc33d9c713
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR11MB6059.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2024 19:09:22.2584 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b0HkKvKFNCF68c8yiTE+I2+ns133c0VIWiuQoDamFZZJ1ofBwj9bcP/DeRBiEytOh+KNpuz6v3Qet1pYqpnQjA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB6800
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: pfaiFEJrI3e6gY1j5LZe-PQvHxZjrGOX
+X-Proofpoint-GUID: pfaiFEJrI3e6gY1j5LZe-PQvHxZjrGOX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-22_15,2024-02-22_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxlogscore=999
+ mlxscore=0 adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
+ impostorscore=0 suspectscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2402120000 definitions=main-2402220154
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,80 +90,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 20, 2024 at 11:53:47AM -0800, Abhinav Kumar wrote:
-> Currently the size parameter of drm_dp_vsc_sdp_pack() is always
-> the size of struct dp_sdp. Hence lets drop this parameter and
-> use sizeof() directly.
-> 
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+The Chroma Down Sampling (CDM) block is a hardware component in the DPU
+pipeline that includes a CSC block capable of converting RGB input from
+the DPU to YUV data.
 
-it looks indeed an unecessary check.
-you can convert my ack to a
+This block can be used with either HDMI, DP, or writeback interfaces.
+This series adds support for the CDM block to be used with DP in
+YUV420 mode format.
 
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+This series allows selection of the YUV420 format for monitors which support
+certain resolutions only in YUV420 thus unblocking the validation of many
+other resolutions which were previously filtered out if the connector did
+not support YUV420.
 
-and the ack to take this through drm-misc if needed
+This was validated using a DP connected monitor requiring the use of
+YUV420 format.
 
-> ---
->  drivers/gpu/drm/display/drm_dp_helper.c | 8 ++------
->  drivers/gpu/drm/i915/display/intel_dp.c | 3 +--
->  include/drm/display/drm_dp_helper.h     | 3 +--
->  3 files changed, 4 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-> index 6c91f400ecb1..10ee82e34de7 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -2918,19 +2918,15 @@ EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
->   * @vsc: vsc sdp initialized according to its purpose as defined in
->   *       table 2-118 - table 2-120 in DP 1.4a specification
->   * @sdp: valid handle to the generic dp_sdp which will be packed
-> - * @size: valid size of the passed sdp handle
->   *
->   * Returns length of sdp on success and error code on failure
->   */
->  ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
-> -			    struct dp_sdp *sdp, size_t size)
-> +			    struct dp_sdp *sdp)
->  {
->  	size_t length = sizeof(struct dp_sdp);
->  
-> -	if (size < length)
-> -		return -ENOSPC;
-> -
-> -	memset(sdp, 0, size);
-> +	memset(sdp, 0, sizeof(struct dp_sdp));
->  
->  	/*
->  	 * Prepare VSC Header for SU as per DP 1.4a spec, Table 2-119
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index a9458df475e2..e13121dc3a03 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4181,8 +4181,7 @@ static void intel_write_dp_sdp(struct intel_encoder *encoder,
->  
->  	switch (type) {
->  	case DP_SDP_VSC:
-> -		len = drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp,
-> -					  sizeof(sdp));
-> +		len = drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp);
->  		break;
->  	case HDMI_PACKET_TYPE_GAMUT_METADATA:
->  		len = intel_dp_hdr_metadata_infoframe_sdp_pack(dev_priv,
-> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-> index 8474504d4c88..1f41994796d3 100644
-> --- a/include/drm/display/drm_dp_helper.h
-> +++ b/include/drm/display/drm_dp_helper.h
-> @@ -812,7 +812,6 @@ int drm_dp_bw_overhead(int lane_count, int hactive,
->  		       int bpp_x16, unsigned long flags);
->  int drm_dp_bw_channel_coding_efficiency(bool is_uhbr);
->  
-> -ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
-> -			    struct dp_sdp *sdp, size_t size);
-> +ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc, struct dp_sdp *sdp);
->  
->  #endif /* _DRM_DP_HELPER_H_ */
-> -- 
-> 2.34.1
-> 
+This series is dependent on [1], [2], and [3]:
+[1] https://patchwork.freedesktop.org/series/118831/
+[2] https://patchwork.freedesktop.org/series/129395/
+[3] https://patchwork.freedesktop.org/series/129864/
+
+Changes in v5:
+	- Slightly modify use of drm_dp_vsc_sdp_pack()
+	- Remove dp_catalog NULL checks
+	- Modify dp_utils_pack_sdp_header() to cleanly pack the header
+	  buffer
+	- Remove the dp_utils_pack_vsc_sdp() function and only call
+	  drm_dp_vsc_sdp_pack() in dp_panel_setup_vsc_sdp_yuv_420()
+	- To clearly show the relationship between the header buffer and
+	  vsc_sdp struct, move dp_utils_pack_sdp_header() inside of
+	  dp_catalog_panel_send_vsc_sdp()
+
+Changes in v4:
+	- Use dp_utils_pack_sdp_header() to pack the SDP header and
+	  parity bytes into a buffer
+	- Use this buffer when writing the VSC SDP data in
+	  dp_catalog_panel_send_vsc_sdp() and write to all the
+	  MMSS_DP_GENERIC0 registers
+	- Clear up that DP_MAINLINK_CTRL_FLUSH_MODE register requires
+	  the use of bits [24:23]
+	- Modify certain macros to explicitly set their values in the
+	  bits of DP_MAINLINK_CTRL_FLUSH_MODE_MASK
+	- Remove hw_cdm check in dpu_encoder_needs_periph_flush() and
+	  dpu_encoder_phys_vid_enable()
+
+Changes in v3:
+	- Change ordering of the header byte macros in dp_utils.h
+	- Create a new struct, msm_dp_sdp_with_parity
+ 	- Utilize drm_dp_vsc_sdp_pack() from a new added dependency of
+	  series [3] to pack the VSC SDP data into the new
+	  msm_dp_sdp_with_parity struct instead of packing only for
+	  YUV420
+	- Modify dp_catalog_panel_send_vsc_sdp() so that it sends the VSC SDP data
+	  using the new msm_dp_sdp_with_parity struct
+	- Clear up that the DP_MAINLINK_FLUSH_MODE_SDE_PERIPH_UPDATE macro is setting
+	  multiple bits and not just one
+	- Move the connector's ycbcr_420_allowed parameter so it is no longer
+	  dependent on if the dp_display is not eDP
+
+Changes in v2:
+	- Minor formatting changes throughout
+	- Move 'fixes' patch to the top
+	- Move VSC SDP support check API from dp_panel.c to drm_dp_helper.c
+	- Create a separate patch for modifying the dimensions for CDM setup to be
+	  non-WB specific
+	- Remove a patch that modified the INTF_CONFIG2 register in favor of having
+	  this series be dependent on [2]
+	- Separate configuration ctrl programming from clock related programming into
+	  two patches
+	- Add a VSC SDP check in dp_bridge_mode_valid()
+	- Move parity calculation functions to new files dp_utils.c and dp_utils.h
+	- Remove dp_catalog_hw_revision() changes and utilize the original version of
+	  the function when checking the DP hardware version
+	- Create separate packing and programming functions for the VSC SDP
+	- Make the packing header bytes function generic so it can be used with
+	  dp_audio.c
+	- Create two separate enable/disable VSC SDP functions instead of having one
+	  with the ability to do both
+	- Move timing engine programming to a separate patch from original encoder
+	  programming patch
+	- Move update_pending_flush_periph() code to be in the same patch as the
+	  encoder programming
+	- Create new API's to check if the dpu encoder needs a peripheral flush
+	- Allow YUV420 modes for the DP connector when there's a CDM block available
+	  instead of checking if VSC SDP is supported
+
+Kuogee Hsieh (1):
+  drm/msm/dpu: add support of new peripheral flush mechanism
+
+Paloma Arellano (18):
+  drm/msm/dpu: allow certain formats for CDM for DP
+  drm/msm/dpu: add division of drm_display_mode's hskew parameter
+  drm/msm/dpu: pass mode dimensions instead of fb size in CDM setup
+  drm/msm/dpu: allow dpu_encoder_helper_phys_setup_cdm to work for DP
+  drm/msm/dpu: move dpu_encoder_helper_phys_setup_cdm to dpu_encoder
+  drm/msm/dp: rename wide_bus_en to wide_bus_supported
+  drm/msm/dp: store mode YUV420 information to be used by rest of DP
+  drm/msm/dp: check if VSC SDP is supported in DP programming
+  drm/msm/dpu: move widebus logic to its own API
+  drm/msm/dp: program config ctrl for YUV420 over DP
+  drm/msm/dp: change clock related programming for YUV420 over DP
+  drm/msm/dp: move parity calculation to dp_utils
+  drm/msm/dp: add VSC SDP support for YUV420 over DP
+  drm/msm/dp: enable SDP and SDE periph flush update
+  drm/msm/dpu: modify encoder programming for CDM over DP
+  drm/msm/dpu: modify timing engine programming for YUV420 over DP
+  drm/msm/dpu: reserve CDM blocks for DP if mode is YUV420
+  drm/msm/dp: allow YUV420 mode for DP connector when CDM available
+
+ drivers/gpu/drm/msm/Makefile                  |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 164 +++++++++++++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h   |   4 +
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  26 ++-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  30 +++-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   | 100 +----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c    |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |  17 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h    |  10 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   4 +-
+ drivers/gpu/drm/msm/dp/dp_audio.c             | 101 ++---------
+ drivers/gpu/drm/msm/dp/dp_catalog.c           | 115 +++++++++++-
+ drivers/gpu/drm/msm/dp/dp_catalog.h           |   9 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c              |  17 +-
+ drivers/gpu/drm/msm/dp/dp_display.c           |  82 ++++++---
+ drivers/gpu/drm/msm/dp/dp_drm.c               |   6 +-
+ drivers/gpu/drm/msm/dp/dp_drm.h               |   3 +-
+ drivers/gpu/drm/msm/dp/dp_panel.c             |  53 ++++++
+ drivers/gpu/drm/msm/dp/dp_panel.h             |   2 +
+ drivers/gpu/drm/msm/dp/dp_reg.h               |   9 +
+ drivers/gpu/drm/msm/dp/dp_utils.c             |  98 +++++++++++
+ drivers/gpu/drm/msm/dp/dp_utils.h             |  36 ++++
+ drivers/gpu/drm/msm/msm_drv.h                 |  22 ++-
+ 23 files changed, 672 insertions(+), 241 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_utils.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_utils.h
+
+-- 
+2.39.2
+
