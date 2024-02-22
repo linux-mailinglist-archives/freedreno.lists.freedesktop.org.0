@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C843860475
-	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 22:11:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61686860481
+	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 22:12:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A14D10EA7C;
-	Thu, 22 Feb 2024 21:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A78910EA8D;
+	Thu, 22 Feb 2024 21:12:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Zwtn7g+M";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zDjSHMPd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C40F10EA7C
- for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 21:11:30 +0000 (UTC)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-6084e809788so11221597b3.1
- for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 13:11:30 -0800 (PST)
+Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com
+ [209.85.219.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0279E10EA82
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 21:12:31 +0000 (UTC)
+Received: by mail-yb1-f177.google.com with SMTP id
+ 3f1490d57ef6-dc6d8bd612dso151961276.1
+ for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 13:12:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708636289; x=1709241089; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708636350; x=1709241150; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=6LQ9AKd6x9Ppr8V8DrGvzfthJpW9UNBDUhPwgck2Wa8=;
- b=Zwtn7g+Mp2xt27/MrJ3N8UWrBqkL1JybO+6iQKIFh64+KdNxJPl32mKm5KYZrX5NiR
- wAoZqzohHeEiAQiTDWZW5yrezecn4Rrh0vDQsdkDj2sPxctWLBRnSsdNFGPUytpnGRMg
- 4PdImTrQAfc/4mOx+74eJKDpkho8Ty7EeRo74H6TWNshqnmI5LxGcoUWpD2cD/KF2plI
- CIj9rCmt5sBGRapbBou6LttRr9OWB293DuQWtutjyMz9WqL4G6Q006EgKnC6yG+hAe6T
- pie54XP0QzB0bqrCEFaAyFsn1iE8fNBlLgWJJsxiqVh+isVugpxxP6cDLiOpaMrsqrUn
- c/Bw==
+ bh=fenjTlVOLcRdKZFsqaTFAV94+jNqh66pMdN4WeCK6m8=;
+ b=zDjSHMPdxA7yrwt+cVhc+5l60GRIcyzcNxEB8Ju3c9j82onQGf8z+a+BVYnm754f5g
+ gZWpD8+8j5uVLcawNujwm6OY6B8TZhpWeFJbTgkA9eszkzOvqEHi/ECM8ighbDWdB7lM
+ YmItGZMY2f3YS8LYMMIHXkJ5RM6lDZkqVMZldHaDyuwc4r1FM9OJ6fhlCcXovFPk4HcX
+ ury34oS8BV4bOdBDEVwF+rga46OhIUsU/rDOWdVtt9NjlpGV9atQFdmK085x7qucPeXj
+ uJJYRYBQNJTJAtZJBxASKt5lbWgfG1VWZ9Fg+6aTkXgFT6FAnPPfSTKSQQw1EfgOu8Y3
+ R5hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708636289; x=1709241089;
+ d=1e100.net; s=20230601; t=1708636350; x=1709241150;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=6LQ9AKd6x9Ppr8V8DrGvzfthJpW9UNBDUhPwgck2Wa8=;
- b=dZ7JlxK4gxmbEn2H/sZrdV1d+ZuVobky1KODDq0rRkUq2N6hA9d3VRoPQTvuFkZz3v
- 1cbOco9ldcGWB6rth1B/JLftwzS8pATi4xymnFh3E7H+nUfFen83ah9xEfiM9Crfe8Za
- IbqObFo/h9sE9ATHewSTNrGMickvFm+JbBdEWMWvJ8HV5P4HS5HQLq4FXIMH9l2+LjDz
- rygxLjnV+zJHF45Uoy+rMQnqn92NWf+hc4gC0slN8SyN0PTW5f5okSiYqCBvjRUh89+z
- UkDwVtHAQKi5F96rLX7/nvtN4x1O2e131+uVMt9ge6z26efNHE8Tp0cz8rJNcWQoTZgY
- 4M2A==
+ bh=fenjTlVOLcRdKZFsqaTFAV94+jNqh66pMdN4WeCK6m8=;
+ b=qXSHit+pjfb63/gGLeAHo/JoLfFbtgnRVHKXbPeEMNkqytqj7jMgGjlwtrwntYps9O
+ 9/KPW4IZU4DPL1+yl50LWb/EgRvlgCDPgDhcsNjUv3K+cDFYlx6DKSaFkUDzuMH3ZlH+
+ 3ZOH1EVZlQRZITXSSL+rWFbpdISHLDlvY+mvL6OL04fuoSeGWFslIzgf0E/HcplWeTFN
+ Zz23xTpJsLRnUHgcTV+NNKj0JZMRGcAy14dCBHiOkaHONII7SR4SanABL2dmOPAJQQfN
+ F7PMEAi+GCfBnsA142PkQ09cK2NyLAE18irF2w+4aF6BaVUCZxDcMXLcDrQ52gfgoCzD
+ ldpg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUx/5fBJKZet2Yq6qpSV/Lbu3FmrlOwUJJRnZhGeYpMPivlRjJnZy4VHxynQduUNq8NTYWwAAQ5a8E3CVAnJzSYHXibACg7JrG8zPLv53aS
-X-Gm-Message-State: AOJu0Yxi7lkwrrVX7HV0jXZFAVcXQ9Os6bkmrVBYZWbOwv9wvR7Xz04J
- aEFsyl6Q6bIfQYId5r5l0j4g42ISgENMMMCzTDX47axHrLgpNkTo74orb9EZRrZIr9UIVxLcS10
- 1HG9oFkHqKvt0OAFTe+xAHgXgmxF+MpQvQBls4w==
-X-Google-Smtp-Source: AGHT+IGr40bVHUaWXhi2S3xmL6UJgO5Qya3+KW1Y3uj1TASqY4EfBpznUda1BUrj++1QaDRzC2B4Zta0+WKsL88FVd8=
-X-Received: by 2002:a81:451a:0:b0:608:821a:15e1 with SMTP id
- s26-20020a81451a000000b00608821a15e1mr146315ywa.9.1708636289156; Thu, 22 Feb
- 2024 13:11:29 -0800 (PST)
+ AJvYcCX+I9zfqjBzka7KK3I8UphtzBP+VhJITdhAQMt8k2ac/8RL545xVIMd7js8goivbJuBjT6lF0YHw267xMtYwL/Cx6Rt9durlzROtEkrAE51
+X-Gm-Message-State: AOJu0YypZmiPfgBuUR7fKIy9m85L+SD5A4Gu4NDj1sQzu7SXVDNxg3DF
+ WkRqwHq3PM4D4HfhQNB2rDEz1QDfzuynDmKp0qkln5x1nIMWSIgTPa9qgEy2neNG2lzQ72J/xJv
+ rGeRLPJXq1/0gc+mgYZpLF6E6onGNP4RgdSGs0g==
+X-Google-Smtp-Source: AGHT+IFh2TAl89Hutu4vqCYOc5+0AJ9qQayg9ScjNq2n3H/zD5V2O2sGDJBBs2zipfHmjaQpRtAUdHsgH00u4T387Jo=
+X-Received: by 2002:a25:2747:0:b0:dcd:3338:a3c5 with SMTP id
+ n68-20020a252747000000b00dcd3338a3c5mr382880ybn.33.1708636349969; Thu, 22 Feb
+ 2024 13:12:29 -0800 (PST)
 MIME-Version: 1.0
 References: <20240217150228.5788-1-johan+linaro@kernel.org>
- <20240217150228.5788-6-johan+linaro@kernel.org>
-In-Reply-To: <20240217150228.5788-6-johan+linaro@kernel.org>
+ <20240217150228.5788-7-johan+linaro@kernel.org>
+In-Reply-To: <20240217150228.5788-7-johan+linaro@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 22 Feb 2024 23:11:17 +0200
-Message-ID: <CAA8EJppnHY=jDYjgTn+2dF_zmGwM9+KsUS6vOyPB_wa9W0v-UA@mail.gmail.com>
-Subject: Re: [PATCH 5/6] phy: qcom-qmp-combo: fix drm bridge registration
+Date: Thu, 22 Feb 2024 23:12:18 +0200
+Message-ID: <CAA8EJppPg7b-DsPJ4W=2G-_rRq+xTux9kJ3oJhD2ws+FoJvkKQ@mail.gmail.com>
+Subject: Re: [PATCH 6/6] phy: qcom-qmp-combo: fix type-c switch registration
 To: Johan Hovold <johan+linaro@kernel.org>
 Cc: Bjorn Andersson <andersson@kernel.org>,
  Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -101,11 +101,7 @@ On Sat, 17 Feb 2024 at 17:03, Johan Hovold <johan+linaro@kernel.org> wrote:
 > deferral loop (see fbc35b45f9f6 ("Add documentation on meaning of
 > -EPROBE_DEFER")).
 >
-> This could potentially also trigger a bug in the DRM bridge
-> implementation which does not expect bridges to go away even if device
-> links may avoid triggering this (when enabled).
->
-> Move registration of the DRM aux bridge to after looking up clocks and
+> Move registration of the typec switch to after looking up clocks and
 > other resources.
 >
 > Note that PHY creation can in theory also trigger a probe deferral when
@@ -113,17 +109,49 @@ On Sat, 17 Feb 2024 at 17:03, Johan Hovold <johan+linaro@kernel.org> wrote:
 > but the PHY subsystem should be reworked to address this (i.e. by
 > separating initialisation and registration of the PHY).
 >
-> Fixes: 35921910bbd0 ("phy: qcom: qmp-combo: switch to DRM_AUX_BRIDGE")
-> Fixes: 1904c3f578dc ("phy: qcom-qmp-combo: Introduce drm_bridge")
+> Fixes: 2851117f8f42 ("phy: qcom-qmp-combo: Introduce orientation switching")
 > Cc: stable@vger.kernel.org      # 6.5
 > Cc: Bjorn Andersson <quic_bjorande@quicinc.com>
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
 > ---
 >  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 8 ++++----
 >  1 file changed, 4 insertions(+), 4 deletions(-)
->
+
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Note to myself (or to anybody else, who has spare hands), we should
+probably implement the same changes for phy-qcom-qmp-usbc.c
+
+>
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> index e19d6a084f10..17c4ad7553a5 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> @@ -3562,10 +3562,6 @@ static int qmp_combo_probe(struct platform_device *pdev)
+>         if (ret)
+>                 return ret;
+>
+> -       ret = qmp_combo_typec_switch_register(qmp);
+> -       if (ret)
+> -               return ret;
+> -
+>         /* Check for legacy binding with child nodes. */
+>         usb_np = of_get_child_by_name(dev->of_node, "usb3-phy");
+>         if (usb_np) {
+> @@ -3585,6 +3581,10 @@ static int qmp_combo_probe(struct platform_device *pdev)
+>         if (ret)
+>                 goto err_node_put;
+>
+> +       ret = qmp_combo_typec_switch_register(qmp);
+> +       if (ret)
+> +               goto err_node_put;
+> +
+>         ret = drm_aux_bridge_register(dev);
+>         if (ret)
+>                 goto err_node_put;
+> --
+> 2.43.0
+>
 
 
 -- 
