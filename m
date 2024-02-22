@@ -2,83 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03B0B85FF6E
-	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 18:32:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6B7186005C
+	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 19:07:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62DF110E9C3;
-	Thu, 22 Feb 2024 17:32:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE60A10E9DE;
+	Thu, 22 Feb 2024 18:07:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MN/uiAI4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nOj4Yd1j";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
- [209.85.128.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77AD110E9C5
- for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 17:32:28 +0000 (UTC)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-6083cabc2f9so48500157b3.1
- for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 09:32:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708623147; x=1709227947; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=uHYuztdiqcnoWxT8IYhA0vORd3mYh+h0ETbBCJU2hFs=;
- b=MN/uiAI4inwFB6j9UXVTSf3vdW8CTMsHKA1Bav9YMrPZ4hm1L5Qw292JsoGFvW4DhR
- nvHPaKir1vA6z/g8D1kPcDRdwp1H074lfMU4bhonyjJNV5LH5vakLUbowtCSBzjcIrCP
- lTOP5WKblaCWps1Q4FujD9qLF6WwdV0c9uV9vUXo7rnMnHvsdkahq0FEI/zhsz3ytTKU
- qjSwx5OsFjjh3W/n11ehpk6nWFZ/gDXM40yryYGp2uv/sC2JN0p1M7zgO5C8S9uNw8TU
- ovPnnkthKq49IHRGu4aQNNpOx2yHEcNwDWwSIkHM+gYlYZMsrzUauVSIBzY87X60jAGt
- UsSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708623147; x=1709227947;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uHYuztdiqcnoWxT8IYhA0vORd3mYh+h0ETbBCJU2hFs=;
- b=nOzgT1bqvT9ohyklkQxFbX5a2JGfZ3yKOCIFXhzdyh9ezUWLW6odvcDunQv3uXW1/m
- J351emEkaAHZeLkxEeymxPpTQ+mrzQENscT7s/nA/l5ARO+UDkxI+IlG2vUUggeebJeo
- c6kexdeyc4oBqI2XMbYXuE8mYRanHtOfRI9IeoG/wKRhbz0dI7PY6Tayfjmq6dLKKuv7
- KtGeTfePpwBCnQumK982ljCGFbNvXXYCUyDVy3gyfOwREr2DxF6/4weAiXg4cHP+frgt
- O47NK14gDINjls4ZKJV7rcLB4X+sU9vkKybk7vlC+pbPWncNryn5XaAaoi/rOYB34m1n
- Olog==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWHNa2tVjctXoYarYvbu0kHH5DZHYD1GcWX+3BbQ+RXNnk8HgKfPndqBE7H3MsULomiuS2DfafsnNq0lhsqCS4EKyliWyqZhdgy+Cd6RVO/
-X-Gm-Message-State: AOJu0Yw4q1yA/cNxwYjjx9cl52TWlebgcvxtZkFFA4U29c/wc3rHCcjO
- fkm4gpNmByRA1OyiSAGR6/lSvGdKBxJPGEOsXSrADJ4b378vjOFbj2Vx0xvNt1mr0B4Z83IAFwb
- 8TwQbSpu8RBoH9DC3bwT2FKxVucXjAPQgw39YJw==
-X-Google-Smtp-Source: AGHT+IEChpsE7RSvYtvlDilze7tlEfcebE5fWeV9v6TUsqyy6KJBLB0hOKOdzrs9KYPLmaKn2wbmU4LNaaPxNFAv0eU=
-X-Received: by 2002:a81:6c0f:0:b0:608:7488:8691 with SMTP id
- h15-20020a816c0f000000b0060874888691mr6826857ywc.38.1708623147287; Thu, 22
- Feb 2024 09:32:27 -0800 (PST)
-MIME-Version: 1.0
-References: <20240221-rb3gen2-dp-connector-v1-0-dc0964ef7d96@quicinc.com>
- <20240221-rb3gen2-dp-connector-v1-3-dc0964ef7d96@quicinc.com>
- <CAA8EJpo=9vhM+5YzaFxUoYRuEWQyrMS8wLNPSF3K=bN5JwWyDw@mail.gmail.com>
- <8313a7c3-3ace-4dee-ad27-8f51a06cd58c@linaro.org>
- <CAA8EJpqFj5nf8d_=Uoup7qg+nQrxqQU-DHbL3uSP138m9AcXLw@mail.gmail.com>
- <8fcb5816-2d59-4e27-ba68-8e0ed6e7d839@linaro.org>
- <CAA8EJporaUuddHHqpyYHiYSu=toHmrDxSHf9msZUJoym4Nz72g@mail.gmail.com>
- <20240222150423.GI2936378@hu-bjorande-lv.qualcomm.com>
-In-Reply-To: <20240222150423.GI2936378@hu-bjorande-lv.qualcomm.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 22 Feb 2024 19:32:15 +0200
-Message-ID: <CAA8EJpqd=1KV_dN8AURQDcFDDyO+YtbC59gM7ftt+HohGM93hg@mail.gmail.com>
-Subject: Re: [PATCH 3/9] arm64: dts: qcom: sc7280: Enable MDP turbo mode
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-Cc: Konrad Dybcio <konrad.dybcio@linaro.org>,
- Douglas Anderson <dianders@chromium.org>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- cros-qcom-dts-watchers@chromium.org, 
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36F1E10E9DE;
+ Thu, 22 Feb 2024 18:07:02 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 29A1CCE28A9;
+ Thu, 22 Feb 2024 18:06:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1C1C433C7;
+ Thu, 22 Feb 2024 18:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1708625218;
+ bh=lBeRCmby1gUQMllOcKWPl1MR8+1XX3jNUKV55GgSZAs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=nOj4Yd1jSGV/rjAPstPTsYiX+lJPz6EK1NrTGv2/aKwxPtNlK3XwRyBkMo2xXsyU7
+ ZwP1xxts/KJzXw/q2GLcL0qJKGA8sqCttvVHRLDYP543X2ZKIrP5l2h+pCsMICnhMt
+ e9j9u43vWXrN1kcjmvE8GYsSaRLw2+oMCAyW5Xgcm5fJSSPBXDZdVXWgA+eyBhd8/R
+ rwFR6MgB5qq07jMnfwASdMorZ21XXlunJxKEGF0zcbNs7ZzLyA+lrHr9bP9jhjzfVR
+ c+DG0836DiJFLKJ06sWpb/3wztPPnoTAPxIwMnYk9M2p9SJrYI0wD2M8tWQm2K2AHG
+ j2KkN8BtsSSBg==
+From: Will Deacon <will@kernel.org>
+To: Robin Murphy <robin.murphy@arm.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ Joerg Roedel <joro@8bytes.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Michael Turquette <mturquette@baylibre.com>, Sean Paul <sean@poorly.run>,
+ Rob Herring <robh@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>
+Cc: catalin.marinas@arm.com, kernel-team@android.com,
+ Will Deacon <will@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ iommu@lists.linux.dev, linux-clk@vger.kernel.org,
+ Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 0/8] A702 support
+Date: Thu, 22 Feb 2024 18:06:24 +0000
+Message-Id: <170861662823.1923805.14686424405847288477.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20240219-topic-rb1_gpu-v1-0-d260fa854707@linaro.org>
+References: <20240219-topic-rb1_gpu-v1-0-d260fa854707@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,51 +72,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 22 Feb 2024 at 17:04, Bjorn Andersson <quic_bjorande@quicinc.com> wrote:
->
-> On Thu, Feb 22, 2024 at 11:46:26AM +0200, Dmitry Baryshkov wrote:
-> > On Thu, 22 Feb 2024 at 11:28, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
-> > >
-> > >
-> > >
-> > > On 2/22/24 10:04, Dmitry Baryshkov wrote:
-> > > > On Thu, 22 Feb 2024 at 10:56, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
-> > > >>
-> > > >>
-> > > >>
-> > > >> On 2/22/24 00:41, Dmitry Baryshkov wrote:
-> > > >>> On Thu, 22 Feb 2024 at 01:19, Bjorn Andersson <quic_bjorande@quicinc.com> wrote:
-> > > >>>>
-> > > >>>> The max frequency listed in the DPU opp-table is 506MHz, this is not
-> > > >>>> sufficient to drive a 4k@60 display, resulting in constant underrun.
-> > > >>>>
-> > > >>>> Add the missing MDP_CLK turbo frequency of 608MHz to the opp-table to
-> > > >>>> fix this.
-> > > >>>
-> > > >>> I think we might want to keep this disabled for ChromeOS devices. Doug?
-> > > >>
-> > > >> ChromeOS devices don't get a special SoC
-> > > >
-> > > > But they have the sc7280-chrome-common.dtsi, which might contain a
-> > > > corresponding /delete-node/ .
-> > >
-> > > What does that change? The clock rates are bound to the
-> > > SoC and the effective values are limited by link-frequencies
-> > > or the panel driver.
-> >
-> > Preventing the DPU from overheating? Or spending too much power?
-> >
->
-> Perhaps I'm misunderstanding the implementation then, are we always
-> running at the max opp? I thought the opp was selected based on the
-> current need for performance?
+On Mon, 19 Feb 2024 14:35:45 +0100, Konrad Dybcio wrote:
+> Bit of a megaseries, bunched together for your testing convenience..
+> Needs mesa!27665 [1] on the userland part, kmscube happily spins.
+> 
+> I'm feeling quite lukewarm about the memory barriers in patch 3..
+> 
+> Patch 1 for Will/smmu, 5-6 for drm/msm, rest for qcom
+> 
+> [...]
 
-Yes. My concern was whether the Chrome people purposely skipped this
-top/turbo freq for any reason. In such a case, surprising them by
-adding it to all platforms might be not the best idea. I hope Doug can
-comment here.
+Applied SMMU bindings patch to will (for-joerg/arm-smmu/bindings), thanks!
 
+[1/8] dt-bindings: arm-smmu: Add QCM2290 GPU SMMU
+      https://git.kernel.org/will/c/0eca305f8e0d
 
+Cheers,
 -- 
-With best wishes
-Dmitry
+Will
+
+https://fixes.arm64.dev
+https://next.arm64.dev
+https://will.arm64.dev
