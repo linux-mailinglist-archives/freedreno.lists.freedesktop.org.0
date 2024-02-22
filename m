@@ -2,133 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0543785F7B1
-	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 13:06:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFAB085FBCF
+	for <lists+freedreno@lfdr.de>; Thu, 22 Feb 2024 16:04:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA7F10E911;
-	Thu, 22 Feb 2024 12:06:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FB7C10E968;
+	Thu, 22 Feb 2024 15:04:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="D+PUJ1Uc";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="XAhG3C6l";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1940E10E909
- for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 12:06:34 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-a3eafbcb1c5so498638566b.0
- for <freedreno@lists.freedesktop.org>; Thu, 22 Feb 2024 04:06:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708603592; x=1709208392; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=XHa5235f3kt9jZfGjaBEmGnvg17AThIfGkA6Ms6UFUA=;
- b=D+PUJ1UcTSzo+Xd/QHM4DlO/GzcB/mQK4+0+I159K50waAk7oCh9L977RoDMgdjQxL
- zQkBeS8yNZDfrlVDMy+85LNd/fgwiilggBfbAPa7drbvoumz+yMTcvakW9Y9C+lHVk7S
- c+CpDpM+JeYwvwdv/2HVtxaKSLx+ywOfW/i3G/w8l8nVMJZ3sdFQtRrMzT+tRDcW5g7S
- 3oqtsKm7nnt1gkcPv/m6nbo06O6A7L8n/IIo0V8YamGYlZ+N2CZbU+YZ8Q8JTkQndimE
- 2FrY2wfPi5W/8xCdu8RtCT1uNzPAeChnBxfgbAJnEzYY0TOXmdhrBszPnijGtDBefWY7
- 0cJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708603592; x=1709208392;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=XHa5235f3kt9jZfGjaBEmGnvg17AThIfGkA6Ms6UFUA=;
- b=LixsNoprwh8rj6SJ0LH5lDTDw0zrFHtTUyPi28T+C7qlIxKtJBG60gjUqxP6IlpezD
- BF18l7nu9KI75XqodlY/KjJDYlqJRLxroZjx04tn08l4DYIdEyDi1h8oSn05aSfYVdm+
- xkdmYcIx9TRiC9gMUKVZ5Li3rjWQMNC6b217hJFltMovGhqJ+oDACpRrBHpwo8AaIbE3
- ng9cMpE8Jzgi5X+d3WGPZP3QN98EyMXviLYlwaK7bZuBEbTOTMU8AiFeAtCv9mv+7JhN
- q6grFofX+APzBKZe2WK0x7f5MN1TbxkDesc8TBPHYTKuVsDkdVJbogdjxjXVaOquh+8G
- eOfw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUsxH2e35WAnwxpBMC0NbE7BXPnWsstlrcXhsdKB5nuiLLEV8cXHML3BSYIT6n1rCaa4fb+dvXO4tZtu7282S3VfhAy2iDBFJ7klTegE6xH
-X-Gm-Message-State: AOJu0Yy22ZMIyoIsPwhw4LYfPGV+CWLaNxVzG7FNjQ1dSx0jaNhyEmqz
- p7bxFFv09Ai3DjhRJzgyk8u02PpiAAkJJpPErzu0UozYbU1q4wIi+mV90kUkpc8=
-X-Google-Smtp-Source: AGHT+IHvla7m4ZYgc3jjkIaynn5M6ot4IzHI5Wb7Kz375HfTJBfGN/z83SI+l/ELrpL/guKZwGYY+Q==
-X-Received: by 2002:a17:906:1c05:b0:a3f:804f:c1a4 with SMTP id
- k5-20020a1709061c0500b00a3f804fc1a4mr1267372ejg.74.1708603592180; 
- Thu, 22 Feb 2024 04:06:32 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.222.116])
- by smtp.gmail.com with ESMTPSA id
- y2-20020a170906470200b00a3d0dd84276sm5890564ejq.184.2024.02.22.04.06.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Feb 2024 04:06:31 -0800 (PST)
-Message-ID: <4a812d27-26e4-4358-a9f5-33ac66086769@linaro.org>
-Date: Thu, 22 Feb 2024 13:06:28 +0100
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D17CE10E960;
+ Thu, 22 Feb 2024 15:04:43 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41M7iWuK024680; Thu, 22 Feb 2024 15:04:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=qcppdkim1; bh=Q41hDQ++x7HXRNek8ydp2
+ FcmEDLeuAZTGmbaK9Fam8g=; b=XAhG3C6lKi+6qZ19iMOchCk/0cDyANDay/Q3Y
+ lEh8TvwZ5UBwIJDY4wWs/HPpeo0BtMaSCWpf1YtcmNTYR2paWzQJ8xZ7zJIGD3WU
+ 0ORyEvIkCr7kUttnOOf8UIYCis3PE5mYLsctdmyHZGlAJC5EqHPz01wDzdFkMnjP
+ pH8OloFfPgKn7AvFEwdUkxRNYm+qOIiIrbuRaC26myhT3SgAttt/CKF6Ja7zd+n2
+ r5DP0NGSVvadR4pltqz0hCetClweaVc8Zb5moe5iQyI9rS7xXX2y+CAli8elJk9F
+ DJi1U+HtbCWt1e7olBrRK7Xyomu/1amnNjH9/wSLOYzruf08A==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3we24ah67a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 22 Feb 2024 15:04:25 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41MF4Oqx032174
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 22 Feb 2024 15:04:24 GMT
+Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
+ nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Thu, 22 Feb 2024 07:04:24 -0800
+Date: Thu, 22 Feb 2024 07:04:23 -0800
+From: Bjorn Andersson <quic_bjorande@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Konrad Dybcio <konrad.dybcio@linaro.org>, Douglas Anderson
+ <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>, <cros-qcom-dts-watchers@chromium.org>, "Bjorn
+ Andersson" <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH 3/9] arm64: dts: qcom: sc7280: Enable MDP turbo mode
+Message-ID: <20240222150423.GI2936378@hu-bjorande-lv.qualcomm.com>
+References: <20240221-rb3gen2-dp-connector-v1-0-dc0964ef7d96@quicinc.com>
+ <20240221-rb3gen2-dp-connector-v1-3-dc0964ef7d96@quicinc.com>
+ <CAA8EJpo=9vhM+5YzaFxUoYRuEWQyrMS8wLNPSF3K=bN5JwWyDw@mail.gmail.com>
+ <8313a7c3-3ace-4dee-ad27-8f51a06cd58c@linaro.org>
+ <CAA8EJpqFj5nf8d_=Uoup7qg+nQrxqQU-DHbL3uSP138m9AcXLw@mail.gmail.com>
+ <8fcb5816-2d59-4e27-ba68-8e0ed6e7d839@linaro.org>
+ <CAA8EJporaUuddHHqpyYHiYSu=toHmrDxSHf9msZUJoym4Nz72g@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/7] dt-bindings: arm-smmu: Document SM8650 GPU SMMU
-Content-Language: en-US
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev
-References: <20240216-topic-sm8650-gpu-v3-0-eb1f4b86d8d3@linaro.org>
- <20240216-topic-sm8650-gpu-v3-3-eb1f4b86d8d3@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240216-topic-sm8650-gpu-v3-3-eb1f4b86d8d3@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <CAA8EJporaUuddHHqpyYHiYSu=toHmrDxSHf9msZUJoym4Nz72g@mail.gmail.com>
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Cohb87XPDhqkiAa09wtNUJyEMXFtcRPd
+X-Proofpoint-ORIG-GUID: Cohb87XPDhqkiAa09wtNUJyEMXFtcRPd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-22_11,2024-02-22_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0
+ clxscore=1011 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ mlxlogscore=999 phishscore=0 spamscore=0 mlxscore=0 bulkscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2402120000 definitions=main-2402220120
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,16 +100,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 16/02/2024 12:03, Neil Armstrong wrote:
-> Document the GPU SMMU found on the SM8650 platform.
+On Thu, Feb 22, 2024 at 11:46:26AM +0200, Dmitry Baryshkov wrote:
+> On Thu, 22 Feb 2024 at 11:28, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+> >
+> >
+> >
+> > On 2/22/24 10:04, Dmitry Baryshkov wrote:
+> > > On Thu, 22 Feb 2024 at 10:56, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+> > >>
+> > >>
+> > >>
+> > >> On 2/22/24 00:41, Dmitry Baryshkov wrote:
+> > >>> On Thu, 22 Feb 2024 at 01:19, Bjorn Andersson <quic_bjorande@quicinc.com> wrote:
+> > >>>>
+> > >>>> The max frequency listed in the DPU opp-table is 506MHz, this is not
+> > >>>> sufficient to drive a 4k@60 display, resulting in constant underrun.
+> > >>>>
+> > >>>> Add the missing MDP_CLK turbo frequency of 608MHz to the opp-table to
+> > >>>> fix this.
+> > >>>
+> > >>> I think we might want to keep this disabled for ChromeOS devices. Doug?
+> > >>
+> > >> ChromeOS devices don't get a special SoC
+> > >
+> > > But they have the sc7280-chrome-common.dtsi, which might contain a
+> > > corresponding /delete-node/ .
+> >
+> > What does that change? The clock rates are bound to the
+> > SoC and the effective values are limited by link-frequencies
+> > or the panel driver.
 > 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+> Preventing the DPU from overheating? Or spending too much power?
+> 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Perhaps I'm misunderstanding the implementation then, are we always
+running at the max opp? I thought the opp was selected based on the
+current need for performance?
 
-Best regards,
-Krzysztof
+Regards,
+Bjorn
 
+> -- 
+> With best wishes
+> Dmitry
