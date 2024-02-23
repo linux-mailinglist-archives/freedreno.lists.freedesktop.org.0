@@ -2,83 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02CC3861E19
-	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 21:48:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40052861E2B
+	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 21:52:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2497410EABF;
-	Fri, 23 Feb 2024 20:48:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 652F510ECBE;
+	Fri, 23 Feb 2024 20:52:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="mYzE7YdM";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QR8rPiWI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 220DD895C1;
- Fri, 23 Feb 2024 20:48:32 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41NKY1A7008914; Fri, 23 Feb 2024 20:48:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=LKWrf34v8r33/LmQhsxTJharZCGDQP5OGXVFHqA25I4=; b=mY
- zE7YdMLtvGjHI+ZRrE4bqJcyFBHGG7SXFaj7MZsf0bAIosGIGfUW8jL2N2S2D8l0
- WzRxGubTCRF6zGxZpIQrqv5Vb9z0LQj0KK5NBVpHKWgrJcmVzlN1pkthygEwAf6h
- pcewG55dJGgB7r1ITYaDlkXID5n7tRgdVY2w2zotqnINkoFtAdvvNZIvPzsno9RQ
- lEKp+2Rn/GmEGEnfevdiLYMbbhbHd50Q4SEkoS/6w3CdwSnBlKiKQJ/kdQsb6CJq
- tLkpKtl/JvFsusvi72HZzi0FRb6HJ+XOtM4EO9kNfh6zTFH0no1mb7lKR2uOXXTd
- TaeTDBo5D7GbQyzKVuPg==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3weq6x9nm5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Feb 2024 20:48:28 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41NKmRrc020334
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Feb 2024 20:48:27 GMT
-Received: from [10.110.76.211] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 23 Feb
- 2024 12:48:26 -0800
-Message-ID: <6334793a-1204-85b3-4f91-7859b83f79ed@quicinc.com>
-Date: Fri, 23 Feb 2024 12:48:25 -0800
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
+ [209.85.128.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1201910E031
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 20:52:52 +0000 (UTC)
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-608ccac1899so4977627b3.1
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 12:52:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1708721571; x=1709326371; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=NxODghQMamK2SljX5x9IFGf+/9bKTXqE2yI7GzUqoio=;
+ b=QR8rPiWIWroE3XlH0n/MNFMia0IFSKQVXZQlJ5E/X3GZwFhNLsUpVhcB9VeD9Sab4c
+ AM2SnCj/2CL1JuefNOeMecpO2+84PotzDw4PkYjVFTA36dZZ1G6dyJrdHF1JKgwWmqJP
+ NzG6sTsNjzHRNY8VEiYf5U1Wan4ozWMussGjAPLX7Lmi08CVFIdTOIARW/auv68NHFd/
+ q/0uvchvt5/iKAWDUF/tfJy0xskk/KknEzIug5pKwdxmNg250lBmS8m9zaof/cngtOLe
+ xjScgHqmQNLOGHPQO7SNFJaY63NX0y/hs+d9DWi1VaoIXhIq+ytyNSsl4YENtUSbHEu7
+ bNbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708721571; x=1709326371;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=NxODghQMamK2SljX5x9IFGf+/9bKTXqE2yI7GzUqoio=;
+ b=WdHBUFg59o7Ba+Qb6MbP77if3RV4YpyLsGtM2NNYaLE4EVIYrph9IX+SNhX0dy7Dcl
+ wJ9jpdMoegC3paMydzVegY/fM9l7VK7EvQAi78y8ndQsdp9SwbA+g0HMKh2ODpeHgkzk
+ Hr9z4vMN9Fm0gC84iBTs3nctIwQ+9/pU7GU+bMEoTggLGPaBOSLz74GNy3QTaQlVfeg3
+ Cdw2SmJ+7E3J0VdMB9ijskNdU/NfLeVJfBT7yDpoYuf4LESDeIKrELHv327NLrygHse2
+ 3aSrecYHox9UuNfMAbv81yDCiv4oHBlDiRHZYUXL7N7HluQm2X3IsoktrHgH/IdO4g+2
+ K0Tg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUO9qlE0noLTR/8QR7DBnmQJV52pkAUeydCTwgvy9STNdPPlJ0IFgFvAyfIVWY1LPAdcY80JzAuLmX5OWFST9L2PmSv37mZlNCAexaSS27A
+X-Gm-Message-State: AOJu0Yy5OmkdV5CSHczpTDhaTCXKaaipesm1OqDeNeweVyJQfMl2HKj7
+ otZZw68qhsBpFoZKhXiM4j8ozWnoBCQUtbwaqpcNADz6aTJ7v6GgG5W74yOFuSjiT1xvPIDR/5F
+ AqJXe1aOz3ldH9wMxXjX4cMIuX2DcnDATYkbBcQ==
+X-Google-Smtp-Source: AGHT+IHZ4hv1SyiQwuPj/DGpQnYbZ1k7ZnN6iq5FQGS2hnMIJawQ/6XD7dXtl7UaSQWqFV1jxKvJifN7iBXBctwJ910=
+X-Received: by 2002:a05:6902:2ca:b0:dc6:9d35:f9aa with SMTP id
+ w10-20020a05690202ca00b00dc69d35f9aamr972227ybh.19.1708721571664; Fri, 23 Feb
+ 2024 12:52:51 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+References: <20240222-fd-dpu-yv16-yv24-v1-1-4aa833cdc641@linaro.org>
+ <6334793a-1204-85b3-4f91-7859b83f79ed@quicinc.com>
+In-Reply-To: <6334793a-1204-85b3-4f91-7859b83f79ed@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 23 Feb 2024 22:52:40 +0200
+Message-ID: <CAA8EJpr3BJF_F231L3D8Qmx0Onvua7wcm2g=FM_YxMukw5-swQ@mail.gmail.com>
 Subject: Re: [PATCH] drm/msm/dpu: add support for 4:2:2 and 4:4:4 planar YCbCr
  plane formats
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>
-References: <20240222-fd-dpu-yv16-yv24-v1-1-4aa833cdc641@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240222-fd-dpu-yv16-yv24-v1-1-4aa833cdc641@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: S2pdWKJC23btV_09glpIOFEQDiI7l5oH
-X-Proofpoint-ORIG-GUID: S2pdWKJC23btV_09glpIOFEQDiI7l5oH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-23_06,2024-02-23_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015
- spamscore=0 mlxscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
- malwarescore=0 adultscore=0 mlxlogscore=999 suspectscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2402120000 definitions=main-2402230152
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,89 +82,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Fri, 23 Feb 2024 at 22:48, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 2/22/2024 3:43 AM, Dmitry Baryshkov wrote:
+> > The DPU driver provides support for 4:2:0 planar YCbCr plane formats.
+> > Extend it to also support 4:2:2 and 4:4:4 plat formats.
+> >
+>
+> I checked myself and also internally on this. On sm8250, the DPU planes
+> do not support YUV444 and YUV422 (and the corresponding YVU formats).
+>
+> May I know what was the reference to add these formats to DPU
+> considering that even downstream sources didn't add them?
+
+No reference. I was interested in checking different YUV formats for
+the test. It worked, so I wanted to discuss this. In the end, we are
+just changing several bits, which are used for other formats.
+
+>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> > Full-screen (1080p@60) YV24 gave me underruns on SM8250 until I bumped
+> > the clock inefficiency factor from 105 to 117. I'm not sure that it is a
+> > correct way to handle it, so I'm sending this as an RFC. If we agree
+> > that bumping the .clk_inefficiency_factor is a correct way, I'll send
+> > v2, including catalog changes.
+> >
+> > I had no such issues for the YV16/YU16 formats.
+>
+> We don't support this too on sm8250. But interesting it worked.
+
+As I wrote, YV24 also works if I slightly bump the clock inefficiency.
+I think this points out that maybe we should calculate clock factor
+dynamically.
+
+>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c    | 24 ++++++++++++++++++++++++
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  4 ++++
+> >   2 files changed, 28 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> > index e366ab134249..1b763cd95e5a 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> > @@ -475,6 +475,30 @@ static const struct dpu_format dpu_format_map[] = {
+> >               C1_B_Cb, C2_R_Cr, C0_G_Y,
+> >               false, DPU_CHROMA_420, 1, DPU_FORMAT_FLAG_YUV,
+> >               DPU_FETCH_LINEAR, 3),
+> > +
+> > +     PLANAR_YUV_FMT(YUV422,
+> > +             0, COLOR_8BIT, COLOR_8BIT, COLOR_8BIT,
+> > +             C2_R_Cr, C1_B_Cb, C0_G_Y,
+> > +             false, DPU_CHROMA_H2V1, 1, DPU_FORMAT_FLAG_YUV,
+> > +             DPU_FETCH_LINEAR, 3),
+> > +
+> > +     PLANAR_YUV_FMT(YVU422,
+> > +             0, COLOR_8BIT, COLOR_8BIT, COLOR_8BIT,
+> > +             C1_B_Cb, C2_R_Cr, C0_G_Y,
+> > +             false, DPU_CHROMA_H2V1, 1, DPU_FORMAT_FLAG_YUV,
+> > +             DPU_FETCH_LINEAR, 3),
+> > +
+> > +     PLANAR_YUV_FMT(YUV444,
+> > +             0, COLOR_8BIT, COLOR_8BIT, COLOR_8BIT,
+> > +             C2_R_Cr, C1_B_Cb, C0_G_Y,
+> > +             false, DPU_CHROMA_RGB, 1, DPU_FORMAT_FLAG_YUV,
+> > +             DPU_FETCH_LINEAR, 3),
+> > +
+> > +     PLANAR_YUV_FMT(YVU444,
+> > +             0, COLOR_8BIT, COLOR_8BIT, COLOR_8BIT,
+> > +             C1_B_Cb, C2_R_Cr, C0_G_Y,
+> > +             false, DPU_CHROMA_RGB, 1, DPU_FORMAT_FLAG_YUV,
+> > +             DPU_FETCH_LINEAR, 3),
+> >   };
+> >
+> >   /*
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > index ccbee0f40ad7..949c86a44ec7 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > @@ -195,6 +195,10 @@ static const uint32_t plane_formats_yuv[] = {
+> >       DRM_FORMAT_YVYU,
+> >       DRM_FORMAT_YUV420,
+> >       DRM_FORMAT_YVU420,
+> > +     DRM_FORMAT_YUV422,
+> > +     DRM_FORMAT_YVU422,
+> > +     DRM_FORMAT_YUV444,
+> > +     DRM_FORMAT_YVU444,
+> >   };
+> >
+> >   static const u32 rotation_v2_formats[] = {
+> >
+> > ---
+> > base-commit: ffa0c87f172bf7a0132aa960db412f8d63b2f533
+> > change-id: 20240222-fd-dpu-yv16-yv24-6bf152dfa7f3
+> >
+> > Best regards,
 
 
-On 2/22/2024 3:43 AM, Dmitry Baryshkov wrote:
-> The DPU driver provides support for 4:2:0 planar YCbCr plane formats.
-> Extend it to also support 4:2:2 and 4:4:4 plat formats.
-> 
 
-I checked myself and also internally on this. On sm8250, the DPU planes 
-do not support YUV444 and YUV422 (and the corresponding YVU formats).
-
-May I know what was the reference to add these formats to DPU 
-considering that even downstream sources didn't add them?
-
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-> Full-screen (1080p@60) YV24 gave me underruns on SM8250 until I bumped
-> the clock inefficiency factor from 105 to 117. I'm not sure that it is a
-> correct way to handle it, so I'm sending this as an RFC. If we agree
-> that bumping the .clk_inefficiency_factor is a correct way, I'll send
-> v2, including catalog changes.
-> 
-> I had no such issues for the YV16/YU16 formats.
-
-We don't support this too on sm8250. But interesting it worked.
-
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c    | 24 ++++++++++++++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  4 ++++
->   2 files changed, 28 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-> index e366ab134249..1b763cd95e5a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-> @@ -475,6 +475,30 @@ static const struct dpu_format dpu_format_map[] = {
->   		C1_B_Cb, C2_R_Cr, C0_G_Y,
->   		false, DPU_CHROMA_420, 1, DPU_FORMAT_FLAG_YUV,
->   		DPU_FETCH_LINEAR, 3),
-> +
-> +	PLANAR_YUV_FMT(YUV422,
-> +		0, COLOR_8BIT, COLOR_8BIT, COLOR_8BIT,
-> +		C2_R_Cr, C1_B_Cb, C0_G_Y,
-> +		false, DPU_CHROMA_H2V1, 1, DPU_FORMAT_FLAG_YUV,
-> +		DPU_FETCH_LINEAR, 3),
-> +
-> +	PLANAR_YUV_FMT(YVU422,
-> +		0, COLOR_8BIT, COLOR_8BIT, COLOR_8BIT,
-> +		C1_B_Cb, C2_R_Cr, C0_G_Y,
-> +		false, DPU_CHROMA_H2V1, 1, DPU_FORMAT_FLAG_YUV,
-> +		DPU_FETCH_LINEAR, 3),
-> +
-> +	PLANAR_YUV_FMT(YUV444,
-> +		0, COLOR_8BIT, COLOR_8BIT, COLOR_8BIT,
-> +		C2_R_Cr, C1_B_Cb, C0_G_Y,
-> +		false, DPU_CHROMA_RGB, 1, DPU_FORMAT_FLAG_YUV,
-> +		DPU_FETCH_LINEAR, 3),
-> +
-> +	PLANAR_YUV_FMT(YVU444,
-> +		0, COLOR_8BIT, COLOR_8BIT, COLOR_8BIT,
-> +		C1_B_Cb, C2_R_Cr, C0_G_Y,
-> +		false, DPU_CHROMA_RGB, 1, DPU_FORMAT_FLAG_YUV,
-> +		DPU_FETCH_LINEAR, 3),
->   };
->   
->   /*
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index ccbee0f40ad7..949c86a44ec7 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -195,6 +195,10 @@ static const uint32_t plane_formats_yuv[] = {
->   	DRM_FORMAT_YVYU,
->   	DRM_FORMAT_YUV420,
->   	DRM_FORMAT_YVU420,
-> +	DRM_FORMAT_YUV422,
-> +	DRM_FORMAT_YVU422,
-> +	DRM_FORMAT_YUV444,
-> +	DRM_FORMAT_YVU444,
->   };
->   
->   static const u32 rotation_v2_formats[] = {
-> 
-> ---
-> base-commit: ffa0c87f172bf7a0132aa960db412f8d63b2f533
-> change-id: 20240222-fd-dpu-yv16-yv24-6bf152dfa7f3
-> 
-> Best regards,
+-- 
+With best wishes
+Dmitry
