@@ -2,104 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A729861BB2
-	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 19:33:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38642861C63
+	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 20:20:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04E1910EC97;
-	Fri, 23 Feb 2024 18:33:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CECF10EC9F;
+	Fri, 23 Feb 2024 19:20:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="SM1IU5a4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h8wauObP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9768710EC96;
- Fri, 23 Feb 2024 18:33:15 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41NEnafk007025; Fri, 23 Feb 2024 18:30:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=Kfo/C8zqynWW3khr9w38fLA/juhM//M+1TSK7YbUzao=; b=SM
- 1IU5a4CNIWLmOnc+jXipb4Ga9eIJLWms0rnPxEXMwHDSoxe92W9Ew+cz2UneOT08
- Iyi2XyxnbZDa1t3nXppWD2gBv5baFGSu5jpaJXHu6vAsxhujSo74jXQc1qhtrkyj
- b1JYz/cxWMolVJrmsIH4767eZriXHsfPc1ASRZIKs+Vh4MImjLRwoZRf+c04IWja
- WREgwfvGpnGGa1IxPu7qJXJNToVvZY2M73nvMYmrwiDnSM6QuEXhaYYJoUiQlYDP
- AVkDtm/36vZFGTWQ5CsU0kJMULpTBDkWBl74wMVr5RZuQ0KaRJ0q/8gb9Xik4nP2
- o7j3uPWaxue4GCbloFJw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3we3233ydp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Feb 2024 18:30:49 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41NIUm69006076
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Feb 2024 18:30:48 GMT
-Received: from [10.110.104.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 23 Feb
- 2024 10:30:46 -0800
-Message-ID: <0aed6cf2-17ae-45aa-b7ff-03da932ea4e0@quicinc.com>
-Date: Fri, 23 Feb 2024 10:30:45 -0800
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AC3E10E052;
+ Fri, 23 Feb 2024 19:20:24 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id
+ 4fb4d7f45d1cf-56454c695e6so2195929a12.0; 
+ Fri, 23 Feb 2024 11:20:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1708716023; x=1709320823; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=M5k+Z4nPDwnRiBjbOv3TCMIZZge42YuOc06DAKki524=;
+ b=h8wauObPmrtw2XEWHLideLIaXV08GsbeLeagXHKHbvJdowJxps6kXXuwUPXZQDF5Rs
+ I0v0T/CEvAtbL2+8j7pkB35eDG/7al0bVhBWwqhL1QNzuwThf0k8EZ3HwJC7C0DgSobn
+ iFGriT6S2wVuQpk/EBnRxh8cToBCv/tlfP+WeUvIg4oc59byPFGRqpBkE7bd8jxS+k2O
+ dy3y2yQLb6O6d1jqN2h1DiDW6bIJJ334BO8yN5y0mdEhCQCttv9415EDP9p5vYtE6+rn
+ R4FfYBMaHShOn8NPb+4KDX4gpK8b1UCivUnpHKAiprasaiwG7C6CnqKb6EiQ1G84D45R
+ B7yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708716023; x=1709320823;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=M5k+Z4nPDwnRiBjbOv3TCMIZZge42YuOc06DAKki524=;
+ b=ug3yL4krBx0t2hGvipnHz4WPv9vOvtIyC5TQooVV311A+pDW9JXIK7jnsj5y8nBKj8
+ XojrVPN2/4vzNzcQ/vDe4r6MHzxkW3C7F2xsuw471x+sCuJDC2GnkBaoO8iZ2PGDg8bB
+ kj+gOR/Gkfa3gEvWcyUluadvisRtSRX5+g0hBVTo4I9rCgJzMiSGdxM6RPRK6mAeSMqv
+ Mu7xISQLkycgmcXNVT2JxeM/sVmp16skSLMZoLt/Q1RDvl+2EizevaFWwpPtoIL9WmL2
+ ATRmBPPa5+c0deheJhTUnzU7mB6VN4ons9/cOnUDLPdT0pYDuFrL0kuf4VxxBrrvGZ/p
+ 5IJA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVtfkM/QtW3Rlf3GvNyn47MFVibMw05qrwkxG8s4AQrA3PRlHSVuMEGjXQxcBmtnQ/ag3l85fPLRbJhUOPGAyG2DECKEMY7i4NHGjGVQJNNG87uUnlUxcB/rgMbLtwRTC36CLpJAe5puX5pJL1znz8R
+X-Gm-Message-State: AOJu0YxW5+IcOVgNmmsmWOb4u0swTeKWNWPXsFoZ/0LdALbkeG6RVAxq
+ TVRk56MlRx3AiVmOPVGE47MQ4bFo0oC06yf0D/zozr66WHc/yAG6UC/nZVlXm/dM5vKTjXAMd4D
+ 4dVyQYZonvf5YLJJe88j2xi6v+5A=
+X-Google-Smtp-Source: AGHT+IFxzxNvseF7FRtNGReSOFATSOOCh/1iiT7dXL+XxvU/9GXBLYa5JADHu4mYKLvEoJ+ZN/R02g6XFdvoxwcEuBM=
+X-Received: by 2002:aa7:cb4f:0:b0:565:7ce5:abdf with SMTP id
+ w15-20020aa7cb4f000000b005657ce5abdfmr600067edt.9.1708716022607; Fri, 23 Feb
+ 2024 11:20:22 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [FYI][PATCH] tracing/treewide: Remove second parameter of
- __assign_str()
-Content-Language: en-US
-To: Steven Rostedt <rostedt@goodmis.org>, LKML <linux-kernel@vger.kernel.org>, 
- Linux Trace Kernel <linux-trace-kernel@vger.kernel.org>
-CC: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Linus Torvalds
- <torvalds@linux-foundation.org>,
- <linuxppc-dev@lists.ozlabs.org>, <kvm@vger.kernel.org>,
- <linux-block@vger.kernel.org>, <linux-cxl@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
- <linux-rdma@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <iommu@lists.linux.dev>, <linux-tegra@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-hyperv@vger.kernel.org>,
- <ath10k@lists.infradead.org>, <linux-wireless@vger.kernel.org>,
- <ath11k@lists.infradead.org>, <ath12k@lists.infradead.org>,
- <brcm80211@lists.linux.dev>, <brcm80211-dev-list.pdl@broadcom.com>,
- <linux-usb@vger.kernel.org>, <linux-bcachefs@vger.kernel.org>,
- <linux-nfs@vger.kernel.org>, <ocfs2-devel@lists.linux.dev>,
- <linux-cifs@vger.kernel.org>, <linux-xfs@vger.kernel.org>,
- <linux-edac@vger.kernel.org>, <selinux@vger.kernel.org>,
- <linux-btrfs@vger.kernel.org>, <linux-erofs@lists.ozlabs.org>,
- <linux-f2fs-devel@lists.sourceforge.net>,
- <linux-hwmon@vger.kernel.org>, <io-uring@vger.kernel.org>,
- <linux-sound@vger.kernel.org>, <bpf@vger.kernel.org>,
- <linux-wpan@vger.kernel.org>, <dev@openvswitch.org>,
- <linux-s390@vger.kernel.org>, <tipc-discussion@lists.sourceforge.net>,
- Julia Lawall <Julia.Lawall@inria.fr>
-References: <20240223125634.2888c973@gandalf.local.home>
-From: Jeff Johnson <quic_jjohnson@quicinc.com>
-In-Reply-To: <20240223125634.2888c973@gandalf.local.home>
+References: <20240220121741.2994222-1-dmitry.baryshkov@linaro.org>
+ <54a3f3d9-ad3e-4828-96c0-61dd81c61d76@collabora.com>
+ <CAA8EJpq-17XSwmoT1HKVgxi=fUKD-fETtwbtpznR+RY+iFCE6w@mail.gmail.com>
+In-Reply-To: <CAA8EJpq-17XSwmoT1HKVgxi=fUKD-fETtwbtpznR+RY+iFCE6w@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 23 Feb 2024 11:20:10 -0800
+Message-ID: <CAF6AEGtsL2pwQQ2pDDbYmRmp57aX2WjtD4qsZ=J_p07b+o2Tkw@mail.gmail.com>
+Subject: Re: [PATCH] drm: ci: uprev IGT
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Helen Koike <helen.koike@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: wCcVNA_rPgQQt00obewLDHJucphy8QWk
-X-Proofpoint-GUID: wCcVNA_rPgQQt00obewLDHJucphy8QWk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-23_04,2024-02-23_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 mlxscore=0 lowpriorityscore=0
- clxscore=1011 suspectscore=0 malwarescore=0 mlxlogscore=793 adultscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2402120000 definitions=main-2402230136
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,22 +86,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/23/2024 9:56 AM, Steven Rostedt wrote:
-> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
-> 
-> [
->    This is a treewide change. I will likely re-create this patch again in
->    the second week of the merge window of v6.9 and submit it then. Hoping
->    to keep the conflicts that it will cause to a minimum.
-> ]
-> 
-> With the rework of how the __string() handles dynamic strings where it
-> saves off the source string in field in the helper structure[1], the
-> assignment of that value to the trace event field is stored in the helper
-> value and does not need to be passed in again.
+On Wed, Feb 21, 2024 at 6:36=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On Tue, 20 Feb 2024 at 16:31, Helen Koike <helen.koike@collabora.com> wro=
+te:
+> >
+> >
+> >
+> > On 20/02/2024 09:17, Dmitry Baryshkov wrote:
+> > > Bump IGT revision to pick up Rob Clark's fixes for the msm driver:
+> > >
+> > > - msm_submit@invalid-duplicate-bo-submit,Fail
+> > >
+> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >
+> > Do you have a gitlab pipeline link I can check?
+>
+> Before uprev: https://gitlab.freedesktop.org/drm/msm/-/pipelines/1109455
+>
+> After uprev: https://gitlab.freedesktop.org/drm/msm/-/pipelines/1109501
 
-Just curious if this could be done piecemeal by first changing the
-macros to be variadic macros which allows you to ignore the extra
-argument. The callers could then be modified in their separate trees.
-And then once all the callers have be merged, the macros could be
-changed to no longer be variadic.
+jfyi a couple more fixes landed after this, for kms_plane_cursor
+(skips->pass) and kms_universal_plane (fail->pass)..
+
+I have additional fixes for kms_bw, and kms_plane_scaling still
+waiting for review
+
+BR,
+-R
