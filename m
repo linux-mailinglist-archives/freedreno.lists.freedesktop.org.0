@@ -2,60 +2,116 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BC7586077B
-	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 01:15:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE505860FE3
+	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 11:56:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C340E10EACF;
-	Fri, 23 Feb 2024 00:15:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E792310EBA4;
+	Fri, 23 Feb 2024 10:56:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RWcliE0r";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eUg5v8Pa";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBAD410EACF;
- Fri, 23 Feb 2024 00:15:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 36C3063397;
- Fri, 23 Feb 2024 00:15:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69C7FC433C7;
- Fri, 23 Feb 2024 00:14:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1708647299;
- bh=ALaTQHJzjzLX0q4pli/+d7/sB1mmAsYN8kZyIavFMIc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RWcliE0rIhur5hiRYX4R0M8ZEPK7UCaliJX8CB+PxtbDKvi8Aahh/DYUfwYJbtQha
- QCBA903CEt/JMtUFPdFVMv+QEYYh/YWgUyd9E5d4rxuAKvqP+PdqwFXpv+JlNBdYHl
- pK67suVHaf94CGkt4q//DOt1qx2ywu6Fx27KrTH45LEGHMEIc6hPU71S8dwGp1MkzB
- 9UftHahESHnfk8xvKpZw5NSbKBjXjiJ0JsZVPGoXVoY1EFgxSv+lXWzp9+Mcu54LfY
- 9Irz0WiShZ4kTfru3E9cWQFyzfFT+J+S/fyPBho9o5DkzFVy9QrE9sNz7f+hFDnLp3
- T5uc4rQVWbQXg==
-Date: Thu, 22 Feb 2024 17:14:50 -0700
-From: Rob Herring <robh@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>, David Airlie <airlied@gmail.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, linux-clk@vger.kernel.org,
- Michael Turquette <mturquette@baylibre.com>,
- linux-kernel@vger.kernel.org, Will Deacon <will@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, iommu@lists.linux.dev,
- Rob Clark <robdclark@gmail.com>, Joerg Roedel <joro@8bytes.org>,
- devicetree@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- linux-arm-kernel@lists.infradead.org, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Conor Dooley <conor+dt@kernel.org>, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 1/8] dt-bindings: arm-smmu: Add QCM2290 GPU SMMU
-Message-ID: <170864728970.3860293.1851655437327503155.robh@kernel.org>
-References: <20240219-topic-rb1_gpu-v1-0-d260fa854707@linaro.org>
- <20240219-topic-rb1_gpu-v1-1-d260fa854707@linaro.org>
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9899510EB9D
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 10:56:33 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-33d9d43a1eeso488957f8f.2
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 02:56:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1708685791; x=1709290591; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :references:cc:to:content-language:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=MpP8FPur0ZRYYFc1Wrt+q/AzhU6BvtHVrmCY1eGQaCU=;
+ b=eUg5v8PaVGPsGymoNsKHDM8MKHQRO3n75L8CTC6k/mRF5VZOFdlJGuTOlyCeSBxfcS
+ HMwH+kx3hbCXzINIVSp8K2GyB/2nxNlnvQeHgcIED4o+q9CNnpSPhNnT2INvYHedyR9P
+ x3yhCOnEH14cWEyzldAk0is1W801eWLXaliwX31O0wB0eya07rgLbfzt2RQN98G725He
+ u50CgRpq9Fc++L80UQiu1F7mk4VSTUlUF6sfV4vufycTXVJfkeJp56tWtW5xXdbmU4xk
+ TUlasyblGWRY9R//P8GhPh90MhWhqGczoU1o5CKbziAmZ+ho6kQesdTl0QYeWN+M+7Ng
+ fhiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708685791; x=1709290591;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :references:cc:to:content-language:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=MpP8FPur0ZRYYFc1Wrt+q/AzhU6BvtHVrmCY1eGQaCU=;
+ b=NZb8AFTIUzU3+qr04+jRThiX0QJXC0g8FIId45W2Dh1zcOYdDvummHJ2jNt6DQY40Y
+ m+vZfJ6ztjmFCXvoaQcZeuKupn5PfVQ67VyRVvyMsBew0yS4G44kSOV9z6dqlla/F7at
+ QR55Pk4ksCoT/hbFRsMzFpdMZaI6Z+h7iRqsjauVd5uw+Spu9Pl2vlEB/R0xqbFu+Yla
+ +I0BmPL2Nt6MmLcYrnbS22NoiIKDUdJlD4bhdn1CPD7CwJHG2u1K4rC1frZ8tWUIUz6u
+ IATtWABtllEsT4WNw6W+jl+TfvsBq6XhEGVj7FA4IRVT7MFWoOqeY5hesEUp2HymL/X7
+ eWRw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUDNxRPA3mpTDOdwXMIumNsVRdCXGAKPiFPk2OuJbfesj9CJjrkuJxgfGNV47o1eSmT9np6/DDJNhawwgidJjlfiBfZjUhv27+vhpW9luPT
+X-Gm-Message-State: AOJu0YwU0WQ2F/XKwOeZNPWu9leRXZYkoQVhdqrxEctVijRYl1HPhov/
+ 3t/1QcCdtWVPqqIvZdxogPDtY2bx9PQ2GblGPLC8jwN21fi6E6tHga7R6Ca8w0g=
+X-Google-Smtp-Source: AGHT+IFmmCVq1mpUxj8NYYdV3/x1yBin0Yvk5Q825Dxgwe9DQn6iKJQLq+DpWki3HMNZqyDu4ForCQ==
+X-Received: by 2002:a05:6000:12c1:b0:33d:3566:b5c5 with SMTP id
+ l1-20020a05600012c100b0033d3566b5c5mr1264108wrx.7.1708685791556; 
+ Fri, 23 Feb 2024 02:56:31 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:58e3:6b80:c446:11f4?
+ ([2a01:e0a:982:cbb0:58e3:6b80:c446:11f4])
+ by smtp.gmail.com with ESMTPSA id
+ b3-20020adfe643000000b0033cffd1a302sm2352588wrn.57.2024.02.23.02.56.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 23 Feb 2024 02:56:31 -0800 (PST)
+Message-ID: <a661b9d6-966f-4202-aad2-87c2fda4f1ac@linaro.org>
+Date: Fri, 23 Feb 2024 11:56:29 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240219-topic-rb1_gpu-v1-1-d260fa854707@linaro.org>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/6] drm/bridge: aux-hpd: fix OF node leaks
+Content-Language: en-US, fr
+To: Johan Hovold <johan+linaro@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>
+Cc: Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org
+References: <20240217150228.5788-1-johan+linaro@kernel.org>
+ <20240217150228.5788-2-johan+linaro@kernel.org>
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro Developer Services
+In-Reply-To: <20240217150228.5788-2-johan+linaro@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,19 +124,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Mon, 19 Feb 2024 14:35:46 +0100, Konrad Dybcio wrote:
-> The GPU SMMU on QCM2290 nicely fits into the description we already have
-> for SM61[12]5. Add it.
+On 17/02/2024 16:02, Johan Hovold wrote:
+> The two device node references taken during allocation need to be
+> dropped when the auxiliary device is freed.
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Fixes: 6914968a0b52 ("drm/bridge: properly refcount DT nodes in aux bridge drivers")
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
 > ---
->  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/bridge/aux-hpd-bridge.c | 3 +++
+>   1 file changed, 3 insertions(+)
 > 
+> diff --git a/drivers/gpu/drm/bridge/aux-hpd-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
+> index bb55f697a181..9e71daf95bde 100644
+> --- a/drivers/gpu/drm/bridge/aux-hpd-bridge.c
+> +++ b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
+> @@ -25,6 +25,7 @@ static void drm_aux_hpd_bridge_release(struct device *dev)
+>   	ida_free(&drm_aux_hpd_bridge_ida, adev->id);
+>   
+>   	of_node_put(adev->dev.platform_data);
+> +	of_node_put(adev->dev.of_node);
+>   
+>   	kfree(adev);
+>   }
+> @@ -74,6 +75,8 @@ struct device *drm_dp_hpd_bridge_register(struct device *parent,
+>   
+>   	ret = auxiliary_device_init(adev);
+>   	if (ret) {
+> +		of_node_put(adev->dev.platform_data);
+> +		of_node_put(adev->dev.of_node);
+>   		ida_free(&drm_aux_hpd_bridge_ida, adev->id);
+>   		kfree(adev);
+>   		return ERR_PTR(ret);
 
-Acked-by: Rob Herring <robh@kernel.org>
-
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
