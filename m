@@ -2,55 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6621892F81
-	for <lists+freedreno@lfdr.de>; Sun, 31 Mar 2024 10:46:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9652C892F87
+	for <lists+freedreno@lfdr.de>; Sun, 31 Mar 2024 10:46:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73A8610E9F2;
-	Sun, 31 Mar 2024 08:46:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4733710E9F6;
+	Sun, 31 Mar 2024 08:46:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7E8089BA3;
- Fri, 23 Feb 2024 18:05:09 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD82010E029;
+ Fri, 23 Feb 2024 18:45:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id CC73ECE2E24;
- Fri, 23 Feb 2024 18:05:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 370BEC433C7;
- Fri, 23 Feb 2024 18:05:01 +0000 (UTC)
-Date: Fri, 23 Feb 2024 13:06:53 -0500
+ by dfw.source.kernel.org (Postfix) with ESMTP id EF93861654;
+ Fri, 23 Feb 2024 18:45:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C3ACC433C7;
+ Fri, 23 Feb 2024 18:45:01 +0000 (UTC)
+Date: Fri, 23 Feb 2024 13:46:53 -0500
 From: Steven Rostedt <rostedt@goodmis.org>
-To: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
- <linux-trace-kernel@vger.kernel.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Linus Torvalds
- <torvalds@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
- kvm@vger.kernel.org, linux-block@vger.kernel.org,
- linux-cxl@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- virtualization@lists.linux.dev, linux-rdma@vger.kernel.org,
- linux-pm@vger.kernel.org, iommu@lists.linux.dev,
- linux-tegra@vger.kernel.org, netdev@vger.kernel.org,
- linux-hyperv@vger.kernel.org, ath10k@lists.infradead.org,
- linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
- ath12k@lists.infradead.org, brcm80211@lists.linux.dev,
- brcm80211-dev-list.pdl@broadcom.com, linux-usb@vger.kernel.org,
- linux-bcachefs@vger.kernel.org, linux-nfs@vger.kernel.org,
- ocfs2-devel@lists.linux.dev, linux-cifs@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-edac@vger.kernel.org,
- selinux@vger.kernel.org, linux-btrfs@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-hwmon@vger.kernel.org, io-uring@vger.kernel.org,
- linux-sound@vger.kernel.org, bpf@vger.kernel.org,
- linux-wpan@vger.kernel.org, dev@openvswitch.org,
- linux-s390@vger.kernel.org, tipc-discussion@lists.sourceforge.net, Julia
- Lawall <Julia.Lawall@inria.fr>
+To: Jeff Johnson <quic_jjohnson@quicinc.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
+ <linux-trace-kernel@vger.kernel.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ <linuxppc-dev@lists.ozlabs.org>, <kvm@vger.kernel.org>,
+ <linux-block@vger.kernel.org>, <linux-cxl@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
+ <linux-rdma@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <iommu@lists.linux.dev>, <linux-tegra@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-hyperv@vger.kernel.org>,
+ <ath10k@lists.infradead.org>, <linux-wireless@vger.kernel.org>,
+ <ath11k@lists.infradead.org>, <ath12k@lists.infradead.org>,
+ <brcm80211@lists.linux.dev>, <brcm80211-dev-list.pdl@broadcom.com>,
+ <linux-usb@vger.kernel.org>, <linux-bcachefs@vger.kernel.org>,
+ <linux-nfs@vger.kernel.org>, <ocfs2-devel@lists.linux.dev>,
+ <linux-cifs@vger.kernel.org>, <linux-xfs@vger.kernel.org>,
+ <linux-edac@vger.kernel.org>, <selinux@vger.kernel.org>,
+ <linux-btrfs@vger.kernel.org>, <linux-erofs@lists.ozlabs.org>,
+ <linux-f2fs-devel@lists.sourceforge.net>, <linux-hwmon@vger.kernel.org>,
+ <io-uring@vger.kernel.org>, <linux-sound@vger.kernel.org>,
+ <bpf@vger.kernel.org>, <linux-wpan@vger.kernel.org>, <dev@openvswitch.org>,
+ <linux-s390@vger.kernel.org>, <tipc-discussion@lists.sourceforge.net>,
+ Julia Lawall <Julia.Lawall@inria.fr>
 Subject: Re: [FYI][PATCH] tracing/treewide: Remove second parameter of
  __assign_str()
-Message-ID: <20240223130653.2cc317a8@gandalf.local.home>
-In-Reply-To: <20240223125634.2888c973@gandalf.local.home>
+Message-ID: <20240223134653.524a5c9e@gandalf.local.home>
+In-Reply-To: <0aed6cf2-17ae-45aa-b7ff-03da932ea4e0@quicinc.com>
 References: <20240223125634.2888c973@gandalf.local.home>
+ <0aed6cf2-17ae-45aa-b7ff-03da932ea4e0@quicinc.com>
 X-Mailer: Claws Mail 3.19.1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -71,22 +72,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 23 Feb 2024 12:56:34 -0500
-Steven Rostedt <rostedt@goodmis.org> wrote:
+On Fri, 23 Feb 2024 10:30:45 -0800
+Jeff Johnson <quic_jjohnson@quicinc.com> wrote:
 
-> Note, the same updates will need to be done for:
+> On 2/23/2024 9:56 AM, Steven Rostedt wrote:
+> > From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
+> > 
+> > [
+> >    This is a treewide change. I will likely re-create this patch again in
+> >    the second week of the merge window of v6.9 and submit it then. Hoping
+> >    to keep the conflicts that it will cause to a minimum.
+> > ]
+> > 
+> > With the rework of how the __string() handles dynamic strings where it
+> > saves off the source string in field in the helper structure[1], the
+> > assignment of that value to the trace event field is stored in the helper
+> > value and does not need to be passed in again.  
 > 
->   __assign_str_len()
->   __assign_rel_str()
->   __assign_rel_str_len()
+> Just curious if this could be done piecemeal by first changing the
+> macros to be variadic macros which allows you to ignore the extra
+> argument. The callers could then be modified in their separate trees.
+> And then once all the callers have be merged, the macros could be
+> changed to no longer be variadic.
 
-Correction: The below macros do not pass in their source to the entry
-macros, so they will not need to be updated.
+I weighed doing that, but I think ripping off the band-aid is a better
+approach. One thing I found is that leaving unused parameters in the macros
+can cause bugs itself. I found one case doing my clean up, where an unused
+parameter in one of the macros was bogus, and when I made it a used
+parameter, it broke the build.
+
+I think for tree-wide changes, the preferred approach is to do one big
+patch at once. And since this only affects TRACE_EVENT() macros, it
+hopefully would not be too much of a burden (although out of tree users may
+suffer from this, but do we care?)
+
+Now one thing I could do is to not remove the parameter, but just add:
+
+	WARN_ON_ONCE((src) != __data_offsets->item##_ptr_);
+
+in the __assign_str() macro to make sure that it's still the same that is
+assigned. But I'm not sure how useful that is, and still causes burden to
+have it. I never really liked the passing of the string in two places to
+begin with.
 
 -- Steve
-
->   __assign_bitmask()
->   __assign_rel_bitmask()
->   __assign_cpumask()
->   __assign_rel_cpumask()
-
