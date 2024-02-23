@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06D008614CA
-	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 15:54:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C82818614D6
+	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 15:55:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDB0710EC30;
-	Fri, 23 Feb 2024 14:54:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93ECA10EC36;
+	Fri, 23 Feb 2024 14:55:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PLdvnbm4";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gOI0tzDy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B50210EC2F
- for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 14:54:09 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-3394b892691so546736f8f.1
- for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 06:54:09 -0800 (PST)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 063C110EC36
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 14:55:15 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-412969705c2so2980985e9.2
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 06:55:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708700047; x=1709304847; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708700114; x=1709304914; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :references:cc:to:content-language:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=cNUbkWdNlhpKbmxfuu6qZOk5j1wm/SN92RpylpPx2rA=;
- b=PLdvnbm4jOsMuEZDlnafWD09I9GElh76mYXDO+nM+8dSU5EOAYo0zHaYU/xMXp2Khe
- Fczdo7J2ZBK1Xb00MQjczZNupp5Ita8YZdSgm8COPo3QXsXVTBdk0sL5IS0xJboqWkRm
- IbsCgUlYWITa6aB7OBsuZGw4joOsNC4fBbeP+04M0g5Jf5qyar9seyNsYEMwxSsYVW1a
- 2de1Vq+NBHF2slV3y34oCBflzACeUNxJf5ODwx3qMHuZVR31rckqOeLvX3xAhWQJFcRB
- /RaCJpacUJNtRAwCXwJ+vlzK4hsr0PjzG1I/jwlhJLmtOD3QGoqxRy2gLDGBQh6PnukC
- li5Q==
+ :reply-to; bh=YR4FOB3mTjpSyt3x+AV6258Jdc3Bc2u/zffBWrsEEk0=;
+ b=gOI0tzDyjCM+Rgpogqk3c+aIHIZs/zKQwYDWoTzPrpMjR8Gphe2Txc89a91h61K1Zk
+ oYVjwksYBV/VWyWYhcnCQgoRc2K7wFgAHa4GbLrVLcdBoSImZkT4mzCda0X96EVPDeUM
+ BzzemrPKsJEe8I8iSlWVv8NsjXgiWkLM88AuBZ6/YoWRC8vNBxnE40fmRF7ooJ2/9YQQ
+ gzkmrzsIb9GV/dVKNfQyKnidKARXZpyHWz+e+Rl1fWGpd7/cSQFJjqKSh/6gvMM5VHFB
+ F280Z45+SaLlMYo0CyXqaYl4CO3Qh5v4jijvGl5PSOou7H8i7aQC5jNaiG7jUj727wLP
+ NQHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708700047; x=1709304847;
+ d=1e100.net; s=20230601; t=1708700114; x=1709304914;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :references:cc:to:content-language:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to;
- bh=cNUbkWdNlhpKbmxfuu6qZOk5j1wm/SN92RpylpPx2rA=;
- b=L5i95hIvqSuvt9e7/akTeKeqvgyVzIdlM2Voh8imNxbm8wl1ochLkoJVYEh7JH2ScE
- 0j7bh9g3ZJ5RIHCOnDHmP/ZOVjKrvX50nGFu7KHX9Jp3ECrQv/R8wWkOaXnzcyS3qFQ1
- Bcr70jXQ29QQmeKrEGEXV/8L0fY+XhIFiT/UnNgnZOxpVFzNMETDdQRmVx/AliUSTCQq
- oofMxG6wFTynTD5mxKMLcS0UbNHfjo2xI2vik1U+Gsw2zlafjWl8jf4jwe4exqEA9ucO
- jNliB9oc0/YtPfIV+laPk2RIDzqNhZMbKkRxNlak1zitQLoVmDFcb+7GUa3wIjX+0k5b
- 4Irw==
+ bh=YR4FOB3mTjpSyt3x+AV6258Jdc3Bc2u/zffBWrsEEk0=;
+ b=qgto+JZ1ZRtR3TMuczg/Hd9okdUB25ET8p2xzX6yfmbmEgEgaFMEtZKneM+lyyb2BM
+ e2c4Q23VbEgs8wsFx9l6IhFlcoMdIL6Y6qUBBpFap0/gAVOG31wUShUcWLKaiCKIP050
+ fnWZqA4S8zN1OpP1JZqw30uhJITQwc0q+cGDtmH8ORMp7sNcuMLFESLVZWNzj+Hrdenm
+ lm1AmEPVwJoyZLMUHgZWYa4In++SW6Eiv4YM0/sMv73hm+RpBuPGoIbWWzndMzLN8ymO
+ PXkgRg9h75AW8K4T9uz0ifk/wjZlujxlgP6vQX1jOZ4QeTtIhUlpZECObpR/6V9SL99r
+ xhHw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU7Doyljkl0qZpxLZWm4pF2WXylHf6aifHAIZrc+V2KxPdnUrZKxfbXd1Aju7Um8qH9vyq+UA0elIss8h5TZkuBcQUlnsLwlUs3c9KkFE0C
-X-Gm-Message-State: AOJu0Yw3NVpUKVCAOVNTz8wxWYgc24QMC8hCeiQMR3Iu/BJqRWy1CFSx
- KSHozs/QP1fGhWBotj0yEBibQRqczICeR8rcADXNtouiFC2Z9dQKmUXEarPt43Y=
-X-Google-Smtp-Source: AGHT+IHHEFVM/kLFgskVImQRztBShP4RflP5MJmVzKMK1rt1otBVKUaSq91oY7qDe/w6ZbH8jRi3mA==
-X-Received: by 2002:a5d:6a90:0:b0:33d:c45:15ec with SMTP id
- s16-20020a5d6a90000000b0033d0c4515ecmr5104778wru.32.1708700047381; 
- Fri, 23 Feb 2024 06:54:07 -0800 (PST)
+ AJvYcCWLalGeI9dQA3D0yykI+J4d9u/lx7V8EyziyWxOzmUYpyYIR0VQQaidX3sbPqmnHyj8cC7LdrMz3ZPC42bburVr2DYV+OLc3z3FI9pYu+Da
+X-Gm-Message-State: AOJu0YyHQieKtW7e13fWGTJ1QhXykj4p3Bh9jHkXapx3Zb12bojmfb+c
+ lxpIVUsaG64a1BKZhZbvEHHn3ihmVtLJav2gEMDg3pCrUgeP5qj7xdhXrlrLX44=
+X-Google-Smtp-Source: AGHT+IGAy96HbSPMW3k44GU39oK9LfJtPL+l0X+t5AUlvKsigL3XKGl9EWcCWb2kXfdcmrgGHf2JOw==
+X-Received: by 2002:a05:600c:46d0:b0:412:5fbe:3740 with SMTP id
+ q16-20020a05600c46d000b004125fbe3740mr36553wmo.24.1708700113947; 
+ Fri, 23 Feb 2024 06:55:13 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:982:cbb0:58e3:6b80:c446:11f4?
  ([2a01:e0a:982:cbb0:58e3:6b80:c446:11f4])
  by smtp.gmail.com with ESMTPSA id
- fa15-20020a05600c518f00b0041294a1d7bcsm2314742wmb.36.2024.02.23.06.54.06
+ fa15-20020a05600c518f00b0041294a1d7bcsm2314742wmb.36.2024.02.23.06.55.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Feb 2024 06:54:06 -0800 (PST)
-Message-ID: <3b6dc98a-a13d-4958-b8b4-003d27c84f89@linaro.org>
-Date: Fri, 23 Feb 2024 15:54:05 +0100
+ Fri, 23 Feb 2024 06:55:13 -0800 (PST)
+Message-ID: <b5401b19-09d9-4907-86d6-9aab9dc2970e@linaro.org>
+Date: Fri, 23 Feb 2024 15:55:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Subject: Re: [PATCH 0/6] soc: qcom: pmic_glink_altmode: fix drm bridge
  use-after-free
 Content-Language: en-US, fr
-To: Johan Hovold <johan+linaro@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
+To: Johan Hovold <johan@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Cc: Bjorn Andersson <andersson@kernel.org>,
  Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>
-Cc: Jonas Karlman <jonas@kwiboo.se>,
+ Vinod Koul <vkoul@kernel.org>, Johan Hovold <johan+linaro@kernel.org>,
+ Jonas Karlman <jonas@kwiboo.se>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jernej Skrabec <jernej.skrabec@gmail.com>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
@@ -84,6 +84,13 @@ Cc: Jonas Karlman <jonas@kwiboo.se>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org
 References: <20240217150228.5788-1-johan+linaro@kernel.org>
+ <170868613914.4029284.5549880672870201262.b4-ty@linaro.org>
+ <3c4246b6-431a-442e-8ace-3b0d0e67743f@linaro.org>
+ <ZdiU2z8rzo542_Ih@hovoldconsulting.com>
+ <d4049823-ad24-4426-887b-9c66cdd96318@linaro.org>
+ <ZdiqAPPTn9SvsjL8@hovoldconsulting.com>
+ <77715ecd-ddb9-450c-98bf-4fcade0e81c0@linaro.org>
+ <ZdixFo2EjUQDgeFh@hovoldconsulting.com>
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
  GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
@@ -109,7 +116,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro Developer Services
-In-Reply-To: <20240217150228.5788-1-johan+linaro@kernel.org>
+In-Reply-To: <ZdixFo2EjUQDgeFh@hovoldconsulting.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -128,67 +135,42 @@ Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/02/2024 16:02, Johan Hovold wrote:
-> Starting with 6.8-rc1 the internal display sometimes fails to come up on
-> machines like the Lenovo ThinkPad X13s and the logs indicate that this
-> is due to a regression in the DRM subsystem [1].
+On 23/02/2024 15:52, Johan Hovold wrote:
+> On Fri, Feb 23, 2024 at 03:38:13PM +0100, Neil Armstrong wrote:
+>> On 23/02/2024 15:21, Johan Hovold wrote:
 > 
-> This series fixes a race in the pmic_glink_altmode driver which was
-> exposed / triggered by the transparent DRM bridges rework that went into
-> 6.8-rc1 and that manifested itself as a bridge failing to attach and
-> sometimes triggering a NULL-pointer dereference.
+>>> But it is *not* standalone as I tried to explain above.
+>>>
+>>> So you have to drop it again as the later patches depend on it and
+>>> cannot be merged (through a different tree) without it.
+>>
+>> drm-misc branches cannot be rebased, it must be reverted, but it can still be applied
+>> on drm-misc-next and I'll send a revert patch for drm-misc-fixes if needed, not a big deal.
+>>
+>>> I thought you had all the acks you needed to take this through drm-misc,
+>>> but we can wait a bit more if necessary (and there's no rush to get the
+>>> first one in).
+>>
+>> If you want it to be in v6.9, it's too late since the last drm-misc-next PR has been sent
+>> yesterday (https://cgit.freedesktop.org/drm/drm-misc/tag/?h=drm-misc-next-2024-02-22)
+>>
+>> Please ping Thomas or Maxime, perhaps it's not too late since the drm-misc-next tree
+>> really closes on sunday.
 > 
-> The intermittent hard resets that have also been reported since 6.8-rc1
-> unfortunately still remains and suggests that we are dealing with two
-> separate regressions. There is some indication that also the hard resets
-> (e.g. due to register accesses to unclocked hardware) are also due to
-> changes in the DRM subsystem as it happens around the time that the eDP
-> panel and display controller would be initialised during boot (the
-> runtime PM rework?). This remains to be verified, however.
+> I don't want this in 6.9, this is needed for *6.8* as this fixes a DRM
+> regression in 6.8-rc1 that breaks the display on machines like the X13s.
 > 
-> Included is also a fix for a related OF node reference leak in the
-> aux-hpd driver found through inspection when reworking the driver.
+> If you guys can't sort this out in time, then perhaps Bjorn can take
+> this through the Qualcomm tree instead (with DRM acks).
 > 
-> The use-after-free bug is triggered by a probe deferral and highlighted
-> some further bugs in the involved drivers, which were registering child
-> devices before deferring probe. This behaviour is not correct and can
-> both trigger probe deferral loops and potentially also further issues
-> with the DRM bridge implementation.
-> 
-> This series can either go through the Qualcomm SoC tree (pmic_glink) or
-> the DRM tree. The PHY patches do not depend on the rest of the series
-> and could possibly be merged separately through the PHY tree.
-> 
-> Whichever gets this to mainline the fastest.
-> 
-> Johan
-> 
-> 
-> [1] https://lore.kernel.org/lkml/ZctVmLK4zTwcpW3A@hovoldconsulting.com/
-> 
-> 
-> Johan Hovold (5):
->    drm/bridge: aux-hpd: fix OF node leaks
->    drm/bridge: aux-hpd: separate allocation and registration
->    soc: qcom: pmic_glink_altmode: fix drm bridge use-after-free
->    phy: qcom-qmp-combo: fix drm bridge registration
->    phy: qcom-qmp-combo: fix type-c switch registration
-> 
-> Rob Clark (1):
->    soc: qcom: pmic_glink: Fix boot when QRTR=m
-> 
->   drivers/gpu/drm/bridge/aux-hpd-bridge.c   | 70 ++++++++++++++++++-----
->   drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 16 +++---
->   drivers/soc/qcom/pmic_glink.c             | 21 +++----
->   drivers/soc/qcom/pmic_glink_altmode.c     | 16 +++++-
->   include/drm/bridge/aux-bridge.h           | 15 +++++
->   5 files changed, 102 insertions(+), 36 deletions(-)
-> 
+> But again, this is fixing a severe *regression* in 6.8-rc1. It can not
+> wait for 6.9.
 
-For the serie:
-Acked-by: Neil Armstrong <neil.armstrong@linaro.org>
-
-After an offline discussion, Dmitry, it's ok to push the remaining patches to drm-misc-fixes.
+Right, I can't apply them right now, I send a patchset ack so it can be applied ASAP,
 
 Thanks,
 Neil
+
+> 
+> Johan
+
