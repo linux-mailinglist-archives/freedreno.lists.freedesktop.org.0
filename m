@@ -2,80 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61E69861EEE
-	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 22:24:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA65E862000
+	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 23:49:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11D0110ECDF;
-	Fri, 23 Feb 2024 21:24:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7576210ECCE;
+	Fri, 23 Feb 2024 22:49:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="g0M0a/Rn";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Qew1ha+z";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
- [209.85.128.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6647B10ECDE
- for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 21:24:54 +0000 (UTC)
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-608ccac1899so5311227b3.1
- for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 13:24:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708723493; x=1709328293; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=wgdv/OJ7jeihH3J71yo7/tj9HKsPe0FnbUozf7yDTNQ=;
- b=g0M0a/RnWDtlohJgyx88K2gNYtTB1HWk75jebFi9kLmuB3aBd2N4hySfPfKt6nEX/M
- pWACd03ahHyeUQulE0QXNAMxkTuuZMZtTgtN+p+IevvsJqObELCXMRJrQ+6SpKJBzO6t
- jyV3JBRiB2pHLGh8toZKuk7bcnR011bqW7JiaxrIzv8SLB4Ph/TErIwTnB33mJRk4eJq
- WLIP8xakaXaD7ooyRUTsnYTG0pcyklE93ZkD6UMgoNDCt6THxJqyjoT7a+iggck85N+m
- WtmSEMxY9MCcRzR5Va/+ErU6yo7fnR/bMjDar3jswkU5WZpJaSR4fEm/o7Yb3M5Jv2sb
- vvLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708723493; x=1709328293;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=wgdv/OJ7jeihH3J71yo7/tj9HKsPe0FnbUozf7yDTNQ=;
- b=gEcRqPcc0IaLF6afQGC6NiZTK2MSwxiM2vCMRWAsAz/HzxBzjOiyKRKu/spNFwU8ML
- kxauyArHXo3eJUf2AcppWLPULaRiX5mXHoxUIuVKj5+kgy+aprRsrJW92iHkecYeS6aO
- PMusyxTS3yXi96bOhkFRpPsw0/pi5oDbfibwRoFCeoxX1I0vohM+NDA2KZT/CHlX8zkJ
- icoA5DcDXe9BW4WKK8LSm/8JYdSoyPwe1bD9Zeok/grzbx16bQe+iHjETrQdov/kCOR2
- 6d29SWhugd2SPyOlBcasaqainwyCTLDt43JSP6+MFUKvan8BmrSvZHNkOmxiXVW+0iAi
- 4I7Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV03ePix7PYfI/xeiGVAL7D5lb8lx8TCCLKw2OXgia+zvJe2h1+X/Z5J389FdpSFU4i4n09o/PjswdbNCjeHGay91v3A596nsX0mjpisvaZ
-X-Gm-Message-State: AOJu0Yxbqbv7mbMRnbvJ7wBbim1XXDQIkq5HNtRqlIX87PGrl5kfuZCm
- pchmT/j1nIpM6YTeIY/JTBzOqkj0R18r+2spIKz6Z9a4M7lc9HzgtD3upU+WJyhwbPLQ2kw9itH
- yI8mFilyOI3jQU74KmWW2yHgSA8bPCKsOmbQsLQ==
-X-Google-Smtp-Source: AGHT+IFMmUBgDbCE2Q2G9lsAmZpvVhtEQwvP+lU1HPMuQilfEiaGC1y+Wv7lhCQH4132jTFroLi4zQTtEiwxKXXZKTw=
-X-Received: by 2002:a25:3082:0:b0:dc6:c2b2:c039 with SMTP id
- w124-20020a253082000000b00dc6c2b2c039mr998519ybw.41.1708723493452; Fri, 23
- Feb 2024 13:24:53 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 273BB10ECCE;
+ Fri, 23 Feb 2024 22:49:02 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41NLwboI019276; Fri, 23 Feb 2024 22:48:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=K+EhGOBFAOwInduVtZkvCxg9hFwWnwlqCf5W7sd/NdU=; b=Qe
+ w1ha+zQFfefKt1PgJZA671PJegduTk1YJOJMHvwGEpaeAnsLbsCC44i71BnxopFk
+ Ci+QPetBkpF+0bNS8D2nkofhj/U6aSTwfkfMECelhti6c+RivM+PdKm7u3cL5+e5
+ YeZLDJT3suQjM+Oicou9UvrP6b6G3CY7pEtpENkCZ+mho93AjHBAQgoRr89YUaRJ
+ TJeHcj+q3s++qMMiysD0vKeoLWF1+59DeKaPYXLGsx/FCFkqiztpfCH4gTaL8HMh
+ e+Uy61GudVuqT+4E+Aib7ShlswtIdF2E6JsbXTfVV90t0r7DoHpAHVcaIjp6WDq3
+ fTtKtzvbVacya3Sq16QQ==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wer8mssky-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 23 Feb 2024 22:48:52 +0000 (GMT)
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41NMmpQ9006083
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 23 Feb 2024 22:48:51 GMT
+Received: from [10.110.70.241] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 23 Feb
+ 2024 14:48:50 -0800
+Message-ID: <605d9e50-d61b-b0ce-1664-00554ba70b41@quicinc.com>
+Date: Fri, 23 Feb 2024 14:48:49 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH v2 2/7] clk: qcom: clk-alpha-pll: Add HUAYRA_2290 support
+Content-Language: en-US
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, "Rob
+ Herring" <robh@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, "David Airlie" <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+CC: Marijn Suijten <marijn.suijten@somainline.org>,
+ <linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Konrad Dybcio
+ <konradybcio@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <linux-clk@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
 References: <20240219-topic-rb1_gpu-v2-0-2d3d6a0db040@linaro.org>
- <20240219-topic-rb1_gpu-v2-4-2d3d6a0db040@linaro.org>
-In-Reply-To: <20240219-topic-rb1_gpu-v2-4-2d3d6a0db040@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 23 Feb 2024 23:24:42 +0200
-Message-ID: <CAA8EJpqnAoCDer93V34BaFHf5mhiNOFMQTP1Xaeoio0BWaPzhA@mail.gmail.com>
-Subject: Re: [PATCH v2 4/7] drm/msm/adreno: Add missing defines for A702
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-kernel@lists.infradead.org, 
- iommu@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>, 
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+ <20240219-topic-rb1_gpu-v2-2-2d3d6a0db040@linaro.org>
+From: Trilok Soni <quic_tsoni@quicinc.com>
+In-Reply-To: <20240219-topic-rb1_gpu-v2-2-2d3d6a0db040@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: nmwHTNyTCNAaftUm0O5wFymUBF5x3hm_
+X-Proofpoint-ORIG-GUID: nmwHTNyTCNAaftUm0O5wFymUBF5x3hm_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-23_06,2024-02-23_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0
+ adultscore=0 malwarescore=0 bulkscore=0 clxscore=1011 mlxscore=0
+ impostorscore=0 mlxlogscore=901 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2402120000 definitions=main-2402230163
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,19 +104,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 23 Feb 2024 at 23:21, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->
-> Add some defines required for A702. Can be substituted with a header
-> sync after merging mesa!27665 [1].
->
-> [1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27665
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx.xml.h | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
+On 2/23/2024 1:21 PM, Konrad Dybcio wrote:
+> +	/* Wait 50us for PLL_LOCK_DET bit to go high */
+> +	usleep_range(50, 55);
+> +
+> +	/* Enable PLL output */
+> +	regmap_update_bits(regmap, PLL_MODE(pll), PLL_OUTCTRL, PLL_OUTCTRL);
+> +}
+> +EXPORT_SYMBOL(clk_huayra_2290_pll_configure);
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Please use EXPORT_SYMBOL_GPL. 
 
 -- 
-With best wishes
-Dmitry
+---Trilok Soni
+
