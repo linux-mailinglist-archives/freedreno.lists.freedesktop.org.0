@@ -2,123 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C82818614D6
-	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 15:55:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3686861525
+	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 16:06:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93ECA10EC36;
-	Fri, 23 Feb 2024 14:55:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A53010EC32;
+	Fri, 23 Feb 2024 15:06:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gOI0tzDy";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BsrGBGfk";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 063C110EC36
- for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 14:55:15 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-412969705c2so2980985e9.2
- for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 06:55:15 -0800 (PST)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+ [209.85.208.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B38D10EC42
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 15:06:20 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-2d204e102a9so10072821fa.0
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 07:06:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708700114; x=1709304914; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=YR4FOB3mTjpSyt3x+AV6258Jdc3Bc2u/zffBWrsEEk0=;
- b=gOI0tzDyjCM+Rgpogqk3c+aIHIZs/zKQwYDWoTzPrpMjR8Gphe2Txc89a91h61K1Zk
- oYVjwksYBV/VWyWYhcnCQgoRc2K7wFgAHa4GbLrVLcdBoSImZkT4mzCda0X96EVPDeUM
- BzzemrPKsJEe8I8iSlWVv8NsjXgiWkLM88AuBZ6/YoWRC8vNBxnE40fmRF7ooJ2/9YQQ
- gzkmrzsIb9GV/dVKNfQyKnidKARXZpyHWz+e+Rl1fWGpd7/cSQFJjqKSh/6gvMM5VHFB
- F280Z45+SaLlMYo0CyXqaYl4CO3Qh5v4jijvGl5PSOou7H8i7aQC5jNaiG7jUj727wLP
- NQHw==
+ d=linaro.org; s=google; t=1708700778; x=1709305578; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4sJGs1NYZ5QUnzqdBB1Q8b+bNbJNb63ZLKIOCTbd53c=;
+ b=BsrGBGfkmWHft0C1OQtxmXtwOAGovjO9ZPux8MD7Vbt0fHUz1QWB3UeMacgSsApAdQ
+ PkeWL5LpVNNDZI3adt3qpzyn3tEvhBTl00GmclSlUnzA0rTHfTec0N882PnY/LR/s9IT
+ 00R4IT0V4DeaUBwmt/mBNde1M0q6JrT9ZPcBUlXct+Y2+EizekoqVJ1vsSowyyfyS8ze
+ pd+cxl8SfGfHTI5dXelBkUKy+cVtz0+aVOvaePiDtkoXOJhvadf8/j5J+ZmjQcwyma9M
+ txGDBt4Y+WoLN89jBM0XZzpn+NvU2nRFzsuKK0Fw4eYah9otYv9qxwF1Xbh6zil15mNX
+ JuNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708700114; x=1709304914;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=YR4FOB3mTjpSyt3x+AV6258Jdc3Bc2u/zffBWrsEEk0=;
- b=qgto+JZ1ZRtR3TMuczg/Hd9okdUB25ET8p2xzX6yfmbmEgEgaFMEtZKneM+lyyb2BM
- e2c4Q23VbEgs8wsFx9l6IhFlcoMdIL6Y6qUBBpFap0/gAVOG31wUShUcWLKaiCKIP050
- fnWZqA4S8zN1OpP1JZqw30uhJITQwc0q+cGDtmH8ORMp7sNcuMLFESLVZWNzj+Hrdenm
- lm1AmEPVwJoyZLMUHgZWYa4In++SW6Eiv4YM0/sMv73hm+RpBuPGoIbWWzndMzLN8ymO
- PXkgRg9h75AW8K4T9uz0ifk/wjZlujxlgP6vQX1jOZ4QeTtIhUlpZECObpR/6V9SL99r
- xhHw==
+ d=1e100.net; s=20230601; t=1708700778; x=1709305578;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4sJGs1NYZ5QUnzqdBB1Q8b+bNbJNb63ZLKIOCTbd53c=;
+ b=GznLijiAeCxjrCh+WOCTM9vOoPTtKhYhKA8QHH4yNzULZJSqp48g5VhoSdJdBOVlV7
+ VnpBN8rOJ4uXxEbFcsnH4c9qiQqiAbHi6CEjPaP2rT926q7jT9EbA79NFdn0OUOGrLMa
+ WixTGZ5T2vSvhZcQqBMVx6IGoqmCiCiKKn/lbDjGZBWyqhbPXge9P3uVfL4ZCjIeltSB
+ s90SIVuA87IU4MEu9wgeqDnfnZBt0AWTfO5O7oEX1dbuck05O4yZzverxTGgEFNiG6g1
+ fU5jYDsMQ51p8DQhKw1k+EsUGNfGH3cgb93o8liqPsuSlyKcYR469wyHqWtz28smnduy
+ 22TA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWLalGeI9dQA3D0yykI+J4d9u/lx7V8EyziyWxOzmUYpyYIR0VQQaidX3sbPqmnHyj8cC7LdrMz3ZPC42bburVr2DYV+OLc3z3FI9pYu+Da
-X-Gm-Message-State: AOJu0YyHQieKtW7e13fWGTJ1QhXykj4p3Bh9jHkXapx3Zb12bojmfb+c
- lxpIVUsaG64a1BKZhZbvEHHn3ihmVtLJav2gEMDg3pCrUgeP5qj7xdhXrlrLX44=
-X-Google-Smtp-Source: AGHT+IGAy96HbSPMW3k44GU39oK9LfJtPL+l0X+t5AUlvKsigL3XKGl9EWcCWb2kXfdcmrgGHf2JOw==
-X-Received: by 2002:a05:600c:46d0:b0:412:5fbe:3740 with SMTP id
- q16-20020a05600c46d000b004125fbe3740mr36553wmo.24.1708700113947; 
- Fri, 23 Feb 2024 06:55:13 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:58e3:6b80:c446:11f4?
- ([2a01:e0a:982:cbb0:58e3:6b80:c446:11f4])
- by smtp.gmail.com with ESMTPSA id
- fa15-20020a05600c518f00b0041294a1d7bcsm2314742wmb.36.2024.02.23.06.55.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Feb 2024 06:55:13 -0800 (PST)
-Message-ID: <b5401b19-09d9-4907-86d6-9aab9dc2970e@linaro.org>
-Date: Fri, 23 Feb 2024 15:55:12 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 0/6] soc: qcom: pmic_glink_altmode: fix drm bridge
- use-after-free
-Content-Language: en-US, fr
-To: Johan Hovold <johan@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ AJvYcCWg5FLhl9jYALfUrEcGV38wnNtOBc07P74yoH9exI2SzkE9K9Zw2MSnlVGQ7WFAg0rRr1UQBrS3Y91dVpAWcHXHYd5r9Whw2EF8+i2N4/Tw
+X-Gm-Message-State: AOJu0Yyy7jMWD+KFlVo+2yKybaRW8CoJGg47NQG3jBdpMBYGseM6qHyc
+ ZgEweP6jt1JxJMadekl6UEaXy2HdhaeERi1xt3yRw74DyFvgq0ygLDufQc0aixA=
+X-Google-Smtp-Source: AGHT+IGfCIE307IqSzsAUBlWRNDb7b8z9zOXY/2OH+3bNQA44KSVllJBbJFnbX+Qnh3P7Q37qv1Exw==
+X-Received: by 2002:a2e:a488:0:b0:2d2:61fd:7c2d with SMTP id
+ h8-20020a2ea488000000b002d261fd7c2dmr63698lji.17.1708700778286; 
+ Fri, 23 Feb 2024 07:06:18 -0800 (PST)
+Received: from eriador.lan (dzyjmhyyyyyyyyyyyykxt-3.rev.dnainternet.fi.
+ [2001:14ba:a00e:a300::227]) by smtp.gmail.com with ESMTPSA id
+ u24-20020a2e91d8000000b002d0c8fa072asm2681353ljg.20.2024.02.23.07.06.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Feb 2024 07:06:17 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Vinod Koul <vkoul@kernel.org>, Johan Hovold <johan+linaro@kernel.org>,
- Jonas Karlman <jonas@kwiboo.se>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Vinod Koul <vkoul@kernel.org>,
+ Johan Hovold <johan+linaro@kernel.org>
+Cc: Jonas Karlman <jonas@kwiboo.se>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jernej Skrabec <jernej.skrabec@gmail.com>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Kishon Vijay Abraham I <kishon@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: (subset) [PATCH 0/6] soc: qcom: pmic_glink_altmode: fix drm
+ bridge use-after-free
+Date: Fri, 23 Feb 2024 17:06:15 +0200
+Message-ID: <170870071756.13438.16980480346490993922.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240217150228.5788-1-johan+linaro@kernel.org>
 References: <20240217150228.5788-1-johan+linaro@kernel.org>
- <170868613914.4029284.5549880672870201262.b4-ty@linaro.org>
- <3c4246b6-431a-442e-8ace-3b0d0e67743f@linaro.org>
- <ZdiU2z8rzo542_Ih@hovoldconsulting.com>
- <d4049823-ad24-4426-887b-9c66cdd96318@linaro.org>
- <ZdiqAPPTn9SvsjL8@hovoldconsulting.com>
- <77715ecd-ddb9-450c-98bf-4fcade0e81c0@linaro.org>
- <ZdixFo2EjUQDgeFh@hovoldconsulting.com>
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <ZdixFo2EjUQDgeFh@hovoldconsulting.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,46 +96,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/02/2024 15:52, Johan Hovold wrote:
-> On Fri, Feb 23, 2024 at 03:38:13PM +0100, Neil Armstrong wrote:
->> On 23/02/2024 15:21, Johan Hovold wrote:
+On Sat, 17 Feb 2024 16:02:22 +0100, Johan Hovold wrote:
+> Starting with 6.8-rc1 the internal display sometimes fails to come up on
+> machines like the Lenovo ThinkPad X13s and the logs indicate that this
+> is due to a regression in the DRM subsystem [1].
 > 
->>> But it is *not* standalone as I tried to explain above.
->>>
->>> So you have to drop it again as the later patches depend on it and
->>> cannot be merged (through a different tree) without it.
->>
->> drm-misc branches cannot be rebased, it must be reverted, but it can still be applied
->> on drm-misc-next and I'll send a revert patch for drm-misc-fixes if needed, not a big deal.
->>
->>> I thought you had all the acks you needed to take this through drm-misc,
->>> but we can wait a bit more if necessary (and there's no rush to get the
->>> first one in).
->>
->> If you want it to be in v6.9, it's too late since the last drm-misc-next PR has been sent
->> yesterday (https://cgit.freedesktop.org/drm/drm-misc/tag/?h=drm-misc-next-2024-02-22)
->>
->> Please ping Thomas or Maxime, perhaps it's not too late since the drm-misc-next tree
->> really closes on sunday.
+> This series fixes a race in the pmic_glink_altmode driver which was
+> exposed / triggered by the transparent DRM bridges rework that went into
+> 6.8-rc1 and that manifested itself as a bridge failing to attach and
+> sometimes triggering a NULL-pointer dereference.
 > 
-> I don't want this in 6.9, this is needed for *6.8* as this fixes a DRM
-> regression in 6.8-rc1 that breaks the display on machines like the X13s.
-> 
-> If you guys can't sort this out in time, then perhaps Bjorn can take
-> this through the Qualcomm tree instead (with DRM acks).
-> 
-> But again, this is fixing a severe *regression* in 6.8-rc1. It can not
-> wait for 6.9.
+> [...]
 
-Right, I can't apply them right now, I send a patchset ack so it can be applied ASAP,
+Applied to drm-misc-fixes, thanks!
 
-Thanks,
-Neil
+[2/6] drm/bridge: aux-hpd: separate allocation and registration
+      commit: e5ca263508f7e9d2cf711edf3258d11ca087885c
+[3/6] soc: qcom: pmic_glink_altmode: fix drm bridge use-after-free
+      commit: b979f2d50a099f3402418d7ff5f26c3952fb08bb
+[4/6] soc: qcom: pmic_glink: Fix boot when QRTR=m
+      commit: f79ee78767ca60e7a2c89eacd2dbdf237d97e838
 
-> 
-> Johan
+Note, PHY patches (5,6) do not have dependency on the drm patch, so they can go
+through the phy/fixes tree.
 
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
