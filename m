@@ -2,117 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 492D1861015
-	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 12:04:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD72C861119
+	for <lists+freedreno@lfdr.de>; Fri, 23 Feb 2024 13:09:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 220C510EBB7;
-	Fri, 23 Feb 2024 11:04:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8562C10EBEC;
+	Fri, 23 Feb 2024 12:09:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LnpITdDS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cWE+qH8Z";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A822610EBA4
- for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 11:04:52 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-412949fd224so1419105e9.1
- for <freedreno@lists.freedesktop.org>; Fri, 23 Feb 2024 03:04:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708686290; x=1709291090; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=dpIrZ6DID2LKFZOgEe2hRQ7/dIExMrSdp13/JdG8p1M=;
- b=LnpITdDSQWF0BBvedgP/UDdB7DfrS6ZI2xR1RWlzO7DW4NO+yYEA3vgvaTqx2x0KvI
- 51F5oozlc0axSMj9uI0/SIywYSVWxi1vQET0zBackmWrqstERVtFsjEYwJQDbGK+G3aY
- JKcDwwTcw1HeIA8E+WxlaX+1zVrpXbDFdxTZFc0hB64n9WM+K2XfmeCYqufk7hz4+OzL
- CTWR7+uwOMIF8+ugXRXuu4Iqlx8PzS9/fDW+16+aVOuYgHabHlM7iEL2rbCcORH1Yhco
- JCfh/++wg02lo6/utdjaZW+alxxOLihPiTXaVSBDTmBeFKQ9Cj0g1i26d0IznnYFf9mU
- D1iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708686290; x=1709291090;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=dpIrZ6DID2LKFZOgEe2hRQ7/dIExMrSdp13/JdG8p1M=;
- b=UNfBOrnHoFcq32zyeD2e0QhK2l7EXihyNIWdu4fAU1t2/auuw7UeXc5GUtgevwpzBG
- t8vFcOWPRcbcHCSnq3BlygmxPvvtqGdTJeddjsWCsqAhbiKPYURf9v01PAIvCZJKHRNR
- Lu4yQOTLwKVdLH9hjxp4eCzRtLzMPTqDXpqSUVGqcbMtmmN9wMJC6vh8ea9wn5O2JUis
- dd145uVL8ymRbOPsb3oq7XyczWpYgsIHdqPXt/S7LetLpPQhUbJVE+alqf833HnNqOKa
- LD8jeF0tR0OHvY/14v2aONVlEudZROEqpO6Eh8GJ9zCjE7qXAe6F2Y2nuVqhELOcCSuY
- yGKg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUjXmLFy5LPjpTZTUM5SXPkigfZT6zyu5Od7Dx6tRB95wtXlpwn3u1HB++i3Ve7yJ/mxYxqsTipUKb/DkLlwV/jOumSs3dmJxlcVw/Q/aGl
-X-Gm-Message-State: AOJu0YywIxkQG9JmDYbcstvDJQUfXmOcdm5Dg3LDYN49JN4tpwlyO6SU
- CJBHi/Daw9gUeqlYM9OVBRb8coBC+fywkpb9FiQmB+L5cHisBp/dzgUyta0eX2c=
-X-Google-Smtp-Source: AGHT+IGnhOanEmC+FFYKStze36jnGP7rwyWuG1Kq6ilYQmZZ4KpE6Mgybp5TasF6iXliwnPhK8ra0g==
-X-Received: by 2002:a05:600c:3b07:b0:412:95fb:9613 with SMTP id
- m7-20020a05600c3b0700b0041295fb9613mr859610wms.2.1708686290037; 
- Fri, 23 Feb 2024 03:04:50 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:58e3:6b80:c446:11f4?
- ([2a01:e0a:982:cbb0:58e3:6b80:c446:11f4])
- by smtp.gmail.com with ESMTPSA id
- jj26-20020a05600c6a1a00b0041294a6fc03sm1541476wmb.9.2024.02.23.03.04.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Feb 2024 03:04:49 -0800 (PST)
-Message-ID: <cd2b45d4-53b4-4a3f-88bd-116f4e6a7bae@linaro.org>
-Date: Fri, 23 Feb 2024 12:04:48 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 4/6] soc: qcom: pmic_glink: Fix boot when QRTR=m
-Content-Language: en-US, fr
-To: Johan Hovold <johan+linaro@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B110D10EBDC;
+ Fri, 23 Feb 2024 12:09:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 50F6860E8E;
+ Fri, 23 Feb 2024 12:09:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CA89C433F1;
+ Fri, 23 Feb 2024 12:09:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1708690189;
+ bh=DAU55Q2sfD8L3ZH3fwKz/mmSeLuRFjA+iaKnPasZfYI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cWE+qH8Zq+UtXRLfYmyuV3u+IKp/btik1e/z0NcFAKsg2JFdaO+l5UWXmWONEYLds
+ uLpa08T9BkqJUn2j4hpCvA+SIS573tWcOmBKJqjuQwgDE/E6Q47UjoNbXT2rpw20qo
+ 7fUqXMddP2LVweCKCfIgSXQk1Ka671n7VX8tk8thBXNe74TFl5p1/4AVMz8lg9HD6p
+ lBIYZVzJkwWQxX5lovIMJ+xSadmHDq1uIdelyPrGCCl7fid1vWrktyF86toFZTIOYw
+ X5OMymD0SIeOPhIaqSbiiFEAEKdvwmnu24v0ozwuZm9AnXcHsOkKPa5nltacZN7V5L
+ exhG1FobcrI5w==
+Date: Fri, 23 Feb 2024 17:39:45 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Johan Hovold <johan+linaro@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>
-Cc: Jonas Karlman <jonas@kwiboo.se>,
+ Jonas Karlman <jonas@kwiboo.se>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jernej Skrabec <jernej.skrabec@gmail.com>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Kishon Vijay Abraham I <kishon@kernel.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- Rob Clark <robdclark@chromium.org>, stable@vger.kernel.org
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, stable@vger.kernel.org,
+ Bjorn Andersson <quic_bjorande@quicinc.com>
+Subject: Re: [PATCH 5/6] phy: qcom-qmp-combo: fix drm bridge registration
+Message-ID: <ZdiLCYKCujs4DgKV@matsya>
 References: <20240217150228.5788-1-johan+linaro@kernel.org>
- <20240217150228.5788-5-johan+linaro@kernel.org>
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <20240217150228.5788-5-johan+linaro@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <20240217150228.5788-6-johan+linaro@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240217150228.5788-6-johan+linaro@kernel.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,93 +72,28 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/02/2024 16:02, Johan Hovold wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 17-02-24, 16:02, Johan Hovold wrote:
+> Due to a long-standing issue in driver core, drivers may not probe defer
+> after having registered child devices to avoid triggering a probe
+> deferral loop (see fbc35b45f9f6 ("Add documentation on meaning of
+> -EPROBE_DEFER")).
 > 
-> We need to bail out before adding/removing devices if we are going to
-> -EPROBE_DEFER. Otherwise boot can get stuck in a probe deferral loop due
-> to a long-standing issue in driver core (see fbc35b45f9f6 ("Add
-> documentation on meaning of -EPROBE_DEFER")).
+> This could potentially also trigger a bug in the DRM bridge
+> implementation which does not expect bridges to go away even if device
+> links may avoid triggering this (when enabled).
 > 
-> Deregistering the altmode child device can potentially also trigger bugs
-> in the DRM bridge implementation, which does not expect bridges to go
-> away.
+> Move registration of the DRM aux bridge to after looking up clocks and
+> other resources.
 > 
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> Link: https://lore.kernel.org/r/20231213210644.8702-1-robdclark@gmail.com
-> [ johan: rebase on 6.8-rc4, amend commit message and mention DRM ]
-> Fixes: 58ef4ece1e41 ("soc: qcom: pmic_glink: Introduce base PMIC GLINK driver")
-> Cc: stable@vger.kernel.org      # 6.3
-> Cc: Bjorn Andersson <andersson@kernel.org>
-> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
-> ---
->   drivers/soc/qcom/pmic_glink.c | 21 +++++++++++----------
->   1 file changed, 11 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/soc/qcom/pmic_glink.c b/drivers/soc/qcom/pmic_glink.c
-> index f4bfd24386f1..f913e9bd57ed 100644
-> --- a/drivers/soc/qcom/pmic_glink.c
-> +++ b/drivers/soc/qcom/pmic_glink.c
-> @@ -265,10 +265,17 @@ static int pmic_glink_probe(struct platform_device *pdev)
->   
->   	pg->client_mask = *match_data;
->   
-> +	pg->pdr = pdr_handle_alloc(pmic_glink_pdr_callback, pg);
-> +	if (IS_ERR(pg->pdr)) {
-> +		ret = dev_err_probe(&pdev->dev, PTR_ERR(pg->pdr),
-> +				    "failed to initialize pdr\n");
-> +		return ret;
-> +	}
-> +
->   	if (pg->client_mask & BIT(PMIC_GLINK_CLIENT_UCSI)) {
->   		ret = pmic_glink_add_aux_device(pg, &pg->ucsi_aux, "ucsi");
->   		if (ret)
-> -			return ret;
-> +			goto out_release_pdr_handle;
->   	}
->   	if (pg->client_mask & BIT(PMIC_GLINK_CLIENT_ALTMODE)) {
->   		ret = pmic_glink_add_aux_device(pg, &pg->altmode_aux, "altmode");
-> @@ -281,17 +288,11 @@ static int pmic_glink_probe(struct platform_device *pdev)
->   			goto out_release_altmode_aux;
->   	}
->   
-> -	pg->pdr = pdr_handle_alloc(pmic_glink_pdr_callback, pg);
-> -	if (IS_ERR(pg->pdr)) {
-> -		ret = dev_err_probe(&pdev->dev, PTR_ERR(pg->pdr), "failed to initialize pdr\n");
-> -		goto out_release_aux_devices;
-> -	}
-> -
->   	service = pdr_add_lookup(pg->pdr, "tms/servreg", "msm/adsp/charger_pd");
->   	if (IS_ERR(service)) {
->   		ret = dev_err_probe(&pdev->dev, PTR_ERR(service),
->   				    "failed adding pdr lookup for charger_pd\n");
-> -		goto out_release_pdr_handle;
-> +		goto out_release_aux_devices;
->   	}
->   
->   	mutex_lock(&__pmic_glink_lock);
-> @@ -300,8 +301,6 @@ static int pmic_glink_probe(struct platform_device *pdev)
->   
->   	return 0;
->   
-> -out_release_pdr_handle:
-> -	pdr_handle_release(pg->pdr);
->   out_release_aux_devices:
->   	if (pg->client_mask & BIT(PMIC_GLINK_CLIENT_BATT))
->   		pmic_glink_del_aux_device(pg, &pg->ps_aux);
-> @@ -311,6 +310,8 @@ static int pmic_glink_probe(struct platform_device *pdev)
->   out_release_ucsi_aux:
->   	if (pg->client_mask & BIT(PMIC_GLINK_CLIENT_UCSI))
->   		pmic_glink_del_aux_device(pg, &pg->ucsi_aux);
-> +out_release_pdr_handle:
-> +	pdr_handle_release(pg->pdr);
->   
->   	return ret;
->   }
+> Note that PHY creation can in theory also trigger a probe deferral when
+> a 'phy' supply is used. This does not seem to affect the QMP PHY driver
+> but the PHY subsystem should be reworked to address this (i.e. by
+> separating initialisation and registration of the PHY).
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Acked-by: Vinod Koul <vkoul@kernel.org>
+
+-- 
+~Vinod
