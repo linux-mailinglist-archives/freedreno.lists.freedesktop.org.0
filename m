@@ -2,132 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A12C9862429
-	for <lists+freedreno@lfdr.de>; Sat, 24 Feb 2024 11:20:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A2068627F9
+	for <lists+freedreno@lfdr.de>; Sat, 24 Feb 2024 23:34:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 590AC10E114;
-	Sat, 24 Feb 2024 10:20:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D061710E008;
+	Sat, 24 Feb 2024 22:34:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="X6KwiDSi";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="okp5Mvp8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AC6810E0E4
- for <freedreno@lists.freedesktop.org>; Sat, 24 Feb 2024 10:20:34 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-a3ed9cae56fso220820066b.1
- for <freedreno@lists.freedesktop.org>; Sat, 24 Feb 2024 02:20:34 -0800 (PST)
+Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com
+ [209.85.219.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86D6910E088
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Feb 2024 22:34:47 +0000 (UTC)
+Received: by mail-yb1-f174.google.com with SMTP id
+ 3f1490d57ef6-dc238cb1b17so2087484276.0
+ for <freedreno@lists.freedesktop.org>; Sat, 24 Feb 2024 14:34:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708770032; x=1709374832; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6vNTny4pXEvjs6cRGbtYbmBpJ/7oEEZ1oHIPJLYTMGc=;
- b=X6KwiDSiJrKwn7NN8DkVAJaFzFt9qDWxW08rf2tSOp9IKom2rl07HSoNF7xFyDni6d
- Sx+xv74GUB62sdZMx7tBXRarWg5FaQBw9Sq365oRDIv56E/Dt2dyBQsLG0mv1YSCCf6H
- 6trasWzJqpTnPMXsS1l517bA2RMLRMSt+ltXpyRCUXdAJrCcoyEhsSDjdVEWLDFsx8nv
- 4pGtPL2Ocsf0dmsTRY/wZQFiSgOuo6QtmTi6sMnB3x3J0hE/um/MU4axC3oqtXP8z969
- XBjnyAdy6ptpeoZzv5UdN6JAiDAiqLOjdFtsp0B23j7tiVcW72YQNSHAZsuWSGeTZNOC
- 7SpQ==
+ d=linaro.org; s=google; t=1708814086; x=1709418886; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=fSWAzifwmBABORc4RLjDBXc5wdSEcZlyZ0ioROWY0qc=;
+ b=okp5Mvp8UeOfatDr2W4AVk/HCbpbB/uFE+poxWbNdUz+f/gJz3xF6TrsF9SGj27/Z3
+ oPW5ptVnTXdk/cyWYGpbzV2h4TBypGoNuR1uWzASwEZb2IDUyUrgZBPeVRBWy79y7mln
+ r0AtRuR8hziGeh6Tt0Yb8lydxZMJC+YuklWQ/nCRIidWqyHRGvxIsIykjjwemxTZlY8E
+ OM0lqGbwM501em8zDnsCGlhAwxCfXFNVWQeb4geenMf4yILUAlUtx5Px0zIQitd5XXWi
+ iX0Stp7K8iMv4dUdu1IIEzRWb7WlyMWtIRfUrQJ41pNKR7VRb4botbzwk0hOPg9Pekm9
+ HK3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708770032; x=1709374832;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6vNTny4pXEvjs6cRGbtYbmBpJ/7oEEZ1oHIPJLYTMGc=;
- b=LSUeXLi/15NPY/Y3sz4PlvPNwAsYKuHh4obagejPjTL/RwKZztbKIMwZhyx7Vx18FT
- RV8Pn3Cm6j9Mnoz1GjA/+kKy9WjUdGCTCoHmjbODDM3HuuCsEXMook9B1GkajlE/tVh6
- 59AuvYsKWqfSXInKvS2uCxRImuUkIN+eanFyVzaiI+I9PcmOuCL604iMXpZiiDByoFDt
- IoW4s4oGTHjTo4PrdP6LZiMiRyrhL3twwIfPjJHy2x999RkIAml7AiPIidZoQYCrI2Sk
- VrETzeFnWvOSwfsx8ASbNyTtpHFIWnsQo2Qn9kKn5IevIfgc2/nf7FuHF0B1QVc7VNrN
- H7hQ==
+ d=1e100.net; s=20230601; t=1708814086; x=1709418886;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=fSWAzifwmBABORc4RLjDBXc5wdSEcZlyZ0ioROWY0qc=;
+ b=XOX8jK/Tf9RHtU8zeNl4u5VHvuH4AobGhP6Foht7cMxRBI6OSZ6oedgafjemoxQsrA
+ ms+Z6o9FDr20YlHABsOoTx+3OA19kQRNmUvNxqJXhEPZH2qVKNE7pm1z9bb+9yhqJyel
+ /M+fQcy0uwfxo+Ov13gjVh6TBd7E4S3AXHPskgQii6uuGlCn/8hxj7vwoRyJKPtbWZq/
+ aKcvDFOZy4XpssVpaxGvpqQFCGuPRZI9CI6wvG/eFfoKnY96vg1WiK76TQVplzEDWA7E
+ f9Fn3F7sgUJnBOAt9HiRysAK689y57wujYR0CELx0nWJ6hDs7060IhQsN4vIanLCgIzw
+ epZg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWMRzx+2P9SBXU3s9oZKaftOSev2E2c/gUWFTDzW4nWAvwwNrEst+ZmQ28oapNolEWnQBVCkWbRr953qyT1O+kFaxblSd7HbytmidrNetO3
-X-Gm-Message-State: AOJu0Yw6rid8LDuM/1jYJGoGIs3WfGE4EPfKF4xtO4kLkQKgYuzFCT9h
- ER6ROtUnw3ZsXl/SdmIijVAUC+dW+m4KRxXJdh7S+gDDQo79/hZ2WgaTzaxc36Y=
-X-Google-Smtp-Source: AGHT+IF3zlbidJ8Y4ckq/68GuEwgnY31iAGOnONoOCQuXMzjrT09Tf8KnvgKz/qSnMzCwBuDwHnjCQ==
-X-Received: by 2002:a17:906:2844:b0:a3f:adad:9ce1 with SMTP id
- s4-20020a170906284400b00a3fadad9ce1mr1848309ejc.18.1708770032416; 
- Sat, 24 Feb 2024 02:20:32 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.222.116])
- by smtp.gmail.com with ESMTPSA id
- k10-20020a17090646ca00b00a3d004237ebsm447339ejs.212.2024.02.24.02.20.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 24 Feb 2024 02:20:31 -0800 (PST)
-Message-ID: <133c1185-8e13-4471-8e00-8968b38df970@linaro.org>
-Date: Sat, 24 Feb 2024 11:20:29 +0100
+ AJvYcCWpKWJuV81+trdBLq5xpiinavgPXnejwokJ80KxVj3QJsjBkBUjFo5sv0kNX281xCNmR6Aa8KHmMIEtWOhP2VOn8r/Q72ymzjWA562BsTaP
+X-Gm-Message-State: AOJu0YzJhs4Q8MQnzi9Whpt/EdtZ86w+BmM13QGDGLQ82Q7E/rMQproZ
+ 41bjoq2VKh5G2M7UGzYTCmH4fOh9hEkvhaeo7dgAH6aTSS1EYyZj21RiM45Emiuk28gqOH112VH
+ Z9SiljbtKS6rAx3uznnsNCR/Vf4R6QuSzpnSXaQ==
+X-Google-Smtp-Source: AGHT+IEt0J5rY6GTeFZWhG/mY3NWmwow/MGIgHtdSvjrLUVIVDeFiV4UIk5CN4JD9H1JkWvYeScpNmeVrxVqVCTFU04=
+X-Received: by 2002:a05:690c:c1b:b0:608:3c43:9186 with SMTP id
+ cl27-20020a05690c0c1b00b006083c439186mr3300115ywb.45.1708814086115; Sat, 24
+ Feb 2024 14:34:46 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] dt-bindings: clock: Add Qcom QCM2290 GPUCC
-Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Rob Herring <robh@kernel.org>,
+References: <20240222-x1e80100-display-refactor-connector-v2-0-bd4197dfceab@linaro.org>
+ <20240222-x1e80100-display-refactor-connector-v2-1-bd4197dfceab@linaro.org>
+In-Reply-To: <20240222-x1e80100-display-refactor-connector-v2-1-bd4197dfceab@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sun, 25 Feb 2024 00:34:34 +0200
+Message-ID: <CAA8EJppOBHhaZpS_Z34fmFmGr4aRe0-k8w=5ScquNhCrnzRDgw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: display: msm: dp-controller: document
+ X1E80100 compatible
+To: Abel Vesa <abel.vesa@linaro.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-References: <20240219-topic-rb1_gpu-v2-0-2d3d6a0db040@linaro.org>
- <20240219-topic-rb1_gpu-v2-1-2d3d6a0db040@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzTRLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+wsGUBBMBCgA+FiEE
- m9B+DgxR+NWWd7dUG5NDfTtBYpsFAmI+BxMCGwMFCRRfreEFCwkIBwIGFQoJCAsCBBYCAwEC
- HgECF4AACgkQG5NDfTtBYptgbhAAjAGunRoOTduBeC7V6GGOQMYIT5n3OuDSzG1oZyM4kyvO
- XeodvvYv49/ng473E8ZFhXfrre+c1olbr1A8pnz9vKVQs9JGVa6wwr/6ddH7/yvcaCQnHRPK
- mnXyP2BViBlyDWQ71UC3N12YCoHE2cVmfrn4JeyK/gHCvcW3hUW4i5rMd5M5WZAeiJj3rvYh
- v8WMKDJOtZFXxwaYGbvFJNDdvdTHc2x2fGaWwmXMJn2xs1ZyFAeHQvrp49mS6PBQZzcx0XL5
- cU9ZjhzOZDn6Apv45/C/lUJvPc3lo/pr5cmlOvPq1AsP6/xRXsEFX/SdvdxJ8w9KtGaxdJuf
- rpzLQ8Ht+H0lY2On1duYhmro8WglOypHy+TusYrDEry2qDNlc/bApQKtd9uqyDZ+rx8bGxyY
- qBP6bvsQx5YACI4p8R0J43tSqWwJTP/R5oPRQW2O1Ye1DEcdeyzZfifrQz58aoZrVQq+innR
- aDwu8qDB5UgmMQ7cjDSeAQABdghq7pqrA4P8lkA7qTG+aw8Z21OoAyZdUNm8NWJoQy8m4nUP
- gmeeQPRc0vjp5JkYPgTqwf08cluqO6vQuYL2YmwVBIbO7cE7LNGkPDA3RYMu+zPY9UUi/ln5
- dcKuEStFZ5eqVyqVoZ9eu3RTCGIXAHe1NcfcMT9HT0DPp3+ieTxFx6RjY3kYTGLOwU0EVUNc
- NAEQAM2StBhJERQvgPcbCzjokShn0cRA4q2SvCOvOXD+0KapXMRFE+/PZeDyfv4dEKuCqeh0
- hihSHlaxTzg3TcqUu54w2xYskG8Fq5tg3gm4kh1Gvh1LijIXX99ABA8eHxOGmLPRIBkXHqJY
- oHtCvPc6sYKNM9xbp6I4yF56xVLmHGJ61KaWKf5KKWYgA9kfHufbja7qR0c6H79LIsiYqf92
- H1HNq1WlQpu/fh4/XAAaV1axHFt/dY/2kU05tLMj8GjeQDz1fHas7augL4argt4e+jum3Nwt
- yupodQBxncKAUbzwKcDrPqUFmfRbJ7ARw8491xQHZDsP82JRj4cOJX32sBg8nO2N5OsFJOcd
- 5IE9v6qfllkZDAh1Rb1h6DFYq9dcdPAHl4zOj9EHq99/CpyccOh7SrtWDNFFknCmLpowhct9
- 5ZnlavBrDbOV0W47gO33WkXMFI4il4y1+Bv89979rVYn8aBohEgET41SpyQz7fMkcaZU+ok/
- +HYjC/qfDxT7tjKXqBQEscVODaFicsUkjheOD4BfWEcVUqa+XdUEciwG/SgNyxBZepj41oVq
- FPSVE+Ni2tNrW/e16b8mgXNngHSnbsr6pAIXZH3qFW+4TKPMGZ2rZ6zITrMip+12jgw4mGjy
- 5y06JZvA02rZT2k9aa7i9dUUFggaanI09jNGbRA/ABEBAAHCwXwEGAEKACYCGwwWIQSb0H4O
- DFH41ZZ3t1Qbk0N9O0FimwUCYDzvagUJFF+UtgAKCRAbk0N9O0Fim9JzD/0auoGtUu4mgnna
- oEEpQEOjgT7l9TVuO3Qa/SeH+E0m55y5Fjpp6ZToc481za3xAcxK/BtIX5Wn1mQ6+szfrJQ6
- 59y2io437BeuWIRjQniSxHz1kgtFECiV30yHRgOoQlzUea7FgsnuWdstgfWi6LxstswEzxLZ
- Sj1EqpXYZE4uLjh6dW292sO+j4LEqPYr53hyV4I2LPmptPE9Rb9yCTAbSUlzgjiyyjuXhcwM
- qf3lzsm02y7Ooq+ERVKiJzlvLd9tSe4jRx6Z6LMXhB21fa5DGs/tHAcUF35hSJrvMJzPT/+u
- /oVmYDFZkbLlqs2XpWaVCo2jv8+iHxZZ9FL7F6AHFzqEFdqGnJQqmEApiRqH6b4jRBOgJ+cY
- qc+rJggwMQcJL9F+oDm3wX47nr6jIsEB5ZftdybIzpMZ5V9v45lUwmdnMrSzZVgC4jRGXzsU
- EViBQt2CopXtHtYfPAO5nAkIvKSNp3jmGxZw4aTc5xoAZBLo0OV+Ezo71pg3AYvq0a3/oGRG
- KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
- fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240219-topic-rb1_gpu-v2-1-2d3d6a0db040@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Johan Hovold <johan@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,15 +90,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/02/2024 22:21, Konrad Dybcio wrote:
-> Add device tree bindings for graphics clock controller for Qualcomm
-> Technology Inc's QCM2290 SoCs.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+On Thu, 22 Feb 2024 at 17:55, Abel Vesa <abel.vesa@linaro.org> wrote:
+>
+> Add the X1E80100 to the list of compatibles and document the is-edp
+> flag. The controllers are expected to operate in DP mode by default,
+> and this flag can be used to select eDP mode.
+>
+> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+
+Rob, Krzysztof, Connor, gracious ping for the review. It would be
+really nice to merge this patchset during the next cycle. It also
+unbreaks several other patches.
+
 > ---
+>  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index ae53cbfb2193..ed11852e403d 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -27,6 +27,7 @@ properties:
+>            - qcom,sdm845-dp
+>            - qcom,sm8350-dp
+>            - qcom,sm8650-dp
+> +          - qcom,x1e80100-dp
+>        - items:
+>            - enum:
+>                - qcom,sm8150-dp
+> @@ -73,6 +74,11 @@ properties:
+>        - description: phy 0 parent
+>        - description: phy 1 parent
+>
+> +  is-edp:
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +    description:
+> +      Tells the controller to switch to eDP mode
+> +
+>    phys:
+>      maxItems: 1
+>
+>
+> --
+> 2.34.1
+>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Best regards,
-Krzysztof
-
+-- 
+With best wishes
+Dmitry
