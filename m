@@ -2,67 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 106AE862A97
-	for <lists+freedreno@lfdr.de>; Sun, 25 Feb 2024 15:12:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2833862A9B
+	for <lists+freedreno@lfdr.de>; Sun, 25 Feb 2024 15:13:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ACEF10E416;
-	Sun, 25 Feb 2024 14:12:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 917AD10E439;
+	Sun, 25 Feb 2024 14:12:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ggfF4RZ7";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="wGIyE0g+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F33010E406
- for <freedreno@lists.freedesktop.org>; Sun, 25 Feb 2024 14:12:51 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-512e75e013eso2598447e87.1
- for <freedreno@lists.freedesktop.org>; Sun, 25 Feb 2024 06:12:51 -0800 (PST)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B7B410EE50
+ for <freedreno@lists.freedesktop.org>; Sun, 25 Feb 2024 14:12:53 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5101cd91017so3432112e87.2
+ for <freedreno@lists.freedesktop.org>; Sun, 25 Feb 2024 06:12:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708870370; x=1709475170; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708870371; x=1709475171; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=IXkFidtqGVYDP8/cl+5cTf/LoCCSdGW5wG6DXUHuPiw=;
- b=ggfF4RZ7x/D4cdgVEO2YW22YaGhd0YhZbddbcLP88rnXejLEZM7CZYJJtDkl99S+X0
- 1zBFO+lsf4CAumkqSVnXd5BXiSDNmXpOQFtomiE9IK5sdvCnp93HWqVxfAsaBFXaGWyV
- 2FqUv2Cp/yHuTUPwL9MBd2QdFnGNTw6ftScIJ1JXA4bWxW4JhOhEeRPGIw6tXRSv50I3
- MY/0M6c38+0t9/k9c2uZJoXxhx1ANWzrjp/QZA55NaK+hWzsTv/UCXSUQCoHs5n7TFtU
- 1efZtuyFAerguP1Yjp6uzi31+xe2ehNhSW5tKScBEzEXMWRHtgy3JjmPS1sOF7TWHAmi
- 8img==
+ :reply-to; bh=Tjno7HMc44jNAwGe0pRLX3fSYJzYBO6KHE8KOaNyqJk=;
+ b=wGIyE0g+fBl9M1MGiDM0SiGuc07aNdUZXm+WF26+/u2W4wJb4a7kaHHqG3HUuZJWxD
+ 2Y0YFujL9pUdpxx77cZx9J8SDDB62K+2doUQ52d2XmfJVgJONj+IJROs4hZj4WqA7CkV
+ srf3Au6whWyqpRhFACBtzI9wTU/ZKrOMMU1Mf5Op+wV9BtPe+hTIYkSlW2eGenZR+GwK
+ RDTsEOV29aMla6AqD70XrzZ43+odbztLRoI7o4kbJXRWbopLqSLDuWT38hx8OtEbd/hI
+ 9bnf8XaaTmqEDL0ChxGkH2bZBGCtDdBvMdXctx+AAe+Vb6hClNzkPnP6CA/vtLyiuZ1L
+ vaIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708870370; x=1709475170;
+ d=1e100.net; s=20230601; t=1708870371; x=1709475171;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IXkFidtqGVYDP8/cl+5cTf/LoCCSdGW5wG6DXUHuPiw=;
- b=KSbMZDUpPsQq1YtBLQJPLaX4nhoWkfFKZJrYS9YrDtqcO2r6OUM55OYO7vGJ0h89rD
- PiABg1BekqoC99h7LMBxm5BZrykfgcLe8sUvEJ1jomfiFsS79bLQOgyNmVtyapBYyKHH
- LI8aKPOhBJKkk+rsHAWQh3NMFq2ZtU4nQseyDocphEIHLN5arohjgG1LXDD2Y2Vq4GKB
- qygxwgpJ8z7Zuad0Dd4swJoUsT2Owf12yAXs+VyGoZemBPD2KcJb64IEzpRcEzBXk7Sg
- emp9HJMMkeb4FvYwN2Ym+f9vMEv1e0pJ3UAQWB2R7qlXFneNlrN2S/hfmjS53kuTGVyd
- 0LXw==
+ bh=Tjno7HMc44jNAwGe0pRLX3fSYJzYBO6KHE8KOaNyqJk=;
+ b=Mwib+5h3dZWMBbmMo+2Li8cApril8Z/MRDyiW/JAYXGHb7/1JPXTkVaEfnq3VEIC+r
+ OpeM/420Gwj9mGTYiEdLN7W9roGAaB4LtOzbnlBxPFrRI7TyTEaOwmYcdVguKIdnXl3s
+ n91+qX/FskECzK6KgKNNe4Sr48i2BEyel8oubtTkHvUoKMqyh+c+rPZcUkT/5E2WdYv/
+ RpMjjUgsSr9ELvV2VvW5x6Dw3qlxXHB1aZGZDBWREWko9EZM/VX4Lo/Q+L4AyNjYkyga
+ 1OxEKHtHOdnU/TBOpgbQZsilOY+F2IoIv4jMKs4GCJwmh10A3ZBqSH2Ug8COvYnNRzLg
+ CIZw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVpAM+0wC6tvo4x6HaFftpddVXQlkNxiDM+s6FOAFyewZ/BhaUXHQ1c9PjXrRL4oyfJ8WPBlCplLMMOl9Kwhr7/eeuiKY+yyo3pwn5xgMKz
-X-Gm-Message-State: AOJu0Yw5OC6TK58tzsh1moVKyp9N/CEKPofb5MJAyMzzM/ZdW2ypEcmC
- WcIyBtsvG1wGFJW16SWO2n1h9HSLWenIQz5j0EtFr2bQdefizQdKo6VuYfaHLxo=
-X-Google-Smtp-Source: AGHT+IGZ1yVlZG62WK5s8XgMXseEorjE3oDAcLvokJCsoAwczaJfRkKuxwH8PNeZCfgcle6av35Q4A==
-X-Received: by 2002:ac2:5388:0:b0:512:ec6e:9f2a with SMTP id
- g8-20020ac25388000000b00512ec6e9f2amr2791473lfh.19.1708870369931; 
- Sun, 25 Feb 2024 06:12:49 -0800 (PST)
+ AJvYcCUsBLAVYBSmq3Kamm2QJRnuxZTfblqGKjKsBrutndAydYeqeG0D8GcT+SxNH1G9nN/Z4IMjt5182S/373NPjp50NCZVhRm2jBAfpFSv6iDQ
+X-Gm-Message-State: AOJu0Yz3p4TcnRm+8Idb6wWVcd4RPMoxGkYtNdyCm3d9EST425OlOH0j
+ G9jMAS8U5YsCqwE7K4237LD3R9HqhAFlDu48KNUYLgFOzIfWC63va7lQPvUbFOg=
+X-Google-Smtp-Source: AGHT+IHCgtepImcNKJtX+cxhzdabpC0oFc/g1ZX06TiPwdYPloR5Ihby9OoUN6SMIY24COyKtqfIaA==
+X-Received: by 2002:a05:6512:239b:b0:512:fe25:5226 with SMTP id
+ c27-20020a056512239b00b00512fe255226mr29094lfv.55.1708870370964; 
+ Sun, 25 Feb 2024 06:12:50 -0800 (PST)
 Received: from umbar.lan (dzyjmhybhls-s--zn36gy-3.rev.dnainternet.fi.
  [2001:14ba:a00e:a300:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- w13-20020ac254ad000000b00512e5bd2296sm522931lfk.217.2024.02.25.06.12.48
+ w13-20020ac254ad000000b00512e5bd2296sm522931lfk.217.2024.02.25.06.12.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Feb 2024 06:12:48 -0800 (PST)
+ Sun, 25 Feb 2024 06:12:50 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 25 Feb 2024 16:12:46 +0200
-Subject: [PATCH v3 1/3] drm/msm/dpu: make "vblank timeout" more useful
+Date: Sun, 25 Feb 2024 16:12:47 +0200
+Subject: [PATCH v3 2/3] drm/msm/dpu: split dpu_encoder_wait_for_event into
+ two functions
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240225-fd-dpu-debug-timeout-v3-1-252f2b21cdcc@linaro.org>
+Message-Id: <20240225-fd-dpu-debug-timeout-v3-2-252f2b21cdcc@linaro.org>
 References: <20240225-fd-dpu-debug-timeout-v3-0-252f2b21cdcc@linaro.org>
 In-Reply-To: <20240225-fd-dpu-debug-timeout-v3-0-252f2b21cdcc@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -74,16 +75,16 @@ Cc: Steev Klimaszewski <steev@kali.org>, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1057;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7184;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=A4/oTwY5JpAU9dbsu93L7dZvCPx7K/2ZR18bKOeKyl0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl20rfZOXUMpqNliF8fh0oH/0RuleHVyeXPPDGe
- FISdoya/+aJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZdtK3wAKCRCLPIo+Aiko
- 1TuEB/0Z/hHj29uzA3HA/VxFscGLzDGqyZUj4/ANTvm9EjAYa0jQ1LJccv3i1tiK0jnqxIWiFoc
- wnYLHUf5Gnp42YrF0h8S+uPIOX5nmPadqvtKmBuY8GzoZs9/IYY7ggAMzbGf3HnQHDc4y6/kAbH
- 1QNNrifLpUq5wHtBq3a5QE/uZO+cXGp4ozHDQM04cEUW26qvjCcR6bMADk0Ft777z41tCostXqI
- VLDhiefC7by6PVbjx5VTY5fVKqRr1rDR7DNWIy75ZRDDVSml1SirAMOr9nydO1UNltGDhVZgcGu
- ucU+IKr4qLybtRBJaNN67n4kqWQAKakPMqnsRgbLBCnrO3nT
+ bh=4+p20gFGBfsm1TzLgabMIRSGbsT/TwxhyM1Y0Pi2MaI=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl20rfd/iXDzs195du3nz9bP1NLN9duQ0Qez0KO
+ JnVDsV6tFuJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZdtK3wAKCRCLPIo+Aiko
+ 1ZlUCACygLLCskenyxtIgNoFEiLgSKaidvYAPKV0C5zXnMpV03QW/cKdBmpyTxoIPWEpozUS+Cy
+ FAqxNIB/KB1cloNaY/hLsGwtWXxFnoDvZRaNOWzGORHHJl50v+5nd2nLskdUX9JTI3xjOabXlpy
+ /UhjDuY8bfO1A/4v1PC1UawcPDF41Ue/AsM4iJy2RU5oy8n2T7rkOcKR60lgk70hFK8Vi1QIfDN
+ 5Dj0Bikx+EcZhNwUF0vA8IWGX/zU5itt2KlxJE38hhk/W/abzkL2Of2Ul9XkfC8EPQH+LpKiWfz
+ sq81X87CZUiiW7Na4fduVdnM32DrmlDlJ6GnhY25AS+FnLUk
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -101,29 +102,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-We have several reports of vblank timeout messages. However after some
-debugging it was found that there might be different causes to that.
-To allow us to identify the DPU block that gets stuck, include the
-actual CTL_FLUSH value into the timeout message.
+Stop multiplexing several events via the dpu_encoder_wait_for_event()
+function. Split it into two distinct functions two allow separate
+handling of those events.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 74 +++++++++++++++++++++--------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 22 ++-------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  2 +-
+ drivers/gpu/drm/msm/msm_drv.h               | 10 ----
+ 4 files changed, 59 insertions(+), 49 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-index 2aa72b578764..6058706f03e4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-@@ -480,7 +480,7 @@ static int dpu_encoder_phys_vid_wait_for_commit_done(
- 		(hw_ctl->ops.get_flush_register(hw_ctl) == 0),
- 		msecs_to_jiffies(50));
- 	if (ret <= 0) {
--		DPU_ERROR("vblank timeout\n");
-+		DPU_ERROR("vblank timeout: %x\n", hw_ctl->ops.get_flush_register(hw_ctl));
- 		return -ETIMEDOUT;
- 	}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 194dbb08331d..30f349c8a1e5 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1282,7 +1282,7 @@ static void dpu_encoder_virt_atomic_disable(struct drm_encoder *drm_enc,
+ 	trace_dpu_enc_disable(DRMID(drm_enc));
  
+ 	/* wait for idle */
+-	dpu_encoder_wait_for_event(drm_enc, MSM_ENC_TX_COMPLETE);
++	dpu_encoder_wait_for_tx_complete(drm_enc);
+ 
+ 	dpu_encoder_resource_control(drm_enc, DPU_ENC_RC_EVENT_PRE_STOP);
+ 
+@@ -2402,10 +2402,23 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
+ 	return &dpu_enc->base;
+ }
+ 
+-int dpu_encoder_wait_for_event(struct drm_encoder *drm_enc,
+-	enum msm_event_wait event)
++/**
++ * dpu_encoder_wait_for_commit_done() - Wait for encoder to flush pending state
++ * @drm_enc:	encoder pointer
++ *
++ * Wait for hardware to have flushed the current pending frames to hardware at
++ * a vblank or ctl_start Encoders will map this differently depending on the
++ * panel type.
++ *
++ * MSM_ENC_TX_COMPLETE -  Wait for the hardware to transfer all the pixels to
++ *                        the panel. Encoders will map this differently
++ *                        depending on the panel type.
++ *                        vid mode -> vsync_irq
++ *                        cmd mode -> pp_done
++ * Return: 0 on success, -EWOULDBLOCK if already signaled, error otherwise
++ */
++int dpu_encoder_wait_for_commit_done(struct drm_encoder *drm_enc)
+ {
+-	int (*fn_wait)(struct dpu_encoder_phys *phys_enc) = NULL;
+ 	struct dpu_encoder_virt *dpu_enc = NULL;
+ 	int i, ret = 0;
+ 
+@@ -2419,23 +2432,46 @@ int dpu_encoder_wait_for_event(struct drm_encoder *drm_enc,
+ 	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+ 		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+ 
+-		switch (event) {
+-		case MSM_ENC_COMMIT_DONE:
+-			fn_wait = phys->ops.wait_for_commit_done;
+-			break;
+-		case MSM_ENC_TX_COMPLETE:
+-			fn_wait = phys->ops.wait_for_tx_complete;
+-			break;
+-		default:
+-			DPU_ERROR_ENC(dpu_enc, "unknown wait event %d\n",
+-					event);
+-			return -EINVAL;
++		if (phys->ops.wait_for_commit_done) {
++			DPU_ATRACE_BEGIN("wait_for_commit_done");
++			ret = phys->ops.wait_for_commit_done(phys);
++			DPU_ATRACE_END("wait_for_commit_done");
++			if (ret)
++				return ret;
+ 		}
++	}
++
++	return ret;
++}
++
++/**
++ * dpu_encoder_wait_for_tx_complete() - Wait for encoder to transfer pixels to panel
++ * @drm_enc:	encoder pointer
++ *
++ * Wait for the hardware to transfer all the pixels to the panel. Encoders will
++ * map this differently depending on the panel type.
++ *
++ * Return: 0 on success, -EWOULDBLOCK if already signaled, error otherwise
++ */
++int dpu_encoder_wait_for_tx_complete(struct drm_encoder *drm_enc)
++{
++	struct dpu_encoder_virt *dpu_enc = NULL;
++	int i, ret = 0;
++
++	if (!drm_enc) {
++		DPU_ERROR("invalid encoder\n");
++		return -EINVAL;
++	}
++	dpu_enc = to_dpu_encoder_virt(drm_enc);
++	DPU_DEBUG_ENC(dpu_enc, "\n");
++
++	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
++		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+ 
+-		if (fn_wait) {
+-			DPU_ATRACE_BEGIN("wait_for_completion_event");
+-			ret = fn_wait(phys);
+-			DPU_ATRACE_END("wait_for_completion_event");
++		if (phys->ops.wait_for_tx_complete) {
++			DPU_ATRACE_BEGIN("wait_for_tx_complete");
++			ret = phys->ops.wait_for_tx_complete(phys);
++			DPU_ATRACE_END("wait_for_tx_complete");
+ 			if (ret)
+ 				return ret;
+ 		}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+index fe6b1d312a74..0c928d1876e4 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+@@ -93,25 +93,9 @@ void dpu_encoder_kickoff(struct drm_encoder *encoder);
+  */
+ int dpu_encoder_vsync_time(struct drm_encoder *drm_enc, ktime_t *wakeup_time);
+ 
+-/**
+- * dpu_encoder_wait_for_event - Waits for encoder events
+- * @encoder:	encoder pointer
+- * @event:      event to wait for
+- * MSM_ENC_COMMIT_DONE -  Wait for hardware to have flushed the current pending
+- *                        frames to hardware at a vblank or ctl_start
+- *                        Encoders will map this differently depending on the
+- *                        panel type.
+- *	                  vid mode -> vsync_irq
+- *                        cmd mode -> ctl_start
+- * MSM_ENC_TX_COMPLETE -  Wait for the hardware to transfer all the pixels to
+- *                        the panel. Encoders will map this differently
+- *                        depending on the panel type.
+- *                        vid mode -> vsync_irq
+- *                        cmd mode -> pp_done
+- * Returns: 0 on success, -EWOULDBLOCK if already signaled, error otherwise
+- */
+-int dpu_encoder_wait_for_event(struct drm_encoder *drm_encoder,
+-						enum msm_event_wait event);
++int dpu_encoder_wait_for_commit_done(struct drm_encoder *drm_encoder);
++
++int dpu_encoder_wait_for_tx_complete(struct drm_encoder *drm_encoder);
+ 
+ /*
+  * dpu_encoder_get_intf_mode - get interface mode of the given encoder
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index d6412395bacc..26b5e54031d9 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -476,7 +476,7 @@ static void dpu_kms_wait_for_commit_done(struct msm_kms *kms,
+ 		 * mode panels. This may be a no-op for command mode panels.
+ 		 */
+ 		trace_dpu_kms_wait_for_commit_done(DRMID(crtc));
+-		ret = dpu_encoder_wait_for_event(encoder, MSM_ENC_COMMIT_DONE);
++		ret = dpu_encoder_wait_for_commit_done(encoder);
+ 		if (ret && ret != -EWOULDBLOCK) {
+ 			DPU_ERROR("wait for commit done returned %d\n", ret);
+ 			break;
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 762e13e2df74..91cf57f72321 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -74,16 +74,6 @@ enum msm_dsi_controller {
+ #define MSM_GPU_MAX_RINGS 4
+ #define MAX_H_TILES_PER_DISPLAY 2
+ 
+-/**
+- * enum msm_event_wait - type of HW events to wait for
+- * @MSM_ENC_COMMIT_DONE - wait for the driver to flush the registers to HW
+- * @MSM_ENC_TX_COMPLETE - wait for the HW to transfer the frame to panel
+- */
+-enum msm_event_wait {
+-	MSM_ENC_COMMIT_DONE = 0,
+-	MSM_ENC_TX_COMPLETE,
+-};
+-
+ /**
+  * struct msm_display_topology - defines a display topology pipeline
+  * @num_lm:       number of layer mixers used
 
 -- 
 2.39.2
