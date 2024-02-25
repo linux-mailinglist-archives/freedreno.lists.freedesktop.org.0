@@ -2,71 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1104862A96
-	for <lists+freedreno@lfdr.de>; Sun, 25 Feb 2024 15:12:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 106AE862A97
+	for <lists+freedreno@lfdr.de>; Sun, 25 Feb 2024 15:12:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1C910E41F;
-	Sun, 25 Feb 2024 14:12:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ACEF10E416;
+	Sun, 25 Feb 2024 14:12:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QV+bquqT";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ggfF4RZ7";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B81C810E406
- for <freedreno@lists.freedesktop.org>; Sun, 25 Feb 2024 14:12:50 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-512bce554a5so2713832e87.3
- for <freedreno@lists.freedesktop.org>; Sun, 25 Feb 2024 06:12:50 -0800 (PST)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F33010E406
+ for <freedreno@lists.freedesktop.org>; Sun, 25 Feb 2024 14:12:51 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-512e75e013eso2598447e87.1
+ for <freedreno@lists.freedesktop.org>; Sun, 25 Feb 2024 06:12:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708870368; x=1709475168; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4jp7b6W11oTt4eacy444Z/1g5qUWokbD1FKYrflZ4dE=;
- b=QV+bquqTHZ/tdp5uadyOdBYyn6vRwZTdzfvnOWilxbPeIiMcHJA4OJJPhV5Able84k
- CGwZ975hfZOOKJcWQ+lJMgO4TQ6MG78UsF3ZTGkiQpivKSnUBbTye/6igpr+oeSp4bLE
- HwAFyChhpqGGO20f1Bda2SM0jcshhcSyNZLbxAumGP5qHwn0A0aBbyysaf7uMPTe1oNA
- QIco5DnGQUhaBW9XY3JKCR+8QvgNUkSpgFM0v0i1mnj6oRFa4RWtSKTTud1Ee69UZf3Q
- 0vtUDwrb8gt8PszDAUXCTwYB2zwV7/EaYeN/vMhVTmZZDxcu+T+0sndfsBBiUgvvIH3Y
- weiw==
+ d=linaro.org; s=google; t=1708870370; x=1709475170; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=IXkFidtqGVYDP8/cl+5cTf/LoCCSdGW5wG6DXUHuPiw=;
+ b=ggfF4RZ7x/D4cdgVEO2YW22YaGhd0YhZbddbcLP88rnXejLEZM7CZYJJtDkl99S+X0
+ 1zBFO+lsf4CAumkqSVnXd5BXiSDNmXpOQFtomiE9IK5sdvCnp93HWqVxfAsaBFXaGWyV
+ 2FqUv2Cp/yHuTUPwL9MBd2QdFnGNTw6ftScIJ1JXA4bWxW4JhOhEeRPGIw6tXRSv50I3
+ MY/0M6c38+0t9/k9c2uZJoXxhx1ANWzrjp/QZA55NaK+hWzsTv/UCXSUQCoHs5n7TFtU
+ 1efZtuyFAerguP1Yjp6uzi31+xe2ehNhSW5tKScBEzEXMWRHtgy3JjmPS1sOF7TWHAmi
+ 8img==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708870368; x=1709475168;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4jp7b6W11oTt4eacy444Z/1g5qUWokbD1FKYrflZ4dE=;
- b=Cli/86EFx6lgrQOs68V7w4UMfID4zNoqQlTykS30yg86C4mkceoAyUh8y0ZK9AAeOi
- hOGqY1rqF0Ra/eUfOx1Xz0sg4Jkh4MY0SGzvbJj5fLrjXfAmQvyna6elbvC/ER+autvF
- MIxUsju7cPGcaBe/rDe9hZymtX3KxzlQ62ngiaj49q5m0D3NCKfnes2ToyoGwuxMD8IE
- 8WKYXUDI/6sGSvceG5EVEfHBmqG8ukp6oeQI5UMBaaxao0iyiToPbjnbcI09a2GbhD52
- WWIk9XUksJFusXkiBeE+n8YBucTFi1CD5G+zCvvXFbuJ4MSKISc3g3nJlUrxG2Rr2NZS
- 0Rew==
+ d=1e100.net; s=20230601; t=1708870370; x=1709475170;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=IXkFidtqGVYDP8/cl+5cTf/LoCCSdGW5wG6DXUHuPiw=;
+ b=KSbMZDUpPsQq1YtBLQJPLaX4nhoWkfFKZJrYS9YrDtqcO2r6OUM55OYO7vGJ0h89rD
+ PiABg1BekqoC99h7LMBxm5BZrykfgcLe8sUvEJ1jomfiFsS79bLQOgyNmVtyapBYyKHH
+ LI8aKPOhBJKkk+rsHAWQh3NMFq2ZtU4nQseyDocphEIHLN5arohjgG1LXDD2Y2Vq4GKB
+ qygxwgpJ8z7Zuad0Dd4swJoUsT2Owf12yAXs+VyGoZemBPD2KcJb64IEzpRcEzBXk7Sg
+ emp9HJMMkeb4FvYwN2Ym+f9vMEv1e0pJ3UAQWB2R7qlXFneNlrN2S/hfmjS53kuTGVyd
+ 0LXw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUnJUhJO8/YlkUyKYH1AhmwqteykV4cx9ILYCkSOzaBBRLnZo8ngpiBlFw474+Aec6jyuPoqEmHFvp0NdjN0SZXgbv15iqA58vCZ5hTPJT+
-X-Gm-Message-State: AOJu0Yx/aawx8fn9MQBWs1vNLD3Gyt07xOF2CHQLZhYhbSpDOERQ/W6F
- zoDIk3MLfDbF4+dA7mPSBOuec7YGaqaKPaOV86Ay2O6tvos2inbdn83yvQwYSaE=
-X-Google-Smtp-Source: AGHT+IGfKXH23S9pVnVMEvSXrYDgDTCkZCTqXbY8PsTS2t4khBBuR9Nipefet6np8QYGfQ/u019p7w==
-X-Received: by 2002:a05:6512:3b99:b0:512:f68b:69de with SMTP id
- g25-20020a0565123b9900b00512f68b69demr1507476lfv.45.1708870368483; 
- Sun, 25 Feb 2024 06:12:48 -0800 (PST)
+ AJvYcCVpAM+0wC6tvo4x6HaFftpddVXQlkNxiDM+s6FOAFyewZ/BhaUXHQ1c9PjXrRL4oyfJ8WPBlCplLMMOl9Kwhr7/eeuiKY+yyo3pwn5xgMKz
+X-Gm-Message-State: AOJu0Yw5OC6TK58tzsh1moVKyp9N/CEKPofb5MJAyMzzM/ZdW2ypEcmC
+ WcIyBtsvG1wGFJW16SWO2n1h9HSLWenIQz5j0EtFr2bQdefizQdKo6VuYfaHLxo=
+X-Google-Smtp-Source: AGHT+IGZ1yVlZG62WK5s8XgMXseEorjE3oDAcLvokJCsoAwczaJfRkKuxwH8PNeZCfgcle6av35Q4A==
+X-Received: by 2002:ac2:5388:0:b0:512:ec6e:9f2a with SMTP id
+ g8-20020ac25388000000b00512ec6e9f2amr2791473lfh.19.1708870369931; 
+ Sun, 25 Feb 2024 06:12:49 -0800 (PST)
 Received: from umbar.lan (dzyjmhybhls-s--zn36gy-3.rev.dnainternet.fi.
  [2001:14ba:a00e:a300:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- w13-20020ac254ad000000b00512e5bd2296sm522931lfk.217.2024.02.25.06.12.47
+ w13-20020ac254ad000000b00512e5bd2296sm522931lfk.217.2024.02.25.06.12.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Feb 2024 06:12:47 -0800 (PST)
+ Sun, 25 Feb 2024 06:12:48 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: [PATCH v3 0/3] drm/msm/dpu: debug commit_done timeouts
-Date: Sun, 25 Feb 2024 16:12:45 +0200
-Message-Id: <20240225-fd-dpu-debug-timeout-v3-0-252f2b21cdcc@linaro.org>
+Date: Sun, 25 Feb 2024 16:12:46 +0200
+Subject: [PATCH v3 1/3] drm/msm/dpu: make "vblank timeout" more useful
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAN1K22UC/4XNQQ6CMBCF4auYrh3TFtIWV97DuAA6hUmUkhYaD
- eHuFjbGhXH5v2S+WVjEQBjZ+bCwgIki+SFHcTywtq+HDoFsbia5LLngCpwFO85gsZk7mOiBfp4
- AK6Edb1rDVcHy6RjQ0XNnr7fcPcXJh9f+JYlt/QMmAQKUrbSSxpSqFJc7DXXwJx86tolJfhTJz
- Q9FZqVyFddONNYa/aWs6/oGUhPVA/8AAAA=
+Message-Id: <20240225-fd-dpu-debug-timeout-v3-1-252f2b21cdcc@linaro.org>
+References: <20240225-fd-dpu-debug-timeout-v3-0-252f2b21cdcc@linaro.org>
+In-Reply-To: <20240225-fd-dpu-debug-timeout-v3-0-252f2b21cdcc@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -76,16 +74,16 @@ Cc: Steev Klimaszewski <steev@kali.org>, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1474;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1057;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=KOC17kShUQKZuxuTXp3eBvMi5MEvpIBdA3gtxscdztU=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl20rfF+Ce8/b+rwxO9i085gWzGPOjk1Ty1z55/
- p/vHHN8swSJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZdtK3wAKCRCLPIo+Aiko
- 1WFWB/0RI4QxaBJJDCkXRRz4JUQw4rpV3NyPXWfuMOmXh/wKqGkPNZdkp17kjSwd8f7zUJ+TiZ8
- 0psZLdDPQDomXTqCEM6R7gN0/rYgXQFjxZO65S5gPORP54iJ6pKy+gI1wKIAtRlG2NLokVCYeUn
- LPny3QhF7weIIJdJaqugDuYLEtbHDTIVq2OYzpxCaZAzNxx5UAGxovX7t7KEbljSQuUXxm4qDCS
- FoLlvXdVKFN4+TeEnhi3+lkHgREOECAaVE6tzCwIuhvSNlHICVkCPvvlb+oHCSBaGrS2O61YFJo
- /TjublUJ+Lo2EN6NFLCtZxVqY8rjRQWnqc29cZ4M87ZJ4hWn
+ bh=A4/oTwY5JpAU9dbsu93L7dZvCPx7K/2ZR18bKOeKyl0=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl20rfZOXUMpqNliF8fh0oH/0RuleHVyeXPPDGe
+ FISdoya/+aJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZdtK3wAKCRCLPIo+Aiko
+ 1TuEB/0Z/hHj29uzA3HA/VxFscGLzDGqyZUj4/ANTvm9EjAYa0jQ1LJccv3i1tiK0jnqxIWiFoc
+ wnYLHUf5Gnp42YrF0h8S+uPIOX5nmPadqvtKmBuY8GzoZs9/IYY7ggAMzbGf3HnQHDc4y6/kAbH
+ 1QNNrifLpUq5wHtBq3a5QE/uZO+cXGp4ozHDQM04cEUW26qvjCcR6bMADk0Ft777z41tCostXqI
+ VLDhiefC7by6PVbjx5VTY5fVKqRr1rDR7DNWIy75ZRDDVSml1SirAMOr9nydO1UNltGDhVZgcGu
+ ucU+IKr4qLybtRBJaNN67n4kqWQAKakPMqnsRgbLBCnrO3nT
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -103,40 +101,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In order to debug commit_done timeouts ([1]) display the sticky bits of
-the CTL_FLUSH register and capture the devcore dump when the first such
-timeout occurs.
-
-[1] https://gitlab.freedesktop.org/drm/msm/-/issues/33
+We have several reports of vblank timeout messages. However after some
+debugging it was found that there might be different causes to that.
+To allow us to identify the DPU block that gets stuck, include the
+actual CTL_FLUSH value into the timeout message.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-Changes in v3:
-- Capture the snapshot only on the first comit_done timeout (Abhinav)
-- Link to v2: https://lore.kernel.org/r/20240208-fd-dpu-debug-timeout-v2-1-9f907f1bdd87@linaro.org
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v2:
-- Added a call to msm_disp_snapshot_state() to trigger devcore dump
-  (Abhinav)
-- Link to v1: https://lore.kernel.org/r/20240106-fd-dpu-debug-timeout-v1-1-6d9762884641@linaro.org
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+index 2aa72b578764..6058706f03e4 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+@@ -480,7 +480,7 @@ static int dpu_encoder_phys_vid_wait_for_commit_done(
+ 		(hw_ctl->ops.get_flush_register(hw_ctl) == 0),
+ 		msecs_to_jiffies(50));
+ 	if (ret <= 0) {
+-		DPU_ERROR("vblank timeout\n");
++		DPU_ERROR("vblank timeout: %x\n", hw_ctl->ops.get_flush_register(hw_ctl));
+ 		return -ETIMEDOUT;
+ 	}
+ 
 
----
-Dmitry Baryshkov (3):
-      drm/msm/dpu: make "vblank timeout" more useful
-      drm/msm/dpu: split dpu_encoder_wait_for_event into two functions
-      drm/msm/dpu: capture snapshot on the first commit_done timeout
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 83 +++++++++++++++++-----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        | 22 +-----
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  2 +-
- drivers/gpu/drm/msm/msm_drv.h                      | 10 ---
- 5 files changed, 69 insertions(+), 50 deletions(-)
----
-base-commit: 33e1d31873f87d119e5120b88cd350efa68ef276
-change-id: 20240106-fd-dpu-debug-timeout-e917f0bc8063
-
-Best regards,
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+2.39.2
 
