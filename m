@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACF6B8667E6
+	by mail.lfdr.de (Postfix) with ESMTPS id 597B78667E5
 	for <lists+freedreno@lfdr.de>; Mon, 26 Feb 2024 03:12:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6D8E10E5C4;
-	Mon, 26 Feb 2024 02:11:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B074210E5C3;
+	Mon, 26 Feb 2024 02:11:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OuVBqPDg";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="wxgQvAQi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E31610E5BF
- for <freedreno@lists.freedesktop.org>; Mon, 26 Feb 2024 02:11:50 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-512ab55fde6so3114411e87.2
- for <freedreno@lists.freedesktop.org>; Sun, 25 Feb 2024 18:11:50 -0800 (PST)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F4A710E5C0
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Feb 2024 02:11:51 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-512ed314881so2207481e87.2
+ for <freedreno@lists.freedesktop.org>; Sun, 25 Feb 2024 18:11:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708913508; x=1709518308; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1708913509; x=1709518309; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=3YO49NCblAtKBTyW/HG28rdBp+P7ciUnjc6tjgHkhxc=;
- b=OuVBqPDgLThezZH2I9fsvfJ3oqjc6F/9G5+Eh0XVB+6TRt2OWxm+p5s4lorHZvU6Zs
- ULsahm4tMoUrI9oxKs+BxUKNWZPuZtRNX59obu8B+Nq4IbyWbC9RjpwedVQ/TaHc04jG
- uwGmzzHfxh/IGQDLaU4hlM9AsW79lMSJ+nxKLVYKZZdCQjMYHO/EnVBJuLXhLCMGHhgR
- G9hYDpLa+MZ8x37KMCU5v2HdXE6/mdv4Kl+VvHVQzms8OIMKG07ZYUMaMhC+LqnA17ex
- QBJ4oQwif6a5UW6ZxWqcpFk/ClDKMLVtHu/n9hSr2qLaTBALWmNc0ffeplg+x93m8K/z
- rnHA==
+ :reply-to; bh=J8Y0RnqdkkNJT2IOUAgIJwE7VvEMel7kUBPozDnljrU=;
+ b=wxgQvAQi4IW0vX7LJtkUu8TiewbKdmL4KWLBLy3dULKxgSL2XGGOFA2TG0ocDcvbOs
+ AN96B9X8b1Y+JlHUcnHi+hqEj5qW2VDaCtwtvf4yH7eGK+dfUZK3sKp7DOB8/RsWewqx
+ KtBHbVlWqHAVg3WXraCyHIaLzRyPsNLWHKg8vjOJ+dmtyLNqzwADMODUvqpHoHLMBhvR
+ LP60gthfE3Q08YoIfc/F++33izph1iFelkgQnkiMH+jklaP/j4PPMfYQfR76qBN+MVBS
+ Hwdo+TAM9rtAP+I2MSGa/qXsfkrVuopl+0dhB3k3UkOIQRQGOxMiP5+DIhkiMV21hMyw
+ qPUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708913508; x=1709518308;
+ d=1e100.net; s=20230601; t=1708913509; x=1709518309;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3YO49NCblAtKBTyW/HG28rdBp+P7ciUnjc6tjgHkhxc=;
- b=Mzq0N4ZaupDcpFp3rILle3vN1gConlih/QYotnwfgHlHiIVUkDqD40Xpn92OnxF1jw
- EQtEV+RZFN1aFaL3xXKfRPc1ZG3iLErpHmfs39vV5f8QX47GTDO3AwzAGXIjqRpgdMYX
- gMYnkJidnsqm/bY8ROyzM5vRi0HCKmIraAx5XMTnHx3J4G9vBhbjqYyLDHizh7DJjrQF
- 54HH4WKoECZrvpiTWU3O1w18x6Z0fiyeblNbjVCIEkwE36Oe1b9jcgKXGVMtcI4HNmpl
- 8q8alCr/3nW1AD61GonnmX0V6G55p2rEpKzVAtjuYKM/7EMbSxKScSFNw82U6h21sipx
- LW1Q==
+ bh=J8Y0RnqdkkNJT2IOUAgIJwE7VvEMel7kUBPozDnljrU=;
+ b=Rk6BpKkBOs49ICd6I6DecOuWm/0LGslA17BOiFmiB6+qa4N1iLcmF0hIiXZhpEHGlp
+ SqT6YYl5afhgFXsefzBHxGKpxTVqwhhWWaEKViY6UjGS1cgPAY6L13EGkZ8GCVDURr9u
+ 23rWsYfghYsYj7s3fn5Vs1LEhVg3lHXRFQ4bd/KxnfhCNeXGNme3gdvzyjSi3rTTeXq6
+ yOLoACFgMW74Xy3pA5TpVbFk5UZvjt6BSIUss91UaE7yW69YghaCHRj2lWWzltX7dd3E
+ AgIhimWTMS8zF31HKUv9FACmVLnDTmQw5NhRjV5k9Mg+RXLVwA8ZfQe05hMiIv+8SLhz
+ FuKA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV9C4a5M+qntBliDwr/M6rsgd1xZce2FEsxdL6fANC5fBLZf1euf6D75sJvH3v9rSIBtnHqA9RT5S56/VgqIZBJMljoxl9oVNK1Ca/O2o4M
-X-Gm-Message-State: AOJu0YydMLWovsa5lsG9DhqNY4mh7cOxzyGourvXLsDcQWYEDdf53V9Q
- 4+61zjGB/SzccENYbPfOflOYX9l74lPYpPimsy/kR6mM4EH3PBtY+CL/hR8EXR8=
-X-Google-Smtp-Source: AGHT+IGM6arZuGaiRIqhoTaiESYpSqS7ARUqNQhjVEnkptr/m2/6XCawaKQgJuuQGgnyQSeG+9VzLQ==
-X-Received: by 2002:a05:6512:ea5:b0:512:fc6a:2d10 with SMTP id
- bi37-20020a0565120ea500b00512fc6a2d10mr1487797lfb.40.1708913508068; 
- Sun, 25 Feb 2024 18:11:48 -0800 (PST)
+ AJvYcCXbATeUbxcaxof4lKN7JLGStqvZexpbxGQVm4rKc7LV2SXsxISTddCgMPq1AyjylhfTpE3rtj2H1geUxZg6f5AhlRC+r4U38+DWW6Z7Prlm
+X-Gm-Message-State: AOJu0YxE+/CbchjswrQrOGzQ+/e67wgK2siAROnop1ayEjVKm+ZEmp59
+ tWM2/7BnbbJAAhSXBuk4MRKnkQUCn9d+ZwEEytSH0ekLDqw+2EXHLHYReJRRdj7WrX0nH8aVHlo
+ 1
+X-Google-Smtp-Source: AGHT+IHb04FdywAXBPTnIb8Y9ZBSIaj2Xcs5bB/kHt775lPS5Abcp+5HI/DcawcCN0Nsd2vj0epcfA==
+X-Received: by 2002:a05:6512:40b:b0:512:e053:7c17 with SMTP id
+ u11-20020a056512040b00b00512e0537c17mr2963203lfk.64.1708913509263; 
+ Sun, 25 Feb 2024 18:11:49 -0800 (PST)
 Received: from umbar.lan (dzyjmhybhls-s--zn36gy-3.rev.dnainternet.fi.
  [2001:14ba:a00e:a300:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- m11-20020a056512358b00b00512e39ce472sm676176lfr.175.2024.02.25.18.11.47
+ m11-20020a056512358b00b00512e39ce472sm676176lfr.175.2024.02.25.18.11.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Feb 2024 18:11:47 -0800 (PST)
+ Sun, 25 Feb 2024 18:11:48 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 26 Feb 2024 04:11:37 +0200
-Subject: [PATCH RFC 01/12] kbuild: create destination directory for
- _shipped handling
+Date: Mon, 26 Feb 2024 04:11:38 +0200
+Subject: [PATCH RFC 02/12] drm/msm/mdp5: add writeback block bases
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240226-fd-xml-shipped-v1-1-86bb6c3346d2@linaro.org>
+Message-Id: <20240226-fd-xml-shipped-v1-2-86bb6c3346d2@linaro.org>
 References: <20240226-fd-xml-shipped-v1-0-86bb6c3346d2@linaro.org>
 In-Reply-To: <20240226-fd-xml-shipped-v1-0-86bb6c3346d2@linaro.org>
 To: Masahiro Yamada <masahiroy@kernel.org>, 
@@ -75,16 +75,16 @@ Cc: linux-kbuild@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=905;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1223;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=GCmbOiHpksQl5QzvCUG6WPQ7hoPhwGILSxcYlA8FkiE=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl2/NggplOAhkZ4TcIUVFZRYGYJgjLoTm1ot7+w
- zpS8LPTlAaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZdvzYAAKCRCLPIo+Aiko
- 1bBlB/9thCMztpjZ24AQZfOl4nGcw36lRs6sD8zWSRDqcZ7DDXW88HukH6n9X4QEYqtIrmCv3Uf
- I2u2GjCLznZKSn0lsK6JVodcOS1pxZOr9aEG0RsVOgVGNdT0UiMqBHFMdLZOMEc40hTlNMc5KEp
- LbOvELeAMQ22xduaK228sjQs3A24dUtq19IdBx0pJYjkBqG3SYhQi0+M2PbsKpmZy5ByqiroHl7
- ymxm4UCKSgEmmzxWxknN6HoVtSeZlSsejTjfDKjcQeL0GWnhE52u1JA4aOPketCWodUKkwg3Kg3
- KVqi53EWoXeS+iQoxFilQyly44dJ9U1sl/RGFZ1K1CcWnviO
+ bh=Qgjc0zwou9fhsXbbN2p4ZWlMuaNpRr7RxW3B4yymOWk=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl2/NgcMl8CxHPlugzZLhY4c+N8V9o8zlsAgOmc
+ VKqUnSBl/SJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZdvzYAAKCRCLPIo+Aiko
+ 1cDuB/9aUxWVKUUBHVj2GdlUKQaGdLNPnjiYligKy7dj/FB2rJBpux6Dd+P4Ev4m7ajIracQwM9
+ 8vC9uc1jF0aT+EhgNVmMbq6dedCaEbPhJq6Ecv2YK+2qBbzZyOd3D9FtZfrIsq5KItL4WAyAT4F
+ AoxeMZ0gaMUVVPHH2hNModk3t/9dTI5bvJ4L7q9Ar3p3E608qjcEzEQMC14Mw4fPdkBANDObU/m
+ srOHFbZjcMyZeRQUV6vdK4baiSPt95tGeW0Vl1zuRXdDe7IRwYF7NdmiOBnA4JgWNgkfu7wP99k
+ 624m1ZpfxueGOTEcdq7vnJ17IZrc+1R3MMiUEeV2GzMN/+4f
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -102,29 +102,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The driver might decide to put the _shipped files to the subdir. In such
-case the cmd_copy might fail because the destination directory is not
-present. Call mkdir -p to make sure that the destination directory is
-present.
+In order to stop patching the mdp5 headers, import definitions for the
+writeback blocks. This part is extracted from the old Rob's patch.
 
+Co-developed-by: Rob Clark <robdclark@gmail.com>
+Signed-off-by: Rob Clark <robdclark@gmail.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- scripts/Makefile.lib | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
-index cd5b181060f1..94373eeac420 100644
---- a/scripts/Makefile.lib
-+++ b/scripts/Makefile.lib
-@@ -297,7 +297,7 @@ endef
- # the copy would be read-only as well, leading to an error when executing the
- # rule next time. Use 'cat' instead in order to generate a writable file.
- quiet_cmd_copy = COPY    $@
--      cmd_copy = cat $< > $@
-+      cmd_copy = mkdir -p $(shell dirname $@) && cat $< > $@
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h
+index 26c5d8b4ab46..4b988e69fbfc 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h
+@@ -69,6 +69,16 @@ struct mdp5_mdp_block {
+ 	uint32_t caps;			/* MDP capabilities: MDP_CAP_xxx bits */
+ };
  
- $(obj)/%: $(src)/%_shipped
- 	$(call cmd,copy)
++struct mdp5_wb_instance {
++	int id;
++	int lm;
++};
++
++struct mdp5_wb_block {
++	MDP5_SUB_BLOCK_DEFINITION;
++	struct mdp5_wb_instance instances[MAX_BASES];
++};
++
+ #define MDP5_INTF_NUM_MAX	5
+ 
+ struct mdp5_intf_block {
+@@ -98,6 +108,7 @@ struct mdp5_cfg_hw {
+ 	struct mdp5_sub_block pp;
+ 	struct mdp5_sub_block dsc;
+ 	struct mdp5_sub_block cdm;
++	struct mdp5_wb_block wb;
+ 	struct mdp5_intf_block intf;
+ 	struct mdp5_perf_block perf;
+ 
 
 -- 
 2.39.2
