@@ -2,65 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF9DF86765B
-	for <lists+freedreno@lfdr.de>; Mon, 26 Feb 2024 14:22:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F04E7867AE7
+	for <lists+freedreno@lfdr.de>; Mon, 26 Feb 2024 16:56:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A84EA10F1A7;
-	Mon, 26 Feb 2024 13:22:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6713F10E792;
+	Mon, 26 Feb 2024 15:56:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T7AtsCdA";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="jJPx5ERP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8D0A10F1A6;
- Mon, 26 Feb 2024 13:22:22 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7668360F07;
- Mon, 26 Feb 2024 13:22:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95020C433F1;
- Mon, 26 Feb 2024 13:22:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1708953741;
- bh=G1JpQCt7xBq5ZuFeLJZNzoswIp5s4ji8mVX2ZexQGro=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=T7AtsCdA/xtJ3EoX6jQR+kZNHOFOCrlfIMbhsDkPVxZaFZDJ7k+mDvPE97EsH1I5j
- 11eSiKoRYlcfxXOQtod9b/+Z9MbyB7yjT8cfEGIvAwfIFWPzxuLScojwy0Drly6vWl
- BBid2EkxGJOjOQqtgW+EsnX0VYbbPTPlD0LaJ6PUWq7B9/edORgGjPEBTAEp+5/UB4
- ON2tQLxpddAdmNp/OfI84j9G/sTSSzHKxN7PVuXp+H5XnFfOi6JB9s6aYYuLK6weNl
- r8k1uqO9gOBylOuHSFsHkE1TExdORSOZYl2QngI1QNiQddQ7PUVPWDslHUIaMRL94U
- s4POR6jF+Mklw==
-Date: Mon, 26 Feb 2024 14:22:18 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Jonathan Corbet <corbet@lwn.net>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, Sebastian Wick <sebastian.wick@redhat.com>, 
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- dri-devel@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Sui Jingfeng <sui.jingfeng@linux.dev>
-Subject: Re: [PATCH v7 00/36] drm/connector: Create HDMI Connector
- infrastructure
-Message-ID: <4mm45qddujasmbinalcyhjzu4iege3n2a7odbmqmcsnjifyleh@q3kdpjhvwhsq>
-References: <20240222-kms-hdmi-connector-state-v7-0-8f4af575fce2@kernel.org>
- <CAA8EJpqB+Mf4jp88__r5dfsRSuGdAB+Q3vK5MBfBXysvRB92iQ@mail.gmail.com>
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3613A10E792
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Feb 2024 15:56:31 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-a3e7ce7dac9so355310766b.1
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Feb 2024 07:56:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1708962988; x=1709567788;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wTNfxtjjEuUsYp1JNTlYg2x2iUW0rS+mI/kNL5uqq8k=;
+ b=jJPx5ERP5GZ2+efbAY9fflcK5Gaa45Ae2m3t6v8FX2Musq4K1n64KenBjDi8dxdbDs
+ DRLauxpHh/Uy7nw/sbWzUb0huOKRB2GUJ6T97nL7+QVHmSH/lY7BO4Rgpt10aKcTPy2+
+ vgb6kY2V9Jae4VSKaGHtltdzV6/JjoA3pSwKk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708962988; x=1709567788;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wTNfxtjjEuUsYp1JNTlYg2x2iUW0rS+mI/kNL5uqq8k=;
+ b=e+iv4P6AWVE/RLIVq0RKnOVUDiC1uUm3Vyt3gKY4NaMpeZ7NpUPeU/uwVmQ9ybAowZ
+ AHDugDIdZPMw55wxJAC2U+ASnpzWUgdmWCt/xF3TQVgPB7B4HUnI/T3qkj0ZA5IkmWR8
+ Zn1sVG9i+CfnSvCc0Aq4dQ5gAQJPOj0W+eIDl3yL/u3SRw6fEldQLLCWb3JOI5a+smDP
+ IAxDEWA225bfId5OT+XN8l+ezRzSzeNMq5RyUAhdZNsxCxTr8C7t/JChBIf+tfd4hXxk
+ x128RaQeSdLo4VO+NOZmDzNGbLCIuUyQYArgxUuMFXASsCS5X5fi/eW8PMgmzEDu5/Xd
+ N6Kw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWSp103/3wvuw30vwhgd7GWtIq1+a5f0lwaotc5EKyAfEvyolqvzAVO+VsZcJ0aMyX904KSot7bL+Pw9hDHGZdwe6kwJw1aK/WVS3Q+KeRm
+X-Gm-Message-State: AOJu0YyXKf99Tw3G2J4rpJ+PzfV+a5pctomw44D0XO9p7411UowTUe6F
+ vzJ51/jKjKv+Ft+R4W+GbQU1eoI8BwAZL87JxKWw7ADygnAZkmY5qlmdcuQb8HEpvGaqBpqoBbx
+ F1Q==
+X-Google-Smtp-Source: AGHT+IELCXf5lded/VNW26PAaZSPKlXoLw1290SRIaRolB+i5cXFLq9w0DjIqYDIm50FeWMRtGTeIg==
+X-Received: by 2002:a17:906:e298:b0:a42:f0cc:c573 with SMTP id
+ gg24-20020a170906e29800b00a42f0ccc573mr4708607ejb.16.1708962988293; 
+ Mon, 26 Feb 2024 07:56:28 -0800 (PST)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com.
+ [209.85.208.41]) by smtp.gmail.com with ESMTPSA id
+ vk3-20020a170907cbc300b00a42fe08081fsm2217775ejc.47.2024.02.26.07.56.26
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Feb 2024 07:56:27 -0800 (PST)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-56619428c41so5891a12.0
+ for <freedreno@lists.freedesktop.org>; Mon, 26 Feb 2024 07:56:26 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXMef9hfz1/G88aDQgsUGXEE+qHeqTmb9eeNCmmfz+amekvZhcKqDNzmG7DLa0BB1CpEDvPJEQdHU3Eqq9LyA8xG77BWTwUX8DSFEjNcTeS
+X-Received: by 2002:a50:9f28:0:b0:562:9d2:8857 with SMTP id
+ b37-20020a509f28000000b0056209d28857mr330238edf.6.1708962985791; Mon, 26 Feb
+ 2024 07:56:25 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="hqmqlzbdpcfo2xan"
-Content-Disposition: inline
-In-Reply-To: <CAA8EJpqB+Mf4jp88__r5dfsRSuGdAB+Q3vK5MBfBXysvRB92iQ@mail.gmail.com>
+References: <20240221-rb3gen2-dp-connector-v1-0-dc0964ef7d96@quicinc.com>
+ <20240221-rb3gen2-dp-connector-v1-3-dc0964ef7d96@quicinc.com>
+ <CAA8EJpo=9vhM+5YzaFxUoYRuEWQyrMS8wLNPSF3K=bN5JwWyDw@mail.gmail.com>
+ <8313a7c3-3ace-4dee-ad27-8f51a06cd58c@linaro.org>
+ <CAA8EJpqFj5nf8d_=Uoup7qg+nQrxqQU-DHbL3uSP138m9AcXLw@mail.gmail.com>
+ <8fcb5816-2d59-4e27-ba68-8e0ed6e7d839@linaro.org>
+ <CAA8EJporaUuddHHqpyYHiYSu=toHmrDxSHf9msZUJoym4Nz72g@mail.gmail.com>
+ <20240222150423.GI2936378@hu-bjorande-lv.qualcomm.com>
+ <CAA8EJpqd=1KV_dN8AURQDcFDDyO+YtbC59gM7ftt+HohGM93hg@mail.gmail.com>
+In-Reply-To: <CAA8EJpqd=1KV_dN8AURQDcFDDyO+YtbC59gM7ftt+HohGM93hg@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 26 Feb 2024 07:56:09 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=XJVFX-GkL-wiAoi=r6tdiDHkJ_aFSpx6FE6+gFT5xJjA@mail.gmail.com>
+Message-ID: <CAD=FV=XJVFX-GkL-wiAoi=r6tdiDHkJ_aFSpx6FE6+gFT5xJjA@mail.gmail.com>
+Subject: Re: [PATCH 3/9] arm64: dts: qcom: sc7280: Enable MDP turbo mode
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Bjorn Andersson <quic_bjorande@quicinc.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ cros-qcom-dts-watchers@chromium.org, 
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,109 +110,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
 
---hqmqlzbdpcfo2xan
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi Dmitry,
-
-On Sun, Feb 25, 2024 at 04:50:00PM +0200, Dmitry Baryshkov wrote:
-> On Thu, 22 Feb 2024 at 20:14, Maxime Ripard <mripard@kernel.org> wrote:
-> > Here's a series that creates some extra infrastructure specifically
-> > targeted at HDMI controllers.
+On Thu, Feb 22, 2024 at 9:32=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On Thu, 22 Feb 2024 at 17:04, Bjorn Andersson <quic_bjorande@quicinc.com>=
+ wrote:
 > >
-> > The idea behind this series came from a recent discussion on IRC during
-> > which we discussed infoframes generation of i915 vs everything else.
+> > On Thu, Feb 22, 2024 at 11:46:26AM +0200, Dmitry Baryshkov wrote:
+> > > On Thu, 22 Feb 2024 at 11:28, Konrad Dybcio <konrad.dybcio@linaro.org=
+> wrote:
+> > > >
+> > > >
+> > > >
+> > > > On 2/22/24 10:04, Dmitry Baryshkov wrote:
+> > > > > On Thu, 22 Feb 2024 at 10:56, Konrad Dybcio <konrad.dybcio@linaro=
+.org> wrote:
+> > > > >>
+> > > > >>
+> > > > >>
+> > > > >> On 2/22/24 00:41, Dmitry Baryshkov wrote:
+> > > > >>> On Thu, 22 Feb 2024 at 01:19, Bjorn Andersson <quic_bjorande@qu=
+icinc.com> wrote:
+> > > > >>>>
+> > > > >>>> The max frequency listed in the DPU opp-table is 506MHz, this =
+is not
+> > > > >>>> sufficient to drive a 4k@60 display, resulting in constant und=
+errun.
+> > > > >>>>
+> > > > >>>> Add the missing MDP_CLK turbo frequency of 608MHz to the opp-t=
+able to
+> > > > >>>> fix this.
+> > > > >>>
+> > > > >>> I think we might want to keep this disabled for ChromeOS device=
+s. Doug?
+> > > > >>
+> > > > >> ChromeOS devices don't get a special SoC
+> > > > >
+> > > > > But they have the sc7280-chrome-common.dtsi, which might contain =
+a
+> > > > > corresponding /delete-node/ .
+> > > >
+> > > > What does that change? The clock rates are bound to the
+> > > > SoC and the effective values are limited by link-frequencies
+> > > > or the panel driver.
+> > >
+> > > Preventing the DPU from overheating? Or spending too much power?
+> > >
 > >
-> > Infoframes generation code still requires some decent boilerplate, with
-> > each driver doing some variation of it.
-> >
-> > In parallel, while working on vc4, we ended up converting a lot of i915
-> > logic (mostly around format / bpc selection, and scrambler setup) to
-> > apply on top of a driver that relies only on helpers.
-> >
-> > While currently sitting in the vc4 driver, none of that logic actually
-> > relies on any driver or hardware-specific behaviour.
-> >
-> > The only missing piece to make it shareable are a bunch of extra
-> > variables stored in a state (current bpc, format, RGB range selection,
-> > etc.).
-> >
-> > The initial implementation was relying on some generic subclass of
-> > drm_connector to address HDMI connectors, with a bunch of helpers that
-> > will take care of all the "HDMI Spec" related code. Scrambler setup is
-> > missing at the moment but can easily be plugged in.
-> >
-> > The feedback was that creating a connector subclass like was done for
-> > writeback would prevent the adoption of those helpers since it couldn't
-> > be used in all situations (like when the connector driver can implement
-> > multiple output) and required more churn to cast between the
-> > drm_connector and its subclass. The decision was thus to provide a set
-> > of helper and to store the required variables in drm_connector and
-> > drm_connector_state. This what has been implemented now.
-> >
-> > Hans Verkuil also expressed interest in implementing a mechanism in v4l2
-> > to retrieve infoframes from HDMI receiver and implementing a tool to
-> > decode (and eventually check) infoframes. His current work on
-> > edid-decode to enable that based on that series can be found here:
-> > https://git.linuxtv.org/hverkuil/edid-decode.git/log/?h=3Dhverkuil
-> >
-> > And some more context here:
-> > https://lore.kernel.org/dri-devel/50db7366-cd3d-4675-aaad-b857202234de@=
-xs4all.nl/
-> >
-> > This series thus leverages the infoframe generation code to expose it
-> > through debugfs.
->=20
-> [...]
->=20
-> >
-> > Let me know what you think,
-> > Maxime
->=20
-> The overall idea looks great. I've started checking how I can use that
-> for our msm devices family, which makes use of bridges and
-> drm_bridge_connector.
+> > Perhaps I'm misunderstanding the implementation then, are we always
+> > running at the max opp? I thought the opp was selected based on the
+> > current need for performance?
+>
+> Yes. My concern was whether the Chrome people purposely skipped this
+> top/turbo freq for any reason. In such a case, surprising them by
+> adding it to all platforms might be not the best idea. I hope Doug can
+> comment here.
 
-Yeah, I had that in mind for a while too. I think it would be valuable,
-but it's difficult as it is already so I didn't tackle it at first :)
+Thanks for thinking of us! In this case, I think the only users left
+of the sc7280 Chrome devices are folks like Rob and then a few folks
+on Qualcomm's display team (like Abhinav), so if they're happy with
+the change then I have no objections.
 
-The format negociation especially seems to divert quite a lot from what
-i915 and vc4 have been doing, and that's user facing to some extent.
+In any case, I'm not aware of any reason why this would have been
+skipped for Chrome. The Chrome devices were always intended to support
+4K so I assume this was an oversight and nothing more. ...of course,
+as Abhinav points out Chrome devices are currently limited to HBR2 + 2
+lanes DP so they can't go 4K60 anyway.
 
-> My current idea is to extend the drm_bridge_funcs with the new
-> callback to be called once the drm_connector has been instantiated.
-> This way all the bridges can influence new connector.
-> Another possibility is to follow drm_bridge_connector design closely
-> and let it call into drm_connector_hdmi code if it detects that the
-> last bridge is the HDMI one.
-> WDYT?
+In any case, in case it matters, feel free to have:
 
-I had the latter in mind, but I haven't really tried to reconcile the
-connector state output_format with the
-drm_atomic_helper_bridge_propagate_bus_fmt, and plug in the output_bpc
-count too.
-
-We would have to create the max_bpc properties from the HDMI connector,
-and then propagate that upstream along the bridges I guess (or we can
-just ignore it for now).
-
-So, yeah, I had the latter in mind but it might turn out that the former
-is actually easier. Both make sense to me at least.
-
-Maxime
-
---hqmqlzbdpcfo2xan
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZdyQigAKCRDj7w1vZxhR
-xbuAAP4tcqj0CCuj697zMFFK59Fkl+ntwJnDHJijUuztt43AQwD/fzLo/sHP+roN
-fQLUY+aBNymzblpBsRsstG3l6Zw2dgQ=
-=l8IQ
------END PGP SIGNATURE-----
-
---hqmqlzbdpcfo2xan--
+Acked-by: Douglas Anderson <dianders@chromium.org>
