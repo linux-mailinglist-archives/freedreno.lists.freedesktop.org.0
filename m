@@ -2,85 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D7C88683E8
-	for <lists+freedreno@lfdr.de>; Mon, 26 Feb 2024 23:43:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 381B6868797
+	for <lists+freedreno@lfdr.de>; Tue, 27 Feb 2024 04:14:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EDCC10E61E;
-	Mon, 26 Feb 2024 22:43:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F57110F2AC;
+	Tue, 27 Feb 2024 03:14:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="TtGwtBzn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ssg/Qxyh";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF1910E4E4;
- Mon, 26 Feb 2024 22:43:34 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41QLn6vv021378; Mon, 26 Feb 2024 22:43:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=ZWbXPrxjhVDeIiibeDRIez4zT+ecRa5q9YmguADga+Q=; b=Tt
- GwtBznK4KwHEh8YgapzD+5OhxfAZxPR4FaHaakw9bmVnnf5DuQnOxuJVif2lWR7k
- 68REh9Y0Is/YWK3uitKe37H35Z057QfroLAuTrqoM6e6kSy+0StTs4l+46tZbuMI
- fyr98ci8YVhRRpKj8e1pBRrnpg7D5TqPr4T/vCy2RHoh4IKgZlHELo41YYORVDAQ
- XGahMaVP1EtYKNEaS8awEkclcV5ytARRxi4YgweiavSPEQsAhxbppW5J2DBM3qcz
- NdsfcY8VzHNuS6Ii92qh10f1eUQvXjoQ+1zd8H4itkoIhuS6ZcakB7b312LA6mT8
- uhrVl15L1w49lYrQU1hw==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wgkxq28y7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 Feb 2024 22:43:28 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41QMhRYx017405
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 Feb 2024 22:43:27 GMT
-Received: from [10.110.56.192] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 26 Feb
- 2024 14:43:25 -0800
-Message-ID: <59d25296-e285-fdf9-5270-ad0f786768b1@quicinc.com>
-Date: Mon, 26 Feb 2024 14:43:24 -0800
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39FCE10F2AA;
+ Tue, 27 Feb 2024 03:14:23 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1E5AB61491;
+ Tue, 27 Feb 2024 03:14:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2585C433C7;
+ Tue, 27 Feb 2024 03:14:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1709003661;
+ bh=+NW+lDyow4SyOhdect9IQeTUOPcisVXIrgGQDYWrvvk=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=Ssg/QxyhOJaeXFkrLJMUmAPDsXzwnBE39E8CbEID4AG+W2Lrcs0+nNu7jmx0PXCxF
+ cnbeHjJ2SUUMjwauBStXvT5oqhuwl+v6R7c/65O4crURWAjGoIG22VNzPM5wlYBxTC
+ 8RNm0ixH0fdmzjPZFx1ToA7AKAsoY7v3onj4O/PjhYzQ+pV5nQ5FCM06JVhiW9BLgM
+ fvqymuS0NHMjw1uv4TldwG+GVT0efutR1R4XYCijr5OQwgzD9PrSXMr3PBctISK76m
+ VwAAeuTulVMVcsczI1+bN8+PB7Fop1CuC2BNuBppAYaGyzdqBqcX27lC0FvJQze6GK
+ RW9Tp/Cv4uYqA==
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-2d2991e8c12so2330231fa.0; 
+ Mon, 26 Feb 2024 19:14:21 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXl8z0EKsibBqWEppgnceSepzbJWcVUmLNJfv8Ias/9qFFGQqeJrwBLVvuiM/FuHraMQR8Kpe/3t0UYsBv1YVBp5rFLy8EkrqDXXIcQU8i9H2kxL8iNDbLeJqkdxNVV/tbzUx8rKNnSZbYlM4oTMqJj
+X-Gm-Message-State: AOJu0YzK+f2s9La5s04nkVNFm99nI42nb+Nm8hd1xTN3zVRiAbSyrsVm
+ 6IeKB87PramKSN32DYeorBrojLG090Wq6YMgpIF0lms6fvGJ0FSF9HWClYgMp+DALnRyV9lFeX9
+ kQDA5X2dVhvPcqOq9+2cjmWNy7S0=
+X-Google-Smtp-Source: AGHT+IHZR4anyPKBr3MB8qJcW7vCCqkYdpYN/Q5FVYBf6CE/Thk6VlcOx5h6wQFjPwPvyD+a8+DWJDi/ANHG223b+SE=
+X-Received: by 2002:a2e:712:0:b0:2d2:8051:3248 with SMTP id
+ 18-20020a2e0712000000b002d280513248mr2491810ljh.18.1709003660412; Mon, 26 Feb
+ 2024 19:14:20 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/msm/dp: fix runtime_pm handling in
- dp_wait_hpd_asserted
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-CC: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
- <konrad.dybcio@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-References: <20240226223446.4194079-1-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240226223446.4194079-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: i-AfnFJ22IsWUHgiTLtIZJcYN5ZBej2q
-X-Proofpoint-GUID: i-AfnFJ22IsWUHgiTLtIZJcYN5ZBej2q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-26_11,2024-02-26_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 clxscore=1015
- malwarescore=0 mlxlogscore=999 suspectscore=0 spamscore=0 phishscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2402120000 definitions=main-2402260176
+References: <20240226-fd-xml-shipped-v1-0-86bb6c3346d2@linaro.org>
+ <20240226-fd-xml-shipped-v1-5-86bb6c3346d2@linaro.org>
+In-Reply-To: <20240226-fd-xml-shipped-v1-5-86bb6c3346d2@linaro.org>
+From: Masahiro Yamada <masahiroy@kernel.org>
+Date: Tue, 27 Feb 2024 12:13:43 +0900
+X-Gmail-Original-Message-ID: <CAK7LNARi+VwYKfVy3c2B4NKJq_VxMKQE8t8fWBF4qXJfNYA4JQ@mail.gmail.com>
+Message-ID: <CAK7LNARi+VwYKfVy3c2B4NKJq_VxMKQE8t8fWBF4qXJfNYA4JQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 05/12] drm/msm: use _shipped suffix for all xml.h files
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas@fjasle.eu>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-kbuild@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,21 +76,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 2/26/2024 2:34 PM, Dmitry Baryshkov wrote:
-> The function dp_wait_hpd_asserted() uses pm_runtime_get_sync() and
-> doesn't care about the return value. Potentially this can lead to
-> unclocked access if for some reason resuming of the DP controller fails.
-> 
-> Change the function to use pm_runtime_resume_and_get() and return an
-> error if resume fails.
-> 
-> Fixes: e2969ee30252 ("drm/msm/dp: move of_dp_aux_populate_bus() to eDP probe()")
+On Mon, Feb 26, 2024 at 11:11=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> Move non-GPU xml.h files into the ./registers subdir and add the
+> _shipped suffix. The GPU files are left intact for now, since they
+> require processing via a gen_headers.py, while display headers are
+> regenerated using headergen2
+>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/msm/dp/dp_aux.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
-> 
+>  drivers/gpu/drm/msm/Makefile                       | 53 ++++++++++++++++=
+++----
+>  .../{dsi/dsi.xml.h =3D> registers/dsi.xml.h_shipped} |  0
+>  .../dsi_phy_10nm.xml.h_shipped}                    |  0
+>  .../dsi_phy_14nm.xml.h_shipped}                    |  0
+>  .../dsi_phy_20nm.xml.h_shipped}                    |  0
+>  .../dsi_phy_28nm.xml.h_shipped}                    |  0
+>  .../dsi_phy_28nm_8960.xml.h_shipped}               |  0
+>  .../dsi_phy_7nm.xml.h_shipped}                     |  0
+>  .../hdmi.xml.h =3D> registers/hdmi.xml.h_shipped}    |  0
+>  .../mdp4.xml.h =3D> registers/mdp4.xml.h_shipped}    |  0
+>  .../mdp5.xml.h =3D> registers/mdp5.xml.h_shipped}    |  0
+>  .../mdp_common.xml.h_shipped}                      |  0
+>  .../sfpb.xml.h =3D> registers/sfpb.xml.h_shipped}    |  0
+>  13 files changed, 43 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> index 543e04fa72e3..89c9f5f93b85 100644
+> --- a/drivers/gpu/drm/msm/Makefile
+> +++ b/drivers/gpu/drm/msm/Makefile
+> @@ -1,5 +1,6 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  ccflags-y :=3D -I $(srctree)/$(src)
+> +ccflags-y :=3D -I $(obj)/registers
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+This accidentally overwrites ccflags-y defined above.
+So, "-I $(srctree)/$(src)" is lost.
+
+
+
+It should be
+
+  ccflags-y +=3D -I $(obj)/registers
+
+
+
+I see several build errors.
+
+
+
+
+
+--=20
+Best Regards
+Masahiro Yamada
