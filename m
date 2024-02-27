@@ -2,86 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62F6286A234
-	for <lists+freedreno@lfdr.de>; Tue, 27 Feb 2024 23:12:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92AC386A2B0
+	for <lists+freedreno@lfdr.de>; Tue, 27 Feb 2024 23:40:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3664610E646;
-	Tue, 27 Feb 2024 22:12:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAC8C10E99D;
+	Tue, 27 Feb 2024 22:40:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="X0GbBcKV";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="o5B2yp8b";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9204510E646;
- Tue, 27 Feb 2024 22:12:19 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41R9YUVi007412; Tue, 27 Feb 2024 22:12:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=uKrmizMD77wsqT5ztJQ/oRCWujpPGtrue2Z1MAxzsag=; b=X0
- GbBcKVq7EFy+g61H6Q/hHYetAGyakbqd0v7uOq3IBVMHeUJULCjOcx757hmAthkx
- eMNMH3DcgNYrzBEd2GgqWuJSlpb3v3U/alA6z4kMOEnUUvwK8q6bDkHqgHg6luIV
- uI0qhkIoJs3m7T1syIznbVdDkcFxW+XU4zVyNjbqBh3eluKmEDo7w0TP0ohE6ytE
- puHEpWc1egqkNOjCifmPuGWhrGTPxFqdcBHeCWHYilNZ9E+RVaHbw8rF70uovPj1
- CH2pUrXFYaUHxBNHUvt8mATOnO5X1zK6HH0QxD42EnOO6QtR90Z64Tn5ih9nIuUd
- FSg2MWOhWLiVt0zDJiYw==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wh8auje1b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 27 Feb 2024 22:12:13 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41RMBwP0003967
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 27 Feb 2024 22:11:58 GMT
-Received: from [10.110.56.192] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 27 Feb
- 2024 14:11:57 -0800
-Message-ID: <46fa8e0a-0af2-2a44-f5f9-70fd49649aa4@quicinc.com>
-Date: Tue, 27 Feb 2024 14:11:56 -0800
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
+ [209.85.219.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31CA810E9A2
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Feb 2024 22:40:54 +0000 (UTC)
+Received: by mail-yb1-f172.google.com with SMTP id
+ 3f1490d57ef6-dc236729a2bso4538832276.0
+ for <freedreno@lists.freedesktop.org>; Tue, 27 Feb 2024 14:40:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1709073653; x=1709678453; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=l24av5cz46t7M7tI2luq7oGX/wa+cXf3Hc4YW3YHjSo=;
+ b=o5B2yp8bTPPwBJzG94mZg7JpvSoXu7PRT2rFC4Mib5Z6Lhp+pPy2GjUvqNfqXrq8eY
+ ZPsOxxhl4TTAeVlPUyb/YnwLVYutqps9TWrrwjP2hGVrTUH6S8hDbyN5JlCjIiQhJ5tm
+ 06swwgNuEsmzDQhyoIwxMobimo3JP63eVz4ogw+Coyp1GtdRxFxKFseB5V4hK96CgXRX
+ ZE6WHBsz7hfBJV5g7BlNu3Z21RjuVTr0aiBf+9k/sGQgB4BcKjls4bW9hwr0gGVM3KSG
+ 1hTcY2A/i6wn7M3GPcr0Pym1xJqDUGRatxi7jubURKftc8vJbg2bvpfQgLyDCrYGCA5c
+ CNeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1709073653; x=1709678453;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=l24av5cz46t7M7tI2luq7oGX/wa+cXf3Hc4YW3YHjSo=;
+ b=xR4gCPCkODy+wceNVKvVfPDgJy9Yh7ez/vcHc4XR+FUWvhoJSHZnhAimOUBpTBwOtL
+ yk0oYV5W+noBX1XW8K1+yNVdLxzCODO743T1A06oOqWvzYbfrhF1Ky5lYzaZbl7YKdXg
+ JKdc5LHxdeLtxQYOAFaXf495tqGClKZDnOu2JhoIr6De85E4ZM7JkpCYMZNUVqN97YMR
+ godrx8h9JvUq5a6OZajNTGAGFipiWvbanFjXmyKNw7xp/uN11mMrHnfdv3/S1VgPfgGM
+ VKhPbgKk7wkzl6B2NYT0ylp19trt26tZur+3fKELhwgd1In3/Ym0fQc4ESjJy/Yip9TV
+ mzCg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVYvAcvHqVNAkP3K8H5277FFn9Gxo30ku55lc2U4bDWxbHjfRfAxgSPrCK085RZkcFdKwMH+Ho//Hm8KJ2Q0g0wfQsdhzgGxiiJzqK/h+nw
+X-Gm-Message-State: AOJu0YxzA8TUWUlzY8PkMYWPaoWRFJRTG4yhisTMMw094WPHTe+eRNTg
+ UWGAJD/aKkR50fmMuV7spMFCNqit0npre/hfkIMKW4PyLVVWUj1cOjBefhmjD4vk7IR6qg5PcJv
+ cvCH+/PgqzFAmA9V14JTpqraClk64wv7GIzwrMg==
+X-Google-Smtp-Source: AGHT+IF7JmZrAwSzE5u2YUoyhCfxcW6ZoHVqg/vYI0u+8CvfTAGOQdSqPOy0FsY7FSJXpRenAcBfjlKR9Cj3074cOP4=
+X-Received: by 2002:a25:9e8d:0:b0:dcd:5bdb:4aa4 with SMTP id
+ p13-20020a259e8d000000b00dcd5bdb4aa4mr830952ybq.51.1709073652982; Tue, 27 Feb
+ 2024 14:40:52 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] Revert "drm/msm/dp: use drm_bridge_hpd_notify() to report
- HPD status changes"
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-CC: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
- <konrad.dybcio@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- Johan Hovold <johan@kernel.org>
-References: <20240227220808.50146-1-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240227220808.50146-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: uV5HZSVJu--Vw-VsVcE2SpBk7PJyke9G
-X-Proofpoint-GUID: uV5HZSVJu--Vw-VsVcE2SpBk7PJyke9G
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-27_09,2024-02-27_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- impostorscore=0 bulkscore=0 suspectscore=0 phishscore=0 malwarescore=0
- mlxscore=0 lowpriorityscore=0 adultscore=0 mlxlogscore=999 clxscore=1015
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2402120000 definitions=main-2402270171
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 28 Feb 2024 00:40:41 +0200
+Message-ID: <CAA8EJprfbMs_3PnpebhVg=NVrO5zc23cgx=1f4HAKLnT5b9J6Q@mail.gmail.com>
+Subject: DisplayPort: handling of HPD events / link training
+To: "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <dri-devel@lists.freedesktop.org>, 
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, nouveau@lists.freedesktop.org, 
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,43 +78,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hello,
 
+We are currently looking at checking and/or possibly redesigning the
+way the MSM DRM driver handles the HPD events and link training.
 
-On 2/27/2024 2:08 PM, Dmitry Baryshkov wrote:
-> This reverts commit e467e0bde881 ("drm/msm/dp: use
-> drm_bridge_hpd_notify() to report HPD status changes").
-> 
-> The commit changed the way how the MSM DP driver communicates
-> HPD-related events to the userspace. The mentioned commit made some of
-> the HPD events being reported earlier. This way userspace starts poking
-> around. It interacts in a bad way with the dp_bridge_detect and the
-> driver's state machine, ending up either with the very long delays
-> during hotplug detection or even inability of the DP driver to report
-> the display as connected.
-> 
-> A proper fix will involve redesigning of the HPD handling in the MSM DP
-> driver. It is underway, but it will be intrusive and can not be thought
-> about as a simple fix for the issue. Thus, revert the offending commit.
-> 
+After a quick glance at the drivers implementing DP support, I noticed
+following main approaches:
+- Perform link training at the atomic_enable time, don't report
+failures (mtk, analogix, zynqmp, tegra, nouveau)
+- Perform link training at the atomic_enable time, report errors using
+link_status property (i915, mhdp8546)
+- Perform link training on the plug event (msm, it8605).
+- Perform link training from the DPMS handler, also calling it from
+the enable callback (AMDGPU, radeon).
 
-Yes, for fixing this on 6.9 I am fine with this.
+It looks like the majority wins and we should move HPD to
+atomic_enable time. Is that assumption correct?
 
-I hope there were not other changes which were built on top of this. So 
-it will be better if we retest internal HPD case as well with this.
+Also two related questions:
+- Is there a plan to actually make use of the link_status property?
+Intel presented it at FOSDEM 2018, but since that time it was not
+picked up by other drivers.
 
-We will do that in a day or two and give Tested-by.
+- Is there any plan to create generic DP link training helpers? After
+glancing through the DP drivers there is a lot of similar code in the
+link training functions, with minor differences here and there. And
+it's those minor differences that bug me. It means that drivers might
+respond differently to similar devices. Or that there might be minor
+bugs here and there.
 
-> Fixes: e467e0bde881 ("drm/msm/dp: use drm_bridge_hpd_notify() to report HPD status changes")
-> Link: https://gitlab.freedesktop.org/drm/msm/-/issues/50
-> Reported-by: Johan Hovold <johan@kernel.org>
-> Link: https://lore.kernel.org/r/Zd3YPGmrprxv-N-O@hovoldconsulting.com/
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/dp/dp_display.c | 20 ++++++++++++++++++--
->   1 file changed, 18 insertions(+), 2 deletions(-)
-> 
-
-For the change itself,
-
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+-- 
+With best wishes
+Dmitry
