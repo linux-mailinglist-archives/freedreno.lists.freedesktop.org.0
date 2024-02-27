@@ -2,54 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 075D886914B
-	for <lists+freedreno@lfdr.de>; Tue, 27 Feb 2024 14:05:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 785E2869247
+	for <lists+freedreno@lfdr.de>; Tue, 27 Feb 2024 14:33:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C72E810E541;
-	Tue, 27 Feb 2024 13:05:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D28810E515;
+	Tue, 27 Feb 2024 13:33:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="Cg4NfOZ0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j+KKGwdY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA8E710E541;
- Tue, 27 Feb 2024 13:05:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
- Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
- In-Reply-To:References; bh=ZgGnPyp+t6CDuIJOxG2eFF8f52fwW7PChDnQXlWlBiU=;
- t=1709039123; x=1709471123; b=Cg4NfOZ07MPQPcntNyUtqqPnhm2nUjyCsrerychcHi96f0n
- xLxjMW5e+JM87f2dDIc1fBO7nRbGXeUroRebLkW/RpzaI7EWEMqpvRRICYjHTGgQXyuQzrmA7TI//
- qH+pvsHzxuTkJv9kh6Ft0QTNZXo4HOq0c5IvFZ/iQIQZlaRxK+H23RLfuuR/H4/bs9jxN1uHuFuNM
- FJwSO8cp0yAt+MEfHoG3iAhktnHaOyWJQlu/IumhGgPpxQESPSdfi4ZWTv+ao42qFtujly9e6V2cv
- iOXzZ7vGF49D731UC4BStppr5aqedYkml0CxsSVZJ1mb+0jyNcahMYegEc2+dP/A==;
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1rex96-0008H6-RV; Tue, 27 Feb 2024 14:05:20 +0100
-Message-ID: <8c444bff-99ae-410a-9c8f-96ec6d3ae2e3@leemhuis.info>
-Date: Tue, 27 Feb 2024 14:05:20 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drm/msm: VT console DisplayPort regression in 6.8-rc1
-Content-Language: en-US, de-DE
-To: Johan Hovold <johan@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EBFB10E515;
+ Tue, 27 Feb 2024 13:33:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 28E1ACE1A4E;
+ Tue, 27 Feb 2024 13:33:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62612C433F1;
+ Tue, 27 Feb 2024 13:33:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1709040825;
+ bh=N4hJ3rbmGb3aGfm5/rEMCgX5Pes2gJRcb4blBbA46Mc=;
+ h=Date:From:To:Cc:Subject:From;
+ b=j+KKGwdYVHf4Tps9pQpbbdwOVyN1f5D00T5l2uPn0z+U9Z71vnoyhCH8hccVsAPRn
+ B4CWq8Fi8VISDe+Tw9/VF0x1XBM4QjhYB/kAsoXEqHCxxPkOQPr3thYXhZ5+lF85YC
+ Gh1LEOPgBmK5u7QTsgaShhK2d+kWWU8wiPfIsuw51hwsdsmca03112rf89TcL7ixId
+ oE/vXOZ2B0MjrHC5g8BZEPovxvkFrzioBSOB0uJWL6z1Eeri9s0MuohrwAKDDsAJGG
+ ZC26uynk0qS79KXi+o4U+u4mBddkaKQbYwiHtPKIHGiyyoDiVQ0rBk+COt0IRLypSs
+ JwHL1kvqbFXzQ==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+ (envelope-from <johan@kernel.org>) id 1rexae-000000000VL-23Zy;
+ Tue, 27 Feb 2024 14:33:48 +0100
+Date: Tue, 27 Feb 2024 14:33:48 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+Cc: Daniel Thompson <daniel.thompson@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>,
+ quic_jesszhan@quicinc.com, quic_sbillaka@quicinc.com,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, regressions@lists.linux.dev,
  linux-kernel@vger.kernel.org
-References: <Zd3YPGmrprxv-N-O@hovoldconsulting.com>
-From: "Linux regression tracking #update (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-In-Reply-To: <Zd3YPGmrprxv-N-O@hovoldconsulting.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1709039123;
- f703608c; 
-X-HE-SMSGID: 1rex96-0008H6-RV
+Subject: drm/msm: DisplayPort hard-reset on hotplug regression in 6.8-rc1
+Message-ID: <Zd3kvD02Qvsh2Sid@hovoldconsulting.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,31 +63,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-[send with a reduced set of recipients, we all get enough mail already]
+Hi,
 
-On 27.02.24 13:40, Johan Hovold wrote:
-> 
-> Since 6.8-rc1 the VT console is no longer mirrored on an external
-> display on coldplug or hotplug on the Lenovo ThinkPad X13s.
->
+Since 6.8-rc1 I have seen (and received reports) of hard resets of the
+Lenovo ThinkPad X13s after connecting and disconnecting an external
+display.
 
-Thx for the report!
+I have triggered this on a simple disconnect while in a VT console, but
+also when stopping Xorg after having repeatedly connected and
+disconnected an external display and tried to enable it using xrandr.
 
-> I've previously reported this here:
-> 
-> 	https://gitlab.freedesktop.org/drm/msm/-/issues/50
+In the former case, the last (custom debug) messages printed over an SSH
+session were once:
 
-Then let's tell regzbot about is as well, in case the ticket comes back
-to life now:
+    [  948.416358] usb 5-1: USB disconnect, device number 3
+    [  948.443496] msm_dpu ae01000.display-controller: msm_fbdev_client_hotplug
+    [  948.443723] msm-dp-display ae98000.displayport-controller: dp_power_clk_enable - type = 1, enable = 0
+    [  948.443872] msm-dp-display ae98000.displayport-controller: dp_ctrl_phy_exit
+    [  948.445117] msm-dp-display ae98000.displayport-controller: dp_ctrl_phy_exit - done
+    
+and then the hypervisor resets the machine.
 
-#regzbot duplicate: https://gitlab.freedesktop.org/drm/msm/-/issues/50
+Hotplug in Xorg seems to work worse than it did with 6.7, which also had
+some issues. Connecting a display once seems to work fine, but trying to
+re-enable a reconnected display using xrandr sometimes does not work at
+all, while with 6.7 it usually worked on the second xrandr execution.
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
+xrandr reports the reconnected display as disconnected:
+
+    Screen 0: minimum 320 x 200, current 1920 x 1200, maximum 5120 x 4096
+    eDP-1 connected primary 1920x1200+0+0 (normal left inverted right x axis y axis) 286mm x 178mm
+       1920x1200     60.03*+
+       1600x1200     60.00  
+    DP-1 disconnected (normal left inverted right x axis y axis)
+    DP-2 disconnected 1920x1200+0+0 (normal left inverted right x axis y axis) 0mm x 0mm
+      1920x1200 (0x40c) 154.000MHz +HSync -VSync
+            h: width  1920 start 1968 end 2000 total 2080 skew    0 clock  74.04KHz
+            v: height 1200 start 1203 end 1209 total 1235           clock  59.95Hz
+
+Running 'xrandr --output DP-2 --auto' 2-3 times makes xrandr report the
+display as connected, but the display is still blank (unlike with 6.7).
+
+A few times after having exercised hotplug this way, the machine hard
+resets when Xorg is later stopped. Once I saw the following log messages
+on an SSH session but they may not have been printed directly before
+the hard reset:
+
+    [  214.555781] [drm:dpu_encoder_phys_vid_wait_for_commit_done:492] [dpu error]vblank timeout
+    [  214.555843] [drm:dpu_kms_wait_for_commit_done:483] [dpu error]wait for commit done returned -110
+
+Note that this appears to be unrelated to the recently fixed Qualcomm
+power domain driver bug which can trigger similar resets when
+initialising the display subsystem on boot. Specifically, I have
+triggered the hotplug resets described above also with the fix applied.
+[1]
+
+Reverting commit e467e0bde881 ("drm/msm/dp: use drm_bridge_hpd_notify()
+to report HPD status changes") which fixes the related VT console
+regression does not seem to make any difference. [2]
+
+Daniel Thompson reports that reverting the whole runtime PM series
+appears to make the hard resets he has seen with DisplayPort hotplug go
+away however:
+
+	https://lore.kernel.org/lkml/1701472789-25951-1-git-send-email-quic_khsieh@quicinc.com/
+
+So for now, let's assume that these regressions were also introduced (or
+triggered) by commit 5814b8bf086a ("drm/msm/dp: incorporate pm_runtime
+framework into DP driver").
+
+Johan
+
+
+[1] https://lore.kernel.org/lkml/20240226-rpmhpd-enable-corner-fix-v1-1-68c004cec48c@quicinc.com/
+[2] https://lore.kernel.org/lkml/Zd3YPGmrprxv-N-O@hovoldconsulting.com/
+
+
+#regzbot introduced: 5814b8bf086a
