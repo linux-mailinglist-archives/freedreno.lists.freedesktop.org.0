@@ -2,64 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4987686B751
-	for <lists+freedreno@lfdr.de>; Wed, 28 Feb 2024 19:41:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5BF886B882
+	for <lists+freedreno@lfdr.de>; Wed, 28 Feb 2024 20:47:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CACC810E3A5;
-	Wed, 28 Feb 2024 18:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7CFF10E2BB;
+	Wed, 28 Feb 2024 19:47:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Er4etOa5";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="RIvtqqoL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA76610E46B;
- Wed, 28 Feb 2024 18:41:30 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-5661b7b1f51so181197a12.2; 
- Wed, 28 Feb 2024 10:41:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709145689; x=1709750489; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=95wFx2aCsFcmw8X3YJUhwgxK0Zm3iU4v5YjwKuQWRT0=;
- b=Er4etOa56SX/8V0bDBzqJeVI28yOIeaowLBfUhWWUpBeY0fV9pNO8ZlDqNzP0aOzIS
- FjTi2Si/jDyCx9f4mgPa2h+BT0l+BCzFVrhuGtih5XYIjVrNjGtX05kU0XbGsgwpI0wB
- S1dJe2est2AryA+lF4X/UQNg/vtRW7EQ5QpXWVxsIS5Q3tQDGy5MkPjQEeMELTLQod7u
- AMV0gwwyB7shtvMuWqvva0vmFoqjyUIaYif9oe7P9BqAXinbyjkf3MmdjkCFYCWmtnpJ
- AWCpgGra4tdgmGb5GXfopgolKr45zSLg7Y5GlwShWbq/XwGdB87UPFXrt/9VktbmHisr
- uuAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709145689; x=1709750489;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=95wFx2aCsFcmw8X3YJUhwgxK0Zm3iU4v5YjwKuQWRT0=;
- b=INOlQa4eD3DPdTAtei4G295o2w8Gidgrtq/k+iShwILkbSW2X2BN8fGbe0WwoF6c1y
- QO+mWaBYY32bumdBD3ivqEBRc6AI0eh++OimsGpdyk89sHh4nRz9zxcUaE3y/WEDV+kc
- 2Cql99OKdXIa0t2KPl+6vk9rPz1ghRssElLiL16Gr7T1NUUbN/CRSbuFNvt8SGPwk4hA
- JoBYr+SN7SWS9pwp6qk6Nh13oEn1m3RdyfMlyZrtoksUKKTm0xw4FKFChs+JHYu710+2
- BTb0I9vNK3zAdSmuDbYlDRh15p+A2PU5QGzchm2Zne2zi+yEOUz80l0jH0mbUSK2fOUp
- W6zg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXvJN2pDyswYsOpL25JUxW3I15K7lbtYGGU3NeD+yxSrU804jR0QJbOREMVB6DQ/K5sbg93UuEQz8z2wtYaM4HiZjqh4ypzfh2DbBMHkBBF
-X-Gm-Message-State: AOJu0Yy/7sroDcXU7BDuxkINEev5V3GuWt8CvNOEXl0n7c87Rba9PfIr
- G3BwyJuOewp6VBuvgzWj/PxsZMwUNwLgfpiygR7vSw375VAvfxphSSQDnuIbG5VmJr35V/W+pDu
- sVmcX3BcIY9lSwZEghwCYUIgNPzAcnxHM6N0=
-X-Google-Smtp-Source: AGHT+IEa4/vZnJzDBE36BxmCOOtWA7C9UykVSL4tVjlLlSy8+V/RsmB/GdG30jwh0G2AiZ3gyhpAF9Z1Td38YY6WgNw=
-X-Received: by 2002:aa7:cfd1:0:b0:566:44b4:ea58 with SMTP id
- r17-20020aa7cfd1000000b0056644b4ea58mr172224edy.38.1709145688531; Wed, 28 Feb
- 2024 10:41:28 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3242810E287;
+ Wed, 28 Feb 2024 19:47:52 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41SId338018907; Wed, 28 Feb 2024 19:47:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=whxourV
+ MeBw3kwOIKUI1wmUPTkxnfJ/I0Aau54gzUIc=; b=RIvtqqoLpqeWQ4wWovKxKad
+ OyKMqSudYScHDDXSuxLHL/FZ5fsCpljz2DW5ss68mN7M0H2qN/iUpe6obLF/yMyF
+ RVIUQCfgED65tu3lifQmzi0R+9KI/f3h1fRK10EKOoU2z3M6HeHOqVxBXx4bMdMX
+ GFdDGa7scfOp979GyEtEzmOafdO7PCIDS1HYCdyvlO7ZHzBhagQKzqJURdQi3d9p
+ 3K6ulTJwGPCqlL5gPRWGjj5XJ2HMAxjQj7j/W8F9JnxjiYp458wTLEilyNFWv0uV
+ JNmB0E8nG43n4LKiZ+peDUt4rKF/vXuShaFfecTfNcE77PEo0D6h01VxIdcqgYw=
+ =
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wja0eg66j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Feb 2024 19:47:48 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41SJlkRa022143
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Feb 2024 19:47:46 GMT
+Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Wed, 28 Feb 2024 11:47:46 -0800
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, <quic_parellan@quicinc.com>,
+ <quic_jesszhan@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/2] drm/msm/dpu: drop unused dpu_kms from interface
+ initialization
+Date: Wed, 28 Feb 2024 11:47:29 -0800
+Message-ID: <20240228194730.619204-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 28 Feb 2024 10:41:16 -0800
-Message-ID: <CAF6AEGvhWvHiPGQ1pRD2XPAQoHEM2M35kjhrsSAEtzh8AMSRvg@mail.gmail.com>
-Subject: [pull] drm/msm: drm-msm-fixes-2024-02-28 for v6.8-rc7
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: u1ew2RsuXItpJHf9_6JmdetIjdjS_gRq
+X-Proofpoint-ORIG-GUID: u1ew2RsuXItpJHf9_6JmdetIjdjS_gRq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-28_08,2024-02-27_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0
+ lowpriorityscore=0 suspectscore=0 mlxscore=0 impostorscore=0 adultscore=0
+ clxscore=1015 bulkscore=0 priorityscore=1501 spamscore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2402120000
+ definitions=main-2402280155
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,33 +92,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave,
+dpu_kms seems unused while initializing DSI, HDMI and DP through
+their respective _dpu_kms_initialize_* functions.
 
-A late revert to address a displayport hpd regression.
+Hence lets drop the parameter altogether.
 
-The following changes since commit 8c7bfd8262319fd3f127a5380f593ea76f1b88a2:
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
 
-  drm/msm: Wire up tlb ops (2024-02-15 08:51:31 -0800)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 2af62d8fa9a7..ab924ac78c9b 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -494,8 +494,7 @@ static void dpu_kms_wait_flush(struct msm_kms *kms, unsigned crtc_mask)
+ }
+ 
+ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
+-				    struct msm_drm_private *priv,
+-				    struct dpu_kms *dpu_kms)
++				   struct msm_drm_private *priv)
+ {
+ 	struct drm_encoder *encoder = NULL;
+ 	struct msm_display_info info;
+@@ -558,8 +557,7 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
+ }
+ 
+ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+-					    struct msm_drm_private *priv,
+-					    struct dpu_kms *dpu_kms)
++					   struct msm_drm_private *priv)
+ {
+ 	struct drm_encoder *encoder = NULL;
+ 	struct msm_display_info info;
+@@ -592,8 +590,7 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+ }
+ 
+ static int _dpu_kms_initialize_hdmi(struct drm_device *dev,
+-				    struct msm_drm_private *priv,
+-				    struct dpu_kms *dpu_kms)
++				    struct msm_drm_private *priv)
+ {
+ 	struct drm_encoder *encoder = NULL;
+ 	struct msm_display_info info;
+@@ -671,19 +668,19 @@ static int _dpu_kms_setup_displays(struct drm_device *dev,
+ 	int rc = 0;
+ 	int i;
+ 
+-	rc = _dpu_kms_initialize_dsi(dev, priv, dpu_kms);
++	rc = _dpu_kms_initialize_dsi(dev, priv);
+ 	if (rc) {
+ 		DPU_ERROR("initialize_dsi failed, rc = %d\n", rc);
+ 		return rc;
+ 	}
+ 
+-	rc = _dpu_kms_initialize_displayport(dev, priv, dpu_kms);
++	rc = _dpu_kms_initialize_displayport(dev, priv);
+ 	if (rc) {
+ 		DPU_ERROR("initialize_DP failed, rc = %d\n", rc);
+ 		return rc;
+ 	}
+ 
+-	rc = _dpu_kms_initialize_hdmi(dev, priv, dpu_kms);
++	rc = _dpu_kms_initialize_hdmi(dev, priv);
+ 	if (rc) {
+ 		DPU_ERROR("initialize HDMI failed, rc = %d\n", rc);
+ 		return rc;
+-- 
+2.34.1
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2024-02-28
-
-for you to fetch changes up to 664bad6af3cbe01d6804b7264bee674b3e7dae7e:
-
-  Revert "drm/msm/dp: use drm_bridge_hpd_notify() to report HPD status
-changes" (2024-02-28 15:32:29 +0200)
-
-----------------------------------------------------------------
-Fixes for v6.8-rc7
-
-DP:
-- Revert a change which was causing a HDP regression
-
-----------------------------------------------------------------
-Dmitry Baryshkov (1):
-      Revert "drm/msm/dp: use drm_bridge_hpd_notify() to report HPD
-status changes"
-
- drivers/gpu/drm/msm/dp/dp_display.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
