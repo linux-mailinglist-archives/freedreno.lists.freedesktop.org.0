@@ -2,66 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F266B86D2C8
-	for <lists+freedreno@lfdr.de>; Thu, 29 Feb 2024 20:04:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A98086E5EA
+	for <lists+freedreno@lfdr.de>; Fri,  1 Mar 2024 17:44:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA61A10E2E4;
-	Thu, 29 Feb 2024 19:04:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA31410EC0C;
+	Fri,  1 Mar 2024 16:44:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D1Jc87dc";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="2+MCDChq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31D2A10E2E4;
- Thu, 29 Feb 2024 19:04:26 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-56454c695e6so2217042a12.0; 
- Thu, 29 Feb 2024 11:04:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709233464; x=1709838264; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=KWwAZvpnT5+ns/RMvzJ7c2qNwHLP/sFjRfM8JEPwsYs=;
- b=D1Jc87dc+bzHw+nat7AUfsBVuOp7TvxlViyzdTxzj1K+FptWBwsGQEFYtp5BtmiKX7
- CdWBu5OADp771HWkMaOU+qAuNMZtjOsxigcEHf36EeUFGTNQSZp5etr0cbP7UgsFNj56
- sJ2gAqzxtKowy66LImR2g+aoKkOPAZhr4fAKXt5PRVeyWp+CWmXqKwGgOhIcaAq0n5jb
- 5qIIMaEfPK+f07+YzCsxuUElGT2uOjWBzybFS+Ugq9MTXV9KOIDcYksEn1NpWVulR4J0
- sb/JMDNomjpZMk4p2wrc2oMMxhgEk7j3ANSYMLh8xVdTx+a7l58/JJbyKximGbgbrVMI
- ATTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709233464; x=1709838264;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KWwAZvpnT5+ns/RMvzJ7c2qNwHLP/sFjRfM8JEPwsYs=;
- b=tyHONHhOdNYVCEYwmO6lsDDApht5/VV6v5lUSLiQrE0+TWtZIzW8YSoU7OP2n6zzEw
- CPUM45d7BLn/3wsWgcryOqWDmWWrZH587DeIeK0JB1jTCBBdwbXmnArmwI7ClANDCu1F
- RWJsetqVCvXIVUSA59WKLQ7vP8RedMwPXJERj9ehHYHkBa6KdZ22iuC/qlwzRrpWgU0t
- /gs0W25Xc0sGHH8u/co5DLCwR5S82inyiHb5gPsE0wIO6lDrwM+MRK+WJY6CySb21+pQ
- zw8VdeDD11/IHubGb+grRuSC9yXOGAnaUDVIVXeaxA7v5p9+GvYl1s0LKsr9zO0lG62p
- tAXw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWjStiiNHUHbwoIm4CjFmCXr8uor4bnyNU0WhfYDB8StPoV0uL8rz8oHFSg1pO1qhRFQAGktkzGIAZxowOgboOaMuB9+m1CeVFh0EmXExIPm2kAZoRtF6RFrWZcbStxT5HH1lIQhkffDj8C/lEMqQb5
-X-Gm-Message-State: AOJu0YxZhszr9CxxeuKV8/1telQnYWJ86sZTXa/pAS5W6ksZIbrXh+YD
- nSSAHIvjLPtlCM9RNF802f/SwWfHpJKfcwQ2OjmJvMdMRL10jBS744pv8WnGolW/V9/p1qliZXO
- Ja1Svum2G74opGquhLz7+nWc8QM8=
-X-Google-Smtp-Source: AGHT+IG/pWDf8rBO9F3YSp7OJq3o7H8n4FGqsUPHesR0Dcu7f41p+BdQ9BScVSPlgwihUon0LZow/lEzA+Cd0DmtWAI=
-X-Received: by 2002:a05:6402:2226:b0:566:4624:b11b with SMTP id
- cr6-20020a056402222600b005664624b11bmr2045347edb.19.1709233463984; Thu, 29
- Feb 2024 11:04:23 -0800 (PST)
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31A6310EB34;
+ Fri,  1 Mar 2024 16:44:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1709311456;
+ bh=g8MDAPa9ELVeta78bCU6vupJUIdfsNOxvkK6Oibr55Q=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=2+MCDChq+ExP6DxPQSfTJIUDZbCwv3b0vuXu4KLe76ogMlJsjF3Pf7dlykMkroSlx
+ AbzWFFQUqsZM5iWgOCDb7NH6MED5S594I/D88HxrPCrtj/LQyXI5I8edwRG3iMW4TD
+ kUwXOhQqBznTo/JR0iCccWzlbGt/g5Rm7W80zu/rvUGdwuaWIDI0zANURZWoAWC7Ng
+ 5sdQXPvmGBLR36YOkV6OYEEGjP85ReLsS+EgdwJFSG1oBR3CWnaYsy3qfMTsp2hhLJ
+ 6ljD9wX/Rd7FxUuiFQnkvrzP6sia1wSZm1+zEo53G3VKfnmev8SHDG1EOzbKNeH5KE
+ y9xxRHtmFddPQ==
+Received: from [100.109.49.129] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id CA69837813F2;
+ Fri,  1 Mar 2024 16:44:13 +0000 (UTC)
+Message-ID: <07e10e3f-9e48-4b0d-b320-fffdece23a2c@collabora.com>
+Date: Fri, 1 Mar 2024 19:44:13 +0300
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 29 Feb 2024 11:04:10 -0800
-Message-ID: <CAF6AEGtCq=CObbqKNOswWZdPw5dL8jq8BxD_hxP7kOCePUwNrg@mail.gmail.com>
-Subject: [pull] drm/msm: drm-msm-next-2024-02-29 for v6.9
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/13] drm: Fix reservation locking for pin/unpin and
+ console
+Content-Language: en-US
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ christian.koenig@amd.com, sumit.semwal@linaro.org, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, suijingfeng@loongson.cn, kherbst@redhat.com,
+ lyude@redhat.com, dakr@redhat.com, airlied@redhat.com, kraxel@redhat.com,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, zack.rusin@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20240227113853.8464-1-tzimmermann@suse.de>
+ <d854f70b-1d62-4da7-bfbd-2184456d1d25@collabora.com>
+ <cd01e963-dd4d-4554-9feb-1750f72cc260@suse.de>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <cd01e963-dd4d-4554-9feb-1750f72cc260@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,235 +74,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave,
+On 2/28/24 11:19, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 27.02.24 um 19:14 schrieb Dmitry Osipenko:
+>> Hello,
+>>
+>> Thank you for the patches!
+>>
+>> On 2/27/24 13:14, Thomas Zimmermann wrote:
+>>> Dma-buf locking semantics require the caller of pin and unpin to hold
+>>> the buffer's reservation lock. Fix DRM to adhere to the specs. This
+>>> enables to fix the locking in DRM's console emulation. Similar changes
+>>> for vmap and mmap have been posted at [1][2]
+>>>
+>>> Most DRM drivers and memory managers acquire the buffer object's
+>>> reservation lock within their GEM pin and unpin callbacks. This
+>>> violates dma-buf locking semantics. We get away with it because PRIME
+>>> does not provide pin/unpin, but attach/detach, for which the locking
+>>> semantics is correct.
+>>>
+>>> Patches 1 to 8 rework DRM GEM code in various implementations to
+>>> acquire the reservation lock when entering the pin and unpin callbacks.
+>>> This prepares them for the next patch. Drivers that are not affected
+>>> by these patches either don't acquire the reservation lock (amdgpu)
+>>> or don't need preparation (loongson).
+>>>
+>>> Patch 9 moves reservation locking from the GEM pin/unpin callbacks
+>>> into drm_gem_pin() and drm_gem_unpin(). As PRIME uses these functions
+>>> internally it still gets the reservation lock.
+>>>
+>>> With the updated GEM callbacks, the rest of the patchset fixes the
+>>> fbdev emulation's buffer locking. Fbdev emulation needs to keep its
+>>> GEM buffer object inplace while updating its content. This required
+>>> a implicit pinning and apparently amdgpu didn't do this at all.
+>>>
+>>> Patch 10 introduces drm_client_buffer_vmap_local() and _vunmap_local().
+>>> The former function map a GEM buffer into the kernel's address space
+>>> with regular vmap operations, but keeps holding the reservation lock.
+>>> The _vunmap_local() helper undoes the vmap and releases the lock. The
+>>> updated GEM callbacks make this possible. Between the two calls, the
+>>> fbdev emulation can update the buffer content without have the buffer
+>>> moved or evicted. Update fbdev-generic to use vmap_local helpers,
+>>> which fix amdgpu. The idea of adding a "local vmap" has previously been
+>>> attempted at [3] in a different form.
+>>>
+>>> Patch 11 adds implicit pinning to the DRM client's regular vmap
+>>> helper so that long-term vmap'ed buffers won't be evicted. This only
+>>> affects fbdev-dma, but GEM DMA helpers don't require pinning. So
+>>> there are no practical changes.
+>>>
+>>> Patches 12 and 13 remove implicit pinning from the vmap and vunmap
+>>> operations in gem-vram and qxl. These pin operations are not supposed
+>>> to be part of vmap code, but were required to keep the buffers in place
+>>> for fbdev emulation. With the conversion o ffbdev-generic to to
+>>> vmap_local helpers, that code can finally be removed.
+>> Isn't it a common behaviour for all DRM drivers to implicitly pin BO
+>> while it's vmapped? I was sure it should be common /o\
+> 
+> That's what I originally thought as well, but the intention is for pin
+> and vmap to be distinct operation. So far each driver has been
+> different, as you probably know best from your vmap refactoring. :)
+> 
+>>
+>> Why would you want to kmap BO that isn't pinned?
+> 
+> Pinning places the buffer object for the GPU. As a side effect, the
+> buffer is then kept in place, which enables vmap. So pinning only makes
+> sense for buffer objects that never move (shmem, dma). That's what patch
+> 11 is for.
+> 
+>>
+>> Shouldn't TTM's vmap() be changed to do the pinning?
+> 
+> I don't think so. One problem is that pinning needs a memory area (vram,
+> GTT, system ram, etc) specified, which vmap simply doesn't know about.
+> That has been a problem for fbdev emulation at some point. Our fbdev
+> code tried to pin as part of vmap, but chose the wrong area and suddenly
+> the GPU could not see the buffer object any longer.  So the next best
+> thing for vmap was to pin the buffer object where ever it is currently
+> located. That is what gem-vram and qxl did so far. And of course, the
+> fbdev code needs to unpin and vunmap the buffer object quickly, so that
+> it can be relocated if the GPU needs it.  Hence, the vmap_local
+> interface removes such short-term pinning in favor of holding the
+> reservation lock.
+> 
+>>
+>> I missed that TTM doesn't pin BO on vmap() and now surprised to see it.
+>> It should be a rather serious problem requiring backporting of the
+>> fixes, but I don't see the fixes tags on the patches (?)
+> 
+> No chance TBH. The old code has worked for years and backporting all
+> this would require your vmap patches at a minimum.
+> 
+> Except maybe for amdgpu. It uses fbdev-generic, which requires pinning,
+> but amdgpu doesn't pin. That looks fishy, but I'm not aware of any bug
+> reports either. I guess, a quick workaround could fix older amdgpu if
+> necessary.
 
-This is the main pull for v6.9, description below.
+Thanks! I'll make another pass on the patches on Monday
 
-We may have a second smaller pull next week for CDM support, which
-depends on a patch in drm-misc-next which was just recently tagged.
+-- 
+Best regards,
+Dmitry
 
-The following changes since commit 41c177cf354126a22443b5c80cec9fdd313e67e1:
-
-  Merge tag 'drm-misc-next-2024-02-08' into msm-next (2024-02-11 12:34:39 -0800)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-next-2024-02-29
-
-for you to fetch changes up to 18397519cb62248865ca33266a483dbcf7d08b5f:
-
-  drm/msm/adreno: Add A702 support (2024-02-26 07:29:55 -0800)
-
-----------------------------------------------------------------
-Updates for v6.9:
-
-Core:
-- Correct bindings for MSM8976 and SM8650 platforms
-- Start migration of MDP5 platforms to DPU driver
-- X1E80100 MDSS support
-
-DPU:
-- Improve DSC allocation, fixing several important corner cases
-- Add support for SDM630/SDM660 platforms
-- Simplify dpu_encoder_phys_ops
-- Apply fixes targeting DSC support with a single DSC encoder
-- Apply fixes for HCTL_EN timing configuration
-- X1E80100 support
-
-DP:
-- Refactor parser and power submodules
-
-DSI:
-- Clean up obsolete set_split_display support
-- Update DSC documentation
-
-MDP5:
-- Clean up obsolete set_split_display support
-
-GPU:
-- fix sc7180 UBWC config
-- fix a7xx LLC config
-- new gpu support: a305B, a750, a702
-- machine support: SM7150 (different power levels than other a618)
-- a7xx devcoredump support
-
-----------------------------------------------------------------
-Abel Vesa (4):
-      dt-bindings: display/msm: Document the DPU for X1E80100
-      dt-bindings: display/msm: Document MDSS on X1E80100
-      drm/msm: mdss: Add X1E80100 support
-      drm/msm/dpu: Add X1E80100 support
-
-Abhinav Kumar (1):
-      drm/msm/dpu: fix the programming of INTF_CFG2_DATA_HCTL_EN
-
-Adam Skladowski (2):
-      dt-bindings: dsi-controller-main: Document missing msm8976 compatible
-      dt-bindings: msm: qcom, mdss: Include ommited fam-b compatible
-
-Colin Ian King (1):
-      drm/msm/dp: Fix spelling mistake "enale" -> "enable"
-
-Connor Abbott (4):
-      drm/msm: Import a7xx crashdump register lists from kgsl
-      drm/msm: Fix snapshotting a7xx indexed regs
-      drm/msm: More fully implement devcoredump for a7xx
-      drm/msm: Fix page fault client detection on a660 family and a7xx
-
-Danila Tikhonov (1):
-      drm/msm/adreno: Add support for SM7150 SoC machine
-
-Dmitry Baryshkov (35):
-      drm/msm/dsi: do not store internal bridge pointer
-      drm/msm/dsi: drop msm_dsi_device_connected() function
-      drm/msm/dsi: stop calling set_split_display
-      drm/msm/dsi: remove msm_dsi::encoder
-      drm/msm/mdp5: drop split display support
-      drm/msm/dp: drop unused parser definitions
-      drm/msm/dp: drop unused fields from dp_power_private
-      drm/msm/dp: parse DT from dp_parser_get
-      drm/msm/dp: inline dp_power_(de)init
-      drm/msm/dp: fold dp_power into dp_ctrl module
-      drm/msm/dp: simplify stream clocks handling
-      drm/msm/dp: stop parsing clock names from DT
-      drm/msm/dp: split dp_ctrl_clk_enable into four functuions
-      drm/msm/dp: move phy_configure_opts to dp_ctrl
-      drm/msm/dp: remove PHY handling from dp_catalog.c
-      drm/msm/dp: handle PHY directly in dp_ctrl
-      drm/msm/dp: move all IO handling to dp_catalog
-      drm/msm/dp: move link property handling to dp_panel
-      drm/msm/dp: move next_bridge handling to dp_display
-      drm/msm/dp: drop dp_parser
-      drm/msm/dpu: split irq_control into irq_enable and _disable
-      drm/msm/dpu: split _dpu_encoder_resource_control_helper()
-      drm/msm/dpu: drop dpu_encoder_phys_ops.atomic_mode_set
-      drm/msm/dpu: move writeback's atomic_check to dpu_writeback.c
-      drm/msm/dpu: drop dpu_encoder_phys_ops::atomic_check()
-      drm/msm/dsi: Document DSC related pclk_rate and hdisplay calculations
-      drm/msm/mdss: generate MDSS data for MDP5 platforms
-      drm/msm/dpu: support binding to the mdp5 devices
-      drm/msm: add a kernel param to select between MDP5 and DPU drivers
-      drm/msm/dpu: add support for SDM660 and SDM630 platforms
-      drm/msm/dpu: finalise global state object
-      drm/msm/dpu: drop global_state_lock
-      drm/msm/mdp5: migrate SMP dumping to using atomic_print_state
-      drm/msm/mdp5: drop global_state_lock
-      drm/msm/a6xx: specify UBWC config for sc7180
-
-Konrad Dybcio (1):
-      drm/msm/adreno: Add A702 support
-
-Kuogee Hsieh (2):
-      drm/msm/dpu: improve DSC allocation
-      drm/msm/dp: remove mdss_dp_test_bit_depth_to_bpc()
-
-Luca Weiss (2):
-      dt-bindings: display/msm: gpu: Allow multiple digits for patchid
-      drm/msm/adreno: Add A305B support
-
-Marijn Suijten (2):
-      drm/msm/dsi: Replace dsi_get_bpp() with mipi_dsi header function
-      drm/msm/dpu: Only enable DSC_MODE_MULTIPLEX if dsc_merge is enabled
-
-Neil Armstrong (4):
-      dt-bindings: display/msm/gmu: Document Adreno 750 GMU
-      dt-bindings: arm-smmu: fix SM8[45]50 GPU SMMU if condition
-      dt-bindings: arm-smmu: Document SM8650 GPU SMMU
-      drm/msm: add support for A750 GPU
-
-Rob Clark (2):
-      drm/msm/adreno: Update generated headers
-      drm/msm/a7xx: Fix LLC typo
-
-Rob Herring (1):
-      dt-bindings: display: msm: sm8650-mdss: Add missing explicit
-"additionalProperties"
-
- .../bindings/display/msm/dsi-controller-main.yaml  |    2 +
- .../devicetree/bindings/display/msm/gmu.yaml       |    1 +
- .../devicetree/bindings/display/msm/gpu.yaml       |    6 +-
- .../devicetree/bindings/display/msm/qcom,mdss.yaml |    1 +
- .../bindings/display/msm/qcom,sm8650-dpu.yaml      |    4 +-
- .../bindings/display/msm/qcom,sm8650-mdss.yaml     |    4 +
- .../bindings/display/msm/qcom,x1e80100-mdss.yaml   |  251 +
- .../devicetree/bindings/iommu/arm,smmu.yaml        |   17 +-
- drivers/gpu/drm/msm/Makefile                       |    2 -
- drivers/gpu/drm/msm/adreno/a2xx.xml.h              |   73 +-
- drivers/gpu/drm/msm/adreno/a3xx.xml.h              |  131 +-
- drivers/gpu/drm/msm/adreno/a3xx_gpu.c              |   13 +-
- drivers/gpu/drm/msm/adreno/a4xx.xml.h              |  182 +-
- drivers/gpu/drm/msm/adreno/a5xx.xml.h              |  666 +--
- drivers/gpu/drm/msm/adreno/a6xx.xml.h              | 5275 ++++++++++++++++----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |    8 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h          |  179 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  220 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |  727 ++-
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        |  311 +-
- drivers/gpu/drm/msm/adreno/adreno_common.xml.h     |  260 +-
- drivers/gpu/drm/msm/adreno/adreno_device.c         |   69 +-
- .../gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h  |  928 ++++
- .../gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h  |  753 +++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   31 +-
- drivers/gpu/drm/msm/adreno/adreno_pm4.xml.h        |  573 ++-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h |  291 ++
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h |  225 +
- .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   |  449 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  105 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |    7 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |   15 +-
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |   95 +-
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   60 +-
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |   88 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |    4 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |    3 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |   15 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |    1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  127 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |    1 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |  154 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h          |   74 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      |   61 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h      |    3 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c   |   42 -
- drivers/gpu/drm/msm/disp/mdp5/mdp5_encoder.c       |   42 -
- drivers/gpu/drm/msm/disp/mdp5/mdp5_irq.c           |    2 -
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |   71 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h           |   10 -
- drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c           |   12 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.h           |    4 +-
- drivers/gpu/drm/msm/dp/dp_aux.c                    |    9 +-
- drivers/gpu/drm/msm/dp/dp_aux.h                    |    2 +
- drivers/gpu/drm/msm/dp/dp_catalog.c                |  156 +-
- drivers/gpu/drm/msm/dp/dp_catalog.h                |    6 +-
- drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  358 +-
- drivers/gpu/drm/msm/dp/dp_ctrl.h                   |   17 +-
- drivers/gpu/drm/msm/dp/dp_debug.c                  |    3 +-
- drivers/gpu/drm/msm/dp/dp_display.c                |  102 +-
- drivers/gpu/drm/msm/dp/dp_display.h                |    3 +-
- drivers/gpu/drm/msm/dp/dp_link.h                   |   23 -
- drivers/gpu/drm/msm/dp/dp_panel.c                  |   66 +
- drivers/gpu/drm/msm/dp/dp_parser.c                 |  327 --
- drivers/gpu/drm/msm/dp/dp_parser.h                 |  155 -
- drivers/gpu/drm/msm/dp/dp_power.c                  |  183 -
- drivers/gpu/drm/msm/dp/dp_power.h                  |   95 -
- drivers/gpu/drm/msm/dsi/dsi.c                      |   10 +-
- drivers/gpu/drm/msm/dsi/dsi.h                      |   22 +-
- drivers/gpu/drm/msm/dsi/dsi_host.c                 |   51 +-
- drivers/gpu/drm/msm/dsi/dsi_manager.c              |   65 +-
- drivers/gpu/drm/msm/msm_drv.c                      |   33 +
- drivers/gpu/drm/msm/msm_drv.h                      |    4 +
- drivers/gpu/drm/msm/msm_io_utils.c                 |   13 +
- drivers/gpu/drm/msm/msm_kms.h                      |    4 -
- drivers/gpu/drm/msm/msm_mdss.c                     |   64 +
- 76 files changed, 10947 insertions(+), 3472 deletions(-)
- create mode 100644
-Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.yaml
- create mode 100644 drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h
- create mode 100644 drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h
- create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h
- create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h
- create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
- delete mode 100644 drivers/gpu/drm/msm/dp/dp_parser.c
- delete mode 100644 drivers/gpu/drm/msm/dp/dp_parser.h
- delete mode 100644 drivers/gpu/drm/msm/dp/dp_power.c
- delete mode 100644 drivers/gpu/drm/msm/dp/dp_power.h
