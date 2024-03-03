@@ -2,72 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17C1086E8DF
-	for <lists+freedreno@lfdr.de>; Fri,  1 Mar 2024 19:58:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E243F86F6FC
+	for <lists+freedreno@lfdr.de>; Sun,  3 Mar 2024 21:17:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6CFA10EBEA;
-	Fri,  1 Mar 2024 18:58:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9708110EEA0;
+	Sun,  3 Mar 2024 20:17:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="moy/jJK+";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="J3LfmBc4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4599110E92E;
- Fri,  1 Mar 2024 18:58:30 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-56454c695e6so4214792a12.0; 
- Fri, 01 Mar 2024 10:58:30 -0800 (PST)
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC0E10EC87
+ for <freedreno@lists.freedesktop.org>; Sun,  3 Mar 2024 20:17:41 +0000 (UTC)
+Received: by mail-yb1-f176.google.com with SMTP id
+ 3f1490d57ef6-dcbcea9c261so3830391276.3
+ for <freedreno@lists.freedesktop.org>; Sun, 03 Mar 2024 12:17:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709319507; x=1709924307; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dpeyW3c/lwqw/i+hkeuehGCnk9+JZlz3NYt5Cg0he1I=;
- b=moy/jJK+9S9ikyBW9eJvN/X3HPAA6hn3VJPuCZThvbpI4DWtY2zgiTd5OOBfJpomUZ
- PkbyoeCIHl6hIaRCxzq2M0yGFwcNEJg7tXqMGbaGJgVdgd82VpZ0XZHixjdWQryeyQKl
- bjx3NqE6/G0Ht7Cvp+JeOzc62/X3ye9F28HPkf4CMopiP6n8NgyiZzZN9fXUVbCfng+V
- fGToLZ0pUBVj7Bg8EAYMP4tQ4ih1KaA/oYViQ6iaq86crYCl3T0oqf8vcGWE+BBV2HdQ
- Sr5u2DpKF0wbuSJZ7bPGFbt+bgh4wNlojWChdKiYXVrxEWJRRNovp5TC4K/nTz8eWzSQ
- rr2A==
+ d=linaro.org; s=google; t=1709497060; x=1710101860; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=0oLMJ7QyQW9M1dcmvX6Tku2vCY05PL1Xxf4L46VwXmk=;
+ b=J3LfmBc4wUx0og4RrH/QZ8wlgmyVUiu2ePCb6kaUNjUFQFfNLb+LrXHJQKTcUy4YKx
+ rGKaVeP19F2FxZn+rLlji4Oamjpk+re0diM6ph2DmyLJ9JPaakHyEb8ycqc1j4PMh335
+ Bf6ndpdnhC5kiYZDIUVcMb2HsTqSf4lxJRP0HRxqDhWqKdUjrev6uDACN3VJ+A0wJ1q9
+ pPnoXJuWvLkV6tn0G/Z5o/4h5TZSIdXXMaHBhYNCyY6l9FHBwENi0zPPAvIpSAUkQxQq
+ n6BL9n1ZJkUIqUfiPUAbAwV+5RxPYYLSxwaE9/WtLTWni+mxR6ZyYlN8lVpXLNSQFKsZ
+ 35Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709319507; x=1709924307;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dpeyW3c/lwqw/i+hkeuehGCnk9+JZlz3NYt5Cg0he1I=;
- b=RBOrEmGWFGKRkYMtRv9Yx9rKKwvJJ8do8/B/zIyL8gE8QqUL+/kyDLW2tTETuZvv/5
- 1nMoxA+ZZwngNRrGFy1U3yL/X9CyCA45R2oFu5JLBeJI0AX2eWJBRRHCnSq1o6kZHBnA
- 4dxIBLcHJtNc/BnyPkj6R572mu6b4qhXS0BSo3SdlbUdyvwCI8iWGKk9eI8piYh3EqvA
- yT0NrVgX6Yq6yJwbEeMYin5uNSuFPbTzRtcMPbbz4FcstDFkxk+DfWKn2lG0s26Ct3vC
- mB26DeZDim0KVWFfauP3J5Z9titImOJlSqlISSSmsGH8Q/7CNw0sLNj7Y70ii6ATbyUr
- pF/Q==
+ d=1e100.net; s=20230601; t=1709497060; x=1710101860;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0oLMJ7QyQW9M1dcmvX6Tku2vCY05PL1Xxf4L46VwXmk=;
+ b=f4HK/R8xBBJhdiI1B3qja2eR7fzTwhTrRjfCFAx87q3PCyQsCEMmdMrEofQc/KdKBx
+ MgzBXZMDp9sjsnNa/xEya4zD75OWzJ3y5KVCNyhf14PVY3cuaXYEBMNkhIFyAlItvMEy
+ c9zQxvCV6lVKAPBg7I0fQT/wT+7UoReph8DaEB15o3s1KGP6T49WM3D/81W7/6Gzqb0R
+ h2pJG4RPGWy6Wm4AI4tWjvoTAgZN7yWzMIlwM0My3u5/As5BcqJZImrPRCGip7Je+8dR
+ WWVLYxJ3rzr8xJStEnJjkJgT9v+kpp/b3MimeKKymYAiITnhRgT4zG/EfHo/PfAzB/oR
+ uoJQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX3H7IB6Gsoj2VeNQvzYt35+jEEbEA+ohgYZUa51SFsrVY9U8AvHr2w+lBejB7+/u3/mtnVuTZ3xDJUhMQxFr0AOlJSOmDHV/Dmwco45pdB
-X-Gm-Message-State: AOJu0YwLhZTQ9APf8YWwDigmBtcghmg2lc1HSYOb4feiU+ditTYvE5VH
- GSDBY3ghBY+RtEpxaWravgrB4CD1LmHuYT4cdKa5KVAk6QV7wFjfX0Ufl1CXc6N/a8i6EgLD3tW
- CMbOCQp85ifjzy4B1CBbWtXGzfZT4Vg3T
-X-Google-Smtp-Source: AGHT+IFJcbQHM3EMHfhG6M/q0JRaJJg3kLu4NYM30xjAapTo4vrYSxnym7Gq3ilXDK/hWVGog809eWjqK3SFNVb2c3A=
-X-Received: by 2002:a05:6402:5106:b0:566:1952:afc4 with SMTP id
- m6-20020a056402510600b005661952afc4mr2887755edd.6.1709319507241; Fri, 01 Mar
- 2024 10:58:27 -0800 (PST)
+ AJvYcCVOQ9I6kVCKJl/WiR1bjGqnH8l0PZMffjisGVbmT6gRXLdHth2Lt10/Q4r7479AuQYu/a1K/sy4yh4UHYWjMngfq7QQ9c6KSwW7vSMiqr9I
+X-Gm-Message-State: AOJu0Yz22WxUuxmdVSwqnGdBILnNBW3pJ6Jbgb5Mp3j/4z4x2obwEQgG
+ AqSXVOZsvTcBCYo4VScxsXrQ5IetgX9VcKzsEsB/BQUyZEld2x6d2ghjQvorevIRQlT8OBx8KLi
+ 2keRlXO/sDAgFPDM1FjEyZsOV4rAJBJr+8lrs/w==
+X-Google-Smtp-Source: AGHT+IFPY9ZyADmDsmR9SjEm5ehQQZqmjmvwRGcwPSo1nZrtoYE3mGo81maMBFS4xRF5pgWyRBvOsVR35VN7iVyETrc=
+X-Received: by 2002:a81:4744:0:b0:608:b5e4:9576 with SMTP id
+ u65-20020a814744000000b00608b5e49576mr4921561ywa.45.1709497059898; Sun, 03
+ Mar 2024 12:17:39 -0800 (PST)
 MIME-Version: 1.0
-References: <20240301185346.10412-1-robdclark@gmail.com>
-In-Reply-To: <20240301185346.10412-1-robdclark@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 1 Mar 2024 10:58:15 -0800
-Message-ID: <CAF6AEGvCC=CHQ79w3H1VjYbqXsR3EmrBUj9CHot-v-wekBQZ3A@mail.gmail.com>
-Subject: Re: [RFC] drm/msm: Add GPU memory traces
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Clark <robdclark@chromium.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, open list <linux-kernel@vger.kernel.org>
+References: <20240222-x1e80100-display-refactor-connector-v2-0-bd4197dfceab@linaro.org>
+ <20240222-x1e80100-display-refactor-connector-v2-1-bd4197dfceab@linaro.org>
+ <a90dcd83-d158-4ec1-9186-0658c108afef@linaro.org>
+ <20240301175205.GB2438612-robh@kernel.org>
+In-Reply-To: <20240301175205.GB2438612-robh@kernel.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sun, 3 Mar 2024 22:17:28 +0200
+Message-ID: <CAA8EJppVhMyA_QK_RzC_+M3dniBrm5wxUKeoeh0Dg2w++JoZ2g@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: display: msm: dp-controller: document
+ X1E80100 compatible
+To: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Abel Vesa <abel.vesa@linaro.org>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Johan Hovold <johan@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,184 +94,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 1, 2024 at 10:53=E2=80=AFAM Rob Clark <robdclark@gmail.com> wro=
-te:
+On Fri, 1 Mar 2024 at 19:52, Rob Herring <robh@kernel.org> wrote:
 >
-> From: Rob Clark <robdclark@chromium.org>
+> On Tue, Feb 27, 2024 at 04:45:25PM +0100, Krzysztof Kozlowski wrote:
+> > On 22/02/2024 16:55, Abel Vesa wrote:
+> > > Add the X1E80100 to the list of compatibles and document the is-edp
+> > > flag. The controllers are expected to operate in DP mode by default,
+> > > and this flag can be used to select eDP mode.
+> > >
+> > > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> > > ---
+> > >  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 6 ++++++
+> > >  1 file changed, 6 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> > > index ae53cbfb2193..ed11852e403d 100644
+> > > --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> > > +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> > > @@ -27,6 +27,7 @@ properties:
+> > >            - qcom,sdm845-dp
+> > >            - qcom,sm8350-dp
+> > >            - qcom,sm8650-dp
+> > > +          - qcom,x1e80100-dp
+> > >        - items:
+> > >            - enum:
+> > >                - qcom,sm8150-dp
+> > > @@ -73,6 +74,11 @@ properties:
+> > >        - description: phy 0 parent
+> > >        - description: phy 1 parent
+> > >
+> > > +  is-edp:
+> > > +    $ref: /schemas/types.yaml#/definitions/flag
+> > > +    description:
+> > > +      Tells the controller to switch to eDP mode
+> >
+> >
+> > DP controller cannot be edp, so property "is-edp" is confusing. Probably
+> > you want to choose some phy mode, so you should rather use "phy-mode"
+> > property. I am sure we've been here...
 >
-> Perfetto can use these traces to track global and per-process GPU memory
-> usage.
+> phy-mode belongs in the phy node though. Not that you couldn't look in
+> the phy node and see, but everyone likes all the properties they need
+> nicely packaged up in their driver's node.
 >
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
-> I realized the tracepoint that perfetto uses to show GPU memory usage
-> globally and per-process was already upstream, but with no users.
->
-> This overlaps a bit with fdinfo, but ftrace is a lighter weight
-> mechanism and fits better with perfetto (plus is already supported in
-> trace_processor and perfetto UI, whereas something fdinfo based would
-> require new code to be added in perfetto.
+> > Anyway, if you define completely new property without vendor prefix,
+> > that's a generic property, so you need to put it in some common schema
+> > for all Display Controllers, not only Qualcomm.
 
-Side-note, I'm also investigating mesa based perfetto memory traces,
-which can give a more granular view (ie. breakdown of memory used for
-image/buffer/cmdstream/cache/etc), but not a global view.  And the
-userspace based traces have the unfortunate design decision to trace
-incremental rather than absolute total values, so results can be
-incorrect if traces are dropped.  So neither userspace based nor
-kernel based gpu memory traces are an adequate replacement for the
-other.
+Is there a generic schema for DisplayPort controllers? I think there
+is none at this point. We can probably add it, declaring is-edp
+property, link-frequencies, etc.
+However Mediatek already uses a different option to specify supported
+link frequencies.
 
-BR,
--R
+>
+> I'm trying to unsee what the driver is doing... Hard-coding the
+> connector type and some instance indices. Uhhhh! I'm sure I'm to blame
+> for rejecting those in DT.
 
-> We could probably do this more globally (ie. drm_gem_get/put_pages() and
-> drm_gem_handle_create_tail()/drm_gem_object_release_handle() if folks
-> prefer.  Not sure where that leaves the TTM drivers.
+Once this patchset is accepted (in this or that or whatever else
+form), we will cleanup most of those hardcoded types.
+
 >
->  drivers/gpu/drm/msm/Kconfig   |  1 +
->  drivers/gpu/drm/msm/msm_drv.h |  5 +++++
->  drivers/gpu/drm/msm/msm_gem.c | 37 +++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/msm_gpu.h |  8 ++++++++
->  4 files changed, 51 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> index f202f26adab2..e4c912fcaf22 100644
-> --- a/drivers/gpu/drm/msm/Kconfig
-> +++ b/drivers/gpu/drm/msm/Kconfig
-> @@ -33,6 +33,7 @@ config DRM_MSM
->         select PM_OPP
->         select NVMEM
->         select PM_GENERIC_DOMAINS
-> +       select TRACE_GPU_MEM
->         help
->           DRM/KMS driver for MSM/snapdragon.
->
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.=
-h
-> index 16a7cbc0b7dd..cb8f7e804b5b 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -137,6 +137,11 @@ struct msm_drm_private {
->         struct msm_rd_state *hangrd;   /* debugfs to dump hanging submits=
- */
->         struct msm_perf_state *perf;
->
-> +       /**
-> +        * total_mem: Total/global amount of memory backing GEM objects.
-> +        */
-> +       atomic64_t total_mem;
-> +
->         /**
->          * List of all GEM objects (mainly for debugfs, protected by obj_=
-lock
->          * (acquire before per GEM object lock)
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.=
-c
-> index 175ee4ab8a6f..e04c4af5d154 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -12,6 +12,9 @@
->  #include <linux/pfn_t.h>
->
->  #include <drm/drm_prime.h>
-> +#include <drm/drm_file.h>
-> +
-> +#include <trace/events/gpu_mem.h>
->
->  #include "msm_drv.h"
->  #include "msm_fence.h"
-> @@ -33,6 +36,34 @@ static bool use_pages(struct drm_gem_object *obj)
->         return !msm_obj->vram_node;
->  }
->
-> +static void update_device_mem(struct msm_drm_private *priv, ssize_t size=
-)
-> +{
-> +       uint64_t total_mem =3D atomic64_add_return(size, &priv->total_mem=
-);
-> +       trace_gpu_mem_total(0, 0, total_mem);
-> +}
-> +
-> +static void update_ctx_mem(struct drm_file *file, ssize_t size)
-> +{
-> +       struct msm_file_private *ctx =3D file->driver_priv;
-> +       uint64_t ctx_mem =3D atomic64_add_return(size, &ctx->ctx_mem);
-> +
-> +       rcu_read_lock(); /* Locks file->pid! */
-> +       trace_gpu_mem_total(0, pid_nr(file->pid), ctx_mem);
-> +       rcu_read_unlock();
-> +
-> +}
-> +
-> +static int msm_gem_open(struct drm_gem_object *obj, struct drm_file *fil=
-e)
-> +{
-> +       update_ctx_mem(file, obj->size);
-> +       return 0;
-> +}
-> +
-> +static void msm_gem_close(struct drm_gem_object *obj, struct drm_file *f=
-ile)
-> +{
-> +       update_ctx_mem(file, -obj->size);
-> +}
-> +
->  /*
->   * Cache sync.. this is a bit over-complicated, to fit dma-mapping
->   * API.  Really GPU cache is out of scope here (handled on cmdstream)
-> @@ -156,6 +187,8 @@ static struct page **get_pages(struct drm_gem_object =
-*obj)
->                         return p;
->                 }
->
-> +               update_device_mem(dev->dev_private, obj->size);
-> +
->                 msm_obj->pages =3D p;
->
->                 msm_obj->sgt =3D drm_prime_pages_to_sg(obj->dev, p, npage=
-s);
-> @@ -209,6 +242,8 @@ static void put_pages(struct drm_gem_object *obj)
->                         msm_obj->sgt =3D NULL;
->                 }
->
-> +               update_device_mem(obj->dev->dev_private, -obj->size);
-> +
->                 if (use_pages(obj))
->                         drm_gem_put_pages(obj, msm_obj->pages, true, fals=
-e);
->                 else
-> @@ -1118,6 +1153,8 @@ static const struct vm_operations_struct vm_ops =3D=
- {
->
->  static const struct drm_gem_object_funcs msm_gem_object_funcs =3D {
->         .free =3D msm_gem_free_object,
-> +       .open =3D msm_gem_open,
-> +       .close =3D msm_gem_close,
->         .pin =3D msm_gem_prime_pin,
->         .unpin =3D msm_gem_prime_unpin,
->         .get_sg_table =3D msm_gem_prime_get_sg_table,
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.=
-h
-> index 2bfcb222e353..f7d2a7d6f8cc 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -428,6 +428,14 @@ struct msm_file_private {
->          * level.
->          */
->         struct drm_sched_entity *entities[NR_SCHED_PRIORITIES * MSM_GPU_M=
-AX_RINGS];
-> +
-> +       /**
-> +        * ctx_mem:
-> +        *
-> +        * Total amount of memory of GEM buffers with handles attached fo=
-r
-> +        * this context.
-> +        */
-> +       atomic64_t ctx_mem;
->  };
->
->  /**
-> --
-> 2.44.0
->
+> I've suggested connector nodes in the past. More generally, whatever is
+> attached at the other end (as it could be a bridge rather than a
+> connector) knows what mode is needed. It's simple negotiation. Each end
+> presents what they support. You take the union of the list(s) and get
+> the mode. If there's more than one, then the kernel or user gets to
+> choose.
+
+It's not that easy. First, probing of the bridge chain differs
+slightly depending on whether the controller is eDP or DP controller.
+eDP should use AUX BUS, while DP (currently) doesn't use it. More
+importantly, error conditions differ too. For example, in the DP case
+it is perfectly fine to have nothing attached to the controller. It
+just means that the display chain needs no additional handling and the
+HPD pin will be handled by the controller itself. In the eDP case if
+neither a panel nor a bridge are attached, it is considered to be an
+error and thus the driver will return probe error.
+
+> Qualcomm is not the only one with this problem. Solve it for everyone...
+
+-- 
+With best wishes
+Dmitry
