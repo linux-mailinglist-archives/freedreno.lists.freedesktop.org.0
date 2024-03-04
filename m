@@ -2,82 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E243F86F6FC
-	for <lists+freedreno@lfdr.de>; Sun,  3 Mar 2024 21:17:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A90BA86FDDD
+	for <lists+freedreno@lfdr.de>; Mon,  4 Mar 2024 10:45:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9708110EEA0;
-	Sun,  3 Mar 2024 20:17:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FBFF10E9C4;
+	Mon,  4 Mar 2024 09:45:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="J3LfmBc4";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="t2z27G+N";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
- [209.85.219.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC0E10EC87
- for <freedreno@lists.freedesktop.org>; Sun,  3 Mar 2024 20:17:41 +0000 (UTC)
-Received: by mail-yb1-f176.google.com with SMTP id
- 3f1490d57ef6-dcbcea9c261so3830391276.3
- for <freedreno@lists.freedesktop.org>; Sun, 03 Mar 2024 12:17:41 -0800 (PST)
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
+ [209.85.219.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A177F10E9A5
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Mar 2024 09:45:10 +0000 (UTC)
+Received: by mail-yb1-f172.google.com with SMTP id
+ 3f1490d57ef6-dcbcea9c261so4274387276.3
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Mar 2024 01:45:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1709497060; x=1710101860; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1709545509; x=1710150309; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=0oLMJ7QyQW9M1dcmvX6Tku2vCY05PL1Xxf4L46VwXmk=;
- b=J3LfmBc4wUx0og4RrH/QZ8wlgmyVUiu2ePCb6kaUNjUFQFfNLb+LrXHJQKTcUy4YKx
- rGKaVeP19F2FxZn+rLlji4Oamjpk+re0diM6ph2DmyLJ9JPaakHyEb8ycqc1j4PMh335
- Bf6ndpdnhC5kiYZDIUVcMb2HsTqSf4lxJRP0HRxqDhWqKdUjrev6uDACN3VJ+A0wJ1q9
- pPnoXJuWvLkV6tn0G/Z5o/4h5TZSIdXXMaHBhYNCyY6l9FHBwENi0zPPAvIpSAUkQxQq
- n6BL9n1ZJkUIqUfiPUAbAwV+5RxPYYLSxwaE9/WtLTWni+mxR6ZyYlN8lVpXLNSQFKsZ
- 35Ug==
+ bh=G38jlOOjWdyF5F5/2JhgLPVjp/JQd8aCZTbhP3PI+LQ=;
+ b=t2z27G+NTCY7nPON/5ZUQHhwmmcdpZ497ytRkvwjxyNo/lBgHLOUQnoDG2D5E8DHx4
+ lU6c8dThvQ393yiekAY/Ak5hXnKJq+6ENGjJR8CGXDrJD56SbVLU/MoqrjKAkllUFcWf
+ jdNPbaiKt0u8G5WkSuy/i4oz53yXycmDep5trW/BBdFDZmDdtRsse0CLt2cvu/QPfOry
+ /YOg5KWDPPf5g0DII5aeIGN94G5OGDUcWCcksklUaVzdFcwbEVxxE+M92T4uPQdsONqb
+ f21iBxGMtKy8Go+8xx/IWWJB9ihkIMcn23DVNjsOeDr893H36nKKTtlJ6spW96YrGAB7
+ 5IVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709497060; x=1710101860;
+ d=1e100.net; s=20230601; t=1709545509; x=1710150309;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=0oLMJ7QyQW9M1dcmvX6Tku2vCY05PL1Xxf4L46VwXmk=;
- b=f4HK/R8xBBJhdiI1B3qja2eR7fzTwhTrRjfCFAx87q3PCyQsCEMmdMrEofQc/KdKBx
- MgzBXZMDp9sjsnNa/xEya4zD75OWzJ3y5KVCNyhf14PVY3cuaXYEBMNkhIFyAlItvMEy
- c9zQxvCV6lVKAPBg7I0fQT/wT+7UoReph8DaEB15o3s1KGP6T49WM3D/81W7/6Gzqb0R
- h2pJG4RPGWy6Wm4AI4tWjvoTAgZN7yWzMIlwM0My3u5/As5BcqJZImrPRCGip7Je+8dR
- WWVLYxJ3rzr8xJStEnJjkJgT9v+kpp/b3MimeKKymYAiITnhRgT4zG/EfHo/PfAzB/oR
- uoJQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVOQ9I6kVCKJl/WiR1bjGqnH8l0PZMffjisGVbmT6gRXLdHth2Lt10/Q4r7479AuQYu/a1K/sy4yh4UHYWjMngfq7QQ9c6KSwW7vSMiqr9I
-X-Gm-Message-State: AOJu0Yz22WxUuxmdVSwqnGdBILnNBW3pJ6Jbgb5Mp3j/4z4x2obwEQgG
- AqSXVOZsvTcBCYo4VScxsXrQ5IetgX9VcKzsEsB/BQUyZEld2x6d2ghjQvorevIRQlT8OBx8KLi
- 2keRlXO/sDAgFPDM1FjEyZsOV4rAJBJr+8lrs/w==
-X-Google-Smtp-Source: AGHT+IFPY9ZyADmDsmR9SjEm5ehQQZqmjmvwRGcwPSo1nZrtoYE3mGo81maMBFS4xRF5pgWyRBvOsVR35VN7iVyETrc=
-X-Received: by 2002:a81:4744:0:b0:608:b5e4:9576 with SMTP id
- u65-20020a814744000000b00608b5e49576mr4921561ywa.45.1709497059898; Sun, 03
- Mar 2024 12:17:39 -0800 (PST)
+ bh=G38jlOOjWdyF5F5/2JhgLPVjp/JQd8aCZTbhP3PI+LQ=;
+ b=YCbFCRzkqjvbXXGwTod743RpxIa/AMVArw0aDr5Bx04fe8daZVG5Q+1DTCkUIaOmhd
+ dWX3IDEcjikpPi9Vi1wb3kDlUC19ii/Ths9wVjmUeznsfymK+x8P+GG5/JLHJJ5Mbco7
+ gGqcDQOp7RUdKuxrH1EPluRpnGVljbwrh54M4N2Na77W59t8lJP8+2+oRzz4PNc6YQnI
+ xYoih5rREltlYhAqk3HwZLGzv9ZaAnqt6w7Y5FxODbOor9alH54qeHYXLGPKaERCgujs
+ 4wX4vrhDeC6ZTfpa7eQWE7KfcCYNZMlPxvzdF5TWPKs5smDXWmqlfIW1IfzXwcH8MA+T
+ o/aQ==
+X-Gm-Message-State: AOJu0YwYUst+BsWiFpYqAXgnbuv18mMTEqq0wXXfhTDBRKHQW+Rx524b
+ xNp6E+bYD2r8xaD8AcskPaFLwJChwEVocwEaw5WRWcisSkiWAvmm7GXFsqhyad6RjkCps2XFzds
+ 0aVpxP7sSDJMqMiz2G4YoCx18Hq1FWL678n6Oqw==
+X-Google-Smtp-Source: AGHT+IEB6xVfWdbAxpki5Q7d1ldQdkm96MPwnQOjlKKbuMgTXowcNWPDNc1CazVdJ5aCY6xTSuMxXPchvKcEkvfWLWo=
+X-Received: by 2002:a25:6b49:0:b0:dcb:e82c:f7d with SMTP id
+ o9-20020a256b49000000b00dcbe82c0f7dmr4198546ybm.41.1709545509594; Mon, 04 Mar
+ 2024 01:45:09 -0800 (PST)
 MIME-Version: 1.0
-References: <20240222-x1e80100-display-refactor-connector-v2-0-bd4197dfceab@linaro.org>
- <20240222-x1e80100-display-refactor-connector-v2-1-bd4197dfceab@linaro.org>
- <a90dcd83-d158-4ec1-9186-0658c108afef@linaro.org>
- <20240301175205.GB2438612-robh@kernel.org>
-In-Reply-To: <20240301175205.GB2438612-robh@kernel.org>
+References: <20240228194730.619204-1-quic_abhinavk@quicinc.com>
+In-Reply-To: <20240228194730.619204-1-quic_abhinavk@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 3 Mar 2024 22:17:28 +0200
-Message-ID: <CAA8EJppVhMyA_QK_RzC_+M3dniBrm5wxUKeoeh0Dg2w++JoZ2g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: msm: dp-controller: document
- X1E80100 compatible
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Abel Vesa <abel.vesa@linaro.org>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+Date: Mon, 4 Mar 2024 11:44:58 +0200
+Message-ID: <CAA8EJpo1O9kDeYt_z9YHAu+nQXJ2XenejOGxm1fjED--brCWgQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/msm/dpu: drop unused dpu_kms from interface
+ initialization
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Johan Hovold <johan@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, 
+ quic_parellan@quicinc.com, quic_jesszhan@quicinc.com, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,86 +80,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 1 Mar 2024 at 19:52, Rob Herring <robh@kernel.org> wrote:
+On Wed, 28 Feb 2024 at 21:47, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
-> On Tue, Feb 27, 2024 at 04:45:25PM +0100, Krzysztof Kozlowski wrote:
-> > On 22/02/2024 16:55, Abel Vesa wrote:
-> > > Add the X1E80100 to the list of compatibles and document the is-edp
-> > > flag. The controllers are expected to operate in DP mode by default,
-> > > and this flag can be used to select eDP mode.
-> > >
-> > > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-> > > ---
-> > >  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 6 ++++++
-> > >  1 file changed, 6 insertions(+)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> > > index ae53cbfb2193..ed11852e403d 100644
-> > > --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> > > +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> > > @@ -27,6 +27,7 @@ properties:
-> > >            - qcom,sdm845-dp
-> > >            - qcom,sm8350-dp
-> > >            - qcom,sm8650-dp
-> > > +          - qcom,x1e80100-dp
-> > >        - items:
-> > >            - enum:
-> > >                - qcom,sm8150-dp
-> > > @@ -73,6 +74,11 @@ properties:
-> > >        - description: phy 0 parent
-> > >        - description: phy 1 parent
-> > >
-> > > +  is-edp:
-> > > +    $ref: /schemas/types.yaml#/definitions/flag
-> > > +    description:
-> > > +      Tells the controller to switch to eDP mode
-> >
-> >
-> > DP controller cannot be edp, so property "is-edp" is confusing. Probably
-> > you want to choose some phy mode, so you should rather use "phy-mode"
-> > property. I am sure we've been here...
+> dpu_kms seems unused while initializing DSI, HDMI and DP through
+> their respective _dpu_kms_initialize_* functions.
 >
-> phy-mode belongs in the phy node though. Not that you couldn't look in
-> the phy node and see, but everyone likes all the properties they need
-> nicely packaged up in their driver's node.
+> Hence lets drop the parameter altogether.
 >
-> > Anyway, if you define completely new property without vendor prefix,
-> > that's a generic property, so you need to put it in some common schema
-> > for all Display Controllers, not only Qualcomm.
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-Is there a generic schema for DisplayPort controllers? I think there
-is none at this point. We can probably add it, declaring is-edp
-property, link-frequencies, etc.
-However Mediatek already uses a different option to specify supported
-link frequencies.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
->
-> I'm trying to unsee what the driver is doing... Hard-coding the
-> connector type and some instance indices. Uhhhh! I'm sure I'm to blame
-> for rejecting those in DT.
-
-Once this patchset is accepted (in this or that or whatever else
-form), we will cleanup most of those hardcoded types.
-
->
-> I've suggested connector nodes in the past. More generally, whatever is
-> attached at the other end (as it could be a bridge rather than a
-> connector) knows what mode is needed. It's simple negotiation. Each end
-> presents what they support. You take the union of the list(s) and get
-> the mode. If there's more than one, then the kernel or user gets to
-> choose.
-
-It's not that easy. First, probing of the bridge chain differs
-slightly depending on whether the controller is eDP or DP controller.
-eDP should use AUX BUS, while DP (currently) doesn't use it. More
-importantly, error conditions differ too. For example, in the DP case
-it is perfectly fine to have nothing attached to the controller. It
-just means that the display chain needs no additional handling and the
-HPD pin will be handled by the controller itself. In the eDP case if
-neither a panel nor a bridge are attached, it is considered to be an
-error and thus the driver will return probe error.
-
-> Qualcomm is not the only one with this problem. Solve it for everyone...
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 15 ++++++---------
+>  1 file changed, 6 insertions(+), 9 deletions(-)
 
 -- 
 With best wishes
