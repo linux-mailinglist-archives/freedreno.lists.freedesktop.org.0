@@ -2,77 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B8B88711AF
-	for <lists+freedreno@lfdr.de>; Tue,  5 Mar 2024 01:28:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4F228712DA
+	for <lists+freedreno@lfdr.de>; Tue,  5 Mar 2024 03:04:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF681112778;
-	Tue,  5 Mar 2024 00:28:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97519112835;
+	Tue,  5 Mar 2024 02:04:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="IivV+VJo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dEFYMIVo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93665112775
- for <freedreno@lists.freedesktop.org>; Tue,  5 Mar 2024 00:28:14 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5133d276cbaso3593669e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 04 Mar 2024 16:28:14 -0800 (PST)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF483112834;
+ Tue,  5 Mar 2024 02:04:06 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-51321e71673so5901415e87.2; 
+ Mon, 04 Mar 2024 18:04:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1709598492; x=1710203292; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1709604245; x=1710209045; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xr6wCNfPCWT62O+BkzsYtFI7aI+vAwjbi8UvrqmJnMk=;
- b=IivV+VJoTj2wK28sO/cKSi8X67yYGWmqAR4Q0McYR7HYIx1CScTySMW6KvgiNUrMRf
- 0hRX9ghT63WJc0plH0ieys7qmyZNihQ496SlQG75xEJ8TNuwRNQHKx/qdrFoxM/hH44u
- 5sX6dIun1eIV7noHZKwd9SMmuUVPkhPrNqf73K+3FiZ/p3p7UDcTu2Tt+mE+uQIelOtJ
- 6Aepw378uCozuPrD4VWqpB1kjOiyT8xooYevRd4TyDbAu+6RjY5gyKb3l0CLxXu+ECHJ
- 0N0EabD8AWSQ7LqGLsEz3stU6F4VngQt6RgeJF7xZAWYWpSEDSyH4DTpil29e7XqDkTt
- gaBQ==
+ bh=tNlCYCD3A5X7opMa78QyTbPYgKpu//YZT0Q5xl7o9vw=;
+ b=dEFYMIVoX3+2gmAlVnT+dtn8tnfQfZfyoQIoJt7VO5i950CwM7zD7PVx4MXE3KM5pH
+ cPGxXjlQyTi2yFTEv0aAtVJPHaLmigu+XRpb9lKk4d1MQEzYCGzzBOTO9COfgkgkSdQh
+ T3o3GzR9qxLt4+R1OzpKQADbdULkdMklAkNHHweRQn5CXIdaokDLp9355nvqZFs8hhqj
+ GYoym77fM9nRShknOPu58gglsSAftwFUh1CdMzgnKI4ZdNQ+KjRcZ6yEjBf9wXi4MajV
+ X4LVeke6PRGi9M4ANbW+RTdwFw6/PJygnVc3SJJuojuCj0U8Gtw81J3OfEffA8lGu7sy
+ vgHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709598492; x=1710203292;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1709604245; x=1710209045;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xr6wCNfPCWT62O+BkzsYtFI7aI+vAwjbi8UvrqmJnMk=;
- b=GOfcydGXiRSb2/6P0oTM1IeMy/aD/0Do6lKhPGTMCBcHA0NOU4kwWsbSM33llFIyd2
- xuBHdcwMVQBkB1nBEplDu7zbJo+olD9psp0hVO8Y/8MGmRuveYm/wI2xxksoKx/iICsC
- JDTxx03VbMM8MUv+RY8nmha1q4AhQY7KfzdonOAsbdXufxDlsB6Ga3Y3VXF/ozhDWT2f
- HCKxFp0aUW4QcWgCONT5Vr4f7fCV+EYBB6qzLqpvnbbPxjbF77BYX1c3Nz6AQ6yGI5FD
- mctZQ8yaSUjhTUvqmY47t0hW5LOIL/5cKDgX09/6qyGaak7UIij2o8E2oaXIg2dieQjU
- FAqA==
-X-Gm-Message-State: AOJu0Yy8/V7BJcwv17CL9EAKCs64zb2GA/21NOlwja8Fo39cGTpCO0Ss
- ZT392HsO6snDukbqy4q/9znQ5jd/wfUJ6wh/F0fxRUQuAlXAl7g/lKmfL8gvbGrYzS+U5h/FB72
- 3
-X-Google-Smtp-Source: AGHT+IEpVKRUi1hJu8a/8XKiX0WCgdeworthxvQWON2xS5SR2ABish/KNB9qVAXfHDN+7CkXvRAV7w==
-X-Received: by 2002:a05:6512:1243:b0:513:23da:9766 with SMTP id
- fb3-20020a056512124300b0051323da9766mr231986lfb.55.1709598491832; 
- Mon, 04 Mar 2024 16:28:11 -0800 (PST)
-Received: from umbar.lan (dzyjmhybhls-s--zn36gy-3.rev.dnainternet.fi.
- [2001:14ba:a00e:a300:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- s15-20020ac2464f000000b005133d11b261sm1149416lfo.92.2024.03.04.16.28.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Mar 2024 16:28:11 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: freedreno@lists.freedesktop.org,
- Paloma Arellano <quic_parellan@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, seanpaul@chromium.org, swboyd@chromium.org,
- quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com,
- quic_khsieh@quicinc.com, marijn.suijten@somainline.org,
- neil.armstrong@linaro.org
-Subject: Re: [PATCH v5 00/19] Add support for CDM over DP
-Date: Tue,  5 Mar 2024 02:28:09 +0200
-Message-Id: <170959846405.1203069.15666159691656225354.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240222194025.25329-1-quic_parellan@quicinc.com>
-References: <20240222194025.25329-1-quic_parellan@quicinc.com>
+ bh=tNlCYCD3A5X7opMa78QyTbPYgKpu//YZT0Q5xl7o9vw=;
+ b=C1SpR4zAsR6nYZzDRxpsDi9yTqlR8hMi8/TSSJry3u7C8mmwY8coJbEgl+BJbiAOAi
+ BqSkodxzce2NF/RTvvU+CRZ97r5DTfKq+EmRuUAoiGTfkcZf0KK/56tnKsS2dNMivIcE
+ 4AcX86j0SDP7pifKEFax5qNWv8CKoJPjsRRj8pu0kv3UgaBYv49vIn0d6MYVB1wDL+Ql
+ AcBQeSJwtOjrVZJ6rzHG10Mr1dCcy471ep7MZV/PrDztMpIEDNTFFAhbEhTk0DXldeAE
+ JFvUKTTCqR00Mw1K0h/8q7I0ZMY5zw7VhpNfM2kv8o4dXKO0T1ldfzX5hqeLmNjhm39O
+ eVXg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWiDR/5aNlYnk2PZyH8qw40TfJDvhtCe9QkTg5ZigwAmwJb5hZu0EJK3i+CyWJCACvG8GfZEJ/vGm0TSysO6/KFMLZ3tGoEKwMj6Hsw9iRn
+X-Gm-Message-State: AOJu0Yx386yIwk/48Pa74Mc+cpyGfkwrnu4gDSTTZgbOo6ZmG2oy5x6V
+ 5Yvi/8ZxYKBMOn6AWUfVzjSgcN73qw51bIYh55tFLRb/JJ/u9AEOl01W9DOzbZtBmjDD8cfhb/5
+ Xj/QUoTuQMEvqf88aC7LLJXQcGsA=
+X-Google-Smtp-Source: AGHT+IGRZQ/BGfXr4JyRSnaEMtBihRHwRoaenXLEwD0fFOB7V17Y1jXXWBjl3v+IqZFEixVDxybirYpjYDfuPmdJPZg=
+X-Received: by 2002:ac2:428a:0:b0:513:3309:cc62 with SMTP id
+ m10-20020ac2428a000000b005133309cc62mr303303lfh.47.1709604244339; Mon, 04 Mar
+ 2024 18:04:04 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20240301185346.10412-1-robdclark@gmail.com>
+ <CAAfnVBnXCqCQjamnSC0SArrNykiSgjwNpMvrkmb7kTuufW-opg@mail.gmail.com>
+In-Reply-To: <CAAfnVBnXCqCQjamnSC0SArrNykiSgjwNpMvrkmb7kTuufW-opg@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 4 Mar 2024 18:03:52 -0800
+Message-ID: <CAF6AEGuvXAXgtDgVTL0Z80pbR4d-oUnwBf0uB1GRJkZHd=2ftQ@mail.gmail.com>
+Subject: Re: [RFC] drm/msm: Add GPU memory traces
+To: Gurchetan Singh <gurchetansingh@chromium.org>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@chromium.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,59 +85,209 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Mon, Mar 4, 2024 at 5:38=E2=80=AFPM Gurchetan Singh
+<gurchetansingh@chromium.org> wrote:
+>
+>
+>
+>
+> On Fri, Mar 1, 2024 at 10:54=E2=80=AFAM Rob Clark <robdclark@gmail.com> w=
+rote:
+>>
+>> From: Rob Clark <robdclark@chromium.org>
+>>
+>> Perfetto can use these traces to track global and per-process GPU memory
+>> usage.
+>>
+>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+>> ---
+>> I realized the tracepoint that perfetto uses to show GPU memory usage
+>> globally and per-process was already upstream, but with no users.
+>>
+>> This overlaps a bit with fdinfo, but ftrace is a lighter weight
+>> mechanism and fits better with perfetto (plus is already supported in
+>> trace_processor and perfetto UI, whereas something fdinfo based would
+>> require new code to be added in perfetto.
+>>
+>> We could probably do this more globally (ie. drm_gem_get/put_pages() and
+>> drm_gem_handle_create_tail()/drm_gem_object_release_handle() if folks
+>> prefer.  Not sure where that leaves the TTM drivers.
+>>
+>>  drivers/gpu/drm/msm/Kconfig   |  1 +
+>>  drivers/gpu/drm/msm/msm_drv.h |  5 +++++
+>>  drivers/gpu/drm/msm/msm_gem.c | 37 +++++++++++++++++++++++++++++++++++
+>>  drivers/gpu/drm/msm/msm_gpu.h |  8 ++++++++
+>>  4 files changed, 51 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+>> index f202f26adab2..e4c912fcaf22 100644
+>> --- a/drivers/gpu/drm/msm/Kconfig
+>> +++ b/drivers/gpu/drm/msm/Kconfig
+>> @@ -33,6 +33,7 @@ config DRM_MSM
+>>         select PM_OPP
+>>         select NVMEM
+>>         select PM_GENERIC_DOMAINS
+>> +       select TRACE_GPU_MEM
+>>         help
+>>           DRM/KMS driver for MSM/snapdragon.
+>>
+>> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv=
+.h
+>> index 16a7cbc0b7dd..cb8f7e804b5b 100644
+>> --- a/drivers/gpu/drm/msm/msm_drv.h
+>> +++ b/drivers/gpu/drm/msm/msm_drv.h
+>> @@ -137,6 +137,11 @@ struct msm_drm_private {
+>>         struct msm_rd_state *hangrd;   /* debugfs to dump hanging submit=
+s */
+>>         struct msm_perf_state *perf;
+>>
+>> +       /**
+>> +        * total_mem: Total/global amount of memory backing GEM objects.
+>> +        */
+>> +       atomic64_t total_mem;
+>> +
+>>         /**
+>>          * List of all GEM objects (mainly for debugfs, protected by obj=
+_lock
+>>          * (acquire before per GEM object lock)
+>> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem=
+.c
+>> index 175ee4ab8a6f..e04c4af5d154 100644
+>> --- a/drivers/gpu/drm/msm/msm_gem.c
+>> +++ b/drivers/gpu/drm/msm/msm_gem.c
+>> @@ -12,6 +12,9 @@
+>>  #include <linux/pfn_t.h>
+>>
+>>  #include <drm/drm_prime.h>
+>> +#include <drm/drm_file.h>
+>> +
+>> +#include <trace/events/gpu_mem.h>
+>>
+>>  #include "msm_drv.h"
+>>  #include "msm_fence.h"
+>> @@ -33,6 +36,34 @@ static bool use_pages(struct drm_gem_object *obj)
+>>         return !msm_obj->vram_node;
+>>  }
+>>
+>> +static void update_device_mem(struct msm_drm_private *priv, ssize_t siz=
+e)
+>> +{
+>> +       uint64_t total_mem =3D atomic64_add_return(size, &priv->total_me=
+m);
+>> +       trace_gpu_mem_total(0, 0, total_mem);
+>> +}
+>> +
+>> +static void update_ctx_mem(struct drm_file *file, ssize_t size)
+>> +{
+>> +       struct msm_file_private *ctx =3D file->driver_priv;
+>> +       uint64_t ctx_mem =3D atomic64_add_return(size, &ctx->ctx_mem);
+>> +
+>> +       rcu_read_lock(); /* Locks file->pid! */
+>> +       trace_gpu_mem_total(0, pid_nr(file->pid), ctx_mem);
+>> +       rcu_read_unlock();
+>> +
+>> +}
+>> +
+>> +static int msm_gem_open(struct drm_gem_object *obj, struct drm_file *fi=
+le)
+>> +{
+>> +       update_ctx_mem(file, obj->size);
+>> +       return 0;
+>> +}
+>> +
+>> +static void msm_gem_close(struct drm_gem_object *obj, struct drm_file *=
+file)
+>> +{
+>> +       update_ctx_mem(file, -obj->size);
+>> +}
+>> +
+>>  /*
+>>   * Cache sync.. this is a bit over-complicated, to fit dma-mapping
+>>   * API.  Really GPU cache is out of scope here (handled on cmdstream)
+>> @@ -156,6 +187,8 @@ static struct page **get_pages(struct drm_gem_object=
+ *obj)
+>>                         return p;
+>>                 }
+>>
+>> +               update_device_mem(dev->dev_private, obj->size);
+>> +
+>>                 msm_obj->pages =3D p;
+>>
+>>                 msm_obj->sgt =3D drm_prime_pages_to_sg(obj->dev, p, npag=
+es);
+>> @@ -209,6 +242,8 @@ static void put_pages(struct drm_gem_object *obj)
+>>                         msm_obj->sgt =3D NULL;
+>>                 }
+>>
+>> +               update_device_mem(obj->dev->dev_private, -obj->size);
+>> +
+>>                 if (use_pages(obj))
+>>                         drm_gem_put_pages(obj, msm_obj->pages, true, fal=
+se);
+>>                 else
+>> @@ -1118,6 +1153,8 @@ static const struct vm_operations_struct vm_ops =
+=3D {
+>>
+>>  static const struct drm_gem_object_funcs msm_gem_object_funcs =3D {
+>>         .free =3D msm_gem_free_object,
+>> +       .open =3D msm_gem_open,
+>> +       .close =3D msm_gem_close,
+>>         .pin =3D msm_gem_prime_pin,
+>>         .unpin =3D msm_gem_prime_unpin,
+>>         .get_sg_table =3D msm_gem_prime_get_sg_table,
+>> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu=
+.h
+>> index 2bfcb222e353..f7d2a7d6f8cc 100644
+>> --- a/drivers/gpu/drm/msm/msm_gpu.h
+>> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+>> @@ -428,6 +428,14 @@ struct msm_file_private {
+>>          * level.
+>>          */
+>>         struct drm_sched_entity *entities[NR_SCHED_PRIORITIES * MSM_GPU_=
+MAX_RINGS];
+>> +
+>> +       /**
+>> +        * ctx_mem:
+>> +        *
+>> +        * Total amount of memory of GEM buffers with handles attached f=
+or
+>> +        * this context.
+>> +        */
+>> +       atomic64_t ctx_mem;
+>>  };
+>
+>
+>
+> Just for added context, past discussions on TRACE_GPU_MEM:
+>
+> https://lists.freedesktop.org/archives/dri-devel/2021-October/328260.html
+> https://lists.freedesktop.org/archives/dri-devel/2021-January/295120.html
+>
+> Some have even suggested deleting the tracepoint altogether.
+>
+> Personally, I think we should land an internal user in a non-breaking way=
+, since userspace (Perfetto) already depends on it.  Right now, we're in li=
+mbo for multiple years ...
 
-On Thu, 22 Feb 2024 11:39:45 -0800, Paloma Arellano wrote:
-> The Chroma Down Sampling (CDM) block is a hardware component in the DPU
-> pipeline that includes a CSC block capable of converting RGB input from
-> the DPU to YUV data.
-> 
-> This block can be used with either HDMI, DP, or writeback interfaces.
-> This series adds support for the CDM block to be used with DP in
-> YUV420 mode format.
-> 
-> [...]
+For better or for worse, the tracepoint already landed.. and tbh I
+don't see any real problem with it.  And it defn seems like a valid
+option to land support for in-driver and later refactor for more
+shared code.  We already have the uapi and the userspace consuming it,
+so doesn't seem like there is any debate there.  Maybe there is
+something from the original series that could be recycled for
+something less driver specific.
 
-Applied, thanks!
+Re: some of the discussion about cgroups, I think that is a
+non-sequitur because (AFAICT) perfetto wants a global view of pids/etc
+(at least I'm not really sure what the value of system tracing is if
+it isn't, you know, system level.. I deliberately avoided using
+virtual-pid's for that reason)
 
-[01/19] drm/msm/dpu: allow certain formats for CDM for DP
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/32b6ff95b912
-[02/19] drm/msm/dpu: add division of drm_display_mode's hskew parameter
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/551ee0f21099
-[03/19] drm/msm/dpu: pass mode dimensions instead of fb size in CDM setup
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/d6e547c091d8
-[04/19] drm/msm/dpu: allow dpu_encoder_helper_phys_setup_cdm to work for DP
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/7cde7ce5be3e
-[05/19] drm/msm/dpu: move dpu_encoder_helper_phys_setup_cdm to dpu_encoder
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/0ab07bb96826
-[06/19] drm/msm/dp: rename wide_bus_en to wide_bus_supported
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/3ed77f333bb0
-[07/19] drm/msm/dp: store mode YUV420 information to be used by rest of DP
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/5b30d1cbd4fb
-[08/19] drm/msm/dp: check if VSC SDP is supported in DP programming
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/ab2f8603e22e
-[09/19] drm/msm/dpu: move widebus logic to its own API
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/1cfc64a6ea55
-[10/19] drm/msm/dp: program config ctrl for YUV420 over DP
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/683d374582e3
-[11/19] drm/msm/dp: change clock related programming for YUV420 over DP
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/6db6e5606576
-[12/19] drm/msm/dp: move parity calculation to dp_utils
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/09b27a482a18
-[13/19] drm/msm/dp: add VSC SDP support for YUV420 over DP
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/55fb8ffc1802
-[14/19] drm/msm/dpu: add support of new peripheral flush mechanism
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/64f7b81f0358
-[15/19] drm/msm/dp: enable SDP and SDE periph flush update
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/21497a463347
-[16/19] drm/msm/dpu: modify encoder programming for CDM over DP
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/b40c8377d792
-[17/19] drm/msm/dpu: modify timing engine programming for YUV420 over DP
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/57d6ca4c1917
-[18/19] drm/msm/dpu: reserve CDM blocks for DP if mode is YUV420
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/984809d85007
-[19/19] drm/msm/dp: allow YUV420 mode for DP connector when CDM available
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/ee2fcc0f514b
+BR,
+-R
 
-Best regards,
--- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>
+>>  /**
+>> --
+>> 2.44.0
+>>
