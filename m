@@ -2,69 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B42587093B
-	for <lists+freedreno@lfdr.de>; Mon,  4 Mar 2024 19:13:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDB678711AC
+	for <lists+freedreno@lfdr.de>; Tue,  5 Mar 2024 01:28:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00389112433;
-	Mon,  4 Mar 2024 18:13:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A34EA112777;
+	Tue,  5 Mar 2024 00:28:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Bpn2jrS6";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TL+t/wQG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B61EA112432
- for <freedreno@lists.freedesktop.org>; Mon,  4 Mar 2024 18:13:40 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-608a21f1cbcso32647027b3.0
- for <freedreno@lists.freedesktop.org>; Mon, 04 Mar 2024 10:13:40 -0800 (PST)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C1E9112776
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Mar 2024 00:28:13 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2d204e102a9so53585231fa.0
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Mar 2024 16:28:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1709576019; x=1710180819; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=EjE93o2p/BNRD6duwy1hrbCPE/L1Bz04gG2eWZQ12G8=;
- b=Bpn2jrS6bCzrnUcZsJBBjB3f6Rp2Xz41UqiAI7c4KBKSlOAkzuaS69wyWw7SNxrkGj
- fP3Vi84UKRcDTp0t+Y4+rvGeZ3LJZOh1QSiONW7uvdUBOUfyPmEQVSzrsm15l3V1TzUF
- u1ezyvSCbYPLaehypZEGN/yMjfZue0Fz5nLRJGNcWifFWp0yK/Znh6nC6utdQ7gFwv3M
- 5Z4HTRhXpf3CCVOyA/z0BMYA18FJvLzDvZ/jyx5cpqNPBmSGHD2VWfWqn8jvGWobgyDE
- lzySbekTkLxN8PedWszFHM3KfcwBbwLLO8GwLXkYlUtsqeNKcJlj3JY6i+bhhkuvBgVq
- UwyQ==
+ d=linaro.org; s=google; t=1709598491; x=1710203291; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UgihA/j9MMe4W3y4lHJTNEdOriPRYiwOGRsjM+J9mKU=;
+ b=TL+t/wQGuPtp8XB6M16Ol2LF3G5ksparMUvhEzD8oGi0ZTUAexfjiBHEz6UvQS4sUb
+ 3IpqyAWXzY/z3Xi/P/tGNX9iW6fCw5YkUbFkWVwlicOHPoFL3+1LOpkmu35NyyqM7PDq
+ WzNuqo0burCDuzCTdmOc2aiTTfm/1zseG/oPWWL1MzpuPr/Gy5eH1iWOwLBUr+IiNTKV
+ m8tnhsh6ongzuD3pIe4QsBsEJT46hPL5F33Z8TdqQw+AFXTgcE1KJ82/FYsro0y1X5jw
+ BFrPKwb5KoaY4k6s3pVDS1CoH8FcNfhvKVKLEZ0f/SyUluBmM+viktYdSSsW9Q9ijWwW
+ 16Eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709576019; x=1710180819;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=EjE93o2p/BNRD6duwy1hrbCPE/L1Bz04gG2eWZQ12G8=;
- b=wNAgr91PtYzPm214WDYSRH5Hykh2Jrd0nKVojRvszH+g+TM3Q+Ufu8xXa+Tl4Upbij
- GNrpQsiWEwS/H03CjurkSotEBSLGTKx7liOLhu9T291N8BxeRH6DQvFDoZH3DzaXdoh8
- vo1MpjTbnggvrhzHOM0WfWZ2xpgaM4lL4u4aHV355+hqb+nEjsmJBlg5o5ogzaOekBkZ
- XblHRJ+u1VZJuXvpCTxHck1x+rbvkLNTv8Kh4E4XrQUlK5ISKVu/qIPi4Z0BpimAHbbw
- iePmswLXp2fAHziaWvLg+tCr0uylNNxv1MIrtZUi+8ihKYNDkthlkIk69pjqQDTBDMRH
- VNCA==
+ d=1e100.net; s=20230601; t=1709598491; x=1710203291;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UgihA/j9MMe4W3y4lHJTNEdOriPRYiwOGRsjM+J9mKU=;
+ b=OUtWexg8Ks1MGNAeZ/aY7YrxTdHQxu6S5znniXLKFQTkvAxHqP0w5iTd4+GUCDCA1o
+ Rn18+dn3Gp/7vcgYVibwW4CKSR/JzcQi2FAHs72+v913wXFOsdQoNQlpttrkPbS44F1I
+ 01xMRDFiv8ODthFYsoTQGZtzd2yNpyEmGuS0kgdayOq8xMCNLycqbw/lhVaAPZQXGVmK
+ /xEoCoNgDQgobEXFTOkDp3inDPmuOtN/+6sgHL5XHK0soHJhwTM/10/ZwH/pD9f+owe0
+ hDM9ed3EfA5HRNTK0eA78Kf4JTnhc1YfKMVLVMr/OfEf73XHTLDSnFlK297/Y9Ejn7GG
+ chCQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXilJd8JU0FPhsEy+guI+Qhz/jYf79omdSlkW/LQCzRebwjd1Ifb5DCQtrEEhVJsVdYywgmcuEo+iswclNjC4ML++rrU/NKgow0EdI/VnKR
-X-Gm-Message-State: AOJu0YwN5mG4fD0vUdAw/AV156vKpAqy0iEuLEqo3kz67bkh6mHp/hbz
- GunutOoq6GIFX779zBr3AM3lbBlV//bBA8icPCFKIfaCcvWXDc092HcZPuC8lHL186b0tdzXRo/
- BgGYqbijrAyo69TNdOnqxrFFg4tTjIkUJGtyiuQ==
-X-Google-Smtp-Source: AGHT+IHEsG0xIbxTLt0nqR9d2jAuFPIONsiU/QGgPiLY+SElLJU2fbWTW9Q10bJjRdOjSCCR3L+cVAZZv/zuB053MDw=
-X-Received: by 2002:a0d:d491:0:b0:609:8132:79b3 with SMTP id
- w139-20020a0dd491000000b00609813279b3mr10243342ywd.10.1709576019520; Mon, 04
- Mar 2024 10:13:39 -0800 (PST)
-MIME-Version: 1.0
-References: <20240304175152.1199270-1-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20240304175152.1199270-1-andriy.shevchenko@linux.intel.com>
+ AJvYcCXBvv4MEldq2cABi2zwh2y2SfayVR3+D9O3dgykGariyL9bhFbyrNBezI4Sa91UIprBj8eMbKmW5kAkaPNXPF8pddySyNonZoTYZs9Bh53Q
+X-Gm-Message-State: AOJu0YyWLPILLIaqP+sKW/qe+r2N+CNcYNqxen+4a0G884ZNBB1YMSYj
+ PhSdc+cs9ZhAhPbdrHuF4b5EhSYMO7NDyY26Ok0mMIWAYx0+Fwpjr7KQpnO0Z88=
+X-Google-Smtp-Source: AGHT+IFDZK6sfIEdXRUKSjRI7ZdugsypJRMtPgYmqMfgXbm1nTdG+dB8phMOK0N67CVLvFXHeQOFIw==
+X-Received: by 2002:a05:6512:282c:b0:513:2c50:9644 with SMTP id
+ cf44-20020a056512282c00b005132c509644mr257056lfb.12.1709598490724; 
+ Mon, 04 Mar 2024 16:28:10 -0800 (PST)
+Received: from umbar.lan (dzyjmhybhls-s--zn36gy-3.rev.dnainternet.fi.
+ [2001:14ba:a00e:a300:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ s15-20020ac2464f000000b005133d11b261sm1149416lfo.92.2024.03.04.16.28.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Mar 2024 16:28:10 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 4 Mar 2024 20:13:28 +0200
-Message-ID: <CAA8EJpqAzWdntbmg-NyQcbLHtUoh-m=g_u=ZWiMimubsWW22sQ@mail.gmail.com>
-Subject: Re: [PATCH v1 1/1] drm/msm/hdmi: Replace of_gpio.h by proper one
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Steev Klimaszewski <steev@kali.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/3] drm/msm/dpu: debug commit_done timeouts
+Date: Tue,  5 Mar 2024 02:28:08 +0200
+Message-Id: <170959846405.1203069.5519628464509979288.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240226-fd-dpu-debug-timeout-v4-0-51eec83dde23@linaro.org>
+References: <20240226-fd-dpu-debug-timeout-v4-0-51eec83dde23@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,40 +90,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 4 Mar 2024 at 19:51, Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> of_gpio.h is deprecated and subject to remove.
-> The driver doesn't use it directly, replace it
-> with what is really being used.
->
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Mon, 26 Feb 2024 04:27:58 +0200, Dmitry Baryshkov wrote:
+> In order to debug commit_done timeouts ([1]) display the sticky bits of
+> the CTL_FLUSH register and capture the devcore dump when the first such
+> timeout occurs.
+> 
+> [1] https://gitlab.freedesktop.org/drm/msm/-/issues/33
+> 
+> 
+> [...]
 
-> ---
->  drivers/gpu/drm/msm/hdmi/hdmi.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> index c8ebd75176bb..24abcb7254cc 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> @@ -5,8 +5,8 @@
->   * Author: Rob Clark <robdclark@gmail.com>
->   */
->
-> +#include <linux/gpio/consumer.h>
->  #include <linux/of_irq.h>
-> -#include <linux/of_gpio.h>
->  #include <linux/of_platform.h>
->  #include <linux/platform_device.h>
->
-> --
-> 2.43.0.rc1.1.gbec44491f096
->
+Applied, thanks!
 
+[1/3] drm/msm/dpu: make "vblank timeout" more useful
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/f1d0b196ff2e
+[2/3] drm/msm/dpu: split dpu_encoder_wait_for_event into two functions
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/d72a3d35b7ef
+[3/3] drm/msm/dpu: capture snapshot on the first commit_done timeout
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/4be445f5b6b6
 
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
