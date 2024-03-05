@@ -2,85 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3198C892F25
-	for <lists+freedreno@lfdr.de>; Sun, 31 Mar 2024 10:44:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBCCA892F12
+	for <lists+freedreno@lfdr.de>; Sun, 31 Mar 2024 10:42:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DE5E10E1D1;
-	Sun, 31 Mar 2024 08:44:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98FF010E99D;
+	Sun, 31 Mar 2024 08:42:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=chromium.org header.i=@chromium.org header.b="TZ8G18sY";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hLyTDs6C";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B81541126D8
- for <freedreno@lists.freedesktop.org>; Tue,  5 Mar 2024 01:38:45 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-2d09cf00214so64673531fa.0
- for <freedreno@lists.freedesktop.org>; Mon, 04 Mar 2024 17:38:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1709602723; x=1710207523;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=zgvI9txExzvuhQrt5TUYaH36k/0od6qMKO2/5FV/pHA=;
- b=TZ8G18sY7snXfkKXnc1Od9LVUpnmXyHDDc0phDZeZCHXOt4sq9/UQCN3zUOYToEAuv
- 6PFbo5YZU8m5JAiX/w4+KotxUryJRnmmwAr7wYo+h4m/Rolp8MbN4kznRiucPEkpNpL5
- d5vksA3MAZppRBMlUYpBUaIMDCCmTXWTT8PEs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709602723; x=1710207523;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=zgvI9txExzvuhQrt5TUYaH36k/0od6qMKO2/5FV/pHA=;
- b=Garbf6uaTwghBbha0jZsmkfweRUXZTHwQIFN+sVLoteexVRH3DJstgfcIZFtQpsD9B
- yeVE4meNomSzJkKGXvwi3gneoHKJbXbvr4uYsXmwUjou0BCAT8TFCYFtScxMup4sZIEP
- /xHTV7Bz3kiDF5094J4dOjbMF6pJPXJ2YcAq26hY4cUjyRtO20WAtgnPQZxyJh+ZMn07
- ur7F4pPugvRWcsIKSzKyfSLZeQjITf3oc4qaRUe4Ik8XBTivqFbDgrIZGMAC18sWFGXs
- UJG5SdjhlIO1oKa62kaP75Og2qcF7oXv6y8I94nZNUW3jGac8O7u/A6c+IKLLlPxUj9x
- aZlg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWbE/Pzrvg1zBjrWW1PfhA6ea5YMepc4tsgmp9KAQqIzY2bdB2ncLy+6QyM2Xcx3YPewL5sUMJtiNk6nJadauVNThQ4sGKUGiqj3doeddyI
-X-Gm-Message-State: AOJu0Yyyuhxt1ckFhSVpmr/1aVaWffTF21Z2M8hiEsv8Y2UxdZt2CoKT
- wSVOmAMsQsPs0nc+roONqQpQohyRjL/jmFA04uZb8PrfyNR+yCVUrHOaIA/yOSKsuw7rTBxNF7s
- CJA==
-X-Google-Smtp-Source: AGHT+IH1O84YE9o6cM4ZQ6UQKScQ1arJXj/Ox2rM7d7kRlvNcU7S0DvR1HfU8/7+7lYcolgPCv+Paw==
-X-Received: by 2002:a2e:b8c6:0:b0:2d3:318c:7652 with SMTP id
- s6-20020a2eb8c6000000b002d3318c7652mr335880ljp.30.1709602722987; 
- Mon, 04 Mar 2024 17:38:42 -0800 (PST)
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com.
- [209.85.208.47]) by smtp.gmail.com with ESMTPSA id
- f4-20020a05640214c400b005660742bf6bsm5252880edx.52.2024.03.04.17.38.42
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Mar 2024 17:38:42 -0800 (PST)
-Received: by mail-ed1-f47.google.com with SMTP id
- 4fb4d7f45d1cf-565223fd7d9so3720a12.1
- for <freedreno@lists.freedesktop.org>; Mon, 04 Mar 2024 17:38:42 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCXuHTvzrDll5H+ZoGlZBiUWiqMVvcr6ky0i8LrytDekezd4Re8kRgg3AYBC0ooN8HvYjzyP0L4xtf4kwu0yGBAtXXfn2vf4mPqLR5iht/Ft
-X-Received: by 2002:a50:fb0d:0:b0:566:ff41:69f1 with SMTP id
- d13-20020a50fb0d000000b00566ff4169f1mr3695edq.3.1709602719348; Mon, 04 Mar
- 2024 17:38:39 -0800 (PST)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC300112A0F;
+ Tue,  5 Mar 2024 10:49:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:
+ Message-ID:Content-Type:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=K3yp7C0pQ7ldKDkCbhOar0UBhiv6KJOFunnEtqi5GAQ=; b=hLyTDs6CWwg/1gSgwVj9cG+Zt/
+ zG352kTlF22EQDBx6hJJgWpdGRZX0WUi+LuLMAFlSwHDwVZjMnYfLpBpTHCsG5zCw6laVqDXjXneN
+ eeXH4QvEVtbdjcRD7ytwQ18t1bOfhHDeQw9m8dQRbBSjUGym9AZNCnr2FxE33p3XtT/UbJzeaSw9/
+ BfWecHt2BCw0BXEv3Z0z0V23KDLBFHd8Gj81gEYlhW3GsTaIeRMd/G4Dnb9ZpAOOjKuaRWaJBK2hr
+ emrsI0r8sbGN5R07Zt5GhyJw80LsLxKxD2bGtFXz2mIijYDhpgtRwmqX2jvx26LOY/GQm0rCk5K5o
+ 9PHPnVbQ==;
+Received: from c-71-59-88-35.hsd1.nj.comcast.net ([71.59.88.35]
+ helo=[192.168.1.99]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1rhSMX-006CeC-Jf; Tue, 05 Mar 2024 11:49:33 +0100
+Content-Type: multipart/alternative;
+ boundary="------------PUCnCxgdF0nKqUJPe2Gx1RhO"
+Message-ID: <39fac3a4-f9de-4968-b0ff-ac3bf503a4fb@igalia.com>
+Date: Tue, 5 Mar 2024 05:49:27 -0500
 MIME-Version: 1.0
-References: <20240301185346.10412-1-robdclark@gmail.com>
-In-Reply-To: <20240301185346.10412-1-robdclark@gmail.com>
-From: Gurchetan Singh <gurchetansingh@chromium.org>
-Date: Mon, 4 Mar 2024 17:38:26 -0800
-X-Gmail-Original-Message-ID: <CAAfnVBnXCqCQjamnSC0SArrNykiSgjwNpMvrkmb7kTuufW-opg@mail.gmail.com>
-Message-ID: <CAAfnVBnXCqCQjamnSC0SArrNykiSgjwNpMvrkmb7kTuufW-opg@mail.gmail.com>
-Subject: Re: [RFC] drm/msm: Add GPU memory traces
-To: Rob Clark <robdclark@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Tvrtko Ursulin <tursulin@ursulin.net>, 
- Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@chromium.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, open list <linux-kernel@vger.kernel.org>
-Content-Type: multipart/alternative; boundary="000000000000cb82430612dfe626"
-X-Mailman-Approved-At: Sun, 31 Mar 2024 08:44:33 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Reminder: 2024 X.Org Board of Directors Elections timeline extended, 
+ request for nominations
+Content-Language: en-US
+From: Christopher Michael <cmichael@igalia.com>
+To: events@lists.x.org, xorg-devel@lists.x.org,
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ libre-soc-dev@lists.libre-soc.org, elections@x.org, members@x.org,
+ xorg@lists.freedesktop.org
+Cc: board <board@foundation.x.org>
+References: <0efcdfe3-ea9e-43e5-ab07-6d69dca2c04a@igalia.com>
+ <08f8a967-25e1-4362-be38-3f1b050ec6f2@igalia.com>
+In-Reply-To: <08f8a967-25e1-4362-be38-3f1b050ec6f2@igalia.com>
+X-Mailman-Approved-At: Sun, 31 Mar 2024 08:42:37 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,404 +69,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---000000000000cb82430612dfe626
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This is a multi-part message in MIME format.
+--------------PUCnCxgdF0nKqUJPe2Gx1RhO
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Mar 1, 2024 at 10:54=E2=80=AFAM Rob Clark <robdclark@gmail.com> wro=
-te:
-
-> From: Rob Clark <robdclark@chromium.org>
->
-> Perfetto can use these traces to track global and per-process GPU memory
-> usage.
->
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
-> I realized the tracepoint that perfetto uses to show GPU memory usage
-> globally and per-process was already upstream, but with no users.
->
-> This overlaps a bit with fdinfo, but ftrace is a lighter weight
-> mechanism and fits better with perfetto (plus is already supported in
-> trace_processor and perfetto UI, whereas something fdinfo based would
-> require new code to be added in perfetto.
->
-> We could probably do this more globally (ie. drm_gem_get/put_pages() and
-> drm_gem_handle_create_tail()/drm_gem_object_release_handle() if folks
-> prefer.  Not sure where that leaves the TTM drivers.
->
->  drivers/gpu/drm/msm/Kconfig   |  1 +
->  drivers/gpu/drm/msm/msm_drv.h |  5 +++++
->  drivers/gpu/drm/msm/msm_gem.c | 37 +++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/msm_gpu.h |  8 ++++++++
->  4 files changed, 51 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> index f202f26adab2..e4c912fcaf22 100644
-> --- a/drivers/gpu/drm/msm/Kconfig
-> +++ b/drivers/gpu/drm/msm/Kconfig
-> @@ -33,6 +33,7 @@ config DRM_MSM
->         select PM_OPP
->         select NVMEM
->         select PM_GENERIC_DOMAINS
-> +       select TRACE_GPU_MEM
->         help
->           DRM/KMS driver for MSM/snapdragon.
->
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.=
-h
-> index 16a7cbc0b7dd..cb8f7e804b5b 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -137,6 +137,11 @@ struct msm_drm_private {
->         struct msm_rd_state *hangrd;   /* debugfs to dump hanging submits
-> */
->         struct msm_perf_state *perf;
->
-> +       /**
-> +        * total_mem: Total/global amount of memory backing GEM objects.
-> +        */
-> +       atomic64_t total_mem;
-> +
->         /**
->          * List of all GEM objects (mainly for debugfs, protected by
-> obj_lock
->          * (acquire before per GEM object lock)
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.=
-c
-> index 175ee4ab8a6f..e04c4af5d154 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -12,6 +12,9 @@
->  #include <linux/pfn_t.h>
->
->  #include <drm/drm_prime.h>
-> +#include <drm/drm_file.h>
-> +
-> +#include <trace/events/gpu_mem.h>
->
->  #include "msm_drv.h"
->  #include "msm_fence.h"
-> @@ -33,6 +36,34 @@ static bool use_pages(struct drm_gem_object *obj)
->         return !msm_obj->vram_node;
->  }
->
-> +static void update_device_mem(struct msm_drm_private *priv, ssize_t size=
-)
-> +{
-> +       uint64_t total_mem =3D atomic64_add_return(size, &priv->total_mem=
-);
-> +       trace_gpu_mem_total(0, 0, total_mem);
-> +}
-> +
-> +static void update_ctx_mem(struct drm_file *file, ssize_t size)
-> +{
-> +       struct msm_file_private *ctx =3D file->driver_priv;
-> +       uint64_t ctx_mem =3D atomic64_add_return(size, &ctx->ctx_mem);
-> +
-> +       rcu_read_lock(); /* Locks file->pid! */
-> +       trace_gpu_mem_total(0, pid_nr(file->pid), ctx_mem);
-> +       rcu_read_unlock();
-> +
-> +}
-> +
-> +static int msm_gem_open(struct drm_gem_object *obj, struct drm_file *fil=
-e)
-> +{
-> +       update_ctx_mem(file, obj->size);
-> +       return 0;
-> +}
-> +
-> +static void msm_gem_close(struct drm_gem_object *obj, struct drm_file
-> *file)
-> +{
-> +       update_ctx_mem(file, -obj->size);
-> +}
-> +
->  /*
->   * Cache sync.. this is a bit over-complicated, to fit dma-mapping
->   * API.  Really GPU cache is out of scope here (handled on cmdstream)
-> @@ -156,6 +187,8 @@ static struct page **get_pages(struct drm_gem_object
-> *obj)
->                         return p;
->                 }
->
-> +               update_device_mem(dev->dev_private, obj->size);
-> +
->                 msm_obj->pages =3D p;
->
->                 msm_obj->sgt =3D drm_prime_pages_to_sg(obj->dev, p, npage=
-s);
-> @@ -209,6 +242,8 @@ static void put_pages(struct drm_gem_object *obj)
->                         msm_obj->sgt =3D NULL;
->                 }
->
-> +               update_device_mem(obj->dev->dev_private, -obj->size);
-> +
->                 if (use_pages(obj))
->                         drm_gem_put_pages(obj, msm_obj->pages, true,
-> false);
->                 else
-> @@ -1118,6 +1153,8 @@ static const struct vm_operations_struct vm_ops =3D=
- {
->
->  static const struct drm_gem_object_funcs msm_gem_object_funcs =3D {
->         .free =3D msm_gem_free_object,
-> +       .open =3D msm_gem_open,
-> +       .close =3D msm_gem_close,
->         .pin =3D msm_gem_prime_pin,
->         .unpin =3D msm_gem_prime_unpin,
->         .get_sg_table =3D msm_gem_prime_get_sg_table,
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.=
-h
-> index 2bfcb222e353..f7d2a7d6f8cc 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -428,6 +428,14 @@ struct msm_file_private {
->          * level.
->          */
->         struct drm_sched_entity *entities[NR_SCHED_PRIORITIES *
-> MSM_GPU_MAX_RINGS];
-> +
-> +       /**
-> +        * ctx_mem:
-> +        *
-> +        * Total amount of memory of GEM buffers with handles attached fo=
-r
-> +        * this context.
-> +        */
-> +       atomic64_t ctx_mem;
->  };
->
+This is a reminder that we are still looking for candidates for the 
+upcoming X.Org Board of Directors elections, and that membership 
+renewals are still open and will be needed to vote on those elections. 
+Please read below for more details.
 
 
-Just for added context, past discussions on TRACE_GPU_MEM:
+Cheers,
 
-https://lists.freedesktop.org/archives/dri-devel/2021-October/328260.html
-https://lists.freedesktop.org/archives/dri-devel/2021-January/295120.html
-
-Some have even suggested deleting the tracepoint altogether.
-
-Personally, I think we should land an internal user in a non-breaking way,
-since userspace (Perfetto) already depends on it.  Right now, we're in
-limbo for multiple years ...
+Christopher Michael, on behalf of the X.Org BoD
 
 
->  /**
-> --
-> 2.44.0
+On 3/1/24 06:25, Christopher Michael wrote:
+>
+> We are seeking nominations for candidates for election to the X.org 
+> Foundation Board of Directors. However, as we presently do not have 
+> enough nominations to start the election - the decision has been made 
+> to extend the timeline by 2 weeks. Note this is a fairly regular part 
+> of the elections process.
 >
 >
+> The new deadline for nominations to the X.org Board of Directors is 
+> 23:59 UTC on 11 March 2024
+>
+>
+> The Board consists of directors elected from the membership. Each 
+> year, an election is held to bring the total number of directors to 
+> eight. The four members receiving the highest vote totals will serve 
+> as directors for two year terms.
+>
+> The directors who received two year terms starting in 2023 were 
+> Arkadiusz Hiler, Christopher Michael, Lyude Paul, and Daniel Vetter. 
+> They will continue to serve until their term ends in 2024. Current 
+> directors whose term expires in 2024 are Emma Anholt, Mark Filion, 
+> Ricardo Garcia, and Alyssa Rosenzweig.
+> <https://rosenzweig.io/>
+>
+> A director is expected to participate in the fortnightly IRC meeting 
+> to discuss current business and to attend the annual meeting of the 
+> X.Org Foundation, which will be held at a location determined in 
+> advance by the Board of Directors.
+>
+> A member may nominate themselves or any other member they feel is 
+> qualified. Nominations should be sent to the Election Committee at 
+> elections@x.org.
+>
+> Nominees shall be required to be current members of the X.Org 
+> Foundation, and submit a personal statement of up to 200 words that 
+> will be provided to prospective voters. The collected statements, 
+> along with the statement of contribution to the X.Org Foundation in 
+> the member's account page on http://members.x.org, will be made 
+> available to all voters to help them make their voting decisions.
+>
+> Nominations and completed personal statements must be received no 
+> later than 23:59 UTC on 11 March 2024.
+>
+> The slate of candidates will be published 18 March 2024 and candidate 
+> Q&A will begin then. The deadline for Xorg membership applications and 
+> renewals has also been extended 2 weeks and is now 25 March 2024.
+>
+>
+> Cheers,
+>
+> Christopher Michael, on behalf of the X.Org BoD
+>
+>
+--------------PUCnCxgdF0nKqUJPe2Gx1RhO
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---000000000000cb82430612dfe626
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>This is a reminder that we are still looking for candidates for
+      the upcoming X.Org Board of Directors elections, and that
+      membership renewals are still open and will be needed to vote on
+      those elections. Please read below for more details. <br>
+    </p>
+    <p><br>
+    </p>
+    <p>Cheers,</p>
+    <p>Christopher Michael, on behalf of the X.Org BoD</p>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 3/1/24 06:25, Christopher Michael
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:08f8a967-25e1-4362-be38-3f1b050ec6f2@igalia.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <p>We are seeking nominations for candidates for election to the
+        X.org Foundation Board of Directors. However, as we presently do
+        not have enough nominations to start the election - the decision
+        has been made to extend the timeline by 2 weeks. Note this is a
+        fairly regular part of the elections process.</p>
+      <p><br>
+      </p>
+      <p>The new deadline for nominations to the X.org Board of
+        Directors is 23:59 UTC on 11 March 2024</p>
+      <br>
+      The Board consists of directors elected from the membership. Each
+      year, an election is held to bring the total number of directors
+      to eight. The four members receiving the highest vote totals will
+      serve as directors for two year terms.
+      <p>The directors who received two year terms starting in 2023 were
+        <span class="createlink">Arkadiusz Hiler, </span><span
+          class="createlink">Christopher Michael, </span><span
+          class="createlink">Lyude Paul, and Daniel Vetter</span>. They
+        will continue to serve until their term ends in 2024. Current
+        directors whose term expires in 2024 are <span
+          class="createlink">Emma Anholt, </span><span
+          class="createlink">Mark Filion, </span><span
+          class="createlink">Ricardo Garcia, and Alyssa Rosenzweig.</span><a
+          href="https://rosenzweig.io/" moz-do-not-send="true"><br>
+        </a></p>
+      <p>A director is expected to participate in the fortnightly IRC
+        meeting to discuss current business and to attend the annual
+        meeting of the X.Org Foundation, which will be held at a
+        location determined in advance by the Board of Directors.</p>
+      <p>A member may nominate themselves or any other member they feel
+        is qualified. Nominations should be sent to the Election
+        Committee at <a
+          class="moz-txt-link-abbreviated moz-txt-link-freetext"
+          href="mailto:elections@x.org" moz-do-not-send="true">elections@x.org</a>.<br>
+      </p>
+      <p>Nominees shall be required to be current members of the X.Org
+        Foundation, and submit a personal statement of up to 200 words
+        that will be provided to prospective voters. The collected
+        statements, along with the statement of contribution to the
+        X.Org Foundation in the member's account page on <a
+          class="moz-txt-link-freetext" href="http://members.x.org"
+          moz-do-not-send="true">http://members.x.org</a>, will be made
+        available to all voters to help them make their voting
+        decisions.</p>
+      <p>Nominations and completed personal statements must be received
+        no later than 23:59 UTC on 11 March 2024.</p>
+      <p>The slate of candidates will be published 18 March 2024 and
+        candidate Q&amp;A will begin then. The deadline for Xorg
+        membership applications and renewals has also been extended 2
+        weeks and is now 25 March 2024.</p>
+      <p><br>
+      </p>
+      <p>Cheers,</p>
+      <p>Christopher Michael, on behalf of the X.Org BoD</p>
+      <p><br>
+      </p>
+    </blockquote>
+  </body>
+</html>
 
-<div dir=3D"ltr"><div dir=3D"ltr">=C2=A0</div><div dir=3D"ltr"><div dir=3D"=
-ltr"><br></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gma=
-il_attr">On Fri, Mar 1, 2024 at 10:54=E2=80=AFAM Rob Clark &lt;<a href=3D"m=
-ailto:robdclark@gmail.com" target=3D"_blank">robdclark@gmail.com</a>&gt; wr=
-ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
- 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">From: Rob C=
-lark &lt;<a href=3D"mailto:robdclark@chromium.org" target=3D"_blank">robdcl=
-ark@chromium.org</a>&gt;<br>
-<br>
-Perfetto can use these traces to track global and per-process GPU memory<br=
->
-usage.<br>
-<br>
-Signed-off-by: Rob Clark &lt;<a href=3D"mailto:robdclark@chromium.org" targ=
-et=3D"_blank">robdclark@chromium.org</a>&gt;<br>
----<br>
-I realized the tracepoint that perfetto uses to show GPU memory usage<br>
-globally and per-process was already upstream, but with no users.<br>
-<br>
-This overlaps a bit with fdinfo, but ftrace is a lighter weight<br>
-mechanism and fits better with perfetto (plus is already supported in<br>
-trace_processor and perfetto UI, whereas something fdinfo based would<br>
-require new code to be added in perfetto.<br>
-<br>
-We could probably do this more globally (ie. drm_gem_get/put_pages() and<br=
->
-drm_gem_handle_create_tail()/drm_gem_object_release_handle() if folks<br>
-prefer.=C2=A0 Not sure where that leaves the TTM drivers.<br>
-<br>
-=C2=A0drivers/gpu/drm/msm/Kconfig=C2=A0 =C2=A0|=C2=A0 1 +<br>
-=C2=A0drivers/gpu/drm/msm/msm_drv.h |=C2=A0 5 +++++<br>
-=C2=A0drivers/gpu/drm/msm/msm_gem.c | 37 ++++++++++++++++++++++++++++++++++=
-+<br>
-=C2=A0drivers/gpu/drm/msm/msm_gpu.h |=C2=A0 8 ++++++++<br>
-=C2=A04 files changed, 51 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig<br>
-index f202f26adab2..e4c912fcaf22 100644<br>
---- a/drivers/gpu/drm/msm/Kconfig<br>
-+++ b/drivers/gpu/drm/msm/Kconfig<br>
-@@ -33,6 +33,7 @@ config DRM_MSM<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 select PM_OPP<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 select NVMEM<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 select PM_GENERIC_DOMAINS<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0select TRACE_GPU_MEM<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 help<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 DRM/KMS driver for MSM/snapdragon.<br>
-<br>
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h<=
-br>
-index 16a7cbc0b7dd..cb8f7e804b5b 100644<br>
---- a/drivers/gpu/drm/msm/msm_drv.h<br>
-+++ b/drivers/gpu/drm/msm/msm_drv.h<br>
-@@ -137,6 +137,11 @@ struct msm_drm_private {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct msm_rd_state *hangrd;=C2=A0 =C2=A0/* deb=
-ugfs to dump hanging submits */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct msm_perf_state *perf;<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/**<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 * total_mem: Total/global amount of memory bac=
-king GEM objects.<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0atomic64_t total_mem;<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /**<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* List of all GEM objects (mainly for deb=
-ugfs, protected by obj_lock<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* (acquire before per GEM object lock)<br=
->
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c<=
-br>
-index 175ee4ab8a6f..e04c4af5d154 100644<br>
---- a/drivers/gpu/drm/msm/msm_gem.c<br>
-+++ b/drivers/gpu/drm/msm/msm_gem.c<br>
-@@ -12,6 +12,9 @@<br>
-=C2=A0#include &lt;linux/pfn_t.h&gt;<br>
-<br>
-=C2=A0#include &lt;drm/drm_prime.h&gt;<br>
-+#include &lt;drm/drm_file.h&gt;<br>
-+<br>
-+#include &lt;trace/events/gpu_mem.h&gt;<br>
-<br>
-=C2=A0#include &quot;msm_drv.h&quot;<br>
-=C2=A0#include &quot;msm_fence.h&quot;<br>
-@@ -33,6 +36,34 @@ static bool use_pages(struct drm_gem_object *obj)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return !msm_obj-&gt;vram_node;<br>
-=C2=A0}<br>
-<br>
-+static void update_device_mem(struct msm_drm_private *priv, ssize_t size)<=
-br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t total_mem =3D atomic64_add_return(size=
-, &amp;priv-&gt;total_mem);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0trace_gpu_mem_total(0, 0, total_mem);<br>
-+}<br>
-+<br>
-+static void update_ctx_mem(struct drm_file *file, ssize_t size)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct msm_file_private *ctx =3D file-&gt;drive=
-r_priv;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t ctx_mem =3D atomic64_add_return(size, =
-&amp;ctx-&gt;ctx_mem);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0rcu_read_lock(); /* Locks file-&gt;pid! */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0trace_gpu_mem_total(0, pid_nr(file-&gt;pid), ct=
-x_mem);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0rcu_read_unlock();<br>
-+<br>
-+}<br>
-+<br>
-+static int msm_gem_open(struct drm_gem_object *obj, struct drm_file *file)=
-<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0update_ctx_mem(file, obj-&gt;size);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-+}<br>
-+<br>
-+static void msm_gem_close(struct drm_gem_object *obj, struct drm_file *fil=
-e)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0update_ctx_mem(file, -obj-&gt;size);<br>
-+}<br>
-+<br>
-=C2=A0/*<br>
-=C2=A0 * Cache sync.. this is a bit over-complicated, to fit dma-mapping<br=
->
-=C2=A0 * API.=C2=A0 Really GPU cache is out of scope here (handled on cmdst=
-ream)<br>
-@@ -156,6 +187,8 @@ static struct page **get_pages(struct drm_gem_object *o=
-bj)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 return p;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0update_device_mem(d=
-ev-&gt;dev_private, obj-&gt;size);<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 msm_obj-&gt;pages =
-=3D p;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 msm_obj-&gt;sgt =3D=
- drm_prime_pages_to_sg(obj-&gt;dev, p, npages);<br>
-@@ -209,6 +242,8 @@ static void put_pages(struct drm_gem_object *obj)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 msm_obj-&gt;sgt =3D NULL;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0update_device_mem(o=
-bj-&gt;dev-&gt;dev_private, -obj-&gt;size);<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (use_pages(obj))=
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 drm_gem_put_pages(obj, msm_obj-&gt;pages, true, false);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else<br>
-@@ -1118,6 +1153,8 @@ static const struct vm_operations_struct vm_ops =3D {=
-<br>
-<br>
-=C2=A0static const struct drm_gem_object_funcs msm_gem_object_funcs =3D {<b=
-r>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 .free =3D msm_gem_free_object,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.open =3D msm_gem_open,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.close =3D msm_gem_close,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 .pin =3D msm_gem_prime_pin,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 .unpin =3D msm_gem_prime_unpin,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 .get_sg_table =3D msm_gem_prime_get_sg_table,<b=
-r>
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h<=
-br>
-index 2bfcb222e353..f7d2a7d6f8cc 100644<br>
---- a/drivers/gpu/drm/msm/msm_gpu.h<br>
-+++ b/drivers/gpu/drm/msm/msm_gpu.h<br>
-@@ -428,6 +428,14 @@ struct msm_file_private {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* level.<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct drm_sched_entity *entities[NR_SCHED_PRIO=
-RITIES * MSM_GPU_MAX_RINGS];<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/**<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 * ctx_mem:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 *<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 * Total amount of memory of GEM buffers with h=
-andles attached for<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 * this context.<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0atomic64_t ctx_mem;<br>
-=C2=A0};<br></blockquote><div><br></div><div><br></div><div>Just for added =
-context, past discussions on TRACE_GPU_MEM:</div><div><br></div><div><a hre=
-f=3D"https://lists.freedesktop.org/archives/dri-devel/2021-October/328260.h=
-tml" target=3D"_blank">https://lists.freedesktop.org/archives/dri-devel/202=
-1-October/328260.html</a><br></div><div><a href=3D"https://lists.freedeskto=
-p.org/archives/dri-devel/2021-January/295120.html" target=3D"_blank">https:=
-//lists.freedesktop.org/archives/dri-devel/2021-January/295120.html</a><br>=
-</div><div><br></div><div>Some have even suggested deleting the tracepoint =
-altogether.</div><div><br></div><div>Personally, I think we should land an =
-internal user in a non-breaking way, since userspace (Perfetto) already dep=
-ends on it.=C2=A0 Right now, we&#39;re in limbo for multiple years ...</div=
-><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-=C2=A0/**<br>
--- <br>
-2.44.0<br>
-<br>
-</blockquote></div></div>
-</div>
-
---000000000000cb82430612dfe626--
+--------------PUCnCxgdF0nKqUJPe2Gx1RhO--
