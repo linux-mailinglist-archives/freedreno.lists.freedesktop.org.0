@@ -2,62 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC6B1873DB5
-	for <lists+freedreno@lfdr.de>; Wed,  6 Mar 2024 18:47:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78F52874075
+	for <lists+freedreno@lfdr.de>; Wed,  6 Mar 2024 20:35:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73F031133A3;
-	Wed,  6 Mar 2024 17:47:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4575610EAF3;
+	Wed,  6 Mar 2024 19:35:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GjdImPow";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="NRvZ56an";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 766B01133A3;
- Wed,  6 Mar 2024 17:47:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 445A7CE22D5;
- Wed,  6 Mar 2024 17:47:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58894C433C7;
- Wed,  6 Mar 2024 17:47:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1709747239;
- bh=M3Qnc0kB0MnG72TbxAy6mHm1CxTe6WFO/XsmSNzWFVw=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=GjdImPowRYEm7/pn8xhSYm8k0V/sHqvsew0j9xUc57MReIzjVdqeWmCsWzYmlMySF
- CfBySFrHga5H2Qf6vt/zyUDw8zd8d0Ohh5YXjI8GhdHCMIQ3nvLP4W937LbOdHqNPG
- Z14JCvmc7QSTew/N6rNuK+331Zh62FjZoJBbqaFj6yExTn2Umgykb57TjpErB2h/x7
- 0kUTvb0Yk4tZ1IN2ZWJNOLBO1oIlUfGBLwbJutYSPZDKX5cpp7bD54VlSzDZard27D
- EbABchSyftcWpB2WAWozeCp7rVKXdTktq08MkNwYfrRuvWMGYRK93YDuBboviG3f2c
- zWvA0oEYqASXw==
-From: Vinod Koul <vkoul@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Johan Hovold <johan+linaro@kernel.org>
-Cc: Jonas Karlman <jonas@kwiboo.se>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org
-In-Reply-To: <20240217150228.5788-1-johan+linaro@kernel.org>
-References: <20240217150228.5788-1-johan+linaro@kernel.org>
-Subject: Re: (subset) [PATCH 0/6] soc: qcom: pmic_glink_altmode: fix drm
- bridge use-after-free
-Message-Id: <170974723198.898356.8197875205136329255.b4-ty@kernel.org>
-Date: Wed, 06 Mar 2024 23:17:11 +0530
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 482CC10EAE7;
+ Wed,  6 Mar 2024 19:35:37 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 426CdcqU018349; Wed, 6 Mar 2024 19:35:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=m5DODR7
+ oHkQLg2OnCJGzvuV/0d9WXyqGzthBu8BtHWY=; b=NRvZ56anpTY+pyOe7opCllT
+ 4Ar4fi6/mxLQenW2nOmb+KgbbgIoFt4LQ+jzu9I2FPqm9MlhKX+cfihDhHBllSjb
+ fihbCvJVhwR79mugUF2R0qXXoz3eT06hB1MiVQ1Y3Gu0dRxAiynB/u5bCim81UTO
+ yw34BDJyLhlthDO8zss3pD8CZM2gJqUgGcmRkmeroKCIZMgUdcJGVXW13Lu1j8SQ
+ v4aDCWyjUT5TZApSiumWlF/yE5zp1PFI4YEpQ33CMlsVoSbC3tLJKbNpqgorN9ez
+ zEw4tKtM6nlUQ5YGEN818qnqdzAkeoxyrESwHD65MKyXSTOmonXzns/k+Dp1BgA=
+ =
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wpkkaspkh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 06 Mar 2024 19:35:32 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 426JZVgq001956
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 6 Mar 2024 19:35:31 GMT
+Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Wed, 6 Mar 2024 11:35:31 -0800
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>, Kuogee Hsieh <quic_khsieh@quicinc.com>
+CC: <dri-devel@lists.freedesktop.org>, <swboyd@chromium.org>,
+ <quic_jesszhan@quicinc.com>, <quic_parellan@quicinc.com>, Rob Clark
+ <robdclark@chromium.org>, <linux-arm-msm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH] drm/msm/dp: fix typo in
+ dp_display_handle_port_status_changed()
+Date: Wed, 6 Mar 2024 11:35:15 -0800
+Message-ID: <20240306193515.455388-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: kZhXh8mpvTGWDe2ETEjy6fxrIZ7Rm6tm
+X-Proofpoint-GUID: kZhXh8mpvTGWDe2ETEjy6fxrIZ7Rm6tm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-06_12,2024-03-05_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 mlxscore=0
+ bulkscore=0 spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0
+ mlxlogscore=999 clxscore=1011 lowpriorityscore=0 priorityscore=1501
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2402120000 definitions=main-2403060159
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,28 +93,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Fix the typo in the name of dp_display_handle_port_status_changed().
 
-On Sat, 17 Feb 2024 16:02:22 +0100, Johan Hovold wrote:
-> Starting with 6.8-rc1 the internal display sometimes fails to come up on
-> machines like the Lenovo ThinkPad X13s and the logs indicate that this
-> is due to a regression in the DRM subsystem [1].
-> 
-> This series fixes a race in the pmic_glink_altmode driver which was
-> exposed / triggered by the transparent DRM bridges rework that went into
-> 6.8-rc1 and that manifested itself as a bridge failing to attach and
-> sometimes triggering a NULL-pointer dereference.
-> 
-> [...]
+Fixes: c58eb1b54fee ("drm/msm/dp: fix connect/disconnect handled at irq_hpd")
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Applied, thanks!
-
-[5/6] phy: qcom-qmp-combo: fix drm bridge registration
-      commit: d2d7b8e88023b75320662c2305d61779ff060950
-[6/6] phy: qcom-qmp-combo: fix type-c switch registration
-      commit: 47b412c1ea77112f1148b4edd71700a388c7c80f
-
-Best regards,
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index c8e1bbebdffe..068d44eeaa07 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -479,7 +479,7 @@ static void dp_display_handle_video_request(struct dp_display_private *dp)
+ 	}
+ }
+ 
+-static int dp_display_handle_port_ststus_changed(struct dp_display_private *dp)
++static int dp_display_handle_port_status_changed(struct dp_display_private *dp)
+ {
+ 	int rc = 0;
+ 
+@@ -536,7 +536,7 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
+ 		drm_dbg_dp(dp->drm_dev, "hpd_state=%d sink_request=%d\n",
+ 					dp->hpd_state, sink_request);
+ 		if (sink_request & DS_PORT_STATUS_CHANGED)
+-			rc = dp_display_handle_port_ststus_changed(dp);
++			rc = dp_display_handle_port_status_changed(dp);
+ 		else
+ 			rc = dp_display_handle_irq_hpd(dp);
+ 	}
 -- 
-~Vinod
-
+2.34.1
 
