@@ -2,61 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8886C8729E0
-	for <lists+freedreno@lfdr.de>; Tue,  5 Mar 2024 22:59:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E56E387300E
+	for <lists+freedreno@lfdr.de>; Wed,  6 Mar 2024 08:57:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 555C7112D11;
-	Tue,  5 Mar 2024 21:59:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEC4D10EBCD;
+	Wed,  6 Mar 2024 07:57:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="eK71pGBZ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="yH/ZJ/LP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FCD0112D11;
- Tue,  5 Mar 2024 21:59:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1709675943;
- bh=Pi6T1W5bDFqqI2XXQ+4KYgY88rVQ95Vyl3n/fcXtOEo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=eK71pGBZ6Cz51o8qikvWm9K+PhISQRoVeIfPrE1JiwaG7q1A3dZgkjtiTAbgZgp4B
- m69Q9A106Ja++jlIoMXxTtnhwo2cpnaGCPXX+0rOsMd7edcefjvG+OthSgVAm0YG+f
- 84likditwTT7tx9UMns7EZBUfNHVdaIggZo1SEbHhX2IVe3jHtEaJO1DB/Xtbr53Hk
- BCF2Q3TBsTYA3Lh7WSssBcx882ZZbaRRWyKc6XKmxYGQjlL0JzyxoACxfQkGzlgTS5
- NfyWcJb5SAZclkjKZJdvPiySMBpD7/0op+jwvAnR0C3GCqBiyzqwaht8c3ZJeFNSQ6
- nfSnf4FKoD2aw==
-Received: from [100.109.49.129] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 64017378149B;
- Tue,  5 Mar 2024 21:59:01 +0000 (UTC)
-Message-ID: <c844b72e-6c4e-4c99-8e7f-b9c62f63209d@collabora.com>
-Date: Wed, 6 Mar 2024 00:58:58 +0300
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B035810EBC8;
+ Wed,  6 Mar 2024 07:57:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:From:References:To:Subject:Reply-To:MIME-Version:Date:Message-ID:
+ From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+ References; bh=v2Qokh0H4nQ8Uerb1M5MYDQB0W979+jRDY/Cb/gZBOc=; t=1709711821;
+ x=1710143821; b=yH/ZJ/LPxwC4gJStq/2weq+QZcg2BGNK7eAH2LCc0j/mk7SJte/PQC+cn+zje
+ pYMSnOeGs2ooV9+4i+gAUxgfURIh8bS3iBaZ2p2jSGVVftfRoKl0j+vqkk7LqTydhLculqOCY6xEy
+ 5Ghtd/XzDDrsy1d1EOFOu1q9ziXJAPQWPZYRNNhbaG7iGYAYGhwRs9fI+wdIiR6XwduluiYh7b7ql
+ /hNVhgYVpu3y3GJoeMyTB5HmF2Hop7biOcPZ8FHBs2AcmnRsjhgT/rNY9xQ9UtMbaPyQ2xLaXHB1r
+ XUb3QfDi+c7uZyNBWgAxY5LAPtfqmjG5r3vGUM38WFXfWzTYrA==;
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1rhm94-0004A4-HI; Wed, 06 Mar 2024 08:56:58 +0100
+Message-ID: <4e55f6fd-8875-4a61-9070-f0ecad8082ea@leemhuis.info>
+Date: Wed, 6 Mar 2024 08:56:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/13] drm: Fix reservation locking for pin/unpin and
- console
-Content-Language: en-US
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- christian.koenig@amd.com, sumit.semwal@linaro.org, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, suijingfeng@loongson.cn, kherbst@redhat.com,
- lyude@redhat.com, dakr@redhat.com, airlied@redhat.com, kraxel@redhat.com,
- alexander.deucher@amd.com, Xinhui.Pan@amd.com, zack.rusin@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20240227113853.8464-1-tzimmermann@suse.de>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20240227113853.8464-1-tzimmermann@suse.de>
+Subject: Re: [pull] drm/msm: drm-msm-next-2024-02-29 for v6.9
+Content-Language: en-US, de-DE
+To: Rob Clark <robdclark@gmail.com>, Dave Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, dri-devel
+ <dri-devel@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <CAF6AEGtCq=CObbqKNOswWZdPw5dL8jq8BxD_hxP7kOCePUwNrg@mail.gmail.com>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <CAF6AEGtCq=CObbqKNOswWZdPw5dL8jq8BxD_hxP7kOCePUwNrg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1709711821;
+ 06b6289e; 
+X-HE-SMSGID: 1rhm94-0004A4-HI
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,85 +66,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/27/24 13:14, Thomas Zimmermann wrote:
-> Dma-buf locking semantics require the caller of pin and unpin to hold
-> the buffer's reservation lock. Fix DRM to adhere to the specs. This
-> enables to fix the locking in DRM's console emulation. Similar changes
-> for vmap and mmap have been posted at [1][2]
+On 29.02.24 20:04, Rob Clark wrote:
 > 
-> Most DRM drivers and memory managers acquire the buffer object's
-> reservation lock within their GEM pin and unpin callbacks. This
-> violates dma-buf locking semantics. We get away with it because PRIME
-> does not provide pin/unpin, but attach/detach, for which the locking
-> semantics is correct.
+> This is the main pull for v6.9, description below.
 > 
-> Patches 1 to 8 rework DRM GEM code in various implementations to
-> acquire the reservation lock when entering the pin and unpin callbacks.
-> This prepares them for the next patch. Drivers that are not affected
-> by these patches either don't acquire the reservation lock (amdgpu)
-> or don't need preparation (loongson).
-> 
-> Patch 9 moves reservation locking from the GEM pin/unpin callbacks
-> into drm_gem_pin() and drm_gem_unpin(). As PRIME uses these functions
-> internally it still gets the reservation lock.
-> 
-> With the updated GEM callbacks, the rest of the patchset fixes the
-> fbdev emulation's buffer locking. Fbdev emulation needs to keep its
-> GEM buffer object inplace while updating its content. This required
-> a implicit pinning and apparently amdgpu didn't do this at all.
-> 
-> Patch 10 introduces drm_client_buffer_vmap_local() and _vunmap_local().
-> The former function map a GEM buffer into the kernel's address space
-> with regular vmap operations, but keeps holding the reservation lock.
-> The _vunmap_local() helper undoes the vmap and releases the lock. The
-> updated GEM callbacks make this possible. Between the two calls, the
-> fbdev emulation can update the buffer content without have the buffer
-> moved or evicted. Update fbdev-generic to use vmap_local helpers,
-> which fix amdgpu. The idea of adding a "local vmap" has previously been
-> attempted at [3] in a different form.
-> 
-> Patch 11 adds implicit pinning to the DRM client's regular vmap
-> helper so that long-term vmap'ed buffers won't be evicted. This only
-> affects fbdev-dma, but GEM DMA helpers don't require pinning. So
-> there are no practical changes.
-> 
-> Patches 12 and 13 remove implicit pinning from the vmap and vunmap
-> operations in gem-vram and qxl. These pin operations are not supposed
-> to be part of vmap code, but were required to keep the buffers in place
-> for fbdev emulation. With the conversion o ffbdev-generic to to
-> vmap_local helpers, that code can finally be removed.
-> 
-> Tested with amdgpu, nouveau, radeon, simpledrm and vc4.
-> 
-> [1] https://patchwork.freedesktop.org/series/106371/
-> [2] https://patchwork.freedesktop.org/series/116001/
-> [3] https://patchwork.freedesktop.org/series/84732/
-> 
-> Thomas Zimmermann (13):
->   drm/gem-shmem: Acquire reservation lock in GEM pin/unpin callbacks
->   drm/gem-vram: Acquire reservation lock in GEM pin/unpin callbacks
->   drm/msm: Provide msm_gem_get_pages_locked()
->   drm/msm: Acquire reservation lock in GEM pin/unpin callback
->   drm/nouveau: Provide nouveau_bo_{pin,unpin}_locked()
->   drm/nouveau: Acquire reservation lock in GEM pin/unpin callbacks
->   drm/qxl: Provide qxl_bo_{pin,unpin}_locked()
->   drm/qxl: Acquire reservation lock in GEM pin/unpin callbacks
->   drm/gem: Acquire reservation lock in drm_gem_{pin/unpin}()
->   drm/fbdev-generic: Fix locking with drm_client_buffer_vmap_local()
->   drm/client: Pin vmap'ed GEM buffers
->   drm/gem-vram: Do not pin buffer objects for vmap
->   drm/qxl: Do not pin buffer objects for vmap
+> [...]
+>
+> GPU:
+> - fix sc7180 UBWC config
 
-The patches look good. I gave them fbtest on virtio-gpu, no problems
-spotted.
+Why was that queued for 6.9? That is a fix for a 6.8 regression that for
+untrained eyes like mine does not look overly dangerous (but of course I
+might be wrong with that).
 
-Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Tested-by: Dmitry Osipenko <dmitry.osipenko@collabora.com> # virtio-gpu
-
--- 
-Best regards,
-Dmitry
-
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+If I did something stupid, please tell me, as explained on that page.
