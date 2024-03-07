@@ -2,76 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F402874B04
-	for <lists+freedreno@lfdr.de>; Thu,  7 Mar 2024 10:37:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21C0387538E
+	for <lists+freedreno@lfdr.de>; Thu,  7 Mar 2024 16:43:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46E1C113738;
-	Thu,  7 Mar 2024 09:37:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C0C31137E7;
+	Thu,  7 Mar 2024 15:43:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="W5DRq2VP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FYQSQGWM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E66B113737;
- Thu,  7 Mar 2024 09:37:30 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-412f55695d1so6147095e9.0; 
- Thu, 07 Mar 2024 01:37:30 -0800 (PST)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 821B61137EC;
+ Thu,  7 Mar 2024 15:43:04 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-5643ae47cd3so1354952a12.3; 
+ Thu, 07 Mar 2024 07:43:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709804248; x=1710409048; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=fCGSUBoz7hkTWog5vBebF9UgG8HPCPhDFefPQRO1q34=;
- b=W5DRq2VPSuZw2O6/3IaVntN7hC6DUwzB1MOqeVn+LOjm6M1Yb70K0xLV1omqNDj9gb
- gM1CiEZC0DcMkahHeAJHA7cij7R9ZadL5MR+ruNFxwqKkjT8OFy3iLO1dM39nwQGr4/8
- 2CG6v/ok2FRtNAQDBg/9y5jBqoPjCOKibnmmOlAJZZNyynvzAvwZsB2UP9gUr3MwJZHL
- IrPfnPcVEuCHc3WTPwJwyqsaMZN7uJm67Ft7uM2UR7Qurlria1ZofUQHqBNWX65LkTGf
- MTBahmr2TD9O0x/gzP5i1wOscASRO6i8pMUDkM+bh4CSoUoUk1Vpk/1bdU3W7TKjrShG
- Id+A==
+ d=gmail.com; s=20230601; t=1709826182; x=1710430982; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=QbfY0jQ/d1E5iuzWIwYW6yuawL+XChB5sPZ7SPtuav0=;
+ b=FYQSQGWMwoWlv5piwZzPPAacARhdkEMiMyycr+VM9zlZcuRp3J/GCbBIovLiLcH8Hq
+ UgFvZ84xpHyv51zqJbpG4CuRYz/lvjgDctqo7OCin8bqEcL0v2PFkKRP0SyHWuH9NcGE
+ ceFk7sac8GCnjglahY3ojWfL2voga+4Jf1XjIMtaaJHsd3srPS2pdri6RLBM97S2X6d6
+ Ea96m2XAsgvx9uCFQsxKE8ZzM0LvrFfswB7Tkg+pPziI2ErwhIrXOaWolQDuMRiUMPg+
+ cgvT5twXkjsjmTwWdPJovrgKVk7CLHXOiCIR8Z8CsjHpwxCum2mVTCMmkhYYhINJRAOb
+ s1BQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709804248; x=1710409048;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=fCGSUBoz7hkTWog5vBebF9UgG8HPCPhDFefPQRO1q34=;
- b=jR8u8ZeNQLKAmcmBi6S5ougcsnlieu70H4XR+QLN2gbpLS3ofhj5RG4sJhrbvNSaXS
- JGbktwDvqr8/0ulRuJTnJKzsmDDVYN0X1aHwLXNIqohvpvRqNCJJ03bgm+7YR/87V5GX
- 2UYxl+SV5bdYiM5wKU0g3G4jCha6Uu5D81p7rLYs3cbBFvwCFMSk8npGAeIt5G52oPbC
- Ic7x/ILvO3S/5WX9TjdUB/vHMGG6Mk0Cjf4yfiWEJMQtLvEYYaoPXAYR9+gkGmCmvCJz
- TryrjsR38rog5qX52uxGwp5bCznXIqsXZjldeVKppvxGjk38gJ03XBq9PSejuU2rYXTZ
- KiXA==
+ d=1e100.net; s=20230601; t=1709826182; x=1710430982;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=QbfY0jQ/d1E5iuzWIwYW6yuawL+XChB5sPZ7SPtuav0=;
+ b=aZoG+4meVsxN4wCJ5oUXceOnOULBpU0b5uvSg5j24cBXZF9UITfNf9Oi3xHXfsN39C
+ De5gBJjTbok/i+fibaJCS1Sb7/xts/Ip4nYIek6w4XUP2ACu30dTrtWB515WHexGmyG0
+ 93DI0P67XjpO2oP17hclWUUclqJCImV/jZ1sR7YAVq+ce15l+iH2mpPDeDf7n6/ssHht
+ rO/FqrA4HRuugBXekKjPQMskwpPaBCjAC3usxAMnWs5sQaLFlUk/eXnf0OPMDWToerjs
+ OX9doRWSkHSoFkAzDvNHJG0O+xYCFtQqa2dcoJl/dX3Z3JTOXvHnfhp7MJTm2SIOq1Xb
+ YU/g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVI+j+F1bMcAhTOcdtU0jcH6/Dv4T/7oAjB4qV4ppPe6Xgv1t+GyakpvdQeqtiMvS06Yu7pfRhQs+qgEMfndQUGy6rL3LXn+jeL9+EwT9Uuo0aMtPLltjCKUX2Dj7j9Rw4MwaoMOERDEeQB5QB3uMKr
-X-Gm-Message-State: AOJu0YzRVfxU9oT+vF1liDTta3JlUXlV7BmhkPXfp/kpAeEBWYNA/OR2
- /m8uuhx6t4TJD8dJpXWODzvibYisb8M7TLuQcaLuBBxBPrNLdF/SodeuUbB35t8=
-X-Google-Smtp-Source: AGHT+IE8RizOzmSDjEf4PsBNhWryLujYdRAkPfhGtCn7+tuTX8NXpG2EQMCqSC/G4cmzXNtq0f6k3g==
-X-Received: by 2002:a05:600c:3b26:b0:412:e3aa:8f69 with SMTP id
- m38-20020a05600c3b2600b00412e3aa8f69mr8126669wms.30.1709804248388; 
- Thu, 07 Mar 2024 01:37:28 -0800 (PST)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
- j6-20020a05600c190600b00413074ea471sm2073513wmq.31.2024.03.07.01.37.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Mar 2024 01:37:27 -0800 (PST)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] drm/msm: remove unused variable 'out'
-Date: Thu,  7 Mar 2024 09:37:27 +0000
-Message-Id: <20240307093727.1978126-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.39.2
+ AJvYcCULpPQ5QYCxmN4Ii3XadQf4SRNrfkJfGuSjk+NO/9xOeaH2GQ4OEDIO2lr+4t2wLGoCYa0x9x7QqPDxMaB3ox+k8Ywy/6PEyoMtUtmtc+9g
+X-Gm-Message-State: AOJu0Yy1iZTNTiBrgH2JzmWYuJ6d/lxwxHrrpcmkXPBENpNFMuzWtjz4
+ 8/pbA08bcHfCIwMqG8fTdldcx+GAv/j918Kt3yiZHSrkbdeA6/ElWf5HdEhtmoe4AnMBs4IEh3J
+ zgZv4Lca0vsUTubQb57K/9JWA2XY=
+X-Google-Smtp-Source: AGHT+IEr9qo/sl8eNI6sxdX5u4sxd7sET4jEQ3xcDqXBSae2OwHSkckftNM2xzoDZp6UHAKqUfZlQZkVq2caijUeJo4=
+X-Received: by 2002:a50:cd5d:0:b0:565:e060:5567 with SMTP id
+ d29-20020a50cd5d000000b00565e0605567mr102617edj.31.1709826182359; Thu, 07 Mar
+ 2024 07:43:02 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 7 Mar 2024 07:42:50 -0800
+Message-ID: <CAF6AEGvedk6OCOZ-NNtGf_pNiGuK9uvWj1MCDZLX9Jo2nHS=Zg@mail.gmail.com>
+Subject: [pull] drm/msm: drm-msm-next-2024-03-07 for v6.9
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,40 +77,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The variable out is being initialized and incremented but it is never
-actually referenced in any other way. The variable is redundant and can
-be removed.
+Hi Dave,
 
-Cleans up clang scan build warning:
-drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: warning: variable
-'out' set but not used [-Wunused-but-set-variable]
+This is the last bit for v6.9, which was waiting on
+drm-misc-next-2024-02-29.  Description below.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 3 ---
- 1 file changed, 3 deletions(-)
+The following changes since commit 177bce60cd10a4ffdc9881bf6f2dff7880408c1d:
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index 1f5245fc2cdc..d4e1ebfcb021 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -840,7 +840,6 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
- 		struct a6xx_crashdumper *dumper)
- {
- 	u64 *in = dumper->ptr;
--	u64 out = dumper->iova + A6XX_CD_DATA_OFFSET;
- 	size_t datasize = block->size * A6XX_NUM_SHADER_BANKS * sizeof(u32);
- 	int i;
- 
-@@ -853,8 +852,6 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
- 
- 		in += CRASHDUMP_READ(in, REG_A6XX_HLSQ_DBG_AHB_READ_APERTURE,
- 			block->size, dumper->iova + A6XX_CD_DATA_OFFSET);
--
--		out += block->size * sizeof(u32);
- 	}
- 
- 	CRASHDUMP_FINI(in);
--- 
-2.39.2
+  Merge tag 'drm-misc-next-2024-02-29' into msm-next (2024-03-03 18:32:11 -0800)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-next-2024-03-07
+
+for you to fetch changes up to 4be445f5b6b6810baf397b2d159bd07c3573fd75:
+
+  drm/msm/dpu: capture snapshot on the first commit_done timeout
+(2024-03-04 11:44:03 +0200)
+
+----------------------------------------------------------------
+Late updates for v6.9, the main part is CDM (YUV over DP) which was
+waiting for drm-misc-next-2024-02-29.
+
+DPU:
+- Add support for YUV420 over DP
+- Patchset to ease debugging of vblank timeouts
+- Small cleanup
+
+----------------------------------------------------------------
+Dmitry Baryshkov (3):
+      drm/msm/dpu: make "vblank timeout" more useful
+      drm/msm/dpu: split dpu_encoder_wait_for_event into two functions
+      drm/msm/dpu: capture snapshot on the first commit_done timeout
+
+Kuogee Hsieh (1):
+      drm/msm/dpu: add support of new peripheral flush mechanism
+
+Paloma Arellano (18):
+      drm/msm/dpu: allow certain formats for CDM for DP
+      drm/msm/dpu: add division of drm_display_mode's hskew parameter
+      drm/msm/dpu: pass mode dimensions instead of fb size in CDM setup
+      drm/msm/dpu: allow dpu_encoder_helper_phys_setup_cdm to work for DP
+      drm/msm/dpu: move dpu_encoder_helper_phys_setup_cdm to dpu_encoder
+      drm/msm/dp: rename wide_bus_en to wide_bus_supported
+      drm/msm/dp: store mode YUV420 information to be used by rest of DP
+      drm/msm/dp: check if VSC SDP is supported in DP programming
+      drm/msm/dpu: move widebus logic to its own API
+      drm/msm/dp: program config ctrl for YUV420 over DP
+      drm/msm/dp: change clock related programming for YUV420 over DP
+      drm/msm/dp: move parity calculation to dp_utils
+      drm/msm/dp: add VSC SDP support for YUV420 over DP
+      drm/msm/dp: enable SDP and SDE periph flush update
+      drm/msm/dpu: modify encoder programming for CDM over DP
+      drm/msm/dpu: modify timing engine programming for YUV420 over DP
+      drm/msm/dpu: reserve CDM blocks for DP if mode is YUV420
+      drm/msm/dp: allow YUV420 mode for DP connector when CDM available
+
+ drivers/gpu/drm/msm/Makefile                       |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 244 +++++++++++++++++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  26 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |  26 ++-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  32 ++-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    | 100 +--------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c         |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  17 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |  10 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   6 +-
+ drivers/gpu/drm/msm/dp/dp_audio.c                  | 101 ++-------
+ drivers/gpu/drm/msm/dp/dp_catalog.c                | 115 +++++++++-
+ drivers/gpu/drm/msm/dp/dp_catalog.h                |   9 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  17 +-
+ drivers/gpu/drm/msm/dp/dp_display.c                |  82 +++++--
+ drivers/gpu/drm/msm/dp/dp_drm.c                    |   6 +-
+ drivers/gpu/drm/msm/dp/dp_drm.h                    |   3 +-
+ drivers/gpu/drm/msm/dp/dp_panel.c                  |  53 +++++
+ drivers/gpu/drm/msm/dp/dp_panel.h                  |   2 +
+ drivers/gpu/drm/msm/dp/dp_reg.h                    |   9 +
+ drivers/gpu/drm/msm/dp/dp_utils.c                  |  96 ++++++++
+ drivers/gpu/drm/msm/dp/dp_utils.h                  |  36 +++
+ drivers/gpu/drm/msm/msm_drv.h                      |  32 +--
+ 23 files changed, 736 insertions(+), 291 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_utils.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_utils.h
