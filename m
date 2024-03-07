@@ -2,66 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21C0387538E
-	for <lists+freedreno@lfdr.de>; Thu,  7 Mar 2024 16:43:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92F9D875B42
+	for <lists+freedreno@lfdr.de>; Fri,  8 Mar 2024 00:57:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C0C31137E7;
-	Thu,  7 Mar 2024 15:43:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4F1A10F5FC;
+	Thu,  7 Mar 2024 23:57:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FYQSQGWM";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xGAXxjhM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 821B61137EC;
- Thu,  7 Mar 2024 15:43:04 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-5643ae47cd3so1354952a12.3; 
- Thu, 07 Mar 2024 07:43:04 -0800 (PST)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89E3F10F5FA
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Mar 2024 23:57:06 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-512bde3d197so1487929e87.0
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Mar 2024 15:57:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709826182; x=1710430982; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=QbfY0jQ/d1E5iuzWIwYW6yuawL+XChB5sPZ7SPtuav0=;
- b=FYQSQGWMwoWlv5piwZzPPAacARhdkEMiMyycr+VM9zlZcuRp3J/GCbBIovLiLcH8Hq
- UgFvZ84xpHyv51zqJbpG4CuRYz/lvjgDctqo7OCin8bqEcL0v2PFkKRP0SyHWuH9NcGE
- ceFk7sac8GCnjglahY3ojWfL2voga+4Jf1XjIMtaaJHsd3srPS2pdri6RLBM97S2X6d6
- Ea96m2XAsgvx9uCFQsxKE8ZzM0LvrFfswB7Tkg+pPziI2ErwhIrXOaWolQDuMRiUMPg+
- cgvT5twXkjsjmTwWdPJovrgKVk7CLHXOiCIR8Z8CsjHpwxCum2mVTCMmkhYYhINJRAOb
- s1BQ==
+ d=linaro.org; s=google; t=1709855824; x=1710460624; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kPbMM+ap6bTE3j0dauj5tCzlH9OJzhaDQAkiD6tMHbs=;
+ b=xGAXxjhMBRXcOia6ERynrbvc0oJ/HbBGW+KbbSs2th1VTnBZSUGBBQVCy58lRxzeTc
+ r6df7hcErQGUeOIfD+r+OB0pziQx7R+948u1pbqDRWVoCXj7kVpVpd162IxBIEkPZiTf
+ cAEtbtEnyYKNeCtdtsdkBd+F6d2MBgF7BWXy7AvlP2QMbgyMXZTffhPA4BKd5dLCRYvK
+ 4i2ItGbkGlEsAfZLo+hcPYqgnyDo7Xd8dHVz4SNRKqZQBuXvFCr6qYM2kcZ9rqAeEs+i
+ xDQSCM02ruxw3C9BiHkyeh0zeJymsYWeyMuQxliXLxS3/eCF03gNx/xkdzNb5w2QxvkJ
+ jgRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709826182; x=1710430982;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=QbfY0jQ/d1E5iuzWIwYW6yuawL+XChB5sPZ7SPtuav0=;
- b=aZoG+4meVsxN4wCJ5oUXceOnOULBpU0b5uvSg5j24cBXZF9UITfNf9Oi3xHXfsN39C
- De5gBJjTbok/i+fibaJCS1Sb7/xts/Ip4nYIek6w4XUP2ACu30dTrtWB515WHexGmyG0
- 93DI0P67XjpO2oP17hclWUUclqJCImV/jZ1sR7YAVq+ce15l+iH2mpPDeDf7n6/ssHht
- rO/FqrA4HRuugBXekKjPQMskwpPaBCjAC3usxAMnWs5sQaLFlUk/eXnf0OPMDWToerjs
- OX9doRWSkHSoFkAzDvNHJG0O+xYCFtQqa2dcoJl/dX3Z3JTOXvHnfhp7MJTm2SIOq1Xb
- YU/g==
+ d=1e100.net; s=20230601; t=1709855824; x=1710460624;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=kPbMM+ap6bTE3j0dauj5tCzlH9OJzhaDQAkiD6tMHbs=;
+ b=aNOrHSk0PlUOMu9IMs1Or9w/Sm/9y1y8JBULUh+K6a/IdmH/8kMU94h51dO7NuD59s
+ Tk/24b8yHWjPuqY5WEDBOJftU/v1dgX72z2BRUS+2jlXSfdkUPHcBQhFxub9G9LREU5S
+ gcxdDKokDDbMjIcFF34OYvT/sKRwAQS06tHnEaTofmL5sUEYJmlzlNxdjenys1Fe8hUH
+ 6FLk/B10xEF2G/aMq4E7k5Kit6WeJOZ9hSB7Q95ZFgHPdRHU6afawGIhMS41rRJPtfQK
+ w7HiIDeU3KVeBt09l7St1pDdjctqR7erKc+6r6OAzCBm+/JlydvBchTf/aTXGJ6z5c5P
+ 25qQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCULpPQ5QYCxmN4Ii3XadQf4SRNrfkJfGuSjk+NO/9xOeaH2GQ4OEDIO2lr+4t2wLGoCYa0x9x7QqPDxMaB3ox+k8Ywy/6PEyoMtUtmtc+9g
-X-Gm-Message-State: AOJu0Yy1iZTNTiBrgH2JzmWYuJ6d/lxwxHrrpcmkXPBENpNFMuzWtjz4
- 8/pbA08bcHfCIwMqG8fTdldcx+GAv/j918Kt3yiZHSrkbdeA6/ElWf5HdEhtmoe4AnMBs4IEh3J
- zgZv4Lca0vsUTubQb57K/9JWA2XY=
-X-Google-Smtp-Source: AGHT+IEr9qo/sl8eNI6sxdX5u4sxd7sET4jEQ3xcDqXBSae2OwHSkckftNM2xzoDZp6UHAKqUfZlQZkVq2caijUeJo4=
-X-Received: by 2002:a50:cd5d:0:b0:565:e060:5567 with SMTP id
- d29-20020a50cd5d000000b00565e0605567mr102617edj.31.1709826182359; Thu, 07 Mar
- 2024 07:43:02 -0800 (PST)
+ AJvYcCXk696WsC7gVlvqYPAW1O0ByT1AFHVghi4VigLhL1wS+8kUJ//u2U/7owmYS8ilFtF87rgunV6OLUFIfApDooN0HhTEx/kE+NXJAtryS/Wg
+X-Gm-Message-State: AOJu0YxMM0NQRllNyG8Lar7fDIH62MF3ew7oWdD1iZlwGqPiy84H4O3D
+ FC2cvdrp1dA4jzJ9E4+r0BZ7nldM2rIYIv2jpot2xjUtRgZbuhd8tPoWjC/jwlw=
+X-Google-Smtp-Source: AGHT+IFRM+RZOhXZOJcCVo33fKD0gUELk60egjTYuOpmUI5+6SBlNnemOhH2nuK2o/Z00lC5KjeX2g==
+X-Received: by 2002:a05:6512:ea5:b0:513:57fe:97b7 with SMTP id
+ bi37-20020a0565120ea500b0051357fe97b7mr2864486lfb.38.1709855823699; 
+ Thu, 07 Mar 2024 15:57:03 -0800 (PST)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ c25-20020ac25f79000000b005133277eb29sm2796475lfc.270.2024.03.07.15.57.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Mar 2024 15:57:03 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH RFC 0/6] drm/msm: make use of the HDMI connector infrastructure
+Date: Fri, 08 Mar 2024 01:56:59 +0200
+Message-Id: <20240308-bridge-hdmi-connector-v1-0-90b693550260@linaro.org>
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 7 Mar 2024 07:42:50 -0800
-Message-ID: <CAF6AEGvedk6OCOZ-NNtGf_pNiGuK9uvWj1MCDZLX9Jo2nHS=Zg@mail.gmail.com>
-Subject: [pull] drm/msm: drm-msm-next-2024-03-07 for v6.9
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEtU6mUC/x2MQQqAIBAAvxJ7TrC0hK5BD+gaHUq32kMaa0QQ/
+ T3pOAMzD0RkwghN9gDjRZGCT1DkGdht8isKcomhlKWWShoxM7lkN7eTsMF7tGdgYVCZSmNdF05
+ Cag/Ghe7/O0DftTC+7wfy1C6cbAAAAA==
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1645;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=ztKhf09WdcJUt6OCZRpTpvQyv9XZ/QxyJM/CXoCbSWc=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl6lRNbA9c3v4rMPfYnKFGcDEGs4HEAIUzV0kTi
+ bGknoVXg+CJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZepUTQAKCRCLPIo+Aiko
+ 1UjLB/9qhB2lilo2+Mq64d7vpwGM0JmkBDubpjudlUYvH31iTFpUnDR2AMF2VG9FyFWkDGbhevQ
+ /zy+2xz59qhtTz90fEB1djyDZJXkEbfMNmH42CaUJkSgU/3lyb9GSOr16bbqhx+t0ffJFXhF1HM
+ ssuQux0kYS5SRJJqUmTyd31tWA90CUnz1QcuRURwUW96k0J1MsjKF/l532DRgdfgC4Pqzdhuhbl
+ NuwaZV6vQhbJ+gGkCs9txg131YYpaLPrA8/4I/BwFGyKqPcPJROAKkN3Xkwp2pq/dU4qe5QUNua
+ nsGH9n30eLVntIYu+uyJOL17UQpt9+aPthiulVqNQbcvi3qk
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,85 +104,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave,
+This patchset sits on top Maxime's HDMI connector patchset ([1]).
 
-This is the last bit for v6.9, which was waiting on
-drm-misc-next-2024-02-29.  Description below.
+Currently this is an RFC exploring the interface between HDMI bridges
+and HDMI connector code. This has been lightly verified on the Qualcomm
+DB820c, which has native HDMI output. If this approach is considered to
+be acceptable, I'll finish MSM HDMI bridge conversion (reworking the
+Audio Infoframe code). Other bridges can follow the same approach (we
+have lt9611 / lt9611uxc / adv7511 on Qualcomm hardware).
 
-The following changes since commit 177bce60cd10a4ffdc9881bf6f2dff7880408c1d:
+[1] https://patchwork.freedesktop.org/series/122421/
 
-  Merge tag 'drm-misc-next-2024-02-29' into msm-next (2024-03-03 18:32:11 -0800)
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (6):
+      drm/bridge: add setup_connector callback
+      drm/connector: hdmi: fix Infoframes generation
+      drm/connector: hdmi: split setup code of the HDMI connector
+      drm/connector: hdmi: add opaque data type
+      drm/msm/hdmi: switch to atomic bridge callbacks
+      drm/msm/hdmi: make use of the drm_connector_hdmi framework
 
-are available in the Git repository at:
+ drivers/gpu/drm/drm_atomic_state_helper.c |  25 +++----
+ drivers/gpu/drm/drm_bridge.c              |  38 ++++++++++
+ drivers/gpu/drm/drm_bridge_connector.c    |   8 ++
+ drivers/gpu/drm/drm_connector.c           |  67 ++++++++++++-----
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c    | 120 +++++++++++++++++++++++++-----
+ include/drm/drm_bridge.h                  |  15 ++++
+ include/drm/drm_connector.h               |  10 +++
+ 7 files changed, 230 insertions(+), 53 deletions(-)
+---
+base-commit: 47dc3e3d3051709acd01143e21d2de2b5322336c
+change-id: 20240307-bridge-hdmi-connector-7e3754e661d0
 
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-next-2024-03-07
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-for you to fetch changes up to 4be445f5b6b6810baf397b2d159bd07c3573fd75:
-
-  drm/msm/dpu: capture snapshot on the first commit_done timeout
-(2024-03-04 11:44:03 +0200)
-
-----------------------------------------------------------------
-Late updates for v6.9, the main part is CDM (YUV over DP) which was
-waiting for drm-misc-next-2024-02-29.
-
-DPU:
-- Add support for YUV420 over DP
-- Patchset to ease debugging of vblank timeouts
-- Small cleanup
-
-----------------------------------------------------------------
-Dmitry Baryshkov (3):
-      drm/msm/dpu: make "vblank timeout" more useful
-      drm/msm/dpu: split dpu_encoder_wait_for_event into two functions
-      drm/msm/dpu: capture snapshot on the first commit_done timeout
-
-Kuogee Hsieh (1):
-      drm/msm/dpu: add support of new peripheral flush mechanism
-
-Paloma Arellano (18):
-      drm/msm/dpu: allow certain formats for CDM for DP
-      drm/msm/dpu: add division of drm_display_mode's hskew parameter
-      drm/msm/dpu: pass mode dimensions instead of fb size in CDM setup
-      drm/msm/dpu: allow dpu_encoder_helper_phys_setup_cdm to work for DP
-      drm/msm/dpu: move dpu_encoder_helper_phys_setup_cdm to dpu_encoder
-      drm/msm/dp: rename wide_bus_en to wide_bus_supported
-      drm/msm/dp: store mode YUV420 information to be used by rest of DP
-      drm/msm/dp: check if VSC SDP is supported in DP programming
-      drm/msm/dpu: move widebus logic to its own API
-      drm/msm/dp: program config ctrl for YUV420 over DP
-      drm/msm/dp: change clock related programming for YUV420 over DP
-      drm/msm/dp: move parity calculation to dp_utils
-      drm/msm/dp: add VSC SDP support for YUV420 over DP
-      drm/msm/dp: enable SDP and SDE periph flush update
-      drm/msm/dpu: modify encoder programming for CDM over DP
-      drm/msm/dpu: modify timing engine programming for YUV420 over DP
-      drm/msm/dpu: reserve CDM blocks for DP if mode is YUV420
-      drm/msm/dp: allow YUV420 mode for DP connector when CDM available
-
- drivers/gpu/drm/msm/Makefile                       |   3 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 244 +++++++++++++++++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  26 +--
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |  26 ++-
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  32 ++-
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    | 100 +--------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c         |   2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  17 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |  10 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   6 +-
- drivers/gpu/drm/msm/dp/dp_audio.c                  | 101 ++-------
- drivers/gpu/drm/msm/dp/dp_catalog.c                | 115 +++++++++-
- drivers/gpu/drm/msm/dp/dp_catalog.h                |   9 +-
- drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  17 +-
- drivers/gpu/drm/msm/dp/dp_display.c                |  82 +++++--
- drivers/gpu/drm/msm/dp/dp_drm.c                    |   6 +-
- drivers/gpu/drm/msm/dp/dp_drm.h                    |   3 +-
- drivers/gpu/drm/msm/dp/dp_panel.c                  |  53 +++++
- drivers/gpu/drm/msm/dp/dp_panel.h                  |   2 +
- drivers/gpu/drm/msm/dp/dp_reg.h                    |   9 +
- drivers/gpu/drm/msm/dp/dp_utils.c                  |  96 ++++++++
- drivers/gpu/drm/msm/dp/dp_utils.h                  |  36 +++
- drivers/gpu/drm/msm/msm_drv.h                      |  32 +--
- 23 files changed, 736 insertions(+), 291 deletions(-)
- create mode 100644 drivers/gpu/drm/msm/dp/dp_utils.c
- create mode 100644 drivers/gpu/drm/msm/dp/dp_utils.h
