@@ -2,71 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B59FD87411A
-	for <lists+freedreno@lfdr.de>; Wed,  6 Mar 2024 21:06:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F402874B04
+	for <lists+freedreno@lfdr.de>; Thu,  7 Mar 2024 10:37:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46106113509;
-	Wed,  6 Mar 2024 20:06:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46E1C113738;
+	Thu,  7 Mar 2024 09:37:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="n8p+UZb1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="W5DRq2VP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com
- [209.85.219.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C58D0113509
- for <freedreno@lists.freedesktop.org>; Wed,  6 Mar 2024 20:06:02 +0000 (UTC)
-Received: by mail-yb1-f177.google.com with SMTP id
- 3f1490d57ef6-dcc71031680so67912276.2
- for <freedreno@lists.freedesktop.org>; Wed, 06 Mar 2024 12:06:02 -0800 (PST)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E66B113737;
+ Thu,  7 Mar 2024 09:37:30 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-412f55695d1so6147095e9.0; 
+ Thu, 07 Mar 2024 01:37:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1709755561; x=1710360361; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=4PXujBSZ8FvLDvY0K2TIfDzAysZgYZ9VK/ikeWwgFec=;
- b=n8p+UZb1pXUMSQiPxqYTfXERU1722A3ZRrVlXrit/ymOd+DKSCdjyPlXP+XnkENXRd
- UbhdIU/QzeyfDnKJADyWv7+9kprIoJAYmGCk1bAXYQmBbDp4W/E5o4U9mL0uIiIOUFrH
- jIayPeAhJETrO09aF5GkABT/ZikHBfvc45tFe6jPvah3+JSHGAzmbt7AFfyEszwWKyfa
- rLcknuecu9LEhkmRjMPISzTeefHmZhFk/heWOq6AKEpOhRJPumkC9CNQIMuwAOkspqLO
- MMhV5l8CvJyiVsqdzBraZpfny5druH/EXtgjf11hoVEeKhzGdQOwidWoAM4BdMeLW+M/
- faDA==
+ d=gmail.com; s=20230601; t=1709804248; x=1710409048; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=fCGSUBoz7hkTWog5vBebF9UgG8HPCPhDFefPQRO1q34=;
+ b=W5DRq2VPSuZw2O6/3IaVntN7hC6DUwzB1MOqeVn+LOjm6M1Yb70K0xLV1omqNDj9gb
+ gM1CiEZC0DcMkahHeAJHA7cij7R9ZadL5MR+ruNFxwqKkjT8OFy3iLO1dM39nwQGr4/8
+ 2CG6v/ok2FRtNAQDBg/9y5jBqoPjCOKibnmmOlAJZZNyynvzAvwZsB2UP9gUr3MwJZHL
+ IrPfnPcVEuCHc3WTPwJwyqsaMZN7uJm67Ft7uM2UR7Qurlria1ZofUQHqBNWX65LkTGf
+ MTBahmr2TD9O0x/gzP5i1wOscASRO6i8pMUDkM+bh4CSoUoUk1Vpk/1bdU3W7TKjrShG
+ Id+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709755561; x=1710360361;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1709804248; x=1710409048;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=4PXujBSZ8FvLDvY0K2TIfDzAysZgYZ9VK/ikeWwgFec=;
- b=MDp3XipZCq0ZG6E6JjqF8HQSaLH1BIqVQL5e4pyfqJCVj+2APt+GCcjfrNTecfIRPl
- xyzfOR05PWS/4G7iYsbKxuup/qpNVPZQvv/kf5tKPSDR9Ur/2A1q0CIp9FplRZJnfyoS
- 0lggBkfSP/0S/KAAvjjln2gWgoCmaP39SkROlVBGjfkJCANGvpsdmP537Nh1JqKQqXoG
- Abe94jqYtTX8z0YwB4Mv/iqSiV/LuMRo27rxLF24HJ1cGk7ACRQ6zIDFXU7r/qTpS9KS
- MzkHM3g+eVaANPgTp9TWAmtU6vguX+DT7NvVT2V0YWUQkQTPcM/s8sb30wVEdU1dCYXX
- 9J7A==
-X-Gm-Message-State: AOJu0Yx7S+ZJur82L4jeVQ4IaXyoEBwX6P3tFzH9XMWGmcW1TEYMFXAz
- 8HHoiOZdFF7F4rFC+4KFvwhzS3qEvNpAtAsAG2cNHRv3bRZcRGd4AiJIzkOhz25Q4zuqqvXbIoY
- bcQJOaBQuQyR37bKza0Sg2soEp5D61DsXgfAQIQ==
-X-Google-Smtp-Source: AGHT+IFa2jOmW/7Mnfj4IRBnhnTPN2y+PfXCBXlkHor2t9o+1xiC2eXXMGaB2T0SmxSappk79AgqFwvOpB0iTT+ziZU=
-X-Received: by 2002:a05:6902:1b88:b0:dcc:c279:d2fa with SMTP id
- ei8-20020a0569021b8800b00dccc279d2famr15505206ybb.30.1709755561553; Wed, 06
- Mar 2024 12:06:01 -0800 (PST)
-MIME-Version: 1.0
-References: <20240306195031.490994-1-quic_abhinavk@quicinc.com>
- <CAA8EJpq=5=L5RdVZRkf=e2wyjQufnSzEC+=19FjCCF9S6SSEJA@mail.gmail.com>
- <2295092e-355b-4ebf-f630-14623cf7d9a3@quicinc.com>
-In-Reply-To: <2295092e-355b-4ebf-f630-14623cf7d9a3@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 6 Mar 2024 22:05:50 +0200
-Message-ID: <CAA8EJpovNX31rWS_TdBTQiDmk0+kGBPdax6JncZupbXL0iUZhQ@mail.gmail.com>
-Subject: Re: [RFC PATCH] drm/msm/dp: move link_ready out of HPD event thread
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ bh=fCGSUBoz7hkTWog5vBebF9UgG8HPCPhDFefPQRO1q34=;
+ b=jR8u8ZeNQLKAmcmBi6S5ougcsnlieu70H4XR+QLN2gbpLS3ofhj5RG4sJhrbvNSaXS
+ JGbktwDvqr8/0ulRuJTnJKzsmDDVYN0X1aHwLXNIqohvpvRqNCJJ03bgm+7YR/87V5GX
+ 2UYxl+SV5bdYiM5wKU0g3G4jCha6Uu5D81p7rLYs3cbBFvwCFMSk8npGAeIt5G52oPbC
+ Ic7x/ILvO3S/5WX9TjdUB/vHMGG6Mk0Cjf4yfiWEJMQtLvEYYaoPXAYR9+gkGmCmvCJz
+ TryrjsR38rog5qX52uxGwp5bCznXIqsXZjldeVKppvxGjk38gJ03XBq9PSejuU2rYXTZ
+ KiXA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVI+j+F1bMcAhTOcdtU0jcH6/Dv4T/7oAjB4qV4ppPe6Xgv1t+GyakpvdQeqtiMvS06Yu7pfRhQs+qgEMfndQUGy6rL3LXn+jeL9+EwT9Uuo0aMtPLltjCKUX2Dj7j9Rw4MwaoMOERDEeQB5QB3uMKr
+X-Gm-Message-State: AOJu0YzRVfxU9oT+vF1liDTta3JlUXlV7BmhkPXfp/kpAeEBWYNA/OR2
+ /m8uuhx6t4TJD8dJpXWODzvibYisb8M7TLuQcaLuBBxBPrNLdF/SodeuUbB35t8=
+X-Google-Smtp-Source: AGHT+IE8RizOzmSDjEf4PsBNhWryLujYdRAkPfhGtCn7+tuTX8NXpG2EQMCqSC/G4cmzXNtq0f6k3g==
+X-Received: by 2002:a05:600c:3b26:b0:412:e3aa:8f69 with SMTP id
+ m38-20020a05600c3b2600b00412e3aa8f69mr8126669wms.30.1709804248388; 
+ Thu, 07 Mar 2024 01:37:28 -0800 (PST)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
+ j6-20020a05600c190600b00413074ea471sm2073513wmq.31.2024.03.07.01.37.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Mar 2024 01:37:27 -0800 (PST)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- swboyd@chromium.org, quic_jesszhan@quicinc.com, quic_parellan@quicinc.com, 
- quic_khsieh@quicinc.com, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/msm: remove unused variable 'out'
+Date: Thu,  7 Mar 2024 09:37:27 +0000
+Message-Id: <20240307093727.1978126-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,96 +87,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 6 Mar 2024 at 21:59, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 3/6/2024 11:52 AM, Dmitry Baryshkov wrote:
-> > On Wed, 6 Mar 2024 at 21:50, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>
-> >> There are cases where the userspace might still send another
-> >> frame after the HPD disconnect causing a modeset cycle after
-> >> a disconnect. This messes the internal state machine of MSM DP driver
-> >> and can lead to a crash as there can be an imbalance between
-> >> bridge_disable() and bridge_enable().
-> >>
-> >> This was also previously reported on [1] for which [2] was posted
-> >> and helped resolve the issue by rejecting commits if the DP is not
-> >> in connected state.
-> >>
-> >> The change resolved the bug but there can also be another race condition.
-> >> If hpd_event_thread does not pick up the EV_USER_NOTIFICATION and process it
-> >> link_ready will also not be set to false allowing the frame to sneak in.
-> >>
-> >> Lets move setting link_ready outside of hpd_event_thread() processing to
-> >> eliminate a window of race condition.
-> >>
-> >> [1] : https://gitlab.freedesktop.org/drm/msm/-/issues/17
-> >> [2] : https://lore.kernel.org/all/1664408211-25314-1-git-send-email-quic_khsieh@quicinc.com/
-> >>
-> >> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >> ---
-> >>   drivers/gpu/drm/msm/dp/dp_display.c | 7 +++++--
-> >>   1 file changed, 5 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> >> index 068d44eeaa07..e00092904ccc 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> >> @@ -345,8 +345,6 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
-> >>                                                           dp->panel->downstream_ports);
-> >>          }
-> >>
-> >> -       dp->dp_display.link_ready = hpd;
-> >> -
-> >>          drm_dbg_dp(dp->drm_dev, "type=%d hpd=%d\n",
-> >>                          dp->dp_display.connector_type, hpd);
-> >>          drm_bridge_hpd_notify(bridge, dp->dp_display.link_ready);
-> >> @@ -399,6 +397,8 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
-> >>                  goto end;
-> >>          }
-> >>
-> >> +       dp->dp_display.link_ready = true;
-> >
-> > Do we need any kind of locking now?
-> >
->
-> hmm ... correct me if I have missed any flows but I think all paths
-> where we will set link_ready are already protected by event_mutex?
+The variable out is being initialized and incremented but it is never
+actually referenced in any other way. The variable is redundant and can
+be removed.
 
-I didn't check the source code, that's why I was asking. If it's
-protected by event_mutex, then it should be fine.
+Cleans up clang scan build warning:
+drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: warning: variable
+'out' set but not used [-Wunused-but-set-variable]
 
->
-> >> +
-> >>          dp_add_event(dp, EV_USER_NOTIFICATION, true, 0);
-> >>
-> >>   end:
-> >> @@ -466,6 +466,8 @@ static int dp_display_notify_disconnect(struct device *dev)
-> >>   {
-> >>          struct dp_display_private *dp = dev_get_dp_display_private(dev);
-> >>
-> >> +       dp->dp_display.link_ready = false;
-> >> +
-> >>          dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
-> >>
-> >>          return 0;
-> >> @@ -487,6 +489,7 @@ static int dp_display_handle_port_status_changed(struct dp_display_private *dp)
-> >>                  drm_dbg_dp(dp->drm_dev, "sink count is zero, nothing to do\n");
-> >>                  if (dp->hpd_state != ST_DISCONNECTED) {
-> >>                          dp->hpd_state = ST_DISCONNECT_PENDING;
-> >> +                       dp->dp_display.link_ready = false;
-> >>                          dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
-> >>                  }
-> >>          } else {
-> >> --
-> >> 2.34.1
-> >>
-> >
-> >
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-
-
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+index 1f5245fc2cdc..d4e1ebfcb021 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+@@ -840,7 +840,6 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
+ 		struct a6xx_crashdumper *dumper)
+ {
+ 	u64 *in = dumper->ptr;
+-	u64 out = dumper->iova + A6XX_CD_DATA_OFFSET;
+ 	size_t datasize = block->size * A6XX_NUM_SHADER_BANKS * sizeof(u32);
+ 	int i;
+ 
+@@ -853,8 +852,6 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
+ 
+ 		in += CRASHDUMP_READ(in, REG_A6XX_HLSQ_DBG_AHB_READ_APERTURE,
+ 			block->size, dumper->iova + A6XX_CD_DATA_OFFSET);
+-
+-		out += block->size * sizeof(u32);
+ 	}
+ 
+ 	CRASHDUMP_FINI(in);
 -- 
-With best wishes
-Dmitry
+2.39.2
+
