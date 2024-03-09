@@ -2,82 +2,95 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22321876C7B
-	for <lists+freedreno@lfdr.de>; Fri,  8 Mar 2024 22:45:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C41C387705E
+	for <lists+freedreno@lfdr.de>; Sat,  9 Mar 2024 11:31:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF94B10F683;
-	Fri,  8 Mar 2024 21:45:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AC7910FE84;
+	Sat,  9 Mar 2024 10:31:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="kh40VIxG";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PEV/aEa9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6907410F683;
- Fri,  8 Mar 2024 21:45:48 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 428LhYQR022570; Fri, 8 Mar 2024 21:45:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=qcppdkim1; bh=ElXz0zL
- FBfK+NFE/x2AB4YD/fo4TcWOv2w2crSWLIPA=; b=kh40VIxG+wfkj+Pnzgfs5rm
- 1LkvtFb/Z6X1K/h+D86e1sdx/IzHQDSUT+1HLvWdwB85SKifrIarA9bLl9tjX1Ta
- l94QwlqCkfZb0PbhEgWtILuTunCEIXqwf8Mi1wmHSd/inRWwaZ0dybeiej+Oxwu/
- vPeeQAfItj5wQWNNpbIsRRAGoeN3JM2sLVqcwQJIixrimo1bDMMSQc0kULEJMlVh
- Fq2dEfDBPGcp3fbGUIEXTLX9P8g/iJPFH4wYfcZUkyR9n+lGKX8NBMiD3I/uSg75
- 1wUBOU6ceWSLDD/9xz/+L39uUQv8pJ/d5N1un6Z72EEcWZqVDvpj23t/9467Jvg=
- =
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wr7dp0h3q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 08 Mar 2024 21:45:42 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 428LjfNB012025
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 8 Mar 2024 21:45:41 GMT
-Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Fri, 8 Mar 2024 13:45:40 -0800
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>, Kuogee Hsieh <quic_khsieh@quicinc.com>
-CC: <dri-devel@lists.freedesktop.org>, <swboyd@chromium.org>,
- <quic_jesszhan@quicinc.com>, <quic_parellan@quicinc.com>,
- <johan@kernel.org>, <quic_bjorande@quicinc.com>,
- Rob Clark <robdclark@chromium.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH] drm/msm/dp: move link_ready out of HPD event thread
-Date: Fri, 8 Mar 2024 13:45:32 -0800
-Message-ID: <20240308214532.1404038-1-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
+ [209.85.208.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47A7A10FE81
+ for <freedreno@lists.freedesktop.org>; Sat,  9 Mar 2024 10:31:38 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id
+ 38308e7fff4ca-2d27fef509eso43676061fa.3
+ for <freedreno@lists.freedesktop.org>; Sat, 09 Mar 2024 02:31:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1709980296; x=1710585096; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=mwu7uG+pdqNKrhzZmBEjpkJLspquFl8V/3yQZhhNxuA=;
+ b=PEV/aEa9EjpWZL4QdRPwlyLVo0tmPBmghqzgDpADk6ktlU9Lo5OX56lCwDudMiN2ot
+ CXM2rULr/FZHlcTVKnMXGITMyBVVb4ervCRtlGGCVkZ93XQOSGdxu1ymmW0YySYmOJDF
+ BSD+f4xLBrbm3v4+3p8JQp7ZzWoKKrNYr3RnEPY93kgmSYelwkEgzVPYMKfVYjPocvIw
+ RQnpph4neSmO6x10LytrdKUPaX/8OupfGst+ka4Ted12y15dpnBCUXEA92K1mO+Olkno
+ jgFCsFzoaqLkD2I9WHrahLMHz0UN5N+qeKepTOMB1jgxI2tPWIydgSP+l/Jy7ty4UAUD
+ JSKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1709980296; x=1710585096;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mwu7uG+pdqNKrhzZmBEjpkJLspquFl8V/3yQZhhNxuA=;
+ b=FvN5wcl4+7XH5wQ4LAhs9SM+V3z2THoHWNnlDP1qUbRqdQWesJSxacC/51Xn8TxuD1
+ ZSNVp/g17oG9MmnhqIIizvQ/dtiLpBxM62eGO4siGcD2r3HijUuQRXuLd1kcwBzG3Cwd
+ 7yP8Tu3Kjsxnu16DmhpArE5XYUdXBc+IYfI9+r8un+Lm8p5acGfoEEALn2G4GeH+oEla
+ w5Lxl1eEKFf9BnIGj9Fy4FHjo0WrUpwf3779rzzhTQ1bsTbeqVprKcev1dsvN/zzAkr4
+ nENB+QHKGW334R0fexUyFTF5csx12gJlXnlLKrSBLqbp3Kq1LZohfZq0Z/VyN84jExth
+ J9NQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXJXQZJMRzJ+324mtqZzXPq7/uk82zUMxJxUUfg1NBDGPrqX3qu9xOzaAu8GeINjuPpp5hTkYE57u890I6+Uayesv4qCXyGEaOqiO1xWsbg
+X-Gm-Message-State: AOJu0Yy/qvQU+Mqa6ZVhOuYVyFavOuzbzPDCqyS5ajF2X1Y1NQwKyKxf
+ mT4xGyi8H9adA0gC7HTATTb6RFEh8ooOoz7vMTkcI6drxpMv9MKyt/6wXffGK0I=
+X-Google-Smtp-Source: AGHT+IGq4dI7t2fxNBuykTOQKeEoc0OK5JWQBh2V6+QG59K4Bby0WJyTYiRP0VIEcXkQjUXjIF4bZQ==
+X-Received: by 2002:a2e:924c:0:b0:2d2:bdc2:2f03 with SMTP id
+ v12-20020a2e924c000000b002d2bdc22f03mr1020703ljg.31.1709980295567; 
+ Sat, 09 Mar 2024 02:31:35 -0800 (PST)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ y5-20020a2e3205000000b002d31953bc30sm245301ljy.55.2024.03.09.02.31.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 09 Mar 2024 02:31:34 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH RFC v2 0/5] drm/msm: make use of the HDMI connector
+ infrastructure
+Date: Sat, 09 Mar 2024 12:31:27 +0200
+Message-Id: <20240309-bridge-hdmi-connector-v2-0-1380bea3ee70@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: HIDzW2aHwYrro6-NY9LdusAP-dJvRFX0
-X-Proofpoint-ORIG-GUID: HIDzW2aHwYrro6-NY9LdusAP-dJvRFX0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-08_08,2024-03-06_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- priorityscore=1501 adultscore=0 spamscore=0 impostorscore=0 phishscore=0
- malwarescore=0 mlxlogscore=999 bulkscore=0 suspectscore=0 mlxscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2402120000 definitions=main-2403080172
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAH867GUC/3WNTQ6CMBCFr0Jmbc1QoIgrExMP4NawADrCJNiaq
+ SEa0rvbELcu39/3VggkTAGO2QpCCwf2Lgm9y2CYOjeSYps0aNQlFlirXtgmd7IPVoN3joaXF1V
+ TUVclGZNbhLR9Ct35vXFvcL2coU3mxCF1P9vXkm/RD3v4g11yharB3jRFVaE2eJrZdeL3XkZoY
+ 4xfPDAXtsAAAAA=
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1978;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=Z+D0Xck92zqsjG+KbQH6+5R/W0ZnQtKYMm51vgFTlkY=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ+obq9Y2ruMMX6d4iX7q2Pw6QHLGNc5zhaq3o7ImP+w71
+ da9a6ZGJ6MxCwMjF4OsmCKLT0HL1JhNyWEfdkythxnEygQyhYGLUwAmwrKQ/Z9Bb74SK3favq/v
+ F7Xej/Oo2/9nr4zdatn3h256qJ9c+vxLtL4243avxr61EY7H0uvP5hy9dvilQ8CXVat15RjPOxW
+ GL03Km/vxc/kqdj0rySz+NavkhdpaOnjf+nz/dnlZ1ZZdwhatfXKJWadVEuY9/q2ceJ3L3sONe0
+ YAV+xCucxFcTq56Z//LHzMr9dXGx9xd8He44xFOysO/WKM926dGbFXJOhDP7OnrbnC3f18KxbUN
+ ahpep5a/HqZYnGz+Vth0852xdD1H3Xaevx85WRzWadsP36wySWu8OHJqg2Bbhsn2EfO17qi1HJ4
+ cZDKVue8786HZj6Wk7RzWtdg7JFZVB52aUaMl8qEK/kTAA==
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,71 +106,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There are cases where the userspace might still send another
-frame after the HPD disconnect causing a modeset cycle after
-a disconnect. This messes the internal state machine of MSM DP driver
-and can lead to a crash as there can be an imbalance between
-bridge_disable() and bridge_enable().
+This patchset sits on top Maxime's HDMI connector patchset ([1]).
 
-This was also previously reported on [1] for which [2] was posted
-and helped resolve the issue by rejecting commits if the DP is not
-in connected state.
+Currently this is an RFC exploring the interface between HDMI bridges
+and HDMI connector code. This has been lightly verified on the Qualcomm
+DB820c, which has native HDMI output. If this approach is considered to
+be acceptable, I'll finish MSM HDMI bridge conversion (reworking the
+Audio Infoframe code). Other bridges can follow the same approach (we
+have lt9611 / lt9611uxc / adv7511 on Qualcomm hardware).
 
-The change resolved the bug but there can also be another race condition.
-If hpd_event_thread does not pick up the EV_USER_NOTIFICATION and process it
-link_ready will also not be set to false allowing the frame to sneak in.
+[1] https://patchwork.freedesktop.org/series/122421/
 
-Lets move setting link_ready outside of hpd_event_thread() processing to
-eliminate a window of race condition.
-
-[1] : https://gitlab.freedesktop.org/drm/msm/-/issues/17
-[2] : https://lore.kernel.org/all/1664408211-25314-1-git-send-email-quic_khsieh@quicinc.com/
-
-Fixes: 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display enable and disable")
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Changes in v2:
+- Dropped drm_connector_hdmi_setup(). Instead added
+  drm_connector_hdmi_init() to be used by drm_bridge_connector.
+- Changed the drm_bridge_connector to act as a proxy for the HDMI
+  connector  infrastructure. This removes most of the logic from
+  the bridge drivers.
+- Link to v1: https://lore.kernel.org/r/20240308-bridge-hdmi-connector-v1-0-90b693550260@linaro.org
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 068d44eeaa07..e00092904ccc 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -345,8 +345,6 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
- 							 dp->panel->downstream_ports);
- 	}
- 
--	dp->dp_display.link_ready = hpd;
--
- 	drm_dbg_dp(dp->drm_dev, "type=%d hpd=%d\n",
- 			dp->dp_display.connector_type, hpd);
- 	drm_bridge_hpd_notify(bridge, dp->dp_display.link_ready);
-@@ -399,6 +397,8 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
- 		goto end;
- 	}
- 
-+	dp->dp_display.link_ready = true;
-+
- 	dp_add_event(dp, EV_USER_NOTIFICATION, true, 0);
- 
- end:
-@@ -466,6 +466,8 @@ static int dp_display_notify_disconnect(struct device *dev)
- {
- 	struct dp_display_private *dp = dev_get_dp_display_private(dev);
- 
-+	dp->dp_display.link_ready = false;
-+
- 	dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
- 
- 	return 0;
-@@ -487,6 +489,7 @@ static int dp_display_handle_port_status_changed(struct dp_display_private *dp)
- 		drm_dbg_dp(dp->drm_dev, "sink count is zero, nothing to do\n");
- 		if (dp->hpd_state != ST_DISCONNECTED) {
- 			dp->hpd_state = ST_DISCONNECT_PENDING;
-+			dp->dp_display.link_ready = false;
- 			dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
- 		}
- 	} else {
+---
+Dmitry Baryshkov (5):
+      drm/connector: hdmi: fix Infoframes generation
+      drm/connector: hdmi: add drm_connector_hdmi_init
+      drm/bridge-connector: implement glue code for HDMI connector
+      drm/msm/hdmi: switch to atomic bridge callbacks
+      drm/msm/hdmi: make use of the drm_connector_hdmi framework
+
+ drivers/gpu/drm/drm_atomic_state_helper.c |  25 +++---
+ drivers/gpu/drm/drm_bridge_connector.c    | 118 +++++++++++++++++++++++-
+ drivers/gpu/drm/drm_connector.c           | 143 +++++++++++++++++++++++-------
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c    |  96 +++++++++++++++-----
+ include/drm/drm_bridge.h                  |  82 +++++++++++++++++
+ include/drm/drm_connector.h               |   9 ++
+ 6 files changed, 401 insertions(+), 72 deletions(-)
+---
+base-commit: b5b59b6c8b64e33de01434afd8f4297be175f62a
+change-id: 20240307-bridge-hdmi-connector-7e3754e661d0
+
+Best regards,
 -- 
-2.34.1
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
