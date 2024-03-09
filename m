@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8AFD8771CC
-	for <lists+freedreno@lfdr.de>; Sat,  9 Mar 2024 16:09:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD4788771CD
+	for <lists+freedreno@lfdr.de>; Sat,  9 Mar 2024 16:09:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC68411213A;
-	Sat,  9 Mar 2024 15:09:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE3111213D;
+	Sat,  9 Mar 2024 15:09:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iksRSDwR";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="J9w4UHFG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8C0310E29D
- for <freedreno@lists.freedesktop.org>; Sat,  9 Mar 2024 15:09:11 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-2d2509c66daso24123451fa.3
- for <freedreno@lists.freedesktop.org>; Sat, 09 Mar 2024 07:09:11 -0800 (PST)
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E83A11213A
+ for <freedreno@lists.freedesktop.org>; Sat,  9 Mar 2024 15:09:12 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-2d269b2ff48so45572861fa.3
+ for <freedreno@lists.freedesktop.org>; Sat, 09 Mar 2024 07:09:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1709996950; x=1710601750; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=R79kFi5q6h2xuMcDgiL3xD0MGpR9aHNwztoW/ysGcfk=;
- b=iksRSDwRDSH+dO21FikY/oyt9EMTEe6z2h0+ljz1XvwF6x1VvwUtP4d+qiN5ZE/qxB
- opjEo+HqnHvbwdooQo0o9ADj/Mm3L32twVA5PEB4mxum3s34uBW3rBJ4ZYfNzvQnOQIN
- DCD72Y6kqWaLZiwbyrvUdiL9/bn/8//PdkE7CPFhCjWE3HuBiBgiJrYebS/MPiEDGFPZ
- hJwt09UqgtygVY+CNBal1S271evyaiUJTMykIwHj8xVRskq0HHRJHwvntzjiZ5r4e6vV
- B3+oZZdU+Ymv6MnMbx632lDgRwgKcXlgTz43SNqtgCTeZxwRLmRp2HTGDCZTK6XsGrP0
- P2gA==
+ :reply-to; bh=xNGj9hvd5eMMotayR67It4TFcWGQFtfA/p9pyF/5mE0=;
+ b=J9w4UHFG4Pusl4tfeZiQjO4qeQOLr5Bi9rOR5CKrOn7gVlcBBiyz3T8Mr8s2RwOGzN
+ r0TX5gtRwxLrTavPDueoQ6SeLdbo8Yuy1FIRSLvFNE7+MgGVmDeL6q6+/e+Ps49cd3Aq
+ CYzvg06LqGjkDzcf3N99QSWT5raH3leOtQU/k3rg0YbEZp7h/+tlUdbT9txBxbBgq/MR
+ XHD1cH1P18REKR5g9Bfrvsv8LfudBAunQyNwK1Z96tgXifxAarpOrjjxNAh9nO3ejA0g
+ npt5/3Cu+EjRYByi2Cd/6Afl8mhb1dSZUDfVzh7Wrhh13kYfp7WkCPEnPgbwRhx/+ESe
+ S29g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1709996950; x=1710601750;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=R79kFi5q6h2xuMcDgiL3xD0MGpR9aHNwztoW/ysGcfk=;
- b=murBMtM6LkBS8iVl5IkJ20B4OpLo7Wgt56lhy6z3KJF3QELCfsGVs6ZIyUJcUgpeSJ
- ELEss0L46uO1eEF/5wRlKC5anUUN0MZVHla29//0eAv2k9p/npYTxwwVizNrbTJO62te
- 0lANVsNHv0maan1zBU6ZrazsvFsNe7Ylz7B5EBSTbIC3Mk5MPURPAwwB95v0ObC8U0Ux
- zOrawg5+9mE5nLAsiGn5kb3ujMHfFwmutktCGKPer143rhuLFmUl6sMefBtiGHbWodQk
- lxDyc1FNaJG8g2luPhrsTAuqyRWcOCA+d83VzHsyUqy2DvV1VdOOX2xXGT+AZpZ68ePC
- DdBw==
+ bh=xNGj9hvd5eMMotayR67It4TFcWGQFtfA/p9pyF/5mE0=;
+ b=Hlo0lm49VAQ8/mGZjhxQ+4Vtf+skUYsPCfnqHVbk2KatUkbrswJYnTEgAdR/eu8jtS
+ xP6TixmK9j0J0zLdGsrl6PkjaQJd8jp7QC2dYQh2JLfYArnQyOXp9QAE1IFIcidnepfw
+ l7RvFolxqld1dPIHZTUglS+hcyyfv9/bjBUfribQrjY7pFjIcaKshRh7kZxdGbP/5+ve
+ w3snPbsV9GXdC21mmd0s92Gbb06GwljIpI6orMdmgQDqlKp3E+XBiiPsKKEamz87kAbz
+ kK1D7JzyykDFOQmZTwEK4WKKbZo+h8qRwBZ3Nr2ehpoFQcdZE7TKqvfgErsAavfIf9ZJ
+ liIw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXKqtTFCwiyElhgXv17ROsxWwol63sAXwChw/erthh0N/QJIAgpMx5w9BZ6aJqY7VQ5mnurYm1lSYYgH6rXnIvtKBLi9DUn87rD81bSGAst
-X-Gm-Message-State: AOJu0YxJ/Xisot69FdS592gfsH4jCumEUzlU64OLlLpJWuxDJNJ3ts4q
- Ujbx4uKQBNzXT8jYI7wUubT7H0a7Hsm0hB4rN5EOQ5h7ivHfkKNAvbQxkVNlkgI=
-X-Google-Smtp-Source: AGHT+IF10RdRaEvCv2MBr+YeGRYtPmBijFVM+6qaB/W22c/QZiNOF6sehdHZcf/RnA+ICJGFiv516g==
-X-Received: by 2002:a05:651c:218:b0:2d4:31cc:87d7 with SMTP id
- y24-20020a05651c021800b002d431cc87d7mr108841ljn.28.1709996949687; 
- Sat, 09 Mar 2024 07:09:09 -0800 (PST)
+ AJvYcCUi6PMFHO8sPviqXKKawkML0/J/gPWQSp0E6SYYN2J6V7TgziIe6Q5YlW72oCQB9sj2Zg4TVA7vnZHUAbEB1UWWY0igwSMG37sx1Rgc2PVm
+X-Gm-Message-State: AOJu0Yxp8kRuJnzWz5bhpflz/vg+ilrkmPR/Z8OrIUBV3NGsYeCPdN7L
+ VL8pDGb8BEX08sd+YFVvYfDiLGtRRaNdSrXfKHxPifRSBWUiy2KgaxLCJE31mcQ=
+X-Google-Smtp-Source: AGHT+IEHNSWqX0gXHFX29xuxi93+Jfhzbx2TyMa/UqdM693sNC4YDSZ/Of892Jm2Pp9Awa4lM82QPQ==
+X-Received: by 2002:a2e:8007:0:b0:2d3:dcb0:56d9 with SMTP id
+ j7-20020a2e8007000000b002d3dcb056d9mr1461938ljg.29.1709996950750; 
+ Sat, 09 Mar 2024 07:09:10 -0800 (PST)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- m1-20020a2eb6c1000000b002d4062c833dsm328511ljo.98.2024.03.09.07.09.08
+ m1-20020a2eb6c1000000b002d4062c833dsm328511ljo.98.2024.03.09.07.09.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 Mar 2024 07:09:08 -0800 (PST)
+ Sat, 09 Mar 2024 07:09:09 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 09 Mar 2024 17:09:06 +0200
-Subject: [PATCH 2/3] drm/msm/dsi: move next bridge acquisition to dsi_bind
+Date: Sat, 09 Mar 2024 17:09:07 +0200
+Subject: [PATCH 3/3] drm/msm/dsi: simplify connector creation
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240309-fd-dsi-cleanup-bridges-v1-2-962ebdba82ed@linaro.org>
+Message-Id: <20240309-fd-dsi-cleanup-bridges-v1-3-962ebdba82ed@linaro.org>
 References: <20240309-fd-dsi-cleanup-bridges-v1-0-962ebdba82ed@linaro.org>
 In-Reply-To: <20240309-fd-dsi-cleanup-bridges-v1-0-962ebdba82ed@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -71,16 +71,16 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2851;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4757;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=OYTBWb/J609udo4PjWcZWo+dNYpRZDjaYBzF/KuEgrE=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl7HuSPV7ttgcma4S2K4UnNqtxQz1m7V6TPk4Nd
- Brshdy3BfeJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZex7kgAKCRCLPIo+Aiko
- 1Y8PB/4ju7I8KPNnBZAuwfztOn6XPapfqb0/O+pAbLVoCzMKZGRHsHZdSpt0mFYzzVoMrfrHOhE
- XrVazcgFuVv7Xrq9QIB7B8NHvDsR2qHObpSNe24vRNcSHuFWardbaco+YEXWsRniWzafJby1lA7
- 9JM1bFtUzUQQxr/4RmOuL+JdFnzj7kXfl8rXpz1A7lL3aVhrPvUybcGY9euo6bcDvkbRaXDAYgI
- asJKK743VLnRLx7Fhxcz5aOtjr7Rc1J050h8uwksdHVYy/7CHUxcbS+8kqFUsFRRKjMVy9VHlEa
- hmECpG/9TM1ql1DOrj+EW+MQK1zYYvkvGoX2sT7EnM1ELAfg
+ bh=sQ9dGrX0/pUk+Y+5/wO+qeOzx57mrk8gd0lJNrR0tkU=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl7HuTSHu38iYiw5kUL9hewWylm4rO5ExjUE6u6
+ 7tGAahVjqiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZex7kwAKCRCLPIo+Aiko
+ 1Ys2CACm3di5oU6X/lXIp+QIh9BnCKdasPf41Phfo4D3UzixHBdHYXeI7lluOz9oMgmjSHRdpvp
+ FVkQ9j6PxkGDSJqzkAGrGgsSnZNuAPAD3zEGaB1hVPgoY2I2lns2L/4uPm8YN0VPPqSfNWm9k52
+ L0xRdKYFer8SMAasJZtU+XlLQFBotC2ddTel8mWz3gQLQPMUuDTKZbp72ZKu3ZE2cHIkH+UDXz2
+ g2MXSbL0VrR3WPilOUl3p/8U4s5h+LBRor8p9bncTwA4fld+P2R5Qygq6w49bXuPDhSp5s8Urli
+ SFUxGJM76aFA8Fud8Z3Bx08MbDAPgA0/0lzbhcw/aXZVVu6a
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -98,83 +98,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently the MSM DSI driver looks for the next bridge during
-msm_dsi_modeset_init(). If the bridge is not registered at that point,
-this might result in -EPROBE_DEFER, which can be problematic that late
-during the device probe process. Move next bridge acquisition to the
-dsi_bind state so that probe deferral is returned as early as possible.
+Instead of having two functions, msm_dsi_manager_bridge_init()
+and msm_dsi_manager_ext_bridge_init(), merge them into
+msm_dsi_manager_connector_init(), moving drm_bridge_attach() to be
+called from the bridge's attach callback (as most other bridges do).
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi.c         | 16 ++++++++++++++++
- drivers/gpu/drm/msm/dsi/dsi.h         |  2 ++
- drivers/gpu/drm/msm/dsi/dsi_manager.c |  8 +-------
- 3 files changed, 19 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi.c         | 10 +--------
+ drivers/gpu/drm/msm/dsi/dsi.h         |  5 ++---
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 41 +++++++++++++++--------------------
+ 3 files changed, 21 insertions(+), 35 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-index 37c4c07005fe..38f10f7a10d3 100644
+index 38f10f7a10d3..efd7c23b662f 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi.c
 +++ b/drivers/gpu/drm/msm/dsi/dsi.c
-@@ -120,6 +120,22 @@ static int dsi_bind(struct device *dev, struct device *master, void *data)
- 	struct msm_drm_private *priv = dev_get_drvdata(master);
- 	struct msm_dsi *msm_dsi = dev_get_drvdata(dev);
- 
-+	/*
-+	 * Next bridge doesn't exist for the secondary DSI host in a bonded
-+	 * pair.
-+	 */
-+	if (!msm_dsi_is_bonded_dsi(msm_dsi) ||
-+	    msm_dsi_is_master_dsi(msm_dsi)) {
-+		struct drm_bridge *ext_bridge;
-+
-+		ext_bridge = devm_drm_of_get_bridge(&msm_dsi->pdev->dev,
-+						    msm_dsi->pdev->dev.of_node, 1, 0);
-+		if (IS_ERR(ext_bridge))
-+			return PTR_ERR(ext_bridge);
-+
-+		msm_dsi->next_bridge = ext_bridge;
-+	}
-+
- 	priv->dsi[msm_dsi->id] = msm_dsi;
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-index 2ad9a842c678..0adef65be1de 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.h
-@@ -38,6 +38,8 @@ struct msm_dsi {
- 	struct mipi_dsi_host *host;
- 	struct msm_dsi_phy *phy;
- 
-+	struct drm_bridge *next_bridge;
-+
- 	struct device *phy_dev;
- 	bool phy_enabled;
- 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index a7c7f85b73e4..b7c52b14c790 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -464,18 +464,12 @@ int msm_dsi_manager_ext_bridge_init(u8 id, struct drm_bridge *int_bridge)
- 	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
- 	struct drm_device *dev = msm_dsi->dev;
- 	struct drm_encoder *encoder;
--	struct drm_bridge *ext_bridge;
- 	struct drm_connector *connector;
+@@ -232,7 +232,6 @@ void __exit msm_dsi_unregister(void)
+ int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
+ 			 struct drm_encoder *encoder)
+ {
+-	struct drm_bridge *bridge;
  	int ret;
  
--	ext_bridge = devm_drm_of_get_bridge(&msm_dsi->pdev->dev,
--					    msm_dsi->pdev->dev.of_node, 1, 0);
--	if (IS_ERR(ext_bridge))
--		return PTR_ERR(ext_bridge);
--
- 	encoder = int_bridge->encoder;
+ 	msm_dsi->dev = dev;
+@@ -252,14 +251,7 @@ int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
+ 		return 0;
+ 	}
  
--	ret = drm_bridge_attach(encoder, ext_bridge, int_bridge,
-+	ret = drm_bridge_attach(encoder, msm_dsi->next_bridge, int_bridge,
- 			DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+-	bridge = msm_dsi_manager_bridge_init(msm_dsi, encoder);
+-	if (IS_ERR(bridge)) {
+-		ret = PTR_ERR(bridge);
+-		DRM_DEV_ERROR(dev->dev, "failed to create dsi bridge: %d\n", ret);
+-		return ret;
+-	}
+-
+-	ret = msm_dsi_manager_ext_bridge_init(msm_dsi->id, bridge);
++	ret = msm_dsi_manager_connector_init(msm_dsi, encoder);
+ 	if (ret) {
+ 		DRM_DEV_ERROR(dev->dev,
+ 			"failed to create dsi connector: %d\n", ret);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+index 0adef65be1de..afc290408ba4 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.h
+@@ -47,9 +47,8 @@ struct msm_dsi {
+ };
+ 
+ /* dsi manager */
+-struct drm_bridge *msm_dsi_manager_bridge_init(struct msm_dsi *msm_dsi,
+-					       struct drm_encoder *encoder);
+-int msm_dsi_manager_ext_bridge_init(u8 id, struct drm_bridge *int_bridge);
++int msm_dsi_manager_connector_init(struct msm_dsi *msm_dsi,
++				   struct drm_encoder *encoder);
+ int msm_dsi_manager_cmd_xfer(int id, const struct mipi_dsi_msg *msg);
+ bool msm_dsi_manager_cmd_xfer_trigger(int id, u32 dma_base, u32 len);
+ int msm_dsi_manager_register(struct msm_dsi *msm_dsi);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index b7c52b14c790..5b3f3068fd92 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -423,7 +423,18 @@ static enum drm_mode_status dsi_mgr_bridge_mode_valid(struct drm_bridge *bridge,
+ 	return msm_dsi_host_check_dsc(host, mode);
+ }
+ 
++static int dsi_mgr_bridge_attach(struct drm_bridge *bridge,
++				 enum drm_bridge_attach_flags flags)
++{
++	int id = dsi_mgr_bridge_get_id(bridge);
++	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
++
++	return drm_bridge_attach(bridge->encoder, msm_dsi->next_bridge,
++				 bridge, flags);
++}
++
+ static const struct drm_bridge_funcs dsi_mgr_bridge_funcs = {
++	.attach = dsi_mgr_bridge_attach,
+ 	.pre_enable = dsi_mgr_bridge_pre_enable,
+ 	.post_disable = dsi_mgr_bridge_post_disable,
+ 	.mode_set = dsi_mgr_bridge_mode_set,
+@@ -431,17 +442,19 @@ static const struct drm_bridge_funcs dsi_mgr_bridge_funcs = {
+ };
+ 
+ /* initialize bridge */
+-struct drm_bridge *msm_dsi_manager_bridge_init(struct msm_dsi *msm_dsi,
+-					       struct drm_encoder *encoder)
++int msm_dsi_manager_connector_init(struct msm_dsi *msm_dsi,
++				   struct drm_encoder *encoder)
+ {
++	struct drm_device *dev = msm_dsi->dev;
+ 	struct drm_bridge *bridge;
+ 	struct dsi_bridge *dsi_bridge;
++	struct drm_connector *connector;
+ 	int ret;
+ 
+ 	dsi_bridge = devm_kzalloc(msm_dsi->dev->dev,
+ 				sizeof(*dsi_bridge), GFP_KERNEL);
+ 	if (!dsi_bridge)
+-		return ERR_PTR(-ENOMEM);
++		return -ENOMEM;
+ 
+ 	dsi_bridge->id = msm_dsi->id;
+ 
+@@ -450,27 +463,9 @@ struct drm_bridge *msm_dsi_manager_bridge_init(struct msm_dsi *msm_dsi,
+ 
+ 	ret = devm_drm_bridge_add(msm_dsi->dev->dev, bridge);
+ 	if (ret)
+-		return ERR_PTR(ret);
+-
+-	ret = drm_bridge_attach(encoder, bridge, NULL, 0);
+-	if (ret)
+-		return ERR_PTR(ret);
+-
+-	return bridge;
+-}
+-
+-int msm_dsi_manager_ext_bridge_init(u8 id, struct drm_bridge *int_bridge)
+-{
+-	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+-	struct drm_device *dev = msm_dsi->dev;
+-	struct drm_encoder *encoder;
+-	struct drm_connector *connector;
+-	int ret;
+-
+-	encoder = int_bridge->encoder;
++		return ret;
+ 
+-	ret = drm_bridge_attach(encoder, msm_dsi->next_bridge, int_bridge,
+-			DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
  	if (ret)
  		return ret;
+ 
 
 -- 
 2.39.2
