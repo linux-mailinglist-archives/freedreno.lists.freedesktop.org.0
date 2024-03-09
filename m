@@ -2,65 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C96C87705F
-	for <lists+freedreno@lfdr.de>; Sat,  9 Mar 2024 11:31:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65B71877061
+	for <lists+freedreno@lfdr.de>; Sat,  9 Mar 2024 11:31:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE7010FE85;
-	Sat,  9 Mar 2024 10:31:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7988410FE82;
+	Sat,  9 Mar 2024 10:31:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nttxEpv2";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LLRC0vTa";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A15410FE84
- for <freedreno@lists.freedesktop.org>; Sat,  9 Mar 2024 10:31:38 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-2d269b2ff48so42529431fa.3
- for <freedreno@lists.freedesktop.org>; Sat, 09 Mar 2024 02:31:38 -0800 (PST)
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+ [209.85.208.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51B0E10FE82
+ for <freedreno@lists.freedesktop.org>; Sat,  9 Mar 2024 10:31:39 +0000 (UTC)
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-2d41f33eb05so17737371fa.0
+ for <freedreno@lists.freedesktop.org>; Sat, 09 Mar 2024 02:31:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1709980296; x=1710585096; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1709980297; x=1710585097; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=n2dgZRE3P9NOEAlgbf/KlOXvvwjZtbyPVzKly5b3fGk=;
- b=nttxEpv2nCxA3lJpNhi764yi8mnqXutHlGSuPi/eECkYcP5ewogpXXHDFjHvd0h+4i
- C3xIrQ8T9ntWl/dyyLQ/YQ5NqZz9Qcs/g+fLY1Iy5ZS559ntAaHB1lX/s9KPQMPRMP2t
- 5s0pNGQwrLilGjF+nOldALipv3dcfi7iRza3joUhmTt4SmucgwVUWHdqjKF+Gks2wOtL
- qjb4bhbW2zQPuwCybGu36M8gVG1BJncTMWmYmOOT8MXSXiigEi5KtUkqk3pKyYS2b9va
- L6jUFJ7/LbvNtTwclc+Ycdxeb6aiSlnJy0+TB4YJZuskccg5p6WXKl4QLgeQ6Z42FtPN
- pbxw==
+ :reply-to; bh=hyi2QAnNjyFXYN+N8eHamuXjGZsyue9nPfokclWOSHQ=;
+ b=LLRC0vTaSC8wO1m89tQfvTUO/Sp2v40HM1+k4aEltzWxX6pG2qNrnPHxULjTyZotCL
+ ybziS3KR6/JsugWqn9q/WSrjdHwXyWNCLZylFv6NNuNBncvBEeQwhPESKekgOTgllBr3
+ p/CPjoZrKISoDWXomQlHMTNYKpxIlm/+9NRsnFDBrHzw8CQ7bUh0DThNhT2+c5vYOso9
+ jLeMDpBa3zi9U0fYpVndQhW2bQOy2DUMnY5yv+Ct61QZf1WDywRzIFp+CEPUnA1ou8OJ
+ K6JezwLhCt0AIUchuQMkONxCxT9orVhoYoRx+PYaXzpOObYJEfHjf40Id249M+nIxRnn
+ 773w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709980296; x=1710585096;
+ d=1e100.net; s=20230601; t=1709980297; x=1710585097;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=n2dgZRE3P9NOEAlgbf/KlOXvvwjZtbyPVzKly5b3fGk=;
- b=K6o8kIgs4WNjwcuS3M+lfMAfVfbRyESYeBYQGLw1CkWxuY6slnTspHs2LsARiLqcaY
- Lwu6NP4PNkTCYL//EO8xztTbdI5l7k/BsNgufkfKO2+q8LVSIN0AwC3/u2oBU5KL5pl+
- W7NavAIUJI2SQt7hYXeMfo3FxxUJWpHvY1mc8wKv35v/iZtdv8vL0qHZzS8lTpCIdPDk
- NPqFHAyhaz/LMA1miSJ/IO//9SaISQ1Mu/uS8g5uc62xKNQjbeYJ9UlQIymqDXSaebRG
- 5s4rYXbtQBZ3nQ81ZFi8FXiNldQ9OMgmrTqxYzSOsFKTmBe7TyblLk1A+CIc7ejyBbN9
- uLHA==
+ bh=hyi2QAnNjyFXYN+N8eHamuXjGZsyue9nPfokclWOSHQ=;
+ b=m7gi6xYV0xvq/EjIKTx5lLG1RGTafy5WbtqtvYwNGrviGJc3Bd7CLvsbpISepsszpe
+ k6MQUwxYSVLm7DaW6gtI095R5QJInhwUwTlbYdNpZgaOuwnebN+Azx3vlcxyE1gmOkq3
+ 6Xe69wlV9WwTp9puU3Vv9An1zG0tYcFE+jVhrR5ku7miw5FtaX1qpwRWRu3PdGtN7Rmg
+ 5sQvoNaXuxcGNtfr7mZ5E8DHsXjY4IHcKpQa2guO7MYXaYFrLcwPuAGLDxqSsKyXqioc
+ /akO/tA+cO/VAEh8y5KfBTY+Q6//agLmcaE5rMlUGGklb+tz0CB4hZNY4xeciUs5j3j/
+ Ye3Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVO7G/xRx7jVzMY2+Z2ulGfiyWv60lCj+hKKoioIDDM+mkoAIv5F3792N9sfbFsJOO1J5lheOd583j5n0AejvRaB+0XkcXgUEh0P7z1dmEk
-X-Gm-Message-State: AOJu0YySFAcif2AKo/O9gge2ScZraBpUA6p27Erq5+aR3c5D9sYzsXCw
- qC8D+fXHFYlaNGXp9rqnw+ONMwy81+mpWk61aTmMWHiIhKxRoGZWyvfyuH2LUvs=
-X-Google-Smtp-Source: AGHT+IEWta587d42WaCMYz46CSqPTHmEYD0eNxzIJJaMFlLh0oXM0SDdOGUY4Uh4KVlxx8+DOKsBNg==
-X-Received: by 2002:a2e:b609:0:b0:2d3:25d1:f33 with SMTP id
- r9-20020a2eb609000000b002d325d10f33mr887304ljn.15.1709980296358; 
- Sat, 09 Mar 2024 02:31:36 -0800 (PST)
+ AJvYcCXF9GKmSGiyXci6+KFVeEVzNa46rHT3ThZPuXX59IQOn/dKZsKnMKxZN0VvOZf5yoyeQlaT41U4rNA1u2VNPw0idkaDVmgOtivUG9zlLvg6
+X-Gm-Message-State: AOJu0Yxifm7eFdr9GI0C6lP/dTUqFD/rxY/6iAp9Su6uTxNLuZMmJP6P
+ IjGDzhmUSDJdM//BVZuqQ4ETJrmuGvLFZ0WUfI9W5k0wFHTAPfq3qfJ3HPKyX5U=
+X-Google-Smtp-Source: AGHT+IH0wB7tIe5qs41vlrt+Gu8llz2cUWH9bjqPwDCtDbfZ2V7QVdE0L+S1IuYPpbgE54ngituFNA==
+X-Received: by 2002:a2e:3314:0:b0:2d4:236e:4026 with SMTP id
+ d20-20020a2e3314000000b002d4236e4026mr871679ljc.53.1709980297147; 
+ Sat, 09 Mar 2024 02:31:37 -0800 (PST)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- y5-20020a2e3205000000b002d31953bc30sm245301ljy.55.2024.03.09.02.31.35
+ y5-20020a2e3205000000b002d31953bc30sm245301ljy.55.2024.03.09.02.31.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 Mar 2024 02:31:35 -0800 (PST)
+ Sat, 09 Mar 2024 02:31:36 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 09 Mar 2024 12:31:28 +0200
-Subject: [PATCH RFC v2 1/5] drm/connector: hdmi: fix Infoframes generation
+Date: Sat, 09 Mar 2024 12:31:29 +0200
+Subject: [PATCH RFC v2 2/5] drm/connector: hdmi: add
+ drm_connector_hdmi_init
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240309-bridge-hdmi-connector-v2-1-1380bea3ee70@linaro.org>
+Message-Id: <20240309-bridge-hdmi-connector-v2-2-1380bea3ee70@linaro.org>
 References: <20240309-bridge-hdmi-connector-v2-0-1380bea3ee70@linaro.org>
 In-Reply-To: <20240309-bridge-hdmi-connector-v2-0-1380bea3ee70@linaro.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -76,16 +77,16 @@ Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2340;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7655;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=dyCSthHHzXNg2FtPHnjXI29ZKEgPZ2Wv/z/Xo615dDI=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ+obq9bLzqLR2wPVZL8XtPe83J2Xlj+X83NNpbvWxSbez
- htFLBc6GY1ZGBi5GGTFFFl8ClqmxmxKDvuwY2o9zCBWJpApDFycAjCRDxzs/71DpZ73B+huV++p
- E+W3yNPIvsEtfJHh/sP0cz/yC7LL5h9LNnjmU7DsRk3c21kccYy96ge6N56+vu6u66tp+e17b8U
- m9h+/e7hFvcitR/jM56A/Una9h8/zGF1x7NVbscY63CTp5CHWhpjsuz98P8e827LEVc+yT6hZ5w
- XPnUxN1/OuptKPV1ze4xcU3rX5inmrBb/qCoMQyxVTNbrjbl/7OTXrqG/zhVLTW/tfP44wcqyxP
- 673r3CyxsTZr5/tfz45w2q+banGTq/y4NWce1q470rnxn7j8djGsGOZW97p3bVbmR30vzwJOGAe
- 6a6y3qhVr+qptVFr0PTH7xncHrbxyz0+IXF52x1Bo8r1AA==
+ bh=TOTF8wEm+pn2aC2XeccwUCkVYk78cnNW5mkygODDCJU=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl7DqFwlNpVVpgyKST97JjgY7ycbVtY/HwH8O8O
+ fsDOx2EETGJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZew6hQAKCRCLPIo+Aiko
+ 1QehB/9qQF3yZRna6aS+Bm9dZO43L79j4oI1UnT8UGU2P9RYLYDBzofqZidQXbWLfxbc8srIm0l
+ aW4iJ0EGqPPxDvzmMQPKu5gTVtau5T2g9jTJt3k+Rgr510huIZspPcT65ODwWwI/5rYbbTOUlib
+ XIVfx/J0w3j75A+VYbNS/Mubn334+h+9Jyvm6SCACNWfV+hOzn0qNiObjsjVgFneM6x7Qukkv7P
+ 4fbHD8x41HvyLYc5TSWhCMSicRzI1Pp98ToEz8tpyetEe4/rAAILNWuNtmCwIMmF813ozklFpRU
+ YpKZ7BXl8LIF5v88NPHoG5/NmxjrgNsa4V/7GkW+AUPRugs+
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -103,80 +104,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Gate only HDMI Vendor Infoframe generation on the
-info->has_hdmi_infoframe. All other infoframes were defined in earlier
-HDMI specs and should be generated by default.
+To support connectors which do all the management on their own (like
+drm_bridge_connector), add drm_connector_hdmi_init() in addition to
+drmm_connector_hdmi_init().
 
-Fixes: 000000000000 ("drm/connector: hdmi: Add Infoframes generation")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/drm_atomic_state_helper.c | 25 ++++++++++---------------
- 1 file changed, 10 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/drm_connector.c | 143 ++++++++++++++++++++++++++++++----------
+ include/drm/drm_connector.h     |   9 +++
+ 2 files changed, 118 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index 46d9fd2ea8fa..691efce9661a 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -1025,9 +1025,6 @@ hdmi_generate_infoframes(const struct drm_connector *connector,
- 	if (!info->is_hdmi)
- 		return 0;
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 427816239038..d7c0e237f9c5 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -453,39 +453,15 @@ int drmm_connector_init(struct drm_device *dev,
+ }
+ EXPORT_SYMBOL(drmm_connector_init);
  
--	if (!info->has_hdmi_infoframe)
--		return 0;
--
- 	ret = hdmi_generate_avi_infoframe(connector, state);
+-/**
+- * drmm_connector_hdmi_init - Init a preallocated HDMI connector
+- * @dev: DRM device
+- * @connector: A pointer to the HDMI connector to init
+- * @vendor: HDMI Controller Vendor name
+- * @product: HDMI Controller Product name
+- * @funcs: callbacks for this connector
+- * @hdmi_funcs: HDMI-related callbacks for this connector
+- * @connector_type: user visible type of the connector
+- * @ddc: optional pointer to the associated ddc adapter
+- * @supported_formats: Bitmask of @hdmi_colorspace listing supported output formats
+- * @max_bpc: Maximum bits per char the HDMI connector supports
+- *
+- * Initialises a preallocated HDMI connector. Connectors can be
+- * subclassed as part of driver connector objects.
+- *
+- * Cleanup is automatically handled with a call to
+- * drm_connector_cleanup() in a DRM-managed action.
+- *
+- * The connector structure should be allocated with drmm_kzalloc().
+- *
+- * Returns:
+- * Zero on success, error code on failure.
+- */
+-int drmm_connector_hdmi_init(struct drm_device *dev,
+-			     struct drm_connector *connector,
+-			     const char *vendor, const char *product,
+-			     const struct drm_connector_funcs *funcs,
+-			     const struct drm_connector_hdmi_funcs *hdmi_funcs,
+-			     int connector_type,
+-			     struct i2c_adapter *ddc,
+-			     unsigned long supported_formats,
+-			     unsigned int max_bpc)
++static int __drm_connector_hdmi_init(struct drm_device *dev,
++				     struct drm_connector *connector,
++				     const char *vendor, const char *product,
++				     const struct drm_connector_funcs *funcs,
++				     const struct drm_connector_hdmi_funcs *hdmi_funcs,
++				     int connector_type,
++				     struct i2c_adapter *ddc,
++				     unsigned long supported_formats,
++				     unsigned int max_bpc)
+ {
+ 	int ret;
+ 
+@@ -506,7 +482,7 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 	if (!(max_bpc == 8 || max_bpc == 10 || max_bpc == 12))
+ 		return -EINVAL;
+ 
+-	ret = drmm_connector_init(dev, connector, funcs, connector_type, ddc);
++	ret = __drm_connector_init(dev, connector, funcs, connector_type, ddc);
  	if (ret)
  		return ret;
-@@ -1045,9 +1042,11 @@ hdmi_generate_infoframes(const struct drm_connector *connector,
- 	if (ret)
- 		return ret;
  
--	ret = hdmi_generate_hdmi_vendor_infoframe(connector, state);
--	if (ret)
--		return ret;
-+	if (info->has_hdmi_infoframe) {
-+		ret = hdmi_generate_hdmi_vendor_infoframe(connector, state);
-+		if (ret)
-+			return ret;
-+	}
+@@ -531,6 +507,105 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
  
  	return 0;
  }
-@@ -1208,9 +1207,6 @@ int drm_atomic_helper_connector_hdmi_update_infoframes(struct drm_connector *con
- 	if (!info->is_hdmi)
- 		return 0;
++
++/**
++ * drm_connector_hdmi_init - Init a preallocated HDMI connector
++ * @dev: DRM device
++ * @connector: A pointer to the HDMI connector to init
++ * @vendor: HDMI Controller Vendor name
++ * @product: HDMI Controller Product name
++ * @funcs: callbacks for this connector
++ * @hdmi_funcs: HDMI-related callbacks for this connector
++ * @connector_type: user visible type of the connector
++ * @ddc: optional pointer to the associated ddc adapter
++ * @supported_formats: Bitmask of @hdmi_colorspace listing supported output formats
++ * @max_bpc: Maximum bits per char the HDMI connector supports
++ *
++ * Initialises a preallocated HDMI connector. Connectors can be
++ * subclassed as part of driver connector objects.
++ *
++ * At driver unload time the driver's &drm_connector_funcs.destroy hook
++ * should call drm_connector_cleanup() and free the connector structure.
++ * The connector structure should not be allocated with devm_kzalloc().
++ *
++ * Note: consider using drmm_connector_hdmi_init() instead of
++ * drm_connector_hdmi_init() to let the DRM managed resource infrastructure
++ * take care of cleanup and deallocation.
++ *
++ * Returns:
++ * Zero on success, error code on failure.
++ */
++int drm_connector_hdmi_init(struct drm_device *dev,
++			    struct drm_connector *connector,
++			    const char *vendor, const char *product,
++			    const struct drm_connector_funcs *funcs,
++			    const struct drm_connector_hdmi_funcs *hdmi_funcs,
++			    int connector_type,
++			    struct i2c_adapter *ddc,
++			    unsigned long supported_formats,
++			    unsigned int max_bpc)
++{
++	if (drm_WARN_ON(dev, !(funcs && funcs->destroy)))
++		return -EINVAL;
++
++	return __drm_connector_hdmi_init(dev, connector, vendor, product,
++					 funcs, hdmi_funcs, connector_type, ddc,
++					 supported_formats, max_bpc);
++}
++EXPORT_SYMBOL(drm_connector_hdmi_init);
++
++/**
++ * drmm_connector_hdmi_init - Init a preallocated HDMI connector
++ * @dev: DRM device
++ * @connector: A pointer to the HDMI connector to init
++ * @vendor: HDMI Controller Vendor name
++ * @product: HDMI Controller Product name
++ * @funcs: callbacks for this connector
++ * @hdmi_funcs: HDMI-related callbacks for this connector
++ * @connector_type: user visible type of the connector
++ * @ddc: optional pointer to the associated ddc adapter
++ * @supported_formats: Bitmask of @hdmi_colorspace listing supported output formats
++ * @max_bpc: Maximum bits per char the HDMI connector supports
++ *
++ * Initialises a preallocated HDMI connector. Connectors can be
++ * subclassed as part of driver connector objects.
++ *
++ * Cleanup is automatically handled with a call to
++ * drm_connector_cleanup() in a DRM-managed action.
++ *
++ * The connector structure should be allocated with drmm_kzalloc().
++ *
++ * Returns:
++ * Zero on success, error code on failure.
++ */
++int drmm_connector_hdmi_init(struct drm_device *dev,
++			     struct drm_connector *connector,
++			     const char *vendor, const char *product,
++			     const struct drm_connector_funcs *funcs,
++			     const struct drm_connector_hdmi_funcs *hdmi_funcs,
++			     int connector_type,
++			     struct i2c_adapter *ddc,
++			     unsigned long supported_formats,
++			     unsigned int max_bpc)
++{
++	int ret;
++
++	if (drm_WARN_ON(dev, funcs && funcs->destroy))
++		return -EINVAL;
++
++	ret = __drm_connector_hdmi_init(dev, connector, vendor, product,
++					funcs, hdmi_funcs, connector_type, ddc,
++					supported_formats, max_bpc);
++	if (ret)
++		return ret;
++
++	ret = drmm_add_action_or_reset(dev, drm_connector_cleanup_action,
++				       connector);
++	if (ret)
++		return ret;
++
++	return 0;
++}
+ EXPORT_SYMBOL(drmm_connector_hdmi_init);
  
--	if (!info->has_hdmi_infoframe)
--		return 0;
--
- 	mutex_lock(&connector->hdmi.infoframes.lock);
- 
- 	ret = UPDATE_INFOFRAME(connector, old_state, new_state, avi);
-@@ -1233,9 +1229,11 @@ int drm_atomic_helper_connector_hdmi_update_infoframes(struct drm_connector *con
- 	if (ret)
- 		goto out;
- 
--	ret = UPDATE_INFOFRAME(connector, old_state, new_state, hdmi);
--	if (ret)
--		goto out;
-+	if (info->has_hdmi_infoframe) {
-+		ret = UPDATE_INFOFRAME(connector, old_state, new_state, hdmi);
-+		if (ret)
-+			goto out;
-+	}
- 
- out:
- 	mutex_unlock(&connector->hdmi.infoframes.lock);
-@@ -1269,9 +1267,6 @@ drm_atomic_helper_connector_hdmi_update_audio_infoframe(struct drm_connector *co
- 	if (!info->is_hdmi)
- 		return 0;
- 
--	if (!info->has_hdmi_infoframe)
--		return 0;
--
- 	memcpy(&infoframe.data, frame, sizeof(infoframe.data));
- 	infoframe.set = true;
- 
+ /**
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 5964ef283022..a97de8255e04 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2147,6 +2147,15 @@ int drmm_connector_init(struct drm_device *dev,
+ 			const struct drm_connector_funcs *funcs,
+ 			int connector_type,
+ 			struct i2c_adapter *ddc);
++int drm_connector_hdmi_init(struct drm_device *dev,
++			    struct drm_connector *connector,
++			    const char *vendor, const char *product,
++			    const struct drm_connector_funcs *funcs,
++			    const struct drm_connector_hdmi_funcs *hdmi_funcs,
++			    int connector_type,
++			    struct i2c_adapter *ddc,
++			    unsigned long supported_formats,
++			    unsigned int max_bpc);
+ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 			     struct drm_connector *connector,
+ 			     const char *vendor, const char *product,
 
 -- 
 2.39.2
