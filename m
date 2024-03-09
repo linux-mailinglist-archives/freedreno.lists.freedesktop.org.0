@@ -2,68 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE6FE8771CA
-	for <lists+freedreno@lfdr.de>; Sat,  9 Mar 2024 16:09:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0951E8771C8
+	for <lists+freedreno@lfdr.de>; Sat,  9 Mar 2024 16:09:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5477110E29D;
-	Sat,  9 Mar 2024 15:09:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5B57112131;
+	Sat,  9 Mar 2024 15:09:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DFblhfr9";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VJCZdBbv";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21CA510E29D
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98ACC10E295
  for <freedreno@lists.freedesktop.org>; Sat,  9 Mar 2024 15:09:10 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2d41d1bedc9so21189181fa.3
- for <freedreno@lists.freedesktop.org>; Sat, 09 Mar 2024 07:09:09 -0800 (PST)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-2d41d1bedc9so21189251fa.3
+ for <freedreno@lists.freedesktop.org>; Sat, 09 Mar 2024 07:09:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1709996948; x=1710601748; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=XrNsYekci5CYEjDTgEQhnAxlRrrD/1mcwKaN+sZjKnc=;
- b=DFblhfr96A94P+sFnDXos3HBle5WcuFH8i0sqZ8A7/eriAadhsYsiYAVlJTdXwk/yK
- In9l1dg9fRz47LzNbu8L3L4AMOK6OrJoPxHQMT5ERRaqDW+3ebj5Z4MJ99JPcbKfmT5T
- mZAqU3H3lp3cbAdUpqL4r0cIRfwdOEtM9Z6sCwytDLbIevsb8ufaPmT7EwV1mx7qhiat
- QjSaQo7yJfPRvKq4ZOBaNMSBvMujxcEP2QYeQmH1TF78EUaeuiwhl6AvyZlRVK7w73YK
- 2npoS8H/qGaFEiuOE36NQgJQl4HRh0mNLuHUlFlEZzaJ8puUoqAYpmZH/w/My6F3kqOn
- qNEg==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=aDBr2FAG34D/nO8EL2D1pYlW3kGuhkxGNLEsghBUPo4=;
+ b=VJCZdBbvIUVT344rSRFupaq9ipYKg1lRLmHnnSgF2HNH9bbdDT5MTjkhIy+gxcA8rt
+ AvarMJE3CY7VrT/Ch554LzJ3mBLSwRCt5Fm4UP2cdWS3hofpWZ6D1GWqU4RfReaMkkOT
+ h4enW1DQBZkffBGcXIEWS1QJ3xKuHU6h8y0mKeDu5T6J/aS/LptFU7WfyrDh4vj+0DVH
+ ZtKJz/GTZvULcUv4wM0sFg2+ozFh/EPdKM3p3z5DtL1uzXIi8D7qZuIrtX/RDuKzZJlY
+ OhVRZtzHPB2eMBwPHkEyzW0xfKJz72usRlqFCc2tUKAPLjcExDzw6ZIwaRKtvl12S5K+
+ L2og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1709996948; x=1710601748;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=XrNsYekci5CYEjDTgEQhnAxlRrrD/1mcwKaN+sZjKnc=;
- b=pj07979ePiCkjK2eAN7vkbgzW0wqh2K6Ox12wsTfsYN7RXDlF8B8UULfoSS5zBO21f
- /6oBk6jFcd5NeHzREkE4yxwKyg2E7E7XdU484LZ7svOtSQj2lq22KIhaREUZNBzd+7fi
- OM5Ke++tOcx/bA01zVVTApcyJlQu2iQ0CMtXFd+COTVz5RJryy010apdix/3viGOFKVw
- 8bRAQXeUbt7Ha2B0rRUoqeaKekdps8Awjgm5YlVdHC09ZA18E1oyxwqPFAgqEFpi3dXS
- pNVdeem8TIHVpHCuOcAzufSm1dQnJvNLtzZxpcrbb01DE778rOCY8bB6CMXqdZl7jaP3
- nf1Q==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=aDBr2FAG34D/nO8EL2D1pYlW3kGuhkxGNLEsghBUPo4=;
+ b=naUKrtgpGNaMUHX0/40z2Tw64w9mEqXpFDxg/9awOFpGkcutjT2qwwc3Aq58fkmzDx
+ tiGBlt4RQMlzx/ZcortSVxaqlz4MFPMhKNia0mh/BsEH3ZFYNVrqHdBle/Yb/M0YJYDY
+ Pn7IuNtEhgtfLmgmR1sLJTzZvO0FGRYHwL2EdqF247ejlWAQrQCpWaDEPAfxpwI1C0aI
+ 0Q+p5pygWS+jLDqO2XAp/CInae/x5qWKbWjvQb+vFPQj0M7JS1cUztUe9IMo5An6QGcT
+ UL2bjfSYtZ9JRFWFyHyCDws5guf1aIXQF/K/r1HJBRM2ZE2Igx120TEyWS+GpDKICt/1
+ 5ZUg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVm1MEMwVM2EFP62ECZ10Ar8tpyCEXdwShUJw+LNuWsZd/UL4dOdkpcjhSpSGZILYqNkfWcV10iNRfkrnCy39vwZPUxTqUB9WQFEMCCnwfl
-X-Gm-Message-State: AOJu0YyngrUBu4IGrm5FbfNWP1syXA5kfGcIGJeNmAdicNZp306JqEeB
- e4Psd6bF84Ny5HsCEnvY7etmjQmeP7MYAU9Qm8WerL5bXOuGODbzMxW5NZezMKs=
-X-Google-Smtp-Source: AGHT+IHvRBgYgZ//RQt2vAgiHNTLu3ncmyojF3L+YMiUCRElmdKSMqu7wJDelxowfAyxLdtXB5EmQQ==
-X-Received: by 2002:a2e:a30f:0:b0:2d4:2b0a:7ace with SMTP id
- l15-20020a2ea30f000000b002d42b0a7acemr892884lje.37.1709996947928; 
- Sat, 09 Mar 2024 07:09:07 -0800 (PST)
+ AJvYcCXhawyCxrTNeZWhaG/cYvyiqkhyyVU5ZXOf4zVJM860wyINLjREpwtshHVcSkvWJa4MLxxvfUwmyz4uF3N9fSFnQbOx3XjcnxRDZApWYr66
+X-Gm-Message-State: AOJu0YxoDqeI5ZRlm8yzzj3nmF/36Bc4aNK/vFDlONqDsGNaBE10kuF3
+ 94AJQ+Egr36Ga6eS4ReMegx/zVWHaZDFXh9p1yT+3igapxMiESGV8Sk+e1pOCh4=
+X-Google-Smtp-Source: AGHT+IEPT352wtTz9iAipTw3WZyhnuQwbR41TmyOH1p5I8NW7VTHUCkkrju+IO+M+E5Komq4fBWr9w==
+X-Received: by 2002:a2e:9890:0:b0:2d3:a7da:b17b with SMTP id
+ b16-20020a2e9890000000b002d3a7dab17bmr1584405ljj.4.1709996948665; 
+ Sat, 09 Mar 2024 07:09:08 -0800 (PST)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- m1-20020a2eb6c1000000b002d4062c833dsm328511ljo.98.2024.03.09.07.09.07
+ m1-20020a2eb6c1000000b002d4062c833dsm328511ljo.98.2024.03.09.07.09.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 Mar 2024 07:09:07 -0800 (PST)
+ Sat, 09 Mar 2024 07:09:08 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: [PATCH 0/3] drm/msm/dsi: rework drm_connector instantiation
-Date: Sat, 09 Mar 2024 17:09:04 +0200
-Message-Id: <20240309-fd-dsi-cleanup-bridges-v1-0-962ebdba82ed@linaro.org>
+Date: Sat, 09 Mar 2024 17:09:05 +0200
+Subject: [PATCH 1/3] drm/msm/dsi: remove the drm_bridge_attach fallback
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJB77GUC/x3MPQqAMAxA4atIZgP9c9CriIM2UQNSpUERxLtbH
- L/hvQeUs7BCVz2Q+RKVPRXYuoK4jmlhFCoGZ1ww3rQ4E5IKxo3HdB44ZaGFFZ2jhqKN1gcLJT4
- yz3L/43543w8rr3teaAAAAA==
+Message-Id: <20240309-fd-dsi-cleanup-bridges-v1-1-962ebdba82ed@linaro.org>
+References: <20240309-fd-dsi-cleanup-bridges-v1-0-962ebdba82ed@linaro.org>
+In-Reply-To: <20240309-fd-dsi-cleanup-bridges-v1-0-962ebdba82ed@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -72,16 +71,16 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=942;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2369;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=TCJyDJHulubow8UZZZPWkWBavBy/rH3xyYFqzk9GND4=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl7HuSyTk+2g3RwzE5e5s/iqeIFPp6kazGi0Wqn
- 9fQ9vUfKbyJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZex7kgAKCRCLPIo+Aiko
- 1eDbB/9ocFnN4oYGbkjz6af6h0Sbe7G6r0NozB6/2jNnKjmuzPwSm0uqOkGvi1+gy3QAEIHVEJN
- F3PWZ0rU3yeTaEbP7Lz5RnEuZL6tA+CvN4o3VA9dNB+sh6s7RF1H1kzy/dEMW1WzK68Me/PqjqZ
- 8Lqat3hiwiPpKIz/WoCPKmm/aVQwGu13xN3OQEg7Gjz2UUSsRRgcFQmrtLR8ZbCgTVLhiOZCNBl
- +DvEXqPhjg9D0/nj8WJGm8jTKJA5p0HrLVeTZCZghy9ozd8+mAtdcCiJUdD7kE6UybWgPE0XVHh
- Ls64h7kyULsP9y0gR8A8FppTnVO+APdO+X6gJ6i/qH8Z/1kx
+ bh=25sj2EpAUs4CVgh43hLR16WG/PkkmsNSMdc3g9mxl2I=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl7HuSPyhU7mt5oJSmJoDFQtH4cLTENnWHFQ6NV
+ 7NYXoxKi+SJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZex7kgAKCRCLPIo+Aiko
+ 1UWUB/9fcjO5+fe58xaEbgbtZcYIbSS/rTMGDmJ9GSgRT3x9eINjFvydclOPe1eyvrtLy1gcS+W
+ JFLKvxnr0//Dyf2ObqocW3EpKp9/TMA1OpkCYUbAnP9sjgtcyoPNQ+6KVfCkgorZySXFPvTtWZK
+ 98tClxsDyXUeG7sEvDzqjvmOFNdSZa/oIl/XRcyeRa2+T9LOECKniV0U0i6vRpcqQvWCBndWW/u
+ TstpB/6g/UflC+2ZLlGbLgJHfbl1iD4YA1Gs7FHCq4+bYqbM+6EuzN318o8y1LP6egUlo1YJa7s
+ RD28X1JAPXAjGSE+pI7rztz/i0tj+XiD7SSyMngfAg35+Raw
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -99,28 +98,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-- Drop attempts to call drm_bridge_attach with 0 flags, require that
-  downstream bridges support DRM_BRIDGE_ATTACH_NO_CONNECTOR
-
-- Acquire next bridge during dsi_bind, making sure that it doesn't cause
-  -EPROBE_DEFER later during modeset_init.
+All the bridges that are being used with the MSM DSI hosts have been
+converted to support DRM_BRIDGE_ATTACH_NO_CONNECTOR. Drop the fallback
+code and require DRM_BRIDGE_ATTACH_NO_CONNECTOR to be supported by the
+downstream bridges.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-Dmitry Baryshkov (3):
-      drm/msm/dsi: remove the drm_bridge_attach fallback
-      drm/msm/dsi: move next bridge acquisition to dsi_bind
-      drm/msm/dsi: simplify connector creation
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 36 +++++++++++------------------------
+ 1 file changed, 11 insertions(+), 25 deletions(-)
 
- drivers/gpu/drm/msm/dsi/dsi.c         | 26 ++++++++----
- drivers/gpu/drm/msm/dsi/dsi.h         |  7 ++--
- drivers/gpu/drm/msm/dsi/dsi_manager.c | 79 ++++++++++++-----------------------
- 3 files changed, 48 insertions(+), 64 deletions(-)
----
-base-commit: 1843e16d2df9d98427ef8045589571749d627cf7
-change-id: 20240309-fd-dsi-cleanup-bridges-22d5dc1c1341
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index af2a287cb3bd..a7c7f85b73e4 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -465,6 +465,7 @@ int msm_dsi_manager_ext_bridge_init(u8 id, struct drm_bridge *int_bridge)
+ 	struct drm_device *dev = msm_dsi->dev;
+ 	struct drm_encoder *encoder;
+ 	struct drm_bridge *ext_bridge;
++	struct drm_connector *connector;
+ 	int ret;
+ 
+ 	ext_bridge = devm_drm_of_get_bridge(&msm_dsi->pdev->dev,
+@@ -474,36 +475,21 @@ int msm_dsi_manager_ext_bridge_init(u8 id, struct drm_bridge *int_bridge)
+ 
+ 	encoder = int_bridge->encoder;
+ 
+-	/*
+-	 * Try first to create the bridge without it creating its own
+-	 * connector.. currently some bridges support this, and others
+-	 * do not (and some support both modes)
+-	 */
+ 	ret = drm_bridge_attach(encoder, ext_bridge, int_bridge,
+ 			DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+-	if (ret == -EINVAL) {
+-		/*
+-		 * link the internal dsi bridge to the external bridge,
+-		 * connector is created by the next bridge.
+-		 */
+-		ret = drm_bridge_attach(encoder, ext_bridge, int_bridge, 0);
+-		if (ret < 0)
+-			return ret;
+-	} else {
+-		struct drm_connector *connector;
+-
+-		/* We are in charge of the connector, create one now. */
+-		connector = drm_bridge_connector_init(dev, encoder);
+-		if (IS_ERR(connector)) {
+-			DRM_ERROR("Unable to create bridge connector\n");
+-			return PTR_ERR(connector);
+-		}
++	if (ret)
++		return ret;
+ 
+-		ret = drm_connector_attach_encoder(connector, encoder);
+-		if (ret < 0)
+-			return ret;
++	connector = drm_bridge_connector_init(dev, encoder);
++	if (IS_ERR(connector)) {
++		DRM_ERROR("Unable to create bridge connector\n");
++		return PTR_ERR(connector);
+ 	}
+ 
++	ret = drm_connector_attach_encoder(connector, encoder);
++	if (ret < 0)
++		return ret;
++
+ 	return 0;
+ }
+ 
 
-Best regards,
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+2.39.2
 
