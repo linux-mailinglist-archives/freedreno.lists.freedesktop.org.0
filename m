@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65B71877061
-	for <lists+freedreno@lfdr.de>; Sat,  9 Mar 2024 11:31:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCDF8877066
+	for <lists+freedreno@lfdr.de>; Sat,  9 Mar 2024 11:31:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7988410FE82;
-	Sat,  9 Mar 2024 10:31:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 298A110FE8E;
+	Sat,  9 Mar 2024 10:31:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LLRC0vTa";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="enD9++t8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51B0E10FE82
- for <freedreno@lists.freedesktop.org>; Sat,  9 Mar 2024 10:31:39 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2d41f33eb05so17737371fa.0
- for <freedreno@lists.freedesktop.org>; Sat, 09 Mar 2024 02:31:39 -0800 (PST)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55EDA10FE86
+ for <freedreno@lists.freedesktop.org>; Sat,  9 Mar 2024 10:31:40 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2d24a727f78so38628111fa.0
+ for <freedreno@lists.freedesktop.org>; Sat, 09 Mar 2024 02:31:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1709980297; x=1710585097; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1709980298; x=1710585098; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=hyi2QAnNjyFXYN+N8eHamuXjGZsyue9nPfokclWOSHQ=;
- b=LLRC0vTaSC8wO1m89tQfvTUO/Sp2v40HM1+k4aEltzWxX6pG2qNrnPHxULjTyZotCL
- ybziS3KR6/JsugWqn9q/WSrjdHwXyWNCLZylFv6NNuNBncvBEeQwhPESKekgOTgllBr3
- p/CPjoZrKISoDWXomQlHMTNYKpxIlm/+9NRsnFDBrHzw8CQ7bUh0DThNhT2+c5vYOso9
- jLeMDpBa3zi9U0fYpVndQhW2bQOy2DUMnY5yv+Ct61QZf1WDywRzIFp+CEPUnA1ou8OJ
- K6JezwLhCt0AIUchuQMkONxCxT9orVhoYoRx+PYaXzpOObYJEfHjf40Id249M+nIxRnn
- 773w==
+ :reply-to; bh=/gKCRuHfTeAAN6eYp0daDO9DyP00Nw++DM0spECkWyc=;
+ b=enD9++t8qDXYa0BnuaN918wuB74EPUTO0h2yBXUTzC63KSWaJ4sgPWrnvJYzcl83mJ
+ DUi7sBD6U7TKOOrFBVsMK7JY6ADcgoYgHLjy8L3ilp1Abbif7SyEaYjzV69EB6+7GucU
+ IxXuQkHaLf7EHs1oXkbZZJzO0RHe6eu4ZxQoVTIawPwqLktMfKzmloUFVkxomFBR6/bs
+ pd1hXKT4OeJhCPbAC1NmEJ98C2S4Ckj7m2bDAkd2iGl1wa5QyeEbAzGZ2ZCFWdgqf9gj
+ +fjePBVkA/dcENOndMJxuOTBAkOMZpR06Nk56g+GDKGmmRgrysllFzvASS1h3MlynvzM
+ ajXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709980297; x=1710585097;
+ d=1e100.net; s=20230601; t=1709980298; x=1710585098;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=hyi2QAnNjyFXYN+N8eHamuXjGZsyue9nPfokclWOSHQ=;
- b=m7gi6xYV0xvq/EjIKTx5lLG1RGTafy5WbtqtvYwNGrviGJc3Bd7CLvsbpISepsszpe
- k6MQUwxYSVLm7DaW6gtI095R5QJInhwUwTlbYdNpZgaOuwnebN+Azx3vlcxyE1gmOkq3
- 6Xe69wlV9WwTp9puU3Vv9An1zG0tYcFE+jVhrR5ku7miw5FtaX1qpwRWRu3PdGtN7Rmg
- 5sQvoNaXuxcGNtfr7mZ5E8DHsXjY4IHcKpQa2guO7MYXaYFrLcwPuAGLDxqSsKyXqioc
- /akO/tA+cO/VAEh8y5KfBTY+Q6//agLmcaE5rMlUGGklb+tz0CB4hZNY4xeciUs5j3j/
- Ye3Q==
+ bh=/gKCRuHfTeAAN6eYp0daDO9DyP00Nw++DM0spECkWyc=;
+ b=kxXTghBBtFZi4iAxr/iiChQH3HQ/vcRDodo59GGqIXwLQhpEqVhYzRkExkyPm76zr9
+ EWXb8v1RldMzRQQ8NA4amqnUsQlhegenTPYwBeL10jA52GElMYAvgVO1h+0/4OLASDNm
+ b1RQVoXo/VTPwGTtoDSaKmXO3crr3n/OBeRXUnDxHU1/7WHHKTq3zvhsgjQWp/5xrBTZ
+ Ek8umyEDXfDc0oV3eHfmUiO25fKMEy0iss9ElxI5xbD34Fy0qNz2jiSgfHOow/VS42Kr
+ AzP/NYInXi89qeZcBc1R1b/xsg1i0ometNspvBUKiCIF8UoJBfltZ6ULI1WQS6Ega3IB
+ wu6Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXF9GKmSGiyXci6+KFVeEVzNa46rHT3ThZPuXX59IQOn/dKZsKnMKxZN0VvOZf5yoyeQlaT41U4rNA1u2VNPw0idkaDVmgOtivUG9zlLvg6
-X-Gm-Message-State: AOJu0Yxifm7eFdr9GI0C6lP/dTUqFD/rxY/6iAp9Su6uTxNLuZMmJP6P
- IjGDzhmUSDJdM//BVZuqQ4ETJrmuGvLFZ0WUfI9W5k0wFHTAPfq3qfJ3HPKyX5U=
-X-Google-Smtp-Source: AGHT+IH0wB7tIe5qs41vlrt+Gu8llz2cUWH9bjqPwDCtDbfZ2V7QVdE0L+S1IuYPpbgE54ngituFNA==
-X-Received: by 2002:a2e:3314:0:b0:2d4:236e:4026 with SMTP id
- d20-20020a2e3314000000b002d4236e4026mr871679ljc.53.1709980297147; 
- Sat, 09 Mar 2024 02:31:37 -0800 (PST)
+ AJvYcCU91vfiS9XXWnOLKC2f+/nK4xbjBzT3/jqZevy6xYLmZtHDo+v0ZNE0PmjF2ItIg9Xzt2Wd4w+LHopBOvJKGqJbVZHRhjNuN8REExe9Ay2D
+X-Gm-Message-State: AOJu0YxTDyyMnvq8PospWadbvojEHyqu3XxwIinbW83HrfUDTygkr+/k
+ HDGcRJIjNu5PS9gIugM31FEoSkkwO24WMAISHejMTbU53erAR3SYIhQeNvSD2QQ=
+X-Google-Smtp-Source: AGHT+IFAeh7KMVDugqewP6Hm8fZs7sNjILj2gnOP3VJmIZIk48bVzJBy/qeUGzU7+NB6uljOxaltIQ==
+X-Received: by 2002:a2e:9043:0:b0:2d2:8ad9:a667 with SMTP id
+ n3-20020a2e9043000000b002d28ad9a667mr1085321ljg.17.1709980298244; 
+ Sat, 09 Mar 2024 02:31:38 -0800 (PST)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- y5-20020a2e3205000000b002d31953bc30sm245301ljy.55.2024.03.09.02.31.36
+ y5-20020a2e3205000000b002d31953bc30sm245301ljy.55.2024.03.09.02.31.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 Mar 2024 02:31:36 -0800 (PST)
+ Sat, 09 Mar 2024 02:31:37 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 09 Mar 2024 12:31:29 +0200
-Subject: [PATCH RFC v2 2/5] drm/connector: hdmi: add
- drm_connector_hdmi_init
+Date: Sat, 09 Mar 2024 12:31:30 +0200
+Subject: [PATCH RFC v2 3/5] drm/bridge-connector: implement glue code for
+ HDMI connector
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240309-bridge-hdmi-connector-v2-2-1380bea3ee70@linaro.org>
+Message-Id: <20240309-bridge-hdmi-connector-v2-3-1380bea3ee70@linaro.org>
 References: <20240309-bridge-hdmi-connector-v2-0-1380bea3ee70@linaro.org>
 In-Reply-To: <20240309-bridge-hdmi-connector-v2-0-1380bea3ee70@linaro.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -77,16 +77,16 @@ Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7655;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9464;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=TOTF8wEm+pn2aC2XeccwUCkVYk78cnNW5mkygODDCJU=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl7DqFwlNpVVpgyKST97JjgY7ycbVtY/HwH8O8O
- fsDOx2EETGJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZew6hQAKCRCLPIo+Aiko
- 1QehB/9qQF3yZRna6aS+Bm9dZO43L79j4oI1UnT8UGU2P9RYLYDBzofqZidQXbWLfxbc8srIm0l
- aW4iJ0EGqPPxDvzmMQPKu5gTVtau5T2g9jTJt3k+Rgr510huIZspPcT65ODwWwI/5rYbbTOUlib
- XIVfx/J0w3j75A+VYbNS/Mubn334+h+9Jyvm6SCACNWfV+hOzn0qNiObjsjVgFneM6x7Qukkv7P
- 4fbHD8x41HvyLYc5TSWhCMSicRzI1Pp98ToEz8tpyetEe4/rAAILNWuNtmCwIMmF813ozklFpRU
- YpKZ7BXl8LIF5v88NPHoG5/NmxjrgNsa4V/7GkW+AUPRugs+
+ bh=kABJHt3RkZZjsjZbUvVv96tWTAHBfq9FCIJhBeojd+4=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ+obq9amHD3mzdPeWXB8WcCrffVmKneGJaPljf3SQscn9
+ jyezJXYyWjMwsDIxSArpsjiU9AyNWZTctiHHVPrYQaxMoFMYeDiFICJLFFj/1/1dLI+i9581RaB
+ Ypuc9z7X3wetEv6zq/Xm3Onu4QV72QKuyy05pDF3Tq5zzFuDawsyZR3vb2G8I/r8jqDivGO/182
+ 6FT/dVOLKdY2YrpM6cy32N6Y+PbleWDZi6or+x8qzrEvlck8eqNL6rvtbc/GTY00LApL2qXBEM8
+ yeG3vIWPNy5ZGKuIcc//o2nI09rN6Volxb6SzIfoNjg6qOKONOJXHDD15L2dPaw0JvMrJn54nuM
+ nEsbGH5paFyQvHr0bncTWwRstM1z5tuDXIKVdo28/0ZaaHSO7Uds2J4VKq067x15CbZ8ipUeT8+
+ FZ3urSS5jNNPbMeklh+xd/0fqD8zfBQR1PZko1si/zlmAA==
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -104,204 +104,291 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-To support connectors which do all the management on their own (like
-drm_bridge_connector), add drm_connector_hdmi_init() in addition to
-drmm_connector_hdmi_init().
+In order to let bridge chains implement HDMI connector infrastructure,
+add necessary glue code to the drm_bridge_connector. In case there is a
+bridge that sets DRM_BRIDGE_OP_HDMI, drm_bridge_connector will register
+itself as a HDMI connector and provide proxy drm_connector_hdmi_funcs
+implementation.
+
+Note, to simplify implementation, there can be only one bridge in a
+chain that sets DRM_BRIDGE_OP_HDMI. Setting more than one is considered
+an error. This limitation can be lifted later, if the need arises.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/drm_connector.c | 143 ++++++++++++++++++++++++++++++----------
- include/drm/drm_connector.h     |   9 +++
- 2 files changed, 118 insertions(+), 34 deletions(-)
+ drivers/gpu/drm/drm_bridge_connector.c | 118 ++++++++++++++++++++++++++++++++-
+ include/drm/drm_bridge.h               |  82 +++++++++++++++++++++++
+ 2 files changed, 197 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 427816239038..d7c0e237f9c5 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -453,39 +453,15 @@ int drmm_connector_init(struct drm_device *dev,
- }
- EXPORT_SYMBOL(drmm_connector_init);
+diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
+index 982552c9f92c..514dbb38dfed 100644
+--- a/drivers/gpu/drm/drm_bridge_connector.c
++++ b/drivers/gpu/drm/drm_bridge_connector.c
+@@ -86,6 +86,13 @@ struct drm_bridge_connector {
+ 	 * connector modes detection, if any (see &DRM_BRIDGE_OP_MODES).
+ 	 */
+ 	struct drm_bridge *bridge_modes;
++	/**
++	 * @bridge_hdmi:
++	 *
++	 * The bridge in the chain that implements necessary support for the
++	 * HDMI connector infrastructure, if any (see &DRM_BRIDGE_OP_HDMI).
++	 */
++	struct drm_bridge *bridge_hdmi;
+ };
  
--/**
-- * drmm_connector_hdmi_init - Init a preallocated HDMI connector
-- * @dev: DRM device
-- * @connector: A pointer to the HDMI connector to init
-- * @vendor: HDMI Controller Vendor name
-- * @product: HDMI Controller Product name
-- * @funcs: callbacks for this connector
-- * @hdmi_funcs: HDMI-related callbacks for this connector
-- * @connector_type: user visible type of the connector
-- * @ddc: optional pointer to the associated ddc adapter
-- * @supported_formats: Bitmask of @hdmi_colorspace listing supported output formats
-- * @max_bpc: Maximum bits per char the HDMI connector supports
-- *
-- * Initialises a preallocated HDMI connector. Connectors can be
-- * subclassed as part of driver connector objects.
-- *
-- * Cleanup is automatically handled with a call to
-- * drm_connector_cleanup() in a DRM-managed action.
-- *
-- * The connector structure should be allocated with drmm_kzalloc().
-- *
-- * Returns:
-- * Zero on success, error code on failure.
-- */
--int drmm_connector_hdmi_init(struct drm_device *dev,
--			     struct drm_connector *connector,
--			     const char *vendor, const char *product,
--			     const struct drm_connector_funcs *funcs,
--			     const struct drm_connector_hdmi_funcs *hdmi_funcs,
--			     int connector_type,
--			     struct i2c_adapter *ddc,
--			     unsigned long supported_formats,
--			     unsigned int max_bpc)
-+static int __drm_connector_hdmi_init(struct drm_device *dev,
-+				     struct drm_connector *connector,
-+				     const char *vendor, const char *product,
-+				     const struct drm_connector_funcs *funcs,
-+				     const struct drm_connector_hdmi_funcs *hdmi_funcs,
-+				     int connector_type,
-+				     struct i2c_adapter *ddc,
-+				     unsigned long supported_formats,
-+				     unsigned int max_bpc)
- {
- 	int ret;
- 
-@@ -506,7 +482,7 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
- 	if (!(max_bpc == 8 || max_bpc == 10 || max_bpc == 12))
- 		return -EINVAL;
- 
--	ret = drmm_connector_init(dev, connector, funcs, connector_type, ddc);
-+	ret = __drm_connector_init(dev, connector, funcs, connector_type, ddc);
- 	if (ret)
- 		return ret;
- 
-@@ -531,6 +507,105 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
- 
+ #define to_drm_bridge_connector(x) \
+@@ -293,11 +300,86 @@ static int drm_bridge_connector_get_modes(struct drm_connector *connector)
  	return 0;
  }
-+
-+/**
-+ * drm_connector_hdmi_init - Init a preallocated HDMI connector
-+ * @dev: DRM device
-+ * @connector: A pointer to the HDMI connector to init
-+ * @vendor: HDMI Controller Vendor name
-+ * @product: HDMI Controller Product name
-+ * @funcs: callbacks for this connector
-+ * @hdmi_funcs: HDMI-related callbacks for this connector
-+ * @connector_type: user visible type of the connector
-+ * @ddc: optional pointer to the associated ddc adapter
-+ * @supported_formats: Bitmask of @hdmi_colorspace listing supported output formats
-+ * @max_bpc: Maximum bits per char the HDMI connector supports
-+ *
-+ * Initialises a preallocated HDMI connector. Connectors can be
-+ * subclassed as part of driver connector objects.
-+ *
-+ * At driver unload time the driver's &drm_connector_funcs.destroy hook
-+ * should call drm_connector_cleanup() and free the connector structure.
-+ * The connector structure should not be allocated with devm_kzalloc().
-+ *
-+ * Note: consider using drmm_connector_hdmi_init() instead of
-+ * drm_connector_hdmi_init() to let the DRM managed resource infrastructure
-+ * take care of cleanup and deallocation.
-+ *
-+ * Returns:
-+ * Zero on success, error code on failure.
-+ */
-+int drm_connector_hdmi_init(struct drm_device *dev,
-+			    struct drm_connector *connector,
-+			    const char *vendor, const char *product,
-+			    const struct drm_connector_funcs *funcs,
-+			    const struct drm_connector_hdmi_funcs *hdmi_funcs,
-+			    int connector_type,
-+			    struct i2c_adapter *ddc,
-+			    unsigned long supported_formats,
-+			    unsigned int max_bpc)
+ 
++static int drm_bridge_connector_atomic_check(struct drm_connector *connector,
++					     struct drm_atomic_state *state)
 +{
-+	if (drm_WARN_ON(dev, !(funcs && funcs->destroy)))
-+		return -EINVAL;
-+
-+	return __drm_connector_hdmi_init(dev, connector, vendor, product,
-+					 funcs, hdmi_funcs, connector_type, ddc,
-+					 supported_formats, max_bpc);
-+}
-+EXPORT_SYMBOL(drm_connector_hdmi_init);
-+
-+/**
-+ * drmm_connector_hdmi_init - Init a preallocated HDMI connector
-+ * @dev: DRM device
-+ * @connector: A pointer to the HDMI connector to init
-+ * @vendor: HDMI Controller Vendor name
-+ * @product: HDMI Controller Product name
-+ * @funcs: callbacks for this connector
-+ * @hdmi_funcs: HDMI-related callbacks for this connector
-+ * @connector_type: user visible type of the connector
-+ * @ddc: optional pointer to the associated ddc adapter
-+ * @supported_formats: Bitmask of @hdmi_colorspace listing supported output formats
-+ * @max_bpc: Maximum bits per char the HDMI connector supports
-+ *
-+ * Initialises a preallocated HDMI connector. Connectors can be
-+ * subclassed as part of driver connector objects.
-+ *
-+ * Cleanup is automatically handled with a call to
-+ * drm_connector_cleanup() in a DRM-managed action.
-+ *
-+ * The connector structure should be allocated with drmm_kzalloc().
-+ *
-+ * Returns:
-+ * Zero on success, error code on failure.
-+ */
-+int drmm_connector_hdmi_init(struct drm_device *dev,
-+			     struct drm_connector *connector,
-+			     const char *vendor, const char *product,
-+			     const struct drm_connector_funcs *funcs,
-+			     const struct drm_connector_hdmi_funcs *hdmi_funcs,
-+			     int connector_type,
-+			     struct i2c_adapter *ddc,
-+			     unsigned long supported_formats,
-+			     unsigned int max_bpc)
-+{
++	struct drm_bridge_connector *bridge_connector =
++		to_drm_bridge_connector(connector);
++	struct drm_bridge *bridge;
 +	int ret;
 +
-+	if (drm_WARN_ON(dev, funcs && funcs->destroy))
-+		return -EINVAL;
++	bridge = bridge_connector->bridge_hdmi;
++	if (bridge) {
++		ret = drm_atomic_helper_connector_hdmi_check(connector, state);
 +
-+	ret = __drm_connector_hdmi_init(dev, connector, vendor, product,
-+					funcs, hdmi_funcs, connector_type, ddc,
-+					supported_formats, max_bpc);
-+	if (ret)
-+		return ret;
-+
-+	ret = drmm_add_action_or_reset(dev, drm_connector_cleanup_action,
-+				       connector);
-+	if (ret)
-+		return ret;
++		if (ret)
++			return ret;
++	}
 +
 +	return 0;
 +}
- EXPORT_SYMBOL(drmm_connector_hdmi_init);
++
+ static const struct drm_connector_helper_funcs drm_bridge_connector_helper_funcs = {
+ 	.get_modes = drm_bridge_connector_get_modes,
+ 	/* No need for .mode_valid(), the bridges are checked by the core. */
+ 	.enable_hpd = drm_bridge_connector_enable_hpd,
+ 	.disable_hpd = drm_bridge_connector_disable_hpd,
++	.atomic_check = drm_bridge_connector_atomic_check,
++};
++
++static enum drm_mode_status
++drm_bridge_connector_tmds_char_rate_valid(const struct drm_connector *connector,
++					  const struct drm_display_mode *mode,
++					  unsigned long long tmds_rate)
++{
++	struct drm_bridge_connector *bridge_connector =
++		to_drm_bridge_connector(connector);
++	struct drm_bridge *bridge;
++
++	bridge = bridge_connector->bridge_hdmi;
++	if (bridge)
++		return bridge->funcs->tmds_char_rate_valid ?
++			bridge->funcs->tmds_char_rate_valid(bridge, mode, tmds_rate) :
++			MODE_OK;
++
++	return MODE_ERROR;
++}
++
++static int drm_bridge_connector_clear_infoframe(struct drm_connector *connector,
++						enum hdmi_infoframe_type type)
++{
++	struct drm_bridge_connector *bridge_connector =
++		to_drm_bridge_connector(connector);
++	struct drm_bridge *bridge;
++
++	bridge = bridge_connector->bridge_hdmi;
++	if (bridge)
++		return bridge->funcs->clear_infoframe ?
++			bridge->funcs->clear_infoframe(bridge, type) :
++			0;
++
++	return -EINVAL;
++}
++
++static int drm_bridge_connector_write_infoframe(struct drm_connector *connector,
++						enum hdmi_infoframe_type type,
++						const u8 *buffer, size_t len)
++{
++	struct drm_bridge_connector *bridge_connector =
++		to_drm_bridge_connector(connector);
++	struct drm_bridge *bridge;
++
++	bridge = bridge_connector->bridge_hdmi;
++	if (bridge)
++		return bridge->funcs->write_infoframe(bridge, type, buffer, len);
++
++	return -EINVAL;
++}
++
++static const struct drm_connector_hdmi_funcs drm_bridge_connector_hdmi_funcs = {
++	.tmds_char_rate_valid = drm_bridge_connector_tmds_char_rate_valid,
++	.clear_infoframe = drm_bridge_connector_clear_infoframe,
++	.write_infoframe = drm_bridge_connector_write_infoframe,
+ };
+ 
+ /* -----------------------------------------------------------------------------
+@@ -325,6 +407,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 	struct drm_connector *connector;
+ 	struct i2c_adapter *ddc = NULL;
+ 	struct drm_bridge *bridge, *panel_bridge = NULL;
++	const char *vendor = "Unknown";
++	const char *product = "Unknown";
++	unsigned int supported_formats = BIT(HDMI_COLORSPACE_RGB);
++	unsigned int max_bpc = 8;
+ 	int connector_type;
+ 	int ret;
+ 
+@@ -361,6 +447,23 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 			bridge_connector->bridge_detect = bridge;
+ 		if (bridge->ops & DRM_BRIDGE_OP_MODES)
+ 			bridge_connector->bridge_modes = bridge;
++		if (bridge->ops & DRM_BRIDGE_OP_HDMI) {
++			if (bridge_connector->bridge_hdmi)
++				return ERR_PTR(-EBUSY);
++
++			bridge_connector->bridge_hdmi = bridge;
++
++			if (bridge->supported_formats)
++				supported_formats = bridge->supported_formats;
++			if (bridge->max_bpc)
++				max_bpc = bridge->max_bpc;
++		}
++
++		if (bridge->vendor)
++			vendor = bridge->vendor;
++
++		if (bridge->product)
++			product = bridge->product;
+ 
+ 		if (!drm_bridge_get_next_bridge(bridge))
+ 			connector_type = bridge->type;
+@@ -383,9 +486,18 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
+-	ret = drm_connector_init_with_ddc(drm, connector,
+-					  &drm_bridge_connector_funcs,
+-					  connector_type, ddc);
++	if (bridge_connector->bridge_hdmi)
++		ret = drm_connector_hdmi_init(drm, connector,
++					      vendor, product,
++					      &drm_bridge_connector_funcs,
++					      &drm_bridge_connector_hdmi_funcs,
++					      connector_type, ddc,
++					      supported_formats,
++					      max_bpc);
++	else
++		ret = drm_connector_init_with_ddc(drm, connector,
++						  &drm_bridge_connector_funcs,
++						  connector_type, ddc);
+ 	if (ret) {
+ 		kfree(bridge_connector);
+ 		return ERR_PTR(ret);
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 3606e1a7f965..f44f32b182b8 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -630,6 +630,54 @@ struct drm_bridge_funcs {
+ 	 */
+ 	void (*hpd_disable)(struct drm_bridge *bridge);
+ 
++	/**
++	 * @tmds_char_rate_valid:
++	 *
++	 * Check whether a particular TMDS character rate is supported by the
++	 * driver.
++	 *
++	 * This callback is optional and should only be implemented by the
++	 * bridges that take part in the HDMI connector implementation. Bridges
++	 * that implement it shall set set the DRM_BRIDGE_OP_HDMI flag in their
++	 * &drm_bridge->ops.
++	 *
++	 * Returns:
++	 *
++	 * Either &drm_mode_status.MODE_OK or one of the failure reasons
++	 * in &enum drm_mode_status.
++	 */
++	enum drm_mode_status
++	(*tmds_char_rate_valid)(const struct drm_bridge *bridge,
++				const struct drm_display_mode *mode,
++				unsigned long long tmds_rate);
++
++	/**
++	 * @clear_infoframe:
++	 *
++	 * This callback clears the infoframes in the hardware during commit.
++	 * It will be called multiple times, once for every disabled infoframe
++	 * type.
++	 *
++	 * This callback is optional and should only be implemented by the
++	 * bridges that take part in the HDMI connector implementation. Bridges
++	 * that implement it shall set set the DRM_BRIDGE_OP_HDMI flag in their
++	 * &drm_bridge->ops.
++	 */
++	int (*clear_infoframe)(struct drm_bridge *bridge,
++			       enum hdmi_infoframe_type type);
++	/**
++	 * @write_infoframe:
++	 *
++	 * Program the infoframe into the hardware. It will be called multiple
++	 * times, once for every updated infoframe type.
++	 *
++	 * This callback is optional but it must be implemented by bridges that
++	 * set the DRM_BRIDGE_OP_HDMI flag in their &drm_bridge->ops.
++	 */
++	int (*write_infoframe)(struct drm_bridge *bridge,
++			       enum hdmi_infoframe_type type,
++			       const u8 *buffer, size_t len);
++
+ 	/**
+ 	 * @debugfs_init:
+ 	 *
+@@ -705,6 +753,16 @@ enum drm_bridge_ops {
+ 	 * this flag shall implement the &drm_bridge_funcs->get_modes callback.
+ 	 */
+ 	DRM_BRIDGE_OP_MODES = BIT(3),
++	/**
++	 * @DRM_BRIDGE_OP_HDMI: The bridge provides HDMI connector operations,
++	 * including infoframes support. Bridges that set this flag must
++	 * implement the &drm_bridge_funcs->write_infoframe callback.
++	 *
++	 * Note: currently there can be at most one bridge in a chain that sets
++	 * this bit. This is to simplify corresponding glue code in connector
++	 * drivers.
++	 */
++	DRM_BRIDGE_OP_HDMI = BIT(4),
+ };
  
  /**
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 5964ef283022..a97de8255e04 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2147,6 +2147,15 @@ int drmm_connector_init(struct drm_device *dev,
- 			const struct drm_connector_funcs *funcs,
- 			int connector_type,
- 			struct i2c_adapter *ddc);
-+int drm_connector_hdmi_init(struct drm_device *dev,
-+			    struct drm_connector *connector,
-+			    const char *vendor, const char *product,
-+			    const struct drm_connector_funcs *funcs,
-+			    const struct drm_connector_hdmi_funcs *hdmi_funcs,
-+			    int connector_type,
-+			    struct i2c_adapter *ddc,
-+			    unsigned long supported_formats,
-+			    unsigned int max_bpc);
- int drmm_connector_hdmi_init(struct drm_device *dev,
- 			     struct drm_connector *connector,
- 			     const char *vendor, const char *product,
+@@ -773,6 +831,30 @@ struct drm_bridge {
+ 	 * @hpd_cb.
+ 	 */
+ 	void *hpd_data;
++
++	/**
++	 * @vendor: Vendor of the product to be used for the SPD InfoFrame
++	 * generation.
++	 */
++	const char *vendor;
++
++	/**
++	 * @product: Name of the product to be used for the SPD InfoFrame
++	 * generation.
++	 */
++	const char *product;
++
++	/**
++	 * @supported_formats: Bitmask of @hdmi_colorspace listing supported
++	 * output formats. This is only relevant if @DRM_BRIDGE_OP_HDMI is set.
++	 */
++	unsigned int supported_formats;
++
++	/**
++	 * @max_bpc: Maximum bits per char the HDMI bridge supports. This is
++	 * only relevant if @DRM_BRIDGE_OP_HDMI is set.
++	 */
++	unsigned int max_bpc;
+ };
+ 
+ static inline struct drm_bridge *
 
 -- 
 2.39.2
