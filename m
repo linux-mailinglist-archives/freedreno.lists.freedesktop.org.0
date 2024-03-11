@@ -2,79 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30820878440
-	for <lists+freedreno@lfdr.de>; Mon, 11 Mar 2024 16:55:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F269987853C
+	for <lists+freedreno@lfdr.de>; Mon, 11 Mar 2024 17:25:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00B24112B39;
-	Mon, 11 Mar 2024 15:55:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB4FA112B81;
+	Mon, 11 Mar 2024 16:25:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OVAISV5v";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="IaACE91Y";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
- [209.85.219.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46F54112B35
- for <freedreno@lists.freedesktop.org>; Mon, 11 Mar 2024 15:55:48 +0000 (UTC)
-Received: by mail-yb1-f170.google.com with SMTP id
- 3f1490d57ef6-dcc80d6006aso3003142276.0
- for <freedreno@lists.freedesktop.org>; Mon, 11 Mar 2024 08:55:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1710172547; x=1710777347; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=IqC9Cou3SqyEXPU8Ag0leL7h0m2p/RlcBNsi4UjO6rU=;
- b=OVAISV5v6UbPJr9ThD3agw7fNEVC/+NjWAosqXK0wLOmtbYhepPYs865mOLx6ordOH
- /GBUxy2QIt7eSQz4xIV+cBK/IqWrrU0Xus36obTH9j6cKXFLafa0FoChPgZGX1XUmvWf
- jpBTDfV5KB0n70cvTdo4wHFgapOaP92ICphqFFeHlsQw0btObpWTHZKodnZuFHYckKf6
- zIrbwlydH2Pw4bnRRjOu+49r78apu0qzEMLcm81Ec/pdAKgz2LfBzTjulWNGibvgbz7k
- A+rNUqEvneHtujEQbWUY+sUlO4TOGwjU2bSHPJwEMKQVMCu0FXoogv5PAixYQa9Ab41P
- Y5mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710172547; x=1710777347;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=IqC9Cou3SqyEXPU8Ag0leL7h0m2p/RlcBNsi4UjO6rU=;
- b=Tcv9QLGok9LCwJ7wmlcwR72bjSJYLwWD/qsZPqGcP86p3dpaSoAR1DV1NRlNKOf2RT
- w5FTeXY5yVAumxXrACkdQjLSlRxZNEcrKGZqQGj3e7hEURuERhJX7prHTjrM2ZXOamo/
- d2NujMNsFb6Lk6WBu2bzF1rnpHm/jdd37XNvrId3ibR2LVYBWspDn4ipJRmAQLcuyss/
- O8G+Xy8kbupfgcZIn9docM4DPRbXd6Ko9An4c8cpCWlJxTbTFvKsqSPwIF031oDiEL7z
- vLVL8it2KPurnW2IZYgxUHjyoZCUmIBoAo3m+GBqUN2qn3EN//H0hXhAQZFKBmh2CG1o
- fr7g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWOq1Y+8uCdO1bUyp8GmzPAwABs9GH2eLGNDvVd3i5QbvmOxUpk4fe8vOCfJxV12N2/oYLTzuLEd2Fw8AzfgKxik6FOZXRFeOCOIZpwpG9V
-X-Gm-Message-State: AOJu0YyPj34iks6upE7xhSKR6vqQ1qbfah5ZjO76UM04dbRwC98PNKBF
- GrmL1rJpXowmlwtKf9wi2EcnwjYbaCvdx41weuMFRGzFnk2PW+C/PtYzf/Pkn/tOcqYhVbMuJit
- PXrcCbv9tmgpjbsouumyzX0AymPCrWmgSp8UXxA==
-X-Google-Smtp-Source: AGHT+IGNX134IbCCsLQRWXyywz13RFYP9bvVZBJlu71sgGeu+KHfyUSOWNSXf/TCnAknceGuIOz3jGsPdLcOJglC0KA=
-X-Received: by 2002:a25:9388:0:b0:dbf:ec4:311f with SMTP id
- a8-20020a259388000000b00dbf0ec4311fmr4334667ybm.58.1710172547331; Mon, 11 Mar
- 2024 08:55:47 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4D90112B78;
+ Mon, 11 Mar 2024 16:25:55 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 42BCviO3008949; Mon, 11 Mar 2024 16:25:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=Oi+2dD3xUUWjMX4qHJ4iZSBuSq+mktuWEtxXeINTPho=; b=Ia
+ ACE91YGHT1weY4JX77dPHOP/7UwplL0V4G9nXzDRNK36mZkE1I/IAEeAnqyJXBOS
+ xq3NWchm7oW8sXv3FOYAfO50yhEKn+xBCqoyxIC0EsLAJso3R1+3zN1MrorwPma6
+ jbgDhyYg1NDC0W+oTSWIYvDMwK9csLMJVI24k05fKTbA2WucHXzdahugPoNYXpHZ
+ 0HEzsLPfm3205ZGY1PXnlGNho1sfFHHA1og+ICb88FuPMb/6cvxBqb9VQMJVQ/fI
+ jJ3fhsIxWG3Zq7J0l4EKJntrFlDy9KEb6ZC7UsEaI3wogo+02haBw2EzaaNvyCKv
+ N7tzo9mi2y0hTu1HMMNw==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wssyg1t5c-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 11 Mar 2024 16:25:51 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42BGPoRm031420
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 11 Mar 2024 16:25:50 GMT
+Received: from [10.110.16.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 11 Mar
+ 2024 09:25:47 -0700
+Message-ID: <4ae358c7-d627-4472-5268-927b9497a3ad@quicinc.com>
+Date: Mon, 11 Mar 2024 09:25:22 -0700
 MIME-Version: 1.0
-References: <20240309-bridge-hdmi-connector-v2-0-1380bea3ee70@linaro.org>
- <20240309-bridge-hdmi-connector-v2-5-1380bea3ee70@linaro.org>
- <20240311-divergent-friendly-python-2c7d5d@houat>
-In-Reply-To: <20240311-divergent-friendly-python-2c7d5d@houat>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 11 Mar 2024 17:55:36 +0200
-Message-ID: <CAA8EJpo-+qypK4gLrQGcCYi-AVtVzuCjh4HgJ6kRNsMTtNKKMA@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 5/5] drm/msm/hdmi: make use of the
- drm_connector_hdmi framework
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [RFC PATCH] drm/msm/dp: move link_ready out of HPD event thread
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ "Marijn Suijten" <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, <swboyd@chromium.org>,
+ <quic_jesszhan@quicinc.com>, <quic_parellan@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20240306195031.490994-1-quic_abhinavk@quicinc.com>
+Content-Language: en-US
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <20240306195031.490994-1-quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: fut-1TSURf5GiSj6OxyqMIjx7I3a_PsG
+X-Proofpoint-GUID: fut-1TSURf5GiSj6OxyqMIjx7I3a_PsG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-11_10,2024-03-11_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 phishscore=0
+ spamscore=0 lowpriorityscore=0 mlxscore=0 bulkscore=0 priorityscore=1501
+ suspectscore=0 adultscore=0 impostorscore=0 mlxlogscore=999 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2402120000
+ definitions=main-2403110124
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,41 +95,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 11 Mar 2024 at 17:46, Maxime Ripard <mripard@kernel.org> wrote:
+
+On 3/6/2024 11:50 AM, Abhinav Kumar wrote:
+> There are cases where the userspace might still send another
+> frame after the HPD disconnect causing a modeset cycle after
+> a disconnect. This messes the internal state machine of MSM DP driver
+> and can lead to a crash as there can be an imbalance between
+> bridge_disable() and bridge_enable().
 >
-> Hi,
+> This was also previously reported on [1] for which [2] was posted
+> and helped resolve the issue by rejecting commits if the DP is not
+> in connected state.
 >
-> On Sat, Mar 09, 2024 at 12:31:32PM +0200, Dmitry Baryshkov wrote:
-> > Setup the HDMI connector on the MSM HDMI outputs. Make use of
-> > atomic_check hook and of the provided Infoframe infrastructure.
-> >
-> > Note: for now only AVI Infoframes are enabled. Audio Infoframes are
-> > currenly handled separately. This will be fixed for the final version.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> The change resolved the bug but there can also be another race condition.
+> If hpd_event_thread does not pick up the EV_USER_NOTIFICATION and process it
+> link_ready will also not be set to false allowing the frame to sneak in.
 >
-> I had a look at the driver, and it looks like mode_set and mode_valid
-> could use the connector_state tmds_char_rate instead of pixclock and
-> drm_connector_hdmi_compute_mode_clock respectively instead of
-> calculating it by themselves.
-
-Ack, I'll take a look.b
-
+> Lets move setting link_ready outside of hpd_event_thread() processing to
+> eliminate a window of race condition.
 >
-> We can probably remove hdmi->pixclock entirely if we manage to pass the
-> connector state to msm_hdmi_power_on.
-
-I'd like to defer this for a moment, I have a pending series moving
-MSM HDMI PHY drivers to generic PHY subsystem. However that patchset
-reworks the way the PHY is setup, so it doesn't make sense to rework
-msm_hdmi_power_on().
-
+> [1] : https://gitlab.freedesktop.org/drm/msm/-/issues/17
+> [2] : https://lore.kernel.org/all/1664408211-25314-1-git-send-email-quic_khsieh@quicinc.com/
 >
-> And that's unrelated to this series, but we can also remove
-> hdmi->hdmi_mode for drm_display_info.is_hdmi.
-
-Yes, that's the plan, once I rework the audio infoframe handling.
-
--- 
-With best wishes
-Dmitry
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Tested-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_display.c | 7 +++++--
+>   1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 068d44eeaa07..e00092904ccc 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -345,8 +345,6 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
+>   							 dp->panel->downstream_ports);
+>   	}
+>   
+> -	dp->dp_display.link_ready = hpd;
+> -
+>   	drm_dbg_dp(dp->drm_dev, "type=%d hpd=%d\n",
+>   			dp->dp_display.connector_type, hpd);
+>   	drm_bridge_hpd_notify(bridge, dp->dp_display.link_ready);
+> @@ -399,6 +397,8 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
+>   		goto end;
+>   	}
+>   
+> +	dp->dp_display.link_ready = true;
+> +
+>   	dp_add_event(dp, EV_USER_NOTIFICATION, true, 0);
+>   
+>   end:
+> @@ -466,6 +466,8 @@ static int dp_display_notify_disconnect(struct device *dev)
+>   {
+>   	struct dp_display_private *dp = dev_get_dp_display_private(dev);
+>   
+> +	dp->dp_display.link_ready = false;
+> +
+>   	dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
+>   
+>   	return 0;
+> @@ -487,6 +489,7 @@ static int dp_display_handle_port_status_changed(struct dp_display_private *dp)
+>   		drm_dbg_dp(dp->drm_dev, "sink count is zero, nothing to do\n");
+>   		if (dp->hpd_state != ST_DISCONNECTED) {
+>   			dp->hpd_state = ST_DISCONNECT_PENDING;
+> +			dp->dp_display.link_ready = false;
+>   			dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
+>   		}
+>   	} else {
