@@ -2,57 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D35F8791B0
-	for <lists+freedreno@lfdr.de>; Tue, 12 Mar 2024 11:09:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBE6687989D
+	for <lists+freedreno@lfdr.de>; Tue, 12 Mar 2024 17:12:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17F23112D77;
-	Tue, 12 Mar 2024 10:09:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C352910EC0E;
+	Tue, 12 Mar 2024 16:12:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bwpDKae3";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zA87kdqQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA7E7112D76;
- Tue, 12 Mar 2024 10:09:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D104C61001;
- Tue, 12 Mar 2024 10:09:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EAFEC433F1;
- Tue, 12 Mar 2024 10:09:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1710238145;
- bh=AbfRb7Kg3IljFjwdymBcsCC9K7rYKzeKaZKP5Wl6L6w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bwpDKae3eYTmJz4L6IDtofbiuUok6opahnBlZq94FCd30Y3GIjgNw5ETcXZQ0R+cL
- HaVf2wBHGruoBOsRZVGRviZ1ELu8yX06EEA21vuhSVigxG4hDCAzW7P8DOFxHhWJKd
- z8bcmOa/UpsQNkrTnjbroOkwelh2nknMidzWfeDIW/o23UvQW4xWEg2fhyxzpgGpLW
- 9QBWdpPN5bn7kaDc2jQpgX+8oGSdx+NOgY1SAmr/VYd1fHJb/Uti/hOAfVDbNppxkX
- 4ef4Nrwf20XwYhy7qlq0EX2CV1Yf6hq0v+Z06RdToUb3X/WzEfa2H4GZZE/BG6NWRH
- px3uHIF7tsqkw==
-Received: from johan by xi.lan with local (Exim 4.97.1)
- (envelope-from <johan@kernel.org>) id 1rjz4J-000000007YQ-0ATZ;
- Tue, 12 Mar 2024 11:09:11 +0100
-Date: Tue, 12 Mar 2024 11:09:11 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- quic_jesszhan@quicinc.com, quic_parellan@quicinc.com,
- quic_bjorande@quicinc.com, Rob Clark <robdclark@chromium.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dp: move link_ready out of HPD event thread
-Message-ID: <ZfApxyVAJMK4bL8O@hovoldconsulting.com>
-References: <20240308214532.1404038-1-quic_abhinavk@quicinc.com>
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A5F210F058
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Mar 2024 16:12:24 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-513b1e1724bso136651e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Mar 2024 09:12:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1710259942; x=1710864742; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zLG0VkRk9T+MqlwYSwMr85lswH7UeBe9EKEDGZIjNWM=;
+ b=zA87kdqQgbnXsMmzRRot9NQ3lnUbCr6thnEyi/uhoQT9AH9IuFi4hS+b2btJCYevmz
+ uxUAkqo2VoTjknCKMO5ORuawmvNiHcnu7ul9NFz1dFBBMKuGziCaPoDYJ4Ve7d22YYWV
+ 4X6Ail9PhUglaQGtyKTSndKEkbxKtcehYL0h9LgkeV+UBKdKWpuuMYUpck8E9w9P4lZx
+ j1UKqgRJ/u4BVPDw7U20BIO1O15u4rBjiPI3/0dwA5R9w4ENYzjKxjfUoOvmw7eJzIYo
+ RBFKnUj0u8xLnFf73jZooqpt0rwni38RaR9cI0tH/0Iil7y7BxNqLdArZH3ZxK7/5N3Q
+ Ac0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710259942; x=1710864742;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=zLG0VkRk9T+MqlwYSwMr85lswH7UeBe9EKEDGZIjNWM=;
+ b=oyjeAU30Oz2JVNtrPknh6GD3HwHiZcYlLG3+KLuRajnzmJDTTjvFPNmDTOrkxPXN72
+ OVBePK2vkIjf786u8R5xgLBHKFV++Q/4AKdZLhs984k/15p4eaeAO9EzxIVizQRWW1zl
+ VdnoFQw7W3IEpmy1zw4yZDL0nuHgHLRum6/UL6O6TbbQOyovXsHXIEOj1C+FL4cNIBfG
+ SBHoG+r/9+eF0w17M+vIgR1WKUtAEL0T4KnHHPtqB3y5bqxC5cnq6oNd/bs4kykpYyFa
+ 8JqTiQvYYs4s5pvFlcl0bl5P+3LbU+AmkjGSmh9VyLbMljklPjfZZbafBAtznAUCV/C8
+ 90hw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVtVCqrAGSLXgrphcK1bLq/m4nMEA27PdAgzk/NYSd7wGkuFHvwZjqUuVrIBfAqGOL7FMqFXwsDr9o44TGdmOUbBwLjYJ7+RPe5CMydLVgZ
+X-Gm-Message-State: AOJu0YzOJIBQJ+W0HlrkV7sD5PA+CK3rGUqNXb0Z4lY0pLlk12bI+DVJ
+ LJexp1QFqaa/bVqGshYvv2HDIqbwUGe5qNMCts9NnlOy4Lpuam0qc14yueSFxJ0=
+X-Google-Smtp-Source: AGHT+IHFOEHl33gs0on8qTVXiyJ+aHRxksDiQ505Q8fof/YGiXciDjx8sbsbVrPzSuDgBdzksPF1+g==
+X-Received: by 2002:ac2:4d0f:0:b0:513:488a:95af with SMTP id
+ r15-20020ac24d0f000000b00513488a95afmr1774lfi.15.1710259942295; 
+ Tue, 12 Mar 2024 09:12:22 -0700 (PDT)
+Received: from [87.246.221.205]
+ (netpanel-87-246-221-205.pol.akademiki.lublin.pl. [87.246.221.205])
+ by smtp.gmail.com with ESMTPSA id
+ o5-20020ac24945000000b0051321db6a0dsm1634984lfi.139.2024.03.12.09.12.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Mar 2024 09:12:21 -0700 (PDT)
+Message-ID: <83734790-85c5-446f-b353-f3765cb10d41@linaro.org>
+Date: Tue, 12 Mar 2024 17:12:19 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240308214532.1404038-1-quic_abhinavk@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/7] clk: qcom: clk-alpha-pll: Add HUAYRA_2290 support
+Content-Language: en-US
+To: Trilok Soni <quic_tsoni@quicinc.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20240219-topic-rb1_gpu-v2-0-2d3d6a0db040@linaro.org>
+ <20240219-topic-rb1_gpu-v2-2-2d3d6a0db040@linaro.org>
+ <605d9e50-d61b-b0ce-1664-00554ba70b41@quicinc.com>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <605d9e50-d61b-b0ce-1664-00554ba70b41@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,74 +101,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 08, 2024 at 01:45:32PM -0800, Abhinav Kumar wrote:
-> There are cases where the userspace might still send another
-> frame after the HPD disconnect causing a modeset cycle after
-> a disconnect. This messes the internal state machine of MSM DP driver
-> and can lead to a crash as there can be an imbalance between
-> bridge_disable() and bridge_enable().
 
-Can you be more specific here? What steps would lead to this issue and
-how exactly does is mess with the state machine? Is there an easy way
-to reproduce it (e.g. by instrumenting the code with some sleep)?
 
-The hotplug code is really convoluted and having a clear description of
-the problem is needed to evaluate the patch (including when revisiting
-it some time from now when I've forgotten about how this state machine
-works).
-
-As you know, we ran into a related issue on sc8280xp (X13s) since
-6.8-rc1, but that did not involve any user space interaction at all.
-
-For reference, there are some more details in this thread:
-
-	https://lore.kernel.org/all/Ze8Ke_M2xHyPYCu-@hovoldconsulting.com/
- 
-> This was also previously reported on [1] for which [2] was posted
-> and helped resolve the issue by rejecting commits if the DP is not
-> in connected state.
+On 2/23/24 23:48, Trilok Soni wrote:
+> On 2/23/2024 1:21 PM, Konrad Dybcio wrote:
+>> +	/* Wait 50us for PLL_LOCK_DET bit to go high */
+>> +	usleep_range(50, 55);
+>> +
+>> +	/* Enable PLL output */
+>> +	regmap_update_bits(regmap, PLL_MODE(pll), PLL_OUTCTRL, PLL_OUTCTRL);
+>> +}
+>> +EXPORT_SYMBOL(clk_huayra_2290_pll_configure);
 > 
-> The change resolved the bug but there can also be another race condition.
-> If hpd_event_thread does not pick up the EV_USER_NOTIFICATION and process it
-> link_ready will also not be set to false allowing the frame to sneak in.
+> Please use EXPORT_SYMBOL_GPL.
 
-How could the event thread fail to pick up the notification event? Or do
-you mean there's a race window before it has been processed?
+Sure, I glanced over this!
 
-> Lets move setting link_ready outside of hpd_event_thread() processing to
-> eliminate a window of race condition.
+I've also noticed that it's a very common oversight.. would you be
+interested in extending scripts/checkpatch.pl to suggest the _GPL
+variant?
 
-As we discussed in thread above, this patch does not eliminate the race,
-even if it may reduce the race window.
- 
-> [1] : https://gitlab.freedesktop.org/drm/msm/-/issues/17
-> [2] : https://lore.kernel.org/all/1664408211-25314-1-git-send-email-quic_khsieh@quicinc.com/
-> 
-> Fixes: 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display enable and disable")
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-> @@ -466,6 +466,8 @@ static int dp_display_notify_disconnect(struct device *dev)
->  {
->  	struct dp_display_private *dp = dev_get_dp_display_private(dev);
->  
-> +	dp->dp_display.link_ready = false;
-
-As I also pointed out in the other thread, setting link_ready to false
-here means that any spurious connect event (during physical disconnect)
-will always be processed, something which can currently lead to a leaked
-runtime pm reference.
-
-Wasting some power is of course preferred over crashing the machine, but
-please take it into consideration anyway.
-
-Especially if your intention with this patch was to address the resets
-we saw with sc8280xp which are gone since the HPD notify revert (which
-fixed the hotplug detect issue that left the bridge in a
-half-initialised state).
-
-> +
->  	dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
->  
->  	return 0;
-
-Johan
+Konrad
