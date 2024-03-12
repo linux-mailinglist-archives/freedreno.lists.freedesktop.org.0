@@ -2,116 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3BAF878F6B
-	for <lists+freedreno@lfdr.de>; Tue, 12 Mar 2024 09:05:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20230878FBF
+	for <lists+freedreno@lfdr.de>; Tue, 12 Mar 2024 09:31:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFC8310F13A;
-	Tue, 12 Mar 2024 08:05:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A32C1122D0;
+	Tue, 12 Mar 2024 08:31:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ORTE28JH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ArsYcGPK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9388510F160
- for <freedreno@lists.freedesktop.org>; Tue, 12 Mar 2024 08:05:36 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5131316693cso7075129e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 12 Mar 2024 01:05:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1710230734; x=1710835534; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=jNhIiSk+Z5h7g58HyZqwQPvyGLzPtdGbAZ8dMYbx7vI=;
- b=ORTE28JHyJq21gaj85nVgyeh0hAi1nAAXjHsd+EDmlMs9bcPhS4Y2tdXhNK7gIIKIg
- YBYKrfjuW3ukNG2xm+5gyghSpQHpEpT83RXmhYlyDwMTOtxIATlp/kwNZM6+lhjsAgSP
- tBSnHAhux/7DdCBEdqXrNiOm7BlLzDovQIFkIzMEYvExdXcVEeXIrjRSs4+Vowhn9byO
- stJlsDZhut1HcnQ8XbwYBcWm7dVTfhuECPPv3fB7BrfWxynv5xu/2NXZeH/h8wihPX70
- E7/PiMesi2p+8j9xgwM6TcLj4kNO8Qea0tvdGRlpXPzf6RjQIkRT+IvdqVEyGlg7LVN9
- XEpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710230734; x=1710835534;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=jNhIiSk+Z5h7g58HyZqwQPvyGLzPtdGbAZ8dMYbx7vI=;
- b=qXXSgV1R7VzPYwAEyIGODmaj+lnpkH/T8OAK09mFyr0gekptEiEEzkzp/WB0oI+yVK
- VENL2vI3aY0Kzdn2olZfyEsrEzZgbHc97SFpqjSiIaVrgAaTlCnAiZlwWL+hiBn1dn5/
- YABH5W+AsfUpGk0VCsRYj7me+caSUV5Bzjci50NZ9IohuOx8SCxGLDbOvyvz3FDBQxCU
- +ccPsiS9JRp2KubFA+XUKM9yY5D1aGJf1Hb9Hd1vkZcxeq1UQ+SKr67pNrA2pmzupV64
- egyUpS0AwS++oRTpE/BUXOsSnc8buxcAKrbPYyeM+qIoWktfhm4dUwz0FFAbd/WDOgUn
- lfUQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX/91AxuC4ALxJKxu1qOGgzl3ifuxynlthSJMWTQGWmgR0env5Q9Nz9ofzV4tjQ6IA/g8rg/94TcYesEAs1eeHsPiYOwX0X0admcOzqQLWo
-X-Gm-Message-State: AOJu0YzB1SOPHETtrtmZYDwIHim4naDUkPaRMkEaW/djqWaXp0mMAAaP
- RZIojxG3G3po2qwU3PDl+s/XYYxFtPm2arH8VifS7Sdt2370ZuGM147yalSDSNw=
-X-Google-Smtp-Source: AGHT+IG4QPJ/TiB3jCYWhKuqaIF6uwCpxH4sxUSkpI/eODFRgTCdlGv3wdSZiCSU8jKcNYNuaJYh1A==
-X-Received: by 2002:a05:6512:3b12:b0:513:2329:4308 with SMTP id
- f18-20020a0565123b1200b0051323294308mr2609363lfv.14.1710230734412; 
- Tue, 12 Mar 2024 01:05:34 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:8238:61bd:7273:ad90?
- ([2a01:e0a:982:cbb0:8238:61bd:7273:ad90])
- by smtp.gmail.com with ESMTPSA id
- co11-20020a0560000a0b00b0033e94233284sm5231038wrb.78.2024.03.12.01.05.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Mar 2024 01:05:33 -0700 (PDT)
-Message-ID: <fd983e63-b546-4260-93ec-ebee4d158f21@linaro.org>
-Date: Tue, 12 Mar 2024 09:05:32 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 6/7] arm64: dts: qcom: sm8650: add GPU nodes
-Content-Language: en-US, fr
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FC73112268;
+ Tue, 12 Mar 2024 08:31:23 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id E468861036;
+ Tue, 12 Mar 2024 08:31:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 969D2C433C7;
+ Tue, 12 Mar 2024 08:31:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1710232282;
+ bh=ncyot6GZVlpy2LYZy0ZH/PUatwzNeQz1tW9YE81ui3c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ArsYcGPK1Nefx4rCHDQ5BLI3uYbqXqHkK96AybpsjZT7FAKKxhDT5Z4mUffTfMlWl
+ Fxzphszn3bX/RXuJCge442ZflprWulEV1qLtYVbEPRhYefNHp+XNT9xHWWlwEFJaFG
+ iJXdp7rBBmI5NFQDh8t925ZE4jpQ79M1rSeuCpL2ErLl7iQb1xHiGyf/Vxmtx7Y6AZ
+ hMqm/DWW+CUhqMrW//3EX1oEBBWHIcBqedYtrWwH8OpP+zp4wIJfwlWS8FLUkMC3Ax
+ IUZt3iMScNzb2t4hH/ddHY2xZUEXdVlh+vBEtayNtjGV5k5c7kGRDKDWK1VKHAdB6e
+ BnZn2hH4i+OoA==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+ (envelope-from <johan@kernel.org>) id 1rjxXk-000000007Ib-21Kk;
+ Tue, 12 Mar 2024 09:31:28 +0100
+Date: Tue, 12 Mar 2024 09:31:28 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Daniel Thompson <daniel.thompson@linaro.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-References: <20240216-topic-sm8650-gpu-v3-0-eb1f4b86d8d3@linaro.org>
- <20240216-topic-sm8650-gpu-v3-6-eb1f4b86d8d3@linaro.org>
- <58d5b209-94f6-43be-89e0-b14f5e30fd8c@linaro.org>
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <58d5b209-94f6-43be-89e0-b14f5e30fd8c@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ Bjorn Andersson <quic_bjorande@quicinc.com>,
+ quic_jesszhan@quicinc.com, quic_sbillaka@quicinc.com,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: drm/msm: DisplayPort hard-reset on hotplug regression in 6.8-rc1
+Message-ID: <ZfAS4MOXn_3Nk2OR@hovoldconsulting.com>
+References: <Zd3kvD02Qvsh2Sid@hovoldconsulting.com>
+ <ZesH21DcfOldRD9g@hovoldconsulting.com>
+ <56de6cfb-fe0f-de30-d4d0-03c0fbb0afbb@quicinc.com>
+ <ZeyOmJLlBbwnmaJN@hovoldconsulting.com>
+ <Ze8Ke_M2xHyPYCu-@hovoldconsulting.com>
+ <b1ae6e39-10c3-0ee1-11f4-3436c3e4ec1a@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b1ae6e39-10c3-0ee1-11f4-3436c3e4ec1a@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,70 +71,114 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/03/2024 01:20, Konrad Dybcio wrote:
-> 
-> 
-> On 2/16/24 12:03, Neil Armstrong wrote:
->> Add GPU nodes for the SM8650 platform.
->>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->>   arch/arm64/boot/dts/qcom/sm8650.dtsi | 166 +++++++++++++++++++++++++++++++++++
->>   1 file changed, 166 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> index 62e6ae93a9a8..27dcef27b6ad 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> @@ -2589,6 +2589,128 @@ tcsr: clock-controller@1fc0000 {
->>               #reset-cells = <1>;
->>           };
->> +        gpu: gpu@3d00000 {
->> +            compatible = "qcom,adreno-43051401", "qcom,adreno";
->> +            reg = <0x0 0x03d00000 0x0 0x40000>,
->> +                  <0x0 0x03d9e000 0x0 0x1000>,
->> +                  <0x0 0x03d61000 0x0 0x800>;
->> +            reg-names = "kgsl_3d0_reg_memory",
->> +                    "cx_mem",
->> +                    "cx_dbgc";
->> +
->> +            interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
->> +
->> +            iommus = <&adreno_smmu 0 0x0>,
->> +                 <&adreno_smmu 1 0x0>;
->> +
->> +            operating-points-v2 = <&gpu_opp_table>;
->> +
->> +            qcom,gmu = <&gmu>;
->> +
->> +            status = "disabled";
->> +
->> +            zap-shader {
->> +                memory-region = <&gpu_micro_code_mem>;
->> +            };
->> +
->> +            /* Speedbin needs more work on A740+, keep only lower freqs */
->> +            gpu_opp_table: opp-table {
->> +                compatible = "operating-points-v2";
->> +
->> +                opp-680000000 {
->> +                    opp-hz = /bits/ 64 <680000000>;
->> +                    opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
->> +                };
-> 
-> I got a memo from krzk that we should be sorting OPPs low-to-high,
-> could you please reorder these (and under gmu)?
+On Mon, Mar 11, 2024 at 09:51:29AM -0700, Abhinav Kumar wrote:
+> On 3/11/2024 6:43 AM, Johan Hovold wrote:
+> > On Sat, Mar 09, 2024 at 05:30:17PM +0100, Johan Hovold wrote:
+> >> On Fri, Mar 08, 2024 at 09:50:17AM -0800, Abhinav Kumar wrote:
 
-Ack, I also add 3 more OPPs that works with all speedbins.
+> >>> I have posted my analysis with the patch here as a RFC y'day:
+> >>>
+> >>> https://patchwork.freedesktop.org/patch/581758/
 
-Neil
+> > I was able to reproduce the reset with some of my debug printks in place
+> > after reapplying the reverted hpd notify change so I have an explanation
+> > for (one of) the ways we can up in this state now.
+> > 
+> > This does not match description of the problem in the fix linked to
+> > above and I don't think that patch solves the underlying issue even if
+> > it may make the race window somewhat smaller. More details below.
 
+> Its the same condition you described below that enable does not go 
+> through and we bail out as we are in ST_DISCONNECTED.
+
+It's closely related but clearly not the same as user space is not
+involved in the reset I see.
+ 
+> > Turns out there are paths like that and we hit those more often before
+> > reverting e467e0bde881 ("drm/msm/dp: use drm_bridge_hpd_notify().
+> > 
+> > Specifically, when a previous connect attempt did not enable the bridge
+> > fully so that it is still in the ST_MAINLINK_READY when we receive a
+> > disconnect event, dp_hpd_unplug_handle() will turn of the link clock.
+> > 
+> > [  204.527625] msm-dp-display ae98000.displayport-controller: dp_bridge_hpd_notify - link_ready = 1, status = 2
+> > [  204.531553] msm-dp-display ae98000.displayport-controller: dp_hpd_unplug_handle
+> > [  204.533261] msm-dp-display ae98000.displayport-controller: dp_ctrl_off_link
+> > 
+> > A racing connect event, such as the one I described earlier, can then
+> > try to enable the bridge again but dp_bridge_atomic_enable() just bails
+> > out early (and leaks a rpm reference) because we're now in
+> > ST_DISCONNECTED:
+> > 
+> > [  204.535773] msm-dp-display ae98000.displayport-controller: dp_bridge_hpd_notify - link_ready = 1, status = 1
+> > [  204.536187] [CONNECTOR:35:DP-2] status updated from disconnected to connected
+> > [  204.536905] msm-dp-display ae98000.displayport-controller: dp_display_notify_disconnect - would clear link ready (1), state = 0
+> > [  204.537821] msm-dp-display ae98000.displayport-controller: dp_bridge_atomic_check - link_ready = 1
+> > [  204.538063] msm-dp-display ae98000.displayport-controller: dp_display_send_hpd_notification - hpd = 0, link_ready = 1
+> > [  204.542778] msm-dp-display ae98000.displayport-controller: dp_bridge_atomic_enable
+> > [  204.586547] msm-dp-display ae98000.displayport-controller: dp_bridge_atomic_enable - state = 0 (rpm leak?)
+> > 
+> > Clearing link_ready already in dp_display_notify_disconnect() would make
+> > the race window slightly smaller, but it would essentially just paper
+> > over the bug as the events are still not serialised. Notably, there is
+> > no user space interaction involved here and it's the spurious connect
+> > event that triggers the bridge enable.
+
+> Yes, it only narrows down the race condition window. The issue can still 
+> happen if the commit / modeset was issued before we marked link_ready as 
+> false.
 > 
-> Otherwise lgtm
-> 
-> Konrad
+> And yes, I was only targetting a short term fix till we rework the HPD. 
+> That will happen only incrementally as its a delicate piece of code.
 
+Ok, thanks for confirming. Please also make that clear in the commit
+message of any patch.
+
+I am however not sure that your patch (RFC) is needed at this point as
+the HPD revert fixes the 6.8-rc1 regression, and moving the clearing of
+link_ready can actually make things worse as it makes any spurious
+hotplug event always be processed (not just if they happen after
+dp_display_send_hpd_notification()).
+
+I'll reply to you patch as well.
+ 
+> > So, while it may still be theoretically possible to hit the resets after
+> > the revert, the HPD notify revert effectively "fixed" the regression in
+> > 6.8-rc1 by removing the preconditions that now made us hit it (i.e. the
+> > half-initialised bridge).
+
+> Not entirely. In the bug which was reported before the patch 
+> e467e0bde881 ("drm/msm/dp: use drm_bridge_hpd_notify() got landed, its a 
+> classic example of how this issue can happen with userspace involvement 
+> and not just fbdev client which was your case.
+
+Sure, but you already added some kind of band-aid for that issue, right?
+
+	https://lore.kernel.org/all/1664408211-25314-1-git-send-email-quic_khsieh@quicinc.com/
+
+How likely is it that you'd still hit that? Have you had an reports of
+anyone actually hitting that issue since the above workaround was
+merged?
+
+Note that I, and other users of the X13s, only started hitting the
+resets with 6.8-rc1, which broke hotplug notification and resulted in
+the half-initialised bridges.
+
+I'm not saying it's impossible to hit the unclocked access still, just
+that that does not seem to be relevant for the regression.
+ 
+> > It seems the hotplug state machine needs to be reworked completely, but
+> > at least we're roughly back where we were with 6.7 (including that the
+> > bus clocks will never be turned of because of the rpm leaks on
+> > disconnect).
+
+> Yes, we already landed that revert but I am also planning to land the 
+> patch I had posted till we rework HPD.
+
+Ok, but please consider the implications that would have for any
+spurious connect events first.
+
+Johan
