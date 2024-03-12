@@ -2,59 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 650E5878AE6
-	for <lists+freedreno@lfdr.de>; Mon, 11 Mar 2024 23:46:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24FD4878BDA
+	for <lists+freedreno@lfdr.de>; Tue, 12 Mar 2024 01:20:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3903B112800;
-	Mon, 11 Mar 2024 22:46:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3FC310EA4E;
+	Tue, 12 Mar 2024 00:20:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="HqhuOUUr";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="kQ0LvP0P";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 586 seconds by postgrey-1.36 at gabe;
- Mon, 11 Mar 2024 22:46:43 UTC
-Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com
- [95.215.58.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 668AE112800
- for <freedreno@lists.freedesktop.org>; Mon, 11 Mar 2024 22:46:43 +0000 (UTC)
-Message-ID: <83e2d77c-d12b-4f4f-a759-8e97fd86eff5@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1710196614;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=kUQPkht64sWX7JVV8v7D7kaGK+/xr09KYmGxuaLQzAo=;
- b=HqhuOUUrijOnMo8iwXnOShESjlO2ucwqsLA1yJ3Ss3rkH6Yd1JmhQ4kEi35gjRlnEl+W5y
- WbO5+7os9DpccK6BVJft3mXh5wSgShvrwfDcOXvh0m84UdqUgJQjPU/E7xJsQIpKyNC+zm
- tIAJuScW36ApYLQ4wf4CbL+4aD0kEj4=
-Date: Tue, 12 Mar 2024 06:36:31 +0800
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A216D10EDC4
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Mar 2024 00:20:27 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-5131c0691feso6421205e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Mar 2024 17:20:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1710202825; x=1710807625; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Y6Qj+d193V6vAwzUIxkG37xPPAUPTTqW49/CnKjXQd8=;
+ b=kQ0LvP0PR5rwha0BFRvrK79ua9alYl99Xh7eF/dYOvG8Dy7PE/mpb0EDSk3kBdgsjN
+ iHB2fLEzJsYhGa1Mqe+jEodmLo8RGEJEwU0YYrPI/CexobzahWk/dyk/feFO5IngsoOi
+ 343wKYjIpRaxFhwnXZyVivM53OwSURJNsHdMxkBBcUj7BRsvE7SXZW52c00UHjQg3x1Q
+ d9jsMziMVlftmTWe2hKtjCXNcGg/NsdfGqQmhOo7H1/iLwR/9eNcgSqNcg9/46dIHDTd
+ dB8/QhKY/VBUXDT+geHFC5FMs3rUQuAX36SnXQYkEr44D6Ua2XD7TyQmnkggJf66c0Lc
+ e2Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710202825; x=1710807625;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Y6Qj+d193V6vAwzUIxkG37xPPAUPTTqW49/CnKjXQd8=;
+ b=frsQK/0LetFeY/rxih1CXim/qOwOHYPP789RVfo6wh/H23JtM7Qk3ebOlxqaoYMaOq
+ 9EOs1VaRXSZ/Q9bP3PGLlGgDRCtaPYe+ReccrBjwdFRc9qH3Bh/aYKVYd2Tr2e4CnSP5
+ 6j12ogPoB/ZFkGmJu96m0g2m0zASdd6CPAgGQ1IqwQtgPVf43hrQ7ijijKwxXbLlb8jQ
+ J1MVzu7lPb+z6gV4iSiclirMJiji4eskmn2FD5L0AGzebrEGcy1lEEtIuORfuG7JC3uL
+ WEDVX1EJMk0VFgBYQXJFwkR/GE+g+TEWLhulN5PkFN5UZMdPGdvOHnJx6bdi/y/U2OlO
+ SVpw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXIv4rTTlTe9w/tkB5NKvgfYkustVaKxKSa66TnTWUunbqRnTwQXzEua/+kDghzYZGuHTUJJmVIoVfrMLihUsJMnxgViIRK9NIhU75ZD1Lw
+X-Gm-Message-State: AOJu0Yyhi2fANlKsUQFDXnu3iMUablJ3QIf03cp/RdmQyGiRC9wyccI4
+ wfMrsmYnfsr0v5C1C9yxlTQZbxAVZ+MTtwLchZFrb89pMVO3sLLbZuGHjIYRCvE=
+X-Google-Smtp-Source: AGHT+IECykpsirV8o3fAnfpG+ZqnLDETPl8qxRjl1ccJmT0u7F6lmAy4sP57NbpxufW8iWZ12UsN4w==
+X-Received: by 2002:ac2:485c:0:b0:513:c3:1d94 with SMTP id
+ 28-20020ac2485c000000b0051300c31d94mr4909736lfy.52.1710202825462; 
+ Mon, 11 Mar 2024 17:20:25 -0700 (PDT)
+Received: from [172.30.205.61] (UNUSED.212-182-62-129.lubman.net.pl.
+ [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
+ h18-20020a056512221200b0051354f006b9sm1316460lfu.56.2024.03.11.17.20.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Mar 2024 17:20:25 -0700 (PDT)
+Message-ID: <58d5b209-94f6-43be-89e0-b14f5e30fd8c@linaro.org>
+Date: Tue, 12 Mar 2024 01:20:21 +0100
 MIME-Version: 1.0
-Subject: Re: [10/13] drm/fbdev-generic: Fix locking with
- drm_client_buffer_vmap_local()
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/7] arm64: dts: qcom: sm8650: add GPU nodes
 Content-Language: en-US
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- christian.koenig@amd.com, sumit.semwal@linaro.org,
- dmitry.osipenko@collabora.com, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, kherbst@redhat.com, lyude@redhat.com,
- dakr@redhat.com, airlied@redhat.com, kraxel@redhat.com,
- alexander.deucher@amd.com, Xinhui.Pan@amd.com, zack.rusin@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20240227113853.8464-11-tzimmermann@suse.de>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Sui Jingfeng <sui.jingfeng@linux.dev>
-In-Reply-To: <20240227113853.8464-11-tzimmermann@suse.de>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+References: <20240216-topic-sm8650-gpu-v3-0-eb1f4b86d8d3@linaro.org>
+ <20240216-topic-sm8650-gpu-v3-6-eb1f4b86d8d3@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20240216-topic-sm8650-gpu-v3-6-eb1f4b86d8d3@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,147 +99,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
 
-On 2024/2/27 18:14, Thomas Zimmermann wrote:
-> Temporarily lock the fbdev buffer object during updates to prevent
-> memory managers from evicting/moving the buffer. Moving a buffer
-> object while update its content results in undefined behaviour.
->
-> Fbdev-generic updates its buffer object from a shadow buffer. Gem-shmem
-> and gem-dma helpers do not move buffer objects, so they are safe to be
-> used with fbdev-generic. Gem-vram and qxl are based on TTM, but pin
-> buffer objects are part of the vmap operation. So both are also safe
-> to be used with fbdev-generic.
->
-> Amdgpu and nouveau do not pin or lock the buffer object during an
-> update. Their TTM-based memory management could move the buffer object
-> while the update is ongoing.
->
-> The new vmap_local and vunmap_local helpers hold the buffer object's
-> reservation lock during the buffer update. This prevents moving the
-> buffer object on all memory managers.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+On 2/16/24 12:03, Neil Armstrong wrote:
+> Add GPU nodes for the SM8650 platform.
+> 
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
->   drivers/gpu/drm/drm_client.c        | 68 +++++++++++++++++++++++++----
->   drivers/gpu/drm/drm_fbdev_generic.c |  4 +-
->   drivers/gpu/drm/drm_gem.c           | 12 +++++
->   include/drm/drm_client.h            | 10 +++++
->   include/drm/drm_gem.h               |  3 ++
->   5 files changed, 87 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
-> index 9403b3f576f7b..2cc81831236b5 100644
-> --- a/drivers/gpu/drm/drm_client.c
-> +++ b/drivers/gpu/drm/drm_client.c
-> @@ -304,6 +304,66 @@ drm_client_buffer_create(struct drm_client_dev *client, u32 width, u32 height,
->   	return ERR_PTR(ret);
->   }
+>   arch/arm64/boot/dts/qcom/sm8650.dtsi | 166 +++++++++++++++++++++++++++++++++++
+>   1 file changed, 166 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+> index 62e6ae93a9a8..27dcef27b6ad 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+> @@ -2589,6 +2589,128 @@ tcsr: clock-controller@1fc0000 {
+>   			#reset-cells = <1>;
+>   		};
 >   
-> +/**
-> + * drm_client_buffer_vmap_local - Map DRM client buffer into address space
-> + * @buffer: DRM client buffer
-> + * @map_copy: Returns the mapped memory's address
-> + *
-> + * This function maps a client buffer into kernel address space. If the
-> + * buffer is already mapped, it returns the existing mapping's address.
-> + *
-> + * Client buffer mappings are not ref'counted. Each call to
-> + * drm_client_buffer_vmap_local() should be closely followed by a call to
-> + * drm_client_buffer_vunmap_local(). See drm_client_buffer_vmap() for
-> + * long-term mappings.
-> + *
-> + * The returned address is a copy of the internal value. In contrast to
-> + * other vmap interfaces, you don't need it for the client's vunmap
-> + * function. So you can modify it at will during blit and draw operations.
-> + *
-> + * Returns:
-> + *	0 on success, or a negative errno code otherwise.
-> + */
-> +int drm_client_buffer_vmap_local(struct drm_client_buffer *buffer,
-> +				 struct iosys_map *map_copy)
-> +{
-> +	struct drm_gem_object *gem = buffer->gem;
-> +	struct iosys_map *map = &buffer->map;
-> +	int ret;
+> +		gpu: gpu@3d00000 {
+> +			compatible = "qcom,adreno-43051401", "qcom,adreno";
+> +			reg = <0x0 0x03d00000 0x0 0x40000>,
+> +			      <0x0 0x03d9e000 0x0 0x1000>,
+> +			      <0x0 0x03d61000 0x0 0x800>;
+> +			reg-names = "kgsl_3d0_reg_memory",
+> +				    "cx_mem",
+> +				    "cx_dbgc";
 > +
-> +	drm_gem_lock(gem);
+> +			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
 > +
-> +	ret = drm_gem_vmap(gem, map);
-> +	if (ret)
-> +		goto err_drm_gem_vmap_unlocked;
-> +	*map_copy = *map;
+> +			iommus = <&adreno_smmu 0 0x0>,
+> +				 <&adreno_smmu 1 0x0>;
 > +
-> +	return 0;
+> +			operating-points-v2 = <&gpu_opp_table>;
 > +
-> +err_drm_gem_vmap_unlocked:
-> +	drm_gem_unlock(gem);
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_client_buffer_vmap_local);
+> +			qcom,gmu = <&gmu>;
 > +
-> +/**
-> + * drm_client_buffer_vunmap_local - Unmap DRM client buffer
-> + * @buffer: DRM client buffer
-> + *
-> + * This function removes a client buffer's memory mapping established
-> + * with drm_client_buffer_vunmap_local(). Calling this function is only
-> + * required by clients that manage their buffer mappings by themselves.
-> + */
-> +void drm_client_buffer_vunmap_local(struct drm_client_buffer *buffer)
-> +{
-> +	struct drm_gem_object *gem = buffer->gem;
-> +	struct iosys_map *map = &buffer->map;
+> +			status = "disabled";
 > +
-> +	drm_gem_vunmap(gem, map);
-> +	drm_gem_unlock(gem);
-> +}
-> +EXPORT_SYMBOL(drm_client_buffer_vunmap_local);
+> +			zap-shader {
+> +				memory-region = <&gpu_micro_code_mem>;
+> +			};
 > +
->   /**
->    * drm_client_buffer_vmap - Map DRM client buffer into address space
->    * @buffer: DRM client buffer
-> @@ -331,14 +391,6 @@ drm_client_buffer_vmap(struct drm_client_buffer *buffer,
->   	struct iosys_map *map = &buffer->map;
->   	int ret;
->   
-> -	/*
-> -	 * FIXME: The dependency on GEM here isn't required, we could
-> -	 * convert the driver handle to a dma-buf instead and use the
-> -	 * backend-agnostic dma-buf vmap support instead. This would
-> -	 * require that the handle2fd prime ioctl is reworked to pull the
-> -	 * fd_install step out of the driver backend hooks, to make that
-> -	 * final step optional for internal users.
-> -	 */
->   	ret = drm_gem_vmap_unlocked(buffer->gem, map);
->   	if (ret)
->   		return ret;
-> diff --git a/drivers/gpu/drm/drm_fbdev_generic.c b/drivers/gpu/drm/drm_fbdev_generic.c
-> index d647d89764cb9..be357f926faec 100644
-> --- a/drivers/gpu/drm/drm_fbdev_generic.c
-> +++ b/drivers/gpu/drm/drm_fbdev_generic.c
-> @@ -197,14 +197,14 @@ static int drm_fbdev_generic_damage_blit(struct drm_fb_helper *fb_helper,
->   	 */
->   	mutex_lock(&fb_helper->lock);
->   
-> -	ret = drm_client_buffer_vmap(buffer, &map);
-> +	ret = drm_client_buffer_vmap_local(buffer, &map);
->   	if (ret)
->   		goto out;
->   
->   	dst = map;
+> +			/* Speedbin needs more work on A740+, keep only lower freqs */
+> +			gpu_opp_table: opp-table {
+> +				compatible = "operating-points-v2";
+> +
+> +				opp-680000000 {
+> +					opp-hz = /bits/ 64 <680000000>;
+> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+> +				};
 
-Then, please remove the local variable 'dst' (struct iosys_map) at here.
-As you said, the returned iosys_map is another copy of the original backup,
-we can play with this local variable at will, there no need to duplicate
-another time again.
+I got a memo from krzk that we should be sorting OPPs low-to-high,
+could you please reorder these (and under gmu)?
 
-I have modified and tested with fbdev generic, no problem. With this trivial
-issue resolved. For fbdev-generic:
+Otherwise lgtm
 
-
-Acked-by: Sui Jingfeng <sui.jingfeng@linux.dev>
-
-
+Konrad
