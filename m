@@ -2,86 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB00787C029
-	for <lists+freedreno@lfdr.de>; Thu, 14 Mar 2024 16:29:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C07D087C07B
+	for <lists+freedreno@lfdr.de>; Thu, 14 Mar 2024 16:38:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C190A10E995;
-	Thu, 14 Mar 2024 15:29:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C41A10E771;
+	Thu, 14 Mar 2024 15:38:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="j1xM3MVu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Yp5kedXY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
- [209.85.222.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F078410EEA6
- for <freedreno@lists.freedesktop.org>; Thu, 14 Mar 2024 15:29:32 +0000 (UTC)
-Received: by mail-qk1-f172.google.com with SMTP id
- af79cd13be357-7881fae7208so46523585a.0
- for <freedreno@lists.freedesktop.org>; Thu, 14 Mar 2024 08:29:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1710430171; x=1711034971;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tuhQc5l9apEej2H4LOTY9yaoxPUBJy/wLmmpg/Pkruk=;
- b=j1xM3MVup0J/mS1dIYCQ8JpKmOo92XsbhDyEaRH4RigNTgX8zzx4PkzeSvLi8jBRR9
- 5PqpTmTDe68D/ng3vBQOR0OJQW6ag5HQA7frcXaiOTRwQ7gEaEtfeaoRIuRFJidDl20a
- mBD7Pc6wNdIurlESu1g9pWPemqDhrpdfCbq1o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710430171; x=1711034971;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tuhQc5l9apEej2H4LOTY9yaoxPUBJy/wLmmpg/Pkruk=;
- b=G/ht4l4VZAYmekDHEzvwCtRefyfVBy8bZ8VeM0h+EMor8MsIuOP8weOJA+9Wgh/e8h
- SISJrPmW5tb5a4qXiGT57aAQwqT0NMn/Fr2rYeiq3i4RTu07z9i9YKubEG4p0zmxHmD0
- SXQoXzmoBDr+BDXpeJtF5aFTVXgNKm2O6V6xlmV9NAwXuJQAyEIADaYKizKczyEIwY3s
- MkC21eRes0QxO/+r6K5pxs2X/o/qc9D4HWA6JML9cG84jV/oMQZkQm5wACVet0/FhQcc
- qeCnIDTIYXLkEdnzwYGj2RZHNbsXWVEPbLOyi62xW+XgTWHcfJkXiTzC+fH2EMjNWh7+
- OEAQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWoU7jJBCeACzI5LsRh3fVKrTRSR5V2kyf38YWqIpkqVVZcL8GcNSlFJEQD09+LCWNL/f0HFXx+OZPXXbTtLeT/ziBr+paMlIWxagtFtmW3
-X-Gm-Message-State: AOJu0YytscjlMFy3U36XICKcrXxEzPX+CQ4zPCjYIMR229JcUAlOHNzq
- 6fr0Cw2ElHTyJrPiEQegn/1GSSFJbL/5j4IGkTaU8JrykcVHZzD+zKPeeLQevYq6MNyd3J7mUfE
- qEQ==
-X-Google-Smtp-Source: AGHT+IHxfPuwha5GEENsDS4MPeQlO6mohtEmIvfHwZV/TxlaFpxW7d7iavU9SoluSS9xULfVEP4H6g==
-X-Received: by 2002:a05:620a:134c:b0:788:6a76:5f80 with SMTP id
- c12-20020a05620a134c00b007886a765f80mr2469525qkl.56.1710430171045; 
- Thu, 14 Mar 2024 08:29:31 -0700 (PDT)
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com.
- [209.85.160.176]) by smtp.gmail.com with ESMTPSA id
- pi48-20020a05620a37b000b007882d64d57csm945270qkn.29.2024.03.14.08.29.29
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Mar 2024 08:29:30 -0700 (PDT)
-Received: by mail-qt1-f176.google.com with SMTP id
- d75a77b69052e-43095dcbee6so324241cf.0
- for <freedreno@lists.freedesktop.org>; Thu, 14 Mar 2024 08:29:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCX7nFmsUEg4kcnQ3RNRQDYAPsW46TGaqjJbNavaOTdevNGkBEF795CH9YipMtMTnDldAWrSaYWIDFQxAuU9q9BmPBcchHdQS7FzHrOq+UNv
-X-Received: by 2002:ac8:474e:0:b0:430:90af:43c3 with SMTP id
- k14-20020ac8474e000000b0043090af43c3mr272846qtp.21.1710430169466; Thu, 14 Mar
- 2024 08:29:29 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240307093727.1978126-1-colin.i.king@gmail.com>
-In-Reply-To: <20240307093727.1978126-1-colin.i.king@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 14 Mar 2024 08:29:12 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XQ5XBT4Jt6VUgVqxsn7NQZjDCTRFOFk5Fr+Fxkpv55SQ@mail.gmail.com>
-Message-ID: <CAD=FV=XQ5XBT4Jt6VUgVqxsn7NQZjDCTRFOFk5Fr+Fxkpv55SQ@mail.gmail.com>
-Subject: Re: [PATCH][next] drm/msm: remove unused variable 'out'
-To: Colin Ian King <colin.i.king@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A75C10FAF4;
+ Thu, 14 Mar 2024 15:38:52 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 4F942CE1BAB;
+ Thu, 14 Mar 2024 15:38:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85A57C43394;
+ Thu, 14 Mar 2024 15:38:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1710430728;
+ bh=25+oSLohufS1F0hk5bKd4qAm5WyyDeaKDIKZc6a6dso=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Yp5kedXYYCIMShry1VN9jsQW/CFeU+w1qtrlziM5ZKyHxwSjEuuCvt6hwBF1JENVo
+ dZZTTGwj3sbXmZMiYNNoPRGKOQOw+OgavxWafov5UUWk9c8rfOgvoOzujzjI7YaGB5
+ Tr6L6STszeeFgcYOZMuWdN8E6iGFvb5R1nUlLMXTqylPee3tTL8qFkR52TmP1T9ZVD
+ nsgzxyULjLWBluX8aMubceiUFbR/yYvSOL70nFj1QniC/zWhrjIpWCWJZp01yU5upl
+ Tugmlmv6LZHqEv05fz2U+Y/uIvhvUVrOG9MyrTnL9Ietm1i10D3FlOe96KxihiUgM3
+ RwKTCz39BeOiw==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+ (envelope-from <johan@kernel.org>) id 1rknAW-0000000050R-1nFB;
+ Thu, 14 Mar 2024 16:38:57 +0100
+Date: Thu, 14 Mar 2024 16:38:56 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org,
+ quic_jesszhan@quicinc.com, quic_parellan@quicinc.com,
+ quic_bjorande@quicinc.com, Rob Clark <robdclark@chromium.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dp: move link_ready out of HPD event thread
+Message-ID: <ZfMaEIzv3Z3ny3y0@hovoldconsulting.com>
+References: <20240308214532.1404038-1-quic_abhinavk@quicinc.com>
+ <ZfApxyVAJMK4bL8O@hovoldconsulting.com>
+ <ZfCFsmNv62-KMkA6@hovoldconsulting.com>
+ <ZfCKDGq9n9WG3Quj@hovoldconsulting.com>
+ <8e125a99-543d-8328-a2a9-100e223e4faf@quicinc.com>
+ <ZfFhXG5yd6O29spS@hovoldconsulting.com>
+ <ec2cba17-5644-6cf6-f6c9-d37d7ca56204@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ec2cba17-5644-6cf6-f6c9-d37d7ca56204@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,22 +74,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On Wed, Mar 13, 2024 at 10:24:08AM -0700, Abhinav Kumar wrote:
+> On 3/13/2024 1:18 AM, Johan Hovold wrote:
 
-On Thu, Mar 7, 2024 at 1:37=E2=80=AFAM Colin Ian King <colin.i.king@gmail.c=
-om> wrote:
->
-> The variable out is being initialized and incremented but it is never
-> actually referenced in any other way. The variable is redundant and can
-> be removed.
->
-> Cleans up clang scan build warning:
-> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: warning: variable
-> 'out' set but not used [-Wunused-but-set-variable]
->
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 3 ---
->  1 file changed, 3 deletions(-)
+> > Right, but your proposed fix would not actually fix anything and judging
+> > from the sparse commit message and diff itself it is clearly only meant
+> > to mitigate the case where user space is involved, which is *not* the
+> > case here.
 
-Tested-by: Douglas Anderson <dianders@chromium.org>
+> There can be a race condition between the time the DP driver gets the 
+> hpd disconnect event and when the hpd thread processes that event 
+> allowing the commit to sneak in. This is something which has always been 
+> there even without pm_runtime series and remains even today.
+> 
+> In this race condition, the setting of "link_ready" to false can be a 
+> bit delayed if we go through the HPD event processing increasing the 
+> race condition window.
+> 
+> If link_ready is false, atomic_check() fails, thereby failing any 
+> commits and hence not allowing the atomic_disable() / atomic_enable() 
+> cycle and hence avoiding this reset.
+> 
+> The patch is moving the setting of link_ready to false earlier by not 
+> putting it through the HPD event thread and hence trying to reduce the 
+> window of the issue.
+
+Perhaps I'm missing something in the race that you are trying to
+describe (and which I've asked you to describe in more detail so that I
+don't have to spend more time trying to come up with a reproducer
+myself).
+
+I do understand how your patch works, but my point is that it does
+not fix the race that we are hitting on sc8280xp and, unless I'm missing
+something, it is not even sufficient to fix the race you are talking
+about as user space can still trigger that ioctl() before you clear the
+link_ready flag.
+
+That's why I said that it is only papering over the issue by making the
+race window smaller (and this should also be highlighted in the commit
+message).
+
+For some reason it also made things worse on sc8280xp, but I did not
+spend time on tracking down exactly why.
+
+Johan
