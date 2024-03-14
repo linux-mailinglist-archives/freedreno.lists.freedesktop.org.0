@@ -2,87 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8668587B2FB
-	for <lists+freedreno@lfdr.de>; Wed, 13 Mar 2024 21:42:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23AA187B582
+	for <lists+freedreno@lfdr.de>; Thu, 14 Mar 2024 01:02:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12BBA10F0E6;
-	Wed, 13 Mar 2024 20:42:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBFB010E02E;
+	Thu, 14 Mar 2024 00:02:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="WcINpUrh";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="KcB7AdIV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2CD10EFB6;
- Wed, 13 Mar 2024 20:42:01 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42DKY4Wn029229; Wed, 13 Mar 2024 20:41:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=jGDGyPpCYBzr/XWv3ffRnHbJkeG0JATe4aKM18IYXF8=; b=Wc
- INpUrhi/9QixN9atA58u/nHIFyNcgX+bEvZbVEAU2MiLMK+8xKphfjUIioruECdk
- dyVnzQaQSleS481Ns3mfbF5W16BhQF6dcl+g5jVSQDpbkpmkqVQm6YAD6o4IHA3R
- CjfWTScHe2Rq5cRI3vONE+rBvMF9Znwn8wVnE4rH6ZQVEEeNYT2WosA0wsA6v/1M
- 3YT7hHTz05Dc+MUSIc7+TUgA112cVRty6fPkPfjrAcIS6KutJBbzZoWUdW5+xDG7
- E2+ZKq0AApseA21pkEQkQHD2Oa5wbzdD/Vuntyzmxz9g256P3vm6OLQ68bo89d03
- Q/hucLfUV8AXonv17qAQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wuc1m96u8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Mar 2024 20:41:22 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42DKfMoh007691
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Mar 2024 20:41:22 GMT
-Received: from [10.110.70.168] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 13 Mar
- 2024 13:41:18 -0700
-Message-ID: <d6ac0328-3d3d-75bc-09b9-ed0190a6a8c5@quicinc.com>
-Date: Wed, 13 Mar 2024 13:41:16 -0700
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC8F10E02E
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Mar 2024 00:02:20 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-513b1e1724bso458383e87.1
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Mar 2024 17:02:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1710374538; x=1710979338; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=FeiSzTwCi2+P1JIq2YaZveHxo9xBvRmuEUfbA8nH/hg=;
+ b=KcB7AdIVltIvrjK2mx2ahqb39MLs4dMcy5VVZR8kjX92aBVpn7cn8bGPbqAT/uGykX
+ E0xhddEya2Iv+CCtoMFRnv/ZWDVK9tEuRxdCopa8+BHkzxRaaX8BECm6JhPq/U6JyEGq
+ TEtkYhXMEWiW7AR8pvCsFG7E4rCIIWi4uoT15aKzSjtttQEqHhERbfcDYOWPeX9s3efz
+ d6IK12K0jJEXXnAOAuqEiFlMU1ZEV43h0LHsNu0aZREEjsYTTQRuwj5Ow8QDiok2tOjZ
+ G/Nk0i0souYX2o3mF2nqb+DFTg6+eQyPKKyay6exhoCpfM9Yn2J919ICVA5JxPT/+VDI
+ FILw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710374538; x=1710979338;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=FeiSzTwCi2+P1JIq2YaZveHxo9xBvRmuEUfbA8nH/hg=;
+ b=sYSw1Zw1EQTfDpFtGXPoz7Fc52uhPu7TULrTLb8UmhNux9ZX7JmPQZkfESxucrmBXc
+ odhVzQFHmTAE+pvJ2YOx9lRLOrPt+U9Kj+aYnePzpnlw+gGeGQo5Hd9Fh2e3NFjjMMOe
+ oFv4Q7bc/3oOMu+srKS3gGz90MXKsKsSu/2aN5KDSemK3yf4vWx6CMcnoZ6AaQA+sqa4
+ l5i5TEDxYUaT7Um33ASERaiX4VDwdElnn8UpOBlGD9JJBvWe0mz1Q8B8Fwk77DBFArFT
+ Hfna9g8rHUKuJJXfmU8Q9Z24vMl2cojQFBWMdrGvO7ZJi9rd3un5suJ/GSJ1715/hkf2
+ SA5Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWxK2Urtv4q2sjPjlIf1i8A1ap194xJYiv1br0e4Y2EoT8j6Ti3ngtqwiWFOnZoHF/fmv2I2e/hnC68SENnM/HyT/Cq9Zm1N98SvkvJ8aJO
+X-Gm-Message-State: AOJu0YyJGLgbYpL6M81MYuD46VMKjzp8wUhft7BB2NdW+9Wk2JaNZYNy
+ 2YK6yigVc1SJQLJaG0oEeCVy4KhkcB87wTW0fScm/EK6J43nwp33pEq+FHa+e4MxcWXWlBYZn4n
+ b
+X-Google-Smtp-Source: AGHT+IFtdclqN3OE7RqShWXdxrVC85SIqVaNFQ57TBoMNm0+PbjGlb49KMOWGCVgP1rVSceRnv/Emg==
+X-Received: by 2002:a05:6512:525:b0:512:b2b0:89d with SMTP id
+ o5-20020a056512052500b00512b2b0089dmr1615356lfc.28.1710374538324; 
+ Wed, 13 Mar 2024 17:02:18 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ x5-20020a19e005000000b00513360ebd22sm46111lfg.118.2024.03.13.17.02.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Mar 2024 17:02:17 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Subject: [PATCH v4 00/13] drm/msm/dpu: support virtual wide planes
+Date: Thu, 14 Mar 2024 02:02:03 +0200
+Message-Id: <20240314000216.392549-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 1/3] drm/msm/dp: Avoid a long timeout for AUX transfer if
- nothing connected
-Content-Language: en-US
-To: Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Bjorn Andersson <andersson@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Guenter Roeck <groeck@chromium.org>,
- "Kuogee Hsieh" <quic_khsieh@quicinc.com>, Marijn Suijten
- <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>, Tanmay Shah
- <tanmay@codeaurora.org>, Vinod Polimera <quic_vpolimer@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20240313001345.2623074-1-dianders@chromium.org>
- <20240312171305.1.I16aff881c9fe82b5e0fc06ca312da017aa7b5b3e@changeid>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240312171305.1.I16aff881c9fe82b5e0fc06ca312da017aa7b5b3e@changeid>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: cGfVRyVlxK486AZoWFi746EbC71fHezU
-X-Proofpoint-GUID: cGfVRyVlxK486AZoWFi746EbC71fHezU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-13_09,2024-03-13_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- impostorscore=0 lowpriorityscore=0 mlxscore=0 malwarescore=0 clxscore=1011
- adultscore=0 phishscore=0 mlxlogscore=999 priorityscore=1501 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2402120000
- definitions=main-2403130159
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,140 +85,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+As promised in the basic wide planes support ([1]) here comes a series
+supporting 2*max_linewidth for all the planes.
 
+Note: Unlike v1 and v2 this series finally includes support for
+additional planes - having more planes than the number of SSPP blocks.
 
-On 3/12/2024 5:13 PM, Douglas Anderson wrote:
-> As documented in the description of the transfer() function of
-> "struct drm_dp_aux", the transfer() function can be called at any time
-> regardless of the state of the DP port. Specifically if the kernel has
-> the DP AUX character device enabled and userspace accesses
-> "/dev/drm_dp_auxN" directly then the AUX transfer function will be
-> called regardless of whether a DP device is connected.
-> 
+Note: this iteration features handling of rotation and reflection of the
+wide plane. However rot90 is still not tested: it is enabled on sc7280
+and it only supports UBWC (tiled) framebuffers, it was quite low on my
+priority list.
 
-I do see
+[1] https://patchwork.freedesktop.org/series/99909/
 
-"
-* Also note that this callback can be called no matter the
-* state @dev is in and also no matter what state the panel is
-* in. It's expected:
-"
+Changes since v3:
+- Dropped the drm_atomic_helper_check_plane_noscale (Ville)
+- Reworked the scaling factor according to global value and then check
+  if SSPP has scaler_blk later on.
+- Split drm_rect_fp_to_int from the rotation-related fix (Abhinav)
 
-I understand about the host state that we need to allow the transfers by 
-powering on if the host was off.
+Changes since v2:
+- Dropped the encoder-related parts, leave all resource allocation as is
+  (Abhinav)
+- Significantly reworked the SSPP allocation code
+- Added debugging code to dump RM state in dri/N/state
 
-But I wonder why we should allow the transfer if the sink is not 
-connected because it will anyway timeout.
+Changes since v1:
+- Fixed build error due to me missing one of fixups, it was left
+  uncommitted.
+- Implementated proper handling of wide plane rotation & reflection.
 
-Does it make sense to have get_hpd_status() from the aux dev and not 
-issue the transfers if the sink was not connected?
+Dmitry Baryshkov (13):
+  drm/msm/dpu: take plane rotation into account for wide planes
+  drm/msm/dpu: use drm_rect_fp_to_int()
+  drm/msm/dpu: move pstate->pipe initialization to
+    dpu_plane_atomic_check
+  drm/msm/dpu: drop virt_formats from SSPP subblock configuration
+  drm/msm/dpu: move scaling limitations out of the hw_catalog
+  drm/msm/dpu: split dpu_plane_atomic_check()
+  drm/msm/dpu: move rot90 checking to dpu_plane_atomic_check_pipe()
+  drm/msm/dpu: add support for virtual planes
+  drm/msm/dpu: allow using two SSPP blocks for a single plane
+  drm/msm/dpu: allow sharing SSPP between planes
+  drm/msm/dpu: create additional virtual planes
+  drm/msm/dpu: allow sharing of blending stages
+  drm/msm/dpu: include SSPP allocation state into the dumped state
 
-This is more of questioning the intent of drm_dp_helpers to allow 
-transfers without checking the sink status.
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  59 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  20 -
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   8 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  22 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   4 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 675 +++++++++++++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h     |  29 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  84 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |  28 +
+ 10 files changed, 779 insertions(+), 152 deletions(-)
 
-> For eDP panels we have a special rule where we wait (with a 5 second
-> timeout) for HPD to go high. This rule was important before all panels
-> drivers were converted to call wait_hpd_asserted() and actually can be
-> removed in a future commit.
-> 
-> For external DP devices we never checked for HPD. That means that
-> trying to access the DP AUX character device (AKA `hexdump -C
-> /dev/drm_dp_auxN`) would very, very slowly timeout. Specifically on my
-> system:
->    $ time hexdump -C /dev/drm_dp_aux0
->    hexdump: /dev/drm_dp_aux0: Connection timed out
-> 
->    real    0m8.200s
-> 
+-- 
+2.39.2
 
-IIUC, we want to timeout faster by not bailing out if not connected right?
-
-
-> Let's add a check for HPD to avoid the slow timeout. This matches
-> what, for instance, the intel_dp_aux_xfer() function does when it
-> calls intel_tc_port_connected_locked(). That call has a document by it
-> explaining that it's important to avoid the long timeouts.
-> 
-> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> ---
-> 
->   drivers/gpu/drm/msm/dp/dp_aux.c     |  8 +++++++-
->   drivers/gpu/drm/msm/dp/dp_catalog.c | 10 ++++++++++
->   drivers/gpu/drm/msm/dp/dp_catalog.h |  1 +
->   3 files changed, 18 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-> index 03f4951c49f4..de0b0eabced9 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> @@ -307,7 +307,8 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
->   	 * turned on the panel and then tried to do an AUX transfer. The panel
->   	 * driver has no way of knowing when the panel is ready, so it's up
->   	 * to us to wait. For DP we never get into this situation so let's
-> -	 * avoid ever doing the extra long wait for DP.
-> +	 * avoid ever doing the extra long wait for DP and just query HPD
-> +	 * directly.
->   	 */
->   	if (aux->is_edp) {
->   		ret = dp_catalog_aux_wait_for_hpd_connect_state(aux->catalog);
-> @@ -315,6 +316,11 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
->   			DRM_DEBUG_DP("Panel not ready for aux transactions\n");
->   			goto exit;
->   		}
-> +	} else {
-> +		if (!dp_catalog_aux_is_hpd_connected(aux->catalog)) {
-> +			ret = -ENXIO;
-> +			goto exit;
-> +		}
->   	}
->   
->   	dp_aux_update_offset_and_segment(aux, msg);
-> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> index 5142aeb705a4..93e2d413a1e7 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> @@ -266,6 +266,16 @@ int dp_catalog_aux_wait_for_hpd_connect_state(struct dp_catalog *dp_catalog)
->   				2000, 500000);
->   }
->   
-> +bool dp_catalog_aux_is_hpd_connected(struct dp_catalog *dp_catalog)
-> +{
-> +	struct dp_catalog_private *catalog = container_of(dp_catalog,
-> +				struct dp_catalog_private, dp_catalog);
-> +
-> +	/* poll for hpd connected status every 2ms and timeout after 500ms */
-> +	return readl(catalog->io->dp_controller.aux.base + REG_DP_DP_HPD_INT_STATUS) &
-> +	       DP_DP_HPD_STATE_STATUS_CONNECTED;
-> +}
-
-This method of checking HPD status works for devices which use internal 
-HPD block to control the HPD (like sc7180/sc7280) but not for devices 
-where HPD is controlled outside the MSM DP controller like sc8280xp, 
-sc835-/sm8450 etc etc which use pmic_glink and DP driver only receives 
-the hpd status using the dp_bridge_hpd_notify() callback.
-
-If we want to make this generic, we have to do something like:
-
-dp_hpd_unplug_handle() notifies the dp_aux.c module that status is 
-disconncted and we should bail out
-
-dp_hpd_plug_handle() notifies dp_aux.c module that status is connected 
-again and we allow the aux transfers.
-
-> +
->   static void dump_regs(void __iomem *base, int len)
->   {
->   	int i;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
-> index 38786e855b51..1694040c530f 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_catalog.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
-> @@ -86,6 +86,7 @@ void dp_catalog_aux_reset(struct dp_catalog *dp_catalog);
->   void dp_catalog_aux_enable(struct dp_catalog *dp_catalog, bool enable);
->   void dp_catalog_aux_update_cfg(struct dp_catalog *dp_catalog);
->   int dp_catalog_aux_wait_for_hpd_connect_state(struct dp_catalog *dp_catalog);
-> +bool dp_catalog_aux_is_hpd_connected(struct dp_catalog *dp_catalog);
->   u32 dp_catalog_aux_get_irq(struct dp_catalog *dp_catalog);
->   
->   /* DP Controller APIs */
