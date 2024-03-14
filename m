@@ -2,93 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93EB287C144
-	for <lists+freedreno@lfdr.de>; Thu, 14 Mar 2024 17:31:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 139C887C658
+	for <lists+freedreno@lfdr.de>; Fri, 15 Mar 2024 00:32:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC3D10FBFB;
-	Thu, 14 Mar 2024 16:31:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0200D10FEAD;
+	Thu, 14 Mar 2024 23:32:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="cwxIgnhX";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="bjO4vcPu";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D798610FBFA;
- Thu, 14 Mar 2024 16:31:10 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42EGHJkj013712; Thu, 14 Mar 2024 16:31:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=yPYdJbLgCFGA2QMZNool66yl52Em7MqMSkzRA3w9sEc=; b=cw
- xIgnhXkNsKVEXoFseQKl7kpWswMMKEe7KvxmCYz/PHOYcgsmM6jIcRCcCQYVkFFU
- MTnyTK8DbGnZtx5yPBFM9ESQO04pi3kx37JbuVi6uZs1488WYplwWDrvgYNueqcu
- SAaApfWoauGeNvC87K61lGHzV1kyMJzqTVE8/gE9+7gKKsZmuxWQsET4uBBoqYXD
- WZOMbMLnI81E49/5GMgo0Y58iE3AX5mJQi5VXTKWDMFfBLg4v1S1rwqwHhoYisBH
- J8Ev4BJaDEcfzvd2XPuVZxDQdbgGM8ZQIf5awjc/hYBCndUjApLU3u0kUfusrLFD
- LepBi2TT86XRQ3OSa4Kw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wuwtm91bh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 14 Mar 2024 16:31:04 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42EGV3sI023227
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 14 Mar 2024 16:31:03 GMT
-Received: from [10.110.35.191] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 14 Mar
- 2024 09:30:59 -0700
-Message-ID: <9313aa00-41f0-15af-a646-3f4e4b3098c7@quicinc.com>
-Date: Thu, 14 Mar 2024 09:30:57 -0700
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com
+ [209.85.219.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1FDB10FEAD
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Mar 2024 23:32:16 +0000 (UTC)
+Received: by mail-qv1-f46.google.com with SMTP id
+ 6a1803df08f44-690edfcaff6so10829776d6.3
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Mar 2024 16:32:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1710459132; x=1711063932;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2flT0SdHZ7q0eVlgQtj+A0ROMrjTL6rE3iscntdkYF0=;
+ b=bjO4vcPufHjHUWTQ/buqiCcLqawf5UjxQiLJMmgABJGnk3NO3l5/3WYL9IToPSZGc1
+ /mYhI92N8hApv2h7hsxbluZz52WzJoKcRFqRnX0Rq+yTYx2FL9KWDHE9c1aDROL7gV87
+ 4Wg3KKpHsJNCecfYOZyjYie/p4QhH/ggjUCZM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710459132; x=1711063932;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2flT0SdHZ7q0eVlgQtj+A0ROMrjTL6rE3iscntdkYF0=;
+ b=vWK/7luyLfj7zd06t667y8Qj7PG07/CHqOns4VOvpbuNq8NRvRD/m1bYaIwkEvvFvM
+ 9x6d/fHsqgBkVLpc9n4EhrQGxadYhxoQ+NgUVa0GZjEcqyni7Cj3MjQdtzsqn8pOn2lQ
+ Uaa4ybnK+T5VlhLNQELVW2h+oFoxUxhne8X8kQIzo/HWtw3Sgt2S1ssvdRWdLAKvDJ0v
+ WPkzjuA34K485hI4dsWcaUOZ3E+WXKOfHHKPmPsxBYl0CecmaAtZKU22qRuBzoKSSsoP
+ cqWsWQaizGUIU7Se9D3EWEAecv8qh3RWZbYuh2pHUmYHKk10wy88YD0UMnoaeF5MYGdF
+ 1UiQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUCKCmE+4+hB8RF9rI3/z7+9MyegEyEXKonO80pJgkh2FwoVhIv9MVAp9J9cbxgzfTsG+gSUPS8F6bdeRg4gop/cllFRpBcnTt7zZWftndG
+X-Gm-Message-State: AOJu0YxHcEl4pd6wQgQy+6rSxXbDKasef65xn3o7BsO3ncAYwGCnHXLP
+ aFs5NsaGTdUUirxFO3Q2vU4Y7BwQvM6yirbvz1wfePqsmIixSBmHT4JgNoI6Fete3vWfmluH/oA
+ =
+X-Google-Smtp-Source: AGHT+IEAS77DDO3VHsb8/fNzIcIVe7jBlVUb5wBPC+5+GQ1dPLO9sfuHwdhGpNvww0LL5P35slpZkg==
+X-Received: by 2002:ad4:4e14:0:b0:690:964e:9d6e with SMTP id
+ dl20-20020ad44e14000000b00690964e9d6emr474094qvb.25.1710459131899; 
+ Thu, 14 Mar 2024 16:32:11 -0700 (PDT)
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com.
+ [209.85.160.172]) by smtp.gmail.com with ESMTPSA id
+ k5-20020a0cf585000000b006915b8b37a0sm1079629qvm.55.2024.03.14.16.32.10
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Mar 2024 16:32:10 -0700 (PDT)
+Received: by mail-qt1-f172.google.com with SMTP id
+ d75a77b69052e-428405a0205so73901cf.1
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Mar 2024 16:32:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWY5/jKpEsS+9/xEIjahnnJk92cS7D3IGsQ10IpZBw4LMQ63YKJU6pni8Ei/UujmjUgCGQ+B7dZ+xemT53GgD1uSrpV04tkv8Vq/RsMLg9C
+X-Received: by 2002:a05:622a:1391:b0:430:a5ed:fccf with SMTP id
+ o17-20020a05622a139100b00430a5edfccfmr263222qtk.28.1710459130165; Thu, 14 Mar
+ 2024 16:32:10 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/msm/dp: move link_ready out of HPD event thread
-Content-Language: en-US
-To: Johan Hovold <johan@kernel.org>
-CC: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, Sean Paul
- <sean@poorly.run>, "Marijn Suijten" <marijn.suijten@somainline.org>, David
- Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <swboyd@chromium.org>,
- <quic_jesszhan@quicinc.com>, <quic_parellan@quicinc.com>,
- <quic_bjorande@quicinc.com>, Rob Clark <robdclark@chromium.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20240308214532.1404038-1-quic_abhinavk@quicinc.com>
- <ZfApxyVAJMK4bL8O@hovoldconsulting.com>
- <ZfCFsmNv62-KMkA6@hovoldconsulting.com>
- <ZfCKDGq9n9WG3Quj@hovoldconsulting.com>
- <8e125a99-543d-8328-a2a9-100e223e4faf@quicinc.com>
- <ZfFhXG5yd6O29spS@hovoldconsulting.com>
- <ec2cba17-5644-6cf6-f6c9-d37d7ca56204@quicinc.com>
- <ZfMaEIzv3Z3ny3y0@hovoldconsulting.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <ZfMaEIzv3Z3ny3y0@hovoldconsulting.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 5oI3SQZcCosyUifU_jsvnfXEt116Ck3H
-X-Proofpoint-GUID: 5oI3SQZcCosyUifU_jsvnfXEt116Ck3H
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-14_13,2024-03-13_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- malwarescore=0 mlxlogscore=999 clxscore=1015 adultscore=0 suspectscore=0
- bulkscore=0 mlxscore=0 lowpriorityscore=0 spamscore=0 phishscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2402120000 definitions=main-2403140124
+References: <20240313001345.2623074-1-dianders@chromium.org>
+ <20240312171305.1.I16aff881c9fe82b5e0fc06ca312da017aa7b5b3e@changeid>
+ <d6ac0328-3d3d-75bc-09b9-ed0190a6a8c5@quicinc.com>
+In-Reply-To: <d6ac0328-3d3d-75bc-09b9-ed0190a6a8c5@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 14 Mar 2024 16:31:53 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XKc81S9M_Aem0fJhmCnFq458vFg3S-4aJNEvUCcQE3bQ@mail.gmail.com>
+Message-ID: <CAD=FV=XKc81S9M_Aem0fJhmCnFq458vFg3S-4aJNEvUCcQE3bQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/msm/dp: Avoid a long timeout for AUX transfer if
+ nothing connected
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, 
+ Guenter Roeck <groeck@chromium.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>, 
+ Tanmay Shah <tanmay@codeaurora.org>, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,76 +102,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
+
+On Wed, Mar 13, 2024 at 1:41=E2=80=AFPM Abhinav Kumar <quic_abhinavk@quicin=
+c.com> wrote:
+>
+>
+>
+> On 3/12/2024 5:13 PM, Douglas Anderson wrote:
+> > As documented in the description of the transfer() function of
+> > "struct drm_dp_aux", the transfer() function can be called at any time
+> > regardless of the state of the DP port. Specifically if the kernel has
+> > the DP AUX character device enabled and userspace accesses
+> > "/dev/drm_dp_auxN" directly then the AUX transfer function will be
+> > called regardless of whether a DP device is connected.
+> >
+>
+> I do see
+>
+> "
+> * Also note that this callback can be called no matter the
+> * state @dev is in and also no matter what state the panel is
+> * in. It's expected:
+> "
+>
+> I understand about the host state that we need to allow the transfers by
+> powering on if the host was off.
+>
+> But I wonder why we should allow the transfer if the sink is not
+> connected because it will anyway timeout.
+
+We shouldn't! That's what this patch is about. ;-)
 
 
-On 3/14/2024 8:38 AM, Johan Hovold wrote:
-> On Wed, Mar 13, 2024 at 10:24:08AM -0700, Abhinav Kumar wrote:
->> On 3/13/2024 1:18 AM, Johan Hovold wrote:
-> 
->>> Right, but your proposed fix would not actually fix anything and judging
->>> from the sparse commit message and diff itself it is clearly only meant
->>> to mitigate the case where user space is involved, which is *not* the
->>> case here.
-> 
->> There can be a race condition between the time the DP driver gets the
->> hpd disconnect event and when the hpd thread processes that event
->> allowing the commit to sneak in. This is something which has always been
->> there even without pm_runtime series and remains even today.
->>
->> In this race condition, the setting of "link_ready" to false can be a
->> bit delayed if we go through the HPD event processing increasing the
->> race condition window.
->>
->> If link_ready is false, atomic_check() fails, thereby failing any
->> commits and hence not allowing the atomic_disable() / atomic_enable()
->> cycle and hence avoiding this reset.
->>
->> The patch is moving the setting of link_ready to false earlier by not
->> putting it through the HPD event thread and hence trying to reduce the
->> window of the issue.
-> 
-> Perhaps I'm missing something in the race that you are trying to
-> describe (and which I've asked you to describe in more detail so that I
-> don't have to spend more time trying to come up with a reproducer
-> myself).
-> 
+> Does it make sense to have get_hpd_status() from the aux dev and not
+> issue the transfers if the sink was not connected?
+>
+> This is more of questioning the intent of drm_dp_helpers to allow
+> transfers without checking the sink status.
 
-The race condition is between the time we get disconnect event and set 
-link_ready to false, a commit can come in. Because setting link_ready to 
-false happens in the event thread so it could be slightly delayed.
+It's a good question. I guess some of this just comes from the
+abstraction that we currently have.
 
-It will be hard to reproduce this. Only way I can think of is to delay 
-the EV_NOTIFICATION for sometime and see in dp_bridge_hpd_notify()
+Thinking about this, the ideal would be to somehow query back to the
+"drm_connector" since it already has a "->detect" function. ...but we
+can't really do this since the AUX bus needs to be able to do
+transfers early before all the DRM components aren't initialized. This
+is, for instance, how the eDP panel code queries the EDID while being
+probed.
 
-         else if (dp_display->link_ready && status == 
-connector_status_disconnected)
-                 dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
+We could consider adding a new callback to "struct drm_dp_aux" that
+would allow checking the HPD status, but it feels to me like this adds
+unneeded complexity. We'd be adding a callback that people need to
+think about just to avoid them adding an "if" statement to their AUX
+transfer routine. I'm not totally convinced.
 
-as dp_add_event() will add the event, then wakeup the event_q.
+Interestingly, we actually _could_ use the infrastructure I just
+introduced in commit 8df1ddb5bf11 ("drm/dp: Don't attempt AUX
+transfers when eDP panels are not powered") here, at least if we're in
+the DP case and not the eDP case. When we're in the DP case there is
+no panel involved so the DP driver itself knows when things are
+"powered". For now I'm _not_ going to do this since it feels to me
+like the "if" test makes it clearer what's happening, but yell if you
+want me to change it.
 
-Before the event thread wakes up and processes this unplug event, the 
-commit can come in. This is the race condition i was thinking of.
 
-> I do understand how your patch works, but my point is that it does
-> not fix the race that we are hitting on sc8280xp and, unless I'm missing
-> something, it is not even sufficient to fix the race you are talking
-> about as user space can still trigger that ioctl() before you clear the
-> link_ready flag.
-> 
-> That's why I said that it is only papering over the issue by making the
-> race window smaller (and this should also be highlighted in the commit
-> message).
-> 
+> > For eDP panels we have a special rule where we wait (with a 5 second
+> > timeout) for HPD to go high. This rule was important before all panels
+> > drivers were converted to call wait_hpd_asserted() and actually can be
+> > removed in a future commit.
+> >
+> > For external DP devices we never checked for HPD. That means that
+> > trying to access the DP AUX character device (AKA `hexdump -C
+> > /dev/drm_dp_auxN`) would very, very slowly timeout. Specifically on my
+> > system:
+> >    $ time hexdump -C /dev/drm_dp_aux0
+> >    hexdump: /dev/drm_dp_aux0: Connection timed out
+> >
+> >    real    0m8.200s
+> >
+>
+> IIUC, we want to timeout faster by not bailing out if not connected right=
+?
 
-Yes, I have already accepted this part. It only reduces the race window 
-smaller.
+Correct. I can try to clarify the commit message for v2 to make this
+more obvious.
 
-> For some reason it also made things worse on sc8280xp, but I did not
-> spend time on tracking down exactly why.
-> 
 
-This part I agree. I need to check why sc8280xp again does not like this 
-patch. You dont have to spend time, I will do it and till then I will 
-hold this patch off.
+> > Let's add a check for HPD to avoid the slow timeout. This matches
+> > what, for instance, the intel_dp_aux_xfer() function does when it
+> > calls intel_tc_port_connected_locked(). That call has a document by it
+> > explaining that it's important to avoid the long timeouts.
+> >
+> > Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> > ---
+> >
+> >   drivers/gpu/drm/msm/dp/dp_aux.c     |  8 +++++++-
+> >   drivers/gpu/drm/msm/dp/dp_catalog.c | 10 ++++++++++
+> >   drivers/gpu/drm/msm/dp/dp_catalog.h |  1 +
+> >   3 files changed, 18 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/d=
+p_aux.c
+> > index 03f4951c49f4..de0b0eabced9 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_aux.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
+> > @@ -307,7 +307,8 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *d=
+p_aux,
+> >        * turned on the panel and then tried to do an AUX transfer. The =
+panel
+> >        * driver has no way of knowing when the panel is ready, so it's =
+up
+> >        * to us to wait. For DP we never get into this situation so let'=
+s
+> > -      * avoid ever doing the extra long wait for DP.
+> > +      * avoid ever doing the extra long wait for DP and just query HPD
+> > +      * directly.
+> >        */
+> >       if (aux->is_edp) {
+> >               ret =3D dp_catalog_aux_wait_for_hpd_connect_state(aux->ca=
+talog);
+> > @@ -315,6 +316,11 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *=
+dp_aux,
+> >                       DRM_DEBUG_DP("Panel not ready for aux transaction=
+s\n");
+> >                       goto exit;
+> >               }
+> > +     } else {
+> > +             if (!dp_catalog_aux_is_hpd_connected(aux->catalog)) {
+> > +                     ret =3D -ENXIO;
+> > +                     goto exit;
+> > +             }
+> >       }
+> >
+> >       dp_aux_update_offset_and_segment(aux, msg);
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/=
+dp/dp_catalog.c
+> > index 5142aeb705a4..93e2d413a1e7 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> > @@ -266,6 +266,16 @@ int dp_catalog_aux_wait_for_hpd_connect_state(stru=
+ct dp_catalog *dp_catalog)
+> >                               2000, 500000);
+> >   }
+> >
+> > +bool dp_catalog_aux_is_hpd_connected(struct dp_catalog *dp_catalog)
+> > +{
+> > +     struct dp_catalog_private *catalog =3D container_of(dp_catalog,
+> > +                             struct dp_catalog_private, dp_catalog);
+> > +
+> > +     /* poll for hpd connected status every 2ms and timeout after 500m=
+s */
+> > +     return readl(catalog->io->dp_controller.aux.base + REG_DP_DP_HPD_=
+INT_STATUS) &
+> > +            DP_DP_HPD_STATE_STATUS_CONNECTED;
+> > +}
+>
+> This method of checking HPD status works for devices which use internal
+> HPD block to control the HPD (like sc7180/sc7280) but not for devices
+> where HPD is controlled outside the MSM DP controller like sc8280xp,
+> sc835-/sm8450 etc etc which use pmic_glink and DP driver only receives
+> the hpd status using the dp_bridge_hpd_notify() callback.
+>
+> If we want to make this generic, we have to do something like:
+>
+> dp_hpd_unplug_handle() notifies the dp_aux.c module that status is
+> disconncted and we should bail out
+>
+> dp_hpd_plug_handle() notifies dp_aux.c module that status is connected
+> again and we allow the aux transfers.
 
-> Johan
+Ah, good point about devices where HPD comes from elsewhere. OK, using
+dp_hpd_plug_handle() and dp_hpd_unplug_handle() and having it notify
+"dp_aux.c" seems to work OK for the external DP case (at least the one
+on trogdor). It didn't work when I tested it on eDP but I can make
+this rule just for non-eDP since they don't have the same issues.
+
+-Doug
