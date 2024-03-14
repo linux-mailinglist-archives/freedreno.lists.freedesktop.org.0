@@ -2,87 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B399387B60B
-	for <lists+freedreno@lfdr.de>; Thu, 14 Mar 2024 02:10:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE54F87B90E
+	for <lists+freedreno@lfdr.de>; Thu, 14 Mar 2024 09:05:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD23310E959;
-	Thu, 14 Mar 2024 01:10:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7A1110F94E;
+	Thu, 14 Mar 2024 08:05:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="s4KBLoLS";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="WrCBGqrD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
- [209.85.208.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D027910E753
- for <freedreno@lists.freedesktop.org>; Thu, 14 Mar 2024 01:10:51 +0000 (UTC)
-Received: by mail-lj1-f169.google.com with SMTP id
- 38308e7fff4ca-2d24a727f78so4746501fa.0
- for <freedreno@lists.freedesktop.org>; Wed, 13 Mar 2024 18:10:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1710378650; x=1710983450; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=AkT0b7xRMHVuIJC0eNZGFO5wcpvp57gRfpmlCIxi9Y4=;
- b=s4KBLoLSaHFcerLKlGXXzp/0qk5LLbbWjmJ+jzYNQz6Jh3maUinWy5XuK2RfrzGKBj
- 9BYHWMje+mQwbsOD4NbPnHP90pu8oULwUkz9U+jnuA/vkKwE8CMXJkWr26qa3LqyeLDY
- FUXdVbN3xZ2cOQ2pCl3J/J+hz8j93FBWsvTktQGeJSQEpFZGYGIdap5u3pqjHG+ortX0
- nW0faV018r7ZtiomBBfm+7WJ7W0oxy7GZXK2MiAF0CmNEEFoy44g0IHzo4+68z62Tto3
- +OfvU2fmlqPeZ5N/EJfjGV8t62F55+7Ln6iK4RjIUgXV/xowI+tup9WIpuHQAuUcUTYX
- FikQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710378650; x=1710983450;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=AkT0b7xRMHVuIJC0eNZGFO5wcpvp57gRfpmlCIxi9Y4=;
- b=tLTWcTO3cXlBAnBhKJd++/eGa2x8UF21MkH8Nnk8Tb8Af9i8Dfc7UHCY7Pdo0RWFn6
- CRjn3t4z1UMgk4eN35FzUtjr1peDctaD6fIe4/jnd8hX7aN1Bb2h2Ohcm/MDyu4fYX3x
- CoCmkb/QpugFsq9KL3xSb68YaYcBBM2jMQ9iZmoDTnPEUsmxgLVjFRPzifJQB43bma3D
- QibrQaud2tpN14IwPskmu9ujYiE+disvO/rMJO2khfdBPyk520ySiT6JKcUPknK8jfyY
- UD0pX6IznHC2Zry77BwoyZCEC1SSbtlkG5KECNdDjJ2fniTEHadJ2Wau1EdRtzIJf+6+
- zUPw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXUa0WgcjW5Cn0Rcs9j2cLyvcgVIiPbimE3ls/08NdZnm76PGddGCHoYmbPIAVVccv5p3jTHQucV18cbm8vZmwGaQdcdv3qquqdB+hIY9Z+
-X-Gm-Message-State: AOJu0YypIbuJy0zK98GE+yEJIyJXQQyOyMp0391zLHaYZKwKw7nFE/Hm
- S84AmpM5/Y/DriDfWEEqFQ+jDTREsf9nxf4tBZKbt9NmjFT7I9onnsOUPXSJizM=
-X-Google-Smtp-Source: AGHT+IHbftlvUJD0VKntserQOB+EnscF+o7ttbHZCzElms73MiWTPm5j4W35pZLrGaf/0ry1Bv4xvg==
-X-Received: by 2002:a2e:8187:0:b0:2d4:5d56:e559 with SMTP id
- e7-20020a2e8187000000b002d45d56e559mr94218ljg.47.1710378649994; 
- Wed, 13 Mar 2024 18:10:49 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- u19-20020a2e91d3000000b002d2ab6ae675sm48917ljg.137.2024.03.13.18.10.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Mar 2024 18:10:49 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 14 Mar 2024 03:10:45 +0200
-Subject: [PATCH v3 5/5] drm/msm/dpu: drop dpu_core_perf_params::max_per_pipe_ib
+Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com
+ [91.218.175.183])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9964D10F951
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Mar 2024 08:05:05 +0000 (UTC)
+Message-ID: <58cf7cb4-7d78-4d3d-9958-1c59b7f16379@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1710403502;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZwOkeO0IePf2MkXjAfEBO6D0e7Im063f6cASBrBdNrQ=;
+ b=WrCBGqrDp2ANKiyYR5AQSRarAuqSQVUzOzobJ1n7t2AW2HaJt5yHElD0HQyqsaiDGRuAfC
+ GM9wNWBpX8zh8MFa9F0NdGObWkCFftnwoul76pj6skM0d680dUe/i87ho43RRpZfxyZIGD
+ ifro2Fcb4W9clJAkPfFliRODGqUhClU=
+Date: Thu, 14 Mar 2024 16:04:33 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Subject: Re: [v4,08/13] drm/msm/dpu: add support for virtual planes
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20240314000216.392549-9-dmitry.baryshkov@linaro.org>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Sui Jingfeng <sui.jingfeng@linux.dev>
+In-Reply-To: <20240314000216.392549-9-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240314-dpu-perf-rework-v3-5-79fa4e065574@linaro.org>
-References: <20240314-dpu-perf-rework-v3-0-79fa4e065574@linaro.org>
-In-Reply-To: <20240314-dpu-perf-rework-v3-0-79fa4e065574@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Stephen Boyd <swboyd@chromium.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4144;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=HtjO3+r4eD0Q2obHhXvuyUuLiZ1mp8ct03mOrvFNMx0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl8k6TPD8BbtAUQpZUbTD3Z/1YlsRo8D0pPIlbn
- OullnlyTpWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZfJOkwAKCRCLPIo+Aiko
- 1QZcB/9VgPlKys7jt/lpRgWB5rrxlnQ5HZMGHoClHsG0Q1rsFCxp6+pdLWyZvuagrhUp+fNXGDL
- t+193uvDqf2swJeUWWBNdChGRgEZHPnXMHmodThOTq9cYfTFogx8HBwzXVSTIunAAGogNTWBhTB
- VGULPe71s6UNu32IPcbHfYX5AVU3Ny1N2P6YihRpH9RGxf+gk+i4hVe5srVVOPhmG+WbCxbdgEI
- 9qT4bWQlzaf4JoM2oPmSxybHJ2F90gf84yzck6z+uKXxhQeKl3yz+mfLrj7U33AB3c4eMbhYAxv
- bPVGgskCjTDZdS//uQIldaPIkypgpyVcadUblq27F38w3s8w
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,106 +62,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The max_per_pipe_ib is a constant across all CRTCs and is read from the
-catalog. Drop corresponding calculations and read the value directly at
-icc_set_bw() time.
+Hi,
 
-Suggested-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 17 +++++------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  2 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  2 --
- 3 files changed, 5 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-index 2e78e57665fc..2fc05665dc7a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-@@ -105,13 +105,12 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
- 	}
- 
- 	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
--	perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
- 	perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
- 
- 	DRM_DEBUG_ATOMIC(
--		"crtc=%d clk_rate=%llu core_ib=%llu core_ab=%llu\n",
-+		"crtc=%d clk_rate=%llu core_ab=%llu\n",
- 			crtc->base.id, perf->core_clk_rate,
--			perf->max_per_pipe_ib, perf->bw_ctl);
-+			perf->bw_ctl);
- }
- 
- int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
-@@ -190,9 +189,6 @@ static void dpu_core_perf_aggregate(struct drm_device *ddev,
- 		    curr_client_type == dpu_crtc_get_client_type(tmp_crtc)) {
- 			dpu_cstate = to_dpu_crtc_state(tmp_crtc->state);
- 
--			perf->max_per_pipe_ib = max(perf->max_per_pipe_ib,
--						    dpu_cstate->new_perf.max_per_pipe_ib);
--
- 			perf->bw_ctl += dpu_cstate->new_perf.bw_ctl;
- 
- 			DRM_DEBUG_ATOMIC("crtc=%d bw=%llu\n",
-@@ -216,7 +212,7 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
- 	dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
- 
- 	avg_bw = div_u64(perf.bw_ctl, 1000); /*Bps_to_icc*/
--	peak_bw = perf.max_per_pipe_ib;
-+	peak_bw = kms->catalog->perf->min_dram_ib;
- 
- 	if (kms->perf.fix_core_ab_vote)
- 		avg_bw = kms->perf.fix_core_ab_vote;
-@@ -321,15 +317,12 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
- 		 * 2. new bandwidth vote - "ab or ib vote" is lower
- 		 *    than current vote at end of commit or stop.
- 		 */
--		if ((params_changed && ((new->bw_ctl > old->bw_ctl) ||
--			(new->max_per_pipe_ib > old->max_per_pipe_ib)))	||
--			(!params_changed && ((new->bw_ctl < old->bw_ctl) ||
--			(new->max_per_pipe_ib < old->max_per_pipe_ib)))) {
-+		if ((params_changed && new->bw_ctl > old->bw_ctl) ||
-+		    (!params_changed && new->bw_ctl < old->bw_ctl)) {
- 			DRM_DEBUG_ATOMIC("crtc=%d p=%d new_bw=%llu,old_bw=%llu\n",
- 				crtc->base.id, params_changed,
- 				new->bw_ctl, old->bw_ctl);
- 			old->bw_ctl = new->bw_ctl;
--			old->max_per_pipe_ib = new->max_per_pipe_ib;
- 			update_bus = true;
- 		}
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-index 5a3d18ca9555..a5a9c3389718 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-@@ -14,12 +14,10 @@
- 
- /**
-  * struct dpu_core_perf_params - definition of performance parameters
-- * @max_per_pipe_ib: maximum instantaneous bandwidth request
-  * @bw_ctl: arbitrated bandwidth request
-  * @core_clk_rate: core clock rate request
-  */
- struct dpu_core_perf_params {
--	u64 max_per_pipe_ib;
- 	u64 bw_ctl;
- 	u64 core_clk_rate;
- };
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 88c2e51ab166..771c04c1a5ea 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1389,8 +1389,6 @@ static int dpu_crtc_debugfs_state_show(struct seq_file *s, void *v)
- 	seq_printf(s, "core_clk_rate: %llu\n",
- 			dpu_crtc->cur_perf.core_clk_rate);
- 	seq_printf(s, "bw_ctl: %llu\n", dpu_crtc->cur_perf.bw_ctl);
--	seq_printf(s, "max_per_pipe_ib: %llu\n",
--				dpu_crtc->cur_perf.max_per_pipe_ib);
- 
- 	return 0;
- }
+On 2024/3/14 08:02, Dmitry Baryshkov wrote:
+
+
+[...]
+
+
+>   
+> +/**
+> + * dpu_rm_reserve_sspp - Reserve the required SSPP for the provided CRTC
+> + * @rm: DPU Resource Manager handle
+> + * @global_state: private global state
+> + * @crtc: DRM CRTC handle
+> + * @reqs: SSPP required features
+> + */
+> +struct dpu_hw_sspp *dpu_rm_reserve_sspp(struct dpu_rm *rm,
+> +					struct dpu_global_state *global_state,
+> +					struct drm_crtc *crtc,
+> +					struct dpu_rm_sspp_requirements *reqs);
+> +
+> +/**
+> + * dpu_rm_release_all_sspp - Given the CRTC, release all SSPP
+> + *	blocks previously reserved for that use case.
+> + * @rm: DPU Resource Manager handle
+> + * @crtc: DRM CRTC handle
+> + * @Return: 0 on Success otherwise -ERROR
+> + */
+
+But this function do not return any value, right?
+
+
+> +void dpu_rm_release_all_sspp(struct dpu_global_state *global_state,
+> +			     struct drm_crtc *crtc);
+> +
+>   /**
+>    * Get hw resources of the given type that are assigned to this encoder.
+>    */
 
 -- 
-2.39.2
+Best regards,
+Sui
 
