@@ -2,65 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CDD787D0CC
-	for <lists+freedreno@lfdr.de>; Fri, 15 Mar 2024 16:57:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 325FF87D4C9
+	for <lists+freedreno@lfdr.de>; Fri, 15 Mar 2024 21:02:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA4AD112314;
-	Fri, 15 Mar 2024 15:57:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8156F1124C4;
+	Fri, 15 Mar 2024 20:02:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PjFwN2R7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KdCZTbt/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 455FA112314;
- Fri, 15 Mar 2024 15:57:19 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 8D8156171C;
- Fri, 15 Mar 2024 15:57:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D985C433C7;
- Fri, 15 Mar 2024 15:57:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1710518238;
- bh=+27njxvTQI9ZBIhezxtzfCGEjQq6eW+OVH0WF5kinqo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PjFwN2R7Ml6OnXuHFUNhVlcuAMX/WtOyTgqbQYADqdwTqZfVB8pwjSULrG8PfvJDE
- fCLlafHqOz5eEY497R8gJvP1h1a0G0Ow4kPlu995KdckrKw9MBNofk2jJn1ZWJFrMY
- QdipCePE9gRzhFADdzMxJmFev7yM+2e96GfI1HFS+pX/qI9lZEOI7Sgkpdim94SxPa
- MIW6RC75gYNG3ASz8AUXm8uk0mkAElWnV6WYUopArvcrZXJm0ue6toNIAROIXWLH+O
- aaWYZkWjj1Khl9Ap3wri881v+EtdyZXdpQMKuWlpxOsVD75hSk3QxsJe2S8/Aru0FQ
- CCanFtVG4Zpnw==
-Received: from johan by xi.lan with local (Exim 4.97.1)
- (envelope-from <johan@kernel.org>) id 1rl9vy-000000008Ts-0qdx;
- Fri, 15 Mar 2024 16:57:26 +0100
-Date: Fri, 15 Mar 2024 16:57:26 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- quic_jesszhan@quicinc.com, quic_parellan@quicinc.com,
- quic_bjorande@quicinc.com, Rob Clark <robdclark@chromium.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dp: move link_ready out of HPD event thread
-Message-ID: <ZfRv5le7Bfdiwrk_@hovoldconsulting.com>
-References: <20240308214532.1404038-1-quic_abhinavk@quicinc.com>
- <ZfApxyVAJMK4bL8O@hovoldconsulting.com>
- <ZfCFsmNv62-KMkA6@hovoldconsulting.com>
- <ZfCKDGq9n9WG3Quj@hovoldconsulting.com>
- <8e125a99-543d-8328-a2a9-100e223e4faf@quicinc.com>
- <ZfFhXG5yd6O29spS@hovoldconsulting.com>
- <ec2cba17-5644-6cf6-f6c9-d37d7ca56204@quicinc.com>
- <ZfMaEIzv3Z3ny3y0@hovoldconsulting.com>
- <9313aa00-41f0-15af-a646-3f4e4b3098c7@quicinc.com>
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1035F1124C2;
+ Fri, 15 Mar 2024 20:02:07 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-5654f700705so3753786a12.1; 
+ Fri, 15 Mar 2024 13:02:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1710532926; x=1711137726; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/YYAb4etLz4rCTfoR4YKT4WIcWb2hUEXXqGho2kxvLA=;
+ b=KdCZTbt/bjll/8I35xgR0KtLbYAO9J5PwLLt0FCrlzXUfwnNjfM5JtSzO07lmn5sez
+ CCCSwO10mh2/bdpI94ejhmUW/AwjYPkHl8q2rhTz9wCksO5VdCxocmBBgzfrp80hvQbs
+ 1USWghtJClPu8t3XAgfKfEVByTXiINO9OaAxLlVw/PR8/9GKOIrwunaWZIuxVCfuY7Cr
+ NWWoGe4ZOXYZtxRrKWqCidMtevejyOlOaLggp+nfV2Lh3MN6chPYFgA6xjLGLMZhlAsb
+ N67ihxzIlpdwfUz8PJrsd4yWApgbeCFDK6WeNBLtPgfFaXX7bX7mYEAK6iGWfN7N/iEX
+ vbIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710532926; x=1711137726;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/YYAb4etLz4rCTfoR4YKT4WIcWb2hUEXXqGho2kxvLA=;
+ b=b/dPCkpOtysGekodckdyJeYmykc7DGIAg1YqeQ7XL/akFT+tbS4HO/rgTqlceWc/yP
+ 2418cNhGzGwPUtlWifrCN/zO03yg5TeI/5clnq7rt9xy5KpfTRlMdPWtwpOMCu3rrXJ2
+ 6UU6w1725IdAvHCsPYkotNf12u43Vsgf9wo7t4jwZN9jzAfKZTLOC+fORNK8yEuXXfpW
+ Fg8nQdyS6wLHCWzmD5PFrO1TodLUh8vO/GQ7alvZlzlBwms5ZQaPH4QuTsUHnW3davb7
+ jOyffoWc40uv9oZbnD/KQb9YD0Y6ZUMi6SWcwnOGqnbjwWoPwrjku9KuGcSUoCOeytpD
+ Y6kA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWsGWUYFH7P6h6sO2jyfWdDRNhk97w+6SdSXpkSqMYK6Abn7vVBRlTVEXGUr3ymf/xpE2GMaeEF9I+P6g8q0Hmj42hnKhZnQO+lixcjkPBwgTYkFIuPTLu690/3g3A96WLXz6TEplo5Pc4OBQDCABiK
+X-Gm-Message-State: AOJu0YxSfB/aJC8hboxYawS2N3dfyqrkfildxKrllpFoPdqfRbTia0IV
+ bSR7W/hvnCivn6Wz7wQLIWFqWxPs8Pwwh+/UX/mnZNylY3feidI6dqByUilLbq3CzgC2FxrRidR
+ GRUEA73xKGJYPHmwcAZvCviFeFEs=
+X-Google-Smtp-Source: AGHT+IGNiEX+KvIuK+2zgES9ZbZBeWUk3t1ZiDKNwUyIzDDeNdWSwtV/1hXvoCPUp+xFTA06sIdvaC4OjWNqTwIhSb0=
+X-Received: by 2002:a05:6402:1f07:b0:568:b490:7d80 with SMTP id
+ b7-20020a0564021f0700b00568b4907d80mr1600464edb.18.1710532925895; Fri, 15 Mar
+ 2024 13:02:05 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9313aa00-41f0-15af-a646-3f4e4b3098c7@quicinc.com>
+References: <20240315-fd-xml-shipped-v3-0-0fc122e36c53@linaro.org>
+In-Reply-To: <20240315-fd-xml-shipped-v3-0-0fc122e36c53@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 15 Mar 2024 13:01:53 -0700
+Message-ID: <CAF6AEGuc-xu_Ji5fOXCFFudos1Ah4tgFxjRs0neHVujtNdXB+A@mail.gmail.com>
+Subject: Re: [PATCH RFC v3 00/12] drm/msm: generate register header files
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Masahiro Yamada <masahiroy@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nicolas Schier <nicolas@fjasle.eu>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-kbuild@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,64 +85,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Mar 14, 2024 at 09:30:57AM -0700, Abhinav Kumar wrote:
-> On 3/14/2024 8:38 AM, Johan Hovold wrote:
-> > On Wed, Mar 13, 2024 at 10:24:08AM -0700, Abhinav Kumar wrote:
+On Fri, Mar 15, 2024 at 4:46=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> Currently display-related register headers are generated from XML files
+> shipped withing Mesa source tree. This is not fully optimal: it requires
+> multi-stage process of the changes first being landed to Mesa and only
+> then synced to the kernel tree.
 
-> > Perhaps I'm missing something in the race that you are trying to
-> > describe (and which I've asked you to describe in more detail so that I
-> > don't have to spend more time trying to come up with a reproducer
-> > myself).
+I think we'd more or less need to continue following this process for
+the gpu .xml so that the kernel and mesa are not diverging.  I guess
+we could drop the display related .xml from mesa.  (But it would be
+nice to have a decoder tool for display devcoredumps, like we do for
+gpu..)
 
-> The race condition is between the time we get disconnect event and set 
-> link_ready to false, a commit can come in. Because setting link_ready to 
-> false happens in the event thread so it could be slightly delayed.
+BR,
+-R
 
-I get this part, just not why, or rather when, that becomes a problem.
-
-Once the disconnect event is processed, dp_hpd_unplug_handle() will
-update the state to ST_DISCONNECT_PENDING, and queue a notification
-event. link_ready is (before this patch) still set to 1.
-
-Here a commit comes in; what exactly are you suggesting would trigger
-that? And in such a way that it breaks the state machine?
-
-One way this could cause trouble is if you end up with a call to
-dp_bridge_atomic_post_disable() which updates the state to
-ST_DISCONNECTED. (1)
-
-This would then need to be followed by another call to
-dp_bridge_atomic_enable() which bails out early with the link clock
-disabled. (2) (And if link_ready were to be set to 0 sooner, the
-likelihood of this is reduced.)
-
-This in turn, would trigger a reset when dp_bridge_atomic_disable() is
-later called.
-
-This is the kind of description of the race I expect to see in the
-commit message, and I'm still not sure what would trigger the call to
-dp_bridge_atomic_post_disable() and dp_bridge_atomic_enable() (i.e. (1)
-and (2) above) and whether this is a real issue or not.
-
-Also note that the above scenario is quite different from the one I've
-hit and described earlier.
-
-> It will be hard to reproduce this. Only way I can think of is to delay 
-> the EV_NOTIFICATION for sometime and see in dp_bridge_hpd_notify()
-> 
->          else if (dp_display->link_ready && status == 
-> connector_status_disconnected)
->                  dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
-> 
-> as dp_add_event() will add the event, then wakeup the event_q.
-
-Sure that would increase the race window with the current code, but that
-alone isn't enough to trigger the bug AFAICT.
-
-> Before the event thread wakes up and processes this unplug event, the 
-> commit can come in. This is the race condition i was thinking of.
-
-Yes, but what triggers the commit? And why would it lead to a mode set
-that disables the bridge?
- 
-Johan
+> Move original XML files to the kernel tree and generate header files
+> when required.
+>
+> NOTE: the gen_header.py script is based on the non-merged Mesa MR [1].
+> Once that MR lands, I will update the script and commit messages and
+> send the next iteration.
+>
+> [1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/28193
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+> Changes in v3:
+> - Split XML and git rm patches in hope to pass ML limitations
+> - Link to v2: https://lore.kernel.org/r/20240315-fd-xml-shipped-v2-0-7cd6=
+8ecc4320@linaro.org
+>
+> Changes in v2:
+> - Removed the _shipped files, always generating the headers (Masahiro
+>   Yamada)
+> - Replaced headergen2 with gen_headers.py
+> - Simplify Makefile rules, making all Adreno objects depend on Adreno
+>   headers and all displau objects depend on all display headers
+> - Also handle Adreno registers
+> - Link to v1: https://lore.kernel.org/r/20240226-fd-xml-shipped-v1-0-86bb=
+6c3346d2@linaro.org
+>
+> ---
+> Dmitry Baryshkov (12):
+>       drm/msm/mdp5: add writeback block bases
+>       drm/msm/hdmi: drop qfprom.xml.h
+>       drm/msm/dsi: drop mmss_cc.xml.h
+>       drm/msm: move msm_gpummu.c to adreno/a2xx_gpummu.c
+>       drm/msm: import XML display registers database
+>       drm/msm: import A2xx-A4xx XML display registers database
+>       drm/msm: import A5xx-A7xx XML display registers database
+>       drm/msm: import gen_header.py script from Mesa
+>       drm/msm: generate headers on the fly
+>       drm/msm: drop display-related headers
+>       drm/msm: drop A5xx, A6xx headers
+>       drm/msm: drop A2xx-A4xx headers
+>
+>  drivers/gpu/drm/msm/.gitignore                     |     6 +
+>  drivers/gpu/drm/msm/Makefile                       |    97 +-
+>  drivers/gpu/drm/msm/adreno/a2xx.xml.h              |  3251 -----
+>  drivers/gpu/drm/msm/adreno/a2xx_gpu.c              |     4 +-
+>  drivers/gpu/drm/msm/adreno/a2xx_gpu.h              |     4 +
+>  .../drm/msm/{msm_gpummu.c =3D> adreno/a2xx_gpummu.c} |    45 +-
+>  drivers/gpu/drm/msm/adreno/a3xx.xml.h              |  3268 -----
+>  drivers/gpu/drm/msm/adreno/a4xx.xml.h              |  4379 -------
+>  drivers/gpu/drm/msm/adreno/a5xx.xml.h              |  5572 ---------
+>  drivers/gpu/drm/msm/adreno/a6xx.xml.h              | 11858 -------------=
+------
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h          |   422 -
+>  drivers/gpu/drm/msm/adreno/adreno_common.xml.h     |   539 -
+>  drivers/gpu/drm/msm/adreno/adreno_pm4.xml.h        |  2803 -----
+>  drivers/gpu/drm/msm/disp/mdp4/mdp4.xml.h           |  1181 --
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5.xml.h           |  1979 ----
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h           |    11 +
+>  drivers/gpu/drm/msm/disp/mdp_common.xml.h          |   111 -
+>  drivers/gpu/drm/msm/dsi/dsi.xml.h                  |   790 --
+>  drivers/gpu/drm/msm/dsi/dsi_phy_10nm.xml.h         |   227 -
+>  drivers/gpu/drm/msm/dsi/dsi_phy_14nm.xml.h         |   309 -
+>  drivers/gpu/drm/msm/dsi/dsi_phy_20nm.xml.h         |   237 -
+>  drivers/gpu/drm/msm/dsi/dsi_phy_28nm.xml.h         |   384 -
+>  drivers/gpu/drm/msm/dsi/dsi_phy_28nm_8960.xml.h    |   286 -
+>  drivers/gpu/drm/msm/dsi/dsi_phy_7nm.xml.h          |   483 -
+>  drivers/gpu/drm/msm/dsi/mmss_cc.xml.h              |   131 -
+>  drivers/gpu/drm/msm/dsi/sfpb.xml.h                 |    70 -
+>  drivers/gpu/drm/msm/hdmi/hdmi.xml.h                |  1399 ---
+>  drivers/gpu/drm/msm/hdmi/qfprom.xml.h              |    61 -
+>  drivers/gpu/drm/msm/msm_drv.c                      |     3 +-
+>  drivers/gpu/drm/msm/msm_gpu.c                      |     2 +-
+>  drivers/gpu/drm/msm/msm_mmu.h                      |     5 -
+>  drivers/gpu/drm/msm/registers/adreno/a2xx.xml      |  1865 +++
+>  drivers/gpu/drm/msm/registers/adreno/a3xx.xml      |  1751 +++
+>  drivers/gpu/drm/msm/registers/adreno/a4xx.xml      |  2409 ++++
+>  drivers/gpu/drm/msm/registers/adreno/a5xx.xml      |  3039 +++++
+>  drivers/gpu/drm/msm/registers/adreno/a6xx.xml      |  4969 ++++++++
+>  drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml  |   228 +
+>  .../gpu/drm/msm/registers/adreno/adreno_common.xml |   399 +
+>  .../gpu/drm/msm/registers/adreno/adreno_pm4.xml    |  2267 ++++
+>  drivers/gpu/drm/msm/registers/display/dsi.xml      |   390 +
+>  .../gpu/drm/msm/registers/display/dsi_phy_10nm.xml |   102 +
+>  .../gpu/drm/msm/registers/display/dsi_phy_14nm.xml |   135 +
+>  .../gpu/drm/msm/registers/display/dsi_phy_20nm.xml |   100 +
+>  .../gpu/drm/msm/registers/display/dsi_phy_28nm.xml |   180 +
+>  .../msm/registers/display/dsi_phy_28nm_8960.xml    |   134 +
+>  .../gpu/drm/msm/registers/display/dsi_phy_7nm.xml  |   230 +
+>  drivers/gpu/drm/msm/registers/display/edp.xml      |   239 +
+>  drivers/gpu/drm/msm/registers/display/hdmi.xml     |  1015 ++
+>  drivers/gpu/drm/msm/registers/display/mdp4.xml     |   504 +
+>  drivers/gpu/drm/msm/registers/display/mdp5.xml     |   806 ++
+>  .../gpu/drm/msm/registers/display/mdp_common.xml   |    89 +
+>  drivers/gpu/drm/msm/registers/display/msm.xml      |    32 +
+>  drivers/gpu/drm/msm/registers/display/sfpb.xml     |    17 +
+>  .../gpu/drm/msm/registers/freedreno_copyright.xml  |    40 +
+>  drivers/gpu/drm/msm/registers/gen_header.py        |   958 ++
+>  drivers/gpu/drm/msm/registers/rules-ng.xsd         |   457 +
+>  56 files changed, 22480 insertions(+), 39792 deletions(-)
+> ---
+> base-commit: 8ffc8b1bbd505e27e2c8439d326b6059c906c9dd
+> change-id: 20240225-fd-xml-shipped-ba9a321cdedf
+>
+> Best regards,
+> --
+> Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
