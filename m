@@ -2,72 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95E5D87D642
-	for <lists+freedreno@lfdr.de>; Fri, 15 Mar 2024 22:37:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBAA687D645
+	for <lists+freedreno@lfdr.de>; Fri, 15 Mar 2024 22:37:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F21FF1125A4;
-	Fri, 15 Mar 2024 21:37:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC9F111259D;
+	Fri, 15 Mar 2024 21:37:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="J+HqMdq6";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="hUB6/szR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 911CD1125A4
- for <freedreno@lists.freedesktop.org>; Fri, 15 Mar 2024 21:37:44 +0000 (UTC)
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-6e6b5432439so2575159b3a.1
- for <freedreno@lists.freedesktop.org>; Fri, 15 Mar 2024 14:37:44 -0700 (PDT)
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 736E111259D
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Mar 2024 21:37:46 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-6e6c0098328so2234148b3a.3
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Mar 2024 14:37:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1710538664; x=1711143464;
+ d=chromium.org; s=google; t=1710538666; x=1711143466;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+b4mQbGcIQsTKsNYPQB3QvL0YJEVDJmGJzSl3gUd7iE=;
- b=J+HqMdq6Mixg0La8MMkbkMAsewrBzchvH+5+FgpnO1o3ickkQkFQeH/b/4h34edSVN
- EyTAsJhqwIZ7v5yzfbzY1aiBbx9mPVc5KSlvOukQgQI6Uze/Qlhx+Q/wMfaXq05yZY93
- tBoCmWG3Zp35SzSaZb0DsiDMrbJTIIgjTS6kg=
+ bh=Gz22lebM2rTHwhNkx5aAaX7EA6Wa3wOGuC1PNKA3MCs=;
+ b=hUB6/szRvBegW1KnGZDam55ygKkRRAgkpYKHWgsUXZu1NMykr9kALiVdO2bicMiwKr
+ 6smmV136zrnK/uIOlMbQf9yWOhqmKlQ19pEOiNa0QwktWb7fsc+2w0XBaipkAxI8U1zO
+ fOsEHg9t4zae+F0gBAJeG7dIob5Qxw1T+kE1Y=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710538664; x=1711143464;
+ d=1e100.net; s=20230601; t=1710538666; x=1711143466;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+b4mQbGcIQsTKsNYPQB3QvL0YJEVDJmGJzSl3gUd7iE=;
- b=VYSiezPPk0Y8pBkSi3PqdfdG+bkE+X1nP1lFqvgBV8JZ6+6cNNENT78kSpJ39KLFpU
- LgdxPMaYtn4pbseWauIbvKgMiWNQPsSHexpyVL/vmnd3dh8RtoOyg4+9Y8KFrULdC6uz
- rK+xK19GdaJvAQLcZ25XpH/qmeGdacxVFMK9jYxPUEezbqUI5Rr1816SrSHAM1nwL51K
- veR38Axv1KHpPIsmm+N7v/ieHBxVDPIAlN6KxlDyUcXhbareWY7z7u8Y4I4NVrOia8+U
- I25R0s6gcMt6x337PgM4gt1o37/Nq4H3MVBK9V5tMWO0hCzcAuDvU/HNbpfMDSz4MG9u
- 0DkA==
+ bh=Gz22lebM2rTHwhNkx5aAaX7EA6Wa3wOGuC1PNKA3MCs=;
+ b=Mw59I2/FVOQekpXy1yicpNJzupO+SNP7RLONssj+yEp6VhTjDZtX9WsWyt0SFJYhqB
+ QcYvGnHCux7OpXDZag17/evKi2TTeVSnXzaZZYUFHGxB7aTiIt298BPAwvtrfWNm0Awd
+ Y5b81XUmtlglwf/Bj/nzRXqGjkNDjYSmJbWM8LxWu45WAIRFyyjdc78uS8NFIb7Hhbo9
+ hLKNcdK/LKXxfUy7L5uAPpFEXUg6Ev4wKFeVoJhLw7bDqRlxJnQMLHxuK0w1OrGcE8yP
+ DreLa12Aol6uZFi5VAG6yrbKuZcMIISGSujxSNgbP94llxCTFCKAHNqgrwFaZyYjkiyw
+ XfSA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV4R+OEeR3dHAp6Jw8AnfAVGbVKLVHlZpyKoc/cMgR6ofdsvXZetTMtYCxivkRZ0TJuCe5ThI21sbvKyEaFFaktglg0QPqmjvlw6sYOt9Yb
-X-Gm-Message-State: AOJu0YwbmUoSBfdMiPUmvo/E6/BN4G+CQ7WL+Kjy9kvlS/UOMQgGkm/B
- A+Rxf2QLMWsa2XlPfb1eR9gPuNp0WV2qyKS2BZQSK6IkWvBlpMrs+MjO8dk2Ag==
-X-Google-Smtp-Source: AGHT+IE6dILwhQwRnscQL2HZqCpcQ27ndmx7cXGzDQCIBh26yGtAACsBjiXvN4gTm/UODHNKDKm1Kg==
-X-Received: by 2002:a05:6a00:92a4:b0:6e6:5396:ce43 with SMTP id
- jw36-20020a056a0092a400b006e65396ce43mr6495390pfb.7.1710538663984; 
- Fri, 15 Mar 2024 14:37:43 -0700 (PDT)
+ AJvYcCWUz3mGGCohkJ3QvboYa0tQMSRB08cKveU3bsc9ccdGs0a1HgJqjyXYSytZCHxoglMRSNC1QGd3C5t+Pvo4et4muCsal89ZDSdfx/UkhSwL
+X-Gm-Message-State: AOJu0YyCaPIvlpnyDIyPzLbkenRWvc4R2xC5KRRTmkzOSR9rK7nZmeuC
+ ouy3eii5v/PxYUg0oKjHHuEfti2dI6fK6UzqB3qALjvMAHMGtTFaSMUGha4n9w==
+X-Google-Smtp-Source: AGHT+IHQFsTaKAjTWRRsrq1ZbLWnGQEVyGRFX2DMyF+SJJVN6Bd0rkX5tleEQkFmHdo17KUR5G1ENw==
+X-Received: by 2002:a05:6a00:845:b0:6e6:fb34:2568 with SMTP id
+ q5-20020a056a00084500b006e6fb342568mr3035362pfk.0.1710538666024; 
+ Fri, 15 Mar 2024 14:37:46 -0700 (PDT)
 Received: from dianders.sjc.corp.google.com
  ([2620:15c:9d:2:b23e:e8dc:3df4:aa2a])
  by smtp.gmail.com with ESMTPSA id
- a26-20020aa7865a000000b006e6b5e65579sm3837142pfo.106.2024.03.15.14.37.42
+ a26-20020aa7865a000000b006e6b5e65579sm3837142pfo.106.2024.03.15.14.37.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Mar 2024 14:37:42 -0700 (PDT)
+ Fri, 15 Mar 2024 14:37:44 -0700 (PDT)
 From: Douglas Anderson <dianders@chromium.org>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Douglas Anderson <dianders@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+Cc: Douglas Anderson <dianders@chromium.org>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/4] drm/msm/dp: Delete the old 500 ms wait for eDP HPD in
- aux transfer
-Date: Fri, 15 Mar 2024 14:36:31 -0700
-Message-ID: <20240315143621.v2.3.I535606f6d4f7e3e5588bb75c55996f61980183cd@changeid>
+ Sean Paul <sean@poorly.run>, Stephen Boyd <swboyd@chromium.org>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 4/4] drm/msm/dp: Fix typo in static function (ststus =>
+ status)
+Date: Fri, 15 Mar 2024 14:36:32 -0700
+Message-ID: <20240315143621.v2.4.Ia5dd755f81d7cc9a4393c43f77b9be4ed2278ee3@changeid>
 X-Mailer: git-send-email 2.44.0.291.gc1ea87d7ee-goog
 In-Reply-To: <20240315213717.1411017-1-dianders@chromium.org>
 References: <20240315213717.1411017-1-dianders@chromium.org>
@@ -88,70 +90,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Before the introduction of the wait_hpd_asserted() callback in commit
-841d742f094e ("drm/dp: Add wait_hpd_asserted() callback to struct
-drm_dp_aux") the API between panel drivers and DP AUX bus drivers was
-that it was up to the AUX bus driver to wait for HPD in the transfer()
-function.
-
-Now wait_hpd_asserted() has been added. The two panel drivers that are
-DP AUX endpoints use it. See commit 2327b13d6c47 ("drm/panel-edp: Take
-advantage of wait_hpd_asserted() in struct drm_dp_aux") and commit
-3b5765df375c ("drm/panel: atna33xc20: Take advantage of
-wait_hpd_asserted() in struct drm_dp_aux"). We've implemented
-wait_hpd_asserted() in the MSM DP driver as of commit e2969ee30252
-("drm/msm/dp: move of_dp_aux_populate_bus() to eDP probe()"). There is
-no longer any reason for long wait in the AUX transfer() function.
-Remove it.
-
-NOTE: the wait_hpd_asserted() is listed as "optional". That means it's
-optional for the DP AUX bus to implement. In the case of the MSM DP
-driver we implement it so we can assume it will be called.
-
-ALSO NOTE: the wait wasn't actually _hurting_ anything and wasn't even
-causing long timeouts, but it's still nice to get rid of unneeded
-code. Specificaly it's not truly needed because to handle other DP
-drivers that can't power on as quickly (specifically parade-ps8640) we
-already avoid DP AUX transfers for eDP panels that aren't powered
-on. See commit 8df1ddb5bf11 ("drm/dp: Don't attempt AUX transfers when
-eDP panels are not powered").
+This is a no-op change to just fix a typo in the name of a static function.
 
 Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
 
-(no changes since v1)
+Changes in v2:
+- ("Fix typo in static function (ststus => status)") new for v2.
 
- drivers/gpu/drm/msm/dp/dp_aux.c | 17 -----------------
- 1 file changed, 17 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-index 75c51f3ee106..ecefd1922d6d 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.c
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -313,23 +313,6 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
- 		goto exit;
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index b0f3e2ef5a6b..78e702f66ed2 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -494,7 +494,7 @@ static void dp_display_handle_video_request(struct dp_display_private *dp)
  	}
+ }
  
--	/*
--	 * For eDP it's important to give a reasonably long wait here for HPD
--	 * to be asserted. This is because the panel driver may have _just_
--	 * turned on the panel and then tried to do an AUX transfer. The panel
--	 * driver has no way of knowing when the panel is ready, so it's up
--	 * to us to wait. For DP we never get into this situation so let's
--	 * avoid ever doing the extra long wait for DP.
--	 */
--	if (aux->is_edp) {
--		ret = dp_catalog_aux_wait_for_hpd_connect_state(aux->catalog,
--								500000);
--		if (ret) {
--			DRM_DEBUG_DP("Panel not ready for aux transactions\n");
--			goto exit;
--		}
--	}
--
- 	dp_aux_update_offset_and_segment(aux, msg);
- 	dp_aux_transfer_helper(aux, msg, true);
+-static int dp_display_handle_port_ststus_changed(struct dp_display_private *dp)
++static int dp_display_handle_port_status_changed(struct dp_display_private *dp)
+ {
+ 	int rc = 0;
  
+@@ -551,7 +551,7 @@ static int dp_display_usbpd_attention_cb(struct device *dev)
+ 		drm_dbg_dp(dp->drm_dev, "hpd_state=%d sink_request=%d\n",
+ 					dp->hpd_state, sink_request);
+ 		if (sink_request & DS_PORT_STATUS_CHANGED)
+-			rc = dp_display_handle_port_ststus_changed(dp);
++			rc = dp_display_handle_port_status_changed(dp);
+ 		else
+ 			rc = dp_display_handle_irq_hpd(dp);
+ 	}
 -- 
 2.44.0.291.gc1ea87d7ee-goog
 
