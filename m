@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AF1687CCA6
-	for <lists+freedreno@lfdr.de>; Fri, 15 Mar 2024 12:46:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EB4887CCA8
+	for <lists+freedreno@lfdr.de>; Fri, 15 Mar 2024 12:46:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D76981121DA;
-	Fri, 15 Mar 2024 11:46:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41B7F1121D7;
+	Fri, 15 Mar 2024 11:46:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="A3zb6xQ/";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gv+ga060";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
  [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D7F81121D9
- for <freedreno@lists.freedesktop.org>; Fri, 15 Mar 2024 11:46:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17FB41121D8
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Mar 2024 11:46:32 +0000 (UTC)
 Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-513dc99b709so274717e87.1
- for <freedreno@lists.freedesktop.org>; Fri, 15 Mar 2024 04:46:31 -0700 (PDT)
+ 2adb3069b0e04-512f892500cso2239013e87.3
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Mar 2024 04:46:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1710503189; x=1711107989; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1710503190; x=1711107990; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=J8Y0RnqdkkNJT2IOUAgIJwE7VvEMel7kUBPozDnljrU=;
- b=A3zb6xQ/Hpkr9/3FOHlZAaWHRycYci8O0Bfw2JVSgO91lxHnsuVjgibUfKmWg6Vu+G
- Yt0LEAQxSRksvVooDPhBv8SL70PoeJZ+gbvDIi66s7BGQewP1MTYwfJ9H+Lbx4Di3Axj
- D1VlcZ+X7xkoW/4Y9IoUwb5cJlTlibwozZQGW3Lq0AlJceh6nU2ZGEF0v8r8CLgi9NbF
- CN6LABDrqjxw3qrY+C8JPRDT4H3oQcGFvSDl6+HIiI8Q1Ekhvknz3+2cUiHortD08v3q
- CwKQdhTCqt1+LB4k3GxNWjFUnyyoDbzEyCq/cpm2YvdHOTd8gqATEfdPTY3vv+K13XhQ
- nLAA==
+ :reply-to; bh=1WXlzxfTJnIOKH/FylqIk+DUTDY6h4Yser6h5v1mYdc=;
+ b=gv+ga060vgJfGdWk0qZstN91DPZgNVglbKRleKy85drHWKzeg3MAB//3GcowCieLVt
+ HneDIoOXd6ITT2nmF28Ce9Fj+2OCKPlS3iD6ApL2ODb61X2RYj3WmjmorrWcJgOE3znn
+ FiShXK42sxPz65L7UuvIzxUkNNmgSHSKzPp6UgVNjzGxv58SJfNnlptM1G0XdeeBpDWf
+ GO5GihF0xNOYckl1sCINSp7HGgxETT6iFTRADiCEHu3JC62r7adJqmolL1mOGYpwqnQc
+ At+6+okqUpKpgGoIYZ0OQoIurweLIjklxmovGldfVsLLPCNAsZOCZabHWvLbYAAvlvJ+
+ KAMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710503189; x=1711107989;
+ d=1e100.net; s=20230601; t=1710503190; x=1711107990;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=J8Y0RnqdkkNJT2IOUAgIJwE7VvEMel7kUBPozDnljrU=;
- b=DlaqbTwJTawVetmLDKg00IaL/AaNNMBK2LROo8AqK8cPvrAolwrhrW7xDNBxzaW4yZ
- jFAwYx/NnKBXt7gJwjotkf9c1B9tY/w7lBTDsIevlo/hAB/zrAYf45Eja6IL3ByhT1L9
- TEhIjqvnwq8L2b+dFJ4eXBY5KOJwUYsd+0PXvtF2hnY9xQXUualv3sGythfrGPPVwEEV
- BSdSnzCQupwXK1qJDq/wMADiDc6mkl7clxnC3wR1Zt5pzXpswFcYT6bXRPMDxxj1by2N
- XEV4bREKd1cDAAA7gNYD6JlhmbFJDp0zIhbORtDqdbn+YY3aZDfBSpToX472a6dVwX4q
- sWtQ==
+ bh=1WXlzxfTJnIOKH/FylqIk+DUTDY6h4Yser6h5v1mYdc=;
+ b=CDxDJ4OTWfbhSru4C0oYh7XrN2jpszILDA62iKsWHORz8w+flCBSz+Eu6Yw6jhXpFx
+ qtx0CuEB4BaH4DVgpRmJSP0SabTTl1FCPmrTHTwXwZ3q8pXvAmRqKBeQKgG1CybnAdpu
+ WiMqww0bpaDW1hVJ7spk64NP1XL/HiO7OdrnMQKk+ZrbzzvTtZYImjFdESOUSyr61aqi
+ +kmGV48PiWKWRJHZZNJSVkxTH1Bbbqw6hF00I0wR0xqCjnGtKR5YwtOCxubDb846bGwe
+ Ugmj1m9Vk3AU2SKDvozWtoVFyXUO848Y5VBK5ueoewHhrA9Aqaogn11SrU2lpeQbujag
+ mtmw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWAvrEKXvzGRDGsmU2aI+lvLLobp1Mh2R8dRHKxGYuIhl8raoLR7K7BK4W4qoq9ZgrwjpqnKPQbz31lkw5fO1nc/Pqkgn4iiXRDKzmBbstA
-X-Gm-Message-State: AOJu0Yy6/Rl+I+IhNHeq/djqYH08lUNHJZHPqi3Yk3GeWiUstJuF7NEU
- fm6PlGDyVTOW9t8ZNFaYPMu+ith29kOUCOlyJG+MDLO6ZPCkd+mHJrtbEcGvGRY=
-X-Google-Smtp-Source: AGHT+IFvHmKzxUIFY76dv6GIA+LeCO8F/bh1rhpzPNmjrJjuJuj4/5FvAu2HjyJaibvuaPIRy0Rr2Q==
-X-Received: by 2002:a19:9142:0:b0:513:d5b5:78e9 with SMTP id
- y2-20020a199142000000b00513d5b578e9mr1999251lfj.26.1710503189363; 
- Fri, 15 Mar 2024 04:46:29 -0700 (PDT)
+ AJvYcCUVi8qoWEjsQqhYJ1TRtZ0uON2NVd/dh20CIy/0dv7FXFgfz/ok3VTjtEoO5Nub+xyJALTvvqcDIx3H8f6s4coPP+I7yLMbMaao/zpGmzms
+X-Gm-Message-State: AOJu0YyJpkJR3NGHKuHtcCKEkh3g53rDlWDA2xz6hCyHPRQ/lc//e73i
+ 1F74UNILcswz45jQAurfQMB9ZlDLD2swqCOfEJ7DCLoF2eGrIFedNcolrO0/4Pk=
+X-Google-Smtp-Source: AGHT+IHwpPmdnU1MpvxTqQo5Y1lvPc+qWeTGrnOHX4NlCO7xrbZ0sucFRLcC8XXTqGqQQ1y4Z3C2/A==
+X-Received: by 2002:ac2:5f8b:0:b0:513:c2c7:573e with SMTP id
+ r11-20020ac25f8b000000b00513c2c7573emr2514170lfe.23.1710503190336; 
+ Fri, 15 Mar 2024 04:46:30 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- l17-20020ac24a91000000b00513b024b232sm619987lfp.10.2024.03.15.04.46.28
+ l17-20020ac24a91000000b00513b024b232sm619987lfp.10.2024.03.15.04.46.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Mar 2024 04:46:28 -0700 (PDT)
+ Fri, 15 Mar 2024 04:46:29 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 15 Mar 2024 13:46:23 +0200
-Subject: [PATCH RFC v3 01/12] drm/msm/mdp5: add writeback block bases
+Date: Fri, 15 Mar 2024 13:46:24 +0200
+Subject: [PATCH RFC v3 02/12] drm/msm/hdmi: drop qfprom.xml.h
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240315-fd-xml-shipped-v3-1-0fc122e36c53@linaro.org>
+Message-Id: <20240315-fd-xml-shipped-v3-2-0fc122e36c53@linaro.org>
 References: <20240315-fd-xml-shipped-v3-0-0fc122e36c53@linaro.org>
 In-Reply-To: <20240315-fd-xml-shipped-v3-0-0fc122e36c53@linaro.org>
 To: Masahiro Yamada <masahiroy@kernel.org>, 
@@ -72,16 +72,16 @@ Cc: linux-kbuild@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1223;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4711;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=Qgjc0zwou9fhsXbbN2p4ZWlMuaNpRr7RxW3B4yymOWk=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl9DUQImGnbz7nOsTqodT0se82AQB3A8EYtQh11
- obHHUk4GRiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZfQ1EAAKCRCLPIo+Aiko
- 1V7yB/0XGKzg8zS5Tz1eog71yhF6z96DuLKN8UwYg8RvBiL5qYpDugWvlB1XfUKUANgSFkEAFir
- bqttMynucXaLYAbTp858g61l4BmU4aBOK0DR9JQl05C55JhhyUBBEr25F0eBEk/0MKC23fhJH11
- 776CxdVTG7MFLem7OI4sKWEv1zWY935B3SyF8CpjZ97ltNOVhuhrhyfLCpsNxIzOR9rWa7FtaLy
- 2PjURezJWYZuJXbrR/2gv/ORk5zuUp3KhwVbli3eM9snnTJ1HiPRNwSzo45u/CH63kIxcJElByu
- 3ijGtDoMWI+FWTIrIqb81qN5K9T5+eOQ1eV2yaF9+JQ2ls3D
+ bh=WdZH3u8yRJqqGjSYbceH8YaJBPAPZG8nl8tvSvRvLKI=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl9DUQQQF74LwZT1gRX6WqqoLWz9flZ5KUh7elK
+ bI3BziyC6uJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZfQ1EAAKCRCLPIo+Aiko
+ 1WTJB/9DhrR8Qhf0IFcC+tv+CIG7zFVPu0BjMvbZs/PJwkQ0UBKwisp2kvpQ+JnzC6djzQeNKwV
+ hHSGALG20qDWeliVeuUvjo1kiZoyI4RgVo7zorHkyoz6A7CvMeYjJAG+epziJmlw++xtuNg1Ejm
+ 5d4j5K45rljeIm0VcckcXu0RQssfBeQjDkq8i2dC96hXQJy4TxetywYYdwSD/Y3Uk/rBvjG9zpb
+ 1yWgRmSBCIDpAC/x6DnTdpfbRCE8rvos/hQUPFInwRRi6u3lhzY5Cr8CTsmL7w0DXO+n5kt9ntt
+ vXFE5FVuG9MOMboTNnfSEvBjzTjxUYoJEDrgSOCB6nBAvxQn
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -99,45 +99,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In order to stop patching the mdp5 headers, import definitions for the
-writeback blocks. This part is extracted from the old Rob's patch.
+The qfprom.xml.h contains definitions for the nvmem code. They are not
+used in the existing code. Also if we were to use them later, we should
+have used nvmem cell API instead of using these defs. Drop the file.
 
-Co-developed-by: Rob Clark <robdclark@gmail.com>
-Signed-off-by: Rob Clark <robdclark@gmail.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/gpu/drm/msm/hdmi/qfprom.xml.h | 61 -----------------------------------
+ 1 file changed, 61 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h
-index 26c5d8b4ab46..4b988e69fbfc 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h
-@@ -69,6 +69,16 @@ struct mdp5_mdp_block {
- 	uint32_t caps;			/* MDP capabilities: MDP_CAP_xxx bits */
- };
- 
-+struct mdp5_wb_instance {
-+	int id;
-+	int lm;
-+};
-+
-+struct mdp5_wb_block {
-+	MDP5_SUB_BLOCK_DEFINITION;
-+	struct mdp5_wb_instance instances[MAX_BASES];
-+};
-+
- #define MDP5_INTF_NUM_MAX	5
- 
- struct mdp5_intf_block {
-@@ -98,6 +108,7 @@ struct mdp5_cfg_hw {
- 	struct mdp5_sub_block pp;
- 	struct mdp5_sub_block dsc;
- 	struct mdp5_sub_block cdm;
-+	struct mdp5_wb_block wb;
- 	struct mdp5_intf_block intf;
- 	struct mdp5_perf_block perf;
- 
+diff --git a/drivers/gpu/drm/msm/hdmi/qfprom.xml.h b/drivers/gpu/drm/msm/hdmi/qfprom.xml.h
+deleted file mode 100644
+index 498801526695..000000000000
+--- a/drivers/gpu/drm/msm/hdmi/qfprom.xml.h
++++ /dev/null
+@@ -1,61 +0,0 @@
+-#ifndef QFPROM_XML
+-#define QFPROM_XML
+-
+-/* Autogenerated file, DO NOT EDIT manually!
+-
+-This file was generated by the rules-ng-ng headergen tool in this git repository:
+-http://github.com/freedreno/envytools/
+-git clone https://github.com/freedreno/envytools.git
+-
+-The rules-ng-ng source files this header was generated from are:
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/msm.xml                   (    944 bytes, from 2022-07-23 20:21:46)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/freedreno_copyright.xml   (   1572 bytes, from 2022-07-23 20:21:46)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/mdp/mdp4.xml              (  20912 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/mdp/mdp_common.xml        (   2849 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/mdp/mdp5.xml              (  37461 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi.xml               (  18746 bytes, from 2022-04-28 17:29:36)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_v2.xml        (   3236 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_28nm_8960.xml (   4935 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_28nm.xml      (   7004 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_20nm.xml      (   3712 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_14nm.xml      (   5381 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_10nm.xml      (   4499 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/dsi_phy_7nm.xml       (  11007 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/sfpb.xml              (    602 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/dsi/mmss_cc.xml           (   1686 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/hdmi/qfprom.xml           (    600 bytes, from 2022-03-08 17:40:42)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/hdmi/hdmi.xml             (  42350 bytes, from 2022-09-20 17:45:56)
+-- /home/robclark/src/mesa/mesa/src/freedreno/registers/edp/edp.xml               (  10416 bytes, from 2022-03-08 17:40:42)
+-
+-Copyright (C) 2013-2022 by the following authors:
+-- Rob Clark <robdclark@gmail.com> (robclark)
+-- Ilia Mirkin <imirkin@alum.mit.edu> (imirkin)
+-
+-Permission is hereby granted, free of charge, to any person obtaining
+-a copy of this software and associated documentation files (the
+-"Software"), to deal in the Software without restriction, including
+-without limitation the rights to use, copy, modify, merge, publish,
+-distribute, sublicense, and/or sell copies of the Software, and to
+-permit persons to whom the Software is furnished to do so, subject to
+-the following conditions:
+-
+-The above copyright notice and this permission notice (including the
+-next paragraph) shall be included in all copies or substantial
+-portions of the Software.
+-
+-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+-IN NO EVENT SHALL THE COPYRIGHT OWNER(S) AND/OR ITS SUPPLIERS BE
+-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-*/
+-
+-
+-#define REG_QFPROM_CONFIG_ROW0_LSB				0x00000238
+-#define QFPROM_CONFIG_ROW0_LSB_HDMI_DISABLE			0x00200000
+-#define QFPROM_CONFIG_ROW0_LSB_HDCP_DISABLE			0x00400000
+-
+-
+-#endif /* QFPROM_XML */
 
 -- 
 2.39.2
