@@ -2,91 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 677C8892F23
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AE7C892F22
 	for <lists+freedreno@lfdr.de>; Sun, 31 Mar 2024 10:43:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EF7F10E9A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 066D710E99D;
 	Sun, 31 Mar 2024 08:43:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="X3YnJCWO";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="OtptxIjL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BF3C10E226;
- Sun, 17 Mar 2024 18:02:13 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-512e4f4e463so3991833e87.1; 
- Sun, 17 Mar 2024 11:02:13 -0700 (PDT)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E32B10E625;
+ Sun, 17 Mar 2024 18:02:29 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-2d27184197cso48395611fa.1; 
+ Sun, 17 Mar 2024 11:02:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710698531; x=1711303331; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=MzKqTULejlRdhOCK57EtCsKlcFoP0JMCOwXzk5JnzwA=;
- b=X3YnJCWOMmjh0Ff3o2WvC5F+IghIRHflSYfbuhbI1h4ZNixfsGppu8vprIimSkb1lY
- 3uo/g/02OCprUJzJ2e4sayt4aT6xLmngZ11PmLfrpx8zgYc7kydNrHsAJi7PM3A0B550
- alkLHGrO6MXQvPAsd39P1swF5tGIPJTD3K9wfTQxCVGfQH9zrElRfNYPuS/1YKbuIYsl
- 8Pj4Y5v3pX6UEBc6Z2Iy2av0WtFzikZ16hDqSZo+1PAZG+k7WP7z9nrEr0BmBrpoct+P
- PcfmA1ytyzSzYRvNy5U81gcDoUruGWrm0jvXGD+utblWBZCTVj5xHaiOREmnNlFLAWPX
- yo+w==
+ d=gmail.com; s=20230601; t=1710698547; x=1711303347; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eUbeueA1ROk6a8DiyLDqdiiGKg+OYyEnSiWbLatHNh0=;
+ b=OtptxIjLnd6nh5/bLymH3H6K2zd29pZKcTjNGKKzqrr3GKI/YjGytNrn0uN8zFxU4k
+ rsUi3cb4SLXRKFzI76YOAzIatHY1pOncpanutwHjY49CVa8v+soCKUoNiSjxfM1psRNe
+ 0rEP4qfzIxsp9cWyUfnZRrNt33BFX8G7T66m1yua5oOBJs/MvsofGOunLYPfirRBiqhm
+ yz4q2qvhKDCdsxg2GjOOUICmqFUOFJg3LGW2yLhAg0p47U6vXOWDZdRDEPEwTGl4o4b/
+ sJ52LPyT2Ce2pk5rtj6QmNngM6bo+TtJI0DiEP8/i94Rrr1O18WMHTkTpFJuUGZ6jufD
+ r5RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710698531; x=1711303331;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=MzKqTULejlRdhOCK57EtCsKlcFoP0JMCOwXzk5JnzwA=;
- b=FqX7Ref4oMfAJlsnmzXdAByLgg0Du+/nMy/D0lF67xQUCa96NtIFxdB+YhLT71/ToQ
- Po5aHPZnhbg3CfnEt+27ScYuNIsG8bnrw1GXhIbALnx+JTkHsxoADGEyRKsHx8lZoIbb
- fN9LLTnllOrRJcV+329gp+oLnFifdE8ya2tAhh8ZoCEve8SP1ldlySDOy8ElQ6M/vE8b
- hTV8DCLqASlXHvCdrjZqNrzpwg1cn6sz9uhF92GFhEmFUCuX8NxCuFuhsPXJwXthxKdT
- iZkTwJ4E/8eNiEsReveJAyMeJGAd1tG5DJLhR90uXHb+ebiyF4NvyrGwRQLfHGlvF8Dk
- CgCQ==
+ d=1e100.net; s=20230601; t=1710698547; x=1711303347;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=eUbeueA1ROk6a8DiyLDqdiiGKg+OYyEnSiWbLatHNh0=;
+ b=XSfBohYHq7OUhfPG283vLuiF552DmVzOrk1H0GC/PB645Ic35cJqZGK5UfyKX+uVsZ
+ BL6jQc0Bu1eTNONzEsAYNACmg97LKqklJ2nhejXyKKvJugacJteHr7tFEag1njejxjzo
+ jRgwkKPuLfHYiSJhFWHihmrXLCnGe0D1vI/C8YS7iyvskAEbwVEAKRUUciby99SZ/6xK
+ RX2SjRVDY1hT7P7x5YB35nzL4bHQNcpXnTPt4AxYgPQTglgvv6K+8TUlkBYikf8noVBT
+ dI6gCqYfunKSDJrugZtCRJI0y6rQfAk9m99sMBWCR8zaqCfU2M6l0eanA94z8B+58hZn
+ BAaA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX+GVKJWYTwgv3dZ3hMFBKbNB/JQVpyLDhvZLZ0d6AbpoZyj0hVdc+6RtdBgoRyKlhLyAUhG5Mleti0d5YrreZAEk3Mayxyg32Byw7tVHEDNTtKlapYTV89AZNxVQc2LO5d4r1UY+Hwv1totd8c7G7NGKI7joiDEzlcljGRiN8Ly78IAkA10UJkjZ4xX95CRYUuQBHmDGOmXryDbD2YojBopmVNyxHmLRnuWPIcHydo
-X-Gm-Message-State: AOJu0Yw/fzAL36knyTFNHce8eja9hbzbR0RS3mK22h2+852xeJoqudGC
- d1mDiWmMDkuDFEJweavXmr1gksH54I4qxSewKCan9R/utjTaKUUnYbRucCsedb4=
-X-Google-Smtp-Source: AGHT+IFCus1zUTDDRuMKlHSuX7mZxcmUN2oBoDJZChg/lN8tzdLoS7uVD3wjUYqAFNQG1yYzEapq8A==
-X-Received: by 2002:a05:6512:3294:b0:513:c95c:4dc4 with SMTP id
- p20-20020a056512329400b00513c95c4dc4mr7747510lfe.7.1710698530912; 
- Sun, 17 Mar 2024 11:02:10 -0700 (PDT)
+ AJvYcCV+JpcJuNiCGVmxZpoH//U+GtKcAQSMQ1m2oGDhDP5cUG/nQnkuWhOuauoLY4ST5cRUYw6nBtrDwPgC9rcs+bws1r8KPMMA217mrzteiGzK
+X-Gm-Message-State: AOJu0YypxE0p+LjHNq1KWhq/bfNtB7Kaxw9VP48pRVcYxSm9RlUNm7SF
+ RULncEt30p6HNtF7+bK+U9fCTQYa+Q/RtsjCactc6gu2dHQB1ZVXr5QEhdo+NyY=
+X-Google-Smtp-Source: AGHT+IHYndevLgkLj2qn2VG5Ekz45J5RTZHx/x5titxqY0o/yJQDg+GTMq5OAZ75QcYiLH1jriFPAw==
+X-Received: by 2002:a2e:3613:0:b0:2d4:57c5:8862 with SMTP id
+ d19-20020a2e3613000000b002d457c58862mr6915147lja.4.1710698547509; 
+ Sun, 17 Mar 2024 11:02:27 -0700 (PDT)
 Received: from betty.fdsoft.se (213-67-237-183-no99.tbcn.telia.com.
  [213.67.237.183]) by smtp.gmail.com with ESMTPSA id
- g21-20020ac24d95000000b00513cdde18efsm1318346lfe.75.2024.03.17.11.02.10
+ w6-20020a2e9bc6000000b002d2d384519dsm1173483ljj.102.2024.03.17.11.02.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Mar 2024 11:02:10 -0700 (PDT)
+ Sun, 17 Mar 2024 11:02:27 -0700 (PDT)
 Received: from ester.fdsoft.se ([192.168.1.2])
  by betty.fdsoft.se with esmtp (Exim 4.97.1)
  (envelope-from <frej.drejhammar@gmail.com>)
- id 1rlupl-000000005e0-3xex; Sun, 17 Mar 2024 19:02:10 +0100
+ id 1rluq2-000000005e0-2eHg; Sun, 17 Mar 2024 19:02:26 +0100
 From: Frej Drejhammar <frej.drejhammar@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Frej Drejhammar <frej.drejhammar@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-tegra@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Maxime Ripard <mripard@kernel.org>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Sean Paul <sean@poorly.run>, stable@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: [PATCH 00/11] drm: Only try to set formats supported by the hardware
-Date: Sun, 17 Mar 2024 19:01:25 +0100
-Message-ID: <cover.1710698386.git.frej.drejhammar@gmail.com>
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: [PATCH 07/11] drm/msm: Use drm_driver_legacy_fb_format() for fbdev
+Date: Sun, 17 Mar 2024 19:01:32 +0100
+Message-ID: <b0b9563ed12a403883e7f2239eeb8bd2a007ad40.1710698387.git.frej.drejhammar@gmail.com>
 X-Mailer: git-send-email 2.44.0
+In-Reply-To: <cover.1710698386.git.frej.drejhammar@gmail.com>
+References: <cover.1710698386.git.frej.drejhammar@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 31 Mar 2024 08:43:22 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -104,87 +93,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When userland uses DRM_IOCTL_MODE_ADDFB to add a framebuffer, the DRM
-subsystem tries to find a pixel format from the supplied depth and
-bpp-values. It does this by calling drm_driver_legacy_fb_format().
-Unfortunately drm_driver_legacy_fb_format() can return formats not
-supported by the underlying hardware. This series of patches remedies
-this problem in patch 1.
+Switch to using drm_driver_legacy_fb_format() instead of
+drm_mode_legacy_fb_format() to use the same logic as for the
+DRM_IOCTL_MODE_ADDFB ioctl when selecting a framebuffer format.
 
-In order to use the same logic for determining the pixel format, when
-a fbdev adds a framebuffer as userland does, patches 2 to 11 migrates
-fbdev users of drm_mode_legacy_fb_format() to
-drm_driver_legacy_fb_format().
+Signed-off-by: Frej Drejhammar <frej.drejhammar@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
 
-This series has been tested with the nouveau and modesetting drivers
-on a NVIDIA NV96, the modesetting driver on Beagleboard Black, and
-with the Intel and modesetting drivers on an Intel HD Graphics 4000
-chipset.
+---
 
 This is an evolved version of the changes proposed in "drm: Don't
 return unsupported formats in drm_mode_legacy_fb_format" [1] following
 the suggestions of Thomas Zimmermann.
 
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-samsung-soc@vger.kernel.org
-Cc: linux-tegra@vger.kernel.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: "Maíra Canal" <mcanal@igalia.com>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Sean Paul <sean@poorly.run>
-Cc: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: "Ville Syrjälä" <ville.syrjala@linux.intel.com>
-
 [1] https://lore.kernel.org/all/20240310152803.3315-1-frej.drejhammar@gmail.com/
+---
+ drivers/gpu/drm/msm/msm_fbdev.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Frej Drejhammar (11):
-  drm: Only return supported formats from drm_driver_legacy_fb_format
-  drm/fbdev_generic: Use drm_driver_legacy_fb_format() for fbdev
-  drm/armada: Use drm_driver_legacy_fb_format() for fbdev
-  drm/exynos: Use drm_driver_legacy_fb_format() for fbdev
-  drm/gma500: Use drm_driver_legacy_fb_format() for fbdev
-  drm/i915: Use drm_driver_legacy_fb_format() for fbdev
-  drm/msm: Use drm_driver_legacy_fb_format() for fbdev
-  drm/omapdrm: Use drm_driver_legacy_fb_format() for fbdev
-  drm/radeon: Use drm_driver_legacy_fb_format() for fbdev
-  drm/tegra: Use drm_driver_legacy_fb_format() for fbdev
-  drm/xe: Use drm_driver_legacy_fb_format() for fbdev
-
- drivers/gpu/drm/armada/armada_fbdev.c         |  5 +-
- drivers/gpu/drm/drm_fb_helper.c               |  2 +-
- drivers/gpu/drm/drm_fbdev_dma.c               |  4 +-
- drivers/gpu/drm/drm_fbdev_generic.c           |  4 +-
- drivers/gpu/drm/drm_fourcc.c                  | 83 +++++++++++++++++++
- drivers/gpu/drm/exynos/exynos_drm_fbdev.c     |  6 +-
- drivers/gpu/drm/gma500/fbdev.c                |  2 +-
- drivers/gpu/drm/i915/display/intel_fbdev_fb.c |  6 +-
- drivers/gpu/drm/msm/msm_fbdev.c               |  4 +-
- drivers/gpu/drm/omapdrm/omap_fbdev.c          |  6 +-
- drivers/gpu/drm/radeon/radeon_fbdev.c         |  6 +-
- drivers/gpu/drm/tegra/fbdev.c                 |  5 +-
- drivers/gpu/drm/xe/display/intel_fbdev_fb.c   |  5 +-
- 13 files changed, 119 insertions(+), 19 deletions(-)
-
-
-base-commit: 119b225f01e4d3ce974cd3b4d982c76a380c796d
+diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+index 030bedac632d..05bedf210572 100644
+--- a/drivers/gpu/drm/msm/msm_fbdev.c
++++ b/drivers/gpu/drm/msm/msm_fbdev.c
+@@ -77,7 +77,9 @@ static int msm_fbdev_create(struct drm_fb_helper *helper,
+ 	uint32_t format;
+ 	int ret, pitch;
+ 
+-	format = drm_mode_legacy_fb_format(sizes->surface_bpp, sizes->surface_depth);
++	format = drm_driver_legacy_fb_format(dev,
++					     sizes->surface_bpp,
++					     sizes->surface_depth);
+ 
+ 	DBG("create fbdev: %dx%d@%d (%dx%d)", sizes->surface_width,
+ 			sizes->surface_height, sizes->surface_bpp,
 -- 
 2.44.0
 
