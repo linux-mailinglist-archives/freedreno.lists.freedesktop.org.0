@@ -2,86 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC3E587EF9E
-	for <lists+freedreno@lfdr.de>; Mon, 18 Mar 2024 19:18:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9426A87F068
+	for <lists+freedreno@lfdr.de>; Mon, 18 Mar 2024 20:26:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A26DF10F6C1;
-	Mon, 18 Mar 2024 18:18:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5F710FE24;
+	Mon, 18 Mar 2024 19:26:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="L9olPd8X";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="VabCl7Ib";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 467D510E359;
- Mon, 18 Mar 2024 18:18:37 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42I9FIvM020548; Mon, 18 Mar 2024 18:18:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=SMNngnuJsZLJ+dd0//3akRS33tpd5A8neDgHEFnWG9I=; b=L9
- olPd8XTdRdgPV2TC7HmQHCv7d9BTg0ZjPVA0eZ83llMUkFhLkMTDCEpTM2mTQ/Uj
- uH+mB61IrppZe8aKTVKtx2OXdNCRZYT6D6Snfe/bwqTTuwMBBinI/8nJZhF+1jX2
- C6rmiUTwC9ZMr8ZT6VawuolL8Zaiag6qkgIzQJoMAhJy4JtXG22nZChDksLKj2mx
- YC1arAFEt5IlaZULjt7MeBxIieuBhp+6jhZKNXPG6yqgErt8y6I4Za76v2VlxNKj
- jpPvhvt6tTnW9zZXEjBHvK5EuSjAH/XchoWJNKs25MLZgXIAJS8AvQRsRxVGshVL
- ZKL1U0r2frAkgOBDFiMg==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wxjt4s7fm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 18 Mar 2024 18:18:34 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42IIIXqD021947
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 18 Mar 2024 18:18:33 GMT
-Received: from [10.110.10.159] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 18 Mar
- 2024 11:18:29 -0700
-Message-ID: <19f0941c-9d8a-4f27-bfa9-109f4c43337e@quicinc.com>
-Date: Mon, 18 Mar 2024 11:18:27 -0700
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 611CA10FE0A
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Mar 2024 19:26:30 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2d49f7e5c2cso26643481fa.2
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Mar 2024 12:26:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1710789988; x=1711394788;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+ :reply-to; bh=xvwBqy02Lt//XY7TKf5p6Szodv2siVQMtlWkmKgSadE=;
+ b=VabCl7IbsKnw8R1sT5EpIepwRphz8Vo6CqtGwXOtSdFcaBkfglMclbzg2oAZqp6O5A
+ 3oo39f+CI2GNqTExetKDd6buVuhxnF2UcwdEl+viP4Mr/X12Mr8gdCHAvZgxU99bY535
+ R3swwGI0VCYBhCtQXAck2pGciP+zgQePkOC4I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710789988; x=1711394788;
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xvwBqy02Lt//XY7TKf5p6Szodv2siVQMtlWkmKgSadE=;
+ b=WFO+ZfISRwgv2y+sbeD5c29sV3lWZ5H/Xwy3r3+l0QVoMvtltEtDaN6kQjO0L3GuxV
+ b44Tq552xT95Hsa//4Z10mBFf/U0r85T9dscg2nAy/7pgQuhi+pduEnkW5DLYBd0bzGr
+ YbzSwrz09QEU8hhkJo0Ea7mCAeq1eswo3VRk1x5c3cJuw/xD/+aNkko1/u5h7pgm2VH/
+ 2RgkaAIka5eWOF9XP2aSw2QivrkukfNwKToz8cSBGUfBQFCZIXRNNh6qqH8ZKvafRO5r
+ jRRsrZ6FG2uawwtpVfiN2U1sbVFxjUNVTSM06Uc1PD7rOvuqGFsC3HlCIvyRAqMN3V8S
+ 59hA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVAEr0TO0TshqTICNnbY5lNmOxSa+xBZ4Ji9sEhEmYaSXlmdTeop8bIsvyLTGg2QGGUfKU91nlWU3hDgMRNw+xI8lppldnNSulevbJYkB18
+X-Gm-Message-State: AOJu0YxEtjyJ85BzE29VOUHresf0wHmVpDIgRvcClNFOAHxzvAPxoyxT
+ PY2CkGhQsb2UzqiyAqVim/VU11SkWG4IYNgwJzWmWuIxRqnSHvqglaiE1Uvm6VF7ROOhInREE+2
+ yBLXGzWzzJ+VSVEg2xgDDcR423jFWP2R6iEGo
+X-Google-Smtp-Source: AGHT+IFe4SIqBk2a4Gcqz06qiXmOLolMnAnmlf22UjLfTc3cWz8vho8vUCaBS8BcelwlfYICaPBpPRtqxlh+N67N26o=
+X-Received: by 2002:a2e:7c19:0:b0:2d4:b061:d9f8 with SMTP id
+ x25-20020a2e7c19000000b002d4b061d9f8mr1711566ljc.39.1710789988109; Mon, 18
+ Mar 2024 12:26:28 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 18 Mar 2024 12:26:27 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v2 2/4] drm/msm/dp: Account for the timeout in
- wait_hpd_asserted() callback
-Content-Language: en-US
-To: Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, "Kuogee
- Hsieh" <quic_khsieh@quicinc.com>, Marijn Suijten
- <marijn.suijten@somainline.org>,
- Sean Paul <sean@poorly.run>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
+In-Reply-To: <20240315143621.v2.4.Ia5dd755f81d7cc9a4393c43f77b9be4ed2278ee3@changeid>
 References: <20240315213717.1411017-1-dianders@chromium.org>
- <20240315143621.v2.2.I7758d18a1773821fa39c034b16a12ef3f18a51ee@changeid>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240315143621.v2.2.I7758d18a1773821fa39c034b16a12ef3f18a51ee@changeid>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 1LZj9pmiA_1_C81E-EPZCxOeWs7jXe-A
-X-Proofpoint-ORIG-GUID: 1LZj9pmiA_1_C81E-EPZCxOeWs7jXe-A
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-18_12,2024-03-18_03,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- adultscore=0 malwarescore=0 clxscore=1015 phishscore=0 priorityscore=1501
- suspectscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 bulkscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2403140001 definitions=main-2403180138
+ <20240315143621.v2.4.Ia5dd755f81d7cc9a4393c43f77b9be4ed2278ee3@changeid>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Mon, 18 Mar 2024 12:26:27 -0700
+Message-ID: <CAE-0n51baqN8cEubSqDegqDwL7O6=iEfN5Ho2OykqjmkjQDcvQ@mail.gmail.com>
+Subject: Re: [PATCH v2 4/4] drm/msm/dp: Fix typo in static function (ststus =>
+ status)
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>
+Cc: Bjorn Andersson <quic_bjorande@quicinc.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ David Airlie <airlied@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,28 +86,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 3/15/2024 2:36 PM, Douglas Anderson wrote:
-> The DP wait_hpd_asserted() callback is passed a timeout which
-> indicates how long we should wait for HPD. This timeout was being
-> ignored in the MSM DP implementation and instead a hardcoded 500 ms
-> timeout was used. Fix it to use the proper timeout.
-> 
-> As part of this we move the hardcoded 500 ms number into the AUX
-> transfer function, which isn't given a timeout. The wait in the AUX
-> transfer function will be removed in a future commit.
-> 
-> Fixes: e2969ee30252 ("drm/msm/dp: move of_dp_aux_populate_bus() to eDP probe()")
+Quoting Douglas Anderson (2024-03-15 14:36:32)
+> This is a no-op change to just fix a typo in the name of a static function.
+>
 > Signed-off-by: Douglas Anderson <dianders@chromium.org>
 > ---
-> 
-> (no changes since v1)
-> 
->   drivers/gpu/drm/msm/dp/dp_aux.c     | 5 +++--
->   drivers/gpu/drm/msm/dp/dp_catalog.c | 7 ++++---
->   drivers/gpu/drm/msm/dp/dp_catalog.h | 3 ++-
->   3 files changed, 9 insertions(+), 6 deletions(-)
-> 
+>
+> Changes in v2:
+> - ("Fix typo in static function (ststus => status)") new for v2.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+This was sent at
+https://lore.kernel.org/r/20240306193515.455388-1-quic_abhinavk@quicinc.com
