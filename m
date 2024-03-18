@@ -2,80 +2,95 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14AA487D679
-	for <lists+freedreno@lfdr.de>; Fri, 15 Mar 2024 23:19:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 586BA87EF67
+	for <lists+freedreno@lfdr.de>; Mon, 18 Mar 2024 19:01:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D1D4112602;
-	Fri, 15 Mar 2024 22:19:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3146810F664;
+	Mon, 18 Mar 2024 18:01:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="4zPEIrt1";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="UAeDBALZ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF1EB112602
- for <freedreno@lists.freedesktop.org>; Fri, 15 Mar 2024 22:19:22 +0000 (UTC)
-Received: by mail-qt1-f172.google.com with SMTP id
- d75a77b69052e-43095dcbee6so95501cf.0
- for <freedreno@lists.freedesktop.org>; Fri, 15 Mar 2024 15:19:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1710541161; x=1711145961;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uGbXyxh9lPDMGwwcLAjwgGrEcCAIj7UP9zCDYhA4zzQ=;
- b=4zPEIrt14HTsvs7ubjqoyimVxYvs2rBGhKmAPOsCTmVlrkv37ItS7mNPmolAOL97S/
- O4i8g6ZRPV1GlmZtjHrz7ch8rq+Ate/RG+te3S9Zbkp9dqkq1qz0t1KaVj8jT+WrfwFT
- wqx27+U1jS4a4/GswCzJV31NayLYFxUsizwlgvooDhXb7pIVwyhon4q7q6hq3WqG25nE
- s5FqO4yWWQZu0XLff5tvCiLEf5WadDhtjKms+daKxufBKaEFgWJy1K4tcGmoLHjEzdSM
- rEEaRk4U9usoPwe9eV4V/fFaCWoALx740UI8hIpd7DnrF7cmVOqFz5O6uD4V680se7EL
- 4MIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710541161; x=1711145961;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uGbXyxh9lPDMGwwcLAjwgGrEcCAIj7UP9zCDYhA4zzQ=;
- b=BBt5HGNI1H+3VSE8qoWcFYUIvnaA6/hgMY3vqYlduXfPDMRpYsSqcCmpK15/dfviv8
- NuAvk7bmI5DRNY5Pps5vxWLgcM0GBwbdG7K9i+i114Oa9JzGffVW+toD4i4vmn1BDdTn
- 2nOxYNdjFrcNI0FgRDPy5Osk+boAtxdWB7l7vyjZstNWgu9meAhnMjbauD2lbKtYCxjB
- KMqx5z7Hb9pQw2QFwC0jHanZQkgDJxSE+Nfva9+pek0g18FPJdaEYQNIButfx+1aWfnc
- 950d9H0RdSvnrX9n710NxLQgWzD5fc3nw71IaDdjMM+f0yNtbSkwOrqRvLN7rWsj19bT
- hinQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV/psUd4J3h+xlSp0WFcaCJ/VW6GSzRnTFZsUsW2yWLxEO0Va+vnngyBpD7KxXRRBGsttV+ZkybOixepB1ZsLxgu6dz3keLOXGG80kG8DpI
-X-Gm-Message-State: AOJu0Yx9l3hFXnRFtIL6E62KBaBBT/zvyQs4dzaYaSrN5fcdEm5PtGUT
- vtEU+pr5+t9R7HoThAB2KhMz3wqAn7ouorgWMH8qOW+dAeDyhFsWgkDYbrT1AfKzN06Gw+LWbaD
- c3qCVS5ZGQPG3udQaQ/njlPyO+ws3Xc9EHT2j
-X-Google-Smtp-Source: AGHT+IF5aE3FAQmefnHVNwEtb6k1Zffv9Um1vh+H3378WyxNWP45BWPFL4v4HGvSMNt4R1eN2uzB4Tld6uV0gxwIAD0=
-X-Received: by 2002:a05:622a:1a97:b0:430:b7dd:c175 with SMTP id
- s23-20020a05622a1a9700b00430b7ddc175mr3086qtc.23.1710541161346; Fri, 15 Mar
- 2024 15:19:21 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 125FD10F664;
+ Mon, 18 Mar 2024 18:01:42 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 42IHfZd0026628; Mon, 18 Mar 2024 18:01:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=qSI1sdsTiph9RZvhdAC7pZQBrBCG43U53azau8lu5Ps=; b=UA
+ eDBALZDDXSnCXfylWfq538S09qPcKLf0NsHE2q3v9j/fntIlZt5qhALsmBLQ2iic
+ OhrA/LKIXbgZJwvZUYJ81HbjaJgC6F6BPlrGsISzG4ogsKrzWPMswRyuUMKU3inM
+ H6kAEiWOU0DuSLJ36NKdP3w7d/xWgYHdMHNCPLal2UDJqLCDPyXCH7T0kG29ijc3
+ RRyQ3QGa1tphUlhkMgcEZGGnL5G5PicdYFQn/hRYVDARqXjPOA2svvV2hf/IVZRu
+ Fq0qC7sUG+fJBpUB0vgmw9vortSeimuB6PPMIYhI5+T43M4du+dLDU1pU73DYu/m
+ 4oMw1vSfT81m5RJiEJhg==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wxq7p0ksf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Mar 2024 18:01:34 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42II1WAe018878
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Mar 2024 18:01:32 GMT
+Received: from [10.110.10.159] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 18 Mar
+ 2024 11:01:27 -0700
+Message-ID: <a1152afe-b652-d83e-05e4-25c07292b568@quicinc.com>
+Date: Mon, 18 Mar 2024 11:01:25 -0700
 MIME-Version: 1.0
-References: <20240315213717.1411017-1-dianders@chromium.org>
- <20240315143621.v2.1.I16aff881c9fe82b5e0fc06ca312da017aa7b5b3e@changeid>
-In-Reply-To: <20240315143621.v2.1.I16aff881c9fe82b5e0fc06ca312da017aa7b5b3e@changeid>
-From: Guenter Roeck <groeck@google.com>
-Date: Fri, 15 Mar 2024 15:19:07 -0700
-Message-ID: <CABXOdTcfb9F8mKSNnQKWRCAgANyJMNn1yzk4n_E_MpUgH23KCw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] drm/msm/dp: Avoid a long timeout for AUX transfer
- if nothing connected
-To: Douglas Anderson <dianders@chromium.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <quic_bjorande@quicinc.com>, 
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Guenter Roeck <groeck@chromium.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Sean Paul <sean@poorly.run>, Stephen Boyd <swboyd@chromium.org>, 
- Vara Reddy <quic_varar@quicinc.com>, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/msm/dp: move link_ready out of HPD event thread
+Content-Language: en-US
+To: Johan Hovold <johan@kernel.org>
+CC: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, Sean Paul
+ <sean@poorly.run>, "Marijn Suijten" <marijn.suijten@somainline.org>, David
+ Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Kuogee Hsieh
+ <quic_khsieh@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <swboyd@chromium.org>,
+ <quic_jesszhan@quicinc.com>, <quic_parellan@quicinc.com>,
+ <quic_bjorande@quicinc.com>, Rob Clark <robdclark@chromium.org>,
+ <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20240308214532.1404038-1-quic_abhinavk@quicinc.com>
+ <ZfApxyVAJMK4bL8O@hovoldconsulting.com>
+ <ZfCFsmNv62-KMkA6@hovoldconsulting.com>
+ <ZfCKDGq9n9WG3Quj@hovoldconsulting.com>
+ <8e125a99-543d-8328-a2a9-100e223e4faf@quicinc.com>
+ <ZfFhXG5yd6O29spS@hovoldconsulting.com>
+ <ec2cba17-5644-6cf6-f6c9-d37d7ca56204@quicinc.com>
+ <ZfMaEIzv3Z3ny3y0@hovoldconsulting.com>
+ <9313aa00-41f0-15af-a646-3f4e4b3098c7@quicinc.com>
+ <ZfRv5le7Bfdiwrk_@hovoldconsulting.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <ZfRv5le7Bfdiwrk_@hovoldconsulting.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: pqxdgPBrULBwzC0zfLcxtmEBjfajNgtU
+X-Proofpoint-ORIG-GUID: pqxdgPBrULBwzC0zfLcxtmEBjfajNgtU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-18_12,2024-03-18_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ impostorscore=0 malwarescore=0 bulkscore=0 adultscore=0 spamscore=0
+ clxscore=1015 mlxlogscore=999 lowpriorityscore=0 suspectscore=0
+ phishscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2403140001 definitions=main-2403180136
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,141 +106,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 15, 2024 at 2:37=E2=80=AFPM Douglas Anderson <dianders@chromium=
-.org> wrote:
->
-> As documented in the description of the transfer() function of
-> "struct drm_dp_aux", the transfer() function can be called at any time
-> regardless of the state of the DP port. Specifically if the kernel has
-> the DP AUX character device enabled and userspace accesses
-> "/dev/drm_dp_auxN" directly then the AUX transfer function will be
-> called regardless of whether a DP device is connected.
->
-> For eDP panels we have a special rule where we wait (with a 5 second
-> timeout) for HPD to go high. This rule was important before all panels
-> drivers were converted to call wait_hpd_asserted() and actually can be
-> removed in a future commit.
->
-> For external DP devices we never checked for HPD. That means that
-> trying to access the DP AUX character device (AKA `hexdump -C
-> /dev/drm_dp_auxN`) would very, very slowly timeout. Specifically on my
-> system:
->   $ time hexdump -C /dev/drm_dp_aux0
->   hexdump: /dev/drm_dp_aux0: Connection timed out
->   real    0m8.200s
-> We want access to the drm_dp_auxN character device to fail faster than
-> 8 seconds when no DP cable is plugged in.
->
-> Let's add a test to make transfers fail right away if a device isn't
-> plugged in. Rather than testing the HPD line directly, we have the
-> dp_display module tell us when AUX transfers should be enabled so we
-> can handle cases where HPD is signaled out of band like with Type C.
->
-> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
 
-Reviewed-by: Guenter Roeck <groeck@chromium.org>
 
-> ---
->
-> Changes in v2:
-> - Don't look at the HPD line directly; have dp_display call us.
->
->  drivers/gpu/drm/msm/dp/dp_aux.c     | 20 ++++++++++++++++++++
->  drivers/gpu/drm/msm/dp/dp_aux.h     |  1 +
->  drivers/gpu/drm/msm/dp/dp_display.c |  4 ++++
->  3 files changed, 25 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_=
-aux.c
-> index 03f4951c49f4..e67a80d56948 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> @@ -35,6 +35,7 @@ struct dp_aux_private {
->         bool no_send_stop;
->         bool initted;
->         bool is_edp;
-> +       bool enable_xfers;
->         u32 offset;
->         u32 segment;
->
-> @@ -301,6 +302,17 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp=
-_aux,
->                 goto exit;
->         }
->
-> +       /*
-> +        * If we're using DP and an external display isn't connected then=
- the
-> +        * transfer won't succeed. Return right away. If we don't do this=
- we
-> +        * can end up with long timeouts if someone tries to access the D=
-P AUX
-> +        * character device when no DP device is connected.
-> +        */
-> +       if (!aux->is_edp && !aux->enable_xfers) {
-> +               ret =3D -ENXIO;
-> +               goto exit;
-> +       }
-> +
->         /*
->          * For eDP it's important to give a reasonably long wait here for=
- HPD
->          * to be asserted. This is because the panel driver may have _jus=
-t_
-> @@ -433,6 +445,14 @@ irqreturn_t dp_aux_isr(struct drm_dp_aux *dp_aux)
->         return IRQ_HANDLED;
->  }
->
-> +void dp_aux_enable_xfers(struct drm_dp_aux *dp_aux, bool enabled)
-> +{
-> +       struct dp_aux_private *aux;
-> +
-> +       aux =3D container_of(dp_aux, struct dp_aux_private, dp_aux);
-> +       aux->enable_xfers =3D enabled;
-> +}
-> +
->  void dp_aux_reconfig(struct drm_dp_aux *dp_aux)
->  {
->         struct dp_aux_private *aux;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.h b/drivers/gpu/drm/msm/dp/dp_=
-aux.h
-> index 511305da4f66..f3052cb43306 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.h
-> @@ -12,6 +12,7 @@
->  int dp_aux_register(struct drm_dp_aux *dp_aux);
->  void dp_aux_unregister(struct drm_dp_aux *dp_aux);
->  irqreturn_t dp_aux_isr(struct drm_dp_aux *dp_aux);
-> +void dp_aux_enable_xfers(struct drm_dp_aux *dp_aux, bool enabled);
->  void dp_aux_init(struct drm_dp_aux *dp_aux);
->  void dp_aux_deinit(struct drm_dp_aux *dp_aux);
->  void dp_aux_reconfig(struct drm_dp_aux *dp_aux);
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index 4c72124ffb5d..b0f3e2ef5a6b 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -565,6 +565,8 @@ static int dp_hpd_plug_handle(struct dp_display_priva=
-te *dp, u32 data)
->         int ret;
->         struct platform_device *pdev =3D dp->dp_display.pdev;
->
-> +       dp_aux_enable_xfers(dp->aux, true);
-> +
->         mutex_lock(&dp->event_mutex);
->
->         state =3D  dp->hpd_state;
-> @@ -629,6 +631,8 @@ static int dp_hpd_unplug_handle(struct dp_display_pri=
-vate *dp, u32 data)
->         u32 state;
->         struct platform_device *pdev =3D dp->dp_display.pdev;
->
-> +       dp_aux_enable_xfers(dp->aux, false);
-> +
->         mutex_lock(&dp->event_mutex);
->
->         state =3D dp->hpd_state;
-> --
-> 2.44.0.291.gc1ea87d7ee-goog
->
+On 3/15/2024 8:57 AM, Johan Hovold wrote:
+> On Thu, Mar 14, 2024 at 09:30:57AM -0700, Abhinav Kumar wrote:
+>> On 3/14/2024 8:38 AM, Johan Hovold wrote:
+>>> On Wed, Mar 13, 2024 at 10:24:08AM -0700, Abhinav Kumar wrote:
+> 
+>>> Perhaps I'm missing something in the race that you are trying to
+>>> describe (and which I've asked you to describe in more detail so that I
+>>> don't have to spend more time trying to come up with a reproducer
+>>> myself).
+> 
+>> The race condition is between the time we get disconnect event and set
+>> link_ready to false, a commit can come in. Because setting link_ready to
+>> false happens in the event thread so it could be slightly delayed.
+> 
+> I get this part, just not why, or rather when, that becomes a problem.
+> 
+> Once the disconnect event is processed, dp_hpd_unplug_handle() will
+> update the state to ST_DISCONNECT_PENDING, and queue a notification
+> event. link_ready is (before this patch) still set to 1.
+> 
+
+This is the case I am thinking of:
+
+1) Disconnect event happens which will call dp_hpd_unplug_handle() but 
+link_ready is not false yet.
+
+2) There is a commit with a modeset, which shall trigger 
+atomic_disable() followed by an atomic_enable()
+
+atomic_disable() will go through disable clocks and set hpd_state to 
+ST_DISCONNECTED.
+
+3) atomic_enable() will not go through because we will bail out because 
+state was ST_DISCONNECTED.
+
+         if (state != ST_DISPLAY_OFF && state != ST_MAINLINK_READY) {
+                 mutex_unlock(&dp_display->event_mutex);
+                 return;
+         }
+
+4) Now, if there is another commit with a modeset, it will go and crash 
+at atomic_disable()
+
+> Here a commit comes in; what exactly are you suggesting would trigger
+> that? And in such a way that it breaks the state machine?
+> 
+
+Like we have seen, the commit can either come directly from userspace as 
+one last frame (the original bug I had given the link to) or from the 
+__drm_fb_helper_restore_fbdev_mode_unlocked() which happened in 
+sc8280xp's case. This is totally independent of the hpd_thread() with no 
+mutual exclusion.
+
+This commit() can come before the link_ready was set to false. If it had 
+come after link_ready was set to false, atomic_check() would have failed 
+and no issue would have been seen.
+
+My change is making the link_ready false sooner in the disconnect case.
+
+> One way this could cause trouble is if you end up with a call to
+> dp_bridge_atomic_post_disable() which updates the state to
+> ST_DISCONNECTED. (1)
+> 
+> This would then need to be followed by another call to
+> dp_bridge_atomic_enable() which bails out early with the link clock
+> disabled. (2) (And if link_ready were to be set to 0 sooner, the
+> likelihood of this is reduced.)
+> 
+> This in turn, would trigger a reset when dp_bridge_atomic_disable() is
+> later called.
+> 
+
+Yes, this is exactly what I have written above.
+
+> This is the kind of description of the race I expect to see in the
+> commit message, and I'm still not sure what would trigger the call to
+> dp_bridge_atomic_post_disable() and dp_bridge_atomic_enable() (i.e. (1)
+> and (2) above) and whether this is a real issue or not.
+> 
+
+I have explained what triggers the disable/enable call below.
+
+> Also note that the above scenario is quite different from the one I've
+> hit and described earlier.
+> 
+
+Why is that so? Eventually it will also translate to the same scenario. 
+I would like to understand why this is different. I think in your case, 
+probably we do not know what triggers the modeset, but its a minor 
+detail like I have written before.
+
+>> It will be hard to reproduce this. Only way I can think of is to delay
+>> the EV_NOTIFICATION for sometime and see in dp_bridge_hpd_notify()
+>>
+>>           else if (dp_display->link_ready && status ==
+>> connector_status_disconnected)
+>>                   dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
+>>
+>> as dp_add_event() will add the event, then wakeup the event_q.
+> 
+> Sure that would increase the race window with the current code, but that
+> alone isn't enough to trigger the bug AFAICT.
+> 
+>> Before the event thread wakes up and processes this unplug event, the
+>> commit can come in. This is the race condition i was thinking of.
+> 
+> Yes, but what triggers the commit? And why would it lead to a mode set
+> that disables the bridge?
+> 
+
+Commit was triggered from the userspace as it did not process the 
+disconnect event on time and the userspace was triggering a couple of 
+modesets by by changing the mode on the CRTC from 1080P to NONE to 1080P.
+
+[drm:drm_atomic_helper_check_modeset] [CRTC:60:crtc-1] mode changed
+
+> Johan
