@@ -2,89 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18B2F87F07B
-	for <lists+freedreno@lfdr.de>; Mon, 18 Mar 2024 20:37:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49A9287F478
+	for <lists+freedreno@lfdr.de>; Tue, 19 Mar 2024 01:19:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF4B610F667;
-	Mon, 18 Mar 2024 19:37:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D8F211230D;
+	Tue, 19 Mar 2024 00:19:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="P3VcNp8q";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="P0mu2VP+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
- [209.85.210.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B327110F223
- for <freedreno@lists.freedesktop.org>; Mon, 18 Mar 2024 19:37:52 +0000 (UTC)
-Received: by mail-ot1-f49.google.com with SMTP id
- 46e09a7af769-6e68c1574e3so877501a34.0
- for <freedreno@lists.freedesktop.org>; Mon, 18 Mar 2024 12:37:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1710790670; x=1711395470;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CI084V8cwdZvQyXNROxkn3IbY00cnN+dX3japdJLysk=;
- b=P3VcNp8qXtxK7aEym3IKVL+6Jle1zBH5ZsrlD1fm5Bes9+Yd+bv4wQ/4DI2cIjLD4Q
- ok0dnRGfzxU2U3G3Dr2LsdWbn01eL4OVS9kuMcJnZ/f4oA7ObVPWjWxc60XknxX7DY6L
- ncYJHAnntkokRQxqtlF8cBCCPFeJ4GIET7NsM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710790670; x=1711395470;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CI084V8cwdZvQyXNROxkn3IbY00cnN+dX3japdJLysk=;
- b=qo/30oiSMLvT5hOTQrelgL5OmbsgePTFot0gC7vIYsJ+pGUjP/QiI1KKv/ENFKJ+/F
- HmaXxxwrNkSd1GIZ7qcRIPvbt7wlfMWSVzUbTgM7Rnw0jwXB7xZmC0QqS1pC7FuOYd5c
- 8QmOO3j/wYkdA8jWlMqhFxTMyfA+gceRohVvp/TGZLyGMoGhTucdMI0Eb9yymwyBYMov
- f0917GsARfAFwRdCzbk0vjk8e5rMwy3XqegYKTjXq9BUqYyXzvGlzKtkeCIT07D94N+U
- k1RZaYQocVCY8mTXTNJuuYRQ8LRFyMkJWUKKTvjU0bDik7ATq6PKQGN/woHMFxZm33y/
- UFhg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXiqXXrvSegeaJe3/miXw6VMoNwJodbrHrZVI4zKjz5tNMFPTALATKrykKaGAKmvkVpXsrGjE0NXA+fVjaPvxUyoSWhW/KfOEDnzdAlSOUF
-X-Gm-Message-State: AOJu0YwII3PbeWng0V/uaNyrjZ4FbE2WpAT3fVdsT2on1FOwbYb7naXH
- fwyYvkENV+jTBs8gyq4KObrRYWwUQWOnQqyJF1ufpkfvfX8zzkM9HX23etPAxXuV16D6rQyCI94
- =
-X-Google-Smtp-Source: AGHT+IE6XmqHiarTnFU7JLt+/EpiZnkx3Yy/EARIyQ/5hRcO6eiojg6kCMKmyHQeyRVdit5b4u4LdA==
-X-Received: by 2002:a9d:69da:0:b0:6e4:df5d:f074 with SMTP id
- v26-20020a9d69da000000b006e4df5df074mr13019749oto.14.1710790670403; 
- Mon, 18 Mar 2024 12:37:50 -0700 (PDT)
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com.
- [209.85.160.169]) by smtp.gmail.com with ESMTPSA id
- p15-20020a05620a22ef00b00789fa594de5sm1589480qki.80.2024.03.18.12.37.32
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 12:37:33 -0700 (PDT)
-Received: by mail-qt1-f169.google.com with SMTP id
- d75a77b69052e-42ee0c326e8so45751cf.0
- for <freedreno@lists.freedesktop.org>; Mon, 18 Mar 2024 12:37:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWPhuSCks+5gHgZ20h+rqOS/Sn2AwHlkS/4zcrrRu4CR7q5JrxnPhjF0QPWhiIImQzlGW+wEayLQpvWlXIEBnEDA5myvWgOHhszSZHvNcYC
-X-Received: by 2002:ac8:7fd0:0:b0:430:9ee1:a8 with SMTP id
- b16-20020ac87fd0000000b004309ee100a8mr5892qtk.3.1710790652484; 
- Mon, 18 Mar 2024 12:37:32 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE17B112035;
+ Tue, 19 Mar 2024 00:19:41 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 42IGPwN3018975; Tue, 19 Mar 2024 00:19:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=zIwoTr92HbEo0/k2/1DmWo9FT/w9WO8VnRMBPDZkbac=; b=P0
+ mu2VP+OcfSYiC9L42OzkivpAogyouykWbEgIKjD2AsXjeg69kFFj2ZoYbXST9VGf
+ p8cibcTO2q25C/dZ/rkOfdtLSS2tqJcOHP3Cri/Cn0Xif5QoMDmfsHb7TWq8IzOH
+ XKy5h8Bi9wcbTB2zCtd75qXW94XZSn3oqHmVJuflO6O0OMhL/uF5z6DleEeB2BKF
+ jCIxrAlqjEdLNKUwwD5iNhiZhHNz8tUnkYEASAMKoIoPvKSdOEIlhrFYXahVH4uj
+ NyAb4LEXf1x6kBzskCtNKUbIpoFVVVOk7zPERwcNiJNNiwZguYQRXEEXeVxCFEvp
+ ItPWNhYbTpaVDBWX0Ozw==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wxk82hqrv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 19 Mar 2024 00:19:36 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42J0JOxU032634
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 19 Mar 2024 00:19:24 GMT
+Received: from [10.110.10.159] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 18 Mar
+ 2024 17:19:21 -0700
+Message-ID: <e2319b19-d999-24e7-48fa-bbc19bbfbeea@quicinc.com>
+Date: Mon, 18 Mar 2024 17:19:19 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2 3/4] drm/msm/dp: Delete the old 500 ms wait for eDP HPD
+ in aux transfer
+Content-Language: en-US
+To: Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, "Kuogee
+ Hsieh" <quic_khsieh@quicinc.com>, Marijn Suijten
+ <marijn.suijten@somainline.org>,
+ Sean Paul <sean@poorly.run>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Bjorn
+ Andersson" <quic_bjorande@quicinc.com>, Johan Hovold <johan@kernel.org>
 References: <20240315213717.1411017-1-dianders@chromium.org>
- <20240315143621.v2.4.Ia5dd755f81d7cc9a4393c43f77b9be4ed2278ee3@changeid>
- <CAE-0n51baqN8cEubSqDegqDwL7O6=iEfN5Ho2OykqjmkjQDcvQ@mail.gmail.com>
-In-Reply-To: <CAE-0n51baqN8cEubSqDegqDwL7O6=iEfN5Ho2OykqjmkjQDcvQ@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 18 Mar 2024 12:37:16 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=U+kD852eCOxeJ97_483FMCXBZn+eaPPyb2VrXiGm6V1g@mail.gmail.com>
-Message-ID: <CAD=FV=U+kD852eCOxeJ97_483FMCXBZn+eaPPyb2VrXiGm6V1g@mail.gmail.com>
-Subject: Re: [PATCH v2 4/4] drm/msm/dp: Fix typo in static function (ststus =>
- status)
-To: Stephen Boyd <swboyd@chromium.org>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Bjorn Andersson <quic_bjorande@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>, 
- David Airlie <airlied@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <20240315143621.v2.3.I535606f6d4f7e3e5588bb75c55996f61980183cd@changeid>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240315143621.v2.3.I535606f6d4f7e3e5588bb75c55996f61980183cd@changeid>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: PFYBYPWQFgGVn0TdFtfJCLi7DvvaCfKS
+X-Proofpoint-GUID: PFYBYPWQFgGVn0TdFtfJCLi7DvvaCfKS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-18_12,2024-03-18_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ impostorscore=0 mlxscore=0 bulkscore=0 suspectscore=0 spamscore=0
+ lowpriorityscore=0 adultscore=0 mlxlogscore=999 phishscore=0
+ malwarescore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2403140001 definitions=main-2403190001
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,28 +98,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
++bjorn, johan as fyi for sc8280xp
 
-On Mon, Mar 18, 2024 at 12:26=E2=80=AFPM Stephen Boyd <swboyd@chromium.org>=
- wrote:
->
-> Quoting Douglas Anderson (2024-03-15 14:36:32)
-> > This is a no-op change to just fix a typo in the name of a static funct=
-ion.
-> >
-> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > ---
-> >
-> > Changes in v2:
-> > - ("Fix typo in static function (ststus =3D> status)") new for v2.
->
-> This was sent at
-> https://lore.kernel.org/r/20240306193515.455388-1-quic_abhinavk@quicinc.c=
-om
+On 3/15/2024 2:36 PM, Douglas Anderson wrote:
+> Before the introduction of the wait_hpd_asserted() callback in commit
+> 841d742f094e ("drm/dp: Add wait_hpd_asserted() callback to struct
+> drm_dp_aux") the API between panel drivers and DP AUX bus drivers was
+> that it was up to the AUX bus driver to wait for HPD in the transfer()
+> function.
+> 
+> Now wait_hpd_asserted() has been added. The two panel drivers that are
+> DP AUX endpoints use it. See commit 2327b13d6c47 ("drm/panel-edp: Take
+> advantage of wait_hpd_asserted() in struct drm_dp_aux") and commit
+> 3b5765df375c ("drm/panel: atna33xc20: Take advantage of
+> wait_hpd_asserted() in struct drm_dp_aux"). We've implemented
+> wait_hpd_asserted() in the MSM DP driver as of commit e2969ee30252
+> ("drm/msm/dp: move of_dp_aux_populate_bus() to eDP probe()"). There is
+> no longer any reason for long wait in the AUX transfer() function.
+> Remove it.
+> 
+> NOTE: the wait_hpd_asserted() is listed as "optional". That means it's
+> optional for the DP AUX bus to implement. In the case of the MSM DP
+> driver we implement it so we can assume it will be called.
+> 
 
-Whoops! I guess we both noticed it at about the same time. My patch
-should be dropped then. The rest of my series (patches #1 - #3) are
-still relevant. I won't repost them since they can be applied just
-fine even if this patch is dropped.
+How do we enforce that for any new edp panels to be used with MSM, the 
+panels should atleast invoke wait_hpd_asserted()?
 
--Doug
+I agree that since MSM implements it, even though its listed as 
+optional, we can drop this additional wait. So nothing wrong with this 
+patch for current users including sc8280xp, sc7280 and sc7180.
+
+But, does there need to be some documentation that the edp panels not 
+using the panel-edp framework should still invoke wait_hpd_asserted()?
+
+Since its marked as optional, what happens if the edp panel driver, 
+skips calling wait_hpd_asserted()?
+
+Now, since the wait from MSM is removed, it has a potential to fail.
+
+> ALSO NOTE: the wait wasn't actually _hurting_ anything and wasn't even
+> causing long timeouts, but it's still nice to get rid of unneeded
+> code. Specificaly it's not truly needed because to handle other DP
+> drivers that can't power on as quickly (specifically parade-ps8640) we
+> already avoid DP AUX transfers for eDP panels that aren't powered
+> on. See commit 8df1ddb5bf11 ("drm/dp: Don't attempt AUX transfers when
+> eDP panels are not powered").
+> 
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> ---
+> 
+> (no changes since v1)
+> 
+>   drivers/gpu/drm/msm/dp/dp_aux.c | 17 -----------------
+>   1 file changed, 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
+> index 75c51f3ee106..ecefd1922d6d 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
+> @@ -313,23 +313,6 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
+>   		goto exit;
+>   	}
+>   
+> -	/*
+> -	 * For eDP it's important to give a reasonably long wait here for HPD
+> -	 * to be asserted. This is because the panel driver may have _just_
+> -	 * turned on the panel and then tried to do an AUX transfer. The panel
+> -	 * driver has no way of knowing when the panel is ready, so it's up
+> -	 * to us to wait. For DP we never get into this situation so let's
+> -	 * avoid ever doing the extra long wait for DP.
+> -	 */
+> -	if (aux->is_edp) {
+> -		ret = dp_catalog_aux_wait_for_hpd_connect_state(aux->catalog,
+> -								500000);
+> -		if (ret) {
+> -			DRM_DEBUG_DP("Panel not ready for aux transactions\n");
+> -			goto exit;
+> -		}
+> -	}
+> -
+>   	dp_aux_update_offset_and_segment(aux, msg);
+>   	dp_aux_transfer_helper(aux, msg, true);
+>   
