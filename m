@@ -2,75 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9519887F4C8
-	for <lists+freedreno@lfdr.de>; Tue, 19 Mar 2024 01:55:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C262787FE90
+	for <lists+freedreno@lfdr.de>; Tue, 19 Mar 2024 14:22:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FF2110E936;
-	Tue, 19 Mar 2024 00:55:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A37A10FA9C;
+	Tue, 19 Mar 2024 13:22:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cyXuGAqZ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VLMsIlue";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
- [209.85.128.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 490F710E936
- for <freedreno@lists.freedesktop.org>; Tue, 19 Mar 2024 00:55:24 +0000 (UTC)
-Received: by mail-yw1-f181.google.com with SMTP id
- 00721157ae682-60a068e26d8so57302687b3.3
- for <freedreno@lists.freedesktop.org>; Mon, 18 Mar 2024 17:55:24 -0700 (PDT)
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB0D910FAAC
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Mar 2024 13:22:03 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-2d29aad15a5so68429901fa.3
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Mar 2024 06:22:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1710809723; x=1711414523; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=IJp2wlS1QcmyKoSILRJh4VbMcwABTvJV1wN+wh3MV9E=;
- b=cyXuGAqZmiHxqjtjGhHKamIOShrJ6X3q72rqg+bG98IPQe6XHgYOF5gSTcl/p8Ex6f
- ZCpHVcS5jtwF+nTjlF5IofWTKKa1uCmDwV8lvkxoI5EmHi4Tc82s6NL34I84jNTD8NRL
- +ERrfFz9iWhk1zVvTFH6y0EmtgZPEylwuBjk2ipG45h28tFxOC2fOSFUTLmTc8dILxOr
- mXqBTeZRdLqor7Dyur7TINrYILjtO6wup8BWZ8PKepsinDIRrf7pZHo0DmzTWBnnlCMh
- BFCKIP6y5AYiwvuIOrws2pPkrMhqbCQYXpK36x36/pXeEeYkjp2gnjDll3oXJH8DAae7
- S8Tg==
+ d=linaro.org; s=google; t=1710854522; x=1711459322; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bozLgVEsHwe94zFSCLw5L7te+ic20oRug81TlWIaqUc=;
+ b=VLMsIlueujrWa2UTK804o7WEjzsHQ3xu0hwSJTpVXHub9qQ2o8Su63GaItfuxO/N4c
+ BIJ8r6w7rzmiKz19RUcB8xzR2o9M3QHIStR0p8J0AxcsFCnotzPfnqa8gBC8SJCXNu/s
+ 4yKCs38bDUEW7LHbhWgfqU8QnREqmZp9F+uoydc25jCrucXu2RG45/kbZnXw2Nv15EIv
+ zQjzrKj2SWsvdpg7eA4HigSf9LlHHdBBA+s/l96Zk7emW2IdCCtRHlXvogkO2qfUu0Jx
+ XUJuc0o/1xCxvcr19Yd83zNvfYzpIpp6ig5w9Dgp2uHjaKNghBy1iLeMTdR6NOp+UtVw
+ eykQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710809723; x=1711414523;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1710854522; x=1711459322;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=IJp2wlS1QcmyKoSILRJh4VbMcwABTvJV1wN+wh3MV9E=;
- b=jz2Y6wF1Cq+fMha4KR+ZCFYVyDcKNq+cqNsDs5vmRK1VLTlTg6vHtbARrOJftLdGyV
- ejGUXRmrHPwSHpuyOClOLMyV4Nc8sHqVpYkMVs/4fpAeuorbPbbN/pPPG78+aPqkCpMs
- wsaImZFol9MQLlLkY1rz4Dbetr4uFW6zveMdmBKC7yUlw2mPHfNd7YFWERihj3pFdI6V
- phchfzO7MCUqZGU5odW1SKjtW+MlV920djfbL8LVEEphAGeW1FXkHklcH1FqPFLLsMAC
- gWBvgpNKN8IAoTOy1tf8step+3pVlXKxqPbcUk7wvh+SVnZZcHdDL9c4qaZr0VIS9gBy
- pUiw==
+ bh=bozLgVEsHwe94zFSCLw5L7te+ic20oRug81TlWIaqUc=;
+ b=nzhkvD5rn5nbvlLf5oNg9BkXX/6DqWU3bixtbvfB6sGJhOtaOPMM5lQq2d8fH2rPhy
+ q4e/O/VhCqSgaR+sOju+GJysPxlV418HIBJwTS8q03P98ZM6sbw/49MwvLIyWcL7wS+d
+ yCSCYOJOmEDeb9eebdYCwDE0ToJNajSFWgDI/IYKdsVPWPF8yTPT+atBUAzLnrbSDqmD
+ huftU83IMnU9VDGQ8nPp1580E0YwfTnxBuzbJGjMk0xMNuFS1CQ6sa4YfjY5fo8G07Lf
+ DoXcIJLdD82DR+QfxR4KWBhBBQyeIm1VGR6x70NT0Y1+wiZalkq16p7SE2a/pTALR4K2
+ C+Ag==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXjIJANXoj3G2HUzULmtiO/qdbBgwsy9CrGnE/n38OYeJ1R20MSHh0NlsGtsuXuWQffpTJxgRDRqCY59CJmX5qs5pxC+md4KxXJJhddfONu
-X-Gm-Message-State: AOJu0YwTblYKEP/AzQruUPa08ZUsBmz3mSuxWWYFpR3lmEgcAlpovEvh
- zhkUniwa/ROGFfpn9RPnqIFIxCVXuWTQhKoCBxoI1/yKbkVy71qZmfhGl8f2fnkXTq3VoeTRIGp
- OJy0pMT+/lwplnnm78xjWzVlB6m5QqcZBRfQ4Tg==
-X-Google-Smtp-Source: AGHT+IEGKYwv10lcfsSdgNSEMTidawwMjd39KQKkAtnp/4ZbSUUFgDbTKVLqQgyVWylbNRxZHqjPhJycsO3zJfAmsks=
-X-Received: by 2002:a0d:fd87:0:b0:609:e4b4:c2fb with SMTP id
- n129-20020a0dfd87000000b00609e4b4c2fbmr12750368ywf.27.1710809723036; Mon, 18
- Mar 2024 17:55:23 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240315213717.1411017-1-dianders@chromium.org>
- <20240315143621.v2.3.I535606f6d4f7e3e5588bb75c55996f61980183cd@changeid>
- <e2319b19-d999-24e7-48fa-bbc19bbfbeea@quicinc.com>
-In-Reply-To: <e2319b19-d999-24e7-48fa-bbc19bbfbeea@quicinc.com>
+ AJvYcCWXh3X+3hxUyNDQDRxNSAeuyA9cMqY6dn2/7l8RfAg9kuPVQf4vjq4xNI1CmgnzD/g7d9xBdEE1cuT7tBaAs3gMZaLyzYXKnjDynRwwQxLv
+X-Gm-Message-State: AOJu0Yx/ACs8SPAU33KxoN5NsNzRM8zck7nYMEylyI9ezDc4cokSyP8X
+ Jo5pcCDS0YMDMUr+hx+mbKDeIUryin3/m+KYvgGpML1I0hxZ1HqhwuEoIar02bg=
+X-Google-Smtp-Source: AGHT+IGC6bucP3tsOwv8jCC11mr1M3U8g1c6PjVup2qX0GFAfX3rE4RaAkHuMb0ok0C7hrmlqSXgUg==
+X-Received: by 2002:a05:651c:8e:b0:2d4:9936:a45c with SMTP id
+ 14-20020a05651c008e00b002d49936a45cmr6235663ljq.41.1710854521621; 
+ Tue, 19 Mar 2024 06:22:01 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ j7-20020a2e3c07000000b002d435cdf2adsm1826148lja.111.2024.03.19.06.22.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Mar 2024 06:22:01 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 19 Mar 2024 02:55:11 +0200
-Message-ID: <CAA8EJppau--vt3RLkH96K0SF2x-QGWz+5U8tErvLFDvz-GQN4Q@mail.gmail.com>
-Subject: Re: [PATCH v2 3/4] drm/msm/dp: Delete the old 500 ms wait for eDP HPD
- in aux transfer
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
+Subject: [PATCH 0/9] drm/msm/dpu: be more friendly to X.org
+Date: Tue, 19 Mar 2024 15:21:58 +0200
+Message-Id: <20240319-dpu-mode-config-width-v1-0-d0fe6bf81bf1@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHaR+WUC/x3MSQqAMAxA0atI1ga0dcKriIvSRM3CVlonEO9uc
+ fkW/z8QOQhH6LMHAp8SxbuEMs/ALsbNjELJoApVFbrskLYDV0+M1rtJZryE9gUb1ZC2raFaGUj
+ tFniS+/8O4/t+4zKbnmcAAAA=
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
- Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bjorn Andersson <quic_bjorande@quicinc.com>, 
- Johan Hovold <johan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Abel Vesa <abel.vesa@linaro.org>, 
+ Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1897;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=vEwF8PeSZna9nyompVbo2D0ZcBnEt90ZIcLtzS4Bm6w=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl+ZF3wFpasaqjdm/4ur/9DTow0nLUrxTvBCG91
+ EYn7Cju/4uJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZfmRdwAKCRCLPIo+Aiko
+ 1fLGB/9kmw1QZW4GgH7KifImPbi6NW0/CaWZFUkI0zWssY2OAeLsste9Utpbnpjf5onfGSd+hJE
+ oj/v+ixuwL3Bza1W8Fvj4juZGgSKM17pnzG/Db+k7vzTFTPNoq9hnvHE8KWQhgmI0z+2P7NsSdO
+ 8Za2RPquLLCHSfXTFbkmCYrkxRc7/7hlzzeTinXHNXZU2Bwtqx9L0vwe8I9OLzfQyBnIfHvpgFD
+ dpEE5TSdVxvg94KL00zy1PHE7XG0konZwllPLhmOiwEZ9RzUgI0e60/E0H5AZplSj5ieWYaUDb/
+ SVZEcWzFVrhkoPo+reKO88vf9Mr1vnwpswHc2ToGwVWBRNPV
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,97 +99,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 19 Mar 2024 at 02:19, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
-> +bjorn, johan as fyi for sc8280xp
->
-> On 3/15/2024 2:36 PM, Douglas Anderson wrote:
-> > Before the introduction of the wait_hpd_asserted() callback in commit
-> > 841d742f094e ("drm/dp: Add wait_hpd_asserted() callback to struct
-> > drm_dp_aux") the API between panel drivers and DP AUX bus drivers was
-> > that it was up to the AUX bus driver to wait for HPD in the transfer()
-> > function.
-> >
-> > Now wait_hpd_asserted() has been added. The two panel drivers that are
-> > DP AUX endpoints use it. See commit 2327b13d6c47 ("drm/panel-edp: Take
-> > advantage of wait_hpd_asserted() in struct drm_dp_aux") and commit
-> > 3b5765df375c ("drm/panel: atna33xc20: Take advantage of
-> > wait_hpd_asserted() in struct drm_dp_aux"). We've implemented
-> > wait_hpd_asserted() in the MSM DP driver as of commit e2969ee30252
-> > ("drm/msm/dp: move of_dp_aux_populate_bus() to eDP probe()"). There is
-> > no longer any reason for long wait in the AUX transfer() function.
-> > Remove it.
-> >
-> > NOTE: the wait_hpd_asserted() is listed as "optional". That means it's
-> > optional for the DP AUX bus to implement. In the case of the MSM DP
-> > driver we implement it so we can assume it will be called.
-> >
->
-> How do we enforce that for any new edp panels to be used with MSM, the
-> panels should atleast invoke wait_hpd_asserted()?
->
-> I agree that since MSM implements it, even though its listed as
-> optional, we can drop this additional wait. So nothing wrong with this
-> patch for current users including sc8280xp, sc7280 and sc7180.
->
-> But, does there need to be some documentation that the edp panels not
-> using the panel-edp framework should still invoke wait_hpd_asserted()?
->
-> Since its marked as optional, what happens if the edp panel driver,
-> skips calling wait_hpd_asserted()?
+Unlike other compositors X.org allocates a single framebuffer covering
+the whole screen space. This is not an issue with the single screens,
+but with the multi-monitor setup 5120x4096 becomes a limiting factor.
+Check the hardware-bound limitations and lift the FB max size to
+16383x16383.
 
-It is optional for the DP AUX implementations, not for the panel to be called.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (9):
+      drm/msm/dpu: drop dpu_format_check_modified_format
+      drm/msm/dpu: drop dpu_format_populate_layout from dpu_plane_sspp_atomic_update
+      drm/msm/dpu: split dpu_format_populate_layout
+      drm/msm/dpu: move dpu_format_populate_plane_sizes to atomic_check
+      drm/msm/dpu: check for the plane pitch overflow
+      drm/msm/dpu: drop call to _dpu_crtc_setup_lm_bounds from atomic_begin
+      drm/msm/dpu: check for overflow in _dpu_crtc_setup_lm_bounds()
+      drm/msm/dpu: merge MAX_IMG_WIDTH/HEIGHT with DPU_MAX_IMG_WIDTH/HEIGHT
+      drm/msm/dpu: sync mode_config limits to the FB limits in dpu_plane.c
 
->
-> Now, since the wait from MSM is removed, it has a potential to fail.
->
-> > ALSO NOTE: the wait wasn't actually _hurting_ anything and wasn't even
-> > causing long timeouts, but it's still nice to get rid of unneeded
-> > code. Specificaly it's not truly needed because to handle other DP
-> > drivers that can't power on as quickly (specifically parade-ps8640) we
-> > already avoid DP AUX transfers for eDP panels that aren't powered
-> > on. See commit 8df1ddb5bf11 ("drm/dp: Don't attempt AUX transfers when
-> > eDP panels are not powered").
-> >
-> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > ---
-> >
-> > (no changes since v1)
-> >
-> >   drivers/gpu/drm/msm/dp/dp_aux.c | 17 -----------------
-> >   1 file changed, 17 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-> > index 75c51f3ee106..ecefd1922d6d 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> > @@ -313,23 +313,6 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
-> >               goto exit;
-> >       }
-> >
-> > -     /*
-> > -      * For eDP it's important to give a reasonably long wait here for HPD
-> > -      * to be asserted. This is because the panel driver may have _just_
-> > -      * turned on the panel and then tried to do an AUX transfer. The panel
-> > -      * driver has no way of knowing when the panel is ready, so it's up
-> > -      * to us to wait. For DP we never get into this situation so let's
-> > -      * avoid ever doing the extra long wait for DP.
-> > -      */
-> > -     if (aux->is_edp) {
-> > -             ret = dp_catalog_aux_wait_for_hpd_connect_state(aux->catalog,
-> > -                                                             500000);
-> > -             if (ret) {
-> > -                     DRM_DEBUG_DP("Panel not ready for aux transactions\n");
-> > -                     goto exit;
-> > -             }
-> > -     }
-> > -
-> >       dp_aux_update_offset_and_segment(aux, msg);
-> >       dp_aux_transfer_helper(aux, msg, true);
-> >
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           | 17 ++--
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        | 92 ++++++----------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h        | 23 ++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h        |  2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            | 10 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          | 37 +++++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h          |  3 +
+ drivers/gpu/drm/msm/msm_kms.h                      |  5 --
+ 10 files changed, 75 insertions(+), 126 deletions(-)
+---
+base-commit: 8ffc8b1bbd505e27e2c8439d326b6059c906c9dd
+change-id: 20240318-dpu-mode-config-width-626d3c7ad52a
 
-
-
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
