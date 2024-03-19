@@ -2,73 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0270E88062D
-	for <lists+freedreno@lfdr.de>; Tue, 19 Mar 2024 21:44:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69B258806CF
+	for <lists+freedreno@lfdr.de>; Tue, 19 Mar 2024 22:35:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 979D510E779;
-	Tue, 19 Mar 2024 20:43:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD32610EDE7;
+	Tue, 19 Mar 2024 21:35:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="wE5q9IA2";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="aGW85ZtG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88AF710E779
- for <freedreno@lists.freedesktop.org>; Tue, 19 Mar 2024 20:43:57 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-60a434ea806so65444367b3.3
- for <freedreno@lists.freedesktop.org>; Tue, 19 Mar 2024 13:43:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1710881036; x=1711485836; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=OeXdd6BoIpGck+XAlpFKofkTnIc6zBqulWBdd+v07Ic=;
- b=wE5q9IA2LauU7FVY8OCm7l9kGKSpxcyxCjsNTsFveUeMlMJxEa2QJZhc3vo6x1RrDz
- Tj9mSYZrqIw/S7NDqSdzrLFHXCbLFqa4tGkvxORXKzuRWEoF4IsQG10wfR8b68nDCftx
- +lp8EUSIe2b26fOwgtpBU7T2ZY4uFdUZ43QwzhDtzCVPnVwj4bxkC15mfTR8hKU/RSFa
- u2Zv222mgQLFwIF0Tw90x9zaFA+DimnlQ4cWN1T0AybL6HtCRm43USWlfzsXAcgqldEn
- mjarZIwh9J0TFE/x1WXIfyrRD3t/j/uu3JhzpSbb5tW47E8x+PcX93HJBiXRT5I3nj7G
- FPuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710881036; x=1711485836;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=OeXdd6BoIpGck+XAlpFKofkTnIc6zBqulWBdd+v07Ic=;
- b=CInxXfm3rNygygPrr9wBm/bTrA8lObg9M0XvlPCQH55o67t0MQtUchA3xwgTkyxOqQ
- /smp99Wkg6wXEaE5VyOR2/TpgMW+URxzHjFfqyuHqnn64SfRpMgRSt1KlcJvChxZhjlj
- 0409F39Uv/UrbDi14Lfw2PSEMVvlwLDeijtlR8WGGHTcVaXFSEfa3NhU8feAim0SVmAE
- DNFwXhHcvSQNEfA+V7PMQOtkNQTl0BWUW8olYJxtSj1XzyTTbflGuCE8OTwyFoiNORxe
- iqfCpJ+GvRAwJNrEklbx0enCsFdDrgGNM8jDcLqvbnCcp52uEFai7SLDCGxlMcbJPHcU
- +2TA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVi+/jjFMTZyBM7R8vpDmNpgllnnArQ3xYEPRSp8p+NkjNJ/Hy3Ik5abQDtndFm9YJUt+fScr4YG4y5MufyjOyP4qB119T8XOxnxiFxmGQb
-X-Gm-Message-State: AOJu0YytXPeU8wqNygOuOTb4gDrQbG7AxV3icFSMGpfHNgSpT8dpq5d5
- qqVqrBiwffF+HtLWXZCoGtJRSHl6vIN1FBuAOpua4J3mQsAcSfnE8/GhY+hOZzCC9fErLKV25ZS
- BbO4cn0kr0sj4EJ8xck0wJ68JKLUqQi0gLlhq6g==
-X-Google-Smtp-Source: AGHT+IEGB9smWzSs4kyVjf1ngJ0sHXwF85dqOAOilm7NUBGQFDjvo6qUc1UKfbV7DzP5s2uNDsumhOKr73aIWIBS4y8=
-X-Received: by 2002:a5b:c08:0:b0:dcb:e82c:f7f with SMTP id
- f8-20020a5b0c08000000b00dcbe82c0f7fmr13872142ybq.12.1710881036276; 
- Tue, 19 Mar 2024 13:43:56 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8657E10EDE7;
+ Tue, 19 Mar 2024 21:35:22 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 42JK8apr008307; Tue, 19 Mar 2024 21:35:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=sS6dOv6DMiqTi8Ph/ER4I0HCeUr96W6rQ64VNnNi9fw=; b=aG
+ W85ZtGQqOdI5tSdNWdAdP3ZoIulY3JQ5sMRXlp79ktjgk79L7iu4qHN8Qc+SGsKu
+ 9RdVXlfrkzwYLdsd7ZHkZsyvAaC6I0Pp25BeOJ2PavhakkeAZzuY4bf2LK4Oefrf
+ CViWEtuJ5BUN8ftKnIBFgyfoT54dVVGiKze984lUY1+eQtZW8GC7ID2i/rFidETs
+ D0gKCGeqpNaRRgcnSVAM7lyLXuMiHb6dmNhF+2Gg6gNIPItznYWRcYvsFZoy9xMK
+ 7lAGTDaUIFrtLTD5EqFjKvZRDYW0JdBUcBNuo0JYqggHW9cWW/zSohttkO6ppwrl
+ H+BesQVpHQppKr8zuXuQ==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wy94tshe3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 19 Mar 2024 21:35:19 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42JLZHQw021616
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 19 Mar 2024 21:35:17 GMT
+Received: from [10.110.10.159] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 19 Mar
+ 2024 14:35:15 -0700
+Message-ID: <949d04c1-910d-04e0-14f2-1373c1312daf@quicinc.com>
+Date: Tue, 19 Mar 2024 14:35:13 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v3 3/5] drm/msm/dpu: handle perf mode in
+ _dpu_core_perf_crtc_update_bus()
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
 References: <20240314-dpu-perf-rework-v3-0-79fa4e065574@linaro.org>
  <20240314-dpu-perf-rework-v3-3-79fa4e065574@linaro.org>
  <ebf0ca9b-6e9d-4387-8628-a6ccaca11215@quicinc.com>
-In-Reply-To: <ebf0ca9b-6e9d-4387-8628-a6ccaca11215@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 19 Mar 2024 22:43:44 +0200
-Message-ID: <CAA8EJprhgPheFq-xhAh54NkTTh5_BJk=bL1f94=hvsio6VUSQQ@mail.gmail.com>
-Subject: Re: [PATCH v3 3/5] drm/msm/dpu: handle perf mode in
- _dpu_core_perf_crtc_update_bus()
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ <CAA8EJprhgPheFq-xhAh54NkTTh5_BJk=bL1f94=hvsio6VUSQQ@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJprhgPheFq-xhAh54NkTTh5_BJk=bL1f94=hvsio6VUSQQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: jWgaKimbvQgesUr1USRh5awwSFqSCN4x
+X-Proofpoint-ORIG-GUID: jWgaKimbvQgesUr1USRh5awwSFqSCN4x
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-19_08,2024-03-18_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxscore=0
+ spamscore=0 clxscore=1015 mlxlogscore=999 suspectscore=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0 adultscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2403140001 definitions=main-2403190168
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,99 +97,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 19 Mar 2024 at 22:34, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 3/13/2024 6:10 PM, Dmitry Baryshkov wrote:
-> > Move perf mode handling for the bandwidth to
-> > _dpu_core_perf_crtc_update_bus() rather than overriding per-CRTC data
-> > and then aggregating known values.
-> >
-> > Note, this changes the fix_core_ab_vote. Previously it would be
-> > multiplied per the CRTC number, now it will be used directly for
-> > interconnect voting.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 39 +++++++++++++--------------
-> >   1 file changed, 19 insertions(+), 20 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> > index 87b892069526..ff2942a6a678 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> > @@ -118,21 +118,9 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
-> >               return;
-> >       }
-> >
-> > -     memset(perf, 0, sizeof(struct dpu_core_perf_params));
-> > -
-> > -     if (core_perf->perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
-> > -             perf->bw_ctl = 0;
-> > -             perf->max_per_pipe_ib = 0;
-> > -             perf->core_clk_rate = 0;
-> > -     } else if (core_perf->perf_tune.mode == DPU_PERF_MODE_FIXED) {
-> > -             perf->bw_ctl = core_perf->fix_core_ab_vote;
-> > -             perf->max_per_pipe_ib = core_perf->fix_core_ib_vote;
-> > -             perf->core_clk_rate = core_perf->fix_core_clk_rate;
-> > -     } else {
-> > -             perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
-> > -             perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
-> > -             perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
-> > -     }
-> > +     perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
-> > +     perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
-> > +     perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
-> >
-> >       DRM_DEBUG_ATOMIC(
-> >               "crtc=%d clk_rate=%llu core_ib=%llu core_ab=%llu\n",
-> > @@ -233,18 +221,29 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
-> >   {
-> >       struct dpu_core_perf_params perf = { 0 };
-> >       int i, ret = 0;
-> > -     u64 avg_bw;
-> > +     u32 avg_bw;
-> > +     u32 peak_bw;
-> >
-> >       if (!kms->num_paths)
-> >               return 0;
-> >
-> > -     dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
-> > +     if (kms->perf.perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
-> > +             avg_bw = 0;
-> > +             peak_bw = 0;
-> > +     } else if (kms->perf.perf_tune.mode == DPU_PERF_MODE_FIXED) {
-> > +             avg_bw = kms->perf.fix_core_ab_vote;
-> > +             peak_bw = kms->perf.fix_core_ib_vote;
-> > +     } else {
-> > +             dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
->
-> Where is this function dpu_core_perf_aggregate() defined? I dont see it
-> in msm-next
-
-In the previous patch.
-
->
-> > +
-> > +             avg_bw = div_u64(perf.bw_ctl, 1000); /*Bps_to_icc*/
-> > +             peak_bw = perf.max_per_pipe_ib;
-> > +     }
-> >
-> > -     avg_bw = perf.bw_ctl;
-> > -     do_div(avg_bw, (kms->num_paths * 1000)); /*Bps_to_icc*/
-> > +     avg_bw /= kms->num_paths;
-> >
-> >       for (i = 0; i < kms->num_paths; i++)
-> > -             icc_set_bw(kms->path[i], avg_bw, perf.max_per_pipe_ib);
-> > +             icc_set_bw(kms->path[i], avg_bw, peak_bw);
-> >
-> >       return ret;
-> >   }
-> >
 
 
+On 3/19/2024 1:43 PM, Dmitry Baryshkov wrote:
+> On Tue, 19 Mar 2024 at 22:34, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 3/13/2024 6:10 PM, Dmitry Baryshkov wrote:
+>>> Move perf mode handling for the bandwidth to
+>>> _dpu_core_perf_crtc_update_bus() rather than overriding per-CRTC data
+>>> and then aggregating known values.
+>>>
+>>> Note, this changes the fix_core_ab_vote. Previously it would be
+>>> multiplied per the CRTC number, now it will be used directly for
+>>> interconnect voting.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 39 +++++++++++++--------------
+>>>    1 file changed, 19 insertions(+), 20 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+>>> index 87b892069526..ff2942a6a678 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+>>> @@ -118,21 +118,9 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
+>>>                return;
+>>>        }
+>>>
+>>> -     memset(perf, 0, sizeof(struct dpu_core_perf_params));
+>>> -
+>>> -     if (core_perf->perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
+>>> -             perf->bw_ctl = 0;
+>>> -             perf->max_per_pipe_ib = 0;
+>>> -             perf->core_clk_rate = 0;
+>>> -     } else if (core_perf->perf_tune.mode == DPU_PERF_MODE_FIXED) {
+>>> -             perf->bw_ctl = core_perf->fix_core_ab_vote;
+>>> -             perf->max_per_pipe_ib = core_perf->fix_core_ib_vote;
+>>> -             perf->core_clk_rate = core_perf->fix_core_clk_rate;
+>>> -     } else {
+>>> -             perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
+>>> -             perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
+>>> -             perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
+>>> -     }
+>>> +     perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
+>>> +     perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
+>>> +     perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
+>>>
+>>>        DRM_DEBUG_ATOMIC(
+>>>                "crtc=%d clk_rate=%llu core_ib=%llu core_ab=%llu\n",
+>>> @@ -233,18 +221,29 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
+>>>    {
+>>>        struct dpu_core_perf_params perf = { 0 };
+>>>        int i, ret = 0;
+>>> -     u64 avg_bw;
+>>> +     u32 avg_bw;
+>>> +     u32 peak_bw;
 
--- 
-With best wishes
-Dmitry
+Why were avg_bw and peak_bw values brought down to u32?
+
+I think we might go higher so u64 was better.
+
+>>>
+>>>        if (!kms->num_paths)
+>>>                return 0;
+>>>
+>>> -     dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
+>>> +     if (kms->perf.perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
+>>> +             avg_bw = 0;
+>>> +             peak_bw = 0;
+>>> +     } else if (kms->perf.perf_tune.mode == DPU_PERF_MODE_FIXED) {
+>>> +             avg_bw = kms->perf.fix_core_ab_vote;
+>>> +             peak_bw = kms->perf.fix_core_ib_vote;
+
+Instead of changing the value of avg_bw like mentioned in commit text, 
+why cant we do avg_bw = fix_core_ab * (drm_mode_config::num_crtc);
+
+Any reason you want to change it from "per CRTC fixed" to just "fixed"?
+
+Now, the user who wants to hard-code this also needs to first account 
+for number of CRTCs from the dri state and then program the fixed value 
+using debugfs. Thats not convenient.
+
+>>> +     } else {
+>>> +             dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
+>>
+>> Where is this function dpu_core_perf_aggregate() defined? I dont see it
+>> in msm-next
+> 
+> In the previous patch.
+> 
+
+Sorry, my bad. I thought it had a different name in the prev patch :/
+
+
+>>
+>>> +
+>>> +             avg_bw = div_u64(perf.bw_ctl, 1000); /*Bps_to_icc*/
+>>> +             peak_bw = perf.max_per_pipe_ib;
+>>> +     }
+>>>
+>>> -     avg_bw = perf.bw_ctl;
+>>> -     do_div(avg_bw, (kms->num_paths * 1000)); /*Bps_to_icc*/
+>>> +     avg_bw /= kms->num_paths;
+>>>
+
+>>>        for (i = 0; i < kms->num_paths; i++)
+>>> -             icc_set_bw(kms->path[i], avg_bw, perf.max_per_pipe_ib);
+>>> +             icc_set_bw(kms->path[i], avg_bw, peak_bw);
+>>>
+>>>        return ret;
+>>>    }
+>>>
+> 
+> 
+> 
