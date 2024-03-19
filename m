@@ -2,54 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3895C880587
-	for <lists+freedreno@lfdr.de>; Tue, 19 Mar 2024 20:38:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E1CB880619
+	for <lists+freedreno@lfdr.de>; Tue, 19 Mar 2024 21:35:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05D6110E145;
-	Tue, 19 Mar 2024 19:38:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8E4210E145;
+	Tue, 19 Mar 2024 20:35:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="oyDOyx9E";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="MYxzzy7u";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D27A10E145;
- Tue, 19 Mar 2024 19:38:14 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86F3610E145;
+ Tue, 19 Mar 2024 20:35:00 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42JHGjYH030216; Tue, 19 Mar 2024 19:38:11 GMT
+ 42JJj5Y9010713; Tue, 19 Mar 2024 20:34:54 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  message-id:date:mime-version:subject:to:cc:references:from
  :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=OtR7HIxuiihWCpcnaPxCR5sKik8HMX3DkwylFBWcFZk=; b=oy
- DOyx9E/1FF2GxPEx/ZtGxA3f2T9QVz97yNpD0654y7atGvwb0GPPrdJAbZf9m9eY
- LM4heSSv7CPbL8bc2anRDa4oxlZ0bcxcudaTlbtUJQeSJUOnV+faqqwGT2nwlo92
- zHYax4QK9UtSCTDiZBFIbpRWjbkBW39sGnik8eCqmzGZ7QhATuGkfrZUTl3Hrzq3
- PGHzgRiYp6i5Jx4PBi93VkR/fEDvg/IOqZ7U0ey9Ltn1QwnRKTT2qU3YMr7Pm0+o
- D9ORssKv/CtHDpt7JU9zy4SXB6ZAbp9F5JuUgcfFb2+WoDBP6LIkT7I22TAwARKe
- qByJeQWXdJ1lFCOk6ilQ==
+ qcppdkim1; bh=usQ6jbnrewpRP0Qjs4jmCLe5S1U4HXDY6hDzpNWtgPE=; b=MY
+ xzzy7uLMOGwc180+6q/ICzvTIWDaseatd+NSOhIxhptD5WXX/h91Z8dRShZmhu0B
+ FOgfq5FdeD4Au9TR1gJkxueDQcTEdjfGts2vyBoIbymfws+mZVLyEt1kZaL3H5GA
+ iZ6wWE5WGs/5dlA1QkpNFIdoDE2m13xuSYYjU241wRubGkse2c8GvMx/TY5hx2LY
+ FOAAIUbPJjnJ2SPjfFvifvF+7fKh0gnhSyxP5EVFTc9Sw1qucfceDZgZ8l2oo4lY
+ L2TPslfu02v/0PNh3OmbfIqPpN7jiNiPvnD+cUgeBllX2YlAQ90HWE4Vxi1DWaDw
+ CuzdSZvB8bJcyYGieH7g==
 Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wy94tsapn-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wyfqbga9k-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 19 Mar 2024 19:38:10 +0000 (GMT)
+ Tue, 19 Mar 2024 20:34:54 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42JJc9r9026527
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42JKYrNu029122
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 19 Mar 2024 19:38:09 GMT
+ Tue, 19 Mar 2024 20:34:53 GMT
 Received: from [10.110.10.159] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 19 Mar
- 2024 12:38:06 -0700
-Message-ID: <eb8a78e0-5202-861c-a4cd-2d1366ff3423@quicinc.com>
-Date: Tue, 19 Mar 2024 12:38:04 -0700
+ 2024 13:34:50 -0700
+Message-ID: <ebf0ca9b-6e9d-4387-8628-a6ccaca11215@quicinc.com>
+Date: Tue, 19 Mar 2024 13:34:49 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v3 2/5] drm/msm/dpu: core_perf: extract bandwidth
- aggregation function
+Subject: Re: [PATCH v3 3/5] drm/msm/dpu: handle perf mode in
+ _dpu_core_perf_crtc_update_bus()
 Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
@@ -58,28 +58,28 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
 CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  <freedreno@lists.freedesktop.org>
 References: <20240314-dpu-perf-rework-v3-0-79fa4e065574@linaro.org>
- <20240314-dpu-perf-rework-v3-2-79fa4e065574@linaro.org>
+ <20240314-dpu-perf-rework-v3-3-79fa4e065574@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240314-dpu-perf-rework-v3-2-79fa4e065574@linaro.org>
+In-Reply-To: <20240314-dpu-perf-rework-v3-3-79fa4e065574@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: FlLccESTJRpMBBZVM3rfqT_jeyAZ_3Rm
-X-Proofpoint-ORIG-GUID: FlLccESTJRpMBBZVM3rfqT_jeyAZ_3Rm
+X-Proofpoint-ORIG-GUID: RHBF-A0sE4wBvxocV4QB7QzCfnYyGIi0
+X-Proofpoint-GUID: RHBF-A0sE4wBvxocV4QB7QzCfnYyGIi0
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2024-03-19_08,2024-03-18_03,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxscore=0
- spamscore=0 clxscore=1015 mlxlogscore=999 suspectscore=0
- priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0 adultscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2403140001 definitions=main-2403190149
+ suspectscore=0 phishscore=0
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 mlxscore=0 mlxlogscore=999 clxscore=1015 spamscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2403140001 definitions=main-2403190159
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,91 +98,85 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 On 3/13/2024 6:10 PM, Dmitry Baryshkov wrote:
-> In preparation to refactoring the dpu_core_perf debugfs interface,
-> extract the bandwidth aggregation function from
-> _dpu_core_perf_crtc_update_bus().
+> Move perf mode handling for the bandwidth to
+> _dpu_core_perf_crtc_update_bus() rather than overriding per-CRTC data
+> and then aggregating known values.
+> 
+> Note, this changes the fix_core_ab_vote. Previously it would be
+> multiplied per the CRTC number, now it will be used directly for
+> interconnect voting.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 45 +++++++++++++++------------
->   1 file changed, 25 insertions(+), 20 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 39 +++++++++++++--------------
+>   1 file changed, 19 insertions(+), 20 deletions(-)
 > 
-
-no need of core_perf : in the subject line.
-
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> index 68fae048a9a8..87b892069526 100644
+> index 87b892069526..ff2942a6a678 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> @@ -204,36 +204,41 @@ int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
->   	return 0;
->   }
->   
-> -static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
-> -		struct drm_crtc *crtc)
-> +static void dpu_core_perf_aggregate(struct drm_device *ddev,
-> +				    enum dpu_crtc_client_type curr_client_type,
-> +				    struct dpu_core_perf_params *perf)
->   {
-> -	struct dpu_core_perf_params perf = { 0 };
-> -	enum dpu_crtc_client_type curr_client_type
-> -					= dpu_crtc_get_client_type(crtc);
-> -	struct drm_crtc *tmp_crtc;
->   	struct dpu_crtc_state *dpu_cstate;
-> -	int i, ret = 0;
-> -	u64 avg_bw;
-> -
-> -	if (!kms->num_paths)
-> -		return 0;
-> +	struct drm_crtc *tmp_crtc;
->   
-> -	drm_for_each_crtc(tmp_crtc, crtc->dev) {
-> +	drm_for_each_crtc(tmp_crtc, ddev) {
->   		if (tmp_crtc->enabled &&
-> -			curr_client_type ==
-> -				dpu_crtc_get_client_type(tmp_crtc)) {
-> +		    curr_client_type == dpu_crtc_get_client_type(tmp_crtc)) {
->   			dpu_cstate = to_dpu_crtc_state(tmp_crtc->state);
->   
-> -			perf.max_per_pipe_ib = max(perf.max_per_pipe_ib,
-> -					dpu_cstate->new_perf.max_per_pipe_ib);
-> +			perf->max_per_pipe_ib = max(perf->max_per_pipe_ib,
-> +						    dpu_cstate->new_perf.max_per_pipe_ib);
->   
-> -			perf.bw_ctl += dpu_cstate->new_perf.bw_ctl;
-> +			perf->bw_ctl += dpu_cstate->new_perf.bw_ctl;
->   
-> -			DRM_DEBUG_ATOMIC("crtc=%d bw=%llu paths:%d\n",
-> -				  tmp_crtc->base.id,
-> -				  dpu_cstate->new_perf.bw_ctl, kms->num_paths);
-> +			DRM_DEBUG_ATOMIC("crtc=%d bw=%llu\n",
-> +					 tmp_crtc->base.id,
-> +					 dpu_cstate->new_perf.bw_ctl);
->   		}
+> @@ -118,21 +118,9 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
+>   		return;
 >   	}
-> +}
-> +
-> +static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
-> +		struct drm_crtc *crtc)
-> +{
-
-since you have fixed some of the formatting inside the function, do you 
-also want to align struct drm_crtc *crtc with the opening braces?
-
-With that fixed,
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-
-> +	struct dpu_core_perf_params perf = { 0 };
-> +	int i, ret = 0;
-> +	u64 avg_bw;
-> +
-> +	if (!kms->num_paths)
-> +		return 0;
-> +
-> +	dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
 >   
->   	avg_bw = perf.bw_ctl;
->   	do_div(avg_bw, (kms->num_paths * 1000)); /*Bps_to_icc*/
+> -	memset(perf, 0, sizeof(struct dpu_core_perf_params));
+> -
+> -	if (core_perf->perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
+> -		perf->bw_ctl = 0;
+> -		perf->max_per_pipe_ib = 0;
+> -		perf->core_clk_rate = 0;
+> -	} else if (core_perf->perf_tune.mode == DPU_PERF_MODE_FIXED) {
+> -		perf->bw_ctl = core_perf->fix_core_ab_vote;
+> -		perf->max_per_pipe_ib = core_perf->fix_core_ib_vote;
+> -		perf->core_clk_rate = core_perf->fix_core_clk_rate;
+> -	} else {
+> -		perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
+> -		perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
+> -		perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
+> -	}
+> +	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
+> +	perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
+> +	perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
+>   
+>   	DRM_DEBUG_ATOMIC(
+>   		"crtc=%d clk_rate=%llu core_ib=%llu core_ab=%llu\n",
+> @@ -233,18 +221,29 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
+>   {
+>   	struct dpu_core_perf_params perf = { 0 };
+>   	int i, ret = 0;
+> -	u64 avg_bw;
+> +	u32 avg_bw;
+> +	u32 peak_bw;
+>   
+>   	if (!kms->num_paths)
+>   		return 0;
+>   
+> -	dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
+> +	if (kms->perf.perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
+> +		avg_bw = 0;
+> +		peak_bw = 0;
+> +	} else if (kms->perf.perf_tune.mode == DPU_PERF_MODE_FIXED) {
+> +		avg_bw = kms->perf.fix_core_ab_vote;
+> +		peak_bw = kms->perf.fix_core_ib_vote;
+> +	} else {
+> +		dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
+
+Where is this function dpu_core_perf_aggregate() defined? I dont see it 
+in msm-next
+
+> +
+> +		avg_bw = div_u64(perf.bw_ctl, 1000); /*Bps_to_icc*/
+> +		peak_bw = perf.max_per_pipe_ib;
+> +	}
+>   
+> -	avg_bw = perf.bw_ctl;
+> -	do_div(avg_bw, (kms->num_paths * 1000)); /*Bps_to_icc*/
+> +	avg_bw /= kms->num_paths;
+>   
+>   	for (i = 0; i < kms->num_paths; i++)
+> -		icc_set_bw(kms->path[i], avg_bw, perf.max_per_pipe_ib);
+> +		icc_set_bw(kms->path[i], avg_bw, peak_bw);
+>   
+>   	return ret;
+>   }
 > 
