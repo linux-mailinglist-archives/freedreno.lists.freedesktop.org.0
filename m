@@ -2,75 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE28F8860AD
-	for <lists+freedreno@lfdr.de>; Thu, 21 Mar 2024 19:44:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60EF288635D
+	for <lists+freedreno@lfdr.de>; Thu, 21 Mar 2024 23:39:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38D4610F5A3;
-	Thu, 21 Mar 2024 18:44:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25DA31121FC;
+	Thu, 21 Mar 2024 22:39:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gGyqDdJg";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="aVcXCbDP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f169.google.com (mail-yb1-f169.google.com
- [209.85.219.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B80810FE02
- for <freedreno@lists.freedesktop.org>; Thu, 21 Mar 2024 18:44:10 +0000 (UTC)
-Received: by mail-yb1-f169.google.com with SMTP id
- 3f1490d57ef6-dbed0710c74so1143210276.1
- for <freedreno@lists.freedesktop.org>; Thu, 21 Mar 2024 11:44:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711046649; x=1711651449; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=wl+oGM7xBpGJ1G8vzSX1N4Tg+wB3JNqlo4iK0nt+DCE=;
- b=gGyqDdJgpI1othsV9oESsyOnI0eGqjvOuntmbS2DpO3vHdUCrUUmINy3vQ2tx0ZEML
- 47/54Q116eYg01DFC+ZLjOpdwX7N12HZxRZW/ORs2Q+GUuEC9lOcnUZFPIpuIAfW8M44
- fHuq2gLzqrI/ZrN2yOsoUZ1fDSQ3xkwJMZIcsvqH+SpFVh4zbFjrvzRw6KAa425tHc6H
- aJ8fJHZV1IPUszJPlgxFYJTnDuef+R571NS8YsdUSTjfmgEB5FGonyS21kNMu0pqpPVd
- N1hlQXPOWX83tedQ+9UPqR3nVshixrwow1oD3//osJUjk99zvnshgY7zKVh6rLhj4Xm7
- 8jpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711046649; x=1711651449;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=wl+oGM7xBpGJ1G8vzSX1N4Tg+wB3JNqlo4iK0nt+DCE=;
- b=IXX++LRZCuOPm4O4SDFbGMrYJNaKHuNyVvIJHG4Ydq/pWovgdmHjE0L0dQeCfhPsPK
- aiPOfM8zVPQuc2vRB49IjEHeyLiZcDcEU8qrfJMAvZjcGL8un5hrzrGnLWuluivse8Ib
- I0m3gD+bx50A9u2W+ZS9oW8daVFP2Ka13T1LK6ZnnGd8XuzyvLvQqyUjFrx/xYDj0rp8
- 6JdlAlnvZirA/nrdKTOTako6/Ti1rPWhd7PqTO+lNg0rMX6y6Onk5pnXdrSpLzBCoFdm
- V5OJHEEGqpLRBhYxEkb3e03lx6hbdeA/MHZdUN1wuTOhcnWFSUZMBCuiYXUZ0SbW8m0Q
- vM9w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXQHOJB8WuKgK9yjD1+Va1izLg1s3KqwZDCLhivoNZoRTIq9RpYG0NG4JJIphAqX4h1PyoCQD2UDxwdS47k4TLxMXIVI2ON2KyAVFE9Akjp
-X-Gm-Message-State: AOJu0YwRLbssJYzDuLSaIm3QhAYKhh7nKFWMyKHUl1i6OxOUtbcKUYyO
- lqUyP0edv5fRqyNLCUKX8w1+vTSyA3jg8J58hm/OfRyVpfaHPknpMRdmo+iHxJHW85zc7i1IHE7
- iYumrCCupQNzZLHy1MOvRdthinDLu93bXJ2T8TQ==
-X-Google-Smtp-Source: AGHT+IFe03RC3nVeodEdT7bU8JoK4NpydonqfbIUHt0GiBTobSGhc2F+x/+N2a9UtT/JIbzibPnfAA+Y9ys6bgQHi8I=
-X-Received: by 2002:a25:ab09:0:b0:dca:59a7:896b with SMTP id
- u9-20020a25ab09000000b00dca59a7896bmr3462ybi.50.1711046649346; Thu, 21 Mar
- 2024 11:44:09 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FBDC112201;
+ Thu, 21 Mar 2024 22:39:26 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 42LKODcB005847; Thu, 21 Mar 2024 22:39:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=vlMZYf//CJEOuSyhkVYJf8jOVq9pY/I8lS9n23jYZIk=; b=aV
+ cXCbDPN9e00tmjh7QGH+lrjHskYtWLMz9XwhpEhpwQM25d5FTfZruMlD35Lac15g
+ TbK2Oj4BopjMgGgX0SBR8DCCn8YPrRTDNzbdMs2UEKZMpCP5Psyues1JK2gHwNFD
+ Sjaeu36rw3PCBcZzn8vBo/yeblcZcBV2rTvoqw4RZTq0Q6dcJVQSZJObrbiLu1C3
+ GHojpwJsNg50g3V1lXNEBVJ0csSZXkFEz76cW5E3w1ZiNOovaVzPj2qOOYjrZ7LD
+ kB10Xl5tVcx7h7shaHVO9i0posaXEE3cCD3YfEiJt2K+6yVxJDpzgUroMCzLZAuJ
+ ZfoDUiY88+35LxoDM92A==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3x0nb31cpr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Mar 2024 22:39:21 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42LMcshB027129
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Mar 2024 22:38:54 GMT
+Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 21 Mar
+ 2024 15:38:51 -0700
+Message-ID: <80b520c5-0b76-a45c-2d1f-a73e6577cf73@quicinc.com>
+Date: Thu, 21 Mar 2024 15:38:50 -0700
 MIME-Version: 1.0
-References: <20240222-fd-dpu-yv16-yv24-v1-1-4aa833cdc641@linaro.org>
- <6334793a-1204-85b3-4f91-7859b83f79ed@quicinc.com>
- <CAA8EJpqxkY=Bk8_iAq6Yj6VGNO2UYmF2Hm6XOeE5EhJFKUpaPQ@mail.gmail.com>
- <9bac0e8c-d14d-a759-dc02-2e38301e4ef1@quicinc.com>
- <CAA8EJpruKjwOoRU8UP-b__n77Z18WQpJMUWdqgry4vZsQ5-QZw@mail.gmail.com>
- <0c1aab88-8e0b-5f2a-fdc9-2a9e01628fc5@quicinc.com>
-In-Reply-To: <0c1aab88-8e0b-5f2a-fdc9-2a9e01628fc5@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 21 Mar 2024 20:43:57 +0200
-Message-ID: <CAA8EJppqvV=-P4g6ADVh4_CxO13sty+sDPEE1BBg3BA629rVeQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: add support for 4:2:2 and 4:4:4 planar YCbCr
- plane formats
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v3 3/5] drm/msm/dpu: handle perf mode in
+ _dpu_core_perf_crtc_update_bus()
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
+References: <20240314-dpu-perf-rework-v3-0-79fa4e065574@linaro.org>
+ <20240314-dpu-perf-rework-v3-3-79fa4e065574@linaro.org>
+ <ebf0ca9b-6e9d-4387-8628-a6ccaca11215@quicinc.com>
+ <CAA8EJprhgPheFq-xhAh54NkTTh5_BJk=bL1f94=hvsio6VUSQQ@mail.gmail.com>
+ <949d04c1-910d-04e0-14f2-1373c1312daf@quicinc.com>
+ <CAA8EJppVbnB+P4sYWXJZ4=1_yb2jQhPjC1x6w1zEJQp4Cnj4-A@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJppVbnB+P4sYWXJZ4=1_yb2jQhPjC1x6w1zEJQp4Cnj4-A@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: cF--rPkWnDdmciX8LNUgzvELkpWBfgH_
+X-Proofpoint-ORIG-GUID: cF--rPkWnDdmciX8LNUgzvELkpWBfgH_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-21_12,2024-03-21_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ spamscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ impostorscore=0 mlxlogscore=999 mlxscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2403140001 definitions=main-2403210172
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,110 +99,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 21 Mar 2024 at 20:28, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 3/21/2024 11:09 AM, Dmitry Baryshkov wrote:
-> > On Thu, 21 Mar 2024 at 19:36, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>
-> >>
-> >>
-> >> On 3/21/2024 8:43 AM, Dmitry Baryshkov wrote:
-> >>> On Fri, 23 Feb 2024 at 22:48, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>>>
-> >>>>
-> >>>>
-> >>>> On 2/22/2024 3:43 AM, Dmitry Baryshkov wrote:
-> >>>>> The DPU driver provides support for 4:2:0 planar YCbCr plane formats.
-> >>>>> Extend it to also support 4:2:2 and 4:4:4 plat formats.
-> >>>>>
-> >>>>
-> >>>> I checked myself and also internally on this. On sm8250, the DPU planes
-> >>>> do not support YUV444 and YUV422 (and the corresponding YVU formats).
-> >>>>
-> >>>> May I know what was the reference to add these formats to DPU
-> >>>> considering that even downstream sources didn't add them?
-> >>>>
-> >>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>>>> ---
-> >>>>> Full-screen (1080p@60) YV24 gave me underruns on SM8250 until I bumped
-> >>>>> the clock inefficiency factor from 105 to 117. I'm not sure that it is a
-> >>>>> correct way to handle it, so I'm sending this as an RFC. If we agree
-> >>>>> that bumping the .clk_inefficiency_factor is a correct way, I'll send
-> >>>>> v2, including catalog changes.
-> >>>>>
-> >>>>> I had no such issues for the YV16/YU16 formats.
-> >>>>
-> >>>> We don't support this too on sm8250. But interesting it worked.
-> >>>
-> >>> I have been cross-checking DPU formats list against the format list
-> >>> from the display overview docs.
-> >>> The DPU (and SDE FWIW) drivers supported NV16/61 and
-> >>> UYVY/YUY2/YVYU/VYUY formats for ages, although overview does not
-> >>> mention these semi-planar formats at all and interleaved YUV formats
-> >>> are marked as unsupported.
-> >>>
-> >>> For reference, NV24 and NV42 also seem to work.
-> >>>
-> >>
-> >> Thanks for the update.
-> >>
-> >> I cross-checked sm8250 format list in our internal docs to make sure
-> >> there is no discrepancy between those and the display overview doc.
-> >>
-> >> NV16 / NV61 (linear) are marked "NOT supported" by DPU.
-> >>
-> >> UYVY/YUY2/YVYU/VYUY (linear) are also marked "NOT supported".
-> >
-> > But all of these image formats are handled by the DPU _driver_ as supported.
-> >
->
-> Ok, I see where this discrepancy is happening now.
->
-> So I took another chipset, sc8280xp and checked these formats.
->
-> Those are marked "supported" in that.
->
-> Our dpu_formats listed in the driver is not chipset specific and that is
-> causing this discrepancy between the display overview docs and what is
-> in the driver.
->
-> I will plan to move the formats list to the catalog to eliminate this
-> and prioritize that change.
-
-Well, from my side, disabling of interleaved YUV formats is going to
-be NAKed. They are heavily used by video players for output. So,
-disabling them will harm user experience.
-
->
-> Till then, I think we should stick to the display overview doc in terms
-> which formats should be validated on which chipsets.
->
-> >> So the markings are correct.
-> >>
-> >> If you notice a discrepancy between our dpu formats list in the driver
-> >> and what is marked as "supported" in the display overview docs, that is
-> >> something we can investigate and get fixed.
-> >>
-> >> If you are running some standalone tests and reporting that formats
-> >> marked as "unsupported" in the display overview docs still work, we
-> >> cannot simply add those formats on the basis of your modetest validation
-> >> as your validation alone shall not supersede the marking of the design
-> >> teams as the system level validation of those formats is what we have to
-> >> go by.
-> >>
-> >> The formats marked unsupported shall remain unsupported by the driver
-> >> and QC shall not ack adding any of those.
-
-Ok, I have a significantly different background here. Because
-beforehand my code was frequently based on rev-eng, on the incomplete
-support by the hardware vendors and the frequently incomplete docs,
-the argument "work" still prevails in my head compared to "claimed to
-be supported by the vendor". In the end my goal was always to get more
-from the hardware than the vendor has even thought about.
 
 
--- 
-With best wishes
-Dmitry
+On 3/19/2024 3:25 PM, Dmitry Baryshkov wrote:
+> On Tue, 19 Mar 2024 at 23:35, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 3/19/2024 1:43 PM, Dmitry Baryshkov wrote:
+>>> On Tue, 19 Mar 2024 at 22:34, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 3/13/2024 6:10 PM, Dmitry Baryshkov wrote:
+>>>>> Move perf mode handling for the bandwidth to
+>>>>> _dpu_core_perf_crtc_update_bus() rather than overriding per-CRTC data
+>>>>> and then aggregating known values.
+>>>>>
+>>>>> Note, this changes the fix_core_ab_vote. Previously it would be
+>>>>> multiplied per the CRTC number, now it will be used directly for
+>>>>> interconnect voting.
+>>>>>
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>> ---
+>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 39 +++++++++++++--------------
+>>>>>     1 file changed, 19 insertions(+), 20 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+>>>>> index 87b892069526..ff2942a6a678 100644
+>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+>>>>> @@ -118,21 +118,9 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
+>>>>>                 return;
+>>>>>         }
+>>>>>
+>>>>> -     memset(perf, 0, sizeof(struct dpu_core_perf_params));
+>>>>> -
+>>>>> -     if (core_perf->perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
+>>>>> -             perf->bw_ctl = 0;
+>>>>> -             perf->max_per_pipe_ib = 0;
+>>>>> -             perf->core_clk_rate = 0;
+>>>>> -     } else if (core_perf->perf_tune.mode == DPU_PERF_MODE_FIXED) {
+>>>>> -             perf->bw_ctl = core_perf->fix_core_ab_vote;
+>>>>> -             perf->max_per_pipe_ib = core_perf->fix_core_ib_vote;
+>>>>> -             perf->core_clk_rate = core_perf->fix_core_clk_rate;
+>>>>> -     } else {
+>>>>> -             perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
+>>>>> -             perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
+>>>>> -             perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
+>>>>> -     }
+>>>>> +     perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
+>>>>> +     perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
+>>>>> +     perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
+>>>>>
+>>>>>         DRM_DEBUG_ATOMIC(
+>>>>>                 "crtc=%d clk_rate=%llu core_ib=%llu core_ab=%llu\n",
+>>>>> @@ -233,18 +221,29 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
+>>>>>     {
+>>>>>         struct dpu_core_perf_params perf = { 0 };
+>>>>>         int i, ret = 0;
+>>>>> -     u64 avg_bw;
+>>>>> +     u32 avg_bw;
+>>>>> +     u32 peak_bw;
+>>
+>> Why were avg_bw and peak_bw values brought down to u32?
+>>
+>> I think we might go higher so u64 was better.
+> 
+> First of all, icc_set_bw takes u32, not u64. The unit is 1000 bps, not
+> 1 bps, so sensible values fit into u32.
+> 
+
+True and agreed.
+
+Would have been better to send this update as a separate patch so that 
+its clear why you are actually doing this downgrade instead of this 
+being hidden in this cleanup perhaps even with a Fixes tag then.
+
+>>
+>>>>>
+>>>>>         if (!kms->num_paths)
+>>>>>                 return 0;
+>>>>>
+>>>>> -     dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
+>>>>> +     if (kms->perf.perf_tune.mode == DPU_PERF_MODE_MINIMUM) {
+>>>>> +             avg_bw = 0;
+>>>>> +             peak_bw = 0;
+>>>>> +     } else if (kms->perf.perf_tune.mode == DPU_PERF_MODE_FIXED) {
+>>>>> +             avg_bw = kms->perf.fix_core_ab_vote;
+>>>>> +             peak_bw = kms->perf.fix_core_ib_vote;
+>>
+>> Instead of changing the value of avg_bw like mentioned in commit text,
+>> why cant we do avg_bw = fix_core_ab * (drm_mode_config::num_crtc);
+>>
+>> Any reason you want to change it from "per CRTC fixed" to just "fixed"?
+>>
+>> Now, the user who wants to hard-code this also needs to first account
+>> for number of CRTCs from the dri state and then program the fixed value
+>> using debugfs. Thats not convenient.
+> 
+> Different CRTCs have different bandwidth values, so programming as
+> value-per-CRTC is not efficient. In the end we care for the overall
+> bandwidth, so one has to calculate the expected value then divide it
+> per num_crtc.
+>
+
+Yes, different CRTCs will have different bandwidth values as each CRTC 
+might be driving a different resolution.
+
+So you are expecting the user to program the total bandwidth they are 
+expecting (sum_of_crtcs).
+
+Then why would they have to divide it per num_crtc?
+
+After this change, I think you are expecting the overall bandwidth right?
+
+I think some --help option for this debugfs should be written now or 
+later to explain what to do with node,
+
+>>
+>>>>> +     } else {
+>>>>> +             dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
+>>>>
+>>>> Where is this function dpu_core_perf_aggregate() defined? I dont see it
+>>>> in msm-next
+>>>
+>>> In the previous patch.
+>>>
+>>
+>> Sorry, my bad. I thought it had a different name in the prev patch :/
+> 
+> No problems.
+> 
+>>
+>>
+>>>>
+>>>>> +
+>>>>> +             avg_bw = div_u64(perf.bw_ctl, 1000); /*Bps_to_icc*/
+>>>>> +             peak_bw = perf.max_per_pipe_ib;
+>>>>> +     }
+>>>>>
+>>>>> -     avg_bw = perf.bw_ctl;
+>>>>> -     do_div(avg_bw, (kms->num_paths * 1000)); /*Bps_to_icc*/
+>>>>> +     avg_bw /= kms->num_paths;
+>>>>>
+>>
+>>>>>         for (i = 0; i < kms->num_paths; i++)
+>>>>> -             icc_set_bw(kms->path[i], avg_bw, perf.max_per_pipe_ib);
+>>>>> +             icc_set_bw(kms->path[i], avg_bw, peak_bw);
+>>>>>
+>>>>>         return ret;
+>>>>>     }
+>>>>>
+>>>
+>>>
+>>>
+> 
+> 
+> 
