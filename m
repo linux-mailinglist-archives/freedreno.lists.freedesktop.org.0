@@ -2,84 +2,105 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 649CF886405
-	for <lists+freedreno@lfdr.de>; Fri, 22 Mar 2024 00:44:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D54A886CBB
+	for <lists+freedreno@lfdr.de>; Fri, 22 Mar 2024 14:22:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 370DB10EB2B;
-	Thu, 21 Mar 2024 23:44:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CF7B10EEDA;
+	Fri, 22 Mar 2024 13:22:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Q3ALNyRO";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dc4hRkTL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A02DC10E925;
- Thu, 21 Mar 2024 23:44:49 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42LNUJSB000670; Thu, 21 Mar 2024 23:44:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=GPamfiwLPD42n0M8kSWNVKN+69nBR+YeM/42SOu2HkE=; b=Q3
- ALNyROXQ+Px22ESw0thOBWMx5fpPYL7OV25Pi10wRYZwcTNxOeiJYzekmT78NENP
- AEHqTxMCZuMH8JneyBzzonB6JxKjSrG8XK4LuWiocGqsiDBSxRBh3vQlllq6+ZGn
- aoPSuz0JthXNfTAzTn9aBytWq8pYvakCiL8XVksAiaXMmAJmMfaAHQzwXhKxBKDp
- wKF1NC2PVmTj6SVKEktCbXqUWf6IwHgONQDs+CrQQ91Vt8rdRbJCu0L/4LEXOs1b
- 5t4V7Q2z66gv86HpQEn5VpdLbOUf8GpIE1W3Mybn0jQXQQNSnZQw1BNea1DDtOBn
- p9VHHIX6NDypyjOyapmA==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3x0wy9r2qc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Mar 2024 23:44:46 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42LNijT7003968
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Mar 2024 23:44:45 GMT
-Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 21 Mar
- 2024 16:44:42 -0700
-Message-ID: <92fd3347-1bda-7fb2-f637-e151928d6772@quicinc.com>
-Date: Thu, 21 Mar 2024 16:44:40 -0700
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B488210EEDA
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Mar 2024 13:22:37 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-513ccc70a6dso3690624e87.1
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Mar 2024 06:22:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1711113756; x=1711718556; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=zarOYxCOo5GM/MnqDwI9RHuDvosKvb8moWuxJ17HxLw=;
+ b=dc4hRkTLbsrgddZYqKlvhpNCF/0rPbwzvg+2iXccO80bO22Kf5pJ/VC7yP61Teq0OW
+ l0GbUeCx1322BhSb9jhL2HofN10sW9/GEbw++m9eF/TeQavhL1zHHu+1/GQWlH0p5VDl
+ bq6G0aplp5+yrr0O2laiLy75yT+yJu4to9qL82ZMHHG1WcdDxffXABUhq7Py5jFOrTzP
+ 1rbcK8eD9yiV5uJMONRqAqaeW7aOQ/R6rTA+xoLfdU9yyOzXJdfcf4iVD7PMHemrg2sm
+ 5mJk7NViMSE5LxUaSJhh2Dxd//93AczJFM2Grp3lwwziP1wMG246Ss/E8DkqGqEEm1pk
+ Hmmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711113756; x=1711718556;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zarOYxCOo5GM/MnqDwI9RHuDvosKvb8moWuxJ17HxLw=;
+ b=jKjiOSGamACgZIUo6FZl4U/5icUdDq+9Ttn8mfJ7YInijIjc1Y3P9YmrCVyTDr7yxq
+ RSOlkVmGCf6JLUx4ERxpyl34Dc6Q+rQ9ZYPbTKNj9/QPGxKG0IsEW5IeIA7LuHWh9Gme
+ 0YN8TxIg4KcHkeWuF8HM2NxDAnyPyJhlAf/8uL4xFlaBMfLLEURfHUtQ/0+OFlG8FVVh
+ I6lhEveLXupG+VVS0bZegjOlBgODqRRO4ROD2oRXWMI3/OsW+R9+nhsPPX6xVyO3tw07
+ +Yl6FO/X3abA+KYnz5LuLZknFcF7FGcl1lNBjbluzaTD9lYO8qvPH3y7HjxBG7zGIGC/
+ LDBg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX75mN2B81qIkVuPNs7jtTqoK3AuR8A56FT3TDeQlgiDppcK0srLsJmsmszqjh+G+rJWG+v/fH2YRkVSxBunRNdBuTnRMiTKI5/StodQgG8
+X-Gm-Message-State: AOJu0YzdjDDiZ0CSSdOFs27D6Gs7Nks4Q+w/DnnD3NSLoRxev5MnKmpe
+ PR4qyeqHA5tk0PrUQeO/he/tpYyxFpj/VPIx9VZfSJ1vjxFScm6RpTF9PWQZcjE=
+X-Google-Smtp-Source: AGHT+IFOFbvWvo7GMTukyJv89a/PooUGqfLkHCaYymF5MM/BdYjldHx0hPdF4ae4qIO3iRk/f3uQpA==
+X-Received: by 2002:a19:9116:0:b0:512:d5e4:1aa4 with SMTP id
+ t22-20020a199116000000b00512d5e41aa4mr2133765lfd.60.1711113753386; 
+ Fri, 22 Mar 2024 06:22:33 -0700 (PDT)
+Received: from [127.0.1.1] ([79.114.172.194]) by smtp.gmail.com with ESMTPSA id
+ m22-20020a170906721600b00a461e206c00sm1014176ejk.20.2024.03.22.06.22.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Mar 2024 06:22:32 -0700 (PDT)
+From: Abel Vesa <abel.vesa@linaro.org>
+Subject: [PATCH v3 0/2] drm/msm/dp: Rework the eDP/DP modes and add support
+ for X1E80100
+Date: Fri, 22 Mar 2024 15:22:21 +0200
+Message-Id: <20240322-x1e80100-display-refactor-connector-v3-0-af14c29af665@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v3 5/5] drm/msm/dpu: drop
- dpu_core_perf_params::max_per_pipe_ib
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, Konrad Dybcio <konrad.dybcio@linaro.org>
-References: <20240314-dpu-perf-rework-v3-0-79fa4e065574@linaro.org>
- <20240314-dpu-perf-rework-v3-5-79fa4e065574@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240314-dpu-perf-rework-v3-5-79fa4e065574@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 5-w1-xDApu1cCUQaP9eLfMGDwRgxAz6l
-X-Proofpoint-GUID: 5-w1-xDApu1cCUQaP9eLfMGDwRgxAz6l
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-21_13,2024-03-21_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015
- phishscore=0 bulkscore=0 adultscore=0 spamscore=0 suspectscore=0
- malwarescore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2403210001 definitions=main-2403210179
+X-B4-Tracking: v=1; b=H4sIAA2G/WUC/43NTQqDMBAF4KtI1k3JjD/VrnqP0kWcjBqQRJIii
+ nj3Rlftrrt5w+N7m4gcLEdxzzYReLbRepdCfskEDdr1LK1JWaDCHBAauQDXCpSSxsZp1KsM3Gl
+ 6+yDJO8fnxUBVVRY1ac5FkqbUscu58nylPNiYaus5OsPxPfxCIcJf/gxSyboixcCtKZkeo3U6+
+ KsPvTgGZvxG8T8UE9qaApqb6Yh1+4Pu+/4BWL5LkiwBAAA=
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Johan Hovold <johan@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2044; i=abel.vesa@linaro.org; 
+ h=from:subject:message-id;
+ bh=edVU3jeCTQ3gGUgwZ920jvPlnNbROZnf5Iox4JZ+SFg=; 
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBl/YYOECUpQjcuKiiQsDAY//fbkHQz0j5YwGNFT
+ YkbKSr8N/6JAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZf2GDgAKCRAbX0TJAJUV
+ VgFvD/9JHvp+vLlvhfZV9N12OsXJkgnbx/YBQ/QCk+Gnx2JKan+BKphy4bxGFAxjrP5wf7YOygz
+ h0amEA1YCAbUi9h6lJYnVYieS7YXm1ZBI66s1gZYP3x5vXIbEzdZjc6ayXZwXgDz37OuDtif7F4
+ rxZYEHAxIwTqyv6AMr3k5gc32Raw0msPXhxpbIVNIBX9XtE0dyGFW8iu7bA6CPlPwz+nJAcNN1N
+ RD6a62szt1gWxjHtWHdM7KadZ23TDHCZwZ0cKneOSrdjTsx+qo+ZqDlez+FZY8fD8JkHrSIGhnN
+ HAnqZDC3OVhkj+Of2CiOfaIof9ShJACVm2WFW6miOFiTZmf/Mb3x5Lk6fkUWN5Fm/UhP3fmrkTS
+ YdAY9OTqXqY8UgzVFfFvFh30t+Tw7DKyMVvU88OYvuxFCNzGoWyU/G0K78ujaDKrBNqpKWLxewX
+ gBcHk/Q/Q2wEvl1tvmiS5X2RWwGzhn1aQi9/mNYdLyU3nzARtk6cJMBPo2B7oZltyyUJFFlpH9G
+ IGk+tTcrobTt6zrr6dNpBTlo0GB36578MB14XFuvXHar6Um2YmDvx07vht1HbGFR1FeQ6yhWZWl
+ m46W1tBRcLELNn9XtUUjs95M4TGNnu1uQFsW9HiGSdEBzriuu94O7tj7JNaxELNUm9LdM/kWAw0
+ TIF6CO6P5Bixzvw==
+X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,115 +116,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Since this new platform supports both DP and eDP, it's the perfect time
+to drop the dual compatible (eDP and DP) and figure out a different way
+to specify the mode. After some off-list discussion, one suggested way
+was to add a 'is-edp' property to the controller node, but that approach
+has been dropped due to bindings concerns. So now we lookup the panel
+node in DT and based on it's presence we can safely say if it is eDP or not.
 
+The PHY counterpart patchset is here:
+https://lore.kernel.org/all/20240220-x1e80100-phy-edp-compatible-refactor-v5-0-e8658adf5461@linaro.org/
 
-On 3/13/2024 6:10 PM, Dmitry Baryshkov wrote:
-> The max_per_pipe_ib is a constant across all CRTCs and is read from the
-> catalog. Drop corresponding calculations and read the value directly at
-> icc_set_bw() time.
-> 
-> Suggested-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 17 +++++------------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  2 --
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  2 --
->   3 files changed, 5 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> index 2e78e57665fc..2fc05665dc7a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> @@ -105,13 +105,12 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
->   	}
->   
->   	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
-> -	perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
->   	perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
->   
->   	DRM_DEBUG_ATOMIC(
-> -		"crtc=%d clk_rate=%llu core_ib=%llu core_ab=%llu\n",
-> +		"crtc=%d clk_rate=%llu core_ab=%llu\n",
->   			crtc->base.id, perf->core_clk_rate,
-> -			perf->max_per_pipe_ib, perf->bw_ctl);
-> +			perf->bw_ctl);
->   }
->   
->   int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
-> @@ -190,9 +189,6 @@ static void dpu_core_perf_aggregate(struct drm_device *ddev,
->   		    curr_client_type == dpu_crtc_get_client_type(tmp_crtc)) {
->   			dpu_cstate = to_dpu_crtc_state(tmp_crtc->state);
->   
-> -			perf->max_per_pipe_ib = max(perf->max_per_pipe_ib,
-> -						    dpu_cstate->new_perf.max_per_pipe_ib);
+Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+---
+Changes in v3:
+- Dropped the bindings patch as this new solution doesn't involve
+  bindings update.
+- Dropped R-b tags as this has been entirely reworked
+- Reworked to lookup the panel node in DT and set the is_edp and
+  connector type based on panel node presence
+- Link to v2: https://lore.kernel.org/r/20240222-x1e80100-display-refactor-connector-v2-0-bd4197dfceab@linaro.org
 
-during the override case
+Changes in v2:
+- Added Dmitry's R-b tag to both driver patches
+- Dropped the if statement around assigning the is_edp in
+  dp_display_probe, and fixed said assignment by using the connector
+  type from match data instead.
+- Moved the qcom,x1e80100-dp compatible where it belongs
+- Re-worded the bindings commit message to follow Bjorn's suggestion
+- Dropped the RFC tag as the approach doesn't seem to be questioned
+  anymore 
+- Link to v1: https://lore.kernel.org/r/20240221-x1e80100-display-refactor-connector-v1-0-86c0e1ebd5ec@linaro.org
 
-perf->max_per_pipe_ib = core_perf->fix_core_ib_vote
+---
+Abel Vesa (2):
+      drm/msm/dp: Add support for determining the eDP/DP mode from DT
+      drm/msm/dp: Add support for the X1E80100
 
-So this is one case where max_per_pipe_ib can actually be changed right?
+ drivers/gpu/drm/msm/dp/dp_display.c | 52 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 48 insertions(+), 4 deletions(-)
+---
+base-commit: e7528c088874326d3060a46f572252be43755a86
+change-id: 20231219-x1e80100-display-refactor-connector-e1c66548cae3
 
-Now, fix_core_ib_vote will not be used then?
+Best regards,
+-- 
+Abel Vesa <abel.vesa@linaro.org>
 
-> -
->   			perf->bw_ctl += dpu_cstate->new_perf.bw_ctl;
->   
->   			DRM_DEBUG_ATOMIC("crtc=%d bw=%llu\n",
-> @@ -216,7 +212,7 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
->   	dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
->   
->   	avg_bw = div_u64(perf.bw_ctl, 1000); /*Bps_to_icc*/
-> -	peak_bw = perf.max_per_pipe_ib;
-> +	peak_bw = kms->catalog->perf->min_dram_ib;
->   
->   	if (kms->perf.fix_core_ab_vote)
->   		avg_bw = kms->perf.fix_core_ab_vote;
-> @@ -321,15 +317,12 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
->   		 * 2. new bandwidth vote - "ab or ib vote" is lower
->   		 *    than current vote at end of commit or stop.
->   		 */
-> -		if ((params_changed && ((new->bw_ctl > old->bw_ctl) ||
-> -			(new->max_per_pipe_ib > old->max_per_pipe_ib)))	||
-> -			(!params_changed && ((new->bw_ctl < old->bw_ctl) ||
-> -			(new->max_per_pipe_ib < old->max_per_pipe_ib)))) {
-> +		if ((params_changed && new->bw_ctl > old->bw_ctl) ||
-> +		    (!params_changed && new->bw_ctl < old->bw_ctl)) {
->   			DRM_DEBUG_ATOMIC("crtc=%d p=%d new_bw=%llu,old_bw=%llu\n",
->   				crtc->base.id, params_changed,
->   				new->bw_ctl, old->bw_ctl);
->   			old->bw_ctl = new->bw_ctl;
-> -			old->max_per_pipe_ib = new->max_per_pipe_ib;
->   			update_bus = true;
->   		}
->   
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> index 5a3d18ca9555..a5a9c3389718 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> @@ -14,12 +14,10 @@
->   
->   /**
->    * struct dpu_core_perf_params - definition of performance parameters
-> - * @max_per_pipe_ib: maximum instantaneous bandwidth request
->    * @bw_ctl: arbitrated bandwidth request
->    * @core_clk_rate: core clock rate request
->    */
->   struct dpu_core_perf_params {
-> -	u64 max_per_pipe_ib;
->   	u64 bw_ctl;
->   	u64 core_clk_rate;
->   };
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index 88c2e51ab166..771c04c1a5ea 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1389,8 +1389,6 @@ static int dpu_crtc_debugfs_state_show(struct seq_file *s, void *v)
->   	seq_printf(s, "core_clk_rate: %llu\n",
->   			dpu_crtc->cur_perf.core_clk_rate);
->   	seq_printf(s, "bw_ctl: %llu\n", dpu_crtc->cur_perf.bw_ctl);
-> -	seq_printf(s, "max_per_pipe_ib: %llu\n",
-> -				dpu_crtc->cur_perf.max_per_pipe_ib);
->   
->   	return 0;
->   }
-> 
