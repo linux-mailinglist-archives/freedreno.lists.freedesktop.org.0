@@ -2,85 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B50F3886F09
-	for <lists+freedreno@lfdr.de>; Fri, 22 Mar 2024 15:50:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EB7C8874F7
+	for <lists+freedreno@lfdr.de>; Fri, 22 Mar 2024 23:57:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3640E11251C;
-	Fri, 22 Mar 2024 14:50:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF94D112887;
+	Fri, 22 Mar 2024 22:57:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eIfF9WRX";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="znacadBT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA8B811251B
- for <freedreno@lists.freedesktop.org>; Fri, 22 Mar 2024 14:50:40 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-a4715d4c2cbso258343966b.1
- for <freedreno@lists.freedesktop.org>; Fri, 22 Mar 2024 07:50:40 -0700 (PDT)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFBA3112886
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Mar 2024 22:57:00 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-5148ea935b8so3000096e87.1
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Mar 2024 15:57:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711119039; x=1711723839; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=xOjzipgBiJTcHiIGzKfcwrF5y6PFP6qN/2US1X8P970=;
- b=eIfF9WRXpIdw0K9f0RRRPVlE07BQUaVGFPIigRbPj1+ot4EfOl+C6kgP1sqXogcXP7
- 3Qwb15ynrZRkKXKUOAJde4mrzDabwGjX/W1bAyFtpBNfGPaRqCOjvjhApF7CauhquN/o
- 2FUzxd/giqFV5dFyCxa8OkWE+YKL9tEXZE2HV9t7asbkl/ihfhf2GTIl0Ovy6yWtzVcq
- +jzkToo8Zggls5OkfNt++C8+QKlPkWQD9ZZMA/+NLLIJcpV4Cg3+2qPLNbzE0cOauMs1
- U5E5l6b/JtE9A6WwTpaGB5p2geik0IrvQSRE93CQCsiwfVaeYlxyQbAfOgqfG0EXTT7z
- ZEQQ==
+ d=linaro.org; s=google; t=1711148219; x=1711753019; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kfjVwt6d+IRd8DOInllyNHPrf4pjD9asCpY8CF5unc4=;
+ b=znacadBTTTPKQsRaaDhs0idDY+lCdlQMFP48AtB9rrB1cJ6FIL8pIC8FRGFg/HItRN
+ uq2xB5+8CR8YErXbgRe7ylBBmsR6eOl6jANk5PCCfJEACzg2sBNY7k+pAEmNjNtSTib4
+ /VlryDN8PNavdTogjGWpAwjVAhL8EuVqq74JXw2a016gc6yarBY+rxt+u0XrIMhYKD2M
+ hjHijz9J5wBKn7IwOqG4IoLYDq6wmNw297+JBusHz/25tMgRsvnKBrd/PfSwnIU55yAT
+ 7tw9PZ97y76rNX0yK9OfvByuhFQZUXYPUmYGM8iBtTt2gMYaROEQCj75duzkDBV0c4XM
+ xa7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711119039; x=1711723839;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xOjzipgBiJTcHiIGzKfcwrF5y6PFP6qN/2US1X8P970=;
- b=nqTU+bQV7MEaH9xJruPgbyJlQ+sQf51E8azCZJCPFstQsCImFwssxZz55K27kjzQTu
- Ycg+t5z0FE9cITfq5YQmMlYkiEjYZS+yzhDXFl9tgGdKbwjTYjtsgppp9YADy27JCJa7
- aP+UUHW915Dfms2wGnXxQcDN2Cg1FCKK/yy9gzwjJrSjqQ4tjfhLtYd2rT9XGU6lD1iY
- eAmSFt17f8mHJyePuee7U0BfudJsrlAV9BM0yMrP3nJ/9EWzgOI9jQ3s/6k45gl9Wdwy
- XIXGLBwaZRJb6quV1jMcb/JDJYXYaeKpgYnmzj/jOrq5rhMoO7DPMiylAUHS3xzAmctX
- UsIA==
+ d=1e100.net; s=20230601; t=1711148219; x=1711753019;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=kfjVwt6d+IRd8DOInllyNHPrf4pjD9asCpY8CF5unc4=;
+ b=ozGFuFTirfa3uRghc4DxERq85F38RKOAwWu592YleHmCEARJadPGThBRn5eE6K4oGf
+ +mpwQ/PKkMh9RvJA1uOfhGXzCZao98rUTU+6mt8IyIQRV8w2oCfQPrfGGV3D1C4n0JbU
+ kFn+7Hmi7FMU8mp2Lgdnic98BJorgEOMPR2aUQpH7c3n/r2JeY+AiWB8VyAkG1C6RoTo
+ ZcoAQLKhB9n8N+re3xaXNrZSeQQ1lS/1smjZQ/oZtnxTsQDadDheLwxFPd0kIhkZThbK
+ q9yOdUMV104nlk6Sn3Cog3D8MY7WbdekEfcxROunak3/j/jrKSjGL7mdkrwMmRASN2cf
+ OVVA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWlxlxaC0M4o9S4ntOaWZzq9CrSdcYC7wtwAB07F4mjPeK+zGsotvMXgAn7CD2/bmmSanV/HzA30rq424A0Giuxky+U0vSo6z2ygwQLiVy2
-X-Gm-Message-State: AOJu0YzVYIohmWNyusrkNskxRaNpCMywDxyeGAbGR9mi//c/57KC9sqV
- rYv+MT+wBRPtJ5Y/rr3O6kP7OfPA+VD5//wDxYG2i/3Rm5VDcZXBSYMIRBSYN/E=
-X-Google-Smtp-Source: AGHT+IF0HioBkcx0RhcpYoG/a1F7FbRdbMY7MPRn/gIVOPLaRv1wB6X2Y/xGwx0pbAGbGK2283U30g==
-X-Received: by 2002:a17:907:119b:b0:a47:935:f9c6 with SMTP id
- uz27-20020a170907119b00b00a470935f9c6mr1637941ejb.22.1711119038485; 
- Fri, 22 Mar 2024 07:50:38 -0700 (PDT)
-Received: from linaro.org ([79.114.172.194]) by smtp.gmail.com with ESMTPSA id
- oz27-20020a170906cd1b00b00a473490aae8sm522081ejb.24.2024.03.22.07.50.36
+ AJvYcCUFcRJDybzFTTIqQjU6xdPEV56i8n6jsYE7nSsIQl6OQ9jfdT9fLyqQh39KqOXppvhnzaqSD1pJRMBMRtxFTz7nUmvAt9e/Orw6bixJhbqW
+X-Gm-Message-State: AOJu0YwmI5d09XbAoiAVRsL35GUIibP5wjCmP0imNo7BAIxafW2J7P5I
+ MpdwvNn9H50ZSKZk2Gm4ARjuYPhDo56emE2KNyuOQbLXwWyXzeNvdbun6+kiKTs=
+X-Google-Smtp-Source: AGHT+IFHVlDi96VVX9QQGQSp36xeTVVK2YAOFfU9flowpUO64lBi5C0OuNMJrS/SE1YaXbH3CXQNLg==
+X-Received: by 2002:a05:6512:32a3:b0:512:f657:122d with SMTP id
+ q3-20020a05651232a300b00512f657122dmr586259lfe.12.1711148218316; 
+ Fri, 22 Mar 2024 15:56:58 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ e7-20020a196907000000b005158982f42csm78530lfc.16.2024.03.22.15.56.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Mar 2024 07:50:38 -0700 (PDT)
-Date: Fri, 22 Mar 2024 16:50:36 +0200
-From: Abel Vesa <abel.vesa@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Johan Hovold <johan@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] drm/msm/dp: Add support for determining the
- eDP/DP mode from DT
-Message-ID: <Zf2avBOq5hM13nQy@linaro.org>
-References: <20240322-x1e80100-display-refactor-connector-v3-0-af14c29af665@linaro.org>
- <20240322-x1e80100-display-refactor-connector-v3-1-af14c29af665@linaro.org>
- <fcfd7gu2wv2cejwmhcw237xoj2l7xpjxa5hnqrqy7mhkdr4kf4@yoq6dyc6tz27>
+ Fri, 22 Mar 2024 15:56:57 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH v4 00/16] drm/msm: generate register header files
+Date: Sat, 23 Mar 2024 00:56:52 +0200
+Message-Id: <20240323-fd-xml-shipped-v4-0-cca5e8457b9e@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fcfd7gu2wv2cejwmhcw237xoj2l7xpjxa5hnqrqy7mhkdr4kf4@yoq6dyc6tz27>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALQM/mUC/33O0QqCMBTG8VeJXbfYztFlXfUe0YVuRx2Yky2GI
+ b57U4goocvvwO/PmVggbymw825inqIN1vVpZPsd023ZN8StSZuBgEwA5Lw2fLx3PLR2GMjwqjy
+ VCFIbMjVLaPBU23ENXm9ptzY8nH+u/SiX6zulflNRcsELVVVKI2bKwKWzfendwfmGLa0IH49y8
+ 0qE5I/aqIK0zhDExuN/j8mLWksAQqVz/PLzPL8A0skSuS0BAAA=
+To: Masahiro Yamada <masahiroy@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas@fjasle.eu>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-kbuild@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6362;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=SUasj9x+5boQXrGjbbvWEUUrFe45KHm8dnD84tTBZlM=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl/gy1GAeGsSVMy2dItc8Eim/HYejhaCYx4nzxi
+ 6x2n0RnrtGJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZf4MtQAKCRCLPIo+Aiko
+ 1RouB/0RA0EXl8cWAvvhz4VFY1azOhyepALjUsAfJ+HobFciLte50m06U+7me+dFHP9WN6ry1zx
+ mn9I4DasJ0PZ58Q/Td8thBaDEY2/cyQWTZ57tk+zNEHTieUQMstkzZWvKl1X48h7uJ5waNI3cmn
+ Lziqtd2tgGqENF8TirzbiznPDeATIliXcuT6minaEbnwh3FvWSQdYE61Tyc7Q8TgI9h4oUcoaxN
+ F4HmPtkmAbQiWhCoSaAE7zi7wrYXlnpGai9caKSr7CiU/rZerbdjNkc6tFIyEtxWpZIjS7lWGAn
+ Tc84BNWJwSn8frUVT0U9n+F5x6CSpng7jUd5iLNgnJQ3oF6i
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,142 +101,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24-03-22 09:30:21, Bjorn Andersson wrote:
-> On Fri, Mar 22, 2024 at 03:22:22PM +0200, Abel Vesa wrote:
-> > Instead of relying on different compatibles for eDP and DP, lookup
-> > the panel node in devicetree to figure out the connector type and
-> > then pass on that information to the PHY. External DP is not described
-> > in DT, therefore, assume it's eDP if panel node is present.
-> > 
-> > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-> > ---
-> >  drivers/gpu/drm/msm/dp/dp_display.c | 43 +++++++++++++++++++++++++++++++++----
-> >  1 file changed, 39 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> > index c4cb82af5c2f..c9763f77c832 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> > @@ -726,6 +726,14 @@ static int dp_init_sub_modules(struct dp_display_private *dp)
-> >  	if (IS_ERR(phy))
-> >  		return PTR_ERR(phy);
-> >  
-> > +	rc = phy_set_mode_ext(phy, PHY_MODE_DP,
-> > +			      dp->dp_display.is_edp ? PHY_SUBMODE_EDP : PHY_SUBMODE_DP);
-> > +	if (rc) {
-> > +		DRM_ERROR("failed to set phy submode, rc = %d\n", rc);
-> > +		dp->catalog = NULL;
-> > +		goto error;
-> > +	}
-> > +
-> >  	dp->catalog = dp_catalog_get(dev);
-> >  	if (IS_ERR(dp->catalog)) {
-> >  		rc = PTR_ERR(dp->catalog);
-> > @@ -734,9 +742,7 @@ static int dp_init_sub_modules(struct dp_display_private *dp)
-> >  		goto error;
-> >  	}
-> >  
-> > -	dp->aux = dp_aux_get(dev, dp->catalog,
-> > -			     phy,
-> > -			     dp->dp_display.is_edp);
-> > +	dp->aux = dp_aux_get(dev, dp->catalog, phy, dp->dp_display.is_edp);
-> >  	if (IS_ERR(dp->aux)) {
-> >  		rc = PTR_ERR(dp->aux);
-> >  		DRM_ERROR("failed to initialize aux, rc = %d\n", rc);
-> > @@ -1241,6 +1247,35 @@ static int dp_auxbus_done_probe(struct drm_dp_aux *aux)
-> >  	return dp_display_probe_tail(aux->dev);
-> >  }
-> >  
-> > +static int dp_display_get_connector_type(struct platform_device *pdev,
-> > +					 const struct msm_dp_desc *desc)
-> > +{
-> > +	struct device *dev = &pdev->dev;
-> > +	struct device_node *aux_bus;
-> > +	struct device_node *panel;
-> > +	int ret = DRM_MODE_CONNECTOR_DisplayPort;
-> > +
-> > +	/* legacy platforms specify connector type in match data */
-> > +	if (desc->connector_type == DRM_MODE_CONNECTOR_eDP ||
-> > +		desc->connector_type == DRM_MODE_CONNECTOR_DisplayPort)
-> > +		return desc->connector_type;
-> > +
-> > +	aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
-> > +	if (!aux_bus)
-> > +		goto out;
-> 
-> My compiler warns that if we take this code path, then you will
-> of_node_put(<uninitialized panel>) below.
-> 
-> > +
-> > +	panel = of_get_child_by_name(aux_bus, "panel");
-> > +	if (!panel)
-> > +		goto out;
-> > +
-> > +	ret = DRM_MODE_CONNECTOR_eDP;
-> 
-> My brain read this function as:
-> check something
-> if (error)
->   bailout!
-> 
-> check something
-> if (error)
->   bailout!
-> 
-> ret should be edp
-> 
-> I then have to scan the code again to figure out what ret is otherwise,
-> and convince myself that the error path is never an error, but a totally
-> normal case.
-> 
-> 
-> If you instead rely on the fact that both of_get_child_by_name() and
-> of_node_put() can be passed NULL, you can write this as:
-> 
-> static int fn(..) {
->   aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
->   panel = of_get_child_by_name(aux_bus, "panel");
-> 
->   if (panel)
->     connector_type = DRM_MODE_CONNECTOR_eDP;
->   else
->     connector_type = DRM_MODE_CONNECTOR_DisplayPort;
-> 
->   of_node_put(panel);
->   of_node_put(aux_bus);
-> 
->   return connector_type;
-> }
-> 
-> Much easier to read, and you don't even have to zero-initialize panel to
-> avoid that compiler warning.
-> 
+Currently display-related register headers are generated from XML files
+shipped withing Mesa source tree. This is not fully optimal: it requires
+multi-stage process of the changes first being landed to Mesa and only
+then synced to the kernel tree.
 
-Fair enough, will do that instead.
+Move original XML files to the kernel tree and generate header files
+when required. Display-related XMLs are going to be dropped from the
+Mesa, with the kernel becoming the primary source. Adreno-related XMLs
+are still going to handled by Mesa and should be synced from Mesa to the
+kernel when required.
 
-> Regards,
-> Bjorn
-> 
-> > +
-> > +out:
-> > +	of_node_put(panel);
-> > +	of_node_put(aux_bus);
-> > +	return ret;
-> > +}
-> > +
-> >  static int dp_display_probe(struct platform_device *pdev)
-> >  {
-> >  	int rc = 0;
-> > @@ -1263,7 +1298,7 @@ static int dp_display_probe(struct platform_device *pdev)
-> >  	dp->dp_display.pdev = pdev;
-> >  	dp->name = "drm_dp";
-> >  	dp->id = desc->id;
-> > -	dp->dp_display.connector_type = desc->connector_type;
-> > +	dp->dp_display.connector_type = dp_display_get_connector_type(pdev, desc);
-> >  	dp->wide_bus_supported = desc->wide_bus_supported;
-> >  	dp->dp_display.is_edp =
-> >  		(dp->dp_display.connector_type == DRM_MODE_CONNECTOR_eDP);
-> > 
-> > -- 
-> > 2.34.1
-> > 
+Unless there are any objections, I'd like to consider this a final
+revision with the target of it being merged for 6.10. Please review.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v4:
+- Updated headers, schema and script to the latest version merged to
+  Mesa
+- Further split of Adreno XML / Adreno headers patches in order to pass
+  through more ML filters.
+- Dropped the RFC tag
+- Link to v3: https://lore.kernel.org/r/20240315-fd-xml-shipped-v3-0-0fc122e36c53@linaro.org
+
+Changes in v3:
+- Split XML and git rm patches in hope to pass ML limitations
+- Link to v2: https://lore.kernel.org/r/20240315-fd-xml-shipped-v2-0-7cd68ecc4320@linaro.org
+
+Changes in v2:
+- Removed the _shipped files, always generating the headers (Masahiro
+  Yamada)
+- Replaced headergen2 with gen_headers.py
+- Simplify Makefile rules, making all Adreno objects depend on Adreno
+  headers and all displau objects depend on all display headers
+- Also handle Adreno registers
+- Link to v1: https://lore.kernel.org/r/20240226-fd-xml-shipped-v1-0-86bb6c3346d2@linaro.org
+
+---
+Dmitry Baryshkov (16):
+      drm/msm/mdp5: add writeback block bases
+      drm/msm/hdmi: drop qfprom.xml.h
+      drm/msm/dsi: drop mmss_cc.xml.h
+      drm/msm: move msm_gpummu.c to adreno/a2xx_gpummu.c
+      drm/msm: import XML display registers database
+      drm/msm: import A2xx-A4xx XML display registers database
+      drm/msm: import A5xx XML display registers database
+      drm/msm: import A6xx XML display registers database
+      drm/msm: import gen_header.py script from Mesa
+      drm/msm: generate headers on the fly
+      drm/msm: drop display-related headers
+      drm/msm: drop A2xx and common headers
+      drm/msm: drop A3xx and A4xx headers
+      drm/msm: drop A5xx header
+      drm/msm: drop A6xx GMU header
+      drm/msm: drop A6xx headers
+
+ drivers/gpu/drm/msm/.gitignore                     |     1 +
+ drivers/gpu/drm/msm/Makefile                       |    99 +-
+ drivers/gpu/drm/msm/adreno/a2xx.xml.h              |  3251 -----
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c              |     4 +-
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.h              |     4 +
+ .../drm/msm/{msm_gpummu.c => adreno/a2xx_gpummu.c} |    45 +-
+ drivers/gpu/drm/msm/adreno/a3xx.xml.h              |  3268 -----
+ drivers/gpu/drm/msm/adreno/a4xx.xml.h              |  4379 -------
+ drivers/gpu/drm/msm/adreno/a5xx.xml.h              |  5572 ---------
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h              | 11858 -------------------
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h          |   422 -
+ drivers/gpu/drm/msm/adreno/adreno_common.xml.h     |   539 -
+ drivers/gpu/drm/msm/adreno/adreno_pm4.xml.h        |  2803 -----
+ drivers/gpu/drm/msm/disp/mdp4/mdp4.xml.h           |  1181 --
+ drivers/gpu/drm/msm/disp/mdp5/mdp5.xml.h           |  1979 ----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h           |    11 +
+ drivers/gpu/drm/msm/disp/mdp_common.xml.h          |   111 -
+ drivers/gpu/drm/msm/dsi/dsi.xml.h                  |   790 --
+ drivers/gpu/drm/msm/dsi/dsi_phy_10nm.xml.h         |   227 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_14nm.xml.h         |   309 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_20nm.xml.h         |   237 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_28nm.xml.h         |   384 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_28nm_8960.xml.h    |   286 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_7nm.xml.h          |   483 -
+ drivers/gpu/drm/msm/dsi/mmss_cc.xml.h              |   131 -
+ drivers/gpu/drm/msm/dsi/sfpb.xml.h                 |    70 -
+ drivers/gpu/drm/msm/hdmi/hdmi.xml.h                |  1399 ---
+ drivers/gpu/drm/msm/hdmi/qfprom.xml.h              |    61 -
+ drivers/gpu/drm/msm/msm_drv.c                      |     3 +-
+ drivers/gpu/drm/msm/msm_gpu.c                      |     2 +-
+ drivers/gpu/drm/msm/msm_mmu.h                      |     5 -
+ drivers/gpu/drm/msm/registers/.gitignore           |     4 +
+ drivers/gpu/drm/msm/registers/adreno/a2xx.xml      |  1865 +++
+ drivers/gpu/drm/msm/registers/adreno/a3xx.xml      |  1751 +++
+ drivers/gpu/drm/msm/registers/adreno/a4xx.xml      |  2409 ++++
+ drivers/gpu/drm/msm/registers/adreno/a5xx.xml      |  3039 +++++
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml      |  4970 ++++++++
+ drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml  |   228 +
+ .../gpu/drm/msm/registers/adreno/adreno_common.xml |   400 +
+ .../gpu/drm/msm/registers/adreno/adreno_pm4.xml    |  2268 ++++
+ drivers/gpu/drm/msm/registers/display/dsi.xml      |   390 +
+ .../gpu/drm/msm/registers/display/dsi_phy_10nm.xml |   102 +
+ .../gpu/drm/msm/registers/display/dsi_phy_14nm.xml |   135 +
+ .../gpu/drm/msm/registers/display/dsi_phy_20nm.xml |   100 +
+ .../gpu/drm/msm/registers/display/dsi_phy_28nm.xml |   180 +
+ .../msm/registers/display/dsi_phy_28nm_8960.xml    |   134 +
+ .../gpu/drm/msm/registers/display/dsi_phy_7nm.xml  |   230 +
+ drivers/gpu/drm/msm/registers/display/edp.xml      |   239 +
+ drivers/gpu/drm/msm/registers/display/hdmi.xml     |  1015 ++
+ drivers/gpu/drm/msm/registers/display/mdp4.xml     |   504 +
+ drivers/gpu/drm/msm/registers/display/mdp5.xml     |   806 ++
+ .../gpu/drm/msm/registers/display/mdp_common.xml   |    90 +
+ drivers/gpu/drm/msm/registers/display/msm.xml      |    32 +
+ drivers/gpu/drm/msm/registers/display/sfpb.xml     |    17 +
+ .../gpu/drm/msm/registers/freedreno_copyright.xml  |    40 +
+ drivers/gpu/drm/msm/registers/gen_header.py        |   957 ++
+ drivers/gpu/drm/msm/registers/rules-fd.xsd         |   404 +
+ 57 files changed, 22431 insertions(+), 39792 deletions(-)
+---
+base-commit: 226d3c72fcde130a99d760895ebdd20e78e02cb5
+change-id: 20240225-fd-xml-shipped-ba9a321cdedf
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
