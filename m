@@ -2,102 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CE3D887E76
-	for <lists+freedreno@lfdr.de>; Sun, 24 Mar 2024 19:57:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10B66887F25
+	for <lists+freedreno@lfdr.de>; Sun, 24 Mar 2024 22:25:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C9E410E2B7;
-	Sun, 24 Mar 2024 18:57:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1A2A10E21E;
+	Sun, 24 Mar 2024 21:25:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cEDy5m+8";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="leCNZXUE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0086E10E2AE
- for <freedreno@lists.freedesktop.org>; Sun, 24 Mar 2024 18:57:14 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-56bc8cfc19fso4009590a12.1
- for <freedreno@lists.freedesktop.org>; Sun, 24 Mar 2024 11:57:14 -0700 (PDT)
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
+ [209.85.167.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34EE210E220
+ for <freedreno@lists.freedesktop.org>; Sun, 24 Mar 2024 21:25:03 +0000 (UTC)
+Received: by mail-oi1-f174.google.com with SMTP id
+ 5614622812f47-3c390030af2so2833054b6e.3
+ for <freedreno@lists.freedesktop.org>; Sun, 24 Mar 2024 14:25:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711306633; x=1711911433; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=9tVdKnRbHolCy0YCQM9W1+uOdyw8nD9ks6qcNg/Gsxw=;
- b=cEDy5m+8Jcro61TihJ9cByw6EPIhTFVkNL1ThokMKpE5RSC7ouuJAAGCfY6rW2UwG9
- 84qaNW4wqJegkJThboeNjzUUfPAt/4hYclk3+zx5JzLaA8OBCSGNSh0VgjkR6t1TGpdz
- KaPSNYP+qOyQdIQMeys/kwdxU309Sgpm8Z9qTu9+cwEtdejZFsVkenal9fvjimX6KrI8
- 1lKk/s2un16FCJc5iKDkzrP89yMYpMpPQAprtD/bVirFOxGmT4pMvEhfSaFtXaWl0cDL
- oE7258mU160/HdyKPp0iAzMUBNyDj9BmaMfkDlMyFgQJ1+T8uWcXD7YHUXbHS6xG2yJS
- /irA==
+ d=linaro.org; s=google; t=1711315502; x=1711920302; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=JAn6z6C6kAQCNocTNhwJGXaT3ktUI5cvq1m2gw2cMlM=;
+ b=leCNZXUEaAsdClriDswF3ele0Flz+50U6RUJ4yq2fLhZJp/i768t/i8aNwGj/xnwJ6
+ 7Ily4XIN80KoSzRdPRWN9PEx/hvhwWt4Y7e7FhEZR/XWdioEuBkmEv3kj4Hr5PIuazC6
+ RfAd/3wwv/WBntvV8NAfQWdKIOKQ4o6jixdSZ2Jtwe/R8pFv1+k5AM0RSru9JlCBcsNA
+ MZaWcgpd1ayB1kx36ky3AKq/rMwykEGT5rbihlGKCPnOQPfojVoyS010QKNsRUq7KuKM
+ I6YCuHW1+k87psCMURKg+g4X6Vsg8+38dH+TuUfVnSRts04eXDXbeGHvkdEo7fahi3K7
+ SpNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711306633; x=1711911433;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9tVdKnRbHolCy0YCQM9W1+uOdyw8nD9ks6qcNg/Gsxw=;
- b=pQz/wabHYnjEOGbrADqyqgu1nSkjIOXVm8y/MsHo7L0i9DhXYfGJVcAd59HvBkqsdN
- bZYmwYkk97Cb8uFF5tWFCM4dPOAJk4alNLO7peotMDaQEYnfmIuIUwksePmy4KfeaHYz
- CMtpwOQhgihEDg0Xr+3PsrNIfVAD+rUE2ArY8z16aD8NeIeSSDBJOkGVNqymy2i3PFV/
- RtMFXhY79KbZfDDHKhHSmSXlyquizRqnUr/Ujmn/9kadKqzd5uHto4/5qjAbHcvenDo2
- OqF7LZBIkeL309q1KQ1p8TVvwvA8Ss7iwwZ5IyD5/7SExeys3E4v4U8R7aUSlf8UofvZ
- IQrA==
+ d=1e100.net; s=20230601; t=1711315502; x=1711920302;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=JAn6z6C6kAQCNocTNhwJGXaT3ktUI5cvq1m2gw2cMlM=;
+ b=Lu5GNWQQR5sNFaRBXbDVnraY3g9EFHWjKBkGxb7TW7lVcwCQqlMKyMj3khAUdg02Tn
+ zQJcd12EUs58BTb2d0+k0Yx5aO8ob3sEIaYfPIRbuFXO0iyHrYB6Lqg7VfrK5IvrkS1I
+ vIILGVgA9mL17vTdhiajqUJLiiMpHVZ26s0mufZ1KVOUnIaf0oE8hEDEjv9nFgVA9uXO
+ kjQogOkeSyK8c7ULz7lURs8t6Q3XxGb3YpXfEc2Zp2PkYKrc3+5tgBN5973aAeKUNjsu
+ XEm5JBGju51vIdtLwuteq56ou0JR0oTQt55jLrNIT23U8LkHvH96AVnRxcKOz1upppFx
+ VkXQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXCURz1I1xh/oUlD2stJnYEGEqBLFYhi2P6tlmZFCFFxiWmw52azdk+ozvNSkrt6jl2gVv+9OEH/rAmoWrCA8Ec+ribADr7yHa7cnfYjRMs
-X-Gm-Message-State: AOJu0YzD1+lSy4uFS1h6Hz2OEvxpaYHrBLovE2VP43yMlzBh+kImRhcX
- 5WvJMPwQfxGxVqE3pqrcNQ0M/JvgUHvIDWmYsFfP3jx18pVED996GeZDGIerOOg=
-X-Google-Smtp-Source: AGHT+IFlYd+N1SyUJACbQyzR/wjIo0WO1tpDaoNq3dpNT1n+rRamvALgE4pqCFDWWqICzw6XTh9dvg==
-X-Received: by 2002:a17:907:7e9a:b0:a47:a340:c9c1 with SMTP id
- qb26-20020a1709077e9a00b00a47a340c9c1mr1428858ejc.27.1711306632877; 
- Sun, 24 Mar 2024 11:57:12 -0700 (PDT)
-Received: from [127.0.1.1] ([79.114.172.194]) by smtp.gmail.com with ESMTPSA id
- m19-20020a1709060d9300b00a45c9945251sm2194008eji.192.2024.03.24.11.57.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 24 Mar 2024 11:57:12 -0700 (PDT)
-From: Abel Vesa <abel.vesa@linaro.org>
-Date: Sun, 24 Mar 2024 20:56:52 +0200
-Subject: [PATCH v4 2/2] drm/msm/dp: Add support for the X1E80100
+ AJvYcCXyXFMdiz0fFWvKNR2IdFDRB/K2PdoD3RTmGidDoDemg5YKzeu5EMvB1KG9Rk0lT2mNpHcJF2MZ0sQmzkFNa6t+SPcLbGl2DhzS5gsc/y7Z
+X-Gm-Message-State: AOJu0YwwH4gDdJEnLX8T3FkOZz25PsJOi6PyZBU436IJ7sSaQA3vpg1g
+ /FmSCJKEemd545FbvSPWJl7+FKOsgSWDVRPLfp+foqFsaZoY+dKYJdsWMWTZSIaY8WZaDsn7p5B
+ QXdoL5MePbJASIxedal9ui7PT5CcmuzvfNZy2zw==
+X-Google-Smtp-Source: AGHT+IFsASaAXYhy6wMEzFscwmoJiMkAf8XUTx8af2vr4btW+ENv9jYLPxo+baqJKEZ59gDPp1vL6Dvk7ZbPq+nVlgU=
+X-Received: by 2002:a05:6808:2a43:b0:3c3:7edd:bf84 with SMTP id
+ fa3-20020a0568082a4300b003c37eddbf84mr5754842oib.35.1711315501982; Sun, 24
+ Mar 2024 14:25:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240324-x1e80100-display-refactor-connector-v4-2-e0ebaea66a78@linaro.org>
 References: <20240324-x1e80100-display-refactor-connector-v4-0-e0ebaea66a78@linaro.org>
-In-Reply-To: <20240324-x1e80100-display-refactor-connector-v4-0-e0ebaea66a78@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
+ <20240324-x1e80100-display-refactor-connector-v4-1-e0ebaea66a78@linaro.org>
+In-Reply-To: <20240324-x1e80100-display-refactor-connector-v4-1-e0ebaea66a78@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sun, 24 Mar 2024 23:24:50 +0200
+Message-ID: <CAA8EJppues54mPveOn7irCHYe+T4Fdv-=4ucLLpqq843NLBAfQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] drm/msm/dp: Add support for determining the eDP/DP
+ mode from DT
+To: Abel Vesa <abel.vesa@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Johan Hovold <johan@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Johan Hovold <johan@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@linaro.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1668; i=abel.vesa@linaro.org; 
- h=from:subject:message-id;
- bh=PkLbbZIwmrZ4R8j4F93QwuHkzPwVCdYCtB3RljpFxJA=; 
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBmAHeCsdSOdvDkDbPs2pH76+yTRro3YCA8q9GcP
- YnUm/UMdjaJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZgB3ggAKCRAbX0TJAJUV
- Vv47D/0bPwjqwBogmWH/gMYQiaOjOdd6oFTtCgEga2cRuC8pRUc/ojjgmMIeVDB38fOLJBWEU17
- p2QOOJKSWkeing/ZZqf883t2nfmg65Td2WSPkzyAc4l+y/joHDet+X9pigoK8ooI/g3/u+ZJrhL
- msjRbA4jbqtzUY1i31gywnPC6b/Na+fWtoD7ESMIfP89pn7ayOi+bkdgjcLLARvR6Je1f6RFkoP
- WOeAbwh42Ntxp9NdelGpTMn0qUMqmV/IhmtHPZkQNGWYIgC8HpI8NkZB4nINR42edrAgwmXmpnG
- Ww8KVz4SVaJakO4LqGpB/fjZB+tKlnqxhQfbWufuyAgL3Ny33wIz5v1ENIaV10CP76uTm1YDLo9
- bPLjNC97jnrRRCZ313O8TAKgVJ+SiynpC/yCPp/djnEB8bv5a3sNvDJNn1ZG44DuOeAgRzOFe7d
- /mVEZM20uyNkTMntw8BTyao/mVvHZ8KVekyVYb2e9IBuF8f8T3FoyZ95ZK9ID8WLSAGMJlIQ8gH
- 2mNj/S8CzrQYd3NPuz9VAPaJq25EVGJBBk8iugr7DViW6IDzQHDv07z/mB8s0+EUDyKFZbxmSH1
- 62rlNUJ4GrUCNXiF46OaRkmxqVnjYcI+bstOWoP6HeMmiI5kb7V7OeKt0QjIedIjhH2U+ac9cZs
- LSkgE4FXQkBq1vg==
-X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,44 +90,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the X1E80100 DP descs and compatible. This platform will be using
-a single compatible for both eDP and DP mode. The actual mode will
-be set based on the presence of the panel node in DT.
+On Sun, 24 Mar 2024 at 20:57, Abel Vesa <abel.vesa@linaro.org> wrote:
+>
+> Instead of relying on different compatibles for eDP and DP, lookup
+> the panel node in devicetree to figure out the connector type and
+> then pass on that information to the PHY. External DP doesn't have
+> a panel described in DT, therefore, assume it's eDP if panel node
+> is present.
+>
+> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 29 ++++++++++++++++++++++++++++-
+>  1 file changed, 28 insertions(+), 1 deletion(-)
+
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 9169a739cc54..521cba76d2a0 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -171,6 +171,14 @@ static const struct msm_dp_desc sm8650_dp_descs[] = {
- 	{}
- };
- 
-+static const struct msm_dp_desc x1e80100_dp_descs[] = {
-+	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
-+	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
-+	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
-+	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_3, .wide_bus_supported = true },
-+	{}
-+};
-+
- static const struct of_device_id dp_dt_match[] = {
- 	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_descs },
- 	{ .compatible = "qcom,sc7280-dp", .data = &sc7280_dp_descs },
-@@ -182,6 +190,7 @@ static const struct of_device_id dp_dt_match[] = {
- 	{ .compatible = "qcom,sdm845-dp", .data = &sc7180_dp_descs },
- 	{ .compatible = "qcom,sm8350-dp", .data = &sm8350_dp_descs },
- 	{ .compatible = "qcom,sm8650-dp", .data = &sm8650_dp_descs },
-+	{ .compatible = "qcom,x1e80100-dp", .data = &x1e80100_dp_descs },
- 	{}
- };
- 
 
 -- 
-2.34.1
-
+With best wishes
+Dmitry
