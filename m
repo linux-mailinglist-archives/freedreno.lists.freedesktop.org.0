@@ -2,88 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 000E0887530
-	for <lists+freedreno@lfdr.de>; Fri, 22 Mar 2024 23:57:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF7A9887C2C
+	for <lists+freedreno@lfdr.de>; Sun, 24 Mar 2024 10:55:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4974F1128A1;
-	Fri, 22 Mar 2024 22:57:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF8E410E073;
+	Sun, 24 Mar 2024 09:55:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BJ+YuFMW";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="LaWBTe0u";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5229C1128A0
- for <freedreno@lists.freedesktop.org>; Fri, 22 Mar 2024 22:57:15 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-513d3746950so3285403e87.1
- for <freedreno@lists.freedesktop.org>; Fri, 22 Mar 2024 15:57:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711148233; x=1711753033; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=uiKHoC9W/yjs4rNgTi54ExLCR/jY6XELAFEtJK3SrSw=;
- b=BJ+YuFMWIIh1OBVLVRL30n83PVQoNqpvPyqCLJglnKcKJXwaI29hbN7MSNDYbu5x2k
- 6d6vk2gIyZ1AIozO67nmezo5+RKGI70xn/BqfbxfCnO0DvRNgJJk4YXxv7omrzNKS1le
- mIE0PhzHJP1l1zNX2lEpJLsxYBvQ9ezXUjbOzX0+v4NrxkcMw3j1IeUBeDajU0zEPdep
- SRnkJv+vNiiHeYcjS3lNsEJ/HsdSkpooPmUQmOo7DHYp96TKapmeggFrzdbDU+h8iHgI
- V1Ckv35tZOq42YMXbj0wsjTOQci1nU5nR5ezByID70U/NHomNJwdYfQOzwIzGMFLWNhl
- x/GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711148233; x=1711753033;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uiKHoC9W/yjs4rNgTi54ExLCR/jY6XELAFEtJK3SrSw=;
- b=L93Dqb9y1iiYJFejF1vkod39rXAYbSyttwvB/PDu1+uVWYvBlVvpQg56n78w3rvfo2
- 67spT7Jq9LT10r+VYtYB9kDOyvd+Nxh2dubqhYjz21acU7pesqTryrio00Tg/LrKIru6
- mWzUzePPQWk/EpRVgNQxYXppZABUS/LIwEeU6cRoIMd12QyJTCcDpbAlEGrOKli0vVfp
- CDIErbOofnHxVNKd6M5fRwewKsziqmtTAj7sMIIHieCCkXLOUJP3EYSw6x+SaTun0kzG
- jA2UxxRiVvuMJZla+w7Mvc3BuRN7d5RGPeTNyMYld+UiKD4x1fJMHbit7BJXfTrIVXko
- baAA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXMvwNQ532yubjBEox72caA54rfcIbVOEA5oCmXYzI6k04hOdy7UXdO3aOLBWV1Ccz4deMrMUc/KvDT1ylWe9EcuPJmOUmaLB/0INZBKoEe
-X-Gm-Message-State: AOJu0YwIz0Myao275MfVGkG3rB+Wr98rkcBVPtrh4igGIGc88TYbkaEq
- jytiUuTpJrhwmJhEEi4VAYc3kdup42hYS/DQgjstvPEdwO0NyV/UPMhTSqhCx+o=
-X-Google-Smtp-Source: AGHT+IHFe0fZBNItIPY2KEhFD2HE+vHm1Zh9i1vgcwvPMtS20UW4rwhqx8JIXdexyuLfC+IQhPfzNA==
-X-Received: by 2002:a05:6512:310c:b0:513:d246:6e65 with SMTP id
- n12-20020a056512310c00b00513d2466e65mr451054lfb.50.1711148233509; 
- Fri, 22 Mar 2024 15:57:13 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- e7-20020a196907000000b005158982f42csm78530lfc.16.2024.03.22.15.57.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Mar 2024 15:57:13 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 23 Mar 2024 00:57:07 +0200
-Subject: [PATCH v4 15/16] drm/msm: drop A6xx GMU header
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240323-fd-xml-shipped-v4-15-cca5e8457b9e@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD16A10E073;
+ Sun, 24 Mar 2024 09:55:04 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 42O9oNRs031484; Sun, 24 Mar 2024 09:54:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=qcppdkim1; bh=AjaFl7g03vwI4sThHBoGG
+ IckgLDPCRTa7YcKZWTVpno=; b=LaWBTe0uZHYhAan7AzYzk+Z3u1gTDLdM3gv6l
+ Bn6MOf5rodnpVJijYgwoqYvirSPWFDvRoNmFY79Q7spHPq13gkoR4VSZd6MA9Nn0
+ m2PW5pFIrJgqdW3YPZfyGZB0A6d4NOeap9nV66xyR3AItIZaBsLQ0EK8vRY7juyM
+ Ojvj3MHxY0l6RwFvsQX6drQOkI/fHs5amW+S1t7IhwF5Sqy3QUYX9ldJU01Twig5
+ apKiFapY344ghXMcuNki2cQQCQK1uxOn4eU3DF1nQyg4EXdY9QhUKYsq5iTwJ/9G
+ uG7AUu5xpf4yTyh8xecEzMwhRowgXDbwGeJ17gFRO7ZlCFxjA==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3x1q60m9ba-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 24 Mar 2024 09:54:45 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42O9siLb018166
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 24 Mar 2024 09:54:44 GMT
+Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Sun, 24 Mar 2024 02:54:39 -0700
+Date: Sun, 24 Mar 2024 15:22:22 +0530
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Masahiro Yamada <masahiroy@kernel.org>, Nathan Chancellor
+ <nathan@kernel.org>, Nicolas Schier <nicolas@fjasle.eu>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul
+ <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
+ Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ <linux-kbuild@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
+Subject: Re: [PATCH v4 04/16] drm/msm: move msm_gpummu.c to
+ adreno/a2xx_gpummu.c
+Message-ID: <20240324095222.ldnwumjkxk6uymmc@hu-akhilpo-hyd.qualcomm.com>
 References: <20240323-fd-xml-shipped-v4-0-cca5e8457b9e@linaro.org>
-In-Reply-To: <20240323-fd-xml-shipped-v4-0-cca5e8457b9e@linaro.org>
-To: Masahiro Yamada <masahiroy@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas@fjasle.eu>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-kbuild@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15918;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=tk6RW7wvvTdnkY3wljio1r8oaKO2sVcSbxMNG/1qG+8=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBl/gy4m5d1QnzbiGkI11KNFJ64R8gKpeqyXAGWu
- Fay834RuueJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZf4MuAAKCRCLPIo+Aiko
- 1YYVB/9G9uh5KXGK8ZkX0+Ecyfg+ATGIo1qp71jibk5zJqJFj7qmBYIOdUwy2BPpQrD4jmNIB5K
- 5nspex4tHqqhkHRhVAck8pUGJT/h8FmLvSJQICLl8Md75k+R3HUfUTd2h1Jd/6Bd8A+0YFSMbzw
- zYOfHvuPpu9w0af3ucBEshkcIP4doiCZ+q7GpAuaNdI9eChvSdrDjUOkHn7dEKvgYhU4//GiUqJ
- tmcrPVAruOCMYV12gxsbY62DMYXdxWBdPmTwiLal+O6DDwkFuXJSxG9Q47aYjPZlKZgyCYi8lLA
- cDQ7ciQSrcYOwcz9qnp1GNdssHn8X8T8Zfm1XAwApLpjrrEK
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+ <20240323-fd-xml-shipped-v4-4-cca5e8457b9e@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20240323-fd-xml-shipped-v4-4-cca5e8457b9e@linaro.org>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: ccV9tcYtGZtWQxhc3uQ7qiZeooQ7HHyZ
+X-Proofpoint-GUID: ccV9tcYtGZtWQxhc3uQ7qiZeooQ7HHyZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-24_06,2024-03-21_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0
+ impostorscore=0 spamscore=0 bulkscore=0 mlxlogscore=999 adultscore=0
+ malwarescore=0 clxscore=1011 lowpriorityscore=0 mlxscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2403210001 definitions=main-2403240062
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,443 +93,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Now as the headers are generated during the build step, drop
-pre-generated copies of the Adreno A6xx GMU header.
+On Sat, Mar 23, 2024 at 12:56:56AM +0200, Dmitry Baryshkov wrote:
+> The msm_gpummu.c implementation is used only on A2xx and it is tied to
+> the A2xx registers. Rename the source file accordingly.
+> 
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h | 422 ------------------------------
- 1 file changed, 422 deletions(-)
+There are very few functions in this file and a2xx_gpu.c is a relatively
+small source file too. Shall we just move them to a2xx_gpu.c instead of
+renaming?
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h
-deleted file mode 100644
-index 9d7f93929367..000000000000
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h
-+++ /dev/null
-@@ -1,422 +0,0 @@
--#ifndef A6XX_GMU_XML
--#define A6XX_GMU_XML
--
--/* Autogenerated file, DO NOT EDIT manually!
--
--This file was generated by the rules-ng-ng gen_header.py tool in this git repository:
--http://gitlab.freedesktop.org/mesa/mesa/
--git clone https://gitlab.freedesktop.org/mesa/mesa.git
--
--The rules-ng-ng source files this header was generated from are:
--
--- /home/robclark/src/mesa/mesa/src/freedreno/registers/adreno/a6xx_gmu.xml      (  11820 bytes, from Fri Jun  2 14:59:26 2023)
--- /home/robclark/src/mesa/mesa/src/freedreno/registers/freedreno_copyright.xml  (   1572 bytes, from Fri Jun  2 14:59:26 2023)
--- /home/robclark/src/mesa/mesa/src/freedreno/registers/adreno/adreno_common.xml (  15434 bytes, from Fri Jun  2 14:59:26 2023)
--
--Copyright (C) 2013-2024 by the following authors:
--- Rob Clark <robdclark@gmail.com> Rob Clark
--- Ilia Mirkin <imirkin@alum.mit.edu> Ilia Mirkin
--
--Permission is hereby granted, free of charge, to any person obtaining
--a copy of this software and associated documentation files (the
--"Software"), to deal in the Software without restriction, including
--without limitation the rights to use, copy, modify, merge, publish,
--distribute, sublicense, and/or sell copies of the Software, and to
--permit persons to whom the Software is furnished to do so, subject to
--the following conditions:
--
--The above copyright notice and this permission notice (including the
--next paragraph) shall be included in all copies or substantial
--portions of the Software.
--
--THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
--EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
--MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
--IN NO EVENT SHALL THE COPYRIGHT OWNER(S) AND/OR ITS SUPPLIERS BE
--LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
--OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
--WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--
--*/
--
--#ifdef __KERNEL__
--#include <linux/bug.h>
--#define assert(x) BUG_ON(!(x))
--#else
--#include <assert.h>
--#endif
--
--#ifdef __cplusplus
--#define __struct_cast(X)
--#else
--#define __struct_cast(X) (struct X)
--#endif
--
--#define A6XX_GMU_GPU_IDLE_STATUS_BUSY_IGN_AHB			0x00800000
--#define A6XX_GMU_GPU_IDLE_STATUS_CX_GX_CPU_BUSY_IGN_AHB		0x40000000
--
--#define A6XX_GMU_OOB_BOOT_SLUMBER_SET_MASK			0x00400000
--#define A6XX_GMU_OOB_BOOT_SLUMBER_CHECK_MASK			0x40000000
--#define A6XX_GMU_OOB_BOOT_SLUMBER_CLEAR_MASK			0x40000000
--#define A6XX_GMU_OOB_DCVS_SET_MASK				0x00800000
--#define A6XX_GMU_OOB_DCVS_CHECK_MASK				0x80000000
--#define A6XX_GMU_OOB_DCVS_CLEAR_MASK				0x80000000
--#define A6XX_GMU_OOB_GPU_SET_MASK				0x00040000
--#define A6XX_GMU_OOB_GPU_CHECK_MASK				0x04000000
--#define A6XX_GMU_OOB_GPU_CLEAR_MASK				0x04000000
--#define A6XX_GMU_OOB_PERFCNTR_SET_MASK				0x00020000
--#define A6XX_GMU_OOB_PERFCNTR_CHECK_MASK			0x02000000
--#define A6XX_GMU_OOB_PERFCNTR_CLEAR_MASK			0x02000000
--
--#define A6XX_HFI_IRQ_MSGQ_MASK					0x00000001
--#define A6XX_HFI_IRQ_DSGQ_MASK					0x00000002
--#define A6XX_HFI_IRQ_BLOCKED_MSG_MASK				0x00000004
--#define A6XX_HFI_IRQ_CM3_FAULT_MASK				0x00800000
--#define A6XX_HFI_IRQ_GMU_ERR_MASK__MASK				0x007f0000
--#define A6XX_HFI_IRQ_GMU_ERR_MASK__SHIFT			16
--static inline uint32_t A6XX_HFI_IRQ_GMU_ERR_MASK(uint32_t val)
--{
--	return ((val) << A6XX_HFI_IRQ_GMU_ERR_MASK__SHIFT) & A6XX_HFI_IRQ_GMU_ERR_MASK__MASK;
--}
--#define A6XX_HFI_IRQ_OOB_MASK__MASK				0xff000000
--#define A6XX_HFI_IRQ_OOB_MASK__SHIFT				24
--static inline uint32_t A6XX_HFI_IRQ_OOB_MASK(uint32_t val)
--{
--	return ((val) << A6XX_HFI_IRQ_OOB_MASK__SHIFT) & A6XX_HFI_IRQ_OOB_MASK__MASK;
--}
--
--#define A6XX_HFI_H2F_IRQ_MASK_BIT				0x00000001
--
--#define REG_A6XX_GPU_GMU_GX_SPTPRAC_CLOCK_CONTROL		0x00000080
--
--#define REG_A6XX_GMU_GX_SPTPRAC_POWER_CONTROL			0x00000081
--
--#define REG_A6XX_GMU_CM3_ITCM_START				0x00000c00
--
--#define REG_A6XX_GMU_CM3_DTCM_START				0x00001c00
--
--#define REG_A6XX_GMU_NMI_CONTROL_STATUS				0x000023f0
--
--#define REG_A6XX_GMU_BOOT_SLUMBER_OPTION			0x000023f8
--
--#define REG_A6XX_GMU_GX_VOTE_IDX				0x000023f9
--
--#define REG_A6XX_GMU_MX_VOTE_IDX				0x000023fa
--
--#define REG_A6XX_GMU_DCVS_ACK_OPTION				0x000023fc
--
--#define REG_A6XX_GMU_DCVS_PERF_SETTING				0x000023fd
--
--#define REG_A6XX_GMU_DCVS_BW_SETTING				0x000023fe
--
--#define REG_A6XX_GMU_DCVS_RETURN				0x000023ff
--
--#define REG_A6XX_GMU_ICACHE_CONFIG				0x00004c00
--
--#define REG_A6XX_GMU_DCACHE_CONFIG				0x00004c01
--
--#define REG_A6XX_GMU_SYS_BUS_CONFIG				0x00004c0f
--
--#define REG_A6XX_GMU_CM3_SYSRESET				0x00005000
--
--#define REG_A6XX_GMU_CM3_BOOT_CONFIG				0x00005001
--
--#define REG_A6XX_GMU_CM3_FW_BUSY				0x0000501a
--
--#define REG_A6XX_GMU_CM3_FW_INIT_RESULT				0x0000501c
--
--#define REG_A6XX_GMU_CM3_CFG					0x0000502d
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_ENABLE		0x00005040
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_SELECT_0		0x00005041
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_SELECT_1		0x00005042
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_0_L		0x00005044
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_0_H		0x00005045
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_1_L		0x00005046
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_1_H		0x00005047
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_2_L		0x00005048
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_2_H		0x00005049
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_3_L		0x0000504a
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_3_H		0x0000504b
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_4_L		0x0000504c
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_4_H		0x0000504d
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_5_L		0x0000504e
--
--#define REG_A6XX_GMU_CX_GMU_POWER_COUNTER_XOCLK_5_H		0x0000504f
--
--#define REG_A6XX_GMU_PWR_COL_INTER_FRAME_CTRL			0x000050c0
--#define A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_IFPC_ENABLE		0x00000001
--#define A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_HM_POWER_COLLAPSE_ENABLE	0x00000002
--#define A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_SPTPRAC_POWER_CONTROL_ENABLE	0x00000004
--#define A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_NUM_PASS_SKIPS__MASK	0x00003c00
--#define A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_NUM_PASS_SKIPS__SHIFT	10
--static inline uint32_t A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_NUM_PASS_SKIPS(uint32_t val)
--{
--	return ((val) << A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_NUM_PASS_SKIPS__SHIFT) & A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_NUM_PASS_SKIPS__MASK;
--}
--#define A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_MIN_PASS_LENGTH__MASK	0xffffc000
--#define A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_MIN_PASS_LENGTH__SHIFT	14
--static inline uint32_t A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_MIN_PASS_LENGTH(uint32_t val)
--{
--	return ((val) << A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_MIN_PASS_LENGTH__SHIFT) & A6XX_GMU_PWR_COL_INTER_FRAME_CTRL_MIN_PASS_LENGTH__MASK;
--}
--
--#define REG_A6XX_GMU_PWR_COL_INTER_FRAME_HYST			0x000050c1
--
--#define REG_A6XX_GMU_PWR_COL_SPTPRAC_HYST			0x000050c2
--
--#define REG_A6XX_GMU_SPTPRAC_PWR_CLK_STATUS			0x000050d0
--#define A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_SPTPRAC_GDSC_POWERING_OFF	0x00000001
--#define A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_SPTPRAC_GDSC_POWERING_ON	0x00000002
--#define A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_SPTPRAC_GDSC_POWER_OFF	0x00000004
--#define A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_SPTPRAC_GDSC_POWER_ON	0x00000008
--#define A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_SP_CLOCK_OFF		0x00000010
--#define A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GMU_UP_POWER_STATE	0x00000020
--#define A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_GDSC_POWER_OFF	0x00000040
--#define A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_CLK_OFF		0x00000080
--
--#define REG_A6XX_GMU_GPU_NAP_CTRL				0x000050e4
--#define A6XX_GMU_GPU_NAP_CTRL_HW_NAP_ENABLE			0x00000001
--#define A6XX_GMU_GPU_NAP_CTRL_SID__MASK				0x000001f0
--#define A6XX_GMU_GPU_NAP_CTRL_SID__SHIFT			4
--static inline uint32_t A6XX_GMU_GPU_NAP_CTRL_SID(uint32_t val)
--{
--	return ((val) << A6XX_GMU_GPU_NAP_CTRL_SID__SHIFT) & A6XX_GMU_GPU_NAP_CTRL_SID__MASK;
--}
--
--#define REG_A6XX_GMU_RPMH_CTRL					0x000050e8
--#define A6XX_GMU_RPMH_CTRL_RPMH_INTERFACE_ENABLE		0x00000001
--#define A6XX_GMU_RPMH_CTRL_LLC_VOTE_ENABLE			0x00000010
--#define A6XX_GMU_RPMH_CTRL_DDR_VOTE_ENABLE			0x00000100
--#define A6XX_GMU_RPMH_CTRL_MX_VOTE_ENABLE			0x00000200
--#define A6XX_GMU_RPMH_CTRL_CX_VOTE_ENABLE			0x00000400
--#define A6XX_GMU_RPMH_CTRL_GFX_VOTE_ENABLE			0x00000800
--#define A6XX_GMU_RPMH_CTRL_DDR_MIN_VOTE_ENABLE			0x00001000
--#define A6XX_GMU_RPMH_CTRL_MX_MIN_VOTE_ENABLE			0x00002000
--#define A6XX_GMU_RPMH_CTRL_CX_MIN_VOTE_ENABLE			0x00004000
--#define A6XX_GMU_RPMH_CTRL_GFX_MIN_VOTE_ENABLE			0x00008000
--
--#define REG_A6XX_GMU_RPMH_HYST_CTRL				0x000050e9
--
--#define REG_A6XX_GPU_GMU_CX_GMU_RPMH_POWER_STATE		0x000050ec
--
--#define REG_A6XX_GPU_GMU_CX_GMU_CX_FAL_INTF			0x000050f0
--
--#define REG_A6XX_GPU_GMU_CX_GMU_CX_FALNEXT_INTF			0x000050f1
--
--#define REG_A6XX_GPU_GMU_CX_GMU_PWR_COL_CP_MSG			0x00005100
--
--#define REG_A6XX_GPU_GMU_CX_GMU_PWR_COL_CP_RESP			0x00005101
--
--#define REG_A6XX_GMU_BOOT_KMD_LM_HANDSHAKE			0x000051f0
--
--#define REG_A6XX_GMU_LLM_GLM_SLEEP_CTRL				0x00005157
--
--#define REG_A6XX_GMU_LLM_GLM_SLEEP_STATUS			0x00005158
--
--#define REG_A6XX_GMU_ALWAYS_ON_COUNTER_L			0x00005088
--
--#define REG_A6XX_GMU_ALWAYS_ON_COUNTER_H			0x00005089
--
--#define REG_A6XX_GMU_GMU_PWR_COL_KEEPALIVE			0x000050c3
--
--#define REG_A6XX_GMU_HFI_CTRL_STATUS				0x00005180
--
--#define REG_A6XX_GMU_HFI_VERSION_INFO				0x00005181
--
--#define REG_A6XX_GMU_HFI_SFR_ADDR				0x00005182
--
--#define REG_A6XX_GMU_HFI_MMAP_ADDR				0x00005183
--
--#define REG_A6XX_GMU_HFI_QTBL_INFO				0x00005184
--
--#define REG_A6XX_GMU_HFI_QTBL_ADDR				0x00005185
--
--#define REG_A6XX_GMU_HFI_CTRL_INIT				0x00005186
--
--#define REG_A6XX_GMU_GMU2HOST_INTR_SET				0x00005190
--
--#define REG_A6XX_GMU_GMU2HOST_INTR_CLR				0x00005191
--
--#define REG_A6XX_GMU_GMU2HOST_INTR_INFO				0x00005192
--#define A6XX_GMU_GMU2HOST_INTR_INFO_MSGQ			0x00000001
--#define A6XX_GMU_GMU2HOST_INTR_INFO_CM3_FAULT			0x00800000
--
--#define REG_A6XX_GMU_GMU2HOST_INTR_MASK				0x00005193
--
--#define REG_A6XX_GMU_HOST2GMU_INTR_SET				0x00005194
--
--#define REG_A6XX_GMU_HOST2GMU_INTR_CLR				0x00005195
--
--#define REG_A6XX_GMU_HOST2GMU_INTR_RAW_INFO			0x00005196
--
--#define REG_A6XX_GMU_HOST2GMU_INTR_EN_0				0x00005197
--
--#define REG_A6XX_GMU_HOST2GMU_INTR_EN_1				0x00005198
--
--#define REG_A6XX_GMU_HOST2GMU_INTR_EN_2				0x00005199
--
--#define REG_A6XX_GMU_HOST2GMU_INTR_EN_3				0x0000519a
--
--#define REG_A6XX_GMU_HOST2GMU_INTR_INFO_0			0x0000519b
--
--#define REG_A6XX_GMU_HOST2GMU_INTR_INFO_1			0x0000519c
--
--#define REG_A6XX_GMU_HOST2GMU_INTR_INFO_2			0x0000519d
--
--#define REG_A6XX_GMU_HOST2GMU_INTR_INFO_3			0x0000519e
--
--#define REG_A6XX_GMU_GENERAL_0					0x000051c5
--
--#define REG_A6XX_GMU_GENERAL_1					0x000051c6
--
--#define REG_A6XX_GMU_GENERAL_6					0x000051cb
--
--#define REG_A6XX_GMU_GENERAL_7					0x000051cc
--
--#define REG_A7XX_GMU_GENERAL_8					0x000051cd
--
--#define REG_A7XX_GMU_GENERAL_9					0x000051ce
--
--#define REG_A7XX_GMU_GENERAL_10					0x000051cf
--
--#define REG_A6XX_GMU_ISENSE_CTRL				0x0000515d
--
--#define REG_A6XX_GPU_CS_ENABLE_REG				0x00008920
--
--#define REG_A6XX_GPU_GMU_CX_GMU_ISENSE_CTRL			0x0000515d
--
--#define REG_A6XX_GPU_CS_AMP_CALIBRATION_CONTROL3		0x00008578
--
--#define REG_A6XX_GPU_CS_AMP_CALIBRATION_CONTROL2		0x00008558
--
--#define REG_A6XX_GPU_CS_A_SENSOR_CTRL_0				0x00008580
--
--#define REG_A6XX_GPU_CS_A_SENSOR_CTRL_2				0x00027ada
--
--#define REG_A6XX_GPU_CS_SENSOR_GENERAL_STATUS			0x0000881a
--
--#define REG_A6XX_GPU_CS_AMP_CALIBRATION_CONTROL1		0x00008957
--
--#define REG_A6XX_GPU_CS_SENSOR_GENERAL_STATUS			0x0000881a
--
--#define REG_A6XX_GPU_CS_AMP_CALIBRATION_STATUS1_0		0x0000881d
--
--#define REG_A6XX_GPU_CS_AMP_CALIBRATION_STATUS1_2		0x0000881f
--
--#define REG_A6XX_GPU_CS_AMP_CALIBRATION_STATUS1_4		0x00008821
--
--#define REG_A6XX_GPU_CS_AMP_CALIBRATION_DONE			0x00008965
--
--#define REG_A6XX_GPU_CS_AMP_PERIOD_CTRL				0x0000896d
--
--#define REG_A6XX_GPU_CS_AMP_CALIBRATION_DONE			0x00008965
--
--#define REG_A6XX_GPU_GMU_CX_GMU_PWR_THRESHOLD			0x0000514d
--
--#define REG_A6XX_GMU_AO_INTERRUPT_EN				0x00009303
--
--#define REG_A6XX_GMU_AO_HOST_INTERRUPT_CLR			0x00009304
--
--#define REG_A6XX_GMU_AO_HOST_INTERRUPT_STATUS			0x00009305
--#define A6XX_GMU_AO_HOST_INTERRUPT_STATUS_WDOG_BITE		0x00000001
--#define A6XX_GMU_AO_HOST_INTERRUPT_STATUS_RSCC_COMP		0x00000002
--#define A6XX_GMU_AO_HOST_INTERRUPT_STATUS_VDROOP		0x00000004
--#define A6XX_GMU_AO_HOST_INTERRUPT_STATUS_FENCE_ERR		0x00000008
--#define A6XX_GMU_AO_HOST_INTERRUPT_STATUS_DBD_WAKEUP		0x00000010
--#define A6XX_GMU_AO_HOST_INTERRUPT_STATUS_HOST_AHB_BUS_ERROR	0x00000020
--
--#define REG_A6XX_GMU_AO_HOST_INTERRUPT_MASK			0x00009306
--
--#define REG_A6XX_GPU_GMU_AO_GMU_CGC_MODE_CNTL			0x00009309
--
--#define REG_A6XX_GPU_GMU_AO_GMU_CGC_DELAY_CNTL			0x0000930a
--
--#define REG_A6XX_GPU_GMU_AO_GMU_CGC_HYST_CNTL			0x0000930b
--
--#define REG_A6XX_GPU_GMU_AO_GPU_CX_BUSY_STATUS			0x0000930c
--#define A6XX_GPU_GMU_AO_GPU_CX_BUSY_STATUS_GPUBUSYIGNAHB	0x00800000
--
--#define REG_A6XX_GPU_GMU_AO_GPU_CX_BUSY_STATUS2			0x0000930d
--
--#define REG_A6XX_GPU_GMU_AO_GPU_CX_BUSY_MASK			0x0000930e
--
--#define REG_A6XX_GMU_AO_AHB_FENCE_CTRL				0x00009310
--
--#define REG_A6XX_GMU_AHB_FENCE_STATUS				0x00009313
--
--#define REG_A6XX_GMU_AHB_FENCE_STATUS_CLR			0x00009314
--
--#define REG_A6XX_GMU_RBBM_INT_UNMASKED_STATUS			0x00009315
--
--#define REG_A6XX_GMU_AO_SPARE_CNTL				0x00009316
--
--#define REG_A6XX_GMU_RSCC_CONTROL_REQ				0x00009307
--
--#define REG_A6XX_GMU_RSCC_CONTROL_ACK				0x00009308
--
--#define REG_A6XX_GMU_AHB_FENCE_RANGE_0				0x00009311
--
--#define REG_A6XX_GMU_AHB_FENCE_RANGE_1				0x00009312
--
--#define REG_A6XX_GPU_CC_GX_GDSCR				0x00009c03
--
--#define REG_A6XX_GPU_CC_GX_DOMAIN_MISC				0x00009d42
--
--#define REG_A6XX_GPU_CPR_FSM_CTL				0x0000c001
--
--#define REG_A6XX_GPU_RSCC_RSC_STATUS0_DRV0			0x00000004
--
--#define REG_A6XX_RSCC_PDC_SEQ_START_ADDR			0x00000008
--
--#define REG_A6XX_RSCC_PDC_MATCH_VALUE_LO			0x00000009
--
--#define REG_A6XX_RSCC_PDC_MATCH_VALUE_HI			0x0000000a
--
--#define REG_A6XX_RSCC_PDC_SLAVE_ID_DRV0				0x0000000b
--
--#define REG_A6XX_RSCC_HIDDEN_TCS_CMD0_ADDR			0x0000000d
--
--#define REG_A6XX_RSCC_HIDDEN_TCS_CMD0_DATA			0x0000000e
--
--#define REG_A6XX_RSCC_TIMESTAMP_UNIT0_TIMESTAMP_L_DRV0		0x00000082
--
--#define REG_A6XX_RSCC_TIMESTAMP_UNIT0_TIMESTAMP_H_DRV0		0x00000083
--
--#define REG_A6XX_RSCC_TIMESTAMP_UNIT1_EN_DRV0			0x00000089
--
--#define REG_A6XX_RSCC_TIMESTAMP_UNIT1_OUTPUT_DRV0		0x0000008c
--
--#define REG_A6XX_RSCC_OVERRIDE_START_ADDR			0x00000100
--
--#define REG_A6XX_RSCC_SEQ_BUSY_DRV0				0x00000101
--
--#define REG_A7XX_RSCC_SEQ_MEM_0_DRV0_A740			0x00000154
--
--#define REG_A6XX_RSCC_SEQ_MEM_0_DRV0				0x00000180
--
--#define REG_A6XX_RSCC_TCS0_DRV0_STATUS				0x00000346
--
--#define REG_A6XX_RSCC_TCS1_DRV0_STATUS				0x000003ee
--
--#define REG_A6XX_RSCC_TCS2_DRV0_STATUS				0x00000496
--
--#define REG_A6XX_RSCC_TCS3_DRV0_STATUS				0x0000053e
--
--#ifdef __cplusplus
--#endif
--
--#endif /* A6XX_GMU_XML */
+-Akhil
 
--- 
-2.39.2
-
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/Makefile                       |  2 +-
+>  drivers/gpu/drm/msm/adreno/a2xx_gpu.c              |  4 +-
+>  drivers/gpu/drm/msm/adreno/a2xx_gpu.h              |  4 ++
+>  .../drm/msm/{msm_gpummu.c => adreno/a2xx_gpummu.c} | 45 ++++++++++++----------
+>  drivers/gpu/drm/msm/msm_mmu.h                      |  5 ---
+>  5 files changed, 31 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> index b21ae2880c71..26ed4f443149 100644
+> --- a/drivers/gpu/drm/msm/Makefile
+> +++ b/drivers/gpu/drm/msm/Makefile
+> @@ -8,6 +8,7 @@ msm-y := \
+>  	adreno/adreno_device.o \
+>  	adreno/adreno_gpu.o \
+>  	adreno/a2xx_gpu.o \
+> +	adreno/a2xx_gpummu.o \
+>  	adreno/a3xx_gpu.o \
+>  	adreno/a4xx_gpu.o \
+>  	adreno/a5xx_gpu.o \
+> @@ -113,7 +114,6 @@ msm-y += \
+>  	msm_ringbuffer.o \
+>  	msm_submitqueue.o \
+>  	msm_gpu_tracepoints.o \
+> -	msm_gpummu.o
+>  
+>  msm-$(CONFIG_DEBUG_FS) += adreno/a5xx_debugfs.o \
+>  	dp/dp_debug.o
+> diff --git a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+> index 0d8133f3174b..0dc255ddf5ce 100644
+> --- a/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a2xx_gpu.c
+> @@ -113,7 +113,7 @@ static int a2xx_hw_init(struct msm_gpu *gpu)
+>  	uint32_t *ptr, len;
+>  	int i, ret;
+>  
+> -	msm_gpummu_params(gpu->aspace->mmu, &pt_base, &tran_error);
+> +	a2xx_gpummu_params(gpu->aspace->mmu, &pt_base, &tran_error);
+>  
+>  	DBG("%s", gpu->name);
+>  
+> @@ -469,7 +469,7 @@ static struct msm_gpu_state *a2xx_gpu_state_get(struct msm_gpu *gpu)
+>  static struct msm_gem_address_space *
+>  a2xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
+>  {
+> -	struct msm_mmu *mmu = msm_gpummu_new(&pdev->dev, gpu);
+> +	struct msm_mmu *mmu = a2xx_gpummu_new(&pdev->dev, gpu);
+>  	struct msm_gem_address_space *aspace;
+>  
+>  	aspace = msm_gem_address_space_create(mmu, "gpu", SZ_16M,
+> diff --git a/drivers/gpu/drm/msm/adreno/a2xx_gpu.h b/drivers/gpu/drm/msm/adreno/a2xx_gpu.h
+> index 161a075f94af..53702f19990f 100644
+> --- a/drivers/gpu/drm/msm/adreno/a2xx_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a2xx_gpu.h
+> @@ -19,4 +19,8 @@ struct a2xx_gpu {
+>  };
+>  #define to_a2xx_gpu(x) container_of(x, struct a2xx_gpu, base)
+>  
+> +struct msm_mmu *a2xx_gpummu_new(struct device *dev, struct msm_gpu *gpu);
+> +void a2xx_gpummu_params(struct msm_mmu *mmu, dma_addr_t *pt_base,
+> +		dma_addr_t *tran_error);
+> +
+>  #endif /* __A2XX_GPU_H__ */
+> diff --git a/drivers/gpu/drm/msm/msm_gpummu.c b/drivers/gpu/drm/msm/adreno/a2xx_gpummu.c
+> similarity index 67%
+> rename from drivers/gpu/drm/msm/msm_gpummu.c
+> rename to drivers/gpu/drm/msm/adreno/a2xx_gpummu.c
+> index f7d1945e0c9f..39641551eeb6 100644
+> --- a/drivers/gpu/drm/msm/msm_gpummu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a2xx_gpummu.c
+> @@ -5,30 +5,33 @@
+>  
+>  #include "msm_drv.h"
+>  #include "msm_mmu.h"
+> -#include "adreno/adreno_gpu.h"
+> -#include "adreno/a2xx.xml.h"
+>  
+> -struct msm_gpummu {
+> +#include "adreno_gpu.h"
+> +#include "a2xx_gpu.h"
+> +
+> +#include "a2xx.xml.h"
+> +
+> +struct a2xx_gpummu {
+>  	struct msm_mmu base;
+>  	struct msm_gpu *gpu;
+>  	dma_addr_t pt_base;
+>  	uint32_t *table;
+>  };
+> -#define to_msm_gpummu(x) container_of(x, struct msm_gpummu, base)
+> +#define to_a2xx_gpummu(x) container_of(x, struct a2xx_gpummu, base)
+>  
+>  #define GPUMMU_VA_START SZ_16M
+>  #define GPUMMU_VA_RANGE (0xfff * SZ_64K)
+>  #define GPUMMU_PAGE_SIZE SZ_4K
+>  #define TABLE_SIZE (sizeof(uint32_t) * GPUMMU_VA_RANGE / GPUMMU_PAGE_SIZE)
+>  
+> -static void msm_gpummu_detach(struct msm_mmu *mmu)
+> +static void a2xx_gpummu_detach(struct msm_mmu *mmu)
+>  {
+>  }
+>  
+> -static int msm_gpummu_map(struct msm_mmu *mmu, uint64_t iova,
+> +static int a2xx_gpummu_map(struct msm_mmu *mmu, uint64_t iova,
+>  		struct sg_table *sgt, size_t len, int prot)
+>  {
+> -	struct msm_gpummu *gpummu = to_msm_gpummu(mmu);
+> +	struct a2xx_gpummu *gpummu = to_a2xx_gpummu(mmu);
+>  	unsigned idx = (iova - GPUMMU_VA_START) / GPUMMU_PAGE_SIZE;
+>  	struct sg_dma_page_iter dma_iter;
+>  	unsigned prot_bits = 0;
+> @@ -53,9 +56,9 @@ static int msm_gpummu_map(struct msm_mmu *mmu, uint64_t iova,
+>  	return 0;
+>  }
+>  
+> -static int msm_gpummu_unmap(struct msm_mmu *mmu, uint64_t iova, size_t len)
+> +static int a2xx_gpummu_unmap(struct msm_mmu *mmu, uint64_t iova, size_t len)
+>  {
+> -	struct msm_gpummu *gpummu = to_msm_gpummu(mmu);
+> +	struct a2xx_gpummu *gpummu = to_a2xx_gpummu(mmu);
+>  	unsigned idx = (iova - GPUMMU_VA_START) / GPUMMU_PAGE_SIZE;
+>  	unsigned i;
+>  
+> @@ -68,13 +71,13 @@ static int msm_gpummu_unmap(struct msm_mmu *mmu, uint64_t iova, size_t len)
+>  	return 0;
+>  }
+>  
+> -static void msm_gpummu_resume_translation(struct msm_mmu *mmu)
+> +static void a2xx_gpummu_resume_translation(struct msm_mmu *mmu)
+>  {
+>  }
+>  
+> -static void msm_gpummu_destroy(struct msm_mmu *mmu)
+> +static void a2xx_gpummu_destroy(struct msm_mmu *mmu)
+>  {
+> -	struct msm_gpummu *gpummu = to_msm_gpummu(mmu);
+> +	struct a2xx_gpummu *gpummu = to_a2xx_gpummu(mmu);
+>  
+>  	dma_free_attrs(mmu->dev, TABLE_SIZE, gpummu->table, gpummu->pt_base,
+>  		DMA_ATTR_FORCE_CONTIGUOUS);
+> @@ -83,16 +86,16 @@ static void msm_gpummu_destroy(struct msm_mmu *mmu)
+>  }
+>  
+>  static const struct msm_mmu_funcs funcs = {
+> -		.detach = msm_gpummu_detach,
+> -		.map = msm_gpummu_map,
+> -		.unmap = msm_gpummu_unmap,
+> -		.destroy = msm_gpummu_destroy,
+> -		.resume_translation = msm_gpummu_resume_translation,
+> +		.detach = a2xx_gpummu_detach,
+> +		.map = a2xx_gpummu_map,
+> +		.unmap = a2xx_gpummu_unmap,
+> +		.destroy = a2xx_gpummu_destroy,
+> +		.resume_translation = a2xx_gpummu_resume_translation,
+>  };
+>  
+> -struct msm_mmu *msm_gpummu_new(struct device *dev, struct msm_gpu *gpu)
+> +struct msm_mmu *a2xx_gpummu_new(struct device *dev, struct msm_gpu *gpu)
+>  {
+> -	struct msm_gpummu *gpummu;
+> +	struct a2xx_gpummu *gpummu;
+>  
+>  	gpummu = kzalloc(sizeof(*gpummu), GFP_KERNEL);
+>  	if (!gpummu)
+> @@ -111,10 +114,10 @@ struct msm_mmu *msm_gpummu_new(struct device *dev, struct msm_gpu *gpu)
+>  	return &gpummu->base;
+>  }
+>  
+> -void msm_gpummu_params(struct msm_mmu *mmu, dma_addr_t *pt_base,
+> +void a2xx_gpummu_params(struct msm_mmu *mmu, dma_addr_t *pt_base,
+>  		dma_addr_t *tran_error)
+>  {
+> -	dma_addr_t base = to_msm_gpummu(mmu)->pt_base;
+> +	dma_addr_t base = to_a2xx_gpummu(mmu)->pt_base;
+>  
+>  	*pt_base = base;
+>  	*tran_error = base + TABLE_SIZE; /* 32-byte aligned */
+> diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
+> index eb72d3645c1d..88af4f490881 100644
+> --- a/drivers/gpu/drm/msm/msm_mmu.h
+> +++ b/drivers/gpu/drm/msm/msm_mmu.h
+> @@ -42,7 +42,6 @@ static inline void msm_mmu_init(struct msm_mmu *mmu, struct device *dev,
+>  
+>  struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quirks);
+>  struct msm_mmu *msm_iommu_gpu_new(struct device *dev, struct msm_gpu *gpu, unsigned long quirks);
+> -struct msm_mmu *msm_gpummu_new(struct device *dev, struct msm_gpu *gpu);
+>  
+>  static inline void msm_mmu_set_fault_handler(struct msm_mmu *mmu, void *arg,
+>  		int (*handler)(void *arg, unsigned long iova, int flags, void *data))
+> @@ -53,10 +52,6 @@ static inline void msm_mmu_set_fault_handler(struct msm_mmu *mmu, void *arg,
+>  
+>  struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent);
+>  
+> -void msm_gpummu_params(struct msm_mmu *mmu, dma_addr_t *pt_base,
+> -		dma_addr_t *tran_error);
+> -
+> -
+>  int msm_iommu_pagetable_params(struct msm_mmu *mmu, phys_addr_t *ttbr,
+>  		int *asid);
+>  struct iommu_domain_geometry *msm_iommu_get_geometry(struct msm_mmu *mmu);
+> 
+> -- 
+> 2.39.2
+> 
