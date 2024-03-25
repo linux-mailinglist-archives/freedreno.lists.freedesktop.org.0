@@ -2,84 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8796A88A244
-	for <lists+freedreno@lfdr.de>; Mon, 25 Mar 2024 14:35:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9412688A2F3
+	for <lists+freedreno@lfdr.de>; Mon, 25 Mar 2024 14:50:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48A9210E8B4;
-	Mon, 25 Mar 2024 13:35:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09A4F10E8D4;
+	Mon, 25 Mar 2024 13:50:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="aq9AGLdx";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="e3UdDcRc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A54A210E8AF;
- Mon, 25 Mar 2024 13:35:19 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42PCtmhq020396; Mon, 25 Mar 2024 13:35:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=qcppdkim1; bh=ZeRPTDxTDApyNrea6CizG
- r2mCGKybF1zlrJX5VcsScQ=; b=aq9AGLdxWcjczvD32in+X4baufb+YY/icZ/jR
- wqiG3CqtVhtWsnylxMsccvb4uksmgj/eOrBsXSz77ye90pFfmsiELMMzPxt67Lyx
- O6/M7pMBMYYmn6GytYo8mG9ziRxWiu99uuwZdSdReUbuBatVW4YiX0zZn21PlWXS
- 4XsaPxyGdHsUT6BaFsWg5IzqpB5whTsaIoSz7ZR5WnQCcqbaxiKZzd7FbdIETgaI
- y1LNTAS0d5qkvOWgYxGenavnuipEGMoXwKhSi80wRowfXvCC4+sUs4h5MPZjWVLa
- ixcx5ybAR83tS3Xg58uCBRhJQ8tUT2wWYD6FEwuK0il1tYBGg==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3x34hsrxf9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 25 Mar 2024 13:35:06 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42PDZ3r7001388
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 25 Mar 2024 13:35:03 GMT
-Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Mon, 25 Mar 2024 06:34:59 -0700
-Date: Mon, 25 Mar 2024 19:04:55 +0530
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Masahiro Yamada <masahiroy@kernel.org>, Nathan Chancellor
- <nathan@kernel.org>, Nicolas Schier <nicolas@fjasle.eu>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
- Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- <linux-kbuild@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-Subject: Re: [PATCH v4 04/16] drm/msm: move msm_gpummu.c to
- adreno/a2xx_gpummu.c
-Message-ID: <20240325133455.6kxvnwg3efvhvre2@hu-akhilpo-hyd.qualcomm.com>
-References: <20240323-fd-xml-shipped-v4-0-cca5e8457b9e@linaro.org>
- <20240323-fd-xml-shipped-v4-4-cca5e8457b9e@linaro.org>
- <20240324095222.ldnwumjkxk6uymmc@hu-akhilpo-hyd.qualcomm.com>
- <CAA8EJppAsy9a0b4WzqWCaa=-fPYrKOMePo3vsAaJ4Nu3okoL7Q@mail.gmail.com>
+Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
+ [209.85.219.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36ACC10E46F
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Mar 2024 13:50:13 +0000 (UTC)
+Received: by mail-yb1-f180.google.com with SMTP id
+ 3f1490d57ef6-dccb1421bdeso3835994276.1
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Mar 2024 06:50:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1711374612; x=1711979412; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=xY4s7Y2TDs9zFkoIeirDMHTppdLgQXMLcHGPVUr4u2w=;
+ b=e3UdDcRcEq10UQGnef0ZXCWCwNi1xRISFbKSBljsnelmF7kAXTppDVQtb/acLm8nbS
+ 50u8RbaHjlHRyQugxTQ0fyLIOrlnZuaBtIoRSAzHYplUk5omm4/7/70Jm8lOl98uP1I0
+ 877HxJi0wa5WCaRurPrhx/8PVXar/75O3TvyP8pUWuZHS9zKYaRkAAxY0Bx84m18P5jN
+ e9KRCv5vFU9E8wUOzqIdV7R+BdUqxEliR4YmdTTnPgnj2iz0OCmLiNuQuXP8F8Tmcz3H
+ BAyDw5XEz/1xxX8mWdQNiSEXGVzl6rL/VESWIebiAZUZuzk5XcubGa/2FBldPZPMnSGi
+ GFlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711374612; x=1711979412;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xY4s7Y2TDs9zFkoIeirDMHTppdLgQXMLcHGPVUr4u2w=;
+ b=N7Jhcg/hLXTAwHECkT0+y2f16pRCL8ChqJ4peO7+aTBRtlj/ksmb2ySYpmiQUZhIr6
+ olfzLsnOZOGBe+YJU+nnOsc0u103QCbVhH2eYXSuNwyeTu2xw68Bp/kz1z7vCSvu5Lkf
+ 8dtu4qd2GWcsSLWCDhpv9WXwV2DM7fEfmmbfKz4nWSUsFAusuAT1BjthKsVDIVPBgEiq
+ 0LmFzGxDWGSLlOrzZQbH6JKu89cb4kNkOewqTH0crdFqFn2wZSHtv74PBYBpdgXUEQ3m
+ fCwLLVuAzgNhz7F/t3+eemLrz21xplIubw48huEoYPXeb8DmhfomPaa0+3yernnV96bC
+ ADRg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUPlua/S6w1kzHa/E87LSqTgpoDZZ+ffzxZXtwkmzGxcu52hrbC2YuKhppozF/trEjd7P8prSrA6zdmHNhFWHqxRY0mDBrNxfsxYivPAY4/
+X-Gm-Message-State: AOJu0Yzrnm0FCWT2E2tu/S2Es2PBNHyR2aOEo4MpRN4M/5JPQd0hyYi0
+ 8v+k/K4cgUzLK1ilENz4i1O1Lxnx3Z2jEbCdA2aa4S1X8iJPYH+f/eC2asS5qYHvSAKVnBbLieL
+ aXKJoNvUd6s18TvI91xsWdg+u0mjP2Ex5zGBaog==
+X-Google-Smtp-Source: AGHT+IHYjl0eFIojoJcLVm6Q3FikVODclbSrKrXlRZtK626pzzHApRK7eCpxDKYvNTGQRZ5CWm9dXvBcGq57I2cLYIQ=
+X-Received: by 2002:a5b:941:0:b0:dd0:76e:d630 with SMTP id
+ x1-20020a5b0941000000b00dd0076ed630mr5054565ybq.53.1711374612032; 
+ Mon, 25 Mar 2024 06:50:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <CAA8EJppAsy9a0b4WzqWCaa=-fPYrKOMePo3vsAaJ4Nu3okoL7Q@mail.gmail.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: AsyQt4ZlAvOSXVN_tF97zAY0DJyfXhYV
-X-Proofpoint-GUID: AsyQt4ZlAvOSXVN_tF97zAY0DJyfXhYV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-25_09,2024-03-21_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0
- spamscore=0 phishscore=0 lowpriorityscore=0 mlxscore=0 bulkscore=0
- impostorscore=0 clxscore=1015 mlxlogscore=704 malwarescore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2403210001 definitions=main-2403250074
+References: <20240323-fd-xml-shipped-v4-0-cca5e8457b9e@linaro.org>
+ <20240323-fd-xml-shipped-v4-10-cca5e8457b9e@linaro.org>
+ <20240324102936.6eojmk3k2qabtasq@hu-akhilpo-hyd.qualcomm.com>
+ <CAA8EJppO8zMq5R7hBPG04Zsr9c3-Z9mqpnJQ88Dbjv3uYDbrUQ@mail.gmail.com>
+ <20240325133252.o6taik5ezrsqtl7g@hu-akhilpo-hyd.qualcomm.com>
+In-Reply-To: <20240325133252.o6taik5ezrsqtl7g@hu-akhilpo-hyd.qualcomm.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 25 Mar 2024 15:50:00 +0200
+Message-ID: <CAA8EJppK6o0gsashG8yCLrOLbSVFDbHYEgzqBgP5ts65uTWgfw@mail.gmail.com>
+Subject: Re: [PATCH v4 10/16] drm/msm: generate headers on the fly
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Masahiro Yamada <masahiroy@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nicolas Schier <nicolas@fjasle.eu>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, linux-kbuild@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,40 +88,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Mar 24, 2024 at 01:13:55PM +0200, Dmitry Baryshkov wrote:
-> On Sun, 24 Mar 2024 at 11:55, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
-> >
-> > On Sat, Mar 23, 2024 at 12:56:56AM +0200, Dmitry Baryshkov wrote:
-> > > The msm_gpummu.c implementation is used only on A2xx and it is tied to
-> > > the A2xx registers. Rename the source file accordingly.
+On Mon, 25 Mar 2024 at 15:33, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>
+> On Sun, Mar 24, 2024 at 12:57:43PM +0200, Dmitry Baryshkov wrote:
+> > On Sun, 24 Mar 2024 at 12:30, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
 > > >
+> > > On Sat, Mar 23, 2024 at 12:57:02AM +0200, Dmitry Baryshkov wrote:
+> > > > Generate DRM/MSM headers on the fly during kernel build. This removes a
+> > > > need to push register changes to Mesa with the following manual
+> > > > synchronization step. Existing headers will be removed in the following
+> > > > commits (split away to ease reviews).
+> > >
+> > > Is this approach common in upstream kernel? Isn't it a bit awkward from
+> > > legal perspective to rely on a source file outside of kernel during
+> > > compilation?
 > >
-> > There are very few functions in this file and a2xx_gpu.c is a relatively
-> > small source file too. Shall we just move them to a2xx_gpu.c instead of
-> > renaming?
-> 
-> I'd prefer to keep them separate, at least within this series. Let's
-> leave that to Rob's discretion.
+> > As long as the source file for that file is available. For examples of
+> > non-trivial generated files see
+> > arch/arm64/include/generated/sysreg-defs.h and
+> > arch/arm64/include/generated/cpucap-defs.h
+>
+> I see that the xml files import a GPL compatible license, so I guess
+> those are fine. The gen_header.py script doesn't include any license.
+> Shouldn't it have one?
 
-Sounds good.
+True. Rob, could you please add copyright / licence header to the gen_header.py?
 
-Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 
--Akhil
 
-> 
-> > -Akhil
-> >
-> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > ---
-> > >  drivers/gpu/drm/msm/Makefile                       |  2 +-
-> > >  drivers/gpu/drm/msm/adreno/a2xx_gpu.c              |  4 +-
-> > >  drivers/gpu/drm/msm/adreno/a2xx_gpu.h              |  4 ++
-> > >  .../drm/msm/{msm_gpummu.c => adreno/a2xx_gpummu.c} | 45 ++++++++++++----------
-> > >  drivers/gpu/drm/msm/msm_mmu.h                      |  5 ---
-> > >  5 files changed, 31 insertions(+), 29 deletions(-)
-> 
-> 
-> -- 
-> With best wishes
-> Dmitry
+-- 
+With best wishes
+Dmitry
