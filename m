@@ -2,64 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19F4888CAFC
-	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 18:33:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE58D88CB53
+	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 18:51:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC62710EF43;
-	Tue, 26 Mar 2024 17:33:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8264D10F19D;
+	Tue, 26 Mar 2024 17:51:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="p0D6W/Vy";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yb9g86Fn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
- [209.85.128.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E916310E436
- for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 17:33:35 +0000 (UTC)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-60a0599f647so51039947b3.1
- for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 10:33:35 -0700 (PDT)
+Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
+ [209.85.219.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E746A10F1A0
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 17:51:00 +0000 (UTC)
+Received: by mail-yb1-f170.google.com with SMTP id
+ 3f1490d57ef6-dcbef31a9dbso4239679276.1
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 10:51:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711474415; x=1712079215; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1711475460; x=1712080260; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=XbZMB0HLDo6UlcT3wdFgHAD3bu+yuJSpDvNYyyVm5Bo=;
- b=p0D6W/Vyz4E/o6rEewPQ598Vkm+6sjH6wqxSHptc/k9NMAR2zpqekXGOOhRrbTdEKW
- RhmkqlYmtLqIXw9jS82Ka0eihSEpX0i5tmNiDqSBAmRzFuqipdKuqCTJwxCHhmw6YPlg
- gWH6swIsQsOlsIDRfEl2HVgzHC3W/CfoqLGkLGcFdfGC0ZC++7yEmGdLRQC3CA0kgh38
- sKi6589QW9abnXlHC1F2HecnZxlYJJKzmh3Ly2jcDL8tJoEr645+uuFdmh7Go+2+bvvc
- h/lUtfhROq+N+ERsumdB8yK6hPI4vwbKdQW1pNT4uhlfdHc4VCZAhnn1GVYmEggcou6Z
- RSFA==
+ bh=PQt9uE/ppvfkTcIqGMfIYXRibl7GWLCliTRuigVWPgI=;
+ b=yb9g86FnGBEj9wIF8PKjhNWal6pbwgCpK5KCa5sZc1tzdCZzA6rBufs2M8xuhw6v7q
+ qDWdi+wNWqAt/V6xeqLXTi7RPrJYglhoP3LaL7GJIgdCxkPInr1oyPwYWFbfgFnfZIbN
+ tHPMSnW7ewYtUcYfXak/dr1tSu88wN0Xr04Q3UsNyiaJrASTqoEc2Mq+6m0Ftfv/Sot5
+ ODTnckkFTTswxbtjyn43fxDmYYdkWqPsWHR/I7ztin7C8F4izshgIuuD8xSVJWphT6el
+ OzEhlj/29INFxUoTtZtMj48iYuruJMoh+Preq5E3aLrz8n2MOECvNCnivZhuLp2HK5zO
+ iWOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711474415; x=1712079215;
+ d=1e100.net; s=20230601; t=1711475460; x=1712080260;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=XbZMB0HLDo6UlcT3wdFgHAD3bu+yuJSpDvNYyyVm5Bo=;
- b=HvUQgTg9alFovP1Xp6iMlCqQ41bhkeEjIBvBgOhJcb49CvdvNlZ9p58h6Z+bASeb0f
- PYmjYAsI2KLbEax8Eg663Q5cyPKBsxlXjdEr4Cq2NdipkHhbCory/cqBlMm/4VXfHtzB
- 5yNiLQ3hIhUbaKDeOK/WkypLPrN6BfpxT8wHbs6RsFhtTvwlyLLYzZc7ApiCc6O5jwF+
- c6AG2MhPMHuyJk9CL4YYCPW6y/jpMsZsinJwIJA7blrxnUUQX9Htk+wsKyYZAHqyOcPq
- 2KbHau+8tt7ecggEDdiyDxZZAh6XB9HVtPh+VssqllSg0FNkKvENLBD0jM0l7iE8onR/
- fKQQ==
+ bh=PQt9uE/ppvfkTcIqGMfIYXRibl7GWLCliTRuigVWPgI=;
+ b=SHYAG3G8CoonS47VEELYRQKG6k73dlvzwJz4cX9hXroAO+Y5c9cRerMSn9hr1K87Ad
+ nzn2zixt5fFy31ibTrSl9/O4Kb3IS7ThzAn8FbhR2hirOX2tRWNSlEnxCd/QnHUqBqJR
+ BL82eUgwMYyomTOCNuz6X0BWNdMDp77EJONnwdd1PZeXIWlmnrkIddXlyiQv7F+EFt8c
+ FvDYx69KdmlrUimQCvfB0nDIZMWWbh717XQWw7TBJtBni1tzqhjgmYq6guNoPMyBC1vo
+ QIWP229S3LtdrZ3ReSY5mZ9j5fgN/RrN1ccMouyUjyaGemMDh9F4zIfP7IRRfM9a0M2b
+ VMyw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX73c0TEGtwpHqAbM6u7abYJQQAPz7j3nB1gbHuZYIxlpbgP2PAKlwK8zxj6lKnfJFIEZ5BccSLm7a44bKg0M60PekRToa/Ijzypf8USxz3
-X-Gm-Message-State: AOJu0YzieDU6JjXweFugF2/WZ7PuoYyqyAGwHixmXEdArDB3vuk1RXqX
- gIar9OVGTltNsogPey0hJkRwwUi+537EbXowcpE8sDtsHfekbfgZVFSKgYdbZ0/IMuUVl2KE77d
- 2uxDppWYtVBGC72xitWnxWu4LluavDIGY6YJ5fg==
-X-Google-Smtp-Source: AGHT+IEMWwGPSGxVa+7DBZhN3tDl31SG+GYGcvvUKD2ClPTIyhd+KW7hJPpl34yQMv0yUTu8mGIcSU6SoV3jibi+RjM=
-X-Received: by 2002:a81:5f55:0:b0:60a:5031:2de9 with SMTP id
- t82-20020a815f55000000b0060a50312de9mr1681149ywb.51.1711474414901; Tue, 26
- Mar 2024 10:33:34 -0700 (PDT)
+ AJvYcCWFwSU2Bm3s7OSwUZGCs4/BL+eq3fTe7Sk7oZYKh5mXkmIBvNz8tKN/T7TIxJunFKJdm3uuZZQ7oWWdji2reGW84eOhPjZ3TKFtQ3AkYyXP
+X-Gm-Message-State: AOJu0YxflDkzzqJW/cfMj+jrtPK3Gg/MgeBP3D/gb6ZQKN6YfUYsThS1
+ t1AopgIybqEernJgZX2pgxZkRSvr/rDM5DEnYeWsiAdTBINvkNrBfSA7TAagCEmbmXLDC2Z6hB9
+ gp8hJIP2gwU9g3w5SZxXqt9ZxHWbua6E0HGPi/A==
+X-Google-Smtp-Source: AGHT+IHgaKfWmnWc7zIsttUGrVkvAZrzsd0nsGPCX83cPi+b3E0jY3GMekdJomBN/FEgwvmEt+1EzeQQuU9eKhkIlew=
+X-Received: by 2002:a5b:590:0:b0:dcc:7b05:4cbb with SMTP id
+ l16-20020a5b0590000000b00dcc7b054cbbmr8591652ybp.31.1711475459884; Tue, 26
+ Mar 2024 10:50:59 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240326-msm-dp-cleanup-v1-0-e775556ecec0@quicinc.com>
- <20240326-msm-dp-cleanup-v1-5-e775556ecec0@quicinc.com>
-In-Reply-To: <20240326-msm-dp-cleanup-v1-5-e775556ecec0@quicinc.com>
+ <20240326-msm-dp-cleanup-v1-6-e775556ecec0@quicinc.com>
+In-Reply-To: <20240326-msm-dp-cleanup-v1-6-e775556ecec0@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 26 Mar 2024 19:33:24 +0200
-Message-ID: <CAA8EJpqxxuu+EK3W55EbhiZyGqnB6DGdH7jU5fP--bZpUHSx9A@mail.gmail.com>
-Subject: Re: [PATCH 5/6] drm/msm/dp: Use function arguments for timing
- configuration
+Date: Tue, 26 Mar 2024 19:50:49 +0200
+Message-ID: <CAA8EJpqce45f1Q+speRQo6NbtEtMq9BZWx36pbTAQGjjTyWCoA@mail.gmail.com>
+Subject: Re: [PATCH 6/6] drm/msm/dp: Use function arguments for audio
+ operations
 To: Bjorn Andersson <andersson@kernel.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -87,22 +87,25 @@ On Tue, 26 Mar 2024 at 17:06, Bjorn Andersson <andersson@kernel.org> wrote:
 >
 > From: Bjorn Andersson <quic_bjorande@quicinc.com>
 >
-> dp_catalog_panel_timing_cfg() takes 4 arguments, which are passed from
-> the calling function through members of struct dp_catalog.
+> The dp_audio read and write operations uses members in struct dp_catalog
+> for passing arguments and return values. This adds unnecessary
+> complexity to the implementation, as it turns out after detangling the
+> logic that no state is actually held in these variables.
 >
-> No state is maintained other than across this call, so switch to
-> function arguments to clean up the code.
+> Clean this up by using function arguments and return values for passing
+> the data.
 >
 > Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_catalog.c | 14 ++++++--------
->  drivers/gpu/drm/msm/dp/dp_catalog.h |  7 ++-----
->  drivers/gpu/drm/msm/dp/dp_panel.c   | 14 +++++++++-----
->  3 files changed, 17 insertions(+), 18 deletions(-)
->
+>  drivers/gpu/drm/msm/dp/dp_audio.c   | 20 +++++--------------
+>  drivers/gpu/drm/msm/dp/dp_catalog.c | 39 +++++++++++++------------------------
+>  drivers/gpu/drm/msm/dp/dp_catalog.h | 18 +++++++++--------
+>  3 files changed, 28 insertions(+), 49 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
--- 
+Thanks a lot for the cleanup!
+
+--
 With best wishes
 Dmitry
