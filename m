@@ -2,67 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9955D88CF35
-	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 21:43:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50B2788CF3A
+	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 21:43:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9771110F037;
-	Tue, 26 Mar 2024 20:43:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22D6B10F2E2;
+	Tue, 26 Mar 2024 20:43:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VXaCiD/w";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jjWYNw17";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BD1110F037
- for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 20:43:24 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-a4751063318so373287666b.0
- for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 13:43:24 -0700 (PDT)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67C7F10F2E2
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 20:43:36 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-513d4559fb4so8003833e87.3
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 13:43:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711485803; x=1712090603; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1711485814; x=1712090614; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=bgTBcZHVtp/LKSS29OONF3LJTdReY4dHqtSnOI/EXk8=;
- b=VXaCiD/wshPKzjr+IEm9DOScM/Bkc60etq23pQJfYyxo5++Q7r7WrrhSiTSqCpxjHC
- Twehsymifje5dNRqHUSiONq6Bmk/g3HeU4lgTnv++Pg9HBeHm/N3QSDG5EJ5y8uwy0Hy
- YjqRYPAQfxxISoOTReqKIEcjU7SUVlOf7FcSaU7mddGFHw+J5JukatKuT8+3TDRSbkBG
- JIghibJXwOV2pjMK9Ruq17D/J09tqECiP0qszuD4LLmeUTxPZMBZWcEZ0kVVGSrKzRR/
- ZwDlqyf/tn/xaODBCg3MDqH51MhBYmod0KgFOSxQcoOm04L9ibMsS9Ev3hF+4z12i6vV
- t8pw==
+ bh=Oavn5u1uLfkLEbaA6Uw//XjKRk/RHEQTcZRN/V6rnBY=;
+ b=jjWYNw17zqU0cYQNjbTAe5oIfCXfDdeYb9r8IjJNQEPArxLBTT1GovMjmRyh9XnAdU
+ YTys+D2fb5RIztmkFIf1cDUatVHhcpolLQKkyw57lj3q0GQV1yWYy/Pgrwtwl4ze8VXO
+ dDw7bY8bLvYMVJBlnkfSOuI5lf3jAsXQOIVN0XQlLUdf5M+sstsdT6OLnHUISGhKdRor
+ iySZH8+nHUoQyJZVA3C7FrnSloIigLR3AaG0haD27VMoNxZsojr8gX5MdB07WDBZaVXP
+ wt79XP40kAuZdSN3JD3POXV6jfyTZn0ajG9Kap3Cmc6ttuggrTOAwXb1EJgGOYmIS7Hu
+ Yogw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711485803; x=1712090603;
+ d=1e100.net; s=20230601; t=1711485814; x=1712090614;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bgTBcZHVtp/LKSS29OONF3LJTdReY4dHqtSnOI/EXk8=;
- b=W7lLgCcvra/9aa3MViD9ekkaUYWAzZJHIwEijJTSyMZ6v5YSTBMhEYS6En2yKVeWR9
- 6muK165oiTb43eZaCZUb9hiP6dHK6SMdy1MlRMo+GIsmfXc44hqZ4BCwhhMDOz4TBog9
- SiHs1cyUvL1hLXZ7Pz3lfizje4Fof5L3c80g0P9jG09+ca5859p6oOvz/M+e6c45Ct4u
- bZQJ4DsFe7aS2vujahdSVOBg5LQHk427cqoXJ+4sLv+k9T3aiyjXcnrlnsZXc9+9+urB
- AUTIaZnoGkkWyhNuXeUJueGJiiNyILx940jb+Fm6grorWEOfUGsR3ovJinUaxj/sV6P4
- O1Fw==
+ bh=Oavn5u1uLfkLEbaA6Uw//XjKRk/RHEQTcZRN/V6rnBY=;
+ b=xIAcK3tVaBTfi9ic4uzMIntm26npgHoXOc5G1048AvsOHpTcwdCdEaC2g22T3//YAD
+ hguZOQMaa9RjtXS6j72nDJQJHUsGhdXqlWK6gKkvPbaXIuPkgK/ARziK+rTPeungiLy/
+ WHED8See1FPnSIcA+NFodAOAnjtk5HUKmFQTO4WcOj7bMI9eHTaSkHljkI6V387EdQuc
+ ovckBJGGyBHONCrRWfkE9Ov1r18670/3sXsMw8eZ/sN/ynS3Ri86aj0nqx/njjFFJFXo
+ LA5uoed9puKkyfpDdzx7m6DO77cvUTkrnLsF7gCYyn7mTEu8BUZLvr9t2zSjvWiVQrbu
+ pwog==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWvAJlRj7mVNPprrG2ucJIDIHRZKU1ZRPQOQ6rCM7YucTYVC0CCijx4QTC9/R35s5S51/t038MTBB7vIz7BwxGH1SgLtobN3X/slzhtQ8R9
-X-Gm-Message-State: AOJu0Yx4wKVX82mAa1+4xnn1/EwtPo1T0K8lC14AST50///xKHGEkWVb
- TTQ4L9FupwUiaA8/Isv/H3VTjyyIs7siB5rstig5/gHgWqj//Ty2NECcsVvgZqQ=
-X-Google-Smtp-Source: AGHT+IG1MxC+rEWeJ5NPpWecl9hwTxukFc0DpFsg9XxAdkpTeUvtnkSZjUJE2sEJr+C1R2ZYHzySuw==
-X-Received: by 2002:a17:906:d7ae:b0:a44:4c9e:8809 with SMTP id
- pk14-20020a170906d7ae00b00a444c9e8809mr1815127ejb.32.1711485802703; 
- Tue, 26 Mar 2024 13:43:22 -0700 (PDT)
+ AJvYcCWMUcx5MSiOAyaJ9t7q/S+P3aBJzWIzKwUZeHP1NFE7hzOcA2UNHP5156rnwwv0Z/6ZO795WQp9KBiR2yffLYC6OXVqNAGxPpMx6EAOmujr
+X-Gm-Message-State: AOJu0Yxhf+8k3a+YLwmSmMSUAtN1SBtKRn+x95svcgqU3BNSk27Bz73V
+ Mp32yOTW3rTvt4D6vELGHtR2nJ2ntlhpWmVmnCklNJv2D3zrkCbzWG+B9tEYmEA=
+X-Google-Smtp-Source: AGHT+IGkNtOLKIcanSdtGooOu0GMS9RrimDsrocsQIgH1pdv84JqL6qJ44YkzjIFPsODNd7dnNrk+A==
+X-Received: by 2002:a05:6512:3c99:b0:513:d24f:6455 with SMTP id
+ h25-20020a0565123c9900b00513d24f6455mr11046504lfv.29.1711485814478; 
+ Tue, 26 Mar 2024 13:43:34 -0700 (PDT)
 Received: from [192.168.92.47] (078088045141.garwolin.vectranet.pl.
  [78.88.45.141]) by smtp.gmail.com with ESMTPSA id
- hg12-20020a1709072ccc00b00a4734b07436sm4649723ejc.141.2024.03.26.13.43.20
+ l24-20020a1709066b9800b00a46be85684bsm4591026ejr.223.2024.03.26.13.43.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Mar 2024 13:43:22 -0700 (PDT)
-Message-ID: <4ad60007-f5ee-4788-9ee2-9a65176caa7b@linaro.org>
-Date: Tue, 26 Mar 2024 21:43:20 +0100
+ Tue, 26 Mar 2024 13:43:34 -0700 (PDT)
+Message-ID: <23cbb015-4048-4f3b-8b0e-54e83e8d3a28@linaro.org>
+Date: Tue, 26 Mar 2024 21:43:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] arm64: dts: qcom: sc8180x: drop legacy property
- #stream-id-cells
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: sc8180x: Drop flags for mdss irqs
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
@@ -76,7 +75,7 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
 References: <20240326-fd-fix-schema-v1-0-4475d6d6d633@linaro.org>
- <20240326-fd-fix-schema-v1-2-4475d6d6d633@linaro.org>
+ <20240326-fd-fix-schema-v1-3-4475d6d6d633@linaro.org>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
@@ -114,7 +113,7 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20240326-fd-fix-schema-v1-2-4475d6d6d633@linaro.org>
+In-Reply-To: <20240326-fd-fix-schema-v1-3-4475d6d6d633@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -133,8 +132,9 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 26.03.2024 9:02 PM, Dmitry Baryshkov wrote:
-> The property #stream-id-cells is legacy, it is not documented as valid
-> for the GPU. Drop it now.
+> The number of interrupt cells for the mdss interrupt controller is 1,
+> meaning there should only be one cell for the interrupt number, not two.
+> Drop the second cell containing (unused) irq flags.
 > 
 > Fixes: 494dec9b6f54 ("arm64: dts: qcom: sc8180x: Add display and gpu nodes")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
