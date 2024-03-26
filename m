@@ -2,88 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB3B888CCEC
-	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 20:18:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E001B88CD40
+	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 20:32:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4B8610E255;
-	Tue, 26 Mar 2024 19:18:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B919E10EC95;
+	Tue, 26 Mar 2024 19:32:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="K5tlgs8b";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="nr4Gyn5a";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 150D310E255;
- Tue, 26 Mar 2024 19:18:24 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF4EA10F21E;
+ Tue, 26 Mar 2024 19:32:48 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42QJFhBc020845; Tue, 26 Mar 2024 19:18:19 GMT
+ 42QIgwco027984; Tue, 26 Mar 2024 19:32:45 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=qcppdkim1; bh=RQmei4fRvb0jxu194Vw8P
- x+Zt2qro2JtiuP5ogzg8+8=; b=K5tlgs8bJSOGuVvOPSAdk7C97sugxF7sQ3KWt
- 0s0NRUC2KnISQP1w7PzZ/7173OT6KTIUYJCM8EFf5XxqW7wYuh91VwYpoq71TNu2
- Z2Qhxq66m0bVUdzuBPKmHW56UZsbjKetPjFPwH85v/dOesS3bX8YcWB47HMM0vIz
- q0vlddHZmtyj0RmcePOY/SNEpT2Zao2wpA3oy0j59fHuZr5fY3QAMS91ksGThDWo
- g09rpeJZJ0qLnPcXigfrGnnTSz0XK88ivrmud6UAR5TMbChmHtw9KVzoVUg3OVC/
- Sw944VgR909B2JbPKOKhrpRvbTc6Y30wlarnZCsEFY1l8qClA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=Gvl/cErnJ0hcWPz7bh+uiNg8+CKOhxG44k87KtPunH0=; b=nr
+ 4Gyn5aS6vsLZdpONgV1Q/2VMOeDPW3noCeZFXJTXePf26K3wuMD9T0Sq2W2UjWlC
+ A0bqoPQaTVEXkJtHIY+oSztw7S3NSa2cUuTd+dAKJyYHqv3X2ykZpdzBNdzJwJR4
+ zwhtPGHsk4Addr5ru8FLzCFO3Ae/vwdwROEC/Ytt4vAbEbrYOcF59852ZVQnqCaM
+ 5L058iuYn271RkYmngoscPjcpOjW4ZpOELZPTu3GwZfoXT24R5fmNaiZluSfoU2O
+ gs2P1V5IJl34PSb0BJHviA99pXAHSKMTENS8X5ElED81iv+EbDfB7XvrhkjK3nAQ
+ m6GTJwbqcwywRA3KtZow==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3x41k68ga4-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3x3q0n2jaj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 Mar 2024 19:18:19 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42QJIILH014916
+ Tue, 26 Mar 2024 19:32:45 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42QJWiRU015728
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 Mar 2024 19:18:18 GMT
-Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Tue, 26 Mar 2024 12:18:17 -0700
-Date: Tue, 26 Mar 2024 12:18:16 -0700
-From: Bjorn Andersson <quic_bjorande@quicinc.com>
-To: Abel Vesa <abel.vesa@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
- <konrad.dybcio@linaro.org>,
- Johan Hovold <johan@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 2/2] drm/msm/dp: Add support for the X1E80100
-Message-ID: <20240326191816.GB1637694@hu-bjorande-lv.qualcomm.com>
-References: <20240324-x1e80100-display-refactor-connector-v4-0-e0ebaea66a78@linaro.org>
- <20240324-x1e80100-display-refactor-connector-v4-2-e0ebaea66a78@linaro.org>
+ Tue, 26 Mar 2024 19:32:44 GMT
+Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 26 Mar
+ 2024 12:32:41 -0700
+Message-ID: <671d2662-df4e-4350-0084-476eb1671cc1@quicinc.com>
+Date: Tue, 26 Mar 2024 12:32:40 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20240324-x1e80100-display-refactor-connector-v4-2-e0ebaea66a78@linaro.org>
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error:
+ variable 'out' set but not used
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
+ Vetter <daniel@ffwll.ch>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, linux-kernel
+ <linux-kernel@vger.kernel.org>
+References: <CANiq72mjc5t4n25SQvYSrOEhxxpXYPZ4pPzneSJHEnc3qApu2Q@mail.gmail.com>
+ <CAA8EJprTNFgKJ_3cdZz4f_LCkYFghi-cfaj3bZmYh3oA63my6A@mail.gmail.com>
+ <85204b78-7b24-61cd-4bae-3e7abc6e4fd3@quicinc.com>
+ <CAA8EJppqrF10J1qExM=gopiF4GPDt7v4TB6LrQxx5OGyAL9hSg@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJppqrF10J1qExM=gopiF4GPDt7v4TB6LrQxx5OGyAL9hSg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: lUBTvznAneMj9Aeuu7lI1gY-BZyph5Io
-X-Proofpoint-GUID: lUBTvznAneMj9Aeuu7lI1gY-BZyph5Io
+X-Proofpoint-GUID: 45Zt0ye1_N9N-CvHZY087ABXmToD95_R
+X-Proofpoint-ORIG-GUID: 45Zt0ye1_N9N-CvHZY087ABXmToD95_R
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2024-03-26_08,2024-03-21_02,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 bulkscore=0
- lowpriorityscore=0 clxscore=1015 mlxlogscore=999 priorityscore=1501
- malwarescore=0 phishscore=0 spamscore=0 adultscore=0 suspectscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2403210001 definitions=main-2403260138
+ mlxlogscore=999
+ malwarescore=0 phishscore=0 bulkscore=0 spamscore=0 impostorscore=0
+ priorityscore=1501 clxscore=1015 mlxscore=0 adultscore=0
+ lowpriorityscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2403210001 definitions=main-2403260140
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,51 +99,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Mar 24, 2024 at 08:56:52PM +0200, Abel Vesa wrote:
-> Add the X1E80100 DP descs and compatible. This platform will be using
-> a single compatible for both eDP and DP mode. The actual mode will
-> be set based on the presence of the panel node in DT.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
 
-Reviewed-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 
-Regards,
-Bjorn
+On 3/26/2024 12:10 PM, Dmitry Baryshkov wrote:
+> On Tue, 26 Mar 2024 at 20:31, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 3/26/2024 11:19 AM, Dmitry Baryshkov wrote:
+>>> On Tue, 26 Mar 2024 at 20:05, Miguel Ojeda
+>>> <miguel.ojeda.sandonis@gmail.com> wrote:
+>>>>
+>>>> Hi,
+>>>>
+>>>> In today's next, I got:
+>>>>
+>>>>       drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error: variable
+>>>> 'out' set but not used [-Werror,-Wunused-but-set-variable]
+>>>>
+>>>> `out` seems to be there since commit 64d6255650d4 ("drm/msm: More
+>>>> fully implement devcoredump for a7xx").
+>>>>
+>>>> Untested diff below assuming `dumper->iova` is constant -- if you want
+>>>> a formal patch, please let me know.
+>>>
+>>> Please send a proper patch that we can pick up.
+>>>
+>>
+>> This should be fixed with https://patchwork.freedesktop.org/patch/581853/.
+> 
+> Is that a correct fix? If you check other usage locations for
+> CRASHDUMP_READ, you'll see that `out` is the last parameter and it is
+> being incremented.
+> 
 
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+Right but in this function out is not the last parameter of CRASHDUMP_READ.
+
+Maybe you or Rob can correct me but I thought the fix looked sane 
+although noone commented on that patch.
+
+>>
+>> We can pickup that one with a Fixes tag applied.
+>>
+>>>>
+>>>> Cheers,
+>>>> Miguel
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+>>>> b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+>>>> index 1f5245fc2cdc..a847a0f7a73c 100644
+>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+>>>> @@ -852,7 +852,7 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
+>>>>                (block->type << 8) | i);
+>>>>
+>>>>            in += CRASHDUMP_READ(in, REG_A6XX_HLSQ_DBG_AHB_READ_APERTURE,
+>>>> -            block->size, dumper->iova + A6XX_CD_DATA_OFFSET);
+>>>> +            block->size, out);
+>>>>
+>>>>            out += block->size * sizeof(u32);
+>>>>        }
+>>>
+>>>
+>>>
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 9169a739cc54..521cba76d2a0 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -171,6 +171,14 @@ static const struct msm_dp_desc sm8650_dp_descs[] = {
->  	{}
->  };
->  
-> +static const struct msm_dp_desc x1e80100_dp_descs[] = {
-> +	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
-> +	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
-> +	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
-> +	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_3, .wide_bus_supported = true },
-> +	{}
-> +};
-> +
->  static const struct of_device_id dp_dt_match[] = {
->  	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_descs },
->  	{ .compatible = "qcom,sc7280-dp", .data = &sc7280_dp_descs },
-> @@ -182,6 +190,7 @@ static const struct of_device_id dp_dt_match[] = {
->  	{ .compatible = "qcom,sdm845-dp", .data = &sc7180_dp_descs },
->  	{ .compatible = "qcom,sm8350-dp", .data = &sm8350_dp_descs },
->  	{ .compatible = "qcom,sm8650-dp", .data = &sm8650_dp_descs },
-> +	{ .compatible = "qcom,x1e80100-dp", .data = &x1e80100_dp_descs },
->  	{}
->  };
->  
 > 
-> -- 
-> 2.34.1
 > 
