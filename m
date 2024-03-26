@@ -2,49 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27CCB88CFEB
-	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 22:24:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CB9A88D014
+	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 22:31:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F275010F34E;
-	Tue, 26 Mar 2024 21:24:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13F4F10F364;
+	Tue, 26 Mar 2024 21:31:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XzRttCev";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iEOKRYYc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E99B610F34D;
- Tue, 26 Mar 2024 21:24:17 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3977961422;
- Tue, 26 Mar 2024 21:24:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2E8DC433F1;
- Tue, 26 Mar 2024 21:24:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711488256;
- bh=+7ou0Blb4yyxWLvmEh9Tg2cpMYZrBSmbjUxmYsUapVE=;
- h=From:To:Cc:Subject:Date:From;
- b=XzRttCevpZEKstiOQ+YK4/hwjYstMTsuRPwxTysqoRAmoq4dMwcf5Ov5iwsWX+X/O
- XqqLGzSPQMMg32OYHOmtKduB6TQsW+GZEZcjh04ucDlonial/B2V8HG7CVIM6iwFP/
- qEd19z5B9PRwBWZc6KZlt5R4jLYm5R2ARrfEtcgqRtCzVC5xlanxWtbL5IZaCFFiKb
- 2ddfiDjcEbrCF8noSD5NCMZIU36EGK8Q+R/KZELFXUdlEDprDGBKtGvYL6oxLF3WfN
- 668helCzuab4DYqUNqeWok1l3OcRF/GoRTxjtAwdu1nvlipBW38xBYjlhKQy5t3nS6
- MiB3Y1GEUs5OA==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Connor Abbott <cwabbott0@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm: fix the `CRASHDUMP_READ` target of
- `a6xx_get_shader_block()`
-Date: Tue, 26 Mar 2024 22:23:24 +0100
-Message-ID: <20240326212324.185832-1-ojeda@kernel.org>
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 324B710F364;
+ Tue, 26 Mar 2024 21:31:25 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-29f6f8614c8so4305175a91.0; 
+ Tue, 26 Mar 2024 14:31:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1711488684; x=1712093484; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PiGUvrXT9lLzrsrKPCPoTMei8/8USegfYO7EBaP7sv0=;
+ b=iEOKRYYceZZzOhNbNRnVjAewLAAmRV2dajL2+G91NUytRxtyxv4Dyw+dGFZfPHsCip
+ N3ZdhHxTIVdfX42rS3NH5qDmOs5SWnUy3kHYun0+k6dXUEGbgWDf2zFiEpUzTJxPKq70
+ tgAjePKULgsuHKYSmwz/3pilXN6kMBQ+2LmO5OKTHrKtrrQeW3kNb//txvXzi+GqRG7F
+ SvTZ3GMZKgsNblLrGuStJU60B+cTzI7j+a83arNMD8lOWABN2cIU5hgy6E0E6kxYh/Yj
+ L4iE+aHDzQxxArKH8AsM9aubYv6aDw/g04S77LowNefpzWfZyYwwv9Oiwt8PsW8F5dj2
+ jl2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711488684; x=1712093484;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=PiGUvrXT9lLzrsrKPCPoTMei8/8USegfYO7EBaP7sv0=;
+ b=RpU32/eax/SKZx3jqOqvg2tpTtyWA5BE5LgUij0/lRbxPktjR2NN+sY81Kb2hPQhek
+ 6cZsGG/PmlCx1B3pOY1zN7NEZBuxcZ1VEt+aeY6QtPqoAPe+a0Xpg/cxv7eNQd4g8vir
+ +nejvMPgfJo663OSFMxB4metP4X2J3G+lNACCzKUUmDCIDlsxGXuPKRKzJu6MRu+/SzJ
+ VCxiyzedaJqG7vfsxSUhdWrYORAfn3pjvf9BcIFSUbSxZh7FoSoCf89W7evLjbCZwRUA
+ pG9igf+cZSsiSWP4mYFrO1FdAXlw/NRyFIWk1BMLEjwOsWNb8qM2ImxDSxE73gkWCvqX
+ nJqw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVZY3sAQ6Wnr7CW+kziOmo0geg5OfgxnmQ6GXxPRgA1Xyo0/hQwViNUDveY4FxFtajKHowLOLCbzPkB9sfpQ+AcOeUo2dHZE8aPDMgSTb/M3kwKGO91/Bb8L4enyqNXotlIGxid2E9zGJGOGcDO5kNJ
+X-Gm-Message-State: AOJu0YxRF1MYhRY5DkPGcteKpbTWzq/HQul9rQrvJk0Z435TxALA7TqU
+ M6fpmpeUfdDyRmUAsHtcs0+/E5u0BSwpRLHT1f8MTXxnpOcJpFi9OAzkTNhcqqE3fzoeLB+roK0
+ G3uqqt0zq/U/o0qQUSMWZbx6MkG9VI/eX5thrUw==
+X-Google-Smtp-Source: AGHT+IENOACbX5Muhn3hNLP+uwrnNmzoaIn5nRqBxQrlvY5RyvzULA69EFRihpg6ANmhZEBWdyMhfxe4vy25DunBJIU=
+X-Received: by 2002:a17:90b:4017:b0:2a0:3fe1:2e1 with SMTP id
+ ie23-20020a17090b401700b002a03fe102e1mr8867114pjb.6.1711488684568; Tue, 26
+ Mar 2024 14:31:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CANiq72mjc5t4n25SQvYSrOEhxxpXYPZ4pPzneSJHEnc3qApu2Q@mail.gmail.com>
+ <CAA8EJprTNFgKJ_3cdZz4f_LCkYFghi-cfaj3bZmYh3oA63my6A@mail.gmail.com>
+ <85204b78-7b24-61cd-4bae-3e7abc6e4fd3@quicinc.com>
+ <CAA8EJppqrF10J1qExM=gopiF4GPDt7v4TB6LrQxx5OGyAL9hSg@mail.gmail.com>
+ <671d2662-df4e-4350-0084-476eb1671cc1@quicinc.com>
+ <CAA8EJpppre8ibYqN7gZObyvzR08yVbTevC6hDEDCKQVf8gRVRg@mail.gmail.com>
+ <0280fa9a-cdb0-5bf7-7940-3c2cda1da829@quicinc.com>
+In-Reply-To: <0280fa9a-cdb0-5bf7-7940-3c2cda1da829@quicinc.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 26 Mar 2024 22:30:56 +0100
+Message-ID: <CANiq72m05v8iYtkHOzmZSmyBx2OvEOzS09Fu7F8N1a2SeboBeA@mail.gmail.com>
+Subject: Re: drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error:
+ variable 'out' set but not used
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno@lists.freedesktop.org, linux-kernel <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,45 +91,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Clang 14 in an (essentially) defconfig arm64 build for next-20240326
-reports [1]:
+On Tue, Mar 26, 2024 at 8:56=E2=80=AFPM Abhinav Kumar <quic_abhinavk@quicin=
+c.com> wrote:
+>
+> Alright, in that case, Miguel can you please repost this with the Fixes
+> tags and in a patch form.
 
-    drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error:
-    variable 'out' set but not used [-Werror,-Wunused-but-set-variable]
+Done at https://lore.kernel.org/lkml/20240326212324.185832-1-ojeda@kernel.o=
+rg/
 
-The variable `out` in these functions is meant to compute the `target` of
-`CRASHDUMP_READ()`, but in this case only the initial value (`dumper->iova
-+ A6XX_CD_DATA_OFFSET`) was being passed.
+Thanks all!
 
-Thus use `out` as it was intended by Connor [2].
-
-There was an alternative patch at [3] that removed the variable
-altogether, but that would only use the initial value.
-
-Fixes: 64d6255650d4 ("drm/msm: More fully implement devcoredump for a7xx")
-Closes: https://lore.kernel.org/lkml/CANiq72mjc5t4n25SQvYSrOEhxxpXYPZ4pPzneSJHEnc3qApu2Q@mail.gmail.com/ [1]
-Link: https://lore.kernel.org/lkml/CACu1E7HhCKMJd6fixZSPiNAz6ekoZnkMTHTcLFVmbZ-9VoLxKg@mail.gmail.com/ [2]
-Link: https://lore.kernel.org/lkml/20240307093727.1978126-1-colin.i.king@gmail.com/ [3]
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index 1f5245fc2cdc..a847a0f7a73c 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -852,7 +852,7 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
- 			(block->type << 8) | i);
- 
- 		in += CRASHDUMP_READ(in, REG_A6XX_HLSQ_DBG_AHB_READ_APERTURE,
--			block->size, dumper->iova + A6XX_CD_DATA_OFFSET);
-+			block->size, out);
- 
- 		out += block->size * sizeof(u32);
- 	}
-
-base-commit: 084c8e315db34b59d38d06e684b1a0dd07d30287
--- 
-2.44.0
-
+Cheers,
+Miguel
