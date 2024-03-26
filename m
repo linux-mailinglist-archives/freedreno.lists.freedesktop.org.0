@@ -2,76 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9911A88CD71
-	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 20:47:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 157E588CD8A
+	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 20:52:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BBD410E6EE;
-	Tue, 26 Mar 2024 19:47:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40ACB10F240;
+	Tue, 26 Mar 2024 19:52:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XIF4cE8V";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z9WQLYGm";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
- [209.85.128.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4889010EA8C
- for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 19:47:42 +0000 (UTC)
-Received: by mail-yw1-f181.google.com with SMTP id
- 00721157ae682-609f3ca61e0so64180567b3.3
- for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 12:47:42 -0700 (PDT)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F4BC10F23E;
+ Tue, 26 Mar 2024 19:52:06 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-33ec7e38b84so4185309f8f.1; 
+ Tue, 26 Mar 2024 12:52:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711482461; x=1712087261; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=+qyPM89Y10g6lsVDwvjAhw3OysernPxYLdybxWGA1Ik=;
- b=XIF4cE8V4TgU3IKs06pdtU8d+VPUpbglh7Lei9oC9sVgmtW0mD8Bm9rNfip/AizPk4
- KLpS9ebQjwRLkXm9l3fQeZr8yR3whSEzKufAcpc8a7EWouW6+Kge4pmaVXjvOW8uaxVq
- /xAxoanXZFFzlSwRQYB/uMhNP74MW6VdSci3I0HiHv2hK6wUYz7SaiQX3oyFSNKF8mfO
- MJvLDdJHY3mzYGSHLS+MwRsB6vLbJ6wdJQZ7HbgKZyftNDkiNHfnm449eHqgKvrS+wvD
- +uKq0WK557gzYdTEODP1rRHK9rvxUfZN/lIcQ7YOIou2W/OBYGRnU+a+CZzrCbugxZbx
- qjFQ==
+ d=gmail.com; s=20230601; t=1711482724; x=1712087524; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VoJ7Xgxb57e+lLV6U4E0sAWdkd/64u+XAVmAgLbMPw0=;
+ b=Z9WQLYGmHBCz1rbaQRKQggySbtM+tHh7G3Hrn/BhyoP+0t85W+LbiTb/bEgnHCnD02
+ oOpmKbRp0y+XmjHv47SesBLM/0cwG90kOquMnl1I80abeYipFmpgz9ngBq59jILdqA89
+ 2WAzJyzVqm0ZxeAqqhdFtrWra6st5PHIV/r7P4q/BVJbQk8eywAKveEUiWXhRvq0AEky
+ PbjuSPi2hc9HvR9HJ/KjOKFOrV3arU7jq8MCT+UUCHz6RMdH25GOfRspx7v7ekZPBOMt
+ UU/m3bkkJyKmLWvAJQnxMrc1woO7CEPGVvcECbqTB/29MOyDVclAFMPg93tMqHx2mSYc
+ iBdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711482461; x=1712087261;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+qyPM89Y10g6lsVDwvjAhw3OysernPxYLdybxWGA1Ik=;
- b=vwINkBoZXoUGT/A8yOScqAxCynQS27NGa2tNDV2H6+SMj6n3/l/BObf5Oin1gjCMQM
- tFNGwHgxIn6xX1e1UYMNrL0OAtGx8+FLx7lA36zhod0RazfCYlueOxyJcpDfSC4wCShG
- 2cC2DAPp0SNF3A5QV7tFfzcfcxhJcx9rpPCLIGUK5EerU8fxg/DMkF8/bYYvnumUZcGZ
- HY3pwBmCKN0espZo9xgGBx5zOomcXzXjHOhfjfcdFXVO6a1O34zpXO0x8H9T7L2u0NKT
- EGth4akpMgTYxxPNuaGBfFcuS2seoXSoTeGw0eVQfk9gScxNTagBOpAOnsjRdzuNUpki
- I8hA==
+ d=1e100.net; s=20230601; t=1711482724; x=1712087524;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=VoJ7Xgxb57e+lLV6U4E0sAWdkd/64u+XAVmAgLbMPw0=;
+ b=Y7ztL4k/QOcBYv0n580GizEK6pTy67gXOYFG/BimaxsDti8wZZM2UpkLkdXrjEcb95
+ BcDIJcQYFSG8EhuvvZMYLbWeE1J6aLj5IeR1JpwvDi32ZTXLekN3pmfhyMLs5KMjGpst
+ rI5bsCMCYs91k9ZbZtBagb5M3qz0H6O5A7Wx4sY7rfmB5/WM4qw/d5QieYWIHK4mu41n
+ RRexw8vQiLleG6GvKks004l9Q2Cko2opg+dqPX0n/o6sXbg/CdtwRiBzfPhzV21+n5jd
+ hxi6WQsnUI1O7NLX27G2ELFwIOzWX6bg776OvPHxKrVeMGeGH0OwKi5PYrtlEZyn2fKl
+ 1N2g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUxBKb1ki7VqOSEMAeujT7RhhTbaVhQQNe7P3K4lqMjTQguqTPPUWoR4h0E+SNcZX7tRID2wnaoKGtgD4PCiAKbfX66vjy2Dd082KOmN39q
-X-Gm-Message-State: AOJu0YzGycJEYwVKVpSabjgpIUEkQKU84mt3uy3Mn7oDeFBaQeT8haaf
- G2hqQKLogLmd3xRuU2ocxhLr5PdCA3ShgmXr5QG779APMzx0Da6q0+DGoq06F/alWli/jOOLeWn
- aT9e3aufaioJLfbzgQZVTEHjMxckDdpog1G7P2Q==
-X-Google-Smtp-Source: AGHT+IEDgs+miE1gX6ZQTUPVvtQ4tAfLoH8Z/nDmvJIeTUqUSoM57Xw13la+OqnoQDXlV9aokZwVCnZHBuAHWvDS4Lc=
-X-Received: by 2002:a25:aa4d:0:b0:dc7:8c3a:4e42 with SMTP id
- s71-20020a25aa4d000000b00dc78c3a4e42mr8948827ybi.30.1711482461135; Tue, 26
- Mar 2024 12:47:41 -0700 (PDT)
+ AJvYcCXCgtkpDPXWvkPHMKqx0alwQUurQfWWQx+HJtPpFUPYpfbGbVRaGuT7fcuQunSNzsrhDgz7LQSoAPnVtM6vIxZiplI1YC7+G/VJZBvlpqO5pfe0YICzsbr5lHJHmL5RjnCjLyXKvrbo+n5QeYtemIj2
+X-Gm-Message-State: AOJu0Yy4DvKM/WXmTOY9qlI5kgkeigPzogiv0yJu1yHuXSqn2aE9uku6
+ H+a+7paFYB4hcbO72lXxDeUaCOnJam1RtR+/K/oxT4j3U9H0kmQ6BwZIo5CpL9fy5dXTrgV5vjd
+ eUKbuno+3FSxkzBOl84KlsEZ6SAjg+XMApnQL0A==
+X-Google-Smtp-Source: AGHT+IFdWjE4WHoVtPjuQcx0WsU75NBlLUIGPA+pXpYqfXBQ6kNVdedZPLpDt+1PDG/+8EGDVjm0fb4X9eM/yrOADWQ=
+X-Received: by 2002:a5d:640c:0:b0:341:bfe2:da36 with SMTP id
+ z12-20020a5d640c000000b00341bfe2da36mr1745593wru.6.1711482724438; Tue, 26 Mar
+ 2024 12:52:04 -0700 (PDT)
 MIME-Version: 1.0
 References: <CANiq72mjc5t4n25SQvYSrOEhxxpXYPZ4pPzneSJHEnc3qApu2Q@mail.gmail.com>
  <CAA8EJprTNFgKJ_3cdZz4f_LCkYFghi-cfaj3bZmYh3oA63my6A@mail.gmail.com>
  <85204b78-7b24-61cd-4bae-3e7abc6e4fd3@quicinc.com>
  <CAA8EJppqrF10J1qExM=gopiF4GPDt7v4TB6LrQxx5OGyAL9hSg@mail.gmail.com>
  <671d2662-df4e-4350-0084-476eb1671cc1@quicinc.com>
-In-Reply-To: <671d2662-df4e-4350-0084-476eb1671cc1@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 26 Mar 2024 21:47:30 +0200
-Message-ID: <CAA8EJpppre8ibYqN7gZObyvzR08yVbTevC6hDEDCKQVf8gRVRg@mail.gmail.com>
+ <CAA8EJpppre8ibYqN7gZObyvzR08yVbTevC6hDEDCKQVf8gRVRg@mail.gmail.com>
+In-Reply-To: <CAA8EJpppre8ibYqN7gZObyvzR08yVbTevC6hDEDCKQVf8gRVRg@mail.gmail.com>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Tue, 26 Mar 2024 19:51:53 +0000
+Message-ID: <CACu1E7HhCKMJd6fixZSPiNAz6ekoZnkMTHTcLFVmbZ-9VoLxKg@mail.gmail.com>
 Subject: Re: drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error:
  variable 'out' set but not used
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
- Rob Clark <robdclark@gmail.com>, 
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>, 
  freedreno@lists.freedesktop.org, linux-kernel <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,81 +90,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 26 Mar 2024 at 21:32, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On Tue, Mar 26, 2024 at 7:47=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
 >
->
->
-> On 3/26/2024 12:10 PM, Dmitry Baryshkov wrote:
-> > On Tue, 26 Mar 2024 at 20:31, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>
-> >>
-> >>
-> >> On 3/26/2024 11:19 AM, Dmitry Baryshkov wrote:
-> >>> On Tue, 26 Mar 2024 at 20:05, Miguel Ojeda
-> >>> <miguel.ojeda.sandonis@gmail.com> wrote:
-> >>>>
-> >>>> Hi,
-> >>>>
-> >>>> In today's next, I got:
-> >>>>
-> >>>>       drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error: variable
-> >>>> 'out' set but not used [-Werror,-Wunused-but-set-variable]
-> >>>>
-> >>>> `out` seems to be there since commit 64d6255650d4 ("drm/msm: More
-> >>>> fully implement devcoredump for a7xx").
-> >>>>
-> >>>> Untested diff below assuming `dumper->iova` is constant -- if you want
-> >>>> a formal patch, please let me know.
-> >>>
-> >>> Please send a proper patch that we can pick up.
-> >>>
-> >>
-> >> This should be fixed with https://patchwork.freedesktop.org/patch/581853/.
-> >
-> > Is that a correct fix? If you check other usage locations for
-> > CRASHDUMP_READ, you'll see that `out` is the last parameter and it is
-> > being incremented.
-> >
->
-> Right but in this function out is not the last parameter of CRASHDUMP_READ.
-
-Yes. I think in this case the patch from this email is more correct.
-
->
-> Maybe you or Rob can correct me but I thought the fix looked sane
-> although noone commented on that patch.
-
->
-> >>
-> >> We can pickup that one with a Fixes tag applied.
-> >>
-> >>>>
-> >>>> Cheers,
-> >>>> Miguel
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> >>>> b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> >>>> index 1f5245fc2cdc..a847a0f7a73c 100644
-> >>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> >>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> >>>> @@ -852,7 +852,7 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
-> >>>>                (block->type << 8) | i);
-> >>>>
-> >>>>            in += CRASHDUMP_READ(in, REG_A6XX_HLSQ_DBG_AHB_READ_APERTURE,
-> >>>> -            block->size, dumper->iova + A6XX_CD_DATA_OFFSET);
-> >>>> +            block->size, out);
-> >>>>
-> >>>>            out += block->size * sizeof(u32);
-> >>>>        }
-> >>>
-> >>>
-> >>>
+> On Tue, 26 Mar 2024 at 21:32, Abhinav Kumar <quic_abhinavk@quicinc.com> w=
+rote:
 > >
 > >
 > >
+> > On 3/26/2024 12:10 PM, Dmitry Baryshkov wrote:
+> > > On Tue, 26 Mar 2024 at 20:31, Abhinav Kumar <quic_abhinavk@quicinc.co=
+m> wrote:
+> > >>
+> > >>
+> > >>
+> > >> On 3/26/2024 11:19 AM, Dmitry Baryshkov wrote:
+> > >>> On Tue, 26 Mar 2024 at 20:05, Miguel Ojeda
+> > >>> <miguel.ojeda.sandonis@gmail.com> wrote:
+> > >>>>
+> > >>>> Hi,
+> > >>>>
+> > >>>> In today's next, I got:
+> > >>>>
+> > >>>>       drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error: va=
+riable
+> > >>>> 'out' set but not used [-Werror,-Wunused-but-set-variable]
+> > >>>>
+> > >>>> `out` seems to be there since commit 64d6255650d4 ("drm/msm: More
+> > >>>> fully implement devcoredump for a7xx").
+> > >>>>
+> > >>>> Untested diff below assuming `dumper->iova` is constant -- if you =
+want
+> > >>>> a formal patch, please let me know.
+> > >>>
+> > >>> Please send a proper patch that we can pick up.
+> > >>>
+> > >>
+> > >> This should be fixed with https://patchwork.freedesktop.org/patch/58=
+1853/.
+> > >
+> > > Is that a correct fix? If you check other usage locations for
+> > > CRASHDUMP_READ, you'll see that `out` is the last parameter and it is
+> > > being incremented.
+> > >
+> >
+> > Right but in this function out is not the last parameter of CRASHDUMP_R=
+EAD.
+>
+> Yes. I think in this case the patch from this email is more correct.
 
+Yes, this patch is more correct than the other one. I tried to fix a
+bug with a6xx that I noticed while adding support for a7xx, which I
+forgot to split out from "drm/msm: More fully implement devcoredump
+for a7xx" into a separate commit, and this hunk was missing. Sorry
+about that.
 
-
--- 
-With best wishes
-Dmitry
+Connor
