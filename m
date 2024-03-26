@@ -2,71 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE58D88CB53
-	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 18:51:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2EB288CB7B
+	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 19:05:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8264D10F19D;
-	Tue, 26 Mar 2024 17:51:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8983E10F1BF;
+	Tue, 26 Mar 2024 18:05:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yb9g86Fn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CP7fp39N";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
- [209.85.219.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E746A10F1A0
- for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 17:51:00 +0000 (UTC)
-Received: by mail-yb1-f170.google.com with SMTP id
- 3f1490d57ef6-dcbef31a9dbso4239679276.1
- for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 10:51:00 -0700 (PDT)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF5610F1BC;
+ Tue, 26 Mar 2024 18:05:01 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-29de2dd22d8so3207120a91.2; 
+ Tue, 26 Mar 2024 11:05:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711475460; x=1712080260; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=PQt9uE/ppvfkTcIqGMfIYXRibl7GWLCliTRuigVWPgI=;
- b=yb9g86FnGBEj9wIF8PKjhNWal6pbwgCpK5KCa5sZc1tzdCZzA6rBufs2M8xuhw6v7q
- qDWdi+wNWqAt/V6xeqLXTi7RPrJYglhoP3LaL7GJIgdCxkPInr1oyPwYWFbfgFnfZIbN
- tHPMSnW7ewYtUcYfXak/dr1tSu88wN0Xr04Q3UsNyiaJrASTqoEc2Mq+6m0Ftfv/Sot5
- ODTnckkFTTswxbtjyn43fxDmYYdkWqPsWHR/I7ztin7C8F4izshgIuuD8xSVJWphT6el
- OzEhlj/29INFxUoTtZtMj48iYuruJMoh+Preq5E3aLrz8n2MOECvNCnivZhuLp2HK5zO
- iWOg==
+ d=gmail.com; s=20230601; t=1711476300; x=1712081100; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=7eMWpGiB38YJtVZd9B9lRA2TBkHD9tD0FrImJN6Sv8A=;
+ b=CP7fp39NekN57gwfNpYzpOYcArmw5hamQZqEFgXjNzQAjQ776/EawH3+d5IMpLPFxb
+ gs4ULbaqgl5ksiRMKGNqxPlpLch9EdBYDsqlHexWuwxsU0B1s+hSoYAiBXQtiR/0sT7T
+ jPP5Kjugh4rNaJL7U+BSrfrdx7IpKnBHMin2/ub3qEwNP9u8PDpwLQcO9BPqxgSlA0sx
+ 08Be5GZIZVu/Ad6oU02NnjHtqD2/rWrm3fPXOF1DbbEko66xbZGkA1+QMEVVgl10jHbo
+ zT3nnhr+iRIip/I1jZ7w3yhtJZoFmU/IbqfF141qx78BYm29kV+G4KchDFruv5kFnb62
+ PUBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711475460; x=1712080260;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PQt9uE/ppvfkTcIqGMfIYXRibl7GWLCliTRuigVWPgI=;
- b=SHYAG3G8CoonS47VEELYRQKG6k73dlvzwJz4cX9hXroAO+Y5c9cRerMSn9hr1K87Ad
- nzn2zixt5fFy31ibTrSl9/O4Kb3IS7ThzAn8FbhR2hirOX2tRWNSlEnxCd/QnHUqBqJR
- BL82eUgwMYyomTOCNuz6X0BWNdMDp77EJONnwdd1PZeXIWlmnrkIddXlyiQv7F+EFt8c
- FvDYx69KdmlrUimQCvfB0nDIZMWWbh717XQWw7TBJtBni1tzqhjgmYq6guNoPMyBC1vo
- QIWP229S3LtdrZ3ReSY5mZ9j5fgN/RrN1ccMouyUjyaGemMDh9F4zIfP7IRRfM9a0M2b
- VMyw==
+ d=1e100.net; s=20230601; t=1711476300; x=1712081100;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=7eMWpGiB38YJtVZd9B9lRA2TBkHD9tD0FrImJN6Sv8A=;
+ b=OmbyJlORgFoijMpGhOaZFg5ICIhjxTx6Ld/mFGpA3ag4fgN1DCAD53bVzQv6fau2b4
+ 6wsxGqZpsNEAm72VVhY+KW6rsf5SdwmjZ+e6tspFEoRpsaEg48ddl8IbiL+zvUfIk2yS
+ nS5FzTbS89XQVXx9UlUhH971oxGu1JwnE7jbUwInYMGWJ2P/UQfZtwg3j7YXz6mIRXOi
+ CVmTbX+0c9ZF6XIrhVLSp8iPZDIq4bCeF9+wVYAI+ZoSYRE/6RC0HzLORM/CNMXJoylP
+ ODAxFSR3nh2XBb+3lXWNM620+Qv1rT4i8DETo6yFIW/wPqZToV/HSjeIWYlkb2EPIVvS
+ F6kA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWFwSU2Bm3s7OSwUZGCs4/BL+eq3fTe7Sk7oZYKh5mXkmIBvNz8tKN/T7TIxJunFKJdm3uuZZQ7oWWdji2reGW84eOhPjZ3TKFtQ3AkYyXP
-X-Gm-Message-State: AOJu0YxflDkzzqJW/cfMj+jrtPK3Gg/MgeBP3D/gb6ZQKN6YfUYsThS1
- t1AopgIybqEernJgZX2pgxZkRSvr/rDM5DEnYeWsiAdTBINvkNrBfSA7TAagCEmbmXLDC2Z6hB9
- gp8hJIP2gwU9g3w5SZxXqt9ZxHWbua6E0HGPi/A==
-X-Google-Smtp-Source: AGHT+IHgaKfWmnWc7zIsttUGrVkvAZrzsd0nsGPCX83cPi+b3E0jY3GMekdJomBN/FEgwvmEt+1EzeQQuU9eKhkIlew=
-X-Received: by 2002:a5b:590:0:b0:dcc:7b05:4cbb with SMTP id
- l16-20020a5b0590000000b00dcc7b054cbbmr8591652ybp.31.1711475459884; Tue, 26
- Mar 2024 10:50:59 -0700 (PDT)
+ AJvYcCVSeVVMDOgsKNM7L9KyZiI9pJX/ULNwkrBaZyvmbxgNR6JESmypXmCv9S79a7jufs2nB4gxQNE/b9eMozkDMo6HaO6qY2qJEgNbpWwBmLXOHSBmopp7QY/5RxIKYe5Xg4FcrHu1Pms72YwaHtOqZPRG
+X-Gm-Message-State: AOJu0YyvK6Me9WQ9cTapG3S0HLIc3ucMaj2KVmWTwYsFspBnXi5Issuq
+ fXfedzkAt0Kmz8KJx7aVjO8iO7UZB1yiHlalwVIg9PvSoExj95PdTz9L3wN1Xm2Wfs28HqH4YBr
+ iVlbWVHxwOjYu1OmeGYKt8/Cc7yY=
+X-Google-Smtp-Source: AGHT+IGvvgt2+h25XM0X3VAXSRyRgKXJ48v9Kzeutnr3W8gcWQwcEQKbgUgAeAh3qw6Qfjc+OoTfXR99bSWeh+7bAwo=
+X-Received: by 2002:a17:90a:d150:b0:2a0:4a33:c3a6 with SMTP id
+ t16-20020a17090ad15000b002a04a33c3a6mr3012373pjw.44.1711476300538; Tue, 26
+ Mar 2024 11:05:00 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240326-msm-dp-cleanup-v1-0-e775556ecec0@quicinc.com>
- <20240326-msm-dp-cleanup-v1-6-e775556ecec0@quicinc.com>
-In-Reply-To: <20240326-msm-dp-cleanup-v1-6-e775556ecec0@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 26 Mar 2024 19:50:49 +0200
-Message-ID: <CAA8EJpqce45f1Q+speRQo6NbtEtMq9BZWx36pbTAQGjjTyWCoA@mail.gmail.com>
-Subject: Re: [PATCH 6/6] drm/msm/dp: Use function arguments for audio
- operations
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Bjorn Andersson <quic_bjorande@quicinc.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 26 Mar 2024 19:04:33 +0100
+Message-ID: <CANiq72mjc5t4n25SQvYSrOEhxxpXYPZ4pPzneSJHEnc3qApu2Q@mail.gmail.com>
+Subject: drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error: variable
+ 'out' set but not used
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno@lists.freedesktop.org, linux-kernel <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,29 +79,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 26 Mar 2024 at 17:06, Bjorn Andersson <andersson@kernel.org> wrote:
->
-> From: Bjorn Andersson <quic_bjorande@quicinc.com>
->
-> The dp_audio read and write operations uses members in struct dp_catalog
-> for passing arguments and return values. This adds unnecessary
-> complexity to the implementation, as it turns out after detangling the
-> logic that no state is actually held in these variables.
->
-> Clean this up by using function arguments and return values for passing
-> the data.
->
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_audio.c   | 20 +++++--------------
->  drivers/gpu/drm/msm/dp/dp_catalog.c | 39 +++++++++++++------------------------
->  drivers/gpu/drm/msm/dp/dp_catalog.h | 18 +++++++++--------
->  3 files changed, 28 insertions(+), 49 deletions(-)
+Hi,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In today's next, I got:
 
-Thanks a lot for the cleanup!
+    drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error: variable
+'out' set but not used [-Werror,-Wunused-but-set-variable]
 
---
-With best wishes
-Dmitry
+`out` seems to be there since commit 64d6255650d4 ("drm/msm: More
+fully implement devcoredump for a7xx").
+
+Untested diff below assuming `dumper->iova` is constant -- if you want
+a formal patch, please let me know.
+
+Cheers,
+Miguel
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+index 1f5245fc2cdc..a847a0f7a73c 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+@@ -852,7 +852,7 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
+             (block->type << 8) | i);
+
+         in += CRASHDUMP_READ(in, REG_A6XX_HLSQ_DBG_AHB_READ_APERTURE,
+-            block->size, dumper->iova + A6XX_CD_DATA_OFFSET);
++            block->size, out);
+
+         out += block->size * sizeof(u32);
+     }
