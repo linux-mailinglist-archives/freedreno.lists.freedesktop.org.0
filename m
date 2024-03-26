@@ -2,65 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2352288CADA
-	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 18:29:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E46EF88CAEB
+	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 18:31:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC74F10F15F;
-	Tue, 26 Mar 2024 17:29:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88DDC10F16C;
+	Tue, 26 Mar 2024 17:31:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="wt8Ic3/5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="leL6xffx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
- [209.85.219.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7E9210F15F
- for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 17:29:24 +0000 (UTC)
-Received: by mail-yb1-f170.google.com with SMTP id
- 3f1490d57ef6-dc74e33fe1bso5688944276.0
- for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 10:29:24 -0700 (PDT)
+Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
+ [209.85.219.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C8FC10F16C
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 17:31:45 +0000 (UTC)
+Received: by mail-yb1-f173.google.com with SMTP id
+ 3f1490d57ef6-dc6dcd9124bso5655584276.1
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 10:31:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711474163; x=1712078963; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1711474304; x=1712079104; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=11p0UMmKH1MnLtrO/gYwy55UQmZhc7eSQzB1zZ0+1Y8=;
- b=wt8Ic3/5dmOy/fiZwC5ssxwv6miDZhgBq1bQ0RIUNz+Lted8pqrFUi6+ZN7YQuotgg
- SrsQ+aVY82Y1Va0/Wg7GOqmkmDpcpolI9wK/W+R7Vl40UY+ch5MzvV6kQdA1bcKjzqZh
- QFv3/MBYbVgMa23oCFA7yCDaH9fMzUCRv6Gd2QGvH+Dx5gFH7LipRsaFaTnb1/7NWV0S
- M/FqSMGa1JL810AcaoL04Rnp+a+kr/LfL/I9OQbm38jVqSOiiHhBBiCiLLRcF2RNVQae
- CNKSKgjSuYmqqgWfCDIA7ssONfUMh9iFG7vJ/ndFVh4EpfEkWatJj9xJeHKQ5Dwa1upd
- uk8Q==
+ bh=9zt/phGBfZSdp8qy9N6Gw8zdXEBb0+nioLRknU84U6I=;
+ b=leL6xffxc47ndK17J0r69UV9d6fbDFFmmm0xo4Z9rS0abwvJUG/zg7fR05isYTOp7j
+ ZkVhQhHCQLNTY7TlBMzWuI8GcJ1IedT86dCM8QKroEqUqQZpIqCx+7PERfDdZl6nCI0Q
+ lfwYkCmf75RlAizy4fT+NpuQnPB2Z0X83QAVgGEpRyd1OZHIf9NhJ6NVlIarWHz9S15U
+ rX1aFa3kFILdIyTS6oqX/jXGjGnsWyYQapcQgfyBLdjMa5PdGWCs8fuAQ+qy6/phhSpE
+ Gm4+x0cIdeQ+pLTfIpxFemKK1eVyYtNfxMH6jkLx1LiGD+isU8pG+pZRqjdq4JH2bDWQ
+ ttMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711474163; x=1712078963;
+ d=1e100.net; s=20230601; t=1711474304; x=1712079104;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=11p0UMmKH1MnLtrO/gYwy55UQmZhc7eSQzB1zZ0+1Y8=;
- b=Up2uIsnyffn7ad5uDVyUVUCyM9bKU8lpaAS90lkx7j/8L0UcbT3RuqYBjnOuNU+xUL
- /OlNQYTYXwX27fY6kCYbmKnsLMrEgsxK1t8cCRO/L7/CXO6Rp01LxFBWI6KY0tK5aJOW
- Ve8KmKeomTYrWvVNt1jR0uWNNTe/9DYW/UnpjBgWDoVF3mNvIV/ixM0BK52SImHxZBhu
- XLJ9CaUY1DkRshhgO9s5/dLho1eeXFSzRIbGp5E2SCrdlLZGhFWdW/pyyDnOtPykc/D/
- M1lG+GayiS+fMLICAu14wnVxGokr7DNnxt1vHCS50K1PY4YHq2LQ93+tbzi6bRJ7nS5u
- VO7A==
+ bh=9zt/phGBfZSdp8qy9N6Gw8zdXEBb0+nioLRknU84U6I=;
+ b=to9nMVHnAOT1ujIBu3k32myCHcHTqX6sOQFJeUQrv5D3H/UVsnCvgzoZLMA2oFjXLB
+ JelpluFkm7frNchwaEpfsShkBg4SUhErIXokQ70WCkesWB0zGk6MLmIiacAA/5f79Jla
+ 8u2UxSoqajWaS9Ia7hQcRBuVBBbtJKVrF+/O5eju2obMHOf7GFxvHzkM3W9T87PGobbE
+ eJJ+U91aFKZqxceN16b+XC0kELBgMpt2bysg5wXne7LRhGhD8w/4TCNquK/TG5wzVR6l
+ Zx2aemIcvDZKDGAZZtvnTrdq4A+zuQQfUS6rvQWhSgFtCYI7gJ32xRIL3DEMwF2y6Cp4
+ jb8A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX1NF1y9FuZyx+nNsKJ/O/R3IVIJ/q1ApFNhCpP5IC4dSLks5+sjgcERvoZ27IeNxbMqBSSezKYoy5SvU1iH0AoDfag38i9V3qGGwf0esV8
-X-Gm-Message-State: AOJu0Yz4wkO3pi5Pfses0Lqu/P2ljNZv1/zlsBtBzlQeLJse6neKIjmL
- b14ZS7TL64JEGUQjWedcjX9tU7ACvqoHKbVr0cn4VFpBnDWQ9pj1XSV65p6FanmEySJ9b5cpTdn
- rzPnYwwXtMfVoLmKTNnI7dXPDYOuhiU6hh4VSDg==
-X-Google-Smtp-Source: AGHT+IEOabZ1Kz0WgVjOqqWDaky7HSvouC3ZuU/CFz3IlxB6Zt/5TpK+icVIpdKPsEQ3pgI240eYE6V09+ITV2S47Yg=
-X-Received: by 2002:a5b:98f:0:b0:dc7:42b8:2561 with SMTP id
- c15-20020a5b098f000000b00dc742b82561mr9218122ybq.34.1711474163590; Tue, 26
- Mar 2024 10:29:23 -0700 (PDT)
+ AJvYcCWGbSVy7tFvbRm2eteJVvu4PQIUvY7AGspz0BDliN7VfedqxsKOLDpZLBruNUQ9QhldenSkXvP2ay0gF4AVQH/+OZnWokpkyhU8UKc/DmjU
+X-Gm-Message-State: AOJu0YyYP/EDglYgxCVYiT3DKFK7jkt+kxlGRfoDtkte8UKN8BJoJm6j
+ WYan+G7TJvf3P9hMd9DdNyPg6L/pGnpkSapUCzw37FvInXoapUc5QogOXNrufZUPcwVLurCBWeX
+ DN+0GimoE2p9Uzg62VYlOIMao7qYw8vIsHQFS0g==
+X-Google-Smtp-Source: AGHT+IHKvErihvCqyYvqxnaKemrvy7TNx3gwuqYnQoUJPA6s9U6270M569opHM8owaC5W9WEJhp8lM+R6e3WArVuFyo=
+X-Received: by 2002:a25:db10:0:b0:dcb:be59:25e1 with SMTP id
+ g16-20020a25db10000000b00dcbbe5925e1mr291813ybf.30.1711474304335; Tue, 26 Mar
+ 2024 10:31:44 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240326-msm-dp-cleanup-v1-0-e775556ecec0@quicinc.com>
- <20240326-msm-dp-cleanup-v1-2-e775556ecec0@quicinc.com>
-In-Reply-To: <20240326-msm-dp-cleanup-v1-2-e775556ecec0@quicinc.com>
+ <20240326-msm-dp-cleanup-v1-4-e775556ecec0@quicinc.com>
+In-Reply-To: <20240326-msm-dp-cleanup-v1-4-e775556ecec0@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 26 Mar 2024 19:29:12 +0200
-Message-ID: <CAA8EJpqeV-GCizJ5t-BvLDt_O0k6qQ+omma+8KkwFtX3PP_uxw@mail.gmail.com>
-Subject: Re: [PATCH 2/6] drm/msm/dp: Removed fixed nvid "support"
-To: Bjorn Andersson <andersson@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
+Date: Tue, 26 Mar 2024 19:31:33 +0200
+Message-ID: <CAA8EJpoJQ+K6S7PbeWt740WhaMRWbNmu2LXz1Js+x8HgzuH24A@mail.gmail.com>
+Subject: Re: [PATCH 4/6] drm/msm/dp: Use function arguments for aux writes
+To: Bjorn Andersson <andersson@kernel.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
@@ -87,24 +86,23 @@ On Tue, 26 Mar 2024 at 17:06, Bjorn Andersson <andersson@kernel.org> wrote:
 >
 > From: Bjorn Andersson <quic_bjorande@quicinc.com>
 >
-> The "desc" member of struct dp_panel is zero-initialized during
-> allocation and never assigned, resulting in dp_ctrl_use_fixed_nvid()
-> never returning true. This returned boolean value is passed around but
-> never acted upon.
+> The dp_aux write operations takes the data to be operated on through a
+> member of struct dp_catalog, rather than as an argument to the function.
 >
-> Perform constant propagation and remove the traces of "fixed nvid".
->
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_catalog.c |  2 +-
->  drivers/gpu/drm/msm/dp/dp_catalog.h |  2 +-
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 17 +----------------
->  drivers/gpu/drm/msm/dp/dp_panel.h   |  1 -
->  4 files changed, 3 insertions(+), 19 deletions(-)
+> No state is maintained other than across the calling of the functions,
+> so replace this member with a function argument.
+
+Definitely yes, thank you!
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Kuogee could you possibly comment, why was this necessary at all?
+>
+> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_aux.c     | 9 +++------
+>  drivers/gpu/drm/msm/dp/dp_catalog.c | 8 ++++----
+>  drivers/gpu/drm/msm/dp/dp_catalog.h | 5 ++---
+>  3 files changed, 9 insertions(+), 13 deletions(-)
 
 -- 
 With best wishes
