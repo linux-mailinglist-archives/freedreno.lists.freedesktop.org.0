@@ -2,81 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CDF088B2EF
-	for <lists+freedreno@lfdr.de>; Mon, 25 Mar 2024 22:39:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 923A588BBD8
+	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 09:00:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B3B710EB16;
-	Mon, 25 Mar 2024 21:39:22 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="pis1j0nd";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FDCC10EDAC;
+	Tue, 26 Mar 2024 08:00:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8FF510EA7E;
- Mon, 25 Mar 2024 21:39:20 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42PLNbd4012736; Mon, 25 Mar 2024 21:39:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=0jLGL4SMuqDxWHqmlXOEG0WE44DYRZawG79sF/kR754=; b=pi
- s1j0ndkzxZgqgS56A7sv42VCkAaU8tBoR/bhLQXBXLclpGP7YJYL1rOqUIhNoJN4
- TSGuOJK40x2SXnFB2uhoCcXcL3YLAqOJTmDYWmO4GKdiViqq9aCbh1bU6HIv65+A
- 70Yxt1uS2hAV5xAbWqPWlNvij4MwBBINmhq1FD+0ckkXFeQBO5UD/mguc2oPDzQV
- UZVFo8haUXOYHbDi6P4Epn/SG4pAy7zl0X5X6CJsT3YSXq6eyEX8bPbux1moB5Gj
- JOhxzZMoCO2RmkrvLtXA2PEnAtmCTQioV9CZPO6emNMJtPAoqAvxAri79PCeY+kR
- veOO/OZzd3K3QC+vTk2w==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3x3h52r0s7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 25 Mar 2024 21:39:18 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42PLdGLx018575
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 25 Mar 2024 21:39:16 GMT
-Received: from [10.110.56.183] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 25 Mar
- 2024 14:39:14 -0700
-Message-ID: <6220c995-5893-9da3-e7c6-e1f8d292be64@quicinc.com>
-Date: Mon, 25 Mar 2024 14:39:12 -0700
+X-Greylist: delayed 588 seconds by postgrey-1.36 at gabe;
+ Tue, 26 Mar 2024 08:00:47 UTC
+Received: from gauss.telenet-ops.be (gauss.telenet-ops.be [195.130.132.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B389510EDAC
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 08:00:47 +0000 (UTC)
+Received: from xavier.telenet-ops.be (xavier.telenet-ops.be
+ [IPv6:2a02:1800:120:4::f00:14])
+ by gauss.telenet-ops.be (Postfix) with ESMTPS id 4V3hnF24tTz4wwch
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 08:50:57 +0100 (CET)
+Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed80:76d0:2bff:fec8:549])
+ by xavier.telenet-ops.be with bizsmtp
+ id 3Kqp2C00C0SSLxL01KqpkN; Tue, 26 Mar 2024 08:50:56 +0100
+Received: from geert (helo=localhost)
+ by ramsan.of.borg with local-esmtp (Exim 4.95)
+ (envelope-from <geert@linux-m68k.org>) id 1rp1a5-004zii-Gc;
+ Tue, 26 Mar 2024 08:50:49 +0100
+Date: Tue, 26 Mar 2024 08:50:49 +0100 (CET)
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+To: linux-kernel@vger.kernel.org
+cc: linux-crypto@vger.kernel.org, Chris Zankel <chris@zankel.net>, 
+ Max Filippov <jcmvbkbc@gmail.com>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Oded Gabbay <ogabbay@kernel.org>, 
+ =?ISO-8859-15?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
+Subject: Re: Build regressions/improvements in v6.9-rc1
+In-Reply-To: <20240325200315.3896021-1-geert@linux-m68k.org>
+Message-ID: <8d78894-dd89-9f4d-52bb-1b873c50be9c@linux-m68k.org>
+References: <CAHk-=wgOw_13JuuX4khpn4K+n09cRG3EBQWufAPBWoa0GLLQ0A@mail.gmail.com>
+ <20240325200315.3896021-1-geert@linux-m68k.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/msm: Add newlines to some debug prints
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: <linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>
-References: <20240325210810.1340820-1-swboyd@chromium.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240325210810.1340820-1-swboyd@chromium.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 26ruocLNZy91ePL63B0oOr9hcAWZJxyH
-X-Proofpoint-GUID: 26ruocLNZy91ePL63B0oOr9hcAWZJxyH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-25_21,2024-03-21_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 adultscore=0
- suspectscore=0 priorityscore=1501 bulkscore=0 mlxlogscore=898
- malwarescore=0 spamscore=0 lowpriorityscore=0 phishscore=0 clxscore=1011
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2403210001 definitions=main-2403250134
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,21 +61,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Mon, 25 Mar 2024, Geert Uytterhoeven wrote:
+> Below is the list of build error/warning regressions/improvements in
+> v6.9-rc1[1] compared to v6.8[2].
+>
+> Summarized:
+>  - build errors: +8/-8
 
+   + /kisskb/src/crypto/scompress.c: error: unused variable 'dst_page' [-Werror=unused-variable]:  => 174:38
 
-On 3/25/2024 2:08 PM, Stephen Boyd wrote:
-> These debug prints are missing newlines, leading to multiple messages
-> being printed on one line and hard to read logs. Add newlines to have
-> the debug prints on separate lines. The DBG macro used to add a newline,
-> but I missed that while migrating to drm_dbg wrappers.
-> 
-> Fixes: 7cb017db1896 ("drm/msm: Move FB debug prints to drm_dbg_state()")
-> Fixes: 721c6e0c6aed ("drm/msm: Move vblank debug prints to drm_dbg_vbl()")
-> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-> ---
->   drivers/gpu/drm/msm/msm_fb.c  | 6 +++---
->   drivers/gpu/drm/msm/msm_kms.c | 4 ++--
->   2 files changed, 5 insertions(+), 5 deletions(-)
-> 
+xtensa-gcc13/xtensa-allmodconfig
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+   + /kisskb/src/drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h: error: 'gen7_0_0_external_core_regs' defined but not used [-Werror=unused-variable]:  => 924:19
+   + /kisskb/src/drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h: error: 'gen7_2_0_external_core_regs' defined but not used [-Werror=unused-variable]:  => 748:19
+
+arm64-gcc5/arm64-allmodconfig
+powerpc-gcc5/powerpc-allmodconfig
+powerpc-gcc5/powerpc-allyesconfig
+powerpc-gcc5/ppc32_allmodconfig
+powerpc-gcc5/ppc64_book3e_allmodconfig
+powerpc-gcc5/ppc64le_allmodconfig
+sparc64-gcc5/sparc64-allmodconfig
+
+   + /kisskb/src/drivers/gpu/drm/xe/xe_lrc.c: error: "END" redefined [-Werror]:  => 100
+
+mips-gcc8/mips-allmodconfig
+mips-gcc13/mips-allmodconfig
+
+   + error: arch/sparc/kernel/process_32.o: relocation truncated to fit: R_SPARC_WDISP22 against `.text':  => (.fixup+0xc), (.fixup+0x4)
+   + error: arch/sparc/kernel/signal_32.o: relocation truncated to fit: R_SPARC_WDISP22 against `.text':  => (.fixup+0x18), (.fixup+0x8), (.fixup+0x0), (.fixup+0x20), (.fixup+0x10)
+   + error: relocation truncated to fit: R_SPARC_WDISP22 against `.init.text':  => (.head.text+0x5100), (.head.text+0x5040)
+   + error: relocation truncated to fit: R_SPARC_WDISP22 against symbol `leon_smp_cpu_startup' defined in .text section in arch/sparc/kernel/trampoline_32.o:  => (.init.text+0xa4)
+
+sparc64-gcc13/sparc-allmodconfig
+
+> [1] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/4cece764965020c22cff7665b18a012006359095/ (all 138 configs)
+> [2] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/e8f897f4afef0031fe618a8e94127a0934896aba/ (all 138 configs)
+
+Gr{oetje,eeting}s,
+
+ 						Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+ 							    -- Linus Torvalds
