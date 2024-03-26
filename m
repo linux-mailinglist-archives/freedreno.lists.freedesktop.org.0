@@ -2,70 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20BAF88C64E
-	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 16:06:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE3F588CAB5
+	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 18:25:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A91F210F02F;
-	Tue, 26 Mar 2024 15:06:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 943DF10F13B;
+	Tue, 26 Mar 2024 17:25:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xicm2wkG";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="f5HCXBY1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0570310F027;
- Tue, 26 Mar 2024 15:06:49 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6696B612C5;
- Tue, 26 Mar 2024 15:06:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CC6EC4166B;
- Tue, 26 Mar 2024 15:06:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711465608;
- bh=VZkbxJstwSPISSjebtghTsFMzbcGY1Gg49TU66g37Zo=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Xicm2wkGcgKxv40fIqLn5ecM0mu273FOSfH+JEzZk54ips0Slq3E1+wHk1LeqGman
- i94Pe+1fHoaPB8937WLJMsCwl6oACoMSXaJEAFqqdwQTwVnNBZz4bM8LRl05Z3NWxv
- QTbxCTtDpCtkz36ZraLHNE56X6r1koaB+PQKLL3J+JSR+XcOkgoufrUs8BL9eJcsfk
- Y7ut7mu9cJ++VyKWbEJtt048cRfPpMfR7Lvq/lcY5lgKSEnsVO7zJxJ0GIDOTSgzWY
- YT7GK44loq95Non81dEoHboBK2FDuaM5Pv2iXUGXGwlaLhGijjdyRqDjQvDA5OQ86W
- bAnkE0g+9JsAg==
-From: Bjorn Andersson <andersson@kernel.org>
-Date: Tue, 26 Mar 2024 08:11:34 -0700
-Subject: [PATCH 6/6] drm/msm/dp: Use function arguments for audio
- operations
+Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com
+ [209.85.219.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7546E10F11F
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 17:25:42 +0000 (UTC)
+Received: by mail-yb1-f177.google.com with SMTP id
+ 3f1490d57ef6-dcd9e34430cso5989594276.1
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 10:25:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1711473941; x=1712078741; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=TEdNW8/uGdjjd6EX6eCNJ+oK6HuOhO4oxjWYMugQ7qE=;
+ b=f5HCXBY1xmqRxXSEIy4hDTrHRmKPhP30VKQFz1PZv9z1233nZPNZihJ2st6p4tWjgB
+ P6pHJyU5jOMXicfV0mpoC3jjji/J/YbCySoYcP53fZ8UgdvvsJ1XZITsn04CQExQtDaz
+ v8MlxOJ43z8NxJXh2xM5b3bbztZP5rzQ4c94FpqYyNXrNCQ6tbN+HFBRjtJM69CYTTjq
+ Qf4JpTpz8pTsUFlSymQm3Bbw0MqynV0gfV7evux/Cz2667huMQs9JfVsDG6Dmtaay00c
+ oQrDCAFcxkuEjBvszRbTYt+62g5Rfe9LQ2ZRIMcfosTHwU8xi2o6z0+e3+nuiiG7AtkO
+ J85g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711473941; x=1712078741;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TEdNW8/uGdjjd6EX6eCNJ+oK6HuOhO4oxjWYMugQ7qE=;
+ b=pTC/wYJjrqHSqibJwfV4ozXW0UpRr5hVKxL0jeKCoTH+uQmnNnhJ51nKutmR+xNpcz
+ faligvvy6AHCuh75G8uBMIzEogs7Hin3TeHdMB//gQyvaIGogLzb49KXe050MRKrpPe5
+ 7QKuW+lOI0xxz+W6gly2flWTGE/ehlfBd6+IPiCxAu53S6GaDmnt3JQjlqDE46o8f8Qh
+ /lUgRpcWa0BAwS6GKkPATetrfsGzP95rd7zfBIGcwU8XkqJLi/bb3w+oHpgqSGDT0o2v
+ h6CF1E6mbZJIegmXnuCyFahPBL0XhRLm4N6qBnBxmt5e1cDHYKNBkQWeD767CkAzGzWf
+ 0xpQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVFWFwzwSiQsPcL8hWBK49D2dxXHh5sbAl2UIEFtMGOAndAH+F9GBq/1HQLaDxPysljnV3gV3w+h+DnrDiKRk8oVo4MpFF+EdHl0+xFpuSX
+X-Gm-Message-State: AOJu0Yw1fHz042XdpUVLqO6X00j6h1CQncN8hiu2lJfqNo+hIbjPU0+B
+ 1cYgHjhM8nzJhv/Rgc012PRLnd9df0J/VvBKkgqxiq3/FAfYbpRuwUF9vBVT8fcwz6tzjr0gAkm
+ gmKvCNEIIbXiP1zsVkzMj8zY2GrJpuaK4GE6z1w==
+X-Google-Smtp-Source: AGHT+IElgsfXK1k0/1DM7zOc8OoCYkRnDISpRbo+Bkm3BattXbANP61MPSEV6vui3iEtoCHBc2Kn/kL4l17pBRyy4Qs=
+X-Received: by 2002:a25:db85:0:b0:dd9:2a67:f470 with SMTP id
+ g127-20020a25db85000000b00dd92a67f470mr1553098ybf.25.1711473940945; Tue, 26
+ Mar 2024 10:25:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240326-msm-dp-cleanup-v1-6-e775556ecec0@quicinc.com>
 References: <20240326-msm-dp-cleanup-v1-0-e775556ecec0@quicinc.com>
-In-Reply-To: <20240326-msm-dp-cleanup-v1-0-e775556ecec0@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Bjorn Andersson <quic_bjorande@quicinc.com>
-X-Mailer: b4 0.12.4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8282;
- i=quic_bjorande@quicinc.com; h=from:subject:message-id;
- bh=BcOYwhP7HynBIuV3UQKuBFCsaFgtfuW2v5qo9WikuOU=;
- b=owEBgwJ8/ZANAwAIAQsfOT8Nma3FAcsmYgBmAuWigAT7Voi3Pa6Z9JYLj6PQspagIJviNa3KL
- zO5hD5FK42JAkkEAAEIADMWIQQF3gPMXzXqTwlm1SULHzk/DZmtxQUCZgLlohUcYW5kZXJzc29u
- QGtlcm5lbC5vcmcACgkQCx85Pw2ZrcUmCg/+OBS1X4s/HW/NVbz79/qB0NxNG4p43zMPeDwd/L6
- nv7j6zBJ4JDsaW5MEunohTC2WCHrNkFlAk3gjf4eUVEJMBtwNkL7CHMjSutFXc5wJ11oWV6lxso
- 6QN9A93EjoJMrEvWEW2ldlHjaCOGqq67aFZ/qwK6yA/bda0L1ZeuwGQkAlAMpQfOQfqj+iLmlZs
- XDmQMgyQ9cN/38/iSYn9oBwi2L9GlowtdorLvN/VPqlwYfvPiYPQpaXJSGZ283BizMqMLYuoqSN
- l+Mhm1hVkSEAI2rC0N7JYK3x/tTg79KKVwqbp8Z3Z2kTakyrht2DumATzjgKpIX8gMtYTthvHvO
- ZceDSUbIsYZ07MbpAfMkHCWoj4oUzpnISg32FgdUhlW0Xcz6kAzaFc2ji0vCNcV9FKMV6iEEMMz
- fz7/QFJmxcEnHSRPsI9osststIcjBwrpvSosX1bbuEePkLJEvywB0OlQXJG8ex+l+t0pQBTrmi9
- HfcaOfsZte4D0tcVV+mfXXX1wXc/+GzPxlwog0Gr6G2zTXuQQeiDLlqwICOqX5fmgMkqMP2iqr1
- H7qK9bENb7soJ1120f8UImjlIRu6wXFMzzkzYfDnwpTXoYHuyoco7sVHbe7PNAcBBRADjWNnSyD
- iGQS0FifTT6cD8/y/vVAEopPZitDOmW+1lYV8a2tBVDI=
-X-Developer-Key: i=quic_bjorande@quicinc.com; a=openpgp;
- fpr=05DE03CC5F35EA4F0966D5250B1F393F0D99ADC5
+ <20240326-msm-dp-cleanup-v1-3-e775556ecec0@quicinc.com>
+In-Reply-To: <20240326-msm-dp-cleanup-v1-3-e775556ecec0@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 26 Mar 2024 19:25:30 +0200
+Message-ID: <CAA8EJprVYSSXj5y2TDLiUVTR4r1qaYjgbBDswaHAFeapQ0wPcw@mail.gmail.com>
+Subject: Re: [PATCH 3/6] drm/msm/dp: Remove unused defines and members
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Bjorn Andersson <quic_bjorande@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,235 +82,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Bjorn Andersson <quic_bjorande@quicinc.com>
+On Tue, 26 Mar 2024 at 17:06, Bjorn Andersson <andersson@kernel.org> wrote:
+>
+> From: Bjorn Andersson <quic_bjorande@quicinc.com>
+>
+> Throughout the Qualcomm Displayport driver a number of defines and
+> struct members has become unused, but lingers in the code. Remove these.
+>
+> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_audio.c   |  5 -----
+>  drivers/gpu/drm/msm/dp/dp_catalog.c |  1 -
+>  drivers/gpu/drm/msm/dp/dp_catalog.h | 17 -----------------
+>  drivers/gpu/drm/msm/dp/dp_ctrl.h    |  1 -
+>  drivers/gpu/drm/msm/dp/dp_display.c |  5 -----
+>  drivers/gpu/drm/msm/dp/dp_display.h |  3 ---
+>  drivers/gpu/drm/msm/dp/dp_drm.c     |  2 --
+>  drivers/gpu/drm/msm/dp/dp_link.c    |  4 ----
+>  drivers/gpu/drm/msm/dp/dp_link.h    |  1 -
+>  drivers/gpu/drm/msm/dp/dp_panel.h   |  2 --
+>  10 files changed, 41 deletions(-)
+>
 
-The dp_audio read and write operations uses members in struct dp_catalog
-for passing arguments and return values. This adds unnecessary
-complexity to the implementation, as it turns out after detangling the
-logic that no state is actually held in these variables.
+I'd have preferred to have this split into somewhat logical chunks,
+but I think it doesn't make sense for such cleanup.
 
-Clean this up by using function arguments and return values for passing
-the data.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_audio.c   | 20 +++++--------------
- drivers/gpu/drm/msm/dp/dp_catalog.c | 39 +++++++++++++------------------------
- drivers/gpu/drm/msm/dp/dp_catalog.h | 18 +++++++++--------
- 3 files changed, 28 insertions(+), 49 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
-index 7fd0c1793ba3..a599fc5d63c5 100644
---- a/drivers/gpu/drm/msm/dp/dp_audio.c
-+++ b/drivers/gpu/drm/msm/dp/dp_audio.c
-@@ -32,11 +32,7 @@ static u32 dp_audio_get_header(struct dp_catalog *catalog,
- 		enum dp_catalog_audio_sdp_type sdp,
- 		enum dp_catalog_audio_header_type header)
- {
--	catalog->sdp_type = sdp;
--	catalog->sdp_header = header;
--	dp_catalog_audio_get_header(catalog);
--
--	return catalog->audio_data;
-+	return dp_catalog_audio_get_header(catalog, sdp, header);
- }
- 
- static void dp_audio_set_header(struct dp_catalog *catalog,
-@@ -44,10 +40,7 @@ static void dp_audio_set_header(struct dp_catalog *catalog,
- 		enum dp_catalog_audio_sdp_type sdp,
- 		enum dp_catalog_audio_header_type header)
- {
--	catalog->sdp_type = sdp;
--	catalog->sdp_header = header;
--	catalog->audio_data = data;
--	dp_catalog_audio_set_header(catalog);
-+	dp_catalog_audio_set_header(catalog, sdp, header, data);
- }
- 
- static void dp_audio_stream_sdp(struct dp_audio_private *audio)
-@@ -317,8 +310,7 @@ static void dp_audio_setup_acr(struct dp_audio_private *audio)
- 		break;
- 	}
- 
--	catalog->audio_data = select;
--	dp_catalog_audio_config_acr(catalog);
-+	dp_catalog_audio_config_acr(catalog, select);
- }
- 
- static void dp_audio_safe_to_exit_level(struct dp_audio_private *audio)
-@@ -344,16 +336,14 @@ static void dp_audio_safe_to_exit_level(struct dp_audio_private *audio)
- 		break;
- 	}
- 
--	catalog->audio_data = safe_to_exit_level;
--	dp_catalog_audio_sfe_level(catalog);
-+	dp_catalog_audio_sfe_level(catalog, safe_to_exit_level);
- }
- 
- static void dp_audio_enable(struct dp_audio_private *audio, bool enable)
- {
- 	struct dp_catalog *catalog = audio->catalog;
- 
--	catalog->audio_data = enable;
--	dp_catalog_audio_enable(catalog);
-+	dp_catalog_audio_enable(catalog, enable);
- }
- 
- static struct dp_audio_private *dp_audio_get_data(struct platform_device *pdev)
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-index 00ad3ebaa5a1..970d62e1610c 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-@@ -1159,34 +1159,28 @@ struct dp_catalog *dp_catalog_get(struct device *dev)
- 	return &catalog->dp_catalog;
- }
- 
--void dp_catalog_audio_get_header(struct dp_catalog *dp_catalog)
-+u32 dp_catalog_audio_get_header(struct dp_catalog *dp_catalog,
-+				enum dp_catalog_audio_sdp_type sdp,
-+				enum dp_catalog_audio_header_type header)
- {
- 	struct dp_catalog_private *catalog;
- 	u32 (*sdp_map)[DP_AUDIO_SDP_HEADER_MAX];
--	enum dp_catalog_audio_sdp_type sdp;
--	enum dp_catalog_audio_header_type header;
--
--	if (!dp_catalog)
--		return;
- 
- 	catalog = container_of(dp_catalog,
- 		struct dp_catalog_private, dp_catalog);
- 
- 	sdp_map = catalog->audio_map;
--	sdp     = dp_catalog->sdp_type;
--	header  = dp_catalog->sdp_header;
- 
--	dp_catalog->audio_data = dp_read_link(catalog,
--			sdp_map[sdp][header]);
-+	return dp_read_link(catalog, sdp_map[sdp][header]);
- }
- 
--void dp_catalog_audio_set_header(struct dp_catalog *dp_catalog)
-+void dp_catalog_audio_set_header(struct dp_catalog *dp_catalog,
-+				 enum dp_catalog_audio_sdp_type sdp,
-+				 enum dp_catalog_audio_header_type header,
-+				 u32 data)
- {
- 	struct dp_catalog_private *catalog;
- 	u32 (*sdp_map)[DP_AUDIO_SDP_HEADER_MAX];
--	enum dp_catalog_audio_sdp_type sdp;
--	enum dp_catalog_audio_header_type header;
--	u32 data;
- 
- 	if (!dp_catalog)
- 		return;
-@@ -1195,17 +1189,14 @@ void dp_catalog_audio_set_header(struct dp_catalog *dp_catalog)
- 		struct dp_catalog_private, dp_catalog);
- 
- 	sdp_map = catalog->audio_map;
--	sdp     = dp_catalog->sdp_type;
--	header  = dp_catalog->sdp_header;
--	data    = dp_catalog->audio_data;
- 
- 	dp_write_link(catalog, sdp_map[sdp][header], data);
- }
- 
--void dp_catalog_audio_config_acr(struct dp_catalog *dp_catalog)
-+void dp_catalog_audio_config_acr(struct dp_catalog *dp_catalog, u32 select)
- {
- 	struct dp_catalog_private *catalog;
--	u32 acr_ctrl, select;
-+	u32 acr_ctrl;
- 
- 	if (!dp_catalog)
- 		return;
-@@ -1213,7 +1204,6 @@ void dp_catalog_audio_config_acr(struct dp_catalog *dp_catalog)
- 	catalog = container_of(dp_catalog,
- 		struct dp_catalog_private, dp_catalog);
- 
--	select = dp_catalog->audio_data;
- 	acr_ctrl = select << 4 | BIT(31) | BIT(8) | BIT(14);
- 
- 	drm_dbg_dp(catalog->drm_dev, "select: %#x, acr_ctrl: %#x\n",
-@@ -1222,10 +1212,9 @@ void dp_catalog_audio_config_acr(struct dp_catalog *dp_catalog)
- 	dp_write_link(catalog, MMSS_DP_AUDIO_ACR_CTRL, acr_ctrl);
- }
- 
--void dp_catalog_audio_enable(struct dp_catalog *dp_catalog)
-+void dp_catalog_audio_enable(struct dp_catalog *dp_catalog, bool enable)
- {
- 	struct dp_catalog_private *catalog;
--	bool enable;
- 	u32 audio_ctrl;
- 
- 	if (!dp_catalog)
-@@ -1234,7 +1223,6 @@ void dp_catalog_audio_enable(struct dp_catalog *dp_catalog)
- 	catalog = container_of(dp_catalog,
- 		struct dp_catalog_private, dp_catalog);
- 
--	enable = !!dp_catalog->audio_data;
- 	audio_ctrl = dp_read_link(catalog, MMSS_DP_AUDIO_CFG);
- 
- 	if (enable)
-@@ -1329,10 +1317,10 @@ void dp_catalog_audio_init(struct dp_catalog *dp_catalog)
- 	catalog->audio_map = sdp_map;
- }
- 
--void dp_catalog_audio_sfe_level(struct dp_catalog *dp_catalog)
-+void dp_catalog_audio_sfe_level(struct dp_catalog *dp_catalog, u32 safe_to_exit_level)
- {
- 	struct dp_catalog_private *catalog;
--	u32 mainlink_levels, safe_to_exit_level;
-+	u32 mainlink_levels;
- 
- 	if (!dp_catalog)
- 		return;
-@@ -1340,7 +1328,6 @@ void dp_catalog_audio_sfe_level(struct dp_catalog *dp_catalog)
- 	catalog = container_of(dp_catalog,
- 		struct dp_catalog_private, dp_catalog);
- 
--	safe_to_exit_level = dp_catalog->audio_data;
- 	mainlink_levels = dp_read_link(catalog, REG_DP_MAINLINK_LEVELS);
- 	mainlink_levels &= 0xFE0;
- 	mainlink_levels |= safe_to_exit_level;
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
-index a82ab4856b50..cd1ad046a953 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.h
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
-@@ -48,9 +48,6 @@ enum dp_catalog_audio_header_type {
- };
- 
- struct dp_catalog {
--	enum dp_catalog_audio_sdp_type sdp_type;
--	enum dp_catalog_audio_header_type sdp_header;
--	u32 audio_data;
- 	bool wide_bus_en;
- };
- 
-@@ -114,12 +111,17 @@ void dp_catalog_panel_tpg_disable(struct dp_catalog *dp_catalog);
- struct dp_catalog *dp_catalog_get(struct device *dev);
- 
- /* DP Audio APIs */
--void dp_catalog_audio_get_header(struct dp_catalog *catalog);
--void dp_catalog_audio_set_header(struct dp_catalog *catalog);
--void dp_catalog_audio_config_acr(struct dp_catalog *catalog);
--void dp_catalog_audio_enable(struct dp_catalog *catalog);
-+u32 dp_catalog_audio_get_header(struct dp_catalog *dp_catalog,
-+				enum dp_catalog_audio_sdp_type sdp,
-+				enum dp_catalog_audio_header_type header);
-+void dp_catalog_audio_set_header(struct dp_catalog *dp_catalog,
-+				 enum dp_catalog_audio_sdp_type sdp,
-+				 enum dp_catalog_audio_header_type header,
-+				 u32 data);
-+void dp_catalog_audio_config_acr(struct dp_catalog *catalog, u32 select);
-+void dp_catalog_audio_enable(struct dp_catalog *catalog, bool enable);
- void dp_catalog_audio_config_sdp(struct dp_catalog *catalog);
- void dp_catalog_audio_init(struct dp_catalog *catalog);
--void dp_catalog_audio_sfe_level(struct dp_catalog *catalog);
-+void dp_catalog_audio_sfe_level(struct dp_catalog *catalog, u32 safe_to_exit_level);
- 
- #endif /* _DP_CATALOG_H_ */
 
 -- 
-2.43.0
-
+With best wishes
+Dmitry
