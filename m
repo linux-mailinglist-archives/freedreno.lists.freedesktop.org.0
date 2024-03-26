@@ -2,68 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2EB288CB7B
-	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 19:05:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53FAC88CD3A
+	for <lists+freedreno@lfdr.de>; Tue, 26 Mar 2024 20:31:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8983E10F1BF;
-	Tue, 26 Mar 2024 18:05:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27BD510F219;
+	Tue, 26 Mar 2024 19:31:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CP7fp39N";
+	dkim=pass (2048-bit key; unprotected) header.d=ravnborg.org header.i=@ravnborg.org header.b="nyeOTCdX";
+	dkim=permerror (0-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b="rL+ukD2Q";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF5610F1BC;
- Tue, 26 Mar 2024 18:05:01 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-29de2dd22d8so3207120a91.2; 
- Tue, 26 Mar 2024 11:05:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1711476300; x=1712081100; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=7eMWpGiB38YJtVZd9B9lRA2TBkHD9tD0FrImJN6Sv8A=;
- b=CP7fp39NekN57gwfNpYzpOYcArmw5hamQZqEFgXjNzQAjQ776/EawH3+d5IMpLPFxb
- gs4ULbaqgl5ksiRMKGNqxPlpLch9EdBYDsqlHexWuwxsU0B1s+hSoYAiBXQtiR/0sT7T
- jPP5Kjugh4rNaJL7U+BSrfrdx7IpKnBHMin2/ub3qEwNP9u8PDpwLQcO9BPqxgSlA0sx
- 08Be5GZIZVu/Ad6oU02NnjHtqD2/rWrm3fPXOF1DbbEko66xbZGkA1+QMEVVgl10jHbo
- zT3nnhr+iRIip/I1jZ7w3yhtJZoFmU/IbqfF141qx78BYm29kV+G4KchDFruv5kFnb62
- PUBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711476300; x=1712081100;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=7eMWpGiB38YJtVZd9B9lRA2TBkHD9tD0FrImJN6Sv8A=;
- b=OmbyJlORgFoijMpGhOaZFg5ICIhjxTx6Ld/mFGpA3ag4fgN1DCAD53bVzQv6fau2b4
- 6wsxGqZpsNEAm72VVhY+KW6rsf5SdwmjZ+e6tspFEoRpsaEg48ddl8IbiL+zvUfIk2yS
- nS5FzTbS89XQVXx9UlUhH971oxGu1JwnE7jbUwInYMGWJ2P/UQfZtwg3j7YXz6mIRXOi
- CVmTbX+0c9ZF6XIrhVLSp8iPZDIq4bCeF9+wVYAI+ZoSYRE/6RC0HzLORM/CNMXJoylP
- ODAxFSR3nh2XBb+3lXWNM620+Qv1rT4i8DETo6yFIW/wPqZToV/HSjeIWYlkb2EPIVvS
- F6kA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVSeVVMDOgsKNM7L9KyZiI9pJX/ULNwkrBaZyvmbxgNR6JESmypXmCv9S79a7jufs2nB4gxQNE/b9eMozkDMo6HaO6qY2qJEgNbpWwBmLXOHSBmopp7QY/5RxIKYe5Xg4FcrHu1Pms72YwaHtOqZPRG
-X-Gm-Message-State: AOJu0YyvK6Me9WQ9cTapG3S0HLIc3ucMaj2KVmWTwYsFspBnXi5Issuq
- fXfedzkAt0Kmz8KJx7aVjO8iO7UZB1yiHlalwVIg9PvSoExj95PdTz9L3wN1Xm2Wfs28HqH4YBr
- iVlbWVHxwOjYu1OmeGYKt8/Cc7yY=
-X-Google-Smtp-Source: AGHT+IGvvgt2+h25XM0X3VAXSRyRgKXJ48v9Kzeutnr3W8gcWQwcEQKbgUgAeAh3qw6Qfjc+OoTfXR99bSWeh+7bAwo=
-X-Received: by 2002:a17:90a:d150:b0:2a0:4a33:c3a6 with SMTP id
- t16-20020a17090ad15000b002a04a33c3a6mr3012373pjw.44.1711476300538; Tue, 26
- Mar 2024 11:05:00 -0700 (PDT)
+X-Greylist: delayed 4504 seconds by postgrey-1.36 at gabe;
+ Tue, 26 Mar 2024 19:31:09 UTC
+Received: from mailrelay5-1.pub.mailoutpod3-cph3.one.com
+ (mailrelay5-1.pub.mailoutpod3-cph3.one.com [46.30.211.244])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EB0410F21A
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 19:31:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa2;
+ h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+ from:date:from;
+ bh=8cfX7j0cZTLxYnTUI6w58EoQmIDSw6kaORCfZyfLSls=;
+ b=nyeOTCdXkrX+AnYb2SH2o8UNaN7MEL/eLOuR/HxjUcCojfmUxEf1IYSvFe57aGwCXPRpwJnc2eKvF
+ IgVer08UY4ywfd6yHdwNmVKKsRplrooqtKDG3xkplHga149okVZxGGy9GInR2g3HT1EKFlEQgQiI6/
+ UskNZ+kb3sCMlzUq7OWUJ8PNQG9121mKwNR04NB58zJFOYpyjgEF4Bal4nwnL9WKEfF5dYXjMgU4fa
+ ufj3SWJcgNd/3HKna6TzqZNQOCM8nFm4hnfFS26/dBKYNRmJso1M4n6mF9Sl0icrUSk6rEE+NCUHfW
+ Ff2IMnIPUeikUZZpj8PhtuY9h0mersw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
+ d=ravnborg.org; s=ed2;
+ h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+ from:date:from;
+ bh=8cfX7j0cZTLxYnTUI6w58EoQmIDSw6kaORCfZyfLSls=;
+ b=rL+ukD2QXe4F+m5MLDkbUa/qyyilhQ/TiMT4rGWt3HqeijcmTmhKSIz4EVkcvr5PlEK0+Oj/0biOq
+ Ngc23tKDA==
+X-HalOne-ID: c19233ce-eb9c-11ee-bd8a-9fce02cdf4bb
+Received: from ravnborg.org (2-105-2-98-cable.dk.customer.tdc.net [2.105.2.98])
+ by mailrelay5.pub.mailoutpod3-cph3.one.com (Halon) with ESMTPSA
+ id c19233ce-eb9c-11ee-bd8a-9fce02cdf4bb;
+ Tue, 26 Mar 2024 18:15:01 +0000 (UTC)
+Date: Tue, 26 Mar 2024 19:15:00 +0100
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+ Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ sparclinux@vger.kernel.org
+Subject: Re: Build regressions/improvements in v6.9-rc1
+Message-ID: <20240326181500.GA1501083@ravnborg.org>
+References: <CAHk-=wgOw_13JuuX4khpn4K+n09cRG3EBQWufAPBWoa0GLLQ0A@mail.gmail.com>
+ <20240325200315.3896021-1-geert@linux-m68k.org>
+ <8d78894-dd89-9f4d-52bb-1b873c50be9c@linux-m68k.org>
 MIME-Version: 1.0
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 26 Mar 2024 19:04:33 +0100
-Message-ID: <CANiq72mjc5t4n25SQvYSrOEhxxpXYPZ4pPzneSJHEnc3qApu2Q@mail.gmail.com>
-Subject: drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error: variable
- 'out' set but not used
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- freedreno@lists.freedesktop.org, linux-kernel <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8d78894-dd89-9f4d-52bb-1b873c50be9c@linux-m68k.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,33 +78,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Hi all.
 
-In today's next, I got:
+>   + error: arch/sparc/kernel/process_32.o: relocation truncated to fit: R_SPARC_WDISP22 against `.text':  => (.fixup+0xc), (.fixup+0x4)
+>   + error: arch/sparc/kernel/signal_32.o: relocation truncated to fit: R_SPARC_WDISP22 against `.text':  => (.fixup+0x18), (.fixup+0x8), (.fixup+0x0), (.fixup+0x20), (.fixup+0x10)
+>   + error: relocation truncated to fit: R_SPARC_WDISP22 against `.init.text':  => (.head.text+0x5100), (.head.text+0x5040)
+>   + error: relocation truncated to fit: R_SPARC_WDISP22 against symbol `leon_smp_cpu_startup' defined in .text section in arch/sparc/kernel/trampoline_32.o:  => (.init.text+0xa4)
 
-    drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error: variable
-'out' set but not used [-Werror,-Wunused-but-set-variable]
+Looks like something is too big for the available space here.
+Any hints how to dig into this would be nice.
 
-`out` seems to be there since commit 64d6255650d4 ("drm/msm: More
-fully implement devcoredump for a7xx").
+Note: this is a sparc32 allmodconfig build
 
-Untested diff below assuming `dumper->iova` is constant -- if you want
-a formal patch, please let me know.
-
-Cheers,
-Miguel
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index 1f5245fc2cdc..a847a0f7a73c 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -852,7 +852,7 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
-             (block->type << 8) | i);
-
-         in += CRASHDUMP_READ(in, REG_A6XX_HLSQ_DBG_AHB_READ_APERTURE,
--            block->size, dumper->iova + A6XX_CD_DATA_OFFSET);
-+            block->size, out);
-
-         out += block->size * sizeof(u32);
-     }
+	Sam
