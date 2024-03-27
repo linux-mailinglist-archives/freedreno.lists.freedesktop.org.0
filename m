@@ -2,83 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F5B288DAFB
-	for <lists+freedreno@lfdr.de>; Wed, 27 Mar 2024 11:11:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6E2588DAFF
+	for <lists+freedreno@lfdr.de>; Wed, 27 Mar 2024 11:11:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D06010F9C4;
-	Wed, 27 Mar 2024 10:11:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C92010F9BE;
+	Wed, 27 Mar 2024 10:11:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ulW8+mJu";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rg+qJIIl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D994410F9C6
- for <freedreno@lists.freedesktop.org>; Wed, 27 Mar 2024 10:11:06 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-56899d9bf52so8299986a12.2
- for <freedreno@lists.freedesktop.org>; Wed, 27 Mar 2024 03:11:06 -0700 (PDT)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 302E510F9C0
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Mar 2024 10:11:27 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-5684db9147dso7666207a12.2
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Mar 2024 03:11:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711534265; x=1712139065; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1711534285; x=1712139085; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=SwF133WUJ71gyiqo+7x/7zeyh8wZgFn/KTOlw97caNM=;
- b=ulW8+mJuoqsRwwc+RPeo8rYLvDvhal8zWku5BLWT2fMcuhvTLPdJBdhC00i7OiYeLT
- 2hggeNRAeybzOnLfTacTbfekeJMab1TI8RsXLP/xjmjWSQY35v4XCiL1Oq1Jn7iymSGw
- 7HRKIS5wtpw8BQRsNHJ6t5FFvmvqOfAOo1G6uM1b/FEKFZ96Pk4ZZ1jb1zjzERPWfXAX
- mC72bNZ9gBAvtLrC9TwoeXCHVhedCd2fwFpCCT4daSTcxUH8o0E6s+yO+vpKleF4T1We
- VS9tRm/5Uasaqwwl46J8hHn4rgTnNalslUC6etJUea49AjgQQv70qR0nIQaG0YNKIA8p
- +QuQ==
+ bh=uV4VykgoBvaFtbJFuj+tdXcZEMDHaQ7Dcbf3syPsKyM=;
+ b=rg+qJIIlS+usnrCKHQuaw6jZKon6VjreAJFXzbfvnJAxaKk1MXmf7p/p5Cvxp1Nzr+
+ GBttmD+T9d+73775HtLAzxOdXEM6qrifm5L5+6VaQHCfVjSneXGAxL0th1NgbyKTQQ/c
+ QtdK91A8zdgyCSm0PxhZi06jLJRNJ+F8Ctf/zR+5O6z+CvL9TnQOvCJ4jXfTzG+6Hr6N
+ cx4ZFu5Nr/IOuawLA1rJTdiBLe1pf/lnXCqRFy6UjwgcFYeKqSXSWFzKmMKdDX3IcRUU
+ 8ANGaRCKlA0xm2cCFlh83/u8U4SzU7qNnl0P9dSLhfDsDuOBLChGPN1yCOTQAhPqRwIM
+ bDZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711534265; x=1712139065;
+ d=1e100.net; s=20230601; t=1711534285; x=1712139085;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SwF133WUJ71gyiqo+7x/7zeyh8wZgFn/KTOlw97caNM=;
- b=URga0azvpmo5cOLSK7eodFminrDd9fGlIInhi3jFCGJUMkaBd08JIbDb79WnnyUfCu
- 9uVgKK9JlB0khs8kR7ChSZKoZjh3SfWp79Hy2PJNdBHth1C9ZkwPXy9/Qi/yoQ5h3U2j
- +lS2GIxGZR2fQxykgTG+DNoqrwKLxlkjd6TMTdZNdhQxC+ym8PjjznXJOQluARMH0QQl
- gP/QKCvTlEbK5NXQnAMQp1mSfsTejGCaGzZ/md1AC/Ksk28izIaa3DKMAhvwHQ8ra1Xw
- 1wOYvhvNEXMwzGaycor8PbK1hpotBLvu0Ze53jK79jQY+UY7aHb+f972HucRfMpG87zK
- Wvrg==
+ bh=uV4VykgoBvaFtbJFuj+tdXcZEMDHaQ7Dcbf3syPsKyM=;
+ b=LIfeSNzvUe3bRPoAqR7a1pLbQpf+OrLiSgYYm3G09NT4O3JUwsTMAJ/m3pAxueNvaK
+ sqKlgjob0RJEAurtUg0OR2oCk4B71NlyAfAwJH/mEF9VWx3Q4UyuqN3xx5AU5DPf8Ncv
+ GFqXCWg39Q6UNzHYnAtd6Yd0xXBjm/ikWVYP5K1kboBQGbvtHF0PGVrRUhLvR8v9Riaw
+ FZKTqT66y6hD7Nr5NdLT/NiZau9YTNOy0FygHzlzxYVLkbSbuVuD+ysYXdspa9YBbnts
+ z4yfMZH08SN/rdrx+cRoQYdt/gZBuPFfwpPodShXnVo9Zj8uDFe84vY6TTf+aQYKvxbN
+ /Iyw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXfn+rkxSski2SydJYH/BcmigQC7xI4tQRi9/hZLjHAGzc8VR7bw6M9dl4RuaV3up2KfsOo5gMHFxu0G9akIF213oAuNxtKfRzcvUDwaLKJ
-X-Gm-Message-State: AOJu0YyU7njlrxX16J8UrpCDoy3xuqu4jdKnLDxRYysWSqPPW0cxHc3e
- mVEBOO7CnkCeEUGNqMgAAHcX9dFQkrhOcJK2RHxVserRndR5IDJNnHN+ATsdtus=
-X-Google-Smtp-Source: AGHT+IFHveECrXypugtorFtwkHqVLw2sQ5qq5ULpCetmfKStGGUn73D2m9cK/B610utLrFqBNfRT5A==
-X-Received: by 2002:a17:906:69d0:b0:a46:fb17:8871 with SMTP id
- g16-20020a17090669d000b00a46fb178871mr566923ejs.76.1711534264902; 
- Wed, 27 Mar 2024 03:11:04 -0700 (PDT)
+ AJvYcCWas6x/UxuD8MFfyXBkYsXxMbNMR+Hl5iJmlK1VXQsCbPmnf55KPuBs26c3lwX/dFJVwQMZ/UMmD4zaZdUvhbYdMFfHS8xW6DLLlmoGd2hu
+X-Gm-Message-State: AOJu0YzKi0fmJ5L3pR4FJdQdtiVMvBVQTqvcdypCZqykQe5shrgJsjbz
+ JTInyqhHrNBh4I2Op+SP4iHhqtYBKk2OBPpPatt/BbH2MBhIu5ubj9ZcqzD6CR0=
+X-Google-Smtp-Source: AGHT+IGf59v1BTWS8Ah2ur7rBNaMTAp562H9EBhJzztz/GsQWi5q3N1/qykQ+wBxfI68nmkgtuCjfA==
+X-Received: by 2002:a50:9986:0:b0:56b:dce0:c795 with SMTP id
+ m6-20020a509986000000b0056bdce0c795mr266607edb.4.1711534285334; 
+ Wed, 27 Mar 2024 03:11:25 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.206.205])
  by smtp.gmail.com with ESMTPSA id
- se16-20020a170906ce5000b00a468be342bfsm5231916ejb.136.2024.03.27.03.11.03
+ bc5-20020a056402204500b0056c3048e64esm1117483edb.70.2024.03.27.03.11.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Mar 2024 03:11:04 -0700 (PDT)
-Message-ID: <9e984b5e-dc10-4fc1-aa53-f854bd3560d0@linaro.org>
-Date: Wed, 27 Mar 2024 11:11:02 +0100
+ Wed, 27 Mar 2024 03:11:24 -0700 (PDT)
+Message-ID: <966deb7d-847f-451b-8f93-017d703b50c3@linaro.org>
+Date: Wed, 27 Mar 2024 11:11:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/4] dt-bindings: display/msm: sm8150-mdss: add DP node
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
 References: <20240326-fd-fix-schema-v1-0-4475d6d6d633@linaro.org>
  <20240326-fd-fix-schema-v1-1-4475d6d6d633@linaro.org>
- <e9ce004a-952a-4a94-abe9-2a8dd96b37fb@linaro.org>
- <CAA8EJprg55BkRL5KUZ+6gNniq9TZjEem8MLqQdMZcXntvttEVg@mail.gmail.com>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -125,7 +122,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <CAA8EJprg55BkRL5KUZ+6gNniq9TZjEem8MLqQdMZcXntvttEVg@mail.gmail.com>
+In-Reply-To: <20240326-fd-fix-schema-v1-1-4475d6d6d633@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -143,34 +140,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/03/2024 09:52, Dmitry Baryshkov wrote:
-> On Wed, 27 Mar 2024 at 10:45, Krzysztof Kozlowski
-> <krzysztof.kozlowski@linaro.org> wrote:
->>
->> On 26/03/2024 21:02, Dmitry Baryshkov wrote:
->>> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
->>> index c0d6a4fdff97..40b077fb20aa 100644
->>> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
->>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
->>> @@ -53,6 +53,16 @@ patternProperties:
->>>        compatible:
->>>          const: qcom,sm8150-dpu
->>>
->>> +  "^displayport-controller@[0-9a-f]+$":
->>> +    type: object
->>> +    additionalProperties: true
->>> +
->>> +    properties:
->>> +      compatible:
->>> +        items:
->>> +          - const: qcom,sm8150-dp
->>> +          - const: qcom,sm8350-dp
->>
->> This does not look right. sm8350 has its own mdss binding file.
+On 26/03/2024 21:02, Dmitry Baryshkov wrote:
+> As Qualcomm SM8150 got support for the DisplayPort, add displayport@
+> node as a valid child to the MDSS node.
 > 
-> So just a single entry here, even though SM8150 uses fallback compat string?
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-Ah, wait, I misread, I thought it is enum.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
 Krzysztof
