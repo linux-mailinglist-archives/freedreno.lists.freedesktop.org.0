@@ -2,75 +2,129 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58CE088D301
-	for <lists+freedreno@lfdr.de>; Wed, 27 Mar 2024 01:04:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 561B688D968
+	for <lists+freedreno@lfdr.de>; Wed, 27 Mar 2024 09:45:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1057C10F53D;
-	Wed, 27 Mar 2024 00:04:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29B1910F95A;
+	Wed, 27 Mar 2024 08:45:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xTCuPwMq";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dta0xJti";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
- [209.85.219.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2727B10F53D
- for <freedreno@lists.freedesktop.org>; Wed, 27 Mar 2024 00:04:27 +0000 (UTC)
-Received: by mail-yb1-f172.google.com with SMTP id
- 3f1490d57ef6-dcbcea9c261so6271191276.3
- for <freedreno@lists.freedesktop.org>; Tue, 26 Mar 2024 17:04:27 -0700 (PDT)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C816410F95B
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Mar 2024 08:45:39 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-563cb3ba9daso6657098a12.3
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Mar 2024 01:45:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711497866; x=1712102666; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=cdWwjlLjRKWPoRjlQky5MiZwOYfdmEHMy7nWkUa2pJg=;
- b=xTCuPwMqvuu7N8Yq0+9e9cd9VhqPO0lYc6Ja4cYoouv8KtkBxIOs2YEpGy3kXwjUQ4
- IXK1h3e8G9bo816qyacihaU/3mCSTjQaHPaJCv/W7SilktWApaOzdyjQPh8YKd/27Nq3
- BX0VE8bwbfnzkWVovhqN9UE4mJRfjNvUSvi+5qFTnxMLIDYCe1vj/i9/k4HHQXOnIdIO
- GdCSurr7ov0fGqFD3f2yN6DdwscfaEyOjeJvrhgEadCwJw9pLcN7FVjUSFELVx+exju3
- dxqXRmMyhI8UMdm/C6FZGLoj5yN1029N5Zgk1RctXrk1oIWxpj9x9YgTY8zPjIQ90QHl
- k1Lw==
+ d=linaro.org; s=google; t=1711529138; x=1712133938; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=r8BP+MCy3AdS9LyyLDmQs73spIFElgeUFz99v6HNODo=;
+ b=dta0xJtiM+yqWijcPSsa6+WcZ35ip9T+ufxFPhsl4A+kOnb+Y0Uh4hP/qdG3O+RkT3
+ fOUPUDBSoucZlPJ2NIyKdDoUd25+jKUb1D5EpnenIi41v/RG45XALC4mHqLIEoqpcvvs
+ tyGlDssRzbbqhxX2A/AyMQjaUI+hU8sjpwPcG9KEgpxlbEevcIA/Iym7Sn4jCCgPExOO
+ x9VKrvA51TnJtn8nzq1mn0V0li1PQEDnRmp8+bEothZxmfyaLjsq4hITKY1dPNcs0eL6
+ CcISR80j6/8jH4mbVh/cztaHNF8/5Aol7gasvv5N9Tdls0p7fsUQ/5udDvWGR6D5MToM
+ MZ5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711497866; x=1712102666;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=cdWwjlLjRKWPoRjlQky5MiZwOYfdmEHMy7nWkUa2pJg=;
- b=BpI3FeGUVQpShgI2UGxlvmadqnQhJmVntFqTAYMDEE6nJ7EvW0EVqSzTm0vKgVB5eo
- xM4TmiZW0czbpVeIZ7sk0HuWJZ48BxY2iiSgye9jfrJipOuqo4r4OpFgKvOllZe6swhc
- UXkN8GHq6eqB7o03ZyfNba/b1+qdq6HPgEO32DdC79bB1h7qsuEkXifDI7IJ0ULL0Brk
- CbtHdYsRGB87rnWjuXr0qyDOeioTRZwB6rLaN/aOVp/XWVEJ2tXvYT4gnGPgemvMlXv+
- LNZefCXapdgWPfWRgpbM0NkgD/b2bNwUT7iuzQTHB5uNUxigICgMRFc4LxaRMYZ5mVDO
- MjTw==
+ d=1e100.net; s=20230601; t=1711529138; x=1712133938;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=r8BP+MCy3AdS9LyyLDmQs73spIFElgeUFz99v6HNODo=;
+ b=n3v2TPV4R674SfSXjMFTS5yaQ0s1N7hd8DLBPrRhcmFJR7UMNCU2jGITZnulEeophL
+ G8e1OVw5XnN1xe7anS+v6MmFwM2Y+UWDd6VZS5efR1K4pRmnVWnHz0DureHWkNzJEf8X
+ nVZSHC6NwhOHXF52aZMeEfJa6hh14c0nu9wgykMGZ7PNetp6+FVrPdHJFVYKo2SGKJKS
+ qJaGUwuHpnc8MvvGoonjApZ/TwQdWVs2/exGn2OWTG8ig1lOLrzH6vH1oRQ7zqqBgfol
+ 9nD/BruZoBkvXO+DP+hxt4MHn1J7z2edtelAQGrFNqn7aMvQXqXRpD7QxYusGjBGNU5G
+ 4xAQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXm2Je3Oj6Bfy//cEpH0lwqxxF7RWX1MOOvBKFm7+ti8ZYohzrrFMt8EXpBv+hrb/5J7N6rG36ke+67Z43JWwD12fMn1BIlnGBdrN8fK84h
-X-Gm-Message-State: AOJu0Ywco3C+dMH/CBir1526nGkzL3gm3FoGzgCag+Aw6dnpFLEIf8O9
- tp32zV3tTp9dR+BhBQQCpTo6DsRXErirTM6ujZmfmvWi+FzA2VL0RBcoD+j4zrJmzVp//AaG6MV
- OefK5mCA2TlqGd11n0Q6q/iq4Lm2YQVMW6nEf9w==
-X-Google-Smtp-Source: AGHT+IHHf7+YNvPzDN4JuLfBI6UVtPxAG+UoXbABP3viX1ebb038qkns6OH4xyJU4zdD7VxtUJLuinCpZqrd6ZCFyoY=
-X-Received: by 2002:a05:6902:4c5:b0:dcf:f525:2b81 with SMTP id
- v5-20020a05690204c500b00dcff5252b81mr2609255ybs.46.1711497866103; Tue, 26 Mar
- 2024 17:04:26 -0700 (PDT)
+ AJvYcCW/2/ZadUp7SZsvt1D+VUytgIcz5GbxOw/0sug1nMUjTKPEqU7pRNWwbkeI6gDOEQtA1frzfPiLNk7lBpfzaU010N+pwaTv/wtSlOm8Eg2J
+X-Gm-Message-State: AOJu0Ywf1gnSPXk9bXNG/go8ldCoqm78C4xEVNMTb1Xrpz1mQBdpCvvk
+ +hUOm31uDwq8HzzAipNek5txjxU9CPHx/K+7FH41tnDIHKLsbzsmM53o0n+fkLY=
+X-Google-Smtp-Source: AGHT+IHjIAlddboa9XykGoNLXc01Mdt4XEaFaJGmrWPdKgUJf366vO0vDkSTbaFFy1k09NBYQvpiww==
+X-Received: by 2002:a17:906:718f:b0:a4d:f2a3:9c3e with SMTP id
+ h15-20020a170906718f00b00a4df2a39c3emr492847ejk.4.1711529137940; 
+ Wed, 27 Mar 2024 01:45:37 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.206.205])
+ by smtp.gmail.com with ESMTPSA id
+ t5-20020a170906a10500b00a46aafc6948sm5104887ejy.74.2024.03.27.01.45.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 Mar 2024 01:45:37 -0700 (PDT)
+Message-ID: <e9ce004a-952a-4a94-abe9-2a8dd96b37fb@linaro.org>
+Date: Wed, 27 Mar 2024 09:45:35 +0100
 MIME-Version: 1.0
-References: <20240323-fd-xml-shipped-v4-0-cca5e8457b9e@linaro.org>
- <20240323-fd-xml-shipped-v4-10-cca5e8457b9e@linaro.org>
- <8c866d80-f98d-29de-59f5-3055184fa115@quicinc.com>
-In-Reply-To: <8c866d80-f98d-29de-59f5-3055184fa115@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 27 Mar 2024 02:04:15 +0200
-Message-ID: <CAA8EJppGmUPympav=NR1oYTPGs=b-DKs3a_h3oWs8tToLQOK=w@mail.gmail.com>
-Subject: Re: [PATCH v4 10/16] drm/msm: generate headers on the fly
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Masahiro Yamada <masahiroy@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>, 
- Nicolas Schier <nicolas@fjasle.eu>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-kbuild@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: display/msm: sm8150-mdss: add DP node
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <20240326-fd-fix-schema-v1-0-4475d6d6d633@linaro.org>
+ <20240326-fd-fix-schema-v1-1-4475d6d6d633@linaro.org>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzTRLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+wsGUBBMBCgA+FiEE
+ m9B+DgxR+NWWd7dUG5NDfTtBYpsFAmI+BxMCGwMFCRRfreEFCwkIBwIGFQoJCAsCBBYCAwEC
+ HgECF4AACgkQG5NDfTtBYptgbhAAjAGunRoOTduBeC7V6GGOQMYIT5n3OuDSzG1oZyM4kyvO
+ XeodvvYv49/ng473E8ZFhXfrre+c1olbr1A8pnz9vKVQs9JGVa6wwr/6ddH7/yvcaCQnHRPK
+ mnXyP2BViBlyDWQ71UC3N12YCoHE2cVmfrn4JeyK/gHCvcW3hUW4i5rMd5M5WZAeiJj3rvYh
+ v8WMKDJOtZFXxwaYGbvFJNDdvdTHc2x2fGaWwmXMJn2xs1ZyFAeHQvrp49mS6PBQZzcx0XL5
+ cU9ZjhzOZDn6Apv45/C/lUJvPc3lo/pr5cmlOvPq1AsP6/xRXsEFX/SdvdxJ8w9KtGaxdJuf
+ rpzLQ8Ht+H0lY2On1duYhmro8WglOypHy+TusYrDEry2qDNlc/bApQKtd9uqyDZ+rx8bGxyY
+ qBP6bvsQx5YACI4p8R0J43tSqWwJTP/R5oPRQW2O1Ye1DEcdeyzZfifrQz58aoZrVQq+innR
+ aDwu8qDB5UgmMQ7cjDSeAQABdghq7pqrA4P8lkA7qTG+aw8Z21OoAyZdUNm8NWJoQy8m4nUP
+ gmeeQPRc0vjp5JkYPgTqwf08cluqO6vQuYL2YmwVBIbO7cE7LNGkPDA3RYMu+zPY9UUi/ln5
+ dcKuEStFZ5eqVyqVoZ9eu3RTCGIXAHe1NcfcMT9HT0DPp3+ieTxFx6RjY3kYTGLOwU0EVUNc
+ NAEQAM2StBhJERQvgPcbCzjokShn0cRA4q2SvCOvOXD+0KapXMRFE+/PZeDyfv4dEKuCqeh0
+ hihSHlaxTzg3TcqUu54w2xYskG8Fq5tg3gm4kh1Gvh1LijIXX99ABA8eHxOGmLPRIBkXHqJY
+ oHtCvPc6sYKNM9xbp6I4yF56xVLmHGJ61KaWKf5KKWYgA9kfHufbja7qR0c6H79LIsiYqf92
+ H1HNq1WlQpu/fh4/XAAaV1axHFt/dY/2kU05tLMj8GjeQDz1fHas7augL4argt4e+jum3Nwt
+ yupodQBxncKAUbzwKcDrPqUFmfRbJ7ARw8491xQHZDsP82JRj4cOJX32sBg8nO2N5OsFJOcd
+ 5IE9v6qfllkZDAh1Rb1h6DFYq9dcdPAHl4zOj9EHq99/CpyccOh7SrtWDNFFknCmLpowhct9
+ 5ZnlavBrDbOV0W47gO33WkXMFI4il4y1+Bv89979rVYn8aBohEgET41SpyQz7fMkcaZU+ok/
+ +HYjC/qfDxT7tjKXqBQEscVODaFicsUkjheOD4BfWEcVUqa+XdUEciwG/SgNyxBZepj41oVq
+ FPSVE+Ni2tNrW/e16b8mgXNngHSnbsr6pAIXZH3qFW+4TKPMGZ2rZ6zITrMip+12jgw4mGjy
+ 5y06JZvA02rZT2k9aa7i9dUUFggaanI09jNGbRA/ABEBAAHCwXwEGAEKACYCGwwWIQSb0H4O
+ DFH41ZZ3t1Qbk0N9O0FimwUCYDzvagUJFF+UtgAKCRAbk0N9O0Fim9JzD/0auoGtUu4mgnna
+ oEEpQEOjgT7l9TVuO3Qa/SeH+E0m55y5Fjpp6ZToc481za3xAcxK/BtIX5Wn1mQ6+szfrJQ6
+ 59y2io437BeuWIRjQniSxHz1kgtFECiV30yHRgOoQlzUea7FgsnuWdstgfWi6LxstswEzxLZ
+ Sj1EqpXYZE4uLjh6dW292sO+j4LEqPYr53hyV4I2LPmptPE9Rb9yCTAbSUlzgjiyyjuXhcwM
+ qf3lzsm02y7Ooq+ERVKiJzlvLd9tSe4jRx6Z6LMXhB21fa5DGs/tHAcUF35hSJrvMJzPT/+u
+ /oVmYDFZkbLlqs2XpWaVCo2jv8+iHxZZ9FL7F6AHFzqEFdqGnJQqmEApiRqH6b4jRBOgJ+cY
+ qc+rJggwMQcJL9F+oDm3wX47nr6jIsEB5ZftdybIzpMZ5V9v45lUwmdnMrSzZVgC4jRGXzsU
+ EViBQt2CopXtHtYfPAO5nAkIvKSNp3jmGxZw4aTc5xoAZBLo0OV+Ezo71pg3AYvq0a3/oGRG
+ KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
+ fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20240326-fd-fix-schema-v1-1-4475d6d6d633@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,85 +140,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 27 Mar 2024 at 01:49, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 3/22/2024 3:57 PM, Dmitry Baryshkov wrote:
-> > Generate DRM/MSM headers on the fly during kernel build. This removes a
-> > need to push register changes to Mesa with the following manual
-> > synchronization step. Existing headers will be removed in the following
-> > commits (split away to ease reviews).
-> >
->
-> This change does two things:
->
-> 1) move adreno folder compilation under "adreno-y", move display related
-> files compilation undere "msm-display-y", move common files under "msm-y"
->
-> 2) changes to generate the header using gen_header.py
->
-> Why not split it into two changes?
+On 26/03/2024 21:02, Dmitry Baryshkov wrote:
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
+> index c0d6a4fdff97..40b077fb20aa 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
+> @@ -53,6 +53,16 @@ patternProperties:
+>        compatible:
+>          const: qcom,sm8150-dpu
+>  
+> +  "^displayport-controller@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +
+> +    properties:
+> +      compatible:
+> +        items:
+> +          - const: qcom,sm8150-dp
+> +          - const: qcom,sm8350-dp
 
-Basically because there is no difference between object files before
-we start moving headers.
+This does not look right. sm8350 has its own mdss binding file.
 
->
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/.gitignore |  1 +
-> >   drivers/gpu/drm/msm/Makefile   | 97 +++++++++++++++++++++++++++++++++---------
-> >   drivers/gpu/drm/msm/msm_drv.c  |  3 +-
-> >   drivers/gpu/drm/msm/msm_gpu.c  |  2 +-
-> >   4 files changed, 80 insertions(+), 23 deletions(-)
-> >
->
-> <snip>
->
-> Are below two changes related to this patch?
+Best regards,
+Krzysztof
 
-Ack, I'll move it to a separate patch.
-
->
-> > +targets += $(ADRENO_HEADERS) $(DISPLAY_HEADERS)
-> > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> > index 97790faffd23..9c33f4e3f822 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > @@ -17,8 +17,9 @@
-> >
-> >   #include "msm_drv.h"
-> >   #include "msm_debugfs.h"
-> > +#include "msm_gem.h"
-> > +#include "msm_gpu.h"
-> >   #include "msm_kms.h"
-> > -#include "adreno/adreno_gpu.h"
-> >
-> >   /*
-> >    * MSM driver version:
-> > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> > index 655002b21b0d..cd185b9636d2 100644
-> > --- a/drivers/gpu/drm/msm/msm_gpu.c
-> > +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> > @@ -11,7 +11,7 @@
-> >   #include "msm_mmu.h"
-> >   #include "msm_fence.h"
-> >   #include "msm_gpu_trace.h"
-> > -#include "adreno/adreno_gpu.h"
-> > +//#include "adreno/adreno_gpu.h"
->
-> you can just drop this line
-
-Ack
-
->
-> >
-> >   #include <generated/utsrelease.h>
-> >   #include <linux/string_helpers.h>
-> >
-
-
-
--- 
-With best wishes
-Dmitry
