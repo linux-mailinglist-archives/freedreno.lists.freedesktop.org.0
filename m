@@ -2,78 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C4A288FDD3
-	for <lists+freedreno@lfdr.de>; Thu, 28 Mar 2024 12:12:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 062238901E6
+	for <lists+freedreno@lfdr.de>; Thu, 28 Mar 2024 15:35:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEA7E10EF1D;
-	Thu, 28 Mar 2024 11:12:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4E6E11245A;
+	Thu, 28 Mar 2024 14:35:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xNNMpkyH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KPV5jSOI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5337C10F2D8
- for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 11:12:27 +0000 (UTC)
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-6ea9a605ca7so638013b3a.0
- for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 04:12:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711624347; x=1712229147; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=H+TeuuSkQj7XTS45LutYmiDgAgbcEY5Odyx7kr6Nww4=;
- b=xNNMpkyHVRZabqu5QAkRon2OWpoHkBX9/L08RpHPsvN30iVcf2Ts8Zy5rbyrqtSf1N
- ERNud5D+IOw1LaDy9/Ebef1ZUBSlVZuq7rqG30ZC2jDoxyvIOE8rwPi0mId0gIo5Vh0T
- hrMSP48qZGaMLjBM5dvTB3iW3fjDHj/m6NUG9atX6viPsU5tqkYKqoieWaYreQBXxQ9J
- HedtC2NKr0A/Z8greShSMStp0yr4+kkzgY+D2J5Tn/I0ZsQwyR6QwuUyX7IqXO9akdXB
- TEAvwfx/Kn0Z4i8i8MRzcePHr40+biUSICHE3bsA/AhNC9w8Rw5N7xdrftkDcG6ygeeZ
- eONA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711624347; x=1712229147;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=H+TeuuSkQj7XTS45LutYmiDgAgbcEY5Odyx7kr6Nww4=;
- b=h3GWaE/tuReJCAn9UAjb85J6cLb25SE/4L0EjqxGxdHpKkE9vvTIcQPp25CLqagYu2
- LvSgMRZqJrPxg168MqMx3eQMs6DQru5ml3HwlNqaQABCcuiO6ig8+pBhiTTwKIo3CUeW
- hWKqAddZpAFqA0mht3zEO1I9Ruevz4eywzIWWLTHnVws5VzJbrGR2wrttEIraeVRwUUC
- 8+451qp7qPzFIJH7YawzQ5BKMNl7cLcmxlPkUtx7oZj0um2+SyqArpzz55FSp2Ui0lRs
- 4nQBnuOLbqSzIWQr0dgxh/70KAy5pTI0aI6dwc929nujKlPsJbMwLcEUF0b9N0C6k2Nj
- pgdg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWSjrOYye8UVxEm8f9LNGVe5DoPtMsb1/jzbOTQJgQR6Xw711kKK8LxAOpU3V8C4drAX9zacZr33PiRCGFshU4CNNopz3W3UEregUwzbcq2
-X-Gm-Message-State: AOJu0Yx/PsOzc2OvHQB9aRA/xsF8tk89Sx1bKY4wSjMLSEsNcYx37DHM
- VnltdGzURlH+TCq/ThaPknYuuwpf6lHonskcew5FF7qRMi6vbJBrW2oMbYWfISk=
-X-Google-Smtp-Source: AGHT+IFtZtWGN0gpIdln/salcEy9PVgCOB6uagldfXRPfnddW1BVC0WLkiU9IKKaikRLoMnyPVkDoA==
-X-Received: by 2002:a05:6a00:4f86:b0:6ea:74d4:a00d with SMTP id
- ld6-20020a056a004f8600b006ea74d4a00dmr3250046pfb.5.1711624346654; 
- Thu, 28 Mar 2024 04:12:26 -0700 (PDT)
-Received: from niej-think.bbrouter ([112.65.12.82])
- by smtp.gmail.com with ESMTPSA id
- k7-20020aa792c7000000b006eab9ef5d4esm1114607pfa.50.2024.03.28.04.12.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Mar 2024 04:12:26 -0700 (PDT)
-From: Jun Nie <jun.nie@linaro.org>
-To: neil.armstrong@linaro.org,
-	dmitry.baryshkov@linaro.org
-Cc: sam@ravnborg.org, airlied@gmail.com, daniel@ffwll.ch,
- quic_parellan@quicinc.com, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, seanpaul@chromium.org, swboyd@chromium.org,
- quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com,
- marijn.suijten@somainline.org, sean@poorly.run,
- Jun Nie <jun.nie@linaro.org>
-Subject: [PATCH 3/3] drm/panel: Enable DSC for Visionox VTDR6130 panel
-Date: Thu, 28 Mar 2024 19:11:58 +0800
-Message-Id: <20240328111158.2074351-3-jun.nie@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240328111158.2074351-1-jun.nie@linaro.org>
-References: <20240328111158.2074351-1-jun.nie@linaro.org>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97C60112459;
+ Thu, 28 Mar 2024 14:35:24 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8F1166178A;
+ Thu, 28 Mar 2024 14:35:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75326C433C7;
+ Thu, 28 Mar 2024 14:35:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1711636523;
+ bh=0lXhQOQpoYqkSCQXugAMNauSxAI684zw2Aqn6FW8NFE=;
+ h=From:Subject:Date:To:Cc:From;
+ b=KPV5jSOIpt8SUFjNWiKGn948ySEOZubixRZ1Jkn2WIY/2pJWREoYxbM80UZZkQmud
+ SrKGro+jb4y68zd+ZaCF/Lp/CEjucM1RdSR0N21Sn6M7cx5R4D4CVU1nRhsreU/LGR
+ 9KKZdiFsoc8TrLFx5YuXICad+tLrs5TMzEmd5rTPPSh4BlSFuS4qF0K4LlRsnbE/n6
+ JR0fA1F9nzoIkM+ppfHrZI7XSoB4MRN7l2xRY9saJfNFrjKqjM3xZv+05HDo36ADiS
+ /b5wf4cGPqJaUfkVoHTE6SaxmvK5rFIK8cIBt5GU0aitl/WIJSiY21lFVkWjazuayw
+ lqk/sw7E7+YQQ==
+From: Bjorn Andersson <andersson@kernel.org>
+Subject: [PATCH v2 0/6] drm/msm/dp: Spring cleaning
+Date: Thu, 28 Mar 2024 07:39:59 -0700
+Message-Id: <20240328-msm-dp-cleanup-v2-0-a5aed9798d32@quicinc.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAECBBWYC/13MQQ6CMBCF4auQWTumFCnqynsYFmWYyiRSsBWiI
+ dzdSuLG5f+S9y0QOQhHOGcLBJ4lyuBT6F0G1Fl/Y5Q2NWilD6rQBfaxx3ZEurP104ju2NhCO6N
+ dc4J0GgM7eW3gtU7dSXwO4b35c/5df5T5p+YcFXJVlWVpmJjU5TEJiac9DT3U67p+AIWWIZCuA
+ AAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Bjorn Andersson <quic_bjorande@quicinc.com>
+X-Mailer: b4 0.12.4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1751;
+ i=quic_bjorande@quicinc.com; h=from:subject:message-id;
+ bh=0lXhQOQpoYqkSCQXugAMNauSxAI684zw2Aqn6FW8NFE=;
+ b=owEBgwJ8/ZANAwAIAQsfOT8Nma3FAcsmYgBmBYFIOvy88e8J13Nl7k/+jUc5dtLmVt8MyH5Zw
+ nHo85Qsxg+JAkkEAAEIADMWIQQF3gPMXzXqTwlm1SULHzk/DZmtxQUCZgWBSBUcYW5kZXJzc29u
+ QGtlcm5lbC5vcmcACgkQCx85Pw2ZrcXKABAA3BDnwcmFQEfeLQwxRG7WcMxVVKQYcI0wZgDqvfo
+ gqwtHU6ZvGoX8k98TwtSz+k5HjniL59pO67rZNC5FIkwx8ZPGHftqZ3l4JKYIn4WpSvWeAPPI2T
+ UD388AgjI549rpCxpYoSlKSy0cKHcCzgM3+nPBzDlof6MxP0YV9TbWgnpkVyxMDqdIhILDjWZQh
+ Vzt/B0ZljpBwdnzIFQp37AfHzzZ7FgSbTH7pOFYt746/s+uKzfF9RwWZj/l5azOb1K2IFXZrPh6
+ iW30ldLNtGy6w1DbtJgiv0ax6bEqkLYOUxR7IRPxK6/ZquiUN/gIzZibiWLpliNU+UTA5WaxaRy
+ oIVwKlK3dOTIM7tjzrHEy5IMpRtQ3W0s4tYQM38r4gv1ToknVrs6RneeBhYDLi1cLALy7Uyz3f6
+ lpi68gBImWJULRHJMRr5gOqiAz6QlOJZEMRDvrm55PIiFhQSu9UHs2dRBXzt+NX86PsrpWBNKqL
+ LkQBROy3KLb+t3brzuR9kI3L++vYbJIMq2wTbxZwQRNkNpXgFqs7hyBYU7xZz2Kp4VpEB8g/FYw
+ bPvjz63ph/ynUY2lKde2vT79yqVglmav0jWlfnMe2zwci2jbAcgxYatYx9g/OthkGqPyAA6i8Sf
+ Is+VfWqfuA9Je4zFvFmA5nJbandFFi4crcqEraQbyx/U=
+X-Developer-Key: i=quic_bjorande@quicinc.com; a=openpgp;
+ fpr=05DE03CC5F35EA4F0966D5250B1F393F0D99ADC5
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,146 +82,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Enable display compression (DSC v1.2) for 1080x2400 Visionox
-VTDR6130 AMOLED DSI panel. DTS property is needed to enable DSC.
-Default configuration is video mode + non-DSC for any back
-compatibility.
+Spring is in the air, clean out some dust that has accumulated in the
+Qualcomm DP driver.
 
-Below modes works on SM8650. While cmd mode does not work yet.
-- video mode + DSC
-- video mode
-- cmd mode + DSC
-
-Signed-off-by: Jun Nie <jun.nie@linaro.org>
+Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 ---
- .../gpu/drm/panel/panel-visionox-vtdr6130.c   | 58 ++++++++++++++++++-
- 1 file changed, 57 insertions(+), 1 deletion(-)
+Changes in v2:
+- Merge dp_debug_get() and dp_debug_init()
+- Link to v1: https://lore.kernel.org/r/20240326-msm-dp-cleanup-v1-0-e775556ecec0@quicinc.com
 
-diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-index 540099253e1b..d6c44816cdd0 100644
---- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-+++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-@@ -9,6 +9,7 @@
- #include <linux/of.h>
- 
- #include <drm/display/drm_dsc.h>
-+#include <drm/display/drm_dsc_helper.h>
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_modes.h>
- #include <drm/drm_panel.h>
-@@ -17,9 +18,12 @@
- 
- struct visionox_vtdr6130 {
- 	struct drm_panel panel;
-+	struct drm_dsc_config dsc;
- 	struct mipi_dsi_device *dsi;
- 	struct gpio_desc *reset_gpio;
- 	struct regulator_bulk_data supplies[3];
-+	bool cmd_mode;
-+	bool dsc_enable;
- };
- 
- static inline struct visionox_vtdr6130 *to_visionox_vtdr6130(struct drm_panel *panel)
-@@ -49,12 +53,20 @@ static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
- 	if (ret)
- 		return ret;
- 
-+	if (ctx->dsc_enable)
-+		mipi_dsi_dcs_write_seq(dsi, 0x03, 0x01);
-+
- 	mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
- 	mipi_dsi_dcs_write_seq(dsi, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x00, 0x00);
- 	mipi_dsi_dcs_write_seq(dsi, 0x59, 0x09);
- 	mipi_dsi_dcs_write_seq(dsi, 0x6c, 0x01);
- 	mipi_dsi_dcs_write_seq(dsi, 0x6d, 0x00);
--	mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
-+
-+	if (ctx->cmd_mode)
-+		mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x02);
-+	else
-+		mipi_dsi_dcs_write_seq(dsi, 0x6f, 0x01);
-+
- 	mipi_dsi_dcs_write_seq(dsi, 0x70,
- 			       0x12, 0x00, 0x00, 0xab, 0x30, 0x80, 0x09, 0x60, 0x04,
- 			       0x38, 0x00, 0x28, 0x02, 0x1c, 0x02, 0x1c, 0x02, 0x00,
-@@ -205,6 +217,26 @@ static const struct drm_display_mode visionox_vtdr6130_mode = {
- 	.height_mm = 157,
- };
- 
-+static int visionox_vtdr6130_enable(struct drm_panel *panel)
-+{
-+	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
-+	struct mipi_dsi_device *dsi = ctx->dsi;
-+	struct drm_dsc_picture_parameter_set pps;
-+	int ret;
-+
-+	if (!dsi->dsc)
-+		return 0;
-+
-+	drm_dsc_pps_payload_pack(&pps, dsi->dsc);
-+	ret = mipi_dsi_picture_parameter_set(dsi, &pps);
-+	if (ret) {
-+		dev_err(&dsi->dev, "Failed to set PPS\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
- 				       struct drm_connector *connector)
- {
-@@ -228,6 +260,7 @@ static const struct drm_panel_funcs visionox_vtdr6130_panel_funcs = {
- 	.prepare = visionox_vtdr6130_prepare,
- 	.unprepare = visionox_vtdr6130_unprepare,
- 	.get_modes = visionox_vtdr6130_get_modes,
-+	.enable = visionox_vtdr6130_enable,
- };
- 
- static int visionox_vtdr6130_bl_update_status(struct backlight_device *bl)
-@@ -260,12 +293,32 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
- {
- 	struct device *dev = &dsi->dev;
- 	struct visionox_vtdr6130 *ctx;
-+	struct drm_dsc_config *dsc;
- 	int ret;
- 
- 	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
- 	if (!ctx)
- 		return -ENOMEM;
- 
-+	ctx->cmd_mode = of_property_read_bool(dev->of_node, "enforce-cmd-mode");
-+	ctx->dsc_enable = of_property_read_bool(dev->of_node, "enable-dsc");
-+
-+	/* Set DSC params */
-+	if (ctx->dsc_enable) {
-+		dsc = &ctx->dsc;
-+		dsc->dsc_version_major = 0x1;
-+		dsc->dsc_version_minor = 0x2;
-+		dsc->slice_height = 40;
-+		dsc->slice_width = 540;
-+		dsc->slice_count = 2;
-+		dsc->slice_per_pkt = 1;
-+		dsc->bits_per_component = 8;
-+		dsc->bits_per_pixel = 8 << 4;
-+		dsc->block_pred_enable = true;
-+
-+		dsi->dsc = dsc;
-+	}
-+
- 	ctx->supplies[0].supply = "vddio";
- 	ctx->supplies[1].supply = "vci";
- 	ctx->supplies[2].supply = "vdd";
-@@ -306,6 +359,9 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
- 		return ret;
- 	}
- 
-+	dev_err(&dsi->dev, "discovered with %s mode %s\n",
-+		ctx->cmd_mode ? "cmd" : "video",
-+		ctx->dsc_enable ? "and DSC enabled" : "");
- 	return 0;
- }
- 
+---
+Bjorn Andersson (6):
+      drm/msm/dp: Drop unused dp_debug struct
+      drm/msm/dp: Removed fixed nvid "support"
+      drm/msm/dp: Remove unused defines and members
+      drm/msm/dp: Use function arguments for aux writes
+      drm/msm/dp: Use function arguments for timing configuration
+      drm/msm/dp: Use function arguments for audio operations
+
+ drivers/gpu/drm/msm/dp/dp_audio.c   | 25 +++------------
+ drivers/gpu/drm/msm/dp/dp_aux.c     |  9 ++----
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 64 ++++++++++++++-----------------------
+ drivers/gpu/drm/msm/dp/dp_catalog.h | 49 +++++++++-------------------
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 17 +---------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |  1 -
+ drivers/gpu/drm/msm/dp/dp_debug.c   | 59 +++++++++++-----------------------
+ drivers/gpu/drm/msm/dp/dp_debug.h   | 38 +++++++---------------
+ drivers/gpu/drm/msm/dp/dp_display.c | 15 ++-------
+ drivers/gpu/drm/msm/dp/dp_display.h |  3 --
+ drivers/gpu/drm/msm/dp/dp_drm.c     |  2 --
+ drivers/gpu/drm/msm/dp/dp_link.c    |  4 ---
+ drivers/gpu/drm/msm/dp/dp_link.h    |  1 -
+ drivers/gpu/drm/msm/dp/dp_panel.c   | 14 +++++---
+ drivers/gpu/drm/msm/dp/dp_panel.h   |  3 --
+ 15 files changed, 88 insertions(+), 216 deletions(-)
+---
+base-commit: 084c8e315db34b59d38d06e684b1a0dd07d30287
+change-id: 20240323-msm-dp-cleanup-f8ba32f62fb9
+
+Best regards,
 -- 
-2.34.1
+Bjorn Andersson <quic_bjorande@quicinc.com>
 
