@@ -2,70 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85C49890273
-	for <lists+freedreno@lfdr.de>; Thu, 28 Mar 2024 15:59:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1657A890297
+	for <lists+freedreno@lfdr.de>; Thu, 28 Mar 2024 16:05:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FF71112477;
-	Thu, 28 Mar 2024 14:59:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2ED311247F;
+	Thu, 28 Mar 2024 15:05:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LjLjEtTY";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="alsUWsCj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC52110EB49
- for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 14:58:58 +0000 (UTC)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-dccb1421bdeso1034969276.1
- for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 07:58:58 -0700 (PDT)
+Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
+ [209.85.219.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4872911247F
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 15:05:21 +0000 (UTC)
+Received: by mail-yb1-f182.google.com with SMTP id
+ 3f1490d57ef6-dcbd1d4904dso1046688276.3
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 08:05:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711637938; x=1712242738; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1711638320; x=1712243120; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=lVCKoZbBGmgPMba+uygt1ZNYOjbI400KcrPMv9qgScQ=;
- b=LjLjEtTYP0BsP59ypla4wD4AzG981pWeBfA4YqHhSebiKYODC/W0u3NZE8sINGzBx9
- dGOVGjP6taXFJXucf+XXrv9Xom4XeRciUdw3Yjx4IPTy2d+N1QRQSogAaEYyK3dyeFEz
- aitmTO+Wfi6+txo0/eV1FSUjMMtw/7cXV3/4oh3yxIB98sIn8zm/3irbDx2LvO8YQfyN
- b5zrFGs98J5ozCtrCfh4vbchlth/Kqq0eMunlyaRaNUIH5Di0vXzEBKduTB6+4rOgkAm
- Ic5Hu+vn1bxSE1gQf+OKJWK1XxmgRBaVCaJVxLYWYizFiUnS+dG7GwsqGtwgtBh9OpFr
- 0QCA==
+ bh=kWfA5aPAvh98tytKTp4cttImQzYAy3tSsHDp9BTN8yI=;
+ b=alsUWsCjLcEC7OVmmrtqGw3qYMWEKeeqO8Izf3I79X/3llpTm6j86STHNoAtX9HSJL
+ BF8XGaUBFlSKRUbwEfVWbTXBcwpuPy1p5atd9YuPOqWceCEIm2czmhINBGtq5v3f5lXt
+ H4ESFQl1Awb/tuwBHW7K8InP+EOTzXZPUp7IQ5a3TksaBY0KgN9mKhNHpIkdYT7yTNWj
+ nPzIWi+kY99ukhv7kD6Ubp5WVchwAxXg5w10jwKUYjvbtWdRD2uB/Is2N6s65cPlzWcA
+ wIBHiS4QWCMtx3l6DUwUNBfAQAbP3/EH/SvNVVXxtGuNE3m4wwUztqxxk9fh7EvOopLL
+ mOqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711637938; x=1712242738;
+ d=1e100.net; s=20230601; t=1711638320; x=1712243120;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=lVCKoZbBGmgPMba+uygt1ZNYOjbI400KcrPMv9qgScQ=;
- b=IydyAD3j6+RL832Z03DRSQ+/ZjwHwQqPD0RgDDOUwsiM0AD4NHuT0IsvzBW0PQShxJ
- LLAUaVGAe5Iv4fzk9NIah/c0u3B4Jx7O7Paw1pdX4B7teeNcNXOZrS1ft6QNlqz96FD3
- etYGRPlz1zy4biG/b1bN8wg30Oxmbg2AvqZFPCp5f0LsOnbukbFXekT5vh4/2tunO/ub
- s/wz+nxT+4uDt2u7/4003/DYSbK+GUo0KaeaLPIB7Ov7YRI6fSuNsXcCRvHJUKbJKpKp
- lrtoV8DwV1EAr0oFGw2nJ3TXo/z2FG004nOtDnIui2tAgr+g5q1YMv/q6N8zrrdIVRz8
- N2cA==
+ bh=kWfA5aPAvh98tytKTp4cttImQzYAy3tSsHDp9BTN8yI=;
+ b=cu1YaMUlrx1PteTglF0Uv0mzubRn62kUKmfh7S2CtImze/FbkFrIrkT11nmL/Vq6Pz
+ jJ6Ei5h64djDHncfNBZmaEc27dejTU+eSYFk0q5Kawln0/Pg47M1jiqu72B37tB6AoIA
+ JwBm8kHwyuAlqQVgTHZVybG2wO0t6tsHLMuqt2D9JCPzNxn4ydKE2+fVCzI7ZMgY6UdG
+ tHsvt5oCoSsfxWQ8EwZl8qnOQC79sLA+FHWorm4U6IlCIMbVtWvEGLTZ2rmOGfTKHjbk
+ yf6RhDuS3y5DdZRRB17kzyhc0N//1TEIFr+gt9lZ8Q2m/mgxxoaKb/NdUskrVJgomLCA
+ rDHA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXFJv1GR3Jro6h+kFYCOXtX7HDZcApJPtkrG0GdoUYAPMgmLtZK8YQQfA+++HBvWaHknS1tpyyxWIzl4IuaLKaMkHK56lZ8eIPzafS4ulYV
-X-Gm-Message-State: AOJu0Yzlc0evLixmiOiD/zyPhZRMRu9MpTqSo7EPL8aYi8mTaLLtwpQG
- qeDvAKWy3Tx9qmT7jRPcE72F8QghM+AwOtZmK8yVvQoVeBiRHz6Gz8AbV1jEg+ysAmaX/gy3fTW
- pBJFLR8/5BPkyz2UyqtIgE5fPfd2swbAUdIx8fA==
-X-Google-Smtp-Source: AGHT+IF+BfSq3vmTR71It1RsEmYi9x9S3nf8WUR4Z19wo3uyG6m3RAGGX4yROeCZyzIC+VlGw62uQlxPCj6DGfxVw0Y=
-X-Received: by 2002:a25:ddc6:0:b0:dcb:38d3:3c6a with SMTP id
- u189-20020a25ddc6000000b00dcb38d33c6amr3189252ybg.46.1711637937782; Thu, 28
- Mar 2024 07:58:57 -0700 (PDT)
+ AJvYcCXETdS7UGSkSowJdTehWADtD0Qayzrb5x9/fLLVrwtRDRGJATPW9woCHLvjnI0CUFDGZ2F+Y1nfly2nIYVme8sBxlrx35m0vsTmW8jMFP8/
+X-Gm-Message-State: AOJu0YzLPploc8SYW4ALMiyd1EuGQZtGsWDp88gWL4IxEnzAUmEjWmuY
+ JyyWRdBKc3+qcyeLIKqhtALCVGDxGLo8J7aVDLTOj85dvmlRgIsBqXCYRfZL2SHKvfPlyIwXH3c
+ Yg+Jw/7xHWPmaUYeDQQTqPNTNc367V471DM0CeQ==
+X-Google-Smtp-Source: AGHT+IH5Xh+9FupHdZIT67h4lmZsG0DyoBdLyn4cmVbBccJpUVdzNv2lXzX29oOTWVqXhXAL3MPjvraXmi+NFx2bMAU=
+X-Received: by 2002:a25:b843:0:b0:dc2:5553:ca12 with SMTP id
+ b3-20020a25b843000000b00dc25553ca12mr2994878ybm.14.1711638320206; Thu, 28 Mar
+ 2024 08:05:20 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240328-msm-dp-cleanup-v2-0-a5aed9798d32@quicinc.com>
- <20240328-msm-dp-cleanup-v2-1-a5aed9798d32@quicinc.com>
-In-Reply-To: <20240328-msm-dp-cleanup-v2-1-a5aed9798d32@quicinc.com>
+References: <20240328111158.2074351-1-jun.nie@linaro.org>
+In-Reply-To: <20240328111158.2074351-1-jun.nie@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 28 Mar 2024 16:58:47 +0200
-Message-ID: <CAA8EJpqr=SE_-9JMNd+QksTkVsPJGk-F2tJcAyH95t4RAW5aoA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/6] drm/msm/dp: Drop unused dp_debug struct
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Bjorn Andersson <quic_bjorande@quicinc.com>
+Date: Thu, 28 Mar 2024 17:05:09 +0200
+Message-ID: <CAA8EJpq7eHgryrNnnR=Yh46PdkAQA-YNzTz_0gaWbr_g9CWSxA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/msm/dpu: fix DSC for DSI video mode
+To: Jun Nie <jun.nie@linaro.org>
+Cc: neil.armstrong@linaro.org, sam@ravnborg.org, airlied@gmail.com, 
+ daniel@ffwll.ch, quic_parellan@quicinc.com, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ robdclark@gmail.com, seanpaul@chromium.org, swboyd@chromium.org, 
+ quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com, 
+ marijn.suijten@somainline.org, sean@poorly.run
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,27 +81,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 28 Mar 2024 at 16:35, Bjorn Andersson <andersson@kernel.org> wrote:
+On Thu, 28 Mar 2024 at 13:12, Jun Nie <jun.nie@linaro.org> wrote:
 >
-> From: Bjorn Andersson <quic_bjorande@quicinc.com>
+> Fix DSC timing and control configurations in DPU for DSI video mode.
+> Only compression ratio 3:1 is handled and tested.
 >
-> The members of struct dp_debug are no longer used, so the only purpose
-> of this struct is as a type of the return value of dp_debug_get(), to
-> signal success/error.
+> This patch is modified from patchs of Jonathan Marek.
 >
-> Drop the struct in favor of signalling the result of initialization
-> using an int, then merge dp_debug_get() with dp_debug_init() to avoid
-> the unnecessar boilerplate code.
->
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+
+This almost looks like a joke, except it isn't the 1st of April yet.
+The patch lacks proper Author / Sign-off tags from Jonathan.
+This is pretty close to copyright infringement. I'm sorry, but I'd
+have to ask you to abstain from sending patches w/o prior internal
+review.
+
 > ---
->  drivers/gpu/drm/msm/dp/dp_debug.c   | 59 +++++++++++--------------------------
->  drivers/gpu/drm/msm/dp/dp_debug.h   | 38 +++++++-----------------
->  drivers/gpu/drm/msm/dp/dp_display.c | 10 ++-----
->  3 files changed, 31 insertions(+), 76 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  2 +-
+>  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  2 +-
+>  .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  | 12 +++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   | 10 +++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h   |  1 +
+>  drivers/gpu/drm/msm/dsi/dsi.xml.h             |  1 +
+>  drivers/gpu/drm/msm/dsi/dsi_host.c            | 48 +++++++++++--------
+>  include/drm/display/drm_dsc.h                 |  4 ++
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Ok. The feedback for the original patchset [1]  was that it should be
+split logically. Instead you pile everything together into a single
+patch. This is a complete no-go.
 
+Also, this patchset lacks changelog in comparison to the previous
+patchseris. I don't think I'll continue the review of this patch.
+Please rework it properly and add corresponding changelog.
+
+[1] https://patchwork.freedesktop.org/patch/567518/?series=126430&rev=1
+
+>  8 files changed, 56 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 6a4b489d44e5..c1b9da06dde2 100644
 
 -- 
 With best wishes
