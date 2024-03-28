@@ -2,70 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 219F388FBCE
-	for <lists+freedreno@lfdr.de>; Thu, 28 Mar 2024 10:43:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD2E588FBD5
+	for <lists+freedreno@lfdr.de>; Thu, 28 Mar 2024 10:43:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA08B10F492;
-	Thu, 28 Mar 2024 09:43:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0E5610F4A1;
+	Thu, 28 Mar 2024 09:43:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="wihrUVD8";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="Op2KIf9U";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
  [209.85.208.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87DD210F492
- for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 09:43:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD1A110F492
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 09:43:03 +0000 (UTC)
 Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-56bc8cfc19fso819724a12.1
- for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 02:43:02 -0700 (PDT)
+ 4fb4d7f45d1cf-56c0a249bacso903326a12.1
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 02:43:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1711618981; x=1712223781; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=E8hsC6NRPdxLP7lp60lSArweYtIzuit1meomkaj/K1Q=;
- b=wihrUVD8z1LvW+znsNVPIDnMnx3Ur7kVk5XDbMgWBPrh7E0cGzPlrOZtLHFfrr9Qm6
- hcvI3VLGHZqTocUdgTzebkEu7nYaDiBtx3lbuRWLnDy+YJk4oNiDy43/D6sUSzD/BRHw
- N30JnEQ9ycOCw9sOTnSd8ZE0xWK4E2PCgPxioO7bInLJ5ICc6+4mOmJmlXtGEBuF+kUR
- mTjy5zqaPiuXnvnJu81ziRL2qq+iNZNUKzqmsJbfqde2NvahSBVh4uziG6JUZf4W757C
- ZIKGRDqlYaCxS4yBqiNytNds92QYrLDTdDLA77m911TGYWBfCMxmNMZQp0jdq7ILLia1
- JADA==
+ d=fairphone.com; s=fair; t=1711618982; x=1712223782; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=pkS0hnNrFDbXHrlcoNspnOJj4NSYX03NbGI5xXPUHvo=;
+ b=Op2KIf9Um87dOMqYja+W88CIKCTaIEX2DaaWPVWDxuJPLQ0pgq1a5xD/Uexp7h/wO+
+ F5mg9ZKUT8GQrp/zKv0+lSinsLQ44w3O6+CQLcXV4g3rkj37pe2PbOzk4tnJjFFvu1t9
+ 01zHZPqVzDN7QSo3iU/LDijYGgKTXP3x6HH4gBsRJVW0chLWOcmK+8Ns6gJDEOa4UvY3
+ MDGqBo+WSEwHFNtduuXthaBj8B276Hk8CmAzJhskgmSh8mkPKibpbIgaug1URKmtx4s1
+ 3o+RKsbl+j2NfvEmVY8V7/M2I2djwnxB6xxdO9i+FdTbzBRPw2k21j2L2SAsueEQZkK9
+ pFqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711618981; x=1712223781;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=E8hsC6NRPdxLP7lp60lSArweYtIzuit1meomkaj/K1Q=;
- b=VB5SyyRHFm1YE5bTv4LsK0stI5NGsMUqjz9tJ1nS4HGKON8A9siCvLC1eRyn51MEVh
- W8v/dHIIa9Y5oduWnxXOiTLjiFP/by7ikTEdiyBIqpfUrtFO1vmfHU84owgPrQ02V3Q4
- SwmfS6mtJ+Yli3Vl90tb/P1LxRxqyyftP9CSpjVDTt9CTA9EJxPkrP8VAEShy89ccKxI
- TmRKir4z5jikVWy9TOX651ItxXCBFttXK4QiOjTL0VzNxvqDULbMz8UgBF9Uw277Dh34
- ildhd7aZkipWY3qxIISdjeNIGlVK8KKZ3pd5hbkJ4GHAcy3PvkSp5liX6GxzyFN972oF
- wTmA==
+ d=1e100.net; s=20230601; t=1711618982; x=1712223782;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pkS0hnNrFDbXHrlcoNspnOJj4NSYX03NbGI5xXPUHvo=;
+ b=JOeiSoCoDgDQKz3qWCi15xXCwzcdWA8MK5Uu7gqywQB5FPkgAcVC2QjSfCKjdL2E/3
+ 7i5Uy7hkA60dl4NL2ruLjkX7baXLSlw1mydU1CsYpnSBhuHXyLtrrp8j92sSoQLhKPY2
+ 50h2zzbA5zv3MoKHJGzqpmdvKPkHlWANsCsSPnxk+2nHX3Z68TGtxcE3RQm+ExODk15e
+ chrYz3duTjQQhaco1wQb5CUF9QghSZrW8Yf5jO32OIWx2r1aqdgjKJuNe2I/EiGds3Un
+ 67Tf4ZoorbX655tWB9oxbR09UP5hWJxfFF2E5gu0w1eVahUO0dE/DWXxicT/EmUnVwSx
+ Yv0A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVmrNvIZ4XjUSaMZLFdGMFWAMSTrDJD9d9kfGprt/huznREehXSECGZlyjpum97ljkxNIvlFFNiKZZqqhxgB+HWJkh5OrjOuJHOJIfj3iHm
-X-Gm-Message-State: AOJu0Yzxpmk1dY8356PF4jlTRljnnwsC94iWA7/W5SV3aAXdVXspQ0Cw
- ll0vk79ULBimJmgTCxUV+WozdxlcOs7OajJgkII4eYHSxlv5618pScsaszNoDco=
-X-Google-Smtp-Source: AGHT+IGZx9AnkUFMackC9AU36r/cR4Kcv7nBXW0BJa3Ktjw3YvY08GtNzCtirWitkr3VymvIRKiZQA==
-X-Received: by 2002:a05:6402:348d:b0:56c:26aa:f786 with SMTP id
- v13-20020a056402348d00b0056c26aaf786mr40326edc.10.1711618980811; 
- Thu, 28 Mar 2024 02:43:00 -0700 (PDT)
+ AJvYcCWqoStiYpUxUD1XrWkq4K0YG/HfV3v3khHlAEphGW7g1ORw4SbyBGRWUckewkuOrILJwKrQu/ZXyebLgtEo/zIdcYbE66PDQKiHhoyahdOP
+X-Gm-Message-State: AOJu0YwmqWTkHzeIuVGS0dUmGkfHnqDzWmr8t8TtysdRqbeJ0t1pmOkD
+ Xn92Wih1ENhr1j3+amEymrcEYsQiW+EBqgbsAQN52sefPE9SKWuI7B5fuyTajEI=
+X-Google-Smtp-Source: AGHT+IEWpqXuFzJjsC1M/sOHK3zZOE84F5IxzcbN5OkAPk4DTWHSoyiO2rVY9a6j5rj0JVACU4kHSA==
+X-Received: by 2002:a50:cdc2:0:b0:566:ab45:e6c5 with SMTP id
+ h2-20020a50cdc2000000b00566ab45e6c5mr1772674edj.28.1711618982129; 
+ Thu, 28 Mar 2024 02:43:02 -0700 (PDT)
 Received: from otso.luca.vpn.lucaweiss.eu
  (144-178-202-138.static.ef-service.nl. [144.178.202.138])
  by smtp.gmail.com with ESMTPSA id
- l2-20020aa7c302000000b005645961ad39sm631362edq.47.2024.03.28.02.42.59
+ l2-20020aa7c302000000b005645961ad39sm631362edq.47.2024.03.28.02.43.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Mar 2024 02:43:00 -0700 (PDT)
+ Thu, 28 Mar 2024 02:43:01 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Subject: [PATCH 0/3] DisplayPort support for SM6350/SM7225
-Date: Thu, 28 Mar 2024 10:42:43 +0100
-Message-Id: <20240328-sm6350-dp-v1-0-215ca2b81c35@fairphone.com>
+Date: Thu, 28 Mar 2024 10:42:44 +0100
+Subject: [PATCH 1/3] dt-bindings: display: msm: dp-controller: document
+ SM8250 compatible
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJM7BWYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIxMDYyML3eJcM2NTA92UAl0TQyNjC0NT4yQTEwsloPqCotS0zAqwWdGxtbU
- AQBFn8VsAAAA=
+Message-Id: <20240328-sm6350-dp-v1-1-215ca2b81c35@fairphone.com>
+References: <20240328-sm6350-dp-v1-0-215ca2b81c35@fairphone.com>
+In-Reply-To: <20240328-sm6350-dp-v1-0-215ca2b81c35@fairphone.com>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
@@ -99,29 +99,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the required changes to support DisplayPort (normally(?) available
-via the USB-C connector) on the SM6350/SM7225 SoC.
-
-This has been tested on a Fairphone 4 smartphone with additional changes
-not included in this series (mostly just wiring up TCPM and the SBU
-mux).
+Add the compatible string for the DisplayPort controller on SM6350 which
+is compatible with the one on SM8350.
 
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
-Luca Weiss (3):
-      dt-bindings: display: msm: dp-controller: document SM8250 compatible
-      dt-bindings: display: msm: sm6350-mdss: document DP controller subnode
-      arm64: dts: qcom: sm6350: Add DisplayPort controller
+ Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../bindings/display/msm/dp-controller.yaml        |  1 +
- .../bindings/display/msm/qcom,sm6350-mdss.yaml     | 10 +++
- arch/arm64/boot/dts/qcom/sm6350.dtsi               | 88 ++++++++++++++++++++++
- 3 files changed, 99 insertions(+)
----
-base-commit: 871760455183dc66b3e185f8d3ed2184cc9fac25
-change-id: 20240328-sm6350-dp-41238153b448
+diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+index ae53cbfb2193..97993feda193 100644
+--- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+@@ -29,6 +29,7 @@ properties:
+           - qcom,sm8650-dp
+       - items:
+           - enum:
++              - qcom,sm6350-dp
+               - qcom,sm8150-dp
+               - qcom,sm8250-dp
+               - qcom,sm8450-dp
 
-Best regards,
 -- 
-Luca Weiss <luca.weiss@fairphone.com>
+2.44.0
 
