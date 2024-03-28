@@ -2,88 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C184A88FBFB
-	for <lists+freedreno@lfdr.de>; Thu, 28 Mar 2024 10:49:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C677788FDCD
+	for <lists+freedreno@lfdr.de>; Thu, 28 Mar 2024 12:12:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DEFB10EC00;
-	Thu, 28 Mar 2024 09:49:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F94410FFE3;
+	Thu, 28 Mar 2024 11:12:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="P0F0v/OV";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="sFkjQ7u+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 473BC10F4E0
- for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 09:49:22 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-a450bedffdfso82641266b.3
- for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 02:49:22 -0700 (PDT)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2789310F9BF
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 11:12:12 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-6ea9a616cc4so672160b3a.1
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Mar 2024 04:12:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1711619360; x=1712224160; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=s2FlcFMwv9/mxZZUbTMV8sm8mZF2ziq8g+DEQybJDFU=;
- b=P0F0v/OVLOHICvTBbGGXy3KQR4+/V+BD7o9J2PKrKW9oKrTnmcJgatlky7vMkukVuo
- c8KE0VSs6egwQgdI45LCureLIU173Vb1der1cgcEIMtP8IxHiU81eK7UChPL7V9XnwJr
- V8ylQSYo1Oe2BsQkjYciWVu30oQ8kZ1/anSJN4eyjbM3qs5JYQ8xh2bplR3znzIhRQeq
- YtqnqfStWpTWMJpLgksJcfB4mvayXGNKN49Hn3UL05h3Dd71BiPtWzAaGvFMCJuZgnCJ
- jeKMv1+7upvxjFBFQYSiIszULO/uuUR+dIMWjUgTpwUjXxfjAPWVnRCtlZAuZDWzDrwL
- Ygew==
+ d=linaro.org; s=google; t=1711624331; x=1712229131; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Bt33Rr5w82hGvdiqgnCu2WTG/IPDnQKymInQfgtwYM4=;
+ b=sFkjQ7u+eZQWu53bT8JYmGK2z7Zx1TaIUhbTMbx/XMHFlYuZrF274zCg5RT7cLmSaK
+ XhnYXgMhlenKwRJzq4J5qTY00C3E5Li6tixf2FQ3sguUzsMnMLSk93etApkft6MgyoAy
+ 9qu9idBqfKcU3S4r6TALBZ+sj3YycRkcl8OsZ/hR4wn9ara+YaX/Z4sMAXxqgoREodta
+ feOzZg4ya6gTOp/X/81zuVsbEGISWHLwrUMO7xt8pOtsz2+q1fQ2ESZqbRGsqO03lN5e
+ ZUCGfnHNmUuJeqdaCFYjDExLVgAFKCw4Q/st2CMQE1VdDaTOH1UjU375VMbGpEiQGnHy
+ 965Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711619360; x=1712224160;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=s2FlcFMwv9/mxZZUbTMV8sm8mZF2ziq8g+DEQybJDFU=;
- b=OL12PQiZRw46aq/LfO/iZMSwUQtcH2CmyiZzZeGDh1T5qDHl1jsx88/eTJs7RVqomn
- 9lXILSwWlcjs8ldrNMXLUN2cz+//Tiny7BSUBhBFMCJ6fFS0MsTAokgwPz37v2XgH6+K
- JWbNm+GeadyO/mJ/yDkmTDpdwDlTR7utGoLpuliAkg2VHzNyg60ebA62rcSUH/SsfuvS
- fVawd1niYlDLn0or3ju0x2ZF6crIAl/x1lM1msmFMOiY9362ERrlMdSqTnklUHuWKR59
- G2vprKLyHfrZrb6mxgg8JoNp+LrwsX58RfuX0zsMdV54B2ns2i5hI3ojVkFQPqHGCZw7
- c9hw==
+ d=1e100.net; s=20230601; t=1711624331; x=1712229131;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Bt33Rr5w82hGvdiqgnCu2WTG/IPDnQKymInQfgtwYM4=;
+ b=nRcd/ODj4O+Df0JBa6eIYhCxhjq1u0QCQGJgXL86/JKAXyry/3zTQgWA9hBzKpUOB8
+ J8st7V0xTaAXJM15lyrSyd//8+WQcvZ1VU0C+D/YAq2x1sICX1uxGGkqqRBgZMw3ZUK+
+ U55bexbGeZc2ZlUvCx/xOOrarZ+jpblorWTE4jg1iv5QhJE28gAbzC2EdB5yPWLoYfkN
+ gTMEnOUNOT0090hz12tWwuTH2Z4BqrXXmADihOqcdcSBXeh8738s/aPDinjGOLb8Y99C
+ l9X0FB/hl8By7PkGj/3SBiEK9xXjExfzEXlGve0r5hsIkLYuzo2popSqzABz70syt3qI
+ R/Tg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWHLY9kGE55i6QRmWmuAbZDkKV8C4Mzad4WBHxDjzR9R5pkFbV6XBML0Htiwh3yoz8DtDBOcH312I5VKOSWubpsRrSWacRT41v3OrS+Y9sq
-X-Gm-Message-State: AOJu0YzTLixz1V67tqdJJ9JzMjRPU4uKPb2QOREpbb6wsU6Jcjo+jFUp
- qhYvBmqslbA2fNJgE9gnIEbQCJrDmoNMsSYHcLyqagq/2fXomBD1UAVtS/Kjg0w=
-X-Google-Smtp-Source: AGHT+IHQj43uF1oRw2agLwmax83BUP4TUUSTe802FM7CxRtHEbgYpfc/GypNFhLDLarI2m22J/4eHg==
-X-Received: by 2002:a17:906:26db:b0:a46:8c40:7a3a with SMTP id
- u27-20020a17090626db00b00a468c407a3amr1170962ejc.26.1711619360465; 
- Thu, 28 Mar 2024 02:49:20 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl.
- [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
- cd1-20020a170906b34100b00a4a396ba54asm555999ejb.93.2024.03.28.02.49.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Mar 2024 02:49:20 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 28 Mar 2024 10:49:19 +0100
-Message-Id: <D05AFAI1G7CY.3EURGL4VGKHB@fairphone.com>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/3] dt-bindings: display: msm: dp-controller: document
- SM8250 compatible
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Luca Weiss" <luca.weiss@fairphone.com>, "Rob Clark"
- <robdclark@gmail.com>, "Abhinav Kumar" <quic_abhinavk@quicinc.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@linaro.org>, "Sean Paul" <sean@poorly.run>,
- "Marijn Suijten" <marijn.suijten@somainline.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Daniel Vetter" <daniel@ffwll.ch>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzysztof.kozlowski+dt@linaro.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Kuogee Hsieh" <quic_khsieh@quicinc.com>, "Krishna Manikandan"
- <quic_mkrishn@quicinc.com>, "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konrad.dybcio@linaro.org>
-X-Mailer: aerc 0.15.2
-References: <20240328-sm6350-dp-v1-0-215ca2b81c35@fairphone.com>
- <20240328-sm6350-dp-v1-1-215ca2b81c35@fairphone.com>
-In-Reply-To: <20240328-sm6350-dp-v1-1-215ca2b81c35@fairphone.com>
+ AJvYcCX3PJjoPMfFBcvSHhXpaU5OFz+Npgh3Ua3XEmdWBIg0DfjuOhX5lRpxGhMG5ayWRBcX3Upy189fyzOmteuqMNIDxmXCQ94FIP+vWjOanuyD
+X-Gm-Message-State: AOJu0Yx736K1UOX+ejsXNWJtD172KV/19IuJ5zxZO1mQEWpgSeRf4a7O
+ hcBbDIwhOpl4Z0ZehXBnxqJaQb6qBzO04HUVMpO/fzef2SsZunY2wFXqh8WvUTA=
+X-Google-Smtp-Source: AGHT+IGgsUcyXeY8FDF8vS2XCppnudwEwoWxOKePjoBvuZitWaVpJrbYlKgd5O3rBlkgeUOtzYYyOw==
+X-Received: by 2002:a05:6a20:2d0f:b0:1a3:e681:29ce with SMTP id
+ g15-20020a056a202d0f00b001a3e68129cemr3452492pzl.52.1711624331212; 
+ Thu, 28 Mar 2024 04:12:11 -0700 (PDT)
+Received: from niej-think.bbrouter ([112.65.12.82])
+ by smtp.gmail.com with ESMTPSA id
+ k7-20020aa792c7000000b006eab9ef5d4esm1114607pfa.50.2024.03.28.04.12.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Mar 2024 04:12:10 -0700 (PDT)
+From: Jun Nie <jun.nie@linaro.org>
+To: neil.armstrong@linaro.org,
+	dmitry.baryshkov@linaro.org
+Cc: sam@ravnborg.org, airlied@gmail.com, daniel@ffwll.ch,
+ quic_parellan@quicinc.com, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, seanpaul@chromium.org, swboyd@chromium.org,
+ quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com,
+ marijn.suijten@somainline.org, sean@poorly.run,
+ Jun Nie <jun.nie@linaro.org>
+Subject: [PATCH 1/3] drm/msm/dpu: fix DSC for DSI video mode
+Date: Thu, 28 Mar 2024 19:11:56 +0800
+Message-Id: <20240328111158.2074351-1-jun.nie@linaro.org>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,28 +86,270 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Stupid typo in subject, should of course be SM6350, not SM8250.
+Fix DSC timing and control configurations in DPU for DSI video mode.
+Only compression ratio 3:1 is handled and tested.
 
-On Thu Mar 28, 2024 at 10:42 AM CET, Luca Weiss wrote:
-> Add the compatible string for the DisplayPort controller on SM6350 which
-> is compatible with the one on SM8350.
->
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.=
-yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index ae53cbfb2193..97993feda193 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -29,6 +29,7 @@ properties:
->            - qcom,sm8650-dp
->        - items:
->            - enum:
-> +              - qcom,sm6350-dp
->                - qcom,sm8150-dp
->                - qcom,sm8250-dp
->                - qcom,sm8450-dp
+This patch is modified from patchs of Jonathan Marek.
+
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  2 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  2 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  | 12 +++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   | 10 +++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h   |  1 +
+ drivers/gpu/drm/msm/dsi/dsi.xml.h             |  1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c            | 48 +++++++++++--------
+ include/drm/display/drm_dsc.h                 |  4 ++
+ 8 files changed, 56 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 6a4b489d44e5..c1b9da06dde2 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -2440,7 +2440,7 @@ enum dpu_intf_mode dpu_encoder_get_intf_mode(struct drm_encoder *encoder)
+ 	return INTF_MODE_NONE;
+ }
+ 
+-unsigned int dpu_encoder_helper_get_dsc(struct dpu_encoder_phys *phys_enc)
++unsigned int dpu_encoder_helper_get_dsc(const struct dpu_encoder_phys *phys_enc)
+ {
+ 	struct drm_encoder *encoder = phys_enc->parent;
+ 	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(encoder);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+index 993f26343331..5000fa22ad40 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+@@ -339,7 +339,7 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
+  *   used for this encoder.
+  * @phys_enc: Pointer to physical encoder structure
+  */
+-unsigned int dpu_encoder_helper_get_dsc(struct dpu_encoder_phys *phys_enc);
++unsigned int dpu_encoder_helper_get_dsc(const struct dpu_encoder_phys *phys_enc);
+ 
+ /**
+  * dpu_encoder_helper_split_config - split display configuration helper function
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+index d0f56c5c4cce..c0ff39450e66 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+@@ -102,6 +102,8 @@ static void drm_mode_to_intf_timing_params(
+ 	}
+ 
+ 	timing->wide_bus_en = dpu_encoder_is_widebus_enabled(phys_enc->parent);
++	if (dpu_encoder_helper_get_dsc(phys_enc))
++		timing->dsc_en = true;
+ 
+ 	/*
+ 	 * for DP, divide the horizonal parameters by 2 when
+@@ -114,6 +116,16 @@ static void drm_mode_to_intf_timing_params(
+ 		timing->h_front_porch = timing->h_front_porch >> 1;
+ 		timing->hsync_pulse_width = timing->hsync_pulse_width >> 1;
+ 	}
++
++	/*
++	 * for DSI, if compression is enabled, then divide the horizonal active
++	 * timing parameters by compression ratio.
++	 */
++	if (phys_enc->hw_intf->cap->type != INTF_DP && timing->dsc_en) {
++		/* TODO: handle non 3:1 compression ratio, such as 30bpp case */
++		timing->width = timing->width / 3;
++		timing->xres = timing->width;
++	}
+ }
+ 
+ static u32 get_horizontal_total(const struct dpu_hw_intf_timing_params *timing)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+index 6bba531d6dc4..e2f6fa542883 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+@@ -168,10 +168,18 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+ 	 * video timing. It is recommended to enable it for all cases, except
+ 	 * if compression is enabled in 1 pixel per clock mode
+ 	 */
++	if (!p->dsc_en || p->wide_bus_en)
++		intf_cfg2 |= INTF_CFG2_DATA_HCTL_EN;
++
+ 	if (p->wide_bus_en)
+-		intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN | INTF_CFG2_DATA_HCTL_EN;
++		intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN;
++
++	if (p->dsc_en)
++		intf_cfg2 |= INTF_CFG2_DCE_DATA_COMPRESS;
+ 
+ 	data_width = p->width;
++	if (p->wide_bus_en && !dp_intf)
++		data_width = p->width >> 1;
+ 
+ 	hsync_data_start_x = hsync_start_x;
+ 	hsync_data_end_x =  hsync_start_x + data_width - 1;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+index 0bd57a32144a..b452e3557d10 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+@@ -33,6 +33,7 @@ struct dpu_hw_intf_timing_params {
+ 	u32 hsync_skew;
+ 
+ 	bool wide_bus_en;
++	bool dsc_en;
+ };
+ 
+ struct dpu_hw_intf_prog_fetch {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+index 2a7d980e12c3..f0b3cdc020a1 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+@@ -231,6 +231,7 @@ static inline uint32_t DSI_VID_CFG0_TRAFFIC_MODE(enum dsi_traffic_mode val)
+ #define DSI_VID_CFG0_HSA_POWER_STOP				0x00010000
+ #define DSI_VID_CFG0_HBP_POWER_STOP				0x00100000
+ #define DSI_VID_CFG0_HFP_POWER_STOP				0x01000000
++#define DSI_VID_CFG0_DATABUS_WIDEN				0x02000000
+ #define DSI_VID_CFG0_PULSE_MODE_HSA_HE				0x10000000
+ 
+ #define REG_DSI_VID_CFG1					0x0000001c
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index deeecdfd6c4e..070a9aaa38d5 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -745,6 +745,8 @@ static void dsi_ctrl_enable(struct msm_dsi_host *msm_host,
+ 		data |= DSI_VID_CFG0_TRAFFIC_MODE(dsi_get_traffic_mode(flags));
+ 		data |= DSI_VID_CFG0_DST_FORMAT(dsi_get_vid_fmt(mipi_fmt));
+ 		data |= DSI_VID_CFG0_VIRT_CHANNEL(msm_host->channel);
++		if (msm_dsi_host_is_wide_bus_enabled(&msm_host->base))
++			data |= DSI_VID_CFG0_DATABUS_WIDEN;
+ 		dsi_write(msm_host, REG_DSI_VID_CFG0, data);
+ 
+ 		/* Do not swap RGB colors */
+@@ -847,6 +849,8 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+ 	u32 slice_per_intf, total_bytes_per_intf;
+ 	u32 pkt_per_line;
+ 	u32 eol_byte_num;
++	u32 bytes_per_pkt;
++	u32 slice_per_pkt;
+ 
+ 	/* first calculate dsc parameters and then program
+ 	 * compress mode registers
+@@ -857,13 +861,12 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+ 
+ 	eol_byte_num = total_bytes_per_intf % 3;
+ 
+-	/*
+-	 * Typically, pkt_per_line = slice_per_intf * slice_per_pkt.
+-	 *
+-	 * Since the current driver only supports slice_per_pkt = 1,
+-	 * pkt_per_line will be equal to slice per intf for now.
+-	 */
+-	pkt_per_line = slice_per_intf;
++	/* If slice_per_pkt is greater than slice_per_intf then to 1 */
++	slice_per_pkt  = dsc->slice_per_pkt > slice_per_intf ?
++			 1 : dsc->slice_per_pkt;
++
++	bytes_per_pkt = dsc->slice_chunk_size * slice_per_pkt;
++	pkt_per_line = slice_per_intf / slice_per_pkt;
+ 
+ 	if (is_cmd_mode) /* packet data type */
+ 		reg = DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE);
+@@ -873,6 +876,8 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+ 	/* DSI_VIDEO_COMPRESSION_MODE & DSI_COMMAND_COMPRESSION_MODE
+ 	 * registers have similar offsets, so for below common code use
+ 	 * DSI_VIDEO_COMPRESSION_MODE_XXXX for setting bits
++	 *
++	 * pkt_per_line is log2 encoded, >>1 works for supported values (1,2,4)
+ 	 */
+ 	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_PKT_PER_LINE(pkt_per_line >> 1);
+ 	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_EOL_BYTE_NUM(eol_byte_num);
+@@ -891,6 +896,7 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+ 		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg_ctrl);
+ 		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2, reg_ctrl2);
+ 	} else {
++		reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_WC(bytes_per_pkt);
+ 		dsi_write(msm_host, REG_DSI_VIDEO_COMPRESSION_MODE_CTRL, reg);
+ 	}
+ }
+@@ -898,6 +904,7 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ {
+ 	struct drm_display_mode *mode = msm_host->mode;
++	struct drm_dsc_config *dsc = msm_host->dsc;
+ 	u32 hs_start = 0, vs_start = 0; /* take sync start as 0 */
+ 	u32 h_total = mode->htotal;
+ 	u32 v_total = mode->vtotal;
+@@ -929,8 +936,7 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 		hdisplay /= 2;
+ 	}
+ 
+-	if (msm_host->dsc) {
+-		struct drm_dsc_config *dsc = msm_host->dsc;
++	if (dsc) {
+ 		u32 bytes_per_pclk;
+ 
+ 		/* update dsc params with timing params */
+@@ -967,7 +973,7 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 	}
+ 
+ 	if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO) {
+-		if (msm_host->dsc)
++		if (dsc)
+ 			dsi_update_dsc_timing(msm_host, false, mode->hdisplay);
+ 
+ 		dsi_write(msm_host, REG_DSI_ACTIVE_H,
+@@ -988,21 +994,17 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 			DSI_ACTIVE_VSYNC_VPOS_START(vs_start) |
+ 			DSI_ACTIVE_VSYNC_VPOS_END(vs_end));
+ 	} else {		/* command mode */
+-		if (msm_host->dsc)
++		if (dsc) {
+ 			dsi_update_dsc_timing(msm_host, true, mode->hdisplay);
+ 
+-		/* image data and 1 byte write_memory_start cmd */
+-		if (!msm_host->dsc)
+-			wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
+-		else
+ 			/*
+ 			 * When DSC is enabled, WC = slice_chunk_size * slice_per_pkt + 1.
+-			 * Currently, the driver only supports default value of slice_per_pkt = 1
+-			 *
+-			 * TODO: Expand mipi_dsi_device struct to hold slice_per_pkt info
+-			 *       and adjust DSC math to account for slice_per_pkt.
+ 			 */
+-			wc = msm_host->dsc->slice_chunk_size + 1;
++			wc = msm_host->dsc->slice_chunk_size * msm_host->dsc->slice_per_pkt + 1;
++		} else {
++			/* image data and 1 byte write_memory_start cmd */
++			wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
++		}
+ 
+ 		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
+ 			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+@@ -1629,8 +1631,12 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
+ 	msm_host->lanes = dsi->lanes;
+ 	msm_host->format = dsi->format;
+ 	msm_host->mode_flags = dsi->mode_flags;
+-	if (dsi->dsc)
++	if (dsi->dsc) {
+ 		msm_host->dsc = dsi->dsc;
++		/* for backwards compatibility, assume 1 if not set */
++		if (!msm_host->dsc->slice_per_pkt)
++			msm_host->dsc->slice_per_pkt = 1;
++	}
+ 
+ 	/* Some gpios defined in panel DT need to be controlled by host */
+ 	ret = dsi_host_init_panel_gpios(msm_host, &dsi->dev);
+diff --git a/include/drm/display/drm_dsc.h b/include/drm/display/drm_dsc.h
+index bc90273d06a6..01642bc9f016 100644
+--- a/include/drm/display/drm_dsc.h
++++ b/include/drm/display/drm_dsc.h
+@@ -92,6 +92,10 @@ struct drm_dsc_config {
+ 	 * @slice_count: Number fo slices per line used by the DSC encoder
+ 	 */
+ 	u8 slice_count;
++	/**
++	 * @slice_per_pkt: Number fo slices per packet in the encoded bit stream
++	 */
++	u8 slice_per_pkt;
+ 	/**
+ 	 *  @slice_width: Width of each slice in pixels
+ 	 */
+-- 
+2.34.1
 
