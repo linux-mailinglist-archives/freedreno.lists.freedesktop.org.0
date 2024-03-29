@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C76A891489
-	for <lists+freedreno@lfdr.de>; Fri, 29 Mar 2024 08:47:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3444A891487
+	for <lists+freedreno@lfdr.de>; Fri, 29 Mar 2024 08:47:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 777A2112575;
-	Fri, 29 Mar 2024 07:47:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D69C112574;
+	Fri, 29 Mar 2024 07:47:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="ByOgAKKo";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="gXDaqmA9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8450711256E
- for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 07:46:58 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-a4a387ff7acso213130766b.2
- for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 00:46:58 -0700 (PDT)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47ADB11256E
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 07:47:00 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-51588f70d2dso2016888e87.3
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 00:47:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1711698357; x=1712303157; darn=lists.freedesktop.org;
+ d=fairphone.com; s=fair; t=1711698358; x=1712303158; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ktUevP6u8w4KHYW86f+K8GcdXFfL/uIUgZtZWzBIQhc=;
- b=ByOgAKKoI17PIXQkYCuJ6Lv2MBvgMnna/WJs8v7GfOWiJAjcS7UogYxbWk2vH9MLZX
- lzqJrTIUahY1O8T8FEjVz3dMAv3VgpTRScqcobgiIHQC662XwJ9Yp9S4bvVV8u/jvk5N
- pkyrdtjGqX10EtSPdXAmWYNAty/I4+yOrQ2wdyX5atvtRtXSYeKfYl0cLxKagh5G5rkV
- kCQZ7sKTLpV4+PsV/Gq/mQlvOBa1DaPU+JegXaUQZ4oH+hak0nolDJ+BUZqmBsFh9t6S
- dHSuQzOG+5hXhqTVC9ah7SAph0zM2yy72nNVDjNYyaro6p4fLbVsXG+ymhnJu9p2pCLc
- M0aA==
+ :reply-to; bh=4McqOYY3UTRJyQ2CjaqCL8nyfMiP9YKrs8lnA2q8yiE=;
+ b=gXDaqmA9quiZp+ruPAMGnI1hoJMmVf1Uhv3vmcXui1gptk+fz1TzaJpCOT6ABSyipZ
+ FBGMdupgESxudLwz8pjWizjdh/PLdKiKJaglBYYllauezBcP1vEu1GE9i+4cgGu7CWIq
+ Ln34oZAcqlkEb38fVqIq7zo0M2vleCCh+5GyvQnWhvWcBLhjaA05HZ3Dnn8Y9j3NYzTv
+ 4LrPFw1tjyT+CWTrbEmRZF7qaPRGhuW/9oUkE+kGAz/vEbgY5I/ChVz/FLqQWTDnOwLe
+ p2WI3xEsB4KZgSX+MXqNX38EL2cKv7OADWUr1baZBM0tdAcsHWOBMImzekhFrZN72gWo
+ IcPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711698357; x=1712303157;
+ d=1e100.net; s=20230601; t=1711698358; x=1712303158;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ktUevP6u8w4KHYW86f+K8GcdXFfL/uIUgZtZWzBIQhc=;
- b=L10rJxS1EfBpy6BMqH/jQq/K6hTCUAhJL2wuj4fQwfFlRrKuuGOhEEvFl9EGQAXLxf
- 1ncW3TDXmnxpoRbI1zlMKr2vM6chM7/8+cRC/kTyJH7cgOq5Sm1vwsjiH3aoVXdo7Mf8
- lqA+lBK2EQ7IVmVkxBJPkHxKHhpvj7W51XMsBkGW/B5RBnmHRMTGugsrknzV0YZTmVwO
- 5Cc1rxfH7kFM+U5brNmFZI/GHKBP4LpGTKaYvaZQSqjJC95BDU+VwRx46xIyOGh9aqFi
- mpeBGrhUMkiwLADeekeXhaf935EagVzoDXKyYw4JUl3s1SbHxsEpF0aXDc2/7BJdYfvC
- bkjw==
+ bh=4McqOYY3UTRJyQ2CjaqCL8nyfMiP9YKrs8lnA2q8yiE=;
+ b=jNg8sPHq7frHTMhcKu3CVkGvrLRxR1Af3gF96vIPMNXFvVV8Zd18oUCSAyxcJc3FqN
+ R54qWBAO7nj53yWrLNQgi2xdBJlUMfZ3Sc9xTkxHcTB/MXZGT/kH6kuqNxUuOz4OCbT2
+ ypv63HClqUdS1dpkPmYSIwRJbLF8kjarm2pzju3+xx2DjMQFxuzCHY3z/GWcBnXJTYvi
+ zuOCseEk+XfGM0yGirIRARBf3Xuy9CnBf6dMgGcnQxHsp+G+doxeFt5fMax95u8awdMs
+ f4KnAgjtBvprRNOEZGOBEW8UkF6vfUTiFn0ud25PyMIDnUwbTeZCM0q0+kJqM6iYURt6
+ ssdQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVX8RJzwJaby9hDIpLmMVeyQVs5GE4cZo8WksbCI/EoNQbikRhQWhdUKN0li9sLaful/3EY2rtPAy96jrUo41k3SYWUImGYCeLDkKttewYg
-X-Gm-Message-State: AOJu0YwX06clzYk1EPCAZLNc7OWEhyBb3yIuOCdhySsnO0fZDjNTrzw0
- kFt4THPCRY4Ajqy4GTNtZfGEP/Hg5pauKtC/a3RvAVNTlShmK23boAgApttGc2w=
-X-Google-Smtp-Source: AGHT+IFa6363X6GOmkR4BsEQwG0xCUHGlbVBpxaeQsPeMOww1hYOuly/ejvvRwJqZ9obHOITNtL4iQ==
-X-Received: by 2002:a17:906:5053:b0:a4e:2a62:7eb6 with SMTP id
- e19-20020a170906505300b00a4e2a627eb6mr863656ejk.51.1711698357114; 
- Fri, 29 Mar 2024 00:45:57 -0700 (PDT)
+ AJvYcCVdocV9jk/e4n1O3xssTYpnQGRgz+rINWC8JdZdJb5zuV8V5Mo9kUmXqBqh13da8e4NiSi9FPe8jdbjpLGm6fOwAOaD6t9/D5ejck4zgsBi
+X-Gm-Message-State: AOJu0YyrKPpvPSqSRWGmp9ig31MkX2+wp+99ht/a/BRnFrMDNoDcv/mw
+ MiUJW8P8qhePL93zWlG4FFy+RaaPD12JfqXg/r1IVzvVn8slK87eqTNFJIOwTiw=
+X-Google-Smtp-Source: AGHT+IGr9SjS2/x9Bg3Cg9sAk0T6zHFzcOeMV4fzLJHUxJzzp46Etz1DP0Mivc1g9nSdBVgZiLJLTg==
+X-Received: by 2002:a19:2d06:0:b0:513:d8e3:fe3d with SMTP id
+ k6-20020a192d06000000b00513d8e3fe3dmr976784lfj.26.1711698358274; 
+ Fri, 29 Mar 2024 00:45:58 -0700 (PDT)
 Received: from otso.luca.vpn.lucaweiss.eu
  (144-178-202-138.static.ef-service.nl. [144.178.202.138])
  by smtp.gmail.com with ESMTPSA id
- l9-20020a1709060cc900b00a4e24d259edsm1382737ejh.167.2024.03.29.00.45.56
+ l9-20020a1709060cc900b00a4e24d259edsm1382737ejh.167.2024.03.29.00.45.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Mar 2024 00:45:56 -0700 (PDT)
+ Fri, 29 Mar 2024 00:45:57 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 29 Mar 2024 08:45:54 +0100
-Subject: [PATCH v2 1/3] dt-bindings: display: msm: dp-controller: document
- SM6350 compatible
+Date: Fri, 29 Mar 2024 08:45:55 +0100
+Subject: [PATCH v2 2/3] dt-bindings: display: msm: sm6350-mdss: document DP
+ controller subnode
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240329-sm6350-dp-v2-1-e46dceb32ef5@fairphone.com>
+Message-Id: <20240329-sm6350-dp-v2-2-e46dceb32ef5@fairphone.com>
 References: <20240329-sm6350-dp-v2-0-e46dceb32ef5@fairphone.com>
 In-Reply-To: <20240329-sm6350-dp-v2-0-e46dceb32ef5@fairphone.com>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -99,27 +99,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the compatible string for the DisplayPort controller on SM6350 which
-is compatible with the one on SM8350.
+Document the displayport controller subnode of the SM6350 MDSS.
 
-Acked-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ .../devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml        | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-index ae53cbfb2193..97993feda193 100644
---- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-@@ -29,6 +29,7 @@ properties:
-           - qcom,sm8650-dp
-       - items:
-           - enum:
-+              - qcom,sm6350-dp
-               - qcom,sm8150-dp
-               - qcom,sm8250-dp
-               - qcom,sm8450-dp
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
+index c9ba1fae8042..bba666bdffe5 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
+@@ -53,6 +53,15 @@ patternProperties:
+       compatible:
+         const: qcom,sm6350-dpu
+ 
++  "^displayport-controller@[0-9a-f]+$":
++    type: object
++    additionalProperties: true
++
++    properties:
++      compatible:
++        contains:
++          const: qcom,sm6350-dp
++
+   "^dsi@[0-9a-f]+$":
+     type: object
+     additionalProperties: true
 
 -- 
 2.44.0
