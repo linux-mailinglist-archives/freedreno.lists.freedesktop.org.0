@@ -2,123 +2,124 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A54F2891788
-	for <lists+freedreno@lfdr.de>; Fri, 29 Mar 2024 12:21:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44DDF8919DA
+	for <lists+freedreno@lfdr.de>; Fri, 29 Mar 2024 13:48:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E585010F726;
-	Fri, 29 Mar 2024 11:21:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE6CE1126ED;
+	Fri, 29 Mar 2024 12:48:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="D6MfL56P";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="T7jXYmcx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1EA410EDCB
- for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 11:21:26 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-a46ea03c2a5so345278166b.1
- for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 04:21:26 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D13C31126EE
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 12:48:27 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-41495dcea8eso13212435e9.3
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 05:48:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711711222; x=1712316022; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1711716446; x=1712321246; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=kKV3KbJjgkEGw8OwdQHUS9b2YPZiHnl3LTkJFrXOS7w=;
- b=D6MfL56PBmEn/Ovp80MT/dg5lCz2Rl4aZmLwyTl6NF3mMMPnPalz8C2oGwXYZ1qJ3Z
- tm22rB7zq0JZqULCQOI85W0mimIln3TFJlq5Mab87wqu1Ox13UYju7WR6LgUR6YzB6Y5
- /eM/UMTGwHFrbNvtFL9r4gcKoUzo7iSpCT35zDysL7eeUcdF8+yZ/VSVEdVhq4OFZg/x
- BIBsVIWqpsKAzbPYLdjvDqO6YapsKSJxQFiwGZo81wH/IGhfsw5puQDszRXEHDzb0jY9
- W5AF7xJbhPHueu1abrZHmUFrepcQ8MGWR9LpNEOAI8VXl/V/f3FM0pxJ0gvSlU1V5eFM
- LAag==
+ bh=qZ7D+5qJ2pNz6EYwHipxqxpZRV6/vgGZ6gzPku1VvVw=;
+ b=T7jXYmcxgkFdaK1HM8xifiOQxS/XrS6TTkTWF7i0XopQS8tRsGZ71Ijz3RvqqwOBxw
+ 05WcnS4pP8/MbsxgB7dSpJzQ01KDLkhapXJHPUlsuz5Oq+8f3tWhfpTkyiamWbC+pPax
+ dLgbGqehq76nFPti0cO26tTEzLijiY5wofTDLT5eTm7w92hZoBV8WVSvKhB4fku56y/w
+ YSydHDtPmHGofuIsR0c3K3btdHDIqBhJu3JL1ppR6LRBySUtIXyljv5Pj9VkcTTi4RSd
+ mJI+E4MUJuzFsVHYSpfRSMA8C9qLNkJ2K4boc5bG25+2M6orNaQmtmiG62eG1bY/pOFm
+ v2sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711711222; x=1712316022;
+ d=1e100.net; s=20230601; t=1711716446; x=1712321246;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kKV3KbJjgkEGw8OwdQHUS9b2YPZiHnl3LTkJFrXOS7w=;
- b=PS3INiaNb0/Lnu+ZyCXqb1A3Ij+9ofoQVzNtWAbv4WSNtGk4PIrgEbxYMJcJy/EHMO
- O7/y7u9R9zsMhvxDLuAd/ldwlAR2NMcXfDGNJecAsJXD0I50vHH3kvxJM6pN4yHWF7WK
- 86KVuQmphhG7X4bxyUnV2ERqUCxViBHtx2zzTFSdee2lwotP8LPwsDpXAUwvxGgE9Tqn
- OuX1lXPRJx1H47CB8RPTTZNpVDVHlhhBGLGVckAjgQsVaO8GJ2aafItVOfxMtlHF4lJv
- YHAhCXG1G4YGw3g2djuDZEbbFcd+d6GOzAaVtwmRuMS/6+wil/n5JUJlLf0EP+2kEXly
- OCrA==
+ bh=qZ7D+5qJ2pNz6EYwHipxqxpZRV6/vgGZ6gzPku1VvVw=;
+ b=SGjVa0Cd7JTa9jjZKsA93+9bMzN35QcdhQY8/lmwzLgK45Pq2mAjvjis8+mpXd8aXV
+ kWJnIU1Jm75Vn9jl5fR9QAUJCyvU4Byzu4NL3rFBWrWPVQah+BYfg8PuvYqWOdoVFGqB
+ 79xj/zzQazAf678X2iWPlVQkmPRBOM/2ZSDqOi4PzhGBgb/H5Zb0LO1AV3Hkb0lzvPcR
+ di+Zwyg3W3tL9GsjlZPxv97+mInFJ0EJTENbRPDMOxaImLB93YVgMRgNQW41AqM0u8Eo
+ SEUsjjb7mWJlNt2x7TKwZ00pQIM8GlCvvIbZU2atbneZ1+rhslI9UadtOIEmZcmK2fcQ
+ hidg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUojS54L9UYHSF2n0baISsc4g6CVTZatZS84VhB++z5heXvOf7WZzWcpT2D3rIOnLuzal6BzjMEH18YbrvtGZZ758rsSOVekwdflcWYvuvK
-X-Gm-Message-State: AOJu0YyQDcde023ZVcTxcW1IQe7uWhmb1eJYw+qDL4w7r5qmlzUgBNOC
- 1MRadJV/QgJrrWhqvOcHXby/ic6HUx/Ht6VoeLzXDmtl5ybjHElccU8+rmZtj5o=
-X-Google-Smtp-Source: AGHT+IEIkAJ5ywwRATnP2MCZSETlJm79fyi1m4pgbxPFEky4Hig+TEPkqaU0GNDKkMruZAcPuppxVw==
-X-Received: by 2002:a17:907:6d21:b0:a4e:24b9:bc23 with SMTP id
- sa33-20020a1709076d2100b00a4e24b9bc23mr3747234ejc.34.1711711222186; 
- Fri, 29 Mar 2024 04:20:22 -0700 (PDT)
-Received: from [192.168.92.47] (078088045141.garwolin.vectranet.pl.
- [78.88.45.141]) by smtp.gmail.com with ESMTPSA id
- r17-20020a170906705100b00a42f6d17123sm1809758ejj.46.2024.03.29.04.20.18
+ AJvYcCVcIBNGbsmmwbZX/550nLsBOPqhgbXfQOpI8dTyg5ZdQEvVbJI9vw8xXOhc/9SFNu405Q7ve9Gn8pwUbQZdxPuiQzTyoXDrPXH7Rca6oGTG
+X-Gm-Message-State: AOJu0Yzq1WDtTEau0NNUJ4aFi9nncOSYJcYqIH6udMViuzWavSQLGDXe
+ 44n6LpDH4QK9/LN3JAgzzVhQ7NP1uVTkUaPWwHrhGvTDVn0oIRqf8oh6/DJwvSM=
+X-Google-Smtp-Source: AGHT+IHMksVfsCu2pMKySfa/MLdds370aYD+GVM9XdFWAjzdOCSgnoygNfqulU33DpUs71aRe4tyDg==
+X-Received: by 2002:a05:600c:3587:b0:414:887f:6167 with SMTP id
+ p7-20020a05600c358700b00414887f6167mr1791150wmq.7.1711716446277; 
+ Fri, 29 Mar 2024 05:47:26 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.223.50])
+ by smtp.gmail.com with ESMTPSA id
+ fs11-20020a05600c3f8b00b004146dd6bfe2sm5281882wmb.47.2024.03.29.05.47.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Mar 2024 04:20:21 -0700 (PDT)
-Message-ID: <f80c380f-93b5-471c-8a7b-8cf6de0cfdde@linaro.org>
-Date: Fri, 29 Mar 2024 12:20:17 +0100
+ Fri, 29 Mar 2024 05:47:25 -0700 (PDT)
+Message-ID: <9ec7f1a1-2156-472d-9a3c-0982910e6b4f@linaro.org>
+Date: Fri, 29 Mar 2024 13:47:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm6350: Add DisplayPort
- controller
-To: Luca Weiss <luca.weiss@fairphone.com>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+Subject: Re: [PATCH 2/3] dt-bindings: display: panel: visionox, vtdr6130: Add
+ mode property
+To: Jun Nie <jun.nie@linaro.org>, neil.armstrong@linaro.org,
+ dmitry.baryshkov@linaro.org
+Cc: sam@ravnborg.org, airlied@gmail.com, daniel@ffwll.ch,
+ quic_parellan@quicinc.com, freedreno@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20240329-sm6350-dp-v2-0-e46dceb32ef5@fairphone.com>
- <20240329-sm6350-dp-v2-3-e46dceb32ef5@fairphone.com>
+ robdclark@gmail.com, seanpaul@chromium.org, swboyd@chromium.org,
+ quic_abhinavk@quicinc.com, quic_jesszhan@quicinc.com,
+ marijn.suijten@somainline.org, sean@poorly.run
+References: <20240328111158.2074351-1-jun.nie@linaro.org>
+ <20240328111158.2074351-2-jun.nie@linaro.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
- BB/OmIWU6X+LZW6P88ZmHe+KeyABLMP5s1tJNK1j4ntT7mECcWZDzafPWF4F6m4WJOG27kTJ
- HGWdmtO+RvadOVi6CoUDqALsmfS3MUG5Pj2Ne9+0jRg4hEnB92AyF9rW2G3qisFcwPgvatt7
- TXD5E38mLyOPOUyXNj9XpDbt1hNwKQfiidmPh5e7VNAWRnW1iCMMoKqzM1Anzq7e5Afyeifz
- zRcQPLaqrPjnKqZGL2BKQSZDh6NkI5ZLRhhHQf61fkWcUpTp1oDC6jWVfT7hwRVIQLrrNj9G
- MpPzrlN4YuAqKeIer1FMt8cq64ifgTzxHzXsMcUdclzq2LTk2RXaPl6Jg/IXWqUClJHbamSk
- t1bfif3SnmhA6TiNvEpDKPiT3IDs42THU6ygslrBxyROQPWLI9IL1y8S6RtEh8H+NZQWZNzm
- UQ3imZirlPjxZtvz1BtnnBWS06e7x/UEAguj7VHCuymVgpl2Za17d1jj81YN5Rp5L9GXxkV1
- aUEwONM3eCI3qcYm5JNc5X+JthZOWsbIPSC1Rhxz3JmWIwP1udr5E3oNRe9u2LIEq+wH/toH
- kpPDhTeMkvt4KfE5m5ercid9+ZXAqoaYLUL4HCEw+HW0DXcKDwARAQABzShLb25yYWQgRHli
- Y2lvIDxrb25yYWQuZHliY2lvQGxpbmFyby5vcmc+wsGOBBMBCAA4FiEEU24if9oCL2zdAAQV
- R4cBcg5dfFgFAmQ5bqwCGwMFCwkIBwIGFQoJCAsCBBYCAwECHgECF4AACgkQR4cBcg5dfFjO
- BQ//YQV6fkbqQCceYebGg6TiisWCy8LG77zV7DB0VMIWJv7Km7Sz0QQrHQVzhEr3trNenZrf
- yy+o2tQOF2biICzbLM8oyQPY8B///KJTWI2khoB8IJSJq3kNG68NjPg2vkP6CMltC/X3ohAo
- xL2UgwN5vj74QnlNneOjc0vGbtA7zURNhTz5P/YuTudCqcAbxJkbqZM4WymjQhe0XgwHLkiH
- 5LHSZ31MRKp/+4Kqs4DTXMctc7vFhtUdmatAExDKw8oEz5NbskKbW+qHjW1XUcUIrxRr667V
- GWH6MkVceT9ZBrtLoSzMLYaQXvi3sSAup0qiJiBYszc/VOu3RbIpNLRcXN3KYuxdQAptacTE
- mA+5+4Y4DfC3rUSun+hWLDeac9z9jjHm5rE998OqZnOU9aztbd6zQG5VL6EKgsVXAZD4D3RP
- x1NaAjdA3MD06eyvbOWiA5NSzIcC8UIQvgx09xm7dThCuQYJR4Yxjd+9JPJHI6apzNZpDGvQ
- BBZzvwxV6L1CojUEpnilmMG1ZOTstktWpNzw3G2Gis0XihDUef0MWVsQYJAl0wfiv/0By+XK
- mm2zRR+l/dnzxnlbgJ5pO0imC2w0TVxLkAp0eo0LHw619finad2u6UPQAkZ4oj++iIGrJkt5
- Lkn2XgB+IW8ESflz6nDY3b5KQRF8Z6XLP0+IEdLOOARkOW7yEgorBgEEAZdVAQUBAQdAwmUx
- xrbSCx2ksDxz7rFFGX1KmTkdRtcgC6F3NfuNYkYDAQgHwsF2BBgBCAAgFiEEU24if9oCL2zd
- AAQVR4cBcg5dfFgFAmQ5bvICGwwACgkQR4cBcg5dfFju1Q//Xta1ShwL0MLSC1KL1lXGXeRM
- 8arzfyiB5wJ9tb9U/nZvhhdfilEDLe0jKJY0RJErbdRHsalwQCrtq/1ewQpMpsRxXzAjgfRN
- jc4tgxRWmI+aVTzSRpywNahzZBT695hMz81cVZJoZzaV0KaMTlSnBkrviPz1nIGHYCHJxF9r
- cIu0GSIyUjZ/7xslxdvjpLth16H27JCWDzDqIQMtg61063gNyEyWgt1qRSaK14JIH/DoYRfn
- jfFQSC8bffFjat7BQGFz4ZpRavkMUFuDirn5Tf28oc5ebe2cIHp4/kajTx/7JOxWZ80U70mA
- cBgEeYSrYYnX+UJsSxpzLc/0sT1eRJDEhI4XIQM4ClIzpsCIN5HnVF76UQXh3a9zpwh3dk8i
- bhN/URmCOTH+LHNJYN/MxY8wuukq877DWB7k86pBs5IDLAXmW8v3gIDWyIcgYqb2v8QO2Mqx
- YMqL7UZxVLul4/JbllsQB8F/fNI8AfttmAQL9cwo6C8yDTXKdho920W4WUR9k8NT/OBqWSyk
- bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
- nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
- izWDgYvmBE8=
-In-Reply-To: <20240329-sm6350-dp-v2-3-e46dceb32ef5@fairphone.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20240328111158.2074351-2-jun.nie@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -136,13 +137,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 29.03.2024 8:45 AM, Luca Weiss wrote:
-> Add the node for the DisplayPort controller found on the SM6350 SoC.
+On 28/03/2024 12:11, Jun Nie wrote:
+> Add DSI mode property and compression mode property
 > 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
 > ---
+>  .../bindings/display/panel/visionox,vtdr6130.yaml         | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Please use scripts/get_maintainers.pl to get a list of necessary people
+and lists to CC. It might happen, that command when run on an older
+kernel, gives you outdated entries. Therefore please be sure you base
+your patches on recent Linux kernel.
 
-Konrad
+Tools like b4 or scripts/get_maintainer.pl provide you proper list of
+people, so fix your workflow. Tools might also fail if you work on some
+ancient tree (don't, instead use mainline), work on fork of kernel
+(don't, instead use mainline) or you ignore some maintainers (really
+don't). Just use b4 and everything should be fine, although remember
+about `b4 prep --auto-to-cc` if you added new patches to the patchset.
+
+You missed at least devicetree list (maybe more), so this won't be
+tested by automated tooling. Performing review on untested code might be
+a waste of time, thus I will skip this patch entirely till you follow
+the process allowing the patch to be tested.
+
+Please kindly resend and include all necessary To/Cc entries.
+
+
+Best regards,
+Krzysztof
+
