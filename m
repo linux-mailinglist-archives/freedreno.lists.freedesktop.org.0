@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3444A891487
-	for <lists+freedreno@lfdr.de>; Fri, 29 Mar 2024 08:47:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8693B891484
+	for <lists+freedreno@lfdr.de>; Fri, 29 Mar 2024 08:47:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D69C112574;
-	Fri, 29 Mar 2024 07:47:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38E2611256C;
+	Fri, 29 Mar 2024 07:47:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="gXDaqmA9";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="p3Aol2CU";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47ADB11256E
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB3AD11256C
  for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 07:47:00 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-51588f70d2dso2016888e87.3
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-a4751063318so219745166b.0
  for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 00:47:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1711698358; x=1712303158; darn=lists.freedesktop.org;
+ d=fairphone.com; s=fair; t=1711698359; x=1712303159; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=4McqOYY3UTRJyQ2CjaqCL8nyfMiP9YKrs8lnA2q8yiE=;
- b=gXDaqmA9quiZp+ruPAMGnI1hoJMmVf1Uhv3vmcXui1gptk+fz1TzaJpCOT6ABSyipZ
- FBGMdupgESxudLwz8pjWizjdh/PLdKiKJaglBYYllauezBcP1vEu1GE9i+4cgGu7CWIq
- Ln34oZAcqlkEb38fVqIq7zo0M2vleCCh+5GyvQnWhvWcBLhjaA05HZ3Dnn8Y9j3NYzTv
- 4LrPFw1tjyT+CWTrbEmRZF7qaPRGhuW/9oUkE+kGAz/vEbgY5I/ChVz/FLqQWTDnOwLe
- p2WI3xEsB4KZgSX+MXqNX38EL2cKv7OADWUr1baZBM0tdAcsHWOBMImzekhFrZN72gWo
- IcPQ==
+ :reply-to; bh=lcotkK4GO99SFGIIH8jXD+5kvmn1tNTmHBz7CWYrF30=;
+ b=p3Aol2CUSQHqatj9gl57fvXtN0E9hU72flfa20XWIaw/B+6UXQUAYjlfXPSbwhzZoQ
+ oG5wHy9z27aoEFTm3cykh7BUyAjHKE911ehGG0oawpPJAzxDRSufFNrE2W838h1OgGgL
+ Gw4aQFLBGyxhSFjgcBzH+pqWTHjsnl4KhNwHY8kKJjSe2W/Nj1Egy0wo2xEGMjKvZbQn
+ KFn1yO0Nzww3y2ghQFE46dynrON90xuTRRCA+9SXQ9ONMZvPu+77YSAgyAdvV64OYi0A
+ mtlUpPV/qXNzahof87U671fLh/h69WQUqGaabm1pvrhNjpXxykKW5Swm88p9va03LRuJ
+ kw7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711698358; x=1712303158;
+ d=1e100.net; s=20230601; t=1711698359; x=1712303159;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4McqOYY3UTRJyQ2CjaqCL8nyfMiP9YKrs8lnA2q8yiE=;
- b=jNg8sPHq7frHTMhcKu3CVkGvrLRxR1Af3gF96vIPMNXFvVV8Zd18oUCSAyxcJc3FqN
- R54qWBAO7nj53yWrLNQgi2xdBJlUMfZ3Sc9xTkxHcTB/MXZGT/kH6kuqNxUuOz4OCbT2
- ypv63HClqUdS1dpkPmYSIwRJbLF8kjarm2pzju3+xx2DjMQFxuzCHY3z/GWcBnXJTYvi
- zuOCseEk+XfGM0yGirIRARBf3Xuy9CnBf6dMgGcnQxHsp+G+doxeFt5fMax95u8awdMs
- f4KnAgjtBvprRNOEZGOBEW8UkF6vfUTiFn0ud25PyMIDnUwbTeZCM0q0+kJqM6iYURt6
- ssdQ==
+ bh=lcotkK4GO99SFGIIH8jXD+5kvmn1tNTmHBz7CWYrF30=;
+ b=vZfwmb1BH8kvUSNzJwmZkl+m7lHxF7JQiT+p3KP6pvNEVkG+pPkylKjCaxLkaNMb1F
+ wuPykQQ2e/LUJ3UaQUlLr9Wyg/sfqUw+fBrbgoFDndrCtmffgrX7tkv9E8e59q0LQf3Z
+ nHPgjuIJkCvO8WSgctvm2b534MzYa4opuc63KZLf+wkvpdiZ9Q5p/nZQRTn/mMP9tWHQ
+ v+7bgFpiYETKiS0NSMizPKMVL2SM2WQvLe1WY9cOGkMICrxlGwPOzkthze4GQmgA9fMy
+ +Z/yk2JreCbAjRVGhL95pIJEE+Soev7EhR+nkPPsZNztP960tNgwzE4s8fOSoJhOJqbY
+ dNzg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVdocV9jk/e4n1O3xssTYpnQGRgz+rINWC8JdZdJb5zuV8V5Mo9kUmXqBqh13da8e4NiSi9FPe8jdbjpLGm6fOwAOaD6t9/D5ejck4zgsBi
-X-Gm-Message-State: AOJu0YyrKPpvPSqSRWGmp9ig31MkX2+wp+99ht/a/BRnFrMDNoDcv/mw
- MiUJW8P8qhePL93zWlG4FFy+RaaPD12JfqXg/r1IVzvVn8slK87eqTNFJIOwTiw=
-X-Google-Smtp-Source: AGHT+IGr9SjS2/x9Bg3Cg9sAk0T6zHFzcOeMV4fzLJHUxJzzp46Etz1DP0Mivc1g9nSdBVgZiLJLTg==
-X-Received: by 2002:a19:2d06:0:b0:513:d8e3:fe3d with SMTP id
- k6-20020a192d06000000b00513d8e3fe3dmr976784lfj.26.1711698358274; 
- Fri, 29 Mar 2024 00:45:58 -0700 (PDT)
+ AJvYcCWoNSaiDROXRjd4wBFuwOUEFtNIpcYBqQyNfTMvpV3vVe4jBKBCeJWHYLQLcOsy7o76zDGwwqlBuzPWIgLtu9i1KdK0bo2aaS/JIqHMQeVw
+X-Gm-Message-State: AOJu0YwBgfllL4IZpu3xUC5HJEzea+5alHPgG2AeJ2E2eSKJLLn5Lot4
+ 6Q5TLwraMt1Cf/Far3yi2OzGTMjhvPOFWgKgmBpIWVVtc4g4n9PLFAsNfAE8BRM=
+X-Google-Smtp-Source: AGHT+IE24627ppy3W0EYA3xkVYAvPY4pdoTFgJaCVO/S+vc52RfohmJ4tnXqThQoPHfY+9NaDMJ7Ng==
+X-Received: by 2002:a17:906:a88a:b0:a47:5265:9aac with SMTP id
+ ha10-20020a170906a88a00b00a4752659aacmr859536ejb.55.1711698359536; 
+ Fri, 29 Mar 2024 00:45:59 -0700 (PDT)
 Received: from otso.luca.vpn.lucaweiss.eu
  (144-178-202-138.static.ef-service.nl. [144.178.202.138])
  by smtp.gmail.com with ESMTPSA id
- l9-20020a1709060cc900b00a4e24d259edsm1382737ejh.167.2024.03.29.00.45.57
+ l9-20020a1709060cc900b00a4e24d259edsm1382737ejh.167.2024.03.29.00.45.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Mar 2024 00:45:57 -0700 (PDT)
+ Fri, 29 Mar 2024 00:45:58 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 29 Mar 2024 08:45:55 +0100
-Subject: [PATCH v2 2/3] dt-bindings: display: msm: sm6350-mdss: document DP
- controller subnode
+Date: Fri, 29 Mar 2024 08:45:56 +0100
+Subject: [PATCH v2 3/3] arm64: dts: qcom: sm6350: Add DisplayPort
+ controller
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240329-sm6350-dp-v2-2-e46dceb32ef5@fairphone.com>
+Message-Id: <20240329-sm6350-dp-v2-3-e46dceb32ef5@fairphone.com>
 References: <20240329-sm6350-dp-v2-0-e46dceb32ef5@fairphone.com>
 In-Reply-To: <20240329-sm6350-dp-v2-0-e46dceb32ef5@fairphone.com>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -99,33 +99,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Document the displayport controller subnode of the SM6350 MDSS.
+Add the node for the DisplayPort controller found on the SM6350 SoC.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- .../devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml        | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ arch/arm64/boot/dts/qcom/sm6350.dtsi | 88 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 88 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
-index c9ba1fae8042..bba666bdffe5 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
-@@ -53,6 +53,15 @@ patternProperties:
-       compatible:
-         const: qcom,sm6350-dpu
+diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+index 24bcec3366ef..d7cf4b5ceea6 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
+@@ -2033,6 +2033,14 @@ dpu_intf1_out: endpoint {
+ 							remote-endpoint = <&mdss_dsi0_in>;
+ 						};
+ 					};
++
++					port@2 {
++						reg = <2>;
++
++						dpu_intf0_out: endpoint {
++							remote-endpoint = <&mdss_dp_in>;
++						};
++					};
+ 				};
  
-+  "^displayport-controller@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
+ 				mdp_opp_table: opp-table {
+@@ -2070,6 +2078,86 @@ opp-560000000 {
+ 				};
+ 			};
+ 
++			mdss_dp: displayport-controller@ae90000 {
++				compatible = "qcom,sm6350-dp", "qcom,sm8350-dp";
++				reg = <0 0xae90000 0 0x200>,
++				      <0 0xae90200 0 0x200>,
++				      <0 0xae90400 0 0x600>,
++				      <0 0xae91000 0 0x400>,
++				      <0 0xae91400 0 0x400>;
++				interrupt-parent = <&mdss>;
++				interrupts = <12>;
++				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
++				clock-names = "core_iface",
++					      "core_aux",
++					      "ctrl_link",
++					      "ctrl_link_iface",
++					      "stream_pixel";
 +
-+    properties:
-+      compatible:
-+        contains:
-+          const: qcom,sm6350-dp
++				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
++						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
++				assigned-clock-parents = <&usb_1_qmpphy QMP_USB43DP_DP_LINK_CLK>,
++							 <&usb_1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
 +
-   "^dsi@[0-9a-f]+$":
-     type: object
-     additionalProperties: true
++				phys = <&usb_1_qmpphy QMP_USB43DP_DP_PHY>;
++				phy-names = "dp";
++
++				#sound-dai-cells = <0>;
++
++				operating-points-v2 = <&dp_opp_table>;
++				power-domains = <&rpmhpd SM6350_CX>;
++
++				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						mdss_dp_in: endpoint {
++							remote-endpoint = <&dpu_intf0_out>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++
++						mdss_dp_out: endpoint {
++						};
++					};
++				};
++
++				dp_opp_table: opp-table {
++					compatible = "operating-points-v2";
++
++					opp-160000000 {
++						opp-hz = /bits/ 64 <160000000>;
++						required-opps = <&rpmhpd_opp_low_svs>;
++					};
++
++					opp-270000000 {
++						opp-hz = /bits/ 64 <270000000>;
++						required-opps = <&rpmhpd_opp_svs>;
++					};
++
++					opp-540000000 {
++						opp-hz = /bits/ 64 <540000000>;
++						required-opps = <&rpmhpd_opp_svs_l1>;
++					};
++
++					opp-810000000 {
++						opp-hz = /bits/ 64 <810000000>;
++						required-opps = <&rpmhpd_opp_nom>;
++					};
++				};
++			};
++
+ 			mdss_dsi0: dsi@ae94000 {
+ 				compatible = "qcom,sm6350-dsi-ctrl", "qcom,mdss-dsi-ctrl";
+ 				reg = <0 0x0ae94000 0 0x400>;
 
 -- 
 2.44.0
