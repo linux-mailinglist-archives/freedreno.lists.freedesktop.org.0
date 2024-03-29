@@ -2,80 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CF0B892491
-	for <lists+freedreno@lfdr.de>; Fri, 29 Mar 2024 20:50:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8F6E8927B1
+	for <lists+freedreno@lfdr.de>; Sat, 30 Mar 2024 00:08:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF176112868;
-	Fri, 29 Mar 2024 19:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18D3910E034;
+	Fri, 29 Mar 2024 23:08:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="XhZxwfMs";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="S2oiRJkH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4589011285D;
- Fri, 29 Mar 2024 19:50:51 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42TJeOW0000759; Fri, 29 Mar 2024 19:50:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id:mime-version:content-type; s=
- qcppdkim1; bh=7rock+tuzQRHkqfp1Y4Kn8OYDsz+pZ5CBU3sKrV+tGY=; b=Xh
- ZxwfMs8QqAYUMJTt0PVclF0OA6lmtWlvL0fvd/65OkvkRNgURFP4+b5FhRZ7yTqU
- xt3rDG9BlstBviwg/6vMjo9KXlRdu3op3E0zT20w4vZAcugchV4Raoxk/oqeqsX0
- 2MPY20vEaQX86v+uSIrRJbt4r+bOTHLfMqDFY6HatcOr+HlHSYL4NQXFeP35Ac05
- VQnp/sk88sLm17xFeRgrXCRZfZDacT52N0tJPIJrNxvj20weLYph1a9VQipUtPFq
- Dkp7LRVnie9AUYWJXHmDww6atpNtLLKWYIylwXceVdKLjPnFQTCQ3FepwuACy+lo
- iol8t6dARICIgH/A05ZA==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3x5w6g0x66-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 29 Mar 2024 19:50:44 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 42TJohgu024049
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 29 Mar 2024 19:50:43 GMT
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Fri, 29 Mar 2024 12:50:43 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@gmail.com>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <abel.vesa@linaro.org>, <andersson@kernel.org>
-CC: Kuogee Hsieh <quic_khsieh@quicinc.com>, <quic_abhinavk@quicinc.com>,
- <quic_jesszhan@quicinc.com>, <quic_sbillaka@quicinc.com>,
- <marijn.suijten@somainline.org>, <freedreno@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3] phy/qcom-qmp-combo: propagate correct return value at
- phy_power_on()
-Date: Fri, 29 Mar 2024 12:50:35 -0700
-Message-ID: <1711741835-10044-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDDE910E40B
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 23:08:39 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-a4715d4c2cbso322556166b.1
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 16:08:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1711753653; x=1712358453;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9cr9T9XoNSyunraFcKw53Bz81zs+cGU+Fn9O3EurmnE=;
+ b=S2oiRJkHZZgXpltUIyjeEoeLbeyzEFFimc4j1gz8N8adqr7ZMqHg+ImIOxI2b6xj0l
+ 7vQD8RV9Ui1rk62V41EsHcwiIZNRD028mdeURk+dd6rMPQodOr2aVLME0qVVLfbzJEAx
+ 9nuhg1pRdWpNBjUTNvGzUotbf2Gkhnbph581I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711753653; x=1712358453;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=9cr9T9XoNSyunraFcKw53Bz81zs+cGU+Fn9O3EurmnE=;
+ b=bzdhi8Yp2WUHQmQrU++YHlX77fS2EbC/ESABOR/9o3nfi7jDzdKWGg91addkDakhKK
+ YO3BYh0v0Hh1NRL5LS4W1qQ8SaS1r/alGGT7clGk8kf55SuNud3eazWxpSj90xBrMp2Y
+ eS+wB2E1bPqO/vW6kqivHztARa/k7RuoGd5MMER/pSVNmSZt13lkm4FE5mhE2xgnjqIT
+ +c+/zdOiotKAGO0wWVJ6gBMuOM3teJ8aEeg2MiC2z24vFzv11HQ+YA64+oBujuaylSEm
+ a5j5wf9aET1nd9pxNd1935DppxYNrCU/AuCNLFzp0WlB0hufSKych2FJ5av/19/A4kZC
+ xVZg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUdBpdGYt0IiyjooH9F9QKtvbWkELQO6roQnIR/qGKomq2DO12RxJPl79vYdwEyr1yIIx3sxZuQuUhb1kMPpye6rmTAGd5WX6w/dhe5kFWE
+X-Gm-Message-State: AOJu0YzGdB6zyx65Vw1wr9ABthVyjXS2d4q+AIIttEZ7m/HsIxnjWBDZ
+ u7Eg8AsSMG4n+yeHzVk20BJDZR7loNWgtNLPaZ479Zzh36SKC3e/KBq84upSUfBxlyuJJZxhglE
+ opg==
+X-Google-Smtp-Source: AGHT+IGFalbQe9obn5AmvWqTF8twJOmj7cJz5kHWCNZlzmPXvGjm9M6NA0s5dfZKmDs/JKx8Se5CUg==
+X-Received: by 2002:a17:906:c413:b0:a4e:904:3c7f with SMTP id
+ u19-20020a170906c41300b00a4e09043c7fmr2110745ejz.50.1711753653386; 
+ Fri, 29 Mar 2024 16:07:33 -0700 (PDT)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com.
+ [209.85.208.42]) by smtp.gmail.com with ESMTPSA id
+ z25-20020a170906075900b00a4e4108a86bsm634128ejb.23.2024.03.29.16.07.31
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 Mar 2024 16:07:32 -0700 (PDT)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-56c2cfdd728so15117a12.1
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Mar 2024 16:07:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUJtdkBTo/9T7L8NoH9bZKEwgp3TxAMqesOrX/JmqSBjlQUlLM84OiORgum6NAuUi9ZAdFqA0pkfCZYlOkLxBE9K8mZvUN3KrudSUypaLH7
+X-Received: by 2002:a05:6402:389:b0:56d:c058:79d with SMTP id
+ o9-20020a056402038900b0056dc058079dmr2456edv.5.1711753651272; Fri, 29 Mar
+ 2024 16:07:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: cvI2yOkFUv_7WnJ4YM2eSZGnz7rLQjSe
-X-Proofpoint-ORIG-GUID: cvI2yOkFUv_7WnJ4YM2eSZGnz7rLQjSe
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-29_13,2024-03-28_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0
- malwarescore=0 adultscore=0 spamscore=0 lowpriorityscore=0 mlxlogscore=999
- impostorscore=0 priorityscore=1501 bulkscore=0 mlxscore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2403210001
- definitions=main-2403290178
+References: <20240203-dp-swing-3-v1-1-6545e1706196@linaro.org>
+In-Reply-To: <20240203-dp-swing-3-v1-1-6545e1706196@linaro.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 29 Mar 2024 16:07:14 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WYsi4Cp2SWySA6jwfTr-xssvfMc4Bt669MEMK4iiyrkA@mail.gmail.com>
+Message-ID: <CAD=FV=WYsi4Cp2SWySA6jwfTr-xssvfMc4Bt669MEMK4iiyrkA@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm/dp: allow voltage swing / pre emphasis of 3
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Stephen Boyd <swboyd@chromium.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,75 +97,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently qmp_combo_dp_power_on() always return 0 in regardless of
-return value of cfg->configure_dp_phy(). This patch propagate
-return value of cfg->configure_dp_phy() all the way back to caller.
+Hi,
 
-Changes in V3:
--- add v2 changes log
+On Sat, Feb 3, 2024 at 5:47=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> Both dp_link_adjust_levels() and dp_ctrl_update_vx_px() limit swing and
+> pre-emphasis to 2, while the real maximum value for the sum of the
+> voltage swing and pre-emphasis is 3. Fix the DP code to remove this
+> limitation.
+>
+> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c |  6 +++---
+>  drivers/gpu/drm/msm/dp/dp_link.c | 22 +++++++++++-----------
+>  drivers/gpu/drm/msm/dp/dp_link.h | 14 +-------------
+>  3 files changed, 15 insertions(+), 27 deletions(-)
 
-Changes in V2:
--- add Fixes tag
--- add dev_err() to qmp_v3_configure_dp_phy()
--- add dev_err() to qmp_v4_configure_dp_phy()
+What ever happened with this patch? It seemed important so I've been
+trying to check back on it, but it seems to still be in limbo. I was
+assuming that (maybe?) Abhinav would check things against the hardware
+documentation and give it a Reviewed-by and then it would land...
 
-Fixes: 52e013d0bffa ("phy: qcom-qmp: Add support for DP in USB3+DP combo phy")
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index 36632fa..513d99d 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -2343,8 +2343,10 @@ static int qmp_v3_configure_dp_phy(struct qmp_combo *qmp)
- 	writel(0x05, qmp->dp_dp_phy + QSERDES_V3_DP_PHY_TX2_TX3_LANE_CTL);
- 
- 	ret = qmp_combo_configure_dp_clocks(qmp);
--	if (ret)
-+	if (ret) {
-+		dev_err(qmp->dev, "dp phy configure failed, err=%d\n", ret);
- 		return ret;
-+	}
- 
- 	writel(0x04, qmp->dp_dp_phy + QSERDES_DP_PHY_AUX_CFG2);
- 	writel(0x01, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
-@@ -2519,8 +2521,10 @@ static int qmp_v4_configure_dp_phy(struct qmp_combo *qmp)
- 	int ret;
- 
- 	ret = qmp_v456_configure_dp_phy(qmp);
--	if (ret < 0)
-+	if (ret < 0) {
-+		dev_err(qmp->dev, "dp phy configure failed, err=%d\n", ret);
- 		return ret;
-+	}
- 
- 	/*
- 	 * At least for 7nm DP PHY this has to be done after enabling link
-@@ -2754,6 +2758,7 @@ static int qmp_combo_dp_power_on(struct phy *phy)
- 	const struct qmp_phy_cfg *cfg = qmp->cfg;
- 	void __iomem *tx = qmp->dp_tx;
- 	void __iomem *tx2 = qmp->dp_tx2;
-+	int ret;
- 
- 	mutex_lock(&qmp->phy_mutex);
- 
-@@ -2766,11 +2771,11 @@ static int qmp_combo_dp_power_on(struct phy *phy)
- 	cfg->configure_dp_tx(qmp);
- 
- 	/* Configure link rate, swing, etc. */
--	cfg->configure_dp_phy(qmp);
-+	ret = cfg->configure_dp_phy(qmp);
- 
- 	mutex_unlock(&qmp->phy_mutex);
- 
--	return 0;
-+	return ret;
- }
- 
- static int qmp_combo_dp_power_off(struct phy *phy)
--- 
-2.7.4
-
+-Doug
