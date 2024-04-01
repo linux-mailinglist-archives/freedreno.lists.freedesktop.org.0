@@ -2,65 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D68C89461A
-	for <lists+freedreno@lfdr.de>; Mon,  1 Apr 2024 22:35:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA0E789463D
+	for <lists+freedreno@lfdr.de>; Mon,  1 Apr 2024 22:49:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C460910F4F9;
-	Mon,  1 Apr 2024 20:35:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 467F210F512;
+	Mon,  1 Apr 2024 20:49:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="aflJ+52a";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="gWUhY/nD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF9E210F4F0
- for <freedreno@lists.freedesktop.org>; Mon,  1 Apr 2024 20:35:33 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-61461580403so25857077b3.2
- for <freedreno@lists.freedesktop.org>; Mon, 01 Apr 2024 13:35:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712003732; x=1712608532; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=RSMAjVqCs9IZFvdeFJfswradXeDAn1HiY/f13T7P+mc=;
- b=aflJ+52akPecqzMYuCv6qngcuF3gPE8Ucske3Kxw9zjmR23+1CFdtpHCwbeomHI9MG
- zLCEipOh1zUm2I96q/NkHPDfuICGJrYjYfYptAqlPIytF6G52M1z/I4sPJyiP92WIkJm
- jeSKnESu00YuFLRDbu77LFJDWqNm2gG9I8MYQ2v92ZQ/hGx82xSNsSsE8nk9EwXtY8HQ
- rISKe2UyZdUxePxs1jxKZOs0yXmzEC7jcNlohEYR/hHCZJLlhVUzFcIgEAhXUvM7kD/u
- G7weqrtDLqPzMPdsEyew484LpDkDfjV/+OG0+CWK0HNl98wGbyzBgUY7Hna7XcUW6/GJ
- 9nxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712003732; x=1712608532;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=RSMAjVqCs9IZFvdeFJfswradXeDAn1HiY/f13T7P+mc=;
- b=EfIATDxVRLJ0wxOckB31sT3et1+KsO09MiplHGKO9jjZFQJDbPouxA5KAMHWBBqB5O
- EbiUWU7KKj5cdTyC21aKJY726CiIQHfTsMZyuvKplCtryD/Up3l2B0UYFUbfI0X8rHbw
- 9z/d5ZFO5dq2QAD9pD9qrk7m/4PQw+xLDrs44blCyu67S5eC97FXNFe2rFZ7OFhz865U
- uTLfVbx7WxNJZ2eRTXLCVSO1WiMswLsgd7PVRQS48MCc2bGGwd1y3hPTxoytzCxc8gBD
- dgEiMZw7idaFTW/vfOD/E8pUskeJiuwKbxrzmm1yW/AXmuyZJinOQM5sIhDTZGdETeQG
- ZIsg==
-X-Gm-Message-State: AOJu0Yw5+R8L0svxg0TDotQTknRqZRMYv0nn8JnMwYi2NpBGLS7Wppaw
- Y5EY9kPWSvxnQyMyknP0uNyJ3v+6L470kPXUHM2LlxzqdQ817/eCJmbqMsLQcQZw69EnAzpT+cw
- Xufn51VE/6vXWm71KEHVOqTxpnGPVUwISsYKp+w==
-X-Google-Smtp-Source: AGHT+IFwFy3d1bFzoWwhbUMTFh4JQETCKoXqQxcqnBsELt7ROWoTM+vAfRvZOQvuvKjDC1IKb7uLk+mWKB0py2/lK0g=
-X-Received: by 2002:a25:ba47:0:b0:dda:aace:9665 with SMTP id
- z7-20020a25ba47000000b00ddaaace9665mr7842548ybj.60.1712003732540; Mon, 01 Apr
- 2024 13:35:32 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF9810F512;
+ Mon,  1 Apr 2024 20:49:30 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 431JQQrU010966; Mon, 1 Apr 2024 20:49:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=SDPpPZr
+ Ybjlj5SIHl69Y3/3Hon0AHxjShyC0S7sqTuw=; b=gWUhY/nDw1O3b2HSJpQdJ1S
+ YLecUNRaBOdOmUCT1FsK7GcH0MCJacbe4K2KKMjypFqphpo9q6zvpIHfDFiRJTpn
+ hVmuGtYstGQvCtIWILH0zktBsJV5G/bN9eYwxI4fY0D5dK6kEEdNnUoCOcH4jXTp
+ 52jDKptCDyrTb3Bo6tXIWxf+dE4I3WzMwOCQHw8O+YIvJRVLqURvVVZ6YIPUCKk6
+ /f7mC9YYjhc3gUrvUYLQ9xI9rb33rythwSWizub8ZFygUxj4/iQNJ0bAW0bekVU5
+ ggPT1uKZS9f6Mh+19isyr6EUaInRhg5QcdP75bSk99a7jNOTbhqHl0H/hcvR6Jg=
+ =
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3x8320r41y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 01 Apr 2024 20:49:22 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 431KnKoA003393
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 1 Apr 2024 20:49:20 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Mon, 1 Apr 2024 13:49:20 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Helen Koike <helen.koike@collabora.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] drm: ci: fix the xfails for apq8016
+Date: Mon, 1 Apr 2024 13:48:58 -0700
+Message-ID: <20240401204859.24223-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.43.2
 MIME-Version: 1.0
-References: <20240203-dp-swing-3-v1-1-6545e1706196@linaro.org>
- <1c71d83a-68de-8d6e-9719-29aa17a3db6c@quicinc.com>
- <b3d655e6-7b04-e7e6-e2c7-8140d82dc35b@quicinc.com>
-In-Reply-To: <b3d655e6-7b04-e7e6-e2c7-8140d82dc35b@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 1 Apr 2024 23:35:21 +0300
-Message-ID: <CAA8EJppYB3NTj03X27Wtiou+kJXaJRpRs3KucmfeUmZbQVVpJg@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dp: allow voltage swing / pre emphasis of 3
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: WUNq6n4cZHd7jJtRqt-PHtW2RFpAY2OW
+X-Proofpoint-GUID: WUNq6n4cZHd7jJtRqt-PHtW2RFpAY2OW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-01_14,2024-04-01_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0
+ bulkscore=0 suspectscore=0 priorityscore=1501 mlxlogscore=999 spamscore=0
+ clxscore=1011 mlxscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2403210001
+ definitions=main-2404010145
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,24 +93,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 1 Apr 2024 at 23:15, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
->
-> On 4/1/2024 9:25 AM, Kuogee Hsieh wrote:
-> >
-> > On 2/3/2024 5:47 AM, Dmitry Baryshkov wrote:
-> >> Both dp_link_adjust_levels() and dp_ctrl_update_vx_px() limit swing and
-> >> pre-emphasis to 2, while the real maximum value for the sum of the
-> >> voltage swing and pre-emphasis is 3. Fix the DP code to remove this
-> >> limitation.
-> >>
-> >> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-> >> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Tested-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+After IGT migrating to dynamic sub-tests, the pipe prefixes
+in the expected fails list are incorrect. Lets drop those
+to accurately match the expected fails.
 
-Have you tested this on any device that actually reaches swing or pre_emph of 3?
+In addition, update the xfails list to match the current passing
+list. This should have ideally failed in the CI run because some
+tests were marked as fail even though they passed but due to the
+mismatch in test names, the matching didn't correctly work and was
+resulting in those failures not being seen.
 
+Here is the passing pipeline for apq8016 with this change:
+
+https://gitlab.freedesktop.org/drm/msm/-/jobs/57050562
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt | 13 +------------
+ 1 file changed, 1 insertion(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
+index 44a5c62dedad..b14d4e884971 100644
+--- a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
++++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
+@@ -1,17 +1,6 @@
+ kms_3d,Fail
+ kms_addfb_basic@addfb25-bad-modifier,Fail
+-kms_cursor_legacy@all-pipes-forked-bo,Fail
+-kms_cursor_legacy@all-pipes-forked-move,Fail
+-kms_cursor_legacy@all-pipes-single-bo,Fail
+-kms_cursor_legacy@all-pipes-single-move,Fail
+-kms_cursor_legacy@all-pipes-torture-bo,Fail
+-kms_cursor_legacy@all-pipes-torture-move,Fail
+-kms_cursor_legacy@pipe-A-forked-bo,Fail
+-kms_cursor_legacy@pipe-A-forked-move,Fail
+-kms_cursor_legacy@pipe-A-single-bo,Fail
+-kms_cursor_legacy@pipe-A-single-move,Fail
+-kms_cursor_legacy@pipe-A-torture-bo,Fail
+-kms_cursor_legacy@pipe-A-torture-move,Fail
++kms_cursor_legacy@torture-bo,Fail
+ kms_force_connector_basic@force-edid,Fail
+ kms_hdmi_inject@inject-4k,Fail
+ kms_selftest@drm_format,Timeout
 -- 
-With best wishes
-Dmitry
+2.43.2
+
