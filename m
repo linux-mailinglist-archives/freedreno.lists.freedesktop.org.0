@@ -2,79 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75D3A8945E2
-	for <lists+freedreno@lfdr.de>; Mon,  1 Apr 2024 22:15:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D68C89461A
+	for <lists+freedreno@lfdr.de>; Mon,  1 Apr 2024 22:35:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 367F210F4A2;
-	Mon,  1 Apr 2024 20:15:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C460910F4F9;
+	Mon,  1 Apr 2024 20:35:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="GU77BIPq";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="aflJ+52a";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52F0910F49E
- for <freedreno@lists.freedesktop.org>; Mon,  1 Apr 2024 20:15:04 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 431K97aW010402
- for <freedreno@lists.freedesktop.org>; Mon, 1 Apr 2024 20:15:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=RypyxPx3w1Qmp9xqdso9+nmi0ePgEJmCIefLkjN0f8g=; b=GU
- 77BIPqc+9YGFiR/oz4siEcGP7ZxM5l0cMgqlmsmDErGHUiZpgUhKApewyasYIXi7
- Miw2Ws8D1xXh5sO+95XQh/BB1aVWvDLUyvWISXROI+4jNgpRvSFP20PX5xkEvOJT
- OHnTG/LzovxFud09W4Csbq+HYj+jp20z7kwfdmeBp8EhilOXE3YyGyeIbH/tcEQK
- mpsX/sAIZ3T9ksXRvHANOaSPpG5nm1qsXWeqJZY3CqPy5xGTi2BQqCcUQc0Dq8Hu
- u0zEKXsQeac6pXZONzGDLW4MghM3L435NflIW2mrEVlBmr1W7ppzdyNcvFZhjCk+
- 15JhTJ8qUQMBCKKSJTNQ==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3x7uj2189q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 01 Apr 2024 20:15:03 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 431KF2wk006472
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 1 Apr 2024 20:15:02 GMT
-Received: from [10.110.67.196] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 1 Apr
- 2024 13:15:02 -0700
-Message-ID: <b3d655e6-7b04-e7e6-e2c7-8140d82dc35b@quicinc.com>
-Date: Mon, 1 Apr 2024 13:15:01 -0700
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF9E210F4F0
+ for <freedreno@lists.freedesktop.org>; Mon,  1 Apr 2024 20:35:33 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-61461580403so25857077b3.2
+ for <freedreno@lists.freedesktop.org>; Mon, 01 Apr 2024 13:35:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1712003732; x=1712608532; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=RSMAjVqCs9IZFvdeFJfswradXeDAn1HiY/f13T7P+mc=;
+ b=aflJ+52akPecqzMYuCv6qngcuF3gPE8Ucske3Kxw9zjmR23+1CFdtpHCwbeomHI9MG
+ zLCEipOh1zUm2I96q/NkHPDfuICGJrYjYfYptAqlPIytF6G52M1z/I4sPJyiP92WIkJm
+ jeSKnESu00YuFLRDbu77LFJDWqNm2gG9I8MYQ2v92ZQ/hGx82xSNsSsE8nk9EwXtY8HQ
+ rISKe2UyZdUxePxs1jxKZOs0yXmzEC7jcNlohEYR/hHCZJLlhVUzFcIgEAhXUvM7kD/u
+ G7weqrtDLqPzMPdsEyew484LpDkDfjV/+OG0+CWK0HNl98wGbyzBgUY7Hna7XcUW6/GJ
+ 9nxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712003732; x=1712608532;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=RSMAjVqCs9IZFvdeFJfswradXeDAn1HiY/f13T7P+mc=;
+ b=EfIATDxVRLJ0wxOckB31sT3et1+KsO09MiplHGKO9jjZFQJDbPouxA5KAMHWBBqB5O
+ EbiUWU7KKj5cdTyC21aKJY726CiIQHfTsMZyuvKplCtryD/Up3l2B0UYFUbfI0X8rHbw
+ 9z/d5ZFO5dq2QAD9pD9qrk7m/4PQw+xLDrs44blCyu67S5eC97FXNFe2rFZ7OFhz865U
+ uTLfVbx7WxNJZ2eRTXLCVSO1WiMswLsgd7PVRQS48MCc2bGGwd1y3hPTxoytzCxc8gBD
+ dgEiMZw7idaFTW/vfOD/E8pUskeJiuwKbxrzmm1yW/AXmuyZJinOQM5sIhDTZGdETeQG
+ ZIsg==
+X-Gm-Message-State: AOJu0Yw5+R8L0svxg0TDotQTknRqZRMYv0nn8JnMwYi2NpBGLS7Wppaw
+ Y5EY9kPWSvxnQyMyknP0uNyJ3v+6L470kPXUHM2LlxzqdQ817/eCJmbqMsLQcQZw69EnAzpT+cw
+ Xufn51VE/6vXWm71KEHVOqTxpnGPVUwISsYKp+w==
+X-Google-Smtp-Source: AGHT+IFwFy3d1bFzoWwhbUMTFh4JQETCKoXqQxcqnBsELt7ROWoTM+vAfRvZOQvuvKjDC1IKb7uLk+mWKB0py2/lK0g=
+X-Received: by 2002:a25:ba47:0:b0:dda:aace:9665 with SMTP id
+ z7-20020a25ba47000000b00ddaaace9665mr7842548ybj.60.1712003732540; Mon, 01 Apr
+ 2024 13:35:32 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] drm/msm/dp: allow voltage swing / pre emphasis of 3
-Content-Language: en-US
-To: <freedreno@lists.freedesktop.org>
 References: <20240203-dp-swing-3-v1-1-6545e1706196@linaro.org>
  <1c71d83a-68de-8d6e-9719-29aa17a3db6c@quicinc.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <1c71d83a-68de-8d6e-9719-29aa17a3db6c@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: tATxPKDlASGAh_VouDBWE3XOkfiQtDxL
-X-Proofpoint-ORIG-GUID: tATxPKDlASGAh_VouDBWE3XOkfiQtDxL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-01_14,2024-04-01_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015
- mlxlogscore=999 impostorscore=0 mlxscore=0 lowpriorityscore=0 spamscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2403210001
- definitions=main-2404010141
+ <b3d655e6-7b04-e7e6-e2c7-8140d82dc35b@quicinc.com>
+In-Reply-To: <b3d655e6-7b04-e7e6-e2c7-8140d82dc35b@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 1 Apr 2024 23:35:21 +0300
+Message-ID: <CAA8EJppYB3NTj03X27Wtiou+kJXaJRpRs3KucmfeUmZbQVVpJg@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm/dp: allow voltage swing / pre emphasis of 3
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Cc: freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,135 +76,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On 4/1/2024 9:25 AM, Kuogee Hsieh wrote:
+On Mon, 1 Apr 2024 at 23:15, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
 >
-> On 2/3/2024 5:47 AM, Dmitry Baryshkov wrote:
->> Both dp_link_adjust_levels() and dp_ctrl_update_vx_px() limit swing and
->> pre-emphasis to 2, while the real maximum value for the sum of the
->> voltage swing and pre-emphasis is 3. Fix the DP code to remove this
->> limitation.
->>
->> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Tested-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_ctrl.c |  6 +++---
->>   drivers/gpu/drm/msm/dp/dp_link.c | 22 +++++++++++-----------
->>   drivers/gpu/drm/msm/dp/dp_link.h | 14 +-------------
->>   3 files changed, 15 insertions(+), 27 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
->> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> index 77a8d9366ed7..26241970019f 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> @@ -1024,14 +1024,14 @@ static int dp_ctrl_update_vx_px(struct 
->> dp_ctrl_private *ctrl)
->>       if (ret)
->>           return ret;
->>   -    if (voltage_swing_level >= DP_TRAIN_VOLTAGE_SWING_MAX) {
->> +    if (voltage_swing_level >= DP_TRAIN_LEVEL_MAX) {
->>           drm_dbg_dp(ctrl->drm_dev,
->>                   "max. voltage swing level reached %d\n",
->>                   voltage_swing_level);
->>           max_level_reached |= DP_TRAIN_MAX_SWING_REACHED;
->>       }
->>   -    if (pre_emphasis_level >= DP_TRAIN_PRE_EMPHASIS_MAX) {
->> +    if (pre_emphasis_level >= DP_TRAIN_LEVEL_MAX) {
->>           drm_dbg_dp(ctrl->drm_dev,
->>                   "max. pre-emphasis level reached %d\n",
->>                   pre_emphasis_level);
->> @@ -1122,7 +1122,7 @@ static int dp_ctrl_link_train_1(struct 
->> dp_ctrl_private *ctrl,
->>           }
->>             if (ctrl->link->phy_params.v_level >=
->> -            DP_TRAIN_VOLTAGE_SWING_MAX) {
->> +            DP_TRAIN_LEVEL_MAX) {
->>               DRM_ERROR_RATELIMITED("max v_level reached\n");
->>               return -EAGAIN;
->>           }
->> diff --git a/drivers/gpu/drm/msm/dp/dp_link.c 
->> b/drivers/gpu/drm/msm/dp/dp_link.c
->> index 98427d45e9a7..e7da0571ecff 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_link.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_link.c
->> @@ -1107,6 +1107,7 @@ int dp_link_get_colorimetry_config(struct 
->> dp_link *dp_link)
->>   int dp_link_adjust_levels(struct dp_link *dp_link, u8 *link_status)
->>   {
->>       int i;
->> +    u8 max_p_level;
->>       int v_max = 0, p_max = 0;
->>       struct dp_link_private *link;
->>   @@ -1138,30 +1139,29 @@ int dp_link_adjust_levels(struct dp_link 
->> *dp_link, u8 *link_status)
->>        * Adjust the voltage swing and pre-emphasis level combination 
->> to within
->>        * the allowable range.
->>        */
->> -    if (dp_link->phy_params.v_level > DP_TRAIN_VOLTAGE_SWING_MAX) {
->> +    if (dp_link->phy_params.v_level > DP_TRAIN_LEVEL_MAX) {
->>           drm_dbg_dp(link->drm_dev,
->>               "Requested vSwingLevel=%d, change to %d\n",
->>               dp_link->phy_params.v_level,
->> -            DP_TRAIN_VOLTAGE_SWING_MAX);
->> -        dp_link->phy_params.v_level = DP_TRAIN_VOLTAGE_SWING_MAX;
->> +            DP_TRAIN_LEVEL_MAX);
->> +        dp_link->phy_params.v_level = DP_TRAIN_LEVEL_MAX;
->>       }
->>   -    if (dp_link->phy_params.p_level > DP_TRAIN_PRE_EMPHASIS_MAX) {
->> +    if (dp_link->phy_params.p_level > DP_TRAIN_LEVEL_MAX) {
->>           drm_dbg_dp(link->drm_dev,
->>               "Requested preEmphasisLevel=%d, change to %d\n",
->>               dp_link->phy_params.p_level,
->> -            DP_TRAIN_PRE_EMPHASIS_MAX);
->> -        dp_link->phy_params.p_level = DP_TRAIN_PRE_EMPHASIS_MAX;
->> +            DP_TRAIN_LEVEL_MAX);
->> +        dp_link->phy_params.p_level = DP_TRAIN_LEVEL_MAX;
->>       }
->>   -    if ((dp_link->phy_params.p_level > DP_TRAIN_PRE_EMPHASIS_LVL_1)
->> -        && (dp_link->phy_params.v_level ==
->> -            DP_TRAIN_VOLTAGE_SWING_LVL_2)) {
->> +    max_p_level = DP_TRAIN_LEVEL_MAX - dp_link->phy_params.v_level;
->> +    if (dp_link->phy_params.p_level > max_p_level) {
->>           drm_dbg_dp(link->drm_dev,
->>               "Requested preEmphasisLevel=%d, change to %d\n",
->>               dp_link->phy_params.p_level,
->> -            DP_TRAIN_PRE_EMPHASIS_LVL_1);
->> -        dp_link->phy_params.p_level = DP_TRAIN_PRE_EMPHASIS_LVL_1;
->> +            max_p_level);
->> +        dp_link->phy_params.p_level = max_p_level;
->>       }
->>         drm_dbg_dp(link->drm_dev, "adjusted: v_level=%d, p_level=%d\n",
->> diff --git a/drivers/gpu/drm/msm/dp/dp_link.h 
->> b/drivers/gpu/drm/msm/dp/dp_link.h
->> index 9dd4dd926530..79c3a02b8dac 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_link.h
->> +++ b/drivers/gpu/drm/msm/dp/dp_link.h
->> @@ -19,19 +19,7 @@ struct dp_link_info {
->>       unsigned long capabilities;
->>   };
->>   -enum dp_link_voltage_level {
->> -    DP_TRAIN_VOLTAGE_SWING_LVL_0    = 0,
->> -    DP_TRAIN_VOLTAGE_SWING_LVL_1    = 1,
->> -    DP_TRAIN_VOLTAGE_SWING_LVL_2    = 2,
->> -    DP_TRAIN_VOLTAGE_SWING_MAX    = DP_TRAIN_VOLTAGE_SWING_LVL_2,
->> -};
->> -
->> -enum dp_link_preemaphasis_level {
->> -    DP_TRAIN_PRE_EMPHASIS_LVL_0    = 0,
->> -    DP_TRAIN_PRE_EMPHASIS_LVL_1    = 1,
->> -    DP_TRAIN_PRE_EMPHASIS_LVL_2    = 2,
->> -    DP_TRAIN_PRE_EMPHASIS_MAX    = DP_TRAIN_PRE_EMPHASIS_LVL_2,
->> -};
->> +#define DP_TRAIN_LEVEL_MAX    3
->>     struct dp_link_test_video {
->>       u32 test_video_pattern;
->>
->> ---
->> base-commit: 41d66f96d0f15a0a2ad6fa2208f6bac1a66cbd52
->> change-id: 20240203-dp-swing-3-b64ffce415d9
->>
->> Best regards,
+>
+> On 4/1/2024 9:25 AM, Kuogee Hsieh wrote:
+> >
+> > On 2/3/2024 5:47 AM, Dmitry Baryshkov wrote:
+> >> Both dp_link_adjust_levels() and dp_ctrl_update_vx_px() limit swing and
+> >> pre-emphasis to 2, while the real maximum value for the sum of the
+> >> voltage swing and pre-emphasis is 3. Fix the DP code to remove this
+> >> limitation.
+> >>
+> >> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+> >> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Tested-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+
+Have you tested this on any device that actually reaches swing or pre_emph of 3?
+
+-- 
+With best wishes
+Dmitry
