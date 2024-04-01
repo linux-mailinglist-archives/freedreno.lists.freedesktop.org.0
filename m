@@ -2,105 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D767893294
-	for <lists+freedreno@lfdr.de>; Sun, 31 Mar 2024 18:11:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A65D893716
+	for <lists+freedreno@lfdr.de>; Mon,  1 Apr 2024 04:42:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B515410EB50;
-	Sun, 31 Mar 2024 16:11:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4529F10EDE1;
+	Mon,  1 Apr 2024 02:42:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ZBD0ycWJ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="m0386B5w";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 601 seconds by postgrey-1.36 at gabe;
- Sun, 31 Mar 2024 16:11:36 UTC
-Received: from a.mx.secunet.com (a.mx.secunet.com [62.96.220.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A310410E8CD;
- Sun, 31 Mar 2024 16:11:36 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by a.mx.secunet.com (Postfix) with ESMTP id 58711207FD;
- Sun, 31 Mar 2024 18:01:33 +0200 (CEST)
-X-Virus-Scanned: by secunet
-Received: from a.mx.secunet.com ([127.0.0.1])
- by localhost (a.mx.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 7Ox0wpCKl5Cx; Sun, 31 Mar 2024 18:01:30 +0200 (CEST)
-Received: from mailout1.secunet.com (mailout1.secunet.com [62.96.220.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by a.mx.secunet.com (Postfix) with ESMTPS id BB4E020799;
- Sun, 31 Mar 2024 18:01:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 a.mx.secunet.com BB4E020799
-Received: from cas-essen-01.secunet.de (unknown [10.53.40.201])
- by mailout1.secunet.com (Postfix) with ESMTP id 98B4D80004A;
- Sun, 31 Mar 2024 18:01:27 +0200 (CEST)
-Received: from mbx-essen-01.secunet.de (10.53.40.197) by
- cas-essen-01.secunet.de (10.53.40.201) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Sun, 31 Mar 2024 18:01:27 +0200
-Received: from Pickup by mbx-essen-01.secunet.de with Microsoft SMTP Server id
- 15.1.2507.17; Sun, 31 Mar 2024 15:52:48 +0000
-X-sender: <xorg-devel-bounces@lists.x.org>
-X-Receiver: <martin.weber@secunet.com> ORCPT=rfc822;martin.weber@secunet.com
- NOTIFY=NEVER;
- X-ExtendedProps=BQAVABYAAgAAAAUAFAARAJuYHy0vkvxLoOu7fW2WcxcPADUAAABNaWNyb3NvZnQuRXhjaGFuZ2UuVHJhbnNwb3J0LkRpcmVjdG9yeURhdGEuSXNSZXNvdXJjZQIAAAUAagAJAAEAAAAAAAAABQAWAAIAAAUAQwACAAAFAEYABwADAAAABQBHAAIAAAUAEgAPAF4AAAAvbz1zZWN1bmV0L291PUV4Y2hhbmdlIEFkbWluaXN0cmF0aXZlIEdyb3VwIChGWURJQk9IRjIzU1BETFQpL2NuPVJlY2lwaWVudHMvY249V2ViZXIgTWFydGluOTU1BQALABcAvgAAALMpUnVJ4+pPsL47FHo+lvtDTj1EQjIsQ049RGF0YWJhc2VzLENOPUV4Y2hhbmdlIEFkbWluaXN0cmF0aXZlIEdyb3VwIChGWURJQk9IRjIzU1BETFQpLENOPUFkbWluaXN0cmF0aXZlIEdyb3VwcyxDTj1zZWN1bmV0LENOPU1pY3Jvc29mdCBFeGNoYW5nZSxDTj1TZXJ2aWNlcyxDTj1Db25maWd1cmF0aW9uLERDPXNlY3VuZXQsREM9ZGUFAA4AEQBACf3SYEkDT461FZzDv+B7BQAdAA8ADAAAAG1ieC1lc3Nlbi0wMQUAPAACAAAPADYAAABNaWNyb3NvZnQuRXhjaGFuZ2UuVHJhbnNwb3J0Lk1haWxSZWNpcGllbnQuRGlzcGxheU5hbWUPAA0AAABXZWJlciwgTWFydGluBQAMAAIAAAUAbAACAAAFAFgAFwBGAAAAm5gfLS+S/Eug67t9bZZzF0NOPVdlYmVyIE1hcnRpbixPVT1Vc2VycyxPVT1NaWdyYXRpb24sREM9c2VjdW5ldCxEQz1kZQUAJgACAAEFACIADwAxAAAAQXV0b1Jlc3BvbnNlU3VwcHJlc3M6IDANClRyYW5zbWl0SGlzdG9yeTogRmFsc2UNCg8AL
- wAAAE1pY3Jvc29mdC5FeGNoYW5nZS5UcmFuc3BvcnQuRXhwYW5zaW9uR3JvdXBUeXBlDwAVAAAATWVtYmVyc0dyb3VwRXhwYW5zaW9uBQAjAAIAAQ==
-X-CreatedBy: MSExchange15
-X-HeloDomain: a.mx.secunet.com
-X-ExtendedProps: BQBjAAoA7mtrGbMv3AgFAGEACAABAAAABQA3AAIAAA8APAAAAE1pY3Jvc29mdC5FeGNoYW5nZS5UcmFuc3BvcnQuTWFpbFJlY2lwaWVudC5Pcmdhbml6YXRpb25TY29wZREAAAAAAAAAAAAAAAAAAAAAAAUASQACAAEFAAQAFCABAAAAGAAAAG1hcnRpbi53ZWJlckBzZWN1bmV0LmNvbQUABgACAAEFACkAAgABDwAJAAAAQ0lBdWRpdGVkAgABBQACAAcAAQAAAAUAAwAHAAAAAAAFAAUAAgABBQBiAAoAjQAAAO6KAAAFAGQADwADAAAASHVi
-X-Source: SMTP:Default MBX-ESSEN-01
-X-SourceIPAddress: 62.96.220.36
-X-EndOfInjectedXHeaders: 13246
-X-Virus-Scanned: by secunet
-Received-SPF: Pass (sender SPF authorized) identity=mailfrom;
- client-ip=131.252.210.177; helo=gabe.freedesktop.org;
- envelope-from=xorg-devel-bounces@lists.x.org;
- receiver=martin.weber@secunet.com 
-DKIM-Filter: OpenDKIM Filter v2.11.0 a.mx.secunet.com A02E920820
-X-Original-To: xorg-devel@lists.x.org
-Delivered-To: xorg-devel@lists.x.org
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:To:From:Subject:Message-ID:Sender:Reply-To:Cc:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=lPWMOzZ1sCBLtkhfMiJDfHToxmpKev7gqm0R7FskFf0=; b=ZBD0ycWJxDl4Z9KMqRhF77mf/G
- +DGVX4I1duoRiIJ47Xv7S1iRDqsS+34zyUta/XwRBgJNkt/oSGEyrY6gv3lIL1PIUzmRZglkko0IS
- NMSbfzT2NgjsaOyQ8lEwVQhDYaTzFz3XGyvGR47oIUgJtx48XCojs4oJLLCnGg2KY354Io0tPUG+h
- hCoKonEn54rf+EQlt0QPj9uZRkN1vAdTUlYnMyWF5V+ov101iNfxuB/xDWGPQMpJ6AfIIU+k6sS7h
- Yy5u3fM+EfrYsgZL6d7K+LL/w28dZfkg/RfoOHVPYMaNheprjSj9Au+mzNOe6hz3VdjFhGKnYLYfb
- uuShrWeg==;
-Message-ID: <0a816356c382e4377953bba256e1275c779b220d.camel@igalia.com>
-Subject: Re: 2024 X.Org Foundation Membership deadline for voting in the
- election
-From: Ricardo Garcia <rgarcia@igalia.com>
-To: events@lists.x.org, xorg-devel@lists.x.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- libre-soc-dev@lists.libre-soc.org, elections@x.org, members@x.org, 
- xorg@lists.freedesktop.org
-Date: Sun, 31 Mar 2024 10:22:20 +0200
-In-Reply-To: <57dd238b-2b94-4b46-a8be-c53b2f985e46@igalia.com>
-References: <0efcdfe3-ea9e-43e5-ab07-6d69dca2c04a@igalia.com>
- <57dd238b-2b94-4b46-a8be-c53b2f985e46@igalia.com>
-Autocrypt: addr=rgarcia@igalia.com; prefer-encrypt=mutual;
- keydata=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
- p0ZW9AkVq7C3F0YSY0Tq5bKR94O8=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.4 (3.50.4-1.fc39) 
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E713510EDDE
+ for <freedreno@lists.freedesktop.org>; Mon,  1 Apr 2024 02:42:50 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-513cf9bacf1so4477746e87.0
+ for <freedreno@lists.freedesktop.org>; Sun, 31 Mar 2024 19:42:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1711939369; x=1712544169; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tPKH7LjFteyraTs0dKzXgUFuYFhKTHT6MpiaC9lP+VQ=;
+ b=m0386B5wRZ38FGWqxSAGMimFYJ5SYGqqyAuS74sJPYTPxeQtnG+z9bJ5hGHWnwOSgM
+ S25eaMF9wv0e7dyigwk4MglTOY2OqJDkGcAr4v+blGdxmfnbENDD+O2VMS/eu1lBmCeg
+ vZ+EuCKML7zpSB8traNgsOy6kBdpJL0q3lk94StPREknZFIO/+jP6rV1EueH843lgDFD
+ nu0nbJk/4kN6ujTrRRTTT6ULmGaepIksNZHyxfgACJFcPklrgHyCn47rin4HeU8XAGWJ
+ WqUFAnmzvfPbcvy/jjeUQxE3ooi97r4rogAOjjP6FGiF0NWpNiUs8Qr1FVDKCdUqak7v
+ veow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711939369; x=1712544169;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=tPKH7LjFteyraTs0dKzXgUFuYFhKTHT6MpiaC9lP+VQ=;
+ b=BVjVgZtVq5uc+n8bYZKSNxWuxse4rrEF9Nnaq2olPETgPuNam6D7EYZi9FPYLYijQj
+ uVfyyQJXPMQ567anlMMAgmvCrMnTLIxZYlEhJ8KxHMnapEtSLb3sI9j2birESC1al7Pg
+ wU6krC1YzMUT4/odnVa+IYm6R1EToXLT2s8Q7D/z1LDSoAiKbRp+bUNQ4Lllkn41XN3B
+ yALmddzXIvfO4+rQYgpqM6MMbjCstLBIJpOZdGMpMCK1w6rUlJm6q8/rZ92/1iSLdFyW
+ PgYFEXIb4xtZ5ZCkV2tftxn1B2Aep3m8GwjzoOq6nPHYYu77jE7VG9tj7c6/+Xh+byQv
+ 86iQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXomybE5e/ZZls9RQQYiAsz8nhISTe/1nUemKv7XgXaG/BuszkkSWT8bvSQKUEoUKqqz0uIKpI6rhHbE/OktQh+Ft062vhgVRwKKTfMLUBh
+X-Gm-Message-State: AOJu0Yx5Hr2wYL51HpAYNTekASD2mvmWfRyb5I/RSONUJ5Lj4weimSUU
+ nhzNmV9l/viQ2EKa/tW/ZL/ht0/RODRHlM9YccG9fkNUnf0zhKjabjwzXXeG6Ng=
+X-Google-Smtp-Source: AGHT+IF+g2YmcfaU9qNH8wEnw2WJ9DmCsjeYnPAvod0/4cA0kVgefHOfh5AnR6u06l5w6D3bQ42wcw==
+X-Received: by 2002:ac2:5eca:0:b0:513:403c:d887 with SMTP id
+ d10-20020ac25eca000000b00513403cd887mr5405401lfq.38.1711939368775; 
+ Sun, 31 Mar 2024 19:42:48 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ w28-20020ac254bc000000b0051593cfb556sm1310603lfk.239.2024.03.31.19.42.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 31 Mar 2024 19:42:48 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH v5 00/18] drm/msm: generate register header files
+Date: Mon, 01 Apr 2024 05:42:30 +0300
+Message-Id: <20240401-fd-xml-shipped-v5-0-4bdb277a85a1@linaro.org>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Sun, 31 Mar 2024 08:34:36 +0000
-X-BeenThere: xorg-devel@lists.x.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABYfCmYC/33O3YrCMBCG4VuRHG+WZCaJ1SPvQzxIJ1MbcNuSS
+ KhI790oyP4U9vAbeF7mLjKnyFnsN3eRuMQcx6EO+7ER1PvhzDKGugUoMArAyi7I+esicx+niYN
+ s/c4jaAocOlHRlLiL8yt4PNXdx3wd0+3VL/p5fafc31TRUsnGta0jROMCHC5x8Gn8HNNZPFsFv
+ j3q1SsFqt9ScA0TGQS18vi/x+pVRxqA0ZHFlTc/PODKm+qJvOXG2G27419+WZYHyrCFhm0BAAA
+ =
+To: Masahiro Yamada <masahiroy@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas@fjasle.eu>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-kbuild@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ Akhil P Oommen <quic_akhilpo@quicinc.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6793;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=881XkyZQ9/n8GpCrKuMf96tFmrA9L9nekveexQ/+JvE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmCh8k6FqY/QCO1u6Hp6ZKpNOY1dCaC1Hx48bpT
+ 4I2P1U0VBaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZgofJAAKCRCLPIo+Aiko
+ 1YjHB/9f5Wyxg03b+ZQKUKwrm9Yd+EEgUYYDknUVk6SkAUW1UMPO0qjQFP142eeV/w4zanid1pG
+ KBj5gwCIfHyh5G8We5Cu3SYCh5n0k7QyZi8uqeLmSdr5nWkS1ikDEmFoX25bl7rUmaKPiuLTA8w
+ Y63hOrixqwjBufYfbSWxxrp4AiqBfAvEuSEuxZhitIIIfNpqGk1cJEmK1Dcr8dcxGFAFr6zu9w8
+ S8cMaiD6+axnqvzt/NmUuUAjjXKRVkHMUCFkchx4Km9KbfOGVFYeYKqcs0EHtng0FJUjdvLBW4m
+ lZGyo04z3LkWRwrC0ZVNGnxnWc7lcfJIr0nDD7NqfRKKkJPn
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
-X-EXCLAIMER-MD-CONFIG: 2c86f778-e09b-4440-8b15-867914633a10
-X-BeenThere: freedreno@lists.freedesktop.org
 List-Id: Freedreno graphics driver community testing & development
  <freedreno.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
@@ -113,28 +102,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is a reminder that the membership renewal period ends in 2 days,
-and elections will start after that. Please register as an X.Org
-Foundation member to be able to vote in the upcoming elections. Thanks!
+Currently display-related register headers are generated from XML files
+shipped withing Mesa source tree. This is not fully optimal: it requires
+multi-stage process of the changes first being landed to Mesa and only
+then synced to the kernel tree.
 
--Ricardo Garcia, on behalf of the X.Org elections committee.
-=20
-On Tue, 2024-03-26 at 11:42 -0400, Christopher Michael wrote:
-> The 2024 X.Org Foundation membership renewal period has been extended=20
-> one additional week and elections will start the following week on 01=20
-> April 2024.
->=20
-> Please note that only current members can vote in the upcoming election,=
-=20
-> and that the deadline for new memberships or renewals to vote in the=20
-> upcoming election is 01 April 2024 at 23:59 UTC.
->=20
-> If you are interested in joining the X.Org Foundation or in renewing=20
-> your membership, please visit the membership system site at:=20
-> https://members.x.org/
->=20
-> Christopher Michael, on behalf of the X.Org elections committee
->=20
->=20
->=20
+Move original XML files to the kernel tree and generate header files
+when required. Display-related XMLs are going to be dropped from the
+Mesa, with the kernel becoming the primary source. Adreno-related XMLs
+are still going to handled by Mesa and should be synced from Mesa to the
+kernel when required. The gen_header.py script should also be synced
+between Mesa and the kernel tree.
+
+Unless there are any objections, I'd like to consider this a final
+revision with the target of it being merged for 6.10. Please review.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v5:
+- Updated gen_header.py to include licence header (Abhinav, Akhil)
+- Split the #include rework to a separate patch (Abhinav)
+- Link to v4: https://lore.kernel.org/r/20240323-fd-xml-shipped-v4-0-cca5e8457b9e@linaro.org
+
+Changes in v4:
+- Updated headers, schema and script to the latest version merged to
+  Mesa
+- Further split of Adreno XML / Adreno headers patches in order to pass
+  through more ML filters.
+- Dropped the RFC tag
+- Link to v3: https://lore.kernel.org/r/20240315-fd-xml-shipped-v3-0-0fc122e36c53@linaro.org
+
+Changes in v3:
+- Split XML and git rm patches in hope to pass ML limitations
+- Link to v2: https://lore.kernel.org/r/20240315-fd-xml-shipped-v2-0-7cd68ecc4320@linaro.org
+
+Changes in v2:
+- Removed the _shipped files, always generating the headers (Masahiro
+  Yamada)
+- Replaced headergen2 with gen_headers.py
+- Simplify Makefile rules, making all Adreno objects depend on Adreno
+  headers and all displau objects depend on all display headers
+- Also handle Adreno registers
+- Link to v1: https://lore.kernel.org/r/20240226-fd-xml-shipped-v1-0-86bb6c3346d2@linaro.org
+
+---
+Dmitry Baryshkov (18):
+      drm/msm/mdp5: add writeback block bases
+      drm/msm/hdmi: drop qfprom.xml.h
+      drm/msm/dsi: drop mmss_cc.xml.h
+      drm/msm: move msm_gpummu.c to adreno/a2xx_gpummu.c
+      drm/msm: remove dependencies from core onto adreno headers
+      drm/msm: import XML display registers database
+      drm/msm: import A2xx-A4xx XML display registers database
+      drm/msm: import A5xx XML display registers database
+      drm/msm: import A6xx XML display registers database
+      drm/msm: import gen_header.py script from Mesa
+      drm/msm: generate headers on the fly
+      drm/msm: drop display-related headers
+      drm/msm: drop A2xx and common headers
+      drm/msm: drop A3xx and A4xx headers
+      drm/msm: drop A5xx header
+      drm/msm: drop A6xx GMU header
+      drm/msm: drop C++ parts of a6xx.xml.h
+      drm/msm: drop A6xx header
+
+ drivers/gpu/drm/msm/.gitignore                     |     1 +
+ drivers/gpu/drm/msm/Makefile                       |    99 +-
+ drivers/gpu/drm/msm/adreno/a2xx.xml.h              |  3251 -----
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c              |     4 +-
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.h              |     4 +
+ .../drm/msm/{msm_gpummu.c => adreno/a2xx_gpummu.c} |    45 +-
+ drivers/gpu/drm/msm/adreno/a3xx.xml.h              |  3268 -----
+ drivers/gpu/drm/msm/adreno/a4xx.xml.h              |  4379 -------
+ drivers/gpu/drm/msm/adreno/a5xx.xml.h              |  5572 ---------
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h              | 11858 -------------------
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h          |   422 -
+ drivers/gpu/drm/msm/adreno/adreno_common.xml.h     |   539 -
+ drivers/gpu/drm/msm/adreno/adreno_pm4.xml.h        |  2803 -----
+ drivers/gpu/drm/msm/disp/mdp4/mdp4.xml.h           |  1181 --
+ drivers/gpu/drm/msm/disp/mdp5/mdp5.xml.h           |  1979 ----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h           |    11 +
+ drivers/gpu/drm/msm/disp/mdp_common.xml.h          |   111 -
+ drivers/gpu/drm/msm/dsi/dsi.xml.h                  |   790 --
+ drivers/gpu/drm/msm/dsi/dsi_phy_10nm.xml.h         |   227 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_14nm.xml.h         |   309 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_20nm.xml.h         |   237 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_28nm.xml.h         |   384 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_28nm_8960.xml.h    |   286 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_7nm.xml.h          |   483 -
+ drivers/gpu/drm/msm/dsi/mmss_cc.xml.h              |   131 -
+ drivers/gpu/drm/msm/dsi/sfpb.xml.h                 |    70 -
+ drivers/gpu/drm/msm/hdmi/hdmi.xml.h                |  1399 ---
+ drivers/gpu/drm/msm/hdmi/qfprom.xml.h              |    61 -
+ drivers/gpu/drm/msm/msm_drv.c                      |     3 +-
+ drivers/gpu/drm/msm/msm_gpu.c                      |     2 +-
+ drivers/gpu/drm/msm/msm_mmu.h                      |     5 -
+ drivers/gpu/drm/msm/registers/.gitignore           |     4 +
+ drivers/gpu/drm/msm/registers/adreno/a2xx.xml      |  1865 +++
+ drivers/gpu/drm/msm/registers/adreno/a3xx.xml      |  1751 +++
+ drivers/gpu/drm/msm/registers/adreno/a4xx.xml      |  2409 ++++
+ drivers/gpu/drm/msm/registers/adreno/a5xx.xml      |  3039 +++++
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml      |  4970 ++++++++
+ drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml  |   228 +
+ .../gpu/drm/msm/registers/adreno/adreno_common.xml |   400 +
+ .../gpu/drm/msm/registers/adreno/adreno_pm4.xml    |  2268 ++++
+ drivers/gpu/drm/msm/registers/display/dsi.xml      |   390 +
+ .../gpu/drm/msm/registers/display/dsi_phy_10nm.xml |   102 +
+ .../gpu/drm/msm/registers/display/dsi_phy_14nm.xml |   135 +
+ .../gpu/drm/msm/registers/display/dsi_phy_20nm.xml |   100 +
+ .../gpu/drm/msm/registers/display/dsi_phy_28nm.xml |   180 +
+ .../msm/registers/display/dsi_phy_28nm_8960.xml    |   134 +
+ .../gpu/drm/msm/registers/display/dsi_phy_7nm.xml  |   230 +
+ drivers/gpu/drm/msm/registers/display/edp.xml      |   239 +
+ drivers/gpu/drm/msm/registers/display/hdmi.xml     |  1015 ++
+ drivers/gpu/drm/msm/registers/display/mdp4.xml     |   504 +
+ drivers/gpu/drm/msm/registers/display/mdp5.xml     |   806 ++
+ .../gpu/drm/msm/registers/display/mdp_common.xml   |    90 +
+ drivers/gpu/drm/msm/registers/display/msm.xml      |    32 +
+ drivers/gpu/drm/msm/registers/display/sfpb.xml     |    17 +
+ .../gpu/drm/msm/registers/freedreno_copyright.xml  |    40 +
+ drivers/gpu/drm/msm/registers/gen_header.py        |   961 ++
+ drivers/gpu/drm/msm/registers/rules-fd.xsd         |   404 +
+ 57 files changed, 22435 insertions(+), 39792 deletions(-)
+---
+base-commit: 13ee4a7161b6fd938aef6688ff43b163f6d83e37
+change-id: 20240225-fd-xml-shipped-ba9a321cdedf
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
