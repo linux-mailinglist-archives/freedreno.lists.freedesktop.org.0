@@ -2,82 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA0E789463D
-	for <lists+freedreno@lfdr.de>; Mon,  1 Apr 2024 22:49:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F85589499C
+	for <lists+freedreno@lfdr.de>; Tue,  2 Apr 2024 04:52:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 467F210F512;
-	Mon,  1 Apr 2024 20:49:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A41E10F821;
+	Tue,  2 Apr 2024 02:51:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="gWUhY/nD";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FtfHOWcL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF9810F512;
- Mon,  1 Apr 2024 20:49:30 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 431JQQrU010966; Mon, 1 Apr 2024 20:49:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=qcppdkim1; bh=SDPpPZr
- Ybjlj5SIHl69Y3/3Hon0AHxjShyC0S7sqTuw=; b=gWUhY/nDw1O3b2HSJpQdJ1S
- YLecUNRaBOdOmUCT1FsK7GcH0MCJacbe4K2KKMjypFqphpo9q6zvpIHfDFiRJTpn
- hVmuGtYstGQvCtIWILH0zktBsJV5G/bN9eYwxI4fY0D5dK6kEEdNnUoCOcH4jXTp
- 52jDKptCDyrTb3Bo6tXIWxf+dE4I3WzMwOCQHw8O+YIvJRVLqURvVVZ6YIPUCKk6
- /f7mC9YYjhc3gUrvUYLQ9xI9rb33rythwSWizub8ZFygUxj4/iQNJ0bAW0bekVU5
- ggPT1uKZS9f6Mh+19isyr6EUaInRhg5QcdP75bSk99a7jNOTbhqHl0H/hcvR6Jg=
- =
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3x8320r41y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 01 Apr 2024 20:49:22 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 431KnKoA003393
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 1 Apr 2024 20:49:20 GMT
-Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Mon, 1 Apr 2024 13:49:20 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Helen Koike <helen.koike@collabora.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] drm: ci: fix the xfails for apq8016
-Date: Mon, 1 Apr 2024 13:48:58 -0700
-Message-ID: <20240401204859.24223-1-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.43.2
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D7C910F816
+ for <freedreno@lists.freedesktop.org>; Tue,  2 Apr 2024 02:51:47 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-513cf9bacf1so5861156e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 01 Apr 2024 19:51:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1712026305; x=1712631105; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=u51beO54X0b9gZ2OYRcuCm7ajK6+8XO/iEIFNJnKcqQ=;
+ b=FtfHOWcL7go98gtv0BlTaBvY88fy2O/JOKuCMf/JCSm+bTNZ5Ued9y6A/YYdz7M/Ze
+ LAvm+tTDIY0Jc73tzkagCFCSPY5nDnxmg0Ocxq+SJ7CN0YjTaXhsypiP72hqidSGDjtJ
+ qrXxS0GGpgEm/5mwzyZnhgfQjJvm/vhwyzySNv+Pxro5rYCGcb2XwPrKfNl7Vv1K9yOV
+ bM+t72VFB+o613HcQ2IzQRqa+PkXKElkUTJ8tlOK8+0IX2Bpo/kGesv4nbpoNRZL4wGX
+ 4ZURXIBuUsiyl7BCsKNVtaFPU0weGPQIV7579uc0FZylWVoXcTjpTb8UQ0UOl1DScXLJ
+ piqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712026305; x=1712631105;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=u51beO54X0b9gZ2OYRcuCm7ajK6+8XO/iEIFNJnKcqQ=;
+ b=WNkdbo/wtGdKm7rEnZoNa/qjkswdHqrBPfFdRdM5C2lHOW5hj8l2J9boGTx4bJmty+
+ jtHAX+VxkaIjfK/6nCzV8YYFTIoz1LJTyMmsByYHQIjPE82xhHXc/RFYGysLhBZDCwpI
+ fOhWqY/F+P3CTkvkUPHhRrBljBZwdP+O4aOYYdBTrjkW+v6CPrbfGzU1YMBDrufXmI56
+ pDya3x6ADFoGkhjdEhva72k6lHdCPklm3hIwFKGOrwxJuO+B7CiyujitSah6rz+PzL+R
+ UNHGfdbVohHWv5/SaMQf4gi67qlqV0jdFwmxJfMDelNIszIeBPts5w0ZVs/UfdrXkHPD
+ aIcg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUBfECWwKOCzdsWBhqTCOyB0EPLeKDmoeGrg74xOYdKsfQ3PWV+nireiN5wiYo5y9ajp2LP27ZOdcSdrtKyZo/Klsh2kwbD/ztdzovjOxt4
+X-Gm-Message-State: AOJu0YxdEezL4hDOR43sFYvl3QZOOGYSMDqXgcx/Z1Qt/Zzn82VZYlZD
+ +S5sa/zcCjZu/w6uyMtziH/aC8VG8lROPlaO0DOAoRH2edxEwIv5oEbhI3jDMe8=
+X-Google-Smtp-Source: AGHT+IFlJxD1nqWGkA3INBWqc4UKgZGBwfU7efLJ9fDsv0OO5y9LIXZl7K0eYhbMWxAwA3+bti7n9Q==
+X-Received: by 2002:a05:6512:3d0a:b0:516:a978:7b06 with SMTP id
+ d10-20020a0565123d0a00b00516a9787b06mr4216248lfv.5.1712026305116; 
+ Mon, 01 Apr 2024 19:51:45 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ h26-20020ac24dba000000b00516a1e2a6fcsm738824lfe.256.2024.04.01.19.51.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Apr 2024 19:51:44 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH v2 0/4] arm64: dts: fix several display-related schema warnings
+Date: Tue, 02 Apr 2024 05:51:42 +0300
+Message-Id: <20240402-fd-fix-schema-v2-0-39bf90051d83@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: WUNq6n4cZHd7jJtRqt-PHtW2RFpAY2OW
-X-Proofpoint-GUID: WUNq6n4cZHd7jJtRqt-PHtW2RFpAY2OW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-01_14,2024-04-01_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0
- bulkscore=0 suspectscore=0 priorityscore=1501 mlxlogscore=999 spamscore=0
- clxscore=1011 mlxscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2403210001
- definitions=main-2404010145
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAL5yC2YC/3WMyw7CIBREf6W5a68prxpc+R+mCyzQ3kShAUM0D
+ f8u7d7M6sxkzgbZJXIZrt0GyRXKFEMDfupgWkyYHZJtDLznshd8QG/R0wfztLiXwYdmXkujFRM
+ K2mdNrq2H7z42Xii/Y/oe+sL29p+pMOxRyouywx4hbk8KJsVzTDOMtdYfk7X/VqsAAAA=
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1016;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=y5XQgkEoklAcMcBMPDOFMsdTPOYsPlqbCmGO9xsOB6M=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmC3K/TA5piUtvLCcIOV/X+jNAFTzxG6/hS3/cQ
+ rdlHxmDYE6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZgtyvwAKCRCLPIo+Aiko
+ 1XgoB/9W5jpGsTHB+uKoc2v4f+cudCOlCoyXPZZK+DzId83JSBnqmrKueem1SagMmXXqW3+gS6C
+ GfxQYyBtyk9kAX16xj+FVBiCwzNpx38OoQWYLVwRsPLRLb6qdS+5chK1Tqtl5RusRrx5WO2C/fk
+ cuqTiC+iCuxMfhBQPJERRL+0XeLr+RsFm7Hx55T3DnUiofWhfN7U4aSNx/97ezgehv+ZDd576W8
+ hORcdkAsajwaV0oHSSQsGlgWlyIfDFWs22qOZRPe9GRvJmPbYqa3Dp3PBz3M6DpFV5lowLaJ1uP
+ HvsgOI3Alkgx73KPu2jxthfAhktxxHnLr2BDm/y3Lg8xSVbj
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,48 +105,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-After IGT migrating to dynamic sub-tests, the pipe prefixes
-in the expected fails list are incorrect. Lets drop those
-to accurately match the expected fails.
+Fix several warnings produced by the display nodes.
 
-In addition, update the xfails list to match the current passing
-list. This should have ideally failed in the CI run because some
-tests were marked as fail even though they passed but due to the
-mismatch in test names, the matching didn't correctly work and was
-resulting in those failures not being seen.
-
-Here is the passing pipeline for apq8016 with this change:
-
-https://gitlab.freedesktop.org/drm/msm/-/jobs/57050562
-
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt | 13 +------------
- 1 file changed, 1 insertion(+), 12 deletions(-)
+Changes in v2:
+- Added Fixes tag to the DP change (Abhinav)
+- Switched the schema patch to use contains (Krzysztof)
+- Link to v1: https://lore.kernel.org/r/20240326-fd-fix-schema-v1-0-4475d6d6d633@linaro.org
 
-diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
-index 44a5c62dedad..b14d4e884971 100644
---- a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
-+++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
-@@ -1,17 +1,6 @@
- kms_3d,Fail
- kms_addfb_basic@addfb25-bad-modifier,Fail
--kms_cursor_legacy@all-pipes-forked-bo,Fail
--kms_cursor_legacy@all-pipes-forked-move,Fail
--kms_cursor_legacy@all-pipes-single-bo,Fail
--kms_cursor_legacy@all-pipes-single-move,Fail
--kms_cursor_legacy@all-pipes-torture-bo,Fail
--kms_cursor_legacy@all-pipes-torture-move,Fail
--kms_cursor_legacy@pipe-A-forked-bo,Fail
--kms_cursor_legacy@pipe-A-forked-move,Fail
--kms_cursor_legacy@pipe-A-single-bo,Fail
--kms_cursor_legacy@pipe-A-single-move,Fail
--kms_cursor_legacy@pipe-A-torture-bo,Fail
--kms_cursor_legacy@pipe-A-torture-move,Fail
-+kms_cursor_legacy@torture-bo,Fail
- kms_force_connector_basic@force-edid,Fail
- kms_hdmi_inject@inject-4k,Fail
- kms_selftest@drm_format,Timeout
+---
+Dmitry Baryshkov (4):
+      dt-bindings: display/msm: sm8150-mdss: add DP node
+      arm64: dts: qcom: sc8180x: drop legacy property #stream-id-cells
+      arm64: dts: qcom: sc8180x: Drop flags for mdss irqs
+      arm64: dts: qcom: sc8180x: add dp_p1 register blocks to DP nodes
+
+ .../devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml   |  9 +++++++++
+ arch/arm64/boot/dts/qcom/sc8180x.dtsi                       | 13 +++++++------
+ 2 files changed, 16 insertions(+), 6 deletions(-)
+---
+base-commit: a6bd6c9333397f5a0e2667d4d82fef8c970108f2
+change-id: 20240326-fd-fix-schema-b91f94a95135
+
+Best regards,
 -- 
-2.43.2
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
