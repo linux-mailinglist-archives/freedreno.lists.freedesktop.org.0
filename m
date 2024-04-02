@@ -2,65 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C29D894991
-	for <lists+freedreno@lfdr.de>; Tue,  2 Apr 2024 04:51:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61835894990
+	for <lists+freedreno@lfdr.de>; Tue,  2 Apr 2024 04:51:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C777610F81D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5083410F81A;
 	Tue,  2 Apr 2024 02:51:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZwGOnw+o";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="x9YWJKLD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E755710F818
- for <freedreno@lists.freedesktop.org>; Tue,  2 Apr 2024 02:51:47 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-513e10a4083so5304848e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 01 Apr 2024 19:51:47 -0700 (PDT)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8198A10F818
+ for <freedreno@lists.freedesktop.org>; Tue,  2 Apr 2024 02:51:48 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-513d4559fb4so5703413e87.3
+ for <freedreno@lists.freedesktop.org>; Mon, 01 Apr 2024 19:51:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1712026306; x=1712631106; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=/uwZxnjfekbVPxIm3NgmC3jP31Q9QBFu1AAINEMokbA=;
- b=ZwGOnw+oDAZjItKmADgCYkPQLL3og5zghye5OOT3tbSkIAUBT2UDGlf2gd1hpXY16Z
- Gh0zC97BgLHFxBN6c9IXy79i2o07BddA8CtG619pngHRywlUO5h+0nLeVqkEhk6Bhqnj
- H3ZgbBav6hXHsMxZfR78dsOwTfWSkcsqbGMRTZUkRVOxKqdyJE7SOZR9svqO8fdffXt+
- /YY45MoUYxEcEfAsnJVilLZDnMAPKjqvxYsowtbV0MXGkqsNpw1dx0kRgEi9WdlzD1uG
- xLEqKCmXBWdIBVE2rCvaQ5rzO4KNsLAWNz88DsK5HsJGMwIyV0eW6KRGJiV5AVdSe99E
- y+PA==
+ :reply-to; bh=YOfJ3g/to7EyTLgt+Fv+Z4h7uzKPNiClRQu90BLeUVg=;
+ b=x9YWJKLDr0Dym4qWKwTJHNekUlk7U0TXSv6Cbsf6P2M3SOru36KrnXol0GVaeLAgtV
+ o/TeWwdIkp73+nEDnjHsfE0Ei2FVCQ4JLaiOMEEI+C449Ts2q8JYBqURFSxu55Xb+OiL
+ v6zHUyuXv+9K4mVuwvW7S2g0ySIHbUzQiqTYMhWsV+3BDZuqqTrNKTHB7AUMeWtlVBjS
+ N2ovUMJzvwaquIqo4rM88RU3Diki2b7YBwf5PKUF2VuB6kohDqWay0H4/M3mmBNhE2EL
+ R4esYRpInC3CqsmPPjx5cO+dbbeTROCBuuc7eE9PqdI6WBDz9S2Nvk5YOR2jit+W6exA
+ gHUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1712026306; x=1712631106;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/uwZxnjfekbVPxIm3NgmC3jP31Q9QBFu1AAINEMokbA=;
- b=UXB6qdG6SFIgZwBAFju7smafIXDSpy8zO9Uy7EQtK64mLDogeUl9FBk9Axc6Af/yn5
- 1n5InesFfusvkuKL0NdyCDpdmd75BMmW3XNCK2PDX61dhA8CXMljvQhee7OcE8AnkTHF
- vBLeL6KA19hzNTTatCaMQ81hpnu29n7+j71GzRwuSFI6MFwDGhyvyMrSvQA9dEfEcAYx
- 2Y3VC82KZhxmVZZZTF6J+6ihiU/T8GoCkjCJ1IqL6LKDmeQP9e3bEfoHe8iSlVMZuN9w
- 6gwnBqUppGheq8Ch+TlODnQFqFfiQK9mApMgjTfWRdubGqlpvWTRyZ4T35gVZW9qd+Jf
- KxAQ==
+ bh=YOfJ3g/to7EyTLgt+Fv+Z4h7uzKPNiClRQu90BLeUVg=;
+ b=oqQibIH7+Ev+0Quj7mKRmwEajTgGh8oBbDFaFMLsCu5QBlfOdRDZ7KimDkDlEuJEJ7
+ +dcjH/Sic26xNzFysTBgKB3oPtX2LvTabllWNVTxSHUCfOluWnF5q3R7TKykmGg4E9jX
+ 0cWBv7oMrJnEg3/+w9F92QrE3uJf5CaL+p40KPKspQNX3fSHguYnPFWtA/q5+xJGoSur
+ +ooGj8ENcTM+gu4HVp0F0UnwtHgT5FdP0/hOJ71crXbvFdm+y3Qux1WEKn6RIchGT613
+ z069aiF9dJrRz02quuRH9lHuranAt5WhrRCfTU6I5+Vio1ZlMlMOQ81ukFKgHwu1A1oY
+ N7GA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUS47bMAY/w2JgMj52k+AGFzpFSVbZtCs95m7YuenJ+Qz821NUG52At4m8IBo86tVmm+cx4WZxe9XxcdJe4+ZvKa96CriKdujuHX5Xulyif
-X-Gm-Message-State: AOJu0YypGMZM2FBvQpYj9CcXZ1SqMOGZ4fYwzJhhG5Z137wcAEvSA+J6
- kGq6/mbp+M371Dk/DxW5sV04EVf0EvqWIa2pgAhuppVb8bn3jwodpu6BZu80gm8=
-X-Google-Smtp-Source: AGHT+IFeQ4+VkXvXKg2bCoXDwCQ4K+jyRjP9HcxqaqguEWln7ZtxPBY6gnvTPz2mDKcrsBObfpcVPA==
-X-Received: by 2002:a05:6512:3e08:b0:515:d24e:4e2e with SMTP id
- i8-20020a0565123e0800b00515d24e4e2emr8663492lfv.20.1712026305821; 
- Mon, 01 Apr 2024 19:51:45 -0700 (PDT)
+ AJvYcCX9HXJeBOl0z6qD2gsPQd1ly+jfCACk3Gwt2jHYyfqj4itNzl5xuPYFuLr9a20YLsA8QP+Isdo7burKK5gJ8J/QJOsiG+K7Geihhfi7rlJY
+X-Gm-Message-State: AOJu0YyNDMBY5en4Th/go/G4fZK3oJJQ5hrUBK+xAPYH8VxhBH8TdQmM
+ ooC5xqA/V9HM0ZUw82oR+cI1FmzOxaFXDhjRlF/z4EW65rKI1avBdr32r9Rv1iM=
+X-Google-Smtp-Source: AGHT+IHNUvGeXt87CyX5BTmaYHcEFwZghtzCXxveGiaB51yrxkZpJLWdYcOya03zz/NEhrSjzF5R0A==
+X-Received: by 2002:a19:3801:0:b0:515:d5dc:d32b with SMTP id
+ f1-20020a193801000000b00515d5dcd32bmr6257098lfa.25.1712026306505; 
+ Mon, 01 Apr 2024 19:51:46 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
  h26-20020ac24dba000000b00516a1e2a6fcsm738824lfe.256.2024.04.01.19.51.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Apr 2024 19:51:45 -0700 (PDT)
+ Mon, 01 Apr 2024 19:51:46 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 02 Apr 2024 05:51:43 +0300
-Subject: [PATCH v2 1/4] dt-bindings: display/msm: sm8150-mdss: add DP node
+Date: Tue, 02 Apr 2024 05:51:44 +0300
+Subject: [PATCH v2 2/4] arm64: dts: qcom: sc8180x: drop legacy property
+ #stream-id-cells
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240402-fd-fix-schema-v2-1-39bf90051d83@linaro.org>
+Message-Id: <20240402-fd-fix-schema-v2-2-39bf90051d83@linaro.org>
 References: <20240402-fd-fix-schema-v2-0-39bf90051d83@linaro.org>
 In-Reply-To: <20240402-fd-fix-schema-v2-0-39bf90051d83@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -77,16 +78,16 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1111;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=807;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=/SFcU8Z7m12JUWBj7jBl6oeySfA8J1iODLj5nSrz7GQ=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmC3K/Ag+vqCLVskhF2HaiDAo4jjfRUIeLKy2cV
- KXdjUrVzpmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZgtyvwAKCRCLPIo+Aiko
- 1XOgB/9AbWI43J4MrsBnywBHEFBCIuHF8FF7xW53Tqne68jpitqrweFqFF/GqCxvy2KyZyhXJzB
- Q3y5bW5pBv3kVYEzbmbHqpL1iXglRO+gGfKI220ZvtWSigHl2k4pZtvvxElIhbB9hm5n8+5ONWF
- 8a9oHA8Rb/johEEJw0jljoeKWGyJQoJGa3hZek6eHXwEZPcnOgMIpGEki9tG3JFNqeJZsyVlHF5
- OvvYsp1aaTT6R7YugXduUDNbGxYtHL3bvawoKqdqVVvnTRzajfHHNtQU/Tb3p1V8bsba1Q7NSZp
- z95u/aaLjMaATVHDUzjSb/DkiLdiEPfaO4YMpb8Mvm1TOUxr
+ bh=mipBzLhXme/edDDsNRRaHmAV/zjI88iNQMd61g5M1kU=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmC3K/9tLaaKflxdYIwpCBLpwR7Rr00FbdzyH1u
+ rioPNQYRrWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZgtyvwAKCRCLPIo+Aiko
+ 1VwFCACTFvbQU+Q4PmKNdSn8Gpct+tMjw2VxhIicMc83/UknCX70PYqne35++283QFaMq9OWMFP
+ uusglJLuCVVOYBjn+Z0YmePgt0BLfuLPTyUqM6gjfe3Fl0saLj+EGzf5Okkcs64+h2SWnHNZg5v
+ 5h5T3lUOCzF3bePwAwWWErrrDVV0EcSMdnQw+PSV/JvyhFiRbjiBnP1s1Hsg7nFFpqd2xSJQ7EV
+ pRgh9r3lY3bRj7sIN8uEjBPw/YRrqUeqzEjL1u7ESkKI58akpAsSFtuZKSkPlNaoH4mzdQQwAOl
+ 5UMjyMP29KXrvRn7+SSQtzpeJOOsgUsyrVSJfh+U0IPdYb/P
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -104,35 +105,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As Qualcomm SM8150 got support for the DisplayPort, add displayport@
-node as a valid child to the MDSS node.
+The property #stream-id-cells is legacy, it is not documented as valid
+for the GPU. Drop it now.
 
-Fixes: 88806318e2c2 ("dt-bindings: display: msm: dp: declare compatible string for sm8150")
+Fixes: 494dec9b6f54 ("arm64: dts: qcom: sc8180x: Add display and gpu nodes")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml        | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ arch/arm64/boot/dts/qcom/sc8180x.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
-index c0d6a4fdff97..e6dc5494baee 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
-@@ -53,6 +53,15 @@ patternProperties:
-       compatible:
-         const: qcom,sm8150-dpu
+diff --git a/arch/arm64/boot/dts/qcom/sc8180x.dtsi b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
+index 32afc78d5b76..99462b42cfc5 100644
+--- a/arch/arm64/boot/dts/qcom/sc8180x.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
+@@ -2225,7 +2225,6 @@ tcsr_mutex: hwlock@1f40000 {
  
-+  "^displayport-controller@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+
-+    properties:
-+      compatible:
-+        contains:
-+          const: qcom,sm8150-dp
-+
-   "^dsi@[0-9a-f]+$":
-     type: object
-     additionalProperties: true
+ 		gpu: gpu@2c00000 {
+ 			compatible = "qcom,adreno-680.1", "qcom,adreno";
+-			#stream-id-cells = <16>;
+ 
+ 			reg = <0 0x02c00000 0 0x40000>;
+ 			reg-names = "kgsl_3d0_reg_memory";
 
 -- 
 2.39.2
