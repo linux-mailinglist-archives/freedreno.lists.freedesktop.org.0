@@ -2,68 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06E23896A0F
-	for <lists+freedreno@lfdr.de>; Wed,  3 Apr 2024 11:11:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49CD3896A13
+	for <lists+freedreno@lfdr.de>; Wed,  3 Apr 2024 11:11:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38049112908;
-	Wed,  3 Apr 2024 09:11:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 167AB112904;
+	Wed,  3 Apr 2024 09:11:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="f5H9vQQe";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="KzqM733O";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2208112904
- for <freedreno@lists.freedesktop.org>; Wed,  3 Apr 2024 09:11:09 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-1e252f2bf23so24929585ad.2
- for <freedreno@lists.freedesktop.org>; Wed, 03 Apr 2024 02:11:09 -0700 (PDT)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA36112901
+ for <freedreno@lists.freedesktop.org>; Wed,  3 Apr 2024 09:11:17 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-1e293335cdeso3343845ad.3
+ for <freedreno@lists.freedesktop.org>; Wed, 03 Apr 2024 02:11:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712135469; x=1712740269; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=7/O3Yye4pJUKSqqmi1ztO7+TuENg7PJXngjJtD8dhiA=;
- b=f5H9vQQeJI1XQA/9Ut5qxKUIkMzLgtUxztn3Nt2zoQSvwcI8R/5qHxo332G7UQ2Zr3
- aHrvF6bkN+EDsh2YQktxjaVvqCEbM5OG/eXVhETV5xwCR+XWHnHqKgvK9lWbxFsI9hUb
- +8w9h4m2j3PJtwW85mzFL6q0SOiFTB6F1C4JebAv8Z/qu8UsENWvosFQ/WaRnlOBAO3S
- sHhdWHbQHL1ZYM9Me8e2DlpcZkuih3bWvmj8BGbTmToK2ziZFNr5UFXF4SyPvP+1K8bN
- L6XB3CwDGUhCyKNDdVQxJz2bfkGPakgEAwZNmi3jbnDhvayW5C7+oh/V7jdHYuVzCo6g
- Snlg==
+ d=linaro.org; s=google; t=1712135477; x=1712740277; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=NP1mArxks5bntvoBu6vgePRngXslO+DwNYzgIBI4xco=;
+ b=KzqM733OIhec22dzGuI8IXRMJhkNkr6QKmU/jUWi3A7IDT6TJSbNrCAW8FSq3Ed/gr
+ 5iQcK3rWfyqHmVuDG6D9+KNVv4WjYSg3o6UsLNV58GhkUk9bbcFfXGO/beuAau/lcUCa
+ sxXYXT+NRt/leoo8FYzewckzjFnW16KGi9YpGl2I93GBt3Ep9Dl9ANRn9kXM/V0QWjGs
+ kEszj4C5gtyy8aQGi5sN6P7x4D7U81U0k82vrZZYZWhX7npvWK1JFuzZuoUk4sJPNazo
+ 65ojDvrKwyF8TapA3qYOJQ338Ny2hx/deTsQm0zuz8CclOSrEw/Av/MQ6U94nI4pgEL4
+ jSGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712135469; x=1712740269;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7/O3Yye4pJUKSqqmi1ztO7+TuENg7PJXngjJtD8dhiA=;
- b=RpL5IaU3BM87vAW7QF8hj+mY88FpBdaoQkPigFGL/22VTnSuP4gIMC5BRYSgeifP4i
- x5Ws5IbkgPjOl+wVjvy6o+SHiSMJ62Vn1J7s6pO2Q3EHhgOTI5rBBIQrdzvK1iUyF+oV
- +s1I3Hs0D90O8jmEPGiM8EVztuapLMw5N8N2L2jF1awSnHtlfDAAeihmIpOdCJk4WHUE
- OnZxJYOyM3jBq9xqIWE3EgVo6Dop0LTwsspohfteGZJKeNBcoHRz4vtBKtVk/mOs8S8D
- hlVVk9UPo64CBlIF2bcMoHMbzSpEfSS3tB/nLeH4JoLrVSpi1VYSGnTTcDppvPzggo4N
- 6VFA==
+ d=1e100.net; s=20230601; t=1712135477; x=1712740277;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NP1mArxks5bntvoBu6vgePRngXslO+DwNYzgIBI4xco=;
+ b=XiZhNnJ7y/74bOL5LJduZErcB2zZYES61xgwupqiUubhrDkh70VRDvt2TirNYtrlTe
+ LkkW7G3PwkpGPX3QIKBY9I1tyCHPbXQdgqNODvE8QbWyQsyX4ziHMLbV0KNO9HOYaQpm
+ hZSb6bl72aOGGDxvUuz0Rd5JjukKz4FfCzK1WIXhiZM3lcOFUF/DMa/ip0MU+9ejxqja
+ rYEXKNAoqLWAyvd4DwGzMn0PfHvdnT3+Y5m4CIJV2FhykmlIPSHui4nzhn3uFvOTUmQY
+ NfX9OrVBY6/CTs5jsx80AYqJ2xSYhjnpmYSESQXpKYuGmsaMKcv3xoZ+6C0YD/hIkrSI
+ cAwA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVpt1f3O/3vPXg14EmjzqTu+dqHuS8xCy6i4FFmcZD8aPRPEYQmrNxKRPrqXn2ZYIqb3qSWuMnyb5mJ4yF4hNlHNtBXQZQiyv1BbaIaZQbf
-X-Gm-Message-State: AOJu0YyO9q7aFtbY9ywd2kv9Sdt37r4e62/LOnoW/twXzhouxm1nqtEM
- GACL4HOxf+3D3YjUIaCnhZqmch1IlRbzasBBmcOtzJ+rOy6o1n3YoLxdCa+ZpwQ=
-X-Google-Smtp-Source: AGHT+IF84q9hRu116oN3GLEOqf7CuYctkPWrAgQCygUpWta5lfkEIwl7OUv7gwt+uy43J5BmH7S/wA==
-X-Received: by 2002:a17:903:32ce:b0:1e0:b629:b009 with SMTP id
- i14-20020a17090332ce00b001e0b629b009mr2303646plr.20.1712135469129; 
- Wed, 03 Apr 2024 02:11:09 -0700 (PDT)
+ AJvYcCU6VUiKVV5wpKGjD8Vj83ttp1/h0YbbUF4Xk47PzbH5ryz8exImMdu2neSMtZR+8/oKLs5KKZ4jNlsSPx7I1X3lqFwfHZqQ6ZY+pLxrhwxL
+X-Gm-Message-State: AOJu0YwNQ/JmI+U9a0lS+lw+0LP0e945oulMZpMurLbnoQRLduLrZFyo
+ A3e7O9VBP8WcPbJ7+e/X7gfZguVBM11ow9xu6WNqhK9/ZELiZZ2SGYduYi+KZyw=
+X-Google-Smtp-Source: AGHT+IEvnZUXLpdEar+zDu2dEcKJ3XPbx7m6PBvpXM6ninTCE0WpaPkwirt2qnexBqWzAKnOJ5d/Zw==
+X-Received: by 2002:a17:903:2285:b0:1e0:b872:d862 with SMTP id
+ b5-20020a170903228500b001e0b872d862mr19646560plh.52.1712135476796; 
+ Wed, 03 Apr 2024 02:11:16 -0700 (PDT)
 Received: from [127.0.1.1] ([112.65.12.66]) by smtp.gmail.com with ESMTPSA id
- lo14-20020a170903434e00b001e0aded0ca7sm12688087plb.239.2024.04.03.02.11.01
+ lo14-20020a170903434e00b001e0aded0ca7sm12688087plb.239.2024.04.03.02.11.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Apr 2024 02:11:08 -0700 (PDT)
+ Wed, 03 Apr 2024 02:11:16 -0700 (PDT)
 From: Jun Nie <jun.nie@linaro.org>
-Subject: [PATCH v3 0/6] Add DSC support to DSI video panel
-Date: Wed, 03 Apr 2024 17:10:56 +0800
-Message-Id: <20240403-msm-drm-dsc-dsi-video-upstream-v1-0-db5036443545@linaro.org>
+Date: Wed, 03 Apr 2024 17:10:57 +0800
+Subject: [PATCH v3 1/6] drm/msm/dpu: fix video mode DSC for DSI
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACAdDWYC/x2NMQ6DMAwAv4I811JMoEO/UnWIsKEeAshuIyTE3
- 2t1uOGWuxNcTMXh0Z1g0tR1W0Po1sH0LusiqBwOfeqHNKSM1SuyBT4Fik1ZNvzu/jEpFYnGOxO
- lMmaGiOwmsx7/wRNahtd1/QAmFaGKdAAAAA==
+Message-Id: <20240403-msm-drm-dsc-dsi-video-upstream-v1-1-db5036443545@linaro.org>
+References: <20240403-msm-drm-dsc-dsi-video-upstream-v1-0-db5036443545@linaro.org>
+In-Reply-To: <20240403-msm-drm-dsc-dsi-video-upstream-v1-0-db5036443545@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
@@ -74,11 +73,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Jun Nie <jun.nie@linaro.org>, Jonathan Marek <jonathan@marek.ca>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1712135460; l=1325;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1712135460; l=2016;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=P541NbRWYuqXnx3+bGnLVMbeU44d3fPcyqmzLTRTyXg=;
- b=HkqQZDXjFiMWF6ZF+Cd0bcaoeJOmDhaXwhg2bFQTfchp7QA89xl1gKuBfqywkMi9u/CrU+Rqg
- N1WZRF987sSDHY46unFNIz4C8AM5wiaqxvqBzLMDMKlkS8wAs1I5cIE
+ bh=m6HQvVN42IUfffBpA5rSrdSQLAGl00b8q3W/bbmwYL0=;
+ b=X1XSY5kWlW4EvhrnUx70p2aoQcx3f1DnnQ4OyjHIWQvbWeRXvcU2GduJDjEEDh2iXJNAm4MLN
+ Z3Bv1A5eBC0BqnYTDzQzUt3NZ19ccVql5AenjM0xwfQJWidDKXu80Ql
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -96,38 +95,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is follow up update to Jonathan's patch set.
+From: Jonathan Marek <jonathan@marek.ca>
 
-Changes vs V2:
-- Rebase to latest mainline.
-- Drop the INTF_CFG2_DATA_HCTL_EN change as it is handled in
-    latest mainline code.
-- Drop the bonded DSI patch as I do not have device to test it.
-- Address comments from version 2.
+Add necessary DPU timing and control changes for DSC to work with DSI
+video mode.
 
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
 ---
-Jonathan Marek (5):
-      drm/msm/dpu: fix video mode DSC for DSI
-      drm/msm/dsi: set video mode widebus enable bit when widebus is enabled
-      drm/msm/dsi: set VIDEO_COMPRESSION_MODE_CTRL_WC (fix video mode DSC)
-      drm/msm/dsi: add a comment to explain pkt_per_line encoding
-      drm/msm/dsi: support DSC configurations with slice_per_pkt > 1
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 9 +++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c          | 8 ++++++++
+ 2 files changed, 17 insertions(+)
 
-Jun Nie (1):
-      drm/display: Add slice_per_pkt for dsc
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+index d9e7dbf0499c..c7b009a60b63 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+@@ -115,6 +115,15 @@ static void drm_mode_to_intf_timing_params(
+ 		timing->h_front_porch = timing->h_front_porch >> 1;
+ 		timing->hsync_pulse_width = timing->hsync_pulse_width >> 1;
+ 	}
++
++	/*
++	 * for DSI, if compression is enabled, then divide the horizonal active
++	 * timing parameters by compression ratio.
++	 */
++	if (phys_enc->hw_intf->cap->type != INTF_DP && timing->compression_en) {
++		timing->width = timing->width / 3; /* XXX: don't assume 3:1 compression ratio */
++		timing->xres = timing->width;
++	}
+ }
+ 
+ static u32 get_horizontal_total(const struct dpu_hw_intf_timing_params *timing)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+index 965692ef7892..079efb48db05 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+@@ -167,6 +167,14 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+ 		intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN;
+ 
+ 	data_width = p->width;
++	if (p->wide_bus_en && !dp_intf)
++		data_width = p->width >> 1;
++
++	if (p->compression_en)
++		intf_cfg2 |= INTF_CFG2_DCE_DATA_COMPRESS;
++
++	if (p->compression_en && dp_intf)
++		DPU_ERROR("missing adjustments for DSC+DP\n");
+ 
+ 	hsync_data_start_x = hsync_start_x;
+ 	hsync_data_end_x =  hsync_start_x + data_width - 1;
 
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  9 +++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |  8 +++++
- drivers/gpu/drm/msm/dsi/dsi.xml.h                  |  1 +
- drivers/gpu/drm/msm/dsi/dsi_host.c                 | 42 +++++++++++-----------
- include/drm/display/drm_dsc.h                      |  4 +++
- 5 files changed, 44 insertions(+), 20 deletions(-)
----
-base-commit: b1e6ec0a0fd0252af046e542f91234cd6c30b2cb
-change-id: 20240403-msm-drm-dsc-dsi-video-upstream-1156d110a53d
-
-Best regards,
 -- 
-Jun Nie <jun.nie@linaro.org>
+2.34.1
 
