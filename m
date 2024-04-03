@@ -2,87 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5024897971
-	for <lists+freedreno@lfdr.de>; Wed,  3 Apr 2024 21:59:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B327897983
+	for <lists+freedreno@lfdr.de>; Wed,  3 Apr 2024 22:04:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B1C4112842;
-	Wed,  3 Apr 2024 19:59:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8FDE112E9A;
+	Wed,  3 Apr 2024 20:04:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Ira3qAVc";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="GWUlKSrA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C64811212B;
- Wed,  3 Apr 2024 19:59:00 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 433Jful9017706; Wed, 3 Apr 2024 19:58:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=RAjJygrtnz3IafcFIvbNaEGp82M8DXE306CM7uWs/q4=; b=Ir
- a3qAVcmK5WVcgb7TPsSQwFoYLuTbKmPZ1mugKalpGvJ5IGopV5gagHDPQKTPfC3N
- gBkDJwhwYeFhKrB/5aGk23EHMms8wM9dAP/St61RwuF+In4RilJGGEtl5MhEMLSp
- MJsVjCpXBsu97oj+5tr2Y1OLwZ3UHXqM7dGKBpLKVwi3neCym9XPW9OrIcaOY/Qd
- OfyJxuSEFMRl1mpo68g4OFJtOIysGnSkAIUBc8US0mO1iEjsK8CpbtH0LBUAES+F
- rsBBlUCQ5LwzH8xCjPlY7fSWY1O7tf4v4nGo40m3T+LbMmoCK4HeY910sAwNd5of
- 5r+BpMgGMlts1IkdMUqg==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3x9077j41w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Apr 2024 19:58:53 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 433JwqkP016847
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 3 Apr 2024 19:58:52 GMT
-Received: from [10.110.9.99] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Wed, 3 Apr 2024
- 12:58:50 -0700
-Message-ID: <2f509949-7e7e-cbf6-c1d0-f25971c2d890@quicinc.com>
-Date: Wed, 3 Apr 2024 12:58:50 -0700
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C130B112E9C
+ for <freedreno@lists.freedesktop.org>; Wed,  3 Apr 2024 20:04:43 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-513cf9bacf1so363162e87.0
+ for <freedreno@lists.freedesktop.org>; Wed, 03 Apr 2024 13:04:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1712174681; x=1712779481;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+ :reply-to; bh=C1ldXuBtZD0meeLQ9ewOsNc58bmXcN65nhQZrzCO4+o=;
+ b=GWUlKSrAmgLE+Zlhj3ySUx/R675xvCiTGSVU6tqwwWOBBGfvdrrM8fYvEUveNXRod4
+ a0s/+tK4lXWjYhDm2kaL1ORqTEfXdVfSI/vI5Tby5WGwg/g+PTNuqlNalHuqDdjjgLJo
+ 9MZu66SnuczeQJYMWtQPOKF7aoKSOR/Y9qG5c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712174681; x=1712779481;
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=C1ldXuBtZD0meeLQ9ewOsNc58bmXcN65nhQZrzCO4+o=;
+ b=Q0mCiImHXsKuOBCat1UhFF8Q03Y9cyx2WzqEzkmM1Qe1iRc92WZSWwwz6jQUOg/w4a
+ ouC36iorDSGn9e/xKOqOOf3BpO7xSIz5BGVAMq0+WMfRSxJRejJnkj4NQFlwKCnVrX/d
+ Kd+PnG2I/w3GdIDRRpZDQGYmLhw8BJGvXRo/w5WmsJH9JpG+vadbi1NgbLl3oOCqM8CS
+ dbCFihEvgL6J8HIiUQs8dxfOm4Rwjv2jwg5bAN5PgoZ1QOhNBJi5Khg90BKqtNjZD2X4
+ /DXCdQtOY1oVc12zeFXgkmqOq/M8MmNcCUk+lOxVK85YjtY+kvJAApaV8Lmk8WuwkZi9
+ wiRA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXItcWSnKEOh+CZbOY+WyuLXSWgHozSktdGniiIbNBrzHLjo+i9Q7vr9fLSlNeJLG70jZfft0g5TnOYL2FbXpek3vfbzoonT1Mrv3w9p9/S
+X-Gm-Message-State: AOJu0YzxAsuPHhMBleXj5MR8OXFke6I/i4H5JFgfeVvBUdRR9PZ6es3p
+ EBg78A17PBLsn78pAeMfZaQaslDE3CNEc3KH6vguXNh8eRUo27idZ0Ty3IB0fShmxtiZtcl8dYp
+ 3dhTpZUwWMju91iF6L5pbNLVHNYcy887hR3/5
+X-Google-Smtp-Source: AGHT+IEI86CzA7TT+IdyvGZ2GYs55lyyEY7kHHWG4VeBinBpm342IF+g/Z3YNKn5FTNDKtGHKVF5QpYrRF2JYfdtqg4=
+X-Received: by 2002:ac2:5204:0:b0:516:b148:6d8 with SMTP id
+ a4-20020ac25204000000b00516b14806d8mr354836lfl.50.1712174681526; Wed, 03 Apr
+ 2024 13:04:41 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 3 Apr 2024 13:04:41 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v3] phy/qcom-qmp-combo: propagate correct return value at
- phy_power_on()
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>, <abel.vesa@linaro.org>,
- <agross@kernel.org>, <airlied@gmail.com>, <andersson@kernel.org>,
- <daniel@ffwll.ch>, <dianders@chromium.org>,
- <dmitry.baryshkov@linaro.org>, <dri-devel@lists.freedesktop.org>,
- <robdclark@gmail.com>, <sean@poorly.run>, <vkoul@kernel.org>
-CC: <quic_jesszhan@quicinc.com>, <quic_sbillaka@quicinc.com>,
- <marijn.suijten@somainline.org>, <freedreno@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+In-Reply-To: <2f509949-7e7e-cbf6-c1d0-f25971c2d890@quicinc.com>
 References: <1711741835-10044-1-git-send-email-quic_khsieh@quicinc.com>
  <CAE-0n50Z2pDGH+ncjQq-huDsn9jdN=1SfaaU+qw229nZpUVCDw@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAE-0n50Z2pDGH+ncjQq-huDsn9jdN=1SfaaU+qw229nZpUVCDw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: HzB9bFC3XVmDy2SfH_Qjw6dY9raEAm1I
-X-Proofpoint-ORIG-GUID: HzB9bFC3XVmDy2SfH_Qjw6dY9raEAm1I
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-03_20,2024-04-03_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999
- malwarescore=0 adultscore=0 suspectscore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0 bulkscore=0
- impostorscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2403210001 definitions=main-2404030133
+ <2f509949-7e7e-cbf6-c1d0-f25971c2d890@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Wed, 3 Apr 2024 13:04:41 -0700
+Message-ID: <CAE-0n50qT2mHOGiU89NAmHdADQAAgs3aMP1RFOTTV8oCUbZKgw@mail.gmail.com>
+Subject: Re: [PATCH v3] phy/qcom-qmp-combo: propagate correct return value at
+ phy_power_on()
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ abel.vesa@linaro.org, agross@kernel.org, airlied@gmail.com, 
+ andersson@kernel.org, daniel@ffwll.ch, dianders@chromium.org, 
+ dmitry.baryshkov@linaro.org, dri-devel@lists.freedesktop.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Cc: quic_jesszhan@quicinc.com, quic_sbillaka@quicinc.com, 
+ marijn.suijten@somainline.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,34 +87,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Quoting Abhinav Kumar (2024-04-03 12:58:50)
+>
+>
+> On 4/3/2024 12:51 PM, Stephen Boyd wrote:
+> > Quoting Kuogee Hsieh (2024-03-29 12:50:35)
+> >> Currently qmp_combo_dp_power_on() always return 0 in regardless of
+> >> return value of cfg->configure_dp_phy(). This patch propagate
+> >> return value of cfg->configure_dp_phy() all the way back to caller.
+> >
+> > Is this found via code inspection or because the phy is failing to power
+> > on sometimes? I ask because I'm looking at a DP bug on Trogdor with
+> > chromeos' v6.6 based kernel and wondering if this is related.
+> >
+>
+> No, we actually hit an issue. This issue was originally reported as a
+> link training issue while bringing up DP on x1e80100.
+>
+> While debugging that we noticed that we should not have even proceeded
+> to link training because the PLL was not getting locked and it was
+> failing silently since there are no other error prints (and hence the
+> second part of the patch to improve the error logs), and we do not
+> return any error code from this driver, we could not catch the PLL
+> unlocked issue.
 
+Did link training succeed in that case and the screen was black? Also,
+did you figure out why the PLL failed to lock? I sometimes see reports
+now with an "Unexpected interrupt:" message from the DP driver and the
+interrupt is the PLL unlocked one (DP_INTR_PLL_UNLOCKED).
 
-On 4/3/2024 12:51 PM, Stephen Boyd wrote:
-> Quoting Kuogee Hsieh (2024-03-29 12:50:35)
->> Currently qmp_combo_dp_power_on() always return 0 in regardless of
->> return value of cfg->configure_dp_phy(). This patch propagate
->> return value of cfg->configure_dp_phy() all the way back to caller.
-> 
-> Is this found via code inspection or because the phy is failing to power
-> on sometimes? I ask because I'm looking at a DP bug on Trogdor with
-> chromeos' v6.6 based kernel and wondering if this is related.
-> 
+>
+> > Also, is the call to phy_power_on() going to be checked in
+> > the DP driver?
+> >
+> >   $ git grep -n phy_power_on -- drivers/gpu/drm/msm/dp/
+> >   drivers/gpu/drm/msm/dp/dp_ctrl.c:1453:  phy_power_on(phy);
+>
+> Yes, this is a good point. We should also post the patch to add the
+> error checking in DP driver to fail if phy_power_on fails.
 
-No, we actually hit an issue. This issue was originally reported as a 
-link training issue while bringing up DP on x1e80100.
-
-While debugging that we noticed that we should not have even proceeded 
-to link training because the PLL was not getting locked and it was 
-failing silently since there are no other error prints (and hence the 
-second part of the patch to improve the error logs), and we do not 
-return any error code from this driver, we could not catch the PLL 
-unlocked issue.
-
-> Also, is the call to phy_power_on() going to be checked in
-> the DP driver?
-> 
->   $ git grep -n phy_power_on -- drivers/gpu/drm/msm/dp/
->   drivers/gpu/drm/msm/dp/dp_ctrl.c:1453:  phy_power_on(phy);
-
-Yes, this is a good point. We should also post the patch to add the 
-error checking in DP driver to fail if phy_power_on fails.
+Sounds great, thanks.
