@@ -2,66 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 380D7899825
+	by mail.lfdr.de (Postfix) with ESMTPS id AE885899826
 	for <lists+freedreno@lfdr.de>; Fri,  5 Apr 2024 10:41:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53B0F113A86;
-	Fri,  5 Apr 2024 08:41:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5600310ECEA;
+	Fri,  5 Apr 2024 08:41:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="k+qMJako";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GrV0GBPc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3F3910ECEA
- for <freedreno@lists.freedesktop.org>; Fri,  5 Apr 2024 08:41:37 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-2d094bc2244so19634281fa.1
- for <freedreno@lists.freedesktop.org>; Fri, 05 Apr 2024 01:41:37 -0700 (PDT)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3913B113A86
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Apr 2024 08:41:39 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2d86e6908ecso1020761fa.2
+ for <freedreno@lists.freedesktop.org>; Fri, 05 Apr 2024 01:41:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712306496; x=1712911296; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1712306497; x=1712911297; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=hrz6dTaTK0KlWdsP16Esc0J5gm77xoC0tsefEzseqJI=;
- b=k+qMJakoTwr29HcjouLtPRWoryQc8udQidcBCRhSlrboAWO67GNFugOWBzWljOCBqq
- v1b24HWhXpiE7VGznS455MLxVk832zck6k0emZrop1ypny4cEp9/4XnfRZ8Qj87OLYCg
- X3eZuMewZP/7Wv2Re6Mp7bTCBoJ5Nj8xUQ596QmNnnTGMmbeFV1Unev6jUs3B2iE+hSb
- H/fUc0JBMAs5GSbDz56hLCCUr1hp+8DVsZNH1OYHOZng1Hjg8wKdYvBPd/CQ7hXP3LoY
- deKfYTq1VAk/gypq/uZE2H24rsF7l9e/Gcl6AYFuzDLt8mpLzydmgaDlPbuEKf2fFUJT
- +eMg==
+ :reply-to; bh=bMQPSpYP56c6J9vLcqBPSaIPmeQARU36ywfjOCBX01Q=;
+ b=GrV0GBPcAp14GYkUoIv9t769w8eswNP5XpUpIfq+IjBL6GV150g5DqPeh7+j4bW5UC
+ QHz7sp95vcxZJnkBUtkvCw4sX4Ui3eNh+O+OzQgYEmFHJU9wKYjlUptemKm18wVvzGcp
+ JHkw5iTh+PSv03EGnKulJundQLU88rWXCnH+2+vYvnjuAihxxqsdp0dvNEMkLRtnxJwh
+ hnrf/HCOYyk+2I5O6SpAG6Y10bLPS18cZ7noTHhT53dA2WUWFsdfGQmkvfaAFd9b5wU7
+ WES8MAkLxJn3h1DF5z+s12tSDwpvxZvB0La5aBVOGFVmMyeIvXQeZ+HRerjyZplMVLyF
+ s9Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712306496; x=1712911296;
+ d=1e100.net; s=20230601; t=1712306497; x=1712911297;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=hrz6dTaTK0KlWdsP16Esc0J5gm77xoC0tsefEzseqJI=;
- b=eCIReQFNk6TwdStvsbA4/XwsCi5L2UQSBd4x3aO1ChBpZKdp4qhXIU+vrLdmOu66wf
- L2YeWG8iSgIG77nF4n2mlD9JKTJEET9sYL3EIhPh6yAt2QLSJ3wFpkrrijygf4IMHyfl
- HArxDAZqK4wYdmDp3HEX8XHzUClX0hOPd1Ybo1rJyWw5XzJ2t9DAl8pew58uMRlr4TfI
- NMQpflGXHMH3x/aV1Ovh1Vz3MvFDoGJM46sCNQee1lgaKs67TX35Oa4BcxL54FrIWjQ7
- SQMpsdAoGcV2r+Km22gjm5+KBrVEFCFBBOaBcNCS8Li3OoBYTw/kzigDXE9L416G/tfT
- huSw==
+ bh=bMQPSpYP56c6J9vLcqBPSaIPmeQARU36ywfjOCBX01Q=;
+ b=JUQR+UnVawC5xwSN4cFd2uX9o8GQquC8ppzISbtiFuxURFaxsAgDvEmP+3kka6dHEh
+ 88aolEIz2QRX/XUlF23ndBXHkEb2CqrKab1TB7LRD1xK+DWeNlgHsp9G7ZCBa51gFrfZ
+ Yj53+nAD5Kk2CnXikbKecDsSzW3jojfOko/N4b6aSIjDpn5/QSwqlV32yPRh+8fAdaNN
+ HcRp3T6XAwc19zsHdweBsUUBctOnI5cXParpz4OT1B3ZrvoGoEkhFbxQfwDe+mD02Kgb
+ KvY9elsmdA1MEQlVgqZG+GzUGir3oVBV9GhUGxt68dhYhk01MOFdm4mV8OoVgxVYFTbV
+ 4FiA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUXN1D9UOxrVuaW2xQeOVCrqkwE/F+qJ4FOG9oE0Z3yzVdqYdTl6bTlgKw4AL2o+yUqtw6qh/dH+JSGFDsWSdHjO8vnElvQWdcqzxap/zcK
-X-Gm-Message-State: AOJu0YwdCNupRTs7UgzN9unE3dq++Se1BgxBKwK5eHUqHgLMHcdfJQK1
- vl6iga8QEE6IxCdA7AgpAbYP505LaJFZK+/ln9Q3pHquXMCOVzuQmcUoFwopR9c=
-X-Google-Smtp-Source: AGHT+IHl3jTu+OEG685vV8yMxLBRYabQaLyZqwz5PST4j9X2muXdZOgk98CH4aGQdnIUsU0cCkQKzA==
-X-Received: by 2002:a2e:9658:0:b0:2d8:68ad:1e87 with SMTP id
- z24-20020a2e9658000000b002d868ad1e87mr671436ljh.18.1712306496187; 
- Fri, 05 Apr 2024 01:41:36 -0700 (PDT)
+ AJvYcCUFUrDqFNM1dAyaHhjVAkrtgiEEO8cyJr4wx6G8Nhc8SaCLrPKJHXfWhsWrBmm8O2wUc/2GJNpEDJw+yAmECN8ExRCEvoYR+JDnSlJGZaZy
+X-Gm-Message-State: AOJu0YxArH8IXUxTYZsshoCDjdUCSIQIBgbl9I0HNt26shLfsUR625QN
+ UR1Eis9V4JbjR1gdBH4cCcJ9l5kHIqgoV9J/6JrnC7Tz/eETQVzXayWDzhim32c=
+X-Google-Smtp-Source: AGHT+IGRGwh+Bw1TVzd4MvJb8LHdlr/hhr4GZWQTt68CsoYHGEkiFJ07eVdIxIF1UV+Fa7fgy94vhA==
+X-Received: by 2002:a2e:9b4d:0:b0:2d8:4c05:64d with SMTP id
+ o13-20020a2e9b4d000000b002d84c05064dmr720157ljj.16.1712306497545; 
+ Fri, 05 Apr 2024 01:41:37 -0700 (PDT)
 Received: from [127.0.1.1] (netpanel-87-246-222-101.pol.akademiki.lublin.pl.
  [87.246.222.101]) by smtp.gmail.com with ESMTPSA id
- y3-20020a05651c020300b002d429304a20sm116880ljn.8.2024.04.05.01.41.34
+ y3-20020a05651c020300b002d429304a20sm116880ljn.8.2024.04.05.01.41.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Apr 2024 01:41:35 -0700 (PDT)
+ Fri, 05 Apr 2024 01:41:37 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Fri, 05 Apr 2024 10:41:30 +0200
-Subject: [PATCH 2/6] soc: qcom: smem: Add pcode/fcode getters
+Date: Fri, 05 Apr 2024 10:41:31 +0200
+Subject: [PATCH 3/6] drm/msm/adreno: Allow specifying default speedbin
+ value
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240405-topic-smem_speedbin-v1-2-ce2b864251b1@linaro.org>
+Message-Id: <20240405-topic-smem_speedbin-v1-3-ce2b864251b1@linaro.org>
 References: <20240405-topic-smem_speedbin-v1-0-ce2b864251b1@linaro.org>
 In-Reply-To: <20240405-topic-smem_speedbin-v1-0-ce2b864251b1@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>, 
@@ -91,103 +92,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Introduce getters for SoC product and feature codes and export them.
+From: Neil Armstrong <neil.armstrong@linaro.org>
 
+Usually, speedbin 0 is the "super SKU", a.k.a the one which can clock
+the highest. Falling back to it when things go wrong is largely
+suboptimal, as more often than not, the top frequencies are not
+supposed to work on other bins.
+
+Let the developer specify the intended "lowest common denominator" bin
+in struct adreno_info. If not specified, partial struct initialization
+will ensure it's set to zero, retaining previous behavior.
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+[Konrad: clean up, add commit message]
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/soc/qcom/smem.c       | 66 +++++++++++++++++++++++++++++++++++++++++++
- include/linux/soc/qcom/smem.h |  2 ++
- 2 files changed, 68 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 2 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/soc/qcom/smem.c b/drivers/soc/qcom/smem.c
-index 7191fa0c087f..e89b4d26877a 100644
---- a/drivers/soc/qcom/smem.c
-+++ b/drivers/soc/qcom/smem.c
-@@ -795,6 +795,72 @@ int qcom_smem_get_soc_id(u32 *id)
- }
- EXPORT_SYMBOL_GPL(qcom_smem_get_soc_id);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 0674aca0f8a3..4cbdfabbcee5 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -2915,7 +2915,7 @@ static int a6xx_set_supported_hw(struct device *dev, const struct adreno_info *i
+ 		DRM_DEV_ERROR(dev,
+ 			"missing support for speed-bin: %u. Some OPPs may not be supported by hardware\n",
+ 			speedbin);
+-		supp_hw = BIT(0); /* Default */
++		supp_hw = BIT(info->default_speedbin); /* Default */
+ 	}
  
-+/**
-+ * qcom_smem_get_feature_code() - return the feature code
-+ * @id:	On success, we return the feature code here.
-+ *
-+ * Look up the feature code identifier from SMEM and return it.
-+ *
-+ * Return: 0 on success, negative errno on failure.
-+ */
-+int qcom_smem_get_feature_code(u32 *code)
-+{
-+	struct socinfo *info;
-+	u32 raw_code;
-+
-+	info = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_HW_SW_BUILD_ID, NULL);
-+	if (IS_ERR(info))
-+		return PTR_ERR(info);
-+
-+	/* This only makes sense for socinfo >= 16 */
-+	if (__le32_to_cpu(info->fmt) < SOCINFO_VERSION(0, 16))
-+		return -EINVAL;
-+
-+	raw_code = __le32_to_cpu(info->feature_code);
-+
-+	/* Ensure the value makes sense */
-+	if (raw_code >= SOCINFO_FC_INT_RESERVE)
-+		raw_code = SOCINFO_FC_UNKNOWN;
-+
-+	*code = raw_code;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(qcom_smem_get_feature_code);
-+
-+/**
-+ * qcom_smem_get_product_code() - return the product code
-+ * @id:	On success, we return the product code here.
-+ *
-+ * Look up feature code identifier from SMEM and return it.
-+ *
-+ * Return: 0 on success, negative errno on failure.
-+ */
-+int qcom_smem_get_product_code(u32 *code)
-+{
-+	struct socinfo *info;
-+	u32 raw_code;
-+
-+	info = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_HW_SW_BUILD_ID, NULL);
-+	if (IS_ERR(info))
-+		return PTR_ERR(info);
-+
-+	/* This only makes sense for socinfo >= 16 */
-+	if (__le32_to_cpu(info->fmt) < SOCINFO_VERSION(0, 16))
-+		return -EINVAL;
-+
-+	raw_code = __le32_to_cpu(info->pcode);
-+
-+	/* Ensure the value makes sense */
-+	if (raw_code >= SOCINFO_FC_INT_RESERVE)
-+		raw_code = SOCINFO_FC_UNKNOWN;
-+
-+	*code = raw_code;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(qcom_smem_get_product_code);
-+
- static int qcom_smem_get_sbl_version(struct qcom_smem *smem)
- {
- 	struct smem_header *header;
-diff --git a/include/linux/soc/qcom/smem.h b/include/linux/soc/qcom/smem.h
-index a36a3b9d4929..aef8c9fc6c08 100644
---- a/include/linux/soc/qcom/smem.h
-+++ b/include/linux/soc/qcom/smem.h
-@@ -13,5 +13,7 @@ int qcom_smem_get_free_space(unsigned host);
- phys_addr_t qcom_smem_virt_to_phys(void *p);
+ 	ret = devm_pm_opp_set_supported_hw(dev, &supp_hw, 1);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 77526892eb8c..460b399be37b 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -110,6 +110,7 @@ struct adreno_info {
+ 	 * {SHRT_MAX, 0} sentinal.
+ 	 */
+ 	struct adreno_speedbin *speedbins;
++	unsigned int default_speedbin;
+ };
  
- int qcom_smem_get_soc_id(u32 *id);
-+int qcom_smem_get_feature_code(u32 *code);
-+int qcom_smem_get_product_code(u32 *code);
- 
- #endif
+ #define ADRENO_CHIP_IDS(tbl...) (uint32_t[]) { tbl, 0 }
 
 -- 
 2.40.1
