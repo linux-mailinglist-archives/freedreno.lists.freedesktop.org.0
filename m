@@ -2,72 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 002D189A414
-	for <lists+freedreno@lfdr.de>; Fri,  5 Apr 2024 20:20:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE69889A419
+	for <lists+freedreno@lfdr.de>; Fri,  5 Apr 2024 20:21:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F23110E66D;
-	Fri,  5 Apr 2024 18:20:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1D6112FC1;
+	Fri,  5 Apr 2024 18:21:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nShvkqtz";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fHtwvz4+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f169.google.com (mail-yb1-f169.google.com
- [209.85.219.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03B3E10E66D
- for <freedreno@lists.freedesktop.org>; Fri,  5 Apr 2024 18:20:05 +0000 (UTC)
-Received: by mail-yb1-f169.google.com with SMTP id
- 3f1490d57ef6-dcbcea9c261so2740066276.3
- for <freedreno@lists.freedesktop.org>; Fri, 05 Apr 2024 11:20:05 -0700 (PDT)
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
+ [209.85.128.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D42F610EC77
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Apr 2024 18:21:02 +0000 (UTC)
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-617cd7bd929so10842007b3.3
+ for <freedreno@lists.freedesktop.org>; Fri, 05 Apr 2024 11:21:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712341205; x=1712946005; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1712341262; x=1712946062; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=kpDzGRrClkUxxd0wNBawM8cLr5mKpKI36/KDGXm6I7I=;
- b=nShvkqtz7cFsNeIyTZZQoWOuzzKY7c7sGhGQkamr9tLgHCJqIUejTDyDmgK7VuRqXv
- rhnHUpXxctUXimCgxj4lv8e1N2QChuAzS8eohVHHKonPygQ5zI5ZXxsPipkvUrI7amRf
- tUVt4UgFiFTqrWA8Ypm+t57l/9LumB/Qu+hiX5ekbLK5mh/616cNqKT4RCQ4wE4+rk2q
- nfRf5M+e/SsvnSPLFIxBvNp1oK4mjnqOgU0xE0Ml1S/db6U0kyjImhLsX3cLJdqICLVz
- aVCPKj3Hk6F1M7bXc6h6vx2OFVQBma+5WnCtVAxUukV8e8J3Md8jpLrj55dMzST5Dthl
- fHRA==
+ bh=6FshVhZKcqJky0lBiOIixXGsQBzKhd/9O9LkN4VAwkM=;
+ b=fHtwvz4+OLtUnoX7BjKEZ4XAvEtuHuQxml63suD7Tkc+FXZF9oC4rkS5J5dLhs4ZIB
+ hqVzmHfukIsXI35iwOIxGnJ9dyQQaFqmAzUF5xdBp0bhxME8iDpes99UUN/ryRKspS97
+ S+xi3OOp3SqOTYaYR0x2pa5Wu5c9OIBXuPjMuJP4z49t/+Hfz0m2kzrSPTZBdFNeU2rT
+ SO8EdZPaN8eiqQV+rDKGdECIl09Z2hJeK9YKcz+h1a/El95BmBFbkODX0hRMAA8Qm8c1
+ GO/mruWHO1rBv3h90WWpCSgiUjYvqfDZjbmFDc7siD70tsdpgl6pvJpXnbhfaehYddN1
+ l/8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712341205; x=1712946005;
+ d=1e100.net; s=20230601; t=1712341262; x=1712946062;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=kpDzGRrClkUxxd0wNBawM8cLr5mKpKI36/KDGXm6I7I=;
- b=rbyh1xSFHKyc3Z0nmUofBPJJymLM4lzHOc2GSvDMpRdKLeIbEQ/sEXnDuAW6yw1LM0
- KgNzN6txcbjYBK0jwHxmog8vpBmMjX9Ge/o0cSkwWR2DD/EuFvAwcn8qMEzHY9wECNC9
- U/Ub/w/pEZCfLqSkywNgruQFJJszlLnjAKFd/f637Z+lBXli73JlBOwpgaGSeAryd6hY
- dCT35Y3Rh1vvhhoovRpl9laFPQl2zKeo2pe9CSOk5wek/G+fosQZ3WhanEZYpV00fdYE
- DdgJD9Q7FCeyQuYHBQCpo/ua1DMSiqPilT20ToSeLo6OeAFrf2Q0pUSo4UsNxLQ+Nza0
- 1vmw==
+ bh=6FshVhZKcqJky0lBiOIixXGsQBzKhd/9O9LkN4VAwkM=;
+ b=PqNf/MsXugApEoD/yf0Hrup7IqzB3e6yuHOr20kU7/O3CvNZEHnaGUcFqEpjq0zCgP
+ AmnxdqqyoFyZT4s/Xn3czJooBNE3j3m9bULDmEjHCzrPt39XLMTuw6iX9n3SEbMJ23ux
+ kxunLQXWdAnZ2mMr65lFN++t1aia30kKrdrf+Q6mDOwBfP8RNMVvKa+rW5kL0Jw/aNPj
+ eHQs4f5NKRvUP7nbh10BS1OO2sVwN/Hgntl4jG7swDNAcsUtRQfd8sJ1ikxGRr61xq58
+ c+gi64+lt3W54HjyhZ5m0cUl+PCKUZ8tVWiSW1sPXhSqJk4FH1hrPjigD2uFQCfMoZDd
+ zfbg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUqZOIuKvkh8d5BfaTCCtxU2ne3JIas5UpvIeR8dY05X3dcGTfoRMAP1G60wxyVRjQCnxTG0iLLVZMHhk/EVvagpYkp7I1dyXKfimswfoJh
-X-Gm-Message-State: AOJu0Yym+9/M3XNqg7pziH+iybsrSdRwlpbTGTxNvUnr+giakORuXXRX
- aZFYltJKZr0F/zccsbSe/fxB10/Y7y7xzryyDVb5uxdYZuH3lx7ZCTMH9mjH4GLOlUuWem4mN0M
- JgSCHPTun19GxF8I3eb91KfCvO2Ypd6oIYsPrhg==
-X-Google-Smtp-Source: AGHT+IEmS3F4yd2lSXcfoF8T5aDOGQm50r0FnJ0IB21W480Br+HatBoZliUU6wHsBQ2BYSCNyXyrl0Pj9i762weS68s=
-X-Received: by 2002:a25:69c2:0:b0:dcb:e82c:f7d with SMTP id
- e185-20020a2569c2000000b00dcbe82c0f7dmr2213889ybc.41.1712341204840; Fri, 05
- Apr 2024 11:20:04 -0700 (PDT)
+ AJvYcCUNXVpbGiUHf3QqZj0IxZeAjbXQ9EI4YB3t2TcdLGj2r54LGr/dw+JYs7sySALC7BAzTn+JrZLjZMyNU5sGgxlrqM5DjekdK3/L9BMJujg6
+X-Gm-Message-State: AOJu0YwJxRiLJ2UZl0LNfrGL3Vnib4VUaNlvqlkQyEzV3GYcusc5T4j4
+ cxJgeACamj2r8Imjcqh0pm8UwP0of4tHc5pauSDlowzyGJiGnOkCyTXCNRhlqU/55ejXvGbyWKj
+ mZMwCmr8/RSg6HIui/x8tk82VRj5mNExAn5MULg==
+X-Google-Smtp-Source: AGHT+IHUuUqv9XGZ9bYt/6FB0DSxASTzs7ENjMecr4yFUOen3MARyohRguewr1dgCgDY1mFhRU/AKlGWEip8NUHr6ww=
+X-Received: by 2002:a25:8250:0:b0:dcd:5bfa:8184 with SMTP id
+ d16-20020a258250000000b00dcd5bfa8184mr2366149ybn.39.1712341261719; Fri, 05
+ Apr 2024 11:21:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240309-fd-dsi-cleanup-bridges-v1-0-962ebdba82ed@linaro.org>
- <20240309-fd-dsi-cleanup-bridges-v1-1-962ebdba82ed@linaro.org>
- <88b3722e-aa46-1ffe-9f0f-1939d43e0100@quicinc.com>
- <CAA8EJppbETLONx8pEdT1kT1Hp1i405m-4PfgumvvOa9N2mh6CA@mail.gmail.com>
- <363efce2-5540-b81a-31be-b5919635b586@quicinc.com>
-In-Reply-To: <363efce2-5540-b81a-31be-b5919635b586@quicinc.com>
+References: <20240405155855.3672853-1-arnd@kernel.org>
+In-Reply-To: <20240405155855.3672853-1-arnd@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 5 Apr 2024 21:19:54 +0300
-Message-ID: <CAA8EJpoPbK6rEKG9mh2pfo1tp8Rrn7oqXt50j0q2O5v50A8Zjg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/msm/dsi: remove the drm_bridge_attach fallback
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+Date: Fri, 5 Apr 2024 21:20:50 +0300
+Message-ID: <CAA8EJpoVmyJhyrRz0p-8Ue0sa-XG+rSFwCajuR8b6GQVxBDM0Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm: remove an unused-but-set variable
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Arnd Bergmann <arnd@arndb.de>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+ Daniel Vetter <daniel@ffwll.ch>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Connor Abbott <cwabbott0@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,52 +83,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 5 Apr 2024 at 21:17, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On Fri, 5 Apr 2024 at 18:59, Arnd Bergmann <arnd@kernel.org> wrote:
 >
+> From: Arnd Bergmann <arnd@arndb.de>
 >
+> The modification to a6xx_get_shader_block() had no effect other
+> than causing a warning:
 >
-> On 4/5/2024 11:16 AM, Dmitry Baryshkov wrote:
-> > On Fri, 5 Apr 2024 at 20:20, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>
-> >>
-> >>
-> >> On 3/9/2024 7:09 AM, Dmitry Baryshkov wrote:
-> >>> All the bridges that are being used with the MSM DSI hosts have been
-> >>> converted to support DRM_BRIDGE_ATTACH_NO_CONNECTOR. Drop the fallback
-> >>> code and require DRM_BRIDGE_ATTACH_NO_CONNECTOR to be supported by the
-> >>> downstream bridges.
-> >>>
-> >>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>> ---
-> >>>    drivers/gpu/drm/msm/dsi/dsi_manager.c | 36 +++++++++++------------------------
-> >>>    1 file changed, 11 insertions(+), 25 deletions(-)
-> >>>
-> >>
-> >> There are the bridges I checked by looking at the dts:
-> >>
-> >> 1) lontium,lt9611
-> >> 2) lontium,lt9611uxc
-> >> 3) adi,adv7533
-> >> 4) ti,sn65dsi86
-> >>
-> >> Are there any more?
-> >>
-> >> If not, this LGTM
-> >>
-> >> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >
-> >  From your message it looks more like Tested-by rather than just Reviewed-by
-> >
+> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error: variable 'out' set but not used [-Werror,-Wunused-but-set-variable]
+>         u64 out = dumper->iova + A6XX_CD_DATA_OFFSET;
 >
-> No, I only cross-checked the dts.
+> Revert this part of the previous patch.
 >
-> So, its only Reviewed-by :)
->
-> But I wanted to list down all the bridges
+> Fixes: 64d6255650d4 ("drm/msm: More fully implement devcoredump for a7xx")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Then I'd also nominate the panel bridge to the list of bridges for
-cross-checking. It is created automatically when we request a bridge,
-but DT has only a panel.
+Unfortunately this fix is not correct. The proper patch is present at
+https://patchwork.freedesktop.org/patch/584955/?series=131663&rev=1
+
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 3 ---
+>  1 file changed, 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> index 1f5245fc2cdc..d4e1ebfcb021 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> @@ -840,7 +840,6 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
+>                 struct a6xx_crashdumper *dumper)
+>  {
+>         u64 *in = dumper->ptr;
+> -       u64 out = dumper->iova + A6XX_CD_DATA_OFFSET;
+>         size_t datasize = block->size * A6XX_NUM_SHADER_BANKS * sizeof(u32);
+>         int i;
+>
+> @@ -853,8 +852,6 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
+>
+>                 in += CRASHDUMP_READ(in, REG_A6XX_HLSQ_DBG_AHB_READ_APERTURE,
+>                         block->size, dumper->iova + A6XX_CD_DATA_OFFSET);
+> -
+> -               out += block->size * sizeof(u32);
+>         }
+>
+>         CRASHDUMP_FINI(in);
+> --
+> 2.39.2
+>
+
 
 -- 
 With best wishes
