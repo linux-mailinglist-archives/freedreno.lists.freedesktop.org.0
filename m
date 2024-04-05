@@ -2,79 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A269989A2D4
-	for <lists+freedreno@lfdr.de>; Fri,  5 Apr 2024 18:47:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 512C889A36C
+	for <lists+freedreno@lfdr.de>; Fri,  5 Apr 2024 19:20:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31DFC10E8A9;
-	Fri,  5 Apr 2024 16:47:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36FD310ECAA;
+	Fri,  5 Apr 2024 17:20:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OCYzMNuR";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="N2CL5Le0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A9E110ED31
- for <freedreno@lists.freedesktop.org>; Fri,  5 Apr 2024 16:47:00 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-516d3a470d5so1311654e87.3
- for <freedreno@lists.freedesktop.org>; Fri, 05 Apr 2024 09:46:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712335618; x=1712940418; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zjZDXXK2zwXeuxbCY+k8mNYZHEoQ+bEUvt9cCenwnEg=;
- b=OCYzMNuRFfXPIKsBQVBjBhpW0LDkrvoDc3JQOxZr4PiT+gBYGXRsg9mo8gN6/vrBIE
- C0e5Fci843G6VQVdBBWkHizwBcXHbR/2cJxnEVBnjDlpMK8WHvNXkMYhOZuUMsOqXHMN
- GB593VDME7GPbPQ3VJ9FgAH1SHu16cHtnEI+Rjkt4DQ26vpXGUR0n6iswW6U8qcfGlkX
- Vj20NLUt4JhFd8eJ6F3j3KWaqFzayfUCl8x5Jd4LFIAT20ZjUWm2sYI3jrlKYXgCnjuN
- sbzvM7HZW/VyNUh7iI1K7XwBw63CyBXwoYcAM+WcJ7GU7HHf4ENwzQyKXTLsNOU4P8tP
- ZQ4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712335618; x=1712940418;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zjZDXXK2zwXeuxbCY+k8mNYZHEoQ+bEUvt9cCenwnEg=;
- b=YQjf+xMXTfi0OruIiFAy/Qske2kSdYPrEadsTk4UZcAwKtM3DtOrt2spzKEdMCs9i0
- tH/UrY00xm7dKNu+dwRSDAp9S8wXNi5e2iu0JxMJznBFwA1yO+0Z/TNz3jxdFOtBI7O6
- 1s9jZXbs/g3b8dnvCXVDiRRIvmyPDhZ38OVgp6RoUhwTEPrMWc3qdWaq3Bq2fRLveuJ0
- j1f/jUgjhFKCSDyiL561hhMNerBGY3xqvf3OyDFwsoYDnAvzSjdsRT4gRgPiQfwsNqKk
- PHXcDDnBP8z+uh1uOgZ/Qq/dbb94vxRpDEzVuo/8ZVLpYUQ37niMitFig9m2ceCamvFQ
- 0Gsw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVCj6n5MXD7Vb5ef5dkSCpaWZYm0QfilImE2RKdPIKvBDyjYVJU//59smOF0DyPJRce/+6Fe1iQazGNghmta4wMR5xO1UM3EjN/UBIxIeJL
-X-Gm-Message-State: AOJu0YxfzJj8UpGqY58ktIbiRd8dB8dZaImfeeIOTCnsuI3jV3nHp29P
- RePrKh8J1J2ySZZg/nR1RPraORj05hlMClgbholHieFxkkcJBxlHZpd5kh4ruY0=
-X-Google-Smtp-Source: AGHT+IFufXZNeav0WseEY6nRjlxRZCZWJPm4KsDfy/VrMhHziMpaWAR1CqPIEOMNojFKUGoxkwK9tw==
-X-Received: by 2002:a05:6512:224d:b0:515:ab92:6a82 with SMTP id
- i13-20020a056512224d00b00515ab926a82mr1791982lfu.17.1712335618108; 
- Fri, 05 Apr 2024 09:46:58 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzyjmhyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a00e:a300::227])
- by smtp.gmail.com with ESMTPSA id
- r14-20020ac25f8e000000b00515c8ff6f52sm231480lfe.229.2024.04.05.09.46.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Apr 2024 09:46:57 -0700 (PDT)
-Date: Fri, 5 Apr 2024 19:46:56 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Helen Koike <helen.koike@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm: ci: fix the xfails for apq8016
-Message-ID: <oakh6gccuho2zq6aaaydq4hucz2ueuayo6qpq73uaw7ljt4gu7@haz3kdjjy7hp>
-References: <20240401204859.24223-1-quic_abhinavk@quicinc.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 472B010EC83;
+ Fri,  5 Apr 2024 17:20:53 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 435FdWnt012303; Fri, 5 Apr 2024 17:20:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=rdVicK8oXjnYCKal2tdDCizk7pj1BqtMn3gXYbKIiA8=; b=N2
+ CL5Le0UeezYYHDwjWoQCrz6Eyy2oWPS5TujJDwOUTW7MorAGjioiQoIGbX/NrG5x
+ Rt3QETq0Cu1ZhCKF5DRZMGWtnIUdKowczfiir5WQWV7JQ21P+vInbCIkfatMrGiF
+ keMLfSNhoFLSk9Y6ODcxYdL4jJIHWO7LV6ZLJw07bPENjvq4HotDClSmCpahw1OJ
+ Y/O1lg5CUomg7iNPxZVx1t83CYvLLTsS/OwspgUhWUrkPlU+c+8AwtOrfge0Ti1F
+ ltD7CnbXEKa525vV0CGZbtuKLT8triUOjnX8pHvbVGA61TdpFhCrGWYSSey/A8fh
+ eRutfxXvSj9UrCFcOiJg==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xahb10r26-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 05 Apr 2024 17:20:50 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 435HKnmq030512
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 5 Apr 2024 17:20:49 GMT
+Received: from [10.110.24.15] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Fri, 5 Apr 2024
+ 10:20:49 -0700
+Message-ID: <88b3722e-aa46-1ffe-9f0f-1939d43e0100@quicinc.com>
+Date: Fri, 5 Apr 2024 10:20:47 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240401204859.24223-1-quic_abhinavk@quicinc.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 1/3] drm/msm/dsi: remove the drm_bridge_attach fallback
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
+ Vetter <daniel@ffwll.ch>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20240309-fd-dsi-cleanup-bridges-v1-0-962ebdba82ed@linaro.org>
+ <20240309-fd-dsi-cleanup-bridges-v1-1-962ebdba82ed@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240309-fd-dsi-cleanup-bridges-v1-1-962ebdba82ed@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: VoBlKFIlVu6ohSOr3x-lBfnJjDdpgq1Q
+X-Proofpoint-GUID: VoBlKFIlVu6ohSOr3x-lBfnJjDdpgq1Q
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-05_19,2024-04-05_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ phishscore=0 spamscore=0 malwarescore=0 impostorscore=0 mlxlogscore=720
+ mlxscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 adultscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2404010003 definitions=main-2404050121
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,28 +94,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Apr 01, 2024 at 01:48:58PM -0700, Abhinav Kumar wrote:
-> After IGT migrating to dynamic sub-tests, the pipe prefixes
-> in the expected fails list are incorrect. Lets drop those
-> to accurately match the expected fails.
+
+
+On 3/9/2024 7:09 AM, Dmitry Baryshkov wrote:
+> All the bridges that are being used with the MSM DSI hosts have been
+> converted to support DRM_BRIDGE_ATTACH_NO_CONNECTOR. Drop the fallback
+> code and require DRM_BRIDGE_ATTACH_NO_CONNECTOR to be supported by the
+> downstream bridges.
 > 
-> In addition, update the xfails list to match the current passing
-> list. This should have ideally failed in the CI run because some
-> tests were marked as fail even though they passed but due to the
-> mismatch in test names, the matching didn't correctly work and was
-> resulting in those failures not being seen.
-> 
-> Here is the passing pipeline for apq8016 with this change:
-> 
-> https://gitlab.freedesktop.org/drm/msm/-/jobs/57050562
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt | 13 +------------
->  1 file changed, 1 insertion(+), 12 deletions(-)
+>   drivers/gpu/drm/msm/dsi/dsi_manager.c | 36 +++++++++++------------------------
+>   1 file changed, 11 insertions(+), 25 deletions(-)
+> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+There are the bridges I checked by looking at the dts:
 
--- 
-With best wishes
-Dmitry
+1) lontium,lt9611
+2) lontium,lt9611uxc
+3) adi,adv7533
+4) ti,sn65dsi86
+
+Are there any more?
+
+If not, this LGTM
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
