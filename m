@@ -2,72 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE69889A419
-	for <lists+freedreno@lfdr.de>; Fri,  5 Apr 2024 20:21:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DC8289A470
+	for <lists+freedreno@lfdr.de>; Fri,  5 Apr 2024 20:57:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1D6112FC1;
-	Fri,  5 Apr 2024 18:21:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA3810E1D0;
+	Fri,  5 Apr 2024 18:57:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fHtwvz4+";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="nFS9tEu1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
- [209.85.128.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D42F610EC77
- for <freedreno@lists.freedesktop.org>; Fri,  5 Apr 2024 18:21:02 +0000 (UTC)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-617cd7bd929so10842007b3.3
- for <freedreno@lists.freedesktop.org>; Fri, 05 Apr 2024 11:21:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712341262; x=1712946062; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=6FshVhZKcqJky0lBiOIixXGsQBzKhd/9O9LkN4VAwkM=;
- b=fHtwvz4+OLtUnoX7BjKEZ4XAvEtuHuQxml63suD7Tkc+FXZF9oC4rkS5J5dLhs4ZIB
- hqVzmHfukIsXI35iwOIxGnJ9dyQQaFqmAzUF5xdBp0bhxME8iDpes99UUN/ryRKspS97
- S+xi3OOp3SqOTYaYR0x2pa5Wu5c9OIBXuPjMuJP4z49t/+Hfz0m2kzrSPTZBdFNeU2rT
- SO8EdZPaN8eiqQV+rDKGdECIl09Z2hJeK9YKcz+h1a/El95BmBFbkODX0hRMAA8Qm8c1
- GO/mruWHO1rBv3h90WWpCSgiUjYvqfDZjbmFDc7siD70tsdpgl6pvJpXnbhfaehYddN1
- l/8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712341262; x=1712946062;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=6FshVhZKcqJky0lBiOIixXGsQBzKhd/9O9LkN4VAwkM=;
- b=PqNf/MsXugApEoD/yf0Hrup7IqzB3e6yuHOr20kU7/O3CvNZEHnaGUcFqEpjq0zCgP
- AmnxdqqyoFyZT4s/Xn3czJooBNE3j3m9bULDmEjHCzrPt39XLMTuw6iX9n3SEbMJ23ux
- kxunLQXWdAnZ2mMr65lFN++t1aia30kKrdrf+Q6mDOwBfP8RNMVvKa+rW5kL0Jw/aNPj
- eHQs4f5NKRvUP7nbh10BS1OO2sVwN/Hgntl4jG7swDNAcsUtRQfd8sJ1ikxGRr61xq58
- c+gi64+lt3W54HjyhZ5m0cUl+PCKUZ8tVWiSW1sPXhSqJk4FH1hrPjigD2uFQCfMoZDd
- zfbg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUNXVpbGiUHf3QqZj0IxZeAjbXQ9EI4YB3t2TcdLGj2r54LGr/dw+JYs7sySALC7BAzTn+JrZLjZMyNU5sGgxlrqM5DjekdK3/L9BMJujg6
-X-Gm-Message-State: AOJu0YwJxRiLJ2UZl0LNfrGL3Vnib4VUaNlvqlkQyEzV3GYcusc5T4j4
- cxJgeACamj2r8Imjcqh0pm8UwP0of4tHc5pauSDlowzyGJiGnOkCyTXCNRhlqU/55ejXvGbyWKj
- mZMwCmr8/RSg6HIui/x8tk82VRj5mNExAn5MULg==
-X-Google-Smtp-Source: AGHT+IHUuUqv9XGZ9bYt/6FB0DSxASTzs7ENjMecr4yFUOen3MARyohRguewr1dgCgDY1mFhRU/AKlGWEip8NUHr6ww=
-X-Received: by 2002:a25:8250:0:b0:dcd:5bfa:8184 with SMTP id
- d16-20020a258250000000b00dcd5bfa8184mr2366149ybn.39.1712341261719; Fri, 05
- Apr 2024 11:21:01 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BC3E1121FB;
+ Fri,  5 Apr 2024 18:57:21 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 435IGFWA003651; Fri, 5 Apr 2024 18:57:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=EPl9lAk4jK5sZiImCsNZdRSyV30Fl0e7HcokMtTQ8lI=; b=nF
+ S9tEu1YZuNxY+1U0wBgEdT7VozC4jE4h3HYEHpy/ep1sRHqlaqnk25CKlKzqKoUy
+ jgaMa43KslxWprl6GsGdw6aKQNJmwqHZdV63GePGGnGcvxqf7/304bkkd6kTMVi4
+ 0LLzbfQboiheOdukId4q5tlL2Ymzg5vcfT5FPHLwVUUKs9Ou9T5/YXmwfHdno4FJ
+ PcdOwicAAj2rhUWeRDVhi8Ist2XyL/PyliwXq8dno9HwLZtgYWLeOmkREc29b5L1
+ SVwcfXS49hiylxNWIQqHckKEsH85RYuBAFL/nv8J73C+1t8bhCQJ2LRgvcd8rk8j
+ Lcba+Aa6/PGlAUmpep+w==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xad7h1euj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 05 Apr 2024 18:57:18 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 435IvHha022365
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 5 Apr 2024 18:57:17 GMT
+Received: from [10.110.24.15] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Fri, 5 Apr 2024
+ 11:57:16 -0700
+Message-ID: <4c187516-d685-8eb1-d5ae-43f68d76feed@quicinc.com>
+Date: Fri, 5 Apr 2024 11:57:15 -0700
 MIME-Version: 1.0
-References: <20240405155855.3672853-1-arnd@kernel.org>
-In-Reply-To: <20240405155855.3672853-1-arnd@kernel.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 5 Apr 2024 21:20:50 +0300
-Message-ID: <CAA8EJpoVmyJhyrRz0p-8Ue0sa-XG+rSFwCajuR8b6GQVxBDM0Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm: remove an unused-but-set variable
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Arnd Bergmann <arnd@arndb.de>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Connor Abbott <cwabbott0@gmail.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 1/3] drm/msm/dsi: remove the drm_bridge_attach fallback
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20240309-fd-dsi-cleanup-bridges-v1-0-962ebdba82ed@linaro.org>
+ <20240309-fd-dsi-cleanup-bridges-v1-1-962ebdba82ed@linaro.org>
+ <88b3722e-aa46-1ffe-9f0f-1939d43e0100@quicinc.com>
+ <CAA8EJppbETLONx8pEdT1kT1Hp1i405m-4PfgumvvOa9N2mh6CA@mail.gmail.com>
+ <363efce2-5540-b81a-31be-b5919635b586@quicinc.com>
+ <CAA8EJpoPbK6rEKG9mh2pfo1tp8Rrn7oqXt50j0q2O5v50A8Zjg@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJpoPbK6rEKG9mh2pfo1tp8Rrn7oqXt50j0q2O5v50A8Zjg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 3sDpEs3Q1QJ7YYrwpme2ctXN6yRsHvWB
+X-Proofpoint-ORIG-GUID: 3sDpEs3Q1QJ7YYrwpme2ctXN6yRsHvWB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-05_21,2024-04-05_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0
+ mlxlogscore=834 clxscore=1015 mlxscore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 malwarescore=0 impostorscore=0 phishscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2404010003 definitions=main-2404050133
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,54 +98,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 5 Apr 2024 at 18:59, Arnd Bergmann <arnd@kernel.org> wrote:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> The modification to a6xx_get_shader_block() had no effect other
-> than causing a warning:
->
-> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error: variable 'out' set but not used [-Werror,-Wunused-but-set-variable]
->         u64 out = dumper->iova + A6XX_CD_DATA_OFFSET;
->
-> Revert this part of the previous patch.
->
-> Fixes: 64d6255650d4 ("drm/msm: More fully implement devcoredump for a7xx")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-Unfortunately this fix is not correct. The proper patch is present at
-https://patchwork.freedesktop.org/patch/584955/?series=131663&rev=1
-
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 3 ---
->  1 file changed, 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> index 1f5245fc2cdc..d4e1ebfcb021 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> @@ -840,7 +840,6 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
->                 struct a6xx_crashdumper *dumper)
->  {
->         u64 *in = dumper->ptr;
-> -       u64 out = dumper->iova + A6XX_CD_DATA_OFFSET;
->         size_t datasize = block->size * A6XX_NUM_SHADER_BANKS * sizeof(u32);
->         int i;
->
-> @@ -853,8 +852,6 @@ static void a6xx_get_shader_block(struct msm_gpu *gpu,
->
->                 in += CRASHDUMP_READ(in, REG_A6XX_HLSQ_DBG_AHB_READ_APERTURE,
->                         block->size, dumper->iova + A6XX_CD_DATA_OFFSET);
-> -
-> -               out += block->size * sizeof(u32);
->         }
->
->         CRASHDUMP_FINI(in);
-> --
-> 2.39.2
->
 
 
--- 
-With best wishes
-Dmitry
+On 4/5/2024 11:19 AM, Dmitry Baryshkov wrote:
+> On Fri, 5 Apr 2024 at 21:17, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 4/5/2024 11:16 AM, Dmitry Baryshkov wrote:
+>>> On Fri, 5 Apr 2024 at 20:20, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 3/9/2024 7:09 AM, Dmitry Baryshkov wrote:
+>>>>> All the bridges that are being used with the MSM DSI hosts have been
+>>>>> converted to support DRM_BRIDGE_ATTACH_NO_CONNECTOR. Drop the fallback
+>>>>> code and require DRM_BRIDGE_ATTACH_NO_CONNECTOR to be supported by the
+>>>>> downstream bridges.
+>>>>>
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>> ---
+>>>>>     drivers/gpu/drm/msm/dsi/dsi_manager.c | 36 +++++++++++------------------------
+>>>>>     1 file changed, 11 insertions(+), 25 deletions(-)
+>>>>>
+>>>>
+>>>> There are the bridges I checked by looking at the dts:
+>>>>
+>>>> 1) lontium,lt9611
+>>>> 2) lontium,lt9611uxc
+>>>> 3) adi,adv7533
+>>>> 4) ti,sn65dsi86
+>>>>
+>>>> Are there any more?
+>>>>
+>>>> If not, this LGTM
+>>>>
+>>>> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>
+>>>   From your message it looks more like Tested-by rather than just Reviewed-by
+>>>
+>>
+>> No, I only cross-checked the dts.
+>>
+>> So, its only Reviewed-by :)
+>>
+>> But I wanted to list down all the bridges
+> 
+> Then I'd also nominate the panel bridge to the list of bridges for
+> cross-checking. It is created automatically when we request a bridge,
+> but DT has only a panel.
+> 
+
+Yes, that one is fine too
+
+58 static int panel_bridge_attach(struct drm_bridge *bridge,
+59 			       enum drm_bridge_attach_flags flags)
+60 {
+61 	struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
+62 	struct drm_connector *connector = &panel_bridge->connector;
+63 	int ret;
+64
+65 	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+66 		return 0;
+67
