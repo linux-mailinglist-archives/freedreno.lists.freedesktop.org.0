@@ -2,74 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9267489937A
-	for <lists+freedreno@lfdr.de>; Fri,  5 Apr 2024 04:56:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BBD78994CC
+	for <lists+freedreno@lfdr.de>; Fri,  5 Apr 2024 07:49:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 589CE1137CF;
-	Fri,  5 Apr 2024 02:56:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 000D6113910;
+	Fri,  5 Apr 2024 05:49:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yCaKM2h0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VMVEj1QS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f169.google.com (mail-yb1-f169.google.com
- [209.85.219.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F0821137DC
- for <freedreno@lists.freedesktop.org>; Fri,  5 Apr 2024 02:56:31 +0000 (UTC)
-Received: by mail-yb1-f169.google.com with SMTP id
- 3f1490d57ef6-dcc71031680so1741689276.2
- for <freedreno@lists.freedesktop.org>; Thu, 04 Apr 2024 19:56:31 -0700 (PDT)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C461113910;
+ Fri,  5 Apr 2024 05:49:10 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id
+ 4fb4d7f45d1cf-56c5d05128dso2091405a12.0; 
+ Thu, 04 Apr 2024 22:49:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712285790; x=1712890590; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1712296149; x=1712900949; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=dEsqNh0qk6wjxNfe1EBS/5T4PtCYN6iMohqr+1wRzko=;
- b=yCaKM2h0QQgivsavZjFRjoBBFDO2Jnt+8QrWTSigTFayF/JeHdVW8AZIM33vL5/B1v
- d7CCMbGmf+C6LWrfG4Sp91bYy8/j074lzLp8VAxI2EBnU2snyIqtpPyndrlPRjzznTi3
- 5AUGVnoFcxuxzxnmIS64mZjYG2Ej5Dyq03ulJi6WBZZOx9bpOToPuZ9+CkNshnGb9iN6
- lr2HQpsaBsJpCzF6BF6QcRHo+w6XhuETKv7HUqMYPtlfIQa7GJ1Hwx1YKhIzEtrAsy6z
- drcMc7Wy8CHNqTTdPC7MLwNs4wfTUsSfN18xwidQm5klVJ31iTA24XE4FDZqN8ckc5+P
- CUvA==
+ bh=ZZKOFz6ndGM4V5kyukstdMcEsPcO/J51RsMhMKg1OJo=;
+ b=VMVEj1QSMMJmOiIre6BHsioiXp6to55nOJXgSSzVlRk8t+plSVrUvtGynEcfcxGzqd
+ pnY4UJeZToKflAnHnjWeVz+TJvq3Go2fdL4hOxQVdUw3AFl1knqTCAIiNlpm1j165rtW
+ 33aj9P9LDfrm//rx7GbVaiL3SOdUxvF1vT7PvIIOQER/+jsevkxiKrD0qFgSQ+7bl928
+ W+S+SxVKjZZutDOzOxrCbuUNixWsGqZyOAgbWo98sectIbB//v0mkKehqCs6DxTKnAne
+ OaPL1ssFJ+EFFWoCY7wLnUcJpm/7N4wMVxFrbE+yM44I4zwgUqI+Ajije7nFhvCSFaRx
+ AUgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712285790; x=1712890590;
+ d=1e100.net; s=20230601; t=1712296149; x=1712900949;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=dEsqNh0qk6wjxNfe1EBS/5T4PtCYN6iMohqr+1wRzko=;
- b=arOwPG+wiP4VyVliFWrRJrfYm33yZ3dVh1GTyjsMa8lE5uGsIYFPnlC66W4kWBMm+W
- NPpg7n+I+ENXfELdt++rkWXiCaz/0M/KlcJUrW0/X1WED7Wf2et77iBBdLY+ihCnkEoN
- iqbyXtaPPa2z5mMYnHNOcEbm9aM5NIurTzuaGy84WdkFnd5lnPLXyLjEq8rmaxaH+FPM
- eVkxconY8PILC4nx7n76HnfX8phie1e7biNdBHcTSZXtVq7TR1ZmPfpnp9HosZeuY593
- LtKnQQ/sFY8RuU/T6Ua1J6CfCu7T5eEbdlE/XZdA4GlXQIPA20IzbY6X+ADu0YJfNDKe
- pKJw==
+ bh=ZZKOFz6ndGM4V5kyukstdMcEsPcO/J51RsMhMKg1OJo=;
+ b=uRSrSRZGn0u36ibuskNmAAvdYNkmRWcNbVI6dn8F59cW0jIesuFc4Ql8TDKv6AsdSP
+ ByMO/9MTxOBvbymk2EKz549+hZiBrgfzU6hVL1bLtkPkeFpJqhlo+Y/0B2GsGCVkrmjb
+ E3E6H81MfwtoACf53pn1zuktoPt8G9+AHzBM7ZxF88F9G6atD7SgjZM4Q7SpNtw/9bA2
+ BZz1bgZfgTdIz0sdIpLnJov1ZUkpctSatE9uNHDrVwM7qGOgujR7AcPO/2+wlsWua8lq
+ k/8gDlAJjyA0bR6RODm1jXTPxquk22uhQFbosQSzpiz+UPWRE5hK0N728aodvDbgnJPe
+ YVYg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU4Dy+IdSNcu+Nt5g5tZHcywuYxTNdVdarHV6FJrTlll4hhFKnWZWa0PUvhHPJTWWKwCByeJIpnVVFJiWa4B3pMCn/fguqVKoy31Ijyc7MJ
-X-Gm-Message-State: AOJu0Yx6qZBFyZJsSxPzv3zgKMT0Dm5ggEcl9aBX0PDL57Cp7Pfy75qp
- vZ8bzBhyns4v8Len7QoBbbYLYQK4kWAMrrl22SoumKRZJs7D4QVS0bC4YZgpez7Enxv5yUADBfQ
- izBRo+kx0wvpPus5Xz0j9e5auFPJaQhEjBFZnig==
-X-Google-Smtp-Source: AGHT+IG4u2Lg5AEQseN8XhnyCdvNikS9yjicoQQjhDBxxVZhO/lMnvhSuSj5pAzYdpOCxOv9gcRM1CyMxY7VDXAbmhM=
-X-Received: by 2002:a25:aace:0:b0:dcc:c279:d2fa with SMTP id
- t72-20020a25aace000000b00dccc279d2famr88256ybi.30.1712285790527; Thu, 04 Apr
- 2024 19:56:30 -0700 (PDT)
+ AJvYcCXwa9IkvTf7+GW/dhXMp0tdYS6Igof+IWdQRSgaz9E3t648SqCHDCauDdJ6pZiDVrDwjylH4+B4Skfs6mkXRf81D9wA/9QbDxTMaPuGu5pTMUBP4bnLIZUSBE8v48tdPMAlcgLR+0gKjukLJqEPiPba
+X-Gm-Message-State: AOJu0YxUr2rr8qiWRqD8mL8oN+vdMRKdvuho6qXxAUjnKpG5tjUzev1x
+ n6YvrAPr6gOA7qWKud1Ih9aaxBF1nthz6RpKPcaHnt9hlcyBV5hYE1kRrMITIp2ovI59A2xN69f
+ ZWogwhAaW4fWc/pt2vLg+yyMxKfg=
+X-Google-Smtp-Source: AGHT+IEHU8JkUqjrnhPwohYAWoxv8H66yzcJ9LBbvY+7XMSq/92aLDElEDpOiWktBF8uDc+wXmV650EDLIzDNqNXR3g=
+X-Received: by 2002:a17:906:4e93:b0:a4e:757:989a with SMTP id
+ v19-20020a1709064e9300b00a4e0757989amr230219eju.8.1712296148621; Thu, 04 Apr
+ 2024 22:49:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240405000111.1450598-1-swboyd@chromium.org>
-In-Reply-To: <20240405000111.1450598-1-swboyd@chromium.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 5 Apr 2024 05:56:19 +0300
-Message-ID: <CAA8EJppHXkTNSNaCoYWZaRmKw=AfWL4N0WCqR6uFgNdbkw4VUw@mail.gmail.com>
-Subject: Re: [PATCH] phy: qcom: qmp-combo: Fix register base for
- QSERDES_DP_PHY_MODE
-To: Stephen Boyd <swboyd@chromium.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- linux-kernel@vger.kernel.org, 
- patches@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@linaro.org>, linux-phy@lists.infradead.org, 
- freedreno@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Abel Vesa <abel.vesa@linaro.org>, Steev Klimaszewski <steev@kali.org>, 
- Johan Hovold <johan+linaro@kernel.org>,
- Bjorn Andersson <quic_bjorande@quicinc.com>
+References: <20240326212324.185832-1-ojeda@kernel.org>
+ <da9dcd58-41c1-089c-2061-be3bad6349a7@quicinc.com>
+In-Reply-To: <da9dcd58-41c1-089c-2061-be3bad6349a7@quicinc.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Fri, 5 Apr 2024 15:48:56 +1000
+Message-ID: <CAPM=9tzDfZA6up+wY+OfBtfFRg0ffU4dm0ja33iCV6VVg_hq=w@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm: fix the `CRASHDUMP_READ` target of
+ `a6xx_get_shader_block()`
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Connor Abbott <cwabbott0@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,35 +83,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 5 Apr 2024 at 03:01, Stephen Boyd <swboyd@chromium.org> wrote:
+On Sat, 30 Mar 2024 at 04:39, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
-> The register base that was used to write to the QSERDES_DP_PHY_MODE
-> register was 'dp_dp_phy' before commit 815891eee668 ("phy:
-> qcom-qmp-combo: Introduce orientation variable"). There isn't any
-> explanation in the commit why this is changed, so I suspect it was an
-> oversight or happened while being extracted from some other series.
-> Oddly the value being 0x4c or 0x5c doesn't seem to matter for me, so I
-> suspect this is dead code, but that can be fixed in another patch. It's
-> not good to write to the wrong register space, and maybe some other
-> version of this phy relies on this.
 >
-> Cc: Douglas Anderson <dianders@chromium.org>
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Abel Vesa <abel.vesa@linaro.org>
-> Cc: Steev Klimaszewski <steev@kali.org>
-> Cc: Johan Hovold <johan+linaro@kernel.org>
-> Cc: Bjorn Andersson <quic_bjorande@quicinc.com>
-> Fixes: 815891eee668 ("phy: qcom-qmp-combo: Introduce orientation variable")
-> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-> ---
->  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> On 3/26/2024 2:23 PM, Miguel Ojeda wrote:
+> > Clang 14 in an (essentially) defconfig arm64 build for next-20240326
+> > reports [1]:
+> >
+> >      drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:843:6: error:
+> >      variable 'out' set but not used [-Werror,-Wunused-but-set-variable]
+> >
+> > The variable `out` in these functions is meant to compute the `target` of
+> > `CRASHDUMP_READ()`, but in this case only the initial value (`dumper->iova
+> > + A6XX_CD_DATA_OFFSET`) was being passed.
+> >
+> > Thus use `out` as it was intended by Connor [2].
+> >
+> > There was an alternative patch at [3] that removed the variable
+> > altogether, but that would only use the initial value.
+> >
+> > Fixes: 64d6255650d4 ("drm/msm: More fully implement devcoredump for a7xx")
+> > Closes: https://lore.kernel.org/lkml/CANiq72mjc5t4n25SQvYSrOEhxxpXYPZ4pPzneSJHEnc3qApu2Q@mail.gmail.com/ [1]
+> > Link: https://lore.kernel.org/lkml/CACu1E7HhCKMJd6fixZSPiNAz6ekoZnkMTHTcLFVmbZ-9VoLxKg@mail.gmail.com/ [2]
+> > Link: https://lore.kernel.org/lkml/20240307093727.1978126-1-colin.i.king@gmail.com/ [3]
+> > Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+> > ---
+>
+>
+> LGTM,
+>
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
+I'm seeing this on my drm-next tree, where is this fix landing?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
--- 
-With best wishes
-Dmitry
+Dave.
