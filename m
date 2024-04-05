@@ -2,89 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AE1A89A509
-	for <lists+freedreno@lfdr.de>; Fri,  5 Apr 2024 21:35:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 333B289A74F
+	for <lists+freedreno@lfdr.de>; Sat,  6 Apr 2024 00:32:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 477EF1127AC;
-	Fri,  5 Apr 2024 19:35:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 317C710EAB1;
+	Fri,  5 Apr 2024 22:32:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="flqz2GVi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PuX9Pyki";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2610C10E6E2;
- Fri,  5 Apr 2024 19:35:19 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 435HQgZF022592; Fri, 5 Apr 2024 19:35:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=juHicWnJa6/Y/wprtpJVNqXwWzmN16LcZBHj+anPebI=; b=fl
- qz2GVi/bNWw0rcqfaEG0QANPoBtSsObSQIQEPOFhVUy3ueK7uhr5fWsWNv/H8r+V
- uKBwQhPk2uRrLsghdVXs/hhOA9GxhmBom1xi+WaJjz7dsBSR+YTzvt854NDiOcgY
- eWCa1jszZGITfZpt22JWKDHy8OSk2dZf/ho7YGDbYaDQEqOaO1ZUf8Vsy3I5cCQu
- k3HTO9AloGWFbmOt9BSAjIeUIXyiJBtsjA98t9rv1V66bNHS9ApfYWmC/LOflgDf
- PG6IF3hp1Hh7uD46rJ6tOPu36+R5EVgw3DIf2HLB8r82Q9Mr+O+b1wXkHJi2H8CO
- PuM7v0pUdbDcQU1rl04w==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xa1xaarbe-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Apr 2024 19:35:10 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 435JYgXt012674
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 5 Apr 2024 19:34:42 GMT
-Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Fri, 5 Apr 2024 12:34:41 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E3A110EAAF;
+ Fri,  5 Apr 2024 22:32:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1712356331; x=1743892331;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=iacJbwqVzLZ+QPu0PsxC62e+0CS6vwkuBBz/tOH/PtA=;
+ b=PuX9Pykiem0nWHWHDcw00oYe3CRcSWZLuUnb4hUkT0VXTtkRabc+7wqx
+ lE0I989jvN2aBS5PdSwA/Z+dAmDgajJO9f8SC6BnLlK3e777Gz+TSUcag
+ Zw7yzxgXT/lt9zGEmcHqlCkXbvshEf1rw46ZOERZNbQKtVASC80tgECWa
+ fuZ0Jc/G2gPpPGoU9Gi2Z9sfZ5y+cYcAF+qbqZp4Yl3Bo5yaPbsD354Th
+ hJUBHi9rlZyjKJJYwkXCjSdPTYso74wJPY15NITNVMWh1zmS8Wf0XzXVj
+ N/khTa80EIazPRVv1mWLiMe3W5o0PQaSIns1eTSaXtPKwN3ZORflrYhNc g==;
+X-CSE-ConnectionGUID: D7beXzrATNGpJJJSUlFOKQ==
+X-CSE-MsgGUID: kOkyxJ1ZRmWQPSEg27DyUw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11035"; a="18437359"
+X-IronPort-AV: E=Sophos;i="6.07,182,1708416000"; d="scan'208";a="18437359"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Apr 2024 15:32:10 -0700
+X-CSE-ConnectionGUID: HJwq05CxRKyOrruQhDcgjQ==
+X-CSE-MsgGUID: qJXN4bJnRcOu1ZawYBRsfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,182,1708416000"; d="scan'208";a="19739547"
+Received: from lkp-server01.sh.intel.com (HELO e61807b1d151) ([10.239.97.150])
+ by orviesa006.jf.intel.com with ESMTP; 05 Apr 2024 15:32:05 -0700
+Received: from kbuild by e61807b1d151 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rss6M-0002mu-2A;
+ Fri, 05 Apr 2024 22:32:02 +0000
+Date: Sat, 6 Apr 2024 06:31:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Abhinav Kumar <quic_abhinavk@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, "Krzysztof
- Kozlowski" <krzysztof.kozlowski@linaro.org>
-Subject: Re: (subset) [PATCH v3 0/4] arm64: dts: fix several display-related
- schema warnings
-Date: Fri, 5 Apr 2024 12:34:31 -0700
-Message-ID: <171234558728.7839.3436209985692525038.b4-ty@quicinc.com>
-X-Mailer: git-send-email 2.43.2
-In-Reply-To: <20240402-fd-fix-schema-v3-0-817ea6ddf775@linaro.org>
-References: <20240402-fd-fix-schema-v3-0-817ea6ddf775@linaro.org>
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Subject: Re: [PATCH 2/6] soc: qcom: smem: Add pcode/fcode getters
+Message-ID: <202404060648.DOjOYUSf-lkp@intel.com>
+References: <20240405-topic-smem_speedbin-v1-2-ce2b864251b1@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: k3aFdrWNFz4A9VRgRjcI8qgjXtKz68Uk
-X-Proofpoint-ORIG-GUID: k3aFdrWNFz4A9VRgRjcI8qgjXtKz68Uk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-05_23,2024-04-05_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 malwarescore=0
- spamscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 mlxlogscore=989
- mlxscore=0 suspectscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2404010003
- definitions=main-2404050139
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240405-topic-smem_speedbin-v1-2-ce2b864251b1@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,19 +81,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Konrad,
 
-On Tue, 02 Apr 2024 05:57:14 +0300, Dmitry Baryshkov wrote:
-> Fix several warnings produced by the display nodes.
-> 
-> Please excuse me for the spam for sending v3 soon after v2.
-> 
-> 
+kernel test robot noticed the following build warnings:
 
-Applied, thanks!
+[auto build test WARNING on 2b3d5988ae2cb5cd945ddbc653f0a71706231fdd]
 
-[1/4] dt-bindings: display/msm: sm8150-mdss: add DP node
-      https://gitlab.freedesktop.org/drm/msm/-/commit/be1b7acb9291
+url:    https://github.com/intel-lab-lkp/linux/commits/Konrad-Dybcio/soc-qcom-Move-some-socinfo-defines-to-the-header-expand-them/20240405-164231
+base:   2b3d5988ae2cb5cd945ddbc653f0a71706231fdd
+patch link:    https://lore.kernel.org/r/20240405-topic-smem_speedbin-v1-2-ce2b864251b1%40linaro.org
+patch subject: [PATCH 2/6] soc: qcom: smem: Add pcode/fcode getters
+config: arm-defconfig (https://download.01.org/0day-ci/archive/20240406/202404060648.DOjOYUSf-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project.git f28c006a5895fc0e329fe15fead81e37457cb1d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240406/202404060648.DOjOYUSf-lkp@intel.com/reproduce)
 
-Best regards,
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202404060648.DOjOYUSf-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/soc/qcom/smem.c:807: warning: Function parameter or struct member 'code' not described in 'qcom_smem_get_feature_code'
+>> drivers/soc/qcom/smem.c:807: warning: Excess function parameter 'id' description in 'qcom_smem_get_feature_code'
+>> drivers/soc/qcom/smem.c:840: warning: Function parameter or struct member 'code' not described in 'qcom_smem_get_product_code'
+>> drivers/soc/qcom/smem.c:840: warning: Excess function parameter 'id' description in 'qcom_smem_get_product_code'
+
+
+vim +807 drivers/soc/qcom/smem.c
+
+   797	
+   798	/**
+   799	 * qcom_smem_get_feature_code() - return the feature code
+   800	 * @id:	On success, we return the feature code here.
+   801	 *
+   802	 * Look up the feature code identifier from SMEM and return it.
+   803	 *
+   804	 * Return: 0 on success, negative errno on failure.
+   805	 */
+   806	int qcom_smem_get_feature_code(u32 *code)
+ > 807	{
+   808		struct socinfo *info;
+   809		u32 raw_code;
+   810	
+   811		info = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_HW_SW_BUILD_ID, NULL);
+   812		if (IS_ERR(info))
+   813			return PTR_ERR(info);
+   814	
+   815		/* This only makes sense for socinfo >= 16 */
+   816		if (__le32_to_cpu(info->fmt) < SOCINFO_VERSION(0, 16))
+   817			return -EINVAL;
+   818	
+   819		raw_code = __le32_to_cpu(info->feature_code);
+   820	
+   821		/* Ensure the value makes sense */
+   822		if (raw_code >= SOCINFO_FC_INT_RESERVE)
+   823			raw_code = SOCINFO_FC_UNKNOWN;
+   824	
+   825		*code = raw_code;
+   826	
+   827		return 0;
+   828	}
+   829	EXPORT_SYMBOL_GPL(qcom_smem_get_feature_code);
+   830	
+   831	/**
+   832	 * qcom_smem_get_product_code() - return the product code
+   833	 * @id:	On success, we return the product code here.
+   834	 *
+   835	 * Look up feature code identifier from SMEM and return it.
+   836	 *
+   837	 * Return: 0 on success, negative errno on failure.
+   838	 */
+   839	int qcom_smem_get_product_code(u32 *code)
+ > 840	{
+   841		struct socinfo *info;
+   842		u32 raw_code;
+   843	
+   844		info = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_HW_SW_BUILD_ID, NULL);
+   845		if (IS_ERR(info))
+   846			return PTR_ERR(info);
+   847	
+   848		/* This only makes sense for socinfo >= 16 */
+   849		if (__le32_to_cpu(info->fmt) < SOCINFO_VERSION(0, 16))
+   850			return -EINVAL;
+   851	
+   852		raw_code = __le32_to_cpu(info->pcode);
+   853	
+   854		/* Ensure the value makes sense */
+   855		if (raw_code >= SOCINFO_FC_INT_RESERVE)
+   856			raw_code = SOCINFO_FC_UNKNOWN;
+   857	
+   858		*code = raw_code;
+   859	
+   860		return 0;
+   861	}
+   862	EXPORT_SYMBOL_GPL(qcom_smem_get_product_code);
+   863	
+
 -- 
-Abhinav Kumar <quic_abhinavk@quicinc.com>
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
