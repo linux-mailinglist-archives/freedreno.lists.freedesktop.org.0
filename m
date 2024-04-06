@@ -2,76 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEFE989A866
-	for <lists+freedreno@lfdr.de>; Sat,  6 Apr 2024 04:15:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D5BD89A86B
+	for <lists+freedreno@lfdr.de>; Sat,  6 Apr 2024 04:21:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 067CE1134BF;
-	Sat,  6 Apr 2024 02:15:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF77811365C;
+	Sat,  6 Apr 2024 02:21:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ndlTDEZ3";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="oswb0q41";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 902011134BF
- for <freedreno@lists.freedesktop.org>; Sat,  6 Apr 2024 02:15:09 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-2d4360ab3daso31861541fa.3
- for <freedreno@lists.freedesktop.org>; Fri, 05 Apr 2024 19:15:09 -0700 (PDT)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F45E11365C
+ for <freedreno@lists.freedesktop.org>; Sat,  6 Apr 2024 02:21:29 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-516d6c1e238so1111750e87.2
+ for <freedreno@lists.freedesktop.org>; Fri, 05 Apr 2024 19:21:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712369707; x=1712974507; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1712370087; x=1712974887; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=XhDrNzBi3oiG43zRalXwXnBhsTSPwZRL2FZ33nSnVdw=;
- b=ndlTDEZ3PnT9H6rkMuV1l+xENJMitrD3zjOKYrS4PPT8MuBmPF/o1RnhX9NEzjdDD5
- ntXUdISAWZveQM3lfUVHlSoiBYgcDFHDOqeQpBr2RnHSUroHshjuiawzdHAb6AdygWnY
- JG5g3hsnFuK/Gj16CAcXwIB4/ayXICI7jsYZknGMnEtpEMJYeBrKiDp6HGOIwZ1GYv3p
- b4CrmxsH0jVY6zUkgTcG6MXjdNjLp0cREc3Y0IgQbsiylWKkqWtsXqhAI2zHpIkgQcR/
- 3ToVs5tTmxVL47Ba5aeLY4x5RjCtVvgoB/K3+PAbl1aXgtWVAhiDiGbV2RUpX6VkO/wp
- NesQ==
+ bh=e3RQ6maZdShuVraNYItBn9lrjW9BLdIDbgZu10qFIzM=;
+ b=oswb0q41FsOWK5UQLcHYmfk2OzwdWh05KRvYEQuveFaTkmzTVMRMgw1+nvzuerHQMx
+ 8yA84ys2i/yQxqR76REFt6gKc8KxHTWZP/zhJ6TvEatoTLmRYxiVrvyuaHJba/uednfC
+ /+O24tUdX3jSmBc5oMc7oxsnIiaDYhjyK0vlE8hGzuPkvZklB0UxoDK7vqMxVEaKT0SJ
+ YUbcZYc2bRypMbyN6Pvc2zL/P/WWIAI9pyenr05hiw0n2VY2crQPKYNPyIXZ63a1uhZa
+ eRpX8ZA0NnJymBvbDBdb9HKEZ8/znfkJSzMbpeY5njQ/xmjVVTU8xF3fhNlmoH5Qiouy
+ vOCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712369707; x=1712974507;
+ d=1e100.net; s=20230601; t=1712370087; x=1712974887;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XhDrNzBi3oiG43zRalXwXnBhsTSPwZRL2FZ33nSnVdw=;
- b=S3rOXZK5bkZsdrTB8hp+HEOmm7hhOyYcPa+3HE8IDHv/H5m5AJEB6MrB7lsINrtBo/
- hPGinPFrivNlEd5wuDpHvrQV0FpsOyf11Gw4TEU6B976NCbZuip/WKmabNUO0RG7mihS
- o2AanjOp4a9rejmgAcmxBQEvl9myeKveZXViXwbQt4izzrkjWwnwrQ2sqDnoufA8vl2b
- nBfxoebeeMuiJQmZV3bulEv4LbL4RTmzia+QDWZGipaanH2Eo3/7DLY6gYVCjRId5+7j
- BWgwFYGzU6l+cou81joUYx+pCrxHpdrpG4urObAHnDjP4wlr9chWrCYR5YQ55KX1df2p
- ragA==
-X-Gm-Message-State: AOJu0YxnG64wgmfl6fQjfamC4SEQ6UFXZ7TO6Kb4g0TYjq7C3C84v6Ac
- wrCBBkwIh0JtwVqH1SLjLlCuGogwo2M6rDvsy6L+jAVM2IUbSipuivKZfF9JJqM=
-X-Google-Smtp-Source: AGHT+IHgbI9drlF/n3E0ht+dUnRhYOaeqMiXPWKHXV7WRm8Zn8FiFB3dp3IVQhdo6PrNO2EoJnOnLw==
-X-Received: by 2002:a2e:7219:0:b0:2d8:6a04:6ac4 with SMTP id
- n25-20020a2e7219000000b002d86a046ac4mr2399047ljc.28.1712369707253; 
- Fri, 05 Apr 2024 19:15:07 -0700 (PDT)
+ bh=e3RQ6maZdShuVraNYItBn9lrjW9BLdIDbgZu10qFIzM=;
+ b=WmLLfvIWnlOfI7lMQxv+/5ARGVIKisYiurH0JwsibkIKCuR1sfHNSfF2RYxCslBW0b
+ vavY3b6RgZQmWLyEYn1BuJArMcceDF74+bnMykGXcDAJkDKLqD+/s3isBm+Ubd6BnU1m
+ DwBxF5tAuY6JPSd2Aa0g7+ZaSTK37HjHoR8M/1hhZfmkQ07LhP+uOnERjrcDAZWjj//Z
+ E2J0t2Oy5LCYDypx1h4rH3vH7GS4ki0ND/Je+PJ3XICcHcf1DpqWgXQF4zj/zfJYDXzX
+ q+FLiiYVyt2uYVYbeYSQltTNGSTTu2wl4AwG22YmBHreLZIHqMvxBkjh0keNGy/PJSfR
+ MAFQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWTP1URGzbg48X5P0+r+Ky+06gNiUPYyt6Vud/Zd1fdMt3v6HfDY8Zz7YKWMXaZkOYPyNwUJwIp76vE5/ttcCY2i76OQT8y9zGrCgdo7xzw
+X-Gm-Message-State: AOJu0Yw1yJpKbnFIJankfv9kFbas59Bu1vKkBccVU3tD8jXRhTR0P3PL
+ pOJABAq1/lGjtDXvoQVoEQpBiPX9c67ZMDgew9D4Bhs5QE2qILphfRepcRGZtVk=
+X-Google-Smtp-Source: AGHT+IGCUxPA1x4pPvDKIPymyHQ9MIdDiuKIitgDDF5LRK2zKejYoRo8ce/mKSI+1tszTynrahREJQ==
+X-Received: by 2002:ac2:5b91:0:b0:516:d259:ee5f with SMTP id
+ o17-20020ac25b91000000b00516d259ee5fmr1862751lfn.7.1712370087329; 
+ Fri, 05 Apr 2024 19:21:27 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzyjmhyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a00e:a300::227])
  by smtp.gmail.com with ESMTPSA id
- f16-20020a2eb5b0000000b002d816c0500asm333494ljn.118.2024.04.05.19.15.06
+ w1-20020ac25981000000b00516d6924bc6sm234716lfn.175.2024.04.05.19.21.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Apr 2024 19:15:06 -0700 (PDT)
-Date: Sat, 6 Apr 2024 05:15:04 +0300
+ Fri, 05 Apr 2024 19:21:26 -0700 (PDT)
+Date: Sat, 6 Apr 2024 05:21:25 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- dri-devel@lists.freedesktop.org, seanpaul@chromium.org, swboyd@chromium.org, 
- quic_jesszhan@quicinc.com, quic_bjorande@quicinc.com, johan@kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/msm/dp: call dp_hpd_plug_handle()/unplug_handle()
- directly for external HPD
-Message-ID: <esbu3omf2dg6h5fj4zmvhvet7k4qe6sewzoob64bmoc7nfktih@3dobc4uav5ay>
-References: <20240406001715.8181-1-quic_abhinavk@quicinc.com>
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/6] soc: qcom: smem: Add pcode/fcode getters
+Message-ID: <zc5u7ixaser6ekl3sltzxccstu63tpydxybquxz5hcasj4cmfo@csjwfifugeod>
+References: <20240405-topic-smem_speedbin-v1-0-ce2b864251b1@linaro.org>
+ <20240405-topic-smem_speedbin-v1-2-ce2b864251b1@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240406001715.8181-1-quic_abhinavk@quicinc.com>
+In-Reply-To: <20240405-topic-smem_speedbin-v1-2-ce2b864251b1@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,126 +92,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Apr 05, 2024 at 05:17:14PM -0700, Abhinav Kumar wrote:
-> From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+On Fri, Apr 05, 2024 at 10:41:30AM +0200, Konrad Dybcio wrote:
+> Introduce getters for SoC product and feature codes and export them.
 > 
-> In the external HPD case, hotplug event is delivered by pmic glink to DP driver
-> using drm_aux_hpd_bridge_notify().
-
-There can be other drivers in front of the DP chain. For example,
-altmode driver uses drm_connector_oob_hotplug_event() to deliver HPD
-events.
-
-> 
-> The stacktrace showing the sequence of events is below:
-> 
-> dp_bridge_hpd_notify+0x18/0x70 [msm]
-> drm_bridge_connector_detect+0x60/0xe8 [drm_kms_helper]
-> drm_helper_probe_detect+0x94/0xc0 [drm_kms_helper]
-> drm_helper_probe_single_connector_modes+0x43c/0x53c [drm_kms_helper]
-> drm_client_modeset_probe+0x240/0x1114 [drm]
-> drm_fb_helper_hotplug_event.part.26+0x9c/0xe8 [drm_kms_helper]
-> drm_fb_helper_hotplug_event+0x24/0x38 [drm_kms_helper]
-> msm_fbdev_client_hotplug+0x24/0xd4 [msm]
-> drm_client_dev_hotplug+0xd8/0x148 [drm]
-> drm_kms_helper_connector_hotplug_event+0x30/0x3c [drm_kms_helper]
-> drm_bridge_connector_handle_hpd+0x84/0x94 [drm_kms_helper]
-> drm_bridge_connector_hpd_cb+0xc/0x14 [drm_kms_helper]
-> drm_bridge_hpd_notify+0x38/0x50 [drm]
-> drm_aux_hpd_bridge_notify+0x14/0x20 [aux_hpd_bridge]
-> pmic_glink_altmode_worker+0xec/0x27c [pmic_glink_altmode]
-> process_scheduled_works+0x17c/0x2cc
-> worker_thread+0x2ac/0x2d0
-> kthread+0xfc/0x120
-> 
-> There are three notifications delivered to DP driver for each notification event.
-> 
-> 1) From the drm_aux_hpd_bridge_notify() itself as shown above
-> 
-> 2) From output_poll_execute() thread which arises due to
-> drm_helper_probe_single_connector_modes() call of the above stacktrace
-> as shown in more detail here.
-> 
-> dp_bridge_hpd_notify+0x18/0x70 [msm]
-> drm_bridge_connector_detect+0x60/0xe8 [drm_kms_helper]
-> drm_helper_probe_detect+0x94/0xc0 [drm_kms_helper]
-> drm_helper_probe_single_connector_modes+0x43c/0x53c [drm_kms_helper]
-> drm_client_modeset_probe+0x240/0x1114 [drm]
-> drm_fb_helper_hotplug_event.part.26+0x9c/0xe8 [drm_kms_helper]
-> drm_fb_helper_hotplug_event+0x24/0x38 [drm_kms_helper]
-> msm_fbdev_client_hotplug+0x24/0xd4 [msm]
-> drm_client_dev_hotplug+0xd8/0x148 [drm]
-> drm_kms_helper_hotplug_event+0x30/0x3c [drm_kms_helper]
-> output_poll_execute+0xe0/0x210 [drm_kms_helper]
-> 
-> 3) From the DP driver as the dp_bridge_hpd_notify() callback today triggers
-> the hpd_event_thread for connect and disconnect events respectively via below stack
-> 
-> dp_bridge_hpd_notify+0x18/0x70 [msm]
-> drm_bridge_connector_detect+0x60/0xe8 [drm_kms_helper]
-> drm_helper_probe_detect_ctx+0x98/0x110 [drm_kms_helper]
-> check_connector_changed+0x4c/0x20c [drm_kms_helper]
-> drm_helper_hpd_irq_event+0x98/0x120 [drm_kms_helper]
-> hpd_event_thread+0x478/0x5bc [msm]
-> 
-> We have to address why we end up with 3 events for every single event so something
-> is broken with how we work with the drm_bridge_connector.
-> 
-> But, the dp_bridge_hpd_notify() delivered from output_poll_execute() thread will
-> return the incorrect HPD status DP driver because the .detect() returns the value
-> of link_ready and not the HPD status currently.
-> 
-> And because the HPD event thread has not run yet and this results in the two complementary
-> events.
-> 
-> To fix this problem lets have dp_bridge_hpd_notify() call
-> dp_hpd_plug_handle/unplug_handle() directly instead of going through the
-> event thread.
-> 
-> Then the following .detect() called by drm_kms_helper_connector_hotplug_event()
-> will return correct value of HPD status since it uses the correct link_ready value.
-> 
-> With this change, the HPD status delivered by both drm_bridge_connector_hpd_notify()
-> and drm_kms_helper_connector_hotplug_event() will match each other consistently.
-
-Please take a look at Documentation/process/submitting-patches.rst
-
-With the commit message fixed, the change LGTM. Thanks a lot for
-describing the call chains leading to this issue.
-
-I must admit, initially I thought that the change should be rejected on
-a basis of being a band-aid, but after studying the call graphs and the
-locking within the DP driver, the change looks correct to me.
-
-> 
-> changes in v2:
-> 	- Fix the commit message to explain the scenario
-> 	- Fix the subject a little as well
-> 
-> Fixes: 542b37efc20e ("drm/msm/dp: Implement hpd_notify()")
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+>  drivers/soc/qcom/smem.c       | 66 +++++++++++++++++++++++++++++++++++++++++++
+>  include/linux/soc/qcom/smem.h |  2 ++
+>  2 files changed, 68 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index d80f89581760..dfb10584ff97 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1665,7 +1665,8 @@ void dp_bridge_hpd_notify(struct drm_bridge *bridge,
->  		return;
->  
->  	if (!dp_display->link_ready && status == connector_status_connected)
-> -		dp_add_event(dp, EV_HPD_PLUG_INT, 0, 0);
-> +		dp_hpd_plug_handle(dp, 0);
->  	else if (dp_display->link_ready && status == connector_status_disconnected)
-> -		dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
-> +		dp_hpd_unplug_handle(dp, 0);
-> +
+> diff --git a/drivers/soc/qcom/smem.c b/drivers/soc/qcom/smem.c
+> index 7191fa0c087f..e89b4d26877a 100644
+> --- a/drivers/soc/qcom/smem.c
+> +++ b/drivers/soc/qcom/smem.c
+> @@ -795,6 +795,72 @@ int qcom_smem_get_soc_id(u32 *id)
 >  }
+>  EXPORT_SYMBOL_GPL(qcom_smem_get_soc_id);
+>  
+> +/**
+> + * qcom_smem_get_feature_code() - return the feature code
+> + * @id:	On success, we return the feature code here.
+> + *
+> + * Look up the feature code identifier from SMEM and return it.
+> + *
+> + * Return: 0 on success, negative errno on failure.
+> + */
+> +int qcom_smem_get_feature_code(u32 *code)
+> +{
+> +	struct socinfo *info;
+> +	u32 raw_code;
+> +
+> +	info = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_HW_SW_BUILD_ID, NULL);
+> +	if (IS_ERR(info))
+> +		return PTR_ERR(info);
+> +
+> +	/* This only makes sense for socinfo >= 16 */
+> +	if (__le32_to_cpu(info->fmt) < SOCINFO_VERSION(0, 16))
+> +		return -EINVAL;
+> +
+> +	raw_code = __le32_to_cpu(info->feature_code);
+> +
+> +	/* Ensure the value makes sense */
+> +	if (raw_code >= SOCINFO_FC_INT_RESERVE)
+> +		raw_code = SOCINFO_FC_UNKNOWN;
+> +
+> +	*code = raw_code;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_smem_get_feature_code);
+> +
+> +/**
+> + * qcom_smem_get_product_code() - return the product code
+> + * @id:	On success, we return the product code here.
+> + *
+> + * Look up feature code identifier from SMEM and return it.
+> + *
+> + * Return: 0 on success, negative errno on failure.
+> + */
+> +int qcom_smem_get_product_code(u32 *code)
+> +{
+> +	struct socinfo *info;
+> +	u32 raw_code;
+> +
+> +	info = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_HW_SW_BUILD_ID, NULL);
+> +	if (IS_ERR(info))
+> +		return PTR_ERR(info);
+> +
+> +	/* This only makes sense for socinfo >= 16 */
+> +	if (__le32_to_cpu(info->fmt) < SOCINFO_VERSION(0, 16))
+> +		return -EINVAL;
+> +
+> +	raw_code = __le32_to_cpu(info->pcode);
+> +
+> +	/* Ensure the value makes sense */
+> +	if (raw_code >= SOCINFO_FC_INT_RESERVE)
+> +		raw_code = SOCINFO_FC_UNKNOWN;
+
+This looks like a c&p from the previous function. Should we be comparing
+the raw_code with a SOCINFO_PC_ constant?
+
+> +
+> +	*code = raw_code;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_smem_get_product_code);
+> +
+>  static int qcom_smem_get_sbl_version(struct qcom_smem *smem)
+>  {
+>  	struct smem_header *header;
+> diff --git a/include/linux/soc/qcom/smem.h b/include/linux/soc/qcom/smem.h
+> index a36a3b9d4929..aef8c9fc6c08 100644
+> --- a/include/linux/soc/qcom/smem.h
+> +++ b/include/linux/soc/qcom/smem.h
+> @@ -13,5 +13,7 @@ int qcom_smem_get_free_space(unsigned host);
+>  phys_addr_t qcom_smem_virt_to_phys(void *p);
+>  
+>  int qcom_smem_get_soc_id(u32 *id);
+> +int qcom_smem_get_feature_code(u32 *code);
+> +int qcom_smem_get_product_code(u32 *code);
+>  
+>  #endif
+> 
 > -- 
-> 2.43.2
+> 2.40.1
 > 
 
 -- 
