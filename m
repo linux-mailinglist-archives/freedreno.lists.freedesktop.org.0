@@ -2,78 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B2D889A8B4
-	for <lists+freedreno@lfdr.de>; Sat,  6 Apr 2024 05:47:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F221389A9EC
+	for <lists+freedreno@lfdr.de>; Sat,  6 Apr 2024 11:19:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 047A810EFF6;
-	Sat,  6 Apr 2024 03:47:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B399D10EFAC;
+	Sat,  6 Apr 2024 09:19:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pmru5Ze6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ryhhr482";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B48F810EFF6
- for <freedreno@lists.freedesktop.org>; Sat,  6 Apr 2024 03:47:37 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-516cdb21b34so3307634e87.1
- for <freedreno@lists.freedesktop.org>; Fri, 05 Apr 2024 20:47:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712375256; x=1712980056; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=F/uU7IKHxTMAAbrC11KIil89Yya/JAHmkuNwgB4NZyE=;
- b=pmru5Ze6qjxohm9ezRwdKGvANkaPrcn2KpTs+Sqg94f8Ocj+5Zqys+5gqxKc7/LaDV
- t+PaSrfsSpiUjQdBORhgUpECHUCHIhTpyoq9bEDYZz9VIoTgMpxVecdzPkaRKP2DI6xw
- KxZaE5XJ3KuqBUM15sGbgZf/+CW05PT01jdoGIpzvSo+9+P0ToPtwMJNbW3cl/53AMA6
- HHjx3fodBUE5iBHPi1s65j4IDr7Lz2FqwrqR94JU1r2+4E+rHZIvPh51yaOKOqypqZj4
- M4yLvvIqqWoLssTtOffb2KCUx/I9CwksSBFMZJqP901FNQHzZhRKwEXB7+6JkSm6Orp/
- Fp5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712375256; x=1712980056;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=F/uU7IKHxTMAAbrC11KIil89Yya/JAHmkuNwgB4NZyE=;
- b=rCZCkEl/NUTuo4IOdoA1FWS4FFobOg1dquQ7eBPpuIo5jAmkdU6ugCeAxvZnelt8Dg
- wWZrTIuf/e+UfInyEgCoWyz6tKElioMzI7jgrmimKxH9DBSHcYaorcNyLgeA3B45copi
- KWYYX1Y4CbNFHtxiCXBX9HI1aartmMyaBmmn48B5PxpYS2Q/tj99WxPdipdapDrpyVJt
- i1sYR0KNxF4+Vv3sX7//riC567aJES24E9K/UsS62ZOLboRBmvr5k/RoEIOC62LU0aFK
- r4aZUoDV3jEjZVHpA93MmI3CjCs1nutxmrACWNKsVfbJXFTqFV0UJFKEWmCEv2WWdhG5
- CxiQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWNWKZ61U4UKwyaiPA5ughYDHexKGc2KdTiglO5+KukPMX0mkvWmh0MMInZFrShCgrnZTVvfmp0ISnmHAChfc4I+dmKQj9Us8bbnuYMB8A2
-X-Gm-Message-State: AOJu0YzFUaGE9rfto+7SaEoTtk9Q/xN/xKcxnqoidi73YrK8lvxX2itA
- IzCElkJ9hewu0ts3F9eqkHWfUzJtasJWTkjPwUy7dheETyaYg4l5eOUkdu0uo70=
-X-Google-Smtp-Source: AGHT+IGnVgGJgW4W+EbWQbKLF8gQTo8Hs7EZYSTgxIwK/hl1vXLroiMKUu/oLwz+20+QBTD/hTSGKQ==
-X-Received: by 2002:ac2:42c9:0:b0:516:82c1:7d65 with SMTP id
- n9-20020ac242c9000000b0051682c17d65mr2054746lfl.23.1712375255742; 
- Fri, 05 Apr 2024 20:47:35 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzyjmhyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a00e:a300::227])
- by smtp.gmail.com with ESMTPSA id
- m17-20020a195211000000b00516a234ca0dsm357975lfb.192.2024.04.05.20.47.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Apr 2024 20:47:35 -0700 (PDT)
-Date: Sat, 6 Apr 2024 06:47:33 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Abel Vesa <abel.vesa@linaro.org>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/msm/dp: Remove now unused connector_type from desc
-Message-ID: <iwsvkn6u3aindxqhkbyygoyy36chwuastxvmkoknb2vpgdq6mr@bnuuxveszbk3>
-References: <20240405-dp-connector-type-cleanup-v2-1-0f47d5462ab9@quicinc.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA0E410EFAC
+ for <freedreno@lists.freedesktop.org>; Sat,  6 Apr 2024 09:18:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 0E9E76091A;
+ Sat,  6 Apr 2024 09:18:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905D4C433A6;
+ Sat,  6 Apr 2024 09:18:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1712395138;
+ bh=CKx+Sd6xfsfIpNID92BJjS5Q/0Wk3rO67hmInznC/5Q=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=Ryhhr482/stDZaEN/VQttZWuBNtZbYJa+0k2Mm+MCL97kevMFtmJKqRZUejPMxS/C
+ fCIwj6Y+Rq7elkWblvVBrKlHsphTOM+EHjgREosXHjMkEjMm9QlLAD31sAT6kUWE7k
+ h5BCmCMvkPjYqaoRILptvnDhA9QIKjWun8biVBOBK7hVQXq5NL4P61vc9RsyOlBw0I
+ AQCj0Rv+PwqrwwsjAhmjZYEvv46bKyKG4kkbE3wOGIL/DApCw706tUDstqBcuNDWK5
+ +XdvZHT5+VwjQxBdNAU/6KmJU+Dgxvgx5C63RU3pIYxxNtOZgRYujdpbWZgVVFmED3
+ QWskxeTmOmb8g==
+From: Vinod Koul <vkoul@kernel.org>
+To: Kishon Vijay Abraham I <kishon@kernel.org>, 
+ Stephen Boyd <swboyd@chromium.org>
+Cc: linux-kernel@vger.kernel.org, patches@lists.linux.dev, 
+ linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-phy@lists.infradead.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>, freedreno@lists.freedesktop.org, 
+ Douglas Anderson <dianders@chromium.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20240404234345.1446300-1-swboyd@chromium.org>
+References: <20240404234345.1446300-1-swboyd@chromium.org>
+Subject: Re: [PATCH] phy: qcom: qmp-combo: Fix VCO div offset on v3
+Message-Id: <171239513422.352254.9763002024133782932.b4-ty@kernel.org>
+Date: Sat, 06 Apr 2024 14:48:54 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240405-dp-connector-type-cleanup-v2-1-0f47d5462ab9@quicinc.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,27 +64,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Apr 05, 2024 at 08:14:11PM -0700, Bjorn Andersson wrote:
-> Now that the connector_type is dynamically determined, the
-> connector_type of the struct msm_dp_desc is unused. Clean it up.
-> 
-> Remaining duplicate entries are squashed.
-> 
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-> ---
-> This cleans up after, and hence depends on,
-> https://lore.kernel.org/all/20240324-x1e80100-display-refactor-connector-v4-1-e0ebaea66a78@linaro.org/
-> ---
-> Changes in v2:
-> - Squashed now duplicate entries
-> - Link to v1: https://lore.kernel.org/r/20240328-dp-connector-type-cleanup-v1-1-9bf84c5a6082@quicinc.com
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 48 +++++++++++++------------------------
->  1 file changed, 17 insertions(+), 31 deletions(-)
-> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Thu, 04 Apr 2024 16:43:44 -0700, Stephen Boyd wrote:
+> Commit ec17373aebd0 ("phy: qcom: qmp-combo: extract common function to
+> setup clocks") changed the offset that is used to write to
+> DP_PHY_VCO_DIV from QSERDES_V3_DP_PHY_VCO_DIV to
+> QSERDES_V4_DP_PHY_VCO_DIV. Unfortunately, this offset is different
+> between v3 and v4 phys:
+> 
+>  #define QSERDES_V3_DP_PHY_VCO_DIV                 0x064
+>  #define QSERDES_V4_DP_PHY_VCO_DIV                 0x070
+> 
+> [...]
 
+Applied, thanks!
+
+[1/1] phy: qcom: qmp-combo: Fix VCO div offset on v3
+      commit: 5abed58a8bde6d349bde364a160510b5bb904d18
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+~Vinod
+
+
