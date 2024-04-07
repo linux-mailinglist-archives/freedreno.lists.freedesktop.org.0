@@ -2,70 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DFBB89AE35
-	for <lists+freedreno@lfdr.de>; Sun,  7 Apr 2024 05:16:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD00E89B2A3
+	for <lists+freedreno@lfdr.de>; Sun,  7 Apr 2024 17:11:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01CD810F736;
-	Sun,  7 Apr 2024 03:16:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6614810E095;
+	Sun,  7 Apr 2024 15:11:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="uEqIPZp+";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="uuqkIEnX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com
- [209.85.219.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 149A310F736
- for <freedreno@lists.freedesktop.org>; Sun,  7 Apr 2024 03:16:11 +0000 (UTC)
-Received: by mail-yb1-f175.google.com with SMTP id
- 3f1490d57ef6-dcc6fc978ddso2767867276.0
- for <freedreno@lists.freedesktop.org>; Sat, 06 Apr 2024 20:16:11 -0700 (PDT)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6578110E095
+ for <freedreno@lists.freedesktop.org>; Sun,  7 Apr 2024 15:11:50 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-a51c37a5025so103195666b.1
+ for <freedreno@lists.freedesktop.org>; Sun, 07 Apr 2024 08:11:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712459771; x=1713064571; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=KyaEbfdoDCNwuSOze6ojGddsE8fnax5sIgmrkbHgKcc=;
- b=uEqIPZp+IhV7M/W9gQ7hcjb9hKHJ3t7luIaJY1ZTml+kWWo/nGTrwrxl0YGDMWk91i
- X6tH+WC+EfbO1109q2YaykUBdjKNMQ3pRPam4AwGUAqO9YMzM9qMS+hXA1TZMBwYn1+n
- a9h13MsIGlbMU7OTp/XHi7DJjkJaHPGZJIKTywrHkknLlBtym4VM0J3ci8Bt7mjzIY1T
- 1iKMQOzydFIBcy7LYE9cTBo3xCibRljb95npylOET/eLai+9r+uPeuT7M1na/tEW+iFd
- ZYX/vY54Ks2BWk8mHf8xMFs9z2xGtm+IpcPqp+HhlKDsaF/cBV9n2aj0JiYDAYUVc0oU
- 1H3Q==
+ d=linaro.org; s=google; t=1712502708; x=1713107508; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=1L6tj3Ykhqe3bT0DzwbvYek6Lx7l4bP1RVMn9TnkTIM=;
+ b=uuqkIEnXTtWc3b8JC8xpLl1oT3pfpmRI9m+8Qc5tEsHhIYLzJu/A16kL5aRDjWwU+k
+ 9gDVB+bNiZL8g5ZLWwy5EgsOmy8KiGyILlJ2YKx81ANxgqbTHGj+Qk+5tx4+DNKf+sbu
+ wk7nkc5Hi/NEoxptVVPie//wakrayM2DUmdl6VlPj3HazTx4KFQMMqhpf0Sx9pB/0fdP
+ YRDPoxCmSjXZw9iyp/z1KyyAmU6TdV/d7gUM/gKWBke93DVQrWpjt8px+ewCd13usCVL
+ 9dkYwTlLI0j0jQRdtOpY2Qe6Po5C8+XZBGi98q87ggsTFAH+wE/j3mQhOT/elFZV4q4+
+ x4rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712459771; x=1713064571;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=KyaEbfdoDCNwuSOze6ojGddsE8fnax5sIgmrkbHgKcc=;
- b=nudS0LRaiHWplCUk9YuQnUULSRt4/2tIR+BwCgO9Kfq/6zwWm+0gzozqQBfsEcBqQN
- W3AZOQUOhg5SoqXR3uKgnHxHDT3Kka/fR5trZXxhHmWQ+Wz7lYx58jeFYFe4pyQM0axs
- 771ZyWsomCpslcWFaYTPyFE0XvgBgM3uQmS1l944wAC1XBAcfXWNIrtt9bTcNhPX0voO
- F+FMXqjwZzNNga1nNPOB2GboSHc65+uIkYNIBCiMrB4GkcLEOPAWaKI3fUynVi8Kbjb3
- X/q/tlEN/XvOg1gy0sqUQsopECJRZqvVxBlQBRHt51cCOmW0V3GlsUHw0/+AoK5dGKBt
- Akew==
+ d=1e100.net; s=20230601; t=1712502708; x=1713107508;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1L6tj3Ykhqe3bT0DzwbvYek6Lx7l4bP1RVMn9TnkTIM=;
+ b=fd+3IbtJAOk+oOdtGAIEDgL6ykk8Q3hhIwkIGHP4D6xjRsqmQqzyNzv/sp0KUOXNXj
+ VDVSTVJLOjyf/Mgs7f3HXvdVf6GIBjCtvOGy5OK+vdolBkFSQBPBTjNymxDXJ6g5SSmq
+ xH9+UQW7FQFc+1LBP3YqaCgkt9x6QuFtQKhkPAZXIYZgGrP6B8mIqsoHBpPKDIVcVaLZ
+ O6WxSaIUWDHIS4IqmpmAlPGl8LteuYxpREpIzbOSXjH52vF6PzE0C4dgQW4HIMa7iLCm
+ 2hjK3HirvcoCApkTnYCAUqUUb6JsqSlALIaD7tbZoMb6Zm+7563owogkVunuFs3xYbHC
+ xC8Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWnXItwUu8f9d24iTfuzqDw37CGHJmdUcIy8kKBU7HV1TUyxmiIOJ4S8wIGa2K/BrCwh/FMMI49Kpe8YknDLgE7kjQZjGWN6aPa5p71jXdI
-X-Gm-Message-State: AOJu0YxuSWFXCJLz6eTctinJKAv9mNRmw4Gb0f28TfvTHAi4qx5ouYgd
- A19t7qFcXATJWlGrvIpiSfpbSa+5idCIhS6+uNwdnfv6oJs8+mAAq2pOe67d3VAHwNt2I57g4E8
- lAnsqTZMI2/bDomcdkXmQeYpCm0elRNICC6QT5w==
-X-Google-Smtp-Source: AGHT+IH+PmozNQThVSZjtEMnoD6Jz0WWP785eEebvDO/ulh+E07Fn1TO8ukPI2gZFkRFvpkVy2TxisMYAEG3hUrn1Uo=
-X-Received: by 2002:a25:dc92:0:b0:dcc:6894:4ac0 with SMTP id
- y140-20020a25dc92000000b00dcc68944ac0mr3785748ybe.20.1712459770767; Sat, 06
- Apr 2024 20:16:10 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240330-dpu-fix-irqs-v1-1-39b8d4e4e918@linaro.org>
- <mxwrvnqth5f2vd4m55ryzqgyj7brykiqynzldelanxkuj2zny3@4pqi6p57c2q2>
-In-Reply-To: <mxwrvnqth5f2vd4m55ryzqgyj7brykiqynzldelanxkuj2zny3@4pqi6p57c2q2>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 7 Apr 2024 06:15:58 +0300
-Message-ID: <CAA8EJpqbzSc00T4exAYuh1QdifuimHD40uh0BCrd3SP9F5TQKQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: fix vblank IRQ handling for command panels
-To: Marijn Suijten <marijn.suijten@somainline.org>
+ AJvYcCVozWGv8bx/PAkGdoLcqqh74ISL+76aCPRbN8rDlxegpRY0f3ZttqChSlExByD972RDfLdMWscv+o1vUoVehOfqrl859a3x/ln+koJ6jicu
+X-Gm-Message-State: AOJu0YwoAtU+ztRRNK0caey9EEdzL+wk+GoGOspBmLfDADqm/kI3Wy3Q
+ Mjwn8bIMb9+3/RPfK0vztTR+zSqPMglaQgTpMBfVqWPLsMdtpC0KEyfOk8jQ5fE=
+X-Google-Smtp-Source: AGHT+IHElRvRYkTsvef4HJyWIpPMDFwQYWdafxiP3Xm2EkrU6lPRRRXxKLZTeoMyg+mwIL/wZIUWOQ==
+X-Received: by 2002:a17:907:3daa:b0:a51:d4fa:cf92 with SMTP id
+ he42-20020a1709073daa00b00a51d4facf92mr306861ejc.14.1712502707981; 
+ Sun, 07 Apr 2024 08:11:47 -0700 (PDT)
+Received: from linaro.org ([79.114.172.194]) by smtp.gmail.com with ESMTPSA id
+ dr2-20020a170907720200b00a4ea1fbb323sm3239743ejc.98.2024.04.07.08.11.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Apr 2024 08:11:47 -0700 (PDT)
+Date: Sun, 7 Apr 2024 18:11:46 +0300
+From: Abel Vesa <abel.vesa@linaro.org>
+To: Bjorn Andersson <quic_bjorande@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/msm/dp: Remove now unused connector_type from desc
+Message-ID: <ZhK3sijUdGBSCMVz@linaro.org>
+References: <20240405-dp-connector-type-cleanup-v2-1-0f47d5462ab9@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240405-dp-connector-type-cleanup-v2-1-0f47d5462ab9@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,183 +86,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 30 Mar 2024 at 18:49, Marijn Suijten
-<marijn.suijten@somainline.org> wrote:
->
-> On 2024-03-30 05:52:29, Dmitry Baryshkov wrote:
-> > In case of CMD DSI panels, the vblank IRQ can be used outside of
-> > irq_enable/irq_disable pair. This results in the following kind of
->
-> Can you clarify when exactly that is?  Is it via ops.control_vblank_irq in
-> dpu_encoder_toggle_vblank_for_crtc()?
+On 24-04-05 20:14:11, Bjorn Andersson wrote:
+> Now that the connector_type is dynamically determined, the
+> connector_type of the struct msm_dp_desc is unused. Clean it up.
+> 
+> Remaining duplicate entries are squashed.
+> 
+> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 
-Call trace:
- dpu_encoder_phys_cmd_control_vblank_irq+0x218/0x294
-  dpu_encoder_toggle_vblank_for_crtc+0x160/0x194
-  dpu_crtc_vblank+0xbc/0x228
-  dpu_kms_enable_vblank+0x18/0x24
-  vblank_ctrl_worker+0x34/0x6c
-  process_one_work+0x218/0x620
-  worker_thread+0x1ac/0x37c
-  kthread+0x114/0x118
-  ret_from_fork+0x10/0x20
+Reviewed-by: Abel Vesa <abel.vesa@linaro.org>
 
-The vblank_ctrl_work happens when the framework attempts to trigger
-the vblank on the CRTC.
-
->
-> > messages. Move assignment of IRQ indices to atomic_enable /
-> > atomic_disable callbacks.
-> >
-> > [dpu error]invalid IRQ=[134217727, 31]
-> > [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable true/0
-> > [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable false/0
->
-> You are right that such messages are common, both at random but also seemingly
-> around toggling the `ACTIVE` property on the CRTC:
->
->         [   45.878300] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_disable
->         [   45.909941] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_unprepare
->         [   46.093234] [drm:dpu_encoder_helper_wait_for_irq] *ERROR* encoder is disabled id=31, callback=dpu_encoder_phys_cmd_ctl_start_irq, IRQ=[134217727, 31]
->         [   46.130421] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_prepare
->         [   46.340457] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_enable
->         [   65.520323] [dpu error]invalid IRQ=[134217727, 31] irq_cb:dpu_encoder_phys_cmd_te_rd_ptr_irq
->         [   65.520463] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable true/0
->         [   65.630199] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable false/0
->         [  166.576465] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_disable
->         [  166.609674] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_unprepare
->         [  166.781967] [drm:dpu_encoder_helper_wait_for_irq] *ERROR* encoder is disabled id=31, callback=dpu_encoder_phys_cmd_ctl_start_irq, IRQ=[134217727, 31]
->         [  166.829805] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_prepare
->         [  167.040476] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_enable
->         [  337.449827] [dpu error]invalid IRQ=[134217727, 31] irq_cb:dpu_encoder_phys_cmd_te_rd_ptr_irq
->         [  337.450434] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable true/0
->         [  337.569526] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable false/0
->         [  354.980357] [dpu error]invalid IRQ=[134217727, 31] irq_cb:dpu_encoder_phys_cmd_te_rd_ptr_irq
->         [  354.980495] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable true/0
->         [  355.090460] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable false/0
->
-> Unfortunately with this patch, turning the CRTC off via ./modetest -M msm -a
-> -w 81:ACTIVE:0 immediately triggers a bunch of WARNs (note that the CRTC turns
-> on immediately again when the command returns, that's probably the framebuffer
-> console taking over again).  Running it a few times in succession this may or
-> may not happen, or reboot the phone (Xperia Griffin) entirely:
-
-I could not reproduce it here, on Pixel-3. I'd like to review vblank
-IRQs later. For now I think it is easier to revert d13f638c9b88
-("drm/msm/dpu: drop dpu_encoder_phys_ops.atomic_mode_set"). I'll send
-a patch.
-
->
->         [   23.423930] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_disable
->         [   23.461013] [dpu error]invalid IRQ=[134217727, 31]
->         [   23.461144] [dpu error]invalid IRQ=[134217727, 31]
->         [   23.461208] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable false/1
->         [   23.461340] [dpu error]invalid IRQ=[134217727, 31]
->         [   23.461406] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_unprepare
->         [   23.641721] [drm:dpu_encoder_helper_wait_for_irq] *ERROR* encoder is disabled id=31, callback=dpu_encoder_phys_cmd_ctl_start_irq, IRQ=[134217727, 31]
->         [   23.679938] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_prepare
->         [   23.900465] ------------[ cut here ]------------
->         [   23.900813] WARNING: CPU: 1 PID: 747 at drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:545 dpu_core_irq_register_callback+0x1b4/0x244
->         [   23.901450] Modules linked in:
->         [   23.901814] CPU: 1 PID: 747 Comm: modetest Tainted: G     U             6.9.0-rc1-next-20240328-SoMainline-02555-g27abbea53b6b #19
->         [   23.902402] Hardware name: Sony Xperia 1 (DT)
->         [   23.902674] pstate: 804000c5 (Nzcv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->         [   23.903133] pc : dpu_core_irq_register_callback+0x1b4/0x244
->         [   23.903455] lr : dpu_encoder_phys_cmd_irq_enable+0x30/0x8c
->         [   23.903880] sp : ffff800086833930
->         [   23.904123] x29: ffff800086833930 x28: 0000000000000001 x27: ffff0273834522d0
->         [   23.904604] x26: ffffd46ebdb5edc8 x25: ffffd46ebe0f1228 x24: ffff02738106b280
->         [   23.904973] x23: ffff027383452000 x22: ffffd46ebd086290 x21: 0000000000000000
->         [   23.905452] x20: ffff027382712080 x19: 0000000000000008 x18: ffff8000840550d0
->         [   23.905820] x17: 000000040044ffff x16: 005000f2b5503510 x15: 00000000000006ce
->         [   23.906300] x14: 0000000000000f00 x13: 0000000000000f00 x12: 0000000000000f00
->         [   23.906778] x11: 0000000000000040 x10: ffffd46ebe853258 x9 : ffffd46ebe853250
->         [   23.907146] x8 : ffffd46ebec30000 x7 : 0000000000000000 x6 : 0000000000000000
->         [   23.907621] x5 : 0000000000000000 x4 : ffff027384eac080 x3 : ffff027381a1a080
->         [   23.908099] x2 : 0000000000000001 x1 : ffff027384eac140 x0 : ffffd46ebd086290
->         [   23.908467] Call trace:
->         [   23.908688]  dpu_core_irq_register_callback+0x1b4/0x244
->         [   23.909113]  dpu_encoder_phys_cmd_irq_enable+0x30/0x8c
->         [   23.909417]  _dpu_encoder_irq_enable+0x58/0xa4
->         [   23.909814]  dpu_encoder_resource_control+0x1e8/0x498
->         [   23.910116]  dpu_encoder_virt_atomic_enable+0x9c/0x15c
->         [   23.910531]  drm_atomic_helper_commit_modeset_enables+0x180/0x26c
->         [   23.910871]  msm_atomic_commit_tail+0x1a4/0x510
->         [   23.911277]  commit_tail+0xa8/0x19c
->         [   23.911544]  drm_atomic_helper_commit+0x188/0x1a0
->         [   23.911842]  drm_atomic_commit+0xb4/0xf0
->         [   23.912226]  drm_client_modeset_commit_atomic+0x1fc/0x268
->         [   23.912540]  drm_client_modeset_commit_locked+0x60/0x178
->         [   23.912963]  drm_client_modeset_commit+0x30/0x5c
->         [   23.913256]  drm_fb_helper_lastclose+0x64/0xb0
->         [   23.913542]  msm_fbdev_client_restore+0x18/0x2c
->         [   23.913948]  drm_client_dev_restore+0x8c/0xec
->         [   23.914233]  drm_lastclose+0x68/0xac
->         [   23.914499]  drm_release+0x128/0x15c
->         [   23.914765]  __fput+0x7c/0x2cc
->         [   23.915017]  __fput_sync+0x54/0x64
->         [   23.915272]  __arm64_sys_close+0x3c/0x84
->         [   23.915661]  invoke_syscall+0x4c/0x11c
->         [   23.915932]  el0_svc_common.constprop.0+0x44/0xec
->         [   23.916230]  do_el0_svc+0x20/0x30
->         [   23.916600]  el0_svc+0x38/0xe4
->         [   23.916854]  el0t_64_sync_handler+0x128/0x134
->         [   23.917139]  el0t_64_sync+0x198/0x19c
->         [   23.917515] ---[ end trace 0000000000000000 ]---
->         [   23.918007] ------------[ cut here ]------------
->         [   23.918324] WARNING: CPU: 1 PID: 747 at drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:545 dpu_core_irq_register_callback+0x1b4/0x244
->         [   23.918720] Modules linked in:
->         [   23.918878] CPU: 1 PID: 747 Comm: modetest Tainted: G     U  W          6.9.0-rc1-next-20240328-SoMainline-02555-g27abbea53b6b #19
->         [   23.919248] Hardware name: Sony Xperia 1 (DT)
->         [   23.919424] pstate: 804000c5 (Nzcv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->         [   23.919725] pc : dpu_core_irq_register_callback+0x1b4/0x244
->         [   23.919934] lr : dpu_encoder_phys_cmd_irq_enable+0x78/0x8c
->         [   23.920214] sp : ffff800086833930
->         [   23.920373] x29: ffff800086833930 x28: 0000000000000001 x27: ffff0273834522d0
->         [   23.920686] x26: ffffd46ebdb5edc8 x25: ffffd46ebe0f1228 x24: ffff02738106b280
->         [   23.920922] x23: ffff027383452000 x22: ffffd46ebd086020 x21: 0000000000000000
->         [   23.921237] x20: ffff027382712080 x19: 0000000000000029 x18: ffff8000840550d0
->         [   23.921545] x17: 000000040044ffff x16: 005000f2b5503510 x15: 00000000000006ce
->         [   23.921780] x14: 0000000000000f00 x13: 0000000000000f00 x12: 0000000000000f00
->         [   23.922092] x11: 0000000000000040 x10: ffffd46ebe853258 x9 : ffffd46ebe853250
->         [   23.922405] x8 : ffffd46ebec30000 x7 : 0000000000000000 x6 : 0000000000000001
->         [   23.922640] x5 : ffffd46ebe0878d8 x4 : ffff027384eac080 x3 : ffff027381a1a080
->         [   23.922953] x2 : 0000000000000001 x1 : ffff027384eac458 x0 : ffffd46ebd086020
->         [   23.923266] Call trace:
->         [   23.923411]  dpu_core_irq_register_callback+0x1b4/0x244
->         [   23.923616]  dpu_encoder_phys_cmd_irq_enable+0x78/0x8c
->         [   23.923893]  _dpu_encoder_irq_enable+0x58/0xa4
->         [   23.924078]  dpu_encoder_resource_control+0x1e8/0x498
->         [   23.924273]  dpu_encoder_virt_atomic_enable+0x9c/0x15c
->         [   23.924547]  drm_atomic_helper_commit_modeset_enables+0x180/0x26c
->         [   23.924763]  msm_atomic_commit_tail+0x1a4/0x510
->         [   23.925030]  commit_tail+0xa8/0x19c
->         [   23.925205]  drm_atomic_helper_commit+0x188/0x1a0
->         [   23.925477]  drm_atomic_commit+0xb4/0xf0
->         [   23.925653]  drm_client_modeset_commit_atomic+0x1fc/0x268
->         [   23.925856]  drm_client_modeset_commit_locked+0x60/0x178
->         [   23.926136]  drm_client_modeset_commit+0x30/0x5c
->         [   23.926325]  drm_fb_helper_lastclose+0x64/0xb0
->         [   23.926585]  msm_fbdev_client_restore+0x18/0x2c
->         [   23.926771]  drm_client_dev_restore+0x8c/0xec
->         [   23.926956]  drm_lastclose+0x68/0xac
->         [   23.927206]  drm_release+0x128/0x15c
->         [   23.927379]  __fput+0x7c/0x2cc
->         [   23.927541]  __fput_sync+0x54/0x64
->         [   23.927785]  __arm64_sys_close+0x3c/0x84
->         [   23.927965]  invoke_syscall+0x4c/0x11c
->         [   23.928141]  el0_svc_common.constprop.0+0x44/0xec
->         [   23.928411]  do_el0_svc+0x20/0x30
->         [   23.928582]  el0_svc+0x38/0xe4
->         [   23.928746]  el0t_64_sync_handler+0x128/0x134
->         [   23.929008]  el0t_64_sync+0x198/0x19c
->         [   23.929180] ---[ end trace 0000000000000000 ]---
->         [   23.929429] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_enable
->
-> - Marijn
-
-
-
--- 
-With best wishes
-Dmitry
+> ---
+> This cleans up after, and hence depends on,
+> https://lore.kernel.org/all/20240324-x1e80100-display-refactor-connector-v4-1-e0ebaea66a78@linaro.org/
+> ---
+> Changes in v2:
+> - Squashed now duplicate entries
+> - Link to v1: https://lore.kernel.org/r/20240328-dp-connector-type-cleanup-v1-1-9bf84c5a6082@quicinc.com
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 48 +++++++++++++------------------------
+>  1 file changed, 17 insertions(+), 31 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 521cba76d2a0..12c01625c551 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -119,55 +119,41 @@ struct dp_display_private {
+>  struct msm_dp_desc {
+>  	phys_addr_t io_start;
+>  	unsigned int id;
+> -	unsigned int connector_type;
+>  	bool wide_bus_supported;
+>  };
+>  
+>  static const struct msm_dp_desc sc7180_dp_descs[] = {
+> -	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> +	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0 },
+>  	{}
+>  };
+>  
+>  static const struct msm_dp_desc sc7280_dp_descs[] = {
+> -	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
+> -	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_1, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_supported = true },
+> +	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
+> +	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
+>  	{}
+>  };
+>  
+>  static const struct msm_dp_desc sc8180x_dp_descs[] = {
+> -	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> -	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> -	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .connector_type = DRM_MODE_CONNECTOR_eDP },
+> +	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0 },
+> +	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1 },
+> +	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2 },
+>  	{}
+>  };
+>  
+>  static const struct msm_dp_desc sc8280xp_dp_descs[] = {
+> -	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
+> -	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
+> -	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
+> -	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_3, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
+> -	{ .io_start = 0x22090000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
+> -	{ .io_start = 0x22098000, .id = MSM_DP_CONTROLLER_1, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
+> -	{ .io_start = 0x2209a000, .id = MSM_DP_CONTROLLER_2, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
+> -	{ .io_start = 0x220a0000, .id = MSM_DP_CONTROLLER_3, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
+> -	{}
+> -};
+> -
+> -static const struct msm_dp_desc sc8280xp_edp_descs[] = {
+> -	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_supported = true },
+> -	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_3, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_supported = true },
+> -	{ .io_start = 0x2209a000, .id = MSM_DP_CONTROLLER_2, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_supported = true },
+> -	{ .io_start = 0x220a0000, .id = MSM_DP_CONTROLLER_3, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_supported = true },
+> -	{}
+> -};
+> -
+> -static const struct msm_dp_desc sm8350_dp_descs[] = {
+> -	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> +	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
+> +	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
+> +	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
+> +	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_3, .wide_bus_supported = true },
+> +	{ .io_start = 0x22090000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
+> +	{ .io_start = 0x22098000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
+> +	{ .io_start = 0x2209a000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
+> +	{ .io_start = 0x220a0000, .id = MSM_DP_CONTROLLER_3, .wide_bus_supported = true },
+>  	{}
+>  };
+>  
+>  static const struct msm_dp_desc sm8650_dp_descs[] = {
+> -	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> +	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0 },
+>  	{}
+>  };
+>  
+> @@ -186,9 +172,9 @@ static const struct of_device_id dp_dt_match[] = {
+>  	{ .compatible = "qcom,sc8180x-dp", .data = &sc8180x_dp_descs },
+>  	{ .compatible = "qcom,sc8180x-edp", .data = &sc8180x_dp_descs },
+>  	{ .compatible = "qcom,sc8280xp-dp", .data = &sc8280xp_dp_descs },
+> -	{ .compatible = "qcom,sc8280xp-edp", .data = &sc8280xp_edp_descs },
+> +	{ .compatible = "qcom,sc8280xp-edp", .data = &sc8280xp_dp_descs },
+>  	{ .compatible = "qcom,sdm845-dp", .data = &sc7180_dp_descs },
+> -	{ .compatible = "qcom,sm8350-dp", .data = &sm8350_dp_descs },
+> +	{ .compatible = "qcom,sm8350-dp", .data = &sc7180_dp_descs },
+>  	{ .compatible = "qcom,sm8650-dp", .data = &sm8650_dp_descs },
+>  	{ .compatible = "qcom,x1e80100-dp", .data = &x1e80100_dp_descs },
+>  	{}
+> 
+> ---
+> base-commit: a874b50929e2596deeeeaf21d09f1561a7c59537
+> change-id: 20240328-dp-connector-type-cleanup-af6501e374b3
+> 
+> Best regards,
+> -- 
+> Bjorn Andersson <quic_bjorande@quicinc.com>
+> 
