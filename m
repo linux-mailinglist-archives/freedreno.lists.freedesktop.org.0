@@ -2,75 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD00E89B2A3
-	for <lists+freedreno@lfdr.de>; Sun,  7 Apr 2024 17:11:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46AA589B398
+	for <lists+freedreno@lfdr.de>; Sun,  7 Apr 2024 20:48:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6614810E095;
-	Sun,  7 Apr 2024 15:11:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1F3C10F122;
+	Sun,  7 Apr 2024 18:48:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="uuqkIEnX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pyl6UNvI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6578110E095
- for <freedreno@lists.freedesktop.org>; Sun,  7 Apr 2024 15:11:50 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-a51c37a5025so103195666b.1
- for <freedreno@lists.freedesktop.org>; Sun, 07 Apr 2024 08:11:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712502708; x=1713107508; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=1L6tj3Ykhqe3bT0DzwbvYek6Lx7l4bP1RVMn9TnkTIM=;
- b=uuqkIEnXTtWc3b8JC8xpLl1oT3pfpmRI9m+8Qc5tEsHhIYLzJu/A16kL5aRDjWwU+k
- 9gDVB+bNiZL8g5ZLWwy5EgsOmy8KiGyILlJ2YKx81ANxgqbTHGj+Qk+5tx4+DNKf+sbu
- wk7nkc5Hi/NEoxptVVPie//wakrayM2DUmdl6VlPj3HazTx4KFQMMqhpf0Sx9pB/0fdP
- YRDPoxCmSjXZw9iyp/z1KyyAmU6TdV/d7gUM/gKWBke93DVQrWpjt8px+ewCd13usCVL
- 9dkYwTlLI0j0jQRdtOpY2Qe6Po5C8+XZBGi98q87ggsTFAH+wE/j3mQhOT/elFZV4q4+
- x4rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712502708; x=1713107508;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1L6tj3Ykhqe3bT0DzwbvYek6Lx7l4bP1RVMn9TnkTIM=;
- b=fd+3IbtJAOk+oOdtGAIEDgL6ykk8Q3hhIwkIGHP4D6xjRsqmQqzyNzv/sp0KUOXNXj
- VDVSTVJLOjyf/Mgs7f3HXvdVf6GIBjCtvOGy5OK+vdolBkFSQBPBTjNymxDXJ6g5SSmq
- xH9+UQW7FQFc+1LBP3YqaCgkt9x6QuFtQKhkPAZXIYZgGrP6B8mIqsoHBpPKDIVcVaLZ
- O6WxSaIUWDHIS4IqmpmAlPGl8LteuYxpREpIzbOSXjH52vF6PzE0C4dgQW4HIMa7iLCm
- 2hjK3HirvcoCApkTnYCAUqUUb6JsqSlALIaD7tbZoMb6Zm+7563owogkVunuFs3xYbHC
- xC8Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVozWGv8bx/PAkGdoLcqqh74ISL+76aCPRbN8rDlxegpRY0f3ZttqChSlExByD972RDfLdMWscv+o1vUoVehOfqrl859a3x/ln+koJ6jicu
-X-Gm-Message-State: AOJu0YwoAtU+ztRRNK0caey9EEdzL+wk+GoGOspBmLfDADqm/kI3Wy3Q
- Mjwn8bIMb9+3/RPfK0vztTR+zSqPMglaQgTpMBfVqWPLsMdtpC0KEyfOk8jQ5fE=
-X-Google-Smtp-Source: AGHT+IHElRvRYkTsvef4HJyWIpPMDFwQYWdafxiP3Xm2EkrU6lPRRRXxKLZTeoMyg+mwIL/wZIUWOQ==
-X-Received: by 2002:a17:907:3daa:b0:a51:d4fa:cf92 with SMTP id
- he42-20020a1709073daa00b00a51d4facf92mr306861ejc.14.1712502707981; 
- Sun, 07 Apr 2024 08:11:47 -0700 (PDT)
-Received: from linaro.org ([79.114.172.194]) by smtp.gmail.com with ESMTPSA id
- dr2-20020a170907720200b00a4ea1fbb323sm3239743ejc.98.2024.04.07.08.11.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Apr 2024 08:11:47 -0700 (PDT)
-Date: Sun, 7 Apr 2024 18:11:46 +0300
-From: Abel Vesa <abel.vesa@linaro.org>
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAD1F10F122;
+ Sun,  7 Apr 2024 18:48:38 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id BDEED60C3B;
+ Sun,  7 Apr 2024 18:48:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E9CCC433C7;
+ Sun,  7 Apr 2024 18:48:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1712515717;
+ bh=YGFL1rkFv9aHtvgb46NeWxJpN7qYol8+cNvtNhFDkCk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Pyl6UNvIbYI3c4IpK/hoKJTP/kgWHmMsvZ1wbHIcTFpvfe6hQNnVhV4PCE4mh14W1
+ YebkZ3hZy4p7pIFeRykLxhZ3wYBVEv1OaFf+Jb8fmfmz6ItLA/WBTJ/RXPDrZYiO8U
+ UdKWyXxVqBwO2N9t65LfWwJFZc82BoklTIb0/ZCD6SVztRkuSLBtIGZzXRKisPeoq9
+ wVOh4Bx8iUnXk27FE0DwVLBBw4Txb0bRlxFuadNJhX43ppfumwtWATCxEzmL+Mw8Kt
+ 7wLrrPBVCSofKJhXXSpqYTUaZ2Ut3c8vTHOiLWabRZZJlhd8BVNzb6Qrq2GpvQFKit
+ aJW8RejIGGZnA==
+Date: Sun, 7 Apr 2024 13:48:34 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/msm/dp: Remove now unused connector_type from desc
-Message-ID: <ZhK3sijUdGBSCMVz@linaro.org>
-References: <20240405-dp-connector-type-cleanup-v2-1-0f47d5462ab9@quicinc.com>
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ dri-devel@lists.freedesktop.org, seanpaul@chromium.org, swboyd@chromium.org, 
+ quic_jesszhan@quicinc.com, quic_bjorande@quicinc.com, johan@kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] drm/msm/dp: call dp_hpd_plug_handle()/unplug_handle()
+ directly for external HPD
+Message-ID: <ale6wbwzkfagcg2q6glb4vsxu3pthhkk3tquv2ixlatbdryqvh@xscsq2h6emho>
+References: <20240406031548.25829-1-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240405-dp-connector-type-cleanup-v2-1-0f47d5462ab9@quicinc.com>
+In-Reply-To: <20240406031548.25829-1-quic_abhinavk@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,120 +64,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24-04-05 20:14:11, Bjorn Andersson wrote:
-> Now that the connector_type is dynamically determined, the
-> connector_type of the struct msm_dp_desc is unused. Clean it up.
-> 
-> Remaining duplicate entries are squashed.
-> 
-> Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-
-Reviewed-by: Abel Vesa <abel.vesa@linaro.org>
-
-> ---
-> This cleans up after, and hence depends on,
-> https://lore.kernel.org/all/20240324-x1e80100-display-refactor-connector-v4-1-e0ebaea66a78@linaro.org/
-> ---
-> Changes in v2:
-> - Squashed now duplicate entries
-> - Link to v1: https://lore.kernel.org/r/20240328-dp-connector-type-cleanup-v1-1-9bf84c5a6082@quicinc.com
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 48 +++++++++++++------------------------
->  1 file changed, 17 insertions(+), 31 deletions(-)
-> 
+On Fri, Apr 05, 2024 at 08:15:47PM -0700, Abhinav Kumar wrote:
+> From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+[..]
 > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 521cba76d2a0..12c01625c551 100644
+> index d80f89581760..bfb6dfff27e8 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -119,55 +119,41 @@ struct dp_display_private {
->  struct msm_dp_desc {
->  	phys_addr_t io_start;
->  	unsigned int id;
-> -	unsigned int connector_type;
->  	bool wide_bus_supported;
->  };
+> @@ -1665,7 +1665,7 @@ void dp_bridge_hpd_notify(struct drm_bridge *bridge,
+>  		return;
 >  
->  static const struct msm_dp_desc sc7180_dp_descs[] = {
-> -	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> +	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0 },
->  	{}
->  };
->  
->  static const struct msm_dp_desc sc7280_dp_descs[] = {
-> -	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
-> -	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_1, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_supported = true },
-> +	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
-> +	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
->  	{}
->  };
->  
->  static const struct msm_dp_desc sc8180x_dp_descs[] = {
-> -	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> -	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> -	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .connector_type = DRM_MODE_CONNECTOR_eDP },
-> +	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0 },
-> +	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1 },
-> +	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2 },
->  	{}
->  };
->  
->  static const struct msm_dp_desc sc8280xp_dp_descs[] = {
-> -	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
-> -	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
-> -	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
-> -	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_3, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
-> -	{ .io_start = 0x22090000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
-> -	{ .io_start = 0x22098000, .id = MSM_DP_CONTROLLER_1, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
-> -	{ .io_start = 0x2209a000, .id = MSM_DP_CONTROLLER_2, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
-> -	{ .io_start = 0x220a0000, .id = MSM_DP_CONTROLLER_3, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_supported = true },
-> -	{}
-> -};
-> -
-> -static const struct msm_dp_desc sc8280xp_edp_descs[] = {
-> -	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_supported = true },
-> -	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_3, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_supported = true },
-> -	{ .io_start = 0x2209a000, .id = MSM_DP_CONTROLLER_2, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_supported = true },
-> -	{ .io_start = 0x220a0000, .id = MSM_DP_CONTROLLER_3, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_supported = true },
-> -	{}
-> -};
-> -
-> -static const struct msm_dp_desc sm8350_dp_descs[] = {
-> -	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> +	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
-> +	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
-> +	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
-> +	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_3, .wide_bus_supported = true },
-> +	{ .io_start = 0x22090000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
-> +	{ .io_start = 0x22098000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
-> +	{ .io_start = 0x2209a000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
-> +	{ .io_start = 0x220a0000, .id = MSM_DP_CONTROLLER_3, .wide_bus_supported = true },
->  	{}
->  };
->  
->  static const struct msm_dp_desc sm8650_dp_descs[] = {
-> -	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> +	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0 },
->  	{}
->  };
->  
-> @@ -186,9 +172,9 @@ static const struct of_device_id dp_dt_match[] = {
->  	{ .compatible = "qcom,sc8180x-dp", .data = &sc8180x_dp_descs },
->  	{ .compatible = "qcom,sc8180x-edp", .data = &sc8180x_dp_descs },
->  	{ .compatible = "qcom,sc8280xp-dp", .data = &sc8280xp_dp_descs },
-> -	{ .compatible = "qcom,sc8280xp-edp", .data = &sc8280xp_edp_descs },
-> +	{ .compatible = "qcom,sc8280xp-edp", .data = &sc8280xp_dp_descs },
->  	{ .compatible = "qcom,sdm845-dp", .data = &sc7180_dp_descs },
-> -	{ .compatible = "qcom,sm8350-dp", .data = &sm8350_dp_descs },
-> +	{ .compatible = "qcom,sm8350-dp", .data = &sc7180_dp_descs },
->  	{ .compatible = "qcom,sm8650-dp", .data = &sm8650_dp_descs },
->  	{ .compatible = "qcom,x1e80100-dp", .data = &x1e80100_dp_descs },
->  	{}
-> 
-> ---
-> base-commit: a874b50929e2596deeeeaf21d09f1561a7c59537
-> change-id: 20240328-dp-connector-type-cleanup-af6501e374b3
-> 
-> Best regards,
+>  	if (!dp_display->link_ready && status == connector_status_connected)
+> -		dp_add_event(dp, EV_HPD_PLUG_INT, 0, 0);
+> +		dp_hpd_plug_handle(dp, 0);
+
+If I read the code correctly, and we get an external connect event
+inbetween a previous disconnect and the related disable call, this
+should result in a PLUG_INT being injected into the queue still.
+
+Will that not cause the same problem?
+
+Regards,
+Bjorn
+
+>  	else if (dp_display->link_ready && status == connector_status_disconnected)
+> -		dp_add_event(dp, EV_HPD_UNPLUG_INT, 0, 0);
+> +		dp_hpd_unplug_handle(dp, 0);
+>  }
 > -- 
-> Bjorn Andersson <quic_bjorande@quicinc.com>
+> 2.43.2
 > 
