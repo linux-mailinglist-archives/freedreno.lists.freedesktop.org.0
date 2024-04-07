@@ -2,71 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A05989AA5F
-	for <lists+freedreno@lfdr.de>; Sat,  6 Apr 2024 12:43:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E60F89ADF6
+	for <lists+freedreno@lfdr.de>; Sun,  7 Apr 2024 04:04:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 579C010ECAE;
-	Sat,  6 Apr 2024 10:43:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F61C10F672;
+	Sun,  7 Apr 2024 02:04:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m3POpngX";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="kjS0hESS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0574510EA01;
- Sat,  6 Apr 2024 10:43:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712400216; x=1743936216;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=Tm6UWiTLvuOtjlROTNsk00qGzT5cJ18ladKJb9+pq98=;
- b=m3POpngXbZTNm+06/6vRyjKB0oiWslDGTjS5vm+QiqGKTv7ISOzuNnEa
- 7cwITpI5EMXOFnk+Np9hXglMt7V8DrznEQjDgLcJZQgXV5jILyAI70CvH
- fVyeyCyKke7zza3wLWiiNXwAEHDGeqmj5ye3EgjYhHub3BpW692FXtE7z
- E3+MiAfJtL7dKFUZMFDMmr5j9Mh0Za/KGS/pCzigIpU/7TaIrxYl9KgEm
- kOBrbSrw44c+bj9H/SLcQ+rhLtRxSXe40WytKLvgkwaP56Ml9lvl6FBg4
- vX4TE8Bm3ahpVdvhKf/m1lrot9KKHjTO/FbZv/gkm2ky23rirsZ3hHlah w==;
-X-CSE-ConnectionGUID: V861EW6WTaG4cMLuBBC68Q==
-X-CSE-MsgGUID: QGk386kpTtGAjCheNR0vSA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11035"; a="7587512"
-X-IronPort-AV: E=Sophos;i="6.07,183,1708416000"; 
-   d="scan'208";a="7587512"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2024 03:43:35 -0700
-X-CSE-ConnectionGUID: W9ti95udRzCOBx4nQii9Ow==
-X-CSE-MsgGUID: aGMwCivbQ5iG+39nOsS2Tg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,183,1708416000"; d="scan'208";a="24133297"
-Received: from lkp-server01.sh.intel.com (HELO e61807b1d151) ([10.239.97.150])
- by orviesa004.jf.intel.com with ESMTP; 06 Apr 2024 03:43:30 -0700
-Received: from kbuild by e61807b1d151 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rt3WC-0003OG-0n;
- Sat, 06 Apr 2024 10:43:28 +0000
-Date: Sat, 6 Apr 2024 18:42:56 +0800
-From: kernel test robot <lkp@intel.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-Subject: Re: [PATCH 4/6] drm/msm/adreno: Implement SMEM-based speed bin
-Message-ID: <202404061841.njUovDV7-lkp@intel.com>
-References: <20240405-topic-smem_speedbin-v1-4-ce2b864251b1@linaro.org>
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DB7310F673
+ for <freedreno@lists.freedesktop.org>; Sun,  7 Apr 2024 02:04:00 +0000 (UTC)
+Received: by mail-yb1-f176.google.com with SMTP id
+ 3f1490d57ef6-dccb1421bdeso3367173276.1
+ for <freedreno@lists.freedesktop.org>; Sat, 06 Apr 2024 19:04:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1712455439; x=1713060239; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=/EZBl0kCTgMxcq/jZN2+jK2LUFglvi7j7hmZF1Wp3+U=;
+ b=kjS0hESSUrIq01fzvsYvgpVpvY/hUHcyGYSCrgnatx1wZrCp53XgspD9ofVekGl/nU
+ ShSCCYTV3H/mNarvBOXvbiQHsSO+HQ2vA5muZh0TzHd39ESnXkgnd70ofVF0LNwJqL6S
+ 6VjnPfiazwP4qQMZVzCGfs4vwCe9KeDjUy2rvXyYxefRW2b+JdqR+Kv7hoIbnXrlBLfO
+ PRzVB6J0qrxc12+ZW9OoU4mQ4LPRwKF7xfSSvF9dWopLrzFHOSkHr7tSaQcT1gGLvEO8
+ 1Gypen9Z9rmL3j5JiiosjGAm4AHjeaeuCsKSMoaFCMc+DhyxNL+01iI8syDTHxyTTjRF
+ 0lTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712455439; x=1713060239;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/EZBl0kCTgMxcq/jZN2+jK2LUFglvi7j7hmZF1Wp3+U=;
+ b=ah+EPUQwjG98yHCJkjlFcYBRyoNv449LTR5ob+1UFn7ov2Nw4VTvoAa+YBgBLudmEr
+ BuEAXRZmfXViKgU1xuSKdfeSkR+brrPWyxR/opdct2M3UciAUDDe+ewiFClicr3PMsna
+ RGjXalV1ToTOFCpmvQqYSWsr2DUi8tcewYOf5ceAzk/BAnZlHfuYHaCCdLF3onQA+fJO
+ Bjj5cXlnQhoTvcdw93dPbFuRUPNluWfvWp/3AzKQ2sOjowrchAXgaSTkVWDGLCPlA5z+
+ KearnMbLOdAiocGCZxj6nv8Rj1MZvYk+T2JQT8+GYc/HImU4r0t/t7aT9ZygY0MF2UKU
+ huVQ==
+X-Gm-Message-State: AOJu0Yyi8vxG0cU8nTgWmcRNdhCVRdpzMjPeOMDoktbLuCD6Nmcc0rT6
+ oACGGFX2i9Qrk4EoXg5ju6EvXMVeoW+bmG3M1N1+pKTabfFVJTB7HUtp7noI+/8I+DrmV+qnyrk
+ qeCsvvEj4wbKKK3EEIs4gYSat33YrYO9llrB3LQ==
+X-Google-Smtp-Source: AGHT+IESVmqrBCQSNOIT/MkWy80FprAX2aIJsvoJBlMs+XmRvzK7dLUtQxc4/cWFcP0mJPU8jaki6SnYPrG6VITHuTM=
+X-Received: by 2002:a25:a282:0:b0:dcd:6722:c728 with SMTP id
+ c2-20020a25a282000000b00dcd6722c728mr3984209ybi.14.1712455439287; Sat, 06 Apr
+ 2024 19:03:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240405-topic-smem_speedbin-v1-4-ce2b864251b1@linaro.org>
+References: <20240406031548.25829-1-quic_abhinavk@quicinc.com>
+In-Reply-To: <20240406031548.25829-1-quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sun, 7 Apr 2024 05:03:48 +0300
+Message-ID: <CAA8EJpo5=t7JUDmq9cbzBgk+MVmwUC=QD3XTtiVY+F9kPyyLwQ@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/msm/dp: call dp_hpd_plug_handle()/unplug_handle()
+ directly for external HPD
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ dri-devel@lists.freedesktop.org, seanpaul@chromium.org, swboyd@chromium.org, 
+ quic_jesszhan@quicinc.com, quic_bjorande@quicinc.com, johan@kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,72 +81,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Konrad,
+On Sat, 6 Apr 2024 at 06:16, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+> From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>
+> For HPD events coming from external modules using drm_bridge_hpd_notify(),
+> the sequence of calls leading to dp_bridge_hpd_notify() is like below:
+>
+> dp_bridge_hpd_notify+0x18/0x70 [msm]
+> drm_bridge_connector_detect+0x60/0xe8 [drm_kms_helper]
+> drm_helper_probe_detect+0x94/0xc0 [drm_kms_helper]
+> drm_helper_probe_single_connector_modes+0x43c/0x53c [drm_kms_helper]
+> drm_client_modeset_probe+0x240/0x1114 [drm]
+> drm_fb_helper_hotplug_event.part.26+0x9c/0xe8 [drm_kms_helper]
+> drm_fb_helper_hotplug_event+0x24/0x38 [drm_kms_helper]
+> msm_fbdev_client_hotplug+0x24/0xd4 [msm]
+> drm_client_dev_hotplug+0xd8/0x148 [drm]
+> drm_kms_helper_connector_hotplug_event+0x30/0x3c [drm_kms_helper]
+> drm_bridge_connector_handle_hpd+0x84/0x94 [drm_kms_helper]
+> drm_bridge_connector_hpd_cb+0xc/0x14 [drm_kms_helper]
+> drm_bridge_hpd_notify+0x38/0x50 [drm]
+> drm_aux_hpd_bridge_notify+0x14/0x20 [aux_hpd_bridge]
+> pmic_glink_altmode_worker+0xec/0x27c [pmic_glink_altmode]
+> process_scheduled_works+0x17c/0x2cc
+> worker_thread+0x2ac/0x2d0
+> kthread+0xfc/0x120
+>
+> There are three notifications delivered to DP driver for each notification event.
+>
+> 1) From the drm_aux_hpd_bridge_notify() itself as shown above
+>
+> 2) From output_poll_execute() thread which arises due to
+> drm_helper_probe_single_connector_modes() call of the above stacktrace
+> as shown in more detail here.
+>
+> dp_bridge_hpd_notify+0x18/0x70 [msm]
+> drm_bridge_connector_detect+0x60/0xe8 [drm_kms_helper]
+> drm_helper_probe_detect+0x94/0xc0 [drm_kms_helper]
+> drm_helper_probe_single_connector_modes+0x43c/0x53c [drm_kms_helper]
+> drm_client_modeset_probe+0x240/0x1114 [drm]
+> drm_fb_helper_hotplug_event.part.26+0x9c/0xe8 [drm_kms_helper]
+> drm_fb_helper_hotplug_event+0x24/0x38 [drm_kms_helper]
+> msm_fbdev_client_hotplug+0x24/0xd4 [msm]
+> drm_client_dev_hotplug+0xd8/0x148 [drm]
+> drm_kms_helper_hotplug_event+0x30/0x3c [drm_kms_helper]
+> output_poll_execute+0xe0/0x210 [drm_kms_helper]
+>
+> 3) From the DP driver as the dp_bridge_hpd_notify() callback today triggers
+> the hpd_event_thread for connect and disconnect events respectively via below stack
+>
+> dp_bridge_hpd_notify+0x18/0x70 [msm]
+> drm_bridge_connector_detect+0x60/0xe8 [drm_kms_helper]
+> drm_helper_probe_detect_ctx+0x98/0x110 [drm_kms_helper]
+> check_connector_changed+0x4c/0x20c [drm_kms_helper]
+> drm_helper_hpd_irq_event+0x98/0x120 [drm_kms_helper]
+> hpd_event_thread+0x478/0x5bc [msm]
+>
+> dp_bridge_hpd_notify() delivered from output_poll_execute() thread
+> returns the incorrect HPD status as the MSM DP driver returns the value
+> of link_ready and not the HPD status currently in the .detect() callback.
+>
+> And because the HPD event thread has not run yet, this results in two complementary
+> events.
+>
+> To address this, fix dp_bridge_hpd_notify() to call dp_hpd_plug_handle/unplug_handle()
+> directly to return consistent values for the above scenarios.
+>
+> changes in v3:
+>         - Fix the commit message as per submitting guidelines.
+>         - remove extra line added
+>
+> changes in v2:
+>         - Fix the commit message to explain the scenario
+>         - Fix the subject a little as well
+>
+> Fixes: 542b37efc20e ("drm/msm/dp: Implement hpd_notify()")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on 2b3d5988ae2cb5cd945ddbc653f0a71706231fdd]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Konrad-Dybcio/soc-qcom-Move-some-socinfo-defines-to-the-header-expand-them/20240405-164231
-base:   2b3d5988ae2cb5cd945ddbc653f0a71706231fdd
-patch link:    https://lore.kernel.org/r/20240405-topic-smem_speedbin-v1-4-ce2b864251b1%40linaro.org
-patch subject: [PATCH 4/6] drm/msm/adreno: Implement SMEM-based speed bin
-config: i386-buildonly-randconfig-003-20240406 (https://download.01.org/0day-ci/archive/20240406/202404061841.njUovDV7-lkp@intel.com/config)
-compiler: gcc-7 (Ubuntu 7.5.0-6ubuntu2) 7.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240406/202404061841.njUovDV7-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202404061841.njUovDV7-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/gpu/drm/msm/adreno/adreno_gpu.c: In function 'adreno_read_speedbin':
->> drivers/gpu/drm/msm/adreno/adreno_gpu.c:1090:14: error: implicit declaration of function 'FIELD_PREP'; did you mean 'NEED_PGE'? [-Werror=implicit-function-declaration]
-     *speedbin = FIELD_PREP(ADRENO_SKU_ID_PCODE, pcode) |
-                 ^~~~~~~~~~
-                 NEED_PGE
-   cc1: some warnings being treated as errors
-
-
-vim +1090 drivers/gpu/drm/msm/adreno/adreno_gpu.c
-
-  1062	
-  1063	int adreno_read_speedbin(struct adreno_gpu *adreno_gpu,
-  1064				 struct device *dev, u32 *speedbin)
-  1065	{
-  1066		u32 fcode, pcode;
-  1067		int ret;
-  1068	
-  1069		/* Try reading the speedbin via a nvmem cell first */
-  1070		ret = nvmem_cell_read_variable_le_u32(dev, "speed_bin", speedbin);
-  1071		if (!ret && ret != -EINVAL)
-  1072			return ret;
-  1073	
-  1074		ret = qcom_smem_get_feature_code(&fcode);
-  1075		if (ret) {
-  1076			dev_err(dev, "Couldn't get feature code from SMEM!\n");
-  1077			return ret;
-  1078		}
-  1079	
-  1080		ret = qcom_smem_get_product_code(&pcode);
-  1081		if (ret) {
-  1082			dev_err(dev, "Couldn't get product code from SMEM!\n");
-  1083			return ret;
-  1084		}
-  1085	
-  1086		/* Don't consider fcode for external feature codes */
-  1087		if (fcode <= SOCINFO_FC_EXT_RESERVE)
-  1088			fcode = SOCINFO_FC_UNKNOWN;
-  1089	
-> 1090		*speedbin = FIELD_PREP(ADRENO_SKU_ID_PCODE, pcode) |
-  1091			    FIELD_PREP(ADRENO_SKU_ID_FCODE, fcode);
-  1092	
-  1093		return ret;
-  1094	}
-  1095	
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+With best wishes
+Dmitry
