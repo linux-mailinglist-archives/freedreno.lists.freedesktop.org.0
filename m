@@ -2,46 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B420189C99B
-	for <lists+freedreno@lfdr.de>; Mon,  8 Apr 2024 18:34:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7437289CA03
+	for <lists+freedreno@lfdr.de>; Mon,  8 Apr 2024 18:45:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47C54112786;
-	Mon,  8 Apr 2024 16:34:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4958D1127E0;
+	Mon,  8 Apr 2024 16:45:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36357112787
- for <freedreno@lists.freedesktop.org>; Mon,  8 Apr 2024 16:34:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFDD41127E0
+ for <freedreno@lists.freedesktop.org>; Mon,  8 Apr 2024 16:45:09 +0000 (UTC)
 Received: from SoMainline.org
  (2a02-a420-6-f162-164f-8aff-fee4-5930.mobile6.kpn.net
  [IPv6:2a02:a420:6:f162:164f:8aff:fee4:5930])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
  server-digest SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 03B744042A;
- Mon,  8 Apr 2024 18:34:21 +0200 (CEST)
-Date: Mon, 8 Apr 2024 18:34:20 +0200
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 336964057F;
+ Mon,  8 Apr 2024 18:45:07 +0200 (CEST)
+Date: Mon, 8 Apr 2024 18:45:05 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
 To: Jun Nie <jun.nie@linaro.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, 
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>, 
  Daniel Vetter <daniel@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
  Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 5/6] drm/display: Add slice_per_pkt for dsc
-Message-ID: <b2vdqzx3g7s4ihn6i3nkmao6m4wgpd4ivw3rcbsw6qzmby7wub@trq3c23ezt76>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jonathan Marek <jonathan@marek.ca>
+Subject: Re: [PATCH v3 3/6] drm/msm/dsi: set VIDEO_COMPRESSION_MODE_CTRL_WC
+ (fix video mode DSC)
+Message-ID: <qlabqrtsnw4mu23li6r6liujch5mf7n2bdbuuqrsukwfw24bmn@nyw5sandj2cu>
 References: <20240403-msm-drm-dsc-dsi-video-upstream-v1-0-db5036443545@linaro.org>
- <20240403-msm-drm-dsc-dsi-video-upstream-v1-5-db5036443545@linaro.org>
- <CAA8EJprCf5V7jcR2XCkpkTtRr5f1beHKksL8PJJB_10EDLXEMQ@mail.gmail.com>
- <CABymUCODHQ=bobQNhttY-RqLDjEGf75yAm2YD--ZnfXjAtzNMw@mail.gmail.com>
+ <20240403-msm-drm-dsc-dsi-video-upstream-v1-3-db5036443545@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCODHQ=bobQNhttY-RqLDjEGf75yAm2YD--ZnfXjAtzNMw@mail.gmail.com>
+In-Reply-To: <20240403-msm-drm-dsc-dsi-video-upstream-v1-3-db5036443545@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,75 +56,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2024-04-08 17:58:29, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> 于2024年4月3日周三 17:41写道：
-> >
-> > On Wed, 3 Apr 2024 at 12:11, Jun Nie <jun.nie@linaro.org> wrote:
-> > >
-> > > Add variable for slice number of a DSC compression bit stream packet.
-> > > Its value shall be specified in panel driver, or default value can be set
-> > > in display controller driver if panel driver does not set it.
-> >
-> > This is not a part of the standard. Please justify it.
-> 
-> Right, I read the standard but did not find any details of packet description.
-> Looks like msm silicon support tuning of number of slice packing per downstream
-> code.
-> The slice_per_pkt can be set in the downstream msm device tree. And I test the
-> values 1 and 2 on vtdr6130 panel and both work. So I guess this is related to
-> performance or something like that. I will have more test with different panel
-> to check the impact.
-> drivers/gpu/drm/panel/panel-raydium-rm692e5.c also mentions to pass new value
-> to slice_per_pkt.
-> 
-> Hi Konrad,
-> Do you remember why value 2 is TODO for slice_per_pkt for panel rm692e5?
+Can we drop (fix video mode DSC) from this patch title?  It looks like more
+patches are required to get this done, such a mention is more something for the
+cover letter.
 
-Hi Jun,
-
-I think I should indirectly answer that question, as I indirectly via "the"
-MDSS panel generator place that comment there based on the suggested downstream
-value:
-
-https://github.com/msm8916-mainline/linux-mdss-dsi-panel-driver-generator/commit/5c82e613d987d05feca423412f6de625f9c99bae#diff-dba3766d7cec900b8de500f888c64a392cd9780f9baf00aae7e3f87a7d3fefc4R458
-
-So I don't think Konrad's answer will be any different than "that's what
-downstream does, and that's what the generator put there".
-
----
-
-I was fairly certain that it used for performance reasons, but panels were found
-(e.g. on the FairPhone 5) that don't seem to function without combining multiple
-(2) slices in one packet at all?
+We could also clarify further to "set Word Count for video-mode DSC".
 
 - Marijn
 
-> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > ---
-> > >  include/drm/display/drm_dsc.h | 4 ++++
-> > >  1 file changed, 4 insertions(+)
-> > >
-> > > diff --git a/include/drm/display/drm_dsc.h b/include/drm/display/drm_dsc.h
-> > > index bc90273d06a6..4fac0a2746ae 100644
-> > > --- a/include/drm/display/drm_dsc.h
-> > > +++ b/include/drm/display/drm_dsc.h
-> > > @@ -82,6 +82,10 @@ struct drm_dsc_config {
-> > >          * @bits_per_component: Bits per component to code (8/10/12)
-> > >          */
-> > >         u8 bits_per_component;
-> > > +       /**
-> > > +        * @slice_per_pkt: slice number per DSC bit stream packet
-> > > +        */
-> > > +       u8 slice_per_pkt;
-> > >         /**
-> > >          * @convert_rgb:
-> > >          * Flag to indicate if RGB - YCoCg conversion is needed
-> > >
-> > > --
-> > > 2.34.1
-> > >
-> >
-> >
-> > --
-> > With best wishes
-> > Dmitry
+On 2024-04-03 17:10:59, Jun Nie wrote:
+> From: Jonathan Marek <jonathan@marek.ca>
+> 
+> Video mode DSC won't work if this field is not set correctly. Set it to fix
+> video mode DSC (for slice_per_pkt==1 cases at least).
+> 
+> Fixes: 08802f515c3c ("drm/msm/dsi: Add support for DSC configuration")
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 2a0422cad6de..80ea4f1d8274 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -858,6 +858,7 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+>  	u32 slice_per_intf, total_bytes_per_intf;
+>  	u32 pkt_per_line;
+>  	u32 eol_byte_num;
+> +	u32 bytes_per_pkt;
+>  
+>  	/* first calculate dsc parameters and then program
+>  	 * compress mode registers
+> @@ -865,6 +866,7 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+>  	slice_per_intf = msm_dsc_get_slices_per_intf(dsc, hdisplay);
+>  
+>  	total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
+> +	bytes_per_pkt = dsc->slice_chunk_size; /* * slice_per_pkt; */
+>  
+>  	eol_byte_num = total_bytes_per_intf % 3;
+>  
+> @@ -902,6 +904,7 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+>  		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg_ctrl);
+>  		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2, reg_ctrl2);
+>  	} else {
+> +		reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_WC(bytes_per_pkt);
+>  		dsi_write(msm_host, REG_DSI_VIDEO_COMPRESSION_MODE_CTRL, reg);
+>  	}
+>  }
+> 
+> -- 
+> 2.34.1
+> 
