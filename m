@@ -2,71 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6155589BAC3
-	for <lists+freedreno@lfdr.de>; Mon,  8 Apr 2024 10:48:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60F4F89C41B
+	for <lists+freedreno@lfdr.de>; Mon,  8 Apr 2024 15:46:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A54241122CE;
-	Mon,  8 Apr 2024 08:48:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2882F112600;
+	Mon,  8 Apr 2024 13:46:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LIJzlvsE";
+	dkim=pass (2048-bit key; unprotected) header.d=t-argos.ru header.i=@t-argos.ru header.b="EWR6+B0/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B38BB1122CB
- for <freedreno@lists.freedesktop.org>; Mon,  8 Apr 2024 08:48:53 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-61500da846fso32036497b3.1
- for <freedreno@lists.freedesktop.org>; Mon, 08 Apr 2024 01:48:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712566132; x=1713170932; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=F7NI1a3KJOYbUdllvSAieuMW0BytOpwEyZTxcjSweC0=;
- b=LIJzlvsEQe36jdxAshThIzUwRw7pQqM+ZU2LZSGka2WAY/27gFrSc6YEIFb1Bhdyp8
- jcb9/5Do/Lx9eNQYZk5Mb96N+F1DEsjrV8XEEElSkDkTBiyqc/6aBKTfJHv2hj8gIMks
- YQ2BsQ6P0P7FEpyf5j8Hbx0szdvps2trNfauQFsrBJsD1eMjPNWQYgxhu53MFXkOnHUg
- BZOBM370k6sl+5jytwvNwk3WcVh2hGEzAHOFbFVGwKyob3n4h01XZIeY5g3E4+tgi3go
- uW6X0sO6lw31LqlCrqDAcwtgCAY9LS3xFSee27ZB+whuIuJWviX6cdEwYLdUafq7zMoJ
- e7XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712566132; x=1713170932;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=F7NI1a3KJOYbUdllvSAieuMW0BytOpwEyZTxcjSweC0=;
- b=gFdq4cPPBJbM5U50AKnp/qcx0BsOhq3oEBRDkbIB9BaRIAY2sSuLUeY58E66zvbah7
- xY6vSL4PsGupl6OnvrXmcMNKqDZYF0bczSkUmqRAtS5G9dEQPSRuIc3Z8BV487kd622g
- IAGpdNI5HKkA4sc0cHTxSmSfZgkoY3QqUhEikQ6x/rIA2n89HIeKrcPetK8BBkuyNhFG
- sE4LdMhcFPttwWo+Fd9KDN+gk8y7+KvV1l7N3+xgbOb/58nscg9Zx9mdotcR2fte9xYh
- eeXrWBY+lInDUIH+bQxXIpgx7NzpAF+bZCjU+IOSFPiHSjc8OIHEjJKe6UagJShFxgOL
- IrGQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUW2OB7Hi6r818kX8fwWKxaUxvedw6RzrJqA7j9YdJMyu+ea0wJfrRCAkPK7F76FXlUewqtKhYz3hf9DDSlXLwt0/tqZ0OpSEMpX6k+5rnB
-X-Gm-Message-State: AOJu0YwcJE6sfXYZoDWc9N/5xEIve/9EHdF5N3TyHnS8bof0ih1FjNpg
- h+METBz2Uk62UBr2yCdgBWliYm73d8l2Xk8n3ucKojgtdmMNDb1xNvho8u/LFm5bi9vkiKZtK3w
- mkhZ1wIJGguQDgQC1cnCy1zdEnsovLEqlxllP5w==
-X-Google-Smtp-Source: AGHT+IEQeHmk38rLUm1S6f8awpQg2EktVcFZ4Lukaa8kZida8w/IUtZcOLqQzNPzXn2oIiDTfj5wNOxJrG7cDph37d8=
-X-Received: by 2002:a05:6902:2b04:b0:dca:c369:fac2 with SMTP id
- fi4-20020a0569022b0400b00dcac369fac2mr6609762ybb.3.1712566132588; Mon, 08 Apr
- 2024 01:48:52 -0700 (PDT)
+X-Greylist: delayed 976 seconds by postgrey-1.36 at gabe;
+ Mon, 08 Apr 2024 09:13:48 UTC
+Received: from mx1.t-argos.ru (mx1.t-argos.ru [109.73.34.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9F0E10EFE0;
+ Mon,  8 Apr 2024 09:13:48 +0000 (UTC)
+Received: from mx1.t-argos.ru (localhost [127.0.0.1])
+ by mx1.t-argos.ru (Postfix) with ESMTP id 0270A100003;
+ Mon,  8 Apr 2024 11:57:14 +0300 (MSK)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=t-argos.ru; s=mail;
+ t=1712566634; bh=tVaZQ82kV0U3VdjNP3qButkhjLghxD+YcZT09STBU0k=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=EWR6+B0/gNf41mL3w6lZmTV9X69uZetXhu7XTDGpVjECqaMntRrs8I03xbrIeGDvb
+ xSR6EPy6HI9obNTSe2zvlXDKzikO5zq+Rm+3ek64f257mnNv4jh+1g9xIvnChEhU+Q
+ fqUyVpBBwyk3NS+flimzDNcWZ0SrLr72HsxJ1n/2zS73uAbed1AzwMnLYY4Wa5Sc6H
+ mkk7MaBQGoZxXYQMDam/uSM1zDLFJdbBAgAtD/eLCQB5Agiv4bgIsWHfclheA+BBO/
+ /y4lKFaOd7T03nohLLQB4f5CCb0vOX7lsbnvIY5Glh3rApTXFplEwFa+ylZy+QSGyV
+ Uxy26W+/Hm4jA==
+Received: from mx1.t-argos.ru.ru (ta-mail-02.ta.t-argos.ru [172.17.13.212])
+ by mx1.t-argos.ru (Postfix) with ESMTP;
+ Mon,  8 Apr 2024 11:55:52 +0300 (MSK)
+Received: from localhost.localdomain (172.17.215.6) by ta-mail-02
+ (172.17.13.212) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 8 Apr 2024
+ 11:55:32 +0300
+From: Aleksandr Mishin <amishin@t-argos.ru>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Aleksandr Mishin <amishin@t-argos.ru>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <lvc-project@linuxtesting.org>
+Subject: [PATCH] drm/msm/dpu: Add callback function pointer check before its
+ call
+Date: Mon, 8 Apr 2024 11:55:23 +0300
+Message-ID: <20240408085523.12231-1-amishin@t-argos.ru>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20240405092907.2334007-1-jani.nikula@intel.com>
- <eondf5x3wz3nccxpnqxtb7gtvf3k5u3bz4qwhn3gbcy5pj73ku@fue4tej3xgnq>
- <87frvwb7i5.fsf@intel.com>
-In-Reply-To: <87frvwb7i5.fsf@intel.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 8 Apr 2024 11:48:41 +0300
-Message-ID: <CAA8EJpr9cEv6Yi1q+8u-+mU2V3yp=C9rtpnCu+pyouozukYQ=g@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm: convert all pixel format logging to use %p4cc
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Aishwarya TCV <aishwarya.tcv@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.17.215.6]
+X-ClientProxiedBy: ta-mail-02.ta.t-argos.ru (172.17.13.212) To ta-mail-02
+ (172.17.13.212)
+X-KSMG-Rule-ID: 1
+X-KSMG-Message-Action: clean
+X-KSMG-AntiSpam-Lua-Profiles: 184614 [Apr 08 2024]
+X-KSMG-AntiSpam-Version: 6.1.0.4
+X-KSMG-AntiSpam-Envelope-From: amishin@t-argos.ru
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Info: LuaCore: 15 0.3.15
+ adb41f89e2951eb37b279104a7abb8e79494a5e7,
+ {Tracking_from_domain_doesnt_match_to},
+ d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; mx1.t-argos.ru.ru:7.1.1;
+ 127.0.0.199:7.1.2; t-argos.ru:7.1.1, FromAlignment: s
+X-MS-Exchange-Organization-SCL: -1
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiPhishing: Clean, bases: 2024/04/08 07:15:00
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 1.1.2.30,
+ bases: 2024/04/08 06:53:00 #24704467
+X-KSMG-AntiVirus-Status: Clean, skipped
+X-Mailman-Approved-At: Mon, 08 Apr 2024 13:46:37 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,42 +93,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 8 Apr 2024 at 11:09, Jani Nikula <jani.nikula@intel.com> wrote:
->
-> On Fri, 05 Apr 2024, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
-> > On Fri, Apr 05, 2024 at 12:29:07PM +0300, Jani Nikula wrote:
-> >> Logging u32 pixel formats using %4.4s format string with a pointer to
-> >> the u32 is somewhat questionable, as well as dependent on byte
-> >> order. There's a kernel extension format specifier %p4cc to format 4cc
-> >> codes. Use it across the board in msm for pixel format logging.
-> >>
-> >> This should also fix the reported build warning:
-> >>
-> >>   include/drm/drm_print.h:536:35: warning: '%4.4s' directive argument is
-> >>   null [-Wformat-overflow=]
-> >>
-> >> Reported-by: Aishwarya TCV <aishwarya.tcv@arm.com>
-> >> Closes: https://lore.kernel.org/r/2ac758ce-a196-4e89-a397-488ba31014c4@arm.com
-> >> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> >>
-> >> ---
-> >>
-> >> Tip: 'git show --color-words -w' might be the easiest way to review.
-> >> ---
-> >>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  8 +++----
-> >>  .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  2 +-
-> >>  drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c   |  4 ++--
-> >>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 24 +++++++++----------
-> >>  drivers/gpu/drm/msm/msm_fb.c                  | 10 ++++----
-> >>  5 files changed, 24 insertions(+), 24 deletions(-)
-> >
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->
-> Thanks! Do you take this via the msm tree?
+In dpu_core_irq_callback_handler() callback function pointer is compared to NULL,
+but then callback function is unconditionally called by this pointer.
+Fix this bug by adding conditional return.
 
-Yes, I will
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
+Fixes: c929ac60b3ed ("drm/msm/dpu: allow just single IRQ callback")
+Signed-off-by: Aleksandr Mishin <amishin@t-argos.ru>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+index 946dd0135dff..03a16fbd4c99 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+@@ -223,9 +223,11 @@ static void dpu_core_irq_callback_handler(struct dpu_kms *dpu_kms, unsigned int
+ 
+ 	VERB("IRQ=[%d, %d]\n", DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
+ 
+-	if (!irq_entry->cb)
++	if (!irq_entry->cb) {
+ 		DRM_ERROR("no registered cb, IRQ=[%d, %d]\n",
+ 			  DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
++		return;
++	}
+ 
+ 	atomic_inc(&irq_entry->count);
+ 
 -- 
-With best wishes
-Dmitry
+2.30.2
+
