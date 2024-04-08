@@ -2,76 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86FC889BC26
-	for <lists+freedreno@lfdr.de>; Mon,  8 Apr 2024 11:43:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B50D89BC34
+	for <lists+freedreno@lfdr.de>; Mon,  8 Apr 2024 11:46:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBC3D112375;
-	Mon,  8 Apr 2024 09:43:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4337111239B;
+	Mon,  8 Apr 2024 09:46:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Jz4Yb9hL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Td341aOb";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
- [209.85.208.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1363411238C
- for <freedreno@lists.freedesktop.org>; Mon,  8 Apr 2024 09:43:45 +0000 (UTC)
-Received: by mail-lj1-f169.google.com with SMTP id
- 38308e7fff4ca-2d094bc2244so44390101fa.1
- for <freedreno@lists.freedesktop.org>; Mon, 08 Apr 2024 02:43:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712569424; x=1713174224; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cPya01S6Zk3ZrZqtvKApfiBgMxDUZyecK666tWaDBy8=;
- b=Jz4Yb9hLRzTmUsAjarfVd1LZIIGqseURXBYkU9MV7c3ilPyAopR2FGPLKPBekQ5GCC
- 3dJrFrKZ/teg4I91mgLCdpOFWQ9BZg4nQl5ke7u1QNIlVZOfgTA3tR3K4b2AjwHH+xtb
- vi24lR09KJj7prJRJWf3ZdAOAaUUWfZzXRLxur82ehSa3jTR6MfUYWMF1lCxaekIcG0G
- vz5W83O1j2X5g+TIxOSnWBcGK2gmRMq8HKgh4i/ntsp0wGv4lDjlBdLZcJFoYdEnBV3I
- GXf9h8Cs8cgjs2mxZuNw2lqT6MV8MZAipfz3rOpUakloj1ooy5dV5it9EjHEilqUmqQE
- D6jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712569424; x=1713174224;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cPya01S6Zk3ZrZqtvKApfiBgMxDUZyecK666tWaDBy8=;
- b=RgwKxauRsHp5P2LH1+TBBWvUxT5Q+ktr/5PLRT1QW0KUXlhJa109ALN/u4YEKB/e9s
- UFNnz/ddhOI/L/LDwhG7JR4bQiPhMnAyvKkyXeD1ZpEo1ATnY+SJLOSD0UNHWdHWSn0q
- j/hjMw7NEHyHhNXe8uECeldWcCih6qGVP3AZVo6rEYYNmZqFMwZr5WKYKO7rsbHxwkzo
- U6BPH5sU8yjTMMFr2JsI56cRrYggUQdl5zR1JFEtbCAX001c0tZvcRuZDPozfhLH/X53
- AcAKItZdBeNcEpAQXwyS1n9FP66LwX4F6l2f0+RM07AspZEL42gsR37khrIWptO65kC1
- J3Uw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWQbgMqR7cRGexH4QfFKSYVlP5SOWz48jIYZfK600rpp0F9cK0xzf6qIJY1QfKBX2VV9QLp6vIfUfOw5RMwAnRFiEl/DkzKojaHdBaLLSa5
-X-Gm-Message-State: AOJu0YwiDOw4Kpa5I0R/wuaJb4A675EOU59OMw39RomCg0FTavsl/Nih
- PWWVjz44p5SSLDmVFgtIIRrKtalImj+bu0JEkAKzzTt0HiyucWX+AK9vCgpUmT5kxrmkcGD5Dsq
- XZ+rs91UjfH/yqlsW1ltZ9kUVNzA8iDfh59kAyQ==
-X-Google-Smtp-Source: AGHT+IG02loiXTH2/8F9IqgC2gGyD1D1+rLbDNMI3wgXR6zMfH2ZR1scOgp/QJMJ+mhu/mYbcsEBISkQp7KwOmIrIAM=
-X-Received: by 2002:a2e:90d6:0:b0:2d8:729f:cf3a with SMTP id
- o22-20020a2e90d6000000b002d8729fcf3amr4666714ljg.32.1712569423895; Mon, 08
- Apr 2024 02:43:43 -0700 (PDT)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ACCC11239F
+ for <freedreno@lists.freedesktop.org>; Mon,  8 Apr 2024 09:46:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id C4BB2CE0E6D;
+ Mon,  8 Apr 2024 09:46:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06309C433F1;
+ Mon,  8 Apr 2024 09:46:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1712569584;
+ bh=w96AR1Wv4GGEMME0DTaOez2gviiLAqcq3igwhCwqMEk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Td341aObAzkaNYyl+vraZVNR5iMk4iIyJPIufLM2K7/sakH38bZ2NUcHm9FUeTCR5
+ cCDVCFDtsNGv4B5WQ4oGk6DjTxaZfB5Eb5zh5ldKIx4XFUWncCmr8WEaNLpN1Wm7pw
+ oFP61mtQoCUYUEUqHl3TgKB0JDzxY03ydK+8djGEYe2F+DTCtyFK6KzDCP3LwQRKo8
+ F6MfBVTTRB6YF6FrUI/S7e58qjrbEhhm4iTCRGk7mXhYUH2A86gv5AXwWec8esyIF0
+ V2M+8zV/tMR7s7TLu8kFHW/kxznUECsUyeDnY1bpxbmCjgA8koTp4DCghRT3UNr4mb
+ y87JWeH2mex8A==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+ (envelope-from <johan@kernel.org>) id 1rtlZx-000000000Mc-2Pb1;
+ Mon, 08 Apr 2024 11:46:18 +0200
+Date: Mon, 8 Apr 2024 11:46:17 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ linux-kernel@vger.kernel.org, patches@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-phy@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ freedreno@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: Re: [PATCH] phy: qcom: qmp-combo: Fix VCO div offset on v3
+Message-ID: <ZhO86VWkrOSIGBHV@hovoldconsulting.com>
+References: <20240404234345.1446300-1-swboyd@chromium.org>
 MIME-Version: 1.0
-References: <20240403-msm-drm-dsc-dsi-video-upstream-v1-0-db5036443545@linaro.org>
- <20240403-msm-drm-dsc-dsi-video-upstream-v1-2-db5036443545@linaro.org>
- <CAA8EJpo-tZSOD+B+4znyBmFPVOjc6yocsVwYMXPN5d3WQfbr=Q@mail.gmail.com>
-In-Reply-To: <CAA8EJpo-tZSOD+B+4znyBmFPVOjc6yocsVwYMXPN5d3WQfbr=Q@mail.gmail.com>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Mon, 8 Apr 2024 17:43:43 +0800
-Message-ID: <CABymUCOFxHLE5QTiW4cVuSgmOhH5ZJd=G0VPZkHzQR==tew8gA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/6] drm/msm/dsi: set video mode widebus enable bit
- when widebus is enabled
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>, Vinod Koul <vkoul@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jonathan Marek <jonathan@marek.ca>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240404234345.1446300-1-swboyd@chromium.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,86 +66,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B44=E6=
-=9C=883=E6=97=A5=E5=91=A8=E4=B8=89 18:10=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Wed, 3 Apr 2024 at 12:11, Jun Nie <jun.nie@linaro.org> wrote:
-> >
-> > From: Jonathan Marek <jonathan@marek.ca>
-> >
-> > The value returned by msm_dsi_wide_bus_enabled() doesn't match what the
-> > driver is doing in video mode. Fix that by actually enabling widebus fo=
-r
-> > video mode.
-> >
-> > Fixes: efcbd6f9cdeb ("drm/msm/dsi: Enable widebus for DSI")
-> > Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
->
-> You have ignored all the review comments that were provided for v1.
-> None of the tags were picked up either.
-Just find that It was an accident that I cherry-picked wrong patch.
->
-> Have you posted this for internal review like I have explicitly asked you=
-?
-Sorry, I guess I skipped your word in depression when I read the email.
->
-> > ---
-> >  drivers/gpu/drm/msm/dsi/dsi.xml.h  | 1 +
-> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 2 ++
-> >  2 files changed, 3 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/ds=
-i/dsi.xml.h
-> > index 2a7d980e12c3..f0b3cdc020a1 100644
-> > --- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> > +++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> > @@ -231,6 +231,7 @@ static inline uint32_t DSI_VID_CFG0_TRAFFIC_MODE(en=
-um dsi_traffic_mode val)
-> >  #define DSI_VID_CFG0_HSA_POWER_STOP                            0x00010=
-000
-> >  #define DSI_VID_CFG0_HBP_POWER_STOP                            0x00100=
-000
-> >  #define DSI_VID_CFG0_HFP_POWER_STOP                            0x01000=
-000
-> > +#define DSI_VID_CFG0_DATABUS_WIDEN                             0x02000=
-000
-> >  #define DSI_VID_CFG0_PULSE_MODE_HSA_HE                         0x10000=
-000
->
-> From the top of the file:
->
-> /* Autogenerated file, DO NOT EDIT manually!
-This is my fault, I did not notice the top of this file totally. Will
-fix it in next version.
+On Thu, Apr 04, 2024 at 04:43:44PM -0700, Stephen Boyd wrote:
+> Commit ec17373aebd0 ("phy: qcom: qmp-combo: extract common function to
+> setup clocks") changed the offset that is used to write to
+> DP_PHY_VCO_DIV from QSERDES_V3_DP_PHY_VCO_DIV to
+> QSERDES_V4_DP_PHY_VCO_DIV. Unfortunately, this offset is different
+> between v3 and v4 phys:
+> 
+>  #define QSERDES_V3_DP_PHY_VCO_DIV                 0x064
+>  #define QSERDES_V4_DP_PHY_VCO_DIV                 0x070
+> 
+> meaning that we write the wrong register on v3 phys now. Add another
+> generic register to 'regs' and use it here instead of a version specific
+> define to fix this.
+> 
+> This was discovered after Abhinav looked over register dumps with me
+> from sc7180 Trogdor devices that started failing to light up the
+> external display with v6.6 based kernels. It turns out that some
+> monitors are very specific about their link clk frequency and if the
+> default power on reset value is still there the monitor will show a
+> blank screen or a garbled display. Other monitors are perfectly happy to
+> get a bad clock signal.
 
->
-> >
-> >  #define REG_DSI_VID_CFG1                                       0x00000=
-01c
-> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/d=
-si/dsi_host.c
-> > index 9d86a6aca6f2..2a0422cad6de 100644
-> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > @@ -754,6 +754,8 @@ static void dsi_ctrl_enable(struct msm_dsi_host *ms=
-m_host,
-> >                 data |=3D DSI_VID_CFG0_TRAFFIC_MODE(dsi_get_traffic_mod=
-e(flags));
-> >                 data |=3D DSI_VID_CFG0_DST_FORMAT(dsi_get_vid_fmt(mipi_=
-fmt));
-> >                 data |=3D DSI_VID_CFG0_VIRT_CHANNEL(msm_host->channel);
-> > +               if (msm_dsi_host_is_wide_bus_enabled(&msm_host->base))
-> > +                       data |=3D DSI_VID_CFG0_DATABUS_WIDEN;
-> >                 dsi_write(msm_host, REG_DSI_VID_CFG0, data);
-> >
-> >                 /* Do not swap RGB colors */
-> >
-> > --
-> > 2.34.1
-> >
->
->
-> --
-> With best wishes
-> Dmitry
+> Fixes: ec17373aebd0 ("phy: qcom: qmp-combo: extract common function to setup clocks")
+> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> index 7d585a4bbbba..3b19d8ebf467 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> @@ -77,6 +77,7 @@ enum qphy_reg_layout {
+>  	QPHY_COM_BIAS_EN_CLKBUFLR_EN,
+>  
+>  	QPHY_DP_PHY_STATUS,
+> +	QPHY_DP_PHY_VCO_DIV,
+>  
+>  	QPHY_TX_TX_POL_INV,
+>  	QPHY_TX_TX_DRV_LVL,
+> @@ -102,6 +103,7 @@ static const unsigned int qmp_v3_usb3phy_regs_layout[QPHY_LAYOUT_SIZE] = {
+> +	[QPHY_DP_PHY_VCO_DIV]		= QSERDES_V3_DP_PHY_VCO_DIV,
+
+> @@ -126,6 +128,7 @@ static const unsigned int qmp_v45_usb3phy_regs_layout[QPHY_LAYOUT_SIZE] = {
+> +	[QPHY_DP_PHY_VCO_DIV]		= QSERDES_V4_DP_PHY_VCO_DIV,
+
+I happened to skim this patch on the list and noticed that you added a
+new register abstraction but only updated two tables.
+
+A quick look at the driver reveals that there are currently four such
+tables, which means that the v5_5nm (e.g. the Lenovo ThinkPad X13s) and
+v6 hardware would now be broken instead as they would write to offset 0.
+
+Clearly the hardware abstraction in this driver leaves a lot to wish
+for when it's this fragile, but how can three people including the
+maintainer review this change without this being noticed?
+
+I just sent a follow-up fix here:
+
+	https://lore.kernel.org/lkml/20240408093023.506-1-johan+linaro@kernel.org/
+
+> @@ -2184,7 +2188,7 @@ static int qmp_combo_configure_dp_clocks(struct qmp_combo *qmp)
+>  		/* Other link rates aren't supported */
+>  		return -EINVAL;
+>  	}
+> -	writel(phy_vco_div, qmp->dp_dp_phy + QSERDES_V4_DP_PHY_VCO_DIV);
+> +	writel(phy_vco_div, qmp->dp_dp_phy + cfg->regs[QPHY_DP_PHY_VCO_DIV]);
+
+Johan
