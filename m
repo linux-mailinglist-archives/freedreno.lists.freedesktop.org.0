@@ -2,65 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A28189BC6D
-	for <lists+freedreno@lfdr.de>; Mon,  8 Apr 2024 11:57:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A09F189BC76
+	for <lists+freedreno@lfdr.de>; Mon,  8 Apr 2024 11:58:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C01BC1123B7;
-	Mon,  8 Apr 2024 09:57:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB3DC1123BB;
+	Mon,  8 Apr 2024 09:58:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bJcePju8";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="X5PrIvnW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 334411123B7;
- Mon,  8 Apr 2024 09:57:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712570254; x=1744106254;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=i7vJDeBtWo/Ou+kqa0iug9VmU2LgfFDgiKXdOwEporA=;
- b=bJcePju8qBOsPk1fmsy1U8rAlB4I/kkcSH+8JNJBgvHm47crh6FTt2tX
- k8+a1poKDYzRbxHNchtpsaLjviDnjLWO3O8vmQy8sQb9JuXoIvrIMmvrw
- 1cdTcPqpC61YFw/BqhnKwbISzt8KKcZU2+AL6emCW3Bq4l5DBUZt29XHG
- r4H4lrtcWQe6epTs6MQdRTzRbvwSLwrCHK+zmuKpFVwtzKGVpN6eZ4qGk
- p3hIiNTA22mYOv54FUtqcWEf1g96ce8sPxSfSirCNWfxiSBviH/dQurGE
- +XW/U7gWuOuvuE7zvThVIX466Lm5K5IcoD8gUNpmUKrsL2ZqzUxxncQMj A==;
-X-CSE-ConnectionGUID: OYEsRnyOQWWxrjrKye6FXQ==
-X-CSE-MsgGUID: EPG7rJUCSra+nEULxcvxSw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11037"; a="7705073"
-X-IronPort-AV: E=Sophos;i="6.07,186,1708416000"; 
-   d="scan'208";a="7705073"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 02:57:34 -0700
-X-CSE-ConnectionGUID: aW2IKeTQR2GbuJmLvGRk+A==
-X-CSE-MsgGUID: E8meANszRvmsKTmThmpvHw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,186,1708416000"; d="scan'208";a="19960303"
-Received: from bauinger-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.42.71])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 02:57:31 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, Abhinav
- Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, Marijn
- Suijten <marijn.suijten@somainline.org>, Aishwarya TCV
- <aishwarya.tcv@arm.com>
-Subject: Re: [PATCH] drm/msm: convert all pixel format logging to use %p4cc
-In-Reply-To: <CAA8EJpr9cEv6Yi1q+8u-+mU2V3yp=C9rtpnCu+pyouozukYQ=g@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20240405092907.2334007-1-jani.nikula@intel.com>
- <eondf5x3wz3nccxpnqxtb7gtvf3k5u3bz4qwhn3gbcy5pj73ku@fue4tej3xgnq>
- <87frvwb7i5.fsf@intel.com>
- <CAA8EJpr9cEv6Yi1q+8u-+mU2V3yp=C9rtpnCu+pyouozukYQ=g@mail.gmail.com>
-Date: Mon, 08 Apr 2024 12:57:27 +0300
-Message-ID: <87sezw9ny0.fsf@intel.com>
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+ [209.85.208.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78C4310F8A5
+ for <freedreno@lists.freedesktop.org>; Mon,  8 Apr 2024 09:58:31 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-2d717603aa5so50717411fa.0
+ for <freedreno@lists.freedesktop.org>; Mon, 08 Apr 2024 02:58:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1712570309; x=1713175109; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2hOCibkj9n2YGDsJnfwHwezgEyxL9relr5LeEYsYkEw=;
+ b=X5PrIvnWYqfRzkNak/7fWkWBdToC71Hq3Zz2ubCdtMIQf/EAdf0lZIUSI1hbFsxt45
+ MnfSK9y5nZct4YfFzK7FmnO2yNMDDJ9+NqQlgZScYa8kgUanYPgCe1A7l0YfyO9Cpf+2
+ igNBc9Ps1JLWx5JkaHFV6p39RaJYlGmGMDtXCLz7QsF3np3mlcIfg2SjrwEA8VyGV8Jp
+ P4r+osIOfub6V1lVUzYjXhoDTGHe4Pue3VDT9LY+2TmoOY4DN8iwxn7L4CQoKi4fZYH9
+ ppCQGpRR6u0JzqXSyXS5eM21i/wnl3zDMxZO1zox6dF89O4lrmzScI8vppuhqww3hD1c
+ YX/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712570309; x=1713175109;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2hOCibkj9n2YGDsJnfwHwezgEyxL9relr5LeEYsYkEw=;
+ b=VV60zJG1oobzg2EkQYcsjX8sh6V0MOOVrLGbZhXfq9gE8kPrblFVCCqBuQj247G92L
+ HZqhygbsStwwuWV5amVzgIsodxjNK/JLth4MUrZJ1ErTMDLNLjmyyIQmS60HaYpTPCNg
+ qDdDlbv3V0l5s2W3v5o7Iq7PHj1BSX6KCxSt0Niw0K5DkDcCsImX8GsDRsYVjgM0bWWD
+ 4cQI5FAwYq9GUk0Dv6jg5pkRF/Uzq5pC5fEnE8hzDnPSNrzrlvmDQ66W/G31g9BFi6rC
+ +Hp3f2FCbi5MLHSDIiP01DS5wk3i1nPBK/0SQmt7J4zUXRHcUs+7ZBWqEdPzyMSo3vz7
+ A63w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVEg4qu+YiJc6DyNhvQmY3WaTTZyZUDzU6w62EjR/xw/qdGcS6pcDtq8WU2bQEcPQnov1wP7NYiDEOe/wIkdoDbjJKv6+Z0K3hyc2Hy9bvg
+X-Gm-Message-State: AOJu0Yx+Pi1eZdJsv5KZAtYUn7kNnXLM54LZmUciwgZK3E1joNI77kF4
+ VkIZ/obP1G1C5/tM/m9frZzwSdDSvdLSPjuUTArkuVwkg69HAvMqt2YUwzNNnDXDaP16fPjNwsW
+ oD4dNaeo4LyviLvyULCejODT1/IW6EeeRDscibQ==
+X-Google-Smtp-Source: AGHT+IF5c4jsXWpkr+/3vLya5n3g4BNibhFwlejcq2PyVJvdHniMxg/DIX5Gp4G6Yhf4NEEvzMeFaVsCDgpIQ9cZjiw=
+X-Received: by 2002:a2e:97d6:0:b0:2d8:274a:db16 with SMTP id
+ m22-20020a2e97d6000000b002d8274adb16mr5817920ljj.17.1712570309500; Mon, 08
+ Apr 2024 02:58:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20240403-msm-drm-dsc-dsi-video-upstream-v1-0-db5036443545@linaro.org>
+ <20240403-msm-drm-dsc-dsi-video-upstream-v1-5-db5036443545@linaro.org>
+ <CAA8EJprCf5V7jcR2XCkpkTtRr5f1beHKksL8PJJB_10EDLXEMQ@mail.gmail.com>
+In-Reply-To: <CAA8EJprCf5V7jcR2XCkpkTtRr5f1beHKksL8PJJB_10EDLXEMQ@mail.gmail.com>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Mon, 8 Apr 2024 17:58:29 +0800
+Message-ID: <CABymUCODHQ=bobQNhttY-RqLDjEGf75yAm2YD--ZnfXjAtzNMw@mail.gmail.com>
+Subject: Re: [PATCH v3 5/6] drm/display: Add slice_per_pkt for dsc
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Vinod Koul <vkoul@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,17 +86,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 08 Apr 2024, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
-> On Mon, 8 Apr 2024 at 11:09, Jani Nikula <jani.nikula@intel.com> wrote:
->> Thanks! Do you take this via the msm tree?
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B44=E6=
+=9C=883=E6=97=A5=E5=91=A8=E4=B8=89 17:41=E5=86=99=E9=81=93=EF=BC=9A
 >
-> Yes, I will
+> On Wed, 3 Apr 2024 at 12:11, Jun Nie <jun.nie@linaro.org> wrote:
+> >
+> > Add variable for slice number of a DSC compression bit stream packet.
+> > Its value shall be specified in panel driver, or default value can be s=
+et
+> > in display controller driver if panel driver does not set it.
+>
+> This is not a part of the standard. Please justify it.
 
-Forgot to mention, there's a Tested-by at [1].
+Right, I read the standard but did not find any details of packet descripti=
+on.
+Looks like msm silicon support tuning of number of slice packing per downst=
+ream
+code.
+The slice_per_pkt can be set in the downstream msm device tree. And I test =
+the
+values 1 and 2 on vtdr6130 panel and both work. So I guess this is related =
+to
+performance or something like that. I will have more test with different pa=
+nel
+to check the impact.
+drivers/gpu/drm/panel/panel-raydium-rm692e5.c also mentions to pass new val=
+ue
+to slice_per_pkt.
 
-Tested-by: Aishwarya TCV <aishwarya.tcv@arm.com>
+Hi Konrad,
+Do you remember why value 2 is TODO for slice_per_pkt for panel rm692e5?
 
-[1] https://lore.kernel.org/r/157e69d4-850f-40d2-84ff-d25dd2c122b4@arm.com
-
--- 
-Jani Nikula, Intel
+>
+> >
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > ---
+> >  include/drm/display/drm_dsc.h | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> >
+> > diff --git a/include/drm/display/drm_dsc.h b/include/drm/display/drm_ds=
+c.h
+> > index bc90273d06a6..4fac0a2746ae 100644
+> > --- a/include/drm/display/drm_dsc.h
+> > +++ b/include/drm/display/drm_dsc.h
+> > @@ -82,6 +82,10 @@ struct drm_dsc_config {
+> >          * @bits_per_component: Bits per component to code (8/10/12)
+> >          */
+> >         u8 bits_per_component;
+> > +       /**
+> > +        * @slice_per_pkt: slice number per DSC bit stream packet
+> > +        */
+> > +       u8 slice_per_pkt;
+> >         /**
+> >          * @convert_rgb:
+> >          * Flag to indicate if RGB - YCoCg conversion is needed
+> >
+> > --
+> > 2.34.1
+> >
+>
+>
+> --
+> With best wishes
+> Dmitry
