@@ -2,65 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9E8689DDB0
-	for <lists+freedreno@lfdr.de>; Tue,  9 Apr 2024 17:04:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0BB589DE44
+	for <lists+freedreno@lfdr.de>; Tue,  9 Apr 2024 17:13:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B31010F87E;
-	Tue,  9 Apr 2024 15:04:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7145210F70D;
+	Tue,  9 Apr 2024 15:13:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="W7Z00y2y";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ckdnBBO/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
- [209.85.208.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C365112CA3
- for <freedreno@lists.freedesktop.org>; Tue,  9 Apr 2024 15:04:20 +0000 (UTC)
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-2d6fd3cfaa6so72161561fa.2
- for <freedreno@lists.freedesktop.org>; Tue, 09 Apr 2024 08:04:20 -0700 (PDT)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E972F10F759
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Apr 2024 15:13:07 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-516f2e0edb7so3109062e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Apr 2024 08:13:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712675058; x=1713279858; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1712675586; x=1713280386; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=3YM+s20cdEdse7t7bN3iKiAdYaiSxxuKdZKKsCgmaYw=;
- b=W7Z00y2ynq93Tl6BwUvyLKMKqKUVUCP36uo0SBqYGVwxF+1zpfwm0Aj7z1l9lJgSHc
- gLdCZLgpURarn80kH4Y7B/DO5lLb1VB+oHqdoJN8Uq3t6G6/tc9fqwx4LAKtncliUUDU
- MYctdXXE+m8iEJCifeji/DrbwOxv7gwoxEB2CHsyvJ1I92Q5olHkcjAzS9SG3cmLXXM2
- aJuOEwtblptiFx37Rgc4oGkTGSfdWtiHmmWklPqrdYrHv37Mheuijuh3K7Px8+ZMUt6N
- UMCuZpjDJkcWCTzn7smhCDD5O7G9cSbLmF3qcSYRb894/JQWfW8arcYP3NMJJ8D2wwEA
- Wqow==
+ bh=MDKIxls1YcB1qEzw3C9K5gDjPIzcv/YgHt6CoWlWLcc=;
+ b=ckdnBBO/wMvtop+CkXF9yG+3S9VicjqokweqYIrnO1J7wj78blgva3m2MsBvkmTCKi
+ h8LQYjzinNEVRNqTSgf6LaDrbCL47lqU85tJYgouOSo75NwaF65dKgB2Oeyy9UyuICPX
+ 7KAo9bIAh+v2YCquZFUi3Qe+43NxC6CQ/ExcmiXJrXCOovXZuer8ogTC/XX+ELw2LF84
+ TeSILAvJEpokgrUPRC8g/32hYpNsmgMfORmegsxQNvVSOnaea0qV/0O+r+RKIUiNMkf2
+ E9FXsGQIy4MC63WaP6+FOu+4w1r9K7KJKE3n0GWKQRzdjL4krjt8EZ319i5eqKJV6S1+
+ cAgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712675058; x=1713279858;
+ d=1e100.net; s=20230601; t=1712675586; x=1713280386;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3YM+s20cdEdse7t7bN3iKiAdYaiSxxuKdZKKsCgmaYw=;
- b=Fcruq91mqAIVFu6W5AnUIIV8Hf/ZNpkvW+c6dWjzttZ0UEWRC2yHLTFSxWY6kdQ0h7
- HcqxZxNbnnJe9P6/QzuKKoBNV+W2+D+AFJrXNVFQ/HJjihqoXe5a3A7iFoYkfPyO6D7j
- lJF9kg1foDSqZwxTt/A/A57vTjdN5doZniS/9s1Ucjs/iNtzb1UaJBa3KdlPOKOrQ3AE
- NasQH4OE+NZrBwHPsWbkzohM678cEX7qh+QYXICTE1WfczA47M7RIVj6l8RQag+pzY0a
- VyQIUlb+6tU5WjZlzi9vxx043W4dKEuoflecUeFP425t9yuPgTZXL4pTeK+f+yCHNVSn
- KWOw==
+ bh=MDKIxls1YcB1qEzw3C9K5gDjPIzcv/YgHt6CoWlWLcc=;
+ b=hZPl6qxIB5B4T5BZAZpPgHOY8xIqdHHftxFuX54EovOcXhp4HBJ+7uZjPp1MgG8U9E
+ cVKFp5axeKRvLjv23MmkktSD92kMeg7epERW+mI2vmSOQFQhDrtdc5b7dkftgWvieZUj
+ M1Rw/8bMT9+7onrUbqUWcVc4qqIseXWN0MEYefKs5H63k+j2tHpxQPgKuZ0MQD3GnkEG
+ 8rdzIieeGUI+8DnRt8R/5DX8UgI0lKZc7bvPRV+YxmFBrPTXaMNMMJ4FiIryOCZ1MBfi
+ 7d8W7x3oUaXhjWZJQ5o4YI8I+8M0w7g2qdkUT0RtFbAHfCQtNbzENYlDxvKBWxHsjTpd
+ nRgg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWiwG+d+mDFU37BYedwcRXYX0pJOQKYkdsEDdHu2Zf/yacm8XLzBBKTKrAAOwkERbxqHCpSLnv+ysud3ogX2CaDhpxGXVkGjF6SWHGZ/3XG
-X-Gm-Message-State: AOJu0YyWXsXh9O82gzr/0oAW1dayzmZYneQaGxfYQCNGflRwTkKgdaTP
- cbw6yLKjaZOP19MX9BtiarCK5LY5jLSYtVjfT9Vk4L6s+vjr+u/lRfg8X1j6/j8=
-X-Google-Smtp-Source: AGHT+IGoHv754pdfAq6TjWUEj3Tebb540y8BjG8KDvn0k1jGyKTq4jOdTq4eg0QQygBFoeLLrn8fzA==
-X-Received: by 2002:a2e:7d12:0:b0:2d8:7200:38ff with SMTP id
- y18-20020a2e7d12000000b002d8720038ffmr64570ljc.24.1712675058205; 
- Tue, 09 Apr 2024 08:04:18 -0700 (PDT)
+ AJvYcCUSaERNbQMhPuoTOUMq0Xua7E0U/pECjuFB3tr9aa3+JEzCjYxozSyOe9qTtVvACqg3yWTVE1PDGwL2IQ9F3b0lO0QypxVss5FZOziF7ZnV
+X-Gm-Message-State: AOJu0YxlBhMl24vaW+RAeP4kDP63O8MpHeULfbnJkR7rfqdcPgm2IdwA
+ n6o7JyHk7S8fdkO4ELmQ9ax8XWCdgfUbcSkHXQwFaN/tRl2yd0OWM8XKMbZhrYE=
+X-Google-Smtp-Source: AGHT+IGhk42UgX0piJ3IhGVv53mL8Xv3MlZAlkmhqiALnY/XM/pfqByw6e+NvkM8SZnf8BoJDnWAbw==
+X-Received: by 2002:a19:8c5d:0:b0:515:93ef:98ae with SMTP id
+ i29-20020a198c5d000000b0051593ef98aemr8314023lfj.54.1712675585961; 
+ Tue, 09 Apr 2024 08:13:05 -0700 (PDT)
 Received: from [172.30.205.99] (UNUSED.212-182-62-129.lubman.net.pl.
  [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- j14-20020a2e850e000000b002d88d978484sm841131lji.132.2024.04.09.08.04.15
+ f9-20020a193809000000b00516aff23fc1sm1610227lfa.138.2024.04.09.08.12.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Apr 2024 08:04:17 -0700 (PDT)
-Message-ID: <a8ea0f53-40c0-4fc5-94fc-a88f8e0319ac@linaro.org>
-Date: Tue, 9 Apr 2024 17:04:14 +0200
+ Tue, 09 Apr 2024 08:12:59 -0700 (PDT)
+Message-ID: <d8a2ef87-f29e-4bdb-a9b8-591b8bd5d2b2@linaro.org>
+Date: Tue, 9 Apr 2024 17:12:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] soc: qcom: smem: Add pcode/fcode getters
+Subject: Re: [PATCH 3/6] drm/msm/adreno: Allow specifying default speedbin
+ value
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
@@ -72,11 +73,11 @@ Cc: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  Neil Armstrong <neil.armstrong@linaro.org>
 References: <20240405-topic-smem_speedbin-v1-0-ce2b864251b1@linaro.org>
- <20240405-topic-smem_speedbin-v1-2-ce2b864251b1@linaro.org>
- <zc5u7ixaser6ekl3sltzxccstu63tpydxybquxz5hcasj4cmfo@csjwfifugeod>
+ <20240405-topic-smem_speedbin-v1-3-ce2b864251b1@linaro.org>
+ <pncr7ecf4eir36skul3iwt2nf5bpuwd5zjfzzfwwnxjwe4hoes@6z2xe54crijp>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <zc5u7ixaser6ekl3sltzxccstu63tpydxybquxz5hcasj4cmfo@csjwfifugeod>
+In-Reply-To: <pncr7ecf4eir36skul3iwt2nf5bpuwd5zjfzzfwwnxjwe4hoes@6z2xe54crijp>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -96,23 +97,25 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 4/6/24 04:21, Dmitry Baryshkov wrote:
-> On Fri, Apr 05, 2024 at 10:41:30AM +0200, Konrad Dybcio wrote:
->> Introduce getters for SoC product and feature codes and export them.
+On 4/6/24 04:56, Dmitry Baryshkov wrote:
+> On Fri, Apr 05, 2024 at 10:41:31AM +0200, Konrad Dybcio wrote:
+>> From: Neil Armstrong <neil.armstrong@linaro.org>
 >>
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> ---
-
-[...]
-
-
->> +	/* Ensure the value makes sense */
->> +	if (raw_code >= SOCINFO_FC_INT_RESERVE)
->> +		raw_code = SOCINFO_FC_UNKNOWN;
+>> Usually, speedbin 0 is the "super SKU", a.k.a the one which can clock
+>> the highest. Falling back to it when things go wrong is largely
+>> suboptimal, as more often than not, the top frequencies are not
+>> supposed to work on other bins.
 > 
-> This looks like a c&p from the previous function. Should we be comparing
-> the raw_code with a SOCINFO_PC_ constant?
+> Isn't it better to just return an error here instead of trying to guess
+> which speedbin to use?
 
-Looks like!
+Not sure. I'd rather better compatibility for e.g. booting up a new
+laptop with just dt.
+
+> 
+> If that's not the case, I think the commit should be expanded with
+> actually setting default_speedbin for the existing GPUs.
+
+I think that should be addressed, although separately.
 
 Konrad
