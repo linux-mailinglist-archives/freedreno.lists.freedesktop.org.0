@@ -2,86 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A92C389E292
-	for <lists+freedreno@lfdr.de>; Tue,  9 Apr 2024 20:31:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6734589E604
+	for <lists+freedreno@lfdr.de>; Wed, 10 Apr 2024 01:19:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC295112EBE;
-	Tue,  9 Apr 2024 18:31:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BE5E1125BD;
+	Tue,  9 Apr 2024 23:19:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fso3USi3";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="LnccMz9O";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
- [209.85.128.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3AFF112EBC
- for <freedreno@lists.freedesktop.org>; Tue,  9 Apr 2024 18:31:23 +0000 (UTC)
-Received: by mail-yw1-f170.google.com with SMTP id
- 00721157ae682-615826815c2so68920227b3.1
- for <freedreno@lists.freedesktop.org>; Tue, 09 Apr 2024 11:31:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712687482; x=1713292282; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bGu7XtJhzUW0frfAhJWk/dFj2iy5sTHLiNWC4LsP98o=;
- b=fso3USi35QG1+MBcLRDN/GccoJhqupPMnXXRoLI/bZZh238wzwEUqmy5JIhNrqOXmy
- MGl886vL9StSK21XOI2CZjyjxzQ09Vebxdse7NbcHadluFdHLISFhqWbJC0a7dD0ZtTz
- hEGoqwYPkV+0QbQFjqp25MshRbGQrgDLToHs2AIiO/+U1WcLyg43TeV14TzfhvDI5M+4
- aPDGJT7AX/pFNWX8klJ6/7okDP/koWC/bUqqqurxHq3Y/IADipjixuFLBBu7VKVah6/w
- gVWFYCyrwFoN7euaYv5dYrq413VJ3IuBAGovwp4D6pCJ0bX/F2G7ezG0iHl4fYB9+UMA
- Z23A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712687482; x=1713292282;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bGu7XtJhzUW0frfAhJWk/dFj2iy5sTHLiNWC4LsP98o=;
- b=DOeAfXPqWgOECYffojteJ0HPwuqbOvFG56GGGGyPU+oIV9ds+NP93XOSoIppDx9uLu
- 3DeXXFQNshxh7FnxkEQl3GoGSnKoyb9XGHazuoOGxxd40Mb3wsbQSJReeW31h/Lsbwpe
- 9mjeh1HNHSaMc6TFkcjKLAeXLgxYBmTvNlw51v9r4hxksBQtErutpaMbgETsKNieZ2vB
- KqAcIw0zNZND/65rW8zncC/+SY9He0lTXKW+DDhLjDy/HnFvXhaWi0KiG0SRnLimbyRI
- p+git62HTzzX9kWqvSXvSi7A/mcXlbeqFEeDmMayLo0zI9mLsCBNRzY9OUAtz58xFHsF
- Q6rA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWFGAos+uEEoKBh7eqYCpZD8wUU7DnFdByX8/Kv9nEQtPO1UlFXE+JOSPc8XzHZV88mrQnERisBLMCyrMLRoYIgg8Ve51YbXI1fzl+z/Grm
-X-Gm-Message-State: AOJu0Yx/j2ZenORBi5KU2KzQuFJK+IL6gA6JU3ffK6IjpcAu/va0kM0+
- X3iyRoagDJBsAztYTkmCk3ODaabVngACTKMBcwkuxAGNN/QjWNR7Dupq+XV8EUSizqiMEcn/Kkx
- rBt68Vu0L2PI57MdVRFQIbGXi0m8MNaZa0FVWZg==
-X-Google-Smtp-Source: AGHT+IHQ5KjmBJchef7/auhgtlXjWlZR2v0LxhUQqslvpL6mHG6C3quz50vKHwZLs2B3MGSIY40CMKEa96p0+lotDMw=
-X-Received: by 2002:a25:8403:0:b0:dcc:fea7:7f7b with SMTP id
- u3-20020a258403000000b00dccfea77f7bmr631031ybk.11.1712687482548; Tue, 09 Apr
- 2024 11:31:22 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 823D81125BD;
+ Tue,  9 Apr 2024 23:19:09 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 439MwNQo007240; Tue, 9 Apr 2024 23:18:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=qcppdkim1; bh=N+J/7ZTkrzTpb+40/f8nU
+ YISV6T5vuTq1CdcjZQHAW4=; b=LnccMz9OsUhMbx+t0EvHpAIHfPxiawqv5aS7k
+ YSpFVssGqam50WkQ34tUWp08kniwoa6VjkKJf0tU9eVqqHEtQmnciRg8ijtEpV0u
+ Avr2vqbvv1lVFmfE7HOc65mjSVXlMcmix8Q2MdPpGFwHYOL8luxLHU/pU9alTVHI
+ 9duTEa6DVaETFoARmTokQDZhh6sHWaF7AWNkwr0WXH6wdG93XhJnGwA5pqE3UZOG
+ 0apYtI932R17ie5+f3lwe4SAb93z/AbW2PtAe277dpryJ7/ST349j4yxQk4yza3+
+ 8SLmVjJYp4RX2oJcJO3WAQVp6ioB+eR0sXWMpvdZ1NX7GNt6g==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xd4uesqjv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 09 Apr 2024 23:18:57 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 439NIudR015984
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 9 Apr 2024 23:18:56 GMT
+Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
+ nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.4; Tue, 9 Apr 2024 16:18:55 -0700
+Date: Tue, 9 Apr 2024 16:18:54 -0700
+From: Bjorn Andersson <quic_bjorande@quicinc.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+CC: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 6/6] drm/msm/dp: Use function arguments for audio
+ operations
+Message-ID: <ZhXM3ldkY7FBlFjF@hu-bjorande-lv.qualcomm.com>
+References: <20240328-msm-dp-cleanup-v2-0-a5aed9798d32@quicinc.com>
+ <20240328-msm-dp-cleanup-v2-6-a5aed9798d32@quicinc.com>
+ <711e8a6a-a849-3cd3-fde3-d60f756abfa5@quicinc.com>
 MIME-Version: 1.0
-References: <20240405-topic-smem_speedbin-v1-0-ce2b864251b1@linaro.org>
- <20240405-topic-smem_speedbin-v1-3-ce2b864251b1@linaro.org>
- <pncr7ecf4eir36skul3iwt2nf5bpuwd5zjfzzfwwnxjwe4hoes@6z2xe54crijp>
- <d8a2ef87-f29e-4bdb-a9b8-591b8bd5d2b2@linaro.org>
- <tkcbl2iwcy3feoggbk737gx32qsxe5p4ad6lfrujy2pazccrhm@kif3guuzay6h>
- <CAF6AEGsg2xCCC27t_Gqu=MMQ6tckVw=Zj90p4x7EuOm+VKA=ig@mail.gmail.com>
- <quil2y6tbilihgont2xekay4joxgnsanu3khgo77omtwkolslp@ozuaajpv5uon>
- <b77a3161-9a18-4523-8528-31c2f2f4f476@linaro.org>
- <x4sgmdodoacsu6culbjjsw52ucaylpqj2ll6tkeppllzhfqiqn@lysclxogvcfq>
- <74ebd488-15c1-47a5-86f4-14263e3a914e@linaro.org>
-In-Reply-To: <74ebd488-15c1-47a5-86f4-14263e3a914e@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 9 Apr 2024 21:31:11 +0300
-Message-ID: <CAA8EJprAcBDEwYeGJZ=JX2qkS4wQEraXsgCiCyZU3z1ksuxivw@mail.gmail.com>
-Subject: Re: [PATCH 3/6] drm/msm/adreno: Allow specifying default speedbin
- value
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <711e8a6a-a849-3cd3-fde3-d60f756abfa5@quicinc.com>
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: rJwRBaALpi4XBpdebfX132nxJz8Au_YR
+X-Proofpoint-ORIG-GUID: rJwRBaALpi4XBpdebfX132nxJz8Au_YR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-09_12,2024-04-09_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ impostorscore=0 spamscore=0 mlxscore=0 malwarescore=0 phishscore=0
+ bulkscore=0 adultscore=0 clxscore=1015 mlxlogscore=965 suspectscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2404010003 definitions=main-2404090160
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,77 +94,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 9 Apr 2024 at 21:27, Konrad Dybcio <konrad.dybcio@linaro.org> wrote=
-:
->
->
->
-> On 4/9/24 20:15, Dmitry Baryshkov wrote:
-> > On Tue, Apr 09, 2024 at 08:07:56PM +0200, Konrad Dybcio wrote:
-> >>
-> >>
-> >> On 4/9/24 20:04, Dmitry Baryshkov wrote:
-> >>> On Tue, Apr 09, 2024 at 10:12:00AM -0700, Rob Clark wrote:
-> >>>> On Tue, Apr 9, 2024 at 8:23=E2=80=AFAM Dmitry Baryshkov
-> >>>> <dmitry.baryshkov@linaro.org> wrote:
-> >>>>>
-> >>>>> On Tue, Apr 09, 2024 at 05:12:46PM +0200, Konrad Dybcio wrote:
-> >>>>>>
-> >>>>>>
-> >>>>>> On 4/6/24 04:56, Dmitry Baryshkov wrote:
-> >>>>>>> On Fri, Apr 05, 2024 at 10:41:31AM +0200, Konrad Dybcio wrote:
-> >>>>>>>> From: Neil Armstrong <neil.armstrong@linaro.org>
-> >>>>>>>>
-> >>>>>>>> Usually, speedbin 0 is the "super SKU", a.k.a the one which can =
-clock
-> >>>>>>>> the highest. Falling back to it when things go wrong is largely
-> >>>>>>>> suboptimal, as more often than not, the top frequencies are not
-> >>>>>>>> supposed to work on other bins.
-> >>>>>>>
-> >>>>>>> Isn't it better to just return an error here instead of trying to=
- guess
-> >>>>>>> which speedbin to use?
-> >>>>>>
-> >>>>>> Not sure. I'd rather better compatibility for e.g. booting up a ne=
-w
-> >>>>>> laptop with just dt.
-> >>>>>
-> >>>>> New speedbin can have lower max speed, so by attempting to run it a=
-t
-> >>>>> higher freq you might be breaking it.
-> >>>>
-> >>>> Usually there are some OPPs in common to all speedbins, so picking a
-> >>>> freq from that set would seem like the safe thing to do
-> >>>
-> >>> Well, the issue is about an uknown speed bin. So in theory we know
-> >>> nothing about the set of speeds itsupports. My point is that we shoul=
-d
-> >>> simplfy fail in such case.
-> >>
-> >> Or we could allow e.g. the lowest frequency (or 2) which if often shar=
-ed
-> >> across the board to work, giving a compromise between OOBE and sanity
-> >
-> > That's also an option. But we should not be using existing speed table =
-for
-> > the unknown bin.
->
-> I derived this logic from msm-5.15 where it's "intended behavior".. I
-> suppose we can do better as you said though
->
-> There have been cases in the past where the default speed bin ended up
-> having a higher max freq than subsequent ones, and I don't think I can
-> trust this product/feature code approach to guarantee this never
-> happening again.
->
-> So. I think sticking to a single lowest freq and printing a big red line
-> in dmesg makes sense here
+On Mon, Apr 08, 2024 at 02:31:45PM -0700, Abhinav Kumar wrote:
+> On 3/28/2024 7:40 AM, Bjorn Andersson wrote:
+> > From: Bjorn Andersson <quic_bjorande@quicinc.com>
+> > 
+> > The dp_audio read and write operations uses members in struct dp_catalog
+> > for passing arguments and return values. This adds unnecessary
+> > complexity to the implementation, as it turns out after detangling the
+> > logic that no state is actually held in these variables.
+> > 
+> > Clean this up by using function arguments and return values for passing
+> > the data.
+> > 
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+> > ---
+> >   drivers/gpu/drm/msm/dp/dp_audio.c   | 20 +++++--------------
+> >   drivers/gpu/drm/msm/dp/dp_catalog.c | 39 +++++++++++++------------------------
+> >   drivers/gpu/drm/msm/dp/dp_catalog.h | 18 +++++++++--------
+> >   3 files changed, 28 insertions(+), 49 deletions(-)
+> > 
+> 
+> One quick question, was DP audio re-tested after this patch?
 
-Make 0x80 the default supported-hw, make sure that the lowest freq has
-0xff. Plus big-red-line.
-And hope that we'll never see 16 speed bins for the hardware.
+No, sorry for not being explicit about that. I don't have any target
+with working DP audio...
 
-
---=20
-With best wishes
-Dmitry
+Regards,
+Bjorn
