@@ -2,88 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACED489DC1D
-	for <lists+freedreno@lfdr.de>; Tue,  9 Apr 2024 16:23:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 881BA89DCB5
+	for <lists+freedreno@lfdr.de>; Tue,  9 Apr 2024 16:39:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55C6110E1BB;
-	Tue,  9 Apr 2024 14:23:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F8A810E1B2;
+	Tue,  9 Apr 2024 14:39:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hzIjhtWw";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="kF9Jj5Bi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AB2210E1BB
- for <freedreno@lists.freedesktop.org>; Tue,  9 Apr 2024 14:22:57 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-516d0162fa1so6763457e87.3
- for <freedreno@lists.freedesktop.org>; Tue, 09 Apr 2024 07:22:57 -0700 (PDT)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B304810E1B2
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Apr 2024 14:39:41 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-2d87660d5dbso35373461fa.3
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Apr 2024 07:39:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712672576; x=1713277376; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=CGvZnm0yehCs3OtUKInch3AqosyI0xgf+74PLDfaunY=;
- b=hzIjhtWw4I/Z8KLOT5c4emimxixDizode/LMQytVCGUPuEGmQzWvY25u0nB7RnYzPz
- GbfWNsWc+OVfQ4L2K663TbUI6vrWMyXXhyisbVMk8iv3mYyV2kbsj9BCUeVQoZVhkMm6
- uSaxhk7lE0pAQUCb1Xrlzd4L4RzwnbIjIWusjcFx0Z6g8XOMRse+jPFovfuZqfRSGdLt
- d9ii7PhkQfyoSFMy3YPPgG/Vkn2pt+UbK54basGTNlpYChLjX3IoBFe6UcVK8yNQEmhi
- K9kjxEjbDDjdz239s1Gb3S85mcTF4k1YJcJpfxO8ZMMb8jBQaJuUKuzmvR2lEBLAssd/
- RTHA==
+ d=linaro.org; s=google; t=1712673580; x=1713278380; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Sr9qt0BbADGa89YCYwT+Bbk+dGM/AHSN1tyvYdeWW7E=;
+ b=kF9Jj5Bifq8bovSoaAGKMua2uz4gqRKAI/u4QsWSqz6DvmZrdIZx81TZerQrFCP/MH
+ PAU5XpMm8OZfkjRM59543luNF2+bOLRVdVBE5ErsUrpNh61BY4DSKOzYtt/XIQ4VDb57
+ 6bGEcCmGAJr6E6aRAagViiXLgxXtmbuuOls1AGOv6jAJ57laKUCTVkuDfVBPO3//EtZA
+ pL72qUIj61HCoDd5XC/8YjiOL6XGzZTi3o5sHPsNhRiIqt/mh0ri2X9dEPzQ+TgmFfVM
+ Qm0kPU/P6TFIo8B0Vp/g+S410UgzIMPQw157rCp+5at5HrjLNrGqMfQWy3AiKwtMgN7h
+ 5jvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712672576; x=1713277376;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CGvZnm0yehCs3OtUKInch3AqosyI0xgf+74PLDfaunY=;
- b=esTYHHHINHzfX87ym1o4KUeigyEETZaRPjnGVeZPgNxjOOTnN1jyX+upHuIIwTrFnh
- oKbGQHFRR5LS4U3AOREZzzvPpJ0rarDFN17YUI2LJt2cqGsGWVZaO1kIPOFbNxC0/C1N
- 5OTgT2rIlwsjQfQSmTB7TAfFc89NJRUMS5zNWtBVvk1iErF7idw4wwtN6NIYI/RQXsYH
- EhJKCUGONABGhNw+dua0RQhZBYePEQHRo4FWfeRY+KOX0eRr7wO8oK108ktxxK4y3o4I
- GH7aELrOcsroIWDjyUeoCfNMSBwD8VPSgryrcKgEzK24dlM1LFWJrEYhBbNPkVB01upe
- Zxkg==
+ d=1e100.net; s=20230601; t=1712673580; x=1713278380;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Sr9qt0BbADGa89YCYwT+Bbk+dGM/AHSN1tyvYdeWW7E=;
+ b=MRDa8cRcqbZnv4EsX0mEPBJOKVHgNVDLSVsKqOfYPEjpkOnII733DAyUmGlCq2nFER
+ tHGSMLAZjYf8givYz66knqcalF06tgkHrO2L2rI+gcxGhJKmIR08lfml6mepyrBZElu3
+ s5BiNSQGSPo5mY+Fllh+jsEQ/v7mVTD0142DqRJ66Zx/pqqZatqEjh12CWLQu4HwBigS
+ vx0nFa0UO4pDDvTVzlHFTK0ve12NEGzSbCAKR4LANSakBz3uhMZf7K4oSeUuEVJWZXIY
+ oGyJjYcZKUK/f09fNcPU7QqcdQ3btH7YXqNcA7cxnilXFwTpPqQnMlb5ywXYAtu4FThD
+ YX3g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUsKAViwft+uU5oHShbA6pIe38gIkal5U5LWdrsp/cSJgqP2dKa9f3duj4M2bnOWxU8pPJjgpaD/IC5uM+F/fNIQxbAitZEhdffZkXbzliH
-X-Gm-Message-State: AOJu0Ywdn4Kg+KqxfnpdqxnAAn3CQmgrNDfm7g5z5mHxeghUHaRY+Bcp
- kHWW+mtbMATDANsEOLCFdV/MlGdgBjn8RbSZJaUCHXfKycfO6n/sk2rpkXjBRJc=
-X-Google-Smtp-Source: AGHT+IEYMV2d+W/LgC9LK9e7WSDupcFG+kxxW5Z93WmgAX/1oR83muZqP+jxNE+cXxyA7sTTt7+f2A==
-X-Received: by 2002:a05:6512:128b:b0:516:c5a9:eded with SMTP id
- u11-20020a056512128b00b00516c5a9ededmr10297697lfs.42.1712672575593; 
- Tue, 09 Apr 2024 07:22:55 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- o6-20020ac24e86000000b00516cbd3e982sm1563744lfr.178.2024.04.09.07.22.55
+ AJvYcCUulJoquEeRLB9Gcb004cB6XHPa1aliDjPmneHm5Oug3O2oOCP+et2HG+KQHDoVf6ifMrGeUGornjuodXeDeqPVmZo6Yt+5GhabKYgDvjJL
+X-Gm-Message-State: AOJu0YxZraIzmaPG6rRCZBau2rRDYID77jQpHqTG9526tRciFI3TcAjg
+ 4hhPVJAXmR05RnLwnDD/8PilMN6M3FR7Novmg89PrZiBYKuDJYrcJzI4oH5p9bI=
+X-Google-Smtp-Source: AGHT+IFhmq1jH49fs/wNDP2DWefgXDYDOHbmwLUoOSnTyawe10DQy5StJWx9djPeA8rjMN8setjnjA==
+X-Received: by 2002:ac2:59d0:0:b0:516:cd83:71ce with SMTP id
+ x16-20020ac259d0000000b00516cd8371cemr7651841lfn.31.1712673579685; 
+ Tue, 09 Apr 2024 07:39:39 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzyjmhyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a00e:a300::227])
+ by smtp.gmail.com with ESMTPSA id
+ i16-20020ac25230000000b00513d13ede82sm1561676lfl.147.2024.04.09.07.39.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Apr 2024 07:22:55 -0700 (PDT)
+ Tue, 09 Apr 2024 07:39:39 -0700 (PDT)
+Date: Tue, 9 Apr 2024 17:39:37 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 09 Apr 2024 17:22:54 +0300
-Subject: [PATCH] drm/msm/gen_header: allow skipping the validation
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ dri-devel@lists.freedesktop.org, seanpaul@chromium.org, swboyd@chromium.org, 
+ quic_jesszhan@quicinc.com, quic_bjorande@quicinc.com, johan@kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] drm/msm/dp: call dp_hpd_plug_handle()/unplug_handle()
+ directly for external HPD
+Message-ID: <d4gcj4dg5vv5wd72kj7lpzs5cy7b2a4gh4t4lixuigwfkpwt3s@4toc3fpqycwi>
+References: <20240406031548.25829-1-quic_abhinavk@quicinc.com>
+ <ale6wbwzkfagcg2q6glb4vsxu3pthhkk3tquv2ixlatbdryqvh@xscsq2h6emho>
+ <01cb1c0d-a801-37f9-2f55-2bbd8d3a68b9@quicinc.com>
+ <CAA8EJprzH0LiWNx9Udt6og3G063odY6ccvaAgsNS1r3zG8TmdA@mail.gmail.com>
+ <905222ad-612a-3eaf-d966-23c89c99e1f0@quicinc.com>
+ <CAA8EJpp6Lc7sc5fnKp+O8TYdaywiE+dZ=YJin351s=r5rxi+Kw@mail.gmail.com>
+ <covjipaso7bhgiifb62vdh24dpadr7kdypl2dleg7a2vc4jwjd@s4ci5xc6qpa3>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240409-fd-fix-lxml-v1-1-e5c300d6c1c8@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAD1PFWYC/x2MQQqAIBAAvyJ7bsFEBPtKdAhda8EsFEIQ/550H
- IaZBoUyU4FFNMj0cuE7DZgnAe7c00HIfjAoqbTU0mLwGLhirFdEIueM1TYYTTCKJ9Nw/23dev8
- AuTeBe10AAAA=
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Stephen Rothwell <sfr@canb.auug.org.au>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4269;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=hIUzrBVsS/dxIln26cfNIzfBzOzmPDPyttogBq3LOxo=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmFU8+GBbXPlk+8WqR1aY9qFNl+S6iJzsUN/i6R
- HKxXKumK5aJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZhVPPgAKCRCLPIo+Aiko
- 1QXjB/wMZyXobBJWAPjTfa7TE6QNsiK2htoOmf3k+BCtFuiZexby2TCyzl703fuNrK06oNmBLio
- CdoKmX86ffHVbMb+G0s8CJxMQSwk1JwKgWWPNg32cYyYinqLrCEnf1R7ohdnGM5LytyOYCgt2e+
- uUG5z4vfP4bLlJIrejllXufSUHq+NTz0Dn9Qyb0sGRsSYzss/qIiJdLhP9ZQI9i+LJN/1pdobVt
- 2UtYYNi0z/VwsP2iTajkF75kfZ92zJGvaVS0qcVwAtXG4ZKJUeI3H7/4Z8Hm5s4zeH8Z9hg7Kz8
- Ey6V7ot6RPwiOYxLXr5hyurtxinGSUum0yu2+t3BarfbTSEr
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <covjipaso7bhgiifb62vdh24dpadr7kdypl2dleg7a2vc4jwjd@s4ci5xc6qpa3>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,121 +97,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-We don't need to run the validation of the XML files if we are just
-compiling the kernel. Skip the validation unless the user enables
-corresponding Kconfig option. This removes a warning from gen_header.py
-about lxml being not installed.
+On Mon, Apr 08, 2024 at 09:33:01PM -0500, Bjorn Andersson wrote:
+> On Tue, Apr 09, 2024 at 01:07:57AM +0300, Dmitry Baryshkov wrote:
+> > On Tue, 9 Apr 2024 at 00:23, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> > > On 4/8/2024 2:12 PM, Dmitry Baryshkov wrote:
+> > > > On Mon, 8 Apr 2024 at 22:43, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> > > >> On 4/7/2024 11:48 AM, Bjorn Andersson wrote:
+> > > >>> On Fri, Apr 05, 2024 at 08:15:47PM -0700, Abhinav Kumar wrote:
+> > > >>>> From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> > > >>> [..]
+> > > >>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> [..]
+> > > >>
+> > > >> I will need sometime to address that use-case as I need to see if we can
+> > > >> handle that better and then drop the the DISCONNECT_PENDING state to
+> > > >> address this fully. But it needs more testing.
+> > > >>
+> > > >> But, we will need this patch anyway because without this we will not be
+> > > >> able to fix even the most regular and commonly seen case of basic
+> > > >> connect/disconnect receiving complementary events.
+> > > >
+> > > > Hmm, no. We need to drop the HPD state machine, not to patch it. Once
+> > > > the driver has proper detect() callback, there will be no
+> > > > complementary events. That is a proper way to fix the code, not these
+> > > > kinds of band-aids patches.
+> > > >
+> > >
+> > > I had discussed this part too :)
+> > >
+> > > I totally agree we should fix .detect()'s behavior to just match cable
+> > > connect/disconnect and not link_ready status.
+> > >
+> > > But that alone would not have fixed this issue. If HPD thread does not
+> > > get scheduled and plug_handle() was not executed, .detect() would have
+> > > still returned old status as we will update the cable status only in
+> > > plug_handle() / unplug_handle() to have a common API between internal
+> > > and external hpd execution.
+> > 
+> > I think there should be just hpd_notify, which if the HPD is up,
+> > attempts to read the DPCD. No need for separate plug/unplug_handle.
+> > The detect() can be as simple as !drm_dp_is_branch() || sink_count != 0.
+> > 
+> 
+> What is detect() supposed to return in the event that we have external
+> HPD handler? The link state? While the external HPD bridge would return
+> the HPD state?
 
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Closes: https://lore.kernel.org/all/20240409120108.2303d0bd@canb.auug.org.au/
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/Kconfig                 |  8 ++++++++
- drivers/gpu/drm/msm/Makefile                |  9 ++++++++-
- drivers/gpu/drm/msm/registers/gen_header.py | 14 +++++++++++---
- 3 files changed, 27 insertions(+), 4 deletions(-)
+It should return the same: there is a sensible display attached. Other
+drivers (and drm/msm/dp internally) use !branch || (sink_count > 0).
 
-diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-index f202f26adab2..4c9bf237d4a2 100644
---- a/drivers/gpu/drm/msm/Kconfig
-+++ b/drivers/gpu/drm/msm/Kconfig
-@@ -54,6 +54,14 @@ config DRM_MSM_GPU_SUDO
- 	  Only use this if you are a driver developer.  This should *not*
- 	  be enabled for production kernels.  If unsure, say N.
- 
-+config DRM_MSM_VALIDATE_XML
-+	bool "Validate XML register files against schema"
-+	depends on DRM_MSM && EXPERT
-+	depends on $(success,$(PYTHON3) -c "import lxml")
-+	help
-+	  Validate XML files with register definitions against rules-fd schema.
-+	  This option is mostly targeting DRM MSM developers. If unsure, say N.
-+
- config DRM_MSM_MDSS
- 	bool
- 	depends on DRM_MSM
-diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-index c861de58286c..718968717ad5 100644
---- a/drivers/gpu/drm/msm/Makefile
-+++ b/drivers/gpu/drm/msm/Makefile
-@@ -156,8 +156,15 @@ msm-y += $(adreno-y) $(msm-display-y)
- 
- obj-$(CONFIG_DRM_MSM)	+= msm.o
- 
-+ifeq (y,$(CONFIG_DRM_MSM_VALIDATE_XML))
-+	headergen-opts += --validate
-+else
-+	headergen-opts += --no-validate
-+endif
-+
- quiet_cmd_headergen = GENHDR  $@
--      cmd_headergen = mkdir -p $(obj)/generated && $(PYTHON3) $(srctree)/$(src)/registers/gen_header.py --rnn $(srctree)/$(src)/registers --xml $< c-defines > $@
-+      cmd_headergen = mkdir -p $(obj)/generated && $(PYTHON3) $(srctree)/$(src)/registers/gen_header.py \
-+		      $(headergen-opts) --rnn $(srctree)/$(src)/registers --xml $< c-defines > $@
- 
- $(obj)/generated/%.xml.h: $(src)/registers/adreno/%.xml \
- 		$(src)/registers/adreno/adreno_common.xml \
-diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
-index 9b2842d4a354..192123cf7976 100644
---- a/drivers/gpu/drm/msm/registers/gen_header.py
-+++ b/drivers/gpu/drm/msm/registers/gen_header.py
-@@ -538,6 +538,9 @@ class Parser(object):
- 		self.variants.add(reg.domain)
- 
- 	def do_validate(self, schemafile):
-+		if self.validate == False:
-+			return
-+
- 		try:
- 			from lxml import etree
- 
-@@ -567,7 +570,10 @@ class Parser(object):
- 			if not xmlschema.validate(xml_doc):
- 				error_str = str(xmlschema.error_log.filter_from_errors()[0])
- 				raise self.error("Schema validation failed for: " + filename + "\n" + error_str)
--		except ImportError:
-+		except ImportError as e:
-+			if self.validate:
-+				raise e
-+
- 			print("lxml not found, skipping validation", file=sys.stderr)
- 
- 	def do_parse(self, filename):
-@@ -586,9 +592,10 @@ class Parser(object):
- 		self.stack.pop()
- 		file.close()
- 
--	def parse(self, rnn_path, filename):
-+	def parse(self, rnn_path, filename, validate):
- 		self.path = rnn_path
- 		self.stack = []
-+		self.validate = validate
- 		self.do_parse(filename)
- 
- 	def parse_reg(self, attrs, bit_size):
-@@ -853,7 +860,7 @@ def dump_c(args, guard, func):
- 	p = Parser()
- 
- 	try:
--		p.parse(args.rnn, args.xml)
-+		p.parse(args.rnn, args.xml, args.validate)
- 	except Error as e:
- 		print(e, file=sys.stderr)
- 		exit(1)
-@@ -941,6 +948,7 @@ def main():
- 	parser = argparse.ArgumentParser()
- 	parser.add_argument('--rnn', type=str, required=True)
- 	parser.add_argument('--xml', type=str, required=True)
-+	parser.add_argument('--validate', action=argparse.BooleanOptionalAction)
- 
- 	subparsers = parser.add_subparsers(required=True)
- 
+> If a driver only drives the link inbetween atomic_enable() and
+> atomic_disable() will the "connected state" then ever be reported as
+> "connected"? (I'm sure I'm still missing pieces of this puzzle).
 
----
-base-commit: ab556156cafa24ec7de9e89bc18fa15637c21a59
-change-id: 20240409-fd-fix-lxml-eecc6949f64e
+I don't probably get the question. Nothing stops the driver from
+accessing the AUX bus outside of the atomic_enable/disable() brackets.
 
-Best regards,
+> 
+> Regards,
+> Bjorn
+
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
+With best wishes
+Dmitry
