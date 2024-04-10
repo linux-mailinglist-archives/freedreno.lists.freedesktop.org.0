@@ -2,74 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B6CD89F3D9
-	for <lists+freedreno@lfdr.de>; Wed, 10 Apr 2024 15:17:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 883608A006A
+	for <lists+freedreno@lfdr.de>; Wed, 10 Apr 2024 21:16:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5FE410E563;
-	Wed, 10 Apr 2024 13:17:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCFC710E5BE;
+	Wed, 10 Apr 2024 19:16:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WDlmmzeA";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="k/1OTCWt";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com
- [209.85.219.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9E12113381
- for <freedreno@lists.freedesktop.org>; Wed, 10 Apr 2024 13:17:52 +0000 (UTC)
-Received: by mail-yb1-f178.google.com with SMTP id
- 3f1490d57ef6-dc25e12cc63so6894830276.0
- for <freedreno@lists.freedesktop.org>; Wed, 10 Apr 2024 06:17:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712755071; x=1713359871; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=aaut2pBnJQwsZ84leifBiD3Jd/zh/CW3q55Aw0Cq/FM=;
- b=WDlmmzeAipZw3rzuEAAvYN5Rhc1x5xsMHJ80h7+joBYNour5XQaKq1yvolGO8EkpG1
- 0e8arROZCm+6pbZcXGFaRToVDi0p64yJBg6IT2WIccOpPjF0DSy4xKv6/I+TDm/T1m10
- l1aGtckNOmiWLnk1J7TSYr1u3TFZVPJLbsEIQOVMuPC+u+MSYrnJtdfWuq93PUEULOIp
- 6MSb9QKe1mYxkWN5yWYL8FhcIibsrMU2S44KlI5+cqC4h1xsGSKWgPES7rw/+kU4wy5u
- qMUEKyoIn1gGwZ6gk32iCT6mpa5/pTvL7XPGO5Qbl474CxBDEzlVCDq21LNWKG24MT9A
- SxOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712755071; x=1713359871;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=aaut2pBnJQwsZ84leifBiD3Jd/zh/CW3q55Aw0Cq/FM=;
- b=WTECMOZqKm1JIiuUNL1GfekUPQeIjbHa2+EJb7q6woJ/1Dj0MbWxnxngJ6u472nUwa
- VUv+rikEx6RjujkUQCboNelBNhqi2Nb2iZPj4DUsHyZu4qrC2VDy8VI0WfY1p6JNTb4T
- ekYOYEl1uziMtT5ODW6CF/ZJl7FHJq1fC4yk4euBahtVZn697PPpa9t75QJMQ6vvFHgy
- +lQPaRilNztZi7zurIbw3bk1HTBNo8/CC5wwAk3PMfQk7t/K1QuaezzFC/Tljlc+va4T
- fBWe6MNM6LMqO9Gm2X4DL1BMCqmhqUO/0zRGQC5f1j5WYUTlzHZWaec5fdStzCshvlS9
- VPDQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVVloSTaJYan1fIX7emTrPW/sHMJT1xAYyElu81B/EaF8Me7l8VH5v8TJMiJ3nfm2U8Ho5RW8ulHXIvJLWMuSDU4W0Xwk2zhTaSnD+QkuSX
-X-Gm-Message-State: AOJu0YxIhHyWc1JE7qEUHHOEidhCeArWOhUgvDKMkOYkabNqiroo1Jpb
- AD743mJjmlGmCpefQKb6GtIwEqEmCeM/WIcCuJeD/LwF7wMSzFpRHprJT1ytNJwyyMWwPlGiiFw
- /fShqENf26Mn4gG/N4K1kiUq6JVzFA7WiwvjyDQ==
-X-Google-Smtp-Source: AGHT+IFmS5w8AhK8kbcytc2bVAvW9AcSbo4jeQurDEFNC0cSxmV8ZNFN2AK5/kDoM6WitX7Tu3IUL/kE2njb2JKBLgs=
-X-Received: by 2002:a25:8b08:0:b0:dcc:623e:1b5d with SMTP id
- i8-20020a258b08000000b00dcc623e1b5dmr1525941ybl.31.1712755070932; Wed, 10 Apr
- 2024 06:17:50 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9AEA10E5B6;
+ Wed, 10 Apr 2024 19:15:55 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 43AJ7Jwa031087; Wed, 10 Apr 2024 19:15:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=3SWPpukViIY0sQ2aqkLXqWAo9nR5ackHJyG2D+3W6Uc=; b=k/
+ 1OTCWtPHHJyMD1T1tvy/2qchEgLvCsDrTxZ0b9eBfT+ET5dKVNFSAYlDrjPqK9rp
+ CxTr03vUzxUWcx/K8+GlhPafYcvqPQ8QJDz2beyK/SFqWOcx0CbIcxabx9EdKajl
+ 70WcuGDoW9CVhvazbGYlVwrGkMOtTQzChQTG415hM+ackNfwj0yudlmDkwD3nJlV
+ clbWDf14Gl05QUegABEizPflcIG7TlGk3f7kR4V4w1pMxe8QqjHa5f0ZDgxLUqs0
+ bOFqT9kjZon+P2lkAQS9vs1XpASjJUp2ZUsyfh/voq2uS/Zyz2HJMw0AObwboBcM
+ UAAhjaOJBGn11to9cr4A==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xe0hu81mn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Apr 2024 19:15:48 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 43AJFm0E006761
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Apr 2024 19:15:48 GMT
+Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Wed, 10 Apr
+ 2024 12:15:47 -0700
+Message-ID: <bcdb4994-a11a-f80f-15a0-c82c9e34a0ea@quicinc.com>
+Date: Wed, 10 Apr 2024 12:15:46 -0700
 MIME-Version: 1.0
-References: <20240408085523.12231-1-amishin@t-argos.ru>
- <CAA8EJppTM4tpsFaZKupPe=0Oc9qDp7dBqHyHGP4E5bTHKT=hSw@mail.gmail.com>
- <2b06e6b2-6fa0-48fa-800b-7aad6735daa6@t-argos.ru>
-In-Reply-To: <2b06e6b2-6fa0-48fa-800b-7aad6735daa6@t-argos.ru>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 10 Apr 2024 16:17:39 +0300
-Message-ID: <CAA8EJpq2=wFEY6GnKBHqnXPdrMs-g-iNuT=DaJddKbFCyBb=Sg@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: Add callback function pointer check before
- its call
-To: Aleksandr Mishin <amishin@t-argos.ru>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- lvc-project@linuxtesting.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 01/12] drm/msm: fix BPC1 -> BPC4
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+CC: Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20231202214016.1257621-1-dmitry.baryshkov@linaro.org>
+ <20231202214016.1257621-2-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20231202214016.1257621-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: n54uQs6Qb9M60lTG6xAgqeEEv7U-jnjD
+X-Proofpoint-ORIG-GUID: n54uQs6Qb9M60lTG6xAgqeEEv7U-jnjD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-10_04,2024-04-09_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0
+ spamscore=0 malwarescore=0 mlxlogscore=999 mlxscore=0 priorityscore=1501
+ suspectscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2404010003
+ definitions=main-2404100141
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,68 +95,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 10 Apr 2024 at 14:53, Aleksandr Mishin <amishin@t-argos.ru> wrote:
-> On 08.04.2024 12:03, Dmitry Baryshkov wrote:
-> > On Mon, 8 Apr 2024 at 11:57, Aleksandr Mishin <amishin@t-argos.ru> wrote:
-> >>
-> >> In dpu_core_irq_callback_handler() callback function pointer is compared to NULL,
-> >> but then callback function is unconditionally called by this pointer.
-> >> Fix this bug by adding conditional return.
-> >>
-> >> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> >
-> > This should be converted to a proper Reported-by: trailer.
-> >
->
-> It is an established practice for our project, you can find 700+ applied
-> patches with similar line:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?qt=grep&q=linuxtesting.org
-
-Is there any reason why your project doesn't follow established
-guidelines? Compare this to other robots.
-
-Anyway:
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
->
-> >>
-> >> Fixes: c929ac60b3ed ("drm/msm/dpu: allow just single IRQ callback")
-> >> Signed-off-by: Aleksandr Mishin <amishin@t-argos.ru>
-> >> ---
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 4 +++-
-> >>   1 file changed, 3 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> >> index 946dd0135dff..03a16fbd4c99 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> >> @@ -223,9 +223,11 @@ static void dpu_core_irq_callback_handler(struct dpu_kms *dpu_kms, unsigned int
-> >>
-> >>          VERB("IRQ=[%d, %d]\n", DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
-> >>
-> >> -       if (!irq_entry->cb)
-> >> +       if (!irq_entry->cb) {
-> >>                  DRM_ERROR("no registered cb, IRQ=[%d, %d]\n",
-> >>                            DPU_IRQ_REG(irq_idx), DPU_IRQ_BIT(irq_idx));
-> >> +               return;
-> >> +       }
-> >>
-> >>          atomic_inc(&irq_entry->count);
-> >>
-> >> --
-> >> 2.30.2
-> >>
-> >>
-> >
-> >
->
-> --
-> Kind regards
-> Aleksandr
 
 
+On 12/2/2023 1:40 PM, Dmitry Baryshkov wrote:
+> Fix enum mdp_bpc::BPC1 value to be BPC4 instead (as shown in the DPU
+> driver). This commit should be replaced with the registers sync with
+> Mesa instead.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/mdp_common.xml.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
--- 
-With best wishes
-Dmitry
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
