@@ -2,56 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D2FF8A5296
-	for <lists+freedreno@lfdr.de>; Mon, 15 Apr 2024 16:02:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8048E8A52CB
+	for <lists+freedreno@lfdr.de>; Mon, 15 Apr 2024 16:13:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EBF21125CF;
-	Mon, 15 Apr 2024 14:02:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C44310F28F;
+	Mon, 15 Apr 2024 14:13:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="bRSc7hqe";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="OTFOPLct";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 907591125CE;
- Mon, 15 Apr 2024 14:02:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:To:
- From:Subject:Message-ID:Sender:Reply-To:Cc:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Ljnuyj309g/2itlVZDdfjNXk+f84QxRXjXC1RNVY8PM=; b=bRSc7hqeT0ebFpgrrSRZNaA0ed
- n26TriUpOtx6cBBF7bzXraz8VFiuGSKVsp1XgcYwVWQ0a3BOeMr0/eod102P2JrkffzA2BcWeiZdZ
- pQujN2ME4bMFMFbeh+uunhSmtPXnLWFqy0JcWJPltB7qDXryWoUP8AnQWZCaJduGLHT992QFBLOHo
- 8xlH8pXfNkDdKxSPhlTaXrn7uzE5TTuY1eSusvZW7p3jsBQLgtPeGp9PWCcf9DGRorXoP0JwRZjzQ
- /d97iImCel8NWXWwL8cpmVztZmwaVQR7+eO3g4wKHyk6hs9780yHc2JaZ44+LX53GYs9N645H0WkN
- fShSpcDQ==;
-Received: from 30.red-83-52-1.dynamicip.rima-tde.net ([83.52.1.30]
- helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1rwMux-004mu0-Ni; Mon, 15 Apr 2024 16:02:43 +0200
-Message-ID: <2309afcf8a6d4e67f589e80a92916e6a73058084.camel@igalia.com>
-Subject: 2024 X.Org Foundation Election Results
-From: Ricardo Garcia <rgarcia@igalia.com>
-To: events@lists.x.org, xorg-devel@lists.x.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- libre-soc-dev@lists.libre-soc.org, elections@x.org, members@x.org, xorg
- <xorg@lists.freedesktop.org>
-Date: Mon, 15 Apr 2024 16:02:42 +0200
-Autocrypt: addr=rgarcia@igalia.com; prefer-encrypt=mutual;
- keydata=mQINBGJhDyMBEACeWT1BIJfZAtNH2wklpKt6M+XmbddnVqT+0tsPlvqlSAAvP47kJE1o4Qirosttq2C+4jH/NZleiA+ydlJV2X9wWN3Wl06Ro1yyI+RqlPP9lcciPGjpd2H6amFGxR4Tnd/t/fpu2euO8rn33n8qyLTqrJEhAFoAmZUUVzthCmIwCIf2DWTjuKUW9sCMrE5p4ybRobdT0/oTHobPfXvAhjawZeCnJ0Gs776kY6eiOLvTm2oZ0I0szG09aehtEZ5RuDgrCGkDrDGojaFnpT6h9gPtk6afa9f2Aaea3P1V3J4nRSId3NMv/Z3SIl91AeOyzUHqtix7Qs7K0pjbLlhQscwlPdkVTi17gOUl+8cVvI88yfIrbkOiGa40mPiSFyffIAZNyn25bZSk8P+6LdfUroeyOvJFTCkOHUElOO6HHcauBE6zLkroq17hbC2HCvgE9aP1BLN9UY2m6pqlkt+Psekz8QGwJUM+6hP39t6w5ADp41RAY/W2G0Sl6LGpDq7BjrMttFCpzPvovO+eGk6ZkmLnkzJ4Tl6UNRVqQVuJesJzabPkRwR3R18ZzRraLkZDtQFblRZG1dSXJuzvgYfC4qiRGEwTaeF/Zcwuc6BbDOUNfzI6x/1JLl4nYDVBdQZzCFdamKdfmZoQ5obidgwjMmb+dSc0tZDQ43jpu0S+W0J9nwARAQABtCNSaWNhcmRvIEdhcmNpYSA8cmdhcmNpYUBpZ2FsaWEuY29tPokCUQQTAQgAPBYhBMu4DHyVFmYmy5lmKPPBSxrqBc2lBQJiYQ8jAhsDBQsJCAcCAyICAQYVCgkICwIEFgIDAQIeBwIXgAAKCRDzwUsa6gXNpXgCD/i+/W+hl9c6MQjHW5kN+q5JFZ9MgSAMBf3phYF9RIS4Yx423F3VUJP8O8/zaDKOHc7zPa3DGpOQP2iZ2ZDU/k3RMFu2ZInMHWDUlXvd9kf4ajQDL+IEseIZ/FMo4
- uxHjPTgnOqVt6CZP62mBqW2T2dmzg7xsZceHx93e98Owj+Qj/yst1iV9W0IjmGqhR/aLgktbLrr92Aogr2xN6dDmp89DYT8AuczqDznrKXSMjx3nHcOptSkXV6eAAU2JFaDqOjCIXd8CtbslVGaoMk54mqJhzhhnj4+TCRGuUKOTPTMhvdTJxB5YQfG5vkwJEjceLdrFLDGVF4g7DebCdbdWkzQDgA+ZZPj9s1AiEAuFMnAB8BiJB55hEQCYZ21lKVm5n/52rhnGMRDbFLo+nYXBIHQ8EUtgJqtoS8f3XAtT1+0CzTHKrBNn+eRwCHyGGPz0SXkVtPfimG3u1RfC1eZ5rJ83vrjtvqt8krzjq2eFCrm8+kv+M3H6etrrUf7fzzTaIh3j2EAO73CYP0ptVen7DdBerFzz3h6HzWdNMuCVXqxazehE53CzBfBlq2tCa/Gm6OqSvN7u89k0qAEpqBG2Xjh0c/vPCW+f7tVoEftcUVkGY2bX5mr0V4DN11JViLWjl5x/g8EXP3zUbg49uDJlo0mscXwLn/8Za0aDsFErp/cuQINBGJhDyMBEADJ1+VrnbnrbWam9T9MVOrwXTkt5claM/yvfmbOS7KY6xb0ZIhn2L9JZIlomknIwAQYe9Be16NnqkNP9KxK+p7C+iwGZGhHh1TNfbeLbnk86pLfdjVo2QUMLHE5PwNXO3R0ofdIFBUmlA6rtpWm1hnGhp48jxwMbv5Kgcwoa0ShU4nMPIv2k0OhoUAs+1xbqqj/zw8IYuDMamZpDkjlOWqfiZPLJtxwDCPtM2POp/8hQoVgBlXRnQlqh0BxVqINK9VZ25KSxehiMN//UzgILVNy0Ana93YubvOsSmKs0ZRhrLE9WDBSi+6ehI2Q+NT11QPVTdLqkA+gHhjmzwCWRO4LjkdSjXGU6N5Mq/d+nxcGs6dsSuI1/iXRCUD8CCThFXWeevGi6xiZNZ9Zn6NBFw4SAXxjSqAPIgNPUsy2OH
- oyukLnKDa2aSs1R6OzCxtGTlWxBLjEcgNhpaAVPsQBMe1bBeS238uT03woQIHnlXtM3OK2tO7naov1srgqBAnF+Js6/SElBHip7gAJDUfOvFWt57OR31Ttnfor/ztEW11/8gQArmPindOjNLFn6zmkZ8xZV8YDsoO/COqoAb0IIHogJdvaZgs3malZ2W/3x3KrBepXNEFJR8bMrzP8mhvX4Icxc9NTwnlM8Za7lxCfH5djabKGLv0p0YkktGutPjz7CwARAQABiQI2BBgBCAAgFiEEy7gMfJUWZibLmWYo88FLGuoFzaUFAmJhDyMCGwwACgkQ88FLGuoFzaVu3w/+IZpSMOIYQvGBkcg9ZiEZ7qOWy9CIUEoa7+jvksaod5zH1wrmPIQQWWkE3Xt2Gd+jbkxVo/CwQ0mQD/Iz0cT8Dm4eA3DQNeoLyChkCVODTv4j72NjonlL0VUe/g0wmYdmnFYUtswiTYcTxS6X2MuV65fo8ZkW0LANd0HL5ik4DjMs8yWNGXFS4S0LiZlD5X3v3fEIvkVOh698N2ZVL/wz4RLx3TS7DW4hQYrvdqYfeaSHirvbMr1lZz2+2ck7oAwg4M2nM+ps60TKLwqwjUo59l+DrLEna2J/1acTzNE6ancUtqGucKE96LkO2+O2xUyaIMj45jmAgW6Uc1Eo18dQxbyKtShLnY7/ghkSwQ/Syo/sFPdPIMS2Rj3N+WeFFoGRt5FVL9uxi5XNrFtE8GvwVgLJIMeAJc6KZfDgGtfMMNjUf8fta60RmyT/Z5cb6MsEFWZfSNX59lRL4HWHf96QFeSdJsB7eMfEwLl/biv1gcC2BkX4PRvU5euBhaP+u/OgmPlDp4f3BppTQjRjeQC2wkjue3bNn95xHXh4Sxa/GthlBTjOLBl3Oxty/Dte+1PSvI3D1FyPn9pvQeg6ovwGEVVJcWckyQTtgaWmrUzgsWexvrLixouTN584pAW0G3XJvZ3rrNPry9DUMG3
- p0ZW9AkVq7C3F0YSY0Tq5bKR94O8=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.4 (3.50.4-1.fc39) 
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2CBA10F0ED
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Apr 2024 22:11:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1712787088;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/9ZaDdsvv6WC5wTEQulDSBBsBWUVx4JFTYwinWsVjD0=;
+ b=OTFOPLcto9eLMHr9PcPLYi41C6hgUImbq5DJ6FKVoi3yyo88WpBBYmgAEYmncDIDb9K/bK
+ ck59hZxz1q6ETkmotuT7LNclXyNr541++NYpZOUlkiL8p/haW4UJQG1Fl3pNqbKHkE9mNt
+ lYMxqZ68hV8Pi7oB8Jrx6cr5m8Yx5Dg=
+Received: from mail-il1-f197.google.com (mail-il1-f197.google.com
+ [209.85.166.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-27-wYQgqBXFOpGYFgjcABsl8w-1; Wed, 10 Apr 2024 18:11:24 -0400
+X-MC-Unique: wYQgqBXFOpGYFgjcABsl8w-1
+Received: by mail-il1-f197.google.com with SMTP id
+ e9e14a558f8ab-36660582091so83887505ab.0
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Apr 2024 15:11:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712787084; x=1713391884;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/9ZaDdsvv6WC5wTEQulDSBBsBWUVx4JFTYwinWsVjD0=;
+ b=jDJtpi5FzXG4VJuwB855KyvZ50fkc5alXcxZDkJJIqFS5F99GsOnunwDhxXZQvZWvA
+ 2knrwvfQ0Yd4EfDjZbKeUAgPFtYxAk75Gfr9sjagW4GqzZpiF8BN5jha/hgKo+6HUlV8
+ EZm/KQ2OylXw2SZQR3hmkzKA4X8xkv77zK/eFxrNKJGougTcskwOmnhFkza3i4d30aNd
+ FDLMjpXKUntDdcnHrV6Ka8a8vLJGJ4ta09Ef2XGAwDkavYLnHyluCjK4AhBTjPw6xdt8
+ XeyubxpILkXvHJ39KstxFGYHPh/Dkz5qrd1VmnKo9OzRWaAyUTAWrqQZUDmizCylomSh
+ JFHQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWvbFPLDFAa5knPF1+780eAQIWWb4dCeZ22WyFA++2tgNcI6giSu5haP09ECvk7TqECyOOCaciZhh8VJBpvY5uew3OqWOBi2ITibWp06GNB
+X-Gm-Message-State: AOJu0YyDR9/bMxBih1mxgtB/oPmcZvtO9e51MVoGFowlFp+kG2xZJZ00
+ eWk20kH0KEYUWThy7o4m2YuwmAqPZmWAn6pJzJNsKmockMzw3b/WRBeebvesfjCj5RVF3ba/Tm+
+ RRrb4XPqmwMX1TZzk06Ck+8svbYzZiKIKkKInhTUaf7JMrnapDoBqunU6Gh6AizJBKg==
+X-Received: by 2002:a05:6e02:2184:b0:369:f74f:bbe8 with SMTP id
+ j4-20020a056e02218400b00369f74fbbe8mr4414902ila.14.1712787083847; 
+ Wed, 10 Apr 2024 15:11:23 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH5CdIhx3hEVeM8v+W7ezlD4mg6TH6+8ByQq5pRvr8stk4BYb74HRPa8nDJXZLAMSTxH4SmhA==
+X-Received: by 2002:a05:6e02:2184:b0:369:f74f:bbe8 with SMTP id
+ j4-20020a056e02218400b00369f74fbbe8mr4414872ila.14.1712787083369; 
+ Wed, 10 Apr 2024 15:11:23 -0700 (PDT)
+Received: from x1gen2nano ([2600:1700:1ff0:d0e0::33])
+ by smtp.gmail.com with ESMTPSA id
+ t184-20020a632dc1000000b005f410b67e60sm37103pgt.22.2024.04.10.15.11.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Apr 2024 15:11:22 -0700 (PDT)
+Date: Wed, 10 Apr 2024 17:11:19 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm: Drop msm_read/writel
+Message-ID: <s5i4sgt7xbtjkfa6d7whjmuwdpe643uvgdefq7lhsu2wrchfin@eb6csf2mh4g6>
+References: <20240410-topic-msm_rw-v1-1-e1fede9ffaba@linaro.org>
 MIME-Version: 1.0
+In-Reply-To: <20240410-topic-msm_rw-v1-1-e1fede9ffaba@linaro.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Mon, 15 Apr 2024 14:13:27 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,34 +98,385 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The Board of Directors election concluded on 08 April 2024. There were
-81 Members of the X.Org Foundation eligible to vote, and 61 Members cast
-votes. This is a 75.3% turn out.
+On Wed, Apr 10, 2024 at 11:52:52PM +0200, Konrad Dybcio wrote:
+> Totally useless.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-In the election of the Directors to the Board of the X.Org Foundation,
-the results were that=C2=A0Erik Faye-Lund, Simon Ser, Mark Filion and Neal
-Gompa were elected for two-year terms.
+A few more words in the description mentioning this just wraps readl/writel
+with no, but that's a minor nit and is easy to find when you finally see
+the removal in the end of the diff.
 
-The old full board is:
+Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
 
-* Emma Anholt
-* Mark Filion
-* Ricardo Garcia
-* Arkadiusz Hiler
-* Christopher Michael
-* Lyude Paul
-* Alyssa Rosenzweig
-* Sima Vetter
+> ---
+> only compile-tested
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c       |  2 +-
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.h       | 12 ++++++------
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h       |  4 ++--
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  4 ++--
+>  drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h    |  4 ++--
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h    |  4 ++--
+>  drivers/gpu/drm/msm/dsi/dsi_host.c          | 10 +++++-----
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h       |  8 ++++----
+>  drivers/gpu/drm/msm/hdmi/hdmi.h             | 10 +++++-----
+>  drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c    |  6 +++---
+>  drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c    |  4 ++--
+>  drivers/gpu/drm/msm/msm_drv.h               |  7 ++-----
+>  drivers/gpu/drm/msm/msm_gpu.h               | 12 ++++++------
+>  13 files changed, 42 insertions(+), 45 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 8bea8ef26f77..0e3dfd4c2bc8 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -507,7 +507,7 @@ static void a6xx_rpmh_stop(struct a6xx_gmu *gmu)
+>  
+>  static inline void pdc_write(void __iomem *ptr, u32 offset, u32 value)
+>  {
+> -	msm_writel(value, ptr + (offset << 2));
+> +	writel(value, ptr + (offset << 2));
+>  }
+>  
+>  static void __iomem *a6xx_gmu_get_mmio(struct platform_device *pdev,
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> index 592b296aab22..94b6c5cab6f4 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> @@ -103,12 +103,12 @@ struct a6xx_gmu {
+>  
+>  static inline u32 gmu_read(struct a6xx_gmu *gmu, u32 offset)
+>  {
+> -	return msm_readl(gmu->mmio + (offset << 2));
+> +	return readl(gmu->mmio + (offset << 2));
+>  }
+>  
+>  static inline void gmu_write(struct a6xx_gmu *gmu, u32 offset, u32 value)
+>  {
+> -	msm_writel(value, gmu->mmio + (offset << 2));
+> +	writel(value, gmu->mmio + (offset << 2));
+>  }
+>  
+>  static inline void
+> @@ -131,8 +131,8 @@ static inline u64 gmu_read64(struct a6xx_gmu *gmu, u32 lo, u32 hi)
+>  {
+>  	u64 val;
+>  
+> -	val = (u64) msm_readl(gmu->mmio + (lo << 2));
+> -	val |= ((u64) msm_readl(gmu->mmio + (hi << 2)) << 32);
+> +	val = (u64) readl(gmu->mmio + (lo << 2));
+> +	val |= ((u64) readl(gmu->mmio + (hi << 2)) << 32);
+>  
+>  	return val;
+>  }
+> @@ -143,12 +143,12 @@ static inline u64 gmu_read64(struct a6xx_gmu *gmu, u32 lo, u32 hi)
+>  
+>  static inline u32 gmu_read_rscc(struct a6xx_gmu *gmu, u32 offset)
+>  {
+> -	return msm_readl(gmu->rscc + (offset << 2));
+> +	return readl(gmu->rscc + (offset << 2));
+>  }
+>  
+>  static inline void gmu_write_rscc(struct a6xx_gmu *gmu, u32 offset, u32 value)
+>  {
+> -	msm_writel(value, gmu->rscc + (offset << 2));
+> +	writel(value, gmu->rscc + (offset << 2));
+>  }
+>  
+>  #define gmu_poll_timeout_rscc(gmu, addr, val, cond, interval, timeout) \
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> index 34822b080759..8917032b7515 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> @@ -69,12 +69,12 @@ static inline void a6xx_llc_rmw(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 mask, u3
+>  
+>  static inline u32 a6xx_llc_read(struct a6xx_gpu *a6xx_gpu, u32 reg)
+>  {
+> -	return msm_readl(a6xx_gpu->llc_mmio + (reg << 2));
+> +	return readl(a6xx_gpu->llc_mmio + (reg << 2));
+>  }
+>  
+>  static inline void a6xx_llc_write(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 value)
+>  {
+> -	msm_writel(value, a6xx_gpu->llc_mmio + (reg << 2));
+> +	writel(value, a6xx_gpu->llc_mmio + (reg << 2));
+>  }
+>  
+>  #define shadowptr(_a6xx_gpu, _ring) ((_a6xx_gpu)->shadow_iova + \
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> index a847a0f7a73c..83d7ee01c944 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> @@ -192,10 +192,10 @@ static int debugbus_read(struct msm_gpu *gpu, u32 block, u32 offset,
+>  }
+>  
+>  #define cxdbg_write(ptr, offset, val) \
+> -	msm_writel((val), (ptr) + ((offset) << 2))
+> +	writel((val), (ptr) + ((offset) << 2))
+>  
+>  #define cxdbg_read(ptr, offset) \
+> -	msm_readl((ptr) + ((offset) << 2))
+> +	readl((ptr) + ((offset) << 2))
+>  
+>  /* read a value from the CX debug bus */
+>  static int cx_debugbus_read(void __iomem *cxdbg, u32 block, u32 offset,
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+> index 01179e764a29..94b1ba92785f 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+> @@ -44,12 +44,12 @@ struct mdp4_kms {
+>  
+>  static inline void mdp4_write(struct mdp4_kms *mdp4_kms, u32 reg, u32 data)
+>  {
+> -	msm_writel(data, mdp4_kms->mmio + reg);
+> +	writel(data, mdp4_kms->mmio + reg);
+>  }
+>  
+>  static inline u32 mdp4_read(struct mdp4_kms *mdp4_kms, u32 reg)
+>  {
+> -	return msm_readl(mdp4_kms->mmio + reg);
+> +	return readl(mdp4_kms->mmio + reg);
+>  }
+>  
+>  static inline uint32_t pipe2flush(enum mdp4_pipe pipe)
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
+> index fac9f05aa639..36b6842dfc9c 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
+> @@ -171,13 +171,13 @@ struct mdp5_encoder {
+>  static inline void mdp5_write(struct mdp5_kms *mdp5_kms, u32 reg, u32 data)
+>  {
+>  	WARN_ON(mdp5_kms->enable_count <= 0);
+> -	msm_writel(data, mdp5_kms->mmio + reg);
+> +	writel(data, mdp5_kms->mmio + reg);
+>  }
+>  
+>  static inline u32 mdp5_read(struct mdp5_kms *mdp5_kms, u32 reg)
+>  {
+>  	WARN_ON(mdp5_kms->enable_count <= 0);
+> -	return msm_readl(mdp5_kms->mmio + reg);
+> +	return readl(mdp5_kms->mmio + reg);
+>  }
+>  
+>  static inline const char *stage2name(enum mdp_mixer_stage_id stage)
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 9d86a6aca6f2..77bd5ff330d7 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -55,7 +55,7 @@ static int dsi_get_version(const void __iomem *base, u32 *major, u32 *minor)
+>  	 * scratch register which we never touch)
+>  	 */
+>  
+> -	ver = msm_readl(base + REG_DSI_VERSION);
+> +	ver = readl(base + REG_DSI_VERSION);
+>  	if (ver) {
+>  		/* older dsi host, there is no register shift */
+>  		ver = FIELD(ver, DSI_VERSION_MAJOR);
+> @@ -73,12 +73,12 @@ static int dsi_get_version(const void __iomem *base, u32 *major, u32 *minor)
+>  		 * registers are shifted down, read DSI_VERSION again with
+>  		 * the shifted offset
+>  		 */
+> -		ver = msm_readl(base + DSI_6G_REG_SHIFT + REG_DSI_VERSION);
+> +		ver = readl(base + DSI_6G_REG_SHIFT + REG_DSI_VERSION);
+>  		ver = FIELD(ver, DSI_VERSION_MAJOR);
+>  		if (ver == MSM_DSI_VER_MAJOR_6G) {
+>  			/* 6G version */
+>  			*major = ver;
+> -			*minor = msm_readl(base + REG_DSI_6G_HW_VERSION);
+> +			*minor = readl(base + REG_DSI_6G_HW_VERSION);
+>  			return 0;
+>  		} else {
+>  			return -EINVAL;
+> @@ -186,11 +186,11 @@ struct msm_dsi_host {
+>  
+>  static inline u32 dsi_read(struct msm_dsi_host *msm_host, u32 reg)
+>  {
+> -	return msm_readl(msm_host->ctrl_base + reg);
+> +	return readl(msm_host->ctrl_base + reg);
+>  }
+>  static inline void dsi_write(struct msm_dsi_host *msm_host, u32 reg, u32 data)
+>  {
+> -	msm_writel(data, msm_host->ctrl_base + reg);
+> +	writel(data, msm_host->ctrl_base + reg);
+>  }
+>  
+>  static const struct msm_dsi_cfg_handler *dsi_get_config(
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> index e4275d3ad581..5a5dc3faa971 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> @@ -12,10 +12,10 @@
+>  
+>  #include "dsi.h"
+>  
+> -#define dsi_phy_read(offset) msm_readl((offset))
+> -#define dsi_phy_write(offset, data) msm_writel((data), (offset))
+> -#define dsi_phy_write_udelay(offset, data, delay_us) { msm_writel((data), (offset)); udelay(delay_us); }
+> -#define dsi_phy_write_ndelay(offset, data, delay_ns) { msm_writel((data), (offset)); ndelay(delay_ns); }
+> +#define dsi_phy_read(offset) readl((offset))
+> +#define dsi_phy_write(offset, data) writel((data), (offset))
+> +#define dsi_phy_write_udelay(offset, data, delay_us) { writel((data), (offset)); udelay(delay_us); }
+> +#define dsi_phy_write_ndelay(offset, data, delay_ns) { writel((data), (offset)); ndelay(delay_ns); }
+>  
+>  struct msm_dsi_phy_ops {
+>  	int (*pll_init)(struct msm_dsi_phy *phy);
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.h b/drivers/gpu/drm/msm/hdmi/hdmi.h
+> index ec5786440391..4586baf36415 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi.h
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.h
+> @@ -115,17 +115,17 @@ void msm_hdmi_set_mode(struct hdmi *hdmi, bool power_on);
+>  
+>  static inline void hdmi_write(struct hdmi *hdmi, u32 reg, u32 data)
+>  {
+> -	msm_writel(data, hdmi->mmio + reg);
+> +	writel(data, hdmi->mmio + reg);
+>  }
+>  
+>  static inline u32 hdmi_read(struct hdmi *hdmi, u32 reg)
+>  {
+> -	return msm_readl(hdmi->mmio + reg);
+> +	return readl(hdmi->mmio + reg);
+>  }
+>  
+>  static inline u32 hdmi_qfprom_read(struct hdmi *hdmi, u32 reg)
+>  {
+> -	return msm_readl(hdmi->qfprom_mmio + reg);
+> +	return readl(hdmi->qfprom_mmio + reg);
+>  }
+>  
+>  /*
+> @@ -166,12 +166,12 @@ struct hdmi_phy {
+>  
+>  static inline void hdmi_phy_write(struct hdmi_phy *phy, u32 reg, u32 data)
+>  {
+> -	msm_writel(data, phy->mmio + reg);
+> +	writel(data, phy->mmio + reg);
+>  }
+>  
+>  static inline u32 hdmi_phy_read(struct hdmi_phy *phy, u32 reg)
+>  {
+> -	return msm_readl(phy->mmio + reg);
+> +	return readl(phy->mmio + reg);
+>  }
+>  
+>  int msm_hdmi_phy_resource_enable(struct hdmi_phy *phy);
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
+> index 4dd055416620..8c8d80b59573 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
+> @@ -86,18 +86,18 @@ static inline struct hdmi_phy *pll_get_phy(struct hdmi_pll_8996 *pll)
+>  static inline void hdmi_pll_write(struct hdmi_pll_8996 *pll, int offset,
+>  				  u32 data)
+>  {
+> -	msm_writel(data, pll->mmio_qserdes_com + offset);
+> +	writel(data, pll->mmio_qserdes_com + offset);
+>  }
+>  
+>  static inline u32 hdmi_pll_read(struct hdmi_pll_8996 *pll, int offset)
+>  {
+> -	return msm_readl(pll->mmio_qserdes_com + offset);
+> +	return readl(pll->mmio_qserdes_com + offset);
+>  }
+>  
+>  static inline void hdmi_tx_chan_write(struct hdmi_pll_8996 *pll, int channel,
+>  				      int offset, int data)
+>  {
+> -	 msm_writel(data, pll->mmio_qserdes_tx[channel] + offset);
+> +	 writel(data, pll->mmio_qserdes_tx[channel] + offset);
+>  }
+>  
+>  static inline u32 pll_get_cpctrl(u64 frac_start, unsigned long ref_clk,
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c b/drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c
+> index cb35a297afbd..83c8781fcc3f 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c
+> @@ -236,12 +236,12 @@ static const struct pll_rate freqtbl[] = {
+>  
+>  static inline void pll_write(struct hdmi_pll_8960 *pll, u32 reg, u32 data)
+>  {
+> -	msm_writel(data, pll->mmio + reg);
+> +	writel(data, pll->mmio + reg);
+>  }
+>  
+>  static inline u32 pll_read(struct hdmi_pll_8960 *pll, u32 reg)
+>  {
+> -	return msm_readl(pll->mmio + reg);
+> +	return readl(pll->mmio + reg);
+>  }
+>  
+>  static inline struct hdmi_phy *pll_get_phy(struct hdmi_pll_8960 *pll)
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index 65f213660452..0659459c0b15 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -488,15 +488,12 @@ void __iomem *msm_ioremap_mdss(struct platform_device *mdss_pdev,
+>  
+>  struct icc_path *msm_icc_get(struct device *dev, const char *name);
+>  
+> -#define msm_writel(data, addr) writel((data), (addr))
+> -#define msm_readl(addr) readl((addr))
+> -
+>  static inline void msm_rmw(void __iomem *addr, u32 mask, u32 or)
+>  {
+> -	u32 val = msm_readl(addr);
+> +	u32 val = readl(addr);
+>  
+>  	val &= ~mask;
+> -	msm_writel(val | or, addr);
+> +	writel(val | or, addr);
+>  }
+>  
+>  /**
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+> index 2bfcb222e353..a0c1bd6d1d5b 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.h
+> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+> @@ -555,12 +555,12 @@ struct msm_gpu_state {
+>  
+>  static inline void gpu_write(struct msm_gpu *gpu, u32 reg, u32 data)
+>  {
+> -	msm_writel(data, gpu->mmio + (reg << 2));
+> +	writel(data, gpu->mmio + (reg << 2));
+>  }
+>  
+>  static inline u32 gpu_read(struct msm_gpu *gpu, u32 reg)
+>  {
+> -	return msm_readl(gpu->mmio + (reg << 2));
+> +	return readl(gpu->mmio + (reg << 2));
+>  }
+>  
+>  static inline void gpu_rmw(struct msm_gpu *gpu, u32 reg, u32 mask, u32 or)
+> @@ -586,8 +586,8 @@ static inline u64 gpu_read64(struct msm_gpu *gpu, u32 reg)
+>  	 * when the lo is read, so make sure to read the lo first to trigger
+>  	 * that
+>  	 */
+> -	val = (u64) msm_readl(gpu->mmio + (reg << 2));
+> -	val |= ((u64) msm_readl(gpu->mmio + ((reg + 1) << 2)) << 32);
+> +	val = (u64) readl(gpu->mmio + (reg << 2));
+> +	val |= ((u64) readl(gpu->mmio + ((reg + 1) << 2)) << 32);
+>  
+>  	return val;
+>  }
+> @@ -595,8 +595,8 @@ static inline u64 gpu_read64(struct msm_gpu *gpu, u32 reg)
+>  static inline void gpu_write64(struct msm_gpu *gpu, u32 reg, u64 val)
+>  {
+>  	/* Why not a writeq here? Read the screed above */
+> -	msm_writel(lower_32_bits(val), gpu->mmio + (reg << 2));
+> -	msm_writel(upper_32_bits(val), gpu->mmio + ((reg + 1) << 2));
+> +	writel(lower_32_bits(val), gpu->mmio + (reg << 2));
+> +	writel(upper_32_bits(val), gpu->mmio + ((reg + 1) << 2));
+>  }
+>  
+>  int msm_gpu_pm_suspend(struct msm_gpu *gpu);
+> 
+> ---
+> base-commit: 6ebf211bb11dfc004a2ff73a9de5386fa309c430
+> change-id: 20240410-topic-msm_rw-cdc1d85b2ece
+> 
+> Best regards,
+> -- 
+> Konrad Dybcio <konrad.dybcio@linaro.org>
+> 
+> 
 
-The new full board is:
-
-* Erik Faye-Lund
-* Mark Filion
-* Neal Gompa
-* Arkadiusz Hiler
-* Christopher Michael
-* Lyude Paul
-* Simon Ser
-* Sima Vetter
-
--Ricardo Garcia, on behalf of the X.Org elections committee
