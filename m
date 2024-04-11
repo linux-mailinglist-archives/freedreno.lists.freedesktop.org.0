@@ -2,73 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FFD88A1F53
-	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 21:17:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F26808A1FDB
+	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 22:05:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C49C10F0B1;
-	Thu, 11 Apr 2024 19:17:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E41F10F310;
+	Thu, 11 Apr 2024 20:05:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="h1kWVPr5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qdlUFCKA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC3510F0B1
- for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 19:17:35 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-6151d79db7bso1156707b3.1
- for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 12:17:35 -0700 (PDT)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30B0A10F30C
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 20:05:36 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-516d3a470d5so224203e87.3
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 13:05:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712863054; x=1713467854; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=j7eWquxqAMjYK6VihEdOuCucSW8IggeB6/1qHvvdeSw=;
- b=h1kWVPr5W6M/nWKhUKxXFZBI9DiB2Q9e5UxrmuoXgJtOP/c7NpwYM7XZm2bgjKIoap
- q2kDxnJorHLvptLuswAWLuurgqc1reMTxsNOsmVCHbbbt9zPWVknIl0y9TF0/TN/Ngm2
- il7VvLWPgY1TqIwUO0W2qxsavCNVbHIbC3CLXYsWnlnc9VlMwJCrbWkkQYP3MMmDgrB0
- 42SNNpSFmxqdm55eWa25ZmbedKy/Q4sLuspCm6HjldSymDpFOpCb4h3xCVBUjCArwKp4
- uDSxNlJPmlkOY/lSBFYCMOZAa/6GReSHSuoPB/PCFI1RuDW2dRjVglPZZ4uQCd4fwVQ3
- 1acA==
+ d=linaro.org; s=google; t=1712865934; x=1713470734; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=23X31wBk3BfhcWEk6ltxZSp3rP6W6hNoB7vDkcBeLnU=;
+ b=qdlUFCKAlw6qMYQLDS2vXbawVtb0URHVB4vIPfliGk0oqdub+S5ZK9t5FIRfEf690V
+ xvuKL3xXK/Ogmic5nfTm+Yj2gdMBxxaVIqgaur/j3OpcdGwUPu9SyxfzSyCDpF4qIBxf
+ esgeoM/rg9OGD/3eWMuOACwM0hep5FoUnk/WaG+cLOP0TdyW9LNFyC73GtxsEoAsOcWu
+ y1sO4iXeIEorhMtNxQxYmBKMPfrhouQOArP1qwxFWJK3uYW3pGKULWBin7MBHZpPWRWR
+ +1V95B4x1spibaWlTt3NMWjBvLhn/ELxVz8RqZd+sz5ij1qBubn0MVkMm6JX6TtGuycG
+ sf2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712863054; x=1713467854;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=j7eWquxqAMjYK6VihEdOuCucSW8IggeB6/1qHvvdeSw=;
- b=V8C1aZ3U4T7Ii2QqI75a5WSqHUZIfomcqVk63/rQBR1IALg3RqDXfNIzxMM+Nr8RJQ
- /wIGjc0+JRBLDwqjMCRIaQMFbPC5AFBD6HsfnQGvgOMhPnR0Vgxu/TAf0ohSYG+qNDDs
- lO9ag6iWAju7xW/pZQjzjSDgKcThhxqPfwiyq8p4ikaZuMSzA/SrL9sA2004sD3q+lax
- pIsXV0icZZFdvOv4rnonevSUbbMMO0GPSx6qEqEM1XnG7faiI1T195u8JhaQOHc+2Wkv
- yYeVSyY4ZDtG2SXYmbUKMMOdrRi/jQ/KSjbxBXjPt1c6jsfVFMPReNRM11lTjws6keHc
- vOiA==
+ d=1e100.net; s=20230601; t=1712865934; x=1713470734;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=23X31wBk3BfhcWEk6ltxZSp3rP6W6hNoB7vDkcBeLnU=;
+ b=jGRiP8QXroa9PCRooPyFidVlSluWOTyHLVaSmMbZru9fM0A2DiYqKpsIGj0UFD0d20
+ s9fS6RT1RUuouNRYUt2Mh49XFdMPR2S+XOD8T5ZsmjGiCOUFqmQp7/nCub5qtGsiQw0g
+ vrkYFG03SSg5GWmLF6PSjXMifhV8y9g1AeOYEt4OX8n3jaWSYKG9pP2rVd/jfMJPFrsp
+ 3ySVyKjD3uVulrv+Erj4ExDqXbPKbgzU2stRDzVs7Jy7lqREk9wqwpfR0qYwYG4bMoJv
+ 0DtoWbBo1UHg7uA2ruB299Y2fYx1+sZ6Pqe08+TvqQfa1lKSmut0GeKgLcI7tEaPbmMc
+ e2Zg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW4HQUcEEyPzlZldEUOoABC3wG7WDEqsb9SECk6/n5nOksD+oD1vbIELHrbRlEsfmCtapJv870pWyXnYcJWzDArm5P2ticEby1ZZhS4uMdQ
-X-Gm-Message-State: AOJu0Ywf7nlIr6U+BPmdO5vUYl1llN5m/UNnZHZQknzb3jhPp9k5feE/
- qxUx3/J2CNAIZCOBT8zYPKSuoc+w7V8qHe4d7HygZUrG7fxGidjimSIr97JOayFqnDMjwhUwEtN
- GcjFrvgtR04v4lK0Bu5XW1KqEEq0vhFf4LXE/Yg==
-X-Google-Smtp-Source: AGHT+IEVbxHhaYUYjwSUfMZSHyB+FLGNEeS3qJzD72p2Onb5zw3ffC8t5q4TGARlkUDzB6BdQd6ztNh4j0dMx1ga560=
-X-Received: by 2002:a25:ced3:0:b0:dcc:4b44:336c with SMTP id
- x202-20020a25ced3000000b00dcc4b44336cmr521172ybe.53.1712863053956; Thu, 11
- Apr 2024 12:17:33 -0700 (PDT)
+ AJvYcCV5gfxFhncFnBtBTpfLHKT7F4MDTQL79fSvfi4BAfumbD1brkRmkwnqLLsAJETfNAuYE0CCVwSBOxIFsgVdrtpNGgz0vLeisy58L96T/F9r
+X-Gm-Message-State: AOJu0Ywv1ghxaJBZeYcmqeyq+s65B40IUkUToCr4ZDnC5LUIsMT2NT/n
+ +qXCmdhEfB7ncKeUafLmfjF7Myy8UQVkRM3vB0nZjfVNzcMpvqHNpU7q1Bew5N8=
+X-Google-Smtp-Source: AGHT+IF6zl6iOEo7DKIvfS9423W4hfUtCzBCOkPNljsNjdrxqjXqK8MLYOibvZw1RSh2w+0l6aXFNQ==
+X-Received: by 2002:ac2:47ee:0:b0:513:ca65:8c58 with SMTP id
+ b14-20020ac247ee000000b00513ca658c58mr456382lfp.43.1712865933904; 
+ Thu, 11 Apr 2024 13:05:33 -0700 (PDT)
+Received: from [172.30.204.35] (UNUSED.212-182-62-129.lubman.net.pl.
+ [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
+ r16-20020ac25f90000000b00516bfd7e856sm292837lfe.57.2024.04.11.13.05.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Apr 2024 13:05:33 -0700 (PDT)
+Message-ID: <2c2bca6c-b429-4cef-b63a-ee3bd6c9eecb@linaro.org>
+Date: Thu, 11 Apr 2024 22:05:30 +0200
 MIME-Version: 1.0
-References: <20231202214016.1257621-1-dmitry.baryshkov@linaro.org>
- <20231202214016.1257621-8-dmitry.baryshkov@linaro.org>
- <1e7706ab-d2f4-baf9-90c7-f5a81959920f@quicinc.com>
-In-Reply-To: <1e7706ab-d2f4-baf9-90c7-f5a81959920f@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 11 Apr 2024 22:17:22 +0300
-Message-ID: <CAA8EJpp377V9=+e-b=1pHB63BoY0zPZgN_OhAhh_N-+jnm6-VA@mail.gmail.com>
-Subject: Re: [PATCH 07/12] drm/msm: merge dpu_format and mdp_format in struct
- msm_format
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] soc: qcom: Move some socinfo defines to the header,
+ expand them
+To: Elliot Berman <quic_eberman@quicinc.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Stephen Boyd <swboyd@chromium.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20240405-topic-smem_speedbin-v1-0-ce2b864251b1@linaro.org>
+ <20240405-topic-smem_speedbin-v1-1-ce2b864251b1@linaro.org>
+ <20240410132510649-0700.eberman@hu-eberman-lv.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20240410132510649-0700.eberman@hu-eberman-lv.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,97 +96,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 11 Apr 2024 at 22:15, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 12/2/2023 1:40 PM, Dmitry Baryshkov wrote:
-> > Structures dpu_format and mdp_format are largely the same structures.
-> > In order to remove duplication between format databases, merge these two
-> > stucture definitions into the global struct msm_format.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  12 +-
-> >   .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |   2 +-
-> >   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |   2 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c   | 184 ++++++++++--------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h   |   2 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   |  10 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h   |   2 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |  41 +---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |  30 +--
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |   6 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c   |  14 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h   |   4 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c     |  16 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h     |   2 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     |  74 +++----
-> >   drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c     |   4 +-
-> >   drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c    |  26 +--
-> >   drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c     |   7 +-
-> >   drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c    |  54 ++---
-> >   drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c      |   4 +-
-> >   drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.h      |   2 +-
-> >   drivers/gpu/drm/msm/disp/mdp_format.c         |  28 ++-
-> >   drivers/gpu/drm/msm/disp/mdp_kms.h            |  13 --
-> >   drivers/gpu/drm/msm/msm_drv.h                 |  28 +++
-> >   24 files changed, 279 insertions(+), 288 deletions(-)
-> >
->
-> <snip>
->
-> >   int mdp5_smp_assign(struct mdp5_smp *smp, struct mdp5_smp_state *state,
-> > diff --git a/drivers/gpu/drm/msm/disp/mdp_format.c b/drivers/gpu/drm/msm/disp/mdp_format.c
-> > index 30919641c813..5fc55f41e74f 100644
-> > --- a/drivers/gpu/drm/msm/disp/mdp_format.c
-> > +++ b/drivers/gpu/drm/msm/disp/mdp_format.c
-> > @@ -63,26 +63,24 @@ static struct csc_cfg csc_convert[CSC_MAX] = {
-> >   };
-> >
-> >   #define FMT(name, a, r, g, b, e0, e1, e2, e3, alpha, tight, c, cnt, fp, cs, yuv) { \
-> > -             .base = {                                        \
-> > -                     .pixel_format = DRM_FORMAT_ ## name,     \
-> > -                     .flags = yuv ? MSM_FORMAT_FLAG_YUV : 0,  \
-> > -             },                                               \
-> > +             .pixel_format = DRM_FORMAT_ ## name,             \
-> >               .bpc_a = BPC ## a ## A,                          \
-> > -             .bpc_r = BPC ## r,                               \
-> > -             .bpc_g = BPC ## g,                               \
-> > -             .bpc_b = BPC ## b,                               \
-> > -             .unpack = { e0, e1, e2, e3 },                    \
-> > +             .bpc_r_cr = BPC ## r,                            \
-> > +             .bpc_g_y = BPC ## g,                             \
-> > +             .bpc_b_cb = BPC ## b,                            \
-> > +             .element = { e0, e1, e2, e3 },                   \
-> > +             .fetch_type = fp,                                \
-> > +             .chroma_sample = cs,                             \
-> >               .alpha_enable = alpha,                           \
-> >               .unpack_tight = tight,                           \
-> > -             .cpp = c,                                        \
-> >               .unpack_count = cnt,                             \
-> > -             .fetch_type = fp,                                \
-> > -             .chroma_sample = cs,                             \
->
-> Minor nit:
->
-> These two lines are only moving the locations of assignment so
-> unnecessary change?
 
-Sure, let's drop that. I think it was just C&P of some kind.
 
->
-> Rest LGTM,
->
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->
-> For validation, are you relying mostly on the CI here OR also other
-> internal farms? Even though mostly its just making code common, basic
-> display coming up on one target each of MDP4/MDP5/DPU will be great to
-> be safe.
+On 4/11/24 20:55, Elliot Berman wrote:
+> On Fri, Apr 05, 2024 at 10:41:29AM +0200, Konrad Dybcio wrote:
+>> In preparation for parsing the chip "feature code" (FC) and "product
+>> code" (PC) (essentially the parameters that let us conclusively
+>> characterize the sillicon we're running on, including various speed
+>> bins), move the socinfo version defines to the public header and
+>> include some more FC/PC defines.
+>>
+>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>> ---
 
-It was a visual inspection, but not for each and every platform.
+[...]
 
--- 
-With best wishes
-Dmitry
+>> +	SOCINFO_FC_EXT_RESERVE,
+>> +};
+> 
+> SOCINFO_FC_EXT_RESERVE was a convenient limit since we mapped
+> SOCINFO_FC_AA -> string "AA" via an array, and we've only needed the 8
+> feature codes so far.
+> 
+> We should remove the EXT_RESERVE and test for the Y0-YF (internal
+> feature code) values instead.
+
+OK
+
+> 
+>> +
+>> +/* Internal feature codes */
+>> +/* Valid values: 0 <= n <= 0xf */
+>> +#define SOCINFO_FC_Yn(n)		(0xf1 + n)
+>> +#define SOCINFO_FC_INT_RESERVE		SOCINFO_FC_Yn(0x10)
+> 
+> We probably should've named this SOCINFO_FC_INT_MAX. Reserve implies
+> it's reserved for some future use, but it's really the max value it
+> could be.
+
+So, should SOCINFO_FC_Yn(0x10) also be considered valid, or is (0xf)
+the last one?
+
+> 
+>> +
+>> +/* Product codes */
+>> +#define SOCINFO_PC_UNKNOWN		0
+>> +/* Valid values: 0 <= n <= 8, the rest is reserved */
+>> +#define SOCINFO_PCn(n)			(n + 1)
+>> +#define SOCINFO_PC_RESERVE		(BIT(31) - 1)
+> 
+> Similar comments here as the SOCINFO_FC_EXT_*. It's more like known
+> values are [0,8], but more values could come in future chipsets.
+
+Ok, sounds good, I'll remove the comment then
+
+Konrad
