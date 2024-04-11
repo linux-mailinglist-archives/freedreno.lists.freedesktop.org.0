@@ -2,78 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EB858A0568
-	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 03:22:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 433138A058F
+	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 03:31:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27F4010EBFF;
-	Thu, 11 Apr 2024 01:22:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 841AB10EC20;
+	Thu, 11 Apr 2024 01:31:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="sBXxSJrR";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nzAwOZMv";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com
- [209.85.219.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 503CF10EBFF
- for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 01:21:59 +0000 (UTC)
-Received: by mail-yb1-f177.google.com with SMTP id
- 3f1490d57ef6-dcc71031680so6881763276.2
- for <freedreno@lists.freedesktop.org>; Wed, 10 Apr 2024 18:21:59 -0700 (PDT)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5601A10EC19
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 01:31:46 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-516cbf3fd3dso8497003e87.2
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Apr 2024 18:31:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712798518; x=1713403318; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=29JTXvl1eeIXizUo3xD7DriQJsmKP+Knw9aK5HMQNoU=;
- b=sBXxSJrRqwH0Gz5wZLsLGLBqqkmp3XysMQYjyO6JTYM03CEO8oiBtSwZ+NY87xl87O
- zjtkNI+xHcJz0SqLjp0pYF4eE6TgMklnjXxqcwA6RUhWxi02r3PZr/eTlmuSgD/3nTcZ
- rkAcUh7H4DrBTkzMn8Q9WAPg0Ti+Op1kmBK6+qTqjI2C5j9S9xDJ2UlSlSIVujz6J2wi
- hkZ5enFiGt2KiA4chVw/ffb02wcZbZIezGtcrZrZqJwg5DDTogEL3dfbJ5vHZgreV1vg
- hm+z+YFcKL4e7PfB19sU63bG4l67c3r3DBJZm/p3KZaBrySPJaX0etMj896gMq6O9h22
- Wu/Q==
+ d=linaro.org; s=google; t=1712799104; x=1713403904; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=E19K/vS7cBdz0VuoBuxwwccHxe8GH033KAPXkNgYiUY=;
+ b=nzAwOZMv1qOL2LR6MPRltJ2kjINi+dKxjpe5K39RkHJqeYC4FB81klAOHijfeHAsKE
+ Mng5PZLAhFD41oY0TZCHcEGmrLf2VBgw+/kaCB38uHmAaS+6eGjQJKd+RQnnMjX9HvMG
+ 0xR2dANKz7R3rfDLIa4SiFLoUp3nksK+2ME8tIK9QtG+YRjQbZiO1e2oZdpKbBCK/rEJ
+ QUUipKjNYJlCHVgZnl4tSkSPg2SxCVXKQx6vy80AzMj+iDN2GhPK7WFqETe6s8QqU1HR
+ mqfO3TnCM4Twmu7Q2PChXwREUhO0eWwBjXkxWa4J8XXip1TVTQjnMHK4P8BTGL1iv+kI
+ hlbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712798518; x=1713403318;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=29JTXvl1eeIXizUo3xD7DriQJsmKP+Knw9aK5HMQNoU=;
- b=NRRA8HLFghVjN/JRXhGrggxS+cghbLP/TnF2F5lL9Ts6xP+sQzYgVoHMc6AMhbJpqs
- Mg6Gd0B8r4MnNxpp4cSWUM4jaP61OQEvDTCM6Dkdy+7IMWl0JTmgMqrOhYf4DR/YPvJk
- +TE9EHGMLGV1DTEMOLACJW8rvaL+Wl1K9e13nvZjqLJwTHY31VHbv2vaWNgb8Yet4LiG
- zrSz6DthSG0JwJ5w9TVq/m1SFjYEDRSE1WahTRnRlBxHyVwvL+K70VoPQLtJqMPB6HG2
- 5jRion+R6aQsbF5hP/yrEZ/oUf9AFesoBQOw2Nx8rUeS5Yxyc6VyM1yj2OJ86JNRKQ7a
- 6Z6w==
+ d=1e100.net; s=20230601; t=1712799104; x=1713403904;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=E19K/vS7cBdz0VuoBuxwwccHxe8GH033KAPXkNgYiUY=;
+ b=NzmyNEZvsrb3odsql8ampKVJgRkB05ohx2DgMgdzvvz6hIp9StZvu0zazNIE+wrHtX
+ oKpBxMheaLw7vSrthWezAl1yTyMc7YtKKwM93f+2ztrKOrQcSFLS3i8nLNPCClUtwHDP
+ 2a/PT+zERssN7ZcArhgHXhnm16Qq516prXCzFhzgNBdtmZUbXzEmH+iCfnCVUu+RUC6L
+ l++ocmFVHStYzohCjGD6AMg0OyBmlfqUC1e2nsNd4abVMbs/e0oBSr2rGO0oFNSOuO3Z
+ BEKA+Er8PEYlcuQBdDKZb+Zw17WmPxOd1ID4ETBng0/NYLn0TinFLBn/9czSHvRNTA89
+ bgKg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXocuCDI5mnzdn3TO/gDQCb11C81ScdOLaA5UltTv8FxQljLZls47q4VftVPYrTu/EQm8UaxrefkVjeXvD1E8+QZHpYy5KnL7sqyS7dvNn+
-X-Gm-Message-State: AOJu0YwVC1zspxbnQTSMTT0zLFEyYAFfntw97nNlXVbGFDPGDAJtbCMw
- TJZVrf1vz79NljUPcQxQCl00D1q64qA/iBhCx3wXJFNjXu3qezQadzZMkpDeluOh03hXMxE2L7X
- lfmnktIG+d+3IbVlK9koNk7CWVTIutrXLg0SbIw==
-X-Google-Smtp-Source: AGHT+IEt39xqYh+VuBi1zOnldmXuKPcH5dj7N/c8zUF/gfcXX2jQXpI3CXbRm64XnnkdG88YgddWiN60MDbL4hwJaKs=
-X-Received: by 2002:a25:9bc7:0:b0:dcc:96db:fc0d with SMTP id
- w7-20020a259bc7000000b00dcc96dbfc0dmr4108725ybo.25.1712798518192; Wed, 10 Apr
- 2024 18:21:58 -0700 (PDT)
-MIME-Version: 1.0
-References: <20231202214016.1257621-1-dmitry.baryshkov@linaro.org>
- <20231202214016.1257621-4-dmitry.baryshkov@linaro.org>
- <bb448864-b974-55ac-4709-ea89bbd2694f@quicinc.com>
- <CAA8EJpqnjY35RF52yJ8gFRKHoh1ArnnviacDtfntSYZdALD3bQ@mail.gmail.com>
- <83b45b20-fb7e-564b-4e32-2b6a12c4dc6d@quicinc.com>
- <uhyqwsevbgvayqf7ky2tasvutpqgvuaa5o7y7scqete3jueuhk@zgji4hgmh4lu>
- <c0274d67-ae15-8b08-a6af-bd1d77698ab9@quicinc.com>
- <CAA8EJppSX=ccwXb2f2SYi9menXO6LLYwqEY5HaSR9K4dh3FRJg@mail.gmail.com>
-In-Reply-To: <CAA8EJppSX=ccwXb2f2SYi9menXO6LLYwqEY5HaSR9K4dh3FRJg@mail.gmail.com>
+ AJvYcCWipgb0egk6Zurp7ynlbEwq7+M7+tFyMl34qgKZHVyyCWZUFj60hsWGqe6cGWKkietd4vDg/UoXorfdyNlUHQomqbJbTubQMsii+M1zszTe
+X-Gm-Message-State: AOJu0Yyub2PSbA5zp4h03+ySw2OyC4LcWcLk/cRaXZ+HZX4NSHlsQFNF
+ m/QwGfvHVeQBVIo1fFngjimPVPyOGL68KlgAoTOEkxnMtzYzGaaw/sOJngNUqRM=
+X-Google-Smtp-Source: AGHT+IES6pFakWdLWGXexeMvuFmwsYpIR2L71ZkspvFHdvFSeopjAcPfM/o/fxLxhMvfR+6qemFqbA==
+X-Received: by 2002:ac2:5502:0:b0:515:ab92:6a82 with SMTP id
+ j2-20020ac25502000000b00515ab926a82mr2912796lfk.17.1712799103691; 
+ Wed, 10 Apr 2024 18:31:43 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
+ by smtp.gmail.com with ESMTPSA id
+ q13-20020a19430d000000b00516a2e40e19sm64871lfa.180.2024.04.10.18.31.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Apr 2024 18:31:43 -0700 (PDT)
+Date: Thu, 11 Apr 2024 04:31:41 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 11 Apr 2024 04:21:47 +0300
-Message-ID: <CAA8EJpqHLtnAANkZxh1xJfTpRtoCub1fkz2ny=TVKv1TVw3K6w@mail.gmail.com>
-Subject: Re: [PATCH 03/12] drm/msm/dpu: use format-related definitions from
- mdp_common.xml.h
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- Stephen Boyd <swboyd@chromium.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm: Drop msm_read/writel
+Message-ID: <bwhfcobfkddhw2jdj6orvtbejap6ast7njahkbggj6lpelibqi@ae7357lpepmf>
+References: <20240410-topic-msm_rw-v1-1-e1fede9ffaba@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240410-topic-msm_rw-v1-1-e1fede9ffaba@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,73 +88,382 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 11 Apr 2024 at 04:20, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On Thu, 11 Apr 2024 at 02:54, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >
-> >
-> >
-> > On 4/10/2024 2:12 PM, Dmitry Baryshkov wrote:
-> > > On Wed, Apr 10, 2024 at 01:18:42PM -0700, Abhinav Kumar wrote:
-> > >>
-> > >>
-> > >> On 4/10/2024 1:16 PM, Dmitry Baryshkov wrote:
-> > >>> On Wed, 10 Apr 2024 at 23:00, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> > >>>>
-> > >>>>
-> > >>>>
-> > >>>> On 12/2/2023 1:40 PM, Dmitry Baryshkov wrote:
-> > >>>>> Instead of having DPU-specific defines, switch to the definitions from
-> > >>>>> the mdp_common.xml.h file. This is the preparation for merged of DPU and
-> > >>>>> MDP format tables.
-> > >>>>>
-> > >>>>
-> > >>>> Adding MDP_***__ usages in DPU driver is quite confusing.
-> > >>>>
-> > >>>> Can we align to a common naming scheme such as DISP_***?
-> > >>>
-> > >>> No, it's not something display-generic. It is specific to MDP
-> > >>> platforms. In the end DPU is a continuation of the MDP lineup, isn't
-> > >>> it?
-> > >>>
-> > >>
-> > >> No some aspects of the hw are completely different as you already know
-> > >> between MDP4/MDP5 and DPU. Bringing back MDP usages into DPU does not seem
-> > >> right.
-> > >
-> > > MDP4 is different, it's true. But there is a lot of common between MDP5
-> > > and DPU. Frakly speaking, I don't see an issue with using the constant
-> > > that was defined for MDP5 for DPU layer. Especially since we are also
-> > > going to use mdp_ functions for format handling.
-> > >
-> >
-> > All the HW naming etc in the doc has migrated to DPU and in fact it only
-> > makes sense to start using DPU for MDP5 as we plan to move mdp5 targets
-> > to DPU anyway. Not the other way around.
-> >
-> > MDP4 remains different.
-> >
-> > How about MSM_DISP then? I dont get why this is MDP platform specific.
->
-> I expect MSM_DISP to be applicable to all MSM displays, even if e.g.
-> at some point DPU2 switches colour component encoding.
->
-> > Because the term MDP no longer holds true for DPU.
->
-> The XML is still called mdp_common. And the functions are in the mdp_
-> namespace. I don't think we should be changing them just because the
-> name has changed.
-> Likewise if MDP3 is not compatible with these definitions (to be
-> honest, I didn't check) I still don't think we should change these
-> names.
->
-> > I am even looking for future chipsets. We cannot live with MDP5 names.
-> > Have to think of generic names for formats.
->
-> Ok, I'm open for suggestions from your side.
+On Wed, Apr 10, 2024 at 11:52:52PM +0200, Konrad Dybcio wrote:
+> Totally useless.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+> only compile-tested
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c       |  2 +-
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.h       | 12 ++++++------
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h       |  4 ++--
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  4 ++--
+>  drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h    |  4 ++--
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h    |  4 ++--
+>  drivers/gpu/drm/msm/dsi/dsi_host.c          | 10 +++++-----
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h       |  8 ++++----
+>  drivers/gpu/drm/msm/hdmi/hdmi.h             | 10 +++++-----
+>  drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c    |  6 +++---
+>  drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c    |  4 ++--
+>  drivers/gpu/drm/msm/msm_drv.h               |  7 ++-----
+>  drivers/gpu/drm/msm/msm_gpu.h               | 12 ++++++------
+>  13 files changed, 42 insertions(+), 45 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 8bea8ef26f77..0e3dfd4c2bc8 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -507,7 +507,7 @@ static void a6xx_rpmh_stop(struct a6xx_gmu *gmu)
+>  
+>  static inline void pdc_write(void __iomem *ptr, u32 offset, u32 value)
+>  {
+> -	msm_writel(value, ptr + (offset << 2));
+> +	writel(value, ptr + (offset << 2));
+>  }
+>  
+>  static void __iomem *a6xx_gmu_get_mmio(struct platform_device *pdev,
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> index 592b296aab22..94b6c5cab6f4 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> @@ -103,12 +103,12 @@ struct a6xx_gmu {
+>  
+>  static inline u32 gmu_read(struct a6xx_gmu *gmu, u32 offset)
+>  {
+> -	return msm_readl(gmu->mmio + (offset << 2));
+> +	return readl(gmu->mmio + (offset << 2));
+>  }
+>  
+>  static inline void gmu_write(struct a6xx_gmu *gmu, u32 offset, u32 value)
+>  {
+> -	msm_writel(value, gmu->mmio + (offset << 2));
+> +	writel(value, gmu->mmio + (offset << 2));
+>  }
+>  
+>  static inline void
+> @@ -131,8 +131,8 @@ static inline u64 gmu_read64(struct a6xx_gmu *gmu, u32 lo, u32 hi)
+>  {
+>  	u64 val;
+>  
+> -	val = (u64) msm_readl(gmu->mmio + (lo << 2));
+> -	val |= ((u64) msm_readl(gmu->mmio + (hi << 2)) << 32);
+> +	val = (u64) readl(gmu->mmio + (lo << 2));
+> +	val |= ((u64) readl(gmu->mmio + (hi << 2)) << 32);
+>  
+>  	return val;
+>  }
+> @@ -143,12 +143,12 @@ static inline u64 gmu_read64(struct a6xx_gmu *gmu, u32 lo, u32 hi)
+>  
+>  static inline u32 gmu_read_rscc(struct a6xx_gmu *gmu, u32 offset)
+>  {
+> -	return msm_readl(gmu->rscc + (offset << 2));
+> +	return readl(gmu->rscc + (offset << 2));
+>  }
+>  
+>  static inline void gmu_write_rscc(struct a6xx_gmu *gmu, u32 offset, u32 value)
+>  {
+> -	msm_writel(value, gmu->rscc + (offset << 2));
+> +	writel(value, gmu->rscc + (offset << 2));
+>  }
+>  
+>  #define gmu_poll_timeout_rscc(gmu, addr, val, cond, interval, timeout) \
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> index 34822b080759..8917032b7515 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> @@ -69,12 +69,12 @@ static inline void a6xx_llc_rmw(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 mask, u3
+>  
+>  static inline u32 a6xx_llc_read(struct a6xx_gpu *a6xx_gpu, u32 reg)
+>  {
+> -	return msm_readl(a6xx_gpu->llc_mmio + (reg << 2));
+> +	return readl(a6xx_gpu->llc_mmio + (reg << 2));
+>  }
+>  
+>  static inline void a6xx_llc_write(struct a6xx_gpu *a6xx_gpu, u32 reg, u32 value)
+>  {
+> -	msm_writel(value, a6xx_gpu->llc_mmio + (reg << 2));
+> +	writel(value, a6xx_gpu->llc_mmio + (reg << 2));
+>  }
+>  
+>  #define shadowptr(_a6xx_gpu, _ring) ((_a6xx_gpu)->shadow_iova + \
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> index a847a0f7a73c..83d7ee01c944 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> @@ -192,10 +192,10 @@ static int debugbus_read(struct msm_gpu *gpu, u32 block, u32 offset,
+>  }
+>  
+>  #define cxdbg_write(ptr, offset, val) \
+> -	msm_writel((val), (ptr) + ((offset) << 2))
+> +	writel((val), (ptr) + ((offset) << 2))
+>  
+>  #define cxdbg_read(ptr, offset) \
+> -	msm_readl((ptr) + ((offset) << 2))
+> +	readl((ptr) + ((offset) << 2))
+>  
+>  /* read a value from the CX debug bus */
+>  static int cx_debugbus_read(void __iomem *cxdbg, u32 block, u32 offset,
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+> index 01179e764a29..94b1ba92785f 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+> @@ -44,12 +44,12 @@ struct mdp4_kms {
+>  
+>  static inline void mdp4_write(struct mdp4_kms *mdp4_kms, u32 reg, u32 data)
+>  {
+> -	msm_writel(data, mdp4_kms->mmio + reg);
+> +	writel(data, mdp4_kms->mmio + reg);
+>  }
+>  
+>  static inline u32 mdp4_read(struct mdp4_kms *mdp4_kms, u32 reg)
+>  {
+> -	return msm_readl(mdp4_kms->mmio + reg);
+> +	return readl(mdp4_kms->mmio + reg);
+>  }
+>  
+>  static inline uint32_t pipe2flush(enum mdp4_pipe pipe)
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
+> index fac9f05aa639..36b6842dfc9c 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
+> @@ -171,13 +171,13 @@ struct mdp5_encoder {
+>  static inline void mdp5_write(struct mdp5_kms *mdp5_kms, u32 reg, u32 data)
+>  {
+>  	WARN_ON(mdp5_kms->enable_count <= 0);
+> -	msm_writel(data, mdp5_kms->mmio + reg);
+> +	writel(data, mdp5_kms->mmio + reg);
+>  }
+>  
+>  static inline u32 mdp5_read(struct mdp5_kms *mdp5_kms, u32 reg)
+>  {
+>  	WARN_ON(mdp5_kms->enable_count <= 0);
+> -	return msm_readl(mdp5_kms->mmio + reg);
+> +	return readl(mdp5_kms->mmio + reg);
+>  }
+>  
+>  static inline const char *stage2name(enum mdp_mixer_stage_id stage)
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 9d86a6aca6f2..77bd5ff330d7 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -55,7 +55,7 @@ static int dsi_get_version(const void __iomem *base, u32 *major, u32 *minor)
+>  	 * scratch register which we never touch)
+>  	 */
+>  
+> -	ver = msm_readl(base + REG_DSI_VERSION);
+> +	ver = readl(base + REG_DSI_VERSION);
+>  	if (ver) {
+>  		/* older dsi host, there is no register shift */
+>  		ver = FIELD(ver, DSI_VERSION_MAJOR);
+> @@ -73,12 +73,12 @@ static int dsi_get_version(const void __iomem *base, u32 *major, u32 *minor)
+>  		 * registers are shifted down, read DSI_VERSION again with
+>  		 * the shifted offset
+>  		 */
+> -		ver = msm_readl(base + DSI_6G_REG_SHIFT + REG_DSI_VERSION);
+> +		ver = readl(base + DSI_6G_REG_SHIFT + REG_DSI_VERSION);
+>  		ver = FIELD(ver, DSI_VERSION_MAJOR);
+>  		if (ver == MSM_DSI_VER_MAJOR_6G) {
+>  			/* 6G version */
+>  			*major = ver;
+> -			*minor = msm_readl(base + REG_DSI_6G_HW_VERSION);
+> +			*minor = readl(base + REG_DSI_6G_HW_VERSION);
+>  			return 0;
+>  		} else {
+>  			return -EINVAL;
+> @@ -186,11 +186,11 @@ struct msm_dsi_host {
+>  
+>  static inline u32 dsi_read(struct msm_dsi_host *msm_host, u32 reg)
+>  {
+> -	return msm_readl(msm_host->ctrl_base + reg);
+> +	return readl(msm_host->ctrl_base + reg);
+>  }
+>  static inline void dsi_write(struct msm_dsi_host *msm_host, u32 reg, u32 data)
+>  {
+> -	msm_writel(data, msm_host->ctrl_base + reg);
+> +	writel(data, msm_host->ctrl_base + reg);
+>  }
+>  
+>  static const struct msm_dsi_cfg_handler *dsi_get_config(
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> index e4275d3ad581..5a5dc3faa971 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> @@ -12,10 +12,10 @@
+>  
+>  #include "dsi.h"
+>  
+> -#define dsi_phy_read(offset) msm_readl((offset))
+> -#define dsi_phy_write(offset, data) msm_writel((data), (offset))
+> -#define dsi_phy_write_udelay(offset, data, delay_us) { msm_writel((data), (offset)); udelay(delay_us); }
+> -#define dsi_phy_write_ndelay(offset, data, delay_ns) { msm_writel((data), (offset)); ndelay(delay_ns); }
+> +#define dsi_phy_read(offset) readl((offset))
+> +#define dsi_phy_write(offset, data) writel((data), (offset))
+> +#define dsi_phy_write_udelay(offset, data, delay_us) { writel((data), (offset)); udelay(delay_us); }
+> +#define dsi_phy_write_ndelay(offset, data, delay_ns) { writel((data), (offset)); ndelay(delay_ns); }
 
-My proposal: MDPU? Neither MDP nor DPU.
+What about also inlining these wrappers?
+
+>  
+>  struct msm_dsi_phy_ops {
+>  	int (*pll_init)(struct msm_dsi_phy *phy);
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.h b/drivers/gpu/drm/msm/hdmi/hdmi.h
+> index ec5786440391..4586baf36415 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi.h
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.h
+> @@ -115,17 +115,17 @@ void msm_hdmi_set_mode(struct hdmi *hdmi, bool power_on);
+>  
+>  static inline void hdmi_write(struct hdmi *hdmi, u32 reg, u32 data)
+>  {
+> -	msm_writel(data, hdmi->mmio + reg);
+> +	writel(data, hdmi->mmio + reg);
+>  }
+>  
+>  static inline u32 hdmi_read(struct hdmi *hdmi, u32 reg)
+>  {
+> -	return msm_readl(hdmi->mmio + reg);
+> +	return readl(hdmi->mmio + reg);
+>  }
+>  
+>  static inline u32 hdmi_qfprom_read(struct hdmi *hdmi, u32 reg)
+>  {
+> -	return msm_readl(hdmi->qfprom_mmio + reg);
+> +	return readl(hdmi->qfprom_mmio + reg);
+>  }
+>  
+>  /*
+> @@ -166,12 +166,12 @@ struct hdmi_phy {
+>  
+>  static inline void hdmi_phy_write(struct hdmi_phy *phy, u32 reg, u32 data)
+>  {
+> -	msm_writel(data, phy->mmio + reg);
+> +	writel(data, phy->mmio + reg);
+>  }
+>  
+>  static inline u32 hdmi_phy_read(struct hdmi_phy *phy, u32 reg)
+>  {
+> -	return msm_readl(phy->mmio + reg);
+> +	return readl(phy->mmio + reg);
+>  }
+>  
+>  int msm_hdmi_phy_resource_enable(struct hdmi_phy *phy);
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
+> index 4dd055416620..8c8d80b59573 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
+> @@ -86,18 +86,18 @@ static inline struct hdmi_phy *pll_get_phy(struct hdmi_pll_8996 *pll)
+>  static inline void hdmi_pll_write(struct hdmi_pll_8996 *pll, int offset,
+>  				  u32 data)
+>  {
+> -	msm_writel(data, pll->mmio_qserdes_com + offset);
+> +	writel(data, pll->mmio_qserdes_com + offset);
+>  }
+>  
+>  static inline u32 hdmi_pll_read(struct hdmi_pll_8996 *pll, int offset)
+>  {
+> -	return msm_readl(pll->mmio_qserdes_com + offset);
+> +	return readl(pll->mmio_qserdes_com + offset);
+>  }
+>  
+>  static inline void hdmi_tx_chan_write(struct hdmi_pll_8996 *pll, int channel,
+>  				      int offset, int data)
+>  {
+> -	 msm_writel(data, pll->mmio_qserdes_tx[channel] + offset);
+> +	 writel(data, pll->mmio_qserdes_tx[channel] + offset);
+>  }
+>  
+>  static inline u32 pll_get_cpctrl(u64 frac_start, unsigned long ref_clk,
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c b/drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c
+> index cb35a297afbd..83c8781fcc3f 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c
+> @@ -236,12 +236,12 @@ static const struct pll_rate freqtbl[] = {
+>  
+>  static inline void pll_write(struct hdmi_pll_8960 *pll, u32 reg, u32 data)
+>  {
+> -	msm_writel(data, pll->mmio + reg);
+> +	writel(data, pll->mmio + reg);
+>  }
+>  
+>  static inline u32 pll_read(struct hdmi_pll_8960 *pll, u32 reg)
+>  {
+> -	return msm_readl(pll->mmio + reg);
+> +	return readl(pll->mmio + reg);
+>  }
+>  
+>  static inline struct hdmi_phy *pll_get_phy(struct hdmi_pll_8960 *pll)
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index 65f213660452..0659459c0b15 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -488,15 +488,12 @@ void __iomem *msm_ioremap_mdss(struct platform_device *mdss_pdev,
+>  
+>  struct icc_path *msm_icc_get(struct device *dev, const char *name);
+>  
+> -#define msm_writel(data, addr) writel((data), (addr))
+> -#define msm_readl(addr) readl((addr))
+> -
+>  static inline void msm_rmw(void __iomem *addr, u32 mask, u32 or)
+>  {
+> -	u32 val = msm_readl(addr);
+> +	u32 val = readl(addr);
+>  
+>  	val &= ~mask;
+> -	msm_writel(val | or, addr);
+> +	writel(val | or, addr);
+>  }
+>  
+>  /**
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+> index 2bfcb222e353..a0c1bd6d1d5b 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.h
+> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+> @@ -555,12 +555,12 @@ struct msm_gpu_state {
+>  
+>  static inline void gpu_write(struct msm_gpu *gpu, u32 reg, u32 data)
+>  {
+> -	msm_writel(data, gpu->mmio + (reg << 2));
+> +	writel(data, gpu->mmio + (reg << 2));
+>  }
+>  
+>  static inline u32 gpu_read(struct msm_gpu *gpu, u32 reg)
+>  {
+> -	return msm_readl(gpu->mmio + (reg << 2));
+> +	return readl(gpu->mmio + (reg << 2));
+>  }
+>  
+>  static inline void gpu_rmw(struct msm_gpu *gpu, u32 reg, u32 mask, u32 or)
+> @@ -586,8 +586,8 @@ static inline u64 gpu_read64(struct msm_gpu *gpu, u32 reg)
+>  	 * when the lo is read, so make sure to read the lo first to trigger
+>  	 * that
+>  	 */
+> -	val = (u64) msm_readl(gpu->mmio + (reg << 2));
+> -	val |= ((u64) msm_readl(gpu->mmio + ((reg + 1) << 2)) << 32);
+> +	val = (u64) readl(gpu->mmio + (reg << 2));
+> +	val |= ((u64) readl(gpu->mmio + ((reg + 1) << 2)) << 32);
+>  
+>  	return val;
+>  }
+> @@ -595,8 +595,8 @@ static inline u64 gpu_read64(struct msm_gpu *gpu, u32 reg)
+>  static inline void gpu_write64(struct msm_gpu *gpu, u32 reg, u64 val)
+>  {
+>  	/* Why not a writeq here? Read the screed above */
+> -	msm_writel(lower_32_bits(val), gpu->mmio + (reg << 2));
+> -	msm_writel(upper_32_bits(val), gpu->mmio + ((reg + 1) << 2));
+> +	writel(lower_32_bits(val), gpu->mmio + (reg << 2));
+> +	writel(upper_32_bits(val), gpu->mmio + ((reg + 1) << 2));
+>  }
+>  
+>  int msm_gpu_pm_suspend(struct msm_gpu *gpu);
+> 
+> ---
+> base-commit: 6ebf211bb11dfc004a2ff73a9de5386fa309c430
+> change-id: 20240410-topic-msm_rw-cdc1d85b2ece
+> 
+> Best regards,
+> -- 
+> Konrad Dybcio <konrad.dybcio@linaro.org>
+> 
 
 -- 
 With best wishes
