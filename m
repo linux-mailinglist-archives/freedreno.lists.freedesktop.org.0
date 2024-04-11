@@ -2,79 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DEAF8A1FF6
-	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 22:15:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 170418A2015
+	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 22:24:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43D7610F326;
-	Thu, 11 Apr 2024 20:15:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 608B410F1DD;
+	Thu, 11 Apr 2024 20:24:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cAmvNoCO";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="i1XwMY+p";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C42EB10F326
- for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 20:15:37 +0000 (UTC)
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-2d88a869ce6so1901561fa.3
- for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 13:15:37 -0700 (PDT)
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0587510F331
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 20:24:12 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-2d485886545so2670381fa.2
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 13:24:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712866536; x=1713471336; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ONM6qGXwZNOSTTCELomosW3dBjUNpoKKkgP2gKgU2NU=;
- b=cAmvNoCOzHCud9hCr8BikUixtAplDpQDDKUTi1IuVuZ5kDIHg4Aj+f0uTcKZoxq/eR
- oOTgNXhY0XaGep6pAOzABmW1x0W/6sjUyekVyh72c5rEM2cFpfWVnAFna2smiMGrbXGn
- nPsiY+YEZN+mPDXrFFjPs09qKXNF1wxXUWVyJzR2i2MznWp/NPsUqjRiEWHH9tT4/1sv
- bYSAttWM/WkPfUe3A/s23o4efHFD5yayGt9mHSYGk4EwdljOSW6wzMmfqnQDgAaCirSH
- zBtuwDqRpJL3SUrDsAaWaCgFatB/uUt95qgCujGcwL48vOHSLvW+ElmTPwJ5YQdXF8Jy
- AY3g==
+ d=linaro.org; s=google; t=1712867051; x=1713471851; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=OkivZAy8vHp+8K7Um26GAxu/l7QEtqH2ogeAPyc9feU=;
+ b=i1XwMY+pSvlkA+OM9tRNniVgjFMWXAWrt3HuQ15g5gHyU47jZWQTzAMLP7zaRvDTcn
+ 58DuV2EGIIL/WeLp6yXWF5m36hhXgJJlrtAD3IXD96fo7buzy9ArG1BSo208mgX7xVPL
+ ZQDf1R/2D80QPUi+Cdrzof5xiBrgxk69K4jf2CHzFDQsDaxKdf2KTYOh4XNP9+OOxySI
+ dSOdE+J0VlJgn9R/uemtrSZf8Pre294VNham5yDZyoq8Mc/kQn6LdSOezgwhxivcpm7D
+ QOlyo8eJkhhnRyiIzBlOYl1wS7cBANfLuef7gVf2YxgAEAAa8rxJUqUOdeZQW0Oe/SkX
+ +OZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712866536; x=1713471336;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ONM6qGXwZNOSTTCELomosW3dBjUNpoKKkgP2gKgU2NU=;
- b=EE5vbwH3O0GOy2khwlEFreraLbIHKUxK2hZcFsWT7Fx+N4kserd2shvUzJFKe9F8Yi
- coSvZy78wOTH1Nh9wmFO+9WuomAf43OIvaGqOTNksNzozdQszWJxou98aRPJoj5dgvDE
- IuJxrPRqM5R/IGebjXmzXZcqDUHfUdDuKY4bNtpypy+n+Z8GJ+iEk5qn53Stf44i3/UH
- GClUvwYxUb7mxX+173DTwDLt1cx7FdHEI3hMFHEf80pxXJsYDLi8S0qMigWMUCXVtu8n
- qUQTuKuY078Bdw1//4mQbS8kCW6zjEhjIXkYik52NhJliLxN1cZDpF9pNTV+H96FcuhE
- ozDQ==
+ d=1e100.net; s=20230601; t=1712867051; x=1713471851;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OkivZAy8vHp+8K7Um26GAxu/l7QEtqH2ogeAPyc9feU=;
+ b=NZ9qlVogFCmrtAU9tOaxaE7MchneXgCcNyPyBOLDPjiCd74ythB7Vp7TdFR+M5gVWF
+ JoQFCq7cAPw32yg6DJXs/MEnrzd681UF9r+FWFOOxzINSg7TnrsaArveXhfQK9aEzIWu
+ uP+MphTp+rT0WWciOS91bhmXIvLFSBJ9ozuXbfHXWsBdX7fPEfWFLLVmaXQd4vSz48ic
+ ToQbJukliMbgWG8M1khi0vr54V55m8M9aAApsb/bC9eqOxGnjrtnXK3ZieocQR8KIE1Y
+ vCUGzCF0Lb4A5JKMhSeX4frWXEdH6zPxEoCXwprgImTOzdfGWLhNmZcFEAjquafk1t5c
+ nxfw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVA+LUHiau06yiEXNncPSiqDYMB1JenuPR6kIMVaCMTSkra/DOizOzAnRVX2kxK5fpCXonJzQNv1XeW94pecWC3IeJBvVUM6FsvKQuhUji9
-X-Gm-Message-State: AOJu0YwNaA4RlylIFalnHE4C5QeVKTnyac9jL0hmmwi6ewX76rwaLv6P
- izfQCJp95317W4jBkGrzVzuYjootqB9q9AT3QcXKazsNGiXDkqDZZQyHMQ4ERG4=
-X-Google-Smtp-Source: AGHT+IGdsNyIbOa4XLU2eXBzW61Cn7sodgybJ2C0I8mwkFnwb0pHkGP0/sxnafUxIWM79J9A5u/+RQ==
-X-Received: by 2002:a05:651c:104d:b0:2d8:dd28:8748 with SMTP id
- x13-20020a05651c104d00b002d8dd288748mr503632ljm.1.1712866535697; 
- Thu, 11 Apr 2024 13:15:35 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
- by smtp.gmail.com with ESMTPSA id
- e8-20020a2e8ec8000000b002d860a40f9dsm302300ljl.136.2024.04.11.13.15.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Apr 2024 13:15:35 -0700 (PDT)
-Date: Thu, 11 Apr 2024 23:15:33 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-Cc: Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm: Drop msm_read/writel
-Message-ID: <jpy7kei47tqbkoqzwz56ibxi4bexecxja3kb4tvqaxub4warix@wu7ita3nrjjz>
-References: <20240410-topic-msm_rw-v1-1-e1fede9ffaba@linaro.org>
- <bwhfcobfkddhw2jdj6orvtbejap6ast7njahkbggj6lpelibqi@ae7357lpepmf>
- <ZhgBWv5BjDvQbWWi@hu-bjorande-lv.qualcomm.com>
+ AJvYcCWYGmCWIio76cm17KxXofBRhXknENFxK3rgwjodlW00CfznX/WU7Nuu5l85QYLukebl4Hqx8SiyoMqyWy9AbbeLJvLrxZkCYOxfF7TKuPZ5
+X-Gm-Message-State: AOJu0Yy/LmZy7QPSrxWOCVipxNTqiOwEJFb6TYMi0eRX7P6+PtMejybR
+ L3YKtOedIPf1PGq/X8RdwgGxF93QCpZGPp5gJFBclLnMvu7f5TXGN6g+/CwvM0Q=
+X-Google-Smtp-Source: AGHT+IFmKV1cZUNf2RDPXfgrp5jM/80Z18N3yhtpLtRxKHZ1VDKWNvDrx521CSjJRJIGHFCmxXfoWA==
+X-Received: by 2002:a2e:7d15:0:b0:2d4:49d1:38e with SMTP id
+ y21-20020a2e7d15000000b002d449d1038emr508466ljc.28.1712867050958; 
+ Thu, 11 Apr 2024 13:24:10 -0700 (PDT)
+Received: from [172.30.204.35] (UNUSED.212-182-62-129.lubman.net.pl.
+ [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
+ f24-20020a2e6a18000000b002d4295d8563sm291115ljc.62.2024.04.11.13.24.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Apr 2024 13:24:10 -0700 (PDT)
+Message-ID: <bbec514f-9672-4e5a-bd83-20ab59b3dcd9@linaro.org>
+Date: Thu, 11 Apr 2024 22:24:08 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZhgBWv5BjDvQbWWi@hu-bjorande-lv.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] soc: qcom: Move some socinfo defines to the header,
+ expand them
+To: Elliot Berman <quic_eberman@quicinc.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20240405-topic-smem_speedbin-v1-0-ce2b864251b1@linaro.org>
+ <20240405-topic-smem_speedbin-v1-1-ce2b864251b1@linaro.org>
+ <20240410132510649-0700.eberman@hu-eberman-lv.qualcomm.com>
+ <2c2bca6c-b429-4cef-b63a-ee3bd6c9eecb@linaro.org>
+ <20240411130802689-0700.eberman@hu-eberman-lv.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20240411130802689-0700.eberman@hu-eberman-lv.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,44 +98,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Apr 11, 2024 at 08:27:22AM -0700, Bjorn Andersson wrote:
-> On Thu, Apr 11, 2024 at 04:31:41AM +0300, Dmitry Baryshkov wrote:
-> > On Wed, Apr 10, 2024 at 11:52:52PM +0200, Konrad Dybcio wrote:
-> [..]
-> > > diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> > > index e4275d3ad581..5a5dc3faa971 100644
-> > > --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> > > +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> > > @@ -12,10 +12,10 @@
-> > >  
-> > >  #include "dsi.h"
-> > >  
-> > > -#define dsi_phy_read(offset) msm_readl((offset))
-> > > -#define dsi_phy_write(offset, data) msm_writel((data), (offset))
-> > > -#define dsi_phy_write_udelay(offset, data, delay_us) { msm_writel((data), (offset)); udelay(delay_us); }
-> > > -#define dsi_phy_write_ndelay(offset, data, delay_ns) { msm_writel((data), (offset)); ndelay(delay_ns); }
-> > > +#define dsi_phy_read(offset) readl((offset))
-> > > +#define dsi_phy_write(offset, data) writel((data), (offset))
-> > > +#define dsi_phy_write_udelay(offset, data, delay_us) { writel((data), (offset)); udelay(delay_us); }
-> > > +#define dsi_phy_write_ndelay(offset, data, delay_ns) { writel((data), (offset)); ndelay(delay_ns); }
-> > 
-> > What about also inlining these wrappers?
-> > 
-> 
-> But that should be done in a separate commit, no?
 
-Yesm of course.
+
+On 4/11/24 22:09, Elliot Berman wrote:
+> On Thu, Apr 11, 2024 at 10:05:30PM +0200, Konrad Dybcio wrote:
+>>
+>>
+>> On 4/11/24 20:55, Elliot Berman wrote:
+>>> On Fri, Apr 05, 2024 at 10:41:29AM +0200, Konrad Dybcio wrote:
+>>>> In preparation for parsing the chip "feature code" (FC) and "product
+>>>> code" (PC) (essentially the parameters that let us conclusively
+>>>> characterize the sillicon we're running on, including various speed
+>>>> bins), move the socinfo version defines to the public header and
+>>>> include some more FC/PC defines.
+>>>>
+>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>>> ---
+
+[...]
 
 > 
-> PS. Too much scrolling to find your comments, please trim your replies.
+> 0xf is the last one.
 
-Ack. I'm probably too used to GMail and Thunderbird extension which
-collapses quotes.
+One more question, are the "internal/external feature codes" referring to
+internality/externality of the chips (i.e. "are they QC-lab-only engineering
+samples), or what else does that represent?
 
-> 
-> Thanks,
-> Bjorn
-
--- 
-With best wishes
-Dmitry
+Konrad
