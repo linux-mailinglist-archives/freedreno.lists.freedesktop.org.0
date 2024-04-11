@@ -2,77 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE0908A0608
-	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 04:38:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80D038A18A0
+	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 17:27:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19A7410E909;
-	Thu, 11 Apr 2024 02:38:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42E6910F19A;
+	Thu, 11 Apr 2024 15:27:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="lzeaAZ9p";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="isOzmkaP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
- [209.85.219.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2684310ECE8
- for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 02:38:24 +0000 (UTC)
-Received: by mail-yb1-f173.google.com with SMTP id
- 3f1490d57ef6-dcbc6a6808fso7245580276.2
- for <freedreno@lists.freedesktop.org>; Wed, 10 Apr 2024 19:38:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712803103; x=1713407903; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=h93OoPo3UL03Kq4q6u54g7RNND5keWjPBsuarAYZLLg=;
- b=lzeaAZ9p1HCJtRWAlQgAgb7n3vyPt8Q1yRwE02B6fYiLhuoT/RUCZp3ufVJbCkb8lz
- KEt1H1o0m0mYZrSv1M7NNNYm3xg1+xqsmunmDxcaQUMHGg8RADAXXJ8O3Pcfrf5nFL/z
- JPP+Vn773LpdeHq3d1sreN9vNLnx0TXgXml3c4MeFXmLf26nRahCdXm/dFcX4uZkkDFB
- wnOOXJ9CmLucG92A2PGeowwrUnIGp3nPVQlS680WWhcOa+jTglFGyfUGf4Up8bfsRQzU
- HLG+3v28NZQz/Ol0Hz5IasP9046B0yHvXu53bDZYJLOh/0NVi41mIXQfsLGACXLl2huD
- M+xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712803103; x=1713407903;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=h93OoPo3UL03Kq4q6u54g7RNND5keWjPBsuarAYZLLg=;
- b=RrIUJ1hph/INly+naSXGySp/gGYbgTyt3v++sjJpRFfjsuVhXKOiOLNYIvphtmQGUk
- i28PPpb0dreTVJZSnnhv2j/srm6hk7EcHm2cMkcP2WEi9A3HGBFV719oR/PzeOgm0jG/
- VtgVwEf3O+5D2DuTeZBc4pUbzDkQy54HpDuaxsRf08/wPXF7E5utBwGK7r9JYWLErKth
- Ii+UNtOBjhoMgqNC5jRDsU8Q3QNlbBDAZUUOzp6o0sRsbE/DU/PFMRIswDzaNLNMnCMV
- WBIE33K5xEL4bMlFZRe84IZZ/2WUjQ38XE8CdGUX9UD4V6ka2zKnf2/xufNhU0YSVoBx
- auOA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX6e9+noGeQunbGE/nz6w2bGoI4jSqocxnWEkRZwafdx4JxMgPzt26p0burIf+LcvpKMiNnt+RT4YKlB7AZySNZsEAIk3isOhEXOnDEHvjX
-X-Gm-Message-State: AOJu0YyrrV0GQzpHqCxdqF9EhhJt93gB7BdHrGp9wmVaH/m6pmaqBzcg
- YHAGzC7oDj72Dl4qXnIayK2jw5jbRZFT2Zuhm1VdCDNS4cwheCCVkjGwVIoeIiBGR2xLw+zbWl4
- WVB64Lh2DGEMdfIhH6cY3NjMcttHhXjOLRjbpmg==
-X-Google-Smtp-Source: AGHT+IGP2sQ+K4ZsCv7qDmaRap/BzFNEjUp/j+e152KeOUhVKcONvxn9nBq+rcTw5Wla3KyabJs1x5aa6IXmpGAfzUw=
-X-Received: by 2002:a25:33c1:0:b0:dc6:c2b2:c039 with SMTP id
- z184-20020a2533c1000000b00dc6c2b2c039mr4289918ybz.41.1712803102886; Wed, 10
- Apr 2024 19:38:22 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 172BA10F13D;
+ Thu, 11 Apr 2024 15:27:30 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 43BDjjO7011546; Thu, 11 Apr 2024 15:27:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=qcppdkim1; bh=SU914IS7nWQIMQGrQnY97
+ Qwb042xHHXVq9oEdqDgzAg=; b=isOzmkaPX906H0Bw5sB5wNJ3VQvtFBrHZBxMh
+ f0O1HxHfkpHcEGKAOLKfww4tiCNQgskhuO+3zho7Bt4CfAROCgK0QGMC3C903OYb
+ YLhoE8b4E3oc3hKSDXtaK/phVfOCJdG9LhIghSnyGJ3+kETdkHB4VDKnl1apQ3RN
+ G7lwQQ+8LyCUob5KROfOfhd0fMPWhgz35ELXuixFzr3cI7y9aKUFoXH3xTwqKIwj
+ kcR46BVcLiqDorLXt1fSuLd3jqDdIk3VeCrXLTbfJlbGl/6Uf8Ah0VMr8XUHl2Sc
+ gI+vZkOIo1Zdg4bcbyS+rR0+Wf35jWZllM7Sr9WJE598Kwbxg==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xebq1sk69-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 11 Apr 2024 15:27:25 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 43BFROHL025554
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 11 Apr 2024 15:27:24 GMT
+Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
+ nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.4; Thu, 11 Apr 2024 08:27:23 -0700
+Date: Thu, 11 Apr 2024 08:27:22 -0700
+From: Bjorn Andersson <quic_bjorande@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/msm: Drop msm_read/writel
+Message-ID: <ZhgBWv5BjDvQbWWi@hu-bjorande-lv.qualcomm.com>
+References: <20240410-topic-msm_rw-v1-1-e1fede9ffaba@linaro.org>
+ <bwhfcobfkddhw2jdj6orvtbejap6ast7njahkbggj6lpelibqi@ae7357lpepmf>
 MIME-Version: 1.0
-References: <20231202214016.1257621-1-dmitry.baryshkov@linaro.org>
- <20231202214016.1257621-4-dmitry.baryshkov@linaro.org>
- <bb448864-b974-55ac-4709-ea89bbd2694f@quicinc.com>
- <CAA8EJpqnjY35RF52yJ8gFRKHoh1ArnnviacDtfntSYZdALD3bQ@mail.gmail.com>
- <83b45b20-fb7e-564b-4e32-2b6a12c4dc6d@quicinc.com>
- <uhyqwsevbgvayqf7ky2tasvutpqgvuaa5o7y7scqete3jueuhk@zgji4hgmh4lu>
- <c0274d67-ae15-8b08-a6af-bd1d77698ab9@quicinc.com>
-In-Reply-To: <c0274d67-ae15-8b08-a6af-bd1d77698ab9@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 11 Apr 2024 05:38:11 +0300
-Message-ID: <CAA8EJppmyU246kFE3Xk7SLG9GDgfhfT4ONCu8ZzQg3ssx+njbQ@mail.gmail.com>
-Subject: Re: [PATCH 03/12] drm/msm/dpu: use format-related definitions from
- mdp_common.xml.h
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Stephen Boyd <swboyd@chromium.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <bwhfcobfkddhw2jdj6orvtbejap6ast7njahkbggj6lpelibqi@ae7357lpepmf>
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01b.na.qualcomm.com (10.47.209.197) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: L2mm3oB7bSj7y85U5AUwn-1c4eJIxsqY
+X-Proofpoint-GUID: L2mm3oB7bSj7y85U5AUwn-1c4eJIxsqY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-11_08,2024-04-09_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=879 spamscore=0
+ suspectscore=0 clxscore=1011 bulkscore=0 phishscore=0 impostorscore=0
+ lowpriorityscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2404010003 definitions=main-2404110113
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,59 +91,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 11 Apr 2024 at 02:54, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 4/10/2024 2:12 PM, Dmitry Baryshkov wrote:
-> > On Wed, Apr 10, 2024 at 01:18:42PM -0700, Abhinav Kumar wrote:
-> >>
-> >>
-> >> On 4/10/2024 1:16 PM, Dmitry Baryshkov wrote:
-> >>> On Wed, 10 Apr 2024 at 23:00, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>>>
-> >>>>
-> >>>>
-> >>>> On 12/2/2023 1:40 PM, Dmitry Baryshkov wrote:
-> >>>>> Instead of having DPU-specific defines, switch to the definitions from
-> >>>>> the mdp_common.xml.h file. This is the preparation for merged of DPU and
-> >>>>> MDP format tables.
-> >>>>>
-> >>>>
-> >>>> Adding MDP_***__ usages in DPU driver is quite confusing.
-> >>>>
-> >>>> Can we align to a common naming scheme such as DISP_***?
-> >>>
-> >>> No, it's not something display-generic. It is specific to MDP
-> >>> platforms. In the end DPU is a continuation of the MDP lineup, isn't
-> >>> it?
-> >>>
-> >>
-> >> No some aspects of the hw are completely different as you already know
-> >> between MDP4/MDP5 and DPU. Bringing back MDP usages into DPU does not seem
-> >> right.
-> >
-> > MDP4 is different, it's true. But there is a lot of common between MDP5
-> > and DPU. Frakly speaking, I don't see an issue with using the constant
-> > that was defined for MDP5 for DPU layer. Especially since we are also
-> > going to use mdp_ functions for format handling.
-> >
->
-> All the HW naming etc in the doc has migrated to DPU and in fact it only
-> makes sense to start using DPU for MDP5 as we plan to move mdp5 targets
-> to DPU anyway. Not the other way around.
->
-> MDP4 remains different.
->
-> How about MSM_DISP then? I dont get why this is MDP platform specific.
-> Because the term MDP no longer holds true for DPU.
->
-> I am even looking for future chipsets. We cannot live with MDP5 names.
-> Have to think of generic names for formats.
+On Thu, Apr 11, 2024 at 04:31:41AM +0300, Dmitry Baryshkov wrote:
+> On Wed, Apr 10, 2024 at 11:52:52PM +0200, Konrad Dybcio wrote:
+[..]
+> > diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> > index e4275d3ad581..5a5dc3faa971 100644
+> > --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> > +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+> > @@ -12,10 +12,10 @@
+> >  
+> >  #include "dsi.h"
+> >  
+> > -#define dsi_phy_read(offset) msm_readl((offset))
+> > -#define dsi_phy_write(offset, data) msm_writel((data), (offset))
+> > -#define dsi_phy_write_udelay(offset, data, delay_us) { msm_writel((data), (offset)); udelay(delay_us); }
+> > -#define dsi_phy_write_ndelay(offset, data, delay_ns) { msm_writel((data), (offset)); ndelay(delay_ns); }
+> > +#define dsi_phy_read(offset) readl((offset))
+> > +#define dsi_phy_write(offset, data) writel((data), (offset))
+> > +#define dsi_phy_write_udelay(offset, data, delay_us) { writel((data), (offset)); udelay(delay_us); }
+> > +#define dsi_phy_write_ndelay(offset, data, delay_ns) { writel((data), (offset)); ndelay(delay_ns); }
+> 
+> What about also inlining these wrappers?
+> 
 
-Another point: MDP_ is still frequently used in the DPU driver. See
-dpu_hwio.h, dpu_hw_catalog.h or dpu_hw_interrupts.c
+But that should be done in a separate commit, no?
 
--- 
-With best wishes
-Dmitry
+PS. Too much scrolling to find your comments, please trim your replies.
+
+Thanks,
+Bjorn
