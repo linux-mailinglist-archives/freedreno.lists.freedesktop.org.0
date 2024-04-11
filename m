@@ -2,89 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1157B8A0440
-	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 01:55:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DE958A0567
+	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 03:21:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7212810EB2C;
-	Wed, 10 Apr 2024 23:55:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1E4310EBFA;
+	Thu, 11 Apr 2024 01:21:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="BygHv0fN";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="w4gORsvK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3CDD10E7F2;
- Wed, 10 Apr 2024 23:54:58 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 43ANZ9Y2028725; Wed, 10 Apr 2024 23:54:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=ud+WWCx4xODuZuMdTW9/ejS5nu9pBEEV39W+s+p/t5w=; b=By
- gHv0fNr77D+JE4dgpaIFDeliqQrFzp/i7xxfqpBgtj4EYUH07c7a+wjyqYwwXuLn
- gd5Fb6upG/Ky4ck07bcQ0CcUyZDcu0934dwt4U5cf+i0xfq1aIdHGZDZYQBP+K3t
- Sqchx7jtpSnG1wjP9WxQtAi8GPkC6CkTjL6CIvOz4g3KETOKCoSpmlWfG2KSo/ji
- GkxZWnYb11XUCILcpf4deS6HnYKvysQ+uhrHUqRR0SKVcO9fPRB1qlBYdU9hZ2I8
- ozCqedFEuHosYJJHZYkcF8FILtzg0ercpgelXozKoUxnulnlwAwF2bDkTaZbpGWE
- qcLt7got14Na6yotgTLg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xdqy7ubtg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 10 Apr 2024 23:54:52 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 43ANspS9011819
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 10 Apr 2024 23:54:51 GMT
-Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Wed, 10 Apr
- 2024 16:54:50 -0700
-Message-ID: <c0274d67-ae15-8b08-a6af-bd1d77698ab9@quicinc.com>
-Date: Wed, 10 Apr 2024 16:54:49 -0700
+Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
+ [209.85.219.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14FBA10EBF8
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 01:21:09 +0000 (UTC)
+Received: by mail-yb1-f171.google.com with SMTP id
+ 3f1490d57ef6-dcc80d6006aso7227756276.0
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Apr 2024 18:21:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1712798469; x=1713403269; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=K78Wb+5lPnl7lDBySF3XIyGuPisCXfXWqPX+4wqyBxE=;
+ b=w4gORsvK6XG8GsYOyAz7yTRKj0sSa17l06elYlU88kmhB7JHH927luSWPKnFl464mF
+ 8hvt3J+jqkb+n8Bjxvf9C2L0DO2Bb52undVJLaAPWpKVpwvPHoHJOMXidoNsAFYe3pQ4
+ 0BcLQHeg+Gj8Jd7csAXW6dBQEsslSOgmQ7gU6VDoGh4s8gPfw4moOhoEjrJNkx4InLev
+ B6ojt/WNc8bPxUBdi9IlMXXHKBrg3/J2hUpToz5v+giNAu9zflp/kdmiQSvXn+dnrNt3
+ dka/htq1JGGjD4O2tNknRGuESxIq2ZH4V4vVZP6KrU+kZDHcUatng3/TJRcx7TcofpX0
+ pdYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712798469; x=1713403269;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=K78Wb+5lPnl7lDBySF3XIyGuPisCXfXWqPX+4wqyBxE=;
+ b=nqOQNbfrFtGOL+najOI+QcynReqmgJPLDwNSvV7qqZdOQW94vul5/TAsVvIPfWnmf5
+ 2XIIZrJULlut5UTzzymFz5tjEnsvAJJrJBxytOcrdU2dxlWvz8NHS7ZvSz8U7sNbDHII
+ Ywv+fKXKAgv5RIKjIsMRYYPndkhECSc6/gMQ+5gx2LYmMQMGEjiCsQIccJ6gjq9Y2MfR
+ PEFtY/VFjE4UuzC7djWFuvU4zjdj8LGO9Zi3K6dGkvSKFGs+qKt5vFA3LeCjTsdr0phu
+ zVE8ulQolXZ+u+fHvYyB7V4PYCYvtyeD8GmG4hDUxu46gbOyhoPEknqpdDg5QISrTXU8
+ xMLg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWutCbhJdKRjH/gP3f2Sg9rZ8X+oss2Wj2dganX5q0lTm5LxCt1SM/x4Kd6MnpqoI5pR78AT+ugnlZnkB2Out/hbJrpvTkaQ38y6F+pgccy
+X-Gm-Message-State: AOJu0Yx9B6jg0WWx32jm6/CQyel5G6Vr2QpAaxbUMjUQrRA/HE5yzvru
+ qnOWb3q4Ncinx40D52keiO11GZqmVlcwBTgsRcSoYeLALN8rd+TgmpQyeEzR1fyvzoSmBcXfRPY
+ JQPdyN6RlSgYqyZQrcO5LJGm0fKe95MhQrnuAMw==
+X-Google-Smtp-Source: AGHT+IECYTTuldk0RR57VK+SgkF41GoxYrDnN6w0HIGHHRJBHcFKg9PFCu5uNs9HXTZ79S73AY4eMD3N+bDcYc3xG1I=
+X-Received: by 2002:a05:6902:20c1:b0:dc7:4c21:fbd5 with SMTP id
+ dj1-20020a05690220c100b00dc74c21fbd5mr5044699ybb.0.1712798468822; Wed, 10 Apr
+ 2024 18:21:08 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 03/12] drm/msm/dpu: use format-related definitions from
- mdp_common.xml.h
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
- Suijten <marijn.suijten@somainline.org>,
- Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>
 References: <20231202214016.1257621-1-dmitry.baryshkov@linaro.org>
  <20231202214016.1257621-4-dmitry.baryshkov@linaro.org>
  <bb448864-b974-55ac-4709-ea89bbd2694f@quicinc.com>
  <CAA8EJpqnjY35RF52yJ8gFRKHoh1ArnnviacDtfntSYZdALD3bQ@mail.gmail.com>
  <83b45b20-fb7e-564b-4e32-2b6a12c4dc6d@quicinc.com>
  <uhyqwsevbgvayqf7ky2tasvutpqgvuaa5o7y7scqete3jueuhk@zgji4hgmh4lu>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <uhyqwsevbgvayqf7ky2tasvutpqgvuaa5o7y7scqete3jueuhk@zgji4hgmh4lu>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: JF8LotaiTBurtH5b4ceyzSvdZOeyC62d
-X-Proofpoint-ORIG-GUID: JF8LotaiTBurtH5b4ceyzSvdZOeyC62d
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-10_08,2024-04-09_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 mlxlogscore=999 suspectscore=0 mlxscore=0 clxscore=1015
- phishscore=0 spamscore=0 adultscore=0 bulkscore=0 impostorscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2404010003 definitions=main-2404100177
+ <c0274d67-ae15-8b08-a6af-bd1d77698ab9@quicinc.com>
+In-Reply-To: <c0274d67-ae15-8b08-a6af-bd1d77698ab9@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 11 Apr 2024 04:20:57 +0300
+Message-ID: <CAA8EJppSX=ccwXb2f2SYi9menXO6LLYwqEY5HaSR9K4dh3FRJg@mail.gmail.com>
+Subject: Re: [PATCH 03/12] drm/msm/dpu: use format-related definitions from
+ mdp_common.xml.h
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Stephen Boyd <swboyd@chromium.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,50 +88,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Thu, 11 Apr 2024 at 02:54, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 4/10/2024 2:12 PM, Dmitry Baryshkov wrote:
+> > On Wed, Apr 10, 2024 at 01:18:42PM -0700, Abhinav Kumar wrote:
+> >>
+> >>
+> >> On 4/10/2024 1:16 PM, Dmitry Baryshkov wrote:
+> >>> On Wed, 10 Apr 2024 at 23:00, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> >>>>
+> >>>>
+> >>>>
+> >>>> On 12/2/2023 1:40 PM, Dmitry Baryshkov wrote:
+> >>>>> Instead of having DPU-specific defines, switch to the definitions from
+> >>>>> the mdp_common.xml.h file. This is the preparation for merged of DPU and
+> >>>>> MDP format tables.
+> >>>>>
+> >>>>
+> >>>> Adding MDP_***__ usages in DPU driver is quite confusing.
+> >>>>
+> >>>> Can we align to a common naming scheme such as DISP_***?
+> >>>
+> >>> No, it's not something display-generic. It is specific to MDP
+> >>> platforms. In the end DPU is a continuation of the MDP lineup, isn't
+> >>> it?
+> >>>
+> >>
+> >> No some aspects of the hw are completely different as you already know
+> >> between MDP4/MDP5 and DPU. Bringing back MDP usages into DPU does not seem
+> >> right.
+> >
+> > MDP4 is different, it's true. But there is a lot of common between MDP5
+> > and DPU. Frakly speaking, I don't see an issue with using the constant
+> > that was defined for MDP5 for DPU layer. Especially since we are also
+> > going to use mdp_ functions for format handling.
+> >
+>
+> All the HW naming etc in the doc has migrated to DPU and in fact it only
+> makes sense to start using DPU for MDP5 as we plan to move mdp5 targets
+> to DPU anyway. Not the other way around.
+>
+> MDP4 remains different.
+>
+> How about MSM_DISP then? I dont get why this is MDP platform specific.
 
+I expect MSM_DISP to be applicable to all MSM displays, even if e.g.
+at some point DPU2 switches colour component encoding.
 
-On 4/10/2024 2:12 PM, Dmitry Baryshkov wrote:
-> On Wed, Apr 10, 2024 at 01:18:42PM -0700, Abhinav Kumar wrote:
->>
->>
->> On 4/10/2024 1:16 PM, Dmitry Baryshkov wrote:
->>> On Wed, 10 Apr 2024 at 23:00, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>
->>>>
->>>>
->>>> On 12/2/2023 1:40 PM, Dmitry Baryshkov wrote:
->>>>> Instead of having DPU-specific defines, switch to the definitions from
->>>>> the mdp_common.xml.h file. This is the preparation for merged of DPU and
->>>>> MDP format tables.
->>>>>
->>>>
->>>> Adding MDP_***__ usages in DPU driver is quite confusing.
->>>>
->>>> Can we align to a common naming scheme such as DISP_***?
->>>
->>> No, it's not something display-generic. It is specific to MDP
->>> platforms. In the end DPU is a continuation of the MDP lineup, isn't
->>> it?
->>>
->>
->> No some aspects of the hw are completely different as you already know
->> between MDP4/MDP5 and DPU. Bringing back MDP usages into DPU does not seem
->> right.
-> 
-> MDP4 is different, it's true. But there is a lot of common between MDP5
-> and DPU. Frakly speaking, I don't see an issue with using the constant
-> that was defined for MDP5 for DPU layer. Especially since we are also
-> going to use mdp_ functions for format handling.
-> 
+> Because the term MDP no longer holds true for DPU.
 
-All the HW naming etc in the doc has migrated to DPU and in fact it only 
-makes sense to start using DPU for MDP5 as we plan to move mdp5 targets 
-to DPU anyway. Not the other way around.
+The XML is still called mdp_common. And the functions are in the mdp_
+namespace. I don't think we should be changing them just because the
+name has changed.
+Likewise if MDP3 is not compatible with these definitions (to be
+honest, I didn't check) I still don't think we should change these
+names.
 
-MDP4 remains different.
+> I am even looking for future chipsets. We cannot live with MDP5 names.
+> Have to think of generic names for formats.
 
-How about MSM_DISP then? I dont get why this is MDP platform specific. 
-Because the term MDP no longer holds true for DPU.
+Ok, I'm open for suggestions from your side.
 
-I am even looking for future chipsets. We cannot live with MDP5 names. 
-Have to think of generic names for formats.
+-- 
+With best wishes
+Dmitry
