@@ -2,87 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 170418A2015
-	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 22:24:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64B5C8A2069
+	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 22:47:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 608B410F1DD;
-	Thu, 11 Apr 2024 20:24:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49D3410E323;
+	Thu, 11 Apr 2024 20:47:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="i1XwMY+p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OtsSrZC1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0587510F331
- for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 20:24:12 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-2d485886545so2670381fa.2
- for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 13:24:12 -0700 (PDT)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52F8A10F35B;
+ Thu, 11 Apr 2024 20:47:24 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-56fe8093c9eso169619a12.3; 
+ Thu, 11 Apr 2024 13:47:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712867051; x=1713471851; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=OkivZAy8vHp+8K7Um26GAxu/l7QEtqH2ogeAPyc9feU=;
- b=i1XwMY+pSvlkA+OM9tRNniVgjFMWXAWrt3HuQ15g5gHyU47jZWQTzAMLP7zaRvDTcn
- 58DuV2EGIIL/WeLp6yXWF5m36hhXgJJlrtAD3IXD96fo7buzy9ArG1BSo208mgX7xVPL
- ZQDf1R/2D80QPUi+Cdrzof5xiBrgxk69K4jf2CHzFDQsDaxKdf2KTYOh4XNP9+OOxySI
- dSOdE+J0VlJgn9R/uemtrSZf8Pre294VNham5yDZyoq8Mc/kQn6LdSOezgwhxivcpm7D
- QOlyo8eJkhhnRyiIzBlOYl1wS7cBANfLuef7gVf2YxgAEAAa8rxJUqUOdeZQW0Oe/SkX
- +OZw==
+ d=gmail.com; s=20230601; t=1712868442; x=1713473242; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=pNvwduxpSq9WO+e0WyOpsKd++VksO+huhp6HjRMGyn8=;
+ b=OtsSrZC18hQnu7uMSXF9EvwfdbKEw3pZFMXKr5ep0XCj/TP2Ekdrnihq0O7RtHH6oB
+ WyJa088QeI4BY0RSL1jwjQ4fg90WRtrzTJ05QMD+dIf9LBj917+2s3ukG99ZyPueO+XL
+ BN1q4khc8GmOrd0VSzAyt6CbaV09uVQX7mNWNO/mwzSOnyVh/gMUtqrDpVZk8EjYNwa/
+ bxs+YTO2eKDwQbbzLwo+ze4Uqg7lRkA4wSEhF1vMCewg4l51EpdE9SrQoZpWP6EPlocY
+ TGpbyAp/JQZS38BaR+LtdD9f9Ylo1v8piO5ScrgLvAzjsMLEhf1pBARzpPgescSdMWfo
+ uUVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712867051; x=1713471851;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=OkivZAy8vHp+8K7Um26GAxu/l7QEtqH2ogeAPyc9feU=;
- b=NZ9qlVogFCmrtAU9tOaxaE7MchneXgCcNyPyBOLDPjiCd74ythB7Vp7TdFR+M5gVWF
- JoQFCq7cAPw32yg6DJXs/MEnrzd681UF9r+FWFOOxzINSg7TnrsaArveXhfQK9aEzIWu
- uP+MphTp+rT0WWciOS91bhmXIvLFSBJ9ozuXbfHXWsBdX7fPEfWFLLVmaXQd4vSz48ic
- ToQbJukliMbgWG8M1khi0vr54V55m8M9aAApsb/bC9eqOxGnjrtnXK3ZieocQR8KIE1Y
- vCUGzCF0Lb4A5JKMhSeX4frWXEdH6zPxEoCXwprgImTOzdfGWLhNmZcFEAjquafk1t5c
- nxfw==
+ d=1e100.net; s=20230601; t=1712868442; x=1713473242;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=pNvwduxpSq9WO+e0WyOpsKd++VksO+huhp6HjRMGyn8=;
+ b=Dh49yZWwpFxCqBYdEHlBYxW3rWiqSgtXv99na1/96y7IbsDNM0rO1HXFlPNnrnRhbZ
+ 2eQWckeFjYo1p7/2/uvSm17z5zDthCPnKZuq7vjdXnGkRLKxL+MG9p/3sEqjfyXG9pWj
+ 0IoVOxN15g5XkY3FP68m8ttQwzdz/ezW14x82Po8kl6zeCeczxCmYd/d8C3Ls/pnI0yv
+ gRUz+0Xp4hUb+WhVt2kJqDoALScW3/bTrW72U8LBhHppDd7KtrmztgqEY9gwEj/Mg9yK
+ W/MpocXUbkxPNtoaIRYDA+lkkx7JvDNknq/7diXaphRqtY2VFsJt9x/WY+R9gnlcNjNj
+ WUmw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWYGmCWIio76cm17KxXofBRhXknENFxK3rgwjodlW00CfznX/WU7Nuu5l85QYLukebl4Hqx8SiyoMqyWy9AbbeLJvLrxZkCYOxfF7TKuPZ5
-X-Gm-Message-State: AOJu0Yy/LmZy7QPSrxWOCVipxNTqiOwEJFb6TYMi0eRX7P6+PtMejybR
- L3YKtOedIPf1PGq/X8RdwgGxF93QCpZGPp5gJFBclLnMvu7f5TXGN6g+/CwvM0Q=
-X-Google-Smtp-Source: AGHT+IFmKV1cZUNf2RDPXfgrp5jM/80Z18N3yhtpLtRxKHZ1VDKWNvDrx521CSjJRJIGHFCmxXfoWA==
-X-Received: by 2002:a2e:7d15:0:b0:2d4:49d1:38e with SMTP id
- y21-20020a2e7d15000000b002d449d1038emr508466ljc.28.1712867050958; 
- Thu, 11 Apr 2024 13:24:10 -0700 (PDT)
-Received: from [172.30.204.35] (UNUSED.212-182-62-129.lubman.net.pl.
- [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- f24-20020a2e6a18000000b002d4295d8563sm291115ljc.62.2024.04.11.13.24.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Apr 2024 13:24:10 -0700 (PDT)
-Message-ID: <bbec514f-9672-4e5a-bd83-20ab59b3dcd9@linaro.org>
-Date: Thu, 11 Apr 2024 22:24:08 +0200
+ AJvYcCU9gD2oqEeUQirAx7HJ/+HDFkUkR9IWyxEepEjV+CVexl6M3s2aauXbL+6TBF5ESD5axxa/6VFjpfWx4LdlsQVCQquOp31HuJtUFm+z4HKB
+X-Gm-Message-State: AOJu0YzFb7IRYyLl3mn2vjB9CHXvXfpdrjn0sIYtN5HlGVbCIrY3h7Rm
+ kRzMaY95StqKThD+GJJxjyKNHHagheKbLfq3UHpYQJTu2bE5iAavOMlqsD92uKxnuNxLc8MM3t7
+ QidmTnuKCDesWU4IrLgWNjXz3CzI=
+X-Google-Smtp-Source: AGHT+IEXC8vd601g34DAlg+5kxr80HRO5E3BH8JsV/SefNBnF2wjRLMMLGOX8rcfSfcyTwdASctFl8TSdN66D0UF2Co=
+X-Received: by 2002:a50:931b:0:b0:56d:f5ff:83ab with SMTP id
+ m27-20020a50931b000000b0056df5ff83abmr572001eda.39.1712868440830; Thu, 11 Apr
+ 2024 13:47:20 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] soc: qcom: Move some socinfo defines to the header,
- expand them
-To: Elliot Berman <quic_eberman@quicinc.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 11 Apr 2024 13:47:09 -0700
+Message-ID: <CAF6AEGvFwRUcHGWva7oDeydq1PTiZMduuykCD2MWaFrT4iMGZA@mail.gmail.com>
+Subject: [pull] drm/msm: drm-msm-next-2024-04-11 for v6.9-rc4
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20240405-topic-smem_speedbin-v1-0-ce2b864251b1@linaro.org>
- <20240405-topic-smem_speedbin-v1-1-ce2b864251b1@linaro.org>
- <20240410132510649-0700.eberman@hu-eberman-lv.qualcomm.com>
- <2c2bca6c-b429-4cef-b63a-ee3bd6c9eecb@linaro.org>
- <20240411130802689-0700.eberman@hu-eberman-lv.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20240411130802689-0700.eberman@hu-eberman-lv.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,30 +77,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Dave,
 
+Fixes for v6.9, description below
 
-On 4/11/24 22:09, Elliot Berman wrote:
-> On Thu, Apr 11, 2024 at 10:05:30PM +0200, Konrad Dybcio wrote:
->>
->>
->> On 4/11/24 20:55, Elliot Berman wrote:
->>> On Fri, Apr 05, 2024 at 10:41:29AM +0200, Konrad Dybcio wrote:
->>>> In preparation for parsing the chip "feature code" (FC) and "product
->>>> code" (PC) (essentially the parameters that let us conclusively
->>>> characterize the sillicon we're running on, including various speed
->>>> bins), move the socinfo version defines to the public header and
->>>> include some more FC/PC defines.
->>>>
->>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->>>> ---
+The following changes since commit 4be445f5b6b6810baf397b2d159bd07c3573fd75:
 
-[...]
+  drm/msm/dpu: capture snapshot on the first commit_done timeout
+(2024-03-04 11:44:03 +0200)
 
-> 
-> 0xf is the last one.
+are available in the Git repository at:
 
-One more question, are the "internal/external feature codes" referring to
-internality/externality of the chips (i.e. "are they QC-lab-only engineering
-samples), or what else does that represent?
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-next-2024-04-11
 
-Konrad
+for you to fetch changes up to 9dc23cba0927d09cb481da064c8413eb9df42e2b:
+
+  drm/msm/adreno: Set highest_bank_bit for A619 (2024-04-05 11:24:53 -0700)
+
+----------------------------------------------------------------
+Fixes for v6.9
+
+Display:
+- Fixes for PM refcount leak when DP goes to disconnected state and
+  also when link training fails. This is also one of the issues found
+  with the pm runtime series
+- Add missing newlines to prints in msm_fb and msm_kms
+- Change permissions of some dpu debugfs entries which write to const
+  data from catalog to read-only to avoid protection faults
+- Fix the interface table for the catalog of X1E80100. This is an
+  important fix to bringup DP for X1E80100.
+- Logging fix to print the callback symbol in the invalid IRQ message
+  case rather than printing when its known to be NULL.
+- Bindings fix to add DP node as child of mdss for mdss node
+- Minor typo fix in DP driver API which handles port status change
+
+GPU:
+- fix CHRASHDUMP_READ()
+- fix HHB (highest bank bit) for a619 to fix UBWC corruption
+
+----------------------------------------------------------------
+Abhinav Kumar (1):
+      drm/msm/dp: fix typo in dp_display_handle_port_status_changed()
+
+Dmitry Baryshkov (3):
+      drm/msm/dpu: don't allow overriding data from catalog
+      drm/msm/dpu: make error messages at
+dpu_core_irq_register_callback() more sensible
+      dt-bindings: display/msm: sm8150-mdss: add DP node
+
+Johan Hovold (2):
+      drm/msm/dp: fix runtime PM leak on disconnect
+      drm/msm/dp: fix runtime PM leak on connect failure
+
+Kuogee Hsieh (1):
+      drm/msm/dp: assign correct DP controller ID to x1e80100 interface table
+
+Luca Weiss (1):
+      drm/msm/adreno: Set highest_bank_bit for A619
+
+Miguel Ojeda (1):
+      drm/msm: fix the `CRASHDUMP_READ` target of `a6xx_get_shader_block()`
+
+Stephen Boyd (1):
+      drm/msm: Add newlines to some debug prints
+
+ .../bindings/display/msm/qcom,sm8150-mdss.yaml     |  9 ++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  4 +++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |  2 +-
+ .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   | 34 ++++++++++++++++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c      | 10 +++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  |  8 ++---
+ drivers/gpu/drm/msm/dp/dp_display.c                |  6 ++--
+ drivers/gpu/drm/msm/msm_fb.c                       |  6 ++--
+ drivers/gpu/drm/msm/msm_kms.c                      |  4 +--
+ 9 files changed, 63 insertions(+), 20 deletions(-)
