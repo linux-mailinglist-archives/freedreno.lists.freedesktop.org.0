@@ -2,85 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF1A98A20CC
-	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 23:20:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18FB48A20FA
+	for <lists+freedreno@lfdr.de>; Thu, 11 Apr 2024 23:35:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BC1F10F3A3;
-	Thu, 11 Apr 2024 21:20:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56F5410F3AC;
+	Thu, 11 Apr 2024 21:35:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="dxRjos08";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fbZ4Eozj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD21E10F3A1;
- Thu, 11 Apr 2024 21:20:37 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 43BLJwdN020245; Thu, 11 Apr 2024 21:20:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=KOigFIZ+FuFOzDUBhFuZwBLf9f12TpTgEOfyrbFj5S4=; b=dx
- Rjos085uKgIV2yNuRCRXXcqUyRE6ZmPaUR5jKoLiyN7c4qXWYZ+AzvtfchjGB3P0
- G8Gqy1hwJ8jRRDmBogzvHQ7x0hI01op/PHrFsqstbB1PWGZKmJzhOBlxU0CE7OY7
- Xa0OnveRmGwAeJrf0ZD1fZ0sE7x+etoeI5d4Rf3JKg+HS+CaxXbXOeDPysMU+qHK
- GQENQryi2Eqzf2j0heLKHtzt/pDNi3Dhxd2qIMM8lSaxuQAy8cKCaI14Mf4HIiYd
- u+vYXerFt4IijeUOWGmp4QT9I5L7FJqCYy5yMvPpXZfjH/wyV+Sc3phpK8yOA/uq
- dSuz/sJYCosvxvbw4XgQ==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xe8dtkcub-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 11 Apr 2024 21:20:32 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 43BLKVLs021495
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 11 Apr 2024 21:20:31 GMT
-Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 11 Apr
- 2024 14:20:30 -0700
-Message-ID: <ec73ae6f-3a81-70f6-27e7-a94a6794f2d0@quicinc.com>
-Date: Thu, 11 Apr 2024 14:20:29 -0700
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4A1D10F3AC
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 21:35:47 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-516d3776334so326807e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 11 Apr 2024 14:35:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1712871346; x=1713476146; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=5T4iIVALzwPejh7d3S8enGWCx89OQW+dXm19IHXNjAc=;
+ b=fbZ4EozjNWhlskyp/3foCm1FvFkQwMEQmyMCJd0CjIR1ZejqXatr6UqiqH0vIbcJnb
+ vAIh6hJVKaCoX1P8Ttk0Dld9NDzO8LwaWSb5aqAlQ+8HZTC6CjqT/dAo3sZbGcA8eWi7
+ yryPwDJW+1n1FMhjLcge/Dj23/N4vqkS7VR9EzD7Fmm72FiBP5+z8DP6sAKjTArxhNwG
+ BHCxYILhfbFFolTndg9R66zihl3GXvEs+kRdmq9Rntjy+FwoJmFNvTFPy1DRwArM8ywR
+ y9jQYSuIhd+L920zu2VFwLPqCLrE81by+oCxQivpjpFlo3skXXlNIMoAxmnUxB2CDAXe
+ 3GqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712871346; x=1713476146;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=5T4iIVALzwPejh7d3S8enGWCx89OQW+dXm19IHXNjAc=;
+ b=dzfgf823WJH1GXlPEp28SY09g8OxT+hPtF4QCZthoXuvW6Ie1k8ChiPfuhtM4v+LLK
+ Pb/tLRpykOxtOOJdnFsc7ctGx1wuVTwa/BnxcRzk2rCuzdhuzFacgzbygU0i7yD3Bdej
+ s/Z5NWO8Nm9cIRBaAlkYkf/c+B3MOw+NWGEyWnbklWKiMkpQjSl7z7nopZVrdgJcGZQR
+ nXUECRmuFaELJe/0JxxEsuociBkP1a6hV3xSEmquKMaghNRaJVRcUG1cfU0ZlfWJFFoF
+ HAOTTeZzVTVyWWGQ7UHlT+/z3gLOH7wnwGzYa6Mn2VVrQbuoMC/5WlyILP/AS/GVCAeF
+ e1jw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVYdqMzUnlVUnXCkfhTKOt4vd7fGNxZLrzRJZ6MI7SL7QPKLFYIti01Inf8nBrwUDOzHn4X2tkuIXNuSvmNgeLZl4N9HZaQcl5a65d8oLrk
+X-Gm-Message-State: AOJu0Ywz5gYa0WZEjJ79Kx+Apuz4YumqSWVzFnEqH0Awh5yy4lQQ7nwl
+ 0FdWyUAqB7lCoDOT5PpqWo7D8nVimNzgwUT/bkI70y49WQQ06Eu8fzzEk2EcmoM=
+X-Google-Smtp-Source: AGHT+IHhPtTM6MDSSMKdH0nmnBGG027XDSi/RtJTrsfiuHSI3CqYwZHdp/t6eiZd5QJ+PqzWtrodtQ==
+X-Received: by 2002:a2e:8084:0:b0:2d8:5af3:bb43 with SMTP id
+ i4-20020a2e8084000000b002d85af3bb43mr511195ljg.41.1712871345700; 
+ Thu, 11 Apr 2024 14:35:45 -0700 (PDT)
+Received: from [172.30.204.35] (UNUSED.212-182-62-129.lubman.net.pl.
+ [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
+ z4-20020a2e8e84000000b002d8e42c1b5fsm314682ljk.42.2024.04.11.14.35.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Apr 2024 14:35:45 -0700 (PDT)
+Message-ID: <321aa524-ab64-458a-b4c0-70294cc5467d@linaro.org>
+Date: Thu, 11 Apr 2024 23:35:43 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 10/12] drm/msm: convert msm_format::alpha_enable to the
- flag
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] drm/msm/adreno: Implement SMEM-based speed bin
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20240405-topic-smem_speedbin-v1-0-ce2b864251b1@linaro.org>
+ <20240405-topic-smem_speedbin-v1-4-ce2b864251b1@linaro.org>
+ <scvwfj44z3wpp7phvesfwjuv5awtlkwby2vvrpaq4i5fircrt3@i3ebya4iymf3>
+ <730d6b9e-d6b4-41fd-bef3-b1fa6e914a35@linaro.org>
+ <33qyr6cfruczllvavvwtbkyuqxmtao4bya4j32zhjx6ni27c6d@rxjehsw54l32>
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-CC: Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>
-References: <20231202214016.1257621-1-dmitry.baryshkov@linaro.org>
- <20231202214016.1257621-11-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20231202214016.1257621-11-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <33qyr6cfruczllvavvwtbkyuqxmtao4bya4j32zhjx6ni27c6d@rxjehsw54l32>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 4G2M27ZpS7rQqevjJiuH6TwgGzJ13fxS
-X-Proofpoint-ORIG-GUID: 4G2M27ZpS7rQqevjJiuH6TwgGzJ13fxS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-11_10,2024-04-09_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 mlxlogscore=999
- spamscore=0 mlxscore=0 malwarescore=0 suspectscore=0 adultscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2404010003 definitions=main-2404110153
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,95 +98,81 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 12/2/2023 1:40 PM, Dmitry Baryshkov wrote:
-> Instead of having a bool field alpha_enable, convert it to the
-> flag, this save space in the tables and allows us to handle all booleans
-> in the same way.
+On 4/10/24 21:26, Dmitry Baryshkov wrote:
+> On Wed, Apr 10, 2024 at 01:42:33PM +0200, Konrad Dybcio wrote:
+>>
+>>
+>> On 4/6/24 05:23, Dmitry Baryshkov wrote:
+>>> On Fri, Apr 05, 2024 at 10:41:32AM +0200, Konrad Dybcio wrote:
+>>>> On recent (SM8550+) Snapdragon platforms, the GPU speed bin data is
+>>>> abstracted through SMEM, instead of being directly available in a fuse.
+>>>>
+>>>> Add support for SMEM-based speed binning, which includes getting
+>>>> "feature code" and "product code" from said source and parsing them
+>>>> to form something that lets us match OPPs against.
+>>>>
+>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>>> ---
+>>
+>> [...]
+>>
+>>>
+>>>> +	}
+>>>> +
+>>>> +	ret = qcom_smem_get_product_code(&pcode);
+>>>> +	if (ret) {
+>>>> +		dev_err(dev, "Couldn't get product code from SMEM!\n");
+>>>> +		return ret;
+>>>> +	}
+>>>> +
+>>>> +	/* Don't consider fcode for external feature codes */
+>>>> +	if (fcode <= SOCINFO_FC_EXT_RESERVE)
+>>>> +		fcode = SOCINFO_FC_UNKNOWN;
+>>>> +
+>>>> +	*speedbin = FIELD_PREP(ADRENO_SKU_ID_PCODE, pcode) |
+>>>> +		    FIELD_PREP(ADRENO_SKU_ID_FCODE, fcode);
+>>>
+>>> What about just asking the qcom_smem for the 'gpu_bin' and hiding gory
+>>> details there? It almost feels that handling raw PCODE / FCODE here is
+>>> too low-level and a subject to change depending on the socinfo format.
+>>
+>> No, the FCODE & PCODE can be interpreted differently across consumers.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 12 ++++++-----
->   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 24 ++++++++++-----------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c |  7 +++---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c |  3 ++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c   |  4 ++--
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c   |  2 +-
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c  |  3 ++-
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c   |  9 ++++----
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c  |  3 ++-
->   drivers/gpu/drm/msm/disp/mdp_format.c       |  2 +-
->   drivers/gpu/drm/msm/msm_drv.h               |  4 ++--
->   11 files changed, 40 insertions(+), 33 deletions(-)
+> That's why I wrote about asking for 'gpu_bin'.
+
+I'd rather keep the magic GPU LUTs inside the adreno driver, especially
+since not all Snapdragons feature Adreno, but all Adrenos are on
+Snapdragons (modulo a2xx but I refuse to make design decisions treating
+these equally to e.g. a6xx)
+
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index 9041b0d71b25..201010038660 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -342,7 +342,7 @@ static void _dpu_crtc_setup_blend_cfg(struct dpu_crtc_mixer *mixer,
->   
->   	/* default to opaque blending */
->   	if (pstate->base.pixel_blend_mode == DRM_MODE_BLEND_PIXEL_NONE ||
-> -	    !format->alpha_enable) {
-> +	    !(format->flags & MSM_FORMAT_FLAG_ALPHA_ENABLE)) {
->   		blend_op = DPU_BLEND_FG_ALPHA_FG_CONST |
->   			DPU_BLEND_BG_ALPHA_BG_CONST;
->   	} else if (pstate->base.pixel_blend_mode == DRM_MODE_BLEND_PREMULTI) {
-> @@ -373,8 +373,8 @@ static void _dpu_crtc_setup_blend_cfg(struct dpu_crtc_mixer *mixer,
->   	lm->ops.setup_blend_config(lm, pstate->stage,
->   				fg_alpha, bg_alpha, blend_op);
->   
-> -	DRM_DEBUG_ATOMIC("format:%p4cc, alpha_en:%u blend_op:0x%x\n",
-> -		  &format->pixel_format, format->alpha_enable, blend_op);
-> +	DRM_DEBUG_ATOMIC("format:%p4cc, alpha_en:%lu blend_op:0x%x\n",
-> +		  &format->pixel_format, format->flags & MSM_FORMAT_FLAG_ALPHA_ENABLE, blend_op);
->   }
->   
->   static void _dpu_crtc_program_lm_output_roi(struct drm_crtc *crtc)
-> @@ -472,7 +472,8 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
->   
->   		format = msm_framebuffer_format(pstate->base.fb);
->   
-> -		if (pstate->stage == DPU_STAGE_BASE && format->alpha_enable)
-> +		if (pstate->stage == DPU_STAGE_BASE &&
-> +		    format->flags & MSM_FORMAT_FLAG_ALPHA_ENABLE)
->   			bg_alpha_enable = true;
->   
->   		set_bit(pstate->pipe.sspp->idx, fetch_active);
-> @@ -495,7 +496,8 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
->   		for (lm_idx = 0; lm_idx < cstate->num_mixers; lm_idx++) {
->   			_dpu_crtc_setup_blend_cfg(mixer + lm_idx, pstate, format);
->   
-> -			if (bg_alpha_enable && !format->alpha_enable)
-> +			if (bg_alpha_enable &&
-> +			    !(format->flags & MSM_FORMAT_FLAG_ALPHA_ENABLE))
->   				mixer[lm_idx].mixer_op_mode = 0;
->   			else
->   				mixer[lm_idx].mixer_op_mode |=
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-> index baf0fd67bf42..de9e93cb42c4 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-> @@ -36,7 +36,6 @@ bp, flg, fm, np)                                                          \
->   {                                                                         \
->   	.pixel_format = DRM_FORMAT_ ## fmt,                               \
->   	.fetch_type = MDP_PLANE_INTERLEAVED,                              \
-> -	.alpha_enable = alpha,                                            \
->   	.element = { (e0), (e1), (e2), (e3) },                            \
->   	.bpc_g_y = g,                                                     \
->   	.bpc_b_cb = b,                                                    \
-> @@ -46,7 +45,9 @@ bp, flg, fm, np)                                                          \
->   	.unpack_count = uc,                                               \
->   	.bpp = bp,                                                        \
->   	.fetch_mode = fm,                                                 \
-> -	.flags = MSM_FORMAT_FLAG_UNPACK_TIGHT | flg,                      \
-> +	.flags = MSM_FORMAT_FLAG_UNPACK_TIGHT |                           \
-> +		(alpha ? MSM_FORMAT_FLAG_ALPHA_ENABLE : 0) |              \
-> +		flg,                                                      \
+>>
+>>>
+>>>> +
+>>>> +	return ret;
+>>>>    }
+>>>>    int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>>>> @@ -1098,9 +1129,9 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>>>>    			devm_pm_opp_set_clkname(dev, "core");
+>>>>    	}
+>>>> -	if (adreno_read_speedbin(dev, &speedbin) || !speedbin)
+>>>> +	if (adreno_read_speedbin(adreno_gpu, dev, &speedbin) || !speedbin)
+>>>>    		speedbin = 0xffff;
+>>>> -	adreno_gpu->speedbin = (uint16_t) (0xffff & speedbin);
+>>>
+>>> the &= 0xffff should probably go to the adreno_read_speedbin / nvmem
+>>> case. WDYT?
+>>
+>> Ok, I can keep it, though realistically if this ever does anything
+>> useful, it likely means the dt is wrong
+> 
+> Yes, but if DT is wrong, we should probably fail in a sensible way. I
+> just wanted to point out that previously we had this &0xffff, while your
+> patch silently removes it.
 
-In the previous two patches where the same thing was done for 
-unpack_tight and unpack_align_msb, it was different in the sense that 
-just on the basis of which macro we were choosing we knew the value of 
-those flags so you could just unconditionally OR those flags.
+Right, but I don't believe it actually matters.. If that AND ever did
+anything, this was a silent failure with garbage data passed in anyway.
 
-But for alpha, you are performing a conditional before ORing this so I 
-think for this leaving it as a bool is cleaner.
+If you really insist, I can remove it separately.
+
+Konrad
