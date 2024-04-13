@@ -2,84 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB6378A37FA
-	for <lists+freedreno@lfdr.de>; Fri, 12 Apr 2024 23:40:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D7A38A3B3A
+	for <lists+freedreno@lfdr.de>; Sat, 13 Apr 2024 08:03:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9A6210F885;
-	Fri, 12 Apr 2024 21:40:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD63510E4D8;
+	Sat, 13 Apr 2024 06:03:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="kAgE980t";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VNQDTc+1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6765310F885;
- Fri, 12 Apr 2024 21:40:47 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 43CLOaDf013978; Fri, 12 Apr 2024 21:40:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=AU89ERYqYieecOUfTjiT+cgxqORhpOtRmqut6kbZHvc=; b=kA
- gE980t4pCBmDDQjGKVAplmqHtufNDvRbwkIle8zIhbkCzmmT9kWAnBazu2UsQTrk
- BE+l4ra2j3qYSQ03JYSr8v2sIyzbuWY//e2vIv5tu2TOObnhGCCawo5cSet+rZS0
- 6Gx6/M+1NyzJITpsDgo/VTwU1LJaPAGEWP7uEfMk3IJuUh4DephKq68oSVJ5tgdm
- HOWxq4vTcUjfF064rbU12IEXLF6ss38sGUVvt0F94afuI/NMadNtGBUe6XIWhdHc
- vJGzeB1eZ4SyqBgZkBc+ONuNxORJRfjXJgVWyW3cbxaG+52PQIVCvPz9qwJhcXp9
- LV0nAfj46hifC3Vmr+ag==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xf9x6rmvt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Apr 2024 21:40:41 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 43CLed97020301
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Apr 2024 21:40:39 GMT
-Received: from [10.110.81.58] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 12 Apr
- 2024 14:40:38 -0700
-Message-ID: <d8569c6c-592a-e88e-d3ef-c2c14b115d0b@quicinc.com>
-Date: Fri, 12 Apr 2024 14:40:37 -0700
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
+ [209.85.128.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFD5C10E4D8
+ for <freedreno@lists.freedesktop.org>; Sat, 13 Apr 2024 06:02:55 +0000 (UTC)
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-617cd7bd929so17207267b3.3
+ for <freedreno@lists.freedesktop.org>; Fri, 12 Apr 2024 23:02:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1712988174; x=1713592974; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=3p6Jg0iNIK+PAJ8XdMgBNFqaUw3Dj5y6DUftWKBMSqc=;
+ b=VNQDTc+1E7vfIO2KfU2XDZ50csdGXlbNG5V/+lfRduFOagqWYdqCgV62qdm6wOw2kf
+ UdGGEpUmOoLry3CAtHVqrfgotxIfXypF6cHOJkKbQ2X5DWb7HHyRBVbubjeH1EzsuWcJ
+ /mIxi3UxYdW0kSLRHJflaBs0+W6Z8YYC1w01dP2wHfg5KSMJF1tlbSCAT1VWpbU5TdLo
+ En40aqpxn4QOxOQglr5UGmlbCEAdmcb1+jVIbdXhRJNSn7xwpcQM1lQsF6neEyTeCOaY
+ 1ZDOZQr/UNvpBn3zTkiCdMSSZklt76bijFzcUGOgz/CHmxkKcOBKK9GYc68qI7RnOkaD
+ dnpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712988174; x=1713592974;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3p6Jg0iNIK+PAJ8XdMgBNFqaUw3Dj5y6DUftWKBMSqc=;
+ b=kA80nl5mx0Yhur8c0BxBw0FrajwVrWKuDqsLmlbXOcHMKRXxfGupwt+seiQjgOhzWV
+ uV4rC7gxqll/BsQjQS4w+4mKlr0yldCLEFf3QlqNyMy9yR0HZK9UMYWgejSeAHSqxttG
+ 5WlrNYgTcMnlVjEFgRxPaNOkSNTKO3ekamXgABwcbuXupClCLuR6J+0JLiZWlnDoMj3I
+ NpvOSu9CTGFBxwdJ6vNnXgDJySQGnHe/dJW3bnrS1Eban9KvC2G1H8dtY+lezuQvXdzP
+ oqDLzSncUoxm6KFrKSSMNh88xGq433I3c2FG7JZTOTPblkhWGdE1RJQYfWMuMAeCbla5
+ aiNg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUdIf1nSDilw8sl3lGlNS9qvLUgmv9f3rs6lyKWwtZ2hTRSbcQw4VIFLM2/WGokv7tV3b3ErrH8cSCVDnq03BEdg6+28v8+oGu/6o7B+7GP
+X-Gm-Message-State: AOJu0YwOV1gkRtPej7gSHQNXx2S7ZYquVaom3galp+QBT1zU0L/Q87vo
+ M3C3PhuaalDVry81f3Qo7r2rd5qVWeIEaglgwcLa8VZSE8fo0z24a7A6d2xEJIco0VCcC+L8C0k
+ wn+gFLdgpvuyNkbwJWozcKcIlS25GtPW/3xb63A==
+X-Google-Smtp-Source: AGHT+IFwiHasDbNqUmN3FeLVBrKDayEjmne8Pj/l5CVaBDswgbABq+xouKyVSZPrztCGNB9W5w2neAMPfmbgJxATrOY=
+X-Received: by 2002:a25:4ec2:0:b0:dcc:1449:71ea with SMTP id
+ c185-20020a254ec2000000b00dcc144971eamr4409535ybb.50.1712988174430; Fri, 12
+ Apr 2024 23:02:54 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 12/12] drm/msm: drop msm_kms_funcs::get_format() callback
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-CC: Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>
 References: <20231202214016.1257621-1-dmitry.baryshkov@linaro.org>
- <20231202214016.1257621-13-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20231202214016.1257621-13-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: k1EtKLMqlbnG3DnhtMsMRbg9E_55mncv
-X-Proofpoint-GUID: k1EtKLMqlbnG3DnhtMsMRbg9E_55mncv
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-12_18,2024-04-09_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- lowpriorityscore=0 impostorscore=0 mlxlogscore=966 spamscore=0
- phishscore=0 bulkscore=0 mlxscore=0 adultscore=0 priorityscore=1501
- clxscore=1015 suspectscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2404010003 definitions=main-2404120156
+ <20231202214016.1257621-12-dmitry.baryshkov@linaro.org>
+ <6ed5bb25-979e-bb48-3dfe-4af581bb5dd1@quicinc.com>
+In-Reply-To: <6ed5bb25-979e-bb48-3dfe-4af581bb5dd1@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sat, 13 Apr 2024 09:02:43 +0300
+Message-ID: <CAA8EJpqgmf=22O44qFEpxBuGiO4LDyOMrNVnksOdJ9G0z=X2Ug@mail.gmail.com>
+Subject: Re: [PATCH 11/12] drm/msm: merge dpu format database to MDP formats
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Stephen Boyd <swboyd@chromium.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,23 +83,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Fri, 12 Apr 2024 at 22:47, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 12/2/2023 1:40 PM, Dmitry Baryshkov wrote:
+> > Finally remove duplication between DPU and generic MDP code by merging
+> > DPU format lists to the MDP format database.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >   .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |   2 +-
+> >   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |   4 +-
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c   | 602 ------------------
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h   |  23 -
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |  10 -
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   2 +-
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     |   3 +-
+> >   drivers/gpu/drm/msm/disp/mdp_format.c         | 595 +++++++++++++++--
+> >   drivers/gpu/drm/msm/disp/mdp_kms.h            |   2 -
+> >   drivers/gpu/drm/msm/msm_drv.h                 |  12 +
+> >   10 files changed, 549 insertions(+), 706 deletions(-)
+> >
+>
+> I cross-checked a few macros visually (not each one) and it LGTM in
+> terms of just moving it from dpu_formats.c to mdp_format.c
+>
+> Even in this change I had the same concern about whether to use MDP for
+> dpu formats.
+>
+> But I think even if we make it MSM_*** then we will have to keep them in
+> some msm_** header and not mdp_format.c
+>
+> So lets go ahead with the MDP naming which you have. If we see its not
+> working out later on, please be open to a mass renaming that time.
 
+Ack.
 
-On 12/2/2023 1:40 PM, Dmitry Baryshkov wrote:
-> Now as all subdrivers were converted to use common database of formats,
-> drop the get_format() callback and use mdp_get_format() directly.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 2 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c  | 2 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c              | 1 -
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c            | 2 +-
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c             | 1 -
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c             | 1 -
->   drivers/gpu/drm/msm/msm_fb.c                         | 2 +-
->   drivers/gpu/drm/msm/msm_kms.h                        | 4 ----
->   8 files changed, 4 insertions(+), 11 deletions(-)
-> 
+>
+> <snip>
+>
+> > index dea6d47854fe..e7651a0e878c 100644
+> > --- a/drivers/gpu/drm/msm/msm_drv.h
+> > +++ b/drivers/gpu/drm/msm/msm_drv.h
+> > @@ -267,6 +267,16 @@ enum msm_format_flags {
+> >   #define MSM_FORMAT_FLAG_UNPACK_ALIGN_MSB BIT(MSM_FORMAT_FLAG_UNPACK_ALIGN_MSB_BIT)
+> >   #define MSM_FORMAT_FLAG_ALPHA_ENABLE        BIT(MSM_FORMAT_FLAG_ALPHA_ENABLE_BIT)
+> >
+> > +/**
+> > + * DPU HW,Component order color map
+> > + */
+> > +enum {
+> > +     C0_G_Y = 0,
+> > +     C1_B_Cb = 1,
+> > +     C2_R_Cr = 2,
+> > +     C3_ALPHA = 3
+> > +};
+> > +
+> >   /**
+> >    * struct msm_format: defines the format configuration
+> >    * @pixel_format: format fourcc
+> > @@ -305,6 +315,8 @@ struct msm_format {
+> >       (((X)->fetch_mode == MDP_FETCH_UBWC) && \
+> >        ((X)->flags & MSM_FORMAT_FLAG_COMPRESSED))
+> >
+> > +const struct msm_format *mdp_get_format(struct msm_kms *kms, uint32_t format, uint64_t modifier);
+> > +
+> >   struct msm_pending_timer;
+> >
+> >   int msm_atomic_init_pending_timer(struct msm_pending_timer *timer,
+>
+> I am now thinking that do you think it makes sense to move all
+> MDP_FORMAT macros to a new mdp_formats.h including the RGB/YUV bitfield
+> macros (even though I already acked that change).
+>
+> Instead of bloating msm_drv.h even more?
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Sounds like a good idea, yes. Thank you!
+
+-- 
+With best wishes
+Dmitry
