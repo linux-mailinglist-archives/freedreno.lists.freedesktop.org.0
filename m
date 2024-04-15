@@ -2,72 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D7A38A3B3A
-	for <lists+freedreno@lfdr.de>; Sat, 13 Apr 2024 08:03:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D2FF8A5296
+	for <lists+freedreno@lfdr.de>; Mon, 15 Apr 2024 16:02:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD63510E4D8;
-	Sat, 13 Apr 2024 06:03:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EBF21125CF;
+	Mon, 15 Apr 2024 14:02:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VNQDTc+1";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="bRSc7hqe";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
- [209.85.128.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFD5C10E4D8
- for <freedreno@lists.freedesktop.org>; Sat, 13 Apr 2024 06:02:55 +0000 (UTC)
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-617cd7bd929so17207267b3.3
- for <freedreno@lists.freedesktop.org>; Fri, 12 Apr 2024 23:02:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712988174; x=1713592974; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=3p6Jg0iNIK+PAJ8XdMgBNFqaUw3Dj5y6DUftWKBMSqc=;
- b=VNQDTc+1E7vfIO2KfU2XDZ50csdGXlbNG5V/+lfRduFOagqWYdqCgV62qdm6wOw2kf
- UdGGEpUmOoLry3CAtHVqrfgotxIfXypF6cHOJkKbQ2X5DWb7HHyRBVbubjeH1EzsuWcJ
- /mIxi3UxYdW0kSLRHJflaBs0+W6Z8YYC1w01dP2wHfg5KSMJF1tlbSCAT1VWpbU5TdLo
- En40aqpxn4QOxOQglr5UGmlbCEAdmcb1+jVIbdXhRJNSn7xwpcQM1lQsF6neEyTeCOaY
- 1ZDOZQr/UNvpBn3zTkiCdMSSZklt76bijFzcUGOgz/CHmxkKcOBKK9GYc68qI7RnOkaD
- dnpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712988174; x=1713592974;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3p6Jg0iNIK+PAJ8XdMgBNFqaUw3Dj5y6DUftWKBMSqc=;
- b=kA80nl5mx0Yhur8c0BxBw0FrajwVrWKuDqsLmlbXOcHMKRXxfGupwt+seiQjgOhzWV
- uV4rC7gxqll/BsQjQS4w+4mKlr0yldCLEFf3QlqNyMy9yR0HZK9UMYWgejSeAHSqxttG
- 5WlrNYgTcMnlVjEFgRxPaNOkSNTKO3ekamXgABwcbuXupClCLuR6J+0JLiZWlnDoMj3I
- NpvOSu9CTGFBxwdJ6vNnXgDJySQGnHe/dJW3bnrS1Eban9KvC2G1H8dtY+lezuQvXdzP
- oqDLzSncUoxm6KFrKSSMNh88xGq433I3c2FG7JZTOTPblkhWGdE1RJQYfWMuMAeCbla5
- aiNg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUdIf1nSDilw8sl3lGlNS9qvLUgmv9f3rs6lyKWwtZ2hTRSbcQw4VIFLM2/WGokv7tV3b3ErrH8cSCVDnq03BEdg6+28v8+oGu/6o7B+7GP
-X-Gm-Message-State: AOJu0YwOV1gkRtPej7gSHQNXx2S7ZYquVaom3galp+QBT1zU0L/Q87vo
- M3C3PhuaalDVry81f3Qo7r2rd5qVWeIEaglgwcLa8VZSE8fo0z24a7A6d2xEJIco0VCcC+L8C0k
- wn+gFLdgpvuyNkbwJWozcKcIlS25GtPW/3xb63A==
-X-Google-Smtp-Source: AGHT+IFwiHasDbNqUmN3FeLVBrKDayEjmne8Pj/l5CVaBDswgbABq+xouKyVSZPrztCGNB9W5w2neAMPfmbgJxATrOY=
-X-Received: by 2002:a25:4ec2:0:b0:dcc:1449:71ea with SMTP id
- c185-20020a254ec2000000b00dcc144971eamr4409535ybb.50.1712988174430; Fri, 12
- Apr 2024 23:02:54 -0700 (PDT)
-MIME-Version: 1.0
-References: <20231202214016.1257621-1-dmitry.baryshkov@linaro.org>
- <20231202214016.1257621-12-dmitry.baryshkov@linaro.org>
- <6ed5bb25-979e-bb48-3dfe-4af581bb5dd1@quicinc.com>
-In-Reply-To: <6ed5bb25-979e-bb48-3dfe-4af581bb5dd1@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 13 Apr 2024 09:02:43 +0300
-Message-ID: <CAA8EJpqgmf=22O44qFEpxBuGiO4LDyOMrNVnksOdJ9G0z=X2Ug@mail.gmail.com>
-Subject: Re: [PATCH 11/12] drm/msm: merge dpu format database to MDP formats
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Stephen Boyd <swboyd@chromium.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 907591125CE;
+ Mon, 15 Apr 2024 14:02:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:To:
+ From:Subject:Message-ID:Sender:Reply-To:Cc:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=Ljnuyj309g/2itlVZDdfjNXk+f84QxRXjXC1RNVY8PM=; b=bRSc7hqeT0ebFpgrrSRZNaA0ed
+ n26TriUpOtx6cBBF7bzXraz8VFiuGSKVsp1XgcYwVWQ0a3BOeMr0/eod102P2JrkffzA2BcWeiZdZ
+ pQujN2ME4bMFMFbeh+uunhSmtPXnLWFqy0JcWJPltB7qDXryWoUP8AnQWZCaJduGLHT992QFBLOHo
+ 8xlH8pXfNkDdKxSPhlTaXrn7uzE5TTuY1eSusvZW7p3jsBQLgtPeGp9PWCcf9DGRorXoP0JwRZjzQ
+ /d97iImCel8NWXWwL8cpmVztZmwaVQR7+eO3g4wKHyk6hs9780yHc2JaZ44+LX53GYs9N645H0WkN
+ fShSpcDQ==;
+Received: from 30.red-83-52-1.dynamicip.rima-tde.net ([83.52.1.30]
+ helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1rwMux-004mu0-Ni; Mon, 15 Apr 2024 16:02:43 +0200
+Message-ID: <2309afcf8a6d4e67f589e80a92916e6a73058084.camel@igalia.com>
+Subject: 2024 X.Org Foundation Election Results
+From: Ricardo Garcia <rgarcia@igalia.com>
+To: events@lists.x.org, xorg-devel@lists.x.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ libre-soc-dev@lists.libre-soc.org, elections@x.org, members@x.org, xorg
+ <xorg@lists.freedesktop.org>
+Date: Mon, 15 Apr 2024 16:02:42 +0200
+Autocrypt: addr=rgarcia@igalia.com; prefer-encrypt=mutual;
+ keydata=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
+ p0ZW9AkVq7C3F0YSY0Tq5bKR94O8=
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.4 (3.50.4-1.fc39) 
+MIME-Version: 1.0
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,84 +67,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 12 Apr 2024 at 22:47, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 12/2/2023 1:40 PM, Dmitry Baryshkov wrote:
-> > Finally remove duplication between DPU and generic MDP code by merging
-> > DPU format lists to the MDP format database.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |   2 +-
-> >   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |   4 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c   | 602 ------------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h   |  23 -
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |  10 -
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   2 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     |   3 +-
-> >   drivers/gpu/drm/msm/disp/mdp_format.c         | 595 +++++++++++++++--
-> >   drivers/gpu/drm/msm/disp/mdp_kms.h            |   2 -
-> >   drivers/gpu/drm/msm/msm_drv.h                 |  12 +
-> >   10 files changed, 549 insertions(+), 706 deletions(-)
-> >
->
-> I cross-checked a few macros visually (not each one) and it LGTM in
-> terms of just moving it from dpu_formats.c to mdp_format.c
->
-> Even in this change I had the same concern about whether to use MDP for
-> dpu formats.
->
-> But I think even if we make it MSM_*** then we will have to keep them in
-> some msm_** header and not mdp_format.c
->
-> So lets go ahead with the MDP naming which you have. If we see its not
-> working out later on, please be open to a mass renaming that time.
+The Board of Directors election concluded on 08 April 2024. There were
+81 Members of the X.Org Foundation eligible to vote, and 61 Members cast
+votes. This is a 75.3% turn out.
 
-Ack.
+In the election of the Directors to the Board of the X.Org Foundation,
+the results were that=C2=A0Erik Faye-Lund, Simon Ser, Mark Filion and Neal
+Gompa were elected for two-year terms.
 
->
-> <snip>
->
-> > index dea6d47854fe..e7651a0e878c 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.h
-> > +++ b/drivers/gpu/drm/msm/msm_drv.h
-> > @@ -267,6 +267,16 @@ enum msm_format_flags {
-> >   #define MSM_FORMAT_FLAG_UNPACK_ALIGN_MSB BIT(MSM_FORMAT_FLAG_UNPACK_ALIGN_MSB_BIT)
-> >   #define MSM_FORMAT_FLAG_ALPHA_ENABLE        BIT(MSM_FORMAT_FLAG_ALPHA_ENABLE_BIT)
-> >
-> > +/**
-> > + * DPU HW,Component order color map
-> > + */
-> > +enum {
-> > +     C0_G_Y = 0,
-> > +     C1_B_Cb = 1,
-> > +     C2_R_Cr = 2,
-> > +     C3_ALPHA = 3
-> > +};
-> > +
-> >   /**
-> >    * struct msm_format: defines the format configuration
-> >    * @pixel_format: format fourcc
-> > @@ -305,6 +315,8 @@ struct msm_format {
-> >       (((X)->fetch_mode == MDP_FETCH_UBWC) && \
-> >        ((X)->flags & MSM_FORMAT_FLAG_COMPRESSED))
-> >
-> > +const struct msm_format *mdp_get_format(struct msm_kms *kms, uint32_t format, uint64_t modifier);
-> > +
-> >   struct msm_pending_timer;
-> >
-> >   int msm_atomic_init_pending_timer(struct msm_pending_timer *timer,
->
-> I am now thinking that do you think it makes sense to move all
-> MDP_FORMAT macros to a new mdp_formats.h including the RGB/YUV bitfield
-> macros (even though I already acked that change).
->
-> Instead of bloating msm_drv.h even more?
+The old full board is:
 
-Sounds like a good idea, yes. Thank you!
+* Emma Anholt
+* Mark Filion
+* Ricardo Garcia
+* Arkadiusz Hiler
+* Christopher Michael
+* Lyude Paul
+* Alyssa Rosenzweig
+* Sima Vetter
 
--- 
-With best wishes
-Dmitry
+The new full board is:
+
+* Erik Faye-Lund
+* Mark Filion
+* Neal Gompa
+* Arkadiusz Hiler
+* Christopher Michael
+* Lyude Paul
+* Simon Ser
+* Sima Vetter
+
+-Ricardo Garcia, on behalf of the X.Org elections committee
