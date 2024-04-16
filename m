@@ -2,63 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCCD08A52CC
-	for <lists+freedreno@lfdr.de>; Mon, 15 Apr 2024 16:13:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 204F78A7969
+	for <lists+freedreno@lfdr.de>; Wed, 17 Apr 2024 01:57:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B00EB1125EA;
-	Mon, 15 Apr 2024 14:13:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=gaisler.com header.i=@gaisler.com header.b="Im0iVk8f";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B9F410F40B;
+	Tue, 16 Apr 2024 23:57:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 474 seconds by postgrey-1.36 at gabe;
- Fri, 12 Apr 2024 17:51:44 UTC
-Received: from smtp-out3.simply.com (smtp-out3.simply.com [94.231.106.210])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC1C210E1C8;
- Fri, 12 Apr 2024 17:51:44 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by smtp.simply.com (Simply.com) with ESMTP id 4VGP7R5WBkz680X;
- Fri, 12 Apr 2024 19:43:47 +0200 (CEST)
-Received: from [10.10.15.20] (h-98-128-223-123.NA.cust.bahnhof.se
- [98.128.223.123])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (Client did not present a certificate)
- by smtp.simply.com (Simply.com) with ESMTPSA id 4VGP7R12RYz67yx;
- Fri, 12 Apr 2024 19:43:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
- s=unoeuro; t=1712943827;
- bh=rz6jPUrsijT1INaAxqASzjJlCA1E00oo2UxdhuDoHkY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Im0iVk8feRxQgKlsQWaCXv3LUGHwDcqreNg4bxaJ3/IOrXfx2QiN1rnYBfEc+f2u5
- 8MbqJsx4mJ8FaAweR4s/LxS3LCYE612Agy+eKqOKsD0gLkupmeXqyp8GmT5sJHqtiZ
- kRuaHnbzajuZP5Rptmhe/G5mAFIlHj5p1NxY+ApA=
-Message-ID: <1b48be5f-bcc2-4cc0-8a23-85c472168082@gaisler.com>
-Date: Fri, 12 Apr 2024 19:43:45 +0200
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3846110F307
+ for <freedreno@lists.freedesktop.org>; Tue, 16 Apr 2024 23:57:47 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-211-6-86.cable.dynamic.v4.ziggo.nl [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id B6BC33EFF8;
+ Wed, 17 Apr 2024 01:57:43 +0200 (CEST)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+Subject: [PATCH 0/7] drm/msm: Initial fixes for DUALPIPE (+DSC) topology
+Date: Wed, 17 Apr 2024 01:57:40 +0200
+Message-Id: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-0-78ae3ee9a697@somainline.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Build regressions/improvements in v6.9-rc1
-To: Sam Ravnborg <sam@ravnborg.org>, Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
- Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org, linux-mips@vger.kernel.org,
- sparclinux@vger.kernel.org
-References: <CAHk-=wgOw_13JuuX4khpn4K+n09cRG3EBQWufAPBWoa0GLLQ0A@mail.gmail.com>
- <20240325200315.3896021-1-geert@linux-m68k.org>
- <8d78894-dd89-9f4d-52bb-1b873c50be9c@linux-m68k.org>
- <20240326181500.GA1501083@ravnborg.org>
-Content-Language: en-US
-From: Andreas Larsson <andreas@gaisler.com>
-In-Reply-To: <20240326181500.GA1501083@ravnborg.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 15 Apr 2024 14:13:27 +0000
+X-B4-Tracking: v=1; b=H4sIAHUQH2YC/x3MQQqDMBBG4avIrDuQaKrgVUoX0UzqDyYNmbYUx
+ Ls3dPnx4B2kUiFKc3dQlQ8Uz9xgLx2tm88PYYRm6k3vjLMjh5o4aWJkvOB3Dm+/FxThoCtHfEV
+ 5iGay18UMS3TURqXKP7TP7X6eP3beIJV0AAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Archit Taneja <architt@codeaurora.org>, 
+ Chandan Uddaraju <chandanu@codeaurora.org>, Vinod Koul <vkoul@kernel.org>, 
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jordan Crouse <jordan@cosmicpenguin.net>, 
+ Rajesh Yadav <ryadav@codeaurora.org>, 
+ Jeykumar Sankaran <jsanka@codeaurora.org>, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Martin Botka <martin.botka@somainline.org>, 
+ Jami Kettunen <jami.kettunen@somainline.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>
+X-Mailer: b4 0.13.0
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,20 +63,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2024-03-26 19:15, Sam Ravnborg wrote:
-> Hi all.
-> 
->>   + error: arch/sparc/kernel/process_32.o: relocation truncated to fit: R_SPARC_WDISP22 against `.text':  => (.fixup+0xc), (.fixup+0x4)
->>   + error: arch/sparc/kernel/signal_32.o: relocation truncated to fit: R_SPARC_WDISP22 against `.text':  => (.fixup+0x18), (.fixup+0x8), (.fixup+0x0), (.fixup+0x20), (.fixup+0x10)
->>   + error: relocation truncated to fit: R_SPARC_WDISP22 against `.init.text':  => (.head.text+0x5100), (.head.text+0x5040)
->>   + error: relocation truncated to fit: R_SPARC_WDISP22 against symbol `leon_smp_cpu_startup' defined in .text section in arch/sparc/kernel/trampoline_32.o:  => (.init.text+0xa4)
-> 
-> Looks like something is too big for the available space here.
-> Any hints how to dig into this would be nice.
-> 
-> Note: this is a sparc32 allmodconfig build
+This series covers a step-up towards supporting the DUALPIPE DSC
+topology, also known as 2:2:2 topology (on active-CTL hardware).  It
+involves 2 layer mixers, 2 DSC compression encoders, and 2 interfaces
+(on DSI, this is called bonded-DSI) where bandwidth constraints (e.g. 4k
+panels at 120Hz) require two interfaces to transmit pixel data.
 
-I have a patch for this. I'll clean it up and send it next week.
+Enabling this topology will be hard(er) than downstream as hacking a
+layout type in DTS won't be describing the hardware, but "dynamically"
+determining it at runtime may pose some of a challenge that is left to a
+future series.  Such changes will also involve the 1:1:1 topology needed
+for constrained hardware like the Fairphone 5 on SC7280 with access to
+only one DSC encoder and thus ruled out of the current 2:2:1 topology.
 
-Cheers,
-Andreas
+Likewise, the patches and discussions around improving active-CTL
+configuration to support bonded interfaces (that share a single CTL
+block) are still in full swing and hence elided from this series, apart
+from one patch to fix the ACTIVE_DSC register coding to support updates,
+so that it is not forgotten about.
+
+Note that some patches are applicable to DSC-less DUALPIPE bonded mode
+as well, such as the patch that allows the slave interface to always be
+flushed as that is only supposed to be excluded in the yet-unsupported
+PPSPLIT topology.
+
+This series also contains some patches that I'm not too sure about:
+
+  drm/msm/dpu: Correct dual-ctl -> dual-intf typo in comment
+
+    Downstream doesn't skip the slave INTF flush on active-CTL [1]
+    (again, just like cmdmode, only when PPSPLIT is enabled [2]), and
+    even added an extra comment [1] explaining this case.  Hence a
+    dual-intf but single-flush case doesn't seem to exist as there's
+    only one CTL according to the remainder of the comment.
+    Maybe the whole comment is wrong?
+
+  drm/msm/dsi: Set PHY usescase before registering DSI host
+
+    It seems intentional to only set the usecase after
+    msm_dsi_host_register() in case it fails, so maybe a non-zero `ret`
+    here should reset the usecase?  Likewise should the function call be
+    moved in !IS_BONDED_DSI() above?
+
+    Ideally we also understand what I am doing differently (maybe
+    wrongly) in my panel driver that makes the PLL turn on and configure
+    before the usecase has been set, even though these calls are messy
+    and error-prone nevertheless.
+
+[1]: https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-drivers/-/blob/display-kernel.lnx.5.4.r1-rel/msm/sde/sde_encoder_phys_vid.c?ref_type=heads#L794-804
+[2]: https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-drivers/-/blob/display-kernel.lnx.5.4.r1-rel/msm/sde/sde_encoder_phys_cmd.c?ref_type=heads#L1131-1139
+
+Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+---
+Marijn Suijten (7):
+      drm/msm/dsi: Print dual-DSI-adjusted pclk instead of original mode pclk
+      drm/msm/dsi: Pass bonded-DSI hdisplay/2 to DSC timing configuration
+      drm/msm/dpu: Always flush the slave INTF on the CTL
+      drm/msm/dpu: Allow configuring multiple active DSC blocks
+      drm/msm/dpu: Correct dual-ctl -> dual-intf typo in comment
+      drm/msm/dsi: Set PHY usescase before registering DSI host
+      drm/msm/dpu: Rename `ctx` parameter to `intf` to match other functions
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c |  3 ---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c           |  9 ++++++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c          | 14 +++++++-------
+ drivers/gpu/drm/msm/dsi/dsi_host.c                   | 14 +++++++-------
+ drivers/gpu/drm/msm/dsi/dsi_manager.c                | 15 +++++++++++----
+ 6 files changed, 32 insertions(+), 25 deletions(-)
+---
+base-commit: 6bd343537461b57f3efe5dfc5fc193a232dfef1e
+change-id: 20240416-drm-msm-initial-dualpipe-dsc-fixes-3f0715b03bf4
+
+Best regards,
+-- 
+Marijn Suijten <marijn.suijten@somainline.org>
+
