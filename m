@@ -2,64 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D0A68A7E02
-	for <lists+freedreno@lfdr.de>; Wed, 17 Apr 2024 10:19:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80BF78A8294
+	for <lists+freedreno@lfdr.de>; Wed, 17 Apr 2024 13:57:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 010E91132B3;
-	Wed, 17 Apr 2024 08:19:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52B36113444;
+	Wed, 17 Apr 2024 11:57:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ykCPEj4D";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mFZb7vu8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
- [209.85.128.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C153A1132B3
- for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 08:19:10 +0000 (UTC)
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-617d25b2bc4so58361587b3.2
- for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 01:19:10 -0700 (PDT)
+Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com
+ [209.85.219.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B64FC113443
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 11:57:00 +0000 (UTC)
+Received: by mail-yb1-f174.google.com with SMTP id
+ 3f1490d57ef6-ddda842c399so5714857276.3
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 04:57:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713341950; x=1713946750; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1713355020; x=1713959820; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=3LRcCO7G0BAlsPsSHwaDpD7NJg45TvAyn9+yoAIm8Y8=;
- b=ykCPEj4DbBor3xv2NMdpyodV0tTLHEBUWcoAiHAj9mNr5rvZUkho90IFgfvVeQP6i1
- e9xsq1ppd9+Qq8b8GXizS7whXgHZ35FaI3kPJtAWOVK6UzjrYcBbepMTWYxA8TCKrzbu
- 5w1ghY1QjFnjrWgftuPdEcDlLV2inArs++ux2s7kEjJxuqNbDD+cp4B8sIPgdofLtAi9
- vITMs3/rwMLsItwFZIRTFsCQx3Jx6+a5y+HiZ1hrrMV3y/XcjkX8ysV08Vk1eHI4fBMw
- LnLdCxT68EibGRKQAcyrd30zqxYcey53/VaGq4q8EOrArjeK76+1HbTyCXPZKF6FFssu
- we0Q==
+ bh=7V6DnLCsUFkJaBmXGBgPYovHMmnV4qT3enJ4vhqHZQM=;
+ b=mFZb7vu89CdLkeJyH7p9rX9G+yn80/6UopoQdbDtmBYSOl7UNErjxGj5uznWiG0imE
+ BZnWLXNK9k5DkB55YCkIVZ/T7xh/xMRseUI0utG3E10lKFyWdz++k7QboerkVhob9aex
+ pz86DL0BdLD8OCrkmep2crPAM203riNlCeWF11etvCzhnCdD2Sj+1EbEorGRqPvYgjt3
+ Dfn45Ptj38Bxc2GSxJuGVsBliWI/RzlfaX3UjW9clddXpzfQd/jQGR6QQ0+uvBJTz4JR
+ gX43ycTDOY6rk5G+7gmZroYe1zAN3erkApIQqnkIW3hulcQH8kVKdn7PHnOzzRDUbNF5
+ vFTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713341950; x=1713946750;
+ d=1e100.net; s=20230601; t=1713355020; x=1713959820;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=3LRcCO7G0BAlsPsSHwaDpD7NJg45TvAyn9+yoAIm8Y8=;
- b=SsOfE09DfSu3OZ95yQuP5VM7zx/QEWnT77M4nEBc+8s4hbjI7rLNePZ/lQT6hLQDim
- 1FTjRO8Ow9GXBwN6B9hnq9LHuAtZAzilUmmPkNvg2/FT7v+38eXOt4St1+h++jOaA7tX
- 1MOhpN7Fc5peEKLtlF2PNglaFHnmowqSSFNoni8TGXWEbD8ph8o0fpqjAAz12J+xFPlA
- 9S8vQvJdD/tR31Fxv7qaMJB2npcwoITFucs0IXFhqhxnmiUlOuxNdRBuDks30m/DVCsx
- +NV0I2iXNZwPcXQKPyadPVecv4Djou7sM5CQg0CFYYJZzBnh5IiBi36P96MxC6+fCEEI
- HDpQ==
+ bh=7V6DnLCsUFkJaBmXGBgPYovHMmnV4qT3enJ4vhqHZQM=;
+ b=MvAYN8uf6oxXr820QDnEz7mS6zVlLKNXpxaQdbU3w21JcqLz4punRbFqD0+kzuw+Ok
+ yx+diLJ8I2ctbToAntm4Cwl68JDJRFvqJpK0+tw3YJtvGEVsqbk+twsFg4cRr0nU9t4w
+ AQyFed4drkbLKAvpL+TUcEhPvDQu8WydbudYo00uEbDT/+pMKc/sQSYtUEdwJzYKlwbr
+ DCV/01B1QCHQrVd5VsR10ITOHDaYKY4LQA34tbrAhjU463HYFdd4OM4JQ0kIEzLIkcN8
+ 4lQu1g7Z+nSZIRrOurV5R6KYWGxQVRZRnTbR1TNZCVbbr9GuTOiuisCUdHiSMPwlYGsP
+ BU8Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWxQ3GzXj8+5izL66Z6luBO0rdo7pHFaVoXKpH+gGKMECeS+lbuw+37VRqIykZM+g835UFAhgyH6NX8AHmJ1uZ5Jjwnez311NkZdea+nXNQ
-X-Gm-Message-State: AOJu0Yyw8Vfm39kOS9P5ugRiXP++P6dZOLuwVkvNtj7xYlOcbgXas/Ec
- pJusPoYYUC89CvKYZH9BHgMQTITqH3JS+e9Ti47j/zwN2qUewz5aYhtkIKN+Alrk8k4Uaa9Az1l
- rKUtIfIs99zu1MpmOOsHmqFYKsjsaN5wkAp9CDw==
-X-Google-Smtp-Source: AGHT+IE2lKg2BSkdW3aFZxTMV4gr/x3dbq3U7YbGvWBPNOlVvmP5HPCh/lfty+hy19RjhqRJv46ueaHdDZUJSm/+bS0=
-X-Received: by 2002:a81:430f:0:b0:615:1e99:bd6e with SMTP id
- q15-20020a81430f000000b006151e99bd6emr14355086ywa.35.1713341949713; Wed, 17
- Apr 2024 01:19:09 -0700 (PDT)
+ AJvYcCVxfHN75610FR02cuZhT2AdtBS/HnKNcOoELj8idBoLZoqaP3hwoLXZ9SrHki+HrWITySbBgC58uYitamdCxnQM8l0XdFcQH0gr5vPY6V8I
+X-Gm-Message-State: AOJu0Yw5bbGgUhvRanCDzOj33BO+7kpL3AuOBmKAG4KbjhAda/+DWoO8
+ Q5yJxPFx3w+XfIVPGb/Mg29JbQRKPhJqgOY+QyV0BsZSc8YtGCIpUhbzhwHxG0vkQ97Oavrz6V9
+ bYKPSSSXnp0xWHCW/PCQw9TzMGFENlFARQ5n9nwKFT5krnzrT
+X-Google-Smtp-Source: AGHT+IHuJ+P0+tIP8Ja/s31hcE/lLfe8rzFJZRFTNiK24q6dN5Ov40yhIbmq423DTWh9Cjd7EAZUIsIKaKherzh7G/4=
+X-Received: by 2002:a25:4ec2:0:b0:dcc:1449:71ea with SMTP id
+ c185-20020a254ec2000000b00dcc144971eamr15228037ybb.50.1713355019639; Wed, 17
+ Apr 2024 04:56:59 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-0-78ae3ee9a697@somainline.org>
- <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-6-78ae3ee9a697@somainline.org>
-In-Reply-To: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-6-78ae3ee9a697@somainline.org>
+ <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-1-78ae3ee9a697@somainline.org>
+In-Reply-To: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-1-78ae3ee9a697@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 17 Apr 2024 11:18:58 +0300
-Message-ID: <CAA8EJpry5Gct7Q2sAwFBVYV163X9BOcuKu9So47FEJaeXcdSaQ@mail.gmail.com>
-Subject: Re: [PATCH 6/7] drm/msm/dsi: Set PHY usescase before registering DSI
- host
+Date: Wed, 17 Apr 2024 14:56:48 +0300
+Message-ID: <CAA8EJpqJfkRd3hN-QoHaxhP2dUaEOyaqnGzA5MiGk96oTLRO2g@mail.gmail.com>
+Subject: Re: [PATCH 1/7] drm/msm/dsi: Print dual-DSI-adjusted pclk instead of
+ original mode pclk
 To: Marijn Suijten <marijn.suijten@somainline.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
@@ -94,73 +94,21 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 On Wed, 17 Apr 2024 at 02:57, Marijn Suijten
 <marijn.suijten@somainline.org> wrote:
 >
-> Ordering issues here cause an uninitalized (default STANDALONE)
-> usecase to be programmed (which appears to be a MUX) in some cases
-> when msm_dsi_host_register() is called, leading to the slave PLL in
-> bonded-DSI mode to source from a clock parent (dsi1vco) that is off.
+> When dual-DSI (bonded DSI) was added in commit ed9976a09b48
+> ("drm/msm/dsi: adjust dsi timing for dual dsi mode") some DBG() prints
+> were not updated, leading to print the original mode->clock rather
+> than the adjusted (typically the mode clock divided by two, though more
+> recently also adjusted for DSC compression) msm_host->pixel_clk_rate
+> which is passed to clk_set_rate() just below.  Fix that by printing the
+> actual pixel_clk_rate that is being set.
 >
-> This should seemingly not be a problem as the actual dispcc clocks from
-> DSI1 that are muxed in the clock tree of DSI0 are way further down, this
-> bit still seems to have an effect on them somehow and causes the right
-> side of the panel controlled by DSI1 to not function.
->
-> In an ideal world this code is refactored to no longer have such
-> error-prone calls "across subsystems", and instead model the "PLL src"
-> register field as a regular mux so that changing the clock parents
-> programmatically or in DTS via `assigned-clock-parents` has the
-> desired effect.
-> But for the avid reader, the clocks that we *are* muxing into DSI0's
-> tree are way further down, so if this bit turns out to be a simple mux
-> between dsiXvco and out_div, that shouldn't have any effect as this
-> whole tree is off anyway.
->
+> Fixes: ed9976a09b48 ("drm/msm/dsi: adjust dsi timing for dual dsi mode")
 > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
->  drivers/gpu/drm/msm/dsi/dsi_manager.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> index af2a287cb3bd..17f43b3c0494 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> @@ -85,6 +85,17 @@ static int dsi_mgr_setup_components(int id)
->                                                         msm_dsi : other_dsi;
->                 struct msm_dsi *slave_link_dsi = IS_MASTER_DSI_LINK(id) ?
->                                                         other_dsi : msm_dsi;
-> +
-> +               /* PLL0 is to drive both 2 DSI link clocks in bonded DSI mode.
-> +                *
-> +                * Set the usecase before calling msm_dsi_host_register() to prevent it from
-> +                * enabling and configuring the usecase (which is just a mux bit) first.
-> +                */
-> +               msm_dsi_phy_set_usecase(clk_master_dsi->phy,
-> +                                       MSM_DSI_PHY_MASTER);
-> +               msm_dsi_phy_set_usecase(clk_slave_dsi->phy,
-> +                                       MSM_DSI_PHY_SLAVE);
-> +
->                 /* Register slave host first, so that slave DSI device
->                  * has a chance to probe, and do not block the master
->                  * DSI device's probe.
-> @@ -100,10 +111,6 @@ static int dsi_mgr_setup_components(int id)
->                         return ret;
->
->                 /* PLL0 is to drive both 2 DSI link clocks in bonded DSI mode. */
-> -               msm_dsi_phy_set_usecase(clk_master_dsi->phy,
-> -                                       MSM_DSI_PHY_MASTER);
-> -               msm_dsi_phy_set_usecase(clk_slave_dsi->phy,
-> -                                       MSM_DSI_PHY_SLAVE);
->                 msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
->                 msm_dsi_host_set_phy_mode(other_dsi->host, other_dsi->phy);
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 
-Please move msm_dsi_host_set_phy_mode() calls too. Also please update
-the non-bonded case.
-
->         }
->
-> --
-> 2.44.0
->
-
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
