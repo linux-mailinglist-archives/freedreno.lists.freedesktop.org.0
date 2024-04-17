@@ -2,88 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 787668A8C88
-	for <lists+freedreno@lfdr.de>; Wed, 17 Apr 2024 22:03:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B4BB8A8F51
+	for <lists+freedreno@lfdr.de>; Thu, 18 Apr 2024 01:31:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2858D1137C5;
-	Wed, 17 Apr 2024 20:03:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E24A11387D;
+	Wed, 17 Apr 2024 23:31:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZyA/Hmb8";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="F5ypeMcH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A632A1137C4
- for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 20:03:19 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5176f217b7bso109822e87.0
- for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 13:03:19 -0700 (PDT)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 839B810F943
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 23:31:04 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-518d98b9620so199113e87.3
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 16:31:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713384197; x=1713988997; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=eYI4k5JR+67InOGrmasq4k+IdEUXSCsAg3S/O+/c6wo=;
- b=ZyA/Hmb8f+CnV6dCoAqEA14DYQB+KSzRvYIPl5Ap6QchHeOuFhMDP82koPbNjTRfqr
- mK8RoCqmGsC/JJbwVyA4vIstW3FesN8RPhLjN6M4iKxWbuEwzAK+QVJFdrYHC5yZjyUi
- o19NwXp1cVmALL9o4umMGwB1C30u/S1i+T3T+cQqTE13z1PEGJ05kQyJitz40ugNrncs
- qHulMbguxLi2xarzVDp0VLWPB+3aAgiFcxPs17LxxieAlZRKS37sOzDEiBwcMcIkiFZP
- F6pPqetwfy34ABZqtJc4MqZujBAtNNKJ66vM+A1j+JnrgytbjeUbInrGh721Yc0W2IIc
- OmIA==
+ d=linaro.org; s=google; t=1713396662; x=1714001462; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=GoRisbGnaphvkOMl0BaR8O6Ht/Z9FTi+nAoLdKSqnlw=;
+ b=F5ypeMcHtPT2keRBcquIp7uOJrqcCcm914BS15ydqpMUOPwbnV/h/gAFi7LIc8n/v+
+ ybEAg5rroSIjN944FgFboSw0Q2pfGiYVujQpRG9OMemD3ht3oeTde57/2dAuluAgCNMu
+ xFMwvXVAcdHV8XQqnweqqLt7V5nqlc/CLlaRBMSvdRmVDmYLT6Vx38pXptu43FTpgL8E
+ UEcjeJGn+PF7mMP8x1hPmYbwND5aWh1QE5XIO8+WIRIRddRPSmHi3XPmHUutoXxSX0GH
+ vHTsPB0H9Grv2e4CRvVJJXXOQPfNaooaulK1aOWgkfh0HzB3L7Mgi9NGA/wgCzP+n3/y
+ 688Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713384197; x=1713988997;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eYI4k5JR+67InOGrmasq4k+IdEUXSCsAg3S/O+/c6wo=;
- b=mkOLii92VL7r0y23uqiz0/QIE9S7OQaOq6l/Ulfg9BG/0d8y8vO4/+ZvOuVQY5sDM3
- DHcWRIPEWKT6EOfTOIRMA2hF6dX11bls0H6TevOx72Y1kEw7ZosOl49E76uGOEMxM4Ui
- 2ocTUq6HLDgZWLJJn7QmUQ5A0tA4U5W7XEZlTJdNMwHMRGIHV6OpGmoVtggu0TVuCmDy
- v4WyrrcJmYFjrFsIpPd6xBtrI0xFI5en43cAA15VfnRWu1uICiIa3T+44U1IpVLDOijt
- oH/FnP9LZCa/eWBXWVYFBoVM+QLU8Z15guNPtJ+dgLy9RKJdJvoayD+CVGQtUh/p7AUK
- ktlA==
+ d=1e100.net; s=20230601; t=1713396662; x=1714001462;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GoRisbGnaphvkOMl0BaR8O6Ht/Z9FTi+nAoLdKSqnlw=;
+ b=rtPgEeP5p80h2XyagJZNkuvJdmon7FLkLjb/LGvwn/uwouXq+LAKgYLxr0l+E7nWhI
+ ZRgw3AAYPUfrVB1A33kNzC9TYv6XAkjGSdo41Lx+Q8cW6jr3kUVFezexyDbNtaD3h6yK
+ mSOXXzAby4cCymlurIuvw+3+FWqCFsrz0HgfgcI/DFPTC1mLmSGWIWCtRpA/sfWf7hAF
+ +v6ZTOXMPYkSGoH9A+778lvvqVvPkLQH1SnNKDBIFZSzzUTmT1eW6szDPPVoTlJCH88B
+ ZWKwIJq/FMCQtf/ybUzyQ6Krj+7kcQWlXz1lOutmdD5r9q2T+bHeDGoQBzqBQ9tPQI5J
+ O7gw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWNHJ+4AM57RoflwY5xuPMYpaZYXS2k8uwu4qtT6EATnNr1XUkYUz7hg58e+cdjvcxe9nC9zajm3uL9WP4gB0Fbu8ZiIz/SN2U+/9//ZWFZ
-X-Gm-Message-State: AOJu0YwmYcoKpD5i3vOsahPGwzU2ddKGy7vxqURHrk0nUE0dm1WMlqtn
- J1L5gQ7z8uvntywzI41oY6B4flZmSC2Ud8WrDAaDAl7T7daQCT2kfD0IsYDvWTQ=
-X-Google-Smtp-Source: AGHT+IEveCP0Ef7EGrGrqGh7PzeSM8OltYJtYtq+rF4s+Usgg81dUYwCdW8Fjgw8tn+MFYo18gTAKg==
-X-Received: by 2002:ac2:4852:0:b0:518:bd37:606e with SMTP id
- 18-20020ac24852000000b00518bd37606emr206953lfy.13.1713384197719; 
- Wed, 17 Apr 2024 13:03:17 -0700 (PDT)
-Received: from [192.168.45.55] (078088045141.garwolin.vectranet.pl.
- [78.88.45.141]) by smtp.gmail.com with ESMTPSA id
- xa4-20020a170906fd8400b00a5252e69c7dsm5905590ejb.160.2024.04.17.13.03.15
+ AJvYcCUSzPugIt4u3umOezEzBkcVp5WWcIQMwFLNLIdQEtzkJ4/CluNBmdGqLsSZ+JJStPwdwjyzEG3wMUWrFFj1IZAcDxVJ/cDt+Rn3vDN/LtIV
+X-Gm-Message-State: AOJu0YzViagb+B2oXx6emc08/QPZHynm/uapJERvV9+AsLeQ5utNNNW6
+ BPiN1B9c956eBTA2WMzcElbajAHLgc/yvATnpRvcuZK61dRrQ1YZziV2c0AWA/M=
+X-Google-Smtp-Source: AGHT+IFdNJlkHn8NQV8zP3hm/RjD7xvcRdfYhoYaJN6camRxCnIHqiip6JS4Fiw3DsaEK+EVXCYA8g==
+X-Received: by 2002:ac2:4e4f:0:b0:515:c102:c825 with SMTP id
+ f15-20020ac24e4f000000b00515c102c825mr352459lfr.19.1713396662157; 
+ Wed, 17 Apr 2024 16:31:02 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
+ by smtp.gmail.com with ESMTPSA id
+ y22-20020a197516000000b005195b134404sm34870lfe.103.2024.04.17.16.31.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Apr 2024 13:03:17 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Wed, 17 Apr 2024 22:02:59 +0200
-Subject: [PATCH v2 7/7] arm64: dts: qcom: sm8550: Wire up GPU speed bin &
- more OPPs
+ Wed, 17 Apr 2024 16:31:01 -0700 (PDT)
+Date: Thu, 18 Apr 2024 02:30:59 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Archit Taneja <architt@codeaurora.org>, 
+ Chandan Uddaraju <chandanu@codeaurora.org>, Vinod Koul <vkoul@kernel.org>, 
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jordan Crouse <jordan@cosmicpenguin.net>, Rajesh Yadav <ryadav@codeaurora.org>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>
+Subject: Re: [PATCH 5/7] drm/msm/dpu: Correct dual-ctl -> dual-intf typo in
+ comment
+Message-ID: <76hjmo4sq6sfjgmnvjoienc5aij74pfjtwevnnls65kxinyaxu@y3yydacvcflm>
+References: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-0-78ae3ee9a697@somainline.org>
+ <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-5-78ae3ee9a697@somainline.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240404-topic-smem_speedbin-v2-7-c84f820b7e5b@linaro.org>
-References: <20240404-topic-smem_speedbin-v2-0-c84f820b7e5b@linaro.org>
-In-Reply-To: <20240404-topic-smem_speedbin-v2-0-c84f820b7e5b@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1713384181; l=2413;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=N9C7J/UXFBbxcLZJ0Wle4it14ExoZJn/aRTDf20iB8I=;
- b=MHA+uQvVZajZO7HB9yQ9w98lwwxIsrifK11MFrFba+JTdm7p6ywc7iaAOHKu6/NKHBghvMv0k
- DShJ2TmzIFCDxFEiwF2L/6pAbYWdc5a/F5PivT/SpWn3M5H58jc7ga8
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-5-78ae3ee9a697@somainline.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,90 +98,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the speedbin masks to ensure only the desired OPPs are available on
-chips of a given bin.
+On Wed, Apr 17, 2024 at 01:57:45AM +0200, Marijn Suijten wrote:
+> This comment one line down references a single, "same CTL" that controls
+> two interfaces, so the comment should clearly describe two interfaces
+> used with a single active CTL and not "two CTLs".
+> 
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> index d9e7dbf0499c..7e849fe74801 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> @@ -428,7 +428,7 @@ static void dpu_encoder_phys_vid_enable(struct dpu_encoder_phys *phys_enc)
+>  	dpu_encoder_phys_vid_setup_timing_engine(phys_enc);
+>  
+>  	/*
+> -	 * For single flush cases (dual-ctl or pp-split), skip setting the
+> +	 * For single flush cases (dual-intf or pp-split), skip setting the
 
-Using this, add the binned 719 MHz OPP and the non-binned 124.8 MHz.
+It should be fixed, but in the other way: it's 'single-ctl'. See
+sde_encoder_phys_needs_single_flush().
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8550.dtsi | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index 5cae8d773cec..2f6842f6a5b7 100644
---- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -2087,48 +2087,67 @@ zap-shader {
- 				memory-region = <&gpu_micro_code_mem>;
- 			};
- 
--			/* Speedbin needs more work on A740+, keep only lower freqs */
- 			gpu_opp_table: opp-table {
- 				compatible = "operating-points-v2";
- 
-+				opp-719000000 {
-+					opp-hz = /bits/ 64 <719000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+					opp-supported-hw = <0x1>;
-+				};
-+
- 				opp-680000000 {
- 					opp-hz = /bits/ 64 <680000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-615000000 {
- 					opp-hz = /bits/ 64 <615000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-550000000 {
- 					opp-hz = /bits/ 64 <550000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-475000000 {
- 					opp-hz = /bits/ 64 <475000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-401000000 {
- 					opp-hz = /bits/ 64 <401000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-348000000 {
- 					opp-hz = /bits/ 64 <348000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-295000000 {
- 					opp-hz = /bits/ 64 <295000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-220000000 {
- 					opp-hz = /bits/ 64 <220000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
-+					opp-supported-hw = <0x3>;
-+				};
-+
-+				opp-124800000 {
-+					opp-hz = /bits/ 64 <124800000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
-+					opp-supported-hw = <0x3>;
- 				};
- 			};
- 		};
+>  	 * flush bit for the slave intf, since both intfs use same ctl
+>  	 * and HW will only flush the master.
+>  	 */
+> 
+> -- 
+> 2.44.0
+> 
 
 -- 
-2.44.0
-
+With best wishes
+Dmitry
