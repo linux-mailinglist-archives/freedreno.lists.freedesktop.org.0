@@ -2,51 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A608A8369
-	for <lists+freedreno@lfdr.de>; Wed, 17 Apr 2024 14:50:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F12BC8A8C7A
+	for <lists+freedreno@lfdr.de>; Wed, 17 Apr 2024 22:03:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06ACA112946;
-	Wed, 17 Apr 2024 12:50:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF0810F827;
+	Wed, 17 Apr 2024 20:03:07 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BvdHgcpp";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it [5.144.164.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB064112946
- for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 12:50:08 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 2AB341F68B;
- Wed, 17 Apr 2024 14:50:05 +0200 (CEST)
-Date: Wed, 17 Apr 2024 14:50:03 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Archit Taneja <architt@codeaurora.org>, 
- Chandan Uddaraju <chandanu@codeaurora.org>, Vinod Koul <vkoul@kernel.org>, 
- Sravanthi Kollukuduru <skolluku@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jordan Crouse <jordan@cosmicpenguin.net>, Rajesh Yadav <ryadav@codeaurora.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- ~postmarketos/upstreaming@lists.sr.ht, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>
-Subject: Re: [PATCH 6/7] drm/msm/dsi: Set PHY usescase before registering DSI
- host
-Message-ID: <dwda6pf5e5k2ohxexxxrqdzvcgaxp3p7g3erqoqha4ouhtvzez@dmuxgqlvyp6x>
-References: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-0-78ae3ee9a697@somainline.org>
- <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-6-78ae3ee9a697@somainline.org>
- <CAA8EJpry5Gct7Q2sAwFBVYV163X9BOcuKu9So47FEJaeXcdSaQ@mail.gmail.com>
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B92710EF79
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 20:03:06 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-a526d381d2fso219535366b.0
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 13:03:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1713384184; x=1713988984; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tdMXP9Q/2N2bcDJp1OXtz16aXO1zuRSl77E+ubHuLLQ=;
+ b=BvdHgcppYA4jBv8eYd1bzFbOKi3qNj2tGP9pwIzsXMJ9JhPvIAbCKV90+UaKk6EGIY
+ pSbpwt0/aZFn5gy1GSwKFesG3hgfJzPsAMiFJ141abJ83AzzmOoAfsPqhIWn4f18eRZI
+ lJ/47Dte6uCQKdA2La2r3HYEgDrFmdkS0cyPMy1YixPUJjWfRxqaNDaPSogA8yOl4kQV
+ fy8PtVx6HHpzviV+X48liHywrCh0/QrX7rVsb8hWDK1K5OWqPvyWfv+aA9FDyrTd17sg
+ nl67aSlEwP65Hs3ycbgRcX5i202covtm20bwuvHJZ8aTNoM3YzVD/hfn/7mMhomj4O46
+ oGFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1713384184; x=1713988984;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=tdMXP9Q/2N2bcDJp1OXtz16aXO1zuRSl77E+ubHuLLQ=;
+ b=eJbQnfXzEnv+m5DxaJN8vJxOKPYgLdjnQwphYzIyGdXMrNYICpvAWfr0p2xb7M8gZu
+ BVhaAWX7C6u7bHCyU7lQB3wKY8z7LRcRPhL/M82ekBj9zmzxuJ52hbd3woZ68hnlMI/I
+ DIoWUTCYHwzKAnPupd5+VlzZ965lwJVlcGbmY0AjPVsUvnRXML/2Q3m8jrVcd4x6qT1d
+ UL53ltaBHHo11uB19jh/YjZhNSVWUNcGsXIVsDtMeBobrp7z5grqGXo+IoBeCynP86q/
+ 6wO5fkGIa3n/zWKPGNM7vFfClJK95xPowTzqjQXL4TKP5JntwDYdvXQT+aj7fd4rWOwx
+ hBEg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWmSj6mvOzPgxVS+LdR6He30riWJt5WoqwkA41h+5d9OKVyc83XAOwtN+dMoUlFrMq1GZjRc/3HnwAt4vKyNkYxEOBCGPFXQWjYvDfMRcS7
+X-Gm-Message-State: AOJu0YzRh/2y6r1HAYH/5Zk3Xu1Hir1EJDqxOGN7Qhn9Jt873Cr8D8fk
+ yHBRHl4jSuxzwdDwvZVXIKrjpxqTvFjBzT+EJxGk6cMre01YnbOvjCHXplvls8s=
+X-Google-Smtp-Source: AGHT+IHJn6r/VkcN7BUe5TY1y2qtDETHmV5Y4YSmS9lKPUDa1Ar8h6bYFFVkY2orMC4dB24dRrOEcw==
+X-Received: by 2002:a17:907:36c1:b0:a55:6135:7ab7 with SMTP id
+ bj1-20020a17090736c100b00a5561357ab7mr163979ejc.6.1713384184137; 
+ Wed, 17 Apr 2024 13:03:04 -0700 (PDT)
+Received: from [192.168.45.55] (078088045141.garwolin.vectranet.pl.
+ [78.88.45.141]) by smtp.gmail.com with ESMTPSA id
+ xa4-20020a170906fd8400b00a5252e69c7dsm5905590ejb.160.2024.04.17.13.03.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Apr 2024 13:03:03 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Subject: [PATCH v2 0/7] Add SMEM-based speedbin matching
+Date: Wed, 17 Apr 2024 22:02:52 +0200
+Message-Id: <20240404-topic-smem_speedbin-v2-0-c84f820b7e5b@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAA8EJpry5Gct7Q2sAwFBVYV163X9BOcuKu9So47FEJaeXcdSaQ@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOwqIGYC/22NQQqDMBREryJ/3ZQkaJGueo8ixSSjfqiJJBJax
+ Ls3Fbors3oD82ajhMhIdK02isicOPgC+lSRnXo/QrArTFrqWpaINSxsRZoxP9ICOMNetA6wTho
+ MElSWS8TAr8N67wpPnNYQ38dJVt/252v++rISUlho015q3Sijbk/2fQznEEfq9n3/AOJYqwO3A
+ AAA
+To: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1713384181; l=2910;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=DJ8DSD99sxYhrIfsLOLcFHZ/8SkT9S5JHfim2UIEGSk=;
+ b=qPZ9W7adu9DGmD4JrUVkPIxmZpfCiw/Zfg4GfqJo5ewDABLjWBmW8KhtVN69tnCvwbjFzsZE8
+ wueUz4LeEDxDsH/1HVL2yf7+59ucDJZ5PQfqTXiOaOCFikruX6L3QLi
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,101 +100,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2024-04-17 11:18:58, Dmitry Baryshkov wrote:
-> On Wed, 17 Apr 2024 at 02:57, Marijn Suijten
-> <marijn.suijten@somainline.org> wrote:
-> >
-> > Ordering issues here cause an uninitalized (default STANDALONE)
-> > usecase to be programmed (which appears to be a MUX) in some cases
-> > when msm_dsi_host_register() is called, leading to the slave PLL in
-> > bonded-DSI mode to source from a clock parent (dsi1vco) that is off.
-> >
-> > This should seemingly not be a problem as the actual dispcc clocks from
-> > DSI1 that are muxed in the clock tree of DSI0 are way further down, this
-> > bit still seems to have an effect on them somehow and causes the right
-> > side of the panel controlled by DSI1 to not function.
-> >
-> > In an ideal world this code is refactored to no longer have such
-> > error-prone calls "across subsystems", and instead model the "PLL src"
-> > register field as a regular mux so that changing the clock parents
-> > programmatically or in DTS via `assigned-clock-parents` has the
-> > desired effect.
-> > But for the avid reader, the clocks that we *are* muxing into DSI0's
-> > tree are way further down, so if this bit turns out to be a simple mux
-> > between dsiXvco and out_div, that shouldn't have any effect as this
-> > whole tree is off anyway.
-> >
-> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > ---
-> >  drivers/gpu/drm/msm/dsi/dsi_manager.c | 15 +++++++++++----
-> >  1 file changed, 11 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > index af2a287cb3bd..17f43b3c0494 100644
-> > --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> > @@ -85,6 +85,17 @@ static int dsi_mgr_setup_components(int id)
-> >                                                         msm_dsi : other_dsi;
-> >                 struct msm_dsi *slave_link_dsi = IS_MASTER_DSI_LINK(id) ?
-> >                                                         other_dsi : msm_dsi;
-> > +
-> > +               /* PLL0 is to drive both 2 DSI link clocks in bonded DSI mode.
-> > +                *
-> > +                * Set the usecase before calling msm_dsi_host_register() to prevent it from
-> > +                * enabling and configuring the usecase (which is just a mux bit) first.
-> > +                */
-> > +               msm_dsi_phy_set_usecase(clk_master_dsi->phy,
-> > +                                       MSM_DSI_PHY_MASTER);
-> > +               msm_dsi_phy_set_usecase(clk_slave_dsi->phy,
-> > +                                       MSM_DSI_PHY_SLAVE);
-> > +
-> >                 /* Register slave host first, so that slave DSI device
-> >                  * has a chance to probe, and do not block the master
-> >                  * DSI device's probe.
-> > @@ -100,10 +111,6 @@ static int dsi_mgr_setup_components(int id)
-> >                         return ret;
-> >
-> >                 /* PLL0 is to drive both 2 DSI link clocks in bonded DSI mode. */
-> > -               msm_dsi_phy_set_usecase(clk_master_dsi->phy,
-> > -                                       MSM_DSI_PHY_MASTER);
-> > -               msm_dsi_phy_set_usecase(clk_slave_dsi->phy,
-> > -                                       MSM_DSI_PHY_SLAVE);
-> >                 msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
-> >                 msm_dsi_host_set_phy_mode(other_dsi->host, other_dsi->phy);
-> 
-> Please move msm_dsi_host_set_phy_mode() calls too.
+Newer (SM8550+) SoCs don't seem to have a nice speedbin fuse anymore,
+but instead rely on a set of combinations of "feature code" (FC) and
+"product code" (PC) identifiers to match the bins. This series adds
+support for that.
 
-Ack.  Yeah, given that msm_dsi_host_register() causes a modeset and finally the
-PLL turning on, these should be set up as well.
+I suppose a qcom/for-soc immutable branch would be in order if we want
+to land this in the upcoming cycle.
 
-For anyone else following along, I have pasted the stacktrace that showcases
-the execution flow in the drm/msm tracker:
+FWIW I preferred the fuses myself..
 
-https://gitlab.freedesktop.org/drm/msm/-/issues/41#note_2376115
+Patches 5 and 6 coooould be omitted, but I'd reaaally like them to land
+and soon at that. This would enable even more overdue and necessary
+cleanups/feature prepwork sooner than later.
 
-Abhinav also pointed out that this PLL source was correctly set in earlier
-devcoredump reports, so it might have been a recent development/regression?
-This seems to be the only issue originating from it, but folks were adamant that
-dsi_mgr_setup_components() (ultimately) would never turn the PLL on, which is
-"debunked" by said stacktrace.  Maybe other assumptions are affected by this
-change?
+The dt patch can only be picked if the drm patches are there.
 
-> Also please update the non-bonded case.
+Depends on:
+https://lore.kernel.org/linux-arm-msm/20240412-topic-adreno_nullptr_supphw-v1-1-eb30a1c1292f@linaro.org/
 
-Definitely, as suggested in the cover letter.  A similar stacktrace to the above
-is acquired on a non-bonded setup, which is also relying on the variable to be
-initialized to 0 to select the "local PLL source", rather than being correctly
-set via this msm_dsi_phy_set_usecase() configuration.
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Changes in v2:
+- Separate moving existing and adding new defines
+- Fix kerneldoc copypasta
+- Remove some wrong comments and defines
+- Remove assumed "max" values for PCs and external FCs
+- Improve some commit messages
+- Return -EOPNOTSUPP instead of -EINVAL when calling p/fcode getters
+  on socinfo older than v16
+- Drop pcode getters and evaluation (doesn't matter for Adreno on
+  non-proto SoCs, might matter in the future or w/ other peripherals)
+- Rework the speedbin logic to be hopefully saner (accidental support
+  for A2xx-A4xx, I guess!)
+- Reorder some existing function calls to avoid crazy nullptrs
+- ""fix"" the smem dependency inconvenience
+- Link to v1: https://lore.kernel.org/r/20240405-topic-smem_speedbin-v1-0-ce2b864251b1@linaro.org
 
-- Marijn
+---
+Konrad Dybcio (7):
+      soc: qcom: Move some socinfo defines to the header
+      soc: qcom: smem: Add a feature code getter
+      drm/msm/adreno: Implement SMEM-based speed bin
+      drm/msm/adreno: Add speedbin data for SM8550 / A740
+      drm/msm/adreno: Define A530 speed bins explicitly
+      drm/msm/adreno: Redo the speedbin assignment
+      arm64: dts: qcom: sm8550: Wire up GPU speed bin & more OPPs
 
-> >         }
-> >
-> > --
-> > 2.44.0
-> >
-> 
-> 
-> -- 
-> With best wishes
-> Dmitry
+ arch/arm64/boot/dts/qcom/sm8550.dtsi       |  21 +++++-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c      |  34 ----------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |  54 ---------------
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  13 ++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 103 +++++++++++++++++++++++++----
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  11 +--
+ drivers/gpu/drm/msm/msm_gpu.c              |   3 -
+ drivers/soc/qcom/smem.c                    |  33 +++++++++
+ drivers/soc/qcom/socinfo.c                 |   8 ---
+ include/linux/soc/qcom/smem.h              |   1 +
+ include/linux/soc/qcom/socinfo.h           |  34 ++++++++++
+ 11 files changed, 198 insertions(+), 117 deletions(-)
+---
+base-commit: b13768266bf3a129adf5bbd0bad28e23a74329a2
+change-id: 20240404-topic-smem_speedbin-8deecd0bef0e
+
+Best regards,
+-- 
+Konrad Dybcio <konrad.dybcio@linaro.org>
+
