@@ -2,87 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0F7C8A8F5F
-	for <lists+freedreno@lfdr.de>; Thu, 18 Apr 2024 01:33:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 701948A8F88
+	for <lists+freedreno@lfdr.de>; Thu, 18 Apr 2024 01:39:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 792F710F90A;
-	Wed, 17 Apr 2024 23:33:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ED9610F334;
+	Wed, 17 Apr 2024 23:39:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pKYBZxtq";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="x3Va0v4D";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36D4B10F90A
- for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 23:33:08 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-519661ebd59so330804e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 16:33:08 -0700 (PDT)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FC2410F950
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 23:39:52 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-516d3776334so247561e87.1
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Apr 2024 16:39:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713396786; x=1714001586; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1713397190; x=1714001990; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=GytF7V18qJIXql1WNL67e4Efwso8d/2I3bcLgaa+9g4=;
- b=pKYBZxtqnila4mdeFLiWT2b8Iu7I+/hikat630oAiiMHPMHtpytIg3chOjcHqBc6i4
- qRznZb3bknsgf3afZYlPEdSD3oCGK6XNKlXlhzRIZHqsE4OXwSyodLzCMDh5vZGK2CXD
- F68jGl2llgGzTobUV8OudgobNXQhwWkEA2DMsIMEK9g2d2jtpakuJGQdbo1F5klwlRei
- CPxDvzAhkruWeLT+D8v8RJzvvoWF/Hkb+JSPPvyuCEsu12hZdpLYz+SRlj8i4KDj3k0F
- 1RUJ1C1raO7XtDuvM5iz2zBCf/vdleF0OSNG1vtcFNGgurhUVMbH811AJTcz7l5L0eEu
- vhMg==
+ bh=sixR/gBOEBj5qXOGxidlJSRG/Di+AE5aPpjezwvz9zc=;
+ b=x3Va0v4Dd3sMEqUgdAb6Aj04c2MFJtyG0f26QPE+B8VtVAt1NTRto/Uv417DvQcm8O
+ p5ePjpVZUBEWB6nEcH/jaPVWIeL9+Tl2rYvrDH8VbVuPdy/emRPvQfzgCb+mCNbJIFOH
+ cWHzHZ9Q15Qm2x23r7Fj0hHBFkP8qIFhazB9hGDgQnoQs5S5uTbSNAf+TtHTgXBEaH1Y
+ 9Z4i63dpp8DlOLibFRnHRMbJ/8WE3XVmCSkSzNLSGxx/Mk932KsM9oWJxULdQ8DZ2hZO
+ OgGgIuJdovB+/o/ruoTxGYzNp+LmcLw1LUpgPCvNpgk1hjEXkwPMS0dvIdXUjA4/dgQ+
+ zXXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713396786; x=1714001586;
+ d=1e100.net; s=20230601; t=1713397190; x=1714001990;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=GytF7V18qJIXql1WNL67e4Efwso8d/2I3bcLgaa+9g4=;
- b=vrrn4bAjiMdNmN8A411VFc0KDsJuc1RMiXL7J3wR0QyznYFwJbM+tYDy31H2PSnLgI
- E0zwHWA3WZ89p7zqk19t8UZpZspCYvStnosu/UUoKCXA9hLkv/Ttj0q+OnznlDSc7AlI
- fc8j3bBn/kckoaJrckt2ymi0KUeqKqzVr+CWY8UazBhSWLDKJSr/6vy4uk0B7KjOXldN
- P9cqiCc3hSAUtxPnP01syvPJ+KLeMUqpcq+HmLknaXM1SRRoOTyD5Jypnf3Ql5nQC/hZ
- si33uy/yWJPjmzKbPghDL/vhqQW6MBdnzNcaHm+z+IucouQBaQXf7DpqO0SMZBEHqHYm
- DSEA==
+ bh=sixR/gBOEBj5qXOGxidlJSRG/Di+AE5aPpjezwvz9zc=;
+ b=X2r5xpps32Ptve/PSuaqmyQ56SnBCCSvzbydimhwgyy/Psy6a5zueTGIfjnQy7AXSi
+ C7keD5ytS+qiOmds29e8msEwUZXhovT56OhfNbCjEMFSxKz4b0Rs1v8Ft8rP2hc5CrH4
+ 209Syn2UDF3QNP5YSk8R9QYzWigtRKKioZpm6ksO10VC4PkUkYkm/BVpAThZwYCBw1Do
+ IBh0fsJjfE74+HnOxnlWvQZXI+6LwqFqAPsF4Nxd6uf4bfh+oeADO4o/k6EIg0CbXLGC
+ fr8ELMZSCEkEf+ySL5G5v4DlYnNn162Jw10Qn4T5XXmwTiG4ZHuEMUIAOkzvlJ+ZGe/q
+ yY3g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUQK7SWeFZ5fD+x7SMmFpzteSqj4xVOp0l5+wJaWwrWF/ifpP17tnz9qMO1a4cM7T+5XtUOYTOmUrckwG64h89o2RuqiL5Btk1ftopOgNUN
-X-Gm-Message-State: AOJu0YzsssmW7fz/Z00B4LXlxT7EnfIte0F1p/+Qu5Y/YgrxMBOF11Q3
- qWf4SZS+GmRwsGiGPL7BhwSB5Y8txG1haDc8Wq6Y2anxwntDjfJUUfGGNi6By8I=
-X-Google-Smtp-Source: AGHT+IHb+xsUm4VWJnMlwMtid9HXu7fUVpDqeCABMYuWcpnukoEv8gokW3GsekdP+AHyE8ovJem9iw==
-X-Received: by 2002:a19:914c:0:b0:519:5fb9:832b with SMTP id
- y12-20020a19914c000000b005195fb9832bmr122358lfj.12.1713396786144; 
- Wed, 17 Apr 2024 16:33:06 -0700 (PDT)
+ AJvYcCUrSZLNPFAknYcvAKRRzhnhSoX5Wh7ZtRAenpsyi0hzqM9SM2gmGVLDRrDpwW2qqcq6yuHPtw9QmT9MzpqL/Hfp0h6HlFwiPyut24VMehyq
+X-Gm-Message-State: AOJu0YxpWLuKvtwO9ENW6Df+8bFQhI+rwUI5wfyDCLAuFFHzGwCpNqTY
+ wrno4KmmtviMMzwVbF4g+V6aROCWiBX7j9LEmoyHPZNWoQ5haMsrckP5dzgSjsbYmlp83aOkuBx
+ Q
+X-Google-Smtp-Source: AGHT+IFKufzXZ2Gsb5UM4eMIb+d0hKtHZUWXaUXnT14pNS5nm7ekyhYyeZIFtXrBF22KdOM7pdZbOw==
+X-Received: by 2002:ac2:5b9c:0:b0:513:21a9:79a8 with SMTP id
+ o28-20020ac25b9c000000b0051321a979a8mr463106lfn.62.1713397190424; 
+ Wed, 17 Apr 2024 16:39:50 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
  by smtp.gmail.com with ESMTPSA id
- e4-20020ac25464000000b00515d1c97053sm33367lfn.223.2024.04.17.16.33.05
+ 19-20020ac24833000000b00518c3a390dfsm36302lft.67.2024.04.17.16.39.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Apr 2024 16:33:05 -0700 (PDT)
-Date: Thu, 18 Apr 2024 02:33:04 +0300
+ Wed, 17 Apr 2024 16:39:50 -0700 (PDT)
+Date: Thu, 18 Apr 2024 02:39:48 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Archit Taneja <architt@codeaurora.org>, 
- Chandan Uddaraju <chandanu@codeaurora.org>, Vinod Koul <vkoul@kernel.org>, 
- Sravanthi Kollukuduru <skolluku@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jordan Crouse <jordan@cosmicpenguin.net>, Rajesh Yadav <ryadav@codeaurora.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- ~postmarketos/upstreaming@lists.sr.ht, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>
-Subject: Re: [PATCH 7/7] drm/msm/dpu: Rename `ctx` parameter to `intf` to
- match other functions
-Message-ID: <er2p6zazlvc2okzbbqjkzy4mif3ukjes56nfow6kwybmkjxvtr@4ihyqymqzvit>
-References: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-0-78ae3ee9a697@somainline.org>
- <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-7-78ae3ee9a697@somainline.org>
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 2/7] soc: qcom: smem: Add a feature code getter
+Message-ID: <mg6ojmzl3snj3k6fuyi6opkbdovs7xna6sn65pjh52ii4yy7u6@ny2spvjjbfpu>
+References: <20240404-topic-smem_speedbin-v2-0-c84f820b7e5b@linaro.org>
+ <20240404-topic-smem_speedbin-v2-2-c84f820b7e5b@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-7-78ae3ee9a697@somainline.org>
+In-Reply-To: <20240404-topic-smem_speedbin-v2-2-c84f820b7e5b@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,84 +93,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Apr 17, 2024 at 01:57:47AM +0200, Marijn Suijten wrote:
-> All other functions in dpu_hw_intf name the "self" parameter `intf`,
-> except dpu_hw_intf_setup_timing_engine() and the recently added
-> dpu_hw_intf_program_intf_cmd_cfg().  Clean that up for consistency.
-
-I really have mixed feelings towards such patches. On one hand it
-improves readability, on the other hand, it's just a name, it has no
-specific value.
-
-Still:
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-
+On Wed, Apr 17, 2024 at 10:02:54PM +0200, Konrad Dybcio wrote:
+> Recent (SM8550+ ish) Qualcomm SoCs have a new mechanism for precisely
+> identifying the specific SKU and the precise speed bin (in the general
+> meaning of this word, anyway): a pair of values called Product Code
+> and Feature Code.
 > 
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> Based on this information, we can deduce the available frequencies for
+> things such as Adreno. In the case of Adreno specifically, Pcode is
+> useless for non-prototype SoCs.
+> 
+> Introduce a getter for the feature code and export it.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
+>  drivers/soc/qcom/smem.c          | 33 +++++++++++++++++++++++++++++++++
+>  include/linux/soc/qcom/smem.h    |  1 +
+>  include/linux/soc/qcom/socinfo.h | 26 ++++++++++++++++++++++++++
+>  3 files changed, 60 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> index 965692ef7892..34d0c4e04d27 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> @@ -96,11 +96,11 @@
->  #define INTF_CFG2_DCE_DATA_COMPRESS     BIT(12)
->  
->  
-> -static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
-> +static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *intf,
->  		const struct dpu_hw_intf_timing_params *p,
->  		const struct dpu_format *fmt)
->  {
-> -	struct dpu_hw_blk_reg_map *c = &ctx->hw;
-> +	struct dpu_hw_blk_reg_map *c = &intf->hw;
->  	u32 hsync_period, vsync_period;
->  	u32 display_v_start, display_v_end;
->  	u32 hsync_start_x, hsync_end_x;
-> @@ -118,7 +118,7 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
->  	/* read interface_cfg */
->  	intf_cfg = DPU_REG_READ(c, INTF_CONFIG);
->  
-> -	if (ctx->cap->type == INTF_DP)
-> +	if (intf->cap->type == INTF_DP)
->  		dp_intf = true;
->  
->  	hsync_period = p->hsync_pulse_width + p->h_back_porch + p->width +
-> @@ -223,7 +223,7 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
->  	DPU_REG_WRITE(c, INTF_FRAME_LINE_COUNT_EN, 0x3);
->  	DPU_REG_WRITE(c, INTF_CONFIG, intf_cfg);
->  	DPU_REG_WRITE(c, INTF_PANEL_FORMAT, panel_format);
-> -	if (ctx->cap->features & BIT(DPU_DATA_HCTL_EN)) {
-> +	if (intf->cap->features & BIT(DPU_DATA_HCTL_EN)) {
->  		/*
->  		 * DATA_HCTL_EN controls data timing which can be different from
->  		 * video timing. It is recommended to enable it for all cases, except
-> @@ -518,10 +518,10 @@ static void dpu_hw_intf_disable_autorefresh(struct dpu_hw_intf *intf,
->  
+> diff --git a/drivers/soc/qcom/smem.c b/drivers/soc/qcom/smem.c
+> index 7191fa0c087f..29e708789eec 100644
+> --- a/drivers/soc/qcom/smem.c
+> +++ b/drivers/soc/qcom/smem.c
+> @@ -795,6 +795,39 @@ int qcom_smem_get_soc_id(u32 *id)
 >  }
+>  EXPORT_SYMBOL_GPL(qcom_smem_get_soc_id);
 >  
-> -static void dpu_hw_intf_program_intf_cmd_cfg(struct dpu_hw_intf *ctx,
-> +static void dpu_hw_intf_program_intf_cmd_cfg(struct dpu_hw_intf *intf,
->  					     struct dpu_hw_intf_cmd_mode_cfg *cmd_mode_cfg)
+> +/**
+> + * qcom_smem_get_feature_code() - return the feature code
+> + * @code: On success, return the feature code here.
+> + *
+> + * Look up the feature code identifier from SMEM and return it.
+> + *
+> + * Return: 0 on success, negative errno on failure.
+> + */
+> +int qcom_smem_get_feature_code(u32 *code)
+> +{
+> +	struct socinfo *info;
+> +	u32 raw_code;
+> +
+> +	info = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_HW_SW_BUILD_ID, NULL);
+> +	if (IS_ERR(info))
+> +		return PTR_ERR(info);
+> +
+> +	/* This only makes sense for socinfo >= 16 */
+> +	if (__le32_to_cpu(info->fmt) < SOCINFO_VERSION(0, 16))
+> +		return -EOPNOTSUPP;
+> +
+> +	raw_code = __le32_to_cpu(info->feature_code);
+> +
+> +	/* Ensure the value makes sense */
+> +	if (raw_code >= SOCINFO_FC_INT_MAX)
+> +		raw_code = SOCINFO_FC_UNKNOWN;
+> +
+> +	*code = raw_code;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_smem_get_feature_code);
+> +
+>  static int qcom_smem_get_sbl_version(struct qcom_smem *smem)
 >  {
-> -	u32 intf_cfg2 = DPU_REG_READ(&ctx->hw, INTF_CONFIG2);
-> +	u32 intf_cfg2 = DPU_REG_READ(&intf->hw, INTF_CONFIG2);
+>  	struct smem_header *header;
+> diff --git a/include/linux/soc/qcom/smem.h b/include/linux/soc/qcom/smem.h
+> index a36a3b9d4929..0943bf419e11 100644
+> --- a/include/linux/soc/qcom/smem.h
+> +++ b/include/linux/soc/qcom/smem.h
+> @@ -13,5 +13,6 @@ int qcom_smem_get_free_space(unsigned host);
+>  phys_addr_t qcom_smem_virt_to_phys(void *p);
 >  
->  	if (cmd_mode_cfg->data_compress)
->  		intf_cfg2 |= INTF_CFG2_DCE_DATA_COMPRESS;
-> @@ -529,7 +529,7 @@ static void dpu_hw_intf_program_intf_cmd_cfg(struct dpu_hw_intf *ctx,
->  	if (cmd_mode_cfg->wide_bus_en)
->  		intf_cfg2 |= INTF_CFG2_DATABUS_WIDEN;
+>  int qcom_smem_get_soc_id(u32 *id);
+> +int qcom_smem_get_feature_code(u32 *code);
 >  
-> -	DPU_REG_WRITE(&ctx->hw, INTF_CONFIG2, intf_cfg2);
-> +	DPU_REG_WRITE(&intf->hw, INTF_CONFIG2, intf_cfg2);
->  }
+>  #endif
+> diff --git a/include/linux/soc/qcom/socinfo.h b/include/linux/soc/qcom/socinfo.h
+> index 10e0a4c287f4..52439f48428f 100644
+> --- a/include/linux/soc/qcom/socinfo.h
+> +++ b/include/linux/soc/qcom/socinfo.h
+> @@ -3,6 +3,8 @@
+>  #ifndef __QCOM_SOCINFO_H__
+>  #define __QCOM_SOCINFO_H__
 >  
->  struct dpu_hw_intf *dpu_hw_intf_init(struct drm_device *dev,
+> +#include <linux/types.h>
+> +
+>  /*
+>   * SMEM item id, used to acquire handles to respective
+>   * SMEM region.
+> @@ -82,4 +84,28 @@ struct socinfo {
+>  	__le32 boot_core;
+>  };
+>  
+> +/* Internal feature codes */
+> +enum qcom_socinfo_feature_code {
+> +	/* External feature codes */
+> +	SOCINFO_FC_UNKNOWN = 0x0,
+> +	SOCINFO_FC_AA,
+> +	SOCINFO_FC_AB,
+> +	SOCINFO_FC_AC,
+> +	SOCINFO_FC_AD,
+> +	SOCINFO_FC_AE,
+> +	SOCINFO_FC_AF,
+> +	SOCINFO_FC_AG,
+> +	SOCINFO_FC_AH,
+> +};
+> +
+> +/* Internal feature codes */
+> +/* Valid values: 0 <= n <= 0xf */
+> +#define SOCINFO_FC_Yn(n)		(0xf1 + n)
+> +#define SOCINFO_FC_INT_MAX		SOCINFO_FC_Yn(0x10)
+
+This is 0x101 rather than 0x100 or 0xff. Is that expected?
+
+> +
+> +/* Product codes */
+> +#define SOCINFO_PC_UNKNOWN		0
+> +#define SOCINFO_PCn(n)			(n + 1)
+> +#define SOCINFO_PC_RESERVE		(BIT(31) - 1)
+
+This patch works on fcodes, why do we have PCode defines here?
+
+> +
+>  #endif
 > 
 > -- 
 > 2.44.0
