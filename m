@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 954808A96AD
-	for <lists+freedreno@lfdr.de>; Thu, 18 Apr 2024 11:51:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F65D8A96C0
+	for <lists+freedreno@lfdr.de>; Thu, 18 Apr 2024 11:53:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AAFB113B2E;
-	Thu, 18 Apr 2024 09:51:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1761110E274;
+	Thu, 18 Apr 2024 09:53:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="akFGf/0X";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eS25vYET";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE9F3113B2E
- for <freedreno@lists.freedesktop.org>; Thu, 18 Apr 2024 09:51:21 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-a4702457ccbso61164266b.3
- for <freedreno@lists.freedesktop.org>; Thu, 18 Apr 2024 02:51:21 -0700 (PDT)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E835110EDD4
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Apr 2024 09:53:36 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-a53f131d9deso66949066b.3
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Apr 2024 02:53:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713433880; x=1714038680; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1713434015; x=1714038815; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=OGBY5n0lkuic0XzOyZry0BISQT6Vj4C0SqZCz5uX33M=;
- b=akFGf/0Xhx3q8tUVrfn8pty7bYlm/GVU079Cpfq8/EgVfQBa+yatVdGrAIkciFQVWX
- WMngbzBqht6I2Ivkuj2Tcea9oRlPYmG6sWz7E/XBAe2K3sYpmMu7JiEu8XAPizTTkVUh
- 3K86vLTtf908PQvR7xlCMlXEk3h1UqEnzyQImlrGQ52rb4nkrGv1q3CWxQXeDMwM8BEo
- vvB0UowWPD7Rx6XTgpm+HANs+1k7N2b23383lDBQSvqkDR2th3dBUJJVVoL7PxnDGpIk
- 8mZlYxvRqzeWLodiuLq566/I4Osp9Mp7FP5M4mA4bNk2mjvJ1Qa4MrR/D7WrXQsBthNY
- Zpxw==
+ bh=VLkgZOZ90U32RSTtgOrkaBwhPTaXy2bpzcFJ6tojey4=;
+ b=eS25vYET25LdlS5sBTT8B6oSv+hjxOVozTn2kRc+Qe/AYDStZyYdVUSz1W2zKSdjiD
+ 9UzKZEMyRlFziBBcw7xmgoVIvvKHdRsH2SvV8O0cpYPy1eVbDrVcSPl/a4Z0D5i/hnFi
+ VU7QX7KibC/NWyMm8tJgzJyykaobHoGbJDQIJcrWBMK6MxSaoNlgDRIiR96XgawaWl6G
+ naDeMmEwlZEkYPUlNyDaqiNiPlTEAwEOHUJ1usdUDEetVHgeXZ/Er22TDyyZSGlzNGeB
+ RLBbUZILS2OLUBM/Y9cXYbc9Y0hZ3QRqIZkN9PQcRma+l6giOCyx7U57dsDytmvaAdwl
+ 1v5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713433880; x=1714038680;
+ d=1e100.net; s=20230601; t=1713434015; x=1714038815;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OGBY5n0lkuic0XzOyZry0BISQT6Vj4C0SqZCz5uX33M=;
- b=hRN0pHCYL6lxo19MEqGtFnEHfgAtzMk102AS9NBp/i896h5HWotLcZRYm1JwfRDNXp
- xXp6DtGWEYeJ87JNRYOHqE1ZiWSnVYxWhVjgRT9xC1B2C6O0cmPTR4mCFbiIWcyofSsf
- hfYqnLtT/sEsGoibAGfsZzB0OMy6lwcZv2A94s24sbbwq2OSuCs0t2iE58s0nHvOzJey
- 7eRsL52dmvMg2fFs77+mhJPxHUtfPjjVcHPDikaadUTPyHAJd9umvSq1W7ySqerSvMzl
- 9P7xq+1/I+ebfWwVfaNCoHinnUk3B4JDFgFpwWXPQj/p+SilJ+FR3mO78QEe1Txqz2UP
- h6+g==
+ bh=VLkgZOZ90U32RSTtgOrkaBwhPTaXy2bpzcFJ6tojey4=;
+ b=wkmG1URuk6lIQzVlY4Pfxow9feKa2b2xKJvYMTASwsLHfIDbpb34MszeMN/u9pvRQx
+ Gy8DpzvCMlUZwcx4AjEpATD1uOo6oDnDYu+f+0XfEt2FDwjm3n+j2sGeaJLJ3VAbSAwq
+ TdH5SHDMmwkCpZZuefhUrzWuq6M4oczbbMZTStInfWqVphuMzdXs03/iC832gSb1N4zY
+ 7rOspYtmdef+/NiMr86wfCzmDkRpNpu1O2gYGCLzgPNbxM6NvUv2L/9zlP/z3q7dYJqI
+ 2qQov2FjUhJh72EoRwOjoxqg+ozTP4rBLoP5FIzgshws3GYKq9MhJRepnBHDV6ZKJ25o
+ hepA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVxNB7aEBeAn36MAlcdrpApJgGuHbMYZ6e0fewDOm6fL7fDm5T59p+oFu5mcl1jJb8KiVvA4NRF/HyshIGHRyvYdhhbHG7kBVL6EdhC6KVf
-X-Gm-Message-State: AOJu0YwnvYHkwjGL8b+tW+ncV0XLHholCaurC+bz7CaMswYTiZ63vwCb
- NkPw+Zn00BRJfCJS2LL5L+k+8Nd+vrt7eH5y0s1xgwSy5KSwDa9Upqk84F7mZLs=
-X-Google-Smtp-Source: AGHT+IEEkKZPQY7QzwTKRJ0bNeVqexAdC7M3xSccRFnfmZoQdKknEIXHCT2bcHYHrhmFkBAsMjYF1w==
-X-Received: by 2002:a17:906:4151:b0:a52:c873:a66 with SMTP id
- l17-20020a170906415100b00a52c8730a66mr1316386ejk.34.1713433879768; 
- Thu, 18 Apr 2024 02:51:19 -0700 (PDT)
+ AJvYcCUSsiK/EVEwQXk7uUW0gb2tGcdv8ElNaSJUvLO5NDaqQ11VauDq4JTmyvbtTaYGNE+EcAF3k//wKcdyIEIb45q38xPGb0cqBQzeoO/2u/xU
+X-Gm-Message-State: AOJu0Yzds1juN/9oNvYtFnloaMQo+BpdpN2L+c0V2y25g+9KJ2FTnlbh
+ 7aPxLjGpX0Q13/UWbIyVlmQ6FnHKWj+tglzlBYD+KPXt+C89zVZMymv/rCTThvc=
+X-Google-Smtp-Source: AGHT+IGqguX6zc1dY53s7tQdvvJIHYrELOBLXEo4pkndtUrRrRSjHC6R2HouIgqmWsQT+z+tey7clw==
+X-Received: by 2002:a17:906:851:b0:a55:6606:bbf7 with SMTP id
+ f17-20020a170906085100b00a556606bbf7mr1276700ejd.35.1713434015231; 
+ Thu, 18 Apr 2024 02:53:35 -0700 (PDT)
 Received: from [192.168.45.55] (078088045141.garwolin.vectranet.pl.
  [78.88.45.141]) by smtp.gmail.com with ESMTPSA id
- f5-20020a1709067f8500b00a5559f0f9dcsm669994ejr.79.2024.04.18.02.51.17
+ j18-20020a170906051200b00a51ba0be887sm662128eja.192.2024.04.18.02.53.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Apr 2024 02:51:18 -0700 (PDT)
-Message-ID: <bfd6aa32-a28e-47a4-82c7-76c5dd99a44d@linaro.org>
-Date: Thu, 18 Apr 2024 11:51:16 +0200
+ Thu, 18 Apr 2024 02:53:33 -0700 (PDT)
+Message-ID: <89eccb1f-c527-4820-a084-7fc4ad3f0ab4@linaro.org>
+Date: Thu, 18 Apr 2024 11:53:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/7] drm/msm/adreno: Implement SMEM-based speed bin
+Subject: Re: [PATCH v2 2/7] soc: qcom: smem: Add a feature code getter
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
@@ -73,8 +73,8 @@ Cc: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  Neil Armstrong <neil.armstrong@linaro.org>
 References: <20240404-topic-smem_speedbin-v2-0-c84f820b7e5b@linaro.org>
- <20240404-topic-smem_speedbin-v2-3-c84f820b7e5b@linaro.org>
- <hi7vzqm5ebypzs6m6bw64ghgfwsdzuaxy65jpah37iw5ww7fku@n3c5sucic27i>
+ <20240404-topic-smem_speedbin-v2-2-c84f820b7e5b@linaro.org>
+ <mg6ojmzl3snj3k6fuyi6opkbdovs7xna6sn65pjh52ii4yy7u6@ny2spvjjbfpu>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
@@ -112,7 +112,7 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <hi7vzqm5ebypzs6m6bw64ghgfwsdzuaxy65jpah37iw5ww7fku@n3c5sucic27i>
+In-Reply-To: <mg6ojmzl3snj3k6fuyi6opkbdovs7xna6sn65pjh52ii4yy7u6@ny2spvjjbfpu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -130,71 +130,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 18.04.2024 1:43 AM, Dmitry Baryshkov wrote:
-> On Wed, Apr 17, 2024 at 10:02:55PM +0200, Konrad Dybcio wrote:
->> On recent (SM8550+) Snapdragon platforms, the GPU speed bin data is
->> abstracted through SMEM, instead of being directly available in a fuse.
+On 18.04.2024 1:39 AM, Dmitry Baryshkov wrote:
+> On Wed, Apr 17, 2024 at 10:02:54PM +0200, Konrad Dybcio wrote:
+>> Recent (SM8550+ ish) Qualcomm SoCs have a new mechanism for precisely
+>> identifying the specific SKU and the precise speed bin (in the general
+>> meaning of this word, anyway): a pair of values called Product Code
+>> and Feature Code.
 >>
->> Add support for SMEM-based speed binning, which includes getting
->> "feature code" and "product code" from said source and parsing them
->> to form something that lets us match OPPs against.
+>> Based on this information, we can deduce the available frequencies for
+>> things such as Adreno. In the case of Adreno specifically, Pcode is
+>> useless for non-prototype SoCs.
 >>
->> Due to the product code being ignored in the context of Adreno on
->> production parts (as of SM8650), hardcode it to SOCINFO_PC_UNKNOWN.
+>> Introduce a getter for the feature code and export it.
 >>
 >> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 >> ---
 
 [...]
 
->> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
->> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
->> @@ -6,6 +6,8 @@
->>   * Copyright (c) 2014,2017 The Linux Foundation. All rights reserved.
->>   */
->>  
->> +#include <linux/soc/qcom/socinfo.h>
+>> +/* Internal feature codes */
+>> +/* Valid values: 0 <= n <= 0xf */
+>> +#define SOCINFO_FC_Yn(n)		(0xf1 + n)
+>> +#define SOCINFO_FC_INT_MAX		SOCINFO_FC_Yn(0x10)
+> 
+> This is 0x101 rather than 0x100 or 0xff. Is that expected?
+
+Yes, this is "the first invalid one", similar to ENUMNAME_NUM
+
+> 
 >> +
+>> +/* Product codes */
+>> +#define SOCINFO_PC_UNKNOWN		0
+>> +#define SOCINFO_PCn(n)			(n + 1)
+>> +#define SOCINFO_PC_RESERVE		(BIT(31) - 1)
 > 
-> Stray leftover?
+> This patch works on fcodes, why do we have PCode defines here?
 
-Looks like
-
-[...]
-
->> +
->> +#ifdef CONFIG_QCOM_SMEM
-> 
-> Please extract to a separate function and put the function under ifdef
-> (providing a stub otherwise). Having #ifndefs inside funciton body is
-> frowned upon.
-
-Hm, this looked quite sparse and straightforward, but I can do that.
-
-[...]
-
->> +/* As of SM8650, PCODE on production SoCs is meaningless wrt the GPU bin */
->> +#define ADRENO_SKU_ID_FCODE		GENMASK(15, 0)
->> +#define ADRENO_SKU_ID(fcode)	(SOCINFO_PC_UNKNOWN << 16 | fcode)
-> 
-> If we got rid of PCode matching, is there a need to actually use
-> SOCINFO_PC_UNKNOWN here? Or just 0 would be fine?
-
-The IDs need to stay constant for mesa
-
-I used the define here to:
-
-a) define the SKU_ID structure so that it's clear what it's comprised of
-b) make it easy to add back Pcode in case it becomes useful with future SoCs
-c) avoid mistakes - PC_UNKNOWN happens to be zero, but that's a lucky
-   coincidence
-
-We don't *match* based on PCODE, but still need to construct the ID properly
-
-Another option would be to pass the real pcode and add some sort of
-"pcode_invalid" property that if found would ignore this part of the
-SKU_ID in mesa, but that sounds overly and unnecessarily complex.
-
-Konrad
+I decided they're useful to keep.. Didn't want to split them to a separate
+patch for no reason.
 
 Konrad
