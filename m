@@ -2,74 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 860C78AB13D
-	for <lists+freedreno@lfdr.de>; Fri, 19 Apr 2024 17:03:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A48498AB630
+	for <lists+freedreno@lfdr.de>; Fri, 19 Apr 2024 22:59:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0494910E405;
-	Fri, 19 Apr 2024 15:03:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0403C10FF87;
+	Fri, 19 Apr 2024 20:59:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zibTBwUT";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="dM9Ob2Yk";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9508010E417
- for <freedreno@lists.freedesktop.org>; Fri, 19 Apr 2024 15:03:12 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-516d6e23253so2587982e87.1
- for <freedreno@lists.freedesktop.org>; Fri, 19 Apr 2024 08:03:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713538991; x=1714143791; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=vJfnYZByoznqV4E5LwTYL8ExQfIwOVzSYp6IyIU3pkk=;
- b=zibTBwUTyTXu0qf0yJCW5lh0yV7Kz1AmKcBSa7IDclH4IJHx5yNuRZOJDAYPHdm2ya
- j3wHMecQoU7oeK3LiImF2NyVVoDlcbBXN4QSwSCbcjR00WTiGWjyds35JqodWzmWgf8w
- wBGKNlDILgPGfxIfLcWWuSOvLZ4K+KNLeWpmZiI+hxwG0N+j1ihx0YzW4t8bhHKtv4mg
- mfCNyDsPs/vujTgwgW8LbhVbqJQ1bGI/QD74DdJzuy0a3qTbUwWTyCuYqVDvG+ss11ac
- tVfgQESmjsCW/a0FvflvZ5fYO3RjRmwy4Q4BRRQIho4hLjudFAr7KD2nzVznxJYAhwMc
- iRmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713538991; x=1714143791;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vJfnYZByoznqV4E5LwTYL8ExQfIwOVzSYp6IyIU3pkk=;
- b=COSjtvJVCGIoXSNsxULUyMNq+CG5/jj60Jm1kF+9Q47H8Kk1xyoHkh4kwhf4bFnmyJ
- UQ+nj3ld8CsDMvLyfp6E8yNh08yLVfeAmHhe1z8v1gc6i9Iq5Xil30X3zgs8uD9OAdeq
- FVI/H+XoGQeTw6u2yE92MPYDmYJXFhPQ5PRpa+fVuJlsZLjKptj6DYX3V6NqZ1wl6E63
- QQ87SOU9yBSo2McEscdAe4Ilfd6lBIStFK7ovkHT5YsjfL0NGTFSP0uS/LbsTgOUT6W7
- eYCCqEMH7WpEsQFcggy88F1dCQfeOOl1N0JNX9fVHI/caH3eIP7ZPywBnfAylxz1fgOG
- qFcg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVPmbYl+Ffb/bH3tnHmzfamQN+fbwvXkPi1VVX2wpwkToWY0eSqHdZuvzcQwtw1c55feC4zVwCEzDfgQtOO4p+htI+Hdf3li1/ABFuZo/ss
-X-Gm-Message-State: AOJu0YwcO+xJCT88oPyI4aOq+hkWNatrS8vP9/Lf/NamkAH9Mrf4e0Mw
- DsBvkPS8iygPVnWJHvwm31vfWP+DCUnJ5AWWWN3F8fEQj2BJgrM5BQA/BOy4A/M=
-X-Google-Smtp-Source: AGHT+IHwq2o3uW4PSBY4kcgDT3W2C9YBTiK8FKFdrI3qyLtn31Z5RjDG0xyVaYRX8cnMM1wh1zOKMg==
-X-Received: by 2002:ac2:52bb:0:b0:515:ab7f:b13e with SMTP id
- r27-20020ac252bb000000b00515ab7fb13emr1993365lfm.33.1713538990549; 
- Fri, 19 Apr 2024 08:03:10 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::8a5])
- by smtp.gmail.com with ESMTPSA id
- f5-20020ac251a5000000b00516c077a312sm735082lfk.308.2024.04.19.08.03.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Apr 2024 08:03:10 -0700 (PDT)
-Date: Fri, 19 Apr 2024 18:03:08 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH] drm/msm: Fix gen_header.py for older python3 versions
-Message-ID: <ggnnlu67nsc7szqj2ndvmwtrbuyk3by2ja6ytcsr45q3tswvio@ehgbpnyxmvyz>
-References: <20240412165407.42163-1-jonathanh@nvidia.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 860A91120E6;
+ Fri, 19 Apr 2024 20:59:38 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 43JKkdV1002066; Fri, 19 Apr 2024 20:59:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=6TjaU0uEodvAKMAF8xEL9q8RGEq5iJ4cmkVbLGO6X6w=; b=dM
+ 9Ob2YkuCt137+5ipqqbozZnBjCfnri47rXzY/UjQmnvvVgOO9tTiOWlgFn8yYHZB
+ T6pq+5dVFGfhShmzpslmXk/umthY+f7BJd8QOL6RCnob0LrN+sBdTgbjdRnYHY/3
+ Mk/Xe4nXP/4hRRQqWdfKo+rR/BBAN1UhWhfodPK/jZKUvgc343uMtx6RYzWlFTGI
+ 87KQPMLR9yTbutInNRvFNPp0ZQwakEZedEmNJBppAruE7KTkToxJiVsmFuwXwReH
+ PiNesAnXtpI+4nGihvPLiEsXoG/43VLggvTdevJQ44oRCanUveAgGAU3l5eofRCG
+ SpqXCOstKxDGejPAn/Gg==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xkjy3hqfu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Apr 2024 20:59:32 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 43JKxVKe025608
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Apr 2024 20:59:31 GMT
+Received: from [10.110.104.191] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 19 Apr
+ 2024 13:59:31 -0700
+Message-ID: <dbfc9b4d-1035-c98f-13c7-9d98aa18d41c@quicinc.com>
+Date: Fri, 19 Apr 2024 13:59:23 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240412165407.42163-1-jonathanh@nvidia.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 03/12] drm/msm/dpu: use format-related definitions from
+ mdp_common.xml.h
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>,
+ Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20231202214016.1257621-1-dmitry.baryshkov@linaro.org>
+ <20231202214016.1257621-4-dmitry.baryshkov@linaro.org>
+ <bb448864-b974-55ac-4709-ea89bbd2694f@quicinc.com>
+ <CAA8EJpqnjY35RF52yJ8gFRKHoh1ArnnviacDtfntSYZdALD3bQ@mail.gmail.com>
+ <83b45b20-fb7e-564b-4e32-2b6a12c4dc6d@quicinc.com>
+ <uhyqwsevbgvayqf7ky2tasvutpqgvuaa5o7y7scqete3jueuhk@zgji4hgmh4lu>
+ <c0274d67-ae15-8b08-a6af-bd1d77698ab9@quicinc.com>
+ <CAA8EJppmyU246kFE3Xk7SLG9GDgfhfT4ONCu8ZzQg3ssx+njbQ@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJppmyU246kFE3Xk7SLG9GDgfhfT4ONCu8ZzQg3ssx+njbQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: PfAyoa3MzD0KdKBtuh0CsHVXftekaH8N
+X-Proofpoint-ORIG-GUID: PfAyoa3MzD0KdKBtuh0CsHVXftekaH8N
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-19_15,2024-04-19_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxscore=0
+ mlxlogscore=999 lowpriorityscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ impostorscore=0 adultscore=0 suspectscore=0 priorityscore=1501
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2404010003 definitions=main-2404190162
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,19 +102,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Apr 12, 2024 at 05:54:07PM +0100, Jon Hunter wrote:
-> The gen_header.py script is failing for older versions of python3 such
-> as python 3.5. Two issues observed with python 3.5 are ...
+
+
+On 4/10/2024 7:38 PM, Dmitry Baryshkov wrote:
+> On Thu, 11 Apr 2024 at 02:54, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 4/10/2024 2:12 PM, Dmitry Baryshkov wrote:
+>>> On Wed, Apr 10, 2024 at 01:18:42PM -0700, Abhinav Kumar wrote:
+>>>>
+>>>>
+>>>> On 4/10/2024 1:16 PM, Dmitry Baryshkov wrote:
+>>>>> On Wed, 10 Apr 2024 at 23:00, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>> On 12/2/2023 1:40 PM, Dmitry Baryshkov wrote:
+>>>>>>> Instead of having DPU-specific defines, switch to the definitions from
+>>>>>>> the mdp_common.xml.h file. This is the preparation for merged of DPU and
+>>>>>>> MDP format tables.
+>>>>>>>
+>>>>>>
+>>>>>> Adding MDP_***__ usages in DPU driver is quite confusing.
+>>>>>>
+>>>>>> Can we align to a common naming scheme such as DISP_***?
+>>>>>
+>>>>> No, it's not something display-generic. It is specific to MDP
+>>>>> platforms. In the end DPU is a continuation of the MDP lineup, isn't
+>>>>> it?
+>>>>>
+>>>>
+>>>> No some aspects of the hw are completely different as you already know
+>>>> between MDP4/MDP5 and DPU. Bringing back MDP usages into DPU does not seem
+>>>> right.
+>>>
+>>> MDP4 is different, it's true. But there is a lot of common between MDP5
+>>> and DPU. Frakly speaking, I don't see an issue with using the constant
+>>> that was defined for MDP5 for DPU layer. Especially since we are also
+>>> going to use mdp_ functions for format handling.
+>>>
+>>
+>> All the HW naming etc in the doc has migrated to DPU and in fact it only
+>> makes sense to start using DPU for MDP5 as we plan to move mdp5 targets
+>> to DPU anyway. Not the other way around.
+>>
+>> MDP4 remains different.
+>>
+>> How about MSM_DISP then? I dont get why this is MDP platform specific.
+>> Because the term MDP no longer holds true for DPU.
+>>
+>> I am even looking for future chipsets. We cannot live with MDP5 names.
+>> Have to think of generic names for formats.
 > 
->  1. Python 3 versions prior to 3.6 do not support the f-string format.
->  2. Early python 3 versions do not support the 'required' argument for
->     the argparse add_subparsers().
-> 
-> Fix both of the above so that older versions of python 3 still work.
+> Another point: MDP_ is still frequently used in the DPU driver. See
+> dpu_hwio.h, dpu_hw_catalog.h or dpu_hw_interrupts.c
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+As I wrote in 
+https://patchwork.freedesktop.org/patch/570148/?series=127230&rev=1, 
+lets go ahead with the MDP naming which you have. If we see its not
+working out later on, please be open to a mass renaming that time.
 
--- 
-With best wishes
-Dmitry
+With that expectation set,
+
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
