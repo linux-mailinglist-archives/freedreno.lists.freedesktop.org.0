@@ -2,79 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AD368A98EB
-	for <lists+freedreno@lfdr.de>; Thu, 18 Apr 2024 13:48:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 860C78AB13D
+	for <lists+freedreno@lfdr.de>; Fri, 19 Apr 2024 17:03:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E76AB113BF6;
-	Thu, 18 Apr 2024 11:48:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0494910E405;
+	Fri, 19 Apr 2024 15:03:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Y+r9HD4d";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zibTBwUT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A0FB10FC11
- for <freedreno@lists.freedesktop.org>; Thu, 18 Apr 2024 11:48:26 +0000 (UTC)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-dcc6fc978ddso649648276.0
- for <freedreno@lists.freedesktop.org>; Thu, 18 Apr 2024 04:48:26 -0700 (PDT)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9508010E417
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Apr 2024 15:03:12 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-516d6e23253so2587982e87.1
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Apr 2024 08:03:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713440905; x=1714045705; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=NuxTFXDlrm+BFnpHmLBiKm3zNo8+3C9CrzDgCHuzRNk=;
- b=Y+r9HD4dux/vcjrjQDJpuFnr4QtA1yAlN/7LqJVTpEdJZ77GO1Jv11Ts7o/BTuI4t4
- ZRkD7jcVvvWA+FBpEDUyr7tt3mt2Z2QqM4pTIi+BYfm7goGPExe4oK8RtYb9gqJfy873
- QpFq4hV0OmA1Ee0Cw3XmlFM2JB42oVCDLtdh5WGnUCVLmDgaxepRKo+wHDItdTB2stE1
- 2wInlnjnoEQW4EOgb6m5Lr9bsz49xYUPbPay2zDJC8ZsR3Yyie+NoSq6ybNwdMTe47/A
- vEHrRgi41Rfam6GeY6DkUv5rf1Ukb+ykwHzPkKzSFeTJXNDzW/uwwulElIr7ImEeLNS0
- wKCA==
+ d=linaro.org; s=google; t=1713538991; x=1714143791; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=vJfnYZByoznqV4E5LwTYL8ExQfIwOVzSYp6IyIU3pkk=;
+ b=zibTBwUTyTXu0qf0yJCW5lh0yV7Kz1AmKcBSa7IDclH4IJHx5yNuRZOJDAYPHdm2ya
+ j3wHMecQoU7oeK3LiImF2NyVVoDlcbBXN4QSwSCbcjR00WTiGWjyds35JqodWzmWgf8w
+ wBGKNlDILgPGfxIfLcWWuSOvLZ4K+KNLeWpmZiI+hxwG0N+j1ihx0YzW4t8bhHKtv4mg
+ mfCNyDsPs/vujTgwgW8LbhVbqJQ1bGI/QD74DdJzuy0a3qTbUwWTyCuYqVDvG+ss11ac
+ tVfgQESmjsCW/a0FvflvZ5fYO3RjRmwy4Q4BRRQIho4hLjudFAr7KD2nzVznxJYAhwMc
+ iRmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713440905; x=1714045705;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=NuxTFXDlrm+BFnpHmLBiKm3zNo8+3C9CrzDgCHuzRNk=;
- b=C1Khkvz9pIrpizXl/O+qbdJYMuOtCf8WTY4pTcl7PaGV+CaUEj2afDtIf4EHIqr7xB
- sYOnJh2oDqvcd5kjWLGYAR5LWf0dxAFG0cVvdHMrWZJ3234UVtDVIAtZkkO92f9cc0/W
- 9WAEyi3nGO1+MhbK9vWMRFI8fEmV9YSxFdpr+Grak99nvtZu3eXQw6qJNpZN/XSFh27A
- wbdW4l4ZOu6SFfnS8ZZtvOxg79MROGlEKwqNzlY41ZkejMk27pdPDNYJOdJxsqyY/v6g
- bmawuR3nFFUV/eFoiATpDWqUNodGhSU3xkzmcOW2b6KNktU3FifHpBhfgc/WUrMUpvND
- oyrw==
+ d=1e100.net; s=20230601; t=1713538991; x=1714143791;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vJfnYZByoznqV4E5LwTYL8ExQfIwOVzSYp6IyIU3pkk=;
+ b=COSjtvJVCGIoXSNsxULUyMNq+CG5/jj60Jm1kF+9Q47H8Kk1xyoHkh4kwhf4bFnmyJ
+ UQ+nj3ld8CsDMvLyfp6E8yNh08yLVfeAmHhe1z8v1gc6i9Iq5Xil30X3zgs8uD9OAdeq
+ FVI/H+XoGQeTw6u2yE92MPYDmYJXFhPQ5PRpa+fVuJlsZLjKptj6DYX3V6NqZ1wl6E63
+ QQ87SOU9yBSo2McEscdAe4Ilfd6lBIStFK7ovkHT5YsjfL0NGTFSP0uS/LbsTgOUT6W7
+ eYCCqEMH7WpEsQFcggy88F1dCQfeOOl1N0JNX9fVHI/caH3eIP7ZPywBnfAylxz1fgOG
+ qFcg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVsRwSflkyMOEcO0IIg0zYfI6uam+yOXljJtcj9o/2hJOvAJBu/DqR1tvmBs8WXSBs0QGO7vbSnJkwA9ZmIHszA7W2lvhEuIhj0k8N4NT/z
-X-Gm-Message-State: AOJu0Yz1WMOLjTSZRB81OpcrusLs4+isnKsci3iUt5g7Oh9GlTszdTZf
- 4E92mZEOisP3Iz0oUDGpBCL+FOkigLlp/a8ZhBJNN8ZSd8bPIzN583Q+kD5rXOE7az+FE6C49EX
- 6q9AA7uEvU/YoLUSNuwn2rsr2vupcyBKVw/kKiYaIubwLoClu
-X-Google-Smtp-Source: AGHT+IGKBPlfH5drQwVfSarXKWibHJIXInY29SG6VZ1jJJB3cdumDdDbAMYX6JlD836WHkNKoYSwv0xG3WG+/ElPO7w=
-X-Received: by 2002:a25:b121:0:b0:dc6:d1a9:d858 with SMTP id
- g33-20020a25b121000000b00dc6d1a9d858mr1686669ybj.8.1713440904861; Thu, 18 Apr
- 2024 04:48:24 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240404-topic-smem_speedbin-v2-0-c84f820b7e5b@linaro.org>
- <20240404-topic-smem_speedbin-v2-3-c84f820b7e5b@linaro.org>
- <hi7vzqm5ebypzs6m6bw64ghgfwsdzuaxy65jpah37iw5ww7fku@n3c5sucic27i>
- <bfd6aa32-a28e-47a4-82c7-76c5dd99a44d@linaro.org>
- <7ynodjzjuxwwqkjgns5jtnkckw52qyldfpsqpjh7645swva4xk@7wucftyjyyy3>
- <2b5f33ba-2108-464c-b4d2-eff2cc6e59cf@linaro.org>
-In-Reply-To: <2b5f33ba-2108-464c-b4d2-eff2cc6e59cf@linaro.org>
+ AJvYcCVPmbYl+Ffb/bH3tnHmzfamQN+fbwvXkPi1VVX2wpwkToWY0eSqHdZuvzcQwtw1c55feC4zVwCEzDfgQtOO4p+htI+Hdf3li1/ABFuZo/ss
+X-Gm-Message-State: AOJu0YwcO+xJCT88oPyI4aOq+hkWNatrS8vP9/Lf/NamkAH9Mrf4e0Mw
+ DsBvkPS8iygPVnWJHvwm31vfWP+DCUnJ5AWWWN3F8fEQj2BJgrM5BQA/BOy4A/M=
+X-Google-Smtp-Source: AGHT+IHwq2o3uW4PSBY4kcgDT3W2C9YBTiK8FKFdrI3qyLtn31Z5RjDG0xyVaYRX8cnMM1wh1zOKMg==
+X-Received: by 2002:ac2:52bb:0:b0:515:ab7f:b13e with SMTP id
+ r27-20020ac252bb000000b00515ab7fb13emr1993365lfm.33.1713538990549; 
+ Fri, 19 Apr 2024 08:03:10 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ f5-20020ac251a5000000b00516c077a312sm735082lfk.308.2024.04.19.08.03.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Apr 2024 08:03:10 -0700 (PDT)
+Date: Fri, 19 Apr 2024 18:03:08 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 18 Apr 2024 14:48:13 +0300
-Message-ID: <CAA8EJpqW-YxJdw-+QDEdhqjwAPK1dzmW1dW6=18wcRQgp+Oq6w@mail.gmail.com>
-Subject: Re: [PATCH v2 3/7] drm/msm/adreno: Implement SMEM-based speed bin
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH] drm/msm: Fix gen_header.py for older python3 versions
+Message-ID: <ggnnlu67nsc7szqj2ndvmwtrbuyk3by2ja6ytcsr45q3tswvio@ehgbpnyxmvyz>
+References: <20240412165407.42163-1-jonathanh@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240412165407.42163-1-jonathanh@nvidia.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,84 +85,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 18 Apr 2024 at 14:31, Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->
-> On 18.04.2024 1:07 PM, Dmitry Baryshkov wrote:
-> > On Thu, Apr 18, 2024 at 11:51:16AM +0200, Konrad Dybcio wrote:
-> >> On 18.04.2024 1:43 AM, Dmitry Baryshkov wrote:
-> >>> On Wed, Apr 17, 2024 at 10:02:55PM +0200, Konrad Dybcio wrote:
-> >>>> On recent (SM8550+) Snapdragon platforms, the GPU speed bin data is
-> >>>> abstracted through SMEM, instead of being directly available in a fuse.
-> >>>>
-> >>>> Add support for SMEM-based speed binning, which includes getting
-> >>>> "feature code" and "product code" from said source and parsing them
-> >>>> to form something that lets us match OPPs against.
-> >>>>
-> >>>> Due to the product code being ignored in the context of Adreno on
-> >>>> production parts (as of SM8650), hardcode it to SOCINFO_PC_UNKNOWN.
-> >>>>
-> >>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> >>>> ---
-> >>
-> >> [...]
-> >>
-> >>>> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> >>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> >>>> @@ -6,6 +6,8 @@
-> >>>>   * Copyright (c) 2014,2017 The Linux Foundation. All rights reserved.
-> >>>>   */
-> >>>>
-> >>>> +#include <linux/soc/qcom/socinfo.h>
-> >>>> +
-> >>>
-> >>> Stray leftover?
-> >>
-> >> Looks like
-> >>
-> >> [...]
-> >>
-> >>>> +
-> >>>> +#ifdef CONFIG_QCOM_SMEM
-> >>>
-> >>> Please extract to a separate function and put the function under ifdef
-> >>> (providing a stub otherwise). Having #ifndefs inside funciton body is
-> >>> frowned upon.
-> >>
-> >> Hm, this looked quite sparse and straightforward, but I can do that.
-> >>
-> >> [...]
-> >>
-> >>>> +/* As of SM8650, PCODE on production SoCs is meaningless wrt the GPU bin */
-> >>>> +#define ADRENO_SKU_ID_FCODE               GENMASK(15, 0)
-> >>>> +#define ADRENO_SKU_ID(fcode)      (SOCINFO_PC_UNKNOWN << 16 | fcode)
-> >>>
-> >>> If we got rid of PCode matching, is there a need to actually use
-> >>> SOCINFO_PC_UNKNOWN here? Or just 0 would be fine?
-> >>
-> >> The IDs need to stay constant for mesa
-> >>
-> >> I used the define here to:
-> >>
-> >> a) define the SKU_ID structure so that it's clear what it's comprised of
-> >> b) make it easy to add back Pcode in case it becomes useful with future SoCs
-> >> c) avoid mistakes - PC_UNKNOWN happens to be zero, but that's a lucky
-> >>    coincidence
-> >>
-> >> We don't *match* based on PCODE, but still need to construct the ID properly
-> >>
-> >> Another option would be to pass the real pcode and add some sort of
-> >> "pcode_invalid" property that if found would ignore this part of the
-> >> SKU_ID in mesa, but that sounds overly and unnecessarily complex.
-> >
-> > It's fine, just add a comment please. Maybe we can rename PC_UNKNOWN to
-> > PC_PRODUCTION?
->
-> I don't think that's right. The SoC "product code" may actually mean something
-> (again, not necessarily for Adreno specifically), and with Adreno in mind, it
-> being only meaningful for engineering samples may change in the future.
+On Fri, Apr 12, 2024 at 05:54:07PM +0100, Jon Hunter wrote:
+> The gen_header.py script is failing for older versions of python3 such
+> as python 3.5. Two issues observed with python 3.5 are ...
+> 
+>  1. Python 3 versions prior to 3.6 do not support the f-string format.
+>  2. Early python 3 versions do not support the 'required' argument for
+>     the argparse add_subparsers().
+> 
+> Fix both of the above so that older versions of python 3 still work.
+> 
 
-Ack
-
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
