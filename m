@@ -2,26 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB8048AB724
-	for <lists+freedreno@lfdr.de>; Sat, 20 Apr 2024 00:18:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E0588AB75F
+	for <lists+freedreno@lfdr.de>; Sat, 20 Apr 2024 00:59:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2E9D10E314;
-	Fri, 19 Apr 2024 22:18:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F83910E626;
+	Fri, 19 Apr 2024 22:59:23 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rcH3zaFR";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5FD910E2BE
- for <freedreno@lists.freedesktop.org>; Fri, 19 Apr 2024 22:18:42 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 6AF05405E9;
- Sat, 20 Apr 2024 00:18:40 +0200 (CEST)
-Date: Sat, 20 Apr 2024 00:18:39 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACE3910E626
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Apr 2024 22:59:21 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5171a529224so3123604e87.0
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Apr 2024 15:59:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1713567559; x=1714172359; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Y/pykJ+iNZaZvxsy5yVJ+QnkNtTRNc8ccYnjEfcauKg=;
+ b=rcH3zaFRIcRRAIoGYyBPPgJEV9+9lLnNqReqML693loPXZKh5BkooMLx3iGdLUK6km
+ c6z08HRUI74tb90hEvB44r0F4YCJyBUt2w7BuNDaLx0lZAGiomb2oEkmPbS8Bhhi6qWZ
+ dyLhAMnnS3UBSWMomcl9UskyrPXtLPFPIWBJRsTDtluAFLXWrPtNov069HW6owBuLR2n
+ vgQ3aOQ4NTq2H09tnd+LpicUe+zFOIG8QwlOn5tzxtdJ6srCMPILDVRsCQZYeCdINUjv
+ B1+wkmfWHkfzppxWuEnvNiB83fWmJc18GHN2cW/GJnAT5lSbJm3g+3QRJqppw2B2iZw3
+ L2sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1713567559; x=1714172359;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Y/pykJ+iNZaZvxsy5yVJ+QnkNtTRNc8ccYnjEfcauKg=;
+ b=EBHCl/5ro99fcH99lX0FuCuEuA9gAOuwm5dUO0GtwfxG2UN7Is5Kgp8pCdmxchl1r6
+ KTYgdyQ1N8p6RxKgwI+MX3gVI00etXPNUkvjnp83m8wnvUYhrG4nxBifbfIGfuBZQJuL
+ YFuivso0LT4oZLSf3DOHkCIb8RJfKtiv35/Du9XjdQtZpxX4QC+3RvwjH3UsNlA45xMD
+ 878UpIcE2bhspJMzDDk5pQwn0WUz2kkZEozP4A9y/0ZQxeyytX2GTzzbPaKe7sO2rX8Y
+ t9Ee+EcaFumjlDzPY5pmH17/OIxDXaX86q3ecfKmqUbZcl8OXwfVFy26iQMQYtEayZAJ
+ 5d5w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU4kCE5u4Y/CrfzFmx3aFzrbu/Gwho255jDAlvihBedZoek6YCRZHGeHlPDb0kKHVlhvLnXwYjj8EPUgFACs2k9gy1yhiBwtBfUutA7X8MG
+X-Gm-Message-State: AOJu0YwF1rw8wziFQ8vEoZeLCG29gVNuXPtY25fmx6YEe0CQPvrZh4We
+ hNaQAAUt+OQlug3k6Lkg6q2vIotU12BBTCTcXuBPF6gC//RpC3SpAtsfktGME6k=
+X-Google-Smtp-Source: AGHT+IESWYEtVXjigtQ0L5bOUF7zr3weAYEinceRJ7EB6HeSNIHj7J9wJmp0cfKzhv8mnoUheJDP1A==
+X-Received: by 2002:ac2:58cd:0:b0:51a:bdd6:e718 with SMTP id
+ u13-20020ac258cd000000b0051abdd6e718mr1877655lfo.31.1713567559098; 
+ Fri, 19 Apr 2024 15:59:19 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ s6-20020a197706000000b00518d7c38cb9sm913814lfc.284.2024.04.19.15.59.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Apr 2024 15:59:18 -0700 (PDT)
+Date: Sat, 20 Apr 2024 01:59:16 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
 Cc: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@gmail.com>, 
@@ -39,14 +76,15 @@ Cc: Rob Clark <robdclark@gmail.com>,
  Jami Kettunen <jami.kettunen@somainline.org>
 Subject: Re: [PATCH 2/7] drm/msm/dsi: Pass bonded-DSI hdisplay/2 to DSC
  timing configuration
-Message-ID: <7fqwkryeumkt7zxsec6va7ys22nfs3tr4rrcz323extdz3f6zv@w4uu2lk4uh7v>
+Message-ID: <omnlm4e6yq5u2iurxld5gwo7rma4jpfmmhvpzsddjz5aensumc@ffsolnsblmyx>
 References: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-0-78ae3ee9a697@somainline.org>
  <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-2-78ae3ee9a697@somainline.org>
  <CAA8EJpq-1QwoM2hEyegpfKnVH+qrswjmTd_hpYs9d9B7gikHjg@mail.gmail.com>
+ <7fqwkryeumkt7zxsec6va7ys22nfs3tr4rrcz323extdz3f6zv@w4uu2lk4uh7v>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAA8EJpq-1QwoM2hEyegpfKnVH+qrswjmTd_hpYs9d9B7gikHjg@mail.gmail.com>
+In-Reply-To: <7fqwkryeumkt7zxsec6va7ys22nfs3tr4rrcz323extdz3f6zv@w4uu2lk4uh7v>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,66 +100,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2024-04-17 14:58:25, Dmitry Baryshkov wrote:
-> On Wed, 17 Apr 2024 at 02:57, Marijn Suijten
-> <marijn.suijten@somainline.org> wrote:
-> >
-> > When configuring the timing of DSI hosts (interfaces) in
-> > dsi_timing_setup() all values written to registers are taking bonded
-> > DSI into account by dividing the original mode width by 2 (half the
-> > data is sent over each of the two DSI hosts), but the full width
-> > instead of the interface width is passed as hdisplay parameter to
-> > dsi_update_dsc_timing().
-> >
-> > Currently only msm_dsc_get_slices_per_intf() is called within
-> > dsi_update_dsc_timing() with the `hdisplay` argument which clearly
-> > documents that it wants the width of a single interface (which, again,
-> > in bonded DSI mode is half the total width of the mode).  Thus pass the
-> > bonded-mode-adjusted hdisplay parameter into dsi_update_dsc_timing()
-> > otherwise all values written to registers by this function (i.e. the
-> > number of slices per interface or packet, and derived from this the EOL
-> > byte number) are twice too large.
-> >
-> > Inversely the panel driver is expected to only set the slice width and
-> > number of slices for half the panel, i.e. what will be sent by each
-> > host individually, rather than fixing that up like hdisplay here.
-> >
-> > Fixes: 08802f515c3c ("drm/msm/dsi: Add support for DSC configuration")
-> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > ---
-> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
+On Sat, Apr 20, 2024 at 12:18:39AM +0200, Marijn Suijten wrote:
+> On 2024-04-17 14:58:25, Dmitry Baryshkov wrote:
+> > On Wed, 17 Apr 2024 at 02:57, Marijn Suijten
+> > <marijn.suijten@somainline.org> wrote:
+> > >
+> > > When configuring the timing of DSI hosts (interfaces) in
+> > > dsi_timing_setup() all values written to registers are taking bonded
+> > > DSI into account by dividing the original mode width by 2 (half the
+> > > data is sent over each of the two DSI hosts), but the full width
+> > > instead of the interface width is passed as hdisplay parameter to
+> > > dsi_update_dsc_timing().
+> > >
+> > > Currently only msm_dsc_get_slices_per_intf() is called within
+> > > dsi_update_dsc_timing() with the `hdisplay` argument which clearly
+> > > documents that it wants the width of a single interface (which, again,
+> > > in bonded DSI mode is half the total width of the mode).  Thus pass the
+> > > bonded-mode-adjusted hdisplay parameter into dsi_update_dsc_timing()
+> > > otherwise all values written to registers by this function (i.e. the
+> > > number of slices per interface or packet, and derived from this the EOL
+> > > byte number) are twice too large.
+> > >
+> > > Inversely the panel driver is expected to only set the slice width and
+> > > number of slices for half the panel, i.e. what will be sent by each
+> > > host individually, rather than fixing that up like hdisplay here.
+> > >
+> > > Fixes: 08802f515c3c ("drm/msm/dsi: Add support for DSC configuration")
+> > > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > > ---
+> > >  drivers/gpu/drm/msm/dsi/dsi_host.c | 4 ++--
+> > >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Thanks, it seems this patch has already been picked up for 6.10 [1] to test at
+> least, but I'd advise you to drop it until I resend it in v2, as it no longer
+> performs as written in the title.
 
-Thanks, it seems this patch has already been picked up for 6.10 [1] to test at
-least, but I'd advise you to drop it until I resend it in v2, as it no longer
-performs as written in the title.
+Ok, dropping.
 
-When I wrote this patch in in June 2023, commit efcbd6f9cdeb ("drm/msm/
-dsi: Enable widebus for DSI") from August 2023 wasn't there yet.  That patch
-updates hdisplay (because it is unused after that point) with the number
-of compressed bytes to be sent over each interface, which is effectively
-hdisplay (based on slice_count * slice_width, so as explained in the commit
-message that corresponds to half the panel width), divided by a compression
-ratio of 3 or 6 depending on widebus, thus passing a way too low value into
-dsi_update_dsc_timing().
+> 
+> When I wrote this patch in in June 2023, commit efcbd6f9cdeb ("drm/msm/
+> dsi: Enable widebus for DSI") from August 2023 wasn't there yet.  That patch
+> updates hdisplay (because it is unused after that point) with the number
+> of compressed bytes to be sent over each interface, which is effectively
+> hdisplay (based on slice_count * slice_width, so as explained in the commit
+> message that corresponds to half the panel width), divided by a compression
+> ratio of 3 or 6 depending on widebus, thus passing a way too low value into
+> dsi_update_dsc_timing().
+> 
+> As a result this patch regresses the DSC panel on my SM8150 Sony Xperia 1, and
+> likely also explains why it was quite hard to get the porches "just right" on
+> the Xperia 1 III with its dual-DSI dual-DSC 4k@120Hz panel (that these patches
+> are specifically for).
+> 
+> I'm still thinking of how to best fix that: probably introducing a new separate
+> local variable, though dsi_update_dsc_timing() only uses it to calculate
+> the number of slices per interface, which again as written in the commit
+> description, is currently required to already be for one interface (in other
+> words, the Xperia 1 with only a single intf sets slice_count=2, but the Xperia 1
+> III with 2 bonded DSI interfaces sets slice_count=1).  Which means that this is
+> always equivalent to slice_per_intf = dsc->slice_count.
+> 
+> Let me know which approach is preferred.
+> 
+> - Marijn
+> 
+> [1]: https://gitlab.freedesktop.org/drm/msm/-/merge_requests/110
 
-As a result this patch regresses the DSC panel on my SM8150 Sony Xperia 1, and
-likely also explains why it was quite hard to get the porches "just right" on
-the Xperia 1 III with its dual-DSI dual-DSC 4k@120Hz panel (that these patches
-are specifically for).
-
-I'm still thinking of how to best fix that: probably introducing a new separate
-local variable, though dsi_update_dsc_timing() only uses it to calculate
-the number of slices per interface, which again as written in the commit
-description, is currently required to already be for one interface (in other
-words, the Xperia 1 with only a single intf sets slice_count=2, but the Xperia 1
-III with 2 bonded DSI interfaces sets slice_count=1).  Which means that this is
-always equivalent to slice_per_intf = dsc->slice_count.
-
-Let me know which approach is preferred.
-
-- Marijn
-
-[1]: https://gitlab.freedesktop.org/drm/msm/-/merge_requests/110
+-- 
+With best wishes
+Dmitry
