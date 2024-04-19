@@ -2,79 +2,153 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC20A8B3C4B
-	for <lists+freedreno@lfdr.de>; Fri, 26 Apr 2024 18:02:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3903C8B3C5E
+	for <lists+freedreno@lfdr.de>; Fri, 26 Apr 2024 18:05:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9550F10F10E;
-	Fri, 26 Apr 2024 16:02:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF3FE112AFC;
+	Fri, 26 Apr 2024 16:05:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m0tmAziJ";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="RobKPGPP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
- [209.85.208.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D6C310F10E
- for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 16:02:58 +0000 (UTC)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-57225322312so3341001a12.1
- for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 09:02:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714147376; x=1714752176; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=p/mHQ4MkFqB/UisPkl6IydDN9QWBAdzt+77QAtukqkg=;
- b=m0tmAziJMrxoo4Z3pmOd3r5vaPa3HE5oVQWhnrC6gdiuKvNtbgc4K+sk/aE3Xe7Eyn
- WGZy4bKgk4FTctObOhZLHnOh4Nby1kUaq7Zl5TtSCanLx+chXIIrMT0olV0xLtwOfoIq
- CdPR8QLLyqzpNFhF6aknF+sG6FS1w+R75sfdcalw206BAiJGMS4LHrL/rin+lDuUAijU
- FTKGzPdXF5QqzXloHkA9CAosid/MEwgaYgJCub97GXZv6Rud7i+YnK67CULFR2u8cWps
- 7IrufuRPohVq4Sigl3qB4qPNz9ycv9iOhIEjUla+V/MFJXcY51KbuULeaihWuuCIu4ZP
- EoMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714147376; x=1714752176;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=p/mHQ4MkFqB/UisPkl6IydDN9QWBAdzt+77QAtukqkg=;
- b=q/Vg3pVXsxBdNEyzZ4YKph1+PX0ttfddvOX43xonEXJvoElhHcPvM/K4qmwcGilcDT
- RpuCtjw2iwyCgtWT1FIUgs0uODXg2RqG4VxiarZiXpZ2/AJbx5t8UvfJOGQGyiuRpesy
- p10g09z8924mDjFopEaFDMSpDqnNyvD+goM+T7WY+LlA7maxHWFJUIsshvM5TjVkmLqd
- XXpafCv9lJVi1KxqUpn5+TDLh/fhvWGQSlaxATUTJ6RSI4T+hLjPSgcFVDUMQBP9iipj
- fCoHJc2L/RWUtnjBcj8obtFz3YWI2AD95iuz2C6HxJekT+rkVdObNWHpRpqxAxt1EtVg
- jIWg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU110X7Yo+I2ZkbYipsK5WjwMvcnzClK5hUXCloOl1eqDE2lVAAh+uiCxNs0jXHxZnXl39UjbMW5EoDEr9koPI21JvwcCwRw0bvewvB9nVs
-X-Gm-Message-State: AOJu0YznaRhpkZSigs6CB4Nx/qpzPpYM9HItRw5HsQjJdp91nyC81VOT
- m+2kx3sBPnVo64d8ewQWYLL4F8nu9/b1DLWphtNackvIJUgBYrooMeEIU6CDSY+RZIJK2q9R399
- q+l0sn1K8iGAkqDYafkqBRwKQdYc=
-X-Google-Smtp-Source: AGHT+IEG2beRHbi81qNTHs5kOUweKj2j3IIckJh+BruFsDgDFTGxEWnzB7Vj1z9oDmlvvCQFUv03nhGus99h0X9MSVM=
-X-Received: by 2002:a50:d5db:0:b0:56d:ee61:6874 with SMTP id
- g27-20020a50d5db000000b0056dee616874mr2333960edj.20.1714147375897; Fri, 26
- Apr 2024 09:02:55 -0700 (PDT)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2053.outbound.protection.outlook.com [40.107.236.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0479E10F5F8;
+ Fri, 19 Apr 2024 14:22:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VgGEOIjRqM8CLd8AaxZkA+fatV+avFnqznAuK3FylwrRjAXX3Tr786bDtWEJ44OA7rh/+5I+zuwMejk31gDtUDfZtI1bFZy0ah/vHKmNIV0SoxNHQByq7hiIUt72t+RlbMkgEHz78r1LamMoFj9mJwvB3T5J+uxugqHDXAptl6BvinDKKCc759XajkB87SPWpimh1sDKBcCoUhk0T6487RzvoEM8P/qADOHVESicfNg/GgZMH93FRBRMn62hAyi8RC+w9Zei3n5LB2igRCGP8qs4FAoj5ooQHdkGuU+5Zxlce0j0XKfRhHXrb54fNQxBl3/bmMwDYKsyYVGQELrv5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RrQnSgbXlJQVQpeeVSrGr6JJLsN2VbOCmKsQwrlk7WA=;
+ b=P73vsweokobZ7STtB+cYzUr4EIMPT7d733/ydqVzCFijnqjf5ecjGaxLtczdTiImVPs+d9ShaqrD0ihNE5ZQC4tu1OyafOa6d6rCI/sVo3iLM4OOVkZdy4TNH1NtOiMzHEL+hIE4W2z+YQj6RosoWhY6ibZ5YTc8aR1kXV9iO+3QHJPjB5nkgFpBI38gfjZD/xqRngm8UHZf7Q4MQ67V/q2quH/CChTQE64vNoFRBJvTmwsmRcQTRM/qcYvzZuT1AItJ+JEJ7M7N2NZNAXyHHFq0sdg2vIDljvCz3Qp82q5N4Mor3p1ql1Qh6HyU2N51bazgFUHq2jBjllaSquoIhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RrQnSgbXlJQVQpeeVSrGr6JJLsN2VbOCmKsQwrlk7WA=;
+ b=RobKPGPPvU7J+4oZ6Mx9b0v0gXBhsW+a0g9bHSAVhswIT3ZURpdah+rivl3ki2pGwNKEBvWKGSJG7Zzfjy5nU3eN+0+fNOZQWz17W1bhEswgKJXs2S6PHRSY1/MpOPPfShUm/s5jLOJjf7TJ+7zA76jDepRy/KnZK2xPwHKXMjKjgPrCA2VMtMcqM9S/4tRfLjJsHBCeaUJ18Fb5wnkEoL0jntbY3+FDyq0Tvhc+Oxhp0IWJlxW3uRlbNoGCuLnahYQ9cc1PnNuFULmnbf7GdZzlCkFvi4r2QHTfr5Tb8ImN/r5g4uKoH0PZMxZb99LB1uvo5igAWUerS3dcs4YZCA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CO6PR12MB5444.namprd12.prod.outlook.com (2603:10b6:5:35e::8) by
+ MW3PR12MB4412.namprd12.prod.outlook.com (2603:10b6:303:58::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7472.42; Fri, 19 Apr 2024 14:22:09 +0000
+Received: from CO6PR12MB5444.namprd12.prod.outlook.com
+ ([fe80::ae68:3461:c09b:e6e3]) by CO6PR12MB5444.namprd12.prod.outlook.com
+ ([fe80::ae68:3461:c09b:e6e3%5]) with mapi id 15.20.7472.037; Fri, 19 Apr 2024
+ 14:22:08 +0000
+Message-ID: <81c72b06-d3db-49d5-b1a7-9d16cd9ea0a4@nvidia.com>
+Date: Fri, 19 Apr 2024 15:22:02 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm: Fix gen_header.py for older python3 versions
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20240412165407.42163-1-jonathanh@nvidia.com>
+Content-Language: en-US
+From: Jon Hunter <jonathanh@nvidia.com>
+In-Reply-To: <20240412165407.42163-1-jonathanh@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO2P265CA0159.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:9::27) To CO6PR12MB5444.namprd12.prod.outlook.com
+ (2603:10b6:5:35e::8)
 MIME-Version: 1.0
-References: <20240425134354.1233862-1-cwabbott0@gmail.com>
- <20240425134354.1233862-5-cwabbott0@gmail.com>
- <CAA8EJpp-OVceLDK4TuqQERY53O-mU+AhEyjNUOnNc9PUhcUm0A@mail.gmail.com>
- <CACu1E7E_xMQvBLCEiP_0JozmGCMTEcRc-Lq4sAOHU520q6j2mQ@mail.gmail.com>
- <CAA8EJpo7NtVkOYGM0DeACmkjpToMtKihS-HkkiVhigsBf3xXRg@mail.gmail.com>
- <CACu1E7HzDJz4JvwnO6uFa8uwTdQAUtazdJLKbZnN2AtxcVzGQQ@mail.gmail.com>
- <CAA8EJppVbMGT5r0WJ93gxGDeyYxu4yc4bXYHXt1yyTyX=nEUSQ@mail.gmail.com>
- <CACu1E7FuW48HLC2abdapaE4eGzw9DzOe0C5q_FJNMLEcpR3Q7g@mail.gmail.com>
- <CAA8EJpoqwvfoK4AP1jCk2YRAfeMk3bpJHwrGEvBFXCPMyXU3CA@mail.gmail.com>
-In-Reply-To: <CAA8EJpoqwvfoK4AP1jCk2YRAfeMk3bpJHwrGEvBFXCPMyXU3CA@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 26 Apr 2024 09:02:43 -0700
-Message-ID: <CAF6AEGsTVkvtyOk0F7Vp23Kp5DH4UAh-YJMfxHuFjKYfhRVpNw@mail.gmail.com>
-Subject: Re: [PATCH 4/6] drm/msm/a7xx: Initialize a750 "software fuse"
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Connor Abbott <cwabbott0@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- Bjorn Andersson <andersson@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5444:EE_|MW3PR12MB4412:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2fab84e3-187d-40b6-f64e-08dc607c189b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?bUt3SUFrdnlXZjJ3UHdXaHlyam5BKzZhVE1IS0VJUHp0VVRvUFFpYUgraU1D?=
+ =?utf-8?B?SFYzWUVkR0pDc1NqaGFCUWpEQk5Uc3dLa1h3a2dYUGoyMWJOMnQ1RWZQcmo2?=
+ =?utf-8?B?dVNjRWNReEpxZm5ZbVdPK1EzcEpCR3BRc25SQlhJczlNNjE0YWlVdWdvM2tC?=
+ =?utf-8?B?c1VnMnRTSHU2VDlvdWdRNjR1K01mdkcySDFQMTdKSlFGa2EzRHRTVWNXb1ZP?=
+ =?utf-8?B?dGlwU0NtWmhjemlCQ2FyMGEwVHRDMGtFUC82OVZlWk0rKzNycjBwdi9qeExH?=
+ =?utf-8?B?ekgwYkZpdy90UXkyZmRpcFBUYUpJVk1Td2NkdWRiaE92MDN5dXJpSWJMM2Mw?=
+ =?utf-8?B?RjlBYTlqcWdPZVhidEo0Q21JK3lpTWVjaHVUZjBmWG9GOElvZHMzQ2RpTUps?=
+ =?utf-8?B?YkdFR3dON0hXUnA5M0ZEY2R6ZG5RellwdVl5YldSU1JYQ3FVL1BqU2tESXVC?=
+ =?utf-8?B?Vkw1NjRidlRDdXQrVTQ4V0xIRzFzaS92cDVIT1drYTRLaHpqMDV5WVVtTHlO?=
+ =?utf-8?B?UFc5Y3lwc1N3bTJyek5nY25BZEhCRTdxbi9rcEpWMHBQNDRIejRUL2NJWWdk?=
+ =?utf-8?B?Q2dIVDJaZE9yL0JZTThZd1BIN3hhYk9ZVlJBc3Uva1pnQXpXU292c0U5NElh?=
+ =?utf-8?B?STJZSFQ0R2JpbjhBWWhNWmlnUHRTclRzTkF6eDBVbjZ5VXhaalgrOGdLb0pp?=
+ =?utf-8?B?eWpJRHU1Z1p0RjFJb0cwNVFKMVVPbktrR1VYZ1ZEZ3hQNmVNcGJZSHViT01y?=
+ =?utf-8?B?cXRSY1l1ZnlTS3lsM1Rtd21pMmdEazhRQUZxMGhDdkl5V3lEdElndjBrVVJO?=
+ =?utf-8?B?cHhYVTltQXMxVCtGT090ZVVKMFJGZlBpM3ZOYlVBVEo0Q0YwNW1DWEtUUGRN?=
+ =?utf-8?B?a3lRMUZKWEtaZ2w5T01LTFBWa1ZOM3N0ODg2S1YzSUxvaVU3NkllcnZzMlZs?=
+ =?utf-8?B?am91NjRsZmNrK212UE4rN3ZZVWRYMlhnN0NwVFdnalhOZFdsRVBoOEtPUFFo?=
+ =?utf-8?B?cllKMkxoeGdSRWlvdHFsQ3kyZlpNeHFMQ1JxU2QyQTVRb0QxUkE4c2JhZkRR?=
+ =?utf-8?B?bmwwcHAxL090R0JJamNJZHpYanFBMUFHRkpuMk1OQ0Q0NDZjTitLbWVEeG5n?=
+ =?utf-8?B?MEpnUWhxRTVwSXRwTDJFR3JCcWlUQmRrTGdQVWxBdFdWNVdjSmVTK2dBeHg2?=
+ =?utf-8?B?MmxhMWg5ZFVETkNVZ3EreGtncDlxQng0aDdCMHp4ZXd4NUtBcVFHdEljTFhy?=
+ =?utf-8?B?aXdmWFdpVWUrcGVZTlRhTkxEY0hZZmZZRVdOcWQ3TVF4anVSbFJIRzI2bVBY?=
+ =?utf-8?B?Zm9IUE1iZGd4SlFYanRMNGExTW5QOGxETm1rdnBlV01nZFFYeGlvZFgxVmxz?=
+ =?utf-8?B?amE3cG1tak54ekswSVpBSjI3a3BaQzJJYlo4RldIbElKejArRnhFNE5pd0lY?=
+ =?utf-8?B?cVpJTWVac1NTRlBlalhNVE1SbGh0Rk5sZUlaL1RPOFZDci9vTkovWm9kYnpo?=
+ =?utf-8?B?OFZNZ1c2RCtyRWM0aVU3OGRELzJzTm5XVmxRdXN2OFhzVnJKc1ROWlp1VUNJ?=
+ =?utf-8?B?K0g3aUZuRVR3UlBCaDAzdkR3SzdsVFBCcXg2bHhxKzU2cTk4VjBLakp2QzFj?=
+ =?utf-8?B?MGtIS0FmemFYelJZL2FrWVAwVWNGWS9CZ0xIaTc1R0lTU0RLYUlXR3pzWWRX?=
+ =?utf-8?B?eVBISkwrUUxhanlwQ3J0bnZqWC9ja0xVcmQrR0ZmVy81RmhPSlArSDBBPT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5444.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366007)(1800799015)(376005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2NFRmVLSlo2RVJOQWwwZFh6Yzh0RFhnL01uOTA3bExPbzF2a29IaVBTNnNu?=
+ =?utf-8?B?MUZUSWFHV2E1VndST0k3eHptRzZMQmk0SzRYT3dybU5WYnNHOHNBSU5qS2FK?=
+ =?utf-8?B?VDJDNUExNmdEdHdFS1pncGZhL2ovbXZjNStRZHE4THczRW16bXNDcmNoQjFj?=
+ =?utf-8?B?Ym1GUktJMzJFWS9rUVIvU2duVmNNZFBUbDBBYWxqVkJ2Y25yN01kL09UZmJh?=
+ =?utf-8?B?L3p1WWhzSHdXdmFQZkJlOENsUHFUL3h4V2pteXNacmVHV245U3FZU0VrRjFE?=
+ =?utf-8?B?cG5UWUt5OWpsTFZTdVhBZElIL2hKb3pqbTNYUFJWdTNTODRFcXZJd0F6b3pk?=
+ =?utf-8?B?Y2ltcmI2NG9sYkxWTlBvSHVpOTlIb3E2ekNMKzR2Z0hZZHNKZm1CTCs2QTJn?=
+ =?utf-8?B?Zks1dnJjUXNtNkJlaXl2aHM4Z0tIUmh2YkpZY1RMaFFEUnp5QnNkUDd0S3g5?=
+ =?utf-8?B?anIxblpRUjVEMGU4eHVhVWcyYXJZV0dZb1MwWEdXdllKSW5jelZqTy9kTWdv?=
+ =?utf-8?B?ODVsRlFoRUV4ODZrOXRPdEJ4ZmwyaGlVRTcrNXJhZXZwdGlucVBNR3NHcE93?=
+ =?utf-8?B?dGtKdVNCNWlBb0wwNVlUazROVXpGTXlCM1NzTDBrZ01vVEVqR1BuU1lFSTJG?=
+ =?utf-8?B?dDQ5SHlvSmlESDJTYzVXT0FYMjJFWEpGNzZZWGtyWXJrKzM4NUFNWjNVL210?=
+ =?utf-8?B?cUVHdXp2Z1BmZEtWNXUwQldWUHREU1BwMDloNUk2WW9udkZoc3E3RkRGd05l?=
+ =?utf-8?B?WHhVRVFqRFowcFc0Y041eUV1VlBaMXo0UlVEMTY1UnRqbU05QTcxczdKU2NP?=
+ =?utf-8?B?c295ZnhuNlRmOXRwWWt5S3dOWjN3dk9JRXBnYnVzVElZRjg3MGQyWHZ6d3Vi?=
+ =?utf-8?B?M21ENVphUnBuYXRKRVBCdWl6UEl4YTVQbkxvdlk3M2ljWm1ESnJsWlBNY3NP?=
+ =?utf-8?B?OFRaSTJPdFV2eWFkQVNYRCt6djJ2eWtMTkJUNUhudDRYaG9RVFJaNno2Tkdv?=
+ =?utf-8?B?NEJkaXFXbGdFV0NyREtIZlhuM3V1OHQ0bUZ5OThlTUhidVMvdFFVSWxLa2hO?=
+ =?utf-8?B?cksvRkgrbGlzdmQ2dTVBUGkvYjkxajRTR0ZUdi9mbWJ4TklBNlEvZFU1T3RP?=
+ =?utf-8?B?Mm5LY01DWWk2anlCVFhMUEkzeGpRUHR0QklDcG1mRjR1aG5mKzBQdXpudktt?=
+ =?utf-8?B?UUhWNzArbDRUQkY0Ym1YM09Ca3lSRFE1Q01VRDdBQWxwZkVndXBqT05Zck5V?=
+ =?utf-8?B?MVIvZHl4YmNhYzVyZ1AyQW0wSDREaytXZ1hiVVZmdGZabGhvMnpvNFlPQTMr?=
+ =?utf-8?B?M3hNeHlIWUw1cFNhbGhZdnZKOEJyejA2cUQyVnZBQXp3YUVaTHJ5R2N4V2RS?=
+ =?utf-8?B?QW9TellJem1TQjlpOUxUSEZrNmZCdGpzeUFZTjNCL25ZeE9CSnNQc0twZ1BP?=
+ =?utf-8?B?bmZjQ2FOcm9MV0hLSjdHREFhaEZBSklDUVpYaFFlbVhFTlk2RDNyMW9PMUd6?=
+ =?utf-8?B?M3krMURPc3grZlIxc0tNdWlWaVFrb3FPTHRHNjMybHV2VzBBNUtXbUtDc3Ba?=
+ =?utf-8?B?cjRuSjlQcmo2QVh2U25uekNFNEswMUcwc0hNVEpDelp1c1JZYkhiM2krTGhO?=
+ =?utf-8?B?Qk43OTFPQjVSUzlpODNFQ0VvcGIyTDVLNHBWTjVRWXBuWjlWamtXbXJFallU?=
+ =?utf-8?B?VHJiVEROak5BRnNDY0hkek5FNktJbnV5eWhWNnk5azFUalVOaVNGWHloWG1s?=
+ =?utf-8?B?c3I4cXRWUHNrd1RDUHNOVXRTc2pQaGRiVDkrdmI2TndwR0JVZ2s0ck51UjdZ?=
+ =?utf-8?B?S2tQYXUvSEdPWkNiT2VoYTRCbm9iT0VqV01tSmI1b01BU3ZlcnJTN0tCcHF1?=
+ =?utf-8?B?QnBobjdkT09uS0RsWXlZSStkVWlVdnJuTjJQSE5keTB3QlBEUHVBVSt6MHBr?=
+ =?utf-8?B?TTJwamFlNkJzcFE4UCtPR2lEKytyUVZSdkY2UUs3RGJMbTIwbUg2TEVKYmhV?=
+ =?utf-8?B?bGdRWHBjak5MVk0xWHQwbGgyenFDMEc3MG5Jc2Y2SjJUR3VUSjdjZWlISUFK?=
+ =?utf-8?B?VGhWdDNtckJSS2dYUFVpclY2b3hqTlBuWWNjRVdOaENxZzBRaUptd2Nkb2RU?=
+ =?utf-8?B?OE9pcFllMHFzc2pReXcrQXUwSU55MGE4OG9JVHZ1V3FNa1ZpRkVCdHNPbFQy?=
+ =?utf-8?B?bmYxY2YraFNYaXpzN08ya3Q4WmdBSUZNRFhBSEhkTWNaRFFLWWdkbXRvbCtN?=
+ =?utf-8?B?N2hjcW1hY2kzb0xoY0ZqL093R0xRPT0=?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2fab84e3-187d-40b6-f64e-08dc607c189b
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5444.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2024 14:22:08.7660 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IFkDrh0ki7eZ9CiEus54SwnKiXr6lvA5a9j0WoOgz2CpLsJOsVoqaTsMdDN97USJSphuUWQlVtBqmhws92cPRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4412
+X-Mailman-Approved-At: Fri, 26 Apr 2024 16:05:09 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,311 +164,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Apr 26, 2024 at 8:24=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On Fri, 26 Apr 2024 at 18:08, Connor Abbott <cwabbott0@gmail.com> wrote:
-> >
-> > On Fri, Apr 26, 2024 at 3:53=E2=80=AFPM Dmitry Baryshkov
-> > <dmitry.baryshkov@linaro.org> wrote:
-> > >
-> > > On Fri, 26 Apr 2024 at 17:05, Connor Abbott <cwabbott0@gmail.com> wro=
-te:
-> > > >
-> > > > On Fri, Apr 26, 2024 at 2:31=E2=80=AFPM Dmitry Baryshkov
-> > > > <dmitry.baryshkov@linaro.org> wrote:
-> > > > >
-> > > > > On Fri, 26 Apr 2024 at 15:35, Connor Abbott <cwabbott0@gmail.com>=
- wrote:
-> > > > > >
-> > > > > > On Fri, Apr 26, 2024 at 12:02=E2=80=AFAM Dmitry Baryshkov
-> > > > > > <dmitry.baryshkov@linaro.org> wrote:
-> > > > > > >
-> > > > > > > On Thu, 25 Apr 2024 at 16:44, Connor Abbott <cwabbott0@gmail.=
-com> wrote:
-> > > > > > > >
-> > > > > > > > On all Qualcomm platforms with a7xx GPUs, qcom_scm provides=
- a method to
-> > > > > > > > initialize cx_mem. Copy this from downstream (minus BCL whi=
-ch we
-> > > > > > > > currently don't support). On a750, this includes a new "fus=
-e" register
-> > > > > > > > which can be used by qcom_scm to fuse off certain features =
-like
-> > > > > > > > raytracing in software. The fuse is default off, and is ini=
-tialized by
-> > > > > > > > calling the method. Afterwards we have to read it to find o=
-ut which
-> > > > > > > > features were enabled.
-> > > > > > > >
-> > > > > > > > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
-> > > > > > > > ---
-> > > > > > > >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 89 +++++++++++++=
-+++++++++++-
-> > > > > > > >  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  2 +
-> > > > > > > >  2 files changed, 90 insertions(+), 1 deletion(-)
-> > > > > > > >
-> > > > > > > > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/driver=
-s/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > > > > > > index cf0b1de1c071..fb2722574ae5 100644
-> > > > > > > > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > > > > > > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > > > > > > @@ -10,6 +10,7 @@
-> > > > > > > >
-> > > > > > > >  #include <linux/bitfield.h>
-> > > > > > > >  #include <linux/devfreq.h>
-> > > > > > > > +#include <linux/firmware/qcom/qcom_scm.h>
-> > > > > > > >  #include <linux/pm_domain.h>
-> > > > > > > >  #include <linux/soc/qcom/llcc-qcom.h>
-> > > > > > > >
-> > > > > > > > @@ -1686,7 +1687,8 @@ static int a6xx_zap_shader_init(struc=
-t msm_gpu *gpu)
-> > > > > > > >                        A6XX_RBBM_INT_0_MASK_RBBM_HANG_DETEC=
-T | \
-> > > > > > > >                        A6XX_RBBM_INT_0_MASK_UCHE_OOB_ACCESS=
- | \
-> > > > > > > >                        A6XX_RBBM_INT_0_MASK_UCHE_TRAP_INTR =
-| \
-> > > > > > > > -                      A6XX_RBBM_INT_0_MASK_TSBWRITEERROR)
-> > > > > > > > +                      A6XX_RBBM_INT_0_MASK_TSBWRITEERROR |=
- \
-> > > > > > > > +                      A6XX_RBBM_INT_0_MASK_SWFUSEVIOLATION=
-)
-> > > > > > > >
-> > > > > > > >  #define A7XX_APRIV_MASK (A6XX_CP_APRIV_CNTL_ICACHE | \
-> > > > > > > >                          A6XX_CP_APRIV_CNTL_RBFETCH | \
-> > > > > > > > @@ -2356,6 +2358,26 @@ static void a6xx_fault_detect_irq(st=
-ruct msm_gpu *gpu)
-> > > > > > > >         kthread_queue_work(gpu->worker, &gpu->recover_work)=
-;
-> > > > > > > >  }
-> > > > > > > >
-> > > > > > > > +static void a7xx_sw_fuse_violation_irq(struct msm_gpu *gpu=
-)
-> > > > > > > > +{
-> > > > > > > > +       u32 status;
-> > > > > > > > +
-> > > > > > > > +       status =3D gpu_read(gpu, REG_A7XX_RBBM_SW_FUSE_INT_=
-STATUS);
-> > > > > > > > +       gpu_write(gpu, REG_A7XX_RBBM_SW_FUSE_INT_MASK, 0);
-> > > > > > > > +
-> > > > > > > > +       dev_err_ratelimited(&gpu->pdev->dev, "SW fuse viola=
-tion status=3D%8.8x\n", status);
-> > > > > > > > +
-> > > > > > > > +       /* Ignore FASTBLEND violations, because the HW will=
- silently fall back
-> > > > > > > > +        * to legacy blending.
-> > > > > > > > +        */
-> > > > > > > > +       if (status & (A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING=
- |
-> > > > > > > > +                     A7XX_CX_MISC_SW_FUSE_VALUE_LPAC)) {
-> > > > > > > > +               del_timer(&gpu->hangcheck_timer);
-> > > > > > > > +
-> > > > > > > > +               kthread_queue_work(gpu->worker, &gpu->recov=
-er_work);
-> > > > > > > > +       }
-> > > > > > > > +}
-> > > > > > > > +
-> > > > > > > >  static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
-> > > > > > > >  {
-> > > > > > > >         struct msm_drm_private *priv =3D gpu->dev->dev_priv=
-ate;
-> > > > > > > > @@ -2384,6 +2406,9 @@ static irqreturn_t a6xx_irq(struct ms=
-m_gpu *gpu)
-> > > > > > > >         if (status & A6XX_RBBM_INT_0_MASK_UCHE_OOB_ACCESS)
-> > > > > > > >                 dev_err_ratelimited(&gpu->pdev->dev, "UCHE =
-| Out of bounds access\n");
-> > > > > > > >
-> > > > > > > > +       if (status & A6XX_RBBM_INT_0_MASK_SWFUSEVIOLATION)
-> > > > > > > > +               a7xx_sw_fuse_violation_irq(gpu);
-> > > > > > > > +
-> > > > > > > >         if (status & A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS=
-)
-> > > > > > > >                 msm_gpu_retire(gpu);
-> > > > > > > >
-> > > > > > > > @@ -2525,6 +2550,60 @@ static void a6xx_llc_slices_init(str=
-uct platform_device *pdev,
-> > > > > > > >                 a6xx_gpu->llc_mmio =3D ERR_PTR(-EINVAL);
-> > > > > > > >  }
-> > > > > > > >
-> > > > > > > > +static int a7xx_cx_mem_init(struct a6xx_gpu *a6xx_gpu)
-> > > > > > > > +{
-> > > > > > > > +       struct adreno_gpu *adreno_gpu =3D &a6xx_gpu->base;
-> > > > > > > > +       struct msm_gpu *gpu =3D &adreno_gpu->base;
-> > > > > > > > +       u32 gpu_req =3D QCOM_SCM_GPU_ALWAYS_EN_REQ;
-> > > > > > > > +       u32 fuse_val;
-> > > > > > > > +       int ret;
-> > > > > > > > +
-> > > > > > > > +       if (adreno_is_a740(adreno_gpu)) {
-> > > > > > > > +               /* Raytracing is always enabled on a740 */
-> > > > > > > > +               adreno_gpu->has_ray_tracing =3D true;
-> > > > > > > > +       }
-> > > > > > > > +
-> > > > > > > > +       if (!qcom_scm_is_available()) {
-> > > > > > > > +               /* Assume that if qcom scm isn't available,=
- that whatever
-> > > > > > > > +                * replacement allows writing the fuse regi=
-ster ourselves.
-> > > > > > > > +                * Users of alternative firmware need to ma=
-ke sure this
-> > > > > > > > +                * register is writeable or indicate that i=
-t's not somehow.
-> > > > > > > > +                * Print a warning because if you mess this=
- up you're about to
-> > > > > > > > +                * crash horribly.
-> > > > > > > > +                */
-> > > > > > > > +               if (adreno_is_a750(adreno_gpu)) {
-> > > > > > > > +                       dev_warn_once(gpu->dev->dev,
-> > > > > > > > +                               "SCM is not available, poki=
-ng fuse register\n");
-> > > > > > > > +                       a6xx_llc_write(a6xx_gpu, REG_A7XX_C=
-X_MISC_SW_FUSE_VALUE,
-> > > > > > > > +                               A7XX_CX_MISC_SW_FUSE_VALUE_=
-RAYTRACING |
-> > > > > > > > +                               A7XX_CX_MISC_SW_FUSE_VALUE_=
-FASTBLEND |
-> > > > > > > > +                               A7XX_CX_MISC_SW_FUSE_VALUE_=
-LPAC);
-> > > > > > > > +                       adreno_gpu->has_ray_tracing =3D tru=
-e;
-> > > > > > > > +               }
-> > > > > > > > +
-> > > > > > > > +               return 0;
-> > > > > > > > +       }
-> > > > > > > > +
-> > > > > > > > +       if (adreno_is_a750(adreno_gpu))
-> > > > > > >
-> > > > > > > Most of the function is under the if (adreno_is_a750) conditi=
-ons. Can
-> > > > > > > we invert the logic and add a single block of if(adreno_is_a7=
-50) and
-> > > > > > > then place all the code underneath?
-> > > > > >
-> > > > > > You mean to duplicate the qcom_scm_is_available check and qcom_=
-scm_
-> > > > > >
-> > > > > > >
-> > > > > > > > +               gpu_req |=3D QCOM_SCM_GPU_TSENSE_EN_REQ;
-> > > > > > > > +
-> > > > > > > > +       ret =3D qcom_scm_gpu_init_regs(gpu_req);
-> > > > > > > > +       if (ret)
-> > > > > > > > +               return ret;
-> > > > > > > > +
-> > > > > > > > +       /* On a750 raytracing may be disabled by the firmwa=
-re, find out whether
-> > > > > > > > +        * that's the case. The scm call above sets the fus=
-e register.
-> > > > > > > > +        */
-> > > > > > > > +       if (adreno_is_a750(adreno_gpu)) {
-> > > > > > > > +               fuse_val =3D a6xx_llc_read(a6xx_gpu, REG_A7=
-XX_CX_MISC_SW_FUSE_VALUE);
-> > > > > > >
-> > > > > > > This register isn't accessible with the current sm8650.dtsi. =
-Since DT
-> > > > > > > and driver are going through different trees, please add safe=
-ty guards
-> > > > > > > here, so that the driver doesn't crash if used with older dts=
-i
-> > > > > >
-> > > > > > I don't see how this is an issue. msm-next is currently based o=
-n 6.9,
-> > > > > > which doesn't have the GPU defined in sm8650.dtsi. AFAIK patche=
-s 1 and
-> > > > > > 2 will have to go through the linux-arm-msm tree, which will ha=
-ve to
-> > > > > > be merged into msm-next before this patch lands there, so there=
- will
-> > > > > > never be any breakage.
-> > > > >
-> > > > > linux-arm-msm isn't going to be merged into msm-next. If we do no=
-t ask
-> > > > > for ack for the fix to go through msm-next, they will get these
-> > > > > patches in parallel.
-> > > >
-> > > > I'm not familiar with how complicated cross-tree changes like this =
-get
-> > > > merged, but why would we merge these in parallel given that this pa=
-tch
-> > > > depends on the previous patch that introduces
-> > > > qcom_scm_gpu_init_regs(), and that would (I assume?) normally go
-> > > > through the same tree as patch 1? Even if patch 1 gets merged in
-> > > > parallel in linux-arm-msm, in what scenario would we have a broken
-> > > > boot? You won't have a devicetree with a working sm8650 GPU and
-> > > > drm/msm with raytracing until linux-arm-msm is merged into msm-next=
- at
-> > > > which point patch 1 will have landed somehow.
-> > >
-> > > arch/arm64/qcom/dts and drivers/firmware/qcom are two separate trees.
-> > > So yes, this needs a lot of coordination.
-> >
-> >
-> >
-> > >
-> > > >
-> > > > >
-> > > > > Another option is to get dtsi fix into 6.9 and delay the raytraci=
-ng
-> > > > > until 6.10-rc which doesn't make a lot of sense from my POV).
-> > > > >
-> > > > > >
-> > > > > > > (not to mention that dts is considered to be an ABI and newer=
- kernels
-> > > > > > > are supposed not to break with older DT files).
-> > > > > >
-> > > > > > That policy only applies to released kernels, so that's irrelev=
-ant here.
-> > > > >
-> > > > > It applies to all kernels, the reason being pretty simple: git-bi=
-sect
-> > > > > should not be broken.
-> > > >
-> > > > As I wrote above, this is not an issue. The point I was making is t=
-hat
-> > > > mixing and matching dtb's from one unmerged subsystem tree and a
-> > > > kernel from another isn't supported AFAIK, and that's the only
-> > > > scenario where this could break.
-> > >
-> > > And it can happen if somebody running a bisect ends up in the branch
-> > > with these patches in, but with the dtsi bits not being picked up.
-> >
-> > That wouldn't be possible unless we merged the "bad" commit
-> > introducing the GPU node to sm8650.dtsi into msm-next but not the fix.
-> > So yeah, it's going to require a lot of careful cooperation but it
-> > should be possible to avoid that happening.
->
-> Well, the GPU node is already there in the linux-next.
->
-> Anyway. Please. Don't break compat with old DTS. That is a rule of thumb.
->
+Hi all,
 
-+Bjorn, since that is who we need to coordinate with, on two points
+On 12/04/2024 17:54, Jon Hunter wrote:
+> The gen_header.py script is failing for older versions of python3 such
+> as python 3.5. Two issues observed with python 3.5 are ...
+> 
+>   1. Python 3 versions prior to 3.6 do not support the f-string format.
+>   2. Early python 3 versions do not support the 'required' argument for
+>      the argparse add_subparsers().
+> 
+> Fix both of the above so that older versions of python 3 still work.
+> 
+> Fixes: 8f7abf0b86fe ("drm/msm: generate headers on the fly")
+> Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
+> ---
+>   drivers/gpu/drm/msm/registers/gen_header.py | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
+> index 9b2842d4a354..90d5c2991d05 100644
+> --- a/drivers/gpu/drm/msm/registers/gen_header.py
+> +++ b/drivers/gpu/drm/msm/registers/gen_header.py
+> @@ -323,7 +323,7 @@ class Array(object):
+>   			indices = []
+>   		if self.length != 1:
+>   			if self.fixed_offsets:
+> -				indices.append((self.index_ctype(), None, f"__offset_{self.local_name}"))
+> +				indices.append((self.index_ctype(), None, "__offset_%s" % self.local_name))
+>   			else:
+>   				indices.append((self.index_ctype(), self.stride, None))
+>   		return indices
+> @@ -942,7 +942,8 @@ def main():
+>   	parser.add_argument('--rnn', type=str, required=True)
+>   	parser.add_argument('--xml', type=str, required=True)
+>   
+> -	subparsers = parser.add_subparsers(required=True)
+> +	subparsers = parser.add_subparsers()
+> +	subparsers.required = True
+>   
+>   	parser_c_defines = subparsers.add_parser('c-defines')
+>   	parser_c_defines.set_defaults(func=dump_c_defines)
 
-1) fix for sm8650.dtsi gpu node..  the gpu node is in linux-next, but
-not yet (AFAICT) in any pull req.  So we just ask Bjorn to land the
-gpu node fix from this series before sending his DT pull req.  Problem
-solved.  Either drm-next gets pulled first, in which case the dt node
-doesn't even exist yet, or the dt is pulled with the fix before
-drm-next is.
 
-2) the scm dependency.. looks like there are these in-flight scm patches:
+Any feedback on this? All our farm builders are still broken :-(
 
-[1/4] firmware: qcom: scm: Remove log reporting memory allocation failure
-      commit: 3de990f7895906a7a18d2dff63e3e525acaa4ecc
-[2/4] firmware: scm: Remove redundant scm argument from qcom_scm_waitq_wake=
-up()
-      commit: 000636d91d605f6209a635a29d0487af5b12b237
-[3/4] firmware: qcom: scm: Rework dload mode availability check
-      commit: 398a4c58f3f29ac3ff4d777dc91fe40a07bbca8c
-[4/4] firmware: qcom: scm: Fix __scm and waitq completion variable
-initialization
-      commit: 2e4955167ec5c04534cebea9e8273a907e7a75e1
+Thanks
+Jon
 
-[1/1] firmware: qcom: scm: Modify only the download bits in TCSR register
-      commit: b9718298e028f9edbe0fcdf48c02a1c355409410
-
-Those don't look like they should conflict with [2/6] firmware:
-qcom_scm: Add gpu_init_regs call... so maybe we could get an a-b for
-landing that patch via msm-next.
-
-BR,
--R
+-- 
+nvpublic
