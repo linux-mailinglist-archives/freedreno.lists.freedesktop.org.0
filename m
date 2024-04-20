@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 878258AB958
+	by mail.lfdr.de (Postfix) with ESMTPS id D27558AB959
 	for <lists+freedreno@lfdr.de>; Sat, 20 Apr 2024 06:01:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEF8E10F341;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E373010F37C;
 	Sat, 20 Apr 2024 04:01:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Av4Na+1+";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="oFqBXN8e";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B018E10F34C
- for <freedreno@lists.freedesktop.org>; Sat, 20 Apr 2024 04:01:17 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-5193363d255so3512121e87.3
- for <freedreno@lists.freedesktop.org>; Fri, 19 Apr 2024 21:01:17 -0700 (PDT)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30B9810F341
+ for <freedreno@lists.freedesktop.org>; Sat, 20 Apr 2024 04:01:18 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-518f8a69f82so3261107e87.2
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Apr 2024 21:01:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1713585676; x=1714190476; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=oP3zMRO9agkYQSw4kCyfx8zOdyuio6KL48narpY5l5w=;
- b=Av4Na+1++ksuPtULDchp+8QZsJ44dmsWIPg51uC6SoR4zv2ztf+RE9oFf50RuZHg5s
- c3d/EtSWrk7pDWFuN6RuPyo/dLHszn08ofXfymhPDT8fpbiFf65s/MkT95hObtgGFrO9
- JWS3xOL4ZQjse/owszcF9Y7bvv1gIDaoOh0fH68kB55Ub4cRvf6KfxmNbO4u/mQBfI7T
- knE0d7Pk5Bs/ljGEfGm6F7ReVaHnUZKKv1Ts7kpi2jcXzbrtw+HOEpK9c1AW/rACdkZ7
- 9RkECAD7WvOLGcsIxF734oPfeLuydT4N5sWbxUVuvLioaNYHXxGIhkHQgZeXWY668qkR
- t9EQ==
+ :reply-to; bh=+JTNeAPoronT10uplr3S5OnPsS/MansP6FbUgxUU9NU=;
+ b=oFqBXN8eZYgQOLRQeRV8QfQ5SLN2SVCD/P9oS8+zttXUhscGqoa370HFsIcr93aVvw
+ IbKAup9pheoe65gjOrQ2gOGFKnqHU2Bj39DHkWfzXoFmnol3y7ywEItUvF8pWN+bgDn0
+ 2OJTwCw60Xdf+KuaY3zUyt13aNEI31pI7eaUhxD/p/PnQzkhhFmiEhjSq3UJxEDJL5js
+ UdJ0hSTCV9VCQA4EuQpu+QFOKOc67j0snkFaGRZg4F9YwsTH8Om3Vnzh60ebxDORrfSc
+ kTJbvm56MqPLjcoSDzLaCORFCESWdJOMoExGkAD7AmmYMuZmjv49hFu74Qh6ZVtZZq4v
+ EDSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1713585676; x=1714190476;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=oP3zMRO9agkYQSw4kCyfx8zOdyuio6KL48narpY5l5w=;
- b=NvOX0nCjFd+fW5MHoBHAitaQla5G4IqgUvXofV0YHUxuukF0bWSmzCIx4XtrVcVcrl
- 7lMXg3InkhhqJfLTv0z6D2dn5zdpZwNq1m56BcuIBBwL5i7eqt99dNmMaHIton2S+SEw
- 3L/R6SVVY9/reYeqeAJhV6ymFsFf9PwBAO7PON5BSwOogGi1hzQWxFP+e1/irAkZ+IZh
- UPgDtWRgm1mYcSno6N7QH+HyPj/Bx8RPI63iLJl0TwjZwDB4Vlb8fftJLxifR+592JNb
- k5TXMoy6eyclGG99PAQ5k+OqWAd0R2xK6W85Am5apPOuaIzxsUBraU3RAxI5B+x8E9sd
- 4xeQ==
+ bh=+JTNeAPoronT10uplr3S5OnPsS/MansP6FbUgxUU9NU=;
+ b=Pr1i8C5HSW0SQp/Zu6beFYBE/vk2bT1DlCXJiMQUh1W8mUQz/Nt+ARfJb04te/+Uaf
+ ZRlTA2YDOqMnFYklriZgCVculnN+XQ724uusU7OaOnU9mp6AR1xXIteGHRM3kSFx/UVK
+ i8xA6fQIyKmkn66R5QRrtfCR3ATBHaHNI8jxeLffC/bmavUO3sHUkQ6yH9OQVvCqspWI
+ FDvGw/pb6uDEuG7DP+5PITVR2h/jsXMwjGne/FfuVY+dnPtyX9DkDrSf6hEhORFrUrbj
+ Zd+4dE2XG3I1in37tTp+sB8vfMzrMPfiA8IcGjmu6jCTPv7JDfjruvos1WvJmQdIiIuM
+ o1Mw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWrqCt40ZbDglHMF0BLt2aLdRIlGJSxeeM+bPptXH6G7htbbohWtsL94fSOHV38hRvfv8SAWr1GIRvhXchjwFc7ErHkn0BH5hdyLv2GJvpV
-X-Gm-Message-State: AOJu0YzN03OchelLvXhaiyIZUMt5KGvT+VTErReCeRNnOXoxywaQsPBo
- pC5gXi055TV+0RhgkyhnyXd3+WizqM122IQ3xibyW/CX2KEFLXVZUUEfdpt1JSA=
-X-Google-Smtp-Source: AGHT+IE4ZbNZvfmIXd8Qfqya1V9IQzxNnfLjFjzRPEDn5QGw3fOk4aJG2tv8V+m0Mqe+KePCzO9M/g==
-X-Received: by 2002:a05:6512:4013:b0:518:758f:2610 with SMTP id
- br19-20020a056512401300b00518758f2610mr3435518lfb.48.1713585675804; 
- Fri, 19 Apr 2024 21:01:15 -0700 (PDT)
+ AJvYcCXfLtcRNDxkMVjXYlOepWdAsILfhYvDa3OXRCqnfg5tFBNBCfpaNZMocZX8qyZ86Apu4WshrHl1iMahRYtA8FmEVtlTUHvUc/4OXfyOfSEU
+X-Gm-Message-State: AOJu0YxtnyR/RlGzwdfBbhubLXO+rzwFPzYUgAtEWHGjpEBzZk3L80T6
+ GCp7c7Ti+rMsR4N9p0SB7zfP7IOHEupVfluxHJLiT92yVhc6pLlJNfHxKS20wFY=
+X-Google-Smtp-Source: AGHT+IH/yVDRhbNqCbP/K8C3C5w5IT5HRZsBlcAzaUljogQMcieFXUFDEyLabxtA8kOvOt1fdEmUQw==
+X-Received: by 2002:a19:9157:0:b0:51a:b46c:6e67 with SMTP id
+ y23-20020a199157000000b0051ab46c6e67mr2820504lfj.1.1713585676412; 
+ Fri, 19 Apr 2024 21:01:16 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
  n2-20020a0565120ac200b00518c9ccef2esm1003993lfu.22.2024.04.19.21.01.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Apr 2024 21:01:15 -0700 (PDT)
+ Fri, 19 Apr 2024 21:01:16 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 20 Apr 2024 07:00:59 +0300
-Subject: [PATCH v2 2/9] drm/msm: add arrays listing formats supported by
- MDP4/MDP5 hardware
+Date: Sat, 20 Apr 2024 07:01:00 +0300
+Subject: [PATCH v2 3/9] drm/msm/dpu: in dpu_format replace bitmap with
+ unsigned long field
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240420-dpu-format-v2-2-9e93226cbffd@linaro.org>
+Message-Id: <20240420-dpu-format-v2-3-9e93226cbffd@linaro.org>
 References: <20240420-dpu-format-v2-0-9e93226cbffd@linaro.org>
 In-Reply-To: <20240420-dpu-format-v2-0-9e93226cbffd@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -72,16 +72,16 @@ To: Rob Clark <robdclark@gmail.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6858;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7917;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=M4pHbBHCTk6OXLrTGfKxg4sxEmwBnn+uAuZwKWxdb8I=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ5qyHcdKpmMbzvsca3WVnvivdHHIp9nW+RbPGyU7qi5UP
- tkrq6zbyWjMwsDIxSArpsjiU9AyNWZTctiHHVPrYQaxMoFMYeDiFICJ8C/jYFiyaYouh1dG2uGq
- YxOahbq/lWoHn+WdYt2+P0Krwf/2+fV3RAuYIyNeq29SUGZRV/k06c6dMAs9dmW7pNTu59+MC9k
- 0uWqqa9wTr1UunRvalfJ0zqmO/Kean27tFHt+VrG/UD2S7bDaU6VXG7ov7S6Z3vPjQl67w7N95s
- FqoupBtjuuqF6uspK8vuKyJIObbuH9NT4l6y+9VVz5LTQv20zXWbBK4s9PLWn154azX4Tqq+g4t
- 9Sdepz/0nypcOScoraTMq/2fN5x9vZdW+kXdk+cns/8FT53k15UgdA8A67wStadD3PfLRbyrNrQ
- 7yP20F/P++q8VAXTfA7+K6bX1Y47SSWsD3n0VCcvW/k3AA==
+ bh=bR+chZ8/vH2q7NiGJkzYGAuWCLJdrkjYEG1yJa8P7EI=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ5qyHYfpveLeJ96/s76KTSk2y215oPiYL+7+X6dzBuwV4
+ Xytysc7GY1ZGBi5GGTFFFl8ClqmxmxKDvuwY2o9zCBWJpApDFycAjCRZ1vZf7NleBRpsuzaMKNC
+ Sdr9N/+Spzrlt0KYD6/aMSV5mvMn5yPSmdGqkpuVG07bn5LsMTDINOY4WfVn0/sSrV1Bu7Qkym8
+ aXVV+8N/W5r63S8zSZz/NLfRXGD/rnPaxRSC3r4GzP0z42s22m1+4+B+9Dvtplfyt4qT5Iy2tr5
+ ZzMoVk0yVnuGQ47A3e7td3pVF/66UizjPip68G6cxw/8uYuShO0Opj0YI1d4rl/+dkK+tYy286+
+ fN4bHXadF7txQ63HP+3Mv6d8I5tn1Kvw5qTmdrzKtf4XrWT1tvGXcl+hI/N5JzxMsH1l0957WLn
+ O/q7ZlJaENdqnytrTDpeaAqmHrJytHoXXvtd96+J7Lf7AA==
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -99,224 +99,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-MDP4 and MDP5 drivers enumerate supported formats each time the plane is
-created. In preparation to merger of MDP DPU format databases, define
-precise formats list, so that changes to the database do not cause the
-driver to add unsupported format to the list.
+Using bitmap for the flags results in a clumsy syntax on test_bit,
+replace it with unsigned long type and simple binary ops.
 
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c | 57 +++++++++++++++++++++++++++---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 36 ++++++++++++++-----
- drivers/gpu/drm/msm/disp/mdp_format.c      | 28 ---------------
- drivers/gpu/drm/msm/disp/mdp_kms.h         |  1 -
- 4 files changed, 80 insertions(+), 42 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 18 +++++++++---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h | 16 +++++++---------
+ 2 files changed, 16 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
-index b689b618da78..cebe20c82a54 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
-@@ -371,6 +371,47 @@ static const uint64_t supported_format_modifiers[] = {
- 	DRM_FORMAT_MOD_INVALID
- };
- 
-+const uint32_t mdp4_rgb_formats[] = {
-+	DRM_FORMAT_ARGB8888,
-+	DRM_FORMAT_ABGR8888,
-+	DRM_FORMAT_RGBA8888,
-+	DRM_FORMAT_BGRA8888,
-+	DRM_FORMAT_XRGB8888,
-+	DRM_FORMAT_XBGR8888,
-+	DRM_FORMAT_RGBX8888,
-+	DRM_FORMAT_BGRX8888,
-+	DRM_FORMAT_RGB888,
-+	DRM_FORMAT_BGR888,
-+	DRM_FORMAT_RGB565,
-+	DRM_FORMAT_BGR565,
-+};
-+
-+const uint32_t mdp4_rgb_yuv_formats[] = {
-+	DRM_FORMAT_ARGB8888,
-+	DRM_FORMAT_ABGR8888,
-+	DRM_FORMAT_RGBA8888,
-+	DRM_FORMAT_BGRA8888,
-+	DRM_FORMAT_XRGB8888,
-+	DRM_FORMAT_XBGR8888,
-+	DRM_FORMAT_RGBX8888,
-+	DRM_FORMAT_BGRX8888,
-+	DRM_FORMAT_RGB888,
-+	DRM_FORMAT_BGR888,
-+	DRM_FORMAT_RGB565,
-+	DRM_FORMAT_BGR565,
-+
-+	DRM_FORMAT_NV12,
-+	DRM_FORMAT_NV21,
-+	DRM_FORMAT_NV16,
-+	DRM_FORMAT_NV61,
-+	DRM_FORMAT_VYUY,
-+	DRM_FORMAT_UYVY,
-+	DRM_FORMAT_YUYV,
-+	DRM_FORMAT_YVYU,
-+	DRM_FORMAT_YUV420,
-+	DRM_FORMAT_YVU420,
-+};
-+
- /* initialize plane */
- struct drm_plane *mdp4_plane_init(struct drm_device *dev,
- 		enum mdp4_pipe pipe_id, bool private_plane)
-@@ -379,6 +420,8 @@ struct drm_plane *mdp4_plane_init(struct drm_device *dev,
- 	struct mdp4_plane *mdp4_plane;
- 	int ret;
- 	enum drm_plane_type type;
-+	const uint32_t *formats;
-+	unsigned int nformats;
- 
- 	mdp4_plane = kzalloc(sizeof(*mdp4_plane), GFP_KERNEL);
- 	if (!mdp4_plane) {
-@@ -392,13 +435,17 @@ struct drm_plane *mdp4_plane_init(struct drm_device *dev,
- 	mdp4_plane->name = pipe_names[pipe_id];
- 	mdp4_plane->caps = mdp4_pipe_caps(pipe_id);
- 
--	mdp4_plane->nformats = mdp_get_formats(mdp4_plane->formats,
--			ARRAY_SIZE(mdp4_plane->formats),
--			!pipe_supports_yuv(mdp4_plane->caps));
--
- 	type = private_plane ? DRM_PLANE_TYPE_PRIMARY : DRM_PLANE_TYPE_OVERLAY;
-+
-+	if (pipe_supports_yuv(mdp4_plane->caps)) {
-+		formats = mdp4_rgb_yuv_formats;
-+		nformats = ARRAY_SIZE(mdp4_rgb_yuv_formats);
-+	} else {
-+		formats = mdp4_rgb_formats;
-+		nformats = ARRAY_SIZE(mdp4_rgb_formats);
-+	}
- 	ret = drm_universal_plane_init(dev, plane, 0xff, &mdp4_plane_funcs,
--				 mdp4_plane->formats, mdp4_plane->nformats,
-+				 formats, nformats,
- 				 supported_format_modifiers, type, NULL);
- 	if (ret)
- 		goto fail;
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-index 0d5ff03cb091..aa8342d93393 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-@@ -17,9 +17,6 @@
- 
- struct mdp5_plane {
- 	struct drm_plane base;
--
--	uint32_t nformats;
--	uint32_t formats[32];
- };
- #define to_mdp5_plane(x) container_of(x, struct mdp5_plane, base)
- 
-@@ -1007,6 +1004,32 @@ uint32_t mdp5_plane_get_flush(struct drm_plane *plane)
- 	return mask;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+index 87fa14fc5dd0..caf536788ece 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+@@ -45,7 +45,7 @@ bp, flg, fm, np)                                                          \
+ 	.unpack_count = uc,                                               \
+ 	.bpp = bp,                                                        \
+ 	.fetch_mode = fm,                                                 \
+-	.flag = {(flg)},                                                  \
++	.flags = flg,                                                     \
+ 	.num_planes = np,                                                 \
+ 	.tile_height = DPU_TILE_HEIGHT_DEFAULT                            \
  }
- 
-+const uint32_t mdp5_plane_formats[] = {
-+	DRM_FORMAT_ARGB8888,
-+	DRM_FORMAT_ABGR8888,
-+	DRM_FORMAT_RGBA8888,
-+	DRM_FORMAT_BGRA8888,
-+	DRM_FORMAT_XRGB8888,
-+	DRM_FORMAT_XBGR8888,
-+	DRM_FORMAT_RGBX8888,
-+	DRM_FORMAT_BGRX8888,
-+	DRM_FORMAT_RGB888,
-+	DRM_FORMAT_BGR888,
-+	DRM_FORMAT_RGB565,
-+	DRM_FORMAT_BGR565,
-+
-+	DRM_FORMAT_NV12,
-+	DRM_FORMAT_NV21,
-+	DRM_FORMAT_NV16,
-+	DRM_FORMAT_NV61,
-+	DRM_FORMAT_VYUY,
-+	DRM_FORMAT_UYVY,
-+	DRM_FORMAT_YUYV,
-+	DRM_FORMAT_YVYU,
-+	DRM_FORMAT_YUV420,
-+	DRM_FORMAT_YVU420,
-+};
-+
- /* initialize plane */
- struct drm_plane *mdp5_plane_init(struct drm_device *dev,
- 				  enum drm_plane_type type)
-@@ -1023,12 +1046,9 @@ struct drm_plane *mdp5_plane_init(struct drm_device *dev,
- 
- 	plane = &mdp5_plane->base;
- 
--	mdp5_plane->nformats = mdp_get_formats(mdp5_plane->formats,
--		ARRAY_SIZE(mdp5_plane->formats), false);
--
- 	ret = drm_universal_plane_init(dev, plane, 0xff, &mdp5_plane_funcs,
--			mdp5_plane->formats, mdp5_plane->nformats,
--			NULL, type, NULL);
-+				       mdp5_plane_formats, ARRAY_SIZE(mdp5_plane_formats),
-+				       NULL, type, NULL);
- 	if (ret)
- 		goto fail;
- 
-diff --git a/drivers/gpu/drm/msm/disp/mdp_format.c b/drivers/gpu/drm/msm/disp/mdp_format.c
-index 025595336f26..69ab5bcff1a9 100644
---- a/drivers/gpu/drm/msm/disp/mdp_format.c
-+++ b/drivers/gpu/drm/msm/disp/mdp_format.c
-@@ -80,10 +80,6 @@ static struct csc_cfg csc_convert[CSC_MAX] = {
- 
- #define BPC0A 0
- 
--/*
-- * Note: Keep RGB formats 1st, followed by YUV formats to avoid breaking
-- * mdp_get_rgb_formats()'s implementation.
-- */
- static const struct mdp_format formats[] = {
- 	/*  name      a  r  g  b   e0 e1 e2 e3  alpha   tight  cpp cnt ... */
- 	FMT(ARGB8888, 8, 8, 8, 8,  1, 0, 2, 3,  true,   true,  4,  4,
-@@ -138,30 +134,6 @@ static const struct mdp_format formats[] = {
- 			MDP_PLANE_PLANAR, CHROMA_420, true),
+@@ -64,7 +64,7 @@ alpha, bp, flg, fm, np, th)                                               \
+ 	.unpack_count = uc,                                               \
+ 	.bpp = bp,                                                        \
+ 	.fetch_mode = fm,                                                 \
+-	.flag = {(flg)},                                                  \
++	.flags = flg,                                                     \
+ 	.num_planes = np,                                                 \
+ 	.tile_height = th                                                 \
+ }
+@@ -84,7 +84,7 @@ alpha, chroma, count, bp, flg, fm, np)                                    \
+ 	.unpack_count = count,                                            \
+ 	.bpp = bp,                                                        \
+ 	.fetch_mode = fm,                                                 \
+-	.flag = {(flg)},                                                  \
++	.flags = flg,                                                     \
+ 	.num_planes = np,                                                 \
+ 	.tile_height = DPU_TILE_HEIGHT_DEFAULT                            \
+ }
+@@ -102,7 +102,7 @@ alpha, chroma, count, bp, flg, fm, np)                                    \
+ 	.unpack_count = 2,                                                \
+ 	.bpp = 2,                                                         \
+ 	.fetch_mode = fm,                                                 \
+-	.flag = {(flg)},                                                  \
++	.flags = flg,                                                     \
+ 	.num_planes = np,                                                 \
+ 	.tile_height = DPU_TILE_HEIGHT_DEFAULT                            \
+ }
+@@ -121,7 +121,7 @@ flg, fm, np, th)                                                          \
+ 	.unpack_count = 2,                                                \
+ 	.bpp = 2,                                                         \
+ 	.fetch_mode = fm,                                                 \
+-	.flag = {(flg)},                                                  \
++	.flags = flg,                                                     \
+ 	.num_planes = np,                                                 \
+ 	.tile_height = th                                                 \
+ }
+@@ -139,7 +139,7 @@ flg, fm, np, th)                                                          \
+ 	.unpack_count = 2,                                                \
+ 	.bpp = 2,                                                         \
+ 	.fetch_mode = fm,                                                 \
+-	.flag = {(flg)},                                                  \
++	.flags = flg,                                                     \
+ 	.num_planes = np,                                                 \
+ 	.tile_height = DPU_TILE_HEIGHT_DEFAULT                            \
+ }
+@@ -158,7 +158,7 @@ flg, fm, np, th)                                                          \
+ 	.unpack_count = 2,                                                \
+ 	.bpp = 2,                                                         \
+ 	.fetch_mode = fm,                                                 \
+-	.flag = {(flg)},                                                  \
++	.flags = flg,                                                     \
+ 	.num_planes = np,                                                 \
+ 	.tile_height = th                                                 \
+ }
+@@ -178,7 +178,7 @@ flg, fm, np)                                                      \
+ 	.unpack_count = 1,                                                \
+ 	.bpp = bp,                                                        \
+ 	.fetch_mode = fm,                                                 \
+-	.flag = {(flg)},                                                  \
++	.flags = flg,                                                     \
+ 	.num_planes = np,                                                 \
+ 	.tile_height = DPU_TILE_HEIGHT_DEFAULT                            \
+ }
+@@ -1047,7 +1047,7 @@ const struct dpu_format *dpu_get_dpu_format_ext(
+ 		DPU_ERROR("unsupported fmt: %4.4s modifier 0x%llX\n",
+ 			(char *)&format, modifier);
+ 	else
+-		DRM_DEBUG_ATOMIC("fmt %4.4s mod 0x%llX ubwc %d yuv %d\n",
++		DRM_DEBUG_ATOMIC("fmt %4.4s mod 0x%llX ubwc %d yuv %ld\n",
+ 				(char *)&format, modifier,
+ 				DPU_FORMAT_IS_UBWC(fmt),
+ 				DPU_FORMAT_IS_YUV(fmt));
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+index 31f97f535ce9..ed5206652413 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+@@ -40,23 +40,21 @@ enum dpu_format_flags {
+ 	DPU_FORMAT_FLAG_YUV_BIT,
+ 	DPU_FORMAT_FLAG_DX_BIT,
+ 	DPU_FORMAT_FLAG_COMPRESSED_BIT,
+-	DPU_FORMAT_FLAG_BIT_MAX,
  };
  
--/*
-- * Note:
-- * @rgb_only must be set to true, when requesting
-- * supported formats for RGB pipes.
-- */
--uint32_t mdp_get_formats(uint32_t *pixel_formats, uint32_t max_formats,
--		bool rgb_only)
--{
--	uint32_t i;
--	for (i = 0; i < ARRAY_SIZE(formats); i++) {
--		const struct mdp_format *f = &formats[i];
--
--		if (i == max_formats)
--			break;
--
--		if (rgb_only && MDP_FORMAT_IS_YUV(f))
--			break;
--
--		pixel_formats[i] = f->base.pixel_format;
--	}
--
--	return i;
--}
--
- const struct msm_format *mdp_get_format(struct msm_kms *kms, uint32_t format,
- 		uint64_t modifier)
- {
-diff --git a/drivers/gpu/drm/msm/disp/mdp_kms.h b/drivers/gpu/drm/msm/disp/mdp_kms.h
-index b0286d5d5130..d0718c16de3e 100644
---- a/drivers/gpu/drm/msm/disp/mdp_kms.h
-+++ b/drivers/gpu/drm/msm/disp/mdp_kms.h
-@@ -91,7 +91,6 @@ struct mdp_format {
- #define to_mdp_format(x) container_of(x, struct mdp_format, base)
- #define MDP_FORMAT_IS_YUV(mdp_format) ((mdp_format)->is_yuv)
+ #define DPU_FORMAT_FLAG_YUV		BIT(DPU_FORMAT_FLAG_YUV_BIT)
+ #define DPU_FORMAT_FLAG_DX		BIT(DPU_FORMAT_FLAG_DX_BIT)
+ #define DPU_FORMAT_FLAG_COMPRESSED	BIT(DPU_FORMAT_FLAG_COMPRESSED_BIT)
+-#define DPU_FORMAT_IS_YUV(X)		\
+-	(test_bit(DPU_FORMAT_FLAG_YUV_BIT, (X)->flag))
+-#define DPU_FORMAT_IS_DX(X)		\
+-	(test_bit(DPU_FORMAT_FLAG_DX_BIT, (X)->flag))
++
++#define DPU_FORMAT_IS_YUV(X)		((X)->flags & DPU_FORMAT_FLAG_YUV)
++#define DPU_FORMAT_IS_DX(X)		((X)->flags & DPU_FORMAT_FLAG_DX)
+ #define DPU_FORMAT_IS_LINEAR(X)		((X)->fetch_mode == MDP_FETCH_LINEAR)
+ #define DPU_FORMAT_IS_TILE(X) \
+ 	(((X)->fetch_mode == MDP_FETCH_UBWC) && \
+-			!test_bit(DPU_FORMAT_FLAG_COMPRESSED_BIT, (X)->flag))
++	 !((X)->flags & DPU_FORMAT_FLAG_COMPRESSED))
+ #define DPU_FORMAT_IS_UBWC(X) \
+ 	(((X)->fetch_mode == MDP_FETCH_UBWC) && \
+-			test_bit(DPU_FORMAT_FLAG_COMPRESSED_BIT, (X)->flag))
++	 ((X)->flags & DPU_FORMAT_FLAG_COMPRESSED))
  
--uint32_t mdp_get_formats(uint32_t *formats, uint32_t max_formats, bool rgb_only);
- const struct msm_format *mdp_get_format(struct msm_kms *kms, uint32_t format, uint64_t modifier);
- 
- /* MDP capabilities */
+ #define DPU_BLEND_FG_ALPHA_FG_CONST	(0 << 0)
+ #define DPU_BLEND_FG_ALPHA_BG_CONST	(1 << 0)
+@@ -334,7 +332,7 @@ enum dpu_3d_blend_mode {
+  * @alpha_enable: whether the format has an alpha channel
+  * @num_planes: number of planes (including meta data planes)
+  * @fetch_mode: linear, tiled, or ubwc hw fetch behavior
+- * @flag: usage bit flags
++ * @flags: usage bit flags
+  * @tile_width: format tile width
+  * @tile_height: format tile height
+  */
+@@ -351,7 +349,7 @@ struct dpu_format {
+ 	u8 alpha_enable;
+ 	u8 num_planes;
+ 	enum mdp_fetch_mode fetch_mode;
+-	DECLARE_BITMAP(flag, DPU_FORMAT_FLAG_BIT_MAX);
++	unsigned long flags;
+ 	u16 tile_width;
+ 	u16 tile_height;
+ };
 
 -- 
 2.39.2
