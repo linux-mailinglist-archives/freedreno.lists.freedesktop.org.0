@@ -2,76 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD8CC8AD756
-	for <lists+freedreno@lfdr.de>; Tue, 23 Apr 2024 00:37:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA89A8AD75E
+	for <lists+freedreno@lfdr.de>; Tue, 23 Apr 2024 00:41:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC52112DFF;
-	Mon, 22 Apr 2024 22:37:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14CF8112E01;
+	Mon, 22 Apr 2024 22:41:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NNq7ZAW9";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PE2q5ShM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EA3B112DFC
- for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 22:37:16 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-51967f75763so5887235e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 15:37:16 -0700 (PDT)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BE46112E01
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 22:41:44 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-51ae2e37a87so3525245e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 15:41:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713825434; x=1714430234; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=sN4dmO/8mUVWu5VazSYlBARXV3xD+CQkYmZfIuCW6rY=;
- b=NNq7ZAW9+h1hlZS+B7TUAmF1Ggc7sMSC5d8hEVj6W6m9A00a5VIIpwkLzxyYyoh7XR
- wsnGJx25vj3nsCjOq0fxcpTYnUeCnQH9/WgTd5IoX5133idPOllotpSuGCnMJgXbt0KZ
- oWsBkKyOOgoY7WeqBDmZhrXFK32pA5VlMBHklwE5SiUzYMAif+jxSQAXfCA5xzS+wcgV
- cS+1Bh01JmLgnqNCsueiz7g49Ckb9BKwdst/ZSABxPsmHpsh5Hd7b+lPQppyYv76rrf+
- zDPY6woXnrZ5t8cBEiEynZ1cL6U8raVccmbv9jJB8spXdlyblqtqfNF785A8mHS1sjpz
- ft6Q==
+ d=linaro.org; s=google; t=1713825702; x=1714430502; darn=lists.freedesktop.org;
+ h=to:content-transfer-encoding:mime-version:message-id:date:subject
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=DnA8X22i2kJ7S49+cOC1P/59QG3FgetaGzDVYWU9k2U=;
+ b=PE2q5ShMdhE2x2bxkEZfSh2urpC+Cp8Slyl/XvKFRyMzQNwwl1TJExXipiWYcLldVb
+ wEk4HPb0Y0bL4ALvoKy0Cfpgs+1WYvLv+uY1xcxKOAmp8R09MhVR1sF4kUB5NqWy3/EX
+ tSE6ZZhPfRog0JN7T8E47f/mf6zpyFBTXsfYik+JZuhGEhjyxx2nVJ5rzoWMvmhdOkRN
+ 7QF0Dh/svN78fCclFOyUoEhvIX4fTQHtZEmuPESoIZVFMj4G2RFl89xXePx36aJH7mfh
+ G7yTPiS20m4jRT8UKil/x0HEvTvduM9bd8AUITG+Cnhn3wEJNcTajg+MFjc/EP/fRcl2
+ /VbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713825434; x=1714430234;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=sN4dmO/8mUVWu5VazSYlBARXV3xD+CQkYmZfIuCW6rY=;
- b=Vaf/x0DzGwosftPc0MA8OWl0SMjvxQtOo9OH88c0UUnbM0mCoIJPQcR72jlRtu8Qpy
- sejURPcYu9R/hmVYIYd2GA0lvTBtzaLXM7gzPMWpTZAqqThmBaMmSjUA+zUrytf876y5
- yOVCSyA7Xqx8xQjveNPkFiSpZoCG+XiDrMq261R1tU8zzKVdxpgcyz5CSpfnPxUf0UR+
- 3WbcjqZIFEzJFOsoPgxsrpe8cF6VW7/Fh/OOXUo9yn8/0QbdfkumGGqvDtmhhEGX84E7
- 2YdEzyKpklHepWIoe/c04bv+atyFklVaiEeU/1foQK7P6O4IkJyQUw5Kgb4885dBpxsT
- OcGg==
+ d=1e100.net; s=20230601; t=1713825702; x=1714430502;
+ h=to:content-transfer-encoding:mime-version:message-id:date:subject
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=DnA8X22i2kJ7S49+cOC1P/59QG3FgetaGzDVYWU9k2U=;
+ b=XqUPGFGNKIA1D4fmA/3YRdlAYbMFUhS5KM9U1A9qePULQnsSG3ePBgrnyAcLheCsir
+ NrXEoWFAO3wfkZhjyUM+owoLQd7hKYxPXHDOu43MR0fKn5lwC3OqyOacEINnwvIj2leC
+ aAl5FVBppuuqsE9lOzdm7coLaiM5lQJCzLDUrPstCrovYcuidY5ShC1+mYzQqHkkgd2L
+ 7WlnsTdgEMzD1W9H+uAv9wwufdN5SyC4YSSA1UZiAFm7ePAhXdl3OhoXib9mHm8OAmaf
+ CtUf4ughgSDGCPanWrbfqip9FrnjoYhLNRW0WmJJZRY7qX19gusrUn+ioxyY348bos2X
+ LNKA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUkdFS3Njjqek9XN9NRxtVgEWJUjLwiuhnNWJTEvZtHNI/yA4jVbmcgSxsDInwTJKdypNgnkppJi1PEqfCG6btVjjPP/egB2jngnPxbvxi/
-X-Gm-Message-State: AOJu0YyxHvbdxMUfJh2JwLqz3ILrzconQi6/Gh2h5FOuG0feSMaVuOaX
- +8MhUC0EdwgqM99336czkczTZBsoTJnPvVDVu5uTcQAsnF+dicvhRffhMesGudk=
-X-Google-Smtp-Source: AGHT+IFRP5nt0l9htHFmTSXCzG83rg/sivf++l1q7XOuy7iHKdKksDNr4eQFZOkUAGf+cDYSj2p3VQ==
-X-Received: by 2002:a19:e049:0:b0:51a:1f56:f96d with SMTP id
- g9-20020a19e049000000b0051a1f56f96dmr6823390lfj.51.1713825434652; 
- Mon, 22 Apr 2024 15:37:14 -0700 (PDT)
+ AJvYcCVjVUnBN538Y1gI9ZdQuaKxLNJHUYSf0xaJBWiX3mm9q4fKiscbgam/fRn5L3JcbmhO8ErV9MbSHL6FCt01ZBuv7OGPQgQpb/xOgttzLqoS
+X-Gm-Message-State: AOJu0YzVUxetMgWidhC+GIBXn+5o9c3DF0LwFspQf7g8rUSmYVKwfuSy
+ lzMAycemtsPQbHqyQM2RzQkQi8sYrllO8gPjsWjS0AAgX1Tdewp/C7UXFl8D01k=
+X-Google-Smtp-Source: AGHT+IFr3ze2L9UOXRY+Ko4np4lZ/ON/DU81SEnl00esnQMAOqb2JOt/nReNl7j6SqU9SDgseEwR1w==
+X-Received: by 2002:ac2:5de9:0:b0:518:d829:4bae with SMTP id
+ z9-20020ac25de9000000b00518d8294baemr6813728lfq.32.1713825702513; 
+ Mon, 22 Apr 2024 15:41:42 -0700 (PDT)
 Received: from [127.0.1.1] (UNUSED.212-182-62-129.lubman.net.pl.
  [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- r3-20020ac25f83000000b00513c4e41140sm1841271lfe.204.2024.04.22.15.37.12
+ q24-20020ac246f8000000b005130ece9099sm1829517lfo.277.2024.04.22.15.41.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Apr 2024 15:37:14 -0700 (PDT)
+ Mon, 22 Apr 2024 15:41:42 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 23 Apr 2024 00:37:00 +0200
-Subject: [PATCH 2/2] drm/msm/dsi: Remove dsi_phy_write_[un]delay()
+Subject: [PATCH 0/2] Adreno MAINTAINERS modifications
+Date: Tue, 23 Apr 2024 00:41:30 +0200
+Message-Id: <20240423-topic-adreno_maintainers-v1-0-21e1adac2c13@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240423-topic-msm_cleanup-v1-2-b30f39f43b90@linaro.org>
-References: <20240423-topic-msm_cleanup-v1-0-b30f39f43b90@linaro.org>
-In-Reply-To: <20240423-topic-msm_cleanup-v1-0-b30f39f43b90@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
+X-B4-Tracking: v=1; b=H4sIAJvnJmYC/x2MMQqAMAwAvyKZLdRYUfyKiNQ2agZbSUUE8e8Wh
+ xtuuHsgkTAl6IsHhC5OHEOWqizAbTaspNhnB9RotMFanfFgp6wXCnHaLYczQ5KU8YjazbZtqIO
+ cH0IL3/96GN/3A+uQsOZqAAAA
+To: linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ freedreno@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>
 X-Mailer: b4 0.14-dev
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,215 +84,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-These are dummy wrappers that do literally nothing interesting.
-Remove them.
+Separate out Adreno from the rest of the drm/msm driver, add myself
+as a reviewer for the former.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      |  3 --
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c |  3 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c | 81 +++++++++++++++++++-----------
- 3 files changed, 54 insertions(+), 33 deletions(-)
+Konrad Dybcio (2):
+      MAINTAINERS: Add a separate entry for Qualcomm Adreno GPU drivers
+      MAINTAINERS: Add Konrad Dybcio as a reviewer for the Adreno driver
 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-index 7df4d852e6fa..109d767a476b 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-@@ -12,9 +12,6 @@
- 
- #include "dsi.h"
- 
--#define dsi_phy_write_udelay(offset, data, delay_us) { writel((data), (offset)); udelay(delay_us); }
--#define dsi_phy_write_ndelay(offset, data, delay_ns) { writel((data), (offset)); ndelay(delay_ns); }
--
- struct msm_dsi_phy_ops {
- 	int (*pll_init)(struct msm_dsi_phy *phy);
- 	int (*enable)(struct msm_dsi_phy *phy,
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-index b128c4acea23..1723f0e4faa4 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
-@@ -374,7 +374,8 @@ static void pll_14nm_software_reset(struct dsi_pll_14nm *pll_14nm)
- 	writel(0, cmn_base + REG_DSI_14nm_PHY_CMN_PLL_CNTRL);
- 
- 	/* pll sw reset */
--	dsi_phy_write_udelay(cmn_base + REG_DSI_14nm_PHY_CMN_CTRL_1, 0x20, 10);
-+	writel(0x20, cmn_base + REG_DSI_14nm_PHY_CMN_CTRL_1);
-+	udelay(10);
- 	wmb();	/* make sure register committed */
- 
- 	writel(0, cmn_base + REG_DSI_14nm_PHY_CMN_CTRL_1);
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-index b3e914954f4a..db99526d11df 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-@@ -104,9 +104,10 @@ static void pll_28nm_software_reset(struct dsi_pll_28nm *pll_28nm)
- 	 * Add HW recommended delays after toggling the software
- 	 * reset bit off and back on.
- 	 */
--	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_TEST_CFG,
--			     DSI_28nm_PHY_PLL_TEST_CFG_PLL_SW_RESET, 1);
--	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_TEST_CFG, 0x00, 1);
-+	writel(DSI_28nm_PHY_PLL_TEST_CFG_PLL_SW_RESET, base + REG_DSI_28nm_PHY_PLL_TEST_CFG);
-+	udelay(1);
-+	writel(0, base + REG_DSI_28nm_PHY_PLL_TEST_CFG);
-+	udelay(1);
- }
- 
- /*
-@@ -303,21 +304,25 @@ static int _dsi_pll_28nm_vco_prepare_hpm(struct dsi_pll_28nm *pll_28nm)
- 	 * Add necessary delays recommended by hardware.
- 	 */
- 	val = DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRDN_B;
--	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 1);
-+	writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+	udelay(1);
- 
- 	val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRGEN_PWRDN_B;
--	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 200);
-+	writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+	udelay(200);
- 
- 	val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_LDO_PWRDN_B;
--	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 500);
-+	writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+	udelay(500);
- 
- 	val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_ENABLE;
--	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 600);
-+	writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+	udelay(600);
- 
- 	for (i = 0; i < 2; i++) {
- 		/* DSI Uniphy lock detect setting */
--		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2,
--				     0x0c, 100);
-+		writel(0x0c, base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2);
-+		udelay(100);
- 		writel(0x0d, base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2);
- 
- 		/* poll for PLL ready status */
-@@ -333,22 +338,28 @@ static int _dsi_pll_28nm_vco_prepare_hpm(struct dsi_pll_28nm *pll_28nm)
- 		 * Add necessary delays recommended by hardware.
- 		 */
- 		val = DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRDN_B;
--		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 1);
-+		writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+		udelay(1);
- 
- 		val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRGEN_PWRDN_B;
--		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 200);
-+		writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+		udelay(200);
- 
- 		val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_LDO_PWRDN_B;
--		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 250);
-+		writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+		udelay(250);
- 
- 		val &= ~DSI_28nm_PHY_PLL_GLB_CFG_PLL_LDO_PWRDN_B;
--		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 200);
-+		writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+		udelay(200);
- 
- 		val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_LDO_PWRDN_B;
--		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 500);
-+		writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+		udelay(500);
- 
- 		val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_ENABLE;
--		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 600);
-+		writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+		udelay(600);
- 	}
- 
- 	if (unlikely(!locked))
-@@ -399,20 +410,23 @@ static int dsi_pll_28nm_vco_prepare_8226(struct clk_hw *hw)
- 	writel(0x34, base + REG_DSI_28nm_PHY_PLL_CAL_CFG1);
- 
- 	val = DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRDN_B;
--	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 200);
-+	writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+	udelay(200);
- 
- 	val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRGEN_PWRDN_B;
--	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 200);
-+	writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+	udelay(200);
- 
- 	val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_LDO_PWRDN_B;
- 	val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_ENABLE;
--	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 600);
-+	writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+	udelay(600);
- 
- 	for (i = 0; i < 7; i++) {
- 		/* DSI Uniphy lock detect setting */
- 		writel(0x0d, base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2);
--		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2,
--				0x0c, 100);
-+		writel(0x0c, base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2);
-+		udelay(100);
- 		writel(0x0d, base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2);
- 
- 		/* poll for PLL ready status */
-@@ -427,15 +441,18 @@ static int dsi_pll_28nm_vco_prepare_8226(struct clk_hw *hw)
- 		 * PLL power up sequence.
- 		 * Add necessary delays recommended by hardware.
- 		 */
--		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_PWRGEN_CFG, 0x00, 50);
-+		writel(0x00, base + REG_DSI_28nm_PHY_PLL_PWRGEN_CFG);
-+		udelay(50);
- 
- 		val = DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRDN_B;
- 		val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRGEN_PWRDN_B;
--		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 100);
-+		writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+		udelay(100);
- 
- 		val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_LDO_PWRDN_B;
- 		val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_ENABLE;
--		dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 600);
-+		writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+		udelay(600);
- 	}
- 
- 	if (unlikely(!locked))
-@@ -466,21 +483,27 @@ static int dsi_pll_28nm_vco_prepare_lp(struct clk_hw *hw)
- 	 * PLL power up sequence.
- 	 * Add necessary delays recommended by hardware.
- 	 */
--	dsi_phy_write_ndelay(base + REG_DSI_28nm_PHY_PLL_CAL_CFG1, 0x34, 500);
-+	writel(0x34, base + REG_DSI_28nm_PHY_PLL_CAL_CFG1);
-+	ndelay(500);
- 
- 	val = DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRDN_B;
--	dsi_phy_write_ndelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 500);
-+	writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+	ndelay(500);
- 
- 	val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_PWRGEN_PWRDN_B;
--	dsi_phy_write_ndelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 500);
-+	writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+	ndelay(500);
- 
- 	val |= DSI_28nm_PHY_PLL_GLB_CFG_PLL_LDO_PWRDN_B |
- 		DSI_28nm_PHY_PLL_GLB_CFG_PLL_ENABLE;
--	dsi_phy_write_ndelay(base + REG_DSI_28nm_PHY_PLL_GLB_CFG, val, 500);
-+	writel(val, base + REG_DSI_28nm_PHY_PLL_GLB_CFG);
-+	ndelay(500);
- 
- 	/* DSI PLL toggle lock detect setting */
--	dsi_phy_write_ndelay(base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2, 0x04, 500);
--	dsi_phy_write_udelay(base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2, 0x05, 512);
-+	writel(0x04, base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2);
-+	ndelay(500);
-+	writel(0x05, base + REG_DSI_28nm_PHY_PLL_LKDET_CFG2);
-+	udelay(512);
- 
- 	locked = pll_28nm_poll_for_ready(pll_28nm, max_reads, timeout_us);
- 
+ MAINTAINERS | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+---
+base-commit: 6bd343537461b57f3efe5dfc5fc193a232dfef1e
+change-id: 20240423-topic-adreno_maintainers-4d220cba75e8
 
+Best regards,
 -- 
-2.40.1
+Konrad Dybcio <konrad.dybcio@linaro.org>
 
