@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB1AD8AD75F
-	for <lists+freedreno@lfdr.de>; Tue, 23 Apr 2024 00:41:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F7D58AD760
+	for <lists+freedreno@lfdr.de>; Tue, 23 Apr 2024 00:41:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99F08112E02;
-	Mon, 22 Apr 2024 22:41:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AF0A112E03;
+	Mon, 22 Apr 2024 22:41:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qUUbpUX5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qgHMSkq0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D257F112E01
- for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 22:41:45 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-51abd580902so3264510e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 15:41:45 -0700 (PDT)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
+ [209.85.208.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E4DB112E03
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 22:41:46 +0000 (UTC)
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-2da0b3f7ad2so72616041fa.2
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 15:41:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713825704; x=1714430504; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1713825705; x=1714430505; darn=lists.freedesktop.org;
  h=to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ZPnsn2OSysGpv5TKW78M5Tg/2Wa67GE3qYBn3t9cqAM=;
- b=qUUbpUX5kPaSz+QkR2w7U+Wt7O+Ev5KrqgMt4qFfoYLpXN4BA7ynffnis4iZAoXXu+
- Iu98Xl6D7Jv2ZVCTwMPZ+gA9SwOgKwDL8sfb8+5qDiVg6tNOIVGdF9ek7Jp62I6XGBu+
- UYY0eJql1nFMzzTDBpfzIGwp/Akm9o5L8q/wY+sK/hxnk2Fg5boyRW6eZbyIU3247opQ
- UuG2bBXTV0Jr7NplKMfVffZxGxLBPsIpO+NeeQakHqZw38SWpi30n5n9D8mrQ1XSUlwv
- L/JBHoE3IjmHfnuPWUNkJA3rXl3xMdyCZ43dXGfzfOdpNdIGgVnZkOORP7KA8oIudC4v
- UjYg==
+ :reply-to; bh=9+ofb9yeBHMXTTM8HZhz0uxLNlsEbRIYmj7t5bvxO5E=;
+ b=qgHMSkq0437iriUn+nZXUMdZ7Japz+tfhcDycfAWReNxJLFQRS6tkkuL6jPQnSocuq
+ ifE6Lkqoy06u8tsoWKb+SX0cx3MStOD2pkbTFpHLMFga4NpCYQdgT5jRYJu8kxiDYn9S
+ bSQEgn30gml41w0MKejvlB8tm4OX1ffSrpAlpj1cD6B27OSj7oUjI81Op2InNtleLnWd
+ qlpBK8raqaV8kzl51UwR9Y+ZlqXnxd78G8JArUHRII9y+FAZcm4cgZIT34DxVb/nv3rD
+ kjNrdsTbudSXr9at9ZXFoitnBFLiuZ/rwanHUJ43OuJS8wF59dnrL6eL3rwp0B2BCL8d
+ nVEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713825704; x=1714430504;
+ d=1e100.net; s=20230601; t=1713825705; x=1714430505;
  h=to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ZPnsn2OSysGpv5TKW78M5Tg/2Wa67GE3qYBn3t9cqAM=;
- b=aSB/Fyd3cjgodCHqTKiIEfDWjOtzySQZ+Y1lNPp290msNBajClT7NbfCqiTMGTSww/
- 6/VrVOOpMTpmd2pe41/K2e5jnZW3ChRkEVAmR1AglLKrkk3b867sMvnUdmUls1oI38LB
- H4CAb24Uxz2fDj6r6nErqIhjPOVP0vn5x8WvFnhSE3PvUTvMQ3uc6SmseHorFjtefVmI
- vZny87/KOsGNDaUlstqWId6KSUowDeqf37G+0c5k1yWJpq6wMtsxn4u9f8zXsz7av63h
- Wf6Y0cTheQTfd0uJgzCnUo7yx5tQvu8KqfFUITdwdofMafMcOgT+Oa7D5gl2+JKCDCOH
- aU/Q==
+ bh=9+ofb9yeBHMXTTM8HZhz0uxLNlsEbRIYmj7t5bvxO5E=;
+ b=PmtJigD/QzAXG1J+yfnonMM2kgc5CiiMiVR4APzZoMQM1G7d4Nhy+jxgKeyofLZ9zx
+ Ko+gqfxFm+GnapqJHhZFexBZ/bwZEGizgFunBE9aowwvMm2wt2n8zWD40uoOqCIASBZq
+ w+EYVZ1kgDSGFlUBGTJbvvVarpox4vOpKgQpS3cD6vtBYE5RlLfEPu/cFDhJCIIUMe6O
+ jkq2RuCVcxYcSxCwIp/w5QIL13vgtOAfH1E83f/tU495SdC7W8gY0M5MJ8eyyoGXXM6Y
+ vbHycD0PXvVHq+kvpS/yExbST1ulXIt8qXoCtJ9O6jr4iAbrF7RbvmG2C+52eWaTUt2a
+ 9tuA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXvUXtj//x4cIU3flHUDwBKu3aflCDpaMJf6Il76uv4qseM0fYhpqN1baRHbqrGzj45SUE0t1hp0fnkFTb1ZTXXK7qM5qqgGZexkJwkr1b1
-X-Gm-Message-State: AOJu0Yzi+3iP6N5bXFNXqcMNRT5fhLuVo4FryT7IYZJexLaznlrPcIAi
- oRWzQTVExl4VN/OefYB7hrMO+acDwBAUFQIndJG737rH0ftU221t8Ww2zDLUHzQ=
-X-Google-Smtp-Source: AGHT+IGVz65oiA/xKj5qJuJZctLNHRNRS04mqZZfK14cmbAzH5e3Njw4oEmfMIDzunAEVyA/qZZz1A==
-X-Received: by 2002:ac2:4184:0:b0:51a:c4fe:3397 with SMTP id
- z4-20020ac24184000000b0051ac4fe3397mr258938lfh.23.1713825703846; 
- Mon, 22 Apr 2024 15:41:43 -0700 (PDT)
+ AJvYcCUtBpoil6Zfxm8uQ1zItaP2mIzMgKwvAUSwFtEDZIThdk6TUkXtjlG/Ikbg7roszvDufCoF3rNpDnw4uWJyQPXElWY6HB1t2qCnlbSMjxkf
+X-Gm-Message-State: AOJu0YwDZAIOuqewe8z2tqNLY5PYMdBQL0QugcYp4fzG1rR/wc7Rn7nh
+ Ht0X+3yINehcgPnE1hfta5D3zQtEyf1SxzS+kUv8wD9goE7aALdNqjIb3IPAJiY=
+X-Google-Smtp-Source: AGHT+IHJl52CbBsoQwwYJGF6GCqOPh3Oe4dbvdnkcYh/qdeaIyffE0Yg8xHbVPmxRz9QXOaiw9MepA==
+X-Received: by 2002:a05:6512:1595:b0:518:ddc3:b3a8 with SMTP id
+ bp21-20020a056512159500b00518ddc3b3a8mr8412323lfb.61.1713825705222; 
+ Mon, 22 Apr 2024 15:41:45 -0700 (PDT)
 Received: from [127.0.1.1] (UNUSED.212-182-62-129.lubman.net.pl.
  [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- q24-20020ac246f8000000b005130ece9099sm1829517lfo.277.2024.04.22.15.41.42
+ q24-20020ac246f8000000b005130ece9099sm1829517lfo.277.2024.04.22.15.41.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Apr 2024 15:41:43 -0700 (PDT)
+ Mon, 22 Apr 2024 15:41:44 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 23 Apr 2024 00:41:31 +0200
-Subject: [PATCH 1/2] MAINTAINERS: Add a separate entry for Qualcomm Adreno
- GPU drivers
+Date: Tue, 23 Apr 2024 00:41:32 +0200
+Subject: [PATCH 2/2] MAINTAINERS: Add Konrad Dybcio as a reviewer for the
+ Adreno driver
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240423-topic-adreno_maintainers-v1-1-21e1adac2c13@linaro.org>
+Message-Id: <20240423-topic-adreno_maintainers-v1-2-21e1adac2c13@linaro.org>
 References: <20240423-topic-adreno_maintainers-v1-0-21e1adac2c13@linaro.org>
 In-Reply-To: <20240423-topic-adreno_maintainers-v1-0-21e1adac2c13@linaro.org>
 To: linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>, 
@@ -85,50 +85,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The msm driver is.. gigantic and covers display hardware (incl. things
-concerning (e)DP, DSI, HDMI), as well as the entire lineup of Adreno
-GPUs (with hw bringup, memory mappings, userspace interaction etc.).
-
-Because of that, people listed as M:/R: receive patches concerning
-drivers for any part of the display block OR the GPU. Separate the
-latter, as it's both a functionally separate block and is of
-interest to different folks.
+Add myself as a reviewer for Adreno driver changes.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- MAINTAINERS | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index de49e2d24770..179f989a1e4b 100644
+index 179f989a1e4b..80aa006f10bb 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -6885,7 +6885,24 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
- F:	drivers/gpu/drm/tiny/panel-mipi-dbi.c
- 
--DRM DRIVER FOR MSM ADRENO GPU
-+DRM DRIVER for Qualcomm Adreno GPUs
-+M:	Rob Clark <robdclark@gmail.com>
-+R:	Sean Paul <sean@poorly.run>
-+L:	linux-arm-msm@vger.kernel.org
-+L:	dri-devel@lists.freedesktop.org
-+L:	freedreno@lists.freedesktop.org
-+S:	Maintained
-+B:	https://gitlab.freedesktop.org/drm/msm/-/issues
-+T:	git https://gitlab.freedesktop.org/drm/msm.git
-+F:	Documentation/devicetree/bindings/display/msm/gpu.yaml
-+F:	drivers/gpu/drm/msm/adreno/
-+F:	drivers/gpu/drm/msm/msm_gpu.*
-+F:	drivers/gpu/drm/msm/msm_gpu_devfreq.*
-+F:	drivers/gpu/drm/msm/msm_ringbuffer.*
-+F:	drivers/gpu/drm/msm/registers/adreno/
-+F:	include/uapi/drm/msm_drm.h
-+
-+DRM DRIVER for Qualcomm display hardware
+@@ -6888,6 +6888,7 @@ F:	drivers/gpu/drm/tiny/panel-mipi-dbi.c
+ DRM DRIVER for Qualcomm Adreno GPUs
  M:	Rob Clark <robdclark@gmail.com>
- M:	Abhinav Kumar <quic_abhinavk@quicinc.com>
- M:	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+ R:	Sean Paul <sean@poorly.run>
++R:	Konrad Dybcio <konrad.dybcio@linaro.org>
+ L:	linux-arm-msm@vger.kernel.org
+ L:	dri-devel@lists.freedesktop.org
+ L:	freedreno@lists.freedesktop.org
 
 -- 
 2.40.1
