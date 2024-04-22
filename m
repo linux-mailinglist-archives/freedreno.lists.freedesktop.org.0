@@ -2,78 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A76F8AC1EF
-	for <lists+freedreno@lfdr.de>; Mon, 22 Apr 2024 00:35:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63AA98ACB9D
+	for <lists+freedreno@lfdr.de>; Mon, 22 Apr 2024 13:06:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 100CF10FECE;
-	Sun, 21 Apr 2024 22:35:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A348210F5BB;
+	Mon, 22 Apr 2024 11:06:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="grVSAH3k";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Iky/XuzD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09E9C10FECE
- for <freedreno@lists.freedesktop.org>; Sun, 21 Apr 2024 22:35:07 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5196c755e82so5280590e87.0
- for <freedreno@lists.freedesktop.org>; Sun, 21 Apr 2024 15:35:07 -0700 (PDT)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32D2B10F5BB
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 11:06:20 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-51ac9c6599bso3444485e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 04:06:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713738906; x=1714343706; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1713783978; x=1714388778; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=9bRTN9Ob4QM4MboZv5j+iipkeqQdN46sghn8IdzK36Q=;
- b=grVSAH3kTMkkqBMKPPSpIlbXdLTYw5we+iNKTHVoA9/Gmo/dFQG9OBa+mHhIrQNK1R
- waIHvu+FEH/tY6I7x7+33uHQaXgiD3cxBjMn3CksYrdgUELYl1CPLwHQIYDlFg3wfi4k
- R4v2zU4C6ziDp34RXICdkE1JlSj3J3JiAMQK2/+fdkWdwcv3ecDoGhDaeN/LntuYb1FT
- LfXybHbY/kTWWD6bg5fUwwFHedEiqCHan05CxmFHhYRkmAtIeCchGMGY0O1fgjcimnRu
- nZbFkUG1yyMjH+KsHRTJnDvHmYGPHfdgPEmFuIQMuBvhodfb1HRHg9FtjhLHcwsHk5mk
- Y8Uw==
+ bh=YpQrXbEcCU95VEbn1ht9SCgCeWNIV1UG30wM8nT8/HA=;
+ b=Iky/XuzDU939TRD0uKh9pae4sLOsmNllVURQBSupkQecrzOisYuV5bSSASeeis7+h6
+ 3Yx2eRT5RNuWzc4S6SXmguch4GAun+n57oAgVzHHm47IIBc6dvmm91f6fukMwO3ydQGk
+ a+tk6+zfzcFip1LWPSKflz1r7Fc8KnesjTHH9a0lRxpqAuSSk4fsnoIuA2/GNn4qmayD
+ pp8ofj2Os5XxRBG9v5ShuIegizTztagYcKWWbdKCq5C7ATSgEND+c3ReqqJQGCWqtL6j
+ j0fdA68YBRrnpIqZNEiQrGdyFCY0CFZCikuMJoXCVFGtTqt0QaQSTMFcA8SqUsgzUJgU
+ yYTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713738906; x=1714343706;
+ d=1e100.net; s=20230601; t=1713783978; x=1714388778;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9bRTN9Ob4QM4MboZv5j+iipkeqQdN46sghn8IdzK36Q=;
- b=JSqvbtUnhFStpjplJPW/V9cFJZhQmDKmCzLAUORRz587uxN6H2i62h3bPL+G371cE5
- KgB1iBj7SppYrMfP0w1e16n76luSV4/Sp4wfaIdTHqmbHlqbC8FKuEoWxjxIDModETYQ
- ylsFLUEJWk/Y2h0y6GL75gi27+GRqAOp5+ia/AOe0oNn1RIbWpw3LGY5ccCewm3CMWz5
- MurNvLxsmI9nto7Umeau70rBT/VOBdR++PZLS95eIG+mG0P/eBexbxO47qBmIYQ71sEn
- aaQcPSyvcGbVI3uaDDI9QVqrttgNWI94bXY1OwCI9RYP5pph7WwBJX6XB34ieL4+PDyX
- /UEw==
+ bh=YpQrXbEcCU95VEbn1ht9SCgCeWNIV1UG30wM8nT8/HA=;
+ b=VIdBburgOkrQHud0tkjSr5EAMT07teTyv1CFm0Y/YcXW1HIH3+frexkFdu2oc70+Rk
+ QTKC6ml2bd9L3fujU0RuWLNI/GzUVOl+iDPbfw/FTBtlEID5bIlPwW7l9Evp/c6Q8tp0
+ VseLBpXz9L425piY0vbjEf5SeV2gwnx4ZrRm6z4arhslFRa25wcP7BfvUHSp7QZf5FHe
+ jMGo0blDASyGxKbKRIcfcLcBEzJZaub9IPN8DX1QGMimNgv57fQWMdaOEncz/SqZ38Ua
+ JyiaIuAhhpIFNOUKLIBbcll4yS8hGctEU+gUzBfLRrRzClilE0hwTrrEr1bV5tOv4HbC
+ +JYA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUAG12dL77FdmmTp6UK/kMJm7ynhaHknE5r9q6vVEXlFGVGpT7u8sQRi4jym8UCluq7cLYZHOWtkri+I0ybJxRQ1hDw3wjIDXXTHl/c1Nq2
-X-Gm-Message-State: AOJu0YzReLizpAl56esH2ie+lT+HnrCpt44bE3I7p+dUsKF4WUHO/9/p
- mAdWKHqCfnRpiG0yKpZx8BBBZjAfWdxg0bksD/t8uy+8F4vkWACNyAYxflaKLAM=
-X-Google-Smtp-Source: AGHT+IHLjZAuG9ugDalv8mPVHpO3RxdThgs11PfJ94yvOVMbJYooEIDDJ73Y6EPItQfYa7v0M9uNww==
-X-Received: by 2002:a05:6512:7a:b0:519:1eba:6381 with SMTP id
- i26-20020a056512007a00b005191eba6381mr4931611lfo.49.1713738905670; 
- Sun, 21 Apr 2024 15:35:05 -0700 (PDT)
+ AJvYcCXBKdIuU6zvpYyGOZY5tC2E1LnponI2/Mfre2z8aIDCxj8wzvoWFerjkvvaCH+l0ef/EF6ljY6tJnSmC+tFyYdGEiXV1ZCk+t/vX4zlDCXB
+X-Gm-Message-State: AOJu0YwrrnESy9bCCoGLPdObFtz5LgcZLe4PHNVb6ubHkNP2a8LsQPO0
+ S+gsRZbUaUMwrKEW2wMBn33xC9p41DfMtsFF/AyXv5IhwcTXe7Gjl1By8HN0qyU=
+X-Google-Smtp-Source: AGHT+IGvMJPnVtav8C7a9RvZzJ6oUxfqmZc0E21ejXxuWH9bYRI8cN0vx9XysiMv+sjyZIgD4/s9rw==
+X-Received: by 2002:ac2:4182:0:b0:518:dae6:d0ec with SMTP id
+ z2-20020ac24182000000b00518dae6d0ecmr5805319lfh.4.1713783978031; 
+ Mon, 22 Apr 2024 04:06:18 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::8a5])
  by smtp.gmail.com with ESMTPSA id
- w17-20020a05651203d100b00515b62690a6sm1572911lfp.32.2024.04.21.15.35.05
+ z4-20020ac24184000000b0051589cc26afsm1707031lfh.72.2024.04.22.04.06.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 21 Apr 2024 15:35:05 -0700 (PDT)
-Date: Mon, 22 Apr 2024 01:35:03 +0300
+ Mon, 22 Apr 2024 04:06:17 -0700 (PDT)
+Date: Mon, 22 Apr 2024 14:06:16 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] drm/msm: don't clean up priv->kms prematurely
-Message-ID: <n7eet54g72usmuh4hdz6yce3i4ieweu4orgd7gewu7y53ejucc@dzmq2a2wdxkc>
-References: <20240420-mdp4-fixes-v1-0-96a70f64fa85@linaro.org>
- <20240420-mdp4-fixes-v1-1-96a70f64fa85@linaro.org>
- <67fbd629-3e80-b706-83a3-7baff3efd6c1@quicinc.com>
+ Daniel Vetter <daniel@ffwll.ch>, Abel Vesa <abel.vesa@linaro.org>, 
+ Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH 1/9] drm/msm/dpu: drop dpu_format_check_modified_format
+Message-ID: <wpc7hzr2xol6mz6j4se2a3j7u52fvs6rpikcbpzet7ebz24dbf@g7rlhiz72q46>
+References: <20240319-dpu-mode-config-width-v1-0-d0fe6bf81bf1@linaro.org>
+ <20240319-dpu-mode-config-width-v1-1-d0fe6bf81bf1@linaro.org>
+ <9c2f5f63-291c-c2b5-41a1-d2004055cf7a@quicinc.com>
+ <ccgx5mjsxf2asvadithitzl7shkboj6ipcg6onfawa5pskchgd@etighi5usone>
+ <c3021397-5d2e-c331-663f-eb3803cfc0e0@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <67fbd629-3e80-b706-83a3-7baff3efd6c1@quicinc.com>
+In-Reply-To: <c3021397-5d2e-c331-663f-eb3803cfc0e0@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,45 +91,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Apr 20, 2024 at 04:02:00PM -0700, Abhinav Kumar wrote:
+On Fri, Apr 19, 2024 at 07:32:35PM -0700, Abhinav Kumar wrote:
 > 
 > 
-> On 4/19/2024 7:33 PM, Dmitry Baryshkov wrote:
-> > MSM display drivers provide kms structure allocated during probe().
-> > Don't clean up priv->kms field in case of an error. Otherwise probe
-> > functions might fail after KMS probe deferral.
+> On 4/19/2024 6:26 PM, Dmitry Baryshkov wrote:
+> > On Fri, Apr 19, 2024 at 04:43:20PM -0700, Abhinav Kumar wrote:
+> > > 
+> > > 
+> > > On 3/19/2024 6:21 AM, Dmitry Baryshkov wrote:
+> > > > The msm_kms_funcs::check_modified_format() callback is not used by the
+> > > > driver. Drop it completely.
+> > > > 
+> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > > ---
+> > > >    drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 45 -----------------------------
+> > > >    drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h | 15 ----------
+> > > >    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  1 -
+> > > >    drivers/gpu/drm/msm/msm_kms.h               |  5 ----
+> > > >    4 files changed, 66 deletions(-)
+> > > > 
+> > > 
+> > > I think in this case, I am leaning towards completing the implementation
+> > > rather than dropping it as usual.
+> > > 
+> > > It seems its easier to just add the support to call this like the attached
+> > > patch?
+> > 
+> > Please don't attach patches to the email. It makes it impossible to
+> > respond to them.
 > > 
 > 
-> So just to understand this more, this will happen when master component
-> probe (dpu) succeeded but other sub-component probe (dsi) deferred?
+> I attached it because it was too much to paste over here.
 > 
-> Because if master component probe itself deferred it will allocate priv->kms
-> again isnt it and we will not even hit here.
+> Please review msm_framebuffer_init() in the downstream sources.
+> 
+> The only missing piece I can see is the handling of DRM_MODE_FB_MODIFIERS
+> flags.
 
-Master probing succeeds (so priv->kms is set), then kms_init fails at
-runtime, during binding of the master device. This results in probe
-deferral from the last component's component_add() function and reprobe
-attempt when possible (once the next device is added or probed). However
-as priv->kms is NULL, probe crashes.
+I checked and I don't like this approach.
+
+With the generic formats database in place, there should be no
+driver-specific code that handles formats. Moreover, I think this should
+be handled by the generic code in framebuffer_check() if msm driver
+implements a proper get_format_info() callback. Please consider sending
+a patch that does it. For now I can only consider the function in
+question to be a dead code which should be dropped.
 
 > 
-> > Fixes: a2ab5d5bb6b1 ("drm/msm: allow passing struct msm_kms to msm_drv_probe()")
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/msm_kms.c | 1 -
-> >   1 file changed, 1 deletion(-)
+> I am unable to trace back why this support was not present.
+> 
+> > Anyway, what are we missing with the current codebase? Why wasn't the
+> > callback / function used in the first place?
 > > 
-> > diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-> > index af6a6fcb1173..6749f0fbca96 100644
-> > --- a/drivers/gpu/drm/msm/msm_kms.c
-> > +++ b/drivers/gpu/drm/msm/msm_kms.c
-> > @@ -244,7 +244,6 @@ int msm_drm_kms_init(struct device *dev, const struct drm_driver *drv)
-> >   	ret = priv->kms_init(ddev);
-> >   	if (ret) {
-> >   		DRM_DEV_ERROR(dev, "failed to load kms\n");
-> > -		priv->kms = NULL;
-> >   		return ret;
-> >   	}
+> > > 
+> > > WDYT?
+> > > 
+> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> > > > index e366ab134249..ff0df478c958 100644
+> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+> > > > @@ -960,51 +960,6 @@ int dpu_format_populate_layout(
+> > > >    	return ret;
+> > > >    }
+> > > > -int dpu_format_check_modified_format(
+> > > > -		const struct msm_kms *kms,
+> > > > -		const struct msm_format *msm_fmt,
+> > > > -		const struct drm_mode_fb_cmd2 *cmd,
+> > > > -		struct drm_gem_object **bos)
+> > > > -{
+> > > > -	const struct drm_format_info *info;
+> > > > -	const struct dpu_format *fmt;
+> > > > -	struct dpu_hw_fmt_layout layout;
+> > > > -	uint32_t bos_total_size = 0;
+> > > > -	int ret, i;
+> > > > -
+> > > > -	if (!msm_fmt || !cmd || !bos) {
+> > > > -		DRM_ERROR("invalid arguments\n");
+> > > > -		return -EINVAL;
+> > > > -	}
+> > > > -
+> > > > -	fmt = to_dpu_format(msm_fmt);
+> > > > -	info = drm_format_info(fmt->base.pixel_format);
+> > > > -	if (!info)
+> > > > -		return -EINVAL;
+> > > > -
+> > > > -	ret = dpu_format_get_plane_sizes(fmt, cmd->width, cmd->height,
+> > > > -			&layout, cmd->pitches);
+> > > > -	if (ret)
+> > > > -		return ret;
+> > > > -
+> > > > -	for (i = 0; i < info->num_planes; i++) {
+> > > > -		if (!bos[i]) {
+> > > > -			DRM_ERROR("invalid handle for plane %d\n", i);
+> > > > -			return -EINVAL;
+> > > > -		}
+> > > > -		if ((i == 0) || (bos[i] != bos[0]))
+> > > > -			bos_total_size += bos[i]->size;
+> > > > -	}
+> > > > -
+> > > > -	if (bos_total_size < layout.total_size) {
+> > > > -		DRM_ERROR("buffers total size too small %u expected %u\n",
+> > > > -				bos_total_size, layout.total_size);
+> > > > -		return -EINVAL;
+> > > > -	}
+> > > > -
+> > > > -	return 0;
+> > > > -}
+> > > > -
+> > > >    const struct dpu_format *dpu_get_dpu_format_ext(
+> > > >    		const uint32_t format,
+> > > >    		const uint64_t modifier)
+> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h
+> > > > index 84b8b3289f18..9442445f1a86 100644
+> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h
+> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h
+> > > > @@ -54,21 +54,6 @@ const struct msm_format *dpu_get_msm_format(
+> > > >    		const uint32_t format,
+> > > >    		const uint64_t modifiers);
+> > > > -/**
+> > > > - * dpu_format_check_modified_format - validate format and buffers for
+> > > > - *                   dpu non-standard, i.e. modified format
+> > > > - * @kms:             kms driver
+> > > > - * @msm_fmt:         pointer to the msm_fmt base pointer of an dpu_format
+> > > > - * @cmd:             fb_cmd2 structure user request
+> > > > - * @bos:             gem buffer object list
+> > > > - *
+> > > > - * Return: error code on failure, 0 on success
+> > > > - */
+> > > > -int dpu_format_check_modified_format(
+> > > > -		const struct msm_kms *kms,
+> > > > -		const struct msm_format *msm_fmt,
+> > > > -		const struct drm_mode_fb_cmd2 *cmd,
+> > > > -		struct drm_gem_object **bos);
+> > > >    /**
+> > > >     * dpu_format_populate_layout - populate the given format layout based on
+> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > > > index a1f5d7c4ab91..7257ac4020d8 100644
+> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > > > @@ -969,7 +969,6 @@ static const struct msm_kms_funcs kms_funcs = {
+> > > >    	.complete_commit = dpu_kms_complete_commit,
+> > > >    	.enable_vblank   = dpu_kms_enable_vblank,
+> > > >    	.disable_vblank  = dpu_kms_disable_vblank,
+> > > > -	.check_modified_format = dpu_format_check_modified_format,
+> > > >    	.get_format      = dpu_get_msm_format,
+> > > >    	.destroy         = dpu_kms_destroy,
+> > > >    	.snapshot        = dpu_kms_mdp_snapshot,
+> > > > diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+> > > > index 0641f6111b93..b794ed918b56 100644
+> > > > --- a/drivers/gpu/drm/msm/msm_kms.h
+> > > > +++ b/drivers/gpu/drm/msm/msm_kms.h
+> > > > @@ -96,11 +96,6 @@ struct msm_kms_funcs {
+> > > >    	const struct msm_format *(*get_format)(struct msm_kms *kms,
+> > > >    					const uint32_t format,
+> > > >    					const uint64_t modifiers);
+> > > > -	/* do format checking on format modified through fb_cmd2 modifiers */
+> > > > -	int (*check_modified_format)(const struct msm_kms *kms,
+> > > > -			const struct msm_format *msm_fmt,
+> > > > -			const struct drm_mode_fb_cmd2 *cmd,
+> > > > -			struct drm_gem_object **bos);
+> > > >    	/* misc: */
+> > > >    	long (*round_pixclk)(struct msm_kms *kms, unsigned long rate,
+> > > > 
 > > 
 
 -- 
