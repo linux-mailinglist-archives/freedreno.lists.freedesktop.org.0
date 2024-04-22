@@ -2,79 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ABFB8AD517
-	for <lists+freedreno@lfdr.de>; Mon, 22 Apr 2024 21:46:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 328C68AD750
+	for <lists+freedreno@lfdr.de>; Tue, 23 Apr 2024 00:37:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23B8E112D23;
-	Mon, 22 Apr 2024 19:46:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 054E8112DF5;
+	Mon, 22 Apr 2024 22:37:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="P9iNfJaR";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cOLG8IWF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EC9F112D21
- for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 19:45:59 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-516d68d7a8bso4577076e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 12:45:59 -0700 (PDT)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAC89112DF6
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 22:37:11 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-5193363d255so6589984e87.3
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 15:37:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713815157; x=1714419957; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=oczHlzSC/UPaNc2LgQ5vSBFQ2KcNspCQ4fkb6GlVJw8=;
- b=P9iNfJaRa1gWu7AEvsZpyrPZ7G6AGUFgFITrsW50vvR7zVj/hr+BixlGk1zxzf2QDu
- wfKMgyFwqetE+7cyfurwQGG+igykHJZWWF8iJ6mnIYrEzUiu5hTvC85YjQ0RYjHKJfOD
- 5mYAkj2euhUwMqMGUelYoa2sqVu1ErjGhUQtox9l293wx0MVy51h7jA8i0sJ8ujA3odB
- 9vZuD12m2W2hxKl94usr9tvDydWROMg7IMUgvNW5TIOvvmekQ0V8/+zH2S9a5SV7aJKA
- dNstxyTZEWaeBxGDdoCAFB1MN8OgmQnN230XtlQ4qDEfOMfK1peD+OWHLjO4l2/hJHCf
- uUkQ==
+ d=linaro.org; s=google; t=1713825430; x=1714430230; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ohFmgglIcQlxE3MPNy1+YrogD02CaIJJKPILpDHEK2E=;
+ b=cOLG8IWFfcdpGRkWrkPJHgUIEiaaEuvx+lDk6mza0YsuvBrdRuaX8mNextxumn1yB2
+ Tl0TooNTwP+f2ZZBqvC/is3DEF5GDDjgNofCIRYPPgb1NZ8qoS+GfrBYH3sCkwbyg7Oc
+ vHha4ic3Fw0U1y6WoRJB62LYBo2Bg1OIySsvWEFStgdxRdlL/2GrQSCIqG8xFZNQVOxl
+ l1G5LWHiSyhk2OnHJxxBsJk2eCC5SHTcAsLdCIwNxEMbHFFTXLYBNkb8ynPpAFtwsqR4
+ 4Dq2vhI0x/sbtYpyyQx9+ViMMrratmOFkLDI3itz9679xQtRwlho+l0qYblvcGstJjiH
+ F3PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713815157; x=1714419957;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oczHlzSC/UPaNc2LgQ5vSBFQ2KcNspCQ4fkb6GlVJw8=;
- b=mAaswrcD7xzNhZkqF5seSZ+yZT1KvG6NbN7qRjekdMONd28Dfnnf9Jo+yTRoE2/bm1
- UzDUx11tp0/JS8mWMpXWFReAbtEQ7/gHEkx1CTDXVPDoI4TbAbGTeDsec1dzp0gXEF/l
- /Q+thX/Ao760lQPvn+bn7spaQbvqTizHZEpTGSmpfJsITSlkINPaYmtOiW63h0gbyj/D
- Pi/nYlEd5t4nM344przFXkuZjKPCBSaBi1ig071iDI5Np1tSm08GLgQkUrnYolSjiSHx
- KyXYJT01Kmt1pQ38xYPHCBGHB9sDttJlweKj1awdH4mzCFon+XZ9+o1naCDPPX7dF7yk
- b6lQ==
+ d=1e100.net; s=20230601; t=1713825430; x=1714430230;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ohFmgglIcQlxE3MPNy1+YrogD02CaIJJKPILpDHEK2E=;
+ b=DCsfbFau4dAkQPAsX5ZAUTMTipPlvPR4OZuOwh+Izfp78Y+yC5CWtO0It7d08iElIm
+ 4yZb1Y59tNpfEI9D6TieAllOq9PJx93+5pvM5OAZg+RJNu+1zIhlJ6Mx5i/ivwo8nlPY
+ 2YONKnNbqU7PwMI6IqsTzU/Rmd8D2MYdS+pJg0kp0JQWu99VYFaGU47OkCn06M6uZo0a
+ ZVArywaQ7Mw4ciwxJjwNvjRQOA/xsLL1Keh57Nie/7GMpEGhqIKfG/8lgYp3g2MFF84q
+ JarLP2E4KsZ+cMM3ZEPRAK3lcT3qcbjAzL8KIQPpi0jhEc5jDjo47Vzs5+Vpie35ihCh
+ ydkw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVFvR+j63Wvx5zI4kCYb1UTUJMbn53qo9YPEIsLKnL0caFJnfO2BCDIUzDZ7QQK/z1SYzMx1nc4Chqp8QEuAY3VFrgYCVQ4f/jNVaVwUvU/
-X-Gm-Message-State: AOJu0YzAuciE9pjiF+H2LJee0cOZ74W2JJUIOPe+0xCAn2QvAqV/DD3u
- 44y7Iq7ZEQrwnu4r7bIeD4ldTBDdbqOL1zamKcH1ldVSFgPR10N7nxoqANqZ7Fw=
-X-Google-Smtp-Source: AGHT+IF14L/T9IvkeZrOwqfHcwk2Y0hm4EP/cfe8FF6+164kRjiuEYO6k5CY9HCaFE2rH8uTWbvqcw==
-X-Received: by 2002:a05:6512:20f:b0:519:65fe:ac10 with SMTP id
- a15-20020a056512020f00b0051965feac10mr201015lfo.32.1713815157475; 
- Mon, 22 Apr 2024 12:45:57 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::8a5])
- by smtp.gmail.com with ESMTPSA id
- j14-20020a19f50e000000b005194167c042sm1806503lfb.171.2024.04.22.12.45.56
+ AJvYcCWN3Brn8TcHc5/bw52qEH5/BCSr/G6/roIu4SUbhD/Lmf2XCHukUSXkVDEXQu+28JAFkIGTwvMhxhwnXciaxjzgT6KgPRyjaB29dodfE8nl
+X-Gm-Message-State: AOJu0Yw4mls3AwbuLmuC6tH4yRJh5o/x2j+wiYxlOd/u3wGcx3ITftOM
+ UfBW4xDhtss15kfqFuwD+fau0VZ7pc+z6noYdxmxsyEkjwCkuc0gd6CGd/Awi0s=
+X-Google-Smtp-Source: AGHT+IE3m5uOC+ZmUmnZKf0riA6458/IhT/zPbv8SmhhSaid1ucuuBTYN37T3Pzrf8uaJHQYmrV0OA==
+X-Received: by 2002:a19:381a:0:b0:515:cfaf:737 with SMTP id
+ f26-20020a19381a000000b00515cfaf0737mr6928150lfa.9.1713825429819; 
+ Mon, 22 Apr 2024 15:37:09 -0700 (PDT)
+Received: from [127.0.1.1] (UNUSED.212-182-62-129.lubman.net.pl.
+ [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
+ r3-20020ac25f83000000b00513c4e41140sm1841271lfe.204.2024.04.22.15.37.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Apr 2024 12:45:57 -0700 (PDT)
-Date: Mon, 22 Apr 2024 22:45:55 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] drm/msm/mdp4: don't destroy mdp4_kms in
- mdp4_kms_init error path
-Message-ID: <4aovv43qe3nm7uwb32b655lv54rion6lw4ofegi4vkr4si2y27@w3rvyvcw7mda>
-References: <20240420-mdp4-fixes-v1-0-96a70f64fa85@linaro.org>
- <20240420-mdp4-fixes-v1-2-96a70f64fa85@linaro.org>
- <313d9eed-098f-c09b-eb5d-ac9ad56a8e1d@quicinc.com>
+ Mon, 22 Apr 2024 15:37:09 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Subject: [PATCH 0/2] Remove more useless wrappers
+Date: Tue, 23 Apr 2024 00:36:58 +0200
+Message-Id: <20240423-topic-msm_cleanup-v1-0-b30f39f43b90@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <313d9eed-098f-c09b-eb5d-ac9ad56a8e1d@quicinc.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIvmJmYC/x3MWwqAIBBA0a3EfCfkA4q2EhFpUw3kA60Iwr0nf
+ Z6Pe19IGAkT9NULEW9K5F0Brysw++w2ZLQUg2iEapSQ7PSBDLPJTubA2V2BaYmq1aZTnC9QuhB
+ xped/DmPOH+Q0mQBjAAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+X-Mailer: b4 0.14-dev
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,135 +89,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Apr 22, 2024 at 11:17:15AM -0700, Abhinav Kumar wrote:
-> 
-> 
-> On 4/19/2024 7:33 PM, Dmitry Baryshkov wrote:
-> > Since commit 3c74682637e6 ("drm/msm/mdp4: move resource allocation to
-> > the _probe function") the mdp4_kms data is allocated during probe. It is
-> > an error to destroy it during mdp4_kms_init(), as the data is still
-> > referenced by the drivers's data and can be used later in case of probe
-> > deferral.
-> > 
-> 
-> mdp4_destroy() currently detaches mmu, calls msm_kms_destroy() which
-> destroys pending timers and releases refcount on the aspace.
-> 
-> It does not touch the mdp4_kms as that one is devm managed.
-> 
-> In the comment https://patchwork.freedesktop.org/patch/590411/?series=132664&rev=1#comment_1074306,
-> we had discussed that the last component's reprobe attempt is affected
-> (which is not dpu or mdp4 or mdp5 right? )
-> 
-> If it was an interface (such as DSI OR DP), is it the aspace detach which is
-> causing the crash?
+Shaving off some cruft
 
-I should have retained the trace log. I'll trigger the issue and post the trace.
+obj files seem to be identical pre and post cleanup which is always
+a good sign
 
-> 
-> Another note is, mdp5 needs the same fix in that case.
-> 
-> dpu_kms_init() looks fine.
-> 
-> > Fixes: 3c74682637e6 ("drm/msm/mdp4: move resource allocation to the _probe function")
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 28 +++++++++-------------------
-> >   1 file changed, 9 insertions(+), 19 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> > index 4ba1cb74ad76..4c5f72b7e0e5 100644
-> > --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> > +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> > @@ -392,7 +392,7 @@ static int mdp4_kms_init(struct drm_device *dev)
-> >   	ret = mdp_kms_init(&mdp4_kms->base, &kms_funcs);
-> >   	if (ret) {
-> >   		DRM_DEV_ERROR(dev->dev, "failed to init kms\n");
-> > -		goto fail;
-> > +		return ret;
-> >   	}
-> >   	kms = priv->kms;
-> > @@ -403,7 +403,7 @@ static int mdp4_kms_init(struct drm_device *dev)
-> >   		ret = regulator_enable(mdp4_kms->vdd);
-> >   		if (ret) {
-> >   			DRM_DEV_ERROR(dev->dev, "failed to enable regulator vdd: %d\n", ret);
-> > -			goto fail;
-> > +			return ret;
-> >   		}
-> >   	}
-> > @@ -414,8 +414,7 @@ static int mdp4_kms_init(struct drm_device *dev)
-> >   	if (major != 4) {
-> >   		DRM_DEV_ERROR(dev->dev, "unexpected MDP version: v%d.%d\n",
-> >   			      major, minor);
-> > -		ret = -ENXIO;
-> > -		goto fail;
-> > +		return -ENXIO;
-> >   	}
-> >   	mdp4_kms->rev = minor;
-> > @@ -423,8 +422,7 @@ static int mdp4_kms_init(struct drm_device *dev)
-> >   	if (mdp4_kms->rev >= 2) {
-> >   		if (!mdp4_kms->lut_clk) {
-> >   			DRM_DEV_ERROR(dev->dev, "failed to get lut_clk\n");
-> > -			ret = -ENODEV;
-> > -			goto fail;
-> > +			return -ENODEV;
-> >   		}
-> >   		clk_set_rate(mdp4_kms->lut_clk, max_clk);
-> >   	}
-> > @@ -445,8 +443,7 @@ static int mdp4_kms_init(struct drm_device *dev)
-> >   	mmu = msm_iommu_new(&pdev->dev, 0);
-> >   	if (IS_ERR(mmu)) {
-> > -		ret = PTR_ERR(mmu);
-> > -		goto fail;
-> > +		return PTR_ERR(mmu);
-> >   	} else if (!mmu) {
-> >   		DRM_DEV_INFO(dev->dev, "no iommu, fallback to phys "
-> >   				"contig buffers for scanout\n");
-> > @@ -458,8 +455,7 @@ static int mdp4_kms_init(struct drm_device *dev)
-> >   		if (IS_ERR(aspace)) {
-> >   			if (!IS_ERR(mmu))
-> >   				mmu->funcs->destroy(mmu);
-> > -			ret = PTR_ERR(aspace);
-> > -			goto fail;
-> > +			return PTR_ERR(aspace);
-> >   		}
-> >   		kms->aspace = aspace;
-> > @@ -468,7 +464,7 @@ static int mdp4_kms_init(struct drm_device *dev)
-> >   	ret = modeset_init(mdp4_kms);
-> >   	if (ret) {
-> >   		DRM_DEV_ERROR(dev->dev, "modeset_init failed: %d\n", ret);
-> > -		goto fail;
-> > +		return ret;
-> >   	}
-> >   	mdp4_kms->blank_cursor_bo = msm_gem_new(dev, SZ_16K, MSM_BO_WC | MSM_BO_SCANOUT);
-> > @@ -476,14 +472,14 @@ static int mdp4_kms_init(struct drm_device *dev)
-> >   		ret = PTR_ERR(mdp4_kms->blank_cursor_bo);
-> >   		DRM_DEV_ERROR(dev->dev, "could not allocate blank-cursor bo: %d\n", ret);
-> >   		mdp4_kms->blank_cursor_bo = NULL;
-> > -		goto fail;
-> > +		return ret;
-> >   	}
-> >   	ret = msm_gem_get_and_pin_iova(mdp4_kms->blank_cursor_bo, kms->aspace,
-> >   			&mdp4_kms->blank_cursor_iova);
-> >   	if (ret) {
-> >   		DRM_DEV_ERROR(dev->dev, "could not pin blank-cursor bo: %d\n", ret);
-> > -		goto fail;
-> > +		return ret;
-> >   	}
-> >   	dev->mode_config.min_width = 0;
-> > @@ -492,12 +488,6 @@ static int mdp4_kms_init(struct drm_device *dev)
-> >   	dev->mode_config.max_height = 2048;
-> >   	return 0;
-> > -
-> > -fail:
-> > -	if (kms)
-> > -		mdp4_destroy(kms);
-> > -
-> > -	return ret;
-> >   }
-> >   static const struct dev_pm_ops mdp4_pm_ops = {
-> > 
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Konrad Dybcio (2):
+      drm/msm/dsi: Remove dsi_phy_read/write()
+      drm/msm/dsi: Remove dsi_phy_write_[un]delay()
 
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h           |   5 -
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      | 273 +++++++++-----------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      | 218 ++++++++--------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c      | 109 ++++----
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      | 305 +++++++++++-----------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c | 205 +++++++--------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       | 320 ++++++++++++------------
+ 7 files changed, 699 insertions(+), 736 deletions(-)
+---
+base-commit: 33edc5592466996fe9610efc712da0a3539027ae
+change-id: 20240423-topic-msm_cleanup-b3e47bc8411d
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Konrad Dybcio <konrad.dybcio@linaro.org>
+
