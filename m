@@ -2,74 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F7D58AD760
-	for <lists+freedreno@lfdr.de>; Tue, 23 Apr 2024 00:41:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 616388AE62B
+	for <lists+freedreno@lfdr.de>; Tue, 23 Apr 2024 14:36:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AF0A112E03;
-	Mon, 22 Apr 2024 22:41:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EE5C11336D;
+	Tue, 23 Apr 2024 12:36:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qgHMSkq0";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cLAytuRk";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
- [209.85.208.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E4DB112E03
- for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 22:41:46 +0000 (UTC)
-Received: by mail-lj1-f179.google.com with SMTP id
- 38308e7fff4ca-2da0b3f7ad2so72616041fa.2
- for <freedreno@lists.freedesktop.org>; Mon, 22 Apr 2024 15:41:46 -0700 (PDT)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15B6E113365
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Apr 2024 12:36:01 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2db2f6cb312so97599471fa.2
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Apr 2024 05:36:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713825705; x=1714430505; darn=lists.freedesktop.org;
- h=to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=9+ofb9yeBHMXTTM8HZhz0uxLNlsEbRIYmj7t5bvxO5E=;
- b=qgHMSkq0437iriUn+nZXUMdZ7Japz+tfhcDycfAWReNxJLFQRS6tkkuL6jPQnSocuq
- ifE6Lkqoy06u8tsoWKb+SX0cx3MStOD2pkbTFpHLMFga4NpCYQdgT5jRYJu8kxiDYn9S
- bSQEgn30gml41w0MKejvlB8tm4OX1ffSrpAlpj1cD6B27OSj7oUjI81Op2InNtleLnWd
- qlpBK8raqaV8kzl51UwR9Y+ZlqXnxd78G8JArUHRII9y+FAZcm4cgZIT34DxVb/nv3rD
- kjNrdsTbudSXr9at9ZXFoitnBFLiuZ/rwanHUJ43OuJS8wF59dnrL6eL3rwp0B2BCL8d
- nVEw==
+ d=linaro.org; s=google; t=1713875759; x=1714480559; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=nUm4YW1UwAedF7qs6RwnQnQDlQCeY2lio1mQAuIl2hA=;
+ b=cLAytuRkbzqHLshDThUPjpzQiGVJGAQlhEcyPJHgs/1lo9WK5vzf3+yNwvRWnvhR92
+ 37m8NY7Knqg5wKD45N5SIsNb0u/KFomcS+PUB+YhA011s0bncDZtVFjsnD0ACuFtelmd
+ YpZIipAQAXz1xAGz7m0wcvRkVY6ZOTcA5nIohzkHE0sGsHJeW3rpG6b4eBTz6wvqggjL
+ JZRPGF+T/WLakJRPQbZXjptUsJXgX8y4jUrd36cpK4ZtM49Qoid5byPaO0xvDR/hE5x9
+ RjY5qxaHnq0GggY9NKe3ee2Ku581Dis0ud+Ru3pTMKkRATWekUkw23aa432QtwM8oqAZ
+ C7Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713825705; x=1714430505;
- h=to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9+ofb9yeBHMXTTM8HZhz0uxLNlsEbRIYmj7t5bvxO5E=;
- b=PmtJigD/QzAXG1J+yfnonMM2kgc5CiiMiVR4APzZoMQM1G7d4Nhy+jxgKeyofLZ9zx
- Ko+gqfxFm+GnapqJHhZFexBZ/bwZEGizgFunBE9aowwvMm2wt2n8zWD40uoOqCIASBZq
- w+EYVZ1kgDSGFlUBGTJbvvVarpox4vOpKgQpS3cD6vtBYE5RlLfEPu/cFDhJCIIUMe6O
- jkq2RuCVcxYcSxCwIp/w5QIL13vgtOAfH1E83f/tU495SdC7W8gY0M5MJ8eyyoGXXM6Y
- vbHycD0PXvVHq+kvpS/yExbST1ulXIt8qXoCtJ9O6jr4iAbrF7RbvmG2C+52eWaTUt2a
- 9tuA==
+ d=1e100.net; s=20230601; t=1713875759; x=1714480559;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nUm4YW1UwAedF7qs6RwnQnQDlQCeY2lio1mQAuIl2hA=;
+ b=UBuwuo8RRQhLtC5SIaCuaoFYPLx6MCITJ6olMgaH00c3qZrC2JeNWo8Ghbra0Meq0m
+ N7cerkv7VQ8N2eQ1T8ySP5h+i68Nbxrh57H41mrwTlHjnC2dOxqBEaYFAOMo4vScnivD
+ wn8Mxmlmfo7gAqxH6Z9p/Hti9MDEILrAI3+EV42bSnbABGpFzDxRAm554lfDnbt+3Awg
+ C7V4lSPCyhYWwAPq70NfXuZ39uDaCtIgyCysOIPeWjhE30PrFSNuTB9MJlI2ujDHgewZ
+ BaOf1IdQKcSIsUWj5FzLk+UyQ867bxBiotREnLizQbp0Fzh2aaW9zXmRaXFl3jFtnBBL
+ 3Hng==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUtBpoil6Zfxm8uQ1zItaP2mIzMgKwvAUSwFtEDZIThdk6TUkXtjlG/Ikbg7roszvDufCoF3rNpDnw4uWJyQPXElWY6HB1t2qCnlbSMjxkf
-X-Gm-Message-State: AOJu0YwDZAIOuqewe8z2tqNLY5PYMdBQL0QugcYp4fzG1rR/wc7Rn7nh
- Ht0X+3yINehcgPnE1hfta5D3zQtEyf1SxzS+kUv8wD9goE7aALdNqjIb3IPAJiY=
-X-Google-Smtp-Source: AGHT+IHJl52CbBsoQwwYJGF6GCqOPh3Oe4dbvdnkcYh/qdeaIyffE0Yg8xHbVPmxRz9QXOaiw9MepA==
-X-Received: by 2002:a05:6512:1595:b0:518:ddc3:b3a8 with SMTP id
- bp21-20020a056512159500b00518ddc3b3a8mr8412323lfb.61.1713825705222; 
- Mon, 22 Apr 2024 15:41:45 -0700 (PDT)
-Received: from [127.0.1.1] (UNUSED.212-182-62-129.lubman.net.pl.
- [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- q24-20020ac246f8000000b005130ece9099sm1829517lfo.277.2024.04.22.15.41.44
+ AJvYcCWsxl7PJG2dPWWflsbtE/cq+HoC+UOzyyL43Awi/Tz72yrr5qgVx6b2EKHS+oEQpVXWsAbZ4yVnNalcqd+uZCWStjcc+LR5On+p/l6cotV+
+X-Gm-Message-State: AOJu0YxpSaWY0vZulJ3HNIKl9ZGpyygfaWGtTwttCvsUK1NNqffXDXNz
+ zXQ9nl0avAgRLcFbRYg/5OJIBVA1ToG1Z9FATEkGT1LD5A9MZwOOmYpzvnblcDQ=
+X-Google-Smtp-Source: AGHT+IEjshmlgcGx5nklIUdU+NXP1sYIs4i4QNvD/BiRJQIPm+n+8UatxQVPrvg7Lboi3hBwptw75w==
+X-Received: by 2002:a05:651c:2214:b0:2d8:5af9:90c5 with SMTP id
+ y20-20020a05651c221400b002d85af990c5mr13373645ljq.39.1713875758967; 
+ Tue, 23 Apr 2024 05:35:58 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ o23-20020a2e9b57000000b002d46df91965sm1711649ljj.80.2024.04.23.05.35.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Apr 2024 15:41:44 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 23 Apr 2024 00:41:32 +0200
-Subject: [PATCH 2/2] MAINTAINERS: Add Konrad Dybcio as a reviewer for the
- Adreno driver
+ Tue, 23 Apr 2024 05:35:58 -0700 (PDT)
+Date: Tue, 23 Apr 2024 15:35:57 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm/msm/dsi: Remove dsi_phy_read/write()
+Message-ID: <njceeizdk2pea3oqni3qpzl323dwrjtdin4cd4hqqewyrg6y74@pkpi42gvrv74>
+References: <20240423-topic-msm_cleanup-v1-0-b30f39f43b90@linaro.org>
+ <20240423-topic-msm_cleanup-v1-1-b30f39f43b90@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240423-topic-adreno_maintainers-v1-2-21e1adac2c13@linaro.org>
-References: <20240423-topic-adreno_maintainers-v1-0-21e1adac2c13@linaro.org>
-In-Reply-To: <20240423-topic-adreno_maintainers-v1-0-21e1adac2c13@linaro.org>
-To: linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- freedreno@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.14-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240423-topic-msm_cleanup-v1-1-b30f39f43b90@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,26 +89,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add myself as a reviewer for Adreno driver changes.
+On Tue, Apr 23, 2024 at 12:36:59AM +0200, Konrad Dybcio wrote:
+> These are dummy wrappers that do literally nothing interesting.
+> Remove them.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h           |   2 -
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      | 273 +++++++++-----------
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      | 215 ++++++++--------
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_20nm.c      | 109 ++++----
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      | 224 ++++++++---------
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c | 205 +++++++--------
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       | 320 ++++++++++++------------
+>  7 files changed, 645 insertions(+), 703 deletions(-)
+> 
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 179f989a1e4b..80aa006f10bb 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -6888,6 +6888,7 @@ F:	drivers/gpu/drm/tiny/panel-mipi-dbi.c
- DRM DRIVER for Qualcomm Adreno GPUs
- M:	Rob Clark <robdclark@gmail.com>
- R:	Sean Paul <sean@poorly.run>
-+R:	Konrad Dybcio <konrad.dybcio@linaro.org>
- L:	linux-arm-msm@vger.kernel.org
- L:	dri-devel@lists.freedesktop.org
- L:	freedreno@lists.freedesktop.org
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
-2.40.1
-
+With best wishes
+Dmitry
