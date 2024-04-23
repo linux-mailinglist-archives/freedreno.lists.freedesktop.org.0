@@ -2,78 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C6148AE63E
-	for <lists+freedreno@lfdr.de>; Tue, 23 Apr 2024 14:36:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58BEC8AF6C4
+	for <lists+freedreno@lfdr.de>; Tue, 23 Apr 2024 20:42:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53DD1113365;
-	Tue, 23 Apr 2024 12:36:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D19EC10FB98;
+	Tue, 23 Apr 2024 18:42:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zwnH1Lqx";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="kxAoW/EL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF518113365
- for <freedreno@lists.freedesktop.org>; Tue, 23 Apr 2024 12:36:33 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-51bae805c56so592832e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 23 Apr 2024 05:36:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713875792; x=1714480592; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=EcR6wiJNuQG5uBPTgnJ94TkYBXMQrI+Q5aD+z7eMSQc=;
- b=zwnH1Lqxgy9Xe2Cfo6gsPmFQ5eL6vtUTgxdVksIcU5kv1tsk1cHmerM/njSi2VOcFl
- dbxNWjLQu9HeyV41OP48mugVciQ3JEbuu+T5NL3xrFwDvnsYcZ/oeX2S5tEpJUezIidr
- i7Hd1IjJ5TOeSttNnyy399+8FtHlwqshU8jHd3SHxhZJKIueum0dJNDQ0q8mIoOozDkv
- 85XQdMGGRAvQydQMrzoMSes8VHXfPqFKtBMviRG/9+s0eAkeaG6vkq7A8ZwZMrQqU8Jl
- 27tXGijH6DuCInuvH1OEHBu486DiL7zXQy4CHFF9pvzbqTVfw/oxWmgkgOFNyG3Src82
- HW1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713875792; x=1714480592;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EcR6wiJNuQG5uBPTgnJ94TkYBXMQrI+Q5aD+z7eMSQc=;
- b=HAF0d/AICiAdCewLa7GxeF9nk7Iw1z+CPv6aMaKWXA3wHj+awnznI9l5c/PEyupM7R
- 1XQpVaIzTOH760+Vg7Ov6oXSMW8xSYWgxOmGVPI3kWlk3UBUVxdRuEVTL4wXoTjQzJyz
- CErS46Duv38HcWzCUA/FmxBUXLBGw1RsJ3+VBGMeB/tG6oA45D2zqFS6SNyNeyu29SeE
- fLCQczqgtrLFu0JZi+CZwXnBU2VtS2HFQdsocmAMvf+TVeyASH7XjJeL5zhBsejD9cU3
- uIQGsdLXWGdapSfxIHyufeeC1XewsFNk98J0W2R3vHuG85Aam607IEfwmHK0wgW78gDi
- WhMw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVPvvapWoxo5PvG9G9fwT9WsQBQIfMEkxqXtq0Oa+JeKEp3+eK64Yr8EXj+MGM8YLlsBT3p4tBlcmA66jWEhZsXFKrVQGOtJ6PTN9+hUb3/
-X-Gm-Message-State: AOJu0YyR8WUV2MnZFv4MaBLgj4amMYO0oIoe3cNALRVFnILlFvDXoM2o
- IA5O362TUuD35JPBB/vDlY1pi4HZrlxNkL48PQX/SLWDwiN1ki2pZSGLmQuwLSY=
-X-Google-Smtp-Source: AGHT+IEJpRdPl93hf4hfOkqeiRE3xT9UUu8AhP8A1Hd+r8Zl367qDbSba7OkW4KPmf+cOR9c5qPLng==
-X-Received: by 2002:ac2:5594:0:b0:519:27e5:83b7 with SMTP id
- v20-20020ac25594000000b0051927e583b7mr8063957lfg.27.1713875791850; 
- Tue, 23 Apr 2024 05:36:31 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::8a5])
- by smtp.gmail.com with ESMTPSA id
- d25-20020a196b19000000b0051af5cba0f3sm959407lfa.11.2024.04.23.05.36.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Apr 2024 05:36:31 -0700 (PDT)
-Date: Tue, 23 Apr 2024 15:36:30 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] drm/msm/dsi: Remove dsi_phy_write_[un]delay()
-Message-ID: <r2mx33pvuivenwxawsihrblzmuqucxcog3m7i4dy5o4y2qycsh@76frmib5x7x2>
-References: <20240423-topic-msm_cleanup-v1-0-b30f39f43b90@linaro.org>
- <20240423-topic-msm_cleanup-v1-2-b30f39f43b90@linaro.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F246F10FB98;
+ Tue, 23 Apr 2024 18:42:40 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 43N9pqQs009943;
+ Tue, 23 Apr 2024 18:40:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=fi+Yeyjbs3lHGzE5VRRS5LlzgImkm2F7nnTS/uUtKaU=; b=kx
+ AoW/EL/jbcXACnypdoEvCrf7BIid6wG7T/eQIEwJImlKXeqP/YjljVHheaa/VKUC
+ jgSyDllLKtEX0XX3L5kKkRs0hTc7XkoQw33cPYHjSPVNBeWEnWbiMpfmDZ4fTExI
+ V0fVeOgsnNuWrRl/+BelHTdnv7ZaGEdTrkwql1IQt2gWTdPuXyO9LxoHejCiLxry
+ BcZN+PjmLyp0srAJsGhWWH0MzaXiiPcLd2ofxUwgxKl5NzlqsPwduht9OZFybt+h
+ ZaObPQqR7yBsOCsdYvPHIHfhz+YI//VL03i2EPJUHxNUGGo48gvhgaikizp3N8XN
+ ClHjK/Fas34RvQeZ3r+Q==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xpapmhhmp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 23 Apr 2024 18:40:32 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 43NIeVV4022523
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 23 Apr 2024 18:40:31 GMT
+Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 23 Apr
+ 2024 11:40:30 -0700
+Message-ID: <15f18424-834a-65dc-9c39-8c744abce0a6@quicinc.com>
+Date: Tue, 23 Apr 2024 11:40:30 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240423-topic-msm_cleanup-v1-2-b30f39f43b90@linaro.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 3/7] drm/msm/dpu: Always flush the slave INTF on the CTL
+Content-Language: en-US
+To: Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean
+ Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>, Daniel Vetter
+ <daniel@ffwll.ch>, Archit Taneja <architt@codeaurora.org>, Chandan Uddaraju
+ <chandanu@codeaurora.org>, Vinod Koul <vkoul@kernel.org>, Sravanthi
+ Kollukuduru <skolluku@codeaurora.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, Jordan
+ Crouse <jordan@cosmicpenguin.net>, Rajesh Yadav <ryadav@codeaurora.org>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>,
+ <~postmarketos/upstreaming@lists.sr.ht>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Konrad Dybcio
+ <konrad.dybcio@linaro.org>, Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>
+References: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-0-78ae3ee9a697@somainline.org>
+ <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-3-78ae3ee9a697@somainline.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-3-78ae3ee9a697@somainline.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Vb2Pp9EBEyMwbxjyfOZsQQHuPjcOv84F
+X-Proofpoint-GUID: Vb2Pp9EBEyMwbxjyfOZsQQHuPjcOv84F
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-04-23_15,2024-04-23_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ mlxscore=0 mlxlogscore=999 clxscore=1011 spamscore=0 adultscore=0
+ phishscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2404010003 definitions=main-2404230043
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,20 +102,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Apr 23, 2024 at 12:37:00AM +0200, Konrad Dybcio wrote:
-> These are dummy wrappers that do literally nothing interesting.
-> Remove them.
+
+
+On 4/16/2024 4:57 PM, Marijn Suijten wrote:
+> As we can clearly see in a downstream kernel [1], flushing the slave INTF
+> is skipped /only if/ the PPSPLIT topology is active.
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> However, when DPU was originally submitted to mainline PPSPLIT was no
+> longer part of it (seems to have been ripped out before submission), but
+> this clause was incorrectly ported from the original SDE driver.  Given
+> that there is no support for PPSPLIT (currently), flushing the slave
+> INTF should /never/ be skipped (as the `if (ppsplit && !master) goto
+> skip;` clause downstream never becomes true).
+> 
+> [1]: https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-drivers/-/blob/display-kernel.lnx.5.4.r1-rel/msm/sde/sde_encoder_phys_cmd.c?ref_type=heads#L1131-1139
+> 
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      |  3 --
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c |  3 +-
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c | 81 +++++++++++++++++++-----------
->  3 files changed, 54 insertions(+), 33 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 3 ---
+>   1 file changed, 3 deletions(-)
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Yes, I agree with this, even though I did think earlier that intf master 
+flush was sufficient , I cross-checked the docs and this is the right way.
 
--- 
-With best wishes
-Dmitry
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
