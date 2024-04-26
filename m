@@ -2,68 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B25028B3893
-	for <lists+freedreno@lfdr.de>; Fri, 26 Apr 2024 15:37:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC6F68B3974
+	for <lists+freedreno@lfdr.de>; Fri, 26 Apr 2024 16:05:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B3D710EA8C;
-	Fri, 26 Apr 2024 13:37:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 220DF11243B;
+	Fri, 26 Apr 2024 14:05:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VMvPt4mm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DKsblSDJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
- [209.85.219.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8331910EA8C
- for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 13:37:47 +0000 (UTC)
-Received: by mail-yb1-f182.google.com with SMTP id
- 3f1490d57ef6-dc25e12cc63so2854968276.0
- for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 06:37:47 -0700 (PDT)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF5CB112441
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 14:05:54 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-2a2da57ab3aso1920202a91.3
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 07:05:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1714138666; x=1714743466; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714140354; x=1714745154; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=86T/oEqzRWMvqN/jhl6bfbOWuaVo8OEZv1+dOP8/hAk=;
- b=VMvPt4mmim3p7no+hw+uFdfuboPrx0XhS6Ac5zbRbCIjSb745+uEHQWOZECVe6mLxt
- G0qkzqsrUcu9cZws440Rw/eS/xHpt31UpGQqs22VFaG1FwvmMvufNxpIqS7x2V51cOMm
- aaDS6SL5VKi7Q2q/4ldN7Do3dht4M4xcDgLoWq9YMrkcdZSXtgymGaH8LSkgNPavwAmT
- xFufEXm09rPOvBpg9QqNr7yF/1z3cZAaroLh/lSn9t+X/SuYeIM2bdp01uHGORM69kMK
- Vmd4gHEUrS8RkbJbNM7KbN3MkLVBJAdo/yITA9rDUyMW9ckdWBdZH0zxQqFNK1R7RDmy
- sApA==
+ bh=k5dTpmBdvDBHOQz9u6EbUQ2ugbHPDpDdNDCCOVQblDM=;
+ b=DKsblSDJMEABLkAOmAJEQlajrRlrfetdANYSnzR32C8WhaysRBTD2SGJvxM9Dfw3LY
+ bOQIGX1LFJHhdkfa5hbCdDsM6E7d7OA7rmcVFzDhPca5hELFJAIE7FgZFxhqZ29ACi/g
+ tyGyMTPEpvgt5anj1X/lhLVPDmDVQXLH69mmjZY9cf/L0LgW4HuXo9YwTf6RG/bB9osk
+ dk/jM8JuR3v2XpH2F2qKR6ajLjmtM/byoKgAR4Dy8b7fRBDMDAwZg+tmOZc73262S2Vt
+ oYEepoVhC9XPmgRZyiZL+6naayjSsgiGoZB28NK02cKAoppQ9JEE3t3fuuzK3VHBF6HI
+ RJkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714138666; x=1714743466;
+ d=1e100.net; s=20230601; t=1714140354; x=1714745154;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=86T/oEqzRWMvqN/jhl6bfbOWuaVo8OEZv1+dOP8/hAk=;
- b=czOyF26bYyrFNM+q4kLxXfG63XCiuoZNahYN9GcViRrC1fMeiIpuX0hRv8WXUviErQ
- 12NhqUqh1b4IFQFwYagoyEVCi8comvBvm+F+WvjbviE5/uhzy+gkEn8Q4BlaRJKdAkr6
- lPIyreRmCjU+qRzjv18wMj/umb27Ry9+aGEnpEmem+f7kVFyjSOzMzCzRecCIqpdf4xF
- 8ifB2jH5thxuwWkl3wqIVK2fK2Ad4/DKIzFb+SzQGYbDWSTvFEZNSwTZmgN+U9m3A9k/
- pO12y7rqqka81JHCxJGXW7FyLjZHplIkuNffNi7pw/GVNXoOPtyAFd6JHEleZ8yerQbT
- RIgg==
+ bh=k5dTpmBdvDBHOQz9u6EbUQ2ugbHPDpDdNDCCOVQblDM=;
+ b=gOmXqwBuL+VYLIbm46sQ2cTbP+IlaPIgyiOBMwErO4zk0N4bZGfystdOQVby6u6cE5
+ B6IEvx6UnnfSPthJTKzpCUXQsg2+XRl06uA+DhuX+GWCYj9vd+U2zlV7bPfoKFOMDNsF
+ 20XRfAAgCYRC1aNgn4xnrCh+nB0GcAVhWp6L8F7rSrjZ78IQnGupP9UfrRHtAVsXnMrg
+ hcx3zH0+Y/OWBucn8jgEjdrtwC9bWNxuUeP8TOK/Mna+FntSSsZvxDUH6JlBvGQWus94
+ ovHO+Cgv+cu2fPPFtnrHIKWIsPTwKIBvHiQGCecfbSC4voeJ8Z8yI294do5gk6RraS5a
+ gkZg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWcSN1kG7YH4HU/B4W/Ekc6pTAb8fuRKEoCvPkVehcVM4JxDrMta0kFwbB36baQzbFcuawKhLV2+2E9rAe65ktncN98yI0So5i9xD8dhLMs
-X-Gm-Message-State: AOJu0YyWBUGphylk941ASrHLgtNPVXDWV8bGPdQxjn0MZ6XTqoRe8dAW
- Sz7Y+yvY+JytCPcdYITjpFdUl1y0w33aHJwNlE2xgOkms/Nc6jaqRR1xeeXP2vYzaTUc41k7CW4
- x1U7oZHk+4dTa/tcbsrdjoMliP9TYTIXnOJW3tQ==
-X-Google-Smtp-Source: AGHT+IFlN/2Hb9h4kgi2uXjP4e7Mp6xBKQKjUM8NeVwQJWlOPuDHFBu48cL1Ls0YRUtorH01J7UqoD+e1XwzgXqg1JA=
-X-Received: by 2002:a05:6902:238a:b0:de4:6ace:7aa with SMTP id
- dp10-20020a056902238a00b00de46ace07aamr4810315ybb.17.1714138666334; Fri, 26
- Apr 2024 06:37:46 -0700 (PDT)
+ AJvYcCUahmeuM/wZb8Wb1rcGd9/58vP0H1cQDSjeSP3FpIdAlR7IE3+9TzTSODMilpJQVHZq8fIZsh9/E3wD97CvAdPj7cxPet8m3uJNXGaddC8y
+X-Gm-Message-State: AOJu0YyQgAjIArjlFnBQgNiourodaSXHexcONjN1Ws3vs2GXPZcg0Xj9
+ vkZMdOPD9nmpU7s1TbeoNRnAjJszojo40hJ9ixGGQnCcoFfhpH4xw60vEKno3o1vqNOeOVi49Hw
+ itYl7Q7m5pZ/+wfY26GOHPfAMNN8=
+X-Google-Smtp-Source: AGHT+IE9sSl2KSHnMdleuvQ8PE1Ie+5o9K1s7alGLa74eGpTI7mTupjf52xQkM4quMYL/+FpXatWxXFTgbNRFxBWiXw=
+X-Received: by 2002:a17:90b:3d86:b0:2ac:40c8:1ed3 with SMTP id
+ pq6-20020a17090b3d8600b002ac40c81ed3mr2951022pjb.5.1714140353892; Fri, 26 Apr
+ 2024 07:05:53 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240425134354.1233862-1-cwabbott0@gmail.com>
  <20240425134354.1233862-5-cwabbott0@gmail.com>
  <CAA8EJpp-OVceLDK4TuqQERY53O-mU+AhEyjNUOnNc9PUhcUm0A@mail.gmail.com>
  <CACu1E7E_xMQvBLCEiP_0JozmGCMTEcRc-Lq4sAOHU520q6j2mQ@mail.gmail.com>
- <CACu1E7H=A+qBQ8vDbAyzmQ85e-xFmAZsArWjstCdLSGuBupf8g@mail.gmail.com>
-In-Reply-To: <CACu1E7H=A+qBQ8vDbAyzmQ85e-xFmAZsArWjstCdLSGuBupf8g@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 26 Apr 2024 16:37:35 +0300
-Message-ID: <CAA8EJpo95+w4ovyPWdoSuGEKUgrakfM2Qp1wb_39BYaCWgBtDw@mail.gmail.com>
+ <CAA8EJpo7NtVkOYGM0DeACmkjpToMtKihS-HkkiVhigsBf3xXRg@mail.gmail.com>
+In-Reply-To: <CAA8EJpo7NtVkOYGM0DeACmkjpToMtKihS-HkkiVhigsBf3xXRg@mail.gmail.com>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Fri, 26 Apr 2024 15:05:42 +0100
+Message-ID: <CACu1E7HzDJz4JvwnO6uFa8uwTdQAUtazdJLKbZnN2AtxcVzGQQ@mail.gmail.com>
 Subject: Re: [PATCH 4/6] drm/msm/a7xx: Initialize a750 "software fuse"
-To: Connor Abbott <cwabbott0@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
@@ -84,10 +84,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 26 Apr 2024 at 15:54, Connor Abbott <cwabbott0@gmail.com> wrote:
+On Fri, Apr 26, 2024 at 2:31=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
 >
-> On Fri, Apr 26, 2024 at 1:35=E2=80=AFPM Connor Abbott <cwabbott0@gmail.co=
-m> wrote:
+> On Fri, 26 Apr 2024 at 15:35, Connor Abbott <cwabbott0@gmail.com> wrote:
 > >
 > > On Fri, Apr 26, 2024 at 12:02=E2=80=AFAM Dmitry Baryshkov
 > > <dmitry.baryshkov@linaro.org> wrote:
@@ -236,32 +236,64 @@ D |
 > >
 > > You mean to duplicate the qcom_scm_is_available check and qcom_scm_
 > >
+> > >
+> > > > +               gpu_req |=3D QCOM_SCM_GPU_TSENSE_EN_REQ;
+> > > > +
+> > > > +       ret =3D qcom_scm_gpu_init_regs(gpu_req);
+> > > > +       if (ret)
+> > > > +               return ret;
+> > > > +
+> > > > +       /* On a750 raytracing may be disabled by the firmware, find=
+ out whether
+> > > > +        * that's the case. The scm call above sets the fuse regist=
+er.
+> > > > +        */
+> > > > +       if (adreno_is_a750(adreno_gpu)) {
+> > > > +               fuse_val =3D a6xx_llc_read(a6xx_gpu, REG_A7XX_CX_MI=
+SC_SW_FUSE_VALUE);
+> > >
+> > > This register isn't accessible with the current sm8650.dtsi. Since DT
+> > > and driver are going through different trees, please add safety guard=
+s
+> > > here, so that the driver doesn't crash if used with older dtsi
+> >
+> > I don't see how this is an issue. msm-next is currently based on 6.9,
+> > which doesn't have the GPU defined in sm8650.dtsi. AFAIK patches 1 and
+> > 2 will have to go through the linux-arm-msm tree, which will have to
+> > be merged into msm-next before this patch lands there, so there will
+> > never be any breakage.
 >
-> Sorry, didn't finish this thought. I meant to ask if you wanted to
-> duplicate qcom_scm_is_available check and qcom_scm_gpu_init_regs
-> between a750+ and everything else.
+> linux-arm-msm isn't going to be merged into msm-next. If we do not ask
+> for ack for the fix to go through msm-next, they will get these
+> patches in parallel.
 
-I don't see !qcom_scm_is_available()) being useful anywhere else, at
-least for now.
+I'm not familiar with how complicated cross-tree changes like this get
+merged, but why would we merge these in parallel given that this patch
+depends on the previous patch that introduces
+qcom_scm_gpu_init_regs(), and that would (I assume?) normally go
+through the same tree as patch 1? Even if patch 1 gets merged in
+parallel in linux-arm-msm, in what scenario would we have a broken
+boot? You won't have a devicetree with a working sm8650 GPU and
+drm/msm with raytracing until linux-arm-msm is merged into msm-next at
+which point patch 1 will have landed somehow.
 
-So it becomes:
+>
+> Another option is to get dtsi fix into 6.9 and delay the raytracing
+> until 6.10-rc which doesn't make a lot of sense from my POV).
+>
+> >
+> > > (not to mention that dts is considered to be an ABI and newer kernels
+> > > are supposed not to break with older DT files).
+> >
+> > That policy only applies to released kernels, so that's irrelevant here=
+.
+>
+> It applies to all kernels, the reason being pretty simple: git-bisect
+> should not be broken.
 
-       if (adreno_is_a740(adreno_gpu)) {
-               /* Raytracing is always enabled on a740 */
-               adreno_gpu->has_ray_tracing =3D true;
-               // FIXME: Do we need this at all on a740?
-               qcom_scm_gpu_init_regs(gpu_req);
-       } else if (adreno_is_a750(adreno_gpu)) {
-                 if (!qcom_scm_is_available()) {
-                       dev_warn_once();
-                       adreno_gpu->has_ray_tracing =3D true;
-                       return 0;
-                  }
-                  gpu_req |=3D ...;
-                  qcom_scm_gpu_init_regs(gpu_req);
-                  fuse_val ....;
-         }
+As I wrote above, this is not an issue. The point I was making is that
+mixing and matching dtb's from one unmerged subsystem tree and a
+kernel from another isn't supported AFAIK, and that's the only
+scenario where this could break.
 
---=20
-With best wishes
-Dmitry
+Connor
