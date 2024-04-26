@@ -2,67 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE8C38B3750
-	for <lists+freedreno@lfdr.de>; Fri, 26 Apr 2024 14:35:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4310C8B376A
+	for <lists+freedreno@lfdr.de>; Fri, 26 Apr 2024 14:46:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B083112358;
-	Fri, 26 Apr 2024 12:35:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D4F0112374;
+	Fri, 26 Apr 2024 12:46:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CnKQ5lkF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B6py9bMn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
- [209.85.210.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12CF7112353
- for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 12:35:33 +0000 (UTC)
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-6ed01c63657so1997480b3a.2
- for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 05:35:33 -0700 (PDT)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 846FE112374
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 12:46:06 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id
+ 4fb4d7f45d1cf-572511ae0c2so1109731a12.3
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 05:46:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714134933; x=1714739733; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714135565; x=1714740365; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6htC0MyY+kLnmG9joS/4PBX+T+leznoq0J3s1A7B7wY=;
- b=CnKQ5lkFxGEE3SUwNr0GWNkcqAjXTpwKtbopkJZbUmYHYoV14jVmOn3XPBmAgiwbTX
- rQBTKQRx5fSOdEI2V41EF0tb/PfJ/05YyG4il35HPuWFq7n8k52OR0tRMJc9/yM5OQHW
- ibo3YeDxb0BdvTImJEXV/BrWRAZCoJo5MfrqNQSZrAcMCmUg2U1n//DIpXjTax7tTlWo
- Y2/idVdCu5nAhv3BkM8gWhaJxvMaoAXxwR0ZZCRWbq1MyyUg9Y5sblWllgxkp3YaZJjy
- 8YAsP3kQt1xs6pO95+KNErp/WNDwhcJH0Sa7D4c3XF9+HCcAqiZWwk8G1DGT4MJ30Gxq
- 0rwg==
+ bh=r5CwkAJFaRv/R172rdeEa6HWxAEiRbT+tG1ITreVX4Y=;
+ b=B6py9bMnOpqwtCEqVp5BPD5xhZTmf2eC8J1nJHozmTfWs1eqEdZFMM48l5XSdKnRcL
+ dBZD1R3wAAeZEZVBuw3eYPeKU8UnDwQh0bOyC7duZRsa6tpsjFBZ1MtMmoKKEbHdsYTF
+ hkG8HAJOfyapSJNEy9+SkLmwEdVqWp/GFhzZn1RtyRUI5xLzltC1PKLVxqp5EODVLQuO
+ lfFEd/iSD9wiU8jxob360oLCNIjRLlqbK9UEeR7uCbudpQlwl/4FEMGKFwf5HDSMDcSt
+ GlyO7NxHuIpHo8+7+wUPdlKOdsNmUcpMGv43GhKQ1emRpsaoPr459eQ4ToFPWGjD9lht
+ eEqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714134933; x=1714739733;
+ d=1e100.net; s=20230601; t=1714135565; x=1714740365;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6htC0MyY+kLnmG9joS/4PBX+T+leznoq0J3s1A7B7wY=;
- b=YM7EaangBmoPyZbrtdrE0eKoGzd1K2//34BV/T+JbDanAku4vz9XVMpGBEoNDCZ3T7
- YKk1jncdhV/DqjleKrwBP0F/07ax9S9LsrHnMqT43iucWWC/7z3Edw0L7hsBZY++TLXB
- ZGoY4ASCjj1CEsscTtdSx6StzrbeVbOo+UFPiE7phSQ9eTXLnK9QHujjCt8fxwNJrG5R
- xmvrF0rcBrslS8wzYor4YVHtUYJML4GYd/uLwWF0uEPsJQPY5xnwYp48MCaTwAARAQTu
- 0lICzZLA1GMP8GNwpZ97AKyw1Lrwd/owgCXJLQRpN5wGxvs+Warv6ws3qQIwrNVZC+9d
- +Xfg==
+ bh=r5CwkAJFaRv/R172rdeEa6HWxAEiRbT+tG1ITreVX4Y=;
+ b=ClNFbqq1Bfpjq+P+0FUkLXqikMzhOeqOPW1McXjW0Q69KC8qlQH/AHews6yF9JdCAc
+ 1p4V9dNhWSYetL7SJsOKvGNcV61jDAneM2wPJPA4oo5U1b2WdwSF3hhmh/zo4YQ3735U
+ hIbzfkJudooJkqz+NM6aeJy942YzC0+tUhY5/esPcBreC02J6RMJBQiM89eFBDY9tXKh
+ E69YK9mlqLAPvn2TfgGWnM/ciZCm5AhHwlGMNauqaGyjdcvEE0zz0fF1gkGBffIIqHD1
+ X3utrar1SyE3VgZz68+a5Fm8079MuqLRtLitcjJyvsc+VGMqHv4o3VGtfxCyb3CXDFjV
+ izjw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVpwFgswbqvmLaloRP0SHKJLtGDSrI4cBKhVRhq4Bnj3zawh0oq1rLjxOAPtg9B1GbsCZuyczKKKlOZXQSIHOqgvXjyg7d6umJTxUr5y+hn
-X-Gm-Message-State: AOJu0YwYViz1wNaFHbpAGWSfHeiWw5ARClV56wWbzDLhydOcjD3aIwEs
- /CKHyQ1zdeACym6Iixfv90RvjM0XoLr6wx2yx/QaVt+6Tzh7mqpHZlmVKsmoFIuBRXt2Nm80S2s
- AUsjG5S4UqRn5FWtrPLCZknkjg1I=
-X-Google-Smtp-Source: AGHT+IHowYH8O3ojZFUKbyvQC9g7mneswl0bToVesQ7UbL42/lrP6QYMPOZMD5A+a36MjyUfByLe/4uB+7t0uEbakxY=
-X-Received: by 2002:a05:6a21:3948:b0:1ae:42f0:dd40 with SMTP id
- ac8-20020a056a21394800b001ae42f0dd40mr887189pzc.10.1714134933026; Fri, 26 Apr
- 2024 05:35:33 -0700 (PDT)
+ AJvYcCW035gw72ECZhez/PIAI4rIDqmsdDUbiOrKsGadICXDEk8QIdn6OFAXeGnlq9yF6ikf1wv80nBzVPwMf7Bxmyq0DlhI74EHJDO57IjKxnOu
+X-Gm-Message-State: AOJu0YwCS0NJdiF66i658f4jPxh2mC6Ygiwn7KMGQ/MkVMKeNFeIdx0J
+ bZcCRhXJ3tu4a+sVm9vAQXnfxd9mc68ps7zLapZVm7v4Y4AmSE3AwaGhirUw5c8IGtZbcHru6Mn
+ Fss2JPxyEiVdv5SjO1hrt+HdG5VO03g==
+X-Google-Smtp-Source: AGHT+IGyZ1NCDF1QBer043koI2q2uIzYGq1pFRG6Yr4x14Gv/EGPKFmDNN7ZS8zjpMbTOxijagvGmFsRiG/EZtRj31E=
+X-Received: by 2002:a50:d6c5:0:b0:56e:2daf:1ed9 with SMTP id
+ l5-20020a50d6c5000000b0056e2daf1ed9mr1796697edj.23.1714135564389; Fri, 26 Apr
+ 2024 05:46:04 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240425134354.1233862-1-cwabbott0@gmail.com>
  <20240425134354.1233862-5-cwabbott0@gmail.com>
  <CAA8EJpp-OVceLDK4TuqQERY53O-mU+AhEyjNUOnNc9PUhcUm0A@mail.gmail.com>
 In-Reply-To: <CAA8EJpp-OVceLDK4TuqQERY53O-mU+AhEyjNUOnNc9PUhcUm0A@mail.gmail.com>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Fri, 26 Apr 2024 13:35:21 +0100
-Message-ID: <CACu1E7E_xMQvBLCEiP_0JozmGCMTEcRc-Lq4sAOHU520q6j2mQ@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 26 Apr 2024 05:45:52 -0700
+Message-ID: <CAF6AEGu-sXnz1A_abzTByQHJMEZOJtLAn7iH=VaVwqJ21DZqWg@mail.gmail.com>
 Subject: Re: [PATCH 4/6] drm/msm/a7xx: Initialize a750 "software fuse"
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+Cc: Connor Abbott <cwabbott0@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -82,7 +83,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Apr 26, 2024 at 12:02=E2=80=AFAM Dmitry Baryshkov
+On Thu, Apr 25, 2024 at 4:02=E2=80=AFPM Dmitry Baryshkov
 <dmitry.baryshkov@linaro.org> wrote:
 >
 > On Thu, 25 Apr 2024 at 16:44, Connor Abbott <cwabbott0@gmail.com> wrote:
@@ -216,9 +217,6 @@ SE_VALUE,
 > Most of the function is under the if (adreno_is_a750) conditions. Can
 > we invert the logic and add a single block of if(adreno_is_a750) and
 > then place all the code underneath?
-
-You mean to duplicate the qcom_scm_is_available check and qcom_scm_
-
 >
 > > +               gpu_req |=3D QCOM_SCM_GPU_TSENSE_EN_REQ;
 > > +
@@ -237,19 +235,18 @@ W_FUSE_VALUE);
 > This register isn't accessible with the current sm8650.dtsi. Since DT
 > and driver are going through different trees, please add safety guards
 > here, so that the driver doesn't crash if used with older dtsi
-
-I don't see how this is an issue. msm-next is currently based on 6.9,
-which doesn't have the GPU defined in sm8650.dtsi. AFAIK patches 1 and
-2 will have to go through the linux-arm-msm tree, which will have to
-be merged into msm-next before this patch lands there, so there will
-never be any breakage.
-
 > (not to mention that dts is considered to be an ABI and newer kernels
 > are supposed not to break with older DT files).
 
-That policy only applies to released kernels, so that's irrelevant here.
+I'd be happy if older kernels consistently worked with newer dtb, the
+other direction is too much to ask.  If necessary we can ask for ack
+to land the dts fix thru msm-next somehow, but since the gpu is newly
+enabled device landing in the same merge window I think that is not
+necessary.
 
->
+BR,
+-R
+
 > > +               adreno_gpu->has_ray_tracing =3D
 > > +                       !!(fuse_val & A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRA=
 CING);
