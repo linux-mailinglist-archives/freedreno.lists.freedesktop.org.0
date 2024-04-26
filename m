@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BF448B3F88
-	for <lists+freedreno@lfdr.de>; Fri, 26 Apr 2024 20:44:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23AB28B3F8B
+	for <lists+freedreno@lfdr.de>; Fri, 26 Apr 2024 20:44:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EDB210EE6C;
-	Fri, 26 Apr 2024 18:44:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4A7F10E30A;
+	Fri, 26 Apr 2024 18:44:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XYArujoZ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Ejezo+5R";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
- [209.85.219.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3634F10EE6C
- for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 18:44:19 +0000 (UTC)
-Received: by mail-yb1-f179.google.com with SMTP id
- 3f1490d57ef6-de59daab3f3so1817665276.3
- for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 11:44:19 -0700 (PDT)
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
+ [209.85.219.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C3DB10F083
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 18:44:38 +0000 (UTC)
+Received: by mail-yb1-f172.google.com with SMTP id
+ 3f1490d57ef6-de45dba15feso2951287276.3
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 11:44:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1714157058; x=1714761858; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1714157078; x=1714761878; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=WiA1UHPkUJSpPMTheghbL/TTPsSdmUdeU6jtU/WQ82c=;
- b=XYArujoZbbRTU6+sMocw32ew6sn3KqF1FYYn8k3o/OdssREg7rzXBCwuzDGMyIV2Zx
- tIykhFAdd//U4asq1c4DCEDZLugIR+3kd/uVyVQK+PglgkyW9BsKALCupWj2YbDYrXY1
- mtFesnHtumpdHfFOM9EQ/xPJ6oJMJOxdOH6EQeDa4EsddFkTwgB2h6V9L/nTzJyKZSrb
- nvPz7/n675T7Jlaa3twzUCe7Rs1pLSHxXt5dndoHnzR1jdKfGoIJp8T9vJ0aa7J8ttoF
- cecynJBowhcAjwBAxCltFMigraw7mflmeGwd2KpXlD5kPo1KAZJKdNn6bcpCpUobiFHR
- sO2Q==
+ bh=rPiNWGdfnN8JZJd8dsw7Vc72DKCvCwvtvuendszQLjc=;
+ b=Ejezo+5RzP7Ogz4lqudiXmsX36Uw5QlHubR88yn3JJVmcW74PC3Oma5tXT4ND2MiYK
+ 2dEL4ScQw8A2Gtm/niAwnwj3x6eidlqNHJx9M5xXoYb2AZe+qN+0vbgd1IWMjCj+Z7QP
+ /Wi93hqS8FtDVEiWsuapklDGyyLviXewN0NjZraTwkE90hLZptQOa9z/wl8jg1rrhP9D
+ 5jrozXkJBmxi0h2QCuTwt/at7MVYU/KotvHycvlR9QXT351PZ2CyNmP8FEJ4WzmaBNZc
+ e+P/A66cy13Vkcks7ubMdVlcYI9y1vSCbiXgWQHIBuMfpVHSsM/xU10ZyzkDcQIQ8Mw5
+ JmFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714157058; x=1714761858;
+ d=1e100.net; s=20230601; t=1714157078; x=1714761878;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=WiA1UHPkUJSpPMTheghbL/TTPsSdmUdeU6jtU/WQ82c=;
- b=SpNgZs97MIJkv9/B7b+sw27HCPLePYWPiMMwQOjK9DF0MUEL+XyGjTtdQBe3BnDbg6
- g6VjQ9H2VY/mf21UfGoaTs+uc6Nw10Ui/OIO29fqBxyXtZJ5PRji/c8svxMt9c7bP3Dz
- pn8x59XRh7GkVeIWTDQRGEPTNSwjcpx8dk1cwtDMWUUTJOkK/madDz8S65zbj/lne6bp
- n5rRMEtCyUp7xrSMwPM+kkPPEgMH1q9tb377HNNnZKR2AyKo5Axqcr9pss/WLM0n2NS6
- iXAn3qPIyccBqj+5oKKcAc/U6WBsIybJ6U6umO2cm9UgBrLq5/jsbxzzDZaiufNN6c22
- QsBw==
+ bh=rPiNWGdfnN8JZJd8dsw7Vc72DKCvCwvtvuendszQLjc=;
+ b=hDBVrOdHIkqIvtjzF6n2cIh4PUBlPCJrCeQNk52KWW8qLAiLLUGZ4psOM1HkYZgS/a
+ FhpAqsqoiAsRYufgkai3Ek50e0DDkox4zeRhKyq4GxqKYqh1fnGABZSfu7aeI1kXIj4B
+ 1VN7EU/IpL/XgkNkhFu0wy6RjFQeECSpXc3BFj7Flbk4vSMNJqswSqFsQQ/8soOLOV6+
+ xZcA3gHhgqWfWni7x7YxObubRQKnarsKjhsmzinjiet8YCgosbMYepWix9pSSXYPpS/D
+ OJtn56J1KxNQ1Lz0poY6ThtvBUQkEm3r/3p5+9ceah2tXamYfpIA9AF3bH6rQZrqfCbk
+ BnLQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXYDisYiYa40+FSWDV+OpTglIirIzvm4xaFylhcmJnYsyTuM4aEZsoJbs7QtZ3LwI6OW0m3a7pSvXMU/RaeexqN4ASZaYxgykrtdv3CNTci
-X-Gm-Message-State: AOJu0Yzk02Q5rMYS5vYdDXV41mFMm2123N8IocDu3LPErCY3N5ZUCpQM
- v3jNuBtKPGCDGK0W8Qv/IT7I8JSzYvjF4wVQtfEUA0KBYlTuGPKWFiCmADHlSfa9iofMY8aiEUV
- RwgZKhs7E5IIdzztsH+Xlsmd43gpcrBvV1fo0hQ==
-X-Google-Smtp-Source: AGHT+IH7mi4gG3qx/p/7EOM36O+F7q1UlF4E1n+3QC/o3z4uwxHQybEDslseHLh/YyOCPM7gvMVPXGWCUmmpBIpCQmY=
-X-Received: by 2002:a25:5f05:0:b0:dcc:245b:690e with SMTP id
- t5-20020a255f05000000b00dcc245b690emr3787471ybb.40.1714157058089; Fri, 26 Apr
- 2024 11:44:18 -0700 (PDT)
+ AJvYcCW5xqMV+7DsbtGop8lLMNKVJOdDtLEgSFwhxCbP+0K/0ix6aguMnLT/Fpt1jxx72bu27MrmmxMXS+70Qwx3DvfciUv6LlT96NW3M/5Sov7O
+X-Gm-Message-State: AOJu0YxgE9wYo96CFZJ6HVE8Eo+LQWT31MTFkLTEkRwtxcX2XKGauICf
+ NcfXIVt9WN1XHd4eryGQgaLpMX+HeqOc9MxeVpHrims867z+X4H8z/F1vFZg2HWEAR3YmIPi4Y2
+ TsJBAhlxlqa8tSnguN11HT1z5rOrjIKVpuIkaig==
+X-Google-Smtp-Source: AGHT+IEBZPSkhTeyZCn1Cq2ot4W4tqIxgRzfLLkcqrRXEqEgcPk4vxhJsI6qrlPc7WoB0zQEQsEX8xqSosNMUxnn03U=
+X-Received: by 2002:a05:6902:2010:b0:de5:5a39:2cad with SMTP id
+ dh16-20020a056902201000b00de55a392cadmr4344715ybb.27.1714157077930; Fri, 26
+ Apr 2024 11:44:37 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240426-a750-raytracing-v2-0-562ac9866d63@gmail.com>
- <20240426-a750-raytracing-v2-4-562ac9866d63@gmail.com>
-In-Reply-To: <20240426-a750-raytracing-v2-4-562ac9866d63@gmail.com>
+ <20240426-a750-raytracing-v2-5-562ac9866d63@gmail.com>
+In-Reply-To: <20240426-a750-raytracing-v2-5-562ac9866d63@gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 26 Apr 2024 21:44:07 +0300
-Message-ID: <CAA8EJprn3P4CKABJcepGTthsASLEqiU4Es06YEoP-PmMRBrv4w@mail.gmail.com>
-Subject: Re: [PATCH v2 4/6] drm/msm/a7xx: Initialize a750 "software fuse"
+Date: Fri, 26 Apr 2024 21:44:27 +0300
+Message-ID: <CAA8EJpq32gt1UJ078-O9K1LdH+8gmZGh-FaQDjmm2M-RO82TfQ@mail.gmail.com>
+Subject: Re: [PATCH v2 5/6] drm/msm: Add MSM_PARAM_RAYTRACING uapi
 To: Connor Abbott <cwabbott0@gmail.com>
 Cc: Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, 
@@ -87,22 +87,13 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Fri, 26 Apr 2024 at 21:34, Connor Abbott <cwabbott0@gmail.com> wrote:
 >
-> On all Qualcomm platforms with a7xx GPUs, qcom_scm provides a method to
-> initialize cx_mem. Copy this from downstream (minus BCL which we
-> currently don't support). On a750, this includes a new "fuse" register
-> which can be used by qcom_scm to fuse off certain features like
-> raytracing in software. The fuse is default off, and is initialized by
-> calling the method. Afterwards we have to read it to find out which
-> features were enabled.
+> Expose the value of the software fuse to userspace.
 >
 > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
 > ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 88 ++++++++++++++++++++++++++++++++-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  2 +
->  2 files changed, 89 insertions(+), 1 deletion(-)
->
-
-I didn't check the register bits, but the rest looks fine
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 +++
+>  include/uapi/drm/msm_drm.h              | 1 +
+>  2 files changed, 4 insertions(+)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
