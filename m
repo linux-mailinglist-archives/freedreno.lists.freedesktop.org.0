@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 429B68B3F73
-	for <lists+freedreno@lfdr.de>; Fri, 26 Apr 2024 20:36:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 635C98B3F76
+	for <lists+freedreno@lfdr.de>; Fri, 26 Apr 2024 20:38:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB8011A711;
-	Fri, 26 Apr 2024 18:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36B0510E489;
+	Fri, 26 Apr 2024 18:38:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gON9gs93";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vYMqJX2h";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
- [209.85.219.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 317D011A711
- for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 18:36:39 +0000 (UTC)
-Received: by mail-yb1-f182.google.com with SMTP id
- 3f1490d57ef6-de596c078c2so2115434276.0
- for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 11:36:39 -0700 (PDT)
+Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
+ [209.85.219.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0291910E489
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 18:38:26 +0000 (UTC)
+Received: by mail-yb1-f170.google.com with SMTP id
+ 3f1490d57ef6-de45dba157cso2448488276.3
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 11:38:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1714156598; x=1714761398; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1714156706; x=1714761506; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=PfhKiSI78+JIcccpgJr34viq+IohAArFutcQbMmPLDk=;
- b=gON9gs93hKokSKMDik92vOp6Am9Isy0feyBVnraoiSq/HEKAg9EidknL/xSwD9rDpc
- uUiLWYY+41yczyjljNR/j2yByeB+ZKuuR55Pkfk3oLDlfoK0ix89NLTw+8mL+x8miRHZ
- cVVnF+AWubzEuVCqWstCvMpfeKaYfdOOJILeQsUkZ86U5ztZVfA/TWXQX2llVbt4jvZJ
- ZfJOU2BLHiSDRf3i+pI3lIgDWIHGJiZhMhSMuBGodLcFn0i/tWZTydoHlaMuvSxr7AEN
- SqbwbFpn9kAPvh58ZvYVgDmSrbknb9GJ+m0hndcbIeM8R8oJ8+tSAxzceg8KffLvexYn
- o2sQ==
+ bh=LCD0O0mksG8o2F+MvGZO/EX3h5H/t77oNaw9Qg2ltc8=;
+ b=vYMqJX2hSr0cyajHiI877yjx+KPzmP3riRw/c9Ebe/LTG+cGWNio3BUTEhKCqAar+M
+ lmg0fcEOIzSj2InFNH2qKjTthVKLrW1Kj8TJ9kItYzKxSMB9TuH1L+iNV+yRDWBsqIcd
+ jGb7oV17yjmB97bIXxgxdQ/z8hk+JU9gBjgeX6Nf9JOfz4frGB7rNELT4F0DjBnuO/d1
+ vRTQCJC6x2QKa77qLtXJZbaG+upyQte1gvZl37UioeTuJ0DF66DrX6E2Puzf1LtOIVEh
+ KZO/8fzf14gqh58SLivxkHTgvkZr7DqwHCUE9BzxG3grvvSWx72rPIUT6KLJwCf0iWLJ
+ 7wtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714156598; x=1714761398;
+ d=1e100.net; s=20230601; t=1714156706; x=1714761506;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=PfhKiSI78+JIcccpgJr34viq+IohAArFutcQbMmPLDk=;
- b=eaU9JFGouRuU0GLSNY0c0uboiatrQiUk7IbWVnvRDprcdehsFihTRzFwrg2+Mxfb+c
- ND8c6o+47KrkE+mbs54YIkis9YRfkLzrXis1giAaXxtXOWsyXQO3LJUePC6LVpSgvUkJ
- JCA14NAghDpBscRh38BOksR4ONzaS9JkMW1j3fgqif2eVWHwI+j6TpquwkhCUteVhgix
- h4fJhaMqoTQYM1iVWFSOQ6VVi3XD1XpF5mcV/JFOkuy7Y6oCLk3JkViZLo+bVZLLueC9
- LoPm2fHvp6DjakdkS4FGvjg9ZtNngRO2NJkDT2bkwKHPP2oBxjXOGdGpgmMLUkNeciFl
- GGmQ==
+ bh=LCD0O0mksG8o2F+MvGZO/EX3h5H/t77oNaw9Qg2ltc8=;
+ b=o0XMDwg0NkM69f3hhSTB9cyER5IjUOYYMig5M45wf+f03OvpC2f8CEkSm0q+gTeTjs
+ s1FIdIbDYYTnI7EtkWdixyEMPYK/vnqYjC0x3QSWFssvcQF4dclESrmiWMDGE2ulDney
+ 7s5uq19n+Ty3do8ft3+SQyNWRcLFVHPblJfntGvvyuaZTWDgxxVEBAN0PCMLd3aZTU67
+ XjhVL2el48JYrqMuID/8OYKeLxnVDm0XVH4bRCWMZUL5U4TwXv+U6GqEl6RW2Zq0RTDv
+ Vu6sS7WXcr6GRwgxJkqhZBdFLcw5t15paDiKxEYRrIxEkSt3JCLIOYq1gx/ORKVxGFyW
+ ztBQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWf9LnPQLCTRxNwz1WAb7gw8V7YGfAkrIE68mtutfGO5SPSm19A1WBiuv1A7FO78wyb571REaPDEOcYdjpiGkCS+n52HkKef9+3fJXZiLxc
-X-Gm-Message-State: AOJu0YxwQeGw+E0eNbcGpyuWB6T1WFjg/6rtBJVFwPQRiOfQQGldcNeJ
- O4y9rNLSurZH43grKjPNJI5KI8jvhnqLJbMKoextzAxWj2lTSE4QzrGU7mOQ66z2ZDRh76qVndF
- ckeNnwG5j2Q9/5KkOgoOktPwwdgJLVyoH1suYrA==
-X-Google-Smtp-Source: AGHT+IGRxa3W0lgYO1YxHtc9PrSoHPfAHJlkehTh6IfPv4AnhXZXP6F5xHNGt4rxS/gqBaEeHMiE6Osf3r+FXyv1SYw=
-X-Received: by 2002:a25:2fd4:0:b0:dca:c369:fac2 with SMTP id
- v203-20020a252fd4000000b00dcac369fac2mr3878075ybv.3.1714156597887; Fri, 26
- Apr 2024 11:36:37 -0700 (PDT)
+ AJvYcCVlj0uGqoO2RNt+S+etGKoO8ah7WijZK2PvZ5xY1Gs+pvq1Cxbo2mx8rKaTNPPdKiaLIffPdwmuckupIW0hFUYxKt6CeWSUXChTxIu8qTxZ
+X-Gm-Message-State: AOJu0YzdIIfak8Go4Vd5YU7FDf7SNoqgATKyC9PVaW7u0eSoth/zASD3
+ t6K8J7bDIx2SDLUKjaerTf5xpBMS6fa6PD21gGrjqG899YL7m1nN6eDuhRNG3f3G+r6LKXnOPZE
+ ZStHrVPYshpRSsoMZzynki5ca555e5+Zuo8ZGCg==
+X-Google-Smtp-Source: AGHT+IFAGdtoxtMF2BQTf0jLN/bVVJboZUORk+tAcFQhd1qw6HVqAVGEQ/MHq4a2scbHXirClF7DoJbhhB5lfiXMorc=
+X-Received: by 2002:a25:ce8f:0:b0:de4:8b7:7bbd with SMTP id
+ x137-20020a25ce8f000000b00de408b77bbdmr4064532ybe.15.1714156705913; Fri, 26
+ Apr 2024 11:38:25 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240426-a750-raytracing-v2-0-562ac9866d63@gmail.com>
- <20240426-a750-raytracing-v2-1-562ac9866d63@gmail.com>
-In-Reply-To: <20240426-a750-raytracing-v2-1-562ac9866d63@gmail.com>
+ <20240426-a750-raytracing-v2-2-562ac9866d63@gmail.com>
+In-Reply-To: <20240426-a750-raytracing-v2-2-562ac9866d63@gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 26 Apr 2024 21:36:26 +0300
-Message-ID: <CAA8EJpoOJ4z9+SgWoCnKWY4Tq9aoX5z9f9S_KhHzo8o=GEuG+w@mail.gmail.com>
-Subject: Re: [PATCH v2 1/6] arm64: dts: qcom: sm8650: Fix GPU cx_mem size
+Date: Fri, 26 Apr 2024 21:38:15 +0300
+Message-ID: <CAA8EJppF_Xhv_itPOAwbeey0Fh-V=Wd5SoOxNmGZpOUjYkLgNw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/6] firmware: qcom_scm: Add gpu_init_regs call
 To: Connor Abbott <cwabbott0@gmail.com>
 Cc: Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, 
@@ -87,17 +87,22 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Fri, 26 Apr 2024 at 21:34, Connor Abbott <cwabbott0@gmail.com> wrote:
 >
-> This is doubled compared to previous GPUs. We can't access the new
-> SW_FUSE_VALUE register without this.
+> This will used by drm/msm.
+
+Can we have some description please?
+
 >
-> Fixes: db33633b05c0 ("arm64: dts: qcom: sm8650: add GPU nodes")
 > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
 > ---
->  arch/arm64/boot/dts/qcom/sm8650.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/firmware/qcom/qcom_scm.c       | 14 ++++++++++++++
+>  drivers/firmware/qcom/qcom_scm.h       |  3 +++
+>  include/linux/firmware/qcom/qcom_scm.h | 23 +++++++++++++++++++++++
+>  3 files changed, 40 insertions(+)
+>
+
+With the commit message improved:
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
 
 -- 
 With best wishes
