@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91EFC8B464B
-	for <lists+freedreno@lfdr.de>; Sat, 27 Apr 2024 14:04:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E0608B464F
+	for <lists+freedreno@lfdr.de>; Sat, 27 Apr 2024 14:07:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33DB510F4AE;
-	Sat, 27 Apr 2024 12:04:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B4E31128DE;
+	Sat, 27 Apr 2024 12:07:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RVLZF8IG";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FcaY/b5d";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52F7F10F4AE
- for <freedreno@lists.freedesktop.org>; Sat, 27 Apr 2024 12:04:28 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-51acb95b892so3709265e87.2
- for <freedreno@lists.freedesktop.org>; Sat, 27 Apr 2024 05:04:28 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D74221128DE
+ for <freedreno@lists.freedesktop.org>; Sat, 27 Apr 2024 12:07:08 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-a58c09e2187so294747066b.3
+ for <freedreno@lists.freedesktop.org>; Sat, 27 Apr 2024 05:07:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1714219466; x=1714824266; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1714219627; x=1714824427; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=M4KxbMOPobKw+zVu4l+AkGDBH5YIiQ/czS+4EyOwms4=;
- b=RVLZF8IG3CmSjejkMiFN/BPqPu3yWkUEMUQCDv/GU/uWIAeSgSIORvVtL3pAU4Jr3B
- 2aXSOmOQkUME1LbJdB1gA+I6SaDWxXfMQDuATxUIhwJsvd67aV10s7gvh02kAJT1L9/N
- PWqVZWEzk62Igb8C0lHyR9rBXlk30jRtur01rtCxdxHglnTU6NnFfyPQgjCJs1re6gtY
- ufbb0OxqFo+2HMfeJKc64PV31gfvsxGmhUdKj1Mo+OMLpB31w/FOK+dHWZ8gYFvfdDxw
- KrlkwUSjFm1tAwIwFpiCcJv27O/aDrCHLcgLht9oUIyEWGOS+b0aYeYVja2G+pkmeWf6
- SUdg==
+ bh=PrbE+t5vXk+4p9urJEPfJrnneWX6RpXxGGLVvvodNM4=;
+ b=FcaY/b5dAup/cimRNvKd/kjnWdz3U4Mx81aZHiv3BDmm8XMLW3ussJrN57+uQ8q08O
+ Z6F2ME+fg05XZW7GKgTO/MCWlhkccSFapDKJaI5vgJI1MjVAsEXZ/LTDjhz49lRdiCCi
+ cQEtAumUdZWr4a6TWOc7pdHY+sJbT1BE4VtV/dAvCw1UYfdx3nWzPTADRj9nXpqigtht
+ G5/HJnwZHiGES9genddHsXsANMB/7Somtmrai3FdJstisjt6XUygZsKBDy/74UmpLOCb
+ UQYhDyuB5QFK5Gwn4WgSvvncP5wAPLza2qvVzPTggTVjPsCDks4LdGdBoBNIsJpUEI6E
+ jh7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714219466; x=1714824266;
+ d=1e100.net; s=20230601; t=1714219627; x=1714824427;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=M4KxbMOPobKw+zVu4l+AkGDBH5YIiQ/czS+4EyOwms4=;
- b=UzV85gtEQf3KB74s2/HGg+NRiyjcSUsMSWXgx6HkTg5OUPBxo8Uxjb/sN7qbvR99Ya
- HzDltYDLvnSnw+kedJCIEC56R5R+BbUzHDFLEz+LZF61IoIGif0xLjVswv9Byk7EQDrW
- wcyGwm7QwMiG5HFgG2qu8vd6BNTJO8Exa9kwOlc8zD3ZTs/7KN5jMTzDWZ+YNgwRaOL3
- yIZvxngMQH0mnEkS15jRLIVjcLuexdv3oyYBh6n60jIlr0uQiF6/gn9CHbaWuKvLeEAy
- hg4zQleHvCpGzNXT15ANI2qSIY2X2MiNdW7ihSHSxIcy7Ok3y61Ubfo5KmTQ5Qhx0Pf8
- MMqw==
+ bh=PrbE+t5vXk+4p9urJEPfJrnneWX6RpXxGGLVvvodNM4=;
+ b=VGBYepRM7sDrG3xH78ps/rlsixV4nEpO/9rQHJPfBwt9Ysx7EHQ+Hs+NuZcac1LgRY
+ wKFJWiTdrjAfeVti7XamjyNvLFIZbfun6wedU08xYF710sfTs0FwGOs2frT4Wt7OyHcI
+ gTFDqfWBFcuXL+oytJ0ewDNSBnuKmB6nE5rIggwfQHN8OMzgTYChxtpLW3LfW9tAhZ0t
+ YFvU68HEp+5sesJLnxhQZmVdvA/P71YYYyr0HBlCSk1WRtR9Pxr+a2NK6Ek5VTOK0RED
+ dfvKuYJXsnbqamQke/suHztdSME850v+ynm5EN5fYdgTbY+u4PW76PB/W5Q9AfQfg2zu
+ KVcg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX1MxnqowflaMBd1kOV9Ffp/vCUMPAuU/J8Z2AjEuonkRjsHnRCFTGh7bEcXYH0m96zN4VoeuK6Dnn9nmSZsOaWHXdQ6Qyn0gffIFbeVzMc
-X-Gm-Message-State: AOJu0YwynUCG3d3TKUej12v34SA5E8LL45GtF37O24nOzJbio3sh9scl
- 1p6WmBP572ys8XlgHHpuqZo0c2A1dcUTqTaRc9sSyJdPyDMwB6yDO9goyFZeqw8=
-X-Google-Smtp-Source: AGHT+IEytJFGQjtwOxzIenWUWdx9Erl3wSRSnG9KvGAsEhPAFwre3TbJM0qJUskI40ZTRdqS9feVLg==
-X-Received: by 2002:ac2:4ec7:0:b0:516:b07a:5b62 with SMTP id
- p7-20020ac24ec7000000b00516b07a5b62mr3657405lfr.54.1714219466162; 
- Sat, 27 Apr 2024 05:04:26 -0700 (PDT)
+ AJvYcCX6mtyLLRjoinJIeFvqTHLULXQvw0RJYR3cncmWf3wJyTkptXXnKOc/TLdvLcxqgXo8Qfyu+XvV2OCt4bp2/Wl5TKtMfopZijflYMHE448x
+X-Gm-Message-State: AOJu0YwSt/Shzysw5iKCZyhdq98eplhJKqd7UkKGk3n97Z6JrDYuG8eP
+ b3MjjyhfGwRvQKWNtXO//bHXAsht3JSHcbIIz22BJZ9f33uGrIhMh5rZIgAMweU=
+X-Google-Smtp-Source: AGHT+IGWEIq13/SYnH0A5FMYlNSz/49GBjTn75rP60dRsoZD4mjdwaX/f0J19YhQ3yY6tVYJx3UpOg==
+X-Received: by 2002:a17:907:1b27:b0:a55:b592:7e0a with SMTP id
+ mp39-20020a1709071b2700b00a55b5927e0amr4267986ejc.48.1714219626825; 
+ Sat, 27 Apr 2024 05:07:06 -0700 (PDT)
 Received: from [192.168.114.15] (078088045141.garwolin.vectranet.pl.
  [78.88.45.141]) by smtp.gmail.com with ESMTPSA id
- d42-20020a056402402a00b00571d5c4a220sm9600710eda.7.2024.04.27.05.04.23
+ m12-20020a1709062b8c00b00a58d438ed2esm1480096ejg.139.2024.04.27.05.07.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 27 Apr 2024 05:04:25 -0700 (PDT)
-Message-ID: <e8f08fb2-2ad7-4078-8db3-6acb6569497d@linaro.org>
-Date: Sat, 27 Apr 2024 14:04:22 +0200
+ Sat, 27 Apr 2024 05:07:06 -0700 (PDT)
+Message-ID: <d729e6ab-338b-4ec3-bc42-5dd12e0e2636@linaro.org>
+Date: Sat, 27 Apr 2024 14:07:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] arm64: dts: qcom: sm8650: Fix GPU cx_mem size
+Subject: Re: [PATCH v2 2/6] firmware: qcom_scm: Add gpu_init_regs call
 To: Connor Abbott <cwabbott0@gmail.com>,
  Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
@@ -73,7 +73,7 @@ To: Connor Abbott <cwabbott0@gmail.com>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  freedreno@lists.freedesktop.org
 References: <20240426-a750-raytracing-v2-0-562ac9866d63@gmail.com>
- <20240426-a750-raytracing-v2-1-562ac9866d63@gmail.com>
+ <20240426-a750-raytracing-v2-2-562ac9866d63@gmail.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
@@ -111,7 +111,7 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20240426-a750-raytracing-v2-1-562ac9866d63@gmail.com>
+In-Reply-To: <20240426-a750-raytracing-v2-2-562ac9866d63@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -129,14 +129,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26.04.2024 8:33 PM, Connor Abbott wrote:
-> This is doubled compared to previous GPUs. We can't access the new
-> SW_FUSE_VALUE register without this.
+On 26.04.2024 8:34 PM, Connor Abbott wrote:
+> This will used by drm/msm.
 > 
-> Fixes: db33633b05c0 ("arm64: dts: qcom: sm8650: add GPU nodes")
 > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
 > ---
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+[...]
+
+> +/**
+> + * Request TZ to program set of access controlled registers necessary
+> + * irrespective of any features
+> + */
+
+kerneldoc abuse, please make it a regular comment
 
 Konrad
