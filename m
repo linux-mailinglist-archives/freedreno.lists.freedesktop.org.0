@@ -2,74 +2,118 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23AB28B3F8B
-	for <lists+freedreno@lfdr.de>; Fri, 26 Apr 2024 20:44:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91EFC8B464B
+	for <lists+freedreno@lfdr.de>; Sat, 27 Apr 2024 14:04:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4A7F10E30A;
-	Fri, 26 Apr 2024 18:44:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33DB510F4AE;
+	Sat, 27 Apr 2024 12:04:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Ejezo+5R";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RVLZF8IG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
- [209.85.219.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C3DB10F083
- for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 18:44:38 +0000 (UTC)
-Received: by mail-yb1-f172.google.com with SMTP id
- 3f1490d57ef6-de45dba15feso2951287276.3
- for <freedreno@lists.freedesktop.org>; Fri, 26 Apr 2024 11:44:38 -0700 (PDT)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52F7F10F4AE
+ for <freedreno@lists.freedesktop.org>; Sat, 27 Apr 2024 12:04:28 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-51acb95b892so3709265e87.2
+ for <freedreno@lists.freedesktop.org>; Sat, 27 Apr 2024 05:04:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1714157078; x=1714761878; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=rPiNWGdfnN8JZJd8dsw7Vc72DKCvCwvtvuendszQLjc=;
- b=Ejezo+5RzP7Ogz4lqudiXmsX36Uw5QlHubR88yn3JJVmcW74PC3Oma5tXT4ND2MiYK
- 2dEL4ScQw8A2Gtm/niAwnwj3x6eidlqNHJx9M5xXoYb2AZe+qN+0vbgd1IWMjCj+Z7QP
- /Wi93hqS8FtDVEiWsuapklDGyyLviXewN0NjZraTwkE90hLZptQOa9z/wl8jg1rrhP9D
- 5jrozXkJBmxi0h2QCuTwt/at7MVYU/KotvHycvlR9QXT351PZ2CyNmP8FEJ4WzmaBNZc
- e+P/A66cy13Vkcks7ubMdVlcYI9y1vSCbiXgWQHIBuMfpVHSsM/xU10ZyzkDcQIQ8Mw5
- JmFA==
+ d=linaro.org; s=google; t=1714219466; x=1714824266; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=M4KxbMOPobKw+zVu4l+AkGDBH5YIiQ/czS+4EyOwms4=;
+ b=RVLZF8IG3CmSjejkMiFN/BPqPu3yWkUEMUQCDv/GU/uWIAeSgSIORvVtL3pAU4Jr3B
+ 2aXSOmOQkUME1LbJdB1gA+I6SaDWxXfMQDuATxUIhwJsvd67aV10s7gvh02kAJT1L9/N
+ PWqVZWEzk62Igb8C0lHyR9rBXlk30jRtur01rtCxdxHglnTU6NnFfyPQgjCJs1re6gtY
+ ufbb0OxqFo+2HMfeJKc64PV31gfvsxGmhUdKj1Mo+OMLpB31w/FOK+dHWZ8gYFvfdDxw
+ KrlkwUSjFm1tAwIwFpiCcJv27O/aDrCHLcgLht9oUIyEWGOS+b0aYeYVja2G+pkmeWf6
+ SUdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714157078; x=1714761878;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=rPiNWGdfnN8JZJd8dsw7Vc72DKCvCwvtvuendszQLjc=;
- b=hDBVrOdHIkqIvtjzF6n2cIh4PUBlPCJrCeQNk52KWW8qLAiLLUGZ4psOM1HkYZgS/a
- FhpAqsqoiAsRYufgkai3Ek50e0DDkox4zeRhKyq4GxqKYqh1fnGABZSfu7aeI1kXIj4B
- 1VN7EU/IpL/XgkNkhFu0wy6RjFQeECSpXc3BFj7Flbk4vSMNJqswSqFsQQ/8soOLOV6+
- xZcA3gHhgqWfWni7x7YxObubRQKnarsKjhsmzinjiet8YCgosbMYepWix9pSSXYPpS/D
- OJtn56J1KxNQ1Lz0poY6ThtvBUQkEm3r/3p5+9ceah2tXamYfpIA9AF3bH6rQZrqfCbk
- BnLQ==
+ d=1e100.net; s=20230601; t=1714219466; x=1714824266;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=M4KxbMOPobKw+zVu4l+AkGDBH5YIiQ/czS+4EyOwms4=;
+ b=UzV85gtEQf3KB74s2/HGg+NRiyjcSUsMSWXgx6HkTg5OUPBxo8Uxjb/sN7qbvR99Ya
+ HzDltYDLvnSnw+kedJCIEC56R5R+BbUzHDFLEz+LZF61IoIGif0xLjVswv9Byk7EQDrW
+ wcyGwm7QwMiG5HFgG2qu8vd6BNTJO8Exa9kwOlc8zD3ZTs/7KN5jMTzDWZ+YNgwRaOL3
+ yIZvxngMQH0mnEkS15jRLIVjcLuexdv3oyYBh6n60jIlr0uQiF6/gn9CHbaWuKvLeEAy
+ hg4zQleHvCpGzNXT15ANI2qSIY2X2MiNdW7ihSHSxIcy7Ok3y61Ubfo5KmTQ5Qhx0Pf8
+ MMqw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW5xqMV+7DsbtGop8lLMNKVJOdDtLEgSFwhxCbP+0K/0ix6aguMnLT/Fpt1jxx72bu27MrmmxMXS+70Qwx3DvfciUv6LlT96NW3M/5Sov7O
-X-Gm-Message-State: AOJu0YxgE9wYo96CFZJ6HVE8Eo+LQWT31MTFkLTEkRwtxcX2XKGauICf
- NcfXIVt9WN1XHd4eryGQgaLpMX+HeqOc9MxeVpHrims867z+X4H8z/F1vFZg2HWEAR3YmIPi4Y2
- TsJBAhlxlqa8tSnguN11HT1z5rOrjIKVpuIkaig==
-X-Google-Smtp-Source: AGHT+IEBZPSkhTeyZCn1Cq2ot4W4tqIxgRzfLLkcqrRXEqEgcPk4vxhJsI6qrlPc7WoB0zQEQsEX8xqSosNMUxnn03U=
-X-Received: by 2002:a05:6902:2010:b0:de5:5a39:2cad with SMTP id
- dh16-20020a056902201000b00de55a392cadmr4344715ybb.27.1714157077930; Fri, 26
- Apr 2024 11:44:37 -0700 (PDT)
+ AJvYcCX1MxnqowflaMBd1kOV9Ffp/vCUMPAuU/J8Z2AjEuonkRjsHnRCFTGh7bEcXYH0m96zN4VoeuK6Dnn9nmSZsOaWHXdQ6Qyn0gffIFbeVzMc
+X-Gm-Message-State: AOJu0YwynUCG3d3TKUej12v34SA5E8LL45GtF37O24nOzJbio3sh9scl
+ 1p6WmBP572ys8XlgHHpuqZo0c2A1dcUTqTaRc9sSyJdPyDMwB6yDO9goyFZeqw8=
+X-Google-Smtp-Source: AGHT+IEytJFGQjtwOxzIenWUWdx9Erl3wSRSnG9KvGAsEhPAFwre3TbJM0qJUskI40ZTRdqS9feVLg==
+X-Received: by 2002:ac2:4ec7:0:b0:516:b07a:5b62 with SMTP id
+ p7-20020ac24ec7000000b00516b07a5b62mr3657405lfr.54.1714219466162; 
+ Sat, 27 Apr 2024 05:04:26 -0700 (PDT)
+Received: from [192.168.114.15] (078088045141.garwolin.vectranet.pl.
+ [78.88.45.141]) by smtp.gmail.com with ESMTPSA id
+ d42-20020a056402402a00b00571d5c4a220sm9600710eda.7.2024.04.27.05.04.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 27 Apr 2024 05:04:25 -0700 (PDT)
+Message-ID: <e8f08fb2-2ad7-4078-8db3-6acb6569497d@linaro.org>
+Date: Sat, 27 Apr 2024 14:04:22 +0200
 MIME-Version: 1.0
-References: <20240426-a750-raytracing-v2-0-562ac9866d63@gmail.com>
- <20240426-a750-raytracing-v2-5-562ac9866d63@gmail.com>
-In-Reply-To: <20240426-a750-raytracing-v2-5-562ac9866d63@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 26 Apr 2024 21:44:27 +0300
-Message-ID: <CAA8EJpq32gt1UJ078-O9K1LdH+8gmZGh-FaQDjmm2M-RO82TfQ@mail.gmail.com>
-Subject: Re: [PATCH v2 5/6] drm/msm: Add MSM_PARAM_RAYTRACING uapi
-To: Connor Abbott <cwabbott0@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Jun Nie <jun.nie@linaro.org>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] arm64: dts: qcom: sm8650: Fix GPU cx_mem size
+To: Connor Abbott <cwabbott0@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jun Nie <jun.nie@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+References: <20240426-a750-raytracing-v2-0-562ac9866d63@gmail.com>
+ <20240426-a750-raytracing-v2-1-562ac9866d63@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <20240426-a750-raytracing-v2-1-562ac9866d63@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,19 +129,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 26 Apr 2024 at 21:34, Connor Abbott <cwabbott0@gmail.com> wrote:
->
-> Expose the value of the software fuse to userspace.
->
+On 26.04.2024 8:33 PM, Connor Abbott wrote:
+> This is doubled compared to previous GPUs. We can't access the new
+> SW_FUSE_VALUE register without this.
+> 
+> Fixes: db33633b05c0 ("arm64: dts: qcom: sm8650: add GPU nodes")
 > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
 > ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 +++
->  include/uapi/drm/msm_drm.h              | 1 +
->  2 files changed, 4 insertions(+)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-
--- 
-With best wishes
-Dmitry
+Konrad
