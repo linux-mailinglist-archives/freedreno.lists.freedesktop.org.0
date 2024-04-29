@@ -2,51 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA1748B4DD3
-	for <lists+freedreno@lfdr.de>; Sun, 28 Apr 2024 23:06:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FFC98B632C
+	for <lists+freedreno@lfdr.de>; Mon, 29 Apr 2024 22:06:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89121112295;
-	Sun, 28 Apr 2024 21:06:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9371211226B;
+	Mon, 29 Apr 2024 20:06:38 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FKzwzN+i";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it [5.144.164.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C00F112295
- for <freedreno@lists.freedesktop.org>; Sun, 28 Apr 2024 21:06:38 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 9A1D21F62F;
- Sun, 28 Apr 2024 23:06:35 +0200 (CEST)
-Date: Sun, 28 Apr 2024 23:06:34 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Archit Taneja <architt@codeaurora.org>, 
- Chandan Uddaraju <chandanu@codeaurora.org>, Vinod Koul <vkoul@kernel.org>, 
- Sravanthi Kollukuduru <skolluku@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jordan Crouse <jordan@cosmicpenguin.net>, Rajesh Yadav <ryadav@codeaurora.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- ~postmarketos/upstreaming@lists.sr.ht, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>
-Subject: Re: [PATCH 5/7] drm/msm/dpu: Correct dual-ctl -> dual-intf typo in
- comment
-Message-ID: <mrg3m7awzvozhyg2zwwbawfa6cb6xo7obzooiq3iph6mu3ybfc@b5h2pzxvcjvf>
-References: <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-0-78ae3ee9a697@somainline.org>
- <20240417-drm-msm-initial-dualpipe-dsc-fixes-v1-5-78ae3ee9a697@somainline.org>
- <76hjmo4sq6sfjgmnvjoienc5aij74pfjtwevnnls65kxinyaxu@y3yydacvcflm>
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68F8410E5BE;
+ Mon, 29 Apr 2024 20:06:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1714421194;
+ bh=tFT2yxWeXBJU5cFia5YX4Z1prR+PxGxwFNPbkm3rVJ8=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=FKzwzN+it+I4VqojDdJXAcXiG1GpC8kJ+1Kwez5/vMlFgTCltzzFZJ1g/988c0bLy
+ OxxZ3Pqz7+Fv9yRMPVHIn6nYGOSV7YdsI4IZDLGyZpd9dv6b4skQKud7kbeq9BR6GF
+ i0aPsxMvDRrv0pWfCQAeQImqPWuOgDr51tJK5QQ+KObFFhUnKD5Apn9hx7wIjwBTsJ
+ 6xw54+KZMixIrnhvnpJcx7jKCN/VOsifPFZPQHfXX7caw+xi2qozTAY/8w8QpYagJS
+ Uvrc3QLWb0tp/vZzSagTre1rp2P1SloojezY0jfFaH3wbIq0ugB00018+Zub7CDxF7
+ dw8Z9jwS3dAeQ==
+Received: from [100.95.196.25] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: koike)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 30C9837821B3;
+ Mon, 29 Apr 2024 20:06:30 +0000 (UTC)
+Message-ID: <4ce2b55b-f2b7-4b40-a644-6ef4d89007dd@collabora.com>
+Date: Mon, 29 Apr 2024 17:06:28 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <76hjmo4sq6sfjgmnvjoienc5aij74pfjtwevnnls65kxinyaxu@y3yydacvcflm>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm: ci: fix the xfails for apq8016
+From: Helen Koike <helen.koike@collabora.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20240401204859.24223-1-quic_abhinavk@quicinc.com>
+ <357b6395-5fae-38c9-8b53-5edc9fcbae32@quicinc.com>
+ <96624d87-2198-4176-9b98-208595380132@collabora.com>
+Content-Language: en-US
+In-Reply-To: <96624d87-2198-4176-9b98-208595380132@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,68 +68,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2024-04-18 02:30:59, Dmitry Baryshkov wrote:
-> On Wed, Apr 17, 2024 at 01:57:45AM +0200, Marijn Suijten wrote:
-> > This comment one line down references a single, "same CTL" that controls
-> > two interfaces, so the comment should clearly describe two interfaces
-> > used with a single active CTL and not "two CTLs".
-> > 
-> > Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-> > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > ---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> > index d9e7dbf0499c..7e849fe74801 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> > @@ -428,7 +428,7 @@ static void dpu_encoder_phys_vid_enable(struct dpu_encoder_phys *phys_enc)
-> >  	dpu_encoder_phys_vid_setup_timing_engine(phys_enc);
-> >  
-> >  	/*
-> > -	 * For single flush cases (dual-ctl or pp-split), skip setting the
-> > +	 * For single flush cases (dual-intf or pp-split), skip setting the
+
+
+On 25/04/2024 11:01, Helen Koike wrote:
 > 
-> It should be fixed, but in the other way: it's 'single-ctl'. See
-> sde_encoder_phys_needs_single_flush().
-
-As written in the cover letter I was unsure about this comment.
-
-You are right that sde_encoder_phys_needs_single_flush() is supposed to return
-true in pp-split or single-ctl.  However, the second part of the comment (right
-below) is in conflict with another patch that I've sent as part of these series:
-on a single-ctl setup with dual interfaces, the second INTF needs to be marked
-for flushing.
-
-While that observation and fix is for CMD-mode, the exact same comment is found
-downstream for video mode:
-
-https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-drivers/-/blob/display-kernel.lnx.5.4.r1-rel/msm/sde/sde_encoder_phys_vid.c?ref_type=heads#L794-804
-
-You were fixing exactly that in one of your preliminary Active-CTL patches by
-making dpu_encoder_phys_vid_needs_single_flush() return for Active-CTL, so we
-should probably update this comment in the same patch when you send it?
-
-(that is: the flush bit needs to be set for the slave intf in Active-CTL. Before
-Active-CTL, a slave encoder would actually have two CTLs and two INTFs where the
-flush bit was probably skipped on both slaves?)
-
-On a side-note, since the needs_single_flush callback is used elsehwere, I'm
-unsure if that patch affects things in the wrong way since the downstream file
-linked above applies the check for CTL_ACTIVE_CFG directly in-line without
-affecting the callback.
-
-- Marijn
-
-> >  	 * flush bit for the slave intf, since both intfs use same ctl
-> >  	 * and HW will only flush the master.
-> >  	 */
-> > 
-> > -- 
-> > 2.44.0
-> > 
 > 
-> -- 
-> With best wishes
-> Dmitry
+> On 08/04/2024 14:04, Abhinav Kumar wrote:
+>> Hi Helen
+>>
+>> Gentle reminder on this.
+>>
+>> If you are okay, we can land it via msm-next tree...
+>>
+>> Thanks
+>>
+>> Abhinav
+>>
+>> On 4/1/2024 1:48 PM, Abhinav Kumar wrote:
+>>> After IGT migrating to dynamic sub-tests, the pipe prefixes
+>>> in the expected fails list are incorrect. Lets drop those
+>>> to accurately match the expected fails.
+>>>
+>>> In addition, update the xfails list to match the current passing
+>>> list. This should have ideally failed in the CI run because some
+>>> tests were marked as fail even though they passed but due to the
+>>> mismatch in test names, the matching didn't correctly work and was
+>>> resulting in those failures not being seen.
+>>>
+>>> Here is the passing pipeline for apq8016 with this change:
+>>>
+>>> https://gitlab.freedesktop.org/drm/msm/-/jobs/57050562
+>>>
+>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> 
+> I'm sorry about my delay.
+> 
+> Acked-by: Helen Koike <helen.koike@collabora.com>
+> 
+> I'm also merging it to msm-misc-next.
+
+Applied, thanks.
+
+Helen
+
+> 
+> Regards,
+> Helen
+> 
+>>> ---
+>>>   drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt | 13 +------------
+>>>   1 file changed, 1 insertion(+), 12 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt 
+>>> b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
+>>> index 44a5c62dedad..b14d4e884971 100644
+>>> --- a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
+>>> +++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
+>>> @@ -1,17 +1,6 @@
+>>>   kms_3d,Fail
+>>>   kms_addfb_basic@addfb25-bad-modifier,Fail
+>>> -kms_cursor_legacy@all-pipes-forked-bo,Fail
+>>> -kms_cursor_legacy@all-pipes-forked-move,Fail
+>>> -kms_cursor_legacy@all-pipes-single-bo,Fail
+>>> -kms_cursor_legacy@all-pipes-single-move,Fail
+>>> -kms_cursor_legacy@all-pipes-torture-bo,Fail
+>>> -kms_cursor_legacy@all-pipes-torture-move,Fail
+>>> -kms_cursor_legacy@pipe-A-forked-bo,Fail
+>>> -kms_cursor_legacy@pipe-A-forked-move,Fail
+>>> -kms_cursor_legacy@pipe-A-single-bo,Fail
+>>> -kms_cursor_legacy@pipe-A-single-move,Fail
+>>> -kms_cursor_legacy@pipe-A-torture-bo,Fail
+>>> -kms_cursor_legacy@pipe-A-torture-move,Fail
+>>> +kms_cursor_legacy@torture-bo,Fail
+>>>   kms_force_connector_basic@force-edid,Fail
+>>>   kms_hdmi_inject@inject-4k,Fail
+>>>   kms_selftest@drm_format,Timeout
