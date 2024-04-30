@@ -2,66 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE9638B70DB
-	for <lists+freedreno@lfdr.de>; Tue, 30 Apr 2024 12:50:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76B848B70E3
+	for <lists+freedreno@lfdr.de>; Tue, 30 Apr 2024 12:51:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8053510E990;
-	Tue, 30 Apr 2024 10:50:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 477BF10E990;
+	Tue, 30 Apr 2024 10:51:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="uYOePLoN";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="r6CWRpgz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CA0110E990
- for <freedreno@lists.freedesktop.org>; Tue, 30 Apr 2024 10:50:42 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-a58ebdd8b64so309426966b.0
- for <freedreno@lists.freedesktop.org>; Tue, 30 Apr 2024 03:50:42 -0700 (PDT)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58B5310E9A3
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Apr 2024 10:51:12 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-a5878caeb9eso682567266b.1
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Apr 2024 03:51:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1714474241; x=1715079041; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1714474270; x=1715079070; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=heDKZ4eTBF6PRoXX5DIUciwgFRkTeI3rTInleG5oDYE=;
- b=uYOePLoNy4vvI4diflevcRL/u0dJO3GqEDPXF/jMq9+rGRyzyQVkE3NhoX9XZAflvk
- tKAJkBnlz8XGplWca2n8UyOqHcMHw8ARIRBof0uLhZKy65gKNQfIokZsQMI5S39JxumC
- 2NEx6wMLkJVhzAamh1cH/tQd/GFYqRc0AOhOwXKo+WaSAZRiw0qlt+nmYI7iR1472zfd
- c5GiGQludTInYKImMQT0aTdbl+lBF+UOa11mXf2sJnhYWSvZqX0Yl3LIyv9/BkUZ/TK5
- C8f9aK3Ucjg7kimXNWG+mF/nEdRfL1qPluiAsPeVCXZ4EhsMm6prAlV03ei+XlsR36HN
- VhXQ==
+ bh=o3356g3VAev9MrGinA7iijabdBsrSlFFhldEpixluBU=;
+ b=r6CWRpgzriHumzpWRY3yTPQkMe2UHH7biFr0QM7tqi0wehKx6LB3FW4ESHvVIRmobZ
+ 2QJ5oYvdnSsA0xDodOhMi/p2vi3b0dCr55MIiDEdHwzfB2RaCjR6YFh5LT9PS92cuDT4
+ v/OW03QBHGKdapd5h2yqHZTaTWoo3k5ATW/AKPLnKfObZb+Uf2z6BwKfaBpGEcBtW4LB
+ 3VL1DdkKqSiIzzQcGpOhSaVrDlm8Kkst5rL9NwwyZcGnW6WpX4Z30tovUqOoetabYktM
+ 9rYnarrGgFiuUackxdSw75L+1yHNO3ThvLupBnhw+Cxk5cdWI/SZlnc4L7ZZovJZRbsE
+ tOSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714474241; x=1715079041;
+ d=1e100.net; s=20230601; t=1714474270; x=1715079070;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=heDKZ4eTBF6PRoXX5DIUciwgFRkTeI3rTInleG5oDYE=;
- b=iU9Ivhr/RVqsFfdxP4GnyrN5UquxaOa93YtTLJTP7rvMdYpH5GwAdkrpglAdLyGe5+
- klhxL5JywK63+G+DEmM69IZxyQTRj20JZQO9Y103yOwH7awMj0zihy+iVwYn6EIusT3g
- 7F5ScDLyUcwqlC19tdh/UL1nfOzXBtWMYTwjfnus/d4ayhA0oLupS5dM46Fixvdc+5gK
- zyL+oBCoTfkDNIM8cNyi5HVcPZ6S7b10GONgltvh6sc4o4/XSVbuqWJ7GMK7+2zOXCZe
- zMDB3XToU/iDTVOH5DMNdd6X8i2ISLv0HgYzB32tuSDgfRZg+dtf1a95e6nyEdlgdgfo
- Nbdw==
+ bh=o3356g3VAev9MrGinA7iijabdBsrSlFFhldEpixluBU=;
+ b=e+lcswCfAIaVlGGGBLWAjV7j08jKgOuxdDJdu16E80fe2Bh+O0mEAQFDREQcqsRral
+ 29p/xTHrX1KfPs86dRD1hN713hrqy7KUzoDOKboiFku0aleKdbyno1cc7fKc9Ai/Xqtk
+ KnnB9qFQUx07FCVaqLTNdM7lSB3Vcv61BouWOtI0tFLHxZP3M9H6k8JdaroddUlOOmhy
+ bOlmCZos32M9QcZhJ0H49VOUYNzJH+rGCvxepMrdFnnXd/jSz+fg78Rmh3eUtv5riwZx
+ bMUrBtaVgBOd+cM6RYySBe9sLL7gK77mvvQzT5A3yi0Q1m1I4wBRBNC90Z/qCnTnuG7U
+ K4Tg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWNJbhnbBOh3Ej1a1RDf0cSKw3wcFEzIILLEUaRfOFyRnESeSOqWi2K/oJcoP3VIlqm3Oo2inirxsyvV5WhXdkcZNrmBcQrIOj8rvbgdPrl
-X-Gm-Message-State: AOJu0Yylu9hXb3n+eGr9xiqKpPctTPrHWoaRLCC4SWEjvM3yHjcPwfwu
- u1+8uTWsCgctl4rib/xpqojq0AVtX1aKszFZI6Rtp1BJGaOoE9ZHQpa2SOIR5xs=
-X-Google-Smtp-Source: AGHT+IH1XYonBidSUACstLU6jC7krFVAZzpuAMOU1LAElC67702TrtyyPBlsM0c3CMPFlJ3N3xZKlw==
-X-Received: by 2002:a17:906:e255:b0:a58:7dab:28a2 with SMTP id
- gq21-20020a170906e25500b00a587dab28a2mr10103009ejb.48.1714474240667; 
- Tue, 30 Apr 2024 03:50:40 -0700 (PDT)
+ AJvYcCVcBjYPutJ1jkwWG008ZN09fCejh3ez3qNDoNV/WHfKO0f1y801XAvUgn5KxY6uicUo7n5XxLDzst0FWcQx6154nheLiBgYXBzsS6EtfsM1
+X-Gm-Message-State: AOJu0Yx5pNCs9EeEq1bcfHXtSgI3m1iGZq2KhyQlI37ndxxpWaJD6DJk
+ TFl6VJ5rTXr8DchS0ir0e30osG++cov9u1j7Dmn4iYLH31ncptUXs7VOau+BfWs=
+X-Google-Smtp-Source: AGHT+IE82Jo5HtlkMIrJ796Lx2p5xJmNe/1yWR/ZbxAWf/xSRjEnugT0dgnxGEY6+3ZaiYmbpNJLcw==
+X-Received: by 2002:a17:906:f147:b0:a58:8394:85b3 with SMTP id
+ gw7-20020a170906f14700b00a58839485b3mr1514923ejb.35.1714474270661; 
+ Tue, 30 Apr 2024 03:51:10 -0700 (PDT)
 Received: from [192.168.114.15] (078088045141.garwolin.vectranet.pl.
  [78.88.45.141]) by smtp.gmail.com with ESMTPSA id
- y12-20020a170906470c00b00a59168ab380sm1057967ejq.140.2024.04.30.03.50.38
+ am20-20020a170906569400b00a5935e7203asm108294ejc.176.2024.04.30.03.51.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Apr 2024 03:50:40 -0700 (PDT)
-Message-ID: <296424cf-8b8b-4a0e-b531-6ca4f37cfa60@linaro.org>
-Date: Tue, 30 Apr 2024 12:50:37 +0200
+ Tue, 30 Apr 2024 03:51:10 -0700 (PDT)
+Message-ID: <f2790f2d-dc40-480f-a224-d0419b993f56@linaro.org>
+Date: Tue, 30 Apr 2024 12:51:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/6] drm/msm/a7xx: Initialize a750 "software fuse"
+Subject: Re: [PATCH v3 6/6] drm/msm/a7xx: Add missing register writes from
+ downstream
 To: Connor Abbott <cwabbott0@gmail.com>,
  Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
@@ -73,7 +74,7 @@ To: Connor Abbott <cwabbott0@gmail.com>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  freedreno@lists.freedesktop.org
 References: <20240430-a750-raytracing-v3-0-7f57c5ac082d@gmail.com>
- <20240430-a750-raytracing-v3-4-7f57c5ac082d@gmail.com>
+ <20240430-a750-raytracing-v3-6-7f57c5ac082d@gmail.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
@@ -111,7 +112,7 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20240430-a750-raytracing-v3-4-7f57c5ac082d@gmail.com>
+In-Reply-To: <20240430-a750-raytracing-v3-6-7f57c5ac082d@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -130,15 +131,8 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 30.04.2024 12:43 PM, Connor Abbott wrote:
-> On all Qualcomm platforms with a7xx GPUs, qcom_scm provides a method to
-> initialize cx_mem. Copy this from downstream (minus BCL which we
-> currently don't support). On a750, this includes a new "fuse" register
-> which can be used by qcom_scm to fuse off certain features like
-> raytracing in software. The fuse is default off, and is initialized by
-> calling the method. Afterwards we have to read it to find out which
-> features were enabled.
+> This isn't known to fix anything yet, but it's a good idea to add it.
 > 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
 > ---
 
