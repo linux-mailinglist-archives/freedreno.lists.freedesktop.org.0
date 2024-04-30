@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 747A78B7028
-	for <lists+freedreno@lfdr.de>; Tue, 30 Apr 2024 12:44:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C10628B702B
+	for <lists+freedreno@lfdr.de>; Tue, 30 Apr 2024 12:44:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D67510E68D;
-	Tue, 30 Apr 2024 10:44:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95C8D10E975;
+	Tue, 30 Apr 2024 10:44:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mpGJWYsP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B6vbWX42";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6EF910E68D
- for <freedreno@lists.freedesktop.org>; Tue, 30 Apr 2024 10:44:15 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-34c8f392172so2349375f8f.3
- for <freedreno@lists.freedesktop.org>; Tue, 30 Apr 2024 03:44:15 -0700 (PDT)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F81010E975
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Apr 2024 10:44:17 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-51bafbe7509so7759038e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Apr 2024 03:44:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714473854; x=1715078654; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1714473855; x=1715078655; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=qmr8dTXmjB4R2TIC3iha2y597f6KErUdWQLGHd0Q118=;
- b=mpGJWYsPMDigLIn+UGtabif0/gmTGTwLA4BjDz4BbtrC8d+oqLKpl20weFC9xqv8tE
- Rcqc05trcb9svn/qzuuBdZq5Wz0SEJ6m3JIKgqjzeJA6krj8LIJ7xWU0C0vIBvMDyjzZ
- NJy3yZbKNB252fBLhRL4pH0FGFeeVjPh6FcShVe/GpeNCGbx871o9/Nu8CrbJPnUfwvk
- slJn0V8dOun9ZJSXrAytpngc2Syw0Saf6FGShimN90aR5akzNuHagK/8zT93VOMsil1T
- 6sza5sw9NvcDwhB9QKbcPe1igzzOsQLvtE2jKyndecZtu2H0FqpkEoko+0QH9ndZyNg0
- 1dWg==
+ :reply-to; bh=7fIZAMLKrn68+iPcM1MZC1QDKImr0pd0PNuLPpIoTqg=;
+ b=B6vbWX42Pb5cdw6NOeFH6hnfNll4btoxPoJ17KIcYg5NajKzaaP7qOziikxNI95mXx
+ /H0AOC9ohk7/c166GsGcgvIEwr1ta5toExGQItuPKyoCoOXtdhq709sYGMkcqPLHsPdA
+ HyMMUA4KJ4WIWV21KAxW8yxQkHlX/lmIvV0FBsyZFLA2ZExd0kDDF6V7Tz2n1A/t8C/2
+ zid7my3gyLsMoyY7v4i5e5OgkJk0CfAT0jiySZRyAcq54vBLaVrDPksUpOLuFJoQrjyu
+ c3FJ2W1fcyVa3nS2PMpLllJqy/LtZdZ/kGBIOCNnPcb8Pe/pXNVmDqcclghZ6pi44oLr
+ 5QKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714473854; x=1715078654;
+ d=1e100.net; s=20230601; t=1714473855; x=1715078655;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qmr8dTXmjB4R2TIC3iha2y597f6KErUdWQLGHd0Q118=;
- b=eGYuKC+AhjwQOTc3NBJaqxwtHqdxnn8ovktax2drkM/2WMvgeyJr0STZXFAqc9zq+l
- 5TG9mR4jpYcg0aB+xP/Gse+zXnoiLXZ+lMh2oPJ9WTazzk0ElYs01TyMt4YbQTLivaSD
- 3Q41ymtL4cYATDwWos75momG7uChnxtnjoW1LgKQlMFKaOZnhZc/eQCw3qU9EDetpHRD
- GKcyUZ/GxLn+4GpDt09wVV4lHI5pP1ePXcL4do2BcR2FIHnQgBjSC62mbsKE+Xtq5Sny
- b4m+RIhwMO3gtImuHfGzSmyX5NYIz5Ohj3AtOIC3eYI44ylm69Z2V6tx4wH6x2buHxT8
- EbXA==
+ bh=7fIZAMLKrn68+iPcM1MZC1QDKImr0pd0PNuLPpIoTqg=;
+ b=Xr1vR567QVoGetvJGUAZSm+QAiL4jBFDd6fwcIHm053R86LxdTsHmpDfyjqsRyZ2tI
+ IxTHBOJlOCx5ir2aFMnoGLYDuC1lFMIhsZ6Uck2IsTUEpbHViw//WpJG3PmMk2Re8JRd
+ bWKUM1fDmbzdI/HyANNDIBZIgX6n8XtXH5Rn8pTEuSOX41kXEVFSjOlm++ylc+DYIVQS
+ FLHT3ReXvGrqf4+UulvpiI1MjO0mkiz1clGEGjT92bAF5pkeS8JIY+E9H6qV1GwpHrz+
+ Hv5FbVN26AbktkJ2jFE9D5Bg11dKsogiSpLApw7HfWf7Ek+oyCmgcBzqzY0o48FfpMv8
+ pRxg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWfDgpd/hwkiPFnjc/GmEG0Z1Ikx4Z7KaWurzq/emAu8b7WHyi8mei33EkUrYJUZZLPfb3JiyhtQ/jdVMUZq6pfY39Tf4novZSvaZ9c9TFy
-X-Gm-Message-State: AOJu0YxujsCVyWQzIOTQW4e79MREd1fN1lhDbMMhrkBZhhSwNwLSPgi/
- +OoB9YP9ceZp9Qhn+6GQNoRs00UtwAkc2fpkeWOwZadSpy9ZrkZP
-X-Google-Smtp-Source: AGHT+IEUFFGWrUGe08CoaGquY4VjJG9mPVI5jXUW4owBwPoZnD3wgvmo/zcbryoI/p0af2SnsBFKHA==
-X-Received: by 2002:adf:f3ce:0:b0:34c:5e02:7875 with SMTP id
- g14-20020adff3ce000000b0034c5e027875mr10581370wrp.7.1714473853973; 
- Tue, 30 Apr 2024 03:44:13 -0700 (PDT)
+ AJvYcCWBbeeQo2hCH0DRxTkkr+6J1yQuWOuUfsOBS3ig9FSedP4MrMKv3i9DpsUVY08YVcxL9maudCNx8CAL/IKOGjByTtaYwhzPzoK8S78jQw6n
+X-Gm-Message-State: AOJu0Yw8JCgP682KX5LYiotW0nbhUiOKOFzMzwd323/HmQRcC/jRE22a
+ WMZ18bYiLc2F7BIw1uUmwWmhPiv4WcaAnUFICMJJf611gnd6b2//
+X-Google-Smtp-Source: AGHT+IHbdSDSCtXvrDecfMeuE7DKQrWWYnF48VKpR1Ungr88tUta8SukgRbp1hvjjH0yefsym0hfHw==
+X-Received: by 2002:a05:6512:b88:b0:51d:9603:3f7e with SMTP id
+ b8-20020a0565120b8800b0051d96033f7emr7264133lfv.34.1714473855097; 
+ Tue, 30 Apr 2024 03:44:15 -0700 (PDT)
 Received: from [192.168.0.20]
  (cpc115152-dals23-2-0-cust532.20-2.cable.virginm.net. [86.12.82.21])
  by smtp.gmail.com with ESMTPSA id
- p8-20020a5d48c8000000b0034af40b2efdsm23595951wrs.108.2024.04.30.03.44.13
+ p8-20020a5d48c8000000b0034af40b2efdsm23595951wrs.108.2024.04.30.03.44.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Apr 2024 03:44:13 -0700 (PDT)
+ Tue, 30 Apr 2024 03:44:14 -0700 (PDT)
 From: Connor Abbott <cwabbott0@gmail.com>
-Date: Tue, 30 Apr 2024 11:43:16 +0100
-Subject: [PATCH v3 2/6] firmware: qcom_scm: Add gpu_init_regs call
+Date: Tue, 30 Apr 2024 11:43:17 +0100
+Subject: [PATCH v3 3/6] drm/msm: Update a6xx registers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240430-a750-raytracing-v3-2-7f57c5ac082d@gmail.com>
+Message-Id: <20240430-a750-raytracing-v3-3-7f57c5ac082d@gmail.com>
 References: <20240430-a750-raytracing-v3-0-7f57c5ac082d@gmail.com>
 In-Reply-To: <20240430-a750-raytracing-v3-0-7f57c5ac082d@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -76,11 +76,11 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  freedreno@lists.freedesktop.org, Connor Abbott <cwabbott0@gmail.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1714473850; l=3010;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1714473850; l=4625;
  i=cwabbott0@gmail.com; s=20240426; h=from:subject:message-id;
- bh=TKn/26YnezLy20U/najOcBKpivRdMFdNQbNQd8UXKNg=;
- b=nPXAL5pTBU3gEo3QipQ3oHu24CwT1kTMGwXQ2e1evASNv9IS9+ltjYA0BdCb76JBdN8yEVw7I
- brgVzcZN8QFATIQo6+2IgaBmyMiijI59GWahL+u1IZxT2C359DGv9QZ
+ bh=c+88p0lQCwZBgjudS09WX2xUrrowQXi3V2QQ7pRe9KE=;
+ b=eB1tOZ9YUFlMBVXS2hBViZlVbaW1iwBz+gRI2uiBFiMv2WxAR/dFFF8fIfY6VOgRs8WvvImwr
+ kxGtqYMKS4EDXuggoE39jDmRNwKmDRc8gCRvQAZXrF28Q4Arph5zoPz
 X-Developer-Key: i=cwabbott0@gmail.com; a=ed25519;
  pk=dkpOeRSXLzVgqhy0Idr3nsBr4ranyERLMnoAgR4cHmY=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -98,90 +98,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This will used by drm/msm to initialize GPU registers that Qualcomm's
-firmware doesn't make writeable to the kernel.
+Update to mesa commit ff155f46a33 ("freedreno/a7xx: Register updates
+from kgsl").
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
 ---
- drivers/firmware/qcom/qcom_scm.c       | 14 ++++++++++++++
- drivers/firmware/qcom/qcom_scm.h       |  3 +++
- include/linux/firmware/qcom/qcom_scm.h | 23 +++++++++++++++++++++++
- 3 files changed, 40 insertions(+)
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 28 ++++++++++++++++++++++++---
+ 1 file changed, 25 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index 06e46267161b..f8623ad0987c 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -1394,6 +1394,20 @@ int qcom_scm_lmh_dcvsh(u32 payload_fn, u32 payload_reg, u32 payload_val,
- }
- EXPORT_SYMBOL_GPL(qcom_scm_lmh_dcvsh);
+diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+index 78524aaab9d4..43fe90c12679 100644
+--- a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
++++ b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+@@ -1227,6 +1227,7 @@ to upconvert to 32b float internally?
+ 		<bitfield name="DEBBUS_INTR_0" pos="26" type="boolean"/>
+ 		<bitfield name="DEBBUS_INTR_1" pos="27" type="boolean"/>
+ 		<bitfield name="TSBWRITEERROR" pos="28" type="boolean" variants="A7XX-"/>
++		<bitfield name="SWFUSEVIOLATION" pos="29" type="boolean" variants="A7XX-"/>
+ 		<bitfield name="ISDB_CPU_IRQ" pos="30" type="boolean"/>
+ 		<bitfield name="ISDB_UNDER_DEBUG" pos="31" type="boolean"/>
+ 	</bitset>
+@@ -1503,6 +1504,9 @@ to upconvert to 32b float internally?
+ 	<reg32 offset="0x0287" name="RBBM_CLOCK_MODE_BV_VFD" variants="A7XX-"/>
+ 	<reg32 offset="0x0288" name="RBBM_CLOCK_MODE_BV_GPC" variants="A7XX-"/>
  
-+int qcom_scm_gpu_init_regs(u32 gpu_req)
-+{
-+	struct qcom_scm_desc desc = {
-+		.svc = QCOM_SCM_SVC_GPU,
-+		.cmd = QCOM_SCM_SVC_GPU_INIT_REGS,
-+		.arginfo = QCOM_SCM_ARGS(1),
-+		.args[0] = gpu_req,
-+		.owner = ARM_SMCCC_OWNER_SIP,
-+	};
++	<reg32 offset="0x02c0" name="RBBM_SW_FUSE_INT_STATUS" variants="A7XX-"/>
++	<reg32 offset="0x02c1" name="RBBM_SW_FUSE_INT_MASK" variants="A7XX-"/>
 +
-+	return qcom_scm_call(__scm->dev, &desc, NULL);
-+}
-+EXPORT_SYMBOL_GPL(qcom_scm_gpu_init_regs);
-+
- static int qcom_scm_find_dload_address(struct device *dev, u64 *addr)
- {
- 	struct device_node *tcsr;
-diff --git a/drivers/firmware/qcom/qcom_scm.h b/drivers/firmware/qcom/qcom_scm.h
-index 4532907e8489..484e030bcac9 100644
---- a/drivers/firmware/qcom/qcom_scm.h
-+++ b/drivers/firmware/qcom/qcom_scm.h
-@@ -138,6 +138,9 @@ int scm_legacy_call(struct device *dev, const struct qcom_scm_desc *desc,
- #define QCOM_SCM_WAITQ_RESUME			0x02
- #define QCOM_SCM_WAITQ_GET_WQ_CTX		0x03
+ 	<array offset="0x0400" name="RBBM_PERFCTR_CP" stride="2" length="14" variants="A6XX"/>
+ 	<array offset="0x041c" name="RBBM_PERFCTR_RBBM" stride="2" length="4" variants="A6XX"/>
+ 	<array offset="0x0424" name="RBBM_PERFCTR_PC" stride="2" length="8" variants="A6XX"/>
+@@ -2842,7 +2846,11 @@ to upconvert to 32b float internally?
+ 		</reg32>
+ 	</array>
+ 	<!-- 0x891b-0x8926 invalid -->
+-	<reg64 offset="0x8927" name="RB_SAMPLE_COUNT_ADDR" type="waddress" align="16" usage="cmd" variants="A6XX"/>
++	<doc>
++		RB_SAMPLE_COUNT_ADDR register is used up to (and including) a730. After that
++		the address is specified through CP_EVENT_WRITE7::WRITE_SAMPLE_COUNT.
++	</doc>
++	<reg64 offset="0x8927" name="RB_SAMPLE_COUNT_ADDR" type="waddress" align="16" usage="cmd"/>
+ 	<!-- 0x8929-0x89ff invalid -->
  
-+#define QCOM_SCM_SVC_GPU			0x28
-+#define QCOM_SCM_SVC_GPU_INIT_REGS		0x01
-+
- /* common error codes */
- #define QCOM_SCM_V2_EBUSY	-12
- #define QCOM_SCM_ENOMEM		-5
-diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmware/qcom/qcom_scm.h
-index aaa19f93ac43..a221a643dc12 100644
---- a/include/linux/firmware/qcom/qcom_scm.h
-+++ b/include/linux/firmware/qcom/qcom_scm.h
-@@ -115,6 +115,29 @@ int qcom_scm_lmh_dcvsh(u32 payload_fn, u32 payload_reg, u32 payload_val,
- int qcom_scm_lmh_profile_change(u32 profile_id);
- bool qcom_scm_lmh_dcvsh_available(void);
+ 	<!-- TODO: there are some registers in the 0x8a00-0x8bff range -->
+@@ -2950,7 +2958,7 @@ to upconvert to 32b float internally?
+ 	<!-- 0x8e1d-0x8e1f invalid -->
+ 	<!-- 0x8e20-0x8e25 more perfcntr sel? -->
+ 	<!-- 0x8e26-0x8e27 invalid -->
+-	<reg32 offset="0x8e28" name="RB_UNKNOWN_8E28" low="0" high="10"/>
++	<reg32 offset="0x8e28" name="RB_CMP_DBG_ECO_CNTL"/>
+ 	<!-- 0x8e29-0x8e2b invalid -->
+ 	<array offset="0x8e2c" name="RB_PERFCTR_CMP_SEL" stride="1" length="4"/>
+ 	<array offset="0x8e30" name="RB_PERFCTR_UFC_SEL" stride="1" length="6" variants="A7XX-"/>
+@@ -3306,6 +3314,15 @@ to upconvert to 32b float internally?
+ 		<bitfield name="DISCARD" pos="2" type="boolean"/>
+ 	</reg32>
  
-+/*
-+ * Request TZ to program set of access controlled registers necessary
-+ * irrespective of any features
-+ */
-+#define QCOM_SCM_GPU_ALWAYS_EN_REQ BIT(0)
-+/*
-+ * Request TZ to program BCL id to access controlled register when BCL is
-+ * enabled
-+ */
-+#define QCOM_SCM_GPU_BCL_EN_REQ BIT(1)
-+/*
-+ * Request TZ to program set of access controlled register for CLX feature
-+ * when enabled
-+ */
-+#define QCOM_SCM_GPU_CLX_EN_REQ BIT(2)
-+/*
-+ * Request TZ to program tsense ids to access controlled registers for reading
-+ * gpu temperature sensors
-+ */
-+#define QCOM_SCM_GPU_TSENSE_EN_REQ BIT(3)
++	<!-- Both are a750+.
++	     Probably needed to correctly overlap execution of several draws.
++	-->
++	<reg32 offset="0x9885" name="PC_TESS_PARAM_SIZE" variants="A7XX-" usage="cmd"/>
++	<!-- Blob adds a bit more space {0x10, 0x20, 0x30, 0x40} bytes, but the meaning of
++	     this additional space is not known.
++	-->
++	<reg32 offset="0x9886" name="PC_TESS_FACTOR_SIZE" variants="A7XX-" usage="cmd"/>
 +
-+int qcom_scm_gpu_init_regs(u32 gpu_req);
-+
- #ifdef CONFIG_QCOM_QSEECOM
+ 	<!-- 0x9982-0x9aff invalid -->
  
- int qcom_scm_qseecom_app_get_id(const char *app_name, u32 *app_id);
+ 	<reg32 offset="0x9b00" name="PC_PRIMITIVE_CNTL_0" type="a6xx_primitive_cntl_0" usage="rp_blit"/>
+@@ -4293,7 +4310,7 @@ to upconvert to 32b float internally?
+ 	<!-- always 0x100000 or 0x1000000? -->
+ 	<reg32 offset="0xb600" name="TPL1_DBG_ECO_CNTL" low="0" high="25" usage="cmd"/>
+ 	<reg32 offset="0xb601" name="TPL1_ADDR_MODE_CNTL" type="a5xx_address_mode"/>
+-	<reg32 offset="0xb602" name="TPL1_UNKNOWN_B602" low="0" high="7" type="uint" usage="cmd"/>
++	<reg32 offset="0xb602" name="TPL1_DBG_ECO_CNTL1" usage="cmd"/>
+ 	<reg32 offset="0xb604" name="TPL1_NC_MODE_CNTL">
+ 		<bitfield name="MODE" pos="0" type="boolean"/>
+ 		<bitfield name="LOWER_BIT" low="1" high="2" type="uint"/>
+@@ -4965,6 +4982,11 @@ to upconvert to 32b float internally?
+ 	<reg32 offset="0x0001" name="SYSTEM_CACHE_CNTL_0"/>
+ 	<reg32 offset="0x0002" name="SYSTEM_CACHE_CNTL_1"/>
+ 	<reg32 offset="0x0039" name="CX_MISC_TCM_RET_CNTL" variants="A7XX-"/>
++	<reg32 offset="0x0400" name="CX_MISC_SW_FUSE_VALUE" variants="A7XX-">
++		<bitfield pos="0" name="FASTBLEND" type="boolean"/>
++		<bitfield pos="1" name="LPAC" type="boolean"/>
++		<bitfield pos="2" name="RAYTRACING" type="boolean"/>
++	</reg32>
+ </domain>
+ 
+ </database>
 
 -- 
 2.31.1
