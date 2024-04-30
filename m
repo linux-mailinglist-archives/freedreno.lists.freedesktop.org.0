@@ -2,75 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BDBE8B6FAE
-	for <lists+freedreno@lfdr.de>; Tue, 30 Apr 2024 12:31:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 592838B7027
+	for <lists+freedreno@lfdr.de>; Tue, 30 Apr 2024 12:44:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C31C010E16F;
-	Tue, 30 Apr 2024 10:31:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27E5C10E331;
+	Tue, 30 Apr 2024 10:44:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B3o8xeLi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cF/QkETw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE04F10E16F
- for <freedreno@lists.freedesktop.org>; Tue, 30 Apr 2024 10:31:29 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-6ecf05fd12fso4898225b3a.2
- for <freedreno@lists.freedesktop.org>; Tue, 30 Apr 2024 03:31:29 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A33E210E331
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Apr 2024 10:44:13 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-34c8f392172so2349330f8f.3
+ for <freedreno@lists.freedesktop.org>; Tue, 30 Apr 2024 03:44:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714473089; x=1715077889; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uVBoXY2/NPG7+wTGyF7C7GoYFHMyHmYdFMeZrUt8JbY=;
- b=B3o8xeLiXm7RI1j9ZAE1Wdr/i6WvEqiMPOqK9t3T1dF+WO/+SjQnhZqmWG+q+f/igk
- 5W7ye2ge+xCjckh2I9jNMXMEVMSV7iq7IDfMbOQz2UMOuJiR+8nsu0ZryGxs6QNQ8nAn
- 9M+bXUfes5TXSazqFLb0CCNSwkXlr0E7qpUoyMOrEjhyz7cSiwXDh+nDVH2rUOopL8WC
- Yy+yJzwI+TIFNP+QQcsj8ZnfiqRJ7JTSIJzZC7zRr7cQR+QKV+xuaGtaKMtxsR/nCPCw
- TECZimr2YdfRmHZ8qcVjunySHoOLv2WgwSRdiZfm7c3GinZC5xjJ17s8IkR7jNVeWyh7
- 9Yug==
+ d=gmail.com; s=20230601; t=1714473852; x=1715078652; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bb8GnDW6+qLtihXTN4x3JzTwOi6ozU0H7JsWN5IeQbY=;
+ b=cF/QkETwqQn4WYhmcuPVge7A3vacNJOWwT76VmQo3WN/5Jd09cAP6w4oKb9nzSY/OI
+ 5ZlOAw8kOrQoE8CNbjPGzyAXr9i6UlBA6X454jAv3IF2V66+5HRkLe0Mx3i+VoX8jvSi
+ OAyLCxKczJRS6kTP+IoiUWaJ91bh2vnAcBcd8al7w0zvVvXOwhoseju5Ch1qqbH0SpKV
+ WpCq9GAYbY1GfWCzYl4UriKViEQ3YqEjth8dCVvBB0BpxFIeyPw1hjeJtWZ/dFcqxQVE
+ SvtTWxt4OjjMCIVCkVfqgpL2dJEk7ZUAhi5ZL0ATRvUNxJudnUVOtg571d337qAD3TFT
+ lGMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714473089; x=1715077889;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uVBoXY2/NPG7+wTGyF7C7GoYFHMyHmYdFMeZrUt8JbY=;
- b=gPU4It6McqsLNNKv7FWrzhsJJ0zB8cjcuiBoGhVOlzDylDroLLmwrPZu0Px8djFBCt
- KXCHfNoBnoZSIFf1sPPWAKmEBmkoz8+Slgr16+Ad0zwPkOdckgVI8itnWa01hYZ/EhLC
- /oIXBePsZcR7yVjtxPtlRAE6D6kNDMvRqsOBqzqEk3NbQu4S4xw2CkPZ7x+lb8rVmWFg
- keoQkcVBN4sJsfqDy+l2t2umI+LKnbqSHws0+llICAzbbWMb5H9nUvq7I0Gt524txG+/
- LMKZOwl59gs4vowblVX8Fnbh88R9OP6mlfNeJg8xjKJRRixAe0SS6L+H/J3OrQMoBbbJ
- 4SzQ==
+ d=1e100.net; s=20230601; t=1714473852; x=1715078652;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bb8GnDW6+qLtihXTN4x3JzTwOi6ozU0H7JsWN5IeQbY=;
+ b=ok7VM6i0CDFq8k3JvB2OD0wjjKwLOr+8IE5AmX6W8Hv83ud6rk0LP9JBn5ocPcGuc5
+ /dMUKGsC3ZpwB9Yf/U8QPiVROFMiJ7y+S4Azo8ROfOg0UQpze2O5o2SWDlx3GHSLo5fm
+ ym+5CKHqhC1FQCgMJvLXOLhq+OvwyI3PjSlcSbgoorfeeIs7262CHwL363gJxmL3im5t
+ ocD3HON6WkKudWrdGOChqHJ73LtYOUZEttSFUsfj6dK/AYcPuP4omRVVDzBEc9hYUfx/
+ 7Okh7e7NwrRyenovdocSdpZNAdGYAmGiZPh0Y2jc5X5fzeBeer7YI9mjW7rIqBUc7XNR
+ NDSw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUUr6F/kGEjgtUNMfznVpKSjHKuWa/1I0DIaAgVE1EiXSgpPpKDg186nwf8rYGV0Nq13DL4ftmQR9IFa+kU7kGjquV5e0jSFZ5Yqwfbeqw+
-X-Gm-Message-State: AOJu0YyMwUQFCDzPNyiUAnEyxNdoK+TAcPpVR1hYcApGYFE06t5tHP8T
- HzCivh0pLg6OKHQj2Zfe9VKVATqcr5wakvVmi8AuHychU/RHjlmbLR78beTJ9OLc5nXGt6clpOH
- fm7CEtvIUtks3iTsIDo8OfENDBGI=
-X-Google-Smtp-Source: AGHT+IEUfP4I+J+PclmF0fk4nYt8dfXjCvRwv9b6ONxIEQjTkj3ayJq9CUlR4q1dy9MAyS2VyDg2sXO9m02NAQhnmek=
-X-Received: by 2002:a05:6a21:1a9:b0:1af:41d1:7334 with SMTP id
- le41-20020a056a2101a900b001af41d17334mr2835730pzb.27.1714473089048; Tue, 30
- Apr 2024 03:31:29 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240426-a750-raytracing-v2-0-562ac9866d63@gmail.com>
- <20240426-a750-raytracing-v2-4-562ac9866d63@gmail.com>
- <12db74c2-87ec-45e3-9ca0-c5f2328c5f8b@linaro.org>
-In-Reply-To: <12db74c2-87ec-45e3-9ca0-c5f2328c5f8b@linaro.org>
+ AJvYcCXb/+bweg/uhSbwOoDO1eLvpLzVpV+MPxFMR94zyHkVMNQ1doQ9fUeYuKsFNQjNyy58ZO6QTGYE6yrz4UEflTuxTXfPZaRFlRX99Rs1Ep2c
+X-Gm-Message-State: AOJu0YxmOKb3wGsWz15sjtmO/z35xhb1HpJ4hbvP5jJydgpw3Hlrl37h
+ b6/m/oj8mrD/CrugZgrn1gZCfA/ZpnX62A+Z7Tp0yrip78Ozi8pe
+X-Google-Smtp-Source: AGHT+IFqLW5D8CyBedtTDksYWSboxdk0BrvqkpEgaJplE9H86m7tUMUz1Yt5dTLGZc/+W9vZvyjCSw==
+X-Received: by 2002:a5d:6da5:0:b0:34c:b2bf:25a2 with SMTP id
+ u5-20020a5d6da5000000b0034cb2bf25a2mr8723929wrs.65.1714473851633; 
+ Tue, 30 Apr 2024 03:44:11 -0700 (PDT)
+Received: from [192.168.0.20]
+ (cpc115152-dals23-2-0-cust532.20-2.cable.virginm.net. [86.12.82.21])
+ by smtp.gmail.com with ESMTPSA id
+ p8-20020a5d48c8000000b0034af40b2efdsm23595951wrs.108.2024.04.30.03.44.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Apr 2024 03:44:11 -0700 (PDT)
 From: Connor Abbott <cwabbott0@gmail.com>
-Date: Tue, 30 Apr 2024 11:31:17 +0100
-Message-ID: <CACu1E7H0jpQkkfSCcOhdgZM0kntc-wTiRK_rM83STfAxtZ6fkw@mail.gmail.com>
-Subject: Re: [PATCH v2 4/6] drm/msm/a7xx: Initialize a750 "software fuse"
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+Subject: [PATCH v3 0/6] drm/msm: Support a750 "software fuse" for
+ raytracing
+Date: Tue, 30 Apr 2024 11:43:14 +0100
+Message-Id: <20240430-a750-raytracing-v3-0-7f57c5ac082d@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAELLMGYC/3XOQQ6DIBCF4as0rDsGB0HbVe/RuBgRlaRKA8TWG
+ O9edOWmyz+Z+fJWFoy3JrD7ZWXezDZYN6UQ1wvTA029AdumZsix4AUqoFJy8LRET9pOPbTGlCR
+ RyVw0LH29vens9xCfderOuxHi4A2dnXRdCFlkOQpRKYQc9IeaxsXIH/1I9pVpN+7cYEN0fjn2z
+ bij/6fMCBykQtK3SqlWiRNVb9v2A9N+czftAAAA
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Jun Nie <jun.nie@linaro.org>, 
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, Connor Abbott <cwabbott0@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1714473850; l=3705;
+ i=cwabbott0@gmail.com; s=20240426; h=from:subject:message-id;
+ bh=BkeGv58H7hX42ZZyfz12hF159QXBbD9WS0RfM/g8QWY=;
+ b=izjmuSdR+NaWlJwWY8d37ssrBiSBBeoJFanp5OwmSsVl8LUnFSe5R69hA1oHgh4okSygwNy1/
+ eWA3IijDusYDPdsAhVjIheRSDbx8oHefZgjNc8MmKhtPYvThBVtwOaJ
+X-Developer-Key: i=cwabbott0@gmail.com; a=ed25519;
+ pk=dkpOeRSXLzVgqhy0Idr3nsBr4ranyERLMnoAgR4cHmY=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,170 +101,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Apr 27, 2024 at 1:19=E2=80=AFPM Konrad Dybcio <konrad.dybcio@linaro=
-.org> wrote:
->
-> On 26.04.2024 8:34 PM, Connor Abbott wrote:
-> > On all Qualcomm platforms with a7xx GPUs, qcom_scm provides a method to
-> > initialize cx_mem. Copy this from downstream (minus BCL which we
-> > currently don't support). On a750, this includes a new "fuse" register
-> > which can be used by qcom_scm to fuse off certain features like
-> > raytracing in software. The fuse is default off, and is initialized by
-> > calling the method. Afterwards we have to read it to find out which
-> > features were enabled.
-> >
-> > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
-> > ---
->
-> [...]
->
-> > +static void a7xx_sw_fuse_violation_irq(struct msm_gpu *gpu)
-> > +{
-> > +     u32 status;
-> > +
-> > +     status =3D gpu_read(gpu, REG_A7XX_RBBM_SW_FUSE_INT_STATUS);
-> > +     gpu_write(gpu, REG_A7XX_RBBM_SW_FUSE_INT_MASK, 0);
-> > +
-> > +     dev_err_ratelimited(&gpu->pdev->dev, "SW fuse violation status=3D=
-%8.8x\n", status);
-> > +
-> > +     /* Ignore FASTBLEND violations, because the HW will silently fall=
- back
-> > +      * to legacy blending.
->
-> /*
->  * foo
->
->
->
-> > +      */
-> > +     if (status & (A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING |
-> > +                   A7XX_CX_MISC_SW_FUSE_VALUE_LPAC)) {
-> > +             del_timer(&gpu->hangcheck_timer);
-> > +
-> > +             kthread_queue_work(gpu->worker, &gpu->recover_work);
-> > +     }
-> > +}
-> > +
-> >  static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
-> >  {
-> >       struct msm_drm_private *priv =3D gpu->dev->dev_private;
-> > @@ -2384,6 +2406,9 @@ static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
-> >       if (status & A6XX_RBBM_INT_0_MASK_UCHE_OOB_ACCESS)
-> >               dev_err_ratelimited(&gpu->pdev->dev, "UCHE | Out of bound=
-s access\n");
-> >
-> > +     if (status & A6XX_RBBM_INT_0_MASK_SWFUSEVIOLATION)
->
-> Does this field actualy exist on a6 too?
+On a750, Qualcomm decided to gate support for certain features behind a
+"software fuse." This consists of a register in the cx_mem zone, which
+is normally only writeable by the TrustZone firmware.  On bootup it is
+0, and we must call an SCM method to initialize it. Then we communicate
+its value to userspace. This implements all of this, copying the SCM
+call from the downstream kernel and kgsl.
 
-No, it doesn't. It's correctly marked as an a7xx-only field in the
-XML, and we only enable the mask on a7xx so we will never call
-a7xx_sw_fuse_violation_irq() on a6xx, but the XML parser still puts
-the A6XX_ prefix here.
+So far the only optional feature we use is ray tracing (i.e. the
+"ray_intersection" instruction) in a pending Mesa MR [1], so that's what
+we expose to userspace. There's one extra patch to write some missing
+registers, which depends on the register XML bump but is otherwise
+unrelated, I just included it to make things easier on myself.
 
->
-> > +             a7xx_sw_fuse_violation_irq(gpu);
-> > +
-> >       if (status & A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS)
-> >               msm_gpu_retire(gpu);
-> >
-> > @@ -2525,6 +2550,59 @@ static void a6xx_llc_slices_init(struct platform=
-_device *pdev,
-> >               a6xx_gpu->llc_mmio =3D ERR_PTR(-EINVAL);
-> >  }
-> >
-> > +static int a7xx_cx_mem_init(struct a6xx_gpu *a6xx_gpu)
-> > +{
-> > +     struct adreno_gpu *adreno_gpu =3D &a6xx_gpu->base;
-> > +     struct msm_gpu *gpu =3D &adreno_gpu->base;
-> > +     u32 fuse_val;
-> > +     int ret =3D 0;
-> > +
-> > +     if (adreno_is_a750(adreno_gpu)) {
-> > +             /* Assume that if qcom scm isn't available, that whatever
-> > +              * replacement allows writing the fuse register ourselves=
-.
-> > +              * Users of alternative firmware need to make sure this
-> > +              * register is writeable or indicate that it's not someho=
-w.
-> > +              * Print a warning because if you mess this up you're abo=
-ut to
-> > +              * crash horribly.
-> > +              */
-> > +             if (!qcom_scm_is_available()) {
-> > +                     dev_warn_once(gpu->dev->dev,
-> > +                             "SCM is not available, poking fuse regist=
-er\n");
-> > +                     a6xx_llc_write(a6xx_gpu, REG_A7XX_CX_MISC_SW_FUSE=
-_VALUE,
-> > +                             A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING |
-> > +                             A7XX_CX_MISC_SW_FUSE_VALUE_FASTBLEND |
-> > +                             A7XX_CX_MISC_SW_FUSE_VALUE_LPAC);
-> > +                     adreno_gpu->has_ray_tracing =3D true;
->
-> I'm not 100% sure. I'm afraid there may be SKUs with RT cores fused
-> off (as in, cut off from the rest, not "indicated unavailable") or
-> otherwise dysfunctional..
->
-> My guess would be that TZ probably has some sort of a LUT/match table
-> based on other SoC identifiers
+Note, 'drm/msm/a7xx: Initialize a750 "software fuse"' has a compile-time
+dependency on 'firmware: qcom_scm: Add gpu_init_regs call' and it
+depends on 'arm64: dts: qcom: sm8650: Fix GPU cx_mem size' to avoid a
+boot-time hang. The commit the latter fixes, db33633b05c0 ("arm64: dts:
+qcom: sm8650: add GPU nodes"), hasn't landed upstream yet, so we can
+avoid regressions by merging it first. I think the rest of the series
+can go through drm/msm for 6.10 after we land the first commit in the
+same tree as db33633b05c0 to make sure linux-next is never broken,
+although we'll need Bjorn's ack to land 'firmware: qcom_scm: Add
+gpu_init_regs call' through drm/msm.
 
-I don't think so. The entire point of this register AFAIK is to make
-it possible for the firmware to block access to features, not to
-describe the HW. If they want to fuse something off in the HW, as they
-have done before, then they will typically give the GPU a different
-chip_id. If they do happen to use this register in that way, which I
-think is unlikely, and someone ships this on a platform like
-Chromebooks without qcom_scm and with the RTU fused off, then it's on
-them to come up with an alternative way to describe it. There's
-nothing more we can do here without further information.
+[1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/28447
 
->
-> > +                     return 0;
-> > +             }
-> > +
-> > +             ret =3D qcom_scm_gpu_init_regs(QCOM_SCM_GPU_ALWAYS_EN_REQ=
- |
-> > +                                          QCOM_SCM_GPU_TSENSE_EN_REQ);
-> > +             if (ret)
-> > +                     return ret;
-> > +
-> > +             /* On a750 raytracing may be disabled by the firmware, fi=
-nd out whether
-> > +              * that's the case. The scm call above sets the fuse regi=
-ster.
-> > +              */
-> > +             fuse_val =3D a6xx_llc_read(a6xx_gpu, REG_A7XX_CX_MISC_SW_=
-FUSE_VALUE);
-> > +             adreno_gpu->has_ray_tracing =3D
-> > +                     !!(fuse_val & A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACI=
-NG);
-> > +     } else {
-> > +             if (adreno_is_a740(adreno_gpu)) {
-> > +                     /* Raytracing is always enabled on a740 */
-> > +                     adreno_gpu->has_ray_tracing =3D true;
-> > +             }
-> > +
-> > +             if (!qcom_scm_is_available())
-> > +                     return 0;
-> > +
-> > +             ret =3D qcom_scm_gpu_init_regs(QCOM_SCM_GPU_ALWAYS_EN_REQ=
-);
-> > +     }
-> > +
-> > +     return ret;
->
->         if (qcom_scm_is_available())
->                 return qcom_scm_gpu_init_regs(QCOM_SCM_GPU_ALWAYS_EN_REQ)=
-;
+Connor Abbott (6):
+  arm64: dts: qcom: sm8650: Fix GPU cx_mem size
+  firmware: qcom_scm: Add gpu_init_regs call
+  drm/msm: Update a6xx registers
+  drm/msm/a7xx: Initialize a750 "software fuse"
+  drm/msm: Add MSM_PARAM_RAYTRACING uapi
+  drm/msm/a7xx: Add missing register writes from downstream
 
-Ok.
+ arch/arm64/boot/dts/qcom/sm8650.dtsi          |  2 +-
+ drivers/firmware/qcom/qcom_scm.c              | 14 +++
+ drivers/firmware/qcom/qcom_scm.h              |  3 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         | 97 ++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  3 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h       |  2 +
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 28 +++++-
+ include/linux/firmware/qcom/qcom_scm.h        | 23 +++++
+ include/uapi/drm/msm_drm.h                    |  1 +
+ 9 files changed, 168 insertions(+), 5 deletions(-)
 
-> }
->
-> return 0;
->
-> ?
->
-> Konrad
+--
+2.31.1
+
+---
+Changes in v3:
+- Formatting/style fixes.
+- Fix RB_CMP_DBG_ECO_CNTL write on a730/a740 and add comments from kgsl.
+- Link to v2: https://lore.kernel.org/r/20240426-a750-raytracing-v2-0-562ac9866d63@gmail.com
+
+---
+Connor Abbott (6):
+      arm64: dts: qcom: sm8650: Fix GPU cx_mem size
+      firmware: qcom_scm: Add gpu_init_regs call
+      drm/msm: Update a6xx registers
+      drm/msm/a7xx: Initialize a750 "software fuse"
+      drm/msm: Add MSM_PARAM_RAYTRACING uapi
+      drm/msm/a7xx: Add missing register writes from downstream
+
+ arch/arm64/boot/dts/qcom/sm8650.dtsi          |   2 +-
+ drivers/firmware/qcom/qcom_scm.c              |  14 ++++
+ drivers/firmware/qcom/qcom_scm.h              |   3 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         | 102 +++++++++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |   3 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h       |   2 +
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml |  28 ++++++-
+ include/linux/firmware/qcom/qcom_scm.h        |  23 ++++++
+ include/uapi/drm/msm_drm.h                    |   1 +
+ 9 files changed, 173 insertions(+), 5 deletions(-)
+---
+base-commit: 7e6b8924568d1aa476b77323df8d2bdd31bd7257
+change-id: 20240426-a750-raytracing-dee7a526513b
+
+Best regards,
+-- 
+Connor Abbott <cwabbott0@gmail.com>
+
