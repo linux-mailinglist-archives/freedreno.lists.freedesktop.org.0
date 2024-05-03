@@ -2,79 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EFD48BA9A8
-	for <lists+freedreno@lfdr.de>; Fri,  3 May 2024 11:18:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 846238BADE8
+	for <lists+freedreno@lfdr.de>; Fri,  3 May 2024 15:43:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69FA710FA94;
-	Fri,  3 May 2024 09:18:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5926E10FC46;
+	Fri,  3 May 2024 13:43:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="MPq0i2U+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VZ3/Rx3h";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D43A110FA70
- for <freedreno@lists.freedesktop.org>; Fri,  3 May 2024 09:18:55 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-a55bf737cecso1148377966b.0
- for <freedreno@lists.freedesktop.org>; Fri, 03 May 2024 02:18:55 -0700 (PDT)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69D6910FC46
+ for <freedreno@lists.freedesktop.org>; Fri,  3 May 2024 13:43:16 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-51f60817e34so1641257e87.2
+ for <freedreno@lists.freedesktop.org>; Fri, 03 May 2024 06:43:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1714727934; x=1715332734; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=27M+GiFTHZXnHsJeQQFjfy6D2Lb4h96J0r+ztTDnB2Y=;
- b=MPq0i2U+xn3kdfyAWc5nohGRjCibf0DoXtTP1KLNjnlBM7y1DumxcrxlrwMBI6YZF/
- bnSn+xz0ElEqZ+IT+nCYnw71aVYwyFCUYSR5UZbBqeSukjDjOwFPvunZbO93JXpkuefb
- H+FArH2D9mvcjZVbbbqR2HB9nmVexb2G0XC++zZBF3g3INfR2S6nVvpxlaRQkqZ6TKd6
- OdoYZY3WUUVyvrDy7KfcIqxmrEtmS2MaT5y2VgUoo0x0oaOU1DqmOC0DDzaidWFWGtgf
- rWmS6sS0T8PgFA369tzodI/29o+p2dKGsUmDvyscCl8rdrVMDrO3S9MLctGXx7CN5Kts
- vZZw==
+ d=gmail.com; s=20230601; t=1714743794; x=1715348594; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Zyyfp4qby9iAPOj419gxE7bqQG4AvlgS4hynSrw/+50=;
+ b=VZ3/Rx3heoEgtVqZJzi//2H+qGfPmF1mE1mjwZ921EOhsaRsvWu9M5jEEHQiJVT6BY
+ WMSWaXbWCfbbZy5Jru7J2a2j7eaA58WezYOAe6sVuqnltCEO3S6axI4jLXoYjD1pU8o0
+ NEQogBzXVarHob/xIgsVlnplononXhkJnPuwUpJ/fmE0MPBOJmkjvLG3rYW48+QX5x/2
+ m6FRCNfURpZ587a/dw8QvzhhU3t/J+057V1yQTKe1yzZF6dSaH15OGU1zHuWKD4905Zp
+ 6DZ5eY006MAO6V21eoFvtWAa+v5oH59btvb8O9+9KQ24K2gDCsG3iQU+9V+BWE9uJLWy
+ +mYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714727934; x=1715332734;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=27M+GiFTHZXnHsJeQQFjfy6D2Lb4h96J0r+ztTDnB2Y=;
- b=JRUO0HavSxWmEPHBkJMK0DvPCTekH1UnsPrgWuuxbqzvaN/w8DqzWUYXI5s1sSyfuF
- DJcMmbABvVidXdfxfsSylCR6P8b7yfletG2jroXWsc9fhOr+ATF+abFQrmHeNirl8ZeZ
- rcFTGNXqZq69a1VuDPZOR+wC21hI6sU+Qg7mHpbJ7hK8tLCCGm8Mkg6oe1xIROgXj2En
- 6y/5VVzJ5uoxOErZ3b5vTgKKkH0op74aBDmHr6Ed/dks42/ySmv51UPH4fTa+IrTh05z
- FgzFJba6IScpToJD0aDLyO9OD2DWI1f4vzDHnF6TOEuXBrkT0wgN4NEv5G77cfO9531y
- kBXA==
+ d=1e100.net; s=20230601; t=1714743794; x=1715348594;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Zyyfp4qby9iAPOj419gxE7bqQG4AvlgS4hynSrw/+50=;
+ b=aBOxBTfABLxxXzihKJBhHC7bJyTZV+rsDo7z8TodhEjj/uDVkMTt9TDyqXSpB65Oh2
+ fGDC8obtJu6tDTdPfLnwnfYRtmNfzMJpOr2SEInzLV37p72DcLAaQI2DQD8W19rGQkam
+ Y9+fd/onb9oV8r3Uh/KM+d/YuEvpciSKm+/piHcauTP6eLnXYLa+mEcNdjJU/kYejpY0
+ r2ks008M6n6823d57ezEigPnGhMpIC+ttebKH9m8CnMmlDdpk55IaRy53EAofCp+Rjbq
+ H3ohrXCZ7AxBokbkrvRzVQktJ8vNM2WkLMYeHThIc4Xd/ZK3Go3zFY/9qQOK3G5zoc79
+ IjjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUEAdVBqcPWG+NxiXq8ZSmkjyMS5vDGP6/PopvCy6UNqjxrjskbzcOWTzaB2PakuRhbNWkT6lMjQZG9gyOqhRb3tPitVb8f1GXv+56I3l9q
-X-Gm-Message-State: AOJu0YwH+jANpjvi9AJ+Enfe7RiXwXE7YbSBZ4cMJBHGDUTS9C/MtD8w
- x9OMRxBZ56op4Nx2hZgPxO7LXkxSn+AseDPqx8DXV3gjfmlMl77L9Ja3hKY2pUs=
-X-Google-Smtp-Source: AGHT+IGwGUAimmvXfipen1P3d+DtgUGP1PC9mtiV9eXQGm9ynGAZ735zq0H+RX+qV8ihNUy1ARjqGA==
-X-Received: by 2002:a17:907:25cd:b0:a59:8fae:f5c8 with SMTP id
- ae13-20020a17090725cd00b00a598faef5c8mr841147ejc.7.1714727933652; 
- Fri, 03 May 2024 02:18:53 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl.
- [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
- t14-20020a1709064f0e00b00a46aba003eesm1492035eju.215.2024.05.03.02.18.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 May 2024 02:18:53 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 03 May 2024 11:18:52 +0200
-Message-Id: <D0ZWBLILU0EW.XOAQ4C99DQRO@fairphone.com>
-Cc: "Rob Clark" <robdclark@gmail.com>, "Abhinav Kumar"
- <quic_abhinavk@quicinc.com>, "Sean Paul" <sean@poorly.run>, "David Airlie"
- <airlied@gmail.com>, "Daniel Vetter" <daniel@ffwll.ch>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/msm/dpu: fix vblank IRQ handling for command panels
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, "Marijn Suijten"
- <marijn.suijten@somainline.org>
-X-Mailer: aerc 0.17.0
-References: <20240330-dpu-fix-irqs-v1-1-39b8d4e4e918@linaro.org>
- <mxwrvnqth5f2vd4m55ryzqgyj7brykiqynzldelanxkuj2zny3@4pqi6p57c2q2>
- <CAA8EJpqbzSc00T4exAYuh1QdifuimHD40uh0BCrd3SP9F5TQKQ@mail.gmail.com>
-In-Reply-To: <CAA8EJpqbzSc00T4exAYuh1QdifuimHD40uh0BCrd3SP9F5TQKQ@mail.gmail.com>
+ AJvYcCVo/U/jHhyPljoBPGiY5/w+8aHde+bXlLooIJkU9E3rGc2bodbT8EqDIHrcFJBQGTLn0K9BH2N3hlv9blHaHbiWIPrOG6f7XhTLQqT/ae34
+X-Gm-Message-State: AOJu0Yxzaa5mwVr8HYbn8YRX1PVVSYAwnRM3UxBfCQlaFd84W/WFTd7A
+ Bmn2GTrMo/ivCPZqUb8nOjUvZ3X1c2XPG+g3Y4yjPyac8pFedsxMCdNnjQ==
+X-Google-Smtp-Source: AGHT+IEuJFHTRpnejddSaorKZYTRmH7JKI71UbuwpdEkJajtnyPEeh/HIxQo38GNw/+98rcZPG+8Mw==
+X-Received: by 2002:a19:6905:0:b0:51a:f2fb:b13c with SMTP id
+ e5-20020a196905000000b0051af2fbb13cmr1760394lfc.11.1714743793877; 
+ Fri, 03 May 2024 06:43:13 -0700 (PDT)
+Received: from [192.168.0.20]
+ (cpc115152-dals23-2-0-cust532.20-2.cable.virginm.net. [86.12.82.21])
+ by smtp.gmail.com with ESMTPSA id
+ z18-20020adff1d2000000b0034df178a9acsm3782482wro.99.2024.05.03.06.43.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 May 2024 06:43:13 -0700 (PDT)
+From: Connor Abbott <cwabbott0@gmail.com>
+Subject: [PATCH 0/5] drm/msm: Support devcoredump on a750
+Date: Fri, 03 May 2024 14:42:29 +0100
+Message-Id: <20240503-a750-devcoredump-v1-0-04e669e2c3f7@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMXpNGYC/x3MQQqAIBBA0avErBMmy8SuEi0sp5pFKUoSRHdPW
+ r7F/w8kikwJhuqBSJkT+7OgqStYdntuJNgVg0TZoUIprFYoHOXFR3LXEYQyTb8anKnVFkoWIq1
+ 8/8txet8PFCcx7mIAAAA=
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ Connor Abbott <cwabbott0@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1714743792; l=1289;
+ i=cwabbott0@gmail.com; s=20240426; h=from:subject:message-id;
+ bh=GuBvh1EmOKxjLNpL33C5S5sksR1AgZWc6zDs3iQDq8s=;
+ b=bSJHF10HtjuZ9Tzx5wPnYVU1fQZj2PXl8Q7IjjBliL/Ur+7ZKiUVtz6bWEl18tbcBzoSMgs+d
+ 939KwwUv3UFCpBbAyN83uGEHxEj1sGJ9MDRhMASA7OFPUMLCWUZHa7F
+X-Developer-Key: i=cwabbott0@gmail.com; a=ed25519;
+ pk=dkpOeRSXLzVgqhy0Idr3nsBr4ranyERLMnoAgR4cHmY=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,265 +95,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun Apr 7, 2024 at 5:15 AM CEST, Dmitry Baryshkov wrote:
-> On Sat, 30 Mar 2024 at 18:49, Marijn Suijten
-> <marijn.suijten@somainline.org> wrote:
-> >
-> > On 2024-03-30 05:52:29, Dmitry Baryshkov wrote:
-> > > In case of CMD DSI panels, the vblank IRQ can be used outside of
-> > > irq_enable/irq_disable pair. This results in the following kind of
-> >
-> > Can you clarify when exactly that is?  Is it via ops.control_vblank_irq=
- in
-> > dpu_encoder_toggle_vblank_for_crtc()?
->
-> Call trace:
->  dpu_encoder_phys_cmd_control_vblank_irq+0x218/0x294
->   dpu_encoder_toggle_vblank_for_crtc+0x160/0x194
->   dpu_crtc_vblank+0xbc/0x228
->   dpu_kms_enable_vblank+0x18/0x24
->   vblank_ctrl_worker+0x34/0x6c
->   process_one_work+0x218/0x620
->   worker_thread+0x1ac/0x37c
->   kthread+0x114/0x118
->   ret_from_fork+0x10/0x20
->
-> The vblank_ctrl_work happens when the framework attempts to trigger
-> the vblank on the CRTC.
->
-> >
-> > > messages. Move assignment of IRQ indices to atomic_enable /
-> > > atomic_disable callbacks.
-> > >
-> > > [dpu error]invalid IRQ=3D[134217727, 31]
-> > > [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err =
-id:31 pp:0 ret:-22, enable true/0
-> > > [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err =
-id:31 pp:0 ret:-22, enable false/0
-> >
-> > You are right that such messages are common, both at random but also se=
-emingly
-> > around toggling the `ACTIVE` property on the CRTC:
-> >
-> >         [   45.878300] panel-samsung-souxp ae94000.dsi.0: samsung_souxp=
-00_disable
-> >         [   45.909941] panel-samsung-souxp ae94000.dsi.0: samsung_souxp=
-00_unprepare
-> >         [   46.093234] [drm:dpu_encoder_helper_wait_for_irq] *ERROR* en=
-coder is disabled id=3D31, callback=3Ddpu_encoder_phys_cmd_ctl_start_irq, I=
-RQ=3D[134217727, 31]
-> >         [   46.130421] panel-samsung-souxp ae94000.dsi.0: samsung_souxp=
-00_prepare
-> >         [   46.340457] panel-samsung-souxp ae94000.dsi.0: samsung_souxp=
-00_enable
-> >         [   65.520323] [dpu error]invalid IRQ=3D[134217727, 31] irq_cb:=
-dpu_encoder_phys_cmd_te_rd_ptr_irq
-> >         [   65.520463] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *E=
-RROR* vblank irq err id:31 pp:0 ret:-22, enable true/0
-> >         [   65.630199] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *E=
-RROR* vblank irq err id:31 pp:0 ret:-22, enable false/0
-> >         [  166.576465] panel-samsung-souxp ae94000.dsi.0: samsung_souxp=
-00_disable
-> >         [  166.609674] panel-samsung-souxp ae94000.dsi.0: samsung_souxp=
-00_unprepare
-> >         [  166.781967] [drm:dpu_encoder_helper_wait_for_irq] *ERROR* en=
-coder is disabled id=3D31, callback=3Ddpu_encoder_phys_cmd_ctl_start_irq, I=
-RQ=3D[134217727, 31]
-> >         [  166.829805] panel-samsung-souxp ae94000.dsi.0: samsung_souxp=
-00_prepare
-> >         [  167.040476] panel-samsung-souxp ae94000.dsi.0: samsung_souxp=
-00_enable
-> >         [  337.449827] [dpu error]invalid IRQ=3D[134217727, 31] irq_cb:=
-dpu_encoder_phys_cmd_te_rd_ptr_irq
-> >         [  337.450434] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *E=
-RROR* vblank irq err id:31 pp:0 ret:-22, enable true/0
-> >         [  337.569526] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *E=
-RROR* vblank irq err id:31 pp:0 ret:-22, enable false/0
-> >         [  354.980357] [dpu error]invalid IRQ=3D[134217727, 31] irq_cb:=
-dpu_encoder_phys_cmd_te_rd_ptr_irq
-> >         [  354.980495] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *E=
-RROR* vblank irq err id:31 pp:0 ret:-22, enable true/0
-> >         [  355.090460] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *E=
-RROR* vblank irq err id:31 pp:0 ret:-22, enable false/0
-> >
-> > Unfortunately with this patch, turning the CRTC off via ./modetest -M m=
-sm -a
-> > -w 81:ACTIVE:0 immediately triggers a bunch of WARNs (note that the CRT=
-C turns
-> > on immediately again when the command returns, that's probably the fram=
-ebuffer
-> > console taking over again).  Running it a few times in succession this =
-may or
-> > may not happen, or reboot the phone (Xperia Griffin) entirely:
->
-> I could not reproduce it here, on Pixel-3. I'd like to review vblank
-> IRQs later. For now I think it is easier to revert d13f638c9b88
-> ("drm/msm/dpu: drop dpu_encoder_phys_ops.atomic_mode_set"). I'll send
-> a patch.
+This mostly involves importing the list of registers to dump from kgsl
+and plumbing them through. We also need to update registers from Mesa to
+pull in some AQE-related registers for dumping the AQE equivalents of
+the SQE_STAT, UCODE_DBG_INFO, and ROQ indexed registers.
 
-Hi,
+I tested this with msm_recovery igt and decoding the devcoredump from
+the gpu-fault subtest with [1].
 
-Did anything happen regarding this, I'm not finding anything on the
-lists?
+[1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/27266
 
-I'm seeing these errors also on SC7280/QCM6490 Fairphone 5 phone with
-kernel 6.9-rc6 (+ out of tree patches).
+Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+---
+Connor Abbott (5):
+      drm/msm: Import a750 snapshot registers from kgsl
+      drm/msm: Fix imported a750 snapshot header for upstream
+      drm/msm: Update a6xx registers XML
+      drm/msm: Adjust a7xx GBIF debugbus dumping
+      drm/msm: Add devcoredump support for a750
 
-[   77.073366] [dpu error]invalid IRQ=3D[134217727, 31] irq_cb:dpu_encoder_=
-phys_cmd_te_rd_ptr_irq
-[   77.073391] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank=
- irq err id:31 pp:0 ret:-22, enable true/0
-[   79.214720] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank=
- irq err id:31 pp:0 ret:-22, enable false/0
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |   64 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        |    6 +-
+ .../gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h  | 1446 ++++++++++++++++++++
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml      |   47 +-
+ 4 files changed, 1539 insertions(+), 24 deletions(-)
+---
+base-commit: 7e6b8924568d1aa476b77323df8d2bdd31bd7257
+change-id: 20240502-a750-devcoredump-5916f90be37a
 
-Regards
-Luca
-
-
->
-> >
-> >         [   23.423930] panel-samsung-souxp ae94000.dsi.0: samsung_souxp=
-00_disable
-> >         [   23.461013] [dpu error]invalid IRQ=3D[134217727, 31]
-> >         [   23.461144] [dpu error]invalid IRQ=3D[134217727, 31]
-> >         [   23.461208] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *E=
-RROR* vblank irq err id:31 pp:0 ret:-22, enable false/1
-> >         [   23.461340] [dpu error]invalid IRQ=3D[134217727, 31]
-> >         [   23.461406] panel-samsung-souxp ae94000.dsi.0: samsung_souxp=
-00_unprepare
-> >         [   23.641721] [drm:dpu_encoder_helper_wait_for_irq] *ERROR* en=
-coder is disabled id=3D31, callback=3Ddpu_encoder_phys_cmd_ctl_start_irq, I=
-RQ=3D[134217727, 31]
-> >         [   23.679938] panel-samsung-souxp ae94000.dsi.0: samsung_souxp=
-00_prepare
-> >         [   23.900465] ------------[ cut here ]------------
-> >         [   23.900813] WARNING: CPU: 1 PID: 747 at drivers/gpu/drm/msm/=
-disp/dpu1/dpu_hw_interrupts.c:545 dpu_core_irq_register_callback+0x1b4/0x24=
-4
-> >         [   23.901450] Modules linked in:
-> >         [   23.901814] CPU: 1 PID: 747 Comm: modetest Tainted: G     U =
-            6.9.0-rc1-next-20240328-SoMainline-02555-g27abbea53b6b #19
-> >         [   23.902402] Hardware name: Sony Xperia 1 (DT)
-> >         [   23.902674] pstate: 804000c5 (Nzcv daIF +PAN -UAO -TCO -DIT =
--SSBS BTYPE=3D--)
-> >         [   23.903133] pc : dpu_core_irq_register_callback+0x1b4/0x244
-> >         [   23.903455] lr : dpu_encoder_phys_cmd_irq_enable+0x30/0x8c
-> >         [   23.903880] sp : ffff800086833930
-> >         [   23.904123] x29: ffff800086833930 x28: 0000000000000001 x27:=
- ffff0273834522d0
-> >         [   23.904604] x26: ffffd46ebdb5edc8 x25: ffffd46ebe0f1228 x24:=
- ffff02738106b280
-> >         [   23.904973] x23: ffff027383452000 x22: ffffd46ebd086290 x21:=
- 0000000000000000
-> >         [   23.905452] x20: ffff027382712080 x19: 0000000000000008 x18:=
- ffff8000840550d0
-> >         [   23.905820] x17: 000000040044ffff x16: 005000f2b5503510 x15:=
- 00000000000006ce
-> >         [   23.906300] x14: 0000000000000f00 x13: 0000000000000f00 x12:=
- 0000000000000f00
-> >         [   23.906778] x11: 0000000000000040 x10: ffffd46ebe853258 x9 :=
- ffffd46ebe853250
-> >         [   23.907146] x8 : ffffd46ebec30000 x7 : 0000000000000000 x6 :=
- 0000000000000000
-> >         [   23.907621] x5 : 0000000000000000 x4 : ffff027384eac080 x3 :=
- ffff027381a1a080
-> >         [   23.908099] x2 : 0000000000000001 x1 : ffff027384eac140 x0 :=
- ffffd46ebd086290
-> >         [   23.908467] Call trace:
-> >         [   23.908688]  dpu_core_irq_register_callback+0x1b4/0x244
-> >         [   23.909113]  dpu_encoder_phys_cmd_irq_enable+0x30/0x8c
-> >         [   23.909417]  _dpu_encoder_irq_enable+0x58/0xa4
-> >         [   23.909814]  dpu_encoder_resource_control+0x1e8/0x498
-> >         [   23.910116]  dpu_encoder_virt_atomic_enable+0x9c/0x15c
-> >         [   23.910531]  drm_atomic_helper_commit_modeset_enables+0x180/=
-0x26c
-> >         [   23.910871]  msm_atomic_commit_tail+0x1a4/0x510
-> >         [   23.911277]  commit_tail+0xa8/0x19c
-> >         [   23.911544]  drm_atomic_helper_commit+0x188/0x1a0
-> >         [   23.911842]  drm_atomic_commit+0xb4/0xf0
-> >         [   23.912226]  drm_client_modeset_commit_atomic+0x1fc/0x268
-> >         [   23.912540]  drm_client_modeset_commit_locked+0x60/0x178
-> >         [   23.912963]  drm_client_modeset_commit+0x30/0x5c
-> >         [   23.913256]  drm_fb_helper_lastclose+0x64/0xb0
-> >         [   23.913542]  msm_fbdev_client_restore+0x18/0x2c
-> >         [   23.913948]  drm_client_dev_restore+0x8c/0xec
-> >         [   23.914233]  drm_lastclose+0x68/0xac
-> >         [   23.914499]  drm_release+0x128/0x15c
-> >         [   23.914765]  __fput+0x7c/0x2cc
-> >         [   23.915017]  __fput_sync+0x54/0x64
-> >         [   23.915272]  __arm64_sys_close+0x3c/0x84
-> >         [   23.915661]  invoke_syscall+0x4c/0x11c
-> >         [   23.915932]  el0_svc_common.constprop.0+0x44/0xec
-> >         [   23.916230]  do_el0_svc+0x20/0x30
-> >         [   23.916600]  el0_svc+0x38/0xe4
-> >         [   23.916854]  el0t_64_sync_handler+0x128/0x134
-> >         [   23.917139]  el0t_64_sync+0x198/0x19c
-> >         [   23.917515] ---[ end trace 0000000000000000 ]---
-> >         [   23.918007] ------------[ cut here ]------------
-> >         [   23.918324] WARNING: CPU: 1 PID: 747 at drivers/gpu/drm/msm/=
-disp/dpu1/dpu_hw_interrupts.c:545 dpu_core_irq_register_callback+0x1b4/0x24=
-4
-> >         [   23.918720] Modules linked in:
-> >         [   23.918878] CPU: 1 PID: 747 Comm: modetest Tainted: G     U =
- W          6.9.0-rc1-next-20240328-SoMainline-02555-g27abbea53b6b #19
-> >         [   23.919248] Hardware name: Sony Xperia 1 (DT)
-> >         [   23.919424] pstate: 804000c5 (Nzcv daIF +PAN -UAO -TCO -DIT =
--SSBS BTYPE=3D--)
-> >         [   23.919725] pc : dpu_core_irq_register_callback+0x1b4/0x244
-> >         [   23.919934] lr : dpu_encoder_phys_cmd_irq_enable+0x78/0x8c
-> >         [   23.920214] sp : ffff800086833930
-> >         [   23.920373] x29: ffff800086833930 x28: 0000000000000001 x27:=
- ffff0273834522d0
-> >         [   23.920686] x26: ffffd46ebdb5edc8 x25: ffffd46ebe0f1228 x24:=
- ffff02738106b280
-> >         [   23.920922] x23: ffff027383452000 x22: ffffd46ebd086020 x21:=
- 0000000000000000
-> >         [   23.921237] x20: ffff027382712080 x19: 0000000000000029 x18:=
- ffff8000840550d0
-> >         [   23.921545] x17: 000000040044ffff x16: 005000f2b5503510 x15:=
- 00000000000006ce
-> >         [   23.921780] x14: 0000000000000f00 x13: 0000000000000f00 x12:=
- 0000000000000f00
-> >         [   23.922092] x11: 0000000000000040 x10: ffffd46ebe853258 x9 :=
- ffffd46ebe853250
-> >         [   23.922405] x8 : ffffd46ebec30000 x7 : 0000000000000000 x6 :=
- 0000000000000001
-> >         [   23.922640] x5 : ffffd46ebe0878d8 x4 : ffff027384eac080 x3 :=
- ffff027381a1a080
-> >         [   23.922953] x2 : 0000000000000001 x1 : ffff027384eac458 x0 :=
- ffffd46ebd086020
-> >         [   23.923266] Call trace:
-> >         [   23.923411]  dpu_core_irq_register_callback+0x1b4/0x244
-> >         [   23.923616]  dpu_encoder_phys_cmd_irq_enable+0x78/0x8c
-> >         [   23.923893]  _dpu_encoder_irq_enable+0x58/0xa4
-> >         [   23.924078]  dpu_encoder_resource_control+0x1e8/0x498
-> >         [   23.924273]  dpu_encoder_virt_atomic_enable+0x9c/0x15c
-> >         [   23.924547]  drm_atomic_helper_commit_modeset_enables+0x180/=
-0x26c
-> >         [   23.924763]  msm_atomic_commit_tail+0x1a4/0x510
-> >         [   23.925030]  commit_tail+0xa8/0x19c
-> >         [   23.925205]  drm_atomic_helper_commit+0x188/0x1a0
-> >         [   23.925477]  drm_atomic_commit+0xb4/0xf0
-> >         [   23.925653]  drm_client_modeset_commit_atomic+0x1fc/0x268
-> >         [   23.925856]  drm_client_modeset_commit_locked+0x60/0x178
-> >         [   23.926136]  drm_client_modeset_commit+0x30/0x5c
-> >         [   23.926325]  drm_fb_helper_lastclose+0x64/0xb0
-> >         [   23.926585]  msm_fbdev_client_restore+0x18/0x2c
-> >         [   23.926771]  drm_client_dev_restore+0x8c/0xec
-> >         [   23.926956]  drm_lastclose+0x68/0xac
-> >         [   23.927206]  drm_release+0x128/0x15c
-> >         [   23.927379]  __fput+0x7c/0x2cc
-> >         [   23.927541]  __fput_sync+0x54/0x64
-> >         [   23.927785]  __arm64_sys_close+0x3c/0x84
-> >         [   23.927965]  invoke_syscall+0x4c/0x11c
-> >         [   23.928141]  el0_svc_common.constprop.0+0x44/0xec
-> >         [   23.928411]  do_el0_svc+0x20/0x30
-> >         [   23.928582]  el0_svc+0x38/0xe4
-> >         [   23.928746]  el0t_64_sync_handler+0x128/0x134
-> >         [   23.929008]  el0t_64_sync+0x198/0x19c
-> >         [   23.929180] ---[ end trace 0000000000000000 ]---
-> >         [   23.929429] panel-samsung-souxp ae94000.dsi.0: samsung_souxp=
-00_enable
-> >
-> > - Marijn
+Best regards,
+-- 
+Connor Abbott <cwabbott0@gmail.com>
 
