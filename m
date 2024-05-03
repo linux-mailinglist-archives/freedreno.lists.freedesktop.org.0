@@ -2,90 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14C1E8BB24C
-	for <lists+freedreno@lfdr.de>; Fri,  3 May 2024 20:15:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12AFB8BB416
+	for <lists+freedreno@lfdr.de>; Fri,  3 May 2024 21:33:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5F71131B0;
-	Fri,  3 May 2024 18:15:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D57CA10FB98;
+	Fri,  3 May 2024 19:33:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xzZPjWc/";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="GL5t1h78";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C373F112923
- for <freedreno@lists.freedesktop.org>; Fri,  3 May 2024 18:15:08 +0000 (UTC)
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-2db13ca0363so151444331fa.3
- for <freedreno@lists.freedesktop.org>; Fri, 03 May 2024 11:15:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1714760107; x=1715364907; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=EVuYQnC+Oejbh47K886v7jLhxbV/LX35eFvPeTAUoM8=;
- b=xzZPjWc/yvyhOnjCghdiNvrWYllXWnEWUlEGuUhCKolwZO0PSDo3O3l9Z8hCdXGn1p
- taeS04d+0RSudsoNsJJ7/jtISdGjAXHZED8XwcXRwk58NJF/lp7KkgrmXqqL5S42LNpQ
- 5lgPlC+kZmwLz5tQZ6QAXLvvZJ/pzY5hDmfvlGcH3Xj6gM8BI7rVcbyn/LuX1z049JuN
- PaH6sdw5u9dEUIsdTuSzcKahl9yLYEz5HmnW4mpH8ps+DKCmS+qfLanT+72UejSAmZhg
- PHcmwZushjyX9rhr5VKvwILYuHdBDvNAuSHmD6cet68QlnMe+BJ7dnNgw9tYut7JICSI
- Wmlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714760107; x=1715364907;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EVuYQnC+Oejbh47K886v7jLhxbV/LX35eFvPeTAUoM8=;
- b=GR2NfmUdXjdf1v6tPJT1uQJZaC5DCntD/SdDqWF+9PNS117HSClq0jNAQ4T5Sfum+g
- yHoZYre8RDWUII45XnLy5i1mWxpRHQCNY0WsZyV7vLYntI9zZf83U7BqoJl8yp2Ol0sm
- 1BLVjzKunFsACS3nLXw+lKGl6Tsj/1Um+Wc3DuYQBjCU2y01FGmVabCVYEXZOjhuQd1G
- dg1GO1CZCWGP+Hk0akbwhyHlW4FkMV5MsYj+m3IGVtmoYvExWISB6CyR6qTyRL97BcTM
- 5DNSRhNZcp2CtVJCbJ3EV3B4BRAfiHIR9cPrf4aXi+iLP+WBvLGF42ne4vzPak0i25nH
- SNTA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUTUCdg3Hm5DsDe1JQFfjySo8zOonBn0SXTlbaYxBa/0jLiHkYR6myqCgWxuHQzCZMTmdzay26vbxgE56dsk2LKGlRAcefdNdEB7wdgA8Te
-X-Gm-Message-State: AOJu0YzD040YEPM8VqCYU+DxLUXyVLT6zFhx+986CktpJrOj5huw76cB
- +N+JnL5TYQUzcFDBVtXjcwRS6SATonRkAiIDFBR6bq6pCAcD9UDIMt2E5Xo+kCc=
-X-Google-Smtp-Source: AGHT+IHH4MMFG5SQdw9yShhta2QBkdZvrkXtrf2jPCXHUI94xQ/Viajl3IVbjwM1N0fQaRrEeSD36Q==
-X-Received: by 2002:a05:651c:32c:b0:2de:c912:ec08 with SMTP id
- b12-20020a05651c032c00b002dec912ec08mr2716085ljp.16.1714760106823; 
- Fri, 03 May 2024 11:15:06 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- s7-20020a2e9c07000000b002de118decbbsm605548lji.53.2024.05.03.11.15.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 May 2024 11:15:06 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 03 May 2024 21:15:04 +0300
-Subject: [PATCH v2 2/2] drm/ci: validate drm/msm XML register files against
- schema
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13C4B10FB98;
+ Fri,  3 May 2024 19:33:06 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 443IUGgJ003326;
+ Fri, 3 May 2024 19:32:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=ieAOOODnpvY0Ey8J7eJ0Q5AQm0nI6LyiFkdkDQuyWaQ=; b=GL
+ 5t1h782NlRJfBdpjH5PGHI/ikw0PwNNAsS8voSUzwtnh45B/yS6mbXlUPofjesdF
+ CyIZKuzaEvghFrRUiKiT8kmTW60urgNttkZ1VyudegSDRSfJpNrRwhS/22lMeRWq
+ vXH0//7LshjIVWKAvE7vTbE7ALdx218B1gLNvCYQU2qLC/NcWOVKYIYKbp9ZNsbH
+ Nos0ke5aVifwDtvaikzzliXYEBDWmmgeb8UiVfQFb8PLo6LYHjwsYSqY04f1/3cN
+ Wf0xaETwJEXbSfNd+5oHdwp5eCRu3M+RH2sm3FZyQXaPJerJ10z9n1UQq1gCzAad
+ gUfD56UOYDTHUQt7E96g==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xv8vsbkvm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 03 May 2024 19:32:52 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 443JWpt3009949
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 3 May 2024 19:32:51 GMT
+Received: from [10.110.114.34] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 3 May 2024
+ 12:32:50 -0700
+Message-ID: <85c7f268-60e1-bd3a-2646-eb01efa0d547@quicinc.com>
+Date: Fri, 3 May 2024 12:32:49 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240503-fd-fix-lxml-v2-2-f80a60ce21a1@linaro.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2 1/2] drm/msm/gen_header: allow skipping the validation
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
+ Vetter <daniel@ffwll.ch>, Helen Koike <helen.koike@collabora.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, Stephen
+ Rothwell <sfr@canb.auug.org.au>
 References: <20240503-fd-fix-lxml-v2-0-f80a60ce21a1@linaro.org>
-In-Reply-To: <20240503-fd-fix-lxml-v2-0-f80a60ce21a1@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Helen Koike <helen.koike@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1281;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=xF5XC7k5+A56fzWGKfMqVYu2cMBJwZJ6BmZnpTYRInw=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ5qp5gr5zfPn2wYJGjr99i+4soPjH8vCom89UzzyHvzYJ
- b/Djjm7k9GYhYGRi0FWTJHFp6Blasym5LAPO6bWwwxiZQKZwsDFKQAT4W7kYFj72pOzIq69xrLi
- Y1M7e4/uPpv8THaleRnLchu4IiME9Zwu399uGXmNj4lHdMWOkjUmjhcfGwn7hJQfLxRtOXo5aPf
- c+VNtfoe1JATubJvzk/mEl4n9jm33Na97W++OjohYbDnt1XO/yK0lx1ouqr2sa9k8+ahDgdM10e
- n37dbO3pllYn/Ka0vx5z0aRlwzuATN6xeYqUqYu8jpfLvwdlsWj+RvxlexXmopDDWCL9951Jt4S
- FjE+Mn6LlC7/Ef+TFN/2JLslxcXx3Gzrn70aa8Y84yVnA+nTVPq80/yan9yWWwKZ1Pr8mdvXdMX
- ve/JrZrf+mm9laHWiX0zPI/JcGbFOPW3915bocuwicEOAA==
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+ <20240503-fd-fix-lxml-v2-1-f80a60ce21a1@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240503-fd-fix-lxml-v2-1-f80a60ce21a1@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: UuXuCLTMiwePbV3jfGkTU1oXBcTx2Q-z
+X-Proofpoint-GUID: UuXuCLTMiwePbV3jfGkTU1oXBcTx2Q-z
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-03_13,2024-05-03_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999
+ suspectscore=0 priorityscore=1501 mlxscore=0 spamscore=0 adultscore=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2404010003 definitions=main-2405030139
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,44 +97,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In order to validate drm/msm register definition files against schema,
-reuse the nodebugfs build step. The validation entry is guarded by
-the EXPERT Kconfig option and we don't want to enable that option for
-all the builds.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/ci/build.sh  | 3 +++
- drivers/gpu/drm/ci/build.yml | 1 +
- 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/ci/build.sh b/drivers/gpu/drm/ci/build.sh
-index 106f2d40d222..28a495c0c39c 100644
---- a/drivers/gpu/drm/ci/build.sh
-+++ b/drivers/gpu/drm/ci/build.sh
-@@ -12,6 +12,9 @@ rm -rf .git/rebase-apply
- apt-get update
- apt-get install -y libssl-dev
- 
-+# for msm header validation
-+apt-get install -y python3-lxml
-+
- if [[ "$KERNEL_ARCH" = "arm64" ]]; then
-     GCC_ARCH="aarch64-linux-gnu"
-     DEBIAN_ARCH="arm64"
-diff --git a/drivers/gpu/drm/ci/build.yml b/drivers/gpu/drm/ci/build.yml
-index 17ab38304885..9c198239033d 100644
---- a/drivers/gpu/drm/ci/build.yml
-+++ b/drivers/gpu/drm/ci/build.yml
-@@ -106,6 +106,7 @@ build-nodebugfs:arm64:
-   extends: .build:arm64
-   variables:
-     DISABLE_KCONFIGS: "DEBUG_FS"
-+    ENABLE_KCONFIGS: "EXPERT DRM_MSM_VALIDATE_XML"
- 
- build:x86_64:
-   extends: .build:x86_64
+On 5/3/2024 11:15 AM, Dmitry Baryshkov wrote:
+> We don't need to run the validation of the XML files if we are just
+> compiling the kernel. Skip the validation unless the user enables
+> corresponding Kconfig option. This removes a warning from gen_header.py
+> about lxml being not installed.
+> 
+> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+> Closes: https://lore.kernel.org/all/20240409120108.2303d0bd@canb.auug.org.au/
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/Kconfig                 |  8 ++++++++
+>   drivers/gpu/drm/msm/Makefile                |  9 ++++++++-
+>   drivers/gpu/drm/msm/registers/gen_header.py | 14 +++++++++++---
+>   3 files changed, 27 insertions(+), 4 deletions(-)
+> 
 
--- 
-2.39.2
+Looks reasonable to me, only developers need to worry about or fix the 
+xml files
 
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
