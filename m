@@ -2,91 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B2D88BB89C
-	for <lists+freedreno@lfdr.de>; Sat,  4 May 2024 02:08:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 430158BBD18
+	for <lists+freedreno@lfdr.de>; Sat,  4 May 2024 18:31:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7B9B10F1C1;
-	Sat,  4 May 2024 00:07:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DA1B1135C8;
+	Sat,  4 May 2024 16:31:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="BdfeVsGg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EQjHbla7";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23BC710F1C1;
- Sat,  4 May 2024 00:07:58 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 443Loq3d023739;
- Sat, 4 May 2024 00:07:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=2gHxHWVt0EgLtC05azmjUJ9T0o3w1UNl8Tamh28ZgyU=; b=Bd
- feVsGgqnlRjitK+dOOtENrmd7kZjLnQnghdams4WsChLFdpEiBvI0WoyWre995Ar
- K+xqd5xfPcD2oLoj8b2RvjsPboUBTLNOM7PeTx5haFlMFbzcGfb//9aqcfSDLdCb
- fXKrXhqpw0heGBvE5S5eTOdcBsDPTICOLH6Em7PIH5i2c5WycRJdnr0E3v3SB4bE
- OqkQ7zBWWcfyInAVCFMssbLsJO2aeZy5lXaly0gNkVlI2QHxOnh+Fz5KjLUpor8m
- Z2ltF2ytSCszP5AhwjZCPxfwUg8T1SPtP224cXMdpCmXmgqj3zVhYtCxCxzxl5As
- TZ4HNqkpphwCuexx+LIg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xvrt4j86g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 04 May 2024 00:07:48 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44407l5w006552
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 4 May 2024 00:07:47 GMT
-Received: from [10.110.114.34] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 3 May 2024
- 17:07:46 -0700
-Message-ID: <e082de17-f4f7-1923-cfe0-10916c2e3caa@quicinc.com>
-Date: Fri, 3 May 2024 17:07:45 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v2 2/2] drm/ci: validate drm/msm XML register files
- against schema
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
- Suijten <marijn.suijten@somainline.org>,
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBAAC1135C8;
+ Sat,  4 May 2024 16:31:22 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-1ec4b2400b6so5121525ad.3; 
+ Sat, 04 May 2024 09:31:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1714840282; x=1715445082; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=BVHkSDrp78uKW0uZrcyHhFLD98BFVYL6QDF1S7ek4Xk=;
+ b=EQjHbla7UOiqzbeFJWH9WgMO+01e6RbJNb6bIDiSB6Aj5V38l/ozL2+pzmfmF3JDS2
+ HAo+aHyhe9uMZfF5ueUN8IGGmkDTr2Sc3WXLzHuahJD6npnfT/84cKqo4Hnu3yCVGpvs
+ qnHF4eD5B374FwZHaQ41bkJwxhNzFMhJPlISqv42cxnIL/0tOtDgUMa+COIKBoGeXcpH
+ WZE/proEz6dXQau6Q9Q1MSOciUncCkLVVSlzIOOfMVDCBF5ldpH8mt/fDgNvDQ1AAJ5v
+ UCjAVcITIsKRzUPNhZh+QOlhzCaIT4yLpkxvNhuqD6KTR71j7WD8EwGoi8refwHASgyN
+ h8xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1714840282; x=1715445082;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BVHkSDrp78uKW0uZrcyHhFLD98BFVYL6QDF1S7ek4Xk=;
+ b=aCTrV3ZKQUu5o0PJ6lqyCle311ST2CeYmCCjZzSRrVXo2zv22wZ4zgVIUMgo43Lxwf
+ yg7wzWerd8gBo/pOZLMh6okX/T8HT08+KoE3xTc+FUusbTMS+ZrVGb2RdxQKT3avEOT+
+ sEHPJ7NJFe9Y/O51eCWOfBU0IMSU1AwohDRvQxzacG6cjxzFBOd3wcEpDqYHGj0B0UFw
+ gkVgIOP4A6lPC69I7mOmM4blchKYHxx5Wlw2DMy58R+wWmCsAHXhFzKpPY6OxJtmM8lM
+ oX1Fl4wSywNp2Nxf8nm8crpmSn4iCXubj1hdGvvwy1ArVDWb/hCVOXCFZER+vtXRpB8v
+ 6qmg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWUh6OpbV2d75EPOO2IClfFbdyr3gbGAlCszfpT/mi89zxkR0bQ4C/uitfc3J4J9J1zqLm9SYfulDobFRJApva52sZtrTWnBkXBW4GDmQd3
+X-Gm-Message-State: AOJu0YycJxopsUpSmEkE8wgxYatwQToxZFSyaYwh3lJw1EfxtuyDlxpT
+ sjRn6JhI8bf1Ay2xE1BKX+Fz2GPpE9l7DdzITV2xJJdps3Mwd49tbXa1JA==
+X-Google-Smtp-Source: AGHT+IHArHsW3DCfdQpbK2KIyCCirt6QvRblSevbGPQPn2t4LZFf5iduw2DZMI57WDH//nxVT0o+7A==
+X-Received: by 2002:a17:902:f649:b0:1e2:bf94:487 with SMTP id
+ m9-20020a170902f64900b001e2bf940487mr7668589plg.57.1714840281493; 
+ Sat, 04 May 2024 09:31:21 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:ae1c:de46:682a:206])
+ by smtp.gmail.com with ESMTPSA id
+ jb13-20020a170903258d00b001ec4ed47ddesm5274490plb.86.2024.05.04.09.31.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 04 May 2024 09:31:20 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Helen Koike <helen.koike@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20240503-fd-fix-lxml-v2-0-f80a60ce21a1@linaro.org>
- <20240503-fd-fix-lxml-v2-2-f80a60ce21a1@linaro.org>
- <69b593b7-109c-825f-3dbb-5e8cce63ff01@quicinc.com>
- <CAA8EJpp4x+NEpMAGtgOmu-0NY8ycTu0iQX6-1Vv76mkKPea_Cw@mail.gmail.com>
- <24fb0b07-af03-1341-d98c-46f4f167fbbb@quicinc.com>
- <CAA8EJporB9jjKtT-XS4PcRSYzi+FJh1smsjnBCgy8f5JvDtjAg@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJporB9jjKtT-XS4PcRSYzi+FJh1smsjnBCgy8f5JvDtjAg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: R9H9ZhyJggZ-YTD_qcyRPMIWfyJEHLkW
-X-Proofpoint-ORIG-GUID: R9H9ZhyJggZ-YTD_qcyRPMIWfyJEHLkW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-03_17,2024-05-03_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- bulkscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 adultscore=0
- mlxlogscore=999 phishscore=0 clxscore=1015 impostorscore=0 malwarescore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2404010003 definitions=main-2405030171
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm/msm/a6xx: Cleanup indexed regs const'ness
+Date: Sat,  4 May 2024 09:31:13 -0700
+Message-ID: <20240504163114.639228-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.44.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,88 +86,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
+These tables were made non-const in commit 3cba4a2cdff3 ("drm/msm/a6xx:
+Update ROQ size in coredump") in order to avoid powering up the GPU when
+reading back a devcoredump.  Instead let's just stash the count that is
+potentially read from hw in struct a6xx_gpu_state_obj, and make the
+tables const again.
 
-On 5/3/2024 5:02 PM, Dmitry Baryshkov wrote:
-> On Sat, 4 May 2024 at 01:38, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 5/3/2024 1:20 PM, Dmitry Baryshkov wrote:
->>> On Fri, 3 May 2024 at 22:42, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>
->>>>
->>>>
->>>> On 5/3/2024 11:15 AM, Dmitry Baryshkov wrote:
->>>>> In order to validate drm/msm register definition files against schema,
->>>>> reuse the nodebugfs build step. The validation entry is guarded by
->>>>> the EXPERT Kconfig option and we don't want to enable that option for
->>>>> all the builds.
->>>>>
->>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>> ---
->>>>>     drivers/gpu/drm/ci/build.sh  | 3 +++
->>>>>     drivers/gpu/drm/ci/build.yml | 1 +
->>>>>     2 files changed, 4 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/ci/build.sh b/drivers/gpu/drm/ci/build.sh
->>>>> index 106f2d40d222..28a495c0c39c 100644
->>>>> --- a/drivers/gpu/drm/ci/build.sh
->>>>> +++ b/drivers/gpu/drm/ci/build.sh
->>>>> @@ -12,6 +12,9 @@ rm -rf .git/rebase-apply
->>>>>     apt-get update
->>>>>     apt-get install -y libssl-dev
->>>>>
->>>>> +# for msm header validation
->>>>> +apt-get install -y python3-lxml
->>>>> +
->>>>>     if [[ "$KERNEL_ARCH" = "arm64" ]]; then
->>>>>         GCC_ARCH="aarch64-linux-gnu"
->>>>>         DEBIAN_ARCH="arm64"
->>>>> diff --git a/drivers/gpu/drm/ci/build.yml b/drivers/gpu/drm/ci/build.yml
->>>>> index 17ab38304885..9c198239033d 100644
->>>>> --- a/drivers/gpu/drm/ci/build.yml
->>>>> +++ b/drivers/gpu/drm/ci/build.yml
->>>>> @@ -106,6 +106,7 @@ build-nodebugfs:arm64:
->>>>>       extends: .build:arm64
->>>>>       variables:
->>>>>         DISABLE_KCONFIGS: "DEBUG_FS"
->>>>> +    ENABLE_KCONFIGS: "EXPERT DRM_MSM_VALIDATE_XML"
->>>>>
->>>>
->>>> Wouldnt this end up enabling DRM_MSM_VALIDATE_XML for any arm64 device.
->>>>
->>>> Cant we make this build rule msm specific?
->>>
->>> No need to. We just need to validate the files at least once during
->>> the whole pipeline build.
->>>
->>
->> ah okay, today the arm64 config anyway sets all arm64 vendor drm configs
->> to y.
->>
->> A couple of more questions:
->>
->> 1) Why is this enabled only for no-debugfs option?
->> 2) Will there be any concerns from other vendors to enable CONFIG_EXPERT
->> in their CI runs as the arm64 config is shared across all arm64 vendors.
-> 
-> I don't get the second question. This option is only enabled for
-> no-debugfs, which isn't used for execution.
-> 
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 15 +++++++++------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h |  8 ++++----
+ 2 files changed, 13 insertions(+), 10 deletions(-)
 
-Ah I see, makes sense.
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+index 77146d30bcaa..0a7717a4fc2f 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+@@ -24,6 +24,7 @@
+ struct a6xx_gpu_state_obj {
+ 	const void *handle;
+ 	u32 *data;
++	u32 count;	/* optional, used when count potentially read from hw */
+ };
+ 
+ struct a6xx_gpu_state {
+@@ -1437,16 +1438,18 @@ static u32 a7xx_get_cp_roq_size(struct msm_gpu *gpu)
+ /* Read a block of data from an indexed register pair */
+ static void a6xx_get_indexed_regs(struct msm_gpu *gpu,
+ 		struct a6xx_gpu_state *a6xx_state,
+-		struct a6xx_indexed_registers *indexed,
++		const struct a6xx_indexed_registers *indexed,
+ 		struct a6xx_gpu_state_obj *obj)
+ {
++	u32 count = indexed->count;
+ 	int i;
+ 
+ 	obj->handle = (const void *) indexed;
+ 	if (indexed->count_fn)
+-		indexed->count = indexed->count_fn(gpu);
++		count = indexed->count_fn(gpu);
+ 
+-	obj->data = state_kcalloc(a6xx_state, indexed->count, sizeof(u32));
++	obj->data = state_kcalloc(a6xx_state, count, sizeof(u32));
++	obj->count = count;
+ 	if (!obj->data)
+ 		return;
+ 
+@@ -1454,7 +1457,7 @@ static void a6xx_get_indexed_regs(struct msm_gpu *gpu,
+ 	gpu_write(gpu, indexed->addr, 0);
+ 
+ 	/* Read the data - each read increments the internal address by 1 */
+-	for (i = 0; i < indexed->count; i++)
++	for (i = 0; i < count; i++)
+ 		obj->data[i] = gpu_read(gpu, indexed->data);
+ }
+ 
+@@ -1890,9 +1893,9 @@ static void a6xx_show_indexed_regs(struct a6xx_gpu_state_obj *obj,
+ 		return;
+ 
+ 	print_name(p, "  - regs-name: ", indexed->name);
+-	drm_printf(p, "    dwords: %d\n", indexed->count);
++	drm_printf(p, "    dwords: %d\n", obj->count);
+ 
+-	print_ascii85(p, indexed->count << 2, obj->data);
++	print_ascii85(p, obj->count << 2, obj->data);
+ }
+ 
+ static void a6xx_show_debugbus_block(const struct a6xx_debugbus_block *block,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+index 3b1ba514e8ee..dd4c28a8d923 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h
+@@ -397,7 +397,7 @@ struct a6xx_indexed_registers {
+ 	u32 (*count_fn)(struct msm_gpu *gpu);
+ };
+ 
+-static struct a6xx_indexed_registers a6xx_indexed_reglist[] = {
++static const struct a6xx_indexed_registers a6xx_indexed_reglist[] = {
+ 	{ "CP_SQE_STAT", REG_A6XX_CP_SQE_STAT_ADDR,
+ 		REG_A6XX_CP_SQE_STAT_DATA, 0x33, NULL },
+ 	{ "CP_DRAW_STATE", REG_A6XX_CP_DRAW_STATE_ADDR,
+@@ -408,7 +408,7 @@ static struct a6xx_indexed_registers a6xx_indexed_reglist[] = {
+ 		REG_A6XX_CP_ROQ_DBG_DATA, 0, a6xx_get_cp_roq_size},
+ };
+ 
+-static struct a6xx_indexed_registers a7xx_indexed_reglist[] = {
++static const struct a6xx_indexed_registers a7xx_indexed_reglist[] = {
+ 	{ "CP_SQE_STAT", REG_A6XX_CP_SQE_STAT_ADDR,
+ 		REG_A6XX_CP_SQE_STAT_DATA, 0x33, NULL },
+ 	{ "CP_DRAW_STATE", REG_A6XX_CP_DRAW_STATE_ADDR,
+@@ -433,12 +433,12 @@ static struct a6xx_indexed_registers a7xx_indexed_reglist[] = {
+ 		REG_A6XX_CP_ROQ_DBG_DATA, 0, a7xx_get_cp_roq_size },
+ };
+ 
+-static struct a6xx_indexed_registers a6xx_cp_mempool_indexed = {
++static const struct a6xx_indexed_registers a6xx_cp_mempool_indexed = {
+ 	"CP_MEMPOOL", REG_A6XX_CP_MEM_POOL_DBG_ADDR,
+ 		REG_A6XX_CP_MEM_POOL_DBG_DATA, 0x2060, NULL,
+ };
+ 
+-static struct a6xx_indexed_registers a7xx_cp_bv_mempool_indexed[] = {
++static const struct a6xx_indexed_registers a7xx_cp_bv_mempool_indexed[] = {
+ 	{ "CP_MEMPOOL", REG_A6XX_CP_MEM_POOL_DBG_ADDR,
+ 		REG_A6XX_CP_MEM_POOL_DBG_DATA, 0x2100, NULL },
+ 	{ "CP_BV_MEMPOOL", REG_A7XX_CP_BV_MEM_POOL_DBG_ADDR,
+-- 
+2.44.0
 
-> I didn't want to add an extra build stage, just for the sake of
-> validating regs against the schema, nor did I want EXPERT to find its
-> way into the actual running kernels.
-> 
-
-This answered my second question actually. That basically I didnt also 
-want EXPERT to find its way into actual running kernels.
-
-Hence, I am fine with this change now
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-But, I will wait to hear from helen, vignesh about what they think of this.
