@@ -2,82 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAD758BC590
-	for <lists+freedreno@lfdr.de>; Mon,  6 May 2024 03:48:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13CA78BE792
+	for <lists+freedreno@lfdr.de>; Tue,  7 May 2024 17:41:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E60610E7CF;
-	Mon,  6 May 2024 01:48:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 984DD10F3FA;
+	Tue,  7 May 2024 15:41:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="n590DYtI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h2jnZFYc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C5AC10F81C
- for <freedreno@lists.freedesktop.org>; Mon,  6 May 2024 01:48:13 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-a59c0a6415fso191937566b.1
- for <freedreno@lists.freedesktop.org>; Sun, 05 May 2024 18:48:12 -0700 (PDT)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B71FC10F239;
+ Tue,  7 May 2024 15:41:07 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-a59a5f81af4so859682766b.3; 
+ Tue, 07 May 2024 08:41:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1714960091; x=1715564891; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BIky8ORsYxKiebYrewRCOxLfamasEJsnGlg8HwTBEBc=;
- b=n590DYtI/ghcS7BB/E4qLUFYxBtgNwq2sxhPbDHZPmnjFk/gPqpdY+VRhhhm/05/HL
- zPuIvIX/3ffN3s31SmeqMZJBLQ7+PLHwQRB0scDOn5e5tsF1s0HCJ/XhhgBididVVmzN
- aBonfu5R6AFhLbmrNA9cSK3LCM1bxa6cEBAt0P7iN7Il1ft9Ivru+1Br+CjhUFP7O2Dc
- TEQskJ9YLN8/8h1hLWms5JzNCLIHZzQ8w5J7jG2muiPxST6odl4AHHGQh5wq8+ZjnJdN
- r4Y0FsJoosWM6d1cNPdw6ysPprv3oISUWr/+dYP8tO0od+bybU4L3VuDkXZEofgbrjks
- fsmg==
+ d=gmail.com; s=20230601; t=1715096466; x=1715701266; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=8ocU9iq4yVd5b+8qNcdRHy1dIoJfaIuCKbf+uzBJuYQ=;
+ b=h2jnZFYc10dX48+05skw02+1c1KvwiJqggRNmF0ARmZ1usMzk4c8857n5VXJRHHfSK
+ zuaHE2fF/w2PGu065sXAzyR4k69YCRbv7dB7K60pWW7dFXJD2u9S3srJLjFn4Ay9+Gj6
+ AMCRLyTOfQqwmBlT/EPkcKvC/k6jKCWRa7pJezl0yehXZde8JMI2q5RGntt6HA7djhKK
+ BggRfCbuO8KetJjc0d1BupAgVjWH04uFpAdb4fYaT3+gIP5rxXsvjy8ZhEY5J34cnV1D
+ P+AIwtFaFpdnMMiPyav4cGJ1cPbIGvQoJTjrgWnD/NE+V8dNhi/wYnf6EqFLGRWzMQXQ
+ Ql9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714960091; x=1715564891;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BIky8ORsYxKiebYrewRCOxLfamasEJsnGlg8HwTBEBc=;
- b=mLX72+OibHW1FHWYQq89UuBH55o+cAbn3MaDb06UeTA89ILhaQn9xvU6EWSsj5mnkn
- prVaSbKXVbsVyiCWY1OKJuIt9PtqhYrr60GCU/zDBYIoFAvtzeKX0nWV15fQvBY/Bekt
- L7l64VrR+rklfe4/zmorH9gevjRfuI8sx/3fwZzrWTeXmesSJUbgQFPM1+Wi++TPi5KP
- zNN5y9DDONC3n0L/3Czb3AtEjaUJcAFS3wtLiwNLBSORdM81xTcC/OUX4Km/y5o43rVq
- cnWajumqQKwKseSpFYU41KQrPA5lMgu8JKDczpPu8/jTwAxMmvRQjUh1QpuX/1G5Gnqy
- ziEw==
+ d=1e100.net; s=20230601; t=1715096466; x=1715701266;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=8ocU9iq4yVd5b+8qNcdRHy1dIoJfaIuCKbf+uzBJuYQ=;
+ b=KUIQJ5pXE3riuM7zAAD/l7LCHS5a25SNLzZf7R+W+nwG39KY5vXEU3TwVlWAZAnGVs
+ kXhzhk0mYyeM7XIQ1pIX7mln9/+kqLjpkkC2ymvWJEBXlKbOu6EVw/AIzcbqank/LBvz
+ eRWpWXEioYKbWJb3wlGzEwghkwC4fH2u2uuPJHao0luAmtg9BDNg6KKMhpitu/q+PTm/
+ 2M+XaCy8x1kL5xUyin0A4wn31ZMWIgTr8h/kD6yZySPGVlmJ7Djwog6zEBkRBS6lgUpf
+ ZgpUASX0vJzHNsWJlFx8B8utP4VUpk2JU2zT78jJtO7qa7vzYjcSVKVRm5LyyRbPgG1b
+ eeXA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVcdKToukmHG02MBuFMtau6nUAwxZrKjca2WATq/0RGlWd97pOi1vmECdVmrL8wAc/GwcdTM6+8hud+mg0AskWCaq9VZIji1hf2NHIqlLDF
-X-Gm-Message-State: AOJu0Ywu6ZZ7A/7BBir3ox6kJcsKiZYT+/aYP8Q5JOjRxyNkcP5tRm5X
- HGk18ENfR9+bP4oix2ZDmWTjhFlVWs2wrIXpiup0tALB1bmAGCBak1wVNrAPu4w=
-X-Google-Smtp-Source: AGHT+IEN9ptcpM2VhkNxwk+8mIATu3g0UikDtwQAJ15sVuwaZtSnWvrGx49zYhHLESS//jKMG+rJkA==
-X-Received: by 2002:a50:8a96:0:b0:56e:2464:7c4b with SMTP id
- j22-20020a508a96000000b0056e24647c4bmr5709444edj.10.1714960091179; 
- Sun, 05 May 2024 18:48:11 -0700 (PDT)
-Received: from ?IPV6:2a02:8109:aa0d:be00::91a5? ([2a02:8109:aa0d:be00::91a5])
- by smtp.gmail.com with ESMTPSA id
- cq27-20020a056402221b00b005727eb1ed6asm4531338edb.68.2024.05.05.18.48.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 05 May 2024 18:48:10 -0700 (PDT)
-Message-ID: <fc739be3-d083-471c-a707-325a8a1605bb@linaro.org>
-Date: Mon, 6 May 2024 03:48:09 +0200
+ AJvYcCVZQgO2X1a13yecsuaTyyevPj8AMssWw7xZlu8fYI+wuLSS7cvoUeCQuOULmKcnt3U+4f3rbh9x/5xVD7J6NOnK43SsYzMxrczE4wEutPGJ
+X-Gm-Message-State: AOJu0YySlaPOutGbCy8cX+QKyQ50cb9BVg9pUwfL1YDB1rfGSpBvEroh
+ CjgbKackq+1dhda/v5PO9jXvJ1YRE/WzS99D7cMEJ16mSGJ91af49+FMmmM161zd3npgEHz+viX
+ GNaGFTPnM+Yb6yfUl/jD/VV8OrN0=
+X-Google-Smtp-Source: AGHT+IFGCC1Z3hYbUTnaHcV7xFz8a3N8Y3PTYIUXwJvjvI9KsdkLAhkO5c7dSDJE3U6I/vkRBa/hnsSBuTyz+BNHgwI=
+X-Received: by 2002:a50:bace:0:b0:572:42ac:9b19 with SMTP id
+ 4fb4d7f45d1cf-5731d922dc1mr114116a12.0.1715096465604; Tue, 07 May 2024
+ 08:41:05 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/dpu: fix vblank IRQ handling for command panels
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Luca Weiss <luca.weiss@fairphone.com>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-References: <20240330-dpu-fix-irqs-v1-1-39b8d4e4e918@linaro.org>
- <mxwrvnqth5f2vd4m55ryzqgyj7brykiqynzldelanxkuj2zny3@4pqi6p57c2q2>
- <CAA8EJpqbzSc00T4exAYuh1QdifuimHD40uh0BCrd3SP9F5TQKQ@mail.gmail.com>
- <D0ZWBLILU0EW.XOAQ4C99DQRO@fairphone.com>
- <mtp2hjfx445mvhdmjb7koioglmxdy4xnfcg3fxfrur2prhiyx2@yxifurjwzehy>
-Content-Language: en-US
-From: Caleb Connolly <caleb.connolly@linaro.org>
-In-Reply-To: <mtp2hjfx445mvhdmjb7koioglmxdy4xnfcg3fxfrur2prhiyx2@yxifurjwzehy>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 7 May 2024 08:40:52 -0700
+Message-ID: <CAF6AEGtpw6dNR9JBikFTQ=TCpt-9FeFW+SGjXWv+Jv3emm0Pbg@mail.gmail.com>
+Subject: [pull] drm/msm: drm-msm-next-2024-05-07 for v6.10
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,219 +77,336 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Dave,
 
+This is the main pull for v6.10.  It includes a merge of
+phy_dp_modes_6.10 to pick up DP subnode API, so we can add support to
+configure phy as either DP or eDP depending on hw configuration.
 
-On 03/05/2024 22:59, Dmitry Baryshkov wrote:
-> On Fri, May 03, 2024 at 11:18:52AM +0200, Luca Weiss wrote:
->> On Sun Apr 7, 2024 at 5:15 AM CEST, Dmitry Baryshkov wrote:
->>> On Sat, 30 Mar 2024 at 18:49, Marijn Suijten
->>> <marijn.suijten@somainline.org> wrote:
->>>>
->>>> On 2024-03-30 05:52:29, Dmitry Baryshkov wrote:
->>>>> In case of CMD DSI panels, the vblank IRQ can be used outside of
->>>>> irq_enable/irq_disable pair. This results in the following kind of
->>>>
->>>> Can you clarify when exactly that is?  Is it via ops.control_vblank_irq in
->>>> dpu_encoder_toggle_vblank_for_crtc()?
->>>
->>> Call trace:
->>>   dpu_encoder_phys_cmd_control_vblank_irq+0x218/0x294
->>>    dpu_encoder_toggle_vblank_for_crtc+0x160/0x194
->>>    dpu_crtc_vblank+0xbc/0x228
->>>    dpu_kms_enable_vblank+0x18/0x24
->>>    vblank_ctrl_worker+0x34/0x6c
->>>    process_one_work+0x218/0x620
->>>    worker_thread+0x1ac/0x37c
->>>    kthread+0x114/0x118
->>>    ret_from_fork+0x10/0x20
->>>
->>> The vblank_ctrl_work happens when the framework attempts to trigger
->>> the vblank on the CRTC.
->>>
->>>>
->>>>> messages. Move assignment of IRQ indices to atomic_enable /
->>>>> atomic_disable callbacks.
->>>>>
->>>>> [dpu error]invalid IRQ=[134217727, 31]
->>>>> [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable true/0
->>>>> [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable false/0
->>>>
->>>> You are right that such messages are common, both at random but also seemingly
->>>> around toggling the `ACTIVE` property on the CRTC:
->>>>
->>>>          [   45.878300] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_disable
->>>>          [   45.909941] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_unprepare
->>>>          [   46.093234] [drm:dpu_encoder_helper_wait_for_irq] *ERROR* encoder is disabled id=31, callback=dpu_encoder_phys_cmd_ctl_start_irq, IRQ=[134217727, 31]
->>>>          [   46.130421] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_prepare
->>>>          [   46.340457] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_enable
->>>>          [   65.520323] [dpu error]invalid IRQ=[134217727, 31] irq_cb:dpu_encoder_phys_cmd_te_rd_ptr_irq
->>>>          [   65.520463] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable true/0
->>>>          [   65.630199] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable false/0
->>>>          [  166.576465] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_disable
->>>>          [  166.609674] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_unprepare
->>>>          [  166.781967] [drm:dpu_encoder_helper_wait_for_irq] *ERROR* encoder is disabled id=31, callback=dpu_encoder_phys_cmd_ctl_start_irq, IRQ=[134217727, 31]
->>>>          [  166.829805] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_prepare
->>>>          [  167.040476] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_enable
->>>>          [  337.449827] [dpu error]invalid IRQ=[134217727, 31] irq_cb:dpu_encoder_phys_cmd_te_rd_ptr_irq
->>>>          [  337.450434] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable true/0
->>>>          [  337.569526] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable false/0
->>>>          [  354.980357] [dpu error]invalid IRQ=[134217727, 31] irq_cb:dpu_encoder_phys_cmd_te_rd_ptr_irq
->>>>          [  354.980495] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable true/0
->>>>          [  355.090460] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable false/0
->>>>
->>>> Unfortunately with this patch, turning the CRTC off via ./modetest -M msm -a
->>>> -w 81:ACTIVE:0 immediately triggers a bunch of WARNs (note that the CRTC turns
->>>> on immediately again when the command returns, that's probably the framebuffer
->>>> console taking over again).  Running it a few times in succession this may or
->>>> may not happen, or reboot the phone (Xperia Griffin) entirely:
->>>
->>> I could not reproduce it here, on Pixel-3. I'd like to review vblank
->>> IRQs later. For now I think it is easier to revert d13f638c9b88
->>> ("drm/msm/dpu: drop dpu_encoder_phys_ops.atomic_mode_set"). I'll send
->>> a patch.
->>
->> Hi,
->>
->> Did anything happen regarding this, I'm not finding anything on the
->> lists?
-> 
-> No, I didn't post it yet. Will do before EoW.
+We might have a second late pull req, for a couple patchsets that have
+dependencies on soc/qcom and firmware/qcom:
 
-Hi Dmitry,
+  https://patchwork.freedesktop.org/series/132065/
+  https://patchwork.freedesktop.org/series/132911/
 
-Just chipping in, I was carrying this patch for sdm845 as it fixes the 
-(very common) "invalid IRQ=[134217727, 31] 
-irq_cb:dpu_encoder_phys_cmd_te_rd_ptr_irq" errors on cmd mode panels 
-(which I also see on QCM6490). However it seems to cause an issue on 
-sm8250, qcm6490, and sdm845 too (since -rc6?) where after turning the 
-display off and on the TE IRQ never fires and every single vsync event 
-times out, resulting in like 3fps on the display.
+Further description below
 
-Kind regards,
-> 
->>
->> I'm seeing these errors also on SC7280/QCM6490 Fairphone 5 phone with
->> kernel 6.9-rc6 (+ out of tree patches).
->>
->> [   77.073366] [dpu error]invalid IRQ=[134217727, 31] irq_cb:dpu_encoder_phys_cmd_te_rd_ptr_irq
->> [   77.073391] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable true/0
->> [   79.214720] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable false/0
->>
->> Regards
->> Luca
->>
->>
->>>
->>>>
->>>>          [   23.423930] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_disable
->>>>          [   23.461013] [dpu error]invalid IRQ=[134217727, 31]
->>>>          [   23.461144] [dpu error]invalid IRQ=[134217727, 31]
->>>>          [   23.461208] [drm:dpu_encoder_phys_cmd_control_vblank_irq] *ERROR* vblank irq err id:31 pp:0 ret:-22, enable false/1
->>>>          [   23.461340] [dpu error]invalid IRQ=[134217727, 31]
->>>>          [   23.461406] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_unprepare
->>>>          [   23.641721] [drm:dpu_encoder_helper_wait_for_irq] *ERROR* encoder is disabled id=31, callback=dpu_encoder_phys_cmd_ctl_start_irq, IRQ=[134217727, 31]
->>>>          [   23.679938] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_prepare
->>>>          [   23.900465] ------------[ cut here ]------------
->>>>          [   23.900813] WARNING: CPU: 1 PID: 747 at drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:545 dpu_core_irq_register_callback+0x1b4/0x244
->>>>          [   23.901450] Modules linked in:
->>>>          [   23.901814] CPU: 1 PID: 747 Comm: modetest Tainted: G     U             6.9.0-rc1-next-20240328-SoMainline-02555-g27abbea53b6b #19
->>>>          [   23.902402] Hardware name: Sony Xperia 1 (DT)
->>>>          [   23.902674] pstate: 804000c5 (Nzcv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->>>>          [   23.903133] pc : dpu_core_irq_register_callback+0x1b4/0x244
->>>>          [   23.903455] lr : dpu_encoder_phys_cmd_irq_enable+0x30/0x8c
->>>>          [   23.903880] sp : ffff800086833930
->>>>          [   23.904123] x29: ffff800086833930 x28: 0000000000000001 x27: ffff0273834522d0
->>>>          [   23.904604] x26: ffffd46ebdb5edc8 x25: ffffd46ebe0f1228 x24: ffff02738106b280
->>>>          [   23.904973] x23: ffff027383452000 x22: ffffd46ebd086290 x21: 0000000000000000
->>>>          [   23.905452] x20: ffff027382712080 x19: 0000000000000008 x18: ffff8000840550d0
->>>>          [   23.905820] x17: 000000040044ffff x16: 005000f2b5503510 x15: 00000000000006ce
->>>>          [   23.906300] x14: 0000000000000f00 x13: 0000000000000f00 x12: 0000000000000f00
->>>>          [   23.906778] x11: 0000000000000040 x10: ffffd46ebe853258 x9 : ffffd46ebe853250
->>>>          [   23.907146] x8 : ffffd46ebec30000 x7 : 0000000000000000 x6 : 0000000000000000
->>>>          [   23.907621] x5 : 0000000000000000 x4 : ffff027384eac080 x3 : ffff027381a1a080
->>>>          [   23.908099] x2 : 0000000000000001 x1 : ffff027384eac140 x0 : ffffd46ebd086290
->>>>          [   23.908467] Call trace:
->>>>          [   23.908688]  dpu_core_irq_register_callback+0x1b4/0x244
->>>>          [   23.909113]  dpu_encoder_phys_cmd_irq_enable+0x30/0x8c
->>>>          [   23.909417]  _dpu_encoder_irq_enable+0x58/0xa4
->>>>          [   23.909814]  dpu_encoder_resource_control+0x1e8/0x498
->>>>          [   23.910116]  dpu_encoder_virt_atomic_enable+0x9c/0x15c
->>>>          [   23.910531]  drm_atomic_helper_commit_modeset_enables+0x180/0x26c
->>>>          [   23.910871]  msm_atomic_commit_tail+0x1a4/0x510
->>>>          [   23.911277]  commit_tail+0xa8/0x19c
->>>>          [   23.911544]  drm_atomic_helper_commit+0x188/0x1a0
->>>>          [   23.911842]  drm_atomic_commit+0xb4/0xf0
->>>>          [   23.912226]  drm_client_modeset_commit_atomic+0x1fc/0x268
->>>>          [   23.912540]  drm_client_modeset_commit_locked+0x60/0x178
->>>>          [   23.912963]  drm_client_modeset_commit+0x30/0x5c
->>>>          [   23.913256]  drm_fb_helper_lastclose+0x64/0xb0
->>>>          [   23.913542]  msm_fbdev_client_restore+0x18/0x2c
->>>>          [   23.913948]  drm_client_dev_restore+0x8c/0xec
->>>>          [   23.914233]  drm_lastclose+0x68/0xac
->>>>          [   23.914499]  drm_release+0x128/0x15c
->>>>          [   23.914765]  __fput+0x7c/0x2cc
->>>>          [   23.915017]  __fput_sync+0x54/0x64
->>>>          [   23.915272]  __arm64_sys_close+0x3c/0x84
->>>>          [   23.915661]  invoke_syscall+0x4c/0x11c
->>>>          [   23.915932]  el0_svc_common.constprop.0+0x44/0xec
->>>>          [   23.916230]  do_el0_svc+0x20/0x30
->>>>          [   23.916600]  el0_svc+0x38/0xe4
->>>>          [   23.916854]  el0t_64_sync_handler+0x128/0x134
->>>>          [   23.917139]  el0t_64_sync+0x198/0x19c
->>>>          [   23.917515] ---[ end trace 0000000000000000 ]---
->>>>          [   23.918007] ------------[ cut here ]------------
->>>>          [   23.918324] WARNING: CPU: 1 PID: 747 at drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:545 dpu_core_irq_register_callback+0x1b4/0x244
->>>>          [   23.918720] Modules linked in:
->>>>          [   23.918878] CPU: 1 PID: 747 Comm: modetest Tainted: G     U  W          6.9.0-rc1-next-20240328-SoMainline-02555-g27abbea53b6b #19
->>>>          [   23.919248] Hardware name: Sony Xperia 1 (DT)
->>>>          [   23.919424] pstate: 804000c5 (Nzcv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->>>>          [   23.919725] pc : dpu_core_irq_register_callback+0x1b4/0x244
->>>>          [   23.919934] lr : dpu_encoder_phys_cmd_irq_enable+0x78/0x8c
->>>>          [   23.920214] sp : ffff800086833930
->>>>          [   23.920373] x29: ffff800086833930 x28: 0000000000000001 x27: ffff0273834522d0
->>>>          [   23.920686] x26: ffffd46ebdb5edc8 x25: ffffd46ebe0f1228 x24: ffff02738106b280
->>>>          [   23.920922] x23: ffff027383452000 x22: ffffd46ebd086020 x21: 0000000000000000
->>>>          [   23.921237] x20: ffff027382712080 x19: 0000000000000029 x18: ffff8000840550d0
->>>>          [   23.921545] x17: 000000040044ffff x16: 005000f2b5503510 x15: 00000000000006ce
->>>>          [   23.921780] x14: 0000000000000f00 x13: 0000000000000f00 x12: 0000000000000f00
->>>>          [   23.922092] x11: 0000000000000040 x10: ffffd46ebe853258 x9 : ffffd46ebe853250
->>>>          [   23.922405] x8 : ffffd46ebec30000 x7 : 0000000000000000 x6 : 0000000000000001
->>>>          [   23.922640] x5 : ffffd46ebe0878d8 x4 : ffff027384eac080 x3 : ffff027381a1a080
->>>>          [   23.922953] x2 : 0000000000000001 x1 : ffff027384eac458 x0 : ffffd46ebd086020
->>>>          [   23.923266] Call trace:
->>>>          [   23.923411]  dpu_core_irq_register_callback+0x1b4/0x244
->>>>          [   23.923616]  dpu_encoder_phys_cmd_irq_enable+0x78/0x8c
->>>>          [   23.923893]  _dpu_encoder_irq_enable+0x58/0xa4
->>>>          [   23.924078]  dpu_encoder_resource_control+0x1e8/0x498
->>>>          [   23.924273]  dpu_encoder_virt_atomic_enable+0x9c/0x15c
->>>>          [   23.924547]  drm_atomic_helper_commit_modeset_enables+0x180/0x26c
->>>>          [   23.924763]  msm_atomic_commit_tail+0x1a4/0x510
->>>>          [   23.925030]  commit_tail+0xa8/0x19c
->>>>          [   23.925205]  drm_atomic_helper_commit+0x188/0x1a0
->>>>          [   23.925477]  drm_atomic_commit+0xb4/0xf0
->>>>          [   23.925653]  drm_client_modeset_commit_atomic+0x1fc/0x268
->>>>          [   23.925856]  drm_client_modeset_commit_locked+0x60/0x178
->>>>          [   23.926136]  drm_client_modeset_commit+0x30/0x5c
->>>>          [   23.926325]  drm_fb_helper_lastclose+0x64/0xb0
->>>>          [   23.926585]  msm_fbdev_client_restore+0x18/0x2c
->>>>          [   23.926771]  drm_client_dev_restore+0x8c/0xec
->>>>          [   23.926956]  drm_lastclose+0x68/0xac
->>>>          [   23.927206]  drm_release+0x128/0x15c
->>>>          [   23.927379]  __fput+0x7c/0x2cc
->>>>          [   23.927541]  __fput_sync+0x54/0x64
->>>>          [   23.927785]  __arm64_sys_close+0x3c/0x84
->>>>          [   23.927965]  invoke_syscall+0x4c/0x11c
->>>>          [   23.928141]  el0_svc_common.constprop.0+0x44/0xec
->>>>          [   23.928411]  do_el0_svc+0x20/0x30
->>>>          [   23.928582]  el0_svc+0x38/0xe4
->>>>          [   23.928746]  el0t_64_sync_handler+0x128/0x134
->>>>          [   23.929008]  el0t_64_sync+0x198/0x19c
->>>>          [   23.929180] ---[ end trace 0000000000000000 ]---
->>>>          [   23.929429] panel-samsung-souxp ae94000.dsi.0: samsung_souxp00_enable
->>>>
->>>> - Marijn
->>
-> 
+The following changes since commit 3e5a516f3bf1a33f2bf219f570e9b5c031616f6a:
 
--- 
-// Caleb (they/them)
+  Merge tag 'phy_dp_modes_6.10' into msm-next-lumag (2024-04-08 18:38:16 +0300)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-next-2024-05-07
+
+for you to fetch changes up to b587f413ca47530b41aadc6f6bda6fc76153f77f:
+
+  drm/msm/gen_header: allow skipping the validation (2024-05-07 07:56:40 -0700)
+
+----------------------------------------------------------------
+Updates for v6.10
+
+Core:
+- Switched to generating register header files during build process
+  instead of shipping pre-generated headers
+- Merged DPU and MDP4 format databases.
+
+DP:
+- Stop using compat string to distinguish DP and eDP cases
+- Added support for X Elite platform (X1E80100)
+- Reworked DP aux/audio support
+- Added SM6350 DP to the bindings (no driver changes, using SM8350
+  as a fallback compat)
+
+GPU:
+- a7xx perfcntr reg fixes
+- MAINTAINERS updates
+- a750 devcoredump support
+
+----------------------------------------------------------------
+Abel Vesa (2):
+      drm/msm/dp: Add support for determining the eDP/DP mode from DT
+      drm/msm/dp: Add support for the X1E80100
+
+Aleksandr Mishin (1):
+      drm/msm/dpu: Add callback function pointer check before its call
+
+Andy Shevchenko (1):
+      drm/msm/hdmi: Replace of_gpio.h by proper one
+
+Bjorn Andersson (7):
+      drm/msm/dp: Remove now unused connector_type from desc
+      drm/msm/dp: Drop unused dp_debug struct
+      drm/msm/dp: Removed fixed nvid "support"
+      drm/msm/dp: Remove unused defines and members
+      drm/msm/dp: Use function arguments for aux writes
+      drm/msm/dp: Use function arguments for timing configuration
+      drm/msm/dp: Use function arguments for audio operations
+
+Connor Abbott (5):
+      drm/msm: Import a750 snapshot registers from kgsl
+      drm/msm: Fix imported a750 snapshot header for upstream
+      drm/msm: Update a6xx registers XML
+      drm/msm: Adjust a7xx GBIF debugbus dumping
+      drm/msm: Add devcoredump support for a750
+
+Dmitry Baryshkov (35):
+      drm/msm/dp: allow voltage swing / pre emphasis of 3
+      drm/msm/dpu: add current resource allocation to dumped state
+      drm/msm/mdp5: add writeback block bases
+      drm/msm/hdmi: drop qfprom.xml.h
+      drm/msm/dsi: drop mmss_cc.xml.h
+      drm/msm: move msm_gpummu.c to adreno/a2xx_gpummu.c
+      drm/msm: remove dependencies from core onto adreno headers
+      drm/msm: import XML display registers database
+      drm/msm: import A2xx-A4xx XML display registers database
+      drm/msm: import A5xx XML display registers database
+      drm/msm: import A6xx XML display registers database
+      drm/msm: import gen_header.py script from Mesa
+      drm/msm: generate headers on the fly
+      drm/msm: drop display-related headers
+      drm/msm: drop A2xx and common headers
+      drm/msm: drop A3xx and A4xx headers
+      drm/msm: drop A5xx header
+      drm/msm: drop A6xx GMU header
+      drm/msm: drop C++ parts of a6xx.xml.h
+      drm/msm: drop A6xx header
+      drm/msm/dsi: remove the drm_bridge_attach fallback
+      drm/msm/dsi: move next bridge acquisition to dsi_bind
+      drm/msm/dsi: simplify connector creation
+      drm/msm/dpu: use format-related definitions from mdp_common.xml.h
+      drm/msm: add arrays listing formats supported by MDP4/MDP5 hardware
+      drm/msm/dpu: in dpu_format replace bitmap with unsigned long field
+      drm/msm/dpu: pull format flag definitions to mdp_format.h
+      drm/msm: merge dpu_format and mdp_format in struct msm_format
+      drm/msm: convert msm_format::unpack_tight to the flag
+      drm/msm: convert msm_format::unpack_align_msb to the flag
+      drm/msm: merge dpu format database to MDP formats
+      drm/msm: drop msm_kms_funcs::get_format() callback
+      drm/msm/mdp5: use drmm-managed allocation for mdp5_plane
+      drm/msm/mdp4: use drmm-managed allocation for mdp4_plane
+      drm/msm/gen_header: allow skipping the validation
+
+Douglas Anderson (3):
+      drm/msm/dp: Avoid a long timeout for AUX transfer if nothing connected
+      drm/msm/dp: Account for the timeout in wait_hpd_asserted() callback
+      drm/msm/dp: Delete the old 500 ms wait for eDP HPD in aux transfer
+
+Jani Nikula (1):
+      drm/msm: convert all pixel format logging to use %p4cc
+
+Jon Hunter (1):
+      drm/msm: Fix gen_header.py for older python3 versions
+
+Konrad Dybcio (4):
+      drm/msm: Drop msm_read/writel
+      drm/msm/a6xx: Avoid a nullptr dereference when speedbin setting fails
+      MAINTAINERS: Add a separate entry for Qualcomm Adreno GPU drivers
+      MAINTAINERS: Add Konrad Dybcio as a reviewer for the Adreno driver
+
+Luca Weiss (2):
+      dt-bindings: display: msm: dp-controller: document SM6350 compatible
+      dt-bindings: display: msm: sm6350-mdss: document DP controller subnode
+
+Marijn Suijten (4):
+      drm/msm/dsi: Print dual-DSI-adjusted pclk instead of original mode pclk
+      drm/msm/dpu: Always flush the slave INTF on the CTL
+      drm/msm/dpu: Allow configuring multiple active DSC blocks
+      drm/msm/dpu: Rename `ctx` parameter to `intf` to match other functions
+
+Rob Clark (1):
+      drm/msm/a6xx: Cleanup indexed regs const'ness
+
+Zan Dobersek (2):
+      drm/msm/a7xx: allow writing to CP_BV counter selection registers
+      drm/msm/adreno: fix CP cycles stat retrieval on a7xx
+
+ .../bindings/display/msm/dp-controller.yaml        |     1 +
+ .../bindings/display/msm/qcom,sm6350-mdss.yaml     |     9 +
+ MAINTAINERS                                        |    20 +-
+ drivers/gpu/drm/msm/.gitignore                     |     1 +
+ drivers/gpu/drm/msm/Kconfig                        |     8 +
+ drivers/gpu/drm/msm/Makefile                       |   106 +-
+ drivers/gpu/drm/msm/adreno/a2xx.xml.h              |  3251 -----
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c              |     4 +-
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.h              |     4 +
+ .../drm/msm/{msm_gpummu.c => adreno/a2xx_gpummu.c} |    45 +-
+ drivers/gpu/drm/msm/adreno/a3xx.xml.h              |  3268 -----
+ drivers/gpu/drm/msm/adreno/a4xx.xml.h              |  4379 -------
+ drivers/gpu/drm/msm/adreno/a5xx.xml.h              |  5572 ---------
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h              | 11858 -------------------
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |     2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |    12 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h          |   422 -
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |    15 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |     4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |    83 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.h        |    14 +-
+ drivers/gpu/drm/msm/adreno/adreno_common.xml.h     |   539 -
+ .../gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h  |  1446 +++
+ drivers/gpu/drm/msm/adreno/adreno_pm4.xml.h        |  2803 -----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |    12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |    24 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |     2 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |     3 -
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |     8 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |    12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        |   660 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h        |    25 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c         |     6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.h         |     4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |     9 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  |     4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |    30 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |     2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   124 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        |    40 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h        |     6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c        |    14 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h        |     4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          |    22 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h          |     2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |    13 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |     2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |    91 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |    56 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h             |     8 +
+ drivers/gpu/drm/msm/disp/mdp4/mdp4.xml.h           |  1181 --
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c          |     4 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c           |     1 -
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h           |     4 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c         |   129 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5.xml.h           |  1979 ----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h           |    11 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c          |     7 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |     1 -
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h           |     4 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |   125 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c           |     4 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.h           |     2 +-
+ drivers/gpu/drm/msm/disp/mdp_common.xml.h          |   111 -
+ drivers/gpu/drm/msm/disp/mdp_format.c              |   630 +-
+ drivers/gpu/drm/msm/disp/mdp_format.h              |    77 +
+ drivers/gpu/drm/msm/disp/mdp_kms.h                 |    18 +-
+ drivers/gpu/drm/msm/dp/dp_audio.c                  |    25 +-
+ drivers/gpu/drm/msm/dp/dp_aux.c                    |    39 +-
+ drivers/gpu/drm/msm/dp/dp_aux.h                    |     1 +
+ drivers/gpu/drm/msm/dp/dp_catalog.c                |    71 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.h                |    52 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   |    23 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.h                   |     1 -
+ drivers/gpu/drm/msm/dp/dp_debug.c                  |    59 +-
+ drivers/gpu/drm/msm/dp/dp_debug.h                  |    38 +-
+ drivers/gpu/drm/msm/dp/dp_display.c                |   101 +-
+ drivers/gpu/drm/msm/dp/dp_display.h                |     3 -
+ drivers/gpu/drm/msm/dp/dp_drm.c                    |     2 -
+ drivers/gpu/drm/msm/dp/dp_link.c                   |    26 +-
+ drivers/gpu/drm/msm/dp/dp_link.h                   |    15 +-
+ drivers/gpu/drm/msm/dp/dp_panel.c                  |    14 +-
+ drivers/gpu/drm/msm/dp/dp_panel.h                  |     3 -
+ drivers/gpu/drm/msm/dsi/dsi.c                      |    26 +-
+ drivers/gpu/drm/msm/dsi/dsi.h                      |     7 +-
+ drivers/gpu/drm/msm/dsi/dsi.xml.h                  |   790 --
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |    20 +-
+ drivers/gpu/drm/msm/dsi/dsi_manager.c              |    79 +-
+ drivers/gpu/drm/msm/dsi/dsi_phy_10nm.xml.h         |   227 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_14nm.xml.h         |   309 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_20nm.xml.h         |   237 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_28nm.xml.h         |   384 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_28nm_8960.xml.h    |   286 -
+ drivers/gpu/drm/msm/dsi/dsi_phy_7nm.xml.h          |   483 -
+ drivers/gpu/drm/msm/dsi/mmss_cc.xml.h              |   131 -
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |     8 +-
+ drivers/gpu/drm/msm/dsi/sfpb.xml.h                 |    70 -
+ drivers/gpu/drm/msm/hdmi/hdmi.c                    |     2 +-
+ drivers/gpu/drm/msm/hdmi/hdmi.h                    |    10 +-
+ drivers/gpu/drm/msm/hdmi/hdmi.xml.h                |  1399 ---
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c           |     6 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c           |     4 +-
+ drivers/gpu/drm/msm/hdmi/qfprom.xml.h              |    61 -
+ drivers/gpu/drm/msm/msm_drv.c                      |     3 +-
+ drivers/gpu/drm/msm/msm_drv.h                      |    11 +-
+ drivers/gpu/drm/msm/msm_fb.c                       |    12 +-
+ drivers/gpu/drm/msm/msm_gpu.c                      |     2 +-
+ drivers/gpu/drm/msm/msm_gpu.h                      |    12 +-
+ drivers/gpu/drm/msm/msm_kms.h                      |     4 -
+ drivers/gpu/drm/msm/msm_mmu.h                      |     5 -
+ drivers/gpu/drm/msm/registers/.gitignore           |     4 +
+ drivers/gpu/drm/msm/registers/adreno/a2xx.xml      |  1865 +++
+ drivers/gpu/drm/msm/registers/adreno/a3xx.xml      |  1751 +++
+ drivers/gpu/drm/msm/registers/adreno/a4xx.xml      |  2409 ++++
+ drivers/gpu/drm/msm/registers/adreno/a5xx.xml      |  3039 +++++
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml      |  5011 ++++++++
+ drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml  |   228 +
+ .../gpu/drm/msm/registers/adreno/adreno_common.xml |   400 +
+ .../gpu/drm/msm/registers/adreno/adreno_pm4.xml    |  2268 ++++
+ drivers/gpu/drm/msm/registers/display/dsi.xml      |   390 +
+ .../gpu/drm/msm/registers/display/dsi_phy_10nm.xml |   102 +
+ .../gpu/drm/msm/registers/display/dsi_phy_14nm.xml |   135 +
+ .../gpu/drm/msm/registers/display/dsi_phy_20nm.xml |   100 +
+ .../gpu/drm/msm/registers/display/dsi_phy_28nm.xml |   180 +
+ .../msm/registers/display/dsi_phy_28nm_8960.xml    |   134 +
+ .../gpu/drm/msm/registers/display/dsi_phy_7nm.xml  |   230 +
+ drivers/gpu/drm/msm/registers/display/edp.xml      |   239 +
+ drivers/gpu/drm/msm/registers/display/hdmi.xml     |  1015 ++
+ drivers/gpu/drm/msm/registers/display/mdp4.xml     |   504 +
+ drivers/gpu/drm/msm/registers/display/mdp5.xml     |   806 ++
+ .../gpu/drm/msm/registers/display/mdp_common.xml   |    90 +
+ drivers/gpu/drm/msm/registers/display/msm.xml      |    32 +
+ drivers/gpu/drm/msm/registers/display/sfpb.xml     |    17 +
+ .../gpu/drm/msm/registers/freedreno_copyright.xml  |    40 +
+ drivers/gpu/drm/msm/registers/gen_header.py        |   970 ++
+ drivers/gpu/drm/msm/registers/rules-fd.xsd         |   404 +
+ 136 files changed, 25360 insertions(+), 41401 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/.gitignore
+ delete mode 100644 drivers/gpu/drm/msm/adreno/a2xx.xml.h
+ rename drivers/gpu/drm/msm/{msm_gpummu.c => adreno/a2xx_gpummu.c} (67%)
+ delete mode 100644 drivers/gpu/drm/msm/adreno/a3xx.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/adreno/a4xx.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/adreno/a5xx.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/adreno/a6xx.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/adreno/adreno_common.xml.h
+ create mode 100644 drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h
+ delete mode 100644 drivers/gpu/drm/msm/adreno/adreno_pm4.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/disp/mdp4/mdp4.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/disp/mdp5/mdp5.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/disp/mdp_common.xml.h
+ create mode 100644 drivers/gpu/drm/msm/disp/mdp_format.h
+ delete mode 100644 drivers/gpu/drm/msm/dsi/dsi.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_10nm.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_14nm.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_20nm.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_28nm.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_28nm_8960.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_7nm.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/dsi/mmss_cc.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/dsi/sfpb.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/hdmi/hdmi.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/hdmi/qfprom.xml.h
+ create mode 100644 drivers/gpu/drm/msm/registers/.gitignore
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a2xx.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a3xx.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a4xx.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a5xx.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/adreno_common.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/adreno_pm4.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/dsi.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/dsi_phy_10nm.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/dsi_phy_14nm.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/dsi_phy_20nm.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/dsi_phy_28nm.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/dsi_phy_28nm_8960.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/dsi_phy_7nm.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/edp.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/hdmi.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/mdp4.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/mdp5.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/mdp_common.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/msm.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/display/sfpb.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/freedreno_copyright.xml
+ create mode 100644 drivers/gpu/drm/msm/registers/gen_header.py
+ create mode 100644 drivers/gpu/drm/msm/registers/rules-fd.xsd
