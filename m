@@ -2,89 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53BA78C0778
-	for <lists+freedreno@lfdr.de>; Thu,  9 May 2024 00:47:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 906DE8C07A7
+	for <lists+freedreno@lfdr.de>; Thu,  9 May 2024 01:32:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 211DC10E336;
-	Wed,  8 May 2024 22:47:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C25E10E211;
+	Wed,  8 May 2024 23:32:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="WOBl+Rt5";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="UdVmYjMt";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD27310E336
- for <freedreno@lists.freedesktop.org>; Wed,  8 May 2024 22:47:50 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-a59ae3efbb3so24165866b.1
- for <freedreno@lists.freedesktop.org>; Wed, 08 May 2024 15:47:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1715208469; x=1715813269;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EwxEO1i5UPI2XEISzMMX9ftGaU8p/mPogEOhXcQuJ0Q=;
- b=WOBl+Rt5PIlBoie3QnoQoijX1fkmzWkvZbrqFXljeY+RLMqvYOSyB82Odv5EPRjIUM
- rZfLzomprNY5RJGtrBfnxUz4PcyzNGtQDsazJL+Jg/jKYOcxYHcYNWG/1X+N7U8hZMdv
- wzR1xxb97stts5xdjwjvca1byiBpt3AfvQfw0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715208469; x=1715813269;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EwxEO1i5UPI2XEISzMMX9ftGaU8p/mPogEOhXcQuJ0Q=;
- b=wwm8uaFYqbPphrHJ1WwlnPkKm6nzHWxscd7UbStbEGiHVNPEsRkOT97Hmk3jLydE4t
- 4KgY6HZUFtv+0DFMgaM8zFjHMMYCZlK3j9AndKsE8HGLeeLO0FFiblBjbtBR1DqZQt8h
- 8wCA3CkgTQvoQ/1U+U2Vkph3eQElNJ4tE+XjEUkFNK07lRoLy4jscDO+mgIyW/SDctf5
- NthHpQQWiNzrcy609H1I+qeU44x8jwRCAP1Cz8qnLese9gt8v8RxMjnFJmgO1CF7E1ZW
- efuMtwN7j1laIOYJWdnrhF3YHc9oMX4+v1Alp8sS9dA31+8x88yVmQPg4bk8wxU52Wi7
- d3WQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUKDFklsKJt0jazsCGFitKJzmaJ8SaiCyRkgbujOoIyRwf9GMw85zMQ2LEaTOjWij3apq8KeCbzjWalvRldMlrSimpO4eQiKlqVssuljGkK
-X-Gm-Message-State: AOJu0Yxwz4rooiJVLsVUFPnXjATontUAA6dmMzOiNqzF54sg5kuUIFZL
- KPUcHUipc51fG9AnM6EzTMj5RHDVO0dzf91lZ8DQavIANrRMZ6BeB2KCBW3R+I8EIqUCo+CL6g6
- DcC7Y
-X-Google-Smtp-Source: AGHT+IF9PVXUKy8QJ6KEa7ywlVUtRGa3lIrM/LtYFwlCYdK0g8UA86FUzdSFAPyLjAt+Ht/4qaNm+w==
-X-Received: by 2002:a50:9f8d:0:b0:56d:f3f3:f61f with SMTP id
- 4fb4d7f45d1cf-5731d9a284dmr3047483a12.9.1715208468885; 
- Wed, 08 May 2024 15:47:48 -0700 (PDT)
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com.
- [209.85.208.53]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5733c322c11sm54158a12.82.2024.05.08.15.47.47
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 May 2024 15:47:48 -0700 (PDT)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-5724736770cso1964a12.1
- for <freedreno@lists.freedesktop.org>; Wed, 08 May 2024 15:47:47 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCUtoN7mWbkLFjuogpoEfDo2h1gmR1OzEZctmuDhkY2FuY1fhCPkjQOGHAARwub5NVFDIL6XO34V0Y6In/OPRlF3RpM0zv6s8XDug7X92te8
-X-Received: by 2002:a05:600c:b5a:b0:41b:e416:1073 with SMTP id
- 5b1f17b1804b1-41fc27b0e81mr775855e9.0.1715208085721; Wed, 08 May 2024
- 15:41:25 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F9A610E211;
+ Wed,  8 May 2024 23:32:56 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 448C4Y75027303;
+ Wed, 8 May 2024 23:32:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=1iu0bePOw83173L41461NVMwojOBNpiVdvT7Bl2/o+o=; b=Ud
+ VmYjMtdvKcish+QgW9GTSAL4/oRSgvsTNSOi1FMnbLRQZYO9g+I7aqwkcsmvwBok
+ wP8QqoTdXqDqYXDNqUEud88wkGgwZnbC3wPIRlGjEFaXOg5GO/CRCJrdqcYmhRKV
+ XvcfYu2ddXjuo2/8ekSnk4M9pfYtROjbV0IjPEWAkocIrVof/refApVuQs1LdwiZ
+ hQuTZRysiXuGdjjNJCsg9cdxDRQM7Tnq+15vAxNkgy5BBcxILF/B20AgkOvMLfHE
+ BlVUl56Q5Xi/Kj114Juzz8zJNHCq/ZK0OhS5r6HkJ2p+Bbm9r+U7Jy4MecSjZn7I
+ bZtCC2koss502AfVwDkQ==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3y0930scy5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 May 2024 23:32:40 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 448NWd75032048
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 8 May 2024 23:32:39 GMT
+Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 8 May 2024
+ 16:32:39 -0700
+Message-ID: <a0868c79-f93e-36f1-e1c1-7a069222ebc7@quicinc.com>
+Date: Wed, 8 May 2024 16:32:38 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2 1/2] drm/msm/gen_header: allow skipping the validation
+Content-Language: en-US
+To: Doug Anderson <dianders@chromium.org>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Helen Koike <helen.koike@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, Stephen
+ Rothwell <sfr@canb.auug.org.au>
 References: <20240503-fd-fix-lxml-v2-0-f80a60ce21a1@linaro.org>
  <20240503-fd-fix-lxml-v2-1-f80a60ce21a1@linaro.org>
-In-Reply-To: <20240503-fd-fix-lxml-v2-1-f80a60ce21a1@linaro.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 8 May 2024 15:41:12 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XnpS-=CookKxzFM8og9WCSEMxfESmfTYH811438qg4ng@mail.gmail.com>
-Message-ID: <CAD=FV=XnpS-=CookKxzFM8og9WCSEMxfESmfTYH811438qg4ng@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/msm/gen_header: allow skipping the validation
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Helen Koike <helen.koike@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Stephen Rothwell <sfr@canb.auug.org.au>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <CAD=FV=XnpS-=CookKxzFM8og9WCSEMxfESmfTYH811438qg4ng@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAD=FV=XnpS-=CookKxzFM8og9WCSEMxfESmfTYH811438qg4ng@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: MtBzCmbgcpFFUcFdwHfSfdimmt5lYR-Q
+X-Proofpoint-ORIG-GUID: MtBzCmbgcpFFUcFdwHfSfdimmt5lYR-Q
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-08_09,2024-05-08_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 priorityscore=1501
+ impostorscore=0 suspectscore=0 malwarescore=0 bulkscore=0 spamscore=0
+ lowpriorityscore=0 adultscore=0 phishscore=0 mlxlogscore=981 clxscore=1015
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405010000
+ definitions=main-2405080176
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,27 +100,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Fri, May 3, 2024 at 11:15=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> @@ -941,6 +948,7 @@ def main():
->         parser =3D argparse.ArgumentParser()
->         parser.add_argument('--rnn', type=3Dstr, required=3DTrue)
->         parser.add_argument('--xml', type=3Dstr, required=3DTrue)
-> +       parser.add_argument('--validate', action=3Dargparse.BooleanOption=
-alAction)
 
-FWIW, the above (argparse.BooleanOptionalAction) appears to be a
-python 3.9 thing. My own build environment happens to have python3
-default to python 3.8 and thus I get a build error related to this. I
-have no idea what the kernel usually assumes for a baseline, but
-others might get build errors too. I don't even see python listed in:
+On 5/8/2024 3:41 PM, Doug Anderson wrote:
+> Hi,
+> 
+> On Fri, May 3, 2024 at 11:15 AM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+>>
+>> @@ -941,6 +948,7 @@ def main():
+>>          parser = argparse.ArgumentParser()
+>>          parser.add_argument('--rnn', type=str, required=True)
+>>          parser.add_argument('--xml', type=str, required=True)
+>> +       parser.add_argument('--validate', action=argparse.BooleanOptionalAction)
+> 
+> FWIW, the above (argparse.BooleanOptionalAction) appears to be a
+> python 3.9 thing. My own build environment happens to have python3
+> default to python 3.8 and thus I get a build error related to this. I
+> have no idea what the kernel usually assumes for a baseline, but
+> others might get build errors too. I don't even see python listed in:
+> 
+> https://docs.kernel.org/process/changes.html
+> 
+> ...in any case, if it's easy to change this to not require python3.9
+> that would at least help for my build environment. :-P
+> 
 
-https://docs.kernel.org/process/changes.html
+Yes, I had posted this y'day as I also ran into this
 
-...in any case, if it's easy to change this to not require python3.9
-that would at least help for my build environment. :-P
+https://patchwork.freedesktop.org/patch/593057/
 
--Doug
+
+> -Doug
