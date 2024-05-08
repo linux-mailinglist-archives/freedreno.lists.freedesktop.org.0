@@ -2,86 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 460AC8C024A
-	for <lists+freedreno@lfdr.de>; Wed,  8 May 2024 18:52:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C7748C038F
+	for <lists+freedreno@lfdr.de>; Wed,  8 May 2024 19:46:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 968E210F9D1;
-	Wed,  8 May 2024 16:52:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCF7F11291D;
+	Wed,  8 May 2024 17:46:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="YxUXP+Tg";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rSf/6E85";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 327D410E4B1;
- Wed,  8 May 2024 16:52:41 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 448Baj8e004590;
- Wed, 8 May 2024 16:52:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=sE0LqZWV3gwZbXfblDbklDN+yoPcsfBA3AQZLjHvvno=; b=Yx
- UXP+TgDa/sgK1FHJNFugFRrQUSWk3Q9VE83FummGCSpTFzHXD8hozee3ehRd5dy7
- qZ+Y5FpgRBLUVRh1oUnAgXSOroqAFwtssmV3XCq9drdgmVBVjYzv3gdpCZ3SMmDR
- w7YuPJQm3aoZjYFDkPu01aWrEZspxw5xfT04Cbym6E1zi1ChHhhlU7ZBmDzXEq+2
- 9ezBvfG6UTl0HuKFE8HK0VO11Mfr+STKjx6FKNeDJ01Sakts6Z3/whUY8qGeCYmv
- zOvcqFPuUPxUEVwJoDUrrOCnyrTPxB+gA4hrI41QjSzmpcPdkW64ToobmUAIjJM7
- 4kz7h7VmyroyEc1r4Z/w==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3y08ne0sdp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 May 2024 16:52:33 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 448GqWiT007223
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 8 May 2024 16:52:32 GMT
-Received: from [10.71.109.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 8 May 2024
- 09:52:31 -0700
-Message-ID: <0cf9d1ba-2c4f-0863-6f51-e76ee7846471@quicinc.com>
-Date: Wed, 8 May 2024 09:52:31 -0700
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 886E2112920
+ for <freedreno@lists.freedesktop.org>; Wed,  8 May 2024 17:46:40 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-51f60817e34so5566754e87.2
+ for <freedreno@lists.freedesktop.org>; Wed, 08 May 2024 10:46:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1715190398; x=1715795198; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tBqc0otO/1vZytz7RpFsktZzqG8V8CralOjrOLBef2c=;
+ b=rSf/6E851JaYzCP58k7Xwxujiy6Xqpgprc59R17lLw9cDQRHQuzNY6+MGj0+WqApGn
+ W+tpSjXFk41M30cMWteMJxdUr+ONiRw0mBJxapQa9x7OO2K4vsWmWNiK6v/6EihkyMmU
+ xy5+JxqxXT7wYDI4kg9kknjJ5ge+eD+SNcaXe1tCu5/jm4pvO2C10hW7QGBddWLt3MkR
+ VpbmMTaV+RB0jQetUTvH/vEaClu8HDdFwxib6z/0C8VruK6rtDHSsJ0QXLsoCwJW6mqV
+ A4HASsO2BNfL5iwVuK/+GRNYjKVjlJUDrALhH0lJeCGAfGNDCibPPNftuEh4ZwQjgLG/
+ o5ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715190398; x=1715795198;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=tBqc0otO/1vZytz7RpFsktZzqG8V8CralOjrOLBef2c=;
+ b=pJ/LjUOoZWkfvNre3tQqmusHA7cBzPEi3GKIZxUN2tdB4Gu6XTROVxT6f+WeI0TvTj
+ ljZo5O7Ndk8epFKOJZCITH/sFePz9feiIpF192u8uomMEdNxRqzdUntm9YlwveZn5CIm
+ fZ2rrxKDCkwJZEzria8XMh4e4VbpHBVe2bQ9lJRr4w5PegvoUZI0D9vvW5PNZN2MoGUZ
+ NuBGVn4hW1lWbW9Sa01S98pkGD6Potply9ahd2E3UyGTbYBZvvTlSJa4dKFZNZMKTPj5
+ bNAxMarVb4PhVFj2CtKBalZu5HBy5GFirUIEvz60idqXBKfFz1R/IMY7trSuKwLjBQhq
+ zgqg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWrAWxpvsJUkIIG/f2eNR5WZAyAluov0m+6FvGe8l2fEBoobmflaIgO60jn/b7W6y4Xxw3YPjlgPa5OloTMZsreDYSbbFvaCTu/KG3GzH6g
+X-Gm-Message-State: AOJu0YyxGeAtXvmnAoVzCKFoseTI44mGvG/s/FJV7sGPUxr1IHWvTV89
+ Lg9L2d0QpYQvcnrTjRYHbpt8JkqaTN6PS0n0eDOFxoSyF47LAj+PmZkPjVy6iwo=
+X-Google-Smtp-Source: AGHT+IG+Rmny74VZr2L+E6k80Nq9iEIJnnTkrW4sDMxKn1aUHIiF+KJWt9jPP/boB01r67V0blTUSw==
+X-Received: by 2002:a05:6512:3a89:b0:521:b333:6f02 with SMTP id
+ 2adb3069b0e04-521b3336f3cmr1623400e87.14.1715190398393; 
+ Wed, 08 May 2024 10:46:38 -0700 (PDT)
+Received: from [127.0.1.1] (UNUSED.212-182-62-129.lubman.net.pl.
+ [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
+ z19-20020a195e53000000b0051b6f060248sm2635543lfi.134.2024.05.08.10.46.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 May 2024 10:46:38 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Wed, 08 May 2024 19:46:31 +0200
+Subject: [PATCH] drm/msm/adreno: De-spaghettify the use of memory barriers
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/msm: remove python 3.9 dependency for compiling msm
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- "Marijn Suijten" <marijn.suijten@somainline.org>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <seanpaul@chromium.org>,
- <swboyd@chromium.org>, <quic_jesszhan@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Masahiro
- Yamada" <masahiroy@kernel.org>
-References: <20240507230440.3384949-1-quic_abhinavk@quicinc.com>
- <87a5l0lmlv.fsf@intel.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <87a5l0lmlv.fsf@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: p0YarwhYdHPcd0vHkL1pPlx1RUwiw5wh
-X-Proofpoint-ORIG-GUID: p0YarwhYdHPcd0vHkL1pPlx1RUwiw5wh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-08_09,2024-05-08_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 priorityscore=1501
- malwarescore=0 suspectscore=0 spamscore=0 impostorscore=0 phishscore=0
- adultscore=0 clxscore=1011 lowpriorityscore=0 mlxlogscore=999 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405010000
- definitions=main-2405080122
+Message-Id: <20240508-topic-adreno-v1-1-1babd05c119d@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAHa6O2YC/x3MQQqAIBBA0avIrBN0UMiuEi1Ep5qNikYE4d2Tl
+ m/x/wuNKlODRbxQ6ebGOQ3oSUA4fTpIchwGVGiUVbO8cuEgfayUsvQYtXMhGm0RRlIq7fz8u3X
+ r/QNAVpdUXgAAAA==
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>
+X-Mailer: b4 0.14-dev
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,67 +89,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Memory barriers help ensure instruction ordering, NOT time and order
+of actual write arrival at other observers (e.g. memory-mapped IP).
+On architectures employing weak memory ordering, the latter can be a
+giant pain point, and it has been as part of this driver.
 
+Moreover, the gpu_/gmu_ accessors already use non-relaxed versions of
+readl/writel, which include r/w (respectively) barriers.
 
-On 5/8/2024 1:43 AM, Jani Nikula wrote:
-> On Tue, 07 May 2024, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->> Since commit 5acf49119630 ("drm/msm: import gen_header.py script from Mesa"),
->> compilation is broken on machines having python versions older than 3.9
->> due to dependency on argparse.BooleanOptionalAction.
-> 
-> Is it now okay to require Python for the build? Not listed in
-> Documentation/process/changes.rst.
-> 
-> BR,
-> Jani.
-> 
+Replace the barriers with a readback that ensures the previous writes
+have exited the write buffer (as the CPU must flush the write to the
+register it's trying to read back) and subsequently remove the hack
+introduced in commit b77532803d11 ("drm/msm/a6xx: Poll for GBIF unhalt
+status in hw_init").
 
-The change to move gen_header.py to kernel is already part of the v6.10 
-pull request.
+Fixes: b77532803d11 ("drm/msm/a6xx: Poll for GBIF unhalt status in hw_init")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c |  5 ++---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 14 ++++----------
+ 2 files changed, 6 insertions(+), 13 deletions(-)
 
-This change only fixes the version dependency.
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 0e3dfd4c2bc8..4135a53b55a7 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -466,9 +466,8 @@ static int a6xx_rpmh_start(struct a6xx_gmu *gmu)
+ 	int ret;
+ 	u32 val;
+ 
+-	gmu_write(gmu, REG_A6XX_GMU_RSCC_CONTROL_REQ, 1 << 1);
+-	/* Wait for the register to finish posting */
+-	wmb();
++	gmu_write(gmu, REG_A6XX_GMU_RSCC_CONTROL_REQ, BIT(1));
++	gmu_read(gmu, REG_A6XX_GMU_RSCC_CONTROL_REQ);
+ 
+ 	ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_RSCC_CONTROL_ACK, val,
+ 		val & (1 << 1), 100, 10000);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 973872ad0474..0acbc38b8e70 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1713,22 +1713,16 @@ static int hw_init(struct msm_gpu *gpu)
+ 	}
+ 
+ 	/* Clear GBIF halt in case GX domain was not collapsed */
++	gpu_write(gpu, REG_A6XX_GBIF_HALT, 0);
++	gpu_read(gpu, REG_A6XX_GBIF_HALT);
+ 	if (adreno_is_a619_holi(adreno_gpu)) {
+-		gpu_write(gpu, REG_A6XX_GBIF_HALT, 0);
+ 		gpu_write(gpu, REG_A6XX_RBBM_GPR0_CNTL, 0);
+-		/* Let's make extra sure that the GPU can access the memory.. */
+-		mb();
++		gpu_read(gpu, REG_A6XX_RBBM_GPR0_CNTL);
+ 	} else if (a6xx_has_gbif(adreno_gpu)) {
+-		gpu_write(gpu, REG_A6XX_GBIF_HALT, 0);
+ 		gpu_write(gpu, REG_A6XX_RBBM_GBIF_HALT, 0);
+-		/* Let's make extra sure that the GPU can access the memory.. */
+-		mb();
++		gpu_read(gpu, REG_A6XX_RBBM_GBIF_HALT);
+ 	}
+ 
+-	/* Some GPUs are stubborn and take their sweet time to unhalt GBIF! */
+-	if (adreno_is_a7xx(adreno_gpu) && a6xx_has_gbif(adreno_gpu))
+-		spin_until(!gpu_read(gpu, REG_A6XX_GBIF_HALT_ACK));
+-
+ 	gpu_write(gpu, REG_A6XX_RBBM_SECVID_TSB_CNTL, 0);
+ 
+ 	if (adreno_is_a619_holi(adreno_gpu))
 
-But, I agree we should update the changes.rst (better late than never).
+---
+base-commit: 93a39e4766083050ca0ecd6a3548093a3b9eb60c
+change-id: 20240508-topic-adreno-a2d199cd4152
 
-Dmitry, can you pls suggest which version we want to list there?
+Best regards,
+-- 
+Konrad Dybcio <konrad.dybcio@linaro.org>
 
-I am hoping that after this change there are no further dependencies on 
-python versions, so anything > EOL should be fine.
-
-I am leaning towards v3.8
-
-> 
-> 
->>
->> Switch to use simple bool for the validate flag to remove the dependency.
->>
->> Fixes: 5acf49119630 ("drm/msm: import gen_header.py script from Mesa")
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/registers/gen_header.py | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
->> index fc3bfdc991d2..3926485bb197 100644
->> --- a/drivers/gpu/drm/msm/registers/gen_header.py
->> +++ b/drivers/gpu/drm/msm/registers/gen_header.py
->> @@ -538,7 +538,7 @@ class Parser(object):
->>   		self.variants.add(reg.domain)
->>   
->>   	def do_validate(self, schemafile):
->> -		if self.validate == False:
->> +		if not self.validate:
->>   			return
->>   
->>   		try:
->> @@ -948,7 +948,8 @@ def main():
->>   	parser = argparse.ArgumentParser()
->>   	parser.add_argument('--rnn', type=str, required=True)
->>   	parser.add_argument('--xml', type=str, required=True)
->> -	parser.add_argument('--validate', action=argparse.BooleanOptionalAction)
->> +	parser.add_argument('--validate', default=False, action='store_true')
->> +	parser.add_argument('--no-validate', dest='validate', action='store_false')
->>   
->>   	subparsers = parser.add_subparsers()
->>   	subparsers.required = True
-> 
