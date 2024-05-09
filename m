@@ -2,78 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B32F8D8A55
-	for <lists+freedreno@lfdr.de>; Mon,  3 Jun 2024 21:38:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B22708D8A4B
+	for <lists+freedreno@lfdr.de>; Mon,  3 Jun 2024 21:38:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F4A110E3D4;
-	Mon,  3 Jun 2024 19:38:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1316310E3DB;
+	Mon,  3 Jun 2024 19:38:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="cRXqdiJT";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="izaCufKR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B85AC10EC7B;
- Thu,  9 May 2024 17:52:10 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-41b794510cdso8704535e9.2; 
- Thu, 09 May 2024 10:52:10 -0700 (PDT)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 465AD10F165;
+ Thu,  9 May 2024 19:28:00 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-2b239b5fedaso1068775a91.0; 
+ Thu, 09 May 2024 12:28:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715277129; x=1715881929; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=hAgOX6MEQ5v7+oviGufGYxbrE3KtnKTcvCIobKG2wxo=;
- b=cRXqdiJTeFQhU+ApeAsLQ1AWZGhI6zHb8wQ7vbnwsjXsuRSL7Bkqy76k7TSMcKR/V7
- 3cj9weO93EsGPfIDd8LEwo0zUxp8Kr8UbzO70qdk3Lan14mkgVZnKJIZVeWGvgS5t0fC
- nAuGHB4hzl0JCABP1eLjUnyQEmOA4l0sWW6m78EZw0kFxI0K0lX0A1atEUXj3Wyz40YH
- bWxGQNGeYX8eA9oiEqdzX50NBc5rxFuQQNAsgAKT5mDNYIy86niJEou+ZFY3AJzJEp4U
- xwdneNSEUWxvx/txEK0y599fp7Q/uXFo7BIF5OTLZ/pOxhqZ8+gYqd6FaaMeuj9Mmkfa
- Gy6A==
+ d=gmail.com; s=20230601; t=1715282879; x=1715887679; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=4q15vxk3U5tCW6AqzqeDT1BCURgzaUxT8LIVZ+ub84w=;
+ b=izaCufKRC+Wuqk/9aQ55DDHzKny9EccCG6LIIuGWEGDG4SV3sp7GOIywIGO3q60+v7
+ oMnP7M6e/pb+pjjt0mTWFcU4958A/T06DLlisPPbJsLhFJ3q5yDqZ5PQIi8/BSJr7qRO
+ q5WuAYQhdysvW0moaaWbU1fW4JFM4waaKgjokOGiTT4gk99gkwBJT/DYaxc+J6fDPD+Y
+ FsubCU2HZeiPxn0LUS9bXvth5lqkZdCu7nNEWfoclpA+oEISMBxlHiU4teGIy8+zf81a
+ NDWMz7oHnWhXDV46XMJRMJH5ZpwqFu9uZ4G/G4wEEm2u/MAHX7z/paMQzGdwmzzPdYUc
+ b5Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715277129; x=1715881929;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1715282879; x=1715887679;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=hAgOX6MEQ5v7+oviGufGYxbrE3KtnKTcvCIobKG2wxo=;
- b=MhSOAwGV86/F4DOUU+ziZko2BMk8uUEXrDyB79JBl/L7bLynAz1qwkP4cE8CwEGAR8
- N7w+NOSJIPoKGmALIuKq2vQEm0CfjjSZ2QqMBBaJ4G0ekF8rk8qrucN5oidNmNEujLGN
- OXFt5ocO2gNAbhdSKlopdgZnhOfqv9RVFRE4uH+cWNf0kndZAcI9/ynItxmHjWCnAaJR
- GATy/Wzvr/seUZTr+mufRLjb0UrP9moKU++RMZoFYovMSeQggxJub4sqVa1brXdRQo61
- Jdu3rFEEr8cB9Zm1Lo1vCi2FQ8YpJ/xduIp+EgF2/8+7bXFFHGiBs8IZeDer9lHKXN8h
- LRSg==
+ bh=4q15vxk3U5tCW6AqzqeDT1BCURgzaUxT8LIVZ+ub84w=;
+ b=kkpXdJhmH/DXW6Jud9ANlqNPObX8lFw/m2ts97VBZZPE7RAsW7LeVXjt3tbxQupYOn
+ ASILFS2wHg3tbeTMCXhRDT4dfktDTGZJ6OpOvtP5cWm+Y8rhVWreL+y5HBo0qFd7sOEL
+ HD7sn9HczY9RErnk3JfudKQ5E+JYu4lENuUDpWh2ZmElKZ9utOAigYKP96DaS1jynSEr
+ MAnLR98k5oyZNtqXXsyrm1f1YAY7rj+mKHEGFS8ZiPObj1Wayv42YIMWnM4Z13nuOCSb
+ dP5uhu/iAcgrRikUjGJHKyfvff2INAxu5SKhzp8pmxl+WlT3BCUJvoIt+yQ4ZZCxmnhl
+ blRg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW8cFKTDKqxeu/9udBxrQFCGo2sma4QIxED4giIQzfbSlObMtQNmP2vf2m0Fse03SX/AuZM5UVcvfxRaqbea8yfmtp+IUHZ8iKrGAVNrRyeZMzgxqgIKg2xX4FDmk3QylGA53SqeME3lDoNANM256AK
-X-Gm-Message-State: AOJu0YxwewYLNMhLuVxZNSJ4YiL+90kHqADVGU2ZO8YZCLzsJOBmEkRC
- 2U5gcHmWF994dfBhfb4YRnP87tW+1d6Ra/btRKWOAvBqklF4g+Vs
-X-Google-Smtp-Source: AGHT+IE8innbNBc8AiX5EWTRT9KWJEll55U9Zj/JPSJuQs7roZHsNPLnxuehVNX8x4EXgB8XLCbJ6A==
-X-Received: by 2002:a05:600c:4591:b0:41e:3272:6476 with SMTP id
- 5b1f17b1804b1-41fea93a333mr2899295e9.10.1715277128756; 
- Thu, 09 May 2024 10:52:08 -0700 (PDT)
-Received: from [192.168.1.130] (51B6DCE0.unconfigured.pool.telekom.hu.
- [81.182.220.224]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-41f88208cb8sm68014395e9.47.2024.05.09.10.52.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 May 2024 10:52:08 -0700 (PDT)
-From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
-Date: Thu, 09 May 2024 19:52:04 +0200
-Subject: [PATCH] drm/msm/dpu: guard ctl irq callback register/unregister
+ AJvYcCXzuiVdwTnIomi2JG2wSoiyql2QatzM684xbKYyuSX4Ibyb5xjhQTvhgnxyaMrBdhNFOli7jpn25/VLgIm22AlfYsGuRKWhATOMe84f5fmZpHN34UDv9SneJ0Q0zU3foBRCe84xc1JjGUyc/FDc1s4J
+X-Gm-Message-State: AOJu0YwObshjHd46eWi1PK7h2CryFH/r+3mrLLvG6E8eUImtSjdn139s
+ 6Qce84qgrSM0lAFiXgjfHH/mfWTUeGP2mhM6DxxKWqh4auWvWqzHgivAk2bf9tix5K3hLVrmANY
+ cZhfwnfDHpfJIDwccyPTQBrqRBMw=
+X-Google-Smtp-Source: AGHT+IFD2St8xMS5+Rfyw+Ljbcn5AcM1Wr/haO1ug4eK3rhYqRM3DPV+yzOiYy33989tocEobfL+9d6S07ZnmExnzgs=
+X-Received: by 2002:a17:90b:185:b0:2b6:c4d7:fbf9 with SMTP id
+ 98e67ed59e1d1-2b6cc758aa9mr396866a91.13.1715282879509; Thu, 09 May 2024
+ 12:27:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20240509-ctl_irq-v1-1-9433f2da9dc7@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAEMNPWYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIxMDUwNL3eSSnPjMokLdREuDJKMU80SDpDRTJaDqgqLUtMwKsEnRsbW1AJa
- /gDRZAAAA
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
-X-Mailer: b4 0.13.0
+References: <20240509-ctl_irq-v1-1-9433f2da9dc7@gmail.com>
+ <151f3503-d7ce-b11d-0658-1d26a47b1920@quicinc.com>
+In-Reply-To: <151f3503-d7ce-b11d-0658-1d26a47b1920@quicinc.com>
+From: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>
+Date: Thu, 9 May 2024 21:27:48 +0200
+Message-ID: <CAGsSOWXFoFte_Ubbzudo3Ru=s35xsuiSwkOC3zHnZHM7_zj7pQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm/dpu: guard ctl irq callback register/unregister
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 03 Jun 2024 19:38:24 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,43 +84,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-CTLs on older qualcomm SOCs like msm8953 and msm8996 has not got interrupts,
-so better to skip CTL irq callback register/unregister
-make dpu_ctl_cfg be able to define without intr_start.
-
-Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index 489be1c0c704..250d83af53a4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -298,7 +298,7 @@ static void dpu_encoder_phys_cmd_irq_enable(struct dpu_encoder_phys *phys_enc)
- 				       phys_enc);
- 	dpu_encoder_phys_cmd_control_vblank_irq(phys_enc, true);
- 
--	if (dpu_encoder_phys_cmd_is_master(phys_enc))
-+	if (dpu_encoder_phys_cmd_is_master(phys_enc) && phys_enc->irq[INTR_IDX_CTL_START])
- 		dpu_core_irq_register_callback(phys_enc->dpu_kms,
- 					       phys_enc->irq[INTR_IDX_CTL_START],
- 					       dpu_encoder_phys_cmd_ctl_start_irq,
-@@ -311,7 +311,7 @@ static void dpu_encoder_phys_cmd_irq_disable(struct dpu_encoder_phys *phys_enc)
- 					   phys_enc->hw_pp->idx - PINGPONG_0,
- 					   phys_enc->vblank_refcount);
- 
--	if (dpu_encoder_phys_cmd_is_master(phys_enc))
-+	if (dpu_encoder_phys_cmd_is_master(phys_enc) && phys_enc->irq[INTR_IDX_CTL_START])
- 		dpu_core_irq_unregister_callback(phys_enc->dpu_kms,
- 						 phys_enc->irq[INTR_IDX_CTL_START]);
- 
-
----
-base-commit: 704ba27ac55579704ba1289392448b0c66b56258
-change-id: 20240509-ctl_irq-a90b2d7a0bf5
-
-Best regards,
--- 
-Barnabás Czémán <trabarni@gmail.com>
-
+There was some previously sent patch series made by Dmitry for these soc,
+msm8996 was sent together by sdm660 but in the last version it was dropped.
+I have recreated msm8996 DPU support from that series but it will need
+some more test.
+I am testing msm8953 series but it is depend on msm8996.
