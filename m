@@ -2,85 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 143B68D7FA1
-	for <lists+freedreno@lfdr.de>; Mon,  3 Jun 2024 12:04:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 320948D8A51
+	for <lists+freedreno@lfdr.de>; Mon,  3 Jun 2024 21:38:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8749C10E0BB;
-	Mon,  3 Jun 2024 10:04:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A85E10E3E3;
+	Mon,  3 Jun 2024 19:38:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="T5Ei/x68";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="jM/Y9IfK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33B7010E0BB
- for <freedreno@lists.freedesktop.org>; Mon,  3 Jun 2024 10:04:49 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-52b912198f1so2590643e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 03 Jun 2024 03:04:49 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1487810E831;
+ Thu,  9 May 2024 17:39:50 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-41ba1ba55e9so8608105e9.3; 
+ Thu, 09 May 2024 10:39:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1717409087; x=1718013887; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Wigpiq3UYcvYdqkrQhN7qI4WVcDObAutfXNLBLWz1Qs=;
- b=T5Ei/x68foLuk3OST+CXcdRdLiFFW2JG5elO35gyf21X57pPsS7ZAHopCMgETYKy3a
- c9WVT0cg7Jhzmct6mGLxE41DG+Ou5TI5mkgXT9yuvY+VDEER5G9SSUGyxOrjLTiGjH16
- zBrkIfQSjyFIYVNlzs3DqqOqJPg9qbLWqsNuEtxGWHYBQe6ch1Zti34BFJDzjdYC3uCG
- h81HzpXhOH5sJArZCMo2tXV95iwj5SxDnZoby4zHl1LGHgb7iuU1An36+76gb8tXHxr5
- 4FCLwnK5CkirC9AsCNoqxZa7l6C2xKvbCApzz7tGFkRevo2ChmWc+2BdOWOUXT/W0n4T
- BBdw==
+ d=gmail.com; s=20230601; t=1715276389; x=1715881189; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZXUU3H+PgMe++t6s6Yb4nLqL9mCXFnF+1t6Xu9YIDmo=;
+ b=jM/Y9IfKP5y7OuxpTO4ywxL8BuIak+Sm2HPO1MVQKyffrx/4MAUsu5i6ezhwHmtoPW
+ MnnXd1wH5pvuKCCZEx/P+Xjt7ZT5ZtBx27iQKhCLnbwoAclkzYcUQNTHmrUFJIyZmkT2
+ CuisQzr9aKF9rXUD0a2h+ouhwXk4BRvMfDlU02EP3CVdM9fFIihsV9jHw+dWyG37mPOD
+ OvsBAtaxQL4MnR827RYxcb6kLVx3EM/0ndOLbOzHGY0FZHiwPHIAtF95QGvKbKjWvyqM
+ v59DOI1SUH0oWSm/mrwTvgjtV7vgpKFISuuvLp3mivqMjAYj4R5qPM6/6nIAKQnpmbIA
+ inPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717409087; x=1718013887;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Wigpiq3UYcvYdqkrQhN7qI4WVcDObAutfXNLBLWz1Qs=;
- b=AVsGrpaJpyTBsq2hDrqYDArqDefYYF089D+7ifILoNgcFSDCF2DRVw6fNaY7smV1zg
- zWttDLEJHtKZDbOIuvgYeUYyChMlhPog7cYMP3VB7dMhWliDyyxnQqw2T0s50LBU6Fke
- TNmOZRGG6LlekPXmsfUfW2wyU8aOh7rpcY1YICQCBn+RvQeEGWGTHCbAx/3jYhtfAF5W
- 0GjKyeZyehbnq66PnPq21qFiY6negL0UjlP9YpiVIDKLUgENNITrw1nyqHbiKlJcWGj+
- LFEdIj0jBgEbQgmWqTkVbg2zYO1Tkz2vDoNyfDkY1WGUfVf8NxXz9OdF8p36uOTgeB68
- V33Q==
+ d=1e100.net; s=20230601; t=1715276389; x=1715881189;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZXUU3H+PgMe++t6s6Yb4nLqL9mCXFnF+1t6Xu9YIDmo=;
+ b=pIb2Ug1ucJpZO/yqUQe6EOvQTjvV3EZCXEzXNXGcP7zFkGFwg293lAGBSI9J3dBWta
+ 5I9o0m+dgld8T2zc2tQ4lrcdbL/uLxfoycCQILg8B9XHOK9qUoQ8hBic0zFovTmz+XpZ
+ NHkSNLGkeZwryquzsNeW0JD12aEPMXnVh5XcT3eCh+D8vOXJJHs3QZMWdD0BsCQqDcAZ
+ nK/6hK3zBt1J6KwZSFdhWMICbvHzCuZ4CgFPf5bg/FAfFrp5Zf8Cwyt/7zhjwxYk5Wle
+ os6wCvGVsQ9Y+vw3bmInFB1WC+iENj+L2aEyeYJcQ201JJYz9NpwzBkafFKVGwqUTPUu
+ 1vRA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV8QJfuKocjVPJ1IOpwX1efXOrJOygyElXumeyl1UvKHlDSshtcY2CJUzarQSTV5Di84JhDyXwjVziSHRXxI9hVO/BEMQsSKQPXbggWgfoH
-X-Gm-Message-State: AOJu0Yxynw5jSdLlfqJeQ0HRE7gN43N8gIz4dwUvb7NPIeTDPoEJzp+z
- WyqMdJ8hCV83x73AqiUaf0qeiDVvw2bjHwSEfUo86O0jsTuJkR1Yj+V+RHfaqJs=
-X-Google-Smtp-Source: AGHT+IF5KnG1FbQl2ZMSS1dblXe8W7iYWQvh17DRwDMEgS5aDyUVIouCkrUQXkbLDkWxPZaBVQnv9g==
-X-Received: by 2002:a05:6512:239f:b0:52b:9037:996d with SMTP id
- 2adb3069b0e04-52b90379aafmr4283607e87.46.1717409087167; 
- Mon, 03 Jun 2024 03:04:47 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52b92e66010sm666446e87.102.2024.06.03.03.04.46
+ AJvYcCWDCITKHgZ/+NmJ2lw756/pJ41lZluSkosUoY5o8fW8sMHbU1xL1PCBfzWpuexk2JkxGQYDGMm5phm80lYs9nvmDnG74daoh9n5TNhyLETF3RCMLp4GTKoBtRiznKuIH/8KjIQbuHBQO+TThVw2+Ben
+X-Gm-Message-State: AOJu0YwoEUVM5iWfETzxtiNlimdwsbYb6ffTxHuqfLzNGjT1w0k7wJBu
+ X08KWbHPYZtv+bn8dDTUdEQUcD6Hvq2oNbbjMW8hriGkmhqY8137
+X-Google-Smtp-Source: AGHT+IE/7GfRfJfa/usca0jgdG6bN6wknL+/x51vAqqUu0ualXn47t8uTJpGHDXedlmsL6jkzbA3kQ==
+X-Received: by 2002:a5d:550b:0:b0:34c:67d6:8dec with SMTP id
+ ffacd0b85a97d-3504a62fec5mr244132f8f.6.1715276389048; 
+ Thu, 09 May 2024 10:39:49 -0700 (PDT)
+Received: from [192.168.1.130] (51B6DCE0.unconfigured.pool.telekom.hu.
+ [81.182.220.224]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3502b79bc99sm2268546f8f.11.2024.05.09.10.39.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Jun 2024 03:04:46 -0700 (PDT)
-Date: Mon, 3 Jun 2024 13:04:45 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/9] drm/connector: hdmi: accept NULL for Audio
- Infoframe
-Message-ID: <th7i4ugpnbifmthtam7p5nmtclygx6asvzzyibzl2oxdsxxnmj@rd7dujgjxzuv>
-References: <20240531-bridge-hdmi-connector-v4-0-5110f7943622@linaro.org>
- <20240531-bridge-hdmi-connector-v4-1-5110f7943622@linaro.org>
- <20240603-therapeutic-warm-fox-890bee@houat>
+ Thu, 09 May 2024 10:39:48 -0700 (PDT)
+From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
+Date: Thu, 09 May 2024 19:39:30 +0200
+Subject: [PATCH] drm/msm/dpu: fix encoder irq wait skip
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240603-therapeutic-warm-fox-890bee@houat>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20240509-irq_wait-v1-1-41d653e3784e@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAFEKPWYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxMDUwNL3cyiwvjyxMwSXRNLExOT5NREc/NUIyWg8oKi1LTMCrBR0bG1tQD
+ MGOmlWgAAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
+X-Mailer: b4 0.13.0
+X-Mailman-Approved-At: Mon, 03 Jun 2024 19:38:22 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,65 +90,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jun 03, 2024 at 11:09:40AM +0200, Maxime Ripard wrote:
-> Hi,
-> 
-> Sorry for not answering your mail on the previous version sooner.
-> 
-> On Fri, May 31, 2024 at 11:07:24PM GMT, Dmitry Baryshkov wrote:
-> > Allow passing NULL as audio infoframe as a way to disable Audio
-> > Infoframe generation.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 14 ++++++++++----
-> >  1 file changed, 10 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-> > index ce96837eea65..5356723d21f5 100644
-> > --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-> > +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-> > @@ -681,7 +681,7 @@ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_update_infoframes);
-> >  /**
-> >   * drm_atomic_helper_connector_hdmi_update_audio_infoframe - Update the Audio Infoframe
-> >   * @connector: A pointer to the HDMI connector
-> > - * @frame: A pointer to the audio infoframe to write
-> > + * @frame: A pointer to the audio infoframe to write or NULL to disable sending the frame
-> 
-> I'm still two-minded about this. I think I would like a separate helper
-> better, to also make things consistent with the HDMI helpers.
-> 
-> Most importantly, it looks like you're not using it at all in your series?
+The irq_idx is unsigned so it cannot be lower than zero, better
+to change the condition to check if it is equal with zero.
+It could not cause any issue because a valid irq index starts from one.
 
-It should have been a part of msm_hdmi_audio_disable(), but it seems
-with all the refactorings I forgot to use it. I'll check again the
-behaviour and either drop this patch or add a separate helper and fix
-other comments below.
+Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> >   * This function is meant for HDMI connector drivers to update their
-> >   * audio infoframe. It will typically be used in one of the ALSA hooks
-> > @@ -704,10 +704,16 @@ drm_atomic_helper_connector_hdmi_update_audio_infoframe(struct drm_connector *co
-> >  
-> >  	mutex_lock(&connector->hdmi.infoframes.lock);
-> >  
-> > -	memcpy(&infoframe->data, frame, sizeof(infoframe->data));
-> > -	infoframe->set = true;
-> > +	if (frame) {
-> > +		memcpy(&infoframe->data, frame, sizeof(infoframe->data));
-> > +		infoframe->set = true;
-> > +
-> > +		ret = write_infoframe(connector, infoframe);
-> > +	} else {
-> > +		infoframe->set = false;
-> >  
-> > -	ret = write_infoframe(connector, infoframe);
-> > +		ret = clear_infoframe(connector, infoframe);
-> > +	}
-> 
-> We should probably clear infoframe->data here too
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 119f3ea50a7c..cf7d769ab3b9 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -428,7 +428,7 @@ int dpu_encoder_helper_wait_for_irq(struct dpu_encoder_phys *phys_enc,
+ 		return -EWOULDBLOCK;
+ 	}
+ 
+-	if (irq_idx < 0) {
++	if (irq_idx == 0) {
+ 		DRM_DEBUG_KMS("skip irq wait id=%u, callback=%ps\n",
+ 			      DRMID(phys_enc->parent), func);
+ 		return 0;
 
+---
+base-commit: 704ba27ac55579704ba1289392448b0c66b56258
+change-id: 20240509-irq_wait-49444cea77e2
 
+Best regards,
 -- 
-With best wishes
-Dmitry
+Barnabás Czémán <trabarni@gmail.com>
+
