@@ -2,53 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A3368C156E
-	for <lists+freedreno@lfdr.de>; Thu,  9 May 2024 21:27:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 835FB8C17B8
+	for <lists+freedreno@lfdr.de>; Thu,  9 May 2024 22:42:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D36F10F13B;
-	Thu,  9 May 2024 19:27:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59FB210F3FF;
+	Thu,  9 May 2024 20:42:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="RlU7l2ER";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="jYffqosO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2737710F13B;
- Thu,  9 May 2024 19:27:17 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 449DcT1g011436;
- Thu, 9 May 2024 19:27:14 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B639410F3F4;
+ Thu,  9 May 2024 20:42:26 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 449ESocc004043;
+ Thu, 9 May 2024 20:42:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  message-id:date:mime-version:subject:to:cc:references:from
  :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=GDuI+FONF4k4STlgME8DvLuc5b4wpOL/cwLiyZ0C66w=; b=Rl
- U7l2ERTvW9F3bxil03h3vKmZeWi0cQz3Z/qjF8TeYgPy51IcAhIFTO4o/I3f8b/O
- F5yH3MThV9EOomI6C7ImfdB2VeoT279nx4MD2xKJs+AsjbcQojtEHlJPeqKzMYY5
- ckDAHStrSEVeo2Ct9xtvRgp8DXUZYWDSq/x9QxNqUTdu+fmCHaG9UynD42AfxHD6
- OrvU2YbV43bMV7eoli+AJY4499IubARpGWIwYWwK7pfQ4E/Drelplm5YFpl34fnX
- rhD1wHUZUQ6FSDP4GjPp3Fz9EQywuDun8entbpfTPc4Z8c/URYb6QVvfAP7/szPu
- A5dOKN2+JD5mJTQoJmJQ==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ qcppdkim1; bh=mchcKYZYgBdbHHHqrwkb0VhG3sZh/TU9UL6kHJgjYIQ=; b=jY
+ ffqosOTwWJOn9DslhDcHQPq/5JBPBHA4oPh+aZw/eCJyhFbRsgvPAgVXRw+G8bXj
+ bkLaOXnafQ6Uz7r5jkXgJV6B4+oDoXj1DFAhs+mA7iKX9noEjXiTXLGW85DdIbU7
+ atlRJxYT/RwEtR727npiI83gfIHpKAMAdhohDJsapqLdGsQiP61s9+E01zxKWn5w
+ 9nH7UGHaRuTEfN7ZDWKXZ3Lif3BR5+e8vClfhTzfF1udj2x1AEMfdwBz0352JVze
+ YXPO46uFhIRvndMI9ddsW+6L/NYZ1GoOM+3ZeWZPfDAl7ASVumUPuDO3xFi5FB6B
+ 4aE8NDTwGN/5sst38Ong==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3y09ejufs3-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3y07u9bu0k-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 09 May 2024 19:27:14 +0000 (GMT)
+ Thu, 09 May 2024 20:42:24 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 449JRCwQ022111
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 449KgMrb001177
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 9 May 2024 19:27:12 GMT
+ Thu, 9 May 2024 20:42:22 GMT
 Received: from [10.110.104.129] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 9 May 2024
- 12:27:11 -0700
-Message-ID: <389f63a0-c00f-719b-085f-d562c2b5da08@quicinc.com>
-Date: Thu, 9 May 2024 12:27:10 -0700
+ 13:42:21 -0700
+Message-ID: <5c15c321-d0b6-847d-3c35-924faffac703@quicinc.com>
+Date: Thu, 9 May 2024 13:42:20 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/msm/dpu: fix encoder irq wait skip
+Subject: Re: [PATCH v2] drm/msm/dpu: fix encoder irq wait skip
 Content-Language: en-US
 To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>, Rob Clark
  <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean
@@ -56,9 +56,9 @@ To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>, Rob Clark
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20240509-irq_wait-v1-1-41d653e3784e@gmail.com>
+References: <20240509-irq_wait-v2-1-b8b687b22cc4@gmail.com>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240509-irq_wait-v1-1-41d653e3784e@gmail.com>
+In-Reply-To: <20240509-irq_wait-v2-1-b8b687b22cc4@gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
@@ -67,17 +67,17 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: TIX1gsMOKwQammEIUK1RvTdPG5U7ZaA6
-X-Proofpoint-ORIG-GUID: TIX1gsMOKwQammEIUK1RvTdPG5U7ZaA6
+X-Proofpoint-GUID: wl7B9Pa7yhoErU9chFnIdSe7wG9GVMWp
+X-Proofpoint-ORIG-GUID: wl7B9Pa7yhoErU9chFnIdSe7wG9GVMWp
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-09_11,2024-05-09_01,2023-05-22_02
+ definitions=2024-05-09_12,2024-05-09_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- suspectscore=0 adultscore=0 spamscore=0 mlxscore=0 lowpriorityscore=0
- priorityscore=1501 clxscore=1015 mlxlogscore=999 malwarescore=0
- bulkscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405010000 definitions=main-2405090136
+ clxscore=1015 adultscore=0
+ spamscore=0 suspectscore=0 mlxlogscore=999 impostorscore=0 mlxscore=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405010000 definitions=main-2405090145
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,22 +95,24 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 5/9/2024 10:39 AM, Barnabás Czémán wrote:
+On 5/9/2024 12:40 PM, Barnabás Czémán wrote:
 > The irq_idx is unsigned so it cannot be lower than zero, better
 > to change the condition to check if it is equal with zero.
 > It could not cause any issue because a valid irq index starts from one.
 > 
+> Fixes: 5a9d50150c2c ("drm/msm/dpu: shift IRQ indices by 1")
 > Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
+> ---
+> Changes in v2:
+> - Add Fixes in commit message.
+> - Link to v1: https://lore.kernel.org/r/20240509-irq_wait-v1-1-41d653e3784e@gmail.com
 > ---
 >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
-I think we also need
-
-Fixes: 5a9d50150c2c ("drm/msm/dpu: shift IRQ indices by 1")
-
-With that,
+no functional change, so you could have retained by R-b, but here it is 
+again,
 
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
