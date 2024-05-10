@@ -2,35 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2ABB8C230C
-	for <lists+freedreno@lfdr.de>; Fri, 10 May 2024 13:22:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F41E08C23BA
+	for <lists+freedreno@lfdr.de>; Fri, 10 May 2024 13:39:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5841A10E5A0;
-	Fri, 10 May 2024 11:22:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDDB510E39B;
+	Fri, 10 May 2024 11:39:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ihXfjw4m";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tcF4nxlg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 001AD10E56E;
- Fri, 10 May 2024 11:22:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA27010E39B;
+ Fri, 10 May 2024 11:39:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 149DCCE106D;
- Fri, 10 May 2024 11:22:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77CA4C113CC;
- Fri, 10 May 2024 11:21:56 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id B24F1CE1DA6;
+ Fri, 10 May 2024 11:39:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD37EC113CC;
+ Fri, 10 May 2024 11:39:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1715340120;
- bh=HSGNzI8VBlGMlvbRbsd2ObIVJhvcS30eOk4bSfP6pl0=;
+ s=k20201202; t=1715341160;
+ bh=gBgODkg3DdI9NzHPa1K7qm2JszTbSglDjzlA/h4YKWM=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ihXfjw4mBP7X4WTIHWRYrSBF3iVhrYj3c4Dx5l+jpT+FTgsJffGRO9vSgHrM7zUOj
- kOlXC4rU0xe8kX/Vro7lspV3JguR6RF+N1ERTAjFiVCf/vbxcdUh20Di/13AdAq4Jn
- 2SAEzUwnAIMnIsr5M7XU0f+0eH2wk9EACxYDCsz2wqfhADAPo3+ydQi3lMo4PurSPs
- UT8KJCpOPJznFR3FMg1H8MQgq1cVEexFlEc6dV24BAvOi3yEzJgZ16+zZhNvXj67YS
- o+iYYnxGzKicaIfalY9tSWfJYYggbPz/0e3U4c5WZ66vLghF5pUzH8QinBEBLaiZVB
- wY7PMNUvznMoQ==
-Date: Fri, 10 May 2024 12:21:52 +0100
+ b=tcF4nxlg0QDEweWZwzWRCeVMhoRIu7J1gmdn73ynftzzX5dbSA1P4W8ujpGv0+jrm
+ nbOzvPAqUbgaOYo/PdyUL81APw3bP5ZqUlEA1bv2v06ThVSZ+1EGMPEOkJGIiyfYGJ
+ kCkxZxWZtBeI1+Ib7DROy4aZjp3wcPfVzFz4kwz+SAnlI9U2RPXX7ELddRRwyhmnGF
+ djstVSRcMGs3bD5X3DNa8uPLVYL5h5TL6IyZsAv6NnYu8t3K0W+2r1dDyIki3R/AJK
+ NVBFC0k1dteGFqP6NSb5O4MZkFfK9HiWqs8V/gqLo9ApsQQzr7m7Unm72abzdxhsLM
+ EC1q/CFOAekrQ==
+Date: Fri, 10 May 2024 12:39:11 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Jani Nikula <jani.nikula@intel.com>, Jonathan Corbet <corbet@lwn.net>,
@@ -39,9 +39,10 @@ Cc: Jani Nikula <jani.nikula@intel.com>, Jonathan Corbet <corbet@lwn.net>,
  <marijn.suijten@somainline.org>, workflows@vger.kernel.org,
  linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Masahiro Yamada
  <masahiroy@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, Jon
+ Hunter <jonathanh@nvidia.com>
 Subject: Re: [PATCH] docs: document python version used for compilation
-Message-ID: <20240510122152.76e79ac9@sal.lan>
+Message-ID: <20240510123911.34f050b5@sal.lan>
 In-Reply-To: <CAA8EJprcjDnpsriXOrRO4cVh5Sm9KDbHbsyKePru=6pn0-bfJA@mail.gmail.com>
 References: <20240509-python-version-v1-1-a7dda3a95b5f@linaro.org>
  <878r0ijdh5.fsf@intel.com> <20240510102036.3ea40b37@sal.lan>
@@ -117,33 +118,37 @@ nt in
 > From my side, the 3.5 was chosen basing on the previous feedback from
 > Jon Hunter: https://lore.kernel.org/dri-devel/20240412165407.42163-1-jona=
 thanh@nvidia.com/
->=20
-> After checking distros that I can easily use, I don't think I will be
-> able to test the script with Python versions earlier than 3.7.3
-> (Debian oldoldstable).
-> I can try setting up Debian stretch (old-old-old-stable), which has
-> Python 3.5 and so cover the needs of Jon.
 
-Fedora 40 supports version 3.6 and above (plus 2.7):
-	https://developer.fedoraproject.org/tech/languages/python/multiple-pythons=
-.html
+Patch there seems small/simple enough if it is all it takes for 3.5.
 
-You could do something similar with Ubuntu/Debian:
-	https://askubuntu.com/questions/682869/how-do-i-install-a-different-python=
--version-using-apt-get
+Yet, it would be nice to hear from Jon Hunter about the rationale
+for 3.5 support (if any).
 
-Once an old version is installed, you can enable it with:
+> > Minimum versions here also means sticking to features available in said
+> > versions, for Python just as well as for GCC or any other tool. That's
+> > not zero cost.
+> >
+> > I guess there are two angles here too. The absolute minimum version
+> > currently required, and the, uh, maximum the minimum version can be
+> > safely bumped to. Say, you want to use a feature not available in the
+> > current minimum, how far up can you bump the version to?
+> >
+> > Could we define and document the criteria (e.g. based on distros as you
+> > suggest below) so we don't have to repeat the discussion?
 
-	$ python3.6 -m venv v3.6  # create the environment
-	$ . v3.6/bin/activate
+Agreed. While we should not bump version randomly, defining a
+criteria about when we should update the requirement sounds a great idea.
 
-Then, if needed, install whatever dependencies are needed with pip,
-inside the venv (for instance if you want to also test Sphinx, you
-can install it there via pip).
+For me, the criteria is:
 
-I guess it should be possible to use a similar venv procedure with
-older versions, but you may need to compile it from the sources if
-you don't have binaries available for your distro.
+- the minimal version shall be at least the minimal one required for the
+  Kernel to build at the most used LTS distros that are not EOL, e. g.:=20
+  Debian, openSUSE/SUSE, CentOS/RHEL and Ubuntu LTS[1].
+
+[1] In practice, Ubuntu LTS usually has a python version newer than
+    Debian LTS, and CentOS versions are identical to RHEL ones, so
+    I guess checking for Debian, openSUSE, SUSE and RHEL should be
+    enough.
 
 Regards,
 Mauro
