@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABBC68C3398
-	for <lists+freedreno@lfdr.de>; Sat, 11 May 2024 21:50:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 599108C33DC
+	for <lists+freedreno@lfdr.de>; Sat, 11 May 2024 23:47:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4477910E082;
-	Sat, 11 May 2024 19:50:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B24B010E045;
+	Sat, 11 May 2024 21:47:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SpCPzTSV";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZDGmqEEc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f169.google.com (mail-yb1-f169.google.com
- [209.85.219.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B02D710E082
- for <freedreno@lists.freedesktop.org>; Sat, 11 May 2024 19:50:11 +0000 (UTC)
-Received: by mail-yb1-f169.google.com with SMTP id
- 3f1490d57ef6-de603e3072dso3540643276.1
- for <freedreno@lists.freedesktop.org>; Sat, 11 May 2024 12:50:11 -0700 (PDT)
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
+ [209.85.128.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2C0610E098
+ for <freedreno@lists.freedesktop.org>; Sat, 11 May 2024 21:47:05 +0000 (UTC)
+Received: by mail-yw1-f172.google.com with SMTP id
+ 00721157ae682-61804067da0so32028607b3.0
+ for <freedreno@lists.freedesktop.org>; Sat, 11 May 2024 14:47:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1715457010; x=1716061810; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1715464025; x=1716068825; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=F3s0BYtwV5QP2poIgqh39ZmRBGGeeft/DMBZxm9dZ+c=;
- b=SpCPzTSVF+FMyVBk47VotCQ8FzKZKozbulTtjC+nWaUfwzD9ymWvYlSYvRxApx5QIC
- coOwRzr55NrRIYGU9vH12FD4RofvoQMTfg4SemKeDPhM9r6XDAWMF5Tx7katOzZLUbrc
- Q8oth+CaAC0YJnp7S7p9WBHJ1+3lZTXmVq6NGub46Sxx7h+paxqbRQrn07hJxB6mB//u
- qQ/RWJxAw9Au9zK1RyoX31vyzIkgPyRSDQXh61C5vzLJ/JvNyvLIr8Iz71CyxjYzrdTJ
- ssC2aKSQsEP207Y1YrU/Yw+FwDzaCFr8k9GdGrpcbsNZ0iz/+xvgLUESiu3Lfp//GTcG
- 3I+A==
+ bh=UUDDnmzrxB3l3/4aj031ZrzOLNCmAjmO9rvghUTgzkE=;
+ b=ZDGmqEEcd/Ob8/AhCL/D9s+fmttzibq2HbQ96wFFf2DOvzu66xo7OpyqLsmPVNM1iy
+ Ft3vmcz5c2xjRtRU+07a2innXUa9nnBfxGya1Y2L0Cf4yC/QjAB0LVIB0V5DFxWSoxUg
+ w5exlEBHPYivJ+jh4K5fCipozvGFGvbE6ZkxWT09lOlYtlK1ZN9DU2HBzTlHYefnRXWz
+ K3IUk6jSB8HGKDqFvO2m9i9GUMZ/2p9SCEgzoixaLZHSCgCGfyd/kxjeN6VmG4w2f5ur
+ w0L7+SHnV3LZVI24E+SZi5jJoIEqyUVN4eofNkR7CE5+FOpkzsGnOGllGm6lYrxXxwoe
+ MrqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715457010; x=1716061810;
+ d=1e100.net; s=20230601; t=1715464025; x=1716068825;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=F3s0BYtwV5QP2poIgqh39ZmRBGGeeft/DMBZxm9dZ+c=;
- b=ZugmvvDD8lsK3zm/AYjgfN5h/wwI/aqVdgwUb6SpevT3NrDuv02eVj8mspONijbTb1
- L0AxOQQ7taFoxIkwwpnElsCgkM7Cbz1+TiFq5FVUziYbR2qG+FmGdB+djf5Jqz5Q9hvk
- wjsV1lnDpeSqWWyr9bhkPDAXMi779AjwfKNn0RzuO0dSyWxL1rYrNx69OiGrkV2GIZvV
- jFk/nOL+8oHvCwlJ2IuUb5izBzAraSIbgl2VZkR+ISKbOTOuVwgQxkurpKvZ/FU7cGVr
- C4zAodXjYQDjZTBgQXSvqBNucu7QPMnnf+w+Pd5rke112G8ezaM3I3fniWVAvyPY1KKz
- tQCA==
+ bh=UUDDnmzrxB3l3/4aj031ZrzOLNCmAjmO9rvghUTgzkE=;
+ b=XVTJ7sG5T7BrHWo0DHumFiMHWCG5EJPUyfNefEqFfgt0A0dUVe29+vT9RjvugT4Mrc
+ lA3fxvKDZ1IpZOEP+gbwkO4djnOSoJhltOa8r8d9nxCm+v6EQD6VdnZDgyjHEA81fzcq
+ K3FD3vAv0b1OEEGxM04QtAOYNgquRIcTslRNaaKgm7T+2IxTB5D+DShENg/m9oiXdFvJ
+ IIAM25BBZfMao/JLOnggHj6mnJD19QY1JKc2z+Ecjc+MIVkTBTNUpZac6kMMB4Iao45l
+ QYSczAvSzh8UYeNt0+zJ0od0RGPXby72QdW5sj1usmgoy5HEblQ50lM0rL53aAfVKqXF
+ CA+A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXWGdQWtY4hJZ7YYTaspw5k2siqlN0Vt9Hwm91CqYG/C/PjHAy5TsLMtA2QbA/rlIQR2K5QaJMM8y092tOCX9eMI8mDi9VUYRwjX44oGCWY
-X-Gm-Message-State: AOJu0YwoX+RIBVRv5bectkqF4CkGaZy8x+pb9lMFPD122G592QRCVNnw
- UWCc0veSMDVhiwoQldi4FpqRFarxnM5ZwlOlVCO8ZdVW7kFkbtpzovSgU0KvnISq8rPP2GZXlsQ
- 9I4KO7VZy93mTKMh0gsZg9ER1dTpnJxFniIlZIw==
-X-Google-Smtp-Source: AGHT+IH9oytgieimnJ6EUHW02efq8o7XP9X5e1CpiXtKNoPTUQJ83yI9IK5vGxbcwkH+3Dtqr7EKoZaRHYG6zBFUUaY=
-X-Received: by 2002:a25:b1a3:0:b0:dee:5cb6:483c with SMTP id
- 3f1490d57ef6-dee5cb64977mr4069754276.49.1715457010482; Sat, 11 May 2024
- 12:50:10 -0700 (PDT)
+ AJvYcCVQl8oRoJHpwHMS+OQNLJTa6XWhzo7uuRf0k6cqTy7C7mt4qxAo/WfgbTQswNevbHI708MlX5IHJicxImgxhwvSt3UYp+dEtrYRlU0CB42F
+X-Gm-Message-State: AOJu0Yx9wB04KBE7M7M/cgzUeJwq1EKwohfs4wV3RRJXdnsScGKduaiT
+ VW+7E285v95ozUuwkTS7lqC45vUG7YpEnUkmP8l6DRrYhxabS4mQTgD3NMYsEzjjqPrFI1IT1l+
+ WLIKdUxcWmcjrpEpJMX8MuY7kdEMgZ2rfN8Q78A==
+X-Google-Smtp-Source: AGHT+IGG3nr3fWq7oYomiHLISDdigDRI73rcAWer5xHynouZBj9dhN1hlkvK3TDT9c5wAPBOWXNGkt1XOlWrmP10/T4=
+X-Received: by 2002:a05:690c:ed4:b0:61a:e9f6:2b1b with SMTP id
+ 00721157ae682-622aff774d9mr84631617b3.8.1715464024566; Sat, 11 May 2024
+ 14:47:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240511-msm-adreno-memory-region-v1-1-d73970717d42@gmail.com>
-In-Reply-To: <20240511-msm-adreno-memory-region-v1-1-d73970717d42@gmail.com>
+References: <20240511-msm-adreno-memory-region-v2-1-9f33f42e7b99@gmail.com>
+In-Reply-To: <20240511-msm-adreno-memory-region-v2-1-9f33f42e7b99@gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 11 May 2024 22:49:59 +0300
-Message-ID: <CAA8EJprdnzvhx50DVHBRLZGkk4GNuCXaBiXt3wfNv-xm2AWOvg@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/adreno: request memory region
+Date: Sun, 12 May 2024 00:46:53 +0300
+Message-ID: <CAA8EJprMULN1BbRvUjh81f7x02cdg7UeNzuEnw2nUNrmKC7eFw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/msm/a6xx: request memory region
 To: Kiarash Hajian <kiarash8112hajian@gmail.com>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -81,7 +81,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 11 May 2024 at 22:35, Kiarash Hajian
+On Sat, 11 May 2024 at 22:56, Kiarash Hajian
 <kiarash8112hajian@gmail.com> wrote:
 >
 > The driver's memory regions are currently just ioremap()ed, but not
@@ -92,6 +92,12 @@ On Sat, 11 May 2024 at 22:35, Kiarash Hajian
 > devres-function.
 >
 > Signed-off-by: Kiarash Hajian <kiarash8112hajian@gmail.com>
+> ---
+> Changes in v2:
+> - update the subject prefix to "drm/msm/a6xx:", to match the majority of other changes to this file.
+
+Same comment as I posted for v1 of the patch.
+
 > ---
 >  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 12 ++++++------
 >  1 file changed, 6 insertions(+), 6 deletions(-)
@@ -109,10 +115,6 @@ On Sat, 11 May 2024 at 22:35, Kiarash Hajian
 >         if (!IS_ERR_OR_NULL(seqptr))
 > -               iounmap(seqptr);
 > +               devm_iounmap(&pdev->dev,seqptr);
-
-Is there any reason to keep devm_iounmap calls? IMO with the devres
-management in place, there should be no need to unmap them manually.
-
 >  }
 >
 >  /*
