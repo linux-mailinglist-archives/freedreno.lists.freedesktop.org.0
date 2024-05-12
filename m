@@ -2,74 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D87F8C3546
-	for <lists+freedreno@lfdr.de>; Sun, 12 May 2024 09:18:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 694CE8C38FF
+	for <lists+freedreno@lfdr.de>; Mon, 13 May 2024 00:24:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B5CF10E06C;
-	Sun, 12 May 2024 07:18:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85FB710E097;
+	Sun, 12 May 2024 22:24:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eOMg/Kts";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iXNYfd9s";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1C3B10E06C
- for <freedreno@lists.freedesktop.org>; Sun, 12 May 2024 07:18:25 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-2e6792ea67dso5710861fa.3
- for <freedreno@lists.freedesktop.org>; Sun, 12 May 2024 00:18:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1715498304; x=1716103104; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+Ho2M1HiQIdWbeZZb6QjJWcaSs+2rhcKJwgaqpenjTE=;
- b=eOMg/Kts+G/6f4vVGxx6e1T1H+PUQ4VUVaMw1pzJSgLtXqYkNDvkvBWLRSvCXFfl3g
- vL+ZXb1t6L68cDnANKtLoI+DyUQtOBUGt6UEjrKHiWoeuShvlUOy3NBD+pE2afkQihXw
- TLjIHHA9WubZ3Fozaw91m6aDrLWauWmQHt2CqlNJ8Fc1nBoti9VZgI/uhr1tSwbLVzu7
- G9vJXV0W4vJ2L7x1xDqtvV2dUpFoqeCAbJep8WhFo6NhwEfovlU629byHp8AwKoFr3sS
- ur82hv/K80x5bVE/5bQrti7BQoAVzfUwczMpp2FDRvZykGUhJQ92IdTZtltsm6Xu43yf
- DYTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715498304; x=1716103104;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+Ho2M1HiQIdWbeZZb6QjJWcaSs+2rhcKJwgaqpenjTE=;
- b=WxAXWXPjz0xhM6VgXfEARXAZo1Lm1xueg2nTU+4Yn31iOt9x+6tvXr4bIBeS0UNkS0
- XTEfsVJHs4Giy0c81cDrVypgX84cnp8lG0AGsC2RkrTrXKgr4e4BBP9IUaUhWpk6xFnS
- 8lAD/wq9cI46COKGLsMAieBgWN0E1lXm5yzKjzDwCRLPWa8bWJTuwVgmu1M2spEa/Sgb
- jxenedQH6vzX1QKjto7HaopyljvK/wH1i8mAEzv/kzgINYM8PIwOhrRYQMFV41jIVgzc
- cCgTfefTyzOc07EVmmdjF75Yst0++2wtUs914/N2OHhoz08w2fxzUUQF5XvtjMbEIARu
- hKcQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCURAthpV5DT7crvVIrt66T+oFE1TARPPN+ZLHnMdI9RxwYNCtiaYwtydxwd1kcu9kijxiAoko0Wh9iX5cF3C6vTc3wzrdk5H7hbeqWrFsOo
-X-Gm-Message-State: AOJu0Yyh4SKXvce5EcONCtDp2f8ly6qayS49g4kOXn2ETjK9dllyXwpt
- IsxWH1vJATTL49FxIIC3PeFz6FIfA1QfH3Y8kbBxtZVvZrxB4RsHAYA465GI46w=
-X-Google-Smtp-Source: AGHT+IHFq0ufNNWxWGNJhbjtEqg492vkkSDjHXTgvyYhd5RDqv8PEWr4+4kRdkTRVvckVFOTc9ZeNg==
-X-Received: by 2002:a2e:3c0c:0:b0:2dc:14d5:4621 with SMTP id
- 38308e7fff4ca-2e52028a8femr59741201fa.34.1715498303593; 
- Sun, 12 May 2024 00:18:23 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2e4d151569bsm10126371fa.87.2024.05.12.00.18.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 May 2024 00:18:23 -0700 (PDT)
-Date: Sun, 12 May 2024 10:18:21 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Kiarash Hajian <kiarash8112hajian@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FF6B10E010;
+ Sun, 12 May 2024 22:24:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1715552690; x=1747088690;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=3C4Tsvi8zQ8/WgqGGbU/HP9bh5KBCx36pvVCbqCn/0w=;
+ b=iXNYfd9szR6wC9iYsMiXt9fJjmM0e6OJ83iQ3+wF+UayFCuYxFqfLOoJ
+ iY0BEPC1rqcru37GJWeKahbd9NqFNoydvhFcylCZWbr/Ru+NKCTxl6BoW
+ d6vz7s4AXSRciHY/8VLxzyihM+ZKOKk9ITF2w7hEt2Bj6a6TFtLeVmhoe
+ j0r6slEZXe1v5W6G7rrQzLJKqVqqev6mrt6NqmcfblfEttFvfNcDMFne6
+ FGnXWg/UxdA8q4XUZVs1wJ/Lwhom9ehqSQFqhTOgC+mMlMPZ4B1tHiVrp
+ NoDUjGOI/wMSYg6svVXCQSiDDAKFEFmJH7kA5OumxxaqNFZTTm5qwARwf Q==;
+X-CSE-ConnectionGUID: c2pV4GCUR+OyRzcmM4uTvw==
+X-CSE-MsgGUID: LRuKZmrWT5Wo/JXuyYjWcg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11071"; a="11328009"
+X-IronPort-AV: E=Sophos;i="6.08,157,1712646000"; d="scan'208";a="11328009"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2024 15:24:49 -0700
+X-CSE-ConnectionGUID: IKZ0fXjETquK9VRyvxP70g==
+X-CSE-MsgGUID: v+CBfvrHRqO8IEHv9CUAeA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,157,1712646000"; d="scan'208";a="30717284"
+Received: from lkp-server01.sh.intel.com (HELO f8b243fe6e68) ([10.239.97.150])
+ by orviesa008.jf.intel.com with ESMTP; 12 May 2024 15:24:46 -0700
+Received: from kbuild by f8b243fe6e68 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1s6HcZ-0009Fn-29;
+ Sun, 12 May 2024 22:24:43 +0000
+Date: Mon, 13 May 2024 06:24:00 +0800
+From: kernel test robot <lkp@intel.com>
+To: Kiarash Hajian <kiarash8112hajian@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Kiarash Hajian <kiarash8112hajian@gmail.com>
 Subject: Re: [PATCH v3 2/2] drm/msm/a6xx: request memory region
-Message-ID: <vwxnwf6um4vmazqfomx46w5hc7swf4boiaaqtta3tmytwbbazo@g3ey2d4jxknm>
-References: <20240512-msm-adreno-memory-region-v3-0-0a728ad45010@gmail.com>
- <20240512-msm-adreno-memory-region-v3-2-0a728ad45010@gmail.com>
+Message-ID: <202405130618.N7QKeg94-lkp@intel.com>
+References: <20240512-msm-adreno-memory-region-v3-2-0a728ad45010@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -89,23 +77,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, May 12, 2024 at 01:49:39AM -0400, Kiarash Hajian wrote:
-> The devm_iounmap function is being used unnecessarily,
-> managed resource mechanisms (devres) are handling resource cleanup automatically
-> 
-> This commit removes the calls to devm_iounmap and relies on devres
-> 
-> Signed-off-by: Kiarash Hajian <kiarash8112hajian@gmail.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 18 ------------------
->  1 file changed, 18 deletions(-)
+Hi Kiarash,
 
-In my opinion, this patch is better be squashed into the first patch.
-Though I'd leave a final word here to Rob and Konrad.
+kernel test robot noticed the following build errors:
 
-BTW: for some reason your patches don't appear on freedreno's patchwork,
-although they definitely hit the list and appear on lore.kernel.org.
+[auto build test ERROR on cf87f46fd34d6c19283d9625a7822f20d90b64a4]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Kiarash-Hajian/drm-msm-a6xx-request-memory-region/20240512-135215
+base:   cf87f46fd34d6c19283d9625a7822f20d90b64a4
+patch link:    https://lore.kernel.org/r/20240512-msm-adreno-memory-region-v3-2-0a728ad45010%40gmail.com
+patch subject: [PATCH v3 2/2] drm/msm/a6xx: request memory region
+config: i386-buildonly-randconfig-001-20240513 (https://download.01.org/0day-ci/archive/20240513/202405130618.N7QKeg94-lkp@intel.com/config)
+compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240513/202405130618.N7QKeg94-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202405130618.N7QKeg94-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/msm/adreno/a6xx_gmu.c:1605:8: error: use of undeclared label 'err_mmio'
+    1605 |                 goto err_mmio;
+         |                      ^
+   1 error generated.
+
+
+vim +/err_mmio +1605 drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+
+c11fa1204fe940 Akhil P Oommen 2023-01-02  1582  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1583  int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+5a903a44a98471 Konrad Dybcio  2023-06-16  1584  {
+5a903a44a98471 Konrad Dybcio  2023-06-16  1585  	struct platform_device *pdev = of_find_device_by_node(node);
+5a903a44a98471 Konrad Dybcio  2023-06-16  1586  	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1587  	int ret;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1588  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1589  	if (!pdev)
+5a903a44a98471 Konrad Dybcio  2023-06-16  1590  		return -ENODEV;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1591  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1592  	gmu->dev = &pdev->dev;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1593  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1594  	of_dma_configure(gmu->dev, node, true);
+5a903a44a98471 Konrad Dybcio  2023-06-16  1595  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1596  	pm_runtime_enable(gmu->dev);
+5a903a44a98471 Konrad Dybcio  2023-06-16  1597  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1598  	/* Mark legacy for manual SPTPRAC control */
+5a903a44a98471 Konrad Dybcio  2023-06-16  1599  	gmu->legacy = true;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1600  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1601  	/* Map the GMU registers */
+5a903a44a98471 Konrad Dybcio  2023-06-16  1602  	gmu->mmio = a6xx_gmu_get_mmio(pdev, "gmu");
+5a903a44a98471 Konrad Dybcio  2023-06-16  1603  	if (IS_ERR(gmu->mmio)) {
+5a903a44a98471 Konrad Dybcio  2023-06-16  1604  		ret = PTR_ERR(gmu->mmio);
+5a903a44a98471 Konrad Dybcio  2023-06-16 @1605  		goto err_mmio;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1606  	}
+5a903a44a98471 Konrad Dybcio  2023-06-16  1607  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1608  	gmu->cxpd = dev_pm_domain_attach_by_name(gmu->dev, "cx");
+5a903a44a98471 Konrad Dybcio  2023-06-16  1609  	if (IS_ERR(gmu->cxpd)) {
+5a903a44a98471 Konrad Dybcio  2023-06-16  1610  		ret = PTR_ERR(gmu->cxpd);
+5a903a44a98471 Konrad Dybcio  2023-06-16  1611  		goto err_mmio;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1612  	}
+5a903a44a98471 Konrad Dybcio  2023-06-16  1613  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1614  	if (!device_link_add(gmu->dev, gmu->cxpd, DL_FLAG_PM_RUNTIME)) {
+5a903a44a98471 Konrad Dybcio  2023-06-16  1615  		ret = -ENODEV;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1616  		goto detach_cxpd;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1617  	}
+5a903a44a98471 Konrad Dybcio  2023-06-16  1618  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1619  	init_completion(&gmu->pd_gate);
+5a903a44a98471 Konrad Dybcio  2023-06-16  1620  	complete_all(&gmu->pd_gate);
+5a903a44a98471 Konrad Dybcio  2023-06-16  1621  	gmu->pd_nb.notifier_call = cxpd_notifier_cb;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1622  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1623  	/* Get a link to the GX power domain to reset the GPU */
+5a903a44a98471 Konrad Dybcio  2023-06-16  1624  	gmu->gxpd = dev_pm_domain_attach_by_name(gmu->dev, "gx");
+5a903a44a98471 Konrad Dybcio  2023-06-16  1625  	if (IS_ERR(gmu->gxpd)) {
+5a903a44a98471 Konrad Dybcio  2023-06-16  1626  		ret = PTR_ERR(gmu->gxpd);
+5a903a44a98471 Konrad Dybcio  2023-06-16  1627  	}
+5a903a44a98471 Konrad Dybcio  2023-06-16  1628  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1629  	gmu->initialized = true;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1630  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1631  	return 0;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1632  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1633  detach_cxpd:
+5a903a44a98471 Konrad Dybcio  2023-06-16  1634  	dev_pm_domain_detach(gmu->cxpd, false);
+5a903a44a98471 Konrad Dybcio  2023-06-16  1635  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1636  	/* Drop reference taken in of_find_device_by_node */
+5a903a44a98471 Konrad Dybcio  2023-06-16  1637  	put_device(gmu->dev);
+5a903a44a98471 Konrad Dybcio  2023-06-16  1638  
+5a903a44a98471 Konrad Dybcio  2023-06-16  1639  	return ret;
+5a903a44a98471 Konrad Dybcio  2023-06-16  1640  }
+5a903a44a98471 Konrad Dybcio  2023-06-16  1641  
 
 -- 
-With best wishes
-Dmitry
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
