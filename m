@@ -2,63 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90B6D8C565C
-	for <lists+freedreno@lfdr.de>; Tue, 14 May 2024 14:56:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64BFC8C5789
+	for <lists+freedreno@lfdr.de>; Tue, 14 May 2024 16:03:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA61610E7BE;
-	Tue, 14 May 2024 12:56:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A78710E9A0;
+	Tue, 14 May 2024 14:03:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CW1qUJkm";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="o8f89z30";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD42010E7AA;
- Tue, 14 May 2024 12:56:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1715691380; x=1747227380;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=MN7SlPdpAe5QBcnVhCSzhjMMbkyk5IJ2S33wWdWmnSs=;
- b=CW1qUJkmRvoCFVtCbfdU8Zs0SnUqKEG4kiPxOouQM4uZHHxVSstmfIQv
- gsv5Sdfr4zAnLr7rjVynN1fOTXUfQ3dgaxtIKNCzaCSSk4o2+1jbzzDIN
- ajAIVhFp+VovcM8SPJ4SSBZQbegsSg4KpZBPzfnlgnaSNVwsmLvw1zRGa
- XxGZumvU80Nd/BxxLY6hmYg+mL5kql5dsfBIjM0mOQwqKuQ/IYWoOET4p
- kX5B5CSywqFh3x9ci7K+l7jXgw31L03v0aNQN3yZ7MtEM6iW/1qTYnCaj
- uOx1LVPHcgCHvNiubtZB5qK1HJRiX1RpXRi8+LoS55DtcRuimrlo5ZDPM w==;
-X-CSE-ConnectionGUID: ZzwfMwXzTwahsJDWTNvctw==
-X-CSE-MsgGUID: 5q99dHepQNSOtgZToZcHiQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11073"; a="22270719"
-X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="22270719"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2024 05:56:19 -0700
-X-CSE-ConnectionGUID: XZh4ZFrCR4CI5YnAWetkiQ==
-X-CSE-MsgGUID: 9kdD4cv8SAaa0C+pjqHywg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,159,1712646000"; d="scan'208";a="35140834"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.91])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2024 05:56:16 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: jani.nikula@intel.com, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: [PATCH 08/11] drm/msm/dp: switch to struct drm_edid
-Date: Tue, 14 May 2024 15:55:14 +0300
-Message-Id: <93d6c446ed4831dadfb4a77635a67cf5f27e19ff.1715691257.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1715691257.git.jani.nikula@intel.com>
-References: <cover.1715691257.git.jani.nikula@intel.com>
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F64410EA0C
+ for <freedreno@lists.freedesktop.org>; Tue, 14 May 2024 14:03:50 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-420104e5390so30280115e9.1
+ for <freedreno@lists.freedesktop.org>; Tue, 14 May 2024 07:03:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1715695428; x=1716300228; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=z2kvf/8BGvjJmuh1+YH/4YUBTpKBZ8hMquOjQfgXzQo=;
+ b=o8f89z30AjwInae007/Rqw9MTLgEc9kQVhcVlfW3yGCQKYQ/wEdWN7ZchIOcBHAxWD
+ cS5d46m9KVqUDfUU+rscAWiKNv782NgDXvCUc1g/R+ez+yKOGqmWJIVqZA50eSGfbRc8
+ 3UV5Rrdw7XkgHwBjnHl6BJO0sO+WjG+75xGzpfouWoTmH02hVblfvzuTDdVuKMks+U/l
+ BGzqzVUo7f1AWlwZQzgHySMD0YBhG/dU9IYDqkWfzt/VVaFhRyZILqahC2uOqNxhAU0l
+ gwMLCNwbEH/RNxNJphi6KL393v2z/iFGFQ8g9QJ/YeY+LSEORJLlcJC9suHeAo1HJ71G
+ Ma3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715695428; x=1716300228;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=z2kvf/8BGvjJmuh1+YH/4YUBTpKBZ8hMquOjQfgXzQo=;
+ b=CqMUlBQHXAc8ARyjKVzgfxZTT7NY+Fq+xDTdUE6adpgehMFUVHrzH0SRGF3r0XnuEu
+ V2ul7CR2S646DFwhIIak5Om63nY1/gVKmZqjqicgtb79WEjBQW7dteUstzNwdHG6sewx
+ NkQEp0PY2nA/VtjP2TX/sYQuWevj+J7K1JK8AzVb8AEFKyzrbm1p6bcxt6GKuK/5+aZJ
+ E4fxtiKAmj1L9o0IJ1IJevThxoXsgYqnhtFwhpH/YS5G6uQXbGLdRfKd2b8fj0qmN3sQ
+ swt+EaeL/WXTRX8/bmeKnB+EYdk91bYfx5XsiDHxps2DLUBMaXOIGJSm7zF7mEf6aoRO
+ r2Bw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU/qcGNHq1m/vxEfQ58IrlMpx+7nfD1AijnQSdcQP8IRny5cuBtRLLlyTtmF4wOOEtKtCoPvA57t48WomXsYwW80VB8wVQyI3HPtXpEbMfk
+X-Gm-Message-State: AOJu0YxWIovgqAr7cc0yLu0lgv+469DS1FC+n3a1wa0pmWwUMO7yP5Pv
+ JqGiSeujwSj9b5Xc6Vi6NlYdQfAxfX2uBZIbW2IC1LpISYk4vWq6vEiqi1GAR+A=
+X-Google-Smtp-Source: AGHT+IHScfJwD86P9/E/AOGO8wJ5B18rlGDvDl9Npb7wh2ZHBGXrTaALdLsdYbwsrVsnC05oQT+nwg==
+X-Received: by 2002:a05:600c:19c8:b0:417:e60b:91f6 with SMTP id
+ 5b1f17b1804b1-41fea9324d9mr142866265e9.4.1715695428309; 
+ Tue, 14 May 2024 07:03:48 -0700 (PDT)
+Received: from [10.91.1.187] ([149.14.240.163])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-41fccce25d5sm196220405e9.14.2024.05.14.07.03.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 May 2024 07:03:47 -0700 (PDT)
+Message-ID: <6b2edf62-f14c-4a7c-bdc2-6ed4470fccc2@linaro.org>
+Date: Tue, 14 May 2024 16:03:46 +0200
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "drm/msm/dpu: drop
+ dpu_encoder_phys_ops.atomic_mode_set"
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20240514-dpu-revert-ams-v1-1-b13623d6cd5f@linaro.org>
+Content-Language: en-US
+From: Caleb Connolly <caleb.connolly@linaro.org>
+In-Reply-To: <20240514-dpu-revert-ams-v1-1-b13623d6cd5f@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,169 +89,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Prefer the struct drm_edid based functions for reading the EDID and
-updating the connector.
 
-Simplify the flow by updating the EDID property when the EDID is read
-instead of at .get_modes.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+On 14/05/2024 09:56, Dmitry Baryshkov wrote:
+> In the DPU driver blank IRQ handling is called from a vblank worker and
+> can happen outside of the irq_enable / irq_disable pair. Revert commit
+> d13f638c9b88 ("drm/msm/dpu: drop dpu_encoder_phys_ops.atomic_mode_set")
+> to fix vblank IRQ assignment for CMD DSI panels.
+> 
+> Fixes: d13f638c9b88 ("drm/msm/dpu: drop dpu_encoder_phys_ops.atomic_mode_set")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
----
+Hi Dmitry,
 
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org
----
- drivers/gpu/drm/msm/dp/dp_display.c | 11 +++----
- drivers/gpu/drm/msm/dp/dp_panel.c   | 47 +++++++++--------------------
- drivers/gpu/drm/msm/dp/dp_panel.h   |  2 +-
- 3 files changed, 20 insertions(+), 40 deletions(-)
+This fixes the regular DRM irq errors for me!
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 672a7ba52eda..9622e58dce3e 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -360,26 +360,25 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
- 
- static int dp_display_process_hpd_high(struct dp_display_private *dp)
- {
-+	struct drm_connector *connector = dp->dp_display.connector;
-+	const struct drm_display_info *info = &connector->display_info;
- 	int rc = 0;
--	struct edid *edid;
- 
--	rc = dp_panel_read_sink_caps(dp->panel, dp->dp_display.connector);
-+	rc = dp_panel_read_sink_caps(dp->panel, connector);
- 	if (rc)
- 		goto end;
- 
- 	dp_link_process_request(dp->link);
- 
- 	if (!dp->dp_display.is_edp)
--		drm_dp_set_subconnector_property(dp->dp_display.connector,
-+		drm_dp_set_subconnector_property(connector,
- 						 connector_status_connected,
- 						 dp->panel->dpcd,
- 						 dp->panel->downstream_ports);
- 
--	edid = dp->panel->edid;
--
- 	dp->dp_display.psr_supported = dp->panel->psr_cap.version && psr_enabled;
- 
--	dp->audio_supported = drm_detect_monitor_audio(edid);
-+	dp->audio_supported = info->has_audio;
- 	dp_panel_handle_sink_request(dp->panel);
- 
- 	/*
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 07db8f37cd06..a916b5f3b317 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -108,28 +108,6 @@ static u32 dp_panel_get_supported_bpp(struct dp_panel *dp_panel,
- 	return bpp;
- }
- 
--static int dp_panel_update_modes(struct drm_connector *connector,
--	struct edid *edid)
--{
--	int rc = 0;
--
--	if (edid) {
--		rc = drm_connector_update_edid_property(connector, edid);
--		if (rc) {
--			DRM_ERROR("failed to update edid property %d\n", rc);
--			return rc;
--		}
--		rc = drm_add_edid_modes(connector, edid);
--		return rc;
--	}
--
--	rc = drm_connector_update_edid_property(connector, NULL);
--	if (rc)
--		DRM_ERROR("failed to update edid property %d\n", rc);
--
--	return rc;
--}
--
- int dp_panel_read_sink_caps(struct dp_panel *dp_panel,
- 	struct drm_connector *connector)
- {
-@@ -175,12 +153,13 @@ int dp_panel_read_sink_caps(struct dp_panel *dp_panel,
- 	if (rc)
- 		return rc;
- 
--	kfree(dp_panel->edid);
--	dp_panel->edid = NULL;
-+	drm_edid_free(dp_panel->drm_edid);
-+
-+	dp_panel->drm_edid = drm_edid_read_ddc(connector, &panel->aux->ddc);
-+
-+	drm_edid_connector_update(connector, dp_panel->drm_edid);
- 
--	dp_panel->edid = drm_get_edid(connector,
--					      &panel->aux->ddc);
--	if (!dp_panel->edid) {
-+	if (!dp_panel->drm_edid) {
- 		DRM_ERROR("panel edid read failed\n");
- 		/* check edid read fail is due to unplug */
- 		if (!dp_catalog_link_is_connected(panel->catalog)) {
-@@ -224,13 +203,13 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
- 		return -EINVAL;
- 	}
- 
--	if (dp_panel->edid)
--		return dp_panel_update_modes(connector, dp_panel->edid);
-+	if (dp_panel->drm_edid)
-+		return drm_edid_connector_add_modes(connector);
- 
- 	return 0;
- }
- 
--static u8 dp_panel_get_edid_checksum(struct edid *edid)
-+static u8 dp_panel_get_edid_checksum(const struct edid *edid)
- {
- 	edid += edid->extensions;
- 
-@@ -249,10 +228,12 @@ void dp_panel_handle_sink_request(struct dp_panel *dp_panel)
- 	panel = container_of(dp_panel, struct dp_panel_private, dp_panel);
- 
- 	if (panel->link->sink_request & DP_TEST_LINK_EDID_READ) {
-+		/* FIXME: get rid of drm_edid_raw() */
-+		const struct edid *edid = drm_edid_raw(dp_panel->drm_edid);
- 		u8 checksum;
- 
--		if (dp_panel->edid)
--			checksum = dp_panel_get_edid_checksum(dp_panel->edid);
-+		if (edid)
-+			checksum = dp_panel_get_edid_checksum(edid);
- 		else
- 			checksum = dp_panel->connector->real_edid_checksum;
- 
-@@ -539,5 +520,5 @@ void dp_panel_put(struct dp_panel *dp_panel)
- 	if (!dp_panel)
- 		return;
- 
--	kfree(dp_panel->edid);
-+	drm_edid_free(dp_panel->drm_edid);
- }
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
-index 4ea42fa936ae..6722e3923fa5 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.h
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.h
-@@ -39,7 +39,7 @@ struct dp_panel {
- 	u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
- 
- 	struct dp_link_info link_info;
--	struct edid *edid;
-+	const struct drm_edid *drm_edid;
- 	struct drm_connector *connector;
- 	struct dp_display_mode dp_mode;
- 	struct dp_panel_psr psr_cap;
+Tested-by: Caleb Connolly <caleb.connolly@linaro.org> # sm8250 OnePlus 8
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  2 ++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |  5 ++++
+>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   | 32 ++++++++++++----------
+>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   | 13 +++++++--
+>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    | 11 +++++++-
+>   5 files changed, 46 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 119f3ea50a7c..a7d8ecf3f5be 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1200,6 +1200,8 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>   		phys->hw_ctl = to_dpu_hw_ctl(hw_ctl[i]);
+>   
+>   		phys->cached_mode = crtc_state->adjusted_mode;
+> +		if (phys->ops.atomic_mode_set)
+> +			phys->ops.atomic_mode_set(phys, crtc_state, conn_state);
+>   	}
+>   }
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> index 002e89cc1705..30470cd15a48 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> @@ -69,6 +69,8 @@ struct dpu_encoder_phys;
+>    * @is_master:			Whether this phys_enc is the current master
+>    *				encoder. Can be switched at enable time. Based
+>    *				on split_role and current mode (CMD/VID).
+> + * @atomic_mode_set:		DRM Call. Set a DRM mode.
+> + *				This likely caches the mode, for use at enable.
+>    * @enable:			DRM Call. Enable a DRM mode.
+>    * @disable:			DRM Call. Disable mode.
+>    * @control_vblank_irq		Register/Deregister for VBLANK IRQ
+> @@ -93,6 +95,9 @@ struct dpu_encoder_phys;
+>   struct dpu_encoder_phys_ops {
+>   	void (*prepare_commit)(struct dpu_encoder_phys *encoder);
+>   	bool (*is_master)(struct dpu_encoder_phys *encoder);
+> +	void (*atomic_mode_set)(struct dpu_encoder_phys *encoder,
+> +			struct drm_crtc_state *crtc_state,
+> +			struct drm_connector_state *conn_state);
+>   	void (*enable)(struct dpu_encoder_phys *encoder);
+>   	void (*disable)(struct dpu_encoder_phys *encoder);
+>   	int (*control_vblank_irq)(struct dpu_encoder_phys *enc, bool enable);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> index 489be1c0c704..95cd39b49668 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> @@ -142,6 +142,23 @@ static void dpu_encoder_phys_cmd_underrun_irq(void *arg)
+>   	dpu_encoder_underrun_callback(phys_enc->parent, phys_enc);
+>   }
+>   
+> +static void dpu_encoder_phys_cmd_atomic_mode_set(
+> +		struct dpu_encoder_phys *phys_enc,
+> +		struct drm_crtc_state *crtc_state,
+> +		struct drm_connector_state *conn_state)
+> +{
+> +	phys_enc->irq[INTR_IDX_CTL_START] = phys_enc->hw_ctl->caps->intr_start;
+> +
+> +	phys_enc->irq[INTR_IDX_PINGPONG] = phys_enc->hw_pp->caps->intr_done;
+> +
+> +	if (phys_enc->has_intf_te)
+> +		phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_intf->cap->intr_tear_rd_ptr;
+> +	else
+> +		phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_pp->caps->intr_rdptr;
+> +
+> +	phys_enc->irq[INTR_IDX_UNDERRUN] = phys_enc->hw_intf->cap->intr_underrun;
+> +}
+> +
+>   static int _dpu_encoder_phys_cmd_handle_ppdone_timeout(
+>   		struct dpu_encoder_phys *phys_enc)
+>   {
+> @@ -280,14 +297,6 @@ static void dpu_encoder_phys_cmd_irq_enable(struct dpu_encoder_phys *phys_enc)
+>   					  phys_enc->hw_pp->idx - PINGPONG_0,
+>   					  phys_enc->vblank_refcount);
+>   
+> -	phys_enc->irq[INTR_IDX_CTL_START] = phys_enc->hw_ctl->caps->intr_start;
+> -	phys_enc->irq[INTR_IDX_PINGPONG] = phys_enc->hw_pp->caps->intr_done;
+> -
+> -	if (phys_enc->has_intf_te)
+> -		phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_intf->cap->intr_tear_rd_ptr;
+> -	else
+> -		phys_enc->irq[INTR_IDX_RDPTR] = phys_enc->hw_pp->caps->intr_rdptr;
+> -
+>   	dpu_core_irq_register_callback(phys_enc->dpu_kms,
+>   				       phys_enc->irq[INTR_IDX_PINGPONG],
+>   				       dpu_encoder_phys_cmd_pp_tx_done_irq,
+> @@ -318,10 +327,6 @@ static void dpu_encoder_phys_cmd_irq_disable(struct dpu_encoder_phys *phys_enc)
+>   	dpu_core_irq_unregister_callback(phys_enc->dpu_kms, phys_enc->irq[INTR_IDX_UNDERRUN]);
+>   	dpu_encoder_phys_cmd_control_vblank_irq(phys_enc, false);
+>   	dpu_core_irq_unregister_callback(phys_enc->dpu_kms, phys_enc->irq[INTR_IDX_PINGPONG]);
+> -
+> -	phys_enc->irq[INTR_IDX_CTL_START] = 0;
+> -	phys_enc->irq[INTR_IDX_PINGPONG] = 0;
+> -	phys_enc->irq[INTR_IDX_RDPTR] = 0;
+>   }
+>   
+>   static void dpu_encoder_phys_cmd_tearcheck_config(
+> @@ -698,6 +703,7 @@ static void dpu_encoder_phys_cmd_init_ops(
+>   		struct dpu_encoder_phys_ops *ops)
+>   {
+>   	ops->is_master = dpu_encoder_phys_cmd_is_master;
+> +	ops->atomic_mode_set = dpu_encoder_phys_cmd_atomic_mode_set;
+>   	ops->enable = dpu_encoder_phys_cmd_enable;
+>   	ops->disable = dpu_encoder_phys_cmd_disable;
+>   	ops->control_vblank_irq = dpu_encoder_phys_cmd_control_vblank_irq;
+> @@ -736,8 +742,6 @@ struct dpu_encoder_phys *dpu_encoder_phys_cmd_init(struct drm_device *dev,
+>   
+>   	dpu_encoder_phys_cmd_init_ops(&phys_enc->ops);
+>   	phys_enc->intf_mode = INTF_MODE_CMD;
+> -	phys_enc->irq[INTR_IDX_UNDERRUN] = phys_enc->hw_intf->cap->intr_underrun;
+> -
+>   	cmd_enc->stream_sel = 0;
+>   
+>   	if (!phys_enc->hw_intf) {
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> index ef69c2f408c3..636a97432d51 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> @@ -356,6 +356,16 @@ static bool dpu_encoder_phys_vid_needs_single_flush(
+>   	return phys_enc->split_role != ENC_ROLE_SOLO;
+>   }
+>   
+> +static void dpu_encoder_phys_vid_atomic_mode_set(
+> +		struct dpu_encoder_phys *phys_enc,
+> +		struct drm_crtc_state *crtc_state,
+> +		struct drm_connector_state *conn_state)
+> +{
+> +	phys_enc->irq[INTR_IDX_VSYNC] = phys_enc->hw_intf->cap->intr_vsync;
+> +
+> +	phys_enc->irq[INTR_IDX_UNDERRUN] = phys_enc->hw_intf->cap->intr_underrun;
+> +}
+> +
+>   static int dpu_encoder_phys_vid_control_vblank_irq(
+>   		struct dpu_encoder_phys *phys_enc,
+>   		bool enable)
+> @@ -699,6 +709,7 @@ static int dpu_encoder_phys_vid_get_frame_count(
+>   static void dpu_encoder_phys_vid_init_ops(struct dpu_encoder_phys_ops *ops)
+>   {
+>   	ops->is_master = dpu_encoder_phys_vid_is_master;
+> +	ops->atomic_mode_set = dpu_encoder_phys_vid_atomic_mode_set;
+>   	ops->enable = dpu_encoder_phys_vid_enable;
+>   	ops->disable = dpu_encoder_phys_vid_disable;
+>   	ops->control_vblank_irq = dpu_encoder_phys_vid_control_vblank_irq;
+> @@ -737,8 +748,6 @@ struct dpu_encoder_phys *dpu_encoder_phys_vid_init(struct drm_device *dev,
+>   
+>   	dpu_encoder_phys_vid_init_ops(&phys_enc->ops);
+>   	phys_enc->intf_mode = INTF_MODE_VIDEO;
+> -	phys_enc->irq[INTR_IDX_VSYNC] = phys_enc->hw_intf->cap->intr_vsync;
+> -	phys_enc->irq[INTR_IDX_UNDERRUN] = phys_enc->hw_intf->cap->intr_underrun;
+>   
+>   	DPU_DEBUG_VIDENC(phys_enc, "created intf idx:%d\n", p->hw_intf->idx);
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> index d3ea91c1d7d2..356dca5e5ea9 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> @@ -404,6 +404,15 @@ static void dpu_encoder_phys_wb_irq_disable(struct dpu_encoder_phys *phys)
+>   		dpu_core_irq_unregister_callback(phys->dpu_kms, phys->irq[INTR_IDX_WB_DONE]);
+>   }
+>   
+> +static void dpu_encoder_phys_wb_atomic_mode_set(
+> +		struct dpu_encoder_phys *phys_enc,
+> +		struct drm_crtc_state *crtc_state,
+> +		struct drm_connector_state *conn_state)
+> +{
+> +
+> +	phys_enc->irq[INTR_IDX_WB_DONE] = phys_enc->hw_wb->caps->intr_wb_done;
+> +}
+> +
+>   static void _dpu_encoder_phys_wb_handle_wbdone_timeout(
+>   		struct dpu_encoder_phys *phys_enc)
+>   {
+> @@ -640,6 +649,7 @@ static bool dpu_encoder_phys_wb_is_valid_for_commit(struct dpu_encoder_phys *phy
+>   static void dpu_encoder_phys_wb_init_ops(struct dpu_encoder_phys_ops *ops)
+>   {
+>   	ops->is_master = dpu_encoder_phys_wb_is_master;
+> +	ops->atomic_mode_set = dpu_encoder_phys_wb_atomic_mode_set;
+>   	ops->enable = dpu_encoder_phys_wb_enable;
+>   	ops->disable = dpu_encoder_phys_wb_disable;
+>   	ops->wait_for_commit_done = dpu_encoder_phys_wb_wait_for_commit_done;
+> @@ -685,7 +695,6 @@ struct dpu_encoder_phys *dpu_encoder_phys_wb_init(struct drm_device *dev,
+>   
+>   	dpu_encoder_phys_wb_init_ops(&phys_enc->ops);
+>   	phys_enc->intf_mode = INTF_MODE_WB_LINE;
+> -	phys_enc->irq[INTR_IDX_WB_DONE] = phys_enc->hw_wb->caps->intr_wb_done;
+>   
+>   	atomic_set(&wb_enc->wbirq_refcount, 0);
+>   
+> 
+> ---
+> base-commit: 75fa778d74b786a1608d55d655d42b480a6fa8bd
+> change-id: 20240514-dpu-revert-ams-9410abc1ee48
+> 
+> Best regards,
+
 -- 
-2.39.2
-
+// Caleb (they/them)
