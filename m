@@ -2,82 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D85898C5B41
-	for <lists+freedreno@lfdr.de>; Tue, 14 May 2024 20:42:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFE668C5D83
+	for <lists+freedreno@lfdr.de>; Wed, 15 May 2024 00:13:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D620810E433;
-	Tue, 14 May 2024 18:42:15 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="jnStNrpy";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA78C10E4D2;
+	Tue, 14 May 2024 22:13:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1422610EA36;
- Tue, 14 May 2024 18:42:13 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44EIHZlF010411;
- Tue, 14 May 2024 18:42:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=qcppdkim1; bh=fqmbST24fPtvgiBuCK/vt
- w9KZSeJV3pS8ZQtIGx96Ds=; b=jnStNrpyLdapYPAS1whCEp3bsUiRQFnr/RgHX
- bH2CX+EVz6m1gNYT3m4gu0h9PyA4cgOHurrykpTNY2v4kUtmGR0txkZpyb7B6SJu
- JQboeVuJcPgcvI52D0UkezzusnS3me0tLUsybnZoUcRIVfr8JYJL779RD4IG0YX4
- wJn3yOE9I3vH/MOrSaGvkfl7cOYpBzH+XyDLIPiRfYDIods5wn4Yw2/kb80ZQsUV
- PQ/4DHLlmhszjWmTPE4biMTYb3NR/G1nqV8bIUHrbgGEormQj774TXtlmsuyNjPe
- YM0fSIsHoSkdrtH2x+LXVHQWDvx04q0xQYpHLGKlB3Nw8pDvQ==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3y21edf1hm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 14 May 2024 18:42:05 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44EIg4Lw000804
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 14 May 2024 18:42:04 GMT
-Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 14 May 2024 11:41:59 -0700
-Date: Wed, 15 May 2024 00:11:55 +0530
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@chromium.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>, Konrad Dybcio <konrad.dybcio@linaro.org>, "Bjorn
- Andersson" <quic_bjorande@quicinc.com>,
- Connor Abbott <cwabbott0@gmail.com>, Ruan Jinjie <ruanjinjie@huawei.com>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/msm: Add obj flags to gpu devcoredump
-Message-ID: <20240514184155.lt2stiohrh4sfsxy@hu-akhilpo-hyd.qualcomm.com>
-References: <20240513155150.166924-1-robdclark@gmail.com>
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it [5.144.164.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8868A10E4D2
+ for <freedreno@lists.freedesktop.org>; Tue, 14 May 2024 22:13:55 +0000 (UTC)
+Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
+ [94.211.6.86])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id DCAC5206DE;
+ Wed, 15 May 2024 00:13:51 +0200 (CEST)
+Date: Wed, 15 May 2024 00:13:50 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Marc Gonzalez <mgonzalez@freebox.fr>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Jeffrey Hugo <quic_jhugo@quicinc.com>,
+ MSM <linux-arm-msm@vger.kernel.org>, freedreno@lists.freedesktop.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Bryan O Donoghue <bryan.odonoghue@linaro.org>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Pierre-Hugues Husson <phhusson@freebox.fr>, 
+ Arnaud Vrac <avrac@freebox.fr>
+Subject: Re: [PATCH] arm64: dts: qcom: msm8998: enable adreno_smmu
+Message-ID: <bm6joejl755ynmiqdfhm3godxhfwzb7vvlb5l2vou5p2wkkfgv@4mapycyt3zzb>
+References: <1ba7031f-c97c-41f1-8cbc-d99f1e848e76@freebox.fr>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240513155150.166924-1-robdclark@gmail.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: cl505ZX_pPUkI21mYcHeK5e7l2VPlpXM
-X-Proofpoint-ORIG-GUID: cl505ZX_pPUkI21mYcHeK5e7l2VPlpXM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-14_11,2024-05-14_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=898 adultscore=0
- priorityscore=1501 bulkscore=0 spamscore=0 mlxscore=0 malwarescore=0
- suspectscore=0 impostorscore=0 clxscore=1011 lowpriorityscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405010000 definitions=main-2405140132
+In-Reply-To: <1ba7031f-c97c-41f1-8cbc-d99f1e848e76@freebox.fr>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,71 +52,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 13, 2024 at 08:51:47AM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+How about appending "by default" to the title?
+
+On 2024-05-14 19:04:04, Marc Gonzalez wrote:
+> Right now, GPU init fails:
 > 
-> When debugging faults, it is useful to know how the BO is mapped (cached
-> vs WC, gpu readonly, etc).
+> [    2.756363] [drm:adreno_bind] Found GPU: 5.4.0.1
+> [    2.767183] [drm:a5xx_gpu_init]
+> [    2.767422] [drm:adreno_gpu_init] fast_rate=710000097, slow_rate=27000000
+> [    3.003869] [drm:msm_gpu_init] ebi1_clk: fffffffffffffffe
+> [    3.004002] adreno 5000000.gpu: supply vdd not found, using dummy regulator
+> [    3.008463] [drm:msm_gpu_init] gpu_reg: ffff0000819e4000
+> [    3.015105] adreno 5000000.gpu: supply vddcx not found, using dummy regulator
+> [    3.020702] [drm:msm_gpu_init] gpu_cx: ffff0000819e4180
+> [    3.028173] [drm:adreno_iommu_create_address_space]
+> [    3.054552] [drm:msm_gpu_init] gpu->aspace=ffffffffffffffed
+> [    3.058112] [drm:a5xx_destroy] 5.4.0.1
+> [    3.065922] [drm:msm_gpu_cleanup] 5.4.0.1
+> [    3.074237] msm_dpu c901000.display-controller: failed to load adreno gpu
+> [    3.082412] msm_dpu c901000.display-controller: failed to bind 5000000.gpu (ops a3xx_ops): -19
+> [    3.088342] msm_dpu c901000.display-controller: [drm:drm_managed_release] drmres release begin
+> ...
+> [    3.197694] [drm:drm_managed_release] drmres release end
+> [    3.204009] msm_dpu c901000.display-controller: adev bind failed: -19
+
+This whole log is a tad spammy, do maintainers think that's worth having in the
+commit or should it be moved below the cut (---), in favour of a more clear and
+elaborate patch justification?
+(Seems some logs are custom local changes, how about that?)
+
 > 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> adreno_smmu is required, so it must be enabled.
 
-Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Required for what?  This is not providing much if any context whatsoever, nor
+justifying the change.  Adreno is disabled by default, so it's fine to have the
+corresponding Adreno SMMU disabled by default too.
 
--Akhil
+Instead, why not copy-paste the justification that was helpfully provided to
+you in IRC?  At least three reasons popped up that could be used to fill up the
+patch description:
+- No other SoC disables adreno_smmu in DTSI;
+- Nodes are typically only disabled if enabling them requires additional **board
+  specific** configuration (regulators, firmware paths, ...);
+- Nodes are typically also disabled if they are optional and not used on every board
+  (wled and vibrator PMIC nodes were brought up).
 
+> 
+> [    3.220381] msm_dpu c901000.display-controller: bound 5000000.gpu (ops a3xx_ops)
+> [    3.235503] [drm:dpu_kms_hw_init:1053] dpu hardware revision:0x30000000
+
+And this is the expected log when it works?  You should annotate that.
+
+The change itself is good to have.
+
+> Fixes: 87cd46d68aeac8 ("Configure Adreno GPU and related IOMMU")
+
+This isn't fixing any buggy behaviour, just lining up the DTSI to be more alike
+the other SoCs.  I'd drop this line.
+
+- Marijn
+
+> Signed-off-by: Marc Gonzalez <mgonzalez@freebox.fr>
 > ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 1 +
->  drivers/gpu/drm/msm/msm_gpu.c           | 6 ++++--
->  drivers/gpu/drm/msm/msm_gpu.h           | 1 +
->  3 files changed, 6 insertions(+), 2 deletions(-)
+>  arch/arm64/boot/dts/qcom/msm8998.dtsi | 1 -
+>  1 file changed, 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index b7bbef2eeff4..d9ea15994ae9 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -887,6 +887,7 @@ void adreno_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
->  			drm_printf(p, "  - iova: 0x%016llx\n",
->  				state->bos[i].iova);
->  			drm_printf(p, "    size: %zd\n", state->bos[i].size);
-> +			drm_printf(p, "    flags: 0x%x\n", state->bos[i].flags);
->  			drm_printf(p, "    name: %-32s\n", state->bos[i].name);
+> diff --git a/arch/arm64/boot/dts/qcom/msm8998.dtsi b/arch/arm64/boot/dts/qcom/msm8998.dtsi
+> index 3d3b1f61c0690..edf379c28e1e1 100644
+> --- a/arch/arm64/boot/dts/qcom/msm8998.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/msm8998.dtsi
+> @@ -1580,7 +1580,6 @@ adreno_smmu: iommu@5040000 {
+>  			 * SoC VDDMX RPM Power Domain in the Adreno driver.
+>  			 */
+>  			power-domains = <&gpucc GPU_GX_GDSC>;
+> -			status = "disabled";
+>  		};
 >  
->  			adreno_show_object(p, &state->bos[i].data,
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index d14ec058906f..ceaee23a4d22 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -222,14 +222,16 @@ static void msm_gpu_crashstate_get_bo(struct msm_gpu_state *state,
->  		struct drm_gem_object *obj, u64 iova, bool full)
->  {
->  	struct msm_gpu_state_bo *state_bo = &state->bos[state->nr_bos];
-> +	struct msm_gem_object *msm_obj = to_msm_bo(obj);
->  
->  	/* Don't record write only objects */
->  	state_bo->size = obj->size;
-> +	state_bo->flags = msm_obj->flags;
->  	state_bo->iova = iova;
->  
-> -	BUILD_BUG_ON(sizeof(state_bo->name) != sizeof(to_msm_bo(obj)->name));
-> +	BUILD_BUG_ON(sizeof(state_bo->name) != sizeof(msm_obj->name));
->  
-> -	memcpy(state_bo->name, to_msm_bo(obj)->name, sizeof(state_bo->name));
-> +	memcpy(state_bo->name, msm_obj->name, sizeof(state_bo->name));
->  
->  	if (full) {
->  		void *ptr;
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index 685470b84708..05bb247e7210 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -527,6 +527,7 @@ struct msm_gpu_submitqueue {
->  struct msm_gpu_state_bo {
->  	u64 iova;
->  	size_t size;
-> +	u32 flags;
->  	void *data;
->  	bool encoded;
->  	char name[32];
+>  		gpucc: clock-controller@5065000 {
 > -- 
-> 2.45.0
+> 2.34.1
 > 
