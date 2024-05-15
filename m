@@ -2,78 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0FFE8D8A50
-	for <lists+freedreno@lfdr.de>; Mon,  3 Jun 2024 21:38:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A8858D8A61
+	for <lists+freedreno@lfdr.de>; Mon,  3 Jun 2024 21:39:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E01E10E3E1;
-	Mon,  3 Jun 2024 19:38:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CACB10E3D9;
+	Mon,  3 Jun 2024 19:39:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="YOpRLYnv";
+	dkim=permerror (0-bit key) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="rFQGX90f";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9970C10E36A
- for <freedreno@lists.freedesktop.org>; Wed, 15 May 2024 14:27:47 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-41ffad2426eso52728055e9.3
- for <freedreno@lists.freedesktop.org>; Wed, 15 May 2024 07:27:47 -0700 (PDT)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9537D10E164
+ for <freedreno@lists.freedesktop.org>; Wed, 15 May 2024 15:09:05 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-34ef66c0178so4718585f8f.1
+ for <freedreno@lists.freedesktop.org>; Wed, 15 May 2024 08:09:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1715783265; x=1716388065;
+ d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1715785744; x=1716390544;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-language:cc:to:subject:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1HxPoa4NQhCeMpVCVW9Zfj831zpXTVZAZVyPlzQIJ10=;
- b=YOpRLYnvtpwih8KoM2Ce38XPteu3BWztctU8heZG+2F+OsCWce0Gn9O5a6lRqrlM2K
- 27zEFXDITKx0j3NZqB3IEZqTonWii3rHSAr+bfl1TKeFOJyajGgu0mDvNNmvXuxAFK+S
- Q9UOHtajrxVUVWVcIc85L5MICA1j6k0uudILZ59s7PwJafW3acoYIQuHjcm4/H0pgY/W
- TNRlhaTZXUEQ6kKKojszon+znB4kliO+syRHlXyBY/P8UHPzUCdY8hHSrbY5199zpSzu
- 0cKJv1odckpNmzAFzXoRSlGXQPOcdw0SQyt616la/nsGSDT8DCGSvuVC2jV0QBs12+5S
- FPZA==
+ bh=flkhhsssIkeF8ctxoVaXxvbj2CjTJSXnEi2RVgoyGI8=;
+ b=rFQGX90fvC7yjxFPhoovK9zFm12U9jjsqtZEXzKTY6Rx+eZBpV2QGFs1dHbyuFpIw9
+ SCnkTRqwtpIvLntbdWx9WvJtCRIqwiWm+7En2/qHgD4oab+wAz2QSZm3YGVSuPOHckU6
+ 3OeHu8Iz22q6hE1F5a4TOcb5wZJZZKahckCP0CJF1TH9Q6T+b0Cix1HX2NESnE8eYZTj
+ Mtom3i7SuqcMtxWmgDO0yCXr2l9jwHDVZklihnCd5UjH8sIW4Xs+67Yn3ynEe+IeXwrD
+ y41IVyQ9x4HJwuX8W0TDEnGr74ZnOvIYIF7ck1/UZ0oQCqyBLgEQ8sNI61hDsbonw3iw
+ mLsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715783265; x=1716388065;
+ d=1e100.net; s=20230601; t=1715785744; x=1716390544;
  h=content-transfer-encoding:content-language:cc:to:subject:from
  :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=1HxPoa4NQhCeMpVCVW9Zfj831zpXTVZAZVyPlzQIJ10=;
- b=Jd01zEKH2V379RA2hcj4Ks31H5XC7b2z4rp5FfsbModRv3A14rVbji5PPTivk6jKfv
- xq1I3i0ks+4eGZDA1FjkkYh3bZNOYH4oiIBIHqwzCo6h1IWD974g7pVhuROsEqnOuPfm
- Xd0K7lsqu6bB3JyJ+4qtYtDVkCFFNJ3YCJy2PCs1CciF1tSsHwITjgtipUrVVWd/R0pV
- ylv98tugJbUvBFweZUpLE+P+axTeGsrFEU2Zv8cAcGAv/WT7fU8QjrHnsQCmECPmQInl
- CjNBuNjG/KcN/c5r08/xuhbPkbL0gIHpWCN738oZmRQfuM8Q8rIHR+/AqInpQOz3G5WY
- zj4g==
+ bh=flkhhsssIkeF8ctxoVaXxvbj2CjTJSXnEi2RVgoyGI8=;
+ b=jJJB9W1WnCKsxQkgPIc8RvZ5TLtGcYQXsSHc9+nL5b2rR7Hyx7no6Ljznptl+Oef+9
+ 9bH4d9hpuiah0Pve4pqamOp8iH/8dG2lz9oWq7D/f9CJCx3O1rtQBkhjwYS/vKYbyCVY
+ oIg0rHTWjmoewY6urPt/8a0EzXeSXtCnz0h5c/QKQGSh8jTE+vbRA452EEK/f9BvYXaD
+ b1Qxs769AAzytqNKwDmuAaip0DywrkFRJnz0UJbW56AF049guYHJCommykpkhPVXB4A+
+ kUc6xir9E7sb5UinienvrvC9lU9QgqYNZTZ/RsNEd432z/A4CNHA2etJ0MicPe24ZyyT
+ BjMQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW6ohjXKApHNlwX3r2x6QOiG8o5GTcmPESXVQWEShuMKXRAOSYKihCWhVmcbweeKfXlNQvPE7OmS0lwBc8Gcr50wazrykJgpGjWSpjpSrjY
-X-Gm-Message-State: AOJu0YyHL0zFhz5ZPFTDOaM5ILWvoXoNXakbS9lhCVjSmxlFM99DcTTx
- tV3+/NzdrSBHclhEef1iSfWwP+QMPEVgz2+eq8b7nQtiGw4K3qXSnZI/Iq+MEJA=
-X-Google-Smtp-Source: AGHT+IFIMkUB3jdsXdDaj/pLEq16XlGdkbO55sEQsBTeKbrHyf1fwTl3ZOHdEt2yaaFuYLNWSfBSkA==
-X-Received: by 2002:a7b:cbc2:0:b0:41a:225f:becc with SMTP id
- 5b1f17b1804b1-41feaa44406mr148324755e9.21.1715783265398; 
- Wed, 15 May 2024 07:27:45 -0700 (PDT)
+ AJvYcCV8iPrh/jGFRZpxWY4CPka15ybNfZamrcBfXxPtuHvFN4JtPvXgK5FDVliUEqH+v1Mcck//PK616P98fHmyYxu5zEPdNRxk6D2t7T17ctTE
+X-Gm-Message-State: AOJu0YyylrWLGjLhEIWW9D6695RGrEre+URvZFktXXOkous2kV/DrEjg
+ cgXLDYzXwfF4sVh0LCrkRziawVJlrjxhu5MJylnRDrGjqxxTmXM9HW6q1ootGDo=
+X-Google-Smtp-Source: AGHT+IEm3wINvRmGEYt2yq6uqsVqBP1IBFUf0xbpVPvkLnzsP5iGlYaRsLTFk8FiXtOME0dEy9OuDQ==
+X-Received: by 2002:adf:eb87:0:b0:34c:94e7:73e3 with SMTP id
+ ffacd0b85a97d-3504a9560ffmr17646508f8f.53.1715785743773; 
+ Wed, 15 May 2024 08:09:03 -0700 (PDT)
 Received: from ?IPV6:2a01:e34:ec24:52e0:cfcc:f257:b4dd:873d?
  ([2a01:e34:ec24:52e0:cfcc:f257:b4dd:873d])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-41fccce1912sm238592105e9.11.2024.05.15.07.27.44
+ ffacd0b85a97d-351b4af0b0asm10146837f8f.100.2024.05.15.08.09.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 May 2024 07:27:44 -0700 (PDT)
-Message-ID: <be51d1a4-e8fc-48d1-9afb-a42b1d6ca478@freebox.fr>
-Date: Wed, 15 May 2024 16:27:44 +0200
+ Wed, 15 May 2024 08:09:03 -0700 (PDT)
+Message-ID: <64ec16b9-c680-408c-b547-5debae2f7f87@freebox.fr>
+Date: Wed, 15 May 2024 17:09:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Marc Gonzalez <mgonzalez@freebox.fr>
-Subject: [PATCH v2] arm64: dts: qcom: msm8998: enable adreno_smmu by default
-To: Bjorn Andersson <andersson@kernel.org>,
+Subject: [PATCH] drm/msm: log iommu init failure
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: MSM <linux-arm-msm@vger.kernel.org>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Bryan O Donoghue <bryan.odonoghue@linaro.org>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Pierre-Hugues Husson <phhusson@freebox.fr>, Arnaud Vrac <avrac@freebox.fr>,
+ Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Jeffrey Hugo <quic_jhugo@quicinc.com>
-Cc: MSM <linux-arm-msm@vger.kernel.org>, freedreno@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bryan O Donoghue <bryan.odonoghue@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- Luca Weiss <luca.weiss@fairphone.com>,
- Pierre-Hugues Husson <phhusson@freebox.fr>, Arnaud Vrac <avrac@freebox.fr>
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
@@ -93,62 +93,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-15 qcom platform DTSI files define an adreno_smmu node.
-msm8998 is the only one with adreno_smmu disabled by default.
+When create_address_space() fails (e.g. when smmu node is disabled)
+msm_gpu_init() silently fails:
 
-There's no reason why this SMMU should be disabled by default,
-it doesn't need any further configuration.
-
-Bring msm8998 in line with the 14 other platforms.
-
-This fixes GPU init failing with ENODEV:
 msm_dpu c901000.display-controller: failed to load adreno gpu
 msm_dpu c901000.display-controller: failed to bind 5000000.gpu (ops a3xx_ops): -19
 
-Fixes: 87cd46d68aeac8 ("Configure Adreno GPU and related IOMMU")
+Log create_address_space() failure.
+
 Signed-off-by: Marc Gonzalez <mgonzalez@freebox.fr>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
-New in v2: rewrote commit message with input from Martin, Bryan, Luca
-Supersedes: <1ba7031f-c97c-41f1-8cbc-d99f1e848e76@freebox.fr>
+ drivers/gpu/drm/msm/msm_gpu.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Maintainers, feel free to drop the Fixes tag.
-
-Failure log:
-[    2.756363] [drm:adreno_bind] Found GPU: 5.4.0.1
-[    2.767183] [drm:a5xx_gpu_init]
-[    2.767422] [drm:adreno_gpu_init] fast_rate=710000097, slow_rate=27000000
-[    3.003869] [drm:msm_gpu_init] ebi1_clk: fffffffffffffffe
-[    3.004002] adreno 5000000.gpu: supply vdd not found, using dummy regulator
-[    3.008463] [drm:msm_gpu_init] gpu_reg: ffff0000819e4000
-[    3.015105] adreno 5000000.gpu: supply vddcx not found, using dummy regulator
-[    3.020702] [drm:msm_gpu_init] gpu_cx: ffff0000819e4180
-[    3.028173] [drm:adreno_iommu_create_address_space]
-[    3.054552] [drm:msm_gpu_init] gpu->aspace=ffffffffffffffed
-[    3.058112] [drm:a5xx_destroy] 5.4.0.1
-[    3.065922] [drm:msm_gpu_cleanup] 5.4.0.1
-[    3.074237] msm_dpu c901000.display-controller: failed to load adreno gpu
-[    3.082412] msm_dpu c901000.display-controller: failed to bind 5000000.gpu (ops a3xx_ops): -19
-[    3.088342] msm_dpu c901000.display-controller: [drm:drm_managed_release] drmres release begin
-...
-[    3.197694] [drm:drm_managed_release] drmres release end
-[    3.204009] msm_dpu c901000.display-controller: adev bind failed: -19
----
- arch/arm64/boot/dts/qcom/msm8998.dtsi | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/msm8998.dtsi b/arch/arm64/boot/dts/qcom/msm8998.dtsi
-index 3d3b1f61c0690..edf379c28e1e1 100644
---- a/arch/arm64/boot/dts/qcom/msm8998.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8998.dtsi
-@@ -1580,7 +1580,6 @@ adreno_smmu: iommu@5040000 {
- 			 * SoC VDDMX RPM Power Domain in the Adreno driver.
- 			 */
- 			power-domains = <&gpucc GPU_GX_GDSC>;
--			status = "disabled";
- 		};
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 655002b21b0d5..f1e692866cc38 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -941,6 +941,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 		DRM_DEV_INFO(drm->dev, "%s: no IOMMU, fallback to VRAM carveout!\n", name);
+ 	else if (IS_ERR(gpu->aspace)) {
+ 		ret = PTR_ERR(gpu->aspace);
++		DRM_DEV_ERROR(drm->dev, "could not create address space: %d\n", ret);
+ 		goto fail;
+ 	}
  
- 		gpucc: clock-controller@5065000 {
 -- 
 2.34.1
 
