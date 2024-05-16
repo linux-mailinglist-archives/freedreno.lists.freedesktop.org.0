@@ -2,42 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 800DE8C68FF
-	for <lists+freedreno@lfdr.de>; Wed, 15 May 2024 16:48:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9A5C8C7315
+	for <lists+freedreno@lfdr.de>; Thu, 16 May 2024 10:43:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5160F10EA34;
-	Wed, 15 May 2024 14:48:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8CAF10E156;
+	Thu, 16 May 2024 08:43:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay02.th.seeweb.it (relay02.th.seeweb.it [5.144.164.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AFAA10E20E
- for <freedreno@lists.freedesktop.org>; Wed, 15 May 2024 14:48:05 +0000 (UTC)
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it [5.144.164.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E16E10E156
+ for <freedreno@lists.freedesktop.org>; Thu, 16 May 2024 08:43:04 +0000 (UTC)
 Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
  [94.211.6.86])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
  server-digest SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id D970D1FD0A;
- Wed, 15 May 2024 16:48:01 +0200 (CEST)
-Date: Wed, 15 May 2024 16:48:00 +0200
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 070501F53E;
+ Thu, 16 May 2024 10:43:01 +0200 (CEST)
+Date: Thu, 16 May 2024 10:43:00 +0200
 From: Marijn Suijten <marijn.suijten@somainline.org>
 To: Marc Gonzalez <mgonzalez@freebox.fr>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>, Jeffrey Hugo <quic_jhugo@quicinc.com>,
- MSM <linux-arm-msm@vger.kernel.org>, freedreno@lists.freedesktop.org, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bryan O Donoghue <bryan.odonoghue@linaro.org>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Luca Weiss <luca.weiss@fairphone.com>, 
- Pierre-Hugues Husson <phhusson@freebox.fr>, Arnaud Vrac <avrac@freebox.fr>
-Subject: Re: [PATCH v2] arm64: dts: qcom: msm8998: enable adreno_smmu by
- default
-Message-ID: <pbwsu3w6nl2eyrpbyquo2xmlt2xeniloyhcoegsdoaxs5ezhcn@552egeqfqcz7>
-References: <be51d1a4-e8fc-48d1-9afb-a42b1d6ca478@freebox.fr>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ MSM <linux-arm-msm@vger.kernel.org>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, 
+ Bryan O Donoghue <bryan.odonoghue@linaro.org>,
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Pierre-Hugues Husson <phhusson@freebox.fr>, Arnaud Vrac <avrac@freebox.fr>, 
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Jeffrey Hugo <quic_jhugo@quicinc.com>
+Subject: Re: [PATCH] drm/msm: log iommu init failure
+Message-ID: <dkmtnizbuyswyvocczjfgmhsuedawliabycig4urw42a65hu3j@jglxzumuzamd>
+References: <64ec16b9-c680-408c-b547-5debae2f7f87@freebox.fr>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <be51d1a4-e8fc-48d1-9afb-a42b1d6ca478@freebox.fr>
+In-Reply-To: <64ec16b9-c680-408c-b547-5debae2f7f87@freebox.fr>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,89 +55,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2024-05-15 16:27:44, Marc Gonzalez wrote:
-> 15 qcom platform DTSI files define an adreno_smmu node.
-> msm8998 is the only one with adreno_smmu disabled by default.
+On 2024-05-15 17:09:02, Marc Gonzalez wrote:
+> When create_address_space() fails (e.g. when smmu node is disabled)
+> msm_gpu_init() silently fails:
 > 
-> There's no reason why this SMMU should be disabled by default,
-> it doesn't need any further configuration.
-> 
-> Bring msm8998 in line with the 14 other platforms.
-> 
-> This fixes GPU init failing with ENODEV:
-
-Nit: I'd specialize this to:
-
-"This saves every MSM8998 board DTS from having to enable adreno_smmu when
-enabling the Adreno GPU node, which leads to the following unclear probe failure
-when forgotten about:"
-
-But no need to send a v3 for that.
-
 > msm_dpu c901000.display-controller: failed to load adreno gpu
 > msm_dpu c901000.display-controller: failed to bind 5000000.gpu (ops a3xx_ops): -19
-
-And as a more general discussion, which is not really relevant to have your
-commit message, we could have a separate patch adding an error message detailing
-**where** this -19 came from.  In this case create_address_space().
-
-> Fixes: 87cd46d68aeac8 ("Configure Adreno GPU and related IOMMU")
+> 
+> Log create_address_space() failure.
+> 
 > Signed-off-by: Marc Gonzalez <mgonzalez@freebox.fr>
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
+Thanks!
+
+Suggested-by: Marijn Suijten <marijn.suijten@somainline.org>
+
+And, after checking the below:
 
 Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
 > ---
-> New in v2: rewrote commit message with input from Martin, Bryan, Luca
-
-Thanks!
-
-> Supersedes: <1ba7031f-c97c-41f1-8cbc-d99f1e848e76@freebox.fr>
+>  drivers/gpu/drm/msm/msm_gpu.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> Maintainers, feel free to drop the Fixes tag.
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> index 655002b21b0d5..f1e692866cc38 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> @@ -941,6 +941,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>  		DRM_DEV_INFO(drm->dev, "%s: no IOMMU, fallback to VRAM carveout!\n", name);
+>  	else if (IS_ERR(gpu->aspace)) {
+>  		ret = PTR_ERR(gpu->aspace);
+> +		DRM_DEV_ERROR(drm->dev, "could not create address space: %d\n", ret);
 
-For context, I don't think the original patch was necessarily wrong in disabling
-this node, as any node using it (adreno_gpu) is also disabled by default.  It is
-however less consistent with other DTSI, which don't require every board DTS to
-re-enable adreno_smmu.
+Maybe this wasn't done before because this also includes `-EPROBE_DEFER`, so you
+might want to wrap this in
+
+	if (ret != -EPROBE_DEFER)
+		DRM_DEV_ERROR...
+
+But then dev_err_probe() was built specifically to be less verbose about this
+(and track defer reasons).  While this is an init and not probe function, it's
+called from struct component_ops->bind where it should be okay to call that,
+as long as you have access to the component `struct device*` and not its master
+(IIRC).
 
 - Marijn
 
-> Failure log:
-> [    2.756363] [drm:adreno_bind] Found GPU: 5.4.0.1
-> [    2.767183] [drm:a5xx_gpu_init]
-> [    2.767422] [drm:adreno_gpu_init] fast_rate=710000097, slow_rate=27000000
-> [    3.003869] [drm:msm_gpu_init] ebi1_clk: fffffffffffffffe
-> [    3.004002] adreno 5000000.gpu: supply vdd not found, using dummy regulator
-> [    3.008463] [drm:msm_gpu_init] gpu_reg: ffff0000819e4000
-> [    3.015105] adreno 5000000.gpu: supply vddcx not found, using dummy regulator
-> [    3.020702] [drm:msm_gpu_init] gpu_cx: ffff0000819e4180
-> [    3.028173] [drm:adreno_iommu_create_address_space]
-> [    3.054552] [drm:msm_gpu_init] gpu->aspace=ffffffffffffffed
-> [    3.058112] [drm:a5xx_destroy] 5.4.0.1
-> [    3.065922] [drm:msm_gpu_cleanup] 5.4.0.1
-> [    3.074237] msm_dpu c901000.display-controller: failed to load adreno gpu
-> [    3.082412] msm_dpu c901000.display-controller: failed to bind 5000000.gpu (ops a3xx_ops): -19
-> [    3.088342] msm_dpu c901000.display-controller: [drm:drm_managed_release] drmres release begin
-> ...
-> [    3.197694] [drm:drm_managed_release] drmres release end
-> [    3.204009] msm_dpu c901000.display-controller: adev bind failed: -19
-> ---
->  arch/arm64/boot/dts/qcom/msm8998.dtsi | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/msm8998.dtsi b/arch/arm64/boot/dts/qcom/msm8998.dtsi
-> index 3d3b1f61c0690..edf379c28e1e1 100644
-> --- a/arch/arm64/boot/dts/qcom/msm8998.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/msm8998.dtsi
-> @@ -1580,7 +1580,6 @@ adreno_smmu: iommu@5040000 {
->  			 * SoC VDDMX RPM Power Domain in the Adreno driver.
->  			 */
->  			power-domains = <&gpucc GPU_GX_GDSC>;
-> -			status = "disabled";
->  		};
+>  		goto fail;
+>  	}
 >  
->  		gpucc: clock-controller@5065000 {
 > -- 
 > 2.34.1
 > 
