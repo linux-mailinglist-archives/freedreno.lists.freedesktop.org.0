@@ -2,36 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB8B68C8A04
-	for <lists+freedreno@lfdr.de>; Fri, 17 May 2024 18:23:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEC0D8C8B16
+	for <lists+freedreno@lfdr.de>; Fri, 17 May 2024 19:36:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A79810E27F;
-	Fri, 17 May 2024 16:23:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3F7110EF38;
+	Fri, 17 May 2024 17:36:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F8J6rGhR";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RB5PiJp6";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6062210E1A6;
- Fri, 17 May 2024 16:23:25 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 3056CCE1B3A;
- Fri, 17 May 2024 16:23:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70342C2BD10;
- Fri, 17 May 2024 16:23:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1715962993;
- bh=uNwlZVn0k6bBYrUn2NOTbtyZjAe9hAwPUWGNLiaSzKs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=F8J6rGhR6abMw+H3e0sNsBE3c0HR9drUMq7zelYKMTQHa0vv/MIG2W8+/hD/7XTI+
- 9VkRoCKMyZzVY3LjQAv7zTKPKrfWjp+PaYpWL+HZIXKwJ9PpfHkWCOm8/AnprKJTiS
- x71fH3FEiRuBcJ7Snaffb4mCRWAYWAV32gCoEeO44TUBKDap7ZLHPJJXjD0QMTmCNO
- ZUj+MK/eDva4zMj4VegTwZ0y/H/lyuO2Nk/KqN8YnLbubwD8YFqugReL9OgeiAJUxc
- u0pTJlCPPo4/7T1+KTMYWfO14b9TwwHb+K7KeD4YmO6RNA3DpP+PsNxwbeXmOHuVhd
- +qE7xoo2PLRTA==
-Date: Fri, 17 May 2024 09:23:12 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A97510EF37;
+ Fri, 17 May 2024 17:36:39 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-1eeabda8590so15115185ad.0; 
+ Fri, 17 May 2024 10:36:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1715967399; x=1716572199; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+ :reply-to; bh=rzMfxbAB8QJEcJdIySGROcUOqAKXWq8nqUdcExbi1Zk=;
+ b=RB5PiJp6QFwFLKg+b7D4SwL0yoN4nsX69s/iIDOwYan1XKgYWnSNKSk/5xOFSBrK+P
+ Pj1+ZqF7/rPCGwG2j+chcWb+Z4rnNlL5VaC0/3Q/e03XjPMDODyFWK7z1mHturBowJPc
+ ZaAJmXhglBQjo3ZFjeXAsuIoE1QSj4Xi1n5YPlITmxOxW02Kceu3+t9bX5wvgLduXGnC
+ YOSKG65CZaQzSwPLoZuT19hE0vtncnGtW1572LqUW965QNwy/vGwiNPoiWcDW6J98lzO
+ qcTpwLTQs0UFUqEY79tlJ7/wnKrhdllNXs2W/OnYoBqmRJE8IXKk9f4VjQeUiZVLQsGp
+ ztCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715967399; x=1716572199;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rzMfxbAB8QJEcJdIySGROcUOqAKXWq8nqUdcExbi1Zk=;
+ b=wp/lu6ZqyViFGfyDQgpiojvMnPacUSdmPbygb79J7oUl75XyF0HUBspgUCzIe/ibOn
+ Pb6yDU+Q5kBjrUdEH+BXaUtdZnmYGTqfQz7z/8BFi2uOHjX4IPgMK4ljcyLC9gjsS8Cr
+ BHq5uvTRxsC0Mq4i6ez9r91xf9yNCurdstRqGFZafIzpl0QloxoedBS5KOb5T5Q+wOJw
+ hzS6qV6WI4iNRcvCXIXfgtYBy1iHLQKuYcm1QMm+c5dvC5E9T/xqlPUnc85RTOgf+nao
+ fNR+eqyOPrMFens2eZUtuxFsQy2R5pXR8DE424p8Lf6h3CITSz3I14UH8eDZi5mHya1L
+ WowQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXMGypGSdZu/gd6V1nFzWwgVfgfjxFBmjyqGc7hlc7npj1WQYvoe/Uf64xJ0wQUewYpi9U7IiviZ3b+cnaZycUvi6RbnxOGtq3YkyqYG/HTdZrLIhDt3jZgAllMH11yY/6tFuqtjy3I/5yBd/ltH9O7FFcMkj9D3vWbzn5UHV6bxns0hsWU2fS2uz2OyQ05UsHCtktXt/2eDvCWscQ+kVTGKBvbwWPvvBvg/2OalNH1btaPgT59jQ27zI64PvU6OMkpE2+maU98Nvy6T7UOEnPf
+X-Gm-Message-State: AOJu0YyvsM8nXLvr6OfDRkdxtD4h8FgEPl0lxsUV6AS45D+BR45BNZXh
+ DDwzF0ePLL+1jjT/h8f2xU0nEpUnr3P/sq8ZsQqy1CTVQ7CkAMLWjiYDUA==
+X-Google-Smtp-Source: AGHT+IHJ9PZtASiLb9HJkYrHy1DRhdQlVEuKbRr0NYIRv4Tx+av91BIA0wx1gBcIQQlm9sd2COIQnQ==
+X-Received: by 2002:a17:90a:9606:b0:2b9:a299:928e with SMTP id
+ 98e67ed59e1d1-2b9a29994c9mr10436893a91.24.1715967398710; 
+ Fri, 17 May 2024 10:36:38 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2b67105666csm15749258a91.8.2024.05.17.10.36.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 May 2024 10:36:38 -0700 (PDT)
+Date: Fri, 17 May 2024 10:36:37 -0700
+From: Guenter Roeck <linux@roeck-us.net>
 To: Steven Rostedt <rostedt@goodmis.org>
 Cc: LKML <linux-kernel@vger.kernel.org>,
  Linux trace kernel <linux-trace-kernel@vger.kernel.org>,
@@ -62,7 +87,7 @@ Cc: LKML <linux-kernel@vger.kernel.org>,
  tipc-discussion@lists.sourceforge.net, Julia Lawall <Julia.Lawall@inria.fr>
 Subject: Re: [PATCH] tracing/treewide: Remove second parameter of
  __assign_str()
-Message-ID: <20240517162312.GZ360919@frogsfrogsfrogs>
+Message-ID: <5080f4c5-e0b3-4c2e-9732-f673d7e6ca66@roeck-us.net>
 References: <20240516133454.681ba6a0@rorschach.local.home>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -116,25 +141,20 @@ On Thu, May 16, 2024 at 01:34:54PM -0400, Steven Rostedt wrote:
 > I then searched for __assign_str() that did not end with ';' as those
 > were multi line assignments that the sed script above would fail to catch.
 > 
-> Note, the same updates will need to be done for:
-> 
->   __assign_str_len()
->   __assign_rel_str()
->   __assign_rel_str_len()
-> 
-> I tested this with both an allmodconfig and an allyesconfig (build only for both).
-> 
-> [1] https://lore.kernel.org/linux-trace-kernel/20240222211442.634192653@goodmis.org/
-> 
-> Cc: Masami Hiramatsu <mhiramat@kernel.org>
-> Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> Cc: Linus Torvalds <torvalds@linux-foundation.org>
-> Cc: Julia Lawall <Julia.Lawall@inria.fr>
-> Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 
-/me finds this pretty magical, but such is the way of macros.
-Thanks for being much smarter about them than me. :)
+Building csky:allmodconfig (and others) ... failed
+--------------
+Error log:
+In file included from include/trace/trace_events.h:419,
+                 from include/trace/define_trace.h:102,
+                 from drivers/cxl/core/trace.h:737,
+                 from drivers/cxl/core/trace.c:8:
+drivers/cxl/core/./trace.h:383:1: error: macro "__assign_str" passed 2 arguments, but takes just 1
 
-Acked-by: Darrick J. Wong <djwong@kernel.org>	# xfs
+This is with the patch applied on top of v6.9-8410-gff2632d7d08e.
+So far that seems to be the only build failure.
+Introduced with commit 6aec00139d3a8 ("cxl/core: Add region info to
+cxl_general_media and cxl_dram events"). Guess we'll see more of those
+towards the end of the commit window.
 
---D
+Guenter
