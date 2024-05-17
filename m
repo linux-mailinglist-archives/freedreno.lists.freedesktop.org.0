@@ -2,76 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 063248C8CF6
-	for <lists+freedreno@lfdr.de>; Fri, 17 May 2024 21:50:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D06618C8E91
+	for <lists+freedreno@lfdr.de>; Sat, 18 May 2024 01:38:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2520E10E00F;
-	Fri, 17 May 2024 19:50:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1F510E1B9;
+	Fri, 17 May 2024 23:38:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a6PRcZdi";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="arJWlw6n";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 785CB10E00F;
- Fri, 17 May 2024 19:50:29 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-1e4c4fb6af3so6304495ad.0; 
- Fri, 17 May 2024 12:50:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715975428; x=1716580228; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=vGDwCwwhr9iyyZbcO2LNbRmyKSJnbSVS/UCD4IYwGr8=;
- b=a6PRcZdi5n8lu2w6/Ze+CzTG4fMhU2PzW8KgViFlz+Fk6WqKe0W4tl15oJVJdfzLcZ
- PTxRi+xYgxPObAgefoIUeXkdxkKvUq6rzQXhRJ5cVABOTB3mJHrJNL3Pnc+Z8tgqIIQo
- gHnHZ/kt/hzPcUdRCxn+Jv70vMsKQzdYEf9LPNhyw6puCQtseS2ZuU5XGgNValGtHzef
- ylS8Si8rlG/ED5TT0dzOkQIqr5lYWOP3diXbMtw0RBrVgtFMiJrsnjKiTW+cVxck9shC
- CGxMCHIFaoXqr+uWazzNtgw1+91CUWoALWNj+bZzeozuEEjmXgm7XvJJyeLv+IqXGXY+
- p9OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715975428; x=1716580228;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vGDwCwwhr9iyyZbcO2LNbRmyKSJnbSVS/UCD4IYwGr8=;
- b=jmTCwTMKE/fyd79bimYMLbNuST4h2Khn+/8H7kalq0sNvi7aN6QYQtRnQKhin625Zb
- Sq2gV9FprnWEJPhn0QBawIZpm3smZrU08Zr0OVUrfXwZ4otHoU65fFTUlBQjWVwekhBy
- WSPY34RETtnGh0/XX6Z+JafQ63vWnIqfT5uY+XD2Pj0yczPGE7d1p1lYWh/CLScIgLr+
- rKFgmljmTzvOkfOhmgKo2bFVEmuah8Ez58oAUfxc9vG1Hr7vx/HLweWeYop/+aufwuun
- t3CKZzdvQbbD511IcW4XkiKMnCadqGymPg8BntVNbNoyfVQZmFZ9QoxozPXFmZ66y5bE
- rRzg==
-X-Gm-Message-State: AOJu0YyK7xpi9ktL0p3LNvvMOy7i4QH6vd8Z+NNpGeB3HEWFsAzTCHKQ
- yojZJ4UwZEHm0acG4Rj0ykLaxoSShBoYr+kGi1nju1Z064YOQoBkh1W+RA==
-X-Google-Smtp-Source: AGHT+IGED0PKOMspRHBg/lO86eagMfaS1Pal7MYA8gYSpyUm/2pAAGCaWIEFdpCNBk+5VKC7GhGXlA==
-X-Received: by 2002:a17:902:d4ca:b0:1eb:3d68:fc2b with SMTP id
- d9443c01a7336-1f2ed3f863amr1029215ad.34.1715975427744; 
- Fri, 17 May 2024 12:50:27 -0700 (PDT)
-Received: from localhost ([2a00:79e1:2e00:1301:e1c5:6354:b45d:8ffc])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1ef0b9d188dsm160529775ad.2.2024.05.17.12.50.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 May 2024 12:50:26 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, Nikita Travkin <nikita@trvn.ru>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Bjorn Andersson <quic_bjorande@quicinc.com>,
- Connor Abbott <cwabbott0@gmail.com>, Ruan Jinjie <ruanjinjie@huawei.com>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm/adreno: Check for zap node availability
-Date: Fri, 17 May 2024 12:50:19 -0700
-Message-ID: <20240517195021.8873-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.45.1
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BA3D10E1B9;
+ Fri, 17 May 2024 23:38:16 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44HI00d6015781;
+ Fri, 17 May 2024 23:38:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=+PhWCjT
+ jycCCMywpgQ3tsK6PhXSGgOauTcstB8Gxvlk=; b=arJWlw6noRCFpEqCX1gP49b
+ rjfy4KKXXiK4rrS6DKlxbWquem1i29NxtujZ6x4h2bycfDJM/ATGu6y3HqgFkrLF
+ GgbBzIanxxz2XYDc2ybK+GFsCOqxbc6FZIjet/I8ovfexA7mqTyZUnyMPeJSc/7I
+ hg19GDjlneGNoL+yZNmi1az2SI8ZEf++MpxwKZpHXXX5GymwpaeUrqWbVo9778I0
+ vIOa229dNsJ4BxKG+FXMGnYDXLPy2gzPwn+4vtl0HqYtSjrUXLqajT4jZJ30mVmp
+ CKgBenZW7RkmmMo3RRGyUGPn3T9N6HEIVsBqnWI6EpC/4Y5BlJTmeSgiWqGOpIA=
+ =
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3y47egh9w9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 17 May 2024 23:38:10 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44HNc9VR006544
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 17 May 2024 23:38:09 GMT
+Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Fri, 17 May 2024 16:38:09 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+CC: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <seanpaul@chromium.org>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <daniel@ffwll.ch>,
+ <dmitry.baryshkov@linaro.org>, <quic_jesszhan@quicinc.com>
+Subject: [RFC PATCH 0/4] drm/msm: add a display mmu fault handler
+Date: Fri, 17 May 2024 16:37:55 -0700
+Message-ID: <20240517233801.4071868-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: HNMARDMd4q91HuEE6S66zcfM08fX1k8D
+X-Proofpoint-ORIG-GUID: HNMARDMd4q91HuEE6S66zcfM08fX1k8D
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-17_11,2024-05-17_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 adultscore=0
+ malwarescore=0 phishscore=0 spamscore=0 mlxlogscore=792 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405010000 definitions=main-2405170184
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,29 +89,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+To debug display mmu faults, this series introduces a display fault
+handler similar to the gpu one.
 
-This should allow disabling the zap node via an overlay, for slbounce.
+This is only compile tested at the moment, till a suitable method
+to trigger the fault is found and see if this handler does the needful
+on the device.
 
-Suggested-by: Nikita Travkin <nikita@trvn.ru>
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Abhinav Kumar (4):
+  drm/msm: register a fault handler for display mmu faults
+  drm/msm/iommu: rename msm_fault_handler to msm_gpu_fault_handler
+  drm/msm/iommu: introduce msm_iommu_disp_new() for msm_kms
+  drm/msm: switch msm_kms to use msm_iommu_disp_new()
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index d9ea15994ae9..a00241e3373b 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -46,7 +46,7 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
- 	}
- 
- 	np = of_get_child_by_name(dev->of_node, "zap-shader");
--	if (!np) {
-+	if (!np || !of_device_is_available(np)) {
- 		zap_available = false;
- 		return -ENODEV;
- 	}
+ drivers/gpu/drm/msm/msm_iommu.c | 34 ++++++++++++++++++++++++++++++---
+ drivers/gpu/drm/msm/msm_kms.c   | 27 +++++++++++++++++++++++++-
+ drivers/gpu/drm/msm/msm_mmu.h   |  1 +
+ 3 files changed, 58 insertions(+), 4 deletions(-)
+
 -- 
-2.45.1
+2.44.0
 
