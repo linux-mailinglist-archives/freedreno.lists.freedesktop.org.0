@@ -2,83 +2,147 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82FB48C8E97
-	for <lists+freedreno@lfdr.de>; Sat, 18 May 2024 01:38:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6885C8C8F11
+	for <lists+freedreno@lfdr.de>; Sat, 18 May 2024 03:25:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C6EE10E329;
-	Fri, 17 May 2024 23:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55E7710E182;
+	Sat, 18 May 2024 01:25:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="IEgc64Vb";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iIKGU5hj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B567310E2EE;
- Fri, 17 May 2024 23:38:19 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44HI0OoS026628;
- Fri, 17 May 2024 23:38:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- qcppdkim1; bh=Wkf15et0LGIqkNnyWmzVU3f9IoC1kvo+kKKWTEObMfE=; b=IE
- gc64Vbuen8Z3UpI0PRsCbVIecBsMPXyP8FqjHe68kH/XrJjUwKzepCjHLkNtax4t
- JNox/bG/6cg/5HBYZX9++6d2sGA7WsItz6OVWFhOe+oMazzcIZe9kvxhsGzgpJ/3
- YAXk4HXTKJY4oQdIraq4zvbl+lNAEPYbG64GUopzznVePK/B2wontmJRZvEnklh7
- OhxVNvhZgKA2wEXvKI2JRTGdynoZ8N5c0gueM+G4lHyV6cIzDVtqq8HP4FoddZAk
- FfNskOi8equ03yfDzwHP1PrLy1r0DN4p8tGC0h706mH1CHav0I5LHSZP6jntFIeR
- ge7q/xdorIIrpPkWLwkA==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3y45vbhe9f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 17 May 2024 23:38:17 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44HNcFhU020827
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 17 May 2024 23:38:15 GMT
-Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Fri, 17 May 2024 16:38:15 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <seanpaul@chromium.org>,
- <swboyd@chromium.org>, <dianders@chromium.org>,
- <quic_jesszhan@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [RFC PATCH 4/4] drm/msm: switch msm_kms to use msm_iommu_disp_new()
-Date: Fri, 17 May 2024 16:37:59 -0700
-Message-ID: <20240517233801.4071868-5-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240517233801.4071868-1-quic_abhinavk@quicinc.com>
-References: <20240517233801.4071868-1-quic_abhinavk@quicinc.com>
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
+ [209.85.161.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1390B10E163;
+ Sat, 18 May 2024 01:25:12 +0000 (UTC)
+Received: by mail-oo1-f44.google.com with SMTP id
+ 006d021491bc7-5b2a66dce8fso1468742eaf.1; 
+ Fri, 17 May 2024 18:25:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1715995511; x=1716600311; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :references:cc:to:from:subject:user-agent:mime-version:date
+ :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+ bh=cJqjedwoYcqSzJKmZSEwT+6hVhtxWLfg/8QtauvSdx4=;
+ b=iIKGU5hj9quAoucc/N7d3Erm4p83Jr6+1Rahf+bAA9N84ywbV6d9Tjn9tT1GsN0dFM
+ FtjOgWCntAEbSU+B11hE4r0zffcai2BQsPYACru1ne9fXQjLD+LPElnMSicindBgqiSy
+ c6rYSzceb5RgJ9234xh7gLhvoGTlxr0EPW4X1U9eqorU2J1TatksfpBW2C4V4lHBdMa/
+ d0VexkZALf5c2CZplg//ZRjf7eThMzBPYOKanQRcVHfKaz+ZQX5y1n/NQy0YYujj+wag
+ 6zXM487gLEKt6urgIfcXBs70nFJAEvTqEXDMnHgT6HY+/g5pOfNBTcb1R6zCoqL+C3B+
+ Tumw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715995511; x=1716600311;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :references:cc:to:from:subject:user-agent:mime-version:date
+ :message-id:sender:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cJqjedwoYcqSzJKmZSEwT+6hVhtxWLfg/8QtauvSdx4=;
+ b=N2fWURafbG3vDbIv1J/8PmcHOYLihkSD+ENlBjHBYUMYI2Dicl/mltku3p8CPBgQx3
+ Kl0HGNtwU40JiaWXlS+XqIkiBr4x/lZDG9ec8az3aFzVPfwLKS3eJ03eOjmbVzvB+gdy
+ O8uN4P4RcyQ67Oh2wPPLyobRVz+GTgtyiVIjYyGvjFzNcp+xaEbEA6L75fDRqgSzLsNv
+ ncLoNIwDvPipVFq8gQK+YKVOj7VD2VeKwBqAS6yFA9l2OSDdDDKMS7sFHOgQMbjggCJO
+ uRwJzFGNvwE2Qw6uXZZ6ZaSYn2EH91R3BdxEugAwGypoBIPgi3KZ/pYbhIs4lbnlV16A
+ J79g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXC2+KzfmFdmBBW0LYc7rRWAjDtG8Hdu/Jl8M7Yv5AB9q0QKiFLWQhRAzfdhKAdUuKo40uvfT/YzAwjzeIMAY7c0pIst9vUqMwpCsR0Pyy0yZ8lcjjjUxlKEtSfps+I3B8cztUGGW8saSzvHPifGIOTQIx1RfF/WeqRDP6YYO0rw1QSG2ynNT/ofQNObOFZX0Mr49z01gZsct/ImwFKJ7Kgq1Y6toS9rwbyaZddd3gCsVuBYPcVqhgr6Vf8p0APwu9nwG7vxNVVz3Hx7AtHzx9z
+X-Gm-Message-State: AOJu0YxOUDWNK7pPrsfzbXF24bdlJjqkUpQBya9x0xjA2mFdt7xg+Xur
+ NermLxYVcLahx0E+NamKzMBx4YexhalB0vYlp4zyXDiDumsHZa9e
+X-Google-Smtp-Source: AGHT+IFRaG5+veBhAS+2oO1Mq9a7mnKgK9vX9unu3cCbE/KbyDzrBjSt084GN8tso2cWg108BqN4VA==
+X-Received: by 2002:a05:6870:a3d2:b0:240:c8ff:c96a with SMTP id
+ 586e51a60fabf-241728fc1damr27553351fac.27.1715995510785; 
+ Fri, 17 May 2024 18:25:10 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
+ ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-6f4d2a66316sm15339938b3a.35.2024.05.17.18.25.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 May 2024 18:25:09 -0700 (PDT)
+Message-ID: <64db2b94-edb3-4ea3-87cf-bb91746869e6@roeck-us.net>
+Date: Fri, 17 May 2024 18:25:06 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tracing/treewide: Remove second parameter of
+ __assign_str()
+From: Guenter Roeck <linux@roeck-us.net>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Linux trace kernel <linux-trace-kernel@vger.kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-cxl@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-rdma@vger.kernel.org, linux-pm@vger.kernel.org, iommu@lists.linux.dev,
+ linux-tegra@vger.kernel.org, netdev@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+ ath12k@lists.infradead.org, brcm80211@lists.linux.dev,
+ brcm80211-dev-list.pdl@broadcom.com, linux-usb@vger.kernel.org,
+ linux-bcachefs@vger.kernel.org, linux-nfs@vger.kernel.org,
+ ocfs2-devel@lists.linux.dev, linux-cifs@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-edac@vger.kernel.org,
+ selinux@vger.kernel.org, linux-btrfs@vger.kernel.org,
+ linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-hwmon@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-wpan@vger.kernel.org, dev@openvswitch.org, linux-s390@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, Julia Lawall <Julia.Lawall@inria.fr>
+References: <20240516133454.681ba6a0@rorschach.local.home>
+ <5080f4c5-e0b3-4c2e-9732-f673d7e6ca66@roeck-us.net>
+ <20240517134834.43e726dd@gandalf.local.home>
+ <5cff0ff0-48d1-49f8-84f4-bb33571fdf16@roeck-us.net>
+Content-Language: en-US
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ mDW4+i+XlNFUPUYMrIKi9joBhu18ssf5i5Q=
+In-Reply-To: <5cff0ff0-48d1-49f8-84f4-bb33571fdf16@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: Ozp-vEdYGT0Yjhs9JwV2ItcjmRg4nNhe
-X-Proofpoint-ORIG-GUID: Ozp-vEdYGT0Yjhs9JwV2ItcjmRg4nNhe
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-17_11,2024-05-17_03,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- clxscore=1015 mlxscore=0 suspectscore=0 spamscore=0 malwarescore=0
- adultscore=0 mlxlogscore=999 phishscore=0 priorityscore=1501 bulkscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405010000 definitions=main-2405170184
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,27 +158,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Switch msm_kms to use msm_iommu_disp_new() so that the newly
-registered fault handler will kick-in during any mmu faults.
+On 5/17/24 11:00, Guenter Roeck wrote:
+> On 5/17/24 10:48, Steven Rostedt wrote:
+>> On Fri, 17 May 2024 10:36:37 -0700
+>> Guenter Roeck <linux@roeck-us.net> wrote:
+>>
+>>> Building csky:allmodconfig (and others) ... failed
+>>> --------------
+>>> Error log:
+>>> In file included from include/trace/trace_events.h:419,
+>>>                   from include/trace/define_trace.h:102,
+>>>                   from drivers/cxl/core/trace.h:737,
+>>>                   from drivers/cxl/core/trace.c:8:
+>>> drivers/cxl/core/./trace.h:383:1: error: macro "__assign_str" passed 2 arguments, but takes just 1
+>>>
+>>> This is with the patch applied on top of v6.9-8410-gff2632d7d08e.
+>>> So far that seems to be the only build failure.
+>>> Introduced with commit 6aec00139d3a8 ("cxl/core: Add region info to
+>>> cxl_general_media and cxl_dram events"). Guess we'll see more of those
+>>> towards the end of the commit window.
+>>
+>> Looks like I made this patch just before this commit was pulled into
+>> Linus's tree.
+>>
+>> Which is why I'll apply and rerun the above again probably on Tuesday of
+>> next week against Linus's latest.
+>>
+>> This patch made it through both an allyesconfig and an allmodconfig, but on
+>> the commit I had applied it to, which was:
+>>
+>>    1b294a1f3561 ("Merge tag 'net-next-6.10' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next")
+>>
+>> I'll be compiling those two builds after I update it then.
+>>
+> 
+> I am currently repeating my test builds with the above errors fixed.
+> That should take a couple of hours. I'll let you know how it goes.
+> 
 
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/gpu/drm/msm/msm_kms.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+There are no more build failures caused by this patch after fixing the above
+errors.
 
-diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-index 62c8e6163e81..1859efbbff1d 100644
---- a/drivers/gpu/drm/msm/msm_kms.c
-+++ b/drivers/gpu/drm/msm/msm_kms.c
-@@ -181,7 +181,7 @@ struct msm_gem_address_space *msm_kms_init_aspace(struct drm_device *dev)
- 	else
- 		iommu_dev = mdss_dev;
- 
--	mmu = msm_iommu_new(iommu_dev, 0);
-+	mmu = msm_iommu_disp_new(iommu_dev, 0);
- 	if (IS_ERR(mmu))
- 		return ERR_CAST(mmu);
- 
--- 
-2.44.0
+Tested-by: Guenter Roeck <linux@roeck-us.net>
+
+Guenter
 
