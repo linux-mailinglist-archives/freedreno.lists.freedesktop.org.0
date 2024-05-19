@@ -2,59 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99FBC8C93FA
-	for <lists+freedreno@lfdr.de>; Sun, 19 May 2024 10:32:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82B6F8C93FF
+	for <lists+freedreno@lfdr.de>; Sun, 19 May 2024 10:38:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C32810E191;
-	Sun, 19 May 2024 08:32:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4997C10E063;
+	Sun, 19 May 2024 08:38:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="tfaNme46";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zJffl2tv";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
- [209.85.208.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB02410E191
- for <freedreno@lists.freedesktop.org>; Sun, 19 May 2024 08:32:26 +0000 (UTC)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-2e576057c56so20679291fa.3
- for <freedreno@lists.freedesktop.org>; Sun, 19 May 2024 01:32:26 -0700 (PDT)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96E1510E063
+ for <freedreno@lists.freedesktop.org>; Sun, 19 May 2024 08:38:15 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-51f60817e34so3892684e87.2
+ for <freedreno@lists.freedesktop.org>; Sun, 19 May 2024 01:38:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716107545; x=1716712345; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1716107893; x=1716712693; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=8Le8VTSm8L2eQLV/FvTpqReYtFhrZrNh0lNICrrBekA=;
- b=tfaNme46wJxYZlRI5pRviu9m73T3Q7Bylhn5pCreIWXfl0jgdbTUYeGIkOkIREzBGd
- bJcYJryDy6rpLXq6kUcHfb7U+dFFB1Gl54ZNvT+XNo/7FBtVrc25T69zHLbDXorLw/T9
- rpcTRslxDVbOl1A9q2fLcIHZebkGB833C6cI8h6SFwaPq9899in0k4JiwYmHDsVZ5Zz1
- qsxTeNajwMAA4KkE1ZCrtJ1vXe7GVLPRT2kmWGxTZlhCKOtD+7sEtkWH3hxa5NUFwnfE
- YtmkCu61+lKOCZCeHtGdLM8J69CvrVwBeFjyKzSJXcrtZCVRfOfVerl7bMESUqUdYijU
- mU0g==
+ bh=uvn7S9N3gs1R0QzYy1uNyet1Yeg7h3PJLDPnNcMfPqM=;
+ b=zJffl2tvLmEnjSc/g9XOAmztwwXNi3eS8OwJHnVTBJ21dh57jZGbe/h3ukGrxB/79u
+ fxPgiCzzz6JBO7dsGTEfp1OBx8z/9l1KKUp/53v/x1bOZVDa55DbuqQt1xiGDOdYT5NL
+ QKBx+cgojuCxXtciVzVGwNNABN7jzGhaVfcqDhrlepwaaXpNkoQaPvhFzCGoCp9OFFV7
+ QsasxVafNkvXQBHO6lW62Sycw0yErBeGRofvWVCjSpEOp8J+ov+IAlBokvQdsiOLe/DW
+ CfQgg+8kU7nfVscDCG1mpqeUbMUwLcjxaDNXrwj/VZj5K1iL2CAAvTWnnQdx0zLaEQq/
+ iWbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716107545; x=1716712345;
+ d=1e100.net; s=20230601; t=1716107893; x=1716712693;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8Le8VTSm8L2eQLV/FvTpqReYtFhrZrNh0lNICrrBekA=;
- b=KdV0PUu3BEWHs3YZoCjxTh5s3XEDZyJhQnvqkiem0t+qML4Lo5VyeJDMsX+dwh1cab
- vIhDhqeFF3X9PHVtGl6HNeS6m8oMIQykHhpKR7LF9SGzZDfZTZz3AX+WKmbhVH2zfNxG
- UHheTMBlKu77UpeEBBKbmF329UV/dNepEBoz5wHaBvR4nR/ynrGWlP37GjnW8TnSr0bI
- mAM1Wb0n7HqwROqdxyWWDN2+ald6ZcSWAyAmu6w3pA9N6E/yKJFCIju1AXc5KRqwRJyC
- bE7R8bErVBXplOfkVFZmX5I5bDPvuCyz+W3MfcGtg+0Y3XvKi+7hTy3N2rgfIdSMp886
- XK6g==
-X-Gm-Message-State: AOJu0YyfT5MeE/ADwPaqVsJuVZg1pCe4RwHR+J01m1zUboebJRlRQodH
- JByhroq84KlZime0t+FZhYWq7oJSfzAV0zsHx32LS2ADJhYN2skn+wraGnFem5s=
-X-Google-Smtp-Source: AGHT+IHRQAJTuuhuKf5V1fqci/B7pNsDW3WCJuXKkN6dOU9qUhabV6ERXOSUH7pVZKKxAmR7LqidOQ==
-X-Received: by 2002:a2e:3c1a:0:b0:2e5:62e4:33ec with SMTP id
- 38308e7fff4ca-2e562e434acmr147040561fa.33.1716107544823; 
- Sun, 19 May 2024 01:32:24 -0700 (PDT)
+ bh=uvn7S9N3gs1R0QzYy1uNyet1Yeg7h3PJLDPnNcMfPqM=;
+ b=I21RpS4DjVi1oD3TpDMrE1AMk4YyGTZRWIZolzSK9sKMAl4zfUioZ6766Mylpx/HiV
+ W7w6uraibMEbK7edo4/DrKVFV8HQw4VK1uYqyM4inGoeOZrdlScHoS8meLVNRFcI9keu
+ Rp6rH7+F9lLIldu9JWCOY3ZTgTK0up4CUwI/utWD7iq7iPhq65ONbaaKGt4MWLhRxrxd
+ +MjHMbLi+NQSE6/+1QvKp6HWhJ5xm2CbFPj+tGXOlkaQgKrYTk113xmm5rOl5FfIHlvP
+ TEP0SzcvGDdNSxQRbVO4/047Is2K9HUdoV9M0QdvufMJODrV9IcybDwHrz+zU+hmb0EN
+ gifQ==
+X-Gm-Message-State: AOJu0YwusLDOtZLdlwMGfOCd10fouZmNMB+vboW/WrUzhn39s9YoZzYS
+ rr7P4urptC1DwIOxkURlpA6+6kZsagbYdT4QjFwQSfvBnCr9RBbOpFRQylbyb9g=
+X-Google-Smtp-Source: AGHT+IGgzh0RQFEUj/vfjQqsWUMRHSlFORbeArQ4XW7evJ1dXUJQ/TVW+RMYFRKn5ItvOp/AT5UuTA==
+X-Received: by 2002:a19:381e:0:b0:51c:c1a3:a4f9 with SMTP id
+ 2adb3069b0e04-5220ff72f76mr15212294e87.64.1716107893329; 
+ Sun, 19 May 2024 01:38:13 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2e52ed429ffsm27370571fa.54.2024.05.19.01.32.24
+ 2adb3069b0e04-521f35ba754sm3826785e87.107.2024.05.19.01.38.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 May 2024 01:32:24 -0700 (PDT)
-Date: Sun, 19 May 2024 11:32:22 +0300
+ Sun, 19 May 2024 01:38:12 -0700 (PDT)
+Date: Sun, 19 May 2024 11:38:11 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
@@ -64,15 +64,15 @@ Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
  seanpaul@chromium.org, swboyd@chromium.org, dianders@chromium.org, 
  quic_jesszhan@quicinc.com, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 2/4] drm/msm/iommu: rename msm_fault_handler to
- msm_gpu_fault_handler
-Message-ID: <ekfam4rolj5ouctytp4srq2iofh2ih4spdic2r4ffvjjawenhh@si37t7k3lmkk>
+Subject: Re: [RFC PATCH 3/4] drm/msm/iommu: introduce msm_iommu_disp_new()
+ for msm_kms
+Message-ID: <jqin56krw2rpk4wezuhgql7fhbjfx2ruv2nh7ksuw3dkbbba63@272ulj5n4yk2>
 References: <20240517233801.4071868-1-quic_abhinavk@quicinc.com>
- <20240517233801.4071868-3-quic_abhinavk@quicinc.com>
+ <20240517233801.4071868-4-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240517233801.4071868-3-quic_abhinavk@quicinc.com>
+In-Reply-To: <20240517233801.4071868-4-quic_abhinavk@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,17 +88,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, May 17, 2024 at 04:37:57PM -0700, Abhinav Kumar wrote:
-> In preparation of registering a separate fault handler for
-> display, lets rename the existing msm_fault_handler to
-> msm_gpu_fault_handler.
+On Fri, May 17, 2024 at 04:37:58PM -0700, Abhinav Kumar wrote:
+> Introduce a new API msm_iommu_disp_new() for display use-cases.
 > 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/msm_iommu.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/msm/msm_iommu.c | 28 ++++++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/msm_mmu.h   |  1 +
+>  2 files changed, 29 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+> index a79cd18bc4c9..3d5c1bb4c013 100644
+> --- a/drivers/gpu/drm/msm/msm_iommu.c
+> +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> @@ -343,6 +343,19 @@ static int msm_gpu_fault_handler(struct iommu_domain *domain, struct device *dev
+>  	return 0;
+>  }
+>  
+> +static int msm_disp_fault_handler(struct iommu_domain *domain, struct device *dev,
+> +				  unsigned long iova, int flags, void *arg)
+> +{
+> +	struct msm_iommu *iommu = arg;
+> +
+> +	if (iommu->base.handler)
+> +		return iommu->base.handler(iommu->base.arg, iova, flags, NULL);
+> +
+> +	pr_warn_ratelimited("*** fault: iova=%16lx, flags=%d\n", iova, flags);
+> +
+> +	return 0;
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+I'd say, drop pr_warn and return -ENOSYS, letting the
+arm_smmu_context_fault() report the error.
+
+> +}
+> +
+>  static void msm_iommu_resume_translation(struct msm_mmu *mmu)
+>  {
+>  	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(mmu->dev);
+> @@ -434,6 +447,21 @@ struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quirks)
+>  	return &iommu->base;
+>  }
+>  
+> +struct msm_mmu *msm_iommu_disp_new(struct device *dev, unsigned long quirks)
+> +{
+> +	struct msm_iommu *iommu;
+> +	struct msm_mmu *mmu;
+> +
+> +	mmu = msm_iommu_new(dev, quirks);
+> +	if (IS_ERR_OR_NULL(mmu))
+> +		return mmu;
+> +
+> +	iommu = to_msm_iommu(mmu);
+> +	iommu_set_fault_handler(iommu->domain, msm_disp_fault_handler, iommu);
+> +
+> +	return mmu;
+> +}
+> +
+>  struct msm_mmu *msm_iommu_gpu_new(struct device *dev, struct msm_gpu *gpu, unsigned long quirks)
+>  {
+>  	struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(dev);
+> diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
+> index 88af4f490881..730458d08d6b 100644
+> --- a/drivers/gpu/drm/msm/msm_mmu.h
+> +++ b/drivers/gpu/drm/msm/msm_mmu.h
+> @@ -42,6 +42,7 @@ static inline void msm_mmu_init(struct msm_mmu *mmu, struct device *dev,
+>  
+>  struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quirks);
+>  struct msm_mmu *msm_iommu_gpu_new(struct device *dev, struct msm_gpu *gpu, unsigned long quirks);
+> +struct msm_mmu *msm_iommu_disp_new(struct device *dev, unsigned long quirks);
+>  
+>  static inline void msm_mmu_set_fault_handler(struct msm_mmu *mmu, void *arg,
+>  		int (*handler)(void *arg, unsigned long iova, int flags, void *data))
+> -- 
+> 2.44.0
+> 
 
 -- 
 With best wishes
