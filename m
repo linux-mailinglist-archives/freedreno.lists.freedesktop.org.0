@@ -2,77 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B16B8C9410
-	for <lists+freedreno@lfdr.de>; Sun, 19 May 2024 10:39:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 516778C9414
+	for <lists+freedreno@lfdr.de>; Sun, 19 May 2024 10:40:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0EAB10E15A;
-	Sun, 19 May 2024 08:39:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 076CE10E1E8;
+	Sun, 19 May 2024 08:40:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="URBv7rQ0";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ueVEjSep";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E33810E1E6
- for <freedreno@lists.freedesktop.org>; Sun, 19 May 2024 08:39:45 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-51f60817e34so3893564e87.2
- for <freedreno@lists.freedesktop.org>; Sun, 19 May 2024 01:39:45 -0700 (PDT)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
+ [209.85.208.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F99D10E1E8
+ for <freedreno@lists.freedesktop.org>; Sun, 19 May 2024 08:40:33 +0000 (UTC)
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-2e716e302d8so11344711fa.1
+ for <freedreno@lists.freedesktop.org>; Sun, 19 May 2024 01:40:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716107983; x=1716712783; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1716108031; x=1716712831; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=wINRsVYOfc9e8SdgZRbrSE/ek9LX88q64lK0ONVJskM=;
- b=URBv7rQ0QCsowPRfq2bzNxNG9hGBJZYamLVL5EbyiEKQUA+BDHhyGpkq/rPfnVfj4S
- VohTDmWD7AX8NG2vwm5keh/Y64dFwUz/G3n9BSbuuJryWihGBzZmAUw+3th14mWfoClT
- M1HuOwWlzzXc/UjJNLmKB81tvCM/+Rwzc4AiOoYcYOf2FC/1eHkvHi9plEfH3ZgFalG0
- ZO72BytyFJrah+n2aYvV15nwVjwP0UpnM3mTwS1RKlsUlvZca2BbHnT1axcdMsIqVce7
- f346Dr4VAEgc+9XpqxqsKZWYoea5izAGcxfIyQdqESCqULdCn3E6v6IK1dWwbwgY9arY
- T9hw==
+ bh=MgTrllwDYHTgB7C+QKVDFFRer7No5HD5l0LPXbNp0Rc=;
+ b=ueVEjSep622IqV1fqPS4PGWCD3UeeeOBvS+WyBl6VbCIPB3TRMNNn3TOzOP70rZVPP
+ 9wyHINaSVXt3aP02Y4Pw71ioxeWDeNMzICzMdtxy8p16A2BVaRA92gno93aDHkgrI/zw
+ 9KcvvJe31/lJ9PZdCl05OpRLqhugIHlVZCAV00CihKlClne1hpCp3hTp5Db+ZEKgPt5J
+ adm01Z1bFvimjkIZEYgYk/Lx9rj+4RLukWe8gwDNVuajKWIHpa0sooocKfK6w6vpWPBn
+ 5arDfiKtppKWCSHwbzWo12nEvhNPXv4yqlxPfrHeXl5omfIjtIg2582WNRIuMsHf6f03
+ /luA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716107983; x=1716712783;
+ d=1e100.net; s=20230601; t=1716108031; x=1716712831;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wINRsVYOfc9e8SdgZRbrSE/ek9LX88q64lK0ONVJskM=;
- b=EVcPfhVzwbSutm7MrnbP6AaXT3X61DqjpzGDysCcxmWHC/e0ADiJ4PUaIRG1I8etQp
- NA1k8mjhwKW6HnB4PG9/KgVb0hvMiv5inkj5Gz3Y8Bdg0PTQFfuvNiqw9cw5mtkaLhcg
- 6fCZG0yd3eqJYTsE+uNQa/rnTphPtqzSgIGF9RVMPpQA8I9E1acvx1GF+obJDBsr/nIS
- IDp+9FgaUdZP7FkfO36UAfVJ0q8yskg589wZCwN0hnbg97YXR34tkF5cuC1F9dQzNVpS
- ngL+EcrkLfP7KMcjQmFFxvxeXi3vP9RRidt05uhu20jCQYywMHIejAd9UDnSINQil8Sy
- M5Mw==
-X-Gm-Message-State: AOJu0Yy5wucYnwAea3FAr+r9uYtH49Fm6fZGWeziH7Kf4vwbXVFIMoMq
- C7UQUVGLXnSjNn57kDI9wOtkdGtvgHAK+8vYngmKJUCNQInFPdvGdMddEutSWc0=
-X-Google-Smtp-Source: AGHT+IFI6PXjXa5dIVUKDoC56AXg8GLn15W3jSRDWvlVXmFTkJPr2Sj8InmpAqQX1jsCJ0QL5wMf+w==
-X-Received: by 2002:ac2:520a:0:b0:51f:1e8e:f7d5 with SMTP id
- 2adb3069b0e04-5220fc6d51bmr17374319e87.35.1716107983501; 
- Sun, 19 May 2024 01:39:43 -0700 (PDT)
+ bh=MgTrllwDYHTgB7C+QKVDFFRer7No5HD5l0LPXbNp0Rc=;
+ b=J4NLbKRrVK40dSA8Tk3PIdcksWKQBlCHStKDv+U9X8JtxrGlsCO4rNe/8vmL1BJp1F
+ akd8+F2QHLznmf09qzyxqK8kmUkMfGOHzsypT+uH0VvSkndudL7Gdg64AXGK8JCkwVl8
+ 4Sgn6xpimRzbHZIbrEncMgWOcQ95/Jb6KzI6bWOnng/1bqJA6kN2y3Efus1wiRn0hRQH
+ ULsStiGAfi3TzTkXn2o98E+2pBL2woAA+L7aBQ/Gi4eEXk1Y+GtlD9ocaJgzEQNhPAMi
+ RfpQOcXsnVUfOV1ZwXsfJ/bLdnHcuXcqO1CJNloUTETQpegcljDGPqmf2Z+D8FtatJcY
+ nIKA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUs9Sg5Xx+GmAIxB6WqHxyXo0iNlp2yYSTYjdAzGyOyQbYwMSSlKgadIOVmoCR+8zTE/sqdHxDG3w+oAHVgFMT2RSwdF61Om3kPVYPvvW+V
+X-Gm-Message-State: AOJu0YwYjHPzIjt5/UhxgEerKdG2KgSmkzMYv1k+1fInodpINuaY7HBb
+ pRqLF51tIygHiAR33cFO6eDuTL5wCEtehr5VAyLaWOeOzZ3tacZPGZwN+C60t5M=
+X-Google-Smtp-Source: AGHT+IEj+o0GE3iSfy5vy0xWlDi14/h6b+B2BzuNrvjjBdZo1C91BvTjjcT+ES/qsBFTc1EsXLX9fg==
+X-Received: by 2002:a2e:960f:0:b0:2df:b7cf:9607 with SMTP id
+ 38308e7fff4ca-2e51ff4d030mr186327031fa.22.1716108031394; 
+ Sun, 19 May 2024 01:40:31 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-521f38d8d70sm3840903e87.226.2024.05.19.01.39.42
+ 38308e7fff4ca-2e4d0bbd57fsm29637451fa.22.2024.05.19.01.40.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 May 2024 01:39:43 -0700 (PDT)
-Date: Sun, 19 May 2024 11:39:41 +0300
+ Sun, 19 May 2024 01:40:30 -0700 (PDT)
+Date: Sun, 19 May 2024 11:40:29 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- seanpaul@chromium.org, swboyd@chromium.org, dianders@chromium.org, 
- quic_jesszhan@quicinc.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 4/4] drm/msm: switch msm_kms to use
- msm_iommu_disp_new()
-Message-ID: <gfmxslhxpokhwsbnxucd4od2kdqldelrysl6gd2tmgb3dfx6bs@gku27mrctqfh>
-References: <20240517233801.4071868-1-quic_abhinavk@quicinc.com>
- <20240517233801.4071868-5-quic_abhinavk@quicinc.com>
+To: Rob Clark <robdclark@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Bjorn Andersson <quic_bjorande@quicinc.com>,
+ Connor Abbott <cwabbott0@gmail.com>, 
+ Ruan Jinjie <ruanjinjie@huawei.com>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/msm: Add obj flags to gpu devcoredump
+Message-ID: <npo6qfweuwlo36gsrseb2oldsqpuv6z2soie3rt4u4zmoxdyzf@hlwx7zd22osl>
+References: <20240513155150.166924-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240517233801.4071868-5-quic_abhinavk@quicinc.com>
+In-Reply-To: <20240513155150.166924-1-robdclark@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,31 +90,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, May 17, 2024 at 04:37:59PM -0700, Abhinav Kumar wrote:
-> Switch msm_kms to use msm_iommu_disp_new() so that the newly
-> registered fault handler will kick-in during any mmu faults.
+On Mon, May 13, 2024 at 08:51:47AM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> When debugging faults, it is useful to know how the BO is mapped (cached
+> vs WC, gpu readonly, etc).
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->  drivers/gpu/drm/msm/msm_kms.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-> index 62c8e6163e81..1859efbbff1d 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.c
-> +++ b/drivers/gpu/drm/msm/msm_kms.c
-> @@ -181,7 +181,7 @@ struct msm_gem_address_space *msm_kms_init_aspace(struct drm_device *dev)
->  	else
->  		iommu_dev = mdss_dev;
->  
-> -	mmu = msm_iommu_new(iommu_dev, 0);
-> +	mmu = msm_iommu_disp_new(iommu_dev, 0);
->  	if (IS_ERR(mmu))
->  		return ERR_CAST(mmu);
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 1 +
+>  drivers/gpu/drm/msm/msm_gpu.c           | 6 ++++--
+>  drivers/gpu/drm/msm/msm_gpu.h           | 1 +
+>  3 files changed, 6 insertions(+), 2 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Note to myself: make mdp4 use msm_kms_init_aspace().
 
 -- 
 With best wishes
