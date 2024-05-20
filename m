@@ -2,66 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AD6A8C9CEB
-	for <lists+freedreno@lfdr.de>; Mon, 20 May 2024 14:13:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 674198C9CF0
+	for <lists+freedreno@lfdr.de>; Mon, 20 May 2024 14:13:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA13B10E615;
-	Mon, 20 May 2024 12:13:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6C1310E61C;
+	Mon, 20 May 2024 12:13:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="X5bZSj5b";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NayrJB0v";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9493810E616
- for <freedreno@lists.freedesktop.org>; Mon, 20 May 2024 12:12:51 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-51f99f9e0faso4858523e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 20 May 2024 05:12:51 -0700 (PDT)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E02E10E650
+ for <freedreno@lists.freedesktop.org>; Mon, 20 May 2024 12:12:52 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-51f40b5e059so3723000e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 20 May 2024 05:12:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1716207170; x=1716811970; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=keee18vyiohjBfgyo9UKfbBA5sVKxKV1c/ETLbjaR9s=;
- b=X5bZSj5b3VBzoqv6C+vU853uk57tLejdSsIeN21S80GTEZFaLSBma7uoMA6xK2DnNo
- l6f6OXXr77fz71LwdJo4Hl/41zYCJ2+ybK+WY406X9MQBLz4NT8Fc9Ah9oHuMPfqOGHT
- E0OPAl6rqfGNWSrB5wz8xEB4KGLXLlRn/lmLL/E+p6B4GcnghVqZmFIyHo/dod0S7A2J
- JBe1wW+GNKAuDyHFIOHaD4xD+n99cq7aSauvBt5A8GSa9of13pYHav/rE89Qw4JnME4k
- BmUpd2leku1T6z+e5A/zq0Ujc3MOzUeGSZnUYyhgTkdKb1JNserfxiBEvjqCU4+YCcqT
- u3cw==
+ :reply-to; bh=EngRNEegfEjPtk1lyTiOuhRxh7ZIkugIZOeBU7wBZ0k=;
+ b=NayrJB0vBs4tu/k+u3gN9d6La+uqUUPvyOfy+tKkvrcLU+K8hZvp/jlyRXXGZmtP1W
+ An5CATHw4LJWtQw6ubc20B4yDUpnmcFOHPa6A7jJi9osNDLaxQU+8dmLvZL/xCY89lGw
+ cA09wmLltXgk38E2DsRlom7E6s7Ca6wxmCM9yKVWWjWMckrrclfx8D3kc+diGcOJYNrX
+ expBlJAHWsl0RStpPOLafnxRoWwfMEcxY9VvWkryebbpGjQ9mJZS49k8jujfBGmbkxTE
+ 3INLeYFjkR5ojMkKkoG27W1dXsSwJpucSi6PmkMClSPFDnsFaQ/QfnY2s0qWHHyMr+bQ
+ J1cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1716207170; x=1716811970;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=keee18vyiohjBfgyo9UKfbBA5sVKxKV1c/ETLbjaR9s=;
- b=fSv/mqzdVUPxwuVJeaWMGdKB6O1VJ0JNqsBVUGk91J+ClTvpTNbKF3KtsD0Gb41Tsk
- vNPcZozpozQHoNGyP6rjWH9IUU+Jg4/ekpIaxw32E/2F+ZkFUbtQMFqcA4jGU37Tkh9D
- xH7UKziExTn6nci11Lc+l7nzsMtzlP0dxVO8SgmGZbJ0mGbDETHZcOePSTXiBzRIvi7U
- ErAzpyNfHtpH0J/bW+xA9zG4n6BN/SwtFabPXg71zdIxC76xn8bWDEtK8svJwzBe+QXo
- YrRKHhVpV+ZeiHvrkZslhJkTat3kqU5f2fPqJ+VL/gLzKtmqoMLYUuJuSW6gN/Xl2gT/
- jF+w==
+ bh=EngRNEegfEjPtk1lyTiOuhRxh7ZIkugIZOeBU7wBZ0k=;
+ b=fXx31fjFbj2ImXozLBdaD8pGWwfxeGwHaZ8YQc1MxzUkqwcMMDfPcTKNMAJ1IAa/X/
+ qt0YA5OMM/s4W5IRnHiJaWxQdKmd8lHVw/IetJqmObaqs4ybM43+SbcwoOwnueyOl/B9
+ sYpzWMA65m42oYwqpXG5K0uGAb6alzTnDY/TaSW7EKyvt2uBf2n2Z5Gzyfah0ZCGBVZE
+ 9uS04AdXqMmCFbdvfS1MbkJWpP3wp+6BSwXeAKilZ/hkoKFMxKkEDI/KS9PbU8NuyJhu
+ LHOtKQkrlPGv/X3isnAckQ7WhAs13EiV/BcPI4e/ZobgyP4lTv0id3nThL4CsZIUAzCm
+ 0ypw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVhmcx/wO8H+uS1IS1nUabvGW1/c0VkfMlEYpa44kD4+RUzFKapebS/r1FQk9ytAe/rELj7ffWdLAElAjog7lJ6DCCi4JNJyRJ4zOX31ZRN
-X-Gm-Message-State: AOJu0YzKQd/RQli1GAU+rdkyadxKxXgBYNukf9djaGqm4ZoZZhiD1MLo
- TnT9qsSRlgGhnY7Xe4bwzvLsDmBSZOWGX6MD3APhNYoc7h4Xk3Vn5h2zTIbFYDI=
-X-Google-Smtp-Source: AGHT+IF6Mhvh250bABHjRxzDkj9uIsdB07MYJYgfIjq5uVOdCEnVKqMLdxmE8efNSAAbbYwjqx1KMg==
-X-Received: by 2002:ac2:58d6:0:b0:523:b371:7b78 with SMTP id
- 2adb3069b0e04-523b371837dmr8066261e87.13.1716207169840; 
- Mon, 20 May 2024 05:12:49 -0700 (PDT)
+ AJvYcCUiA5CpfrnPupZ8imAxqaVDpsSBUT14zy97Jra7rwR6mHz2NsDuaS/mxFwne0qhmGHsxFNIb/9Et8v+3jycodk5DVG/gxvKR299ErtM4lk9
+X-Gm-Message-State: AOJu0YzYIPDopyk5RqzdNc9e0d871oAlLlZOsDJYj1K/Qnoql+qPoPja
+ BPfl1YQ/fOLDb1P47yxZVB0X/L7gyCTgqNzskDP5co6x/p3ClgNlciaKng90MNk=
+X-Google-Smtp-Source: AGHT+IEYyPQvYUPUkStl7KT7W6EBwKTLfRV+KK4qV5SWFd+bL47S1rPoRfmfxHCn1nM/BJ6/LstSyw==
+X-Received: by 2002:a19:e05a:0:b0:518:ce4b:17ef with SMTP id
+ 2adb3069b0e04-5221006cdd3mr19262792e87.60.1716207170564; 
+ Mon, 20 May 2024 05:12:50 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
  2adb3069b0e04-521f35ad6c0sm4273682e87.30.2024.05.20.05.12.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 May 2024 05:12:49 -0700 (PDT)
+ Mon, 20 May 2024 05:12:50 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 20 May 2024 15:12:46 +0300
-Subject: [PATCH 4/7] drm/msm/dpu: pull the is_cmd_mode out of
- _dpu_encoder_update_vsync_source()
+Date: Mon, 20 May 2024 15:12:47 +0300
+Subject: [PATCH 5/7] drm/msm/dpu: rework vsync_source handling
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240520-dpu-handle-te-signal-v1-4-f273b42a089c@linaro.org>
+Message-Id: <20240520-dpu-handle-te-signal-v1-5-f273b42a089c@linaro.org>
 References: <20240520-dpu-handle-te-signal-v1-0-f273b42a089c@linaro.org>
 In-Reply-To: <20240520-dpu-handle-te-signal-v1-0-f273b42a089c@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -77,16 +76,16 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1424;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2812;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=bDRD6hyOiwSp4TuqfrUKy12qF1U6aueui3oZOXjqlN4=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmSz48rPmBSdBCPNcr0Nq4uZbzKAxnCAn9+N3ua
- l3iyx2kyeWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZks+PAAKCRCLPIo+Aiko
- 1SnOB/9b97fXE/ctQDf+BNb0r8haZVhTOA9gVVSIuS/CxtjyFcBl0xqbfoyy7HDqcYGQUXf96D5
- DiVsXnnEdODCvHMy9wyBO8lfpq5DapeRB+XmkZ6X424lZGw3XPze2Fu8kwq9J9WyiMRf46decbk
- MByl5kttundXLDlIiXnJvr3XpYT9GyKK/zVxBQhlpJk5ufKWpedVWI5eAd0Oaw67u1aGBImeHDq
- u4Y9eUtxdvLUcP+jdog4B301ApzKvbYCHHEVtSe56Cen301dQL1pm7evN95Gwu5XWpNapC6bDHL
- Letok6pJO2uU40lXqYVjUWjzZkFOdepwnVMcAoYHantl5j75
+ bh=bDrKpwdiQQO/7yqHHeSqz8kQDyfWunAboKt0w5ii6fE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmSz49AMFTxVsOTQ6II89mW7JkSKQZyAIvHbgJH
+ GxIP0WdhFKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZks+PQAKCRCLPIo+Aiko
+ 1UxpB/0XrJ+wL2heNZBu+e/GS36+zBKxFzinOB9jN7LtSt7GELN2B2DbynOfvt1Z45kgyVqKx38
+ UN2uXeXYzkKRWoWwfzbZw9tiKiKFA0OkCj/JCOS/Z9kGU4S0f3+/cCentspiGssxmouiLyKwG25
+ 0xrAfeAo5Gh8C8hnUt6uPv3BqfuaQZByJMVTOxGtGnxkgDNloIXu85lrdgWcVdVAIvYe9p+bYGx
+ tL20eForFg4k6aDr7uZxZ8VrZ59t9aFKdFHNWXuFu6wmwV9FW94bVoVFqNZqLQ5BJuIPA/cLTum
+ BmBjE8Lxto1irvaPzlrAICxldSLjkHnye+trSYfynhWxLR+6
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -104,39 +103,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Setting vsync source makes sense only for DSI CMD panels. Pull the
-is_cmd_mode condition out of the function into the calling code, so that
-it becomes more explicit.
+The struct msm_display_info has is_te_using_watchdog_timer field which
+is neither used anywhere nor is flexible enough to specify different
+sources. Replace it with the field specifying the vsync source using
+enum dpu_vsync_source.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 5 +----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 5 ++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 2 ++
+ 3 files changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 4988a1029431..bd37a56b4d03 100644
+index bd37a56b4d03..b147f8814a18 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -736,8 +736,7 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
- 		return;
- 	}
+@@ -743,10 +743,7 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
+ 		vsync_cfg.pp_count = dpu_enc->num_phys_encs;
+ 		vsync_cfg.frame_rate = drm_mode_vrefresh(&dpu_enc->base.crtc->state->adjusted_mode);
  
--	if (hw_mdptop->ops.setup_vsync_source &&
--			disp_info->is_cmd_mode) {
-+	if (hw_mdptop->ops.setup_vsync_source) {
- 		for (i = 0; i < dpu_enc->num_phys_encs; i++)
- 			vsync_cfg.ppnumber[i] = dpu_enc->hw_pp[i]->idx;
+-		if (disp_info->is_te_using_watchdog_timer)
+-			vsync_cfg.vsync_source = DPU_VSYNC_SOURCE_WD_TIMER_0;
+-		else
+-			vsync_cfg.vsync_source = DPU_VSYNC_SOURCE_GPIO_0;
++		vsync_cfg.vsync_source = disp_info->vsync_source;
  
-@@ -1226,7 +1225,8 @@ static void _dpu_encoder_virt_enable_helper(struct drm_encoder *drm_enc)
- 		dpu_enc->cur_master->hw_mdptop->ops.intf_audio_select(
- 			dpu_enc->cur_master->hw_mdptop);
+ 		hw_mdptop->ops.setup_vsync_source(hw_mdptop, &vsync_cfg);
  
--	_dpu_encoder_update_vsync_source(dpu_enc, &dpu_enc->disp_info);
-+	if (dpu_enc->disp_info.is_cmd_mode)
-+		_dpu_encoder_update_vsync_source(dpu_enc, &dpu_enc->disp_info);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+index 76be77e30954..cb59bd4436f4 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+@@ -26,15 +26,14 @@
+  * @h_tile_instance:    Controller instance used per tile. Number of elements is
+  *                      based on num_of_h_tiles
+  * @is_cmd_mode		Boolean to indicate if the CMD mode is requested
+- * @is_te_using_watchdog_timer:  Boolean to indicate watchdog TE is
+- *				 used instead of panel TE in cmd mode panels
++ * @vsync_source:	Source of the TE signal for DSI CMD devices
+  */
+ struct msm_display_info {
+ 	enum dpu_intf_type intf_type;
+ 	uint32_t num_of_h_tiles;
+ 	uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
+ 	bool is_cmd_mode;
+-	bool is_te_using_watchdog_timer;
++	enum dpu_vsync_source vsync_source;
+ };
  
- 	if (dpu_enc->disp_info.intf_type == INTF_DSI &&
- 			!WARN_ON(dpu_enc->num_phys_encs == 0)) {
+ /**
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 1955848b1b78..e9991f3756d4 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -543,6 +543,8 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
+ 
+ 		info.is_cmd_mode = msm_dsi_is_cmd_mode(priv->dsi[i]);
+ 
++		info.vsync_source = DPU_VSYNC_SOURCE_GPIO_0;
++
+ 		encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DSI, &info);
+ 		if (IS_ERR(encoder)) {
+ 			DPU_ERROR("encoder init failed for dsi display\n");
 
 -- 
 2.39.2
