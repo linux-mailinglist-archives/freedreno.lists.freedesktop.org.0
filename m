@@ -2,83 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC7388C982A
-	for <lists+freedreno@lfdr.de>; Mon, 20 May 2024 05:15:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70A8E8C9CDF
+	for <lists+freedreno@lfdr.de>; Mon, 20 May 2024 14:12:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 845F410E320;
-	Mon, 20 May 2024 03:15:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AA8410E4D7;
+	Mon, 20 May 2024 12:12:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="RneYUvMO";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="j0gNmAme";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD0D810E06A;
- Mon, 20 May 2024 03:15:27 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44JNmZUr023818;
- Mon, 20 May 2024 03:15:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=qcppdkim1; bh=8lFeKLmxC5SwUI1TCFP0u
- 1MzCDvG1yc21gbkRhCjvg4=; b=RneYUvMOqxd/3QpK/rt6R30Txxpx6ONOHN+JT
- +DaU5Jc+cFrKrzF5XiIIxYs4S6uvoS0pE/z4QWpiAJmrdBcsSwQ+jN7XfS675/Qf
- Wmgq8vb29E0O2Oy7H9RPW/JE6IYpR5Paksi+XPh6LQUlh2epBz0ucrjXiOagdBCx
- shLmxmDojs7hKk3M8WlMvpa+uKJdr92LcgFUVJDzUUXvIdby2eXssOboatu5S26K
- n82FgzCLhO9klf8PmWLZ6ZJdciiS0+i3llk7O5FTapFr1rXZOk316SQSP2CNp7GH
- p5HfF1h0v2OIasDLWvT8oDZ04K2iGVMAPzhJmvs2cHOgHV17A==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3y6n4p2jk4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 20 May 2024 03:15:18 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44K3FHF2003157
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 20 May 2024 03:15:17 GMT
-Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Sun, 19 May 2024 20:15:17 -0700
-Date: Sun, 19 May 2024 20:15:15 -0700
-From: Bjorn Andersson <quic_bjorande@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>
-CC: <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, Rob Clark <robdclark@chromium.org>,
- "Nikita Travkin" <nikita@trvn.ru>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- "Marijn Suijten" <marijn.suijten@somainline.org>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Konrad Dybcio
- <konrad.dybcio@linaro.org>, Connor Abbott <cwabbott0@gmail.com>,
- Ruan Jinjie <ruanjinjie@huawei.com>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/msm/adreno: Check for zap node availability
-Message-ID: <ZkrAQ+CLnwHTjPl6@hu-bjorande-lv.qualcomm.com>
-References: <20240517195021.8873-1-robdclark@gmail.com>
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FEE710E0BB
+ for <freedreno@lists.freedesktop.org>; Mon, 20 May 2024 12:12:48 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-52327368e59so4707198e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 20 May 2024 05:12:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1716207166; x=1716811966; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bH/LloORtAdJqakmZhy23BG1cTvef7l0ekgFCknTjPw=;
+ b=j0gNmAmeN6/lemM1oGLHKmB8zgP0uxjqM2kiHs8MPdTBr3cGmmr6A6+fc4/GJR/Inv
+ zoampZAFCAyeul4ld/BOtD/WbmrxAFjhat2i+h0C22Xrc5MNtfXtDZakHDb8YoJyjwKC
+ 9GCMo6bbN4yX5KHzVwb1SPo+eFCvGvtap/v/NUtxg7rwgxbMWXlvY0VJKNrF+81rvFOE
+ l68XnfIOtR2Me8JPqL/qe4aPjDC4viDWfya/lrvfaGmkuSvHxf2wdA9IhMxHjqXFzzqF
+ DBQ1fpHEUEhgsw7cwt70QGMZz5o8v8xVm11IXMP/4noM7T/A6yIQTh3uFFDVBNhVAlm8
+ YTZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1716207166; x=1716811966;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bH/LloORtAdJqakmZhy23BG1cTvef7l0ekgFCknTjPw=;
+ b=OsYiNtjk0P5W0oQzBJsYusgzLCJrbm/efbPEr9fre/9csXUMh706iZGJW3RVhHKIQK
+ qcJRmWdzBi8oExtz12hUolFO4PYH2dOYTJXnYIJEhGPQQ0BkVstr8aDzFoX3tTb49Zk1
+ /lrdFgI/GLgWTJvWO1U8IEHmK0QOaeDMsSVHMg1DOab2gocfkFY56TtQxpAOcFtGeDPz
+ TJkeffxCqTVWJm1RI8wIH7c4KAVHBLvWG8W47jrpvgKnJj6u0S5VznZs/3eZpkLmXaTV
+ qgdjAwTMaPlaDMHbEEHjuDgDfq1CMjRXrRVPaojxdJmLEOQpIkLKV4RLv6K1qQOjtq9k
+ HAOQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX/EFKR5jAAHJLwB/FFP0099dCOEy3vtrIGt6qs9ElPuWNpcf/L42tds+3KUOisQsx7c431SVfW6z/8XIoSsdA4WkmT8zkXjjzQrepq0TBF
+X-Gm-Message-State: AOJu0YyR2v6GxDX4fG/DVY9T33D3cukoVBELdPqrsnrGyDzMwAQg4ab9
+ Mb5dC+QKehKfeS5uxZFcbkX3SJWbmSS8P6FIiKJG6fehq7CCSDFurhWVQc0ZMjA=
+X-Google-Smtp-Source: AGHT+IFLqYhkFTSfEMengeFM9Uixm1e8E4F2WchZdLT/7cV4/a/D9WE0HWBrmfZuNn4yGUJDqaS60w==
+X-Received: by 2002:a05:6512:3ca4:b0:51d:67a0:2433 with SMTP id
+ 2adb3069b0e04-52210074979mr23298869e87.46.1716207166288; 
+ Mon, 20 May 2024 05:12:46 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-521f35ad6c0sm4273682e87.30.2024.05.20.05.12.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 May 2024 05:12:45 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH 0/7] drm/msm/dpu: handle non-default TE source pins
+Date: Mon, 20 May 2024 15:12:42 +0300
+Message-Id: <20240520-dpu-handle-te-signal-v1-0-f273b42a089c@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20240517195021.8873-1-robdclark@gmail.com>
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: Uq4jZktGJrI1Bgm_j1kP6QuvdqeyhNn1
-X-Proofpoint-GUID: Uq4jZktGJrI1Bgm_j1kP6QuvdqeyhNn1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-20_01,2024-05-17_03,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- bulkscore=0 lowpriorityscore=0 mlxscore=0 malwarescore=0 spamscore=0
- impostorscore=0 clxscore=1011 phishscore=0 suspectscore=0 adultscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405010000 definitions=main-2405200025
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADo+S2YC/x2MQQqAIBAAvxJ7bkHNIvpKdDDdakFMtCKI/p50H
+ IaZBzIlpgxD9UCiizPvoYCsK7CbCSshu8KghNKilRpdPLEI5wkPwsxrMB571XWNFUrK2UFJY6K
+ F7387Tu/7Ab5JQl9mAAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1857;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=DX93PVbvVm550XJ59hPJYzMq0R5QP/h0qcUJAnqZViU=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ5q3nc2rPoM8cbUfKw6Z8B5c9+LDB33zPGWRzaH3z+7hS
+ Hm2PaS4k9GYhYGRi0FWTJHFp6Blasym5LAPO6bWwwxiZQKZwsDFKQATiXnL/j9yqUNBoLjfdW3N
+ PXxeK15W8Va0J/3cIbd2dfrSRMHSJq+vwpu9Q5ZW9vZcu3TP9uyJH4vK8+fvirBwN1cMYvC7NYl
+ 900H1thDroFkmuRPWrP/lMOdMSLS2yHSPLrZTlaed9zJd5pL2toidc/3VaduWHYURah9NV6Zt+e
+ V/5vGa75OjjLySrN3qOkoLa+/e/C2Vrvkurc7mzmKzNoUL+4+Kb0s83V2oeyCsq8sk6MWGJaZZP
+ Mc+7Lcuj3kVypHT4KHLlf5C6AGzwGJdzTsiBWVC2x57njoR92NDi8210pBrgvkrmZUXljzgXahl
+ yRsk0DxrhrvnO9PwZ+zuhxhSopQrVHr6Xfw6NymX3/wFAA==
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,42 +104,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, May 17, 2024 at 12:50:19PM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> This should allow disabling the zap node via an overlay, for slbounce.
-> 
-> Suggested-by: Nikita Travkin <nikita@trvn.ru>
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index d9ea15994ae9..a00241e3373b 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -46,7 +46,7 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
->  	}
->  
->  	np = of_get_child_by_name(dev->of_node, "zap-shader");
-> -	if (!np) {
-> +	if (!np || !of_device_is_available(np)) {
+Command-mode DSI panels need to signal the display controlller when
+vsync happens, so that the device can start sending the next frame. Some
+devices (Google Pixel 3) use a non-default pin, so additional
+configuration is required. Add a way to specify this information in DT
+and handle it in the DSI and DPU drivers.
 
-	if (!of_device_is_available(np)) {
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (7):
+      dt-bindings: display/msm/dsi: allow specifying TE source
+      drm/msm/dpu: convert vsync source defines to the enum
+      drm/msm/dsi: drop unused GPIOs handling
+      drm/msm/dpu: pull the is_cmd_mode out of _dpu_encoder_update_vsync_source()
+      drm/msm/dpu: rework vsync_source handling
+      drm/msm/dsi: parse vsync source from device tree
+      drm/msm/dpu: support setting the TE source
 
-would cover both cases and be slightly cleaner imho...
+ .../bindings/display/msm/dsi-controller-main.yaml  | 16 ++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 11 ++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  5 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        | 26 ++++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h         |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            | 44 ++++++++++++++++++++
+ drivers/gpu/drm/msm/dsi/dsi.h                      |  1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 | 48 +++++-----------------
+ drivers/gpu/drm/msm/dsi/dsi_manager.c              |  5 +++
+ drivers/gpu/drm/msm/msm_drv.h                      |  6 +++
+ 12 files changed, 106 insertions(+), 62 deletions(-)
+---
+base-commit: 75fa778d74b786a1608d55d655d42b480a6fa8bd
+change-id: 20240514-dpu-handle-te-signal-82663c0211bd
 
-But this looks reasonable either way.
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Reviewed-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-
-Regards,
-Bjorn
-
->  		zap_available = false;
->  		return -ENODEV;
->  	}
-> -- 
-> 2.45.1
-> 
