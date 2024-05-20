@@ -2,71 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 046368C9D62
-	for <lists+freedreno@lfdr.de>; Mon, 20 May 2024 14:33:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F77A8CA073
+	for <lists+freedreno@lfdr.de>; Mon, 20 May 2024 18:08:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3221110E6D1;
-	Mon, 20 May 2024 12:33:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4E4910E264;
+	Mon, 20 May 2024 16:08:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DZOykOjG";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="kkL2bKW9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f169.google.com (mail-yb1-f169.google.com
- [209.85.219.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BDDC10E6CF
- for <freedreno@lists.freedesktop.org>; Mon, 20 May 2024 12:33:23 +0000 (UTC)
-Received: by mail-yb1-f169.google.com with SMTP id
- 3f1490d57ef6-de61424f478so2331202276.0
- for <freedreno@lists.freedesktop.org>; Mon, 20 May 2024 05:33:23 -0700 (PDT)
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
+ [209.85.219.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6EB710E264
+ for <freedreno@lists.freedesktop.org>; Mon, 20 May 2024 16:08:17 +0000 (UTC)
+Received: by mail-qv1-f43.google.com with SMTP id
+ 6a1803df08f44-69b4e94ecd2so7304406d6.3
+ for <freedreno@lists.freedesktop.org>; Mon, 20 May 2024 09:08:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716208402; x=1716813202; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ovkEWaQCA7eBKIybUwU0MV7EJ/U35ld+RDcvKJwMYS0=;
- b=DZOykOjGuR7zq4VU5w0c5x+oxy0oHc3fmrmuwZrMbCN3Z1nmwxJD2OdOAb8ProZNRt
- LJnDdt48T9SEREEETAYg5/cLj6hgXe+40zOCWNUs1X5aSa5s2DusueAoRRssoj1WyTVy
- z3fVrFj5nzUcZ16dfTKTpm+sEXE8iuQfXTNKww4sGncF/xdn4ZUwAMsLSQ5uYZEQ9aLs
- 51Zobh0WFaWt0yoWMQazBXlm+Ofhpl5R5JTuTHoOP0kRhP9wrnZBn+kCiiOrXiXT2mzV
- R8uZ2VAVQPgAnaVxnHLixmqKWdb/ci32pMZuLkLNUKuCiX5MSGAsKRIMsWUb1MOQ95Rm
- qVxQ==
+ d=chromium.org; s=google; t=1716221294; x=1716826094;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=y/kGm8BVTegBDF6ZtCbDHbkok7PhmOjbef+2E72+mzc=;
+ b=kkL2bKW9kQnSr1vQ32zgwv4DLCxAuPe8FchMnAWOLXfyYjF3/6LE7EEPEBH5bmr9Nr
+ HjvX/G9b0nykeiw8itt0f1/3kYw7xrQWHxjfWHDU96dZ9I0khcfK8n3sTx+oB7zoq3FN
+ ph8Fc0cVN1jBz5LCtngm7bdXuzInSCuJuBcno=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716208402; x=1716813202;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ovkEWaQCA7eBKIybUwU0MV7EJ/U35ld+RDcvKJwMYS0=;
- b=LofWLLAy6GeAMob4NUphmxpye9I60q6+3rg8HjlBvJiWSPfbuerbOvFxyc1axGPQRX
- ozSIjzfYbkhuSropWwqxRObXsHRxDtC90NNT/nJl3w5qv92sPB9mK3Z5biflxC9QLecC
- xrkHzTQeZGpc5MgoFigkmn30piGvVZxdqwkK3wtflZdo9AeY3piCkbyIrk3snb+BuqtJ
- V2e8iZm7O9QZ80F/cTpJ/x7QRKhiiVTtA65BEaOiFzd10RwLj1xbOCnAahznaM6QWxAX
- IeJZXE+CRz9NQcMBRi8CzQ/KrvJFtsbbL02xIULivR9DR4GRDLqG65zuAY37M/5Fz2yB
- LEVQ==
+ d=1e100.net; s=20230601; t=1716221294; x=1716826094;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=y/kGm8BVTegBDF6ZtCbDHbkok7PhmOjbef+2E72+mzc=;
+ b=kgagRpT+IFdGbKcQpn+FcGPx5/QwM4JFbm46x2bSMu+5iauxVzAwS8Pifbi6LnYNgy
+ YN28NwqCgtFpkztl6tUmz7yGEN1BULnZibE7cjO4O3v/h/CYue7oU+6gbVWxrR7NFIHq
+ 1pS/F/lc+1fp7MrIgjrLUNPy2v9xIYK6qSwShx2rHNYpgte6dp4dd7JNSdEg6uMA1t/N
+ lS5KhZ10R1u+qBUaGlMSyU2fArH/FOp+6I7OBSKwDQCCJM2P3hdScs0UypZ2LhcDk/0O
+ LM57Z5IoETIXTygswtkSoDFXZ8XwGviDPCIYYuMVTtkyEhS4tG1x4VoIi0lLuY7ch50s
+ 5upg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUqCVvLpTMyu+ZNPwvXr9Y1OoTb6Fd0/jNWZUweaLJv341i6uczJDgYztEElMO7zrogATAORD0CsHP0vdVRCBG9wI37DDOIE4jnqlDpP5SC
-X-Gm-Message-State: AOJu0Yzd9DZurqZtaCh3BmR8tWA8LlOqUSArdwwSO6ewI3Cgq9TvXf64
- bcA15YStIp+KJlLSP6J8l6coNEoYxm1ui6xm849nxV0dhMqx8/rnqICxH91pLks0LqPnzZcYJqM
- W1iRrKpAJ2xbylPAtevAI55zLT26NTIlQ6hMU9A==
-X-Google-Smtp-Source: AGHT+IGs0xMhNjXBQwaD1yEBLjIanzDkrGthytqkRz05Fj5APi4G3kf/ZJJYkvM5bAuoB6pl+p9xmBERmiYfprGkWU8=
-X-Received: by 2002:a25:ada8:0:b0:de6:17e7:ddd1 with SMTP id
- 3f1490d57ef6-dee4f30c3f1mr26969452276.34.1716208401987; Mon, 20 May 2024
- 05:33:21 -0700 (PDT)
+ AJvYcCULsP/WSMT/tf72O3hhuz97qvTWzgz5qgXEtxMYsQ/jmPDf/CcrfhKC77qHkVcD0zYcyqIuOVd49CLxNf/cfPtYFnVmwdNns6W9uuk15+YP
+X-Gm-Message-State: AOJu0YzljoIoex7qBY8DskSiG2+VKK1ze7cvNdJCSK0u9YuZR7nuDo3G
+ 9dRUk1+31Z/qkSpGcjNU1PrsTgQzLbBuUuQhveWc56MaxGy+cri/vHwRrQp7MiRIcDGYU2HASIw
+ =
+X-Google-Smtp-Source: AGHT+IH7KNlrPuDmx/+ELI8rEAmcOAf7tUyAxwdF7+Ua/++DPcYxJGKakPaMBnTMYn5oqV+o78zRRA==
+X-Received: by 2002:a05:6214:598a:b0:6ab:631d:3267 with SMTP id
+ 6a1803df08f44-6ab632c7584mr22413436d6.20.1716221294567; 
+ Mon, 20 May 2024 09:08:14 -0700 (PDT)
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com.
+ [209.85.160.169]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6a15f194c88sm113219546d6.65.2024.05.20.09.08.13
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 May 2024 09:08:14 -0700 (PDT)
+Received: by mail-qt1-f169.google.com with SMTP id
+ d75a77b69052e-43dfe020675so668231cf.0
+ for <freedreno@lists.freedesktop.org>; Mon, 20 May 2024 09:08:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV8IUBeAUK1b631j8VLsNKKEkiDlDLhY+qoJ5jO5suPFecvzEv6lD3LrM9/Z4A/h0FOFXauPNN5cpBAH7kM0/NUYqBkfjbpHrHvZIDyenZZ
+X-Received: by 2002:a05:622a:820d:b0:43f:7b35:c5e2 with SMTP id
+ d75a77b69052e-43f7b35ca1dmr3103541cf.16.1716221292824; Mon, 20 May 2024
+ 09:08:12 -0700 (PDT)
 MIME-Version: 1.0
 References: <cover.1715691257.git.jani.nikula@intel.com>
  <93d6c446ed4831dadfb4a77635a67cf5f27e19ff.1715691257.git.jani.nikula@intel.com>
  <i7labithttzkv62nybrtpucoklycz76ykgj2zjf3qnwycjjsyt@wck7s5uxg2bt>
- <871q5wu0u2.fsf@intel.com>
-In-Reply-To: <871q5wu0u2.fsf@intel.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 20 May 2024 15:33:09 +0300
-Message-ID: <CAA8EJprJg_yzembu2zb3=r8gGTEbq3fiYqpdNFQyBSGw+9+qcA@mail.gmail.com>
+In-Reply-To: <i7labithttzkv62nybrtpucoklycz76ykgj2zjf3qnwycjjsyt@wck7s5uxg2bt>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 20 May 2024 09:07:55 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XgpD_JqxpVezZ=RzudwxLJb+gN3Br8U03ONLGv9n_JmQ@mail.gmail.com>
+Message-ID: <CAD=FV=XgpD_JqxpVezZ=RzudwxLJb+gN3Br8U03ONLGv9n_JmQ@mail.gmail.com>
 Subject: Re: [PATCH 08/11] drm/msm/dp: switch to struct drm_edid
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,103 +96,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 20 May 2024 at 15:25, Jani Nikula <jani.nikula@intel.com> wrote:
->
-> On Sun, 19 May 2024, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
-> > On Tue, May 14, 2024 at 03:55:14PM +0300, Jani Nikula wrote:
-> >> Prefer the struct drm_edid based functions for reading the EDID and
-> >> updating the connector.
-> >>
-> >> Simplify the flow by updating the EDID property when the EDID is read
-> >> instead of at .get_modes.
-> >>
-> >> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> >>
-> >> ---
-> >
-> > The patch looks good to me, I'd like to hear an opinion from Doug (added
-> > to CC).
-> >
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->
-> Thanks!
->
-> > What is the merge strategy for the series? Do you plan to pick up all
-> > the patches to drm-misc or should we pick up individual patches into
-> > driver trees?
->
-> I think all of the patches here are connected in theme, but
-> independent. Either way is fine by me.
->
-> >
-> >
-> >>
-> >> Cc: Rob Clark <robdclark@gmail.com>
-> >> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >> Cc: Sean Paul <sean@poorly.run>
-> >> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> >> Cc: linux-arm-msm@vger.kernel.org
-> >> Cc: freedreno@lists.freedesktop.org
-> >> ---
-> >>  drivers/gpu/drm/msm/dp/dp_display.c | 11 +++----
-> >>  drivers/gpu/drm/msm/dp/dp_panel.c   | 47 +++++++++--------------------
-> >>  drivers/gpu/drm/msm/dp/dp_panel.h   |  2 +-
-> >>  3 files changed, 20 insertions(+), 40 deletions(-)
-> >
-> > [skipped]
-> >
-> >> @@ -249,10 +228,12 @@ void dp_panel_handle_sink_request(struct dp_panel *dp_panel)
-> >>      panel = container_of(dp_panel, struct dp_panel_private, dp_panel);
-> >>
-> >>      if (panel->link->sink_request & DP_TEST_LINK_EDID_READ) {
-> >> +            /* FIXME: get rid of drm_edid_raw() */
-> >
-> > The code here can get use of something like drm_edid_smth_checksum().
-> > 'Something', because I could not come up with the word that would make
-> > it clear that it is the declared checksum instead of the actual /
-> > computed one.
->
-> This is an annoying one, to be honest, and linked to the historical fact
-> that we filter some EDID blocks that have an incorrect checksum.
+Hi,
 
-It is a part of the DP test suite if I remember correctly.
-
+On Sun, May 19, 2024 at 2:01=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
 >
-> (Some blocks, yes. We don't filter all blocks, because there are some
-> nasty docks out there that modify the CTA block but fail to update the
-> checksum, and filtering the CTA blocks would render the display
-> useless. So we accept CTA blocks with incorrect checksums. But reject
-> others. Yay.)
->
-> IMO the real fix would be to stop mucking with the EDID, and just expose
-> it to userspace, warts and all. We could still ignore the EDID blocks
-> with incorrect checksum while using it ourselves if we want to. And with
-> that, we could just have a function that checks the last EDID block's
-> checksum, and stop using this ->real_edid_checksum thing.
->
-> Anyway, yes, we could add the function already.
->
-> BR,
-> Jani.
->
+> On Tue, May 14, 2024 at 03:55:14PM +0300, Jani Nikula wrote:
+> > Prefer the struct drm_edid based functions for reading the EDID and
+> > updating the connector.
 > >
-> >> +            const struct edid *edid = drm_edid_raw(dp_panel->drm_edid);
-> >>              u8 checksum;
-> >>
-> >> -            if (dp_panel->edid)
-> >> -                    checksum = dp_panel_get_edid_checksum(dp_panel->edid);
-> >> +            if (edid)
-> >> +                    checksum = dp_panel_get_edid_checksum(edid);
-> >>              else
-> >>                      checksum = dp_panel->connector->real_edid_checksum;
-> >>
+> > Simplify the flow by updating the EDID property when the EDID is read
+> > instead of at .get_modes.
+> >
+> > Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> >
+> > ---
 >
-> --
-> Jani Nikula, Intel
+> The patch looks good to me, I'd like to hear an opinion from Doug (added
+> to CC).
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+> What is the merge strategy for the series? Do you plan to pick up all
+> the patches to drm-misc or should we pick up individual patches into
+> driver trees?
 
+I'm not sure I have too much to add here aside from what you guys have
+already talked about. I'm OK with:
 
-
--- 
-With best wishes
-Dmitry
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
