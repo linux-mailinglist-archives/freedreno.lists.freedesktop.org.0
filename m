@@ -2,64 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C5FD8CC792
-	for <lists+freedreno@lfdr.de>; Wed, 22 May 2024 22:01:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EEF98CC79B
+	for <lists+freedreno@lfdr.de>; Wed, 22 May 2024 22:05:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A629210EF1D;
-	Wed, 22 May 2024 20:01:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2914010F16C;
+	Wed, 22 May 2024 20:05:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iIOnIwc9";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TygbwEYO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
- [209.85.128.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5883A10F189
- for <freedreno@lists.freedesktop.org>; Wed, 22 May 2024 20:01:36 +0000 (UTC)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-61804067da0so12829097b3.0
- for <freedreno@lists.freedesktop.org>; Wed, 22 May 2024 13:01:36 -0700 (PDT)
+Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com
+ [209.85.219.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2037410F16C
+ for <freedreno@lists.freedesktop.org>; Wed, 22 May 2024 20:05:47 +0000 (UTC)
+Received: by mail-yb1-f175.google.com with SMTP id
+ 3f1490d57ef6-df4f05f4cc8so663140276.0
+ for <freedreno@lists.freedesktop.org>; Wed, 22 May 2024 13:05:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716408095; x=1717012895; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1716408346; x=1717013146; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=DRPkMdMiFXiHSXSHC1KGtPEPqoByQrBvux7SR1+/mUI=;
- b=iIOnIwc9AV0jO99m/jof8iLpHF4U75WyhjSjht30EPBcUNHwO3SRLaiLhtS+buW84q
- fKHrRFpGHIShKoYfntwF0oDlKKef1yZ1XpmnrYoQyKMaLzMMckTrpUrFDCO87FKuWNr2
- BjTYKN/li1OTRJ2s4OIPv+fuNuubezgHutJV2Kr7L9AA6rdYOamOZW/xXWMOBVkf2p/6
- JlxPR/xuEdVzi1SbafOxe1MwYTjFDpgTEustYwJPYYEjhsc39g0OlCkDQBkVeEq4LxLM
- smhki5CSb+5mglT2/JlS0KtjtuwuS0dEpcNvqDGzpf8sN4p3AJaUBGVHIdQma+KPozFH
- ATXQ==
+ bh=hk3jDe7FCuIhCM+FHY50wYnpF7qQKPUq+TZmlYJWz+A=;
+ b=TygbwEYOEo26ze94h0VRjrQNIQpF5ynF3Twe2HvMQEenOdqfisd9srbVlQvjELT9/i
+ uITVhpPsuWmNqpqmJBkVgQwhP1YKUdhvWTk8PXRlvBEcjHi8vZ4aYxRUTOBDCAdycVty
+ inosiGbQFjEaUXiars7H/fQJ91H9ysFIMzT1dj1HqsxwRRMkBE1KLS0slNi9mgtxNPPY
+ wLCagx6EBD0H2J64J3SYJUSGp5a9d0mNIchRIRHyUt3LiE0YZZW9KfI/wds1A5oIC8bu
+ MB+zpbRBgv1r8MjBQWzO/6QsEQiOc/E6r8ie5T5zdz2hsTTOlQJu50taG2JFXCOkkuJB
+ M09w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716408095; x=1717012895;
+ d=1e100.net; s=20230601; t=1716408346; x=1717013146;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=DRPkMdMiFXiHSXSHC1KGtPEPqoByQrBvux7SR1+/mUI=;
- b=jvM5ZJKGb+Bc7pgnuXWIqLD+gWm91tRtxEnMge+IuPQK3ySlUSn8wAnMGFkWw/fw6O
- qK+FlVsqr5Ea3Qm4fxFaASLpsJcVfDDgAz9tsYsUMNNEzbCJFJKR56Z0pTUzQLdV1kbR
- U8jo92RRC7Fd2KZu7TV3sOAZYveaaUaMHsBusRqM2+ow/wiRJKDGJN07s531E1GHK236
- aHb+fFdvh++kvdLFgSkgj3rDXXtYE23MFeyTvWq9shnxRu7MSpIYE5d/J6DOLu+9lgfa
- skSme9TesAumlexkglHWmjRyCXc9Odp8+u5gnklwKdU2qro/dQdB1R6UItqRsODxkKNb
- 1kPQ==
+ bh=hk3jDe7FCuIhCM+FHY50wYnpF7qQKPUq+TZmlYJWz+A=;
+ b=RLrfHT351ph5nJlCG2vl+RI3tE2WmkAZ6LIChPSp76RkuW7hfBoFbXI5t2wsqnLwgg
+ KyGzI25SD/NkaEIbjVP8qe1r4Q4dU7HJdp5EM36ljZif9kMdNk9Wkd+xG5I3xFVMfDMw
+ pgAqYkj5h0hbbUXFhrrmXFArM0/rLD+LOcTJ84zpOldE0SLUdVvfgaolMXHiE1u/5YvC
+ 7mCRCkYOsWvgUAvruR5ONd6p7xXC12j3iBqMoVJzATZtJ7M6xyqT+lVdNmbDZV/ilXFH
+ enyBksyA9UwwHy6Rea45KWQ8QI+Ncvw7PQe/le9s4s9AoupgkcsabM9e2H07pPE/LFGo
+ uErQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV5nbYEx7yZVbUWeW1NbQY2KpfnoqWdcayZo1Vxyo70OI1WKaTdCrtL+DS3FstvxQxXwvyhKmIVzI3r5fg9/V9Oyoaexx08IQlf590ixP3E
-X-Gm-Message-State: AOJu0YwhFC4E57hDz+Ce3LZYaEjv0AAviKE5ZjW8iOCi9PefJX9Ptt9g
- +MH3iq1cO85hgt58DNn33jeU1p3ZJ0szSLm31pUWHqZf8u+h5uQRbzxnsJd4dzv4i8JczAzfWbL
- ykspET71Y2osQuyFI/cKFv+A4T2+wO8YbtM/SQQ==
-X-Google-Smtp-Source: AGHT+IGp6pTwvIYDaSqRLy9eyI5ICKE1WVJu990cWnLKFAuKaL+Hi52m5qOuALyhACM95iFGWGyXVZCh3VhYsES77d0=
-X-Received: by 2002:a25:2c9:0:b0:dcf:bc57:cd61 with SMTP id
- 3f1490d57ef6-df4e0df17bfmr3143774276.50.1716408095274; Wed, 22 May 2024
- 13:01:35 -0700 (PDT)
+ AJvYcCWPWFUNOUaqbCBwQSIQroJPc08PcJ5JK26fUignThWXsUrKVWp43tDNQ3IPL4OBt44VPmXzUkBE8TPmCU1wdoLVgoR/NY/tGTCL7pZQ5zmS
+X-Gm-Message-State: AOJu0Ywm3J0F2/oUz8SU00904PxEAVGt1da1MfauMgVLGBVd0CzrPpKB
+ Pno7O2XpuOuHOXGq+yI5dxU5Xypm6UnFlWk6lECmzyHRn7smv/ZfPRaQ10tIMtnLlnQ+AOmt1av
+ kQ+4ZdhfGIxqsANlQnRgqqsrgd3iencfKrcGoNA==
+X-Google-Smtp-Source: AGHT+IGriJg+wB3ztmixivwvv97cgSoAQj2CfDfqQDNVbMaFx0uytg1e+rLooAVwAc90Yaum/PZOSVahorkiKNzK6YY=
+X-Received: by 2002:a25:6b44:0:b0:de5:9ec3:6475 with SMTP id
+ 3f1490d57ef6-df4e0c1347cmr3111690276.31.1716408345943; Wed, 22 May 2024
+ 13:05:45 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240520-dpu-handle-te-signal-v1-0-f273b42a089c@linaro.org>
- <20240520-dpu-handle-te-signal-v1-2-f273b42a089c@linaro.org>
- <a349dda7-8af5-0996-0057-9da30f39dfb1@quicinc.com>
-In-Reply-To: <a349dda7-8af5-0996-0057-9da30f39dfb1@quicinc.com>
+ <20240520-dpu-handle-te-signal-v1-1-f273b42a089c@linaro.org>
+ <224fa477-07ba-e7b2-2f7d-8f7d21f4a0c7@quicinc.com>
+In-Reply-To: <224fa477-07ba-e7b2-2f7d-8f7d21f4a0c7@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 22 May 2024 23:01:24 +0300
-Message-ID: <CAA8EJpo7MdFqFUS0jcs3v4bSOoi6WWnbjahqn4r045CX8CTcOg@mail.gmail.com>
-Subject: Re: [PATCH 2/7] drm/msm/dpu: convert vsync source defines to the enum
+Date: Wed, 22 May 2024 23:05:34 +0300
+Message-ID: <CAA8EJpp8kRPKboHNHwD+R5f1AcndjaQdGG=Q4ygmRE9VMNievQ@mail.gmail.com>
+Subject: Re: [PATCH 1/7] dt-bindings: display/msm/dsi: allow specifying TE
+ source
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
@@ -87,60 +88,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 22 May 2024 at 21:41, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On Wed, 22 May 2024 at 21:38, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
 >
 >
 > On 5/20/2024 5:12 AM, Dmitry Baryshkov wrote:
-> > Add enum dpu_vsync_source instead of a series of defines. Use this enum
-> > to pass vsync information.
+> > Command mode panels provide TE signal back to the DSI host to signal
+> > that the frame display has completed and update of the image will not
+> > cause tearing. Usually it is connected to the first GPIO with the
+> > mdp_vsync function, which is the default. In such case the property can
+> > be skipped.
 > >
+>
+> This is a good addition overall. Some comments below.
+>
 > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  2 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c |  2 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h |  2 +-
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h | 26 ++++++++++++++------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h  |  2 +-
-> >   5 files changed, 18 insertions(+), 16 deletions(-)
+> >   .../bindings/display/msm/dsi-controller-main.yaml        | 16 ++++++++++++++++
+> >   1 file changed, 16 insertions(+)
 > >
-
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > index 66759623fc42..a2eff36a2224 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > @@ -54,18 +54,20 @@
-> >   #define DPU_BLEND_BG_INV_MOD_ALPHA  (1 << 12)
-> >   #define DPU_BLEND_BG_TRANSP_EN              (1 << 13)
+> > diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> > index 1fa28e976559..c1771c69b247 100644
+> > --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> > +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> > @@ -162,6 +162,21 @@ properties:
+> >                   items:
+> >                     enum: [ 0, 1, 2, 3 ]
 > >
-> > -#define DPU_VSYNC0_SOURCE_GPIO               0
-> > -#define DPU_VSYNC1_SOURCE_GPIO               1
-> > -#define DPU_VSYNC2_SOURCE_GPIO               2
-> > -#define DPU_VSYNC_SOURCE_INTF_0              3
-> > -#define DPU_VSYNC_SOURCE_INTF_1              4
-> > -#define DPU_VSYNC_SOURCE_INTF_2              5
-> > -#define DPU_VSYNC_SOURCE_INTF_3              6
-> > -#define DPU_VSYNC_SOURCE_WD_TIMER_4  11
-> > -#define DPU_VSYNC_SOURCE_WD_TIMER_3  12
-> > -#define DPU_VSYNC_SOURCE_WD_TIMER_2  13
-> > -#define DPU_VSYNC_SOURCE_WD_TIMER_1  14
-> > -#define DPU_VSYNC_SOURCE_WD_TIMER_0  15
-> > +enum dpu_vsync_source {
-> > +     DPU_VSYNC_SOURCE_GPIO_0,
-> > +     DPU_VSYNC_SOURCE_GPIO_1,
-> > +     DPU_VSYNC_SOURCE_GPIO_2,
-> > +     DPU_VSYNC_SOURCE_INTF_0 = 3,
+> > +              qcom,te-source:
+> > +                $ref: /schemas/types.yaml#/definitions/string
+> > +                description:
+> > +                  Specifies the source of vsync signal from the panel used for
+> > +                  tearing elimination. The default is mdp_gpio0.
 >
-> Do we need this assignment to 3?
+> panel --> command mode panel?
+>
+> > +                enum:
+> > +                  - mdp_gpio0
+> > +                  - mdp_gpio1
+> > +                  - mdp_gpio2
+>
+> are gpio0, gpio1 and gpio2 referring to the vsync_p, vsync_s and vsync_e
+> sources?
 
-It is redundant, but it points out that if at some point another GPIO
-is added, it should go to the end (or to some other place, having the
-proper value).
+No idea, unfortunately. They are gpioN or just mdp_vsync all over the
+place. For the reference, in case of the SDM845 and Pixel3 the signal
+is routed through SoC GPIO12.
+
+> In that case wouldnt it be better to name it like that?
+>
+> > +                  - timer0
+> > +                  - timer1
+> > +                  - timer2
+> > +                  - timer3
+> > +                  - timer4
+> > +
+>
+> These are indicating watchdog timer sources right?
+
+Yes.
 
 >
-> Rest LGTM,
+> >       required:
+> >         - port@0
+> >         - port@1
+> > @@ -452,6 +467,7 @@ examples:
+> >                             dsi0_out: endpoint {
+> >                                      remote-endpoint = <&sn65dsi86_in>;
+> >                                      data-lanes = <0 1 2 3>;
+> > +                                   qcom,te-source = "mdp_gpio2";
 >
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> I have a basic doubt on this. Should te-source should be in the input
+> port or the output one for the controller? Because TE is an input to the
+> DSI. And if the source is watchdog timer then it aligns even more as a
+> property of the input endpoint.
+
+I don't really want to split this. Both data-lanes and te-source are
+properties of the link between the DSI and panel. You can not really
+say which side has which property.
+
+> >                             };
+> >                     };
+> >              };
+> >
 
 -- 
 With best wishes
