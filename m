@@ -2,55 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CD3E8CC274
-	for <lists+freedreno@lfdr.de>; Wed, 22 May 2024 15:51:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 847358CC376
+	for <lists+freedreno@lfdr.de>; Wed, 22 May 2024 16:45:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90E2B10EE76;
-	Wed, 22 May 2024 13:51:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E736310EA28;
+	Wed, 22 May 2024 14:45:50 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dGDVyM7Z";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EA9E10EE76
- for <freedreno@lists.freedesktop.org>; Wed, 22 May 2024 13:51:34 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 57C2F4081E;
- Wed, 22 May 2024 15:51:31 +0200 (CEST)
-Date: Wed, 22 May 2024 15:51:29 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44FEA10E4FD;
+ Wed, 22 May 2024 14:45:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5143662A22;
+ Wed, 22 May 2024 14:45:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D54C2BBFC;
+ Wed, 22 May 2024 14:45:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1716389147;
+ bh=zOLj0B1mXhNR7COAnE/xY+vZVUvYeUNisjjhU/v/78g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=dGDVyM7ZQxZ3mpqoZ0uhm34b69z0buP3Izb2n9ZgDU3+feXDZN7rWMsfogNl/ivGd
+ ZkOAdNJ/Kvsxhp2jbQUCeHEVB77MA58eAIqHjgwvaKK4vyI7Ub5LuB9dqnNCF+DhwE
+ ovMWw1bpVyslIl/cA9hcyo1AA2jOwzt0Wj56GpgScEy5KJd6iMVTMavHx4ezyLckJE
+ 9uhsM39ri9aB9l3ro4ikqpIw+EkV+pduVJRl10bDw81LjIpB+4U/KexmhpSUUvniZV
+ wfhM3c1ds+Dye2DNIyECRmbiYEQss2mYZ8gRrj1w7Gf0mFdkXkKX/aRWtnI96dXBzJ
+ C4GWk6Z2ruZYw==
+Date: Wed, 22 May 2024 09:45:45 -0500
+From: Rob Herring <robh@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>, 
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Caleb Connolly <caleb.connolly@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Vinod Koul <vkoul@kernel.org>, 
- Caleb Connolly <caleb@connolly.tech>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH v3 2/3] drm/panel/lg-sw43408: select
- CONFIG_DRM_DISPLAY_DP_HELPER
-Message-ID: <lpguauybi5xs5hy7vglqvaloy4yykgejdhreeqp6fioeuelav6@pj2ap6eat3cy>
-References: <20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org>
- <20240522-panel-sw43408-fix-v3-2-6902285adcc0@linaro.org>
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/7] dt-bindings: display/msm/dsi: allow specifying TE
+ source
+Message-ID: <20240522144545.GA3271320-robh@kernel.org>
+References: <20240520-dpu-handle-te-signal-v1-0-f273b42a089c@linaro.org>
+ <20240520-dpu-handle-te-signal-v1-1-f273b42a089c@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240522-panel-sw43408-fix-v3-2-6902285adcc0@linaro.org>
+In-Reply-To: <20240520-dpu-handle-te-signal-v1-1-f273b42a089c@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,39 +69,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2024-05-22 09:25:54, Dmitry Baryshkov wrote:
-> This panel driver uses DSC PPS functions and as such depends on the
-> DRM_DISPLAY_DP_HELPER. Select this symbol to make required functions
-
-Here and in the title: maybe this is a remnant from v2, but you split out a
-DRM_DISPLAY_DSC_HELPER and shouldn't be enabling DP for a DSI panel now.
-
-- Marijn
-
-> available to the driver.
+On Mon, May 20, 2024 at 03:12:43PM +0300, Dmitry Baryshkov wrote:
+> Command mode panels provide TE signal back to the DSI host to signal
+> that the frame display has completed and update of the image will not
+> cause tearing. Usually it is connected to the first GPIO with the
+> mdp_vsync function, which is the default. In such case the property can
+> be skipped.
 > 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202404200800.kYsRYyli-lkp@intel.com/
-> Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/panel/Kconfig | 2 ++
->  1 file changed, 2 insertions(+)
+>  .../bindings/display/msm/dsi-controller-main.yaml        | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 4a2f621433ef..3e3f63479544 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -340,6 +340,8 @@ config DRM_PANEL_LG_SW43408
->  	depends on OF
->  	depends on DRM_MIPI_DSI
->  	depends on BACKLIGHT_CLASS_DEVICE
-> +	select DRM_DISPLAY_DSC_HELPER
-> +	select DRM_DISPLAY_HELPER
->  	help
->  	  Say Y here if you want to enable support for LG sw43408 panel.
->  	  The panel has a 1080x2160@60Hz resolution and uses 24 bit RGB per
-> 
-> -- 
-> 2.39.2
-> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> index 1fa28e976559..c1771c69b247 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+> @@ -162,6 +162,21 @@ properties:
+>                  items:
+>                    enum: [ 0, 1, 2, 3 ]
+>  
+> +              qcom,te-source:
+> +                $ref: /schemas/types.yaml#/definitions/string
+> +                description:
+> +                  Specifies the source of vsync signal from the panel used for
+> +                  tearing elimination. The default is mdp_gpio0.
+
+default: mdp_gpio0
+
+With that,
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
