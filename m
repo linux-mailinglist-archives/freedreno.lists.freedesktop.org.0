@@ -2,46 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D8FC8CFB73
-	for <lists+freedreno@lfdr.de>; Mon, 27 May 2024 10:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7F9A8CFF9F
+	for <lists+freedreno@lfdr.de>; Mon, 27 May 2024 14:11:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B453810F979;
-	Mon, 27 May 2024 08:30:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63BB410FAAE;
+	Mon, 27 May 2024 12:11:29 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WQOF2pZo";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 502 seconds by postgrey-1.36 at gabe;
- Mon, 27 May 2024 08:30:07 UTC
-Received: from cantor.telenet-ops.be (cantor.telenet-ops.be [195.130.132.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36D1F10F979
- for <freedreno@lists.freedesktop.org>; Mon, 27 May 2024 08:30:05 +0000 (UTC)
-Received: from laurent.telenet-ops.be (laurent.telenet-ops.be
- [IPv6:2a02:1800:110:4::f00:19])
- by cantor.telenet-ops.be (Postfix) with ESMTPS id 4VnpX43BJDz4x1G7
- for <freedreno@lists.freedesktop.org>; Mon, 27 May 2024 10:21:40 +0200 (CEST)
-Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed80:c993:5573:f894:7353])
- by laurent.telenet-ops.be with bizsmtp
- id U8Ma2C00B2nC7mg018Ma4k; Mon, 27 May 2024 10:21:40 +0200
-Received: from geert (helo=localhost)
- by ramsan.of.borg with local-esmtp (Exim 4.95)
- (envelope-from <geert@linux-m68k.org>) id 1sBVbq-00C8pf-Cj;
- Mon, 27 May 2024 10:21:34 +0200
-Date: Mon, 27 May 2024 10:21:34 +0200 (CEST)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: linux-kernel@vger.kernel.org
-cc: sparclinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- mpi3mr-linuxdrv.pdl@broadcom.com, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, bpf@vger.kernel.org, 
- loongarch@lists.linux.dev, linux-parisc@vger.kernel.org
-Subject: Re: Build regressions/improvements in v6.10-rc1
-In-Reply-To: <20240527075047.4004654-1-geert@linux-m68k.org>
-Message-ID: <5483dbca-9826-4d15-8d4-cacce091666c@linux-m68k.org>
-References: <CAHk-=wjQv_CSPzhjOMoOjGO3FmuHe5hzm6Ds69zZSFPa4PeuCA@mail.gmail.com>
- <20240527075047.4004654-1-geert@linux-m68k.org>
+Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com
+ [209.85.219.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B2E410FAAE
+ for <freedreno@lists.freedesktop.org>; Mon, 27 May 2024 12:11:27 +0000 (UTC)
+Received: by mail-yb1-f175.google.com with SMTP id
+ 3f1490d57ef6-df78acd5bb6so1751920276.3
+ for <freedreno@lists.freedesktop.org>; Mon, 27 May 2024 05:11:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1716811886; x=1717416686; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=uE9dGI47OGcr1OCD++S9WEEhkXLb3lAf+X4P+A18CQY=;
+ b=WQOF2pZol6QwJG7t7XIyPYaMcB+ahob9eqhtPBFiNi5xoEzHkki5EMpsrQXNTbj2kZ
+ J+zg+lJF5ezlGrYcPPIp4dKnjBd3SSvzIiYjR4JgA+17YubuUYH1R9F3CugnY7EODLEO
+ SGsZ3I/1ZeX96yrCde1l5jk+lVVfzcs0M/2LrCaJdm4swb0TeuE0xCBZZNKUXYYraR2+
+ tCcNU1UBtvGK06s2NKFgOsmnDXlGmSkdZK07hsYVFAvmhl+QZ1rvCB4WWFrYUPevu83s
+ rNWcr+7pRLBJJP6L3KMVCUOz7DAL9iSTrbl1q/eaDqBEaixKcNXe+s61eOjt7ftPYZp8
+ DpUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1716811886; x=1717416686;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uE9dGI47OGcr1OCD++S9WEEhkXLb3lAf+X4P+A18CQY=;
+ b=AKBoL8v8e/8mOvyI+leiRF4yGf2eKsoUqTg+hgpa2WMdfSACnHL2cyFeUFdZzfgmZi
+ 5AdISclZId5zRQvKvdI9x3a2DP10L5q6dYHKYro0KZr9miEtD0P10nPBnAnG0MLJ0Q5u
+ qwspwwoiM9S8j/Ke6+dUVcRcIA+x//9KTNEzCmCtWvuCuwp+22iFfvw7pdOq2/YNnqFD
+ BAG/6Br927V/Sru0PSd7ZontafiTkOJqkC3YHRSXdem1HrVNvchDxU6zCwFfMJA15VGy
+ akyNse2YQ37fgCZsG0X4eWhOeUe3Rngj3rfgUktRiD6/32xdZxeq62DoXgU8TvTUJ1s4
+ OZPA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVm8In8RjvWgFKuPEooSUUUeW19ENIOma1U9XkjNWel9tL6O6e2XYf6RPqM0lmgQAv/QW2E2N27i/NhOOvr25eesNggkl+BCmvAuLXCudEl
+X-Gm-Message-State: AOJu0Yx8xcXpcJOfNZhbc6id/kwz5ZTTGWbXM4siAdEZGPYBMuDlrY1r
+ JJinBl1lAXS2zOE9wuJ/xgx5mbt9bicLdLtal6Dnihdrw24rK2vacV/JVNeuCZo3wBaYqW3MWa5
+ v8E5XEpi8+oscNgLFO/ZqOxFRx5dMVbGNefBNEw==
+X-Google-Smtp-Source: AGHT+IGxgRFb4ObXElKCq0kpmMwuYdA96pRrqkqE2Ky1ptIy4dfuqDwv1cWZhN6FtS0OjSYQtqJ8qzJcDOyxUV7tctc=
+X-Received: by 2002:a25:b18b:0:b0:df6:d068:76d7 with SMTP id
+ 3f1490d57ef6-df772237e93mr8734388276.57.1716811886206; Mon, 27 May 2024
+ 05:11:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="8323329-1442935893-1716798094=:2884583"
+References: <63337d63-67ef-4499-8a24-5f6e9285c36b@freebox.fr>
+In-Reply-To: <63337d63-67ef-4499-8a24-5f6e9285c36b@freebox.fr>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 27 May 2024 15:11:14 +0300
+Message-ID: <CAA8EJpptbpRj2htzcsXAiwQe-1Xdgoev-mdMki2OApm3gMEBcw@mail.gmail.com>
+Subject: Re: [RFC PATCH v1] drm/msm: add msm8998 hdmi phy/pll support
+To: Marc Gonzalez <mgonzalez@freebox.fr>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ MSM <linux-arm-msm@vger.kernel.org>, freedreno@lists.freedesktop.org, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Bryan O Donoghue <bryan.odonoghue@linaro.org>,
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Pierre-Hugues Husson <phhusson@freebox.fr>, Arnaud Vrac <avrac@freebox.fr>, 
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Jeffrey Hugo <quic_jhugo@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,117 +84,344 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1442935893-1716798094=:2884583
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8BIT
-
-On Mon, 27 May 2024, Geert Uytterhoeven wrote:
-> Below is the list of build error/warning regressions/improvements in
-> v6.10-rc1[1] compared to v6.9[2].
+On Thu, 23 May 2024 at 18:14, Marc Gonzalez <mgonzalez@freebox.fr> wrote:
 >
-> Summarized:
->  - build errors: +27/-20
->  - build warnings: +3/-1601
+> From: Arnaud Vrac <avrac@freebox.fr>
 >
-> Happy fixing! ;-)
+> Ported from the downstream driver.
 >
-> Thanks to the linux-next team for providing the build service.
+> Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
+> Signed-off-by: Marc Gonzalez <mgonzalez@freebox.fr>
+> ---
+>  drivers/gpu/drm/msm/Makefile             |   1 +
+>  drivers/gpu/drm/msm/hdmi/hdmi.c          |   1 +
+>  drivers/gpu/drm/msm/hdmi/hdmi.h          |   8 +
+>  drivers/gpu/drm/msm/hdmi/hdmi.xml.h      | 162 ++++
+>  drivers/gpu/drm/msm/hdmi/hdmi_phy.c      |   5 +
+>  drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c | 941 +++++++++++++++++++++++
+>  6 files changed, 1118 insertions(+)
+>  create mode 100644 drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
 >
-> [1] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/1613e604df0cd359cf2a7fbd9be7a0bcfacfabd0/ (all 138 configs)
-> [2] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/a38297e3fb012ddfa7ce0321a7e5a8daeb1872b6/ (all 138 configs)
+> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> index b21ae2880c715..5b5d6aded5233 100644
+> --- a/drivers/gpu/drm/msm/Makefile
+> +++ b/drivers/gpu/drm/msm/Makefile
+> @@ -26,6 +26,7 @@ msm-$(CONFIG_DRM_MSM_HDMI) += \
+>         hdmi/hdmi_phy.o \
+>         hdmi/hdmi_phy_8960.o \
+>         hdmi/hdmi_phy_8996.o \
+> +       hdmi/hdmi_phy_8998.o \
+>         hdmi/hdmi_phy_8x60.o \
+>         hdmi/hdmi_phy_8x74.o \
+>         hdmi/hdmi_pll_8960.o \
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+> index c8ebd75176bba..2a2ce49ef5aa3 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+> @@ -549,6 +549,7 @@ static void msm_hdmi_dev_remove(struct platform_device *pdev)
+>  }
+>
+>  static const struct of_device_id msm_hdmi_dt_match[] = {
+> +       { .compatible = "qcom,hdmi-tx-8998", .data = &hdmi_tx_8974_config },
+
+Missing DT bindings.
+
+>         { .compatible = "qcom,hdmi-tx-8996", .data = &hdmi_tx_8974_config },
+>         { .compatible = "qcom,hdmi-tx-8994", .data = &hdmi_tx_8974_config },
+>         { .compatible = "qcom,hdmi-tx-8084", .data = &hdmi_tx_8974_config },
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.h b/drivers/gpu/drm/msm/hdmi/hdmi.h
+> index ec57864403915..cad0d50c82fbc 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi.h
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.h
+> @@ -137,6 +137,7 @@ enum hdmi_phy_type {
+>         MSM_HDMI_PHY_8960,
+>         MSM_HDMI_PHY_8x74,
+>         MSM_HDMI_PHY_8996,
+> +       MSM_HDMI_PHY_8998,
+>         MSM_HDMI_PHY_MAX,
+>  };
+>
+> @@ -154,6 +155,7 @@ extern const struct hdmi_phy_cfg msm_hdmi_phy_8x60_cfg;
+>  extern const struct hdmi_phy_cfg msm_hdmi_phy_8960_cfg;
+>  extern const struct hdmi_phy_cfg msm_hdmi_phy_8x74_cfg;
+>  extern const struct hdmi_phy_cfg msm_hdmi_phy_8996_cfg;
+> +extern const struct hdmi_phy_cfg msm_hdmi_phy_8998_cfg;
+>
+>  struct hdmi_phy {
+>         struct platform_device *pdev;
+> @@ -184,6 +186,7 @@ void __exit msm_hdmi_phy_driver_unregister(void);
+>  #ifdef CONFIG_COMMON_CLK
+>  int msm_hdmi_pll_8960_init(struct platform_device *pdev);
+>  int msm_hdmi_pll_8996_init(struct platform_device *pdev);
+> +int msm_hdmi_pll_8998_init(struct platform_device *pdev);
+>  #else
+>  static inline int msm_hdmi_pll_8960_init(struct platform_device *pdev)
+>  {
+> @@ -194,6 +197,11 @@ static inline int msm_hdmi_pll_8996_init(struct platform_device *pdev)
+>  {
+>         return -ENODEV;
+>  }
+> +
+> +static inline int msm_hdmi_pll_8998_init(struct platform_device *pdev)
+> +{
+> +       return -ENODEV;
+> +}
+>  #endif
+>
+>  /*
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.xml.h b/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
+> index 973b460486a5a..c9ca1101b5ad4 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
+> @@ -1396,4 +1396,166 @@ static inline uint32_t HDMI_8x60_PHY_REG1_OUTVOL_SWING_CTRL(uint32_t val)
+>  #define REG_HDMI_PHY_QSERDES_TX_LX_TX_ALOG_INTF_OBSV           0x00000110
 >
 >
-> *** ERRORS ***
+> +#define REG_HDMI_8998_PHY_CFG                                  0x00000000
+> +
+> +#define REG_HDMI_8998_PHY_PD_CTL                               0x00000004
+> +
+> +#define REG_HDMI_8998_PHY_MODE                                 0x00000010
+> +
+> +#define REG_HDMI_8998_PHY_CLOCK                                        0x0000005c
+> +
+> +#define REG_HDMI_8998_PHY_CMN_CTRL                             0x00000068
+> +
+> +#define REG_HDMI_8998_PHY_STATUS                               0x000000b4
+> +
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_ATB_SEL1                 0x00000000
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_ATB_SEL2                 0x00000004
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_FREQ_UPDATE              0x00000008
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_BG_TIMER                 0x0000000c
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_EN_CENTER            0x00000010
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_ADJ_PER1             0x00000014
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_ADJ_PER2             0x00000018
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_PER1                 0x0000001c
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_PER2                 0x00000020
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_STEP_SIZE1           0x00000024
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_STEP_SIZE2           0x00000028
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_POST_DIV                 0x0000002c
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_POST_DIV_MUX             0x00000030
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_BIAS_EN_CLKBUFLR_EN      0x00000034
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_CLK_ENABLE1              0x00000038
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_SYS_CLK_CTRL             0x0000003c
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_SYSCLK_BUF_ENABLE                0x00000040
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_EN                   0x00000044
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_IVCO                 0x00000048
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_CMN_IETRIM               0x0000004c
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_CMN_IPTRIM               0x00000050
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_CP_CTRL_MODE0            0x00000060
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_CP_CTRL_MODE1            0x00000064
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_RCTRL_MODE0          0x00000068
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_RCTRL_MODE1          0x0000006c
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_CCTRL_MODE0          0x00000070
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_CCTRL_MODE1          0x00000074
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_CNTRL                        0x00000078
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_BIAS_EN_CTRL_BY_PSM      0x0000007c
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_SYSCLK_EN_SEL            0x00000080
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_CML_SYSCLK_SEL           0x00000084
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_RESETSM_CNTRL            0x00000088
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_RESETSM_CNTRL2           0x0000008c
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_LOCK_CMP_EN              0x00000090
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_LOCK_CMP_CFG             0x00000094
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_LOCK_CMP1_MODE0          0x00000098
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_LOCK_CMP2_MODE0          0x0000009c
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_LOCK_CMP3_MODE0          0x000000a0
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_DEC_START_MODE0          0x000000b0
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_DEC_START_MODE1          0x000000b4
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_DIV_FRAC_START1_MODE0    0x000000b8
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_DIV_FRAC_START2_MODE0    0x000000bc
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_DIV_FRAC_START3_MODE0    0x000000c0
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_DIV_FRAC_START1_MODE1    0x000000c4
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_DIV_FRAC_START2_MODE1    0x000000c8
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_DIV_FRAC_START3_MODE1    0x000000cc
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_INTEGLOOP_INITVAL                0x000000d0
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_INTEGLOOP_EN             0x000000d4
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_INTEGLOOP_GAIN0_MODE0    0x000000d8
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_INTEGLOOP_GAIN1_MODE0    0x000000dc
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_INTEGLOOP_GAIN0_MODE1    0x000000e0
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_INTEGLOOP_GAIN1_MODE1    0x000000e4
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_VCOCAL_DEADMAN_CTRL      0x000000e8
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_VCO_TUNE_CTRL            0x000000ec
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_VCO_TUNE_MAP             0x000000f0
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_CMN_STATUS               0x00000124
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_RESET_SM_STATUS          0x00000128
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_CLK_SEL                  0x00000138
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_HSCLK_SEL                        0x0000013c
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_CORECLK_DIV_MODE0                0x00000148
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_SW_RESET                 0x00000150
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_CORE_CLK_EN              0x00000154
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_C_READY_STATUS           0x00000158
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_CMN_CONFIG               0x0000015c
+> +
+> +#define REG_HDMI_8998_PHY_QSERDES_COM_SVS_MODE_CLK_SEL         0x00000164
+> +
+> +
+> +#define REG_HDMI_8998_PHY_TXn_EMP_POST1_LVL                    0x00000000
+> +
+> +#define REG_HDMI_8998_PHY_TXn_INTERFACE_SELECT_TX_BAND         0x00000008
+> +
+> +#define REG_HDMI_8998_PHY_TXn_CLKBUF_TERM_ENABLE               0x0000000c
+> +
+> +#define REG_HDMI_8998_PHY_TXn_DRV_LVL_RES_CODE_OFFSET          0x00000014
+> +
+> +#define REG_HDMI_8998_PHY_TXn_DRV_LVL                          0x00000018
+> +
+> +#define REG_HDMI_8998_PHY_TXn_LANE_CONFIG                      0x0000001c
+> +
+> +#define REG_HDMI_8998_PHY_TXn_PRE_DRIVER_1                     0x00000024
+> +
+> +#define REG_HDMI_8998_PHY_TXn_PRE_DRIVER_2                     0x00000028
+> +
+> +#define REG_HDMI_8998_PHY_TXn_LANE_MODE                                0x0000002c
+> +
+>  #endif /* HDMI_XML */
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+> index 88a3423b7f24d..95b3f7535d840 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+> @@ -118,6 +118,9 @@ static int msm_hdmi_phy_pll_init(struct platform_device *pdev,
+>         case MSM_HDMI_PHY_8996:
+>                 ret = msm_hdmi_pll_8996_init(pdev);
+>                 break;
+> +       case MSM_HDMI_PHY_8998:
+> +               ret = msm_hdmi_pll_8998_init(pdev);
+> +               break;
+>         /*
+>          * we don't have PLL support for these, don't report an error for now
+>          */
+> @@ -193,6 +196,8 @@ static const struct of_device_id msm_hdmi_phy_dt_match[] = {
+>           .data = &msm_hdmi_phy_8x74_cfg },
+>         { .compatible = "qcom,hdmi-phy-8996",
+>           .data = &msm_hdmi_phy_8996_cfg },
+> +       { .compatible = "qcom,hdmi-phy-8998",
+> +         .data = &msm_hdmi_phy_8998_cfg },
+>         {}
+>  };
 >
-> 27 error regressions:
->  + /kisskb/src/arch/sparc/prom/p1275.c: error: no previous prototype for 'prom_cif_init' [-Werror=missing-prototypes]:  => 52:6
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
+> new file mode 100644
+> index 0000000000000..28c4824a30e89
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
+> @@ -0,0 +1,941 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2016, The Linux Foundation. All rights reserved.
 
-sparc64-gcc13/sparc64-allmodconfig (seen before)
+No changes since 2016?
 
->  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c: error: the frame size of 2192 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 5118:1
->  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20v2.c: error: the frame size of 2280 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 5234:1
->  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/display_mode_vba_30.c: error: the frame size of 2096 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 5188:1
->  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/display_mode_vba_30.c: error: the frame size of 2184 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 3049:1
->  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c: error: the frame size of 2264 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 3274:1
->  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c: error: the frame size of 2232 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 3296:1
->  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_rq_dlg_calc_314.c: error: the frame size of 2080 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 1646:1
+> + */
+> +
+> +#include <linux/clk-provider.h>
+> +#include <linux/delay.h>
+> +
 
-powerpc-gcc5/ppc32_allmodconfig
+[...]
 
->  + /kisskb/src/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c: error: unknown option after '#pragma GCC diagnostic' kind [-Werror=pragmas]:  => 16:9
->  + /kisskb/src/drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h: error: 'gen7_9_0_external_core_regs' defined but not used [-Werror=unused-variable]:  => 1438:19
->  + /kisskb/src/drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h: error: 'gen7_9_0_sptp_clusters' defined but not used [-Werror=unused-variable]:  => 1188:43
+> +
+> +static inline u64 pll_cmp_to_fdata(u32 pll_cmp, unsigned long ref_clk)
+> +{
+> +       u64 fdata = ((u64)pll_cmp) * ref_clk * 10;
+> +
+> +       do_div(fdata, HDMI_PLL_CMP_CNT);
+> +
+> +       return fdata;
+> +}
+> +
+> +#if 0
 
-arm64-gcc5/arm64-allmodconfig
-powerpc-gcc5/powerpc-all{mod,yes}config
-powerpc-gcc5/ppc32_allmodconfig
-powerpc-gcc5/ppc64_book3e_allmodconfig
-powerpc-gcc5/ppc64le_allmodconfig
-sparc64-gcc5/sparc64-allmodconfig
+This should probably go away.
 
-Looks like #pragma "-Wunused-const-variable" is not supported by gcc-5
+> +static int pll_get_post_div(struct hdmi_8998_post_divider *pd, u64 bclk)
+> +{
+> +       /* FIXME: use downstream ratio list ? */
+> +       int ratio[] = { 2, 3, 4, 5, 6, 9, 10, 12, 14, 15, 20, 21, 25, 28, 35 };
+> +       int hs_divsel[] = { 0, 4, 8, 12, 1, 5, 2, 9, 3, 13, 10, 7, 14, 11, 15 };
+> +       int tx_band_sel[] = { 0, 1, 2, 3 };
+> +       u64 vco_freq[60];
+> +       u64 vco, vco_optimal;
+> +       int half_rate_mode = 0;
+> +       int vco_optimal_index, vco_freq_index;
+> +       int i, j;
+> +
 
->  + /kisskb/src/drivers/gpu/drm/nouveau/nvif/object.c: error: 'memcpy' accessing 4294967240 or more bytes at offsets 0 and 56 overlaps 6442450833 bytes at offset -2147483593 [-Werror=restrict]:  => 298:17
->  + /kisskb/src/drivers/gpu/drm/nouveau/nvif/object.c: error: 'memcpy' accessing 4294967264 or more bytes at offsets 0 and 32 overlaps 6442450881 bytes at offset -2147483617 [-Werror=restrict]:  => 161:9
+So, first of all, the code needs to be cleaned. It contains debugging
+and temporary code all over the place. Such code should be removed
 
-parisc-gcc13/generic-32bit_defconfig
-parisc-gcc13/parisc-{def,allmod}config
+Second, at some point I worked on moving HDMI PHY drivers to
+drivers/phy. Oh my, it was nearly a year ago.
+https://patchwork.freedesktop.org/series/118210/
 
->  + /kisskb/src/include/linux/kern_levels.h: error: format '%lu' expects argument of type 'long unsigned int', but argument 4 has type 'unsigned int' [-Werror=format=]:  => 5:18, 5:25
+I hope to land the HDMI HPD rework this cycle, then get back to the
+HDMI PHY code. No promises though, just wanted to point out that we
+might need to rework this even further in few months.
 
-mips-gcc{8,13}/mips-allmodconfig
-parisc-gcc13/parisc-allmodconfig
-powerpc-gcc{5,13}/ppc32_allmodconfig
-sparc64-gcc{5,13}/sparc-allmodconfig
-xtensa-gcc13/xtensa-allmodconfig
 
-drivers/scsi/mpi3mr/mpi3mr_transport.c: In function 'mpi3mr_sas_port_add':
-drivers/scsi/mpi3mr/mpi3mr_transport.c:1367:62: note: format string is defined here
-     ioc_warn(mrioc, "skipping port %u, max allowed value is %lu\n",
-                                                             ~~^
-                                                             %u
-
->  + /kisskb/src/kernel/bpf/verifier.c: error: ‘pcpu_hot’ undeclared (first use in this function):  => 20317:85
->  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘ioread64_hi_lo’ [-Werror=missing-prototypes]:  => 163:5
->  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘ioread64_lo_hi’ [-Werror=missing-prototypes]:  => 156:5
->  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘ioread64be_hi_lo’ [-Werror=missing-prototypes]:  => 178:5
->  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘ioread64be_lo_hi’ [-Werror=missing-prototypes]:  => 170:5
->  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘iowrite64_hi_lo’ [-Werror=missing-prototypes]:  => 272:6
->  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘iowrite64_lo_hi’ [-Werror=missing-prototypes]:  => 264:6
->  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘iowrite64be_hi_lo’ [-Werror=missing-prototypes]:  => 288:6
->  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘iowrite64be_lo_hi’ [-Werror=missing-prototypes]:  => 280:6
-
-um-x86_64-gcc12/um-all{mod,yes}config
-
->  + {standard input}: Error: displacement to undefined symbol .L137 overflows 8-bit field :  => 1105, 1031
->  + {standard input}: Error: displacement to undefined symbol .L158 overflows 8-bit field :  => 1110
->  + {standard input}: Error: unknown pseudo-op: `.al':  => 1270
->  + {standard input}: Error: unknown pseudo-op: `.siz':  => 1273
-
-sh4-gcc13/sh-all{mod,yes}config (SH ICE crickets)
-
-> 3 warning regressions:
->  + /kisskb/src/drivers/gpu/drm/nouveau/nvif/object.c: warning: 'memcpy' accessing 4294967240 or more bytes at offsets 0 and 56 overlaps 6442450833 bytes at offset -2147483593 [-Wrestrict]:  => 298:17
->  + /kisskb/src/drivers/gpu/drm/nouveau/nvif/object.c: warning: 'memcpy' accessing 4294967264 or more bytes at offsets 0 and 32 overlaps 6442450881 bytes at offset -2147483617 [-Wrestrict]:  => 161:9
-
-parisc-gcc13/generic-32bit_defconfig
-parisc-gcc13/parisc-{def,allmod}config
-
->  + {standard input}: Warning: setting incorrect section attributes for .rodata..c_jump_table:  => 10174
-
-loongarch-gcc13/loongson3_defconfig
-
-Gr{oetje,eeting}s,
-
- 						Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
- 							    -- Linus Torvalds
---8323329-1442935893-1716798094=:2884583--
+-- 
+With best wishes
+Dmitry
