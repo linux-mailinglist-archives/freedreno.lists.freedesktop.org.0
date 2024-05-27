@@ -2,54 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 687938CF6E8
-	for <lists+freedreno@lfdr.de>; Mon, 27 May 2024 02:03:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D8FC8CFB73
+	for <lists+freedreno@lfdr.de>; Mon, 27 May 2024 10:30:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98B0210E741;
-	Mon, 27 May 2024 00:03:25 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PiWZpHOm";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id B453810F979;
+	Mon, 27 May 2024 08:30:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F059B10E741
- for <freedreno@lists.freedesktop.org>; Mon, 27 May 2024 00:03:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5E96760F33;
- Mon, 27 May 2024 00:03:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B72ECC2BD10;
- Mon, 27 May 2024 00:03:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1716768202;
- bh=Mz3OF3B15X3H0lFrcQA68DoS91Or2bDicgLrhyGKkHU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PiWZpHOmjAl9W7sSk/AgizPxT4u6NWhZCOXL9upKTDepm+qKTvZ7eDCLfAixbOF6q
- IbsyX0FsJ0Pgibq2XOV1KDtBTfg3MCqKg9kSX76bFTI95JIavlYfmGbVdeq9u0pc/i
- 7gTcLx3TogltDrGtDRXKAAsBe7QZYXRmAU4Wh0/95T1W6FMrz2o51i6AAWQ++KK/i+
- mHs21opCxjoBOUPK9MuRj8cYL3L1RUHDoQNyou0uz1/jPcgliZD6v+y0aY8gIQS+1f
- Bwd8zGM/VEkjL7sM3DUMNTvUZZ/YXv5DDzZf/54PPqHBodMIahLU4C/poid5uke4c9
- iJMTFOBG4YPDQ==
-Date: Sun, 26 May 2024 19:03:18 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Connor Abbott <cwabbott0@gmail.com>
-Cc: Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Jun Nie <jun.nie@linaro.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v3 2/6] firmware: qcom_scm: Add gpu_init_regs call
-Message-ID: <5uvps3a2zn2q4eokzx5ptmylid4cqt6e6gaasv4qssblczaklv@yr3nfhswn7dt>
-References: <20240430-a750-raytracing-v3-0-7f57c5ac082d@gmail.com>
- <20240430-a750-raytracing-v3-2-7f57c5ac082d@gmail.com>
+X-Greylist: delayed 502 seconds by postgrey-1.36 at gabe;
+ Mon, 27 May 2024 08:30:07 UTC
+Received: from cantor.telenet-ops.be (cantor.telenet-ops.be [195.130.132.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36D1F10F979
+ for <freedreno@lists.freedesktop.org>; Mon, 27 May 2024 08:30:05 +0000 (UTC)
+Received: from laurent.telenet-ops.be (laurent.telenet-ops.be
+ [IPv6:2a02:1800:110:4::f00:19])
+ by cantor.telenet-ops.be (Postfix) with ESMTPS id 4VnpX43BJDz4x1G7
+ for <freedreno@lists.freedesktop.org>; Mon, 27 May 2024 10:21:40 +0200 (CEST)
+Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed80:c993:5573:f894:7353])
+ by laurent.telenet-ops.be with bizsmtp
+ id U8Ma2C00B2nC7mg018Ma4k; Mon, 27 May 2024 10:21:40 +0200
+Received: from geert (helo=localhost)
+ by ramsan.of.borg with local-esmtp (Exim 4.95)
+ (envelope-from <geert@linux-m68k.org>) id 1sBVbq-00C8pf-Cj;
+ Mon, 27 May 2024 10:21:34 +0200
+Date: Mon, 27 May 2024 10:21:34 +0200 (CEST)
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+To: linux-kernel@vger.kernel.org
+cc: sparclinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ mpi3mr-linuxdrv.pdl@broadcom.com, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, bpf@vger.kernel.org, 
+ loongarch@lists.linux.dev, linux-parisc@vger.kernel.org
+Subject: Re: Build regressions/improvements in v6.10-rc1
+In-Reply-To: <20240527075047.4004654-1-geert@linux-m68k.org>
+Message-ID: <5483dbca-9826-4d15-8d4-cacce091666c@linux-m68k.org>
+References: <CAHk-=wjQv_CSPzhjOMoOjGO3FmuHe5hzm6Ds69zZSFPa4PeuCA@mail.gmail.com>
+ <20240527075047.4004654-1-geert@linux-m68k.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240430-a750-raytracing-v3-2-7f57c5ac082d@gmail.com>
+Content-Type: multipart/mixed;
+ boundary="8323329-1442935893-1716798094=:2884583"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,98 +57,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Apr 30, 2024 at 11:43:16AM GMT, Connor Abbott wrote:
-> This will used by drm/msm to initialize GPU registers that Qualcomm's
-> firmware doesn't make writeable to the kernel.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Acked-by: Bjorn Andersson <andersson@kernel.org>
+--8323329-1442935893-1716798094=:2884583
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8BIT
 
-Regards,
-Bjorn
+On Mon, 27 May 2024, Geert Uytterhoeven wrote:
+> Below is the list of build error/warning regressions/improvements in
+> v6.10-rc1[1] compared to v6.9[2].
+>
+> Summarized:
+>  - build errors: +27/-20
+>  - build warnings: +3/-1601
+>
+> Happy fixing! ;-)
+>
+> Thanks to the linux-next team for providing the build service.
+>
+> [1] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/1613e604df0cd359cf2a7fbd9be7a0bcfacfabd0/ (all 138 configs)
+> [2] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/a38297e3fb012ddfa7ce0321a7e5a8daeb1872b6/ (all 138 configs)
+>
+>
+> *** ERRORS ***
+>
+> 27 error regressions:
+>  + /kisskb/src/arch/sparc/prom/p1275.c: error: no previous prototype for 'prom_cif_init' [-Werror=missing-prototypes]:  => 52:6
 
-> ---
->  drivers/firmware/qcom/qcom_scm.c       | 14 ++++++++++++++
->  drivers/firmware/qcom/qcom_scm.h       |  3 +++
->  include/linux/firmware/qcom/qcom_scm.h | 23 +++++++++++++++++++++++
->  3 files changed, 40 insertions(+)
-> 
-> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-> index 06e46267161b..f8623ad0987c 100644
-> --- a/drivers/firmware/qcom/qcom_scm.c
-> +++ b/drivers/firmware/qcom/qcom_scm.c
-> @@ -1394,6 +1394,20 @@ int qcom_scm_lmh_dcvsh(u32 payload_fn, u32 payload_reg, u32 payload_val,
->  }
->  EXPORT_SYMBOL_GPL(qcom_scm_lmh_dcvsh);
->  
-> +int qcom_scm_gpu_init_regs(u32 gpu_req)
-> +{
-> +	struct qcom_scm_desc desc = {
-> +		.svc = QCOM_SCM_SVC_GPU,
-> +		.cmd = QCOM_SCM_SVC_GPU_INIT_REGS,
-> +		.arginfo = QCOM_SCM_ARGS(1),
-> +		.args[0] = gpu_req,
-> +		.owner = ARM_SMCCC_OWNER_SIP,
-> +	};
-> +
-> +	return qcom_scm_call(__scm->dev, &desc, NULL);
-> +}
-> +EXPORT_SYMBOL_GPL(qcom_scm_gpu_init_regs);
-> +
->  static int qcom_scm_find_dload_address(struct device *dev, u64 *addr)
->  {
->  	struct device_node *tcsr;
-> diff --git a/drivers/firmware/qcom/qcom_scm.h b/drivers/firmware/qcom/qcom_scm.h
-> index 4532907e8489..484e030bcac9 100644
-> --- a/drivers/firmware/qcom/qcom_scm.h
-> +++ b/drivers/firmware/qcom/qcom_scm.h
-> @@ -138,6 +138,9 @@ int scm_legacy_call(struct device *dev, const struct qcom_scm_desc *desc,
->  #define QCOM_SCM_WAITQ_RESUME			0x02
->  #define QCOM_SCM_WAITQ_GET_WQ_CTX		0x03
->  
-> +#define QCOM_SCM_SVC_GPU			0x28
-> +#define QCOM_SCM_SVC_GPU_INIT_REGS		0x01
-> +
->  /* common error codes */
->  #define QCOM_SCM_V2_EBUSY	-12
->  #define QCOM_SCM_ENOMEM		-5
-> diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmware/qcom/qcom_scm.h
-> index aaa19f93ac43..a221a643dc12 100644
-> --- a/include/linux/firmware/qcom/qcom_scm.h
-> +++ b/include/linux/firmware/qcom/qcom_scm.h
-> @@ -115,6 +115,29 @@ int qcom_scm_lmh_dcvsh(u32 payload_fn, u32 payload_reg, u32 payload_val,
->  int qcom_scm_lmh_profile_change(u32 profile_id);
->  bool qcom_scm_lmh_dcvsh_available(void);
->  
-> +/*
-> + * Request TZ to program set of access controlled registers necessary
-> + * irrespective of any features
-> + */
-> +#define QCOM_SCM_GPU_ALWAYS_EN_REQ BIT(0)
-> +/*
-> + * Request TZ to program BCL id to access controlled register when BCL is
-> + * enabled
-> + */
-> +#define QCOM_SCM_GPU_BCL_EN_REQ BIT(1)
-> +/*
-> + * Request TZ to program set of access controlled register for CLX feature
-> + * when enabled
-> + */
-> +#define QCOM_SCM_GPU_CLX_EN_REQ BIT(2)
-> +/*
-> + * Request TZ to program tsense ids to access controlled registers for reading
-> + * gpu temperature sensors
-> + */
-> +#define QCOM_SCM_GPU_TSENSE_EN_REQ BIT(3)
-> +
-> +int qcom_scm_gpu_init_regs(u32 gpu_req);
-> +
->  #ifdef CONFIG_QCOM_QSEECOM
->  
->  int qcom_scm_qseecom_app_get_id(const char *app_name, u32 *app_id);
-> 
-> -- 
-> 2.31.1
-> 
+sparc64-gcc13/sparc64-allmodconfig (seen before)
+
+>  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20.c: error: the frame size of 2192 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 5118:1
+>  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_mode_vba_20v2.c: error: the frame size of 2280 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 5234:1
+>  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/display_mode_vba_30.c: error: the frame size of 2096 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 5188:1
+>  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn30/display_mode_vba_30.c: error: the frame size of 2184 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 3049:1
+>  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn31/display_mode_vba_31.c: error: the frame size of 2264 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 3274:1
+>  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c: error: the frame size of 2232 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 3296:1
+>  + /kisskb/src/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_rq_dlg_calc_314.c: error: the frame size of 2080 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]:  => 1646:1
+
+powerpc-gcc5/ppc32_allmodconfig
+
+>  + /kisskb/src/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c: error: unknown option after '#pragma GCC diagnostic' kind [-Werror=pragmas]:  => 16:9
+>  + /kisskb/src/drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h: error: 'gen7_9_0_external_core_regs' defined but not used [-Werror=unused-variable]:  => 1438:19
+>  + /kisskb/src/drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h: error: 'gen7_9_0_sptp_clusters' defined but not used [-Werror=unused-variable]:  => 1188:43
+
+arm64-gcc5/arm64-allmodconfig
+powerpc-gcc5/powerpc-all{mod,yes}config
+powerpc-gcc5/ppc32_allmodconfig
+powerpc-gcc5/ppc64_book3e_allmodconfig
+powerpc-gcc5/ppc64le_allmodconfig
+sparc64-gcc5/sparc64-allmodconfig
+
+Looks like #pragma "-Wunused-const-variable" is not supported by gcc-5
+
+>  + /kisskb/src/drivers/gpu/drm/nouveau/nvif/object.c: error: 'memcpy' accessing 4294967240 or more bytes at offsets 0 and 56 overlaps 6442450833 bytes at offset -2147483593 [-Werror=restrict]:  => 298:17
+>  + /kisskb/src/drivers/gpu/drm/nouveau/nvif/object.c: error: 'memcpy' accessing 4294967264 or more bytes at offsets 0 and 32 overlaps 6442450881 bytes at offset -2147483617 [-Werror=restrict]:  => 161:9
+
+parisc-gcc13/generic-32bit_defconfig
+parisc-gcc13/parisc-{def,allmod}config
+
+>  + /kisskb/src/include/linux/kern_levels.h: error: format '%lu' expects argument of type 'long unsigned int', but argument 4 has type 'unsigned int' [-Werror=format=]:  => 5:18, 5:25
+
+mips-gcc{8,13}/mips-allmodconfig
+parisc-gcc13/parisc-allmodconfig
+powerpc-gcc{5,13}/ppc32_allmodconfig
+sparc64-gcc{5,13}/sparc-allmodconfig
+xtensa-gcc13/xtensa-allmodconfig
+
+drivers/scsi/mpi3mr/mpi3mr_transport.c: In function 'mpi3mr_sas_port_add':
+drivers/scsi/mpi3mr/mpi3mr_transport.c:1367:62: note: format string is defined here
+     ioc_warn(mrioc, "skipping port %u, max allowed value is %lu\n",
+                                                             ~~^
+                                                             %u
+
+>  + /kisskb/src/kernel/bpf/verifier.c: error: ‘pcpu_hot’ undeclared (first use in this function):  => 20317:85
+>  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘ioread64_hi_lo’ [-Werror=missing-prototypes]:  => 163:5
+>  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘ioread64_lo_hi’ [-Werror=missing-prototypes]:  => 156:5
+>  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘ioread64be_hi_lo’ [-Werror=missing-prototypes]:  => 178:5
+>  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘ioread64be_lo_hi’ [-Werror=missing-prototypes]:  => 170:5
+>  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘iowrite64_hi_lo’ [-Werror=missing-prototypes]:  => 272:6
+>  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘iowrite64_lo_hi’ [-Werror=missing-prototypes]:  => 264:6
+>  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘iowrite64be_hi_lo’ [-Werror=missing-prototypes]:  => 288:6
+>  + /kisskb/src/lib/iomap.c: error: no previous prototype for ‘iowrite64be_lo_hi’ [-Werror=missing-prototypes]:  => 280:6
+
+um-x86_64-gcc12/um-all{mod,yes}config
+
+>  + {standard input}: Error: displacement to undefined symbol .L137 overflows 8-bit field :  => 1105, 1031
+>  + {standard input}: Error: displacement to undefined symbol .L158 overflows 8-bit field :  => 1110
+>  + {standard input}: Error: unknown pseudo-op: `.al':  => 1270
+>  + {standard input}: Error: unknown pseudo-op: `.siz':  => 1273
+
+sh4-gcc13/sh-all{mod,yes}config (SH ICE crickets)
+
+> 3 warning regressions:
+>  + /kisskb/src/drivers/gpu/drm/nouveau/nvif/object.c: warning: 'memcpy' accessing 4294967240 or more bytes at offsets 0 and 56 overlaps 6442450833 bytes at offset -2147483593 [-Wrestrict]:  => 298:17
+>  + /kisskb/src/drivers/gpu/drm/nouveau/nvif/object.c: warning: 'memcpy' accessing 4294967264 or more bytes at offsets 0 and 32 overlaps 6442450881 bytes at offset -2147483617 [-Wrestrict]:  => 161:9
+
+parisc-gcc13/generic-32bit_defconfig
+parisc-gcc13/parisc-{def,allmod}config
+
+>  + {standard input}: Warning: setting incorrect section attributes for .rodata..c_jump_table:  => 10174
+
+loongarch-gcc13/loongson3_defconfig
+
+Gr{oetje,eeting}s,
+
+ 						Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+ 							    -- Linus Torvalds
+--8323329-1442935893-1716798094=:2884583--
