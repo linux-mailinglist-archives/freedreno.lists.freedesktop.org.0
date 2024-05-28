@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A63E58D111C
-	for <lists+freedreno@lfdr.de>; Tue, 28 May 2024 02:48:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 124268D1120
+	for <lists+freedreno@lfdr.de>; Tue, 28 May 2024 02:48:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6600510FDA4;
-	Tue, 28 May 2024 00:48:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A6E510FDA7;
+	Tue, 28 May 2024 00:48:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="viAY7MnI";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ocMjjhQN";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 015FD10FDA4
- for <freedreno@lists.freedesktop.org>; Tue, 28 May 2024 00:48:13 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-52449b7aa2bso360031e87.3
- for <freedreno@lists.freedesktop.org>; Mon, 27 May 2024 17:48:13 -0700 (PDT)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75F8610FDA7
+ for <freedreno@lists.freedesktop.org>; Tue, 28 May 2024 00:48:30 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5295e488248so346020e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 27 May 2024 17:48:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716857292; x=1717462092; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1716857308; x=1717462108; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ypB2D9Bb+O5VK4pY/eZpWiPU4q5dgpNVinp1IWPeDkY=;
- b=viAY7MnIxDjaeXnfv946ctOTAJKVb2dh0G95q6BwJmKf+MI4oLN4GnNI7V+XLnvjUI
- SoTe7wSRMR3o3RW/Be0fBzXbGlVYXnj8Fv1YMICjZEn3IeV+NMbDPmRTdukrEPjxyckT
- Zrv2wa0TeK4M8BqY2N9KqYQOJqbI8BZhjXPuuXTsZ+PTr48EhnrWTObxwIgNnWNTQ9Y+
- dRv52/W5FFkq2SXWXlHymlneTbKviXUmtnrtPuYXRvfqsWZ9+/BXWT4I35VVO9+zhh8+
- Xuf2+YFC/zjBWf4Vp7m0U0T/Yu8Pl+aLxm7eBLHjL4emUFd5pT/3+GDgqOBY44W9GK9M
- lQ+g==
+ bh=WqyKqJsE6pp+l2O4SC+W159s+eImxbzOSm8NXJ1OA58=;
+ b=ocMjjhQNZMvT3Hs8t9vkfbGGureXe2xFGzfqGptUF9mmT/N10cEiULdQh5VoDn88/v
+ h8P2q056BNuFbGmDk8PSIthuGxoniwp2U7rFHCEetVp6bP+c0NhVCE2okT9gnED168yO
+ 0IsQ1z3TzyUAbneSkKx85HRmQQeUlkCV5r0QcvJ3T0De0K9WIwxBNdvPXy9/izTMCfuN
+ tbZwIYOC+WUoiB8KRCp3QpdIAzA5uksqVS3+6aeUBUctc41GkWVjukB1rV90IINjPY7L
+ W8EWcdPI17jfdaLqsy2SMCBk1PO5Xvcm1uX2kmJFJDEUlbtWtr6wMqbx70GXCdUBQHWS
+ gIxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716857292; x=1717462092;
+ d=1e100.net; s=20230601; t=1716857308; x=1717462108;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ypB2D9Bb+O5VK4pY/eZpWiPU4q5dgpNVinp1IWPeDkY=;
- b=HGG9keaN5A38l3HQFaV4jFfYZ+M2hExGb/fhxkDSD88gK8HEfiBtEI+QAF8NWQ/D7Z
- oMVEmVAe21VWk+AZrRd0c4KH5ihhB0ko3rATG2eNkfPB0Xx+cVX6liisiIGJQoNL40RW
- Pjhx738Ucs3C3YGAGkyiuSLDj8eXqqla4XIomuJ8XlFN+nGkhtxnugEqdZ+dsAzz3Out
- rvZafMf3de+kKrY1iZvLA8ByHZREkmnuL/AsglcS7xnTXLWWuYJ2QRFtLs1YS7hTuMSC
- oA/k7q/eKkhG9epHv0ofGMTr8DtsaTAv2KMBITOP8g++HNczLA0AGg1hDupLb2aqYDK4
- AsWg==
+ bh=WqyKqJsE6pp+l2O4SC+W159s+eImxbzOSm8NXJ1OA58=;
+ b=kgO6Ze36KAOePBAJlPobmT8HTXaDy+CD0NaZBUaj5WXkkoP/Wu0r1CkmaIUBiEDzdy
+ 6tE/W+RCA3TwHf3YsX8ojTRbk56VO8chuLSLWlFEmLpaF6Wx1mIkOnmKae0koT4fj+O9
+ WDeGIWOv+E9S5qLIGrKj3Ce1yqKAUttQ94VLnSyL3RZfpRya+DkDBc9MgxtMYC4aB3Re
+ UPE20fqQZcHKdfJiqAxD4MfW5elQQhF1OGE6Ys6iW6TH52++ZLMbvlam21kYrRPGmdav
+ vykn5jklQUPuI0sBWg5SMA2m07EscgKRD1h5KKV4tEHBOnofMbV9clH53LYWYs8DsWH+
+ tRrA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX2Tn0fTn1icQ5wOVYGl7L8sJVJ3SnD84WSsSIU8Gk+d6WiidKIXYaVvXC1Jr434xOzX5IKfc3k3nFOSm4zJJ6aNrI/q4qmL4y1XEZ3GeoK
-X-Gm-Message-State: AOJu0Yz000VFDMIq53ik5vhFyQ69k63D9MczfcqHMVTjlcK/z6hdBJck
- fkcVIdSN6Am4aFUKEQ6JOKlscPG2GJFMY8RPhDPfiV7q6AgXqKdNMOmuNs01A90=
-X-Google-Smtp-Source: AGHT+IEVie+TQv3jITNYhblOTW1JouMd65as19e2NeHTBjHaj+9QaGA8P0Iw3XMZQXdTAy8/gfB5ig==
-X-Received: by 2002:a05:6512:45c:b0:51b:fc6c:cbf6 with SMTP id
- 2adb3069b0e04-52964baf307mr6988063e87.16.1716857291477; 
- Mon, 27 May 2024 17:48:11 -0700 (PDT)
+ AJvYcCX+esvNNOTszabUU7fT7jjVOuSBDgzg+kfMDvPhhxE+gMsc01dE+lZSxu04vVYRxRQtxIKbKdt4Gls1BwhLgOmi1MwsdUG5UYKuGcVvWD2x
+X-Gm-Message-State: AOJu0Yz0kRH2lx3b1EvtNgcDFQeQ0J3Uhdh6/w92UnTaJ8AJfZHyjZxi
+ p8atiqw7+7uno8xf2l+2Gaq6/7l0yTwdZFH2HTcUKyRh6jo8E3CzhLTHCRHThhU=
+X-Google-Smtp-Source: AGHT+IEkY3dLBPQpnDZeVlJ5g4IQ99DKVk9uniY+rjpvwvxmpQU+WYyWo8C0Uczxxy+AfmQzepE2XA==
+X-Received: by 2002:a19:6912:0:b0:51d:998e:e0c1 with SMTP id
+ 2adb3069b0e04-5296410ad52mr7332337e87.13.1716857308562; 
+ Mon, 27 May 2024 17:48:28 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5296e887a77sm811073e87.58.2024.05.27.17.48.10
+ 2adb3069b0e04-5296ee4a58fsm816295e87.67.2024.05.27.17.48.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 May 2024 17:48:11 -0700 (PDT)
-Date: Tue, 28 May 2024 03:48:09 +0300
+ Mon, 27 May 2024 17:48:28 -0700 (PDT)
+Date: Tue, 28 May 2024 03:48:26 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Jun Nie <jun.nie@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, 
@@ -67,14 +67,14 @@ Cc: Rob Clark <robdclark@gmail.com>,
  Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/6] drm/msm/dpu: adjust data width for widen bus case
-Message-ID: <57sr3ssi6nwermdqtnb2ackmu4tlxs4gcslvp4v6ndafnvbqhb@4npuqfpkzzan>
+Subject: Re: [PATCH v5 3/6] drm/msm/dpu: enable compression bit in cfg2 for DSC
+Message-ID: <zdlreka3shviepb3p7cq4ulv7f6e2lz7b4af3pdqntnbqikmhq@uoiyu473v5e5>
 References: <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-0-f797ffba4682@linaro.org>
- <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-2-f797ffba4682@linaro.org>
+ <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-3-f797ffba4682@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-2-f797ffba4682@linaro.org>
+In-Reply-To: <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-3-f797ffba4682@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,42 +90,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 27, 2024 at 10:21:48PM +0800, Jun Nie wrote:
-> data is valid for only half the active window if widebus
-> is enabled
+On Mon, May 27, 2024 at 10:21:49PM +0800, Jun Nie wrote:
+> Enable compression bit in cfg2 register for DSC in the DSI case
 > 
 > Signed-off-by: Jun Nie <jun.nie@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> index 225c1c7768ff..f97221423249 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> @@ -168,6 +168,15 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *intf,
->  
->  	data_width = p->width;
->  
-> +	/*
-> +	 * If widebus is enabled, data is valid for only half the active window
-> +	 * since the data rate is doubled in this mode. But for the compression
-> +	 * mode in DP case, the p->width is already adjusted in
-> +	 * drm_mode_to_intf_timing_params()
 
-Is there any reason for divergence here?
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-> +	 */
-> +	if (p->wide_bus_en && !dp_intf)
-> +		data_width = p->width >> 1;
-> +
->  	hsync_data_start_x = hsync_start_x;
->  	hsync_data_end_x =  hsync_start_x + data_width - 1;
->  
-> 
-> -- 
-> 2.34.1
-> 
 
 -- 
 With best wishes
