@@ -2,56 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F3A88D1292
-	for <lists+freedreno@lfdr.de>; Tue, 28 May 2024 05:32:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1948F8D1298
+	for <lists+freedreno@lfdr.de>; Tue, 28 May 2024 05:33:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEFD310EE88;
-	Tue, 28 May 2024 03:32:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9CDA10EFE3;
+	Tue, 28 May 2024 03:33:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z7zU4TmQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KebHt+it";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EBD110E2EE;
- Tue, 28 May 2024 03:32:44 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DE2F10EECB
+ for <freedreno@lists.freedesktop.org>; Tue, 28 May 2024 03:33:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id AE947CE1170;
- Tue, 28 May 2024 03:32:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C555C3277B;
- Tue, 28 May 2024 03:32:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1FE0D61DDF;
+ Tue, 28 May 2024 03:33:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D77C3277B;
+ Tue, 28 May 2024 03:32:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1716867160;
- bh=ITVmDH7VJaoEg2XKzY//RgBj1ab2sf6hRESd42NWe3k=;
+ s=k20201202; t=1716867180;
+ bh=zHzPimdv2KnLlpvH1GAVPTimdIR9npkRiUWf44lJ1t0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Z7zU4TmQpwldrjEkzIUM6a807er/kTBA7VwEnu5HyPlBi6GrVl9ajxezci4ncNLDg
- ZZKNCMB7VF2+NR25SZXZdIS4ZrZ51Ko2CADeqqVReGJ9Kdvu2mAfwDczZuYYO8+8qr
- uFE29zAMf928OogM9b4oGsAesgvvVxhTgz27SLYLO7m1q3X4AdUKmk8gnBAqWKvB19
- D19SFfM4LhQWBuWeGK/r98zlIxiOBCoxlzrY5PQJC3r0W/gdcpJvC9f1qcJQYIWUPB
- r90NPxkmjsfAy6vf1OluomgY0TgKi8Lca8R5LbVhEUqTlNuEq8LvmutXW7HwITwIHe
- 5qn4yVb9wAdWQ==
+ b=KebHt+itAEv9yfI2JA9+XW32CQUiTkzPgYQSpMtY5GiMwicgpm3v47lHd8R/ZAmEA
+ NNbxkZyVA0h3x0ETmvO1kchMY7TCHukkFEfN8Xl8blQRNCRVUVDOnGYdvcbPpCuy1k
+ 4naSMEoH3R71l8XiPhC4mX+Qokck++Dk/cLwcCFGUsOpdExDkGkm3KommKVN5Hm8WU
+ ipEKvJ/h2jGPGE1nDWc3NnEPaILGlbhg2j1Xnweang0q1P6i1jtDh6gplSFYCLfqkD
+ VCllth9x5vbKialVa9gHcaS+AQ10VBmA9K2c3F3jasVRiaxi4f5TNu8tgOGI2m70WV
+ KQB7bZGBoWL9Q==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Adam Skladowski <a39.skl@gmail.com>
-Cc: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+To: Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Jeffrey Hugo <quic_jhugo@quicinc.com>, Marc Gonzalez <mgonzalez@freebox.fr>
+Cc: MSM <linux-arm-msm@vger.kernel.org>, freedreno@lists.freedesktop.org,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Bryan O Donoghue <bryan.odonoghue@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/8] MSM8976 MDSS/GPU/WCNSS support
-Date: Mon, 27 May 2024 22:32:07 -0500
-Message-ID: <171686715139.523693.1894869664497791698.b4-ty@kernel.org>
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Pierre-Hugues Husson <phhusson@freebox.fr>, Arnaud Vrac <avrac@freebox.fr>
+Subject: Re: [PATCH v2] arm64: dts: qcom: msm8998: enable adreno_smmu by
+ default
+Date: Mon, 27 May 2024 22:32:22 -0500
+Message-ID: <171686715153.523693.15237677868673432565.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240121194221.13513-1-a39.skl@gmail.com>
-References: <20240121194221.13513-1-a39.skl@gmail.com>
+In-Reply-To: <be51d1a4-e8fc-48d1-9afb-a42b1d6ca478@freebox.fr>
+References: <be51d1a4-e8fc-48d1-9afb-a42b1d6ca478@freebox.fr>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -71,26 +67,21 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sun, 21 Jan 2024 20:40:58 +0100, Adam Skladowski wrote:
-> This patch series provide support for display subsystem, gpu
-> and also adds wireless connectivity subsystem support.
+On Wed, 15 May 2024 16:27:44 +0200, Marc Gonzalez wrote:
+> 15 qcom platform DTSI files define an adreno_smmu node.
+> msm8998 is the only one with adreno_smmu disabled by default.
 > 
-> Adam Skladowski (8):
->   arm64: dts: qcom: msm8976: Add IOMMU nodes
->   dt-bindings: dsi-controller-main: Document missing msm8976 compatible
->   dt-bindings: msm: qcom,mdss: Include ommited fam-b compatible
->   arm64: dts: qcom: msm8976: Add MDSS nodes
->   dt-bindings: drm/msm/gpu: Document AON clock for A506/A510
->   arm64: dts: qcom: msm8976: Add Adreno GPU
->   arm64: dts: qcom: msm8976: Declare and wire SDC pins
->   arm64: dts: qcom: msm8976: Add WCNSS node
+> There's no reason why this SMMU should be disabled by default,
+> it doesn't need any further configuration.
+> 
+> Bring msm8998 in line with the 14 other platforms.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/8] arm64: dts: qcom: msm8976: Add IOMMU nodes
-      commit: 418c2ffd7df9bfc25c21172bd881b78d7569fb4d
+[1/1] arm64: dts: qcom: msm8998: enable adreno_smmu by default
+      commit: 98a0c4f2278b4d6c1c7722735c20b2247de6293f
 
 Best regards,
 -- 
