@@ -2,83 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C5EE8D1A61
-	for <lists+freedreno@lfdr.de>; Tue, 28 May 2024 13:56:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B68978D2327
+	for <lists+freedreno@lfdr.de>; Tue, 28 May 2024 20:15:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C90F10F797;
-	Tue, 28 May 2024 11:56:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BA0810EF94;
+	Tue, 28 May 2024 18:15:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jS8CD8Mg";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="kGqkzwuL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 707AD10E5E8
- for <freedreno@lists.freedesktop.org>; Tue, 28 May 2024 11:56:46 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-2e9684e0288so8595991fa.1
- for <freedreno@lists.freedesktop.org>; Tue, 28 May 2024 04:56:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716897404; x=1717502204; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=oCjaRC8Eu5PO/jMlynPBkhbwEoTzC3Pm/rk64eh59dQ=;
- b=jS8CD8Mgr/3d+tjjU/zfqrDGX1xWOkma/zRIrm7mAGqTrCQNu2HxbYYak4TLzmDCAI
- GdCqhF+K7ykhxzAIybAdPnth7e6RS5IP3PRiKa2oO/qSapjwnEQlg5vHEpH1Y8itpGl2
- cYUTU/hhnhik8UMmcpSh7G6WW4TAaWxd1KXf3V/obMWg7hp7z1V2WSte+AQ25GCF8uLz
- G5f6xHMUZwyEYE7d6PbtRwTnivsPgh7jQyp/PtBOwqsXz5702oU1awmUX/7uFqRVG9yO
- IKEyuN5yEQSjKZ8fRrUnK5+dHIS5nKogjDknNVVYVgk1JjRrktkKTgI24qpDw61RAd9/
- zf6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716897404; x=1717502204;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oCjaRC8Eu5PO/jMlynPBkhbwEoTzC3Pm/rk64eh59dQ=;
- b=VkqRYfJ+yl6dReQ9WECN+6XaYe5FUcQ3iG3o+1Lw1+Dss2KoTqA6CWLOwOoXckAo4v
- AlYQjYtoBx995mCHkQOg/DJhK4PoWZJUXXBNsXlmrQLRxqVOCuBsRe8I1dAELVLYZ2+t
- GPG9wECH27sUj7K6nllkB0NmxvgZ0WluswizOhdET5sGcthe+xfgWU43+4FRBN3SKAfK
- s05WNa6k2NA9328Vp4Sj3ZhY4mDYuVo/t9fhz7Z5ujDgnJYN4Oj2bOw+/ULrQWpyPOU3
- 0/610vljM6vpMetDju3uH9IOQ+iopMqh9oQHTKC1dTJMF/6ipzrZJF4TN4fS72w7Spc3
- NtAg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVi4y9Ga/33L+7o/hqm3370ZerjN3ZhTs++485rcZIjIxRy5PJ37xt8wxhOKyAPu3mx/IvZfr+t28W3Taqte2Mqk5YfJPee7kuzrKweZ9oS
-X-Gm-Message-State: AOJu0YywgLOYEi1SDN9yKhqwQgLHi41CjkGWNWeEUQ72c8hukZ0XrmdJ
- bLKoKJohv+/eOIiVdKxuZ46d6bTO8A4B7AfbkWRthDKbBwwji+4klAG3ziSoS54=
-X-Google-Smtp-Source: AGHT+IHsJsDnQl+EL8lCVJ54Xb104AElU7vavZkJuJ90hTUqa4aoOEIcclt6lXoq7iXLRtqyt4A4DQ==
-X-Received: by 2002:a2e:b0ef:0:b0:2e9:834e:b9e8 with SMTP id
- 38308e7fff4ca-2e9834ebb5amr28341211fa.1.1716897404252; 
- Tue, 28 May 2024 04:56:44 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2e95bcc4962sm22516371fa.11.2024.05.28.04.56.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 May 2024 04:56:43 -0700 (PDT)
-Date: Tue, 28 May 2024 14:56:42 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
- Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/6] drm/msm/dpu: adjust data width for widen bus case
-Message-ID: <sjz2el73774uaht7gfwbyuteprd3nv73gvj6g557putrxh7jut@g34dvy4s23ui>
-References: <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-0-f797ffba4682@linaro.org>
- <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-2-f797ffba4682@linaro.org>
- <57sr3ssi6nwermdqtnb2ackmu4tlxs4gcslvp4v6ndafnvbqhb@4npuqfpkzzan>
- <CABymUCOCcgfHsBaFBk63z+CLJu6Lee983nCM14PgPWZjkFFikQ@mail.gmail.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A71D10E056;
+ Tue, 28 May 2024 18:15:20 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44SB0CUe018067;
+ Tue, 28 May 2024 18:14:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ NSohPjO+aHSrdO1H9ukl+Zfhzj2AbJc55gRsHXpRQeI=; b=kGqkzwuLTMG8wl9B
+ sBcqBi7dfyUDzgOPIEOwU8QwbttsOIy75cF0z4K8mRNImwO3fEJKjfqxJEaMGkj8
+ XIxI7nL/8jxPBLGAYD/9jtoPHkNsBQ+cmmaRO6BQpt+2TXDDB9tkU2+QTPPHr/S3
+ TShJL1KA1V9tpv7RIPWof842OQdCYEHn9fc6lquJNPrzfSIyIDPto4ydum8Se977
+ I1X8aJyYpTtFjZGoEm/DnjnTvVYhXdgdU/bRIb+dUP7Lxf/HS1hh/KH8wtqvlNg5
+ H8FtvlUCsyh/1wig2inooJJYE0OGCR84XQXqNlH40QmKx6mdIh1OuophXapJhi/i
+ 4uNADw==
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yba2neyv6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 May 2024 18:14:58 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44SIEpjp031733
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 May 2024 18:14:51 GMT
+Received: from [10.71.108.229] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 28 May
+ 2024 11:14:50 -0700
+Message-ID: <5324b1d0-5aee-420c-a6a6-edf5262772b8@quicinc.com>
+Date: Tue, 28 May 2024 11:14:49 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCOCcgfHsBaFBk63z+CLJu6Lee983nCM14PgPWZjkFFikQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] drm/display: split DSC helpers from DP helpers
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Caleb Connolly <caleb.connolly@linaro.org>,
+ "Alex Deucher" <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul
+ <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Vinod Koul <vkoul@kernel.org>, Caleb Connolly <caleb@connolly.tech>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>
+References: <20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org>
+ <20240522-panel-sw43408-fix-v3-1-6902285adcc0@linaro.org>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20240522-panel-sw43408-fix-v3-1-6902285adcc0@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: KJj3kZhDHKb5JVjOHiO3rB0-tT27BD6_
+X-Proofpoint-GUID: KJj3kZhDHKb5JVjOHiO3rB0-tT27BD6_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
+ definitions=2024-05-28_12,2024-05-28_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 spamscore=0
+ phishscore=0 suspectscore=0 mlxlogscore=999 malwarescore=0 impostorscore=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 mlxscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405170001
+ definitions=main-2405280136
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,55 +104,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, May 28, 2024 at 05:59:13PM +0800, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> 于2024年5月28日周二 08:48写道：
-> >
-> > On Mon, May 27, 2024 at 10:21:48PM +0800, Jun Nie wrote:
-> > > data is valid for only half the active window if widebus
-> > > is enabled
-> > >
-> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > ---
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 9 +++++++++
-> > >  1 file changed, 9 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> > > index 225c1c7768ff..f97221423249 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> > > @@ -168,6 +168,15 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *intf,
-> > >
-> > >       data_width = p->width;
-> > >
-> > > +     /*
-> > > +      * If widebus is enabled, data is valid for only half the active window
-> > > +      * since the data rate is doubled in this mode. But for the compression
-> > > +      * mode in DP case, the p->width is already adjusted in
-> > > +      * drm_mode_to_intf_timing_params()
-> >
-> > Is there any reason for divergence here?
-> 
-> Lots of parameters in dpu_hw_intf_setup_timing_engine() is calculated
-> from timing->width,
-> such as hsync_period and display_v_start. So the width cannot be
-> adjusted beforehand in
-> drm_mode_to_intf_timing_params(). Otherwise, we get below error.
-> 
-> I guess the interface timing configuration differ in silicon, thus the
-> software shall handle the
-> difference. If we adjust the width beforehand for DSI, we get below error.
-> 
-> [    6.625446] [drm:dpu_encoder_frame_done_timeout:2469] [dpu
-> error]enc31 frame done timeout
-> [    6.642369] [drm:dpu_encoder_phys_vid_wait_for_commit_done:525]
-> [dpu error]vblank timeout: 4200c1
-> [    6.642395] [drm:dpu_kms_wait_for_commit_done:493] [dpu error]wait
-> for commit done returned -110
-> 
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 
--- 
-With best wishes
-Dmitry
+On 5/21/2024 11:25 PM, Dmitry Baryshkov wrote:
+> Currently the DRM DSC functions are selected by the
+> DRM_DISPLAY_DP_HELPER Kconfig symbol. This is not optimal, since the DSI
+> code (both panel and host drivers) end up selecting the seemingly
+> irrelevant DP helpers. Split the DSC code to be guarded by the separate
+> DRM_DISPLAY_DSC_HELPER Kconfig symbol.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Hi Dmitry,
+
+LGTM
+
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+
+Thanks,
+
+Jessica Zhang
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/Kconfig | 1 +
+>   drivers/gpu/drm/display/Kconfig    | 6 ++++++
+>   drivers/gpu/drm/display/Makefile   | 3 ++-
+>   drivers/gpu/drm/i915/Kconfig       | 1 +
+>   drivers/gpu/drm/msm/Kconfig        | 1 +
+>   drivers/gpu/drm/panel/Kconfig      | 4 ++--
+>   6 files changed, 13 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> index 22d88f8ef527..b69d5c4a5367 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> @@ -6,6 +6,7 @@ config DRM_AMDGPU
+>   	depends on !UML
+>   	select FW_LOADER
+>   	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>   	select DRM_DISPLAY_HDMI_HELPER
+>   	select DRM_DISPLAY_HDCP_HELPER
+>   	select DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/display/Kconfig b/drivers/gpu/drm/display/Kconfig
+> index 864a6488bfdf..f524cf95dec3 100644
+> --- a/drivers/gpu/drm/display/Kconfig
+> +++ b/drivers/gpu/drm/display/Kconfig
+> @@ -59,6 +59,12 @@ config DRM_DISPLAY_DP_TUNNEL_STATE_DEBUG
+>   
+>   	  If in doubt, say "N".
+>   
+> +config DRM_DISPLAY_DSC_HELPER
+> +	bool
+> +	depends on DRM_DISPLAY_HELPER
+> +	help
+> +	  DRM display helpers for VESA DSC (used by DSI and DisplayPort).
+> +
+>   config DRM_DISPLAY_HDCP_HELPER
+>   	bool
+>   	depends on DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/display/Makefile b/drivers/gpu/drm/display/Makefile
+> index 17d2cc73ff56..2ec71e15c3cb 100644
+> --- a/drivers/gpu/drm/display/Makefile
+> +++ b/drivers/gpu/drm/display/Makefile
+> @@ -6,7 +6,8 @@ drm_display_helper-y := drm_display_helper_mod.o
+>   drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_HELPER) += \
+>   	drm_dp_dual_mode_helper.o \
+>   	drm_dp_helper.o \
+> -	drm_dp_mst_topology.o \
+> +	drm_dp_mst_topology.o
+> +drm_display_helper-$(CONFIG_DRM_DISPLAY_DSC_HELPER) += \
+>   	drm_dsc_helper.o
+>   drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_TUNNEL) += \
+>   	drm_dp_tunnel.o
+> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+> index 5932024f8f95..117b84260b1c 100644
+> --- a/drivers/gpu/drm/i915/Kconfig
+> +++ b/drivers/gpu/drm/i915/Kconfig
+> @@ -11,6 +11,7 @@ config DRM_I915
+>   	select SHMEM
+>   	select TMPFS
+>   	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>   	select DRM_DISPLAY_HDCP_HELPER
+>   	select DRM_DISPLAY_HDMI_HELPER
+>   	select DRM_DISPLAY_HELPER
+> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+> index 1931ecf73e32..6dcd26180611 100644
+> --- a/drivers/gpu/drm/msm/Kconfig
+> +++ b/drivers/gpu/drm/msm/Kconfig
+> @@ -111,6 +111,7 @@ config DRM_MSM_DSI
+>   	depends on DRM_MSM
+>   	select DRM_PANEL
+>   	select DRM_MIPI_DSI
+> +	select DRM_DISPLAY_DSC_HELPER
+>   	default y
+>   	help
+>   	  Choose this option if you have a need for MIPI DSI connector
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index 982324ef5a41..4a2f621433ef 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -547,7 +547,7 @@ config DRM_PANEL_RAYDIUM_RM692E5
+>   	depends on OF
+>   	depends on DRM_MIPI_DSI
+>   	depends on BACKLIGHT_CLASS_DEVICE
+> -	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>   	select DRM_DISPLAY_HELPER
+>   	help
+>   	  Say Y here if you want to enable support for Raydium RM692E5-based
+> @@ -905,7 +905,7 @@ config DRM_PANEL_VISIONOX_R66451
+>   	depends on OF
+>   	depends on DRM_MIPI_DSI
+>   	depends on BACKLIGHT_CLASS_DEVICE
+> -	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_DSC_HELPER
+>   	select DRM_DISPLAY_HELPER
+>   	help
+>   	  Say Y here if you want to enable support for Visionox
+> 
+> -- 
+> 2.39.2
+> 
