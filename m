@@ -2,82 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13FE18D10CC
-	for <lists+freedreno@lfdr.de>; Tue, 28 May 2024 02:15:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 267048D1116
+	for <lists+freedreno@lfdr.de>; Tue, 28 May 2024 02:46:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2084710E0A0;
-	Tue, 28 May 2024 00:15:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82E8710E332;
+	Tue, 28 May 2024 00:45:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="klNh0s93";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yRPgEYhW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 256BD10E0A0
- for <freedreno@lists.freedesktop.org>; Tue, 28 May 2024 00:15:16 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-529597d77b4so321044e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 27 May 2024 17:15:15 -0700 (PDT)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FE7F10E332
+ for <freedreno@lists.freedesktop.org>; Tue, 28 May 2024 00:45:55 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-5295f012748so380258e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 27 May 2024 17:45:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716855314; x=1717460114; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1716857153; x=1717461953; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+rSeBn+G5kqm63ocBibHltmGEw4hG8lY4/WBrGkeNbg=;
- b=klNh0s93kB5hjOPv8aKb3RAFlaHZ/SgTRIxlmuV103Lhn4Lv7oJS+iSc8AWL5G9NyI
- x9byPC+LsMGfQCscnAndhFdFOqBeF9Sj/ukKG6df+W9GISN1WpWYXFTihRN0f4rCI7Vc
- nZrZY4MLngzJ/8S3OIDpJ+ylZtnt57gaYGsYa3uwUpcx6wdzP8Dkm9wwjYCwVTIUt1a+
- n+OakZfG2VYjDDo5gc9DZTWmb8pQke+D8Jum4nisZ82SE8uRdKdbZrRsGROG0esz/VYj
- BkZ7AQdImPauEV5lUgXn+Ff6O9BI9ThytHQpAMOVGT1+RyHg/pzorRRXlr0MHTr7WXdH
- Sx7A==
+ bh=XOWy7EeQHptnyQiZmhO+uVmW6cGOWfsT+AnLGJBX70I=;
+ b=yRPgEYhWqHAejXzjNBqQ91h/4/ntl9GSq8B7LZ8+OydSfoSqiuB9pze4q+cpnwLSFB
+ 3APnKEC/f9Psonbhazqk4w2XBBbW4uHMEeVx7VXV7f4pKab/hrMNqQDRV4ApJEETEyCs
+ w8kPaVzJPMW0C6iAEb6wISyhLSGPZk+NjzKvuAlJEY7ljA2oybESGmFZivXMpUDC9K1R
+ 8R3mTNk883cJTCf0L7wXD0voBwTjGtAweXFLOgfPYI8KWgvev4I9gkQtp+h3M+dfmBzl
+ 4ZB1+JVqEikmbxhDzD2x8qhSEcGkT3D86t6EYk+TDqb4bKH1bjCfMVEvV8QEYaU6AY2G
+ llGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716855314; x=1717460114;
+ d=1e100.net; s=20230601; t=1716857153; x=1717461953;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+rSeBn+G5kqm63ocBibHltmGEw4hG8lY4/WBrGkeNbg=;
- b=l5GNB6bpVEKXUPZV0s0dpFWp3s5Yf1UM+B68aEH2BOXOe2yM0utUMcqDsA9fv2d+vm
- dlIgDXT+2u9zWVzxX4cZxebdK/AGgjsCinqT4Rjwim9lW7i4diEmrGqftapE5bRGlywI
- v7T2eHJaVxY5Af4pZZMD85nRgwb3yBZApCm5NFX+WAfDw5MtQx2FgwoczR0bgQyHJOOs
- JKLSsglU9QCBbOrfr2qEAO5fl5eg4i4Ow5DQEgG/R/eK9wwBx+sw3s2f+jXw/P33ZlXN
- +b6nkALcaQuWjzsBMJvqrwdWkruRU6wLf2+WIHuM/6mI7uKyIQ+rYk/kr5pmGK4/yvtz
- fCsQ==
+ bh=XOWy7EeQHptnyQiZmhO+uVmW6cGOWfsT+AnLGJBX70I=;
+ b=lJx47xkwAEdbTh7Yr6PRsOAdmPbJe3MLlY8xvltlh0c116uhUOSfil8ovktRS/YANU
+ wR1SnUoEwiYIQMXkd+FMYu6n1Xbwz7WbsE5trSG+g6VIWSKFAeNtKtGmUJLMPdfa8JyC
+ eZGTKYl//nW5M05Iwf1/aPVYklW43f1nVuZeVxvdJCYWhibtPl0hOD095Q4x7YQxUX6H
+ JQXtvQemf+Vsag5t3LdP4X2ovfUCpxPplbsQeP52AKm3DZrhkg+ewgORu/q2/d9rxxpY
+ Be0sKxeyHj3305SQEOcBLpz+GhTwrTc7lhpo+nA0o/tDLW49Wm7qaNeZCzllZ9FAJckV
+ O8+w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUPecIa6dkU1HLt8jz9WoDSnU+nfhh6yu5sUKp6y1z3XrdKrmOaEli3Z5whGaeUiPPGfEp5KvbCn21DK4V87t7zdxg7VNLDcxUfqg1dSOgn
-X-Gm-Message-State: AOJu0YzEeEW8gj2FDiJympHjfonrBJRaqljq8ruBKwn9/kJuEe1rZn/j
- vsTtXtU0VyTL0ANtYkd8lLl7yLoLxFUcvIMXWleL9oUVaymdaqVS+P8PL3TbgC0=
-X-Google-Smtp-Source: AGHT+IFwo5+bskOQVB5Inq6y+TLk7VCTI94Q2GG3EddGvRVtvDuP1xwmS4N406tmyhv3JFYIET69aw==
-X-Received: by 2002:a05:6512:34d2:b0:51d:9e17:29ea with SMTP id
- 2adb3069b0e04-529645e3440mr5010655e87.15.1716855313755; 
- Mon, 27 May 2024 17:15:13 -0700 (PDT)
+ AJvYcCUJq/V+lEnfNuDB3zN7yy+lr8584e+/m71jkXV/A88f2elheabNpiAMIYsBC/a0tBF5xRvJulp/1XxaTUQwJA+gmIXvo8SoEzQjH7mc9MvU
+X-Gm-Message-State: AOJu0YzsAybUrdEhcLhP6kPGsqqMwR/U5Ed4kax+SOEoZ6QZ7pDjB2b2
+ aew9ukkJ3hxhk3JhTRWI+5jJyyHmAr1GKlBlvOWheFVse2vRjUOzFos70o0pn2s=
+X-Google-Smtp-Source: AGHT+IEeVOq5H+mPCLvlXwPGTkXAziCy2DXE3RRA3lEao7/kITRzHNGqTbqSesNqPvwwhBkkwxU/JA==
+X-Received: by 2002:a05:6512:2387:b0:51e:41a1:4d5 with SMTP id
+ 2adb3069b0e04-529646e363bmr8255722e87.9.1716857153315; 
+ Mon, 27 May 2024 17:45:53 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5296ee4a5f1sm834811e87.72.2024.05.27.17.15.12
+ 2adb3069b0e04-5297066bb04sm812775e87.142.2024.05.27.17.45.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 May 2024 17:15:12 -0700 (PDT)
-Date: Tue, 28 May 2024 03:15:11 +0300
+ Mon, 27 May 2024 17:45:52 -0700 (PDT)
+Date: Tue, 28 May 2024 03:45:51 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Arnaud Vrac <avrac@freebox.fr>
-Cc: Marc Gonzalez <mgonzalez@freebox.fr>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, MSM <linux-arm-msm@vger.kernel.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>, 
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- Bryan O Donoghue <bryan.odonoghue@linaro.org>, 
- Luca Weiss <luca.weiss@fairphone.com>,
- Pierre-Hugues Husson <phhusson@freebox.fr>, 
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Jeffrey Hugo <quic_jhugo@quicinc.com>
-Subject: Re: [RFC PATCH v1] drm/msm: add msm8998 hdmi phy/pll support
-Message-ID: <ow3p535eidouzd4jwsqe7kogkley4axmk7nj6rhimimijezuz2@2qmfyhptrx2u>
-References: <63337d63-67ef-4499-8a24-5f6e9285c36b@freebox.fr>
- <CAA8EJpptbpRj2htzcsXAiwQe-1Xdgoev-mdMki2OApm3gMEBcw@mail.gmail.com>
- <e4c2e552-9004-4735-a3b3-ba1f50a145ac@freebox.fr>
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jonathan Marek <jonathan@marek.ca>
+Subject: Re: [PATCH v5 1/6] drm/msm/dpu: fix video mode DSC for DSI
+Message-ID: <w5qtzevizjq3626uzhdnspefnojcludcdrbcbxnre2fxjfdei7@s7yqvofew3tu>
+References: <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-0-f797ffba4682@linaro.org>
+ <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-1-f797ffba4682@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <e4c2e552-9004-4735-a3b3-ba1f50a145ac@freebox.fr>
+In-Reply-To: <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-1-f797ffba4682@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,384 +91,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 27, 2024 at 02:39:35PM +0200, Arnaud Vrac wrote:
-> On 27/05/2024 14:11, Dmitry Baryshkov wrote:
-> > On Thu, 23 May 2024 at 18:14, Marc Gonzalez <mgonzalez@freebox.fr> wrote:
-> > > 
-> > > From: Arnaud Vrac <avrac@freebox.fr>
-> > > 
-> > > Ported from the downstream driver.
-> > > 
-> > > Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
-> > > Signed-off-by: Marc Gonzalez <mgonzalez@freebox.fr>
-> > > ---
-> > >   drivers/gpu/drm/msm/Makefile             |   1 +
-> > >   drivers/gpu/drm/msm/hdmi/hdmi.c          |   1 +
-> > >   drivers/gpu/drm/msm/hdmi/hdmi.h          |   8 +
-> > >   drivers/gpu/drm/msm/hdmi/hdmi.xml.h      | 162 ++++
-> > >   drivers/gpu/drm/msm/hdmi/hdmi_phy.c      |   5 +
-> > >   drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c | 941 +++++++++++++++++++++++
-> > >   6 files changed, 1118 insertions(+)
-> > >   create mode 100644 drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-> > > 
-> > > diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-> > > index b21ae2880c715..5b5d6aded5233 100644
-> > > --- a/drivers/gpu/drm/msm/Makefile
-> > > +++ b/drivers/gpu/drm/msm/Makefile
-> > > @@ -26,6 +26,7 @@ msm-$(CONFIG_DRM_MSM_HDMI) += \
-> > >          hdmi/hdmi_phy.o \
-> > >          hdmi/hdmi_phy_8960.o \
-> > >          hdmi/hdmi_phy_8996.o \
-> > > +       hdmi/hdmi_phy_8998.o \
-> > >          hdmi/hdmi_phy_8x60.o \
-> > >          hdmi/hdmi_phy_8x74.o \
-> > >          hdmi/hdmi_pll_8960.o \
-> > > diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> > > index c8ebd75176bba..2a2ce49ef5aa3 100644
-> > > --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-> > > +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> > > @@ -549,6 +549,7 @@ static void msm_hdmi_dev_remove(struct platform_device *pdev)
-> > >   }
-> > > 
-> > >   static const struct of_device_id msm_hdmi_dt_match[] = {
-> > > +       { .compatible = "qcom,hdmi-tx-8998", .data = &hdmi_tx_8974_config },
-> > 
-> > Missing DT bindings.
-> > 
-> > >          { .compatible = "qcom,hdmi-tx-8996", .data = &hdmi_tx_8974_config },
-> > >          { .compatible = "qcom,hdmi-tx-8994", .data = &hdmi_tx_8974_config },
-> > >          { .compatible = "qcom,hdmi-tx-8084", .data = &hdmi_tx_8974_config },
-> > > diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.h b/drivers/gpu/drm/msm/hdmi/hdmi.h
-> > > index ec57864403915..cad0d50c82fbc 100644
-> > > --- a/drivers/gpu/drm/msm/hdmi/hdmi.h
-> > > +++ b/drivers/gpu/drm/msm/hdmi/hdmi.h
-> > > @@ -137,6 +137,7 @@ enum hdmi_phy_type {
-> > >          MSM_HDMI_PHY_8960,
-> > >          MSM_HDMI_PHY_8x74,
-> > >          MSM_HDMI_PHY_8996,
-> > > +       MSM_HDMI_PHY_8998,
-> > >          MSM_HDMI_PHY_MAX,
-> > >   };
-> > > 
-> > > @@ -154,6 +155,7 @@ extern const struct hdmi_phy_cfg msm_hdmi_phy_8x60_cfg;
-> > >   extern const struct hdmi_phy_cfg msm_hdmi_phy_8960_cfg;
-> > >   extern const struct hdmi_phy_cfg msm_hdmi_phy_8x74_cfg;
-> > >   extern const struct hdmi_phy_cfg msm_hdmi_phy_8996_cfg;
-> > > +extern const struct hdmi_phy_cfg msm_hdmi_phy_8998_cfg;
-> > > 
-> > >   struct hdmi_phy {
-> > >          struct platform_device *pdev;
-> > > @@ -184,6 +186,7 @@ void __exit msm_hdmi_phy_driver_unregister(void);
-> > >   #ifdef CONFIG_COMMON_CLK
-> > >   int msm_hdmi_pll_8960_init(struct platform_device *pdev);
-> > >   int msm_hdmi_pll_8996_init(struct platform_device *pdev);
-> > > +int msm_hdmi_pll_8998_init(struct platform_device *pdev);
-> > >   #else
-> > >   static inline int msm_hdmi_pll_8960_init(struct platform_device *pdev)
-> > >   {
-> > > @@ -194,6 +197,11 @@ static inline int msm_hdmi_pll_8996_init(struct platform_device *pdev)
-> > >   {
-> > >          return -ENODEV;
-> > >   }
-> > > +
-> > > +static inline int msm_hdmi_pll_8998_init(struct platform_device *pdev)
-> > > +{
-> > > +       return -ENODEV;
-> > > +}
-> > >   #endif
-> > > 
-> > >   /*
-> > > diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.xml.h b/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
-> > > index 973b460486a5a..c9ca1101b5ad4 100644
-> > > --- a/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
-> > > +++ b/drivers/gpu/drm/msm/hdmi/hdmi.xml.h
-> > > @@ -1396,4 +1396,166 @@ static inline uint32_t HDMI_8x60_PHY_REG1_OUTVOL_SWING_CTRL(uint32_t val)
-> > >   #define REG_HDMI_PHY_QSERDES_TX_LX_TX_ALOG_INTF_OBSV           0x00000110
-> > > 
-> > > 
-> > > +#define REG_HDMI_8998_PHY_CFG                                  0x00000000
-> > > +
-> > > +#define REG_HDMI_8998_PHY_PD_CTL                               0x00000004
-> > > +
-> > > +#define REG_HDMI_8998_PHY_MODE                                 0x00000010
-> > > +
-> > > +#define REG_HDMI_8998_PHY_CLOCK                                        0x0000005c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_CMN_CTRL                             0x00000068
-> > > +
-> > > +#define REG_HDMI_8998_PHY_STATUS                               0x000000b4
-> > > +
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_ATB_SEL1                 0x00000000
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_ATB_SEL2                 0x00000004
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_FREQ_UPDATE              0x00000008
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_BG_TIMER                 0x0000000c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_EN_CENTER            0x00000010
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_ADJ_PER1             0x00000014
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_ADJ_PER2             0x00000018
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_PER1                 0x0000001c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_PER2                 0x00000020
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_STEP_SIZE1           0x00000024
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_SSC_STEP_SIZE2           0x00000028
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_POST_DIV                 0x0000002c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_POST_DIV_MUX             0x00000030
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_BIAS_EN_CLKBUFLR_EN      0x00000034
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_CLK_ENABLE1              0x00000038
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_SYS_CLK_CTRL             0x0000003c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_SYSCLK_BUF_ENABLE                0x00000040
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_EN                   0x00000044
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_IVCO                 0x00000048
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_CMN_IETRIM               0x0000004c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_CMN_IPTRIM               0x00000050
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_CP_CTRL_MODE0            0x00000060
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_CP_CTRL_MODE1            0x00000064
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_RCTRL_MODE0          0x00000068
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_RCTRL_MODE1          0x0000006c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_CCTRL_MODE0          0x00000070
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_CCTRL_MODE1          0x00000074
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_PLL_CNTRL                        0x00000078
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_BIAS_EN_CTRL_BY_PSM      0x0000007c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_SYSCLK_EN_SEL            0x00000080
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_CML_SYSCLK_SEL           0x00000084
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_RESETSM_CNTRL            0x00000088
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_RESETSM_CNTRL2           0x0000008c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_LOCK_CMP_EN              0x00000090
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_LOCK_CMP_CFG             0x00000094
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_LOCK_CMP1_MODE0          0x00000098
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_LOCK_CMP2_MODE0          0x0000009c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_LOCK_CMP3_MODE0          0x000000a0
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_DEC_START_MODE0          0x000000b0
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_DEC_START_MODE1          0x000000b4
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_DIV_FRAC_START1_MODE0    0x000000b8
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_DIV_FRAC_START2_MODE0    0x000000bc
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_DIV_FRAC_START3_MODE0    0x000000c0
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_DIV_FRAC_START1_MODE1    0x000000c4
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_DIV_FRAC_START2_MODE1    0x000000c8
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_DIV_FRAC_START3_MODE1    0x000000cc
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_INTEGLOOP_INITVAL                0x000000d0
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_INTEGLOOP_EN             0x000000d4
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_INTEGLOOP_GAIN0_MODE0    0x000000d8
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_INTEGLOOP_GAIN1_MODE0    0x000000dc
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_INTEGLOOP_GAIN0_MODE1    0x000000e0
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_INTEGLOOP_GAIN1_MODE1    0x000000e4
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_VCOCAL_DEADMAN_CTRL      0x000000e8
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_VCO_TUNE_CTRL            0x000000ec
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_VCO_TUNE_MAP             0x000000f0
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_CMN_STATUS               0x00000124
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_RESET_SM_STATUS          0x00000128
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_CLK_SEL                  0x00000138
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_HSCLK_SEL                        0x0000013c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_CORECLK_DIV_MODE0                0x00000148
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_SW_RESET                 0x00000150
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_CORE_CLK_EN              0x00000154
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_C_READY_STATUS           0x00000158
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_CMN_CONFIG               0x0000015c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_QSERDES_COM_SVS_MODE_CLK_SEL         0x00000164
-> > > +
-> > > +
-> > > +#define REG_HDMI_8998_PHY_TXn_EMP_POST1_LVL                    0x00000000
-> > > +
-> > > +#define REG_HDMI_8998_PHY_TXn_INTERFACE_SELECT_TX_BAND         0x00000008
-> > > +
-> > > +#define REG_HDMI_8998_PHY_TXn_CLKBUF_TERM_ENABLE               0x0000000c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_TXn_DRV_LVL_RES_CODE_OFFSET          0x00000014
-> > > +
-> > > +#define REG_HDMI_8998_PHY_TXn_DRV_LVL                          0x00000018
-> > > +
-> > > +#define REG_HDMI_8998_PHY_TXn_LANE_CONFIG                      0x0000001c
-> > > +
-> > > +#define REG_HDMI_8998_PHY_TXn_PRE_DRIVER_1                     0x00000024
-> > > +
-> > > +#define REG_HDMI_8998_PHY_TXn_PRE_DRIVER_2                     0x00000028
-> > > +
-> > > +#define REG_HDMI_8998_PHY_TXn_LANE_MODE                                0x0000002c
-> > > +
-> > >   #endif /* HDMI_XML */
-> > > diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-> > > index 88a3423b7f24d..95b3f7535d840 100644
-> > > --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-> > > +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-> > > @@ -118,6 +118,9 @@ static int msm_hdmi_phy_pll_init(struct platform_device *pdev,
-> > >          case MSM_HDMI_PHY_8996:
-> > >                  ret = msm_hdmi_pll_8996_init(pdev);
-> > >                  break;
-> > > +       case MSM_HDMI_PHY_8998:
-> > > +               ret = msm_hdmi_pll_8998_init(pdev);
-> > > +               break;
-> > >          /*
-> > >           * we don't have PLL support for these, don't report an error for now
-> > >           */
-> > > @@ -193,6 +196,8 @@ static const struct of_device_id msm_hdmi_phy_dt_match[] = {
-> > >            .data = &msm_hdmi_phy_8x74_cfg },
-> > >          { .compatible = "qcom,hdmi-phy-8996",
-> > >            .data = &msm_hdmi_phy_8996_cfg },
-> > > +       { .compatible = "qcom,hdmi-phy-8998",
-> > > +         .data = &msm_hdmi_phy_8998_cfg },
-> > >          {}
-> > >   };
-> > > 
-> > > diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-> > > new file mode 100644
-> > > index 0000000000000..28c4824a30e89
-> > > --- /dev/null
-> > > +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-> > > @@ -0,0 +1,941 @@
-> > > +// SPDX-License-Identifier: GPL-2.0-only
-> > > +/*
-> > > + * Copyright (c) 2016, The Linux Foundation. All rights reserved.
-> > 
-> > No changes since 2016?
-> > 
-> > > + */
-> > > +
-> > > +#include <linux/clk-provider.h>
-> > > +#include <linux/delay.h>
-> > > +
-> > 
-> > [...]
-> > 
-> > > +
-> > > +static inline u64 pll_cmp_to_fdata(u32 pll_cmp, unsigned long ref_clk)
-> > > +{
-> > > +       u64 fdata = ((u64)pll_cmp) * ref_clk * 10;
-> > > +
-> > > +       do_div(fdata, HDMI_PLL_CMP_CNT);
-> > > +
-> > > +       return fdata;
-> > > +}
-> > > +
-> > > +#if 0
-> > 
-> > This should probably go away.
-> > 
-> > > +static int pll_get_post_div(struct hdmi_8998_post_divider *pd, u64 bclk)
-> > > +{
-> > > +       /* FIXME: use downstream ratio list ? */
-> > > +       int ratio[] = { 2, 3, 4, 5, 6, 9, 10, 12, 14, 15, 20, 21, 25, 28, 35 };
-> > > +       int hs_divsel[] = { 0, 4, 8, 12, 1, 5, 2, 9, 3, 13, 10, 7, 14, 11, 15 };
-> > > +       int tx_band_sel[] = { 0, 1, 2, 3 };
-> > > +       u64 vco_freq[60];
-> > > +       u64 vco, vco_optimal;
-> > > +       int half_rate_mode = 0;
-> > > +       int vco_optimal_index, vco_freq_index;
-> > > +       int i, j;
-> > > +
-> > 
-> > So, first of all, the code needs to be cleaned. It contains debugging
-> > and temporary code all over the place. Such code should be removed
-> > 
-> > Second, at some point I worked on moving HDMI PHY drivers to
-> > drivers/phy. Oh my, it was nearly a year ago.
-> > https://patchwork.freedesktop.org/series/118210/
-> > 
-> > I hope to land the HDMI HPD rework this cycle, then get back to the
-> > HDMI PHY code. No promises though, just wanted to point out that we
-> > might need to rework this even further in few months.
-> > 
-> > 
+On Mon, May 27, 2024 at 10:21:47PM +0800, Jun Nie wrote:
+> From: Jonathan Marek <jonathan@marek.ca>
 > 
-> Thanks Dmitry. I wasn't planning on sending the patch anywhere in this
-> state, but Marc did so I'll ask some of the questions I had when I
-> wrote this. The first thing I was planning to do was indeed to rebase
-> on your patch series refactoring PHY drivers.
+> Add width change in DPU timing for DSC compression case to work with
+> DSI video mode.
 > 
-> First, I understand the XML files describing registers have been
-> integrated in the kernel tree, so we will have to move the definitions
-> of the 8998 PHY registers there.
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c          |  2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h     |  8 ++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 18 ++++++++++++++++++
+>  3 files changed, 27 insertions(+), 1 deletion(-)
+> 
 
-Yes
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-> Second, the #if 0 code is the phy setup code I tried to write based on
-> the simpler 8996 driver, but it doesn't work, hence the actual
-> compiled code which is a direct port of the downstream code. We'll
-> probably have to dig a little more to ask more detailed questions on
-> the phy internals.
-
-Let's see, probably we can figure them out.
-
-> Last, I tried to implement the recalc_rate callback which does not
-> exist downstream but I'm not able to get a correct value with the
-> little data I have on the registers. Is this callback actually needed
-> ? I don't see why the values programmed in the set_rate call could
-> change under our feet.
-
-The recalc_rate callback is used by CCF to read back the rate from the
-hardware. For example, when CCF probes all the clocks.
-
-Regarding reading the clock rate. As you can see from the 8996 PHY
-driver, it's easier to follow LOCK_CMPn_MODE0 registers.
-
-It *looks* like the code from the refactored 8996 driver should be
-mostly applicable for 8998 too. Maybe except for the 15 => 1 vs
-15 => 35 HSCLK setting).
-
-In the end, msm8998 uses what looks like QMP v3 with a different TX
-register set
 
 -- 
 With best wishes
