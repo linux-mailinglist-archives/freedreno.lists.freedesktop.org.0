@@ -2,79 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 124268D1120
-	for <lists+freedreno@lfdr.de>; Tue, 28 May 2024 02:48:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3A88D1292
+	for <lists+freedreno@lfdr.de>; Tue, 28 May 2024 05:32:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A6E510FDA7;
-	Tue, 28 May 2024 00:48:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEFD310EE88;
+	Tue, 28 May 2024 03:32:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ocMjjhQN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z7zU4TmQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75F8610FDA7
- for <freedreno@lists.freedesktop.org>; Tue, 28 May 2024 00:48:30 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-5295e488248so346020e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 27 May 2024 17:48:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716857308; x=1717462108; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=WqyKqJsE6pp+l2O4SC+W159s+eImxbzOSm8NXJ1OA58=;
- b=ocMjjhQNZMvT3Hs8t9vkfbGGureXe2xFGzfqGptUF9mmT/N10cEiULdQh5VoDn88/v
- h8P2q056BNuFbGmDk8PSIthuGxoniwp2U7rFHCEetVp6bP+c0NhVCE2okT9gnED168yO
- 0IsQ1z3TzyUAbneSkKx85HRmQQeUlkCV5r0QcvJ3T0De0K9WIwxBNdvPXy9/izTMCfuN
- tbZwIYOC+WUoiB8KRCp3QpdIAzA5uksqVS3+6aeUBUctc41GkWVjukB1rV90IINjPY7L
- W8EWcdPI17jfdaLqsy2SMCBk1PO5Xvcm1uX2kmJFJDEUlbtWtr6wMqbx70GXCdUBQHWS
- gIxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716857308; x=1717462108;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WqyKqJsE6pp+l2O4SC+W159s+eImxbzOSm8NXJ1OA58=;
- b=kgO6Ze36KAOePBAJlPobmT8HTXaDy+CD0NaZBUaj5WXkkoP/Wu0r1CkmaIUBiEDzdy
- 6tE/W+RCA3TwHf3YsX8ojTRbk56VO8chuLSLWlFEmLpaF6Wx1mIkOnmKae0koT4fj+O9
- WDeGIWOv+E9S5qLIGrKj3Ce1yqKAUttQ94VLnSyL3RZfpRya+DkDBc9MgxtMYC4aB3Re
- UPE20fqQZcHKdfJiqAxD4MfW5elQQhF1OGE6Ys6iW6TH52++ZLMbvlam21kYrRPGmdav
- vykn5jklQUPuI0sBWg5SMA2m07EscgKRD1h5KKV4tEHBOnofMbV9clH53LYWYs8DsWH+
- tRrA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX+esvNNOTszabUU7fT7jjVOuSBDgzg+kfMDvPhhxE+gMsc01dE+lZSxu04vVYRxRQtxIKbKdt4Gls1BwhLgOmi1MwsdUG5UYKuGcVvWD2x
-X-Gm-Message-State: AOJu0Yz0kRH2lx3b1EvtNgcDFQeQ0J3Uhdh6/w92UnTaJ8AJfZHyjZxi
- p8atiqw7+7uno8xf2l+2Gaq6/7l0yTwdZFH2HTcUKyRh6jo8E3CzhLTHCRHThhU=
-X-Google-Smtp-Source: AGHT+IEkY3dLBPQpnDZeVlJ5g4IQ99DKVk9uniY+rjpvwvxmpQU+WYyWo8C0Uczxxy+AfmQzepE2XA==
-X-Received: by 2002:a19:6912:0:b0:51d:998e:e0c1 with SMTP id
- 2adb3069b0e04-5296410ad52mr7332337e87.13.1716857308562; 
- Mon, 27 May 2024 17:48:28 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5296ee4a58fsm816295e87.67.2024.05.27.17.48.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 May 2024 17:48:28 -0700 (PDT)
-Date: Tue, 28 May 2024 03:48:26 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EBD110E2EE;
+ Tue, 28 May 2024 03:32:44 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id AE947CE1170;
+ Tue, 28 May 2024 03:32:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C555C3277B;
+ Tue, 28 May 2024 03:32:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1716867160;
+ bh=ITVmDH7VJaoEg2XKzY//RgBj1ab2sf6hRESd42NWe3k=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Z7zU4TmQpwldrjEkzIUM6a807er/kTBA7VwEnu5HyPlBi6GrVl9ajxezci4ncNLDg
+ ZZKNCMB7VF2+NR25SZXZdIS4ZrZ51Ko2CADeqqVReGJ9Kdvu2mAfwDczZuYYO8+8qr
+ uFE29zAMf928OogM9b4oGsAesgvvVxhTgz27SLYLO7m1q3X4AdUKmk8gnBAqWKvB19
+ D19SFfM4LhQWBuWeGK/r98zlIxiOBCoxlzrY5PQJC3r0W/gdcpJvC9f1qcJQYIWUPB
+ r90NPxkmjsfAy6vf1OluomgY0TgKi8Lca8R5LbVhEUqTlNuEq8LvmutXW7HwITwIHe
+ 5qn4yVb9wAdWQ==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Adam Skladowski <a39.skl@gmail.com>
+Cc: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
- Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/6] drm/msm/dpu: enable compression bit in cfg2 for DSC
-Message-ID: <zdlreka3shviepb3p7cq4ulv7f6e2lz7b4af3pdqntnbqikmhq@uoiyu473v5e5>
-References: <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-0-f797ffba4682@linaro.org>
- <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-3-f797ffba4682@linaro.org>
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH 0/8] MSM8976 MDSS/GPU/WCNSS support
+Date: Mon, 27 May 2024 22:32:07 -0500
+Message-ID: <171686715139.523693.1894869664497791698.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240121194221.13513-1-a39.skl@gmail.com>
+References: <20240121194221.13513-1-a39.skl@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240527-msm-drm-dsc-dsi-video-upstream-4-v5-3-f797ffba4682@linaro.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,18 +70,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 27, 2024 at 10:21:49PM +0800, Jun Nie wrote:
-> Enable compression bit in cfg2 register for DSC in the DSI case
+
+On Sun, 21 Jan 2024 20:40:58 +0100, Adam Skladowski wrote:
+> This patch series provide support for display subsystem, gpu
+> and also adds wireless connectivity subsystem support.
 > 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 4 ++++
->  1 file changed, 4 insertions(+)
+> Adam Skladowski (8):
+>   arm64: dts: qcom: msm8976: Add IOMMU nodes
+>   dt-bindings: dsi-controller-main: Document missing msm8976 compatible
+>   dt-bindings: msm: qcom,mdss: Include ommited fam-b compatible
+>   arm64: dts: qcom: msm8976: Add MDSS nodes
+>   dt-bindings: drm/msm/gpu: Document AON clock for A506/A510
+>   arm64: dts: qcom: msm8976: Add Adreno GPU
+>   arm64: dts: qcom: msm8976: Declare and wire SDC pins
+>   arm64: dts: qcom: msm8976: Add WCNSS node
 > 
+> [...]
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Applied, thanks!
 
+[1/8] arm64: dts: qcom: msm8976: Add IOMMU nodes
+      commit: 418c2ffd7df9bfc25c21172bd881b78d7569fb4d
 
+Best regards,
 -- 
-With best wishes
-Dmitry
+Bjorn Andersson <andersson@kernel.org>
