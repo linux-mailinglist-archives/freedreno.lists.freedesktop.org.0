@@ -2,93 +2,102 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B68978D2327
-	for <lists+freedreno@lfdr.de>; Tue, 28 May 2024 20:15:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C7958D24C1
+	for <lists+freedreno@lfdr.de>; Tue, 28 May 2024 21:39:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BA0810EF94;
-	Tue, 28 May 2024 18:15:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CAA110ED66;
+	Tue, 28 May 2024 19:39:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="kGqkzwuL";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="O1SyDtJG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A71D10E056;
- Tue, 28 May 2024 18:15:20 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44SB0CUe018067;
- Tue, 28 May 2024 18:14:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- NSohPjO+aHSrdO1H9ukl+Zfhzj2AbJc55gRsHXpRQeI=; b=kGqkzwuLTMG8wl9B
- sBcqBi7dfyUDzgOPIEOwU8QwbttsOIy75cF0z4K8mRNImwO3fEJKjfqxJEaMGkj8
- XIxI7nL/8jxPBLGAYD/9jtoPHkNsBQ+cmmaRO6BQpt+2TXDDB9tkU2+QTPPHr/S3
- TShJL1KA1V9tpv7RIPWof842OQdCYEHn9fc6lquJNPrzfSIyIDPto4ydum8Se977
- I1X8aJyYpTtFjZGoEm/DnjnTvVYhXdgdU/bRIb+dUP7Lxf/HS1hh/KH8wtqvlNg5
- H8FtvlUCsyh/1wig2inooJJYE0OGCR84XQXqNlH40QmKx6mdIh1OuophXapJhi/i
- 4uNADw==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yba2neyv6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 May 2024 18:14:58 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44SIEpjp031733
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 May 2024 18:14:51 GMT
-Received: from [10.71.108.229] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 28 May
- 2024 11:14:50 -0700
-Message-ID: <5324b1d0-5aee-420c-a6a6-edf5262772b8@quicinc.com>
-Date: Tue, 28 May 2024 11:14:49 -0700
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C4C410E13B
+ for <freedreno@lists.freedesktop.org>; Tue, 28 May 2024 19:39:22 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-529b79609cbso2061328e87.3
+ for <freedreno@lists.freedesktop.org>; Tue, 28 May 2024 12:39:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1716925160; x=1717529960; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=GsvN+JKnRavl5QSzlBkV48YEdvFno7OOnb/yOsGADHU=;
+ b=O1SyDtJGpK2KhT/WjeL6bxM5IjHKJN1tR5zccbzeqcCkxAWdteZMtxadcGyQA3+yvy
+ yQFaFngRrwJ6kxUImixiKKoDz/20tn5lrNwI3QDdOG1AHX5O315H7gsTzN2jhnvGE1AL
+ sSMXGBapQ6f2aJq2nC2kdV9SyOQkskMIkhzOynb0+RXwRFrb+K8ZY7mLvHgjtkj+Gg0C
+ qUhqsitPJBQcUTY/+1Z32s03Oki+ifZ1uUEio5WfuF7odLZuOWpmCx83Oc88pxYR2O5d
+ ryxCgAP2Tl9nBwl/Y+KorCP1Z1CoPZ8qvOQdHkydgM/YyIbvyAAFuC8ZoNB77xN7ANR7
+ MULw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1716925160; x=1717529960;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GsvN+JKnRavl5QSzlBkV48YEdvFno7OOnb/yOsGADHU=;
+ b=cSsZt9n+h5CUsMJVEd9lS9jdgZRzazo/INEIYh+r1HF+Swnp8wyDpAFMPUty2Q8gai
+ 3mt183J82hx5Dh53oJwwrpaGQe6gEy0VB01csdZny9esHGkq+zxDaD9r/Tn7ZgsiBT43
+ P717IhZcz6SGiSHyu0YfMBgGhAsaMcayhrAySk1SU4RzVm+JAGztpVbSHUz12lPrCCjJ
+ SJTgouzlb6x9JfyfkEP/qGvccBTq5PYE2/VIBwlXy6J3pLwzxkxrgZ61UpWMX+poQqdS
+ khbJuPXiN6xrlGc5BXpqmgHfXqg7uk+r7R9ipBJXeQj0LwdSRYh3HoiOvHEnw1tt4i20
+ zItw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWIID1y7BaOuuHvmrBMj/Ki4MKXnYALr6UuyjwErphmCKXM+t2WJVa/wegFuwkWKEdm/umUg8PKutA5CtvYc1Z3IHEhy4POKxBPISwoJ71w
+X-Gm-Message-State: AOJu0YyCo7TVAwGDHC6RKDOMkOmvdiZXmj+dmvaadn0c77jsHn/e1YsL
+ TYQ9+MRvj7GKBVzvWSSM8iHDh70Rj2UOwcKy5Vj2B4sYtu1iSZew4LdZTWgYg9w=
+X-Google-Smtp-Source: AGHT+IG4Bg7IjMdNadZXXn/36zsu8ZDorgbs/IEsWcGO+A4iZozCmrOizaHidaPk9MqyT8DHXEBeFg==
+X-Received: by 2002:a05:6512:4004:b0:529:a55d:8d7 with SMTP id
+ 2adb3069b0e04-529a55d0bbfmr6389655e87.14.1716925160173; 
+ Tue, 28 May 2024 12:39:20 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-529711f96c9sm1045234e87.245.2024.05.28.12.39.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 May 2024 12:39:19 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH v4 0/3] drm/panel: two fixes for lg-sw43408
+Date: Tue, 28 May 2024 22:39:17 +0300
+Message-Id: <20240528-panel-sw43408-fix-v4-0-330b42445bcc@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] drm/display: split DSC helpers from DP helpers
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Sumit Semwal
- <sumit.semwal@linaro.org>, Caleb Connolly <caleb.connolly@linaro.org>,
- "Alex Deucher" <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- Vinod Koul <vkoul@kernel.org>, Caleb Connolly <caleb@connolly.tech>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>
-References: <20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org>
- <20240522-panel-sw43408-fix-v3-1-6902285adcc0@linaro.org>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20240522-panel-sw43408-fix-v3-1-6902285adcc0@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: KJj3kZhDHKb5JVjOHiO3rB0-tT27BD6_
-X-Proofpoint-GUID: KJj3kZhDHKb5JVjOHiO3rB0-tT27BD6_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
- definitions=2024-05-28_12,2024-05-28_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 spamscore=0
- phishscore=0 suspectscore=0 mlxlogscore=999 malwarescore=0 impostorscore=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 mlxscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405170001
- definitions=main-2405280136
+X-B4-Tracking: v=1; b=H4sIAOUyVmYC/33NTQ6CMBCG4auQrq3pDOXPlfcwLqBMoQlpSWtQQ
+ 7i7hY0aicv3S+aZmQXyhgI7JTPzNJlgnI0hDwlTfW074qaNzVCgFBIFH2tLAw93mUpRcm0eXOs
+ 8k5UChIZYvBs9xXkzL9fYvQk355/biwnW9Z82ARe8wRK1LjBDiefB2Nq7o/MdW7kJ30QGuwRGo
+ gXSFRBBU7Q/RPpBIO4RaSTySiCWWd0qJb6IZVlermC2JjkBAAA=
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Caleb Connolly <caleb.connolly@linaro.org>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Vinod Koul <vkoul@kernel.org>, Caleb Connolly <caleb@connolly.tech>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ kernel test robot <lkp@intel.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1552;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=onL8Mw3fVTnsVXTG9+UAfGyF9JpZXOhojGn8QWOqrnA=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmVjLmMvog05l/rjjZInaoUZ1R3/bqphbSLBIfW
+ aq0YIVDkQWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZlYy5gAKCRCLPIo+Aiko
+ 1QNTB/4zOPgYNZ7IwjqDIlZP52hwwALdFOgW40rNUxQK3Bt6S4RFuv5WnMmuoCt5j9FHXYdykoC
+ CtUjUijy6ejoLZM0sEpqMUpxzMcvLjY+XONRDuCJQPUx5/4G7PUOxkVwafCxCoKm1DGagx0jEYO
+ VnSsUqRcNqmx+em7fuef89wv+7WQIENkqTGMF7hJ/5tiSzTlYcr29p+NkYF1uR+GC5qS5+Up4kt
+ ifjq01NFjn4Jp6VqjQJLB8sXMZZurnY0uP/k8i4DCW2HyvFfA8EVqXn/dwwBiUBy9J2l366rpiI
+ ypKLjqXG3bsSObFF8OvQitHTwmnrEEcD1LlWNloeahJPpj6N
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,126 +113,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Fix two issues with the panel-lg-sw43408 driver reported by the kernel
+test robot.
 
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v4:
+- Reoder patches so that fixes come first, to be able to land them to
+  drm-misc-fixes
+- Link to v3: https://lore.kernel.org/r/20240522-panel-sw43408-fix-v3-0-6902285adcc0@linaro.org
 
-On 5/21/2024 11:25 PM, Dmitry Baryshkov wrote:
-> Currently the DRM DSC functions are selected by the
-> DRM_DISPLAY_DP_HELPER Kconfig symbol. This is not optimal, since the DSI
-> code (both panel and host drivers) end up selecting the seemingly
-> irrelevant DP helpers. Split the DSC code to be guarded by the separate
-> DRM_DISPLAY_DSC_HELPER Kconfig symbol.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Changes in v3:
+- Split DRM_DISPLAY_DSC_HELPER from DRM_DISPLAY_DP_HELPER
+- Added missing Fixes tags
+- Link to v2: https://lore.kernel.org/r/20240510-panel-sw43408-fix-v2-0-d1ef91ee1b7d@linaro.org
 
-Hi Dmitry,
+Changes in v2:
+- use SELECT instead of DEPEND to follow the reverted Kconfig changes
+- Link to v1: https://lore.kernel.org/r/20240420-panel-sw43408-fix-v1-0-b282ff725242@linaro.org
 
-LGTM
+---
+Dmitry Baryshkov (3):
+      drm/panel/lg-sw43408: select CONFIG_DRM_DISPLAY_DP_HELPER
+      drm/panel/lg-sw43408: mark sw43408_backlight_ops as static
+      drm/display: split DSC helpers from DP helpers
 
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+ drivers/gpu/drm/amd/amdgpu/Kconfig       | 1 +
+ drivers/gpu/drm/display/Kconfig          | 6 ++++++
+ drivers/gpu/drm/display/Makefile         | 3 ++-
+ drivers/gpu/drm/i915/Kconfig             | 1 +
+ drivers/gpu/drm/msm/Kconfig              | 1 +
+ drivers/gpu/drm/panel/Kconfig            | 6 ++++--
+ drivers/gpu/drm/panel/panel-lg-sw43408.c | 2 +-
+ 7 files changed, 16 insertions(+), 4 deletions(-)
+---
+base-commit: 6dc544b66971c7f9909ff038b62149105272d26a
+change-id: 20240420-panel-sw43408-fix-ff6549c121be
 
-Thanks,
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Jessica Zhang
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/Kconfig | 1 +
->   drivers/gpu/drm/display/Kconfig    | 6 ++++++
->   drivers/gpu/drm/display/Makefile   | 3 ++-
->   drivers/gpu/drm/i915/Kconfig       | 1 +
->   drivers/gpu/drm/msm/Kconfig        | 1 +
->   drivers/gpu/drm/panel/Kconfig      | 4 ++--
->   6 files changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> index 22d88f8ef527..b69d5c4a5367 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> @@ -6,6 +6,7 @@ config DRM_AMDGPU
->   	depends on !UML
->   	select FW_LOADER
->   	select DRM_DISPLAY_DP_HELPER
-> +	select DRM_DISPLAY_DSC_HELPER
->   	select DRM_DISPLAY_HDMI_HELPER
->   	select DRM_DISPLAY_HDCP_HELPER
->   	select DRM_DISPLAY_HELPER
-> diff --git a/drivers/gpu/drm/display/Kconfig b/drivers/gpu/drm/display/Kconfig
-> index 864a6488bfdf..f524cf95dec3 100644
-> --- a/drivers/gpu/drm/display/Kconfig
-> +++ b/drivers/gpu/drm/display/Kconfig
-> @@ -59,6 +59,12 @@ config DRM_DISPLAY_DP_TUNNEL_STATE_DEBUG
->   
->   	  If in doubt, say "N".
->   
-> +config DRM_DISPLAY_DSC_HELPER
-> +	bool
-> +	depends on DRM_DISPLAY_HELPER
-> +	help
-> +	  DRM display helpers for VESA DSC (used by DSI and DisplayPort).
-> +
->   config DRM_DISPLAY_HDCP_HELPER
->   	bool
->   	depends on DRM_DISPLAY_HELPER
-> diff --git a/drivers/gpu/drm/display/Makefile b/drivers/gpu/drm/display/Makefile
-> index 17d2cc73ff56..2ec71e15c3cb 100644
-> --- a/drivers/gpu/drm/display/Makefile
-> +++ b/drivers/gpu/drm/display/Makefile
-> @@ -6,7 +6,8 @@ drm_display_helper-y := drm_display_helper_mod.o
->   drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_HELPER) += \
->   	drm_dp_dual_mode_helper.o \
->   	drm_dp_helper.o \
-> -	drm_dp_mst_topology.o \
-> +	drm_dp_mst_topology.o
-> +drm_display_helper-$(CONFIG_DRM_DISPLAY_DSC_HELPER) += \
->   	drm_dsc_helper.o
->   drm_display_helper-$(CONFIG_DRM_DISPLAY_DP_TUNNEL) += \
->   	drm_dp_tunnel.o
-> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-> index 5932024f8f95..117b84260b1c 100644
-> --- a/drivers/gpu/drm/i915/Kconfig
-> +++ b/drivers/gpu/drm/i915/Kconfig
-> @@ -11,6 +11,7 @@ config DRM_I915
->   	select SHMEM
->   	select TMPFS
->   	select DRM_DISPLAY_DP_HELPER
-> +	select DRM_DISPLAY_DSC_HELPER
->   	select DRM_DISPLAY_HDCP_HELPER
->   	select DRM_DISPLAY_HDMI_HELPER
->   	select DRM_DISPLAY_HELPER
-> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> index 1931ecf73e32..6dcd26180611 100644
-> --- a/drivers/gpu/drm/msm/Kconfig
-> +++ b/drivers/gpu/drm/msm/Kconfig
-> @@ -111,6 +111,7 @@ config DRM_MSM_DSI
->   	depends on DRM_MSM
->   	select DRM_PANEL
->   	select DRM_MIPI_DSI
-> +	select DRM_DISPLAY_DSC_HELPER
->   	default y
->   	help
->   	  Choose this option if you have a need for MIPI DSI connector
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 982324ef5a41..4a2f621433ef 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -547,7 +547,7 @@ config DRM_PANEL_RAYDIUM_RM692E5
->   	depends on OF
->   	depends on DRM_MIPI_DSI
->   	depends on BACKLIGHT_CLASS_DEVICE
-> -	select DRM_DISPLAY_DP_HELPER
-> +	select DRM_DISPLAY_DSC_HELPER
->   	select DRM_DISPLAY_HELPER
->   	help
->   	  Say Y here if you want to enable support for Raydium RM692E5-based
-> @@ -905,7 +905,7 @@ config DRM_PANEL_VISIONOX_R66451
->   	depends on OF
->   	depends on DRM_MIPI_DSI
->   	depends on BACKLIGHT_CLASS_DEVICE
-> -	select DRM_DISPLAY_DP_HELPER
-> +	select DRM_DISPLAY_DSC_HELPER
->   	select DRM_DISPLAY_HELPER
->   	help
->   	  Say Y here if you want to enable support for Visionox
-> 
-> -- 
-> 2.39.2
-> 
