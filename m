@@ -2,90 +2,115 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C1E18D31A8
-	for <lists+freedreno@lfdr.de>; Wed, 29 May 2024 10:38:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3E848D34B1
+	for <lists+freedreno@lfdr.de>; Wed, 29 May 2024 12:41:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44067112D17;
-	Wed, 29 May 2024 08:38:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F01B110F416;
+	Wed, 29 May 2024 10:41:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AAQ0X0Jz";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AYX1af6D";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
- [209.85.208.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D984E10F487
- for <freedreno@lists.freedesktop.org>; Wed, 29 May 2024 08:38:26 +0000 (UTC)
-Received: by mail-lj1-f180.google.com with SMTP id
- 38308e7fff4ca-2e716e302bdso20156331fa.1
- for <freedreno@lists.freedesktop.org>; Wed, 29 May 2024 01:38:26 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2283E10EAF4
+ for <freedreno@lists.freedesktop.org>; Wed, 29 May 2024 10:41:22 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-a6341cf2c99so196763166b.0
+ for <freedreno@lists.freedesktop.org>; Wed, 29 May 2024 03:41:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716971905; x=1717576705; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=IqrQnHagTsqc8XSpxu+I+AI5vFFrCWmKxdpq/9RvgHQ=;
- b=AAQ0X0JzpkTJPr8jEb7cCPXU0GIXsVaIzvtnh7UaO1CwBvFwNTXIE4yBTTAOP8J9gQ
- 4Pu69fEq/eXCuzCW6GEfGQmpZGRIe6dmlFcDseRs+wS8N+EF8BFCHC6xJIScGRnCiq66
- 4CI7WmIqUzLW8elxBQ2rBqJ4cB/Vs4edINqY2ijZxIxOA1V2PM0y9Zwzm7cqqGQWDrIo
- 0sj5DzV3nn95t6U2NNhGwqZ1gAfDnfYFJqXjUN6RTIRUE/A6ctDxsjB5Hdk2Uut0GpgC
- FF7+o7LSeUiu5oiXtoZM2uDE2x7g1ijdi4NhPjSgjlw4PowFBSQSkLgosyjRai+zhnyi
- I/eQ==
+ d=linaro.org; s=google; t=1716979280; x=1717584080; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=sla1AgMnfTvaVQbJp/AkvnN3q3g3If3gBgcTVDSAp8U=;
+ b=AYX1af6DmCEkVQ8fxBDKLXYICwv21BMXKVDlf6pSxZ1Od7fr8g7Z4RSNk43AAl+kQ1
+ ubyNHPWuOZB2U6UDPasYsIdX7hpixLUtq4INGUV1oe6HCbwyjbGcaDl0ZWbPDNzl125K
+ KGdhsDf/meQzyVp6QVKp7KMqKz48IOBilRkUVHWP03p0A/U86ISxjAg2tU6voNJ/CNSp
+ bAQWPJj3yQYsOTsxKlaYvfSNkDrnrA8iKyo22v6cWWYqhpmsKEeS7+W5wJDAq8DvVa+A
+ Aife85fKvmcVnKX0VzQWejzqaSq4Kw/qdDIKzTBrvnO91/lrVQJt/NESJn8BnRCdkriE
+ 7znQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716971905; x=1717576705;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=IqrQnHagTsqc8XSpxu+I+AI5vFFrCWmKxdpq/9RvgHQ=;
- b=pPoY2DQhIjJnNMEZ0N3KQOsX3HwRSeiuRvx2mwrwPnD+5mdt+cXslaNyYcP/gxq6y5
- eo0dsqM5CJhrW1pUmQN8jd6M8mz1DCOidT6gfPW9MmTzBHtDVBs8GcjWVVrkvLmuxBqD
- AWyRJP6V1JI2sWynNNYksWsVKvfJTUCTldXfDU7tmk25CCtOnUq6m13rxpnsCTCCT4pQ
- ztQ4LCLP+ldYqha3Apwq5/vjxZXNOpVit/fxwmp23q9axJQmJu9q5ADRVCzFZx/Deit6
- E21jGeuUhykXqipdUpFj9jk6v7LPw9tezrt7ygMOCxOZMx12vbpx/2Ha+1TK8yK6bu6a
- eZew==
+ d=1e100.net; s=20230601; t=1716979280; x=1717584080;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sla1AgMnfTvaVQbJp/AkvnN3q3g3If3gBgcTVDSAp8U=;
+ b=gnrjeWaQtFdAc9U+BdXZ/wm34LM+ssk//68nliyJzsdJcd11Fm2aTTX5qESSxbHKbf
+ vmVDr2RtvTX4INKM/tQi8h02zVtFab2bGeNXXC882NcO5A9W9xC8r3yb/oJLB+sr1gYN
+ GoG0KwzPZ6QJ77/bYjQe/sM88/qKMtkBlqQw/6Oc5xdumaEWznvQdHYetxfidANC8FOz
+ lgodfZI5eullW71dO4fCG6OJgZWMS4rtqY4vimQbj50399y/GvhAvabekY6M7lhJ6FVd
+ PD7F7whg5Hy3zGhX+11iRB/yA7osnvahHIMrS0TG0un/vgWSbEqd3ynW5ZxsrF2sBnNI
+ lMcw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVkC3CWuQ4vt8FcTtCYolbVnKvFSbu0HbF8mHbIon7wVPjc/IN1ZiPQgFNZfgqA5RAdEdm4YOWs6+SsF/Y1xENtzfpm0uOV0EWPvvJqaZhl
-X-Gm-Message-State: AOJu0Yw3P2ZRPvVh979Raz94FZaQth1xflA13Blvz3OGxvy4eKTLA5Hs
- dnedisxXgmWkU4laRMdya0/LeCJavp3d6sjPIkzm/OG0xv7hJ2OjgloUZDVYl3Q=
-X-Google-Smtp-Source: AGHT+IFxNS9ivx6ftoot6k7b4A5XcOe5Biw65h+SXYi89WIc3qRRrD3Vy3EqpcmprR3+hTvfeKjCOg==
-X-Received: by 2002:a19:f613:0:b0:523:ef21:8e2c with SMTP id
- 2adb3069b0e04-529664dac67mr7731487e87.51.1716971904911; 
- Wed, 29 May 2024 01:38:24 -0700 (PDT)
-Received: from eriador.lan (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00::227]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52b3d918a5csm59684e87.257.2024.05.29.01.38.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 May 2024 01:38:24 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- Caleb Connolly <caleb.connolly@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Vinod Koul <vkoul@kernel.org>, Caleb Connolly <caleb@connolly.tech>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- kernel test robot <lkp@intel.com>
-Subject: Re: (subset) [PATCH v4 0/3] drm/panel: two fixes for lg-sw43408
-Date: Wed, 29 May 2024 11:38:22 +0300
-Message-ID: <171697189027.975427.12036219693814257280.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240528-panel-sw43408-fix-v4-0-330b42445bcc@linaro.org>
-References: <20240528-panel-sw43408-fix-v4-0-330b42445bcc@linaro.org>
+ AJvYcCXs6jJoGHy6tpS2TO9DKAmHQNegr8o1x0MhDGRVfO5iIdCy0N6OZaUGV7F6n9fZVAyuJH/xJ9snaJfQ47vZSuhvUs4D5FojmEQA5ye3V2MX
+X-Gm-Message-State: AOJu0YxmYOHApmugJNiuDUtmGUIul5GN7JRu0UzakQdLOR0SIrJyaURz
+ PGy68e6rSQn2CiHnb5OUqE4cQbrEqG2TRoTOdmjvpV8HYEsFfdRjG9v14DH5+G8=
+X-Google-Smtp-Source: AGHT+IFJb2R+Y16iwF/EewPOwd9YBStxfjgZzM8O2br3b03khmAr2gwVf6sHjTgvjvuxyJ8HDT025Q==
+X-Received: by 2002:a17:907:82a5:b0:a5a:3da6:7712 with SMTP id
+ a640c23a62f3a-a6265134c8fmr795610966b.71.1716979280376; 
+ Wed, 29 May 2024 03:41:20 -0700 (PDT)
+Received: from [192.168.128.35] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a626c817ad3sm713720366b.16.2024.05.29.03.41.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 May 2024 03:41:19 -0700 (PDT)
+Message-ID: <76a124b6-8cc3-4060-866c-03f47da450cc@linaro.org>
+Date: Wed, 29 May 2024 12:41:18 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/adreno: Add A306A support
+To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>
+References: <20240528-a306a-v1-1-03a66dacd8c7@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <20240528-a306a-v1-1-03a66dacd8c7@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,21 +127,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 28 May 2024 22:39:17 +0300, Dmitry Baryshkov wrote:
-> Fix two issues with the panel-lg-sw43408 driver reported by the kernel
-> test robot.
+On 28.05.2024 9:43 PM, Barnabás Czémán wrote:
+> From: Otto Pflüger <otto.pflueger@abscue.de>
 > 
+> Add support for Adreno 306A GPU what is found in MSM8917 SoC.
+> This GPU marketing name is Adreno 308.
 > 
+> Signed-off-by: Otto Pflüger <otto.pflueger@abscue.de>
+> [use internal name of the GPU, reword the commit message]
+> Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
+> ---
 
-Applied to drm-misc-fixes, thanks!
+[...]
 
-[1/3] drm/panel/lg-sw43408: select CONFIG_DRM_DISPLAY_DP_HELPER
-      commit: 33defcacd207196a6b35857087e6335590adad62
-[2/3] drm/panel/lg-sw43408: mark sw43408_backlight_ops as static
-      commit: 8c318cb70c88aa02068db7518e852b909c9b400f
 
-Best regards,
--- 
-With best wishes
-Dmitry
+>  
+> +static inline bool adreno_is_a306a(const struct adreno_gpu *gpu)
+> +{
+> +	/* a306a marketing name is a308 */
+> +	return adreno_is_revn(gpu, 308);
+> +}
+
+The .c changes look good. Rob, do we still want .rev nowadays?
 
