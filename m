@@ -2,116 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3E848D34B1
-	for <lists+freedreno@lfdr.de>; Wed, 29 May 2024 12:41:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B4158D4196
+	for <lists+freedreno@lfdr.de>; Thu, 30 May 2024 00:58:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F01B110F416;
-	Wed, 29 May 2024 10:41:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A85DF10F67A;
+	Wed, 29 May 2024 22:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AYX1af6D";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="jPjYbR+K";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2283E10EAF4
- for <freedreno@lists.freedesktop.org>; Wed, 29 May 2024 10:41:22 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-a6341cf2c99so196763166b.0
- for <freedreno@lists.freedesktop.org>; Wed, 29 May 2024 03:41:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716979280; x=1717584080; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=sla1AgMnfTvaVQbJp/AkvnN3q3g3If3gBgcTVDSAp8U=;
- b=AYX1af6DmCEkVQ8fxBDKLXYICwv21BMXKVDlf6pSxZ1Od7fr8g7Z4RSNk43AAl+kQ1
- ubyNHPWuOZB2U6UDPasYsIdX7hpixLUtq4INGUV1oe6HCbwyjbGcaDl0ZWbPDNzl125K
- KGdhsDf/meQzyVp6QVKp7KMqKz48IOBilRkUVHWP03p0A/U86ISxjAg2tU6voNJ/CNSp
- bAQWPJj3yQYsOTsxKlaYvfSNkDrnrA8iKyo22v6cWWYqhpmsKEeS7+W5wJDAq8DvVa+A
- Aife85fKvmcVnKX0VzQWejzqaSq4Kw/qdDIKzTBrvnO91/lrVQJt/NESJn8BnRCdkriE
- 7znQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716979280; x=1717584080;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sla1AgMnfTvaVQbJp/AkvnN3q3g3If3gBgcTVDSAp8U=;
- b=gnrjeWaQtFdAc9U+BdXZ/wm34LM+ssk//68nliyJzsdJcd11Fm2aTTX5qESSxbHKbf
- vmVDr2RtvTX4INKM/tQi8h02zVtFab2bGeNXXC882NcO5A9W9xC8r3yb/oJLB+sr1gYN
- GoG0KwzPZ6QJ77/bYjQe/sM88/qKMtkBlqQw/6Oc5xdumaEWznvQdHYetxfidANC8FOz
- lgodfZI5eullW71dO4fCG6OJgZWMS4rtqY4vimQbj50399y/GvhAvabekY6M7lhJ6FVd
- PD7F7whg5Hy3zGhX+11iRB/yA7osnvahHIMrS0TG0un/vgWSbEqd3ynW5ZxsrF2sBnNI
- lMcw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXs6jJoGHy6tpS2TO9DKAmHQNegr8o1x0MhDGRVfO5iIdCy0N6OZaUGV7F6n9fZVAyuJH/xJ9snaJfQ47vZSuhvUs4D5FojmEQA5ye3V2MX
-X-Gm-Message-State: AOJu0YxmYOHApmugJNiuDUtmGUIul5GN7JRu0UzakQdLOR0SIrJyaURz
- PGy68e6rSQn2CiHnb5OUqE4cQbrEqG2TRoTOdmjvpV8HYEsFfdRjG9v14DH5+G8=
-X-Google-Smtp-Source: AGHT+IFJb2R+Y16iwF/EewPOwd9YBStxfjgZzM8O2br3b03khmAr2gwVf6sHjTgvjvuxyJ8HDT025Q==
-X-Received: by 2002:a17:907:82a5:b0:a5a:3da6:7712 with SMTP id
- a640c23a62f3a-a6265134c8fmr795610966b.71.1716979280376; 
- Wed, 29 May 2024 03:41:20 -0700 (PDT)
-Received: from [192.168.128.35] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626c817ad3sm713720366b.16.2024.05.29.03.41.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 May 2024 03:41:19 -0700 (PDT)
-Message-ID: <76a124b6-8cc3-4060-866c-03f47da450cc@linaro.org>
-Date: Wed, 29 May 2024 12:41:18 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E389910F67A;
+ Wed, 29 May 2024 22:57:51 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44TMuvRA016844;
+ Wed, 29 May 2024 22:57:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ MMJs3co4mvSkL4XZ0cNe7QgiSUAwcWuDvZTL61W3bNY=; b=jPjYbR+KObqoOIv6
+ 7oQUKSi5oSQwVcfsrKcq1k3/SNO8nKru98PUPk7kP+ljnEk8qHGwplWJmOnzwhLh
+ JOdL3HWAXP0twqn1EpfNxNn0U09L8IF1h8lY9HEB0mL7jQ2LKA3Eik8Rg8NY9+E/
+ kSXQPSoU/JYxisQidLaFlQ6CEve4D72FnvVPR2dSumsLcEVtXsE3tf4aZhyYhBS7
+ bl+psx7i/y19a+V5UxepOY1Ppyb806J9LAmvy0V88M3qf4WDJuwfs2JawzMSJT5l
+ UYJc5VxJpxDr1U8bjA27Wlzad56J/DACornuWwb/peJB2yPBC04dd0JM6EUTx9uH
+ mCzdlA==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yba0ptc58-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 May 2024 22:57:43 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44TMvgrB006929
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 May 2024 22:57:42 GMT
+Received: from [10.71.110.249] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 29 May
+ 2024 15:57:36 -0700
+Message-ID: <d1a9be5d-b0a0-73bc-c66f-6d45049fbaf1@quicinc.com>
+Date: Wed, 29 May 2024 15:57:35 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/adreno: Add A306A support
-To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>
-References: <20240528-a306a-v1-1-03a66dacd8c7@gmail.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 1/7] dt-bindings: display/msm/dsi: allow specifying TE
+ source
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- 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
- izWDgYvmBE8=
-In-Reply-To: <20240528-a306a-v1-1-03a66dacd8c7@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>
+References: <20240520-dpu-handle-te-signal-v1-0-f273b42a089c@linaro.org>
+ <20240520-dpu-handle-te-signal-v1-1-f273b42a089c@linaro.org>
+ <224fa477-07ba-e7b2-2f7d-8f7d21f4a0c7@quicinc.com>
+ <CAA8EJpp8kRPKboHNHwD+R5f1AcndjaQdGG=Q4ygmRE9VMNievQ@mail.gmail.com>
+ <5cde2f43-89ab-d2d4-d68e-605f8f5d1da7@quicinc.com>
+ <CAA8EJpoMtr6OGjL8qq-cHadQSOVyDAaL8=2TLvOjBbYV2Z7+Mg@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJpoMtr6OGjL8qq-cHadQSOVyDAaL8=2TLvOjBbYV2Z7+Mg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: jC9m0TZ3p9B7s5YTbJuMUWSKFQnJGUWq
+X-Proofpoint-GUID: jC9m0TZ3p9B7s5YTbJuMUWSKFQnJGUWq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
+ definitions=2024-05-29_16,2024-05-28_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999 bulkscore=0
+ suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ mlxscore=0 spamscore=0 adultscore=0 phishscore=0 impostorscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405170001 definitions=main-2405290164
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,26 +105,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28.05.2024 9:43 PM, Barnabás Czémán wrote:
-> From: Otto Pflüger <otto.pflueger@abscue.de>
+
+
+On 5/23/2024 2:58 AM, Dmitry Baryshkov wrote:
+> On Thu, 23 May 2024 at 02:57, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 5/22/2024 1:05 PM, Dmitry Baryshkov wrote:
+>>> On Wed, 22 May 2024 at 21:38, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 5/20/2024 5:12 AM, Dmitry Baryshkov wrote:
+>>>>> Command mode panels provide TE signal back to the DSI host to signal
+>>>>> that the frame display has completed and update of the image will not
+>>>>> cause tearing. Usually it is connected to the first GPIO with the
+>>>>> mdp_vsync function, which is the default. In such case the property can
+>>>>> be skipped.
+>>>>>
+>>>>
+>>>> This is a good addition overall. Some comments below.
+>>>>
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>> ---
+>>>>>     .../bindings/display/msm/dsi-controller-main.yaml        | 16 ++++++++++++++++
+>>>>>     1 file changed, 16 insertions(+)
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+>>>>> index 1fa28e976559..c1771c69b247 100644
+>>>>> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+>>>>> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+>>>>> @@ -162,6 +162,21 @@ properties:
+>>>>>                     items:
+>>>>>                       enum: [ 0, 1, 2, 3 ]
+>>>>>
+>>>>> +              qcom,te-source:
+>>>>> +                $ref: /schemas/types.yaml#/definitions/string
+>>>>> +                description:
+>>>>> +                  Specifies the source of vsync signal from the panel used for
+>>>>> +                  tearing elimination. The default is mdp_gpio0.
+>>>>
+>>>> panel --> command mode panel?
+>>>>
+>>>>> +                enum:
+>>>>> +                  - mdp_gpio0
+>>>>> +                  - mdp_gpio1
+>>>>> +                  - mdp_gpio2
+>>>>
+>>>> are gpio0, gpio1 and gpio2 referring to the vsync_p, vsync_s and vsync_e
+>>>> sources?
+>>>
+>>> No idea, unfortunately. They are gpioN or just mdp_vsync all over the
+>>> place. For the reference, in case of the SDM845 and Pixel3 the signal
+>>> is routed through SoC GPIO12.
+>>>
+>>
+>> GPIO12 on sdm845 is mdp_vsync_e.
+>>
+>> Thats why I think its better we use mdp_vsync_p/s/e instead of mdp_gpio0/1/2
 > 
-> Add support for Adreno 306A GPU what is found in MSM8917 SoC.
-> This GPU marketing name is Adreno 308.
+> Sure. This matches pins description. Are you fine with changing
+> defines in DPU driver to VSYNC_P / _S / _E too ?
 > 
-> Signed-off-by: Otto Pflüger <otto.pflueger@abscue.de>
-> [use internal name of the GPU, reword the commit message]
-> Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
-> ---
 
-[...]
+Sorry for the delay in responding.
 
+As per the software docs, the registers still use GPIO0/1/2.
 
->  
-> +static inline bool adreno_is_a306a(const struct adreno_gpu *gpu)
-> +{
-> +	/* a306a marketing name is a308 */
-> +	return adreno_is_revn(gpu, 308);
-> +}
+Only the pin descriptions use vsync_p/s/e.
 
-The .c changes look good. Rob, do we still want .rev nowadays?
+Hence I think we can make DPU driver to use 0/1/2.
 
+>>
+>>>> In that case wouldnt it be better to name it like that?
+>>>>
+>>>>> +                  - timer0
+>>>>> +                  - timer1
+>>>>> +                  - timer2
+>>>>> +                  - timer3
+>>>>> +                  - timer4
+>>>>> +
+>>>>
+>>>> These are indicating watchdog timer sources right?
+>>>
+>>> Yes.
+>>>
+
+ack.
+
+>>>>
+>>>>>         required:
+>>>>>           - port@0
+>>>>>           - port@1
+>>>>> @@ -452,6 +467,7 @@ examples:
+>>>>>                               dsi0_out: endpoint {
+>>>>>                                        remote-endpoint = <&sn65dsi86_in>;
+>>>>>                                        data-lanes = <0 1 2 3>;
+>>>>> +                                   qcom,te-source = "mdp_gpio2";
+>>>>
+>>>> I have a basic doubt on this. Should te-source should be in the input
+>>>> port or the output one for the controller? Because TE is an input to the
+>>>> DSI. And if the source is watchdog timer then it aligns even more as a
+>>>> property of the input endpoint.
+>>>
+>>> I don't really want to split this. Both data-lanes and te-source are
+>>> properties of the link between the DSI and panel. You can not really
+>>> say which side has which property.
+>>>
+>>
+>> TE is an input to the DSI from the panel. Between input and output port,
+>> I think it belongs more to the input port.
+> 
+> Technically we don't have in/out ports. There are two ports which
+> define a link between two instances. For example, if the panel
+> supports getting information through DCS commands, then "panel input"
+> also becomes "panel output".
+> 
+
+The ports are labeled dsi0_in and dsi0_out. Putting te source in 
+dsi0_out really looks very confusing to me.
+
+>>
+>> I didnt follow why this is a link property. Sorry , I didnt follow the
+>> split part.
+> 
+> There is a link between the DSI host and the panel. I don't want to
+> end up in a situation when the properties of the link are split
+> between two different nodes.
+> 
+
+It really depends on what the property denotes. I do not think this 
+should be the reason to do it this way.
+
+>>
+>> If we are unsure about input vs output port, do you think its better we
+>> make it a property of the main dsi node instead?
+> 
+> No, it's not a property of the DSI node at all. If the vendor rewires
+> the panel GPIOs or (just for example regulators), it has nothing to do
+> with the DSI host.
+
+Ack to this.
+
+> 
+> --
+> With best wishes
+> Dmitry
