@@ -2,96 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 735748D42B0
-	for <lists+freedreno@lfdr.de>; Thu, 30 May 2024 03:08:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8F108D450F
+	for <lists+freedreno@lfdr.de>; Thu, 30 May 2024 07:56:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A168310EB65;
-	Thu, 30 May 2024 01:08:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A620011B375;
+	Thu, 30 May 2024 05:56:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="YPUh2iPe";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PEXbzLcF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08DF110EA3D;
- Thu, 30 May 2024 01:08:36 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44THXe2C016548;
- Thu, 30 May 2024 01:08:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- MvZ4XTVDVCaZhfImf+3FaKuLeqMNhF7XyUNgMzqoemw=; b=YPUh2iPeLL/4AU6L
- FMwKKORTovQG/NP4fVyeUfoBs9gASNbVeQjIBgOohUUr9R0MdQrJftNikUwphh97
- V1gy+AojeT93i8VIJ89UkpWPRzBEKTj1cIRhgZcJdN8nO07yZ4uRfHNvGCjgVuOw
- DVcnJWkg9UNMp7v8phpgmWpdYyivTa6EjbvQaicl6CI01OGd/ekP1oIhCe0jsLeR
- wLfWzddAYBlTJCkblF5Nt8NJLlOzbFYZLiB9rQCSFBqzrQJLxaVMJ6CJRumVJgZ8
- 7ZXe4kNaB3yhx+EyGHLnqYj5XYVki5kRL7evG2vbfK644Nu78ax1ikJr4yA00HjN
- 6jGiRw==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ydyws2c27-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 May 2024 01:08:29 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44U18S25009392
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 May 2024 01:08:28 GMT
-Received: from [10.71.110.249] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 29 May
- 2024 18:08:23 -0700
-Message-ID: <4b604c91-7b1f-46b3-6b41-fe7d45190b78@quicinc.com>
-Date: Wed, 29 May 2024 18:08:21 -0700
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E18E611B375
+ for <freedreno@lists.freedesktop.org>; Thu, 30 May 2024 05:56:48 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-6f8eba8dcfcso417878b3a.3
+ for <freedreno@lists.freedesktop.org>; Wed, 29 May 2024 22:56:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1717048608; x=1717653408; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Wg+y31xl/RmeIgpL0Di9SmbXiRyE56ZbIno+aBs0ekQ=;
+ b=PEXbzLcFGBfinFiJmfffRLdnCrf7kNY1d1SVC/qh+AY9nh8b9DtVWiT5vzrYK89u0f
+ bdXm4n2bQBwHMQgLM/0drgfK+Bys2aHqAcG8hMcGrGFeLUxH3gMcupvqbTLZiqxlbEEW
+ jWbb+oNTo5RdxuGchOspkb2H/60ASD4Xq1Rodedm2wMsyd7RjnXQ1IloY6TrK10DH4Q/
+ XQ3rkiXXypyykWnwhds+W51JQrKZIrrU58yy6IufgET0X5Atj18o9cmqJtKJay+Lk64r
+ cWjJXDRtd2BwAyx3TH9aemdEvDsyZoRoQPaj70UXtEVF9hFzeo+xOlwQ+eX488pqjTb2
+ ipqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1717048608; x=1717653408;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Wg+y31xl/RmeIgpL0Di9SmbXiRyE56ZbIno+aBs0ekQ=;
+ b=JX/h3adi70gdeQv0v89ikBT7W0fxs6qhdQv1Rdhewq76WiHPpU2o3Y4SshuXj31T9E
+ jsSSj5oWwZeE5b9P74zrnz1RFOb4HlthTL+7o2sQoFmbaFfS21c7MkAa9wuCWmSOLqQE
+ Xj6JMZHXBKFVF7Ud9Lwi7hdIqlgZnTECH0E9CzbTqVLimUoUkDCukmHJdi2vWcKy83zZ
+ BX7Mm7Q7kqN2b4zn7Cssk/2+dcdTofbgTpBjXNo9ANyqnJybaMoM6S3UAKQcprrsyzOc
+ h5YxkyMvzW3+aUJFvOtsIhVRFlIn7JUv+0c4FvqR3wZ+hVHxNQHDCozjJifotGmFE32n
+ 9VNQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUNLDom2ArTAKvIK3UdTgDWVhaKnhWZd9z/qdXpT5ne2+tQUxDiTZFXDny2PpG9zduOm+W4sF7TY0DLppoLiopE0ajZFSOFXRUOcu65UzBK
+X-Gm-Message-State: AOJu0YwGLj+7tH9DzfKgk9w11faE22jhzQV32VERWxC0QJ8URPjH1lcU
+ 7ocqgiDnXPCxcKtoQev8MBJ17BbLBydN0r5btDy5WszKbkd8N/zuY9V/h1YJSQw=
+X-Google-Smtp-Source: AGHT+IFomuY8PNK14qd7ZuhowVwq4GZWAnuqj0py5ACiE+WTKY8mq9b+tz73xLwbr4TfRr5YJ609NA==
+X-Received: by 2002:a05:6a20:4313:b0:1af:d033:d66d with SMTP id
+ adf61e73a8af0-1b264523619mr1354733637.9.1717048608215; 
+ Wed, 29 May 2024 22:56:48 -0700 (PDT)
+Received: from [127.0.1.1] ([112.64.61.67]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1f44c75ffc6sm110006705ad.9.2024.05.29.22.56.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 May 2024 22:56:47 -0700 (PDT)
+From: Jun Nie <jun.nie@linaro.org>
+Subject: [PATCH v6 0/6] Add DSC support to DSI video panel
+Date: Thu, 30 May 2024 13:56:44 +0800
+Message-Id: <20240530-msm-drm-dsc-dsi-video-upstream-4-v6-0-2ab1d334c657@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 1/7] dt-bindings: display/msm/dsi: allow specifying TE
- source
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>
-References: <20240520-dpu-handle-te-signal-v1-0-f273b42a089c@linaro.org>
- <20240520-dpu-handle-te-signal-v1-1-f273b42a089c@linaro.org>
- <224fa477-07ba-e7b2-2f7d-8f7d21f4a0c7@quicinc.com>
- <CAA8EJpp8kRPKboHNHwD+R5f1AcndjaQdGG=Q4ygmRE9VMNievQ@mail.gmail.com>
- <5cde2f43-89ab-d2d4-d68e-605f8f5d1da7@quicinc.com>
- <CAA8EJpoMtr6OGjL8qq-cHadQSOVyDAaL8=2TLvOjBbYV2Z7+Mg@mail.gmail.com>
- <d1a9be5d-b0a0-73bc-c66f-6d45049fbaf1@quicinc.com>
- <CAA8EJppFZQTghtyweGG_8zSqqZpEp=ho0bXuRxgyU2qGL4+ppA@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJppFZQTghtyweGG_8zSqqZpEp=ho0bXuRxgyU2qGL4+ppA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: HOC8uy6-FnhRjVDyNdU2_V5J3phIKM4E
-X-Proofpoint-GUID: HOC8uy6-FnhRjVDyNdU2_V5J3phIKM4E
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
- definitions=2024-05-29_16,2024-05-28_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0
- malwarescore=0 impostorscore=0 suspectscore=0 mlxscore=0 mlxlogscore=999
- priorityscore=1501 spamscore=0 lowpriorityscore=0 bulkscore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405170001 definitions=main-2405300006
+X-B4-Tracking: v=1; b=H4sIABwVWGYC/5XNsQ6CMBQF0F8hnX2m1ragk/9hHAp9hZcIJS02G
+ sK/W5h00+EO9w7nzixiIIzsXMwsYKJIfshF7wrWdGZoEcjmzgQXkishoY892JATmxyCRBY9PMY
+ 4BTQ9SBAChdDa1VidWGbGgI6e28X1lntHcfLhtT0mua5/4EkCB9SHhqta8qN1lzsNJvi9Dy1b9
+ aQ+xfIHUWXRlafSudpIXYkvcVmWN3pbwKsjAQAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Vinod Koul <vkoul@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jun Nie <jun.nie@linaro.org>, Jonathan Marek <jonathan@marek.ca>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1717048617; l=2232;
+ i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
+ bh=D0yrkfxxFHdMRbEH4oMP9hMkymQbCeCPPCiYJsAX4O0=;
+ b=GanMoNSM63YmKMLyUezYQhUPp5JSKvRAoKAwiC2PMIKEvIQQ5fqI8A/2Ev82ionXNQOrohpnj
+ lrtROQuig5RAXovSraCexeLYMuje8Vm9wyd6nio3//0ZSDYnHybGhGW
+X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
+ pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,203 +98,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This is follow up update to Jonathan's patch set.
 
+Changes vs V5:
+- Add hardware version check for compression bit change in cfg2 register
 
-On 5/29/2024 5:02 PM, Dmitry Baryshkov wrote:
-> On Thu, 30 May 2024 at 00:57, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 5/23/2024 2:58 AM, Dmitry Baryshkov wrote:
->>> On Thu, 23 May 2024 at 02:57, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>
->>>>
->>>>
->>>> On 5/22/2024 1:05 PM, Dmitry Baryshkov wrote:
->>>>> On Wed, 22 May 2024 at 21:38, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>>>
->>>>>>
->>>>>>
->>>>>> On 5/20/2024 5:12 AM, Dmitry Baryshkov wrote:
->>>>>>> Command mode panels provide TE signal back to the DSI host to signal
->>>>>>> that the frame display has completed and update of the image will not
->>>>>>> cause tearing. Usually it is connected to the first GPIO with the
->>>>>>> mdp_vsync function, which is the default. In such case the property can
->>>>>>> be skipped.
->>>>>>>
->>>>>>
->>>>>> This is a good addition overall. Some comments below.
->>>>>>
->>>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>>>> ---
->>>>>>>      .../bindings/display/msm/dsi-controller-main.yaml        | 16 ++++++++++++++++
->>>>>>>      1 file changed, 16 insertions(+)
->>>>>>>
->>>>>>> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->>>>>>> index 1fa28e976559..c1771c69b247 100644
->>>>>>> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->>>>>>> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
->>>>>>> @@ -162,6 +162,21 @@ properties:
->>>>>>>                      items:
->>>>>>>                        enum: [ 0, 1, 2, 3 ]
->>>>>>>
->>>>>>> +              qcom,te-source:
->>>>>>> +                $ref: /schemas/types.yaml#/definitions/string
->>>>>>> +                description:
->>>>>>> +                  Specifies the source of vsync signal from the panel used for
->>>>>>> +                  tearing elimination. The default is mdp_gpio0.
->>>>>>
->>>>>> panel --> command mode panel?
->>>>>>
->>>>>>> +                enum:
->>>>>>> +                  - mdp_gpio0
->>>>>>> +                  - mdp_gpio1
->>>>>>> +                  - mdp_gpio2
->>>>>>
->>>>>> are gpio0, gpio1 and gpio2 referring to the vsync_p, vsync_s and vsync_e
->>>>>> sources?
->>>>>
->>>>> No idea, unfortunately. They are gpioN or just mdp_vsync all over the
->>>>> place. For the reference, in case of the SDM845 and Pixel3 the signal
->>>>> is routed through SoC GPIO12.
->>>>>
->>>>
->>>> GPIO12 on sdm845 is mdp_vsync_e.
->>>>
->>>> Thats why I think its better we use mdp_vsync_p/s/e instead of mdp_gpio0/1/2
->>>
->>> Sure. This matches pins description. Are you fine with changing
->>> defines in DPU driver to VSYNC_P / _S / _E too ?
->>>
->>
->> Sorry for the delay in responding.
->>
->> As per the software docs, the registers still use GPIO0/1/2.
->>
->> Only the pin descriptions use vsync_p/s/e.
->>
->> Hence I think we can make DPU driver to use 0/1/2.
-> 
-> OK, what about the DT? I like the vsync_p/_s/_e idea.
-> 
+Changes vs V4:
+- Polish width calculation with helper function
+- Split cfg2 compression bit into another patch
 
-Yes, vsync_p/_s/_e for DT is fine with me.
+Changes vs V3:
+- Rebase to latest msm-next-lumag branch.
+- Drop the slice_per_pkt change as it does impact basic DSC feature.
+- Remove change in generated dsi header
+- update DSC compressed width calculation with bpp and bpc
+- split wide bus impact on width into another patch
+- rename patch tile of VIDEO_COMPRESSION_MODE_CTRL_WC change
+- Polish warning usage
+- Add tags from reviewers
 
-My comment was only for driver.
+Changes vs V2:
+- Drop the INTF_CFG2_DATA_HCTL_EN change as it is handled in
+latest mainline code.
+- Drop the bonded DSI patch as I do not have device to test it.
+- Address comments from version 2.
 
-So driver would do:
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
+---
+Changes in v6:
+- Link to v5: https://lore.kernel.org/r/20240527-msm-drm-dsc-dsi-video-upstream-4-v5-0-f797ffba4682@linaro.org
 
-vsync_p -> gpio0
-vsync_s -> gpio1
-vsync_e -> gpio2
+Changes in v5:
+- Link to v4: https://lore.kernel.org/r/20240524-msm-drm-dsc-dsi-video-upstream-4-v4-0-e61c05b403df@linaro.org
 
->>
->>>>
->>>>>> In that case wouldnt it be better to name it like that?
->>>>>>
->>>>>>> +                  - timer0
->>>>>>> +                  - timer1
->>>>>>> +                  - timer2
->>>>>>> +                  - timer3
->>>>>>> +                  - timer4
->>>>>>> +
->>>>>>
->>>>>> These are indicating watchdog timer sources right?
->>>>>
->>>>> Yes.
->>>>>
->>
->> ack.
->>
->>>>>>
->>>>>>>          required:
->>>>>>>            - port@0
->>>>>>>            - port@1
->>>>>>> @@ -452,6 +467,7 @@ examples:
->>>>>>>                                dsi0_out: endpoint {
->>>>>>>                                         remote-endpoint = <&sn65dsi86_in>;
->>>>>>>                                         data-lanes = <0 1 2 3>;
->>>>>>> +                                   qcom,te-source = "mdp_gpio2";
->>>>>>
->>>>>> I have a basic doubt on this. Should te-source should be in the input
->>>>>> port or the output one for the controller? Because TE is an input to the
->>>>>> DSI. And if the source is watchdog timer then it aligns even more as a
->>>>>> property of the input endpoint.
->>>>>
->>>>> I don't really want to split this. Both data-lanes and te-source are
->>>>> properties of the link between the DSI and panel. You can not really
->>>>> say which side has which property.
->>>>>
->>>>
->>>> TE is an input to the DSI from the panel. Between input and output port,
->>>> I think it belongs more to the input port.
->>>
->>> Technically we don't have in/out ports. There are two ports which
->>> define a link between two instances. For example, if the panel
->>> supports getting information through DCS commands, then "panel input"
->>> also becomes "panel output".
->>>
->>
->> The ports are labeled dsi0_in and dsi0_out. Putting te source in
->> dsi0_out really looks very confusing to me.
-> 
-> dsi0_in is a port that connects DSI and DPU, so we should not be
-> putting panel-related data there.
-> 
+---
+Jonathan Marek (4):
+      drm/msm/dpu: fix video mode DSC for DSI
+      drm/msm/dsi: set video mode widebus enable bit when widebus is enabled
+      drm/msm/dsi: set VIDEO_COMPRESSION_MODE_CTRL_WC
+      drm/msm/dsi: add a comment to explain pkt_per_line encoding
 
-Yes, true. But here we are using the "out" port which like you mentioned 
-is not logical either. Thats why I am not convinced or not sure if this 
-is the right way to model this.
+Jun Nie (2):
+      drm/msm/dpu: adjust data width for widen bus case
+      drm/msm/dpu: enable compression bit in cfg2 for DSC
 
-> I see two ports: mdss_dsi0_out and panel_in. Neither of them is
-> logical from this point of view. The TE source likewise isn't an input
-> to the panel, so we should not be using the panel_in port.
-> 
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c         |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h    |  8 ++++++++
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c    | 21 ++++++++++++++++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c         | 17 ++++++++++++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h         |  3 ++-
+ drivers/gpu/drm/msm/dsi/dsi_host.c                  | 10 +++++++++-
+ 6 files changed, 56 insertions(+), 5 deletions(-)
+---
+base-commit: e6428bcb611f6c164856a41fc5a1ae8471a9b5a9
+change-id: 20240524-msm-drm-dsc-dsi-video-upstream-4-22e2266fbe89
 
->>
->>>>
->>>> I didnt follow why this is a link property. Sorry , I didnt follow the
->>>> split part.
->>>
->>> There is a link between the DSI host and the panel. I don't want to
->>> end up in a situation when the properties of the link are split
->>> between two different nodes.
->>>
->>
->> It really depends on what the property denotes. I do not think this
->> should be the reason to do it this way.
-> 
-> It denotes how the panel signals DPU that it finished processing the
-> data (please excuse me for possibly inaccurate description). However
-> there is no direct link between the panel and the DPU. So we should be
-> using a link between DSI host and the panel.
->
+Best regards,
+-- 
+Jun Nie <jun.nie@linaro.org>
 
-Yes, I totally agree that we should be using a link between DSI host and 
-the panel.
-
-My question from the beginning has been why the output port?
-
-It looks like to me we need to have another input port to the controller 
-then?
-
-One from DPU and the other from panel?
-
->>
->>>>
->>>> If we are unsure about input vs output port, do you think its better we
->>>> make it a property of the main dsi node instead?
->>>
->>> No, it's not a property of the DSI node at all. If the vendor rewires
->>> the panel GPIOs or (just for example regulators), it has nothing to do
->>> with the DSI host.
->>
->> Ack to this.
->>
->>>
->>> --
->>> With best wishes
->>> Dmitry
-> 
-> 
-> 
