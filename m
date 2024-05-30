@@ -2,83 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 260048D508A
-	for <lists+freedreno@lfdr.de>; Thu, 30 May 2024 19:07:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DD6F8D51C2
+	for <lists+freedreno@lfdr.de>; Thu, 30 May 2024 20:28:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39C5710E1F3;
-	Thu, 30 May 2024 17:07:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5172210E3CD;
+	Thu, 30 May 2024 18:28:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MmaiGfS3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F6w8BU7R";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8AD910E077;
- Thu, 30 May 2024 17:07:54 +0000 (UTC)
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-2e95a1f9c53so14055071fa.0; 
- Thu, 30 May 2024 10:07:54 -0700 (PDT)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86B9910E3CD;
+ Thu, 30 May 2024 18:28:21 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-52a54d664e3so392756e87.0; 
+ Thu, 30 May 2024 11:28:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717088873; x=1717693673; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
+ d=gmail.com; s=20230601; t=1717093699; x=1717698499; darn=lists.freedesktop.org;
+ h=in-reply-to:references:subject:cc:to:from:message-id:date
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=S754fL6eVqgTIUZX2+nFqHKkShFVnRKXXFJgDcc1ZDI=;
- b=MmaiGfS3g+2rwkoXKgnJVOgeFzV6/jZK3ZFTMORLc1Uz7hQIqgnQngi3Pei2Il+Lyg
- 0k3j/QAF79XepVlZLToELxOnX5pV1amYZGqJcTBmHo4JX+fKg83XkYl+DdHLapAJ4aIz
- J/cGzMFzMogp4AjXIV5JrFHvm+atyTwiGc7Li8e4ydh1moRM95IUPjBeQsMHdlVbglXn
- LOKLdnGfFHWAax2WXcEB5SOeiuCenOLuSHsJuBCAaoAJ+BcDWI22sBdEe/Rs+KGjC+M+
- DpwSnooi7H2lW2KamR2PRU8fKLioSse2KwCxxyc+i5MMqqmfvniqTgdWZcT5ZA2maRR2
- dRcg==
+ bh=9xvggD5zyG5hkDkxWfILJwXhYiELErkkmtBD0MYsbXM=;
+ b=F6w8BU7RxLuDzAuxvw5HKp+JaKCpKq3Vc0V/Xof31f/QJOrwDJpjjdaRA5QimnTvEf
+ Pp37PMBAjnt+bzC2US+sX4/+JSUnERc9xyb00bvVD/VhY6aYPqcFAsSA7sqqBr/fWOA/
+ 23GKX9gPk5Kd+9NabQp/N7ec/Rl/Ki7nVq++kVckjkC4bRkzVY0UoUu5sEJiHxiRFZp1
+ hd6QRiRqF39Xj0bkOeUTAda1+fxSdlRNK66/G1FGYrYbEtklyC5g+CIyAknu2HoDg4lR
+ EvIm/y8IIZbWV4ZEnse2QGh+z4k1/E4ikqXYI3OOxbMDDyN22xSWIZ9VE72vIdQ3lAxp
+ r0vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717088873; x=1717693673;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
+ d=1e100.net; s=20230601; t=1717093699; x=1717698499;
+ h=in-reply-to:references:subject:cc:to:from:message-id:date
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=S754fL6eVqgTIUZX2+nFqHKkShFVnRKXXFJgDcc1ZDI=;
- b=aqbV1VnEdFnTdLm2gMwnsq7NI6lJY1JGDmHZJU661MlHreCAb5oyuHCLDPPAPSiDxk
- cL+CkT/M3bAT/EnBBvaVHrNTM9EgYw46aCL1lrEdKGXYvXWAu8R/QEvCJUm5bun7GwqE
- EYLU0Up2OBRnHlA4e1ZYXWNmWUPhTTqd+QLVDb1yMIdE01qG1omqkwEMMdD9a+5KB04W
- tMCOFF1GMSGL3vQag92mjvgfDICi1GAWo81YivmoqFovUXiwVWCt9h+9M051SnblPHOk
- ZdLTNQhTVboEivOw0FaUz75RDY9xTAA171UqpALMt/jTn2ZIkOi0vNO5HMaF2qaqoBUJ
- dY2A==
+ bh=9xvggD5zyG5hkDkxWfILJwXhYiELErkkmtBD0MYsbXM=;
+ b=Vwo1DZ31Rjw7cQgCG9F6lkuByKk1iA6ifMg0sUTPGbx4IEylhN28srSv7MU+rxxlpS
+ NVc7vK01MfUZnvZbUzbSh+McL+zr/7Nv9iGQH8lyD7rthusA2IVETWaqKcB+d6iCTxBt
+ 4kUjxH37NP3PhRsf/MZ/Y1v4ZDudWLSFBy6T/vrGmzqwbzT4lVRZPvnvae8yZFRJvfbb
+ fHNCX6HCCNd83pQ6ra0VZtkldLhqeNk3nzu/Xqr1TogSLU/qUUVgL4kjdpmNPU5d2WkL
+ dEZftFqQ+O0slozwcb4KknWHcAooIEGThAIeVkSs+K9QyQQOJY0lHD8tM23UVbMHHJ7T
+ fx2w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV85CGF1njoq8k8G84NhI/vB0ZjV+eoHp6mqL5FIuiy4XcuhQlkF0FYSbH2lbBJekR7/n5aK0+C5ZL/TuCNckhDl/weHSzVnlQOIrfldk6sNVmvXlmsQxpskGa8rX7ohIzSs1/ECre7DVuIHb/qScDp
-X-Gm-Message-State: AOJu0YwGEefeWue4WOd46CZeUllTaoRi0SFaW/s3OK7u4d4sOoN2tMTe
- L7Uy3zlW9O9aoqPVJ+NThvw1RsXh0Id1A0g4OfznznXwuFV08KQF
-X-Google-Smtp-Source: AGHT+IHwjTCFVGR50yNchGzCdFfdFMN0b/atDi7Tr/wiD7aw8w8AAvWmC3KTr7YpU1+nPKK4cCRg1g==
-X-Received: by 2002:a2e:a417:0:b0:2ea:844b:1b16 with SMTP id
- 38308e7fff4ca-2ea84830962mr16211881fa.34.1717088872356; 
- Thu, 30 May 2024 10:07:52 -0700 (PDT)
+ AJvYcCXYA5YKVOkVi0NATDUedNEmLwVZaXjPNqcIDqR+JLdOZSRWJWw6tMev0EYHTqcQcYt+Ff3iNYb2HzrNG4NMxGHZaLLaBRgLVPiiKuLCIk7tCYe/Ec6NXfYE4VPG0sTK6rD48dSMb0E704k8iUy80Sfn
+X-Gm-Message-State: AOJu0YxNo+UrULYAVLtIqEN2or1eV5DHcxGTHhykAKfrkL6cWCbU9w58
+ iRNNiKg02YB8BhxB3c220qfbYffHCzjDTVH51JPxDT02e3jNni9g
+X-Google-Smtp-Source: AGHT+IEQ0HOg2nVCclhwyMBh137n9XiHsinuwEbUK5FBdZaY8TZg5QzJKYc6yUFpiMsZXoVqvHEN7Q==
+X-Received: by 2002:ac2:54ba:0:b0:529:adc0:2129 with SMTP id
+ 2adb3069b0e04-52b7d4186eemr1751587e87.11.1717093698952; 
+ Thu, 30 May 2024 11:28:18 -0700 (PDT)
 Received: from localhost
  (p200300e41f162000f22f74fffe1f3a53.dip0.t-ipconnect.de.
  [2003:e4:1f16:2000:f22f:74ff:fe1f:3a53])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-421270ad410sm30167835e9.45.2024.05.30.10.07.51
+ a640c23a62f3a-a67eab85e98sm2416566b.176.2024.05.30.11.28.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 May 2024 10:07:51 -0700 (PDT)
+ Thu, 30 May 2024 11:28:18 -0700 (PDT)
 Content-Type: multipart/signed;
- boundary=e8d29550c8c6ecc345e96308e31e05adf5d0599eed8c116befc5ef55e617;
+ boundary=3c63f374e1b0ea791262a8278936583225c80209dd68e31d90030b5f68c0;
  micalg=pgp-sha256; protocol="application/pgp-signature"
 Mime-Version: 1.0
-Date: Thu, 30 May 2024 19:07:51 +0200
-Message-Id: <D1N57DK5Z2XU.2VP8OXFUMC709@gmail.com>
-Cc: "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Dmitry Baryshkov"
- <dmitry.baryshkov@linaro.org>, "Jonathan Corbet" <corbet@lwn.net>, "Abhinav
- Kumar" <quic_abhinavk@quicinc.com>, "Sean Paul" <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>, <workflows@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Masahiro
- Yamada" <masahiroy@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-Subject: Re: [PATCH] docs: document python version used for compilation
+Date: Thu, 30 May 2024 20:28:17 +0200
+Message-Id: <D1N6WYWR463J.3UVC2PP2CUIY4@gmail.com>
 From: "Thierry Reding" <thierry.reding@gmail.com>
-To: "Rob Clark" <robdclark@gmail.com>, "Jani Nikula" <jani.nikula@intel.com>
+To: <paulmck@kernel.org>, "Abhinav Kumar" <quic_abhinavk@quicinc.com>
+Cc: <sfr@canb.auug.org.au>, "Rob Clark" <robdclark@gmail.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@linaro.org>, "Sean Paul" <sean@poorly.run>,
+ "Marijn Suijten" <marijn.suijten@somainline.org>, "David Airlie"
+ <airlied@gmail.com>, "Daniel Vetter" <daniel@ffwll.ch>, "Jon Hunter"
+ <jonathanh@nvidia.com>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [BUG] Build failure and alleged fix for next-20240523
 X-Mailer: aerc 0.16.0-1-0-g560d6168f0ed-dirty
-References: <20240509-python-version-v1-1-a7dda3a95b5f@linaro.org>
- <878r0ijdh5.fsf@intel.com> <20240510102036.3ea40b37@sal.lan>
- <87o79ehtbz.fsf@intel.com>
- <CAF6AEGvTkL=JxGDaOab9XpJ4htWQnBA1dTEOUxBUTAavM0DB4w@mail.gmail.com>
-In-Reply-To: <CAF6AEGvTkL=JxGDaOab9XpJ4htWQnBA1dTEOUxBUTAavM0DB4w@mail.gmail.com>
+References: <287206c0-b53d-4aa1-b35c-0725adc5e9ef@paulmck-laptop>
+ <28db820c-860d-be1c-bb94-ed534622fdc8@quicinc.com>
+ <4f821c7f-6201-470f-b39d-ba689ca027d9@paulmck-laptop>
+In-Reply-To: <4f821c7f-6201-470f-b39d-ba689ca027d9@paulmck-laptop>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,92 +93,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
---e8d29550c8c6ecc345e96308e31e05adf5d0599eed8c116befc5ef55e617
+--3c63f374e1b0ea791262a8278936583225c80209dd68e31d90030b5f68c0
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
 
-On Fri May 10, 2024 at 10:04 PM CEST, Rob Clark wrote:
-> On Fri, May 10, 2024 at 3:09=E2=80=AFAM Jani Nikula <jani.nikula@intel.co=
-m> wrote:
-> >
-> > On Fri, 10 May 2024, Mauro Carvalho Chehab <mchehab@kernel.org> wrote:
-> > > Em Fri, 10 May 2024 11:08:38 +0300
-> > > Jani Nikula <jani.nikula@intel.com> escreveu:
-> > >
-> > >> On Thu, 09 May 2024, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =
-wrote:
-> > >> > The drm/msm driver had adopted using Python3 script to generate re=
-gister
-> > >> > header files instead of shipping pre-generated header files. Docum=
-ent
-> > >> > the minimal Python version supported by the script.
-> > >> >
-> > >> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > >> > ---
-> > >> >  Documentation/process/changes.rst | 1 +
-> > >> >  1 file changed, 1 insertion(+)
-> > >> >
-> > >> > diff --git a/Documentation/process/changes.rst b/Documentation/pro=
-cess/changes.rst
-> > >> > index 5685d7bfe4d0..8d225a9f65a2 100644
-> > >> > --- a/Documentation/process/changes.rst
-> > >> > +++ b/Documentation/process/changes.rst
-> > >> > @@ -63,6 +63,7 @@ cpio                   any              cpio --v=
-ersion
-> > >> >  GNU tar                1.28             tar --version
-> > >> >  gtags (optional)       6.6.5            gtags --version
-> > >> >  mkimage (optional)     2017.01          mkimage --version
-> > >> > +Python (optional)      3.5.x            python3 --version
-> > >>
-> > >> Python 3.5 reached end-of-life 3=C2=BD years ago [1]. What's the poi=
-nt in
-> > >> using anything older than the oldest supported version of Python,
-> > >> i.e. 3.8 at this time?
-> > >
-> > > What's the point of breaking compilation with on older distros?
-> > > The idea of minimal versions here is to specify the absolute minimum
-> > > version that it is required for the build to happen. If 3.5 is
-> > > the minimal one, then be it.
-> >
-> > AFAICT 3.5 was an arbitrary rather than a deliberate choice. We should
-> > at least be aware *why* we'd be sticking to old versions.
-> >
-> > Minimum versions here also means sticking to features available in said
-> > versions, for Python just as well as for GCC or any other tool. That's
-> > not zero cost.
+On Thu May 30, 2024 at 6:55 PM CEST, Paul E. McKenney wrote:
+> On Fri, May 24, 2024 at 12:57:58PM -0700, Abhinav Kumar wrote:
+> > Hello
+> >=20
+> > On 5/24/2024 12:55 PM, Paul E. McKenney wrote:
+> > > Hello!
+> > >=20
+> > > I get the following allmodconfig build error on x86 in next-20240523:
+> > >=20
+> > > Traceback (most recent call last):
+> > >  =C2=A0=C2=A0File "drivers/gpu/drm/msm/registers/gen_header.py", line=
+ 970, in <module>
+> > >  =C2=A0=C2=A0=C2=A0=C2=A0main()
+> > >  =C2=A0=C2=A0File "drivers/gpu/drm/msm/registers/gen_header.py", line=
+ 951, in main
+> > >  =C2=A0=C2=A0=C2=A0=C2=A0parser.add_argument('--validate', action=3Da=
+rgparse.BooleanOptionalAction)
+> > > AttributeError: module 'argparse' has no attribute 'BooleanOptionalAc=
+tion'
+> > >=20
+> > > The following patch allows the build to complete successfully:
+> > >=20
+> > > https://patchwork.kernel.org/project/dri-devel/patch/20240508091751.3=
+36654-1-jonathanh@nvidia.com/#25842751
+> > >=20
+> > > As to whether this is a proper fix, I must defer to the DRM folks on =
+CC.
+> >=20
+> > Thanks for the report.
+> >=20
+> > I have raised a merge request for
+> > https://patchwork.freedesktop.org/patch/593057/ to make it available fo=
+r the
+> > next fixes release for msm.
 >
-> At this point, the cost to having a lower minimum version is pretty
-> small, so I'm not worrying too much about it.
+> Thank you!
 >
-> Maybe once kernel developers discover mako, and start generating more
-> at build time, we'll have to re-evaluate. ;-)
+> This still is not in -next, so I am putting it into -rcu just to silence
+> the diagnostic.  Or should I push this to mainline via -rcu?
 
-You're making an interesting point. Does the build dependency here
-denote Python (& standard library) or do we assume that if people have
-Python installed that they can also install arbitrary extra packages?
-Would a Mako dependency need to be explicitly mentioned here?
+I pushed this to drm-misc-fixes earlier today, so should show up in
+linux-next soon and hopefully in v6.10-rc2.
 
 Thierry
 
---e8d29550c8c6ecc345e96308e31e05adf5d0599eed8c116befc5ef55e617
+--3c63f374e1b0ea791262a8278936583225c80209dd68e31d90030b5f68c0
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmZYsmcACgkQ3SOs138+
-s6GwDhAAk7AgMlJlfnIXUZpOj/rOLWcb600MiHHFNHwSQCe4Uth9OdBvDjdFqsUH
-IOsRHerjzQEwlXmSafIOpXa2PZIdyxpGhW5b3regoBNfy9BeGgQLPyFwcQht6qh2
-VI2nrMek6YghkNYEOJgj/mR3pKgPdubbvenIHKRqjoOVO+dviJfnRCWGyBAmD/A7
-vBa21JJQ8xMZ4+uBFmwGfD6z3wzmNJejyeMTrSEspmmWzp1EouxwEy/gtUPv4xKQ
-zC1HEk/hWUEYaFgY0zgsT+HH80QhfpO2A93RM/DhcON8UPG0zkPXjNGy7PR49kAm
-8dHvyVnT42uD2ziXfp6sDAlCw5StvmPNyEDxltCBmZXWlana1DkQZarfNuBpuTBl
-Uf1C2GBc1I9AjH0Dui+jdzBurfBTRi0p5OTMh4xtfTuBKLQnNwCZ+Loc+Ft4uzX1
-ziaoZtR9q2PpElDhruxNAHH19a7DpfB71HYvcnhkrlpCH85ivsFIGditzYlMxuOK
-uoMZchMwVyzqptRpyKHsfgaIYNWffFB/vmLI27m4HrRYGl5qg4tx7te8FK9RP7cC
-mSM7KS36BA/BlJV9dLePmcKHylabI1HgJRKQ5nwFo5TyCHIh00EEpC01k7hcW/N3
-qrVTwB7kDgm0w1udks5zBp0D9+xquWiRWF9uVpwLQOvTfzcp434=
-=RSh3
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmZYxUIACgkQ3SOs138+
+s6EtthAAp41m3IJzGSaKe1+TCFp5MCBxweTKfght0Ks+7Djtk1yp0Nek6he8G8YO
+f5GWHEizfKgfdQO8NLGt9qw3ENJJOTgiG+TdjQAg/p4Z3uNN5EUqB17l4HR/+ph8
+cXB5ZrHqS5nb2jrDGHc4ZJGW/4drN4D246LepgcudAuLD9jy6P9oU5V5tLQMJk3g
+d/f24vawHEgVb+IC1q4kyz1rYyFhKOGuLs8KDAUSgR2SN2SQwiA8733mzpjULjCG
+dAjSUKFun7EIhEwGTijkwUTVOps4VM6Ya0qHmJSlFbmrRQ37NgUB8A9UGDy7wGiC
+yxBM4d4qhbfdyux/NXxSi9xQ0iGHpzi22JlPUFHLp3x9yRmVp4YwQe1gsTtSWHWH
+FLW1NdJutUg7L4HQC0roSxwbGgTcEzoMkXD5AJz7OCA8WIG20VidVkAgjUu/qEyk
+ZjGofu4Trkr7n0B7TuQtHiJsaCaZ5fPtlqhXYVuo682bcqDqwwWgBVlTBByA9LYY
+kAtOYkYWtBAAdQT7r2VeLh5MNiA9o8hbC+dehtickVC+RDWlbAo/M+CZl8rhcDEj
+8PY2iRdOtpmOB1KwuVUVzCQSOio8l0B0CTWz92S0Y9vae75uT0wWNAVqskDyK0eN
+UgrYLijKMWhHtxKPbnmpQyo0o8FXJSrpPApR2r7ox67VDZRX4P0=
+=rMdd
 -----END PGP SIGNATURE-----
 
---e8d29550c8c6ecc345e96308e31e05adf5d0599eed8c116befc5ef55e617--
+--3c63f374e1b0ea791262a8278936583225c80209dd68e31d90030b5f68c0--
