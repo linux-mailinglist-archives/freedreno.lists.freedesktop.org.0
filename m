@@ -2,59 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEEAD8D53F5
-	for <lists+freedreno@lfdr.de>; Thu, 30 May 2024 22:41:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 013FA8D55CA
+	for <lists+freedreno@lfdr.de>; Fri, 31 May 2024 00:51:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80C8712BAC9;
-	Thu, 30 May 2024 20:41:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90E5E10E28C;
+	Thu, 30 May 2024 22:51:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A/dmQNd+";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="LABTvMMT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C73C711A854;
- Thu, 30 May 2024 20:40:58 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 7C941CE1B38;
- Thu, 30 May 2024 20:40:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B775AC2BBFC;
- Thu, 30 May 2024 20:40:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1717101655;
- bh=WnrKe/9pHs5nuVA9Y9cr8+yFs4LEuqdMGeXWbC5IBRY=;
- h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To:From;
- b=A/dmQNd+wVul3Ok9rrYia9eqQpGIAtHMtr3VwMyZskZiiJGxI9+1iTTaXt2+GV2ny
- rfSwaYzND+LspQW3M1xP2YlLvJOzHtFcsDOhMl9596b4cecPJnsaTYwJa5WgeVYKnN
- 17Xiu8kTZxTw1s2CN+7fgE8w1+mNtokEVyOHEmFpbgjlFtnMhjGYk3xaf8UEC6rTI5
- qXWyDCJTxHp6fzAwtQbzSqZ9TwG12Z9nORp6nlD07CAxbUBhPc7l/RV+z2CNMC05km
- 8JZ2AhBZV2hQPmLZdMCPtnyzZQ3mD5g7AUzBCicP/qmNfDZqUl+hNHEfhauRobbzDp
- 7/d1kyIAWAJ7A==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
- id 03FC5CE095C; Thu, 30 May 2024 13:40:55 -0700 (PDT)
-Date: Thu, 30 May 2024 13:40:54 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Thierry Reding <thierry.reding@gmail.com>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, sfr@canb.auug.org.au,
- Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jon Hunter <jonathanh@nvidia.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [BUG] Build failure and alleged fix for next-20240523
-Message-ID: <72a4d07d-3ac8-4c39-8501-b3f93a26654a@paulmck-laptop>
-References: <287206c0-b53d-4aa1-b35c-0725adc5e9ef@paulmck-laptop>
- <28db820c-860d-be1c-bb94-ed534622fdc8@quicinc.com>
- <4f821c7f-6201-470f-b39d-ba689ca027d9@paulmck-laptop>
- <D1N6WYWR463J.3UVC2PP2CUIY4@gmail.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E8ED10E8E5;
+ Thu, 30 May 2024 22:51:18 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44UMGSm8015967;
+ Thu, 30 May 2024 22:51:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ MZrhJ+sMGCGsSXipGknhXmqSpHpFL272b3upKmN0bnY=; b=LABTvMMTa+OCXbwD
+ CagS4Kp4XLwSafSpcCLwaSTrn0n6xbHcNq5I6JHP0x3Bx3v7yT8ZpkJEQy+kWF0d
+ SxQjSmA7fCTQebQCpl4LnPEoXyYKPypcTVFa6zlzOvhGsRdpFs+ypHgfmyjf95EO
+ 8uZkQjpzXpxxZA70sIXVQ2D2t1UrricTAd0Y3b13Q05P8hLzX6kM1CLXpPA7BhNr
+ LrBVOE3h+eMSoqk4aU6AUtkxGuMnMXSGiXGYHjx3ynvkdVOE811o8YGYUoG4TvUB
+ pRF49AWqt6O3jfR96DuCFtSm2/bQlVLLQC+q0XeX4CMqzP5lfNjiMrmxLMuFMetq
+ YMNhbg==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yf23sr1ks-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 30 May 2024 22:51:12 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44UMpBsb001829
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 30 May 2024 22:51:11 GMT
+Received: from [10.71.110.249] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 30 May
+ 2024 15:51:07 -0700
+Message-ID: <fd520806-e362-f79a-26e6-a924acc4f067@quicinc.com>
+Date: Thu, 30 May 2024 15:51:05 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <D1N6WYWR463J.3UVC2PP2CUIY4@gmail.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v4 01/13] drm/msm/dpu: take plane rotation into account
+ for wide planes
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+CC: Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20240314000216.392549-1-dmitry.baryshkov@linaro.org>
+ <20240314000216.392549-2-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240314000216.392549-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: W37KfcNBnqvdsPve45JrDrMfKvKCY8Dm
+X-Proofpoint-GUID: W37KfcNBnqvdsPve45JrDrMfKvKCY8Dm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
+ definitions=2024-05-30_17,2024-05-30_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0
+ adultscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
+ impostorscore=0 phishscore=0 mlxlogscore=999 bulkscore=0 mlxscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405170001 definitions=main-2405300173
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,47 +93,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: paulmck@kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, May 30, 2024 at 08:28:17PM +0200, Thierry Reding wrote:
-> On Thu May 30, 2024 at 6:55 PM CEST, Paul E. McKenney wrote:
-> > On Fri, May 24, 2024 at 12:57:58PM -0700, Abhinav Kumar wrote:
-> > > Hello
-> > > 
-> > > On 5/24/2024 12:55 PM, Paul E. McKenney wrote:
-> > > > Hello!
-> > > > 
-> > > > I get the following allmodconfig build error on x86 in next-20240523:
-> > > > 
-> > > > Traceback (most recent call last):
-> > > >    File "drivers/gpu/drm/msm/registers/gen_header.py", line 970, in <module>
-> > > >      main()
-> > > >    File "drivers/gpu/drm/msm/registers/gen_header.py", line 951, in main
-> > > >      parser.add_argument('--validate', action=argparse.BooleanOptionalAction)
-> > > > AttributeError: module 'argparse' has no attribute 'BooleanOptionalAction'
-> > > > 
-> > > > The following patch allows the build to complete successfully:
-> > > > 
-> > > > https://patchwork.kernel.org/project/dri-devel/patch/20240508091751.336654-1-jonathanh@nvidia.com/#25842751
-> > > > 
-> > > > As to whether this is a proper fix, I must defer to the DRM folks on CC.
-> > > 
-> > > Thanks for the report.
-> > > 
-> > > I have raised a merge request for
-> > > https://patchwork.freedesktop.org/patch/593057/ to make it available for the
-> > > next fixes release for msm.
-> >
-> > Thank you!
-> >
-> > This still is not in -next, so I am putting it into -rcu just to silence
-> > the diagnostic.  Or should I push this to mainline via -rcu?
+
+
+On 3/13/2024 5:02 PM, Dmitry Baryshkov wrote:
+> Take into account the plane rotation and flipping when calculating src
+> positions for the wide plane parts.
 > 
-> I pushed this to drm-misc-fixes earlier today, so should show up in
-> linux-next soon and hopefully in v6.10-rc2.
+> This is not an issue yet, because rotation is only supported for the
+> UBWC planes and wide UBWC planes are rejected anyway because in parallel
+> multirect case only the half of the usual width is supported for tiled
+> formats. However it's better to fix this now rather than stumbling upon
+> it later.
+> 
+> Fixes: 80e8ae3b38ab ("drm/msm/dpu: add support for wide planes")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 12 ++++++++++++
+>   1 file changed, 12 insertions(+)
+> 
 
-Thank you, Thierry!
-
-							Thanx, Paul
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
