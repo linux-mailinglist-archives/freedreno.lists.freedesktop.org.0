@@ -2,37 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F22B08D482F
-	for <lists+freedreno@lfdr.de>; Thu, 30 May 2024 11:16:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9DD18D4A58
+	for <lists+freedreno@lfdr.de>; Thu, 30 May 2024 13:20:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3010C11BA40;
-	Thu, 30 May 2024 09:16:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F079B10E14C;
+	Thu, 30 May 2024 11:20:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LkAHxZxm";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cYKxVctK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F4D911B81F;
- Thu, 30 May 2024 09:16:12 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id EF0AE6255A;
- Thu, 30 May 2024 09:16:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 276A1C2BBFC;
- Thu, 30 May 2024 09:16:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1717060571;
- bh=AQM2lahhdlmVdayxw+qgYQXGA18NxsTQtlliH668hJE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LkAHxZxmhRTGUGj2f/G9QVsM8D2wrN7oOowdxnoP7N6WJwEfDiuZX8/9nzcmH/biA
- oBavLoTbTAPZm7vcTo0+Afpr6JDTGaDkjq33No4kNo0P5PSjJEfziInY0Bu0qhx6iA
- 1ABi1ogr2oJvJmQoweDbBHHupRbvVs+nZN5xc9jgupqQub/JdgI4shrW2rZEesTIO1
- PjzlAOR0q6NmiJSaPtPWarr9DQGeimOHgRqr3MPMUzHSSMX7jEr62fyq3CeGj926gH
- tAmo8NYb7e8+Whde8PIkKZeyAWzWXrfO281beyIXR3bsnC/QdO+MMPV0A6prb+fzdI
- /L2K1HqhXt3+Q==
-Date: Thu, 30 May 2024 11:16:08 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
+ [209.85.208.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D214C10E2DC
+ for <freedreno@lists.freedesktop.org>; Thu, 30 May 2024 11:20:37 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id
+ 38308e7fff4ca-2e9819a6327so8487991fa.1
+ for <freedreno@lists.freedesktop.org>; Thu, 30 May 2024 04:20:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1717068035; x=1717672835; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=rulONiQoav/noPYiRK55pYebl0MVPgGh8k52ODEZHNw=;
+ b=cYKxVctKDkDyqrRH1954FRip9/RSQXZs60kBNrBakRgZxVWpCWaXu4L3phXRHAotAJ
+ XQyAZD17sSyYGFFI6bfhUL57/hlXPKnqkpvt0dtmEXuDWrSMs8gfU1ym5rBYu19eqGlc
+ 3841aJIoBk56wD/ZCHD3b0F9ehNvo/wkbij1kETXBjc73mlBdsEOeonrRrVlBtFDl7m1
+ PsyPsVWC586DhWBlyBkWEE6jWaLgpgwtLqmIjD7IpAwjT02mOudiOMESzMcV3SXGJwZf
+ BImjktdxHsoyWEYkEt3mCO12FPUfxqxzbzpqpGTJhwmXfck4Bnr4wuV/f5fH+uDl439U
+ 6qiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1717068035; x=1717672835;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rulONiQoav/noPYiRK55pYebl0MVPgGh8k52ODEZHNw=;
+ b=eqQFSEAWs9Hz62SMAkDVeep7xweHKapQvA7EUv19EZfATdvGmTt7P392FXV08RaUdx
+ e8fBeM4TtxK1NSnSa2C2VOSkEwLe1skRV3Vuo2YhI7c3QnBd4ifqd/FlvH7hW0D2rN/F
+ ekkzSjKfmEZkFWWpweP7gf0udLh7xLPXdRO0rX3lUzJV21sCA9s6WlCDITjQvPXF5OhS
+ QMu+7v2/Jfk8jaVTR1ld96RFJHZd3vjDYN2rei3B3/9ahLJK9cYQqWUWgD7JkmybxKWj
+ L6J/HJ/suZw/VqmaLPTRepmgRepS97xfAJHVBjg+Vvxr51GVPO4bO+6XUk6IsfMhxz80
+ 2Ufg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXpaRK+gpDEujBupD5FxIZgOmq9SBmKHMjhyFrT1N+HROCUQ6sEbhHuv4tno3EBuvZdF8zj8weF3isjuvxbOwA38V+4fz+kkwTDDfDgl3lA
+X-Gm-Message-State: AOJu0YwLmC51KBKp2f1WOPh7nZbPV6q0OkS5itROP1Q+jPPnVWoI1cto
+ hsbt1lLWC+4DfqWLJc5izXUKQWhqFSsaUzWe/zOfH6nIY+c3RkwfAiTKmcUlZ0g=
+X-Google-Smtp-Source: AGHT+IFKZF4N8Gaqyd1NA4+/cjvYzmxlJlkCP6xgeWDgb3mfAWPu5ONVzcWK5zonfx7QezemOPbnMg==
+X-Received: by 2002:a2e:97d5:0:b0:2e9:8497:46ce with SMTP id
+ 38308e7fff4ca-2ea84838dcdmr9311271fa.46.1717068035552; 
+ Thu, 30 May 2024 04:20:35 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2e95bce9d5dsm28208901fa.48.2024.05.30.04.20.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 May 2024 04:20:35 -0700 (PDT)
+Date: Thu, 30 May 2024 14:20:33 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Maxime Ripard <mripard@kernel.org>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
@@ -45,16 +71,16 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 5/7] drm/msm/hdmi: make use of the drm_connector_hdmi
- framework
-Message-ID: <20240530-poised-burgundy-petrel-7affed@houat>
+Subject: Re: [PATCH v3 1/7] drm/connector: hdmi: accept NULL for Audio
+ Infoframe
+Message-ID: <p4vkqqvfh4kdeq3lqfvyokdflaxodj4xv6ozawettewpaedfvg@6dcktfprvazy>
 References: <20240530-bridge-hdmi-connector-v3-0-a1d184d68fe3@linaro.org>
- <20240530-bridge-hdmi-connector-v3-5-a1d184d68fe3@linaro.org>
+ <20240530-bridge-hdmi-connector-v3-1-a1d184d68fe3@linaro.org>
+ <20240530-daffy-satisfied-sheep-5b9e16@houat>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="5forzva7txjtgmqb"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240530-bridge-hdmi-connector-v3-5-a1d184d68fe3@linaro.org>
+In-Reply-To: <20240530-daffy-satisfied-sheep-5b9e16@houat>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,78 +96,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Thu, May 30, 2024 at 10:49:26AM +0200, Maxime Ripard wrote:
+> Hi,
+> 
+> On Thu, May 30, 2024 at 02:12:24AM GMT, Dmitry Baryshkov wrote:
+> > Allow passing NULL as audio infoframe as a way to disable Audio
+> > Infoframe generation.
+> > 
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 14 ++++++++++----
+> >  1 file changed, 10 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > index ce96837eea65..5356723d21f5 100644
+> > --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > @@ -681,7 +681,7 @@ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_update_infoframes);
+> >  /**
+> >   * drm_atomic_helper_connector_hdmi_update_audio_infoframe - Update the Audio Infoframe
+> >   * @connector: A pointer to the HDMI connector
+> > - * @frame: A pointer to the audio infoframe to write
+> > + * @frame: A pointer to the audio infoframe to write or NULL to disable sending the frame
+> >   *
+> >   * This function is meant for HDMI connector drivers to update their
+> >   * audio infoframe. It will typically be used in one of the ALSA hooks
+> > @@ -704,10 +704,16 @@ drm_atomic_helper_connector_hdmi_update_audio_infoframe(struct drm_connector *co
+> >  
+> >  	mutex_lock(&connector->hdmi.infoframes.lock);
+> >  
+> > -	memcpy(&infoframe->data, frame, sizeof(infoframe->data));
+> > -	infoframe->set = true;
+> > +	if (frame) {
+> > +		memcpy(&infoframe->data, frame, sizeof(infoframe->data));
+> > +		infoframe->set = true;
+> > +
+> > +		ret = write_infoframe(connector, infoframe);
+> > +	} else {
+> > +		infoframe->set = false;
+> >  
+> > -	ret = write_infoframe(connector, infoframe);
+> > +		ret = clear_infoframe(connector, infoframe);
+> > +	}
+> 
+> I'm not entirely sure your commit matches your commit log? It looks like
+> you follow the same pattern than the other infoframes and call
+> write_infoframe if there's one, or clear_infoframe if there isn't.
+> 
+> So we're never passing NULL to disable? clear_infoframe is called.
 
---5forzva7txjtgmqb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This function is being called from the driver, so I want to be able to
+call drm_atomic_helper_connector_hdmi_update_audio_infoframe(connector,
+NULL) in order to disable sending of the Audio InfoFrame.
 
-Hi,
-
-On Thu, May 30, 2024 at 02:12:28AM GMT, Dmitry Baryshkov wrote:
-> Setup the HDMI connector on the MSM HDMI outputs. Make use of
-> atomic_check hook and of the provided Infoframe infrastructure.
->=20
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-As a general comment: I really like it, it looks super tidy. Thanks!
-
-There's a couple of minor issues below
-
-> -int msm_hdmi_audio_update(struct hdmi *hdmi)
-> +static int msm_hdmi_audio_update(struct hdmi *hdmi)
->  {
->  	struct hdmi_audio *audio =3D &hdmi->audio;
-> -	struct hdmi_audio_infoframe *info =3D &audio->infoframe;
->  	const struct hdmi_msm_audio_arcs *arcs =3D NULL;
->  	bool enabled =3D audio->enabled;
->  	uint32_t acr_pkt_ctrl, vbi_pkt_ctrl, aud_pkt_ctrl;
-> -	uint32_t infofrm_ctrl, audio_config;
-> +	uint32_t audio_config;
-> +
-> +	if (!hdmi->hdmi_mode)
-> +		return -EINVAL;
-> +
-> +	DBG("audio: enabled=3D%d, channels=3D%d, rate=3D%d",
-> +	    audio->enabled, audio->channels, audio->rate);
-> =20
-> -	DBG("audio: enabled=3D%d, channels=3D%d, channel_allocation=3D0x%x, "
-> -		"level_shift_value=3D%d, downmix_inhibit=3D%d, rate=3D%d",
-> -		audio->enabled, info->channels,  info->channel_allocation,
-> -		info->level_shift_value, info->downmix_inhibit, audio->rate);
->  	DBG("video: power_on=3D%d, pixclock=3D%lu", hdmi->power_on, hdmi->pixcl=
-ock);
-
-pixclock should come from the connector state too. It's still calculated
-by the driver in msm_hdmi_bridge_mode_set
-
-> @@ -341,8 +425,11 @@ int msm_hdmi_bridge_init(struct hdmi *hdmi)
->  	bridge->funcs =3D &msm_hdmi_bridge_funcs;
->  	bridge->ddc =3D hdmi->i2c;
->  	bridge->type =3D DRM_MODE_CONNECTOR_HDMIA;
-> +	bridge->vendor =3D "Qualcomm";
-> +	bridge->product =3D "Snapdragon";
->  	bridge->ops =3D DRM_BRIDGE_OP_HPD |
->  		DRM_BRIDGE_OP_DETECT |
-> +		DRM_BRIDGE_OP_HDMI |
->  		DRM_BRIDGE_OP_EDID;
-> =20
->  	ret =3D devm_drm_bridge_add(hdmi->dev->dev, bridge);
-
-It looks like you're not setting either the supported formats or bpc?
-
-Maxime
-
---5forzva7txjtgmqb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZlhD2AAKCRAnX84Zoj2+
-dvdkAYCryHF7SD2wn1N8TdrGd15DJPIga+r9drDaxTr0rBTOxzbQF7x7YiyX2hH0
-CTeY9AsBgKWaEKe7Dbe67TtNLnv9K8XLecp8Gdd4Q7qOdun/xGlo9UWqcOTNeHVb
-uIQEISEO9A==
-=tPbA
------END PGP SIGNATURE-----
-
---5forzva7txjtgmqb--
+-- 
+With best wishes
+Dmitry
