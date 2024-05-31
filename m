@@ -2,73 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C7538D5B8B
-	for <lists+freedreno@lfdr.de>; Fri, 31 May 2024 09:33:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5106E8D5C86
+	for <lists+freedreno@lfdr.de>; Fri, 31 May 2024 10:16:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E25F10E82B;
-	Fri, 31 May 2024 07:33:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6F2F10E602;
+	Fri, 31 May 2024 08:16:35 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZDOHcIzJ";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
- [209.85.128.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96D2D10E33E;
- Fri, 31 May 2024 07:33:28 +0000 (UTC)
-Received: by mail-yw1-f181.google.com with SMTP id
- 00721157ae682-62a2a6a5ccfso17839717b3.3; 
- Fri, 31 May 2024 00:33:28 -0700 (PDT)
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29C4C113886
+ for <freedreno@lists.freedesktop.org>; Fri, 31 May 2024 08:16:34 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-627f3265898so17460937b3.3
+ for <freedreno@lists.freedesktop.org>; Fri, 31 May 2024 01:16:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1717143393; x=1717748193; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=bIrhnunVBUnQyrbNG299hSoNmJr03nYh4HIQ6p7Sw4Q=;
+ b=ZDOHcIzJpd7OBtWE45ur3cBxBFGw2UebS4FMbf+RC3TcAoeAnujtIL8YeJfc5q6Eop
+ XfrNE+UGPetQ0EyY9StxyiZF2bF+KHsXmLv56B/x0/jU9NcgiT/DhEGKkvgg94W3IaIz
+ hXQP1lkjf0NvDckxxRcESNWDukTYJJJNcBox7VJHmJy1m1celpii7oKUwKIIAsr8uDf3
+ VFBnyKmB5v1L7F0k8z7kUEWlu8TRzFrpOgZA1SAheAQglSeMpgAWZ2AOczpILSDIw380
+ /pil5vWxln4ZbzFotdRBiKckssuTY1W+l6vpqmvof98DqJwGaeJ9solecktvd2QRdGBb
+ ivCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717140806; x=1717745606;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qj6EusQ3A409SsVzLb4gC8GqQaE/mFAcX8PaYZZXXLw=;
- b=j/g9Xp6JwsX5osBKS0h0bKJUDsmOI1zRnSgb7wFxmZR0UgYdxfsV2muOdjRBe2S3e0
- yYdpZO6r0ZstERMTQ813NNCnAdJ45ID2Ca2CgaLhQxXSXdGjmiv86Ju9aPx7d7ePKdLw
- QBb72DMaVpT6Y5OvDEGkmjn3TIajTWb32k3Cwf+P1WIPUNObeeziqMwIkWjXEKie1Ap6
- gonmdThR0ThcagnCHyhGebF9RVD8Eje0GO/5AzCDBmixh92Adk0JFoUqWbyPMdyRge6v
- 2A6TvqbUn869VDNSkDlYQL4djUekyCbnbz55u5Q1+kdkbpDABol8f3mNAaMZCFHMjr86
- LVEQ==
+ d=1e100.net; s=20230601; t=1717143393; x=1717748193;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bIrhnunVBUnQyrbNG299hSoNmJr03nYh4HIQ6p7Sw4Q=;
+ b=bC+uSx5YgC11FkBf4w5VP20EfqJdUi9atLd7Jf0zb3n2qOaIeoFEYd20Jy1kOjwMcI
+ E7BCF8kOQKST2PJExjgEyRsYn4GvzbWe8/R7D59p2A5fa9tDB25rvxM5c1o4nILXtilJ
+ nhptUAUSuZfPyM/2DgwHShZ9ewIc1aGFcnT6sG8trAY5+6SaHD7L0VHzX4bQs21fUG/z
+ jtPikhp7lt9VgWT9fTMPRAkE9YGJMPOEbyDNXUeOW6AiPajbObmdV+/MxuaoTfRmAoY0
+ Qxfst95T1WVO+yHh+RRaZFLiZLYC3q8RwlhCqjFvnQQtLYNnVG09M7elqhAqJBiIpTRx
+ QFjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX5HC8zVx6FfH/sa0fFt1X5igpgaNFSTumzhdt7vaFLe3tY3QRMoXQ9gPcJ8HLGbHm5zylP7Htfbp6oJDn9zJIVlBQ691l+bzcUUaKLSm9S4I1rVKKI4i4hOeMDLAtP0s8yqCsRWq9V09FBOLie1ktM
-X-Gm-Message-State: AOJu0YytS9NOsFmeJInxlgOADdIz+xQ7Bynj7JTm5xKeerv/ib68FSL0
- awydxb5yhkwG62s1UVwjKAPHrY+3gdu/3nbk+SlMxhwOO7eN4lpatC5yp95H
-X-Google-Smtp-Source: AGHT+IGTxk0OZCv0sELQU1jUINdo83x6XtsQJgWrrcOLZUwCTFXQlyiqMYmuGfC81h6eDvNg/8oAnQ==
-X-Received: by 2002:a81:928a:0:b0:627:a917:76b1 with SMTP id
- 00721157ae682-62c798270b4mr9821057b3.44.1717140804352; 
- Fri, 31 May 2024 00:33:24 -0700 (PDT)
-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com.
- [209.85.219.180]) by smtp.gmail.com with ESMTPSA id
- 00721157ae682-62c765b8c28sm2416777b3.28.2024.05.31.00.33.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 May 2024 00:33:24 -0700 (PDT)
-Received: by mail-yb1-f180.google.com with SMTP id
- 3f1490d57ef6-df4f05e5901so1809108276.0; 
- Fri, 31 May 2024 00:33:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWKm2784XY9qm8q4QgwONGZuUp++OSYUI5+B1ngbXJyUU2wasE7aU4lMb5O+CArmAeg4f77HerYWd6hf/kTPorZ1D9UgMjphdxq+IRKi78JfXevchoC5W2k6Mi95pQRX1xPGSw1XnFPzMCtZvrQDDlH
-X-Received: by 2002:a25:d047:0:b0:dfa:56a9:8869 with SMTP id
- 3f1490d57ef6-dfa73c48294mr1121789276.34.1717140803859; Fri, 31 May 2024
- 00:33:23 -0700 (PDT)
+ AJvYcCU/OmVT0sxpbPEoftxtb66ERFoOJS/uKREBT5SUwNpaMIciF/2KRp7cM0ETxlMYjnH/UcSsPXzZvEdjCVE0K2kQ1/zzUK+HrHv7utoGAl0z
+X-Gm-Message-State: AOJu0Yxo7HTcgwDEaNdH11X5BUkte2hgr6F4/cRQRXztWuJi1d33uqG1
+ lFnj6AI6jtgbO5Hm2j8fcbZhjqF5J2lPzInHLe/uGJrlwp7dfoz7jCTdZwdE3rCPkRfLRfpMnsP
+ 0Y9VLSHn+HNQ/wt0qwA2y2IPq7u8aM3o0x5rgEQ==
+X-Google-Smtp-Source: AGHT+IG/fn4yvDuVujCLL19BjnG0MrbOU321zzu3JqLux3NA6uPKcuLSf3NhlOeWgVpVZF7pjTgVjR4u1dLQ0MBKfEE=
+X-Received: by 2002:a25:ce92:0:b0:de5:1553:4351 with SMTP id
+ 3f1490d57ef6-dfa73be7b64mr1196776276.15.1717143391373; Fri, 31 May 2024
+ 01:16:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240509-python-version-v1-1-a7dda3a95b5f@linaro.org>
- <87o79faq4a.fsf@meer.lwn.net> <D1N564M136RW.3CRPYTGKMW1NP@gmail.com>
-In-Reply-To: <D1N564M136RW.3CRPYTGKMW1NP@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 31 May 2024 09:33:12 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVA7MU8LMUW6rR=VWtCDs8erpKgx30woL5eUucRYiK-Fg@mail.gmail.com>
-Message-ID: <CAMuHMdVA7MU8LMUW6rR=VWtCDs8erpKgx30woL5eUucRYiK-Fg@mail.gmail.com>
-Subject: Re: [PATCH] docs: document python version used for compilation
-To: Thierry Reding <thierry.reding@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Masahiro Yamada <masahiroy@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org
+References: <20240314000216.392549-1-dmitry.baryshkov@linaro.org>
+ <20240314000216.392549-6-dmitry.baryshkov@linaro.org>
+ <6a335026-77c1-a112-69af-a8d9d86d5528@quicinc.com>
+In-Reply-To: <6a335026-77c1-a112-69af-a8d9d86d5528@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 31 May 2024 11:16:20 +0300
+Message-ID: <CAA8EJpqKkTOkhrgJexw-D5TbgGYjBoUup3FHC80boR_cAUb2dA@mail.gmail.com>
+Subject: Re: [PATCH v4 05/13] drm/msm/dpu: move scaling limitations out of the
+ hw_catalog
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Stephen Boyd <swboyd@chromium.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,24 +84,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Thierry,
+On Fri, 31 May 2024 at 04:02, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 3/13/2024 5:02 PM, Dmitry Baryshkov wrote:
+> > Max upscale / downscale factors are constant between platforms. In
+> > preparation to adding support for virtual planes and allocating SSPP
+> > blocks on demand move max scaling factors out of the HW catalog and
+> > handle them in the dpu_plane directly. If any of the scaling blocks gets
+> > different limitations, this will have to be handled separately, after
+> > the plane refactoring.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 12 ------------
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  4 ----
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      | 16 +++++++++++++---
+> >   3 files changed, 13 insertions(+), 19 deletions(-)
+> >
+>
+> <Snip>
+>
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > index 70d6a8989e1a..6360052523b5 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > @@ -785,12 +785,15 @@ static int dpu_plane_atomic_check_pipe(struct dpu_plane *pdpu,
+> >       return 0;
+> >   }
+> >
+> > +#define MAX_UPSCALE_RATIO    20
+> > +#define MAX_DOWNSCALE_RATIO  4
+> > +
+> >   static int dpu_plane_atomic_check(struct drm_plane *plane,
+> >                                 struct drm_atomic_state *state)
+> >   {
+> >       struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+> >                                                                                plane);
+> > -     int ret = 0, min_scale;
+> > +     int ret = 0, min_scale, max_scale;
+> >       struct dpu_plane *pdpu = to_dpu_plane(plane);
+> >       struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
+> >       u64 max_mdp_clk_rate = kms->perf.max_core_clk_rate;
+> > @@ -822,10 +825,17 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+> >       pipe_hw_caps = pipe->sspp->cap;
+> >       sblk = pipe->sspp->cap->sblk;
+> >
+> > -     min_scale = FRAC_16_16(1, sblk->maxupscale);
+> > +     if (sblk->scaler_blk.len) {
+> > +             min_scale = FRAC_16_16(1, MAX_UPSCALE_RATIO);
+> > +             max_scale = MAX_DOWNSCALE_RATIO << 16;
+> > +     } else {
+> > +             min_scale = 1 << 16;
+> > +             max_scale = 1 << 16;
+>
+> You can use DRM_PLANE_NO_SCALING instead.
 
-On Thu, May 30, 2024 at 7:07=E2=80=AFPM Thierry Reding <thierry.reding@gmai=
-l.com> wrote:
-> Alternatively, maybe Kconfig could be taught about build dependencies?
+Ack
 
-git grep "depends on \$(" -- "*Kconf*"
+>
+> > +     }
+> > +
+> >       ret = drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
+> >                                                 min_scale,
+> > -                                               sblk->maxdwnscale << 16,
+> > +                                               max_scale,
+> >                                                 true, true);
+>
+> I am missing something here.
+>
+> As per the documentation of this API, min and max are the scaling limits
+> of both directions and not max_upscale and max_downscale.
+>
+> **
+> 837  * drm_atomic_helper_check_plane_state() - Check plane state for
+> validity
+> 838  * @plane_state: plane state to check
+> 839  * @crtc_state: CRTC state to check
+> 840  * @min_scale: minimum @src:@dest scaling factor in 16.16 fixed point
+> 841  * @max_scale: maximum @src:@dest scaling factor in 16.16 fixed point
+> 842  * @can_position: is it legal to position the plane such that it
+>
+>
+> But this change is passing max_upscale and max_downscale as the min and
+> max resp. Isnt that wrong?
 
-Gr{oetje,eeting}s,
+First of all, please notice that I'm not changing the values that are
+passed to the function. What was being passed beforehand gets passed
+after this commit. I just moved it out of the catalog.
 
-                        Geert
+Second, if we take a look at drm_calc_scale(), we can see that it
+calculates src / dst and checks that it is within the min_scale and
+max_scale boundaries, just like documented.
+In our case, the boundaries are (I'm omitting 16.16 math):
+- upscale 20 times. dst = 20 * src, scale = src/dst = 1/20
+- downscale 4 times. dst = 1/4 * src, scale = src/dst = 4
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+So, from the point of view of drm_calc_scale(), the min_scale is
+1/MAX_UPSCALE, max_scale = MAX_DOWNSCALE and the values the code is
+passing are correct.
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+>
+>
+> >       if (ret) {
+> >               DPU_DEBUG_PLANE(pdpu, "Check plane state failed (%d)\n", ret);
+
+
+
+-- 
+With best wishes
+Dmitry
