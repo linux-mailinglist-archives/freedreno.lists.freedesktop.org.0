@@ -2,75 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 237618D680F
-	for <lists+freedreno@lfdr.de>; Fri, 31 May 2024 19:17:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 706FE8D69AA
+	for <lists+freedreno@lfdr.de>; Fri, 31 May 2024 21:20:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBB5710E5F4;
-	Fri, 31 May 2024 17:17:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8710C10E287;
+	Fri, 31 May 2024 19:20:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="n4P59IhM";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="FGqxP/ba";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6192F10E5F4;
- Fri, 31 May 2024 17:17:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A26D10E1AC;
+ Fri, 31 May 2024 19:20:37 +0000 (UTC)
 Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44V8rvuo027031;
- Fri, 31 May 2024 17:17:41 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44V9pdKr020271;
+ Fri, 31 May 2024 19:20:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- SGYwVXLuJsO0EuoHM+Hb27z+fptn96KmO30dpEai5aU=; b=n4P59IhMe+BZsxKi
- L76zu1H4Zgpv4pIYHs/X9wR9p9ejD9W+VAYRfDrRWgmjW9xaWbnFoZatecc+KsQa
- 1FYsE8oWaOmnza9+QhSf/3v7R3lv2xLG/Er7xWIMW3UQM4M/ZG8ERFQLku9WaYZe
- VQS87xGLKbC0Q5VEOVjBlQ9/DB0RMtTe3FrMB9Nv8OzyHCou5iOp5MeQ2Sdkw2X5
- DHvCo+ipgxHErvJfP9EfWWNh2RJyh+RaH5PB2n5BRMjlL+Zbxd8M5yLWS00ObKaP
- fk7+SLMhxMJv9lxC5MZiYtbicQcu58BZ0ezKmiAdIV3T8T/qKrHiPsjP7ZeWgS9i
- W3hLUQ==
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yba2hfgd3-1
+ kqKB2jYXheZELMsA21rtGvK2W27mOFwUt2NJ8nuCxOw=; b=FGqxP/baQmYSUOUs
+ U8GuvOc571bueu6P5VEjJZymka2ZHLrOTtVewHspZOs66xQ7rFOQ9gglT5lMhPvl
+ ZOPjbt3p2QRNyJXX4A9uifYpGeezwnPUVjR6MG5dBmW/0lKZKeAzAyWjPe5gRM3A
+ JYHUieZOFz+G2ZqHpWc6WiznOOxWFUIYyEsek0hRV1Eq8mvkdWmNCgLyE5nI+HkJ
+ Kr775/8XQWJ86RHMCBzwa2/uf94Xr2tO99nhslqzvqJ1PouLommyGoUPWE1VaHMB
+ gI5kzvsJEfeu54VHR3MxmuipiX6/9FRaszFw1uLRulzgvT8rKUwTIY8SK8wyHEVn
+ 0K6pEw==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yba2hfut8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 May 2024 17:17:40 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44VHHeiE021373
+ Fri, 31 May 2024 19:20:31 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44VJKUSA008363
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 May 2024 17:17:40 GMT
-Received: from [10.71.108.229] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ Fri, 31 May 2024 19:20:30 GMT
+Received: from [10.110.101.193] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 31 May
- 2024 10:17:39 -0700
-Message-ID: <fdd2a53c-d7a1-45aa-b169-776fe0b016cf@quicinc.com>
-Date: Fri, 31 May 2024 10:17:38 -0700
+ 2024 12:20:26 -0700
+Message-ID: <9e0e22b0-965b-00b2-c837-904dd342e87f@quicinc.com>
+Date: Fri, 31 May 2024 12:20:24 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/6] drm/msm/dpu: enable compression bit in cfg2 for DSC
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v4 05/13] drm/msm/dpu: move scaling limitations out of the
+ hw_catalog
 Content-Language: en-US
-To: Jun Nie <jun.nie@linaro.org>, Rob Clark <robdclark@gmail.com>, "Abhinav
- Kumar" <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>, Vinod Koul <vkoul@kernel.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Neil
- Armstrong" <neil.armstrong@linaro.org>
-References: <20240530-msm-drm-dsc-dsi-video-upstream-4-v6-0-2ab1d334c657@linaro.org>
- <20240530-msm-drm-dsc-dsi-video-upstream-4-v6-3-2ab1d334c657@linaro.org>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20240530-msm-drm-dsc-dsi-video-upstream-4-v6-3-2ab1d334c657@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>,
+ Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20240314000216.392549-1-dmitry.baryshkov@linaro.org>
+ <20240314000216.392549-6-dmitry.baryshkov@linaro.org>
+ <6a335026-77c1-a112-69af-a8d9d86d5528@quicinc.com>
+ <CAA8EJpqKkTOkhrgJexw-D5TbgGYjBoUup3FHC80boR_cAUb2dA@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJpqKkTOkhrgJexw-D5TbgGYjBoUup3FHC80boR_cAUb2dA@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: CPr-yzlPCDGI4ohCXAJedTBR_mI58iC7
-X-Proofpoint-ORIG-GUID: CPr-yzlPCDGI4ohCXAJedTBR_mI58iC7
+X-Proofpoint-GUID: QleXmQWfyTgdO-XAxI8JypqGcNxrBtXJ
+X-Proofpoint-ORIG-GUID: QleXmQWfyTgdO-XAxI8JypqGcNxrBtXJ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
  definitions=2024-05-31_12,2024-05-30_01,2024-05-17_01
@@ -79,7 +82,7 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0
  phishscore=0 bulkscore=0 mlxscore=0 lowpriorityscore=0 spamscore=0
  mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405170001 definitions=main-2405310131
+ engine=8.19.0-2405170001 definitions=main-2405310147
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,87 +100,123 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 5/29/2024 10:56 PM, Jun Nie wrote:
-> Enable compression bit in cfg2 register for DSC in the DSI case
-> per hardware version.
+On 5/31/2024 1:16 AM, Dmitry Baryshkov wrote:
+> On Fri, 31 May 2024 at 04:02, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 3/13/2024 5:02 PM, Dmitry Baryshkov wrote:
+>>> Max upscale / downscale factors are constant between platforms. In
+>>> preparation to adding support for virtual planes and allocating SSPP
+>>> blocks on demand move max scaling factors out of the HW catalog and
+>>> handle them in the dpu_plane directly. If any of the scaling blocks gets
+>>> different limitations, this will have to be handled separately, after
+>>> the plane refactoring.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 12 ------------
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  4 ----
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      | 16 +++++++++++++---
+>>>    3 files changed, 13 insertions(+), 19 deletions(-)
+>>>
+>>
+>> <Snip>
+>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>>> index 70d6a8989e1a..6360052523b5 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>>> @@ -785,12 +785,15 @@ static int dpu_plane_atomic_check_pipe(struct dpu_plane *pdpu,
+>>>        return 0;
+>>>    }
+>>>
+>>> +#define MAX_UPSCALE_RATIO    20
+>>> +#define MAX_DOWNSCALE_RATIO  4
+>>> +
+>>>    static int dpu_plane_atomic_check(struct drm_plane *plane,
+>>>                                  struct drm_atomic_state *state)
+>>>    {
+>>>        struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+>>>                                                                                 plane);
+>>> -     int ret = 0, min_scale;
+>>> +     int ret = 0, min_scale, max_scale;
+>>>        struct dpu_plane *pdpu = to_dpu_plane(plane);
+>>>        struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
+>>>        u64 max_mdp_clk_rate = kms->perf.max_core_clk_rate;
+>>> @@ -822,10 +825,17 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>>>        pipe_hw_caps = pipe->sspp->cap;
+>>>        sblk = pipe->sspp->cap->sblk;
+>>>
+>>> -     min_scale = FRAC_16_16(1, sblk->maxupscale);
+>>> +     if (sblk->scaler_blk.len) {
+>>> +             min_scale = FRAC_16_16(1, MAX_UPSCALE_RATIO);
+>>> +             max_scale = MAX_DOWNSCALE_RATIO << 16;
+>>> +     } else {
+>>> +             min_scale = 1 << 16;
+>>> +             max_scale = 1 << 16;
+>>
+>> You can use DRM_PLANE_NO_SCALING instead.
 > 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
-> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-QRD
-> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-HDK
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Hi Jun,
-
-LGTM
-
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-
-Thanks,
-
-Jessica Zhang
-
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 3 ++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c          | 8 +++++++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h          | 3 ++-
->   3 files changed, 11 insertions(+), 3 deletions(-)
+> Ack
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> index 925ec6ada0e1..f2aab3e7c783 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> @@ -307,7 +307,8 @@ static void dpu_encoder_phys_vid_setup_timing_engine(
->   
->   	spin_lock_irqsave(phys_enc->enc_spinlock, lock_flags);
->   	phys_enc->hw_intf->ops.setup_timing_gen(phys_enc->hw_intf,
-> -			&timing_params, fmt);
-> +			&timing_params, fmt,
-> +			phys_enc->dpu_kms->catalog->mdss_ver);
->   	phys_enc->hw_ctl->ops.setup_intf_cfg(phys_enc->hw_ctl, &intf_cfg);
->   
->   	/* setup which pp blk will connect to this intf */
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> index f97221423249..fa6debda0774 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> @@ -98,7 +98,8 @@
->   
->   static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *intf,
->   		const struct dpu_hw_intf_timing_params *p,
-> -		const struct msm_format *fmt)
-> +		const struct msm_format *fmt,
-> +		const struct dpu_mdss_version *mdss_ver)
->   {
->   	struct dpu_hw_blk_reg_map *c = &intf->hw;
->   	u32 hsync_period, vsync_period;
-> @@ -177,6 +178,11 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *intf,
->   	if (p->wide_bus_en && !dp_intf)
->   		data_width = p->width >> 1;
->   
-> +	/* TODO: handle DSC+DP case, we only handle DSC+DSI case so far */
-> +	if (p->compression_en && !dp_intf &&
-> +	    mdss_ver->core_major_ver >= 7)
-> +		intf_cfg2 |= INTF_CFG2_DCE_DATA_COMPRESS;
-> +
->   	hsync_data_start_x = hsync_start_x;
->   	hsync_data_end_x =  hsync_start_x + data_width - 1;
->   
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> index f9015c67a574..ef947bf77693 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> @@ -81,7 +81,8 @@ struct dpu_hw_intf_cmd_mode_cfg {
->   struct dpu_hw_intf_ops {
->   	void (*setup_timing_gen)(struct dpu_hw_intf *intf,
->   			const struct dpu_hw_intf_timing_params *p,
-> -			const struct msm_format *fmt);
-> +			const struct msm_format *fmt,
-> +			const struct dpu_mdss_version *mdss_ver);
->   
->   	void (*setup_prg_fetch)(struct dpu_hw_intf *intf,
->   			const struct dpu_hw_intf_prog_fetch *fetch);
+>>
+>>> +     }
+>>> +
+>>>        ret = drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
+>>>                                                  min_scale,
+>>> -                                               sblk->maxdwnscale << 16,
+>>> +                                               max_scale,
+>>>                                                  true, true);
+>>
+>> I am missing something here.
+>>
+>> As per the documentation of this API, min and max are the scaling limits
+>> of both directions and not max_upscale and max_downscale.
+>>
+>> **
+>> 837  * drm_atomic_helper_check_plane_state() - Check plane state for
+>> validity
+>> 838  * @plane_state: plane state to check
+>> 839  * @crtc_state: CRTC state to check
+>> 840  * @min_scale: minimum @src:@dest scaling factor in 16.16 fixed point
+>> 841  * @max_scale: maximum @src:@dest scaling factor in 16.16 fixed point
+>> 842  * @can_position: is it legal to position the plane such that it
+>>
+>>
+>> But this change is passing max_upscale and max_downscale as the min and
+>> max resp. Isnt that wrong?
 > 
-> -- 
-> 2.34.1
+> First of all, please notice that I'm not changing the values that are
+> passed to the function. What was being passed beforehand gets passed
+> after this commit. I just moved it out of the catalog.
+> 
+
+Ack.
+
+> Second, if we take a look at drm_calc_scale(), we can see that it
+> calculates src / dst and checks that it is within the min_scale and
+> max_scale boundaries, just like documented.
+> In our case, the boundaries are (I'm omitting 16.16 math):
+> - upscale 20 times. dst = 20 * src, scale = src/dst = 1/20
+> - downscale 4 times. dst = 1/4 * src, scale = src/dst = 4
+> 
+> So, from the point of view of drm_calc_scale(), the min_scale is
+> 1/MAX_UPSCALE, max_scale = MAX_DOWNSCALE and the values the code is
+> passing are correct.
+> 
+
+That part is fine. Agreed.
+
+But I do think, that API is not correct if the scaling limits are 
+different in the Horizontal Vs Vertical direction as today it assumes 
+the limits are same in both. Anyway, thats outside the scope of this 
+patch. So I am good for now.
+
+>>
+>>
+>>>        if (ret) {
+>>>                DPU_DEBUG_PLANE(pdpu, "Check plane state failed (%d)\n", ret);
+> 
+> 
 > 
