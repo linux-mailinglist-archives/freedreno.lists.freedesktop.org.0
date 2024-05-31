@@ -2,85 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 522F48D5775
-	for <lists+freedreno@lfdr.de>; Fri, 31 May 2024 03:02:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C7538D5B8B
+	for <lists+freedreno@lfdr.de>; Fri, 31 May 2024 09:33:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D69E10FC4B;
-	Fri, 31 May 2024 01:02:51 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="f9h1QTPB";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E25F10E82B;
+	Fri, 31 May 2024 07:33:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8576E10FB67;
- Fri, 31 May 2024 01:02:47 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44UHDn25024256;
- Fri, 31 May 2024 01:02:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- BPPcczdJf/UcAPn07oic5fGsvewdXZJnmPMWlsGhOlU=; b=f9h1QTPBKU3D5JQy
- InbK+9m3ORbXRVBDhs1qVNWjGKTdgrwoxs5CKuXraJ9oCqpWDH5oLa67CwSCoSfk
- KUnigxlrZDHSEKFgvHGG8YxCwv5r8wTwB929qiugvnpPLClMBs4iN7Dvd3wVe7Oc
- zBZuIOGnKGOL19eN8YVWQS+sczbPPjV5aniPXBsMt8B/DiWNk+bYofThlh1nsFux
- WOOfZrBZL8lR/TaAfGRfxS3bvMPRFWvcEpR5EwGyODQR2do3vtAGWYjHFiXKqcC1
- qZaDeaRRqBrW7JEpWc8JhHuHLLkGMskHn93kkcyP42Yw5ewcoWvIWVS0WshFsstn
- wSkcSw==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ybadxdjnm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 May 2024 01:02:41 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44V12ew4027294
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 May 2024 01:02:40 GMT
-Received: from [10.71.110.249] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 30 May
- 2024 18:02:36 -0700
-Message-ID: <6a335026-77c1-a112-69af-a8d9d86d5528@quicinc.com>
-Date: Thu, 30 May 2024 18:02:34 -0700
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
+ [209.85.128.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96D2D10E33E;
+ Fri, 31 May 2024 07:33:28 +0000 (UTC)
+Received: by mail-yw1-f181.google.com with SMTP id
+ 00721157ae682-62a2a6a5ccfso17839717b3.3; 
+ Fri, 31 May 2024 00:33:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1717140806; x=1717745606;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=qj6EusQ3A409SsVzLb4gC8GqQaE/mFAcX8PaYZZXXLw=;
+ b=j/g9Xp6JwsX5osBKS0h0bKJUDsmOI1zRnSgb7wFxmZR0UgYdxfsV2muOdjRBe2S3e0
+ yYdpZO6r0ZstERMTQ813NNCnAdJ45ID2Ca2CgaLhQxXSXdGjmiv86Ju9aPx7d7ePKdLw
+ QBb72DMaVpT6Y5OvDEGkmjn3TIajTWb32k3Cwf+P1WIPUNObeeziqMwIkWjXEKie1Ap6
+ gonmdThR0ThcagnCHyhGebF9RVD8Eje0GO/5AzCDBmixh92Adk0JFoUqWbyPMdyRge6v
+ 2A6TvqbUn869VDNSkDlYQL4djUekyCbnbz55u5Q1+kdkbpDABol8f3mNAaMZCFHMjr86
+ LVEQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX5HC8zVx6FfH/sa0fFt1X5igpgaNFSTumzhdt7vaFLe3tY3QRMoXQ9gPcJ8HLGbHm5zylP7Htfbp6oJDn9zJIVlBQ691l+bzcUUaKLSm9S4I1rVKKI4i4hOeMDLAtP0s8yqCsRWq9V09FBOLie1ktM
+X-Gm-Message-State: AOJu0YytS9NOsFmeJInxlgOADdIz+xQ7Bynj7JTm5xKeerv/ib68FSL0
+ awydxb5yhkwG62s1UVwjKAPHrY+3gdu/3nbk+SlMxhwOO7eN4lpatC5yp95H
+X-Google-Smtp-Source: AGHT+IGTxk0OZCv0sELQU1jUINdo83x6XtsQJgWrrcOLZUwCTFXQlyiqMYmuGfC81h6eDvNg/8oAnQ==
+X-Received: by 2002:a81:928a:0:b0:627:a917:76b1 with SMTP id
+ 00721157ae682-62c798270b4mr9821057b3.44.1717140804352; 
+ Fri, 31 May 2024 00:33:24 -0700 (PDT)
+Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com.
+ [209.85.219.180]) by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-62c765b8c28sm2416777b3.28.2024.05.31.00.33.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 31 May 2024 00:33:24 -0700 (PDT)
+Received: by mail-yb1-f180.google.com with SMTP id
+ 3f1490d57ef6-df4f05e5901so1809108276.0; 
+ Fri, 31 May 2024 00:33:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWKm2784XY9qm8q4QgwONGZuUp++OSYUI5+B1ngbXJyUU2wasE7aU4lMb5O+CArmAeg4f77HerYWd6hf/kTPorZ1D9UgMjphdxq+IRKi78JfXevchoC5W2k6Mi95pQRX1xPGSw1XnFPzMCtZvrQDDlH
+X-Received: by 2002:a25:d047:0:b0:dfa:56a9:8869 with SMTP id
+ 3f1490d57ef6-dfa73c48294mr1121789276.34.1717140803859; Fri, 31 May 2024
+ 00:33:23 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v4 05/13] drm/msm/dpu: move scaling limitations out of the
- hw_catalog
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>
-CC: Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>
-References: <20240314000216.392549-1-dmitry.baryshkov@linaro.org>
- <20240314000216.392549-6-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240314000216.392549-6-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: QNXNN7eTdiT5GMQmuvh7p6VYdKB_UxZ2
-X-Proofpoint-GUID: QNXNN7eTdiT5GMQmuvh7p6VYdKB_UxZ2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
- definitions=2024-05-30_21,2024-05-30_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0
- impostorscore=0 bulkscore=0 mlxlogscore=999 malwarescore=0
- priorityscore=1501 mlxscore=0 suspectscore=0 spamscore=0
- lowpriorityscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2405170001 definitions=main-2405310006
+References: <20240509-python-version-v1-1-a7dda3a95b5f@linaro.org>
+ <87o79faq4a.fsf@meer.lwn.net> <D1N564M136RW.3CRPYTGKMW1NP@gmail.com>
+In-Reply-To: <D1N564M136RW.3CRPYTGKMW1NP@gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 31 May 2024 09:33:12 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVA7MU8LMUW6rR=VWtCDs8erpKgx30woL5eUucRYiK-Fg@mail.gmail.com>
+Message-ID: <CAMuHMdVA7MU8LMUW6rR=VWtCDs8erpKgx30woL5eUucRYiK-Fg@mail.gmail.com>
+Subject: Re: [PATCH] docs: document python version used for compilation
+To: Thierry Reding <thierry.reding@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Masahiro Yamada <masahiroy@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,87 +84,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Thierry,
 
+On Thu, May 30, 2024 at 7:07=E2=80=AFPM Thierry Reding <thierry.reding@gmai=
+l.com> wrote:
+> Alternatively, maybe Kconfig could be taught about build dependencies?
 
-On 3/13/2024 5:02 PM, Dmitry Baryshkov wrote:
-> Max upscale / downscale factors are constant between platforms. In
-> preparation to adding support for virtual planes and allocating SSPP
-> blocks on demand move max scaling factors out of the HW catalog and
-> handle them in the dpu_plane directly. If any of the scaling blocks gets
-> different limitations, this will have to be handled separately, after
-> the plane refactoring.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 12 ------------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  4 ----
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      | 16 +++++++++++++---
->   3 files changed, 13 insertions(+), 19 deletions(-)
-> 
+git grep "depends on \$(" -- "*Kconf*"
 
-<Snip>
+Gr{oetje,eeting}s,
 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 70d6a8989e1a..6360052523b5 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -785,12 +785,15 @@ static int dpu_plane_atomic_check_pipe(struct dpu_plane *pdpu,
->   	return 0;
->   }
->   
-> +#define MAX_UPSCALE_RATIO	20
-> +#define MAX_DOWNSCALE_RATIO	4
-> +
->   static int dpu_plane_atomic_check(struct drm_plane *plane,
->   				  struct drm_atomic_state *state)
->   {
->   	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
->   										 plane);
-> -	int ret = 0, min_scale;
-> +	int ret = 0, min_scale, max_scale;
->   	struct dpu_plane *pdpu = to_dpu_plane(plane);
->   	struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
->   	u64 max_mdp_clk_rate = kms->perf.max_core_clk_rate;
-> @@ -822,10 +825,17 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->   	pipe_hw_caps = pipe->sspp->cap;
->   	sblk = pipe->sspp->cap->sblk;
->   
-> -	min_scale = FRAC_16_16(1, sblk->maxupscale);
-> +	if (sblk->scaler_blk.len) {
-> +		min_scale = FRAC_16_16(1, MAX_UPSCALE_RATIO);
-> +		max_scale = MAX_DOWNSCALE_RATIO << 16;
-> +	} else {
-> +		min_scale = 1 << 16;
-> +		max_scale = 1 << 16;
+                        Geert
 
-You can use DRM_PLANE_NO_SCALING instead.
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
 
-> +	}
-> +
->   	ret = drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
->   						  min_scale,
-> -						  sblk->maxdwnscale << 16,
-> +						  max_scale,
->   						  true, true);
-
-I am missing something here.
-
-As per the documentation of this API, min and max are the scaling limits 
-of both directions and not max_upscale and max_downscale.
-
-**
-837  * drm_atomic_helper_check_plane_state() - Check plane state for 
-validity
-838  * @plane_state: plane state to check
-839  * @crtc_state: CRTC state to check
-840  * @min_scale: minimum @src:@dest scaling factor in 16.16 fixed point
-841  * @max_scale: maximum @src:@dest scaling factor in 16.16 fixed point
-842  * @can_position: is it legal to position the plane such that it
-
-
-But this change is passing max_upscale and max_downscale as the min and 
-max resp. Isnt that wrong?
-
-
->   	if (ret) {
->   		DPU_DEBUG_PLANE(pdpu, "Check plane state failed (%d)\n", ret);
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
