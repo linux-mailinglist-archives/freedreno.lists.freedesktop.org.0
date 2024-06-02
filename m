@@ -2,91 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 697748D6A65
-	for <lists+freedreno@lfdr.de>; Fri, 31 May 2024 22:08:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAC6C8D784C
+	for <lists+freedreno@lfdr.de>; Sun,  2 Jun 2024 23:39:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C90910E3EC;
-	Fri, 31 May 2024 20:08:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95D2310E093;
+	Sun,  2 Jun 2024 21:39:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NZ3lZhXP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="z4DmAFmn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A9C289196
- for <freedreno@lists.freedesktop.org>; Fri, 31 May 2024 20:07:39 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2e6f51f9de4so34627681fa.3
- for <freedreno@lists.freedesktop.org>; Fri, 31 May 2024 13:07:39 -0700 (PDT)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71B9610E093
+ for <freedreno@lists.freedesktop.org>; Sun,  2 Jun 2024 21:39:53 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-52b8d483a08so2307139e87.1
+ for <freedreno@lists.freedesktop.org>; Sun, 02 Jun 2024 14:39:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1717186057; x=1717790857; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Xk2JZtrRtwrwL4+NkRD4qshhppX0yY2US+tv9P72R1s=;
- b=NZ3lZhXPrJQsWIajR9U40AneaQFrvYbZkvpGQ55fpaHb15bQ8VYkYeuCiKeuC2rPJw
- Fo1ZJlICrktgwRyfOg1KzfYEfmZq3LXHGbqJYEJbWhNnyx6cCVYmhGDMsj6bXTrJA8k5
- Zd4gIkMnugrYcCz4/FbHlfzdBDdj2w6hB3h3/fY89pPisAhDrssbaeecT9fxdrfgJ+Tz
- wVo7oSLjNjGMRNXNzrPNqhukRFvKcjxSB7PM5RAioC/9n72xW58308I+mygSEDLBCIHO
- kR1HjwYMMENbkCO78II1o2jkb8Fl+XlAVMZQfB8B8x66Qo3p5igw6z7HtQxgbp+ya2VL
- 8LMA==
+ d=linaro.org; s=google; t=1717364391; x=1717969191; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=h+CSTFeFF/RYWmPtLQtrltO96VyPF0tQ5leDleoWaL8=;
+ b=z4DmAFmnt2qyYBsmWHcCH+YHEz7kdGMOh1uryqrgb4XatfO5VN/mRsy1qQdWMKq9hr
+ Vu5bRBATKWei1lOt22Vx6Wxgj95hfgaJYqdksugcsk2Us9YsvW0BRzZqb9NhWXSxedud
+ EksQ0Sw783JIn+XSl6/xPObyhhYtLWRjuoBaUXPaFNNktGJt1HzGSxx+KyJMjXmMprTm
+ ZstNCURnz5f2ZdV6LPIUlw9Vzc5XaynJc0NfbopkG57RXqBUFiOGLEkUJEsALWCLT0TK
+ US64iuJmquzoLuBNJIG9shexYn48fzCPE+fXpHaCi7+pRYlJ+Zzb7LSZNikaxXsQoRlQ
+ Qm+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717186057; x=1717790857;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Xk2JZtrRtwrwL4+NkRD4qshhppX0yY2US+tv9P72R1s=;
- b=EyiBNi31WiW68QLo28kS4PX0JXKeM0B0PJcWtiVkkfpmt/stjQC3BsoUldtc2R/snU
- XpUNqC1EOJS1HlJLTSWIYUIl+gAmN+3zqF5+Wp40o8JZ0UqZcyyRjeeGPIJZ46Bg4fV7
- Ls/nj/sArCvf9BmGmFmd815SIWaxVa1fkmHXLJQOO+Pq0W6R0J8I/DBbbPtVYx2w2amh
- ccCkjxEyM86uyISB70V1etV6PalPDXZs4MJBC8rCBQc7XRRA8k1LiglxBBQpe9eqZj0l
- 4lJwgW7Zekoqu0qF8v9/c4XGAwlktWrO7PCYsO9nekR4Xptu4j+OSy8OSFjo/+0dMXqx
- 4diw==
+ d=1e100.net; s=20230601; t=1717364391; x=1717969191;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=h+CSTFeFF/RYWmPtLQtrltO96VyPF0tQ5leDleoWaL8=;
+ b=icLTMD43xL5UfYCyfmHhiU4ZhUe1pM6jYW6ZYLAfGXJC27EzrhP4E072li4LxffBPf
+ KgZVQbPC6wnXXqsM81+pHA004KH+NZHCwDUAzfL8olKZZ9+pnmbPIFjEC7SHP+HkFVbc
+ wM5I6602cESMIXq8tphxIs6cnTgH8SmoR9uGIrRf31RLwFNgnVKjwKnCNn+/UgaOjhC0
+ 25St4S7hm+ieSVGtCVBk7i97Y+4+X7ggt8YuE/M/pzjThAOxvAZtbSE7NCV2q9UKWtNE
+ vmCywCeRYemGqu1Flaoi6yinYXauB3Geyl/vn0CO+cjx0nOl9Zsxb9FoHoZO5K4X0sVz
+ wVyQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXwpQWaEvRDq7s6ZRuGn1xEXczok0H3p57be9xqIf2wXhWYy29VMnumYLgQA0/THAQTyQ6OuUvnyCgtemarpgXvj7MmotWZe77lLmAYwGdX
-X-Gm-Message-State: AOJu0YzcpS0XXg/iiRnexoTDHIh6u8DFLgoebEujX3idmNLfflWRRweo
- QwapMoaFZL2yreT1tcks0PJ5+ygSApQ2C12tih8+d33AsAf1dFn4P9cnBHmiA3k=
-X-Google-Smtp-Source: AGHT+IFRD2RAUhETt5GmKj4NUTgPNO1iLEY35FHrVeaC1n8sq/OEOXGOfyA8SqPqfUwlY1OycDWcuQ==
-X-Received: by 2002:a05:651c:1059:b0:2e6:be3c:9d4d with SMTP id
- 38308e7fff4ca-2ea9510e113mr26142781fa.12.1717186057247; 
- Fri, 31 May 2024 13:07:37 -0700 (PDT)
+ AJvYcCVU8jAUUeQvNzYjPO5cgXLfZnMba9ojwC6CA4msQUv+JgzdlMYVszoIJvGSuDnY49u18Pb2s9SR36zU0ANTHh7vEXMYq671+4j3QvBkjlzs
+X-Gm-Message-State: AOJu0Yx3AZk6vs/Gh/UJTLbc8NjU2NO8vgHY9DSEsM7gLj0FlDN4XZdc
+ 47FXW/TykrC0ISFvVUqavGKN/lqTsDseDhkphLttAZfBGg930olQb8k+H3uOK/8=
+X-Google-Smtp-Source: AGHT+IEIf1Gyh7kZtA0eFs/RqWCpH7rFfKeyYj6pdc8wjwMA7tsgiZAtWlBpM2/xtamBSNHgxtEI0A==
+X-Received: by 2002:a05:6512:3599:b0:521:b2b5:60ea with SMTP id
+ 2adb3069b0e04-52b895712e7mr4357562e87.23.1717364391170; 
+ Sun, 02 Jun 2024 14:39:51 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ea91cf0b83sm4022111fa.116.2024.05.31.13.07.36
+ 2adb3069b0e04-52b84d3f648sm1021563e87.73.2024.06.02.14.39.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 May 2024 13:07:36 -0700 (PDT)
+ Sun, 02 Jun 2024 14:39:50 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 31 May 2024 23:07:32 +0300
-Subject: [PATCH v4 9/9] drm/msm/hdmi: also send the SPD and HDMI Vendor
- Specific InfoFrames
+Subject: [PATCH v2 0/9] drm/msm/dpu: be more friendly to X.org
+Date: Mon, 03 Jun 2024 00:39:46 +0300
+Message-Id: <20240603-dpu-mode-config-width-v2-0-16af520575a6@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240531-bridge-hdmi-connector-v4-9-5110f7943622@linaro.org>
-References: <20240531-bridge-hdmi-connector-v4-0-5110f7943622@linaro.org>
-In-Reply-To: <20240531-bridge-hdmi-connector-v4-0-5110f7943622@linaro.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAKLmXGYC/3WNQQ6CMBBFr2Jm7Zi2KKIr72FYFGYKk2hLWkQN4
+ e5WEpcu30v++zMkjsIJzpsZIk+SJPgMZruBtre+YxTKDEaZvSp0hTQ88B6IsQ3eSYdPobHH0pR
+ UtEdLB2Mhb4fITl5r91pn7iWNIb7Xm0l/7a94+lOcNCok5bhsXKUbpy838TaGXYgd1MuyfAC8e
+ qLbuwAAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Abel Vesa <abel.vesa@linaro.org>, 
+ Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4619;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2108;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=OmtXhjZ3Qtpb8oKDdME4LcvLFljKS2x7aDOlRaG8IZU=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ1qUHmOs3zv3HzrSh5vv6Puem/94qpnJQncHH45k58lcP
- b/5FyzoZDRmYWDkYpAVU2TxKWiZGrMpOezDjqn1MINYmUCmMHBxCsBEOI3Z/7vpsxyRLTr613x2
- u5rT+gslhbZs9UuMrO8JJieIPHY6ED798pnW2JcXZwk8We4XWX327m5/Fu0fBW9utD5wOuAww7L
- Bx4bX94nQgdOSczSXJPkb2vjfu7smniPkbVJ0V8MiJjdGtx3CxSceXNeOz9HaIKmR/KHH90h02l
- njeAl/1pOFl/r6GBv2nxHdEWHA+zhXQfnY+h8H9+sJTlRIs3zhUZhVktHGHKa7bsdPD58q4YNff
- v7L+XJtkl5QXz5PNfPvfY3KM7pY50/N5+t5/iVcK8aa98uPOvELymrPm42UT/xbWSg285bLitWd
- vu+9potFTylyO1b59dZTr3YHzquf5iuXCqRkv9bW19oBAA==
+ bh=WEVChdsx0M8x1VVrf3QhTk25LV/lyu70yiuZR8IbK/c=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmXOakedc1HivhrHyR0T0lkDlID8aNU11qnsuAR
+ TeAg9oyuLeJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZlzmpAAKCRCLPIo+Aiko
+ 1XQ6B/93sWx/NvOkP8tOlfD1+1vvos3MwSQEc7r4+++zOnXhaM2B4ZL+zK5F5GfKL475LvZb2wc
+ vJ/9pPFK83Oxw5xQ1lUfvPKJLqM2WlhAahew5O9Y1LsqlSnpj48TJzIk3WqtgNYImy1nNYhdyCh
+ TjjnaGIco4s7gL+NNqYny9N3PviHNGXUpfuuLiDxdrEbtYMoFfQSi78/4tfeTk2xp4iEBf7/XGs
+ BInUBqo1dHe2dx4c/5OCTlqptI4ofaJZ1QzuFGdHpdbGZUvTX85SyKya2+wEofoNDiCIRnQuwgd
+ 9Oip6edVYOvDnBGzGSeT30/PpfPHv7s9kmmb1eE94atPiLFH
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -104,145 +100,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Extend the driver to send SPD and HDMI Vendor Specific InfoFrames.
-
-While the HDMI block has special block to send HVS InfoFrame, use
-GENERIC0 block instead. VENSPEC_INFO registers pack frame data in a way
-that requires manual repacking in the driver, while GENERIC0 doesn't
-have such format requirements. The msm-4.4 kernel uses GENERIC0 to send
-HDR InfoFrame which we do not at this point anyway.
+Unlike other compositors X.org allocates a single framebuffer covering
+the whole screen space. This is not an issue with the single screens,
+but with the multi-monitor setup 5120x4096 becomes a limiting factor.
+Check the hardware-bound limitations and lift the FB max size to
+16383x16383.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 93 ++++++++++++++++++++++++++++++++++
- 1 file changed, 93 insertions(+)
+Changes in v2:
+- Added dpu_crtc_valid() to verify that 2*lm_width limit is enforced
+  (Abhinav)
+- Link to v1: https://lore.kernel.org/r/20240319-dpu-mode-config-width-v1-0-d0fe6bf81bf1@linaro.org
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index 9258d3100042..ad6258a2017a 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -69,6 +69,8 @@ static void power_off(struct drm_bridge *bridge)
- }
- 
- #define AVI_IFRAME_LINE_NUMBER 1
-+#define SPD_IFRAME_LINE_NUMBER 1
-+#define VENSPEC_IFRAME_LINE_NUMBER 3
- 
- static int msm_hdmi_config_avi_infoframe(struct hdmi *hdmi,
- 					 const u8 *buffer, size_t len)
-@@ -142,6 +144,74 @@ static int msm_hdmi_config_audio_infoframe(struct hdmi *hdmi,
- 	return 0;
- }
- 
-+static int msm_hdmi_config_spd_infoframe(struct hdmi *hdmi,
-+					 const u8 *buffer, size_t len)
-+{
-+	u32 buf[7] = {};
-+	u32 val;
-+	int i;
-+
-+	if (len != HDMI_INFOFRAME_SIZE(SPD) || len - 3 > sizeof(buf)) {
-+		DRM_DEV_ERROR(&hdmi->pdev->dev,
-+			"failed to configure SPD infoframe\n");
-+		return -EINVAL;
-+	}
-+
-+	/* checksum gets written together with the body of the frame */
-+	hdmi_write(hdmi, REG_HDMI_GENERIC1_HDR,
-+		   buffer[0] |
-+		   buffer[1] << 8 |
-+		   buffer[2] << 16);
-+
-+	memcpy(buf, &buffer[3], len - 3);
-+
-+	for (i = 0; i < ARRAY_SIZE(buf); i++)
-+		hdmi_write(hdmi, REG_HDMI_GENERIC1(i), buf[i]);
-+
-+	val = hdmi_read(hdmi, REG_HDMI_GEN_PKT_CTRL);
-+	val |= HDMI_GEN_PKT_CTRL_GENERIC1_SEND |
-+		 HDMI_GEN_PKT_CTRL_GENERIC1_CONT |
-+		 HDMI_GEN_PKT_CTRL_GENERIC1_LINE(SPD_IFRAME_LINE_NUMBER);
-+	hdmi_write(hdmi, REG_HDMI_GEN_PKT_CTRL, val);
-+
-+	return 0;
-+}
-+
-+static int msm_hdmi_config_hdmi_infoframe(struct hdmi *hdmi,
-+					  const u8 *buffer, size_t len)
-+{
-+	u32 buf[7] = {};
-+	u32 val;
-+	int i;
-+
-+	if (len < HDMI_INFOFRAME_HEADER_SIZE + HDMI_VENDOR_INFOFRAME_SIZE ||
-+	    len - 3 > sizeof(buf)) {
-+		DRM_DEV_ERROR(&hdmi->pdev->dev,
-+			"failed to configure HDMI infoframe\n");
-+		return -EINVAL;
-+	}
-+
-+	/* checksum gets written together with the body of the frame */
-+	hdmi_write(hdmi, REG_HDMI_GENERIC0_HDR,
-+		   buffer[0] |
-+		   buffer[1] << 8 |
-+		   buffer[2] << 16);
-+
-+	memcpy(buf, &buffer[3], len - 3);
-+
-+	for (i = 0; i < ARRAY_SIZE(buf); i++)
-+		hdmi_write(hdmi, REG_HDMI_GENERIC0(i), buf[i]);
-+
-+	val = hdmi_read(hdmi, REG_HDMI_GEN_PKT_CTRL);
-+	val |= HDMI_GEN_PKT_CTRL_GENERIC0_SEND |
-+		 HDMI_GEN_PKT_CTRL_GENERIC0_CONT |
-+		 HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE |
-+		 HDMI_GEN_PKT_CTRL_GENERIC0_LINE(VENSPEC_IFRAME_LINE_NUMBER);
-+	hdmi_write(hdmi, REG_HDMI_GEN_PKT_CTRL, val);
-+
-+	return 0;
-+}
-+
- static int msm_hdmi_bridge_clear_infoframe(struct drm_bridge *bridge,
- 					   enum hdmi_infoframe_type type)
- {
-@@ -176,6 +246,25 @@ static int msm_hdmi_bridge_clear_infoframe(struct drm_bridge *bridge,
- 
- 		break;
- 
-+	case HDMI_INFOFRAME_TYPE_SPD:
-+		val = hdmi_read(hdmi, REG_HDMI_GEN_PKT_CTRL);
-+		val &= ~(HDMI_GEN_PKT_CTRL_GENERIC1_SEND |
-+			 HDMI_GEN_PKT_CTRL_GENERIC1_CONT |
-+			 HDMI_GEN_PKT_CTRL_GENERIC1_LINE__MASK);
-+		hdmi_write(hdmi, REG_HDMI_GEN_PKT_CTRL, val);
-+
-+		break;
-+
-+	case HDMI_INFOFRAME_TYPE_VENDOR:
-+		val = hdmi_read(hdmi, REG_HDMI_GEN_PKT_CTRL);
-+		val &= ~(HDMI_GEN_PKT_CTRL_GENERIC0_SEND |
-+			 HDMI_GEN_PKT_CTRL_GENERIC0_CONT |
-+			 HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE |
-+			 HDMI_GEN_PKT_CTRL_GENERIC0_LINE__MASK);
-+		hdmi_write(hdmi, REG_HDMI_GEN_PKT_CTRL, val);
-+
-+		break;
-+
- 	default:
- 		drm_dbg_driver(hdmi_bridge->base.dev, "Unsupported infoframe type %x\n", type);
- 	}
-@@ -197,6 +286,10 @@ static int msm_hdmi_bridge_write_infoframe(struct drm_bridge *bridge,
- 		return msm_hdmi_config_avi_infoframe(hdmi, buffer, len);
- 	case HDMI_INFOFRAME_TYPE_AUDIO:
- 		return msm_hdmi_config_audio_infoframe(hdmi, buffer, len);
-+	case HDMI_INFOFRAME_TYPE_SPD:
-+		return msm_hdmi_config_spd_infoframe(hdmi, buffer, len);
-+	case HDMI_INFOFRAME_TYPE_VENDOR:
-+		return msm_hdmi_config_hdmi_infoframe(hdmi, buffer, len);
- 	default:
- 		drm_dbg_driver(hdmi_bridge->base.dev, "Unsupported infoframe type %x\n", type);
- 		return 0;
+---
+Dmitry Baryshkov (9):
+      drm/msm/dpu: drop dpu_format_check_modified_format
+      drm/msm/dpu: drop dpu_format_populate_layout from dpu_plane_sspp_atomic_update
+      drm/msm/dpu: split dpu_format_populate_layout
+      drm/msm/dpu: move dpu_format_populate_plane_sizes to atomic_check
+      drm/msm/dpu: check for the plane pitch overflow
+      drm/msm/dpu: drop call to _dpu_crtc_setup_lm_bounds from atomic_begin
+      drm/msm/dpu: check for overflow in _dpu_crtc_setup_lm_bounds()
+      drm/msm/dpu: merge MAX_IMG_WIDTH/HEIGHT with DPU_MAX_IMG_WIDTH/HEIGHT
+      drm/msm/dpu: sync mode_config limits to the FB limits in dpu_plane.c
 
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           | 32 ++++++--
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        | 91 ++++++----------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h        | 24 ++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h        |  2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            | 10 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          | 37 +++++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h          |  3 +
+ drivers/gpu/drm/msm/msm_kms.h                      |  6 --
+ 10 files changed, 91 insertions(+), 126 deletions(-)
+---
+base-commit: 0e1980c40b6edfa68b6acf926bab22448a6e40c9
+change-id: 20240318-dpu-mode-config-width-626d3c7ad52a
+
+Best regards,
 -- 
-2.39.2
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
