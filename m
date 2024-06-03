@@ -2,55 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AADB8D7CC1
-	for <lists+freedreno@lfdr.de>; Mon,  3 Jun 2024 09:50:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2F798D7E25
+	for <lists+freedreno@lfdr.de>; Mon,  3 Jun 2024 11:09:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E999410E2E4;
-	Mon,  3 Jun 2024 07:50:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE9910E342;
+	Mon,  3 Jun 2024 09:09:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XZHEKvoa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T648A4jU";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94A9B10E2E4;
- Mon,  3 Jun 2024 07:50:44 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62A6E10E0EE;
+ Mon,  3 Jun 2024 09:09:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 4FCD9CE0B15;
- Mon,  3 Jun 2024 07:50:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC58CC2BD10;
- Mon,  3 Jun 2024 07:50:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 46D5560C05;
+ Mon,  3 Jun 2024 09:09:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1C2C2BD10;
+ Mon,  3 Jun 2024 09:09:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1717401040;
- bh=vPuSoLpsoPv1fgo3ne/M8R9du/neO5GYC/OOGK76npY=;
- h=Date:From:To:Subject:In-Reply-To:References:Cc:From;
- b=XZHEKvoaFfAxmESMIoCHL5iHZqZxd2CFNdo8ZiNinZgIHMOag0Jw0duqJjPQeruht
- /feg5FqwREbA24rNLwYINyNW5lHKBBoDyhgVKK2OiVLgaH+TrMV70XiGviHC2KGy7g
- XIijAJDcEwsbbOzBhcPF01lAqXCorX3ld6RNFTf1hjqCeBfECLpwI7wm1GFWOm8Pwr
- xDpMXM0PFOc0Swp+U6DZPf4e/45+uMCbeDBlr7P9Kch+joXQZXe1+S9qLXdWMYC4Go
- KGDv/8Bju/ukU9Z+n72IWCvmvpt0/pYGPnV6eBvoi3P0UsB3mF9CGPO4fsXj1HTriH
- a3+FVtyG7+BMQ==
-Message-ID: <53746adf592a721f40d3c8f4e846ceba@kernel.org>
-Date: Mon, 03 Jun 2024 07:50:37 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>
-Subject: Re: [PATCH v4 7/9] drm/msm/hdmi: get rid of hdmi_mode
-In-Reply-To: <20240531-bridge-hdmi-connector-v4-7-5110f7943622@linaro.org>
-References: <20240531-bridge-hdmi-connector-v4-7-5110f7943622@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, "Abhinav
- Kumar" <quic_abhinavk@quicinc.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
- "Daniel
- Vetter" <daniel@ffwll.ch>, "David Airlie" <airlied@gmail.com>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Marijn
- Suijten" <marijn.suijten@somainline.org>, "Maxime Ripard" <mripard@kernel.org>,
- "Neil
- Armstrong" <neil.armstrong@linaro.org>, "Rob Clark" <robdclark@gmail.com>,
- "Robert Foss" <rfoss@kernel.org>, "Sean Paul" <sean@poorly.run>,
- "Thomas Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: 7bit
+ s=k20201202; t=1717405783;
+ bh=zts/QRsUM8k00Nfd4l4iKWD2XkKbZM/dD/eqgptURNI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=T648A4jUN6PelkRNGIl7hxRPXuYGfhKc0w4IhBdXrxin6cs+UrZQ3iATqdbNlnwO/
+ KxPcKK6ZCShnQ+GaQC9n4ex2n28ltok8NIJ0V6EW3e5v0aeJ5IiClJmujEzx+TQ0+h
+ MdNWLKLm+Y90vuEh2SCvq/zRyhx6SMrakl0xnH5uxMsRGDdKPYTn1eXvCNhUCML2GX
+ Uw3VAizHiVNE0Di3sUDp6fp+o6LOQH/4uWYxowr8Cwj9t37ro+AAZMe665XGis/Zo/
+ 3uVRKrB0nlv0jcHFZUcP9ITZznCVPZYLtDhwhYOUqjxAqrDTksyuEDzOUnq4TpKu3T
+ Wa/Ig9liJjoyw==
+Date: Mon, 3 Jun 2024 11:09:40 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/9] drm/connector: hdmi: accept NULL for Audio
+ Infoframe
+Message-ID: <20240603-therapeutic-warm-fox-890bee@houat>
+References: <20240531-bridge-hdmi-connector-v4-0-5110f7943622@linaro.org>
+ <20240531-bridge-hdmi-connector-v4-1-5110f7943622@linaro.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="cjo537cz6gzry5k7"
+Content-Disposition: inline
+In-Reply-To: <20240531-bridge-hdmi-connector-v4-1-5110f7943622@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,13 +70,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 31 May 2024 23:07:30 +0300, Dmitry Baryshkov wrote:
-> Use connector->display_info.is_hdmi instead of manually using
-> drm_detect_hdmi_monitor().
-> 
+
+--cjo537cz6gzry5k7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+Sorry for not answering your mail on the previous version sooner.
+
+On Fri, May 31, 2024 at 11:07:24PM GMT, Dmitry Baryshkov wrote:
+> Allow passing NULL as audio infoframe as a way to disable Audio
+> Infoframe generation.
+>=20
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gp=
+u/drm/display/drm_hdmi_state_helper.c
+> index ce96837eea65..5356723d21f5 100644
+> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> @@ -681,7 +681,7 @@ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_update=
+_infoframes);
+>  /**
+>   * drm_atomic_helper_connector_hdmi_update_audio_infoframe - Update the =
+Audio Infoframe
+>   * @connector: A pointer to the HDMI connector
+> - * @frame: A pointer to the audio infoframe to write
+> + * @frame: A pointer to the audio infoframe to write or NULL to disable =
+sending the frame
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
+I'm still two-minded about this. I think I would like a separate helper
+better, to also make things consistent with the HDMI helpers.
 
-Thanks!
+Most importantly, it looks like you're not using it at all in your series?
+
+>   * This function is meant for HDMI connector drivers to update their
+>   * audio infoframe. It will typically be used in one of the ALSA hooks
+> @@ -704,10 +704,16 @@ drm_atomic_helper_connector_hdmi_update_audio_infof=
+rame(struct drm_connector *co
+> =20
+>  	mutex_lock(&connector->hdmi.infoframes.lock);
+> =20
+> -	memcpy(&infoframe->data, frame, sizeof(infoframe->data));
+> -	infoframe->set =3D true;
+> +	if (frame) {
+> +		memcpy(&infoframe->data, frame, sizeof(infoframe->data));
+> +		infoframe->set =3D true;
+> +
+> +		ret =3D write_infoframe(connector, infoframe);
+> +	} else {
+> +		infoframe->set =3D false;
+> =20
+> -	ret =3D write_infoframe(connector, infoframe);
+> +		ret =3D clear_infoframe(connector, infoframe);
+> +	}
+
+We should probably clear infoframe->data here too
+
 Maxime
+
+--cjo537cz6gzry5k7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZl2ITQAKCRAnX84Zoj2+
+dqkOAX9UmBzsHTKxHZS1nYELnt3AKt9186dxlneShEm4OxdrXK29/MwOCb+UL69k
+SkvYtVkBfiYyBRgWMuoXlPMgdMZe/SKJIwO19JoO1q6utvRCW6k9RMmkiAFCjD1d
+J6ZyAccWMA==
+=wp6q
+-----END PGP SIGNATURE-----
+
+--cjo537cz6gzry5k7--
