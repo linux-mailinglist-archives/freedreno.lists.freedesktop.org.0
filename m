@@ -2,85 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A2838DB656
-	for <lists+freedreno@lfdr.de>; Mon,  3 Jun 2024 23:27:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D03FA8FA3CB
+	for <lists+freedreno@lfdr.de>; Mon,  3 Jun 2024 23:47:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3A2A10E3E6;
-	Mon,  3 Jun 2024 21:27:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DEB510E3E5;
+	Mon,  3 Jun 2024 21:40:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="g9JL9KwO";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="H0EaEUSY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D91410E3E4;
- Mon,  3 Jun 2024 21:26:59 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 453Bm0E1014353;
- Mon, 3 Jun 2024 21:26:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 2Vsg/7i4TrMa5VqqJmBGZbSvUazxMubExhCzCHIm2Sg=; b=g9JL9KwOTPVO07FD
- zPgxRjAPfdw9kcIrFp+ilmjnbSlrc0wUYsblmzaoz4GriZ0/IrXWXix1sKxaOkzx
- keTboGGHuBwbkkh0GTBb6pJvPrZpOiU/1SsVCpdTFSx84z1VEbRS+fhoo+35BJbp
- 0BImZdyfU+0jOt/ZM3JG6gL6DjrnXKwPVL62Fmq+tyujFsukg9sOCV4UZkJ21EFm
- Ary+mdenkmqBuLD8kywagZwlyBfNTGPWvDjtsQJYu2GiXWIYf8ZQ37wvn8srJ9HX
- LCVxl8rh8/en9H3yRytAbdzz/3UfhYp6cNQPquG5f0l1KnVbByv71ur9MifXvGXA
- s4zLzQ==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yfw4an9hr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Jun 2024 21:26:53 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 453LQqoS029796
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 3 Jun 2024 21:26:52 GMT
-Received: from [10.110.31.89] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 3 Jun 2024
- 14:26:49 -0700
-Message-ID: <d1287bcb-5410-c44b-3ac1-62b404c1fbe7@quicinc.com>
-Date: Mon, 3 Jun 2024 14:26:47 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v2 9/9] drm/msm/dpu: sync mode_config limits to the FB
- limits in dpu_plane.c
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>
-CC: Abel Vesa <abel.vesa@linaro.org>, Johan Hovold <johan+linaro@kernel.org>, 
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 902A110E062
+ for <freedreno@lists.freedesktop.org>; Mon,  3 Jun 2024 21:40:15 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2eaad2c673fso25693151fa.3
+ for <freedreno@lists.freedesktop.org>; Mon, 03 Jun 2024 14:40:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1717450813; x=1718055613; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=3llFp6XU62QuqTiOvMfdzgxuqUgZrpZeZJw1lK9U1xg=;
+ b=H0EaEUSYQYRfii6Gqis2urCf97m1XT5Me8si5MbuX8cyFXO8IWJ3dE2JobESCsGGUl
+ jFuZGmF7jIohByeGwll39fnCw6351QNz9OB26Xnqx529WquEXXCB2/NThjTiYxfMoDUO
+ IBTLFShwtaixM/MAQm5Avo2p7grEtVEogiTu4zs75/rug862lNMjjpjq55WjVjhx8nHh
+ Ds14cMIyrnpK8LbwXesoglAVSiGFy+nIT4C73MO3X9pSGdX0JhCkOHHVDI11rDXL3y2X
+ HLzkftMVnRwEOtQy5xvBAdDbny9eCiVHrW93BKdzScNqpxWwhHxPBzcLf1wNDyWu0vs4
+ Akjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1717450813; x=1718055613;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3llFp6XU62QuqTiOvMfdzgxuqUgZrpZeZJw1lK9U1xg=;
+ b=AYsjh5Oat5Cf0PLOTFS0E0PSK9KoHy8cRpld0UW2XKKPWsJjOOhkyWek7SgY4lqZez
+ owGOOt/s4DJ/iqSxiVEliRYMZootKCnrX/qDqIIaTw9LtUMZ5XLe8Hpb53wIEwG9QaKm
+ cdgGkvzLG1e7p5Raq0vJ47Bn7u48iQ9c8vBGLvcsMYNcg7zIp1WnA+0OoeqwCguWnSpI
+ HJ/LBwH/weUJb5H11evHiP9nPgkG0ispdIF6Md+Tr0t0vS/HaAFs2/lk0Wy8S6pXOMwW
+ eRx5ichW5Qnke6gvczQaAittHh2fCUe44p2nMGiNaRhFY0pF/csY5CcagI6s647Ru7wh
+ hwuQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUnqrwUVIbmoFLar+642LCQbpywy+X84KwhqWwqqEGiO3G5WpftFEnu1DzC0eQuKGwsO4Vz9TwQZxqaATCUbzMx60R4athDE89ynMM4zzQ/
+X-Gm-Message-State: AOJu0YyD2XumpDy3t9JnrSB22hY+P2aqN1h6oRCC1mNMJXHEBCtP48o7
+ SXXl/nTNYze3vbhf4QkXM5cpmNp9c3NyJvHhQu1UqmtLQ4tyTvdUC/OrUd6DiRU=
+X-Google-Smtp-Source: AGHT+IF8w25sByMAnhCrm0+slEMM4u8+QRDWCNHlVFFQ6GFKpbT4RCVbJBdiYhEi+BeqNtX5KbGNRQ==
+X-Received: by 2002:a2e:9907:0:b0:2e5:685a:85b5 with SMTP id
+ 38308e7fff4ca-2ea950e7b63mr89166921fa.1.1717450813268; 
+ Mon, 03 Jun 2024 14:40:13 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2ea91cf107fsm13085771fa.122.2024.06.03.14.40.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Jun 2024 14:40:12 -0700 (PDT)
+Date: Tue, 4 Jun 2024 00:40:11 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Abel Vesa <abel.vesa@linaro.org>, 
+ Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v2 7/9] drm/msm/dpu: check for overflow in
+ _dpu_crtc_setup_lm_bounds()
+Message-ID: <zxta54l7bny2buyc35bhhfh5pusujb5acs2bk4qt5yrzo4uwbb@jgvcuc54lzww>
 References: <20240603-dpu-mode-config-width-v2-0-16af520575a6@linaro.org>
- <20240603-dpu-mode-config-width-v2-9-16af520575a6@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240603-dpu-mode-config-width-v2-9-16af520575a6@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 6-uPctjtj6AywfqVv0SSeJKSRF8m7r74
-X-Proofpoint-ORIG-GUID: 6-uPctjtj6AywfqVv0SSeJKSRF8m7r74
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
- definitions=2024-06-03_17,2024-05-30_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- mlxlogscore=982 lowpriorityscore=0 malwarescore=0 priorityscore=1501
- suspectscore=0 mlxscore=0 bulkscore=0 spamscore=0 adultscore=0
- clxscore=1015 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405170001 definitions=main-2406030173
+ <20240603-dpu-mode-config-width-v2-7-16af520575a6@linaro.org>
+ <64c6e6a5-7ab2-cdf7-131a-7a1f79c48e0c@quicinc.com>
+ <CAA8EJpp8WbXYTvtL0Xwxrn_eXsPfGTGz9bigtwHFjXunnM_cHg@mail.gmail.com>
+ <37b56f66-4e71-51cc-a09d-fe4e1469f665@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <37b56f66-4e71-51cc-a09d-fe4e1469f665@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,31 +92,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 6/2/2024 2:39 PM, Dmitry Baryshkov wrote:
-> Lift mode_config limits set by the DPU driver to the actual FB limits as
-> handled by the dpu_plane.c. Move 2*max_lm_width check where it belongs,
-> to the drm_crtc_helper_funcs::mode_valid() callback.
+On Mon, Jun 03, 2024 at 02:24:27PM -0700, Abhinav Kumar wrote:
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 15 +++++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  9 ++-------
->   2 files changed, 17 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index c5e874a3656a..8cf063e4c09d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1236,6 +1236,20 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
->   	return 0;
->   }
->   
+> On 6/3/2024 2:16 PM, Dmitry Baryshkov wrote:
+> > On Mon, 3 Jun 2024 at 23:57, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> > > 
+> > > 
+> > > 
+> > > On 6/2/2024 2:39 PM, Dmitry Baryshkov wrote:
+> > > > Check in _dpu_crtc_setup_lm_bounds() that CRTC width is not overflowing
+> > > > LM requirements.
+> > > > 
+> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > > ---
+> > > >    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 15 ++++++++++++---
+> > > >    1 file changed, 12 insertions(+), 3 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > > index e3b1e5f55a92..c5e874a3656a 100644
+> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > > @@ -711,12 +711,13 @@ void dpu_crtc_complete_commit(struct drm_crtc *crtc)
+> > > >        _dpu_crtc_complete_flip(crtc);
+> > > >    }
+> > > > 
+> > > > -static void _dpu_crtc_setup_lm_bounds(struct drm_crtc *crtc,
+> > > > +static int _dpu_crtc_setup_lm_bounds(struct drm_crtc *crtc,
+> > > >                struct drm_crtc_state *state)
+> > > 
+> > > Perhaps now we need to rename this to _dpu_crtc_setup_and_check_lm_bounds()?
+> > 
+> > Ack, I'll rename it.
+> > 
+> > > 
+> > > Also, prior to this change, we never had a bounds check for each LM
+> > > which we should have had . Does this qualify for a Fixes tag?
+> > 
+> > Probably no. We currently have a limit in the drm_mode_config, which
+> > ensures that the CRTC isn't too wide.
+> > 
+> 
+> The limit in drm_mode_config is to ensure we will not go beyond
+> 2*max_mixer_width for the mode as we support only upto 2 LMs.
+> 
+> This check is making sure that even for the single LM, we do not go beyond
+> the max_mixer_width which is valid imo.
 
-With the added checks in dpu_crtc_mode_valid(), I am fine with this as 
-it will retain the previous limits in drm_mode_config.
+For the case where 2*LM mode is not possible? Yes, it seems to be a
+valid case. But in such case I'd prefer to rework this patch and pull it
+to the top of the series. I'll take a look.
 
-Hence,
+> 
+> > > 
+> > > With those two questions addressed,
+> > > 
+> > > Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > > 
+> > > >    {
+> > > >        struct dpu_crtc_state *cstate = to_dpu_crtc_state(state);
+> > > >        struct drm_display_mode *adj_mode = &state->adjusted_mode;
+> > > >        u32 crtc_split_width = adj_mode->hdisplay / cstate->num_mixers;
+> > > > +     struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
+> > > >        int i;
+> > > > 
+> > > >        for (i = 0; i < cstate->num_mixers; i++) {
+> > > > @@ -727,7 +728,12 @@ static void _dpu_crtc_setup_lm_bounds(struct drm_crtc *crtc,
+> > > >                r->y2 = adj_mode->vdisplay;
+> > > > 
+> > > >                trace_dpu_crtc_setup_lm_bounds(DRMID(crtc), i, r);
+> > > > +
+> > > > +             if (drm_rect_width(r) > dpu_kms->catalog->caps->max_mixer_width)
+> > > > +                     return -E2BIG;
+> > > >        }
+> > > 
+> > > > +
+> > > > +     return 0;
+> > > >    }
+> > > > 
+> > > >    static void _dpu_crtc_get_pcc_coeff(struct drm_crtc_state *state,
+> > > > @@ -1195,8 +1201,11 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+> > > >        if (crtc_state->active_changed)
+> > > >                crtc_state->mode_changed = true;
+> > > > 
+> > > > -     if (cstate->num_mixers)
+> > > > -             _dpu_crtc_setup_lm_bounds(crtc, crtc_state);
+> > > > +     if (cstate->num_mixers) {
+> > > > +             rc = _dpu_crtc_setup_lm_bounds(crtc, crtc_state);
+> > > > +             if (rc)
+> > > > +                     return rc;
+> > > > +     }
+> > > > 
+> > > >        /* FIXME: move this to dpu_plane_atomic_check? */
+> > > >        drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
+> > > > 
+> > 
+> > 
+> > 
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+-- 
+With best wishes
+Dmitry
