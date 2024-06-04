@@ -2,74 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E612C8FB222
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jun 2024 14:27:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8235B8FB455
+	for <lists+freedreno@lfdr.de>; Tue,  4 Jun 2024 15:50:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C008F10E463;
-	Tue,  4 Jun 2024 12:27:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33A9310E493;
+	Tue,  4 Jun 2024 13:50:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X8srQF7J";
+	dkim=pass (2048-bit key; unprotected) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="VaMPbD1d";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9D9210E1DD;
- Tue,  4 Jun 2024 12:27:16 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-1f44b441b08so41695515ad.0; 
- Tue, 04 Jun 2024 05:27:16 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A064910E492
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Jun 2024 13:50:52 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-421555a4454so1213875e9.3
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Jun 2024 06:50:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717504036; x=1718108836; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1717509050; x=1718113850;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-language:cc:to:subject:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to;
- bh=cWBz78Abu0CTj2Sphj5nhGk0PlgynOAQxXUthSgBAMQ=;
- b=X8srQF7JLVcAT05nb7JGXyUHID5PnuAp3V4kuHEKi/GWUnREva5ioPaNRTEH1DTDWH
- CBY2YTYrLbn4E9j1x5v0SyG2myx4b0hIF32VPkk1yMa4/scTwqgOsqOQvJLb8362uV2V
- K/65HGrCeEMYR1Lum60Zh9fWewHIwra27iEeOqN3wrkYR7kkTSpwNhhY4veyRVn/ijqw
- uMtqAkmwoL55nhu8LcrYKdyll3Y1qihZrQ+KqdKpsTRhWkMmAN5jj0bQrrTVUvVShkgM
- ywKL4KA3/9YOuSdlchcHQ2Sb3SMKxAt01X289efKN+DVu+SX7TlvtwJ+e8riVTj9SL/s
- xLag==
+ bh=lJZIlN4XgnK9tDXCSYK6tAuRSp4UM2QNTlG/GA4rHi0=;
+ b=VaMPbD1dONfwuRlzxuXdpTh2t6cmtdRL4kBbmL5awkERJ62uEGxVqepQWmVCURvrVX
+ MNYPvhckQeFVL/T0N+A4BSeEajgZaUQAFD0+94g/SEdLzdnWXIqkL4vqt7wJeQ0/VV96
+ IM2eX6FWnDT7cmTSgD8Ka+DN9mYHjPFoYVLYKoWlp51q0P5PpIMHPjZKWh67wUsIIlR/
+ zgRUat8gF3O3oKIuCtb1hXmzZ7Z2nrRMRLE1G655cMp7FQYI+XG4tkZ73rdsmo2TFbsy
+ 3ucnZPA6jSbNfdZUR/Ymqk73vDrt3xVzNaxVjkcJYPh5fCis6aFiZC/AXsJx2GSHh6/8
+ ltlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717504036; x=1718108836;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cWBz78Abu0CTj2Sphj5nhGk0PlgynOAQxXUthSgBAMQ=;
- b=bBIrw4GvI3RA5EX/kRNHuAkaiNyrkHHUqy7DZeA9d5XdrRw+ffsdoFydt8mV2mmg2k
- tYqLTMPLF80rWir1GUHEqZuxWJ2fW6pDzC2av9FnOfYPkXfc2mUohIJOSLTmoMGv/AG5
- e1xgDfgKVNd7RKf2/ckqkWS2hrcTZEBnJLpcO2vskBwxbnO2o43/6nDyGdHMpPygOj6M
- oa5flN5RrloWfNpsZ+wsICZc6pEBuuOAhChK1gLRe4AwyWOD9Tl9h0QU/Fs8tc7yebDS
- pAY8//4bGicioO4+1QbY7Xmx93MFGK55FtpZjVuhzb8USJj8r07fF8aZVu4KXe2nFjN7
- ufiQ==
+ d=1e100.net; s=20230601; t=1717509050; x=1718113850;
+ h=content-transfer-encoding:content-language:cc:to:subject:from
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=lJZIlN4XgnK9tDXCSYK6tAuRSp4UM2QNTlG/GA4rHi0=;
+ b=qMnDDUUOGm7ADGwWyQTKiG2Dsf4lasJ+//ffQ5LGrhOvrVkNP8r5D2YP4QQjHSAlpF
+ BNEb+OFHi8MVa3TXo1rlP93sM391Biedf3vSNUvdUMo2MTKlyiJulFKWBpv+fcaJLGNL
+ A+ULoaTNGLezgWyZUfEZ51ekVjeCHoKfadBRrIFqHxZUbmvHBUNMm5Nho0K2HP7JQP8X
+ /Wnh3lvT12n8r3dFdZCiXDB8N4YgtlURq4AyDTQKF3H557pxICUAXJBKMKGJev+qFGyI
+ Z0/IlACQwxO7IA6rUzhNaRDFyv+YQB6qXQX8cCNAwDRlGdWzIYgoUhHFDtzAXY+KUNc/
+ 1wYQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUggK/aKAXMZxGlLjZI1QPIWyVB4AgeQdoDr1DLbWqTb62LrbMrx71cVLpKTwYid08RuHeBT03ZX8LnPAcgzPXx6j/s7cxANhDqsns5pEoZpiBm/qd2jeq00CFn9ZqbrZCKJl+s+/jPf9Ngj0c5pfIq
-X-Gm-Message-State: AOJu0YxWsHBqzYcO2pWm8z2EW/BEqsIBTduTRTmfU352Zqnx2oswqtnl
- G4rtOSEoUTB88PjPS09izUAtBiachdygwvQXBAZiF7XeBzH4z6Fjt2g4++zuXO2Op494Sp1Qzwf
- K4yuT//4KQ9705pjSYY58Bp7psBE=
-X-Google-Smtp-Source: AGHT+IFK/4dyXU3onorVfBIGrQ7RGbLlCzZrBNsv8DCE6538BNa55fpTJA1mERcBai/KbPLJggqRDcYyI5Nfa3Vr9kE=
-X-Received: by 2002:a17:90a:bd18:b0:2bd:f439:546b with SMTP id
- 98e67ed59e1d1-2c1dc582296mr9121768a91.19.1717504036018; Tue, 04 Jun 2024
- 05:27:16 -0700 (PDT)
+ AJvYcCXAKYJhYoGtlCBVIJxxcVsIE0qXhidl4Tw7v44dMpDJKn3u6YIs7uSDEd6wscxhNh2ih4Uuv7UeQtGCotLvv1LaMCXc2S/MthLnZ2U/9VAr
+X-Gm-Message-State: AOJu0YxJ77FpXAOe7J1S+215ijX6P0x5G0pF7X9Utt2kX4bVSbj15vbg
+ vFivBIMWxBTzHwh7Jxq6WQx5I+wgYoD5goYAydcMyA4GAjb/+19b5iryR64NGKo=
+X-Google-Smtp-Source: AGHT+IHQZBq9gGi04QHPhWrIeVoppGhM4cBpGMsNRG5Tm6dNoMEyFQ9kGxrHF/G1xHo1JxNtiYUrpA==
+X-Received: by 2002:a05:600c:c09:b0:418:ee2:5911 with SMTP id
+ 5b1f17b1804b1-4213d3068f9mr54739485e9.28.1717509050485; 
+ Tue, 04 Jun 2024 06:50:50 -0700 (PDT)
+Received: from [192.168.108.81] (freebox.vlq16.iliad.fr. [213.36.7.13])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-42133227f8asm139569755e9.19.2024.06.04.06.50.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 04 Jun 2024 06:50:50 -0700 (PDT)
+Message-ID: <a2cb1290-9e01-4136-9592-ce439b1096b6@freebox.fr>
+Date: Tue, 4 Jun 2024 15:44:15 +0200
 MIME-Version: 1.0
-References: <20240604-a505-v1-1-82ee1c04d200@gmail.com>
- <49fe3b01-4f00-4ffc-80cf-2a0add1ebaad@linaro.org>
-In-Reply-To: <49fe3b01-4f00-4ffc-80cf-2a0add1ebaad@linaro.org>
-From: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>
-Date: Tue, 4 Jun 2024 14:27:04 +0200
-Message-ID: <CAGsSOWV=i2JHsYNvi5EC6q=NoD8v7SiTjbVQhTDLNw35+irTCQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/adreno: Add support for Adreno 505 GPU
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Daniil Titov <daniilt971@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: Marc Gonzalez <mgonzalez@freebox.fr>
+Subject: [PATCH v2 0/4] HDMI TX support in msm8998
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ MSM <linux-arm-msm@vger.kernel.org>, DT <devicetree@vger.kernel.org>,
+ freedreno@lists.freedesktop.org, Arnaud Vrac <avrac@freebox.fr>,
+ Pierre-Hugues Husson <phhusson@freebox.fr>
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,34 +91,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jun 4, 2024 at 1:55=E2=80=AFPM Konrad Dybcio <konrad.dybcio@linaro.=
-org> wrote:
->
->
->
-> On 6/4/24 02:20, Barnab=C3=A1s Cz=C3=A9m=C3=A1n wrote:
-> > From: Daniil Titov <daniilt971@gmail.com>
-> >
-> > This GPU is found on SoCs such as MSM8937 (450 MHz), MSM8940 (475 MHz),
-> > SDM439 (650 MHz).
-> >
-> > Signed-off-by: Daniil Titov <daniilt971@gmail.com>
-> > Signed-off-by: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <trabarni@gmail.com>
-> > ---
->
-> This all looks very good, just a nit
->
-> [...]
->
-> > +             /*
-> > +              * Increase inactive period to 250 to avoid bouncing
-> > +              * the GDSC which appears to make it grumpy
-> > +              */
-> > +             .inactive_period =3D 250,
->
-> Are you sure this is actually necessary?
-Every A5XX GPU is using the same value, but i have never tried with
-DRM_MSM_INACTIVE_PERIOD.
+DT bits required for HDMI TX support in APQ8098 (msm8998 cousin)
 
->
-> Konrad
+$ make -j20 dtbs_check
+  DTC_CHK arch/arm64/boot/dts/qcom/msm8998-mtp.dtb
+/home/mgonzalez/linux/arch/arm64/boot/dts/qcom/msm8998-mtp.dtb: pcie@1c00=
+000: False schema does not allow {'compatible': ['qcom,pcie-msm8998', 'qc=
+om,pcie-msm8996'], 'reg': [[29360128, 8192], [452984832, 3869], [45298870=
+4, 168], [454033408, 1048576]], 'reg-names': ['parf', 'dbi', 'elbi', 'con=
+fig'], 'device_type': ['pci'], 'linux,pci-domain': [[0]], 'bus-range': [[=
+0, 255]], '#address-cells': [[3]], '#size-cells': [[2]], 'num-lanes': [[1=
+]], 'phys': [[36]], 'phy-names': ['pciephy'], 'status': ['okay'], 'ranges=
+': [[16777216, 0, 0, 455081984, 0, 1048576], [33554432, 0, 456130560, 456=
+130560, 0, 13631488]], '#interrupt-cells': [[1]], 'interrupts': [[0, 405,=
+ 4]], 'interrupt-names': ['msi'], 'interrupt-map-mask': [[0, 0, 0, 7]], '=
+interrupt-map': [[0, 0, 0, 1, 1, 0, 0, 135, 4], [0, 0, 0, 2, 1, 0, 0, 136=
+, 4], [0, 0, 0, 3, 1, 0, 0, 138, 4], [0, 0, 0, 4, 1, 0, 0, 139, 4]], 'clo=
+cks': [[37, 94], [37, 91], [37, 92], [37, 93], [37, 95]], 'clock-names': =
+['pipe', 'aux', 'cfg', 'bus_master', 'bus_slave'], 'power-domains': [[37,=
+ 0]], 'iommu-map': [[256, 38, 5248, 1]], 'perst-gpios': [[39, 35, 1]], 'p=
+cie@0': {'device_type': ['pci'], 'reg': [[0, 0, 0, 0, 0]], 'bus-range': [=
+[1, 255]], '#address-cells': [[3]], '#size-cells': [[2]], 'ranges': True}=
+, '$nodename': ['pcie@1c00000']}
+	from schema $id: http://devicetree.org/schemas/pci/qcom,pcie.yaml#
+/home/mgonzalez/linux/arch/arm64/boot/dts/qcom/msm8998-mtp.dtb: pcie@1c00=
+000: Unevaluated properties are not allowed ('#address-cells', '#interrup=
+t-cells', '#size-cells', 'bus-range', 'device_type', 'interrupt-map', 'in=
+terrupt-map-mask', 'linux,pci-domain', 'num-lanes', 'pcie@0', 'ranges' we=
+re unexpected)
+	from schema $id: http://devicetree.org/schemas/pci/qcom,pcie.yaml#
+/home/mgonzalez/linux/arch/arm64/boot/dts/qcom/msm8998-mtp.dtb: phy@c0120=
+00: 'vdd-supply' is a required property
+	from schema $id: http://devicetree.org/schemas/phy/qcom,qusb2-phy.yaml#
+/home/mgonzalez/linux/arch/arm64/boot/dts/qcom/msm8998-mtp.dtb: clock-con=
+troller@c8c0000: clocks: [[34, 0], [37, 178], [150, 1], [150, 0], [151, 1=
+], [151, 0], [152], [0], [0], [0], [37, 184]] is too long
+	from schema $id: http://devicetree.org/schemas/clock/qcom,mmcc.yaml#
+
+
+Arnaud Vrac (1):
+  arm64: dts: qcom: add HDMI nodes for msm8998
+
+Marc Gonzalez (3):
+  dt-bindings: display/msm: hdmi: add qcom,hdmi-phy-8998
+  dt-bindings: display/msm: hdmi: add qcom,hdmi-tx-8998
+  arm64: dts: qcom: msm8998: add HDMI GPIOs
+
+ Documentation/devicetree/bindings/display/msm/hdmi.yaml      |  26 +++++=
++++++-
+ Documentation/devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml |   1 +
+ arch/arm64/boot/dts/qcom/msm8998.dtsi                        | 128 +++++=
++++++++++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 152 insertions(+), 3 deletions(-)
+
+--=20
+2.34.1
