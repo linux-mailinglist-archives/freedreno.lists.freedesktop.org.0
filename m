@@ -2,74 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCFA18FBF58
-	for <lists+freedreno@lfdr.de>; Wed,  5 Jun 2024 00:55:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADD0C8FC043
+	for <lists+freedreno@lfdr.de>; Wed,  5 Jun 2024 01:58:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92A1F10E61C;
-	Tue,  4 Jun 2024 22:55:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6409A10E25E;
+	Tue,  4 Jun 2024 23:58:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="etN/bq0a";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UGJdqg1f";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 971D910E61C
- for <freedreno@lists.freedesktop.org>; Tue,  4 Jun 2024 22:55:06 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-6cb6b9ada16so2360283a12.0
- for <freedreno@lists.freedesktop.org>; Tue, 04 Jun 2024 15:55:06 -0700 (PDT)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A2CD10E188
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Jun 2024 23:58:50 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-52b7e693b8aso321292e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Jun 2024 16:58:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1717541705; x=1718146505; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=SQevM+iAWilYVFaIm59IJ4p3nypKMOp+UN8VS5oKnP0=;
- b=etN/bq0alduXPerbyLjUD3XI6icFjI+YxVsgeKEb+yDWr7COCUqN2L7pQ6gR9uBNNT
- +vQEFvES9+vJjIRwI9OklxrDZJ9fupVxTo44eivg5IZpDXKWPqzm3uGY6/6Bl7ll6npd
- k6TnYu+PT8AgQfwNm3OjAPjtQKBpK6dvvcdOTVY0fItUgdWzGkGSuBdk1r4sJeONyWbe
- TAAHD8J5R6Z+bxve0t+r/LRiiC44Ss7+qpKINbwL14IlAcb1777Gi3USWp5cCNkt6Rul
- Lcf5vDKn2LHyTPE+CGGBmVbL9BeGjir11qVBrC5NdUU8Jo44rV/JaSYVTWNdl2pjLRGo
- CKEA==
+ d=linaro.org; s=google; t=1717545528; x=1718150328; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=rp9nxGMclyuCeHHBHlnWIxO2+4DK9PTywFrhJz5uXfc=;
+ b=UGJdqg1fEmtkCMmn4gzvbcO6sKef103gZBFnavgvILW3fx4L1voaYUIHhPQvzXURI+
+ Bq8sLxGtemJ+Nc/FsRSMU9o1G0YsrA48+0b/1GsoFNlVgvwcgcEDOw6z6n+1ccmptbEh
+ RF2TP87mV4+nSXC0bngecp6kIGCM0BJhbqh9u1PfFC6KTHkWEIqS7fJXcSCVCRRAusTA
+ SK/qlZoBUVGG0ipjTPoY7ncyMuEcXBfxmRmhN/SPeAWM6uZURUyFiTYt+GSWOpw5gPCY
+ tySFaiTuHxbrb+2+J1vJ7NFm62k0pQaRNUOBaTvUNEeya0h69RAojFn+XU9FqUtd9hBu
+ RCqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717541705; x=1718146505;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SQevM+iAWilYVFaIm59IJ4p3nypKMOp+UN8VS5oKnP0=;
- b=kBsJAXCam/KtoEpvlkS+piSsAcHS0PyRO9Vy8RNOaFu/k9T2IRxl0fvbJULAQDsyTl
- I0qsfRJnSzb4SLyzlYiOOM1PySdJQwfu2cxtPjFpum4Fhr0bn7y9ylgzqQYvX9T6khCE
- ny6Db7vg2nn05UJMZxUOFeh9MHmE3DOrh2iBGAekUOvJI34ncCHrays6O0/Uhgs1BWad
- tqPEOqKi7b+S3hqhxqPbNKeNCuB6nHXZAaC0XUK9qwTUyvH2oaZ4csc2+GPd2qP1xdoI
- O6h/bax/WaJwUXYJ7x0VhYaC+BLRB3mGkl+EqRYaw4KpM8QbB9CJCf3oIETlKm10dpqQ
- vpFg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXdAGF6jB9ZNrIM0/60OIiRDZDt/9UzhtPXkdvCPwQVAe/OnoViE4TszkvEUGuziZN+rhLAdg0oUMw07Hex9+D55epE6LDpdiJ4yt4jR9lE
-X-Gm-Message-State: AOJu0YxKlTDauE6zAsHR/sf6G7JWcedWWv4JkQOoehYOYPmfnTUBZTuo
- 60qk1V0CaUGx+E/jyKMUoc5UbIJY35vW/WYD+Mo9DohaVooMlfu9JLjA3rOG2f7UjzDhQColLxA
- TzcUEv1iPi4K9bl45nVOx1sfo2OwhNeeRmdz4QQ==
-X-Google-Smtp-Source: AGHT+IEdxJwvadlhULTZyWilBXhj3SiFyCHIB/1Em0OwEwBh1H9runBVla3t1ChZKYRpSeG0b/daRqpR7likHUus/TA=
-X-Received: by 2002:a17:90a:408f:b0:2bd:f439:546b with SMTP id
- 98e67ed59e1d1-2c27db0f54amr812983a91.19.1717541705422; Tue, 04 Jun 2024
- 15:55:05 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240604214018.238153-1-pbrobinson@gmail.com>
- <CAA8EJpr2ZKugjwYzFUq3Rqjdm6DO-PiZEfiuBjxSnJDmRcMRdw@mail.gmail.com>
- <CALeDE9O9QmX2YUvMxbfVNcC+nmNNh2dgQkLvMqNaQNr+3S9Beg@mail.gmail.com>
-In-Reply-To: <CALeDE9O9QmX2YUvMxbfVNcC+nmNNh2dgQkLvMqNaQNr+3S9Beg@mail.gmail.com>
+ d=1e100.net; s=20230601; t=1717545528; x=1718150328;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rp9nxGMclyuCeHHBHlnWIxO2+4DK9PTywFrhJz5uXfc=;
+ b=sqztVzSh3eYpfPbG1ER2zj7xAx4ZivBrtsRrrIcijvcxWjwkS3Yt4ntwGrEaF8xet2
+ +E9XdIceOCzNFUQnGWrMnmNOKBhguFnVjHAaoJyIdn3yKxWiO5ULcnCykwBrlOYnI+yb
+ TYVal5+To1fgeSIBri7SoOV1by5Sg1FJ96f1j7UoEVT0QEnFp4vuhDOyhkjwrZDRZb8p
+ 2A2VetB5lp7by52O2yg+zq/WPEbN0Q9h4bfIbLDnYwboJ/Zxs58/cxMUnis0N6ToFrHg
+ aPdYzn/fX5WJnJEaiFRWfukraN3h0wnQn3/18Pr6RVeg1asU/dsIktawZ6lCudMgpT2A
+ 6hhQ==
+X-Gm-Message-State: AOJu0YwpEfbVIobw33wneNbpuB5GBk0aYT8gYaWuUE6ipWL7AnxfpSFQ
+ teqz0sZZmLmZhZr9qclHFE8Nwi+fhMjSzr5Q3tdckGXJeCPSZP4SY9xmZ+U94vg=
+X-Google-Smtp-Source: AGHT+IGE5EAJbwmPWB5kOhL+AkptvaK72rTbxNWsv9SyRDnHh+4+XE5+D1sVii4uysOWoD6ZlewHtg==
+X-Received: by 2002:a05:6512:3d9e:b0:520:359d:2145 with SMTP id
+ 2adb3069b0e04-52bab1d6879mr307776e87.20.1717545528496; 
+ Tue, 04 Jun 2024 16:58:48 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52b84d89ee8sm1624847e87.268.2024.06.04.16.58.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Jun 2024 16:58:48 -0700 (PDT)
+Date: Wed, 5 Jun 2024 02:58:46 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 5 Jun 2024 01:54:52 +0300
-Message-ID: <CAA8EJpomhPJ9o-tWKRmuCzbZDn7CA4qkYMFWYs9qaGWOczq=sg@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/adreno: Add some missing MODULE_FIRMWARE entries
-To: Peter Robinson <pbrobinson@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ Daniel Vetter <daniel@ffwll.ch>, Connor Abbott <cwabbott0@gmail.com>, 
+ dri-devel@lists.freedesktop.org, seanpaul@chromium.org,
+ quic_jesszhan@quicinc.com, 
+ Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/a6xx: use __always_unused to fix compiler
+ warnings for gen7_* includes
+Message-ID: <x42z2ykkpx7qkn2lr3y5sl3lm2m3fl2asy7qvswgemz5bpu62w@drh7b7wihrwg>
+References: <20240604215105.4057278-1-quic_abhinavk@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240604215105.4057278-1-quic_abhinavk@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,63 +89,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 5 Jun 2024 at 01:30, Peter Robinson <pbrobinson@gmail.com> wrote:
->
-> On Tue, 4 Jun 2024 at 23:18, Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> >
-> > On Wed, 5 Jun 2024 at 00:40, Peter Robinson <pbrobinson@gmail.com> wrote:
-> > >
-> > > Add missing MODULE_FIRMWARE for firmware in linux-firmware,
-> > > this is needed for automatically adding firmware to things
-> > > like initrds when the drivers are built as modules. This is
-> > > useful for devices like the X13s and the RBx devices on
-> > > general distros.
-> > >
-> > > Fixes: 5e7665b5e484b ("drm/msm/adreno: Add Adreno A690 support")
-> > > Fixes: 18397519cb622 ("drm/msm/adreno: Add A702 support")
-> > > Fixes: 3e7042ba87da ("drm/msm/adreno: Add ZAP firmware name to A635")
-> > > Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/msm/adreno/adreno_device.c | 3 +++
-> > >  1 file changed, 3 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> > > index c3703a51287b4..fede5159e7f5b 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> > > +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> > > @@ -609,8 +609,11 @@ MODULE_FIRMWARE("qcom/a650_gmu.bin");
-> > >  MODULE_FIRMWARE("qcom/a650_sqe.fw");
-> > >  MODULE_FIRMWARE("qcom/a660_gmu.bin");
-> > >  MODULE_FIRMWARE("qcom/a660_sqe.fw");
-> > > +MODULE_FIRMWARE("qcom/a660_zap.mbn");
-> >
-> > -ENOSUCHFILE. It should qcom/particular-SoC/a660_zap.mbn
->
-> > > +MODULE_FIRMWARE("qcom/a702_sqe.fw");
-> > >  MODULE_FIRMWARE("qcom/leia_pfp_470.fw");
-> > >  MODULE_FIRMWARE("qcom/leia_pm4_470.fw");
-> > > +MODULE_FIRMWARE("qcom/sc8280xp/LENOVO/21BX/qcdxkmsuc8280.mbn");
-> >
-> > I'm a bit sceptical here. Each device has its own zap MBN file (this
-> > one is also a fancy named a690_zap.mbn).  Do we want to list all such
-> > files? Consider all the vendors, which are open-source / Linux
-> > friendly, like FairPhone, OnePlus, etc.
->
-> That's what's in linux-firmware, I would have thought they would be
-> SoC specific as opposed to device specific, but that's not what we
-> currently have, are we supposed to have devices that selectively work
-> based on what firmware they have?
+On Tue, Jun 04, 2024 at 02:51:04PM -0700, Abhinav Kumar wrote:
+> GCC diagnostic pragma method throws below warnings in some of the versions
+> 
+> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:16:9: warning: unknown option after '#pragma GCC diagnostic' kind [-Wpragmas]
+>  #pragma GCC diagnostic ignored "-Wunused-const-variable"
+>          ^
+> In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:18:0:
+> drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h:924:19: warning: 'gen7_0_0_external_core_regs__always_unused' defined but not used [-Wunused-variable]
+>  static const u32 *gen7_0_0_external_core_regs__always_unused[] = {
+>                    ^
 
-The firmware is signed with the manufacturer's key. End-user devices
-verify the signature while loading the firmware and decline firmware
-without vendor's signature.
+I don't see this symbol in upstream.
 
->
-> > >  MODULE_FIRMWARE("qcom/yamato_pfp.fw");
-> > >  MODULE_FIRMWARE("qcom/yamato_pm4.fw");
+> In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:19:0:
+> drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h:748:19: warning: 'gen7_2_0_external_core_regs' defined but not used [-Wunused-variable]
+>  static const u32 *gen7_2_0_external_core_regs[] = {
+>                    ^
+> In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:20:0:
+> drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h:1188:43: warning: 'gen7_9_0_sptp_clusters' defined but not used [-Wunused-variable]
+>  static struct gen7_sptp_cluster_registers gen7_9_0_sptp_clusters[] = {
+>                                            ^
+> drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h:1438:19: warning: 'gen7_9_0_external_core_regs' defined but not used [-Wunused-variable]
+>  static const u32 *gen7_9_0_external_core_regs[] = {
+> 
+> Remove GCC dependency by using __always_unused for the unused gen7_* includes.
+> 
+> Fixes: 64d6255650d4 ("drm/msm: More fully implement devcoredump for a7xx")
+> Suggested-by: Rob Clark <robdclark@chromium.org>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 13 ++++---------
+>  1 file changed, 4 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> index 0a7717a4fc2f..62ca0cf24005 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> @@ -8,19 +8,10 @@
+>  #include "a6xx_gpu_state.h"
+>  #include "a6xx_gmu.xml.h"
+>  
+> -/* Ignore diagnostics about register tables that we aren't using yet. We don't
+> - * want to modify these headers too much from their original source.
+> - */
+> -#pragma GCC diagnostic push
+> -#pragma GCC diagnostic ignored "-Wunused-variable"
+> -#pragma GCC diagnostic ignored "-Wunused-const-variable"
+> -
+>  #include "adreno_gen7_0_0_snapshot.h"
+>  #include "adreno_gen7_2_0_snapshot.h"
+>  #include "adreno_gen7_9_0_snapshot.h"
+>  
+> -#pragma GCC diagnostic pop
+> -
+>  struct a6xx_gpu_state_obj {
+>  	const void *handle;
+>  	u32 *data;
+> @@ -1350,6 +1341,10 @@ static void a7xx_get_registers(struct msm_gpu *gpu,
+>  	int index = 0;
+>  	const u32 *pre_crashdumper_regs;
+>  	const struct gen7_reg_list *reglist;
+> +	__always_unused const u32 **external_core_regs7_0_0 = gen7_0_0_external_core_regs;
+> +	__always_unused const u32 **external_core_regs_7_2_0 = gen7_2_0_external_core_regs;
+> +	__always_unused const u32 **external_core_regs_7_9_0 = gen7_9_0_external_core_regs;
+> +	__always_unused struct gen7_sptp_cluster_registers *sptp_gen7 = gen7_9_0_sptp_clusters;
 
+Wouldn't it be easier to add something like the following to the
+a6xx_gpu_state.c before including the headers:
 
+static const unsigned int *gen7_0_0_external_core_regs[] __attribute((__unused__));
+static const unsigned int *gen7_2_0_external_core_regs[] __attribute((__unused__));
+static const unsigned int *gen7_9_0_external_core_regs[] __attribute((__unused__));
+
+>  
+>  	if (adreno_is_a730(adreno_gpu)) {
+>  		reglist = gen7_0_0_reg_list;
+> -- 
+> 2.44.0
+> 
 
 -- 
 With best wishes
