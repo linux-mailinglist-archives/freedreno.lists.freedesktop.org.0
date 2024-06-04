@@ -2,106 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FD8294AD18
-	for <lists+freedreno@lfdr.de>; Wed,  7 Aug 2024 17:41:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF1BA94BDBD
+	for <lists+freedreno@lfdr.de>; Thu,  8 Aug 2024 14:42:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 052CF10E176;
-	Wed,  7 Aug 2024 15:41:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 359F010E712;
+	Thu,  8 Aug 2024 12:42:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=lausen.nl header.i=@lausen.nl header.b="PvQIOcNq";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="JtTDYOjT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFAB510E16C
- for <freedreno@lists.freedesktop.org>; Wed,  7 Aug 2024 15:41:23 +0000 (UTC)
-Received: (qmail 8920 invoked by uid 990); 7 Aug 2024 15:41:21 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unkown) (::1)
- by devico.uberspace.de (Haraka/3.0.1) with ESMTPSA;
- Wed, 07 Aug 2024 17:41:21 +0200
-Message-ID: <f0d1da69-d52a-484e-8255-b9639c358a71@lausen.nl>
-Date: Wed, 7 Aug 2024 11:41:18 -0400
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1BCD10E2A0;
+ Tue,  4 Jun 2024 21:40:21 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-421578c546eso917035e9.0; 
+ Tue, 04 Jun 2024 14:40:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1717537220; x=1718142020; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=rqq18CXoyGbGnQpbX01uKNmZ4w2EbKsUOPcap/enREU=;
+ b=JtTDYOjTFDpOnsW48R/e1dO6Vwfdbx3y/kWvTMpfQOvzHlu+Dm4jOKaBO6FAdGU+0u
+ 8Z4w05bKXq5iBWLu5asPW41I5GO6xhdt1xsW6xPpqES2cAy1wKl3TLUnLMCh+blzuz0e
+ BoNZLEOoBn0DV93A6JPPPgDcixjvvd4j26M5ymJoyXjlp3q250tOx73GE7qbgZuEXfdb
+ t5Lje6JP+mzd4Bs/t5FK8iCeNCcrzJ+ZWbSnvcO6qDdXiIeEqbM/7ttUniDFjGEKX8et
+ OthWvBOJxyNmOtARw6Qczv9cA5upHONaN/IqR92w2UmI7OrREaPNjzd+K+Y053TU4W19
+ bAPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1717537220; x=1718142020;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=rqq18CXoyGbGnQpbX01uKNmZ4w2EbKsUOPcap/enREU=;
+ b=O8hciGkJdxRhYnmsfQCU91kWFS3L8LFz6UtwpQrzqZcu3yY4uHxXOFMaEMcxarV6VH
+ P/+3FSZHZkRQvs3MIVqTYjqJINKwjFGaPaTe63/fyLrikH9VSDQmLW1qJ8Z5a/vzGG6C
+ xcrNUKLT0tRshEzcmvf8Vp0wwvnLaVtRUK3vyysXTpoy5jhGfdrewCU4hDAic/QMHx1G
+ w1CxdQOm3rfeXtBLg0JT1Ji/JRdZJJpR0GdgijybAdbTAUDL9qcCUKGQSx6UI0gvaKXi
+ 9ma8Z9Cec5w+njkQi0EN+fc8AqjjFhM4qngnk+f9YJum9RAK8JyPzzzXDFLkIjWSwP5Q
+ v//A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWu1MPHGL/XgHfmERpfQIDMRe2WPfXNpNkjLydfsfbgwoMChyWKAdjLJH9JU/pr2KsAO59I/J3cd0IxOMjYdRAt+knmWi7YkuaxPx6SXzCG8OruQjHCE3hio2QPhxkcfLHv0YHhzVRs/2mQtRHyi9OG
+X-Gm-Message-State: AOJu0YyyUkpMtG/+AIST1rkC1eWipcHtyojxCUQoqc1Sble6dV0As1C8
+ F7QR4wU4+UTTp7gecBmPV+vZD450yGfNpReVDq6P1YIZyf1LKhgH
+X-Google-Smtp-Source: AGHT+IHpCQ2HAPA1QqPFRWearVj1yS2MowqKgCHg9WOONS+xyrz1IWSdlUNZ7OspAvgXBXnkGD7Bgg==
+X-Received: by 2002:a5d:484a:0:b0:358:4af8:b76e with SMTP id
+ ffacd0b85a97d-35e8ef9437fmr441650f8f.62.1717537219648; 
+ Tue, 04 Jun 2024 14:40:19 -0700 (PDT)
+Received: from morpheus.home.roving-it.com
+ (8.c.1.0.0.0.0.0.0.0.0.0.0.0.0.0.1.8.6.2.1.1.b.f.0.b.8.0.1.0.0.2.ip6.arpa.
+ [2001:8b0:fb11:2681::1c8]) by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-35ed8b574e3sm270624f8f.79.2024.06.04.14.40.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Jun 2024 14:40:19 -0700 (PDT)
+From: Peter Robinson <pbrobinson@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: Peter Robinson <pbrobinson@gmail.com>
+Subject: [PATCH] drm/msm/adreno: Add some missing MODULE_FIRMWARE entries
+Date: Tue,  4 Jun 2024 22:40:05 +0100
+Message-ID: <20240604214018.238153-1-pbrobinson@gmail.com>
+X-Mailer: git-send-email 2.45.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/msm/dpu1: don't choke on disabling the
- writeback connector
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jeykumar Sankaran <jsanka@codeaurora.org>, stable@vger.kernel.org
-References: <20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org>
- <20240802-dpu-fix-wb-v2-1-7eac9eb8e895@linaro.org>
- <57cdac1a-1c4d-4299-8fde-92ae054fc6c0@lausen.nl>
- <61D52432-DD30-4C43-BD5E-1CC9F84DF5B9@linaro.org>
-Content-Language: en-US
-From: Leonard Lausen <leonard@lausen.nl>
-Autocrypt: addr=leonard@lausen.nl; keydata=
- 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 Sw==
-In-Reply-To: <61D52432-DD30-4C43-BD5E-1CC9F84DF5B9@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Bar: --
-X-Rspamd-Report: BAYES_HAM(-2.860288) XM_UA_NO_VERSION(0.01) MIME_GOOD(-0.1)
-X-Rspamd-Score: -2.950288
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lausen.nl; s=uberspace;
- h=from:to:cc:subject:date;
- bh=Dm1h2rVViWETRpyaAucj7ynN3gHM14g/8UZq8htTnjk=;
- b=PvQIOcNqVdWPNZufM7HSSmdNoDCElvZIrnkDtbf6OoLs6Sg3CN90hOU8uKJb3jDwTl+6ak6W0G
- OXFAciVX5Lp4vBSmkAy+ECZBmPPaXf4ZXC3zvBxvUnoCVRVbSsMAoMP9HWrHHoAFHdO4J/gXs64Z
- xBJCCPD+U5oXyiQ72WcnSraLEC4J1/vQMaEBP6MTYGoUObde4HPfSsrGZXJG3R3Q5TBkUTAwJ/mv
- 3Q02ycC6IF1PW3AR+gAAcoCaVddUaWctw7EG+AXsUcNAXRSeOhDpKzhi6HLzAxqvOdASMLem+KLb
- U+tOKH3cIsAbZPZX6a5QB8NNs6g03uIYtFvgikOUO825Ov35Vg0XJ8OwAaVos7LgqnbJe4lybJSh
- HQQT4Iy7x3SQXm3fCgO5foCrl4XXiJkyLiRZfny6zwqEWtCkZW2VOazMWOJ0boLskJV7cSK4DkGD
- y7zu6mNBAaCQE+XiQSLpBGXcKRIvi6YbpgBsGJBCScbRWx7GaRhSQ/8vyeGR9V56hmJOTF8kd3dO
- wk0c0+nxnT6qvPfuO7eUVUy+pWahBsyLpWAB6fLP7UoRjlhXEwkqyLM/n1MT8cU3cy843wptWb3B
- 0uL7LdAjK8SBEjzHFOXwqBFU9Ly8Lii9gY6KJhsncYcCb/Ih2nt8AXksHdxmG4BLehB1erYjYvu/
- g=
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 08 Aug 2024 12:42:47 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,19 +88,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8/7/24 06:44, Dmitry Baryshkov wrote:> Could you please clarify, I was under the impression that currently whole suspend/resume is broken, so it's more than a dmesg message.
+Add missing MODULE_FIRMWARE for firmware in linux-firmware,
+this is needed for automatically adding firmware to things
+like initrds when the drivers are built as modules. This is
+useful for devices like the X13s and the RBx devices on
+general distros.
 
-71174f362d67 specifically, or v6.9 more broadly regress in that we get "[dpu
-error]connector not connected 3" and "[drm:drm_mode_config_helper_resume]
-*ERROR* Failed to resume (-22)" if suspending and resuming the system while
-external display is connected over USB-C DP. Suspend and resume itself
-still works, and the external display also works after the resume, albeit
-perhaps with a small delay due to the dpu error. This is also mentioned in
-the issue description of https://gitlab.freedesktop.org/drm/msm/-/issues/57.
-So while suspend/resume isn't fully broken, the error is still unexpected and
-I thus bisected and identified 71174f362d67 as the first commit to trigger it.
-While your patch avoids the dpu/drm error, it triggers issue with the CRTC state,
-breaking the CRTC functionality after resume.
+Fixes: 5e7665b5e484b ("drm/msm/adreno: Add Adreno A690 support")
+Fixes: 18397519cb622 ("drm/msm/adreno: Add A702 support")
+Fixes: 3e7042ba87da ("drm/msm/adreno: Add ZAP firmware name to A635")
+Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
+---
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Might we be facing a race condition here, which is accidentally exposed by
-71174f362d67 but requires a separate fix?
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index c3703a51287b4..fede5159e7f5b 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -609,8 +609,11 @@ MODULE_FIRMWARE("qcom/a650_gmu.bin");
+ MODULE_FIRMWARE("qcom/a650_sqe.fw");
+ MODULE_FIRMWARE("qcom/a660_gmu.bin");
+ MODULE_FIRMWARE("qcom/a660_sqe.fw");
++MODULE_FIRMWARE("qcom/a660_zap.mbn");
++MODULE_FIRMWARE("qcom/a702_sqe.fw");
+ MODULE_FIRMWARE("qcom/leia_pfp_470.fw");
+ MODULE_FIRMWARE("qcom/leia_pm4_470.fw");
++MODULE_FIRMWARE("qcom/sc8280xp/LENOVO/21BX/qcdxkmsuc8280.mbn");
+ MODULE_FIRMWARE("qcom/yamato_pfp.fw");
+ MODULE_FIRMWARE("qcom/yamato_pm4.fw");
+ 
+-- 
+2.45.1
+
