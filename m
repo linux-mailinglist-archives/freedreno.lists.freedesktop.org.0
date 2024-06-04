@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E7328FB45A
+	by mail.lfdr.de (Postfix) with ESMTPS id 01D5B8FB459
 	for <lists+freedreno@lfdr.de>; Tue,  4 Jun 2024 15:51:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9113D10E497;
-	Tue,  4 Jun 2024 13:50:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE20210E496;
+	Tue,  4 Jun 2024 13:50:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="dp3PV+VU";
+	dkim=pass (2048-bit key; unprotected) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="t/NLTLw0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC65F10E495
- for <freedreno@lists.freedesktop.org>; Tue,  4 Jun 2024 13:50:54 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4213b94b8b5so21762135e9.0
- for <freedreno@lists.freedesktop.org>; Tue, 04 Jun 2024 06:50:54 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94DD210E495
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Jun 2024 13:50:55 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-42108856c33so32901655e9.1
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Jun 2024 06:50:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1717509053; x=1718113853;
+ d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1717509054; x=1718113854;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:content-language:references
  :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
  :cc:subject:date:message-id:reply-to;
- bh=1CmU0DTF3wr3QsPtiX/X8uKixsYvsbrBSlvb1F0M3SQ=;
- b=dp3PV+VUPftrvOLV/vlYQHY36SUBwUWYUWgrg5Pa5a9IMEuBhhcY1OiZolZgNSbub8
- NM7nZmrvhyAPCNb6gs0mRHeuLHYhC3vZ3+ONPgTsoW1RJs4XvNWipy0kn16Xnt8Jc5fC
- YN4oeOPxJdf/ysnEfkU2AnWqcvGKDPuNmrfIXF3r7nWh6xvDblTuF+hLcE0P5dnXRk0Q
- 2kdwroGUF9c8gUZwylq3Ek2oovrBOwMgF4AOZKWfC6eDKbSv3+eoUV7W2tXKCBFB7oEK
- PJv32uxI3s15jKfgIcQF/q3FNoRdNvVuF5TpecLJIhh2Utm7QeutWl2yMZEUwJXGkgsr
- Mxsg==
+ bh=96Dvl82Hjo8efzNzsjm1jSvKrMhIPC8VaRY2If0PCPw=;
+ b=t/NLTLw0WRe+jZf+WGPadsQZSGbVRAR4xGquniTthyLM9HcNIoip/poiwh68S0vuuf
+ WVdWpaCgz94J238Cquf+kA8c542CueqYaVEMNWWtRKZPK+CcXpByyzzO7qeLcUBKjmzq
+ r0u0tO9bRqidKE1pBlRy+vEenGo4VswW0Y45z4m7E2rzL6Em/XXjvOTLbCaJQc9NnvlA
+ IIOHU60NbfoC9pIDYUtYNbGWKVTTyd9r/4/7mpMMmb4WnWcKEbyQyCyLq+Hhr3vme0S3
+ QVQnwxLkOYRgvE/ZxT+ygUvWjAysFCfXJZ0ijd0WvgT4sIKIc41k6vmWXKjNt5fTPqBn
+ senA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717509053; x=1718113853;
+ d=1e100.net; s=20230601; t=1717509054; x=1718113854;
  h=content-transfer-encoding:in-reply-to:content-language:references
  :cc:to:from:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1CmU0DTF3wr3QsPtiX/X8uKixsYvsbrBSlvb1F0M3SQ=;
- b=Utt6bLNDlhDPpUhzazmCL5vdi1v8rw2URYhKvSzpfZ3pX2rcjQg94wk4wxTo/shIi0
- b547n6geboYKcYq8ZtpGw23Sb93eoZjAWElqBfbL6GJUhAMTfjAgEUrWFivfhEfTEZlo
- rKfpHIOovsDUO2b7Amh+mOWCOqkswTKGEMPn+YquXYb1aJUd8CHdWuEW7B+5dll3Zmpn
- tbzpTUky+tR802z+7u0dkOc9v8h0et/oZsOEKG5j4xz1hUifArDlbnLp+JENe+jHBHSm
- xL4zhYP7acpEMW9xv3Ovd3QT5QgUeX++3q6ZdXh+wyRhv26Vnf370uIrKXzAl3aBv1N5
- Uuew==
+ bh=96Dvl82Hjo8efzNzsjm1jSvKrMhIPC8VaRY2If0PCPw=;
+ b=BFdTpC+clDTZzaQogjsOfOMYzdhsOsjcFW7HthJbPYc7Jxt+/79hOYfygHtuWzw1ss
+ MX807dInYiigUVzZiG68vS/cGLVlVXbg03fY70Fdmpito78aXgx1t9qGA8QdFXAYdkZu
+ F5qBNoCvSstmy3vA3i7xrptq9z9yZ2xdCQnAStU7vi0k7EyzjVlP9t01Ru4+b8wQu84n
+ HeDM7ECJvjHg6/JoYj7XmoieNZry8yUaHg+wKm9gSeFGufvWJuW7vqGGEEJI5DjH/lYh
+ fWAoD2ca1a62fQYwxKKC7/s81QQVHFZGTxZpkaKJfxhDvgB50d18cUXOlu1Xtqd2UsEK
+ hliw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVWeSYJEDQ+j7a62VWYSZJZ6vGKIU5DIfJaSFCaLN5wF7OPjV12cy3gEDKeg8CT9KfrKGqHpek/RWVwA0Vz1isajW6ex4fI5QznWCTsPJgD
-X-Gm-Message-State: AOJu0YxejYTvL2bpFXMPjL4jDlly87gwWhkzk+4icvi46z2+22fIGYYm
- gwpkurHtE78XRS77QhEv40aDVi1axRFq6H6FhfWjp7p7zl7UjDF1ydf3Xp4Oq04=
-X-Google-Smtp-Source: AGHT+IEKzaDjXASfbYTGTMDqSF3S8HOCUTwRYdvhMGZS2at1GRzbC8wUQ7EhWXjf0frP4FQPZnZyBQ==
-X-Received: by 2002:a05:600c:524f:b0:421:494c:9e74 with SMTP id
- 5b1f17b1804b1-421494ca032mr20179575e9.23.1717509053151; 
+ AJvYcCVpN9trOqrcpI2anvkikM2CI1NiNymgjdooY87Q7nXcTz5MWW6YaiuxdWOQWBgqxMPY/9uDmgG3HDRkyeBCp0FcY3/Y58SrkZoTyRpnyI92
+X-Gm-Message-State: AOJu0YygOWsz5B3VUh37OXXTPItuf61sVQ/t2OtUnEb3Ql2Acs9AZmq4
+ FLtGzLIYnrpwgS4KloZZmjV9DcAp61RHl6mJGaWPNcBepoF2+aFEdcXctUo8yO8=
+X-Google-Smtp-Source: AGHT+IHiQS1qEab8CDh9QhUYvRIc9qMluklpij7Hsvm1tty61lkjVQR1crQTp7gzhBw6FTV42IpGwA==
+X-Received: by 2002:a05:600c:5487:b0:421:556f:5fb8 with SMTP id
+ 5b1f17b1804b1-421556f6215mr2242405e9.0.1717509053947; 
  Tue, 04 Jun 2024 06:50:53 -0700 (PDT)
 Received: from [192.168.108.81] (freebox.vlq16.iliad.fr. [213.36.7.13])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42133227f8asm139569755e9.19.2024.06.04.06.50.52
+ 5b1f17b1804b1-42133227f8asm139569755e9.19.2024.06.04.06.50.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Jun 2024 06:50:52 -0700 (PDT)
-Message-ID: <84a86082-f28d-4750-a4ab-1c534bc54b78@freebox.fr>
-Date: Tue, 4 Jun 2024 15:47:57 +0200
+ Tue, 04 Jun 2024 06:50:53 -0700 (PDT)
+Message-ID: <648b2798-9302-4c6e-9ef2-e4318066d28f@freebox.fr>
+Date: Tue, 4 Jun 2024 15:49:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 3/4] arm64: dts: qcom: msm8998: add HDMI GPIOs
+Subject: [PATCH v2 4/4] arm64: dts: qcom: add HDMI nodes for msm8998
 From: Marc Gonzalez <mgonzalez@freebox.fr>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
  <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
@@ -93,62 +93,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-MSM8998 GPIO pin controller reference design defines:
+From: Arnaud Vrac <avrac@freebox.fr>
 
-- CEC: pin 31
-- DDC: pin 32,33
-- HPD: pin 34
+Port device nodes from vendor code.
 
-Downstream vendor code for reference:
-
-https://git.codelinaro.org/clo/la/kernel/msm-4.4/-/blob/caf_migration/kernel.lnx.4.4.r38-rel/arch/arm/boot/dts/qcom/msm8998-pinctrl.dtsi#L2324-2400
-
-mdss_hdmi_{cec,ddc,hpd}_{active,suspend}
-
+Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
 Signed-off-by: Marc Gonzalez <mgonzalez@freebox.fr>
 ---
- arch/arm64/boot/dts/qcom/msm8998.dtsi | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ arch/arm64/boot/dts/qcom/msm8998.dtsi | 100 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 99 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/msm8998.dtsi b/arch/arm64/boot/dts/qcom/msm8998.dtsi
-index e5f051f5a92de..ba5e873f0f35f 100644
+index ba5e873f0f35f..f65a76da61ea8 100644
 --- a/arch/arm64/boot/dts/qcom/msm8998.dtsi
 +++ b/arch/arm64/boot/dts/qcom/msm8998.dtsi
-@@ -1434,6 +1434,34 @@ blsp2_spi6_default: blsp2-spi6-default-state {
- 				drive-strength = <6>;
- 				bias-disable;
+@@ -2785,7 +2785,7 @@ mmcc: clock-controller@c8c0000 {
+ 				 <&mdss_dsi0_phy 0>,
+ 				 <&mdss_dsi1_phy 1>,
+ 				 <&mdss_dsi1_phy 0>,
+-				 <0>,
++				 <&hdmi_phy 0>,
+ 				 <0>,
+ 				 <0>,
+ 				 <&gcc GCC_MMSS_GPLL0_DIV_CLK>;
+@@ -2890,6 +2890,14 @@ dpu_intf2_out: endpoint {
+ 							remote-endpoint = <&mdss_dsi1_in>;
+ 						};
+ 					};
++
++					port@2 {
++						reg = <2>;
++
++						dpu_intf3_out: endpoint {
++							remote-endpoint = <&hdmi_in>;
++						};
++					};
+ 				};
+ 			};
+ 
+@@ -3045,6 +3053,96 @@ mdss_dsi1_phy: phy@c996400 {
+ 
+ 				status = "disabled";
  			};
 +
-+			hdmi_cec_default: hdmi-cec-default-state {
-+				pins = "gpio31";
-+				function = "hdmi_cec";
-+				drive-strength = <2>;
-+				bias-pull-up;
++			hdmi: hdmi-tx@c9a0000 {
++				compatible = "qcom,hdmi-tx-8998";
++				reg =	<0x0c9a0000 0x50c>,
++					<0x00780000 0x6220>,
++					<0x0c9e0000 0x2c>;
++				reg-names = "core_physical",
++					    "qfprom_physical",
++					    "hdcp_physical";
++
++				interrupt-parent = <&mdss>;
++				interrupts = <8>;
++
++				clocks = <&mmcc MDSS_MDP_CLK>,
++					 <&mmcc MNOC_AHB_CLK>,
++					 <&mmcc MDSS_AHB_CLK>,
++					 <&mmcc MDSS_AXI_CLK>,
++					 <&mmcc MISC_AHB_CLK>,
++					 <&mmcc MDSS_HDMI_CLK>,
++					 <&mmcc MDSS_HDMI_DP_AHB_CLK>,
++					 <&mmcc MDSS_EXTPCLK_CLK>;
++				clock-names =
++					"mdp_core",
++					"mnoc",
++					"iface",
++					"bus",
++					"iface_mmss",
++					"core",
++					"alt_iface",
++					"extp";
++
++				phys = <&hdmi_phy>;
++				#sound-dai-cells = <1>;
++
++				pinctrl-names = "default", "sleep";
++				pinctrl-0 = <&hdmi_hpd_default
++					     &hdmi_ddc_default
++					     &hdmi_cec_default>;
++				pinctrl-1 = <&hdmi_hpd_sleep
++					     &hdmi_ddc_default
++					     &hdmi_cec_default>;
++
++				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						hdmi_in: endpoint {
++							remote-endpoint = <&dpu_intf3_out>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++						hdmi_out: endpoint {
++						};
++					};
++				};
 +			};
 +
-+			hdmi_ddc_default: hdmi-ddc-default-state {
-+				pins = "gpio32", "gpio33";
-+				function = "hdmi_ddc";
-+				drive-strength = <2>;
-+				bias-pull-up;
-+			};
++			hdmi_phy: hdmi-phy@c9a0600 {
++				compatible = "qcom,hdmi-phy-8998";
++				reg = <0x0c9a0600 0x18b>,
++				      <0x0c9a0a00 0x38>,
++				      <0x0c9a0c00 0x38>,
++				      <0x0c9a0e00 0x38>,
++				      <0x0c9a1000 0x38>,
++				      <0x0c9a1200 0x0e8>;
++				reg-names = "hdmi_pll",
++					    "hdmi_tx_l0",
++					    "hdmi_tx_l1",
++					    "hdmi_tx_l2",
++					    "hdmi_tx_l3",
++					    "hdmi_phy";
 +
-+			hdmi_hpd_default: hdmi-hpd-default-state {
-+				pins = "gpio34";
-+				function = "hdmi_hot";
-+				drive-strength = <16>;
-+				bias-pull-down;
-+			};
++				#clock-cells = <0>;
++				#phy-cells = <0>;
 +
-+			hdmi_hpd_sleep: hdmi-hpd-sleep-state {
-+				pins = "gpio34";
-+				function = "hdmi_hot";
-+				drive-strength = <2>;
-+				bias-pull-down;
++				clocks = <&mmcc MDSS_AHB_CLK>,
++					 <&gcc GCC_HDMI_CLKREF_CLK>,
++					 <&rpmcc RPM_SMD_XO_CLK_SRC>;
++				clock-names = "iface",
++					      "ref",
++					      "xo";
++
++				status = "disabled";
 +			};
  		};
  
- 		remoteproc_mss: remoteproc@4080000 {
+ 		venus: video-codec@cc00000 {
 -- 
 2.34.1
 
