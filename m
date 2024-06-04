@@ -2,76 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F20838FB95B
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jun 2024 18:45:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0490F8FB9C5
+	for <lists+freedreno@lfdr.de>; Tue,  4 Jun 2024 19:03:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4594410E564;
-	Tue,  4 Jun 2024 16:45:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AF0B10E577;
+	Tue,  4 Jun 2024 17:03:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NlKNpiFM";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RS9DHlVf";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E44E10E59D;
- Tue,  4 Jun 2024 16:45:30 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-2c24109aca8so1694521a91.1; 
- Tue, 04 Jun 2024 09:45:30 -0700 (PDT)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0248510E57E
+ for <freedreno@lists.freedesktop.org>; Tue,  4 Jun 2024 17:03:10 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id
+ 4fb4d7f45d1cf-57a50ac2ca1so3985012a12.0
+ for <freedreno@lists.freedesktop.org>; Tue, 04 Jun 2024 10:03:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717519530; x=1718124330; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QecifVAR+tvBUqTJQdxCWnDSVIat9xStXa2bm/K4Dng=;
- b=NlKNpiFMlW4sC822kI1YhXPc/fUhGBkp3OSrO+POxc0luJtUBqgCJLNhLmzRDpjmfR
- 51Xh4DqBYHoiKihh7lHLhinxHshJniyInqb7II+T/ES2zPfTlmfzOrHWkFhUI4fS3F2Z
- 6zYYtjZOg2qPU68GjDIBJxlgitHjHFEO0Dtt8ix6cUrvmBU38IfbNRgyIyHbz8JUj5jK
- Lh9umuWw/I+OkAqSOyvuyu0sTv1qhvJeX3uxS5ad5xUk7FQpneaV0BMRbtAzaUkk4V3j
- 8l9W9bWZMDrBFC/akWw90ZL70Jo14GwgYeXKb6qHfXZc2opqJ/gp2C23AJpOw6E+/nay
- tcQQ==
+ d=linaro.org; s=google; t=1717520589; x=1718125389; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=vT4NRPNeixA+G6MuIymamVECCUZ9IQFLGyEaqSpBSHg=;
+ b=RS9DHlVfZIdaCzCvxg3zxyZVkvNoLMJ1phPuyZCYc930lS4DGQ5RnRMMcHEuRxY8wc
+ 7RAlMjHPHV0skoMddH1nOjkVlnDeedYGub1Si4ltnJrTKE7NU9eqAKm8kasdH4JljpN7
+ wEP5L8qaLLESu+w9w9AZjIoFLFcxIhgysLBKlXwQPLmQD6JCsdpTJaIUqBTiNxZZAUT/
+ yz9dN/3GGuIcKA8JyrlZoXJl+Blxki989MR9pZ7mttuxLHqAUOwh4GIVtQVaVXNHRLLO
+ mtQqaqbs9Z4bojPuwqeWA2Hhpj+wuwMiH1gFOkJN/LPmRpH/iIBuq4FPqTx8SavUPXKl
+ tXNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717519530; x=1718124330;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=QecifVAR+tvBUqTJQdxCWnDSVIat9xStXa2bm/K4Dng=;
- b=miRJo2aNADy7NluXoZj5qGs4YaIlaxUh1kqb0K8PUxR2KcRASpkTEhu0QB7kmiF6LK
- pM018pg0aONptesDQjiq6SVnUyBuPkKaGmzn0vgTjiVCWQ20aQ8elv54Gc5YvSXOy4Q1
- WT9bMhxg6UhDh88UP/yd7iciPB7B7MbEb7B+2MJ3O3T9wu8ueMqsMn7di+g2mq48CVfe
- eYfEsGbMSU5LUPgHYJvm19xODxzdhT32Kw9BCMvU3+g8gJ1jszh1J9A8KqovY3Ued7Yd
- VEzEVrycTXnCJdHWOi2BFkMa10mowAExbmTgFCfTJc/VGsBqvReMDRHY1rJuW6mJGpRH
- /Sdg==
+ d=1e100.net; s=20230601; t=1717520589; x=1718125389;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=vT4NRPNeixA+G6MuIymamVECCUZ9IQFLGyEaqSpBSHg=;
+ b=uQecEfRq2jcAhRQyvMzn3iOpXercU9nkRQRVVczaWRy4FNcfFEYYyWVMDDe8c/TLf+
+ xwQd6M5/yyYWS1dl9vpiZofXPPOJGXNtobhTs+FO4mtjnZuPq8AiuvcJBMUf4G0yzJPb
+ I3IzFchJ97EL8buKmaKDnFV5HPhYnvn165+voTn8KT1RgrMNwYmcurlAUQR7/Mp1plZ/
+ kw35JcFzvrX72uz+CrCdiKXbRP8tV2px8AjEYmPHDjQZ/MOvghs9yZ1dpt1UK5r8e13Y
+ qM8NZyJjRBs+w6hmRVmDFYwbLQzKM+4/+A/4yMFXjBZT1vzusR2gozVfBYMpQ4hjgRWE
+ un1w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUjInV3ca4feL25uut/7gsx86QAkyGGr9FTbGBgDs9A+snWWAkQtseunvrFEdOEMKRtLwUiBUhnTdi/InRufSUxExq58CCDj5ZRr5hVmFJCo2Pp0+L9mhDK2nfTT3UNcAnmHN6ntrO/SLGXOXJEm2Gm
-X-Gm-Message-State: AOJu0YyNgpKESSOyqP9keVKuQ3U8sJ8CJ4YzSZMH+2dhoh4Fw36Y82yy
- t2RhfdRic75jxhpw8YzG2fIARPOM4wVDiA+YpyVepcr3m/F3Yv5MWUz08LX4SHSEr7I/Al8S1oo
- M6HiiREqyNP5ikxwUI8BNItW45IE=
-X-Google-Smtp-Source: AGHT+IFCTYi81ohxmB4GHF8R5ig10gXlGw/VXeg6Zyu7SRlO2MnRd3LHAj40rLREbkSJw9Vw999N2GkMUnudzwyOxwY=
-X-Received: by 2002:a17:90b:30c2:b0:2bf:9566:7c58 with SMTP id
- 98e67ed59e1d1-2c1dc5d2962mr11454075a91.41.1717519530143; Tue, 04 Jun 2024
- 09:45:30 -0700 (PDT)
+ AJvYcCWAwuy3oCtghatNac1ZxXa7Ez+QHKjOHDQ6df3khsrvKPhcW9axQDqhcA8uE10D83y5hGVKtUd8hdb96UjKHWEviWOYxbCerY9SP8YZHz1o
+X-Gm-Message-State: AOJu0YzUHGLUfiEjF4UI9Ca5p1N1R8uTGO6AZ0ofDD934VCLaQ8hprjE
+ L05++jzYs/vfruPtdCKNv4Wyqm8MmM1157nFvT0ScQUeQ+Y6S+FLktdU+1tnkMo=
+X-Google-Smtp-Source: AGHT+IEgWg2pjUKwHDa6bycaIJ0McqADKPUWZ9CMQ7XIFyoVyQxXnFBcVvb3dOZX9DbeyDkuE6usRA==
+X-Received: by 2002:a50:8e07:0:b0:579:c393:82ad with SMTP id
+ 4fb4d7f45d1cf-57a8bca2eabmr121356a12.30.1717520588716; 
+ Tue, 04 Jun 2024 10:03:08 -0700 (PDT)
+Received: from ?IPV6:2a00:f41:909a:a11e:b2c0:1360:9a97:b2b8?
+ ([2a00:f41:909a:a11e:b2c0:1360:9a97:b2b8])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57a31be7c04sm7774939a12.58.2024.06.04.10.03.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 04 Jun 2024 10:03:08 -0700 (PDT)
+Message-ID: <4a8a9984-efd4-4aaa-ba48-5ff6b641349c@linaro.org>
+Date: Tue, 4 Jun 2024 19:03:04 +0200
 MIME-Version: 1.0
-References: <20240604-a505-v1-1-82ee1c04d200@gmail.com>
- <49fe3b01-4f00-4ffc-80cf-2a0add1ebaad@linaro.org>
- <CAGsSOWV=i2JHsYNvi5EC6q=NoD8v7SiTjbVQhTDLNw35+irTCQ@mail.gmail.com>
-In-Reply-To: <CAGsSOWV=i2JHsYNvi5EC6q=NoD8v7SiTjbVQhTDLNw35+irTCQ@mail.gmail.com>
-From: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>
-Date: Tue, 4 Jun 2024 18:45:19 +0200
-Message-ID: <CAGsSOWV9SRK1VUJiQfavEM1hL0PapxUBG6CNeD+Q=0qPT5ZnSA@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/adreno: Add support for Adreno 505 GPU
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/a6xx: Print SQE fw version
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Daniil Titov <daniilt971@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20240604154846.500357-1-robdclark@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20240604154846.500357-1-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,45 +91,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jun 4, 2024 at 2:27=E2=80=AFPM Barnab=C3=A1s Cz=C3=A9m=C3=A1n <trab=
-arni@gmail.com> wrote:
->
-> On Tue, Jun 4, 2024 at 1:55=E2=80=AFPM Konrad Dybcio <konrad.dybcio@linar=
-o.org> wrote:
-> >
-> >
-> >
-> > On 6/4/24 02:20, Barnab=C3=A1s Cz=C3=A9m=C3=A1n wrote:
-> > > From: Daniil Titov <daniilt971@gmail.com>
-> > >
-> > > This GPU is found on SoCs such as MSM8937 (450 MHz), MSM8940 (475 MHz=
-),
-> > > SDM439 (650 MHz).
-> > >
-> > > Signed-off-by: Daniil Titov <daniilt971@gmail.com>
-> > > Signed-off-by: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <trabarni@gmail.com>
-> > > ---
-> >
-> > This all looks very good, just a nit
-> >
-> > [...]
-> >
-> > > +             /*
-> > > +              * Increase inactive period to 250 to avoid bouncing
-> > > +              * the GDSC which appears to make it grumpy
-> > > +              */
-> > > +             .inactive_period =3D 250,
-> >
-> > Are you sure this is actually necessary?
-> Every A5XX GPU is using the same value, but i have never tried with
-> DRM_MSM_INACTIVE_PERIOD.
-This was the original patch
-https://lore.kernel.org/all/20180507224750.9383-1-jcrouse@codeaurora.org/
-where the inactive period was increased for a530. I cannot test
-suspend on msm8937 yet.
-I can check on msm8953 with a506 maybe if a506 works fine with
-DRM_MSM_INACTIVE_PERIOD
-then a505 would be fine with it also.
->
-> >
-> > Konrad
+
+
+On 6/4/24 17:48, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Add the SQE fw version to dmesg and devcoredump.
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c       | 32 +++++++++++++++++++--
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h       |  1 +
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  2 ++
+>   3 files changed, 33 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 56bfb228808d..5a2a005003c8 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -665,6 +665,32 @@ static int a7xx_cp_init(struct msm_gpu *gpu)
+>   	return a6xx_idle(gpu, ring) ? 0 : -EINVAL;
+>   }
+>   
+> +static uint32_t get_ucode_version(const uint32_t *data)
+> +{
+> +	uint32_t version;
+> +
+> +	/* NOTE: compared to kgsl, we've already stripped off the first dword: */
+> +	version = data[0];
+> +
+> +	if ((version & 0xf) != 0xa)
+> +		return version;
+> +
+> +	version &= ~0xfff;
+> +	return  version | ((data[2] & 0xfff000) >> 12);
+
+double space
+
+Some GENMASKy defines w/ FIELD_GET would be nice here..
+
+[...]
+
+>   
+> +	DRM_DEV_INFO(&gpu->pdev->dev, "Have SQE version %03x\n", get_ucode_version(buf));
+
+
+"SQE FW version: [...]" instead?
+
+> +
+>   	/* A7xx is safe! */
+>   	if (adreno_is_a7xx(adreno_gpu) || adreno_is_a702(adreno_gpu))
+>   		return true;
+> @@ -714,7 +742,7 @@ static bool a6xx_ucode_check_version(struct a6xx_gpu *a6xx_gpu,
+>   		}
+>   
+>   		DRM_DEV_ERROR(&gpu->pdev->dev,
+> -			"a630 SQE ucode is too old. Have version %x need at least %x\n",
+> +			"a630 SQE ucode is too old. Have version %03x need at least %03x\n",
+>   			buf[0] & 0xfff, 0x190);
+
+This func should probably get updated to use the new getter too,
+getting rid of magic masks for e.g.
+
+if (FIELD_GET(SQE_FW_MINMAJ, ver) > 0x190)
+	foobarbaz
+
+Konrad
