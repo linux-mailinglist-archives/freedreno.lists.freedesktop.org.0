@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A2818FD720
-	for <lists+freedreno@lfdr.de>; Wed,  5 Jun 2024 22:10:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 251C28FD733
+	for <lists+freedreno@lfdr.de>; Wed,  5 Jun 2024 22:10:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD9F610E402;
-	Wed,  5 Jun 2024 20:10:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C05D210E819;
+	Wed,  5 Jun 2024 20:10:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DXZ609p7";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="aEgx1PaE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6578810E402
- for <freedreno@lists.freedesktop.org>; Wed,  5 Jun 2024 20:10:26 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-57a50ac2ca1so254543a12.0
- for <freedreno@lists.freedesktop.org>; Wed, 05 Jun 2024 13:10:26 -0700 (PDT)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3B8310E804
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Jun 2024 20:10:27 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2e72b8931caso2205401fa.0
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Jun 2024 13:10:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1717618224; x=1718223024; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1717618226; x=1718223026; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=9Vw9DX3CSwtkdBUffdnArBNjtVj7mHBTphGyv2QQ9qI=;
- b=DXZ609p7vFLMnMOZGitlQVagy9fmYRCpExrR6hXKif7Mil1FodwwFRoaG7ojGEV2mU
- LwAzYlrKLMXq1XLtioPEH7vRZ2dz/X2s/PotJ/LaOEmP+tBoBR8FflmMXJCgx+ZzwSga
- 0YQnmjbDMXYeIxDDpzxQv+upePG3D6OJeQonv9kB7r6zBypzQQG/xx+8xMP/+m9svi6u
- 8ZRRah1nalupaiFGSQ4XLENVxK8HodKO2hpwnPuwBqiu/oHclhEqEieduz9C9Ab/irqZ
- 5CgtCLEXZwJHxxRi2tPp2bMzuWKq/zHAgVBFo3/hCHmS4oOayiYtZrTi/BCygCr+zr1B
- nwcw==
+ :reply-to; bh=jMT/dov4rCwVnOSBADCi4X7D61kduzPQ+R9fcxd3Uto=;
+ b=aEgx1PaEz+96TwMsXiRwutVM8bPU/eef+odVKNg2gBfxAh8uvXQ6VmFKOX0auDGM0r
+ UDc+6fx4RdFnIDudFjDUed51LpYNNEmK4KcqyPv6vkr7hbiJ1z/WpKEuAP3BxKZLbxaI
+ Fm5sMDfjlKrWhBA10sLx3UNQ2yCYEGGhGYz/DemAwflj8CPY0CGjv5xIYJl8gHr26bcj
+ YuFjGSRJzbiMF/Yea/USD3RFW/cQ7HxyjVcS7wI+Bnag8P6sdw9WothqMVc23nW5u2aZ
+ hcNvV1vpXEq9GnAdoN5aYmDEnq0eYNLp1j9YvNRLoBpO/VjCUlCwVWQtx67x10Qdpv6C
+ dR2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717618224; x=1718223024;
+ d=1e100.net; s=20230601; t=1717618226; x=1718223026;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9Vw9DX3CSwtkdBUffdnArBNjtVj7mHBTphGyv2QQ9qI=;
- b=aVtGtk+JkuJeWQiv3MJttC48olWvmmZ/CEEHTVRA/i+/jdRm0gaUXz7tdsnOdziF7W
- UXOd4NZkUWZiVEtaTJb0WdeqfWiHDW05iV0Bpvdg3fO1KBD81U0jVAQXiQ9ZdATJ24kU
- MOOAMhvC5iqyab+yrtgmCj8Lh0XNDdRCbrcnbdIMPQP2tIUq0PcC0hE57S7G5OxugLFa
- xVf3jtCKpERvgQ/IJLFjoTpMzPa553g67nFgPtAipGO7qcXXDxxhufezSor1Ugs1b6pu
- pb4fpB/2Mi7apAmP9+jEdUp4VZCp1RKgRFPkbNJDH83VvSASTc0cRoCE42WVC6HTps5k
- iKQQ==
+ bh=jMT/dov4rCwVnOSBADCi4X7D61kduzPQ+R9fcxd3Uto=;
+ b=qbNwnMtFvPkM8sE3R3hQz7D8BkUbjF5ixJbIGhhGaVrX/0vGfKfcfRiAmzroF4ew9T
+ HB6e+XWK/1paGDGN3mOlSpOhWZtmXii5Qmzu9zi5UCzrAOEJejYMhXHp15br9jYmfBYZ
+ h1iQ+rhP20vdghQt9N3cdyO3rrlLuFzqZaw58ewhYrrRQ/NSb2uEz1FmyIwewGc1ihhF
+ Kq6oGMr87f3EnsBHXaMYeqL12Q9Xn0ixHRBdBS2JuHvV75chyKZSRiYggc/gYwbuH0Qm
+ WFD/VWUquigI+e3gHpd0rDJt0EDRBnSnXflyfndx4kRgxAoCLhPaRpUaKFsFzfBs+D8g
+ Ghmw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVbveSvz3JPWTcjq0jPgHepJKnasRS3eIaZKt+4uYv2PBwUQlkv3DLvU+iaZT2zTvaa6AFmjuUs+CVDUUZVgIWODFfvqcB8YxrDF6WOVCg2
-X-Gm-Message-State: AOJu0Yzp/qehOI8bvCdMx9/Ungxv0aq9TBRpnGGwKunFW1MZCvN/yOTY
- 100FeE4dPm6zGKOq117wwt9sIx3rMkeFCP+Dndfg96P+TeCsnAYQ5lhATTQcJlQ=
-X-Google-Smtp-Source: AGHT+IEqlV2I5Db8a+ZFkhPsAYnoI1F1oliPNdAwUP8AaIYo4Qee83CiizfDot/q8uaYVI2GD+cyRg==
-X-Received: by 2002:a50:d497:0:b0:578:6198:d6ff with SMTP id
- 4fb4d7f45d1cf-57a8bca263cmr2379893a12.33.1717618224135; 
- Wed, 05 Jun 2024 13:10:24 -0700 (PDT)
+ AJvYcCV0zYSgLG8f1htKpIvGuFQZ+p0/iwz8tmhdrUvtCQ2qxOF2COFUqA7YUi7QSxAGuc9sB8Kd5VZQyt7cUlhk1/+z1CEQz1OzxNtTUX/qGtSI
+X-Gm-Message-State: AOJu0Yx96V/XDxB/gCvSrvtZ0U3zFMJ013k9PFV2PXt+/OZ0pJJoZgAR
+ ZvzJ8IF1qnttGhKd0lKtvAnAobHiGQH1+G+Blp6SBCrMoDFbzCSnmHKIDz9YZw4=
+X-Google-Smtp-Source: AGHT+IEuGR6zo172budNUpiwYhBQNuR5eJEdRRfWLY7Lr+ygWqIyqGnJ89qQjCt+KNbyocrh3WLYOQ==
+X-Received: by 2002:a2e:9305:0:b0:2e9:8497:46ce with SMTP id
+ 38308e7fff4ca-2eac7a71477mr20869651fa.46.1717618225806; 
+ Wed, 05 Jun 2024 13:10:25 -0700 (PDT)
 Received: from [127.0.1.1] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57a31be4e36sm9717473a12.53.2024.06.05.13.10.22
+ 4fb4d7f45d1cf-57a31be4e36sm9717473a12.53.2024.06.05.13.10.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Jun 2024 13:10:23 -0700 (PDT)
+ Wed, 05 Jun 2024 13:10:25 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Wed, 05 Jun 2024 22:10:14 +0200
-Subject: [PATCH v2 1/7] soc: qcom: Move some socinfo defines to the header
+Date: Wed, 05 Jun 2024 22:10:15 +0200
+Subject: [PATCH v2 2/7] soc: qcom: smem: Add a feature code getter
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240605-topic-smem_speedbin-v2-1-8989d7e3d176@linaro.org>
+Message-Id: <20240605-topic-smem_speedbin-v2-2-8989d7e3d176@linaro.org>
 References: <20240605-topic-smem_speedbin-v2-0-8989d7e3d176@linaro.org>
 In-Reply-To: <20240605-topic-smem_speedbin-v2-0-8989d7e3d176@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>, 
@@ -91,55 +91,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In preparation for parsing the chip "feature code" (FC) and "product
-code" (PC) (essentially the parameters that let us conclusively
-characterize the sillicon we're running on, including various speed
-bins), move the socinfo version defines to the public header.
+Recent (SM8550+ ish) Qualcomm SoCs have a new mechanism for precisely
+identifying the specific SKU and the precise speed bin (in the general
+meaning of this word, anyway): a pair of values called Product Code
+and Feature Code.
 
+Based on this information, we can deduce the available frequencies for
+things such as Adreno. In the case of Adreno specifically, Pcode is
+useless for non-prototype SoCs.
+
+Introduce a getter for the feature code and export it.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/soc/qcom/socinfo.c       | 8 --------
- include/linux/soc/qcom/socinfo.h | 8 ++++++++
- 2 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/soc/qcom/smem.c          | 33 +++++++++++++++++++++++++++++++++
+ include/linux/soc/qcom/smem.h    |  1 +
+ include/linux/soc/qcom/socinfo.h | 26 ++++++++++++++++++++++++++
+ 3 files changed, 60 insertions(+)
 
-diff --git a/drivers/soc/qcom/socinfo.c b/drivers/soc/qcom/socinfo.c
-index 8087941a7887..beb23e292323 100644
---- a/drivers/soc/qcom/socinfo.c
-+++ b/drivers/soc/qcom/socinfo.c
-@@ -21,14 +21,6 @@
+diff --git a/drivers/soc/qcom/smem.c b/drivers/soc/qcom/smem.c
+index 50039e983eba..e4411771f482 100644
+--- a/drivers/soc/qcom/smem.c
++++ b/drivers/soc/qcom/smem.c
+@@ -821,6 +821,39 @@ int qcom_smem_get_soc_id(u32 *id)
+ }
+ EXPORT_SYMBOL_GPL(qcom_smem_get_soc_id);
  
- #include <dt-bindings/arm/qcom,ids.h>
++/**
++ * qcom_smem_get_feature_code() - return the feature code
++ * @code: On success, return the feature code here.
++ *
++ * Look up the feature code identifier from SMEM and return it.
++ *
++ * Return: 0 on success, negative errno on failure.
++ */
++int qcom_smem_get_feature_code(u32 *code)
++{
++	struct socinfo *info;
++	u32 raw_code;
++
++	info = qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_HW_SW_BUILD_ID, NULL);
++	if (IS_ERR(info))
++		return PTR_ERR(info);
++
++	/* This only makes sense for socinfo >= 16 */
++	if (__le32_to_cpu(info->fmt) < SOCINFO_VERSION(0, 16))
++		return -EOPNOTSUPP;
++
++	raw_code = __le32_to_cpu(info->feature_code);
++
++	/* Ensure the value makes sense */
++	if (raw_code > SOCINFO_FC_INT_MAX)
++		raw_code = SOCINFO_FC_UNKNOWN;
++
++	*code = raw_code;
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(qcom_smem_get_feature_code);
++
+ static int qcom_smem_get_sbl_version(struct qcom_smem *smem)
+ {
+ 	struct smem_header *header;
+diff --git a/include/linux/soc/qcom/smem.h b/include/linux/soc/qcom/smem.h
+index 03187bc95851..f946e3beca21 100644
+--- a/include/linux/soc/qcom/smem.h
++++ b/include/linux/soc/qcom/smem.h
+@@ -13,6 +13,7 @@ int qcom_smem_get_free_space(unsigned host);
+ phys_addr_t qcom_smem_virt_to_phys(void *p);
  
--/*
-- * SoC version type with major number in the upper 16 bits and minor
-- * number in the lower 16 bits.
-- */
--#define SOCINFO_MAJOR(ver) (((ver) >> 16) & 0xffff)
--#define SOCINFO_MINOR(ver) ((ver) & 0xffff)
--#define SOCINFO_VERSION(maj, min)  ((((maj) & 0xffff) << 16)|((min) & 0xffff))
--
- /* Helper macros to create soc_id table */
- #define qcom_board_id(id) QCOM_ID_ ## id, __stringify(id)
- #define qcom_board_id_named(id, name) QCOM_ID_ ## id, (name)
+ int qcom_smem_get_soc_id(u32 *id);
++int qcom_smem_get_feature_code(u32 *code);
+ 
+ int qcom_smem_bust_hwspin_lock_by_host(unsigned int host);
+ 
 diff --git a/include/linux/soc/qcom/socinfo.h b/include/linux/soc/qcom/socinfo.h
-index e78777bb0f4a..10e0a4c287f4 100644
+index 10e0a4c287f4..608950443eee 100644
 --- a/include/linux/soc/qcom/socinfo.h
 +++ b/include/linux/soc/qcom/socinfo.h
-@@ -12,6 +12,14 @@
- #define SMEM_SOCINFO_BUILD_ID_LENGTH	32
- #define SMEM_SOCINFO_CHIP_ID_LENGTH	32
+@@ -3,6 +3,8 @@
+ #ifndef __QCOM_SOCINFO_H__
+ #define __QCOM_SOCINFO_H__
  
-+/*
-+ * SoC version type with major number in the upper 16 bits and minor
-+ * number in the lower 16 bits.
-+ */
-+#define SOCINFO_MAJOR(ver) (((ver) >> 16) & 0xffff)
-+#define SOCINFO_MINOR(ver) ((ver) & 0xffff)
-+#define SOCINFO_VERSION(maj, min)  ((((maj) & 0xffff) << 16)|((min) & 0xffff))
++#include <linux/types.h>
 +
- /* Socinfo SMEM item structure */
- struct socinfo {
- 	__le32 fmt;
+ /*
+  * SMEM item id, used to acquire handles to respective
+  * SMEM region.
+@@ -82,4 +84,28 @@ struct socinfo {
+ 	__le32 boot_core;
+ };
+ 
++/* Internal feature codes */
++enum qcom_socinfo_feature_code {
++	/* External feature codes */
++	SOCINFO_FC_UNKNOWN = 0x0,
++	SOCINFO_FC_AA,
++	SOCINFO_FC_AB,
++	SOCINFO_FC_AC,
++	SOCINFO_FC_AD,
++	SOCINFO_FC_AE,
++	SOCINFO_FC_AF,
++	SOCINFO_FC_AG,
++	SOCINFO_FC_AH,
++};
++
++/* Internal feature codes */
++/* Valid values: 0 <= n <= 0xf */
++#define SOCINFO_FC_Yn(n)		(0xf1 + (n))
++#define SOCINFO_FC_INT_MAX		SOCINFO_FC_Yn(0xf)
++
++/* Product codes */
++#define SOCINFO_PC_UNKNOWN		0
++#define SOCINFO_PCn(n)			((n) + 1)
++#define SOCINFO_PC_RESERVE		(BIT(31) - 1)
++
+ #endif
 
 -- 
 2.43.0
