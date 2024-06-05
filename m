@@ -2,81 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2844A8FC0E0
-	for <lists+freedreno@lfdr.de>; Wed,  5 Jun 2024 02:38:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A3A68FC2A1
+	for <lists+freedreno@lfdr.de>; Wed,  5 Jun 2024 06:24:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABCFF10E65B;
-	Wed,  5 Jun 2024 00:38:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C345F10E48F;
+	Wed,  5 Jun 2024 04:24:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="XpGACfJL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Rq07NFMM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 342AB10E65B;
- Wed,  5 Jun 2024 00:38:51 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 454Gr94l009519;
- Wed, 5 Jun 2024 00:38:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=7J5zgdpsPhcHsRBPwiKeIr
- Iwy90pClK1sMRAZtF5i8c=; b=XpGACfJL8dw1gfqpUc15HcKPRlQc82mJMafLuG
- N7lZimNGV9hy62cVcem4Y9i8+yYr5ATPMCBRBm7IQT57AGRLYwtqzrDkvh+C8TR5
- lguyMCnCyhgTO5OgH7Nxj6o4qHZkghdZWv+uBWrpHSEQ4rR9cFpToR7PXwkeyHdE
- AoPIlaj5i9eE+DOdZnojVPV6PqUx6FtzXUu+UqVdGimKKXlGdCy43+z6F8PIrl13
- dmLCiWOEDAT5TuSSPdZgKC5lMEVLSkHa2xseX81vOhFNVUOt8xE3+H17gkDK37Z9
- dtgFIHlK80em3NQ02nfyLao5rs2yN8VIDm7JoUe6A3cgjO+g==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yj6u78vk2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 05 Jun 2024 00:38:41 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 4550cd5v029253
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 5 Jun 2024 00:38:39 GMT
-Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 4 Jun 2024 17:38:39 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>, "Sean
- Paul" <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>, "Abhinav
- Kumar" <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>, Connor Abbott <cwabbott0@gmail.com>
-CC: <dri-devel@lists.freedesktop.org>, <seanpaul@chromium.org>,
- <quic_jesszhan@quicinc.com>, Rob Clark <robdclark@chromium.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3] drm/msm/a6xx: use __unused__ to fix compiler warnings for
- gen7_* includes
-Date: Tue, 4 Jun 2024 17:38:28 -0700
-Message-ID: <20240605003829.4120343-1-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.44.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4FE010E48F;
+ Wed,  5 Jun 2024 04:23:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1717561427; x=1749097427;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=oe2xk2L9DBQy7GU2pkfgXSHX+LZ0yoNjbg7ml65IEag=;
+ b=Rq07NFMMDQsYu3sLGK7tJkw+Dd5mOD1sxraizEFfH6d2MnhPvlXtJiSW
+ +pGh2lCxdl00ishwEryn6t4TFbcuKu74oM1eR3KTq3MdI1HL3U8NlrdMJ
+ +w4l6R2UgUFpKme0delrh9zwROVSsWbYIpQH4nIHPza3P01UtuESwdn/P
+ SGYvXV3UrpQQtEfVj8BpPQk/OJpABOlNRsaELsVbHs1P1G3BF0hoS00/e
+ qNCqPix4s0Ia1tbbj4YjOv090ZHY7U3i9fZOe9RpecdgAj+BaOEv+bOtV
+ BjXlT0z5gWyRhgW+iOaFB0Gi2SXxVzQX4/NwKPjnh2U5vVu63ZZfn9CJv g==;
+X-CSE-ConnectionGUID: IFBVRIoPQ5ix+qtfU/SoMw==
+X-CSE-MsgGUID: H3ick1ifS9qr4pqe6zifIw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11093"; a="14329243"
+X-IronPort-AV: E=Sophos;i="6.08,215,1712646000"; d="scan'208";a="14329243"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2024 21:23:35 -0700
+X-CSE-ConnectionGUID: Tkj46dYcT9ml409QlF4Tag==
+X-CSE-MsgGUID: JimUKZdwTouS37wlROTS/w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,215,1712646000"; d="scan'208";a="37515024"
+Received: from unknown (HELO 0610945e7d16) ([10.239.97.151])
+ by orviesa009.jf.intel.com with ESMTP; 04 Jun 2024 21:23:32 -0700
+Received: from kbuild by 0610945e7d16 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1sEiBM-0000ud-2h;
+ Wed, 05 Jun 2024 04:23:28 +0000
+Date: Wed, 5 Jun 2024 12:22:41 +0800
+From: kernel test robot <lkp@intel.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Connor Abbott <cwabbott0@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ seanpaul@chromium.org, quic_jesszhan@quicinc.com,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/a6xx: use __always_unused to fix compiler
+ warnings for gen7_* includes
+Message-ID: <202406051226.b050NPQf-lkp@intel.com>
+References: <20240604215105.4057278-1-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: P4jDMhdz7djqjMN0AG4NOkxt5dpiqjL2
-X-Proofpoint-GUID: P4jDMhdz7djqjMN0AG4NOkxt5dpiqjL2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-04_11,2024-06-04_02,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 suspectscore=0
- mlxlogscore=999 spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
- clxscore=1015 malwarescore=0 adultscore=0 phishscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405170001
- definitions=main-2406050002
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240604215105.4057278-1-quic_abhinavk@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,75 +78,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-GCC diagnostic pragma method throws below warnings in some of the versions
+Hi Abhinav,
 
-drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:16:9: warning: unknown
-option after '#pragma GCC diagnostic' kind [-Wpragmas]
-  #pragma GCC diagnostic ignored "-Wunused-const-variable"
-          ^
-In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:18:0:
-drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h:924:19: warning:
-'gen7_0_0_external_core_regs' defined but not used [-Wunused-variable]
-  static const u32 *gen7_0_0_external_core_regs[] = {
-                    ^
-In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:19:0:
-drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h:748:19: warning:
-'gen7_2_0_external_core_regs' defined but not used [-Wunused-variable]
-  static const u32 *gen7_2_0_external_core_regs[] = {
-                    ^
-In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:20:0:
-drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h:1188:43: warning:
-'gen7_9_0_sptp_clusters' defined but not used [-Wunused-variable]
-  static struct gen7_sptp_cluster_registers gen7_9_0_sptp_clusters[] = {
-                                            ^
-drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h:1438:19: warning:
-'gen7_9_0_external_core_regs' defined but not used [-Wunused-variable]
-  static const u32 *gen7_9_0_external_core_regs[] = {
+kernel test robot noticed the following build errors:
 
-Remove GCC version dependency by using __unused__ for the unused gen7_* includes.
+[auto build test ERROR on drm-intel/for-linux-next-fixes]
+[also build test ERROR on drm-tip/drm-tip linus/master v6.10-rc2 next-20240604]
+[cannot apply to drm-intel/for-linux-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Changes in v2:
-	- Fix the warnings in the commit text
-	- Use __attribute((__unused__)) instead of local assignment
+url:    https://github.com/intel-lab-lkp/linux/commits/Abhinav-Kumar/drm-msm-a6xx-use-__always_unused-to-fix-compiler-warnings-for-gen7_-includes/20240605-055341
+base:   git://anongit.freedesktop.org/drm-intel for-linux-next-fixes
+patch link:    https://lore.kernel.org/r/20240604215105.4057278-1-quic_abhinavk%40quicinc.com
+patch subject: [PATCH] drm/msm/a6xx: use __always_unused to fix compiler warnings for gen7_* includes
+config: um-allyesconfig (https://download.01.org/0day-ci/archive/20240605/202406051226.b050NPQf-lkp@intel.com/config)
+compiler: gcc-13 (Ubuntu 13.2.0-4ubuntu3) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240605/202406051226.b050NPQf-lkp@intel.com/reproduce)
 
-changes in v3:
-	- drop the Link from the auto add
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202406051226.b050NPQf-lkp@intel.com/
 
-Fixes: 64d6255650d4 ("drm/msm: More fully implement devcoredump for a7xx")
-Suggested-by: Rob Clark <robdclark@chromium.org>
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+All errors (new ones prefixed by >>):
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index 0a7717a4fc2f..a958e2b3c025 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -8,19 +8,15 @@
- #include "a6xx_gpu_state.h"
- #include "a6xx_gmu.xml.h"
- 
--/* Ignore diagnostics about register tables that we aren't using yet. We don't
-- * want to modify these headers too much from their original source.
-- */
--#pragma GCC diagnostic push
--#pragma GCC diagnostic ignored "-Wunused-variable"
--#pragma GCC diagnostic ignored "-Wunused-const-variable"
-+static const unsigned int *gen7_0_0_external_core_regs[] __attribute((__unused__));
-+static const unsigned int *gen7_2_0_external_core_regs[] __attribute((__unused__));
-+static const unsigned int *gen7_9_0_external_core_regs[] __attribute((__unused__));
-+static struct gen7_sptp_cluster_registers gen7_9_0_sptp_clusters[] __attribute((__unused__));
- 
- #include "adreno_gen7_0_0_snapshot.h"
- #include "adreno_gen7_2_0_snapshot.h"
- #include "adreno_gen7_9_0_snapshot.h"
- 
--#pragma GCC diagnostic pop
--
- struct a6xx_gpu_state_obj {
- 	const void *handle;
- 	u32 *data;
+   In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:13:
+>> drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h:114:18: error: 'gen7_9_0_cx_debugbus_blocks' defined but not used [-Werror=unused-const-variable=]
+     114 | static const u32 gen7_9_0_cx_debugbus_blocks[] = {
+         |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+   cc1: all warnings being treated as errors
+
+
+vim +/gen7_9_0_cx_debugbus_blocks +114 drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h
+
+6408a1b5a7d7a9 Connor Abbott 2024-05-03  113  
+6408a1b5a7d7a9 Connor Abbott 2024-05-03 @114  static const u32 gen7_9_0_cx_debugbus_blocks[] = {
+106414f8b60346 Connor Abbott 2024-05-03  115  	A7XX_DBGBUS_CX,
+106414f8b60346 Connor Abbott 2024-05-03  116  	A7XX_DBGBUS_GMU_CX,
+106414f8b60346 Connor Abbott 2024-05-03  117  	A7XX_DBGBUS_GBIF_CX,
+6408a1b5a7d7a9 Connor Abbott 2024-05-03  118  };
+6408a1b5a7d7a9 Connor Abbott 2024-05-03  119  
+
 -- 
-2.44.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
