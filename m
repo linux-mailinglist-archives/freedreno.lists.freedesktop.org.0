@@ -2,75 +2,125 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B4948FE1A6
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jun 2024 10:54:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F6268FE2B4
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jun 2024 11:27:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3E0410E22A;
-	Thu,  6 Jun 2024 08:54:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDFB510E8AA;
+	Thu,  6 Jun 2024 09:27:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SOa7lG/4";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="d49JTcxQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f181.google.com (mail-yb1-f181.google.com
- [209.85.219.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE44C10E22A
- for <freedreno@lists.freedesktop.org>; Thu,  6 Jun 2024 08:54:20 +0000 (UTC)
-Received: by mail-yb1-f181.google.com with SMTP id
- 3f1490d57ef6-dfa72c9d426so848278276.3
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jun 2024 01:54:20 -0700 (PDT)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6901E10E8AC
+ for <freedreno@lists.freedesktop.org>; Thu,  6 Jun 2024 09:27:40 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-57a23997da3so727735a12.3
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Jun 2024 02:27:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1717664059; x=1718268859; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=+iELr/WPzJm0A7EM6v/U4tRKEa6mtrRIhxMOyb3jnnc=;
- b=SOa7lG/4ShXyUH0/ln0HdXsw231cwla1DM+i+iL1tg1Pg2SJzjg5LAWJM4dhfhLs1A
- M1NABJS27oJdE5zYLDA9HTSQlA3T41nawEESKab92di53shiq+WFmLbS0/oeWlHfroe5
- Go0cu2SXHhdhrYEwNvTDEuI1DftXYhh7n7j/acHdFT6BfzIbYLYnNtXdZjZsY7Q4gG34
- xJxDl4k8rgLmrvVNVwU/MA/wb/+tVHaLtn55FFgNqVkJ3NlW2yiuLA36xOYCNmHnxlVx
- Ko9CMDAlXavC2BAiP7RZPQY50840/96PBvoXMw+qIBLEHS0kifGnXtikIwHwCZVrQr9X
- sBug==
+ d=linaro.org; s=google; t=1717666058; x=1718270858; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=4coGUS5rqVO/XkMEjgpDlue2Pr3XzDgvTCMJ1kTn61Y=;
+ b=d49JTcxQSD9lA2DNZCGu6XigMbLlhR8/2Wo6n9OysvxvwV/6t6/JcdtLcgOXAcI+4O
+ /1FbGeY0i0mwc3EM2hdziglDTD6KVs+oy6jEqfFKXip+8cg/9hY1BdIXOwOix4fGgqxJ
+ ZEQ3Tizg6s7A3NBwyatc8oS/CMDa8AKDcWHbiVSt+oNc7zPCtX0BAhT2HH6kOiTbRT8F
+ jU70wBNAV73RPfa14zSihGyMPmcgW2vF+lQGJ9a9/G9/1oV7l3+ZxSTHCiC08JZYHjWy
+ OzNoaCp0ihFIo3y4T9H/vDCzN76KkMIWuhy0v/T1HYRL7j0TEBE6jkmi72VcdB5OQrY8
+ hlvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717664059; x=1718268859;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+iELr/WPzJm0A7EM6v/U4tRKEa6mtrRIhxMOyb3jnnc=;
- b=pHNhvs9R5ePgLbb5G/ykhI36nzUF4UwyTbb55MfbSZerT3ZFn9CozFMlvuIe2n0Qhw
- d5E8atcp3+wtMNoERdhGfGx6iQrVAA+mewP/+1kOtaWXREBNsqwvnj6/9n/84QW++rdE
- GPt5VmrMrNJyO5DYT9upKjWPuRXxwCFX/Dow52K6/TtnES2qyV81xOzoSWAER72IYyGs
- IBjQGZZc/59k4jWYgmrg8EysXb5N0F5xPbm5NLYJX95BGt4gXaFhVlqXdbysu/Ji80b0
- CS5yRu/PinW4XbXyXCOJOPxbv/28igmpR37FnEkRn2Cl5stTifyrHewmIHw28ofy46kx
- XCoQ==
+ d=1e100.net; s=20230601; t=1717666058; x=1718270858;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4coGUS5rqVO/XkMEjgpDlue2Pr3XzDgvTCMJ1kTn61Y=;
+ b=cUgEozAAds4yokqVbFzFwih5ZmOTn5NcHnxiekhE45jk9TIYyoTmbSSQMixJ2UZ25I
+ 8PIF3y3oazBMje7/fsCpSQZMzr4PZKPgK6EZGL3+YMqwulkVH3mvRB3S+vQsk/r1eyZK
+ tEJz6vsNAjI/QZeHbeMiKHMO7csWS5GKpjNEQOBn27InpnmU2/RLaee7Cvq3u6E1AHnr
+ I/hARFa7VXkFoM+aUBYeLsHsb4q2TeynA+Das5IRK7PTkPoT+wpULCnT+YG/6tiwjYtb
+ 5q1BSQair0wJIbbpez4X8jumcIw0t7N+Uw2kHV46S1wiCcHnrBgszm+OJ1q/WCEBkdFZ
+ 0pNA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWeCb+dlH03/uy3IXKdhpJ6dePNH2StK+6ARVVH5qmU4uspD+iCknbLsyjrb36CVBcR9B+JyNFtEwnldtH71dq4hGf9PhpzBkF5Vf5GMSwv
-X-Gm-Message-State: AOJu0YxQXjf42S0sgHy5ah2uoZ9mKSzBmoPq3a8hnntdtKj/dKAkdMwJ
- bWYWbXhk5SVgnazjtKwbGePdeFXLvZ3Kz/Upiv0ppwVsqg7GpxRMSYtrXkMBrqqIoVl1j+e43pl
- LDH4HjrfC9yzk/L/8ooM+0DiONlOcoD2pddif2Q==
-X-Google-Smtp-Source: AGHT+IFVHYy2qIeOQs9q5V92xKkDYTynf4PQxhlNASe/iGH0WwNFzITXGL0WNI9PXXLo8Ls225McpXU6BeaKzqXO3hE=
-X-Received: by 2002:a25:2d19:0:b0:de5:5084:715d with SMTP id
- 3f1490d57ef6-dfacad2443fmr5080848276.53.1717664059531; Thu, 06 Jun 2024
- 01:54:19 -0700 (PDT)
+ AJvYcCVCDmE1LLMzpFXXttbHMnIv91Ul3cjFC3FUOVS21WfFW9pfxPkM7MOeWPgRBOI334ADSsYjzVokr9vHVwDyB57Z4CUCCoEVi3hVVZ7mYiIw
+X-Gm-Message-State: AOJu0YxH1HDP9mVy1nURoyXCRp9RXzSorJvobB33q/rI8faWmbvVFnnp
+ zFC9Qvc7ggti2Oj/L110LDM10mn65X67tHi/V6Jl/hsuTtpKMlGTQ7Ro6mo/GYY=
+X-Google-Smtp-Source: AGHT+IGqN8B1VWaFB5hpOX3x2j23zjabMi+w1OoZszVo5ULIhjp7d0F8Xv74HZa+5EdL58oQ+GHQ2A==
+X-Received: by 2002:a50:d5c8:0:b0:574:ebf4:f78c with SMTP id
+ 4fb4d7f45d1cf-57aaaf0eb41mr807201a12.7.1717666058529; 
+ Thu, 06 Jun 2024 02:27:38 -0700 (PDT)
+Received: from [192.168.128.139] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57aae0ca5e3sm766761a12.25.2024.06.06.02.27.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 06 Jun 2024 02:27:38 -0700 (PDT)
+Message-ID: <fca5168d-9ea2-4fe9-a247-0d97ab175eb3@linaro.org>
+Date: Thu, 6 Jun 2024 11:27:34 +0200
 MIME-Version: 1.0
-References: <20240314000216.392549-1-dmitry.baryshkov@linaro.org>
- <20240314000216.392549-7-dmitry.baryshkov@linaro.org>
- <627dd526-2b56-2ecb-9011-4ec08bab454f@quicinc.com>
- <CAA8EJpp+NvoTMZdVNivqe0_nQd3PChSND7ojqa+Ee3nMdWcQGQ@mail.gmail.com>
- <1c107933-2180-fcd2-06f2-61eb7108b6b0@quicinc.com>
- <CAA8EJpp7DL+hpTUgmzsKciXg8ZEZ5BFy8ALiH0CbFmWb058HCw@mail.gmail.com>
-In-Reply-To: <CAA8EJpp7DL+hpTUgmzsKciXg8ZEZ5BFy8ALiH0CbFmWb058HCw@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 6 Jun 2024 11:54:08 +0300
-Message-ID: <CAA8EJpqBSiCadAKXSXSB58cPV7Fb31_92vJJDMDsnxHz1TnuOA@mail.gmail.com>
-Subject: Re: [PATCH v4 06/13] drm/msm/dpu: split dpu_plane_atomic_check()
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/7] drm/msm/adreno: Add A702 support
+To: Connor Abbott <cwabbott0@gmail.com>
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Stephen Boyd <swboyd@chromium.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20240219-topic-rb1_gpu-v2-0-2d3d6a0db040@linaro.org>
+ <20240219-topic-rb1_gpu-v2-5-2d3d6a0db040@linaro.org>
+ <CACu1E7FTN=kwaDJMNiTmFspALzj2+Q-nvsN5ugi=vz4RdUGvGw@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <CACu1E7FTN=kwaDJMNiTmFspALzj2+Q-nvsN5ugi=vz4RdUGvGw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,57 +136,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 6 Jun 2024 at 11:53, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On Thu, 6 Jun 2024 at 02:47, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >
-> >
-> >
-> > On 6/5/2024 4:32 PM, Dmitry Baryshkov wrote:
-> > > On Thu, 6 Jun 2024 at 02:19, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> > >>
-> > >>
-> > >>
-> > >> On 3/13/2024 5:02 PM, Dmitry Baryshkov wrote:
-> > >>> Split dpu_plane_atomic_check() function into two pieces:
-> > >>>
-> > >>> dpu_plane_atomic_check_nopipe() performing generic checks on the pstate,
-> > >>> without touching the associated pipe,
-> > >>>
-> > >>> and
-> > >>>
-> > >>> dpu_plane_atomic_check_pipes(), which takes into account used pipes.
-> > >>>
-> > >>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > >>> ---
-> > >>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 184 ++++++++++++++--------
-> > >>>    1 file changed, 117 insertions(+), 67 deletions(-)
-> > >>>
+On 23.05.2024 2:14 PM, Connor Abbott wrote:
+> On Fri, Feb 23, 2024 at 9:28 PM Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
+>>
+>> The A702 is a weird mix of 600 and 700 series.. Perhaps even a
+>> testing ground for some A7xx features with good ol' A6xx silicon.
+>> It's basically A610 that's been beefed up with some new registers
+>> and hw features (like APRIV!), that was then cut back in size,
+>> memory bus and some other ways.
+>>
+>> Add support for it, tested with QCM2290 / RB1.
+>>
+>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>> ---
 
-> > >>> +     if (new_plane_state->crtc)
-> > >>> +             crtc_state = drm_atomic_get_new_crtc_state(state,
-> > >>> +                                                        new_plane_state->crtc);
-> > >>> +
-> > >>> +     if (pdpu->pipe != SSPP_NONE) {
-> > >>
-> > >> This check was not present iirc, why did you have to add this?
-> > >> RM will return the same SSPP unless freed. So why this additional check?
-> > >
-> > > If pdpu->pipe is not SSPP_NONE, then virtual planes are disabled and
-> > > there is a fixed 1:1 relationship between planes and SSPP blocks.
-> > >
-> >
-> > True, pdpu->pipe is currently assigned in dpu_plane_init(), so we will
-> > always be hitting this condition.
-> >
-> > Perhaps the patches later on are changing that, so shouldnt this part
-> > come along with those?
->
-> Ack, I'll move it to patch 5.
+[...]
 
-Patch 8, of course.
+>> +
+>> +       if (adreno_is_a702(gpu)) {
+>> +               gpu->ubwc_config.highest_bank_bit = 14;
+>> +               gpu->ubwc_config.min_acc_len = 1;
+>> +               gpu->ubwc_config.ubwc_mode = 2;
+> 
+> I just noticed, but this is wrong. ubwc_mode is a 1 bit field and what
+> this is actually doing is overwriting hbb_lo, making the highest bank
+> bit 15 instead of 14.
 
--- 
-With best wishes
-Dmitry
+You're right, this should be a 0. Thanks!
+
+Konrad
+
