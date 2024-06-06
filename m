@@ -2,62 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9E398FF289
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jun 2024 18:33:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 282008FF62F
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jun 2024 22:57:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1AFE10E689;
-	Thu,  6 Jun 2024 16:33:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CECB10EA94;
+	Thu,  6 Jun 2024 20:57:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cvM4dzlD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DAKR5WhD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5379510E293;
- Thu,  6 Jun 2024 16:33:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0668010E1F6;
+ Thu,  6 Jun 2024 20:57:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 8C74E61D00;
- Thu,  6 Jun 2024 16:33:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971F1C2BD10;
- Thu,  6 Jun 2024 16:32:58 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1E2D361EAA;
+ Thu,  6 Jun 2024 20:57:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A020FC4AF0C;
+ Thu,  6 Jun 2024 20:57:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1717691583;
- bh=J4EIeduNWZgQM5LFuF+pkc025aA/Jgzn8slsa28alkA=;
+ s=k20201202; t=1717707445;
+ bh=wFqALVp5mDtWf6L9b+AXIGvzv82kunIA6A0exDovdCw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cvM4dzlD5Lmahj0VgK0rUTp4s35qgdE/OobeYuZJ1axMZw3aNqtuG/qOY2I4RtJ2c
- u0H+DCq1jHUQVUhWWBbKBKoTgK/ySxWrnWeA1BDFJNqu5Qi3YPRoyksmOXjvhfNwtp
- 2DlBckNQmkNx6TrqKEjHFPxrv7kQb+A1DOBlhZBRKDVF3d4jYtTP3Bdmix7ENd5lid
- HqUhXY3Dxfxs32grRtLE3epHZbhESBnxIE5lilN0LKiLuLWAOiKAZIXcBWsvnA5a8I
- j7epTu7gNUWjYmYvY1Hbn5qUs829phlLo2oSWYH9dyX4p/TVqubwn16yxKBUYeN0Nz
- VehA4al7ZqJ5g==
-Date: Thu, 6 Jun 2024 17:32:56 +0100
-From: Conor Dooley <conor@kernel.org>
+ b=DAKR5WhDlunhA9NWxm1kfJnmaRG2JG+wyLkKwAhHP/2IXemCWbKsBZfQkUkIyjZRL
+ AbOSc/7rI2Zaauv9CTBPfbfWVB37oQ1gpaP7y2O98CRg16JmYGqnXNuTH9kUl0Evbk
+ CG+iUN3wbeQgZa10gvS/EOvmna74D6XRrM3oe4rqQB2s2pWDmwGJf5rgyhiOhMzLj1
+ k+bx+A8435kCdTvJAkNGwdjFccJUcfscjGVhAZ+Zax4OMu7uBlj+Zm1mWMU+hI26Zc
+ IZYZnLRIcf5xvEjqsRJXNo6vejmHiM1Pl3Tkb91KeF+Ts0tnUtKJAv5DMDcsmMXuTD
+ ZWYqhIZlEBF3A==
+Date: Thu, 6 Jun 2024 14:57:24 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
 To: Marc Gonzalez <mgonzalez@freebox.fr>
-Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Cc: Vinod Koul <vkoul@kernel.org>, David Airlie <airlied@gmail.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Pierre-Hugues Husson <phhusson@freebox.fr>,
+ Maxime Ripard <mripard@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, linux-phy@lists.infradead.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Arnaud Vrac <avrac@freebox.fr>,
- Pierre-Hugues Husson <phhusson@freebox.fr>
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Arnaud Vrac <avrac@freebox.fr>, Kishon Vijay Abraham I <kishon@kernel.org>
 Subject: Re: [PATCH v3 2/4] dt-bindings: display/msm: hdmi: add
  qcom,hdmi-tx-8998
-Message-ID: <20240606-sharply-pettiness-7c090530c2a1@spud>
+Message-ID: <171770744191.3848297.2891281220885073312.robh@kernel.org>
 References: <20240606-hdmi-tx-v3-0-9d7feb6d3647@freebox.fr>
  <20240606-hdmi-tx-v3-2-9d7feb6d3647@freebox.fr>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="cvI1T3XU3X9BFDJc"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20240606-hdmi-tx-v3-2-9d7feb6d3647@freebox.fr>
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -76,30 +75,14 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
---cvI1T3XU3X9BFDJc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Jun 06, 2024 at 06:07:48PM +0200, Marc Gonzalez wrote:
+On Thu, 06 Jun 2024 18:07:48 +0200, Marc Gonzalez wrote:
 > HDMI TX block embedded in the APQ8098.
->=20
+> 
 > Signed-off-by: Marc Gonzalez <mgonzalez@freebox.fr>
+> ---
+>  .../devicetree/bindings/display/msm/hdmi.yaml      | 28 ++++++++++++++++++++--
+>  1 file changed, 26 insertions(+), 2 deletions(-)
+> 
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Thanks,
-Conor.
-
---cvI1T3XU3X9BFDJc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZmHkuAAKCRB4tDGHoIJi
-0tXCAQDsUcs12fPLOgkac1DArtDCK6naogmrtsRLhRdX4CTCFQEA+qWNDZv+aF51
-v0iE15iZ3VqHMiaYVXwOclhCbq5qpA8=
-=Jq6C
------END PGP SIGNATURE-----
-
---cvI1T3XU3X9BFDJc--
