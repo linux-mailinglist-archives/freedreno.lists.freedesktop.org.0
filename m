@@ -2,78 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71D168FF100
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jun 2024 17:44:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23A258FF153
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jun 2024 17:55:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43EC610E9D0;
-	Thu,  6 Jun 2024 15:44:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E525D10E9D0;
+	Thu,  6 Jun 2024 15:55:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PMS9CG04";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="wd2M20Xg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B30910E9C9
- for <freedreno@lists.freedesktop.org>; Thu,  6 Jun 2024 15:44:42 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-52b938587a4so1295690e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jun 2024 08:44:42 -0700 (PDT)
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+ [209.85.208.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE1A10E9D0
+ for <freedreno@lists.freedesktop.org>; Thu,  6 Jun 2024 15:55:54 +0000 (UTC)
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-2e72224c395so10707381fa.3
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Jun 2024 08:55:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1717688680; x=1718293480; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1717689352; x=1718294152; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=CcvLWtoAhuxv7+XmnyzWyh5/jHFSbk/UPbtacznbqAQ=;
- b=PMS9CG04/wX37MyoZN1nkjMlDMHhe9qMju4lU24E+aQHFdaszuc9HDJDAFDXRN2GKW
- DSN18FsMhkSmrd28bry4zbOBv3gZMdim64/n4jT+CvQxdikUmuHMR7Cjy10mUHp0HHs1
- i4ig8pf0yLuWoSd2Udt0bSc7onQ2Uww0HfFf2ta3Q7VlKZp4fsoYW9eIydtxBl0vumK9
- 0Xg+0jfZ0C1ZDhYzZs0bsjWHCaNQ83Fzo0H0PeIsrG7GKM+RACLyiL8cGtYe29cw5MlI
- YmH3VKSye7xkg1S/LtdAvMz50CO8jTUxELZvJ/1txbCaAlDq8afZ4ZDNr6qx8I2D7Htf
- F4JA==
+ bh=Y1fwDi7m8Ls7tvW3PNXKUz3XR7Aa+gs5JKKnJgNGOmM=;
+ b=wd2M20Xg9ESD/4VHxAI65OyKSRicT1om1tOwdvKCAADWdgVbnJXsvf8AeCx5BuGyZk
+ VV6W8R0WPgKSxMnqR6d6ER2KhYVb9ArDn7sAjIMSrioRJQrGLybcC7QRe+H0wng/bsyN
+ EygSzYz9I3fYpTm7wWq+Xfo1bl38udvVWQutGKxMPMLidrElyzBPpx9py36yI9liL+b7
+ r9BNI7EVkAMHcW8evvN+h8U4Hv31cowU2a+PqHpFxesU2nhqsM9CblJlcxT3jUe+NNn0
+ EV22l0nE5yiaTsL8Y+Z/d/zpj6l5VBmR/OT0+OJB2SLeYt1Xxk5vZRS06TO6dXMYknRM
+ 7H4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717688680; x=1718293480;
+ d=1e100.net; s=20230601; t=1717689352; x=1718294152;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=CcvLWtoAhuxv7+XmnyzWyh5/jHFSbk/UPbtacznbqAQ=;
- b=qGEP/hS9XgLrPm+v4q0LtYszmQ7FZ7WSor83AJrL4RLmU2gxkByFQv4L3fLlKBvi+v
- dBFj2vTYj7VB6NE6d4sfhpOH9Pwqi7b50jGPWh2tzuZat185OqQXzRW5U5eQ8pRGsgkp
- 1ChdeSuYLRTKFYms/MFvG5nde9qI5dDDuMswni3soy9ZXqcznUjwLd6BVG9Xju55bc8l
- mdkrDHw+Bq9B4pbs1Qd2lkUK4pPaluH8UsP6RfjjVJYTH7WxNaQHeT/ZrQxX3CvX2tGw
- NH8oT+XuVO27R6YyVlmkJevYQECHYP6MGjEt6l6DpT6pkalArgdlqXMfPcDrTueM3mIR
- MLyw==
-X-Gm-Message-State: AOJu0Yx0A/7FBDa9+uujWp+HjlaqTRx4AoI4cGVISWIWHmg7rWh/FXIV
- kYiJLi/SYbPBMRNwgmhhXrd27i/pmW5eDybyG9jVdkImp7mhVeCWa/8iGIF9iJk=
-X-Google-Smtp-Source: AGHT+IGfkquA6C70zvNtH1bpeU35r9otrSSRpObdg1UiWOp9nLQV2leYilFdaGLb2X7iS4KqqbZ4DA==
-X-Received: by 2002:a05:6512:3b8:b0:52b:7a3c:36ca with SMTP id
- 2adb3069b0e04-52bb9f7cbb5mr3964e87.27.1717688679984; 
- Thu, 06 Jun 2024 08:44:39 -0700 (PDT)
+ bh=Y1fwDi7m8Ls7tvW3PNXKUz3XR7Aa+gs5JKKnJgNGOmM=;
+ b=UcwrMWAD+V/nKEUZ2GT3URduXuqIUotopWvgZY0XTkBld1sFeQXvR4tMqHEs93TniH
+ DRI46J5JcOwSP1Mt9v9LDiff3GG/hGJheNqHsCaK5ji/U+qSNfAoAJIfWT50oot5vmWb
+ eILQck1vktanKl51/PEG9w1CzXQAGyWtJrve7dOHUCuBQk+2Hb/JGsGnb3taKgcpbt1b
+ NtX5C7pbX5dDlq0gHmZAp7ZDG1FYhwqIJ5pLNhbTlD2xPBpuOasqDGSuOcXOGqMjSmHx
+ rlkko95dSPhD7bN9tTBFOJDhQyBugU3URQPd+pSAfeMPDJ6+hb3Hylq9KkvIK6aHM4+y
+ GpYw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUwNc2BWz3F7sXskj1yjyvMAwl5UjmLE0c/97lCAVeeUklgwquBjZDiOwM2wt4lg068kQFcPfO5WGeyVpLwVqkAOcsko35LiZf2auE4cAi5
+X-Gm-Message-State: AOJu0Yz2IOIx2Rq2IoImX7H279CHxo2qQyDoVlGRqceaXKb8bN4vWVIU
+ nNS1P2gbNXWWPLTLRT+/wy+x9ywQJYpghiqN9VmgrnEEUtb09UuFdX4NBK36f3c=
+X-Google-Smtp-Source: AGHT+IF4280Hgq0kqRgUvq0jhrs3am+fMEcFKbapIcsA4lrLBrVyPmTNuamu+kjd/+STHe9uv+uXYg==
+X-Received: by 2002:a05:651c:a0d:b0:2ea:7e6c:42e8 with SMTP id
+ 38308e7fff4ca-2eadce79aeemr851011fa.39.1717689352020; 
+ Thu, 06 Jun 2024 08:55:52 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52bb41ee6acsm227187e87.80.2024.06.06.08.44.39
+ 38308e7fff4ca-2ead41b05f1sm2390791fa.78.2024.06.06.08.55.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Jun 2024 08:44:39 -0700 (PDT)
-Date: Thu, 6 Jun 2024 18:44:38 +0300
+ Thu, 06 Jun 2024 08:55:51 -0700 (PDT)
+Date: Thu, 6 Jun 2024 18:55:50 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Connor Abbott <cwabbott0@gmail.com>, 
- dri-devel@lists.freedesktop.org, seanpaul@chromium.org,
- quic_jesszhan@quicinc.com, 
- nathan@kernel.org, Rob Clark <robdclark@chromium.org>, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] drm/msm/a6xx: use __unused__ to fix compiler warnings
- for gen7_* includes
-Message-ID: <5b2o5hhq76pa322bum2td4cqqa5333d7rdxxsxulhalt3j24pi@ea7wzku5waf6>
-References: <20240605183415.259276-1-quic_abhinavk@quicinc.com>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Connor Abbott <cwabbott0@gmail.com>
+Subject: Re: [PATCH] drm/msm/a6xx: Fix A702 UBWC mode
+Message-ID: <7mvu3xeosx45eorr277f47tb4ymujr7lu5m3vytfcphasxsxnw@qtia62v4bi5k>
+References: <20240606-topic-a702_ubwcmode-v1-1-283fa9588af8@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240605183415.259276-1-quic_abhinavk@quicinc.com>
+In-Reply-To: <20240606-topic-a702_ubwcmode-v1-1-283fa9588af8@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,55 +88,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jun 05, 2024 at 11:34:15AM -0700, Abhinav Kumar wrote:
-> GCC diagnostic pragma method throws below warnings in some of the versions
+On Thu, Jun 06, 2024 at 01:10:49PM +0200, Konrad Dybcio wrote:
+> UBWC_MODE is a one-bit-wide field, so a value of 2 is obviously bogus.
 > 
-> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:16:9: warning: unknown
-> option after '#pragma GCC diagnostic' kind [-Wpragmas]
->   #pragma GCC diagnostic ignored "-Wunused-const-variable"
->           ^
-> In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:18:0:
-> drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h:924:19: warning:
-> 'gen7_0_0_external_core_regs' defined but not used [-Wunused-variable]
->   static const u32 *gen7_0_0_external_core_regs[] = {
->                     ^
-> In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:19:0:
-> drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h:748:19: warning:
-> 'gen7_2_0_external_core_regs' defined but not used [-Wunused-variable]
->   static const u32 *gen7_2_0_external_core_regs[] = {
->                     ^
-> In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:20:0:
-> drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h:1188:43: warning:
-> 'gen7_9_0_sptp_clusters' defined but not used [-Wunused-variable]
->   static struct gen7_sptp_cluster_registers gen7_9_0_sptp_clusters[] = {
->                                             ^
-> drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h:1438:19: warning:
-> 'gen7_9_0_external_core_regs' defined but not used [-Wunused-variable]
->   static const u32 *gen7_9_0_external_core_regs[] = {
+> Replace it with the correct value (0).
 > 
-> Remove GCC version dependency by using __unused__ for the unused gen7_* includes.
-> 
-> Changes in v2:
-> 	- Fix the warnings in the commit text
-> 	- Use __attribute((__unused__)) instead of local assignment
-> 
-> changes in v3:
-> 	- drop the Link from the auto add
-> 
-> changes in v4:
-> 	- replace __attribute((__unused__)) with __always_unused
-> 
-> Fixes: 64d6255650d4 ("drm/msm: More fully implement devcoredump for a7xx")
-> Suggested-by: Rob Clark <robdclark@chromium.org>
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Fixes: 18397519cb62 ("drm/msm/adreno: Add A702 support")
+> Reported-by: Connor Abbott <cwabbott0@gmail.com>
+> Closes: https://lore.kernel.org/linux-arm-msm/CACu1E7FTN=kwaDJMNiTmFspALzj2+Q-nvsN5ugi=vz4RdUGvGw@mail.gmail.com/
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 > ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 12 ++++--------
->  1 file changed, 4 insertions(+), 8 deletions(-)
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-
 -- 
 With best wishes
 Dmitry
