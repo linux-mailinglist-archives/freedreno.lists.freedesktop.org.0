@@ -2,122 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 210298FE5FF
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jun 2024 14:03:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71D168FF100
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jun 2024 17:44:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA24510E91A;
-	Thu,  6 Jun 2024 12:03:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43EC610E9D0;
+	Thu,  6 Jun 2024 15:44:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="p+KP7pu7";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PMS9CG04";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1096710E919
- for <freedreno@lists.freedesktop.org>; Thu,  6 Jun 2024 12:03:28 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-a68ee841138so104212566b.1
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jun 2024 05:03:28 -0700 (PDT)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B30910E9C9
+ for <freedreno@lists.freedesktop.org>; Thu,  6 Jun 2024 15:44:42 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-52b938587a4so1295690e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Jun 2024 08:44:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1717675407; x=1718280207; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=EhzgN21teDTF/ZW3qgf+NvcxVJfop3KgFTk3I1MLoU0=;
- b=p+KP7pu7154h/AfxXa4Htsudii6CPsq1eKzJkNT4BmHMSWw6sgJw6Ufuy+yHtVVYC1
- gt1W+8Xkv2vGM2TjZTkRXCPUWKJWZ9pC6mSZFEYjQSA9C4P8vpTwOh89bv5qRbo5NE7f
- V4yn4lrMB8z6pR9Y1b+TVbun4nGp7AuCq9y45mNuwpzP8aV0lltMU7dcvsUFc98zU7vp
- KZy0a+MV7TQcBO26pKLkcC/eA6DtlvJYJqE04dy+LH/WKPcuhm1K3c66KoJkQmnxievv
- 1PbnmKP7ncDPaCGkwTymchmKoNqbMsWQJ7NYjxdWf3ZZ2y5IvuPhCJCgiWO544HfOLvi
- MDbA==
+ d=linaro.org; s=google; t=1717688680; x=1718293480; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=CcvLWtoAhuxv7+XmnyzWyh5/jHFSbk/UPbtacznbqAQ=;
+ b=PMS9CG04/wX37MyoZN1nkjMlDMHhe9qMju4lU24E+aQHFdaszuc9HDJDAFDXRN2GKW
+ DSN18FsMhkSmrd28bry4zbOBv3gZMdim64/n4jT+CvQxdikUmuHMR7Cjy10mUHp0HHs1
+ i4ig8pf0yLuWoSd2Udt0bSc7onQ2Uww0HfFf2ta3Q7VlKZp4fsoYW9eIydtxBl0vumK9
+ 0Xg+0jfZ0C1ZDhYzZs0bsjWHCaNQ83Fzo0H0PeIsrG7GKM+RACLyiL8cGtYe29cw5MlI
+ YmH3VKSye7xkg1S/LtdAvMz50CO8jTUxELZvJ/1txbCaAlDq8afZ4ZDNr6qx8I2D7Htf
+ F4JA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717675407; x=1718280207;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20230601; t=1717688680; x=1718293480;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EhzgN21teDTF/ZW3qgf+NvcxVJfop3KgFTk3I1MLoU0=;
- b=m+iKmLF8CvNfLj0SmY4Ri58EOS2zwd8Oq9OwVeIWkLctAgoSDP2vG6g3nrcFQVkmYr
- dK8dEH1dl5CnPdSKc8w1fBkp6ADPREwjhDfR0Yp1lQbIN6KPYTRMXNzGkh+HgdD31AWG
- VUsNZkqmm5vOhArM6eA28N8+XToR/+2zNYXkPiG/WSsEcdzOOBHpjCc3j6R2IUIonw8f
- g00M+bHT51jzGhI3w18AYbwufK8bhqFh2QdNYpv+XPCu+uJc/WE+quSZweXOuqlOudu2
- o/x4G5sgRUPF1DDZrLN5EwcMR64MtCnBNNJZ2L34Od/9bQQSv1Z0OXCnQN0jxZX+9leL
- 4zhA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVve3CTCu9mzSuUqRa57oUHuzBwvBaMEpMuhk+n/6q48Rz/AV5HfV9WhErGrl2oLfMCNVG/GAb/i+mzQ0+4kN7mDq2Re3BVUe6e9dbAd312
-X-Gm-Message-State: AOJu0Yz8TZglTvwSj8p1w7KWkdHzcHZ8VrU8X015bKuQEPmHaKVVnvQy
- Wv/8AgwtqJRNmXgfZ84abTwjBRb41+3qc9C0GfuHj+RW/YKRrkkpiJUmlBJ7gd0=
-X-Google-Smtp-Source: AGHT+IFxfjWGrWlEFaeC88RJhH+tXUQS7F8xlGUVGHn8bDw/cok9mz5kkvNfMjnQ9TIj9poiaHp4OA==
-X-Received: by 2002:a17:906:c44d:b0:a6b:c993:7ede with SMTP id
- a640c23a62f3a-a6bc9938015mr258898966b.11.1717675407204; 
- Thu, 06 Jun 2024 05:03:27 -0700 (PDT)
-Received: from [192.168.128.139] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6c806ebd48sm88558666b.108.2024.06.06.05.03.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Jun 2024 05:03:26 -0700 (PDT)
-Message-ID: <444f6a34-6636-44b0-850b-777c44fd62dd@linaro.org>
-Date: Thu, 6 Jun 2024 14:03:24 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/adreno: De-spaghettify the use of memory barriers
-To: Will Deacon <will@kernel.org>, Andrew Halaney <ahalaney@redhat.com>
-Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ bh=CcvLWtoAhuxv7+XmnyzWyh5/jHFSbk/UPbtacznbqAQ=;
+ b=qGEP/hS9XgLrPm+v4q0LtYszmQ7FZ7WSor83AJrL4RLmU2gxkByFQv4L3fLlKBvi+v
+ dBFj2vTYj7VB6NE6d4sfhpOH9Pwqi7b50jGPWh2tzuZat185OqQXzRW5U5eQ8pRGsgkp
+ 1ChdeSuYLRTKFYms/MFvG5nde9qI5dDDuMswni3soy9ZXqcznUjwLd6BVG9Xju55bc8l
+ mdkrDHw+Bq9B4pbs1Qd2lkUK4pPaluH8UsP6RfjjVJYTH7WxNaQHeT/ZrQxX3CvX2tGw
+ NH8oT+XuVO27R6YyVlmkJevYQECHYP6MGjEt6l6DpT6pkalArgdlqXMfPcDrTueM3mIR
+ MLyw==
+X-Gm-Message-State: AOJu0Yx0A/7FBDa9+uujWp+HjlaqTRx4AoI4cGVISWIWHmg7rWh/FXIV
+ kYiJLi/SYbPBMRNwgmhhXrd27i/pmW5eDybyG9jVdkImp7mhVeCWa/8iGIF9iJk=
+X-Google-Smtp-Source: AGHT+IGfkquA6C70zvNtH1bpeU35r9otrSSRpObdg1UiWOp9nLQV2leYilFdaGLb2X7iS4KqqbZ4DA==
+X-Received: by 2002:a05:6512:3b8:b0:52b:7a3c:36ca with SMTP id
+ 2adb3069b0e04-52bb9f7cbb5mr3964e87.27.1717688679984; 
+ Thu, 06 Jun 2024 08:44:39 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52bb41ee6acsm227187e87.80.2024.06.06.08.44.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Jun 2024 08:44:39 -0700 (PDT)
+Date: Thu, 6 Jun 2024 18:44:38 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20240508-topic-adreno-v1-1-1babd05c119d@linaro.org>
- <20240514183849.6lpyplifero5u35r@hu-akhilpo-hyd.qualcomm.com>
- <ae4a77wt3kc73ejshptldqx6ugzrqguyq7etbbu54y4avhbdlt@qyt4r6gma7ev>
- <20240516145005.gdksmvxp35m45ifh@hu-akhilpo-hyd.qualcomm.com>
- <5vyrmxvkurdstqfiatxfqcqljwyiswda2vpkea27ighb2eqbav@n24yzdykbc23>
- <20240604144055.GE20384@willie-the-truck>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- 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
- izWDgYvmBE8=
-In-Reply-To: <20240604144055.GE20384@willie-the-truck>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Connor Abbott <cwabbott0@gmail.com>, 
+ dri-devel@lists.freedesktop.org, seanpaul@chromium.org,
+ quic_jesszhan@quicinc.com, 
+ nathan@kernel.org, Rob Clark <robdclark@chromium.org>, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] drm/msm/a6xx: use __unused__ to fix compiler warnings
+ for gen7_* includes
+Message-ID: <5b2o5hhq76pa322bum2td4cqqa5333d7rdxxsxulhalt3j24pi@ea7wzku5waf6>
+References: <20240605183415.259276-1-quic_abhinavk@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240605183415.259276-1-quic_abhinavk@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,62 +89,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4.06.2024 4:40 PM, Will Deacon wrote:
-> On Thu, May 16, 2024 at 01:55:26PM -0500, Andrew Halaney wrote:
->> On Thu, May 16, 2024 at 08:20:05PM GMT, Akhil P Oommen wrote:
->>> On Thu, May 16, 2024 at 08:15:34AM -0500, Andrew Halaney wrote:
->>>> If I understand correctly, you don't need any memory barrier.
->>>> writel()/readl()'s are ordered to the same endpoint. That goes for all
->>>> the reordering/barrier comments mentioned below too.
->>>>
->>>> device-io.rst:
->>>>
->>>>     The read and write functions are defined to be ordered. That is the
->>>>     compiler is not permitted to reorder the I/O sequence. When the ordering
->>>>     can be compiler optimised, you can use __readb() and friends to
->>>>     indicate the relaxed ordering. Use this with care.
->>>>
->>>> memory-barriers.txt:
->>>>
->>>>      (*) readX(), writeX():
->>>>
->>>> 	    The readX() and writeX() MMIO accessors take a pointer to the
->>>> 	    peripheral being accessed as an __iomem * parameter. For pointers
->>>> 	    mapped with the default I/O attributes (e.g. those returned by
->>>> 	    ioremap()), the ordering guarantees are as follows:
->>>>
->>>> 	    1. All readX() and writeX() accesses to the same peripheral are ordered
->>>> 	       with respect to each other. This ensures that MMIO register accesses
->>>> 	       by the same CPU thread to a particular device will arrive in program
->>>> 	       order.
->>>>
->>>
->>> In arm64, a writel followed by readl translates to roughly the following
->>> sequence: dmb_wmb(), __raw_writel(), __raw_readl(), dmb_rmb(). I am not
->>> sure what is stopping compiler from reordering  __raw_writel() and __raw_readl()
->>> above? I am assuming iomem cookie is ignored during compilation.
->>
->> It seems to me that is due to some usage of volatile there in
->> __raw_writel() etc, but to be honest after reading about volatile and
->> some threads from gcc mailing lists, I don't have a confident answer :)
->>
->>>
->>> Added Will to this thread if he can throw some light on this.
->>
->> Hopefully Will can school us.
+On Wed, Jun 05, 2024 at 11:34:15AM -0700, Abhinav Kumar wrote:
+> GCC diagnostic pragma method throws below warnings in some of the versions
 > 
-> The ordering in this case is ensured by the memory attributes used for
-> ioremap(). When an MMIO region is mapped using Device-nGnRE attributes
-> (as it the case for ioremap()), the "nR" part means "no reordering", so
-> readX() and writeX() to that region are ordered wrt each other.
+> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:16:9: warning: unknown
+> option after '#pragma GCC diagnostic' kind [-Wpragmas]
+>   #pragma GCC diagnostic ignored "-Wunused-const-variable"
+>           ^
+> In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:18:0:
+> drivers/gpu/drm/msm/adreno/adreno_gen7_0_0_snapshot.h:924:19: warning:
+> 'gen7_0_0_external_core_regs' defined but not used [-Wunused-variable]
+>   static const u32 *gen7_0_0_external_core_regs[] = {
+>                     ^
+> In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:19:0:
+> drivers/gpu/drm/msm/adreno/adreno_gen7_2_0_snapshot.h:748:19: warning:
+> 'gen7_2_0_external_core_regs' defined but not used [-Wunused-variable]
+>   static const u32 *gen7_2_0_external_core_regs[] = {
+>                     ^
+> In file included from drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:20:0:
+> drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h:1188:43: warning:
+> 'gen7_9_0_sptp_clusters' defined but not used [-Wunused-variable]
+>   static struct gen7_sptp_cluster_registers gen7_9_0_sptp_clusters[] = {
+>                                             ^
+> drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h:1438:19: warning:
+> 'gen7_9_0_external_core_regs' defined but not used [-Wunused-variable]
+>   static const u32 *gen7_9_0_external_core_regs[] = {
 > 
-> Note that guarantee _doesn't_ apply to other flavours of ioremap(), so
-> e.g. ioremap_wc() won't give you the ordering.
+> Remove GCC version dependency by using __unused__ for the unused gen7_* includes.
 > 
-> Hope that helps,
+> Changes in v2:
+> 	- Fix the warnings in the commit text
+> 	- Use __attribute((__unused__)) instead of local assignment
+> 
+> changes in v3:
+> 	- drop the Link from the auto add
+> 
+> changes in v4:
+> 	- replace __attribute((__unused__)) with __always_unused
+> 
+> Fixes: 64d6255650d4 ("drm/msm: More fully implement devcoredump for a7xx")
+> Suggested-by: Rob Clark <robdclark@chromium.org>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 12 ++++--------
+>  1 file changed, 4 insertions(+), 8 deletions(-)
+> 
 
-Just to make sure I'm following, would mapping things as nGnRnE effectively
-get rid of write buffering, perhaps being a way of debugging whether that
-in particular is causing issues (at the cost of speed)?
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Konrad
+
+-- 
+With best wishes
+Dmitry
