@@ -2,87 +2,122 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE1698FE4EB
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jun 2024 13:11:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 210298FE5FF
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jun 2024 14:03:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DAF810E8EE;
-	Thu,  6 Jun 2024 11:11:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA24510E91A;
+	Thu,  6 Jun 2024 12:03:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FubXOwkz";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="p+KP7pu7";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 847E910E8D6
- for <freedreno@lists.freedesktop.org>; Thu,  6 Jun 2024 11:11:23 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-a68a4a9946cso93029066b.1
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jun 2024 04:11:23 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1096710E919
+ for <freedreno@lists.freedesktop.org>; Thu,  6 Jun 2024 12:03:28 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-a68ee841138so104212566b.1
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Jun 2024 05:03:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1717672280; x=1718277080; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=pswOTtwBv3zIZovO9Qr4d5tz863/qgk3gUc3EVk4oGo=;
- b=FubXOwkzGw7wq+DcOQUnoAlLHRgx8OSvpmhpPa4cfRXzQ7x59/bsZImt2tyDcCKRvT
- TaJNTV5uCdf9FwUIiLrcHbuTIUWBrcFyYU2qn+QzrRJBA2gzOQFhjpJ5qA6sa1a9/IPD
- alEsClQh9VeBGmYHexbofckCv0TXG7ubAmgrGF9N8pgDhwr1D8P/wOxTQ9IgDxgT+v3s
- Ejg1Axzab8SfDvWFdH2II3xRhb4KFnEAPb3kYMMIfpCgfryM+z4EKHEC/hPAFI5uftPC
- AEK87qlvbaLo4ILYCy/VtTTCP3BpY4lE2Jd+XKWBahT+/0JIc/2aAJ2u8XMfVO8s0SuI
- 4i2Q==
+ d=linaro.org; s=google; t=1717675407; x=1718280207; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=EhzgN21teDTF/ZW3qgf+NvcxVJfop3KgFTk3I1MLoU0=;
+ b=p+KP7pu7154h/AfxXa4Htsudii6CPsq1eKzJkNT4BmHMSWw6sgJw6Ufuy+yHtVVYC1
+ gt1W+8Xkv2vGM2TjZTkRXCPUWKJWZ9pC6mSZFEYjQSA9C4P8vpTwOh89bv5qRbo5NE7f
+ V4yn4lrMB8z6pR9Y1b+TVbun4nGp7AuCq9y45mNuwpzP8aV0lltMU7dcvsUFc98zU7vp
+ KZy0a+MV7TQcBO26pKLkcC/eA6DtlvJYJqE04dy+LH/WKPcuhm1K3c66KoJkQmnxievv
+ 1PbnmKP7ncDPaCGkwTymchmKoNqbMsWQJ7NYjxdWf3ZZ2y5IvuPhCJCgiWO544HfOLvi
+ MDbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717672280; x=1718277080;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pswOTtwBv3zIZovO9Qr4d5tz863/qgk3gUc3EVk4oGo=;
- b=cVTyOIVZHLcBrzJKz81Wf1iF3KDASGYR7udNJDmNTE1Y460XBzziZ9NDU6yh7ykeUr
- VEagYuwQHjQMHC7XSFGpeVRFFCprodwW74r6JdclfobjolJY3IxpL0xOdGuwY6MBEeYD
- bhnfAJZjDEppeAGoLgYca30msFWWKTlqiFxaTjtI35/nTh/uwkDcX+qrBRADkGVR0x8Z
- Dw7wtsh8QHdIN2JqAWYtyhOG12bKEpL+m2HKyImtVrkU9UxwMogtU4q33wwtc3gjwLms
- q963goEDXHtUf4JM0JfPLE4NeVrxybbdopxMB3zdqHmUyvHHWLiWTC0/BxVmrIPiKW4W
- Cz1g==
+ d=1e100.net; s=20230601; t=1717675407; x=1718280207;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=EhzgN21teDTF/ZW3qgf+NvcxVJfop3KgFTk3I1MLoU0=;
+ b=m+iKmLF8CvNfLj0SmY4Ri58EOS2zwd8Oq9OwVeIWkLctAgoSDP2vG6g3nrcFQVkmYr
+ dK8dEH1dl5CnPdSKc8w1fBkp6ADPREwjhDfR0Yp1lQbIN6KPYTRMXNzGkh+HgdD31AWG
+ VUsNZkqmm5vOhArM6eA28N8+XToR/+2zNYXkPiG/WSsEcdzOOBHpjCc3j6R2IUIonw8f
+ g00M+bHT51jzGhI3w18AYbwufK8bhqFh2QdNYpv+XPCu+uJc/WE+quSZweXOuqlOudu2
+ o/x4G5sgRUPF1DDZrLN5EwcMR64MtCnBNNJZ2L34Od/9bQQSv1Z0OXCnQN0jxZX+9leL
+ 4zhA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVsQoOvGAWYuUZbmWwys8If3DMOjZtslBs8S2Jl4jnhB6SUigwGcL9m+PEGEMx8dR1bgjDIt8liu+9AKyKUDj8s80VZKzOatp+85MkSHOo4
-X-Gm-Message-State: AOJu0YwG3YwueN5f4E54jRS3Lzw2bZRtPIqRRcyYts4Uy9QRiQKk+UU2
- sTuK82PEByoloXnMp65ijzd7yogR41abVd0iImBxkg8gnlOTBCJKKVE0uQm7urSnvURC0xPxxnm
- t0zM=
-X-Google-Smtp-Source: AGHT+IHmyWxJzfXZI/7TrL+CVbTgNs57aPkmFDQ9Y2zmJIYoz1GTSYJenkqQ4Qfqa4czEODu9Ho3+A==
-X-Received: by 2002:a17:906:d181:b0:a68:c2dd:8ce0 with SMTP id
- a640c23a62f3a-a699fab8b68mr332921166b.13.1717672280445; 
- Thu, 06 Jun 2024 04:11:20 -0700 (PDT)
+ AJvYcCVve3CTCu9mzSuUqRa57oUHuzBwvBaMEpMuhk+n/6q48Rz/AV5HfV9WhErGrl2oLfMCNVG/GAb/i+mzQ0+4kN7mDq2Re3BVUe6e9dbAd312
+X-Gm-Message-State: AOJu0Yz8TZglTvwSj8p1w7KWkdHzcHZ8VrU8X015bKuQEPmHaKVVnvQy
+ Wv/8AgwtqJRNmXgfZ84abTwjBRb41+3qc9C0GfuHj+RW/YKRrkkpiJUmlBJ7gd0=
+X-Google-Smtp-Source: AGHT+IFxfjWGrWlEFaeC88RJhH+tXUQS7F8xlGUVGHn8bDw/cok9mz5kkvNfMjnQ9TIj9poiaHp4OA==
+X-Received: by 2002:a17:906:c44d:b0:a6b:c993:7ede with SMTP id
+ a640c23a62f3a-a6bc9938015mr258898966b.11.1717675407204; 
+ Thu, 06 Jun 2024 05:03:27 -0700 (PDT)
 Received: from [192.168.128.139] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6c80581b5esm82609166b.3.2024.06.06.04.11.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Jun 2024 04:11:19 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Thu, 06 Jun 2024 13:10:49 +0200
-Subject: [PATCH] drm/msm/a6xx: Fix A702 UBWC mode
+ a640c23a62f3a-a6c806ebd48sm88558666b.108.2024.06.06.05.03.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 06 Jun 2024 05:03:26 -0700 (PDT)
+Message-ID: <444f6a34-6636-44b0-850b-777c44fd62dd@linaro.org>
+Date: Thu, 6 Jun 2024 14:03:24 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/adreno: De-spaghettify the use of memory barriers
+To: Will Deacon <will@kernel.org>, Andrew Halaney <ahalaney@redhat.com>
+Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20240508-topic-adreno-v1-1-1babd05c119d@linaro.org>
+ <20240514183849.6lpyplifero5u35r@hu-akhilpo-hyd.qualcomm.com>
+ <ae4a77wt3kc73ejshptldqx6ugzrqguyq7etbbu54y4avhbdlt@qyt4r6gma7ev>
+ <20240516145005.gdksmvxp35m45ifh@hu-akhilpo-hyd.qualcomm.com>
+ <5vyrmxvkurdstqfiatxfqcqljwyiswda2vpkea27ighb2eqbav@n24yzdykbc23>
+ <20240604144055.GE20384@willie-the-truck>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <20240604144055.GE20384@willie-the-truck>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240606-topic-a702_ubwcmode-v1-1-283fa9588af8@linaro.org>
-X-B4-Tracking: v=1; b=H4sIADiZYWYC/x3MSQqAMAxA0atI1hZincCriIimqWahldYJxLtbX
- L7F/w8E9sIBmuQBz6cEcWtEliZA87BOrMREg0ZdYIWV2t0mpIYadX+MFy3OsDJEpTWMNs8RYrl
- 5tnL/17Z73w/J8xNPZQAAAA==
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
- Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Connor Abbott <cwabbott0@gmail.com>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1717672278; l=1178;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=Ldc+cMjnwRL8nNUZJjSiU8UmJQHSwKHt5iyZLBbi+zM=;
- b=D3kFiXSEs1918VgiCdBOZ1/YGTXUMjoAlJK+iua109QgkNzopKU7GVJI8O2igJRd19wo1U7p/
- 7ywEF+9sq67AJ93AEDcLzm+Qa5Rj9iheryNjZC3qYqRiEwp8rV5bqSd
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,37 +133,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-UBWC_MODE is a one-bit-wide field, so a value of 2 is obviously bogus.
+On 4.06.2024 4:40 PM, Will Deacon wrote:
+> On Thu, May 16, 2024 at 01:55:26PM -0500, Andrew Halaney wrote:
+>> On Thu, May 16, 2024 at 08:20:05PM GMT, Akhil P Oommen wrote:
+>>> On Thu, May 16, 2024 at 08:15:34AM -0500, Andrew Halaney wrote:
+>>>> If I understand correctly, you don't need any memory barrier.
+>>>> writel()/readl()'s are ordered to the same endpoint. That goes for all
+>>>> the reordering/barrier comments mentioned below too.
+>>>>
+>>>> device-io.rst:
+>>>>
+>>>>     The read and write functions are defined to be ordered. That is the
+>>>>     compiler is not permitted to reorder the I/O sequence. When the ordering
+>>>>     can be compiler optimised, you can use __readb() and friends to
+>>>>     indicate the relaxed ordering. Use this with care.
+>>>>
+>>>> memory-barriers.txt:
+>>>>
+>>>>      (*) readX(), writeX():
+>>>>
+>>>> 	    The readX() and writeX() MMIO accessors take a pointer to the
+>>>> 	    peripheral being accessed as an __iomem * parameter. For pointers
+>>>> 	    mapped with the default I/O attributes (e.g. those returned by
+>>>> 	    ioremap()), the ordering guarantees are as follows:
+>>>>
+>>>> 	    1. All readX() and writeX() accesses to the same peripheral are ordered
+>>>> 	       with respect to each other. This ensures that MMIO register accesses
+>>>> 	       by the same CPU thread to a particular device will arrive in program
+>>>> 	       order.
+>>>>
+>>>
+>>> In arm64, a writel followed by readl translates to roughly the following
+>>> sequence: dmb_wmb(), __raw_writel(), __raw_readl(), dmb_rmb(). I am not
+>>> sure what is stopping compiler from reordering  __raw_writel() and __raw_readl()
+>>> above? I am assuming iomem cookie is ignored during compilation.
+>>
+>> It seems to me that is due to some usage of volatile there in
+>> __raw_writel() etc, but to be honest after reading about volatile and
+>> some threads from gcc mailing lists, I don't have a confident answer :)
+>>
+>>>
+>>> Added Will to this thread if he can throw some light on this.
+>>
+>> Hopefully Will can school us.
+> 
+> The ordering in this case is ensured by the memory attributes used for
+> ioremap(). When an MMIO region is mapped using Device-nGnRE attributes
+> (as it the case for ioremap()), the "nR" part means "no reordering", so
+> readX() and writeX() to that region are ordered wrt each other.
+> 
+> Note that guarantee _doesn't_ apply to other flavours of ioremap(), so
+> e.g. ioremap_wc() won't give you the ordering.
+> 
+> Hope that helps,
 
-Replace it with the correct value (0).
+Just to make sure I'm following, would mapping things as nGnRnE effectively
+get rid of write buffering, perhaps being a way of debugging whether that
+in particular is causing issues (at the cost of speed)?
 
-Fixes: 18397519cb62 ("drm/msm/adreno: Add A702 support")
-Reported-by: Connor Abbott <cwabbott0@gmail.com>
-Closes: https://lore.kernel.org/linux-arm-msm/CACu1E7FTN=kwaDJMNiTmFspALzj2+Q-nvsN5ugi=vz4RdUGvGw@mail.gmail.com/
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 973872ad0474..5383aff84830 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1409,7 +1409,7 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
- 	if (adreno_is_a702(gpu)) {
- 		gpu->ubwc_config.highest_bank_bit = 14;
- 		gpu->ubwc_config.min_acc_len = 1;
--		gpu->ubwc_config.ubwc_mode = 2;
-+		gpu->ubwc_config.ubwc_mode = 0;
- 	}
- }
- 
-
----
-base-commit: ee78a17615ad0cfdbbc27182b1047cd36c9d4d5f
-change-id: 20240606-topic-a702_ubwcmode-dcc5fde0f330
-
-Best regards,
--- 
-Konrad Dybcio <konrad.dybcio@linaro.org>
-
+Konrad
