@@ -2,77 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23A258FF153
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jun 2024 17:55:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87A818FF1DA
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jun 2024 18:13:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E525D10E9D0;
-	Thu,  6 Jun 2024 15:55:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="wd2M20Xg";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B14510E9FF;
+	Thu,  6 Jun 2024 16:13:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE1A10E9D0
- for <freedreno@lists.freedesktop.org>; Thu,  6 Jun 2024 15:55:54 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2e72224c395so10707381fa.3
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jun 2024 08:55:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1717689352; x=1718294152; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Y1fwDi7m8Ls7tvW3PNXKUz3XR7Aa+gs5JKKnJgNGOmM=;
- b=wd2M20Xg9ESD/4VHxAI65OyKSRicT1om1tOwdvKCAADWdgVbnJXsvf8AeCx5BuGyZk
- VV6W8R0WPgKSxMnqR6d6ER2KhYVb9ArDn7sAjIMSrioRJQrGLybcC7QRe+H0wng/bsyN
- EygSzYz9I3fYpTm7wWq+Xfo1bl38udvVWQutGKxMPMLidrElyzBPpx9py36yI9liL+b7
- r9BNI7EVkAMHcW8evvN+h8U4Hv31cowU2a+PqHpFxesU2nhqsM9CblJlcxT3jUe+NNn0
- EV22l0nE5yiaTsL8Y+Z/d/zpj6l5VBmR/OT0+OJB2SLeYt1Xxk5vZRS06TO6dXMYknRM
- 7H4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717689352; x=1718294152;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Y1fwDi7m8Ls7tvW3PNXKUz3XR7Aa+gs5JKKnJgNGOmM=;
- b=UcwrMWAD+V/nKEUZ2GT3URduXuqIUotopWvgZY0XTkBld1sFeQXvR4tMqHEs93TniH
- DRI46J5JcOwSP1Mt9v9LDiff3GG/hGJheNqHsCaK5ji/U+qSNfAoAJIfWT50oot5vmWb
- eILQck1vktanKl51/PEG9w1CzXQAGyWtJrve7dOHUCuBQk+2Hb/JGsGnb3taKgcpbt1b
- NtX5C7pbX5dDlq0gHmZAp7ZDG1FYhwqIJ5pLNhbTlD2xPBpuOasqDGSuOcXOGqMjSmHx
- rlkko95dSPhD7bN9tTBFOJDhQyBugU3URQPd+pSAfeMPDJ6+hb3Hylq9KkvIK6aHM4+y
- GpYw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUwNc2BWz3F7sXskj1yjyvMAwl5UjmLE0c/97lCAVeeUklgwquBjZDiOwM2wt4lg068kQFcPfO5WGeyVpLwVqkAOcsko35LiZf2auE4cAi5
-X-Gm-Message-State: AOJu0Yz2IOIx2Rq2IoImX7H279CHxo2qQyDoVlGRqceaXKb8bN4vWVIU
- nNS1P2gbNXWWPLTLRT+/wy+x9ywQJYpghiqN9VmgrnEEUtb09UuFdX4NBK36f3c=
-X-Google-Smtp-Source: AGHT+IF4280Hgq0kqRgUvq0jhrs3am+fMEcFKbapIcsA4lrLBrVyPmTNuamu+kjd/+STHe9uv+uXYg==
-X-Received: by 2002:a05:651c:a0d:b0:2ea:7e6c:42e8 with SMTP id
- 38308e7fff4ca-2eadce79aeemr851011fa.39.1717689352020; 
- Thu, 06 Jun 2024 08:55:52 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ead41b05f1sm2390791fa.78.2024.06.06.08.55.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Jun 2024 08:55:51 -0700 (PDT)
-Date: Thu, 6 Jun 2024 18:55:50 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Connor Abbott <cwabbott0@gmail.com>
-Subject: Re: [PATCH] drm/msm/a6xx: Fix A702 UBWC mode
-Message-ID: <7mvu3xeosx45eorr277f47tb4ymujr7lu5m3vytfcphasxsxnw@qtia62v4bi5k>
-References: <20240606-topic-a702_ubwcmode-v1-1-283fa9588af8@linaro.org>
+X-Greylist: delayed 312 seconds by postgrey-1.36 at gabe;
+ Thu, 06 Jun 2024 16:13:03 UTC
+Received: from ns.iliad.fr (ns.iliad.fr [212.27.33.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C77110E9FE;
+ Thu,  6 Jun 2024 16:13:03 +0000 (UTC)
+Received: from ns.iliad.fr (localhost [127.0.0.1])
+ by ns.iliad.fr (Postfix) with ESMTP id BF87720787;
+ Thu,  6 Jun 2024 18:07:49 +0200 (CEST)
+Received: from [127.0.1.1] (freebox.vlq16.iliad.fr [213.36.7.13])
+ by ns.iliad.fr (Postfix) with ESMTP id A76D6200AA;
+ Thu,  6 Jun 2024 18:07:49 +0200 (CEST)
+From: Marc Gonzalez <mgonzalez@freebox.fr>
+Subject: [PATCH v3 0/4] HDMI TX support in msm8998
+Date: Thu, 06 Jun 2024 18:07:46 +0200
+Message-Id: <20240606-hdmi-tx-v3-0-9d7feb6d3647@freebox.fr>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240606-topic-a702_ubwcmode-v1-1-283fa9588af8@linaro.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANLeYWYC/x3MywrCMBCF4Vcps3ZkcjEaV76HuMhlYrPohWmRQ
+ um7G7r84D9nh4Wl8gLPbgfhX13qNDaYSwepD+OXseZm0KQtOXLY56HiuiER84PvOceQoNWzcKn
+ b+fT+NBeZBlx74XDug05RaU/omRRaZRz6m9eY2BofFXkX3asIc5y2axE4jj9aSdsmmwAAAA==
+To: Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, Arnaud Vrac <avrac@freebox.fr>, 
+ Pierre-Hugues Husson <phhusson@freebox.fr>, 
+ Marc Gonzalez <mgonzalez@freebox.fr>
+X-Mailer: b4 0.13.0
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,21 +63,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 06, 2024 at 01:10:49PM +0200, Konrad Dybcio wrote:
-> UBWC_MODE is a one-bit-wide field, so a value of 2 is obviously bogus.
-> 
-> Replace it with the correct value (0).
-> 
-> Fixes: 18397519cb62 ("drm/msm/adreno: Add A702 support")
-> Reported-by: Connor Abbott <cwabbott0@gmail.com>
-> Closes: https://lore.kernel.org/linux-arm-msm/CACu1E7FTN=kwaDJMNiTmFspALzj2+Q-nvsN5ugi=vz4RdUGvGw@mail.gmail.com/
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+DT bits required for HDMI TX support in APQ8098 (msm8998 cousin)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Supersedes <a2cb1290-9e01-4136-9592-ce439b1096b6@freebox.fr>
+
+Changes in v3
+- Address Rob's comments on patch 2:
+  - 'maxItems: 5' for clocks in the 8996 if/then schema
+  - match the order of 8996 for the clock-names in common
+
+---
+Arnaud Vrac (1):
+      arm64: dts: qcom: add HDMI nodes for msm8998
+
+Marc Gonzalez (3):
+      dt-bindings: display/msm: hdmi: add qcom,hdmi-phy-8998
+      dt-bindings: display/msm: hdmi: add qcom,hdmi-tx-8998
+      arm64: dts: qcom: msm8998: add HDMI GPIOs
+
+ .../devicetree/bindings/display/msm/hdmi.yaml      |  28 ++++-
+ .../devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml |   1 +
+ arch/arm64/boot/dts/qcom/msm8998.dtsi              | 128 ++++++++++++++++++++-
+ 3 files changed, 154 insertions(+), 3 deletions(-)
+---
+base-commit: 2c4f4d94dcbf6f500b92fff5600989ea23a207e8
+change-id: 20240606-hdmi-tx-00ee8e7ddbac
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Marc Gonzalez <mgonzalez@freebox.fr>
+
