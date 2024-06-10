@@ -2,77 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFCDF901B43
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jun 2024 08:31:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E9C2901C45
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jun 2024 10:04:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64A5D10E2D1;
-	Mon, 10 Jun 2024 06:31:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF74910E341;
+	Mon, 10 Jun 2024 08:04:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nn2zxkYh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qO42PDzo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB89E10E09C
- for <freedreno@lists.freedesktop.org>; Mon, 10 Jun 2024 06:31:32 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-2ebe3bac6c6so8863601fa.1
- for <freedreno@lists.freedesktop.org>; Sun, 09 Jun 2024 23:31:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718001091; x=1718605891; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=0foBbzkj/yZAJLvDMQGWe5daB0oiOZ9HEzG6T9Jt6MY=;
- b=nn2zxkYh46Lpp1qqSlPzUaynW6NSr3R+HVUkLe7fwjhDbi5KwBxhwRsLrBUqd3QIXV
- cGaxcIRuInVYIrXBBmxBiqc6iDgYqxgSy0Pi/vw4K/m1wjsgCpMUWktqCRhFSBygPewJ
- ChrrMpfXtPuPMYX/Yg6vsoDA4OshaMxt6WTilsgHNDAzW9+bTN3ke6WTCewAnV3uq1aV
- 4QpgYg0ODcPmn3jCol9vv3zs5OoRpjYqhk/RSCb28HhCd3BOV9HGMxx8PoLWqJbnlhWb
- 2nf4v/iUlmxe+d3YVT0yg2Jsv435qH5mAtOAhp36CSvmfgCZBA5rac8Yzp/vxOvM2rCl
- au6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718001091; x=1718605891;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0foBbzkj/yZAJLvDMQGWe5daB0oiOZ9HEzG6T9Jt6MY=;
- b=JoiGHE412AGvONtyugamOWiZD7msecfQGuZTHF293DkwZrMMoqytUV7c5cxLSYlGSf
- oMw0qk9gTctx7V1Mggkee2j+EFcl4I/nmeu1YJh0JLXLczAIrJs2R/nQBWX7eHMJX1NV
- p98peKglh43EFsxop1i5z1BD4lbLVaLZFqVU49lfzbwdxRMLhSYcej/bDzB1pCLZ9lWb
- 670J6Qn8Gu0yPEA9Kcnx0B5QKDpuTPU8+6F1zfmlg7ZOIh864SJOWqBl6JyfUj1m51aY
- KLXV3ii5slAPhAq7T/kI6AZ6dMX18jQ/K/LbOr7TbIItXjHv0mxMr9n1vJTmp+xsg+Fr
- ZpZQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWgBWzcq5JGW+8fMXqfuQbkAO+QNDDahFh7I2RMWFrbbne7IhBAZFyP/TSQO1Rbsk3xt68YgvEg/9siWjT6qTtYDJRe/qdQJTUhkcG475cI
-X-Gm-Message-State: AOJu0Yxeptiz6LgKXIC++8kBj4inV/QUpsaAMFzKmQ6u2Yt3HnWITaQk
- uhubezjZZ+CSpjyQMv0Vw84yFdVsJdwN1dYO3FomTEEfRetUP/d2Ziu7b04lt3c=
-X-Google-Smtp-Source: AGHT+IEbjxnLFduuLjONOUTvHtbpIgLNsmw/X8E0xtaG1CKGLDAlODB+2oaqYGwqaaw0WtMBz4VOhA==
-X-Received: by 2002:a05:651c:1042:b0:2eb:d5a9:40fd with SMTP id
- 38308e7fff4ca-2ebd5a942d2mr39653051fa.53.1718001090636; 
- Sun, 09 Jun 2024 23:31:30 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ebe673fe28sm4103891fa.53.2024.06.09.23.31.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Jun 2024 23:31:30 -0700 (PDT)
-Date: Mon, 10 Jun 2024 09:31:28 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Kiarash Hajian <kiarash8112hajian@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E62510E333;
+ Mon, 10 Jun 2024 08:04:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id B8974CE0FC2;
+ Mon, 10 Jun 2024 08:04:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E494C2BBFC;
+ Mon, 10 Jun 2024 08:04:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1718006682;
+ bh=PfWUeRhLyjLhAFqFtGc6KqYlFjjdNjw8O7JtmZzFAko=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=qO42PDzoabkTGCXzdKgdk8myoHbUmsMiGKKU433H4x8Qjy353i403niBCKrmui3Lu
+ NUg3hZpaHfTMbV3ihO6GW21J2dWw2NMU/CsHXZVz3yspF+0alAxU/SzDdgZsIA/hJ7
+ GBGC459skTMfxoAFUtckXd/ebZkhF43R3w/0f+8QymrJhOteSi9W//nY4HQWS4PKiq
+ yw6PV+EtVhcBnIuHC1YzDwUrOHqh1gdq4JcxVmCgH19QAL4V+smyGgbH91TYbnkIUl
+ hPnzVHBmbDKEG5yJILQU/He//ghmdTmnz4///DkjI1+jjAUA77cK8crsSGjczimfhM
+ 1NvFUFf9b/Iew==
+Date: Mon, 10 Jun 2024 10:04:40 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
+ Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/a6xx: request memory region
-Message-ID: <oa62wijdvxhcoamynii2szxaxfmutkzup5djstgqzrfe4sjizu@vnz73mhhlgss>
-References: <20240608-adreno-v1-1-2e470480eee7@gmail.com>
+Subject: Re: [PATCH v5 2/9] drm/bridge-connector: switch to using drmm
+ allocations
+Message-ID: <20240610-secret-rottweiler-from-asgard-132f75@houat>
+References: <20240607-bridge-hdmi-connector-v5-0-ab384e6021af@linaro.org>
+ <20240607-bridge-hdmi-connector-v5-2-ab384e6021af@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ekqacobahrau4wvb"
 Content-Disposition: inline
-In-Reply-To: <20240608-adreno-v1-1-2e470480eee7@gmail.com>
+In-Reply-To: <20240607-bridge-hdmi-connector-v5-2-ab384e6021af@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,41 +70,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Jun 08, 2024 at 11:43:47AM -0400, Kiarash Hajian wrote:
-> The driver's memory regions are currently just ioremap()ed, but not
-> reserved through a request. That's not a bug, but having the request is
-> a little more robust.
-> 
-> Implement the region-request through the corresponding managed
-> devres-function.
-> 
-> Signed-off-by: Kiarash Hajian <kiarash8112hajian@gmail.com>
+
+--ekqacobahrau4wvb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+On Fri, Jun 07, 2024 at 04:22:59PM GMT, Dmitry Baryshkov wrote:
+> Turn drm_bridge_connector to using drmm_kzalloc() and
+> drmm_connector_init() and drop the custom destroy function. The
+> drm_connector_unregister() and fwnode_handle_put() are already handled
+> by the drm_connector_cleanup() and so are safe to be dropped.
+>=20
+> Acked-by: Maxime Ripard <mripard@kernel.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
-> Changes in v6:
->     -Fix compile error
->     -Link to v5: https://lore.kernel.org/all/20240607-memory-v1-1-8664f52fc2a1@gmail.com
-> 
-> Changes in v5:
->     - Fix error hanlding problems.
->     - Link to v4: https://lore.kernel.org/r/20240512-msm-adreno-memory-region-v4-1-3881a64088e6@gmail.com
->     
-> Changes in v4:
->     - Combine v3 commits into a singel commit
->     - Link to v3: https://lore.kernel.org/r/20240512-msm-adreno-memory-region-v3-0-0a728ad45010@gmail.com
->     
-> Changes in v3:
->     - Remove redundant devm_iounmap calls, relying on devres for automatic resource cleanup.
->     
-> Changes in v2:
->     - update the subject prefix to "drm/msm/a6xx:", to match the majority of other changes to this file.
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 33 +++++++++++----------------------
->  1 file changed, 11 insertions(+), 22 deletions(-)
-> 
+>  drivers/gpu/drm/drm_bridge_connector.c | 23 +++++------------------
+>  1 file changed, 5 insertions(+), 18 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm=
+_bridge_connector.c
+> index 982552c9f92c..e093fc8928dc 100644
+> --- a/drivers/gpu/drm/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/drm_bridge_connector.c
+> @@ -15,6 +15,7 @@
+>  #include <drm/drm_connector.h>
+>  #include <drm/drm_device.h>
+>  #include <drm/drm_edid.h>
+> +#include <drm/drm_managed.h>
+>  #include <drm/drm_modeset_helper_vtables.h>
+>  #include <drm/drm_probe_helper.h>
+> =20
+> @@ -193,19 +194,6 @@ drm_bridge_connector_detect(struct drm_connector *co=
+nnector, bool force)
+>  	return status;
+>  }
+> =20
+> -static void drm_bridge_connector_destroy(struct drm_connector *connector)
+> -{
+> -	struct drm_bridge_connector *bridge_connector =3D
+> -		to_drm_bridge_connector(connector);
+> -
+> -	drm_connector_unregister(connector);
+> -	drm_connector_cleanup(connector);
+> -
+> -	fwnode_handle_put(connector->fwnode);
+> -
+> -	kfree(bridge_connector);
+> -}
+> -
+>  static void drm_bridge_connector_debugfs_init(struct drm_connector *conn=
+ector,
+>  					      struct dentry *root)
+>  {
+> @@ -224,7 +212,6 @@ static const struct drm_connector_funcs drm_bridge_co=
+nnector_funcs =3D {
+>  	.reset =3D drm_atomic_helper_connector_reset,
+>  	.detect =3D drm_bridge_connector_detect,
+>  	.fill_modes =3D drm_helper_probe_single_connector_modes,
+> -	.destroy =3D drm_bridge_connector_destroy,
+>  	.atomic_duplicate_state =3D drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state =3D drm_atomic_helper_connector_destroy_state,
+>  	.debugfs_init =3D drm_bridge_connector_debugfs_init,
+> @@ -328,7 +315,7 @@ struct drm_connector *drm_bridge_connector_init(struc=
+t drm_device *drm,
+>  	int connector_type;
+>  	int ret;
+> =20
+> -	bridge_connector =3D kzalloc(sizeof(*bridge_connector), GFP_KERNEL);
+> +	bridge_connector =3D drmm_kzalloc(drm, sizeof(*bridge_connector), GFP_K=
+ERNEL);
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+So you make destroy's kfree call unnecessary here ...
 
+>  	if (!bridge_connector)
+>  		return ERR_PTR(-ENOMEM);
+> =20
+> @@ -383,9 +370,9 @@ struct drm_connector *drm_bridge_connector_init(struc=
+t drm_device *drm,
+>  		return ERR_PTR(-EINVAL);
+>  	}
+> =20
+> -	ret =3D drm_connector_init_with_ddc(drm, connector,
+> -					  &drm_bridge_connector_funcs,
+> -					  connector_type, ddc);
+> +	ret =3D drmm_connector_init(drm, connector,
+> +				  &drm_bridge_connector_funcs,
+> +				  connector_type, ddc);
 
--- 
-With best wishes
-Dmitry
+=2E.. and here of drm_connector_cleanup.
+
+drm_connector_unregister wasn't needed, so can ignore it, but you leak a re=
+ference to
+connector->fwnode since you don't call fwnode_handle_put anymore.
+
+We should register a drmm action right below the call to fwnode_handle_get =
+too.
+
+Maxime
+
+--ekqacobahrau4wvb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZmazlwAKCRDj7w1vZxhR
+xXdjAQCzoEg4/T8P/GxJ0eUBeqCJFzarpSs98ongo1PMSwx6aQD9H+jBBp4qbdgn
+k73+39fpZOFL06SsGVHWH2Hxv379EwA=
+=IHay
+-----END PGP SIGNATURE-----
+
+--ekqacobahrau4wvb--
