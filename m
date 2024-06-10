@@ -2,56 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97EF0901D16
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jun 2024 10:39:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92C6D902095
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jun 2024 13:46:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54FA610E36A;
-	Mon, 10 Jun 2024 08:39:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6170310E45E;
+	Mon, 10 Jun 2024 11:46:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C0r+3mVR";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZtQhK1uG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A3E010E36A;
- Mon, 10 Jun 2024 08:39:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 1D10C60AB8;
- Mon, 10 Jun 2024 08:39:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E335C2BBFC;
- Mon, 10 Jun 2024 08:39:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718008794;
- bh=IVgr4Lg50VrbVkuyXy975ptx5KVagoNyzgIsSR4Gwcc=;
- h=Date:From:To:Subject:In-Reply-To:References:Cc:From;
- b=C0r+3mVR9h65sNZw2h/PtmQvmfCv0OL3koJTZfCen/Pv8HNmOnHwoSdRX2Q455Sje
- PtEb5D8ZUFHobDYBBVYzPzbuWWT0Fhs9MCDtnFrLpj0mEAnJkioJ+AfvEyDNxzc/9A
- E2UG3R1PsbLebPwlsmYmai01CycCRbrQy1h6A0IFh+wmCmguf8qTCgI/nhw0w7oKoO
- rRDRitS3ldmUQUMS5uzsSNlBayjLYO3gZLsQak7PBA/VAmkituavAThbVBCUBVLavA
- d5clubbVLcN9XnWBFBH6cHoMGTEraiI7tYU7+FjyrYA7eCX8D8W9Q4M1ry6v3GkxLs
- XHbqAWAwJibiA==
-Message-ID: <da82bfcfce841103980500b0960d2da1@kernel.org>
-Date: Mon, 10 Jun 2024 08:39:52 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>
-Subject: Re: [PATCH v5 9/9] drm/msm/hdmi: also send the SPD and HDMI Vendor
- Specific InfoFrames
-In-Reply-To: <20240607-bridge-hdmi-connector-v5-9-ab384e6021af@linaro.org>
-References: <20240607-bridge-hdmi-connector-v5-9-ab384e6021af@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, "Abhinav
- Kumar" <quic_abhinavk@quicinc.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
- "Daniel
- Vetter" <daniel@ffwll.ch>, "David Airlie" <airlied@gmail.com>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Marijn
- Suijten" <marijn.suijten@somainline.org>, "Maxime Ripard" <mripard@kernel.org>,
- "Neil
- Armstrong" <neil.armstrong@linaro.org>, "Rob Clark" <robdclark@gmail.com>,
- "Robert Foss" <rfoss@kernel.org>, "Sean Paul" <sean@poorly.run>,
- "Thomas Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: 7bit
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
+ [209.85.128.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB69410E444
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Jun 2024 11:46:15 +0000 (UTC)
+Received: by mail-yw1-f172.google.com with SMTP id
+ 00721157ae682-62c6317d15cso42760037b3.2
+ for <freedreno@lists.freedesktop.org>; Mon, 10 Jun 2024 04:46:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1718019975; x=1718624775; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=2iK4IsuByPlunVBIPa84PXOTmIsAWUdTQwWl9Bv3pV0=;
+ b=ZtQhK1uG2FZBApZR2QawpK65JATLaYza37on8BMXeE/OZ/wOrLz+UMoeSZ92YcgZYw
+ Txu0Ypbj7wWeYceinobMtL9Nj6qIa2Tt6bREHDlXEcZ7TghA1hHMRjcsHCYohwtzBuZ6
+ lTsIjQ01FsTneZCIQfqy/1S34XdYpAuNXkXRgoMJMtRq1/AXEQnsAd5ybEgt3PH7guve
+ j4KFmTZsJ0NoZygZFK3hswewWjhAdVR25FGtEYhXeIlpyQjM1/xZ8+wMyZYT5vwQF3Cl
+ eU1E/PcglrnIpr5MTfarX/L9s/ReSK1xjMq7H7f12kKGzmU0kq41mEb+P7G2zsN7rUfS
+ 9SXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718019975; x=1718624775;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=2iK4IsuByPlunVBIPa84PXOTmIsAWUdTQwWl9Bv3pV0=;
+ b=f2SLa5swV6jG/6Dw1ZuswwpLlI01FtKmHpvHfKheka9jLb7b0cqEI+gm3izw83Fkft
+ yq40h0ocM0pu9ax3180IEtgZjBBQwObHXLmEkUFFuAFZDiE63eY7vEa4C3E/yZyoZ12d
+ pCrPuB0c3Qj2/lEm7ewwGwgCowISsMS7anzulZ2vaC5tacEFxehqLRdbE2gy61uXxYPR
+ Xu4fZ9unRolyNfRykefTVHnBwrJQhpAHf/SSEc7KiTBxvPdWlBQRhK36ydIpF8KwvwQh
+ 1egI4m0myQFSRYW+l5e2wnXf4zFOqieCmm6Yt1GaSepMYWfYAfGYZf+pHWojPhG1Fpq6
+ yCjg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWxirybqGk52/A9AyNSYCqYFAv7/onrTzqIzHnwBiCHL+c6liI1Aua4kMa+DRf+FtA6Rx4BvtCWz4XM/fQ0eYEnVfviEZekElcppkwNYrAC
+X-Gm-Message-State: AOJu0YwPRj1srwcX2M4cdX8CULDcsmX+k7/r7sOt/yZiX7UtKARoTv9T
+ N/VZ5mQa1JXzgP+N+F9ANMVrQazJcZKKxemsot2cMcGj8jkaAW0UjDzFjgVQuvJWaL+jaW0sY8c
+ gXJdWsuBE08P38pHRnxAAaRvdvf8ER0pq3a3YQw==
+X-Google-Smtp-Source: AGHT+IFZa6J3mLfqVUkpGGClIfKkW9vivB5JAUacLCndpp+3DPNDSo8Ic0JsWYFR5j3gWxpjXglCS4Uiwbvy9b7NS3Q=
+X-Received: by 2002:a0d:d403:0:b0:617:d49f:d5b9 with SMTP id
+ 00721157ae682-62cd55cc44emr86886597b3.14.1718019974751; Mon, 10 Jun 2024
+ 04:46:14 -0700 (PDT)
+MIME-Version: 1.0
+References: <20240607-bridge-hdmi-connector-v5-0-ab384e6021af@linaro.org>
+ <20240607-bridge-hdmi-connector-v5-2-ab384e6021af@linaro.org>
+ <20240610-secret-rottweiler-from-asgard-132f75@houat>
+In-Reply-To: <20240610-secret-rottweiler-from-asgard-132f75@houat>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 10 Jun 2024 14:46:03 +0300
+Message-ID: <CAA8EJpogi2qm0bhCwumY4zj-xMUkF4zbK-NAPqCeDbLcybFciw@mail.gmail.com>
+Subject: Re: [PATCH v5 2/9] drm/bridge-connector: switch to using drmm
+ allocations
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,16 +91,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 7 Jun 2024 16:23:06 +0300, Dmitry Baryshkov wrote:
-> Extend the driver to send SPD and HDMI Vendor Specific InfoFrames.
-> 
-> While the HDMI block has special block to send HVS InfoFrame, use
-> GENERIC0 block instead. VENSPEC_INFO registers pack frame data in a way
-> that requires manual repacking in the driver, while GENERIC0 doesn't
-> 
-> [ ... ]
+On Mon, 10 Jun 2024 at 11:04, Maxime Ripard <mripard@kernel.org> wrote:
+>
+> Hi,
+>
+> On Fri, Jun 07, 2024 at 04:22:59PM GMT, Dmitry Baryshkov wrote:
+> > Turn drm_bridge_connector to using drmm_kzalloc() and
+> > drmm_connector_init() and drop the custom destroy function. The
+> > drm_connector_unregister() and fwnode_handle_put() are already handled
+> > by the drm_connector_cleanup() and so are safe to be dropped.
+> >
+> > Acked-by: Maxime Ripard <mripard@kernel.org>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >  drivers/gpu/drm/drm_bridge_connector.c | 23 +++++------------------
+> >  1 file changed, 5 insertions(+), 18 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
+> > index 982552c9f92c..e093fc8928dc 100644
+> > --- a/drivers/gpu/drm/drm_bridge_connector.c
+> > +++ b/drivers/gpu/drm/drm_bridge_connector.c
+> > @@ -15,6 +15,7 @@
+> >  #include <drm/drm_connector.h>
+> >  #include <drm/drm_device.h>
+> >  #include <drm/drm_edid.h>
+> > +#include <drm/drm_managed.h>
+> >  #include <drm/drm_modeset_helper_vtables.h>
+> >  #include <drm/drm_probe_helper.h>
+> >
+> > @@ -193,19 +194,6 @@ drm_bridge_connector_detect(struct drm_connector *connector, bool force)
+> >       return status;
+> >  }
+> >
+> > -static void drm_bridge_connector_destroy(struct drm_connector *connector)
+> > -{
+> > -     struct drm_bridge_connector *bridge_connector =
+> > -             to_drm_bridge_connector(connector);
+> > -
+> > -     drm_connector_unregister(connector);
+> > -     drm_connector_cleanup(connector);
+> > -
+> > -     fwnode_handle_put(connector->fwnode);
+> > -
+> > -     kfree(bridge_connector);
+> > -}
+> > -
+> >  static void drm_bridge_connector_debugfs_init(struct drm_connector *connector,
+> >                                             struct dentry *root)
+> >  {
+> > @@ -224,7 +212,6 @@ static const struct drm_connector_funcs drm_bridge_connector_funcs = {
+> >       .reset = drm_atomic_helper_connector_reset,
+> >       .detect = drm_bridge_connector_detect,
+> >       .fill_modes = drm_helper_probe_single_connector_modes,
+> > -     .destroy = drm_bridge_connector_destroy,
+> >       .atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+> >       .atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+> >       .debugfs_init = drm_bridge_connector_debugfs_init,
+> > @@ -328,7 +315,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+> >       int connector_type;
+> >       int ret;
+> >
+> > -     bridge_connector = kzalloc(sizeof(*bridge_connector), GFP_KERNEL);
+> > +     bridge_connector = drmm_kzalloc(drm, sizeof(*bridge_connector), GFP_KERNEL);
+>
+> So you make destroy's kfree call unnecessary here ...
+>
+> >       if (!bridge_connector)
+> >               return ERR_PTR(-ENOMEM);
+> >
+> > @@ -383,9 +370,9 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+> >               return ERR_PTR(-EINVAL);
+> >       }
+> >
+> > -     ret = drm_connector_init_with_ddc(drm, connector,
+> > -                                       &drm_bridge_connector_funcs,
+> > -                                       connector_type, ddc);
+> > +     ret = drmm_connector_init(drm, connector,
+> > +                               &drm_bridge_connector_funcs,
+> > +                               connector_type, ddc);
+>
+> ... and here of drm_connector_cleanup.
+>
+> drm_connector_unregister wasn't needed, so can ignore it, but you leak a reference to
+> connector->fwnode since you don't call fwnode_handle_put anymore.
+>
+> We should register a drmm action right below the call to fwnode_handle_get too.
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
+But drm_connector_cleanup() already contains
+fwnode_handle_put(connector->fwnode). Isn't that enough?
 
-Thanks!
-Maxime
+
+-- 
+With best wishes
+Dmitry
