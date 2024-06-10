@@ -2,59 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E9C2901C45
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jun 2024 10:04:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 904D1901CF1
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jun 2024 10:30:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF74910E341;
-	Mon, 10 Jun 2024 08:04:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B50610E181;
+	Mon, 10 Jun 2024 08:30:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qO42PDzo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SohFcnHY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E62510E333;
- Mon, 10 Jun 2024 08:04:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C48DD10E092;
+ Mon, 10 Jun 2024 08:30:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id B8974CE0FC2;
- Mon, 10 Jun 2024 08:04:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E494C2BBFC;
- Mon, 10 Jun 2024 08:04:42 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 0A957CE0F87;
+ Mon, 10 Jun 2024 08:30:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2444C2BBFC;
+ Mon, 10 Jun 2024 08:30:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718006682;
- bh=PfWUeRhLyjLhAFqFtGc6KqYlFjjdNjw8O7JtmZzFAko=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qO42PDzoabkTGCXzdKgdk8myoHbUmsMiGKKU433H4x8Qjy353i403niBCKrmui3Lu
- NUg3hZpaHfTMbV3ihO6GW21J2dWw2NMU/CsHXZVz3yspF+0alAxU/SzDdgZsIA/hJ7
- GBGC459skTMfxoAFUtckXd/ebZkhF43R3w/0f+8QymrJhOteSi9W//nY4HQWS4PKiq
- yw6PV+EtVhcBnIuHC1YzDwUrOHqh1gdq4JcxVmCgH19QAL4V+smyGgbH91TYbnkIUl
- hPnzVHBmbDKEG5yJILQU/He//ghmdTmnz4///DkjI1+jjAUA77cK8crsSGjczimfhM
- 1NvFUFf9b/Iew==
-Date: Mon, 10 Jun 2024 10:04:40 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/9] drm/bridge-connector: switch to using drmm
- allocations
-Message-ID: <20240610-secret-rottweiler-from-asgard-132f75@houat>
-References: <20240607-bridge-hdmi-connector-v5-0-ab384e6021af@linaro.org>
- <20240607-bridge-hdmi-connector-v5-2-ab384e6021af@linaro.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ekqacobahrau4wvb"
-Content-Disposition: inline
-In-Reply-To: <20240607-bridge-hdmi-connector-v5-2-ab384e6021af@linaro.org>
+ s=k20201202; t=1718008207;
+ bh=nTVn4gDwqTmEQqI98pMWF2QDD4wAEEh3xJoL8K68ph0=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc:From;
+ b=SohFcnHYl3baCEu1xluTM0aSCeUeSuqw1V7vAXT5ncyeMuwBO0w0z/cwftRRE4dDl
+ U89UvO0YlWVAPbkBNsY7OoIezIpQyVwPkshp3BMxNgNAvbEh8a8+yk/UgztXold0gB
+ dICCIc+7ZqHpSTqXBwAgmO78xhtkS9cWShQjOe9dBuAWColwaPhTmO0xfZyQGbcjTa
+ +qGzBK/8M5ArrOlvg51lIYu5ISsISzESZoOrzO1gRCfCnHdHLsaHxGuYpNU+pkz06X
+ qBSAcBWQgue7Wk2jBr4YzBI9JnzpKkCf3nyHX4j0TJe1xo8ukmSFMr9g/xCw+dJ+e3
+ /LFxU5eE+hedQ==
+Message-ID: <66021e08602decbe759dbf77a71490d7@kernel.org>
+Date: Mon, 10 Jun 2024 08:30:04 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>
+Subject: Re: [PATCH v5 1/9] drm/connector: hdmi: allow disabling Audio
+ Infoframe
+In-Reply-To: <20240607-bridge-hdmi-connector-v5-1-ab384e6021af@linaro.org>
+References: <20240607-bridge-hdmi-connector-v5-1-ab384e6021af@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, "Abhinav
+ Kumar" <quic_abhinavk@quicinc.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
+ "Daniel
+ Vetter" <daniel@ffwll.ch>, "David Airlie" <airlied@gmail.com>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>, "Maxime Ripard" <mripard@kernel.org>,
+ "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Rob Clark" <robdclark@gmail.com>,
+ "Robert Foss" <rfoss@kernel.org>, "Sean Paul" <sean@poorly.run>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,116 +67,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Fri, 7 Jun 2024 16:22:58 +0300, Dmitry Baryshkov wrote:
+> Add drm_atomic_helper_connector_hdmi_disable_audio_infoframe(), an API
+> to allow the driver disable sending the Audio Infoframe. This is to be
+> used by the drivers if setup of the infoframes is not tightly coupled
+> with the audio functionality and just disabling the audio playback
+> doesn't stop the HDMI hardware from sending the Infoframe.
+> 
+> [ ... ]
 
---ekqacobahrau4wvb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Acked-by: Maxime Ripard <mripard@kernel.org>
 
-Hi,
-
-On Fri, Jun 07, 2024 at 04:22:59PM GMT, Dmitry Baryshkov wrote:
-> Turn drm_bridge_connector to using drmm_kzalloc() and
-> drmm_connector_init() and drop the custom destroy function. The
-> drm_connector_unregister() and fwnode_handle_put() are already handled
-> by the drm_connector_cleanup() and so are safe to be dropped.
->=20
-> Acked-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  drivers/gpu/drm/drm_bridge_connector.c | 23 +++++------------------
->  1 file changed, 5 insertions(+), 18 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm=
-_bridge_connector.c
-> index 982552c9f92c..e093fc8928dc 100644
-> --- a/drivers/gpu/drm/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/drm_bridge_connector.c
-> @@ -15,6 +15,7 @@
->  #include <drm/drm_connector.h>
->  #include <drm/drm_device.h>
->  #include <drm/drm_edid.h>
-> +#include <drm/drm_managed.h>
->  #include <drm/drm_modeset_helper_vtables.h>
->  #include <drm/drm_probe_helper.h>
-> =20
-> @@ -193,19 +194,6 @@ drm_bridge_connector_detect(struct drm_connector *co=
-nnector, bool force)
->  	return status;
->  }
-> =20
-> -static void drm_bridge_connector_destroy(struct drm_connector *connector)
-> -{
-> -	struct drm_bridge_connector *bridge_connector =3D
-> -		to_drm_bridge_connector(connector);
-> -
-> -	drm_connector_unregister(connector);
-> -	drm_connector_cleanup(connector);
-> -
-> -	fwnode_handle_put(connector->fwnode);
-> -
-> -	kfree(bridge_connector);
-> -}
-> -
->  static void drm_bridge_connector_debugfs_init(struct drm_connector *conn=
-ector,
->  					      struct dentry *root)
->  {
-> @@ -224,7 +212,6 @@ static const struct drm_connector_funcs drm_bridge_co=
-nnector_funcs =3D {
->  	.reset =3D drm_atomic_helper_connector_reset,
->  	.detect =3D drm_bridge_connector_detect,
->  	.fill_modes =3D drm_helper_probe_single_connector_modes,
-> -	.destroy =3D drm_bridge_connector_destroy,
->  	.atomic_duplicate_state =3D drm_atomic_helper_connector_duplicate_state,
->  	.atomic_destroy_state =3D drm_atomic_helper_connector_destroy_state,
->  	.debugfs_init =3D drm_bridge_connector_debugfs_init,
-> @@ -328,7 +315,7 @@ struct drm_connector *drm_bridge_connector_init(struc=
-t drm_device *drm,
->  	int connector_type;
->  	int ret;
-> =20
-> -	bridge_connector =3D kzalloc(sizeof(*bridge_connector), GFP_KERNEL);
-> +	bridge_connector =3D drmm_kzalloc(drm, sizeof(*bridge_connector), GFP_K=
-ERNEL);
-
-So you make destroy's kfree call unnecessary here ...
-
->  	if (!bridge_connector)
->  		return ERR_PTR(-ENOMEM);
-> =20
-> @@ -383,9 +370,9 @@ struct drm_connector *drm_bridge_connector_init(struc=
-t drm_device *drm,
->  		return ERR_PTR(-EINVAL);
->  	}
-> =20
-> -	ret =3D drm_connector_init_with_ddc(drm, connector,
-> -					  &drm_bridge_connector_funcs,
-> -					  connector_type, ddc);
-> +	ret =3D drmm_connector_init(drm, connector,
-> +				  &drm_bridge_connector_funcs,
-> +				  connector_type, ddc);
-
-=2E.. and here of drm_connector_cleanup.
-
-drm_connector_unregister wasn't needed, so can ignore it, but you leak a re=
-ference to
-connector->fwnode since you don't call fwnode_handle_put anymore.
-
-We should register a drmm action right below the call to fwnode_handle_get =
-too.
-
+Thanks!
 Maxime
-
---ekqacobahrau4wvb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZmazlwAKCRDj7w1vZxhR
-xXdjAQCzoEg4/T8P/GxJ0eUBeqCJFzarpSs98ongo1PMSwx6aQD9H+jBBp4qbdgn
-k73+39fpZOFL06SsGVHWH2Hxv379EwA=
-=IHay
------END PGP SIGNATURE-----
-
---ekqacobahrau4wvb--
