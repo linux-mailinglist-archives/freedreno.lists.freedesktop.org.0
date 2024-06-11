@@ -2,94 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FDC8902A5E
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jun 2024 23:02:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FA38903729
+	for <lists+freedreno@lfdr.de>; Tue, 11 Jun 2024 10:54:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67A0C10E4FD;
-	Mon, 10 Jun 2024 21:02:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64FC110E52A;
+	Tue, 11 Jun 2024 08:54:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="NXUirKQJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U2VxRtDe";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3BBF10E35F;
- Mon, 10 Jun 2024 21:01:57 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45ADQAlr020328;
- Mon, 10 Jun 2024 21:01:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 2A5QR6ozzcN6A0XeYsnx0f5xeqUZOSJnAyqiMGJw7Ig=; b=NXUirKQJL2W6Cotk
- J2XVbCPtBoogFtkPgAP0DU1J6NBYsgf4efTIa7rD7r/gaGhINTi0xIbsiTn/nXxN
- R2ADpXQP4sJW+emIKEypgp+LBOZq9wIbYHQMAOAm5LxXmM8OivaCONHhnHtVDIv8
- hwjTL6iyflKIsraag6eYUiR+XdHWXgfBFhI4dsxx35qJc25Vl8y6MjkAm4Zj5Pg2
- dzaMYy/JWhNtJBfwQhWEB/JittLkfX9WMawJPupyN+SL7A4fqHC7woXVs8nB8PDJ
- g3BMCS8+wBImS9ngUTNLzMJcnxs/IlbTTdHk6EZvvpcQf8vLDBbF8FfkxjWS6yRX
- F2uF9g==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ymea6mns2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Jun 2024 21:01:49 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45AL1m65022131
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Jun 2024 21:01:48 GMT
-Received: from [10.71.110.249] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 10 Jun
- 2024 14:01:43 -0700
-Message-ID: <f7f7d8a3-880e-0287-3362-e89c25244e88@quicinc.com>
-Date: Mon, 10 Jun 2024 14:01:40 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v4 08/13] drm/msm/dpu: add support for virtual planes
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E88A10E485;
+ Tue, 11 Jun 2024 08:54:19 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 6CF6DCE1A71;
+ Tue, 11 Jun 2024 08:54:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DF15C2BD10;
+ Tue, 11 Jun 2024 08:54:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1718096055;
+ bh=2ukzE5jSByrfkU0EBD6JgAzltjAX1WVjV+wRmSqE2Kk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=U2VxRtDeYMlPg+12tPprCTkNAGaTrxlhfGvjZ+WlQMIx/7TGa2pX3sQPp6TQV+WYf
+ mv7ii94fVbr8QuJmnvkEYOhLoBvyeo4lahrcRYS2Ablufh5BnJgbcDlQYF13eCI/ZP
+ 9qVnWlZU9KupHrMcPB+QTdSYxeYDZ/ccT75YYaYDTNF+v9mo4LGjn8Uui+hHSjMuMU
+ DnScucgx/dcXir7hjEHrBp5Xlsz2VFHBnNR2h4A4uLjNvfNGAzqx1eEN3Lb9KcEWxh
+ 9l5/qbuc6uT+VYFRUi5xbHfvVq2/eGDuW2D9dy6+ng3sFLGNEgGpOWazHjfPuGkMvz
+ qjkqGaG49zHhg==
+Date: Tue, 11 Jun 2024 10:54:12 +0200
+From: Maxime Ripard <mripard@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
- Suijten <marijn.suijten@somainline.org>,
- Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>
-References: <20240314000216.392549-1-dmitry.baryshkov@linaro.org>
- <20240314000216.392549-9-dmitry.baryshkov@linaro.org>
- <d828f7b6-ac3d-6696-71f1-682599c5fa64@quicinc.com>
- <abz2qu6mrtmjxpyrwwvnqs5ckcuxt2mpex5kd34o7gcmse6xvy@ympm6vlh2fc2>
- <e4b4aa8f-dc30-7b1f-5778-f4973783457a@quicinc.com>
- <q566tpuzjgpopndtfn2acjkxyhia7lcj33nyrxeilqy5a3cx2e@xlx7y5to2vnc>
- <12d24d3e-6798-ec26-1d44-a0efc4828f6c@quicinc.com>
- <CAA8EJpohUy+fEKPgDrMHEMmEpmi8RQqa6rV1EmW1M8YmoC+Wpw@mail.gmail.com>
- <e821ed65-5116-e12e-7378-7d20155f3cc4@quicinc.com>
- <CAA8EJpqFsMPEjTWJ=JsVOdT563XR8seeb_B6bMy7gbDdt-RSpg@mail.gmail.com>
- <9737798d-a188-eac3-542e-787c8dbf72b3@quicinc.com>
-In-Reply-To: <9737798d-a188-eac3-542e-787c8dbf72b3@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: AZJ8LMGOisNvgX9Sokc_dXTrpFHvWBgJ
-X-Proofpoint-ORIG-GUID: AZJ8LMGOisNvgX9Sokc_dXTrpFHvWBgJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-10_06,2024-06-10_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 mlxscore=0
- spamscore=0 phishscore=0 mlxlogscore=999 clxscore=1015 lowpriorityscore=0
- malwarescore=0 suspectscore=0 adultscore=0 bulkscore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405170001
- definitions=main-2406100156
+Cc: Hans de Goede <hdegoede@redhat.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/9] drm/bridge-connector: switch to using drmm
+ allocations
+Message-ID: <20240611-zippy-pragmatic-catfish-cceee5@houat>
+References: <20240607-bridge-hdmi-connector-v5-0-ab384e6021af@linaro.org>
+ <20240607-bridge-hdmi-connector-v5-2-ab384e6021af@linaro.org>
+ <20240610-secret-rottweiler-from-asgard-132f75@houat>
+ <CAA8EJpogi2qm0bhCwumY4zj-xMUkF4zbK-NAPqCeDbLcybFciw@mail.gmail.com>
+ <20240610-smooth-liberal-guan-59853e@houat>
+ <t5pav3up5r6ezs4q37lc7jqlv55ftta7fnntp75b4pjboycwsm@uvs7q6frrzf5>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="l7blei7rzdrnpggn"
+Content-Disposition: inline
+In-Reply-To: <t5pav3up5r6ezs4q37lc7jqlv55ftta7fnntp75b4pjboycwsm@uvs7q6frrzf5>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,715 +77,174 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
+--l7blei7rzdrnpggn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 6/7/2024 7:45 PM, Abhinav Kumar wrote:
-> 
-> 
-> On 6/7/2024 5:57 PM, Dmitry Baryshkov wrote:
->> On Sat, 8 Jun 2024 at 02:55, Abhinav Kumar <quic_abhinavk@quicinc.com> 
->> wrote:
->>>
->>>
->>>
->>> On 6/7/2024 3:26 PM, Dmitry Baryshkov wrote:
->>>> On Sat, 8 Jun 2024 at 00:39, Abhinav Kumar 
->>>> <quic_abhinavk@quicinc.com> wrote:
->>>>>
->>>>>
->>>>>
->>>>> On 6/7/2024 2:10 PM, Dmitry Baryshkov wrote:
->>>>>> On Fri, Jun 07, 2024 at 12:22:16PM -0700, Abhinav Kumar wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 6/7/2024 12:16 AM, Dmitry Baryshkov wrote:
->>>>>>>> On Thu, Jun 06, 2024 at 03:21:11PM -0700, Abhinav Kumar wrote:
->>>>>>>>> On 3/13/2024 5:02 PM, Dmitry Baryshkov wrote:
->>>>>>>>>> Only several SSPP blocks support such features as YUV output 
->>>>>>>>>> or scaling,
->>>>>>>>>> thus different DRM planes have different features.  Properly 
->>>>>>>>>> utilizing
->>>>>>>>>> all planes requires the attention of the compositor, who should
->>>>>>>>>> prefer simpler planes to YUV-supporting ones. Otherwise it is 
->>>>>>>>>> very easy
->>>>>>>>>> to end up in a situation when all featureful planes are already
->>>>>>>>>> allocated for simple windows, leaving no spare plane for YUV 
->>>>>>>>>> playback.
->>>>>>>>>>
->>>>>>>>>> To solve this problem make all planes virtual. Each plane is 
->>>>>>>>>> registered
->>>>>>>>>> as if it supports all possible features, but then at the 
->>>>>>>>>> runtime during
->>>>>>>>>> the atomic_check phase the driver selects backing SSPP block 
->>>>>>>>>> for each
->>>>>>>>>> plane.
->>>>>>>>>>
->>>>>>>>>> Note, this does not provide support for using two different 
->>>>>>>>>> SSPP blocks
->>>>>>>>>> for a single plane or using two rectangles of an SSPP to drive 
->>>>>>>>>> two
->>>>>>>>>> planes. Each plane still gets its own SSPP and can utilize 
->>>>>>>>>> either a solo
->>>>>>>>>> rectangle or both multirect rectangles depending on the 
->>>>>>>>>> resolution.
->>>>>>>>>>
->>>>>>>>>> Note #2: By default support for virtual planes is turned off 
->>>>>>>>>> and the
->>>>>>>>>> driver still uses old code path with preallocated SSPP block 
->>>>>>>>>> for each
->>>>>>>>>> plane. To enable virtual planes, pass 
->>>>>>>>>> 'msm.dpu_use_virtual_planes=1'
->>>>>>>>>> kernel parameter.
->>>>>>>>>>
+On Mon, Jun 10, 2024 at 08:54:09PM GMT, Dmitry Baryshkov wrote:
+> On Mon, Jun 10, 2024 at 02:07:06PM +0200, Maxime Ripard wrote:
+> > Hi,
+> >=20
+> > +Hans
+> >=20
+> > On Mon, Jun 10, 2024 at 02:46:03PM GMT, Dmitry Baryshkov wrote:
+> > > On Mon, 10 Jun 2024 at 11:04, Maxime Ripard <mripard@kernel.org> wrot=
+e:
+> > > >
+> > > > Hi,
+> > > >
+> > > > On Fri, Jun 07, 2024 at 04:22:59PM GMT, Dmitry Baryshkov wrote:
+> > > > > Turn drm_bridge_connector to using drmm_kzalloc() and
+> > > > > drmm_connector_init() and drop the custom destroy function. The
+> > > > > drm_connector_unregister() and fwnode_handle_put() are already ha=
+ndled
+> > > > > by the drm_connector_cleanup() and so are safe to be dropped.
+> > > > >
+> > > > > Acked-by: Maxime Ripard <mripard@kernel.org>
+> > > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > > > ---
+> > > > >  drivers/gpu/drm/drm_bridge_connector.c | 23 +++++---------------=
+---
+> > > > >  1 file changed, 5 insertions(+), 18 deletions(-)
+> > > > >
+> > > > > diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu=
+/drm/drm_bridge_connector.c
+> > > > > index 982552c9f92c..e093fc8928dc 100644
+> > > > > --- a/drivers/gpu/drm/drm_bridge_connector.c
+> > > > > +++ b/drivers/gpu/drm/drm_bridge_connector.c
+> > > > > @@ -15,6 +15,7 @@
+> > > > >  #include <drm/drm_connector.h>
+> > > > >  #include <drm/drm_device.h>
+> > > > >  #include <drm/drm_edid.h>
+> > > > > +#include <drm/drm_managed.h>
+> > > > >  #include <drm/drm_modeset_helper_vtables.h>
+> > > > >  #include <drm/drm_probe_helper.h>
+> > > > >
+> > > > > @@ -193,19 +194,6 @@ drm_bridge_connector_detect(struct drm_conne=
+ctor *connector, bool force)
+> > > > >       return status;
+> > > > >  }
+> > > > >
+> > > > > -static void drm_bridge_connector_destroy(struct drm_connector *c=
+onnector)
+> > > > > -{
+> > > > > -     struct drm_bridge_connector *bridge_connector =3D
+> > > > > -             to_drm_bridge_connector(connector);
+> > > > > -
+> > > > > -     drm_connector_unregister(connector);
+> > > > > -     drm_connector_cleanup(connector);
+> > > > > -
+> > > > > -     fwnode_handle_put(connector->fwnode);
+> > > > > -
+> > > > > -     kfree(bridge_connector);
+> > > > > -}
+> > > > > -
+> > > > >  static void drm_bridge_connector_debugfs_init(struct drm_connect=
+or *connector,
+> > > > >                                             struct dentry *root)
+> > > > >  {
+> > > > > @@ -224,7 +212,6 @@ static const struct drm_connector_funcs drm_b=
+ridge_connector_funcs =3D {
+> > > > >       .reset =3D drm_atomic_helper_connector_reset,
+> > > > >       .detect =3D drm_bridge_connector_detect,
+> > > > >       .fill_modes =3D drm_helper_probe_single_connector_modes,
+> > > > > -     .destroy =3D drm_bridge_connector_destroy,
+> > > > >       .atomic_duplicate_state =3D drm_atomic_helper_connector_dup=
+licate_state,
+> > > > >       .atomic_destroy_state =3D drm_atomic_helper_connector_destr=
+oy_state,
+> > > > >       .debugfs_init =3D drm_bridge_connector_debugfs_init,
+> > > > > @@ -328,7 +315,7 @@ struct drm_connector *drm_bridge_connector_in=
+it(struct drm_device *drm,
+> > > > >       int connector_type;
+> > > > >       int ret;
+> > > > >
+> > > > > -     bridge_connector =3D kzalloc(sizeof(*bridge_connector), GFP=
+_KERNEL);
+> > > > > +     bridge_connector =3D drmm_kzalloc(drm, sizeof(*bridge_conne=
+ctor), GFP_KERNEL);
+> > > >
+> > > > So you make destroy's kfree call unnecessary here ...
+> > > >
+> > > > >       if (!bridge_connector)
+> > > > >               return ERR_PTR(-ENOMEM);
+> > > > >
+> > > > > @@ -383,9 +370,9 @@ struct drm_connector *drm_bridge_connector_in=
+it(struct drm_device *drm,
+> > > > >               return ERR_PTR(-EINVAL);
+> > > > >       }
+> > > > >
+> > > > > -     ret =3D drm_connector_init_with_ddc(drm, connector,
+> > > > > -                                       &drm_bridge_connector_fun=
+cs,
+> > > > > -                                       connector_type, ddc);
+> > > > > +     ret =3D drmm_connector_init(drm, connector,
+> > > > > +                               &drm_bridge_connector_funcs,
+> > > > > +                               connector_type, ddc);
+> > > >
+> > > > ... and here of drm_connector_cleanup.
+> > > >
+> > > > drm_connector_unregister wasn't needed, so can ignore it, but you l=
+eak a reference to
+> > > > connector->fwnode since you don't call fwnode_handle_put anymore.
+> > > >
+> > > > We should register a drmm action right below the call to fwnode_han=
+dle_get too.
+> > >=20
+> > > But drm_connector_cleanup() already contains
+> > > fwnode_handle_put(connector->fwnode). Isn't that enough?
+> >=20
+> > It does, but now I'm confused.
+> >=20
+> > drm_bridge_connector_init takes a reference, drm_connector_init doesn't.
+> > It will call drm_bridge_connector_destroy() that gives back its
+> > reference (which makes sense to me), but then why do
+> > drm_connector_cleanup() does? None of the drm_connector code even took
+> > that reference, and we end up with a double-put.
+> >=20
+> > It looks like it was introduced by commit 48c429c6d18d ("drm/connector:
+> > Add a fwnode pointer to drm_connector and register with ACPI (v2)") from
+> > Hans, which does call put, but never gets that reference.
+>=20
+> The mentioned patch documents that pretty clearly:
+>=20
+> * Drivers can set this to associate a fwnode with a connector, drivers
+> * are expected to get a reference on the fwnode when setting this.
+> * drm_connector_cleanup() will call fwnode_handle_put() on this.
+>=20
+> This is logical. Whoever sets the drm_connector::fwnode pointer, should
+> get reference. This way drm_connector_init() doesn't need to play with
+> the reference counting. The cleanup code drops the reference (so the
+> driver doesn't need to), because cleanup might be assynchronous..
 
-While posting the next revision, can you pls leave a note in the commit 
-text on the reason behind picking crtc_id for sspp allocation and not 
-encoder_id?
+Right, but it's the cleanup part that isn't logical. It makes total
+sense to have the connector that sets connector->fwnode get the
+reference itself. It doesn't make sense to have the core give that
+reference instead of the driver.
 
-I recall you mentioned that, two rects of the smartDMA cannot goto two 
-LMs. This is true. But crtc mapping need not goto 1:1 with LM mapping. 
-It depends on topology. I think I forgot the full explanation for this 
-aspect of it. Hence it will be better to note that in the commit text.
+It's confusing, because if the driver is supposed to handle its
+reference itself, then it should handle all of it itself. This bug is
+the testament for that: the natural approach is buggy.
 
+> The drm_bridge_connector follows this approach: it sets
+> drm_connector->fwnode, so it gets the reference. It uses
+> drm_connector_cleanup(), so it doesn't need to put it.
 
->>>>>>>>>
->>>>>>>>> I like the overall approach in this patch. Some comments below.
->>>>>>>>>
->>>>>>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>>>>>>> ---
->>>>>>>>>>       drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  50 +++++
->>>>>>>>>>       drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c   |  10 +-
->>>>>>>>>>       drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h   |   4 +
->>>>>>>>>>       drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 230 
->>>>>>>>>> +++++++++++++++++++---
->>>>>>>>>>       drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  19 ++
->>>>>>>>>>       drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c    |  77 ++++++++
->>>>>>>>>>       drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h    |  28 +++
->>>>>>>>>>       7 files changed, 390 insertions(+), 28 deletions(-)
->>>>>>>>>>
->>>>>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c 
->>>>>>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>>>>>>>>> index 88c2e51ab166..794c5643584f 100644
->>>>>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>>>>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>>>>>>>>> @@ -1168,6 +1168,49 @@ static bool 
->>>>>>>>>> dpu_crtc_needs_dirtyfb(struct drm_crtc_state *cstate)
->>>>>>>>>>             return false;
->>>>>>>>>>       }
->>>>>>>>>> +static int dpu_crtc_reassign_planes(struct drm_crtc *crtc, 
->>>>>>>>>> struct drm_crtc_state *crtc_state)
->>>>>>>>>> +{
->>>>>>>>>> + int total_planes = crtc->dev->mode_config.num_total_plane;
->>>>>>>>>> + struct drm_atomic_state *state = crtc_state->state;
->>>>>>>>>> + struct dpu_global_state *global_state;
->>>>>>>>>> + struct drm_plane_state **states;
->>>>>>>>>> + struct drm_plane *plane;
->>>>>>>>>> + int ret;
->>>>>>>>>> +
->>>>>>>>>> + global_state = dpu_kms_get_global_state(crtc_state->state);
->>>>>>>>>> + if (IS_ERR(global_state))
->>>>>>>>>> +         return PTR_ERR(global_state);
->>>>>>>>>> +
->>>>>>>>>> + dpu_rm_release_all_sspp(global_state, crtc);
->>>>>>>>>> +
->>>>>>>>>
->>>>>>>>> Do we need to call dpu_rm_release_all_sspp() even in the
->>>>>>>>> _dpu_plane_atomic_disable()?
->>>>>>>>
->>>>>>>> It allows the driver to optimize the usage of the SSPP rectangles.
->>>>>>>>
->>>>>>>
->>>>>>> No, what I meant was that we should call 
->>>>>>> dpu_rm_release_all_sspp() in
->>>>>>> dpu_plane_atomic_update() as well because in the atomic_check() 
->>>>>>> path where
->>>>>>> its called today, its being called only for zpos_changed and 
->>>>>>> planes_changed
->>>>>>> but during disable we must call this for sure.
->>>>>>
->>>>>> No. the dpu_rm_release_all_sspp() should only be called during check.
->>>>>> When dpu_plane_atomic_update() is called, the state should already be
->>>>>> finalised. The atomic_check() callback is called when a plane is 
->>>>>> going
->>>>>> to be disabled.
->>>>>>
->>>>>
->>>>> atomic_check() will be called when plane is disabled but
->>>>> dpu_rm_release_all_sspp() may not be called as it is protected by
->>>>> zpos_changed and planes_changed. OR you need to add a !visible check
->>>>> here to call dpu_rm_release_all_sspp() that time. Thats whay I wrote
->>>>> previously.
->>>>
->>>> Unless I miss something, if a plane gets disabled, then obviously
->>>> planes_changed is true.
->>>>
->>>> [trimmed]
->>>>
->>>
->>> Do you mean DRM fwk sets planes_changed correctly for this case?
->>>
->>> Currently we have
->>>
->>>           if (!new_state->visible) {
->>>                   _dpu_plane_atomic_disable(plane);
->>>           } else {
->>>                   dpu_plane_sspp_atomic_update(plane);
->>>           }
->>>
->>> So I wanted to ensure that when plane gets disabled, its SSPP is freed
->>> too. If this is confirmed, I do not have any concerns.
->>
->> This is the atomic_update() path, not the atomic_check()
->>
-> 
-> Yes, I am aware.
-> 
-> Let me clarify my question here once again.
-> 
-> 1) dpu_rm_release_all_sspp() gets called only in atomic_check() when 
-> either planes_changed or zpos_changed is set
-> 2) But even in _dpu_plane_atomic_disable(), we should call 
-> dpu_rm_release_all_sspp() unconditionally. So for this, as you wrote, 
-> the corresponding atomic_check() call of _dpu_plane_atomic_disable() is 
-> supposed to do this. atomic_check() checks planes_changed and 
-> zpos_changed but not !visible before calling dpu_rm_release_all_sspp().
-> 
-> Will planes_changed be set even when !visible?
-> 
-> I am trying to make sure that dpu_rm_release_all_sspp() will get called 
-> for the _dpu_plane_atomic_disable(). Thats all.
-> 
->>>
->>>>>
->>>>>>>>>> @@ -1486,7 +1593,7 @@ struct drm_plane *dpu_plane_init(struct 
->>>>>>>>>> drm_device *dev,
->>>>>>>>>>             supported_rotations = DRM_MODE_REFLECT_MASK | 
->>>>>>>>>> DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_180;
->>>>>>>>>> - if (pipe_hw->cap->features & BIT(DPU_SSPP_INLINE_ROTATION))
->>>>>>>>>> + if (inline_rotation)
->>>>>>>>>>                     supported_rotations |= DRM_MODE_ROTATE_MASK;
->>>>>>>>>>             drm_plane_create_rotation_property(plane,
->>>>>>>>>> @@ -1494,10 +1601,81 @@ struct drm_plane 
->>>>>>>>>> *dpu_plane_init(struct drm_device *dev,
->>>>>>>>>>             drm_plane_enable_fb_damage_clips(plane);
->>>>>>>>>> - /* success! finalize initialization */
->>>>>>>>>> + DPU_DEBUG("%s created for pipe:%u id:%u\n", plane->name,
->>>>>>>>>> +                                 pipe, plane->base.id);
->>>>>>>>>> + return plane;
->>>>>>>>>> +}
->>>>>>>>>> +
->>>>>>>>>> +struct drm_plane *dpu_plane_init(struct drm_device *dev,
->>>>>>>>>> +                          uint32_t pipe, enum drm_plane_type 
->>>>>>>>>> type,
->>>>>>>>>> +                          unsigned long possible_crtcs)
->>>>>>>>>> +{
->>>>>>>>>> + struct drm_plane *plane = NULL;
->>>>>>>>>> + struct msm_drm_private *priv = dev->dev_private;
->>>>>>>>>> + struct dpu_kms *kms = to_dpu_kms(priv->kms);
->>>>>>>>>> + struct dpu_hw_sspp *pipe_hw;
->>>>>>>>>> +
->>>>>>>>>> + /* initialize underlying h/w driver */
->>>>>>>>>> + pipe_hw = dpu_rm_get_sspp(&kms->rm, pipe);
->>>>>>>>>> + if (!pipe_hw || !pipe_hw->cap || !pipe_hw->cap->sblk) {
->>>>>>>>>> +         DPU_ERROR("[%u]SSPP is invalid\n", pipe);
->>>>>>>>>> +         return ERR_PTR(-EINVAL);
->>>>>>>>>> + }
->>>>>>>>>> +
->>>>>>>>>> +
->>>>>>>>>> + plane = dpu_plane_init_common(dev, type, possible_crtcs,
->>>>>>>>>> +                               pipe_hw->cap->features & 
->>>>>>>>>> BIT(DPU_SSPP_INLINE_ROTATION),
->>>>>>>>>> +                               pipe_hw->cap->sblk->format_list,
->>>>>>>>>> +                               pipe_hw->cap->sblk->num_formats,
->>>>>>>>>> +                               pipe);
->>>>>>>>>> + if (IS_ERR(plane))
->>>>>>>>>> +         return plane;
->>>>>>>>>> +
->>>>>>>>>>             drm_plane_helper_add(plane, &dpu_plane_helper_funcs);
->>>>>>>>>>             DPU_DEBUG("%s created for pipe:%u id:%u\n", 
->>>>>>>>>> plane->name,
->>>>>>>>>>                                             pipe, 
->>>>>>>>>> plane->base.id);
->>>>>>>>>> +
->>>>>>>>>> + return plane;
->>>>>>>>>> +}
->>>>>>>>>> +
->>>>>>>>>> +struct drm_plane *dpu_plane_init_virtual(struct drm_device *dev,
->>>>>>>>>> +                                  enum drm_plane_type type,
->>>>>>>>>> +                                  unsigned long possible_crtcs)
->>>>>>>>>> +{
->>>>>>>>>> + struct drm_plane *plane = NULL;
->>>>>>>>>> + struct msm_drm_private *priv = dev->dev_private;
->>>>>>>>>> + struct dpu_kms *kms = to_dpu_kms(priv->kms);
->>>>>>>>>> + bool has_inline_rotation = false;
->>>>>>>>>> + const u32 *format_list = NULL;
->>>>>>>>>> + u32 num_formats = 0;
->>>>>>>>>> + int i;
->>>>>>>>>> +
->>>>>>>>>> + /* Determine the largest configuration that we can implement */
->>>>>>>>>> + for (i = 0; i < kms->catalog->sspp_count; i++) {
->>>>>>>>>> +         const struct dpu_sspp_cfg *cfg = 
->>>>>>>>>> &kms->catalog->sspp[i];
->>>>>>>>>> +
->>>>>>>>>> +         if (test_bit(DPU_SSPP_INLINE_ROTATION, &cfg->features))
->>>>>>>>>> +                 has_inline_rotation = true;
->>>>>>>>>> +
->>>>>>>>>> +         if (!format_list ||
->>>>>>>>>> +             cfg->sblk->csc_blk.len) {
->>>>>>>>>
->>>>>>>>> But format_list is being assigned to NULL just a few lines 
->>>>>>>>> above. Why is
->>>>>>>>> this check needed?
->>>>>>>>
->>>>>>>> It was assigned before the loop.
->>>>>>>>
->>>>>>>
->>>>>>> Yes, I got this part but missed on why we needed the loop at all.
->>>>>>
->>>>>> Which set of formats should the virtual plane use?
->>>>>>
->>>>>>>>>
->>>>>>>>> I dont get why this part can also goto dpu_plane_init_common() 
->>>>>>>>> as it looks
->>>>>>>>> identical to me.
->>>>>>>>
->>>>>>>> And it is not. For the non-virtual case there is no loop around 
->>>>>>>> formats
->>>>>>>> list assignment.
->>>>>>>>
->>>>>>>
->>>>>>> Ah okay, I misunderstood the logic. After reading the comment 
->>>>>>> above the loop
->>>>>>> I get what you are trying to do here.
->>>>>>>
->>>>>>> But I dont get why you really need to do that?
->>>>>>>
->>>>>>> 1) In this patch the relationship between virtual plane and SSPP 
->>>>>>> is still
->>>>>>> 1:1 so what is wrong to retain the sspp's actual format for the 
->>>>>>> plane rather
->>>>>>> than picking the best format (you are targetting Vig SSPP)
->>>>>>
->>>>>> No. With this patch there is no 1:1 relationship. The RM will 
->>>>>> select the
->>>>>> SSPP that suits the requirements (YUV, scaling, rotation, etc).
->>>>>>
->>>>>
->>>>> Yes but there is always only one SSPP for one plane is what I meant.
->>>>> That does not change till the next patch.
->>>>>
->>>>> In that sense, I dont see why you need to expose the superset of 
->>>>> formats.
->>>>
->>>> Let me please repeat my question: what set of formats should be used
->>>> for plane init?
->>>>
->>>
->>> So, my point here was that in the loop, in this patch, we create one
->>> plane for one SSPP, why dont we just use the same SSPP's format for that
->>> plane.
->>
->> Which SSPP? There is no SSPP attached to a virtual plane.
->>
-> 
-> dpu_plane_init_virtual() gets called for each SSPP of the catalog in 
-> this patchset just like dpu_plane_init().
-> 
-> The only difference is dpu_plane_init() also passes the pipe but 
-> dpu_plane_init_virtual() does not.
-> 
-> Would it be incorrect to also pass along the sspp's fmt list (from the 
-> catalog->sspp loop) to dpu_plane_init_virtual() instead of the superset?
-> 
->>>
->>> In the next patch, when the same plane can attach to two different
->>> SSPPs, we will use the superset of the SSPPs. IOW, do we need the
->>> superset in this patch itself?
->>>
->>>>>
->>>>>>> In fact, that will reduce atomic_check() failures with this patch 
->>>>>>> because
->>>>>>> compositor will still work the same way as it used to work before 
->>>>>>> by not
->>>>>>> trying an unsupported format on a plane.
->>>>>>
->>>>>> The virtual plane should support any of the formats that the backing
->>>>>> hardware can support. If (for example) we only had RGB-only and 
->>>>>> YUV-only
->>>>>> hardware blocks, the driver would have to construct a _superset_ of
->>>>>> those formats. Fortunately this is not the case and VIG supports a
->>>>>> strict superset of what DMA (or RGB) SSPP supports.
->>>>>>
->>>>>
->>>>> Yes, thats why I said plane_formats_yuv is enough in my next point 
->>>>> below
->>>>> because Vig is super set of DMA or IOW Vig is the most feature rich 
->>>>> plane.
->>>>
->>>> QCM2290 doesn't have YUV support if I'm not mistaken.
->>>>
->>>
->>> qcm2290_sspp has YUV support but no scaling support as per the catalog.
->>> It uses _VIG_SBLK_NOSCALE which still has plane_formats_yuv.
->>
->> I'll check it on the real hw. I remember that I had questions 
->> regarding it.
->>
->>>
->>>>>
->>>>>>> If one plane maps to two SSPPs, then yes we can go with the 
->>>>>>> superset of
->>>>>>> formats but that comes in a later patch right?
->>>>>>>
->>>>>>> 2) So even if we want to do it this way from this patch itself, I 
->>>>>>> think all
->>>>>>> you are looking for is whether there is a Vig SSPP and if so use
->>>>>>> plane_formats_yuv. There is no need for this loop IMO.
->>>>>>>
->>>>>>> 3) I noticed that virt_format_list is still present in the 
->>>>>>> driver. If you
->>>>>>> are planning to not use that perhaps drop it with this series.
->>>>>>
->>>>>> Ack
->>>>>>
->>>>>>>
->>>>>>>>>
->>>>>>>>>
->>>>>>>>>> +                 format_list = cfg->sblk->format_list;
->>>>>>>>>> +                 num_formats = cfg->sblk->num_formats;
->>>>>>>>>> +         }
->>>>>>>>>> + }
->>>>>>>>>> +
->>>>>>>>>> + plane = dpu_plane_init_common(dev, type, possible_crtcs,
->>>>>>>>>> +                               has_inline_rotation,
->>>>>>>>>> +                               format_list,
->>>>>>>>>> +                               num_formats,
->>>>>>>>>> +                               SSPP_NONE);
->>>>>>>>>
->>>>>>>>> Ok, here is the part which we were discussing in
->>>>>>>>>
->>>>>>>>> https://patchwork.freedesktop.org/patch/582820/?series=131109&rev=1#comment_1087370
->>>>>>>>>
->>>>>>>>> So yes, that part belongs to this patch.
->>>>>>>>
->>>>>>>> I'll check it while preparing the next iteration.
->>>>>>>>
->>>>>>>>>
->>>>>>>>>> + if (IS_ERR(plane))
->>>>>>>>>> +         return plane;
->>>>>>>>>> +
->>>>>>>>>> + drm_plane_helper_add(plane, &dpu_plane_virtual_helper_funcs);
->>>>>>>>>> +
->>>>>>>>>> + DPU_DEBUG("%s created virtual id:%u\n", plane->name, 
->>>>>>>>>> plane->base.id);
->>>>>>>>>> +
->>>>>>>>>>             return plane;
->>>>>>>>>>       }
->>>>>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h 
->>>>>>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
->>>>>>>>>> index a3ae45dc95d0..15f7d60d8b85 100644
->>>>>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
->>>>>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
->>>>>>>>>> @@ -30,6 +30,7 @@
->>>>>>>>>>        * @plane_fetch_bw: calculated BW per plane
->>>>>>>>>>        * @plane_clk: calculated clk per plane
->>>>>>>>>>        * @needs_dirtyfb: whether attached CRTC needs pixel 
->>>>>>>>>> data explicitly flushed
->>>>>>>>>> + * @saved_fmt: format used by the plane's FB, saved for for 
->>>>>>>>>> virtual plane support
->>>>>>>>>>        */
->>>>>>>>>>       struct dpu_plane_state {
->>>>>>>>>>             struct drm_plane_state base;
->>>>>>>>>> @@ -46,6 +47,8 @@ struct dpu_plane_state {
->>>>>>>>>>             u64 plane_clk;
->>>>>>>>>>             bool needs_dirtyfb;
->>>>>>>>>> +
->>>>>>>>>> + const struct dpu_format *saved_fmt;
->>>>>>>>>>       };
->>>>>>>>>
->>>>>>>>> Why is saved_fmt needed?
->>>>>>>>>
->>>>>>>>> The use-case which comes to my mind is lets say if we have a 
->>>>>>>>> RGB format and
->>>>>>>>> we need to switch to a YUV format, basically switch from DMA to 
->>>>>>>>> ViG SSPP,
->>>>>>>>> then yes we have to mark planes_changed as we need to switch 
->>>>>>>>> the underlying
->>>>>>>>> SSPP that time, but why cant we simply check that by means of a 
->>>>>>>>> check to see
->>>>>>>>> if the fmt is YUV and whether CSC block is present in the SSPP.
->>>>>>>>
->>>>>>>> Yes, correct. And vice versa, going from YUV to RGB might free 
->>>>>>>> the VIG
->>>>>>>> SSPP.
->>>>>>>>
->>>>>>>>>
->>>>>>>>> This will lead to dpu_crtc_reassign_planes() getting called for 
->>>>>>>>> format
->>>>>>>>> changes even when the new format might be available in the same 
->>>>>>>>> SSPP.
->>>>>>>>
->>>>>>>> So use 'needs_vig' instead of storing the format? Sounds good to 
->>>>>>>> me.
->>>>>>>>
->>>>>>>
->>>>>>> Yes thats the idea. Basically "needs_reassignment". You could 
->>>>>>> even go from
->>>>>>> Vig to DMA if the use-case can just use DMA to save up Vig.
->>>>>>>
->>>>>>> Also, do we really need to cache anything in the plane state to 
->>>>>>> track this?
->>>>>>>
->>>>>>> If we have a function called dpu_crtc_needs_plane_reassignment() 
->>>>>>> will go
->>>>>>> through the current plane state and the current SSPP from the 
->>>>>>> global state
->>>>>>> and see if needs reassignment.
->>>>>>
->>>>>> No, looking at the global state won't be possible here. I'd have 
->>>>>> to lock
->>>>>> the private object before consulting it, which might cause EDEADLOCK
->>>>>> later on during resource reallocation. So all necessary information
->>>>>> should be stored in the dpu_plane_state.
->>>>>>
->>>>>
->>>>> But you are already calling dpu_kms_get_global_state() in
->>>>> dpu_crtc_reassign_planes().
->>>>
->>>> It happens at a different point. And I'm not sure how modeset locking
->>>> will react to an attempt to lock the private object twice.
->>>>
->>>
->>> hmm, I am missing the code flow a bit.
->>>
->>> Inside drm_atomic_helper_check_planes(), we first have plane's
->>> atomic_check followed by crtc's.
->>>
->>> In plane's atomic_check is where we are setting planes_changed by
->>> checking whether we need re-assignment of SSPPs.
->>>
->>> In CRTC's atomic_check is where we have the logic to check
->>> planes_changed and reassign the SSPPs.
->>>
->>> We already call dpu_kms_get_global_state() in crtc atomic_check which
->>> means we acquire the ctx for the private object.
->>>
->>> Would it be incorrect to acquire it in plane's atomic_check?
->>>
->>> If so, can we do one of below:
->>>
->>> 1) call drm_modeset_drop_locks() before plane's atomic_check ends. That
->>> way within the drm_atomic_helper_check_planes(), only one ctx is tracked
->>> at a time.
->>
->> No, if I understand it correctly, this would drop all lock, so all the
->> objects are unlocked.
->>
->>>
->>> 2) if (1) wont work, would dpu_kms_get_existing_global_state() help? For
->>> that one we do not need the locking.
->>
->> I'll check whether this works as expected.
->>
->> But really I don't see a problem that you are trying to solve. It is
->> too early to run SSPP allocation before dpu_crtc_atomic_check(). We
->> need a set of all the plane states that are used by the CRTC. Even
->> though it is not needed for this patch (it can work with just single
->> plane state), it doesn't make sense to rewire that again, within the
->> same patchset.
->>
-> 
-> The problem I am trying to solve is to avoid caching any previous state 
-> like saved_fmt OR needs_yuv in the state and keep growing that list when 
-> that information is already available to us in the current global state.
-> 
-> I would like to avoid adding new cached information just to track prev 
-> and current state unless that information is indeed not available.
-> 
->>>
->>>
->>>>>
->>>>>>>
->>>>>>>>>
->>>>>>>>>>       #define to_dpu_plane_state(x) \
->>>>>>>>>> @@ -75,6 +78,16 @@ struct drm_plane *dpu_plane_init(struct 
->>>>>>>>>> drm_device *dev,
->>>>>>>>>>                     uint32_t pipe, enum drm_plane_type type,
->>>>>>>>>>                     unsigned long possible_crtcs);
->>>>>>>>>> +/**
->>>>>>>>>> + * dpu_plane_init_virtual - create new dpu virtualized plane
->>>>>>>>>> + * @dev:   Pointer to DRM device
->>>>>>>>>> + * @type:  Plane type - PRIMARY/OVERLAY/CURSOR
->>>>>>>>>> + * @possible_crtcs: bitmask of crtc that can be attached to 
->>>>>>>>>> the given pipe
->>>>>>>>>> + */
->>>>>>>>>> +struct drm_plane *dpu_plane_init_virtual(struct drm_device *dev,
->>>>>>>>>> +                                  enum drm_plane_type type,
->>>>>>>>>> +                                  unsigned long possible_crtcs);
->>>>>>>>>> +
->>>>>>>>>>       /**
->>>>>>>>>>        * dpu_plane_color_fill - enables color fill on plane
->>>>>>>>>>        * @plane:  Pointer to DRM plane object
->>>>>>>>>> @@ -91,4 +104,10 @@ void dpu_plane_danger_signal_ctrl(struct 
->>>>>>>>>> drm_plane *plane, bool enable);
->>>>>>>>>>       static inline void dpu_plane_danger_signal_ctrl(struct 
->>>>>>>>>> drm_plane *plane, bool enable) {}
->>>>>>>>>>       #endif
->>>>>>>>>> +int dpu_assign_plane_resources(struct dpu_global_state 
->>>>>>>>>> *global_state,
->>>>>>>>>> +                        struct drm_atomic_state *state,
->>>>>>>>>> +                        struct drm_crtc *crtc,
->>>>>>>>>> +                        struct drm_plane_state **states,
->>>>>>>>>> +                        unsigned int num_planes);
->>>>>>>>>> +
->>>>>>>>>>       #endif /* _DPU_PLANE_H_ */
->>>>>>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c 
->>>>>>>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>>>>>>>> index 44938ba7a2b7..7264a4d44a14 100644
->>>>>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>>>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>>>>>>>> @@ -694,6 +694,83 @@ int dpu_rm_reserve(
->>>>>>>>>>             return ret;
->>>>>>>>>>       }
->>>>>>>>>> +struct dpu_hw_sspp *dpu_rm_reserve_sspp(struct dpu_rm *rm,
->>>>>>>>>> +                                 struct dpu_global_state 
->>>>>>>>>> *global_state,
->>>>>>>>>> +                                 struct drm_crtc *crtc,
->>>>>>>>>> +                                 struct 
->>>>>>>>>> dpu_rm_sspp_requirements *reqs)
->>>>>>>>>> +{
->>>>>>>>>> + uint32_t crtc_id = crtc->base.id;
->>>>>>>>>> + unsigned int weight, best_weght = UINT_MAX;
->>>>>>>>>
->>>>>>>>> best_weight?
->>>>>>>>
->>>>>>>> Yes
->>>>>>>>
->>>>>>>>>
->>>>>>>>>> + struct dpu_hw_sspp *hw_sspp;
->>>>>>>>>> + unsigned long mask = 0;
->>>>>>>>>> + int i, best_idx = -1;
->>>>>>>>>> +
->>>>>>>>>> + /*
->>>>>>>>>> +  * Don't take cursor feature into consideration until there 
->>>>>>>>>> is proper support for SSPP_CURSORn.
->>>>>>>>>> +  */
->>>>>>>>>> + mask |= BIT(DPU_SSPP_CURSOR);
->>>>>>>>>> +
->>>>>>>>>> + if (reqs->scale)
->>>>>>>>>> +         mask |= BIT(DPU_SSPP_SCALER_RGB) |
->>>>>>>>>> +                 BIT(DPU_SSPP_SCALER_QSEED2) |
->>>>>>>>>> +                 BIT(DPU_SSPP_SCALER_QSEED3_COMPATIBLE);
->>>>>>>>>> +
->>>>>>>>>> + if (reqs->yuv)
->>>>>>>>>> +         mask |= BIT(DPU_SSPP_CSC) |
->>>>>>>>>> +                 BIT(DPU_SSPP_CSC_10BIT);
->>>>>>>>>> +
->>>>>>>>>> + if (reqs->rot90)
->>>>>>>>>> +         mask |= BIT(DPU_SSPP_INLINE_ROTATION);
->>>>>>>>>> +
->>>>>>>>>> + for (i = 0; i < ARRAY_SIZE(rm->hw_sspp); i++) {
->>>>>>>>>> +         if (!rm->hw_sspp[i])
->>>>>>>>>> +                 continue;
->>>>>>>>>> +
->>>>>>>>>> +         if (global_state->sspp_to_crtc_id[i])
->>>>>>>>>> +                 continue;
->>>>>>>>>> +
->>>>>>>>>> +         hw_sspp = rm->hw_sspp[i];
->>>>>>>>>> +
->>>>>>>>>> +         /* skip incompatible planes */
->>>>>>>>>> +         if (reqs->scale && !hw_sspp->cap->sblk->scaler_blk.len)
->>>>>>>>>> +                 continue;
->>>>>>>>>> +
->>>>>>>>>> +         if (reqs->yuv && !hw_sspp->cap->sblk->csc_blk.len)
->>>>>>>>>> +                 continue;
->>>>>>>>>> +
->>>>>>>>>> +         if (reqs->rot90 && !(hw_sspp->cap->features & 
->>>>>>>>>> DPU_SSPP_INLINE_ROTATION))
->>>>>>>>>> +                 continue;
->>>>>>>>>> +
->>>>>>>>>> +         /*
->>>>>>>>>> +          * For non-yuv, non-scaled planes prefer simple (DMA 
->>>>>>>>>> or RGB)
->>>>>>>>>> +          * plane, falling back to VIG only if there are no 
->>>>>>>>>> such planes.
->>>>>>>>>> +          *
->>>>>>>>>> +          * This way we'd leave VIG sspps to be later used 
->>>>>>>>>> for YUV formats.
->>>>>>>>>> +          */
->>>>>>>>>> +         weight = hweight64(hw_sspp->cap->features & ~mask);
->>>>>>>>>
->>>>>>>>> This approach is assuming that ViG feature masks are more than 
->>>>>>>>> DMA.
->>>>>>>>> Hence the hweight of DMA SSPP's features is less than hweight 
->>>>>>>>> of ViG SSPPs.
->>>>>>>>>
->>>>>>>>> Is this really true? Because there are other bits such as 
->>>>>>>>> DMA_SDM845_MASK
->>>>>>>>> which might increase the hweight of DMA SSPPs
->>>>>>>>
->>>>>>>> Which bits are present in the DMA mask, which are not present in 
->>>>>>>> the VIG
->>>>>>>> mask? Also for the older platforms there are three kinds of 
->>>>>>>> planes: VIG,
->>>>>>>> DMA and RGB. The selection algorithm should not require significant
->>>>>>>> changes to support that case.
->>>>>>>>
->>>>>>>
->>>>>>> DMA_SDM845_MASK has DPU_SSPP_QOS_8LVL which is not there in 
->>>>>>> VIG_MSM8998_MASK
->>>>>>> afaict. But we really cannot be counting the number of feature 
->>>>>>> bits and
->>>>>>> going by that.
->>>>>>
->>>>>> MSM8998 uses DMA_MSM8998_MASK, not DMA_SDM845_MASK.
->>>>>>
->>>
->>> I forgot to update this point, for sm6375_sspp, it uses DMA_SDM845_MASK
->>> for DMA and VIG_SDM845_MASK for VIG. So my point is applicable for
->>> sm6375 atleast.
->>
->> DPU_SSPP_QOS_8LVL is enabled in both VIG_SDM845_MASK and DMA_SDM845_MASK
->>
->>>>>>> Hence, inherently, going by hweight is not right because whenever 
->>>>>>> we add a
->>>>>>> catalog change to add a new feature bit to SSPP, we have to come 
->>>>>>> back here
->>>>>>> and make sure this logic will not break.
->>>>>>>>>
->>>>>>>>> I would rather make it simpler.
->>>>>>>>>
->>>>>>>>> 1) if we need scaling || yuv, then we have to get only a Vig
->>>>>>>>> 2) else, first try to get a DMA SSPP
->>>>>>>>
->>>>>>>> How would you distinguish between VIG and DMA?
->>>>>>>>
->>>>>>>
->>>>>>> the type SSPP_TYPE_VIG OR SSPP_TYPE_DMA. We also have a 
->>>>>>> SSPP_TYPE_RGB so
->>>>>>> that should address your concern about the third type of plane 
->>>>>>> (Vig, DMA,
->>>>>>> RGB).
->>>>>>
->>>>>> I don't particularly like the idea of using type. We still need to
->>>>>> evaluate plane's features. Consider QCM2290, where VIG planes do not
->>>>>> support scaling.
->>>>>>
->>>>>> I will evaluate if I can rework this part to use type, while still
->>>>>> checking for the feature bit. BTW: should we prefer RGB or DMA 
->>>>>> plane if
->>>>>> all other conditions are met?
->>>>>>
->>>>>
->>>>> Ok, qcm2290 really seems like an odd case but point taken.
->>>>>
->>>>> I am fine if it needs to be a combination of type and feature bit but
->>>>> certainly not hweight of feature bit. If you want to use type along 
->>>>> with
->>>>> presence of scaler blk feature bit thats fine.
->>>>>
->>>>> I need to check if there is any feature loss in RGB Vs DMA. Let me 
->>>>> check
->>>>> and get back. This needs some history digging.
->>>>
->>>> Sure.
->>
+Yet, it calls fwnode_handle_put in its destroy path, because it grabbed
+a reference before.
+
+Maxime
+
+--l7blei7rzdrnpggn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZmgQtAAKCRDj7w1vZxhR
+xS5PAP0ecACIdyHVUANOEstpBHZYkKuDtBGi51NuDHKzgPZIVQEAteId7U0SLYEG
+XjvB4MdtarwH+H3AyHBZF+xD0iHC/Qs=
+=xPY7
+-----END PGP SIGNATURE-----
+
+--l7blei7rzdrnpggn--
