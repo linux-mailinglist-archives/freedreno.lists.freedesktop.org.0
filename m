@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E478905B80
-	for <lists+freedreno@lfdr.de>; Wed, 12 Jun 2024 20:51:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A74BC905BA2
+	for <lists+freedreno@lfdr.de>; Wed, 12 Jun 2024 21:05:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F77310E8DE;
-	Wed, 12 Jun 2024 18:51:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 430BF10E076;
+	Wed, 12 Jun 2024 19:05:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RPk1GOLp";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cPj1sBiP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5D7610E8DF
- for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 18:51:48 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5295eb47b48so256426e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 11:51:48 -0700 (PDT)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF43E10E8DE
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 19:05:07 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-52bbdc237f0so310452e87.0
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 12:05:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718218307; x=1718823107; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1718219106; x=1718823906; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=YFYPQEigFT5TfOCN8eDaCIrl7HC+yeqeYN0ZmGZ+Sr8=;
- b=RPk1GOLp10xshVVQ6qH28fYLpDC97mZDBFtPbVIL3aoRMl14S8+qymDvVvM0Vw4WRp
- WL/6TfcruqbPwDsMApQYQ4wMMq04AEmibVHTyTSBl+tCVjGp0C3+K6rMX8ihT1AxwAMq
- xVutD2O8OZa0TVTicwVY9a8fhrhTjYpmLrczV3YrDkGxtPlCfUKUrNMxtTZt4INmv7+F
- PwVJTnStF3GT8Ry6J53LkLQDWsq8pVQGPTapyx9jpL5oDfCMCYI6dzcbr1BYqheGf9wc
- Qp7cIRmp/VEd24igzLspS9dzuDuTnpHhnh76si99uslRB353lb5366XUxQbRftqu6iWc
- TPUA==
+ bh=mVn0gUr8jwuVMGQACKErKUFq31rOO6g1SOd15vC3Cks=;
+ b=cPj1sBiPZgfa8FGAa5Pf97VTFR+7Ethupzxl98PaBA01um5QK4zK9OPER4Nqv/Ddzc
+ 77E/VFA2ext+iGNwim3uXplEEMPCIZkwL1f/niUsrYctkETRvsebhtMUFYwQ4heYI/bO
+ NnZ2zBefegMRcbA6ucPIY/PICP5ntm4FnX4vUd0gVJRT1/4DJTLn7ZqdWWU/xNuHoOl+
+ U6KnSCpK2aZJxn0xnVsJCeRJ+jGUpYgqeYwf6dukai/ILRpbpUdhJbyWg9HIMn1u4DPg
+ fkGqk4dFux4SFXWyP2gJwOr7zwbFX01IjcKQAEWQwAogjbspruucusuNQ1bJ9l7O3IM9
+ 9Tcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718218307; x=1718823107;
+ d=1e100.net; s=20230601; t=1718219106; x=1718823906;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=YFYPQEigFT5TfOCN8eDaCIrl7HC+yeqeYN0ZmGZ+Sr8=;
- b=TLJ1S6zCjPZpdmVYkbUHdLzgZUlnlrnM9jpIKX9zqAC6LKswRQZFGyCp3nUhgT4wGu
- NkKaWII5gum0NNo//aLPyaHv1W79oP/tvwChF49CHqY0/UGGVW6eK87M9/p3IbLc24Fa
- Jw/wYFtHbGs/tBQilefVPaeir0Bi4GJZX9IVk21qq0WN3aahlaOlITVSCf/xnFxkreoc
- I8muVLaulzxZDpZHzwwCrNMV0LDzODJnMjNRqdo2JHL+O5i3OloL0vTErrNDxiLVVjkF
- qb+0Ve6e0FFE3x7m4cFtA2iJuusCivVucyKUdlR0nvacrWmYy2J5Zh9+KOrwSuGsaju2
- 0QVg==
+ bh=mVn0gUr8jwuVMGQACKErKUFq31rOO6g1SOd15vC3Cks=;
+ b=Nsg6gif0/8Ne/moo7KHuahio5cpoPEmcjAm6v0QaHarJNzpqYKjXDEptOS6jPXp47d
+ IMWLSuOFwnqzSG5PRvSfor7xPMieSHrvBL+DHAfkGV+vN1xxNAptGO7YFbbzPdnTcAQS
+ Y7fgGfiiPK4aPmF7Si9k5gXoJHt9qBJs4zAwHuYiwE2aFRAtg3aT4A+WO4yDIiAB9I4Z
+ FUO1KBNysfFrIUGewRMPYBAV6uIqebeUAdInewZ+Ol6YEqkyDgLN/AICzwPG7ZJW96A0
+ JbClTGcFbQ4GGYD0k0v375snJFIb/cQjATazLzZC6K+LmRS6/S/XPJVUSJfJ25kzut+E
+ aPHw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX98vwMhMje5fCpKRP33f2V+TQprvyBjoGcYGv1z1VKe1u56IPu3T4P/csryVIscW6NM9/B5oPOBVxL6szRLRXE6T45swDsEexiVTrN38qg
-X-Gm-Message-State: AOJu0YzG96QOEc5VPb1K6xELzTQ76bK8P+iLlsK3D8benNCj9hwdw5g8
- b7ZwIjtcvp5LC+qY29klAczUez5M+yEJZwnW+G6iIHk/nnnTPjsL7gvBuJrdzuA=
-X-Google-Smtp-Source: AGHT+IHjX90AGX8knBQHaw6dOK8zsSJKlpbuIZ1J3ZLU/93MWJ/OAchtptQelggFqTZRz8uB2Ye9ZQ==
-X-Received: by 2002:ac2:4850:0:b0:52c:8023:aa9 with SMTP id
- 2adb3069b0e04-52c9a3dfb4emr1809326e87.36.1718218306834; 
- Wed, 12 Jun 2024 11:51:46 -0700 (PDT)
+ AJvYcCWv29y7cXCm65rzpOVYNGJws51NbEhIlFaDW7cMu113oqVrFnovF/aq+0pk2rXDS46Wjb7KGIA8T9gyRdH5zI/CISJIXnzNjFH9XqiUUFz4
+X-Gm-Message-State: AOJu0Yzjg4lFksQW1P0mevZowKoVWb5xzcM550GlXVTKfEhzMwmvxyW0
+ 1Gqy/ZU70IFoix8CPHzwrJCtNRDnFv9pux8eT9D6zU/6bxcK07s2vBhDz9tNPeo=
+X-Google-Smtp-Source: AGHT+IGykt0YUd4KoCQDPLnbKvOevsXXuj+TXY3BeFiPg46EyDmTIi4o32Gf4o4QJDGIBDrqpGJfXA==
+X-Received: by 2002:a05:6512:799:b0:52b:befb:24ad with SMTP id
+ 2adb3069b0e04-52c9a3c7449mr2080284e87.20.1718219105792; 
+ Wed, 12 Jun 2024 12:05:05 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52c9d2f57a0sm327045e87.284.2024.06.12.11.51.46
+ 2adb3069b0e04-52bb423dd68sm2601311e87.210.2024.06.12.12.05.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Jun 2024 11:51:46 -0700 (PDT)
-Date: Wed, 12 Jun 2024 21:51:44 +0300
+ Wed, 12 Jun 2024 12:05:05 -0700 (PDT)
+Date: Wed, 12 Jun 2024 22:05:03 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Danila Tikhonov <danila@jiaxyga.com>
 Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run, 
@@ -69,14 +69,14 @@ Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] drm/msm: mdss: Add SM7150 support
-Message-ID: <grpc4inh7d2wpwrkvssehapa7z7mw4loecjt3p4qcjjefobvco@6g5sll2bkcbv>
+Subject: Re: [PATCH v2 4/4] drm/msm/dpu: Add SM7150 support
+Message-ID: <qinrviffefuy77tmk5itgiyapgpnfpzupggb6bgvlxk6kybxjn@h4wmocovtdch>
 References: <20240612184336.11794-1-danila@jiaxyga.com>
- <20240612184336.11794-3-danila@jiaxyga.com>
+ <20240612184336.11794-5-danila@jiaxyga.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240612184336.11794-3-danila@jiaxyga.com>
+In-Reply-To: <20240612184336.11794-5-danila@jiaxyga.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,17 +92,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jun 12, 2024 at 09:43:34PM +0300, Danila Tikhonov wrote:
-> Add support for MDSS on SM7150.
+On Wed, Jun 12, 2024 at 09:43:36PM +0300, Danila Tikhonov wrote:
+> Add definitions for the display hardware used on the Qualcomm SM7150
+> platform.
 > 
 > Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
 > ---
->  drivers/gpu/drm/msm/msm_mdss.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  .../msm/disp/dpu1/catalog/dpu_5_2_sm7150.h    | 349 ++++++++++++++++++
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   1 +
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+>  4 files changed, 352 insertions(+)
+>  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h
 > 
 
+[...]
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> +static const struct dpu_sspp_cfg sm7150_sspp[] = {
+> +	{
+> +		.name = "sspp_0", .id = SSPP_VIG0,
+> +		.base = 0x4000, .len = 0x1f0,
+> +		.features = VIG_SDM845_MASK,
+> +		.sblk = &dpu_vig_sblk_qseed3_1_4,
+
+dpu_vig_sblk_qseed3_2_4 (and further on).
+
+> +		.xin_id = 0,
+> +		.type = SSPP_TYPE_VIG,
+> +		.clk_ctrl = DPU_CLK_CTRL_VIG0,
+> +	}, {
+> +		.name = "sspp_1", .id = SSPP_VIG1,
+> +		.base = 0x6000, .len = 0x1f0,
+> +		.features = VIG_SDM845_MASK,
+> +		.sblk = &dpu_vig_sblk_qseed3_1_4,
+> +		.xin_id = 4,
+> +		.type = SSPP_TYPE_VIG,
+> +		.clk_ctrl = DPU_CLK_CTRL_VIG1,
+> +	}, {
+> +		.name = "sspp_2", .id = SSPP_DMA0,
+> +		.base = 0x24000, .len = 0x1f0,
+> +		.features = DMA_SDM845_MASK,
+> +		.sblk = &dpu_dma_sblk,
+> +		.xin_id = 1,
+> +		.type = SSPP_TYPE_DMA,
+> +		.clk_ctrl = DPU_CLK_CTRL_DMA0,
+> +	}, {
+> +		.name = "sspp_9", .id = SSPP_DMA1,
+> +		.base = 0x26000, .len = 0x1f0,
+> +		.features = DMA_SDM845_MASK,
+> +		.sblk = &dpu_dma_sblk,
+> +		.xin_id = 5,
+> +		.type = SSPP_TYPE_DMA,
+> +		.clk_ctrl = DPU_CLK_CTRL_DMA1,
+> +	}, {
+> +		.name = "sspp_10", .id = SSPP_DMA2,
+> +		.base = 0x28000, .len = 0x1f0,
+> +		.features = DMA_CURSOR_SDM845_MASK,
+> +		.sblk = &dpu_dma_sblk,
+> +		.xin_id = 9,
+> +		.type = SSPP_TYPE_DMA,
+> +		.clk_ctrl = DPU_CLK_CTRL_DMA2,
+> +	},
+> +};
+> +
+> +static const struct dpu_lm_cfg sm7150_lm[] = {
+> +	{
+> +		.name = "lm_0", .id = LM_0,
+> +		.base = 0x44000, .len = 0x320,
+> +		.features = MIXER_SDM845_MASK,
+> +		.sblk = &sdm845_lm_sblk,
+> +		.lm_pair = LM_1,
+> +		.pingpong = PINGPONG_0,
+> +		.dspp = DSPP_0,
+> +	}, {
+> +		.name = "lm_1", .id = LM_1,
+> +		.base = 0x45000, .len = 0x320,
+> +		.features = MIXER_SDM845_MASK,
+> +		.sblk = &sdm845_lm_sblk,
+> +		.lm_pair = LM_0,
+> +		.pingpong = PINGPONG_1,
+> +		.dspp = DSPP_1,
+> +	}, {
+> +		.name = "lm_2", .id = LM_2,
+> +		.base = 0x46000, .len = 0x320,
+> +		.features = MIXER_SDM845_MASK,
+> +		.sblk = &sdm845_lm_sblk,
+> +		.lm_pair = LM_3,
+> +		.pingpong = PINGPONG_2,
+> +	}, {
+> +		.name = "lm_3", .id = LM_3,
+> +		.base = 0x47000, .len = 0x320,
+> +		.features = MIXER_SDM845_MASK,
+> +		.sblk = &sdm845_lm_sblk,
+> +		.lm_pair = LM_2,
+> +		.pingpong = PINGPONG_3,
+> +	}, {
+> +		.name = "lm_4", .id = LM_4,
+> +		.base = 0x0, .len = 0x320,
+> +		.features = MIXER_SDM845_MASK,
+> +		.sblk = &sdm845_lm_sblk,
+> +		.lm_pair = 0,
+> +		.pingpong = PINGPONG_4,
+> +	}, {
+> +		.name = "lm_5", .id = LM_5,
+> +		.base = 0x0, .len = 0x320,
+> +		.features = MIXER_SDM845_MASK,
+> +		.sblk = &sdm845_lm_sblk,
+> +		.lm_pair = 0,
+> +		.pingpong = PINGPONG_5,
+> +	},
+
+Please drop LM_4 and LM_5, I don't think they are really a part of the
+hardware (especially with base = 0).
+
+> +};
+> +
 
 -- 
 With best wishes
