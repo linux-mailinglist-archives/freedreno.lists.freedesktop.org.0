@@ -2,64 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8986B904E7A
-	for <lists+freedreno@lfdr.de>; Wed, 12 Jun 2024 10:50:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B72A904EC9
+	for <lists+freedreno@lfdr.de>; Wed, 12 Jun 2024 11:09:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D32A10E0CB;
-	Wed, 12 Jun 2024 08:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 193CF10E7D8;
+	Wed, 12 Jun 2024 09:09:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="t4CwcX5O";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XA6jkEWw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36A9110E0CB
- for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 08:50:47 +0000 (UTC)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-62a08091c2bso25231247b3.0
- for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 01:50:47 -0700 (PDT)
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
+ [209.85.128.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B891110E7E1
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 09:08:59 +0000 (UTC)
+Received: by mail-yw1-f181.google.com with SMTP id
+ 00721157ae682-62ffc495935so2841247b3.1
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 02:08:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718182246; x=1718787046; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1718183338; x=1718788138; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=hNjdy7UPfu6XvaHxYP1tE+6Sgn9Tw3j/iRDWJlIZilY=;
- b=t4CwcX5OabBIC41aqjzPDLU7e0bgwFKY0+AGJt92Gzo6si87qmkeIRHGgj848K8ytg
- 8sEvW2CCFuV6/IikQ7DVwXr9I7ygNry40z28HZ+p8Hw1xaKQuk6xpVZcTmG+a9vTsDwy
- hmgDrG8MyuB8PdSDipAbYaqk8Za6ccwHbxGoOI0DAI7sunZ6BQVm6bitIAgR4TH3xstW
- /NLv5DbPC2Dl6RxmGR8ktWUu/XbEILyHFbYJeKE68YJn5aqrlk+OxnN5F0vDEmkFoWms
- mYlu682h0hjw+7Hs8SyVhPQuCaB/usk3UzLABfunyR1+e4EyQQXi+1OsdpoQgoLOAGUS
- c0cw==
+ bh=XI078nOkCuDbWjZgJ67kNrzuEHbAr9c/mYic+hmE7QA=;
+ b=XA6jkEWwDFzs3keG0rXURYV1no06HWA4uGsbn7mdZM9pBp+mHTDVn0i4FD+YS7uN69
+ CW1FGjWhEaqVqRbiFgjjv32duDcIoeYpo0d2RkX0i2MCdAuMAuzfP4bivkApRU4s0nM0
+ zFvBfhm84RzpReqASuTi6tkCoq8ifXLQ7JlvIFHRHdsLjTYBDDfDbRCyxpl5H9N40swJ
+ /Yx7YItQ2oFRJQOlZuM4ewXUTwN6tiDa1BmbaaZgJdPPhCkigySzAmi2G/YivuKHPCpH
+ J6IqjMS1jeYyNRUsJsR0trt01wqhQMgyR5Fc0WHLoWRs3rUKBYt68npjohF5w7s+Yvt1
+ AG9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718182246; x=1718787046;
+ d=1e100.net; s=20230601; t=1718183338; x=1718788138;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=hNjdy7UPfu6XvaHxYP1tE+6Sgn9Tw3j/iRDWJlIZilY=;
- b=wDHE3GlbZ8MVakRXCxP7T6jFUhha/CfXDFz1jJpn0BNMxYA71OAVMQEtMF3SX/nTAB
- UdAt5F78CQSp2mcduDj7GOY/LZ3vIS7s1Pb2CSWdaK0oXUENkYQ+w4e+o//3emxmgFh/
- UQFJc7YP+DLhFpLQ8W9uMSndPH1OhuyWCw2nWDMxbgXKZ996xl0GL6Qkwq5iuCQPdaBK
- bk+r4L4TTFiQ1KBtq3MCISXrw8HVfSXST+UIpd8s8LruyCXi2OeQCObYU3cADokpdgWW
- 7S7oeg2il/BTyvcDS9Ki55dQ11BIxm0H22khuN+Sp9SM+gDDck9CvPXqlXjztAomMO99
- Q/QA==
+ bh=XI078nOkCuDbWjZgJ67kNrzuEHbAr9c/mYic+hmE7QA=;
+ b=qJ6cD8CF65+K0p3Lw8HlEDjVbYGhcjsbl5P2+aTfiwp5E5jGBjmKfyZ4+atF3rEUpg
+ eh4l110kbrr3eFj+gzwuslPEvcSg2nXwaWs66k3ux/YaUzZGsGiSW2Lo8E83mDlxS7b1
+ ZLFDxCVdReAQv6bRfFhyH9rZM0zVtFD+9IUDnvAb+qQ/GBVfkhOBMdnyC0yHer9OQ5QV
+ w4IPE0+outdk78WJw9ylvFzgRHpVqUWO9/Wu23vsQ4F/KquGBwKF0XPgX3hq/u4wz6cz
+ O+FyVD1WHTVVuFjPae5/VekaCBMZBL5aL74AeQQ43L4FXRogHJ1+aexbjXaZr/4v5T7l
+ QdXA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVTnjIC8WdODHQAOFlC2tdrVU/WloODHFmQ2AbdBsfzzQ6Y+mSKrS7zYSSdwezWZ4hNkHxMKTO181yqK1CS/QrUpb+4iCh69/4h++DtgjuD
-X-Gm-Message-State: AOJu0YzuJ2LVaSVCRpMla87+Mesv1pP410O7hFHDFRpDL56lPmbuJVk8
- jlsrMvReq5aATeDfnPCzSumQsY9D/jEZyapgRczVxsZ/A8TFAdDuPSIDYe3xD5lGr37uRgCMRI5
- hKCDaIFoZIb8K96Er5XxH0DzfDjSAqdPIFI98rA==
-X-Google-Smtp-Source: AGHT+IEIep8TWUDQNYipjdR8ozOU4TsvCnB30cqeIU/L2mK6IRI2gHDnCC8z6o/4kDTLu0qtEuxMlFKxSjEfM2ymJuE=
-X-Received: by 2002:a81:a705:0:b0:61a:d4ea:b856 with SMTP id
- 00721157ae682-62fbd6a5654mr10701807b3.40.1718182245910; Wed, 12 Jun 2024
- 01:50:45 -0700 (PDT)
+ AJvYcCVktjxR33KEuKDomHPSIXXhMlDl+hfJxmtlsJrgZ72LS8pFwEWdaQYAVhB4y/o8HXcHMQD9RkE40KYbT4F4G+Ob1dtPJ5C+jA6OxUB7FsqJ
+X-Gm-Message-State: AOJu0YwVyh3f/Z57JdkLahJm5zfgQqQajxAldCxQ6s8uAOvE8q0rUxbR
+ vLGfOCfitTgLV+TWpeNX+/Q6/BMBFo59b9vWKsuu0V/adZgC7m8k2Bf9B/3FlnkgduSsjckYl9J
+ tEsCKj443KxoCRY0fbPdRx0Uu4VMhiZ3RIH2EJw==
+X-Google-Smtp-Source: AGHT+IGnZ761wTEHFozATVwFW9kyTg+myXMsmp3BrF+/X6OgkKpM6SV4oepQOo6dmgKVE1knPGf506hu7cJByEHDkZM=
+X-Received: by 2002:a05:690c:7247:b0:627:8616:4de with SMTP id
+ 00721157ae682-62fb7f9ab9bmr14005707b3.5.1718183338526; Wed, 12 Jun 2024
+ 02:08:58 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240314000216.392549-1-dmitry.baryshkov@linaro.org>
- <20240314000216.392549-13-dmitry.baryshkov@linaro.org>
- <0996ccd1-32b1-eaa9-0331-e0270da80da2@quicinc.com>
-In-Reply-To: <0996ccd1-32b1-eaa9-0331-e0270da80da2@quicinc.com>
+ <20240314000216.392549-11-dmitry.baryshkov@linaro.org>
+ <68dc0d98-9830-d71d-ec65-71890fb2986e@quicinc.com>
+In-Reply-To: <68dc0d98-9830-d71d-ec65-71890fb2986e@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 12 Jun 2024 11:50:35 +0300
-Message-ID: <CAA8EJprJq7jFVK5hU2ByYP2QWoy1xfmCn0L3W4kYhgLRa0yDNA@mail.gmail.com>
-Subject: Re: [PATCH v4 12/13] drm/msm/dpu: allow sharing of blending stages
+Date: Wed, 12 Jun 2024 12:08:47 +0300
+Message-ID: <CAA8EJpop48--yTyyWs+3b=sgHgjV6-7akp7mJX007aMaaKteJA@mail.gmail.com>
+Subject: Re: [PATCH v4 10/13] drm/msm/dpu: allow sharing SSPP between planes
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
@@ -83,162 +83,322 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 12 Jun 2024 at 04:48, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On Wed, 12 Jun 2024 at 02:12, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
 >
 >
 > On 3/13/2024 5:02 PM, Dmitry Baryshkov wrote:
-> > It is possible to slightly bend the limitations of the HW blender. If
-> > two rectangles are contiguous (like two rectangles of a single plane)
-> > they can be blended using a single LM blending stage, allowing one to
-> > blend more planes via a single LM.
+> > Since SmartDMA planes provide two rectangles, it is possible to use them
+> > to drive two different DRM planes, first plane getting the rect_0,
+> > another one using rect_1 of the same SSPP. The sharing algorithm is
+> > pretty simple, it requires that each of the planes can be driven by the
+> > single rectangle and only consequetive planes are considered.
 > >
 >
-> Can you pls let me know the source of this optimization (assuming its
-> present downstream) ?
+> consequetive - > consecutive
 >
-> Otherwise I will have to lookup some more docs to confirm this.
+> Can you please explain why only consecutive planes are considered for this?
 >
-> It certainly makes sense, that if the same layer is being split across
-> two SSPP's we can certainly use the same blend stage. But want to make
-> sure this is already in place somewhere and not something which was
-> tried and just worked.
+> So lets say we have 4 virtual planes : 0, 1, 2, 3
+>
+> It will try 0-1, 1-2, 2-3
+>
+> Because all planes are virtual, there are only 3 unique pairs to be
+> considered? Otherwise technically 6 pairs are possible.
 
-My source was the original 'virtual' / 'multirect' implementation in
-the SDE driver.
+An implementation that tries all 6 pairs taking the zpos and the
+overlapping into account is appreciated. I cared for the simplest case
+here. Yes, further optimizations can be implemented.
 
 >
+>
+> General request:
+>
+> Patches 1-9 : Add support for using 2 SSPPs in one plane
+> Patches 10-12 : Add support for using two rectangles of the same SSPP as
+> two virtual planes
+> Patch 13 : Can be pushed along with the first set.
+>
+> Can we break up this series in this way to make it easier to test and
+> land the bulk of it in this cycle?
+
+Sure.
+
+>
+> I have some doubts on patches 10-12 and would like to spend more time
+> reviewing and testing this. So I am trying to reduce the debt of patches
+> we have been carrying as this is a tricky feature to simulate and test
+> the cases.
 >
 > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  9 ++++--
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 37 ++++++++++++++++++-----
-> >   2 files changed, 37 insertions(+), 9 deletions(-)
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 128 +++++++++++++++++++---
+> >   1 file changed, 112 insertions(+), 16 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > index 794c5643584f..fbbd7f635d04 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > @@ -445,6 +445,7 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
-> >
-> >       uint32_t lm_idx;
-> >       bool bg_alpha_enable = false;
-> > +     unsigned int stage_indices[DPU_STAGE_MAX] = {};
-> >       DECLARE_BITMAP(fetch_active, SSPP_MAX);
-> >
-> >       memset(fetch_active, 0, sizeof(fetch_active));
-> > @@ -469,7 +470,9 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
-> >                                          mixer, cstate->num_mixers,
-> >                                          pstate->stage,
-> >                                          format, fb ? fb->modifier : 0,
-> > -                                        &pstate->pipe, 0, stage_cfg);
-> > +                                        &pstate->pipe,
-> > +                                        stage_indices[pstate->stage]++,
-> > +                                        stage_cfg);
-> >
-> >               if (pstate->r_pipe.sspp) {
-> >                       set_bit(pstate->r_pipe.sspp->idx, fetch_active);
-> > @@ -477,7 +480,9 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
-> >                                                  mixer, cstate->num_mixers,
-> >                                                  pstate->stage,
-> >                                                  format, fb ? fb->modifier : 0,
-> > -                                                &pstate->r_pipe, 1, stage_cfg);
-> > +                                                &pstate->r_pipe,
-> > +                                                stage_indices[pstate->stage]++,
-> > +                                                stage_cfg);
-> >               }
->
-> Is this part of the change related to this patch? We moved from
-> hard-coding 0 and 1 for the stage_idx to stage_indices[pstate->stage]
-> will still result in the same values of 0 and 1 right?
-
-No. The stage can span multiple planes now, see one of the chunks below.
-
->
-> The sharing will be achieved with the change below of doing
-> pstate->stage = prev_pstate->stage.
->
-> Rest of the change LGTM.
->
->
-> >
-> >               /* blend config update */
 > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > index 2e1c544efc4a..43dfe13eb298 100644
+> > index cde20c1fa90d..2e1c544efc4a 100644
 > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
 > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > @@ -827,13 +827,6 @@ static int dpu_plane_atomic_check_nopipe(struct drm_plane *plane,
-> >       if (!new_plane_state->visible)
-> >               return 0;
+> > @@ -886,10 +886,9 @@ static int dpu_plane_atomic_check_nopipe(struct drm_plane *plane,
+> >       return 0;
+> >   }
 > >
-> > -     pstate->stage = DPU_STAGE_0 + pstate->base.normalized_zpos;
-> > -     if (pstate->stage >= pdpu->catalog->caps->max_mixer_blendstages) {
-> > -             DPU_ERROR("> %d plane stages assigned\n",
-> > -                       pdpu->catalog->caps->max_mixer_blendstages - DPU_STAGE_0);
-> > -             return -EINVAL;
-> > -     }
-> > -
-> >       /* state->src is 16.16, src_rect is not */
-> >       drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
+> > -static int dpu_plane_is_multirect_parallel_capable(struct dpu_sw_pipe *pipe,
+> > -                                                struct dpu_sw_pipe_cfg *pipe_cfg,
+> > -                                                const struct dpu_format *fmt,
+> > -                                                uint32_t max_linewidth)
+> > +static int dpu_plane_is_multirect_capable(struct dpu_sw_pipe *pipe,
+> > +                                       struct dpu_sw_pipe_cfg *pipe_cfg,
+> > +                                       const struct dpu_format *fmt)
+> >   {
+> >       if (drm_rect_width(&pipe_cfg->src_rect) != drm_rect_width(&pipe_cfg->dst_rect) ||
+> >           drm_rect_height(&pipe_cfg->src_rect) != drm_rect_height(&pipe_cfg->dst_rect))
+> > @@ -901,6 +900,13 @@ static int dpu_plane_is_multirect_parallel_capable(struct dpu_sw_pipe *pipe,
+> >       if (DPU_FORMAT_IS_YUV(fmt))
+> >               return false;
 > >
-> > @@ -971,6 +964,18 @@ static int dpu_plane_try_multirect(struct dpu_plane_state *pstate,
-> >               prev_pipe->multirect_index = DPU_SSPP_RECT_0;
-> >               prev_pipe->multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
-> >
-> > +             if (pipe_cfg->dst_rect.y1 == prev_pipe_cfg->dst_rect.y1 &&
-> > +                 pipe_cfg->dst_rect.y2 == prev_pipe_cfg->dst_rect.y2 &&
-> > +                 pipe_cfg->dst_rect.x1 == prev_pipe_cfg->dst_rect.x2) {
-> > +                     pstate->stage = prev_pstate->stage;
-> > +             } else if (pipe_cfg->dst_rect.y1 == prev_pipe_cfg->dst_rect.y1 &&
-> > +                        pipe_cfg->dst_rect.y2 == prev_pipe_cfg->dst_rect.y2 &&
-> > +                        pipe_cfg->dst_rect.x2 == prev_pipe_cfg->dst_rect.x1) {
-> > +                     pstate->stage = prev_pstate->stage;
-> > +                     pipe->multirect_index = DPU_SSPP_RECT_0;
-> > +                     prev_pipe->multirect_index = DPU_SSPP_RECT_1;
-> > +             }
+> > +     return true;
+> > +}
 > > +
-> >               return true;
-> >       }
+> > +static int dpu_plane_is_parallel_capable(struct dpu_sw_pipe_cfg *pipe_cfg,
+> > +                                      const struct dpu_format *fmt,
+> > +                                      uint32_t max_linewidth)
+> > +{
+> >       if (DPU_FORMAT_IS_UBWC(fmt) &&
+> >           drm_rect_width(&pipe_cfg->src_rect) > max_linewidth / 2)
+> >               return false;
+> > @@ -908,6 +914,82 @@ static int dpu_plane_is_multirect_parallel_capable(struct dpu_sw_pipe *pipe,
+> >       return true;
+> >   }
 > >
-> > @@ -1080,6 +1085,13 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
-> >       if (!new_plane_state->visible)
-> >               return 0;
-> >
-> > +     pstate->stage = DPU_STAGE_0 + pstate->base.normalized_zpos;
-> > +     if (pstate->stage >= pdpu->catalog->caps->max_mixer_blendstages) {
-> > +             DPU_ERROR("> %d plane stages assigned\n",
-> > +                       pdpu->catalog->caps->max_mixer_blendstages - DPU_STAGE_0);
-> > +             return -EINVAL;
+> > +static int dpu_plane_is_multirect_parallel_capable(struct dpu_sw_pipe *pipe,
+> > +                                                struct dpu_sw_pipe_cfg *pipe_cfg,
+> > +                                                const struct dpu_format *fmt,
+> > +                                                uint32_t max_linewidth)
+> > +{
+> > +     return dpu_plane_is_multirect_capable(pipe, pipe_cfg, fmt) &&
+> > +             dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidth);
+> > +}
+> > +
+> > +
+> > +static int dpu_plane_try_multirect(struct dpu_plane_state *pstate,
+> > +                                struct dpu_plane_state *prev_pstate,
+> > +                                const struct dpu_format *fmt,
+> > +                                uint32_t max_linewidth)
+> > +{
+> > +     struct dpu_sw_pipe *pipe = &pstate->pipe;
+> > +     struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
+> > +     struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg;
+> > +     struct dpu_sw_pipe *prev_pipe = &prev_pstate->pipe;
+> > +     struct dpu_sw_pipe_cfg *prev_pipe_cfg = &prev_pstate->pipe_cfg;
+> > +     const struct dpu_format *prev_fmt =
+> > +             to_dpu_format(msm_framebuffer_format(prev_pstate->base.fb));
+> > +     u16 max_tile_height = 1;
+> > +
+> > +     if (prev_pstate->r_pipe.sspp != NULL ||
+> > +         prev_pipe->multirect_mode != DPU_SSPP_MULTIRECT_NONE)
+> > +             return false;
+> > +
+> > +     if (!dpu_plane_is_multirect_capable(pipe, pipe_cfg, fmt) ||
+> > +         !dpu_plane_is_multirect_capable(prev_pipe, prev_pipe_cfg, prev_fmt) ||
+> > +         !(test_bit(DPU_SSPP_SMART_DMA_V1, &prev_pipe->sspp->cap->features) ||
+> > +           test_bit(DPU_SSPP_SMART_DMA_V2, &prev_pipe->sspp->cap->features)))
+>
+> This test_bit check should be absorbed into
+> dpu_plane_is_multirect_capable()?
+
+Yep.
+
+>
+> > +             return false;
+> > +
+> > +     if (DPU_FORMAT_IS_UBWC(fmt))
+> > +             max_tile_height = max(max_tile_height, fmt->tile_height);
+> > +
+> > +     if (DPU_FORMAT_IS_UBWC(prev_fmt))
+> > +             max_tile_height = max(max_tile_height, prev_fmt->tile_height);
+> > +
+> > +     r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
+> > +     r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> > +
+> > +     r_pipe->sspp = NULL;
+> > +
+> > +     if (dpu_plane_is_parallel_capable(pipe_cfg, fmt, max_linewidth) &&
+> > +         dpu_plane_is_parallel_capable(prev_pipe_cfg, prev_fmt, max_linewidth) &&
+> > +         (pipe_cfg->dst_rect.x1 >= prev_pipe_cfg->dst_rect.x2 ||
+> > +          prev_pipe_cfg->dst_rect.x1 >= pipe_cfg->dst_rect.x2)) {
+>
+> Even if y1 > y2 or y2 > y1 but the separation is less than the  2 *
+> max_tile_height, it can qualify for parallel fetch.
+>
+> So parallel fetch is possible not only in x direction but y direction as
+> well as it will be fetched by different SSPPs.
+
+I think that's now what I see in the SDE driver.
+
+>
+> > +             pipe->sspp = prev_pipe->sspp;
+> > +
+> > +             pipe->multirect_index = DPU_SSPP_RECT_1;
+> > +             pipe->multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
+> > +
+> > +             prev_pipe->multirect_index = DPU_SSPP_RECT_0;
+> > +             prev_pipe->multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
+> > +
+> > +             return true;
 > > +     }
 > > +
-> >       pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> >       pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> >       r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> > @@ -1221,6 +1233,11 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
+> > +     if (pipe_cfg->dst_rect.y1 >= prev_pipe_cfg->dst_rect.y2 + 2 * max_tile_height ||
+> > +         prev_pipe_cfg->dst_rect.y1 >= pipe_cfg->dst_rect.y2 + 2 * max_tile_height) {
+> > +             pipe->sspp = prev_pipe->sspp;
+> > +
+> > +             pipe->multirect_index = DPU_SSPP_RECT_1;
+> > +             pipe->multirect_mode = DPU_SSPP_MULTIRECT_TIME_MX;
+> > +
+> > +             prev_pipe->multirect_index = DPU_SSPP_RECT_0;
+> > +             prev_pipe->multirect_mode = DPU_SSPP_MULTIRECT_TIME_MX;
+> > +
+> > +             return true;
+> > +     }
+> > +
+> > +     return false;
+> > +}
+> > +
+> >   static int dpu_plane_atomic_check_pipes(struct drm_plane *plane,
+> >                                       struct drm_atomic_state *state,
+> >                                       const struct drm_crtc_state *crtc_state)
+> > @@ -1098,13 +1180,14 @@ static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
+> >   static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
+> >                                             struct dpu_global_state *global_state,
+> >                                             struct drm_atomic_state *state,
+> > -                                           struct drm_plane_state *plane_state)
+> > +                                           struct drm_plane_state *plane_state,
+> > +                                           struct drm_plane_state *prev_plane_state)
+> >   {
+> >       const struct drm_crtc_state *crtc_state = NULL;
+> >       struct drm_plane *plane = plane_state->plane;
+> >       struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
+> >       struct dpu_rm_sspp_requirements reqs;
+> > -     struct dpu_plane_state *pstate;
+> > +     struct dpu_plane_state *pstate, *prev_pstate;
+> >       struct dpu_sw_pipe *pipe;
+> >       struct dpu_sw_pipe *r_pipe;
+> >       struct dpu_sw_pipe_cfg *pipe_cfg;
+> > @@ -1117,6 +1200,7 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
+> >                                                          plane_state->crtc);
+> >
+> >       pstate = to_dpu_plane_state(plane_state);
+> > +     prev_pstate = prev_plane_state ? to_dpu_plane_state(prev_plane_state) : NULL;
+> >       pipe = &pstate->pipe;
+> >       r_pipe = &pstate->r_pipe;
+> >       pipe_cfg = &pstate->pipe_cfg;
+> > @@ -1137,19 +1221,27 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
 > >
 > >       max_linewidth = dpu_kms->catalog->caps->max_linewidth;
 > >
-> > +     if (prev_pstate)
-> > +             pstate->stage = prev_pstate->stage + 1;
-> > +     else
-> > +             pstate->stage = DPU_STAGE_0 + pstate->base.normalized_zpos;
-> > +
+> > -     pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
+> > -     if (!pipe->sspp)
+> > -             return -ENODEV;
+> > -
 > >       if (drm_rect_width(&r_pipe_cfg->src_rect) == 0) {
-> >               if (!prev_pstate ||
-> >                   !dpu_plane_try_multirect(pstate, prev_pstate, fmt, max_linewidth)) {
-> > @@ -1267,6 +1284,12 @@ static int dpu_plane_virtual_assign_resources(struct drm_crtc *crtc,
-> >               }
+> > -             pipe->multirect_index = DPU_SSPP_RECT_SOLO;
+> > -             pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> > +             if (!prev_pstate ||
+> > +                 !dpu_plane_try_multirect(pstate, prev_pstate, fmt, max_linewidth)) {
+>
+> This is a bit confusing to check esp since i am unable to apply this
+> patch and check .... but...
+
+It was posted several months ago. No surprise that the source code has
+evolved. Getting the patches reviewed in time would have helped them
+to be applicable.
+
+> dpu_plane_atomic_check_nopipe() will set r_pipe_cfg if we are going to
+> do multirect with two rectangles of the same sspp. Right?
+
+No. It sets r_pipe_cfg in all the cases.
+
+> Which means r_pipe_cfg will be 0 if multirect is not possible with same
+> SSPP. Thats why the else case of this either uses two SSPPs.
+
+No. It means that the plane can use a single rectangle of the SSPP.
+
+>
+> So why are we trying multirect with again with the two rectangles of the
+> same SSPP as different planes? The result will be same right?
+
+No, if the width of r_pipe_cfg is 0, it means that this plane doesn't
+need a second rectangle to be displayed. So we can try reusing the
+SSPP from the previous plane.
+
+>
+>
+> > +                     pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
+> > +                     if (!pipe->sspp)
+> > +                             return -ENODEV;
+> >
+> > -             r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
+> > -             r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> > +                     r_pipe->sspp = NULL;
+> > +
+> > +                     pipe->multirect_index = DPU_SSPP_RECT_SOLO;
+> > +                     pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> > +
+> > +                     r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
+> > +                     r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> > +             }
+> >
+> > -             r_pipe->sspp = NULL;
+> >       } else {
+> > +             pipe->sspp = dpu_rm_reserve_sspp(&dpu_kms->rm, global_state, crtc, &reqs);
+> > +             if (!pipe->sspp)
+> > +                     return -ENODEV;
+> > +
+>
+> Unless I am missing something, you are assigning pipe->sspp in both if
+> and else cases, so why dont you keep the allocation if pipe->sspp
+> outside the conditionals.
+
+You missed the conditional in the previous chunk. We need to reserve
+SSPP if the plane uses two rectangles. We don't need to reserve an
+SSPP if the old SSPP is going to be used.
+
+>
+> >               if (dpu_plane_is_multirect_parallel_capable(pipe, pipe_cfg, fmt, max_linewidth) &&
+> >                   dpu_plane_is_multirect_parallel_capable(r_pipe, r_pipe_cfg, fmt, max_linewidth) &&
+> >                   (test_bit(DPU_SSPP_SMART_DMA_V1, &pipe->sspp->cap->features) ||
+> > @@ -1186,6 +1278,7 @@ int dpu_assign_plane_resources(struct dpu_global_state *global_state,
+> >   {
+> >       unsigned int i;
+> >       int ret;
+> > +     struct drm_plane_state *prev_plane_state = NULL;
+> >
+>
+> This naming is a bit confusing. prev_plane_state could mean the plane's
+> previous state but here you are implying the state of the previous plane
+> in the list of planes.
+>
+> Maybe prev_adjacent_plane_state?
+
+Ack.
+
+>
+> >       for (i = 0; i < num_planes; i++) {
+> >               struct drm_plane_state *plane_state = states[i];
+> > @@ -1195,9 +1288,12 @@ int dpu_assign_plane_resources(struct dpu_global_state *global_state,
+> >                       continue;
+> >
+> >               ret = dpu_plane_virtual_assign_resources(crtc, global_state,
+> > -                                                      state, plane_state);
+> > +                                                      state, plane_state,
+> > +                                                      prev_plane_state);
+> >               if (ret)
+> >                       break;
+> > +
+> > +             prev_plane_state = plane_state;
 > >       }
 > >
-> > +     if (pstate->stage >= dpu_kms->catalog->caps->max_mixer_blendstages) {
-> > +             DPU_ERROR("> %d plane stages assigned\n",
-> > +                       dpu_kms->catalog->caps->max_mixer_blendstages - DPU_STAGE_0);
-> > +             return -EINVAL;
-> > +     }
-> > +
-> >       return dpu_plane_atomic_check_pipes(plane, state, crtc_state);
-> >   }
-> >
+> >       return ret;
 
 
 
