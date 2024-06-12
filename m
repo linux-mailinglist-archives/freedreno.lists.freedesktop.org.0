@@ -2,73 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12937905780
-	for <lists+freedreno@lfdr.de>; Wed, 12 Jun 2024 17:56:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26550905842
+	for <lists+freedreno@lfdr.de>; Wed, 12 Jun 2024 18:15:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EDBE10E8A9;
-	Wed, 12 Jun 2024 15:56:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8321510E8C6;
+	Wed, 12 Jun 2024 16:15:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kYWVzenO";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="M6anmNki";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C3DB10E8A7;
- Wed, 12 Jun 2024 15:55:59 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id ADF7F614E9;
- Wed, 12 Jun 2024 15:55:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7AEC7C4DDE4;
- Wed, 12 Jun 2024 15:55:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718207757;
- bh=OGohKvk0MjWf9+Q8+mvrBX+1BAlKKRyUXLbfH75xyb4=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=kYWVzenO6v46dav7m+6VeeBQvWtkfZ2ijSROLzZNF2xhVox8NT4g6D7nEQ7Yr1CvD
- QbMqbzoNwKvtHxN4oOUSJGsdzFSOiqxLCA02gKqMCQ7TCsZzzusBONx5M/RWdCVpV3
- EiLccKqgRHfAnZUsG10WiKCsIr5ffuOoIqg1qhcsU6IhDG8FGsX5pkowWNVMy10FlC
- cn2EJB/8N7UtSBq02dCqRuSQs3PZ1MDiLAg7XtxdpzyjShLg11I47hWenlonizyvmL
- MeVPPNyid+I2VhiIZBpPj5WbK56sRWz78MH6UY8PKtaaCMSFrdgOOixPo+5vEX+bSG
- 8/iqEXeUVgsUQ==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 61107C43618; Wed, 12 Jun 2024 15:55:57 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DAB010E8C6
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 16:15:27 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-62fe76c0a61so6250647b3.0
+ for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 09:15:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1718208927; x=1718813727; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5cmFbegrmXFBHS4WW8ziIwGksQiKssUPXoQUtXM6F24=;
+ b=M6anmNki1aK37tpzM/KcN23NLsuM87HHGg19c2d2hEyngdvla1n9d9mI5ykGmtF5vO
+ BdNeFBh1UlYLgoBjIFMaMSCTMBXgYYkVZU2AXsdlmXRQSkeR2xQxs7Td68bMeAP7zty0
+ dpCGTxmXFcq3OnXFGDPxZ10yx+IqGEwPHM5HjOr20yTOw9xEt8l/64P+Xhzqk+O0AyGl
+ brNd+MLujXJYNoBtNzdjs+VkiUH2RMeS090DN4v2CMlqTJ+MVb1NCKEd8r5rZ2BVXav3
+ jw4ouumbFveFIsjUsZh/lH3quOE+It6z+4FV14Fx0h0oVso02RkqBTSoh6WV4DvoLMH9
+ TYdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718208927; x=1718813727;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=5cmFbegrmXFBHS4WW8ziIwGksQiKssUPXoQUtXM6F24=;
+ b=TRSB64lrsBywDsyGJjA2fv73BClixfNgdM2Kaw6hYP1MzX/tOVEQHcbFFwDZno5GDl
+ qqVwTxEXPI2xaG1NQ5SwSqxdOObIxkV8EfPKQSsxK+KC29wXxnSipT29frqOYEv5h6AW
+ GXRdyGcOld2sr6HsdSv9HHa0uh4Mi59VljWS/hhxJT0NeFMicSyeUtLkuVfiKQnK5Kcr
+ hyG1m3+TG/xyXomanzy47aU0l2j9VYyReXSRrlO/yyNK9N0bbkiHD64ckQZYTX+EkVnQ
+ PYVyivL4hjRQ97s0fUUgKcLJJYYcReda+mgBBCDehxmt3kQAsYyZcuPh+EGdonbgoILa
+ f/fw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVX0n4A7xhLuo0VSmsqQEUEqUsEFrUrLxOrw0YYFPOoRXXLYm4/zkHfLL4V4U3lfS0X1iKsZ9XhOiA8v8/cyJEYbN3KCWHUtoglYA+0uMOs
+X-Gm-Message-State: AOJu0YxZ/7udx9zy8onVoJwfK4D748kf+YWDtuyVsYhd6NtGjrAtRs7W
+ uANSkAK+vhpsgV24r4OmdVSDM0m2T39i1+2Z1oNN5bzTeEMpny7VLxe8L7+/z5k9Wr+GIv08JJ0
+ uo9zRcjFsWHud9YaBrEhMpsdPMS6DvgEcs++XEA==
+X-Google-Smtp-Source: AGHT+IEyUjk336q5wze0GKQr7UwMqrUsrkoBVG2K5Qz2pv15hllZ/Fn+1uT5B958G0aEQ/a+dPl8Ea9AwDS4xrJVWhE=
+X-Received: by 2002:a81:4806:0:b0:61b:f6f:eab with SMTP id
+ 00721157ae682-630bc30a68cmr838027b3.2.1718208926557; 
+ Wed, 12 Jun 2024 09:15:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH] tracing/treewide: Remove second parameter of
- __assign_str()
-From: patchwork-bot+f2fs@kernel.org
-Message-Id: <171820775738.32393.13116890369510221266.git-patchwork-notify@kernel.org>
-Date: Wed, 12 Jun 2024 15:55:57 +0000
-References: <20240516133454.681ba6a0@rorschach.local.home>
-In-Reply-To: <20240516133454.681ba6a0@rorschach.local.home>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, ath10k@lists.infradead.org,
- Julia.Lawall@inria.fr, linux-s390@vger.kernel.org, dev@openvswitch.org,
- linux-cifs@vger.kernel.org, linux-bcachefs@vger.kernel.org,
- linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- io-uring@vger.kernel.org, torvalds@linux-foundation.org,
- iommu@lists.linux.dev, ath11k@lists.infradead.org,
- linux-media@vger.kernel.org, linux-wpan@vger.kernel.org,
- linux-pm@vger.kernel.org, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-erofs@lists.ozlabs.org, virtualization@lists.linux.dev,
- linux-sound@vger.kernel.org, linux-block@vger.kernel.org,
- ocfs2-devel@lists.linux.dev, mathieu.desnoyers@efficios.com,
- linux-cxl@vger.kernel.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, linux-edac@vger.kernel.org,
- linux-hwmon@vger.kernel.org, brcm80211-dev-list.pdl@broadcom.com,
- linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
- linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
- ath12k@lists.infradead.org, tipc-discussion@lists.sourceforge.net,
- mhiramat@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-nfs@vger.kernel.org,
- linux-btrfs@vger.kernel.org
+References: <20240522-fd-hdmi-hpd-v2-13-c30bdb7c5c7e@linaro.org>
+ <deaa2a50-9e16-4f23-8c13-34947ba4e4e0@web.de>
+ <CAA8EJppn_mVzmd==-bs8je8VjXrNrWu0hNXWAGuP+TP3DARReg@mail.gmail.com>
+ <1cb42d85-2eb6-4544-b4ea-8a75416cd287@web.de>
+In-Reply-To: <1cb42d85-2eb6-4544-b4ea-8a75416cd287@web.de>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 12 Jun 2024 19:15:15 +0300
+Message-ID: <CAA8EJppXQ4sMsm+VXnJdjYa1g_U8_LKwRL_u86DsF6Up4rnaqg@mail.gmail.com>
+Subject: Re: [v2 13/14] drm/msm/hdmi: ensure that HDMI is one if HPD is
+ requested
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, LKML <linux-kernel@vger.kernel.org>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,29 +87,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello:
+On Wed, 12 Jun 2024 at 17:32, Markus Elfring <Markus.Elfring@web.de> wrote:
+>
+> >> Would you become interested to apply a statement like =E2=80=9Cguard(m=
+utex)(&hdmi->state_mutex);=E2=80=9D?
+> >> https://elixir.bootlin.com/linux/v6.10-rc3/source/include/linux/mutex.=
+h#L196
+> >
+> > I am not.
+>
+> Under which circumstances will development interests grow for scope-based=
+ resource management?
+> https://elixir.bootlin.com/linux/v6.10-rc3/source/include/linux/cleanup.h=
+#L124
 
-This patch was applied to jaegeuk/f2fs.git (dev)
-by Steven Rostedt (Google) <rostedt@goodmis.org>:
+I consider guard() and free() to be counterintuitive, harder to follow
+and semantically troublesome.
 
-On Thu, 16 May 2024 13:34:54 -0400 you wrote:
-> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
-> 
-> [
->    This is a treewide change. I will likely re-create this patch again in
->    the second week of the merge window of v6.10 and submit it then. Hoping
->    to keep the conflicts that it will cause to a minimum.
-> ]
-> 
-> [...]
-
-Here is the summary with links:
-  - [f2fs-dev] tracing/treewide: Remove second parameter of __assign_str()
-    https://git.kernel.org/jaegeuk/f2fs/c/2c92ca849fcc
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+--=20
+With best wishes
+Dmitry
