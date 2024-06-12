@@ -2,74 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 999DB905395
-	for <lists+freedreno@lfdr.de>; Wed, 12 Jun 2024 15:22:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12937905780
+	for <lists+freedreno@lfdr.de>; Wed, 12 Jun 2024 17:56:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 134E210E194;
-	Wed, 12 Jun 2024 13:22:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EDBE10E8A9;
+	Wed, 12 Jun 2024 15:56:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZzuKSWww";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kYWVzenO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ACB510E052
- for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 13:22:15 +0000 (UTC)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-62f518bbab1so13698077b3.2
- for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 06:22:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718198534; x=1718803334; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qsoWuzn17VvjikVzQz6+Jyxo7R4j3K1aNLPcDUzQdZE=;
- b=ZzuKSWwwA/PaSd2Tq4t6VaAXUZ2lsWac8Bjl9tE5bSsxBDXYZ8j/Gc9tgu3kT3kZ9t
- REd3HOqglPjeXbAFTt0pDz7nEoShhgB8odmC7AjNPqv27HL2Lby1H1xhkhj8zxE1zMYw
- f9A4fiO8NtBOKJ+XVhROvaARIkzGOfUHLqnzz4npjcQI/83qdmz3iB8kEFAoNdC5mxFr
- qP15jBlqH8E1GiOqSNQlfUNvQNRV+7XYfnTFNbx1exrx2G4jVo+iKtArxF3dsBafBbFA
- XHKd5XFCqUZQOrsbCEiSQtpDGihnqgA4CvXe+e0eAXnls1lIBXf2e3NrifWhoIhFYH11
- EbzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718198534; x=1718803334;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qsoWuzn17VvjikVzQz6+Jyxo7R4j3K1aNLPcDUzQdZE=;
- b=qebNfSK09EDp7aWIkTng75HCWYMqvuCPc9pz5s6kTpR8PVdfo2sKXEP/oKnZZLEHHI
- Ph59SarGSoirN5KQMLd7K+tf/ciLX1NiGwKGa1DbTZENPiYMWWhTovunmX2z7NX7KU7e
- RCst9QoAQ7Qn4wlCQJtFMPN7mYuGTC31pQPu6Spd2P71ZvVl0hZMaHkDj23F1BAUmOR5
- 8CYoT1rsTfczbV6TAGFLLGJB6zmo5SZ31okn8jPLd0GVuahFO1Wp1WG/IHbNM0YtrvcG
- OHB7oqzUv5vRI8l5QLHB+cL7mWH9247fqcUB7yIiGvr3tL6DZAtrK0NHIovvSS/rMWVV
- l/pw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCULXKpSGuzQhLsEjDPE386bkot49Cz7jIt+qFiAgup8mXpkSL24SHYOL/SEmQjX0kMvOz7eOK6xpnhAIHAHMW/F2vuh52hq3rXLVKJefF9V
-X-Gm-Message-State: AOJu0YyuDURSwmZvf/TeN9fqeg/p9Cj67zbYuBmMH7LjnDPWDFPt2RE6
- GpAHrYFOIoQEjSHpNm54NmAwEK3nrNdkVLUkdXOWcXc2PlUD+bPUKOJM5KsVAEi1ObET717Yn2h
- EYM8mvSZE9+7KeTGATmEoWjwC6+aj9AWgerZAMw==
-X-Google-Smtp-Source: AGHT+IHOmiC+sARRKPnM20C1DGRPtMc6UmI9stZNJsOQF5EN19JWxDcLDuyjTBRVCwm3T5Vs6GZWTmySOdJ8QSidTZY=
-X-Received: by 2002:a0d:d841:0:b0:62c:e8a2:305 with SMTP id
- 00721157ae682-62fba375c1fmr16113497b3.41.1718198534271; Wed, 12 Jun 2024
- 06:22:14 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C3DB10E8A7;
+ Wed, 12 Jun 2024 15:55:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id ADF7F614E9;
+ Wed, 12 Jun 2024 15:55:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7AEC7C4DDE4;
+ Wed, 12 Jun 2024 15:55:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1718207757;
+ bh=OGohKvk0MjWf9+Q8+mvrBX+1BAlKKRyUXLbfH75xyb4=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=kYWVzenO6v46dav7m+6VeeBQvWtkfZ2ijSROLzZNF2xhVox8NT4g6D7nEQ7Yr1CvD
+ QbMqbzoNwKvtHxN4oOUSJGsdzFSOiqxLCA02gKqMCQ7TCsZzzusBONx5M/RWdCVpV3
+ EiLccKqgRHfAnZUsG10WiKCsIr5ffuOoIqg1qhcsU6IhDG8FGsX5pkowWNVMy10FlC
+ cn2EJB/8N7UtSBq02dCqRuSQs3PZ1MDiLAg7XtxdpzyjShLg11I47hWenlonizyvmL
+ MeVPPNyid+I2VhiIZBpPj5WbK56sRWz78MH6UY8PKtaaCMSFrdgOOixPo+5vEX+bSG
+ 8/iqEXeUVgsUQ==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 61107C43618; Wed, 12 Jun 2024 15:55:57 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-References: <20240522-fd-hdmi-hpd-v2-13-c30bdb7c5c7e@linaro.org>
- <deaa2a50-9e16-4f23-8c13-34947ba4e4e0@web.de>
-In-Reply-To: <deaa2a50-9e16-4f23-8c13-34947ba4e4e0@web.de>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 12 Jun 2024 16:22:03 +0300
-Message-ID: <CAA8EJppn_mVzmd==-bs8je8VjXrNrWu0hNXWAGuP+TP3DARReg@mail.gmail.com>
-Subject: Re: [PATCH v2 13/14] drm/msm/hdmi: ensure that HDMI is one if HPD is
- requested
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, LKML <linux-kernel@vger.kernel.org>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [f2fs-dev] [PATCH] tracing/treewide: Remove second parameter of
+ __assign_str()
+From: patchwork-bot+f2fs@kernel.org
+Message-Id: <171820775738.32393.13116890369510221266.git-patchwork-notify@kernel.org>
+Date: Wed, 12 Jun 2024 15:55:57 +0000
+References: <20240516133454.681ba6a0@rorschach.local.home>
+In-Reply-To: <20240516133454.681ba6a0@rorschach.local.home>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, ath10k@lists.infradead.org,
+ Julia.Lawall@inria.fr, linux-s390@vger.kernel.org, dev@openvswitch.org,
+ linux-cifs@vger.kernel.org, linux-bcachefs@vger.kernel.org,
+ linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ io-uring@vger.kernel.org, torvalds@linux-foundation.org,
+ iommu@lists.linux.dev, ath11k@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-wpan@vger.kernel.org,
+ linux-pm@vger.kernel.org, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-erofs@lists.ozlabs.org, virtualization@lists.linux.dev,
+ linux-sound@vger.kernel.org, linux-block@vger.kernel.org,
+ ocfs2-devel@lists.linux.dev, mathieu.desnoyers@efficios.com,
+ linux-cxl@vger.kernel.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, linux-edac@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, brcm80211-dev-list.pdl@broadcom.com,
+ linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
+ linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
+ ath12k@lists.infradead.org, tipc-discussion@lists.sourceforge.net,
+ mhiramat@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-nfs@vger.kernel.org,
+ linux-btrfs@vger.kernel.org
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,33 +84,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 12 Jun 2024 at 16:01, Markus Elfring <Markus.Elfring@web.de> wrote:
->
-> =E2=80=A6
-> > +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> > @@ -117,11 +117,13 @@ static void msm_hdmi_bridge_atomic_pre_enable(str=
-uct drm_bridge *bridge,
-> >
-> >       DBG("power up");
-> >
-> > +     mutex_lock(&hdmi->state_mutex);
-> >       if (!hdmi->power_on) {
-> =E2=80=A6
-> >       }
-> > +     mutex_unlock(&hdmi->state_mutex);
-> >
-> >       if (hdmi->hdmi_mode) {
-> >               msm_hdmi_config_avi_infoframe(hdmi);
-> =E2=80=A6
->
-> Would you become interested to apply a statement like =E2=80=9Cguard(mute=
-x)(&hdmi->state_mutex);=E2=80=9D?
-> https://elixir.bootlin.com/linux/v6.10-rc3/source/include/linux/mutex.h#L=
-196
+Hello:
 
-I am not.
+This patch was applied to jaegeuk/f2fs.git (dev)
+by Steven Rostedt (Google) <rostedt@goodmis.org>:
+
+On Thu, 16 May 2024 13:34:54 -0400 you wrote:
+> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
+> 
+> [
+>    This is a treewide change. I will likely re-create this patch again in
+>    the second week of the merge window of v6.10 and submit it then. Hoping
+>    to keep the conflicts that it will cause to a minimum.
+> ]
+> 
+> [...]
+
+Here is the summary with links:
+  - [f2fs-dev] tracing/treewide: Remove second parameter of __assign_str()
+    https://git.kernel.org/jaegeuk/f2fs/c/2c92ca849fcc
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
---=20
-With best wishes
-Dmitry
