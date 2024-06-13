@@ -2,88 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4263D907EFB
-	for <lists+freedreno@lfdr.de>; Fri, 14 Jun 2024 00:36:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62F2D907F42
+	for <lists+freedreno@lfdr.de>; Fri, 14 Jun 2024 01:13:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15CB310EBF1;
-	Thu, 13 Jun 2024 22:36:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D62A10E13B;
+	Thu, 13 Jun 2024 23:13:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RsduB2Y0";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="NVmdRWcI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
- [209.85.208.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDCE710EBE3
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 22:36:32 +0000 (UTC)
-Received: by mail-lj1-f172.google.com with SMTP id
- 38308e7fff4ca-2ebe785b234so14693741fa.1
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 15:36:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718318191; x=1718922991; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=bY4Fdj8LBem1j0JhiZYvE2hhGJdtm9/4wNp5qRC1HxM=;
- b=RsduB2Y0IGuljOixZ8z7o+GrRdekx8VjZJB53cX9PyxuBGeSLAAHW0oXnQY0b5gqBG
- qNlKJ0RfqePtcNLlR5+17G8iTU6JiHO0tHDZiWkYVPWdtmhKA8Xa477NxVeVzU09To3g
- T4QTv5tE7Eq8DtU2e6pO6I+zBnSNHB35G1hrx0iw/x6q3pYK2rtiK2xV7HLIfCEL9Rfu
- Dc0hr9Gxd6X+s+s2FsBHU5uu//fOM6SV78/IRDpVdiWhIOtd9YlSegumw7cE/RzksuWh
- kiOfX+MBcfAJ06iMSI8mj18k9iDQzmLp2QhQ6+wYg+Zb8F2fQ/7fq6lfXySPEQrqfJ+z
- Ei6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718318191; x=1718922991;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bY4Fdj8LBem1j0JhiZYvE2hhGJdtm9/4wNp5qRC1HxM=;
- b=nB1ho0hY/G7ogNx2ZIGloo+TeIyKo4299RB01pVdzG7wim3yoqM1WdpYFwb2LG6iRI
- Tp+ERiBrdISXt/5R66rwo1hRpPQD2MaOCt6U0rMTyrmnzyM0eJ20r2XFqv2InvgQUADr
- JszYst+KFL5A2Ym8MU7JYEp/nMBq6UPNyhH3oRVxpae0XLL1jfIPJgw7EcaPxXmzyStq
- L8iT9jomsvVnarCKMvAgUaaSY7i4/U2CxXop4smAdRlRv/FbSJpaU6V0UNWkR5zmJKsC
- cCrJBJh+G7imACplYeIk/Pc7NtN4p8OHU2zqIH6u0Wc3nye077uO3QhjK7rOTnZASZCd
- QmOw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVrpjtZpLJNHAwPQW+QAdBBdX40EnhPQLdkELtEDeNGU/duxYEmJps8Y9vd4lc+f9b2MgGj9ALhW2wHfJAKylGYa/+/Gtzdmc8S0KxZec90
-X-Gm-Message-State: AOJu0YwAv/5eJTsShk/kKh9sNyXuXpSag7FOXlZi14OYeG1wUnuzo0wo
- Cch4qO80wxirCa4x+XwTJi77bl4RvUXivaML8lJ7n5c770mcP3l7n68ljdYQbTg=
-X-Google-Smtp-Source: AGHT+IG2py+4H7jt37FBEfwRxv0sXfQYiHwnRpgTcq1yNZuakide7ZoahBL0t1WvLFAHnD4eErzECQ==
-X-Received: by 2002:a2e:7205:0:b0:2ea:e4e6:f227 with SMTP id
- 38308e7fff4ca-2ec0e59e337mr7131841fa.35.1718318190997; 
- Thu, 13 Jun 2024 15:36:30 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ec05c04a08sm3865191fa.29.2024.06.13.15.36.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jun 2024 15:36:30 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 14 Jun 2024 01:36:10 +0300
-Subject: [PATCH v3 9/9] drm/msm/dpu: sync mode_config limits to the FB
- limits in dpu_plane.c
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03F3110E0F8;
+ Thu, 13 Jun 2024 23:13:26 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45DJGMm6024227;
+ Thu, 13 Jun 2024 23:13:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ N5zeY6v+l92d5kTwjsKH7gVmTuBY4OLuy/EY97FpXTI=; b=NVmdRWcIpMYFhYKA
+ nTZp2/Z4d4G0LS94tdtO26uaDk0Ms5dLIgoSa/1Xczxo/DDB0GoJU3C2Ec2QUvso
+ FR1SpwlO7FjUgj5sqT3XOVhU9iYl3VGQvWMxfRwu27rfKqw+0J93N0B53i1+n7rT
+ CsAMMfopVuq+fujySFbFgerClgYry9JbfuHkdRUFADzXy3evWGtMlwoKP8wluBsc
+ i8nENZ1HVLDB5XQW85kGbCufat40Y63iySvGK3M0Wn+gaRwrHCPU26IK0Nzf7FJp
+ 133prW4nm0T2PKceKmcU+6p6+I0I1ZpoNkb1QJa0jL/sXUceJfc05uC4577pqQrr
+ DYRoZg==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yr6q4rggw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 13 Jun 2024 23:13:21 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45DNDJgU031183
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 13 Jun 2024 23:13:19 GMT
+Received: from [10.71.110.249] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 13 Jun
+ 2024 16:13:18 -0700
+Message-ID: <52fef0ed-d9c6-682c-2d30-18cdd78f7a40@quicinc.com>
+Date: Thu, 13 Jun 2024 16:13:18 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240614-dpu-mode-config-width-v3-9-29ec4069c99b@linaro.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v3 1/9] drm/msm/dpu: check for overflow in
+ _dpu_crtc_setup_lm_bounds()
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
+ Vetter <daniel@ffwll.ch>
+CC: Abel Vesa <abel.vesa@linaro.org>, Johan Hovold <johan+linaro@kernel.org>, 
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
 References: <20240614-dpu-mode-config-width-v3-0-29ec4069c99b@linaro.org>
-In-Reply-To: <20240614-dpu-mode-config-width-v3-0-29ec4069c99b@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Abel Vesa <abel.vesa@linaro.org>, 
- Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2430;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=2Gk0OMDHQiW3uhDmJLEQ/urAc6vwlA6k4JGigLg8AG0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBma3RnU2cAhfsW0kpryawy2or81SC35WoohLjIt
- OyEwH+9gv+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZmt0ZwAKCRCLPIo+Aiko
- 1ZnjB/4mC7hCuKEZDzh+Akh97KN/xGwFn6VRH1/8fEb7ME9Y1HkeGiQk2DERDy1KHd4U6y2tDbe
- uEsPl+1gbs+TMxEFC9VPMmap6BB7ir92uClFDSh9efVmtApZRu/ztJUf6edgFlLcxtLpmc1vqfs
- 7dtsXPS3y8sqe5OQAJd4vo5Qns+dt3AvQs+0rDSq4KRvgl6i4acI+qVIlVgwm8hNtxHf8fYvrH+
- Ea3jF8umIA7E9euQjr3PRctyD5yUSBsQcDyTf9FJ2qtd+Bqx8mZVy0zf9D3ib9nJqNqtUSZaBPB
- 3flRryxais5gC4QhHT2GDAhp8qCASqoUNwR2VUsoi252bou3
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+ <20240614-dpu-mode-config-width-v3-1-29ec4069c99b@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240614-dpu-mode-config-width-v3-1-29ec4069c99b@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: EcluWeOU1Imb928PQ-7qbu6V6xPeYKGa
+X-Proofpoint-GUID: EcluWeOU1Imb928PQ-7qbu6V6xPeYKGa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-13_13,2024-06-13_02,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0
+ impostorscore=0 adultscore=0 malwarescore=0 priorityscore=1501
+ mlxlogscore=975 lowpriorityscore=0 phishscore=0 spamscore=0 mlxscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405170001 definitions=main-2406130165
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,70 +97,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Lift mode_config limits set by the DPU driver to the actual FB limits as
-handled by the dpu_plane.c. Move 2*max_lm_width check where it belongs,
-to the drm_crtc_helper_funcs::mode_valid() callback.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 15 +++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  9 ++-------
- 2 files changed, 17 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 5dbf5254d310..44531666edf2 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1236,6 +1236,20 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
- 	return 0;
- }
- 
-+static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
-+						const struct drm_display_mode *mode)
-+{
-+	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
-+
-+	/*
-+	 * max crtc width is equal to the max mixer width * 2 and max height is
-+	 * is 4K
-+	 */
-+	return drm_mode_validate_size(mode,
-+				      2 * dpu_kms->catalog->caps->max_mixer_width,
-+				      4096);
-+}
-+
- int dpu_crtc_vblank(struct drm_crtc *crtc, bool en)
- {
- 	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
-@@ -1451,6 +1465,7 @@ static const struct drm_crtc_helper_funcs dpu_crtc_helper_funcs = {
- 	.atomic_check = dpu_crtc_atomic_check,
- 	.atomic_begin = dpu_crtc_atomic_begin,
- 	.atomic_flush = dpu_crtc_atomic_flush,
-+	.mode_valid = dpu_crtc_mode_valid,
- 	.get_scanout_position = dpu_crtc_get_scanout_position,
- };
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 0d1dcc94455c..d1b937e127b0 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1147,13 +1147,8 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
- 	dev->mode_config.min_width = 0;
- 	dev->mode_config.min_height = 0;
- 
--	/*
--	 * max crtc width is equal to the max mixer width * 2 and max height is
--	 * is 4K
--	 */
--	dev->mode_config.max_width =
--			dpu_kms->catalog->caps->max_mixer_width * 2;
--	dev->mode_config.max_height = 4096;
-+	dev->mode_config.max_width = DPU_MAX_IMG_WIDTH;
-+	dev->mode_config.max_height = DPU_MAX_IMG_HEIGHT;
- 
- 	dev->max_vblank_count = 0xffffffff;
- 	/* Disable vblank irqs aggressively for power-saving */
+On 6/13/2024 3:36 PM, Dmitry Baryshkov wrote:
+> Make _dpu_crtc_setup_lm_bounds() check that CRTC width is not
+> overflowing LM requirements. Rename the function accordingly.
+> 
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 17 +++++++++++++----
+>   1 file changed, 13 insertions(+), 4 deletions(-)
+> 
 
--- 
-2.39.2
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
