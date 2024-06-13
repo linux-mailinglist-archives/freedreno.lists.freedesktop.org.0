@@ -2,65 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E22A4907EF1
-	for <lists+freedreno@lfdr.de>; Fri, 14 Jun 2024 00:36:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09E30907EED
+	for <lists+freedreno@lfdr.de>; Fri, 14 Jun 2024 00:36:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87E2010EBEB;
-	Thu, 13 Jun 2024 22:36:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8DF710EBE7;
+	Thu, 13 Jun 2024 22:36:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rQZWTuqI";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MXEiI+zu";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B86510EBE1
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 22:36:27 +0000 (UTC)
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-2eaa89464a3so15669041fa.3
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 15:36:27 -0700 (PDT)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 371B210EBE3
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 22:36:28 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2ebe785b234so14693201fa.1
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 15:36:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718318185; x=1718922985; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1718318186; x=1718922986; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Axn0CffF4ZXu41BfYhRYHrbH241ZyeeHoXr5qagjCJ0=;
- b=rQZWTuqIGmCu4DtmtMFg/+PC0cNMJAXaNtlSadGbCPZndCRQKywYRNIKxBNgvMWf+J
- tBYIB1yzTvsUzeIIpm2eqemQKbR+EnFb0n9tpfHwpBsjzogejbvFbPn0oByw17CBGZi/
- uINFeT4tged9tBkMy3jmGjnyYSl1H1FZtWvVX+g1qrsF2NAhlD55bhw3HJReAqZjR6/3
- eH7QD0ynqMxK4ynFewJI9fqp5iJWcG7dopq1jOkcQ7ue6kWHlQD7BuwQ8ZufGBym+n5p
- 9BmsvWvKGZyDew1sy0UFjP0XkyaimMVwrUVwIPhrLkXAITOzYJVptQ1oUHJYHeRxBDb5
- leyg==
+ :reply-to; bh=0oXOVdRHNNnObgLlS+JRiMGauu/PqHbIdd79rxd9IUg=;
+ b=MXEiI+zuLLU0aQpHusmE3iG2nHLVI3fGx9tnB4ONT6qAUd3kq6cNKZL99uy6UPLwRF
+ UFtHPS2rP21Su1+Sf8umrxnFa8yn2IzI5vvLoNCDtSb12oKpji7rYQ/PRgbMkby/NL43
+ 9BjomWFh+ug6Vg49E4nedAQKuty4WuG5d/bpVNIzbZny27A6RR9Eme20dckX3BiNdW2W
+ ZLBkjfgFxiTL8AOpnqWW3yVQkQK0Rke2bBpg1XHzds1IIW1MrQ9xiIdXruGHwPr4X6l/
+ 0CL0qM2mKfjkqlrw9Yq7HBqi8V5m5u0TiiTVR3WFAYFb7YOPtczNdAsatVRiPDQTn5CE
+ 9JSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718318185; x=1718922985;
+ d=1e100.net; s=20230601; t=1718318186; x=1718922986;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Axn0CffF4ZXu41BfYhRYHrbH241ZyeeHoXr5qagjCJ0=;
- b=u4a8qX2vYKAuxhVBA/uGMs4pAvfevg0mg1PPqdEnI8B1VLuTyzSqGnSKXDXmSBGP5i
- 7JlSztlqZoo97HXh5CAS+IKnukmoqWjr580TpsT7D1MK4lRWdrA6cFh3Sl12Zp0Igz5e
- LTqa7zlAffmz4NA77Ed6r22tyfJMpnbjwEP18FVZEVKm/MXnGgoIQzVCWI+K4NyfaqNp
- 8ptXj4zWfrbZ2tveCDf08iSvSs6cbhwB1qknI5P1W4461zs2Q8drrU9W0uUfxJryfly2
- fyJI5pKby5uBVSiw/QRMOoIchWc597mJoc7qcHNPMLhZAYi1BhbRTrhVbEqoKwFITADk
- Bj+w==
+ bh=0oXOVdRHNNnObgLlS+JRiMGauu/PqHbIdd79rxd9IUg=;
+ b=Qfdd6XDkIQB8uyiIe3XgJWd+w0TkTQOGHAQbkatNcAQ8mgTxgFifvMrSIpDBw3DkNv
+ AaBl4hwr+bzmYvykDB829dUbOCxnYEMhvqp7Vq1CVscBtMH5LYxADHljl/jEb36NhUEQ
+ SWcDk8/aN9oyzqbBqozSxghOSygutPJ7wYrgbrLNztY4lhpn0K4p+FG4z/86xe0+BvQO
+ eYSQLnqADxgodj1fTsDxrKe5qoIgKhlL4MOWzx2qHVi2Oygdu0nH3DkiC5G+5AuyAl0w
+ bmygKIM+ea5fiYRsFCePuGES24UJU8KYwiHGsLzwGwZ0NuYyPdp1CYc65/P0Qa7qmImN
+ q4Wg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXBkLtJlAy04jbvQghCO60Latjq79u/A+DrHMXnYXrp3oQhY/gC+pCJWJ9ckFs0vDw8B2Uas63u/NbLdG2HXz4UVf+i6ZkN4fjpbHIS5y+A
-X-Gm-Message-State: AOJu0YwFqgvDJbtVWdjsAoA3f3Ff8ILZqrcu9Qyp0elz6vPD+6RMoXfp
- 6CU7eun1OFAI4uYkg8LLhFuLHCjcEeK9u+7D93tHu+k+ptdcuX2D8yiaPdudozo=
-X-Google-Smtp-Source: AGHT+IHCGXVz8lmVwtJZmyRAiRUNsUm7GaCgW5618J6o8Zn/pXZpXzZ1TjoxBsWQRycODYBBi47/xw==
-X-Received: by 2002:a2e:9616:0:b0:2eb:e9cf:e179 with SMTP id
- 38308e7fff4ca-2ec0e5c6d69mr6125901fa.21.1718318185457; 
- Thu, 13 Jun 2024 15:36:25 -0700 (PDT)
+ AJvYcCWeAhh90tpj1bQfQugwe7b4q3xw/36xtwmVaGh6txJM4y+mvPJxuElO9KlJrpeP2Yfy0pBZckrWlfDrQppv/ARBOwfyzWKZJ1rKxobjfL8P
+X-Gm-Message-State: AOJu0YxrocpZStL/0mZEkZuOuAu6/CMrrNcZXnqA1XoFFB+8lIQUPv//
+ APH8uuIl2v6SAgUU2NwG/3gSHuqPmKdFs/F6xi3TdLvatqMp05jQ7836cP+8x5E=
+X-Google-Smtp-Source: AGHT+IGInrYLWQtlrQXLhQ4Fn4kMM+TkC/CKnLcZaun/7ZLsRJVyvJLpQDWNJbCrFaCALcESKJUw9w==
+X-Received: by 2002:a2e:9b4b:0:b0:2eb:fded:a5c6 with SMTP id
+ 38308e7fff4ca-2ec0e5abf16mr6549171fa.51.1718318186257; 
+ Thu, 13 Jun 2024 15:36:26 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ec05c04a08sm3865191fa.29.2024.06.13.15.36.24
+ 38308e7fff4ca-2ec05c04a08sm3865191fa.29.2024.06.13.15.36.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jun 2024 15:36:24 -0700 (PDT)
+ Thu, 13 Jun 2024 15:36:25 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 14 Jun 2024 01:36:03 +0300
-Subject: [PATCH v3 2/9] drm/msm/dpu: drop dpu_format_check_modified_format
+Date: Fri, 14 Jun 2024 01:36:04 +0300
+Subject: [PATCH v3 3/9] drm/msm/dpu: drop dpu_format_populate_layout from
+ dpu_plane_sspp_atomic_update
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240614-dpu-mode-config-width-v3-2-29ec4069c99b@linaro.org>
+Message-Id: <20240614-dpu-mode-config-width-v3-3-29ec4069c99b@linaro.org>
 References: <20240614-dpu-mode-config-width-v3-0-29ec4069c99b@linaro.org>
 In-Reply-To: <20240614-dpu-mode-config-width-v3-0-29ec4069c99b@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -71,16 +72,16 @@ Cc: Abel Vesa <abel.vesa@linaro.org>,
  Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4184;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3293;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=nHy/s501BKISDY/viUTlwbtLfmlHRF5tf45zr5mVRjI=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ1p2SeoUzS7VA35Cp89zJVTt+ZD8z7O1juXDftnApI/bX
- eW++md2MhqzMDByMciKKbL4FLRMjdmUHPZhx9R6mEGsTCBTGLg4BWAiHvrs/ysj3u5LEqiNfz+x
- iuOSbs72sOTtluXJK68G7ujcyZx/+8Xsvtdhyvuvb+a5UqX9fv3zfhvX4EVtzu+U7DVqoq6kfZJ
- hv290TN5dxPWNo3n3fi2t+QXc96NPPt2/Psxd9tJCr0MZy9dcOrRBeum7r5Mqn1lVutd5SqXfL2
- J6/fdb4esIFW43rve1LewT6+VnHj7QdXGWWvU0Wz3VWr0L9r4ZdRc0N8m9Sv3q0qUho/B+nUHc4
- w6W70r3ttTv/j5/hgj3/rd8Yc33yiWTbu53cK842srBc9Fjy14293Kx+u/+z95KeJ28d3Jdfb7Q
- yQ8ShgE8Ly+2y8g9/8lrvkbqZ9w5L9GijkPdaodbxSITAA==
+ bh=b8kT7uNMoxyE9AV8a51TAAbK8IFnReILBdf2NuP/B5g=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBma3RlQ4b4UFtQ4hs13DaK5VdWZWyeacZvvgTSI
+ rmJHgwS0xeJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZmt0ZQAKCRCLPIo+Aiko
+ 1WqmCAChOYvOsWwRTgWuhRjG3petU3qQ51O4u5DNklC8Hq8IHtZ+fSuxnCiwdPdx7vWnSgqE+VX
+ 6LR9REmrxxt/uT+IrRUXNW8kReqN39GWOEG5prNQCXsIEKkiOIlfEnRVo9xp+hVKhpTbEO0egji
+ auEjWflaqOQRkUq7HhCo3i5cfRPSRMhVewDvKndHSc9qEtCQpsWPPLOmv6/JdixnVbCEuWm3gWD
+ Jnd7ShmuETOgQnzEzepbG54Cl0sgI29P8BYv+evqMKGx9Z2JLOaRAgt5M5/EsZcYG5cw+a/X/ba
+ 3GoliQbr8iURjjzbRMtiZDcBPWA5c/xB5bzdp2D9K7F9/jln
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -98,124 +99,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The msm_kms_funcs::check_modified_format() callback is not used by the
-driver. Drop it completely.
+The dpu_plane_prepare_fb() already calls dpu_format_populate_layout().
+Store the generated layout in the plane state and drop this call from
+dpu_plane_sspp_update().
 
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 43 -----------------------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h | 16 -----------
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  1 -
- drivers/gpu/drm/msm/msm_kms.h               |  6 ----
- 4 files changed, 66 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 19 ++++---------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  3 +++
+ 2 files changed, 7 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-index 6b1e9a617da3..027eb5ecff08 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-@@ -423,46 +423,3 @@ int dpu_format_populate_layout(
- 
- 	return ret;
- }
--
--int dpu_format_check_modified_format(
--		const struct msm_kms *kms,
--		const struct msm_format *fmt,
--		const struct drm_mode_fb_cmd2 *cmd,
--		struct drm_gem_object **bos)
--{
--	const struct drm_format_info *info;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index 1c3a2657450c..9ee178a09a3b 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -647,7 +647,6 @@ static int dpu_plane_prepare_fb(struct drm_plane *plane,
+ 	struct drm_framebuffer *fb = new_state->fb;
+ 	struct dpu_plane *pdpu = to_dpu_plane(plane);
+ 	struct dpu_plane_state *pstate = to_dpu_plane_state(new_state);
 -	struct dpu_hw_fmt_layout layout;
--	uint32_t bos_total_size = 0;
--	int ret, i;
+ 	struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
+ 	int ret;
+ 
+@@ -677,7 +676,8 @@ static int dpu_plane_prepare_fb(struct drm_plane *plane,
+ 
+ 	/* validate framebuffer layout before commit */
+ 	ret = dpu_format_populate_layout(pstate->aspace,
+-			new_state->fb, &layout);
++					 new_state->fb,
++					 &pstate->layout);
+ 	if (ret) {
+ 		DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
+ 		return ret;
+@@ -1100,17 +1100,6 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
+ 		msm_framebuffer_format(fb);
+ 	struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg;
+ 	struct dpu_sw_pipe_cfg *r_pipe_cfg = &pstate->r_pipe_cfg;
+-	struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
+-	struct msm_gem_address_space *aspace = kms->base.aspace;
+-	struct dpu_hw_fmt_layout layout;
+-	bool layout_valid = false;
+-	int ret;
 -
--	if (!fmt || !cmd || !bos) {
--		DRM_ERROR("invalid arguments\n");
--		return -EINVAL;
--	}
--
--	info = drm_format_info(fmt->pixel_format);
--	if (!info)
--		return -EINVAL;
--
--	ret = dpu_format_get_plane_sizes(fmt, cmd->width, cmd->height,
--			&layout, cmd->pitches);
+-	ret = dpu_format_populate_layout(aspace, fb, &layout);
 -	if (ret)
--		return ret;
--
--	for (i = 0; i < info->num_planes; i++) {
--		if (!bos[i]) {
--			DRM_ERROR("invalid handle for plane %d\n", i);
--			return -EINVAL;
--		}
--		if ((i == 0) || (bos[i] != bos[0]))
--			bos_total_size += bos[i]->size;
--	}
--
--	if (bos_total_size < layout.total_size) {
--		DRM_ERROR("buffers total size too small %u expected %u\n",
--				bos_total_size, layout.total_size);
--		return -EINVAL;
--	}
--
--	return 0;
--}
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h
-index 210d0ed5f0af..ef1239c95058 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h
-@@ -31,22 +31,6 @@ static inline bool dpu_find_format(u32 format, const u32 *supported_formats,
- 	return false;
- }
+-		DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
+-	else
+-		layout_valid = true;
  
--/**
-- * dpu_format_check_modified_format - validate format and buffers for
-- *                   dpu non-standard, i.e. modified format
-- * @kms:             kms driver
-- * @msm_fmt:         pointer to the msm_fmt base pointer of an msm_format
-- * @cmd:             fb_cmd2 structure user request
-- * @bos:             gem buffer object list
-- *
-- * Return: error code on failure, 0 on success
-- */
--int dpu_format_check_modified_format(
--		const struct msm_kms *kms,
--		const struct msm_format *msm_fmt,
--		const struct drm_mode_fb_cmd2 *cmd,
--		struct drm_gem_object **bos);
--
- /**
-  * dpu_format_populate_layout - populate the given format layout based on
-  *                     mmu, fb, and format found in the fb
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 1955848b1b78..0d1dcc94455c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -981,7 +981,6 @@ static const struct msm_kms_funcs kms_funcs = {
- 	.complete_commit = dpu_kms_complete_commit,
- 	.enable_vblank   = dpu_kms_enable_vblank,
- 	.disable_vblank  = dpu_kms_disable_vblank,
--	.check_modified_format = dpu_format_check_modified_format,
- 	.destroy         = dpu_kms_destroy,
- 	.snapshot        = dpu_kms_mdp_snapshot,
- #ifdef CONFIG_DEBUG_FS
-diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-index 1e0c54de3716..e60162744c66 100644
---- a/drivers/gpu/drm/msm/msm_kms.h
-+++ b/drivers/gpu/drm/msm/msm_kms.h
-@@ -92,12 +92,6 @@ struct msm_kms_funcs {
- 	 * Format handling:
- 	 */
+ 	pstate->pending = true;
  
--	/* do format checking on format modified through fb_cmd2 modifiers */
--	int (*check_modified_format)(const struct msm_kms *kms,
--			const struct msm_format *msm_fmt,
--			const struct drm_mode_fb_cmd2 *cmd,
--			struct drm_gem_object **bos);
--
- 	/* misc: */
- 	long (*round_pixclk)(struct msm_kms *kms, unsigned long rate,
- 			struct drm_encoder *encoder);
+@@ -1125,12 +1114,12 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
+ 
+ 	dpu_plane_sspp_update_pipe(plane, pipe, pipe_cfg, fmt,
+ 				   drm_mode_vrefresh(&crtc->mode),
+-				   layout_valid ? &layout : NULL);
++				   &pstate->layout);
+ 
+ 	if (r_pipe->sspp) {
+ 		dpu_plane_sspp_update_pipe(plane, r_pipe, r_pipe_cfg, fmt,
+ 					   drm_mode_vrefresh(&crtc->mode),
+-					   layout_valid ? &layout : NULL);
++					   &pstate->layout);
+ 	}
+ 
+ 	if (pstate->needs_qos_remap)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+index abd6b21a049b..348b0075d1ce 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+@@ -31,6 +31,7 @@
+  * @plane_clk: calculated clk per plane
+  * @needs_dirtyfb: whether attached CRTC needs pixel data explicitly flushed
+  * @rotation: simplified drm rotation hint
++ * @layout:     framebuffer memory layout
+  */
+ struct dpu_plane_state {
+ 	struct drm_plane_state base;
+@@ -48,6 +49,8 @@ struct dpu_plane_state {
+ 
+ 	bool needs_dirtyfb;
+ 	unsigned int rotation;
++
++	struct dpu_hw_fmt_layout layout;
+ };
+ 
+ #define to_dpu_plane_state(x) \
 
 -- 
 2.39.2
