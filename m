@@ -2,88 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48E949069A0
-	for <lists+freedreno@lfdr.de>; Thu, 13 Jun 2024 12:08:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 971179069BA
+	for <lists+freedreno@lfdr.de>; Thu, 13 Jun 2024 12:13:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1404B10E9F9;
-	Thu, 13 Jun 2024 10:08:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC7210E9F7;
+	Thu, 13 Jun 2024 10:13:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DHTRb/83";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PQd92tdR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C79C610E9FD
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 10:07:59 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-5295e488248so984591e87.2
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 03:07:59 -0700 (PDT)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E18510E9F7
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 10:13:20 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-2e78fe9fc2bso9463251fa.3
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 03:13:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718273278; x=1718878078; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1718273598; x=1718878398; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=RYvXhUR4MqvdO8CyI6lyGFQa8ObvUY9+LLJIm6+1jFA=;
- b=DHTRb/83XsT4t/KdpTpw+vVg6bsrYPh23ae1M4ev5PUCP8DK7RHhejAtbaf5wEMG4R
- pnWoU+SHdbchTNplWe73mqiUp7mZXplasl09b9EkMSn5x2s3DkAc98YmKXAvXFF2Bn+t
- kHgdxNUJQegAu9qsqKYpuwOEe/FJGjvXPvhWOhkCArYoU4pGeiZJC6aeE1TSQEpqQUWt
- NDfY9jCheX3KjKQx/4+kVWUMJr3oPteR/iXVVHcyPbUx5iGk35Pqgj7zsZa9DeZe1LoQ
- Ov45WK4wu2xDQYrS985rH6G7djdWA8Hg1HFSPoSQKZ31CVlStSVO/rnu0BNzLiWDvVA3
- yQ6w==
+ bh=6UhTMrFvQBB8mfMQ4c+fd/Ifc6ucfhQNCFOCAgSgYQ0=;
+ b=PQd92tdRTzN2pYvW1uRjIySwkVB7g3bfm3FFjSbYypnTYXgvVLi/lkN9FlYIeFqiwR
+ k4lcp4xf+TYvBEbVEPkJu66z3sEBrayvR0NWoS2y4DwILo0C7pFwm4oIOdTGkKP/iXFL
+ IuD8Ku6DUprYb/gkhtQeWef/7B8b8UQRYKtd9W2qrF+pSBz2jOpizrFM5cenR50WiY4N
+ r3rJmRcPsyD6UjUG4BgFLtxPuw8v+hFz3tPJCWX/IC5dpOWgLilYY/jPsFQFdGBoIH6G
+ Obvwk6wknDKK10fkLnhWkekfwqKzmpBD+gKj/LvbNIBfvBRSnHBTnT5IK/YpGPpmuu+J
+ mnlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718273278; x=1718878078;
+ d=1e100.net; s=20230601; t=1718273598; x=1718878398;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=RYvXhUR4MqvdO8CyI6lyGFQa8ObvUY9+LLJIm6+1jFA=;
- b=ackPmk7HgxiKC5ppVmGAvHrwxr9jLaWTyjIkN3yFDq0vVjXsLfVMaO+yO8sk1lbcRb
- 8SNLamaEeTtTBdJBCQp42yvkpxPNklh1jvPYVv3GduNHVZ8hpQ1JzOu7S1H/Gzg5eiY5
- PkRwl2ZdpduQ4zaiDhvyS/JB2Tw1EVWjxK7pY7kS7I/BNwXDtkVFwbBB/SRkdRgW9aep
- dYNLZzBjr55aJcu4EIutreX51E+uA/aBBSxXYCBNOkcsLH0luqmr1iPQkcY0SBhsDLWB
- RFpHe1MQViQT7HRJmHwJ3tuzsxcLv9aK3LHsonpFwJu8ksFZV3VO4B8NsD2cDKWuaELb
- AEEw==
+ bh=6UhTMrFvQBB8mfMQ4c+fd/Ifc6ucfhQNCFOCAgSgYQ0=;
+ b=I1Wgj9mCAwBUPjAJjbc04MYOFRGYdSBm634O+6NnTA2HpGRr1D2TLm8SU51v3DjaLR
+ jyEXZBrfGEqUEdf3cvolFAilKwmLy1M8P3NMYe11vxdx2qnDnNF9QBJWuNtf5PyD3/RB
+ 4JvVww1ScteP9ZdojGsupf7S6MN+A0cPCevhHhissDxfAopniGBsOPyUCkr421wGws2C
+ e1o5KWddhgVfXNifmXzilRDcruM4gUN2qyjmymrvb7l1oUxPUHVV3eIApyILo0+4V1gN
+ tbkMwF3IL8r3utZqyl66hdotNLpVkmxZFOQlNitO6lyuAejdqAWsN8vqPSTnob4CB0Ph
+ lwKQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWINKn7l/7Dd5t8peLr80RkbTdIXgh9R12ZrPQqvVPYZYyi3U5aTbF3bOCXnfpKrsiXiadgHqUHttlmb+ArwH96JS48UIuy+mMz86plMp/R
-X-Gm-Message-State: AOJu0Yylk0cwVODzK3an4tg0+WYFgJdQc4bnGbc1PSr7JfKO58Lk3DXG
- 2BGZxAAW6VmCcH1FC1XZ19QB/3u5r0ozRNkMYsBthXqF9J+6WHFhDIicCD9kDUU=
-X-Google-Smtp-Source: AGHT+IEIfjbzuR+TJYfn0WkM5bFWWQE5UXg72/ta38D4UK601aQPCRVEmPoKXYW21UYlolSVF5CCJQ==
-X-Received: by 2002:a05:6512:3096:b0:52c:893c:6c2c with SMTP id
- 2adb3069b0e04-52c9a3dfaeemr3306688e87.40.1718273277753; 
- Thu, 13 Jun 2024 03:07:57 -0700 (PDT)
+ AJvYcCUQOakr1aMrCsgR73YKJxIVB0lrLLYWggvJCZ8po4M4CDyRmO/2huxh+BUizPC0fz59gdeiHCmYsKxNfTXP7MCrGqlBqImAd/hA4xWg+/n3
+X-Gm-Message-State: AOJu0Yxkaobk+7yZfrLvgAjBCiNsouek855qLfbP61QfAMAJQX8jlUKC
+ rzX5Pesbvz7F5Wlnx2iYP8TkvmPeti7iBiobal/HK3OE31JyWe1PZSW9N3SvjHw=
+X-Google-Smtp-Source: AGHT+IEqZFp6DfPOGQtW9vNfCAckczSMPw7RWxGa/vCjp53axsK6Fln9qoOgp1dvliTR80CJljmHPQ==
+X-Received: by 2002:a2e:88d2:0:b0:2e2:2791:9842 with SMTP id
+ 38308e7fff4ca-2ebfc9aa3dbmr23103601fa.44.1718273598106; 
+ Thu, 13 Jun 2024 03:13:18 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ca282f2aasm148599e87.85.2024.06.13.03.07.57
+ 38308e7fff4ca-2ec05c9ac5bsm1561941fa.134.2024.06.13.03.13.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jun 2024 03:07:57 -0700 (PDT)
-Date: Thu, 13 Jun 2024 13:07:55 +0300
+ Thu, 13 Jun 2024 03:13:17 -0700 (PDT)
+Date: Thu, 13 Jun 2024 13:13:16 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Marc Gonzalez <mgonzalez@freebox.fr>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- Arnaud Vrac <avrac@freebox.fr>, Pierre-Hugues Husson <phhusson@freebox.fr>
-Subject: Re: [PATCH v3 2/4] dt-bindings: display/msm: hdmi: add
- qcom,hdmi-tx-8998
-Message-ID: <qf3erx5x7cigdsel6eh4nb4cl7733ag6qxxeblcdjzys6dnrul@nl7mzrm4ljji>
-References: <20240606-hdmi-tx-v3-0-9d7feb6d3647@freebox.fr>
- <20240606-hdmi-tx-v3-2-9d7feb6d3647@freebox.fr>
- <Zmnejlkb869mN3eS@matsya>
- <af3f71e5-6864-475d-aa90-74986d516bae@freebox.fr>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Danila Tikhonov <danila@jiaxyga.com>, robdclark@gmail.com, 
+ quic_abhinavk@quicinc.com, sean@poorly.run, marijn.suijten@somainline.org, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, 
+ daniel@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ quic_rmccann@quicinc.com, konrad.dybcio@linaro.org, neil.armstrong@linaro.org, 
+ jonathan@marek.ca, swboyd@chromium.org, quic_khsieh@quicinc.com, 
+ quic_jesszhan@quicinc.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] dt-bindings: display/msm: Add SM7150 DPU
+Message-ID: <4xqa6u3jh6z7zdfaamxl3jpucfymznxmd3ezhihgfky62iifkc@bdslrxujahxc>
+References: <20240612184336.11794-1-danila@jiaxyga.com>
+ <20240612184336.11794-4-danila@jiaxyga.com>
+ <0e7bd7f2-b445-4a59-b456-8d03af121a8e@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <af3f71e5-6864-475d-aa90-74986d516bae@freebox.fr>
+In-Reply-To: <0e7bd7f2-b445-4a59-b456-8d03af121a8e@kernel.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,30 +94,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 13, 2024 at 04:02:24AM +0200, Marc Gonzalez wrote:
-> On 12/06/2024 19:44, Vinod Koul wrote:
+On Thu, Jun 13, 2024 at 11:23:50AM +0200, Krzysztof Kozlowski wrote:
+> On 12/06/2024 20:43, Danila Tikhonov wrote:
+> > Document the DPU hardware found on the Qualcomm SM7150 platform.
 > 
-> > On 06-06-24, 18:07, Marc Gonzalez wrote:
-> >
-> >> HDMI TX block embedded in the APQ8098.
+> In general, this should be before MDSS, because it defines fully the
+> compatibles already used in the MDSS schema. For multi-binding devices
+> it always starts with children and ends with parent/top schema.
+> 
 > > 
-> > This one too
+> > Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+> > ---
+> >  .../bindings/display/msm/qcom,sm7150-dpu.yaml | 143 ++++++++++++++++++
+> >  1 file changed, 143 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
+> > new file mode 100644
+> > index 0000000000000..1a44cad131a72
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.yaml
+> > @@ -0,0 +1,143 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/display/msm/qcom,sm7150-dpu.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Qualcomm SM7150 Display DPU
 > 
-> I assume this refers to:
-> "Why is the patch titled display/msm, this is phy patch and it should be
-> tagged as such."
-> 
-> I always copy what others have done before me:
-> 
-> $ git log --oneline Documentation/devicetree/bindings/display/msm/hdmi.yaml
-> 27339d689d2f9 dt-bindings: display/msm: hdmi: add qcom,hdmi-tx-8998
-> 6c04d89a6138a dt-bindings: display/msm: hdmi: mark hdmi-mux-supply as deprecated
-> e3c5ce88e8f93 dt-bindings: display/msm: hdmi: mark old GPIO properties as deprecated
-> 2f14bc38d88a4 dt-bindings: display/msm: hdmi: split and convert to yaml
-> 
-> Are you saying we should diverge from the previous nomenclature?
+> What is DPU? Such acronyms should be explained in description or
+> expanded here, if there is space.
 
-This one is fine. For the phy bindings please use phy: prefix.
+Other bindings here use 'DPU', so probably we need to fix all of them at
+the same time.
+
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> > +
+> > +maintainers:
+> > +  - Danila Tikhonov <danila@jiaxyga.com>
+> > +
+> > +$ref: /schemas/display/msm/dpu-common.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: qcom,sm7150-dpu
+> > +
+> 
+> 
+> 
+> Best regards,
+> Krzysztof
+> 
 
 -- 
 With best wishes
