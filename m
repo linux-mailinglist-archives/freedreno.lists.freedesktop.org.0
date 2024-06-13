@@ -2,90 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3BFC90617E
-	for <lists+freedreno@lfdr.de>; Thu, 13 Jun 2024 04:02:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B83F29065D9
+	for <lists+freedreno@lfdr.de>; Thu, 13 Jun 2024 09:57:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A8C410E1F9;
-	Thu, 13 Jun 2024 02:02:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7072F10E980;
+	Thu, 13 Jun 2024 07:57:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="Yd63dsTk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PLwyDk9J";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7047610E94A
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 02:02:28 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-421798185f0so5290265e9.1
- for <freedreno@lists.freedesktop.org>; Wed, 12 Jun 2024 19:02:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1718244146; x=1718848946;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=f/z8i6Pl4rEpgnkeFbeRNLbhhFTG+NJSS60yF/T/YdQ=;
- b=Yd63dsTkeS8OB2hOMhkOnVlkFXyDJb3bEfswXAm/hQsXzpBSW0nhLtpb/z3x2EFE8X
- seXywIjcuk+fpV31HQgF/5GstIs2ViL1h62VkKYfTwldVkLhQWRjxSC04uhCJ4ZifVDW
- AOinEpWKt5LEER0CPJVUHVz5l1FHMp+JXVcJ7kcqWGgiXS8W1O0BTnnG6WPblmfJ0hqx
- DdTUuu3YmLScNQEAlhZ3n3zt1AEcYRyEFi1alFsJxDVIqjogEuyYazt/5t9I0EMH+eCu
- TerXBV8LyLUBT6jHwDSZ5de0qLQQTBLGGK2Ol3WFUAVCPk83AqjT4+9/1xKtVSK8VNnc
- mB2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718244146; x=1718848946;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=f/z8i6Pl4rEpgnkeFbeRNLbhhFTG+NJSS60yF/T/YdQ=;
- b=CKpqtF4Fk/EcAZ6n9M+7zK4uIwVKZlE9rcWKFv+Hc2nfnB9w+MkFESV2xwiN/9U3vy
- cTKSHQhFjiX4SfWh4aZwO/qSvYUp4ymCa3w8ysKIGeD7XcCWbK6V26qjn5o0BiLSBWrG
- at2nsS8SF8yf4XU+dkArfRDTX/vxt9dxZPtz0fjYCxP4UxWlPIProetEKyxAORNhbAh8
- M8Lpbjk4ft2wY2K0trve9499iObvsR+8CRv3riQTYDwufACKwQEGIRYI5k2boQMvW24G
- eNIE4vpxDrfLvpj44PlK2vzKWiuriKL1iqRTn5uiCgsfNSZWUwUS5LObonz2s9+Lxhr/
- +aeA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVoxNS00tQBk4VIYuHiHlCf+v9Bodogy1Zlr/DWKhSGFv9o+sv70Mi8DPkbmI84gkUWZ1zJQKgopiZN0/lWum5rrEn5wW5Hx4k4kCC6Ct1V
-X-Gm-Message-State: AOJu0Yxc7iKHfCTRC57uTBDecsX/0L7HwgQRVXca0bW9WZ8kcafQmOjl
- XgRhDP/0McqieRdlMc8bK/Bfgw4hH2Scq+p+yi//aEwfvY6+3xO9dIHLAY0ju38=
-X-Google-Smtp-Source: AGHT+IH6TMZpM7WdFYZbCGBFJhgYHsC6JVCHyLOSB8U2qyBnIKYrH50ZszMxXRh1Ocr1UWGgsHDyFg==
-X-Received: by 2002:a05:600c:1f89:b0:421:7476:6ba1 with SMTP id
- 5b1f17b1804b1-422866c63e4mr26634975e9.38.1718244146199; 
- Wed, 12 Jun 2024 19:02:26 -0700 (PDT)
-Received: from ?IPV6:2a01:e34:ec24:52e0:4005:4e7a:f4d9:7f14?
- ([2a01:e34:ec24:52e0:4005:4e7a:f4d9:7f14])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-422f641f522sm5550255e9.48.2024.06.12.19.02.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Jun 2024 19:02:25 -0700 (PDT)
-Message-ID: <af3f71e5-6864-475d-aa90-74986d516bae@freebox.fr>
-Date: Thu, 13 Jun 2024 04:02:24 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] dt-bindings: display/msm: hdmi: add
- qcom,hdmi-tx-8998
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8986110E22F;
+ Thu, 13 Jun 2024 07:57:20 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 167B6618BC;
+ Thu, 13 Jun 2024 07:57:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84C97C4AF5F;
+ Thu, 13 Jun 2024 07:57:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1718265438;
+ bh=RmD8W+qERbJFVXWFv0k1jn2sHsDduLfg3wqCJILnzAg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=PLwyDk9JvJ8UnzYIqw7zpM7zoe5LKeSGSq6cOz4IIKlaA2rW+C6EeeNNO5UHis+kL
+ 8WGiNXPlGsdau9tTDTRAvEtfs8r/6jo5Sq/Uk2JIqbcQx6Fh4Ztsp7tEb1t3MnUsTy
+ RaRpbPjIN1vq9JfOl3hBUegoHrjIRW886WtbNfp95ZcsBDhLmQ+DL3lMgZP4JHT42h
+ tBjiDwWIF3Bb7txy302O9p4hj6J8GtAtd4xmWuY/S6pL23kiNaamDWYVD/54K81LYt
+ JfaGnJM17s2CEBxopZBGFCAeUA3kC2hHEFBEGE3DlsEaKfKAna2GGpf2qQUMZoyDrf
+ EshQ7w97yPB3A==
+Date: Thu, 13 Jun 2024 09:57:16 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Hans de Goede <hdegoede@redhat.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Arnaud Vrac <avrac@freebox.fr>, Pierre-Hugues Husson <phhusson@freebox.fr>
-References: <20240606-hdmi-tx-v3-0-9d7feb6d3647@freebox.fr>
- <20240606-hdmi-tx-v3-2-9d7feb6d3647@freebox.fr> <Zmnejlkb869mN3eS@matsya>
-Content-Language: en-US
-From: Marc Gonzalez <mgonzalez@freebox.fr>
-In-Reply-To: <Zmnejlkb869mN3eS@matsya>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/9] drm/bridge-connector: switch to using drmm
+ allocations
+Message-ID: <20240613-hospitable-logical-jaguar-fc5b7d@houat>
+References: <20240607-bridge-hdmi-connector-v5-0-ab384e6021af@linaro.org>
+ <20240607-bridge-hdmi-connector-v5-2-ab384e6021af@linaro.org>
+ <20240610-secret-rottweiler-from-asgard-132f75@houat>
+ <CAA8EJpogi2qm0bhCwumY4zj-xMUkF4zbK-NAPqCeDbLcybFciw@mail.gmail.com>
+ <20240610-smooth-liberal-guan-59853e@houat>
+ <t5pav3up5r6ezs4q37lc7jqlv55ftta7fnntp75b4pjboycwsm@uvs7q6frrzf5>
+ <20240611-zippy-pragmatic-catfish-cceee5@houat>
+ <CAA8EJppcqLm7UbW9n2Y_4mfJv4JFWDkPXJ8=TBL53LiFPADzpQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="odli6rndmcobp3e7"
+Content-Disposition: inline
+In-Reply-To: <CAA8EJppcqLm7UbW9n2Y_4mfJv4JFWDkPXJ8=TBL53LiFPADzpQ@mail.gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,28 +78,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/06/2024 19:44, Vinod Koul wrote:
 
-> On 06-06-24, 18:07, Marc Gonzalez wrote:
->
->> HDMI TX block embedded in the APQ8098.
-> 
-> This one too
+--odli6rndmcobp3e7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I assume this refers to:
-"Why is the patch titled display/msm, this is phy patch and it should be
-tagged as such."
+On Tue, Jun 11, 2024 at 02:26:12PM GMT, Dmitry Baryshkov wrote:
+> On Tue, 11 Jun 2024 at 11:54, Maxime Ripard <mripard@kernel.org> wrote:
+> >
+> > On Mon, Jun 10, 2024 at 08:54:09PM GMT, Dmitry Baryshkov wrote:
+> > > On Mon, Jun 10, 2024 at 02:07:06PM +0200, Maxime Ripard wrote:
+> > > > Hi,
+> > > >
+> > > > +Hans
+> > > >
+> > > > On Mon, Jun 10, 2024 at 02:46:03PM GMT, Dmitry Baryshkov wrote:
+> > > > > On Mon, 10 Jun 2024 at 11:04, Maxime Ripard <mripard@kernel.org> =
+wrote:
+> > > > > >
+> > > > > > Hi,
+> > > > > >
+> > > > > > On Fri, Jun 07, 2024 at 04:22:59PM GMT, Dmitry Baryshkov wrote:
+> > > > > > > Turn drm_bridge_connector to using drmm_kzalloc() and
+> > > > > > > drmm_connector_init() and drop the custom destroy function. T=
+he
+> > > > > > > drm_connector_unregister() and fwnode_handle_put() are alread=
+y handled
+> > > > > > > by the drm_connector_cleanup() and so are safe to be dropped.
+> > > > > > >
+> > > > > > > Acked-by: Maxime Ripard <mripard@kernel.org>
+> > > > > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > > > > > ---
+> > > > > > >  drivers/gpu/drm/drm_bridge_connector.c | 23 +++++-----------=
+-------
+> > > > > > >  1 file changed, 5 insertions(+), 18 deletions(-)
+> > > > > > >
+> > > > > > > diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers=
+/gpu/drm/drm_bridge_connector.c
+> > > > > > > index 982552c9f92c..e093fc8928dc 100644
+> > > > > > > --- a/drivers/gpu/drm/drm_bridge_connector.c
+> > > > > > > +++ b/drivers/gpu/drm/drm_bridge_connector.c
+> > > > > > > @@ -15,6 +15,7 @@
+> > > > > > >  #include <drm/drm_connector.h>
+> > > > > > >  #include <drm/drm_device.h>
+> > > > > > >  #include <drm/drm_edid.h>
+> > > > > > > +#include <drm/drm_managed.h>
+> > > > > > >  #include <drm/drm_modeset_helper_vtables.h>
+> > > > > > >  #include <drm/drm_probe_helper.h>
+> > > > > > >
+> > > > > > > @@ -193,19 +194,6 @@ drm_bridge_connector_detect(struct drm_c=
+onnector *connector, bool force)
+> > > > > > >       return status;
+> > > > > > >  }
+> > > > > > >
+> > > > > > > -static void drm_bridge_connector_destroy(struct drm_connecto=
+r *connector)
+> > > > > > > -{
+> > > > > > > -     struct drm_bridge_connector *bridge_connector =3D
+> > > > > > > -             to_drm_bridge_connector(connector);
+> > > > > > > -
+> > > > > > > -     drm_connector_unregister(connector);
+> > > > > > > -     drm_connector_cleanup(connector);
+> > > > > > > -
+> > > > > > > -     fwnode_handle_put(connector->fwnode);
+> > > > > > > -
+> > > > > > > -     kfree(bridge_connector);
+> > > > > > > -}
+> > > > > > > -
+> > > > > > >  static void drm_bridge_connector_debugfs_init(struct drm_con=
+nector *connector,
+> > > > > > >                                             struct dentry *ro=
+ot)
+> > > > > > >  {
+> > > > > > > @@ -224,7 +212,6 @@ static const struct drm_connector_funcs d=
+rm_bridge_connector_funcs =3D {
+> > > > > > >       .reset =3D drm_atomic_helper_connector_reset,
+> > > > > > >       .detect =3D drm_bridge_connector_detect,
+> > > > > > >       .fill_modes =3D drm_helper_probe_single_connector_modes,
+> > > > > > > -     .destroy =3D drm_bridge_connector_destroy,
+> > > > > > >       .atomic_duplicate_state =3D drm_atomic_helper_connector=
+_duplicate_state,
+> > > > > > >       .atomic_destroy_state =3D drm_atomic_helper_connector_d=
+estroy_state,
+> > > > > > >       .debugfs_init =3D drm_bridge_connector_debugfs_init,
+> > > > > > > @@ -328,7 +315,7 @@ struct drm_connector *drm_bridge_connecto=
+r_init(struct drm_device *drm,
+> > > > > > >       int connector_type;
+> > > > > > >       int ret;
+> > > > > > >
+> > > > > > > -     bridge_connector =3D kzalloc(sizeof(*bridge_connector),=
+ GFP_KERNEL);
+> > > > > > > +     bridge_connector =3D drmm_kzalloc(drm, sizeof(*bridge_c=
+onnector), GFP_KERNEL);
+> > > > > >
+> > > > > > So you make destroy's kfree call unnecessary here ...
+> > > > > >
+> > > > > > >       if (!bridge_connector)
+> > > > > > >               return ERR_PTR(-ENOMEM);
+> > > > > > >
+> > > > > > > @@ -383,9 +370,9 @@ struct drm_connector *drm_bridge_connecto=
+r_init(struct drm_device *drm,
+> > > > > > >               return ERR_PTR(-EINVAL);
+> > > > > > >       }
+> > > > > > >
+> > > > > > > -     ret =3D drm_connector_init_with_ddc(drm, connector,
+> > > > > > > -                                       &drm_bridge_connector=
+_funcs,
+> > > > > > > -                                       connector_type, ddc);
+> > > > > > > +     ret =3D drmm_connector_init(drm, connector,
+> > > > > > > +                               &drm_bridge_connector_funcs,
+> > > > > > > +                               connector_type, ddc);
+> > > > > >
+> > > > > > ... and here of drm_connector_cleanup.
+> > > > > >
+> > > > > > drm_connector_unregister wasn't needed, so can ignore it, but y=
+ou leak a reference to
+> > > > > > connector->fwnode since you don't call fwnode_handle_put anymor=
+e.
+> > > > > >
+> > > > > > We should register a drmm action right below the call to fwnode=
+_handle_get too.
+> > > > >
+> > > > > But drm_connector_cleanup() already contains
+> > > > > fwnode_handle_put(connector->fwnode). Isn't that enough?
+> > > >
+> > > > It does, but now I'm confused.
+> > > >
+> > > > drm_bridge_connector_init takes a reference, drm_connector_init doe=
+sn't.
+> > > > It will call drm_bridge_connector_destroy() that gives back its
+> > > > reference (which makes sense to me), but then why do
+> > > > drm_connector_cleanup() does? None of the drm_connector code even t=
+ook
+> > > > that reference, and we end up with a double-put.
+> > > >
+> > > > It looks like it was introduced by commit 48c429c6d18d ("drm/connec=
+tor:
+> > > > Add a fwnode pointer to drm_connector and register with ACPI (v2)")=
+ from
+> > > > Hans, which does call put, but never gets that reference.
+> > >
+> > > The mentioned patch documents that pretty clearly:
+> > >
+> > > * Drivers can set this to associate a fwnode with a connector, drivers
+> > > * are expected to get a reference on the fwnode when setting this.
+> > > * drm_connector_cleanup() will call fwnode_handle_put() on this.
+> > >
+> > > This is logical. Whoever sets the drm_connector::fwnode pointer, shou=
+ld
+> > > get reference. This way drm_connector_init() doesn't need to play with
+> > > the reference counting. The cleanup code drops the reference (so the
+> > > driver doesn't need to), because cleanup might be assynchronous..
+> >
+> > Right, but it's the cleanup part that isn't logical. It makes total
+> > sense to have the connector that sets connector->fwnode get the
+> > reference itself. It doesn't make sense to have the core give that
+> > reference instead of the driver.
+> >
+> > It's confusing, because if the driver is supposed to handle its
+> > reference itself, then it should handle all of it itself. This bug is
+> > the testament for that: the natural approach is buggy.
+>=20
+> I'd say this is the 'transfer of the ownership'. The base driver gets
+> the reference, and then gives it away to the drm_connecter. But indeed
+> this is not very intuitive.
+>=20
+> I have looked at the original series by Hans/Heikky, but I don't seem
+> to be able to find a good way to solve that. The fwnode can be set
+> after initialising the drm_connector. And at the same time it doesn't
+> make so much sense to put that burden onto the driver. One option
+> might be to add drm_connector_set_fwnode() that will get the reference
+> internally, but that looks a bit like an overkill.
 
-I always copy what others have done before me:
+It looks like there's only one driver that actually requires that kind
+of hack: i915. So, imo, the hacks should be in i915 and not cripple the
+core API.
 
-$ git log --oneline Documentation/devicetree/bindings/display/msm/hdmi.yaml
-27339d689d2f9 dt-bindings: display/msm: hdmi: add qcom,hdmi-tx-8998
-6c04d89a6138a dt-bindings: display/msm: hdmi: mark hdmi-mux-supply as deprecated
-e3c5ce88e8f93 dt-bindings: display/msm: hdmi: mark old GPIO properties as deprecated
-2f14bc38d88a4 dt-bindings: display/msm: hdmi: split and convert to yaml
+Maxime
 
-Are you saying we should diverge from the previous nomenclature?
+--odli6rndmcobp3e7
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Regards.
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZmqmWwAKCRDj7w1vZxhR
+xcjzAQDuOeXpsgePlCrhU3r5smgfj3E03ZHXYfWHP71uY61ASgEAodwkgwKkhBri
+T8x1uNmi+gNToVAgRiaOGjTKj5XRNA4=
+=rzeG
+-----END PGP SIGNATURE-----
 
+--odli6rndmcobp3e7--
