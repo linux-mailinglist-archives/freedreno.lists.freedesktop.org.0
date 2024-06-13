@@ -2,65 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EAD8907EEF
-	for <lists+freedreno@lfdr.de>; Fri, 14 Jun 2024 00:36:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E413907EF3
+	for <lists+freedreno@lfdr.de>; Fri, 14 Jun 2024 00:36:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F82C10EBE0;
-	Thu, 13 Jun 2024 22:36:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F8E610EBEC;
+	Thu, 13 Jun 2024 22:36:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Ej9Yp1jK";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TMiZRiPV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0030710EBE0
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 22:36:28 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-2ec1620a956so1319551fa.1
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 15:36:28 -0700 (PDT)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9A9810EBE0
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 22:36:29 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-2eadaac1d28so14656171fa.3
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 15:36:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718318187; x=1718922987; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1718318188; x=1718922988; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=XPP7TmA+2loPDbWoPi/CAkxj5Sf30vQLf/NX5YqEivU=;
- b=Ej9Yp1jKRCWFKYfxgwWgK2oKi3Pngu/Kr9fnXHbCyT13EdxQMb+8PceCRRvTOXCXaX
- JATaQxYsnRvB5Ihok/Ishq0r/ONY5ffLv9H0k6ncMfPEvzZfJk837KZaOZ3XPEOsNkOO
- 34EzG1lIG/6lGM3r8FlqcGhPQ6htF3Smj/1Z4Ohta97jWZNojx02E3C6XZwQkORSoaPd
- tbrgY+3CWp16iYAcYW3FmAT4BfuxsmBbXj4SV2LT++yveAuS8ze83oVjnF2iiz0HJFOI
- bbC9Wt/qoTx20t+sQ/IHvPL4cl8Q8U7EGIgzEyCst9VOAuzbHKfVLKw/Cg3ce7OKe+xn
- Ty+g==
+ :reply-to; bh=+uEsmC6Fs93CtWuR8khej7lWUC750pqp8djwlJQOosQ=;
+ b=TMiZRiPVTcQ2imvN1JKbv2CByXm7BNw7C2ovxjRibfYKg6h7ZWBnJmfveaF9iyIeEa
+ HGeq4iKZH5ospIsOq8jZBFkeQqR6loPK7xoU9G4/ocPmZ1GDhDhKrb8OhNr47rC9qZq6
+ 35UFF8vdG/IvaEdqAF0x4jbngfzVau0llc8zI+dY/s8QDgd6C+BPhoFB7Di3jmkfzARA
+ Gfs0l6/4b7Uk9ti/6utQfxfqGtd5XDYP6L4/z0kIssTPLV55qfXOrXJmV7rA74Llb6+c
+ 96hU0wIXDOO3WMaJv0CXG3aapEkg5P96nG5LmgoIi8rFyJw6513jYAhbDNf66iu4mIHp
+ GYEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718318187; x=1718922987;
+ d=1e100.net; s=20230601; t=1718318188; x=1718922988;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=XPP7TmA+2loPDbWoPi/CAkxj5Sf30vQLf/NX5YqEivU=;
- b=W0baJEOMPIl/N77ZVsPxcoNxRlaMuo05hqn2l2/jVIFPQoY9u39y0RB1c09Xka2XiZ
- uAloNQi2sPyqDMmBrczV00Hya5z3crHVyR2ikkJgMDX6cJUO0jFNd4T0D2mHRU9qLJno
- GXwTVWUA/qYGjdzxj1fwttf7KgLaY7HhKPeE5N0HPmrrLvg0SD/tb8spXbr6MeqhbeUx
- 1qOciO4ldVk2ysrTapkf7n6XDp2Jp9/E4ytG8h3j63eB3oi7DnHD7ucNWqwHdmuNVsxM
- BqrvDTuocIVHoCw54VdAkOaW3rlDY1ZsK3/rEYC+Oy0HacsnixJIXLljS4va/UTK63bF
- 3qlw==
+ bh=+uEsmC6Fs93CtWuR8khej7lWUC750pqp8djwlJQOosQ=;
+ b=winC/8DDC+TwszV1H1rdxdFzUb5wU3HWnqb/04V5rDdsZi1aIk27GxFDY+Ifz+tGH4
+ 8q48vgHFyUhSN75NHg7PLfDhIO8QDNuRu2Y0aK6Mb19PAMSoY+BiZrV5reHIo4i351LK
+ tAgJlr0CGltJ6p7IQ3AdlXdw5Fu/474GmkRXPv+ymUCGbm+wH1kVRQPOmcqDVQcMvx0L
+ U+L9p5w/mnzsxBEuH7343pfzQin+DnJSPUbUzsJvdmMr/5ZA4QjZia0170vgXQpZtL6n
+ L/8XPEIhEjLPsqBmtsq/a8SMeD9dC6SinzgMKUnr6fY/ZAaZ3tEUbFH3mpqOUtAknpK7
+ y9BQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW+sBQn5BTKv/o1iExzudcMS/fKA47BecXA4fVeBjzi5m9+pRsh5WPFuHi5bMstor4fgt7BWsd2PWp26iBsnetmSQZOFqrrZFPT8NWTY6cN
-X-Gm-Message-State: AOJu0YzgTrWC1kDvab7bqnrhpJ9w/xZmqAvZykHr9v+2EjmqZLKZKzJA
- pvk2Bi7Fc7/l9Gu0H5TXkqfM5FTx90qKPsWaSpkuJiEqo7VOK9yQHmRPwrbm7l8=
-X-Google-Smtp-Source: AGHT+IEtT1RLQLYQZhL+kRkUTG5moJCCd6vMBf0jLsTImrnkqPzggwnP+12Nd0OXVqD3k7ThUoYiFw==
-X-Received: by 2002:a2e:83d0:0:b0:2ea:eb13:daca with SMTP id
- 38308e7fff4ca-2ec0e60dd22mr5816261fa.47.1718318187184; 
+ AJvYcCXHu5QGI3Tt5iNKx5fy25HFfL41DGI63pV4DyRxyfUFi8dW9+xovrFEYeptXzTscoQuPVixc2QmeBpfAzSagl7iR5S4V/ofdHgIUeb5clDl
+X-Gm-Message-State: AOJu0YwEkXHhD9/L75es58LnfCdKQB+r2q/AwTrauxsKQB3xTCSZpPzJ
+ q/LWy6ADQnuRJY+Z0UqfAFhf/AnGIXshoTL2ozUzRFntjZhEIsKqtJVjyKBwsv4=
+X-Google-Smtp-Source: AGHT+IGFssZf/ZlI4LKs67bZV6Ozo6EnylG8kZfq6joUVujfu+aQgfOnZQIxwNBEHAM1HFjYfKskIA==
+X-Received: by 2002:a2e:98c3:0:b0:2eb:fe40:c345 with SMTP id
+ 38308e7fff4ca-2ec0e463248mr6941271fa.11.1718318187869; 
  Thu, 13 Jun 2024 15:36:27 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ec05c04a08sm3865191fa.29.2024.06.13.15.36.26
+ 38308e7fff4ca-2ec05c04a08sm3865191fa.29.2024.06.13.15.36.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jun 2024 15:36:26 -0700 (PDT)
+ Thu, 13 Jun 2024 15:36:27 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 14 Jun 2024 01:36:05 +0300
-Subject: [PATCH v3 4/9] drm/msm/dpu: split dpu_format_populate_layout
+Date: Fri, 14 Jun 2024 01:36:06 +0300
+Subject: [PATCH v3 5/9] drm/msm/dpu: move dpu_format_populate_plane_sizes
+ to atomic_check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240614-dpu-mode-config-width-v3-4-29ec4069c99b@linaro.org>
+Message-Id: <20240614-dpu-mode-config-width-v3-5-29ec4069c99b@linaro.org>
 References: <20240614-dpu-mode-config-width-v3-0-29ec4069c99b@linaro.org>
 In-Reply-To: <20240614-dpu-mode-config-width-v3-0-29ec4069c99b@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -71,16 +72,16 @@ Cc: Abel Vesa <abel.vesa@linaro.org>,
  Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6568;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1407;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=jDftnbrj2pWC+/GjrBG3nHnjwOHiP63BF0nUNAmtu+4=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBma3RmjY/PFvNS4jwP40VqiySiYmQITbsp0JjkT
- XzQwQFCvfmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZmt0ZgAKCRCLPIo+Aiko
- 1f9VB/0cD+Oy7iGotBJW/a078s2OPWlUbQui2XcomeWReIsh/EgWCThXXiHCksSbsYu7Y2yqwSr
- k7zl6Yjpx1nAHgFkwmrfG+4dCSojD0K//YXGym+Iku/AiPhrOXG/fa8Bf6cvX+gwfMIAaDCCwKk
- W0YaD4tXz2chXn0KYWNh9NG28qBtPAtm3nR1p1x3CqO8PseNFZledXEDLbJCF5DYeLglm4uJyoI
- d2X45Ii5xSwxEBTqQt2C254gxEM6j8ZGKTHW6sius1jO0h3HV60FVEOxbfbJtZw+7gYgTwVQR/w
- 3uKV3Qvy06WXwElWb9jyztUemc0v1kk6VdUsGpkF0sND8r0N
+ bh=snF0WgX3Uzkz2+5I0055uCAP2cYsbGgSQ2GyOQRAHdc=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBma3RmW0TTeUi2rB56wD/1RdcHJO05cYTxQGOdb
+ jtQ0YSU1S+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZmt0ZgAKCRCLPIo+Aiko
+ 1ZliCACUWB1VPjIZWfsRkXyRAPxoJImYLrFW5Ln+oV36Or+JycieIOKeDTgM1w5ylsfSNmErxHB
+ KYLiFSUdVsq7L5LBsNOt7SgenxS3zQytkXrhi69yYkhGRzWL2I1Pp4Ii9wnjjvR/GFFP6ufbOXU
+ 20WtayHo5Q4VnxAoPKTGIZqYcL7X70Y+lgSxosmztebNjwKOqkLo1GWP5maqSwgFikhi+p3rDPd
+ e+3tu1yzunAmE6L/Bg93ir/I2mjdHK7q6n4fKbupMt+9zgecBsp/DpL1UTdK814PoLsMd1aB+n2
+ NlNadDk0viM5HH4/So1r2mHNNJeZ3WrgyvIFFtkJNsebZrzX
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -98,184 +99,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Split dpu_format_populate_layout() into addess-related and
-pitch/format-related parts.
+Move a call to dpu_format_populate_plane_sizes() to the atomic_check
+step, so that any issues with the FB layout can be reported as early as
+possible.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  8 +++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        | 45 ++++++++++++----------
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h        |  8 +++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          | 12 ++++--
- 4 files changed, 46 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-index d3ea91c1d7d2..ccf2d030cf20 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-@@ -584,7 +584,13 @@ static void dpu_encoder_phys_wb_prepare_wb_job(struct dpu_encoder_phys *phys_enc
- 		return;
- 	}
- 
--	ret = dpu_format_populate_layout(aspace, job->fb, &wb_cfg->dest);
-+	ret = dpu_format_populate_plane_sizes(job->fb, &wb_cfg->dest);
-+	if (ret) {
-+		DPU_DEBUG("failed to populate plane sizes%d\n", ret);
-+		return;
-+	}
-+
-+	ret = dpu_format_populate_addrs(aspace, job->fb, &wb_cfg->dest);
- 	if (ret) {
- 		DPU_DEBUG("failed to populate layout %d\n", ret);
- 		return;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-index 027eb5ecff08..c6485cb6f1d2 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-@@ -93,7 +93,7 @@ static int _dpu_format_get_media_color_ubwc(const struct msm_format *fmt)
- 	return color_fmt;
- }
- 
--static int _dpu_format_get_plane_sizes_ubwc(
-+static int _dpu_format_populate_plane_sizes_ubwc(
- 		const struct msm_format *fmt,
- 		const uint32_t width,
- 		const uint32_t height,
-@@ -172,7 +172,7 @@ static int _dpu_format_get_plane_sizes_ubwc(
- 	return 0;
- }
- 
--static int _dpu_format_get_plane_sizes_linear(
-+static int _dpu_format_populate_plane_sizes_linear(
- 		const struct msm_format *fmt,
- 		const uint32_t width,
- 		const uint32_t height,
-@@ -244,27 +244,38 @@ static int _dpu_format_get_plane_sizes_linear(
- 	return 0;
- }
- 
--static int dpu_format_get_plane_sizes(
--		const struct msm_format *fmt,
--		const uint32_t w,
--		const uint32_t h,
--		struct dpu_hw_fmt_layout *layout,
--		const uint32_t *pitches)
-+/*
-+ * dpu_format_populate_addrs - populate non-address part of the layout based on
-+ *                     fb, and format found in the fb
-+ * @fb:                framebuffer pointer
-+ * @layout:              format layout structure to populate
-+ *
-+ * Return: error code on failure or 0 if new addresses were populated
-+ */
-+int dpu_format_populate_plane_sizes(
-+		struct drm_framebuffer *fb,
-+		struct dpu_hw_fmt_layout *layout)
- {
--	if (!layout || !fmt) {
-+	const struct msm_format *fmt;
-+
-+	if (!layout || !fb) {
- 		DRM_ERROR("invalid pointer\n");
- 		return -EINVAL;
- 	}
- 
--	if ((w > DPU_MAX_IMG_WIDTH) || (h > DPU_MAX_IMG_HEIGHT)) {
-+	if (fb->width > DPU_MAX_IMG_WIDTH ||
-+	    fb->height > DPU_MAX_IMG_HEIGHT) {
- 		DRM_ERROR("image dimensions outside max range\n");
- 		return -ERANGE;
- 	}
- 
-+	fmt = msm_framebuffer_format(fb);
-+
- 	if (MSM_FORMAT_IS_UBWC(fmt) || MSM_FORMAT_IS_TILE(fmt))
--		return _dpu_format_get_plane_sizes_ubwc(fmt, w, h, layout);
-+		return _dpu_format_populate_plane_sizes_ubwc(fmt, fb->width, fb->height, layout);
- 
--	return _dpu_format_get_plane_sizes_linear(fmt, w, h, layout, pitches);
-+	return _dpu_format_populate_plane_sizes_linear(fmt, fb->width, fb->height,
-+						       layout, fb->pitches);
- }
- 
- static int _dpu_format_populate_addrs_ubwc(
-@@ -388,7 +399,7 @@ static int _dpu_format_populate_addrs_linear(
- 	return 0;
- }
- 
--int dpu_format_populate_layout(
-+int dpu_format_populate_addrs(
- 		struct msm_gem_address_space *aspace,
- 		struct drm_framebuffer *fb,
- 		struct dpu_hw_fmt_layout *layout)
-@@ -406,14 +417,6 @@ int dpu_format_populate_layout(
- 		return -ERANGE;
- 	}
- 
--	layout->format = msm_framebuffer_format(fb);
--
--	/* Populate the plane sizes etc via get_format */
--	ret = dpu_format_get_plane_sizes(layout->format, fb->width, fb->height,
--			layout, fb->pitches);
--	if (ret)
--		return ret;
--
- 	/* Populate the addresses given the fb */
- 	if (MSM_FORMAT_IS_UBWC(layout->format) ||
- 			MSM_FORMAT_IS_TILE(layout->format))
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h
-index ef1239c95058..2f2bff14c0db 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h
-@@ -32,7 +32,7 @@ static inline bool dpu_find_format(u32 format, const u32 *supported_formats,
- }
- 
- /**
-- * dpu_format_populate_layout - populate the given format layout based on
-+ * dpu_format_populate_addrs - populate buffer addresses based on
-  *                     mmu, fb, and format found in the fb
-  * @aspace:            address space pointer
-  * @fb:                framebuffer pointer
-@@ -41,9 +41,13 @@ static inline bool dpu_find_format(u32 format, const u32 *supported_formats,
-  * Return: error code on failure, -EAGAIN if success but the addresses
-  *         are the same as before or 0 if new addresses were populated
-  */
--int dpu_format_populate_layout(
-+int dpu_format_populate_addrs(
- 		struct msm_gem_address_space *aspace,
- 		struct drm_framebuffer *fb,
- 		struct dpu_hw_fmt_layout *fmtl);
- 
-+int dpu_format_populate_plane_sizes(
-+		struct drm_framebuffer *fb,
-+		struct dpu_hw_fmt_layout *layout);
-+
- #endif /*_DPU_FORMATS_H */
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 9ee178a09a3b..a57853ac70b1 100644
+index a57853ac70b1..927fde2f1391 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -674,10 +674,16 @@ static int dpu_plane_prepare_fb(struct drm_plane *plane,
+@@ -674,12 +674,6 @@ static int dpu_plane_prepare_fb(struct drm_plane *plane,
  		}
  	}
  
-+	ret = dpu_format_populate_plane_sizes(new_state->fb, &pstate->layout);
+-	ret = dpu_format_populate_plane_sizes(new_state->fb, &pstate->layout);
+-	if (ret) {
+-		DPU_ERROR_PLANE(pdpu, "failed to get format plane sizes, %d\n", ret);
+-		return ret;
+-	}
+-
+ 	/* validate framebuffer layout before commit */
+ 	ret = dpu_format_populate_addrs(pstate->aspace,
+ 					new_state->fb,
+@@ -865,6 +859,12 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+ 		return -E2BIG;
+ 	}
+ 
++	ret = dpu_format_populate_plane_sizes(new_plane_state->fb, &pstate->layout);
 +	if (ret) {
 +		DPU_ERROR_PLANE(pdpu, "failed to get format plane sizes, %d\n", ret);
 +		return ret;
 +	}
 +
- 	/* validate framebuffer layout before commit */
--	ret = dpu_format_populate_layout(pstate->aspace,
--					 new_state->fb,
--					 &pstate->layout);
-+	ret = dpu_format_populate_addrs(pstate->aspace,
-+					new_state->fb,
-+					&pstate->layout);
- 	if (ret) {
- 		DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
- 		return ret;
+ 	fmt = msm_framebuffer_format(new_plane_state->fb);
+ 
+ 	max_linewidth = pdpu->catalog->caps->max_linewidth;
 
 -- 
 2.39.2
