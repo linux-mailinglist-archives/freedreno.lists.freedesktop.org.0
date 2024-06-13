@@ -2,90 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B297990785A
-	for <lists+freedreno@lfdr.de>; Thu, 13 Jun 2024 18:34:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE1AC907942
+	for <lists+freedreno@lfdr.de>; Thu, 13 Jun 2024 19:05:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E82D10EAEE;
-	Thu, 13 Jun 2024 16:34:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B98A110EB3C;
+	Thu, 13 Jun 2024 17:05:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="A2LB5mqe";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cYrp8fqD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 113CF10E0C8
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 16:34:01 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-2ec002caf3eso19590101fa.1
- for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 09:34:00 -0700 (PDT)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7A1C10EB3B
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 17:05:08 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-52bc335e49aso1544419e87.3
+ for <freedreno@lists.freedesktop.org>; Thu, 13 Jun 2024 10:05:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718296439; x=1718901239; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=zHgrY4xIc9CPVKKUbUHFPFlrW7UpxJwbiRlbNkc9MGM=;
- b=A2LB5mqeNjTPyz1ri4MtE1hQlAzuEot/ooB03EJ+VLPde98qMPbLkPpjqR371Ur5wK
- IkQxXV4Hbm0PiNvT5A016r1zQV34QyJDNhC5HpvQ/ouddS8qUzFkvfUUzAf4Q36pO42U
- ec0eUfQ9ralDSz3k1NpRnjvE2Jh3FRJbWLefnBIuW0nY6kJb33kGNc1AfRS5VOSCfifF
- v58EfLO/dytZu7lcf3wSBq2tv9aScqUSZ6JRbM4hioFo3eUpHDRhzTBWMfc2wgUhlxBB
- Z3ffRMrobAlk+cMQ2Kaj2ghzzhz1fC7QahPnqgMG+jnDvyUZ+lC9bTySrtHOSzu3ToXB
- bSDA==
+ d=linaro.org; s=google; t=1718298307; x=1718903107; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=5s81hRJV5Zx9U5qH2vAOJUfHtOUwvEenRjG7i+7iL4g=;
+ b=cYrp8fqDw+A6Vro6t4+IYIdplHHMlzse3iKB3tS7/0L8UdnxYOWnAsgemiFf5/X125
+ LRrG8AWq1ie6eK/DMQnWNskKczZIA5gnMrPjrlL9FqhGiHqK2hfuf957fGo+MVmKuF50
+ BnLA+Fu08x+vGhsjs7tnsyK257l2dQcK0zfoGv2Ik9NuhW3/cvHq7faJ7RmfG0ZXvfQk
+ mZ7fRsol9nOCbXVnjfeecK0DojVZ5U1Elai8Qnw1rGlsWMzDsNnfj6twgJ6IB66xEfjB
+ 6c2fOiRJnLufPybtlBHUSqDJNRz7dEOuYYmW6eAMbZcBUdfc26TeFV1oHlMxV31Bm3u7
+ IImw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718296439; x=1718901239;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1718298307; x=1718903107;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=zHgrY4xIc9CPVKKUbUHFPFlrW7UpxJwbiRlbNkc9MGM=;
- b=usi6CGv53ezQvcxYbIsAahTvMsIkDoHEBZCQ/ajZq8u2rOWmhvT8Ag/SFn+n7rzaCm
- nV1COmeaFpAg13h6NRd0ce4c3740BIhjmoc683gPoXV8snUhq24AyaCdeNtYY3qHFHks
- vt8QUoS7Uh4G2MX3PjXku5Az60fbZts+kiUarNsNQ9lcPaXFJLJ5GP9DJDraimF2JmvS
- pYoneP+LIKEeVclLupHRh8EgG3jwldFXalfF941/cccUke0zVVk5JFM4MOSu9txyVC1S
- exIdULONXAELAiBEhA02JnVB400d9zk//u3Ev6fDhygDgNfJJLWe/L7BwUf+WUJqyz52
- N93A==
+ bh=5s81hRJV5Zx9U5qH2vAOJUfHtOUwvEenRjG7i+7iL4g=;
+ b=jqtaFQDyuHtB2yN7jzrCVHyWMEFkLjxvITpN0tw8ZDINBz7/MBYOXUss4ItLqfxOh4
+ ieFlj08AD1gviWzAT0pVmMsu2qLH36boO/OKmhPP8gGFwlyucy+nbBte3bWmxcMObEBK
+ hgRxUdsz/DkK2ufy43XNh/YgaPUS+zSWuSOrHSZeZcWeXIxKsRi8YK2tSrvGDnVsUmpN
+ nAzaqqx0ZgG3OYclq/8Cl4oLO2vxW8WphZmdZCdE5AIEx94fD21TUB1TfmySxKGVai+m
+ yJkvioGqyRNdt8QrTXEeWpt3lfrhLK7x2xHMoAbvpRHJGvmjmtDceyjCYjGKCw9S2ZYE
+ +cog==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWwgfgNkm4FfIdkk9u8vf/J4Ce0+ricztKbI6Xz4mosIch9naWsc1q3fefLqoKUNsvVn2oQqv9ZIpBkTHOHtVpQW85eKz6xcism1V0GcOuC
-X-Gm-Message-State: AOJu0Yy4+ilMrO0rqFOQKLIPzXhgxt1Lr54laXMAiaA10NTqjphwBi26
- Yd/gnlQi2S2O4mTPW2kqejs2ONl1nz6O+CP7aTgMdVQTHScOOtr5FNPauwCfSZE=
-X-Google-Smtp-Source: AGHT+IHQjwGnyIBB6w17aMs8YaOjxovU+qzoNkHKK0oqzTbPn4+mi5cAWSa9lQLAGg4Hgz05mK53Qw==
-X-Received: by 2002:a2e:9943:0:b0:2eb:eb82:4112 with SMTP id
- 38308e7fff4ca-2ec0e4826dbmr2994861fa.17.1718296438829; 
- Thu, 13 Jun 2024 09:33:58 -0700 (PDT)
+ AJvYcCVpdCsGxpmq+9VGdyr1DTLDOjvmQBUEjSDF83FQAjlyCZPKZchoU/zpnETfCgqN3x8xQs1YeVeuriRREsHHWdFhBiXhOMoB9p/5AVu1WQpv
+X-Gm-Message-State: AOJu0Yzk91SdPOFIX9K0bjuEevNiPY4zpbtDJl8InjsuSjlQfRIONNHu
+ dMfCoPezHdBWtlc/u1wMON8z2nN1OVDaaSyzrHegrPCiRFV8E6j7yYIsStWGcHQ=
+X-Google-Smtp-Source: AGHT+IHKrwhQZ9vxGVegzTyWBoWr/raE8v/Q+V1t2Hug77JcE2x2GspnZP88cLa5rhHl6EyTzJWpaQ==
+X-Received: by 2002:a05:6512:4819:b0:52b:ef61:cb73 with SMTP id
+ 2adb3069b0e04-52ca6e6c91emr240352e87.36.1718298306813; 
+ Thu, 13 Jun 2024 10:05:06 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ec05c9ae70sm3005621fa.133.2024.06.13.09.33.57
+ 2adb3069b0e04-52ca2825733sm287312e87.60.2024.06.13.10.05.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jun 2024 09:33:58 -0700 (PDT)
+ Thu, 13 Jun 2024 10:05:06 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 13 Jun 2024 19:33:57 +0300
-Subject: [PATCH] drm/ci: mark kms_addfb_basic@addfb25-bad-modifier as
- passing on msm
+Subject: [PATCH v2 0/8] drm/msm/dpu: handle non-default TE source pins
+Date: Thu, 13 Jun 2024 20:05:03 +0300
+Message-Id: <20240613-dpu-handle-te-signal-v2-0-67a0116b5366@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240613-msm-pass-addfb25-bad-modifier-v1-1-23c556e96c8a@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAHQfa2YC/x3MwQqDMAwA0F+RnBdoOxX0V8YObZNqDq3SwBCk/
- 77i8V3eDcpVWGEdbqj8E5WjdNjXAHH3ZWMU6gZn3Ghm+8asGU+vip4oBTdh8IT5IEnCFeM420R
- LNC4E6MdZOcn1/J9va3+GH6EdbwAAAA==
+X-B4-Tracking: v=1; b=H4sIAL8ma2YC/22NwQ6CMBBEf4Xs2TXtgoic/A/DodAFNiEtaZFoC
+ P9uJR49vpnMmw0iB+EIdbZB4FWieJeAThl0o3EDo9jEQIoKddEF2vmJqbAT48IYZXBmworKMu8
+ Uad1aSNM5cC+vQ/toEo8SFx/ex8uqv+lPSOq/cNWosKdr3hZkVHXr7pM4E/zZhwGafd8/m4FX0
+ LkAAAA=
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
- Helen Koike <helen.koike@collabora.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1692;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2378;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=9Oy2rhgmMbROnThGOyXo7UyCu8RbyWradi7uQ/YWriE=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmax91DGbuj22LlXzjIrZ3rzJ7TcRR5ZnaZlaZv
- xDd47ibag+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZmsfdQAKCRCLPIo+Aiko
- 1ZRyCACHj5FwfHDMFnICBk6c9bsSibSfFyyQ7foUfaKd0HdH7hkKubcXTIzpfHkQyAnGxQfjHc/
- aqZ1VduL+GHVFdJBw/CZ8pL8YipTrpHrMGaI+vwxGutamsp21f9+8vZv27yn6BgIXzQtDckQd3+
- fWMKZfI0oNHZAKvea59SaFEqG10Q/9x7+yPwkMOLaLgeWU7i8LZVPLHXZ5BsGHt3sq/r5sFFeZf
- 1v1NfNOppwJchUxn+3cWWw+lK/S5VNtwBKGC45xchIr/gIfvtKiqFsAw36C41urnMETEhTVGhD1
- aXUxik06RCS2hjyYgJdOTQSRVkM5GgimG0wIZm1P5MTnxcJq
+ bh=V6OI1zdDevRN8dC7/6y23Sk+GAv4kSLgtWhdz6coRuE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmaybAGNxJLg/ANFwNRgQ8s2d4ZmCLfW5rXeILz
+ SUGetZ0ls+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZmsmwAAKCRCLPIo+Aiko
+ 1dH7B/43p0LbaZKdVSHQbQqKu67/DTQgos56C68bQHGXcvDavLr8Ks81BXvV7JqhBwDeLNIew8Z
+ ROcjWND6fsJ/kTY5bbqwX7mVpj3bY6w/g5J3Jv/WwnY/+IpWZoRvARy0dLpLRwn+s40wb0LctH/
+ cPZJh/3+LDjgw+6FjoKKPim+btsmJcsNeJc/a7l1FjGIR98x67SpklgZfbpilXtIEMhsDlOTZzi
+ YWVnOAccNBhuQ49f0vCzq9ef3CLyJ5izA/2swjKlKgUfVRwsju/qwscUsYeepx9AjMoWfztDuGN
+ WjzW1PhDp34SXsKgTvZoslAkX7tszVGyeSQElDhXi60EZVBE
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -103,43 +105,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The commit b228501ff183 ("drm/msm: merge dpu format database to MDP
-formats") made get_format take modifiers into account. This makes
-kms_addfb_basic@addfb25-bad-modifier pass on MDP4 and MDP5 platforms.
+Command-mode DSI panels need to signal the display controlller when
+vsync happens, so that the device can start sending the next frame. Some
+devices (Google Pixel 3) use a non-default pin, so additional
+configuration is required. Add a way to specify this information in DT
+and handle it in the DSI and DPU drivers.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt | 1 -
- drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt | 1 -
- 2 files changed, 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
-index 3dfbabdf905e..6e7fd1ccd1e3 100644
---- a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
-+++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
-@@ -4,7 +4,6 @@ device_reset@unbind-cold-reset-rebind,Fail
- device_reset@unbind-reset-rebind,Fail
- dumb_buffer@invalid-bpp,Fail
- kms_3d,Fail
--kms_addfb_basic@addfb25-bad-modifier,Fail
- kms_cursor_legacy@forked-move,Fail
- kms_cursor_legacy@single-bo,Fail
- kms_cursor_legacy@torture-bo,Fail
-diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt b/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt
-index 23a5f6f9097f..46ca69ce2ffe 100644
---- a/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt
-+++ b/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt
-@@ -4,6 +4,5 @@ device_reset@unbind-cold-reset-rebind,Fail
- device_reset@unbind-reset-rebind,Fail
- dumb_buffer@invalid-bpp,Fail
- kms_3d,Fail
--kms_addfb_basic@addfb25-bad-modifier,Fail
- kms_lease@lease-uevent,Fail
- tools_test@tools_test,Fail
+Changes in v2:
+- In DT bindings renamed mdp_gpioN to mdp_vsync_p/_s/_e per pins name (Abhinav)
+- Extended bindings to include default: mdp_vsync_p (Rob)
+- Renamed dpu_hw_setup_vsync_source() and
+  dpu_hw_setup_vsync_source_and_vsync_sel() to match the implementation
+  (Abhinav)
+- Link to v1: https://lore.kernel.org/r/20240520-dpu-handle-te-signal-v1-0-f273b42a089c@linaro.org
 
 ---
-base-commit: 6b4468b0c6ba37a16795da567b58dc80bc7fb439
-change-id: 20240613-msm-pass-addfb25-bad-modifier-c461fd9c02bb
+Dmitry Baryshkov (8):
+      dt-bindings: display/msm/dsi: allow specifying TE source
+      drm/msm/dpu: convert vsync source defines to the enum
+      drm/msm/dsi: drop unused GPIOs handling
+      drm/msm/dpu: pull the is_cmd_mode out of _dpu_encoder_update_vsync_source()
+      drm/msm/dpu: rework vsync_source handling
+      drm/msm/dsi: parse vsync source from device tree
+      drm/msm/dpu: support setting the TE source
+      drm/msm/dpu: rename dpu_hw_setup_vsync_source functions
+
+ .../bindings/display/msm/dsi-controller-main.yaml  | 17 ++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 11 ++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  5 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        | 26 ++++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         | 14 +++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h         |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            | 44 ++++++++++++++++++++
+ drivers/gpu/drm/msm/dsi/dsi.h                      |  1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 | 48 +++++-----------------
+ drivers/gpu/drm/msm/dsi/dsi_manager.c              |  5 +++
+ drivers/gpu/drm/msm/msm_drv.h                      |  6 +++
+ 13 files changed, 114 insertions(+), 69 deletions(-)
+---
+base-commit: 03d44168cbd7fc57d5de56a3730427db758fc7f6
+change-id: 20240514-dpu-handle-te-signal-82663c0211bd
 
 Best regards,
 -- 
