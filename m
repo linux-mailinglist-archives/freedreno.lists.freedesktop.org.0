@@ -2,79 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AF16908A06
-	for <lists+freedreno@lfdr.de>; Fri, 14 Jun 2024 12:34:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F5129090E2
+	for <lists+freedreno@lfdr.de>; Fri, 14 Jun 2024 19:03:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA9EA10ED0E;
-	Fri, 14 Jun 2024 10:34:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 487DA10EDE8;
+	Fri, 14 Jun 2024 17:03:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="U00HGzTL";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="pC8EVGFe";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE22D10ED0E
- for <freedreno@lists.freedesktop.org>; Fri, 14 Jun 2024 10:34:37 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-52c89d6b4adso1876673e87.3
- for <freedreno@lists.freedesktop.org>; Fri, 14 Jun 2024 03:34:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718361276; x=1718966076; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+SCjC8XvS9+kPL9hXwY+0n971Ep94mX3iMJ+fsGN0OU=;
- b=U00HGzTL+MLS93fJnft2/0MVvdzrjlHKjuEIGKNaxhNirfnTHFEuNePLl61KugSMFG
- 1L02LXblfp1Kp+Gz69uJMWlq76TXvM98tuj+yh6OaMKOnKP5UcvRdSqprmRRBtGAo9Zz
- Y7Dq4zvKGMrAkyyRlJ5bTgnyat0tu1cNee2+g7VGnZ9G2ScrYjjWOdeiF8TJIcYXhyg+
- eGdbleaSltBV48thxhbi8sk4CawI5A18BSU58fxuD21B0adtPJKSs33is+ZjPBPGMSq5
- 1DmUTdQGbfAGu1JcXRuX4QRQekhKwfO0TiXqSyZoBo2a0mfwLQ49S+AGor1hiupdG4Iu
- DE9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718361276; x=1718966076;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+SCjC8XvS9+kPL9hXwY+0n971Ep94mX3iMJ+fsGN0OU=;
- b=aOD85fdxQu2Z9xkMemqteu3L6HD5dsTrDuqAIA0DVg/0n8x6YgWngBsSPBOs3DcZvh
- P0PphuqMdEegci5WRCUZK/+MP/QMJFr+FR88KcmD0xC6uCKRqX2Mdrkp2Ehe0u3y3b+I
- rQ2p2yjMtzmolf34q2tIthDj3bDXytS7qNle4/ouZi0lpOv/MW+kKWOwvdsDztK2gfZ+
- +g8z/bu477qnIxWFrt/yKUnvGHD5ZOnQ7W/dfPLdDOP8JJ/RJxBC5mUHzTqNsOYILWeL
- jibnTAXlm3Z9bjIfHLb+UqHu3AuhHrVJ953wAivX2WkZQH2kz0HpYH2Gn4K1SgkKkrIp
- D8sg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUwq8wI7ihRUSw4TNFBKBbWQRuQa7VVKNtd+MCddcdW+Y8gdwD8GaMP7igi/woTHtPZXlWgP1aF3/vOqQn36mZgE88Ocr/6plTsNNs1eoAD
-X-Gm-Message-State: AOJu0YxM0y9asljQ839cqXpYEbuE6Ag5n74MxUSI8P7BievXgdU5WugM
- PXN5mRJrP1hb1lwI3mihcFrwXkDOKXRKU6KOCUNMGeKmyvZIEagDHmT27PseFso=
-X-Google-Smtp-Source: AGHT+IG7vK4xnfjr6ZMqA2Kxd9IDfZOyD8VGXKKkcIqf585oiI/ox16W9zrKDD1Ba0SGjvsjDJfYAw==
-X-Received: by 2002:ac2:5929:0:b0:52c:9ae0:beee with SMTP id
- 2adb3069b0e04-52ca6e90a58mr1504981e87.49.1718361275860; 
- Fri, 14 Jun 2024 03:34:35 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ca282f1c1sm472183e87.98.2024.06.14.03.34.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Jun 2024 03:34:35 -0700 (PDT)
-Date: Fri, 14 Jun 2024 13:34:34 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Abel Vesa <abel.vesa@linaro.org>, 
- Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v3 5/9] drm/msm/dpu: move dpu_format_populate_plane_sizes
- to atomic_check
-Message-ID: <gcwsfv7ieedz246a54fjyjgn2skkro6dsohdgf5psyz3aebro3@7yqnc2kqrwyc>
-References: <20240614-dpu-mode-config-width-v3-0-29ec4069c99b@linaro.org>
- <20240614-dpu-mode-config-width-v3-5-29ec4069c99b@linaro.org>
- <df63b33c-2e5d-1e30-5b6f-8af3d2bd2c6e@quicinc.com>
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88B9410E238;
+ Fri, 14 Jun 2024 17:03:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1718384635;
+ bh=lm2WP2jZQ+yAD9yshOLeLpSgAYROFU4jcWs2mhGJV/g=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=pC8EVGFeJC0EZME094IliR7iYu6S2QKmrleDEslrJLGXCVaeDv32icm3cX3aTqv+i
+ JWjLrMyYuwMppE48PfQTbHvI1q2LDE/Or+5l8l4ek2coaoTxjYb4VhjN7ubSuCx0Ks
+ snhS9mXrE1ixZFJKVBZi6krUVI8pb1Li6QJZyEYL4rl/fSqTtfz9JO/zvzBiFf+sVO
+ ZWyGsdyG6jVa3hRhS1WBFbq9PuFaGBpNLUaQ9+AiXc9vZBLZwQGdM7cSIse1QxA/BF
+ hjoZTwhdJ61dk4G1uaywehXzCX8h/tBv3/sVwH2SixJk7EmhLn7GXIAbRstouNhu9R
+ YPdjdR/2wrIOg==
+Received: from [100.95.196.25] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested) (Authenticated sender: koike)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id CD5BB37821B8;
+ Fri, 14 Jun 2024 17:03:50 +0000 (UTC)
+Message-ID: <af6d496e-2f49-4f12-bc12-426e06d24494@collabora.com>
+Date: Fri, 14 Jun 2024 14:03:48 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <df63b33c-2e5d-1e30-5b6f-8af3d2bd2c6e@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/ci: mark kms_addfb_basic@addfb25-bad-modifier as
+ passing on msm
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20240613-msm-pass-addfb25-bad-modifier-v1-1-23c556e96c8a@linaro.org>
+ <8aa99c1d-ca6a-a26b-96b5-82fc35cea0fa@quicinc.com>
+ <CAA8EJpr5r=5MP8DqGPV7Ndz0zKy4Ar3u+RiqocLyt6eZWuifnw@mail.gmail.com>
+Content-Language: en-US
+From: Helen Koike <helen.koike@collabora.com>
+In-Reply-To: <CAA8EJpr5r=5MP8DqGPV7Ndz0zKy4Ar3u+RiqocLyt6eZWuifnw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,29 +70,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 13, 2024 at 04:19:07PM GMT, Abhinav Kumar wrote:
-> 
-> 
-> On 6/13/2024 3:36 PM, Dmitry Baryshkov wrote:
-> > Move a call to dpu_format_populate_plane_sizes() to the atomic_check
-> > step, so that any issues with the FB layout can be reported as early as
-> > possible.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 12 ++++++------
-> >   1 file changed, 6 insertions(+), 6 deletions(-)
-> > 
-> 
-> Did anything change between v2 to v3 that R-b was dropped?
 
-No, it was my failure to run b4 trailers, please excuse me.
+
+On 13/06/2024 14:55, Dmitry Baryshkov wrote:
+> On Thu, 13 Jun 2024 at 20:49, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 6/13/2024 9:33 AM, Dmitry Baryshkov wrote:
+>>> The commit b228501ff183 ("drm/msm: merge dpu format database to MDP
+>>> formats") made get_format take modifiers into account. This makes
+>>> kms_addfb_basic@addfb25-bad-modifier pass on MDP4 and MDP5 platforms.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>    drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt | 1 -
+>>>    drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt | 1 -
+>>>    2 files changed, 2 deletions(-)
+>>>
+>>
+>> Would be good to also give a link to the CI for the CI maintainers.
+>>
+>> But otherwise, LGTM
+>>
+>> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> 
+> Yes, good idea: https://gitlab.freedesktop.org/drm/msm/-/merge_requests/119
+
+
+Nice to see new tests passing!
+
+Acked-by: Helen Koike <helen.koike@collabora.com>
+
+I'm applying it to drm-misc-next
+
+Thanks,
+Helen
 
 > 
-> Here it is again,
+>>
+>>
+>>> diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
+>>> index 3dfbabdf905e..6e7fd1ccd1e3 100644
+>>> --- a/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
+>>> +++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-fails.txt
+>>> @@ -4,7 +4,6 @@ device_reset@unbind-cold-reset-rebind,Fail
+>>>    device_reset@unbind-reset-rebind,Fail
+>>>    dumb_buffer@invalid-bpp,Fail
+>>>    kms_3d,Fail
+>>> -kms_addfb_basic@addfb25-bad-modifier,Fail
+>>>    kms_cursor_legacy@forked-move,Fail
+>>>    kms_cursor_legacy@single-bo,Fail
+>>>    kms_cursor_legacy@torture-bo,Fail
+>>> diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt b/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt
+>>> index 23a5f6f9097f..46ca69ce2ffe 100644
+>>> --- a/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt
+>>> +++ b/drivers/gpu/drm/ci/xfails/msm-apq8096-fails.txt
+>>> @@ -4,6 +4,5 @@ device_reset@unbind-cold-reset-rebind,Fail
+>>>    device_reset@unbind-reset-rebind,Fail
+>>>    dumb_buffer@invalid-bpp,Fail
+>>>    kms_3d,Fail
+>>> -kms_addfb_basic@addfb25-bad-modifier,Fail
+>>>    kms_lease@lease-uevent,Fail
+>>>    tools_test@tools_test,Fail
+>>>
+>>> ---
+>>> base-commit: 6b4468b0c6ba37a16795da567b58dc80bc7fb439
+>>> change-id: 20240613-msm-pass-addfb25-bad-modifier-c461fd9c02bb
+>>>
+>>> Best regards,
 > 
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
--- 
-With best wishes
-Dmitry
+> 
+> 
