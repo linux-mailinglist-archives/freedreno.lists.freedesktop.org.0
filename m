@@ -2,65 +2,125 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E82D9093D8
-	for <lists+freedreno@lfdr.de>; Fri, 14 Jun 2024 23:59:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8098C9097F8
+	for <lists+freedreno@lfdr.de>; Sat, 15 Jun 2024 13:35:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED04210E2B1;
-	Fri, 14 Jun 2024 21:59:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E10210E162;
+	Sat, 15 Jun 2024 11:35:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=jiaxyga.com header.i=@jiaxyga.com header.b="0RcbboLY";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="W+WUHvmv";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp52.i.mail.ru (smtp52.i.mail.ru [95.163.41.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB1B710E2B7;
- Fri, 14 Jun 2024 21:59:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jiaxyga.com
- ; s=mailru;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:To:Cc:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
- X-Cloud-Ids:Disposition-Notification-To;
- bh=I2zbsAWu1Eu4d9TVubFHniQywRxerjHH7psUQOZnDvo=; t=1718402371; x=1718492371; 
- b=0RcbboLYTp0QzruLrRzWhuR+jlTf2egha8v7OlRonb8SDvwEP4/BMoO+TVDtG45oCLtvRxK/MNn
- 8NQfCB8nPKPxWWHLGaTT8xLdEAuzSWqKh0eGYGg4dgA57K1uUkIg8OnYJFqDNeb0Rk/tCkK5IVNf4
- 39S1LPRWJV7AsNJBpvA=;
-Received: by smtp52.i.mail.ru with esmtpa (envelope-from <danila@jiaxyga.com>)
- id 1sIExE-0000000DQt7-25AF; Sat, 15 Jun 2024 00:59:29 +0300
-From: Danila Tikhonov <danila@jiaxyga.com>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- daniel@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- quic_rmccann@quicinc.com, konrad.dybcio@linaro.org,
- neil.armstrong@linaro.org, jonathan@marek.ca, swboyd@chromium.org,
- quic_khsieh@quicinc.com, quic_jesszhan@quicinc.com
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Danila Tikhonov <danila@jiaxyga.com>
-Subject: [PATCH v3 4/4] drm/msm: mdss: Add SM7150 support
-Date: Sat, 15 Jun 2024 00:58:55 +0300
-Message-ID: <20240614215855.82093-5-danila@jiaxyga.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240614215855.82093-1-danila@jiaxyga.com>
-References: <20240614215855.82093-1-danila@jiaxyga.com>
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3A1910E1DF
+ for <freedreno@lists.freedesktop.org>; Sat, 15 Jun 2024 11:35:20 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-57cc1c00ba6so1767332a12.1
+ for <freedreno@lists.freedesktop.org>; Sat, 15 Jun 2024 04:35:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1718451319; x=1719056119; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=g7wFfKDpHYr518y8B83MibP+Xg904Kq4FW2NcicEKr0=;
+ b=W+WUHvmv2wnSvzcf5dWCIiDfbIOOtvvLJUhhN2WD7GMu9oLO8PE4/uN6Kg3qAIQAPe
+ VvIOXn7G/cVtaBnfU4+dIANj4buOumfNrGIdmE2AKirN7ZOp5SyvlblN3TW/1/H2u330
+ cgrq06JfKP6TNNj8G4VFGIeMddSLZdaib9GhH2q649M/5et0yWt+w9bzJq0GnNJZDlHi
+ +ZJb3YpOx/NS07JR1iBA2cCBtWXzVpGvm+sM20gIFzkSZ9ZDkReGyJ2WzEfW70vobFwr
+ WI9v1ONwJds82kxyiP12VK8Q0+jjNl8oJpJtuFrg1BTZ6Xhe3BGa6KizAiqkG5y69qeZ
+ 7TTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718451319; x=1719056119;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=g7wFfKDpHYr518y8B83MibP+Xg904Kq4FW2NcicEKr0=;
+ b=qT1hB5RCxdVu20pmTi5x5KyKfnX8gZu+v/jtTLaUScmvnV/hXwoILEj2NmdaSoX9N1
+ N+ufFgQXjAnXlM39gBat8eRcWTuqtERC5YNjq5xczO6psyHqZDoCeybYC/mQ0BwUwl9y
+ XrfHq92Gd6Vv7+K9hwWm7fAJ0Fna+iL/+InqymHWbRiYQZrH3AOMjZSYfagnTrnGMd13
+ RzTQhXW0FKPPn+iy8nHlIU3CO863xiad/b2cM+ctGRE9tR2j6o6fbcVlbIUjeiP9Qi18
+ SqEoqnjP7Q2fhqnxMDQG9+ZCEBAcpnvFY51/T7gb2cLxjukeZfLwhcr//1O/Uv0P8Bhb
+ fccg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWcRsVuvgqk+tLSfM0Y/PQOyMOL3gIwVYHtTS6v2oTbDUGp92b4zE6BMUUwz2BN+79cDM+4BafLWq1EVkfnvLA6qmBameSdH6bNgr6tXEin
+X-Gm-Message-State: AOJu0Yy9YIEIQXlY1Rc5pIs2/YZAZuAC4xaYcFNhe8XVD/JMj1Qo9Srm
+ k3TxIMTHas9RLSOp2mbrSEWOmncyNl+UEJEMUYrlNfZ+SxfU60LKtqbMhY4XN3Y=
+X-Google-Smtp-Source: AGHT+IH29YMt7AAI//ExkGgnM/yNcocHMtAeyVVrRvZ5lZHaQZakXs9ppP9gqjDRt6uuHITbjhcXFA==
+X-Received: by 2002:a17:906:7c9:b0:a68:a800:5f7e with SMTP id
+ a640c23a62f3a-a6f60cefe50mr364726666b.10.1718451318981; 
+ Sat, 15 Jun 2024 04:35:18 -0700 (PDT)
+Received: from [192.168.128.139] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a6f56ecdd2asm296807866b.141.2024.06.15.04.35.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 15 Jun 2024 04:35:18 -0700 (PDT)
+Message-ID: <b6676951-33a2-4c3a-bb29-0d1ea7ad33d2@linaro.org>
+Date: Sat, 15 Jun 2024 13:35:15 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp52.i.mail.ru;
- auth=pass smtp.auth=danila@jiaxyga.com
- smtp.mailfrom=danila@jiaxyga.com
-X-Mailru-Src: smtp
-X-7564579A: 646B95376F6C166E
-X-77F55803: 4F1203BC0FB41BD9AC8CA0B4439200FAAADCB0684E75543E0F6F500DBE411A6A00894C459B0CD1B957E878E1563405FABC1E996D91BF8BA8C68F1F964767349531FC8F41566DE797ED199C4BD4F2E418
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE77E3A0F9856B9FFCDEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637E0FC02D497BF09508638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D87E69E8B52EFAA2BE1367D1A1BD11C48D18B0279F5742E92BCC7F00164DA146DAFE8445B8C89999728AA50765F790063773DCDF0198120BE8389733CBF5DBD5E9C8A9BA7A39EFB766F5D81C698A659EA7CC7F00164DA146DA9985D098DBDEAEC87AE820D2C17D0E56F6B57BC7E6449061A352F6E88A58FB86F5D81C698A659EA73AA81AA40904B5D9A18204E546F3947C0085B890FD2717DAC0837EA9F3D197644AD6D5ED66289B523666184CF4C3C14F6136E347CC761E07725E5C173C3A84C3FF9AE5E544BDEAB7BA3038C0950A5D36B5C8C57E37DE458B330BD67F2E7D9AF16D1867E19FE14079C09775C1D3CA48CFED8438A78DFE0A9E1DD303D21008E298D5E8D9A59859A8B64854413538E1713F75ECD9A6C639B01B78DA827A17800CE7F45C1E71A9DFFA2A731C566533BA786AA5CC5B56E945C8DA
-X-C1DE0DAB: 0D63561A33F958A5912CCC39EECD253D5002B1117B3ED69610DFD3996B318639ED71F038FC046993823CB91A9FED034534781492E4B8EEAD5C5DFC4BFF39B799F36E2E0160E5C55395B8A2A0B6518DF68C46860778A80D548E8926FB43031F38
-X-C8649E89: 1C3962B70DF3F0ADE00A9FD3E00BEEDF77DD89D51EBB7742D3581295AF09D3DF87807E0823442EA2ED31085941D9CD0AF7F820E7B07EA4CFA8EFB69FF7C29CD09E85BF36D4CEF49B484DD084CAA8D5E092318233B267D6ABB0F06D2F9487D0FCBC11D93875BCBCAC82A0A51DF04A9D670A7495B692C6454F62E6511AD6502DA154A6BD6C3A9AE7E002C26D483E81D6BE72B480F99247062FEE42F474E8A1C6FD34D382445848F2F3
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojF87fI4pLnoCDdWDki0eGcw==
-X-Mailru-Sender: 9EB879F2C80682A09F26F806C7394981DFB41304B3586333741D06F8E7BD5C496106ADDF343002E43FFA6A7CB58086992C62728BC403A049225EC17F3711B6CF1A6F2E8989E84EC137BFB0221605B344978139F6FA5A77F05FEEDEB644C299C0ED14614B50AE0675
-X-Mras: Ok
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/4] arm64: dts: qcom: add HDMI nodes for msm8998
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Marc Gonzalez <mgonzalez@freebox.fr>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Arnaud Vrac <avrac@freebox.fr>, Pierre-Hugues Husson <phhusson@freebox.fr>,
+ Jeffrey Hugo <quic_jhugo@quicinc.com>
+References: <20240613-hdmi-tx-v4-0-4af17e468699@freebox.fr>
+ <20240613-hdmi-tx-v4-4-4af17e468699@freebox.fr>
+ <348e16f1-0a1b-4cad-a3f0-3f7979a99a02@linaro.org>
+ <pprbxhow6gl6bqlhzoiozz7ymwqk5uwuyuwclviulie4ucyjok@xv34zrzw72oz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
+ BB/OmIWU6X+LZW6P88ZmHe+KeyABLMP5s1tJNK1j4ntT7mECcWZDzafPWF4F6m4WJOG27kTJ
+ HGWdmtO+RvadOVi6CoUDqALsmfS3MUG5Pj2Ne9+0jRg4hEnB92AyF9rW2G3qisFcwPgvatt7
+ TXD5E38mLyOPOUyXNj9XpDbt1hNwKQfiidmPh5e7VNAWRnW1iCMMoKqzM1Anzq7e5Afyeifz
+ zRcQPLaqrPjnKqZGL2BKQSZDh6NkI5ZLRhhHQf61fkWcUpTp1oDC6jWVfT7hwRVIQLrrNj9G
+ MpPzrlN4YuAqKeIer1FMt8cq64ifgTzxHzXsMcUdclzq2LTk2RXaPl6Jg/IXWqUClJHbamSk
+ t1bfif3SnmhA6TiNvEpDKPiT3IDs42THU6ygslrBxyROQPWLI9IL1y8S6RtEh8H+NZQWZNzm
+ UQ3imZirlPjxZtvz1BtnnBWS06e7x/UEAguj7VHCuymVgpl2Za17d1jj81YN5Rp5L9GXxkV1
+ aUEwONM3eCI3qcYm5JNc5X+JthZOWsbIPSC1Rhxz3JmWIwP1udr5E3oNRe9u2LIEq+wH/toH
+ kpPDhTeMkvt4KfE5m5ercid9+ZXAqoaYLUL4HCEw+HW0DXcKDwARAQABzShLb25yYWQgRHli
+ Y2lvIDxrb25yYWQuZHliY2lvQGxpbmFyby5vcmc+wsGOBBMBCAA4FiEEU24if9oCL2zdAAQV
+ R4cBcg5dfFgFAmQ5bqwCGwMFCwkIBwIGFQoJCAsCBBYCAwECHgECF4AACgkQR4cBcg5dfFjO
+ BQ//YQV6fkbqQCceYebGg6TiisWCy8LG77zV7DB0VMIWJv7Km7Sz0QQrHQVzhEr3trNenZrf
+ yy+o2tQOF2biICzbLM8oyQPY8B///KJTWI2khoB8IJSJq3kNG68NjPg2vkP6CMltC/X3ohAo
+ xL2UgwN5vj74QnlNneOjc0vGbtA7zURNhTz5P/YuTudCqcAbxJkbqZM4WymjQhe0XgwHLkiH
+ 5LHSZ31MRKp/+4Kqs4DTXMctc7vFhtUdmatAExDKw8oEz5NbskKbW+qHjW1XUcUIrxRr667V
+ GWH6MkVceT9ZBrtLoSzMLYaQXvi3sSAup0qiJiBYszc/VOu3RbIpNLRcXN3KYuxdQAptacTE
+ mA+5+4Y4DfC3rUSun+hWLDeac9z9jjHm5rE998OqZnOU9aztbd6zQG5VL6EKgsVXAZD4D3RP
+ x1NaAjdA3MD06eyvbOWiA5NSzIcC8UIQvgx09xm7dThCuQYJR4Yxjd+9JPJHI6apzNZpDGvQ
+ BBZzvwxV6L1CojUEpnilmMG1ZOTstktWpNzw3G2Gis0XihDUef0MWVsQYJAl0wfiv/0By+XK
+ mm2zRR+l/dnzxnlbgJ5pO0imC2w0TVxLkAp0eo0LHw619finad2u6UPQAkZ4oj++iIGrJkt5
+ Lkn2XgB+IW8ESflz6nDY3b5KQRF8Z6XLP0+IEdLOOARkOW7yEgorBgEEAZdVAQUBAQdAwmUx
+ xrbSCx2ksDxz7rFFGX1KmTkdRtcgC6F3NfuNYkYDAQgHwsF2BBgBCAAgFiEEU24if9oCL2zd
+ AAQVR4cBcg5dfFgFAmQ5bvICGwwACgkQR4cBcg5dfFju1Q//Xta1ShwL0MLSC1KL1lXGXeRM
+ 8arzfyiB5wJ9tb9U/nZvhhdfilEDLe0jKJY0RJErbdRHsalwQCrtq/1ewQpMpsRxXzAjgfRN
+ jc4tgxRWmI+aVTzSRpywNahzZBT695hMz81cVZJoZzaV0KaMTlSnBkrviPz1nIGHYCHJxF9r
+ cIu0GSIyUjZ/7xslxdvjpLth16H27JCWDzDqIQMtg61063gNyEyWgt1qRSaK14JIH/DoYRfn
+ jfFQSC8bffFjat7BQGFz4ZpRavkMUFuDirn5Tf28oc5ebe2cIHp4/kajTx/7JOxWZ80U70mA
+ cBgEeYSrYYnX+UJsSxpzLc/0sT1eRJDEhI4XIQM4ClIzpsCIN5HnVF76UQXh3a9zpwh3dk8i
+ bhN/URmCOTH+LHNJYN/MxY8wuukq877DWB7k86pBs5IDLAXmW8v3gIDWyIcgYqb2v8QO2Mqx
+ YMqL7UZxVLul4/JbllsQB8F/fNI8AfttmAQL9cwo6C8yDTXKdho920W4WUR9k8NT/OBqWSyk
+ bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
+ nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
+ izWDgYvmBE8=
+In-Reply-To: <pprbxhow6gl6bqlhzoiozz7ymwqk5uwuyuwclviulie4ucyjok@xv34zrzw72oz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,40 +136,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for MDSS on SM7150.
+On 14.06.2024 12:33 PM, Dmitry Baryshkov wrote:
+> On Fri, Jun 14, 2024 at 01:55:46AM GMT, Konrad Dybcio wrote:
+>>
+>>
 
-Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/msm_mdss.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+[...]
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index fab6ad4e5107c..d90b9471ba6ff 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -632,6 +632,13 @@ static const struct msm_mdss_data sm6350_data = {
- 	.reg_bus_bw = 76800,
- };
- 
-+static const struct msm_mdss_data sm7150_data = {
-+	.ubwc_enc_version = UBWC_2_0,
-+	.ubwc_dec_version = UBWC_2_0,
-+	.highest_bank_bit = 1,
-+	.reg_bus_bw = 76800,
-+};
-+
- static const struct msm_mdss_data sm8150_data = {
- 	.ubwc_enc_version = UBWC_3_0,
- 	.ubwc_dec_version = UBWC_3_0,
-@@ -713,6 +720,7 @@ static const struct of_device_id mdss_dt_match[] = {
- 	{ .compatible = "qcom,sm6125-mdss", .data = &sm6125_data },
- 	{ .compatible = "qcom,sm6350-mdss", .data = &sm6350_data },
- 	{ .compatible = "qcom,sm6375-mdss", .data = &sm6350_data },
-+	{ .compatible = "qcom,sm7150-mdss", .data = &sm7150_data },
- 	{ .compatible = "qcom,sm8150-mdss", .data = &sm8150_data },
- 	{ .compatible = "qcom,sm8250-mdss", .data = &sm8250_data },
- 	{ .compatible = "qcom,sm8350-mdss", .data = &sm8350_data },
--- 
-2.45.2
+>> GCC_HDMI_CLKREF_CLK is a child of xo, so you can drop the latter.
+>> It would also be worth confirming whether it's really powering the
+>> PHY and not the TX.. You can test that by trying to only power on the
+>> phy (e.g. call the phy_power_on or whatever APIs) with and without the
+>> clock
+> 
+> I'd prefer to keep it. I think the original DT used one of LN_BB clocks
+> here, so it might be that the HDMI uses CXO2 / LN_BB instead of the main
+> CXO.
+> 
+> If somebody can check, which clock is actually used for the HDMI, it
+> would be really great.
 
++CC jhugo - could you please take a look?
+
+Konrad
