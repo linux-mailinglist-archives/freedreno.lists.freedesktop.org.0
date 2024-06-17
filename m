@@ -2,97 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB42E90B790
-	for <lists+freedreno@lfdr.de>; Mon, 17 Jun 2024 19:14:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C0F290BD8B
+	for <lists+freedreno@lfdr.de>; Tue, 18 Jun 2024 00:29:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC6510E478;
-	Mon, 17 Jun 2024 17:14:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 655B510E506;
+	Mon, 17 Jun 2024 22:29:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="dlKjsyvn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Uklf30oq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7634410E2A3;
- Mon, 17 Jun 2024 17:14:28 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45HAgu99032598;
- Mon, 17 Jun 2024 17:14:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- qHW2sipXV38cUjoce1vWKeKDVq6sQZZynA2UDf4+2II=; b=dlKjsyvn2o5OJZrF
- gCjlFZRnHUN1QlQ8hwX5YMPqoawxqH0fwtjXfHpWCOdmBcLNea9fRpTf8dTDJCo5
- VbulNChl/zPy10oPr9rYvkFKDTmeQq1EExa6yXhZs9jK3Tdd0uoky/+FofurPF1D
- A19GFW5WNAtzLgbdw8P2Rk1WLWrE++HC08IlFlJqqBiTew06HXzMbRiISPE/QNzB
- uBuQM/uNKa9HZoHzp8QM0O17Jya7QLZ2GXqoKG8UCH8h4vjCCCgf+p5SCgsCxNjd
- JlPPKez0o70gQNQ28YsHL+PXe2UVHOSdSAaaRztinP1E3JgLxJTxhuq/uRGCQFzd
- mwJO/g==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ys0an4f1t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 Jun 2024 17:14:20 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45HHEJlY002735
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 Jun 2024 17:14:19 GMT
-Received: from [10.226.59.182] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 17 Jun
- 2024 10:14:17 -0700
-Message-ID: <c18c3acc-8f08-1384-0d99-509ffd663879@quicinc.com>
-Date: Mon, 17 Jun 2024 11:14:16 -0600
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C44BE10E506;
+ Mon, 17 Jun 2024 22:29:27 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-1f717b3f2d8so41212255ad.1; 
+ Mon, 17 Jun 2024 15:29:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1718663366; x=1719268166; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=XM94SIgqTgrJbrT5e0SKLh/HdcnUyE0iL7Um2J9PNd4=;
+ b=Uklf30oq/+5ANXzhZfSBb+zvreWsIoP6sWohewBx4EFxl1Ywn2dehwS2oZnMq8aij0
+ Vzvc1Ghx7VZyfo2lCCMXgsojowcVp1BO+JK0HM3mQNrGDvrlJUjcPw69jCIzbDvxMwti
+ iqcuRyRPqjs0QkWa7SbX6MG9aXVpR4VpbjLsAGAXFA2737bZKfkpmQ1nBjjoH7ghh2Ca
+ rROvrxuBmyYO+SgC3pXb81AL65YUkQ9Dc0P77LeHNAUq1wA9WHqFafrRvdqbGFFLQAC3
+ 4Gng10eFgwYnbgNlDdhCnOlnd4SOVMNcC4eacbkSBaASHhF+Eup0z5oKKvrvswaEULjj
+ poQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718663366; x=1719268166;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XM94SIgqTgrJbrT5e0SKLh/HdcnUyE0iL7Um2J9PNd4=;
+ b=sy/Wvl4CvzVEcaOb/2kM4VKtJGwh+eatj8JguyS/nbfA7/03aVacmLfjUn9Z71yNZn
+ +glxcOvw4pAm3c2qSfbpTZBwG0qZqIItUlUZ5ozyC85Yp92gVbAyNOYi25DGKIDeG81U
+ 4piCMDqGxGKt9Io2fqCh4zy2Ps16FrT/wYCkBza+ZxuywtcfSfQfGS6dyzrHefM3/rNJ
+ NEi8Ygae84ubnoZn5XcLLJB05GW00jNVcJQBhllvSWA7CUwCga4DX0D8te4WqhKTqvCd
+ wFivMKc9F29NkOJDqYvX3KZI8ku5SAIA0sqXHYT3aaUUjWt+Af1S/J9qy38UWHUfGLF9
+ bGyg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXl3uMTq/+VQXqrPkpFd0zDle/29mKyB6yXKzdQGfRH3cvmBFY9IYwqYD+zERzzIsLyDrqkh6xJKXM7iS1nFlbZejzF+FDmc6it3IWNgx1a
+X-Gm-Message-State: AOJu0Yw/abJelqcc+ptK5IAllg6RIJD5o4MCY4SlmPCTWUYHX3avermq
+ lU1kP5m6Pc9zkdGt91HwgCUwiiatuN7L/fU3NtbSfZTxcQvT9KkaujnPmw==
+X-Google-Smtp-Source: AGHT+IEOpgI4p8x4cS6eEpW2PNtg21Ko2+su+tSYSUewhI2L7n5QvQjQZK3b2ttS8wmFTQuHEHMrtQ==
+X-Received: by 2002:a17:902:f791:b0:1f6:32ef:3e00 with SMTP id
+ d9443c01a7336-1f98b12905amr15453335ad.0.1718663366090; 
+ Mon, 17 Jun 2024 15:29:26 -0700 (PDT)
+Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1f855e55c80sm84222675ad.21.2024.06.17.15.29.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Jun 2024 15:29:25 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@chromium.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ linux-kernel@vger.kernel.org (open list),
+ linux-pm@vger.kernel.org (open list:HIBERNATION (aka Software Suspend,
+ aka swsusp)), Marijn Suijten <marijn.suijten@somainline.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Sean Paul <sean@poorly.run>
+Subject: [PATCH v2 0/5] drm/msm/adreno: Introduce/rework device hw catalog
+Date: Mon, 17 Jun 2024 15:28:58 -0700
+Message-ID: <20240617222916.5980-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Subject: Re: [PATCH v4 4/4] arm64: dts: qcom: add HDMI nodes for msm8998
-Content-Language: en-US
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>
-CC: Marc Gonzalez <mgonzalez@freebox.fr>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, "Bjorn
- Andersson" <andersson@kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-phy@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, "Arnaud Vrac" <avrac@freebox.fr>,
- Pierre-Hugues Husson <phhusson@freebox.fr>
-References: <20240613-hdmi-tx-v4-0-4af17e468699@freebox.fr>
- <20240613-hdmi-tx-v4-4-4af17e468699@freebox.fr>
- <348e16f1-0a1b-4cad-a3f0-3f7979a99a02@linaro.org>
- <pprbxhow6gl6bqlhzoiozz7ymwqk5uwuyuwclviulie4ucyjok@xv34zrzw72oz>
- <b6676951-33a2-4c3a-bb29-0d1ea7ad33d2@linaro.org>
-From: Jeffrey Hugo <quic_jhugo@quicinc.com>
-In-Reply-To: <b6676951-33a2-4c3a-bb29-0d1ea7ad33d2@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: IyvUU1bNab2aZg9p9Kc3nauTBhv-hJ07
-X-Proofpoint-ORIG-GUID: IyvUU1bNab2aZg9p9Kc3nauTBhv-hJ07
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-17_14,2024-06-17_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0
- bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 clxscore=1011
- suspectscore=0 mlxscore=0 adultscore=0 lowpriorityscore=0 mlxlogscore=829
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405170001
- definitions=main-2406170133
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,32 +85,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 6/15/2024 5:35 AM, Konrad Dybcio wrote:
-> On 14.06.2024 12:33 PM, Dmitry Baryshkov wrote:
->> On Fri, Jun 14, 2024 at 01:55:46AM GMT, Konrad Dybcio wrote:
->>>
->>>
-> 
-> [...]
-> 
->>> GCC_HDMI_CLKREF_CLK is a child of xo, so you can drop the latter.
->>> It would also be worth confirming whether it's really powering the
->>> PHY and not the TX.. You can test that by trying to only power on the
->>> phy (e.g. call the phy_power_on or whatever APIs) with and without the
->>> clock
->>
->> I'd prefer to keep it. I think the original DT used one of LN_BB clocks
->> here, so it might be that the HDMI uses CXO2 / LN_BB instead of the main
->> CXO.
->>
->> If somebody can check, which clock is actually used for the HDMI, it
->> would be really great.
-> 
-> +CC jhugo - could you please take a look?
-> 
-> Konrad
+From: Rob Clark <robdclark@chromium.org>
 
-Documentation is not great but it looks like CXO from what little I can 
-find.
+Split the single flat gpulist table into per-gen tables that exist in
+their own per-gen files, and start moving more info into the device
+table.  This at least gets all the big tables of register settings out
+of the heart of the a6xx_gpu code.  Probably more could be moved, to
+remove at least some of the per-gen if/else ladders, but this seemed
+like a reasonably good start.
 
--Jeff
+v2: Drop sentinel table entries
+
+Rob Clark (5):
+  drm/msm/adreno: Split up giant device table
+  drm/msm/adreno: Split catalog into separate files
+  drm/msm/adreno: Move hwcg regs to a6xx hw catalog
+  drm/msm/adreno: Move hwcg table into a6xx specific info
+  drm/msm/adreno: Move CP_PROTECT settings to hw catalog
+
+ drivers/gpu/drm/msm/Makefile               |    5 +
+ drivers/gpu/drm/msm/adreno/a2xx_catalog.c  |   52 +
+ drivers/gpu/drm/msm/adreno/a3xx_catalog.c  |   81 ++
+ drivers/gpu/drm/msm/adreno/a4xx_catalog.c  |   50 +
+ drivers/gpu/drm/msm/adreno/a5xx_catalog.c  |  148 +++
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c  | 1239 ++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |  880 +-------------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h      |   11 +
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  624 +---------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    |   32 +-
+ 10 files changed, 1648 insertions(+), 1474 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/adreno/a2xx_catalog.c
+ create mode 100644 drivers/gpu/drm/msm/adreno/a3xx_catalog.c
+ create mode 100644 drivers/gpu/drm/msm/adreno/a4xx_catalog.c
+ create mode 100644 drivers/gpu/drm/msm/adreno/a5xx_catalog.c
+ create mode 100644 drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+
+-- 
+2.45.2
+
