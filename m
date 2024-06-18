@@ -2,83 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E757890DA99
-	for <lists+freedreno@lfdr.de>; Tue, 18 Jun 2024 19:27:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47AB590DC23
+	for <lists+freedreno@lfdr.de>; Tue, 18 Jun 2024 21:02:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04FA110E750;
-	Tue, 18 Jun 2024 17:27:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18C2910E110;
+	Tue, 18 Jun 2024 19:02:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jegBqyEw";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WeWv7JnN";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E97210E74B
- for <freedreno@lists.freedesktop.org>; Tue, 18 Jun 2024 17:26:59 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-52cc14815c3so1514014e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 18 Jun 2024 10:26:59 -0700 (PDT)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 054EF10E110
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Jun 2024 19:02:33 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-42122ac2f38so808475e9.1
+ for <freedreno@lists.freedesktop.org>; Tue, 18 Jun 2024 12:02:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718731617; x=1719336417; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=W2XgDBRe+uXR1JhTiAW0H+F2QdLuA6dIQSH0HmfL2qI=;
- b=jegBqyEwWhBROpoqiEsg+UZV0V+oajjO1DCLBQz8Fzun4Ar/r9EoCHm+ICI66ilGHR
- ae5LeYCuUVnCR+s9R6mz255GCFqIQLF90TqOCUMJJlR0ulmB6I09FqTkw8oRwYC3ontM
- 5jKdmAcEpAn9fvANVfDPH+mW1kNfyaqvYhl/vMzC0SEqQImA8aL4RSecCQZOOr7iq7RQ
- xBFVzQ/JiuFn6iUqrm63J1H0kdL+8UOFYr4kPvgWCHXMCOdjovBzLvKB0aYRPyw+bkkD
- GBGtt0ENJPhbMleK2KsvTI3dZ6+FvfS8C6hC4vLRLxhTku+YoB/95ngcM0Ot4P3E8H6U
- udtw==
+ d=linaro.org; s=google; t=1718737352; x=1719342152; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=o0nW5Lw5L1U/vXOS5IOb1o4dhA6pmFIZMeuoNJs90Ac=;
+ b=WeWv7JnNwX9KNYin7q4cH64oCnYBy+0RKypF+Qr0uN8mY4P0VOg3ZCsGnpmEAPP5gc
+ Jkc4fYjhbUkpsHS1dtx5RMi2jBAoeJaWpeT8ceIOLHs1Zs7jnXNZIlaK4gj/jSB4Cu6F
+ QjHUyslomF9u8a1NtIbweqvImOgIriycA9VonKh2ldb0z6jm9gv21Q0eewBLsXT7Xiwp
+ F/0X8HfZbwiliyJesvPqNb3zdsKZerhKFUBRjDbTE+4pIb3WXpTf7rre+JYhB7f3kbie
+ DNmjnBccJnBcD89xp7Hgq2OHoUOnlZx4xytmGnegzXX8wO1YGNQGAHdUu0tNvW6ZF8Mx
+ UfaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718731617; x=1719336417;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
+ d=1e100.net; s=20230601; t=1718737352; x=1719342152;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=W2XgDBRe+uXR1JhTiAW0H+F2QdLuA6dIQSH0HmfL2qI=;
- b=bAdEE5e1xrYqj7mzaJo1xBQEt5wyLZl94m7RYSwO4baV/ifyvEfPhpZwKTMdBrgico
- ivRyqEpURItYNPnJScoZak+jftTquy94+s8UweVQZNrBgN45GoJyFzaHPNbWyuveDvTV
- BWacmp+VpLoM5Sa7DGsEJT62Qjl3spJnNmv0VPBW79TAnTn8ydGNBtLFVg+ASAniyRWb
- GzAw8Wau3NjAa/p86GpSepx2yuYKYM/UVDwDu45w09zrd92u1At5Mol+kT3LoldD3WR/
- 15ZUfBTjix/2Cib3mQ1S6OG8r4e6ILUN6ftEVl/aQUUWVfd2VvhQciY1CvCyckWvSLSI
- bGJg==
+ bh=o0nW5Lw5L1U/vXOS5IOb1o4dhA6pmFIZMeuoNJs90Ac=;
+ b=QsM/ZpiwfMzxJIvDKykhgboIewLRdUzGM7lXP7aiK7szOJoLv3DD3Ib1SroyhjuUe2
+ VI6L1ymIFOh8tr1aaOkYrdQwen73lobEcHBqaT3/r38rVZQJU9hWh+WPn5ewIPzDBzcl
+ dfhXrpQiVyboabV/FB1ZmcrdopiIm9EyN+h+3zBaA2fHMB/QV2PnuJCgC+Pfuf/zvymU
+ if2t/Zi5VLKaU0THMjYb0TN1QXwZWCEGUZtf7XqEWJGU7tIjK1eUoSSF4yy1lKPJ3pow
+ bhQBLdKr80nRmRJINyHgxyXPmgg+bMZaG66zjgCVWEQ3cw4Y6w7w/nJkC+cOCQ1+b7PD
+ BLJg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV+nuUA+/fA/UaH/kgct28k/QXwOf8+KsDvkNNR3LuznMaLKFinsUt5uOrhqinGiEY42nGDZexJSS+1PCdB/r20eKUDxg7eWKInlBfpHPAG
-X-Gm-Message-State: AOJu0Yw9GJ2Nl8Nfe9Qxj3+DljiCYfibL+Q+EcsBneGKPOabr0UZcZ14
- mB2UH+alXsRc8JHTwEsw0JttAAMNBiqaWVZXrlfIFSdpiztb7PpqyH1IYl/9DCU=
-X-Google-Smtp-Source: AGHT+IHnlPq6SIHBVQIVyvhtZzEM4VjHJZd+R56nsfAoWok8bl5Nz8Rpo3Ive6lWbA3CpuueiYxIMA==
-X-Received: by 2002:a05:6512:49a:b0:52b:c1d4:7df3 with SMTP id
- 2adb3069b0e04-52ccaa36980mr190988e87.35.1718731617392; 
- Tue, 18 Jun 2024 10:26:57 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ AJvYcCX2lCaUL9MWZmYN31GB/WadQwQaXJ9Nn939PIZA7UGX+2zVSdXfp2LIvNE116FQDfwQm1nX/U6WPgGz6O0NefxRQUK4rFmDRjUUQtA/uaM1
+X-Gm-Message-State: AOJu0YzTOdMW/kgNgl8blc11KXSMLR4zN1rmkUdSAzfln39TgqinQi4z
+ aNRWoBUe+H5W4Aten3Ci5krsLtEMObBMxJaBdPDE7E4SapXX8KlHaZZQKHvY1y4=
+X-Google-Smtp-Source: AGHT+IG7lBWAP2S0mJtpOdeqTmDaeSfFJwS3uCXt8D79J41M/fUJYZCYbP8ihtzZVXtw5EnRrS5WtQ==
+X-Received: by 2002:a05:600c:787:b0:421:8179:6127 with SMTP id
+ 5b1f17b1804b1-42474d41065mr6543715e9.20.1718737351821; 
+ Tue, 18 Jun 2024 12:02:31 -0700 (PDT)
+Received: from ?IPV6:2a00:f41:9028:9df3:5d11:7fa7:8997:f811?
+ ([2a00:f41:9028:9df3:5d11:7fa7:8997:f811])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ca2889052sm1555203e87.299.2024.06.18.10.26.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Jun 2024 10:26:57 -0700 (PDT)
-Date: Tue, 18 Jun 2024 20:26:55 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 4/5] drm/msm/adreno: Move hwcg table into a6xx
- specific info
-Message-ID: <x64uencmmiqlozqhjnp2jclizjzhhhekkhvxqmm6dlilr7huyd@wmaikimb63jx>
-References: <20240617225127.23476-1-robdclark@gmail.com>
- <20240617225127.23476-5-robdclark@gmail.com>
- <wnnjjljjyl5s3fkwiapux3f76243ngp2ppk2cm7kkhdp5dc4sz@v4wypnga3izv>
- <CAF6AEGvjeGxP+A2umyQHo49G1rAdZkY0bHuemvFP4jgNkspu3Q@mail.gmail.com>
+ ffacd0b85a97d-36075093a3fsm15011713f8f.1.2024.06.18.12.02.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Jun 2024 12:02:31 -0700 (PDT)
+Message-ID: <ecadeb37-fd12-4b63-949b-136356a42362@linaro.org>
+Date: Tue, 18 Jun 2024 21:02:28 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGvjeGxP+A2umyQHo49G1rAdZkY0bHuemvFP4jgNkspu3Q@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/5] drm/msm/adreno: Move CP_PROTECT settings to hw
+ catalog
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@chromium.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20240618164303.66615-1-robdclark@gmail.com>
+ <20240618164303.66615-6-robdclark@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20240618164303.66615-6-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,58 +93,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jun 18, 2024 at 09:33:48AM GMT, Rob Clark wrote:
-> On Tue, Jun 18, 2024 at 1:30 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> >
-> > On Mon, Jun 17, 2024 at 03:51:14PM GMT, Rob Clark wrote:
-> > > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > Introduce a6xx_info where we can stash gen specific stuff without
-> > > polluting the toplevel adreno_info struct.
-> > >
-> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > ---
-> > >  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 65 +++++++++++++++++------
-> > >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     |  6 +--
-> > >  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  9 ++++
-> > >  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  6 ++-
-> > >  4 files changed, 67 insertions(+), 19 deletions(-)
-> > >
-> >
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >
-> >
-> > > @@ -98,7 +100,9 @@ struct adreno_info {
-> > >       struct msm_gpu *(*init)(struct drm_device *dev);
-> > >       const char *zapfw;
-> > >       u32 inactive_period;
-> > > -     const struct adreno_reglist *hwcg;
-> > > +     union {
-> > > +             const struct a6xx_info *a6xx;
-> > > +     };
-> > >       u64 address_space_size;
-> > >       /**
-> > >        * @speedbins: Optional table of fuse to speedbin mappings
-> >
-> > My preference would be towards wrapping the adreno_gpu, but that would
-> > require more significant rework of the driver. Let's see if we can get
-> > to that later.
-> >
+
+
+On 6/18/24 18:42, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> yeah, it was going to be more re-work, and I'm neck deep in
-> gpuvm/vm_bind.. I just wanted to land this since it is a pita (and
-> error prone) to rebase as more gpu's get added ;-)
-
-Yes, I'm fine with that. My note was more like a 'later todo' item.
-
+> Move the CP_PROTECT settings into the hw catalog.
 > 
-> It isn't entirely unlike how we handle gpu gen specific options in
-> mesa, where we have a somewhat bigger set of options, so I wouldn't
-> say that this approach was worse than extending adreno_info.. just
-> different..
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
+[...]
 
--- 
-With best wishes
-Dmitry
+> +static inline void __build_asserts(void)
+> +{
+> +	BUILD_BUG_ON(a630_protect.count > a630_protect.count_max);
+> +	BUILD_BUG_ON(a650_protect.count > a650_protect.count_max);
+> +	BUILD_BUG_ON(a660_protect.count > a660_protect.count_max);
+> +	BUILD_BUG_ON(a690_protect.count > a690_protect.count_max);
+> +	BUILD_BUG_ON(a730_protect.count > a730_protect.count_max);
+> +}
+> +
+
+patch:394: new blank line at EOF
+
+other than that:
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+Konrad
