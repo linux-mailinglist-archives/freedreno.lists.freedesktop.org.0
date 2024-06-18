@@ -2,82 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47AB590DC23
-	for <lists+freedreno@lfdr.de>; Tue, 18 Jun 2024 21:02:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C1C490DF5A
+	for <lists+freedreno@lfdr.de>; Wed, 19 Jun 2024 00:49:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18C2910E110;
-	Tue, 18 Jun 2024 19:02:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF2C110E7E0;
+	Tue, 18 Jun 2024 22:49:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WeWv7JnN";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Y+JI30XZ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 054EF10E110
- for <freedreno@lists.freedesktop.org>; Tue, 18 Jun 2024 19:02:33 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-42122ac2f38so808475e9.1
- for <freedreno@lists.freedesktop.org>; Tue, 18 Jun 2024 12:02:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718737352; x=1719342152; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=o0nW5Lw5L1U/vXOS5IOb1o4dhA6pmFIZMeuoNJs90Ac=;
- b=WeWv7JnNwX9KNYin7q4cH64oCnYBy+0RKypF+Qr0uN8mY4P0VOg3ZCsGnpmEAPP5gc
- Jkc4fYjhbUkpsHS1dtx5RMi2jBAoeJaWpeT8ceIOLHs1Zs7jnXNZIlaK4gj/jSB4Cu6F
- QjHUyslomF9u8a1NtIbweqvImOgIriycA9VonKh2ldb0z6jm9gv21Q0eewBLsXT7Xiwp
- F/0X8HfZbwiliyJesvPqNb3zdsKZerhKFUBRjDbTE+4pIb3WXpTf7rre+JYhB7f3kbie
- DNmjnBccJnBcD89xp7Hgq2OHoUOnlZx4xytmGnegzXX8wO1YGNQGAHdUu0tNvW6ZF8Mx
- UfaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718737352; x=1719342152;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=o0nW5Lw5L1U/vXOS5IOb1o4dhA6pmFIZMeuoNJs90Ac=;
- b=QsM/ZpiwfMzxJIvDKykhgboIewLRdUzGM7lXP7aiK7szOJoLv3DD3Ib1SroyhjuUe2
- VI6L1ymIFOh8tr1aaOkYrdQwen73lobEcHBqaT3/r38rVZQJU9hWh+WPn5ewIPzDBzcl
- dfhXrpQiVyboabV/FB1ZmcrdopiIm9EyN+h+3zBaA2fHMB/QV2PnuJCgC+Pfuf/zvymU
- if2t/Zi5VLKaU0THMjYb0TN1QXwZWCEGUZtf7XqEWJGU7tIjK1eUoSSF4yy1lKPJ3pow
- bhQBLdKr80nRmRJINyHgxyXPmgg+bMZaG66zjgCVWEQ3cw4Y6w7w/nJkC+cOCQ1+b7PD
- BLJg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX2lCaUL9MWZmYN31GB/WadQwQaXJ9Nn939PIZA7UGX+2zVSdXfp2LIvNE116FQDfwQm1nX/U6WPgGz6O0NefxRQUK4rFmDRjUUQtA/uaM1
-X-Gm-Message-State: AOJu0YzTOdMW/kgNgl8blc11KXSMLR4zN1rmkUdSAzfln39TgqinQi4z
- aNRWoBUe+H5W4Aten3Ci5krsLtEMObBMxJaBdPDE7E4SapXX8KlHaZZQKHvY1y4=
-X-Google-Smtp-Source: AGHT+IG7lBWAP2S0mJtpOdeqTmDaeSfFJwS3uCXt8D79J41M/fUJYZCYbP8ihtzZVXtw5EnRrS5WtQ==
-X-Received: by 2002:a05:600c:787:b0:421:8179:6127 with SMTP id
- 5b1f17b1804b1-42474d41065mr6543715e9.20.1718737351821; 
- Tue, 18 Jun 2024 12:02:31 -0700 (PDT)
-Received: from ?IPV6:2a00:f41:9028:9df3:5d11:7fa7:8997:f811?
- ([2a00:f41:9028:9df3:5d11:7fa7:8997:f811])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36075093a3fsm15011713f8f.1.2024.06.18.12.02.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Jun 2024 12:02:31 -0700 (PDT)
-Message-ID: <ecadeb37-fd12-4b63-949b-136356a42362@linaro.org>
-Date: Tue, 18 Jun 2024 21:02:28 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 618E810E149;
+ Tue, 18 Jun 2024 22:49:54 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45ILatL2005243;
+ Tue, 18 Jun 2024 22:49:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ EnRI3hKsl+KafR+OMRjSAsb8yNpYYBGYRJOJhA3Nqmo=; b=Y+JI30XZAY4DbX0u
+ g5LaR6/BdB67qa0a7OApfZnmqmn7MRSBm5sGTm2Ae9AlT5UB3PBkG9LQ+0t6q8Jy
+ j2II/EdSyU8D5wU1hmNztI7l2CyMR02b+ZabREepfcHSwbZJQseoxm3FS703m/aL
+ 5lf+WHgzeqcjqeD1amNPBJD6YRY8HOEl4XqLI+A2Y2hTCQIgMQDdhF2WgaSA0qMM
+ tRWLYZr3XmUFEk+kOvpqnHpnmv0F4pX1JCXFIfGv1O60mVuV+uU0LkuytAoX6BL9
+ r/lUeor48Xi6BPoaLv2pFUHBqmlu5wpp//q271ZsH3oQngx7w9IbJvESabJAA/wZ
+ ASX4sA==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yuja783rk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Jun 2024 22:49:49 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45IMnlpu008324
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Jun 2024 22:49:47 GMT
+Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 18 Jun
+ 2024 15:49:46 -0700
+Message-ID: <1e4307fa-a0a0-5c98-cf7d-a50c95206559@quicinc.com>
+Date: Tue, 18 Jun 2024 15:49:46 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/5] drm/msm/adreno: Move CP_PROTECT settings to hw
- catalog
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Rob Clark <robdclark@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-References: <20240618164303.66615-1-robdclark@gmail.com>
- <20240618164303.66615-6-robdclark@gmail.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v3 1/9] drm/msm/dpu: check for overflow in
+ _dpu_crtc_setup_lm_bounds()
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20240618164303.66615-6-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
+ Vetter <daniel@ffwll.ch>
+CC: Abel Vesa <abel.vesa@linaro.org>, Johan Hovold <johan+linaro@kernel.org>, 
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20240614-dpu-mode-config-width-v3-0-29ec4069c99b@linaro.org>
+ <20240614-dpu-mode-config-width-v3-1-29ec4069c99b@linaro.org>
+ <52fef0ed-d9c6-682c-2d30-18cdd78f7a40@quicinc.com>
+In-Reply-To: <52fef0ed-d9c6-682c-2d30-18cdd78f7a40@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: UwJ2leUTwHkQNk4vDR2mwQ5wt9COrVRD
+X-Proofpoint-GUID: UwJ2leUTwHkQNk4vDR2mwQ5wt9COrVRD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-18_05,2024-06-17_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 impostorscore=0
+ lowpriorityscore=0 adultscore=0 mlxlogscore=972 malwarescore=0
+ phishscore=0 bulkscore=0 suspectscore=0 clxscore=1015 spamscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405170001 definitions=main-2406180168
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,31 +100,23 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 6/18/24 18:42, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 6/13/2024 4:13 PM, Abhinav Kumar wrote:
 > 
-> Move the CP_PROTECT settings into the hw catalog.
 > 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+> On 6/13/2024 3:36 PM, Dmitry Baryshkov wrote:
+>> Make _dpu_crtc_setup_lm_bounds() check that CRTC width is not
+>> overflowing LM requirements. Rename the function accordingly.
+>>
+>> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 17 +++++++++++++----
+>>   1 file changed, 13 insertions(+), 4 deletions(-)
+>>
+> 
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-[...]
+As promised,
 
-> +static inline void __build_asserts(void)
-> +{
-> +	BUILD_BUG_ON(a630_protect.count > a630_protect.count_max);
-> +	BUILD_BUG_ON(a650_protect.count > a650_protect.count_max);
-> +	BUILD_BUG_ON(a660_protect.count > a660_protect.count_max);
-> +	BUILD_BUG_ON(a690_protect.count > a690_protect.count_max);
-> +	BUILD_BUG_ON(a730_protect.count > a730_protect.count_max);
-> +}
-> +
 
-patch:394: new blank line at EOF
-
-other than that:
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-
-Konrad
+Tested-by: Abhinav Kumar <quic_abhinavk@quicinc.com> # sc7280
