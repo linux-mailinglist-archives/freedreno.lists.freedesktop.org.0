@@ -2,88 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAD7F90D897
-	for <lists+freedreno@lfdr.de>; Tue, 18 Jun 2024 18:12:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 871AB90D950
+	for <lists+freedreno@lfdr.de>; Tue, 18 Jun 2024 18:34:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C140B10E70D;
-	Tue, 18 Jun 2024 16:12:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7DCB10E721;
+	Tue, 18 Jun 2024 16:34:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="BF8gFfmg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NE6Yc4J5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7061710E0E0;
- Tue, 18 Jun 2024 16:12:14 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45IBCqcW005312;
- Tue, 18 Jun 2024 16:12:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=DJbPrjRaIj8/B9EpEBGXNYWr
- h0MR43gEeBmb26KI2FE=; b=BF8gFfmgoHCOten5wPNXAOty7uz/468ZeCHERTZz
- jCB6BDygS2mnLkLwySiz7QhXiJE9C3q0pffpRvmGhTwyn6kH1l6eSqIdum8YuKMX
- BJVUYRcuBO71YtHghku7iqePqvdTnhDjtl7RtP0rXpB2ictbpFQ3Y2sVlPrKPu+A
- hcPCxPUAAkfPB3Pa2uV/Bq0Db50ml1qP6L4B2mam2kKJaDe1//aim8qBJLx4xJl7
- pPlh+1V/B0qH1nI+1VRcJeU82ObyoHFcWsHHfTu2HLyYCZ9zCokinrztmq2Gjahd
- xhck7U/EawNceGM3f2zVZgvL/7NZsnzim9XqXyi5Rsm3Fg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yu95rgt3c-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 18 Jun 2024 16:12:08 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45IGC6Ig009286
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 18 Jun 2024 16:12:06 GMT
-Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 18 Jun 2024 09:12:01 -0700
-Date: Tue, 18 Jun 2024 21:41:58 +0530
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: Will Deacon <will@kernel.org>
-CC: Andrew Halaney <ahalaney@redhat.com>, Konrad Dybcio
- <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>,
- Rob Clark <robdclark@chromium.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/msm/adreno: De-spaghettify the use of memory barriers
-Message-ID: <20240618161158.qpqbv77tqveo5g6l@hu-akhilpo-hyd.qualcomm.com>
-References: <20240508-topic-adreno-v1-1-1babd05c119d@linaro.org>
- <20240514183849.6lpyplifero5u35r@hu-akhilpo-hyd.qualcomm.com>
- <ae4a77wt3kc73ejshptldqx6ugzrqguyq7etbbu54y4avhbdlt@qyt4r6gma7ev>
- <20240516145005.gdksmvxp35m45ifh@hu-akhilpo-hyd.qualcomm.com>
- <5vyrmxvkurdstqfiatxfqcqljwyiswda2vpkea27ighb2eqbav@n24yzdykbc23>
- <20240604144055.GE20384@willie-the-truck>
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D85E10E720;
+ Tue, 18 Jun 2024 16:34:03 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-57ccd1111aeso3719409a12.0; 
+ Tue, 18 Jun 2024 09:34:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1718728441; x=1719333241; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TpLrStmTGpoo6K4G77AeZx73ca3AbUqkqK/2aKkW3c4=;
+ b=NE6Yc4J5+DtC70/24C7jAXZduM2Et8DPGdngr8Wj2vuqvk+v/+O3aRSlKy1mx1wNst
+ qgwGvbwQYILIGv9ivjnhn4UGzSuvhDOyGdd02v2jBt7GCwahSJ+B/CT1AqHAathnzyRT
+ 13+cmRrWdNqHeNjxhIeSdgbXdVaRwhykEk7+Q+QT2sKQkDWQ97xJumwJV30VRQKT9BS6
+ F4a9Pf7FRugI9cEnr2Zh9JMTX0Thd5guKyYQfPiIh+wAsCzLJr6mCyFN5bfxX32wCtcG
+ QY+gPrLCupqZ41FVqQ3aV6CYPJzCChzklHZI6nqLXV9uWoowTk/fZzUiOY7v3vfJnnvx
+ YBnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718728441; x=1719333241;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TpLrStmTGpoo6K4G77AeZx73ca3AbUqkqK/2aKkW3c4=;
+ b=LOWDEpXdT3ySNeyHmtexV8rxYux/vT1LDtb1h+LX7AlwWf56sakaMd48qRjexMd4FP
+ wnDKaSHjNrkJsU0khjJl/BPVedlZoMXEFYj0ZMyx7b29E9SR3Mpo2ZWOpVbcDNGrh7dN
+ uYX42RK77w0rkK8csRD2yETCbPuTfHOBRmUYtDb5CC9FWUq5LIfGtJWqtvMS/QO0U92X
+ /aZePaM42rHjJncZdCDp9o+fJYnoro9E0VmLxcBLqnlQlJDLBgAjYMejIsZtkx2bwRwh
+ Pvkod6L2M+E6eZatdtldZXXtEfr3wQkosF/eQ4y/KZv17S6V5gDF21cUKGrXK7WcE/eH
+ bXig==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWXKbAmrK2jvoklcL0xhRvwDQ2sHMyjPnYbLm+dsy2+iosaI4FT/Sh4TlH3UWoYsGFrbzSG6DZP5y1lFAGoJZQEuDIzJNNfZJnU1wrln7eT
+X-Gm-Message-State: AOJu0YwY9R8n5b1/+7uTqNIj3ujbwH9k8FrlmV9XTDcc+vMhJur9Jyd0
+ UmRtGqF3NCo7rxbgiPJ3rQCVsq9F6OqWShZBOa3/ST27MV/o5ndAQK79Vgv76TcIARrqJTOTRvR
+ jucmMqQ9RqPcfp+HweTa9FkiIgXA=
+X-Google-Smtp-Source: AGHT+IEshCt8XHunjxXajUUYc8cEJkBcPVr+pyxgi7wON07IhIVY9iZh4sfGDDKi0k0CzdMNcVHTnLUtpJ21Rwioa18=
+X-Received: by 2002:a50:930e:0:b0:57a:858d:20ca with SMTP id
+ 4fb4d7f45d1cf-57d07eabfc1mr9899a12.28.1718728441008; Tue, 18 Jun 2024
+ 09:34:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20240604144055.GE20384@willie-the-truck>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: BUNumrrajOAzsr7DX2KcvMEECRsfSlrH
-X-Proofpoint-ORIG-GUID: BUNumrrajOAzsr7DX2KcvMEECRsfSlrH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-18_02,2024-06-17_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- bulkscore=0 mlxscore=0 adultscore=0 clxscore=1011 priorityscore=1501
- spamscore=0 phishscore=0 mlxlogscore=999 suspectscore=0 malwarescore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405170001 definitions=main-2406180121
+References: <20240617225127.23476-1-robdclark@gmail.com>
+ <20240617225127.23476-5-robdclark@gmail.com>
+ <wnnjjljjyl5s3fkwiapux3f76243ngp2ppk2cm7kkhdp5dc4sz@v4wypnga3izv>
+In-Reply-To: <wnnjjljjyl5s3fkwiapux3f76243ngp2ppk2cm7kkhdp5dc4sz@v4wypnga3izv>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 18 Jun 2024 09:33:48 -0700
+Message-ID: <CAF6AEGvjeGxP+A2umyQHo49G1rAdZkY0bHuemvFP4jgNkspu3Q@mail.gmail.com>
+Subject: Re: [PATCH v3 4/5] drm/msm/adreno: Move hwcg table into a6xx specific
+ info
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,73 +87,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jun 04, 2024 at 03:40:56PM +0100, Will Deacon wrote:
-> On Thu, May 16, 2024 at 01:55:26PM -0500, Andrew Halaney wrote:
-> > On Thu, May 16, 2024 at 08:20:05PM GMT, Akhil P Oommen wrote:
-> > > On Thu, May 16, 2024 at 08:15:34AM -0500, Andrew Halaney wrote:
-> > > > If I understand correctly, you don't need any memory barrier.
-> > > > writel()/readl()'s are ordered to the same endpoint. That goes for all
-> > > > the reordering/barrier comments mentioned below too.
-> > > > 
-> > > > device-io.rst:
-> > > > 
-> > > >     The read and write functions are defined to be ordered. That is the
-> > > >     compiler is not permitted to reorder the I/O sequence. When the ordering
-> > > >     can be compiler optimised, you can use __readb() and friends to
-> > > >     indicate the relaxed ordering. Use this with care.
-> > > > 
-> > > > memory-barriers.txt:
-> > > > 
-> > > >      (*) readX(), writeX():
-> > > > 
-> > > > 	    The readX() and writeX() MMIO accessors take a pointer to the
-> > > > 	    peripheral being accessed as an __iomem * parameter. For pointers
-> > > > 	    mapped with the default I/O attributes (e.g. those returned by
-> > > > 	    ioremap()), the ordering guarantees are as follows:
-> > > > 
-> > > > 	    1. All readX() and writeX() accesses to the same peripheral are ordered
-> > > > 	       with respect to each other. This ensures that MMIO register accesses
-> > > > 	       by the same CPU thread to a particular device will arrive in program
-> > > > 	       order.
-> > > > 
-> > > 
-> > > In arm64, a writel followed by readl translates to roughly the following
-> > > sequence: dmb_wmb(), __raw_writel(), __raw_readl(), dmb_rmb(). I am not
-> > > sure what is stopping compiler from reordering  __raw_writel() and __raw_readl()
-> > > above? I am assuming iomem cookie is ignored during compilation.
-> > 
-> > It seems to me that is due to some usage of volatile there in
-> > __raw_writel() etc, but to be honest after reading about volatile and
-> > some threads from gcc mailing lists, I don't have a confident answer :)
-> > 
-> > > 
-> > > Added Will to this thread if he can throw some light on this.
-> > 
-> > Hopefully Will can school us.
-> 
-> The ordering in this case is ensured by the memory attributes used for
-> ioremap(). When an MMIO region is mapped using Device-nGnRE attributes
-> (as it the case for ioremap()), the "nR" part means "no reordering", so
-> readX() and writeX() to that region are ordered wrt each other.
+On Tue, Jun 18, 2024 at 1:30=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On Mon, Jun 17, 2024 at 03:51:14PM GMT, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Introduce a6xx_info where we can stash gen specific stuff without
+> > polluting the toplevel adreno_info struct.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 65 +++++++++++++++++------
+> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     |  6 +--
+> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  9 ++++
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  6 ++-
+> >  4 files changed, 67 insertions(+), 19 deletions(-)
+> >
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+>
+> > @@ -98,7 +100,9 @@ struct adreno_info {
+> >       struct msm_gpu *(*init)(struct drm_device *dev);
+> >       const char *zapfw;
+> >       u32 inactive_period;
+> > -     const struct adreno_reglist *hwcg;
+> > +     union {
+> > +             const struct a6xx_info *a6xx;
+> > +     };
+> >       u64 address_space_size;
+> >       /**
+> >        * @speedbins: Optional table of fuse to speedbin mappings
+>
+> My preference would be towards wrapping the adreno_gpu, but that would
+> require more significant rework of the driver. Let's see if we can get
+> to that later.
+>
 
-But that avoids only HW reordering, doesn't it? What about *compiler reordering* in the
-case of a writel following by a readl which translates to:
-	1: dmb_wmb()
-	2: __raw_writel() -> roughly "asm volatile('str')
-	3: __raw_readl() -> roughly "asm volatile('ldr')
-	4: dmb_rmb()
+yeah, it was going to be more re-work, and I'm neck deep in
+gpuvm/vm_bind.. I just wanted to land this since it is a pita (and
+error prone) to rebase as more gpu's get added ;-)
 
-Is the 'volatile' keyword sufficient to avoid reordering between (2) and (3)? Or
-do we need a "memory" clobber to inhibit reordering?
+It isn't entirely unlike how we handle gpu gen specific options in
+mesa, where we have a somewhat bigger set of options, so I wouldn't
+say that this approach was worse than extending adreno_info.. just
+different..
 
-This is still not clear to me even after going through some compiler documentions.
-
--Akhil.
-
-> 
-> Note that guarantee _doesn't_ apply to other flavours of ioremap(), so
-> e.g. ioremap_wc() won't give you the ordering.
-> 
-> Hope that helps,
-> 
-> Will
+BR,
+-R
