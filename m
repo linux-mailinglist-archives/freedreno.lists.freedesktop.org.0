@@ -2,82 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0966A90C8DF
-	for <lists+freedreno@lfdr.de>; Tue, 18 Jun 2024 13:17:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E51DB90D766
+	for <lists+freedreno@lfdr.de>; Tue, 18 Jun 2024 17:34:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFCBD10E54D;
-	Tue, 18 Jun 2024 11:17:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF69C10E6EE;
+	Tue, 18 Jun 2024 15:34:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="l9O6gl2I";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CuegVrQj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D75B310E54D
- for <freedreno@lists.freedesktop.org>; Tue, 18 Jun 2024 11:17:31 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-52c85a7f834so6822221e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 18 Jun 2024 04:17:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718709450; x=1719314250; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=RQ+i+yUylzc0vNZND2yRwe4IaOpgkA3NphEu3B2GdDM=;
- b=l9O6gl2Ilkg19M9TSDKu5KdpB6hrwzuPCDtx+ilFchoYB0FohF+pVL2i+8fg5P/a65
- bzTarn/Vk35gBX7HMwTichLtG8efHVsqavhj+0ZUJPxW8qFuS7RsMZqH69Vg7urFWPXM
- UQyzBJ/DtoAFjjNUmI6qD44u8tYV659nvgx3hY1xmSmK6TZUseI6Lce7JibVJBEb/vz6
- 4N+FHzkhuXenvGWIBblK53tj09w8yRgUlhWvbqTEW5+nZcoR5ERUVRdQIm9G94EbnN71
- r2MCQeNDvdfyL1532Q2NpXTp9m2BOMqflJRFDwmOvxNrJVFYENksV5tLfRgl/GLCNFql
- QnOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718709450; x=1719314250;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RQ+i+yUylzc0vNZND2yRwe4IaOpgkA3NphEu3B2GdDM=;
- b=VUCAA4jA7KZv/tvp0TUkmgE4OawmmgvDfjYE3gldEnkf5CbKq9jP/wWiiAYGBKf28Q
- eUoqw69HFQfpCTjbFhtgafPv8NRhxY/LonB70Lc18WdGnD+h0UWn+yL50iE3AcN2P3QA
- W4dD2bbaoQESfAvM1A1G0r8MUkm2PFoGF56nQfBUnaoGfv6Qa4fLwDaPu8y2gwXGFV2O
- lTumDJ49S1eiOY+ey6baAKis3rmtNSq9FmUuun8tk1/BVzT9uBuJSV38HMxS6g7f9QO8
- ZMlmo3CDiHmJr/7jCBKeNOVjsdDoJ2v/bE3yMbqYEixKmKGx/ASmh+UPGicM4psUoVFa
- USXg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXUOodsCq25UMhEMnOstftqpcijmXy4+hHSjdlm4Nmob7YEUzKD5dVRUjEUvfhLXladxSeD7+Ira0T3ngzqjm5rM30rCGbz7FlEqrK9RHUI
-X-Gm-Message-State: AOJu0Yy8Np3ENie2ap8ARdqoPyeGC1Bnb8y7T7R9eRAUcokbXPR/G3lY
- suCbK549FAU5dWMEU/Fyjgxe0q7F3MBFbsI1BT82CJu7t7o5T5/Hjsl2tj+InDU=
-X-Google-Smtp-Source: AGHT+IHHBBxjqquwzsz10R7mhJV/FLoBeBD8boOTDbExy+3KWVhzVyEG734oQ2FbmXMY1nRFQiofEw==
-X-Received: by 2002:ac2:43dc:0:b0:52c:82cf:b80 with SMTP id
- 2adb3069b0e04-52ca6e9a0dfmr6058474e87.63.1718709450007; 
- Tue, 18 Jun 2024 04:17:30 -0700 (PDT)
-Received: from ?IPV6:2a00:f41:9028:9df3:4fb7:492b:2c94:7283?
- ([2a00:f41:9028:9df3:4fb7:492b:2c94:7283])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ca2872480sm1474922e87.157.2024.06.18.04.17.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Jun 2024 04:17:29 -0700 (PDT)
-Message-ID: <290fb9e0-64ea-45ca-87e6-70c0e6edd6a1@linaro.org>
-Date: Tue, 18 Jun 2024 13:17:25 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] drm/msm/adreno: Move CP_PROTECT settings to hw
- catalog
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0667689B01;
+ Tue, 18 Jun 2024 15:34:29 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id C63FFCE0317;
+ Tue, 18 Jun 2024 15:34:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697B8C3277B;
+ Tue, 18 Jun 2024 15:34:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1718724866;
+ bh=+nQiJq6jvTQndJvGZiYobP2khJ0xmO2XzOZLZ/frEfY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CuegVrQjPPoQBzx63RvFc+JE14Y3fYyjgERDi5hBBJZhwf08XwWG8hzJXk8Jsqk3P
+ FgRO2Nlf3+qkTTGXlDf2BiO3B4VwXfGsfLlyQGWEXJzuCiO89yAiwd/NBWB7eR9lbl
+ Zos0HBP5RHSaypeys4SxN0J6luoo3ioCGqNzON9uZK+L7Wu8BV20kq5K9KyDc5vk+/
+ A/Tq6f+OoKE5jpNjAfKo8wuBvNFBUTl/DK9yw1cwSPNE74Ltn6r+37Jo3+dLxYbyiE
+ v2pVmU7kMV3JDlUcWbBNXXVdYoXMk6r02zM7woVfqa7STdTLRomo85Abw9h1og2pdg
+ gekUvQBeyKM0w==
+Date: Tue, 18 Jun 2024 16:34:20 +0100
+From: Will Deacon <will@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Andrew Halaney <ahalaney@redhat.com>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-References: <20240617225127.23476-1-robdclark@gmail.com>
- <20240617225127.23476-6-robdclark@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20240617225127.23476-6-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/adreno: De-spaghettify the use of memory barriers
+Message-ID: <20240618153419.GC2354@willie-the-truck>
+References: <20240508-topic-adreno-v1-1-1babd05c119d@linaro.org>
+ <20240514183849.6lpyplifero5u35r@hu-akhilpo-hyd.qualcomm.com>
+ <ae4a77wt3kc73ejshptldqx6ugzrqguyq7etbbu54y4avhbdlt@qyt4r6gma7ev>
+ <20240516145005.gdksmvxp35m45ifh@hu-akhilpo-hyd.qualcomm.com>
+ <5vyrmxvkurdstqfiatxfqcqljwyiswda2vpkea27ighb2eqbav@n24yzdykbc23>
+ <20240604144055.GE20384@willie-the-truck>
+ <444f6a34-6636-44b0-850b-777c44fd62dd@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <444f6a34-6636-44b0-850b-777c44fd62dd@linaro.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,16 +72,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 6/18/24 00:51, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On Thu, Jun 06, 2024 at 02:03:24PM +0200, Konrad Dybcio wrote:
+> On 4.06.2024 4:40 PM, Will Deacon wrote:
+> > On Thu, May 16, 2024 at 01:55:26PM -0500, Andrew Halaney wrote:
+> >> On Thu, May 16, 2024 at 08:20:05PM GMT, Akhil P Oommen wrote:
+> >>> On Thu, May 16, 2024 at 08:15:34AM -0500, Andrew Halaney wrote:
+> >>>> If I understand correctly, you don't need any memory barrier.
+> >>>> writel()/readl()'s are ordered to the same endpoint. That goes for all
+> >>>> the reordering/barrier comments mentioned below too.
+> >>>>
+> >>>> device-io.rst:
+> >>>>
+> >>>>     The read and write functions are defined to be ordered. That is the
+> >>>>     compiler is not permitted to reorder the I/O sequence. When the ordering
+> >>>>     can be compiler optimised, you can use __readb() and friends to
+> >>>>     indicate the relaxed ordering. Use this with care.
+> >>>>
+> >>>> memory-barriers.txt:
+> >>>>
+> >>>>      (*) readX(), writeX():
+> >>>>
+> >>>> 	    The readX() and writeX() MMIO accessors take a pointer to the
+> >>>> 	    peripheral being accessed as an __iomem * parameter. For pointers
+> >>>> 	    mapped with the default I/O attributes (e.g. those returned by
+> >>>> 	    ioremap()), the ordering guarantees are as follows:
+> >>>>
+> >>>> 	    1. All readX() and writeX() accesses to the same peripheral are ordered
+> >>>> 	       with respect to each other. This ensures that MMIO register accesses
+> >>>> 	       by the same CPU thread to a particular device will arrive in program
+> >>>> 	       order.
+> >>>>
+> >>>
+> >>> In arm64, a writel followed by readl translates to roughly the following
+> >>> sequence: dmb_wmb(), __raw_writel(), __raw_readl(), dmb_rmb(). I am not
+> >>> sure what is stopping compiler from reordering  __raw_writel() and __raw_readl()
+> >>> above? I am assuming iomem cookie is ignored during compilation.
+> >>
+> >> It seems to me that is due to some usage of volatile there in
+> >> __raw_writel() etc, but to be honest after reading about volatile and
+> >> some threads from gcc mailing lists, I don't have a confident answer :)
+> >>
+> >>>
+> >>> Added Will to this thread if he can throw some light on this.
+> >>
+> >> Hopefully Will can school us.
+> > 
+> > The ordering in this case is ensured by the memory attributes used for
+> > ioremap(). When an MMIO region is mapped using Device-nGnRE attributes
+> > (as it the case for ioremap()), the "nR" part means "no reordering", so
+> > readX() and writeX() to that region are ordered wrt each other.
+> > 
+> > Note that guarantee _doesn't_ apply to other flavours of ioremap(), so
+> > e.g. ioremap_wc() won't give you the ordering.
+> > 
+> > Hope that helps,
 > 
-> Move the CP_PROTECT settings into the hw catalog.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
+> Just to make sure I'm following, would mapping things as nGnRnE effectively
+> get rid of write buffering, perhaps being a way of debugging whether that
+> in particular is causing issues (at the cost of speed)?
 
-I think a702 was skipped over
+I think the "nE" part is just a hint, so it will depend on how the
+hardware has been built. On top of that, you'll still need something
+like a DSB to force the CPU to wait for the write response.
 
-Konrad
+Will
