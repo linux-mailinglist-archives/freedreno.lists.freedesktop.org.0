@@ -2,61 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E51DB90D766
-	for <lists+freedreno@lfdr.de>; Tue, 18 Jun 2024 17:34:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAD7F90D897
+	for <lists+freedreno@lfdr.de>; Tue, 18 Jun 2024 18:12:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF69C10E6EE;
-	Tue, 18 Jun 2024 15:34:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C140B10E70D;
+	Tue, 18 Jun 2024 16:12:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CuegVrQj";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="BF8gFfmg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0667689B01;
- Tue, 18 Jun 2024 15:34:29 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id C63FFCE0317;
- Tue, 18 Jun 2024 15:34:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697B8C3277B;
- Tue, 18 Jun 2024 15:34:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718724866;
- bh=+nQiJq6jvTQndJvGZiYobP2khJ0xmO2XzOZLZ/frEfY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CuegVrQjPPoQBzx63RvFc+JE14Y3fYyjgERDi5hBBJZhwf08XwWG8hzJXk8Jsqk3P
- FgRO2Nlf3+qkTTGXlDf2BiO3B4VwXfGsfLlyQGWEXJzuCiO89yAiwd/NBWB7eR9lbl
- Zos0HBP5RHSaypeys4SxN0J6luoo3ioCGqNzON9uZK+L7Wu8BV20kq5K9KyDc5vk+/
- A/Tq6f+OoKE5jpNjAfKo8wuBvNFBUTl/DK9yw1cwSPNE74Ltn6r+37Jo3+dLxYbyiE
- v2pVmU7kMV3JDlUcWbBNXXVdYoXMk6r02zM7woVfqa7STdTLRomo85Abw9h1og2pdg
- gekUvQBeyKM0w==
-Date: Tue, 18 Jun 2024 16:34:20 +0100
-From: Will Deacon <will@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: Andrew Halaney <ahalaney@redhat.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7061710E0E0;
+ Tue, 18 Jun 2024 16:12:14 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45IBCqcW005312;
+ Tue, 18 Jun 2024 16:12:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=DJbPrjRaIj8/B9EpEBGXNYWr
+ h0MR43gEeBmb26KI2FE=; b=BF8gFfmgoHCOten5wPNXAOty7uz/468ZeCHERTZz
+ jCB6BDygS2mnLkLwySiz7QhXiJE9C3q0pffpRvmGhTwyn6kH1l6eSqIdum8YuKMX
+ BJVUYRcuBO71YtHghku7iqePqvdTnhDjtl7RtP0rXpB2ictbpFQ3Y2sVlPrKPu+A
+ hcPCxPUAAkfPB3Pa2uV/Bq0Db50ml1qP6L4B2mam2kKJaDe1//aim8qBJLx4xJl7
+ pPlh+1V/B0qH1nI+1VRcJeU82ObyoHFcWsHHfTu2HLyYCZ9zCokinrztmq2Gjahd
+ xhck7U/EawNceGM3f2zVZgvL/7NZsnzim9XqXyi5Rsm3Fg==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yu95rgt3c-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Jun 2024 16:12:08 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45IGC6Ig009286
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Jun 2024 16:12:06 GMT
+Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Tue, 18 Jun 2024 09:12:01 -0700
+Date: Tue, 18 Jun 2024 21:41:58 +0530
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: Will Deacon <will@kernel.org>
+CC: Andrew Halaney <ahalaney@redhat.com>, Konrad Dybcio
+ <konrad.dybcio@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>,
+ Rob Clark <robdclark@chromium.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
 Subject: Re: [PATCH] drm/msm/adreno: De-spaghettify the use of memory barriers
-Message-ID: <20240618153419.GC2354@willie-the-truck>
+Message-ID: <20240618161158.qpqbv77tqveo5g6l@hu-akhilpo-hyd.qualcomm.com>
 References: <20240508-topic-adreno-v1-1-1babd05c119d@linaro.org>
  <20240514183849.6lpyplifero5u35r@hu-akhilpo-hyd.qualcomm.com>
  <ae4a77wt3kc73ejshptldqx6ugzrqguyq7etbbu54y4avhbdlt@qyt4r6gma7ev>
  <20240516145005.gdksmvxp35m45ifh@hu-akhilpo-hyd.qualcomm.com>
  <5vyrmxvkurdstqfiatxfqcqljwyiswda2vpkea27ighb2eqbav@n24yzdykbc23>
  <20240604144055.GE20384@willie-the-truck>
- <444f6a34-6636-44b0-850b-777c44fd62dd@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <444f6a34-6636-44b0-850b-777c44fd62dd@linaro.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20240604144055.GE20384@willie-the-truck>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: BUNumrrajOAzsr7DX2KcvMEECRsfSlrH
+X-Proofpoint-ORIG-GUID: BUNumrrajOAzsr7DX2KcvMEECRsfSlrH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-18_02,2024-06-17_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ bulkscore=0 mlxscore=0 adultscore=0 clxscore=1011 priorityscore=1501
+ spamscore=0 phishscore=0 mlxlogscore=999 suspectscore=0 malwarescore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405170001 definitions=main-2406180121
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,67 +99,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 06, 2024 at 02:03:24PM +0200, Konrad Dybcio wrote:
-> On 4.06.2024 4:40 PM, Will Deacon wrote:
-> > On Thu, May 16, 2024 at 01:55:26PM -0500, Andrew Halaney wrote:
-> >> On Thu, May 16, 2024 at 08:20:05PM GMT, Akhil P Oommen wrote:
-> >>> On Thu, May 16, 2024 at 08:15:34AM -0500, Andrew Halaney wrote:
-> >>>> If I understand correctly, you don't need any memory barrier.
-> >>>> writel()/readl()'s are ordered to the same endpoint. That goes for all
-> >>>> the reordering/barrier comments mentioned below too.
-> >>>>
-> >>>> device-io.rst:
-> >>>>
-> >>>>     The read and write functions are defined to be ordered. That is the
-> >>>>     compiler is not permitted to reorder the I/O sequence. When the ordering
-> >>>>     can be compiler optimised, you can use __readb() and friends to
-> >>>>     indicate the relaxed ordering. Use this with care.
-> >>>>
-> >>>> memory-barriers.txt:
-> >>>>
-> >>>>      (*) readX(), writeX():
-> >>>>
-> >>>> 	    The readX() and writeX() MMIO accessors take a pointer to the
-> >>>> 	    peripheral being accessed as an __iomem * parameter. For pointers
-> >>>> 	    mapped with the default I/O attributes (e.g. those returned by
-> >>>> 	    ioremap()), the ordering guarantees are as follows:
-> >>>>
-> >>>> 	    1. All readX() and writeX() accesses to the same peripheral are ordered
-> >>>> 	       with respect to each other. This ensures that MMIO register accesses
-> >>>> 	       by the same CPU thread to a particular device will arrive in program
-> >>>> 	       order.
-> >>>>
-> >>>
-> >>> In arm64, a writel followed by readl translates to roughly the following
-> >>> sequence: dmb_wmb(), __raw_writel(), __raw_readl(), dmb_rmb(). I am not
-> >>> sure what is stopping compiler from reordering  __raw_writel() and __raw_readl()
-> >>> above? I am assuming iomem cookie is ignored during compilation.
-> >>
-> >> It seems to me that is due to some usage of volatile there in
-> >> __raw_writel() etc, but to be honest after reading about volatile and
-> >> some threads from gcc mailing lists, I don't have a confident answer :)
-> >>
-> >>>
-> >>> Added Will to this thread if he can throw some light on this.
-> >>
-> >> Hopefully Will can school us.
+On Tue, Jun 04, 2024 at 03:40:56PM +0100, Will Deacon wrote:
+> On Thu, May 16, 2024 at 01:55:26PM -0500, Andrew Halaney wrote:
+> > On Thu, May 16, 2024 at 08:20:05PM GMT, Akhil P Oommen wrote:
+> > > On Thu, May 16, 2024 at 08:15:34AM -0500, Andrew Halaney wrote:
+> > > > If I understand correctly, you don't need any memory barrier.
+> > > > writel()/readl()'s are ordered to the same endpoint. That goes for all
+> > > > the reordering/barrier comments mentioned below too.
+> > > > 
+> > > > device-io.rst:
+> > > > 
+> > > >     The read and write functions are defined to be ordered. That is the
+> > > >     compiler is not permitted to reorder the I/O sequence. When the ordering
+> > > >     can be compiler optimised, you can use __readb() and friends to
+> > > >     indicate the relaxed ordering. Use this with care.
+> > > > 
+> > > > memory-barriers.txt:
+> > > > 
+> > > >      (*) readX(), writeX():
+> > > > 
+> > > > 	    The readX() and writeX() MMIO accessors take a pointer to the
+> > > > 	    peripheral being accessed as an __iomem * parameter. For pointers
+> > > > 	    mapped with the default I/O attributes (e.g. those returned by
+> > > > 	    ioremap()), the ordering guarantees are as follows:
+> > > > 
+> > > > 	    1. All readX() and writeX() accesses to the same peripheral are ordered
+> > > > 	       with respect to each other. This ensures that MMIO register accesses
+> > > > 	       by the same CPU thread to a particular device will arrive in program
+> > > > 	       order.
+> > > > 
+> > > 
+> > > In arm64, a writel followed by readl translates to roughly the following
+> > > sequence: dmb_wmb(), __raw_writel(), __raw_readl(), dmb_rmb(). I am not
+> > > sure what is stopping compiler from reordering  __raw_writel() and __raw_readl()
+> > > above? I am assuming iomem cookie is ignored during compilation.
 > > 
-> > The ordering in this case is ensured by the memory attributes used for
-> > ioremap(). When an MMIO region is mapped using Device-nGnRE attributes
-> > (as it the case for ioremap()), the "nR" part means "no reordering", so
-> > readX() and writeX() to that region are ordered wrt each other.
+> > It seems to me that is due to some usage of volatile there in
+> > __raw_writel() etc, but to be honest after reading about volatile and
+> > some threads from gcc mailing lists, I don't have a confident answer :)
 > > 
-> > Note that guarantee _doesn't_ apply to other flavours of ioremap(), so
-> > e.g. ioremap_wc() won't give you the ordering.
+> > > 
+> > > Added Will to this thread if he can throw some light on this.
 > > 
-> > Hope that helps,
+> > Hopefully Will can school us.
 > 
-> Just to make sure I'm following, would mapping things as nGnRnE effectively
-> get rid of write buffering, perhaps being a way of debugging whether that
-> in particular is causing issues (at the cost of speed)?
+> The ordering in this case is ensured by the memory attributes used for
+> ioremap(). When an MMIO region is mapped using Device-nGnRE attributes
+> (as it the case for ioremap()), the "nR" part means "no reordering", so
+> readX() and writeX() to that region are ordered wrt each other.
 
-I think the "nE" part is just a hint, so it will depend on how the
-hardware has been built. On top of that, you'll still need something
-like a DSB to force the CPU to wait for the write response.
+But that avoids only HW reordering, doesn't it? What about *compiler reordering* in the
+case of a writel following by a readl which translates to:
+	1: dmb_wmb()
+	2: __raw_writel() -> roughly "asm volatile('str')
+	3: __raw_readl() -> roughly "asm volatile('ldr')
+	4: dmb_rmb()
 
-Will
+Is the 'volatile' keyword sufficient to avoid reordering between (2) and (3)? Or
+do we need a "memory" clobber to inhibit reordering?
+
+This is still not clear to me even after going through some compiler documentions.
+
+-Akhil.
+
+> 
+> Note that guarantee _doesn't_ apply to other flavours of ioremap(), so
+> e.g. ioremap_wc() won't give you the ordering.
+> 
+> Hope that helps,
+> 
+> Will
