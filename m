@@ -2,53 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5D9E90E030
-	for <lists+freedreno@lfdr.de>; Wed, 19 Jun 2024 01:51:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8661490E050
+	for <lists+freedreno@lfdr.de>; Wed, 19 Jun 2024 02:01:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9805F10E80F;
-	Tue, 18 Jun 2024 23:51:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD28C10E1E2;
+	Wed, 19 Jun 2024 00:01:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="HvU3coHK";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="PXwJfJqF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B21D610E80F;
- Tue, 18 Jun 2024 23:51:55 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45ILav2K007306;
- Tue, 18 Jun 2024 23:51:53 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F8F410E1E2;
+ Wed, 19 Jun 2024 00:01:01 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45ILaNPk001113;
+ Wed, 19 Jun 2024 00:00:57 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- J91iosksmeOdMOZzm+kOJZZC2FYeRzmBvrrl1NXM6ME=; b=HvU3coHKk0oI9+r/
- j2NVV3Jnt4b16AQHSZbbq5sw3IMscW6IDZRPtvT+YbZnKbC1xt75K9xc1djG3VW6
- iOVm9OCGiX6S+ENN3gISkGJGP/0J2iA0XcQ5sqLxjicyIZCQQ572ZDSc6Sr4Mm06
- UPJXUy4Y8tWpaQi2P2K72XJ5evEnLi6Q02VN79CPgMrBFnSQ2HDEQGgfPi0G+IwB
- 42uydJtlU7dGLsNKBdMVfozJ5/DVmpLLbkR1AP8zHNCoZvuUaKnWbquaffiXPn1N
- ZPQYChP1RgnlLLxOoi8ax8zw/ttCVvfH0bwgqIhBoaYLLnsqYRR0A9z4kO768RMK
- NkzKPA==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ xVD7KOpuBOvNjrz+9mgfdwPgt4x1SXqbuiYEaj4mg/E=; b=PXwJfJqFOKmFWKhY
+ 0yI/pXl/+lAguhsPL/im/FTeMw+UdnsbSvwKxUJSqcjxaa5DTuPrjatU+OTNryqw
+ l1KbwaIWr3GbM9O8kGhQWK108xIHmzFx4fdlX4kzLRVqq03CYRYY783oOgP5CIlW
+ vDJPAwCwEQBgf0lThHAcpv43/eQku0jN0XDWZuZftQ8TjNm3/G+pmN4OBw3wi6dz
+ 9/Ea42MW+SPe7lSbVYV8br5csaI1xAsYTzKMX7mfn4mV9D85P617IzLByuAy/rNW
+ saKLboC/og6aw3Xgr8akBbotpBIv90UcMwYYLsPym/g19hDs3SBcztXMEASgGmHe
+ Amzjsg==
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yuj9u06n1-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yuja2875r-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 18 Jun 2024 23:51:52 +0000 (GMT)
+ Wed, 19 Jun 2024 00:00:57 +0000 (GMT)
 Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
  [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45INppBr025257
+ by NASANPPMTA01.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45J00ufS001608
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 18 Jun 2024 23:51:51 GMT
+ Wed, 19 Jun 2024 00:00:56 GMT
 Received: from [10.71.108.229] (10.80.80.8) by nasanex01b.na.qualcomm.com
  (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 18 Jun
- 2024 16:51:51 -0700
-Message-ID: <badbf856-1b6d-42cd-880d-cdde2f293a86@quicinc.com>
-Date: Tue, 18 Jun 2024 16:51:51 -0700
+ 2024 17:00:56 -0700
+Message-ID: <9ddb841c-382a-4684-92cb-3a07e72ce5da@quicinc.com>
+Date: Tue, 18 Jun 2024 17:00:55 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/14] drm/msm/hdmi: switch to clk_bulk API
+Subject: Re: [PATCH v2 07/14] drm/msm/hdmi: switch to
+ pm_runtime_resume_and_get()
 Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
  <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul
@@ -57,28 +58,28 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
 CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
 References: <20240522-fd-hdmi-hpd-v2-0-c30bdb7c5c7e@linaro.org>
- <20240522-fd-hdmi-hpd-v2-6-c30bdb7c5c7e@linaro.org>
+ <20240522-fd-hdmi-hpd-v2-7-c30bdb7c5c7e@linaro.org>
 From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20240522-fd-hdmi-hpd-v2-6-c30bdb7c5c7e@linaro.org>
+In-Reply-To: <20240522-fd-hdmi-hpd-v2-7-c30bdb7c5c7e@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: XTn-NELIBobjl-y64lU50Y8cByUxh83c
-X-Proofpoint-ORIG-GUID: XTn-NELIBobjl-y64lU50Y8cByUxh83c
+X-Proofpoint-GUID: JbHUk5wEWQBDUxEURMskGSCvS708-Tom
+X-Proofpoint-ORIG-GUID: JbHUk5wEWQBDUxEURMskGSCvS708-Tom
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-06-18_06,2024-06-17_01,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  priorityscore=1501
- adultscore=0 mlxlogscore=999 clxscore=1011 mlxscore=0 phishscore=0
- bulkscore=0 impostorscore=0 spamscore=0 suspectscore=0 malwarescore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405170001 definitions=main-2406180174
+ mlxlogscore=999 suspectscore=0 clxscore=1015 impostorscore=0
+ malwarescore=0 mlxscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
+ phishscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405170001 definitions=main-2406180176
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,136 +98,82 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 On 5/22/2024 3:50 AM, Dmitry Baryshkov wrote:
-> The last platform using legacy clock names for HDMI block (APQ8064)
-> switched to new clock names in 5.16. It's time to stop caring about old
-> DT, drop hand-coded helpers and switch to clk_bulk_* API.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> The pm_runtime_get_sync() function is a bad choise for runtime power
+
+[nit: s/choise/choice/]
 
 Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 
-> ---
->   drivers/gpu/drm/msm/hdmi/hdmi.c     | 15 +++++---------
->   drivers/gpu/drm/msm/hdmi/hdmi.h     |  2 +-
->   drivers/gpu/drm/msm/hdmi/hdmi_hpd.c | 39 +++++++++++++------------------------
->   3 files changed, 19 insertions(+), 37 deletions(-)
+> management. Switch HDMI driver to pm_runtime_resume_and_get() and add
+> proper error handling, while we are at it.
 > 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> index c14e009f38b1..7ec4ca3b7597 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> @@ -469,17 +469,12 @@ static int msm_hdmi_dev_probe(struct platform_device *pdev)
->   	if (!hdmi->hpd_clks)
->   		return -ENOMEM;
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/hdmi/hdmi_bridge.c |  2 +-
+>   drivers/gpu/drm/msm/hdmi/hdmi_hpd.c    | 12 ++++++++++--
+>   drivers/gpu/drm/msm/hdmi/hdmi_phy.c    |  6 +++++-
+>   3 files changed, 16 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> index fb99328107dd..d1b35328b6e8 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> @@ -19,7 +19,7 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
+>   	const struct hdmi_platform_config *config = hdmi->config;
+>   	int ret;
 >   
-> -	for (i = 0; i < config->hpd_clk_cnt; i++) {
-> -		struct clk *clk;
-> +	for (i = 0; i < config->hpd_clk_cnt; i++)
-> +		hdmi->hpd_clks[i].id = config->hpd_clk_names[i];
+> -	pm_runtime_get_sync(&hdmi->pdev->dev);
+> +	pm_runtime_resume_and_get(&hdmi->pdev->dev);
 >   
-> -		clk = msm_clk_get(pdev, config->hpd_clk_names[i]);
-> -		if (IS_ERR(clk))
-> -			return dev_err_probe(dev, PTR_ERR(clk),
-> -					     "failed to get hpd clk: %s\n",
-> -					     config->hpd_clk_names[i]);
-> -
-> -		hdmi->hpd_clks[i] = clk;
-> -	}
-> +	ret = devm_clk_bulk_get(&pdev->dev, config->hpd_clk_cnt, hdmi->hpd_clks);
-> +	if (ret)
-> +		return ret;
->   
->   	hdmi->extp_clk = devm_clk_get_optional(&pdev->dev, "extp");
->   	if (IS_ERR(hdmi->extp_clk))
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.h b/drivers/gpu/drm/msm/hdmi/hdmi.h
-> index c0d60ed23b75..eeba85ffef09 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi.h
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.h
-> @@ -50,7 +50,7 @@ struct hdmi {
->   
->   	struct regulator_bulk_data *hpd_regs;
->   	struct regulator_bulk_data *pwr_regs;
-> -	struct clk **hpd_clks;
-> +	struct clk_bulk_data *hpd_clks;
->   	struct clk *extp_clk;
->   
->   	struct gpio_desc *hpd_gpiod;
+>   	ret = regulator_bulk_enable(config->pwr_reg_cnt, hdmi->pwr_regs);
+>   	if (ret)
 > diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-> index 7ae69b14e953..36266aa626dc 100644
+> index 36266aa626dc..fc21ad3b01dc 100644
 > --- a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
 > +++ b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-> @@ -60,27 +60,6 @@ static void msm_hdmi_phy_reset(struct hdmi *hdmi)
->   	}
->   }
->   
-> -static void enable_hpd_clocks(struct hdmi *hdmi, bool enable)
-> -{
-> -	const struct hdmi_platform_config *config = hdmi->config;
-> -	struct device *dev = &hdmi->pdev->dev;
-> -	int i, ret;
-> -
-> -	if (enable) {
-> -		for (i = 0; i < config->hpd_clk_cnt; i++) {
-> -			ret = clk_prepare_enable(hdmi->hpd_clks[i]);
-> -			if (ret) {
-> -				DRM_DEV_ERROR(dev,
-> -					"failed to enable hpd clk: %s (%d)\n",
-> -					config->hpd_clk_names[i], ret);
-> -			}
-> -		}
-> -	} else {
-> -		for (i = config->hpd_clk_cnt - 1; i >= 0; i--)
-> -			clk_disable_unprepare(hdmi->hpd_clks[i]);
-> -	}
-> -}
-> -
->   int msm_hdmi_hpd_enable(struct drm_bridge *bridge)
->   {
->   	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
-> @@ -107,7 +86,9 @@ int msm_hdmi_hpd_enable(struct drm_bridge *bridge)
+> @@ -85,7 +85,12 @@ int msm_hdmi_hpd_enable(struct drm_bridge *bridge)
+>   	if (hdmi->hpd_gpiod)
 >   		gpiod_set_value_cansleep(hdmi->hpd_gpiod, 1);
 >   
->   	pm_runtime_get_sync(dev);
-> -	enable_hpd_clocks(hdmi, true);
-> +	ret = clk_bulk_prepare_enable(config->hpd_clk_cnt, hdmi->hpd_clks);
-> +	if (ret)
+> -	pm_runtime_get_sync(dev);
+> +	ret = pm_runtime_resume_and_get(dev);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(dev, "runtime resume failed: %d\n", ret);
 > +		goto fail;
+> +	}
+> +
+>   	ret = clk_bulk_prepare_enable(config->hpd_clk_cnt, hdmi->hpd_clks);
+>   	if (ret)
+>   		goto fail;
+> @@ -178,7 +183,10 @@ static enum drm_connector_status detect_reg(struct hdmi *hdmi)
+>   	uint32_t hpd_int_status = 0;
+>   	int ret;
 >   
->   	msm_hdmi_set_mode(hdmi, false);
->   	msm_hdmi_phy_reset(hdmi);
-> @@ -149,7 +130,7 @@ void msm_hdmi_hpd_disable(struct hdmi *hdmi)
->   
->   	msm_hdmi_set_mode(hdmi, false);
->   
-> -	enable_hpd_clocks(hdmi, false);
-> +	clk_bulk_disable_unprepare(config->hpd_clk_cnt, hdmi->hpd_clks);
->   	pm_runtime_put(dev);
->   
->   	ret = pinctrl_pm_select_sleep_state(dev);
-> @@ -193,14 +174,20 @@ void msm_hdmi_hpd_irq(struct drm_bridge *bridge)
->   
->   static enum drm_connector_status detect_reg(struct hdmi *hdmi)
->   {
-> -	uint32_t hpd_int_status;
-> +	const struct hdmi_platform_config *config = hdmi->config;
-> +	uint32_t hpd_int_status = 0;
-> +	int ret;
->   
->   	pm_runtime_get_sync(&hdmi->pdev->dev);
-> -	enable_hpd_clocks(hdmi, true);
-> +	ret = clk_bulk_prepare_enable(config->hpd_clk_cnt, hdmi->hpd_clks);
+> -	pm_runtime_get_sync(&hdmi->pdev->dev);
+> +	ret = pm_runtime_resume_and_get(&hdmi->pdev->dev);
 > +	if (ret)
 > +		goto out;
->   
->   	hpd_int_status = hdmi_read(hdmi, REG_HDMI_HPD_INT_STATUS);
->   
-> -	enable_hpd_clocks(hdmi, false);
-> +	clk_bulk_disable_unprepare(config->hpd_clk_cnt, hdmi->hpd_clks);
 > +
-> +out:
->   	pm_runtime_put(&hdmi->pdev->dev);
+>   	ret = clk_bulk_prepare_enable(config->hpd_clk_cnt, hdmi->hpd_clks);
+>   	if (ret)
+>   		goto out;
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+> index 88a3423b7f24..d5acae752300 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+> @@ -58,7 +58,11 @@ int msm_hdmi_phy_resource_enable(struct hdmi_phy *phy)
+>   	struct device *dev = &phy->pdev->dev;
+>   	int i, ret = 0;
 >   
->   	return (hpd_int_status & HDMI_HPD_INT_STATUS_CABLE_DETECTED) ?
+> -	pm_runtime_get_sync(dev);
+> +	ret = pm_runtime_resume_and_get(dev);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(dev, "runtime resume failed: %d\n", ret);
+> +		return ret;
+> +	}
+>   
+>   	ret = regulator_bulk_enable(cfg->num_regs, phy->regs);
+>   	if (ret) {
 > 
 > -- 
 > 2.39.2
