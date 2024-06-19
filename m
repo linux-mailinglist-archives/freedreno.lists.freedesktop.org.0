@@ -2,55 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FE7490F66E
-	for <lists+freedreno@lfdr.de>; Wed, 19 Jun 2024 20:48:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3A6590F694
+	for <lists+freedreno@lfdr.de>; Wed, 19 Jun 2024 20:59:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 241F010ED8D;
-	Wed, 19 Jun 2024 18:48:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CED610ED96;
+	Wed, 19 Jun 2024 18:59:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="WGq0SehK";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="J6843BB7";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C29D210ED8D;
- Wed, 19 Jun 2024 18:48:20 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45J94T8s028107;
- Wed, 19 Jun 2024 18:48:12 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9DF610ED95;
+ Wed, 19 Jun 2024 18:59:36 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45J9iV1G006022;
+ Wed, 19 Jun 2024 18:59:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- NPqpxJL5tq6TkrWcnq4DHCSTL9FtWGZrMIwo+LesLGs=; b=WGq0SehKmE4YRR+e
- lzAFGHCkUJx7n8lVjWmyZNi/VRWPRYhO7BZunOZ6izC9pj7A5gJOQZfnWeM5jbtX
- QO6mL8GE/5ZSSr1cyiha440GaGsxLFrnn6SaQU1NsmODV5bGyG8q2X5IBe2qIiJn
- XsypXF+NMm773zhCg17tG4ZfKDkKpG4E8zoZBBz1OH7iN6PUdPY4Wa3s+ZQMo3SU
- 8DWR//NfPWaSvjtPGhN1O/rre1nvCe7pSEOkaFxzElSiJdfdOlU526jL/oUVKRZ3
- L9hGudYxR1LAJPGNVAOSSMxqI3qold1IOBXIBv+VNMLmiCKyLCOHV6/k0ayxF2GB
- zIxv5A==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ ibLN8OyO+VXPj1Q0uh/U0kclQpIn6i4Yryc+elE/QKM=; b=J6843BB77LYXlwtC
+ 392Uq8DPfYb5qou7/kyXB0FDm+at2PgZvYIb38sk5nyO2Y6Snq2fuMzw3cjRAc1P
+ ju1GxlAWwDcJWWriZIT3TXQra++x8SDlaTqYEtuE/Glp+RgD+s9WH6q5SZdIjvn6
+ mkNYmRCXFdR+s3b6l/UNcDe266btVOynMFl3zUsCp//Fa+cpiYLbg2T7CVcREjX/
+ 7EXABdSP9ucBcdjw5KLolaaLF8xi844WBGKDHmt8c5OmR51dZfQOaSyZaHHi6BUP
+ 5M7rNlPuARSCH7RFkn1ffgoLngL1hFk3ZOnz/N7rTQUQAYs8K6Z7N/CaSYlij6S/
+ 9qF2sQ==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yujc4jgcj-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yuj9u2k9q-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 19 Jun 2024 18:48:12 +0000 (GMT)
+ Wed, 19 Jun 2024 18:59:31 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45JImBQ3019655
+ by NALASPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45JIxUwc011051
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 19 Jun 2024 18:48:11 GMT
+ Wed, 19 Jun 2024 18:59:30 GMT
 Received: from [10.71.110.249] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 19 Jun
- 2024 11:48:00 -0700
-Message-ID: <1cd25478-1e17-044e-6148-ca67a0e808e1@quicinc.com>
-Date: Wed, 19 Jun 2024 11:47:58 -0700
+ 2024 11:59:25 -0700
+Message-ID: <e8bf90cc-b08a-bdd1-8890-caec19245d76@quicinc.com>
+Date: Wed, 19 Jun 2024 11:59:24 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v2 1/8] dt-bindings: display/msm/dsi: allow specifying TE
- source
+Subject: Re: [PATCH v2 7/8] drm/msm/dpu: support setting the TE source
 Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
@@ -62,12 +61,11 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
  Conor Dooley <conor+dt@kernel.org>,
  Krishna Manikandan <quic_mkrishn@quicinc.com>
 CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>, "Krzysztof
- Kozlowski" <krzysztof.kozlowski@linaro.org>
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>
 References: <20240613-dpu-handle-te-signal-v2-0-67a0116b5366@linaro.org>
- <20240613-dpu-handle-te-signal-v2-1-67a0116b5366@linaro.org>
+ <20240613-dpu-handle-te-signal-v2-7-67a0116b5366@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240613-dpu-handle-te-signal-v2-1-67a0116b5366@linaro.org>
+In-Reply-To: <20240613-dpu-handle-te-signal-v2-7-67a0116b5366@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -76,17 +74,17 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: 0m7HuE6dPUxu35rqRB6GYf5hZYMlTMqv
-X-Proofpoint-GUID: 0m7HuE6dPUxu35rqRB6GYf5hZYMlTMqv
+X-Proofpoint-GUID: 4xwkFv8wQzuoTQ7ViJPMow3PHnn3IZGZ
+X-Proofpoint-ORIG-GUID: 4xwkFv8wQzuoTQ7ViJPMow3PHnn3IZGZ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-06-19_02,2024-06-19_01,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1011
- priorityscore=1501 mlxlogscore=999 malwarescore=0 lowpriorityscore=0
- mlxscore=0 bulkscore=0 impostorscore=0 spamscore=0 phishscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405170001 definitions=main-2406190142
+ priorityscore=1501
+ adultscore=0 mlxlogscore=728 clxscore=1015 mlxscore=0 phishscore=0
+ bulkscore=0 impostorscore=0 spamscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405170001 definitions=main-2406190143
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,18 +103,16 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 On 6/13/2024 10:05 AM, Dmitry Baryshkov wrote:
-> Command mode panels provide TE signal back to the DSI host to signal
-> that the frame display has completed and update of the image will not
-> cause tearing. Usually it is connected to the first GPIO with the
-> mdp_vsync function, which is the default. In such case the property can
-> be skipped.
+> Make the DPU driver use the TE source specified in the DT. If none is
+> specified, the driver defaults to the first GPIO (mdp_vsync0).
 > 
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
+as marijn noted,
+
+mdp_vsync0 ---> mdp_vsyncp
+
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   .../bindings/display/msm/dsi-controller-main.yaml       | 17 +++++++++++++++++
->   1 file changed, 17 insertions(+)
-> 
+
+With that addressed,
 
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
