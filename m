@@ -2,68 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 472C4910566
-	for <lists+freedreno@lfdr.de>; Thu, 20 Jun 2024 15:09:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5161D910D45
+	for <lists+freedreno@lfdr.de>; Thu, 20 Jun 2024 18:40:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 229B410E9E3;
-	Thu, 20 Jun 2024 13:09:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05A0210EB31;
+	Thu, 20 Jun 2024 16:40:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ge6vd5Nl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PyEmtXaR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
- [209.85.210.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB97510E9D5
- for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 13:08:58 +0000 (UTC)
-Received: by mail-ot1-f49.google.com with SMTP id
- 46e09a7af769-6f977acff19so385690a34.3
- for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 06:08:58 -0700 (PDT)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C0F010EB31;
+ Thu, 20 Jun 2024 16:40:33 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-2ec0f3b9cfeso11215271fa.0; 
+ Thu, 20 Jun 2024 09:40:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718888938; x=1719493738; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=3rkNtw9YPMCGiaNrE2wpOjWh2PZ5/d2L88aMo+GCsZk=;
- b=ge6vd5NlhFkaBiAQAlsvFqlXRb7Lp5b5DkCiUTNPElkKu+LaLW1f5ecPoGHaJ/4dHc
- 0+9pWQ+TMwsHm+XZOf/wjoVitBkKmxoEsrcJjW5zrB/9fXut36PJBJCUcLn3i7E1m6rl
- rHhpIfTzM9NB9mpmpISSdC++jc2BCEGTuz0AbqBHSSsEUHeOY4nUWw3/0zR1/z0bEoBW
- +h4lqt3/mA+wNEbIjF3IdWKUmIvsCwU2+nNG9BPxTtU7Chxpf0S+EVRLUFGTiM1O9hvT
- fsJ/eej2jAqp+tSIt1qZ+TPt/44ir1cvYu9Eeok0SSg+sIP/z5XmPqLAxhks6YBMIBzR
- ueOQ==
+ d=gmail.com; s=20230601; t=1718901631; x=1719506431; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ybRqH+f3jYJpqHLaTIJ36+rntUDMcpku54YvTURH+dM=;
+ b=PyEmtXaRU/RTucqdThSYPQLDQgnKmzNgfEVmDHJPXBXx5r8ZB0/qcYX3triKbkU+x+
+ sR+9pjhZZs0xI/iZoFUXsCyM0d5sWaYP+P+diGjl7fOY1ojHt5gNGNDqx1SJ5E+4DMJZ
+ 7qfaEiN+EunLdfuLRLQa4uUB8NYOCJbAj3AkuY3E17rQtv9tCOVU2NqvdmuLxEnUuHuY
+ 4yFHkdwoSYSHnr7XFQPtr44BVnCWX2QTRO5OGplwGbqCuJbIEeRmxVtUoSYk8YjwA9UG
+ O6eSEXLkWTD4Ko/8CaL3vW9I08m5E4YrUqkULQ194c42iPr45/Gj/P5Id6OvluImE15N
+ 3BmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718888938; x=1719493738;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3rkNtw9YPMCGiaNrE2wpOjWh2PZ5/d2L88aMo+GCsZk=;
- b=Ihwmusp/2lNtAf7XGY6oALXQtGidiVIBmG7L9286hndCDeMuGjzE+f7gsNN/gJOEIU
- 3GRbwuW5qzUDitW9xQRAbeOQuccELkfsPJkhL6Glv9GsDYJiuTeScvjg1S6f3QNYaRpb
- 4RrUpHQJKoRzWKGs7v07ovHxdAstCytGC09hYPZIeHCMIjmBkHjQMPpVyYUX/5msa7W9
- 71ABW0ZTe60p1/MxesZqDcwdIes9nDGt5z1Ek0q0rVcxkWLzoS+XrVxsQ5CVy2/Puchm
- e2S17Ybazyjvy44uQ7i2UTsycrcjpR80i5cHLyKDFnMxBv7NGLbBrXcNPnH1QxPfRYQ7
- 4SjQ==
-X-Gm-Message-State: AOJu0Yxtz1pzSwf6Fx7AVC91YMfvwh8/mVA9Y0I4Y3eKMoCTciLt567L
- ThwaypO+TTEsMJ4BHIUro5ec335F8NWPMTNUIbRo2Qx3VuT1leYBIRQqo/rHj7AJGowUC5FmltU
- u4XdiFHjpP2Kzg9xyq5FYsFbrEqESJagEgQMW5A==
-X-Google-Smtp-Source: AGHT+IF/yD+0GZN6cAxps+FA6XiCIOAiMvgRzsPW3OFiThohVo42Hf9KaLzzZhArPsljy8CiIl3TpYiqk9Wxxenp9Vg=
-X-Received: by 2002:a05:6358:8096:b0:199:432b:821b with SMTP id
- e5c5f4694b2df-1a1fd49a301mr606688455d.17.1718888935830; Thu, 20 Jun 2024
- 06:08:55 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1718901631; x=1719506431;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ybRqH+f3jYJpqHLaTIJ36+rntUDMcpku54YvTURH+dM=;
+ b=H+Tj0bbH3YOcueSghbapfjkdkhsLE21ItLNAhu8baF/AvyiMcDslET0MJruCBlxsyr
+ EeIyfHkuyWoSlRBFbK4i9rzfzFEzy38/vX4t+NzK0lteh+JWg6LRno68YLWq3Ln2rXIS
+ MKMuNPWA6QdpBEZYmycGhfkAhEnOGLQK+capUfn+nTXdovoEfb7kNit5qSHsjMuvWSPG
+ NsdGo4NzROr73M7o4gtFDaLWXvUzGB8lM7sQzYPTYj8Wz8ZQEaTB+ARqNfMxPzbVZbSA
+ tEZ76yQ7q8uQmKUXXdKX4guh41QjvdKLLfgDj/lEFGnc1Ep4R5RQyRVA9mkkXWgwfgou
+ MCbw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVOmREamqJi/TxPN0K45xeskTYyb85r8ywDqRMlS6JhHKRkRBnoJUXuePSFa9DWphs0xxQe2KFwOaOXhdSsUt12lpkMxpvI+yknI9vVKvdT
+X-Gm-Message-State: AOJu0YzqcOPdWPL+CVNp6FEoDjM4CTi+gG8RXhfIzSCjakdrmu5eQF0Z
+ sAUnvTfhN/8HuARfJEA4HFyccciVSvNs2rfhpBRWHhk1TjWfaE0luY9p2pEE5YzAOmQXEvGXn2t
+ fjtx/xqqjlWToJ9T1wYqATAUYglg=
+X-Google-Smtp-Source: AGHT+IGvqdAlDx6Z6v6araLkEoxtUYIgBR7BNE4u41+u5r5Ox89EvqTbeZiT2Cqa/Zme0pueUrHwq2W88SeIlIYAC/Y=
+X-Received: by 2002:a2e:a9ac:0:b0:2ec:3d74:88ca with SMTP id
+ 38308e7fff4ca-2ec3d748a31mr44402911fa.25.1718901631136; Thu, 20 Jun 2024
+ 09:40:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240619212743.3193985-1-quic_abhinavk@quicinc.com>
-In-Reply-To: <20240619212743.3193985-1-quic_abhinavk@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 20 Jun 2024 16:08:44 +0300
-Message-ID: <CAA8EJpowTONWNQH+Sqe1w1eL85Ty4tw8_Qkc1yToQu9s17Tokw@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: protect ctl ops calls with validity checks
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- quic_jesszhan@quicinc.com, dan.carpenter@linaro.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20240618164303.66615-1-robdclark@gmail.com>
+ <20240618164303.66615-6-robdclark@gmail.com>
+ <ecadeb37-fd12-4b63-949b-136356a42362@linaro.org>
+In-Reply-To: <ecadeb37-fd12-4b63-949b-136356a42362@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 20 Jun 2024 09:40:18 -0700
+Message-ID: <CAF6AEGu1VArhyYO3+oV5WGcXTBZxCUFrQcpM_fuT7wJakA8AFQ@mail.gmail.com>
+Subject: Re: [PATCH v4 5/5] drm/msm/adreno: Move CP_PROTECT settings to hw
+ catalog
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,55 +87,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 20 Jun 2024 at 00:27, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+On Tue, Jun 18, 2024 at 12:02=E2=80=AFPM Konrad Dybcio <konrad.dybcio@linar=
+o.org> wrote:
 >
-> dpu_encoder_helper_phys_cleanup() calls the ctl ops without checking if
-> the ops are assigned causing discrepancy between its callers where the
-> checks are performed and the API itself which does not.
 >
-> Two approaches can be taken: either drop the checks even in the caller
-> OR add the checks even in dpu_encoder_helper_phys_cleanup().
 >
-> Adopt the latter approach as ctl ops are assigned revision based so may not
-> be always assigned.
+> On 6/18/24 18:42, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Move the CP_PROTECT settings into the hw catalog.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+>
+> [...]
+>
+> > +static inline void __build_asserts(void)
+> > +{
+> > +     BUILD_BUG_ON(a630_protect.count > a630_protect.count_max);
+> > +     BUILD_BUG_ON(a650_protect.count > a650_protect.count_max);
+> > +     BUILD_BUG_ON(a660_protect.count > a660_protect.count_max);
+> > +     BUILD_BUG_ON(a690_protect.count > a690_protect.count_max);
+> > +     BUILD_BUG_ON(a730_protect.count > a730_protect.count_max);
+> > +}
+> > +
+>
+> patch:394: new blank line at EOF
 
-NAK, these calls are always assigned. Please make sure that they are
-documented as required and drop offending checks.
+removed the extra blank line while applying, thx
 
->
-> Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
-> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-> Closes: https://lore.kernel.org/all/464fbd84-0d1c-43c3-a40b-31656ac06456@moroto.mountain/T/
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 708657598cce..7f7e6d4e974b 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -2180,9 +2180,12 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
->         if (ctl->ops.reset_intf_cfg)
->                 ctl->ops.reset_intf_cfg(ctl, &intf_cfg);
->
-> -       ctl->ops.trigger_flush(ctl);
-> -       ctl->ops.trigger_start(ctl);
-> -       ctl->ops.clear_pending_flush(ctl);
-> +       if (ctl->ops.trigger_flush)
-> +               ctl->ops.trigger_flush(ctl);
-> +       if (ctl->ops.trigger_start)
-> +               ctl->ops.trigger_start(ctl);
-> +       if (ctl->ops.clear_pending_flush)
-> +               ctl->ops.clear_pending_flush(ctl);
->  }
->
->  void dpu_encoder_helper_phys_setup_cdm(struct dpu_encoder_phys *phys_enc,
-> --
-> 2.44.0
->
+BR,
+-R
 
-
--- 
-With best wishes
-Dmitry
+> other than that:
+>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>
+> Konrad
