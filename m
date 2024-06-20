@@ -2,79 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 567C79110C5
-	for <lists+freedreno@lfdr.de>; Thu, 20 Jun 2024 20:24:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D20A9111E3
+	for <lists+freedreno@lfdr.de>; Thu, 20 Jun 2024 21:13:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D2E310E033;
-	Thu, 20 Jun 2024 18:24:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1E4410E14C;
+	Thu, 20 Jun 2024 19:13:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="u0/qR1/9";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ofQiXoqy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00CF010E0D7
- for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 18:24:12 +0000 (UTC)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-632750bf73bso10452507b3.2
- for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 11:24:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718907852; x=1719512652; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SLXE8J+NTsLyBECHCrJAgVS17SAByDOT+Kx7JyJFgyw=;
- b=u0/qR1/9MczBFEgWv3iIbzbrFfcQfxne1w71UgXld1kqqkDhuelXX3Yt3cyFUqVGHW
- adlEYyh8ZgZnl7L7eFeWZiZ9IyYE6/90qDBf2xK97l2KQNMCh77AfXQlm/Y9j9oa4pAv
- W3MTPAEyGSIImlSG1fjlStjOeEn3eIc4Yzn20SqO9KJkUm5IEkhhy+PorkZOJG2Atpbz
- 0mA83tbfeNBYVSLgYz7LymRBwD6XyIb+NEPaE9UWFi5olA6ZIhXaY06KOzCdUySXGjFS
- TW8NrhTe+JCHKh0JFdxIlgHLBvO03TRvAvfTfD+QhdA7uAcWp+hDuj8s6NiA8DnYfZ8l
- kO5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718907852; x=1719512652;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SLXE8J+NTsLyBECHCrJAgVS17SAByDOT+Kx7JyJFgyw=;
- b=ejhBOGoHx+3CJANTKZPm7Vx7rlIZJfmczZmFkw8Dnd8ZsEPFODF6LLruiC0IxRbXRH
- QmpKv/BsxA/wOol67WaMtz4Yu2Adqdq1o+WsdKu3zUmbvsFW6DYbq6DXSmgtgJPQGTjK
- 9HqnHRxm/OauBo8rdOTJ7Mw2OgtvUu4kffp7iu0rHTtXRQZXFX1H4IrChAZZ/jvaqn93
- AeZAwmhsS2v/L5mDwfZgjbl3IzmX5Kbd+2kn58JXRtX1NHGCjw+WsRoOKcjXDiF26OnJ
- b9eFsRuFdMy2YcdkwaUiyqv+trLK0OQWbDLRskAhxXCTX2X2N5AhCo7H5NNpCaHxtNJ1
- FFtg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVVAaXVbx8V3XOwoWs6uJIdNHdTr66dM2fcYFCuf4mv5gLj4M/dqtaLNjRqpmff/nclAhZy9+KwjaszHw1DC6X7GFO/kqBukrnZnmJcCG1q
-X-Gm-Message-State: AOJu0YwgDjEXIVfGtmc4vPHpyZreDtYdd40ZlZxQ2/GRiIn/9cN53G8S
- ul79RVu5OY4mzLQoqqva4hzzc+hvkKE/gefdhveHIsrU9eZlL4dj2XFY/FpX3PBqpIgtsb0mGzY
- afv9izWAMMYjdSenp7lbpb9Am227D6ZJiiHP7oQ==
-X-Google-Smtp-Source: AGHT+IGxZxE4jiQmLPcc9xGdx4Tub95V70nV8FZmgGqTvXqYLyCBLK33Pgqp319QX+0uSThE9zzO7MdMgj6QQB/WPuA=
-X-Received: by 2002:a05:690c:987:b0:63b:bd20:8e1b with SMTP id
- 00721157ae682-63d932aa027mr19723827b3.19.1718907851789; Thu, 20 Jun 2024
- 11:24:11 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8BE110E07D;
+ Thu, 20 Jun 2024 19:13:10 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45KHBOm8019749;
+ Thu, 20 Jun 2024 19:13:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=uVJH59PqSWsUNgNIb5ofnm
+ GciM6m1RX6m75dTbJllWs=; b=ofQiXoqyxTI4orLyCOMtD4tsRSrJzW3LdAEuKm
+ OmEAcCWbk9cVEl8A/gZpAe6MuyJrmFZDLX0eQh1UxoTium7sxXyvtVJS/CCth9Tf
+ coDivkyRVOIgTKk3gFayxQfkSpEPGrKLCtGntvdTOcKBiJWifBLyQ8VnZxqu4tiS
+ I52N+0MCpI5GGGcC0SnQSYJWhLoayMSTyCNxMSs03Npzy6oNHTP9CLePuiY1obEB
+ yakxEyeDddbYP5e5UV1lDlsW4fGx8nOH8dD5+illqdEd6OFh8VnfwcEHQiQyNqH1
+ /HEMepbBBcGY8EWsnH8BDSPNXg88KFFQs7UYGI7mVXsifkaw==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yvrkw8b4e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 20 Jun 2024 19:13:08 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45KJD6MU021307
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 20 Jun 2024 19:13:06 GMT
+Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Thu, 20 Jun 2024 12:13:05 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, <quic_jesszhan@quicinc.com>,
+ <dan.carpenter@linaro.org>, <linux-arm-msm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2] drm/msm/dpu: drop validity checks for
+ clear_pending_flush() ctl op
+Date: Thu, 20 Jun 2024 12:12:27 -0700
+Message-ID: <20240620191228.3673550-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <64ec16b9-c680-408c-b547-5debae2f7f87@freebox.fr>
- <dkmtnizbuyswyvocczjfgmhsuedawliabycig4urw42a65hu3j@jglxzumuzamd>
- <a9e4dba6-2317-4b6f-968f-d607937f5157@freebox.fr>
- <CAF6AEGtvHzF-KNyMwmysz7idLYE7XuXhDnBLdQFFhEdgYo6oqQ@mail.gmail.com>
-In-Reply-To: <CAF6AEGtvHzF-KNyMwmysz7idLYE7XuXhDnBLdQFFhEdgYo6oqQ@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 20 Jun 2024 21:24:01 +0300
-Message-ID: <CAA8EJpqCmu+TPmdCxwa84s+15inmdi6SeR5XQRVey56RKqdRuQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm: log iommu init failure
-To: Rob Clark <robdclark@gmail.com>
-Cc: Marc Gonzalez <mgonzalez@freebox.fr>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, MSM <linux-arm-msm@vger.kernel.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>, 
- Bryan O Donoghue <bryan.odonoghue@linaro.org>,
- Luca Weiss <luca.weiss@fairphone.com>, 
- Pierre-Hugues Husson <phhusson@freebox.fr>, Arnaud Vrac <avrac@freebox.fr>, 
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Jeffrey Hugo <quic_jhugo@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: BiZK4oQ-74tOkeph2UBIw-Cq3HTwYxpJ
+X-Proofpoint-ORIG-GUID: BiZK4oQ-74tOkeph2UBIw-Cq3HTwYxpJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-20_08,2024-06-20_04,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999 phishscore=0
+ clxscore=1015 malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0
+ mlxscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2406140001 definitions=main-2406200139
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,48 +92,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 20 Jun 2024 at 20:32, Rob Clark <robdclark@gmail.com> wrote:
->
-> On Thu, May 30, 2024 at 2:48=E2=80=AFAM Marc Gonzalez <mgonzalez@freebox.=
-fr> wrote:
-> >
-> > On 16/05/2024 10:43, Marijn Suijten wrote:
-> >
-> > > On 2024-05-15 17:09:02, Marc Gonzalez wrote:
-> > >
-> > >> When create_address_space() fails (e.g. when smmu node is disabled)
->
-> Note that smmu support is going to become a hard dependency with the
-> drm_gpuvm/VM_BIND conversion.. which I think means we should never get
-> far enough to hit this error path..
+clear_pending_flush() ctl op is always assigned irrespective of the DPU
+hardware revision. Hence there is no needed to check whether the op has
+been assigned before calling it.
 
-Does that mean that we will lose GPU support on  MSM8974?
+Drop the checks across the driver for clear_pending_flush() and also
+update its documentation that it is always expected to be assigned.
 
->
-> BR,
-> -R
->
-> > >> msm_gpu_init() silently fails:
-> > >>
-> > >> msm_dpu c901000.display-controller: failed to load adreno gpu
-> > >> msm_dpu c901000.display-controller: failed to bind 5000000.gpu (ops =
-a3xx_ops): -19
-> > >>
-> > >> Log create_address_space() failure.
-> > >>
-> > >> Signed-off-by: Marc Gonzalez <mgonzalez@freebox.fr>
-> > >
-> > > Thanks!
-> > >
-> > > Suggested-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > >
-> > > And, after checking the below:
-> > >
-> > > Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > >
+changes in v2:
+	- instead of adding more validity checks just drop the one for clear_pending_flush
+	- update the documentation for clear_pending_flush() ctl op
+	- update the commit text reflecting these changes
 
+Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Closes: https://lore.kernel.org/all/464fbd84-0d1c-43c3-a40b-31656ac06456@moroto.mountain/T/
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c         | 3 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 3 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h          | 4 +++-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 708657598cce..697ad4a64051 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1743,8 +1743,7 @@ void dpu_encoder_trigger_kickoff_pending(struct drm_encoder *drm_enc)
+ 		phys = dpu_enc->phys_encs[i];
+ 
+ 		ctl = phys->hw_ctl;
+-		if (ctl->ops.clear_pending_flush)
+-			ctl->ops.clear_pending_flush(ctl);
++		ctl->ops.clear_pending_flush(ctl);
+ 
+ 		/* update only for command mode primary ctl */
+ 		if ((phys == dpu_enc->cur_master) &&
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+index 356dca5e5ea9..882c717859ce 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+@@ -538,8 +538,7 @@ static void dpu_encoder_phys_wb_disable(struct dpu_encoder_phys *phys_enc)
+ 	}
+ 
+ 	/* reset h/w before final flush */
+-	if (phys_enc->hw_ctl->ops.clear_pending_flush)
+-		phys_enc->hw_ctl->ops.clear_pending_flush(phys_enc->hw_ctl);
++	phys_enc->hw_ctl->ops.clear_pending_flush(phys_enc->hw_ctl);
+ 
+ 	/*
+ 	 * New CTL reset sequence from 5.0 MDP onwards.
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+index ef56280bea93..6f8c7ffa2d27 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+@@ -83,7 +83,9 @@ struct dpu_hw_ctl_ops {
+ 
+ 	/**
+ 	 * Clear the value of the cached pending_flush_mask
+-	 * No effect on hardware
++	 * No effect on hardware. This ctl op is always assigned
++	 * irrespective of hw version and hence no check is needed
++	 * for the callers to check its availability before calling it.
+ 	 * @ctx       : ctl path ctx pointer
+ 	 */
+ 	void (*clear_pending_flush)(struct dpu_hw_ctl *ctx);
+-- 
+2.44.0
 
---=20
-With best wishes
-Dmitry
