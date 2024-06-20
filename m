@@ -2,91 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9611A9113E8
-	for <lists+freedreno@lfdr.de>; Thu, 20 Jun 2024 22:58:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBAD8911470
+	for <lists+freedreno@lfdr.de>; Thu, 20 Jun 2024 23:24:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 630F210E181;
-	Thu, 20 Jun 2024 20:58:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C02A10E0E4;
+	Thu, 20 Jun 2024 21:24:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="QJwHIQeJ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="D/YD5GBu";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15DFB10E181;
- Thu, 20 Jun 2024 20:58:00 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45KHBC6t025991;
- Thu, 20 Jun 2024 20:57:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 7uinE8mNlfyxFn5pejTGcwgKDlHhRITAVURCqIbmn88=; b=QJwHIQeJFbT3+Wjk
- 6/2pfeu/+pj9MBIw+GwJjulsrNDstASGn6n1G5JRsirMzNOFh0ZvNhoNGqtirUR9
- xC3J1bl8qAJNC2mfdbm4mI8STW6DyzjW6IWGICIIO+h06/Ntfh/CHgeWzI/Yumc9
- p62KEVBLB6OFs4JBPvRA6jwOwg6vU9YAhT76ySu4AwrZN1dTMxfqYk9WMqAmLlwj
- sLfkWoBbOOPo3yIyXx4Gtt6HSB67jZ8EOOqYwb6MtXNLs5wf+zRcSEbh7smWHfTK
- ETyzZqPOXgJzUOKWiLfPOXW5cdqYFC6LtZPXW2wpk+jl0EIGAHUu6osWoV2jlZqH
- awYKuQ==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yvrkr0jy2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Jun 2024 20:57:49 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45KKvmXf032579
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Jun 2024 20:57:48 GMT
-Received: from [10.110.82.141] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 20 Jun
- 2024 13:57:41 -0700
-Message-ID: <5aa23f31-a4c1-6da4-9a0f-a312ec410eee@quicinc.com>
-Date: Thu, 20 Jun 2024 13:57:39 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v5 8/9] drm/msm/hdmi: update
- HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE definition
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 870AF10E0E4
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 21:24:23 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2ec002caeb3so16695171fa.2
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 14:24:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1718918662; x=1719523462; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=mFyki6Li5WwqMNFDu+p0N+C8j4Ogo1hQX4orW8yQhio=;
+ b=D/YD5GBugEMmaYZYvDq9st9B0Z5elRm6mM+KQUJp+Bu0Z9HaZJOYbpIAoqqlXACHWX
+ hOZkdhvPbMFFSLhd9M3ZoqTOnZfQu5WHKIVl9HGJi+3tdWrApMAHSXKoMHvXSFONyxwb
+ FD8MxQggN2GQXgOMHzUpuPfwwTnYWxeS0jBHcylODogZQlbBvhhffWmFuRRMECMTDnV/
+ 6h5diqFMb+/kCIjkX31KeFvA25zr11NOKOp6W8cYLEr7mG5bcZjzqOGW+ZVlzxKJLsX/
+ LzKe7t0VGHXZvO8INo8q5v5b69PFm5oHUX7KiQab87mdfikKo7R96RCb2384EtmM8ncW
+ nsDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718918662; x=1719523462;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mFyki6Li5WwqMNFDu+p0N+C8j4Ogo1hQX4orW8yQhio=;
+ b=G94eL/r/U1ciI46zQDcQ0RPANuMIBgLaKcWuxeOhgP59SGQywdhs6yKCmYJMA4euYn
+ phwqlDKvzUnwJm99r32qDkQe/w+E9jsEqmn8cq3Kf2NFsigiynVZnSC9FsT4WUQqSilA
+ pp/D4TM4Q6Z4XyEdmLiaSrCe6OGbCpsLx6LdLh74idjniOrjjlouOHb2/TYR0uEFwZp5
+ 4jRR7YOx8C/C6uuM8kOzmaFBKjK28DwqjVIKxa6S8ij2ruXLhWGLQ/kXIc1UoN1Z50vU
+ 0y2a5uMRkJiclU672bQwHDCAaYpK/aK5U8k0+FLJUxCSgQaO3okRA2x2WnzoRYv2dhnZ
+ ycKg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVQ+Myx5wqd+raGTf+oCus6pDPBHRmWAFV2K7QbdNHeMBd1UvFpCnswQ29psmJf1J7iI0bGiDK9RumEodrin/j0EE+BwscqVIpCz3ebMUBJ
+X-Gm-Message-State: AOJu0YzIRKlP9o+A8AS5tRMPG1lzSfzGHMkvhOuPV64gKmlNrNHJ8JXS
+ pu0me7HzzzFUzK3uZ68Qan9TFtgLK8lLXubTpXaU6nNOx4eNFUddF0bFVDCzKiw=
+X-Google-Smtp-Source: AGHT+IGdvA2DIoY5t70jMsOWedO2yArpk+phlv8FZmQtgjRbT12WJ2FeYFzLVCDHpnmOy3D7V2RrEw==
+X-Received: by 2002:a2e:97d1:0:b0:2ec:4890:3750 with SMTP id
+ 38308e7fff4ca-2ec4890390emr18300431fa.39.1718918661577; 
+ Thu, 20 Jun 2024 14:24:21 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2ec4d758170sm271791fa.89.2024.06.20.14.24.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Jun 2024 14:24:21 -0700 (PDT)
+Date: Fri, 21 Jun 2024 00:24:19 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>
-CC: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+ Rob Clark <robdclark@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 5/9] drm/msm/hdmi: turn mode_set into atomic_enable
+Message-ID: <il2bg6bsu4nu4lpztzwo2rfonttiy64grxcsn7n4uybn3eui77@jxyzd744ksva>
 References: <20240607-bridge-hdmi-connector-v5-0-ab384e6021af@linaro.org>
- <20240607-bridge-hdmi-connector-v5-8-ab384e6021af@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240607-bridge-hdmi-connector-v5-8-ab384e6021af@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 9EKDVIqvCL1um9S9-OlHj46SCl_qc9CD
-X-Proofpoint-GUID: 9EKDVIqvCL1um9S9-OlHj46SCl_qc9CD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-20_09,2024-06-20_04,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- mlxlogscore=938 mlxscore=0 clxscore=1015 phishscore=0 priorityscore=1501
- lowpriorityscore=0 suspectscore=0 spamscore=0 adultscore=0 bulkscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2406140001 definitions=main-2406200153
+ <20240607-bridge-hdmi-connector-v5-5-ab384e6021af@linaro.org>
+ <f34c4210-fd59-9d27-0987-3345631c9e35@quicinc.com>
+ <xymopystyfjj3hpqes3uiw2g3dqynxzvz23snrbfzf2judgxnt@j4nmpcbuy7a4>
+ <6d416e1a-1069-8355-e9f3-d2732df081a3@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6d416e1a-1069-8355-e9f3-d2732df081a3@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,17 +97,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 6/7/2024 6:23 AM, Dmitry Baryshkov wrote:
-> The GENERIC0_UPDATE field is a single bit. Redefine it as boolean to
-> simplify its usage in the driver.
+On Thu, Jun 20, 2024 at 01:49:33PM GMT, Abhinav Kumar wrote:
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/registers/display/hdmi.xml | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
+> On 6/20/2024 1:32 PM, Dmitry Baryshkov wrote:
+> > On Thu, Jun 20, 2024 at 01:27:15PM GMT, Abhinav Kumar wrote:
+> > > 
+> > > 
+> > > On 6/7/2024 6:23 AM, Dmitry Baryshkov wrote:
+> > > > The mode_set callback is deprecated, it doesn't get the
+> > > > drm_bridge_state, just mode-related argumetns. Turn it into the
+> > > > atomic_enable callback as suggested by the documentation.
+> > > > 
+> > > 
+> > > mode_set is deprecated but atomic_mode_set is not.
+> > 
+> > There is no atomic_mode_set() in drm_bridge_funcs. Also:
+> > 
+> 
+> Please excuse me. I thought since encoder has atomic_mode_set(), bridge has
+> one too.
+> 
+> > * This is deprecated, do not use!
+> > * New drivers shall set their mode in the
+> > * &drm_bridge_funcs.atomic_enable operation.
+> > 
+> 
+> Yes I saw this note but it also says "new drivers" and not really enforcing
+> migrating existing ones which are using modeset to atomic_enable.
 
+Well, deprecated functions are supposed to be migrated.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> My concern is that today the timing engine setup happens in encoder's
+> enable() and the hdmi's timing is programmed in mode_set().
+> 
+> Ideally, we should program hdmi's timing registers first before the
+> encoder's timing.
+> 
+> Although timing engine is not enabled yet, till post_kickoff, this is
+> changing the sequence.
+> 
+> If this really required for rest of this series?
+
+No, it was just worth doing it as I was doing conversion to atomic_*
+anyway. I can delay this patch for now.
+
+Two questions:
+
+1) Are you sure regarding the HDMI timing registers vs INTF order? I
+observe the underrun issues while changing modes on db820c.
+
+2) What should be the order between programming of the HDMI timing
+engine and HDMI PHY?
+
+What would be your opinion on moving HDMI timing programming to
+atomic_pre_enable? (the exact place depends on the answer on the second
+question).
+
+> 
+> > > 
+> > > I would rather use atomic_mode_set because moving to atomic_enable() would
+> > > be incorrect.
+> > > 
+> > > That would be called after encoder's enable and hence changes the sequence.
+> > > That was not the intention of this patch.
+> > > 
+> > > NAK.
+> > > 
+> > > > Acked-by: Maxime Ripard <mripard@kernel.org>
+> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > > ---
+> > > >    drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 33 ++++++++++++++++++++++++++-------
+> > > >    1 file changed, 26 insertions(+), 7 deletions(-)
+> > 
+> > 
+
+-- 
+With best wishes
+Dmitry
