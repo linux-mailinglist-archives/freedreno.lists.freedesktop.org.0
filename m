@@ -2,76 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2229910388
-	for <lists+freedreno@lfdr.de>; Thu, 20 Jun 2024 13:59:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0101591052F
+	for <lists+freedreno@lfdr.de>; Thu, 20 Jun 2024 15:04:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3CF10E09F;
-	Thu, 20 Jun 2024 11:59:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5B2B10E9AA;
+	Thu, 20 Jun 2024 13:04:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DpdhdmB/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rn01+XQV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
- [209.85.128.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BF9410E943
- for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 11:59:34 +0000 (UTC)
-Received: by mail-yw1-f170.google.com with SMTP id
- 00721157ae682-63bc513ade5so6926777b3.3
- for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 04:59:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718884773; x=1719489573; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Hba2yhY6+cS9zRWYgJ6DWNBfIqROICVlAJkK3HOraRg=;
- b=DpdhdmB/mWrdg0dwgZ3S/p8p61HoMPIhr8dbPhVUqiCZ8xiONxcVsuH+NJaUbEWplM
- U3qXRtvEOf2MflkZhflx1Z1x5mn2bLA8utOsH/Xu2kcy7MB9TIjOtMQDTFcPk7rCkcfj
- 4eWHjR1ZqLrpiUbIXnvm0aV4oteBDpTH89PPJvZJStGlN5YWGuXF9RNLh19gvCQZvdux
- ktreF3+28uCBvXDgOokA3l+h98t2NHPtdZoSqp9KDEe9ON99f4xOIwbAnPSPRkIKU60s
- WY08PNcQe4Y745EiEIRI2ZXJbm2ZAqm82VEMpIkwhoMhtqaFxDvnxgkFxSE7t1VGlsKw
- 9Ahw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718884773; x=1719489573;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Hba2yhY6+cS9zRWYgJ6DWNBfIqROICVlAJkK3HOraRg=;
- b=ZRyIkOyFI6auQ8PClMeVwSz0XyQ9yvTq9FtVCYEP+qiOC+63DHxuhcqmL3n/XPONXx
- KdH1069GwkvJtLgLkz/OooT0g0n1jyXp1c7JbBOSwDLW8oqcy3Ewd0JARZuz3T8L/C5T
- mQHFoYGXUxFWLY6hBvZp0aGeN3DZLUKXvoiH/UBbdwXkh6L8MAg5UpVOKjBCvxjYQZS8
- YvMURryNOYT+3g7DxOHt+Y8Kfk64kFLyZ6/sKIfjDs2Yc80G/LPdTr7icTPT21ZfFo7T
- zC0ccnfi58mpMuhkALFl3/loCTv1Kr2sqAS6sPL1znoxgJOWH95UPTknmfqhcDNJj19c
- b+6w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUF+wt/YEz6UrYWpHS1QH/sKCH7gFdTOJrSHj8E6MI8Hl4OaM2n8dyWaK8rQ/bz3yfX4sxOnUiSMPOvFGXudMkT4w6cE0NdKJMcjby9MPZG
-X-Gm-Message-State: AOJu0Yyjm9pAoFQhfdjH/XXa/5kzyraLc/zVTKxhTuubsqDasKHiYRE0
- qMHjL1gyiJT2Feqoq2pGncjNCkSXtzodHPt5VbJjqJ2ANBdHDE3a1KmFNdqftBfUv98eqYZkha7
- lBztSnZm7TYwQKZyHxGyrRqM6qUJ1mGYGUppdcg==
-X-Google-Smtp-Source: AGHT+IFjjYSy37hdNHLG7AiZ0xFq8sTXhXbpeuY8x23zxt9N1eVayw54qYltw9zRhc5ZPVpb3MiaKOR9gK1e1PANkDc=
-X-Received: by 2002:a0d:e694:0:b0:632:844d:5cf2 with SMTP id
- 00721157ae682-63a8fbec98dmr45645717b3.51.1718884772646; Thu, 20 Jun 2024
- 04:59:32 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240614-dpu-mode-config-width-v3-0-29ec4069c99b@linaro.org>
- <20240614-dpu-mode-config-width-v3-7-29ec4069c99b@linaro.org>
- <e191758e-3fb2-947f-09c6-71f37ab34891@quicinc.com>
- <f9b63458-6d85-b8d4-f9f8-5e1966323a54@quicinc.com>
- <CAA8EJppDcjf1JYi+iCheNt7XR-vfYx+JQ_QsBkXbR3wJD2egpg@mail.gmail.com>
- <88886ed2-d92c-ae0b-e0b6-06576e7862a2@quicinc.com>
-In-Reply-To: <88886ed2-d92c-ae0b-e0b6-06576e7862a2@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 20 Jun 2024 14:59:21 +0300
-Message-ID: <CAA8EJprwmF4ECxTUTsRLmgC5aCjY-1XQrE-QuxDyW+wKtxonPQ@mail.gmail.com>
-Subject: Re: [PATCH v3 7/9] drm/msm/dpu: drop
- _dpu_crtc_check_and_setup_lm_bounds from atomic_begin
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F6F410E99B;
+ Thu, 20 Jun 2024 13:04:09 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id B484A621A5;
+ Thu, 20 Jun 2024 13:04:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F552C4AF10;
+ Thu, 20 Jun 2024 13:04:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1718888648;
+ bh=KxrT3UVj8PRk2cbBOHYEf2xQYsyGdNtZoNIhfJxp/rE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Rn01+XQVZHQZwEkjljYELTuenWlJ7KE+DLaXzEKjZrzl2j9RVj5K1tbz4KIUQZFN/
+ qA/zNpgPMziNEdluQINMzb1MSjyXWKsDor72iEFynciUZdPHzhkxQGLCno0ICkHPZw
+ 74KCvUGv5tmdcu8Pg2YkVPaTvRLxV6/uys5hIHfTtQdzwEgyQMGBntjS6BvX3HhfkQ
+ 5ZWLM2AZvwLuCwtav4LW8pSicJfmTxiBPzlZcWrizCMa5nMh2WKQe81TdOnogwiOm/
+ 64bADmj2RmdJBz1gsWLOALcDVAku4SnxVksjyv99H8ohswnbMq4N7HEDxJSO/Oh5u7
+ FzFSf+bpRxZAQ==
+Date: Thu, 20 Jun 2024 14:04:01 +0100
+From: Will Deacon <will@kernel.org>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Andrew Halaney <ahalaney@redhat.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Abel Vesa <abel.vesa@linaro.org>, 
- Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/adreno: De-spaghettify the use of memory barriers
+Message-ID: <20240620130400.GA4750@willie-the-truck>
+References: <20240508-topic-adreno-v1-1-1babd05c119d@linaro.org>
+ <20240514183849.6lpyplifero5u35r@hu-akhilpo-hyd.qualcomm.com>
+ <ae4a77wt3kc73ejshptldqx6ugzrqguyq7etbbu54y4avhbdlt@qyt4r6gma7ev>
+ <20240516145005.gdksmvxp35m45ifh@hu-akhilpo-hyd.qualcomm.com>
+ <5vyrmxvkurdstqfiatxfqcqljwyiswda2vpkea27ighb2eqbav@n24yzdykbc23>
+ <20240604144055.GE20384@willie-the-truck>
+ <20240618161158.qpqbv77tqveo5g6l@hu-akhilpo-hyd.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240618161158.qpqbv77tqveo5g6l@hu-akhilpo-hyd.qualcomm.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,74 +72,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 19 Jun 2024 at 20:10, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 6/18/2024 8:26 PM, Dmitry Baryshkov wrote:
-> > On Wed, 19 Jun 2024 at 01:56, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >> On 6/13/2024 4:20 PM, Abhinav Kumar wrote:
-> >>> On 6/13/2024 3:36 PM, Dmitry Baryshkov wrote:
-> >>>> The dpu_crtc_atomic_check() already calls the function
-> >>>> _dpu_crtc_check_and_setup_lm_bounds().  There is no need to call it
-> >>>> again from dpu_crtc_atomic_begin().
-> >>>>
-> >>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>>> ---
-> >>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 2 --
-> >>>>    1 file changed, 2 deletions(-)
-> >>>>
-> >>>
-> >>> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >>
-> >>
-> >> This change is causing a small regression on sc7280 chromebook.
-> >>
-> >> I have tested and concluded that this is causing the chrome boot
-> >> animation to disappear.
-> >>
-> >> I have tested a couple of times and without this change it works fine.
-> >>
-> >> If this change was meant as an optimization, can we drop this one and
-> >> investigate later why this is causing one? I have not spent time
-> >> investigating why it happened. Rest of the series works well and I dont
-> >> see any dependency as such. Let me know if that works for you. Otherwise
-> >> I will have to spend a little more time on this patch and why chrome
-> >> compositor does not like this for the animation screen.
-> >
-> > Oh, my. Thank you for the test!
-> > I think I know what's happening. The cstate->num_mixers gets set only
-> > in dpu_encoder_virt_atomic_mode_set(). So during
-> > dpu_crtc_atomic_check() we don't have cstate->num_mixers is stale (and
-> > if it is 0, the check is skipped).
-> >
->
-> Yes, it is a possible explanation for this.
->
-> > I guess I'll have to move cstate->mixers[] and cstate->num_mixers
-> > assignment to the dpu_encoder_virt_atomic_check(). And maybe we should
-> > start thinking about my old idea of moving resource allocation to the
-> > CRTC code.
-> >
->
-> I wonder if thats the right fix though because it seems correct to me
-> that num_mixers is set in mode_set after the atomic_check phase.
+On Tue, Jun 18, 2024 at 09:41:58PM +0530, Akhil P Oommen wrote:
+> On Tue, Jun 04, 2024 at 03:40:56PM +0100, Will Deacon wrote:
+> > On Thu, May 16, 2024 at 01:55:26PM -0500, Andrew Halaney wrote:
+> > > On Thu, May 16, 2024 at 08:20:05PM GMT, Akhil P Oommen wrote:
+> > > > On Thu, May 16, 2024 at 08:15:34AM -0500, Andrew Halaney wrote:
+> > > > > If I understand correctly, you don't need any memory barrier.
+> > > > > writel()/readl()'s are ordered to the same endpoint. That goes for all
+> > > > > the reordering/barrier comments mentioned below too.
+> > > > > 
+> > > > > device-io.rst:
+> > > > > 
+> > > > >     The read and write functions are defined to be ordered. That is the
+> > > > >     compiler is not permitted to reorder the I/O sequence. When the ordering
+> > > > >     can be compiler optimised, you can use __readb() and friends to
+> > > > >     indicate the relaxed ordering. Use this with care.
+> > > > > 
+> > > > > memory-barriers.txt:
+> > > > > 
+> > > > >      (*) readX(), writeX():
+> > > > > 
+> > > > > 	    The readX() and writeX() MMIO accessors take a pointer to the
+> > > > > 	    peripheral being accessed as an __iomem * parameter. For pointers
+> > > > > 	    mapped with the default I/O attributes (e.g. those returned by
+> > > > > 	    ioremap()), the ordering guarantees are as follows:
+> > > > > 
+> > > > > 	    1. All readX() and writeX() accesses to the same peripheral are ordered
+> > > > > 	       with respect to each other. This ensures that MMIO register accesses
+> > > > > 	       by the same CPU thread to a particular device will arrive in program
+> > > > > 	       order.
+> > > > > 
+> > > > 
+> > > > In arm64, a writel followed by readl translates to roughly the following
+> > > > sequence: dmb_wmb(), __raw_writel(), __raw_readl(), dmb_rmb(). I am not
+> > > > sure what is stopping compiler from reordering  __raw_writel() and __raw_readl()
+> > > > above? I am assuming iomem cookie is ignored during compilation.
+> > > 
+> > > It seems to me that is due to some usage of volatile there in
+> > > __raw_writel() etc, but to be honest after reading about volatile and
+> > > some threads from gcc mailing lists, I don't have a confident answer :)
+> > > 
+> > > > 
+> > > > Added Will to this thread if he can throw some light on this.
+> > > 
+> > > Hopefully Will can school us.
+> > 
+> > The ordering in this case is ensured by the memory attributes used for
+> > ioremap(). When an MMIO region is mapped using Device-nGnRE attributes
+> > (as it the case for ioremap()), the "nR" part means "no reordering", so
+> > readX() and writeX() to that region are ordered wrt each other.
+> 
+> But that avoids only HW reordering, doesn't it? What about *compiler reordering* in the
+> case of a writel following by a readl which translates to:
+> 	1: dmb_wmb()
+> 	2: __raw_writel() -> roughly "asm volatile('str')
+> 	3: __raw_readl() -> roughly "asm volatile('ldr')
+> 	4: dmb_rmb()
+> 
+> Is the 'volatile' keyword sufficient to avoid reordering between (2) and (3)? Or
+> do we need a "memory" clobber to inhibit reordering?
+> 
+> This is still not clear to me even after going through some compiler documentions.
 
-The state should be consistent after the atomic_check(). Currently it
-is not. cstate->num_mixers is not correct until mode_set().
+I don't think the compiler should reorder volatile asm blocks wrt each
+other.
 
->
-> Perhaps the right way would be to breakup check_and_set() to check() and
-> set() respectively and call only the check() part in atomic_check() and
-> keep the set() part in atomic_begin to avoid duplication.
->
-> Either way, I think we should re-visit this as this patch by itself is
-> an optimization and I am totally fine if you want to merge the rest of
-> this series just dropping this one for now.
-
-The patch itself might be an optimization, but it pointed out the
-actual issue with cstate->num_mixers.
-
--- 
-With best wishes
-Dmitry
+Will
