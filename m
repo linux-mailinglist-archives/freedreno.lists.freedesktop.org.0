@@ -2,84 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6F9D90F8DF
-	for <lists+freedreno@lfdr.de>; Thu, 20 Jun 2024 00:14:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2229910388
+	for <lists+freedreno@lfdr.de>; Thu, 20 Jun 2024 13:59:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFA6D10E325;
-	Wed, 19 Jun 2024 22:14:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3CF10E09F;
+	Thu, 20 Jun 2024 11:59:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="WcOdWZC8";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DpdhdmB/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 402AC10E2A2;
- Wed, 19 Jun 2024 22:14:06 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45JM1NLA018044;
- Wed, 19 Jun 2024 22:14:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- QIFn3Xoez+vVFtDCzfSSjjbDTISbYPN0JdBGZLJk//8=; b=WcOdWZC8qtI3TZZ+
- w2TlqJ4IZKoo7ZZXXQjY1WYoZIy1cq+lsrpgAsQH+ixEwW2ma1Hwgmd3gBAP3tyE
- sPXKQzHSRT4PQqzAkqeOBjPHJDClktc4LbqJI7CahRQOpY/39dmtv7e1UL3/ZlMr
- mYb272lBe3OLOcw0uC9tvjv7Ik9UmZoug6Gatv091fI3mPiWKdry8A6aIKu9g4d9
- lSRjbnc6lxFhIe3z0dexku2VTnz2yodpQpmk84MlEUXGFuVgB67sA8uzIXd5hCMA
- 4W8eizQm2PWNeKhLx9h00Q+c8PdPrT9LaPEacElNteOgCt424C/DUMmjD1zb3mQZ
- jLJjnw==
-Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yv7jeg178-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 19 Jun 2024 22:14:03 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA01.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45JME22v005400
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 19 Jun 2024 22:14:02 GMT
-Received: from [10.71.108.229] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 19 Jun
- 2024 15:14:02 -0700
-Message-ID: <0d240c5d-665e-40d8-91fb-9b9aad3b172a@quicinc.com>
-Date: Wed, 19 Jun 2024 15:14:01 -0700
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
+ [209.85.128.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BF9410E943
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 11:59:34 +0000 (UTC)
+Received: by mail-yw1-f170.google.com with SMTP id
+ 00721157ae682-63bc513ade5so6926777b3.3
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 04:59:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1718884773; x=1719489573; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Hba2yhY6+cS9zRWYgJ6DWNBfIqROICVlAJkK3HOraRg=;
+ b=DpdhdmB/mWrdg0dwgZ3S/p8p61HoMPIhr8dbPhVUqiCZ8xiONxcVsuH+NJaUbEWplM
+ U3qXRtvEOf2MflkZhflx1Z1x5mn2bLA8utOsH/Xu2kcy7MB9TIjOtMQDTFcPk7rCkcfj
+ 4eWHjR1ZqLrpiUbIXnvm0aV4oteBDpTH89PPJvZJStGlN5YWGuXF9RNLh19gvCQZvdux
+ ktreF3+28uCBvXDgOokA3l+h98t2NHPtdZoSqp9KDEe9ON99f4xOIwbAnPSPRkIKU60s
+ WY08PNcQe4Y745EiEIRI2ZXJbm2ZAqm82VEMpIkwhoMhtqaFxDvnxgkFxSE7t1VGlsKw
+ 9Ahw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718884773; x=1719489573;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Hba2yhY6+cS9zRWYgJ6DWNBfIqROICVlAJkK3HOraRg=;
+ b=ZRyIkOyFI6auQ8PClMeVwSz0XyQ9yvTq9FtVCYEP+qiOC+63DHxuhcqmL3n/XPONXx
+ KdH1069GwkvJtLgLkz/OooT0g0n1jyXp1c7JbBOSwDLW8oqcy3Ewd0JARZuz3T8L/C5T
+ mQHFoYGXUxFWLY6hBvZp0aGeN3DZLUKXvoiH/UBbdwXkh6L8MAg5UpVOKjBCvxjYQZS8
+ YvMURryNOYT+3g7DxOHt+Y8Kfk64kFLyZ6/sKIfjDs2Yc80G/LPdTr7icTPT21ZfFo7T
+ zC0ccnfi58mpMuhkALFl3/loCTv1Kr2sqAS6sPL1znoxgJOWH95UPTknmfqhcDNJj19c
+ b+6w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUF+wt/YEz6UrYWpHS1QH/sKCH7gFdTOJrSHj8E6MI8Hl4OaM2n8dyWaK8rQ/bz3yfX4sxOnUiSMPOvFGXudMkT4w6cE0NdKJMcjby9MPZG
+X-Gm-Message-State: AOJu0Yyjm9pAoFQhfdjH/XXa/5kzyraLc/zVTKxhTuubsqDasKHiYRE0
+ qMHjL1gyiJT2Feqoq2pGncjNCkSXtzodHPt5VbJjqJ2ANBdHDE3a1KmFNdqftBfUv98eqYZkha7
+ lBztSnZm7TYwQKZyHxGyrRqM6qUJ1mGYGUppdcg==
+X-Google-Smtp-Source: AGHT+IFjjYSy37hdNHLG7AiZ0xFq8sTXhXbpeuY8x23zxt9N1eVayw54qYltw9zRhc5ZPVpb3MiaKOR9gK1e1PANkDc=
+X-Received: by 2002:a0d:e694:0:b0:632:844d:5cf2 with SMTP id
+ 00721157ae682-63a8fbec98dmr45645717b3.51.1718884772646; Thu, 20 Jun 2024
+ 04:59:32 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/14] drm/msm/hdmi: wire in hpd_enable/hpd_disable
- bridge ops
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
- Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20240522-fd-hdmi-hpd-v2-0-c30bdb7c5c7e@linaro.org>
- <20240522-fd-hdmi-hpd-v2-14-c30bdb7c5c7e@linaro.org>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20240522-fd-hdmi-hpd-v2-14-c30bdb7c5c7e@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: F45jFT8YKhGLgLPu63CFFicuUPPPSP5B
-X-Proofpoint-ORIG-GUID: F45jFT8YKhGLgLPu63CFFicuUPPPSP5B
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-19_02,2024-06-19_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 mlxlogscore=964
- clxscore=1015 priorityscore=1501 impostorscore=0 mlxscore=0 malwarescore=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 suspectscore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405170001
- definitions=main-2406190168
+References: <20240614-dpu-mode-config-width-v3-0-29ec4069c99b@linaro.org>
+ <20240614-dpu-mode-config-width-v3-7-29ec4069c99b@linaro.org>
+ <e191758e-3fb2-947f-09c6-71f37ab34891@quicinc.com>
+ <f9b63458-6d85-b8d4-f9f8-5e1966323a54@quicinc.com>
+ <CAA8EJppDcjf1JYi+iCheNt7XR-vfYx+JQ_QsBkXbR3wJD2egpg@mail.gmail.com>
+ <88886ed2-d92c-ae0b-e0b6-06576e7862a2@quicinc.com>
+In-Reply-To: <88886ed2-d92c-ae0b-e0b6-06576e7862a2@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 20 Jun 2024 14:59:21 +0300
+Message-ID: <CAA8EJprwmF4ECxTUTsRLmgC5aCjY-1XQrE-QuxDyW+wKtxonPQ@mail.gmail.com>
+Subject: Re: [PATCH v3 7/9] drm/msm/dpu: drop
+ _dpu_crtc_check_and_setup_lm_bounds from atomic_begin
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Abel Vesa <abel.vesa@linaro.org>, 
+ Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,122 +87,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Wed, 19 Jun 2024 at 20:10, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 6/18/2024 8:26 PM, Dmitry Baryshkov wrote:
+> > On Wed, 19 Jun 2024 at 01:56, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> >> On 6/13/2024 4:20 PM, Abhinav Kumar wrote:
+> >>> On 6/13/2024 3:36 PM, Dmitry Baryshkov wrote:
+> >>>> The dpu_crtc_atomic_check() already calls the function
+> >>>> _dpu_crtc_check_and_setup_lm_bounds().  There is no need to call it
+> >>>> again from dpu_crtc_atomic_begin().
+> >>>>
+> >>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >>>> ---
+> >>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 2 --
+> >>>>    1 file changed, 2 deletions(-)
+> >>>>
+> >>>
+> >>> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> >>
+> >>
+> >> This change is causing a small regression on sc7280 chromebook.
+> >>
+> >> I have tested and concluded that this is causing the chrome boot
+> >> animation to disappear.
+> >>
+> >> I have tested a couple of times and without this change it works fine.
+> >>
+> >> If this change was meant as an optimization, can we drop this one and
+> >> investigate later why this is causing one? I have not spent time
+> >> investigating why it happened. Rest of the series works well and I dont
+> >> see any dependency as such. Let me know if that works for you. Otherwise
+> >> I will have to spend a little more time on this patch and why chrome
+> >> compositor does not like this for the animation screen.
+> >
+> > Oh, my. Thank you for the test!
+> > I think I know what's happening. The cstate->num_mixers gets set only
+> > in dpu_encoder_virt_atomic_mode_set(). So during
+> > dpu_crtc_atomic_check() we don't have cstate->num_mixers is stale (and
+> > if it is 0, the check is skipped).
+> >
+>
+> Yes, it is a possible explanation for this.
+>
+> > I guess I'll have to move cstate->mixers[] and cstate->num_mixers
+> > assignment to the dpu_encoder_virt_atomic_check(). And maybe we should
+> > start thinking about my old idea of moving resource allocation to the
+> > CRTC code.
+> >
+>
+> I wonder if thats the right fix though because it seems correct to me
+> that num_mixers is set in mode_set after the atomic_check phase.
 
+The state should be consistent after the atomic_check(). Currently it
+is not. cstate->num_mixers is not correct until mode_set().
 
-On 5/22/2024 3:51 AM, Dmitry Baryshkov wrote:
-> The HDMI driver already has msm_hdmi_hpd_enable() and
-> msm_hdmi_hpd_disable() functions. Wire them into the
-> msm_hdmi_bridge_funcs, so that HPD  can be enabled and disabled
-> dynamically rather than always having HPD events generation enabled.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+> Perhaps the right way would be to breakup check_and_set() to check() and
+> set() respectively and call only the check() part in atomic_check() and
+> keep the set() part in atomic_begin to avoid duplication.
+>
+> Either way, I think we should re-visit this as this patch by itself is
+> an optimization and I am totally fine if you want to merge the rest of
+> this series just dropping this one for now.
 
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+The patch itself might be an optimization, but it pointed out the
+actual issue with cstate->num_mixers.
 
-> ---
->   drivers/gpu/drm/msm/hdmi/hdmi.c        |  9 ---------
->   drivers/gpu/drm/msm/hdmi/hdmi.h        |  4 ++--
->   drivers/gpu/drm/msm/hdmi/hdmi_bridge.c |  3 +++
->   drivers/gpu/drm/msm/hdmi/hdmi_hpd.c    | 12 ++++++------
->   4 files changed, 11 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> index 2890196857f8..06adcf4a6544 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> @@ -202,12 +202,6 @@ int msm_hdmi_modeset_init(struct hdmi *hdmi,
->   		goto fail;
->   	}
->   
-> -	ret = msm_hdmi_hpd_enable(hdmi->bridge);
-> -	if (ret < 0) {
-> -		DRM_DEV_ERROR(&hdmi->pdev->dev, "failed to enable HPD: %d\n", ret);
-> -		goto fail;
-> -	}
-> -
->   	return 0;
->   
->   fail:
-> @@ -377,9 +371,6 @@ static void msm_hdmi_unbind(struct device *dev, struct device *master,
->   		if (priv->hdmi->audio_pdev)
->   			platform_device_unregister(priv->hdmi->audio_pdev);
->   
-> -		if (priv->hdmi->bridge)
-> -			msm_hdmi_hpd_disable(priv->hdmi);
-> -
->   		msm_hdmi_destroy(priv->hdmi);
->   		priv->hdmi = NULL;
->   	}
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.h b/drivers/gpu/drm/msm/hdmi/hdmi.h
-> index 7f0ca5252018..c6519e6f7f2c 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi.h
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.h
-> @@ -219,8 +219,8 @@ int msm_hdmi_bridge_init(struct hdmi *hdmi);
->   void msm_hdmi_hpd_irq(struct drm_bridge *bridge);
->   enum drm_connector_status msm_hdmi_bridge_detect(
->   		struct drm_bridge *bridge);
-> -int msm_hdmi_hpd_enable(struct drm_bridge *bridge);
-> -void msm_hdmi_hpd_disable(struct hdmi *hdmi);
-> +void msm_hdmi_hpd_enable(struct drm_bridge *bridge);
-> +void msm_hdmi_hpd_disable(struct drm_bridge *bridge);
->   
->   /*
->    * i2c adapter for ddc:
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> index 104107ed47d0..41722b2e6b44 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> @@ -300,6 +300,9 @@ static const struct drm_bridge_funcs msm_hdmi_bridge_funcs = {
->   	.mode_valid = msm_hdmi_bridge_mode_valid,
->   	.edid_read = msm_hdmi_bridge_edid_read,
->   	.detect = msm_hdmi_bridge_detect,
-> +
-> +	.hpd_enable = msm_hdmi_hpd_enable,
-> +	.hpd_disable = msm_hdmi_hpd_disable,
->   };
->   
->   static void
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-> index cb89e9e2c6ea..04d00b6f36fd 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-> @@ -60,7 +60,7 @@ static void msm_hdmi_phy_reset(struct hdmi *hdmi)
->   	}
->   }
->   
-> -int msm_hdmi_hpd_enable(struct drm_bridge *bridge)
-> +void msm_hdmi_hpd_enable(struct drm_bridge *bridge)
->   {
->   	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
->   	struct hdmi *hdmi = hdmi_bridge->hdmi;
-> @@ -70,8 +70,8 @@ int msm_hdmi_hpd_enable(struct drm_bridge *bridge)
->   	unsigned long flags;
->   
->   	ret = pm_runtime_resume_and_get(dev);
-> -	if (ret)
-> -		return ret;
-> +	if (WARN_ON(ret))
-> +		return;
->   
->   	mutex_lock(&hdmi->state_mutex);
->   	msm_hdmi_set_mode(hdmi, false);
-> @@ -99,12 +99,12 @@ int msm_hdmi_hpd_enable(struct drm_bridge *bridge)
->   	hdmi_write(hdmi, REG_HDMI_HPD_CTRL,
->   			HDMI_HPD_CTRL_ENABLE | hpd_ctrl);
->   	spin_unlock_irqrestore(&hdmi->reg_lock, flags);
-> -
-> -	return 0;
->   }
->   
-> -void msm_hdmi_hpd_disable(struct hdmi *hdmi)
-> +void msm_hdmi_hpd_disable(struct drm_bridge *bridge)
->   {
-> +	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
-> +	struct hdmi *hdmi = hdmi_bridge->hdmi;
->   	struct device *dev = &hdmi->pdev->dev;
->   
->   	/* Disable HPD interrupt */
-> 
-> -- 
-> 2.39.2
-> 
+-- 
+With best wishes
+Dmitry
