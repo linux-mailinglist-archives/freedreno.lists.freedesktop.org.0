@@ -2,75 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09739910EA1
-	for <lists+freedreno@lfdr.de>; Thu, 20 Jun 2024 19:32:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 567C79110C5
+	for <lists+freedreno@lfdr.de>; Thu, 20 Jun 2024 20:24:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9AE310EB92;
-	Thu, 20 Jun 2024 17:32:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D2E310E033;
+	Thu, 20 Jun 2024 18:24:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AuiRR5d1";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="u0/qR1/9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
- [209.85.160.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DC0310EB98
- for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 17:32:18 +0000 (UTC)
-Received: by mail-qt1-f176.google.com with SMTP id
- d75a77b69052e-440f1d9377dso5117061cf.0
- for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 10:32:18 -0700 (PDT)
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00CF010E0D7
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 18:24:12 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-632750bf73bso10452507b3.2
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 11:24:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718904737; x=1719509537; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1718907852; x=1719512652; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zjqjdKsj/gQuqVLzp1VmXUWD1/JaxzvgTsxrPQZfUt4=;
- b=AuiRR5d1xMT8/5N3cXVM3UqvksNxb2Wd6gelT10fxZPJQtTS4GlTgFRPWz36yeaDkQ
- DksoEHcOh8BcQFj06aF4dTQt+jfnZtpJaCtJylqwGjwV/nbY8IFt+SL3nz0i3RL1TDkZ
- Vl/xuQYCAoh5ZYdQKUfkDF0xrvMuaj+U3Bhd1vzEodXtmo3CXWzrKUYQ5jZfUnujJcZ1
- qQLWYBcJNufFruldQDdT95nuTt9b9iCs7ku2Fhoa0PE9Y8UU4ULKMLGZ145KOu111vr2
- jpBUvoBUcMkdBoyR0W/GBWIA+VCLQHYRXey3j/eTVh8UI7a+00XfyZQH6oL1Y6ZmfEVj
- G0Og==
+ bh=SLXE8J+NTsLyBECHCrJAgVS17SAByDOT+Kx7JyJFgyw=;
+ b=u0/qR1/9MczBFEgWv3iIbzbrFfcQfxne1w71UgXld1kqqkDhuelXX3Yt3cyFUqVGHW
+ adlEYyh8ZgZnl7L7eFeWZiZ9IyYE6/90qDBf2xK97l2KQNMCh77AfXQlm/Y9j9oa4pAv
+ W3MTPAEyGSIImlSG1fjlStjOeEn3eIc4Yzn20SqO9KJkUm5IEkhhy+PorkZOJG2Atpbz
+ 0mA83tbfeNBYVSLgYz7LymRBwD6XyIb+NEPaE9UWFi5olA6ZIhXaY06KOzCdUySXGjFS
+ TW8NrhTe+JCHKh0JFdxIlgHLBvO03TRvAvfTfD+QhdA7uAcWp+hDuj8s6NiA8DnYfZ8l
+ kO5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718904737; x=1719509537;
+ d=1e100.net; s=20230601; t=1718907852; x=1719512652;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zjqjdKsj/gQuqVLzp1VmXUWD1/JaxzvgTsxrPQZfUt4=;
- b=rxHF1WsSJ8FcX5mFHTJHzConSHRC1cDgC+ws6u6H/twXjayZMpSGFXNA0MNPIbQ6q3
- 50ywnMYuHkUNFGJPEwkfQF6NOr4hAdQzpDzdqIxvM8QjCVcajMtuwS3O89x+ibIGrQsm
- i0TrG9cOIPrw58kl8i2AnpYLoyGaq2Vl8DywqV5xaglucgl6e91dgYahiv5Zcv073oQF
- hjqmmL8Qx0qA658CmSlK8SoreEBjtJHnr6ATRDCxIuHnA6QrjaVyXcbqVy4xNxAcyop+
- dAD4+vKs4ip3hc/eOnSZctC+FD6i948wFFfVOnkBg+F0tAAJDIeCq18K2yIkSOxnQ/QU
- GCaA==
+ bh=SLXE8J+NTsLyBECHCrJAgVS17SAByDOT+Kx7JyJFgyw=;
+ b=ejhBOGoHx+3CJANTKZPm7Vx7rlIZJfmczZmFkw8Dnd8ZsEPFODF6LLruiC0IxRbXRH
+ QmpKv/BsxA/wOol67WaMtz4Yu2Adqdq1o+WsdKu3zUmbvsFW6DYbq6DXSmgtgJPQGTjK
+ 9HqnHRxm/OauBo8rdOTJ7Mw2OgtvUu4kffp7iu0rHTtXRQZXFX1H4IrChAZZ/jvaqn93
+ AeZAwmhsS2v/L5mDwfZgjbl3IzmX5Kbd+2kn58JXRtX1NHGCjw+WsRoOKcjXDiF26OnJ
+ b9eFsRuFdMy2YcdkwaUiyqv+trLK0OQWbDLRskAhxXCTX2X2N5AhCo7H5NNpCaHxtNJ1
+ FFtg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWiEVO50r7PvqDgfL4A457yKz43Ap/kCPnt0B9K53T5r8MhhUswpBkXHYjLFIfWumnYpyXRki0IpP9dDW0lcfRsrLbQ9Yd0xeYjQXDOsE6N
-X-Gm-Message-State: AOJu0YzncIvEvfoCInpkP+dHtfbqAk7OKGtXpvEpbD2queJ0EprKJdhc
- 2PPChfPCbsjemFAzJxu28DOMU94SJbI2jEUM+AxbdGMxhZpRmN43asZrMsc8mzPEUxiZXr5aD1i
- w1eUIgDhxcADyzbzJmwoKRmvsvIA=
-X-Google-Smtp-Source: AGHT+IGYXxpQRTAXIlfg2cIYukw1X66BafXHZ7WrzLUkjbprXa5hdULcmMNmfQXEjJlL4mxB44nhT/XhdQpCtiyfcVc=
-X-Received: by 2002:ac8:588f:0:b0:43e:26c1:1244 with SMTP id
- d75a77b69052e-444a7ac0548mr66151531cf.50.1718904737272; Thu, 20 Jun 2024
- 10:32:17 -0700 (PDT)
+ AJvYcCVVAaXVbx8V3XOwoWs6uJIdNHdTr66dM2fcYFCuf4mv5gLj4M/dqtaLNjRqpmff/nclAhZy9+KwjaszHw1DC6X7GFO/kqBukrnZnmJcCG1q
+X-Gm-Message-State: AOJu0YwgDjEXIVfGtmc4vPHpyZreDtYdd40ZlZxQ2/GRiIn/9cN53G8S
+ ul79RVu5OY4mzLQoqqva4hzzc+hvkKE/gefdhveHIsrU9eZlL4dj2XFY/FpX3PBqpIgtsb0mGzY
+ afv9izWAMMYjdSenp7lbpb9Am227D6ZJiiHP7oQ==
+X-Google-Smtp-Source: AGHT+IGxZxE4jiQmLPcc9xGdx4Tub95V70nV8FZmgGqTvXqYLyCBLK33Pgqp319QX+0uSThE9zzO7MdMgj6QQB/WPuA=
+X-Received: by 2002:a05:690c:987:b0:63b:bd20:8e1b with SMTP id
+ 00721157ae682-63d932aa027mr19723827b3.19.1718907851789; Thu, 20 Jun 2024
+ 11:24:11 -0700 (PDT)
 MIME-Version: 1.0
 References: <64ec16b9-c680-408c-b547-5debae2f7f87@freebox.fr>
  <dkmtnizbuyswyvocczjfgmhsuedawliabycig4urw42a65hu3j@jglxzumuzamd>
  <a9e4dba6-2317-4b6f-968f-d607937f5157@freebox.fr>
-In-Reply-To: <a9e4dba6-2317-4b6f-968f-d607937f5157@freebox.fr>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 20 Jun 2024 10:32:04 -0700
-Message-ID: <CAF6AEGtvHzF-KNyMwmysz7idLYE7XuXhDnBLdQFFhEdgYo6oqQ@mail.gmail.com>
+ <CAF6AEGtvHzF-KNyMwmysz7idLYE7XuXhDnBLdQFFhEdgYo6oqQ@mail.gmail.com>
+In-Reply-To: <CAF6AEGtvHzF-KNyMwmysz7idLYE7XuXhDnBLdQFFhEdgYo6oqQ@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 20 Jun 2024 21:24:01 +0300
+Message-ID: <CAA8EJpqCmu+TPmdCxwa84s+15inmdi6SeR5XQRVey56RKqdRuQ@mail.gmail.com>
 Subject: Re: [PATCH] drm/msm: log iommu init failure
-To: Marc Gonzalez <mgonzalez@freebox.fr>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- MSM <linux-arm-msm@vger.kernel.org>, freedreno@lists.freedesktop.org, 
- Sean Paul <sean@poorly.run>, Bryan O Donoghue <bryan.odonoghue@linaro.org>, 
- Luca Weiss <luca.weiss@fairphone.com>,
- Pierre-Hugues Husson <phhusson@freebox.fr>, 
- Arnaud Vrac <avrac@freebox.fr>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>, Jeffrey Hugo <quic_jhugo@quicinc.com>
+To: Rob Clark <robdclark@gmail.com>
+Cc: Marc Gonzalez <mgonzalez@freebox.fr>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, MSM <linux-arm-msm@vger.kernel.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>, 
+ Bryan O Donoghue <bryan.odonoghue@linaro.org>,
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Pierre-Hugues Husson <phhusson@freebox.fr>, Arnaud Vrac <avrac@freebox.fr>, 
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Jeffrey Hugo <quic_jhugo@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -88,84 +90,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, May 30, 2024 at 2:48=E2=80=AFAM Marc Gonzalez <mgonzalez@freebox.fr=
-> wrote:
+On Thu, 20 Jun 2024 at 20:32, Rob Clark <robdclark@gmail.com> wrote:
 >
-> On 16/05/2024 10:43, Marijn Suijten wrote:
->
-> > On 2024-05-15 17:09:02, Marc Gonzalez wrote:
+> On Thu, May 30, 2024 at 2:48=E2=80=AFAM Marc Gonzalez <mgonzalez@freebox.=
+fr> wrote:
 > >
-> >> When create_address_space() fails (e.g. when smmu node is disabled)
+> > On 16/05/2024 10:43, Marijn Suijten wrote:
+> >
+> > > On 2024-05-15 17:09:02, Marc Gonzalez wrote:
+> > >
+> > >> When create_address_space() fails (e.g. when smmu node is disabled)
+>
+> Note that smmu support is going to become a hard dependency with the
+> drm_gpuvm/VM_BIND conversion.. which I think means we should never get
+> far enough to hit this error path..
 
-Note that smmu support is going to become a hard dependency with the
-drm_gpuvm/VM_BIND conversion.. which I think means we should never get
-far enough to hit this error path..
+Does that mean that we will lose GPU support on  MSM8974?
 
-BR,
--R
+>
+> BR,
+> -R
+>
+> > >> msm_gpu_init() silently fails:
+> > >>
+> > >> msm_dpu c901000.display-controller: failed to load adreno gpu
+> > >> msm_dpu c901000.display-controller: failed to bind 5000000.gpu (ops =
+a3xx_ops): -19
+> > >>
+> > >> Log create_address_space() failure.
+> > >>
+> > >> Signed-off-by: Marc Gonzalez <mgonzalez@freebox.fr>
+> > >
+> > > Thanks!
+> > >
+> > > Suggested-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > >
+> > > And, after checking the below:
+> > >
+> > > Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > >
 
-> >> msm_gpu_init() silently fails:
-> >>
-> >> msm_dpu c901000.display-controller: failed to load adreno gpu
-> >> msm_dpu c901000.display-controller: failed to bind 5000000.gpu (ops a3=
-xx_ops): -19
-> >>
-> >> Log create_address_space() failure.
-> >>
-> >> Signed-off-by: Marc Gonzalez <mgonzalez@freebox.fr>
-> >
-> > Thanks!
-> >
-> > Suggested-by: Marijn Suijten <marijn.suijten@somainline.org>
-> >
-> > And, after checking the below:
-> >
-> > Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-> >
-> >> ---
-> >>  drivers/gpu/drm/msm/msm_gpu.c | 1 +
-> >>  1 file changed, 1 insertion(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_g=
-pu.c
-> >> index 655002b21b0d5..f1e692866cc38 100644
-> >> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> >> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> >> @@ -941,6 +941,7 @@ int msm_gpu_init(struct drm_device *drm, struct pl=
-atform_device *pdev,
-> >>              DRM_DEV_INFO(drm->dev, "%s: no IOMMU, fallback to VRAM ca=
-rveout!\n", name);
-> >>      else if (IS_ERR(gpu->aspace)) {
-> >>              ret =3D PTR_ERR(gpu->aspace);
-> >> +            DRM_DEV_ERROR(drm->dev, "could not create address space: =
-%d\n", ret);
-> >
-> > Maybe this wasn't done before because this also includes `-EPROBE_DEFER=
-`, so you
-> > might want to wrap this in
-> >
-> >       if (ret !=3D -EPROBE_DEFER)
-> >               DRM_DEV_ERROR...
-> >
-> > But then dev_err_probe() was built specifically to be less verbose abou=
-t this
-> > (and track defer reasons).  While this is an init and not probe functio=
-n, it's
-> > called from struct component_ops->bind where it should be okay to call =
-that,
-> > as long as you have access to the component `struct device*` and not it=
-s master
-> > (IIRC).
->
->
-> Hello Marijn,
->
-> I have moved on to HDMI.
->
-> Feel free to take full ownership of this submission,
-> as I won't have the energy to get it accepted.
->
-> Regards,
->
-> Marc
->
+
+
+--=20
+With best wishes
+Dmitry
