@@ -2,84 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C971B911C1C
-	for <lists+freedreno@lfdr.de>; Fri, 21 Jun 2024 08:48:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E929912F3B
+	for <lists+freedreno@lfdr.de>; Fri, 21 Jun 2024 23:10:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9316010EA47;
-	Fri, 21 Jun 2024 06:48:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1795A10E2A7;
+	Fri, 21 Jun 2024 21:10:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="dD1cc5Bf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YBwN3vji";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7A7610EA38
- for <freedreno@lists.freedesktop.org>; Fri, 21 Jun 2024 06:48:45 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-57d0f929f79so1478212a12.2
- for <freedreno@lists.freedesktop.org>; Thu, 20 Jun 2024 23:48:45 -0700 (PDT)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+ [209.85.208.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 478EB10E165;
+ Fri, 21 Jun 2024 21:10:13 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-2ec0f3b9cfeso25976281fa.0; 
+ Fri, 21 Jun 2024 14:10:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1718952524; x=1719557324; darn=lists.freedesktop.org;
- h=in-reply-to:references:from:subject:cc:to:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1719004211; x=1719609011; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WTPTYUIAI+cYSVFPE495y+YpJV2Jh1KvECgLTdMjZnQ=;
- b=dD1cc5Bf+fZeaFm+zRlx+h3BIZO9svGgI5UhoRxio3BnyX9AAAxT3aObiw6bs59CFC
- pPaqdwCiSQi7IPIJbUsSZ4cWJpuuY7wsKvyjtfaJLhcZqh50sLxtLPvdQ8T+GSvgUZ8I
- U8e1hdYkMdhoe1xNUR1o6ckQF4LA2UKqb1qVJElAhvhbBz6WkmNfXj8OrxWWj9vdd13u
- oSzk0B2/PBJohNtmOTQdG0Qh8+rIA8hZ6QeCoU6ZiBacSKVAHdHgUbhQowQrDwhTsylQ
- iI1ayLmw050X2MebKdfYw87iPFwyujaH6cAMxsAV/IGGH057WM6Y4+flBNm2XtOEchsc
- 85rg==
+ bh=1iyb8hSYVKKM/r+VcpqNlS7PyezuJWmc+CZRduY6w58=;
+ b=YBwN3vji9Vmyncd2BwTupjAj1vloL6grN618VjaO9xRqthLz9GuNm7LJU4D64tJSsu
+ AWQxt+xWi9C39/gw6pwBhNEIioA9fMtGIqcoddkTEIu1x4qe3wsTdOuXKRaya/ZjKqfj
+ YyowQDHwG/0C80VwDlueZEcitc1YwR+bBHImUrdxHVt7zPUNPsOoTqQ1oHgtyP0EK+E4
+ WSzh9UcirqnPk3sjApaznF4JEl3C9TzrhX3LKPTGdeM7/lDnuU7fB0aBFB7uB9JLvCYL
+ 5UQ5w3m9if9cWHR1KVKlkbFpf15xd3YvlNGHmrLqPDbZ82LzhqaoDHBKQyp6Bc+5GiJM
+ YJrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718952524; x=1719557324;
- h=in-reply-to:references:from:subject:cc:to:message-id:date
- :content-transfer-encoding:mime-version:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=WTPTYUIAI+cYSVFPE495y+YpJV2Jh1KvECgLTdMjZnQ=;
- b=BHzIEEyc4njLFg43feCkHejDOTGm1vujSiI87jpBh2YnSll5EgIH94zHrXrjuKC6Uz
- xtsD6DFz13cwXS58TAdV0t3XdG/qxi3Zc2lPUJgeYUU2OZFHIHbSjGOHLs4WrQGV3v3W
- VrpknBFTXSFzhRBety0fBld1VLfZwXSviamzhbwHQ7V9mI42Z4R+VQLDBCjhuQHlgw7s
- MIHcyJPkqkTfqrOT8u01s5s24DDWdmvVcvbCUJjLlLgJQRggXUbScF8pgIaw7mQo7TkX
- J72M+L2DLHt7Fe4fV+vswIoDuKFvucx6Ft2eefSJEftxJcGMJfiyYkxfE0bMQMmbo1rJ
- BGZA==
+ d=1e100.net; s=20230601; t=1719004211; x=1719609011;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1iyb8hSYVKKM/r+VcpqNlS7PyezuJWmc+CZRduY6w58=;
+ b=eZO62bisp75vdEUQr1a2LWitZzdWTsN9VGEUVyAZn3JenB9n7dlSJ00H8WEmJwC7Ga
+ YNhDMRzw1a+daZAFVOXaOTqxNl+qKz/VROhOQdv8dDZ0Tvfnb/pUgpEbJrzBdZqA6gUG
+ ziqZWWGz0c0c07k1GZ+BwYiLFx+VOQ1eITIu4Un7GxFsYzuZW691zv+Hfcvj8ugt1h1H
+ XleSRvjNxnpvO1exja94YT0I8rjZJ5u42wL8UnMiCkfN8hwxVYRIuX/COCrfpMSMe3Is
+ 3niE3ElSzzpliYGon/Mn9cRABaZqPiUZQ2aKnNzVf/PUu+k1ix046itN5RXTDhuv5z7x
+ TbIA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXXD1e3eA5N8HFoAvdFTCattH6PZBkSh6myIv4d1zYcqWLX+dar6/iNxMzgv5gIExUDADmLTIDMUtCfYJ+FyOFIp9yRD01rseJhL6i6HvSg
-X-Gm-Message-State: AOJu0Ywd+MHy72ksT9u0zApf33JxQev/iCYNbAT7WPynV4sTywuhIrsH
- b1cYJvYNWIPk118/wxfvICsGzFJByhVhTPoQl5GVos11UUqqw4HQIth6MlCPVlE=
-X-Google-Smtp-Source: AGHT+IGwrRaDa7rYvqZ77QTjkvkgem4Yvzeueo9WJucioWs1WL0pxaLkCCk657dD88oHfEueksJ/vA==
-X-Received: by 2002:a50:930e:0:b0:579:c3f8:591c with SMTP id
- 4fb4d7f45d1cf-57d07e5f0f9mr5559105a12.18.1718952523797; 
- Thu, 20 Jun 2024 23:48:43 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl.
- [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57d30413446sm509122a12.31.2024.06.20.23.48.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Jun 2024 23:48:43 -0700 (PDT)
-Mime-Version: 1.0
+ AJvYcCUUsAuiPbCy1IRHkoph3O2U+qdB8woGLr4kI2PAhdkcz8GU61S13SIZ6LdSr39s2KSybAbAbQW7eOrvvmu0kWqyxUyZlEfj6aCPSzs7EtRVWjtjC9YNBs3U1SeYDJvKaI3GpU1/puwt5FCJTGMfwWuA
+X-Gm-Message-State: AOJu0YwmQ+OHQMLirpIbhE2Hwu34KbqXw52STFLD0hg/pW1T+fqmncHg
+ rKuMH8xwtDRTLGcu1fyhxwb+Qv2UJQMhGzUfOzo8DxB5YOn/6b9g6ZmiLDi1nW7xL//K5Dxa6CF
+ MxmUZlyVufzl3m3Rr9uMwx+D+EYQ=
+X-Google-Smtp-Source: AGHT+IFTUdQNhFX9z3HzVsP6p8XRuwLWasMMpz6XtrH6ITxmXMhIMxrau9yHHT5d8uO3N60DhYAXORX55VBi/l3TcOk=
+X-Received: by 2002:a2e:7818:0:b0:2ec:3bc4:3e36 with SMTP id
+ 38308e7fff4ca-2ec3ceb6a56mr60042591fa.14.1719004210910; Fri, 21 Jun 2024
+ 14:10:10 -0700 (PDT)
+MIME-Version: 1.0
+References: <20240608-adreno-v1-1-2e470480eee7@gmail.com>
+In-Reply-To: <20240608-adreno-v1-1-2e470480eee7@gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 21 Jun 2024 14:09:58 -0700
+Message-ID: <CAF6AEGsd6jfDqV-EOWr+oMjPpVr2S+71VYmp1JoY8xU51eeEEw@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm/a6xx: request memory region
+To: Kiarash Hajian <kiarash8112hajian@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 21 Jun 2024 08:48:43 +0200
-Message-Id: <D25HTBIFDM42.2W1WGS8HKTHTF@fairphone.com>
-To: "Konrad Dybcio" <konrad.dybcio@linaro.org>, "Dmitry Baryshkov"
- <dmitry.baryshkov@linaro.org>, "Rob Clark" <robdclark@gmail.com>
-Cc: "Marc Gonzalez" <mgonzalez@freebox.fr>, "Marijn Suijten"
- <marijn.suijten@somainline.org>, "Abhinav Kumar"
- <quic_abhinavk@quicinc.com>, "MSM" <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, "Sean Paul" <sean@poorly.run>, "Bryan O
- Donoghue" <bryan.odonoghue@linaro.org>, "Pierre-Hugues Husson"
- <phhusson@freebox.fr>, "Arnaud Vrac" <avrac@freebox.fr>, "Bjorn Andersson"
- <andersson@kernel.org>, "Jeffrey Hugo" <quic_jhugo@quicinc.com>
-Subject: Re: [PATCH] drm/msm: log iommu init failure
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.17.0
-References: <64ec16b9-c680-408c-b547-5debae2f7f87@freebox.fr>
- <dkmtnizbuyswyvocczjfgmhsuedawliabycig4urw42a65hu3j@jglxzumuzamd>
- <a9e4dba6-2317-4b6f-968f-d607937f5157@freebox.fr>
- <CAF6AEGtvHzF-KNyMwmysz7idLYE7XuXhDnBLdQFFhEdgYo6oqQ@mail.gmail.com>
- <CAA8EJpqCmu+TPmdCxwa84s+15inmdi6SeR5XQRVey56RKqdRuQ@mail.gmail.com>
- <717ee43e-41f5-4940-b404-c348812c84c9@linaro.org>
-In-Reply-To: <717ee43e-41f5-4940-b404-c348812c84c9@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,40 +84,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri Jun 21, 2024 at 12:47 AM CEST, Konrad Dybcio wrote:
+On Sat, Jun 8, 2024 at 8:44=E2=80=AFAM Kiarash Hajian
+<kiarash8112hajian@gmail.com> wrote:
+>
+> The driver's memory regions are currently just ioremap()ed, but not
+> reserved through a request. That's not a bug, but having the request is
+> a little more robust.
+>
+> Implement the region-request through the corresponding managed
+> devres-function.
+>
+> Signed-off-by: Kiarash Hajian <kiarash8112hajian@gmail.com>
+> ---
+> Changes in v6:
+>     -Fix compile error
+>     -Link to v5: https://lore.kernel.org/all/20240607-memory-v1-1-8664f52=
+fc2a1@gmail.com
+>
+> Changes in v5:
+>     - Fix error hanlding problems.
+>     - Link to v4: https://lore.kernel.org/r/20240512-msm-adreno-memory-re=
+gion-v4-1-3881a64088e6@gmail.com
+>
+> Changes in v4:
+>     - Combine v3 commits into a singel commit
+>     - Link to v3: https://lore.kernel.org/r/20240512-msm-adreno-memory-re=
+gion-v3-0-0a728ad45010@gmail.com
+>
+> Changes in v3:
+>     - Remove redundant devm_iounmap calls, relying on devres for automati=
+c resource cleanup.
+>
+> Changes in v2:
+>     - update the subject prefix to "drm/msm/a6xx:", to match the majority=
+ of other changes to this file.
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 33 +++++++++++------------------=
+----
+>  1 file changed, 11 insertions(+), 22 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gmu.c
+> index 8bea8ef26f77..d26cc6254ef9 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -525,7 +525,7 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+>         bool pdc_in_aop =3D false;
+>
+>         if (IS_ERR(pdcptr))
+> -               goto err;
+> +               return;
+>
+>         if (adreno_is_a650(adreno_gpu) ||
+>             adreno_is_a660_family(adreno_gpu) ||
+> @@ -541,7 +541,7 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+>         if (!pdc_in_aop) {
+>                 seqptr =3D a6xx_gmu_get_mmio(pdev, "gmu_pdc_seq");
+>                 if (IS_ERR(seqptr))
+> -                       goto err;
+> +                       return;
+>         }
+>
+>         /* Disable SDE clock gating */
+> @@ -633,12 +633,6 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+>         wmb();
+>
+>         a6xx_rpmh_stop(gmu);
+> -
+> -err:
+> -       if (!IS_ERR_OR_NULL(pdcptr))
+> -               iounmap(pdcptr);
+> -       if (!IS_ERR_OR_NULL(seqptr))
+> -               iounmap(seqptr);
+>  }
+>
+>  /*
+> @@ -1503,7 +1497,7 @@ static void __iomem *a6xx_gmu_get_mmio(struct platf=
+orm_device *pdev,
+>                 return ERR_PTR(-EINVAL);
+>         }
+>
+> -       ret =3D ioremap(res->start, resource_size(res));
+> +       ret =3D devm_ioremap_resource(&pdev->dev, res);
+
+So, this doesn't actually work, failing in __request_region_locked(),
+because the gmu region partially overlaps with the gpucc region (which
+is busy).  I think this is intentional, since gmu is controlling the
+gpu clocks, etc.  In particular REG_A6XX_GPU_CC_GX_GDSCR is in this
+overlapping region.  Maybe Akhil knows more about GMU.
+
+BR,
+-R
+
+>         if (!ret) {
+>                 DRM_DEV_ERROR(&pdev->dev, "Unable to map the %s registers=
+\n", name);
+>                 return ERR_PTR(-EINVAL);
+> @@ -1613,13 +1607,13 @@ int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_g=
+pu, struct device_node *node)
+>         gmu->mmio =3D a6xx_gmu_get_mmio(pdev, "gmu");
+>         if (IS_ERR(gmu->mmio)) {
+>                 ret =3D PTR_ERR(gmu->mmio);
+> -               goto err_mmio;
+> +               goto err_cleanup;
+>         }
+>
+>         gmu->cxpd =3D dev_pm_domain_attach_by_name(gmu->dev, "cx");
+>         if (IS_ERR(gmu->cxpd)) {
+>                 ret =3D PTR_ERR(gmu->cxpd);
+> -               goto err_mmio;
+> +               goto err_cleanup;
+>         }
+>
+>         if (!device_link_add(gmu->dev, gmu->cxpd, DL_FLAG_PM_RUNTIME)) {
+> @@ -1635,7 +1629,7 @@ int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu=
+, struct device_node *node)
+>         gmu->gxpd =3D dev_pm_domain_attach_by_name(gmu->dev, "gx");
+>         if (IS_ERR(gmu->gxpd)) {
+>                 ret =3D PTR_ERR(gmu->gxpd);
+> -               goto err_mmio;
+> +               goto err_cleanup;
+>         }
+>
+>         gmu->initialized =3D true;
+> @@ -1645,9 +1639,7 @@ int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu=
+, struct device_node *node)
+>  detach_cxpd:
+>         dev_pm_domain_detach(gmu->cxpd, false);
+>
+> -err_mmio:
+> -       iounmap(gmu->mmio);
+> -
+> +err_cleanup:
+>         /* Drop reference taken in of_find_device_by_node */
+>         put_device(gmu->dev);
+>
+> @@ -1762,7 +1754,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct=
+ device_node *node)
+>                 gmu->rscc =3D a6xx_gmu_get_mmio(pdev, "rscc");
+>                 if (IS_ERR(gmu->rscc)) {
+>                         ret =3D -ENODEV;
+> -                       goto err_mmio;
+> +                       goto err_cleanup;
+>                 }
+>         } else {
+>                 gmu->rscc =3D gmu->mmio + 0x23000;
+> @@ -1774,13 +1766,13 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, stru=
+ct device_node *node)
+>
+>         if (gmu->hfi_irq < 0 || gmu->gmu_irq < 0) {
+>                 ret =3D -ENODEV;
+> -               goto err_mmio;
+> +               goto err_cleanup;
+>         }
+>
+>         gmu->cxpd =3D dev_pm_domain_attach_by_name(gmu->dev, "cx");
+>         if (IS_ERR(gmu->cxpd)) {
+>                 ret =3D PTR_ERR(gmu->cxpd);
+> -               goto err_mmio;
+> +               goto err_cleanup;
+>         }
+>
+>         link =3D device_link_add(gmu->dev, gmu->cxpd, DL_FLAG_PM_RUNTIME)=
+;
+> @@ -1824,10 +1816,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struc=
+t device_node *node)
+>  detach_cxpd:
+>         dev_pm_domain_detach(gmu->cxpd, false);
+>
+> -err_mmio:
+> -       iounmap(gmu->mmio);
+> -       if (platform_get_resource_byname(pdev, IORESOURCE_MEM, "rscc"))
+> -               iounmap(gmu->rscc);
+> +err_cleanup:
+>         free_irq(gmu->gmu_irq, gmu);
+>         free_irq(gmu->hfi_irq, gmu);
 >
 >
-> On 6/20/24 20:24, Dmitry Baryshkov wrote:
-> > On Thu, 20 Jun 2024 at 20:32, Rob Clark <robdclark@gmail.com> wrote:
-> >>
-> >> On Thu, May 30, 2024 at 2:48=E2=80=AFAM Marc Gonzalez <mgonzalez@freeb=
-ox.fr> wrote:
-> >>>
-> >>> On 16/05/2024 10:43, Marijn Suijten wrote:
-> >>>
-> >>>> On 2024-05-15 17:09:02, Marc Gonzalez wrote:
-> >>>>
-> >>>>> When create_address_space() fails (e.g. when smmu node is disabled)
-> >>
-> >> Note that smmu support is going to become a hard dependency with the
-> >> drm_gpuvm/VM_BIND conversion.. which I think means we should never get
-> >> far enough to hit this error path..
-> >=20
-> > Does that mean that we will lose GPU support on  MSM8974?
+> ---
+> base-commit: 1b294a1f35616977caddaddf3e9d28e576a1adbc
+> change-id: 20240608-adreno-98c412bfdc03
 >
-> Yeah, that was brought up on #freedreno some time ago
-
-Also on MSM8226 which I also care about...
-
-Anyone at all knowledgable on IOMMU would be very welcome to help out
-with IOMMU support on these two platforms (and anything else that
-old?) in any case, since me and some other people have looked at this
-(on and off) for years but haven't gotten to any stable or usable point
-unfortunately.
-
-Regards
-Luca
-
+> Best regards,
+> --
+> Kiarash Hajian <kiarash8112hajian@gmail.com>
 >
-> Konrad
-
