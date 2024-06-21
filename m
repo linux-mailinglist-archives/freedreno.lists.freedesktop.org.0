@@ -2,73 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E929912F3B
-	for <lists+freedreno@lfdr.de>; Fri, 21 Jun 2024 23:10:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2A339130DB
+	for <lists+freedreno@lfdr.de>; Sat, 22 Jun 2024 01:32:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1795A10E2A7;
-	Fri, 21 Jun 2024 21:10:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9312910E114;
+	Fri, 21 Jun 2024 23:32:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YBwN3vji";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="mt9JfZm2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 478EB10E165;
- Fri, 21 Jun 2024 21:10:13 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2ec0f3b9cfeso25976281fa.0; 
- Fri, 21 Jun 2024 14:10:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719004211; x=1719609011; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1iyb8hSYVKKM/r+VcpqNlS7PyezuJWmc+CZRduY6w58=;
- b=YBwN3vji9Vmyncd2BwTupjAj1vloL6grN618VjaO9xRqthLz9GuNm7LJU4D64tJSsu
- AWQxt+xWi9C39/gw6pwBhNEIioA9fMtGIqcoddkTEIu1x4qe3wsTdOuXKRaya/ZjKqfj
- YyowQDHwG/0C80VwDlueZEcitc1YwR+bBHImUrdxHVt7zPUNPsOoTqQ1oHgtyP0EK+E4
- WSzh9UcirqnPk3sjApaznF4JEl3C9TzrhX3LKPTGdeM7/lDnuU7fB0aBFB7uB9JLvCYL
- 5UQ5w3m9if9cWHR1KVKlkbFpf15xd3YvlNGHmrLqPDbZ82LzhqaoDHBKQyp6Bc+5GiJM
- YJrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719004211; x=1719609011;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1iyb8hSYVKKM/r+VcpqNlS7PyezuJWmc+CZRduY6w58=;
- b=eZO62bisp75vdEUQr1a2LWitZzdWTsN9VGEUVyAZn3JenB9n7dlSJ00H8WEmJwC7Ga
- YNhDMRzw1a+daZAFVOXaOTqxNl+qKz/VROhOQdv8dDZ0Tvfnb/pUgpEbJrzBdZqA6gUG
- ziqZWWGz0c0c07k1GZ+BwYiLFx+VOQ1eITIu4Un7GxFsYzuZW691zv+Hfcvj8ugt1h1H
- XleSRvjNxnpvO1exja94YT0I8rjZJ5u42wL8UnMiCkfN8hwxVYRIuX/COCrfpMSMe3Is
- 3niE3ElSzzpliYGon/Mn9cRABaZqPiUZQ2aKnNzVf/PUu+k1ix046itN5RXTDhuv5z7x
- TbIA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUUsAuiPbCy1IRHkoph3O2U+qdB8woGLr4kI2PAhdkcz8GU61S13SIZ6LdSr39s2KSybAbAbQW7eOrvvmu0kWqyxUyZlEfj6aCPSzs7EtRVWjtjC9YNBs3U1SeYDJvKaI3GpU1/puwt5FCJTGMfwWuA
-X-Gm-Message-State: AOJu0YwmQ+OHQMLirpIbhE2Hwu34KbqXw52STFLD0hg/pW1T+fqmncHg
- rKuMH8xwtDRTLGcu1fyhxwb+Qv2UJQMhGzUfOzo8DxB5YOn/6b9g6ZmiLDi1nW7xL//K5Dxa6CF
- MxmUZlyVufzl3m3Rr9uMwx+D+EYQ=
-X-Google-Smtp-Source: AGHT+IFTUdQNhFX9z3HzVsP6p8XRuwLWasMMpz6XtrH6ITxmXMhIMxrau9yHHT5d8uO3N60DhYAXORX55VBi/l3TcOk=
-X-Received: by 2002:a2e:7818:0:b0:2ec:3bc4:3e36 with SMTP id
- 38308e7fff4ca-2ec3ceb6a56mr60042591fa.14.1719004210910; Fri, 21 Jun 2024
- 14:10:10 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2008210E098;
+ Fri, 21 Jun 2024 23:32:01 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45LF6O4L003415;
+ Fri, 21 Jun 2024 23:31:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ YT9lB03hb+BN7VK93Q5NAjlKC6SCVjFLDRiXDwk2tKE=; b=mt9JfZm2PfDLrXzF
+ sNUAZuJ910VrpW+UuEl5C5WneUCg12PLFdYXKgwhUI5Wyp2LCWOOMQ3BsyAOvXIa
+ x6etXcAWjdd5zK6hXhAeFac0ZDStGWJYJcJ9eD0rySDiP1Z7Tmsy4f/Rj79S1tsJ
+ nwZ9LYTN4AGjOPEORVtJosHA5v0AyTjqsIK1xt+G+PnCVLGNknWPlQ9jb2LXH1eP
+ AlR0SWKo5bFf10OPP4Cr41DIZZ42WaWsLiISDnBFAXcUjD3YOYoOaLHj/m25TpMT
+ Cjrj1AxhMfXNTF6nmFzIqTcXGmHRfVKOZ82Q6QkgyotRhHyNUqDOFzjWxxN8BbgU
+ z+G8EA==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yw49et6mw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Jun 2024 23:31:57 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45LNVu62012299
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Jun 2024 23:31:56 GMT
+Received: from [10.110.82.141] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 21 Jun
+ 2024 16:31:51 -0700
+Message-ID: <70942425-af39-4bbc-4ab4-8124e336b666@quicinc.com>
+Date: Fri, 21 Jun 2024 16:31:48 -0700
 MIME-Version: 1.0
-References: <20240608-adreno-v1-1-2e470480eee7@gmail.com>
-In-Reply-To: <20240608-adreno-v1-1-2e470480eee7@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 21 Jun 2024 14:09:58 -0700
-Message-ID: <CAF6AEGsd6jfDqV-EOWr+oMjPpVr2S+71VYmp1JoY8xU51eeEEw@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/a6xx: request memory region
-To: Kiarash Hajian <kiarash8112hajian@gmail.com>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [RFC PATCH 1/4] drm/msm: register a fault handler for display mmu
+ faults
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>, "Sean
+ Paul" <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ "David Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ <dri-devel@lists.freedesktop.org>, <seanpaul@chromium.org>,
+ <swboyd@chromium.org>, <dianders@chromium.org>,
+ <quic_jesszhan@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+References: <20240517233801.4071868-1-quic_abhinavk@quicinc.com>
+ <20240517233801.4071868-2-quic_abhinavk@quicinc.com>
+ <cwo63ra2ogrdr3ywmiuxewzuxzsyozyqfcict7xs5kp6uwy2qp@7e6fgb7oyszc>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <cwo63ra2ogrdr3ywmiuxewzuxzsyozyqfcict7xs5kp6uwy2qp@7e6fgb7oyszc>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 4iej3wq8MMtUpWAcGM_z5FirZKu-Flg7
+X-Proofpoint-GUID: 4iej3wq8MMtUpWAcGM_z5FirZKu-Flg7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-21_12,2024-06-21_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 mlxlogscore=999
+ impostorscore=0 bulkscore=0 clxscore=1011 priorityscore=1501 adultscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2406140001 definitions=main-2406210171
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,188 +99,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Jun 8, 2024 at 8:44=E2=80=AFAM Kiarash Hajian
-<kiarash8112hajian@gmail.com> wrote:
->
-> The driver's memory regions are currently just ioremap()ed, but not
-> reserved through a request. That's not a bug, but having the request is
-> a little more robust.
->
-> Implement the region-request through the corresponding managed
-> devres-function.
->
-> Signed-off-by: Kiarash Hajian <kiarash8112hajian@gmail.com>
-> ---
-> Changes in v6:
->     -Fix compile error
->     -Link to v5: https://lore.kernel.org/all/20240607-memory-v1-1-8664f52=
-fc2a1@gmail.com
->
-> Changes in v5:
->     - Fix error hanlding problems.
->     - Link to v4: https://lore.kernel.org/r/20240512-msm-adreno-memory-re=
-gion-v4-1-3881a64088e6@gmail.com
->
-> Changes in v4:
->     - Combine v3 commits into a singel commit
->     - Link to v3: https://lore.kernel.org/r/20240512-msm-adreno-memory-re=
-gion-v3-0-0a728ad45010@gmail.com
->
-> Changes in v3:
->     - Remove redundant devm_iounmap calls, relying on devres for automati=
-c resource cleanup.
->
-> Changes in v2:
->     - update the subject prefix to "drm/msm/a6xx:", to match the majority=
- of other changes to this file.
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 33 +++++++++++------------------=
-----
->  1 file changed, 11 insertions(+), 22 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gmu.c
-> index 8bea8ef26f77..d26cc6254ef9 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -525,7 +525,7 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
->         bool pdc_in_aop =3D false;
->
->         if (IS_ERR(pdcptr))
-> -               goto err;
-> +               return;
->
->         if (adreno_is_a650(adreno_gpu) ||
->             adreno_is_a660_family(adreno_gpu) ||
-> @@ -541,7 +541,7 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
->         if (!pdc_in_aop) {
->                 seqptr =3D a6xx_gmu_get_mmio(pdev, "gmu_pdc_seq");
->                 if (IS_ERR(seqptr))
-> -                       goto err;
-> +                       return;
->         }
->
->         /* Disable SDE clock gating */
-> @@ -633,12 +633,6 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
->         wmb();
->
->         a6xx_rpmh_stop(gmu);
-> -
-> -err:
-> -       if (!IS_ERR_OR_NULL(pdcptr))
-> -               iounmap(pdcptr);
-> -       if (!IS_ERR_OR_NULL(seqptr))
-> -               iounmap(seqptr);
->  }
->
->  /*
-> @@ -1503,7 +1497,7 @@ static void __iomem *a6xx_gmu_get_mmio(struct platf=
-orm_device *pdev,
->                 return ERR_PTR(-EINVAL);
->         }
->
-> -       ret =3D ioremap(res->start, resource_size(res));
-> +       ret =3D devm_ioremap_resource(&pdev->dev, res);
 
-So, this doesn't actually work, failing in __request_region_locked(),
-because the gmu region partially overlaps with the gpucc region (which
-is busy).  I think this is intentional, since gmu is controlling the
-gpu clocks, etc.  In particular REG_A6XX_GPU_CC_GX_GDSCR is in this
-overlapping region.  Maybe Akhil knows more about GMU.
 
-BR,
--R
+On 5/19/2024 1:31 AM, Dmitry Baryshkov wrote:
+> On Fri, May 17, 2024 at 04:37:56PM -0700, Abhinav Kumar wrote:
+>> In preparation to register a iommu fault handler for display
+>> related modules, register a fault handler for the backing
+>> mmu object of msm_kms.
+>>
+>> Currently, the fault handler only captures the display snapshot
+>> but we can expand this later if more information needs to be
+>> added to debug display mmu faults.
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/msm_kms.c | 25 +++++++++++++++++++++++++
+>>   1 file changed, 25 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+>> index af6a6fcb1173..62c8e6163e81 100644
+>> --- a/drivers/gpu/drm/msm/msm_kms.c
+>> +++ b/drivers/gpu/drm/msm/msm_kms.c
+>> @@ -200,6 +200,28 @@ struct msm_gem_address_space *msm_kms_init_aspace(struct drm_device *dev)
+>>   	return aspace;
+>>   }
+>>   
+>> +static int msm_kms_fault_handler(void *arg, unsigned long iova, int flags, void *data)
+>> +{
+>> +	struct msm_kms *kms = arg;
+>> +	struct msm_disp_state *state;
+>> +	int ret;
+>> +
+>> +	ret = mutex_lock_interruptible(&kms->dump_mutex);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	state = msm_disp_snapshot_state_sync(kms);
+>> +
+>> +	mutex_unlock(&kms->dump_mutex);
+>> +
+>> +	if (IS_ERR(state)) {
+>> +		DRM_DEV_ERROR(kms->dev->dev, "failed to capture snapshot\n");
+>> +		return PTR_ERR(state);
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   void msm_drm_kms_uninit(struct device *dev)
+>>   {
+>>   	struct platform_device *pdev = to_platform_device(dev);
+>> @@ -261,6 +283,9 @@ int msm_drm_kms_init(struct device *dev, const struct drm_driver *drv)
+>>   		goto err_msm_uninit;
+>>   	}
+>>   
+>> +	if (kms->aspace)
+>> +		msm_mmu_set_fault_handler(kms->aspace->mmu, kms, msm_kms_fault_handler);
+>> +
+> 
+> Can we move this to msm_kms_init_aspace() instead of checking for
+> kms->aspace?
 
->         if (!ret) {
->                 DRM_DEV_ERROR(&pdev->dev, "Unable to map the %s registers=
-\n", name);
->                 return ERR_PTR(-EINVAL);
-> @@ -1613,13 +1607,13 @@ int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_g=
-pu, struct device_node *node)
->         gmu->mmio =3D a6xx_gmu_get_mmio(pdev, "gmu");
->         if (IS_ERR(gmu->mmio)) {
->                 ret =3D PTR_ERR(gmu->mmio);
-> -               goto err_mmio;
-> +               goto err_cleanup;
->         }
->
->         gmu->cxpd =3D dev_pm_domain_attach_by_name(gmu->dev, "cx");
->         if (IS_ERR(gmu->cxpd)) {
->                 ret =3D PTR_ERR(gmu->cxpd);
-> -               goto err_mmio;
-> +               goto err_cleanup;
->         }
->
->         if (!device_link_add(gmu->dev, gmu->cxpd, DL_FLAG_PM_RUNTIME)) {
-> @@ -1635,7 +1629,7 @@ int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu=
-, struct device_node *node)
->         gmu->gxpd =3D dev_pm_domain_attach_by_name(gmu->dev, "gx");
->         if (IS_ERR(gmu->gxpd)) {
->                 ret =3D PTR_ERR(gmu->gxpd);
-> -               goto err_mmio;
-> +               goto err_cleanup;
->         }
->
->         gmu->initialized =3D true;
-> @@ -1645,9 +1639,7 @@ int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu=
-, struct device_node *node)
->  detach_cxpd:
->         dev_pm_domain_detach(gmu->cxpd, false);
->
-> -err_mmio:
-> -       iounmap(gmu->mmio);
-> -
-> +err_cleanup:
->         /* Drop reference taken in of_find_device_by_node */
->         put_device(gmu->dev);
->
-> @@ -1762,7 +1754,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct=
- device_node *node)
->                 gmu->rscc =3D a6xx_gmu_get_mmio(pdev, "rscc");
->                 if (IS_ERR(gmu->rscc)) {
->                         ret =3D -ENODEV;
-> -                       goto err_mmio;
-> +                       goto err_cleanup;
->                 }
->         } else {
->                 gmu->rscc =3D gmu->mmio + 0x23000;
-> @@ -1774,13 +1766,13 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, stru=
-ct device_node *node)
->
->         if (gmu->hfi_irq < 0 || gmu->gmu_irq < 0) {
->                 ret =3D -ENODEV;
-> -               goto err_mmio;
-> +               goto err_cleanup;
->         }
->
->         gmu->cxpd =3D dev_pm_domain_attach_by_name(gmu->dev, "cx");
->         if (IS_ERR(gmu->cxpd)) {
->                 ret =3D PTR_ERR(gmu->cxpd);
-> -               goto err_mmio;
-> +               goto err_cleanup;
->         }
->
->         link =3D device_link_add(gmu->dev, gmu->cxpd, DL_FLAG_PM_RUNTIME)=
-;
-> @@ -1824,10 +1816,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struc=
-t device_node *node)
->  detach_cxpd:
->         dev_pm_domain_detach(gmu->cxpd, false);
->
-> -err_mmio:
-> -       iounmap(gmu->mmio);
-> -       if (platform_get_resource_byname(pdev, IORESOURCE_MEM, "rscc"))
-> -               iounmap(gmu->rscc);
-> +err_cleanup:
->         free_irq(gmu->gmu_irq, gmu);
->         free_irq(gmu->hfi_irq, gmu);
->
->
-> ---
-> base-commit: 1b294a1f35616977caddaddf3e9d28e576a1adbc
-> change-id: 20240608-adreno-98c412bfdc03
->
-> Best regards,
-> --
-> Kiarash Hajian <kiarash8112hajian@gmail.com>
->
+Ack.
+> 
+>>   	drm_helper_move_panel_connectors_to_head(ddev);
+>>   
+>>   	drm_for_each_crtc(crtc, ddev) {
+>> -- 
+>> 2.44.0
+>>
+> 
