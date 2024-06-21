@@ -2,53 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48921911A5F
-	for <lists+freedreno@lfdr.de>; Fri, 21 Jun 2024 07:29:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBDC1911A5B
+	for <lists+freedreno@lfdr.de>; Fri, 21 Jun 2024 07:29:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A44310E2A1;
-	Fri, 21 Jun 2024 05:29:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1609010E086;
+	Fri, 21 Jun 2024 05:29:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AbzoZuTN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D+ZkkU3G";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6682110E2A1
- for <freedreno@lists.freedesktop.org>; Fri, 21 Jun 2024 05:29:25 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0AB110E086;
+ Fri, 21 Jun 2024 05:29:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 0AA3ECE2B48;
+ by dfw.source.kernel.org (Postfix) with ESMTP id CE44F623EF;
  Fri, 21 Jun 2024 05:29:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36923C2BBFC;
- Fri, 21 Jun 2024 05:29:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A986C4AF08;
+ Fri, 21 Jun 2024 05:29:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718947761;
- bh=QjmxWRJZUIUfwMxmk0zGTkg+d0XCMnt3cBBK3lXH05M=;
+ s=k20201202; t=1718947762;
+ bh=ngUYofA4miFCa8feNw/DYHUDVbMkg19F6VlgbGgdVuw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=AbzoZuTNohYOJhrILmd4nL50tBzN+8Y5M4Zqciwu57tEHewyi6k642lzp4WTF5lp6
- X8c2Llu6freeBYgBFUgNnRsBLgKDuRnelr4Bk+VC2suJmT8hi8DoEcrBTJFYozU2eX
- ej5N6/cyvXBag5nwq8/i2olSB0UPd6VgfsCrxxEoGU+K5XNHrqBQeFc0fxtno18GrV
- gBN1qCMiLXGKZZP9jQjDO/8sIdX7Cctq+NZYYyFpF+hNvlAz2kScco2Ky8E6WOFeXG
- 12E0/8HpED7sdZafVOtrNsWwODS0mwWoHNJl5u6p7q4AIDhH2cUdKO3pPLIw5pGT+X
- OVfyFN3KVCi4A==
+ b=D+ZkkU3Gf0VS90UE4S0jfWEK3rm4/hvTpc17Boqxbmia6kKg7+Jkw6lVhvAL5uXuR
+ 2WY53qHdb2sdWRaDDLAlfGYdWmzseEHT1wzlXmD3OugLEZKar3uHQ8XXl+yX7SJQuW
+ eanRlr/4AE5r1SIIdrnLSWiGrnylBUukb28oB99boR1dfdFZlc55T3T6aUhEPRisFd
+ M5EusB/rshgGcGXbOdQm2o6lTN7CzNHvELjrr6NBXfmQ3vZS0ay3oo5E0KdLmtWeZZ
+ fvtqRItBfc3fgcgV+xi1ICTtI/d1gF1/pFEAqbNahhqeujQNuhQ3gIg5RFPd/C+bG6
+ uAE01NDDmfilw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Jun Nie <jun.nie@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Connor Abbott <cwabbott0@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: (subset) [PATCH v3 2/6] firmware: qcom_scm: Add gpu_init_regs call
-Date: Fri, 21 Jun 2024 00:29:15 -0500
-Message-ID: <171894775429.6672.4139305245535140845.b4-ty@kernel.org>
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: (subset) [PATCH v2 0/7] Add SMEM-based speedbin matching
+Date: Fri, 21 Jun 2024 00:29:16 -0500
+Message-ID: <171894775431.6672.9137172396176465614.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240430-a750-raytracing-v3-2-7f57c5ac082d@gmail.com>
-References: <20240430-a750-raytracing-v3-0-7f57c5ac082d@gmail.com>
- <20240430-a750-raytracing-v3-2-7f57c5ac082d@gmail.com>
+In-Reply-To: <20240605-topic-smem_speedbin-v2-0-8989d7e3d176@linaro.org>
+References: <20240605-topic-smem_speedbin-v2-0-8989d7e3d176@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -68,16 +67,23 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Tue, 30 Apr 2024 11:43:16 +0100, Connor Abbott wrote:
-> This will used by drm/msm to initialize GPU registers that Qualcomm's
-> firmware doesn't make writeable to the kernel.
+On Wed, 05 Jun 2024 22:10:13 +0200, Konrad Dybcio wrote:
+> Newer (SM8550+) SoCs don't seem to have a nice speedbin fuse anymore,
+> but instead rely on a set of combinations of "feature code" (FC) and
+> "product code" (PC) identifiers to match the bins. This series adds
+> support for that.
 > 
+> I suppose a qcom/for-soc immutable branch would be in order if we want
+> to land this in the upcoming cycle.
 > 
+> [...]
 
 Applied, thanks!
 
-[2/6] firmware: qcom_scm: Add gpu_init_regs call
-      commit: 158ed777e330e9bf6bd592daaf1e860d965ec8b5
+[1/7] soc: qcom: Move some socinfo defines to the header
+      commit: 9267997fa7aa0b597e8b32cb3fdfe91be1d35a83
+[2/7] soc: qcom: smem: Add a feature code getter
+      commit: 81bbb2b891174da9301fc0d4fe9622bd4cb6a995
 
 Best regards,
 -- 
