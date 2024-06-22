@@ -2,118 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0606B91338E
-	for <lists+freedreno@lfdr.de>; Sat, 22 Jun 2024 13:50:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64112913405
+	for <lists+freedreno@lfdr.de>; Sat, 22 Jun 2024 14:48:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA01610E227;
-	Sat, 22 Jun 2024 11:50:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F26710E151;
+	Sat, 22 Jun 2024 12:48:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Wvegpf+B";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zl75Arj+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99D9410E20E
- for <freedreno@lists.freedesktop.org>; Sat, 22 Jun 2024 11:50:27 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-a6ef793f4b8so294140766b.1
- for <freedreno@lists.freedesktop.org>; Sat, 22 Jun 2024 04:50:27 -0700 (PDT)
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05B3B10E151
+ for <freedreno@lists.freedesktop.org>; Sat, 22 Jun 2024 12:48:11 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-2ebeefb9a7fso32666371fa.0
+ for <freedreno@lists.freedesktop.org>; Sat, 22 Jun 2024 05:48:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719057026; x=1719661826; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=KzdEHh0dB/nV7vgLtfc8+hl5vcizG4wktTh23yM32QI=;
- b=Wvegpf+BcBz1WE7fdBpebMa6OoYI5gAUJKl+AI/EDKuUmhgooplJseknngvo221rDZ
- pRN5cmujLOB9pAuIiTSru7p1oX9Hy0cwaOsq8m3uZt7S8JIKFbPTauuUrFDGmXRJQK90
- v4htBPNPMuCzOtcuuy69jvoc0L/qdG6krqlY+Pt3t1oB6s+g5HqtRPKkyv17rlmTJfz5
- tM3x7/xLx0IVgqpjFlBZS1WnL5yfoj3m9g2Q2lrhBMyyNU68eg9yYXLPF6CSGiY+Uvrd
- fXQVZkX3qfsfRstg6To7RvIhephhmBFEPFF+puA5Bgbs/m/hn9y1tPVK7+lbnSa2bBU2
- N4tg==
+ d=linaro.org; s=google; t=1719060490; x=1719665290; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=J4NrzrquMu2wm+RaIJw1sglld6u4UvhjbmFh93smTfA=;
+ b=zl75Arj+/Ha7bhY5IzZMT5pIMkBgZUFzPwSqFDTA2U0Bk8x3MWhhEPTmrPspanDCmN
+ qghiexIlvvW2Gn9HHVtqzqQm5t+XMAJV90qtM/IT/G9xit8mkFgKEEZusW8PYpTMftsA
+ m+E4JTry9eDIN/CyfZ+1k1m2iq2+uuKVSVo4tbCrXKvm9YZV+TOfb6lAdoV4F3x3wq5C
+ Hh+wOe5i9RHLe+gAYzzFFyeEdiK00L2EXBw7s76L4k7luMQjolVlhKiDKWzzVRhPQJI3
+ +49vQrTIaFG4Gh4/hVjh2sRTnJshvydRY6XUjZDd95bAh2oqWWImj1mCJ0fAV5urJg/X
+ FodA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719057026; x=1719661826;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=KzdEHh0dB/nV7vgLtfc8+hl5vcizG4wktTh23yM32QI=;
- b=b3Mm3jOadyyVAi1hf3BCY+Bkj/yQ1hI0HlJ4zDgGu6XNolAprahEC6lt6BlC0Fp26M
- 03sumLNg3Tm9oVQ5Pshhr05OdHlo41/eTbSHPJAmUtT2lXbU3HagRFUffKbbKoQxFEvb
- UDDS9ETRnQEFU37+ml3hHky9JT7fwMt1WsEzU7GeHwlbNwlv48Ei0s+IwKKvSMOfe7ys
- ZKY7K956KWqDBn9idHZkAV5gHb0Xlg/QKuM60n227mPJyAuATQmFMldx8z9nlmfDgQ10
- DbALyTbB7N39mShssop4ii76GZ/SNOi7OsnyCstT5/qXumdP9y7GCCjx/Qw1lJ10tJYx
- BY0A==
+ d=1e100.net; s=20230601; t=1719060490; x=1719665290;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=J4NrzrquMu2wm+RaIJw1sglld6u4UvhjbmFh93smTfA=;
+ b=hkUMKWaEj0gszdpSpobhoK2gv7fzX2SRIXO6S6ewSP9zO1aKrD3/4GkZf7645gLW04
+ 3nKooUvOXZqHGjh4yRv9PC2BGhyQFahfbuXtgfQd6FAa2gzNg9IyJ4yVAbvMt6dXec87
+ ForpQmVcfkXb0aNjy4VsUCcDaW9dXWvgUBJ0tBWiG05EiTfjBHraOwGXZVOLfZYa7NcT
+ le6/2uHi2PTwm4+8sDulSFvvBUtp8MCpbfwBcOeeg1D6eWnGV4TN98Tk8Jp1Jn8WSHYx
+ D54qrvgV1KQV5GeLtVyX44K+sgnGHTzKSyQWbWhnmWE1MncAUDjBQcmo0G1yIQk1jAhs
+ +SOA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXA6qmITX2cTXuZjIu2piw2mZz5u77si2C9nOQSPzOTv5zAVl2xCrmxaxip5ZYmuDjJcdZpWPVtARCnHo2PpWEWESjd6tJ3j4ZaapHFaD1W
-X-Gm-Message-State: AOJu0Yy1XhRgkrKA/rEyQsYw8YsUlSOKThXI0GPR9YQQjEFyvqqEN6N7
- 1C7koqPb2HFgEtLEVAm76cosnRJB03seBcq7YHDLRO7EaO6GprfA7N97Gp4go88=
-X-Google-Smtp-Source: AGHT+IFq2RyjewhG08NQkSNuiG4OKvvqngvXK+P4M2fWPNqP6vDMJeiI1UJQ0pAupu6eDLx/+Vvdnw==
-X-Received: by 2002:a17:907:a0d5:b0:a6f:bd27:3f13 with SMTP id
- a640c23a62f3a-a6fbd273fccmr556874866b.34.1719057025605; 
- Sat, 22 Jun 2024 04:50:25 -0700 (PDT)
-Received: from [192.168.128.35] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6fcf486811sm188386366b.51.2024.06.22.04.50.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 22 Jun 2024 04:50:25 -0700 (PDT)
-Message-ID: <1ea4dd97-be3e-4331-b3a2-649f7729e461@linaro.org>
-Date: Sat, 22 Jun 2024 13:50:23 +0200
+ AJvYcCVzSgffoBmeAUXF2H8LnV2PTDoRBWU25O+qsudWLm+hTOFjUFuH7MTTH+6NUc8C+UD83kaepCxPgXg66SfpGHJdey2nthZIfZw6COktLuFZ
+X-Gm-Message-State: AOJu0YwFZ3nbVFPfy0eYkN0Ee7WxMeZwxtr0GdasrtC92rPCPlwThmn4
+ Eni7Qhu7fDlApNMmHq6yyfylOIs/fyMK8z5OtiWt6yxJ5ZLFfJboiNSlRtRUJkw=
+X-Google-Smtp-Source: AGHT+IHUtcMthGyb2HAUJ4dSJgS1RvVhsTp9d+IwnhEYCqcGykisBn3lTkmOciLbVOJPHTGKWoptCw==
+X-Received: by 2002:a2e:998e:0:b0:2ec:4d5b:3d03 with SMTP id
+ 38308e7fff4ca-2ec579845dbmr6014601fa.31.1719060489910; 
+ Sat, 22 Jun 2024 05:48:09 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2ec50860130sm3380151fa.140.2024.06.22.05.48.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 22 Jun 2024 05:48:09 -0700 (PDT)
+Date: Sat, 22 Jun 2024 15:48:07 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 5/8] drm/msm/dpu: rework vsync_source handling
+Message-ID: <zxnlq4vc7w2j6jzwyuyvg65qguexs75y5urn3xub5wlqdm2hlu@ntfkwwvbplax>
+References: <20240613-dpu-handle-te-signal-v2-0-67a0116b5366@linaro.org>
+ <20240613-dpu-handle-te-signal-v2-5-67a0116b5366@linaro.org>
+ <flxejwpqw75thyeu5ycnlichh37l4ltuied36jjzvgifury7lp@gjjcbohuhfa3>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/msm/adreno: Add A306A support
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>,
- 20240618164303.66615-1-robdclark@gmail.com
-References: <20240620-a306a-v2-1-0d388e1deebf@gmail.com>
- <2f10d70a-aed6-4687-8e12-4d649f6a2a5e@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- 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
- izWDgYvmBE8=
-In-Reply-To: <2f10d70a-aed6-4687-8e12-4d649f6a2a5e@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <flxejwpqw75thyeu5ycnlichh37l4ltuied36jjzvgifury7lp@gjjcbohuhfa3>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,43 +93,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22.06.2024 1:36 PM, Konrad Dybcio wrote:
-> On 20.06.2024 11:52 PM, Barnabás Czémán wrote:
->> From: Otto Pflüger <otto.pflueger@abscue.de>
->>
->> Add support for Adreno 306A GPU what is found in MSM8917 SoC.
->> This GPU marketing name is Adreno 308.
->>
->> Signed-off-by: Otto Pflüger <otto.pflueger@abscue.de>
->> [use internal name of the GPU, reword the commit message]
->> Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
->> ---
->> Changes in v2:
->> - Rebase on https://patchwork.freedesktop.org/series/127393/
->> - Link to v1: https://lore.kernel.org/r/20240528-a306a-v1-1-03a66dacd8c7@gmail.com
->> ---
->>  drivers/gpu/drm/msm/adreno/a3xx_catalog.c | 11 +++++++++++
->>  drivers/gpu/drm/msm/adreno/a3xx_gpu.c     | 14 +++++++++++---
->>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  6 ++++++
->>  3 files changed, 28 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a3xx_catalog.c b/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
->> index 0de8465b6cf0..61aeac5054a2 100644
->> --- a/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
->> +++ b/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
->> @@ -41,6 +41,17 @@ static const struct adreno_info a3xx_gpus[] = {
->>  		.gmem  = SZ_128K,
->>  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
->>  		.init  = a3xx_gpu_init,
->> +	}, {
->> +		.chip_ids = ADRENO_CHIP_IDS(0x03000620),
->> +		.family = ADRENO_3XX,
->> +		.revn  = 308,
+On Thu, Jun 13, 2024 at 08:21:59PM GMT, Marijn Suijten wrote:
+> Maybe retitle this to something that more closely resembles "remove unset
+> is_te_using_watchdog_timer field"?
+
+Well, it really moves vsync_source selection to
+_dpu_kms_initialize_dsi(), it doesn't just drop the
+is_te_using_watchdog_timer.
+
 > 
-> Double space
+> On 2024-06-13 20:05:08, Dmitry Baryshkov wrote:
+> > The struct msm_display_info has is_te_using_watchdog_timer field which
+> > is neither used anywhere nor is flexible enough to specify different
+> 
+> Well, it's "used", but not "set" (to anything other than the zero-initialized
+> default). s/used/set?
 
-Also I suppose this could be dropped ([1])
+ack
 
-Konrad
+> 
+> > sources. Replace it with the field specifying the vsync source using
+> > enum dpu_vsync_source.
+> > 
+> > Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> Patch itself is fine, just think the title could be clearer:
+> 
+> Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> 
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 5 +----
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 5 ++---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 2 ++
+> >  3 files changed, 5 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > index bd37a56b4d03..b147f8814a18 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > @@ -743,10 +743,7 @@ static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
+> >  		vsync_cfg.pp_count = dpu_enc->num_phys_encs;
+> >  		vsync_cfg.frame_rate = drm_mode_vrefresh(&dpu_enc->base.crtc->state->adjusted_mode);
+> >  
+> > -		if (disp_info->is_te_using_watchdog_timer)
+> > -			vsync_cfg.vsync_source = DPU_VSYNC_SOURCE_WD_TIMER_0;
+> > -		else
+> > -			vsync_cfg.vsync_source = DPU_VSYNC_SOURCE_GPIO_0;
+> > +		vsync_cfg.vsync_source = disp_info->vsync_source;
+> >  
+> >  		hw_mdptop->ops.setup_vsync_source(hw_mdptop, &vsync_cfg);
+> >  
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> > index 76be77e30954..cb59bd4436f4 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> > @@ -26,15 +26,14 @@
+> >   * @h_tile_instance:    Controller instance used per tile. Number of elements is
+> >   *                      based on num_of_h_tiles
+> >   * @is_cmd_mode		Boolean to indicate if the CMD mode is requested
+> > - * @is_te_using_watchdog_timer:  Boolean to indicate watchdog TE is
+> > - *				 used instead of panel TE in cmd mode panels
+> > + * @vsync_source:	Source of the TE signal for DSI CMD devices
+> >   */
+> >  struct msm_display_info {
+> >  	enum dpu_intf_type intf_type;
+> >  	uint32_t num_of_h_tiles;
+> >  	uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
+> >  	bool is_cmd_mode;
+> > -	bool is_te_using_watchdog_timer;
+> > +	enum dpu_vsync_source vsync_source;
+> >  };
+> >  
+> >  /**
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > index 1955848b1b78..e9991f3756d4 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > @@ -543,6 +543,8 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
+> >  
+> >  		info.is_cmd_mode = msm_dsi_is_cmd_mode(priv->dsi[i]);
+> >  
+> > +		info.vsync_source = DPU_VSYNC_SOURCE_GPIO_0;
+> > +
+> >  		encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DSI, &info);
+> >  		if (IS_ERR(encoder)) {
+> >  			DPU_ERROR("encoder init failed for dsi display\n");
+> > 
+> > -- 
+> > 2.39.2
+> > 
 
-[1] https://lore.kernel.org/linux-arm-msm/CAF6AEGuHSG0t6CH=+JGzZqiZa_JsOgPkcgO_UhCbO3vAgFZK_g@mail.gmail.com/
+-- 
+With best wishes
+Dmitry
