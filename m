@@ -2,78 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5364A913883
-	for <lists+freedreno@lfdr.de>; Sun, 23 Jun 2024 09:14:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A12A913885
+	for <lists+freedreno@lfdr.de>; Sun, 23 Jun 2024 09:14:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D49410E0E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4083C10E0E9;
 	Sun, 23 Jun 2024 07:14:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nFMSECDN";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="v5YQBCkI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18DEF10E0D1
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 984BB10E0E9
  for <freedreno@lists.freedesktop.org>; Sun, 23 Jun 2024 07:14:15 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2ec4eefbaf1so20130861fa.1
- for <freedreno@lists.freedesktop.org>; Sun, 23 Jun 2024 00:14:14 -0700 (PDT)
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-2ec4a35baddso28518891fa.0
+ for <freedreno@lists.freedesktop.org>; Sun, 23 Jun 2024 00:14:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1719126853; x=1719731653; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NdK+Z57kLe+iVSXD6oAbe65mu24X+W08m/s2wPEPRiY=;
- b=nFMSECDNy7DkyzQee/gNtesUMJBz2aAu5G3NoXSJvx9TcyI5ikVW6RGsu7j+os/FeV
- Rc4jtk45O4tDdIzyo+2p7RExpB5Ooql8zMImF5uEmvy8BSrpEfOQ2Rz2az3qdNdSB4q1
- 3P1pvlgs/mAWJRm0M8NOLQShDf3225XlGUd7D/CRL5ODrg5sQk5oWwcMc13EF8TRpEIs
- RHAcsorVVKgjuWekHdv7EGLRIObliDaNL7+/4a7g/t/HbRsgiAnY5g2S5u3z2vZhPL96
- u12ell97l1/qFJsMc+wX7mazEuPdroMTAaKw5lhgIfZw8DK6TrR6oaaMfGh9oDkTPcWx
- DSzA==
+ bh=h25hTtE3iszL243EN3L/BanznYfr4S4AGkpe+1b60ns=;
+ b=v5YQBCkIoXaaxQTaeSzi5a1Hz7+PXIokrs7E2ZbC7F6YBz7RPDrEFOaIlejsNNt+f+
+ i1JnCKa0IJFyoVEUg51AzSEvIPdOx2987PJJTlehqBch1Ew9IrVoYZaruc1rJQVouPsN
+ dv6Swde4QItpjvnqyeqblPuh2pqfzGEGRVWsqVuE78On17/pDFeD/sRPYfX/nnF/irCx
+ atjU+VWSRLCyMBO499w9EJZLOhoDRo718JRx2VMeOAXBgwIAt8hgxM9800o+lykvNPb9
+ l5zIXoMxRAXiEuh8roMjKQyGwW+9W0jYSFHH7/YWhNFYSFEy/ch5PZ9YSfDDZuq6o0nD
+ 4rMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1719126853; x=1719731653;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=NdK+Z57kLe+iVSXD6oAbe65mu24X+W08m/s2wPEPRiY=;
- b=EwwFo0X2+qSyc8o9z3IyZf0kHXptSvIG+KrvAt7kr1xuqdYlB5cYbxw9cIwh6c3Mal
- Rec8CqEXKTXNhH9v6UrZGLknOsuudaJolwgLD8Gwvx1sOLJZcYaIL6ZYJOGtEnbCNKUa
- lwVXvb8CvBtvA9H139sPuwbXGB6/LtB1c6php0zHybvfZ4XM4E9eZmX4d6QHvOUHfGea
- 8fTwzM6yQFpfB9gTV4L3tfQmGhpt1pFhi5LxcOcngJ4/P4SAyFLkhpUTnhqp+HLwhrEy
- Or+rrCzUz3iR2ra25OYxqHmI2uClhMhaBHl72gYZCTYPcwEE/mD/B3Er+6uFUWXBLzxF
- gw8A==
+ bh=h25hTtE3iszL243EN3L/BanznYfr4S4AGkpe+1b60ns=;
+ b=C8SiPIWrZDOoNBfCPfChERaWyg406JvUXFGHyU6Gwn5Wo6bNQrg8xq4FBefsvhrOp7
+ sNFxUuERhAjKt0Liif/CSoWxnw5pYDQZtF7/8cpXIfjYYPDk6LunbAWWK1NEaVK/tbXz
+ AKVjk24L7iXAWjFZ8RtChG/cFfuJQ43vJIvFF9EwyRClGbYP3M0i0kjk2X9UaC6Zho+B
+ izYzCOuPt9bSMXyvIDKJYAHs0RrnziKmPPNeaWIRwL4r6A2bGBFM/gkqB+JQtb9LIDvt
+ zYP7p6bpnrwTE0V1EMxUfcZnGRedb9PYJTL74uggkxfZvgonXt4Vl6fZ2jN8Tq+4tgcx
+ ygyw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV+Q6K15VM8tppgXBjsuN5w9GOdkTbd1MJwp0jSO78FseDvkSUZjhCA4QHwplq37v/oYycXqMckAG5iVZ89plXAtznzg5Wo7S6aXMLOhvNk
-X-Gm-Message-State: AOJu0Yw+FKDSWrM9h/mQ07uTjFq+lAsGNGAM19H9zogG8AuZSRH12XVM
- V9jkgQGqNFD4P4sQwqDszLEWgzJ+cLzLemanrSEDlEiGrKovnism+Y7Px5JMNMY=
-X-Google-Smtp-Source: AGHT+IEKqxbvtWfQPSdbxyZOKoTKzOfta9UYAGWkjh4gPijepxo+y2Odys4DRzztDMFEyCfQKNkPDQ==
-X-Received: by 2002:a05:651c:152:b0:2ec:5603:41a with SMTP id
- 38308e7fff4ca-2ec5b36b266mr7424131fa.2.1719126852954; 
- Sun, 23 Jun 2024 00:14:12 -0700 (PDT)
+ AJvYcCWtjGxaH2ODo6GU5bmwL47pmalSfGOpUPcGDhD0bFR8C2n4dbB1QuKHRoAq+ltEUozByxZ+iPzliJEBwIUmLKFTzKUoX+j52FNodEFCncNO
+X-Gm-Message-State: AOJu0YwoeR5iRrcRF1V7N0mvvfn5OPYrk19tJ7fylo5twMNDTy9EAoUq
+ 40RMrN/NWstk5tBdEaY81ChdYT/pz52W6bq1jumYDyCxwL4qcPNlzLZRAIijkVU=
+X-Google-Smtp-Source: AGHT+IH6nBtadss1DB4DlOcUB0869LeXq6AxqTp72qo71M9rfYT2F1Fin42ZjsvT3zUahu4cHfWiGQ==
+X-Received: by 2002:a2e:b179:0:b0:2ec:5685:f068 with SMTP id
+ 38308e7fff4ca-2ec5b337265mr8057591fa.17.1719126853644; 
+ Sun, 23 Jun 2024 00:14:13 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ec5b031208sm1886861fa.26.2024.06.23.00.14.12
+ 38308e7fff4ca-2ec5b031208sm1886861fa.26.2024.06.23.00.14.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 23 Jun 2024 00:14:12 -0700 (PDT)
+ Sun, 23 Jun 2024 00:14:13 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
- marijn.suijten@somainline.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- daniel@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- quic_rmccann@quicinc.com, konrad.dybcio@linaro.org,
- neil.armstrong@linaro.org, jonathan@marek.ca, swboyd@chromium.org,
- quic_khsieh@quicinc.com, quic_jesszhan@quicinc.com,
- Danila Tikhonov <danila@jiaxyga.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/4] Add MDSS and DPU support for QCOM SM7150 SoC
-Date: Sun, 23 Jun 2024 10:14:04 +0300
-Message-Id: <171912674297.840248.14141240302342567945.b4-ty@linaro.org>
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v2 0/8] drm/msm/dpu: handle non-default TE source pins
+Date: Sun, 23 Jun 2024 10:14:05 +0300
+Message-Id: <171912674294.840248.13079605621407953516.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240614215855.82093-1-danila@jiaxyga.com>
-References: <20240614215855.82093-1-danila@jiaxyga.com>
+In-Reply-To: <20240613-dpu-handle-te-signal-v2-0-67a0116b5366@linaro.org>
+References: <20240613-dpu-handle-te-signal-v2-0-67a0116b5366@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -93,31 +96,34 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sat, 15 Jun 2024 00:58:51 +0300, Danila Tikhonov wrote:
-> This series adds MDSS and DPU support for SM7150.
+On Thu, 13 Jun 2024 20:05:03 +0300, Dmitry Baryshkov wrote:
+> Command-mode DSI panels need to signal the display controlller when
+> vsync happens, so that the device can start sending the next frame. Some
+> devices (Google Pixel 3) use a non-default pin, so additional
+> configuration is required. Add a way to specify this information in DT
+> and handle it in the DSI and DPU drivers.
 > 
-> Changes in v3:
-> - Swap DPU and MDSS patches (Krzysztof)
-> - Add an explanation of the abbreviation DPU in patch 1 (Krzysztof)
-> - Switch qseed3_1_4 on qseed3_2_4 in patch 2 (Dmitry)
-> - Drop LM_4 and LM_5 in patch 2 (Dmitry)
-> - Add Krzysztof's R-b tag to patch 1 and patch 3
-> - Add Dmitry's R-b tag to patch 4
-> - Link to v2:
-> https://lore.kernel.org/all/20240612184336.11794-1-danila@jiaxyga.com/
 > 
 > [...]
 
 Applied, thanks!
 
-[1/4] dt-bindings: display/msm: Add SM7150 DPU
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/64e2f4cb27e7
-[2/4] drm/msm/dpu: Add SM7150 support
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/75079df919ef
-[3/4] dt-bindings: display/msm: Add SM7150 MDSS
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/726eded12dd7
-[4/4] drm/msm: mdss: Add SM7150 support
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/0f4786881281
+[1/8] dt-bindings: display/msm/dsi: allow specifying TE source
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/e0bc725bdd0f
+[2/8] drm/msm/dpu: convert vsync source defines to the enum
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/c09b19b79d27
+[3/8] drm/msm/dsi: drop unused GPIOs handling
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/149d195638c9
+[4/8] drm/msm/dpu: pull the is_cmd_mode out of _dpu_encoder_update_vsync_source()
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/1ed505b60480
+[5/8] drm/msm/dpu: rework vsync_source handling
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/cd1592c3e31d
+[6/8] drm/msm/dsi: parse vsync source from device tree
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/4404dd757c5d
+[7/8] drm/msm/dpu: support setting the TE source
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/ecfc21292865
+[8/8] drm/msm/dpu: rename dpu_hw_setup_vsync_source functions
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/b8caa9e8668b
 
 Best regards,
 -- 
