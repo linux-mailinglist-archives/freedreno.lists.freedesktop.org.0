@@ -2,86 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F247C9136DE
-	for <lists+freedreno@lfdr.de>; Sun, 23 Jun 2024 01:26:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 115489137D3
+	for <lists+freedreno@lfdr.de>; Sun, 23 Jun 2024 07:27:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DEA310E521;
-	Sat, 22 Jun 2024 23:26:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F32010E11B;
+	Sun, 23 Jun 2024 05:27:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KpOjV5YF";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="kTQjUcfD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EDD110E518;
- Sat, 22 Jun 2024 23:26:02 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-364b2f92388so2112467f8f.2; 
- Sat, 22 Jun 2024 16:26:02 -0700 (PDT)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD99610E0FE
+ for <freedreno@lists.freedesktop.org>; Sun, 23 Jun 2024 05:27:40 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-2ec3c0dada3so41611491fa.0
+ for <freedreno@lists.freedesktop.org>; Sat, 22 Jun 2024 22:27:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719098760; x=1719703560; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=9HxxfvJUbEcWAuUqzp/z3HeawFFFv82S2A3aKWCvEsY=;
- b=KpOjV5YFMaDOSV0qzky0RoPSSy+X6Z7NWVFo0uWfHovRwyRP7w/MTBMMPXKxsGliav
- DkqZCa9tJUM5QaioDeyjQpdEUDw0cEhwGO/ybiFCP18N9lBBOgAJO1Tgzp3PFVWbR7IN
- qpHHVFrTtM1ZaHJqA2eIm9Ir44dQJ43TeWu3y1fkb+j5Ll89svA5ppeW3+fwfbhr7LEA
- sdKgJUVFVhIcydxotO4ByHzElntpJrHNAU0GtnPqZih/wgZdUx+zlL1uvvA6A7S3agQO
- hmOY5/6RVCWzJNKLnh/3uP9F5foAdZ2uZh24B0n12N3ipyyXhRjfWKgIDSn5KONQoqcN
- 1SQA==
+ d=linaro.org; s=google; t=1719120458; x=1719725258; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=LVAL5mslFEILc/7J/ilzR8hF7Wd9A0knVqrCwFF7a8k=;
+ b=kTQjUcfD7c7KS+Y8jh1WFB/oOKfLdVa1qTnsXGjIR0UVk3C0XMLdmjWTmAHHgXOkiN
+ ESAIPfsLoNL2lVnFmI+FOTPgTZ22gimSs32SP0uFMayAdm1rUaKvf3U9hILW+ahU1R/M
+ hbQbqKbk0GGCPu1Khbp/mCETgCf/U0koBPjQpKRIOSwKh6mirKhn8t5pD9S18Dyxi+jR
+ 9mPoO2bKOrBpzINNLgoWmoDpFaHc5TQ/fGibX1mXoZmWBmN/uKfcPOQVijynSpf74cFg
+ jBdz6mbzpP+ZQSPx7MYc5DrS/J64vy/u6en/2a/okSZpoYaybuTU5TWA6fnrBHucACE8
+ 5uZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719098760; x=1719703560;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9HxxfvJUbEcWAuUqzp/z3HeawFFFv82S2A3aKWCvEsY=;
- b=VblkJQkf1hZSff09owr6YLo8eobcPpSPLtuGfHouF/GR4PbEXnggj+quWQO28aPvCj
- YdHsd8k+Y9+++Xc4Km57JswY4vdKf5n82uZ4ns9M/P8ljYVFfRrOUg9rG6pOwm9PPbyc
- 6GcU8YEKJ/IJCLIrsoKRcEiC7bDiqXN+X0k987of419C4Z/F330ryDHR/8Ehv9WN54oU
- J2eqtUbK0EC0AFh0TE906FafuwrHq16a29S4tlz6yeouZc4qvAJ7kNBWwZ+jd5a6/zdP
- LVYl4ikpqhaLtk2FbuQ4MKJ2aEY9rd0lj6bOQxm8ah1JpBU2LjP0RLR+tLLGtyipNLzV
- 0jUg==
+ d=1e100.net; s=20230601; t=1719120458; x=1719725258;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LVAL5mslFEILc/7J/ilzR8hF7Wd9A0knVqrCwFF7a8k=;
+ b=G4BSPWwPVwcK+UtQmv168wwTuVb8X04DhtBBPAusB12siAm4wOROVGgDbqAv1v9kvG
+ MfbxjqFrm2Z3Ifxo6huUIUyVsiPLs0yn8vaeHs7fdazjMNJY7LbppcuKYhNUg7RutDPb
+ Xw9pdtgp+9zubRxixYOWsjQYnQAdRMZK4aej/03Zg/0v9Ke65i9l27Vj6LoNPM7EcFiI
+ 75f4OA6Y7ccp9mg0IwHs38OGJKB15MwP/R03JFsFaEv4Al+r4YW0p4fzp8JaB4vifLa2
+ 4kZ5II5ARLplsb0U8gi2hnFqqIewTxQS3xZ692uTQF+RfPr3YRq2TgLvXd0VOYNE3wec
+ 8ZSA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXSXTeaBmJ4ZmUGx0UNajr5mrG/DdJqCsEqHMM5TlaxAjArT5MzR4Zdm1WoNVOhYjAylsTNv90hrZdn1pVYcoicEwUzdC0lKZVvHe3G/c09wNDplLl+B58oElAEUMESzKhCMZkuMO8sYalo0ZS7F8bC
-X-Gm-Message-State: AOJu0Ywq1gTYfDk0tL/EkYexsU/fJG3TQlQfJqEKJH1SViPn9OiCJ9Le
- 8QJVaDwEVJ6NPU635TgEeOw8J9RGulu+bxpWdm4D3ZJG3NOB5u+v
-X-Google-Smtp-Source: AGHT+IF+eQztVkaYxVTPniLTiN0Q2Wuwvs1PNUhkt+p/MWOEuEvm4JylLlMlCQKx4FGcg1T83BFCHA==
-X-Received: by 2002:a05:6000:2c2:b0:366:eb45:6d55 with SMTP id
- ffacd0b85a97d-366eb456ecemr217579f8f.49.1719098760243; 
- Sat, 22 Jun 2024 16:26:00 -0700 (PDT)
-Received: from [192.168.1.90]
- (20014C4E18129200DEAEE2020304A5A2.dsl.pool.telekom.hu.
- [2001:4c4e:1812:9200:deae:e202:304:a5a2])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4247d2190desm120301875e9.48.2024.06.22.16.25.59
+ AJvYcCW/1u67COqoxHPJ2VB6jVRdrpJyTPIIcZkCVKTsxHdOI4gbLa5xPcYgbbHI5mhB8Pbrj3mymlpgcYlcmkhSrq3lhAxxMjYbxtLXQFp/AwEb
+X-Gm-Message-State: AOJu0YyQvvT4/QY+92K8i91Blnsie4QTPw8Rr7vnVr2CExUaMj0mlRz6
+ 7syEpgrmhEinr1mWvvBpKBr1v1/bfMYFLiVUt6TyaC3O6iME8G4m21zeZvyWy2c=
+X-Google-Smtp-Source: AGHT+IEU3dRYcuKIxDZCaoumBhvHMhR5hsmhogChQ/yKxr+nuwKSL/e5bj5MwiA1Bx/1nKPuyNraRg==
+X-Received: by 2002:a05:6512:1cb:b0:52c:dd59:6784 with SMTP id
+ 2adb3069b0e04-52ce183c00bmr942505e87.40.1719120458160; 
+ Sat, 22 Jun 2024 22:27:38 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52cd6432006sm657651e87.194.2024.06.22.22.27.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 22 Jun 2024 16:25:59 -0700 (PDT)
-From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
-Date: Sun, 23 Jun 2024 01:25:54 +0200
-Subject: [PATCH 4/4] drm/msm/dsi: Add phy configuration for MSM8937
+ Sat, 22 Jun 2024 22:27:37 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH 0/2] drm: fix two issues related to HDMI Connector
+ implementation
+Date: Sun, 23 Jun 2024 08:27:34 +0300
+Message-Id: <20240623-drm-bridge-connector-fix-hdmi-reset-v1-0-41e9894dcdec@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20240623-dsi-v1-4-4ab560eb5bd9@gmail.com>
-References: <20240623-dsi-v1-0-4ab560eb5bd9@gmail.com>
-In-Reply-To: <20240623-dsi-v1-0-4ab560eb5bd9@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEayd2YC/x2NywqDMBBFf0Vm3YE0Pij9FekiJtc6CxOZiAjiv
+ 3fo8nAP91xUoYJK7+YixSFVSjZ4PhqKS8hfsCRj8s53bvAtJ115Ukm2xJIz4l6UZzl5SauwomJ
+ nF/Eawuz6NgSyp01hxr8yfu77B2jEylF1AAAA
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>, 
- Daniil Titov <daniilt971@gmail.com>
-X-Mailer: b4 0.14.0
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1068;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=bUab8eZo5zd7axeNt57zTJfAqfjDozucTQKMhG84tSw=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmd7JIkQxHOJAfU5GQNKIRtya8MW/CuGqj9HEGw
+ MkLtjzsA5+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZneySAAKCRCLPIo+Aiko
+ 1du4B/0SzvgMTO6mpyNVCqXIulJxkFeWxTc7+c3rJic556COfQByFQ6u1NMyE3tFVaUn5l+HLkV
+ eFFObocMqlbzxkd2RE7sRxLdbr6P76hGaVjrwXs4s6E5/VplzcjgRikfLfqXGZLh8rX/Gg4fLRi
+ Z4BPZwUuiYWp4XJs0ncgMmnZ4ZGGg2xQx8p4ovicyGfW8JI1qaHrdOe/HM3NsG1N2vxzTqeTc3w
+ X/1yXwitAlCKHl8k3/cEPUSBfWyHBiQmmVeftefDENcct38Q1o7Xn6bWBqzmR/5tk04C7riFpfP
+ OujDtvvsvm5LIa5ebgiH0GFXx11IjtA6q5AsguZJmYYlO9CI
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,72 +104,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Daniil Titov <daniilt971@gmail.com>
+Running IGT tests on Qualcomm Dragonboard820c uncovered two issues with
+the HDMI Connector implementation and with its integration into the
+drm_bridge_connector. Fix those issues.
 
-Add phy configuration for 28nm dsi phy found on MSM8937 SoC. Only
-difference from existing msm8916 configuration is number of phy
-and io_start addresses.
-
-Signed-off-by: Daniil Titov <daniilt971@gmail.com>
-Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c      |  2 ++
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      |  1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c | 18 ++++++++++++++++++
- 3 files changed, 21 insertions(+)
+Dmitry Baryshkov (2):
+      drm/bridge-connector: reset the HDMI connector state
+      drm/connector: automatically set immutable flag for max_bpc property
 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-index 24a347fe2998..dd58bc0a49eb 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-@@ -545,6 +545,8 @@ static const struct of_device_id dsi_phy_dt_match[] = {
- 	  .data = &dsi_phy_28nm_lp_cfgs },
- 	{ .compatible = "qcom,dsi-phy-28nm-8226",
- 	  .data = &dsi_phy_28nm_8226_cfgs },
-+	{ .compatible = "qcom,dsi-phy-28nm-8937",
-+	  .data = &dsi_phy_28nm_8937_cfgs },
- #endif
- #ifdef CONFIG_DRM_MSM_DSI_20NM_PHY
- 	{ .compatible = "qcom,dsi-phy-20nm",
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-index 5a5dc3faa971..a9b4eb2c0e8c 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-@@ -47,6 +47,7 @@ extern const struct msm_dsi_phy_cfg dsi_phy_28nm_hpm_cfgs;
- extern const struct msm_dsi_phy_cfg dsi_phy_28nm_hpm_famb_cfgs;
- extern const struct msm_dsi_phy_cfg dsi_phy_28nm_lp_cfgs;
- extern const struct msm_dsi_phy_cfg dsi_phy_28nm_8226_cfgs;
-+extern const struct msm_dsi_phy_cfg dsi_phy_28nm_8937_cfgs;
- extern const struct msm_dsi_phy_cfg dsi_phy_28nm_8960_cfgs;
- extern const struct msm_dsi_phy_cfg dsi_phy_20nm_cfgs;
- extern const struct msm_dsi_phy_cfg dsi_phy_14nm_cfgs;
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-index ceec7bb87bf1..3afc8b1c9bdf 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-@@ -917,3 +917,21 @@ const struct msm_dsi_phy_cfg dsi_phy_28nm_8226_cfgs = {
- 	.num_dsi_phy = 1,
- 	.quirks = DSI_PHY_28NM_QUIRK_PHY_8226,
- };
-+
-+const struct msm_dsi_phy_cfg dsi_phy_28nm_8937_cfgs = {
-+	.has_phy_regulator = true,
-+	.regulator_data = dsi_phy_28nm_regulators,
-+	.num_regulators = ARRAY_SIZE(dsi_phy_28nm_regulators),
-+	.ops = {
-+		.enable = dsi_28nm_phy_enable,
-+		.disable = dsi_28nm_phy_disable,
-+		.pll_init = dsi_pll_28nm_init,
-+		.save_pll_state = dsi_28nm_pll_save_state,
-+		.restore_pll_state = dsi_28nm_pll_restore_state,
-+	},
-+	.min_pll_rate = VCO_MIN_RATE,
-+	.max_pll_rate = VCO_MAX_RATE,
-+	.io_start = { 0x1a94400, 0x1a96400 },
-+	.num_dsi_phy = 2,
-+	.quirks = DSI_PHY_28NM_QUIRK_PHY_LP,
-+};
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 21 ---------------------
+ drivers/gpu/drm/drm_atomic_state_helper.c       | 21 +++++++++++++++++++++
+ drivers/gpu/drm/drm_bridge_connector.c          | 13 ++++++++++++-
+ drivers/gpu/drm/drm_connector.c                 |  5 +++++
+ include/drm/display/drm_hdmi_state_helper.h     |  3 ---
+ include/drm/drm_atomic_state_helper.h           |  2 ++
+ 6 files changed, 40 insertions(+), 25 deletions(-)
+---
+base-commit: 2102cb0d050d34d50b9642a3a50861787527e922
+change-id: 20240623-drm-bridge-connector-fix-hdmi-reset-0ce86af053aa
 
+Best regards,
 -- 
-2.45.2
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
