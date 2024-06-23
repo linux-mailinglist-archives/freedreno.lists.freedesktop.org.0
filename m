@@ -2,76 +2,102 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 007D591388C
-	for <lists+freedreno@lfdr.de>; Sun, 23 Jun 2024 09:14:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FD389138E8
+	for <lists+freedreno@lfdr.de>; Sun, 23 Jun 2024 10:08:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56AF110E0FE;
-	Sun, 23 Jun 2024 07:14:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78B8E10E0FA;
+	Sun, 23 Jun 2024 08:08:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="n4awDuwV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E7eRRjIx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F039C10E10E
- for <freedreno@lists.freedesktop.org>; Sun, 23 Jun 2024 07:14:19 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-2ec5779b423so7399071fa.0
- for <freedreno@lists.freedesktop.org>; Sun, 23 Jun 2024 00:14:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719126858; x=1719731658; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ao5ztXjHb4LHR9szDgOZeLEhmApDaFHqwxcIBuJSShc=;
- b=n4awDuwVwg3U8+S4OuspcRa0q+BZQBwbLDEYaqKJxlnB2I/Fk+uN4/tO3oOLAxYpoj
- xvdhDdc246LYfHWXagyy6U87ivqQuXVUYmabIPN6rMHP/xHNDPOJ+DJ54WHwP7rv2OOi
- lRAkHSFhlhNNO8omdvTArFWc8nCiMAue4axn9wMtQJihAFARk8cdCiIR63aLtklQtP2t
- dkJI0XMcIh0us5G2OigZXP2YejJoo2J7VYaL5vWiA0vQp3ucQTd4TX9tWmmmi/8ui1Sv
- nIF8OAb9iq7CxTyvHtd3pWuo3zrZOmU1mQUHqFj956IQTEqP6AgdNh3fad+TaVQK7bcr
- y4WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719126858; x=1719731658;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ao5ztXjHb4LHR9szDgOZeLEhmApDaFHqwxcIBuJSShc=;
- b=d6vT/kv3Gwd1cfYgjLoCfYHb5rxaQMRSTGcnz9cDMvYSdp9A8DDm3PaMJUJE4jU2eu
- gXScvQtYpmmpOIMVm8MLPVh6ZvqKIFDKYk9xK6GW8gpLyeuFygtjCcY3m9VCN5aQWb+2
- Zg5m07Y2Ar8WxIFlDUG6JcfyO1hYW3VX7H1JEWXVrT5+a58rz2sNKGGbwiaAC4+7VpFq
- G/4883TJSkw7Ui9Bn6sc0MBwAOMTVsHxJXc+XJRpCqYf1eHXD1csfG6VJ3BoA0G9AR/O
- eubS3CDj3oPr0Oy/K04W9pH5NwNFTdNZZYGOQU+Rp2yd9nZHx9qrOZg2oEVhFw922LVX
- 5KCw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX4SHftbdGXj+zBq9uLstRNC5JsvyCnvtCWAqGRAAoDBKkdDqrUfS5CE/0t0GljFpzSUrV/nbtfvuh9nE1Ix/kuwW4hLD1gOlqhnzZxwfJL
-X-Gm-Message-State: AOJu0Yw1NxuBmL68MG92S/LqCDmqPGTS8kJ4h6hjfiWo3Uw7ldOPLtQF
- 4sh5n8TMkn/ub79JPIbPs1hs4e51wFVspzRwaa80lmhijjeJGm5ksLlcMykdYZ8=
-X-Google-Smtp-Source: AGHT+IGMrZ7Ab2hTrpfNCjoKkdN8iqLOosYDf5URywhJ9jd+sUequOrm6k6sz1yM2oRGbSPu4UNvIQ==
-X-Received: by 2002:a2e:9dd8:0:b0:2ec:4aac:8fd4 with SMTP id
- 38308e7fff4ca-2ec5930fde5mr14912791fa.1.1719126858199; 
- Sun, 23 Jun 2024 00:14:18 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ec5b031208sm1886861fa.26.2024.06.23.00.14.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 23 Jun 2024 00:14:17 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEE7310E0F1;
+ Sun, 23 Jun 2024 08:08:38 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 5A284CE0B2C;
+ Sun, 23 Jun 2024 08:08:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9DA1C2BD10;
+ Sun, 23 Jun 2024 08:08:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1719130115;
+ bh=+pLFZBPj//YztSi5TcONh3iuWLjMYcTw1nhqxWanKBs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=E7eRRjIxkckqVPDNvXfDiCOmNFkRIyKC7Wm14jgZz+A9Kbo0Sy1uNafMXPhqmSM9V
+ HPaVQVMP0w9cXGxTFdwhbOBu2gRyhywYU8JH/ck6YQ36lAJ1LI/Ct5ME575u+ammfZ
+ gGYcxX3NZMRDuRIJT1A5VRAqdc3Z8yuGU/ZJzVM1KYH0C9ktQZTn/2+OTBY/YldVf6
+ 3gTtj0D0jRB5ufhkFbP8aRxifmLyiKzlRmPAvsuF8NgiGv0zPpIqrN0U20MSsmbbqR
+ YdlaipJ13VLAlbPqsczbJxLYvLdiW8VIOx1SDTp0YOEr1+75ios4YFvKieVg/XqfIS
+ 2qJM9qdKZ2Jpw==
+Message-ID: <77987fdd-5cd5-4683-87af-18c5c31e1357@kernel.org>
+Date: Sun, 23 Jun 2024 10:08:26 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: display/msm: qcom, mdp5: Add msm8937
+ compatible
+To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: guard ctl irq callback register/unregister
-Date: Sun, 23 Jun 2024 10:14:11 +0300
-Message-Id: <171912674292.840248.16492908228445159189.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240509-ctl_irq-v1-1-9433f2da9dc7@gmail.com>
-References: <20240509-ctl_irq-v1-1-9433f2da9dc7@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20240623-dsi-v1-0-4ab560eb5bd9@gmail.com>
+ <20240623-dsi-v1-1-4ab560eb5bd9@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20240623-dsi-v1-1-4ab560eb5bd9@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,19 +114,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Thu, 09 May 2024 19:52:04 +0200, Barnabás Czémán wrote:
-> CTLs on older qualcomm SOCs like msm8953 and msm8996 has not got interrupts,
-> so better to skip CTL irq callback register/unregister
-> make dpu_ctl_cfg be able to define without intr_start.
+On 23/06/2024 01:25, Barnabás Czémán wrote:
+> Add the compatible for the MDP5 found on MSM8937.
 > 
-> 
+> Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
+> ---
 
-Applied, thanks!
+Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
 
-[1/1] drm/msm/dpu: guard ctl irq callback register/unregister
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/29cd76c6f897
+
+---
+
+<form letter>
+This is an automated instruction, just in case, because many review tags
+are being ignored. If you know the process, you can skip it (please do
+not feel offended by me posting it here - no bad intentions intended).
+If you do not know the process, here is a short explanation:
+
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new
+versions, under or above your Signed-off-by tag. Tag is "received", when
+provided in a message replied to you on the mailing list. Tools like b4
+can help here. However, there's no need to repost patches *only* to add
+the tags. The upstream maintainer will do that for tags received on the
+version they apply.
+
+https://elixir.bootlin.com/linux/v6.5-rc3/source/Documentation/process/submitting-patches.rst#L577
+</form letter>
+
 
 Best regards,
--- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Krzysztof
+
