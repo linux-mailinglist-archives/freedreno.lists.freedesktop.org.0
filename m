@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 866DF91380E
-	for <lists+freedreno@lfdr.de>; Sun, 23 Jun 2024 07:59:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F66791383E
+	for <lists+freedreno@lfdr.de>; Sun, 23 Jun 2024 08:01:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59BD010E030;
-	Sun, 23 Jun 2024 05:59:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE5B10E0D1;
+	Sun, 23 Jun 2024 06:01:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RpZLgZij";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="uqL+ADuQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0ABA10E051
- for <freedreno@lists.freedesktop.org>; Sun, 23 Jun 2024 05:59:25 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2ec3f875e68so36889271fa.0
- for <freedreno@lists.freedesktop.org>; Sat, 22 Jun 2024 22:59:25 -0700 (PDT)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 694D910E0BA
+ for <freedreno@lists.freedesktop.org>; Sun, 23 Jun 2024 06:01:19 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-52bc335e49aso3965158e87.3
+ for <freedreno@lists.freedesktop.org>; Sat, 22 Jun 2024 23:01:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719122364; x=1719727164; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1719122477; x=1719727277; darn=lists.freedesktop.org;
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:message-id:subject:cc:to:from:date:from:to
  :cc:subject:date:message-id:reply-to;
- bh=uV6ZdsyWs/0K8RTllxKQAwLax2534ZjABCMu7Optue0=;
- b=RpZLgZij5tqVGUPFfaUyh5xD4LSs1kzaAMyHsko7/Aj11nfYKyG6YJ2ziDZFl8IHzj
- bpWmgClTCk4njIJoar+TdW1KVc7xK0tPuFKV4AvTmtFH9f6H82vxH8u83FvaSEyztFPb
- GmuEF8TBG3EweCT3Vu0wgnT4fFBQDpfTiY1NspgFjknI6zGLXk/ijH6mMqZr1Vzvu63h
- VBXWf3PHJSPER8oqKPJtYlZJqJj36MLBhA99ovHxq3IN+HmnQOVgo9ARauEkkfjRYM4b
- tuzh6TRM6m3HFGPmRf2rH+plRlVJlf4Q4s7yS/ivU5pPGEPADNcho8Be/OgcsN5Do8I6
- Qhig==
+ bh=oO/yeKrqlD6AMd5wV3WFZIiC2wA8T5SaNuGSHMCz+LM=;
+ b=uqL+ADuQLRWAW/fHn8SsMZheVrVRdZxqBZS1jLU6fuSA5acGKhweSWO/MQe70tUKz5
+ nZRbe3FfmsI9PKKrHAQUjyu2dVsZYpd5fMQ9jGnUC0YcBMEhbjmaoBliXvT/Qc3R7p3n
+ 7mAc76IC78GWcIgo/a97xuj+CYtPy8LcxbkD2AoLA6c3JY6/9KyKKkJvCD+BiHVqFmPy
+ +VDmsxrJknnatrlw+qBIyCy91JftVJ3huRv/OkybootlCGWVa5SXRQtprL1PKiLsLAJ7
+ 4Im+YsZjgXf5v9qxwxT2no+L6fN4D/m079iwkzJ1mQb7yW/Ag8uzxee5Ai8EyQ71XgQ8
+ vW2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719122364; x=1719727164;
+ d=1e100.net; s=20230601; t=1719122477; x=1719727277;
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=uV6ZdsyWs/0K8RTllxKQAwLax2534ZjABCMu7Optue0=;
- b=HTZUnq0D5twcZ2YoM5k/1GHWl+pOpqRMuvsoQkwbsOnLCLDcl5q7NUmpICGXuXJ8df
- BX8NTjyPZcV57a5d8rtUtanf/plmN5xT0X5EFK6pqdp3uHa44K6wI+/AAJ+YXn8IWD4+
- Ddi9K8EKBquoW+E/Xjba4vy6ebQ1zIIHJcGUr5uhDhgCZ+mZ/7jFZFKQSjlS/JFJT/49
- DOPB9DQzhTNvF6tZP20EX1DqVTY+VcPsKWdLlJzZS9k/LthbPbX3Jo5a+CjcWqii1B/R
- o/pFgKSdb15frP9RWIB6GMOgQosSiEo5vcm9tQTQNn3xdMGz6tcCrOJIO7q/TQkbN64d
- Erzw==
+ bh=oO/yeKrqlD6AMd5wV3WFZIiC2wA8T5SaNuGSHMCz+LM=;
+ b=EylRP7WkTC0Suo5LU5eq4eXk4tZ1KdzcMe0uEgKNvkbIPxcCuB9mDGnK00/sGTgBUs
+ 0wDh3u8ktL3Y1YKAYTPOtLkjxOijvGB+o0s8EFXX8UjosnkIgPJsf3I9C83rdwdmkyc+
+ kbr06I8V0wjunBAdG9mOLP7/n4LvBL1S0rWeAOZqtXNECapPZ7WCIclRd9X3eh8/qgOy
+ DjIwaT6dmWo7QtFBC8BC61lCUOO1pOGrGSZiGqBTejGNSd+4a0o8FfD3tFAiiQxKHDJN
+ oOs8/IfpheyZSDPE9igRFNyZLBRCMPNRh3W6Ge2SgR28h2ThkxgREUa0LXvHDySkFVFA
+ ecsg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVVMOcw9pjfv+2Hk0O1MpRj5yZ98IPUrzLx/Vb7K8pPark5EPZH0m9fVUpdfuXAEA8aKynauAlNXDxmlu1KEfFWRWVhHBmS+iJ1WPfpwJIk
-X-Gm-Message-State: AOJu0Yxhl4Us05SWGX0YTsZl6gRAE37tEK4IM22uwbUJgUmJ/y6V3/3+
- YHIy5syH5UIQn+QEuiXbivcxFS8QU5XGtobjf2uGWZkGsXOMqIf6IFi8RtXiUzE=
-X-Google-Smtp-Source: AGHT+IGcHezaqPv4f6l+aRS6cpymyT8QWqnho+MGi0nRzclFQouvXc2Vz5OXXDqk0xU0di91OghoDA==
-X-Received: by 2002:a2e:9f05:0:b0:2ec:fa4:e310 with SMTP id
- 38308e7fff4ca-2ec5b3d48ccmr7355091fa.34.1719122363747; 
- Sat, 22 Jun 2024 22:59:23 -0700 (PDT)
+ AJvYcCW+sQtAy//hzRYuBa50WyoWXl6/vIg1qHH4bzocrDU9JiWcmwKdm6h1Bl7GMGuR3iGp0PZtJhyDxaWaYpf6RP9zOKsHo20OUz41WUSfPFB2
+X-Gm-Message-State: AOJu0Yz19I6vqeLad0EeTjbgS6fFQH5vHtjeLkYDWRux9cbhBPOScs0L
+ dzEnZlzzOJore8Ua+LSf141LpIvdM1SuFrKEVS8yuIFIcEBKJ9ODqUUnSll7P4A=
+X-Google-Smtp-Source: AGHT+IFPlO6IKb2eGiTUnC9Nkv6WxHGRszGQWaUUwUdgPx1JDS5kmDVtdDq+1Ch5metEWw5+VYTjtw==
+X-Received: by 2002:a19:4312:0:b0:52b:e800:25d8 with SMTP id
+ 2adb3069b0e04-52ce183559fmr598972e87.25.1719122477496; 
+ Sat, 22 Jun 2024 23:01:17 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ec4d60130csm6301061fa.13.2024.06.22.22.59.23
+ 2adb3069b0e04-52ce17c3821sm162388e87.241.2024.06.22.23.01.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 22 Jun 2024 22:59:23 -0700 (PDT)
-Date: Sun, 23 Jun 2024 08:59:21 +0300
+ Sat, 22 Jun 2024 23:01:17 -0700 (PDT)
+Date: Sun, 23 Jun 2024 09:01:15 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>
 Cc: Rob Clark <robdclark@gmail.com>, 
@@ -73,15 +73,15 @@ Cc: Rob Clark <robdclark@gmail.com>,
  freedreno@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  Daniil Titov <daniilt971@gmail.com>
-Subject: Re: [PATCH 2/4] drm/msm/mdp5: Add MDP5 configuration for MSM8937
-Message-ID: <hzslz54iq5sjmfhcbuj3my7cbjsu73acxeelih3jekr6rznz44@qie4c4w5lt2d>
+Subject: Re: [PATCH 4/4] drm/msm/dsi: Add phy configuration for MSM8937
+Message-ID: <hmgnm7xgrf7bzae4wkfz3rvhmubprsa5qo3tydjq3vjhapj7wj@klsgm3tlkctg>
 References: <20240623-dsi-v1-0-4ab560eb5bd9@gmail.com>
- <20240623-dsi-v1-2-4ab560eb5bd9@gmail.com>
+ <20240623-dsi-v1-4-4ab560eb5bd9@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240623-dsi-v1-2-4ab560eb5bd9@gmail.com>
+In-Reply-To: <20240623-dsi-v1-4-4ab560eb5bd9@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,35 +97,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jun 23, 2024 at 01:25:52AM GMT, Barnabás Czémán wrote:
+On Sun, Jun 23, 2024 at 01:25:54AM GMT, Barnabás Czémán wrote:
 > From: Daniil Titov <daniilt971@gmail.com>
 > 
-> Add the mdp5_cfg_hw entry for MDP5 version v1.14 found on msm8937.
+> Add phy configuration for 28nm dsi phy found on MSM8937 SoC. Only
+> difference from existing msm8916 configuration is number of phy
+> and io_start addresses.
 > 
 > Signed-off-by: Daniil Titov <daniilt971@gmail.com>
 > Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
 > ---
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 89 ++++++++++++++++++++++++++++++++
->  1 file changed, 89 insertions(+)
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c      |  2 ++
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      |  1 +
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c | 18 ++++++++++++++++++
+>  3 files changed, 21 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> index c5179e4c393c..6413c0d3e237 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> @@ -1011,6 +1011,94 @@ static const struct mdp5_cfg_hw msm8917_config = {
->  	.max_clk = 320000000,
->  };
->  
-> +static const struct mdp5_cfg_hw msm8937_config = {
-> +	.name = "msm8937",
-> +	.mdp = {
-> +		.count = 1,
-> +		.caps = MDP_CAP_CDM |
-> +			MDP_CAP_SRC_SPLIT,
 
-Could you please point out the SRC_SPLIT reference?
-
-Other than that LGTM
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
