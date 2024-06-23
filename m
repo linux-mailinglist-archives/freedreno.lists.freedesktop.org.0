@@ -2,86 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F66791383E
-	for <lists+freedreno@lfdr.de>; Sun, 23 Jun 2024 08:01:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5364A913883
+	for <lists+freedreno@lfdr.de>; Sun, 23 Jun 2024 09:14:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE5B10E0D1;
-	Sun, 23 Jun 2024 06:01:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D49410E0E8;
+	Sun, 23 Jun 2024 07:14:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="uqL+ADuQ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nFMSECDN";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 694D910E0BA
- for <freedreno@lists.freedesktop.org>; Sun, 23 Jun 2024 06:01:19 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-52bc335e49aso3965158e87.3
- for <freedreno@lists.freedesktop.org>; Sat, 22 Jun 2024 23:01:19 -0700 (PDT)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+ [209.85.208.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18DEF10E0D1
+ for <freedreno@lists.freedesktop.org>; Sun, 23 Jun 2024 07:14:15 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-2ec4eefbaf1so20130861fa.1
+ for <freedreno@lists.freedesktop.org>; Sun, 23 Jun 2024 00:14:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719122477; x=1719727277; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=oO/yeKrqlD6AMd5wV3WFZIiC2wA8T5SaNuGSHMCz+LM=;
- b=uqL+ADuQLRWAW/fHn8SsMZheVrVRdZxqBZS1jLU6fuSA5acGKhweSWO/MQe70tUKz5
- nZRbe3FfmsI9PKKrHAQUjyu2dVsZYpd5fMQ9jGnUC0YcBMEhbjmaoBliXvT/Qc3R7p3n
- 7mAc76IC78GWcIgo/a97xuj+CYtPy8LcxbkD2AoLA6c3JY6/9KyKKkJvCD+BiHVqFmPy
- +VDmsxrJknnatrlw+qBIyCy91JftVJ3huRv/OkybootlCGWVa5SXRQtprL1PKiLsLAJ7
- 4Im+YsZjgXf5v9qxwxT2no+L6fN4D/m079iwkzJ1mQb7yW/Ag8uzxee5Ai8EyQ71XgQ8
- vW2Q==
+ d=linaro.org; s=google; t=1719126853; x=1719731653; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NdK+Z57kLe+iVSXD6oAbe65mu24X+W08m/s2wPEPRiY=;
+ b=nFMSECDNy7DkyzQee/gNtesUMJBz2aAu5G3NoXSJvx9TcyI5ikVW6RGsu7j+os/FeV
+ Rc4jtk45O4tDdIzyo+2p7RExpB5Ooql8zMImF5uEmvy8BSrpEfOQ2Rz2az3qdNdSB4q1
+ 3P1pvlgs/mAWJRm0M8NOLQShDf3225XlGUd7D/CRL5ODrg5sQk5oWwcMc13EF8TRpEIs
+ RHAcsorVVKgjuWekHdv7EGLRIObliDaNL7+/4a7g/t/HbRsgiAnY5g2S5u3z2vZhPL96
+ u12ell97l1/qFJsMc+wX7mazEuPdroMTAaKw5lhgIfZw8DK6TrR6oaaMfGh9oDkTPcWx
+ DSzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719122477; x=1719727277;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oO/yeKrqlD6AMd5wV3WFZIiC2wA8T5SaNuGSHMCz+LM=;
- b=EylRP7WkTC0Suo5LU5eq4eXk4tZ1KdzcMe0uEgKNvkbIPxcCuB9mDGnK00/sGTgBUs
- 0wDh3u8ktL3Y1YKAYTPOtLkjxOijvGB+o0s8EFXX8UjosnkIgPJsf3I9C83rdwdmkyc+
- kbr06I8V0wjunBAdG9mOLP7/n4LvBL1S0rWeAOZqtXNECapPZ7WCIclRd9X3eh8/qgOy
- DjIwaT6dmWo7QtFBC8BC61lCUOO1pOGrGSZiGqBTejGNSd+4a0o8FfD3tFAiiQxKHDJN
- oOs8/IfpheyZSDPE9igRFNyZLBRCMPNRh3W6Ge2SgR28h2ThkxgREUa0LXvHDySkFVFA
- ecsg==
+ d=1e100.net; s=20230601; t=1719126853; x=1719731653;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NdK+Z57kLe+iVSXD6oAbe65mu24X+W08m/s2wPEPRiY=;
+ b=EwwFo0X2+qSyc8o9z3IyZf0kHXptSvIG+KrvAt7kr1xuqdYlB5cYbxw9cIwh6c3Mal
+ Rec8CqEXKTXNhH9v6UrZGLknOsuudaJolwgLD8Gwvx1sOLJZcYaIL6ZYJOGtEnbCNKUa
+ lwVXvb8CvBtvA9H139sPuwbXGB6/LtB1c6php0zHybvfZ4XM4E9eZmX4d6QHvOUHfGea
+ 8fTwzM6yQFpfB9gTV4L3tfQmGhpt1pFhi5LxcOcngJ4/P4SAyFLkhpUTnhqp+HLwhrEy
+ Or+rrCzUz3iR2ra25OYxqHmI2uClhMhaBHl72gYZCTYPcwEE/mD/B3Er+6uFUWXBLzxF
+ gw8A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW+sQtAy//hzRYuBa50WyoWXl6/vIg1qHH4bzocrDU9JiWcmwKdm6h1Bl7GMGuR3iGp0PZtJhyDxaWaYpf6RP9zOKsHo20OUz41WUSfPFB2
-X-Gm-Message-State: AOJu0Yz19I6vqeLad0EeTjbgS6fFQH5vHtjeLkYDWRux9cbhBPOScs0L
- dzEnZlzzOJore8Ua+LSf141LpIvdM1SuFrKEVS8yuIFIcEBKJ9ODqUUnSll7P4A=
-X-Google-Smtp-Source: AGHT+IFPlO6IKb2eGiTUnC9Nkv6WxHGRszGQWaUUwUdgPx1JDS5kmDVtdDq+1Ch5metEWw5+VYTjtw==
-X-Received: by 2002:a19:4312:0:b0:52b:e800:25d8 with SMTP id
- 2adb3069b0e04-52ce183559fmr598972e87.25.1719122477496; 
- Sat, 22 Jun 2024 23:01:17 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ AJvYcCV+Q6K15VM8tppgXBjsuN5w9GOdkTbd1MJwp0jSO78FseDvkSUZjhCA4QHwplq37v/oYycXqMckAG5iVZ89plXAtznzg5Wo7S6aXMLOhvNk
+X-Gm-Message-State: AOJu0Yw+FKDSWrM9h/mQ07uTjFq+lAsGNGAM19H9zogG8AuZSRH12XVM
+ V9jkgQGqNFD4P4sQwqDszLEWgzJ+cLzLemanrSEDlEiGrKovnism+Y7Px5JMNMY=
+X-Google-Smtp-Source: AGHT+IEKqxbvtWfQPSdbxyZOKoTKzOfta9UYAGWkjh4gPijepxo+y2Odys4DRzztDMFEyCfQKNkPDQ==
+X-Received: by 2002:a05:651c:152:b0:2ec:5603:41a with SMTP id
+ 38308e7fff4ca-2ec5b36b266mr7424131fa.2.1719126852954; 
+ Sun, 23 Jun 2024 00:14:12 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.91])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ce17c3821sm162388e87.241.2024.06.22.23.01.16
+ 38308e7fff4ca-2ec5b031208sm1886861fa.26.2024.06.23.00.14.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 22 Jun 2024 23:01:17 -0700 (PDT)
-Date: Sun, 23 Jun 2024 09:01:15 +0300
+ Sun, 23 Jun 2024 00:14:12 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Daniil Titov <daniilt971@gmail.com>
-Subject: Re: [PATCH 4/4] drm/msm/dsi: Add phy configuration for MSM8937
-Message-ID: <hmgnm7xgrf7bzae4wkfz3rvhmubprsa5qo3tydjq3vjhapj7wj@klsgm3tlkctg>
-References: <20240623-dsi-v1-0-4ab560eb5bd9@gmail.com>
- <20240623-dsi-v1-4-4ab560eb5bd9@gmail.com>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
+ marijn.suijten@somainline.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ daniel@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ quic_rmccann@quicinc.com, konrad.dybcio@linaro.org,
+ neil.armstrong@linaro.org, jonathan@marek.ca, swboyd@chromium.org,
+ quic_khsieh@quicinc.com, quic_jesszhan@quicinc.com,
+ Danila Tikhonov <danila@jiaxyga.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/4] Add MDSS and DPU support for QCOM SM7150 SoC
+Date: Sun, 23 Jun 2024 10:14:04 +0300
+Message-Id: <171912674297.840248.14141240302342567945.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240614215855.82093-1-danila@jiaxyga.com>
+References: <20240614215855.82093-1-danila@jiaxyga.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240623-dsi-v1-4-4ab560eb5bd9@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,24 +92,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Jun 23, 2024 at 01:25:54AM GMT, Barnabás Czémán wrote:
-> From: Daniil Titov <daniilt971@gmail.com>
-> 
-> Add phy configuration for 28nm dsi phy found on MSM8937 SoC. Only
-> difference from existing msm8916 configuration is number of phy
-> and io_start addresses.
-> 
-> Signed-off-by: Daniil Titov <daniilt971@gmail.com>
-> Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
-> ---
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c      |  2 ++
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      |  1 +
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c | 18 ++++++++++++++++++
->  3 files changed, 21 insertions(+)
-> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Sat, 15 Jun 2024 00:58:51 +0300, Danila Tikhonov wrote:
+> This series adds MDSS and DPU support for SM7150.
+> 
+> Changes in v3:
+> - Swap DPU and MDSS patches (Krzysztof)
+> - Add an explanation of the abbreviation DPU in patch 1 (Krzysztof)
+> - Switch qseed3_1_4 on qseed3_2_4 in patch 2 (Dmitry)
+> - Drop LM_4 and LM_5 in patch 2 (Dmitry)
+> - Add Krzysztof's R-b tag to patch 1 and patch 3
+> - Add Dmitry's R-b tag to patch 4
+> - Link to v2:
+> https://lore.kernel.org/all/20240612184336.11794-1-danila@jiaxyga.com/
+> 
+> [...]
 
+Applied, thanks!
+
+[1/4] dt-bindings: display/msm: Add SM7150 DPU
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/64e2f4cb27e7
+[2/4] drm/msm/dpu: Add SM7150 support
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/75079df919ef
+[3/4] dt-bindings: display/msm: Add SM7150 MDSS
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/726eded12dd7
+[4/4] drm/msm: mdss: Add SM7150 support
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/0f4786881281
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
