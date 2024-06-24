@@ -2,84 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53BB9915949
-	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 23:54:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 654F09159DE
+	for <lists+freedreno@lfdr.de>; Tue, 25 Jun 2024 00:28:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2329610E155;
-	Mon, 24 Jun 2024 21:54:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DA9110E155;
+	Mon, 24 Jun 2024 22:28:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C+k1zTyX";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="jIOnvVIY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC80B10E16A
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 21:54:15 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-57cc30eaf0aso2790898a12.2
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 14:54:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719266054; x=1719870854; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sY5Zh+sZGJTn9InmhZn+JpSx2JdQvo8kESASgJqojTU=;
- b=C+k1zTyXcEg2YPYMye3/xfTJ/PObiSwMS1//uo4bnaIzxZ7MA2gDoF4BEiYYp1K7az
- S0OjdNcbIuBFDfTlXZgm2ufsQqlauwKXwCAXTQs2y0G1uqrBo2Ak/cDndLhgMNg2Y1XY
- PU82xP+fL6z9bwMO/uNT1hk5e2tAmjmizbyj/EulMVvIrB65hcC6Z58hP4XcvYaDMe4z
- GR+gmOc6/ML7krfAbOfSR4iuTsELgt2rKbtllF8NnGF9ISRsmHdMBIk+z2mxOUj2Ex2b
- TgIWAzY1qG0CZ+IU6OkErBCsoSCkBBVMVgFLkKqTcGC9R8OCuKzsTrfSVXbYSzaZj16m
- mNAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719266054; x=1719870854;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=sY5Zh+sZGJTn9InmhZn+JpSx2JdQvo8kESASgJqojTU=;
- b=vtFsXdPzWlPwRUHKOanSd00qO0gqS9qpiQIuyLhEHjCtHqB+1DTet3Bwjj3MWUiA3K
- 0MU7xvcC8eOn4fXRS/sygJ59BSsTN4PV11J1zualOlEUzuQJ4rIgsodY2m56NQ8njlgV
- o4qsMrZ0NKnFnc5Uq+saU6+rCO8AclLYU03VTQl2RTfJ2X773i7bbg+L4BlYP3SDhQ5x
- Zxg1600hsslkLcy+JstfZQ0rvRk5BFqpqHw7tXDTfWWp2hWUnP1Nhye26z1SYdUeq1Fz
- x6zUDUQJFtUIMeoGYfRveymqKdmI/494KVMqm/7msf9+z0A8P7o2S1ji2XwQtxGOBc5x
- Zabg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUvFhCiDOK0Q0EVDJzzRNto7aJEXSD0p+2YFjT2UN53nxtnpI3M7BHXO2jD3VD4nWxfwQZoQutwnpSQuDBP1zCxge/q2OAOAxpZS/rTbLlB
-X-Gm-Message-State: AOJu0Yw1NeKstv/afd647/bBBH1/EGlV4F1Sd1NyidxX+px3yMEM7n6f
- Nvu19XN8chsGMOnLJvfGGeDEePrHZbsVPig/NxWFP4pg6tahWynJ3WvJdGpC/a+TtyBX+Owdk56
- 92+mgJwbVd8MO99LLtnvfj174L0U=
-X-Google-Smtp-Source: AGHT+IFlO6mE5t9frydCQN+/Yhc4G3eSyEPhL5nKtOMuGvqS8bghROCeDRxKANS/FbEHSdYQRTHAkzuOkRJX4ml/jUM=
-X-Received: by 2002:a50:9f6d:0:b0:57c:671d:8455 with SMTP id
- 4fb4d7f45d1cf-57d4bd728c8mr4277655a12.14.1719266053800; Mon, 24 Jun 2024
- 14:54:13 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17AFF10E031;
+ Mon, 24 Jun 2024 22:28:53 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45OIfuJU031942;
+ Mon, 24 Jun 2024 22:28:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ qQGNPMjXxj/37KqwhG1qLhggf6rNJ+AAGcm+KDdlV4Q=; b=jIOnvVIYtn7X4612
+ phzE/Qo802Riq4WQQPNtrsqVpeJ6SfCU9ZZwL5ZWvgndFImhaqYKB2O8lDsJGFUq
+ FUPkkD3+Z13I6tNhSD86bikfgE8g7TqaGHErCfUF1Vgsne9YnyHCM449rDz+GwAI
+ G0e0m1kPkZFyVxVM4cjoM2M+KjRXa3a40MPaRBKeEaErCDipG1o71RY/shbn0gEI
+ 69sYiyu7J/JdgVaogF5TNSIqNqOqvQu9oBBdhvlYPPpOmgsG/OeS3lxMTxPlO0zv
+ OoQUXFixUvUuQ+NVsZROSQFGSNqQloCmKMPhh3yV6bTSYUGOBhKAdOyAXxy9qKtf
+ jppqUQ==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ywppv4s7x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 24 Jun 2024 22:28:41 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45OMSdb2022764
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 24 Jun 2024 22:28:39 GMT
+Received: from [10.110.106.13] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 24 Jun
+ 2024 15:28:38 -0700
+Message-ID: <45c25e4b-d64d-549f-6711-7b753d24e2f9@quicinc.com>
+Date: Mon, 24 Jun 2024 15:28:38 -0700
 MIME-Version: 1.0
-References: <64ec16b9-c680-408c-b547-5debae2f7f87@freebox.fr>
- <dkmtnizbuyswyvocczjfgmhsuedawliabycig4urw42a65hu3j@jglxzumuzamd>
- <a9e4dba6-2317-4b6f-968f-d607937f5157@freebox.fr>
- <CAF6AEGtvHzF-KNyMwmysz7idLYE7XuXhDnBLdQFFhEdgYo6oqQ@mail.gmail.com>
- <CAA8EJpqCmu+TPmdCxwa84s+15inmdi6SeR5XQRVey56RKqdRuQ@mail.gmail.com>
- <717ee43e-41f5-4940-b404-c348812c84c9@linaro.org>
- <D25HTBIFDM42.2W1WGS8HKTHTF@fairphone.com>
- <CAF6AEGvwCXj7=_A=f+A_G9k=1LSSjcrsHB0GN83Z2OKg0eWjMA@mail.gmail.com>
- <CAA8EJpquKb0r=ZDABU0F+PGR1PKNTiKELbGe1-4Wd2pVEzVUNg@mail.gmail.com>
-In-Reply-To: <CAA8EJpquKb0r=ZDABU0F+PGR1PKNTiKELbGe1-4Wd2pVEzVUNg@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 24 Jun 2024 14:54:01 -0700
-Message-ID: <CAF6AEGuMxO_WO3Jm+wLHX_VQApxTqiF6RekBY_oMfAiumT5u-Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm: log iommu init failure
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Luca Weiss <luca.weiss@fairphone.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Marc Gonzalez <mgonzalez@freebox.fr>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, MSM <linux-arm-msm@vger.kernel.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>, 
- Bryan O Donoghue <bryan.odonoghue@linaro.org>,
- Pierre-Hugues Husson <phhusson@freebox.fr>, 
- Arnaud Vrac <avrac@freebox.fr>, Bjorn Andersson <andersson@kernel.org>, 
- Jeffrey Hugo <quic_jhugo@quicinc.com>, Rob Clark <robdclark@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2 1/2] drm/bridge-connector: reset the HDMI connector
+ state
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+CC: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20240623-drm-bridge-connector-fix-hdmi-reset-v2-0-8590d44912ce@linaro.org>
+ <20240623-drm-bridge-connector-fix-hdmi-reset-v2-1-8590d44912ce@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240623-drm-bridge-connector-fix-hdmi-reset-v2-1-8590d44912ce@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Igwf34iY7-uHXXA9X1Wot4KaNxhQCbk3
+X-Proofpoint-ORIG-GUID: Igwf34iY7-uHXXA9X1Wot4KaNxhQCbk3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-24_19,2024-06-24_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0
+ clxscore=1011 priorityscore=1501 mlxlogscore=999 mlxscore=0 adultscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 impostorscore=0 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2406140001
+ definitions=main-2406240180
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,83 +101,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jun 24, 2024 at 11:29=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On Mon, 24 Jun 2024 at 20:59, Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > On Thu, Jun 20, 2024 at 11:48=E2=80=AFPM Luca Weiss <luca.weiss@fairpho=
-ne.com> wrote:
-> > >
-> > > On Fri Jun 21, 2024 at 12:47 AM CEST, Konrad Dybcio wrote:
-> > > >
-> > > >
-> > > > On 6/20/24 20:24, Dmitry Baryshkov wrote:
-> > > > > On Thu, 20 Jun 2024 at 20:32, Rob Clark <robdclark@gmail.com> wro=
-te:
-> > > > >>
-> > > > >> On Thu, May 30, 2024 at 2:48=E2=80=AFAM Marc Gonzalez <mgonzalez=
-@freebox.fr> wrote:
-> > > > >>>
-> > > > >>> On 16/05/2024 10:43, Marijn Suijten wrote:
-> > > > >>>
-> > > > >>>> On 2024-05-15 17:09:02, Marc Gonzalez wrote:
-> > > > >>>>
-> > > > >>>>> When create_address_space() fails (e.g. when smmu node is dis=
-abled)
-> > > > >>
-> > > > >> Note that smmu support is going to become a hard dependency with=
- the
-> > > > >> drm_gpuvm/VM_BIND conversion.. which I think means we should nev=
-er get
-> > > > >> far enough to hit this error path..
-> > > > >
-> > > > > Does that mean that we will lose GPU support on  MSM8974?
-> >
-> > And display support as well :-/
-> >
-> > Note that GPU should be disabled by default without smmu.. you can
-> > override with modparam, but please don't.  It is incredibly insecure,
-> > you might as well make /dev/mem world readable/writeable.
-> >
-> > Is simplefb an option on 8974 or 8226 to keep display support?
->
-> Not in a longer term, I still hope to push HDMI PHY/PLL support for
-> MSM8974, which means dynamic resolution support.
 
-Hmm, maybe it would be possible to re-add carveout support.. but my
-hopes aren't too high.  It would be better if we could get smmu going.
-(Not to mention, I don't really like the idea of people using the gpu
-without an smmu... it is a really insecure thing to do.)
 
-BR,
--R
+On 6/22/2024 10:40 PM, Dmitry Baryshkov wrote:
+> On HDMI connectors which use drm_bridge_connector and DRM_BRIDGE_OP_HDMI
+> IGT chokes on the max_bpc property in several kms_properties tests due
+> to the the drm_bridge_connector failing to reset HDMI-related
+> properties.
+> 
+> Call __drm_atomic_helper_connector_hdmi_reset() if there is a
+> the drm_bridge_connector has bridge_hdmi.
+> 
+> Note, the __drm_atomic_helper_connector_hdmi_reset() is moved to
+> drm_atomic_state_helper.c because drm_bridge_connector.c can not depend
+> on DRM_DISPLAY_HDMI_STATE_HELPER. At the same time it is impossible to
+> call this function from HDMI bridges, there is is no function that
+> corresponds to the drm_connector_funcs::reset().
+> 
+> Fixes: 6b4468b0c6ba ("drm/bridge-connector: implement glue code for HDMI connector")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/display/drm_hdmi_state_helper.c | 21 ---------------------
+>   drivers/gpu/drm/drm_atomic_state_helper.c       | 21 +++++++++++++++++++++
+>   drivers/gpu/drm/drm_bridge_connector.c          | 13 ++++++++++++-
+>   include/drm/display/drm_hdmi_state_helper.h     |  3 ---
+>   include/drm/drm_atomic_state_helper.h           |  2 ++
+>   5 files changed, 35 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> index 2dab3ad8ce64..67f39857b0b4 100644
+> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> @@ -8,27 +8,6 @@
+>   #include <drm/display/drm_hdmi_helper.h>
+>   #include <drm/display/drm_hdmi_state_helper.h>
+>   
+> -/**
+> - * __drm_atomic_helper_connector_hdmi_reset() - Initializes all HDMI @drm_connector_state resources
+> - * @connector: DRM connector
+> - * @new_conn_state: connector state to reset
+> - *
+> - * Initializes all HDMI resources from a @drm_connector_state without
+> - * actually allocating it. This is useful for HDMI drivers, in
+> - * combination with __drm_atomic_helper_connector_reset() or
+> - * drm_atomic_helper_connector_reset().
+> - */
+> -void __drm_atomic_helper_connector_hdmi_reset(struct drm_connector *connector,
+> -					      struct drm_connector_state *new_conn_state)
+> -{
+> -	unsigned int max_bpc = connector->max_bpc;
+> -
+> -	new_conn_state->max_bpc = max_bpc;
+> -	new_conn_state->max_requested_bpc = max_bpc;
+> -	new_conn_state->hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+> -}
+> -EXPORT_SYMBOL(__drm_atomic_helper_connector_hdmi_reset);
+> -
+>   static const struct drm_display_mode *
+>   connector_state_get_mode(const struct drm_connector_state *conn_state)
+>   {
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+> index 519228eb1095..1518ada81b45 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> @@ -478,6 +478,27 @@ void drm_atomic_helper_connector_reset(struct drm_connector *connector)
+>   }
+>   EXPORT_SYMBOL(drm_atomic_helper_connector_reset);
+>   
+> +/**
+> + * __drm_atomic_helper_connector_hdmi_reset() - Initializes all HDMI @drm_connector_state resources
+> + * @connector: DRM connector
+> + * @new_conn_state: connector state to reset
+> + *
+> + * Initializes all HDMI resources from a @drm_connector_state without
+> + * actually allocating it. This is useful for HDMI drivers, in
+> + * combination with __drm_atomic_helper_connector_reset() or
+> + * drm_atomic_helper_connector_reset().
+> + */
+> +void __drm_atomic_helper_connector_hdmi_reset(struct drm_connector *connector,
+> +					      struct drm_connector_state *new_conn_state)
+> +{
+> +	unsigned int max_bpc = connector->max_bpc;
+> +
+> +	new_conn_state->max_bpc = max_bpc;
+> +	new_conn_state->max_requested_bpc = max_bpc;
 
-> >
-> > BR,
-> > -R
-> >
-> > > >
-> > > > Yeah, that was brought up on #freedreno some time ago
-> > >
-> > > Also on MSM8226 which I also care about...
-> > >
-> > > Anyone at all knowledgable on IOMMU would be very welcome to help out
-> > > with IOMMU support on these two platforms (and anything else that
-> > > old?) in any case, since me and some other people have looked at this
-> > > (on and off) for years but haven't gotten to any stable or usable poi=
-nt
-> > > unfortunately.
-> > >
-> > > Regards
-> > > Luca
-> > >
-> > > >
-> > > > Konrad
-> > >
->
->
->
-> --
-> With best wishes
-> Dmitry
+I understand this is just code propagation but do we need a max_bpc 
+local variable?
+
+We can just do
+
+new_conn_state->max_bpc = connector->max_bpc;
+new_conn_state->max_requested_bpc = connector->max_bpc;
+
+But apart from that nit, this LGTM.
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
