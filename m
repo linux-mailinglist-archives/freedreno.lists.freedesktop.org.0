@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34976915896
-	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 23:14:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E57691589D
+	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 23:14:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D3AD10E587;
-	Mon, 24 Jun 2024 21:14:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CD9B10E581;
+	Mon, 24 Jun 2024 21:14:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Qr4CeU5P";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pIAcDp0W";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56F1B10E266
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 21:13:54 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-52cdb0d8107so4040649e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 14:13:54 -0700 (PDT)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A05D10E266
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 21:13:55 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-52ce6a9fd5cso1335950e87.3
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 14:13:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719263632; x=1719868432; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1719263633; x=1719868433; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=1GrGyKZl+O80ijWJfca6TGiiA9ZGIyJflMlmN8aektA=;
- b=Qr4CeU5PVYO2u2O9HanaEuo0T90JiZdEza4tKJGMCLrCgc62aQO467tsk4M+KHZ4cw
- i1zPwobICLqCOisWaa2p0Ch3/fyrngd4+zUAuZHRpOoqMSjCbSY1vPihN7X9Pn7ohSaa
- YL93cmlP85yE/w2XViy1dXzL4lfp4PHrv3G+2ozm2LByXl0/wYtQ0cTaKGwMCdvwQeRq
- KdLRaLypdBvMpZ68iLVVHLMQKCVxtSOSFGBj6k6jTmCQhUw2RPA6ZqO6rxIt7FD++oAy
- 7f24WHnKmPHZmsWc587T23pWBripMrTS34DHwEPX3b67M28oM3i76mD39TOhgcF3OFsk
- jW/A==
+ :reply-to; bh=cXiVV87C7egKKo/oKQCbPR7p6Dyhi+8Wd+RPKOL1+cA=;
+ b=pIAcDp0WndRxiPyzv1T9FNLpbEK9/VgHuIlamQ7S240VIBYspsgLpScaBVfU/Ie1Fn
+ YSKA3mPMh1dufmUUCtVM2DrGe81+IUuvtec8oTwvkZeq7orlSPbjKMV2Qh3x1t14GjOZ
+ W22nFTHhCHeNGUmg+FY8V/IxJih/KRSoiQgXO47C9DNicjyL/yItmO1gFiypyrilvpbM
+ Ir9oMSGzmZU5lcBca2jXrMebcqEcVkU36tOvCWWZuAwruwTbZJJVhiyafum1Ij1Y+hm7
+ EsjU0jwXJD5CrJezXpeiKm64GPth5rTTcnYTS8uteUwpMvkf5shF3rEwbtQo4lS6gLMU
+ rP8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719263632; x=1719868432;
+ d=1e100.net; s=20230601; t=1719263633; x=1719868433;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1GrGyKZl+O80ijWJfca6TGiiA9ZGIyJflMlmN8aektA=;
- b=uOhMS3zr7Y8PI7K973apYM2M1X16qo80SntqDrp7DAfOlZmmer918ahXJbFWDbBTFZ
- 9veJNpH7p+huN3OLnWnd820R3SNefksugyA7YhsA7ODjlkj1t4ge2AFS9QgegzTKpDT2
- Hoi8ZHM9iXAG3KuIOQeozXREWgWl2Eg5h/MravFVu2r5gi0buZiZZBdUq4si4Em3hC6t
- pgD0Q9wFLIo8e0sPuPT1PxfkbnWYOmuqywaYKL0rjlkNhCvIUed5B5Kt7c4gi5DYsE6x
- mOk8meD6Uzaq8qc4AIZfwPzXbbugqfa1nu8V4nZWH3JnzvgqLmaD3DWS5BACyMY20gXU
- gjww==
+ bh=cXiVV87C7egKKo/oKQCbPR7p6Dyhi+8Wd+RPKOL1+cA=;
+ b=X3Rd52FKei7LcB2wF884ZtY+lzgtm2OLQJBC4jvoG4QorBk+Q/NgG0l9SQolrGp3yB
+ KTl3U9A2D7uZ+5rR0qkFruTJiiCGn23hXvJDhQaJe5PQPlRsp17e3i5XeugT2gBwtsUK
+ KDL2UvAMuzm0Xq8OkaYygMggbef+b58b30EexhX0DSAn9UyPcH+xtIqx0DAJnbp/GGDl
+ /2IOMv5nfIgoUU9piFtlNXEKKTSqPVC0wbfhH7oqVtdngrQS1Vk8yj6FxFBF+Yn8WNFJ
+ i+H2ADCGvyniRiK/wRDgSUGJPn4jmvam/TnyuI/E7A8o9GcIHnMkO4WZL2YIp2LiOX4k
+ VzjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXJkmNCRfPWi8ZPCPTCh+YVPj5s1fFrR2AjquLVhZhnsp7+zPWCsyxmgaescFHLGyenvIjlk9MnmqHVwnCzzhtzkEAEZaIkcMih7UVU5Ed6
-X-Gm-Message-State: AOJu0YwAeO4Gtk+8kQPlaDS71nneH6OnaWsSA7G5fVs/IadiLf8XMknQ
- 9J++0xsOHYeccjBJLycOwWaepc1nsMLeR7WKXnkhpOAPPt+azI9zhMiXN3LN/+LzVZX3dLjIAV7
- u3gw=
-X-Google-Smtp-Source: AGHT+IFPvMvTQcYjcTfk+sgbIJmve+brFn/z6kYzdhl1+BvJPWzFSrNihWQx6zW4FE36HWMeAf/vmg==
-X-Received: by 2002:a05:6512:acf:b0:52c:e28f:4da2 with SMTP id
- 2adb3069b0e04-52ce28f4e39mr4007235e87.43.1719263632207; 
+ AJvYcCXxmy86DCP2BM5Tfg3/OZjUXABg7QsGAI5qTr+9jeWAtnj5xq+6lJHyKoUykXQfEjcf+O6Cp95Qdtsa897S350hbz0NWZUo+O2izlRQoBar
+X-Gm-Message-State: AOJu0YwcO449aU6s3mvvEALxSxd4hoz2TZi0CLUzVQ+tyG3btdqeJd/c
+ ZR88d0vHrm9K5iXmxlH4mZIMMCOx6RfH1v9ABMs3UYm3MGugLcJwRbVjliMtV49tf3UrHPnnJWD
+ BL2w=
+X-Google-Smtp-Source: AGHT+IFrnIpDZgkP7y6H7BTVxwu85K6IvesChUCQcKOzhKixAVLyJck212RPQw7QISbMxyYtgL49dQ==
+X-Received: by 2002:a05:6512:e95:b0:52c:8a3a:fe2c with SMTP id
+ 2adb3069b0e04-52ce185d049mr3843315e87.45.1719263632882; 
  Mon, 24 Jun 2024 14:13:52 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52cd63b49f2sm1057512e87.56.2024.06.24.14.13.51
+ 2adb3069b0e04-52cd63b49f2sm1057512e87.56.2024.06.24.14.13.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jun 2024 14:13:51 -0700 (PDT)
+ Mon, 24 Jun 2024 14:13:52 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 25 Jun 2024 00:13:48 +0300
-Subject: [PATCH v5 08/16] drm/msm/dpu: drop msm_format from struct
- dpu_hw_fmt_layout
+Date: Tue, 25 Jun 2024 00:13:49 +0300
+Subject: [PATCH v5 09/16] drm/msm/dpu: pass drm_framebuffer to
+ _dpu_format_get_plane_sizes()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240625-dpu-mode-config-width-v5-8-501d984d634f@linaro.org>
+Message-Id: <20240625-dpu-mode-config-width-v5-9-501d984d634f@linaro.org>
 References: <20240625-dpu-mode-config-width-v5-0-501d984d634f@linaro.org>
 In-Reply-To: <20240625-dpu-mode-config-width-v5-0-501d984d634f@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -74,16 +74,16 @@ Cc: Abel Vesa <abel.vesa@linaro.org>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9601;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7789;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=JuN2zmqa3YG6hCctSw6/+U8MgNgpOA1IwwqjLQLeOJ4=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmeeGIT023OVVglPxuzLogd5U93l/ulnttLK4lo
- UGMM8k9MTKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZnnhiAAKCRCLPIo+Aiko
- 1VwICACz+yKvsvBdOqLbdn5thfvf36bmyCr2hePmTBNpFbGHGEhOq0OSyfJ2ZLm3Em1wUdYP1X1
- 87QMcssZvK/RdwxDxBsH4MWnv4QVWeYMXR73dj9VoYhlZ18t++tNraZWXtvGePgF/hh3HjendWi
- WZTtnU3M+ntjKFXfYK/S4keAhEgPWuGtZO9B2XvG6oAUR6V9n9+BbnkIFLHjOs/wwTWDrvl7XUZ
- djCn7LbDHBg/+/vrikn0uIahjL7GChmT17zSSgWnWNEipNrKl8g52FJepsLMqwx6kUXzSYrcqS2
- N5WFySkl4akjV4uVE3fipHjLZR42tce2PzTqoZ6Hj7ojy7PK
+ bh=bp6A68kJPDBcsi8eZULofLfrBBdJDRmZZyWTdQOEhY4=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmeeGIwzbLTAsfFmiI2P6P05NPGjUe5AyrxDACr
+ LjvmxiGqb2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZnnhiAAKCRCLPIo+Aiko
+ 1ZjSB/9AcpvZqbp20Zhiaj9faz2xHE4Rc5/tsrtW2/LViAcvxgE2XdLNDDUBbHRjtMC5EJJ3fv0
+ XLbktIMqOJxHlcBKIpninS1Wb8Sh3ptrMlxEcbsvTMbyMJ3tzwVUwWRG5B+uZyq2IMUPanquN4U
+ FMWEXWx2+A0YONhroJmAMFeWHYA8j0BRimPxKxyh3lob8Q3/IhOcmMIftSOrQ9H+CvNBueAcbVA
+ rco2swrmq4it38bLqQRKdpnmTv3G+9ZMZKkAKhY/Ceel/omcPHIl/GUFsXEnDMHJxRa/edGBpUR
+ oNyHrn6n9Ug9Yz1WmAh1Orbr5AMiu944UNwuaYAWAY1ES6Y+
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -101,251 +101,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The struct dpu_hw_fmt_layout defines hardware data layout (addresses,
-sizes and pitches. Drop format field from this structure as it's not a
-part of the data layout.
+Instead of passing width / height / pitches, pass drm_framebuffer
+directly. This allows us to drop the useless check for !pitches, since
+an array can not be NULL.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    | 31 +++++++---------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        | 23 ++++++++--------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |  2 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          |  4 +--
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h          |  3 ++-
- 5 files changed, 25 insertions(+), 38 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 73 ++++++++++++++---------------
+ 1 file changed, 34 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-index 882c717859ce..c4a16a73bc97 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-@@ -166,10 +166,10 @@ static void dpu_encoder_phys_wb_set_qos(struct dpu_encoder_phys *phys_enc)
- /**
-  * dpu_encoder_phys_wb_setup_fb - setup output framebuffer
-  * @phys_enc:	Pointer to physical encoder
-- * @fb:		Pointer to output framebuffer
-+ * @format: Format of the framebuffer
-  */
- static void dpu_encoder_phys_wb_setup_fb(struct dpu_encoder_phys *phys_enc,
--		struct drm_framebuffer *fb)
-+					 const struct msm_format *format)
- {
- 	struct dpu_encoder_phys_wb *wb_enc = to_dpu_encoder_phys_wb(phys_enc);
- 	struct dpu_hw_wb *hw_wb;
-@@ -193,12 +193,12 @@ static void dpu_encoder_phys_wb_setup_fb(struct dpu_encoder_phys *phys_enc,
- 		hw_wb->ops.setup_roi(hw_wb, wb_cfg);
- 
- 	if (hw_wb->ops.setup_outformat)
--		hw_wb->ops.setup_outformat(hw_wb, wb_cfg);
-+		hw_wb->ops.setup_outformat(hw_wb, wb_cfg, format);
- 
- 	if (hw_wb->ops.setup_cdp) {
- 		const struct dpu_perf_cfg *perf = phys_enc->dpu_kms->catalog->perf;
- 
--		hw_wb->ops.setup_cdp(hw_wb, wb_cfg->dest.format,
-+		hw_wb->ops.setup_cdp(hw_wb, format,
- 				     perf->cdp_cfg[DPU_PERF_CDP_USAGE_NRT].wr_enable);
- 	}
- 
-@@ -318,15 +318,10 @@ static void dpu_encoder_phys_wb_setup(
- {
- 	struct dpu_hw_wb *hw_wb = phys_enc->hw_wb;
- 	struct drm_display_mode mode = phys_enc->cached_mode;
--	struct drm_framebuffer *fb = NULL;
- 	struct dpu_encoder_phys_wb *wb_enc = to_dpu_encoder_phys_wb(phys_enc);
--	struct drm_writeback_job *wb_job;
- 	const struct msm_format *format;
--	const struct msm_format *dpu_fmt;
- 
--	wb_job = wb_enc->wb_job;
- 	format = msm_framebuffer_format(wb_enc->wb_job->fb);
--	dpu_fmt = mdp_get_format(&phys_enc->dpu_kms->base, format->pixel_format, wb_job->fb->modifier);
- 
- 	DPU_DEBUG("[mode_set:%d, \"%s\",%d,%d]\n",
- 			hw_wb->idx - WB_0, mode.name,
-@@ -338,9 +333,9 @@ static void dpu_encoder_phys_wb_setup(
- 
- 	dpu_encoder_phys_wb_set_qos(phys_enc);
- 
--	dpu_encoder_phys_wb_setup_fb(phys_enc, fb);
-+	dpu_encoder_phys_wb_setup_fb(phys_enc, format);
- 
--	dpu_encoder_helper_phys_setup_cdm(phys_enc, dpu_fmt, CDM_CDWN_OUTPUT_WB);
-+	dpu_encoder_helper_phys_setup_cdm(phys_enc, format, CDM_CDWN_OUTPUT_WB);
- 
- 	dpu_encoder_phys_wb_setup_ctl(phys_enc);
- }
-@@ -584,14 +579,6 @@ static void dpu_encoder_phys_wb_prepare_wb_job(struct dpu_encoder_phys *phys_enc
- 
- 	format = msm_framebuffer_format(job->fb);
- 
--	wb_cfg->dest.format = mdp_get_format(&phys_enc->dpu_kms->base,
--					     format->pixel_format, job->fb->modifier);
--	if (!wb_cfg->dest.format) {
--		/* this error should be detected during atomic_check */
--		DPU_ERROR("failed to get format %p4cc\n", &format->pixel_format);
--		return;
--	}
--
- 	ret = dpu_format_populate_layout(aspace, job->fb, &wb_cfg->dest);
- 	if (ret) {
- 		DPU_DEBUG("failed to populate layout %d\n", ret);
-@@ -600,10 +587,10 @@ static void dpu_encoder_phys_wb_prepare_wb_job(struct dpu_encoder_phys *phys_enc
- 
- 	wb_cfg->dest.width = job->fb->width;
- 	wb_cfg->dest.height = job->fb->height;
--	wb_cfg->dest.num_planes = wb_cfg->dest.format->num_planes;
-+	wb_cfg->dest.num_planes = format->num_planes;
- 
--	if ((wb_cfg->dest.format->fetch_type == MDP_PLANE_PLANAR) &&
--			(wb_cfg->dest.format->element[0] == C1_B_Cb))
-+	if ((format->fetch_type == MDP_PLANE_PLANAR) &&
-+	    (format->element[0] == C1_B_Cb))
- 		swap(wb_cfg->dest.plane_addr[1], wb_cfg->dest.plane_addr[2]);
- 
- 	DPU_DEBUG("[fb_offset:%8.8x,%8.8x,%8.8x,%8.8x]\n",
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-index 8c2dc5b59bb0..46237a1ca6a5 100644
+index 46237a1ca6a5..df046bc88715 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-@@ -104,7 +104,6 @@ static int _dpu_format_get_plane_sizes_ubwc(
+@@ -95,8 +95,7 @@ static int _dpu_format_get_media_color_ubwc(const struct msm_format *fmt)
+ 
+ static int _dpu_format_get_plane_sizes_ubwc(
+ 		const struct msm_format *fmt,
+-		const uint32_t width,
+-		const uint32_t height,
++		struct drm_framebuffer *fb,
+ 		struct dpu_hw_fmt_layout *layout)
+ {
+ 	int i;
+@@ -104,8 +103,8 @@ static int _dpu_format_get_plane_sizes_ubwc(
  	bool meta = MSM_FORMAT_IS_UBWC(fmt);
  
  	memset(layout, 0, sizeof(struct dpu_hw_fmt_layout));
--	layout->format = fmt;
- 	layout->width = width;
- 	layout->height = height;
+-	layout->width = width;
+-	layout->height = height;
++	layout->width = fb->width;
++	layout->height = fb->height;
  	layout->num_planes = fmt->num_planes;
-@@ -116,7 +115,7 @@ static int _dpu_format_get_plane_sizes_ubwc(
- 		return -EINVAL;
- 	}
  
--	if (MSM_FORMAT_IS_YUV(layout->format)) {
-+	if (MSM_FORMAT_IS_YUV(fmt)) {
- 		uint32_t y_sclines, uv_sclines;
- 		uint32_t y_meta_scanlines = 0;
+ 	color = _dpu_format_get_media_color_ubwc(fmt);
+@@ -121,13 +120,13 @@ static int _dpu_format_get_plane_sizes_ubwc(
  		uint32_t uv_meta_scanlines = 0;
-@@ -182,7 +181,6 @@ static int _dpu_format_get_plane_sizes_linear(
+ 
+ 		layout->num_planes = 2;
+-		layout->plane_pitch[0] = VENUS_Y_STRIDE(color, width);
+-		y_sclines = VENUS_Y_SCANLINES(color, height);
++		layout->plane_pitch[0] = VENUS_Y_STRIDE(color, fb->width);
++		y_sclines = VENUS_Y_SCANLINES(color, fb->height);
+ 		layout->plane_size[0] = MSM_MEDIA_ALIGN(layout->plane_pitch[0] *
+ 			y_sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+ 
+-		layout->plane_pitch[1] = VENUS_UV_STRIDE(color, width);
+-		uv_sclines = VENUS_UV_SCANLINES(color, height);
++		layout->plane_pitch[1] = VENUS_UV_STRIDE(color, fb->width);
++		uv_sclines = VENUS_UV_SCANLINES(color, fb->height);
+ 		layout->plane_size[1] = MSM_MEDIA_ALIGN(layout->plane_pitch[1] *
+ 			uv_sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+ 
+@@ -135,13 +134,13 @@ static int _dpu_format_get_plane_sizes_ubwc(
+ 			goto done;
+ 
+ 		layout->num_planes += 2;
+-		layout->plane_pitch[2] = VENUS_Y_META_STRIDE(color, width);
+-		y_meta_scanlines = VENUS_Y_META_SCANLINES(color, height);
++		layout->plane_pitch[2] = VENUS_Y_META_STRIDE(color, fb->width);
++		y_meta_scanlines = VENUS_Y_META_SCANLINES(color, fb->height);
+ 		layout->plane_size[2] = MSM_MEDIA_ALIGN(layout->plane_pitch[2] *
+ 			y_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+ 
+-		layout->plane_pitch[3] = VENUS_UV_META_STRIDE(color, width);
+-		uv_meta_scanlines = VENUS_UV_META_SCANLINES(color, height);
++		layout->plane_pitch[3] = VENUS_UV_META_STRIDE(color, fb->width);
++		uv_meta_scanlines = VENUS_UV_META_SCANLINES(color, fb->height);
+ 		layout->plane_size[3] = MSM_MEDIA_ALIGN(layout->plane_pitch[3] *
+ 			uv_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+ 
+@@ -150,16 +149,16 @@ static int _dpu_format_get_plane_sizes_ubwc(
+ 
+ 		layout->num_planes = 1;
+ 
+-		layout->plane_pitch[0] = VENUS_RGB_STRIDE(color, width);
+-		rgb_scanlines = VENUS_RGB_SCANLINES(color, height);
++		layout->plane_pitch[0] = VENUS_RGB_STRIDE(color, fb->width);
++		rgb_scanlines = VENUS_RGB_SCANLINES(color, fb->height);
+ 		layout->plane_size[0] = MSM_MEDIA_ALIGN(layout->plane_pitch[0] *
+ 			rgb_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+ 
+ 		if (!meta)
+ 			goto done;
+ 		layout->num_planes += 2;
+-		layout->plane_pitch[2] = VENUS_RGB_META_STRIDE(color, width);
+-		rgb_meta_scanlines = VENUS_RGB_META_SCANLINES(color, height);
++		layout->plane_pitch[2] = VENUS_RGB_META_STRIDE(color, fb->width);
++		rgb_meta_scanlines = VENUS_RGB_META_SCANLINES(color, fb->height);
+ 		layout->plane_size[2] = MSM_MEDIA_ALIGN(layout->plane_pitch[2] *
+ 			rgb_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+ 	}
+@@ -173,23 +172,21 @@ static int _dpu_format_get_plane_sizes_ubwc(
+ 
+ static int _dpu_format_get_plane_sizes_linear(
+ 		const struct msm_format *fmt,
+-		const uint32_t width,
+-		const uint32_t height,
+-		struct dpu_hw_fmt_layout *layout,
+-		const uint32_t *pitches)
++		struct drm_framebuffer *fb,
++		struct dpu_hw_fmt_layout *layout)
+ {
  	int i;
  
  	memset(layout, 0, sizeof(struct dpu_hw_fmt_layout));
--	layout->format = fmt;
- 	layout->width = width;
- 	layout->height = height;
+-	layout->width = width;
+-	layout->height = height;
++	layout->width = fb->width;
++	layout->height = fb->height;
  	layout->num_planes = fmt->num_planes;
-@@ -190,8 +188,8 @@ static int _dpu_format_get_plane_sizes_linear(
+ 
  	/* Due to memset above, only need to set planes of interest */
  	if (fmt->fetch_type == MDP_PLANE_INTERLEAVED) {
  		layout->num_planes = 1;
--		layout->plane_size[0] = width * height * layout->format->bpp;
--		layout->plane_pitch[0] = width * layout->format->bpp;
-+		layout->plane_size[0] = width * height * fmt->bpp;
-+		layout->plane_pitch[0] = width * fmt->bpp;
+-		layout->plane_size[0] = width * height * fmt->bpp;
+-		layout->plane_pitch[0] = width * fmt->bpp;
++		layout->plane_size[0] = fb->width * fb->height * fmt->bpp;
++		layout->plane_pitch[0] = fb->width * fmt->bpp;
  	} else {
  		uint32_t v_subsample, h_subsample;
  		uint32_t chroma_samp;
-@@ -272,6 +270,7 @@ static int _dpu_format_populate_addrs_ubwc(
- 		struct drm_framebuffer *fb,
- 		struct dpu_hw_fmt_layout *layout)
- {
-+	const struct msm_format *fmt;
- 	uint32_t base_addr = 0;
- 	bool meta;
+@@ -199,7 +196,7 @@ static int _dpu_format_get_plane_sizes_linear(
+ 		_dpu_get_v_h_subsample_rate(chroma_samp, &v_subsample,
+ 				&h_subsample);
  
-@@ -286,10 +285,11 @@ static int _dpu_format_populate_addrs_ubwc(
- 		return -EFAULT;
+-		if (width % h_subsample || height % v_subsample) {
++		if (fb->width % h_subsample || fb->height % v_subsample) {
+ 			DRM_ERROR("mismatch in subsample vs dimensions\n");
+ 			return -EINVAL;
+ 		}
+@@ -207,11 +204,11 @@ static int _dpu_format_get_plane_sizes_linear(
+ 		if ((fmt->pixel_format == DRM_FORMAT_NV12) &&
+ 			(MSM_FORMAT_IS_DX(fmt)))
+ 			bpp = 2;
+-		layout->plane_pitch[0] = width * bpp;
++		layout->plane_pitch[0] = fb->width * bpp;
+ 		layout->plane_pitch[1] = layout->plane_pitch[0] / h_subsample;
+-		layout->plane_size[0] = layout->plane_pitch[0] * height;
++		layout->plane_size[0] = layout->plane_pitch[0] * fb->height;
+ 		layout->plane_size[1] = layout->plane_pitch[1] *
+-				(height / v_subsample);
++				(fb->height / v_subsample);
+ 
+ 		if (fmt->fetch_type == MDP_PLANE_PSEUDO_PLANAR) {
+ 			layout->num_planes = 2;
+@@ -232,8 +229,8 @@ static int _dpu_format_get_plane_sizes_linear(
+ 	 * all the components based on ubwc specifications.
+ 	 */
+ 	for (i = 0; i < layout->num_planes && i < DPU_MAX_PLANES; ++i) {
+-		if (pitches && layout->plane_pitch[i] < pitches[i])
+-			layout->plane_pitch[i] = pitches[i];
++		if (layout->plane_pitch[i] < fb->pitches[i])
++			layout->plane_pitch[i] = fb->pitches[i];
  	}
  
--	meta = MSM_FORMAT_IS_UBWC(layout->format);
-+	fmt = msm_framebuffer_format(fb);
-+	meta = MSM_FORMAT_IS_UBWC(fmt);
+ 	for (i = 0; i < DPU_MAX_PLANES; i++)
+@@ -244,25 +241,24 @@ static int _dpu_format_get_plane_sizes_linear(
  
- 	/* Per-format logic for verifying active planes */
--	if (MSM_FORMAT_IS_YUV(layout->format)) {
-+	if (MSM_FORMAT_IS_YUV(fmt)) {
- 		/************************************************/
- 		/*      UBWC            **                      */
- 		/*      buffer          **      DPU PLANE       */
-@@ -390,6 +390,7 @@ int dpu_format_populate_layout(
- 		struct drm_framebuffer *fb,
- 		struct dpu_hw_fmt_layout *layout)
+ static int dpu_format_get_plane_sizes(
+ 		const struct msm_format *fmt,
+-		const uint32_t w,
+-		const uint32_t h,
+-		struct dpu_hw_fmt_layout *layout,
+-		const uint32_t *pitches)
++		struct drm_framebuffer *fb,
++		struct dpu_hw_fmt_layout *layout)
  {
-+	const struct msm_format *fmt;
- 	int ret;
+ 	if (!layout || !fmt) {
+ 		DRM_ERROR("invalid pointer\n");
+ 		return -EINVAL;
+ 	}
  
- 	if (!fb || !layout) {
-@@ -403,17 +404,17 @@ int dpu_format_populate_layout(
+-	if ((w > DPU_MAX_IMG_WIDTH) || (h > DPU_MAX_IMG_HEIGHT)) {
++	if (fb->width > DPU_MAX_IMG_WIDTH ||
++	    fb->height > DPU_MAX_IMG_HEIGHT) {
+ 		DRM_ERROR("image dimensions outside max range\n");
  		return -ERANGE;
  	}
  
--	layout->format = msm_framebuffer_format(fb);
-+	fmt = msm_framebuffer_format(fb);
+ 	if (MSM_FORMAT_IS_UBWC(fmt) || MSM_FORMAT_IS_TILE(fmt))
+-		return _dpu_format_get_plane_sizes_ubwc(fmt, w, h, layout);
++		return _dpu_format_get_plane_sizes_ubwc(fmt, fb, layout);
+ 
+-	return _dpu_format_get_plane_sizes_linear(fmt, w, h, layout, pitches);
++	return _dpu_format_get_plane_sizes_linear(fmt, fb, layout);
+ }
+ 
+ static int _dpu_format_populate_addrs_ubwc(
+@@ -407,8 +403,7 @@ int dpu_format_populate_layout(
+ 	fmt = msm_framebuffer_format(fb);
  
  	/* Populate the plane sizes etc via get_format */
--	ret = dpu_format_get_plane_sizes(layout->format, fb->width, fb->height,
-+	ret = dpu_format_get_plane_sizes(fmt, fb->width, fb->height,
- 			layout, fb->pitches);
+-	ret = dpu_format_get_plane_sizes(fmt, fb->width, fb->height,
+-			layout, fb->pitches);
++	ret = dpu_format_get_plane_sizes(fmt, fb, layout);
  	if (ret)
  		return ret;
  
- 	/* Populate the addresses given the fb */
--	if (MSM_FORMAT_IS_UBWC(layout->format) ||
--			MSM_FORMAT_IS_TILE(layout->format))
-+	if (MSM_FORMAT_IS_UBWC(fmt) ||
-+			MSM_FORMAT_IS_TILE(fmt))
- 		ret = _dpu_format_populate_addrs_ubwc(aspace, fb, layout);
- 	else
- 		ret = _dpu_format_populate_addrs_linear(aspace, fb, layout);
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-index a2eff36a2224..f8806a4d317b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-@@ -293,7 +293,6 @@ enum dpu_3d_blend_mode {
- 
- /**
-  * struct dpu_hw_fmt_layout - format information of the source pixel data
-- * @format: pixel format parameters
-  * @num_planes: number of planes (including meta data planes)
-  * @width: image width
-  * @height: image height
-@@ -303,7 +302,6 @@ enum dpu_3d_blend_mode {
-  * @plane_pitch: pitch of each plane
-  */
- struct dpu_hw_fmt_layout {
--	const struct msm_format *format;
- 	uint32_t num_planes;
- 	uint32_t width;
- 	uint32_t height;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
-index 93ff01c889b5..f39db534697d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
-@@ -64,10 +64,10 @@ static void dpu_hw_wb_setup_outaddress(struct dpu_hw_wb *ctx,
- }
- 
- static void dpu_hw_wb_setup_format(struct dpu_hw_wb *ctx,
--		struct dpu_hw_wb_cfg *data)
-+				   struct dpu_hw_wb_cfg *data,
-+				   const struct msm_format *fmt)
- {
- 	struct dpu_hw_blk_reg_map *c = &ctx->hw;
--	const struct msm_format *fmt = data->dest.format;
- 	u32 dst_format, pattern, ystride0, ystride1, outsize, chroma_samp;
- 	u32 write_config = 0;
- 	u32 opmode = 0;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h
-index 37497473e16c..b240a4f7b33a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h
-@@ -37,7 +37,8 @@ struct dpu_hw_wb_ops {
- 			struct dpu_hw_wb_cfg *wb);
- 
- 	void (*setup_outformat)(struct dpu_hw_wb *ctx,
--			struct dpu_hw_wb_cfg *wb);
-+			struct dpu_hw_wb_cfg *wb,
-+			const struct msm_format *fmt);
- 
- 	void (*setup_roi)(struct dpu_hw_wb *ctx,
- 			struct dpu_hw_wb_cfg *wb);
 
 -- 
 2.39.2
