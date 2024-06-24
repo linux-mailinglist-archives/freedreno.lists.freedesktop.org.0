@@ -2,81 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AE9B913EFA
-	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 00:26:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97FF89142A6
+	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 08:22:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D290510E178;
-	Sun, 23 Jun 2024 22:26:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E372010E06F;
+	Mon, 24 Jun 2024 06:22:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kbYjg6Ot";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="fgtNEasX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B78FA10E15A;
- Sun, 23 Jun 2024 22:26:05 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-421bb51d81aso30947035e9.3; 
- Sun, 23 Jun 2024 15:26:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719181564; x=1719786364; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=3gQk/oUu6SEUrWcMlUI7v/b2a8RoP0ZC8zDXKyAf8bM=;
- b=kbYjg6Ot9SE8EuZr8/8nDho2FeRJGsM86wtckgJDmTm8Awps2YxglRF1QkD+6jzVVB
- 23On9hhN1abI+8lhdh9WsaGNtzhS60mbrYSJMdMGtOvXK9Pm+siJWCPjXlvOhWs1tY3I
- j6zfQ5FseNQTG06s4Ljt0wHpNdCVuQJl9kOapw0K+wERVPsI1UTN/4nVHQEDI/2HW9Ta
- VJVh+nge65NhPjODkl7OpbOMIyijaz6f1uNJwCGLtvCmDEfEQbF8dL3KFBU27xlGQg52
- K82B2p4HRir1eMoV4gKJ2/z+qaxGAG11UGOZ5qXmsz2WD9o61o2429qtYAztFfvIseLd
- iIZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719181564; x=1719786364;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3gQk/oUu6SEUrWcMlUI7v/b2a8RoP0ZC8zDXKyAf8bM=;
- b=C68Lcwl/bfGaeOn5E3ct0+in7+87ZIewPkGfOFi9404AzqRMuLHaNcQLC1ZlMQ3ugd
- 48H4RXPDW61hNu8X/llBxLrYHcLK50BVBym6Ji/ZN69dsCysnGdvNAY5CpPJdWuhgzdQ
- t3FqvxW6WAEfx9NLv6lyv61Palcg+7Nbvgzyj7kQNTRCIi4Z3zvlmRZHrT2Z1n9QG5uk
- ayzAio45boHrcncqni/b/qRn8a/poS+346m4RjNBGKF+CSuqWo+JIlrsEatvLMfE9QqJ
- w+R4ui25vrikYX9DXT2SHE7Quat1M2e3U1/NS590DFxGLb5Z6oQE+lV6y9+ru3e88/4D
- gkBg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVBbo/KIQzSZugCfJWYguchW+LUgMgGkaFw/JYeJviKRs9UVpnvr8Pel85glWPhsPKNYsh2QhibnGFc1CLN2gdx6/I9Up8m6+/fo3FjF3nyDp/u2BSihXzA6pE3kqS4L80QtkG2F4KjtH2BHDEQSpG+
-X-Gm-Message-State: AOJu0YxRdG8Hq1yFsUdgEscIj1cC4RKRvMGJrOUhcJFy81xGmFjk6MDd
- poJXoFQiaPeNikpD0Njad+pW19e+nCJUNYc/OVPbOBFfpaqngT/E
-X-Google-Smtp-Source: AGHT+IFuLGS5VXiY8gWVaO57f37QjPUM9TkmU9oDjUF5Scuicyy01NZzE1pEN95APiSxY+wXB8af3w==
-X-Received: by 2002:a05:600c:5690:b0:424:7992:c21f with SMTP id
- 5b1f17b1804b1-4248cc18c65mr20456165e9.3.1719181563531; 
- Sun, 23 Jun 2024 15:26:03 -0700 (PDT)
-Received: from [192.168.1.130] (BC2492F3.dsl.pool.telekom.hu. [188.36.146.243])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4248179d982sm117663975e9.1.2024.06.23.15.26.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 23 Jun 2024 15:26:03 -0700 (PDT)
-From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
-Date: Mon, 24 Jun 2024 00:26:01 +0200
-Subject: [PATCH] drm/msm/mdp5: Remove MDP_CAP_SRC_SPLIT from msm8x53_config
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C13F10E06F;
+ Mon, 24 Jun 2024 06:22:04 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45NMpd1K025140;
+ Mon, 24 Jun 2024 06:21:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=78BjC4ZngSF0zZa4ZxItwDC7
+ TOkUvZ5wSfalarQ23zM=; b=fgtNEasX4CeU2QVGVI0PidkxsvZTVx1bqKiNCaU3
+ /R91iNbjSiLQzvWCTNf/vtJ6XI3Kwabx03TcnTxYig9woESA8nMQZHYim/VIzLj5
+ NrAQVKesjy72FI447vVix5NzvdMiIzXHBmGtl6+Ap54DF1KnfLqM5FubtVSu0XUK
+ miqXFh4MLBR8ZTTtyKAuz/pOZU4cvpvPcRWnslGos2RSr0t3gFsJvKTZ9t6cDZ1m
+ Kv25nR3TetyaZiNjerumLIfKpJGI+rVInM2jq9ExaoEqbvANr4faIIffrCw8CLNo
+ mqFN5rsK06byKnN8SoMczeINsZiyzThB3VTD/1/yy4OKBw==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ywnxgtsf0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 24 Jun 2024 06:21:56 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45O6Lt12025514
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 24 Jun 2024 06:21:55 GMT
+Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Sun, 23 Jun 2024 23:21:49 -0700
+Date: Mon, 24 Jun 2024 11:51:45 +0530
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: freedreno <freedreno@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Conor Dooley <conor+dt@kernel.org>, "Daniel Vetter" <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Maxime Ripard <mripard@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, Sean Paul <sean@poorly.run>, Thomas Zimmermann
+ <tzimmermann@suse.de>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1 0/3] Support for Adreno X1-85 GPU
+Message-ID: <20240624062145.nkqlh2szazvjigk7@hu-akhilpo-hyd.qualcomm.com>
+References: <20240623110753.141400-1-quic_akhilpo@quicinc.com>
+ <26abe6cd-e9da-4db9-9035-76edd5dda614@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20240624-msm8953-mdp-fix-v1-1-be4d3262ebe3@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAPigeGYC/x2MQQqAIBAAvxJ7bkHNQvtKdIhcaw+aKEQg/T3pO
- AMzFQplpgJzVyHTzYWv2ED2HeznFg9Cdo1BCaXFpDSGEowdBwwuoecHzeY17XK0wihoVcrU9H9
- c1vf9ACnzRGlhAAAA
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Sireesh Kodali <sireeshkodali1@gmail.com>, 
- Vladimir Lypak <vladimir.lypak@gmail.com>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
-X-Mailer: b4 0.14.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <26abe6cd-e9da-4db9-9035-76edd5dda614@kernel.org>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: PO8NswSRSU9dBTs6ixM3EjEKZVLtXOKQ
+X-Proofpoint-ORIG-GUID: PO8NswSRSU9dBTs6ixM3EjEKZVLtXOKQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-24_05,2024-06-21_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015
+ suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 mlxscore=0
+ malwarescore=0 priorityscore=1501 mlxlogscore=999 impostorscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2406140001 definitions=main-2406240049
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,35 +99,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Remove MDP_CAP_SRC_SPLIT from msm8x53_config because
-it is not referenced in downstream.
+On Sun, Jun 23, 2024 at 01:11:48PM +0200, Krzysztof Kozlowski wrote:
+> On 23/06/2024 13:06, Akhil P Oommen wrote:
+> > This series adds support for the Adreno X1-85 GPU found in Qualcomm's
+> > compute series chipset, Snapdragon X1 Elite (x1e80100). In this new
+> > naming scheme for Adreno GPU, 'X' stands for compute series, '1' denotes
+> > 1st generation and '8' & '5' denotes the tier and the SKU which it
+> > belongs.
+> > 
+> > X1-85 has major focus on doubling core clock frequency and bandwidth
+> > throughput. It has a dedicated collapsible Graphics MX rail (gmxc) to
+> > power the memories and double the number of data channels to improve
+> > bandwidth to DDR.
+> > 
+> > Mesa has the necessary bits present already to support this GPU. We are
+> > able to bring up Gnome desktop by hardcoding "0xffff43050a01" as
+> > chipid. Also, verified glxgears and glmark2. We have plans to add the
+> > new chipid support to Mesa in next few weeks, but these patches can go in
+> > right away to get included in v6.11.
+> > 
+> > This series is rebased on top of v6.10-rc4. P3 cherry-picks cleanly on
+> > qcom/for-next.
+> > 
+> > P1 & P2 for Rob, P3 for Bjorn to pick up.
+> 
+> Which Rob?
 
-Fixes: fb25d4474fa0 ("drm/msm/mdp5: Add configuration for MDP v1.16")
-Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Sorry for the confusion! I meant Rob Clark whom I had added in the "To:"
+list.
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-index c5179e4c393c..92d06b7faa0a 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-@@ -837,8 +837,7 @@ static const struct mdp5_cfg_hw msm8x53_config = {
- 	.name = "msm8x53",
- 	.mdp = {
- 		.count = 1,
--		.caps = MDP_CAP_CDM |
--			MDP_CAP_SRC_SPLIT,
-+		.caps = MDP_CAP_CDM,
- 	},
- 	.ctl = {
- 		.count = 3,
+-Akhil
 
----
-base-commit: f76698bd9a8ca01d3581236082d786e9a6b72bb7
-change-id: 20240624-msm8953-mdp-fix-8af4ec159082
-
-Best regards,
--- 
-Barnabás Czémán <trabarni@gmail.com>
-
+> 
+> Why bindings cannot go as usual way - via the subsystem?
+> 
+> Best regards,
+> Krzysztof
+> 
+> 
