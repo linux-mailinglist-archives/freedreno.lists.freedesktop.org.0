@@ -2,90 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 818B591588F
-	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 23:14:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53BB9915949
+	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 23:54:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3554010E583;
-	Mon, 24 Jun 2024 21:14:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2329610E155;
+	Mon, 24 Jun 2024 21:54:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EPyLrVdd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C+k1zTyX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5373610E583
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 21:14:00 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-52ccc40e72eso3148084e87.3
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 14:14:00 -0700 (PDT)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
+ [209.85.208.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC80B10E16A
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 21:54:15 +0000 (UTC)
+Received: by mail-ed1-f50.google.com with SMTP id
+ 4fb4d7f45d1cf-57cc30eaf0aso2790898a12.2
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 14:54:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719263638; x=1719868438; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=y1x4u/WFQ3yi7lWZK3LSC04Q6VFcnkANEfAcENz04sk=;
- b=EPyLrVdddpxwt1w4Ioas344x5dU1ub6eODlIlxgZyoB1MYSJwTejD1JWTFYLyJj8sN
- KYkPxdZop7vMSwOUjCw7kgPNa6jMl+Vp4Iq1S+av4vY1BdLJMaYL+s7vZVxIi0N8U8NG
- GAlYeecgU0NtEpfxKFxfgoZFJSnEDlXRpQy/ylHSiGHmz15CqYHcMxwLIFoRKeBvf0OG
- oADtM16ZgXKAsWc2BjBMcI3icZ9LZfEPjDe8amVXfdJTXM2CDij0heZz0ylbCcIHNmcB
- lF01uqN/+Hce0B3XSMQ44OcdnD1k/7Tr3TUCubV0pnMqrZWXF5lST93wfKe8mSZ9NJP/
- BITQ==
+ d=gmail.com; s=20230601; t=1719266054; x=1719870854; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sY5Zh+sZGJTn9InmhZn+JpSx2JdQvo8kESASgJqojTU=;
+ b=C+k1zTyXcEg2YPYMye3/xfTJ/PObiSwMS1//uo4bnaIzxZ7MA2gDoF4BEiYYp1K7az
+ S0OjdNcbIuBFDfTlXZgm2ufsQqlauwKXwCAXTQs2y0G1uqrBo2Ak/cDndLhgMNg2Y1XY
+ PU82xP+fL6z9bwMO/uNT1hk5e2tAmjmizbyj/EulMVvIrB65hcC6Z58hP4XcvYaDMe4z
+ GR+gmOc6/ML7krfAbOfSR4iuTsELgt2rKbtllF8NnGF9ISRsmHdMBIk+z2mxOUj2Ex2b
+ TgIWAzY1qG0CZ+IU6OkErBCsoSCkBBVMVgFLkKqTcGC9R8OCuKzsTrfSVXbYSzaZj16m
+ mNAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719263638; x=1719868438;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1719266054; x=1719870854;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=y1x4u/WFQ3yi7lWZK3LSC04Q6VFcnkANEfAcENz04sk=;
- b=ttutvwR6HGsXrpTBKwn7vO8kmyMJOnID+Uhx6atdaVBs5p153ToDZ4ZImT1TIgRxoq
- 3jqsxU5fzOOk3+eK6zMPibZBpSWmcRJzn1QWxw8yyhwvOfCxuuSLml8JMnugMx9JJdJo
- 6oc7sTo6hUxwbtNU18CoO0jwvWeKi3m/d3bFKkzSV0dh0sgWoAtV7C+C8LhfnvZfwa3d
- wF4Za0/tQ9ia8bG8UJIYJOEoKDuw+TBSKnY1FNC96x+FNVVeflIBXhvtvwxmGx7/hpqZ
- FyA9WBRz0zrdFvO+3ZmhXbJYsDyOhylDMEjaa0+hnF/Pw7g54XX7oZa3xiaLGkLomrIS
- ldDw==
+ bh=sY5Zh+sZGJTn9InmhZn+JpSx2JdQvo8kESASgJqojTU=;
+ b=vtFsXdPzWlPwRUHKOanSd00qO0gqS9qpiQIuyLhEHjCtHqB+1DTet3Bwjj3MWUiA3K
+ 0MU7xvcC8eOn4fXRS/sygJ59BSsTN4PV11J1zualOlEUzuQJ4rIgsodY2m56NQ8njlgV
+ o4qsMrZ0NKnFnc5Uq+saU6+rCO8AclLYU03VTQl2RTfJ2X773i7bbg+L4BlYP3SDhQ5x
+ Zxg1600hsslkLcy+JstfZQ0rvRk5BFqpqHw7tXDTfWWp2hWUnP1Nhye26z1SYdUeq1Fz
+ x6zUDUQJFtUIMeoGYfRveymqKdmI/494KVMqm/7msf9+z0A8P7o2S1ji2XwQtxGOBc5x
+ Zabg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWJcIOiKZFPV7fpaB4WuymznFF5kTIEwQ8BPD7ft/KxI9c3juj5ZqpWhKOm37G+lnR2j4ovQ+tEXpFx+r8odSfcax64K6+l/VGGKt0Fhr+x
-X-Gm-Message-State: AOJu0Yw03fgeyI4gCvO89e2mnO7/BSfkGBBW7QrY/sHhQ1GcL37lr+Q0
- o4RQYqm2aoSpQQvduY6bEQe2eiMtKL6xDCe0Sn1vSvkzbZnx6+JcEnvveyQWyZaLgQZSMZgYo1C
- Yvwo=
-X-Google-Smtp-Source: AGHT+IEmY+P+wMqwNtmzmS+y3X/vc34LWCTNENhVeVAk/uMKzvKiYLYLXlBfXFsGoAgZ2rgw5dlvcA==
-X-Received: by 2002:a05:6512:5d5:b0:52c:dd3d:85af with SMTP id
- 2adb3069b0e04-52ce183531bmr3549457e87.25.1719263638303; 
- Mon, 24 Jun 2024 14:13:58 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52cd63b49f2sm1057512e87.56.2024.06.24.14.13.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jun 2024 14:13:57 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 25 Jun 2024 00:13:56 +0300
-Subject: [PATCH v5 16/16] drm/msm/dpu: sync mode_config limits to the FB
- limits in dpu_plane.c
+ AJvYcCUvFhCiDOK0Q0EVDJzzRNto7aJEXSD0p+2YFjT2UN53nxtnpI3M7BHXO2jD3VD4nWxfwQZoQutwnpSQuDBP1zCxge/q2OAOAxpZS/rTbLlB
+X-Gm-Message-State: AOJu0Yw1NeKstv/afd647/bBBH1/EGlV4F1Sd1NyidxX+px3yMEM7n6f
+ Nvu19XN8chsGMOnLJvfGGeDEePrHZbsVPig/NxWFP4pg6tahWynJ3WvJdGpC/a+TtyBX+Owdk56
+ 92+mgJwbVd8MO99LLtnvfj174L0U=
+X-Google-Smtp-Source: AGHT+IFlO6mE5t9frydCQN+/Yhc4G3eSyEPhL5nKtOMuGvqS8bghROCeDRxKANS/FbEHSdYQRTHAkzuOkRJX4ml/jUM=
+X-Received: by 2002:a50:9f6d:0:b0:57c:671d:8455 with SMTP id
+ 4fb4d7f45d1cf-57d4bd728c8mr4277655a12.14.1719266053800; Mon, 24 Jun 2024
+ 14:54:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240625-dpu-mode-config-width-v5-16-501d984d634f@linaro.org>
-References: <20240625-dpu-mode-config-width-v5-0-501d984d634f@linaro.org>
-In-Reply-To: <20240625-dpu-mode-config-width-v5-0-501d984d634f@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+References: <64ec16b9-c680-408c-b547-5debae2f7f87@freebox.fr>
+ <dkmtnizbuyswyvocczjfgmhsuedawliabycig4urw42a65hu3j@jglxzumuzamd>
+ <a9e4dba6-2317-4b6f-968f-d607937f5157@freebox.fr>
+ <CAF6AEGtvHzF-KNyMwmysz7idLYE7XuXhDnBLdQFFhEdgYo6oqQ@mail.gmail.com>
+ <CAA8EJpqCmu+TPmdCxwa84s+15inmdi6SeR5XQRVey56RKqdRuQ@mail.gmail.com>
+ <717ee43e-41f5-4940-b404-c348812c84c9@linaro.org>
+ <D25HTBIFDM42.2W1WGS8HKTHTF@fairphone.com>
+ <CAF6AEGvwCXj7=_A=f+A_G9k=1LSSjcrsHB0GN83Z2OKg0eWjMA@mail.gmail.com>
+ <CAA8EJpquKb0r=ZDABU0F+PGR1PKNTiKELbGe1-4Wd2pVEzVUNg@mail.gmail.com>
+In-Reply-To: <CAA8EJpquKb0r=ZDABU0F+PGR1PKNTiKELbGe1-4Wd2pVEzVUNg@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 24 Jun 2024 14:54:01 -0700
+Message-ID: <CAF6AEGuMxO_WO3Jm+wLHX_VQApxTqiF6RekBY_oMfAiumT5u-Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm: log iommu init failure
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Luca Weiss <luca.weiss@fairphone.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Marc Gonzalez <mgonzalez@freebox.fr>,
  Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Abel Vesa <abel.vesa@linaro.org>, 
- Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2549;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=N3YZKN6loeIt7zXSx7uKEpsl5ti+ONaIe5A6G3FjkBU=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmeeGJ3W6nxzLLrhDKnT+F7nbXuEjMtQWwODlOG
- daPmsQiNJOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZnnhiQAKCRCLPIo+Aiko
- 1eJjB/45YnYDuHZnbUk62JBC3kcTUAeC2/V2+VDRd9jPMmDam6QGNdIyNx7Qi9slvsAXF1qNxbc
- oDiNVbKIjvzqnDzDarpLogMyBvnNbZdV0VaUhdtI2/46Yml0P/bzkzS+DegzFIFfvQTaQ22OsL2
- +L28OkDfO9/n5/8LqXeeq5u7jd5brGMMd0J6NXCXVPcjM2NYMGLkvhdu3pvK9qN+svFVyC0L1aD
- v2CqpRf/+lQSqKxgx7FEtAcGOaenQpuui5QE8XdL9cGJD3AuYPDCXF1tOiZCRPbGHJfpbVV0MQ1
- Su4SjvXVLVtbtWSGOyO6+SPKFAzrsT2scKxH1t9Dh+0CHjdo
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, MSM <linux-arm-msm@vger.kernel.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>, 
+ Bryan O Donoghue <bryan.odonoghue@linaro.org>,
+ Pierre-Hugues Husson <phhusson@freebox.fr>, 
+ Arnaud Vrac <avrac@freebox.fr>, Bjorn Andersson <andersson@kernel.org>, 
+ Jeffrey Hugo <quic_jhugo@quicinc.com>, Rob Clark <robdclark@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,72 +95,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Lift mode_config limits set by the DPU driver to the actual FB limits as
-handled by the dpu_plane.c. Move 2*max_lm_width check where it belongs,
-to the drm_crtc_helper_funcs::mode_valid() callback.
+On Mon, Jun 24, 2024 at 11:29=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On Mon, 24 Jun 2024 at 20:59, Rob Clark <robdclark@gmail.com> wrote:
+> >
+> > On Thu, Jun 20, 2024 at 11:48=E2=80=AFPM Luca Weiss <luca.weiss@fairpho=
+ne.com> wrote:
+> > >
+> > > On Fri Jun 21, 2024 at 12:47 AM CEST, Konrad Dybcio wrote:
+> > > >
+> > > >
+> > > > On 6/20/24 20:24, Dmitry Baryshkov wrote:
+> > > > > On Thu, 20 Jun 2024 at 20:32, Rob Clark <robdclark@gmail.com> wro=
+te:
+> > > > >>
+> > > > >> On Thu, May 30, 2024 at 2:48=E2=80=AFAM Marc Gonzalez <mgonzalez=
+@freebox.fr> wrote:
+> > > > >>>
+> > > > >>> On 16/05/2024 10:43, Marijn Suijten wrote:
+> > > > >>>
+> > > > >>>> On 2024-05-15 17:09:02, Marc Gonzalez wrote:
+> > > > >>>>
+> > > > >>>>> When create_address_space() fails (e.g. when smmu node is dis=
+abled)
+> > > > >>
+> > > > >> Note that smmu support is going to become a hard dependency with=
+ the
+> > > > >> drm_gpuvm/VM_BIND conversion.. which I think means we should nev=
+er get
+> > > > >> far enough to hit this error path..
+> > > > >
+> > > > > Does that mean that we will lose GPU support on  MSM8974?
+> >
+> > And display support as well :-/
+> >
+> > Note that GPU should be disabled by default without smmu.. you can
+> > override with modparam, but please don't.  It is incredibly insecure,
+> > you might as well make /dev/mem world readable/writeable.
+> >
+> > Is simplefb an option on 8974 or 8226 to keep display support?
+>
+> Not in a longer term, I still hope to push HDMI PHY/PLL support for
+> MSM8974, which means dynamic resolution support.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Tested-by: Abhinav Kumar <quic_abhinavk@quicinc.com> # sc7280
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 15 +++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  9 ++-------
- 2 files changed, 17 insertions(+), 7 deletions(-)
+Hmm, maybe it would be possible to re-add carveout support.. but my
+hopes aren't too high.  It would be better if we could get smmu going.
+(Not to mention, I don't really like the idea of people using the gpu
+without an smmu... it is a really insecure thing to do.)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 2a87dd7188b8..f4ec3df45536 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1235,6 +1235,20 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
- 	return 0;
- }
- 
-+static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
-+						const struct drm_display_mode *mode)
-+{
-+	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
-+
-+	/*
-+	 * max crtc width is equal to the max mixer width * 2 and max height is
-+	 * is 4K
-+	 */
-+	return drm_mode_validate_size(mode,
-+				      2 * dpu_kms->catalog->caps->max_mixer_width,
-+				      4096);
-+}
-+
- int dpu_crtc_vblank(struct drm_crtc *crtc, bool en)
- {
- 	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
-@@ -1450,6 +1464,7 @@ static const struct drm_crtc_helper_funcs dpu_crtc_helper_funcs = {
- 	.atomic_check = dpu_crtc_atomic_check,
- 	.atomic_begin = dpu_crtc_atomic_begin,
- 	.atomic_flush = dpu_crtc_atomic_flush,
-+	.mode_valid = dpu_crtc_mode_valid,
- 	.get_scanout_position = dpu_crtc_get_scanout_position,
- };
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 40e4b829b9da..1c86f22859fa 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1191,13 +1191,8 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
- 	dev->mode_config.min_width = 0;
- 	dev->mode_config.min_height = 0;
- 
--	/*
--	 * max crtc width is equal to the max mixer width * 2 and max height is
--	 * is 4K
--	 */
--	dev->mode_config.max_width =
--			dpu_kms->catalog->caps->max_mixer_width * 2;
--	dev->mode_config.max_height = 4096;
-+	dev->mode_config.max_width = DPU_MAX_IMG_WIDTH;
-+	dev->mode_config.max_height = DPU_MAX_IMG_HEIGHT;
- 
- 	dev->max_vblank_count = 0xffffffff;
- 	/* Disable vblank irqs aggressively for power-saving */
+BR,
+-R
 
--- 
-2.39.2
-
+> >
+> > BR,
+> > -R
+> >
+> > > >
+> > > > Yeah, that was brought up on #freedreno some time ago
+> > >
+> > > Also on MSM8226 which I also care about...
+> > >
+> > > Anyone at all knowledgable on IOMMU would be very welcome to help out
+> > > with IOMMU support on these two platforms (and anything else that
+> > > old?) in any case, since me and some other people have looked at this
+> > > (on and off) for years but haven't gotten to any stable or usable poi=
+nt
+> > > unfortunately.
+> > >
+> > > Regards
+> > > Luca
+> > >
+> > > >
+> > > > Konrad
+> > >
+>
+>
+>
+> --
+> With best wishes
+> Dmitry
