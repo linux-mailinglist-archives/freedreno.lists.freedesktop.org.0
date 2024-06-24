@@ -2,78 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B2C5914F54
-	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 15:57:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C4D9914F86
+	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 16:06:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1984910E083;
-	Mon, 24 Jun 2024 13:57:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0963110E05D;
+	Mon, 24 Jun 2024 14:06:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jnVeKmgg";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yxohSGXK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4350D10E44C
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 13:57:43 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-57cbc66a0a6so3896553a12.1
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 06:57:43 -0700 (PDT)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFC7A10E083
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 14:06:33 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-52cdf4bc083so2800727e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 07:06:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719237461; x=1719842261; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1719237992; x=1719842792; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=IHD4jJpcuG4tMgpp91267iJ5OoLxZWbXVFw4XaeFi2c=;
- b=jnVeKmggZ1mDo1B7XZHTzJc430KrzKl2rTEPU9Sx6tyPlfgvYbEo5BrECMa2bwk+em
- hjcC98z7LnKU75CFq09wkJnlFvkBwnLcnHfVwKb/e8OaSfzJ8QE/7ZOBzVJUxxcg6gXa
- 1k8lrQBQ1dC/rmnzYq3v00egFIv1pf+4gjMqHQch72rwYhJJXhRIIM7znwRjraQfntdQ
- SvOcFjrK/FcZsiTIhjydlWDqZX9ySPBRF+EvNx4pNIcy/xcV7oXD/qKir2DBVMgEaIlm
- 9l5LjcrQdhjzHt33TbO4XEuR3ORWzz1527i5z/aZaQlkDAPa8fER96CoKZxsVSz8umVR
- TGnA==
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Br/bfMy698eaHPBHFobm+lhTqSfDhm6FM3UGgSs9wVY=;
+ b=yxohSGXKu+3tBFRYZPVB5gGjsgDCzDQ2Y3bWYKdZnXxXJd7ZHu468VMDFIwHG7Py5/
+ cColyYVZ0kYcxbSgSCL5SGNUwgJOgivQgZt20MRBw0fplHw86qDBq4Ar88BsZ8NlSqGH
+ +ao/yIOOUt2Da3BYVTuzeCIIofPf4XZu2COL4C2zmgneX2Qov1FhDNIWfDI/QqMqzW7m
+ HN37YFa3/lyY/gIdBnswlW158bB/t7uE+5Spd2b8+8ijwyue+HFIUCT8gFI0tcur2IlK
+ 5VITCpuhFsckxulKjMmB2V2517DvZBAtRrQY3NkqcS1cvQPsNjYBYkVok2ok5YGCw6C3
+ ODUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719237461; x=1719842261;
+ d=1e100.net; s=20230601; t=1719237992; x=1719842792;
  h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=IHD4jJpcuG4tMgpp91267iJ5OoLxZWbXVFw4XaeFi2c=;
- b=GM+cTNzikARHH89SIicLRgOgvLb09ykOIe72b3FupuORNM57hieGUfnHcsGnzCC+46
- p7nkgCElR00snbwJM6/CATdb9gGsd/PjW5FlYHVNBNqt7ZAZ99lDdcO+AI0+fNljvIfZ
- LuLZ5G76AcWrsYNUlDQPNIg7cn3HLVfmhioSH7KaP/alnEXRGQhjJAcuud5mmNKZ5/H4
- ScAVvrxvC26Z96OpZefooFY9sNNurYNF+VnzGeYlrmqavPtnVLEWdQ0Acx+jHoKy4Sw2
- 2Y5CvposbNKCDulk0FD4c01WKKAN5M2Z5hTPMneQFKE7hubBcyhbyp/2zG/JHw0BwRMs
- Zjag==
+ bh=Br/bfMy698eaHPBHFobm+lhTqSfDhm6FM3UGgSs9wVY=;
+ b=kUjnweL2orTIRElJI9LlGJJPJ0m6g4uJkvdeRljshchHoXtT+y5MtI5OxCodCGyOc3
+ uGFIM00L5ixYoYXUDExL1Ci74VYxHefX2QklYxNCgYJs8uQeFu7r2Wb+hIRAzWJ2Z8en
+ mEc/nZAX9peD1VyP44PGPXTAN7DGZ1XRmdoOkGgiHH7NdrMf8XEt/r1Vh7Vs5bGl2Ihu
+ Zqqh5O2p+YToxf2+7p6SOnI4WFk0PnPbp/CQbPO+wWb2CUgCou2A9cQKY7iABAdYIyBl
+ UWq/MkXdCWZi6S7MB4gYyjcIxLHaLFlLEnHuEU/AGFVnpzMhgqenZCuSBLiSkstPiSLu
+ gbSg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU4iNpqXDOZQ5jGhbzfdJoU8EoTbzUliZvWUj/H+6BZQArlczBWxtR55ByT9JkRuILzwensgA5viA4Vq4Bizk3wAOF25FQc0OxBtA7nwVca
-X-Gm-Message-State: AOJu0YzcRqqf7YQ4N3AaGXXlH1Crv9fjT/8iAYcAqJk3WBf8wOlPr0A4
- 2QCYEEX6t7bEwfSWhHk+5BFOuHhT8OrrNIXiqU8eihSE22QxlNesdI4VWCW3ULQ=
-X-Google-Smtp-Source: AGHT+IGpGmgITj2Vbxhko8ZELCw5TU4oWE8gTzKLF+hMftNzpJ304FkSkyvJfotXe68/KgaWnf31Rg==
-X-Received: by 2002:a50:875e:0:b0:57d:4692:ba54 with SMTP id
- 4fb4d7f45d1cf-57d4692bb51mr4569953a12.6.1719237461074; 
- Mon, 24 Jun 2024 06:57:41 -0700 (PDT)
+ AJvYcCVlo6B8SRO6oHKfvzUM4QSSa3SFP+Y51YB4Fh3EeHEfG/fntELn5WcXbyB63z+JpfSBc/Z1EhNcuDuH5LOaPl9Pshykv9mFG7NpmvGbc+aj
+X-Gm-Message-State: AOJu0YwOq2lrygY2u4IgNwB3NZXLMiLL3HxYK1mww4oEu6RrhhZCjYFy
+ ElflkoBE8jLuVOiD+90fbxCVlWOuCnwSuWFeTmvUlC23GpMQ9/uGaquu+GfdFD8=
+X-Google-Smtp-Source: AGHT+IGBSD0M3AUdujBciwVWcZpdKLsKzF8yl1H7y1uyhiRnYA+q9nUuFFyookmuvfhj2CLXjQg2pA==
+X-Received: by 2002:a2e:a403:0:b0:2eb:e3a7:8b with SMTP id
+ 38308e7fff4ca-2ec5932a10cmr41288651fa.26.1719237991629; 
+ Mon, 24 Jun 2024 07:06:31 -0700 (PDT)
 Received: from ?IPV6:2a00:f41:c03:9198:7df:6a16:3e8e:ed7b?
  ([2a00:f41:c03:9198:7df:6a16:3e8e:ed7b])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57d66b04378sm405692a12.38.2024.06.24.06.57.37
+ 4fb4d7f45d1cf-57d3058287fsm4727289a12.95.2024.06.24.07.06.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jun 2024 06:57:40 -0700 (PDT)
-Message-ID: <f5ef4e3c-66e8-4833-86bb-c38658b923ae@linaro.org>
-Date: Mon, 24 Jun 2024 15:57:35 +0200
+ Mon, 24 Jun 2024 07:06:31 -0700 (PDT)
+Message-ID: <ffdfa775-b84f-4c20-9852-b210d42dc8d4@linaro.org>
+Date: Mon, 24 Jun 2024 16:06:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] arm64: dts: qcom: x1e80100: Add gpu support
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Bjorn Andersson <andersson@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20240623110753.141400-1-quic_akhilpo@quicinc.com>
- <20240623110753.141400-4-quic_akhilpo@quicinc.com>
+Subject: Re: [PATCH 1/2] drm/msm/adreno: allow headless setup on SM8150 MTP
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20240623193420.333735-1-krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20240623110753.141400-4-quic_akhilpo@quicinc.com>
+In-Reply-To: <20240623193420.333735-1-krzysztof.kozlowski@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -93,20 +96,26 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 6/23/24 13:06, Akhil P Oommen wrote:
-> Add the necessary dt nodes for gpu support in X1E80100.
+On 6/23/24 21:34, Krzysztof Kozlowski wrote:
+> Commit f30ac26def18 ("arm64: dts: qcom: add sm8150 GPU nodes") re-used
+> amd,imageon compatible for the SM8150 just to enable headless mode due
+> to missing display controller nodes.  This work-around was later
+> narrowed to the SM8150 MTP board in commit 1642ab96efa4 ("arm64: dts:
+> qcom: sm8150: Don't start Adreno in headless mode").
 > 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> This was not a correct solution, because the Qualcomm SM8150 SoC does
+> not have an AMD GPU and the SM8150 MTP board does not have magically
+> different GPU than SM8150 SoC.
+> 
+> Rely on board compatible to achieve the same in a Devicetree-correct
+> way.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
 
-[...]
+Let's just forget this exists, this was a hack from the start and not
+a very necessary one given display bringup followed soon..
 
-> +
-> +				opp-1100000000 {
-> +					opp-hz = /bits/ 64 <1100000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-> +					opp-peak-kBps = <16500000>;
-
-No speedbins?
+This should be handled by a module parameter if anything
 
 Konrad
