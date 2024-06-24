@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6E13915878
-	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 23:13:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67C58915886
+	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 23:14:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96BB010E0C3;
-	Mon, 24 Jun 2024 21:13:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E160810E57F;
+	Mon, 24 Jun 2024 21:13:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="H1c0Ls24";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Fm9vdAfP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6DC10E0C3
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5BDA10E0BF
  for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 21:13:49 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-52cdebf9f53so2189048e87.2
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-52cdb0d816bso2513347e87.1
  for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 14:13:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1719263627; x=1719868427; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=QnAQMhTqxkoTHi2sUlyi5iGRZ0J/13FG1QGdqL66JnI=;
- b=H1c0Ls24pBWbza95IZz24Kux9UdhDmyuOxhL//0Yfe9ATTSmSe/KuA2u/ZboZhuJuG
- Bcb81oo3IF+fEpruQBDh0n/27897xVpO5awEDL6YycdouuZSJShinXrbB2URBSTGiWRF
- 4NLTh06EZygfNc7+kWBLcdBtcyAdSyArn0LDAqkfJOZaiZjF+ViuOBMQZ3g7/gvC78+j
- J5TW5uoY75hZ0DlmbiNCS3qdvdcKfUt7Q4KFqikon4FQWt7AGHxfqBS4lasByeOPrqj6
- CFS3yorcTZe0yp0ethBBW7oXeqZJVZeea1Ucy5Y+rhYJTnhVu1DelnfjFzBWnjdwVUkr
- 9R4A==
+ :reply-to; bh=4VRgd5asHo3we7JJsAH8XR2VQncsaeqG+/tWCDM9GWs=;
+ b=Fm9vdAfPG6U5Y2ZZCbKEuJ9kVgGiRg1R9REE/s8jMLwVmZtGPSl3YFX+P6d3hHIWt6
+ RqUEElwA4f90tInO8McnB1gjfMEVGPmz2qIALwnR8jigWRsYav/x4n7AIR/x61d+w+eK
+ iHMBP+aaXmVU1D+f0gx+iJhBFJ20NwztpcJl7MTrINv8GXmPOQIdv7Tqd0miQ4+sCpqB
+ YJO51QSBVfEUqkCWOYIigSZxS55o56DF3mHCjr/rwrqPiz6MeBDfVwIOHWWwFyE1WQKj
+ b8XjcdJpPaqJvpfYcldGzfbZMvSdn0zwyItY+2HXP1tNJQFjKTp+Lu14UnpBsKSt3vJZ
+ JzQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1719263627; x=1719868427;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=QnAQMhTqxkoTHi2sUlyi5iGRZ0J/13FG1QGdqL66JnI=;
- b=Ft0tkvE7UONWkFSr9HhZbu8t8yhaOg7csaDJ/QIumLe4AE81dxeJMXe9ql/U+H3dQy
- udpE8PdDozyuCNZXIwUJIvjlsoUZoMJtRv71uBWDBTnlYz8JEkXkLP7jK9xM5TWliKdq
- 60FqQ+BE8zsGuL9u0BSVYTZkQi/5LnJj+nrlEFGHv+Y/jvo/VMAy+Sq3HiBurNf7IQg3
- tXyvbdi6ZQsCmbTArwE3NEZgqkm/Ba9tb5QMtAL2X8QG8UHU72qmBzLd7Ki4MPEuYS7p
- 6e5z14+YkfurEVqw5OdHt33ZTkKWEJrOW86EXred4tPqWnfjaBah5BUJDQC/OV9Ip+X+
- XakA==
+ bh=4VRgd5asHo3we7JJsAH8XR2VQncsaeqG+/tWCDM9GWs=;
+ b=R+9Vc1ff9Jh1Ssd2I2B17arP90bCXh84LyC4l9xQ0Z4BDi3VQLbVQXq51U+jm+cDTn
+ AAn/UWu6oU9PEKUcRAdNHE3XwWk28qgbveGpHaZrC1m9+V5lLcVlf7RGg62nhnJyHtHs
+ 0SD6XD68fMyHPdT9Iuxi5i6GV8Zuf/Xj03Y2h4p+1CBvJJmfdiI7FtW+imV1zLTzu6AH
+ MqqPpne3SYzd8oTdvAIUGcWDd+vgyUbkMQyE9tu8GehX8Brx9mXvBCoGsPYKmY96sHcR
+ 3VqQM2aEOrVPcjZKOksjX/LOrJo10TF0zJUOXlwIAzwGsiabJuqVNqX8MeLDaejzaSii
+ l8vA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUzZ68SzHRseeGcBgzjFzrobxSWDuRCZ6HMFB+40muwXf3WpQpr2TptGtb0Q4xNT3v7rKJ0Q4IDoqu8HmMVdTeqco0zenagJRlMjMacqeSc
-X-Gm-Message-State: AOJu0Yycnr5QgBgc11eCqX6i/TsD3E6erYlz6IIQQfz2p8B+No4BleBU
- nI5gWsfo3cHoqnTjwZ6LZu+4y8oCqTa44XPU2wqzy5PbkVnJsXNsmeFYsGQgYLFgTKhsJwoGpd1
- tMcU=
-X-Google-Smtp-Source: AGHT+IEdpZ5JYDr7V8Znxppu0fFUyD+kco0q7CJPmsFD4ZDNHTS3te8ASnZiqa38kdut6xCS5YBoLA==
-X-Received: by 2002:ac2:54b3:0:b0:52c:c6a0:575c with SMTP id
- 2adb3069b0e04-52ce064e939mr3488507e87.33.1719263627046; 
+ AJvYcCUi3Ve/nkurFiVchUblNAeQMmvp4MghYp+MYD3ZF9/fDIhmx8aESUath99cLpu8LdXtGIz9Hel5HDxOx0VlSzvgeGGLHEvU6a/aW8+gFJPv
+X-Gm-Message-State: AOJu0YxUo52b5hivhq4phoBrEY+vsU4jopPvuY5clVUVMpg2VsbiHxzT
+ L+PZ6+xfd3D7wXnMJZ3j/gyC9C/hCUbMI87JWgJ3SJnJ//Loq2I+qI0b5CEonfSb6YCmQ19H8yA
+ /C/0=
+X-Google-Smtp-Source: AGHT+IEwwnEhYl95QqDTbCLmeV/4bzp4M63Zy4b8eegGdrh8TiiSCNUzZrU/Jfb+Oa1fUkPxJX3HBw==
+X-Received: by 2002:ac2:4474:0:b0:52c:86e0:97b5 with SMTP id
+ 2adb3069b0e04-52cdf34655cmr2015909e87.16.1719263627711; 
  Mon, 24 Jun 2024 14:13:47 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52cd63b49f2sm1057512e87.56.2024.06.24.14.13.46
+ 2adb3069b0e04-52cd63b49f2sm1057512e87.56.2024.06.24.14.13.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jun 2024 14:13:46 -0700 (PDT)
+ Mon, 24 Jun 2024 14:13:47 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 25 Jun 2024 00:13:41 +0300
-Subject: [PATCH v5 01/16] drm/msm/dpu: cleanup FB if
- dpu_format_populate_layout fails
+Date: Tue, 25 Jun 2024 00:13:42 +0300
+Subject: [PATCH v5 02/16] drm/msm/dpu: fix error condition in
+ dpu_encoder_virt_atomic_mode_set
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240625-dpu-mode-config-width-v5-1-501d984d634f@linaro.org>
+Message-Id: <20240625-dpu-mode-config-width-v5-2-501d984d634f@linaro.org>
 References: <20240625-dpu-mode-config-width-v5-0-501d984d634f@linaro.org>
 In-Reply-To: <20240625-dpu-mode-config-width-v5-0-501d984d634f@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -74,16 +74,16 @@ Cc: Abel Vesa <abel.vesa@linaro.org>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2033;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=957;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=CRnQPNrk6tMn0RWlkSywOwQLtsZdvuYbpLeYPQfOvOQ=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmeeGHkTKUSFhd/esJT4kU4yqcOeXPY/1aZhwhY
- ouCUfW6jveJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZnnhhwAKCRCLPIo+Aiko
- 1dHEB/4lCSfYAUpyuj9p97n0YydfifdA+CLqgrCwyumcCOIrtmqy/DjWUSMdZpNrUqoUVziJ5cF
- 97Cy3Mkr6RVsi3TUv4Z1ZlHOFuLar3WeXhdnncJ0L56qv4HlBfafsZ9wjYbsF2itRhQoEgT7LzV
- 6e8jnQRkDXI6YXZiQBazKSE1GOK9nvy/0swaShEgrWrXsVm8vY29MXK5zCCYSyNlRHNhHV/v++p
- b4PxUXta9So50jIrejN+9NxvhwCQLD3gpfhcbHXkGhWkmQI8ieVdo84VfJDas8gFeqZ3C8dcRaT
- ZuYbZ7L04qdfRC5QXnM+EG7unCb24AQpNEc/IrW6ZjSEztDO
+ bh=7vP7o0FochLbD0Xxzl9C2B538GRcwP3COb8crkPmUOU=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmeeGHjmcqZL5bh8Vey1taJSCXeNBj8b511MU54
+ qCCasjSnJ6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZnnhhwAKCRCLPIo+Aiko
+ 1TINB/9xlBhS2fVzyaXFtuw9d8tMN5rB0L2hhdoYdifhgvf4g/MNWuwlgGfwOPl7jKcNblqMqj0
+ ozKXND4ugksr3fPBlRlaxtITj0/rT7jqcPvijl7zBNupG8Rulzw4jrhdR++cdnmDLeouYrfVDed
+ vhgZbrlmhmkBvZOjAaQkvVT1/+PsKsj9QNz4X0ZmMIpkPuMwgmPKXf2U3XH3oRfi7eCgs1MG6/T
+ kgcCRney7KT+mzmT5MxbeC6xqa2IwmSJyr0WXXgm8i/5on6A5vad7zwpBK/QywGtEV8uFUX+NIB
+ 3VqiUXUYZllOU5c3R+PrDwKz6T7XQcybosxQm3E2nij78o8w
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -101,59 +101,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-If the dpu_format_populate_layout() fails, then FB is prepared, but not
-cleaned up. This ends up leaking the pin_count on the GEM object and
-causes a splat during DRM file closure:
+The commit b954fa6baaca ("drm/msm/dpu: Refactor rm iterator") removed
+zero-init of the hw_ctl array, but didn't change the error condition,
+that checked for hw_ctl[i] being NULL. Use indices check instead.
 
-msm_obj->pin_count
-WARNING: CPU: 2 PID: 569 at drivers/gpu/drm/msm/msm_gem.c:121 update_lru_locked+0xc4/0xcc
-[...]
-Call trace:
- update_lru_locked+0xc4/0xcc
- put_pages+0xac/0x100
- msm_gem_free_object+0x138/0x180
- drm_gem_object_free+0x1c/0x30
- drm_gem_object_handle_put_unlocked+0x108/0x10c
- drm_gem_object_release_handle+0x58/0x70
- idr_for_each+0x68/0xec
- drm_gem_release+0x28/0x40
- drm_file_free+0x174/0x234
- drm_release+0xb0/0x160
- __fput+0xc0/0x2c8
- __fput_sync+0x50/0x5c
- __arm64_sys_close+0x38/0x7c
- invoke_syscall+0x48/0x118
- el0_svc_common.constprop.0+0x40/0xe0
- do_el0_svc+0x1c/0x28
- el0_svc+0x4c/0x120
- el0t_64_sync_handler+0x100/0x12c
- el0t_64_sync+0x190/0x194
-irq event stamp: 129818
-hardirqs last  enabled at (129817): [<ffffa5f6d953fcc0>] console_unlock+0x118/0x124
-hardirqs last disabled at (129818): [<ffffa5f6da7dcf04>] el1_dbg+0x24/0x8c
-softirqs last  enabled at (129808): [<ffffa5f6d94afc18>] handle_softirqs+0x4c8/0x4e8
-softirqs last disabled at (129785): [<ffffa5f6d94105e4>] __do_softirq+0x14/0x20
-
-Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+Fixes: b954fa6baaca ("drm/msm/dpu: Refactor rm iterator")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 1c3a2657450c..eabc4813c649 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -680,6 +680,9 @@ static int dpu_plane_prepare_fb(struct drm_plane *plane,
- 			new_state->fb, &layout);
- 	if (ret) {
- 		DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
-+		if (pstate->aspace)
-+			msm_framebuffer_cleanup(new_state->fb, pstate->aspace,
-+						pstate->needs_dirtyfb);
- 		return ret;
- 	}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 5d205e09cf45..7613005fbfea 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1186,7 +1186,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 			return;
+ 		}
  
+-		if (!hw_ctl[i]) {
++		if (i >= num_ctl) {
+ 			DPU_ERROR_ENC(dpu_enc,
+ 				"no ctl block assigned at idx: %d\n", i);
+ 			return;
 
 -- 
 2.39.2
