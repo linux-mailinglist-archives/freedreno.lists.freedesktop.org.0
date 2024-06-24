@@ -2,104 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE61F914750
-	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 12:21:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 222DA914F31
+	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 15:53:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB5C10E3E9;
-	Mon, 24 Jun 2024 10:21:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F056D10E083;
+	Mon, 24 Jun 2024 13:53:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DoFBCp5i";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ceXZrCqp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8045D10E3E9;
- Mon, 24 Jun 2024 10:21:17 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 8F5EFCE10AB;
- Mon, 24 Jun 2024 10:21:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 440BFC2BBFC;
- Mon, 24 Jun 2024 10:21:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1719224473;
- bh=d2YrsSBn2K0x3bECoxvDN/YNrSq3fNttW/m9Lsn58vw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=DoFBCp5i3OM5Rbd0YGSHr8ygAjfO9fByxu/Ym0XlUjsVRltgfJNxN60IsZfOQ1/OV
- EujyVykAtlMcmNKrpGjpK+fWKtvDE2Fv+GGwGig1OR9rfEuUA2LggQPsIH4SaVBf++
- sfzWzHmVt2YIRusn52vVKY/RDUxn7W4TPUEujbJiRNaafLB/758mY0ol4rlkPaxn6T
- 5lI5o/2qlBqsLYGMyH0/gBxcP49FiLO/pn72SbzC7z3xujLLZvZPddDsmCBWfA5GAV
- R0/TURBDOKoDY7lVMCOLWoVMY6oOG2cLm3VBfBOJVAlFpo+KW9J7EI27bHzULjZ87v
- +FTCHl+WYegfA==
-Message-ID: <6c06238b-14ce-4e7d-b0fd-33749c62213c@kernel.org>
-Date: Mon, 24 Jun 2024 12:21:05 +0200
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFCFC10E448
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 13:53:55 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-2ebe6495aedso45709521fa.0
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 06:53:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1719237234; x=1719842034; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=5S10zLLSMGCffMYd/h+/RimKZkqJmO/jBCyUz/wexOY=;
+ b=ceXZrCqpJrpBiFsKZD9K0wgjM80h4J7iAn13Uvp4UHRJjAZsRYmDjUI5sv7tqPmvdJ
+ rLcdusrqA7Rpg31Grcj4Tn3/lYC9EnIREqvr7No46qBQ5Ie+9QFkmH55l55u3lZ4SJww
+ m1OJYk0yoLd5dN+5fIWhzNnxvYC3aehlnhpwMFXQW34+yrSpKRDRKiZlG677tWNCKk8V
+ dUfrQ8kxwKfKGHYijpuqpGiHLeyoWCGZmyQ1HOD8ctd6JEDp0zfg/si3MFhIoLXNwCyh
+ 9YeBZ0A8rbce2p6FBy/nv2BLNmASgCd7ToDccVIZvgzushtF9yOjBy2chrHA03jjkR+N
+ hjrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719237234; x=1719842034;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=5S10zLLSMGCffMYd/h+/RimKZkqJmO/jBCyUz/wexOY=;
+ b=n+UlpIF51nguOKMXhdI8/AyCkB2KiaYf8KO2Zj6x7vitLwqGsM1CYZfd6pZB7l+hRk
+ liClFvJY+c5dOivOsTYdG0Tf/FT1axxj77gWRKB9DqujeUUoj6+Y9qbxrYbb01x8BoEP
+ AZHYNQSf3/forb3rmgIdEivpzD9t3Gz1t2VSuJBmZ2S2S9WcGNt30YQhyrm3yv2fm22c
+ 6p9aEQs1phcx+6nVQVH7nWmPsafmanJ4kmgzO5vREQbp48+Cyiip5yGwYLfiLlIkl1bk
+ fhVHSgVS+vCo2EagKahEcEY5ApT4FMKk6FcrXrsiaoonHAjeO8TI+dqGekz0K0nzkzx9
+ hFaA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX7eFgJqtvDTbM3wnCB9p7SH3P5zEsGAfdQ9/CzA+RCxczKN3+YsqmDZy2umPkc5+38lqcQ6E7NFApdTPZfQIjQYKwVOnKK4l0NLUzkPBXe
+X-Gm-Message-State: AOJu0YwchRtW3shOvvWtNpkr6uDqLUNIlGYpaLcElWZ6hs29C1pKnN1E
+ xykeNkNdYhRhx4ljF/WPBL/hAqIZOi/9ThOjVIYspLhbbRy90KPWJgJOq1jh09o=
+X-Google-Smtp-Source: AGHT+IF7G8yRO1cSo8vqHH5UaeNqcbHw+S8TNtA0Ju96Wb3SODipWZSK3i2ngTmztbBS/byXZ+YJCA==
+X-Received: by 2002:a2e:9b55:0:b0:2ec:50dc:af8d with SMTP id
+ 38308e7fff4ca-2ec5b29fc03mr26068691fa.12.1719237233248; 
+ Mon, 24 Jun 2024 06:53:53 -0700 (PDT)
+Received: from ?IPV6:2a00:f41:c03:9198:7df:6a16:3e8e:ed7b?
+ ([2a00:f41:c03:9198:7df:6a16:3e8e:ed7b])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57d30534e35sm4701537a12.62.2024.06.24.06.53.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Jun 2024 06:53:52 -0700 (PDT)
+Message-ID: <5947559d-30dd-4da1-93cc-a15dc65cb77d@linaro.org>
+Date: Mon, 24 Jun 2024 15:53:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/3] Support for Adreno X1-85 GPU
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
+Subject: Re: [PATCH v1 2/3] drm/msm/adreno: Add support for X185 GPU
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
  dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Conor Dooley
- <conor+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Bjorn Andersson <andersson@kernel.org>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Daniel Vetter
+ <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
- Sean Paul <sean@poorly.run>, Thomas Zimmermann <tzimmermann@suse.de>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 References: <20240623110753.141400-1-quic_akhilpo@quicinc.com>
- <26abe6cd-e9da-4db9-9035-76edd5dda614@kernel.org>
- <20240624062145.nkqlh2szazvjigk7@hu-akhilpo-hyd.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <20240623110753.141400-3-quic_akhilpo@quicinc.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20240624062145.nkqlh2szazvjigk7@hu-akhilpo-hyd.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20240623110753.141400-3-quic_akhilpo@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,38 +93,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 24/06/2024 08:21, Akhil P Oommen wrote:
-> On Sun, Jun 23, 2024 at 01:11:48PM +0200, Krzysztof Kozlowski wrote:
->> On 23/06/2024 13:06, Akhil P Oommen wrote:
->>> This series adds support for the Adreno X1-85 GPU found in Qualcomm's
->>> compute series chipset, Snapdragon X1 Elite (x1e80100). In this new
->>> naming scheme for Adreno GPU, 'X' stands for compute series, '1' denotes
->>> 1st generation and '8' & '5' denotes the tier and the SKU which it
->>> belongs.
->>>
->>> X1-85 has major focus on doubling core clock frequency and bandwidth
->>> throughput. It has a dedicated collapsible Graphics MX rail (gmxc) to
->>> power the memories and double the number of data channels to improve
->>> bandwidth to DDR.
->>>
->>> Mesa has the necessary bits present already to support this GPU. We are
->>> able to bring up Gnome desktop by hardcoding "0xffff43050a01" as
->>> chipid. Also, verified glxgears and glmark2. We have plans to add the
->>> new chipid support to Mesa in next few weeks, but these patches can go in
->>> right away to get included in v6.11.
->>>
->>> This series is rebased on top of v6.10-rc4. P3 cherry-picks cleanly on
->>> qcom/for-next.
->>>
->>> P1 & P2 for Rob, P3 for Bjorn to pick up.
->>
->> Which Rob?
+
+
+On 6/23/24 13:06, Akhil P Oommen wrote:
+> Add support in drm/msm driver for the Adreno X185 gpu found in
+> Snapdragon X1 Elite chipset.
 > 
-> Sorry for the confusion! I meant Rob Clark whom I had added in the "To:"
-> list.
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
+> 
+>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 19 +++++++++++++++----
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |  6 ++----
+>   drivers/gpu/drm/msm/adreno/adreno_device.c | 14 ++++++++++++++
+>   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++++
+>   4 files changed, 36 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 0e3dfd4c2bc8..168a4bddfaf2 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -830,8 +830,10 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu, unsigned int state)
+>   	 */
+>   	gmu_write(gmu, REG_A6XX_GMU_CM3_CFG, 0x4052);
+>   
+> +	if (adreno_is_x185(adreno_gpu)) {
+> +		chipid = 0x7050001;
 
-OK, thanks for confirming, it is correct.
+What's wrong with using the logic below?
 
-Best regards,
-Krzysztof
+>   	/* NOTE: A730 may also fall in this if-condition with a future GMU fw update. */
+> -	if (adreno_is_a7xx(adreno_gpu) && !adreno_is_a730(adreno_gpu)) {
+> +	} else if (adreno_is_a7xx(adreno_gpu) && !adreno_is_a730(adreno_gpu)) {
+>   		/* A7xx GPUs have obfuscated chip IDs. Use constant maj = 7 */
+>   		chipid = FIELD_PREP(GENMASK(31, 24), 0x7);
+>   
+> @@ -1329,9 +1331,18 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
+>   	if (!pri_count)
+>   		return -EINVAL;
+>   
+> -	sec = cmd_db_read_aux_data("mx.lvl", &sec_count);
+> -	if (IS_ERR(sec))
+> -		return PTR_ERR(sec);
+> +	/*
+> +	 * Some targets have a separate gfx mxc rail. So try to read that first and then fall back
+> +	 * to regular mx rail if it is missing
+> +	 */
+> +	sec = cmd_db_read_aux_data("gmxc.lvl", &sec_count);
+> +	if (PTR_ERR_OR_ZERO(sec) == -EPROBE_DEFER) {
+> +		return -EPROBE_DEFER;
+> +	} else if (IS_ERR(sec)) {
+> +		sec = cmd_db_read_aux_data("mx.lvl", &sec_count);
+> +		if (IS_ERR(sec))
+> +			return PTR_ERR(sec);
+> +	}
 
+I assume GMXC would always be used if present, although please use the
+approach Dmitry suggested
+
+
+The rest looks good!
+
+Konrad
