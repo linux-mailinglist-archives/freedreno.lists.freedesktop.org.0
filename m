@@ -2,83 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47ADC915681
-	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 20:29:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D31F1915877
+	for <lists+freedreno@lfdr.de>; Mon, 24 Jun 2024 23:13:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A3E810E22E;
-	Mon, 24 Jun 2024 18:29:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B0B610E153;
+	Mon, 24 Jun 2024 21:13:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iDEFJ5Hd";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jwyuao9K";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04E7710E55A
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 18:29:41 +0000 (UTC)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-dff06b3f413so4338974276.3
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 11:29:41 -0700 (PDT)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D052910E0BF
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 21:13:48 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-52cdf4bc083so3481013e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Jun 2024 14:13:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719253781; x=1719858581; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LhXqZUvyqszLAu7XlxiAnvME4lRodnY/xefXRaxr4MQ=;
- b=iDEFJ5Hdzd2DtEbGRzxGp959aUj/gY9PtCuO9q/njthz+ovpWLtYNXnakyuNqSZ8UD
- EdrHy9M+wwh6lMhbwkrsq4+NrqONOzWWP9NO2jAaBX0Z9yG1hBNyV4yDxrdYYPXNzO5O
- hmF+EbPGMEg7dqyfn3nxRL6IFsstFKXfAyDg9kMqDWcS9rCSKKIPm4Fv1ZsVgL0oH+N8
- LYosY6IOtFKkRRxcvvOx3KQdNwwFmxjLmPHGgJnnwxsH0hWHI3flu6xWcyyqjdx49o3u
- 9JNJNTEv+G7IZtuZxhaUl3H+khmkl3C6GOG4VexhQ37a7hUsJpQTPCAuKLKwmgZrqBKz
- i4Jg==
+ d=linaro.org; s=google; t=1719263626; x=1719868426; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=urZQV+y3QNxwreYOcv1wFUORMtdQQg7g7j8r664owVY=;
+ b=jwyuao9KlSumpy2BjWRSB+/0rtBhmQzw8wa5ombie6NdVRHZeGQM4LTcN1VJkLOPH1
+ 7rFovuFnh2KwMSYyNSNSXZ2mXQz20D3oZg3zgKdSrldupHC0Cdhdo8/RTzTKF+w9vfUJ
+ B1VRV5/XJ5wphsj8EsWJSZHvhvYycs/7L/LA3afHQP+h66IUiqoDO8AlXAHIPosTOOZ0
+ M2lcyxPliwjoFrWtHS70MQkvDAVGnpl5C8ZJlTYxqiD4pIIiFKp+yCwh9CA5qbP5L1bz
+ dnHPZ3u9sl+UbxtXAZfWnf3iFVWnYt6/gyyoyhRiM60Owgj13g+v21+0p/yMgVGNka7A
+ qnDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719253781; x=1719858581;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LhXqZUvyqszLAu7XlxiAnvME4lRodnY/xefXRaxr4MQ=;
- b=dO/8ngVNPg/hLcMkNz1PLh8o8KZ3/nJ11nEyyY01U2llmVYuhM8UdhsFMyU+/bs+nd
- voVfW0Kd/f6KE0mtUjGSOsLdCwjR1DXdN0lRdRpO9W9NWLwvJz85AC48LUoSN+LJn4TJ
- r2I5HwoibyzVXbxAVO4eKaeFVFvz5prsUtm7uhluGmMYg53mOcAIImhrZslBlOg/cmSL
- K3APjbcbR7ojJ7cFfi6OG3tcXwl7Jh60DVYvhtlXgiFSq1wGadnqmv1FFW2ki3xW14tb
- JIXCUYT/WyfpBJ/819oGYADxM0xZxjHuatprKisLkU6UeeCbsAFVJL9bsdwlWwRbbAV0
- Imjw==
+ d=1e100.net; s=20230601; t=1719263626; x=1719868426;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=urZQV+y3QNxwreYOcv1wFUORMtdQQg7g7j8r664owVY=;
+ b=TpxYAC0/wpm9DWz4deiXQCNbDpXOt1jv9oFLjLuPo/pPAbsnYRnW2slIa1tT9nSvxY
+ XDVFW1H94u3gsBTZDHZQKuWno19POHwtQwOOh4ifW4U74CfewrDE42aLDlPfAkPtf3Kl
+ V4xGJjO5q+TculCp44IPrVPKa1ourgzNUEXwa3MBAA/VORVvFW8EAzlagkJLQ00Wo0NC
+ t9W/yv3TEhu1Qg/xM4AtSjlDTntylbu09QmaKKvIKDRJsXg98hox13s35kJC6407f/5P
+ 8sF3+/kvrzqvzGgXSF1p/DurhfA8ZNUzZGURHs/BWlSFiWbryCmiiviFR1VHfXpMog9p
+ 0AMw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXS9HhLQgjiQpJxRp3K2xdLvYHX7k9X3zFgSR2MnobjQ0C16nmPvmcltREsD6Zgq8R9lhEy/Oh1wkrxEUZhyZjjMPADrMgMJ6np3lkGX3QT
-X-Gm-Message-State: AOJu0YzB2qpIPwDrc3oqirg9N6REP9yjtCRLnsDmfdSC2rJdZR/gdeVp
- y8Rj3LgUsOvN9xeHXy171surhVqDFpf//t2GZYguHzzAKLn5zZt7kO/aAY06mEuBz5906Zk/pfs
- ztXdFfFdXowgf9lu90BI/7JdWOzzeLjMt7D8tpA==
-X-Google-Smtp-Source: AGHT+IGRR45bMY/Dfxg34mvEMoB8iP9e/vkOf8+sAlGSMAuUXK5p2yj3dI4Hui4b9KGao2e70E2PefnNyNhV2mnho0c=
-X-Received: by 2002:a25:d805:0:b0:e02:c7c9:732d with SMTP id
- 3f1490d57ef6-e0303fea29amr4282913276.60.1719253780908; Mon, 24 Jun 2024
- 11:29:40 -0700 (PDT)
-MIME-Version: 1.0
-References: <64ec16b9-c680-408c-b547-5debae2f7f87@freebox.fr>
- <dkmtnizbuyswyvocczjfgmhsuedawliabycig4urw42a65hu3j@jglxzumuzamd>
- <a9e4dba6-2317-4b6f-968f-d607937f5157@freebox.fr>
- <CAF6AEGtvHzF-KNyMwmysz7idLYE7XuXhDnBLdQFFhEdgYo6oqQ@mail.gmail.com>
- <CAA8EJpqCmu+TPmdCxwa84s+15inmdi6SeR5XQRVey56RKqdRuQ@mail.gmail.com>
- <717ee43e-41f5-4940-b404-c348812c84c9@linaro.org>
- <D25HTBIFDM42.2W1WGS8HKTHTF@fairphone.com>
- <CAF6AEGvwCXj7=_A=f+A_G9k=1LSSjcrsHB0GN83Z2OKg0eWjMA@mail.gmail.com>
-In-Reply-To: <CAF6AEGvwCXj7=_A=f+A_G9k=1LSSjcrsHB0GN83Z2OKg0eWjMA@mail.gmail.com>
+ AJvYcCXyHrKVgO5SihIEhVlWo44Rqj2akLarvWrkiTHeQe7fQDinu9FEBck2qi5UcqAL9hvNqUz65v3UJzMmTx47RonlrBmHii18BpdekXXko5kU
+X-Gm-Message-State: AOJu0YxcV2R02bar8iG8Zxc9h/Nfh2Htuklbqz/tMr80EreA6GXZ60S7
+ Ev5+gYex6ImJZTHlRWP0hIPCUnc/tLM8VtMRr23Braq4AbwPI7VbKdMSVFuEQgLWbLQJF7bVOSM
+ 4oTE=
+X-Google-Smtp-Source: AGHT+IHEDQNwz07UQQxJde+XyM3nCFYemupYzmdTTNO3MLuVFsO+9LInnRA1VbjWSUeWS6C4YYunpQ==
+X-Received: by 2002:a05:6512:3e1c:b0:52c:e084:bb1e with SMTP id
+ 2adb3069b0e04-52ce084bc12mr5970691e87.13.1719263626404; 
+ Mon, 24 Jun 2024 14:13:46 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52cd63b49f2sm1057512e87.56.2024.06.24.14.13.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Jun 2024 14:13:45 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 24 Jun 2024 21:29:29 +0300
-Message-ID: <CAA8EJpquKb0r=ZDABU0F+PGR1PKNTiKELbGe1-4Wd2pVEzVUNg@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm: log iommu init failure
-To: Rob Clark <robdclark@gmail.com>
-Cc: Luca Weiss <luca.weiss@fairphone.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Marc Gonzalez <mgonzalez@freebox.fr>,
+Subject: [PATCH v5 00/16] drm/msm/dpu: be more friendly to X.org
+Date: Tue, 25 Jun 2024 00:13:40 +0300
+Message-Id: <20240625-dpu-mode-config-width-v5-0-501d984d634f@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAITheWYC/3XOTQrCMBAF4KtI1kaSSRMbV95DXKT5aQe0kVSrU
+ np304KoSJdvmPfNDKTzCX1HdquBJN9jh7HNQa5XxDamrT1FlzMBBgUTvKTucqPn6Dy1sQ1Y0zu
+ 6a0MVKCfs1jgJhuTuJfmAj9k9HHNusLvG9JzP9HyavkW9IPacMupY8KoKJa8C35+wNSluYqrJR
+ PbwYRQTSwxkhisTJDC5lUb9MeKL4cUSIzID2tu8pK3W1R9TfDGwyBTTN0yUlgtnhJE/zDiOLw1
+ YQB6QAQAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, MSM <linux-arm-msm@vger.kernel.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>, 
- Bryan O Donoghue <bryan.odonoghue@linaro.org>,
- Pierre-Hugues Husson <phhusson@freebox.fr>, 
- Arnaud Vrac <avrac@freebox.fr>, Bjorn Andersson <andersson@kernel.org>, 
- Jeffrey Hugo <quic_jhugo@quicinc.com>, Rob Clark <robdclark@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Abel Vesa <abel.vesa@linaro.org>, 
+ Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3580;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=UZZ7KSs7CWwTZIZFzb5yNp2b/so4xjaqpHcSLMMe4Mk=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmeeGGwgmYMknmUybrPk3kTGNITMSptLTS/oH3R
+ y6LQ76WZESJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZnnhhgAKCRCLPIo+Aiko
+ 1anUB/47qdUTX+IoDyXInMRwcX5RkVGqrniKcYZra1SYJUayxAtb6CkwnO6JTo2PKi91i0Cd8Kh
+ iwWOoV3EwIcNvrYm1ahhB1Ss9NJy6R+PqlwFoRf3Stuj8sw31Iwm7jvzzQLkr1hz9DHaCDUv9ES
+ 3a5+W2uSeiwbn2xoUstoDB2x5PuVn9v+VdDgEZVvGwSm1GGakDLTY17R1LFtTKYAGq4o2XahHPx
+ NXjDuHQfXhWYt4D0JpQYq/BkhzJ7X/KrM0wlWsmmvMr2KrUlLUz8N02jShK/Z8NSlcFO/2HOGJZ
+ YABLYnQeNnFtUlmSMAaQRJ/UXa+N8t6d0DYwNmtZEivYc50V
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,71 +103,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 24 Jun 2024 at 20:59, Rob Clark <robdclark@gmail.com> wrote:
->
-> On Thu, Jun 20, 2024 at 11:48=E2=80=AFPM Luca Weiss <luca.weiss@fairphone=
-.com> wrote:
-> >
-> > On Fri Jun 21, 2024 at 12:47 AM CEST, Konrad Dybcio wrote:
-> > >
-> > >
-> > > On 6/20/24 20:24, Dmitry Baryshkov wrote:
-> > > > On Thu, 20 Jun 2024 at 20:32, Rob Clark <robdclark@gmail.com> wrote=
-:
-> > > >>
-> > > >> On Thu, May 30, 2024 at 2:48=E2=80=AFAM Marc Gonzalez <mgonzalez@f=
-reebox.fr> wrote:
-> > > >>>
-> > > >>> On 16/05/2024 10:43, Marijn Suijten wrote:
-> > > >>>
-> > > >>>> On 2024-05-15 17:09:02, Marc Gonzalez wrote:
-> > > >>>>
-> > > >>>>> When create_address_space() fails (e.g. when smmu node is disab=
-led)
-> > > >>
-> > > >> Note that smmu support is going to become a hard dependency with t=
-he
-> > > >> drm_gpuvm/VM_BIND conversion.. which I think means we should never=
- get
-> > > >> far enough to hit this error path..
-> > > >
-> > > > Does that mean that we will lose GPU support on  MSM8974?
->
-> And display support as well :-/
->
-> Note that GPU should be disabled by default without smmu.. you can
-> override with modparam, but please don't.  It is incredibly insecure,
-> you might as well make /dev/mem world readable/writeable.
->
-> Is simplefb an option on 8974 or 8226 to keep display support?
+Unlike other compositors X.org allocates a single framebuffer covering
+the whole screen space. This is not an issue with the single screens,
+but with the multi-monitor setup 5120x4096 becomes a limiting factor.
+Check the hardware-bound limitations and lift the FB max size to
+16383x16383.
 
-Not in a longer term, I still hope to push HDMI PHY/PLL support for
-MSM8974, which means dynamic resolution support.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v5:
+- Fix crash in the writeback code.
+- Link to v4: https://lore.kernel.org/r/20240624-dpu-mode-config-width-v4-0-1038c13da3a5@linaro.org
 
->
-> BR,
-> -R
->
-> > >
-> > > Yeah, that was brought up on #freedreno some time ago
-> >
-> > Also on MSM8226 which I also care about...
-> >
-> > Anyone at all knowledgable on IOMMU would be very welcome to help out
-> > with IOMMU support on these two platforms (and anything else that
-> > old?) in any case, since me and some other people have looked at this
-> > (on and off) for years but haven't gotten to any stable or usable point
-> > unfortunately.
-> >
-> > Regards
-> > Luca
-> >
-> > >
-> > > Konrad
-> >
+Changes in v4:
+- Fix handling of the not visible planes with the FB being set, as
+  detected via the kms_cursor_edge_walk test.
+- Link to v3: https://lore.kernel.org/r/20240614-dpu-mode-config-width-v3-0-29ec4069c99b@linaro.org
 
+Changes in v3:
+- Reoder the functions to pull up a fix to the start of the patchset
+  (Abhinav)
+- Rename the _dpu_crtc_setup_lm_bounds() to
+  _dpu_crtc_check_and_setup_lm_bounds() (Abhinav)
+- Make dpu_crtc_mode_valid() static.
+- Link to v2: https://lore.kernel.org/r/20240603-dpu-mode-config-width-v2-0-16af520575a6@linaro.org
 
+Changes in v2:
+- Added dpu_crtc_valid() to verify that 2*lm_width limit is enforced
+  (Abhinav)
+- Link to v1: https://lore.kernel.org/r/20240319-dpu-mode-config-width-v1-0-d0fe6bf81bf1@linaro.org
 
---=20
-With best wishes
-Dmitry
+---
+Dmitry Baryshkov (16):
+      drm/msm/dpu: cleanup FB if dpu_format_populate_layout fails
+      drm/msm/dpu: fix error condition in dpu_encoder_virt_atomic_mode_set
+      drm/msm/dpu: move CRTC resource assignment to dpu_encoder_virt_atomic_mode_set
+      drm/msm/dpu: check for overflow in _dpu_crtc_setup_lm_bounds()
+      drm/msm/dpu: drop dpu_format_check_modified_format
+      drm/msm/dpu: drop dpu_format_populate_layout from dpu_plane_sspp_atomic_update
+      drm/msm/dpu: drop extra aspace checks in dpu_formats
+      drm/msm/dpu: drop msm_format from struct dpu_hw_fmt_layout
+      drm/msm/dpu: pass drm_framebuffer to _dpu_format_get_plane_sizes()
+      drm/msm/dpu: move pitch check to _dpu_format_get_plane_sizes_linear()
+      drm/msm/dpu: split dpu_format_populate_layout
+      drm/msm/dpu: make dpu_format_populate_addrs return void
+      drm/msm/dpu: move layout setup population out of dpu_plane_prepare_fb()
+      drm/msm/dpu: check for the plane pitch overflow
+      drm/msm/dpu: merge MAX_IMG_WIDTH/HEIGHT with DPU_MAX_IMG_WIDTH/HEIGHT
+      drm/msm/dpu: sync mode_config limits to the FB limits in dpu_plane.c
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  35 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  62 ++++--
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  37 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        | 243 +++++++--------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h        |  30 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   2 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h        |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h          |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  10 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |  47 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h          |   3 +
+ drivers/gpu/drm/msm/msm_kms.h                      |   6 -
+ 14 files changed, 200 insertions(+), 288 deletions(-)
+---
+base-commit: 5c522ecead93987bcb0459f0160d8625e46d78d2
+change-id: 20240318-dpu-mode-config-width-626d3c7ad52a
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
