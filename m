@@ -2,86 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48066917035
-	for <lists+freedreno@lfdr.de>; Tue, 25 Jun 2024 20:28:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E2319170A0
+	for <lists+freedreno@lfdr.de>; Tue, 25 Jun 2024 20:54:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7838610E71F;
-	Tue, 25 Jun 2024 18:28:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 013FF10E71A;
+	Tue, 25 Jun 2024 18:54:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="t02Mhqo9";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="N2ztgljm";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 278F210E71D
- for <freedreno@lists.freedesktop.org>; Tue, 25 Jun 2024 18:28:26 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2ec10324791so71811281fa.1
- for <freedreno@lists.freedesktop.org>; Tue, 25 Jun 2024 11:28:26 -0700 (PDT)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F87E10E714
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Jun 2024 18:54:47 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-57cbc66a0a6so834200a12.1
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Jun 2024 11:54:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719340104; x=1719944904; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=OZxsbIBefCYoeKy9Cb25bQD5JKjjQqCGKHe9J4bV87I=;
- b=t02Mhqo9CIa1GArLNlfHypmVxpSVsyqQWc6geWHeA35464cbgFOPoQ3XA00xUNg8AR
- +2LHnJh7ysDPrla97e0o6+GSecnnregEFDdWX3a1r4VzXfJD2dfVKAFjBriQcRvjxTzQ
- lDbjKnD5qs27CzV/dIAfOuht5/KTIFbSKrtc/xBfJZEnZQ01/ZBA5qsiPal4jANe7Qgr
- +WhB03WpF6pm2FhbQE/RTDoICAiulO1+kplQp/nW2d9ZdSdVZnfQujgrteHTdMo8UJmM
- g6YCcv/+Q43vJeuaor8yirPqN4aBqhgfQ9kFHXna6w5Sgimq5TI5tx5xpzCqDAtGYREo
- ErNg==
+ d=linaro.org; s=google; t=1719341686; x=1719946486; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=MlWLevDm2zqjucsLvNz+sklzdCOVo1h/iRiYHGn0hRY=;
+ b=N2ztgljmvsMr6hgEMlBgNqa1XyR1ZGdgsaBFmz/gEcJaAZr7lFH6T+3XVYntn5z0Yc
+ 7SRoKzhlZz8MsQFEYXT9LG5E9xPGfX5lnyIeWygJo/ZkKNhRE4xS7Cy8ri7yqhivZ05g
+ mHCM88q9ru473HWy+iPm89T8fwGPdxY/LDnEdK0V6rslQLSgNIzeMmG9UNcCOSAjj7wS
+ k925iPg9GlTVVMaP7mi6lWjjoC/w2hwnoAepjzP70T3w7FcEjLAhLybrY3bMvYCpXjfQ
+ F8psKebn02ZAYcZE69pWz5mnmJ5jx41Vro/5C31DJLt1eOo6LgKXXKOCuRxicqUYiVM4
+ rK6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719340104; x=1719944904;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=OZxsbIBefCYoeKy9Cb25bQD5JKjjQqCGKHe9J4bV87I=;
- b=lTpSPfLG2eA+xZgZZCw3DVQM5bLNlSKt9Fw1aj1vGS8dK5kSdVdSLKtb4jcKkM94hS
- eQuiOtM/AEz/9pUEDZb+/z1LLdhgN7ynFsc2oTAl6QJedP4FLwNgpqF9wuKGqGs3rbHF
- HRetieThAz68yoHSzjA6QtRcfQpoKd7dcCIiKZRqym6w4W6G9xjRpHdluAc1CBVJ6mQL
- o7w3kZuIDkHNIf8eR5HYoadzB8vh4LqLNS+SmPOGFkZoMXeatoLw6B+/xCnZ+NkeQtge
- KbNKxYHwrr59uAeoeSowYm9cuQgeX4MZhtujfRzykPyMEY70qcn54dMLE1JtGT+HwS+B
- cFzA==
+ d=1e100.net; s=20230601; t=1719341686; x=1719946486;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MlWLevDm2zqjucsLvNz+sklzdCOVo1h/iRiYHGn0hRY=;
+ b=TrY3FWd+4dgram2/gicrMXc1gfwY8uyRSIAr4IaIQrm2sN7aqXT69qPoS7Xay0BwTx
+ fv6yjJQoOaMtdTMoibEh9ZBYLghIEWf99b/9zpdu1kGT+st+aRLclMTeCX35F7WNkXKk
+ OQPAEkuowEcw/TKp5AQIsTtJtwwlpQuNlcHlO3G4U2jhPAexyTGluk1rxrYuxLesLKAQ
+ q0ucXz5kI9nFkJN+MWjtRrrDApAlbVBRc+82Ge4KBrCxMz53+QQFB4WHDPE5FvmZXLHh
+ ZuhaPO8F7CvC8GSPxLyaLbNEpzShcQfO+MiOMxddYJ9i47ruTsEsfXEhVYkzPfB2wDSM
+ Y23w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVoRgomvyqGuAMilotta5T+qgwfbSTq2Rc10MVeEGdNDoBgLAUe0vtgImiCz6k8bviifaRSQaeufl1M+Tuf/2V7k29WGGaToLqrhlo29FKl
-X-Gm-Message-State: AOJu0YyY5zH9jo7girXnyGb0JZ1RX8vHfiydWHi32Og22KbQ1Gwtn01O
- 60fGTB3/j1C+rj76JnJn9lEIUDycCWSqNhd04FzyzMk1fTjLW4JjJduo/zTf6Mg=
-X-Google-Smtp-Source: AGHT+IERTLnLNNHy3T1W68s0MqqOr6aCsT3CWd3e/h0KiEMukzd8w8NKEEGKBwI+4WE9ry1o8Lt2xg==
-X-Received: by 2002:a2e:730b:0:b0:2ec:95:d6fe with SMTP id
- 38308e7fff4ca-2ec5b28ae9cmr48217441fa.24.1719340103431; 
- Tue, 25 Jun 2024 11:28:23 -0700 (PDT)
+ AJvYcCVY+QfpdPkbyquaJvx3CCfdCSg/xBZ0Yi4heFHo7hCSpePQUoUJWRYVFtX4pJSlf2Y8YOooMNPRHHXfOhK2+11kMNzExppoCvxErLKAfL9Y
+X-Gm-Message-State: AOJu0Yzt3ue95C8A+pbs8Qvr+KMaNpeXbxcF/BSV2c4fW/15VSjl1y7G
+ Zh6KkCU8ESdlKMwslP1Xh1MfQsBfnipWCeXAKul4KZ6YzXbwHfDsxG7J2aScNWk=
+X-Google-Smtp-Source: AGHT+IGHmSo6n9cThj/nFhMH1FZ54jR9wobPuBoU/YgLk/mLOCyPuoU7nb07meAeeYoB7DOJTGYZOg==
+X-Received: by 2002:aa7:cfd5:0:b0:57c:bc03:caa2 with SMTP id
+ 4fb4d7f45d1cf-57d44a678c3mr7057357a12.20.1719341685289; 
+ Tue, 25 Jun 2024 11:54:45 -0700 (PDT)
 Received: from [192.168.215.29] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57d3042fd72sm6323136a12.48.2024.06.25.11.28.22
+ 4fb4d7f45d1cf-57d30583e93sm6206332a12.96.2024.06.25.11.54.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Jun 2024 11:28:23 -0700 (PDT)
+ Tue, 25 Jun 2024 11:54:44 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 25 Jun 2024 20:28:10 +0200
-Subject: [PATCH v4 5/5] arm64: dts: qcom: sm8550: Wire up GPU speed bin &
- more OPPs
+Subject: [PATCH v2 0/2] Clean up barriers
+Date: Tue, 25 Jun 2024 20:54:40 +0200
+Message-Id: <20240625-adreno_barriers-v2-0-c01f2ef4b62a@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240625-topic-smem_speedbin-v4-5-f6f8493ab814@linaro.org>
-References: <20240625-topic-smem_speedbin-v4-0-f6f8493ab814@linaro.org>
-In-Reply-To: <20240625-topic-smem_speedbin-v4-0-f6f8493ab814@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAHESe2YC/0WMQQrCMBAAv1L27EoSk9p68h8ikjbbdkGTsilFK
+ P27QQSZ0xxmNsgkTBku1QZCK2dOsYg5VNBPPo6EHIqDUcaq2jj0QSimR+eldJLRtMPJ1WdrrG6
+ gVLPQwO/v8XYvPkh64TIJ+f/HqQaXNHP/u+GqsdD5LijXa92G65Ojl3RMMsK+fwD6Ib6YpgAAA
+ A==
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1719340091; l=2474;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1719341683; l=1005;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=Il2UvibnuII6pAMEt7ZcsOO48MoDeeFboVabC36fJtY=;
- b=BlXBbM1o+PokhijSw+a2fl1gngXBbq3ayq9OQmI+TCgtGvPpsbaOQBkdjIvAjvDF7aXjlDpJH
- esr8rfv+fDKDgRA+7vpMkcyhgkuyqJI/f62VXU0kMJnbmcR074FZ4FI
+ bh=E3eCmwo7E5Ovt0YtNYVpLKfzxgHw/0XSzCnMXdpVojw=;
+ b=nm2/y18vGTibvoO/K8B4+1PtTQxWCP6SmmrdpvAvjFUoXQ3/QY26QfV6MYAYv8xg9+AR7p/1n
+ A1mKNCOQQM6Ay3n3EwxDYCE1OJhNOxdc38QGrDX+QxWgyUl1F9hH+nx
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -99,91 +98,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the speedbin masks to ensure only the desired OPPs are available on
-chips of a given bin.
+Changes in v3:
+- Drop the wrapper functions
+- Drop the readback in GMU code
+- Split the commit in two
 
-Using this, add the binned 719 MHz OPP and the non-binned 124.8 MHz.
+Link to v2: https://lore.kernel.org/linux-arm-msm/20240509-topic-adreno-v2-1-b82a9f99b345@linaro.org/
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Changes in v2:
+- Introduce gpu_write_flush() and use it
+- Don't accidentally break a630 by trying to write to non-existent GBIF
+
+Link to v1: https://lore.kernel.org/linux-arm-msm/20240508-topic-adreno-v1-1-1babd05c119d@linaro.org/
+
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8550.dtsi | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+Konrad Dybcio (2):
+      drm/msm/adreno: De-spaghettify the use of memory barriers
+      Revert "drm/msm/a6xx: Poll for GBIF unhalt status in hw_init"
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index 4c9820adcf52..c1e3cec1540a 100644
---- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -2119,48 +2119,67 @@ zap-shader {
- 				memory-region = <&gpu_micro_code_mem>;
- 			};
- 
--			/* Speedbin needs more work on A740+, keep only lower freqs */
- 			gpu_opp_table: opp-table {
- 				compatible = "operating-points-v2";
- 
-+				opp-719000000 {
-+					opp-hz = /bits/ 64 <719000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+					opp-supported-hw = <0x1>;
-+				};
-+
- 				opp-680000000 {
- 					opp-hz = /bits/ 64 <680000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-615000000 {
- 					opp-hz = /bits/ 64 <615000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-550000000 {
- 					opp-hz = /bits/ 64 <550000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-475000000 {
- 					opp-hz = /bits/ 64 <475000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-401000000 {
- 					opp-hz = /bits/ 64 <401000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-348000000 {
- 					opp-hz = /bits/ 64 <348000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-295000000 {
- 					opp-hz = /bits/ 64 <295000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-220000000 {
- 					opp-hz = /bits/ 64 <220000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
-+					opp-supported-hw = <0x3>;
-+				};
-+
-+				opp-124800000 {
-+					opp-hz = /bits/ 64 <124800000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
-+					opp-supported-hw = <0x3>;
- 				};
- 			};
- 		};
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c |  4 +---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 14 ++++++--------
+ 2 files changed, 7 insertions(+), 11 deletions(-)
+---
+base-commit: 0fc4bfab2cd45f9acb86c4f04b5191e114e901ed
+change-id: 20240625-adreno_barriers-29f356742418
 
+Best regards,
 -- 
-2.45.2
+Konrad Dybcio <konrad.dybcio@linaro.org>
 
