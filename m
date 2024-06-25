@@ -2,86 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 854D9916B37
-	for <lists+freedreno@lfdr.de>; Tue, 25 Jun 2024 16:56:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F34C916B8A
+	for <lists+freedreno@lfdr.de>; Tue, 25 Jun 2024 17:02:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BBD910E6A3;
-	Tue, 25 Jun 2024 14:56:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6526E10E6AE;
+	Tue, 25 Jun 2024 15:02:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="f5+zcaIg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hNubxXsR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
- [209.85.208.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EED210E6A5
- for <freedreno@lists.freedesktop.org>; Tue, 25 Jun 2024 14:56:45 +0000 (UTC)
-Received: by mail-lj1-f179.google.com with SMTP id
- 38308e7fff4ca-2eaa89464a3so65329331fa.3
- for <freedreno@lists.freedesktop.org>; Tue, 25 Jun 2024 07:56:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719327403; x=1719932203; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YoReR8WhxNYuufCEGKkuq94jgMfndxltW+YaaMCsVj4=;
- b=f5+zcaIgQDhc4aLqEhaLi3nw/10vKa4W3BjhP0CzeBBpwvl/m/+UtY9UfJqQFvaQVb
- bNCPHrJfrufOvZnvZI9fHs5xyCxyCEZy388kMTGCC++Qwm7S6IQSCA0Mo2+3EvMkQmfZ
- 3D3l0G4SszCN1YLQNpKWmXTkfwHAnvX7ZJVusrm7K6YepKg9/dxXAqZmExGNue7VLfZA
- qunpazmWyNYLYtZLWuF/2HiIsfu2UAslUVV/XJir0bGswCnocHCg3v8t8rOyFJ9AV4SW
- uL7SlXQlMctMKR5cicqLynEYLdBgZH1P4bLByhM//bnpEgfb2SW7S7lv62Obt7lA9G9m
- MDhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719327403; x=1719932203;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YoReR8WhxNYuufCEGKkuq94jgMfndxltW+YaaMCsVj4=;
- b=xBvn1GP+xaHkN79cvGNSA4GiGOYMMAsq4vXaJImpQCJ7d8ycMaXcRyaSLU1PUHlYvL
- mtcFAqXn7YZI0hZCZmrr9TAy+MBgBVoYtO3ZUh5wAVR9x7a5yFvI/jNzIWAUsjDu468J
- 7ssV0rpw3+qW5NF1vokVn3KihlX4Ndltfj8EC/W6YHZJDgbIRqSABB0aQa0cnOp6P6uz
- DgsLq4poGbX5ZWK2WxLfokVMQ7mGAJX3i9DEonGTTrb6EyTp2SEnnQS+Nglahqq/vj/c
- b5W5qQA+P1FzV3cDOYtwtnk8L2PaXug1RDOBCWbXGOKrsio3ujXlue1WPeDhu0Jlm3Ak
- Dq/Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX8Z/tqhtQLTzPxqSqJiprH/Zix1lZc4jiTPt1bx4BjQ67wTil3bRHhvb+GkRge1isXnlmZ8uUTV12aE49FK6E/lKsPnQjc1bwyWidUqRRU
-X-Gm-Message-State: AOJu0YyygwtwN1NT7SsZDS13PxuJ5c+kJhltN+W6/Ra10Vhh4Dbntq/m
- DmkXAof8iu0xnwhaBopkOb47KWUjySK8VwTUuoKrS/6XmBjm2f7N5qJBqDv8ThkcLj0SPRwmzUK
- NUtw=
-X-Google-Smtp-Source: AGHT+IFXgEFFBEekYez/olxWlhZlgktM2joEiS7S4E8YauuUuTtTSsmoGuQvl2CGNP1XEWUsmnVA2Q==
-X-Received: by 2002:a05:6512:3c82:b0:52c:dbe6:f5f9 with SMTP id
- 2adb3069b0e04-52cdf7e6735mr7608853e87.12.1719327401997; 
- Tue, 25 Jun 2024 07:56:41 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52cd641f655sm1257321e87.162.2024.06.25.07.56.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Jun 2024 07:56:41 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>, Daniil Titov <daniilt971@gmail.com>
-Subject: Re: [PATCH v2 0/4] MSM8937 MDP/DSI PHY enablement
-Date: Tue, 25 Jun 2024 17:56:39 +0300
-Message-Id: <171932736812.1437673.1282826360877883479.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240623-dsi-v2-0-a0ca70fb4846@gmail.com>
-References: <20240623-dsi-v2-0-a0ca70fb4846@gmail.com>
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CB8810E6A6;
+ Tue, 25 Jun 2024 15:02:08 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 5DA4DCE1B7F;
+ Tue, 25 Jun 2024 15:02:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02B1EC32782;
+ Tue, 25 Jun 2024 15:02:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1719327725;
+ bh=INcxNrZ3BKjPhQAlptK0WjFeAG+V7+PP8PzXSvOmrp4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hNubxXsR8135P9Ti0UdT/F7+tHikXwxB3dgj8F7oClalIBZxZyLnO11IlQ1PwQNOR
+ Z0eV03pVqnEhU14faRurBffY8m9Kqcmhn6JOc5A+d8n8BNVWDEgu4iEtciTh82YOxZ
+ X1xVIuqr//E4wTzFGd2LMBmTzp0UEs/bduOaSEt/CdYCvu324Qiq+gr6/HsshRvSHy
+ wpJsfK4zNHHMXVPR9i5qTgJQ8911iRmmYbfT1vHzwYbJvYhvEjUHt9QU2RmtYou8MS
+ 8LsrtOK70CTxUaVoI3Z9PmHQcv9wKWB9tbP/QfoZPDtzNRaVm5kFUpxKoKKnQylYe9
+ WCHbD46uaz83g==
+Date: Tue, 25 Jun 2024 17:02:02 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] drm/bridge-connector: reset the HDMI connector
+ state
+Message-ID: <20240625-feathered-loon-of-health-ec7e6d@houat>
+References: <20240623-drm-bridge-connector-fix-hdmi-reset-v2-0-8590d44912ce@linaro.org>
+ <20240623-drm-bridge-connector-fix-hdmi-reset-v2-1-8590d44912ce@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="eciqjr2zrynuoq6o"
+Content-Disposition: inline
+In-Reply-To: <20240623-drm-bridge-connector-fix-hdmi-reset-v2-1-8590d44912ce@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,23 +71,41 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Sun, 23 Jun 2024 22:30:35 +0200, Barnabás Czémán wrote:
-> This patch series adds support for the MDP and DSI PHY as found on the
-> MSM8937 platform.
-> 
-> 
+--eciqjr2zrynuoq6o
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Applied, thanks!
+Hi,
 
-[1/4] dt-bindings: display/msm: qcom, mdp5: Add msm8937 compatible
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/c94dc5feb494
-[2/4] drm/msm/mdp5: Add MDP5 configuration for MSM8937
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/13099cb03f98
-[3/4] dt-bindings: msm: dsi-phy-28nm: Document msm8937 compatible
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/60bdbaaf1220
-[4/4] drm/msm/dsi: Add phy configuration for MSM8937
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/2df0161959d1
+On Sun, Jun 23, 2024 at 08:40:12AM GMT, Dmitry Baryshkov wrote:
+> On HDMI connectors which use drm_bridge_connector and DRM_BRIDGE_OP_HDMI
+> IGT chokes on the max_bpc property in several kms_properties tests due
+> to the the drm_bridge_connector failing to reset HDMI-related
+> properties.
+>=20
+> Call __drm_atomic_helper_connector_hdmi_reset() if there is a
+> the drm_bridge_connector has bridge_hdmi.
+>=20
+> Note, the __drm_atomic_helper_connector_hdmi_reset() is moved to
+> drm_atomic_state_helper.c because drm_bridge_connector.c can not depend
+> on DRM_DISPLAY_HDMI_STATE_HELPER. At the same time it is impossible to
+> call this function from HDMI bridges, there is is no function that
+> corresponds to the drm_connector_funcs::reset().
 
-Best regards,
--- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Why can't it depend on DRM_DISPLAY_HDMI_STATE_HELPER?
+
+Maxime
+
+--eciqjr2zrynuoq6o
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZnrb6QAKCRDj7w1vZxhR
+xaDaAQDbirOcRJFXYMvi3AKNZOjDVfThaLfVJff4sukVoq4dDwD/VNP5qyY7y2ZR
+HY41NMoYCoKnWRZsHLDLNdlbLAKdwgk=
+=/z+8
+-----END PGP SIGNATURE-----
+
+--eciqjr2zrynuoq6o--
