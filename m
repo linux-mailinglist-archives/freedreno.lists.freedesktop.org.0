@@ -2,37 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5D139169A3
-	for <lists+freedreno@lfdr.de>; Tue, 25 Jun 2024 15:58:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 741D0916A64
+	for <lists+freedreno@lfdr.de>; Tue, 25 Jun 2024 16:31:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B8FD10E65B;
-	Tue, 25 Jun 2024 13:58:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25D7710E680;
+	Tue, 25 Jun 2024 14:31:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BFVo98BP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="k5FZh0WJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28AC110E655;
- Tue, 25 Jun 2024 13:58:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 14BF96147D;
- Tue, 25 Jun 2024 13:58:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6C0C32781;
- Tue, 25 Jun 2024 13:58:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1719323908;
- bh=z/SrKzFh8FsvTvW1LfwzGcSQlXiVohodF0eVYwHlPW0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BFVo98BP1EpOONpMW26fOQOBm4cwNPwIzH9LM1svSb4OgBjgSQwmp6/8tZtb9wyHO
- 3AGWJAcLChikXIa9hIxaiUmhBt9h4/mtqaobnzZ69jT7iP0/lYDBT+SV0YWEeCd4+X
- iSsTiCOzeTpniz+UG3sEkP2HU+mXi+iSN6UErJq6R5CisZsXohrQoFREAO5MoGbkad
- lMFjuCsQJyRU7Qii7T5EXB06nR73vO/sEYZ+15We3a6Dd7emnQGGDJPnF2plMCEJxX
- e6JvhXyitPLMXkyP4L0u7ALWPLYjpomcP0dju74JPHqomGJxsOdH0UJR72Vph3oArd
- J1iMXM9gs3vgA==
-Date: Tue, 25 Jun 2024 15:58:25 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 809F410E681
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Jun 2024 14:31:28 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-52cdb0d8107so4980943e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Jun 2024 07:31:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1719325886; x=1719930686; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=terD6+QvpMZ2X6sUQUwDmG2WaJEp4OJC722UlqzDSBk=;
+ b=k5FZh0WJce3uXXW4BDLqAgD1WdHqsdZjtBkhlUvRJHTfSvFADaKnNDM21of2ugdaBK
+ q9m4HImdtkKhd8RJ+vbiuKeXCavN11ZBRmDFzsFEUFlKAT0C4NACZVmkNrizfJIlzN9y
+ sJRy00Hv9GSpZiRj3mb3g/bVe3ONj00m18eJJjGT1CFIytYoTPUxT8AqRWlLqd1oD9BX
+ sudD+DTOrB1CuUqOKvSAKdWUofAYP9BD90qMu/4N0tCid8SvnZO3vtsZ30AavgRqM29+
+ FBQv2m4OAU1nVAJE2K0VyK+tt7P0IyyJqa5AvIUgGSPYlYLAplKCgs4nsAZJ71VvrY/3
+ MZag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719325886; x=1719930686;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=terD6+QvpMZ2X6sUQUwDmG2WaJEp4OJC722UlqzDSBk=;
+ b=jQvGRWflEXFgo6/zHKnuNiPzY+VLAgFcBljVkPrs6gb8p7OFGDOMqVvGgost7byHap
+ aocwQeoOP8apOBJiXfztK7ZwuQgWW/KVi4HVQXR1Nl0Ld18HDsYClz+sBl5Ihc9BpZTQ
+ 7p5CE2Nws20uTIXZZ8ZOwBB5cVnMDcdtX7YTgbubJMDaizzJ8x2e1TUpiO1OIkVJimSt
+ jMiViYognLv2ijua2mmCUHytE9Yw6hg4L0PLSr6yJkPbP1Bdp5dx4KhxVPmaj5DvsE9/
+ OESYmmsVPX4tVc3ljbAsq15Iz3xtG9gO+Ksj7Jm87hE0WUBA/FK3T9W0T1iaXeTQWT5G
+ eDAQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVTdprGZYCkGElMFAn3/lHo5PmX7TGMVMRjP/YGkw/ZSfo9hXX3rz9EizYtIKpfO5Z9lQ0k5LzBWJ6UWWfSZ4wbArRR2uX70SsNgoLDvzQC
+X-Gm-Message-State: AOJu0YzIKnitSqibMgJe/u+gAZ5TyT0OIUkAtcNfcfVI7BF1gyjb9u8a
+ ewpLQvZQN+V2GKAlLj5+usWNek3p60b9o9Nzi8iLDSxXbgmku8weyzXBM6196EviA/mISaonHg3
+ fBWE=
+X-Google-Smtp-Source: AGHT+IEGzmjKZJbYhPPc3fbe7PHSu8pPNkw01sUFTND10FididG1OaZlj/O83Pz/ya65Uve+U0qYSQ==
+X-Received: by 2002:a19:6452:0:b0:52c:7fc7:f40d with SMTP id
+ 2adb3069b0e04-52cdf7f108bmr4688866e87.21.1719325886353; 
+ Tue, 25 Jun 2024 07:31:26 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52cd63be24dsm1250303e87.95.2024.06.25.07.31.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Jun 2024 07:31:25 -0700 (PDT)
+Date: Tue, 25 Jun 2024 17:31:24 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Maxime Ripard <mripard@kernel.org>
 Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -51,7 +78,7 @@ Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v2 2/2] drm/connector: automatically set immutable flag
  for max_bpc property
-Message-ID: <20240625-enlightened-optimistic-fossa-fdd128@houat>
+Message-ID: <qwcinsvam4xydeytbmpnbhssywyuiblri4pknuocec7ze6622f@yakhawuucf7v>
 References: <20240623-drm-bridge-connector-fix-hdmi-reset-v2-0-8590d44912ce@linaro.org>
  <20240623-drm-bridge-connector-fix-hdmi-reset-v2-2-8590d44912ce@linaro.org>
  <99ff549c-f5c4-dc9c-42f3-396dc3d29d6b@quicinc.com>
@@ -60,11 +87,11 @@ References: <20240623-drm-bridge-connector-fix-hdmi-reset-v2-0-8590d44912ce@lina
  <CAA8EJpo_dBDqLUVH-SkufhFchu64rhC+vkhVBFdt++E4pdCrQg@mail.gmail.com>
  <20240625-yellow-shrimp-of-genius-17c662@houat>
  <CAA8EJpr_kn=x080KLGfwsLi3PnnNhTjJhvL=hiRNLBD=WqSuZQ@mail.gmail.com>
+ <20240625-enlightened-optimistic-fossa-fdd128@houat>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="2wb3bjjqeq4p5mtd"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAA8EJpr_kn=x080KLGfwsLi3PnnNhTjJhvL=hiRNLBD=WqSuZQ@mail.gmail.com>
+In-Reply-To: <20240625-enlightened-optimistic-fossa-fdd128@houat>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,128 +107,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
---2wb3bjjqeq4p5mtd
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Jun 25, 2024 at 10:23:14AM GMT, Dmitry Baryshkov wrote:
-> On Tue, 25 Jun 2024 at 10:19, Maxime Ripard <mripard@kernel.org> wrote:
-> >
-> > Hi,
-> >
-> > On Tue, Jun 25, 2024 at 09:21:27AM GMT, Dmitry Baryshkov wrote:
-> > > On Tue, 25 Jun 2024 at 01:56, Abhinav Kumar <quic_abhinavk@quicinc.co=
-m> wrote:
-> > > >
-> > > >
-> > > >
-> > > > On 6/24/2024 3:46 PM, Dmitry Baryshkov wrote:
-> > > > > On Tue, 25 Jun 2024 at 01:39, Abhinav Kumar <quic_abhinavk@quicin=
-c.com> wrote:
-> > > > >>
-> > > > >> + IGT dev
-> > > > >>
-> > > > >> On 6/22/2024 10:40 PM, Dmitry Baryshkov wrote:
-> > > > >>> With the introduction of the HDMI Connector framework the drive=
-r might
-> > > > >>> end up creating the max_bpc property with min =3D max =3D 8. IG=
-T insists
-> > > > >>> that such properties carry the 'immutable' flag. Automatically =
-set the
-> > > > >>> flag if the driver asks for the max_bpc property with min =3D=
-=3D max.
-> > > > >>>
-> > > > >>
-> > > > >> This change does not look right to me.
-> > > > >>
-> > > > >> I wonder why we need this check because DRM_MODE_PROP_IMMUTABLE =
-means
-> > > > >> that as per the doc, userspace cannot change the property.
-> > > > >>
-> > > > >>            * DRM_MODE_PROP_IMMUTABLE
-> > > > >>            *     Set for properties whose values cannot be chang=
-ed by
-> > > > >>            *     userspace. The kernel is allowed to update the =
-value of
-> > > > >> these
-> > > > >>            *     properties. This is generally used to expose pr=
-obe state to
-> > > > >>            *     userspace, e.g. the EDID, or the connector path=
- property
-> > > > >> on DP
-> > > > >>            *     MST sinks. Kernel can update the value of an im=
-mutable
-> > > > >> property
-> > > > >>            *     by calling drm_object_property_set_value().
-> > > > >>            */
-> > > > >>
-> > > > >> Here we are allowing userspace to change max_bpc
-> > > > >>
-> > > > >>
-> > > > >> drm_atomic_connector_set_property()
-> > > > >> {
-> > > > >>          **********
-> > > > >>
-> > > > >>           } else if (property =3D=3D connector->max_bpc_property=
-) {
-> > > > >>                   state->max_requested_bpc =3D val;
-> > > > >>
-> > > > >>          **********
-> > > > >> }
-> > > > >>
-> > > > >> I believe you are referring to this IGT check right?
-> > > > >>
-> > > > >> https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/t=
-ests/kms_properties.c#L428
-> > > > >
-> > > > > Yes
-> > > > >
-> > > > >>
-> > > > >> I think we should fix IGT in this case unless there is some reas=
-on we
-> > > > >> are missing. Because just because it has the same min and max do=
-es not
-> > > > >> mean its immutable by the doc of the IMMUTABLE flag.
-> > > > >
-> > > > > Well, having the same min and max means that it is impossible to
-> > > > > change the property. So the property is immutable, but doesn't ha=
-ve
-> > > > > the flag.
-> > > > >
-> > > >
-> > > > True, then does DRM_MODE_PROP_IMMUTABLE need a doc update too indic=
-ating
-> > > > that even if the min and max is same, property will be interpreted =
-as
-> > > > immutable.
+On Tue, Jun 25, 2024 at 03:58:25PM GMT, Maxime Ripard wrote:
+> On Tue, Jun 25, 2024 at 10:23:14AM GMT, Dmitry Baryshkov wrote:
+> > On Tue, 25 Jun 2024 at 10:19, Maxime Ripard <mripard@kernel.org> wrote:
 > > >
-> > > Granted that I'm only doing it for max_bpc property I don't think so.
-> >
-> > Yeah, I have to agree with Abhinav here, it does look fishy to me too,
-> > even more so that it's only ever "documented" through an igt routine
-> > that has never documented why we want that.
-> >
-> > I'm fine with the change if it's indeed what we expect, and it might
-> > very well be, but I'd like to clear that up and document it first.
->=20
-> Should I also move the setting of the IMMUTABLE flag to a more generic co=
-de?
+> > > Hi,
+> > >
+> > > On Tue, Jun 25, 2024 at 09:21:27AM GMT, Dmitry Baryshkov wrote:
+> > > > On Tue, 25 Jun 2024 at 01:56, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> > > > >
+> > > > >
+> > > > >
+> > > > > On 6/24/2024 3:46 PM, Dmitry Baryshkov wrote:
+> > > > > > On Tue, 25 Jun 2024 at 01:39, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> > > > > >>
+> > > > > >> + IGT dev
+> > > > > >>
+> > > > > >> On 6/22/2024 10:40 PM, Dmitry Baryshkov wrote:
+> > > > > >>> With the introduction of the HDMI Connector framework the driver might
+> > > > > >>> end up creating the max_bpc property with min = max = 8. IGT insists
+> > > > > >>> that such properties carry the 'immutable' flag. Automatically set the
+> > > > > >>> flag if the driver asks for the max_bpc property with min == max.
+> > > > > >>>
+> > > > > >>
+> > > > > >> This change does not look right to me.
+> > > > > >>
+> > > > > >> I wonder why we need this check because DRM_MODE_PROP_IMMUTABLE means
+> > > > > >> that as per the doc, userspace cannot change the property.
+> > > > > >>
+> > > > > >>            * DRM_MODE_PROP_IMMUTABLE
+> > > > > >>            *     Set for properties whose values cannot be changed by
+> > > > > >>            *     userspace. The kernel is allowed to update the value of
+> > > > > >> these
+> > > > > >>            *     properties. This is generally used to expose probe state to
+> > > > > >>            *     userspace, e.g. the EDID, or the connector path property
+> > > > > >> on DP
+> > > > > >>            *     MST sinks. Kernel can update the value of an immutable
+> > > > > >> property
+> > > > > >>            *     by calling drm_object_property_set_value().
+> > > > > >>            */
+> > > > > >>
+> > > > > >> Here we are allowing userspace to change max_bpc
+> > > > > >>
+> > > > > >>
+> > > > > >> drm_atomic_connector_set_property()
+> > > > > >> {
+> > > > > >>          **********
+> > > > > >>
+> > > > > >>           } else if (property == connector->max_bpc_property) {
+> > > > > >>                   state->max_requested_bpc = val;
+> > > > > >>
+> > > > > >>          **********
+> > > > > >> }
+> > > > > >>
+> > > > > >> I believe you are referring to this IGT check right?
+> > > > > >>
+> > > > > >> https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/kms_properties.c#L428
+> > > > > >
+> > > > > > Yes
+> > > > > >
+> > > > > >>
+> > > > > >> I think we should fix IGT in this case unless there is some reason we
+> > > > > >> are missing. Because just because it has the same min and max does not
+> > > > > >> mean its immutable by the doc of the IMMUTABLE flag.
+> > > > > >
+> > > > > > Well, having the same min and max means that it is impossible to
+> > > > > > change the property. So the property is immutable, but doesn't have
+> > > > > > the flag.
+> > > > > >
+> > > > >
+> > > > > True, then does DRM_MODE_PROP_IMMUTABLE need a doc update too indicating
+> > > > > that even if the min and max is same, property will be interpreted as
+> > > > > immutable.
+> > > >
+> > > > Granted that I'm only doing it for max_bpc property I don't think so.
+> > >
+> > > Yeah, I have to agree with Abhinav here, it does look fishy to me too,
+> > > even more so that it's only ever "documented" through an igt routine
+> > > that has never documented why we want that.
+> > >
+> > > I'm fine with the change if it's indeed what we expect, and it might
+> > > very well be, but I'd like to clear that up and document it first.
+> > 
+> > Should I also move the setting of the IMMUTABLE flag to a more generic code?
+> 
+> Possibly, but I guess that will depend on the outcome of that discussion
 
-Possibly, but I guess that will depend on the outcome of that discussion
+Agreed, I'll post it later today. Could you please ack or comment the first patch?
 
-Maxime
-
---2wb3bjjqeq4p5mtd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZnrNAQAKCRDj7w1vZxhR
-xVzsAQCnu6DC0Ka/hvDQ2v8nWmyLROciJ0aE03Y99+Psr1oDQwD+JlXJWLZr4PzM
-VUzEa4rZRsI9MAKL3N5mWA5QF0rn5AY=
-=3G09
------END PGP SIGNATURE-----
-
---2wb3bjjqeq4p5mtd--
+-- 
+With best wishes
+Dmitry
