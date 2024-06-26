@@ -2,76 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42FEC918EB7
-	for <lists+freedreno@lfdr.de>; Wed, 26 Jun 2024 20:43:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20CAB918ECF
+	for <lists+freedreno@lfdr.de>; Wed, 26 Jun 2024 20:51:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF21E10E1AA;
-	Wed, 26 Jun 2024 18:43:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE32010E9A6;
+	Wed, 26 Jun 2024 18:51:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="md9Wnl1S";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="RnLn6kA5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
- [209.85.208.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAEF910E0BD;
- Wed, 26 Jun 2024 18:43:23 +0000 (UTC)
-Received: by mail-lj1-f180.google.com with SMTP id
- 38308e7fff4ca-2ec10324791so85152101fa.1; 
- Wed, 26 Jun 2024 11:43:23 -0700 (PDT)
+Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
+ [209.85.166.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0CD910E9A6
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 18:51:11 +0000 (UTC)
+Received: by mail-io1-f49.google.com with SMTP id
+ ca18e2360f4ac-7e8dcad116fso27712539f.1
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 11:51:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719427402; x=1720032202; darn=lists.freedesktop.org;
+ d=chromium.org; s=google; t=1719427870; x=1720032670;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UR9Qp1fTrxNM5LeM1DAR7Mfemmm10TsjmtqQdGlQAqQ=;
- b=md9Wnl1SsKvIU2VfuipqAJJfShcy21A6ooP+Z72F2HNOAFfqkZHDKoE/re2IZt/1Pu
- qU8GifSweIKq6PgLe8R2+VfN3WXcplqVIGL4Lud9ZwRT3Fgkl6+DAWoeSkuNaaGUoi2F
- 6APE2srRdXnBZU4ajc74RCKABZA66F35oQu6JbgmqtUw/NnlsN6WmJFCeRD+vyOH6M6T
- RDYepwbsUZwEV2uIUhwYZSfnHytthbmxJvOXbPhy5JuFg+IAuC/XdrlwnK5pZeviwQTK
- Weda2uIjrxR++76sD1rAFeldiabGls0czPLZZh1shXWtuGITQGz/3q8YA6N2RXHRAxBP
- DgqA==
+ bh=k8d6uZEg1ICTrlLD+Rn8W5NaQPKS3C+VdvtVteNUOcU=;
+ b=RnLn6kA5WtzUSD0aAjL7m1dCfIDA/pirl+Uvp9X1zmZXI05XBt31FepyL3dfHNZV67
+ 1t0eWR3qdh6zqBAcD3LMONHvzM8c/sulLUFe+7vHhk27x6zN+nPeWCJqDbdhJgSoqYQR
+ 5nOKN4pyNqZ5mnQMcD63vWrhbZJAt/3t9rVbs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719427402; x=1720032202;
+ d=1e100.net; s=20230601; t=1719427870; x=1720032670;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=UR9Qp1fTrxNM5LeM1DAR7Mfemmm10TsjmtqQdGlQAqQ=;
- b=MtHjkBh25C6h2L6DJETy3/xQO43Nc4kL4iLOuf55P18ZWX8ZSSeihsOxrTE/AZDzTZ
- gLCK64ND3hvPIsXXKjSmdoT2ERSnuajDu2SNp4hKmdTL0QMPgH5AANKIgHfTXJLBAR8m
- wcKaU6P2WidCif1mqooAuWI3rnRXOKBRyMFEmsub+KvlrIaePIQgAQuCIGDXREr915OH
- xcc1z7EHMv1WntqNkiTBGpuAHCDjU7TxtPP/6rivvYn13IKm9nNkrywZbTBrtf3HKwfq
- lvSRIJzA7nOMzOXe5zfw6aYDMyoWKXksjQWfZuXUG59clFcY7+ooaY085fUqdkD4dNor
- csRA==
+ bh=k8d6uZEg1ICTrlLD+Rn8W5NaQPKS3C+VdvtVteNUOcU=;
+ b=E83pPw9g4SZAxSj7rRgY8+bBOWS5Fnwpmz388Swym5j2oO8lLiTM0RGrrXQfb1VFBT
+ cGOJiB5MlzOS6U1sjqaofztaZrfVOj+h0nNhZq79RhyfBCfrx0WW4oAu7hAcWx13AMBj
+ TzWAq59i0LtFYFYyDfhSwlGXLltJN+sfdZlatjhh+s6DVd0yhNodbmd54BKFPX869ckt
+ 3TKA103IcV6AUrSE9ZRTKIIduZQgr+4aMRxAhJP5kPzXo29GXgarFNIRFdes0kS2IcIq
+ kqhbuf+sgOZI5eDrA2v5QqDl02DN2+hgxLI/z+VMtU+MbUQ61KrBbfv6TUC5N1uL1SNV
+ vNRw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUHwcbZZdwR7xewb9bNpVBF5kDj9tzv31e5XlFqMV6rkHXkYi+HvBq/SH05BhYKOZzDdQJEEya9ruzlCyZOLRG/UfUdNFQgCGAO5av5Xz3RrDrz3RF1iQIglGeK1nbWqZYo7a++W0iql0A8ALN6XGRj
-X-Gm-Message-State: AOJu0YzP4ofOGY9l1ef3O4LTarw0wAxdLzJYtX/FbJQT52UGU2jOdAAT
- n1VvvIwYgOFBo9GTqJFM+tojzRcq2GzOkvVDorRNsYfxttVYG2XN64eXCxpxIqknaJU2eDOLSO8
- 3aHw542omgtBoc8k7tNUwlW8LdmM=
-X-Google-Smtp-Source: AGHT+IHcVoQPlUh58ZF730tguw7awKEfLSWtoXlp6zbrPUNXFzV92ij1Ty9lCtgGGz5ceWeK1xuzEN4UQOUqo7+eyi4=
-X-Received: by 2002:a2e:8242:0:b0:2ec:50ed:b59f with SMTP id
- 38308e7fff4ca-2ec5b2dd950mr64610811fa.34.1719427401351; Wed, 26 Jun 2024
- 11:43:21 -0700 (PDT)
+ AJvYcCVHEqVzjcjAD4y9AZaFsBwcSmespD7NJYzX525hupw9kUOetHYfRqddDjS3xGwzJRsF4ZtjbiucJe26dPdekm1NQwyOGjlgaf0xAUr/G2jj
+X-Gm-Message-State: AOJu0YzMf4SpjnMT2plD7XMeru8V85oCQRhJ6r951TOGSzkcGRQAfFI3
+ B9CX98tnZnEx4PNclgBYeCRDhH5JfAKr5663cUHxCIz2tIsyBX9UGcmORWedlqohA5OhNkgdHMK
+ o1fujAPukvAcEB5SNTX2cL3cWJOdYiRyPQbEb
+X-Google-Smtp-Source: AGHT+IFYmoIPuXrQ6X+r4Y9Mx9oFP9At/nom0H2pGqOwukQ0q/k1IJpylwBvpAp3LdN5ahziYWtZdBiaT2jjIi2gCrA=
+X-Received: by 2002:a92:ca4e:0:b0:375:a3eb:bfcd with SMTP id
+ e9e14a558f8ab-37639edb0e5mr69485865ab.8.1719427870589; Wed, 26 Jun 2024
+ 11:51:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240623110753.141400-1-quic_akhilpo@quicinc.com>
- <20240623110753.141400-3-quic_akhilpo@quicinc.com>
- <5947559d-30dd-4da1-93cc-a15dc65cb77d@linaro.org>
- <20240626082422.zcsari27yoskayuo@hu-akhilpo-hyd.qualcomm.com>
-In-Reply-To: <20240626082422.zcsari27yoskayuo@hu-akhilpo-hyd.qualcomm.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 26 Jun 2024 11:43:08 -0700
-Message-ID: <CAF6AEGvCaGq8ukxra_bzc=4pUf8y5NndKRagQspD0=uCZdBfoA@mail.gmail.com>
-Subject: Re: [PATCH v1 2/3] drm/msm/adreno: Add support for X185 GPU
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Konrad Dybcio <konrad.dybcio@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>, 
- linux-kernel@vger.kernel.org
+References: <20240523175227.117984-1-robdclark@gmail.com>
+ <20240523175227.117984-2-robdclark@gmail.com>
+ <20240624151401.GB8706@willie-the-truck>
+In-Reply-To: <20240624151401.GB8706@willie-the-truck>
+From: Rob Clark <robdclark@chromium.org>
+Date: Wed, 26 Jun 2024 11:50:59 -0700
+Message-ID: <CAJs_Fx5jWJTUjaw1X0htzsmBVo_E6kkzOFDFMM5gazata5u0Vg@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] iommu/io-pgtable-arm: Add way to debug pgtable walk
+To: Will Deacon <will@kernel.org>
+Cc: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Kevin Tian <kevin.tian@intel.com>, 
+ Joao Martins <joao.m.martins@oracle.com>, 
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>, 
+ "open list:IOMMU SUBSYSTEM" <iommu@lists.linux.dev>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -89,90 +87,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jun 26, 2024 at 1:24=E2=80=AFAM Akhil P Oommen <quic_akhilpo@quicin=
-c.com> wrote:
+On Mon, Jun 24, 2024 at 8:14=E2=80=AFAM Will Deacon <will@kernel.org> wrote=
+:
 >
-> On Mon, Jun 24, 2024 at 03:53:48PM +0200, Konrad Dybcio wrote:
+> On Thu, May 23, 2024 at 10:52:21AM -0700, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
 > >
+> > Add an io-pgtable method to walk the pgtable returning the raw PTEs tha=
+t
+> > would be traversed for a given iova access.
 > >
-> > On 6/23/24 13:06, Akhil P Oommen wrote:
-> > > Add support in drm/msm driver for the Adreno X185 gpu found in
-> > > Snapdragon X1 Elite chipset.
-> > >
-> > > Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> > > ---
-> > >
-> > >   drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 19 +++++++++++++++----
-> > >   drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |  6 ++----
-> > >   drivers/gpu/drm/msm/adreno/adreno_device.c | 14 ++++++++++++++
-> > >   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++++
-> > >   4 files changed, 36 insertions(+), 8 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/=
-msm/adreno/a6xx_gmu.c
-> > > index 0e3dfd4c2bc8..168a4bddfaf2 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > > @@ -830,8 +830,10 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gm=
-u, unsigned int state)
-> > >      */
-> > >     gmu_write(gmu, REG_A6XX_GMU_CM3_CFG, 0x4052);
-> > > +   if (adreno_is_x185(adreno_gpu)) {
-> > > +           chipid =3D 0x7050001;
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/iommu/io-pgtable-arm.c | 51 ++++++++++++++++++++++++++++------
+> >  include/linux/io-pgtable.h     |  4 +++
+> >  2 files changed, 46 insertions(+), 9 deletions(-)
 > >
-> > What's wrong with using the logic below?
+> > diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-=
+arm.c
+> > index f7828a7aad41..f47a0e64bb35 100644
+> > --- a/drivers/iommu/io-pgtable-arm.c
+> > +++ b/drivers/iommu/io-pgtable-arm.c
+> > @@ -693,17 +693,19 @@ static size_t arm_lpae_unmap_pages(struct io_pgta=
+ble_ops *ops, unsigned long iov
+> >                               data->start_level, ptep);
+> >  }
+> >
+> > -static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
+> > -                                      unsigned long iova)
+> > +static int arm_lpae_pgtable_walk(struct io_pgtable_ops *ops, unsigned =
+long iova,
+> > +                     int (*cb)(void *cb_data, void *pte, int level),
+> > +                     void *cb_data)
+> >  {
+> >       struct arm_lpae_io_pgtable *data =3D io_pgtable_ops_to_data(ops);
+> >       arm_lpae_iopte pte, *ptep =3D data->pgd;
+> >       int lvl =3D data->start_level;
+> > +     int ret;
+> >
+> >       do {
+> >               /* Valid IOPTE pointer? */
+> >               if (!ptep)
+> > -                     return 0;
+> > +                     return -EFAULT;
 >
-> patchid is BITS(7, 0), not (15, 8) in the case of x185. Due to the
-> changes in the chipid scheme within the a7x family, this is a bit
-> confusing. I will try to improve here in another series.
+> nit: -ENOENT might be a little better, as we're only checking against a
+> NULL entry rather than strictly any faulting entry.
+>
+> >               /* Grab the IOPTE we're interested in */
+> >               ptep +=3D ARM_LPAE_LVL_IDX(iova, lvl, data);
+> > @@ -711,22 +713,52 @@ static phys_addr_t arm_lpae_iova_to_phys(struct i=
+o_pgtable_ops *ops,
+> >
+> >               /* Valid entry? */
+> >               if (!pte)
+> > -                     return 0;
+> > +                     return -EFAULT;
+>
+> Same here (and at the end of the function).
+>
+> > +
+> > +             ret =3D cb(cb_data, &pte, lvl);
+>
+> Since pte is on the stack, rather than pointing into the actual pgtable,
+> I think it would be clearer to pass it by value to the callback.
+>
+> > +             if (ret)
+> > +                     return ret;
+> >
+> > -             /* Leaf entry? */
+> > +             /* Leaf entry?  If so, we've found the translation */
+> >               if (iopte_leaf(pte, lvl, data->iop.fmt))
+> > -                     goto found_translation;
+> > +                     return 0;
+> >
+> >               /* Take it to the next level */
+> >               ptep =3D iopte_deref(pte, data);
+> >       } while (++lvl < ARM_LPAE_MAX_LEVELS);
+> >
+> >       /* Ran out of page tables to walk */
+> > +     return -EFAULT;
+> > +}
+> > +
+> > +struct iova_to_phys_walk_data {
+> > +     arm_lpae_iopte pte;
+> > +     int level;
+> > +};
+>
+> Expanding a little on Robin's suggestion, why don't we drop this structur=
+e
+> in favour of something more generic:
+>
+>         struct arm_lpae_walk_data {
+>                 arm_lpae_iopte ptes[ARM_LPAE_MAX_LEVELS];
+>         };
+>
+> and then do something in the walker like:
+>
+>         if (cb && !cb(pte, lvl))
+>                 walk_data->ptes[lvl] =3D pte;
+>
 
-I'm thinking we should just add gmu_chipid to struct a6xx_info, tbh
-
-Maybe to start with, we can fall back to the existing logic if
-a6xx_info::gmu_chipid is zero so we don't have to add it for _every_
-a6xx/a7xx
+So thinking about this some more... if I use a walk_data struct to
+return the PTEs, I can just get rid of the callback entirely.  That
+ends up looking more like my first version.   The callback taking
+void* was mainly to avoid coding the PTE size in the generic
+io_pgtable interface.  But if we just go with u64, because that is the
+biggest PTE size we need to deal with, then it all gets simpler.  (The
+callback was actually a semi-awkward interface to use from drm/msm.)
 
 BR,
 -R
 
-> >
-> > >     /* NOTE: A730 may also fall in this if-condition with a future GM=
-U fw update. */
-> > > -   if (adreno_is_a7xx(adreno_gpu) && !adreno_is_a730(adreno_gpu)) {
-> > > +   } else if (adreno_is_a7xx(adreno_gpu) && !adreno_is_a730(adreno_g=
-pu)) {
-> > >             /* A7xx GPUs have obfuscated chip IDs. Use constant maj =
-=3D 7 */
-> > >             chipid =3D FIELD_PREP(GENMASK(31, 24), 0x7);
-> > > @@ -1329,9 +1331,18 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct=
- device *dev, u32 *votes,
-> > >     if (!pri_count)
-> > >             return -EINVAL;
-> > > -   sec =3D cmd_db_read_aux_data("mx.lvl", &sec_count);
-> > > -   if (IS_ERR(sec))
-> > > -           return PTR_ERR(sec);
-> > > +   /*
-> > > +    * Some targets have a separate gfx mxc rail. So try to read that=
- first and then fall back
-> > > +    * to regular mx rail if it is missing
-> > > +    */
-> > > +   sec =3D cmd_db_read_aux_data("gmxc.lvl", &sec_count);
-> > > +   if (PTR_ERR_OR_ZERO(sec) =3D=3D -EPROBE_DEFER) {
-> > > +           return -EPROBE_DEFER;
-> > > +   } else if (IS_ERR(sec)) {
-> > > +           sec =3D cmd_db_read_aux_data("mx.lvl", &sec_count);
-> > > +           if (IS_ERR(sec))
-> > > +                   return PTR_ERR(sec);
-> > > +   }
-> >
-> > I assume GMXC would always be used if present, although please use the
-> > approach Dmitry suggested
+> which could return the physical address at the end, if it reaches a leaf
+> entry. That way arm_lpae_iova_to_phys() is just passing a NULL callback
+> to the walker and your debug callback just needs to return 0 (i.e. the
+> callback is basically just saying whether or not to continue the walk).
 >
-> Correct.
->
-> -Akhil
-> >
-> >
-> > The rest looks good!
-> >
-> > Konrad
+> Will
