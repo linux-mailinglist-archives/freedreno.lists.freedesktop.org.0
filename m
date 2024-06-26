@@ -2,117 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A400E917CA5
-	for <lists+freedreno@lfdr.de>; Wed, 26 Jun 2024 11:38:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D832917D41
+	for <lists+freedreno@lfdr.de>; Wed, 26 Jun 2024 12:05:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75FB610E80B;
-	Wed, 26 Jun 2024 09:38:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C534910E81D;
+	Wed, 26 Jun 2024 10:05:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gk6IvEWD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="js3fFi0d";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE93D10E80B
- for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 09:38:17 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-57cc1c00ba6so8337292a12.1
- for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 02:38:17 -0700 (PDT)
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 452AE10E81D
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 10:05:46 +0000 (UTC)
+Received: by mail-pg1-f175.google.com with SMTP id
+ 41be03b00d2f7-71871d5e087so3295822a12.1
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 03:05:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719394696; x=1719999496; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=PtgRu1hSkNXJVH/wLpskaZQjg+HOTe4PmSs3H6aE+QY=;
- b=gk6IvEWDf3sKbKRsrGWjm7tMG32aOHAbCNG8ls9voX98LiAUxjdeOUyeHdRVgPt7KO
- qIa+e5SgS33cWPcLL5bhwyeCtXgDIIS/o/dz0bvxtz8oCLb1hEgPEbTR1FyD/iB99y4w
- MuSQFuYm2weKbBo/Y9vdZncvQptAjpK64jbLhaYCcNsx22ak4R7xXeyX+WhJZuL3/q3g
- kbn+OFtmEfmD1f4lSgCPQ6z93GlmHPzZBqxaFxfyBKOq5eef9CvFc1Ios6vbglMWxl8e
- 5PJ+VK5ePHw1pn2hThac5E9IwcC8qOHtpjnD3/gXawh02U5YLGwgShMnLNOvhbsagZMS
- yFPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719394696; x=1719999496;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1719396345; x=1720001145; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=PtgRu1hSkNXJVH/wLpskaZQjg+HOTe4PmSs3H6aE+QY=;
- b=I+vypFjmpSifnX52Qg70QfBqhATOlPAz2itYXp5uAvEEwWVP6AEMTlyjSLYrHoTs80
- KGKr7UVoi/8cKF7VlVUL0F4xH4OeFcL2Hy5gahI0nWbEZtF8q7Y5t/2UVyse/NIFbaYI
- MxgEJi2RJ2+Z1d2hSN5iED4zbdT0BmlZG5cgfJGKQFY+zTNllm2PJUp9J3uik4Ly0SYe
- Z40LiYGnbF6DiFqHF8KCK2ZSkc/UxU9spr5z2Nsj0XsseHFRyEmyb2T7L9tSxKXR5eGF
- 2RK80pH2x6tC5nnkZ1y0GPWoem8EFVq+OnAQ3nMEmC14+YVEm+Io+290/EYE2UU/9Bbl
- bBog==
+ bh=ykrPcK/Irry8zoUOTi7Jl5zhAUchsKgA/28aNj59N9k=;
+ b=js3fFi0dOkj3kCUQnasMPrMUIg5Oce3HbmD5JF0Yr4QFd0I5F4o2RCW1f37ACgOqI8
+ XtTbZivPKdM4hoLJLX53L5CMrv4aE/IRkbfrxq9no+rKY3jBHHBilta2xc/KGxbr3j1s
+ UdJmEWO9XtCHfdalikrCkaAW8M4NDJe++LZlB5JOFZincmKyZapf8Ry4lff500w5Qpmm
+ 6Hmk0Q6HFrRo8zs+6H+Lv54FKh9hqfgBX+ptHBylQ/X53eGCCXK1jmQ2NBK8FnZ+cSVF
+ 7tLVNIJknlEtZUtDXSnKw71su4iRmFKbOy9vzM/DFNrKvj+UjYpZ6F/z4wc6226Q6sK+
+ HWng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719396345; x=1720001145;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ykrPcK/Irry8zoUOTi7Jl5zhAUchsKgA/28aNj59N9k=;
+ b=L/rxR6I+Q+3n8+mcdWOnukH6Ban3iRHDKd2ldPvt1n/PxHb9ktlFfBZ675FQkDviNT
+ Sow5Y8hw2Z95bZe4k/fqqeAl+V+8sOmpJNiOvgGFyphl7C3NSOkzMFuSIvCuPu6MGhs6
+ IohUtv2ZkRLT/u+HhcbjUbnNVYjCGSMiicfXfuFIa5CPkTRiCrjJxBVoqk4IV/64JYtx
+ DYBcHBJGxgAY94ywLTX2JCBY7dFUIYgLX5KQhqe2xijZ9hHiN/fySfRDdvblsxkd4aHF
+ x6hSj+sg1ccPdDSYQXDEswIVAfNcPhUbtgbLUMCvQd84937/kBlVgoW0ycr/K1PBlZMF
+ Lg1g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWktMK5Am/P4Krt9+AcsXpYudNVtGo9NH/iLVVuTSqrahBfGX3ubZiYrXtRDSFqlUxTAgBsaxR9FaRkfhta9Zw2GsyCsQNc0ujvYPuugdfE
-X-Gm-Message-State: AOJu0Yy8WWIwX5IrJzgpAmvaWLqE+V4IMLtBBhTE1/KZOBPuO0PmPfKO
- jLhvST+fGDfSD7EwZkS9q8H1LCzshVI809q+lolt18I81KpeXANFzSGOZDuALn1hr4CpST8V8zG
- mqfk=
-X-Google-Smtp-Source: AGHT+IG8q70Wfm9EEv2AuTnKLh1TLqbrSwrYoDamHfO3r9IuQeHyXkYQ2f/eHmnrKoLpFJZtU9E2wA==
-X-Received: by 2002:a50:bb69:0:b0:57c:6f0a:bc57 with SMTP id
- 4fb4d7f45d1cf-57d4bdd8e36mr7500901a12.36.1719394695602; 
- Wed, 26 Jun 2024 02:38:15 -0700 (PDT)
-Received: from [192.168.215.29] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57d3040f3e0sm6922516a12.25.2024.06.26.02.38.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jun 2024 02:38:15 -0700 (PDT)
-Message-ID: <b56ec42e-f8e2-4ca2-a40f-eb55825e800d@linaro.org>
-Date: Wed, 26 Jun 2024 11:38:13 +0200
+ AJvYcCX7VQnmRn/Xd4kGUjy8ieD30PpOtRmsr5XrV1az7cvfKRu6JGaPe6jvZYNiRBDyAz9ja6AytkKBN0b3g0hcopotQBavQIvv5qpVC7cQDlGv
+X-Gm-Message-State: AOJu0Yy6U264QxBwEy0pzmVjr4EDABLiGfED98wKYldZ6RJFvT1nuCLf
+ K/RC1OgtAUS/BzMpSkYWmY0jxtpJd+FGk3X4/qVQRaJJxLVMExUZO3FwJk4gZfNQVCDZ2ZBwhpS
+ L1MGohBQla0v4bQwNsfhhbNYsKpo=
+X-Google-Smtp-Source: AGHT+IEbDk7wHb0MmrtAj5JICBIPh3uCDiOdX9j47siTgRNnT9It2W7wT9Xg7W29VcOY+M8sdRaqqNdUtNXutejItdY=
+X-Received: by 2002:a17:90a:c78f:b0:2c8:e4a6:4229 with SMTP id
+ 98e67ed59e1d1-2c8e4a64303mr310020a91.33.1719396345441; Wed, 26 Jun 2024
+ 03:05:45 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/adreno: fix a7xx gpu init
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+References: <20240430-a750-raytracing-v3-0-7f57c5ac082d@gmail.com>
+ <20240430-a750-raytracing-v3-4-7f57c5ac082d@gmail.com>
+ <041cbf33-9fce-4f72-be90-23bc7d215b10@linaro.org>
+In-Reply-To: <041cbf33-9fce-4f72-be90-23bc7d215b10@linaro.org>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Wed, 26 Jun 2024 11:05:33 +0100
+Message-ID: <CACu1E7Gx-cyJYPAjNrc2KOmoZT=f5c50u18HVB=cNzjjrDWjbg@mail.gmail.com>
+Subject: Re: [PATCH v3 4/6] drm/msm/a7xx: Initialize a750 "software fuse"
+To: neil.armstrong@linaro.org
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Jun Nie <jun.nie@linaro.org>, Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20240626-topic-sm8x50-upstream-fix-a7xx-gpu-init-v1-1-ff0a0b7c778d@linaro.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- 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
- izWDgYvmBE8=
-In-Reply-To: <20240626-topic-sm8x50-upstream-fix-a7xx-gpu-init-v1-1-ff0a0b7c778d@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,21 +89,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26.06.2024 9:53 AM, Neil Armstrong wrote:
-> The gpulist has twice the a6xx gpulist, replace the second one
-> with the a7xx gpulist.
-> 
-> Solves:
-> msm_dpu ae01000.display-controller: Unknown GPU revision: 7.3.0.1
-> msm_dpu ae01000.display-controller: Unknown GPU revision: 67.5.10.1
-> msm_dpu ae01000.display-controller: Unknown GPU revision: 67.5.20.1
-> 
-> on SM8450, SM8550 & SM8560.
-> 
-> Fixes: 8ed322f632a9 ("drm/msm/adreno: Split up giant device table")
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
+On Wed, Jun 26, 2024 at 10:33=E2=80=AFAM Neil Armstrong
+<neil.armstrong@linaro.org> wrote:
+>
+> Hi,
+>
+> On 30/04/2024 12:43, Connor Abbott wrote:
+> > On all Qualcomm platforms with a7xx GPUs, qcom_scm provides a method to
+> > initialize cx_mem. Copy this from downstream (minus BCL which we
+> > currently don't support). On a750, this includes a new "fuse" register
+> > which can be used by qcom_scm to fuse off certain features like
+> > raytracing in software. The fuse is default off, and is initialized by
+> > calling the method. Afterwards we have to read it to find out which
+> > features were enabled.
+> >
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+> > ---
+> >   drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 91 ++++++++++++++++++++++++=
+++++++++-
+> >   drivers/gpu/drm/msm/adreno/adreno_gpu.h |  2 +
+> >   2 files changed, 92 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/a6xx_gpu.c
+> > index cf0b1de1c071..52b080206090 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > @@ -10,6 +10,7 @@
+> >
+> >   #include <linux/bitfield.h>
+> >   #include <linux/devfreq.h>
+> > +#include <linux/firmware/qcom/qcom_scm.h>
+> >   #include <linux/pm_domain.h>
+> >   #include <linux/soc/qcom/llcc-qcom.h>
+> >
+> > @@ -1686,7 +1687,8 @@ static int a6xx_zap_shader_init(struct msm_gpu *g=
+pu)
+> >                      A6XX_RBBM_INT_0_MASK_RBBM_HANG_DETECT | \
+> >                      A6XX_RBBM_INT_0_MASK_UCHE_OOB_ACCESS | \
+> >                      A6XX_RBBM_INT_0_MASK_UCHE_TRAP_INTR | \
+> > -                    A6XX_RBBM_INT_0_MASK_TSBWRITEERROR)
+> > +                    A6XX_RBBM_INT_0_MASK_TSBWRITEERROR | \
+> > +                    A6XX_RBBM_INT_0_MASK_SWFUSEVIOLATION)
+> >
+> >   #define A7XX_APRIV_MASK (A6XX_CP_APRIV_CNTL_ICACHE | \
+> >                        A6XX_CP_APRIV_CNTL_RBFETCH | \
+> > @@ -2356,6 +2358,27 @@ static void a6xx_fault_detect_irq(struct msm_gpu=
+ *gpu)
+> >       kthread_queue_work(gpu->worker, &gpu->recover_work);
+> >   }
+> >
+> > +static void a7xx_sw_fuse_violation_irq(struct msm_gpu *gpu)
+> > +{
+> > +     u32 status;
+> > +
+> > +     status =3D gpu_read(gpu, REG_A7XX_RBBM_SW_FUSE_INT_STATUS);
+> > +     gpu_write(gpu, REG_A7XX_RBBM_SW_FUSE_INT_MASK, 0);
+> > +
+> > +     dev_err_ratelimited(&gpu->pdev->dev, "SW fuse violation status=3D=
+%8.8x\n", status);
+> > +
+> > +     /*
+> > +      * Ignore FASTBLEND violations, because the HW will silently fall=
+ back
+> > +      * to legacy blending.
+> > +      */
+> > +     if (status & (A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING |
+> > +                   A7XX_CX_MISC_SW_FUSE_VALUE_LPAC)) {
+> > +             del_timer(&gpu->hangcheck_timer);
+> > +
+> > +             kthread_queue_work(gpu->worker, &gpu->recover_work);
+> > +     }
+> > +}
+> > +
+> >   static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
+> >   {
+> >       struct msm_drm_private *priv =3D gpu->dev->dev_private;
+> > @@ -2384,6 +2407,9 @@ static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
+> >       if (status & A6XX_RBBM_INT_0_MASK_UCHE_OOB_ACCESS)
+> >               dev_err_ratelimited(&gpu->pdev->dev, "UCHE | Out of bound=
+s access\n");
+> >
+> > +     if (status & A6XX_RBBM_INT_0_MASK_SWFUSEVIOLATION)
+> > +             a7xx_sw_fuse_violation_irq(gpu);
+> > +
+> >       if (status & A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS)
+> >               msm_gpu_retire(gpu);
+> >
+> > @@ -2525,6 +2551,61 @@ static void a6xx_llc_slices_init(struct platform=
+_device *pdev,
+> >               a6xx_gpu->llc_mmio =3D ERR_PTR(-EINVAL);
+> >   }
+> >
+> > +static int a7xx_cx_mem_init(struct a6xx_gpu *a6xx_gpu)
+> > +{
+> > +     struct adreno_gpu *adreno_gpu =3D &a6xx_gpu->base;
+> > +     struct msm_gpu *gpu =3D &adreno_gpu->base;
+> > +     u32 fuse_val;
+> > +     int ret;
+> > +
+> > +     if (adreno_is_a750(adreno_gpu)) {
+> > +             /*
+> > +              * Assume that if qcom scm isn't available, that whatever
+> > +              * replacement allows writing the fuse register ourselves=
+.
+> > +              * Users of alternative firmware need to make sure this
+> > +              * register is writeable or indicate that it's not someho=
+w.
+> > +              * Print a warning because if you mess this up you're abo=
+ut to
+> > +              * crash horribly.
+> > +              */
+> > +             if (!qcom_scm_is_available()) {
+> > +                     dev_warn_once(gpu->dev->dev,
+> > +                             "SCM is not available, poking fuse regist=
+er\n");
+> > +                     a6xx_llc_write(a6xx_gpu, REG_A7XX_CX_MISC_SW_FUSE=
+_VALUE,
+> > +                             A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING |
+> > +                             A7XX_CX_MISC_SW_FUSE_VALUE_FASTBLEND |
+> > +                             A7XX_CX_MISC_SW_FUSE_VALUE_LPAC);
+> > +                     adreno_gpu->has_ray_tracing =3D true;
+> > +                     return 0;
+> > +             }
+> > +
+> > +             ret =3D qcom_scm_gpu_init_regs(QCOM_SCM_GPU_ALWAYS_EN_REQ=
+ |
+> > +                                          QCOM_SCM_GPU_TSENSE_EN_REQ);
+> > +             if (ret)
+> > +                     return ret;
+> > +
+> > +             /*
+> > +              * On a750 raytracing may be disabled by the firmware, fi=
+nd out
+> > +              * whether that's the case. The scm call above sets the f=
+use
+> > +              * register.
+> > +              */
+> > +             fuse_val =3D a6xx_llc_read(a6xx_gpu,
+> > +                                      REG_A7XX_CX_MISC_SW_FUSE_VALUE);
+> > +             adreno_gpu->has_ray_tracing =3D
+> > +                     !!(fuse_val & A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACI=
+NG);
+> > +     } else {
+> > +             if (adreno_is_a740(adreno_gpu)) {
+> > +                     /* Raytracing is always enabled on a740 */
+> > +                     adreno_gpu->has_ray_tracing =3D true;
+> > +             }
+> > +
+> > +             if (qcom_scm_is_available())
+> > +                     return qcom_scm_gpu_init_regs(QCOM_SCM_GPU_ALWAYS=
+_EN_REQ);
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +
+> >   #define GBIF_CLIENT_HALT_MASK               BIT(0)
+> >   #define GBIF_ARB_HALT_MASK          BIT(1)
+> >   #define VBIF_XIN_HALT_CTRL0_MASK    GENMASK(3, 0)
+> > @@ -3094,6 +3175,14 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device =
+*dev)
+> >               return ERR_PTR(ret);
+> >       }
+> >
+> > +     if (adreno_is_a7xx(adreno_gpu)) {
+> > +             ret =3D a7xx_cx_mem_init(a6xx_gpu);
+> > +             if (ret) {
+> > +                     a6xx_destroy(&(a6xx_gpu->base.base));
+> > +                     return ERR_PTR(ret);
+> > +             }
+> > +     }
+> > +
+> >       if (gpu->aspace)
+> >               msm_mmu_set_fault_handler(gpu->aspace->mmu, gpu,
+> >                               a6xx_fault_handler);
+> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/=
+msm/adreno/adreno_gpu.h
+> > index 77526892eb8c..4180f3149dd8 100644
+> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > @@ -182,6 +182,8 @@ struct adreno_gpu {
+> >        */
+> >       const unsigned int *reg_offsets;
+> >       bool gmu_is_wrapper;
+> > +
+> > +     bool has_ray_tracing;
+> >   };
+> >   #define to_adreno_gpu(x) container_of(x, struct adreno_gpu, base)
+> >
+> >
+>
+> This patch break GPU init on SM8450-HDK and SM8550-HDK, call to
+> qcom_scm_gpu_init_regs(QCOM_SCM_GPU_ALWAYS_EN_REQ) returns -5.
+>
+> On which device did you test this ?
+>
+> Neil
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+I tested on SM8650-HDK (with your DTS patches on top). kgsl does call
+this on SM8450/SM8550 [1], and doesn't swallow -EIO, which is why I
+thought it was safe. But looking more into it now, the commit message
+introducing it mentions the software fuse which is SM8650-only, so
+maybe they broke SM8550 when adding this for SM8650?
 
-Konrad
+Connor
+
+[1] https://git.codelinaro.org/clo/le/platform/vendor/qcom/opensource/graph=
+ics-kernel/-/blob/gfx-kernel.le.0.0.r1-rel/adreno_gen7.c?ref_type=3Dheads#L=
+915.
