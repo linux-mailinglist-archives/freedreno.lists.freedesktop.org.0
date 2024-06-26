@@ -2,77 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D220A917CA1
-	for <lists+freedreno@lfdr.de>; Wed, 26 Jun 2024 11:37:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A400E917CA5
+	for <lists+freedreno@lfdr.de>; Wed, 26 Jun 2024 11:38:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B5B410E808;
-	Wed, 26 Jun 2024 09:37:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75FB610E80B;
+	Wed, 26 Jun 2024 09:38:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iBRC2vpg";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gk6IvEWD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A275310E2EF
- for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 09:37:06 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-a6fd513f18bso587854366b.3
- for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 02:37:06 -0700 (PDT)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE93D10E80B
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 09:38:17 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-57cc1c00ba6so8337292a12.1
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 02:38:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719394625; x=1719999425; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1719394696; x=1719999496; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=AEVD+w0TTAAVvcUXpjCC9r3Xtde98FGUdgCPdfiAa2c=;
- b=iBRC2vpg7dut+IEvcYsPAL7gj0k5RaKoI/l/9Deor038LbFL4llbIhRKuVgxEwdLZN
- wHvkPATSNv0g8zWjOKoWYeXlek9jN+zd/Y0FfIQV5ckV0H587eE08dnW0gG1xjgkhB7y
- TGyHxApZa3ofLTpVdJhgiApqlHBADU0Xt/lrH1zcnoNcO5NtZWszakVI8kHvma02Fy8c
- Duw1tzS+0A9Ssj6u8S6xwUGmycp1pYKvjDS67s2RCvGp8ASCnw+xY3hlmh1iAo0HALbw
- ENBOIRQsPr/mQ6zMHk/lYaQRhbr/ZG14x3nEeZwYsK6ezdcsiEJ4rdT+ghGhWSqpq8ny
- VDtA==
+ bh=PtgRu1hSkNXJVH/wLpskaZQjg+HOTe4PmSs3H6aE+QY=;
+ b=gk6IvEWDf3sKbKRsrGWjm7tMG32aOHAbCNG8ls9voX98LiAUxjdeOUyeHdRVgPt7KO
+ qIa+e5SgS33cWPcLL5bhwyeCtXgDIIS/o/dz0bvxtz8oCLb1hEgPEbTR1FyD/iB99y4w
+ MuSQFuYm2weKbBo/Y9vdZncvQptAjpK64jbLhaYCcNsx22ak4R7xXeyX+WhJZuL3/q3g
+ kbn+OFtmEfmD1f4lSgCPQ6z93GlmHPzZBqxaFxfyBKOq5eef9CvFc1Ios6vbglMWxl8e
+ 5PJ+VK5ePHw1pn2hThac5E9IwcC8qOHtpjnD3/gXawh02U5YLGwgShMnLNOvhbsagZMS
+ yFPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719394625; x=1719999425;
+ d=1e100.net; s=20230601; t=1719394696; x=1719999496;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=AEVD+w0TTAAVvcUXpjCC9r3Xtde98FGUdgCPdfiAa2c=;
- b=AIs7XY7dQCunQeQTtniuX877CUbjH4oQgwQ2Y63CSUyYINHt4ONbjg6u2TwF5Gh6Nz
- nMHNUapxCVoUZ2ZU4buNaxwPrSln0ov73bvR8ZIURf++eEJ8bb6yoNeo1p/2Dz7WDdjL
- I2povqeeUYpSqu0I2KGxf2W8+ZtAA6puuxWGzGAtyiCHSWixIDQM9zrI/TEHNtu6K5jJ
- lWN/EPhy/rwh1dEF64EcUo1THycaV3w2nUcTGBK5QPOt7m5FpzqPlVFdn62bkLZHmq1c
- wK02AYwFZjhJWNCmpEBmTnqg0rK2MMvW0cW9uaMI2t91pDeko0S7dlRG6tBHfXSQEpvQ
- 408A==
-X-Gm-Message-State: AOJu0Yzep/NCXBDhXb81IB9wcp0vNBYup88WzjQ2kP7xUh5nn/qjBfVv
- Wd5ES2NOGA7BHgtyxQ+cfbKgNSZ83Br213kYfiWNTNsGhKZn6d4IFead+MBxwG4=
-X-Google-Smtp-Source: AGHT+IHMd5gcTGXG0btMMetTthXNYoimPBO8ehjkfI6u1J6Ceh0RTvs6sjMc+EPy7NGvsHh8ni7voA==
-X-Received: by 2002:a17:906:a8d:b0:a6f:4c10:8da6 with SMTP id
- a640c23a62f3a-a7245b45a69mr587403866b.2.1719394624617; 
- Wed, 26 Jun 2024 02:37:04 -0700 (PDT)
+ bh=PtgRu1hSkNXJVH/wLpskaZQjg+HOTe4PmSs3H6aE+QY=;
+ b=I+vypFjmpSifnX52Qg70QfBqhATOlPAz2itYXp5uAvEEwWVP6AEMTlyjSLYrHoTs80
+ KGKr7UVoi/8cKF7VlVUL0F4xH4OeFcL2Hy5gahI0nWbEZtF8q7Y5t/2UVyse/NIFbaYI
+ MxgEJi2RJ2+Z1d2hSN5iED4zbdT0BmlZG5cgfJGKQFY+zTNllm2PJUp9J3uik4Ly0SYe
+ Z40LiYGnbF6DiFqHF8KCK2ZSkc/UxU9spr5z2Nsj0XsseHFRyEmyb2T7L9tSxKXR5eGF
+ 2RK80pH2x6tC5nnkZ1y0GPWoem8EFVq+OnAQ3nMEmC14+YVEm+Io+290/EYE2UU/9Bbl
+ bBog==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWktMK5Am/P4Krt9+AcsXpYudNVtGo9NH/iLVVuTSqrahBfGX3ubZiYrXtRDSFqlUxTAgBsaxR9FaRkfhta9Zw2GsyCsQNc0ujvYPuugdfE
+X-Gm-Message-State: AOJu0Yy8WWIwX5IrJzgpAmvaWLqE+V4IMLtBBhTE1/KZOBPuO0PmPfKO
+ jLhvST+fGDfSD7EwZkS9q8H1LCzshVI809q+lolt18I81KpeXANFzSGOZDuALn1hr4CpST8V8zG
+ mqfk=
+X-Google-Smtp-Source: AGHT+IG8q70Wfm9EEv2AuTnKLh1TLqbrSwrYoDamHfO3r9IuQeHyXkYQ2f/eHmnrKoLpFJZtU9E2wA==
+X-Received: by 2002:a50:bb69:0:b0:57c:6f0a:bc57 with SMTP id
+ 4fb4d7f45d1cf-57d4bdd8e36mr7500901a12.36.1719394695602; 
+ Wed, 26 Jun 2024 02:38:15 -0700 (PDT)
 Received: from [192.168.215.29] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a725cc93794sm246743566b.170.2024.06.26.02.37.02
+ 4fb4d7f45d1cf-57d3040f3e0sm6922516a12.25.2024.06.26.02.38.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jun 2024 02:37:04 -0700 (PDT)
-Message-ID: <a33ac27f-ab88-40a7-9cb0-9d27342fed09@linaro.org>
-Date: Wed, 26 Jun 2024 11:37:01 +0200
+ Wed, 26 Jun 2024 02:38:15 -0700 (PDT)
+Message-ID: <b56ec42e-f8e2-4ca2-a40f-eb55825e800d@linaro.org>
+Date: Wed, 26 Jun 2024 11:38:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] drm/msm/adreno: Add support for X185 GPU
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
+Subject: Re: [PATCH] drm/msm/adreno: fix a7xx gpu init
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-References: <20240623110753.141400-1-quic_akhilpo@quicinc.com>
- <20240623110753.141400-3-quic_akhilpo@quicinc.com>
- <5947559d-30dd-4da1-93cc-a15dc65cb77d@linaro.org>
- <20240626082422.zcsari27yoskayuo@hu-akhilpo-hyd.qualcomm.com>
+References: <20240626-topic-sm8x50-upstream-fix-a7xx-gpu-init-v1-1-ff0a0b7c778d@linaro.org>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
@@ -110,7 +110,7 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20240626082422.zcsari27yoskayuo@hu-akhilpo-hyd.qualcomm.com>
+In-Reply-To: <20240626-topic-sm8x50-upstream-fix-a7xx-gpu-init-v1-1-ff0a0b7c778d@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -128,42 +128,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26.06.2024 10:24 AM, Akhil P Oommen wrote:
-> On Mon, Jun 24, 2024 at 03:53:48PM +0200, Konrad Dybcio wrote:
->>
->>
->> On 6/23/24 13:06, Akhil P Oommen wrote:
->>> Add support in drm/msm driver for the Adreno X185 gpu found in
->>> Snapdragon X1 Elite chipset.
->>>
->>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>> ---
->>>
->>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 19 +++++++++++++++----
->>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |  6 ++----
->>>   drivers/gpu/drm/msm/adreno/adreno_device.c | 14 ++++++++++++++
->>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++++
->>>   4 files changed, 36 insertions(+), 8 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>> index 0e3dfd4c2bc8..168a4bddfaf2 100644
->>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>> @@ -830,8 +830,10 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu, unsigned int state)
->>>   	 */
->>>   	gmu_write(gmu, REG_A6XX_GMU_CM3_CFG, 0x4052);
->>> +	if (adreno_is_x185(adreno_gpu)) {
->>> +		chipid = 0x7050001;
->>
->> What's wrong with using the logic below?
+On 26.06.2024 9:53 AM, Neil Armstrong wrote:
+> The gpulist has twice the a6xx gpulist, replace the second one
+> with the a7xx gpulist.
 > 
-> patchid is BITS(7, 0), not (15, 8) in the case of x185. Due to the
-> changes in the chipid scheme within the a7x family, this is a bit
-> confusing. I will try to improve here in another series.
+> Solves:
+> msm_dpu ae01000.display-controller: Unknown GPU revision: 7.3.0.1
+> msm_dpu ae01000.display-controller: Unknown GPU revision: 67.5.10.1
+> msm_dpu ae01000.display-controller: Unknown GPU revision: 67.5.20.1
+> 
+> on SM8450, SM8550 & SM8560.
+> 
+> Fixes: 8ed322f632a9 ("drm/msm/adreno: Split up giant device table")
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
 
-Ohh I overlooked this.. sounds a bit unfortunate.. 
-
-Seems like it doesn't really fit the "else" branch anyway, let's
-keep it for now then
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
 Konrad
