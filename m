@@ -2,84 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C71A919A54
-	for <lists+freedreno@lfdr.de>; Thu, 27 Jun 2024 00:05:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F23F919AAC
+	for <lists+freedreno@lfdr.de>; Thu, 27 Jun 2024 00:32:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08A8010E166;
-	Wed, 26 Jun 2024 22:05:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1051910E9D5;
+	Wed, 26 Jun 2024 22:32:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pGcgJLy/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MLBr3Wfh";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B625F10E166
- for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 22:05:02 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-52cdd893e5cso5334040e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 15:05:02 -0700 (PDT)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
+ [209.85.208.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12AAB10E9D5;
+ Wed, 26 Jun 2024 22:32:41 +0000 (UTC)
+Received: by mail-ed1-f50.google.com with SMTP id
+ 4fb4d7f45d1cf-57cbc2a2496so972698a12.0; 
+ Wed, 26 Jun 2024 15:32:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719439501; x=1720044301; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=siK38QYXuo8QNnveIrzt0+xpEIskBwlCTEZPBZd1FIQ=;
- b=pGcgJLy/B6URmhHfvhVYT/990mtpafw9uXcMdEWPnUAVoSvXCVtR+oeYMntFiUIRXC
- DHNgzTL0wICjAYZDx1RsK0EtNmN9R4uP5IAeVEFDrutIo+pqRy6vo6i4J8lgLBpmZlpq
- BriloIsr8icBGfmFRB3gN0B/lCD9U1YAQf1W7+2zJNPAE2+IWbq6SGm2a5rFTaM6sfS8
- UBJAqfSDtnAvYlbxuDzk8+P8g34yqRohb48aJM12eCXH02UZND7xqHjLi3LYmxtlpjjT
- s63j8l3jaPt+6NBPrBrHkQ7HVdyrL4GVRKcbhPkL54xZYsZFqRw6A+rW5jbP0PwnHuh2
- klGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719439501; x=1720044301;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1719441159; x=1720045959; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=siK38QYXuo8QNnveIrzt0+xpEIskBwlCTEZPBZd1FIQ=;
- b=dIcDd3ZZ5URBhIEo9UWcKm0F4pXv9pXr4v8jv2KoRYvnV5eXkSkCtQD1WdYduYwRCA
- 6cMx5o7m8ATCMhgtPGocyVXA+rOfPuqBNFxzDTDNopET3Mu02XnoLa5QqngSMI8e644Y
- vmTCadlE+KENqCePDoMEHhBGc82aw99PQbQOmQ6byck5s4R8lfGwexm31lg0zqC81VvY
- q0E+9qmIPYCZ+J3IueQdl3ZcAI8IAEh/BsAncqqbP9hGjDEaRtI2xs+qudCePLFwlW7V
- UXOCE8TZ1mZuQovQiOssXIpsfsWhndUnH9mp9x8ppzgIAWYok7VXzzr/ksB2i+gwnfrG
- v83g==
+ bh=U36grdanXj9yAh+pNda5S+WRPO+QWYAY7LoWhNNT3IY=;
+ b=MLBr3WfhXbl/RwN5+R8TRmLjPZ0W1luvLb10+3GQ4/fQhnEF+x/w9+GvW6iz/UWmk2
+ lpcv+3jPzHSoSeF1lbf11+6M6q/L4F8bnhEMEvsehK25fDqh5l2IcegkqdnUv3Kjtqsw
+ wBlYL65cs90Fc0pYaG6AoU50hQox3h1iM482mz4K7ZTzSJHN8mBNPbn57ib9UaZytHLG
+ NfsVIh4rWCz+0xNmegFobrYR+l+BW/hqh1Qp0MgnBMrQk/9dcvTjjfbwcmpZT2shuJlP
+ TwlcEYGgvlq7lxZZ6V3AlG0reCjxoOubWR9O2TYlR3nJLdBl88zpMk+3pRt5HbOYo3zx
+ kY/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719441159; x=1720045959;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=U36grdanXj9yAh+pNda5S+WRPO+QWYAY7LoWhNNT3IY=;
+ b=kvwMMx/K+VpWF/6wjiZGit/jeWWH3bnvuoJQuRvMpdecOvj+LWHXWd/RtenmZo83uI
+ cu72ZtLB2dtLTGZqQL8DPdN3c0y5DkQZ66TtCHdTqzHDy8VWlXbyP+ayK3lscmh5o0wy
+ FX963FXwZExnwVbs8cgNT0onxXMgc2TXMOFnmsC6iUDcOEIS4Ti02N9NWf2szLSN9pA0
+ GVoqrffUCtZjxhhi3wQzpdNzLLTIhaBSyifSslDg4Blw1pG9I70+zoHBD6AHRDJNCWtm
+ jqx/iyddZRurI7zHyBZqTXzLwLIdUTKcKCmb65C3choY0g36KJ6xyfLnikN9XHFICEMb
+ BPdg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWB0Q50pOBuRoS2Hu8+iR5rBBZEpBVpaqujbV2Oa/njCJxjybNa8oU9XoI2A9XPNRBrbq0AmpigdXDWgRc+clytP1Ohb9ICm7IZO7wBH4xS
-X-Gm-Message-State: AOJu0Yy4bBrwvmK6AxKWu7MNGoUsKTIQ0M/3R37KdFJO0Q8xqyZ/paq3
- 9iZhJkuhMwueVEy0/HYS6MaSFIKkJnM7lG3ZwbDRzK1GdMhLJYz7xC61lvJZ5Io=
-X-Google-Smtp-Source: AGHT+IEwz/vaLu2uYxfyNR2muYajgJEh9jDVu49ZK0TTgw/DHg5lzlZe+ZG9e4AsahaK9vSkvoqmxQ==
-X-Received: by 2002:a05:6512:220c:b0:52c:d70d:5ff8 with SMTP id
- 2adb3069b0e04-52ce1832692mr11205312e87.1.1719439500695; 
- Wed, 26 Jun 2024 15:05:00 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52cf2e734aesm643291e87.18.2024.06.26.15.04.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jun 2024 15:05:00 -0700 (PDT)
-Date: Thu, 27 Jun 2024 01:04:58 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Kiarash Hajian <kiarash8112hajian@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/a6xx: request memory region
-Message-ID: <btcidskycmlkylupz6qup7z4yyh4obzibcjy2ii2biqu64vqw2@5ellx6lt6m2k>
-References: <20240608-adreno-v1-1-2e470480eee7@gmail.com>
- <CAF6AEGsd6jfDqV-EOWr+oMjPpVr2S+71VYmp1JoY8xU51eeEEw@mail.gmail.com>
- <20240625175926.4xyzwjyx7oxcwnzx@hu-akhilpo-hyd.qualcomm.com>
- <CAF6AEGt5=bcni0K1ysot3-hVj9gWECJ5qP=M-sEDkRrAmEHFGg@mail.gmail.com>
- <20240625202308.prg72urp4mvtxzax@hu-akhilpo-hyd.qualcomm.com>
- <CAF6AEGs4i4mM9dpD3weG8GunHHfM0JESkzgX1Wd4PBDYatbQqg@mail.gmail.com>
- <20240626215218.pnbzy25c74c7a22a@hu-akhilpo-hyd.qualcomm.com>
+ AJvYcCXkhOvvOtaCK0qSYzs8Bp4cyTCmkcanzLb4cElP0MMhJaAX3riXCPWHxhgfPpdVNnw0u5Sm2nV9NYw5UsBKjEu9XFU1A2NItYBRySboePWL2OIFAZDojb64XfTchm6SuQwy+rdrqZl8OUDE+ZFbC7O7
+X-Gm-Message-State: AOJu0Yzjv8JAk1Tl6otBJdsZLb2lb2RH2tEK7TdeoxYHq54xmkZmb3FI
+ 1+/wxCRbGgUkmi30kUT9kZG8coWxPmCFcE6YXY747k/LCc99GrMNOaoIpQr1ym/OjqW38a8Kd3L
+ mhKfEzFxevaPKoTdZpnWAhyocTVM=
+X-Google-Smtp-Source: AGHT+IHb98roHx5g3sBxWkKskttk5XU+NH37JopqIA/4bV6IWCJPWXBdw3kCMp992cniMQGn3EC2cUYVZE3FHSqDqKw=
+X-Received: by 2002:a50:871a:0:b0:57d:7ef:573b with SMTP id
+ 4fb4d7f45d1cf-57d4bdd02bcmr10384352a12.38.1719441158804; Wed, 26 Jun 2024
+ 15:32:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240626215218.pnbzy25c74c7a22a@hu-akhilpo-hyd.qualcomm.com>
+References: <20240623110753.141400-1-quic_akhilpo@quicinc.com>
+ <20240623110753.141400-3-quic_akhilpo@quicinc.com>
+ <5947559d-30dd-4da1-93cc-a15dc65cb77d@linaro.org>
+ <20240626082422.zcsari27yoskayuo@hu-akhilpo-hyd.qualcomm.com>
+ <CAF6AEGvCaGq8ukxra_bzc=4pUf8y5NndKRagQspD0=uCZdBfoA@mail.gmail.com>
+ <853849b4-69f2-488f-ab17-dc550c235e3d@linaro.org>
+In-Reply-To: <853849b4-69f2-488f-ab17-dc550c235e3d@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 26 Jun 2024 15:32:26 -0700
+Message-ID: <CAF6AEGsFExhokWqHka-cwFGqyYgo61OL=7F=o5ouRm-LoHh9Dw@mail.gmail.com>
+Subject: Re: [PATCH v1 2/3] drm/msm/adreno: Add support for X185 GPU
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ freedreno <freedreno@lists.freedesktop.org>, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ Bjorn Andersson <andersson@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,63 +91,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 27, 2024 at 03:22:18AM GMT, Akhil P Oommen wrote:
-> << snip >>
-> 
-> > > > > > > @@ -1503,7 +1497,7 @@ static void __iomem *a6xx_gmu_get_mmio(struct platform_device *pdev,
-> > > > > > >                 return ERR_PTR(-EINVAL);
-> > > > > > >         }
-> > > > > > >
-> > > > > > > -       ret = ioremap(res->start, resource_size(res));
-> > > > > > > +       ret = devm_ioremap_resource(&pdev->dev, res);
-> > > > > >
-> > > > > > So, this doesn't actually work, failing in __request_region_locked(),
-> > > > > > because the gmu region partially overlaps with the gpucc region (which
-> > > > > > is busy).  I think this is intentional, since gmu is controlling the
-> > > > > > gpu clocks, etc.  In particular REG_A6XX_GPU_CC_GX_GDSCR is in this
-> > > > > > overlapping region.  Maybe Akhil knows more about GMU.
-> > > > >
-> > > > > We don't really need to map gpucc region from driver on behalf of gmu.
-> > > > > Since we don't access any gpucc register from drm-msm driver, we can
-> > > > > update the range size to correct this. But due to backward compatibility
-> > > > > requirement with older dt, can we still enable region locking? I prefer
-> > > > > it if that is possible.
-> > > >
-> > > > Actually, when I reduced the region size to not overlap with gpucc,
-> > > > the region is smaller than REG_A6XX_GPU_CC_GX_GDSCR * 4.
-> > > >
-> > > > So I guess that register is actually part of gpucc?
-> > >
-> > > Yes. It has *GPU_CC* in its name. :P
-> > >
-> > > I just saw that we program this register on legacy a6xx targets to
-> > > ensure retention is really ON before collapsing gdsc. So we can't
-> > > avoid mapping gpucc region in legacy a6xx GPUs. That is unfortunate!
-> > 
-> > I guess we could still use devm_ioremap().. idk if there is a better
-> > way to solve this
-> 
-> Can we do it without breaking backward compatibility with dt?
+On Wed, Jun 26, 2024 at 2:38=E2=80=AFPM Konrad Dybcio <konrad.dybcio@linaro=
+.org> wrote:
+>
+> On 26.06.2024 8:43 PM, Rob Clark wrote:
+> > On Wed, Jun 26, 2024 at 1:24=E2=80=AFAM Akhil P Oommen <quic_akhilpo@qu=
+icinc.com> wrote:
+> >>
+> >> On Mon, Jun 24, 2024 at 03:53:48PM +0200, Konrad Dybcio wrote:
+> >>>
+> >>>
+> >>> On 6/23/24 13:06, Akhil P Oommen wrote:
+> >>>> Add support in drm/msm driver for the Adreno X185 gpu found in
+> >>>> Snapdragon X1 Elite chipset.
+> >>>>
+> >>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> >>>> ---
+> >>>>
+> >>>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 19 +++++++++++++++---=
+-
+> >>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |  6 ++----
+> >>>>   drivers/gpu/drm/msm/adreno/adreno_device.c | 14 ++++++++++++++
+> >>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++++
+> >>>>   4 files changed, 36 insertions(+), 8 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm=
+/msm/adreno/a6xx_gmu.c
+> >>>> index 0e3dfd4c2bc8..168a4bddfaf2 100644
+> >>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> >>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> >>>> @@ -830,8 +830,10 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *g=
+mu, unsigned int state)
+> >>>>      */
+> >>>>     gmu_write(gmu, REG_A6XX_GMU_CM3_CFG, 0x4052);
+> >>>> +   if (adreno_is_x185(adreno_gpu)) {
+> >>>> +           chipid =3D 0x7050001;
+> >>>
+> >>> What's wrong with using the logic below?
+> >>
+> >> patchid is BITS(7, 0), not (15, 8) in the case of x185. Due to the
+> >> changes in the chipid scheme within the a7x family, this is a bit
+> >> confusing. I will try to improve here in another series.
+> >
+> > I'm thinking we should just add gmu_chipid to struct a6xx_info, tbh
+> >
+> > Maybe to start with, we can fall back to the existing logic if
+> > a6xx_info::gmu_chipid is zero so we don't have to add it for _every_
+> > a6xx/a7xx
+>
+> If X185 is not the only occurence, I'd second this..
 
-I think a proper way would be to use devm_ioremap in the gpucc driver,
-then the GPU driver can use devm_platform_ioremap_resource().
+basically all a7xx are "special" compared to the original logic, so we
+can start with using gmu_chipid for just a7xx
 
-I'll take a look at sketching the gpucc patches in one of the next few
-days.
+BR,
+-R
 
-> 
-> -Akhil
-> 
-> > 
-> > BR,
-> > -R
-> > 
-> > > -Akhil.
-> > >
-> > > >
-> > > > BR,
-> > > > -R
-
--- 
-With best wishes
-Dmitry
+> Konrad
