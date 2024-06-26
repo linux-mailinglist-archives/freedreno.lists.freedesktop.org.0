@@ -2,78 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 697B79199D3
-	for <lists+freedreno@lfdr.de>; Wed, 26 Jun 2024 23:38:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0126C9199D7
+	for <lists+freedreno@lfdr.de>; Wed, 26 Jun 2024 23:39:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 185C510E165;
-	Wed, 26 Jun 2024 21:38:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8DA110E1CC;
+	Wed, 26 Jun 2024 21:39:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DsRK7LX7";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Qn+eEkJL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2727610E1A3
- for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 21:38:36 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-57d280e2d5dso997069a12.1
- for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 14:38:36 -0700 (PDT)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7445710E268
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 21:39:22 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id
+ 4fb4d7f45d1cf-57a30dbdb7fso970030a12.3
+ for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 14:39:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719437914; x=1720042714; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1719437961; x=1720042761; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=dbHxG2n5zP0Ww3GCk5hb1EwcyYJPFNAvcBAuRALNJvU=;
- b=DsRK7LX7YILg98L2h7eM1yTwnx+5kf76rDewhjCnWQDcoJywGdVuhzVpSDYk5KC9nC
- kjBVqZjA6INtOrvyJze3CmvruLMgG34JxeDhyn6wkKKC8h3yhDfrijWMD3pPGwucFgZM
- 6KMKsIk7lcNKDGgDjREnhBF+fSNfvIgLZCXq/TtMudyYoakaWEjjrSgjDicqoWaQ8HB/
- u6UDfFzRup/1bqftV86muCBXzVtgkmfAQZKTW4/W4/vysdwzi72gBf4ka+ysqxxubHW3
- ncmaJktET4q2LhzbbW7CLAiKVWx+jDLbSk0CfPLFHiDCl3uhIQjYC2eG1q3zvEwOQHmo
- mMkg==
+ bh=7L7e5C1/vFl5s/Wn77Ses23ies+BIoOorCDyigrw8VM=;
+ b=Qn+eEkJLhaeHwjXW4ytQve1nKodTMSHXJ0ImlmFTwg5Rh4Qu31wAWtzv3cZrJIhnJe
+ YW8eGbiboUDl1gWjagPFt0K2+x8/wt1c7ZQdRBb9zu3RD/NCgqm7w5KPVYidcNwUxA5t
+ mJVUSr/EK0UETkJBVPPZm5jrzbLLw1we119ioNLQ8X+Jo0zplH9v0XSyNSBo+T0ouBKc
+ xtbys0gJIiTZSMe27UmqMJ5jAOB+08QnAXCe5vLneRD9Ix4VYiNbXgF0NKVd2DUmdAzF
+ y+QbdpUoKbCaCRGZMs+wBfCaxig2BrRuRFxwVzGZ3nNDhj9d3SIrCRtEKaVSut7EcV4o
+ 6xbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719437914; x=1720042714;
+ d=1e100.net; s=20230601; t=1719437961; x=1720042761;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dbHxG2n5zP0Ww3GCk5hb1EwcyYJPFNAvcBAuRALNJvU=;
- b=IWRL8GIDH/oLOhQnnPpCCe4AyoDAfMlD6T6HttFQXQAjxCEpCSWgbJXUXpenm78EPA
- KrAnOdoflP4x0S0vXmzMIQkdjuJuG8kMCbb585g9o9N/BAwqipNuGWYkBgWgDpKlt7JV
- WAASn5fW8u3rNUTYJKie/PV8c0V4dh7xuZqRqBxs7K9r9RlWpUsGWUXNeI8XMtqkO8eW
- dEy66twUqDUT6VVDV8xQNC+VtD258TBMO/vocyd1m8l9Sp/fgbV5DU1JhajsDOcjTrJx
- l/PmuntJJGLWAMGRnCOi5JPlJ2UVH6qTykmQ87bsL/4283uix2dUQJoJitup+HkhVtpY
- 27nw==
-X-Gm-Message-State: AOJu0YyAQTez4ji16A8qShrEE+aAwziSMmssARr2IY4wGEPBfE2wWERZ
- DQnyLrOdPeklVRJeromQnj1+hnFaAZ92vwvQ3WJ/ivEk3I8k55QYMG5tKQeBpFQ=
-X-Google-Smtp-Source: AGHT+IFf0QxabGJyvOOpKnyFK5uJAobBhEVchG12Uzd06lWam1G+0KgRr0bmxh6PFnZEeNYo+QcrUg==
-X-Received: by 2002:a17:906:2a5b:b0:a6f:1785:d18 with SMTP id
- a640c23a62f3a-a7245cf2ee7mr729935866b.44.1719437914088; 
- Wed, 26 Jun 2024 14:38:34 -0700 (PDT)
+ bh=7L7e5C1/vFl5s/Wn77Ses23ies+BIoOorCDyigrw8VM=;
+ b=HYBLt2PRY/6t6Kb6wZOtv37fSrLVaFkxhGnNvM1oRCAaCbRwrnAB3CtzvN24BkEfg+
+ WiUFlf0hHP5rtFYEZQcsNdOz98waMsw87cgX/trjBD4i8OzcwrANBwF5fujH842zglBb
+ dYX6dQdB2aLSu2uy+5kyvljq6OygXNEzD4DVQRCNi3aMK3c/N8u+9Z6zagaJu2u3qFWz
+ UZw+jRCp7SIZb2Y8ia4U4//Fi3dpXwH0m6zh3vOSj3rNQPj4XTRqmTtKEt8gPdcviRj+
+ fa23BPlhL9KbWbHuexqX0FYJvXPrtV2dX/7ymCShLOClbm7OKjN85u4web94q/8GJRW3
+ VyEw==
+X-Gm-Message-State: AOJu0YwJo87A3TjnoH59wPUQ9nDwv8ADQaRWBrRFSN0/uVm4F1Vofu5C
+ 18SdRqMwLjQR7Zs7eXvGmJluhku/jkyb3oijcLlalaC1nY8c7+a6zbgtRgCJ2UU=
+X-Google-Smtp-Source: AGHT+IGvq7E13DV9iNnVcdPiYH+SNAfpHIkr3zyoKHgWKaXG17u39y1+WTSsnYZulR9cqSdqq4pACg==
+X-Received: by 2002:a50:cc85:0:b0:57c:70b0:d541 with SMTP id
+ 4fb4d7f45d1cf-57d4a28e5bcmr9805574a12.20.1719437960467; 
+ Wed, 26 Jun 2024 14:39:20 -0700 (PDT)
 Received: from [192.168.215.29] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7247ccb868sm432535066b.208.2024.06.26.14.38.31
+ 4fb4d7f45d1cf-584d0c9dbe6sm15489a12.16.2024.06.26.14.39.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jun 2024 14:38:33 -0700 (PDT)
-Message-ID: <853849b4-69f2-488f-ab17-dc550c235e3d@linaro.org>
-Date: Wed, 26 Jun 2024 23:38:31 +0200
+ Wed, 26 Jun 2024 14:39:19 -0700 (PDT)
+Message-ID: <20b5533a-25e9-447d-8138-7328088f8efe@linaro.org>
+Date: Wed, 26 Jun 2024 23:39:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] drm/msm/adreno: Add support for X185 GPU
-To: Rob Clark <robdclark@gmail.com>, Akhil P Oommen <quic_akhilpo@quicinc.com>
+Subject: Re: [PATCH v1 3/3] arm64: dts: qcom: x1e80100: Add gpu support
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
 Cc: freedreno <freedreno@lists.freedesktop.org>,
  dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+ Rob Clark <robdclark@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20240623110753.141400-1-quic_akhilpo@quicinc.com>
- <20240623110753.141400-3-quic_akhilpo@quicinc.com>
- <5947559d-30dd-4da1-93cc-a15dc65cb77d@linaro.org>
- <20240626082422.zcsari27yoskayuo@hu-akhilpo-hyd.qualcomm.com>
- <CAF6AEGvCaGq8ukxra_bzc=4pUf8y5NndKRagQspD0=uCZdBfoA@mail.gmail.com>
+ <20240623110753.141400-4-quic_akhilpo@quicinc.com>
+ <f5ef4e3c-66e8-4833-86bb-c38658b923ae@linaro.org>
+ <20240626210420.uapn2dauiskluidq@hu-akhilpo-hyd.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
@@ -111,9 +108,9 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <CAF6AEGvCaGq8ukxra_bzc=4pUf8y5NndKRagQspD0=uCZdBfoA@mail.gmail.com>
+In-Reply-To: <20240626210420.uapn2dauiskluidq@hu-akhilpo-hyd.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,47 +126,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26.06.2024 8:43 PM, Rob Clark wrote:
-> On Wed, Jun 26, 2024 at 1:24 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+On 26.06.2024 11:04 PM, Akhil P Oommen wrote:
+> On Mon, Jun 24, 2024 at 03:57:35PM +0200, Konrad Dybcio wrote:
 >>
->> On Mon, Jun 24, 2024 at 03:53:48PM +0200, Konrad Dybcio wrote:
->>>
->>>
->>> On 6/23/24 13:06, Akhil P Oommen wrote:
->>>> Add support in drm/msm driver for the Adreno X185 gpu found in
->>>> Snapdragon X1 Elite chipset.
->>>>
->>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>>> ---
->>>>
->>>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 19 +++++++++++++++----
->>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |  6 ++----
->>>>   drivers/gpu/drm/msm/adreno/adreno_device.c | 14 ++++++++++++++
->>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++++
->>>>   4 files changed, 36 insertions(+), 8 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>> index 0e3dfd4c2bc8..168a4bddfaf2 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>> @@ -830,8 +830,10 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu, unsigned int state)
->>>>      */
->>>>     gmu_write(gmu, REG_A6XX_GMU_CM3_CFG, 0x4052);
->>>> +   if (adreno_is_x185(adreno_gpu)) {
->>>> +           chipid = 0x7050001;
->>>
->>> What's wrong with using the logic below?
 >>
->> patchid is BITS(7, 0), not (15, 8) in the case of x185. Due to the
->> changes in the chipid scheme within the a7x family, this is a bit
->> confusing. I will try to improve here in another series.
+>> On 6/23/24 13:06, Akhil P Oommen wrote:
+>>> Add the necessary dt nodes for gpu support in X1E80100.
+>>>
+>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>> ---
+>>
+>> [...]
+>>
+>>> +
+>>> +				opp-1100000000 {
+>>> +					opp-hz = /bits/ 64 <1100000000>;
+>>> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
+>>> +					opp-peak-kBps = <16500000>;
+>>
+>> No speedbins?
 > 
-> I'm thinking we should just add gmu_chipid to struct a6xx_info, tbh
-> 
-> Maybe to start with, we can fall back to the existing logic if
-> a6xx_info::gmu_chipid is zero so we don't have to add it for _every_
-> a6xx/a7xx
+> Coming soon! I am waiting for some confirmations on some SKU related
+> data. This is the lowest Fmax among all SKUs which we can safely enable
+> for now.
 
-If X185 is not the only occurence, I'd second this..
+Sounds good, thanks
 
 Konrad
