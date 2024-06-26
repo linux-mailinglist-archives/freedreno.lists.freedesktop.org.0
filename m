@@ -2,87 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78A78917A48
-	for <lists+freedreno@lfdr.de>; Wed, 26 Jun 2024 09:59:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5864E917AD7
+	for <lists+freedreno@lfdr.de>; Wed, 26 Jun 2024 10:24:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB0D10E14B;
-	Wed, 26 Jun 2024 07:59:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33D8310E7B5;
+	Wed, 26 Jun 2024 08:24:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="g4DFzsiM";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="hfSaTGka";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D086310E7B2
- for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 07:59:43 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-424ab8c2d95so1254225e9.2
- for <freedreno@lists.freedesktop.org>; Wed, 26 Jun 2024 00:59:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1719388782; x=1719993582; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YKC9JWwz9mDZFJPWKIzZ35FYqwpsv8ltyyUAlB5rNg4=;
- b=g4DFzsiMe/vMIZl/Sgiaw8xXC7us+klkuVXn3+wXZ9IacDKzy8z5ww92YSksAMSbgR
- kjS1Wztdq6ScJqCUVF2VFozRD1lkQEVA/SA9lopJpKadE2QYVbF/0MYfqiiousNQHGTn
- Hbi+ACCa9NKfEJxmuI0ZlT4/l/PYB09kKE5As=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719388782; x=1719993582;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YKC9JWwz9mDZFJPWKIzZ35FYqwpsv8ltyyUAlB5rNg4=;
- b=cm+nIefgILjuZDjF+ssay4Y8jBw2dsKBlGR+jraPL4l0SJccrOoUOQCmTjliihgwGf
- rNREGNpx2FUoYS9RotIB5n/g/Uu/EAiQqrpw3f0EBr8FGo0t+/Vgv+KrCemeic0H9tw6
- V9W1uS6yDRwXurT7hRP/DR/GTPMNKW8JAYOD7TYsrPDNkh9/VJgeIuW7HMy0XYXZsxB4
- B6JyDP1xDF0X6iRO/SUcuBVfGUZyJBTe/UrMpQfC58ZoxfyIJEy+aNW9DEaxbxbFOdjT
- u/yxiVn6TlFCWE+riGMa94Et9Jy3i/31r3NHJNdQ0rnnjKtdEaBxT1LeFBjDleRuK5jB
- fbpw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW/OxnlVvaZkNJuWM+KifnHmODh9SySyxDsPb9D3lcr/2JmQramyMB62GarqFWWkELXt1GHc8EkQBPv4hIQclgoKAszbIpGjw1uyEaPAgiI
-X-Gm-Message-State: AOJu0Yw22fUJ4vCfAe/sB4INl4OlYwhpXRGYYvJ3LXJxbJt4+uPbRrP3
- D4NYByrMGHIMH2I3rBpT0u7ALdWDPsvQ0N7YCF1oCWxERWqYMLcsVa+1y6rfYzs=
-X-Google-Smtp-Source: AGHT+IG4EVOkrn1Y0XT/ql2oK40G3v2KP3e4L4gODD12bYa8V2Qg23ovSXufw0iA+4BOJcA67yWlig==
-X-Received: by 2002:a5d:6d8f:0:b0:366:eb60:bcf2 with SMTP id
- ffacd0b85a97d-366eb60bd9amr6081538f8f.4.1719388781876; 
- Wed, 26 Jun 2024 00:59:41 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36638d9c158sm15120701f8f.56.2024.06.26.00.59.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jun 2024 00:59:41 -0700 (PDT)
-Date: Wed, 26 Jun 2024 09:59:39 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A19010E7B5;
+ Wed, 26 Jun 2024 08:24:36 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45PHXAx0007822;
+ Wed, 26 Jun 2024 08:24:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=ntNa58qOLqwph9C6e84LSq9z
+ sVILNoDqg4IK9f2f1yk=; b=hfSaTGkaWrUg/x7iB1Oi79/TCffwSuU0nPatrsYs
+ HZDhCqc5Zb+uPamx4jqTuSco/ZwzYp9wkqMv/NhOE7Mk+RGIDAQRGaT24/Ihj5cJ
+ lN/cMa+khxv7sP/bIuz/QlPY/a1cquXsD/FYTvmaMFzy05jbwRvr4nbVTUy5mAxE
+ NrDgQ77kM5OMAG9rAJ1MeNXAWy2C0u850XW7+6+n6cu5UGdRjhZpZhKY1hnNLuvK
+ wIf6x07vlhA4Gnj/FKM6PPlbk+vuS6zYgHoVG3pEa3xY3E2d/3ZRyMq3dqye7tTT
+ pet6ltg+WxPSrPVqnhC+0w5KeZaKF1go3LxMNxgVa3fQZA==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ywnjs0rmt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 26 Jun 2024 08:24:31 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45Q8OUOI027363
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 26 Jun 2024 08:24:30 GMT
+Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Wed, 26 Jun 2024 01:24:25 -0700
+Date: Wed, 26 Jun 2024 13:54:22 +0530
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
 To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+CC: freedreno <freedreno@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-Subject: Re: [PATCH v2 1/2] drm/msm/adreno: De-spaghettify the use of memory
- barriers
-Message-ID: <ZnvKa29EceUyZ62U@phenom.ffwll.local>
-Mail-Followup-To: Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-References: <20240625-adreno_barriers-v2-0-c01f2ef4b62a@linaro.org>
- <20240625-adreno_barriers-v2-1-c01f2ef4b62a@linaro.org>
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>,
+ Sean Paul <sean@poorly.run>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1 2/3] drm/msm/adreno: Add support for X185 GPU
+Message-ID: <20240626082422.zcsari27yoskayuo@hu-akhilpo-hyd.qualcomm.com>
+References: <20240623110753.141400-1-quic_akhilpo@quicinc.com>
+ <20240623110753.141400-3-quic_akhilpo@quicinc.com>
+ <5947559d-30dd-4da1-93cc-a15dc65cb77d@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20240625-adreno_barriers-v2-1-c01f2ef4b62a@linaro.org>
-X-Operating-System: Linux phenom 6.8.9-amd64 
+In-Reply-To: <5947559d-30dd-4da1-93cc-a15dc65cb77d@linaro.org>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Nwfdb4rI7TxzPm4fruaVERsR57W1zsBh
+X-Proofpoint-ORIG-GUID: Nwfdb4rI7TxzPm4fruaVERsR57W1zsBh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-26_03,2024-06-25_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ clxscore=1015 mlxscore=0 suspectscore=0 adultscore=0 mlxlogscore=999
+ impostorscore=0 bulkscore=0 malwarescore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2406140001 definitions=main-2406260062
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,78 +95,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jun 25, 2024 at 08:54:41PM +0200, Konrad Dybcio wrote:
-> Memory barriers help ensure instruction ordering, NOT time and order
-> of actual write arrival at other observers (e.g. memory-mapped IP).
-> On architectures employing weak memory ordering, the latter can be a
-> giant pain point, and it has been as part of this driver.
+On Mon, Jun 24, 2024 at 03:53:48PM +0200, Konrad Dybcio wrote:
 > 
-> Moreover, the gpu_/gmu_ accessors already use non-relaxed versions of
-> readl/writel, which include r/w (respectively) barriers.
 > 
-> Replace the barriers with a readback (or drop altogether where possible)
-> that ensures the previous writes have exited the write buffer (as the CPU
-> must flush the write to the register it's trying to read back).
+> On 6/23/24 13:06, Akhil P Oommen wrote:
+> > Add support in drm/msm driver for the Adreno X185 gpu found in
+> > Snapdragon X1 Elite chipset.
+> > 
+> > Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> > ---
+> > 
+> >   drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 19 +++++++++++++++----
+> >   drivers/gpu/drm/msm/adreno/a6xx_gpu.c      |  6 ++----
+> >   drivers/gpu/drm/msm/adreno/adreno_device.c | 14 ++++++++++++++
+> >   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 +++++
+> >   4 files changed, 36 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> > index 0e3dfd4c2bc8..168a4bddfaf2 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> > @@ -830,8 +830,10 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu, unsigned int state)
+> >   	 */
+> >   	gmu_write(gmu, REG_A6XX_GMU_CM3_CFG, 0x4052);
+> > +	if (adreno_is_x185(adreno_gpu)) {
+> > +		chipid = 0x7050001;
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> What's wrong with using the logic below?
 
-Some in pci these readbacks are actually part of the spec and called
-posting reads. I'd very much recommend drivers create a small wrapper
-function for these cases with a void return value, because it makes the
-code so much more legible and easier to understand.
--Sima
+patchid is BITS(7, 0), not (15, 8) in the case of x185. Due to the
+changes in the chipid scheme within the a7x family, this is a bit
+confusing. I will try to improve here in another series.
 
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c |  4 +---
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 10 ++++++----
->  2 files changed, 7 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 0e3dfd4c2bc8..09d640165b18 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -466,9 +466,7 @@ static int a6xx_rpmh_start(struct a6xx_gmu *gmu)
->  	int ret;
->  	u32 val;
->  
-> -	gmu_write(gmu, REG_A6XX_GMU_RSCC_CONTROL_REQ, 1 << 1);
-> -	/* Wait for the register to finish posting */
-> -	wmb();
-> +	gmu_write(gmu, REG_A6XX_GMU_RSCC_CONTROL_REQ, BIT(1));
->  
->  	ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_RSCC_CONTROL_ACK, val,
->  		val & (1 << 1), 100, 10000);
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index c98cdb1e9326..4083d0cad782 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -855,14 +855,16 @@ static int hw_init(struct msm_gpu *gpu)
->  	/* Clear GBIF halt in case GX domain was not collapsed */
->  	if (adreno_is_a619_holi(adreno_gpu)) {
->  		gpu_write(gpu, REG_A6XX_GBIF_HALT, 0);
-> +		gpu_read(gpu, REG_A6XX_GBIF_HALT);
-> +
->  		gpu_write(gpu, REG_A6XX_RBBM_GPR0_CNTL, 0);
-> -		/* Let's make extra sure that the GPU can access the memory.. */
-> -		mb();
-> +		gpu_read(gpu, REG_A6XX_RBBM_GPR0_CNTL);
->  	} else if (a6xx_has_gbif(adreno_gpu)) {
->  		gpu_write(gpu, REG_A6XX_GBIF_HALT, 0);
-> +		gpu_read(gpu, REG_A6XX_GBIF_HALT);
-> +
->  		gpu_write(gpu, REG_A6XX_RBBM_GBIF_HALT, 0);
-> -		/* Let's make extra sure that the GPU can access the memory.. */
-> -		mb();
-> +		gpu_read(gpu, REG_A6XX_RBBM_GBIF_HALT);
->  	}
->  
->  	/* Some GPUs are stubborn and take their sweet time to unhalt GBIF! */
+> >   	/* NOTE: A730 may also fall in this if-condition with a future GMU fw update. */
+> > -	if (adreno_is_a7xx(adreno_gpu) && !adreno_is_a730(adreno_gpu)) {
+> > +	} else if (adreno_is_a7xx(adreno_gpu) && !adreno_is_a730(adreno_gpu)) {
+> >   		/* A7xx GPUs have obfuscated chip IDs. Use constant maj = 7 */
+> >   		chipid = FIELD_PREP(GENMASK(31, 24), 0x7);
+> > @@ -1329,9 +1331,18 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
+> >   	if (!pri_count)
+> >   		return -EINVAL;
+> > -	sec = cmd_db_read_aux_data("mx.lvl", &sec_count);
+> > -	if (IS_ERR(sec))
+> > -		return PTR_ERR(sec);
+> > +	/*
+> > +	 * Some targets have a separate gfx mxc rail. So try to read that first and then fall back
+> > +	 * to regular mx rail if it is missing
+> > +	 */
+> > +	sec = cmd_db_read_aux_data("gmxc.lvl", &sec_count);
+> > +	if (PTR_ERR_OR_ZERO(sec) == -EPROBE_DEFER) {
+> > +		return -EPROBE_DEFER;
+> > +	} else if (IS_ERR(sec)) {
+> > +		sec = cmd_db_read_aux_data("mx.lvl", &sec_count);
+> > +		if (IS_ERR(sec))
+> > +			return PTR_ERR(sec);
+> > +	}
 > 
-> -- 
-> 2.45.2
-> 
+> I assume GMXC would always be used if present, although please use the
+> approach Dmitry suggested
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Correct.
+
+-Akhil
+> 
+> 
+> The rest looks good!
+> 
+> Konrad
