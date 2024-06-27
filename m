@@ -2,68 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5603591A8B0
-	for <lists+freedreno@lfdr.de>; Thu, 27 Jun 2024 16:09:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FC3891ABEA
+	for <lists+freedreno@lfdr.de>; Thu, 27 Jun 2024 17:54:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21ACA10EAB6;
-	Thu, 27 Jun 2024 14:09:52 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SAsCjQB+";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25BE810EB08;
+	Thu, 27 Jun 2024 15:54:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7CF110EAB6;
- Thu, 27 Jun 2024 14:09:50 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 4F3BCCE2F15;
- Thu, 27 Jun 2024 14:09:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5F37C4AF13;
- Thu, 27 Jun 2024 14:09:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1719497385;
- bh=N/OaLsIcQKk+az4MXyzNRYt8fiAoAVDEiwFfGH80yO8=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=SAsCjQB+5D8MLWq0jIbFCQ6AdBh87ptZBB33QWJso5cte5CSKu+7Qo4xKjc4So14V
- D/MtC+0BeskwEoa2wRvCVsyZGNLhXIMa6JzKFR6KCZE2rNohlkoQIxBnayjvY2Zgw8
- 9e8IJ82WTS+UxOBglr6uKcRW7XGcX5ZKT9YYHpxm3ytd6DkXJNvXYOvdtBEznJzuXI
- Ci8gsJOwcZebvsoUOfp11pX4fOb7OZABwwxnkiVVSe2vWTsbDsPuhWnKmUy7VPceHX
- 9IbT5nWPdRwAQYJMyjiRBax6ipPqYg+eCDkM4kG4AOs4734e14ugNiAOAM54YuC+AE
- nB4E/wL3zPRaA==
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-52cdb9526e2so1717780e87.0; 
- Thu, 27 Jun 2024 07:09:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWqSfhhG3vbFnGsiu6erdUVpXwLb9rKV1M2pUseVP7g3RwYKjgd8pOrr/CxyPrB12Iwakp0MrElR7o21QcnBGFzc7ZOneSi84sH75ykZPTpIEgF1aW5nRAGCLYHocu/kzIcNXeiHs/6gYmSGQIIId5c
-X-Gm-Message-State: AOJu0Yy398yD+hxOhBBum+8he9bZgbzKaXh+OS8yszKjrs+ZQqeKjJNn
- BhK7OQ5Nzo5FMw7JNhTP1JjicS8ieJ4zfkzd3UX7RcFCuR2DZaqGea/ZpyZcXt9ztdpYhtiEtgH
- oV642zn7pRw5UC8KYV550mXO/+w==
-X-Google-Smtp-Source: AGHT+IHfkgyQQA4gvyq2HH9PsGgzZGKPkIdmGjgdjtGkoMqcxNoy8z91RZBHjqrqy85lT8uGRsN+wJtK+ZV44Jy73Vo=
-X-Received: by 2002:a05:6512:3d24:b0:52b:963d:277c with SMTP id
- 2adb3069b0e04-52e703af548mr785682e87.33.1719497384167; Thu, 27 Jun 2024
- 07:09:44 -0700 (PDT)
+Received: from ns.iliad.fr (ns.iliad.fr [212.27.33.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07EC810E6AA;
+ Thu, 27 Jun 2024 15:54:10 +0000 (UTC)
+Received: from ns.iliad.fr (localhost [127.0.0.1])
+ by ns.iliad.fr (Postfix) with ESMTP id 9B647208AC;
+ Thu, 27 Jun 2024 17:54:08 +0200 (CEST)
+Received: from [127.0.1.1] (freebox.vlq16.iliad.fr [213.36.7.13])
+ by ns.iliad.fr (Postfix) with ESMTP id 80972205DE;
+ Thu, 27 Jun 2024 17:54:08 +0200 (CEST)
+From: Marc Gonzalez <mgonzalez@freebox.fr>
+Subject: [PATCH v5 0/4] HDMI TX support in msm8998
+Date: Thu, 27 Jun 2024 17:53:58 +0200
+Message-Id: <20240627-hdmi-tx-v5-0-355d5c1fbc3c@freebox.fr>
 MIME-Version: 1.0
-References: <20240614215855.82093-1-danila@jiaxyga.com>
- <20240614215855.82093-4-danila@jiaxyga.com>
-In-Reply-To: <20240614215855.82093-4-danila@jiaxyga.com>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 27 Jun 2024 08:09:31 -0600
-X-Gmail-Original-Message-ID: <CAL_Jsq+vL2fBJBBj13A=qgTQX1rj7tK=ybn+7tXBdpobpRoi6Q@mail.gmail.com>
-Message-ID: <CAL_Jsq+vL2fBJBBj13A=qgTQX1rj7tK=ybn+7tXBdpobpRoi6Q@mail.gmail.com>
-Subject: Re: [PATCH v3 3/4] dt-bindings: display/msm: Add SM7150 MDSS
-To: Danila Tikhonov <danila@jiaxyga.com>
-Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, 
- dmitry.baryshkov@linaro.org, sean@poorly.run, marijn.suijten@somainline.org, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- airlied@gmail.com, daniel@ffwll.ch, krzk+dt@kernel.org, conor+dt@kernel.org, 
- quic_rmccann@quicinc.com, konrad.dybcio@linaro.org, neil.armstrong@linaro.org, 
- jonathan@marek.ca, swboyd@chromium.org, quic_khsieh@quicinc.com, 
- quic_jesszhan@quicinc.com, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABeLfWYC/2WOyw6CMBBFf4V07Zi+GKgr/8O4aOlUukBMIQRD+
+ HcLGzEuT3LPyV3YQCnSwC7FwhJNcYj9M0N5KljT2ueDIPrMTHKpOXKE1ncRxhk4J6qp8t7ZhuX
+ 1K1GI81663TOH1Hcwtons7lvZOCENB0NcgBYKwZRGQkNaGSe4QYfXkIhcP59D2optHMY+vfdrk
+ 9q6/y8mBTnpq0AOvUJdHRvbjUkfRKG+os6itkFUpLFGY37EdV0/CDwMKxoBAAA=
+To: Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, Arnaud Vrac <avrac@freebox.fr>, 
+ Pierre-Hugues Husson <phhusson@freebox.fr>, 
+ Jeffrey Hugo <quic_jhugo@quicinc.com>, Marc Gonzalez <mgonzalez@freebox.fr>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.13.0
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,137 +63,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jun 14, 2024 at 3:59=E2=80=AFPM Danila Tikhonov <danila@jiaxyga.com=
-> wrote:
->
-> Document the MDSS hardware found on the Qualcomm SM7150 platform.
->
-> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->  .../display/msm/qcom,sm7150-mdss.yaml         | 458 ++++++++++++++++++
->  1 file changed, 458 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm=
-7150-mdss.yaml
->
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm7150-md=
-ss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.ya=
-ml
-> new file mode 100644
-> index 0000000000000..13c5d5ffabde9
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml
-> @@ -0,0 +1,458 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/msm/qcom,sm7150-mdss.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm SM7150 Display MDSS
-> +
-> +maintainers:
-> +  - Danila Tikhonov <danila@jiaxyga.com>
-> +
-> +description:
-> +  SM7150 MSM Mobile Display Subsystem(MDSS), which encapsulates sub-bloc=
-ks like
-> +  DPU display controller, DSI and DP interfaces etc.
-> +
-> +$ref: /schemas/display/msm/mdss-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,sm7150-mdss
-> +
-> +  clocks:
-> +    items:
-> +      - description: Display ahb clock from gcc
-> +      - description: Display hf axi clock
-> +      - description: Display sf axi clock
-> +      - description: Display core clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: iface
-> +      - const: bus
-> +      - const: nrt_bus
-> +      - const: core
-> +
-> +  iommus:
-> +    maxItems: 1
-> +
-> +  interconnects:
-> +    items:
-> +      - description: Interconnect path from mdp0 port to the data bus
-> +      - description: Interconnect path from mdp1 port to the data bus
-> +      - description: Interconnect path from CPU to the reg bus
-> +
-> +  interconnect-names:
-> +    items:
-> +      - const: mdp0-mem
-> +      - const: mdp1-mem
-> +      - const: cpu-cfg
-> +
-> +patternProperties:
-> +  "^display-controller@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +    properties:
-> +      compatible:
-> +        const: qcom,sm7150-dpu
-> +
-> +  "^displayport-controller@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +    properties:
-> +      compatible:
-> +        const: qcom,sm7150-dp
-> +
-> +  "^dsi@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +    properties:
-> +      compatible:
-> +        items:
-> +          - const: qcom,sm7150-dsi-ctrl
-> +          - const: qcom,mdss-dsi-ctrl
+DT bits required for HDMI TX support in APQ8098 (msm8998 cousin)
 
-You've added this compatible, but haven't updated the corresponding
-schema. With a recent change to dtschema fixing a regression, we get
-warnings about it:
+---
+Changes in v5:
+- Fix property & property-names for TX pinctrl in DTSI (Konrad)
+- NOT CHANGED: clock trees for TX & PHY based on Dmitry & Jeffrey's remarks
+- Link to v4: https://lore.kernel.org/r/20240613-hdmi-tx-v4-0-4af17e468699@freebox.fr
 
-/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/q=
-com,sm7150-mdss.example.dtb:
-dsi@ae94000: compatible: 'oneOf' conditional failed, one must be
-fixed:
-        ['qcom,sm7150-dsi-ctrl', 'qcom,mdss-dsi-ctrl'] is too long
-        'qcom,sm7150-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl',
-'qcom,msm8226-dsi-ctrl', 'qcom,msm8916-dsi-ctrl',
-'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl',
-'qcom,msm8976-dsi-ctrl', 'qcom,msm8996-dsi-ctrl',
-'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl',
-'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl',
-'qcom,sdm660-dsi-ctrl', 'qcom,sdm670-dsi-ctrl',
-'qcom,sdm845-dsi-ctrl', 'qcom,sm6115-dsi-ctrl',
-'qcom,sm6125-dsi-ctrl', 'qcom,sm6350-dsi-ctrl',
-'qcom,sm6375-dsi-ctrl', 'qcom,sm8150-dsi-ctrl',
-'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl',
-'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl',
-'qcom,sm8650-dsi-ctrl']
-        'qcom,sm7150-dsi-ctrl' is not one of
-['qcom,dsi-ctrl-6g-qcm2290', 'qcom,mdss-dsi-ctrl']
-        from schema $id:
-http://devicetree.org/schemas/display/msm/dsi-controller-main.yaml#
-/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/q=
-com,sm7150-mdss.example.dtb:
-dsi@ae94000: Unevaluated properties are not allowed ('compatible' was
-unexpected)
-        from schema $id:
-http://devicetree.org/schemas/display/msm/dsi-controller-main.yaml#
+Changes in v4:
+- Collect tags since v3
+- Reword patch 1 subject (Vinod)
+- Link to v3: https://lore.kernel.org/r/20240606-hdmi-tx-v3-0-9d7feb6d3647@freebox.fr
 
+Changes in v3
+- Address Rob's comments on patch 2:
+  - 'maxItems: 5' for clocks in the 8996 if/then schema
+  - match the order of 8996 for the clock-names in common
 
-Either you need to drop this node from here (and the example) or
-update the DSI schema.
+---
+Arnaud Vrac (1):
+      arm64: dts: qcom: add HDMI nodes for msm8998
 
-Rob
+Marc Gonzalez (3):
+      dt-bindings: phy: add qcom,hdmi-phy-8998
+      dt-bindings: display/msm: hdmi: add qcom,hdmi-tx-8998
+      arm64: dts: qcom: msm8998: add HDMI GPIOs
+
+ .../devicetree/bindings/display/msm/hdmi.yaml      |  28 ++++-
+ .../devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml |   1 +
+ arch/arm64/boot/dts/qcom/msm8998.dtsi              | 128 ++++++++++++++++++++-
+ 3 files changed, 154 insertions(+), 3 deletions(-)
+---
+base-commit: 0169018354b9a9a2ef5d4972da3c4644ab2a73b2
+change-id: 20240606-hdmi-tx-00ee8e7ddbac
+
+Best regards,
+-- 
+Marc Gonzalez <mgonzalez@freebox.fr>
+
