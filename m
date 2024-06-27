@@ -2,66 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12D8391A07D
-	for <lists+freedreno@lfdr.de>; Thu, 27 Jun 2024 09:37:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E046E91A0F1
+	for <lists+freedreno@lfdr.de>; Thu, 27 Jun 2024 09:56:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D50A410EA56;
-	Thu, 27 Jun 2024 07:37:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1D0D10EA4B;
+	Thu, 27 Jun 2024 07:56:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VcICpKMF";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="izN6NA4z";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3230E10EA55;
- Thu, 27 Jun 2024 07:36:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1719473819; x=1751009819;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=GJvTs8uLp8xqMQpQmNm2+XNXsk73scTBtKxY/yW5KCM=;
- b=VcICpKMFfgcK7vxNgBFiv4VFzxApYRQbDA2mqIpCV5irZkD+9zWRP4m/
- DtIiSMOKDlN8Y9mdgn3NTCzug0p+qBZbbnF2h6irh9/A53GpWvp+0w7I/
- 6OXY0NWdKtz5RcI7Sb94ooxEskB9W8ck2Z36Gkl3UsUBUHWeZWw/bhO1Z
- +UYxtFo9pMecr1b046S0cw47nZYJkPkzh7MzcYvYNszSle25mZwF80hYh
- kXCW8lw8PpPkpV/nV2ud9XgH+cZjRxj3c/j7n3yWtQOOX3JmzpZXT3mk2
- CeplZf0FV3HAz1J2kKgUZwU/r8ttx76wsbygz7obcd2ea+QA2X5aW4qGY Q==;
-X-CSE-ConnectionGUID: FZWxTjZUQLepvXGCHOk84A==
-X-CSE-MsgGUID: X4g2imC8TEeRW/sX2D4mkA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11115"; a="16541218"
-X-IronPort-AV: E=Sophos;i="6.08,269,1712646000"; d="scan'208";a="16541218"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jun 2024 00:36:59 -0700
-X-CSE-ConnectionGUID: kWiZWpTMSQuT6XU78eyK0A==
-X-CSE-MsgGUID: qlNvCSGwR8G61kzM5Gcprg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,269,1712646000"; d="scan'208";a="75473125"
-Received: from lkp-server01.sh.intel.com (HELO 68891e0c336b) ([10.239.97.150])
- by fmviesa001.fm.intel.com with ESMTP; 27 Jun 2024 00:36:56 -0700
-Received: from kbuild by 68891e0c336b with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sMjgb-000G1i-19;
- Thu, 27 Jun 2024 07:36:53 +0000
-Date: Thu, 27 Jun 2024 15:36:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Bjorn Andersson <andersson@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Conor Dooley <conor+dt@kernel.org>,
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8363310EA4B
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Jun 2024 07:56:05 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-3674da15974so30735f8f.2
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Jun 2024 00:56:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1719474963; x=1720079763; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zbRRYSMsE3x7jzz+DuxS0/G+PVyj8TpMxMrZCFeJdO8=;
+ b=izN6NA4zgMZ3JFOvjpYLfvqw4Rxolf78oxVSQqu98LjribRC50dSMjioM/FmNJRx2q
+ DmzlztxkKlv8N6U5YnkGWmklvkpKnpnNANEPc4Ag0n0BFHgWpz8zKvgdv+SZ92POWsCB
+ HRXXSOrMFthOHoEooe9gheWFzxSf47CGLWvmo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719474963; x=1720079763;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=zbRRYSMsE3x7jzz+DuxS0/G+PVyj8TpMxMrZCFeJdO8=;
+ b=exD7RQxBRvrGnYtOxioDkYI/30X/+iykhXu+FNFzCHMGE/tohJRlVHv/F3tvn0pU0G
+ PJo1BxhUcjTttXUFy1y9uVw8JwMjIjJEzRP1QaLkA9jYlXH+yK+P0SUQGSNBTIiRrsN+
+ vf++t7kbDhrj8QBswxqwAHknIhSpAqWM+/xmLRnjd3v5FXPunm+H4oBUlysByQxVJLXb
+ JN8Stf1uol4YaAsShaBAGco+YW2bcC3kyWmTyFhWsizKeFx/o68z/D5g/vvANVV9bdKj
+ oX0km+tYHdbcCflF3I/YDkE8AbhYoLH03uHwn3rENCIv1PlbR0vPyEo8HgW6EZWyqs6C
+ kWPg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU7T3wax2hwZ81zF+rdx3ymjoZfPesZ8aYh+PoIOyD51Yy8jxuesnI3GmEL14m0n98n8B/u1cfPgwRHgLTjt2u0JlklmHDu6yBlk0+uG1US
+X-Gm-Message-State: AOJu0Ywsp9icd7z7teAP6N7ZenjNUjB+FbRleDen/4CRSugWaQ6CvmVH
+ fW6rqD3pkCCfEcu+jsV1YLzbO/bJq9+vBIWmJ9l+n+0RSJA61dGENvx2B91dzQ4=
+X-Google-Smtp-Source: AGHT+IGQvxwnr72q9jrzc9pPl4mSFg75qw0sFbnT2gJfss9vVHp2SS5JoT/Ulnrj/rNfl6IeiI3z+w==
+X-Received: by 2002:a05:600c:5107:b0:424:7876:b6ca with SMTP id
+ 5b1f17b1804b1-42487ea6784mr111875865e9.1.1719474963385; 
+ Thu, 27 Jun 2024 00:56:03 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-424c82519b0sm53017765e9.14.2024.06.27.00.56.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Jun 2024 00:56:02 -0700 (PDT)
+Date: Thu, 27 Jun 2024 09:56:00 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] drm/msm/adreno: De-spaghettify the use of memory
+ barriers
+Message-ID: <Zn0bEMMam4_VPFoc@phenom.ffwll.local>
+Mail-Followup-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 3/3] arm64: dts: qcom: x1e80100: Add gpu support
-Message-ID: <202406271442.d4CbiZMW-lkp@intel.com>
-References: <20240623110753.141400-4-quic_akhilpo@quicinc.com>
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20240625-adreno_barriers-v2-0-c01f2ef4b62a@linaro.org>
+ <20240625-adreno_barriers-v2-1-c01f2ef4b62a@linaro.org>
+ <ZnvKa29EceUyZ62U@phenom.ffwll.local>
+ <20240626212457.6io63avdbncuq6hb@hu-akhilpo-hyd.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240623110753.141400-4-quic_akhilpo@quicinc.com>
+In-Reply-To: <20240626212457.6io63avdbncuq6hb@hu-akhilpo-hyd.qualcomm.com>
+X-Operating-System: Linux phenom 6.8.9-amd64 
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,110 +100,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Akhil,
+On Thu, Jun 27, 2024 at 02:54:57AM +0530, Akhil P Oommen wrote:
+> On Wed, Jun 26, 2024 at 09:59:39AM +0200, Daniel Vetter wrote:
+> > On Tue, Jun 25, 2024 at 08:54:41PM +0200, Konrad Dybcio wrote:
+> > > Memory barriers help ensure instruction ordering, NOT time and order
+> > > of actual write arrival at other observers (e.g. memory-mapped IP).
+> > > On architectures employing weak memory ordering, the latter can be a
+> > > giant pain point, and it has been as part of this driver.
+> > > 
+> > > Moreover, the gpu_/gmu_ accessors already use non-relaxed versions of
+> > > readl/writel, which include r/w (respectively) barriers.
+> > > 
+> > > Replace the barriers with a readback (or drop altogether where possible)
+> > > that ensures the previous writes have exited the write buffer (as the CPU
+> > > must flush the write to the register it's trying to read back).
+> > > 
+> > > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> > 
+> > Some in pci these readbacks are actually part of the spec and called
+> > posting reads. I'd very much recommend drivers create a small wrapper
+> > function for these cases with a void return value, because it makes the
+> > code so much more legible and easier to understand.
+> 
+> For Adreno which is configured via mmio, we don't need to do this often. GBIF_HALT
+> is a scenario where we need to be extra careful as it can potentially cause some
+> internal lockup. Another scenario I can think of is GPU soft reset where need to
+> keep a delay on cpu side after triggering. We should closely scrutinize any
+> other instance that comes up. So I feel a good justification as a comment here
+> would be enough, to remind the reader. Think of it as a way to discourage the
+> use by making it hard.
+> 
+> This is a bit subjective, I am fine if you have a strong opinion on this.
 
-kernel test robot noticed the following build warnings:
+Eh it's up to you, but "we don't do this often" is a reason to make them
+stand out even more. Similar reasons why cpu memory barriers must all have
+a comment, to explain what they're synchronizing against.
 
-[auto build test WARNING on robh/for-next]
-[also build test WARNING on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.10-rc5]
-[cannot apply to next-20240626]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Akhil-P-Oommen/dt-bindings-display-msm-gmu-Add-Adreno-X185-GMU/20240626-061111
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
-patch link:    https://lore.kernel.org/r/20240623110753.141400-4-quic_akhilpo%40quicinc.com
-patch subject: [PATCH v1 3/3] arm64: dts: qcom: x1e80100: Add gpu support
-config: arm64-randconfig-051-20240627 (https://download.01.org/0day-ci/archive/20240627/202406271442.d4CbiZMW-lkp@intel.com/config)
-compiler: clang version 19.0.0git (https://github.com/llvm/llvm-project ad79a14c9e5ec4a369eed4adf567c22cc029863f)
-dtschema version: 2024.6.dev1+g833054f
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240627/202406271442.d4CbiZMW-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202406271442.d4CbiZMW-lkp@intel.com/
-
-dtcheck warnings: (new ones prefixed by >>)
-   arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: phy@fd5000: 'vdda-pll-supply' is a required property
-   	from schema $id: http://devicetree.org/schemas/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml#
-   arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: phy@fda000: 'vdda-phy-supply' is a required property
-   	from schema $id: http://devicetree.org/schemas/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml#
-   arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: phy@fda000: 'vdda-pll-supply' is a required property
-   	from schema $id: http://devicetree.org/schemas/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml#
-   arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: phy@fdf000: 'vdda-phy-supply' is a required property
-   	from schema $id: http://devicetree.org/schemas/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml#
-   arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: phy@fdf000: 'vdda-pll-supply' is a required property
-   	from schema $id: http://devicetree.org/schemas/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml#
->> arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: iommu@3da0000: compatible: 'oneOf' conditional failed, one must be fixed:
-   	['qcom,x1e80100-smmu-500', 'qcom,adreno-smmu', 'qcom,smmu-500', 'arm,mmu-500'] is too long
-   	'qcom,x1e80100-smmu-500' is not one of ['qcom,msm8996-smmu-v2', 'qcom,msm8998-smmu-v2', 'qcom,sdm630-smmu-v2', 'qcom,sm6375-smmu-v2']
-   	'qcom,x1e80100-smmu-500' is not one of ['qcom,qcm2290-smmu-500', 'qcom,sc7180-smmu-500', 'qcom,sc7280-smmu-500', 'qcom,sc8180x-smmu-500', 'qcom,sc8280xp-smmu-500', 'qcom,sdm845-smmu-500', 'qcom,sm6115-smmu-500', 'qcom,sm6350-smmu-500', 'qcom,sm6375-smmu-500', 'qcom,sm8150-smmu-500', 'qcom,sm8250-smmu-500', 'qcom,sm8350-smmu-500', 'qcom,sm8450-smmu-500']
-   	'qcom,x1e80100-smmu-500' is not one of ['qcom,qcm2290-smmu-500', 'qcom,sa8775p-smmu-500', 'qcom,sc7280-smmu-500', 'qcom,sc8280xp-smmu-500', 'qcom,sm6115-smmu-500', 'qcom,sm6125-smmu-500', 'qcom,sm8150-smmu-500', 'qcom,sm8250-smmu-500', 'qcom,sm8350-smmu-500', 'qcom,sm8450-smmu-500', 'qcom,sm8550-smmu-500', 'qcom,sm8650-smmu-500']
-   	'qcom,x1e80100-smmu-500' is not one of ['qcom,sc7280-smmu-500', 'qcom,sm8150-smmu-500', 'qcom,sm8250-smmu-500']
-   	'qcom,x1e80100-smmu-500' is not one of ['qcom,msm8996-smmu-v2', 'qcom,sc7180-smmu-v2', 'qcom,sdm630-smmu-v2', 'qcom,sdm845-smmu-v2', 'qcom,sm6350-smmu-v2', 'qcom,sm7150-smmu-v2']
-   	'qcom,sdm845-smmu-v2' was expected
-   	'marvell,ap806-smmu-500' was expected
-   	'qcom,x1e80100-smmu-500' is not one of ['nvidia,tegra186-smmu', 'nvidia,tegra194-smmu', 'nvidia,tegra234-smmu']
-   	'arm,mmu-500' was expected
-   	'qcom,x1e80100-smmu-500' is not one of ['arm,mmu-400', 'arm,mmu-401']
-   	'qcom,x1e80100-smmu-500' is not one of ['arm,smmu-v1', 'arm,smmu-v2', 'arm,mmu-400', 'arm,mmu-401', 'arm,mmu-500', 'cavium,smmu-v2']
-   	'qcom,smmu-v2' was expected
-   	'qcom,smmu-500' was expected
-   	'nvidia,smmu-500' was expected
-   	'arm,smmu-v2' was expected
-   	'arm,smmu-v1' was expected
-   	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
->> arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: iommu@3da0000: clock-names: False schema does not allow ['hlos', 'bus', 'iface', 'ahb']
-   	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
->> arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: iommu@3da0000: clocks: False schema does not allow [[150, 14], [51, 55], [51, 56], [150, 0]]
-   	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
-   arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: usb@a2f8800: interrupt-names: ['pwr_event', 'dp_hs_phy_irq', 'dm_hs_phy_irq'] is too short
-   	from schema $id: http://devicetree.org/schemas/usb/qcom,dwc3.yaml#
-   arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: /soc@0/arbiter@c400000/spmi@c432000/pmic@7: failed to match any schema with compatible: ['qcom,smb2360', 'qcom,spmi-pmic']
-   arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: /soc@0/arbiter@c400000/spmi@c432000/pmic@a: failed to match any schema with compatible: ['qcom,smb2360', 'qcom,spmi-pmic']
-   arch/arm64/boot/dts/qcom/x1e80100-crd.dtb: /soc@0/arbiter@c400000/spmi@c432000/pmic@b: failed to match any schema with compatible: ['qcom,smb2360', 'qcom,spmi-pmic']
---
-   arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: phy@fd5000: 'vdda-pll-supply' is a required property
-   	from schema $id: http://devicetree.org/schemas/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml#
-   arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: phy@fda000: 'vdda-phy-supply' is a required property
-   	from schema $id: http://devicetree.org/schemas/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml#
-   arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: phy@fda000: 'vdda-pll-supply' is a required property
-   	from schema $id: http://devicetree.org/schemas/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml#
-   arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: phy@fdf000: 'vdda-phy-supply' is a required property
-   	from schema $id: http://devicetree.org/schemas/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml#
-   arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: phy@fdf000: 'vdda-pll-supply' is a required property
-   	from schema $id: http://devicetree.org/schemas/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml#
->> arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: iommu@3da0000: compatible: 'oneOf' conditional failed, one must be fixed:
-   	['qcom,x1e80100-smmu-500', 'qcom,adreno-smmu', 'qcom,smmu-500', 'arm,mmu-500'] is too long
-   	'qcom,x1e80100-smmu-500' is not one of ['qcom,msm8996-smmu-v2', 'qcom,msm8998-smmu-v2', 'qcom,sdm630-smmu-v2', 'qcom,sm6375-smmu-v2']
-   	'qcom,x1e80100-smmu-500' is not one of ['qcom,qcm2290-smmu-500', 'qcom,sc7180-smmu-500', 'qcom,sc7280-smmu-500', 'qcom,sc8180x-smmu-500', 'qcom,sc8280xp-smmu-500', 'qcom,sdm845-smmu-500', 'qcom,sm6115-smmu-500', 'qcom,sm6350-smmu-500', 'qcom,sm6375-smmu-500', 'qcom,sm8150-smmu-500', 'qcom,sm8250-smmu-500', 'qcom,sm8350-smmu-500', 'qcom,sm8450-smmu-500']
-   	'qcom,x1e80100-smmu-500' is not one of ['qcom,qcm2290-smmu-500', 'qcom,sa8775p-smmu-500', 'qcom,sc7280-smmu-500', 'qcom,sc8280xp-smmu-500', 'qcom,sm6115-smmu-500', 'qcom,sm6125-smmu-500', 'qcom,sm8150-smmu-500', 'qcom,sm8250-smmu-500', 'qcom,sm8350-smmu-500', 'qcom,sm8450-smmu-500', 'qcom,sm8550-smmu-500', 'qcom,sm8650-smmu-500']
-   	'qcom,x1e80100-smmu-500' is not one of ['qcom,sc7280-smmu-500', 'qcom,sm8150-smmu-500', 'qcom,sm8250-smmu-500']
-   	'qcom,x1e80100-smmu-500' is not one of ['qcom,msm8996-smmu-v2', 'qcom,sc7180-smmu-v2', 'qcom,sdm630-smmu-v2', 'qcom,sdm845-smmu-v2', 'qcom,sm6350-smmu-v2', 'qcom,sm7150-smmu-v2']
-   	'qcom,sdm845-smmu-v2' was expected
-   	'marvell,ap806-smmu-500' was expected
-   	'qcom,x1e80100-smmu-500' is not one of ['nvidia,tegra186-smmu', 'nvidia,tegra194-smmu', 'nvidia,tegra234-smmu']
-   	'arm,mmu-500' was expected
-   	'qcom,x1e80100-smmu-500' is not one of ['arm,mmu-400', 'arm,mmu-401']
-   	'qcom,x1e80100-smmu-500' is not one of ['arm,smmu-v1', 'arm,smmu-v2', 'arm,mmu-400', 'arm,mmu-401', 'arm,mmu-500', 'cavium,smmu-v2']
-   	'qcom,smmu-v2' was expected
-   	'qcom,smmu-500' was expected
-   	'nvidia,smmu-500' was expected
-   	'arm,smmu-v2' was expected
-   	'arm,smmu-v1' was expected
-   	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
->> arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: iommu@3da0000: clock-names: False schema does not allow ['hlos', 'bus', 'iface', 'ahb']
-   	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
->> arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: iommu@3da0000: clocks: False schema does not allow [[146, 14], [51, 55], [51, 56], [146, 0]]
-   	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
-   arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: usb@a2f8800: interrupt-names: ['pwr_event', 'dp_hs_phy_irq', 'dm_hs_phy_irq'] is too short
-   	from schema $id: http://devicetree.org/schemas/usb/qcom,dwc3.yaml#
-   arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: /soc@0/arbiter@c400000/spmi@c432000/pmic@7: failed to match any schema with compatible: ['qcom,smb2360', 'qcom,spmi-pmic']
-   arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: /soc@0/arbiter@c400000/spmi@c432000/pmic@a: failed to match any schema with compatible: ['qcom,smb2360', 'qcom,spmi-pmic']
-   arch/arm64/boot/dts/qcom/x1e80100-qcp.dtb: /soc@0/arbiter@c400000/spmi@c432000/pmic@b: failed to match any schema with compatible: ['qcom,smb2360', 'qcom,spmi-pmic']
-
+Up to you if you just want a comment rule or make them stand out even more
+with an explicit name (and still have the comment rule) that's different
+from normal reads. Again comparing to cpu barriers, the nice thing is that
+they're (in most cases at least, unless you do really scary stuff) very
+easy to spot in the code and the ring alarm bells when doing reviews.
+-Sima
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
