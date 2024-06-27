@@ -2,89 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E046E91A0F1
-	for <lists+freedreno@lfdr.de>; Thu, 27 Jun 2024 09:56:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5603591A8B0
+	for <lists+freedreno@lfdr.de>; Thu, 27 Jun 2024 16:09:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1D0D10EA4B;
-	Thu, 27 Jun 2024 07:56:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21ACA10EAB6;
+	Thu, 27 Jun 2024 14:09:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="izN6NA4z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SAsCjQB+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8363310EA4B
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jun 2024 07:56:05 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-3674da15974so30735f8f.2
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jun 2024 00:56:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1719474963; x=1720079763; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zbRRYSMsE3x7jzz+DuxS0/G+PVyj8TpMxMrZCFeJdO8=;
- b=izN6NA4zgMZ3JFOvjpYLfvqw4Rxolf78oxVSQqu98LjribRC50dSMjioM/FmNJRx2q
- DmzlztxkKlv8N6U5YnkGWmklvkpKnpnNANEPc4Ag0n0BFHgWpz8zKvgdv+SZ92POWsCB
- HRXXSOrMFthOHoEooe9gheWFzxSf47CGLWvmo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719474963; x=1720079763;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=zbRRYSMsE3x7jzz+DuxS0/G+PVyj8TpMxMrZCFeJdO8=;
- b=exD7RQxBRvrGnYtOxioDkYI/30X/+iykhXu+FNFzCHMGE/tohJRlVHv/F3tvn0pU0G
- PJo1BxhUcjTttXUFy1y9uVw8JwMjIjJEzRP1QaLkA9jYlXH+yK+P0SUQGSNBTIiRrsN+
- vf++t7kbDhrj8QBswxqwAHknIhSpAqWM+/xmLRnjd3v5FXPunm+H4oBUlysByQxVJLXb
- JN8Stf1uol4YaAsShaBAGco+YW2bcC3kyWmTyFhWsizKeFx/o68z/D5g/vvANVV9bdKj
- oX0km+tYHdbcCflF3I/YDkE8AbhYoLH03uHwn3rENCIv1PlbR0vPyEo8HgW6EZWyqs6C
- kWPg==
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7CF110EAB6;
+ Thu, 27 Jun 2024 14:09:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 4F3BCCE2F15;
+ Thu, 27 Jun 2024 14:09:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5F37C4AF13;
+ Thu, 27 Jun 2024 14:09:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1719497385;
+ bh=N/OaLsIcQKk+az4MXyzNRYt8fiAoAVDEiwFfGH80yO8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=SAsCjQB+5D8MLWq0jIbFCQ6AdBh87ptZBB33QWJso5cte5CSKu+7Qo4xKjc4So14V
+ D/MtC+0BeskwEoa2wRvCVsyZGNLhXIMa6JzKFR6KCZE2rNohlkoQIxBnayjvY2Zgw8
+ 9e8IJ82WTS+UxOBglr6uKcRW7XGcX5ZKT9YYHpxm3ytd6DkXJNvXYOvdtBEznJzuXI
+ Ci8gsJOwcZebvsoUOfp11pX4fOb7OZABwwxnkiVVSe2vWTsbDsPuhWnKmUy7VPceHX
+ 9IbT5nWPdRwAQYJMyjiRBax6ipPqYg+eCDkM4kG4AOs4734e14ugNiAOAM54YuC+AE
+ nB4E/wL3zPRaA==
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-52cdb9526e2so1717780e87.0; 
+ Thu, 27 Jun 2024 07:09:45 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCU7T3wax2hwZ81zF+rdx3ymjoZfPesZ8aYh+PoIOyD51Yy8jxuesnI3GmEL14m0n98n8B/u1cfPgwRHgLTjt2u0JlklmHDu6yBlk0+uG1US
-X-Gm-Message-State: AOJu0Ywsp9icd7z7teAP6N7ZenjNUjB+FbRleDen/4CRSugWaQ6CvmVH
- fW6rqD3pkCCfEcu+jsV1YLzbO/bJq9+vBIWmJ9l+n+0RSJA61dGENvx2B91dzQ4=
-X-Google-Smtp-Source: AGHT+IGQvxwnr72q9jrzc9pPl4mSFg75qw0sFbnT2gJfss9vVHp2SS5JoT/Ulnrj/rNfl6IeiI3z+w==
-X-Received: by 2002:a05:600c:5107:b0:424:7876:b6ca with SMTP id
- 5b1f17b1804b1-42487ea6784mr111875865e9.1.1719474963385; 
- Thu, 27 Jun 2024 00:56:03 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-424c82519b0sm53017765e9.14.2024.06.27.00.56.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jun 2024 00:56:02 -0700 (PDT)
-Date: Thu, 27 Jun 2024 09:56:00 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] drm/msm/adreno: De-spaghettify the use of memory
- barriers
-Message-ID: <Zn0bEMMam4_VPFoc@phenom.ffwll.local>
-Mail-Followup-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20240625-adreno_barriers-v2-0-c01f2ef4b62a@linaro.org>
- <20240625-adreno_barriers-v2-1-c01f2ef4b62a@linaro.org>
- <ZnvKa29EceUyZ62U@phenom.ffwll.local>
- <20240626212457.6io63avdbncuq6hb@hu-akhilpo-hyd.qualcomm.com>
+ AJvYcCWqSfhhG3vbFnGsiu6erdUVpXwLb9rKV1M2pUseVP7g3RwYKjgd8pOrr/CxyPrB12Iwakp0MrElR7o21QcnBGFzc7ZOneSi84sH75ykZPTpIEgF1aW5nRAGCLYHocu/kzIcNXeiHs/6gYmSGQIIId5c
+X-Gm-Message-State: AOJu0Yy398yD+hxOhBBum+8he9bZgbzKaXh+OS8yszKjrs+ZQqeKjJNn
+ BhK7OQ5Nzo5FMw7JNhTP1JjicS8ieJ4zfkzd3UX7RcFCuR2DZaqGea/ZpyZcXt9ztdpYhtiEtgH
+ oV642zn7pRw5UC8KYV550mXO/+w==
+X-Google-Smtp-Source: AGHT+IHfkgyQQA4gvyq2HH9PsGgzZGKPkIdmGjgdjtGkoMqcxNoy8z91RZBHjqrqy85lT8uGRsN+wJtK+ZV44Jy73Vo=
+X-Received: by 2002:a05:6512:3d24:b0:52b:963d:277c with SMTP id
+ 2adb3069b0e04-52e703af548mr785682e87.33.1719497384167; Thu, 27 Jun 2024
+ 07:09:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240626212457.6io63avdbncuq6hb@hu-akhilpo-hyd.qualcomm.com>
-X-Operating-System: Linux phenom 6.8.9-amd64 
+References: <20240614215855.82093-1-danila@jiaxyga.com>
+ <20240614215855.82093-4-danila@jiaxyga.com>
+In-Reply-To: <20240614215855.82093-4-danila@jiaxyga.com>
+From: Rob Herring <robh@kernel.org>
+Date: Thu, 27 Jun 2024 08:09:31 -0600
+X-Gmail-Original-Message-ID: <CAL_Jsq+vL2fBJBBj13A=qgTQX1rj7tK=ybn+7tXBdpobpRoi6Q@mail.gmail.com>
+Message-ID: <CAL_Jsq+vL2fBJBBj13A=qgTQX1rj7tK=ybn+7tXBdpobpRoi6Q@mail.gmail.com>
+Subject: Re: [PATCH v3 3/4] dt-bindings: display/msm: Add SM7150 MDSS
+To: Danila Tikhonov <danila@jiaxyga.com>
+Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, 
+ dmitry.baryshkov@linaro.org, sean@poorly.run, marijn.suijten@somainline.org, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, daniel@ffwll.ch, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ quic_rmccann@quicinc.com, konrad.dybcio@linaro.org, neil.armstrong@linaro.org, 
+ jonathan@marek.ca, swboyd@chromium.org, quic_khsieh@quicinc.com, 
+ quic_jesszhan@quicinc.com, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,49 +79,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 27, 2024 at 02:54:57AM +0530, Akhil P Oommen wrote:
-> On Wed, Jun 26, 2024 at 09:59:39AM +0200, Daniel Vetter wrote:
-> > On Tue, Jun 25, 2024 at 08:54:41PM +0200, Konrad Dybcio wrote:
-> > > Memory barriers help ensure instruction ordering, NOT time and order
-> > > of actual write arrival at other observers (e.g. memory-mapped IP).
-> > > On architectures employing weak memory ordering, the latter can be a
-> > > giant pain point, and it has been as part of this driver.
-> > > 
-> > > Moreover, the gpu_/gmu_ accessors already use non-relaxed versions of
-> > > readl/writel, which include r/w (respectively) barriers.
-> > > 
-> > > Replace the barriers with a readback (or drop altogether where possible)
-> > > that ensures the previous writes have exited the write buffer (as the CPU
-> > > must flush the write to the register it's trying to read back).
-> > > 
-> > > Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> > 
-> > Some in pci these readbacks are actually part of the spec and called
-> > posting reads. I'd very much recommend drivers create a small wrapper
-> > function for these cases with a void return value, because it makes the
-> > code so much more legible and easier to understand.
-> 
-> For Adreno which is configured via mmio, we don't need to do this often. GBIF_HALT
-> is a scenario where we need to be extra careful as it can potentially cause some
-> internal lockup. Another scenario I can think of is GPU soft reset where need to
-> keep a delay on cpu side after triggering. We should closely scrutinize any
-> other instance that comes up. So I feel a good justification as a comment here
-> would be enough, to remind the reader. Think of it as a way to discourage the
-> use by making it hard.
-> 
-> This is a bit subjective, I am fine if you have a strong opinion on this.
+On Fri, Jun 14, 2024 at 3:59=E2=80=AFPM Danila Tikhonov <danila@jiaxyga.com=
+> wrote:
+>
+> Document the MDSS hardware found on the Qualcomm SM7150 platform.
+>
+> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  .../display/msm/qcom,sm7150-mdss.yaml         | 458 ++++++++++++++++++
+>  1 file changed, 458 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sm=
+7150-mdss.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm7150-md=
+ss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.ya=
+ml
+> new file mode 100644
+> index 0000000000000..13c5d5ffabde9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml
+> @@ -0,0 +1,458 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/msm/qcom,sm7150-mdss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SM7150 Display MDSS
+> +
+> +maintainers:
+> +  - Danila Tikhonov <danila@jiaxyga.com>
+> +
+> +description:
+> +  SM7150 MSM Mobile Display Subsystem(MDSS), which encapsulates sub-bloc=
+ks like
+> +  DPU display controller, DSI and DP interfaces etc.
+> +
+> +$ref: /schemas/display/msm/mdss-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,sm7150-mdss
+> +
+> +  clocks:
+> +    items:
+> +      - description: Display ahb clock from gcc
+> +      - description: Display hf axi clock
+> +      - description: Display sf axi clock
+> +      - description: Display core clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: iface
+> +      - const: bus
+> +      - const: nrt_bus
+> +      - const: core
+> +
+> +  iommus:
+> +    maxItems: 1
+> +
+> +  interconnects:
+> +    items:
+> +      - description: Interconnect path from mdp0 port to the data bus
+> +      - description: Interconnect path from mdp1 port to the data bus
+> +      - description: Interconnect path from CPU to the reg bus
+> +
+> +  interconnect-names:
+> +    items:
+> +      - const: mdp0-mem
+> +      - const: mdp1-mem
+> +      - const: cpu-cfg
+> +
+> +patternProperties:
+> +  "^display-controller@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +    properties:
+> +      compatible:
+> +        const: qcom,sm7150-dpu
+> +
+> +  "^displayport-controller@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +    properties:
+> +      compatible:
+> +        const: qcom,sm7150-dp
+> +
+> +  "^dsi@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +    properties:
+> +      compatible:
+> +        items:
+> +          - const: qcom,sm7150-dsi-ctrl
+> +          - const: qcom,mdss-dsi-ctrl
 
-Eh it's up to you, but "we don't do this often" is a reason to make them
-stand out even more. Similar reasons why cpu memory barriers must all have
-a comment, to explain what they're synchronizing against.
+You've added this compatible, but haven't updated the corresponding
+schema. With a recent change to dtschema fixing a regression, we get
+warnings about it:
 
-Up to you if you just want a comment rule or make them stand out even more
-with an explicit name (and still have the comment rule) that's different
-from normal reads. Again comparing to cpu barriers, the nice thing is that
-they're (in most cases at least, unless you do really scary stuff) very
-easy to spot in the code and the ring alarm bells when doing reviews.
--Sima
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/q=
+com,sm7150-mdss.example.dtb:
+dsi@ae94000: compatible: 'oneOf' conditional failed, one must be
+fixed:
+        ['qcom,sm7150-dsi-ctrl', 'qcom,mdss-dsi-ctrl'] is too long
+        'qcom,sm7150-dsi-ctrl' is not one of ['qcom,apq8064-dsi-ctrl',
+'qcom,msm8226-dsi-ctrl', 'qcom,msm8916-dsi-ctrl',
+'qcom,msm8953-dsi-ctrl', 'qcom,msm8974-dsi-ctrl',
+'qcom,msm8976-dsi-ctrl', 'qcom,msm8996-dsi-ctrl',
+'qcom,msm8998-dsi-ctrl', 'qcom,qcm2290-dsi-ctrl',
+'qcom,sc7180-dsi-ctrl', 'qcom,sc7280-dsi-ctrl',
+'qcom,sdm660-dsi-ctrl', 'qcom,sdm670-dsi-ctrl',
+'qcom,sdm845-dsi-ctrl', 'qcom,sm6115-dsi-ctrl',
+'qcom,sm6125-dsi-ctrl', 'qcom,sm6350-dsi-ctrl',
+'qcom,sm6375-dsi-ctrl', 'qcom,sm8150-dsi-ctrl',
+'qcom,sm8250-dsi-ctrl', 'qcom,sm8350-dsi-ctrl',
+'qcom,sm8450-dsi-ctrl', 'qcom,sm8550-dsi-ctrl',
+'qcom,sm8650-dsi-ctrl']
+        'qcom,sm7150-dsi-ctrl' is not one of
+['qcom,dsi-ctrl-6g-qcm2290', 'qcom,mdss-dsi-ctrl']
+        from schema $id:
+http://devicetree.org/schemas/display/msm/dsi-controller-main.yaml#
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/q=
+com,sm7150-mdss.example.dtb:
+dsi@ae94000: Unevaluated properties are not allowed ('compatible' was
+unexpected)
+        from schema $id:
+http://devicetree.org/schemas/display/msm/dsi-controller-main.yaml#
+
+
+Either you need to drop this node from here (and the example) or
+update the DSI schema.
+
+Rob
