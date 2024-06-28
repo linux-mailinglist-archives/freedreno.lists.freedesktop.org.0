@@ -2,75 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77AC591B2A9
-	for <lists+freedreno@lfdr.de>; Fri, 28 Jun 2024 01:22:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86C3191B5FB
+	for <lists+freedreno@lfdr.de>; Fri, 28 Jun 2024 07:20:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AE4910E4FD;
-	Thu, 27 Jun 2024 23:22:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 422FB10EBB0;
+	Fri, 28 Jun 2024 05:20:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="z3Ue3jpc";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iZpdVA21";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DFFC10E28B
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jun 2024 23:22:45 +0000 (UTC)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-632750bf73bso22397b3.2
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jun 2024 16:22:45 -0700 (PDT)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C9FA10EBB0
+ for <freedreno@lists.freedesktop.org>; Fri, 28 Jun 2024 05:20:29 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-52cecba8d11so217610e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 27 Jun 2024 22:20:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719530564; x=1720135364; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0LB7gCAzcMu24VqG7bE0lt079FWwJNySL9zyflCf6kE=;
- b=z3Ue3jpck670xDT14UI3CyRnQlO26gllBxt+iun3KuVevUyVFNpUcUj2lJhkXu9K8Y
- ViXEX2S9Gwub9N3YXW0sCsJDj44y3wigbJVjwR9yKKqPDNJomVETxNDu9GdzWKLIR/eX
- c3uBV6GGLSY9WQEDB9c3A9hdS8OP/wtFAZrQ2dM+BCSr7QQwX1yvH97Jb8Gebwl8CjfG
- R3zQ7OkkKaRYz0XtUyB4qftLlryhD3g8y9DQbIAtmB5aZzSFupmC0QqshI7rYCGZ5iDI
- 1WsoHrWuAYv3DNVYNzW72yRH8JiYhbfkIZYjEXWhKYxDP5vHQp5WdD5FgZtRbsgMUjyc
- D0lw==
+ d=linaro.org; s=google; t=1719552027; x=1720156827; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vpefSJiaGnqEfIeGrIWUX7KpqJ2img/BwDRlYR/iXXw=;
+ b=iZpdVA21rVbeG7FISu3hEYJkuu+YwkDeRxPDjTVw5bR9VIKBMsGR5JiIZsrW3MH6aI
+ ftv9i5TOk7bj6GFB7OaYHNb6yhwVFLxrlB64sDB7+hpdxeEGlIPXpdNzuLvtKULFS8Gd
+ K1FZLv7dEA0clR0mOLITVhFQ5pIh1ihvFvymUvRfXXBfx9sJCFOKzX8ZdoCbLi87E/gg
+ DNWdvWfDsG5lPLFHzwgL8OPpPxJ2ZegqgwbJes+E+R0n/cDXHzICzUw3qH6hNm2Z/40G
+ LLyGl9rqbOIei+TpDR5u/cqJxG2I448neHxKi6XXuqMAslburkJ2vU3d0lqWqkNoLSM2
+ Ydig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719530564; x=1720135364;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=0LB7gCAzcMu24VqG7bE0lt079FWwJNySL9zyflCf6kE=;
- b=sv7bj3IEBugOGhGPLvk+qPgeD8F7eTZr8QNTuvJjyHHJoT6da+j8jNEAjJvqykbvoI
- eZclbSD5duDV9FrmJZ9TFbZra9jaLMCHLebf4jxc/YnH+fwSyKjl3M1oSBO408rbHTXD
- UcwyMpCbvpT5xjZ51/UNe7o6gReTr6bKRNgtpiSPRVOlXuYxwZ94aDfr0lAXTC9SkxB9
- X98nO1ROPP+VXq1X51Z8+XQF3sjlLkksDDSXVkVFCDzlqIIamzzLj8TVUOeHFTnFHATb
- 6NZk5YGPLR5jb4zAoszVPi9CwNe2ay65Sq1WV506+uW14VFHnD75ndk8cm/kOj0hv4Fk
- JtTA==
+ d=1e100.net; s=20230601; t=1719552027; x=1720156827;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=vpefSJiaGnqEfIeGrIWUX7KpqJ2img/BwDRlYR/iXXw=;
+ b=msmbjTYf8SNsTDcTYHbHkNX2RbLRzLK9DcQateWYYCjdrh5YsGS98nOkV28yTtXQ8B
+ pYYA6JiqEUQUGpSmoqBqfJ+I+lo+E5wBfYqB2omPqvqx5EnfYmcSH4wgsKhslTxvnGnc
+ tJNg1QfhKkDa/orIEuw3xoo0MUha5Oq3+Aw6fd01NebpXuLeO4DAW6DYLAAfyoTSGamd
+ aQNlbslT5DOqO6YAaPht20BHNVgtzxcfZbAeWxbLNdr8eTyS+/D11EMid4MKklQaHw/h
+ wUBFrNSkUlVJs3aJaT3959QOi9SAk5Jqa3BNjzJpDawZTuCbov6hBFKVL1IZR/DojIOl
+ v07A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU1TMieT2xwsRsNkM29SGDjUeYyHGfEFoGK5+mf74vseh39NjIkVtmQUu6lW7VSoa9gOitOjV4qWwLDPMaD0+vg4jPVNs+rscITXV3aqAGz
-X-Gm-Message-State: AOJu0Yweb+9xXLtiZ500epiv/ujaHXldvJvC7N28O5uclS+Iw2vESpXb
- dUp7oTDzj0A+oly9PKYPijb9aIoXX20nV94cfxMwT34WTlCQrDlKpKMwDQ1NR/uj0nkaYenhuk/
- 9WnCRCPeRctXGXegNCCqvkJDyFZp7yWrwaRpk7A==
-X-Google-Smtp-Source: AGHT+IHVr+5tNjDkazfolV1Z/Izc4wyGgRDTTfMMbJrJozuIjcL1Ax1K2NLH9YQJmTc28hAZR6/sL18+n2Y2dm8UqRQ=
-X-Received: by 2002:a05:690c:d8a:b0:627:972f:baba with SMTP id
- 00721157ae682-643aae70b44mr194087277b3.31.1719530564028; Thu, 27 Jun 2024
- 16:22:44 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240627205328.2912859-1-quic_abhinavk@quicinc.com>
- <CAF6AEGuGYG5mO-4KdNFbQFMA4dKj2PWT22xeh-3AFgedAG0uHw@mail.gmail.com>
- <3749ac14-54d0-fb62-345b-cef62399b6d4@quicinc.com>
-In-Reply-To: <3749ac14-54d0-fb62-345b-cef62399b6d4@quicinc.com>
+ AJvYcCUnnzPGDhHp582U24MDtohiiURGp91hgJrbwCkxD9ctCKGLeuqxAcHNEVEW3YuhmwS4GfaG4QAHlG2X1BtiM7g385ZOOMVOmf3amBdcPPBf
+X-Gm-Message-State: AOJu0YxsxU07tofzmPkUW+GiS9/yVepkEd+w6K9k/na/98z865KYRVcX
+ EPrmUhoHFYoa7Y5OEyPIcnt+pFqMtnp2vRNF6pek1E+8GFO1Ed+lPkp6T39fyo4=
+X-Google-Smtp-Source: AGHT+IFxae/ZOWmakYzI1aE7tdFOnmCfK6pLehwC0xpC1CEJL44IXUw0l2cwjQo8TT3azIyHySknEA==
+X-Received: by 2002:a05:6512:220c:b0:52c:ddce:4fda with SMTP id
+ 2adb3069b0e04-52ce183250emr11796358e87.2.1719552026893; 
+ Thu, 27 Jun 2024 22:20:26 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52e7ab101c5sm167736e87.79.2024.06.27.22.20.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Jun 2024 22:20:26 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 28 Jun 2024 02:22:32 +0300
-Message-ID: <CAA8EJppM1429sGzW6hq4QzLEjVX5Cf+8Jt5y94+VocFmPyxz+Q@mail.gmail.com>
-Subject: Re: [RFC PATCH] drm/msm/dpu: check ubwc support before adding
- compressed formats
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, freedreno@lists.freedesktop.org, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- quic_jesszhan@quicinc.com, konrad.dybcio@linaro.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: [PATCH 0/2] clk: qcom: gpucc-*: stop requesting register resource
+Date: Fri, 28 Jun 2024 08:20:21 +0300
+Message-Id: <20240628-gpucc-no-request-v1-0-b680c2f90817@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABVIfmYC/x3MQQqAIBBA0avIrBsoKYuuEi3MRpuNlVYE4t2Tl
+ m/xf4JIgSnCKBIEejjy7guaSoDZtHeEvBaDrGVbK9mjO25j0O8Y6LwpXmgWtXS2lzSsGkp2BLL
+ 8/stpzvkDURVnzWIAAAA=
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>
+Cc: Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ linux-clk@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1748;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=nozoIUcXI4qDBNkbxpqvRvoom0g8ypFap+QSsXv/xZs=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmfkgZCO1i8MgCYMFMkelu5PazNJg+YyIXN7oPT
+ 6Jo+hBxdRWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZn5IGQAKCRCLPIo+Aiko
+ 1Qu+B/977z/5JNUU8bWElQL0CjlvFvUdulyiVMSBTJrs0GiUb+G2RUlPm6Jl6I82DlbMOcj5rv2
+ nurFFvlR3i9LkQqpC+VWYznTq/5Iu1R3XM7Ss5e4twHFkwZXD3fiaDqK+/9f2jB1OAVYT2MMkSA
+ hsRxYxev+GUNbn7HuJ9YVDJScUO8azF4iUEn5KOSbETc1AM/paaeVXS1OkDrT56wpmv079cgQxI
+ D86NIsaljIOBks0ADHdAkgbuDF9ut23aufyeRNtt77c/R18/a8wEii48qn803Bl5tFmMwbiVOYv
+ BnuawaTtmdeXMKVptadsyUHxRH8zv1a/Smw4qHuGN54BuF7p
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,77 +98,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 28 Jun 2024 at 00:21, Abhinav Kumar <quic_abhinavk@quicinc.com> wro=
-te:
->
->
->
-> On 6/27/2024 2:13 PM, Rob Clark wrote:
-> > On Thu, Jun 27, 2024 at 1:53=E2=80=AFPM Abhinav Kumar <quic_abhinavk@qu=
-icinc.com> wrote:
-> >>
-> >> On QCM2290 chipset DPU does not support UBWC.
-> >>
-> >> Add a dpu cap to indicate this and do not expose compressed formats
-> >> in this case.
-> >>
-> >> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >> ---
-> >>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h | 1 +
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h          | 2 ++
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c               | 5 ++++-
-> >>   3 files changed, 7 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h b=
-/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
-> >> index 3cbb2fe8aba2..6671f798bacc 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
-> >> @@ -12,6 +12,7 @@ static const struct dpu_caps qcm2290_dpu_caps =3D {
-> >>          .max_mixer_blendstages =3D 0x4,
-> >>          .has_dim_layer =3D true,
-> >>          .has_idle_pc =3D true,
-> >> +       .has_no_ubwc =3D true,
-> >>          .max_linewidth =3D 2160,
-> >>          .pixel_ram_size =3D DEFAULT_PIXEL_RAM_SIZE,
-> >>   };
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/=
-gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> >> index af2ead1c4886..676d0a283922 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> >> @@ -342,6 +342,7 @@ struct dpu_rotation_cfg {
-> >>    * @has_dim_layer      dim layer feature status
-> >>    * @has_idle_pc        indicate if idle power collapse feature is su=
-pported
-> >>    * @has_3d_merge       indicate if 3D merge is supported
-> >> + * @has_no_ubwc        indicate if UBWC is supported
-> >>    * @max_linewidth      max linewidth for sspp
-> >>    * @pixel_ram_size     size of latency hiding and de-tiling buffer i=
-n bytes
-> >>    * @max_hdeci_exp      max horizontal decimation supported (max is 2=
-^value)
-> >> @@ -354,6 +355,7 @@ struct dpu_caps {
-> >>          bool has_dim_layer;
-> >>          bool has_idle_pc;
-> >>          bool has_3d_merge;
-> >> +       bool has_no_ubwc;
-> >
-> > has_no_ubwc sounds kinda awkward compared to has_ubwc.  But I guess
-> > you wanted to avoid all that churn..
-> >
->
-> Yes I wanted to avoid modifying all the catalogs.
->
-> > How about instead, if msm_mdss_data::ubwc_{enc,dec}_version are zero,
-> > then we know there is no ubwc support in the display.
-> >
->
-> hmm ... should work .... I can post a v2 with this and avoid touching
-> the catalog altogether.
+Testing of [1] pointed out that on all modern Qualcomm platforms GPU
+clock controller shares regiser space with the GMU. All gpucc drivers
+use (internally) devm_platform_ioremap_resource(), preventing the GPU
+driver from using devm_ioremap_resource() on its own. As GMU register
+space includes gpucc's one, make gpucc drivers use non-requesting
+helper, allowing GPU to take over the bigger memory region.
 
-Yes, this sounds much better.
+[1] https://patchwork.freedesktop.org/series/134401/
 
---=20
-With best wishes
-Dmitry
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (2):
+      clk: qocm: add qcom_cc_map_norequest
+      clk: qcom: gpucc-*: use qcom_cc_map_norequest
+
+ drivers/clk/qcom/common.c         | 20 ++++++++++++++++++++
+ drivers/clk/qcom/common.h         |  2 ++
+ drivers/clk/qcom/gpucc-qcm2290.c  |  2 +-
+ drivers/clk/qcom/gpucc-sa8775p.c  |  2 +-
+ drivers/clk/qcom/gpucc-sc7180.c   |  2 +-
+ drivers/clk/qcom/gpucc-sc7280.c   |  2 +-
+ drivers/clk/qcom/gpucc-sc8280xp.c |  2 +-
+ drivers/clk/qcom/gpucc-sdm845.c   |  2 +-
+ drivers/clk/qcom/gpucc-sm6115.c   |  2 +-
+ drivers/clk/qcom/gpucc-sm6125.c   |  2 +-
+ drivers/clk/qcom/gpucc-sm6350.c   |  2 +-
+ drivers/clk/qcom/gpucc-sm6375.c   |  2 +-
+ drivers/clk/qcom/gpucc-sm8150.c   |  2 +-
+ drivers/clk/qcom/gpucc-sm8250.c   |  2 +-
+ drivers/clk/qcom/gpucc-sm8350.c   |  2 +-
+ drivers/clk/qcom/gpucc-sm8450.c   |  2 +-
+ drivers/clk/qcom/gpucc-sm8550.c   |  2 +-
+ drivers/clk/qcom/gpucc-sm8650.c   |  2 +-
+ drivers/clk/qcom/gpucc-x1e80100.c |  2 +-
+ 19 files changed, 39 insertions(+), 17 deletions(-)
+---
+base-commit: 5d98d5e70f505b7278336de493eba94cde5526b3
+change-id: 20240627-gpucc-no-request-cb6b5f72e8da
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
