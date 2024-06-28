@@ -2,87 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B52591B5FE
-	for <lists+freedreno@lfdr.de>; Fri, 28 Jun 2024 07:20:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCDC991B65C
+	for <lists+freedreno@lfdr.de>; Fri, 28 Jun 2024 07:44:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 038A210EBB3;
-	Fri, 28 Jun 2024 05:20:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90F5F10EBB3;
+	Fri, 28 Jun 2024 05:44:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vnLMmW30";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="IyLNm8Di";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6140010EBB2
- for <freedreno@lists.freedesktop.org>; Fri, 28 Jun 2024 05:20:30 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-52db11b1d31so267194e87.0
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jun 2024 22:20:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719552028; x=1720156828; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=mlBuOCd228OEzTi+Lw7sdjUybkFAFwm+zLxjPBpTo+8=;
- b=vnLMmW30KG44+amHs0ZVUFXaPMZnHhI+TtcgxxCnbrNAvMoPBxJNmKVWXqZshH16L1
- 0/+UQnDk880LxiGPRWAn0KtmxTJj9cokP3MtW0gacma4ZVgCxwIEfVSdBbgT+Tunm1vQ
- cVWkOkUInkPgfbYCKzEP6ZteMQ595pDWt7aC0kRsm3exzVPrk3Nf9nQEZjnOU9y87KzI
- clncfXz427vfeyMXDv6fE01xkjTkkp0QNsYEiML57z+D/54yqMkvGUi3BJ5Gp5FhHDag
- 1957WDdKVrLUtc5mMbR+JmDKw4qKIR28GmF3nRgfpY9YdWp1Wq8aU/GYh80UFwxaHhUW
- 83rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719552028; x=1720156828;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mlBuOCd228OEzTi+Lw7sdjUybkFAFwm+zLxjPBpTo+8=;
- b=Xdfysm9Wry2bwpl6+sTSqDGnBU7WqN5oOfPl8xvwqiYOCHi/HPMtzc0JvMqAAlzMRI
- IQQtMBShWty3APzSo+HoBDb+wmcdR8mfDGfX8rh3N4Fevq7crKGStRuh6WjilEwpNZei
- h4FopzyxwmZhEPDhZbPA3cTVzrb+YSrREbQWPsr1eyEAdqgME2Jthxa+geQYCTSVoKca
- OK+Effk3BW3yp6Q2QgqGojV0XFPSeA83Ea9nzRgmglKELDMcsZw/1t+PxfvGQCx4ulKH
- nxrlMdZERqR9SbXu4I8OmeYJS+lLPogoG+9950lgGbJauLAdhv7t9LKVCaVmUnzAb6n5
- JOwQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU7gFxjV8cMA2auHmvGunopMpbBUvSslZ6jzf9VNs8yxt0Y/MhdZd3CnCnBGI3kVr12hsCjNwYKYaB/nhgKr1szSpFykp+q852dY77QUR9+
-X-Gm-Message-State: AOJu0YxUwh4DqKzLXaH7R5/oZfhnRIh+h5qgR5O8X+6gjmEPXuNo2RMA
- ZTFnfas6i0XuAjOMsTJrpdEnbUculMYgVeRKCEjC864kp8alrVLjbapZWWD4Fzkq+9kAY31uCi5
- kir51nQ==
-X-Google-Smtp-Source: AGHT+IHdmwUv1L4uOgagl5p7XUPby7N5Y24wsABGjreWma06d+9L1p8cL+OwF8s138CWYo/vGvbJpw==
-X-Received: by 2002:a05:6512:480c:b0:52c:ab88:6340 with SMTP id
- 2adb3069b0e04-52cdf8261a9mr10051298e87.65.1719552028156; 
- Thu, 27 Jun 2024 22:20:28 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52e7ab101c5sm167736e87.79.2024.06.27.22.20.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jun 2024 22:20:27 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 28 Jun 2024 08:20:23 +0300
-Subject: [PATCH 2/2] clk: qcom: gpucc-*: use qcom_cc_map_norequest
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00A6210EBB3;
+ Fri, 28 Jun 2024 05:44:03 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45RL6DNF015295;
+ Fri, 28 Jun 2024 05:44:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 7vFZZqH20Du4+0rEJZkm4d1bS5cXe7cGcBbOZAvl9GI=; b=IyLNm8Di4p+qBqLV
+ BZtlfw2Jmz1oYuUOJqlhMeZJHJ75k61TYHeaYNOOMAvtP4NhA3cbyFKXcBiCgr6A
+ QeVg7cvx5ABQ9cmYbTJffuQt2B82q32BO8djjbI2+7le8yyo36ep1flehvEg4798
+ 8SC/hgpEd8+15HzWd0I75Bi0Ma8ICFE6y5YOx1p8hanIED0+0mVfwGzBlup8qlYF
+ j/gQFQTks2onL54ph4MboGcLtrLdGP0QqG2dFtq1k/STA3BoJtxR1zWZwj7MeQ74
+ QCCN8LTwPhwjDQI0y0hfGyElOXnaTUeH9ok6nFplYDq17TOUzUUeNJSgA+8qnnWT
+ cNuiig==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 400gcmdj60-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 28 Jun 2024 05:43:59 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45S5hx8V004491
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 28 Jun 2024 05:43:59 GMT
+Received: from [10.110.116.31] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 27 Jun
+ 2024 22:43:58 -0700
+Message-ID: <19c49c3b-057c-ce83-1ec6-4929676ff0e7@quicinc.com>
+Date: Thu, 27 Jun 2024 22:43:57 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240628-gpucc-no-request-v1-2-b680c2f90817@linaro.org>
-References: <20240628-gpucc-no-request-v1-0-b680c2f90817@linaro.org>
-In-Reply-To: <20240628-gpucc-no-request-v1-0-b680c2f90817@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org, 
- linux-clk@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9724;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=1bGciu1Uk/4GERHUYF3OlGIdZfgztwypx+e0LXmmIIc=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmfkgaBW3ISFsbQGMeb/kfZiOArwWQw8Fwqkl/K
- RH5x/vnUG2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZn5IGgAKCRCLPIo+Aiko
- 1QOYB/9khv9fUYZ27iWVrv3evKiaqXr+DDIJQDuZVl2gqZGyJCumcKKx7+qeB4SZzj1WbpbNWdR
- kwreBfaMxWMVLLMGsRobtgAnANE5kXMt2SsN7qfCGgPk0gfFnFGtgjtyxyBjsL0xLR9yxPWYnV8
- Ryds0kkGOt9DGxstVs9Cg0Pr5dHqoR7IyzT2AyItMU+YocHyQU/eLniw8S1zRpLzfHBh8KhBIvq
- IbbfjS3HUjbVfSjorzyqE0/K+k33asbJ49MLo6zEMe96fTCz74zvyaRzAHC/gQvog2pVDeKBNq7
- oV43fb2d33itTvNPjX5m/cscIrcmcb31t8K5Ubkat3wLWwB0
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [RFC PATCH] drm/msm/dpu: check ubwc support before adding
+ compressed formats
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, <freedreno@lists.freedesktop.org>, "Sean
+ Paul" <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ "David Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ <dri-devel@lists.freedesktop.org>, <quic_jesszhan@quicinc.com>,
+ <konrad.dybcio@linaro.org>, <linux-arm-msm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+References: <20240627205328.2912859-1-quic_abhinavk@quicinc.com>
+ <CAF6AEGuGYG5mO-4KdNFbQFMA4dKj2PWT22xeh-3AFgedAG0uHw@mail.gmail.com>
+ <3749ac14-54d0-fb62-345b-cef62399b6d4@quicinc.com>
+ <CAA8EJppM1429sGzW6hq4QzLEjVX5Cf+8Jt5y94+VocFmPyxz+Q@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJppM1429sGzW6hq4QzLEjVX5Cf+8Jt5y94+VocFmPyxz+Q@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: KJ2HU5jse8lKYgW_K4mAAIrqAu1xOz_W
+X-Proofpoint-ORIG-GUID: KJ2HU5jse8lKYgW_K4mAAIrqAu1xOz_W
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-28_02,2024-06-27_03,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0
+ mlxlogscore=999 clxscore=1015 mlxscore=0 phishscore=0 impostorscore=0
+ adultscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2406140001 definitions=main-2406280039
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,257 +99,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On most of the Qualcomm platforms GPU clock controller registers are
-located inside the GMU's register space. By using qcom_cc_map() gpucc
-drivers mark the region as used, prevening GMU driver from claiming the
-bigger region.
 
-Make affected GPU clock controller drivers use qcom_cc_map_norequest(),
-allowing GMU driver to use devm_ioremap_resource().
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/clk/qcom/gpucc-qcm2290.c  | 2 +-
- drivers/clk/qcom/gpucc-sa8775p.c  | 2 +-
- drivers/clk/qcom/gpucc-sc7180.c   | 2 +-
- drivers/clk/qcom/gpucc-sc7280.c   | 2 +-
- drivers/clk/qcom/gpucc-sc8280xp.c | 2 +-
- drivers/clk/qcom/gpucc-sdm845.c   | 2 +-
- drivers/clk/qcom/gpucc-sm6115.c   | 2 +-
- drivers/clk/qcom/gpucc-sm6125.c   | 2 +-
- drivers/clk/qcom/gpucc-sm6350.c   | 2 +-
- drivers/clk/qcom/gpucc-sm6375.c   | 2 +-
- drivers/clk/qcom/gpucc-sm8150.c   | 2 +-
- drivers/clk/qcom/gpucc-sm8250.c   | 2 +-
- drivers/clk/qcom/gpucc-sm8350.c   | 2 +-
- drivers/clk/qcom/gpucc-sm8450.c   | 2 +-
- drivers/clk/qcom/gpucc-sm8550.c   | 2 +-
- drivers/clk/qcom/gpucc-sm8650.c   | 2 +-
- drivers/clk/qcom/gpucc-x1e80100.c | 2 +-
- 17 files changed, 17 insertions(+), 17 deletions(-)
+On 6/27/2024 4:22 PM, Dmitry Baryshkov wrote:
+> On Fri, 28 Jun 2024 at 00:21, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 6/27/2024 2:13 PM, Rob Clark wrote:
+>>> On Thu, Jun 27, 2024 at 1:53 PM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>>
+>>>> On QCM2290 chipset DPU does not support UBWC.
+>>>>
+>>>> Add a dpu cap to indicate this and do not expose compressed formats
+>>>> in this case.
+>>>>
+>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>> ---
+>>>>    drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h | 1 +
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h          | 2 ++
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c               | 5 ++++-
+>>>>    3 files changed, 7 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
+>>>> index 3cbb2fe8aba2..6671f798bacc 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h
+>>>> @@ -12,6 +12,7 @@ static const struct dpu_caps qcm2290_dpu_caps = {
+>>>>           .max_mixer_blendstages = 0x4,
+>>>>           .has_dim_layer = true,
+>>>>           .has_idle_pc = true,
+>>>> +       .has_no_ubwc = true,
+>>>>           .max_linewidth = 2160,
+>>>>           .pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+>>>>    };
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>>>> index af2ead1c4886..676d0a283922 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+>>>> @@ -342,6 +342,7 @@ struct dpu_rotation_cfg {
+>>>>     * @has_dim_layer      dim layer feature status
+>>>>     * @has_idle_pc        indicate if idle power collapse feature is supported
+>>>>     * @has_3d_merge       indicate if 3D merge is supported
+>>>> + * @has_no_ubwc        indicate if UBWC is supported
+>>>>     * @max_linewidth      max linewidth for sspp
+>>>>     * @pixel_ram_size     size of latency hiding and de-tiling buffer in bytes
+>>>>     * @max_hdeci_exp      max horizontal decimation supported (max is 2^value)
+>>>> @@ -354,6 +355,7 @@ struct dpu_caps {
+>>>>           bool has_dim_layer;
+>>>>           bool has_idle_pc;
+>>>>           bool has_3d_merge;
+>>>> +       bool has_no_ubwc;
+>>>
+>>> has_no_ubwc sounds kinda awkward compared to has_ubwc.  But I guess
+>>> you wanted to avoid all that churn..
+>>>
+>>
+>> Yes I wanted to avoid modifying all the catalogs.
+>>
+>>> How about instead, if msm_mdss_data::ubwc_{enc,dec}_version are zero,
+>>> then we know there is no ubwc support in the display.
+>>>
+>>
+>> hmm ... should work .... I can post a v2 with this and avoid touching
+>> the catalog altogether.
+> 
+> Yes, this sounds much better.
+> 
 
-diff --git a/drivers/clk/qcom/gpucc-qcm2290.c b/drivers/clk/qcom/gpucc-qcm2290.c
-index dc369dff882e..2a886b3d6ab4 100644
---- a/drivers/clk/qcom/gpucc-qcm2290.c
-+++ b/drivers/clk/qcom/gpucc-qcm2290.c
-@@ -372,7 +372,7 @@ static int gpu_cc_qcm2290_probe(struct platform_device *pdev)
- 	struct regmap *regmap;
- 	int ret;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_qcm2290_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_qcm2290_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-sa8775p.c b/drivers/clk/qcom/gpucc-sa8775p.c
-index f8a8ac343d70..312b45e6fc29 100644
---- a/drivers/clk/qcom/gpucc-sa8775p.c
-+++ b/drivers/clk/qcom/gpucc-sa8775p.c
-@@ -592,7 +592,7 @@ static int gpu_cc_sa8775p_probe(struct platform_device *pdev)
- {
- 	struct regmap *regmap;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sa8775p_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sa8775p_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-sc7180.c b/drivers/clk/qcom/gpucc-sc7180.c
-index 08f3983d016f..03480a2fa78c 100644
---- a/drivers/clk/qcom/gpucc-sc7180.c
-+++ b/drivers/clk/qcom/gpucc-sc7180.c
-@@ -220,7 +220,7 @@ static int gpu_cc_sc7180_probe(struct platform_device *pdev)
- 	struct alpha_pll_config gpu_cc_pll_config = {};
- 	unsigned int value, mask;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sc7180_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sc7180_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-sc7280.c b/drivers/clk/qcom/gpucc-sc7280.c
-index bd699a624517..86f89fbb4aec 100644
---- a/drivers/clk/qcom/gpucc-sc7280.c
-+++ b/drivers/clk/qcom/gpucc-sc7280.c
-@@ -458,7 +458,7 @@ static int gpu_cc_sc7280_probe(struct platform_device *pdev)
- {
- 	struct regmap *regmap;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sc7280_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sc7280_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-sc8280xp.c b/drivers/clk/qcom/gpucc-sc8280xp.c
-index c96be61e3f47..519940dc99eb 100644
---- a/drivers/clk/qcom/gpucc-sc8280xp.c
-+++ b/drivers/clk/qcom/gpucc-sc8280xp.c
-@@ -436,7 +436,7 @@ static int gpu_cc_sc8280xp_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sc8280xp_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sc8280xp_desc);
- 	if (IS_ERR(regmap)) {
- 		pm_runtime_put(&pdev->dev);
- 		return PTR_ERR(regmap);
-diff --git a/drivers/clk/qcom/gpucc-sdm845.c b/drivers/clk/qcom/gpucc-sdm845.c
-index ef26690cf504..b78f8b632601 100644
---- a/drivers/clk/qcom/gpucc-sdm845.c
-+++ b/drivers/clk/qcom/gpucc-sdm845.c
-@@ -177,7 +177,7 @@ static int gpu_cc_sdm845_probe(struct platform_device *pdev)
- 	struct regmap *regmap;
- 	unsigned int value, mask;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sdm845_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sdm845_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-sm6115.c b/drivers/clk/qcom/gpucc-sm6115.c
-index d43c86cf73a5..ab3e33fbe401 100644
---- a/drivers/clk/qcom/gpucc-sm6115.c
-+++ b/drivers/clk/qcom/gpucc-sm6115.c
-@@ -474,7 +474,7 @@ static int gpu_cc_sm6115_probe(struct platform_device *pdev)
- {
- 	struct regmap *regmap;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sm6115_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sm6115_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-sm6125.c b/drivers/clk/qcom/gpucc-sm6125.c
-index ed6a6e505801..14dc75b3771a 100644
---- a/drivers/clk/qcom/gpucc-sm6125.c
-+++ b/drivers/clk/qcom/gpucc-sm6125.c
-@@ -395,7 +395,7 @@ static int gpu_cc_sm6125_probe(struct platform_device *pdev)
- {
- 	struct regmap *regmap;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sm6125_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sm6125_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-sm6350.c b/drivers/clk/qcom/gpucc-sm6350.c
-index 1e12ad8948db..f0a6a6fb693f 100644
---- a/drivers/clk/qcom/gpucc-sm6350.c
-+++ b/drivers/clk/qcom/gpucc-sm6350.c
-@@ -489,7 +489,7 @@ static int gpu_cc_sm6350_probe(struct platform_device *pdev)
- 	struct regmap *regmap;
- 	unsigned int value, mask;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sm6350_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sm6350_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-sm6375.c b/drivers/clk/qcom/gpucc-sm6375.c
-index 41f59024143e..4ec7399f8fc4 100644
---- a/drivers/clk/qcom/gpucc-sm6375.c
-+++ b/drivers/clk/qcom/gpucc-sm6375.c
-@@ -446,7 +446,7 @@ static int gpucc_sm6375_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	regmap = qcom_cc_map(pdev, &gpucc_sm6375_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpucc_sm6375_desc);
- 	if (IS_ERR(regmap)) {
- 		pm_runtime_put(&pdev->dev);
- 		return PTR_ERR(regmap);
-diff --git a/drivers/clk/qcom/gpucc-sm8150.c b/drivers/clk/qcom/gpucc-sm8150.c
-index d711464a71b6..b01531ca13d9 100644
---- a/drivers/clk/qcom/gpucc-sm8150.c
-+++ b/drivers/clk/qcom/gpucc-sm8150.c
-@@ -295,7 +295,7 @@ static int gpu_cc_sm8150_probe(struct platform_device *pdev)
- {
- 	struct regmap *regmap;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sm8150_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sm8150_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-sm8250.c b/drivers/clk/qcom/gpucc-sm8250.c
-index 113b486a6d2f..ded2faff96ce 100644
---- a/drivers/clk/qcom/gpucc-sm8250.c
-+++ b/drivers/clk/qcom/gpucc-sm8250.c
-@@ -305,7 +305,7 @@ static int gpu_cc_sm8250_probe(struct platform_device *pdev)
- 	struct regmap *regmap;
- 	unsigned int value, mask;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sm8250_desc);
-+	regmap = qcom_cc_map_norequest_norequest(pdev, &gpu_cc_sm8250_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-sm8350.c b/drivers/clk/qcom/gpucc-sm8350.c
-index f3b6bdc24485..c11ba4c5f254 100644
---- a/drivers/clk/qcom/gpucc-sm8350.c
-+++ b/drivers/clk/qcom/gpucc-sm8350.c
-@@ -596,7 +596,7 @@ static int gpu_cc_sm8350_probe(struct platform_device *pdev)
- {
- 	struct regmap *regmap;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sm8350_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sm8350_desc);
- 	if (IS_ERR(regmap)) {
- 		dev_err(&pdev->dev, "Failed to map gpu cc registers\n");
- 		return PTR_ERR(regmap);
-diff --git a/drivers/clk/qcom/gpucc-sm8450.c b/drivers/clk/qcom/gpucc-sm8450.c
-index b3c5d6923cd2..34c709baeefa 100644
---- a/drivers/clk/qcom/gpucc-sm8450.c
-+++ b/drivers/clk/qcom/gpucc-sm8450.c
-@@ -744,7 +744,7 @@ static int gpu_cc_sm8450_probe(struct platform_device *pdev)
- {
- 	struct regmap *regmap;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sm8450_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sm8450_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-sm8550.c b/drivers/clk/qcom/gpucc-sm8550.c
-index 7486edf56160..e77c287604e6 100644
---- a/drivers/clk/qcom/gpucc-sm8550.c
-+++ b/drivers/clk/qcom/gpucc-sm8550.c
-@@ -568,7 +568,7 @@ static int gpu_cc_sm8550_probe(struct platform_device *pdev)
- {
- 	struct regmap *regmap;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sm8550_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sm8550_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-sm8650.c b/drivers/clk/qcom/gpucc-sm8650.c
-index f15aeecc512d..f7370ec3bac2 100644
---- a/drivers/clk/qcom/gpucc-sm8650.c
-+++ b/drivers/clk/qcom/gpucc-sm8650.c
-@@ -640,7 +640,7 @@ static int gpu_cc_sm8650_probe(struct platform_device *pdev)
- {
- 	struct regmap *regmap;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_sm8650_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_sm8650_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-diff --git a/drivers/clk/qcom/gpucc-x1e80100.c b/drivers/clk/qcom/gpucc-x1e80100.c
-index 2eec20dd0254..e583a4a96629 100644
---- a/drivers/clk/qcom/gpucc-x1e80100.c
-+++ b/drivers/clk/qcom/gpucc-x1e80100.c
-@@ -630,7 +630,7 @@ static int gpu_cc_x1e80100_probe(struct platform_device *pdev)
- {
- 	struct regmap *regmap;
- 
--	regmap = qcom_cc_map(pdev, &gpu_cc_x1e80100_desc);
-+	regmap = qcom_cc_map_norequest(pdev, &gpu_cc_x1e80100_desc);
- 	if (IS_ERR(regmap))
- 		return PTR_ERR(regmap);
- 
-
--- 
-2.39.2
-
+Ok, does this qualify for a Fixes tag too? Because exposing ubwc formats 
+on non-ubwc supported chipsets seems like a bug.
