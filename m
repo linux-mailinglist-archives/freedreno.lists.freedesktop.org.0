@@ -2,116 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C66E91CD5B
-	for <lists+freedreno@lfdr.de>; Sat, 29 Jun 2024 15:44:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3004691CFB1
+	for <lists+freedreno@lfdr.de>; Sun, 30 Jun 2024 01:36:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC1E310E18A;
-	Sat, 29 Jun 2024 13:44:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 333AD10E0D9;
+	Sat, 29 Jun 2024 23:36:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Xty5NZuv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OZelrARp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3AE010E18A
- for <freedreno@lists.freedesktop.org>; Sat, 29 Jun 2024 13:44:10 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-57d05e0017aso1907168a12.1
- for <freedreno@lists.freedesktop.org>; Sat, 29 Jun 2024 06:44:10 -0700 (PDT)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE6DB10E0CA;
+ Sat, 29 Jun 2024 23:36:48 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-367601ca463so1012860f8f.0; 
+ Sat, 29 Jun 2024 16:36:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719668649; x=1720273449; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=0LV9QNrUseAYBOJIHcEtXZSmELN9/hwOlYXr6//1Yxo=;
- b=Xty5NZuvL8W3shKh9XpKNrNMundMI9PfhyrqsuGTa/YBHzQ9m9/1oO8siJinUVBA/Y
- 9K+mva8BAPIIdwG4iSYxdqW88vqh4fRt6c3IvdX2CXzgSqRFGu7ij9U4cIkuUSSQuSsY
- 2wtVVtlMqhzxD/A7Z4KWRLR9irICn/Qo8ozt+aXmyrW/1rrCH6AaFWU5s+OYwJlfs123
- NqbMqQ05V4KNOYN9rceNpBTzMYWNEoYyKGnp10ZDgSjGJllH9mSajOsrUXqjY23gk2Iu
- XIsvaDhIccLajyO3hV47B0VO+6pKpI9h7NGo3vmlfJxooSDDIbSRQVM042tRB3LkSvln
- okow==
+ d=gmail.com; s=20230601; t=1719704207; x=1720309007; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=jYfyAe8uv69x0OGW51XJGsYOuqxBkM/QrcL6+VazXM0=;
+ b=OZelrARpkeHz+HiAk9vQycZo3EgQ1tLgxt6iMioHIZtfF5FxuNl5gG8VjUgXGheqaM
+ kDvYRjyfqgg23r6RLIWokrLhyGHvM/S9d4vjq6qz8jdUCTXl5a2GXOxmoWK9t5ePDCF5
+ vz46w05JzswC5LA0FbI0cIHCmYeR5nh7XQfd7H8HeWRVkErKJjDcZb1B8vh4pi348VmS
+ kKb6rZCDRV8h07i0LkQChRyawKIVEw2IdKva9JWC5qA65JmqcyVwDi6vEFxO3JYgLGrc
+ O6qhkt1mEX43iCmvyOWkkiK81GW+qNix/+AKO2YjGURYoF2pHvvIHgcyCAmKA2sgS8lJ
+ AVAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719668649; x=1720273449;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0LV9QNrUseAYBOJIHcEtXZSmELN9/hwOlYXr6//1Yxo=;
- b=HT2rMdXn7j5iQ/F5aiRYsp1kMFZD3A1FpPLHhsDSwXolTiKII4hG2m6TYwaTxtdOo0
- y5Ue1J4KAwMdQqaXMi40hqIXw1DLuVZMBVZT7tKbDDANkBKS9PC8HIpq7of75xdPdSN6
- G1dhSw5yoGJhHygce9jMtW8tMU1MKuMtDsXbFhJVW8pI+Bo30Sec4as/4DVxkPo4NEn/
- OleoGbaJqNxbGsWIDBCWLft1Huq0crvziqEAT0RxXB8FWUQX6afjDuqs6hyd5lTRMs/S
- a6TSot5px3rxWD+JXP5bZ0T8medmJ6eoHqzDK/JeXiNzGDhcjGBu6WMJmiTfqZ7kHSH9
- N9lQ==
+ d=1e100.net; s=20230601; t=1719704207; x=1720309007;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=jYfyAe8uv69x0OGW51XJGsYOuqxBkM/QrcL6+VazXM0=;
+ b=faQLRuPVpMN1tgzRuo9Dp/Fhk7eiUR5c046BwAAfeWNVdxHH4waCgg88gcgCu7lkiz
+ 8kFrSeVRbSUQ1Pf3LlE0cxmCZXdgcMXmGTBdGH5ysogwT74wKISl/HhLdT51fickIg31
+ WFI6X1UpER/kZsieS1K2vc281muiccd6hC2C4WgV+/gICmAb3pTn1OI+ggh9hyv5hzJB
+ hG0KU8n05G1CVRZcSlc+lkKqYcvy73X7Z5lI2sCZnC1R+lbE1vGa5k5Zjwb/AbWBtWO2
+ H1aLKpxK9xLMRZRSXjXZsp0DM+bfXs9gFKXuQXWd5OFmAD5qnchlCj4kYDPdORILjmgu
+ UG+Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWO+sCogAesxjGyD5NhuMjm7Z8O0tbB8ktcf2UuJ89SFK/9Jigzyx1ASU12MnFyIVKeypZk9oyq4CM9BrQ1dF9yPvjD1GKM3L4qhYWQIWTG
-X-Gm-Message-State: AOJu0YxO6BoiQ+sml623eMMZUhBhhs6GkesSgQT3XDRKmLrlUpLBgsgm
- 023/X/vwg7KAaCddOVz7M25oZmrkSyhlgkXbWnYuz99vyzz9ok0KpwXI1rFqueY=
-X-Google-Smtp-Source: AGHT+IGe5k/+Cg0G7hanL845tSD1zIZmGhhQVzgUhbAXzAyOMB+DQ6wjnUmb7w/qrSB4VpoWCF3zJQ==
-X-Received: by 2002:a05:6402:26d4:b0:585:a885:da28 with SMTP id
- 4fb4d7f45d1cf-5879f59bb3emr724776a12.24.1719668648901; 
- Sat, 29 Jun 2024 06:44:08 -0700 (PDT)
-Received: from [192.168.215.29] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5861503b4c5sm2212539a12.93.2024.06.29.06.44.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 29 Jun 2024 06:44:08 -0700 (PDT)
-Message-ID: <b93ee803-5963-4270-9bf9-9cbcf5d413b2@linaro.org>
-Date: Sat, 29 Jun 2024 15:44:06 +0200
+ AJvYcCWPTmfww52du10n1zJ0R4cq5Sdn4zhSMHBwTjBNxx0ZBmiv82Q1COFtJxkHawvDkEamL5SN5uUlKqaz4ccyVUF0rsUOQZdrEVKyNov0GEzigMs3Qr/reFEx2bXEXIA0m6PbwsUYNXFGU7zm0spDQV4C
+X-Gm-Message-State: AOJu0Yxa6F4F1Vz8FpShM5Cgqy9dAp/P55Gb9J31025vosbYZAZrXmlh
+ V2mLavz/aQD1yuhdoOF3lZYX7NBJV8fRnbuyqzk586bWQk53XgSU
+X-Google-Smtp-Source: AGHT+IFThPOK8y8A/Io5Ody69yRW+unRpRrZ5ZSTS3jZEaXRHJX4mGppm/j/1/5GEJ2GHr2ByJrlfQ==
+X-Received: by 2002:a5d:61cc:0:b0:367:4d9d:568b with SMTP id
+ ffacd0b85a97d-367757283cemr1157140f8f.68.1719704206899; 
+ Sat, 29 Jun 2024 16:36:46 -0700 (PDT)
+Received: from [192.168.1.130] (BC24902A.dsl.pool.telekom.hu. [188.36.144.42])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3675a0d9f9dsm5939238f8f.41.2024.06.29.16.36.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 29 Jun 2024 16:36:46 -0700 (PDT)
+From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
+Date: Sun, 30 Jun 2024 01:36:42 +0200
+Subject: [PATCH v3] drm/msm/adreno: Add support for Adreno 505 GPU
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/msm/dpu: Add MSM8996 support
-To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>
-References: <20240628-dpu-msm8953-msm8996-v1-0-a31c77248db7@mainlining.org>
- <20240628-dpu-msm8953-msm8996-v1-1-a31c77248db7@mainlining.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- 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
- izWDgYvmBE8=
-In-Reply-To: <20240628-dpu-msm8953-msm8996-v1-1-a31c77248db7@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20240630-a505-v3-1-ed1e8eae3d84@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAImagGYC/22MwQ7CIBAFf6XhLAYWqK0n/8N4QNi2m9hiwBBN0
+ 3+X1ph48Dgvb2ZmCSNhYsdqZhEzJQpTAbWrmBvs1CMnX5iBAC1qobg1wnA0B9W011p6sKxc7xE
+ 7em6Z86XwQOkR4murZrmu34D+BLLkkjeAKJ3QHoQ49aOl296Fka2BDP8kKJLvrGlbq71y8ldal
+ uUNhRyHIM0AAAA=
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Daniil Titov <daniilt971@gmail.com>, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
+X-Mailer: b4 0.14.0
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,30 +92,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28.06.2024 4:39 PM, Barnabás Czémán wrote:
-> From: Konrad Dybcio <konrad.dybcio@linaro.org>
-> 
-> Add support for MSM8996, which - fun fact - was the SoC that this driver
-> (or rather SDE, its downstream origin) was meant for and first tested on.
-> 
-> It has some hardware that differs from the modern SoCs, so not a lot of
-> current structs could have been reused. It's also seemingly the only SoC
-> supported by DPU that uses RGB pipes.
-> 
-> Note, by default this platform is still handled by the MDP5 driver
-> unless the `msm.prefer_mdp5=false' parameter is provided.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> [DB: rebased on top of sblk changes, add dpu_rgb_sblk]
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> [Removed intr_start from CTLs config]
-> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
-> ---
+From: Daniil Titov <daniilt971@gmail.com>
 
-Haven't given it a really in-depth look, but we've already done so with
-the previous iterations of this patch, so this is likely gtg
+This GPU is found on SoCs such as MSM8937 (450 MHz), MSM8940 (475 MHz),
+SDM439 (650 MHz).
 
-Acked-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Signed-off-by: Daniil Titov <daniilt971@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
+---
+Changes in v3:
+- Rebase on the latest linux-next.
+- Link to v2: https://lore.kernel.org/r/20240604-a505-v2-1-dfa599a4d3c1@gmail.com
 
-Konrad
+Changes in v2:
+- use DRM_MSM_INACTIVE_PERIOD instead of 250 ms.
+- Link to v1: https://lore.kernel.org/r/20240604-a505-v1-1-82ee1c04d200@gmail.com
+---
+ drivers/gpu/drm/msm/adreno/a5xx_catalog.c | 13 +++++++++++++
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c     | 29 +++++++++++++++++------------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  5 +++++
+ 3 files changed, 35 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_catalog.c b/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
+index 455a953dee67..633f31539162 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
+@@ -10,6 +10,19 @@
+ 
+ static const struct adreno_info a5xx_gpus[] = {
+ 	{
++		.chip_ids = ADRENO_CHIP_IDS(0x05000500),
++		.family = ADRENO_5XX,
++		.revn = 505,
++		.fw = {
++			[ADRENO_FW_PM4] = "a530_pm4.fw",
++			[ADRENO_FW_PFP] = "a530_pfp.fw",
++		},
++		.gmem = (SZ_128K + SZ_8K),
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_TWO_PASS_USE_WFI |
++			  ADRENO_QUIRK_LMLOADKILL_DISABLE,
++		.init = a5xx_gpu_init,
++	}, {
+ 		.chip_ids = ADRENO_CHIP_IDS(0x05000600),
+ 		.family = ADRENO_5XX,
+ 		.revn = 506,
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+index c003f970189b..c0b5373e90d7 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+@@ -439,7 +439,8 @@ void a5xx_set_hwcg(struct msm_gpu *gpu, bool state)
+ 	const struct adreno_five_hwcg_regs *regs;
+ 	unsigned int i, sz;
+ 
+-	if (adreno_is_a506(adreno_gpu) || adreno_is_a508(adreno_gpu)) {
++	if (adreno_is_a505(adreno_gpu) || adreno_is_a506(adreno_gpu) ||
++	    adreno_is_a508(adreno_gpu)) {
+ 		regs = a50x_hwcg;
+ 		sz = ARRAY_SIZE(a50x_hwcg);
+ 	} else if (adreno_is_a509(adreno_gpu) || adreno_is_a512(adreno_gpu)) {
+@@ -483,7 +484,8 @@ static int a5xx_me_init(struct msm_gpu *gpu)
+ 	OUT_RING(ring, 0x00000000);
+ 
+ 	/* Specify workarounds for various microcode issues */
+-	if (adreno_is_a506(adreno_gpu) || adreno_is_a530(adreno_gpu)) {
++	if (adreno_is_a505(adreno_gpu) || adreno_is_a506(adreno_gpu) ||
++	    adreno_is_a530(adreno_gpu)) {
+ 		/* Workaround for token end syncs
+ 		 * Force a WFI after every direct-render 3D mode draw and every
+ 		 * 2D mode 3 draw
+@@ -752,10 +754,11 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
+ 		0x00100000 + adreno_gpu->info->gmem - 1);
+ 	gpu_write(gpu, REG_A5XX_UCHE_GMEM_RANGE_MAX_HI, 0x00000000);
+ 
+-	if (adreno_is_a506(adreno_gpu) || adreno_is_a508(adreno_gpu) ||
+-	    adreno_is_a510(adreno_gpu)) {
++	if (adreno_is_a505(adreno_gpu) || adreno_is_a506(adreno_gpu) ||
++	    adreno_is_a508(adreno_gpu) || adreno_is_a510(adreno_gpu)) {
+ 		gpu_write(gpu, REG_A5XX_CP_MEQ_THRESHOLDS, 0x20);
+-		if (adreno_is_a506(adreno_gpu) || adreno_is_a508(adreno_gpu))
++		if (adreno_is_a505(adreno_gpu) || adreno_is_a506(adreno_gpu) ||
++			adreno_is_a508(adreno_gpu))
+ 			gpu_write(gpu, REG_A5XX_CP_MERCIU_SIZE, 0x400);
+ 		else
+ 			gpu_write(gpu, REG_A5XX_CP_MERCIU_SIZE, 0x20);
+@@ -771,7 +774,8 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
+ 		gpu_write(gpu, REG_A5XX_CP_ROQ_THRESHOLDS_1, 0x40201B16);
+ 	}
+ 
+-	if (adreno_is_a506(adreno_gpu) || adreno_is_a508(adreno_gpu))
++	if (adreno_is_a505(adreno_gpu) || adreno_is_a506(adreno_gpu) ||
++	    adreno_is_a508(adreno_gpu))
+ 		gpu_write(gpu, REG_A5XX_PC_DBG_ECO_CNTL,
+ 			  (0x100 << 11 | 0x100 << 22));
+ 	else if (adreno_is_a509(adreno_gpu) || adreno_is_a510(adreno_gpu) ||
+@@ -789,8 +793,9 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
+ 	 * Disable the RB sampler datapath DP2 clock gating optimization
+ 	 * for 1-SP GPUs, as it is enabled by default.
+ 	 */
+-	if (adreno_is_a506(adreno_gpu) || adreno_is_a508(adreno_gpu) ||
+-	    adreno_is_a509(adreno_gpu) || adreno_is_a512(adreno_gpu))
++	if (adreno_is_a505(adreno_gpu) || adreno_is_a506(adreno_gpu) ||
++	    adreno_is_a508(adreno_gpu) || adreno_is_a509(adreno_gpu) ||
++	    adreno_is_a512(adreno_gpu))
+ 		gpu_rmw(gpu, REG_A5XX_RB_DBG_ECO_CNTL, 0, (1 << 9));
+ 
+ 	/* Disable UCHE global filter as SP can invalidate/flush independently */
+@@ -1345,7 +1350,7 @@ static int a5xx_pm_resume(struct msm_gpu *gpu)
+ 	if (ret)
+ 		return ret;
+ 
+-	/* Adreno 506, 508, 509, 510, 512 needs manual RBBM sus/res control */
++	/* Adreno 505, 506, 508, 509, 510, 512 needs manual RBBM sus/res control */
+ 	if (!(adreno_is_a530(adreno_gpu) || adreno_is_a540(adreno_gpu))) {
+ 		/* Halt the sp_input_clk at HM level */
+ 		gpu_write(gpu, REG_A5XX_RBBM_CLOCK_CNTL, 0x00000055);
+@@ -1388,9 +1393,9 @@ static int a5xx_pm_suspend(struct msm_gpu *gpu)
+ 	u32 mask = 0xf;
+ 	int i, ret;
+ 
+-	/* A506, A508, A510 have 3 XIN ports in VBIF */
+-	if (adreno_is_a506(adreno_gpu) || adreno_is_a508(adreno_gpu) ||
+-	    adreno_is_a510(adreno_gpu))
++	/* A505, A506, A508, A510 have 3 XIN ports in VBIF */
++	if (adreno_is_a505(adreno_gpu) || adreno_is_a506(adreno_gpu) ||
++	    adreno_is_a508(adreno_gpu) || adreno_is_a510(adreno_gpu))
+ 		mask = 0x7;
+ 
+ 	/* Clear the VBIF pipe before shutting down */
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index cff8ce541d2c..2497bbc07ed4 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -324,6 +324,11 @@ static inline int adreno_is_a430(const struct adreno_gpu *gpu)
+ 	return adreno_is_revn(gpu, 430);
+ }
+ 
++static inline int adreno_is_a505(const struct adreno_gpu *gpu)
++{
++	return adreno_is_revn(gpu, 505);
++}
++
+ static inline int adreno_is_a506(const struct adreno_gpu *gpu)
+ {
+ 	return adreno_is_revn(gpu, 506);
+
+---
+base-commit: 1eb586a9782cde8e5091b9de74603e0a8386b09e
+change-id: 20240603-a505-e57389b61d2a
+
+Best regards,
+-- 
+Barnabás Czémán <trabarni@gmail.com>
+
