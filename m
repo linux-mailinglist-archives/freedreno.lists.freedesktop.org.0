@@ -2,67 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62D2091CCEE
-	for <lists+freedreno@lfdr.de>; Sat, 29 Jun 2024 15:06:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5070391CCF5
+	for <lists+freedreno@lfdr.de>; Sat, 29 Jun 2024 15:07:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BDDD10E068;
-	Sat, 29 Jun 2024 13:06:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3319D10E068;
+	Sat, 29 Jun 2024 13:07:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qxsWAJFU";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jcAxktxh";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6653010E068
- for <freedreno@lists.freedesktop.org>; Sat, 29 Jun 2024 13:06:26 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-5858e973ef5so838974a12.0
- for <freedreno@lists.freedesktop.org>; Sat, 29 Jun 2024 06:06:26 -0700 (PDT)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90D9210E068
+ for <freedreno@lists.freedesktop.org>; Sat, 29 Jun 2024 13:07:47 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2ec3f875e68so15791541fa.0
+ for <freedreno@lists.freedesktop.org>; Sat, 29 Jun 2024 06:07:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719666385; x=1720271185; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1719666466; x=1720271266; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=juC1pM14yL20MLPpp7yOCptiRFFzbh2VvWT0XwnjgzQ=;
- b=qxsWAJFUTDscyQxQnfoPWF3gOIrf3J+ASwNtBTvPe08Zu8umIllYMbV9GT86PY2z9t
- 2mC8M/Pw/jE86jDcdfBnqaBPPlllwpxXyt413Frtsbg+j6DgeCI3Xo377BGJ0jseicaw
- 0KdwTzM/ZxkCMJOyuEVr51rR7An/EDn6P1dJVe/yL2/O+T7oiM5c/Kn7oupT7kooNFUm
- tvB2+r8TRdtNHoq/CHLk0zrFM7xQUfWBN7jRAUGmKTK0r3LDWZfLH16dIi452s+/IzW2
- uf/6xZrp9Djc2BSjQ5OGMNGri4BJwRPM8/OH5Ie3nd4Oepq27Uct5zufRlOsH3y/RXiq
- j2uA==
+ bh=MF1OWr5Etw0/4+36Nq46eghotSCiE4f88g9tXRIl7DM=;
+ b=jcAxktxhaNnglveTBkZFsLuy8ElDAx+eJYjvlM4sIk8H9+yy9l7V1ZjGZEe1DGjRw9
+ 1rCYxsssp/8oUeMjCLSnU7klQvAluyA/gbDjZhPof1cDACr677bb5fT7iM5SAra2keLB
+ 4Em6UmFuEq0asg4+BsWI7j2JKxkgLr35W0eRL9AAhGubmtqiYrNyZCFACGRPLzHPbi2f
+ bRnDoFrlEJj2T/u45Jo7tMJHq0MPWaQsghOm+5WYLwk2xeg926xJW2KfCwAH0wdvw0T1
+ qEP/bHeCZhxCtKV9wswRM4JV95nXLRCzRJi4HAJhieQnSg20j11erxyyx98sk3AeB+1b
+ AVVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719666385; x=1720271185;
+ d=1e100.net; s=20230601; t=1719666466; x=1720271266;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=juC1pM14yL20MLPpp7yOCptiRFFzbh2VvWT0XwnjgzQ=;
- b=egICmtgQTIxWd9xphfVmITKxUguQ6g+f2yy1AV9siLtXiB4UVWnaYwH83Rej4rhG5G
- xgCXKxzZaEweUy9bDgokQ9FVNQEnbKMPNGthXMl2o93jU2TuP4zW2rEZQ1Jwjb2EZa+E
- WIKDbudR2Wmm8mjhr57oNTTR4fsSFD7k0FhorQd1IDZXG5af7DY0I0lbhh8SCqFz1wXs
- 3jmTGAfzTXtWaQZMBB13LfGpXdMuSJJlJK0GxqHZKe2DOZAhqQnljnPbHtumMxywvjFO
- EhpU/DFnnqibaTEeN21wz8p0Ka1xaGhX0/q16EMqA29J/WFC7ZI9MeQ8+0z3dR3puCDY
- OSpA==
+ bh=MF1OWr5Etw0/4+36Nq46eghotSCiE4f88g9tXRIl7DM=;
+ b=kGpBaefLODizFoCiYpgkm9VryP65Kkfs+k2Ww22CzC+34Xz+Ck5v1Inhi4+Ee819c4
+ /deBXSU7bJmxH+uYUHi34EsrBuXkaLq2yApJeZwhCqD2/eCzBOdKDfU42uchqbY8wodg
+ Qlj2u2f/Vj1Jv1Blx2O4kxI8HBvDZRYqryVtrqyhvLiedw7aytF5Quyzriv3Hax7Bvam
+ FcxOysTHTwuBmyjLOs+1vO8+4SVadgTBaAW+XLLA3kB+/P7DGse8L1ttA6iu6NWQarzN
+ IAbR8ZIPQwzVannN+waoIA+e6O8EVcPNjyGLkzbcEhONUMHdmy3gqDtqQgIghK5O5MZ/
+ /EuQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVCwJWWNSL+Ayj3hy0dl+SVIM/DG3fN9qQt2N5N3Ef7SJTOYxKjpAsZlk8sKZOg9HnkPm3wr6ojEbN5dbV5sQBznVnjPtgdXRYnz30BKSQp
-X-Gm-Message-State: AOJu0YzVA570At2FAgi5fe5LyCdz0h3ypQOLyscos6E7L1oRJpD+iYjY
- C71d+L4gHgMmsPaeB/kUwE+K3MzpX1w85O1KoXYpwgxlGshsyjYqmu6QqZ8Nbk8=
-X-Google-Smtp-Source: AGHT+IEDzqRR+FH5vNtJR2qnyBY924I53APu79r66rf52OA5SrMOBR4anPJDv02DF2PO5wvUOKnBOA==
-X-Received: by 2002:aa7:c986:0:b0:57d:3b8:85e6 with SMTP id
- 4fb4d7f45d1cf-587a0decd81mr791789a12.39.1719666384502; 
- Sat, 29 Jun 2024 06:06:24 -0700 (PDT)
+ AJvYcCUAJnnHwDPkQInsrbN7qvzaezuczrpZUZL24d/bwl16+M4nPa572pkcZR/iUWxbzkLCg8QPYtJV8A5yHSedeisccLBPjYruCG3I5a6KBpno
+X-Gm-Message-State: AOJu0YyeOPvEOqfo63vsGn+7E647g+cvUztQ1rDnAFdcV8GWc2rRAbTM
+ 6DD5ag7l9egJJL7gDcCNo/UGXIZYyfdXyIRLNcgNEv3WHWik1b8MzN7QUf7pKCk=
+X-Google-Smtp-Source: AGHT+IGyGWF8HMfAdhRpYySZnUUV5MkqCgcXUCfFEq/2svRgGfU+q4zk5SsCHizwXVDyEa+Hy9ZS5Q==
+X-Received: by 2002:a05:6512:3d15:b0:52c:a88b:9994 with SMTP id
+ 2adb3069b0e04-52e82701708mr922460e87.44.1719666465451; 
+ Sat, 29 Jun 2024 06:07:45 -0700 (PDT)
 Received: from [192.168.215.29] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-58614f3d74dsm2209586a12.90.2024.06.29.06.06.22
+ 2adb3069b0e04-52e7ab27815sm594995e87.174.2024.06.29.06.07.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 29 Jun 2024 06:06:24 -0700 (PDT)
-Message-ID: <243c0432-a681-4932-957b-e80f2f4ef295@linaro.org>
-Date: Sat, 29 Jun 2024 15:06:22 +0200
+ Sat, 29 Jun 2024 06:07:45 -0700 (PDT)
+Message-ID: <faa82331-ef61-4e2c-b658-cec3aaf6ba6c@linaro.org>
+Date: Sat, 29 Jun 2024 15:07:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] drm/msm/adreno: Introduce gmu_chipid for a740 &
- a750
+Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: x1e80100: Add gpu support
 To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
  freedreno <freedreno@lists.freedesktop.org>,
  dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
@@ -71,12 +70,11 @@ To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
  Rob Clark <robdclark@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Krzysztof Kozlowski <krzk@kernel.org>, Will Deacon <will@kernel.org>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Daniel Vetter
- <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+Cc: Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
  linux-kernel@vger.kernel.org
 References: <20240629015111.264564-1-quic_akhilpo@quicinc.com>
- <20240629015111.264564-4-quic_akhilpo@quicinc.com>
+ <20240629015111.264564-6-quic_akhilpo@quicinc.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
@@ -114,7 +112,7 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20240629015111.264564-4-quic_akhilpo@quicinc.com>
+In-Reply-To: <20240629015111.264564-6-quic_akhilpo@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -133,28 +131,10 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 29.06.2024 3:49 AM, Akhil P Oommen wrote:
-> To simplify, introduce the new gmu_chipid for a740 & a750 GPUs.
+> Add the necessary dt nodes for gpu support in X1E80100.
 > 
 > Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 > ---
-
-This gets rid of getting patchid from dts, but I suppose that's fine,
-as we can just add a new entry to the id table
-
-[...]
-
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -771,7 +771,7 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu, unsigned int state)
->  	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
->  	const struct a6xx_info *a6xx_info = adreno_gpu->info->a6xx;
->  	u32 fence_range_lower, fence_range_upper;
-> -	u32 chipid, chipid_min = 0;
-> +	u32 chipid = 0;
-
-The initialization doesn't seem necessary
-
-otherwise:
 
 Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
