@@ -2,70 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73B8191E8BD
-	for <lists+freedreno@lfdr.de>; Mon,  1 Jul 2024 21:40:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEEB091E8C3
+	for <lists+freedreno@lfdr.de>; Mon,  1 Jul 2024 21:43:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F88E10E038;
-	Mon,  1 Jul 2024 19:40:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB83610E04D;
+	Mon,  1 Jul 2024 19:43:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZNOdl/4f";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rJXhEOkY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 573AC10E039
- for <freedreno@lists.freedesktop.org>; Mon,  1 Jul 2024 19:40:24 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-52cdfb69724so4278580e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 01 Jul 2024 12:40:24 -0700 (PDT)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C58E710E04D
+ for <freedreno@lists.freedesktop.org>; Mon,  1 Jul 2024 19:43:19 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-52cdf2c7454so7152841e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 01 Jul 2024 12:43:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719862822; x=1720467622; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1719862998; x=1720467798; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=LG42d478wMjDA/x3ScXwVKZLN55jyKHfFUM24Exsr/8=;
- b=ZNOdl/4fVZpDBJJROoLqjiNHKFcO6eOqTyqH0yu1iESil/W3CjpYKOMsvXEA0aU+lC
- lr0gqJRrOkhevhbMS1jtvZ3AzX4AqE8FuQT3w9hsahdJo2TJU5DCa8884avZOgapqc2f
- 7H/fTrgjhZOWJtU2QejJwybE8OiJZoL3WV/VW+tVXrQcSM4YQwa/7Zur+/OlAqCEWOcu
- ZVFynzovNZsA0PdI/ONVqpX3NWah7Up3RJ9cehRseOeiCHWsP+v9M1QnLH2ssYmc3/Zo
- qEoEs3QR6OUzokABwlR2oFZOtwxSIIBrMjjEORJB/9Y/ePXClnX89aRQfux9qSbVaYor
- 8iOw==
+ bh=oscpSDO7CeUkkgmCfEkVvaRyN/meIA6JpS1dhxrIHl0=;
+ b=rJXhEOkYEiTJpuIcv3E7dihjtP8JYoJoJ5gTZzaHDtxLmg6+FRD5DJb0+Bz+RmJr2L
+ ZTwihh0yakrkupnUuoVrbC3jNptFDGkZC1vePw2cFeHYIeN/etRXPUQTGxgUicuXahje
+ QiCOfX6AcfX8/GT8h8BnT3yl4FFAd67/wzoXd7Ua9w1VKCRSur863HtHe01hGCBtNuNI
+ V7hAst/wO9tOUJHY+o3lo1bbsyPET9WrT9UdhbOACyZkYV42l8Kf0NiqrkAlnQy4V7am
+ 4C+WXKSZ1BEULzr8KR48dp89bqZFTAKs/dWSLJ7844or+TXC3Y1RcS0lqQeDFrM/fBCv
+ o+dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719862822; x=1720467622;
+ d=1e100.net; s=20230601; t=1719862998; x=1720467798;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=LG42d478wMjDA/x3ScXwVKZLN55jyKHfFUM24Exsr/8=;
- b=MjqTf4DSKW3X5Ihr+IAB0SdhCPEVTZ/qYoO6QOWhfpOpkApkARwkSMD4DuY1CuSl0s
- TRDouuWy1RK9aZoczrTVdqGTLxjdpGu+huhUiwPxvSzBdQT9W/iMeztBKMG4iUwRtD/G
- GvqpUXDnuilh/goP5WaWFHYiONLuN0U0NREwIRIRvsaILfJVGHMuGpfDrxEFNOQqNKYZ
- ezNi4+X2zdwqBHsC2+na7EQlKVWEmBVJWmCcQoYvNCesdCwT/bbFul7NPrFEwIf3qrWw
- xsJGokjbDyEtdJj6oZWWqAMBE3M1xFaFk94UT95AI1eQ8TU+0+pQYC3BniZslpgJeclP
- 6ctw==
-X-Gm-Message-State: AOJu0YxbYuqW5vEPvLZB0NxPoGBOQAADaGnDTyP/ZxyW3QGTjYwiiyuw
- AaWZ7H/e2TN5LURib+i4MukOm715jyzyJu2fwY38EuojPOcInESHyfc6xqSKTkQ=
-X-Google-Smtp-Source: AGHT+IEUHekLhllAQSxrNNuLwi0wFVE+qLzcciJw1F/dT2fAM012zPiK3GflQziz+PULacDlH/FSkw==
-X-Received: by 2002:a05:6512:6c3:b0:52c:def3:44b with SMTP id
- 2adb3069b0e04-52e8268b40amr4248232e87.31.1719862822356; 
- Mon, 01 Jul 2024 12:40:22 -0700 (PDT)
+ bh=oscpSDO7CeUkkgmCfEkVvaRyN/meIA6JpS1dhxrIHl0=;
+ b=gIlU+0fCfAfbE9FAd/DaUBm0vlGltiG5EUT2E6WBt+KqWYgGDujAtHcV92olV65Tx3
+ fUk2eQfFGRCNwtGDKlFT+n+e43rtWde8dD+AN4kjHx2H41Rr3u2WEA4bCSFwIQerXCGS
+ 51Gq0EoFmtB8fShEG93WtOubD5mAzgXlSIYpjGPOgz5D2Mewh+ZvJZmCLttlfKQWVlta
+ BPhHam7OetOQcLwyRStRGA8B8PKFevF/wxheg2STRpDK89QxAJIKWbK4zXmrPW3V14/X
+ mKR1LCrpYgbKhktcfTGp7eCvezQsbZPEheDqguukD+H8Fefj1eCSBTVxE/5dDMLC6pH3
+ TFuw==
+X-Gm-Message-State: AOJu0YzqI+7Ejiuu9bAJkd5JGEJTb/prlQruruztHCXMSdTDjVeRhdu/
+ CzvMJ9hsOdzHraOjIOzc7c5x9Xd+OMSFVU8+aTJQrjcFcx3ta8DKUTI5Lfzjxog=
+X-Google-Smtp-Source: AGHT+IFJ7WfUoSw0//3UtLKEzdeD18XEuk93La1NkOaUbrCL4a3tDiQ5T8y7FR/KCltxgwltD2/Zqg==
+X-Received: by 2002:a2e:bc88:0:b0:2ee:4c6c:5874 with SMTP id
+ 38308e7fff4ca-2ee5e37ff02mr73446291fa.10.1719862997936; 
+ Mon, 01 Jul 2024 12:43:17 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52e8b78c7dasm442940e87.41.2024.07.01.12.40.21
+ 38308e7fff4ca-2ee5160d26dsm14817021fa.25.2024.07.01.12.43.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jul 2024 12:40:21 -0700 (PDT)
-Date: Mon, 1 Jul 2024 22:40:20 +0300
+ Mon, 01 Jul 2024 12:43:17 -0700 (PDT)
+Date: Mon, 1 Jul 2024 22:43:16 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- quic_jesszhan@quicinc.com, swboyd@chromium.org, dianders@chromium.org
-Subject: Re: [PATCH 0/5] drm/msm: add a display mmu fault handler
-Message-ID: <iitrv5ktojj6gtep4y66lsgbyrumnnn7ljcpt37bnecilheymi@hiyemrsnhune>
+Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, 
+ quic_jesszhan@quicinc.com, swboyd@chromium.org, dianders@chromium.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/5] drm/msm/dpu: rate limit snapshot capture for mmu
+ faults
+Message-ID: <5isw7c5kkef4kql4qcous3gmwhvgwc53ntgjm4staymqr67ktm@iw3cr2gr2iko>
 References: <20240628214848.4075651-1-quic_abhinavk@quicinc.com>
+ <20240628214848.4075651-6-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240628214848.4075651-1-quic_abhinavk@quicinc.com>
+In-Reply-To: <20240628214848.4075651-6-quic_abhinavk@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,36 +87,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jun 28, 2024 at 02:48:42PM GMT, Abhinav Kumar wrote:
-> To debug display mmu faults, this series introduces a display fault
-> handler similar to the gpu one.
+On Fri, Jun 28, 2024 at 02:48:47PM GMT, Abhinav Kumar wrote:
+> There is no recovery mechanism in place yet to recover from mmu
+> faults for DPU. We can only prevent the faults by making sure there
+> is no misconfiguration.
 > 
-> This series has been tested on sc7280 chromebook by using triggering
-> a smmu fault by forcing an incorrect stride on the planes.
-> 
-> changes since RFC:
+> Rate-limit the snapshot capture for mmu faults to once per
+> msm_kms_init_aspace() as that should be sufficient to capture
+> the snapshot for debugging otherwise there will be a lot of
+> dpu snapshots getting captured for the same fault which is
+> redundant and also might affect capturing even one snapshot
+> accurately.
 
-RFC was v1, so technically this is v2.
+Please squash this into the first patch. There is no need to add code
+with a known defficiency.
 
-> 	- move msm_mmu_set_fault_handler() to msm_kms_init_aspace
-> 	- make msm_kms_fault_handler return -ENOSYS
-> 	- use msm_disp_snapshot_state() instead of msm_disp_snapshot_state_sync()
-> 	  because smmu fault handler should not sleep
-> 	- add a rate limiter for the snapshot to avoid spam
+Also, is there a reason why you haven't used <linux/ratelimit.h> ?
+
 > 
-> Abhinav Kumar (5):
->   drm/msm: register a fault handler for display mmu faults
->   drm/msm/iommu: rename msm_fault_handler to msm_gpu_fault_handler
->   drm/msm/iommu: introduce msm_iommu_disp_new() for msm_kms
->   drm/msm: switch msm_kms to use msm_iommu_disp_new()
->   drm/msm/dpu: rate limit snapshot capture for mmu faults
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/msm_kms.c | 6 +++++-
+>  drivers/gpu/drm/msm/msm_kms.h | 3 +++
+>  2 files changed, 8 insertions(+), 1 deletion(-)
 > 
->  drivers/gpu/drm/msm/msm_iommu.c | 32 +++++++++++++++++++++++++++++---
->  drivers/gpu/drm/msm/msm_kms.c   | 19 ++++++++++++++++++-
->  drivers/gpu/drm/msm/msm_kms.h   |  3 +++
->  drivers/gpu/drm/msm/msm_mmu.h   |  1 +
->  4 files changed, 51 insertions(+), 4 deletions(-)
-> 
+> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+> index d5d3117259cf..90a333920c01 100644
+> --- a/drivers/gpu/drm/msm/msm_kms.c
+> +++ b/drivers/gpu/drm/msm/msm_kms.c
+> @@ -168,7 +168,10 @@ static int msm_kms_fault_handler(void *arg, unsigned long iova, int flags, void
+>  {
+>  	struct msm_kms *kms = arg;
+>  
+> -	msm_disp_snapshot_state(kms->dev);
+> +	if (!kms->fault_snapshot_capture) {
+> +		msm_disp_snapshot_state(kms->dev);
+> +		kms->fault_snapshot_capture++;
+
+When is it decremented?
+
+> +	}
+>  
+>  	return -ENOSYS;
+>  }
+> @@ -208,6 +211,7 @@ struct msm_gem_address_space *msm_kms_init_aspace(struct drm_device *dev)
+>  		mmu->funcs->destroy(mmu);
+>  	}
+>  
+> +	kms->fault_snapshot_capture = 0;
+>  	msm_mmu_set_fault_handler(aspace->mmu, kms, msm_kms_fault_handler);
+>  
+>  	return aspace;
+> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+> index 1e0c54de3716..240b39e60828 100644
+> --- a/drivers/gpu/drm/msm/msm_kms.h
+> +++ b/drivers/gpu/drm/msm/msm_kms.h
+> @@ -134,6 +134,9 @@ struct msm_kms {
+>  	int irq;
+>  	bool irq_requested;
+>  
+> +	/* rate limit the snapshot capture to once per attach */
+> +	int fault_snapshot_capture;
+> +
+>  	/* mapper-id used to request GEM buffer mapped for scanout: */
+>  	struct msm_gem_address_space *aspace;
+>  
 > -- 
 > 2.44.0
 > 
