@@ -2,76 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEEB091E8C3
-	for <lists+freedreno@lfdr.de>; Mon,  1 Jul 2024 21:43:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BD3F91E8DE
+	for <lists+freedreno@lfdr.de>; Mon,  1 Jul 2024 21:49:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB83610E04D;
-	Mon,  1 Jul 2024 19:43:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBAC610E1E5;
+	Mon,  1 Jul 2024 19:49:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rJXhEOkY";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DB9CCxHg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C58E710E04D
- for <freedreno@lists.freedesktop.org>; Mon,  1 Jul 2024 19:43:19 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-52cdf2c7454so7152841e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 01 Jul 2024 12:43:19 -0700 (PDT)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86D5110E4EA
+ for <freedreno@lists.freedesktop.org>; Mon,  1 Jul 2024 19:49:41 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-52cdfb69724so4287720e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 01 Jul 2024 12:49:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719862998; x=1720467798; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1719863380; x=1720468180; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=oscpSDO7CeUkkgmCfEkVvaRyN/meIA6JpS1dhxrIHl0=;
- b=rJXhEOkYEiTJpuIcv3E7dihjtP8JYoJoJ5gTZzaHDtxLmg6+FRD5DJb0+Bz+RmJr2L
- ZTwihh0yakrkupnUuoVrbC3jNptFDGkZC1vePw2cFeHYIeN/etRXPUQTGxgUicuXahje
- QiCOfX6AcfX8/GT8h8BnT3yl4FFAd67/wzoXd7Ua9w1VKCRSur863HtHe01hGCBtNuNI
- V7hAst/wO9tOUJHY+o3lo1bbsyPET9WrT9UdhbOACyZkYV42l8Kf0NiqrkAlnQy4V7am
- 4C+WXKSZ1BEULzr8KR48dp89bqZFTAKs/dWSLJ7844or+TXC3Y1RcS0lqQeDFrM/fBCv
- o+dw==
+ bh=/klhqOqQpfIffOoQHl0HUCf3/QjQJt9wAB8xWlns1fY=;
+ b=DB9CCxHg4JMVah0e+RxSk4fIeBaqbhzC4SvLhZfb8EFktTpijiaO17mnfa45ijUOI/
+ mSFiTjhgajp202E2fAADQN/Cb4AYFGGkMqNpHkgG9zx2CB8SbTKbgat4djiBTbuLW8dM
+ rDRkNnyafeffo/LK9XZ/j37rUUSiNjbHKGWAE4dmduwGM8fi/B8xjtoUxdLKLhLh98Za
+ 3lZvtnm9nRs16g5xdXRNtbO0iPTorhCxAzR0rB/e5LsfmAybJjb9mRTK02b/ioKh3By0
+ FjP9ghKI627V/+dL6ur4xRax8qZdDlcm3vxN4IDeX1zy6Y+FEk1rtixtNsmE57JyoP1L
+ 8KDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719862998; x=1720467798;
+ d=1e100.net; s=20230601; t=1719863380; x=1720468180;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=oscpSDO7CeUkkgmCfEkVvaRyN/meIA6JpS1dhxrIHl0=;
- b=gIlU+0fCfAfbE9FAd/DaUBm0vlGltiG5EUT2E6WBt+KqWYgGDujAtHcV92olV65Tx3
- fUk2eQfFGRCNwtGDKlFT+n+e43rtWde8dD+AN4kjHx2H41Rr3u2WEA4bCSFwIQerXCGS
- 51Gq0EoFmtB8fShEG93WtOubD5mAzgXlSIYpjGPOgz5D2Mewh+ZvJZmCLttlfKQWVlta
- BPhHam7OetOQcLwyRStRGA8B8PKFevF/wxheg2STRpDK89QxAJIKWbK4zXmrPW3V14/X
- mKR1LCrpYgbKhktcfTGp7eCvezQsbZPEheDqguukD+H8Fefj1eCSBTVxE/5dDMLC6pH3
- TFuw==
-X-Gm-Message-State: AOJu0YzqI+7Ejiuu9bAJkd5JGEJTb/prlQruruztHCXMSdTDjVeRhdu/
- CzvMJ9hsOdzHraOjIOzc7c5x9Xd+OMSFVU8+aTJQrjcFcx3ta8DKUTI5Lfzjxog=
-X-Google-Smtp-Source: AGHT+IFJ7WfUoSw0//3UtLKEzdeD18XEuk93La1NkOaUbrCL4a3tDiQ5T8y7FR/KCltxgwltD2/Zqg==
-X-Received: by 2002:a2e:bc88:0:b0:2ee:4c6c:5874 with SMTP id
- 38308e7fff4ca-2ee5e37ff02mr73446291fa.10.1719862997936; 
- Mon, 01 Jul 2024 12:43:17 -0700 (PDT)
+ bh=/klhqOqQpfIffOoQHl0HUCf3/QjQJt9wAB8xWlns1fY=;
+ b=tybSHBOa0gPMwKeP3ExcfVmh7ypKh4ELFs9xmUG0CfEyaP9ztyFkDr2ULUq2h773qq
+ 7R9XGG59h6B9I5R7s2NszxuPqaAZ0o4fmjSFU3PBG0tt989H3svYzo2B749DThYbwOBX
+ r7B0xCdl919GWuWBTikXBfWSAv1+wIDuDBaud8n1Z1oPQcRy1QV8EB/z5si1r47Ybnjw
+ W4AWzwM33JLu/mfeOAUfEFlcYIYm20E1TMvvmEJsvkjRcaGXHtym6TMTBEgQYKQ6kAfR
+ rvzNvVcTpNezYimmHhMmero0IiP+7uHm2j5ZHvonbM6ZK8euwe1+5iCiTIFhIXfehfs9
+ scpg==
+X-Gm-Message-State: AOJu0Yy1PLRssa8aI2HX9mrQMKOK5rl7wGJF2vPnPqyKWN2hfGrTEMf+
+ p4Gz7AoNWV2ZgDm4BDj/LlSnCfeO2SoPJGlmGLbJX56RM28OSmOl/9RSMj5U45Y=
+X-Google-Smtp-Source: AGHT+IHJBGPp9DoIDMpnlZhDen1TE3XHx0LDJutjYa34E6KdbzqTWgJM1qLlNf0PNE3DaT98F8B0kA==
+X-Received: by 2002:a05:6512:3d91:b0:52c:c1aa:dd52 with SMTP id
+ 2adb3069b0e04-52e8268aa24mr4398960e87.30.1719863379680; 
+ Mon, 01 Jul 2024 12:49:39 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ee5160d26dsm14817021fa.25.2024.07.01.12.43.17
+ 2adb3069b0e04-52e7ab3b3c8sm1536851e87.292.2024.07.01.12.49.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jul 2024 12:43:17 -0700 (PDT)
-Date: Mon, 1 Jul 2024 22:43:16 +0300
+ Mon, 01 Jul 2024 12:49:39 -0700 (PDT)
+Date: Mon, 1 Jul 2024 22:49:37 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  dri-devel@lists.freedesktop.org, 
- quic_jesszhan@quicinc.com, swboyd@chromium.org, dianders@chromium.org, 
+ quic_jesszhan@quicinc.com, konrad.dybcio@linaro.org,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/5] drm/msm/dpu: rate limit snapshot capture for mmu
- faults
-Message-ID: <5isw7c5kkef4kql4qcous3gmwhvgwc53ntgjm4staymqr67ktm@iw3cr2gr2iko>
-References: <20240628214848.4075651-1-quic_abhinavk@quicinc.com>
- <20240628214848.4075651-6-quic_abhinavk@quicinc.com>
+Subject: Re: [PATCH] drm/msm/dpu: check ubwc support before adding compressed
+ formats
+Message-ID: <yyoh3jpsc5cy3h4nu3nhnqdv52ajljjn63dzewyujam7d2scgt@j2mmtajldazc>
+References: <20240628233927.4170966-1-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240628214848.4075651-6-quic_abhinavk@quicinc.com>
+In-Reply-To: <20240628233927.4170966-1-quic_abhinavk@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,74 +86,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jun 28, 2024 at 02:48:47PM GMT, Abhinav Kumar wrote:
-> There is no recovery mechanism in place yet to recover from mmu
-> faults for DPU. We can only prevent the faults by making sure there
-> is no misconfiguration.
+On Fri, Jun 28, 2024 at 04:39:27PM GMT, Abhinav Kumar wrote:
+> On QCM2290 chipset DPU does not support UBWC.
 > 
-> Rate-limit the snapshot capture for mmu faults to once per
-> msm_kms_init_aspace() as that should be sufficient to capture
-> the snapshot for debugging otherwise there will be a lot of
-> dpu snapshots getting captured for the same fault which is
-> redundant and also might affect capturing even one snapshot
-> accurately.
-
-Please squash this into the first patch. There is no need to add code
-with a known defficiency.
-
-Also, is there a reason why you haven't used <linux/ratelimit.h> ?
-
+> Add a dpu cap to indicate this and do not expose compressed formats
+> in this case.
+> 
+> changes since RFC:
+> 	- use ubwc enc and dec version of mdss_data instead of catalog
+> 	  to decide if ubwc is supported
 > 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/msm_kms.c | 6 +++++-
->  drivers/gpu/drm/msm/msm_kms.h | 3 +++
->  2 files changed, 8 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-> index d5d3117259cf..90a333920c01 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.c
-> +++ b/drivers/gpu/drm/msm/msm_kms.c
-> @@ -168,7 +168,10 @@ static int msm_kms_fault_handler(void *arg, unsigned long iova, int flags, void
->  {
->  	struct msm_kms *kms = arg;
->  
-> -	msm_disp_snapshot_state(kms->dev);
-> +	if (!kms->fault_snapshot_capture) {
-> +		msm_disp_snapshot_state(kms->dev);
-> +		kms->fault_snapshot_capture++;
 
-When is it decremented?
-
-> +	}
->  
->  	return -ENOSYS;
->  }
-> @@ -208,6 +211,7 @@ struct msm_gem_address_space *msm_kms_init_aspace(struct drm_device *dev)
->  		mmu->funcs->destroy(mmu);
->  	}
->  
-> +	kms->fault_snapshot_capture = 0;
->  	msm_mmu_set_fault_handler(aspace->mmu, kms, msm_kms_fault_handler);
->  
->  	return aspace;
-> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-> index 1e0c54de3716..240b39e60828 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.h
-> +++ b/drivers/gpu/drm/msm/msm_kms.h
-> @@ -134,6 +134,9 @@ struct msm_kms {
->  	int irq;
->  	bool irq_requested;
->  
-> +	/* rate limit the snapshot capture to once per attach */
-> +	int fault_snapshot_capture;
-> +
->  	/* mapper-id used to request GEM buffer mapped for scanout: */
->  	struct msm_gem_address_space *aspace;
->  
-> -- 
-> 2.44.0
-> 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
