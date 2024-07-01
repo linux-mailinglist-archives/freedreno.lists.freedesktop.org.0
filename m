@@ -2,86 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F9A191D7AE
-	for <lists+freedreno@lfdr.de>; Mon,  1 Jul 2024 07:51:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5626791DFD9
+	for <lists+freedreno@lfdr.de>; Mon,  1 Jul 2024 14:49:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D17B610E1AC;
-	Mon,  1 Jul 2024 05:51:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DFAD10E3FB;
+	Mon,  1 Jul 2024 12:49:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="T1eWx6OJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hPDkoDsH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E360C10E072;
- Mon,  1 Jul 2024 05:51:18 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45UNhNPl009177;
- Mon, 1 Jul 2024 05:51:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=U8w4D1r7t7niSc/XiQ8MWOlU
- ZfgvTBRs8X6EjKJ4vwY=; b=T1eWx6OJLaaLAXZWIoAdhOPKH/C2jnVRXZHiJ7b9
- ma0QL6ElXYT62aSSjODmfFFonSdpZ02m77m0sODF8Mk2BbeqPQfyv9hz3SeVa0Al
- 0CNMJwiAIVOFoDtXVPmZxSEojHqqB1FzjsRVDHwkUdGeMhqtH9ul1XFJPPSRSiDI
- y5CUCGI/wPts8gHepD4Vsfhrq/AYqsZlBqbkYy8epVo0ZQZqcTE/+VWhrzVd5HSt
- gAlJUdLVSvL+oDs3Tf8UdOv7YGbCdrLrutw+SRjwWMRsUHNME0ivPiSs/Iqhzw2v
- Yhj3p9K0FKaEXVaCPxDR4/gcNhRJkwPt5vEOS93bwZM6KA==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 402bejjw3w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 01 Jul 2024 05:51:13 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 4615pCTs027669
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 1 Jul 2024 05:51:12 GMT
-Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Sun, 30 Jun 2024 22:51:07 -0700
-Date: Mon, 1 Jul 2024 11:21:03 +0530
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-CC: freedreno <freedreno@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, "OPEN
- FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Krzysztof Kozlowski
- <krzk@kernel.org>, Will Deacon <will@kernel.org>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>, David Airlie
- <airlied@gmail.com>, Marijn Suijten <marijn.suijten@somainline.org>, "Sean
- Paul" <sean@poorly.run>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 3/5] drm/msm/adreno: Introduce gmu_chipid for a740 &
- a750
-Message-ID: <20240701055103.srt6olauy7ux5um5@hu-akhilpo-hyd.qualcomm.com>
-References: <20240629015111.264564-1-quic_akhilpo@quicinc.com>
- <20240629015111.264564-4-quic_akhilpo@quicinc.com>
- <243c0432-a681-4932-957b-e80f2f4ef295@linaro.org>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 438AE10E3FB;
+ Mon,  1 Jul 2024 12:49:15 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 98384612E3;
+ Mon,  1 Jul 2024 12:49:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E94D1C116B1;
+ Mon,  1 Jul 2024 12:49:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1719838154;
+ bh=v6qUUZXZ9LbqXsuxzw3IntQUC5PzQoBOqCofNfztNiY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hPDkoDsHsKhklFFx66Tw9CPJ6Y35w1C2i00Ixvq3038M2mKIVwhTlPXmQL6qea+nw
+ nBUrpvaH9kIGPud3BaCKuIGOLXRK6S7HbvDwb0Ma74NyTKqJojhXm2LEd1QbkhICgU
+ oGgWIq5Ky5yeuh8HRGLPty+Y09/BIvF+q7QYRVf9/7yI1//IA1Fth6SPM2aVV9YGHh
+ G/LgZky8C1XmEFfl4bfuGTwN6ZIwmOvrTTZW7VtDtOb7amjh/nhCZME+t4hX/0NkXD
+ NYTcLIts7K9b2AhWyKdVkTfmfceuRKqF8OnKi0T2jEArFWQNUGq4mX7hraYoVrGk4W
+ Eo6dWXqTQHjAw==
+Date: Mon, 1 Jul 2024 14:49:11 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] drm/bridge-connector: reset the HDMI connector
+ state
+Message-ID: <20240701-little-sociable-iguana-effa3c@houat>
+References: <20240623-drm-bridge-connector-fix-hdmi-reset-v2-0-8590d44912ce@linaro.org>
+ <20240623-drm-bridge-connector-fix-hdmi-reset-v2-1-8590d44912ce@linaro.org>
+ <20240625-feathered-loon-of-health-ec7e6d@houat>
+ <CAA8EJpq314tQFZpkXgL1cYDPfoFRukhB_KiaDvmsqdzHFD512g@mail.gmail.com>
+ <20240625-jackrabbit-of-major-ampleness-e0becb@houat>
+ <ov4uvlcyzfqw55g567jikyceivpkl7l3ijuol53fqsv2asdgrl@miggxlyyeiek>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="me2klb7invzxbisc"
 Content-Disposition: inline
-In-Reply-To: <243c0432-a681-4932-957b-e80f2f4ef295@linaro.org>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: YTnb4gfmvQsDbz3CbM_Kw55DIfWsDEV1
-X-Proofpoint-ORIG-GUID: YTnb4gfmvQsDbz3CbM_Kw55DIfWsDEV1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-01_04,2024-06-28_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxlogscore=999
- impostorscore=0 spamscore=0 clxscore=1015 mlxscore=0 suspectscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2406140001 definitions=main-2407010043
+In-Reply-To: <ov4uvlcyzfqw55g567jikyceivpkl7l3ijuol53fqsv2asdgrl@miggxlyyeiek>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,36 +74,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Jun 29, 2024 at 03:06:22PM +0200, Konrad Dybcio wrote:
-> On 29.06.2024 3:49 AM, Akhil P Oommen wrote:
-> > To simplify, introduce the new gmu_chipid for a740 & a750 GPUs.
-> > 
-> > Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> > ---
-> 
-> This gets rid of getting patchid from dts, but I suppose that's fine,
-> as we can just add a new entry to the id table
-> 
-> [...]
-> 
-> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > @@ -771,7 +771,7 @@ static int a6xx_gmu_fw_start(struct a6xx_gmu *gmu, unsigned int state)
-> >  	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> >  	const struct a6xx_info *a6xx_info = adreno_gpu->info->a6xx;
-> >  	u32 fence_range_lower, fence_range_upper;
-> > -	u32 chipid, chipid_min = 0;
-> > +	u32 chipid = 0;
-> 
-> The initialization doesn't seem necessary
 
-Rob, would it be possible to fix this up when you pick this patch?
+--me2klb7invzxbisc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
--Akhil.
+On Tue, Jun 25, 2024 at 07:38:22PM GMT, Dmitry Baryshkov wrote:
+> On Tue, Jun 25, 2024 at 05:49:54PM GMT, Maxime Ripard wrote:
+> > On Tue, Jun 25, 2024 at 06:05:33PM GMT, Dmitry Baryshkov wrote:
+> > > On Tue, 25 Jun 2024 at 18:02, Maxime Ripard <mripard@kernel.org> wrot=
+e:
+> > > >
+> > > > Hi,
+> > > >
+> > > > On Sun, Jun 23, 2024 at 08:40:12AM GMT, Dmitry Baryshkov wrote:
+> > > > > On HDMI connectors which use drm_bridge_connector and DRM_BRIDGE_=
+OP_HDMI
+> > > > > IGT chokes on the max_bpc property in several kms_properties test=
+s due
+> > > > > to the the drm_bridge_connector failing to reset HDMI-related
+> > > > > properties.
+> > > > >
+> > > > > Call __drm_atomic_helper_connector_hdmi_reset() if there is a
+> > > > > the drm_bridge_connector has bridge_hdmi.
+> > > > >
+> > > > > Note, the __drm_atomic_helper_connector_hdmi_reset() is moved to
+> > > > > drm_atomic_state_helper.c because drm_bridge_connector.c can not =
+depend
+> > > > > on DRM_DISPLAY_HDMI_STATE_HELPER. At the same time it is impossib=
+le to
+> > > > > call this function from HDMI bridges, there is is no function that
+> > > > > corresponds to the drm_connector_funcs::reset().
+> > > >
+> > > > Why can't it depend on DRM_DISPLAY_HDMI_STATE_HELPER?
+> > >=20
+> > > Is it okay to have DRM_KMS_HELPER to depend unconditionally or select
+> > > DRM_DISPLAY_HDMI_STATE_HELPER?
+> >=20
+> > No, but it's not clear to me why drm_bridge_connector is part of
+> > DRM_KMS_HELPER? It doesn't seem to be called from the core but only
+> > drivers, just like DRM_PANEL_BRIDGE which has a separate config option
+>=20
+> But then DRM_PANEL_BRIDGE is also linked into drm_kms_helper.ko.
 
-> 
-> otherwise:
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> 
-> Konrad
+And we don't seem to have any reason for that, it could be a separate
+module afaik.
+
+> I can't really say that I understand the definition of various helper
+> modules, but my taste tells me that code from drm/*.c should not
+> depend directly on the code from drm/display/*.c.
+
+Sure, but the bridge connector could be under bridge just as well, or
+part of the display helpers.
+
+It's really a "leaf" driver as far as helpers are concerned.
+
+Maxime
+
+--me2klb7invzxbisc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZoKlxgAKCRDj7w1vZxhR
+xbLGAP9QjGMpGQ4lcq2vmRKwxTrBTwk4ljyI0gIkLVgij7GQ0wEAgUMgxhlK5cT7
+vsRyGCD9EB+uJa0VYuy+xOPe+dneSAs=
+=OmLd
+-----END PGP SIGNATURE-----
+
+--me2klb7invzxbisc--
