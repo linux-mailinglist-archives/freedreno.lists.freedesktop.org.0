@@ -2,94 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0E29923A94
-	for <lists+freedreno@lfdr.de>; Tue,  2 Jul 2024 11:49:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31BE1923C5C
+	for <lists+freedreno@lfdr.de>; Tue,  2 Jul 2024 13:28:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A20310E5AB;
-	Tue,  2 Jul 2024 09:49:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2BB410E5B1;
+	Tue,  2 Jul 2024 11:28:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Eqp+PFbJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ed3Ssusn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BACE710E5A4
- for <freedreno@lists.freedesktop.org>; Tue,  2 Jul 2024 09:48:59 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-2ec595d0acbso48710871fa.1
- for <freedreno@lists.freedesktop.org>; Tue, 02 Jul 2024 02:48:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1719913738; x=1720518538; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=eQKBE1FE4gVeE/pTxSlRLGb8qXFL4Qosomf5ec/NnUU=;
- b=Eqp+PFbJVgoGjaU9k04rCVUyUD/lSNvV9HpVfjw9C+lO0IX5VF3dUAP2ofPgayrah0
- /ZY3dDx+9/WATmWX/aZJ5tZu1QSV+LROS1IUfRBLpOiijvPLL2NAODzQwJFYx+9TSkny
- lGeeBHINqK2v4Oy0alfTG/Lm9L6iapBACQB9jfmlxxOa0eHDdbS84S6UV5uuuVuUsCd1
- VwyMBjEuQDoR/KR9CP0wBwzU/OibObUyeX80Io+hIaienhyHsNZKUHX5QdTcKYkWKuSq
- sMz2/sipJ06GJkiQbRQu29eFve1T/sdpVy6iCwmrCOWc28qeNoH7G/t+YdivfZvmVHu3
- XW1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719913738; x=1720518538;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eQKBE1FE4gVeE/pTxSlRLGb8qXFL4Qosomf5ec/NnUU=;
- b=Gq288kIfwQGctZWUgK+V+tgtu6y/3hyiBS+iHmgmF5XCiwG0FPO1YIJnLtDH1c87qG
- 88exx2YcOuIrKwv7QhzMrxnev2Bzy6n5Lfml4irxfeNZmnP1dlO5LJgedlUddaM+gikn
- WTQ38MVxfljGoBus91BeIEvu412v1mQ67MSu27D8a99fpzR2Hi1sG8vVrp23ksTpTaZy
- Kd/m8mZDxuscC2aQFgt3DdfwUgAkWMjsUSTxMU46qtFRWZrEVXA+Kf2G91A4ZREcmU78
- 64vHuLnArThzNejuwHIr1CMpVLFZgThXMB41T45dBKjOBLrKfWNY+bmy1uzEqXYKPSQ2
- O1Hw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX7fge8l6mU2ezQTW8QjZGAn/hmR9eqAryHW4yxcEPkaXAs45skj8Bi17GlI5wUGqvCOBEsrnRvoJI++tTYvMo2vNJn/tj/PzVS3m/IJ5GX
-X-Gm-Message-State: AOJu0YwSs8/uQ4+OmSwDUn4OMemYHCOgbBdHta8Y92VMryRGrDivX6hT
- PpqdCeAbDhTNIg329Gj0OyWk05ddzeUUcEo1rlkKqsHd1+izlaWGYRachN9L7s0=
-X-Google-Smtp-Source: AGHT+IFqBUb9Z/lQB5tnnDyAQuJJOp+uTr+Pgp7gBda/3vOoSNPxzuipgShTPcGYxiszIB8CQWowdg==
-X-Received: by 2002:a2e:a78f:0:b0:2ec:4e99:92 with SMTP id
- 38308e7fff4ca-2ee5e3c32e9mr78874021fa.29.1719913737970; 
- Tue, 02 Jul 2024 02:48:57 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ee5160e333sm16231161fa.5.2024.07.02.02.48.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jul 2024 02:48:57 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 02 Jul 2024 12:48:55 +0300
-Subject: [PATCH v3 4/4] drm/bridge-connector: reset the HDMI connector
- state
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD7DA10E5B1;
+ Tue,  2 Jul 2024 11:28:36 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 005D261B4B;
+ Tue,  2 Jul 2024 11:28:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA159C116B1;
+ Tue,  2 Jul 2024 11:28:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1719919715;
+ bh=R8+rZJ4UpBPZnN3SumMPWq4w3upOof4xgExoUpvjPIo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ed3SsusnbPQFrOkXNsNT53jAZHRwWGEkjbXL8uLNX4imPdtdA0A7rAZOs/bXabqPr
+ /2aJ1SEJ0RWsG8GuAX2EYKimbbgrPo9k/KtK+YGqs4IIGvGFscQ7VH5H/KJRQg6j69
+ 8XUBQe+ebABqr5ZTUAwWHYu44DV130KYFurTdcq48yYMFMWwsNXZbsMD2Jxw6G8hxV
+ Ck45x85p8c4QlgXTQ9GYhdXvizNI9lRrveBiyLsQCr5pc0LoXbHOl8C3gPkDSaG6sX
+ 67/HQIH8ndX+UoDiWPpxO+aHH3fc7Ku/rsEx9wT15qCU9qDPcQE36Q97/Im+0xgvd9
+ 7kzuiKwSaRlqw==
+Date: Tue, 2 Jul 2024 16:58:31 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Marc Gonzalez <mgonzalez@freebox.fr>
+Cc: Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Arnaud Vrac <avrac@freebox.fr>,
+ Pierre-Hugues Husson <phhusson@freebox.fr>,
+ Jeffrey Hugo <quic_jhugo@quicinc.com>
+Subject: Re: [PATCH v5 1/4] dt-bindings: phy: add qcom,hdmi-phy-8998
+Message-ID: <ZoPkX0lE82Lkab6R@matsya>
+References: <20240627-hdmi-tx-v5-0-355d5c1fbc3c@freebox.fr>
+ <20240627-hdmi-tx-v5-1-355d5c1fbc3c@freebox.fr>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240702-drm-bridge-connector-fix-hdmi-reset-v3-4-12b0e3124ca4@linaro.org>
-References: <20240702-drm-bridge-connector-fix-hdmi-reset-v3-0-12b0e3124ca4@linaro.org>
-In-Reply-To: <20240702-drm-bridge-connector-fix-hdmi-reset-v3-0-12b0e3124ca4@linaro.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- dri-devel@lists.freedesktop.org, igt-dev@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2314;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=XfWO1UT95i4nFh6ks6YHBz3BepXJnrLcVKL7lmB6nak=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ1rzWdb9r/6I6H3gyF9qODH2lY8y17SPBf1qHDLNjUucT
- kuIepl0MhqzMDByMciKKbL4FLRMjdmUHPZhx9R6mEGsTCBTGLg4BWAin5nY//B5XWtTEbstXeAl
- e5cpTPjg5Bv6mSzbxX8zL5dOCQsN9w9VU3yc2/Bsbu603rUvpjwq1D/43/h+ppPUa84AowTVN1x
- 7bl38cu5UDd8Unw1/7nEb9q5ZZaG18dzsRl+usvX+jK9nnrizbGp+wfsoo6q9IsXLtBxcTUx7Ty
- j4hBdPe5iyu4rjTra+//LSHE4pI7v/af0tD3JNZaPUnjeYrvbssdi2KkdM87eDq/OkWdqPLkidL
- QrZ8u7jm5yX5x7O/ML992hwf8KVD54zrMK8pBtqm2dMPP5hgdPZ9nrujPS3bHXHPXucNgnKGGmF
- trMfWP7HXuCEqdek/ki3yxsvLF1st1dQfs/ST30WWfr+AA==
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240627-hdmi-tx-v5-1-355d5c1fbc3c@freebox.fr>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,62 +74,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On HDMI connectors which use drm_bridge_connector and DRM_BRIDGE_OP_HDMI
-IGT chokes on the max_bpc property in several kms_properties tests due
-to the the drm_bridge_connector failing to reset HDMI-related
-properties.
+On 27-06-24, 17:53, Marc Gonzalez wrote:
+> HDMI PHY block embedded in the APQ8098.
+> 
 
-Call __drm_atomic_helper_connector_hdmi_reset() if the
-drm_bridge_connector has bridge_hdmi.
-
-It is impossible to call this function from HDMI bridges, there is is no
-function that corresponds to the drm_connector_funcs::reset().
-
-Fixes: 6b4468b0c6ba ("drm/bridge-connector: implement glue code for HDMI connector")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/display/Kconfig                |  1 +
- drivers/gpu/drm/display/drm_bridge_connector.c | 13 ++++++++++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/display/Kconfig b/drivers/gpu/drm/display/Kconfig
-index 1a192a45961b..bfd025f8c7b5 100644
---- a/drivers/gpu/drm/display/Kconfig
-+++ b/drivers/gpu/drm/display/Kconfig
-@@ -9,6 +9,7 @@ config DRM_DISPLAY_HELPER
- config DRM_BRIDGE_CONNECTOR
- 	bool
- 	depends on DRM && DRM_BRIDGE && DRM_DISPLAY_HELPER
-+	select DRM_DISPLAY_HDMI_STATE_HELPER
- 	help
- 	  DRM connector implementation terminating DRM bridge chains.
- 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 0869b663f17e..7ebb35438459 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -216,8 +216,19 @@ static void drm_bridge_connector_debugfs_init(struct drm_connector *connector,
- 	}
- }
- 
-+static void drm_bridge_connector_reset(struct drm_connector *connector)
-+{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+
-+	drm_atomic_helper_connector_reset(connector);
-+	if (bridge_connector->bridge_hdmi)
-+		__drm_atomic_helper_connector_hdmi_reset(connector,
-+							 connector->state);
-+}
-+
- static const struct drm_connector_funcs drm_bridge_connector_funcs = {
--	.reset = drm_atomic_helper_connector_reset,
-+	.reset = drm_bridge_connector_reset,
- 	.detect = drm_bridge_connector_detect,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+Acked-by: Vinod Koul <vkoul@kernel.org>
 
 -- 
-2.39.2
-
+~Vinod
