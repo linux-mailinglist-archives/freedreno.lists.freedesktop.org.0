@@ -2,45 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2668192476C
-	for <lists+freedreno@lfdr.de>; Tue,  2 Jul 2024 20:44:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32D41924FAB
+	for <lists+freedreno@lfdr.de>; Wed,  3 Jul 2024 05:37:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE93910E676;
-	Tue,  2 Jul 2024 18:44:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56E8310E52A;
+	Wed,  3 Jul 2024 03:37:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pW2/DNLq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uW2P6mGi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9700510E676;
- Tue,  2 Jul 2024 18:44:18 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0B9A10E520;
+ Wed,  3 Jul 2024 03:37:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B6E9861F86;
- Tue,  2 Jul 2024 18:44:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD46C4AF0A;
- Tue,  2 Jul 2024 18:44:12 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 77E65CE0203;
+ Wed,  3 Jul 2024 03:37:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFD04C116B1;
+ Wed,  3 Jul 2024 03:37:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1719945857;
- bh=81DVEaGVuhgaL3qUhWK3WtVKi0kz5H+uUytvhWe3MrM=;
+ s=k20201202; t=1719977871;
+ bh=832WPZNjC2cU1NTJdZRlTwMLNqACMwDQnZTUfdgZRQI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pW2/DNLqngPdKmnWt0jlXQiAJdlCYqmvJrjSIqeo52Kg/w/PoE4oelx3hLHcHrr4T
- 6PRGpKFW5zCCzKCQkYs5N3jCCC8Fne+B5LLdxKiPv744PXpdIH1/Mvj+/Ujs0aNv7P
- Uh+Sws1kyCXeTzCPQyAYvrOUkrXZcG6FoaJnm1QGZodrUhYgd/W9L0o0CAco3umxbu
- Zq77z8+m2yXDx4D85hZIqFwc/X78wRQvC6WN58t9SqJpiePb7Z9xgh6i9lmD9+7+5X
- BljiFE5QoDuis6yjwHG0G7PcGs8aX3raRT3IZ0QkTB09DXCzLziAlKS+QSiWdXU2fv
- N+w8c2+jCN2ow==
-From: Will Deacon <will@kernel.org>
+ b=uW2P6mGinY+vgnxllheTht2kHIOnVn6AF8LR817cLCQSSl26lQNsBQZC3P0483kEu
+ aYkb+XU2AAsOSzpLt4lIPndZI8f7dq65Uxy3f0k0ZakxH0tcyv+mjhU84ZY0cWMyRj
+ RUuErauTxXB+ljtzCTI0hDQJZIoGhEwtFwCfRK7YSqp35TaQI/BZbJEcGX9ispTSvd
+ 1cQV+jsmB9HFeYWDlxjHmi0GzJhhjKSnEx7JFUFOCQdZtxXKteSmzx+9aVdeaN8a2O
+ j4h5qpJwPivQd6F46ZQMg3mLdkojEghuODdJmB1/sT/IDTL3TxywQ6SxZVwD3hAeOJ
+ X5tGXypFY9FVw==
+From: Bjorn Andersson <andersson@kernel.org>
 To: freedreno <freedreno@lists.freedesktop.org>,
  dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS <devicetree@vger.kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Rob Clark <robdclark@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Will Deacon <will@kernel.org>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: catalin.marinas@arm.com, kernel-team@android.com,
- Will Deacon <will@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Conor Dooley <conor+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
  David Airlie <airlied@gmail.com>, Joerg Roedel <joro@8bytes.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -50,10 +49,10 @@ Cc: catalin.marinas@arm.com, kernel-team@android.com,
  Robin Murphy <robin.murphy@arm.com>, Sean Paul <sean@poorly.run>,
  Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] Support for Adreno X1-85 GPU
-Date: Tue,  2 Jul 2024 19:43:59 +0100
-Message-Id: <171993892905.1967989.351563734585007693.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
+Subject: Re: (subset) [PATCH v2 0/5] Support for Adreno X1-85 GPU
+Date: Tue,  2 Jul 2024 22:37:33 -0500
+Message-ID: <171997785354.348959.17891390714770433970.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240629015111.264564-1-quic_akhilpo@quicinc.com>
 References: <20240629015111.264564-1-quic_akhilpo@quicinc.com>
 MIME-Version: 1.0
@@ -74,6 +73,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+
 On Sat, 29 Jun 2024 07:19:33 +0530, Akhil P Oommen wrote:
 > This series adds support for the Adreno X1-85 GPU found in Qualcomm's
 > compute series chipset, Snapdragon X1 Elite (x1e80100). In this new
@@ -88,16 +88,11 @@ On Sat, 29 Jun 2024 07:19:33 +0530, Akhil P Oommen wrote:
 > 
 > [...]
 
-Applied SMMU bindings change to will (for-joerg/arm-smmu/bindings),
-thanks!
+Applied, thanks!
 
-[4/5] dt-bindings: arm-smmu: Add X1E80100 GPU SMMU
-      https://git.kernel.org/will/c/d6c102881b30
+[5/5] arm64: dts: qcom: x1e80100: Add gpu support
+      commit: 721e38301b79a6ee8375cb0ebd586699a7f353e3
 
-Cheers,
+Best regards,
 -- 
-Will
-
-https://fixes.arm64.dev
-https://next.arm64.dev
-https://will.arm64.dev
+Bjorn Andersson <andersson@kernel.org>
