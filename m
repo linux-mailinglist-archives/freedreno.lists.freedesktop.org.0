@@ -2,83 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18411927349
-	for <lists+freedreno@lfdr.de>; Thu,  4 Jul 2024 11:47:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D9C092763B
+	for <lists+freedreno@lfdr.de>; Thu,  4 Jul 2024 14:46:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBA2210EA74;
-	Thu,  4 Jul 2024 09:47:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A10410EAD0;
+	Thu,  4 Jul 2024 12:46:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mVl6ytLF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sNraHRvV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A44AB10EA73
- for <freedreno@lists.freedesktop.org>; Thu,  4 Jul 2024 09:47:31 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2ee910d6a9eso1311421fa.1
- for <freedreno@lists.freedesktop.org>; Thu, 04 Jul 2024 02:47:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1720086450; x=1720691250; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=35N2PrXzYxiJZwkwJHk2aUwLzMamAemczMI+Lfl3A9Q=;
- b=mVl6ytLFB9Q+vEQmWbnZJeIS7kluqybMrm6j7v5nGWWRBRMikLC/k4wljHR90ewdzg
- XibaA6ZT4V77CKoCASxYn8ZKaxhtgYSYp+EbkYLo9I6DwDu3SFAxqcmMg5w9S/hvwkko
- 3nu7vGIlGSFsesaLctUFk6uV67ICcwtiiR5bsKvUGlpU0kFAdb5pjZiNPoPSKl9mySVY
- 9O80iUBDmiIxtSleuAcW4TVJlMHZW3bC5RE9+VrxceaHUs/xC2oLSTpkjp2j6HxObn4A
- XQ+NtEgmU2/zX/Xj9n1+0+kicZgiLXnrHvoKY0HBMIp1RU+tYtFCVQCMsJ+NolpQXYL8
- DCjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720086450; x=1720691250;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=35N2PrXzYxiJZwkwJHk2aUwLzMamAemczMI+Lfl3A9Q=;
- b=VSOazGReFgf8Oe0Umnt/oECNIkbYj8SKu2ah6BrCuXy5CdL/13hQhy0gXEBd80oXLh
- YsZCfwfFkb69rl7E17ccEK8IJ//XjFCVxZYwml6a9rWGqAQ7Y5n2uLW2XuYiKg8Bg+Xf
- 3a9m90TaGEl+iqrG7J2BzigbjIR7VAxCWSfDYzJ0qMlyxE+MT1/13OtC0zGF+Ims47/X
- PyjYR8afVfQygfqStMxBmftckl+eZmbPtowDmW2p2eJiJYtOY2896q1sPpEhAA00sN+y
- /v9lwEyg4Z/m+NxZp0McTN1RpxGAIMgiUgsPhGUtzLdWNY5ARZYn6gjWyTfhXslXsUJs
- LppA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUwBY1/6M2GOf7RMA2sMX8x6Cc1/iGSI3AwNFEF6v8abnlhDrAZUdk/Wo9J8WzfFZiT4XIaFzvsX9UVZtwb3j7duIffNLDg1L3+u53yqxfT
-X-Gm-Message-State: AOJu0YyxlY+VpMkm4Z8LR6GTYRP3ZpZCsLc5ID35bQ6j+AZS9Ll/bgef
- D1rxoKOVRKZz27434yMBbj/xti1uc/FEV8ego07ImEcgM4B0XMAXIqTPJW/roWM=
-X-Google-Smtp-Source: AGHT+IHY10vCx+yPAsfjMVF2tw9KVqfnRtV2MHnfk54hzEFRlKpMtmNraZr7IHPDg143p/NmuRLI2g==
-X-Received: by 2002:a2e:3312:0:b0:2ee:8aa7:4885 with SMTP id
- 38308e7fff4ca-2ee8f2bce1emr3526411fa.14.1720086449816; 
- Thu, 04 Jul 2024 02:47:29 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0c3:3a00::b8c?
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ee5168cf96sm21284091fa.108.2024.07.04.02.47.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jul 2024 02:47:29 -0700 (PDT)
-Message-ID: <019146e8-25b3-474a-b433-c69d4fbe0ee0@linaro.org>
-Date: Thu, 4 Jul 2024 12:47:28 +0300
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6979E10EACE;
+ Thu,  4 Jul 2024 12:46:11 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 2051CCE340D;
+ Thu,  4 Jul 2024 12:46:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C829C3277B;
+ Thu,  4 Jul 2024 12:46:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1720097168;
+ bh=1qWmm6XjrlUwsQJPzKcSMSfddvtOQZ5Ao7DnMFxneuw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=sNraHRvVdmue1bEZNzHIo2hecWjHgxAkInCOUgJM5YyTHw7SyHtY50pfNuiQr4wCL
+ pEHFdb/9MBO6vLgFo2YfIpvbDEyxF+i6/3zIfD7nHMLGW4D6dZolKnMwj3dzRsPz0r
+ VtjtvKYMSO+mDLxwwq8SM3IBID+KOQ4BGkSjK0ptu2nd9WV3nYwHLgsPlHnZVZMunk
+ CGVpiXQpX5YuGvHT3GVex2Pt9vu1F7dLFomINj2voCxDF6FDqD1Xwox0FjF4EPkntY
+ Gk3KUwpFLCBPXPLjxjSXPvoC1NjvDzoEPkCoUIwnCLuzsXH3DjHggIxxmMqj57yDvh
+ wyH0Ba94axAzw==
+Date: Thu, 4 Jul 2024 14:46:05 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ dri-devel@lists.freedesktop.org, igt-dev@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] drm/drm_property: require DRM_MODE_PROP_IMMUTABLE
+ for single-value props
+Message-ID: <20240704-magnetic-cocky-hawk-a5cfe9@houat>
+References: <20240702-drm-bridge-connector-fix-hdmi-reset-v3-0-12b0e3124ca4@linaro.org>
+ <20240702-drm-bridge-connector-fix-hdmi-reset-v3-1-12b0e3124ca4@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm: Fix incorrect file name output in
- adreno_request_fw()
-To: Aleksandr Mishin <amishin@t-argos.ru>,
- Jordan Crouse <jordan@cosmicpenguin.net>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-References: <20240704093002.15155-1-amishin@t-argos.ru>
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20240704093002.15155-1-amishin@t-argos.ru>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="w5zuytjnfohfjfgo"
+Content-Disposition: inline
+In-Reply-To: <20240702-drm-bridge-connector-fix-hdmi-reset-v3-1-12b0e3124ca4@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,40 +70,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/07/2024 12:30, Aleksandr Mishin wrote:
-> In adreno_request_fw() when debugging information is printed to the log
-> after firmware load, an incorrect filename is printed. 'newname' is used
-> instead of 'fwname', so prefix "qcom/" is being added to filename.
-> Looks like "copy-paste" mistake.
-> 
-> Fix this mistake by replacing 'newname' with 'fwname'.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> 
-> Fixes: 9fe041f6fdfe ("drm/msm: Add msm_gem_get_and_pin_iova()")
 
-Fixes tag is incorrect, LGTM otherwise.
+--w5zuytjnfohfjfgo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Signed-off-by: Aleksandr Mishin <amishin@t-argos.ru>
+On Tue, Jul 02, 2024 at 12:48:52PM GMT, Dmitry Baryshkov wrote:
+> Document that DRM_MODE_PROP_IMMUTABLE must be set for the properties
+> that are immutable by definition - e.g. ranges with min =3D=3D max or enu=
+ms
+> with a single value. This matches the behaviour of the IGT tests, see
+> kms_properties.c / validate_range_prop(), validate_enum_prop(),
+> validate_bitmask_prop().
+>=20
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 074fb498706f..0bb7d66047f8 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -475,7 +475,7 @@ adreno_request_fw(struct adreno_gpu *adreno_gpu, const char *fwname)
->   		ret = request_firmware_direct(&fw, fwname, drm->dev);
->   		if (!ret) {
->   			DRM_DEV_INFO(drm->dev, "loaded %s from legacy location\n",
-> -				newname);
-> +				fwname);
->   			adreno_gpu->fwloc = FW_LOCATION_LEGACY;
->   			goto out;
->   		} else if (adreno_gpu->fwloc != FW_LOCATION_UNKNOWN) {
+>  include/drm/drm_property.h | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
+> index 082f29156b3e..7d0f793f50ca 100644
+> --- a/include/drm/drm_property.h
+> +++ b/include/drm/drm_property.h
+> @@ -162,6 +162,9 @@ struct drm_property {
+>  	 *     userspace, e.g. the EDID, or the connector path property on DP
+>  	 *     MST sinks. Kernel can update the value of an immutable property
+>  	 *     by calling drm_object_property_set_value().
+> +	 *     This flag should be set for all properties that have only a
+> +	 *     single value (e.g. min =3D=3D max or if enum has only a single
+> +	 *     value).
 
--- 
-With best wishes
-Dmitry
+Given the IGT test, I think it should be a must, not a should.
 
+Maxime
+
+--w5zuytjnfohfjfgo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZoaZjQAKCRDj7w1vZxhR
+xYNMAP4pPoXtV/8TZeOVseYJlA3QZ4iQPPmOElkvzWIVkh7DrAEAr862SWkiPWq6
+0L04mnkplcEV0Ge/6Sb8n50qP8EA+Qg=
+=XfbK
+-----END PGP SIGNATURE-----
+
+--w5zuytjnfohfjfgo--
