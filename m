@@ -2,35 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D9C092763B
-	for <lists+freedreno@lfdr.de>; Thu,  4 Jul 2024 14:46:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EB9792767A
+	for <lists+freedreno@lfdr.de>; Thu,  4 Jul 2024 14:55:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A10410EAD0;
-	Thu,  4 Jul 2024 12:46:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C51D910EADC;
+	Thu,  4 Jul 2024 12:54:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sNraHRvV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W0+zJB/X";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6979E10EACE;
- Thu,  4 Jul 2024 12:46:11 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33EE610EADA;
+ Thu,  4 Jul 2024 12:54:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 2051CCE340D;
- Thu,  4 Jul 2024 12:46:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C829C3277B;
- Thu,  4 Jul 2024 12:46:07 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 82911626B5;
+ Thu,  4 Jul 2024 12:54:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAB88C3277B;
+ Thu,  4 Jul 2024 12:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1720097168;
- bh=1qWmm6XjrlUwsQJPzKcSMSfddvtOQZ5Ao7DnMFxneuw=;
+ s=k20201202; t=1720097697;
+ bh=ILajwhC59+opIAZWjmIhHmcIsJqEnvwOwuO3gniO6zE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sNraHRvVdmue1bEZNzHIo2hecWjHgxAkInCOUgJM5YyTHw7SyHtY50pfNuiQr4wCL
- pEHFdb/9MBO6vLgFo2YfIpvbDEyxF+i6/3zIfD7nHMLGW4D6dZolKnMwj3dzRsPz0r
- VtjtvKYMSO+mDLxwwq8SM3IBID+KOQ4BGkSjK0ptu2nd9WV3nYwHLgsPlHnZVZMunk
- CGVpiXQpX5YuGvHT3GVex2Pt9vu1F7dLFomINj2voCxDF6FDqD1Xwox0FjF4EPkntY
- Gk3KUwpFLCBPXPLjxjSXPvoC1NjvDzoEPkCoUIwnCLuzsXH3DjHggIxxmMqj57yDvh
- wyH0Ba94axAzw==
-Date: Thu, 4 Jul 2024 14:46:05 +0200
+ b=W0+zJB/XTUP0SS4KNMmps+Q4v6tiTpFbTSKIZCQZ4XBVDYl/hIpQC8V8F07SaUMld
+ l8EQohBBNGPoumtKE5mmLBqnGJRANF5qFVxMOivfNuWmFXuAsu9uB89BtAKnkCuDWQ
+ bkAn0Bo38QRkj2qV3jTZN4NgEmPlylaClkEZu9IHBI541G+5xl7JgpBjd4QtzjZ1Uk
+ 4iBYVBsZ6I6oVBesMU7QjoXesk5UQoi+nwd98uZPbCNrWNTp3qPjAhfSlpQO4tcZLX
+ noO/cG+hVeA9BN+ZXeDMZbkdR8I5HPOfMWFJw1GNBzb9b+j6PLrWL44ZGzq+uoPOOz
+ D3TCE1Ebdo4ng==
+Date: Thu, 4 Jul 2024 14:54:54 +0200
 From: Maxime Ripard <mripard@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -45,16 +45,16 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  dri-devel@lists.freedesktop.org, igt-dev@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] drm/drm_property: require DRM_MODE_PROP_IMMUTABLE
- for single-value props
-Message-ID: <20240704-magnetic-cocky-hawk-a5cfe9@houat>
+Subject: Re: [PATCH v3 3/4] drm/bridge-connector: move to DRM_DISPLAY_HELPER
+ module
+Message-ID: <20240704-roaring-aromatic-seal-d046af@houat>
 References: <20240702-drm-bridge-connector-fix-hdmi-reset-v3-0-12b0e3124ca4@linaro.org>
- <20240702-drm-bridge-connector-fix-hdmi-reset-v3-1-12b0e3124ca4@linaro.org>
+ <20240702-drm-bridge-connector-fix-hdmi-reset-v3-3-12b0e3124ca4@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="w5zuytjnfohfjfgo"
+ protocol="application/pgp-signature"; boundary="maf4l2nobzwgnwrm"
 Content-Disposition: inline
-In-Reply-To: <20240702-drm-bridge-connector-fix-hdmi-reset-v3-1-12b0e3124ca4@linaro.org>
+In-Reply-To: <20240702-drm-bridge-connector-fix-hdmi-reset-v3-3-12b0e3124ca4@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,49 +71,96 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
---w5zuytjnfohfjfgo
+--maf4l2nobzwgnwrm
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 02, 2024 at 12:48:52PM GMT, Dmitry Baryshkov wrote:
-> Document that DRM_MODE_PROP_IMMUTABLE must be set for the properties
-> that are immutable by definition - e.g. ranges with min =3D=3D max or enu=
-ms
-> with a single value. This matches the behaviour of the IGT tests, see
-> kms_properties.c / validate_range_prop(), validate_enum_prop(),
-> validate_bitmask_prop().
+On Tue, Jul 02, 2024 at 12:48:54PM GMT, Dmitry Baryshkov wrote:
+> drm_bridge_connector is a "leaf" driver, belonging to the display
+> helper, rather than the "CRTC" drm_kms_helper module. Move the driver
+> to the drm/display and add necessary Kconfig selection clauses.
 >=20
+> Suggested-by: Maxime Ripard <mripard@kernel.org>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  include/drm/drm_property.h | 3 +++
->  1 file changed, 3 insertions(+)
+>  drivers/gpu/drm/Makefile                             | 1 -
+>  drivers/gpu/drm/bridge/Kconfig                       | 1 +
+>  drivers/gpu/drm/display/Kconfig                      | 6 ++++++
+>  drivers/gpu/drm/display/Makefile                     | 2 ++
+>  drivers/gpu/drm/{ =3D> display}/drm_bridge_connector.c | 0
+>  drivers/gpu/drm/imx/dcss/Kconfig                     | 2 ++
+>  drivers/gpu/drm/imx/lcdc/Kconfig                     | 2 ++
+>  drivers/gpu/drm/ingenic/Kconfig                      | 2 ++
+>  drivers/gpu/drm/kmb/Kconfig                          | 2 ++
+>  drivers/gpu/drm/mediatek/Kconfig                     | 2 ++
+>  drivers/gpu/drm/meson/Kconfig                        | 2 ++
+>  drivers/gpu/drm/msm/Kconfig                          | 1 +
+>  drivers/gpu/drm/omapdrm/Kconfig                      | 2 ++
+>  drivers/gpu/drm/renesas/rcar-du/Kconfig              | 2 ++
+>  drivers/gpu/drm/renesas/rz-du/Kconfig                | 2 ++
+>  drivers/gpu/drm/renesas/shmobile/Kconfig             | 2 ++
+>  drivers/gpu/drm/rockchip/Kconfig                     | 4 ++++
+>  drivers/gpu/drm/tegra/Kconfig                        | 1 +
+>  drivers/gpu/drm/tidss/Kconfig                        | 2 ++
+>  drivers/gpu/drm/xlnx/Kconfig                         | 1 +
+>  20 files changed, 38 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
-> index 082f29156b3e..7d0f793f50ca 100644
-> --- a/include/drm/drm_property.h
-> +++ b/include/drm/drm_property.h
-> @@ -162,6 +162,9 @@ struct drm_property {
->  	 *     userspace, e.g. the EDID, or the connector path property on DP
->  	 *     MST sinks. Kernel can update the value of an immutable property
->  	 *     by calling drm_object_property_set_value().
-> +	 *     This flag should be set for all properties that have only a
-> +	 *     single value (e.g. min =3D=3D max or if enum has only a single
-> +	 *     value).
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index 68cc9258ffc4..fa432a1ac9e2 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -128,7 +128,6 @@ obj-$(CONFIG_DRM_TTM_HELPER) +=3D drm_ttm_helper.o
+>  drm_kms_helper-y :=3D \
+>  	drm_atomic_helper.o \
+>  	drm_atomic_state_helper.o \
+> -	drm_bridge_connector.o \
+>  	drm_crtc_helper.o \
+>  	drm_damage_helper.o \
+>  	drm_encoder_slave.o \
+> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
+fig
+> index c621be1a99a8..3eb955333c80 100644
+> --- a/drivers/gpu/drm/bridge/Kconfig
+> +++ b/drivers/gpu/drm/bridge/Kconfig
+> @@ -390,6 +390,7 @@ config DRM_TI_SN65DSI86
+>  	depends on OF
+>  	select DRM_DISPLAY_DP_HELPER
+>  	select DRM_DISPLAY_HELPER
+> +	select DRM_BRIDGE_CONNECTOR
+>  	select DRM_KMS_HELPER
+>  	select REGMAP_I2C
+>  	select DRM_PANEL
+> diff --git a/drivers/gpu/drm/display/Kconfig b/drivers/gpu/drm/display/Kc=
+onfig
+> index 479e62690d75..1a192a45961b 100644
+> --- a/drivers/gpu/drm/display/Kconfig
+> +++ b/drivers/gpu/drm/display/Kconfig
+> @@ -6,6 +6,12 @@ config DRM_DISPLAY_HELPER
+>  	help
+>  	  DRM helpers for display adapters.
+> =20
+> +config DRM_BRIDGE_CONNECTOR
+> +	bool
+> +	depends on DRM && DRM_BRIDGE && DRM_DISPLAY_HELPER
+> +	help
+> +	  DRM connector implementation terminating DRM bridge chains.
+> +
 
-Given the IGT test, I think it should be a must, not a should.
+Is there any reason to put it in there instead of under DRM_BRIDGE like
+DRM_PANEL_BRIDGE?
 
 Maxime
 
---w5zuytjnfohfjfgo
+--maf4l2nobzwgnwrm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZoaZjQAKCRDj7w1vZxhR
-xYNMAP4pPoXtV/8TZeOVseYJlA3QZ4iQPPmOElkvzWIVkh7DrAEAr862SWkiPWq6
-0L04mnkplcEV0Ge/6Sb8n50qP8EA+Qg=
-=XfbK
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZoabnQAKCRDj7w1vZxhR
+xVF4AQCZGUdy5RSxRNia33KLSVe6JlbEwmPRPfCDXIxddM0AuAD+NAnI7f0ZL1Up
+42ruWE1J6+8pytttkHv86vqf50lp0wc=
+=h9NG
 -----END PGP SIGNATURE-----
 
---w5zuytjnfohfjfgo--
+--maf4l2nobzwgnwrm--
