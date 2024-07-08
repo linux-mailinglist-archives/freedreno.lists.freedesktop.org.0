@@ -2,76 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 799C692A32C
-	for <lists+freedreno@lfdr.de>; Mon,  8 Jul 2024 14:49:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0235792AB26
+	for <lists+freedreno@lfdr.de>; Mon,  8 Jul 2024 23:27:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F78510E34A;
-	Mon,  8 Jul 2024 12:49:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A2CB10E324;
+	Mon,  8 Jul 2024 21:27:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GmMHlpeT";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JX+MSlXw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2935410E34A
- for <freedreno@lists.freedesktop.org>; Mon,  8 Jul 2024 12:49:36 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-7611b6a617cso2151181a12.3
- for <freedreno@lists.freedesktop.org>; Mon, 08 Jul 2024 05:49:36 -0700 (PDT)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D488F10E324
+ for <freedreno@lists.freedesktop.org>; Mon,  8 Jul 2024 21:27:11 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-2ee98947f70so34570601fa.1
+ for <freedreno@lists.freedesktop.org>; Mon, 08 Jul 2024 14:27:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1720442976; x=1721047776; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=gwJfqVEIoVdfoTsztHNlaZf6K08VAN240cdWOXUU17s=;
- b=GmMHlpeT1sC25l7xSTiukpUwvfjzpTtOoJTdpSrNUuGMWl1yPC/vSkbYU6qBOZI67O
- Q/eqqITLNf8OXu+IozuQMX9+Maqufsq2rTIDVfqCjjlr2pwU8BclQONoHuL+5g0pcPWH
- VKtE1/AtR7G7ABBgMixl80pVbvTQEmgOidGPPynNSmjXVv1LPWgurfUGf4j8+mJwITT5
- KedE5732/1/VnkrnYDDT3acd0ajSdNE8nR+WTavTc4ORGVse3rKZBoGADNl5rei3Iu3f
- zV760QjX3KOjrzl9aQXYV+LWhMOz57mCHvyhJkblLjGtxh6Y9NjFiv89WSDN06VtsiuU
- 88+w==
+ d=linaro.org; s=google; t=1720474030; x=1721078830; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=2Hnrx80vz9MsE0J2iryhuQ3skRCgcNpUt0TaSNEcw+o=;
+ b=JX+MSlXwzGHwgF6STTiQj8NyYfMi1Vmb+spj73zPGoxi85gqXiCS6qkD+aZG2jGS0O
+ l23qgnRwyjOcc0J2si4xlSOhCaA88NpN9T6pBQoabAUL3FsiupxSHusp3QQZolpP+2zr
+ xLJ8OyrKfeqWk0i4SQNgxYYJJHfhVsrn5lZZ6XB3rTsyNI+le9aYnfZSbVslVXpZhBQC
+ cFcNR1X/8kIM5GWMYzWBcz8H0aoSDxemlyZP7NcbMqkdSZWp4zsl8OC1BChJc/1Zh0+J
+ lI3Ko/5+FbK/C9BcMat6mNV8nJtbrdyep65YXAD6kbI82iHsaA/dX4ZPUMcPkf0sgOGE
+ b3QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720442976; x=1721047776;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gwJfqVEIoVdfoTsztHNlaZf6K08VAN240cdWOXUU17s=;
- b=KcEmXloRqeN7t8gkynlZsjzAuiQXFYK+m+e+5nkxyjcfo/BEqqwnCDirYJr1GW3gm6
- zVScPoveOTvdUr2lsVQ6S5oMIZOyxINdaOjIKkW4GVoanF+aaYYNgUQlMlZyQU3SNepe
- 5PclohpMHo0TKQWsmcE44TVcYug3mcYvy86V+JDodIJpgxEVhbcRBqaN2x+ZFeWHweYr
- uqngZtSkRCsmKf1wnuOYsffUABVuaZGolWzRgvIUGSnOYGplTithvACsD7GVYUQWXqI8
- GIbYb2UJ7n3soK1S+hMDnVeenY1HcBtMEf7lUjs3H8+ukLCrlGGy11Vy/tF8KwcponOk
- Q1sA==
+ d=1e100.net; s=20230601; t=1720474030; x=1721078830;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2Hnrx80vz9MsE0J2iryhuQ3skRCgcNpUt0TaSNEcw+o=;
+ b=tu0paBgbru80FxYzYOGhqVa4ZCyp2ka0yF2StCxMW414ay4Kpa5VR8s91Myu+ie2PU
+ yADN+/ji0QsPjXpP+qBc8NSeqrWLs4LFoYI8jSpcPhUcgb0tBpKmf6kwTk8+G9WR1yag
+ mEzlYxFj8Sz5x6jSzMp67BAUiNejpV4aNcht5odoIdM09sBx57ZNyenbrY7/IFffjKIU
+ QekSX4QK0RAwbFxt/awwugRnKlAse3CYb0E1ktLQhbDuv48pZZZPD3OiGakAKZI7Jm8V
+ Yarzr76GtwmALzLc2995Olko4US3C+zHSxfnFFbS2pwYfgrdTItFCdg8rz8IeGZKNfBx
+ ZlHw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXAkjs72l1ZbgMSavoPh3E8BTSn57QbIqFfJ/A8vwNtAK5qmOubuV9LNAKJCp0Xk05OFiGebZ9xZm76Xboj0TGoUxKMizWixgqxIpKwhg50
-X-Gm-Message-State: AOJu0YzdZKDeRt2TUstbLimwlnKny4Mow38Rp7SikiVz5J9v328nvqpj
- H0xtqhjOtiaad4JC8tDyzIb+ihLZT8TKgRHPpVwbJ3JQbf2PdDEGK2ps4qfTEs/GBETBMYTfAVZ
- bCb2qYvYqnO4xHdLTqbpCLi80+2SXg6RobGJZ9g==
-X-Google-Smtp-Source: AGHT+IFh+8rVNSdILFoJSTAPdcM4HawcWPM/1UUqpARio3DoOIhOeIUZ96MzfeyAZxWq+ws/d6HRKhGtmB30W5rYgpQ=
-X-Received: by 2002:a17:90b:a4a:b0:2c9:6751:7539 with SMTP id
- 98e67ed59e1d1-2c99c6ba8cemr6298715a91.44.1720442975629; Mon, 08 Jul 2024
- 05:49:35 -0700 (PDT)
+ AJvYcCXslEiGLvHM4Jz7yCtLusxciWkuKVNnsBc77awNmDClSq+ThWI8cvha1pc1yL0ClmrZ9E86mbezrHSgugdPzptANA/mz91YuM2xaGQp/ZM2
+X-Gm-Message-State: AOJu0YxYOPkLuPaM8OkRZnxus4HPCK54HCfDe08NmUs10rLoM+Yck51s
+ ClsXatFYSaGcee6AIzeLi9RU5m2jfbwV0QuOuskLhkj1XTtRKjt2F/LJqVm5h94=
+X-Google-Smtp-Source: AGHT+IGoTRUMiSdbRXAWAVkLZNFoG+1mw8OQw9YkrWqy50RZKRlXiFFFG0hQ1gcgSHAwQKUMcu0KTw==
+X-Received: by 2002:a2e:3608:0:b0:2ee:6b86:b098 with SMTP id
+ 38308e7fff4ca-2eeb30b8446mr5707101fa.8.1720474029721; 
+ Mon, 08 Jul 2024 14:27:09 -0700 (PDT)
+Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-594bc4e80c6sm261750a12.46.2024.07.08.14.27.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Jul 2024 14:27:09 -0700 (PDT)
+Message-ID: <c7da3acb-4456-496d-9876-b05abcc0e010@linaro.org>
+Date: Mon, 8 Jul 2024 23:27:06 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/msm: add msm8998 hdmi phy/pll support
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marc Gonzalez <mgonzalez@freebox.fr>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-phy@lists.infradead.org,
+ Arnaud Vrac <avrac@freebox.fr>, Pierre-Hugues Husson <phhusson@freebox.fr>,
+ Jeffrey Hugo <quic_jhugo@quicinc.com>, Bjorn Andersson <andersson@kernel.org>
 References: <20240704-hdmi-phy-v2-1-a7f5af202cb5@freebox.fr>
  <5lbtymde3plfiqkvnd2lrjzxhengmsw242uqapnzpvfd5jrm25@x2ik2h6vrdxm>
  <2d21db63-4371-45b4-ab24-9a725c29e09a@freebox.fr>
-In-Reply-To: <2d21db63-4371-45b4-ab24-9a725c29e09a@freebox.fr>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 8 Jul 2024 15:49:23 +0300
-Message-ID: <CAA8EJpqz1SiUdTMpx5hmnax_rBqtpVAtOZsaL8UfHnZ5vZZFHQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/msm: add msm8998 hdmi phy/pll support
-To: Marc Gonzalez <mgonzalez@freebox.fr>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-phy@lists.infradead.org, Arnaud Vrac <avrac@freebox.fr>, 
- Pierre-Hugues Husson <phhusson@freebox.fr>,
- Jeffrey Hugo <quic_jhugo@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+ <CAA8EJpqz1SiUdTMpx5hmnax_rBqtpVAtOZsaL8UfHnZ5vZZFHQ@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <CAA8EJpqz1SiUdTMpx5hmnax_rBqtpVAtOZsaL8UfHnZ5vZZFHQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,82 +131,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 8 Jul 2024 at 14:07, Marc Gonzalez <mgonzalez@freebox.fr> wrote:
->
-> On 05/07/2024 16:34, Dmitry Baryshkov wrote:
->
-> > On Thu, Jul 04, 2024 at 06:45:36PM GMT, Marc Gonzalez wrote:
-> >
-> >> From: Arnaud Vrac <avrac@freebox.fr>
-> >>
-> >> Ported from the downstream driver.
-> >
-> > Please write some sensible commit message.
->
-> Here's an attempt at expanding the commit message:
->
-> """
-> This code adds support for the HDMI PHY block in the MSM8998.
-> It is a copy & paste of the vendor driver downstream:
-> https://git.codelinaro.org/clo/la/kernel/msm-4.4/-/blob/caf_migration/kernel.lnx.4.4.r38-rel/drivers/clk/msm/mdss/mdss-hdmi-pll-8998.c
-> """
+On 8.07.2024 2:49 PM, Dmitry Baryshkov wrote:
+> On Mon, 8 Jul 2024 at 14:07, Marc Gonzalez <mgonzalez@freebox.fr> wrote:
+>>
+>> On 05/07/2024 16:34, Dmitry Baryshkov wrote:
 
-Add support for the HDMI PHY as present on the Qualcomm MSM8998
-platform. The code is mostly c&p of the vendor code from msm-4.4,
-kernel.lnx.4.4.r38-rel.
+[...]
 
->
->
-> >>  drivers/gpu/drm/msm/Makefile                   |   1 +
-> >>  drivers/gpu/drm/msm/hdmi/hdmi.c                |   1 +
-> >>  drivers/gpu/drm/msm/hdmi/hdmi.h                |   8 +
-> >>  drivers/gpu/drm/msm/hdmi/hdmi_phy.c            |   5 +
-> >>  drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c       | 789 +++++++++++++++++++++++++
-> >>  drivers/gpu/drm/msm/registers/display/hdmi.xml |  89 +++
-> >>  6 files changed, 893 insertions(+)
-> >
-> > - Missing changelog
->
-> - Rebase onto v6.10
-> - Move drivers/gpu/drm/msm/hdmi/hdmi.xml.h to drivers/gpu/drm/msm/registers/display/hdmi.xml
-> - Add copyright attribution
-> - Remove all dead/debug/temporary code
->
-> > - Missing a pointer to bindings. Ideally bindings should come together with the driver.
->
-> "qcom,hdmi-phy-8998" is defined in "HDMI TX support in msm8998" series (Acked by Rob Herring & Vinod Koul)
+>>> I'm not going to check the math, but it looks pretty close to what we
+>>> have for msm8996.
+>>
+>> What is the consequence of this?
+> 
+> That I won't check the math :-D
 
-This (and the link to lore) ideally should be a part of the cover
-letter or the comment below '---' in the patch.
+Dmitry is trying to say that you should check whether the calculations
+are the same or almost the same as in the 8996 driver, and if so, try
+to commonize the code between the two
 
->
-> > I'm not going to check the math, but it looks pretty close to what we
-> > have for msm8996.
->
-> What is the consequence of this?
-
-That I won't check the math :-D
-
->
->
-> >> +static const char * const hdmi_phy_8998_reg_names[] = {
-> >> +    "vdda-pll",
-> >> +    "vdda-phy",
-> >
-> > Unless you have a strong reason to, please use vcca and vddio here, so
-> > that we don't have unnecessary conditionals in schema.
->
-> The vendor code uses vddio & vcca for msm8996;
-> vdda-pll & vdda-phy for msm8998.
->
-> Which is vcca? Which is vddio?
-
-vddio = vdda-phy (1.8V)
-vcca = vdda-pll (lower voltage)
-
-> https://git.codelinaro.org/clo/la/kernel/msm-4.4/-/blob/caf_migration/kernel.lnx.4.4.r38-rel/arch/arm/boot/dts/qcom/msm8996-mdss-pll.dtsi
-> https://git.codelinaro.org/clo/la/kernel/msm-4.4/-/blob/caf_migration/kernel.lnx.4.4.r38-rel/arch/arm/boot/dts/qcom/msm8998-mdss-pll.dtsi#L121-172
-
--- 
-With best wishes
-Dmitry
+Konrad
