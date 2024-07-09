@@ -2,85 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9953B92B6A4
-	for <lists+freedreno@lfdr.de>; Tue,  9 Jul 2024 13:15:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25BD692BBB7
+	for <lists+freedreno@lfdr.de>; Tue,  9 Jul 2024 15:48:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7DFE10E1C9;
-	Tue,  9 Jul 2024 11:15:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B778110E553;
+	Tue,  9 Jul 2024 13:48:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RUK1f48D";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="In85yWQP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B719F10E235
- for <freedreno@lists.freedesktop.org>; Tue,  9 Jul 2024 11:15:48 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-a77e6dd7f72so321397166b.3
- for <freedreno@lists.freedesktop.org>; Tue, 09 Jul 2024 04:15:48 -0700 (PDT)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCC2210E553
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Jul 2024 13:48:28 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-52e94eaf5efso6195260e87.2
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Jul 2024 06:48:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1720523747; x=1721128547; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=iTDIAYS1v3Pxz5bKo9e6sLviKWQ74Nbc4ACLHcw546c=;
- b=RUK1f48D5ZiODtTg60VcU0FbKUZGiUH5SP3UYc/x1oua6r3Q87AdR7/QzXa/xduPo5
- UxbzMUd5y7Amg1DuF8TZ7UOcCBb3P1gBhCa+WJNekzY7rJ+xxHOYez6gYR50yp1s9jvY
- bMCXLHRyNKr5L4JTwF5YwIxaekawbreEg42YLnhjyEbX+xKLUYYqC2SvC7dBaPesVAT8
- U7uMiIj0Bsqs9u1vShij5qQU8rv16e1COFm9nO2XW38CLHGFTlkMs1SeH56LSiP1MOYC
- wXxGcwzrB0k3Ej0Zk/M6TB7CZv5BCAkBQTCGnzWmSTy2NBqlQQUHAPgNYp7Hev86/Kwv
- da1g==
+ d=linaro.org; s=google; t=1720532907; x=1721137707; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=KhHYU7UmK4dnD7/sjmuMOOwDgcdEgKtZKNrTen8zuww=;
+ b=In85yWQPbDT9FhAa8ks6yc4tK4+kTBlvCX1UvY1peFekp9/jQ33UFl1D/Z4kXPlIxJ
+ 5zPKOWpI8+3idCNbLZ5lwVNMwIs0SZ4I8xMtgJERN8hKLAKvc35dlgEhPTTcG0zHjmpw
+ Q49MVcD0XYGDrZVVIw98JPdykpsPFJT/WioCKSdIt6wDGyDeQ7EhUTLRXTuGmo0ufOEa
+ vrT8WZfetcYlvGBsyINbxIRCoqC4y+NtguzPRYWpoS+0zMqT7UNjUjmK4L/SkmsZdnJd
+ 0zXP+rxePOSMVAPW8ifg3znnPJtxrhpI8Mu2QAFYL+fe7T9eR+KQd1nHV0dwZcUhr3au
+ mKfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720523747; x=1721128547;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1720532907; x=1721137707;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=iTDIAYS1v3Pxz5bKo9e6sLviKWQ74Nbc4ACLHcw546c=;
- b=IMfqRCmqSVYsUfLJ31cxLI1tWVXpj9fdNs6RXL9f0rSjb2QbMZkLUvWTOAI7RZVgW+
- URSDE9KihTVmz+7DmpbtWuF9NCrgGQfDPFnMYveGXB9eGiSbQsDboZDnheIIZHcjHKgi
- PNzcs+dvZnCyu3P2cxnbr7MayyYpuiMf4tzsyF/NA1s5q7ZoWBXB+o16q/+if/ZDi8yU
- XeeajEFODU+Gt9S3PI61Xrivvj9mJ+8ee65MuiXF5O3lESwwQj7CTxdnwyC3QCpQGWMb
- E2aHGAqFyzmyz2sCs+AFbXmXXczn0TDg5ABMkDnPYhABSljb5kGcttmaOaum9dBdem4V
- OQ1Q==
+ bh=KhHYU7UmK4dnD7/sjmuMOOwDgcdEgKtZKNrTen8zuww=;
+ b=auf1BNoJSlPGRWXyUwPccxZ/HKwkBc4W3+rKuVoKuE/fg9YCAI93l0tkBf6b9vtChY
+ qDKY9/QsAuqI6mo7ny2Z2OuCSd+MgPLcpjhl89SBoHc1JeXDc4YlSH939ls+PJc+NKXJ
+ hhgtyRe1RBYQqW58tdaUcWnY0Aa7ax4F+UsGXUcu4twrjGSvv3VqNomM9+kkpGH8imaj
+ 4O8uc4xbQy34Ww4yjQgc8DB4DZVzEhXxC8UaAJOrXIzq9YKwOXa/rOidjycBA3O46y2J
+ UV3TESaArmn00w2pfOzUHPaE3+TJURx6nxVW11cPPnydzjJfN/OuHOrRQ18YMxsCKy17
+ jZ6A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUjRCbBH1bUme4gTyUMh/qcay9S3/u8duOrFPFSc2SsXoRvoJvm2WvvfqmPA1HoVppfFcU2w4Yl68r7Bz25r/0g+lKV9VDCvqgSm95yCce6
-X-Gm-Message-State: AOJu0YwA6SqwGxv2hnTdpdyXFx2K/hpfaZ5gqjK+selvOGf1czH0m+DD
- nIqsSvt1mP/UFiSvnqndot/BKP+VsgiIm1vBUtCjy88T5j21EsHtaiYMi1E84ek=
-X-Google-Smtp-Source: AGHT+IGp7EnF0TAVZ53RSFXeZuljBz7nakYWgnGbm0LiXhT2qOt1dQ9BYqAobTD4Vt/4QduRJSwTAw==
-X-Received: by 2002:a17:907:9692:b0:a77:eb34:3b45 with SMTP id
- a640c23a62f3a-a780b6fe39cmr173001866b.36.1720523746920; 
- Tue, 09 Jul 2024 04:15:46 -0700 (PDT)
-Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a6e06dcsm69527166b.87.2024.07.09.04.15.45
+ AJvYcCUWNETKhKSYHLUggp/NawvkLj8Y6tuY6hStezBGc6yyAkhIrtlQiUet2o8lML1p4fow2D16ZMnlQMJTLPSBuVY1kUZqOzi6Q4+bz/icNX5Y
+X-Gm-Message-State: AOJu0Ywu4QB/99/HJ6PFs8E//nvEbF4qqxbyqKI8sDBY0lSjH5CdIPUL
+ q9iFzigPX1xarpDoxaKvwuM1iRlLo5/2U+WPclaKV6/tXFNPmtDDevcQcDOBiIE=
+X-Google-Smtp-Source: AGHT+IH+4DaePyXmIoNWLgjS79EsnJAzPqo0nKjSdovFNAcILKuskj9yBxxbOKOqicxdvrhvMII+KQ==
+X-Received: by 2002:a05:6512:2349:b0:52e:6d71:e8f1 with SMTP id
+ 2adb3069b0e04-52eb99d20f1mr1872812e87.53.1720532905946; 
+ Tue, 09 Jul 2024 06:48:25 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52eb8e4959csm250297e87.82.2024.07.09.06.48.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jul 2024 04:15:46 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 09 Jul 2024 13:15:40 +0200
-Subject: [PATCH] drm/msm/adreno: Assign msm_gpu->pdev earlier to avoid nullptrs
+ Tue, 09 Jul 2024 06:48:25 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH 0/2] drm/msm/dpu: two fixes targeting 6.11
+Date: Tue, 09 Jul 2024 16:48:21 +0300
+Message-Id: <20240709-dpu-fix-wb-v1-0-448348bfd4cb@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240709-topic-adreno_crash2-v1-1-9def36c3337d@linaro.org>
-X-B4-Tracking: v=1; b=H4sIANsbjWYC/x3MQQqAIBBA0avErBNMgrKrRISNY81GY4wIpLsnL
- d/i/wKZhCnD1BQQujlzihVd2wAeLu6k2FeD0abXg7bqSiejcl4ophXF5cOoDm0IwdsNaYRankK
- Bn/86L+/7AYLBTV5lAAAA
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+X-B4-Tracking: v=1; b=H4sIAKU/jWYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxMDcwNL3ZSCUt20zArd8iRds+QUU/NU49QkQwsjJaCGgqJUoAzYsOjY2lo
+ A++nUC1wAAAA=
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Jordan Crouse <jordan@cosmicpenguin.net>, 
+ Chandan Uddaraju <chandanu@codeaurora.org>, 
+ Rajesh Yadav <ryadav@codeaurora.org>, 
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>, 
+ Archit Taneja <architt@codeaurora.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
+ Jeykumar Sankaran <jsanka@codeaurora.org>, stable@vger.kernel.org, 
+ Leonard Lausen <leonard@lausen.nl>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1720523745; l=2106;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=XIKVXG2FP4V3pnbSVcYW2sWKp3wew12zsDIFhsiuxm4=;
- b=BJPl9NqE6dAMkeZJadvcNFtD34BG63QModN0kwcUfSZ8DfUDTiyzg7FeP6R0h+A0hXu4BVmHM
- ZmTc1qdvFWbBePAdEXeg5pbxfrQlBiauB4GANnGbOUW13+HrSV7x0hr
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=853;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=bL6t+kZFucDajd7H3MVoLbxP4QMw5AdDFCkBISCWBK4=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmjT+o18HQEGU/sh2XXVi9PeuAXwCOvz/3KnFsm
+ 9WZwmhMseaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZo0/qAAKCRCLPIo+Aiko
+ 1ZpGCACE6gn9tmgMaVRmpBa4xTQljPegAbZFYn+ABYfIs31WEBWo/P9UqeL5ARG15SGCRyVcseT
+ RxgOeDmBPXxGP9LOov67wJGBAUEvKJB0Pq8IOyegyKoLn4b+7H4TWdlpa2UOGSphHy1ZvoyX712
+ MmV3f8r3HcL+p2HV6ZPJGfJW34MCMF7qVCDf3kcpWqSTPJZKW+kImOdbV90u7JaoKFX39eg8BbV
+ G2rDiW3BCyta8sfiSHe4kMlk3AGfOPvh+L598PeQlQ0SJ9FkULJin5ywg8bPqpEr3REZg0Fs7PB
+ Mz3sfn2D35c0aZgurVDkT2dQCqH2DaxaplNesO9HYYjA8y5t
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,61 +105,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There are some cases, such as the one uncovered by Commit 46d4efcccc68
-("drm/msm/a6xx: Avoid a nullptr dereference when speedbin setting fails")
-where
+Leonard Lausen reported an issue with suspend/resume of the sc7180
+devices. Fix the WB atomic check, which caused the issue. Also make sure
+that DPU debugging logs are always directed to the drm_debug / DRIVER so
+that usual drm.debug masks work in an expected way.
 
-msm_gpu_cleanup() : platform_set_drvdata(gpu->pdev, NULL);
-
-is called on gpu->pdev == NULL, as the GPU device has not been fully
-initialized yet.
-
-Turns out that there's more than just the aforementioned path that
-causes this to happen (e.g. the case when there's speedbin data in the
-catalog, but opp-supported-hw is missing in DT).
-
-Assigning msm_gpu->pdev earlier seems like the least painful solution
-to this, therefore do so.
-
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-There's no fixes tag on purpose, as there doesn't seem to be a good
-single commit to blame.
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 1 +
- drivers/gpu/drm/msm/msm_gpu.c           | 1 -
- 2 files changed, 1 insertion(+), 1 deletion(-)
+Dmitry Baryshkov (2):
+      drm/msm/dpu1: don't choke on disabling the writeback connector
+      drm/msm/dpu: don't play tricks with debug macros
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 1c6626747b98..949d65437704 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -1083,6 +1083,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 	adreno_gpu->chip_id = config->chip_id;
- 
- 	gpu->allow_relocs = config->info->family < ADRENO_6XX_GEN1;
-+	gpu->pdev = pdev;
- 
- 	/* Only handle the core clock when GMU is not in use (or is absent). */
- 	if (adreno_has_gmu_wrapper(adreno_gpu) ||
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 3666b42b4ecd..a274b8466423 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -931,7 +931,6 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 	if (IS_ERR(gpu->gpu_cx))
- 		gpu->gpu_cx = NULL;
- 
--	gpu->pdev = pdev;
- 	platform_set_drvdata(pdev, &gpu->adreno_smmu);
- 
- 	msm_devfreq_init(gpu);
-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       | 14 ++------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 14 +++++++-------
+ 2 files changed, 9 insertions(+), 19 deletions(-)
 ---
 base-commit: 0b58e108042b0ed28a71cd7edf5175999955b233
-change-id: 20240709-topic-adreno_crash2-1c9fffd9bce8
+change-id: 20240709-dpu-fix-wb-6cd57e3eb182
 
 Best regards,
 -- 
-Konrad Dybcio <konrad.dybcio@linaro.org>
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
