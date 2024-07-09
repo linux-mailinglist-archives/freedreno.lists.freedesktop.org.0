@@ -2,92 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E52992BBBA
-	for <lists+freedreno@lfdr.de>; Tue,  9 Jul 2024 15:48:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1BBF92C368
+	for <lists+freedreno@lfdr.de>; Tue,  9 Jul 2024 20:43:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBDA710E55E;
-	Tue,  9 Jul 2024 13:48:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9629D10E63A;
+	Tue,  9 Jul 2024 18:43:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WKyxT1WX";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="QNYF5UT2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F24F10E55E
- for <freedreno@lists.freedesktop.org>; Tue,  9 Jul 2024 13:48:31 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-52ea7bdde68so4573172e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 09 Jul 2024 06:48:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1720532909; x=1721137709; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=IVsuhaP11rLzifuOYfoCT/JsmgFit3NDN+KhNk6m6Fg=;
- b=WKyxT1WX5qBwpSKrNTCZ3KJK27dqHRB8wEtCrs4m8VISWI+gJ6Bm9h0oJv8zzo1SAd
- EPGo15AcF33qgj89cAHUHcHiBH8MB5GNcSYBRO4cIHmHBGCthV1bxeq4LoXjp2sRBCF3
- 3PMUx+uYOSEThy3/sh4mlOnZafLS2NtXEQ5kJZZpA9xwC7ysD9l/o7q35nqOjlRQCues
- r0uX3BFTZvxDqEqQwCLIAYjH0iQILwJY/y0RNp9Qct3Fmx9GYwwl4Y9mIWABms3EaUXd
- nb92XXfglsIgQJsNTmh/VO5t7YLqcfM0+KjIfwcwfR09lzabnbKx8A258/V1/nxh/FXV
- Vofw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720532909; x=1721137709;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=IVsuhaP11rLzifuOYfoCT/JsmgFit3NDN+KhNk6m6Fg=;
- b=fmF+HJ9qV6uWExAFQ700mi1muYo/nJC5CFo14NjHdRv9lrgo7Ya7TVFM/54+275JfM
- 4tkjEGq6H4rzE6MKkxBgNlqstndOq+jAG5MK2YT2kL59PoOTabM7AfoTSauhhTh8AJ7j
- QjiI1QCE0EGFpyTjktrNZEYPXxH1sVRooMnk1Bm+jcnToXXyoEPaWAKHeNb6f4gnR4x6
- 1lYjCVBxSF6YHoGDUE9o+cZMUGLUUqg4J+e6BRYNw/VTO6ln98XiZiWXAWFxCTdPY5uQ
- wtzXSIi5/MZSRN/Tcsf6AwVFNvvF3L3B0IX9iHPmN7q0ce4vHRSnlE/uK07h9ToO9zbf
- ZLuQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXwlyWlTFwebAL1yd32OurYKxxx2VrMznnv9MaVSZVB5xjUkSepIoG/RvdCxG3HJ1yLZy5SK6tFjMSRtBJxRs8cjGMmBgifR2F2qIUYXzU/
-X-Gm-Message-State: AOJu0YyT4GarJIUDE4hSh6iNhJw6W7P8gTbTMiwS9I+9xxTNwEaPas3/
- qNV+9vB1u1LNjJ63WqB8bU5Pxq3bkNJKZ5c5iUZILbQJo8ZRs8PhGNIvtJ4/VsM=
-X-Google-Smtp-Source: AGHT+IEaDUQIyebHpQsxc8nw3fDHAFZgaEz1nXPH9SPNxdY+OR16Je0rKup8mDiVn9/F2IwT3VnrBg==
-X-Received: by 2002:a05:6512:752:b0:52e:95dd:a8ed with SMTP id
- 2adb3069b0e04-52eb99a199fmr1263558e87.35.1720532909315; 
- Tue, 09 Jul 2024 06:48:29 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52eb8e4959csm250297e87.82.2024.07.09.06.48.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jul 2024 06:48:28 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 09 Jul 2024 16:48:23 +0300
-Subject: [PATCH 2/2] drm/msm/dpu: don't play tricks with debug macros
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1952D10E637;
+ Tue,  9 Jul 2024 18:43:39 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 469DuWEM001325;
+ Tue, 9 Jul 2024 18:42:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Qx6une2YhOK6cKGgEHtW+BpepZHrWXU+G+j+pEyAC4w=; b=QNYF5UT2yd5HreEx
+ TeWF71+Kzpal0OUgp839p/TtebHNLNmV2aAKkHERfnhjzHkpLNqoz/gZO0VbFuQf
+ 8juG9jiKXmre5Eie87p6eretzHTTHwoYiwBpd7Id+vfSzBsBXTKKWhyR8B78Vh4l
+ XuOHg72zTL/PeTpJgcQ5EiCn8EDd21ZAg2h3FS+zCENGN653zNyN8dctQRiy9Ikh
+ rDNXHQj/gIkGBE5LV2RBvv5MVFVAOaypmsWGxkhTlzptYZnB5T8j4eLy2kyBtTPf
+ hf+hFj43ikaPMZsUoAFavNQpRnlAgkaSghQHa5oYrYSWmhIuw4duMM4FEljQQ/nO
+ 7EBu8Q==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 406we8y7h8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 09 Jul 2024 18:42:25 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 469IgN7B026072
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 9 Jul 2024 18:42:23 GMT
+Received: from [10.71.110.34] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 9 Jul 2024
+ 11:42:22 -0700
+Message-ID: <8376e3a1-0630-f489-8938-a1c77eaccdf8@quicinc.com>
+Date: Tue, 9 Jul 2024 11:42:01 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240709-dpu-fix-wb-v1-2-448348bfd4cb@linaro.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 1/2] drm/msm/dpu1: don't choke on disabling the writeback
+ connector
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
+ Vetter <daniel@ffwll.ch>, Jordan Crouse <jordan@cosmicpenguin.net>, Chandan
+ Uddaraju <chandanu@codeaurora.org>, Rajesh Yadav <ryadav@codeaurora.org>,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>, Archit Taneja
+ <architt@codeaurora.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, Jeykumar
+ Sankaran <jsanka@codeaurora.org>, <stable@vger.kernel.org>, Leonard Lausen
+ <leonard@lausen.nl>
 References: <20240709-dpu-fix-wb-v1-0-448348bfd4cb@linaro.org>
-In-Reply-To: <20240709-dpu-fix-wb-v1-0-448348bfd4cb@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Jordan Crouse <jordan@cosmicpenguin.net>, 
- Chandan Uddaraju <chandanu@codeaurora.org>, 
- Rajesh Yadav <ryadav@codeaurora.org>, 
- Sravanthi Kollukuduru <skolluku@codeaurora.org>, 
- Archit Taneja <architt@codeaurora.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jeykumar Sankaran <jsanka@codeaurora.org>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2037;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=5MmuIH9/ptcSX8goq+NiIFoXU3SW2qDd+IHPfO869oE=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ1qv/Qof//Jj7Pw+y0yYutVkmev9z8YY/z7xmP0Fk3LWV
- ffpgZ6djMYsDIxcDLJiiiw+BS1TYzYlh33YMbUeZhArE8gUBi5OAZjI+V3s/wzDDrWdCnywurzf
- +9I25rTUQxqHj591S21Ikv/lmOR4tLmB85VMXOFJHeea6mWCTKmbunc7rTqW6HTPcNcfqefx/1w
- sPsV0ZNm/ce7XP3MriNPsowT7rrr49z6Mkzp4Xmu84t04572XTU7tgdb3rxY2Hltx+66hzoxLzS
- 1PJpcci9xg0b7YN6MoZveaKX4eR3d+ddk8e7vG5ucL590X3HFkfXShVu5RSQ8P4SzzAJbg7T3sA
- ho8zOv5XpY9qwtaOddC8yBXaCh/Cscp3shKzbLAxc4zw+Rc1wgnca3mT2iIT1pdL6ni7nO7Zcv3
- F+qfI5lus5j7xG5a8PuYtMEZ7rO207veRnHd+Pth3SdNAA==
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+ <20240709-dpu-fix-wb-v1-1-448348bfd4cb@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240709-dpu-fix-wb-v1-1-448348bfd4cb@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 2ntLbvO9KprV2q3qVEJ1cQebCIomZGgk
+X-Proofpoint-GUID: 2ntLbvO9KprV2q3qVEJ1cQebCIomZGgk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-09_08,2024-07-09_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0
+ bulkscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
+ priorityscore=1501 mlxlogscore=999 malwarescore=0 mlxscore=0 clxscore=1011
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2406140001
+ definitions=main-2407090126
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,50 +101,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-DPU debugging macros need to be converted to a proper drm_debug_*
-macros, however this is a going an intrusive patch, not suitable for a
-fix. Wire DPU_DEBUG and DPU_DEBUG_DRIVER to always use DRM_DEBUG_DRIVER
-to make sure that DPU debugging messages always end up in the drm debug
-messages and are controlled via the usual drm.debug mask.
 
-Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h | 14 ++------------
- 1 file changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-index e2adc937ea63..935ff6fd172c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-@@ -31,24 +31,14 @@
-  * @fmt: Pointer to format string
-  */
- #define DPU_DEBUG(fmt, ...)                                                \
--	do {                                                               \
--		if (drm_debug_enabled(DRM_UT_KMS))                         \
--			DRM_DEBUG(fmt, ##__VA_ARGS__); \
--		else                                                       \
--			pr_debug(fmt, ##__VA_ARGS__);                      \
--	} while (0)
-+	DRM_DEBUG_DRIVER(fmt, ##__VA_ARGS__)
- 
- /**
-  * DPU_DEBUG_DRIVER - macro for hardware driver logging
-  * @fmt: Pointer to format string
-  */
- #define DPU_DEBUG_DRIVER(fmt, ...)                                         \
--	do {                                                               \
--		if (drm_debug_enabled(DRM_UT_DRIVER))                      \
--			DRM_ERROR(fmt, ##__VA_ARGS__); \
--		else                                                       \
--			pr_debug(fmt, ##__VA_ARGS__);                      \
--	} while (0)
-+	DRM_DEBUG_DRIVER(fmt, ##__VA_ARGS__)
- 
- #define DPU_ERROR(fmt, ...) pr_err("[dpu error]" fmt, ##__VA_ARGS__)
- #define DPU_ERROR_RATELIMITED(fmt, ...) pr_err_ratelimited("[dpu error]" fmt, ##__VA_ARGS__)
+On 7/9/2024 6:48 AM, Dmitry Baryshkov wrote:
+> In order to prevent any errors on connector being disabled, move the
+> state->crtc check upfront. This should fix the issues during suspend
+> when the writeback connector gets forcebly disabled.
+> 
+> Fixes: 71174f362d67 ("drm/msm/dpu: move writeback's atomic_check to dpu_writeback.c")
+> Cc: stable@vger.kernel.org
+> Reported-by: Leonard Lausen <leonard@lausen.nl>
+> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/57
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 14 +++++++-------
+>   1 file changed, 7 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> index 16f144cbc0c9..5c172bcf3419 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> @@ -39,6 +39,13 @@ static int dpu_wb_conn_atomic_check(struct drm_connector *connector,
+>   
+>   	DPU_DEBUG("[atomic_check:%d]\n", connector->base.id);
+>   
+> +	crtc = conn_state->crtc;
 
--- 
-2.39.2
+We are checking for !conn_state a few lines below but we are 
+dereferencing conn_state here.
 
+This is bound to hit a smatch error and also does not look right.
+
+If conn_state will always be valid, we should drop that check too rather 
+than checking it later.
+
+Coming to the issue itself, I tried checking the logs but it was not clear.
+
+During force disable, were we hitting below check and hence the 
+connector was not getting disabled?
+
+else if (conn_state->connector->status != connector_status_connected) {
+                 DPU_ERROR("connector not connected %d\n", 
+conn_state->connector->status);
+                 return -EINVAL;
+         }
+
+
+I did not see this error log there, so can you pls explain where we were 
+bailing out? The check seems valid to me.
+
+> +	if (!crtc)
+> +		return 0;
+> +
+> +	if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
+> +		return 0;
+> +
+>   	if (!conn_state || !conn_state->connector) {
+>   		DPU_ERROR("invalid connector state\n");
+>   		return -EINVAL;
+> @@ -47,13 +54,6 @@ static int dpu_wb_conn_atomic_check(struct drm_connector *connector,
+>   		return -EINVAL;
+>   	}
+>   
+> -	crtc = conn_state->crtc;
+> -	if (!crtc)
+> -		return 0;
+> -
+> -	if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
+> -		return 0;
+> -
+>   	crtc_state = drm_atomic_get_crtc_state(state, crtc);
+>   	if (IS_ERR(crtc_state))
+>   		return PTR_ERR(crtc_state);
+> 
