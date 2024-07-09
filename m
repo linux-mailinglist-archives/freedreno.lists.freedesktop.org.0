@@ -2,86 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64C8792B5B1
-	for <lists+freedreno@lfdr.de>; Tue,  9 Jul 2024 12:46:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9953B92B6A4
+	for <lists+freedreno@lfdr.de>; Tue,  9 Jul 2024 13:15:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F68510E4F8;
-	Tue,  9 Jul 2024 10:46:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7DFE10E1C9;
+	Tue,  9 Jul 2024 11:15:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="CmS9FchO";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RUK1f48D";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC1910E4FC
- for <freedreno@lists.freedesktop.org>; Tue,  9 Jul 2024 10:46:00 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-a77c25beae1so526659066b.2
- for <freedreno@lists.freedesktop.org>; Tue, 09 Jul 2024 03:46:00 -0700 (PDT)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B719F10E235
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Jul 2024 11:15:48 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-a77e6dd7f72so321397166b.3
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Jul 2024 04:15:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1720521959; x=1721126759; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=OZxsbIBefCYoeKy9Cb25bQD5JKjjQqCGKHe9J4bV87I=;
- b=CmS9FchOElmszfrrFNShwSYvxGXjXkPefvPhrOKW4JyO3f5CFcTOuq192OQ0T5wfO2
- aivxAi+ppKKRy6UZK/eeaf5llB0F1CcHzmuAZ0pipN+pZseuVPID8GH2X0mNZqA9Rypw
- WazDDxcqtidxTtoofQ9nqzzlGrv9hFuRiECehg17ik7l0nQwkVep0UURl1psVK6vO+80
- PTkAIL3R+6B7u2A09R+WHCjPMT0OBm08edZuMosYVDXsq4u6h9AT6m4kRvANhpHrsmQW
- fOIT+1NIcSnxGpMa/FGkdPMjTMCA364B5La1JMBOGtkrgvGQKf1wi7pnbkhI3WrE7wjY
- pnRA==
+ d=linaro.org; s=google; t=1720523747; x=1721128547; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=iTDIAYS1v3Pxz5bKo9e6sLviKWQ74Nbc4ACLHcw546c=;
+ b=RUK1f48D5ZiODtTg60VcU0FbKUZGiUH5SP3UYc/x1oua6r3Q87AdR7/QzXa/xduPo5
+ UxbzMUd5y7Amg1DuF8TZ7UOcCBb3P1gBhCa+WJNekzY7rJ+xxHOYez6gYR50yp1s9jvY
+ bMCXLHRyNKr5L4JTwF5YwIxaekawbreEg42YLnhjyEbX+xKLUYYqC2SvC7dBaPesVAT8
+ U7uMiIj0Bsqs9u1vShij5qQU8rv16e1COFm9nO2XW38CLHGFTlkMs1SeH56LSiP1MOYC
+ wXxGcwzrB0k3Ej0Zk/M6TB7CZv5BCAkBQTCGnzWmSTy2NBqlQQUHAPgNYp7Hev86/Kwv
+ da1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720521959; x=1721126759;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=OZxsbIBefCYoeKy9Cb25bQD5JKjjQqCGKHe9J4bV87I=;
- b=Pnn2fGFmzcbVsMF+cN+wtJRwLzohqLl84+MIbIn2p6p3RHWt2DNk+TX1947w0YjwOu
- 6J4cnaQc5NmYXbyuyUi2tbMRcbiEu+ZAFkQ+0uZQOoIkrWOs6xfc4eFuPZrxzXTx8LTV
- y84D3YumUGfjHikFEi+Em/LNgSksBnHk1nFpu0GX0KDCWy58DVAyqTJ1bZ4vpXQl3bvk
- OA/nJ3UyDmVxemtRjWDJQ5W/WzYJ3qwM5GOJcl1g1pBEMuEngixhgD8MzcpI7owSQJ+a
- ZvQAuP/as8EgxFX4+bQUcT1Gq8t/vf1n0HjEbeUb0CNAJV5XdnkPeZLhZ9a/IHUBXyIl
- jv8Q==
+ d=1e100.net; s=20230601; t=1720523747; x=1721128547;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=iTDIAYS1v3Pxz5bKo9e6sLviKWQ74Nbc4ACLHcw546c=;
+ b=IMfqRCmqSVYsUfLJ31cxLI1tWVXpj9fdNs6RXL9f0rSjb2QbMZkLUvWTOAI7RZVgW+
+ URSDE9KihTVmz+7DmpbtWuF9NCrgGQfDPFnMYveGXB9eGiSbQsDboZDnheIIZHcjHKgi
+ PNzcs+dvZnCyu3P2cxnbr7MayyYpuiMf4tzsyF/NA1s5q7ZoWBXB+o16q/+if/ZDi8yU
+ XeeajEFODU+Gt9S3PI61Xrivvj9mJ+8ee65MuiXF5O3lESwwQj7CTxdnwyC3QCpQGWMb
+ E2aHGAqFyzmyz2sCs+AFbXmXXczn0TDg5ABMkDnPYhABSljb5kGcttmaOaum9dBdem4V
+ OQ1Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUDkYRnW4q9ky3SAAVkKy01pjkqLN1CG6T9Peln3bOL3HjL5cWYA3uD4U+2VkvpTUBXIYivo1O74HPv/Jl75A4vy7E9OISs2o2dtnraKaHX
-X-Gm-Message-State: AOJu0YyH0MpQ5Rp9io8NQq3JA6//3AjZjuUU+UKIo6UTvnx0y3bSUcIg
- 5LcgggUQjckvttjueMWcBrBCRpQznl1tjbOJvOldL1Os+juW5OQV7qz0BZOqL0E=
-X-Google-Smtp-Source: AGHT+IGvYcfPFQV+7DBEYzRD0HAnZlDvmx5BFJoXF/V4cTRfvWKAKQqrkJLnm9w0OQ8iV7jmOHjokw==
-X-Received: by 2002:a17:906:c309:b0:a77:e55a:9e91 with SMTP id
- a640c23a62f3a-a780b6b0e59mr135132566b.19.1720521958889; 
- Tue, 09 Jul 2024 03:45:58 -0700 (PDT)
+ AJvYcCUjRCbBH1bUme4gTyUMh/qcay9S3/u8duOrFPFSc2SsXoRvoJvm2WvvfqmPA1HoVppfFcU2w4Yl68r7Bz25r/0g+lKV9VDCvqgSm95yCce6
+X-Gm-Message-State: AOJu0YwA6SqwGxv2hnTdpdyXFx2K/hpfaZ5gqjK+selvOGf1czH0m+DD
+ nIqsSvt1mP/UFiSvnqndot/BKP+VsgiIm1vBUtCjy88T5j21EsHtaiYMi1E84ek=
+X-Google-Smtp-Source: AGHT+IGp7EnF0TAVZ53RSFXeZuljBz7nakYWgnGbm0LiXhT2qOt1dQ9BYqAobTD4Vt/4QduRJSwTAw==
+X-Received: by 2002:a17:907:9692:b0:a77:eb34:3b45 with SMTP id
+ a640c23a62f3a-a780b6fe39cmr173001866b.36.1720523746920; 
+ Tue, 09 Jul 2024 04:15:46 -0700 (PDT)
 Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a7ff038sm66295466b.115.2024.07.09.03.45.57
+ a640c23a62f3a-a780a6e06dcsm69527166b.87.2024.07.09.04.15.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jul 2024 03:45:58 -0700 (PDT)
+ Tue, 09 Jul 2024 04:15:46 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 09 Jul 2024 12:45:33 +0200
-Subject: [PATCH v5 5/5] arm64: dts: qcom: sm8550: Wire up GPU speed bin &
- more OPPs
+Date: Tue, 09 Jul 2024 13:15:40 +0200
+Subject: [PATCH] drm/msm/adreno: Assign msm_gpu->pdev earlier to avoid nullptrs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240709-topic-smem_speedbin-v5-5-e2146be0c96f@linaro.org>
-References: <20240709-topic-smem_speedbin-v5-0-e2146be0c96f@linaro.org>
-In-Reply-To: <20240709-topic-smem_speedbin-v5-0-e2146be0c96f@linaro.org>
+Message-Id: <20240709-topic-adreno_crash2-v1-1-9def36c3337d@linaro.org>
+X-B4-Tracking: v=1; b=H4sIANsbjWYC/x3MQQqAIBBA0avErBNMgrKrRISNY81GY4wIpLsnL
+ d/i/wKZhCnD1BQQujlzihVd2wAeLu6k2FeD0abXg7bqSiejcl4ophXF5cOoDm0IwdsNaYRankK
+ Bn/86L+/7AYLBTV5lAAAA
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>
+ Konrad Dybcio <konrad.dybcio@linaro.org>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1720521930; l=2474;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1720523745; l=2106;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=Il2UvibnuII6pAMEt7ZcsOO48MoDeeFboVabC36fJtY=;
- b=UbAw9OwhyAwE8k7rUjhzv7OltpusBA6x/6YgB89OJWD+ojTrhyLuMSRDX4HAiIBsrrG0jevUW
- UobpDIs2ywfBIgClNuK2w9UxluMiW7//vluUrY7DilgVsJMyXYkgv3/
+ bh=XIKVXG2FP4V3pnbSVcYW2sWKp3wew12zsDIFhsiuxm4=;
+ b=BJPl9NqE6dAMkeZJadvcNFtD34BG63QModN0kwcUfSZ8DfUDTiyzg7FeP6R0h+A0hXu4BVmHM
+ ZmTc1qdvFWbBePAdEXeg5pbxfrQlBiauB4GANnGbOUW13+HrSV7x0hr
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -99,91 +96,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the speedbin masks to ensure only the desired OPPs are available on
-chips of a given bin.
+There are some cases, such as the one uncovered by Commit 46d4efcccc68
+("drm/msm/a6xx: Avoid a nullptr dereference when speedbin setting fails")
+where
 
-Using this, add the binned 719 MHz OPP and the non-binned 124.8 MHz.
+msm_gpu_cleanup() : platform_set_drvdata(gpu->pdev, NULL);
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+is called on gpu->pdev == NULL, as the GPU device has not been fully
+initialized yet.
+
+Turns out that there's more than just the aforementioned path that
+causes this to happen (e.g. the case when there's speedbin data in the
+catalog, but opp-supported-hw is missing in DT).
+
+Assigning msm_gpu->pdev earlier seems like the least painful solution
+to this, therefore do so.
+
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8550.dtsi | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+There's no fixes tag on purpose, as there doesn't seem to be a good
+single commit to blame.
+---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 1 +
+ drivers/gpu/drm/msm/msm_gpu.c           | 1 -
+ 2 files changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index 4c9820adcf52..c1e3cec1540a 100644
---- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -2119,48 +2119,67 @@ zap-shader {
- 				memory-region = <&gpu_micro_code_mem>;
- 			};
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 1c6626747b98..949d65437704 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -1083,6 +1083,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	adreno_gpu->chip_id = config->chip_id;
  
--			/* Speedbin needs more work on A740+, keep only lower freqs */
- 			gpu_opp_table: opp-table {
- 				compatible = "operating-points-v2";
+ 	gpu->allow_relocs = config->info->family < ADRENO_6XX_GEN1;
++	gpu->pdev = pdev;
  
-+				opp-719000000 {
-+					opp-hz = /bits/ 64 <719000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+					opp-supported-hw = <0x1>;
-+				};
-+
- 				opp-680000000 {
- 					opp-hz = /bits/ 64 <680000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-supported-hw = <0x3>;
- 				};
+ 	/* Only handle the core clock when GMU is not in use (or is absent). */
+ 	if (adreno_has_gmu_wrapper(adreno_gpu) ||
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 3666b42b4ecd..a274b8466423 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -931,7 +931,6 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	if (IS_ERR(gpu->gpu_cx))
+ 		gpu->gpu_cx = NULL;
  
- 				opp-615000000 {
- 					opp-hz = /bits/ 64 <615000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
-+					opp-supported-hw = <0x3>;
- 				};
+-	gpu->pdev = pdev;
+ 	platform_set_drvdata(pdev, &gpu->adreno_smmu);
  
- 				opp-550000000 {
- 					opp-hz = /bits/ 64 <550000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-475000000 {
- 					opp-hz = /bits/ 64 <475000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-401000000 {
- 					opp-hz = /bits/ 64 <401000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-348000000 {
- 					opp-hz = /bits/ 64 <348000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-295000000 {
- 					opp-hz = /bits/ 64 <295000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-220000000 {
- 					opp-hz = /bits/ 64 <220000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
-+					opp-supported-hw = <0x3>;
-+				};
-+
-+				opp-124800000 {
-+					opp-hz = /bits/ 64 <124800000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
-+					opp-supported-hw = <0x3>;
- 				};
- 			};
- 		};
+ 	msm_devfreq_init(gpu);
 
+---
+base-commit: 0b58e108042b0ed28a71cd7edf5175999955b233
+change-id: 20240709-topic-adreno_crash2-1c9fffd9bce8
+
+Best regards,
 -- 
-2.45.2
+Konrad Dybcio <konrad.dybcio@linaro.org>
 
