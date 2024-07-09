@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38BCE92B59D
-	for <lists+freedreno@lfdr.de>; Tue,  9 Jul 2024 12:45:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A25992B5A6
+	for <lists+freedreno@lfdr.de>; Tue,  9 Jul 2024 12:46:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49E7710E4EF;
-	Tue,  9 Jul 2024 10:45:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7C4B10E4F3;
+	Tue,  9 Jul 2024 10:45:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="CO1vAu4i";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ljkNMmy+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8826D10E4EF
- for <freedreno@lists.freedesktop.org>; Tue,  9 Jul 2024 10:45:37 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-a77c9c5d68bso468872266b.2
- for <freedreno@lists.freedesktop.org>; Tue, 09 Jul 2024 03:45:37 -0700 (PDT)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29B8910E4F3
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Jul 2024 10:45:57 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-a77c9c5d68bso468912366b.2
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Jul 2024 03:45:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1720521936; x=1721126736; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1720521955; x=1721126755; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=gToTLptM86w4DbSg4pVJQrRVwG35LsSkyYQCCt7KVjw=;
- b=CO1vAu4iuDBFT8IWf/Hg1iYCxKaNZ/CQJq8BPuBimAkXCNsxSm0JH2XztHAsthjgOS
- osgRUo6dObAKPC62hIKgtq5okOGdLP1YiDklPFMsIIqPkK0H/H+K70hk8LAVaPdqHDGI
- Xe+QDXDtDOyxb83YMi6dpv6xYBbov2xRVnDDo0OU//NiADcKjROZZ1CUc0Cgl8Aan5Jb
- ypju1Mixk8GvX8GnSwuyiy/Z7hNri7UmBpmtNy2iuYLbFx5NoD6n1rTUwv6cSpvvyVQz
- vpOGekl68lRsxgkAb+tfxDosd9uuYR5QOlYWqEF4585F5ThJ5Nl9HR5fTE3zuNHsI6Ef
- 7Dag==
+ :reply-to; bh=OCdrWwyibH7SidMAd8gXxhcbnOnPffTnyQEY5fVW104=;
+ b=ljkNMmy+Fx9bRsxPdGhNbPD/FqrC3dllpldI3xVYt31ggUukvdOyGWrQgPKBGP5VfH
+ tej9YV1k2bSd6qsS65U1HvYvTAxjSDvRRrzDsYGVNZHDYFqGo5C0majrmayKPxzKiQkP
+ X0cOxZx8Gx1A+o8TO/KGaWpPQKkLqVMKcmo8UfW2uMwzMJc71MWm1JXdKMFw4cKKUKTL
+ M7DG88eqU66nXZnCUkYwsmzii91CKffv1WRHf29yK8XUPKdj15E2OMEnRvJIFsYKI/bs
+ RJDWOL+EZkrStxrLdgs3Y69eYhrbpirB30YVWKUaxaa8Hs5vtoqIZKQbJXKOaGCdTe+0
+ XS+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720521936; x=1721126736;
+ d=1e100.net; s=20230601; t=1720521955; x=1721126755;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=gToTLptM86w4DbSg4pVJQrRVwG35LsSkyYQCCt7KVjw=;
- b=iR45VJGlqSFsD2GCo+qiIq2mVRn4trTQTSr42hIWbrAGD6JHnglxMrMCYKE5FdWmYs
- 26gf/G7nwnJwRELONJxJRGPUSEqBzsM7CMpeLWZFeeCHTksuDO3tbwSwHKO3zltStVn9
- PMI4x4WO4gnOnboffsWZyZgx9bQA3hE0nwWWUEbEgbszNYSFkrwBerBcBlF+GsK3aoPj
- uAqcCD4rYvJgnejMl8wVZ6jfiwxu8ZHiPXNINBEfBVCwJOcy1slsBxH1dW4KN/7bRONB
- q/Rh47glOIfaKTXJHZGl1YCxX0RHkf6pnxhcVsDJ5iv/3apfGIB8FhIe7g8CMK/ygchN
- 52EA==
+ bh=OCdrWwyibH7SidMAd8gXxhcbnOnPffTnyQEY5fVW104=;
+ b=lkcEumtwGWr2G77vnuseKL27N6Vp89cAxd6CvtYLGxHLMRjPmniDfpw9oNlFNbok0I
+ MC26GbaILnZ/uGCFJNIf7bWZqlwz2jRh7wPzKnFjYSnxuKBg8yAS+T9SKmADMj6WxVco
+ XVg4FZ4aXnWP0bHUjt9ypEEo+UAZanZ3DmlPiYzIV77T1cqiiXfP4TRt3Z3hJSrBEkPn
+ KraaL6rItIfuR2Yq2L6V0Hn2r2/ydiCelWbnFwzWkv/gjvSiRJdyDynwCRN5rmzc+j+Z
+ D4ZMElqMBIinZYrpbBlIHm038moEYZYM8R6YAuNpEocThimMCNBrrTB4uQSjTnhOflsz
+ zQNw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVqpiCjprhTMcVY+owQTkbXZ3X9o0ZxZ5D+dgGNMAD9qsrJIk394Uk62IJaa0wDYJmbKRKlMdtxskrjmPUMxRG1Blwns5RePZCaNvHbgAMq
-X-Gm-Message-State: AOJu0Yw1M/YMadDDfXbnL094jGsf4Gstg1m2W9dlYSy+LFyJrgsaImlC
- /OYE++mBkLP+MR6lbteC1bmUXxh8neqlFnW/LeHd3gWolJiwbAz/siO9CW39vnI=
-X-Google-Smtp-Source: AGHT+IFW3cXCBLhl8y6tH7WGUVEU2s6NXfrAid4cgw+rlJCWH5RBeVmuYYGgJqUJYlZ0TQecK8lYqw==
-X-Received: by 2002:a17:906:81d2:b0:a77:b052:877e with SMTP id
- a640c23a62f3a-a780b6b3605mr146799266b.19.1720521935892; 
- Tue, 09 Jul 2024 03:45:35 -0700 (PDT)
+ AJvYcCU0IavzoQhtC1WbBvlvoH7mR/SKKq1toVdnicZ8JQWsxKdRrb9ws+XiBo8RPYhX2pRqd38en81kXsobCCiCAQ5euM4jbCuy/i/nqfZkXGNg
+X-Gm-Message-State: AOJu0Yz8b0cGs6xxHHCFTkcThJUfy2yrdTa0McLtHhgmhR/Kx8R8pBLT
+ zyxa0+B0B7ULiANjPx/6SIeIB79SB0rYDQgYlOT9UOYhQcWXT/y7ZsN2RH1TRBk=
+X-Google-Smtp-Source: AGHT+IEnddeAQttVIjPlE5QwA1Ejq9Sgylm5fg+WQ2PeIGDvlnpy6g/83mPoUVgnq4+Ux2PORfhdCA==
+X-Received: by 2002:a17:907:3f20:b0:a72:554d:82af with SMTP id
+ a640c23a62f3a-a780df5e5fbmr146263266b.20.1720521938009; 
+ Tue, 09 Jul 2024 03:45:38 -0700 (PDT)
 Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a7ff038sm66295466b.115.2024.07.09.03.45.34
+ a640c23a62f3a-a780a7ff038sm66295466b.115.2024.07.09.03.45.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jul 2024 03:45:35 -0700 (PDT)
+ Tue, 09 Jul 2024 03:45:37 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 09 Jul 2024 12:45:30 +0200
-Subject: [PATCH v5 2/5] drm/msm/adreno: Add speedbin data for SM8550 / A740
+Date: Tue, 09 Jul 2024 12:45:31 +0200
+Subject: [PATCH v5 3/5] drm/msm/adreno: Define A530 speed bins explicitly
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240709-topic-smem_speedbin-v5-2-e2146be0c96f@linaro.org>
+Message-Id: <20240709-topic-smem_speedbin-v5-3-e2146be0c96f@linaro.org>
 References: <20240709-topic-smem_speedbin-v5-0-e2146be0c96f@linaro.org>
 In-Reply-To: <20240709-topic-smem_speedbin-v5-0-e2146be0c96f@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
@@ -76,11 +76,11 @@ Cc: Marijn Suijten <marijn.suijten@somainline.org>,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1720521930; l=1480;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1720521930; l=874;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=qLAOTrSFtuBecm3+EwggXg43xqGrGY4RLrmT8vpNaLU=;
- b=felzT5CFkBH3CSD4+amuMEw8IiUfz80JoigCu+pRFOy5BlFTjJygWaDDjwtuKGHNKBhm30wZg
- NBUe1/jVPMZBLTAjuLJBMe6dl3+f4IGUf2f654Aut78+wx/zTfxZ3ug
+ bh=4D54MBq6zoAcYkfe7iD2ltE1UzYmVaRiFpw+gSQkiFQ=;
+ b=WfLMIj4SCvcJlhKnPfLp36Ctyq2d6AHSfVTYR87sgyW+uMP6er36Q2p56z8XMiCz66+azs3NP
+ ysIMX7TBRifDWp6wRSAsHAMRBbWj13kMAR33/CyVT8WKhZ6XMnbO7V7
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -98,44 +98,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add speebin data for A740, as found on SM8550 and derivative SoCs.
-
-For non-development SoCs it seems that "everything except FC_AC, FC_AF
-should be speedbin 1", but what the values are for said "everything" are
-not known, so that's an exercise left to the user..
+In preparation for commonizing the speedbin handling code.
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/msm/adreno/a5xx_catalog.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index 68ba9aed5506..e3322f6aec13 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -11,6 +11,9 @@
- #include "a6xx.xml.h"
- #include "a6xx_gmu.xml.h"
- 
-+#include <linux/soc/qcom/smem.h>
-+#include <linux/soc/qcom/socinfo.h>
-+
- static const struct adreno_reglist a612_hwcg[] = {
- 	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x22222222},
- 	{REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02222220},
-@@ -1209,6 +1212,11 @@ static const struct adreno_info a7xx_gpus[] = {
- 			.gmu_chipid = 0x7020100,
- 		},
- 		.address_space_size = SZ_16G,
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_catalog.c b/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
+index 633f31539162..105b3d14bd75 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_catalog.c
+@@ -129,6 +129,12 @@ static const struct adreno_info a5xx_gpus[] = {
+ 			ADRENO_QUIRK_FAULT_DETECT_MASK,
+ 		.init = a5xx_gpu_init,
+ 		.zapfw = "a530_zap.mdt",
 +		.speedbins = ADRENO_SPEEDBINS(
-+			{ ADRENO_SKU_ID(SOCINFO_FC_AC), 0 },
-+			{ ADRENO_SKU_ID(SOCINFO_FC_AF), 0 },
-+			/* Other feature codes (on prod SoCs) should match to speedbin 1 */
++			{ 0, 0 },
++			{ 1, 1 },
++			{ 2, 2 },
++			{ 3, 3 },
 +		),
  	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x43050c01), /* "C512v2" */
- 		.family = ADRENO_7XX_GEN2,
+ 		.chip_ids = ADRENO_CHIP_IDS(0x05040001),
+ 		.family = ADRENO_5XX,
 
 -- 
 2.45.2
