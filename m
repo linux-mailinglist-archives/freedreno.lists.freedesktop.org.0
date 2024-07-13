@@ -2,85 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1928F93062F
-	for <lists+freedreno@lfdr.de>; Sat, 13 Jul 2024 17:38:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7642C9307F5
+	for <lists+freedreno@lfdr.de>; Sun, 14 Jul 2024 00:56:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36AED10E11B;
-	Sat, 13 Jul 2024 15:38:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1CED10E0D9;
+	Sat, 13 Jul 2024 22:56:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SKkgBeby";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UHlwztJ1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA8010E11B
- for <freedreno@lists.freedesktop.org>; Sat, 13 Jul 2024 15:38:27 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-52e9f788e7bso3463793e87.0
- for <freedreno@lists.freedesktop.org>; Sat, 13 Jul 2024 08:38:27 -0700 (PDT)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6771810E0D9
+ for <freedreno@lists.freedesktop.org>; Sat, 13 Jul 2024 22:55:38 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-52ea0f18500so3150953e87.3
+ for <freedreno@lists.freedesktop.org>; Sat, 13 Jul 2024 15:55:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1720885105; x=1721489905; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1720911336; x=1721516136; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=rrw656yPZ58/He6Z0SljV1MTH9DNc6XhfX4EqtbUZcw=;
- b=SKkgBebyJ5JSwyyRlTRFa/3H7ddeppXKIB5n4bWP9NgM6sJiEgV6HFcd3XbVCkfbWg
- b4Sg1Pn8ktbZWMu2zXTOphJ7T1STOh5njRFu/4UqXhJ124xcog/LoKrEDnzW64B8Ipon
- BDRzU32m5ktJiSFn7LZsWeBc2Bn5BkX79c5+5z82gz2aARUAtH6/siXqhOQO868jSlu4
- /vkGyhu9SUn68qQnQZROggMVWrQG6Ag7Vt8hHbIla/Okdc6x0Qxdn1GeuBoNnV3APfdM
- HB+f32ey6E3Q5mktVK7UYSvISgeCo2ZahyLh17wzbIZwnxuiIwuMlDIkN/IYWmkiRB7e
- xWgQ==
+ bh=1ncYPX+7Asq9PPYrO1DJYNdoPMBQuM8Zo8xSB8y/YwE=;
+ b=UHlwztJ1nShKruj71RX/sVi6jFYiDSPK+WxsneuV78dI4mnUt9B+ULlWqVKPWivqxf
+ XfASi/hzWBwIYH2uvhDpfYN/iIUbxWIB0LwcHyZA6dHukEFLlrGrts+h0tLMzDjpRWmS
+ SlV3kBaHC8c+EV0kfeUqXa0m4TEGGjDXKEs6JKkmY/STIkcTzJ+AiAaG7zqMmzXsHSFe
+ pHsdlg9mcmn1BxkSmFpZegnBhzVKZhi5CgIvZ7ObsQ0GAm1yb7l6uwBg5bfQYl7z7lJB
+ oE7faQCkudPuiZqaF9g2am0oaVNwWM5mSoaeDsD1SLHNaO17+fvaaxMGQmbMJcDR1PFC
+ 2fKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720885105; x=1721489905;
+ d=1e100.net; s=20230601; t=1720911336; x=1721516136;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rrw656yPZ58/He6Z0SljV1MTH9DNc6XhfX4EqtbUZcw=;
- b=lE2+BLTtE+XcUyjm16x/zc1qvUfCwp0NTDaMeEKT49omhk5rsUHpUnmpIimA8dY0ZH
- J8FRAg6h7vDz73kWSFd0RXSzw7bQXmpb5Vg3ZZLe9cjgiKqwZ3omASpLcvRnSFQue57k
- 96ktyQADTqOArfelw5VI7KfDMveLYJkHz8KTB1bb6BQba48ECd3IJlpVwm5RCqep1FKe
- M48bwNRfcbJro+mzAMWjCWuhfmOizTC7gGqr2EJyfWmNWvviIMcaVUY09TyiyLsFT2tR
- Eoup9hm+1UIdyvkBYKQcap0NfR9pnmGRkgEFJOG94xd/UEunm38BBaFnhPxXSm/hjmXv
- x3Xw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUnh7ZvjycjSTSzgP/XTNfTgKa8GJ4q0D249z/ezBjZYQbqsowzVZY4tqRzMSrxWEv00cQ5BjfIWLjR094T8WgDFKF80s5JrR/gaQ+9Z0Bv
-X-Gm-Message-State: AOJu0YxgNw7uOEFU7ys5VLdpSOU1+EoYdtrTgEjdG5lK1C8Uuaz4L3vj
- 10fuC/KgCkGRL+k1gtvcmuoE4bxLYdYLP6xJq/HeRhrX7SmYFJz/d8/mjoel/+k=
-X-Google-Smtp-Source: AGHT+IHd1JycgmrKTAmXhfqJQqu17IdmqopYEnNGA4fjNnAG4okwte5I2bl+t6SJIVoBWEeIA7EZqQ==
-X-Received: by 2002:a05:6512:3e19:b0:52e:93d1:57a6 with SMTP id
- 2adb3069b0e04-52eb998e483mr10940314e87.6.1720885105051; 
- Sat, 13 Jul 2024 08:38:25 -0700 (PDT)
+ bh=1ncYPX+7Asq9PPYrO1DJYNdoPMBQuM8Zo8xSB8y/YwE=;
+ b=N8qaPZ6Ol+herEHIQjde4SEACFSn3XDgQo/bpA1FhScG4o22qkX1qFUAFDaRHcbM8R
+ tDUyXczAldanFxRfTIxfIrQhm80OzgnUW+03JwXhh82UxIb8WGONbYXY0Q/jRZBWx8+E
+ s/KVjEUFc30XXmUUkZSQr2NpI52nAyqK82sPkBTAuSHB0ahR7mnWQ0yF9F6g0HK04lS/
+ 3B5DEofMEIJ30DT89RBFI0+CSaLSjOiEd15uYso2eHO+CrRAsmih16cy9UQOujMIWVq4
+ sfIdDxpjl0ts82sbSDpPGHHcJdy3RSsPf7kAJlzL2sa4LuATxGCrha5XadBUJ2m+lWAQ
+ ZCyQ==
+X-Gm-Message-State: AOJu0Yynyz1UIwpLZ/28vRFGriu52dwBny1TrGOahsuf2X6fvfNI4TWr
+ Wpq7caX+U4XENqX/pjiYdLl2Irt5bnZwEHjqWi6gDO0cYukeVVwomvxJY/+WE00=
+X-Google-Smtp-Source: AGHT+IEhwHVC3K0rEjJohPz1JS1RmLGBZWld5R1IufdJk0BRYdLg0pMSt+FKcRLiIV3Hgn5icbbQ6Q==
+X-Received: by 2002:a05:6512:1384:b0:52e:be1f:bf7f with SMTP id
+ 2adb3069b0e04-52ebe1fbfd5mr7917903e87.27.1720911334977; 
+ Sat, 13 Jul 2024 15:55:34 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ed252d538sm224218e87.141.2024.07.13.08.38.24
+ 2adb3069b0e04-52ed252d543sm308907e87.155.2024.07.13.15.55.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 13 Jul 2024 08:38:24 -0700 (PDT)
-Date: Sat, 13 Jul 2024 18:38:23 +0300
+ Sat, 13 Jul 2024 15:55:34 -0700 (PDT)
+Date: Sun, 14 Jul 2024 01:55:32 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Jordan Crouse <jordan@cosmicpenguin.net>, 
- Chandan Uddaraju <chandanu@codeaurora.org>,
- Rajesh Yadav <ryadav@codeaurora.org>, 
- Sravanthi Kollukuduru <skolluku@codeaurora.org>,
- Archit Taneja <architt@codeaurora.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Jeykumar Sankaran <jsanka@codeaurora.org>
-Subject: Re: [PATCH 2/2] drm/msm/dpu: don't play tricks with debug macros
-Message-ID: <cvizlwetyzmwxwtesd54kgghb4ttnj3kgdnca2ujq6orzntymw@tei6xtsoh3og>
-References: <20240709-dpu-fix-wb-v1-0-448348bfd4cb@linaro.org>
- <20240709-dpu-fix-wb-v1-2-448348bfd4cb@linaro.org>
- <46487222-6818-b0bf-e5cc-2310d62b5fe6@quicinc.com>
- <CAA8EJpq7Lp-3V_AsLxO9ZOt8ZW1ZZ=FjhXV6R9jvH=sQ8XQE9w@mail.gmail.com>
- <fb285034-ed4c-4f20-ab80-cf91d36fc67c@quicinc.com>
+Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, 
+ quic_jesszhan@quicinc.com, swboyd@chromium.org, dianders@chromium.org, 
+ neil.armstrong@linaro.org, andersson@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dp: enable widebus on all relevant chipsets
+Message-ID: <xmkcy7xjoaodxnyzbskjb7y5xne444qx4jdrtcgoqwh45aqjn2@4rnbkhr5uuby>
+References: <20240711224850.1672662-1-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <fb285034-ed4c-4f20-ab80-cf91d36fc67c@quicinc.com>
+In-Reply-To: <20240711224850.1672662-1-quic_abhinavk@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,75 +86,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 11, 2024 at 11:03:15AM GMT, Abhinav Kumar wrote:
+On Thu, Jul 11, 2024 at 03:48:50PM GMT, Abhinav Kumar wrote:
+> Hardware document indicates that widebus is recommended on DP on all
+> MDSS chipsets starting version 5.x.x and above.
 > 
+> Follow the guideline and mark widebus support on all relevant
+> chipsets for DP.
 > 
-> On 7/10/2024 12:40 AM, Dmitry Baryshkov wrote:
-> > On Tue, 9 Jul 2024 at 22:39, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> > > 
-> > > 
-> > > 
-> > > On 7/9/2024 6:48 AM, Dmitry Baryshkov wrote:
-> > > > DPU debugging macros need to be converted to a proper drm_debug_*
-> > > > macros, however this is a going an intrusive patch, not suitable for a
-> > > > fix. Wire DPU_DEBUG and DPU_DEBUG_DRIVER to always use DRM_DEBUG_DRIVER
-> > > > to make sure that DPU debugging messages always end up in the drm debug
-> > > > messages and are controlled via the usual drm.debug mask.
-> > > > 
-> > > 
-> > > These macros have been deprecated, is this waht you meant by the
-> > > conversion to proper drm_debug_*?
-> > 
-> > Yes. Drop the driver-specific wrappers where they don't make sense.
-> > Use sensible format strings in the cases where it actually does (like
-> > VIDENC or _PLANE)
-> > 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 > 
-> Ack but we need to not just drop the wrappers but drop the usage of these
-> macros as well because it is documented that they are deprecated.
-> 
-> So I assume you want to get this in and do that as a follow up change?
 
-Yes, somewhere in the long list of cleanups. I have a similar item
-against DP driver, which uses correct macros, 
+Although it doesn't seem to fix the 4k screen corruption, I think it's
+still a proper patch (and we should be following hardware
+documentation).
 
-> > > /* NOTE: this is deprecated in favor of drm_dbg(NULL, ...). */
-> > > #define DRM_DEBUG_DRIVER(fmt, ...)                                      \
-> > >           __drm_dbg(DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
-> > > 
-> > > I think all that this macro was doing was to have appropriate DRM_UT_*
-> > > macros enabled before calling the corresponding DRM_DEBUG_* macros. But
-> > > I think what was incorrect here is for DPU_DEBUG, we could have used
-> > > DRM_UT_CORE instead of DRM_UT_KMS.
-> > 
-> > It pretty much tries to overplay the existing drm debugging mechanism
-> > by either sending the messages to the DRM channel or just using
-> > pr_debug. With DYNAMIC_DEBUG being disabled pr_debug is just an empty
-> > macro, so all the messages can end up in /dev/null. We should not be
-> > trying to be too smart, using standard DRM_DEBUG_DRIVER should be
-> > enough. This way all driver-related messages are controlled by
-> > drm.debug including or excluding the 0x02 bit.
-> > 
-> > 
-> > > 
-> > > And DRM_DEBUG_DRIVER should have been used instead of DRM_ERROR.
-> > > 
-> > > Was this causing the issue of the prints not getting enabled?
-> > 
-> > I pretty much think so.
-> > 
-> 
-> Alright, I am okay with the approach, just one minor suggestion, to keep the
-> behavior intact, previously the code wanted DPU_DEBUG to be controlled by
-> DRM_UT_KMS and DPU_DEBUG_DRIVER controlled by DRM_UT_DRIVER.
-> 
-> Keeping that intact, we need to use DRM_DEBUG_KMS for DPU_DEBUG?
+With the Fixes tags in place:
 
-I might make that more explicit: I don't think that it is a good idea
-for a generic DPU_DEBUG macro to be tied to DRM_UT_KMS. We are reporting
-a debug message from driver, so by default it should go to the
-DRM_UT_DRIVER channel. While refactoring things we might end up with
-messages going to ATOMIC or KMS, but DRIVER should be the default.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
