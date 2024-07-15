@@ -2,75 +2,125 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7642C9307F5
-	for <lists+freedreno@lfdr.de>; Sun, 14 Jul 2024 00:56:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECEFD930DFE
+	for <lists+freedreno@lfdr.de>; Mon, 15 Jul 2024 08:33:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1CED10E0D9;
-	Sat, 13 Jul 2024 22:56:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7659610E273;
+	Mon, 15 Jul 2024 06:33:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UHlwztJ1";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YDeZBESy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6771810E0D9
- for <freedreno@lists.freedesktop.org>; Sat, 13 Jul 2024 22:55:38 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-52ea0f18500so3150953e87.3
- for <freedreno@lists.freedesktop.org>; Sat, 13 Jul 2024 15:55:38 -0700 (PDT)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 043C710E258
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Jul 2024 06:33:15 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-2eeb1ba0468so45099441fa.0
+ for <freedreno@lists.freedesktop.org>; Sun, 14 Jul 2024 23:33:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1720911336; x=1721516136; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=1ncYPX+7Asq9PPYrO1DJYNdoPMBQuM8Zo8xSB8y/YwE=;
- b=UHlwztJ1nShKruj71RX/sVi6jFYiDSPK+WxsneuV78dI4mnUt9B+ULlWqVKPWivqxf
- XfASi/hzWBwIYH2uvhDpfYN/iIUbxWIB0LwcHyZA6dHukEFLlrGrts+h0tLMzDjpRWmS
- SlV3kBaHC8c+EV0kfeUqXa0m4TEGGjDXKEs6JKkmY/STIkcTzJ+AiAaG7zqMmzXsHSFe
- pHsdlg9mcmn1BxkSmFpZegnBhzVKZhi5CgIvZ7ObsQ0GAm1yb7l6uwBg5bfQYl7z7lJB
- oE7faQCkudPuiZqaF9g2am0oaVNwWM5mSoaeDsD1SLHNaO17+fvaaxMGQmbMJcDR1PFC
- 2fKw==
+ d=linaro.org; s=google; t=1721025194; x=1721629994; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=YgUa5kzPxeKRnm4gmgQB+wDns4r7Lup1w0YNsdAWOCs=;
+ b=YDeZBESy6YRnzXkH+6Kc6AWCsSPHTjhxc9h5jJsu2rnyL8FBMWNj4pjQhiakSouf3e
+ O6BkexMEHDAemLaTcCxumXYHWRiblDajeDXLW0AE6cqhM2sUkbm2pjAglyH2lGxyjN+N
+ a7GDDwc90m/sJhzGhY+gnI19dnCVH5T/k7sJJbw8Kc5LZ/3ZLdR3u92LrGR9kML755CL
+ z1avAUUUX0hx1HvZl3i9HLNi+Ssu6t4BwQolDnEy2tiv64mbV36xJdvsYiSElHQw9hPz
+ rNVcm/FKjEvXBNYKfPXSc4L68DhAYMZ9cUY/O9qHt3DZn6n3zXkC9v4yN8pt32gOXFGb
+ QGnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720911336; x=1721516136;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1ncYPX+7Asq9PPYrO1DJYNdoPMBQuM8Zo8xSB8y/YwE=;
- b=N8qaPZ6Ol+herEHIQjde4SEACFSn3XDgQo/bpA1FhScG4o22qkX1qFUAFDaRHcbM8R
- tDUyXczAldanFxRfTIxfIrQhm80OzgnUW+03JwXhh82UxIb8WGONbYXY0Q/jRZBWx8+E
- s/KVjEUFc30XXmUUkZSQr2NpI52nAyqK82sPkBTAuSHB0ahR7mnWQ0yF9F6g0HK04lS/
- 3B5DEofMEIJ30DT89RBFI0+CSaLSjOiEd15uYso2eHO+CrRAsmih16cy9UQOujMIWVq4
- sfIdDxpjl0ts82sbSDpPGHHcJdy3RSsPf7kAJlzL2sa4LuATxGCrha5XadBUJ2m+lWAQ
- ZCyQ==
-X-Gm-Message-State: AOJu0Yynyz1UIwpLZ/28vRFGriu52dwBny1TrGOahsuf2X6fvfNI4TWr
- Wpq7caX+U4XENqX/pjiYdLl2Irt5bnZwEHjqWi6gDO0cYukeVVwomvxJY/+WE00=
-X-Google-Smtp-Source: AGHT+IEhwHVC3K0rEjJohPz1JS1RmLGBZWld5R1IufdJk0BRYdLg0pMSt+FKcRLiIV3Hgn5icbbQ6Q==
-X-Received: by 2002:a05:6512:1384:b0:52e:be1f:bf7f with SMTP id
- 2adb3069b0e04-52ebe1fbfd5mr7917903e87.27.1720911334977; 
- Sat, 13 Jul 2024 15:55:34 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ed252d543sm308907e87.155.2024.07.13.15.55.33
+ d=1e100.net; s=20230601; t=1721025194; x=1721629994;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YgUa5kzPxeKRnm4gmgQB+wDns4r7Lup1w0YNsdAWOCs=;
+ b=ThI3kYCGHuSbjDFnVQKiHp3XOXrh400PHMZQ9XtabxIKz55i4sX9KeEzk0JtBar5Jb
+ S2i12Vh/tTHImyd+JJpg309HsbAQdO5HHFDt+sEi1e+tdVBD85gqoT9w5t/o5VLXpTMJ
+ szRnuAGswmlLfXcv2un7wEKOzaEyv4vJLPCi3iyEvMMyrsHp5V6FikwGTn3/VhWm+48U
+ kzzZZLxKFN1XOdMCa3Ma0D6cnyJuY0wDcib1ZAmkcEJXB1ot7ZjjYfuRjc/Ivi2l4S/r
+ 4rh+RCisnT5096g/6gJA4MSgvGgYd19Fef51eTxiWxX76mOleCndv+yIERpuWd0F9ZDV
+ Jd+A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU04eg7AzcqHv3RUBZ1sHPbuiVFEz2VW/6oH4q1ZjFnI4Ej4iTXMZXRZK9Ir9LHNeUmVbdBj6u91RQx6YsIfl6j4DN6w2+FB5oOsZMHoOP/
+X-Gm-Message-State: AOJu0YwSWpzD/wvyYh0yLmygrOG0iziFs1ga3rgMaNMIybUZneVkzKDu
+ pXIQaXmpTJAbfuZ8HWH0PnZDY282HrTXZygiNXW81daTcMCWTiTzIAFa3M3KaRw=
+X-Google-Smtp-Source: AGHT+IF0VjTw1K6MhesN5YsTG+trLH2ksTK9vmpMlTq0f2CRXPdu0k2mF7HtB+KTdSOIvOdGMqJLuQ==
+X-Received: by 2002:a05:6512:b86:b0:52e:9ebe:7325 with SMTP id
+ 2adb3069b0e04-52eb99a3299mr12878900e87.31.1721025194058; 
+ Sun, 14 Jul 2024 23:33:14 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52ed24e188esm743543e87.47.2024.07.14.23.33.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 13 Jul 2024 15:55:34 -0700 (PDT)
-Date: Sun, 14 Jul 2024 01:55:32 +0300
+ Sun, 14 Jul 2024 23:33:13 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- quic_jesszhan@quicinc.com, swboyd@chromium.org, dianders@chromium.org, 
- neil.armstrong@linaro.org, andersson@kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dp: enable widebus on all relevant chipsets
-Message-ID: <xmkcy7xjoaodxnyzbskjb7y5xne444qx4jdrtcgoqwh45aqjn2@4rnbkhr5uuby>
-References: <20240711224850.1672662-1-quic_abhinavk@quicinc.com>
+Subject: [PATCH v4 0/5] drm: fix two issues related to HDMI Connector
+ implementation
+Date: Mon, 15 Jul 2024 09:33:00 +0300
+Message-Id: <20240715-drm-bridge-connector-fix-hdmi-reset-v4-0-61e6417cfd99@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240711224850.1672662-1-quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJzClGYC/53NTW4CMQwF4KugrDFKnEBnWPUeFYuQGMYSJMgZj
+ UBo7o5hU1Vs2i6ff753N42EqZnt4m6EJm5ci4awXJg0xHIk4KzZoMVgN+ghyxn2wlk3qZZCaaw
+ CB77CkM8MQo1GsIm6TTzYtY/RqHQR0otXy9dO88BNv26v0sk9p3/zJwcWgqO+60NOmdLniUuUu
+ qpyNM+CCf+BoqLdurc5hN5hojfUf6MfFn+HekUd7i15hyHF8AOd5/kBpZf9poEBAAA=
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
+ Edmund Dea <edmund.j.dea@intel.com>, 
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Jyri Sarha <jyri.sarha@iki.fi>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ dri-devel@lists.freedesktop.org, igt-dev@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-mips@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-tegra@vger.kernel.org
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3388;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=Kf60wOnocntCYjHw62V/2EfBf+1HRmYhh2TPix7OkEw=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmlMKocUnfYLehIHLnhjn/YpzPQGYcZbZYpR1xe
+ NasM4c80MmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZpTCqAAKCRCLPIo+Aiko
+ 1dVwCAColXJjF6PCrF5MkX7SZctjCE45P3YoT+ofdNiLLdzra1QLPkG11tWvr7FNxQeMooIwBT+
+ kPIgczU7r6aCEZtetqb8KHb9z0qxQkWjU0eAGVpVvL5QXP5J8e0C4/q4LA7eoxyn8I3hXMZMYY1
+ 1+3RFgC6uMKkxY7ZHe2nRRaE1IOaTUthxnHohXBP9esLDcSucShFO+ZMuSXJxbMJ62O7BNVyHBR
+ 7tJLeqX9nlI9mm5oHN760QaIXr6dVJHjgzhHvwojU+t8LcFQd55Ft/cqHbwMHYPx/Bb6AZhRken
+ J51R8XlcTuMH6ZsPIjlQUcKK6Fo+sdudAprTi/uDXGJ1I8us
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,27 +136,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 11, 2024 at 03:48:50PM GMT, Abhinav Kumar wrote:
-> Hardware document indicates that widebus is recommended on DP on all
-> MDSS chipsets starting version 5.x.x and above.
-> 
-> Follow the guideline and mark widebus support on all relevant
-> chipsets for DP.
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
+Running IGT tests on Qualcomm Dragonboard820c uncovered two issues with
+the HDMI Connector implementation and with its integration into the
+drm_bridge_connector. Fix those issues.
 
-Although it doesn't seem to fix the 4k screen corruption, I think it's
-still a proper patch (and we should be following hardware
-documentation).
+Note, I'm not fully satisfied with the drm_bridge_connector move. Maybe
+it's better to add drm_bridge_funcs::connector_reset() and call it from
+__drm_atomic_helper_connector_reset().
 
-With the Fixes tags in place:
+Depends on https://lore.kernel.org/dri-devel/20240704-panel-sw43408-fix-v6-1-3ea1c94bbb9b@linaro.org
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v4:
+- Fixed DRM_MODE_PROP_IMMUTABLE to use MUST in the single-value clause (Maxime)
+- Rebased on top of DRM_DSC_HELPERS patch
+- Removed 'depends on DRM_DISPLAY_HELPER' (Maxime)
+- Link to v3: https://lore.kernel.org/r/20240702-drm-bridge-connector-fix-hdmi-reset-v3-0-12b0e3124ca4@linaro.org
 
+Changes in v3:
+- Document the DRM_MODE_PROP_IMMUTABLE requirements currently exposed
+  only via IGT tests (Maxime).
+- Move drm_bridge_connector to drm_display_helper.
+- Link to v2: https://lore.kernel.org/r/20240623-drm-bridge-connector-fix-hdmi-reset-v2-0-8590d44912ce@linaro.org
+
+Changes in v2:
+- Actually pass the flags to drm_property_create_range().
+- Link to v1: https://lore.kernel.org/r/20240623-drm-bridge-connector-fix-hdmi-reset-v1-0-41e9894dcdec@linaro.org
+
+---
+Dmitry Baryshkov (5):
+      drm/display: stop depending on DRM_DISPLAY_HELPER
+      drm/drm_property: require DRM_MODE_PROP_IMMUTABLE for single-value props
+      drm/connector: automatically set immutable flag for max_bpc property
+      drm/bridge-connector: move to DRM_DISPLAY_HELPER module
+      drm/bridge-connector: reset the HDMI connector state
+
+ MAINTAINERS                                        |  2 +-
+ drivers/gpu/drm/Makefile                           |  1 -
+ drivers/gpu/drm/bridge/Kconfig                     |  1 +
+ drivers/gpu/drm/display/Kconfig                    | 25 ++++++++++++----------
+ drivers/gpu/drm/display/Makefile                   |  2 ++
+ .../gpu/drm/{ => display}/drm_bridge_connector.c   | 13 ++++++++++-
+ drivers/gpu/drm/drm_connector.c                    |  7 +++++-
+ drivers/gpu/drm/imx/dcss/Kconfig                   |  2 ++
+ drivers/gpu/drm/imx/lcdc/Kconfig                   |  2 ++
+ drivers/gpu/drm/ingenic/Kconfig                    |  2 ++
+ drivers/gpu/drm/kmb/Kconfig                        |  2 ++
+ drivers/gpu/drm/mediatek/Kconfig                   |  2 ++
+ drivers/gpu/drm/meson/Kconfig                      |  2 ++
+ drivers/gpu/drm/msm/Kconfig                        |  1 +
+ drivers/gpu/drm/omapdrm/Kconfig                    |  2 ++
+ drivers/gpu/drm/renesas/rcar-du/Kconfig            |  2 ++
+ drivers/gpu/drm/renesas/rz-du/Kconfig              |  2 ++
+ drivers/gpu/drm/renesas/shmobile/Kconfig           |  2 ++
+ drivers/gpu/drm/rockchip/Kconfig                   |  4 ++++
+ drivers/gpu/drm/tegra/Kconfig                      |  1 +
+ drivers/gpu/drm/tidss/Kconfig                      |  2 ++
+ drivers/gpu/drm/xlnx/Kconfig                       |  1 +
+ include/drm/drm_property.h                         |  3 +++
+ 23 files changed, 68 insertions(+), 15 deletions(-)
+---
+base-commit: cfbc154f11aaa32b4b2887323e4372390648046d
+change-id: 20240623-drm-bridge-connector-fix-hdmi-reset-0ce86af053aa
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
