@@ -2,80 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3F41932F07
-	for <lists+freedreno@lfdr.de>; Tue, 16 Jul 2024 19:25:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2F64933344
+	for <lists+freedreno@lfdr.de>; Tue, 16 Jul 2024 23:10:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB40A10E2A0;
-	Tue, 16 Jul 2024 17:25:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 070C688EA1;
+	Tue, 16 Jul 2024 21:10:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PBhLFILd";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="eL33vpUy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 153E410E7E7
- for <freedreno@lists.freedesktop.org>; Tue, 16 Jul 2024 17:25:47 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2eea8ea8c06so82747211fa.2
- for <freedreno@lists.freedesktop.org>; Tue, 16 Jul 2024 10:25:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721150745; x=1721755545; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=BIzlW/re+zqWdbXrMFMpZtR9RUNKkE+7zdmZJ+T5ET8=;
- b=PBhLFILdxrYYhIyDCvdLPsgfJp6POjrcRD/06ulW90QzE1nYbzp6p5lxh3lS8IoMtf
- Ib72xeuZu6yZ8E72wwPQbNolWD0DdnXQTpod+DkBWv8JmFgRr+U+8QZukcIne1BJuYIC
- 3Ad0w6Jmhygq9rVAC9oNr852jaelDn1VqMjPNQHHO1xt1PW8XMZxj7gi4gAnradPF9Rd
- DVGmh8C/Xg+qeTRYei9w+iOlJWrjC7VG3YY7ZoMz4I/OiY3DM8+Y85mw8mOAXkjK93ZJ
- xciDRD+1R8w18rWcZdInJsJltX2ra6huVEP1jm6iTDbr5HfF3N9Fp54qpjoGdeYiPlDD
- suHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721150745; x=1721755545;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BIzlW/re+zqWdbXrMFMpZtR9RUNKkE+7zdmZJ+T5ET8=;
- b=YtbXHPokOfAqtkzaTa0TBzD8bQiyx/YpIpsXvhF2LKQgf8pr8FeecAKpRIgfjLuShM
- 2QLDuzvbSaoyRZ4EKJ9MdZEyc7+L1cyyqHauhqCZTSq645ocqxhnIlxevgyM1/3v5NdW
- agdW3z3o57ONWuycAR1vvW+GsX38y6ejq/eOqUgJnLWk/TjjjYM7XmBe2mhf/DCxnrEx
- kVTla1pwZchsMazbTfb7RG4grBV/z8AM2Vf3gCWjCVX/bz0n9FTZ059PjGiaP6BmXyMV
- 3oBSjYI1yAn3NxMKA4ZD6qIFjo9KFXsCrrA9cnlic+pBxJR6n9+tpO/SIEdL57dmlMv8
- XHrw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWEBlQY4mferXAUqQ5uMQh9iVp8iUBW+cYs0dj0XPuWU0dPnHphb1ztKKQ4GJfSRanniexlPFXc28aKuNBrGiZ6E5N0dFIwd7WOgQEP+Ctq
-X-Gm-Message-State: AOJu0Yy+FCA79xH9sOOtiAleIY9HlAdxSpKVYZbZ3aTbvd7rv6JplNnc
- 8dGx0KJuI5v/JmQBCEqvIS97ipq727V6arHVYIUwNMEta1Xa7oBTQUnSDjfvSh0=
-X-Google-Smtp-Source: AGHT+IGGXs9LQIjcLFKl+/yb9bNVeYQzPggbFyrU2zP9kH7kEuX20Nqc1cSioz/zdX1LY1hUP9w7jg==
-X-Received: by 2002:a05:6512:15a4:b0:52b:bee3:dcc6 with SMTP id
- 2adb3069b0e04-52edf03011emr1612383e87.51.1721150744972; 
- Tue, 16 Jul 2024 10:25:44 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ed24e2a10sm1200582e87.7.2024.07.16.10.25.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jul 2024 10:25:44 -0700 (PDT)
-Date: Tue, 16 Jul 2024 20:25:43 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <dri-devel@lists.freedesktop.org>, 
- amd-gfx list <amd-gfx@lists.freedesktop.org>, nouveau@lists.freedesktop.org, 
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Subject: Re: DisplayPort: handling of HPD events / link training
-Message-ID: <s6kua7scw65q2f43b6qimxjaqmm2a3giszkv4654ffnr4c7q7a@y2xqhp3mgf46>
-References: <CAA8EJprfbMs_3PnpebhVg=NVrO5zc23cgx=1f4HAKLnT5b9J6Q@mail.gmail.com>
- <d3be8832-a6f2-496e-ac2e-9b29cae9f8f2@suse.de>
- <CAA8EJprA3aXHex4ctSE+ChhhWVLLdcXtppsadrNYbnHWi+gKLQ@mail.gmail.com>
- <e924c624-8664-4739-84c5-8229325f78ce@suse.de>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A85010E8CF;
+ Tue, 16 Jul 2024 21:10:01 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46GHfd6I007015;
+ Tue, 16 Jul 2024 21:09:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 8EFgWzQ4bEsVEGlDIPChjTC7s40nDC03SbozmjUVxv8=; b=eL33vpUy8bWKasqY
+ zcVwbxWwmgo2HNFQJMPr00nuQZGh07iqDaBVoXSseF3/SG/1cPoHcY4tV/vqazQG
+ SEtB3S18c8IayLVhWzzIwISu7X2FCf8/nRdlVILNM9g3PzqepAX4Y2sONT++HxLn
+ CGRGnzJvf2nGpMeIMcRX3jtwS2eUFrwicFJ71WXfSR0vkVFIUnagpLwq+e5Pj2Zw
+ scYmJskdQ9niJIOkR98pXq8qtutrHbAQ3RZBDs3ttJ7PE0C0OWLBXobodQeU3nHu
+ cLsdN1l928E7612542wVpE2/6pWlxKk1EROYF74jzZ0+u/G/nHOooGkyQmToGXN0
+ n3L7VQ==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40dwfx8cps-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Jul 2024 21:09:56 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 46GL9tpm005192
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Jul 2024 21:09:55 GMT
+Received: from [10.71.110.34] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 16 Jul
+ 2024 14:09:54 -0700
+Message-ID: <5f80ca29-994c-4a74-a929-0480b0f2c157@quicinc.com>
+Date: Tue, 16 Jul 2024 14:09:53 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e924c624-8664-4739-84c5-8229325f78ce@suse.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] drm/msm/iommu: introduce msm_iommu_disp_new() for
+ msm_kms
+To: Rob Clark <robdclark@gmail.com>
+CC: <freedreno@lists.freedesktop.org>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>,
+ <dri-devel@lists.freedesktop.org>, <quic_jesszhan@quicinc.com>,
+ <swboyd@chromium.org>, <dianders@chromium.org>,
+ <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20240628214848.4075651-1-quic_abhinavk@quicinc.com>
+ <20240628214848.4075651-4-quic_abhinavk@quicinc.com>
+ <CAF6AEGt2zX5anreTLnMFEiPToGFJdgYZHHpqJfUtaOkdr+Wbbw@mail.gmail.com>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAF6AEGt2zX5anreTLnMFEiPToGFJdgYZHHpqJfUtaOkdr+Wbbw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: g7nO_hvTfjwzfwMJbO9efbhcjepe4UA3
+X-Proofpoint-GUID: g7nO_hvTfjwzfwMJbO9efbhcjepe4UA3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-15_19,2024-07-16_02,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ lowpriorityscore=0 suspectscore=0 mlxlogscore=965 bulkscore=0 adultscore=0
+ spamscore=0 clxscore=1015 mlxscore=0 phishscore=0 priorityscore=1501
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2407160154
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,57 +98,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 16, 2024 at 06:48:12PM GMT, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 16.07.24 um 18:35 schrieb Dmitry Baryshkov:
-> > On Tue, 16 Jul 2024 at 18:58, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> > > Hi
-> > > 
-> > > Am 27.02.24 um 23:40 schrieb Dmitry Baryshkov:
-> > > > Hello,
-> > > > 
-> > > > We are currently looking at checking and/or possibly redesigning the
-> > > > way the MSM DRM driver handles the HPD events and link training.
-> > > > 
-> > > > After a quick glance at the drivers implementing DP support, I noticed
-> > > > following main approaches:
-> > > > - Perform link training at the atomic_enable time, don't report
-> > > > failures (mtk, analogix, zynqmp, tegra, nouveau)
-> > > > - Perform link training at the atomic_enable time, report errors using
-> > > > link_status property (i915, mhdp8546)
-> > > > - Perform link training on the plug event (msm, it8605).
-> > > > - Perform link training from the DPMS handler, also calling it from
-> > > > the enable callback (AMDGPU, radeon).
-> > > > 
-> > > > It looks like the majority wins and we should move HPD to
-> > > > atomic_enable time. Is that assumption correct?
-> > > Did you ever receive an answer to this question? I currently investigate
-> > > ast's DP code, which does link training as part of detecting the
-> > > connector state (in detect_ctx). But most other drivers do this in
-> > > atomic_enable. I wonder if ast should follow.
-> > Short answer: yes, the only proper place to do it is atomic_enable().
-> 
-> Thanks.
-> 
-> > 
-> > Long answer: I don't see a way to retrigger link training in ast_dp.c
-> > Without such change you are just shifting things around. The
-> > end-result of moving link-training to atomic_enable() is that each
-> > enable can trigger link training, possibly lowering the link rate,
-> > etc. if link training is just a status bit from the firmware that we
-> > don't control, it doesn't make real-real sense to move it.
-> 
-> I have to think about what to do. People tend to copy existing drivers,
-> which alone might be a good argument for using atomic_enable. The link
-> training is indeed just a flag that is set by the firmware. I think it's
-> possible to re-trigger training by powering the port down and up again.
-> atomic_enable could likely do that. The hardware is also somewhat buggy and
-> not fully standard conformant.
 
-It stil looks like having an explicit comment ('check LT here becasue
-handled by firmware') might be better.
 
--- 
-With best wishes
-Dmitry
+On 7/1/2024 1:41 PM, Rob Clark wrote:
+> On Fri, Jun 28, 2024 at 2:49 PM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>> Introduce a new API msm_iommu_disp_new() for display use-cases.
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/msm_iommu.c | 26 ++++++++++++++++++++++++++
+>>   drivers/gpu/drm/msm/msm_mmu.h   |  1 +
+>>   2 files changed, 27 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+>> index a79cd18bc4c9..0420bdc4a224 100644
+>> --- a/drivers/gpu/drm/msm/msm_iommu.c
+>> +++ b/drivers/gpu/drm/msm/msm_iommu.c
+>> @@ -343,6 +343,17 @@ static int msm_gpu_fault_handler(struct iommu_domain *domain, struct device *dev
+>>          return 0;
+>>   }
+>>
+>> +static int msm_disp_fault_handler(struct iommu_domain *domain, struct device *dev,
+>> +                                 unsigned long iova, int flags, void *arg)
+>> +{
+>> +       struct msm_iommu *iommu = arg;
+>> +
+>> +       if (iommu->base.handler)
+>> +               return iommu->base.handler(iommu->base.arg, iova, flags, NULL);
+>> +
+>> +       return -ENOSYS;
+>> +}
+>> +
+>>   static void msm_iommu_resume_translation(struct msm_mmu *mmu)
+>>   {
+>>          struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(mmu->dev);
+>> @@ -434,6 +445,21 @@ struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quirks)
+>>          return &iommu->base;
+>>   }
+>>
+>> +struct msm_mmu *msm_iommu_disp_new(struct device *dev, unsigned long quirks)
+>> +{
+>> +       struct msm_iommu *iommu;
+>> +       struct msm_mmu *mmu;
+>> +
+>> +       mmu = msm_iommu_new(dev, quirks);
+>> +       if (IS_ERR_OR_NULL(mmu))
+>> +               return mmu;
+>> +
+>> +       iommu = to_msm_iommu(mmu);
+>> +       iommu_set_fault_handler(iommu->domain, msm_disp_fault_handler, iommu);
+>> +
+>> +       return mmu;
+>> +}
+> 
+> Hmm, are we using dev drvdata for the display pdev?  If
+> dev_get_drvdata() returns NULL for display pdev, we could get away
+> without having a different fault handler.
+> 
+> BR,
+> -R
+
+It is being set to struct msm_drm_private* currently. So it shouldnt 
+return NULL.
+
+I also thought of re-using the same API as GPU but the drvdata along 
+with its own fault handler and having below code in the gpu handler all 
+made me conclude that its cleaner to let display have its own handler.
+
+         if (adreno_smmu->set_stall)
+                 adreno_smmu->set_stall(adreno_smmu->cookie, true);
+
+> 
+>> +
+>>   struct msm_mmu *msm_iommu_gpu_new(struct device *dev, struct msm_gpu *gpu, unsigned long quirks)
+>>   {
+>>          struct adreno_smmu_priv *adreno_smmu = dev_get_drvdata(dev);
+>> diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
+>> index 88af4f490881..730458d08d6b 100644
+>> --- a/drivers/gpu/drm/msm/msm_mmu.h
+>> +++ b/drivers/gpu/drm/msm/msm_mmu.h
+>> @@ -42,6 +42,7 @@ static inline void msm_mmu_init(struct msm_mmu *mmu, struct device *dev,
+>>
+>>   struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quirks);
+>>   struct msm_mmu *msm_iommu_gpu_new(struct device *dev, struct msm_gpu *gpu, unsigned long quirks);
+>> +struct msm_mmu *msm_iommu_disp_new(struct device *dev, unsigned long quirks);
+>>
+>>   static inline void msm_mmu_set_fault_handler(struct msm_mmu *mmu, void *arg,
+>>                  int (*handler)(void *arg, unsigned long iova, int flags, void *data))
+>> --
+>> 2.44.0
+>>
