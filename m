@@ -2,82 +2,135 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E1EE932E75
-	for <lists+freedreno@lfdr.de>; Tue, 16 Jul 2024 18:38:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FC8D932E94
+	for <lists+freedreno@lfdr.de>; Tue, 16 Jul 2024 18:48:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87FBC10E7DE;
-	Tue, 16 Jul 2024 16:38:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD45F10E808;
+	Tue, 16 Jul 2024 16:48:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="HxAvmaZ4";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="dOO0VQIA";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="A0RM8EKV";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="g97zCAf0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Y67ofQx6";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
- [209.85.128.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E360010E7DF
- for <freedreno@lists.freedesktop.org>; Tue, 16 Jul 2024 16:37:59 +0000 (UTC)
-Received: by mail-yw1-f170.google.com with SMTP id
- 00721157ae682-651da7c1531so52434717b3.0
- for <freedreno@lists.freedesktop.org>; Tue, 16 Jul 2024 09:37:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721147879; x=1721752679; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Inq9wHo9haYW+I9Tylrr0gohQZyxyP5BU7osayMiXTI=;
- b=HxAvmaZ4Ss8aJHGL+6CzLDz1Sw22UXxu7DDLzhmHwT6MRKkKssk2ifpSPbPRdUAEqQ
- /kzWDWK4gHcUCTVVA1gVLfx5SG3Ff6sNSt5oymhDeR1vCTs6y44W39aoqr9lE4qQ2v1Q
- tqObnCEIopHUe8dbPX4DN93QsY8NXaJCjcofb/gSkRIQOZk56Zuwuu8r2m0ZvJFLKR04
- Pfoxnkh5BaKJGCPML3hfLEUIhidTPB9E7LUYDKibVmTBQMO/9DSAarDwpYBpAUWbc24k
- zSs47wqNJPCAcLrrQ3e9c/bKBOWxZWzv2nHvE4R04u/jhs705p1l5lgQKXzBqcW9iZt6
- fFAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721147879; x=1721752679;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Inq9wHo9haYW+I9Tylrr0gohQZyxyP5BU7osayMiXTI=;
- b=vlWONUpn8qs3l6Nnk5hH9VgtS3HERjKTqIBvQKcnZ5M5WiDkjfhdIf7d7odplcIfj0
- sF51kCkNvZ7ivJzgcPU8X9pQdbLZXSMn1aQyau4Rv7YLhpf/r4YK0EnZFE99On5keQED
- A6qwoxkenVDEJKG0WAbamg3lWhQbCf3T/B2OrG4FafI4AwCPEgXapJ+B3UjUDMFQ8Tpi
- DQMxf6W8X7XnYffjbvI+ZAirSnAHk6H1W/1BxLMarlVlRPoRcHf8eWX8TY8jSEg5YzuO
- Te+UTjS1oFZkHsFQbDuH10KQvfBDb2xlKoxfYeEK6UZIEZhig3PLFjgm+BnrUhIRRCXf
- yWdQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUoItGUZ5k8b4XGIgkbPnoZHDFNgF/SQq3hz32fjrtD1/KYxaLnvD4iX+ZJK8/qpRwkGX8B8eKqdcIldzzfFFMcJpu1sTSzXAYPiwMRJV5I
-X-Gm-Message-State: AOJu0YxERcqA7+jWmZIVmL0WeRxZhFUrDoFzK/JlBNMZKXS2j12zY4z7
- z6qC8w2T6gsjrzfCpl9CxhNr8n1Tz8sD7XOOGY/kHTDR7pfKAZAEaM89GTk/6BLAah8AP9JAKd5
- piTO3OJWwOlM0SSeGjH0hEw3uV5SibQeXUeZcTg==
-X-Google-Smtp-Source: AGHT+IE+6hxj9x884OAMB4VNRlYKsy/S+Y0o45dUnN/039E9rINPR7H3k9hGW0oD/pMtgKJEzaq/W5A/siUNC58eij4=
-X-Received: by 2002:a81:b402:0:b0:61b:1f0e:10 with SMTP id
- 00721157ae682-66380f1304amr31569737b3.4.1721147878623; 
- Tue, 16 Jul 2024 09:37:58 -0700 (PDT)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D1A310E7F0;
+ Tue, 16 Jul 2024 16:48:16 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 85C5E1F8C5;
+ Tue, 16 Jul 2024 16:48:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1721148494; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6R8OFc3AH/hYFUgfJt7prorsyoPHKzDmBeiYlyMP278=;
+ b=dOO0VQIA8jpstFxjqxeT3WyrBkSw6Fc2YVnifXIBGVkIOOUV9Uh4Mz3QKKIM938thxp8k1
+ hzBOd1M+d32M1IWUIYk8kdHEmLUzNyQw71a0PfjEknABSo/EJxsaHxygzNvT0TECGmewua
+ Hmv8rd32NT5LWZEkNnxutFO6Nz2oXrg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1721148494;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6R8OFc3AH/hYFUgfJt7prorsyoPHKzDmBeiYlyMP278=;
+ b=A0RM8EKVXu8aNRvDtVNor0gVHDbjl/g9XCjb2j6JUbKAFp8FQWaruFboroU0ajyOsp9v4b
+ Z843vrSVt8G5nTAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1721148493; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6R8OFc3AH/hYFUgfJt7prorsyoPHKzDmBeiYlyMP278=;
+ b=g97zCAf0swXlQVwRecw5oFZcJp90c4vSy7MJSCiAKuBnPWRM809wrJGVEW18tqc0F5NVCq
+ QF/N9nSdr0DQiOBl0PXpE/Goh52FmO8782eNB6ObYq1puVPDMsHE8zAvBOxsDb1J3Pb65P
+ x2yw2qhFxbJ8zz27xsOL+7dC6i+65To=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1721148493;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6R8OFc3AH/hYFUgfJt7prorsyoPHKzDmBeiYlyMP278=;
+ b=Y67ofQx6tyud5Ej+A50rCh+7Lm6mmyL9RWbClWSCXYeZpySXMtwWVygAISiXsfpRpHIpYz
+ 52LUbHgZ6kwN6FBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B462136E5;
+ Tue, 16 Jul 2024 16:48:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 3h4CEU2klmbGKgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 16 Jul 2024 16:48:13 +0000
+Message-ID: <e924c624-8664-4739-84c5-8229325f78ce@suse.de>
+Date: Tue, 16 Jul 2024 18:48:12 +0200
 MIME-Version: 1.0
-References: <20240627-hdmi-tx-v5-0-355d5c1fbc3c@freebox.fr>
- <20240627-hdmi-tx-v5-4-355d5c1fbc3c@freebox.fr>
- <d9898342-2439-4d3d-8e3d-5bf0a7a40245@linaro.org>
- <b6f6c845-6094-44ce-8ad0-ed4f6d353cec@freebox.fr>
-In-Reply-To: <b6f6c845-6094-44ce-8ad0-ed4f6d353cec@freebox.fr>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 16 Jul 2024 19:37:47 +0300
-Message-ID: <CAA8EJpqrAFKCr63JHEpZ3b3zdRfoNXoJP6SqKDOO4sqc=c6YdQ@mail.gmail.com>
-Subject: Re: [PATCH v5 4/4] arm64: dts: qcom: add HDMI nodes for msm8998
-To: Marc Gonzalez <mgonzalez@freebox.fr>
-Cc: Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Bjorn Andersson <andersson@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, Arnaud Vrac <avrac@freebox.fr>, 
- Pierre-Hugues Husson <phhusson@freebox.fr>,
- Jeffrey Hugo <quic_jhugo@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: DisplayPort: handling of HPD events / link training
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, nouveau@lists.freedesktop.org,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+References: <CAA8EJprfbMs_3PnpebhVg=NVrO5zc23cgx=1f4HAKLnT5b9J6Q@mail.gmail.com>
+ <d3be8832-a6f2-496e-ac2e-9b29cae9f8f2@suse.de>
+ <CAA8EJprA3aXHex4ctSE+ChhhWVLLdcXtppsadrNYbnHWi+gKLQ@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CAA8EJprA3aXHex4ctSE+ChhhWVLLdcXtppsadrNYbnHWi+gKLQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-4.29 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; RCPT_COUNT_SEVEN(0.00)[8];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -4.29
+X-Spam-Level: 
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,109 +146,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 16 Jul 2024 at 17:34, Marc Gonzalez <mgonzalez@freebox.fr> wrote:
->
-> On 16/07/2024 15:11, Konrad Dybcio wrote:
->
-> > On 27.06.2024 5:54 PM, Marc Gonzalez wrote:
-> >
-> >>  arch/arm64/boot/dts/qcom/msm8998.dtsi | 100 +++++++++++++++++++++++++++++++++-
-> >>  1 file changed, 99 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/arch/arm64/boot/dts/qcom/msm8998.dtsi b/arch/arm64/boot/dts/qcom/msm8998.dtsi
-> >> index ba5e873f0f35f..417c12534823f 100644
-> >> --- a/arch/arm64/boot/dts/qcom/msm8998.dtsi
-> >> +++ b/arch/arm64/boot/dts/qcom/msm8998.dtsi
-> >> @@ -2785,7 +2785,7 @@ mmcc: clock-controller@c8c0000 {
-> >>                               <&mdss_dsi0_phy 0>,
-> >>                               <&mdss_dsi1_phy 1>,
-> >>                               <&mdss_dsi1_phy 0>,
-> >> -                             <0>,
-> >> +                             <&hdmi_phy 0>,
-> >>                               <0>,
-> >>                               <0>,
-> >>                               <&gcc GCC_MMSS_GPLL0_DIV_CLK>;
-> >> @@ -2890,6 +2890,14 @@ dpu_intf2_out: endpoint {
-> >>                                                      remote-endpoint = <&mdss_dsi1_in>;
-> >>                                              };
-> >>                                      };
-> >> +
-> >> +                                    port@2 {
-> >> +                                            reg = <2>;
-> >> +
-> >> +                                            dpu_intf3_out: endpoint {
-> >> +                                                    remote-endpoint = <&hdmi_in>;
-> >> +                                            };
-> >> +                                    };
-> >>                              };
-> >>                      };
-> >>
-> >> @@ -3045,6 +3053,96 @@ mdss_dsi1_phy: phy@c996400 {
-> >>
-> >>                              status = "disabled";
-> >>                      };
-> >> +
-> >> +                    hdmi: hdmi-tx@c9a0000 {
-> >
-> > Please prefix the labels (hdmi: and hdmi_phy:) with mdss_
-> >
-> > Otherwise, this looks good
-> >
-> > Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> >
-> >
-> > One thing I noticed (testing on the 8998 MTP), enabling MDSS (not necessarily
-> > HDMI, mdss and mdp is enough) results in SMMU lockups about 30% of the time..
-> >
-> > [    4.911422] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
-> > [    4.913412] platform c901000.display-controller: Fixed dependency cycle(s) with /soc@0/display-subsystem@c900000/hdmi-tx@c9a0000
-> > [    4.923353] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
-> > [    4.927893] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
-> > [    4.930647] platform c9a0000.hdmi-tx: Fixed dependency cycle(s) with /soc@0/display-subsystem@c900000/display-controller@c901000
-> > [    4.941928] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
-> > [    4.944438] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
-> > [    4.952338] msm_hdmi_phy c9a0600.hdmi-phy: supply vddio not found, using dummy regulator
-> > [    4.956013] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
-> > [    4.961055] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
-> > [    4.967917] msm_hdmi_phy c9a0600.hdmi-phy: supply vcca not found, using dummy regulator
-> > [    4.974565] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
-> > [    4.977628] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
-> > [    4.984122] Bluetooth: hci0: setting up wcn399x
-> > [    4.989670] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
->
-> Interesting. I don't think I've noticed any lock-ups
-> across multiple reboots.
->
-> FWIW, I get similar warnings about "Fixed dependency cycle(s)" on my custom DT.
->
-> [    0.055349] platform 1da4000.ufshc: Fixed dependency cycle(s) with /soc@0/phy@1da7000
-> [    0.055525] platform 1da4000.ufshc: Fixed dependency cycle(s) with /soc@0/phy@1da7000
-> [    0.055584] platform 1da7000.phy: Fixed dependency cycle(s) with /soc@0/ufshc@1da4000
-> [    0.060279] platform c8c0000.clock-controller: Fixed dependency cycle(s) with /soc@0/display-subsystem@c900000/hdmi-phy@c9a0600
-> [    0.060494] platform c900000.display-subsystem: Fixed dependency cycle(s) with /soc@0/clock-controller@c8c0000
-> [    0.062432] platform hdmi-out: Fixed dependency cycle(s) with /soc@0/i2c@c1b5000/tdp158@5e
-> ...
-> [   18.534346] adreno 5000000.gpu: Adding to iommu group 2
-> [   18.540215] msm-mdss c900000.display-subsystem: Adding to iommu group 3
-> [   18.544695] platform c901000.display-controller: Fixed dependency cycle(s) with /soc@0/display-subsystem@c900000/hdmi-tx@c9a0000
-> [   18.551239] platform c901000.display-controller: Fixed dependency cycle(s) with /soc@0/display-subsystem@c900000/hdmi-tx@c9a0000
-> [   18.562685] platform c9a0000.hdmi-tx: Fixed dependency cycle(s) with /soc@0/i2c@c1b5000/tdp158@5e
-> [   18.574122] platform c9a0000.hdmi-tx: Fixed dependency cycle(s) with /soc@0/display-subsystem@c900000/display-controller@c901000
-> [   18.617640] platform c9a0000.hdmi-tx: Fixed dependency cycle(s) with /soc@0/i2c@c1b5000/tdp158@5e
-> [   18.618885] i2c 2-005e: Fixed dependency cycle(s) with /soc@0/display-subsystem@c900000/hdmi-tx@c9a0000
-> [   18.627768] tdp158-bridge 2-005e: supply vcc not found, using dummy regulator
-> [   18.636853] tdp158-bridge 2-005e: supply vdd not found, using dummy regulator
->
-> It looks like some of these warnings were pre-existing,
-> but some might have been added by my patches?
->
-> Do they need looking into?
-> I'm slightly confused.
+Hi
 
-No, that's fine. It is the SMMU issue that Konrad has been asking you
-to take a look at.
+Am 16.07.24 um 18:35 schrieb Dmitry Baryshkov:
+> On Tue, 16 Jul 2024 at 18:58, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Hi
+>>
+>> Am 27.02.24 um 23:40 schrieb Dmitry Baryshkov:
+>>> Hello,
+>>>
+>>> We are currently looking at checking and/or possibly redesigning the
+>>> way the MSM DRM driver handles the HPD events and link training.
+>>>
+>>> After a quick glance at the drivers implementing DP support, I noticed
+>>> following main approaches:
+>>> - Perform link training at the atomic_enable time, don't report
+>>> failures (mtk, analogix, zynqmp, tegra, nouveau)
+>>> - Perform link training at the atomic_enable time, report errors using
+>>> link_status property (i915, mhdp8546)
+>>> - Perform link training on the plug event (msm, it8605).
+>>> - Perform link training from the DPMS handler, also calling it from
+>>> the enable callback (AMDGPU, radeon).
+>>>
+>>> It looks like the majority wins and we should move HPD to
+>>> atomic_enable time. Is that assumption correct?
+>> Did you ever receive an answer to this question? I currently investigate
+>> ast's DP code, which does link training as part of detecting the
+>> connector state (in detect_ctx). But most other drivers do this in
+>> atomic_enable. I wonder if ast should follow.
+> Short answer: yes, the only proper place to do it is atomic_enable().
 
+Thanks.
+
+>
+> Long answer: I don't see a way to retrigger link training in ast_dp.c
+> Without such change you are just shifting things around. The
+> end-result of moving link-training to atomic_enable() is that each
+> enable can trigger link training, possibly lowering the link rate,
+> etc. if link training is just a status bit from the firmware that we
+> don't control, it doesn't make real-real sense to move it.
+
+I have to think about what to do. People tend to copy existing drivers, 
+which alone might be a good argument for using atomic_enable. The link 
+training is indeed just a flag that is set by the firmware. I think it's 
+possible to re-trigger training by powering the port down and up again. 
+atomic_enable could likely do that. The hardware is also somewhat buggy 
+and not fully standard conformant.
+
+Best regards
+Thomas
+
+>
+>> Best regards
+>> Thomas
+>>
+>>> Also two related questions:
+>>> - Is there a plan to actually make use of the link_status property?
+>>> Intel presented it at FOSDEM 2018, but since that time it was not
+>>> picked up by other drivers.
+>>>
+>>> - Is there any plan to create generic DP link training helpers? After
+>>> glancing through the DP drivers there is a lot of similar code in the
+>>> link training functions, with minor differences here and there. And
+>>> it's those minor differences that bug me. It means that drivers might
+>>> respond differently to similar devices. Or that there might be minor
+>>> bugs here and there.
+>>>
+>> --
+>> --
+>> Thomas Zimmermann
+>> Graphics Driver Developer
+>> SUSE Software Solutions Germany GmbH
+>> Frankenstrasse 146, 90461 Nuernberg, Germany
+>> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+>> HRB 36809 (AG Nuernberg)
+>>
+>
 
 -- 
-With best wishes
-Dmitry
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
+
