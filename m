@@ -2,80 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22DCD932600
-	for <lists+freedreno@lfdr.de>; Tue, 16 Jul 2024 13:56:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F34F5932727
+	for <lists+freedreno@lfdr.de>; Tue, 16 Jul 2024 15:11:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0285B10E682;
-	Tue, 16 Jul 2024 11:56:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0542910E6F6;
+	Tue, 16 Jul 2024 13:11:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MGpda1pP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="kNTN35mX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84C7510E687
- for <freedreno@lists.freedesktop.org>; Tue, 16 Jul 2024 11:56:49 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-a77d85f7fa3so858536866b.0
- for <freedreno@lists.freedesktop.org>; Tue, 16 Jul 2024 04:56:49 -0700 (PDT)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CE4310E5F7
+ for <freedreno@lists.freedesktop.org>; Tue, 16 Jul 2024 13:11:27 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-58b0dddab63so8467554a12.3
+ for <freedreno@lists.freedesktop.org>; Tue, 16 Jul 2024 06:11:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721131008; x=1721735808; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1721135485; x=1721740285; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=2Q07X/9cHC21L2J2kDcebKLKVfHxULB2QbqEJK6tKlE=;
- b=MGpda1pPcj2c03JB9SdodmAIgmPxzRNmYkOLsLb1JbF/LRkEb+EPH5nx7WgzHj0dcN
- MAsJCWZ+TNc0pt/Xzy2/ndsLteHJuIAlGqDS6GAp1R+wdeGzBFyW4Cd6SkTAOiy2wF6W
- W0oYIHBnQakiE7t5Lzp4rtb5nc8wmKZpTDQj8hRuNcxwNg59MeBYVL8R1JENDkXmyK8o
- 7KBXfE+oFSsk40W3mLHr9EtoHg1xRbhyYmVQXtYDeWO0zGhI9M9OEqSlR5nRz7flXxTb
- mSIPfhesLPBMd6XsuI2tNI8WvAonu5pVly3Z+gVUKuqECS6yTVkISxRMA8tcwsJzFYXD
- 0DUw==
+ bh=cFip2GCiEAk8KKDtgvCT7PzwjlN0kRNg5YiSgCIQq4s=;
+ b=kNTN35mX7eGmqISikSfGRrzpL/uYGIwB47I9eEXRQ8yjcOl6egu4JNVy5XlgKmMkF3
+ mirynFFY8OCEftvSg8UVuqSPkzFsdJVP/HOVrH/KbjFWv79jjLya43gk9UO6QT2rXekO
+ OHw88LrOjrxEe3yrYhRX+SIoP8He3DGKYAnKtO3cWyDpEvH+ELtKpqrqc7Wc4FElEyI6
+ EWrp3+mBfujAmk82ILbGe8hkZ4VEa5CAC8aCIRSHOjj+v8RKmtY7NevHtpf4CFpEIjbb
+ a/R6VF4VAfjQhoPiun7cHxUTwhKAG8Tdp9jR7XIgg6QPOSm743cX4XG02CB1s5b4Ye1+
+ qxmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721131008; x=1721735808;
+ d=1e100.net; s=20230601; t=1721135485; x=1721740285;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2Q07X/9cHC21L2J2kDcebKLKVfHxULB2QbqEJK6tKlE=;
- b=qzSWNoBMq4QbpLPG19SmLOGs6kHHTyXqveVfwQrjRHW9uHNakpH85R9KDxxHwL69rM
- W9E5GQUc2aAqe+qBX8dAvgO/GaambrlzS+P2OZcx3aYxe/lWOWjpj5Y5uWr/XyL61ihX
- 62+TmlNEqpeWTaJLVLzy4T4DL2H6AaNwUNHENQiwjPYbYtxgDQQEQPsvZZAG6wKzbQuJ
- JA78128DqcbSyQpHsQduqqTLOtdsQN++MmF5oP/TmrTSgo0hwZ50arGf1vtWk+mfsb3D
- m8G5y3V2WAqoOMYZpg2dsABO8Z2tNS+2+kAd4e6CVAmyRvIgARmPZsmuvMGDnO0yNdNr
- 9sUg==
+ bh=cFip2GCiEAk8KKDtgvCT7PzwjlN0kRNg5YiSgCIQq4s=;
+ b=s0DKHSXekWDCoTrdpRKFU8UhCQ9tOvUMXelkcKhMai1OO9eUPXRm2Hj0RWy1ehmsFA
+ z85kWtkF5Y2gPdXajFsQKztNiShJ6fPjMSzy+q7jWWRq2mR5YWPv8noCs/0Tn0/24Z0X
+ TyWid0yCtkotbBSeSGOZVMs2KoqfQGqwOqO2DsJ2PKiquOACSlFg6RNE0rN2uILNrc5O
+ z6+c/+Dl0dCCQflGCWTr/Imhz6Qao9S4mSZNtF9GDc9zjojaz/w2yPlWqdBl9+0G/Vth
+ fXgONMfje2go8OWgRiDdK6H9agu0+J3Hu18rSa3rJiEH3u3/HrCU62MLvn4+2hTq1vzJ
+ 4WIg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUGbHR3nLDR4FfBk3/kM8NVAB9f9eM3m7rDbX2Yit+jPS4yjWJWI40ZeUbYySYNqAtGnCfFFOZhuhHB/lx4/1y19UxPwVO8rd3RdFPOZNon
-X-Gm-Message-State: AOJu0YxBQbOJzmUldco6enovqXrDCRAD/S+vjkXHVdPL4Rem19i8OQts
- Jq2HVkxjETvKUnyqLq3oVYb7cwoZUypplS6P6OH4ayFRT0gnIjm+9711dypd7as=
-X-Google-Smtp-Source: AGHT+IERPmjrIM2aDqr7ZP8eOgQJXvSWAdRl9PJTlPlWacu9qkHu2w5vUbj1p6hAJbTPMyu7yz2lAg==
-X-Received: by 2002:a17:907:20cf:b0:a72:5f3f:27a2 with SMTP id
- a640c23a62f3a-a79edc4bbe5mr141764666b.26.1721131007390; 
- Tue, 16 Jul 2024 04:56:47 -0700 (PDT)
+ AJvYcCWtJUHEuOK0rBkrC3mZAXIfZitiDEUJNHoqVhbyC2fzVZLyfNspi/zznxw3HgVijEL+G0qj3UcsTc9FpJuJBtsVWRhTNQL6zJtPzHlx5jFb
+X-Gm-Message-State: AOJu0YyQhNuwHQAMjbUq/sPmU1HGXtP9OngYz8aFVBeC1BWsuNelhRVv
+ HIW1zyPMvANVtyK8W9fSFp37Y+pkvZbPhyhhM8eN8Oag9R+Z5ltIyWTdqpT3aIE=
+X-Google-Smtp-Source: AGHT+IEzWOn6sHS3rp91cUs15jhwAoHUOK22fhmPlPX9enTsj5u+gucMbmfUhnROjS2gaXnYWebsxw==
+X-Received: by 2002:a50:f68e:0:b0:57c:5874:4f74 with SMTP id
+ 4fb4d7f45d1cf-59ef03bb7edmr1264244a12.28.1721135485161; 
+ Tue, 16 Jul 2024 06:11:25 -0700 (PDT)
 Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a79bc80d688sm305157866b.189.2024.07.16.04.56.45
+ 4fb4d7f45d1cf-59b25528cd4sm4890330a12.57.2024.07.16.06.11.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jul 2024 04:56:47 -0700 (PDT)
-Message-ID: <8e2ebc97-f455-4f41-81da-af56263e6cf6@linaro.org>
-Date: Tue, 16 Jul 2024 13:56:43 +0200
+ Tue, 16 Jul 2024 06:11:24 -0700 (PDT)
+Message-ID: <d9898342-2439-4d3d-8e3d-5bf0a7a40245@linaro.org>
+Date: Tue, 16 Jul 2024 15:11:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/5] drm/msm/adreno: Implement SMEM-based speed bin
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v5 4/4] arm64: dts: qcom: add HDMI nodes for msm8998
+To: Marc Gonzalez <mgonzalez@freebox.fr>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20240709-topic-smem_speedbin-v5-0-e2146be0c96f@linaro.org>
- <20240709-topic-smem_speedbin-v5-1-e2146be0c96f@linaro.org>
- <20240715200419.l47ng6efa25in6sg@hu-akhilpo-hyd.qualcomm.com>
+ <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Arnaud Vrac <avrac@freebox.fr>,
+ Pierre-Hugues Husson <phhusson@freebox.fr>,
+ Jeffrey Hugo <quic_jhugo@quicinc.com>
+References: <20240627-hdmi-tx-v5-0-355d5c1fbc3c@freebox.fr>
+ <20240627-hdmi-tx-v5-4-355d5c1fbc3c@freebox.fr>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
@@ -113,7 +117,7 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20240715200419.l47ng6efa25in6sg@hu-akhilpo-hyd.qualcomm.com>
+In-Reply-To: <20240627-hdmi-tx-v5-4-355d5c1fbc3c@freebox.fr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -131,46 +135,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15.07.2024 10:04 PM, Akhil P Oommen wrote:
-> On Tue, Jul 09, 2024 at 12:45:29PM +0200, Konrad Dybcio wrote:
->> On recent (SM8550+) Snapdragon platforms, the GPU speed bin data is
->> abstracted through SMEM, instead of being directly available in a fuse.
->>
->> Add support for SMEM-based speed binning, which includes getting
->> "feature code" and "product code" from said source and parsing them
->> to form something that lets us match OPPs against.
->>
->> Due to the product code being ignored in the context of Adreno on
->> production parts (as of SM8650), hardcode it to SOCINFO_PC_UNKNOWN.
->>
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> ---
-
-[...]
-
->>  
->> -	if (adreno_read_speedbin(dev, &speedbin) || !speedbin)
->> +	if (adreno_read_speedbin(adreno_gpu, dev, &speedbin) || !speedbin)
->>  		speedbin = 0xffff;
->> -	adreno_gpu->speedbin = (uint16_t) (0xffff & speedbin);
->> +	adreno_gpu->speedbin = speedbin;
+On 27.06.2024 5:54 PM, Marc Gonzalez wrote:
+> From: Arnaud Vrac <avrac@freebox.fr>
 > 
-> There are some chipsets which uses both Speedbin and Socinfo data for
-> SKU detection [1].
-
-0_0
-
-
-> We don't need to worry about that logic for now. But
-> I am worried about mixing Speedbin and SKU_ID in the UABI with this patch.
-> It will be difficult when we have to expose both to userspace.
+> Port device nodes from vendor code.
 > 
-> I think we can use a separate bitfield to expose FCODE/PCODE. Currently,
-> the lower 32 bit is reserved for chipid and 33-48 is reserved for speedbin,
-> so I think we can use the rest of the 16 bits for SKU_ID. And within that
-> 16bits, 12 bits should be sufficient for FCODE and the rest 8 bits
-> reserved for future PCODE.
+> Signed-off-by: Arnaud Vrac <avrac@freebox.fr>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Marc Gonzalez <mgonzalez@freebox.fr>
+> ---
+>  arch/arm64/boot/dts/qcom/msm8998.dtsi | 100 +++++++++++++++++++++++++++++++++-
+>  1 file changed, 99 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/msm8998.dtsi b/arch/arm64/boot/dts/qcom/msm8998.dtsi
+> index ba5e873f0f35f..417c12534823f 100644
+> --- a/arch/arm64/boot/dts/qcom/msm8998.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/msm8998.dtsi
+> @@ -2785,7 +2785,7 @@ mmcc: clock-controller@c8c0000 {
+>  				 <&mdss_dsi0_phy 0>,
+>  				 <&mdss_dsi1_phy 1>,
+>  				 <&mdss_dsi1_phy 0>,
+> -				 <0>,
+> +				 <&hdmi_phy 0>,
+>  				 <0>,
+>  				 <0>,
+>  				 <&gcc GCC_MMSS_GPLL0_DIV_CLK>;
+> @@ -2890,6 +2890,14 @@ dpu_intf2_out: endpoint {
+>  							remote-endpoint = <&mdss_dsi1_in>;
+>  						};
+>  					};
+> +
+> +					port@2 {
+> +						reg = <2>;
+> +
+> +						dpu_intf3_out: endpoint {
+> +							remote-endpoint = <&hdmi_in>;
+> +						};
+> +					};
+>  				};
+>  			};
+>  
+> @@ -3045,6 +3053,96 @@ mdss_dsi1_phy: phy@c996400 {
+>  
+>  				status = "disabled";
+>  			};
+> +
+> +			hdmi: hdmi-tx@c9a0000 {
 
-Right, sounds reasonable. Hopefully nothing overflows..
+Please prefix the labels (hdmi: and hdmi_phy:) with mdss_
+
+Otherwise, this looks good
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+
+One thing I noticed (testing on the 8998 MTP), enabling MDSS (not necessarily
+HDMI, mdss and mdp is enough) results in SMMU lockups about 30% of the time..
+
+[    4.911422] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
+[    4.913412] platform c901000.display-controller: Fixed dependency cycle(s) with /soc@0/display-subsystem@c900000/hdmi-tx@c9a0000
+[    4.923353] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
+[    4.927893] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
+[    4.930647] platform c9a0000.hdmi-tx: Fixed dependency cycle(s) with /soc@0/display-subsystem@c900000/display-controller@c901000
+[    4.941928] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
+[    4.944438] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
+[    4.952338] msm_hdmi_phy c9a0600.hdmi-phy: supply vddio not found, using dummy regulator
+[    4.956013] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
+[    4.961055] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
+[    4.967917] msm_hdmi_phy c9a0600.hdmi-phy: supply vcca not found, using dummy regulator
+[    4.974565] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
+[    4.977628] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
+[    4.984122] Bluetooth: hci0: setting up wcn399x
+[    4.989670] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
+
 
 Konrad
+
