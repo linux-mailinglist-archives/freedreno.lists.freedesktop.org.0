@@ -2,78 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A1FC9333DE
-	for <lists+freedreno@lfdr.de>; Tue, 16 Jul 2024 23:50:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BFC993342F
+	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2024 00:25:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE72910E8EF;
-	Tue, 16 Jul 2024 21:50:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DF8510E8FD;
+	Tue, 16 Jul 2024 22:25:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U8c4FOYo";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="WXSHJIhb";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
- [209.85.208.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D87FE10E8ED;
- Tue, 16 Jul 2024 21:50:44 +0000 (UTC)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-58ba3e38027so6286694a12.1; 
- Tue, 16 Jul 2024 14:50:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721166643; x=1721771443; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uyXvBuWkFl7+fBJpGUNnFM5Z57w9S40Q8xfHQuAIhyY=;
- b=U8c4FOYoE+iDNrZH+hCjbScJdY03K4ob4EqKpfqVYwFiT6h5WNuAOJO4dqweqD/XeZ
- qMMLzhzjj7z3At+pgVNYWlC3bFMFv2Ju9JF6PDPWisjssak3n4Iv3ad0M1a7KgTcdwSE
- iN2fRk4Wwv7Js9S3hKzma6pEoEDaRO6NTcNxJE0xxAMq/+ABjB4UWY5SMmRJGap7xIvD
- kzsVC2+EHXEG1CCN+CPft5GIUG2EaYWJGvurE1HKs7VI291BYa1g9/v0Dpz82RNKF4I5
- bTvPStmm0two7pgJajsvpsO6uBwIHmMCujE7vervsQ1Hlc14RWKJiet2qDdHHTl95jBb
- O2hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721166643; x=1721771443;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uyXvBuWkFl7+fBJpGUNnFM5Z57w9S40Q8xfHQuAIhyY=;
- b=Zp2uPHtZbWI9BCPxoEktRBxs9XEPwiYjloT25h2koLeLuibvVABqgQuoeSan/o/JV4
- Tl/5dp128MiFCMQ5IGWWP9PhVMFVRi3Hr3eJm9OL/0P/GcAlNhto2AT9OOLtoE06xoZ8
- jGImB8gS4bst53MNTNGn+UkmaXgz0LkCXA7+5RspjKLBPMF9MccGx5xRB6DPKSfpZxbl
- M1P5eI47Yx6Iy5thZCiOOCWBDEhGBt/9oNVlhfHR4LLimRMLzjBPY6i4kEwvJoGQcpUD
- JVV4OJO2a14hURw+a6gtqTX89bAoCkPNANmTzOqZVcI3eDURcNn/FHjmnRnVMhd6AsMQ
- 0KDQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVna+qjRuyW0kBz/CLR46AZfGXIiQ0tp+bJSvwAMMb64r9uxLx/jHEHEwxAeBhe8gOHIGLRWdTvBDXed49U3vrnX3z5hObIczvgGQAj7++Ebvo0dkjhnpGOyoN4eQsaOAiC/zxkH/vRHSziMAEQK0Vn
-X-Gm-Message-State: AOJu0YzmPfyQbu/MQ2u/Y587aLTtJRqF3SzQJWsiLBTQYISg+ItuSXPy
- YQIKz+dIM3BDNE2fBIBO0FDh6MxwNbO7NfbZCs+/mdFHDKs/XIWuqkcg+3/r8UUPwcF9QvBqItC
- 1t0uoSJ8lfx0vkXjcGvvgK6JuaHc=
-X-Google-Smtp-Source: AGHT+IGOSFeYk5lokiAb+SUTHo13Ke4nMwkSdDmfplMaIf2MiIKKsehlw3Da3JwlhmTGBLrNwWhX77liKSLSBtoAOaw=
-X-Received: by 2002:a05:6402:5106:b0:57c:5eed:4ebf with SMTP id
- 4fb4d7f45d1cf-59eeec2c4f1mr2945406a12.19.1721166642931; Tue, 16 Jul 2024
- 14:50:42 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 078BC10E8FD;
+ Tue, 16 Jul 2024 22:25:05 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46GHesmQ031863;
+ Tue, 16 Jul 2024 22:25:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 05xxKaYxYa1oRwc8zqQ9/XPos2PC/6l9sH2GUsjaBYc=; b=WXSHJIhbp+LimyLZ
+ yVLJWxf+5RLR7NoCLBvCcCjjmiycCGY44F8U2wsP6ljssyugavBRnDB9G0Cd38gK
+ AD0G0hiwGreUtvT7/wE7x0oM4be006jzI9KjsqYKOr4nkyrvSw/M4QWqgu6qOZbw
+ tG9cir/XUUOMeRiDRIeng78kn765+boMwBL+zdN5xRFQFQgPb4yWIrm+xHdWYylA
+ EwUMkfBUtd+snh/7mwGAD1yFEPip2oAeTqi5b6a2l8snXGMBWhg/UWvMXWLgLFLq
+ Pk52CnvMuBnV0YNeq7SPbpczC/hVnCkCzz9OigHblq+zeIooPBHPcUu0/P+gWiBL
+ aIqZyg==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40dwfs0g2k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Jul 2024 22:25:00 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 46GMOxZX028539
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Jul 2024 22:24:59 GMT
+Received: from [10.71.110.34] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 16 Jul
+ 2024 15:24:58 -0700
+Message-ID: <c023874c-9df2-4195-92ad-c355c67ceccd@quicinc.com>
+Date: Tue, 16 Jul 2024 15:24:58 -0700
 MIME-Version: 1.0
-References: <20240628214848.4075651-1-quic_abhinavk@quicinc.com>
- <20240628214848.4075651-6-quic_abhinavk@quicinc.com>
- <5isw7c5kkef4kql4qcous3gmwhvgwc53ntgjm4staymqr67ktm@iw3cr2gr2iko>
- <CAF6AEGtVBarvEUqgt7SHzYwXUsjY_rVQS6aMsN00G91Dr1aWAQ@mail.gmail.com>
- <cf8d00cd-6dc6-42b9-be61-93ef48d42b0c@quicinc.com>
-In-Reply-To: <cf8d00cd-6dc6-42b9-be61-93ef48d42b0c@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 16 Jul 2024 14:50:30 -0700
-Message-ID: <CAF6AEGv2H2FQ4wCWEzgboK0Lz3em-0XkG5pe_HwN1rW2iaGVrw@mail.gmail.com>
-Subject: Re: [PATCH 5/5] drm/msm/dpu: rate limit snapshot capture for mmu
- faults
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 02/16] drm/msm/dpu: fix error condition in
+ dpu_encoder_virt_atomic_mode_set
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- quic_jesszhan@quicinc.com, swboyd@chromium.org, dianders@chromium.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Abel Vesa <abel.vesa@linaro.org>, Johan Hovold <johan+linaro@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20240625-dpu-mode-config-width-v5-0-501d984d634f@linaro.org>
+ <20240625-dpu-mode-config-width-v5-2-501d984d634f@linaro.org>
+ <637fbd36-d6cd-4bb7-af83-8849c0fee8f2@quicinc.com>
+ <CAA8EJppxyUrEWYQvMGtw14UVobkQdaPZuwHPeMcONRYrgPp2jw@mail.gmail.com>
+ <cf1ed8b1-1c70-47f8-8c34-ef62129d44a8@quicinc.com>
+ <CAA8EJpqXv2cfN2CC1+FMgwXnwMh3BeocY5ae1sOZazdy0_FCNw@mail.gmail.com>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJpqXv2cfN2CC1+FMgwXnwMh3BeocY5ae1sOZazdy0_FCNw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: fvZvILsnwdwyHu_b7GvZNMK0pTYzJQBG
+X-Proofpoint-GUID: fvZvILsnwdwyHu_b7GvZNMK0pTYzJQBG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-16_02,2024-07-16_02,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0 adultscore=0
+ suspectscore=0 phishscore=0 spamscore=0 mlxlogscore=999 mlxscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2407160164
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,129 +100,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jul 16, 2024 at 2:45=E2=80=AFPM Abhinav Kumar <quic_abhinavk@quicin=
-c.com> wrote:
->
->
->
-> On 7/15/2024 12:51 PM, Rob Clark wrote:
-> > On Mon, Jul 1, 2024 at 12:43=E2=80=AFPM Dmitry Baryshkov
-> > <dmitry.baryshkov@linaro.org> wrote:
-> >>
-> >> On Fri, Jun 28, 2024 at 02:48:47PM GMT, Abhinav Kumar wrote:
-> >>> There is no recovery mechanism in place yet to recover from mmu
-> >>> faults for DPU. We can only prevent the faults by making sure there
-> >>> is no misconfiguration.
-> >>>
-> >>> Rate-limit the snapshot capture for mmu faults to once per
-> >>> msm_kms_init_aspace() as that should be sufficient to capture
-> >>> the snapshot for debugging otherwise there will be a lot of
-> >>> dpu snapshots getting captured for the same fault which is
-> >>> redundant and also might affect capturing even one snapshot
-> >>> accurately.
-> >>
-> >> Please squash this into the first patch. There is no need to add code
-> >> with a known defficiency.
-> >>
-> >> Also, is there a reason why you haven't used <linux/ratelimit.h> ?
-> >
-> > So, in some ways devcoredump is ratelimited by userspace needing to
-> > clear an existing devcore..
-> >
->
-> Yes, a new devcoredump device will not be created until the previous one
-> is consumed or times out but here I am trying to limit even the DPU
-> snapshot capture because DPU register space is really huge and the rate
-> at which smmu faults occur is quite fast that its causing instability
-> while snapshots are being captured.
->
-> > What I'd suggest would be more useful is to limit the devcores to once
-> > per atomic update, ie. if display state hasn't changed, maybe an
-> > additional devcore isn't useful
-> >
-> > BR,
-> > -R
-> >
->
-> By display state change, do you mean like the checks we have in
-> drm_atomic_crtc_needs_modeset()?
->
-> OR do you mean we need to cache the previous (currently picked up by hw)
-> state and trigger a new devcores if the new state is different by
-> comparing more things?
->
-> This will help to reduce the snapshots to unique frame updates but I do
-> not think it will reduce the rate enough for the case where DPU did not
-> recover from the previous fault.
 
-I was thinking the easy thing, of just resetting the counter in
-msm_atomic_commit_tail().. I suppose we could be clever filter out
-updates that only change scanout address.  Or hash the atomic state
-and only generate devcoredumps for unique states.  But I'm not sure
-how over-complicated we should make this.
 
-BR,
--R
+On 7/13/2024 2:49 AM, Dmitry Baryshkov wrote:
+> On Sat, 13 Jul 2024 at 03:25, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 7/12/2024 4:11 PM, Dmitry Baryshkov wrote:
+>>> On Fri, 12 Jul 2024 at 22:41, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>> On 6/24/2024 2:13 PM, Dmitry Baryshkov wrote:
+>>>>> The commit b954fa6baaca ("drm/msm/dpu: Refactor rm iterator") removed
+>>>>> zero-init of the hw_ctl array, but didn't change the error condition,
+>>>>> that checked for hw_ctl[i] being NULL. Use indices check instead.
+>>>>>
+>>>>> Fixes: b954fa6baaca ("drm/msm/dpu: Refactor rm iterator")
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>> ---
+>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 +-
+>>>>>     1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>>>> index 5d205e09cf45..7613005fbfea 100644
+>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>>>> @@ -1186,7 +1186,7 @@ static void :tag(struct drm_encoder *drm_enc,
+>>>>>                         return;
+>>>>>                 }
+>>>>>
+>>>>> -             if (!hw_ctl[i]) {
+>>>>> +             if (i >= num_ctl) {
+>>>>
+>>>> This is not very clear to me.
+>>>>
+>>>> How will we hit this condition? I dont see i going beyond 1 in this loop
+>>>> and neither should num_ctl
+>>>
+>>> Why? the driver doesn't support flushing through a single CTL, so
+>>> num_ctl = num_intf.
+>>>
+>>
+>> num_ctl will be = num_intf, but what I was trying to understand here is
+>> that , previously this condition was making sure that we have a ctl
+>> assigned for each physical encoder which is actually a requirement for
+>> the display pipeline. If we assigned a hw_ctl for one phys encoder and
+>> not the other, its an error.
+>>
+>> But on closer look, I think even your check will catch that.
+>>
+>>
+>>>>
+>>>> Will it be just easier to bring back the NULL assignment at the top?
+>>>>
+>>>> struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC] = { NULL };
+>>>>
+>>>> I also see the same issue for other blocks such as hw_dsc, hw_lm
+>>>
+>>> Other blocks loop properly up to the num_resource. I'd prefer to drop
+>>> the NULL init from the DSPP init and use num_dspp instead.
+>>>
+>>
+>> Overall, I think the purpose of NULL init was to make sure that before
+>> we call to_dpu_hw_***() macros, we have a valid hw_*.
+>>
+>> We could use either num_* or the hw_* as both are returned by RM.
+>>
+>> One side-note here is with a proper NULL hw_ctl is that the consumers of
+>> hw_ctl should also be able to check for NULL correctly.
+> 
+> The problem of the NULL checks is that it's too tempting to perform a
+> NULL check after to_dpu_hw_ctl conversion. However it's not safe to
+> pass NULL pointer to such functions: there is no guarantee that
+> conversion will return NULL if it gets passed the NULL pointer.
+> 
 
->
-> >>
-> >>>
-> >>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >>> ---
-> >>>   drivers/gpu/drm/msm/msm_kms.c | 6 +++++-
-> >>>   drivers/gpu/drm/msm/msm_kms.h | 3 +++
-> >>>   2 files changed, 8 insertions(+), 1 deletion(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_=
-kms.c
-> >>> index d5d3117259cf..90a333920c01 100644
-> >>> --- a/drivers/gpu/drm/msm/msm_kms.c
-> >>> +++ b/drivers/gpu/drm/msm/msm_kms.c
-> >>> @@ -168,7 +168,10 @@ static int msm_kms_fault_handler(void *arg, unsi=
-gned long iova, int flags, void
-> >>>   {
-> >>>        struct msm_kms *kms =3D arg;
-> >>>
-> >>> -     msm_disp_snapshot_state(kms->dev);
-> >>> +     if (!kms->fault_snapshot_capture) {
-> >>> +             msm_disp_snapshot_state(kms->dev);
-> >>> +             kms->fault_snapshot_capture++;
-> >>
-> >> When is it decremented?
-> >>
-> >>> +     }
-> >>>
-> >>>        return -ENOSYS;
-> >>>   }
-> >>> @@ -208,6 +211,7 @@ struct msm_gem_address_space *msm_kms_init_aspace=
-(struct drm_device *dev)
-> >>>                mmu->funcs->destroy(mmu);
-> >>>        }
-> >>>
-> >>> +     kms->fault_snapshot_capture =3D 0;
-> >>>        msm_mmu_set_fault_handler(aspace->mmu, kms, msm_kms_fault_hand=
-ler);
-> >>>
-> >>>        return aspace;
-> >>> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_=
-kms.h
-> >>> index 1e0c54de3716..240b39e60828 100644
-> >>> --- a/drivers/gpu/drm/msm/msm_kms.h
-> >>> +++ b/drivers/gpu/drm/msm/msm_kms.h
-> >>> @@ -134,6 +134,9 @@ struct msm_kms {
-> >>>        int irq;
-> >>>        bool irq_requested;
-> >>>
-> >>> +     /* rate limit the snapshot capture to once per attach */
-> >>> +     int fault_snapshot_capture;
-> >>> +
-> >>>        /* mapper-id used to request GEM buffer mapped for scanout: */
-> >>>        struct msm_gem_address_space *aspace;
-> >>>
-> >>> --
-> >>> 2.44.0
-> >>>
-> >>
-> >> --
-> >> With best wishes
-> >> Dmitry
+Yes, thats why these checks are there before calling to_dpu_hw_ctl() to 
+make sure we dont pass NULL there.
+
+>> So for example dpu_encoder_phys layers use if (!phys->hw_ctl) checks but
+>> today we do not set phys->hw_ctl to NULL correctly.
+>>
+>> Do you think that instead of the return statements, we should do
+>> something like
+>>
+>> dpu_enc->hw_ctl = i < num_ctl ?
+>>          to_dpu_hw_ctl(hw_ctl[i]) : NULL;
+> 
+> Yeah, why not.
+> 
+> Generally, I think we should stop storing the state-related data in
+> the non-state structures. Hopefully I'll have time for that at some
+> point later on.
+> 
+>>
+>>
+>> But this will need the NULL init back.
+> 
+> It doesn't, as you have the comparison.
+> 
+
+Ack, yes thats true. Lets do it this way then. I am fine with that.
+
+>>
+>>>>
+>>>>>                         DPU_ERROR_ENC(dpu_enc,
+>>>>>                                 "no ctl block assigned at idx: %d\n", i);
+>>>>>                         return;
+>>>>>
+>>>
+>>>
+>>>
+> 
+> 
+> 
