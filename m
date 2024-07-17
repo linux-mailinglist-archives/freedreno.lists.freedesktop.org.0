@@ -2,79 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46BBF93349F
-	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2024 01:43:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4B9B933A2F
+	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2024 11:40:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4F3610E061;
-	Tue, 16 Jul 2024 23:43:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65F3B10E9FA;
+	Wed, 17 Jul 2024 09:40:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="frpqafR+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MHH1dRcp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
- [209.85.128.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC59410E064
- for <freedreno@lists.freedesktop.org>; Tue, 16 Jul 2024 23:42:59 +0000 (UTC)
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-65f8b0df1f0so35670297b3.2
- for <freedreno@lists.freedesktop.org>; Tue, 16 Jul 2024 16:42:59 -0700 (PDT)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95C7310E9FA;
+ Wed, 17 Jul 2024 09:40:38 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-1fb4a332622so33231785ad.2; 
+ Wed, 17 Jul 2024 02:40:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721173378; x=1721778178; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1721209238; x=1721814038; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bdx0WrTJA3HLe4B/c0rt0W2OYcQp3lvzc1IIRVfiSI0=;
- b=frpqafR+bQkv31KaBH+cZcXhptT8FTffMqY1rxqhKpmmzKnSgG2D8jCi5fT+LB53CA
- LpOwq1K3H7QBqU1OIw0RMvYwrTxO5xn7IFgMPVTVwm2/225tRbjW2EqoSpn9a7oDtptc
- wjvi2jeXhtxwVjFfJ5Gpi8yqxjtTZAhG4Vc4FwkCowowHLaee3ivMwzW2s4SLXUms/3u
- eX4dKDMKztz5+5Y6n+D+QJN995/SA3eRUIlG6MIoNOZMg5uosjAVBL1b5i8skH0cOdRC
- kfZwIEwoYt48Ydvhs3WdRwueNZe9SNAuzhMmTFO/p4gsBbH6G1QMDbeMQ6waFwgVTYOU
- ryJg==
+ bh=UZT2Up7rkixj135YDsGbBv1AEK5yIre5c4SXPmq/8CE=;
+ b=MHH1dRcpZKoQeK7ViO0WGziZrSyfmTt/GlCjSCF8kSF1dCT7G1clPd27JLmTXr1nPP
+ CS26xFyC2Km8MEa7OJK1LEpakOWZoSWgbZhdjQq7JM2JRBfz6ILtQByvLh0zOx8dDhs9
+ oNuAv+78njVvClPsLlICDuBQpzAlJI22Kvdy9XdsTppc1X2jfMgY5UDzi8qKMTc6SdLE
+ mPPrAKTYH/iGGhGVNv+6fI8vglFXKDYzRFBOpXD2PMpdjoAS9uzj9/6/Lev2eSzVQf6x
+ wcr6DeX9T5gsLUNW9oensMXwB0HODkD0Y/YCjonLpsR4phu9pGs7cCWYjhk8LuxxnY7U
+ /e9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721173378; x=1721778178;
+ d=1e100.net; s=20230601; t=1721209238; x=1721814038;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=bdx0WrTJA3HLe4B/c0rt0W2OYcQp3lvzc1IIRVfiSI0=;
- b=TLVoLKn+USMl4afR3KG0EJKDFaqJJ/ym+wEQibqEq8RdmsYg3n48DZzd560FHPPRs4
- DT/6meq/aOJiet4XWp66wEyhNJTnmLWlSz++vcE6ffkV7pw1vfW6dYzUTCVJILY2jZDO
- 2eBixtMDrI0Psn+qElILuhr0sDVqS2/HZE0G9Sff4hvIKqS/viI5G1JG2hzoHH/pk9yz
- Z4XhBOnDF4hJ/TD0vbkRbMcvXnqAbi3sUM1j7ydK6rJS/s1e/zOslt1syZRmDm1ai8F6
- x5mFIiJ8l8bq1w4+1e6GnhVInd/24ZMGE0kwcYmMeNKdt8jq0Ihwz3l0DAyfmuJZvy/A
- 9bmw==
+ bh=UZT2Up7rkixj135YDsGbBv1AEK5yIre5c4SXPmq/8CE=;
+ b=Mn1QsqFoNUkjpG3tc647sbxiY8j1POj89/vVEb658bgFMbaoycfdJRgHD5Pq9GyKGP
+ 1oRxwPsBcxgUH2e0N5y1oGoe9IbCKxlJ6VCiLGBCIASrp2vAp4L1Irt4ZkdoaJVreQx7
+ +fatfhI6sGRcdYu3DFXyBzzTHBh/9zWuWGEPc+IXycXkDX5cf7jszKg2f8qzYjXZN6JQ
+ 6iOavsvkkCMbPqZGWJwkS6L7g6/nJmxrDVhtVB8IVjUKzmL8bswh7U5L7TqV4KaADBpL
+ JL4kCEr1E2uCKrhW1aVk/l4Cn9i9NTEgA6JPHbauG8hj+I5ushinVKz/UVxDAuWKbykQ
+ x8OQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX2JK0rTUOEVJcC28IFBqsxkDEAUwr9zBYBKHPfwxW4s01NxEexzbBWVvHFwTHQtnsZF4502RR4BTDbUXnpMWxtEuQM8hsayXrkf+57rvYt
-X-Gm-Message-State: AOJu0YxnTjDZPZjhy3nGtyASRCMnEuV9xw0F0ksh1QG0KUGIVxxyIIRI
- EV4h1oVkvTDqdrcPp86keL6pHtqHYzTq8SwePsjfAHMJ/9kokQKzjN81mF4j+77zTfVtqekwGey
- 9ore8j2y7obS0nc3oDtoGq5eN8FVWHBfj9xghFQ==
-X-Google-Smtp-Source: AGHT+IEbqyDEFCrlR4xZQuknxtqbab+UfGCCmomcF2ZpZpJc3MJzA97KvniYAqlPDbzdPnbRG9F/Ih49/ciL+gHMBnE=
-X-Received: by 2002:a0d:d387:0:b0:65c:2536:bea2 with SMTP id
- 00721157ae682-664fe357ac1mr1641717b3.19.1721173378606; Tue, 16 Jul 2024
- 16:42:58 -0700 (PDT)
+ AJvYcCWjc3JKsTmdHGj/f04T9felcTIrzwikL6BopwhUMScYcNfL/afmdhQnfM87LMYbawcFRxp9JgmBQL7NdoU7q9DGJxXXByxvaVP6SidjLOrrWeoDIxLI7mN9AQtKoPqSd+47XaxnpF4udMy7nzl4MTdb
+X-Gm-Message-State: AOJu0YyNSwL8lBlOvI17VSzEGfkpfPzKFUxzQ4biJYo9XxGU6dvtVQfb
+ ucEKRAEdZExBPbfbTURuTsY4k0m6yI0nade1TFS2t7/x3b+90yIQ1qrjZxVFzMSKx+eTywle0HB
+ CAATs4aMSBw4hhGKVXLgp+Vp6Gao=
+X-Google-Smtp-Source: AGHT+IHS92ooffGhwo6QwDnJzDTyj0c6jnCY662I7sKXoxhFBlLCKT0n4+VIMY+tB98bU2E3VvfgvXG02LZhehf59pw=
+X-Received: by 2002:a17:90b:148f:b0:2cb:4c5b:2d8a with SMTP id
+ 98e67ed59e1d1-2cb526928c0mr749820a91.12.1721209237984; Wed, 17 Jul 2024
+ 02:40:37 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240628214848.4075651-1-quic_abhinavk@quicinc.com>
- <20240628214848.4075651-6-quic_abhinavk@quicinc.com>
- <5isw7c5kkef4kql4qcous3gmwhvgwc53ntgjm4staymqr67ktm@iw3cr2gr2iko>
- <CAF6AEGtVBarvEUqgt7SHzYwXUsjY_rVQS6aMsN00G91Dr1aWAQ@mail.gmail.com>
- <cf8d00cd-6dc6-42b9-be61-93ef48d42b0c@quicinc.com>
- <CAF6AEGv2H2FQ4wCWEzgboK0Lz3em-0XkG5pe_HwN1rW2iaGVrw@mail.gmail.com>
- <6460042b-a2cb-41fa-9f6f-fb11e20f69aa@quicinc.com>
- <CAA8EJprmi9zxEipq=0LyBi4nJ59BrLgN1sL+3u7-n9kJ3yQcRg@mail.gmail.com>
- <d7905aa1-67fa-4468-b3ce-69c7aa4ec5e5@quicinc.com>
-In-Reply-To: <d7905aa1-67fa-4468-b3ce-69c7aa4ec5e5@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 17 Jul 2024 02:42:47 +0300
-Message-ID: <CAA8EJprFNXpO568hwNwJvHY_NmcHJxJECe4v3O+ONp17v1Q_iw@mail.gmail.com>
-Subject: Re: [PATCH 5/5] drm/msm/dpu: rate limit snapshot capture for mmu
- faults
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, freedreno@lists.freedesktop.org, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- quic_jesszhan@quicinc.com, swboyd@chromium.org, dianders@chromium.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20240711100038.268803-1-vladimir.lypak@gmail.com>
+In-Reply-To: <20240711100038.268803-1-vladimir.lypak@gmail.com>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Wed, 17 Jul 2024 10:40:26 +0100
+Message-ID: <CACu1E7HROtx1Zgyy0EJuHj_HWE8Nd6OtFnxTcrDrHP+2HA5o6A@mail.gmail.com>
+Subject: Re: [PATCH 0/4] fixes for Adreno A5Xx preemption
+To: Vladimir Lypak <vladimir.lypak@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Jordan Crouse <jordan@cosmicpenguin.net>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -92,115 +86,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 17 Jul 2024 at 02:15, Abhinav Kumar <quic_abhinavk@quicinc.com> wro=
-te:
+On Thu, Jul 11, 2024 at 11:10=E2=80=AFAM Vladimir Lypak
+<vladimir.lypak@gmail.com> wrote:
 >
+> There are several issues with preemption on Adreno A5XX GPUs which
+> render system unusable if more than one priority level is used. Those
+> issues include persistent GPU faults and hangs, full UI lockups with
+> idling GPU.
 >
+> ---
+> Vladimir Lypak (4):
+>   drm/msm/a5xx: disable preemption in submits by default
+>   drm/msm/a5xx: properly clear preemption records on resume
+>   drm/msm/a5xx: fix races in preemption evaluation stage
+>   drm/msm/a5xx: workaround early ring-buffer emptiness check
 >
-> On 7/16/2024 4:10 PM, Dmitry Baryshkov wrote:
-> > On Wed, 17 Jul 2024 at 01:43, Abhinav Kumar <quic_abhinavk@quicinc.com>=
- wrote:
-> >>
-> >>
-> >>
-> >> On 7/16/2024 2:50 PM, Rob Clark wrote:
-> >>> On Tue, Jul 16, 2024 at 2:45=E2=80=AFPM Abhinav Kumar <quic_abhinavk@=
-quicinc.com> wrote:
-> >>>>
-> >>>>
-> >>>>
-> >>>> On 7/15/2024 12:51 PM, Rob Clark wrote:
-> >>>>> On Mon, Jul 1, 2024 at 12:43=E2=80=AFPM Dmitry Baryshkov
-> >>>>> <dmitry.baryshkov@linaro.org> wrote:
-> >>>>>>
-> >>>>>> On Fri, Jun 28, 2024 at 02:48:47PM GMT, Abhinav Kumar wrote:
-> >>>>>>> There is no recovery mechanism in place yet to recover from mmu
-> >>>>>>> faults for DPU. We can only prevent the faults by making sure the=
-re
-> >>>>>>> is no misconfiguration.
-> >>>>>>>
-> >>>>>>> Rate-limit the snapshot capture for mmu faults to once per
-> >>>>>>> msm_kms_init_aspace() as that should be sufficient to capture
-> >>>>>>> the snapshot for debugging otherwise there will be a lot of
-> >>>>>>> dpu snapshots getting captured for the same fault which is
-> >>>>>>> redundant and also might affect capturing even one snapshot
-> >>>>>>> accurately.
-> >>>>>>
-> >>>>>> Please squash this into the first patch. There is no need to add c=
-ode
-> >>>>>> with a known defficiency.
-> >>>>>>
-> >>>>>> Also, is there a reason why you haven't used <linux/ratelimit.h> ?
-> >>>>>
-> >>>>> So, in some ways devcoredump is ratelimited by userspace needing to
-> >>>>> clear an existing devcore..
-> >>>>>
-> >>>>
-> >>>> Yes, a new devcoredump device will not be created until the previous=
- one
-> >>>> is consumed or times out but here I am trying to limit even the DPU
-> >>>> snapshot capture because DPU register space is really huge and the r=
-ate
-> >>>> at which smmu faults occur is quite fast that its causing instabilit=
-y
-> >>>> while snapshots are being captured.
-> >>>>
-> >>>>> What I'd suggest would be more useful is to limit the devcores to o=
-nce
-> >>>>> per atomic update, ie. if display state hasn't changed, maybe an
-> >>>>> additional devcore isn't useful
-> >>>>>
-> >>>>> BR,
-> >>>>> -R
-> >>>>>
-> >>>>
-> >>>> By display state change, do you mean like the checks we have in
-> >>>> drm_atomic_crtc_needs_modeset()?
-> >>>>
-> >>>> OR do you mean we need to cache the previous (currently picked up by=
- hw)
-> >>>> state and trigger a new devcores if the new state is different by
-> >>>> comparing more things?
-> >>>>
-> >>>> This will help to reduce the snapshots to unique frame updates but I=
- do
-> >>>> not think it will reduce the rate enough for the case where DPU did =
-not
-> >>>> recover from the previous fault.
-> >>>
-> >>> I was thinking the easy thing, of just resetting the counter in
-> >>> msm_atomic_commit_tail().. I suppose we could be clever filter out
-> >>> updates that only change scanout address.  Or hash the atomic state
-> >>> and only generate devcoredumps for unique states.  But I'm not sure
-> >>> how over-complicated we should make this.
-> >>>
-> >>> BR,
-> >>> -R
-> >>
-> >> Its a good idea actually and I would also like to keep it simple :)
-> >>
-> >> One question, is it okay to assume that all compositors will only issu=
-e
-> >> unique commits? Because we are assuming thats the case with resetting
-> >> the counter in msm_atomic_commit_tail().
-> >
-> > The compositors use drm_mode_atomic_ioctl() which allocates a new
-> > state each time. It is impossible to re-submit the same
-> > drm_atomic_state from userspace.
-> >
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c     | 18 ++++++++++----
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.h     | 12 ++++++---
+>  drivers/gpu/drm/msm/adreno/a5xx_preempt.c | 30 ++++++++++++++++++++---
+>  3 files changed, 47 insertions(+), 13 deletions(-)
+> ---
+> base-commit: 523b23f0bee3014a7a752c9bb9f5c54f0eddae88
+> --
+> 2.45.2
 >
-> No, what I meant was, is it okay to assume that a commit is issued only
-> when display configuration has changed?
 
-No.
+Hi Vladimir,
 
-> Like if we get multiple commits for the same frame for some reason,
-> thats also spam and this approach will not avoid that.
+While looking at preemption on a7xx, where the overall logic is pretty
+much the same, and I've been seeing the same "soft lockups". However
+even after porting patch 3, it turns out that's not enough because
+there's a different race. The sequence of events is something like
+this:
 
-I'd say, new commit means that userspace thinks that something
-changed. So if the driver got another hang / issue / etc, it should
-try capturing a new state.
+1. Medium-prio app A submits to ring 2.
+2. Ring 0 retires its last job and we start a preemption to ring 2.
+3. High-prio app B submits to ring 0. It sees the preemption from step
+2 ongoing and doesn't write the WTPR register or try to preempt.
+4. The preemption finishes and we update WPTR.
+5. App A's submit retires. We try to preempt, but the submit and
+ring->cur write from step 3 happened on a different CPU and the write
+hasn't landed yet so we skip it.
 
---=20
-With best wishes
-Dmitry
+It's a bit tricky because write reordering is involved, but this seems
+to be what's happening - everything except my speculation about the
+delayed write to ring->cur being the problem comes straight from a
+trace of this happening.
+
+Rob suggested on IRC that we make retire handling happen on the same
+workqueue as submissions, so that preempt_trigger is always
+serialized, which IIUC would also make patch 3 unnecessary. What do
+you think?
+
+Best regards,
+
+Connor
