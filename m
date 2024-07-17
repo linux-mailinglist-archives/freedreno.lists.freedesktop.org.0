@@ -2,77 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AEF49341B5
-	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2024 19:52:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4ABE934316
+	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2024 22:15:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDD6110E332;
-	Wed, 17 Jul 2024 17:52:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03CB110E407;
+	Wed, 17 Jul 2024 20:15:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T3xy/HzS";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="WUjGjJVF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B72E110E33E;
- Wed, 17 Jul 2024 17:52:53 +0000 (UTC)
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-70b703eda27so3425259b3a.3; 
- Wed, 17 Jul 2024 10:52:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721238773; x=1721843573; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Rna1ycVmGq1fLlGbs8yKWKJ2/BIlmM0qUkUIHG8aceI=;
- b=T3xy/HzSa2HE3zs39Ej4/d4aE7WFLVEUziweG7HuyqvTH76wxOaOEyR/XDgPSWOcm+
- oKo9THsb46Q+8ekO7ErSGwZGxJ5Sp1Paq82FL2gUYs1kiXclKNmcshqt1bbKoL5xkhtp
- SnjRqglyfgzlqqLfm+AFjsfGiU2sUtyFhfQZnZNZUTt8bN/UYCGUdXW2ZuUVAI5sSWbD
- q3H+QT0/H2mMDF5kZk0JEFZPMupxt/lmy4Gyfd3PIWKD5uRFYqZP5C7TaBQaA6wB8CsN
- hyvk6/jhr4H+5vNpp4d9P81dTj87cmo68SMr43trXnUUq2sPuGgolJljAJJU+VAaXl6x
- dj4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721238773; x=1721843573;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Rna1ycVmGq1fLlGbs8yKWKJ2/BIlmM0qUkUIHG8aceI=;
- b=TvMdmv1qqDhPIXcDsVrm1KhXV9W5DCkCIL3aqbkE88HdruNsvGEaYUrdarKzaflADO
- 6ZyNGnsMA/u9Ai9+/F+vH3GlMypxZiCxhPDwPo5ML6QFR3aTxYG2T/YRnLlYgZllWILF
- MwsaqXUbo24ZVlBvFF/RmCfGzA4vItwctnKmkJGy3neY9XKGmGsLUWrZO7nO63xxkhCh
- 2NAeuR5hk0C6Aoc69Rga9bja43DA8MpKVBgqxDJygQqBfEdhtysDfHPk0UE02BaWSHhz
- yjw/WfLsZ15MHhJZ9irT8v7dpVKP9v559Xs+IDpAxRERRa8TW7v2ZCR8TrQM+EbnLmTa
- ZuKg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV7+7xeQJIK6ut0mfMhg5jfJ3WSm2TSsdrH8LiqAwXpWpQnhL/k1N+HRPTKxyM2YfTItVG0vRraAy6/Bh7EbLSvlzsepX/VYk2ntv1l7Q5Wteul4ZgVl9O0nYB6E11Wyn5aFwfj24WAjfHbQIakMmPd
-X-Gm-Message-State: AOJu0Yyy9Twy7VxvFoW4wZxhPyVeYxM15onBfY6LG6hDaA5sdjlWX61H
- 5+m5pnX4WLQq0RzEPDjyTEqwo5rFx543sTfLZxKpgozaKy9vzKTbu760OhOFCERDiEGEt4fcpM/
- UhcucyoFQRWG1OEk5GbaeZ6FJxM8=
-X-Google-Smtp-Source: AGHT+IGf2woxKzbXZ1jb3lLtB+1KozyeXPrGVuFDolnHnJC8V1hfI9Od69EnykI1/InG8n6/gtTJXrmZR7c6vNRvqsk=
-X-Received: by 2002:a05:6a20:729a:b0:1c2:8cf4:766c with SMTP id
- adf61e73a8af0-1c3fdcafebcmr3235744637.33.1721238773094; Wed, 17 Jul 2024
- 10:52:53 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2D6F10E408;
+ Wed, 17 Jul 2024 20:15:38 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46HFWVo6000586;
+ Wed, 17 Jul 2024 20:15:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ VriZ75Bobde+xZUtnAJFnvmPxeivuyf7aex3ZyvUoig=; b=WUjGjJVFGomz5kTF
+ bw9pQzeZVChK5/zjFwsFa/5yOZkwLQWWVI7t8d23kIa1GcsyWXVbtJ415+RpSpe+
+ HmV3nBwVd7tyA0GK1u3L4PmdIUJ1CLIVU0S0x2p+QMcHO9V6bY9pMtz8HIpVAomZ
+ iS2tmXPTPceHVyQvqFIFlDARTwvErUTjcWevTqe6r5xCz/PZHA4IW8fUhM9kZGEi
+ dbxftdrBFY9KTitBmXqawNxmdOzE/2NSHh3moGW1Xrati3bvswiOsKuArwhjsmU5
+ pOg17zIYJX4TMZGe5NegjlHqchpyolkLTQETG7zx1U2AiIofbTDdqq9yP7UIy37E
+ xXL2qg==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40dwfs3jnm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 Jul 2024 20:15:32 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 46HKFVo3019299
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 Jul 2024 20:15:31 GMT
+Received: from [10.110.63.204] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 17 Jul
+ 2024 13:15:30 -0700
+Message-ID: <4e19faf3-0fc6-4ef2-abf5-4f9a0579982b@quicinc.com>
+Date: Wed, 17 Jul 2024 13:15:23 -0700
 MIME-Version: 1.0
-References: <20240711100038.268803-1-vladimir.lypak@gmail.com>
- <CACu1E7HROtx1Zgyy0EJuHj_HWE8Nd6OtFnxTcrDrHP+2HA5o6A@mail.gmail.com>
- <Zpfx_xnRmwoMkSFw@trashcan>
-In-Reply-To: <Zpfx_xnRmwoMkSFw@trashcan>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Wed, 17 Jul 2024 18:52:41 +0100
-Message-ID: <CACu1E7GiEDF_uspowmAQKNiBqLX4RZjP6obL2YLOFA9-ctroRQ@mail.gmail.com>
-Subject: Re: [PATCH 0/4] fixes for Adreno A5Xx preemption
-To: Vladimir Lypak <vladimir.lypak@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Jordan Crouse <jordan@cosmicpenguin.net>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 08/16] drm/msm/dpu: drop msm_format from struct
+ dpu_hw_fmt_layout
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
+ Vetter <daniel@ffwll.ch>
+CC: Abel Vesa <abel.vesa@linaro.org>, Johan Hovold <johan+linaro@kernel.org>, 
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20240625-dpu-mode-config-width-v5-0-501d984d634f@linaro.org>
+ <20240625-dpu-mode-config-width-v5-8-501d984d634f@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240625-dpu-mode-config-width-v5-8-501d984d634f@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: h-rjl_G_2gq3tKyM6U_inm5BFRzesM5Z
+X-Proofpoint-GUID: h-rjl_G_2gq3tKyM6U_inm5BFRzesM5Z
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-17_15,2024-07-17_02,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0 adultscore=0
+ suspectscore=0 phishscore=0 spamscore=0 mlxlogscore=999 mlxscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2407170154
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,110 +96,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jul 17, 2024 at 5:33=E2=80=AFPM Vladimir Lypak <vladimir.lypak@gmai=
-l.com> wrote:
->
-> On Wed, Jul 17, 2024 at 10:40:26AM +0100, Connor Abbott wrote:
-> > On Thu, Jul 11, 2024 at 11:10=E2=80=AFAM Vladimir Lypak
-> > <vladimir.lypak@gmail.com> wrote:
-> > >
-> > > There are several issues with preemption on Adreno A5XX GPUs which
-> > > render system unusable if more than one priority level is used. Those
-> > > issues include persistent GPU faults and hangs, full UI lockups with
-> > > idling GPU.
-> > >
-> > > ---
-> > > Vladimir Lypak (4):
-> > >   drm/msm/a5xx: disable preemption in submits by default
-> > >   drm/msm/a5xx: properly clear preemption records on resume
-> > >   drm/msm/a5xx: fix races in preemption evaluation stage
-> > >   drm/msm/a5xx: workaround early ring-buffer emptiness check
-> > >
-> > >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c     | 18 ++++++++++----
-> > >  drivers/gpu/drm/msm/adreno/a5xx_gpu.h     | 12 ++++++---
-> > >  drivers/gpu/drm/msm/adreno/a5xx_preempt.c | 30 ++++++++++++++++++++-=
---
-> > >  3 files changed, 47 insertions(+), 13 deletions(-)
-> > > ---
-> > > base-commit: 523b23f0bee3014a7a752c9bb9f5c54f0eddae88
-> > > --
-> > > 2.45.2
-> > >
-> >
-> > Hi Vladimir,
->
-> Hi Connor!
->
-> >
-> > While looking at preemption on a7xx, where the overall logic is pretty
-> > much the same, and I've been seeing the same "soft lockups". However
-> > even after porting patch 3, it turns out that's not enough because
-> > there's a different race. The sequence of events is something like
-> > this:
-> >
-> > 1. Medium-prio app A submits to ring 2.
-> > 2. Ring 0 retires its last job and we start a preemption to ring 2.
-> > 3. High-prio app B submits to ring 0. It sees the preemption from step
-> > 2 ongoing and doesn't write the WTPR register or try to preempt.
-> > 4. The preemption finishes and we update WPTR.
-> At this point with patch 3 applied it should switch to ring 0 right away
-> because of trigger call in the end of a5xx_preempt_irq. Didn't you
-> forget it? Downstream has such call too. Even though it makes preemption
-> a little more aggressive it doesn't work without it.
 
-Yes, I didn't apply that bit because it didn't seem necessary to fix
-the original issue you described and it seemed like just an
-optimization to make preemption more aggressive, however it does seem
-to fix the issue. I can't verify that the issue you describe (the
-retire IRQ arriving before preemption IRQ) is what's actually
-happening because adding a tracepoint on retire seems to change the
-timing enough so that the lockup doesn't happen, though. So I guess
-I'll just have to assume that's what it was.
 
-Given how subtle this is, enough that I missed it, maybe it's worth a
-comment and an extra commit.
+On 6/24/2024 2:13 PM, Dmitry Baryshkov wrote:
+> The struct dpu_hw_fmt_layout defines hardware data layout (addresses,
+> sizes and pitches. Drop format field from this structure as it's not a
+Missing closing brace ")" here?
 
-Also, I forgot to mention that while I was reading this over I found
-another (theoretical) race - we could flush a submit in between
-calling update_wptr() and set_preempt_state(PREEMPT_NONE) in
-a5xx_preempt_irq() and never update wptr. I would fix it by renaming
-PREEMPT_ABORT to PREEMPT_FINISH and pulling out the ABORT ->
-update_wptr() -> NONE sequence in a5xx_preempt_trigger() into a
-separate function that also gets called in a5xx_preempt_irq().
+> part of the data layout.
+> 
 
-Connor
+Its a bit subjective IMO whether you consider format as part of hardware 
+data layout or not. Registers do have format bitfields too so I am 
+somewhat unsure if this change is really needed.
 
->
-> > 5. App A's submit retires. We try to preempt, but the submit and
-> > ring->cur write from step 3 happened on a different CPU and the write
-> > hasn't landed yet so we skip it.
->
-> I don't think this is possible on modern CPUs. Could it be that retire
-> IRQ appeared earlier (while it was switching from 0 to 2) and you are
-> looking at msm_gpu_submit_retired trace event which is called from
-> retire work later.
->
-> >
-> > It's a bit tricky because write reordering is involved, but this seems
-> > to be what's happening - everything except my speculation about the
-> > delayed write to ring->cur being the problem comes straight from a
-> > trace of this happening.
-> >
-> > Rob suggested on IRC that we make retire handling happen on the same
-> > workqueue as submissions, so that preempt_trigger is always
-> > serialized, which IIUC would also make patch 3 unnecessary. What do
-> > you think?
->
-> In this patch series i have tried to do least amount of changes so it
-> could be easily back-ported. It isn't pretty but it works reliably for
-> me. Otherwise it would be fine to just disable preemption like it's done
-> on LTS before 5.4 and rework preemption in new kernel releases.
->
-> Kind regards,
->
-> Vladimir
->
-> >
-> > Best regards,
-> >
-> > Connor
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    | 31 +++++++---------------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        | 23 ++++++++--------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |  2 --
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          |  4 +--
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h          |  3 ++-
+>   5 files changed, 25 insertions(+), 38 deletions(-)
+> 
+
+<Snip>
+
+> @@ -318,15 +318,10 @@ static void dpu_encoder_phys_wb_setup(
+>   {
+>   	struct dpu_hw_wb *hw_wb = phys_enc->hw_wb;
+>   	struct drm_display_mode mode = phys_enc->cached_mode;
+> -	struct drm_framebuffer *fb = NULL;
+>   	struct dpu_encoder_phys_wb *wb_enc = to_dpu_encoder_phys_wb(phys_enc);
+> -	struct drm_writeback_job *wb_job;
+>   	const struct msm_format *format;
+> -	const struct msm_format *dpu_fmt;
+>   
+> -	wb_job = wb_enc->wb_job;
+>   	format = msm_framebuffer_format(wb_enc->wb_job->fb);
+> -	dpu_fmt = mdp_get_format(&phys_enc->dpu_kms->base, format->pixel_format, wb_job->fb->modifier);
+>  
+
+This is interesting. I wonder why I just didnt use format directly that 
+time itself :)
+
+Maybe I was thinking that mdp_get_format() will also match the modifiers 
+and return the corresponding msm_format.
+
+>   	DPU_DEBUG("[mode_set:%d, \"%s\",%d,%d]\n",
+>   			hw_wb->idx - WB_0, mode.name,
+> @@ -338,9 +333,9 @@ static void dpu_encoder_phys_wb_setup(
+>   
+>   	dpu_encoder_phys_wb_set_qos(phys_enc);
+>   
+> -	dpu_encoder_phys_wb_setup_fb(phys_enc, fb);
+> +	dpu_encoder_phys_wb_setup_fb(phys_enc, format);
+>   
+> -	dpu_encoder_helper_phys_setup_cdm(phys_enc, dpu_fmt, CDM_CDWN_OUTPUT_WB);
+> +	dpu_encoder_helper_phys_setup_cdm(phys_enc, format, CDM_CDWN_OUTPUT_WB);
+>   
+>   	dpu_encoder_phys_wb_setup_ctl(phys_enc);
+>   }
+> @@ -584,14 +579,6 @@ static void dpu_encoder_phys_wb_prepare_wb_job(struct dpu_encoder_phys *phys_enc
+>   
+>   	format = msm_framebuffer_format(job->fb);
+>   
+> -	wb_cfg->dest.format = mdp_get_format(&phys_enc->dpu_kms->base,
+> -					     format->pixel_format, job->fb->modifier);
+> -	if (!wb_cfg->dest.format) {
+> -		/* this error should be detected during atomic_check */
+> -		DPU_ERROR("failed to get format %p4cc\n", &format->pixel_format);
+> -		return;
+> -	}
+> -
+>   	ret = dpu_format_populate_layout(aspace, job->fb, &wb_cfg->dest);
+>   	if (ret) {
+>   		DPU_DEBUG("failed to populate layout %d\n", ret);
