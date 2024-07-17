@@ -2,113 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DABC933E11
-	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2024 15:57:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A000934085
+	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2024 18:34:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 169AD10E120;
-	Wed, 17 Jul 2024 13:57:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82C6110E2E7;
+	Wed, 17 Jul 2024 16:34:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EsuHxOIH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TNGHTaHb";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 033CA10E16E
- for <freedreno@lists.freedesktop.org>; Wed, 17 Jul 2024 13:57:31 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-2ebe3fb5d4dso8604591fa.0
- for <freedreno@lists.freedesktop.org>; Wed, 17 Jul 2024 06:57:31 -0700 (PDT)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B63A610E2DF;
+ Wed, 17 Jul 2024 16:33:58 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-a77bf336171so180731466b.1; 
+ Wed, 17 Jul 2024 09:33:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721224650; x=1721829450; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=mHJbV+bzx4RI8mDOQI+N5X7vHq/DAFW5fyNCzOVzMjI=;
- b=EsuHxOIHOl3bmAbc2wORAjAxqQEUxQO9aBbJTnDnAhxCi+mqGPOOw73VyJH+rX13uE
- oJ7oFUB3QV8EOpapAkwAScMhQKAPTqkdzy4msIc1k23EXVrxHwpQ7fWxtVqmAwJGICcr
- b1IyFQQegsYI9T8NSf/beIh50gLUJVS7Il48sTjAanghYNEGxKXvwcUB5x3DMCFFDmhy
- fKA6L4oTgcxOByYne+xYpLhYEQj30eYkIXDiLvnU2znlZiV91+jeGcTbhThOjjrEie7i
- aHIvOoCH9A1PuQ5+Ztw/DKzyaPKVwZqe4z19HWHjfccB6+5dfLNC1JHuORREjFsSdQeu
- amiw==
+ d=gmail.com; s=20230601; t=1721234037; x=1721838837; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=GInFX+KjHCh2SZ3uixPMhANVTPTX0s1Mpxztx+WvSTA=;
+ b=TNGHTaHbxqE52ywDjRFUDanQ1RTs+BcwoK0fJwTQyPx5IRkkQ0/pkdNQgc4cwuKZjI
+ RcHJEyWWEFwVtzrGNwgy/VIGENPlo9avdk2f2PE52J/j+JsFnVb526HU40vzDFtd9I/y
+ sBnNj3/tjBWIWOnP9XOF/HfhNLuGxZYdFt7r932Xu6SiVAg8y6SSylaD3IwdT+Wa6yG6
+ kU7cBSgTqoHlcKp6y+eZXFjyGwHSB56X9KvNjseEkqsIVB6fJnxa2W2ppm2SRpvP9zGa
+ xkTb1R12nHY4YXHLOpXyf/hy1QDIv8ef2UEwage11RnoOWKv0PGOy5aGsxx3uv3ZKEMg
+ iIOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721224650; x=1721829450;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mHJbV+bzx4RI8mDOQI+N5X7vHq/DAFW5fyNCzOVzMjI=;
- b=fTJykTTgLFdRmXvVC0aWEsmW/sx4PiCAMTW9/nNS7AOV3T5JQ1ALW+qkOuXcNl5n7F
- ds3sQQ2RPZ83ZgyDoL6KuyrsFnU+0xsMbeN0XcGJnKZtJI4/vPL6Syve5sdnpux6TGDJ
- mIbt84xxd00PTWEhHNTDREC/qm2sjWdEosvp+LMw8tzzUe/589QM1Aodv1fIyybxsbab
- 2KXif10JHKrIyAbDeGQUf+zVR2wGRQYvjd9QU+ugx9wXlDf4CNNPuATpBUkjDEvdQIEI
- dzdtoFvy9HuyujVb3NTB9vWANcUhv4pIp97p5dDjHwxOuLQhggIGt1ukXBn5rxEGSolG
- 9Rrw==
+ d=1e100.net; s=20230601; t=1721234037; x=1721838837;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=GInFX+KjHCh2SZ3uixPMhANVTPTX0s1Mpxztx+WvSTA=;
+ b=AozZmr1s5nTLkjb/FO32hmTUp3R43EGTfycri8uJ093b1h4Bw+i5nxViicJqBbIGbH
+ HeVbWqpbi/rjjztFM6ImpHtqrnKmTcuo2c3H0LzqQzfqBV41HI1Nx8ByXPg5Ob8vRTQR
+ yZJhQkZi81ZK3bTvyKPGMU4bWw/SL7gt7bfxnicZutgD6wC9d3r/5tJapF/LbhB2PvA+
+ 5GMT6dMFyrvXvi+jCt7paoVQ5/N9QWd6jUOYuFcxiWT1mqZ5lvNeqepEFFgCqclYGyKY
+ XaFW1RC7NW9XWewzys9xbGw98BNIq8U1sQHOZqm45zBuVfojfGTwsd1nwxM26E45Vf2D
+ sqFQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUcUwhg0RVCZA2CX/Lja2ZwT7Bu/Be+EloKhW9BxBFhBqDm3MK75leHkBtwNRdKgkiDmMM2fe4USUIJBbUBK5Wt2acEwMmPu7XnUkGkbvTs
-X-Gm-Message-State: AOJu0YzRII/cKie21YIneroNbSZTSwlF2z/voucWSL6uxduifEF/RN0P
- /df8n0OUHHhqPftLPZ+X5ao/nQczanm2fjnWfxHO6wOSftR4J62ZunlKTQV7e20=
-X-Google-Smtp-Source: AGHT+IG7iDrtCuBBKWvQaoQQbv/0kaeeUtziuz9N7l7vX5y+JvpROqU3u5NL1wFj8j7PpznoM4x7Ww==
-X-Received: by 2002:a05:651c:2213:b0:2ec:1df4:589b with SMTP id
- 38308e7fff4ca-2eefcd61dd7mr7308201fa.1.1721224648985; 
- Wed, 17 Jul 2024 06:57:28 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ AJvYcCX5JlrQUO1CiEBE8vESWekJnkGSQn0HOHEhAxGuA91aV12YfA5jMeuOPoZ7+zZlZUbOFWP1ivhW1o7RWTPjGKef8pFxUtMztEJ11LKpsNQVhBPfxmfxCXpE6rnpE9yBY+QHKic8TKVpytHT+fTo5qwy
+X-Gm-Message-State: AOJu0YzAwIKcHdSyNmP1Ugf8HkTgVekXlZ08eQtRq6Mj5+7G3wioTL6Z
+ QoXS2DP+Ax2d74M5sJm9433JKBtnImKUsFSrdRztZwGGEv22Qjdx
+X-Google-Smtp-Source: AGHT+IG+pJCuJO7wqUIo6mEWXUTt+L9f5QLWe2SlWxtz8fE12AIl6KwlmaFJE+tbVXCalbz5FHfNHg==
+X-Received: by 2002:a17:906:af0d:b0:a77:ecf0:84e5 with SMTP id
+ a640c23a62f3a-a7a0f13be53mr16604966b.14.1721234036828; 
+ Wed, 17 Jul 2024 09:33:56 -0700 (PDT)
+Received: from trashcan (public-nat-01.vpngate.v4.open.ad.jp. [219.100.37.233])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2eee19148adsm14501371fa.100.2024.07.17.06.57.28
+ a640c23a62f3a-a79bc5a342esm463059366b.40.2024.07.17.09.33.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jul 2024 06:57:28 -0700 (PDT)
-Date: Wed, 17 Jul 2024 16:57:26 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
- Edmund Dea <edmund.j.dea@intel.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Kevin Hilman <khilman@baylibre.com>, 
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Biju Das <biju.das.jz@bp.renesas.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Thierry Reding <thierry.reding@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Jyri Sarha <jyri.sarha@iki.fi>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- igt-dev@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
- linux-mediatek@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v4 2/5] drm/drm_property: require DRM_MODE_PROP_IMMUTABLE
- for single-value props
-Message-ID: <gbcunf7zmafn5z76mrlgldmsy74s7e6jacv53mgpym2l75uq6h@talxrisbufsw>
-References: <20240715-drm-bridge-connector-fix-hdmi-reset-v4-0-61e6417cfd99@linaro.org>
- <20240715-drm-bridge-connector-fix-hdmi-reset-v4-2-61e6417cfd99@linaro.org>
- <20240717-bouncy-horned-mamba-5691b8@houat>
+ Wed, 17 Jul 2024 09:33:56 -0700 (PDT)
+Date: Wed, 17 Jul 2024 16:31:59 +0000
+From: Vladimir Lypak <vladimir.lypak@gmail.com>
+To: Connor Abbott <cwabbott0@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] fixes for Adreno A5Xx preemption
+Message-ID: <Zpfx_xnRmwoMkSFw@trashcan>
+References: <20240711100038.268803-1-vladimir.lypak@gmail.com>
+ <CACu1E7HROtx1Zgyy0EJuHj_HWE8Nd6OtFnxTcrDrHP+2HA5o6A@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20240717-bouncy-horned-mamba-5691b8@houat>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACu1E7HROtx1Zgyy0EJuHj_HWE8Nd6OtFnxTcrDrHP+2HA5o6A@mail.gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,33 +92,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jul 17, 2024 at 03:42:46PM GMT, Maxime Ripard wrote:
-> Hi,
+On Wed, Jul 17, 2024 at 10:40:26AM +0100, Connor Abbott wrote:
+> On Thu, Jul 11, 2024 at 11:10 AM Vladimir Lypak
+> <vladimir.lypak@gmail.com> wrote:
+> >
+> > There are several issues with preemption on Adreno A5XX GPUs which
+> > render system unusable if more than one priority level is used. Those
+> > issues include persistent GPU faults and hangs, full UI lockups with
+> > idling GPU.
+> >
+> > ---
+> > Vladimir Lypak (4):
+> >   drm/msm/a5xx: disable preemption in submits by default
+> >   drm/msm/a5xx: properly clear preemption records on resume
+> >   drm/msm/a5xx: fix races in preemption evaluation stage
+> >   drm/msm/a5xx: workaround early ring-buffer emptiness check
+> >
+> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c     | 18 ++++++++++----
+> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.h     | 12 ++++++---
+> >  drivers/gpu/drm/msm/adreno/a5xx_preempt.c | 30 ++++++++++++++++++++---
+> >  3 files changed, 47 insertions(+), 13 deletions(-)
+> > ---
+> > base-commit: 523b23f0bee3014a7a752c9bb9f5c54f0eddae88
+> > --
+> > 2.45.2
+> >
 > 
-> On Mon, Jul 15, 2024 at 09:33:02AM GMT, Dmitry Baryshkov wrote:
-> > Document that DRM_MODE_PROP_IMMUTABLE must be set for the properties
-> > that are immutable by definition - e.g. ranges with min == max or enums
-> > with a single value. This matches the behaviour of the IGT tests, see
-> > kms_properties.c / validate_range_prop(), validate_enum_prop(),
-> > validate_bitmask_prop().
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> We had a discussion yesterday about it on IRC with Sima, Simon and
-> Xaver.
-> 
-> https://oftc.irclog.whitequark.org/dri-devel/2024-07-16#33374622;
-> 
-> The conclusion was that it would create an inconsistency between drivers
-> on whether a given property is immutable or not, which will lead to more
-> troubles for userspace.
-> 
-> It's not clear why Ville added that check in the first place, so the
-> best course of action is to remove the IGT test and get the discussion
-> started there.
+> Hi Vladimir,
 
-Ack, I'll work on removing those tests later today.
+Hi Connor!
 
--- 
-With best wishes
-Dmitry
+> 
+> While looking at preemption on a7xx, where the overall logic is pretty
+> much the same, and I've been seeing the same "soft lockups". However
+> even after porting patch 3, it turns out that's not enough because
+> there's a different race. The sequence of events is something like
+> this:
+> 
+> 1. Medium-prio app A submits to ring 2.
+> 2. Ring 0 retires its last job and we start a preemption to ring 2.
+> 3. High-prio app B submits to ring 0. It sees the preemption from step
+> 2 ongoing and doesn't write the WTPR register or try to preempt.
+> 4. The preemption finishes and we update WPTR.
+At this point with patch 3 applied it should switch to ring 0 right away
+because of trigger call in the end of a5xx_preempt_irq. Didn't you
+forget it? Downstream has such call too. Even though it makes preemption
+a little more aggressive it doesn't work without it.
+
+> 5. App A's submit retires. We try to preempt, but the submit and
+> ring->cur write from step 3 happened on a different CPU and the write
+> hasn't landed yet so we skip it.
+
+I don't think this is possible on modern CPUs. Could it be that retire
+IRQ appeared earlier (while it was switching from 0 to 2) and you are
+looking at msm_gpu_submit_retired trace event which is called from
+retire work later.
+
+> 
+> It's a bit tricky because write reordering is involved, but this seems
+> to be what's happening - everything except my speculation about the
+> delayed write to ring->cur being the problem comes straight from a
+> trace of this happening.
+> 
+> Rob suggested on IRC that we make retire handling happen on the same
+> workqueue as submissions, so that preempt_trigger is always
+> serialized, which IIUC would also make patch 3 unnecessary. What do
+> you think?
+
+In this patch series i have tried to do least amount of changes so it
+could be easily back-ported. It isn't pretty but it works reliably for
+me. Otherwise it would be fine to just disable preemption like it's done
+on LTS before 5.4 and rework preemption in new kernel releases.
+
+Kind regards,
+
+Vladimir
+
+> 
+> Best regards,
+> 
+> Connor
