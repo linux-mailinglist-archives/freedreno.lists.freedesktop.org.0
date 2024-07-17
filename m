@@ -2,75 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4B9B933A2F
-	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2024 11:40:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3367B933DD6
+	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2024 15:43:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65F3B10E9FA;
-	Wed, 17 Jul 2024 09:40:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7174310E033;
+	Wed, 17 Jul 2024 13:43:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MHH1dRcp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pbvj/YA1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95C7310E9FA;
- Wed, 17 Jul 2024 09:40:38 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-1fb4a332622so33231785ad.2; 
- Wed, 17 Jul 2024 02:40:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721209238; x=1721814038; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UZT2Up7rkixj135YDsGbBv1AEK5yIre5c4SXPmq/8CE=;
- b=MHH1dRcpZKoQeK7ViO0WGziZrSyfmTt/GlCjSCF8kSF1dCT7G1clPd27JLmTXr1nPP
- CS26xFyC2Km8MEa7OJK1LEpakOWZoSWgbZhdjQq7JM2JRBfz6ILtQByvLh0zOx8dDhs9
- oNuAv+78njVvClPsLlICDuBQpzAlJI22Kvdy9XdsTppc1X2jfMgY5UDzi8qKMTc6SdLE
- mPPrAKTYH/iGGhGVNv+6fI8vglFXKDYzRFBOpXD2PMpdjoAS9uzj9/6/Lev2eSzVQf6x
- wcr6DeX9T5gsLUNW9oensMXwB0HODkD0Y/YCjonLpsR4phu9pGs7cCWYjhk8LuxxnY7U
- /e9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721209238; x=1721814038;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UZT2Up7rkixj135YDsGbBv1AEK5yIre5c4SXPmq/8CE=;
- b=Mn1QsqFoNUkjpG3tc647sbxiY8j1POj89/vVEb658bgFMbaoycfdJRgHD5Pq9GyKGP
- 1oRxwPsBcxgUH2e0N5y1oGoe9IbCKxlJ6VCiLGBCIASrp2vAp4L1Irt4ZkdoaJVreQx7
- +fatfhI6sGRcdYu3DFXyBzzTHBh/9zWuWGEPc+IXycXkDX5cf7jszKg2f8qzYjXZN6JQ
- 6iOavsvkkCMbPqZGWJwkS6L7g6/nJmxrDVhtVB8IVjUKzmL8bswh7U5L7TqV4KaADBpL
- JL4kCEr1E2uCKrhW1aVk/l4Cn9i9NTEgA6JPHbauG8hj+I5ushinVKz/UVxDAuWKbykQ
- x8OQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWjc3JKsTmdHGj/f04T9felcTIrzwikL6BopwhUMScYcNfL/afmdhQnfM87LMYbawcFRxp9JgmBQL7NdoU7q9DGJxXXByxvaVP6SidjLOrrWeoDIxLI7mN9AQtKoPqSd+47XaxnpF4udMy7nzl4MTdb
-X-Gm-Message-State: AOJu0YyNSwL8lBlOvI17VSzEGfkpfPzKFUxzQ4biJYo9XxGU6dvtVQfb
- ucEKRAEdZExBPbfbTURuTsY4k0m6yI0nade1TFS2t7/x3b+90yIQ1qrjZxVFzMSKx+eTywle0HB
- CAATs4aMSBw4hhGKVXLgp+Vp6Gao=
-X-Google-Smtp-Source: AGHT+IHS92ooffGhwo6QwDnJzDTyj0c6jnCY662I7sKXoxhFBlLCKT0n4+VIMY+tB98bU2E3VvfgvXG02LZhehf59pw=
-X-Received: by 2002:a17:90b:148f:b0:2cb:4c5b:2d8a with SMTP id
- 98e67ed59e1d1-2cb526928c0mr749820a91.12.1721209237984; Wed, 17 Jul 2024
- 02:40:37 -0700 (PDT)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B37910E0DF;
+ Wed, 17 Jul 2024 13:42:57 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 2A9EDCE13DE;
+ Wed, 17 Jul 2024 13:42:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87E96C32782;
+ Wed, 17 Jul 2024 13:42:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1721223769;
+ bh=b6M2u0O/VcQWX4e8CRgM/0cmwdYjHB7jwSQO7Cq366U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pbvj/YA1Gs/hjRDC0IXr3+tRYix4k2pKaNUcxopwUOt2F3ENxPAeCd7DoRcMp7O0B
+ UtRs91T42G/Tgpa0EcWDxZUv+lc0rM4ypbkFy3zjVSDe8hbjRV8lOGcgAAws7/rWT2
+ hMWfV99wFXGsid9gYH9JPJe+Gwp7nsq2+Ti798NJ4mv4beRMWBtHXM07O8c+D1ncb5
+ 3Na3BkeEPeVECGuoDdhPLJch/+W5um8v4lCcvbzDZnLj51nlSj0p8xOEqgfiFUbvG+
+ 3zkYm6sbagImtoDSlJXsv9/nR27VdgbTGY8ixgsZkEWeJB/1U5WF01yc3llYodPJSe
+ LpWYqd26vKK/g==
+Date: Wed, 17 Jul 2024 15:42:46 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
+ Edmund Dea <edmund.j.dea@intel.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Thierry Reding <thierry.reding@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ igt-dev@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v4 2/5] drm/drm_property: require DRM_MODE_PROP_IMMUTABLE
+ for single-value props
+Message-ID: <20240717-bouncy-horned-mamba-5691b8@houat>
+References: <20240715-drm-bridge-connector-fix-hdmi-reset-v4-0-61e6417cfd99@linaro.org>
+ <20240715-drm-bridge-connector-fix-hdmi-reset-v4-2-61e6417cfd99@linaro.org>
 MIME-Version: 1.0
-References: <20240711100038.268803-1-vladimir.lypak@gmail.com>
-In-Reply-To: <20240711100038.268803-1-vladimir.lypak@gmail.com>
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Wed, 17 Jul 2024 10:40:26 +0100
-Message-ID: <CACu1E7HROtx1Zgyy0EJuHj_HWE8Nd6OtFnxTcrDrHP+2HA5o6A@mail.gmail.com>
-Subject: Re: [PATCH 0/4] fixes for Adreno A5Xx preemption
-To: Vladimir Lypak <vladimir.lypak@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Jordan Crouse <jordan@cosmicpenguin.net>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="6ldj6ctz25xj6y7b"
+Content-Disposition: inline
+In-Reply-To: <20240715-drm-bridge-connector-fix-hdmi-reset-v4-2-61e6417cfd99@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,58 +98,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jul 11, 2024 at 11:10=E2=80=AFAM Vladimir Lypak
-<vladimir.lypak@gmail.com> wrote:
->
-> There are several issues with preemption on Adreno A5XX GPUs which
-> render system unusable if more than one priority level is used. Those
-> issues include persistent GPU faults and hangs, full UI lockups with
-> idling GPU.
->
-> ---
-> Vladimir Lypak (4):
->   drm/msm/a5xx: disable preemption in submits by default
->   drm/msm/a5xx: properly clear preemption records on resume
->   drm/msm/a5xx: fix races in preemption evaluation stage
->   drm/msm/a5xx: workaround early ring-buffer emptiness check
->
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c     | 18 ++++++++++----
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.h     | 12 ++++++---
->  drivers/gpu/drm/msm/adreno/a5xx_preempt.c | 30 ++++++++++++++++++++---
->  3 files changed, 47 insertions(+), 13 deletions(-)
-> ---
-> base-commit: 523b23f0bee3014a7a752c9bb9f5c54f0eddae88
-> --
-> 2.45.2
->
 
-Hi Vladimir,
+--6ldj6ctz25xj6y7b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-While looking at preemption on a7xx, where the overall logic is pretty
-much the same, and I've been seeing the same "soft lockups". However
-even after porting patch 3, it turns out that's not enough because
-there's a different race. The sequence of events is something like
-this:
+Hi,
 
-1. Medium-prio app A submits to ring 2.
-2. Ring 0 retires its last job and we start a preemption to ring 2.
-3. High-prio app B submits to ring 0. It sees the preemption from step
-2 ongoing and doesn't write the WTPR register or try to preempt.
-4. The preemption finishes and we update WPTR.
-5. App A's submit retires. We try to preempt, but the submit and
-ring->cur write from step 3 happened on a different CPU and the write
-hasn't landed yet so we skip it.
+On Mon, Jul 15, 2024 at 09:33:02AM GMT, Dmitry Baryshkov wrote:
+> Document that DRM_MODE_PROP_IMMUTABLE must be set for the properties
+> that are immutable by definition - e.g. ranges with min =3D=3D max or enu=
+ms
+> with a single value. This matches the behaviour of the IGT tests, see
+> kms_properties.c / validate_range_prop(), validate_enum_prop(),
+> validate_bitmask_prop().
+>=20
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-It's a bit tricky because write reordering is involved, but this seems
-to be what's happening - everything except my speculation about the
-delayed write to ring->cur being the problem comes straight from a
-trace of this happening.
+We had a discussion yesterday about it on IRC with Sima, Simon and
+Xaver.
 
-Rob suggested on IRC that we make retire handling happen on the same
-workqueue as submissions, so that preempt_trigger is always
-serialized, which IIUC would also make patch 3 unnecessary. What do
-you think?
+https://oftc.irclog.whitequark.org/dri-devel/2024-07-16#33374622;
 
-Best regards,
+The conclusion was that it would create an inconsistency between drivers
+on whether a given property is immutable or not, which will lead to more
+troubles for userspace.
 
-Connor
+It's not clear why Ville added that check in the first place, so the
+best course of action is to remove the IGT test and get the discussion
+started there.
+
+Maxime
+
+--6ldj6ctz25xj6y7b
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZpfKVgAKCRDj7w1vZxhR
+xYH7AQD8w8myEhco9CqAfjh20D1tXY/mlB+W4/bdaby3K0NuIQD/cGVo42JNkoo/
+jCNbgBRkiSwOXLi0a+whYQOE0kxTmwY=
+=bR0t
+-----END PGP SIGNATURE-----
+
+--6ldj6ctz25xj6y7b--
