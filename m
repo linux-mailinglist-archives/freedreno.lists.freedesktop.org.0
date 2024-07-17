@@ -2,37 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3367B933DD6
-	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2024 15:43:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DABC933E11
+	for <lists+freedreno@lfdr.de>; Wed, 17 Jul 2024 15:57:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7174310E033;
-	Wed, 17 Jul 2024 13:43:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 169AD10E120;
+	Wed, 17 Jul 2024 13:57:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pbvj/YA1";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EsuHxOIH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B37910E0DF;
- Wed, 17 Jul 2024 13:42:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 2A9EDCE13DE;
- Wed, 17 Jul 2024 13:42:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87E96C32782;
- Wed, 17 Jul 2024 13:42:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1721223769;
- bh=b6M2u0O/VcQWX4e8CRgM/0cmwdYjHB7jwSQO7Cq366U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pbvj/YA1Gs/hjRDC0IXr3+tRYix4k2pKaNUcxopwUOt2F3ENxPAeCd7DoRcMp7O0B
- UtRs91T42G/Tgpa0EcWDxZUv+lc0rM4ypbkFy3zjVSDe8hbjRV8lOGcgAAws7/rWT2
- hMWfV99wFXGsid9gYH9JPJe+Gwp7nsq2+Ti798NJ4mv4beRMWBtHXM07O8c+D1ncb5
- 3Na3BkeEPeVECGuoDdhPLJch/+W5um8v4lCcvbzDZnLj51nlSj0p8xOEqgfiFUbvG+
- 3zkYm6sbagImtoDSlJXsv9/nR27VdgbTGY8ixgsZkEWeJB/1U5WF01yc3llYodPJSe
- LpWYqd26vKK/g==
-Date: Wed, 17 Jul 2024 15:42:46 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 033CA10E16E
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Jul 2024 13:57:31 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2ebe3fb5d4dso8604591fa.0
+ for <freedreno@lists.freedesktop.org>; Wed, 17 Jul 2024 06:57:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1721224650; x=1721829450; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=mHJbV+bzx4RI8mDOQI+N5X7vHq/DAFW5fyNCzOVzMjI=;
+ b=EsuHxOIHOl3bmAbc2wORAjAxqQEUxQO9aBbJTnDnAhxCi+mqGPOOw73VyJH+rX13uE
+ oJ7oFUB3QV8EOpapAkwAScMhQKAPTqkdzy4msIc1k23EXVrxHwpQ7fWxtVqmAwJGICcr
+ b1IyFQQegsYI9T8NSf/beIh50gLUJVS7Il48sTjAanghYNEGxKXvwcUB5x3DMCFFDmhy
+ fKA6L4oTgcxOByYne+xYpLhYEQj30eYkIXDiLvnU2znlZiV91+jeGcTbhThOjjrEie7i
+ aHIvOoCH9A1PuQ5+Ztw/DKzyaPKVwZqe4z19HWHjfccB6+5dfLNC1JHuORREjFsSdQeu
+ amiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721224650; x=1721829450;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mHJbV+bzx4RI8mDOQI+N5X7vHq/DAFW5fyNCzOVzMjI=;
+ b=fTJykTTgLFdRmXvVC0aWEsmW/sx4PiCAMTW9/nNS7AOV3T5JQ1ALW+qkOuXcNl5n7F
+ ds3sQQ2RPZ83ZgyDoL6KuyrsFnU+0xsMbeN0XcGJnKZtJI4/vPL6Syve5sdnpux6TGDJ
+ mIbt84xxd00PTWEhHNTDREC/qm2sjWdEosvp+LMw8tzzUe/589QM1Aodv1fIyybxsbab
+ 2KXif10JHKrIyAbDeGQUf+zVR2wGRQYvjd9QU+ugx9wXlDf4CNNPuATpBUkjDEvdQIEI
+ dzdtoFvy9HuyujVb3NTB9vWANcUhv4pIp97p5dDjHwxOuLQhggIGt1ukXBn5rxEGSolG
+ 9Rrw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUcUwhg0RVCZA2CX/Lja2ZwT7Bu/Be+EloKhW9BxBFhBqDm3MK75leHkBtwNRdKgkiDmMM2fe4USUIJBbUBK5Wt2acEwMmPu7XnUkGkbvTs
+X-Gm-Message-State: AOJu0YzRII/cKie21YIneroNbSZTSwlF2z/voucWSL6uxduifEF/RN0P
+ /df8n0OUHHhqPftLPZ+X5ao/nQczanm2fjnWfxHO6wOSftR4J62ZunlKTQV7e20=
+X-Google-Smtp-Source: AGHT+IG7iDrtCuBBKWvQaoQQbv/0kaeeUtziuz9N7l7vX5y+JvpROqU3u5NL1wFj8j7PpznoM4x7Ww==
+X-Received: by 2002:a05:651c:2213:b0:2ec:1df4:589b with SMTP id
+ 38308e7fff4ca-2eefcd61dd7mr7308201fa.1.1721224648985; 
+ Wed, 17 Jul 2024 06:57:28 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2eee19148adsm14501371fa.100.2024.07.17.06.57.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Jul 2024 06:57:28 -0700 (PDT)
+Date: Wed, 17 Jul 2024 16:57:26 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Maxime Ripard <mripard@kernel.org>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
@@ -75,14 +101,14 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org
 Subject: Re: [PATCH v4 2/5] drm/drm_property: require DRM_MODE_PROP_IMMUTABLE
  for single-value props
-Message-ID: <20240717-bouncy-horned-mamba-5691b8@houat>
+Message-ID: <gbcunf7zmafn5z76mrlgldmsy74s7e6jacv53mgpym2l75uq6h@talxrisbufsw>
 References: <20240715-drm-bridge-connector-fix-hdmi-reset-v4-0-61e6417cfd99@linaro.org>
  <20240715-drm-bridge-connector-fix-hdmi-reset-v4-2-61e6417cfd99@linaro.org>
+ <20240717-bouncy-horned-mamba-5691b8@houat>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="6ldj6ctz25xj6y7b"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240715-drm-bridge-connector-fix-hdmi-reset-v4-2-61e6417cfd99@linaro.org>
+In-Reply-To: <20240717-bouncy-horned-mamba-5691b8@houat>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,48 +124,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Wed, Jul 17, 2024 at 03:42:46PM GMT, Maxime Ripard wrote:
+> Hi,
+> 
+> On Mon, Jul 15, 2024 at 09:33:02AM GMT, Dmitry Baryshkov wrote:
+> > Document that DRM_MODE_PROP_IMMUTABLE must be set for the properties
+> > that are immutable by definition - e.g. ranges with min == max or enums
+> > with a single value. This matches the behaviour of the IGT tests, see
+> > kms_properties.c / validate_range_prop(), validate_enum_prop(),
+> > validate_bitmask_prop().
+> > 
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> We had a discussion yesterday about it on IRC with Sima, Simon and
+> Xaver.
+> 
+> https://oftc.irclog.whitequark.org/dri-devel/2024-07-16#33374622;
+> 
+> The conclusion was that it would create an inconsistency between drivers
+> on whether a given property is immutable or not, which will lead to more
+> troubles for userspace.
+> 
+> It's not clear why Ville added that check in the first place, so the
+> best course of action is to remove the IGT test and get the discussion
+> started there.
 
---6ldj6ctz25xj6y7b
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Ack, I'll work on removing those tests later today.
 
-Hi,
-
-On Mon, Jul 15, 2024 at 09:33:02AM GMT, Dmitry Baryshkov wrote:
-> Document that DRM_MODE_PROP_IMMUTABLE must be set for the properties
-> that are immutable by definition - e.g. ranges with min =3D=3D max or enu=
-ms
-> with a single value. This matches the behaviour of the IGT tests, see
-> kms_properties.c / validate_range_prop(), validate_enum_prop(),
-> validate_bitmask_prop().
->=20
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-We had a discussion yesterday about it on IRC with Sima, Simon and
-Xaver.
-
-https://oftc.irclog.whitequark.org/dri-devel/2024-07-16#33374622;
-
-The conclusion was that it would create an inconsistency between drivers
-on whether a given property is immutable or not, which will lead to more
-troubles for userspace.
-
-It's not clear why Ville added that check in the first place, so the
-best course of action is to remove the IGT test and get the discussion
-started there.
-
-Maxime
-
---6ldj6ctz25xj6y7b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZpfKVgAKCRDj7w1vZxhR
-xYH7AQD8w8myEhco9CqAfjh20D1tXY/mlB+W4/bdaby3K0NuIQD/cGVo42JNkoo/
-jCNbgBRkiSwOXLi0a+whYQOE0kxTmwY=
-=bR0t
------END PGP SIGNATURE-----
-
---6ldj6ctz25xj6y7b--
+-- 
+With best wishes
+Dmitry
