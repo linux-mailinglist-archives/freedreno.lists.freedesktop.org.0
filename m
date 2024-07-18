@@ -2,85 +2,117 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69F6B9344D1
-	for <lists+freedreno@lfdr.de>; Thu, 18 Jul 2024 00:26:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38C6B934D33
+	for <lists+freedreno@lfdr.de>; Thu, 18 Jul 2024 14:27:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1400010E472;
-	Wed, 17 Jul 2024 22:26:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 166A110E7F8;
+	Thu, 18 Jul 2024 12:27:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="pzHl2PoH";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bNhX74s9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B98710E472;
- Wed, 17 Jul 2024 22:26:10 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46HFDFNx004324;
- Wed, 17 Jul 2024 22:26:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- j/D8TuRlIv3+MI+d+h9FY80y8oeyXvIotba8jxGmeDM=; b=pzHl2PoH3/tqTIN6
- WnGaX1N3elxyEmpN6q72eZvjahVZ1Re2woGR9EYdWp3weVUU597BYMiGNwymYCBs
- r6n+i+d9D8O/Wz0Gd//4Oupj4fzys6gyd0BA8cAbs6o/0QiAzz+xO+RQsMAaYmGm
- Uf9qB12+QOqM90+iJeeW1jBTeQJ4t0w4nu2XcnrZhCJUJuj8Ig2sTa3XF/5viEnf
- f5DyM6Ug8qyfQ2zeKzoVKQ1MsfKdvL8tIV9uHyOaYbDzFRSlapGL9K7J3BVRfBhN
- aAcIVdBqdHuCZ2dGI2U48n9F2/nHg6+3yV18rrnZQrhhexDJSTSjHWp5cdazMHU8
- mYBrNA==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40dwfpbug2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Jul 2024 22:26:04 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 46HMQ32r006473
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Jul 2024 22:26:03 GMT
-Received: from [10.110.63.204] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 17 Jul
- 2024 15:26:02 -0700
-Message-ID: <2563d9a7-89c9-4aee-a30e-68b4da9df9eb@quicinc.com>
-Date: Wed, 17 Jul 2024 15:26:01 -0700
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B66F610E7F8
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Jul 2024 12:27:06 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-52ea1a69624so309627e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 18 Jul 2024 05:27:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1721305625; x=1721910425; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=q2XFn5QQgFe1WnayUef7JKEEQ6sdt3Zxd24uxnNsJOo=;
+ b=bNhX74s9ChCP7GnEIWoGrtkSW3FMZDDwiK7QIPk7oJsYCq4iLclHkny/aqWJnRiTo0
+ pNjAWJQWhfwTALrvc2jrYkW/FjxYid+1dfl1I+8i4lvP9YXRgsyaJEuaxEpKIgYxRuxW
+ Lc6kf9B6uaCZ0tmrOyL1bsn4DVY2dwTUQuscif9ban6RkTE8KQn/DNEMK31Jxq5UfWL0
+ ocynCr6zOmGOGR5rhn66PZiFm0P/jnmDW7+St9NLk+/HNqtdPBP+4YY5VdJpNHbzsbVc
+ Lg9j9BlONbSHw6eUTuznq1ZiobBhVNKRzRx74QH/ioBdqXHUHLxVlgTzpyUczNSO6o8G
+ Hnyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721305625; x=1721910425;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=q2XFn5QQgFe1WnayUef7JKEEQ6sdt3Zxd24uxnNsJOo=;
+ b=BdI1ngYHRnUutCNkHJI++6BCB8KvWRZ39OME8xnc5JYPR4WpDBu1xtBXPVBfF5HVu1
+ SM1QtqwqdZziygI3AJd00Gm0s5ynDKdFKGGmE5Y8O9F/RaP25eNlFTVlQdp2KSrZzskr
+ noqpPi1pualj9aqwo1r0qcjw8i0hcrmd/1vZCawauAyUIYRH/1G8yqqFIpueEz5IwzFu
+ d2Znbs2o2XDBAcDodgDmCOyDvZZgkpE4hqN6pEPXNpJ6IAU+noXd3a92cy9+lcm+yb5U
+ XOSBap5z11w7B72YwonAHUo3D+YAkkisMYVoepFY+yvK7jB5JwIZyy7oh5ZgvbrxwVAV
+ vQBQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWWbeJrD/vScrRO3jP3jv71XqXqmUEgW5g5u2mp4Q6IT91K+Yk/9aDiKHnvgglGntqltOdmcjGPiAJoDKEG8ZQ/ZPzs9coYvFF3ySDOoGSw
+X-Gm-Message-State: AOJu0Yz/v1OQny18SDe9KjxVasdfo2IMoeRq18q061nR8MDha507yq1X
+ udkQhKdfDqdkkW2RqB82nnCMdZSRX/oAgZNOdAKyiXK6jB6Cj4vJXY7PtbWWvHk=
+X-Google-Smtp-Source: AGHT+IFpho18lmDKc7X0msF9sfCuM30i0lyf/vediCfHZae4eLSGRU9CVd8hHv7u8hXrqS7690aQVw==
+X-Received: by 2002:a05:6512:130a:b0:52c:e17c:3741 with SMTP id
+ 2adb3069b0e04-52ee53acb53mr3121740e87.5.1721305624269; 
+ Thu, 18 Jul 2024 05:27:04 -0700 (PDT)
+Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a79bc5a38c2sm551628566b.44.2024.07.18.05.27.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Jul 2024 05:27:03 -0700 (PDT)
+Message-ID: <fd74e1e5-a652-4fd9-a4fa-d44e1482a9b6@linaro.org>
+Date: Thu, 18 Jul 2024 14:27:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 10/16] drm/msm/dpu: move pitch check to
- _dpu_format_get_plane_sizes_linear()
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>
-CC: Abel Vesa <abel.vesa@linaro.org>, Johan Hovold <johan+linaro@kernel.org>, 
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>
-References: <20240625-dpu-mode-config-width-v5-0-501d984d634f@linaro.org>
- <20240625-dpu-mode-config-width-v5-10-501d984d634f@linaro.org>
+Subject: Re: [PATCH v6 2/2] drm/msm: Extend gpu devcore dumps with pgtbl info
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ iommu@lists.linux.dev, Will Deacon <will@kernel.org>,
+ Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20240717163627.43423-1-robdclark@gmail.com>
+ <20240717163627.43423-3-robdclark@gmail.com>
 Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240625-dpu-mode-config-width-v5-10-501d984d634f@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <20240717163627.43423-3-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 9i-h16e4lFQ_Y5wwUWK9O-jX24n20dhO
-X-Proofpoint-GUID: 9i-h16e4lFQ_Y5wwUWK9O-jX24n20dhO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-17_17,2024-07-17_02,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- malwarescore=0 clxscore=1015 impostorscore=0 priorityscore=1501
- bulkscore=0 suspectscore=0 adultscore=0 mlxlogscore=999 spamscore=0
- phishscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2407110000 definitions=main-2407170170
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,22 +128,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 6/24/2024 2:13 PM, Dmitry Baryshkov wrote:
-> The _dpu_format_get_plane_sizes_linear() already compares pitches of
-> the framebuffer with the calculated pitches. Move the check to the same
-> place, demoting DPU_ERROR to DPU_DEBUG to prevent user from spamming the
-> kernel log.
+On 17.07.2024 6:36 PM, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> In the case of iova fault triggered devcore dumps, include additional
+> debug information based on what we think is the current page tables,
+> including the TTBR0 value (which should match what we have in
+> adreno_smmu_fault_info unless things have gone horribly wrong), and
+> the pagetable entries traversed in the process of resolving the
+> faulting iova.
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 16 ++++++----------
->   1 file changed, 6 insertions(+), 10 deletions(-)
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 10 ++++++++++
+>  drivers/gpu/drm/msm/msm_gpu.c           |  9 +++++++++
+>  drivers/gpu/drm/msm/msm_gpu.h           |  8 ++++++++
+>  drivers/gpu/drm/msm/msm_iommu.c         | 22 ++++++++++++++++++++++
+>  drivers/gpu/drm/msm/msm_mmu.h           |  3 ++-
+>  5 files changed, 51 insertions(+), 1 deletion(-)
 > 
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index 99661af8d941..422dae873b6b 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -861,6 +861,16 @@ void adreno_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
+>  		drm_printf(p, "  - dir=%s\n", info->flags & IOMMU_FAULT_WRITE ? "WRITE" : "READ");
+>  		drm_printf(p, "  - type=%s\n", info->type);
+>  		drm_printf(p, "  - source=%s\n", info->block);
+> +
+> +		/* Information extracted from what we think are the current
 
-Not fully convinced about demoting DPU_ERROR to DPU_DEBUG but I think we 
-have had a similar discussion earlier while logging atomic_check 
-failures in the CDM series, so keeping that in mind,
+I'll keep poking you for not using
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+/*
+ * foobar
+
+instead :P
+
+> +		 * pgtables.  Hopefully the TTBR0 matches what we've extracted
+> +		 * from the SMMU registers in smmu_info!
+> +		 */
+> +		drm_puts(p, "pgtable-fault-info:\n");
+> +		drm_printf(p, "  - ttbr0: %.16llx\n", (u64)info->pgtbl_ttbr0);> +		drm_printf(p, "  - asid: %d\n", info->asid);
+
+0x%08x?
+
+Konrad
