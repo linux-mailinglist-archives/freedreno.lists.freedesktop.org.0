@@ -2,84 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53ADB937660
-	for <lists+freedreno@lfdr.de>; Fri, 19 Jul 2024 12:03:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 630AD937DDF
+	for <lists+freedreno@lfdr.de>; Sat, 20 Jul 2024 00:46:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAAD410EB99;
-	Fri, 19 Jul 2024 10:03:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39D8110E099;
+	Fri, 19 Jul 2024 22:46:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vHfwfewg";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="cVVJyVO/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
- [209.85.208.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E08310EB9C
- for <freedreno@lists.freedesktop.org>; Fri, 19 Jul 2024 10:03:54 +0000 (UTC)
-Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-5a1c49632deso781426a12.2
- for <freedreno@lists.freedesktop.org>; Fri, 19 Jul 2024 03:03:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721383433; x=1721988233; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ncnxowO0dKQNeRgTlGsuN2AsFIskGsfKL/5xH//5Wcs=;
- b=vHfwfewg4gsfeoYqnDVE8tCa72zis0VxY2t8JgItgKMT6AKJVxF1LFu2rMuBS/s/GR
- 83RX46oPEvi0Wr8Jj0weeAdu6vSEA3FjW2W+TPij9LytjyI1+BvgGqTPJ3/reuPuyDct
- /JYMv5GnfobsI8qrZMpm2v/pb/D6teR703oin79DpxcRwc0s9vCjyEH6BzlDT2bscx+5
- kXniSV2Nx3UvF4rbczpepdyAb1gLPfLwIhrHDeIb7cEfNH2rzkkUyPAAiHXWUhcoE4u5
- 3I7ik/E1rB5uCtgyRvZgs1C8DG1IH2wniD0rnZ1gz+IDzPgNC9sfD2YVzNZ7F3geJFpw
- MeLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721383433; x=1721988233;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ncnxowO0dKQNeRgTlGsuN2AsFIskGsfKL/5xH//5Wcs=;
- b=j/T7jNAJFm6QFW4j6cJlnLd+JEpt7s/tJYE3aPmoUmMk06dRKtKp+0NG1hfoVqh7gg
- 2gqIDD0S8HKXp2yiBp6m39u02whJPnGu8HFr5/cZLUj8yhyPHDi5sTpHv84Y14WZxXJM
- LW+93qtW1QjL3Evh0/5zTPoeTrNxWxGzpolzkDB4noepDuC7/S17o3u6JK8Jr8LSCwDY
- SIsniIfGn7kNZ6b/K+O3I1dV5zLQLydcAO037+Op7RdtabdnVouKGNZ8F0qH8a/ozmIZ
- iWV52hHKA2tnsD/LKTYPMZuyYIu5Uxrz9+FjrthtpTzu46xQzZP6BB7z9fsLy+6C6/nD
- 2b8A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV7qNDnh5XE0mG9/4IU7nE/TPwlCc3JhYRQ3ubSUKdG1f7sXRAxm3RL/Y60HzD+GiyTRVv9Z3/cCjo2ndS859HelGyD10YKiTJ7j1odPWcd
-X-Gm-Message-State: AOJu0Yxek5k4OJKJITs5eMsVehu08VaeJmtOHgs/exSYUSticUqjNG/P
- 0hD1H7CPGnDf6ANKJ38VBlPNYBgO4lPVdACG41ZfPSl9tj0PCUTj4P+A7geZ4io=
-X-Google-Smtp-Source: AGHT+IGrK/LjcvYrCZfPpRzcYpKV89QxZNQN9PbHJitkiyif7HT6hYYn+oRnlJCAfm3lGptaQnl7AA==
-X-Received: by 2002:a50:d7da:0:b0:5a1:bda1:3e23 with SMTP id
- 4fb4d7f45d1cf-5a1bda13e79mr2627029a12.14.1721383432801; 
- Fri, 19 Jul 2024 03:03:52 -0700 (PDT)
-Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5a30aaa31e0sm919984a12.27.2024.07.19.03.03.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Jul 2024 03:03:52 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Fri, 19 Jul 2024 12:03:30 +0200
-Subject: [PATCH 5/5] drm/msm/a6xx: Add A621 support
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 011C010E099;
+ Fri, 19 Jul 2024 22:46:28 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46JLDWWR015560;
+ Fri, 19 Jul 2024 22:46:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ yxudrX/nS4+GlNQco/ywyjACwfaVAPMfSfhDy4oMPZU=; b=cVVJyVO/pAwVUDBJ
+ g7E9FvereD4qhO77RpbO7tes+jZCrlsrDhl77tbvHZikbTYYX3JxkKWzTJOrnRGF
+ pe2BGgYZE42mKbE/qmxWm1SjE7RlIlCDUqJnuzG+xJWQG+oBKXSFZzSYDwyy5gVo
+ t9X7TXHNuC8PU/VIuHPjSIYckpGBetq6rwXrG2O6WugWa0xZmV1rdiD2siK4Yi9F
+ m3o5W93Ip9uKpMwS3XIEjajS6JZJA39yN9gBfNN9tffqPlcOoKhOLejmWyFsMRKF
+ 8fLEoYjqn3z9OFJIdD9HvYkQ7wdbAZNmKtXsS/CYcOMkcTa4X9C3UKADIycJh6eW
+ XO/vRQ==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40fe2utm2t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Jul 2024 22:46:23 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 46JMkMo1003980
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Jul 2024 22:46:22 GMT
+Received: from [10.110.15.12] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 19 Jul
+ 2024 15:46:21 -0700
+Message-ID: <154d3b04-9f7d-4c5c-93d4-99c53d96e7f2@quicinc.com>
+Date: Fri, 19 Jul 2024 15:46:20 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 12/16] drm/msm/dpu: make dpu_format_populate_addrs
+ return void
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
+ Vetter <daniel@ffwll.ch>
+CC: Abel Vesa <abel.vesa@linaro.org>, Johan Hovold <johan+linaro@kernel.org>, 
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20240625-dpu-mode-config-width-v5-0-501d984d634f@linaro.org>
+ <20240625-dpu-mode-config-width-v5-12-501d984d634f@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240625-dpu-mode-config-width-v5-12-501d984d634f@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240719-topic-a621-v1-5-850ae5307cf4@linaro.org>
-References: <20240719-topic-a621-v1-0-850ae5307cf4@linaro.org>
-In-Reply-To: <20240719-topic-a621-v1-0-850ae5307cf4@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1721383413; l=7367;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=JaRdtAmG/aBVVoGezGVY9XvHQEh3BjeMocyDoFnu27k=;
- b=ADDODhRNXrzr1tgbQPACCM6K+qdkFVA6ky23/Sj8al4neKyX2odC0vFGSkOxnFYA8Ppu6xyLb
- SKvz9AwlWRvBNYKBR6ZthaHbUNF+WEClZaj1wbjHZaB/sm1MULlOb2E
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 7j1LLSuaO4OOUVclSp2pY-Mb1wDaAMx4
+X-Proofpoint-GUID: 7j1LLSuaO4OOUVclSp2pY-Mb1wDaAMx4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-19_08,2024-07-18_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0
+ mlxscore=0 lowpriorityscore=0 mlxlogscore=999 spamscore=0 phishscore=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 clxscore=1015
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2407190168
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,199 +96,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A621 is a clear A662 derivative (same lineage as A650), no explosions
-or sick features, other than a NoC bug which can stall the GPU..
 
-Add support for it.
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 78 ++++++++++++++++++++++++++++++-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c     | 18 +++++++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c     |  6 +++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  5 ++
- 4 files changed, 106 insertions(+), 1 deletion(-)
+On 6/24/2024 2:13 PM, Dmitry Baryshkov wrote:
+> The function msm_framebuffer_iova() can not fail, it always returns a
+> valid address. Drop the useless checks (that were already performed at
+> the time) and make dpu_format_populate_addrs() return void.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  6 +--
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        | 62 +++++-----------------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h        | 10 ++--
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          | 14 ++---
+>   4 files changed, 21 insertions(+), 71 deletions(-)
+> 
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index deee0b686962..d9d4a3e821f7 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -129,6 +129,59 @@ static const struct adreno_reglist a615_hwcg[] = {
- 	{},
- };
- 
-+static const struct adreno_reglist a620_hwcg[] = {
-+	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x02222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02222220},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_SP0, 0x00000080},
-+	{REG_A6XX_RBBM_CLOCK_HYST_SP0, 0x0000f3cf},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_TP0, 0x02222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL2_TP0, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL3_TP0, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL4_TP0, 0x00022222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_TP0, 0x11111111},
-+	{REG_A6XX_RBBM_CLOCK_DELAY2_TP0, 0x11111111},
-+	{REG_A6XX_RBBM_CLOCK_DELAY3_TP0, 0x11111111},
-+	{REG_A6XX_RBBM_CLOCK_DELAY4_TP0, 0x00011111},
-+	{REG_A6XX_RBBM_CLOCK_HYST_TP0, 0x77777777},
-+	{REG_A6XX_RBBM_CLOCK_HYST2_TP0, 0x77777777},
-+	{REG_A6XX_RBBM_CLOCK_HYST3_TP0, 0x77777777},
-+	{REG_A6XX_RBBM_CLOCK_HYST4_TP0, 0x00077777},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_RB0, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL2_RB0, 0x01002222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_CCU0, 0x00002220},
-+	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU0, 0x00040f00},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_RAC, 0x25222022},
-+	{REG_A6XX_RBBM_CLOCK_CNTL2_RAC, 0x00005555},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_RAC, 0x00000011},
-+	{REG_A6XX_RBBM_CLOCK_HYST_RAC, 0x00445044},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_TSE_RAS_RBBM, 0x04222222},
-+	{REG_A6XX_RBBM_CLOCK_MODE_VFD, 0x00002222},
-+	{REG_A6XX_RBBM_CLOCK_MODE_GPC, 0x00222222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ_2, 0x00000002},
-+	{REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_TSE_RAS_RBBM, 0x00004000},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_VFD, 0x00002222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_GPC, 0x00000200},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_HYST_TSE_RAS_RBBM, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_HYST_VFD, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_HYST_GPC, 0x04104004},
-+	{REG_A6XX_RBBM_CLOCK_HYST_HLSQ, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_TEX_FCHE, 0x00000222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_TEX_FCHE, 0x00000111},
-+	{REG_A6XX_RBBM_CLOCK_HYST_TEX_FCHE, 0x00000777},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_UCHE, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_HYST_UCHE, 0x00000004},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_UCHE, 0x00000002},
-+	{REG_A6XX_RBBM_ISDB_CNT, 0x00000182},
-+	{REG_A6XX_RBBM_RAC_THRESHOLD_CNT, 0x00000000},
-+	{REG_A6XX_RBBM_SP_HYST_CNT, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111},
-+	{REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555},
-+	{},
-+};
-+
- static const struct adreno_reglist a630_hwcg[] = {
- 	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x22222222},
- 	{REG_A6XX_RBBM_CLOCK_CNTL_SP1, 0x22222222},
-@@ -490,7 +543,6 @@ static const u32 a630_protect_regs[] = {
- };
- DECLARE_ADRENO_PROTECT(a630_protect, 32);
- 
--/* These are for a620 and a650 */
- static const u32 a650_protect_regs[] = {
- 	A6XX_PROTECT_RDONLY(0x00000, 0x04ff),
- 	A6XX_PROTECT_RDONLY(0x00501, 0x0005),
-@@ -774,6 +826,30 @@ static const struct adreno_info a6xx_gpus[] = {
- 			{ 169, 2 },
- 			{ 180, 1 },
- 		),
-+	}, {
-+		.chip_ids = ADRENO_CHIP_IDS(0x06020100),
-+		.family = ADRENO_6XX_GEN3,
-+		.fw = {
-+			[ADRENO_FW_SQE] = "a650_sqe.fw",
-+			[ADRENO_FW_GMU] = "a621_gmu.bin",
-+		},
-+		.gmem = SZ_512K,
-+		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			  ADRENO_QUIRK_HAS_HW_APRIV,
-+		.init = a6xx_gpu_init,
-+		.zapfw = "a620_zap.mbn",
-+		.a6xx = &(const struct a6xx_info) {
-+			.hwcg = a620_hwcg,
-+			.protect = &a650_protect,
-+			.gmu_cgc_mode = 0x00020200,
-+			.prim_fifo_threshold = 0x00010000,
-+		},
-+		.address_space_size = SZ_16G,
-+		.speedbins = ADRENO_SPEEDBINS(
-+			{ 0, 0 },
-+			{ 137, 1 },
-+		),
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(
- 			0x06030001,
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 6f168f1f32d8..37927bdd6fbe 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -423,6 +423,20 @@ static int a6xx_gmu_gfx_rail_on(struct a6xx_gmu *gmu)
- 	return a6xx_gmu_set_oob(gmu, GMU_OOB_BOOT_SLUMBER);
- }
- 
-+static void a6xx_gemnoc_workaround(struct a6xx_gmu *gmu)
-+{
-+	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-+	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-+
-+	/*
-+	 * GEMNoC can power collapse whilst the GPU is being powered down, resulting
-+	 * in the power down sequence not being fully executed. That in turn can
-+	 * prevent CX_GDSC from collapsing. Assert Qactive to avoid this.
-+	 */
-+	if (adreno_is_a621(adreno_gpu) || adreno_is_7c3(adreno_gpu))
-+		gmu_write(gmu, REG_A6XX_GMU_AO_AHB_FENCE_CTRL, BIT(0));
-+}
-+
- /* Let the GMU know that we are about to go into slumber */
- static int a6xx_gmu_notify_slumber(struct a6xx_gmu *gmu)
- {
-@@ -456,6 +470,8 @@ static int a6xx_gmu_notify_slumber(struct a6xx_gmu *gmu)
- 	}
- 
- out:
-+	a6xx_gemnoc_workaround(gmu);
-+
- 	/* Put fence into allow mode */
- 	gmu_write(gmu, REG_A6XX_GMU_AO_AHB_FENCE_CTRL, 0);
- 	return ret;
-@@ -945,6 +961,8 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *gmu)
- 	/* Force off SPTP in case the GMU is managing it */
- 	a6xx_sptprac_disable(gmu);
- 
-+	a6xx_gemnoc_workaround(gmu);
-+
- 	/* Make sure there are no outstanding RPMh votes */
- 	a6xx_gmu_rpmh_off(gmu);
- 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 33a319f7d200..f2eca69613af 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -523,6 +523,12 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
- 	if (adreno_is_a619_holi(gpu))
- 		gpu->ubwc_config.highest_bank_bit = 13;
- 
-+	if (adreno_is_a621(gpu)) {
-+		gpu->ubwc_config.highest_bank_bit = 13;
-+		gpu->ubwc_config.amsbc = 1;
-+		gpu->ubwc_config.uavflagprd_inv = 2;
-+	}
-+
- 	if (adreno_is_a640_family(gpu))
- 		gpu->ubwc_config.amsbc = 1;
- 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 26972b2cc896..ea2c25e007eb 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -384,6 +384,11 @@ static inline int adreno_is_a619_holi(const struct adreno_gpu *gpu)
- 	return adreno_is_a619(gpu) && adreno_has_gmu_wrapper(gpu);
- }
- 
-+static inline int adreno_is_a621(const struct adreno_gpu *gpu)
-+{
-+	return gpu->info->chip_ids[0] == 0x06020100;
-+}
-+
- static inline int adreno_is_a630(const struct adreno_gpu *gpu)
- {
- 	return adreno_is_revn(gpu, 630);
-
--- 
-2.45.2
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
