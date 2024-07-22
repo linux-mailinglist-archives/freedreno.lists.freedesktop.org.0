@@ -2,119 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDA1D938B24
-	for <lists+freedreno@lfdr.de>; Mon, 22 Jul 2024 10:25:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51ED9939121
+	for <lists+freedreno@lfdr.de>; Mon, 22 Jul 2024 16:58:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CF4810E404;
-	Mon, 22 Jul 2024 08:25:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D400A10E0C2;
+	Mon, 22 Jul 2024 14:58:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fKGOFitp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PHhrso5V";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A04010E402
- for <freedreno@lists.freedesktop.org>; Mon, 22 Jul 2024 08:25:45 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-a77cb7c106dso396974966b.1
- for <freedreno@lists.freedesktop.org>; Mon, 22 Jul 2024 01:25:44 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68D6210E094;
+ Mon, 22 Jul 2024 14:58:35 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4267300145eso37792855e9.3; 
+ Mon, 22 Jul 2024 07:58:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721636743; x=1722241543; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=XtqEPWiIr5vp/nAZ6HNI8AOL/dWbCPA+lfoLLgou6Hw=;
- b=fKGOFitp6Iz/i9v+MOrHB3WZRGVX4SiGa8OEID+YT0QqM71YOMlL/9J/NcLLG/lNpX
- RWAORy7KNqfr8FW2ZeTcP7VbGjXV++cElSohZMnKC0OTikGhLXH0YfqmBcskcF/O+SGp
- Wm+Q4EYCeErddCRF3ZOUA2uJpDXLeG03otMXLAbxfhEETAY6j6LrCVUk/0JQXlGmJMS/
- cu4MIS/YJ3cFXsifp80FNLQMGD6Swcsbbtgqr441ftt3GsBiFrVh/KMusMTD4Zi7Cwyn
- Uwmwlzm5EUNMC7zBDsoZLqbAQqaPHsWAQRen8v26LWu6TMG0OyBaM+r0n7OZDWFsYstO
- IPsg==
+ d=gmail.com; s=20230601; t=1721660314; x=1722265114; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=uvRXbc2W10YhzddPjznwtMvfAtM0HPxa93PdBpyxyzc=;
+ b=PHhrso5VWDa3R9iJ/FMpdqBZ5X+IC2TNeNawuCIDXQ6LE6RhzYCMQIKqMF3rinmquI
+ T6h3Lh9CVqH9EZG43XumNN2uJtRpfTdYLvuQNn6pqXKwehiPiRimKU10dJcImHlxH0tf
+ Q5YvvyIzpLxxKnnfpi/rZPWamU03qdo6bKJ6OqL9iTLrTrXg6oK+Cvfu5i5CdJmJuaZF
+ VQtycHKrDPlUnQIBeJfV35nsFK6BvVxrWoj8UcH+YJ9IMUi7IVXJLMBjV8iyjhGqbxT/
+ l4uB+IhBAWNsjFiKRSeb8eHP1qCa06wt8Whshg2AvcNJNJnI3YnOijyMe84nxVoeSjQ+
+ l2RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721636743; x=1722241543;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XtqEPWiIr5vp/nAZ6HNI8AOL/dWbCPA+lfoLLgou6Hw=;
- b=fCdTCPtX9MxO6w5vpRo/YX/9t016eYr/W3dIegZpS2HDzA+Cs/jX68K7YekJB30rrY
- dpH9PVCHSfrdcvNulWBqR2lrhWbU9CaY02xvOKqPeXF7TQRyDP3dd+AeN/AmMRINy2F7
- fnf8F4PXOHh4D3fDg5037TX4azClr7LrIRTDogQZShYjNmvIEvKeZFDbpvbrbqBmAmMk
- 2B1YnmA8xrG2qDjraLXmo7HoIegCtr371pLzwPXL88/xamA6MiIBX/82k5pNJpUTLi5C
- TDBP2zTvwqCPmrWQ1NtzQGt325ZElTL3c64xHL6Atmv+Tf1xw2ZokivJwKi13CBmC7Nm
- d5hw==
+ d=1e100.net; s=20230601; t=1721660314; x=1722265114;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uvRXbc2W10YhzddPjznwtMvfAtM0HPxa93PdBpyxyzc=;
+ b=NnzZ1CxmaQ4DgoICwIKoMttCi/HujSggfechMqgub2ed2xgLEFci525Mwb8dS3AUDU
+ 0yHYuc2rc3JFuVeGIkMvyfNcY2RUEH07DRgdXhTGyswuqqwXuDXaoa42s+WksWLO79mj
+ POmHhb/JU7S+2C3YLwYiQai4L25sTcutH9TWcdYX3+gAhE/UDWTgAFlArCdgWKP5MhkO
+ 8o0Ei4U3JMs7Np0gpj3nq73scDWw8Y22pVBZf+ICPqSXbgWrdxzifY9cwe/Pz9qBWnOb
+ RORPbF73z8+PGdni6PGfeA38wt6GxME25Qb8qNv5MsC3De0XT+pKdB6odirUIMvyddam
+ LWwg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUTx30osIT1bXSKDEG1+ZXhgHoJjCMGBDntSPQ8IfebdyA/+Ws6pOh4WO+OdlpKLx/bR7MDL8FSmyXzYJPD1fK8HOaKdQYIyjvhuFIktQLC
-X-Gm-Message-State: AOJu0Yz3byG4M7vA+SPboBClq5K4+9PzPNZP+r4Xqy8+K7o/hal2kQp4
- OFNnCcmQxNWjDxvDRVw3f9sM7FbNuPuhwVNs9xaKQi6KqcYECGeMUlpVOeyOyMo=
-X-Google-Smtp-Source: AGHT+IGKb0DMJLTWAhEF9XWfE2qhv3NGVnXyLBAa4TmYYsM6+WNSBb7kb393XBb48PWxntzfh8uogg==
-X-Received: by 2002:a17:907:968e:b0:a72:8d40:52b8 with SMTP id
- a640c23a62f3a-a7a4bfa38fdmr404781966b.3.1721636742993; 
- Mon, 22 Jul 2024 01:25:42 -0700 (PDT)
-Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c7be6f8sm393121666b.76.2024.07.22.01.25.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 01:25:42 -0700 (PDT)
-Message-ID: <2b078266-c5be-427e-bb82-264ed31094e1@linaro.org>
-Date: Mon, 22 Jul 2024 10:25:39 +0200
+ AJvYcCV1spuERJJ7IeTRUgOl4DBBTr7f2tEyqFIQdE/QHgOhsrOw0KzpOZJX5Z91oOyEc604HsT9NCWqhzwDXnA0FBjCPj9NJMwfBdjhBScOxIvDsEBWUsvre9ApvjjQsA0UUXyCD8qeWXR2MsW/45q/JAN6
+X-Gm-Message-State: AOJu0YzV7aGyqaeJ+sefdoMIFtqORdmp77CJhEnb7oLA8MHVZ739uPhQ
+ cxp3JMZpSaAgxkxX4MO4vMduU/O8hwiqqLSZ6+ZYOWtZiPGjFAmM
+X-Google-Smtp-Source: AGHT+IHft4RH3hRBVeVQW93z8LFgj/ytRnObBn5Djt8fHS7MHN36oIbol7ITeI2yPPUhds6nwsPkUw==
+X-Received: by 2002:a05:600c:470d:b0:426:5e8e:aa48 with SMTP id
+ 5b1f17b1804b1-427dc52910amr65865035e9.22.1721660313545; 
+ Mon, 22 Jul 2024 07:58:33 -0700 (PDT)
+Received: from [192.168.1.130] (51B6D03E.dsl.pool.telekom.hu. [81.182.208.62])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-427d68fa09bsm133294335e9.7.2024.07.22.07.58.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Jul 2024 07:58:32 -0700 (PDT)
+From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
+Date: Mon, 22 Jul 2024 16:58:19 +0200
+Subject: [PATCH v3] drm/msm/adreno: Add A306A support
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/msm/adreno: Add A306A support
-To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>,
- 20240618164303.66615-1-robdclark@gmail.com
-References: <20240620-a306a-v2-1-0d388e1deebf@gmail.com>
- <2f10d70a-aed6-4687-8e12-4d649f6a2a5e@linaro.org>
- <CAGsSOWUoSkDooRx+QUrucj517pBFxwDMiCwoA6tah5o2=q2oGw@mail.gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
- 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
- izWDgYvmBE8=
-In-Reply-To: <CAGsSOWUoSkDooRx+QUrucj517pBFxwDMiCwoA6tah5o2=q2oGw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20240722-a306a-v3-1-cff90857c615@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAIpznmYC/12NQQrCMBBFr1JmbSSZ1DS48h7iIibTdsC2kkhQS
+ u9uWhDF5fvMezNDosiU4FjNEClz4mksoHcV+N6NHQkOhQEl1vKAVjgtjRO1JdXoButgPJTbe6S
+ Wn1vnfCncc3pM8bVls1rX/0JWQgmpnTHB+WB9c+oGx7e9nwZYCxm/lkH5sXC1grblfyC6tr/Ws
+ ixvN46h0tAAAAA=
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <trabarni@gmail.com>
+X-Mailer: b4 0.14.0
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,59 +92,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21.07.2024 11:43 PM, Barnabás Czémán wrote:
-> On Sat, Jun 22, 2024 at 1:36 PM Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->>
->> On 20.06.2024 11:52 PM, Barnabás Czémán wrote:
->>> From: Otto Pflüger <otto.pflueger@abscue.de>
->>>
->>> Add support for Adreno 306A GPU what is found in MSM8917 SoC.
->>> This GPU marketing name is Adreno 308.
->>>
->>> Signed-off-by: Otto Pflüger <otto.pflueger@abscue.de>
->>> [use internal name of the GPU, reword the commit message]
->>> Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
->>> ---
->>> Changes in v2:
->>> - Rebase on https://patchwork.freedesktop.org/series/127393/
->>> - Link to v1: https://lore.kernel.org/r/20240528-a306a-v1-1-03a66dacd8c7@gmail.com
->>> ---
+From: Otto Pflüger <otto.pflueger@abscue.de>
 
-[...]
+Add support for Adreno 306A GPU what is found in MSM8917 SoC.
+This GPU marketing name is Adreno 308.
 
->>>  drivers/gpu/drm/msm/adreno/a3xx_catalog.c | 11 +++++++++++
->>>  drivers/gpu/drm/msm/adreno/a3xx_gpu.c     | 14 +++++++++++---
->>>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  6 ++++++
->>>  3 files changed, 28 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/adreno/a3xx_catalog.c b/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
->>> index 0de8465b6cf0..61aeac5054a2 100644
->>> --- a/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
->>> +++ b/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
->>> @@ -41,6 +41,17 @@ static const struct adreno_info a3xx_gpus[] = {
->>>               .gmem  = SZ_128K,
->>>               .inactive_period = DRM_MSM_INACTIVE_PERIOD,
->>>               .init  = a3xx_gpu_init,
->>> +     }, {
->>> +             .chip_ids = ADRENO_CHIP_IDS(0x03000620),
->>> +             .family = ADRENO_3XX,
->>> +             .revn  = 308,
->>
->> Double space
-> It is similar like other blocks.
+Signed-off-by: Otto Pflüger <otto.pflueger@abscue.de>
+[use internal name of the GPU, reword the commit message]
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Signed-off-by: Barnabás Czémán <trabarni@gmail.com>
+---
+Changes in v3:
+- Fix issues addressed by reviews.
+- Rebase on latest next.
+- Link to v2: https://lore.kernel.org/r/20240620-a306a-v2-1-0d388e1deebf@gmail.com
 
-Feel free to correct it there as well
+Changes in v2:
+- Rebase on https://patchwork.freedesktop.org/series/127393/
+- Link to v1: https://lore.kernel.org/r/20240528-a306a-v1-1-03a66dacd8c7@gmail.com
+---
+ drivers/gpu/drm/msm/adreno/a3xx_catalog.c | 11 +++++++++++
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c     | 14 +++++++++++---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  6 ++++++
+ 3 files changed, 28 insertions(+), 3 deletions(-)
 
-[...]
+diff --git a/drivers/gpu/drm/msm/adreno/a3xx_catalog.c b/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
+index 0de8465b6cf0..2eb6c3e93748 100644
+--- a/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
+@@ -41,6 +41,17 @@ static const struct adreno_info a3xx_gpus[] = {
+ 		.gmem  = SZ_128K,
+ 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+ 		.init  = a3xx_gpu_init,
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x03000620),
++		.family = ADRENO_3XX,
++		.revn = 308,
++		.fw = {
++			[ADRENO_FW_PM4] = "a300_pm4.fw",
++			[ADRENO_FW_PFP] = "a300_pfp.fw",
++		},
++		.gmem = SZ_128K,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.init = a3xx_gpu_init,
+ 	}, {
+ 		.chip_ids = ADRENO_CHIP_IDS(
+ 			0x03020000,
+diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+index 5273dc849838..b46ff49f47cf 100644
+--- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+@@ -145,6 +145,10 @@ static int a3xx_hw_init(struct msm_gpu *gpu)
+ 		gpu_write(gpu, REG_A3XX_VBIF_ROUND_ROBIN_QOS_ARB, 0x0003);
+ 		gpu_write(gpu, REG_A3XX_VBIF_OUT_RD_LIM_CONF0, 0x0000000a);
+ 		gpu_write(gpu, REG_A3XX_VBIF_OUT_WR_LIM_CONF0, 0x0000000a);
++	} else if (adreno_is_a306a(adreno_gpu)) {
++		gpu_write(gpu, REG_A3XX_VBIF_ROUND_ROBIN_QOS_ARB, 0x0003);
++		gpu_write(gpu, REG_A3XX_VBIF_OUT_RD_LIM_CONF0, 0x00000010);
++		gpu_write(gpu, REG_A3XX_VBIF_OUT_WR_LIM_CONF0, 0x00000010);
+ 	} else if (adreno_is_a320(adreno_gpu)) {
+ 		/* Set up 16 deep read/write request queues: */
+ 		gpu_write(gpu, REG_A3XX_VBIF_IN_RD_LIM_CONF0, 0x10101010);
+@@ -237,7 +241,9 @@ static int a3xx_hw_init(struct msm_gpu *gpu)
+ 	gpu_write(gpu, REG_A3XX_UCHE_CACHE_MODE_CONTROL_REG, 0x00000001);
+ 
+ 	/* Enable Clock gating: */
+-	if (adreno_is_a305b(adreno_gpu) || adreno_is_a306(adreno_gpu))
++	if (adreno_is_a305b(adreno_gpu) ||
++	    adreno_is_a306(adreno_gpu) ||
++	    adreno_is_a306a(adreno_gpu))
+ 		gpu_write(gpu, REG_A3XX_RBBM_CLOCK_CTL, 0xaaaaaaaa);
+ 	else if (adreno_is_a320(adreno_gpu))
+ 		gpu_write(gpu, REG_A3XX_RBBM_CLOCK_CTL, 0xbfffffff);
+@@ -334,8 +340,10 @@ static int a3xx_hw_init(struct msm_gpu *gpu)
+ 		gpu_write(gpu, REG_A3XX_CP_PFP_UCODE_DATA, ptr[i]);
+ 
+ 	/* CP ROQ queue sizes (bytes) - RB:16, ST:16, IB1:32, IB2:64 */
+-	if (adreno_is_a305(adreno_gpu) || adreno_is_a306(adreno_gpu) ||
+-			adreno_is_a320(adreno_gpu)) {
++	if (adreno_is_a305(adreno_gpu) ||
++	    adreno_is_a306(adreno_gpu) ||
++	    adreno_is_a306a(adreno_gpu) ||
++	    adreno_is_a320(adreno_gpu)) {
+ 		gpu_write(gpu, REG_AXXX_CP_QUEUE_THRESHOLDS,
+ 				AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB1_START(2) |
+ 				AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB2_START(6) |
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 1ab523a163a0..c3b7970c2bfa 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -294,6 +294,12 @@ static inline bool adreno_is_a306(const struct adreno_gpu *gpu)
+ 	return adreno_is_revn(gpu, 307);
+ }
+ 
++static inline bool adreno_is_a306a(const struct adreno_gpu *gpu)
++{
++	/* a306a (marketing name is a308) */
++	return adreno_is_revn(gpu, 308);
++}
++
+ static inline bool adreno_is_a320(const struct adreno_gpu *gpu)
+ {
+ 	return adreno_is_revn(gpu, 320);
 
->>>
->>> +static inline bool adreno_is_a306a(const struct adreno_gpu *gpu)
->>> +{
->>> +     /* a306a marketing name is a308 */
->>
->> "marketing name is a308" could use a (), but it's me being picky..
-> /* a306a (marketing name is a308) */ ?
+---
+base-commit: dee7f101b64219f512bb2f842227bd04c14efe30
+change-id: 20240528-a306a-48e173724d6c
 
-yes
+Best regards,
+-- 
+Barnabás Czémán <trabarni@gmail.com>
 
-Konrad
