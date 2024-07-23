@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FA7493A1AE
-	for <lists+freedreno@lfdr.de>; Tue, 23 Jul 2024 15:38:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8CFA93A1CB
+	for <lists+freedreno@lfdr.de>; Tue, 23 Jul 2024 15:43:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1C5B10E5D8;
-	Tue, 23 Jul 2024 13:38:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35D4E10E5D5;
+	Tue, 23 Jul 2024 13:43:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="YCwo2kH2";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NcjlVA2b";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3094D10E5D9
- for <freedreno@lists.freedesktop.org>; Tue, 23 Jul 2024 13:38:25 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4266f344091so40527285e9.0
- for <freedreno@lists.freedesktop.org>; Tue, 23 Jul 2024 06:38:25 -0700 (PDT)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4936D10E5D6
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Jul 2024 13:43:19 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-a7a9a369055so63742966b.3
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Jul 2024 06:43:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1721741903; x=1722346703;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=N3K8G5pHeQAwS16+pZRohvo75/Cf2iIKXzbelmWiAXE=;
- b=YCwo2kH2k392XIEHH9fMVewXuZLbSQu17bJykUfqQ87M3kW2EZjRM76XxUDAburCr6
- /ugchPcourouAe1xadNHyDn98rMmySG87HEWVyNABurCR7ABgD9YT1STa+AYmpCR91lQ
- epumwaQUOTbLjJVxo1TjNs7tP6DfBLaox6DRh/1dUPtdVJx+lk4ojHbUfijG7wQhJ2h/
- htKlAQWhCIq8EtMHeTt5FNtnBPI9wibvZxz+2B8qEfOAEgLKOiULOe9ybfJwQnglnJMC
- 5yVLnAXvjeXRWiaE4n3/GiR9w+pO9glHm6lJqrSskwh6NRtPt1d1LWTWexqWODLn5QNF
- LZog==
+ d=linaro.org; s=google; t=1721742198; x=1722346998; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=mVMG/uTEUf1KhxbYqzxZppjAwG6qO+7aRJSTph3UtBs=;
+ b=NcjlVA2btSk0SLu0K7mX+sUtTB8RLAOBIkP9PRtGGm66cEnPbN/5pIIptlGQMOb4wR
+ 3nf/Ihxqkiv6iWlR2h5+hctD43IviY2OzUjf8x/faFl59AvNQP9zvG8dXYaL73RhE9wQ
+ w8EEsYAVfExZ55QFicpfuYJppY+4ZVpqUSKwAFmu+gwmvUOaoZgLoi7aiTB5eVuGqvF7
+ bmxHCRvwWxkjX0gtlpmk/r1aOikbrz6AsOhLxOLmjWnInGCvDqhfIOkR513dol3pemuc
+ k34lXfcxs5KMvmLFNFbquDyjJ8ZP3KFmgIartQe9u6xCDgWYZAC8KdVpv36g8je3K31N
+ EY2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721741903; x=1722346703;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=N3K8G5pHeQAwS16+pZRohvo75/Cf2iIKXzbelmWiAXE=;
- b=JZtLRGuQ/Q/pZ1/Ll/D/UVVE6mk9UyNqO6OTR7GfVG+NVsaH46y6fX7ztKFH5tVMil
- KmQOqZhV83PstVJdiCbwWf6zkf6ayM7z0T3fRDqok0pZdMAh1P9/z4grDwSxjihDfbBe
- Q0U2Y/yHeCmU0Zncs5DFG6HpgVZEVNzdafLPwhGMjzJgv5RJaaMSP00+UVqakKG+TPMD
- CIQfGZRseTZUJjv3QA2z+x58VNBi3NNP3i1pyPhcgJugKISVywck1KZQqbgv2bgfQGHw
- wBlhZhX9geIYIY/BvY8lMXP8Sn7/CPCWtYYh9YpNMDk5bK3vUwCvQP75AOQkIaT9H33G
- onkw==
+ d=1e100.net; s=20230601; t=1721742198; x=1722346998;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mVMG/uTEUf1KhxbYqzxZppjAwG6qO+7aRJSTph3UtBs=;
+ b=WKxaNf94dKofmPOenule4sJw4DNuIXggcqz2AmIU+0NY+Mwf2LKwDIj4mXN75Q+c6l
+ 66Yc6N2MIcIghI+SH+bt7OFzBerpExjeGgrGW/u32NZef4ejDTSOgF6uCJcr3cF8ZJTk
+ 6F70fnd2JQMCQMZKQG93GqHJdNeHNwSk1ZHkdTG6cFKQ6bHzFkEahJLIg9dcQI190Yq3
+ mbOiURG1M/u8yDoL+W6ahb4xESfrE2lI0mdo0D9RX6M6x0cDvrFDUHHWx4M/5IZhaXtU
+ 7l3DJLcNPE2nCcTifInvz3VMlhUTubYhnGm3FzDAQzZFxqL15OWunnz8URJ8H7d1IpJz
+ xfJA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWbcoZLYQpbs3bZAhVm1iLl9EFG3H2YlJQt54TXtx+qtcmm+D0fobIWuP0Iw0hg67nj4ui63pUVkL9SIugW2uL/1Wp1FDKSCJ6p8i1ZM72X
-X-Gm-Message-State: AOJu0Ywe2eN6ZKAgCBjNCjZkFzvR+r22bFFiybd6pM2m02iRZ5qus4fj
- 93qlSs+kIomlnRKxSzy/8pkTo5JW5grbldTmdlvxnxfHox6ciPpFXG3cEx7wY1I=
-X-Google-Smtp-Source: AGHT+IGbKurHrcBQxOwjoCy3I00Mb7Ii4AMC80qELYY6RamyBgLgQUYcRMumqK9YF+XJH9OtD5bRNQ==
-X-Received: by 2002:a05:600c:4eca:b0:426:6876:83bb with SMTP id
- 5b1f17b1804b1-427dc52921amr59397295e9.17.1721741903494; 
- Tue, 23 Jul 2024 06:38:23 -0700 (PDT)
-Received: from [192.168.108.81] (freebox.vlq16.iliad.fr. [213.36.7.13])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-427d2a8e420sm203734675e9.35.2024.07.23.06.38.22
+ AJvYcCXRyO5EKVL3b9wpiIu1caZP2F3KwwFKTDZx0VHRZG+FrxqtT+ZTbr0D3Kr8xwvE+Vho24lTfE6wb0WOAXQSeMVDhlOJwS0CBXon62Jb5DX7
+X-Gm-Message-State: AOJu0Yxx6iDvZKaS6NZ0El4PtvbEpeW66qHDOe2w05C7PoR2WISawAvf
+ tNNkkZVAiE/LleCHpFQ8DBCEHRL5/VJhHFHSHwjJTTwXMcsMrRtLbaqzWmqcW1E=
+X-Google-Smtp-Source: AGHT+IE+cxtq1rBP5ZCwyM/iBhNOsoKaiSM8RddFYe5ZZJ+3U4Nkd5DFypVcLuQUbpf2C4hYjOkbug==
+X-Received: by 2002:a17:907:2da8:b0:a7a:a2b7:93fe with SMTP id
+ a640c23a62f3a-a7aa2b7943bmr85721466b.47.1721742197360; 
+ Tue, 23 Jul 2024 06:43:17 -0700 (PDT)
+Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7a8d9b2d1dsm96699866b.63.2024.07.23.06.43.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jul 2024 06:38:23 -0700 (PDT)
-Message-ID: <a8c7db04-7212-4bf0-b8b1-d371ee33478b@freebox.fr>
-Date: Tue, 23 Jul 2024 15:38:22 +0200
+ Tue, 23 Jul 2024 06:43:16 -0700 (PDT)
+Message-ID: <57c165e6-d942-4a17-a26b-7e4a0422127c@linaro.org>
+Date: Tue, 23 Jul 2024 15:43:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v5 4/4] arm64: dts: qcom: add HDMI nodes for msm8998
-To: Konrad Dybcio <konrad.dybcio@linaro.org>,
+To: Marc Gonzalez <mgonzalez@freebox.fr>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I
  <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -88,9 +88,45 @@ References: <20240627-hdmi-tx-v5-0-355d5c1fbc3c@freebox.fr>
  <04ef978f-2bfd-46cc-a9f7-40a6f1c507f8@linaro.org>
  <7d34a857-6495-482b-9070-1817c88c9913@freebox.fr>
  <45f5dae6-c606-4612-900a-b719f58d92ce@linaro.org>
+ <a8c7db04-7212-4bf0-b8b1-d371ee33478b@freebox.fr>
 Content-Language: en-US
-From: Marc Gonzalez <mgonzalez@freebox.fr>
-In-Reply-To: <45f5dae6-c606-4612-900a-b719f58d92ce@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <a8c7db04-7212-4bf0-b8b1-d371ee33478b@freebox.fr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -108,69 +144,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/07/2024 15:08, Konrad Dybcio wrote:
-
-> On 23.07.2024 2:57 PM, Marc Gonzalez wrote:
->
->> On 23/07/2024 13:45, Konrad Dybcio wrote:
->>
->>> On 23.07.2024 11:59 AM, Dmitry Baryshkov wrote:
->>>
->>>> On Tue, 23 Jul 2024 at 12:48, Marc Gonzalez wrote:
->>>>
->>>>> On 16/07/2024 18:37, Dmitry Baryshkov wrote:
->>>>>
->>>>>> No, that's fine. It is the SMMU issue that Konrad has been asking you
->>>>>> to take a look at.
->>>>>
->>>>> Context:
->>>>>
->>>>> [    4.911422] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
->>>>> [    4.923353] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
->>>>> [    4.927893] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
->>>>> [    4.941928] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
->>>>> [    4.944438] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
->>>>> [    4.956013] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
->>>>> [    4.961055] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
->>>>> [    4.974565] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
->>>>> [    4.977628] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
->>>>> [    4.989670] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
->>>>>
->>>>>
->>>>> As I mentioned, I don't think I've ever seen issues from cd00000.iommu
->>>>> on my board.
->>>>
->>>> Interestingly enough, I can also see iommu errors during WiFi startup
->>>> / shutdown on msm8998 / miix630. This leads me to thinking that it
->>>> well might be that there is a missing quirk in the iommu driver.
->>>>
->>>>> I can test a reboot loop for a few hours, to see if anything shows up.
->>>>
->>>> Yes, please.
->>>
->>> Yeah I do trust you Marc that it actually works for you and I'm not
->>> gonna delay this series because of that, but please go ahead and
->>> reboot-loop your board
->>>
->>> 8998/660 is """famous""" for it's iommu problems
->>
->> [   20.501062] arm-smmu 16c0000.iommu: Unhandled context fault: fsr=0x402, iova=0x00000000, fsynr=0x1, cbfrsynra=0x1900, cb=0
->>
->> I get the above warning pretty reliably.
->> I don't think it's related to the issue(s) you mentioned.
->> System just keeps plodding along.
+On 23.07.2024 3:38 PM, Marc Gonzalez wrote:
+> On 23/07/2024 15:08, Konrad Dybcio wrote:
 > 
-> Yeah that one's "fine"
+>> On 23.07.2024 2:57 PM, Marc Gonzalez wrote:
+>>
+>>> On 23/07/2024 13:45, Konrad Dybcio wrote:
+>>>
+>>>> On 23.07.2024 11:59 AM, Dmitry Baryshkov wrote:
+>>>>
+>>>>> On Tue, 23 Jul 2024 at 12:48, Marc Gonzalez wrote:
+>>>>>
+>>>>>> On 16/07/2024 18:37, Dmitry Baryshkov wrote:
+>>>>>>
+>>>>>>> No, that's fine. It is the SMMU issue that Konrad has been asking you
+>>>>>>> to take a look at.
+>>>>>>
+>>>>>> Context:
+>>>>>>
+>>>>>> [    4.911422] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
+>>>>>> [    4.923353] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
+>>>>>> [    4.927893] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
+>>>>>> [    4.941928] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
+>>>>>> [    4.944438] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
+>>>>>> [    4.956013] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
+>>>>>> [    4.961055] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
+>>>>>> [    4.974565] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
+>>>>>> [    4.977628] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
+>>>>>> [    4.989670] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
+>>>>>>
+>>>>>>
+>>>>>> As I mentioned, I don't think I've ever seen issues from cd00000.iommu
+>>>>>> on my board.
+>>>>>
+>>>>> Interestingly enough, I can also see iommu errors during WiFi startup
+>>>>> / shutdown on msm8998 / miix630. This leads me to thinking that it
+>>>>> well might be that there is a missing quirk in the iommu driver.
+>>>>>
+>>>>>> I can test a reboot loop for a few hours, to see if anything shows up.
+>>>>>
+>>>>> Yes, please.
+>>>>
+>>>> Yeah I do trust you Marc that it actually works for you and I'm not
+>>>> gonna delay this series because of that, but please go ahead and
+>>>> reboot-loop your board
+>>>>
+>>>> 8998/660 is """famous""" for it's iommu problems
+>>>
+>>> [   20.501062] arm-smmu 16c0000.iommu: Unhandled context fault: fsr=0x402, iova=0x00000000, fsynr=0x1, cbfrsynra=0x1900, cb=0
+>>>
+>>> I get the above warning pretty reliably.
+>>> I don't think it's related to the issue(s) you mentioned.
+>>> System just keeps plodding along.
+>>
+>> Yeah that one's "fine"
+> 
+> I booted 40 times in a loop.
+> 
+> `grep -a -i FSYNR console.logs` just returns the same 16c0000.iommu
+> "Unhandled context fault" message 76 times (as above).
+> 
+> NB: I have maxcpus=1 set in bootargs.
+> 
+> Could the iommu issue be a race condition, NOT triggered when code
+> runs with less parallelism?
 
-I booted 40 times in a loop.
+No clue, can you try without maxcpus=1?
 
-`grep -a -i FSYNR console.logs` just returns the same 16c0000.iommu
-"Unhandled context fault" message 76 times (as above).
+The thing will likely run slower (because reasons), but shouldn't
+explode
 
-NB: I have maxcpus=1 set in bootargs.
-
-Could the iommu issue be a race condition, NOT triggered when code
-runs with less parallelism?
-
-Regards
-
+Konrad
