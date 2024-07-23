@@ -2,67 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2491939F97
-	for <lists+freedreno@lfdr.de>; Tue, 23 Jul 2024 13:18:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E055D939F9C
+	for <lists+freedreno@lfdr.de>; Tue, 23 Jul 2024 13:19:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D1C210E051;
-	Tue, 23 Jul 2024 11:18:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03CAB10E566;
+	Tue, 23 Jul 2024 11:19:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VG/gVfRY";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WuqxV4Zx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12A6B10E55C
- for <freedreno@lists.freedesktop.org>; Tue, 23 Jul 2024 11:18:36 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-a7a47e2179dso85003766b.3
- for <freedreno@lists.freedesktop.org>; Tue, 23 Jul 2024 04:18:36 -0700 (PDT)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 636C710E566
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Jul 2024 11:18:51 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2ef2cb7d562so28830871fa.3
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Jul 2024 04:18:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721733515; x=1722338315; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1721733529; x=1722338329; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=K8pz/FAf9Y2J7AWsrfobX5Hrf5irrouEfWs4xbMtYH8=;
- b=VG/gVfRYiaJjngfpEa49rZw074nTVIWl4+oCoRBO3No5Dl4Yzzeyss+jZsdizyQcw+
- rIjIUFu7u9w4uwiv/Jfr4QzjWxtXna28/3/mc7RsIL7IKs6isi+FOv7/KpbrfoVCclN0
- 3yTmJhReHbzEyNzNaZXBDHLbgkKfnKBHOwqwMbebvDQ1C8EMQuMQxKtm7ePV1KurFWCZ
- J3GTSz6qWwcKhH62IVu4mZ6OOFGKlwaGy6PHuem2gwNsklmSkDjYC2Y34CIwlG9vqC/l
- zz+aKhdgMMqlTsn2ke2PVdF1REWLqb6Pt7FCoFAq906cphpT8oe84K7Zj6qoo/ud1oqk
- UNLA==
+ bh=kFolGW5KvoLUbpFl88RtzAVsMtpA+UoJdah8t87Ny1E=;
+ b=WuqxV4ZxBc4Z1maN9M0vXnXZQZNneMIlq8alCRZlmy0K7sofxEjRz2ybi3jNB1mAMP
+ pobiYnjK9cy+tGLgvTj9Nlqsji5wxrn+LVoQ569LUw+by8KKYkKKqN5I0AnaHa9Z1JOZ
+ z0WMo8cnjwoR8Sf/r3n3WN31Al1dUauwQNDCtzvJKKtxBzbQWpfjIEOaZbchzUtwueqW
+ Gmky897i9j8uyKUVHCj/bb64DWjLsEU7rSIKVeBsuTbFnVNXYSIJnEWSnzLM6rtWfkrq
+ ZXIxvA1XnP7fd1GWpL7QI6qB74t+yePg4gvBogK5Dopc41rj2dG8j7H8LKzFkrycpMxO
+ JE2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721733515; x=1722338315;
+ d=1e100.net; s=20230601; t=1721733529; x=1722338329;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=K8pz/FAf9Y2J7AWsrfobX5Hrf5irrouEfWs4xbMtYH8=;
- b=Oe5i+uasoc8GrA+6aMhK8v8QQImzK3WECRuZhBFB/7O5Hk6ud4cbrmwDIYsMXth50e
- CN2fP0Qv3rfPV4j0E7Llg/j7GX5R7Eqj7Xj7xtcWexcDhhpvMi1133q0GzqnSVMGpl6G
- PbZ9tsGr000Hkhxo16U841bEmM4/NTRiZxJONyNhmJPsjg0q0yGtXr0VS5MsEVdJUxvM
- Hkrj4lFmLI/x61PsbOhJOUhT43i77vZ/2QhswZSy0K50dEEMER9nRUkLtKwP8O7bs/KU
- 2uwzk4DwDnQvFumLVPyyfTretq66Bm9hwxWtJn2E4LJ25appZq/QNZp/XjCqastBonUU
- DryA==
+ bh=kFolGW5KvoLUbpFl88RtzAVsMtpA+UoJdah8t87Ny1E=;
+ b=L57UVHYgegdi3R3sB7gQsA+WQyQAToIzvFrR+E+mMkZ5riC6vbFMpfOb67etzJkpfu
+ X6P74LhKteP3jZBLhRgGOFep1wlEbKvthDmVlx3ph/ogIYdEO0a2cayuaVbTiJ0J/l5P
+ AUuBmBLv5bjbvVQlFC0l2ucZVHE+L4IXilILsmCAsXickTgciHt2+6e1bcnV5737ACE2
+ 9R3Os8qFBZkDE5YQH47l1pwhN+mxToMLJaFAnOExYUIuu7eMCG8D/G1Hhho8+pWve1bE
+ xUI+ZO72Pt0UToeYoCE/m8ylMmxf5rmxR7OoeTH6vrgzn38Lxibcovl2P9pFZQMlAi4v
+ r5Tw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUoB4c4D7/2p1yZ8l8gbAlwS2Ykqc5BB/G2q825tJL8Y71FCcJKYPhNgc+AQ9paz5M18V3+W7zTxIQ+JHBp9QLa5MkTHQISxD4afGA/xzl1
-X-Gm-Message-State: AOJu0YxZ4pYsC/NPibonhXCmqjGuXZ/2sgfRTmNAOoXlGGMkVmepmnIi
- 4ajmrKriMcRVfg4gTNAxQBcEzb2vycYW01s/tYi5mMccOEV4e510TtcyzITduNs=
-X-Google-Smtp-Source: AGHT+IH+nAkhVaUuFpy0eYD4Hkm0wvZYu/TgIVWiiE/k5Ra+9jejRzLV7ZCLoUoz8xpoEdWHoADa0w==
-X-Received: by 2002:a17:907:9714:b0:a77:c26c:a570 with SMTP id
- a640c23a62f3a-a7a87e35d7amr196478266b.36.1721733514925; 
- Tue, 23 Jul 2024 04:18:34 -0700 (PDT)
+ AJvYcCV+mmWgaHpKic22jrqlHSnBi3/12H07zxj+NUVSez6FzGPdSRm+xiaP5ZWjkk/ExKjxPlReGlbFuBcdXzvIMXA8sW2CGWE3sSSgoyC9oQVu
+X-Gm-Message-State: AOJu0YwxUx4sahrjVGfmXsmpcZPAEuob4+Jf55xtEiPM30qb71jGS3Xd
+ uiVXwo762a8/q/prRm4tT8lKAXqtdWEffMYccyURLuag5cvm+4GRmxMzcMvuG6E=
+X-Google-Smtp-Source: AGHT+IGh8ROLZYy+YmkLstU1pE8fBMI6VzD2hNGUxS476G6ZpE+5Khphj8l5y5mfEcxQaVxTwFRgzg==
+X-Received: by 2002:a05:651c:104d:b0:2ef:2247:9881 with SMTP id
+ 38308e7fff4ca-2ef22479eb3mr68564041fa.31.1721733529173; 
+ Tue, 23 Jul 2024 04:18:49 -0700 (PDT)
 Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7aa450c188sm15632966b.34.2024.07.23.04.18.32
+ 4fb4d7f45d1cf-5a7661b26c4sm3497845a12.26.2024.07.23.04.18.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jul 2024 04:18:34 -0700 (PDT)
-Message-ID: <9932bf45-f0e6-49c4-9d46-e55f66fee556@linaro.org>
-Date: Tue, 23 Jul 2024 13:18:31 +0200
+ Tue, 23 Jul 2024 04:18:48 -0700 (PDT)
+Message-ID: <47fb662f-cff7-4b88-b960-af9733feab45@linaro.org>
+Date: Tue, 23 Jul 2024 13:18:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drivers: drm/msm/a6xx_catalog: Add A642L speedbin
- (0x81)
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: sc7280: Add 0x81 Adreno speed bin
 To: Danila Tikhonov <danila@jiaxyga.com>, andersson@kernel.org,
  robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
  robdclark@gmail.com, sean@poorly.run, quic_abhinavk@quicinc.com,
@@ -72,7 +71,7 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, cros-qcom-dts-watchers@chromium.org
 References: <20240722184314.36510-1-danila@jiaxyga.com>
- <20240722184314.36510-2-danila@jiaxyga.com>
+ <20240722184314.36510-3-danila@jiaxyga.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
@@ -110,7 +109,7 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20240722184314.36510-2-danila@jiaxyga.com>
+In-Reply-To: <20240722184314.36510-3-danila@jiaxyga.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -131,7 +130,8 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 On 22.07.2024 8:43 PM, Danila Tikhonov wrote:
 > From: Eugene Lepshy <fekz115@gmail.com>
 > 
-> According to downstream, A642L's speedbin is 129 and uses 4 as index
+> A642L (speedbin 0x81) uses index 4, so this commit
+> sets the fourth bit for A642L supported opps.
 > 
 > Signed-off-by: Eugene Lepshy <fekz115@gmail.com>
 > Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
