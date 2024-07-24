@@ -2,99 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5299B93A2F5
-	for <lists+freedreno@lfdr.de>; Tue, 23 Jul 2024 16:40:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44C0F93B34A
+	for <lists+freedreno@lfdr.de>; Wed, 24 Jul 2024 17:02:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4BC789CAC;
-	Tue, 23 Jul 2024 14:40:57 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="AGg+6RaE";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B96610E71A;
+	Wed, 24 Jul 2024 15:02:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D92AB89830
- for <freedreno@lists.freedesktop.org>; Tue, 23 Jul 2024 14:40:53 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-36858357bb7so2981230f8f.2
- for <freedreno@lists.freedesktop.org>; Tue, 23 Jul 2024 07:40:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1721745649; x=1722350449;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=T3K8m7UYLI9e2nw2FiKuLBXvna2sOiFY/YtJCGaVVwg=;
- b=AGg+6RaEyAcymvEMd3dSBZryNGTD65zBHSYMPOuU12BMRAu4EUKVzttfyeqf3Evjx2
- WSzhBNxy2EVhHhA1oRJW27a3hWoBDncfoyrqBb5kJC8h8/2m5dzeK0AVTQPAWu4yeDP1
- peijWJDuf/h6pH+WIlxlMLrKvtz+0UlNa4e4P0PU6E5QmNJKk+/On7WncxA2LWPv7Kdk
- PRiCa6YmIF14gurOausSYMH9j/ANWjHzVU57AN0qmzyGQ+eya2RnGb+XEGPb3w7CO+Sr
- 48+3jfuekG2uxJbjdVc/QU708BWcP/1dzYtRKXY2H/QLM6K2pBkk9Pl+hOcAnriNxVkj
- LKtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721745649; x=1722350449;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=T3K8m7UYLI9e2nw2FiKuLBXvna2sOiFY/YtJCGaVVwg=;
- b=N7JnyY25hELMrVZBO+PT7iDkBpCtMEcgycbnbPqiKInYyd7E/WDUVINrNRhwYVCcrW
- bsVgdjDE5v6OvsqGFDE1g8bsD9jzYz4tG6Qjw4R5nMAZKOJxmkFnc7mWjwhbMAR7qYEp
- Rb9RXs4kUCBSnVfv72nCg/QGM8QKfdBJWlZSQ1x/mwipE3NtgPhhP2nOYWv6tFb37XGL
- CO+VV4W2wBwMQAuSFz20XfwVmmIDhtOp2n+Q44hJyIZKbKatToKdxu8D136Ryd8BJLi1
- hYD0HnwcP6e3KBrgbY0dds4WHOli9i+nVOLsozqnQHdJ9rs8Igg2VgcYP9Et1aT67vbU
- y9hg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVSElByMqX8JSi3yFdvQhgtyL0Z9y80VLEfUUnDix5ZUb2libxB4Cpdhc4pEcJrs1k50m6BOQ1aJKiRuzreWau6zoTugg0d3p0xF5lcHQJf
-X-Gm-Message-State: AOJu0Yzpl/n3n5OPJcpKrNuvKBd18hjh55DsX2B2/+YSOsR38GPISw+X
- fTEpryE3bcAAnfhIA1i0r/Z3HPLtc4IIYl+n7/5VPTkyeVFRlX+/dQQcCKEP7KU=
-X-Google-Smtp-Source: AGHT+IGlwpdFnzbN5dFR3IJlUvCm4jcY/F9lixNZD/n0wR4wTR15Py/Fg3+cKLPkHHM/vuMRaPpzDw==
-X-Received: by 2002:a05:6000:4026:b0:367:8a3b:2098 with SMTP id
- ffacd0b85a97d-369bbbb2e21mr7254343f8f.3.1721745649159; 
- Tue, 23 Jul 2024 07:40:49 -0700 (PDT)
-Received: from [192.168.108.81] (freebox.vlq16.iliad.fr. [213.36.7.13])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-368787cf182sm11760210f8f.82.2024.07.23.07.40.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jul 2024 07:40:48 -0700 (PDT)
-Message-ID: <0d5d3918-3988-4d29-8bb3-aaf7b0aa0045@freebox.fr>
-Date: Tue, 23 Jul 2024 16:40:47 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/4] arm64: dts: qcom: add HDMI nodes for msm8998
-To: Konrad Dybcio <konrad.dybcio@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I
- <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Arnaud Vrac <avrac@freebox.fr>, Pierre-Hugues Husson <phhusson@freebox.fr>,
- Jeffrey Hugo <quic_jhugo@quicinc.com>
-References: <20240627-hdmi-tx-v5-0-355d5c1fbc3c@freebox.fr>
- <20240627-hdmi-tx-v5-4-355d5c1fbc3c@freebox.fr>
- <d9898342-2439-4d3d-8e3d-5bf0a7a40245@linaro.org>
- <b6f6c845-6094-44ce-8ad0-ed4f6d353cec@freebox.fr>
- <CAA8EJpqrAFKCr63JHEpZ3b3zdRfoNXoJP6SqKDOO4sqc=c6YdQ@mail.gmail.com>
- <44101ecd-61f4-4609-bb22-12b40b692552@freebox.fr>
- <CAA8EJpprtmefNM_CJFRbYVNxOWUVVWbedBq44r7GXOdDrQ2WjA@mail.gmail.com>
- <04ef978f-2bfd-46cc-a9f7-40a6f1c507f8@linaro.org>
- <7d34a857-6495-482b-9070-1817c88c9913@freebox.fr>
- <45f5dae6-c606-4612-900a-b719f58d92ce@linaro.org>
- <a8c7db04-7212-4bf0-b8b1-d371ee33478b@freebox.fr>
- <57c165e6-d942-4a17-a26b-7e4a0422127c@linaro.org>
-Content-Language: en-US
+Received: from ns.iliad.fr (ns.iliad.fr [212.27.33.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E13F610E70E;
+ Wed, 24 Jul 2024 15:01:56 +0000 (UTC)
+Received: from ns.iliad.fr (localhost [127.0.0.1])
+ by ns.iliad.fr (Postfix) with ESMTP id E615020732;
+ Wed, 24 Jul 2024 17:01:54 +0200 (CEST)
+Received: from [127.0.1.1] (freebox.vlq16.iliad.fr [213.36.7.13])
+ by ns.iliad.fr (Postfix) with ESMTP id CD69D20572;
+ Wed, 24 Jul 2024 17:01:54 +0200 (CEST)
 From: Marc Gonzalez <mgonzalez@freebox.fr>
-In-Reply-To: <57c165e6-d942-4a17-a26b-7e4a0422127c@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH v7 0/6] HDMI TX support in msm8998
+Date: Wed, 24 Jul 2024 17:01:33 +0200
+Message-Id: <20240724-hdmi-tx-v7-0-e44a20553464@freebox.fr>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAE0XoWYC/2XOy26DMBCF4VeJvO5Uvo7jrvoeVRa+jIsXCZFBi
+ Cri3WPYQMXySPP9mhcbqBYa2NflxSpNZSj9ow37cWGx849fgpLaZpJLzZEjdOleYJyBc6Ir2ZS
+ Cj6xdPyvlMm+ln1vbufZ3GLtKfvNexiCk4+CIC9BCITjjJETSygXBHQb8zpUo9PNnrmuxK8PY1
+ 7/ttUmt3fMXk4KWTDZTwKRQ22NjfWPSByjUDnWD2mdhSeMVnTtBc4DS7tA0qIxJJoocoooniDu
+ 0wuwQG0zSZi5dC/r0Dy7L8gaZahOLjAEAAA==
+To: Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, Arnaud Vrac <avrac@freebox.fr>, 
+ Pierre-Hugues Husson <phhusson@freebox.fr>, 
+ Jeffrey Hugo <quic_jhugo@quicinc.com>, Marc Gonzalez <mgonzalez@freebox.fr>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.13.0
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,93 +64,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/07/2024 15:43, Konrad Dybcio wrote:
+DT bits required for HDMI TX support in qcom APQ8098 (MSM8998 cousin)
 
-> On 23.07.2024 3:38 PM, Marc Gonzalez wrote:
->
->> On 23/07/2024 15:08, Konrad Dybcio wrote:
->>
->>> On 23.07.2024 2:57 PM, Marc Gonzalez wrote:
->>>
->>>> On 23/07/2024 13:45, Konrad Dybcio wrote:
->>>>
->>>>> On 23.07.2024 11:59 AM, Dmitry Baryshkov wrote:
->>>>>
->>>>>> On Tue, 23 Jul 2024 at 12:48, Marc Gonzalez wrote:
->>>>>>
->>>>>>> On 16/07/2024 18:37, Dmitry Baryshkov wrote:
->>>>>>>
->>>>>>>> No, that's fine. It is the SMMU issue that Konrad has been asking you
->>>>>>>> to take a look at.
->>>>>>>
->>>>>>> Context:
->>>>>>>
->>>>>>> [    4.911422] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
->>>>>>> [    4.923353] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
->>>>>>> [    4.927893] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
->>>>>>> [    4.941928] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
->>>>>>> [    4.944438] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
->>>>>>> [    4.956013] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
->>>>>>> [    4.961055] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
->>>>>>> [    4.974565] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
->>>>>>> [    4.977628] arm-smmu cd00000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x0
->>>>>>> [    4.989670] arm-smmu cd00000.iommu: FSYNR0 = 00000021 [S1CBNDX=0 PNU PLVL=1]
->>>>>>>
->>>>>>>
->>>>>>> As I mentioned, I don't think I've ever seen issues from cd00000.iommu
->>>>>>> on my board.
->>>>>>
->>>>>> Interestingly enough, I can also see iommu errors during WiFi startup
->>>>>> / shutdown on msm8998 / miix630. This leads me to thinking that it
->>>>>> well might be that there is a missing quirk in the iommu driver.
->>>>>>
->>>>>>> I can test a reboot loop for a few hours, to see if anything shows up.
->>>>>>
->>>>>> Yes, please.
->>>>>
->>>>> Yeah I do trust you Marc that it actually works for you and I'm not
->>>>> gonna delay this series because of that, but please go ahead and
->>>>> reboot-loop your board
->>>>>
->>>>> 8998/660 is """famous""" for it's iommu problems
->>>>
->>>> [   20.501062] arm-smmu 16c0000.iommu: Unhandled context fault: fsr=0x402, iova=0x00000000, fsynr=0x1, cbfrsynra=0x1900, cb=0
->>>>
->>>> I get the above warning pretty reliably.
->>>> I don't think it's related to the issue(s) you mentioned.
->>>> System just keeps plodding along.
->>>
->>> Yeah that one's "fine"
->>
->> I booted 40 times in a loop.
->>
->> `grep -a -i FSYNR console.logs` just returns the same 16c0000.iommu
->> "Unhandled context fault" message 76 times (as above).
->>
->> NB: I have maxcpus=1 set in bootargs.
->>
->> Could the iommu issue be a race condition, NOT triggered when code
->> runs with less parallelism?
-> 
-> No clue, can you try without maxcpus=1?
+---
+Changes in v7:
+- prefix the labels hdmi: and hdmi_phy: with mdss_ (Konrad)
+- DID NOT MODIFY patch 3, based on conversation between Conor & Dmitry
+- tested 40+40 boots with/without maxcpus=1 => no iommu panic witnessed
+- Collect tags from Konrad & Dmitry (hopefully b4 did the right thing)
+- Link to v6: https://lore.kernel.org/r/20240715-hdmi-tx-v6-0-d27f029627ad@freebox.fr
 
-Same behavior without maxcpus=1
+Changes in v6:
+- Fold HDMI PHY driver submission into this series
+  => [PATCH v2] drm/msm: add msm8998 hdmi phy/pll support
+  => Link to v2: https://lore.kernel.org/all/20240704-hdmi-phy-v2-1-a7f5af202cb5@freebox.fr/
+     - Rebase onto v6.10
+     - Move drivers/gpu/drm/msm/hdmi/hdmi.xml.h to drivers/gpu/drm/msm/registers/display/hdmi.xml
+     - Add copyright attribution
+     - Remove all dead/debug/temporary code
+  => Link to v1: https://lore.kernel.org/all/63337d63-67ef-4499-8a24-5f6e9285c36b@freebox.fr/
+- split HDMI PHY driver patch in 2 parts (PHY & TX)
+- Use same regulator names as msm8996 (Dmitry)
+- Remove printk statements
+- Add Vinod's Ack on patch 1
+- Expand commit message on patch 4 = HDMI PHY driver
+- Link to v5: https://lore.kernel.org/r/20240627-hdmi-tx-v5-0-355d5c1fbc3c@freebox.fr
 
-40 boots, no panics, no FSYNR other than 16c0000.iommu
+Changes in v5:
+- Fix property & property-names for TX pinctrl in DTSI (Konrad)
+- NOT CHANGED: clock trees for TX & PHY based on Dmitry & Jeffrey's remarks
+- Link to v4: https://lore.kernel.org/r/20240613-hdmi-tx-v4-0-4af17e468699@freebox.fr
 
-> The thing will likely run slower (because reasons), but shouldn't
-> explode
+Changes in v4:
+- Collect tags since v3
+- Reword patch 1 subject (Vinod)
+- Link to v3: https://lore.kernel.org/r/20240606-hdmi-tx-v3-0-9d7feb6d3647@freebox.fr
 
-That makes sense!
+Changes in v3
+- Address Rob's comments on patch 2:
+  - 'maxItems: 5' for clocks in the 8996 if/then schema
+  - match the order of 8996 for the clock-names in common
 
-- Hey, boot is slow. What can we do to make it slower?
-- Well, just add a bunch of cores running in parallel, that will get the job done!
+---
+Arnaud Vrac (2):
+      drm/msm: add msm8998 hdmi phy/pll support
+      arm64: dts: qcom: add HDMI nodes for msm8998
 
-As a matter of fact, trying to boot to command-line with
-maxcpus=1 causes the system to lock up & reboot.
-I had to add a systemd script to enable some cores at init.
-Some qcom daemon must be locking a core & expect progress
-from another process.
+Marc Gonzalez (4):
+      dt-bindings: phy: add qcom,hdmi-phy-8998
+      dt-bindings: display/msm: hdmi: add qcom,hdmi-tx-8998
+      drm/msm/hdmi: add "qcom,hdmi-tx-8998" compatible
+      arm64: dts: qcom: msm8998: add HDMI GPIOs
 
-Regards
+ .../devicetree/bindings/display/msm/hdmi.yaml      |  28 +-
+ .../devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml |   1 +
+ arch/arm64/boot/dts/qcom/msm8998.dtsi              | 128 +++-
+ drivers/gpu/drm/msm/Makefile                       |   1 +
+ drivers/gpu/drm/msm/hdmi/hdmi.c                    |   1 +
+ drivers/gpu/drm/msm/hdmi/hdmi.h                    |   8 +
+ drivers/gpu/drm/msm/hdmi/hdmi_phy.c                |   5 +
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c           | 779 +++++++++++++++++++++
+ drivers/gpu/drm/msm/registers/display/hdmi.xml     |  89 +++
+ 9 files changed, 1037 insertions(+), 3 deletions(-)
+---
+base-commit: 003a26f5074bfe024603cf76f8fd486a5344f307
+change-id: 20240606-hdmi-tx-00ee8e7ddbac
+
+Best regards,
+-- 
+Marc Gonzalez <mgonzalez@freebox.fr>
 
