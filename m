@@ -2,80 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED9B193CA95
-	for <lists+freedreno@lfdr.de>; Fri, 26 Jul 2024 00:06:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 634B493D1F0
+	for <lists+freedreno@lfdr.de>; Fri, 26 Jul 2024 13:18:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C71BE10E495;
-	Thu, 25 Jul 2024 22:06:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF4710E8CE;
+	Fri, 26 Jul 2024 11:18:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="gh9h2lbe";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TslsFKWu";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6E5910E34E;
- Thu, 25 Jul 2024 22:06:26 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46PK6CZf012977;
- Thu, 25 Jul 2024 22:06:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=4Xr0VOoH9Oels4LwmfIWSB
- JBaoyGwRSVwoIfedkNq7Y=; b=gh9h2lbe392wrpN4cQ2n7DBhDEMYvSc8nUrvFL
- +rVEJeYYX3IP21EQ8/7oRHYOAjEEdvUmQuxCAwaB/S1mIlBsSMdWJga5VgPcDnTz
- UBAJqO8pQ+XKzzHQioRvj7xR+2zPjCdSTi0zxXFaN9CP5AoylFGXphQlFI2Xedj1
- OXaqipV3geSOzMbDT5ucOC2ASqhQYahxMOr11GNAIoonNneEUHCDXWdPNJhY1fT1
- yEVn7XkfDwx7jI8KDEOCjFONvCtA5Rw9XyHLY0DI5p2JJkbxUa2SSpHjvlsgkBqF
- fVyvXguHjpJRqhZmrLEbDr3stXMgylg6YTYTIqSlrQdvCo7Q==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40g2xepf7p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Jul 2024 22:06:18 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 46PM6Hxd031735
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Jul 2024 22:06:17 GMT
-Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Thu, 25 Jul 2024 15:06:17 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <freedreno@lists.freedesktop.org>, Vinod Koul <vkoul@kernel.org>, "Kishon
- Vijay Abraham I" <kishon@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>
-CC: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <quic_jesszhan@quicinc.com>,
- <dmitry.baryshkov@linaro.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-phy@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] phy: qcom: com-qmp-combo: fix swing and pre-emphasis table
- for sm8350
-Date: Thu, 25 Jul 2024 15:06:08 -0700
-Message-ID: <20240725220608.131426-1-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.44.0
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED5FA10E8CE
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Jul 2024 11:18:40 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-a77ec5d3b0dso170299366b.0
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Jul 2024 04:18:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1721992719; x=1722597519; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=s1uKdlL0wSEZi8PR/aafT2ubUVc/pu4j0AuCIvADTbc=;
+ b=TslsFKWuzvr+cjTl+YAK6Ssl7qDx4IwSAZP+KaJ2a51kRre9LgR7mBaC4b34q3QFZs
+ 8cSPZ9/KNiF4QaSDeU384hLwROTtHjN/B+MS1ysu01+8Rw+wU1xiUDRJmuxlHAd7lrds
+ Z4HrXNw3nObVyy+ss//dlkeXnesCjU1A+dz6refVyvrjnmP7H3YB21J6hmZoJE2NT8Pi
+ vuk2VnWvIEBTlRZ5CHy1/bigL4P1LjOgCdfsFmiObYv3sbuC6xkNI7mqg1ofEUQT3+yc
+ ULAN4i0n4dHPJb99yGFSVbVWKHdOTmYDa0iTHkKtL/qpzjUkwDWaJNq6GUgFmgR+nbBy
+ CDXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721992719; x=1722597519;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=s1uKdlL0wSEZi8PR/aafT2ubUVc/pu4j0AuCIvADTbc=;
+ b=d6+LtuL4G8taDl/Pe5Hv1BwJ0A5B2fvH7t49bQDnaxAB3uGyy7ltBfFWM8TupCdIRG
+ a53uiq23B3dTDle77gr/kYCr6VMI0iawrNhh2bixEWWV/lE4NjEAIVUfZbzXTPUxsJ6W
+ A8/wOy3vHw6gEi4OJa3B6a+o4Q0BITtmFsviYMORCKokIMj10+d1DD8DYsJICmxqAa0+
+ QPAQutt4ug0wF9DcnvtqO9SOC5wT10DXrGOCpNHUQ9FyfBoNPcUXep9/KuLFBfpz5Mqm
+ FfQQJ00EVnbSIxOMBcN5doWjX4nLgghWrcPReLGYTI9WEeU74kI78jE5doddIlqkoOQD
+ 7lug==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVgyWEA/PNmDSGb6oUy8wVivQpK/8ilQZHs4q8VIULFq+IjUmQpAZB8HXz/NCcsv/n/l731KZzjVXP38mT+WeerIuMD2kgC+cEwrheELfxw
+X-Gm-Message-State: AOJu0YyBhjlgFDDRvUDQ+AJdn2eOgrDH/45og6nWJK6BQDYxU3AM/GH2
+ hw7ZzyYIomvrviMUN50UhOhJS89KKWGeZKUTKKfgAfgYi2FmqVjZy0lM2pjS8P0=
+X-Google-Smtp-Source: AGHT+IGHu6xTju0RbmaTB0Dy2P+ddiDMN8D4wOU+C0PeZvuRz87E8qSyxApkJD6EGVWwoobzF5Xq6w==
+X-Received: by 2002:a17:907:2d24:b0:a7a:9d1e:3b26 with SMTP id
+ a640c23a62f3a-a7acb549275mr421259766b.37.1721992719060; 
+ Fri, 26 Jul 2024 04:18:39 -0700 (PDT)
+Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acab233aasm164703166b.8.2024.07.26.04.18.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Jul 2024 04:18:38 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+X-Google-Original-From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH 0/3] Update Konrad Dybcio's email addresses
+Date: Fri, 26 Jul 2024 13:18:22 +0200
+Message-Id: <20240726-topic-konrad_email-v1-0-f94665da2919@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 1beyXof8fSBG02NUCTBuja8NNDMIGlF6
-X-Proofpoint-ORIG-GUID: 1beyXof8fSBG02NUCTBuja8NNDMIGlF6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-25_24,2024-07-25_03,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 spamscore=0
- lowpriorityscore=0 bulkscore=0 mlxlogscore=999 mlxscore=0 adultscore=0
- phishscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2407110000 definitions=main-2407250151
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAP6Fo2YC/x3MQQqAIBBA0avErBNMo6SrRITaVEOloRFBePek5
+ Vv8/0LEQBihK14IeFMk7zKqsgC7arcgoykbBBc1b0XDLn+SZZt3QU8jHpp2priyjeTGGqkhh2f
+ AmZ5/2g8pfQKYJ6pkAAAA
+To: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-pm@vger.kernel.org, iommu@lists.linux.dev, linux-gpio@vger.kernel.org, 
+ linux-remoteproc@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1721992717; l=2541;
+ i=konradybcio@kernel.org; s=20230215; h=from:subject:message-id;
+ bh=iPIs676Ucz0BFAPc0hUibqb4aH8rrVS00mYl6TySE0A=;
+ b=y37EdpPnKb8Uuo1vP3UyO10uS4Yy5aBrR7It7aQ9tbVd9QdazQPQ5o2NGj8MGWFoSa4MRnPPc
+ DnUX7Yunj3PCdZV2CImioEtUcYA9dZXN1FNJa0bSpthvfs1q3b+CGmz
+X-Developer-Key: i=konradybcio@kernel.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,30 +98,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix the voltage swing and pre-emphasis tables for sm8350 as the current
-one do not match the hardware docs.
+Patch 3 should probably go straight to Rob's dt-bindings tree
 
-Fixes: ef14aff107bd ("phy: qcom: com-qmp-combo: add SM8350 & SM8450 support")
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Konrad Dybcio <konradybcio@kernel.org>
 ---
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Konrad Dybcio (3):
+      mailmap: Add an entry for Konrad Dybcio
+      MAINTAINERS: Update Konrad Dybcio's email address
+      dt-bindings: Batch-update Konrad Dybcio's email
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index 31e43638a649..c15b01aa5a48 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -1946,8 +1946,8 @@ static const struct qmp_phy_cfg sm8350_usb3dpphy_cfg = {
- 
- 	.swing_hbr_rbr		= &qmp_dp_v4_voltage_swing_hbr_rbr,
- 	.pre_emphasis_hbr_rbr	= &qmp_dp_v4_pre_emphasis_hbr_rbr,
--	.swing_hbr3_hbr2	= &qmp_dp_v3_voltage_swing_hbr3_hbr2,
--	.pre_emphasis_hbr3_hbr2 = &qmp_dp_v4_pre_emphasis_hbr3_hbr2,
-+	.swing_hbr3_hbr2	= &qmp_dp_v5_voltage_swing_hbr3_hbr2,
-+	.pre_emphasis_hbr3_hbr2 = &qmp_dp_v5_pre_emphasis_hbr3_hbr2,
- 
- 	.dp_aux_init		= qmp_v4_dp_aux_init,
- 	.configure_dp_tx	= qmp_v4_configure_dp_tx,
+ .mailmap                                                            | 2 ++
+ Documentation/devicetree/bindings/clock/qcom,dispcc-sm6350.yaml     | 2 +-
+ Documentation/devicetree/bindings/clock/qcom,gcc-msm8994.yaml       | 2 +-
+ Documentation/devicetree/bindings/clock/qcom,gcc-sm6125.yaml        | 2 +-
+ Documentation/devicetree/bindings/clock/qcom,gcc-sm6350.yaml        | 2 +-
+ Documentation/devicetree/bindings/clock/qcom,sm6115-gpucc.yaml      | 2 +-
+ Documentation/devicetree/bindings/clock/qcom,sm6125-gpucc.yaml      | 2 +-
+ Documentation/devicetree/bindings/clock/qcom,sm6350-camcc.yaml      | 2 +-
+ Documentation/devicetree/bindings/clock/qcom,sm6375-dispcc.yaml     | 2 +-
+ Documentation/devicetree/bindings/clock/qcom,sm6375-gcc.yaml        | 2 +-
+ Documentation/devicetree/bindings/clock/qcom,sm6375-gpucc.yaml      | 2 +-
+ Documentation/devicetree/bindings/clock/qcom,sm8350-videocc.yaml    | 2 +-
+ Documentation/devicetree/bindings/clock/qcom,sm8450-gpucc.yaml      | 2 +-
+ Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml | 2 +-
+ .../devicetree/bindings/display/panel/asus,z00t-tm5p5-nt35596.yaml  | 2 +-
+ .../devicetree/bindings/display/panel/sony,td4353-jdi.yaml          | 2 +-
+ .../devicetree/bindings/interconnect/qcom,sc7280-rpmh.yaml          | 2 +-
+ .../devicetree/bindings/interconnect/qcom,sc8280xp-rpmh.yaml        | 2 +-
+ .../devicetree/bindings/interconnect/qcom,sm8450-rpmh.yaml          | 2 +-
+ Documentation/devicetree/bindings/iommu/qcom,iommu.yaml             | 2 +-
+ Documentation/devicetree/bindings/pinctrl/qcom,mdm9607-tlmm.yaml    | 2 +-
+ Documentation/devicetree/bindings/pinctrl/qcom,sm6350-tlmm.yaml     | 2 +-
+ Documentation/devicetree/bindings/pinctrl/qcom,sm6375-tlmm.yaml     | 2 +-
+ Documentation/devicetree/bindings/remoteproc/qcom,rpm-proc.yaml     | 2 +-
+ .../devicetree/bindings/soc/qcom/qcom,rpm-master-stats.yaml         | 2 +-
+ MAINTAINERS                                                         | 6 +++---
+ 26 files changed, 29 insertions(+), 27 deletions(-)
+---
+base-commit: 2347b4c79f5e6cd3f4996e80c2d3c15f53006bf5
+change-id: 20240726-topic-konrad_email-808c630bcb3a
+
+Best regards,
 -- 
-2.44.0
+Konrad Dybcio <konradybcio@kernel.org>
 
