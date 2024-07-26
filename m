@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CEC593D1F2
-	for <lists+freedreno@lfdr.de>; Fri, 26 Jul 2024 13:18:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A915993D1F3
+	for <lists+freedreno@lfdr.de>; Fri, 26 Jul 2024 13:18:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF2110E95A;
-	Fri, 26 Jul 2024 11:18:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43B6A10E95B;
+	Fri, 26 Jul 2024 11:18:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DR/jF33M";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UyGM1BkX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC38110E954
- for <freedreno@lists.freedesktop.org>; Fri, 26 Jul 2024 11:18:42 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-5a1337cfbb5so2613950a12.3
- for <freedreno@lists.freedesktop.org>; Fri, 26 Jul 2024 04:18:42 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF7710E95B
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Jul 2024 11:18:44 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-a77ec5d3b0dso170305566b.0
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Jul 2024 04:18:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721992721; x=1722597521; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1721992723; x=1722597523; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=+RSSre3AYsx9Ck3+Gf7pgOKZ6yzR7bvdD8OyLOsFucA=;
- b=DR/jF33M1zHnljJqyUdl2dIhqiyQMIV8SsDB2hJiJun3CzIhlruMl/u466eY6Uvj+t
- 9l8Tt4zNV5JOTEQwA8fGT5i963Q5l9Ui3vpOGNTRPjmclKtYNJrF6NwlXPAaswHdVoas
- qHcwIpgjMBYbeRdqlulMtXNUG/US2/ybvH5kxn5fB541TCpoNXCFxjvK48+kd1+n5M7t
- w4nb38wuXtx1gbQhKsAzhiMmZv78WqLTZNivbPLxLlKqlDSDSD+zVKv/xJlC5O4/cWjS
- DqfhH2OFs9D+DpegfQbUx0t/dXja2Sm+JUgqBnYt58d2uFwnlXi3JmMiVepNacmHM9df
- U27A==
+ :reply-to; bh=VxGxU8SYIBjBWPzi4Sb41+wNLkpnb94P+sh7kj+6cNA=;
+ b=UyGM1BkX/hgAWSSX7/96QWDtMuVYbCeSGKyg73AVjMgw52jVLzZ0O/j4wryUzdYaAY
+ RT52UAPloT5YdeWZ0Gmq7Lq6k+IuEmYU0d9XeV0IlIulywuEf/jVUT5a5mT8mi8J52t7
+ zXGUGShRYoKbWwNkxMVVrJfGsTx6DcMgpr8i+g4IxeX1KvlA0weqJFBmwRbtXYTy7HRN
+ sgUcPMPWhQPOCVWbChhKR4Qn7UecpUiQmSB4umrXjKllLnBRNoAbUR3REzY6EGsvDVSi
+ NPScbVhJan0j57aO48qAAw5lb7BVpsH5wDnanORGyCAGYku2BceUGpwA0pg+ZUFomXqD
+ ZopA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721992721; x=1722597521;
+ d=1e100.net; s=20230601; t=1721992723; x=1722597523;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+RSSre3AYsx9Ck3+Gf7pgOKZ6yzR7bvdD8OyLOsFucA=;
- b=hTim0kDGQX9Qln7JvMDGCbcDETfEIeIb4BJuOGR+nKDnWKF606+oUHRoYvX4WQMIfQ
- ysdWmeOcTgBME7BiArGh8ivXpBRVxivsRmDpbLCvji6U4ugNHV82eS56uSJK6Y8aFpgx
- QEAsJv25wZwixaC0oVVnJZkDyUA98Vb1RlqwRhf5pZLV8gJVcJpdfQyvcB5irOTqAfSj
- 4N9mRmgaZd8YKmRg0Rdwt4yajGiSqKlLGUOpN5ufjUTt9NOfVo8nQHRwhXBsShjw4HbQ
- hZnDqJ6zMMFA42vVOhUjP/pjsGiWfMD+aK/MuPdB3Krxcb3CisBQuYmJKWUVSYk6d8wI
- Hg+g==
+ bh=VxGxU8SYIBjBWPzi4Sb41+wNLkpnb94P+sh7kj+6cNA=;
+ b=FGfymW2OYfkqEuyaZJvp6AWNgbUQixh1suJOemEGec3l9vJBHq4ndYe8Jt0gCEBA4M
+ aKFbotmRVlSN8cJaUVgp3yqS7fJ7iA8S+DxvEJC20nrhivvk7qM4cGKgBU06T/dNTu7g
+ fBSu5E+GbUCzSHXCvqgHpm3aOM3S78W5fu/Gx1PDaPmNk2acGIOnjG2AtKrpBXHsRio5
+ TYkBBalpIxtvEZrBsUJFdVhix3n2otUr3tT44lH5MUJsPkRAMV/tiXsRTUpPPF2fCUKl
+ fZzgjf4Bo9o9DFcunEe7paF9CoysphAR2+qSLuA0EiUxyEdFG3alEzmjX1NtiDZaJJ07
+ ub/w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUg96ljzrWqTIWfLdhy3TgvIFeiS2/zXGxlj2IpPQWlnYMjuykLcrDc+rLEV2HM0mBxEpIIziyuRcLOKSyVlB5Kzzdo/e/YdjOEl7ub1SzN
-X-Gm-Message-State: AOJu0Yw1nW6xAdrQ4Xw+z6TknrMhwhmCfqKfOxCX2yz79cwq3FUuPV+R
- jYHP482+vkEmxwzESa6H3ilgooqpQnBmPuhhP11PfBvIYqjZTdJbseZMb89IGKg=
-X-Google-Smtp-Source: AGHT+IGedxxg/izaM1e+VztqZWQWxkaWXqj8R3F912/FfkJgI46WkcgQ7+j+9WvvDIum0fdm0GHjIw==
-X-Received: by 2002:a17:907:6d01:b0:a7a:a0c9:124e with SMTP id
- a640c23a62f3a-a7ac4daffe8mr483108366b.4.1721992720735; 
- Fri, 26 Jul 2024 04:18:40 -0700 (PDT)
+ AJvYcCWkuhZq6s1fFZdmORWZ6KFuFM/InsW98i9RNiwStG5hhkNqCy2LODY49PqKq7H6xbadmM61YtaMndQGOhFz5a0j3XPzvRwzGtSl0eU1sFQm
+X-Gm-Message-State: AOJu0YzegFa7ykqaDOmCPugSO/WRtl4B4A3BB34duvctj4nQUoEm6eEk
+ YFPPkFei/6KxdIUTNflLhrqo8JstICnIY20hoOpBvqCy3B5xpYwxJkGI/Uq2JLU=
+X-Google-Smtp-Source: AGHT+IH+rwWCKvZykJlAAH6LNkpi65KtAACKb0MHHBRIglRLIVIJhjuI3O0okF7LvJcM+Fs+Wg3qfw==
+X-Received: by 2002:a17:907:971d:b0:a7a:ac5f:bbfa with SMTP id
+ a640c23a62f3a-a7acad1c3f2mr345732466b.0.1721992722770; 
+ Fri, 26 Jul 2024 04:18:42 -0700 (PDT)
 Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acab233aasm164703166b.8.2024.07.26.04.18.39
+ a640c23a62f3a-a7acab233aasm164703166b.8.2024.07.26.04.18.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jul 2024 04:18:40 -0700 (PDT)
+ Fri, 26 Jul 2024 04:18:42 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 X-Google-Original-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Fri, 26 Jul 2024 13:18:23 +0200
-Subject: [PATCH 1/3] mailmap: Add an entry for Konrad Dybcio
+Date: Fri, 26 Jul 2024 13:18:24 +0200
+Subject: [PATCH 2/3] MAINTAINERS: Update Konrad Dybcio's email address
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240726-topic-konrad_email-v1-1-f94665da2919@kernel.org>
+Message-Id: <20240726-topic-konrad_email-v1-2-f94665da2919@kernel.org>
 References: <20240726-topic-konrad_email-v1-0-f94665da2919@kernel.org>
 In-Reply-To: <20240726-topic-konrad_email-v1-0-f94665da2919@kernel.org>
 To: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -75,11 +75,11 @@ Cc: Marijn Suijten <marijn.suijten@somainline.org>,
  linux-pm@vger.kernel.org, iommu@lists.linux.dev, linux-gpio@vger.kernel.org, 
  linux-remoteproc@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1721992717; l=857;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1721992717; l=1340;
  i=konradybcio@kernel.org; s=20230215; h=from:subject:message-id;
- bh=ckCyUrhBgaUj/zbznCBeQ3fcpP9VdQ8U2iRFPANaIoI=;
- b=CNtGakN4VUWxmqa0J8qCXm3ryhK2xBygjVnd3sLEs1hjjigxFk6KXgVO8RguVUgvC2vrvozQN
- 0TFoswoCFN/Bf5JR+kUjCYQ/6OyAUzfDbdzncCFa0m34zezBQ43DbYf
+ bh=/dPro3zmVHXBKc6IoJRwERhe3BXDGxTNO7EBgEZy8h0=;
+ b=ju0yvv6H2nwlTdVb9cib/k9p3rqemfp5NXS7b/Y34MGtZuQUegciMPzF7tHC7+U6QA00B1Za2
+ ECyneyJz3BfD/m8cFCsM6T6occxCyUbApmwMI8k8On8FV3B08w8yBoX
 X-Developer-Key: i=konradybcio@kernel.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -97,26 +97,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Map my old addresses.
+Use my @kernel.org address everywhere.
 
 Signed-off-by: Konrad Dybcio <konradybcio@kernel.org>
 ---
- .mailmap | 2 ++
- 1 file changed, 2 insertions(+)
+ MAINTAINERS | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/.mailmap b/.mailmap
-index e51d76df75c2..d189c6424697 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -353,6 +353,8 @@ Kenneth Westfield <quic_kwestfie@quicinc.com> <kwestfie@codeaurora.org>
- Kiran Gunda <quic_kgunda@quicinc.com> <kgunda@codeaurora.org>
- Kirill Tkhai <tkhai@ya.ru> <ktkhai@virtuozzo.com>
- Kishon Vijay Abraham I <kishon@kernel.org> <kishon@ti.com>
-+Konrad Dybcio <konradybcio@kernel.org> <konrad.dybcio@linaro.org>
-+Konrad Dybcio <konradybcio@kernel.org> <konrad.dybcio@somainline.org>
- Konstantin Khlebnikov <koct9i@gmail.com> <khlebnikov@yandex-team.ru>
- Konstantin Khlebnikov <koct9i@gmail.com> <k.khlebnikov@samsung.com>
- Koushik <raghavendra.koushik@neterion.com>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 9200d953868e..6c7d3951192f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2745,7 +2745,7 @@ F:	include/linux/soc/qcom/
+ 
+ ARM/QUALCOMM SUPPORT
+ M:	Bjorn Andersson <andersson@kernel.org>
+-M:	Konrad Dybcio <konrad.dybcio@linaro.org>
++M:	Konrad Dybcio <konradybcio@kernel.org>
+ L:	linux-arm-msm@vger.kernel.org
+ S:	Maintained
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git
+@@ -7107,7 +7107,7 @@ F:	drivers/gpu/drm/tiny/panel-mipi-dbi.c
+ DRM DRIVER for Qualcomm Adreno GPUs
+ M:	Rob Clark <robdclark@gmail.com>
+ R:	Sean Paul <sean@poorly.run>
+-R:	Konrad Dybcio <konrad.dybcio@linaro.org>
++R:	Konrad Dybcio <konradybcio@kernel.org>
+ L:	linux-arm-msm@vger.kernel.org
+ L:	dri-devel@lists.freedesktop.org
+ L:	freedreno@lists.freedesktop.org
+@@ -18765,7 +18765,7 @@ F:	include/uapi/drm/qaic_accel.h
+ 
+ QUALCOMM CORE POWER REDUCTION (CPR) AVS DRIVER
+ M:	Bjorn Andersson <andersson@kernel.org>
+-M:	Konrad Dybcio <konrad.dybcio@linaro.org>
++M:	Konrad Dybcio <konradybcio@kernel.org>
+ L:	linux-pm@vger.kernel.org
+ L:	linux-arm-msm@vger.kernel.org
+ S:	Maintained
 
 -- 
 2.45.2
