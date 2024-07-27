@@ -2,74 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A92D93DC84
-	for <lists+freedreno@lfdr.de>; Sat, 27 Jul 2024 02:24:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 783FA93DF5E
+	for <lists+freedreno@lfdr.de>; Sat, 27 Jul 2024 14:47:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FEC810E090;
-	Sat, 27 Jul 2024 00:24:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5646010E09F;
+	Sat, 27 Jul 2024 12:47:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="E4o4mQ1u";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Lc/DofKM";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
- [209.85.219.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5090810E090
- for <freedreno@lists.freedesktop.org>; Sat, 27 Jul 2024 00:24:37 +0000 (UTC)
-Received: by mail-qv1-f41.google.com with SMTP id
- 6a1803df08f44-6b7a3e4686eso7949336d6.1
- for <freedreno@lists.freedesktop.org>; Fri, 26 Jul 2024 17:24:37 -0700 (PDT)
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
+ [209.85.128.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9031810E058
+ for <freedreno@lists.freedesktop.org>; Sat, 27 Jul 2024 12:47:11 +0000 (UTC)
+Received: by mail-yw1-f170.google.com with SMTP id
+ 00721157ae682-66ca536621cso4991187b3.3
+ for <freedreno@lists.freedesktop.org>; Sat, 27 Jul 2024 05:47:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1722039876; x=1722644676;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=07ogrVS5x8lpQcrfQ9VX3T1kjP2RfniPU+x1JGxiSQI=;
- b=E4o4mQ1u5ypJvWZ0jWx9xg35WbJfLJYU/4LGMW9LrBZWlI3Cnh1COTN0/1jemQFDVe
- KsSzPUpXluDmSFRlUBWf6ndG/xPy1ampF2tDnwyeJLFi2P8VSzbC1L+AdvKZVQlYhCfP
- xYaebMsZVZjt9h9NLyiDR3gUyMt3NKNQKRbd4=
+ d=linaro.org; s=google; t=1722084430; x=1722689230; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=ruf9ZndZlLo67VSTxRYzKSbRXRLxQV2q8v9gXBq+h+k=;
+ b=Lc/DofKMgBJu9tpixjY9OAK/+RACpYGpwhH41T58Zeu+w26DA47BzPgAYxLMZJvyp3
+ r+Bzn9k2KkWWftFeTNs0JGrUZddzu55Vn84nsBfYTObN+JJY5B369tGgbAtXQpsBgrxO
+ w14JWosbNxLoSdERPKoC5aVAezTq1AfpXqE/+Z032gSwbOvBh//2DARGRy6l5Nl5JAGT
+ yfHH4+JuS1LEi/0CfhEYXAIWM1xeXH2z4/9WzcqCllcuvHY6oSEKcuuxjYjnTPW7DDZr
+ 6+DNGaDBUuSvHqaVX5c+yaX0MhNQ0e1uUVI+vdSZIO3lYZPVnepUREVkL+Dxf3E5M9J8
+ /+/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722039876; x=1722644676;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=07ogrVS5x8lpQcrfQ9VX3T1kjP2RfniPU+x1JGxiSQI=;
- b=ZON0G/olU3EbpelKQVWme+bI6BUCpA4D0f3BNvLjNPJ/I8I8TUtPbFKbZrFykj1nRp
- 4A62Zbwq6GF2S5/kKQyZNPwnBURNlgVPqoPdg8AU+SqF8nH23Cr3BeOVQcGi/rJ2u6OS
- wQJF0AyQh2QklkhIbwEDQTh4YSZVg6UxIgf2xiZJE1hWArO//N1Wn6oSn5HCYmVnpOM5
- B8MN+ijpwC4cTLYYZKK3VevN3DzpyIL7hCE0ldQercgrwjzlUrz6Wo9SMSW9cFltddhl
- ZSPYwAx9vLw32CaEw82sP6X9TWOlTFbMVDDwXXz/gjK6KDF+FQ2DDQ0Ht6MYibWZBoGt
- SI9A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVTK8vHdvilaR9ccfZdIm2v9KNswfYCHk8ETCDR4aUGCMx9LbfKHRXMQHB+mQciZO82cQlTJw7xuSz6j2nbgR0D1esbDqh9rECbP0Jxfcrm
-X-Gm-Message-State: AOJu0YysnoTuiW0fNAHuCYjOVxhQ4jq+IJRTyX/wiLx67M7//51eG7RY
- k9LQnogbQsJpwylSsgeyNyINq13wHPLn168v2aMtIwCOKdZYIpZD5M9ejoWhciDVMmqQKWy97Xb
- 2lSJzkcSpKL5CyPESBC2YkbKAWC4dUIkfeUYp
-X-Google-Smtp-Source: AGHT+IHpnZkC5VzVD/9wtOuDbyMsVbJocHHwdfZb7aYI9KRRHqHEMH/h3Uk7GOcJxPPS3XvCEOHVuSYaA8p7WV7saKw=
-X-Received: by 2002:a05:6214:19c7:b0:6b5:6b1:6c with SMTP id
- 6a1803df08f44-6bb55a1533dmr19000576d6.24.1722039876063; Fri, 26 Jul 2024
- 17:24:36 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 26 Jul 2024 17:24:35 -0700
+ d=1e100.net; s=20230601; t=1722084430; x=1722689230;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ruf9ZndZlLo67VSTxRYzKSbRXRLxQV2q8v9gXBq+h+k=;
+ b=q3mqlHV/+ciAIR0NGNBnRPxcXl1XJlZP5516X0s40Vv0N+CWL4gNf79QVaSA1SEM1z
+ qumqvNpLeB7sZDexYbzOgw0lIvkr/mTGK55AHq0jfz4kAyODne99cpOKMNy9AAppdkDc
+ 8lfRoexgjalfbdbbiUAmRpDbfvO29cr2hripaqJP3krmpXFoNJ5EGlT8ZkeCzQXDKIci
+ OnO1Yts5a4yM1QBaVsQ/jVD3z9gIXc5cLYUyD8NKKEkyxQ9rmx0TPYPPeE0BCyHFSL3l
+ ng2zW8HnRyKL+Hp4WHujMS7XvomlBdwjhKFPxZrnHRALt8US8dJ/KQOICh868ATLXpui
+ yb1A==
+X-Gm-Message-State: AOJu0Yxn/tWPQP/N5q6a5+vE5B38wDu8ZuudLPJSwv6dG2h6tqlgl3sa
+ LzAswEdJ3IW8oZDAtQjMgm+RJ/9v+qYUJOdGEgDQS03gQGvpq6T4Amc/tk677QkF+VozKKyba5m
+ pAWBmdxdZHLzjEyxM5f0Vdmp/NPxy7HaLnr/8rQ==
+X-Google-Smtp-Source: AGHT+IFhK/Aj+oSR7J0lYtH6rQPZBzgOq9awlN5aMDE4hP6kpLKtN1cPj+5K1G7neerc+C+JBOWJXklm+962FR0VIbM=
+X-Received: by 2002:a05:690c:f0c:b0:64a:f40d:5fd2 with SMTP id
+ 00721157ae682-67a05b95447mr29458067b3.12.1722084430178; Sat, 27 Jul 2024
+ 05:47:10 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20240725220320.130916-1-quic_abhinavk@quicinc.com>
-References: <20240725220320.130916-1-quic_abhinavk@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Fri, 26 Jul 2024 17:24:35 -0700
-Message-ID: <CAE-0n50mBEX98HH+5BurM-uRyzrxcPXFJ7yLg__hFJHfYjm67Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dp: fix the max supported bpp logic
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Guenter Roeck <groeck@chromium.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Tanmay Shah <tanmay@codeaurora.org>, Vara Reddy <quic_varar@quicinc.com>, 
- freedreno@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, quic_jesszhan@quicinc.com, 
- neil.armstrong@linaro.org, abel.vesa@linaro.org, quic_khsieh@quicinc.com, 
- Rob Clark <robdclark@chromium.org>, Chandan Uddaraju <chandanu@codeaurora.org>,
+References: <20240725220450.131245-1-quic_abhinavk@quicinc.com>
+In-Reply-To: <20240725220450.131245-1-quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sat, 27 Jul 2024 15:46:59 +0300
+Message-ID: <CAA8EJppFcPRcMzjB8hxbWK9G19J-C720DP7gukW3ds8j-Af92w@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm/dp: reset the link phy params before link training
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org, 
+ quic_jesszhan@quicinc.com, neil.armstrong@linaro.org, swboyd@chromium.org, 
+ abel.vesa@linaro.org, Rob Clark <robdclark@chromium.org>, 
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -87,63 +80,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Abhinav Kumar (2024-07-25 15:03:19)
-> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-> index a916b5f3b317..56ce5e4008f8 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-> @@ -423,8 +424,10 @@ int dp_panel_init_panel_info(struct dp_panel *dp_panel)
->                                 drm_mode->clock);
->         drm_dbg_dp(panel->drm_dev, "bpp = %d\n", dp_panel->dp_mode.bpp);
+On Fri, 26 Jul 2024 at 01:05, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >
-> -       dp_panel->dp_mode.bpp = max_t(u32, 18,
-> -                               min_t(u32, dp_panel->dp_mode.bpp, 30));
-> +       max_supported_bpp = dp_panel_get_mode_bpp(dp_panel, dp_panel->dp_mode.bpp,
-> +                                                 dp_panel->dp_mode.drm_mode.clock);
-> +       dp_panel->dp_mode.bpp = max_t(u32, 18, max_supported_bpp);
+> Before re-starting link training reset the link phy params namely
+> the pre-emphasis and voltage swing levels otherwise the next
+> link training begins at the previously cached levels which can result
+> in link training failures.
+>
+> Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-Is the max_t() usage still required once 'max_supported_bpp' is also a
-u32? Also, what is 18? Shouldn't that be some sort of define so we know
-what it represents?
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # SM8350-HDK
 
-Or maybe none of that is required? From what I can tell,
-dp_panel_get_mode_bpp() calls dp_panel_get_supported_bpp() which will
-essentially clamp the bpp range between 18 and 30, unless
-dp_panel->dp_mode.bpp is between 30 and 18 but not divisible by 6, e.g.
-29. Perhaps this patch can be included and the max_t above dropped.
-
----8<--
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c
-b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 07db8f37cd06..5cd7c138afd3 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -90,22 +90,22 @@ static int dp_panel_read_dpcd(struct dp_panel *dp_panel)
- static u32 dp_panel_get_supported_bpp(struct dp_panel *dp_panel,
- 		u32 mode_edid_bpp, u32 mode_pclk_khz)
- {
--	struct dp_link_info *link_info;
-+	const struct dp_link_info *link_info;
- 	const u32 max_supported_bpp = 30, min_supported_bpp = 18;
--	u32 bpp = 0, data_rate_khz = 0;
-+	u32 bpp, data_rate_khz;
-
- 	bpp = min_t(u32, mode_edid_bpp, max_supported_bpp);
-
- 	link_info = &dp_panel->link_info;
- 	data_rate_khz = link_info->num_lanes * link_info->rate * 8;
-
--	while (bpp > min_supported_bpp) {
-+	do {
- 		if (mode_pclk_khz * bpp <= data_rate_khz)
--			break;
-+			return bpp;
- 		bpp -= 6;
--	}
-+	} while (bpp > min_supported_bpp);
-
--	return bpp;
-+	return min_supported_bpp;
- }
-
- static int dp_panel_update_modes(struct drm_connector *connector,
+-- 
+With best wishes
+Dmitry
