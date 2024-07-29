@@ -2,76 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5ABB93F5EF
-	for <lists+freedreno@lfdr.de>; Mon, 29 Jul 2024 14:55:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5964C93F614
+	for <lists+freedreno@lfdr.de>; Mon, 29 Jul 2024 15:03:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C340110E3C1;
-	Mon, 29 Jul 2024 12:55:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31DEF10E3C6;
+	Mon, 29 Jul 2024 13:03:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JzOV+JXG";
+	dkim=pass (2048-bit key; secure) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="RmZ9YGTy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3C1610E3C2;
- Mon, 29 Jul 2024 12:55:47 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-a7ab76558a9so663016266b.1; 
- Mon, 29 Jul 2024 05:55:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722257746; x=1722862546; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=qR/vBojdZFsa2xaAseqMvWWZxAcLC6Y8RjNWdERSqmU=;
- b=JzOV+JXGFUwpyKK4eZ9mgL127tIsGfpy14V2/8aWJga39X6pTxZiYTVwXUselIfub1
- p+P/GERJtXP6FLlaCLGxHTa0uIikH+X7Fq60gJRvduVPPf5cHzPPn9Ee32DVQPnhDI7+
- PqSBovllqpivvLcbM7gJ4lOiND6P9v7gF1zVqvJwqeHZfcqZnwk+mZqQgIhT3T0sn9JK
- teP80Khe3u1tg8EvLVB8iamVm3hH7RilFQL7WQxEnxofvzGFViZLISvlT60MyEEFR92c
- Ye27dhxPQ25EL9Vrxs/Qrtnmk9nDbK+XEZozHsP3bUaz2PFqBa3ctA8C+KeMvgkrq/ka
- KZeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722257746; x=1722862546;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qR/vBojdZFsa2xaAseqMvWWZxAcLC6Y8RjNWdERSqmU=;
- b=dkJS+r6hHZGlb1x6fCwcntuSRFl2oSwh2z0QcL9ofHQr0Zhg9yPvd0Fy1UeX2GNkUT
- gJK6Uzjfd/m0BibWCNOFF+teKew7EORt3n8zGzPzg0QBo+9dKH4Dt7+8AotRAM6CmxVC
- atQabj/YQ/H6Qt56//rGsd6vsFFvSBSB1rRvEkqpnZh4xgsy5yMKZ0y9qx+OGXJR+HeL
- KVfUw/OWUMAr0pukRTbhL6YbceWOsxIMxRSqc0aqTTaI9zrtCxi8CuFwe5FYrxebRA7m
- s3t8I+7okqTf78rtCXKr8n7VaT+7jtmTs9f+eogGC7hnx308FxaD6kAC8TosyeRar7Au
- 48EQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVSJIkxtjvs0IzFCJtq7ryExHI7Ra6OXlmBoGk9KUTMIfKBRf5unkclNEmlLWpmcdFVsZLLVLlIA2N56hg2qMLSHrs85UxGx5DSFDTB/VSmK+SatSGuVJ+Q0MsJjrF3RBnPqpypEQwlNtcBl7fBfMpH
-X-Gm-Message-State: AOJu0YxI9xtRDsfa7+wb6bqRmt5Gn89v20YREW2LQdOfJZIAMxdQRne/
- 5fjL4b8GB3Gb+cSjBKXuI8NmCKf/eics72cc6Q1shOz0w0pYt9sn
-X-Google-Smtp-Source: AGHT+IFYLxLa5C1lxPvmKsruDwbb3MC0Hd7b22TT+Vxz0bhSckaKQDDQduUgdElX8FsESFUOAIKHkg==
-X-Received: by 2002:a17:907:60cf:b0:a73:9037:fdf5 with SMTP id
- a640c23a62f3a-a7d3f81dccdmr851992166b.6.1722257745634; 
- Mon, 29 Jul 2024 05:55:45 -0700 (PDT)
-Received: from [192.168.105.194] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad4117asm506350166b.133.2024.07.29.05.55.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jul 2024 05:55:45 -0700 (PDT)
-Message-ID: <a1ff72a2-7992-4ebd-b48b-2bb85335edaf@gmail.com>
-Date: Mon, 29 Jul 2024 14:55:43 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27EBB10E3C8
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Jul 2024 13:03:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ sang-engineering.com; h=date:from:to:cc:subject:message-id
+ :references:mime-version:content-type:in-reply-to; s=k1; bh=7Fa3
+ FvYszI2v7tZhjSBxOKf5nK/7KsdWSyZ8VQRbAyE=; b=RmZ9YGTy1Lql42Nce0XQ
+ DCxRz2HxWnTwXJfgPaI/CjbbhJlxrcGTP2v2+BileckUZRVtHwmyvYYZ+GF4sA/T
+ jPNJUNvhpGn9wpbmDQJctHb0vzURBBt33iYrjt/NxsadNySKffvqdAQ2LGwqhyCY
+ nlsGFq06rT1bqOBUn/s9i76a7gzupMZ1XZ/rFG08uxGULDn8lIzcries8WqLiH/a
+ qdwYiMYNFzKRQIeT7Z9aPQOeelP+XwOKscd885b+NoGjfiEUuVxj2asd3tsCH47R
+ Tvmxsu+BcwUe8QUgryD3QNdLaMZAhLVHTSGQQgCIy3hF5GvPUrvWluqAJKnbNSaj
+ wA==
+Received: (qmail 4110312 invoked from network); 29 Jul 2024 15:03:14 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 29 Jul 2024 15:03:14 +0200
+X-UD-Smtp-Session: l3s3148p1@8AjSe2Ie+15tKPFk
+Date: Mon, 29 Jul 2024 15:03:12 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Konrad Dybcio <konradybcio@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-pm@vger.kernel.org
 Subject: Re: [PATCH] MAINTAINERS: update email for Konrad Dybcio
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- linux-kernel@vger.kernel.org
-Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-pm@vger.kernel.org
+Message-ID: <ZqeTEGVjMD0VqRRx@shikoro>
+Mail-Followup-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Konrad Dybcio <konradybcio@gmail.com>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-pm@vger.kernel.org
 References: <20240729125225.2090-2-wsa+renesas@sang-engineering.com>
-Content-Language: en-US
-From: Konrad Dybcio <konradybcio@gmail.com>
-In-Reply-To: <20240729125225.2090-2-wsa+renesas@sang-engineering.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <a1ff72a2-7992-4ebd-b48b-2bb85335edaf@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="/FJwCOto+3YIJsnZ"
+Content-Disposition: inline
+In-Reply-To: <a1ff72a2-7992-4ebd-b48b-2bb85335edaf@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,15 +65,39 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
+--/FJwCOto+3YIJsnZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 29.07.2024 2:51 PM, Wolfram Sang wrote:
-> The old email address bounced. I found the newer one in MAINTAINERS,
-> so update entries accordingly.
-> 
-> Cc: Konrad Dybcio <konradybcio@kernel.org>
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> ---
+Hi Konrad,
 
-Already sent a series of fixups, but thanks for keeping track
+> Already sent a series of fixups, but thanks for keeping track
 
-https://lore.kernel.org/linux-arm-msm/39a2303c-c89c-4fa3-a2e3-87589d242f4e@kernel.org/T/#me914f204e70ab34dd8bc3e6cbb51747490a81817
+Welcome. Cool that you are at it!
+
+Happy hacking,
+
+   Wolfram
+
+
+--/FJwCOto+3YIJsnZ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmankw0ACgkQFA3kzBSg
+KbauLQ//VGH3tiB3g4Zj5iz7b/4cBTixu6XyY7JOrDL2k62xzR2eUiDzJEdR3kP4
+p8umhzW69kiEqeOP1CWsGMNfJ5ypd99zrAevJYo5w+YwFeFLofb4oeI+BqUjIlVL
+GsFD9KKW14EbRRk1oAELInqkfNCH/0SDWKq/6fpSPmke6Qzwei2VeASua8XtoFp7
+Fw8HMjADYi2I0B+EpkL4yzjckLfafmgdtpwrpCWL5hSQ8xKuevEM/OGt+LTTh7lO
+vz7Gm7llwr9IZBxe9sVK0WPxs2oPAPhhuwbk9W++FKF7kGcid2QHg2S3zz4MfVSa
+7JRGwTGusGpNkmRRpew5033VJ8c1UXYcSRxaEtMYnpoU8F8U5g+TDKzvhkVBofin
+aTvK+YdU9+TBzceM/qqfXusoSxvpo6sgNEWrgz1MCg8iSMuygT+G0NK4UCcChSTD
+Ys6QTV10FI5cF4CsNEYTDFOnhALtnq68D8wWMIG5Gsn6Wkpazsg+IeYwmNV6pnG5
+pVrUeM7ETz9/7xoyRDMc4aPEZjNtzy+uB1STUEb50ag/NbhX9EjO2C7U7BIinCzY
+pzvAWFH/cCm8o2yyPSt/3ifNAKe8//lJq9zUZ6c+adHr3GHnKCeO3bjhT15ZrQbR
+rs7xewbujhdqeD5jhrkLFyzIttjRVK/Tnn03cnEnFUl9biTKV7I=
+=44Db
+-----END PGP SIGNATURE-----
+
+--/FJwCOto+3YIJsnZ--
