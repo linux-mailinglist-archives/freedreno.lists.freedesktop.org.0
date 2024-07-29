@@ -2,75 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8136393EA54
-	for <lists+freedreno@lfdr.de>; Mon, 29 Jul 2024 02:37:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E33193EBC6
+	for <lists+freedreno@lfdr.de>; Mon, 29 Jul 2024 05:09:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3906C10E087;
-	Mon, 29 Jul 2024 00:37:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4617410E2CC;
+	Mon, 29 Jul 2024 03:09:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="VcbaBksO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EDRy8Alj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com
- [209.85.222.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C28B010E087
- for <freedreno@lists.freedesktop.org>; Mon, 29 Jul 2024 00:37:53 +0000 (UTC)
-Received: by mail-ua1-f44.google.com with SMTP id
- a1e0cc1a2514c-821b8d887b8so571776241.2
- for <freedreno@lists.freedesktop.org>; Sun, 28 Jul 2024 17:37:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1722213472; x=1722818272;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=XgeSIz+XfbTtXVtUjbJV2VQHBXpmwBkdKyJpRDYLYhY=;
- b=VcbaBksOAF9j3KZcpFs2lHBYoIqamrpNUcTp+LRMy9d8Gl7UfJSzpM4OnK7mOOeu79
- y7FbsRi13DC94LHcLGjvG5t6b1A6LLK+I4xXZML1bBYB6xk+gnJphbrLGuOqw+aomoZi
- MPZXFaStn4jS9HI9ONhqEAqRZQ5irdFnVX6p4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722213472; x=1722818272;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XgeSIz+XfbTtXVtUjbJV2VQHBXpmwBkdKyJpRDYLYhY=;
- b=qZDrjWDuLbl22JH0AOTIeAnT05qF+NBAeTMI9eSZeoM2Ud3YaT0XIg094MWN8Uxkdc
- f/gG0RpZgPlozkDsFxAPg10CAESNqwPynw96kdu2e75egUbqkJ6zeOFyiWw+cvX5pmVn
- xxBvkRImqPNtujvZInjARVLeq/wgDHD8BO2Ph0vdBulZwkrAzujV8pBwqg6RyEn+5SNg
- xUfKIqbAbqCNbACoVFcQL7jj6Z7x4L8g6IMUtn9ixn9SYVVLZHpsKc2+2Mt5TpqMmPRY
- ZPJX4bAB9t21bd3GCKPqkAqCCQqnjIGPhMG/+8i4GRFWEoaTWgK926r5i3LELJLepJaP
- XR0g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUBUAz7AA574Yt0Uh+jmJY5oec1PMzUMzt0Ipcn/PKpfyjMbtxr9msbNWpXTY0WpSE75knn4dFpL3kHCm59iY1EfbHka/3UIwZV4NOqodxt
-X-Gm-Message-State: AOJu0YxXN8rZCE4IavJIQReFfx+Jnvv7BU4q6Odu/8aOT3Z1CPkN/xx/
- 5/t247UY1jbbjKPMO/cABbsjrApdNOqq8Z0ybF47E6a0C+biIy/SNpIDiYuSsJic2N+Weo5CZi1
- 9cNXrXy+XmP/ZdSmg8nCWDwU/wVAkJDV7aqIs
-X-Google-Smtp-Source: AGHT+IHnc0qYQ/QNoYPa3JLfKJgzufSGeqO7zfkvsDu+SwHrgNq6HfC27UO1CGigP8NDR74vS4JR3C3+McMA5IKTJV0=
-X-Received: by 2002:a05:6102:3e90:b0:493:e66a:793f with SMTP id
- ada2fe7eead31-493fa4594bemr3339662137.23.1722213472288; Sun, 28 Jul 2024
- 17:37:52 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 28 Jul 2024 17:37:51 -0700
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A79410E2AC;
+ Mon, 29 Jul 2024 03:09:54 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 8DE38CE021D;
+ Mon, 29 Jul 2024 03:09:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25655C116B1;
+ Mon, 29 Jul 2024 03:09:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1722222590;
+ bh=qGGqw71micBXJaxsXmYl7/ikb6fEH786nZP1LH2K67g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EDRy8Alj7pCf8ehwMe8nZmF0kvOxHfoiUpmGC2NTrEnUld/VshbLgo+YpZogWA8Lc
+ OobPt4gVIemc3bubHDY/K2415bYqiUi+ewv/tAFkxV9pQFx364hSHOrfifNY7V2oJ2
+ 8DdhiZJsVDtNO2hsnNRWTNNUxcxJ2YXQp2USESkxTufa4cll5QP36oTQj7DB4mz5+7
+ c4P7ki5V6tMQEQ7/7685GLCK8/jDh2E6Wq2RGRD5FsDUd+H5vxc0pxi8mit7x6gpqw
+ eby+qHk4W4gGJJj9IriXsNL4TL36yGavtfiaHF0Ol1UnWmBH6SwyKu7TFsPGb4Tgma
+ quA+SGf4/OLaQ==
+Date: Sun, 28 Jul 2024 22:09:47 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Danila Tikhonov <danila@jiaxyga.com>
+Cc: konrad.dybcio@linaro.org, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, robdclark@gmail.com, sean@poorly.run,
+ quic_abhinavk@quicinc.com, 
+ dmitry.baryshkov@linaro.org, marijn.suijten@somainline.org, airlied@gmail.com, 
+ daniel@ffwll.ch, fekz115@gmail.com, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, cros-qcom-dts-watchers@chromium.org
+Subject: Re: [PATCH 1/2] drivers: drm/msm/a6xx_catalog: Add A642L speedbin
+ (0x81)
+Message-ID: <4v5kl65wurifvkpious5ae4zhpv7zklejalg4sp4vcjiwhfbv2@o7jee7jil5ke>
+References: <20240722184314.36510-1-danila@jiaxyga.com>
+ <20240722184314.36510-2-danila@jiaxyga.com>
 MIME-Version: 1.0
-In-Reply-To: <20240725220450.131245-1-quic_abhinavk@quicinc.com>
-References: <20240725220450.131245-1-quic_abhinavk@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Sun, 28 Jul 2024 17:37:51 -0700
-Message-ID: <CAE-0n52kAq4=Cbdjg8JFVJ9a9ww-cLkUwcJ4BNBP9McXeaSxeQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dp: reset the link phy params before link training
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- freedreno@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, quic_jesszhan@quicinc.com, 
- neil.armstrong@linaro.org, abel.vesa@linaro.org, 
- Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240722184314.36510-2-danila@jiaxyga.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,14 +65,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Abhinav Kumar (2024-07-25 15:04:50)
-> Before re-starting link training reset the link phy params namely
-> the pre-emphasis and voltage swing levels otherwise the next
-> link training begins at the previously cached levels which can result
-> in link training failures.
->
-> Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
+On Mon, Jul 22, 2024 at 09:43:13PM GMT, Danila Tikhonov wrote:
+> From: Eugene Lepshy <fekz115@gmail.com>
+> 
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Please make sure the subject prefix matches other changes in the same
+driver/files.
+
+Regards,
+Bjorn
+
+> According to downstream, A642L's speedbin is 129 and uses 4 as index
+> 
+> Signed-off-by: Eugene Lepshy <fekz115@gmail.com>
+> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> index 68ba9aed5506e..99f0ee1a2edea 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -869,6 +869,7 @@ static const struct adreno_info a6xx_gpus[] = {
+>  		.speedbins = ADRENO_SPEEDBINS(
+>  			{ 0,   0 },
+>  			{ 117, 0 },
+> +			{ 129, 4 },
+>  			{ 172, 2 }, /* Called speedbin 1 downstream, but let's not break things! */
+>  			{ 190, 1 },
+>  		),
+> -- 
+> 2.45.2
+> 
