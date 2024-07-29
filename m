@@ -2,54 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E33193EBC6
-	for <lists+freedreno@lfdr.de>; Mon, 29 Jul 2024 05:09:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8C5C93F4F1
+	for <lists+freedreno@lfdr.de>; Mon, 29 Jul 2024 14:13:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4617410E2CC;
-	Mon, 29 Jul 2024 03:09:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83DF410E376;
+	Mon, 29 Jul 2024 12:13:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EDRy8Alj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SVQY8JZU";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A79410E2AC;
- Mon, 29 Jul 2024 03:09:54 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7924610E177;
+ Mon, 29 Jul 2024 12:13:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 8DE38CE021D;
- Mon, 29 Jul 2024 03:09:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25655C116B1;
- Mon, 29 Jul 2024 03:09:49 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D3920617FE;
+ Mon, 29 Jul 2024 12:13:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45C0FC32786;
+ Mon, 29 Jul 2024 12:13:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722222590;
- bh=qGGqw71micBXJaxsXmYl7/ikb6fEH786nZP1LH2K67g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=EDRy8Alj7pCf8ehwMe8nZmF0kvOxHfoiUpmGC2NTrEnUld/VshbLgo+YpZogWA8Lc
- OobPt4gVIemc3bubHDY/K2415bYqiUi+ewv/tAFkxV9pQFx364hSHOrfifNY7V2oJ2
- 8DdhiZJsVDtNO2hsnNRWTNNUxcxJ2YXQp2USESkxTufa4cll5QP36oTQj7DB4mz5+7
- c4P7ki5V6tMQEQ7/7685GLCK8/jDh2E6Wq2RGRD5FsDUd+H5vxc0pxi8mit7x6gpqw
- eby+qHk4W4gGJJj9IriXsNL4TL36yGavtfiaHF0Ol1UnWmBH6SwyKu7TFsPGb4Tgma
- quA+SGf4/OLaQ==
-Date: Sun, 28 Jul 2024 22:09:47 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Danila Tikhonov <danila@jiaxyga.com>
-Cc: konrad.dybcio@linaro.org, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, robdclark@gmail.com, sean@poorly.run,
- quic_abhinavk@quicinc.com, 
- dmitry.baryshkov@linaro.org, marijn.suijten@somainline.org, airlied@gmail.com, 
- daniel@ffwll.ch, fekz115@gmail.com, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, cros-qcom-dts-watchers@chromium.org
-Subject: Re: [PATCH 1/2] drivers: drm/msm/a6xx_catalog: Add A642L speedbin
- (0x81)
-Message-ID: <4v5kl65wurifvkpious5ae4zhpv7zklejalg4sp4vcjiwhfbv2@o7jee7jil5ke>
-References: <20240722184314.36510-1-danila@jiaxyga.com>
- <20240722184314.36510-2-danila@jiaxyga.com>
+ s=k20201202; t=1722255203;
+ bh=bmKyeNJ8spozwo0XX+T9shKICyNJDGinEDD400P3wjk=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=SVQY8JZUx3BiTcOuDCkpsqvnzYYDrax1Tb2+N1qiaJtgcE855KPcaia8wMFkEdKiw
+ E9M6rNuCnTQ4RZcBLZ6I/d8agamn9yTMsmNc7lSlp/nyRB2c0UQvbnAv7tVk36DoPf
+ CxfLpSClORNG+LOIvtRzJxioAdqHLMRD8zybUrBWLNezIthOL8aCbKUasg7VfkAnqe
+ 0QmUls2CfO+UBeOkjT/1mtZcslKc10jHTZ79cpEeYgcur+L/DCH+VJvPivuPsiih1Z
+ eXrbV3yot1eyw4lSxW4izBNkbErRI23vSVyEitcpbI/nXT7Y/8V0rcbduiDCHHox9z
+ n1JRASoFnmmAQ==
+Message-ID: <87607d2c-a4b1-4923-ba9f-9cfc56a0aa38@kernel.org>
+Date: Mon, 29 Jul 2024 14:13:16 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240722184314.36510-2-danila@jiaxyga.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/5] drm/msm/adreno: Implement SMEM-based speed bin
+From: Konrad Dybcio <konradybcio@kernel.org>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Elliot Berman <quic_eberman@quicinc.com>
+References: <20240709-topic-smem_speedbin-v5-0-e2146be0c96f@linaro.org>
+ <20240709-topic-smem_speedbin-v5-1-e2146be0c96f@linaro.org>
+ <20240715200419.l47ng6efa25in6sg@hu-akhilpo-hyd.qualcomm.com>
+ <8e2ebc97-f455-4f41-81da-af56263e6cf6@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
+ 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
+ JDZelR9Xqh8=
+In-Reply-To: <8e2ebc97-f455-4f41-81da-af56263e6cf6@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,36 +105,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 22, 2024 at 09:43:13PM GMT, Danila Tikhonov wrote:
-> From: Eugene Lepshy <fekz115@gmail.com>
+On 16.07.2024 1:56 PM, Konrad Dybcio wrote:
+> On 15.07.2024 10:04 PM, Akhil P Oommen wrote:
+>> On Tue, Jul 09, 2024 at 12:45:29PM +0200, Konrad Dybcio wrote:
+>>> On recent (SM8550+) Snapdragon platforms, the GPU speed bin data is
+>>> abstracted through SMEM, instead of being directly available in a fuse.
+>>>
+>>> Add support for SMEM-based speed binning, which includes getting
+>>> "feature code" and "product code" from said source and parsing them
+>>> to form something that lets us match OPPs against.
+>>>
+>>> Due to the product code being ignored in the context of Adreno on
+>>> production parts (as of SM8650), hardcode it to SOCINFO_PC_UNKNOWN.
+>>>
+>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+>>> ---
 > 
+> [...]
+> 
+>>>  
+>>> -	if (adreno_read_speedbin(dev, &speedbin) || !speedbin)
+>>> +	if (adreno_read_speedbin(adreno_gpu, dev, &speedbin) || !speedbin)
+>>>  		speedbin = 0xffff;
+>>> -	adreno_gpu->speedbin = (uint16_t) (0xffff & speedbin);
+>>> +	adreno_gpu->speedbin = speedbin;
+>>
+>> There are some chipsets which uses both Speedbin and Socinfo data for
+>> SKU detection [1].
+> 
+> 0_0
+> 
+> 
+>> We don't need to worry about that logic for now. But
+>> I am worried about mixing Speedbin and SKU_ID in the UABI with this patch.
+>> It will be difficult when we have to expose both to userspace.
+>>
+>> I think we can use a separate bitfield to expose FCODE/PCODE. Currently,
+>> the lower 32 bit is reserved for chipid and 33-48 is reserved for speedbin,
+>> so I think we can use the rest of the 16 bits for SKU_ID. And within that
+>> 16bits, 12 bits should be sufficient for FCODE and the rest 8 bits
+>> reserved for future PCODE.
+> 
+> Right, sounds reasonable. Hopefully nothing overflows..
 
-Please make sure the subject prefix matches other changes in the same
-driver/files.
++CC Elliot
 
-Regards,
-Bjorn
+Would you know whether these sizes ^ are going to be sufficient for
+the foreseeable future?
 
-> According to downstream, A642L's speedbin is 129 and uses 4 as index
-> 
-> Signed-off-by: Eugene Lepshy <fekz115@gmail.com>
-> Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> index 68ba9aed5506e..99f0ee1a2edea 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> @@ -869,6 +869,7 @@ static const struct adreno_info a6xx_gpus[] = {
->  		.speedbins = ADRENO_SPEEDBINS(
->  			{ 0,   0 },
->  			{ 117, 0 },
-> +			{ 129, 4 },
->  			{ 172, 2 }, /* Called speedbin 1 downstream, but let's not break things! */
->  			{ 190, 1 },
->  		),
-> -- 
-> 2.45.2
-> 
+Konrad
