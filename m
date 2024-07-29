@@ -2,89 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB4E193FD7B
-	for <lists+freedreno@lfdr.de>; Mon, 29 Jul 2024 20:39:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3A3B93FEC8
+	for <lists+freedreno@lfdr.de>; Mon, 29 Jul 2024 22:09:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4CC710E46F;
-	Mon, 29 Jul 2024 18:39:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CD3710E47B;
+	Mon, 29 Jul 2024 20:09:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="pLGzTvLV";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="SHE6IYoG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CC2710E477;
- Mon, 29 Jul 2024 18:39:01 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46TAFwn3027258;
- Mon, 29 Jul 2024 18:38:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- eWE57PADrMUHeCMcSP39AUqkKwW/yy1cFIXe7CXKmho=; b=pLGzTvLVMehdxIUm
- tbcozS4GLomYBynDs6FlLieJ7ztIuV0/cDb7bS6t8kIsZurLK+vzI2YSrE5UqJoH
- TXcBZfujnMpFbbCh9kpGJVZPBbkfPShDeqPco0Ffbcpuv8PtQ6EzseyjN5hkOUEl
- feLX7UnWx7/QjilcKKA4TdwOer91To6S2rDhE6Py+Mh1sASoA7G9g889RiECB3Bv
- 6xMRgBhBONHsXYnKMbjPgUT8ETAALZhKDSFOLtm+1FQQhqJatXLtD5QMtK5B4C6V
- qkfo0bjlR3gnXWo2Xon5ntDY4Vx0XLE5Nx7NTPNte8hT81P60M+/4BOFbGghSBww
- jLsDew==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40msne51hb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 Jul 2024 18:38:29 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 46TIcSZ9020586
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 Jul 2024 18:38:28 GMT
-Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 29 Jul
- 2024 11:38:27 -0700
-Message-ID: <5f2983ea-d694-44c3-8231-78c0de6db856@quicinc.com>
-Date: Mon, 29 Jul 2024 11:38:27 -0700
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
+ [209.85.210.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0185810E0E9
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Jul 2024 20:08:59 +0000 (UTC)
+Received: by mail-ot1-f47.google.com with SMTP id
+ 46e09a7af769-70940c9657dso1606014a34.1
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Jul 2024 13:08:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1722283739; x=1722888539;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+ :reply-to; bh=/jIHXG4vT+DDXeeiF4buw3dVqIn5OLZLpsCUv9QEgTA=;
+ b=SHE6IYoGmPNLBuqWwjs+c/J7y1VDR3mP3cFf79f1S0VQ1sCPtXs+Q7Jpd2S3A/Tpe1
+ nkJPm5QQOUL7JPLLyMy7O+qj32CnZc9Xaf+CudYCoCqpoakxzngpA0y1YwXUG2jKt4fO
+ vc4m8boxIvyKzuopp1EYIP37xw0eUB2RoUFwc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722283739; x=1722888539;
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/jIHXG4vT+DDXeeiF4buw3dVqIn5OLZLpsCUv9QEgTA=;
+ b=FpmoI/Ff9tH6//GTUZUDVnr44fUvMjzVhz0ujzViI5eYuTWnzkjxdTkW5fMJeReFHb
+ Rd41patXlsCpNfFckhYq7ppleeAOYtrqGNnRoH9DN9Ix3XBt2BGR3Ajxs1e+7mWDrPKu
+ jmDr+FtSXol2VR/Fb5mD6aNnHNoyLfCzhHmeWggV11ezqHHqYQAcyiAhKMdSYOhBn4Zt
+ w33mQWd7QqfJzeit5X8t4fPddZAaAP1k8GSRY/FIwV60guZXrsrxYkDAm6Qy55DquJy/
+ Djoz/QDSCFd3Tw4JKFKUVBZ5dp9xHDWQUrnVj+tth51npBmHfiyjw27KMuma8mOHKkhN
+ qOnw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU5Y4e50cNe6/LgxfliKAZmQSoamtKAQ9VWuVPP0OcmqXmJeeluiIIeqVTt7Atl0IOP/DdO/V6aAuG/zM2kaVVRYj9mAx+FeSvskNY87zLi
+X-Gm-Message-State: AOJu0Yy2w5c7jtq/uqw8P6c/Sei7gva3UmIpSI2VB//Dbx2hHyZbKJS7
+ IekxM1MSPsiIflKkymK2e79/qfuDKMdfsY8h07ZStl/GodG+CM2TPQcfpPu/Ih3Rj0bXY26cf0E
+ +RBXfdBSoQZR1MjxcB597bvjEjqH9QL0gSP90hSSdAI6WV9I=
+X-Google-Smtp-Source: AGHT+IHpeBg5e8K4m1AjsYDN5Lf6w44ZrVNCRytKZPa/zJpkcs95lHEvp/x4E8DP9QtdgZhxg7CCNODor9FG/pDAGIU=
+X-Received: by 2002:a05:6830:2714:b0:709:3b82:7680 with SMTP id
+ 46e09a7af769-70940c1aa9fmr12988155a34.19.1722283739275; Mon, 29 Jul 2024
+ 13:08:59 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 29 Jul 2024 15:08:58 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/dp: fix the max supported bpp logic
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>, "Sean
- Paul" <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- "David Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Guenter Roeck <groeck@chromium.org>, Tanmay Shah <tanmay@codeaurora.org>,
- Vara Reddy <quic_varar@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, <dri-devel@lists.freedesktop.org>,
- <quic_jesszhan@quicinc.com>, <neil.armstrong@linaro.org>,
- <abel.vesa@linaro.org>, <quic_khsieh@quicinc.com>,
- Rob Clark <robdclark@chromium.org>, "Chandan
- Uddaraju" <chandanu@codeaurora.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+In-Reply-To: <8fa86c0c-183b-4787-9525-38dfe6bcecc6@quicinc.com>
 References: <20240725220320.130916-1-quic_abhinavk@quicinc.com>
- <CAA8EJpoYqHnG_=jt6Lo6v7a7h3CdF66bKqRf63RCmvqHWb4kFQ@mail.gmail.com>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpoYqHnG_=jt6Lo6v7a7h3CdF66bKqRf63RCmvqHWb4kFQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: Uqb9sr00ouQSmW-KP5PjCLILbb0NXce4
-X-Proofpoint-ORIG-GUID: Uqb9sr00ouQSmW-KP5PjCLILbb0NXce4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-29_16,2024-07-26_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0
- lowpriorityscore=0 mlxlogscore=999 priorityscore=1501 clxscore=1015
- spamscore=0 mlxscore=0 bulkscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2407110000 definitions=main-2407290126
+ <CAE-0n50mBEX98HH+5BurM-uRyzrxcPXFJ7yLg__hFJHfYjm67Q@mail.gmail.com>
+ <8fa86c0c-183b-4787-9525-38dfe6bcecc6@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Mon, 29 Jul 2024 15:08:58 -0500
+Message-ID: <CAE-0n537mpOMkVWrXGSpjU8cHZtUZXFfdG1YTfevu2SRo1hPTQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm/dp: fix the max supported bpp logic
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Guenter Roeck <groeck@chromium.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Vara Reddy <quic_varar@quicinc.com>, freedreno@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, quic_jesszhan@quicinc.com, 
+ neil.armstrong@linaro.org, abel.vesa@linaro.org, quic_khsieh@quicinc.com, 
+ Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,70 +88,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Quoting Abhinav Kumar (2024-07-29 11:28:35)
+>
+> Thanks for the feedback.
+>
+> Your change looks valid. We can use this and drop the max_t usage.
+>
+> Let me push this with your Suggested-by credits.
 
+You can take my
 
-On 7/27/2024 5:51 AM, Dmitry Baryshkov wrote:
-> On Fri, 26 Jul 2024 at 01:04, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->> Currently the DP driver hard-codes the max supported bpp to 30.
->> This is incorrect because the number of lanes and max data rate
->> supported by the lanes need to be taken into account.
->>
->> Replace the hardcoded limit with the appropriate math which accounts
->> for the accurate number of lanes and max data rate.
->>
->> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_panel.c | 7 +++++--
->>   1 file changed, 5 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
->> index a916b5f3b317..56ce5e4008f8 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
->> @@ -397,6 +397,7 @@ int dp_panel_init_panel_info(struct dp_panel *dp_panel)
->>   {
->>          struct drm_display_mode *drm_mode;
->>          struct dp_panel_private *panel;
->> +       u32 max_supported_bpp;
->>
->>          drm_mode = &dp_panel->dp_mode.drm_mode;
->>
->> @@ -423,8 +424,10 @@ int dp_panel_init_panel_info(struct dp_panel *dp_panel)
->>                                  drm_mode->clock);
->>          drm_dbg_dp(panel->drm_dev, "bpp = %d\n", dp_panel->dp_mode.bpp);
->>
->> -       dp_panel->dp_mode.bpp = max_t(u32, 18,
->> -                               min_t(u32, dp_panel->dp_mode.bpp, 30));
->> +       max_supported_bpp = dp_panel_get_mode_bpp(dp_panel, dp_panel->dp_mode.bpp,
->> +                                                 dp_panel->dp_mode.drm_mode.clock);
->> +       dp_panel->dp_mode.bpp = max_t(u32, 18, max_supported_bpp);
-> 
-> I think that in mode_valid() the driver should filter out modes that
-> result in BPP being less than 18. Then the max_t can be dropped
-> completely.
-> 
+Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 
-With Stephen's suggested change, dp_panel_get_supported_bpp() will not 
-return anything below min_supported_bpp which is 18 so we can absorb 
-that part and drop the max_t part here.
-
-> Nevertheless this indeed fixes an issue with the screen corruption,
-> this is great!
-> 
-> Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # SM8350-HDK
-> 
-
-Thanks for reporting and testing this. I need to give you Reported-by 
-credits as well.
-
->> +
->>          drm_dbg_dp(panel->drm_dev, "updated bpp = %d\n",
->>                                  dp_panel->dp_mode.bpp);
->>
->> --
->> 2.44.0
->>
-> 
-> 
+and either squash it in or make a follow-up.
