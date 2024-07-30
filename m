@@ -2,64 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 437B49403E3
-	for <lists+freedreno@lfdr.de>; Tue, 30 Jul 2024 03:39:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 683C694084C
+	for <lists+freedreno@lfdr.de>; Tue, 30 Jul 2024 08:22:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04EDA10E1F0;
-	Tue, 30 Jul 2024 01:38:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AA7F10E3D1;
+	Tue, 30 Jul 2024 06:22:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a4Z4K+ZX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N9cy7gRK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
- [209.85.219.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D532310E1E1;
- Tue, 30 Jul 2024 01:38:57 +0000 (UTC)
-Received: by mail-qv1-f43.google.com with SMTP id
- 6a1803df08f44-6b7b23793c1so21718696d6.0; 
- Mon, 29 Jul 2024 18:38:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722303537; x=1722908337; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=IwijiQXrp5DlEM6JJIJ/GaHG36m5U+A+7dOKNwuF2TM=;
- b=a4Z4K+ZX8R0tFvvemXxpydalfddxW9eP1apfCy11vaS7gSqStLL4ceVpf3dTkBsXD5
- OvXfGLuQzH2A2X/3QEqUER9BKW4h09zOYOVQXh5oY0dpZf3g6c6XnsMOWmyUlRvcxEQz
- Qe8paZghDVwgUry7Y3tBpUCKefRTH77IF2bRJLvx7MVcRgzCnEkxorCOiRrLkRVDFdHg
- 5rGfQFtq5Gy+kuMyboD7WVtUjcnW+7sMSmBGsCIoP+BhBU+leElwWKxhIk/SQxHGdsNa
- 9PHbmlasqYUYJkBPcV0Mxr1fFe7OyuSlV+quHX7+N4j15xtJxNEiMybaNd4MlpfeVtCt
- HgFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722303537; x=1722908337;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=IwijiQXrp5DlEM6JJIJ/GaHG36m5U+A+7dOKNwuF2TM=;
- b=KOd2fZDtwxKYNgDEEU2XOwrEhjkngm9Oek2yD410659AokaE/uX95Csx5qFMXO7nLS
- Z1N0lChyYwq4nrm8jr9ip+CaKAJii5lCfemhtP034Y0q7lRFNmmvBMRNBReHmduVFloC
- ihtstcUwAHCKY8UGOZx4yee8lij1TZadW91b2ZoSC+sE7GFZlTn+94nSNM+YrsAJlLzr
- OmNoIxJ0UnFaZx1Xv/52N1Ppm/mwFACDHKk3EgV3Ge+P+bxShUp55iPGPWmaKQIUo+em
- jOW2D77cpUPYh1StIZfSZAZh5gSrIreCoPkaj8zueatF+tX20McTlAeoDmuWuxUa1oXu
- 6bdQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWlI7kevs4Vx6OzVrjn1R107q5Urbet5g/UfuqVuoyuUhLIySLedx5XoYk12qUYc2ajfT1BJ3UoSCSU2M+4pEtpHTGhsSJdavUhe2JzVW532qO0c3EN1Bat4j93GwvAwywJn58jrLX/30XiMHuLmZdo
-X-Gm-Message-State: AOJu0YwTj7FHhAf7h+V7vk8773ujDJeh1k1HBJ6oLQlXL6C2WQDaIpul
- YGsBRp/cgqP40Xpzwckn3DyrszVi/RMor1o0wuW5WMDjSOC8Q8rU
-X-Google-Smtp-Source: AGHT+IFV16qAcfMqLWnSDqEkg2eRkXAFyIb+aIGVTG94FYyBQh9KiIsTQXx20fyc3j8qOo7IH/YlCg==
-X-Received: by 2002:a05:6214:402:b0:6b5:80e0:1301 with SMTP id
- 6a1803df08f44-6bb55aeca19mr135400336d6.55.1722303536758; 
- Mon, 29 Jul 2024 18:38:56 -0700 (PDT)
-Received: from localhost ([2607:fea8:52a3:d200:324c:b818:b179:79b])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6bb3fa950a3sm58221016d6.90.2024.07.29.18.38.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jul 2024 18:38:56 -0700 (PDT)
-From: Richard Acayan <mailingradian@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF89B10E3BE;
+ Tue, 30 Jul 2024 06:22:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 0F32ECE0A0D;
+ Tue, 30 Jul 2024 06:22:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 907A6C32782;
+ Tue, 30 Jul 2024 06:22:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1722320544;
+ bh=rMdN1gHFV39fx0Bjbg3Zc3KHjuUFlLidSLS4SJAgTAo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=N9cy7gRK7uqB5U9Ujr6HO6cUV8V2x146a6NOC+VIcQCACed16JbLPxFAah968vF5l
+ b5aF5MAneLjLY0K0sav6hRQ9J9NDzZ2hyZ/ealWtBvS8Y829mw+DvdVHO4xX3izS0g
+ ft7CnhOVCzNeyt43H7p1nbq5vCRJdxQY3uJ/YRsDraymYYCl+mO8EJxuNkaI6mRETI
+ dqfPgXKerHFGFPfbcLYvCAvhiGZSG2ZtgH84x/YG57ijVrhdAidV6Q2y8dIeLXj3MJ
+ x/d7kDoH0sAvXp74zBVJXnsPdSuoZMm91jS1Q8sbrZrefePovW+PEKWvth+FI2uvbW
+ t2SCHxq3tu8Eg==
+Message-ID: <ef707429-6021-43a9-b8ff-77e393de9cef@kernel.org>
+Date: Tue, 30 Jul 2024 08:22:15 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: display/msm/gmu: Add SDM670 compatible
+To: Richard Acayan <mailingradian@gmail.com>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -69,15 +47,57 @@ To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  devicetree@vger.kernel.org
 Cc: Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Richard Acayan <mailingradian@gmail.com>
-Subject: [PATCH 4/4] arm64: dts: qcom: sdm670-google-common: enable gpu
-Date: Mon, 29 Jul 2024 21:38:49 -0400
-Message-ID: <20240730013844.41951-10-mailingradian@gmail.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240730013844.41951-6-mailingradian@gmail.com>
+ Daniel Vetter <daniel@ffwll.ch>
 References: <20240730013844.41951-6-mailingradian@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20240730013844.41951-7-mailingradian@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20240730013844.41951-7-mailingradian@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,42 +113,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Enable the A615 GPU and GMU for the Pixel 3a. It has zap firmware, so
-add that in as well.
+On 30/07/2024 03:38, Richard Acayan wrote:
+> The Snapdragon 670 has a GMU. Add its compatible.
+> 
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 
-Signed-off-by: Richard Acayan <mailingradian@gmail.com>
----
- arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
-index 176b0119fe6d..7acbcb5b69e1 100644
---- a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
-@@ -403,10 +403,23 @@ &gcc {
- 			   <GCC_QSPI_CNOC_PERIPH_AHB_CLK>;
- };
- 
-+&gmu {
-+	status = "okay";
-+};
-+
- &gpi_dma1 {
- 	status = "okay";
- };
- 
-+&gpu {
-+	status = "okay";
-+
-+	zap-shader {
-+		memory-region = <&gpu_mem>;
-+		firmware-name = "qcom/sdm670/sargo/a615_zap.mbn";
-+	};
-+};
-+
- &i2c9 {
- 	clock-frequency = <100000>;
- 	status = "okay";
--- 
-2.45.2
+Best regards,
+Krzysztof
 
