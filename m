@@ -2,70 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55F2C93FFEE
-	for <lists+freedreno@lfdr.de>; Mon, 29 Jul 2024 22:57:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 659BC9403DB
+	for <lists+freedreno@lfdr.de>; Tue, 30 Jul 2024 03:38:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F33D10E489;
-	Mon, 29 Jul 2024 20:57:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3C1110E11D;
+	Tue, 30 Jul 2024 01:38:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=jiaxyga.com header.i=@jiaxyga.com header.b="rEXdwxOM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eu9Gx2EL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp41.i.mail.ru (smtp41.i.mail.ru [95.163.41.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE9E610E489;
- Mon, 29 Jul 2024 20:57:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jiaxyga.com
- ; s=mailru;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Sender:Reply-To:To
- :Cc:Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive:X-Cloud-Ids:Disposition-Notification-To;
- bh=WstChANbA7SvfR+Aj+VLGTVexV2GfobSXd8n+qdUMk4=; t=1722286670; x=1722376670; 
- b=rEXdwxOM1IBbn8Iuu+IDo+rdbHPRqUZakGAuISb4+be03OO+A7uYMjZ/eQXwJFrrMIwO0JObXUU
- mEA7CaUDEI+AqmB7Esk8B6Sx3rWxIR0Ko0Mbw1Verrp8UKiZyNEcGKbZCe3EPFwk6YcHF4Q6TE5f3
- fAR0uO5x0VnEczWEZhc=;
-Received: by exim-smtp-868bf69f6c-jz7wc with esmtpa (envelope-from
- <danila@jiaxyga.com>)
- id 1sYXRC-00000000Lgt-42wv; Mon, 29 Jul 2024 23:57:47 +0300
-Message-ID: <2e70738e-24b9-4660-b094-4ac055bd5fa1@jiaxyga.com>
-Date: Mon, 29 Jul 2024 23:57:09 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drivers: drm/msm/a6xx_catalog: Add A642L speedbin
- (0x81)
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: konrad.dybcio@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robdclark@gmail.com, sean@poorly.run,
- quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
- marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch,
- fekz115@gmail.com, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
+ [209.85.219.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7616810E11D;
+ Tue, 30 Jul 2024 01:38:51 +0000 (UTC)
+Received: by mail-yb1-f179.google.com with SMTP id
+ 3f1490d57ef6-e04196b7603so2484563276.0; 
+ Mon, 29 Jul 2024 18:38:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1722303530; x=1722908330; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=o5T2H1MxibV59R6E5ponVFEf8aVMT7LzzdBaNyOKYAQ=;
+ b=eu9Gx2ELE4IVvY8Ae253AGYZ155BHyOs/ixChgO6ScO3tKqCC/Yfsh8CYBCk9u2jsi
+ 2iE8LOOq72bpnC4McR0dRo/j8lvqhjBjuz/mKlOFs1ZYCV/jCPXyMdAW6Q4im2VrT08p
+ E/vjdYwYMX0gDOOx58vnp1vMrg+nJpq1QyjnEQiVik7mVtXJ3LqpAELswAYF4FjPzO0u
+ DDQWecvtz/1wR6aqDqmfd6OptVNtWaIV7zEERjLYKlF5QtyK+y7tnMrrlA/KvuF1qz+j
+ 7YJELWFc245WATSwEWrOEkAIivkLS4uPPuMGajn9Yk7k/mLcTLnN9uiMBbQR5uYEvkkb
+ B2/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722303530; x=1722908330;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=o5T2H1MxibV59R6E5ponVFEf8aVMT7LzzdBaNyOKYAQ=;
+ b=uh+v8HyZL82c+RbeK3X4k34GRtPDbL0xXP88po6PEvReG41debz7Yx2Le25C12WIR1
+ 2WPAPoHRcW7NWB54v269MU7zlYDSK2cMRWkc0pAEMEf/kXJnVMu6uouMfOxTohz+tO2T
+ 1mXHGIem0M5nDhW26BHt7OD8aFFY7kLVNXNh44Yl241KHj/BFGhrM6iYDcMSLEpKqv5X
+ w3CJwqYbsWRbsQH8f9+A+ICEjuCWGaKePXvrm+NXOvgXnwO7SR7XHT7xVg0DsYrenb1X
+ 1kt+2e/dN6ntfj0K0FPL69tetKNV+FPUClmCUesa2613ksx6/8g54PAqP+ZH8GhUG5K8
+ jokw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWjKKWNDRjq4/xOPL7wB5Gc9d3tstZM/NVFPXFIxvkMrx+zsveL3Vup+FWK2s2rSeG+g5xHrvhz0xs=@lists.freedesktop.org,
+ AJvYcCWs2pvFXpSniz5RDCxOScfyG8/bqhX9TZbhH2JKLsW+fvglgfAgnoHYMv3orGOUhEBM2Q/m9EkHQPBB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxoez/lv3GgWSQ+RAWE0s7XnumtDapraAUrUj58TH8juF/USSio
+ +q3mpsWGcP/OSah32BBTzAdBgrFhITQFH/LnNCfoAf4ZeGKcIXV5
+X-Google-Smtp-Source: AGHT+IE8CCqiBQzc9P2bfVnL3NGKo0Stf9R5bLEeJaR55c3XfqJse2oFJU3IpAa/r9TGBMegBbSatw==
+X-Received: by 2002:a05:6902:124e:b0:e0b:97c4:77cb with SMTP id
+ 3f1490d57ef6-e0b97c4831fmr2285692276.27.1722303530216; 
+ Mon, 29 Jul 2024 18:38:50 -0700 (PDT)
+Received: from localhost ([2607:fea8:52a3:d200:324c:b818:b179:79b])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-45034f7804dsm2284681cf.16.2024.07.29.18.38.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jul 2024 18:38:49 -0700 (PDT)
+From: Richard Acayan <mailingradian@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- cros-qcom-dts-watchers@chromium.org, danila@jiaxyga.com
-References: <20240722184314.36510-1-danila@jiaxyga.com>
- <20240722184314.36510-2-danila@jiaxyga.com>
- <4v5kl65wurifvkpious5ae4zhpv7zklejalg4sp4vcjiwhfbv2@o7jee7jil5ke>
-Content-Language: en-US
-From: Danila Tikhonov <danila@jiaxyga.com>
-In-Reply-To: <4v5kl65wurifvkpious5ae4zhpv7zklejalg4sp4vcjiwhfbv2@o7jee7jil5ke>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Authentication-Results: exim-smtp-868bf69f6c-jz7wc;
- auth=pass smtp.auth=danila@jiaxyga.com
- smtp.mailfrom=danila@jiaxyga.com
-X-Mailru-Src: smtp
-X-4EC0790: 10
-X-7564579A: B8F34718100C35BD
-X-77F55803: 4F1203BC0FB41BD9000B6812E77BE1C6854AF46E97D2152892C6A59DA105ADB3182A05F53808504060C4600FFE09C8F53DE06ABAFEAF67052AA636E252999B2E1A9F61335A0CD567A938C1B4F21A4609
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE7D3E352D4AD7EBF54EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F79006375AC38C7EC4509C8B8638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D89D4A26D28DE3AF79F31B418E4BCB5C522F823D4E39098394CC7F00164DA146DAFE8445B8C89999728AA50765F7900637F6B57BC7E64490618DEB871D839B7333395957E7521B51C2DFABB839C843B9C08941B15DA834481F8AA50765F79006375FFD5C25497261569FA2833FD35BB23DF004C90652538430302FCEF25BFAB3454AD6D5ED66289B5278DA827A17800CE73E9A205C6FEB9DE5D32BA5DBAC0009BE395957E7521B51C2330BD67F2E7D9AF1090A508E0FED6299176DF2183F8FC7C05BA2E4CC9113A626CD04E86FAF290E2DB606B96278B59C421DD303D21008E29813377AFFFEAFD269A417C69337E82CC2E827F84554CEF50127C277FBC8AE2E8BA83251EDC214901ED5E8D9A59859A8B60E26A56DB46E81E4089D37D7C0E48F6C5571747095F342E88FB05168BE4CE3AF
-X-C1DE0DAB: 0D63561A33F958A524FB376BB7EE73F85002B1117B3ED696C6F54A22AD937764CA7E60A991436CA2823CB91A9FED034534781492E4B8EEAD97DCCBFEAAA0BC6ABDAD6C7F3747799A
-X-C8649E89: 1C3962B70DF3F0ADBF74143AD284FC7177DD89D51EBB7742424CF958EAFF5D571004E42C50DC4CA955A7F0CF078B5EC49A30900B95165D349A949488F6BF46DDA8A79E8062A6CA7174963014F8FF3F0AF81E76E12A14E3B5475EFE7A0B9C313D1D7E09C32AA3244C638414D35EF316DE77DD89D51EBB774228BAEE884F4A908DEA455F16B58544A2E6014D08E9BF26855DA084F8E80FEBD322CFFF16B4474ECB4573B60270F1EB7C214C2BC1176D5C25
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojX2k8aL79D6V1hbAjFQeYHQ==
-X-Mailru-Sender: 9EB879F2C80682A09F26F806C739498119976140086885851F93A76BF6F7B0A637FD5CEC06DF74311457E6F54EDCE5FF2C62728BC403A049225EC17F3711B6CF1A6F2E8989E84EC137BFB0221605B344978139F6FA5A77F05FEEDEB644C299C0ED14614B50AE0675
-X-Mras: Ok
+ devicetree@vger.kernel.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Richard Acayan <mailingradian@gmail.com>
+Subject: [PATCH 0/4] drm/msm/adreno: Add A615 GPU for SDM670 and Pixel 3a
+Date: Mon, 29 Jul 2024 21:38:45 -0400
+Message-ID: <20240730013844.41951-6-mailingradian@gmail.com>
+X-Mailer: git-send-email 2.45.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,20 +91,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 7/29/24 06:09, Bjorn Andersson wrote:
-> On Mon, Jul 22, 2024 at 09:43:13PM GMT, Danila Tikhonov wrote:
->> From: Eugene Lepshy <fekz115@gmail.com>
->>
-> Please make sure the subject prefix matches other changes in the same
-> driver/files.
->
-> Regards,
-> Bjorn
->
+This adds support for the speed-binned A615 GPU on SDM670.
 
-Thanks for the advice
+Richard Acayan (4):
+  dt-bindings: display/msm/gmu: Add SDM670 compatible
+  drm/msm/adreno: add a615 support
+  arm64: dts: qcom: sdm670: add gpu
+  arm64: dts: qcom: sdm670-google-common: enable gpu
 
-"drm/msm/a6xx: --//--" will be better?
+ .../devicetree/bindings/display/msm/gmu.yaml  |   1 +
+ .../boot/dts/qcom/sdm670-google-sargo.dts     |  13 ++
+ arch/arm64/boot/dts/qcom/sdm670.dtsi          | 168 ++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c     |  27 +++
+ 4 files changed, 209 insertions(+)
 
-Best wishes,
-Danila
+-- 
+2.45.2
+
