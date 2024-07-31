@@ -2,71 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 813B29433D2
-	for <lists+freedreno@lfdr.de>; Wed, 31 Jul 2024 18:05:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19B1A9435C1
+	for <lists+freedreno@lfdr.de>; Wed, 31 Jul 2024 20:46:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E9F810E679;
-	Wed, 31 Jul 2024 16:05:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1FB810E64F;
+	Wed, 31 Jul 2024 18:46:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BAKtCT/N";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=jiaxyga.com header.i=@jiaxyga.com header.b="x9JvpaD9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4695F10E67F;
- Wed, 31 Jul 2024 16:05:27 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-5a2a90243c9so7191194a12.0; 
- Wed, 31 Jul 2024 09:05:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722441925; x=1723046725; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0PK3XROm8AdCzvoF33BbXJKpI9sLb7+6gEw3RJDbeG8=;
- b=BAKtCT/NVpRFL5AxxiqjAHI20FU9nEqp3y1GqsYm3nqVVd/hKk+U3OMT1jebbotjRH
- EFBBSnOaVbhvSLUVHZ7/edKZMpSh8ZyHs90fm10w9Nieh1XFjwsDehC97Vxzg9BluzO8
- Aymnuxe5KXcVuDGRc37jHU3PaWdbTeEsH8xfNg0aYl3YQjWQrJl8lfxlOJClg99mBScl
- spYDajxPK5+Z3i8dgDvBcugGJ98p/Yi0kBPEvmJSF4ABIsIhhTLYz9vbjbxnkSU3U2D/
- m9KQJSpf/sPZ8/L/eIyFvxpBjrYWiMwPo/Mc9uT0Tis+P7qSHawtkx8C5AjILYVrmBqc
- fi+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722441925; x=1723046725;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=0PK3XROm8AdCzvoF33BbXJKpI9sLb7+6gEw3RJDbeG8=;
- b=caB3YP3fHWbVHwogjaKSNK/M6UFYgQ0R3lfmPdFY556oM3O1uLJ4NdjoLihT3c15pg
- go0fW2aFkNxpbpj8IxoCRwkVl5aETDb+4UETem7LVl4gbNnJb9Xn9W7WTWXUSrLC7Deh
- FK3CJe7Gwgf9uNn5kd8hRH0ujCFrl2X0ITJehfl8j/5BjV91AsBvprmU9srSWEl4AqVo
- F9IOsf8THvI1OQtbQoA+Ai3EJFy+mnZ0SMxT9mAdQWkwArqA/f8LvVgm1TVl19K3sr+y
- C6GQX2EZP161DeHBAyv1ObdlzBZL0ITDqoG/7WulxjpjSCwyg7VuUfvVs2RvD/8Gak8s
- PzDw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVfp91hY4miXDz9xtty8sKPP/wa3DH1fPl9DXLcOUHtkVrFvfLF5Tpw1yaXYXcmWUqx3F3R2fGWeE6xgPeb5PBFNmytqa+bzFQyGG1bjY/ZEb8wB2tOU6MV2h2UpVJ3PiKnujGHxvuym60/xiiTc7PC
-X-Gm-Message-State: AOJu0YzTZIWVk74JMHiURRAehjimKB2xJdzIXAIKedWKoWFhuuN83ZTD
- NYsrQklJt6B8CY4VUxMmJA4Yt+ASru76d6UGc6MZetfFSoKwcH1kRrPZryQG8A09L7mqy1KCr5W
- KlLXLTzuOsojbbgFCTToH5B1Lv5o=
-X-Google-Smtp-Source: AGHT+IGIujU5BUmectRaXmqxV7kvHeg9YagD7Xq3hkgu9fb0INf/OlW+SsbFPBQWXRkrAlltMQY/ZujPn5Cf9ImCObg=
-X-Received: by 2002:a05:6402:4301:b0:5a3:27bd:e264 with SMTP id
- 4fb4d7f45d1cf-5b0204e024bmr14456021a12.9.1722441925094; Wed, 31 Jul 2024
- 09:05:25 -0700 (PDT)
+Received: from smtp38.i.mail.ru (smtp38.i.mail.ru [95.163.41.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1433C10E64F;
+ Wed, 31 Jul 2024 18:46:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jiaxyga.com
+ ; s=mailru;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Sender:Reply-To:To:Cc:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
+ X-Cloud-Ids:Disposition-Notification-To;
+ bh=f+lHgijBViiog2wbs80C4DR3drBALkeguE83lnYNhzc=; t=1722451566; x=1722541566; 
+ b=x9JvpaD9CqwX5k2DU2vvd2TychQ34FXFLaMF1NHBnv0SHkaAe10hc9YLKvMsDQMTjCaa1Al96K3
+ ezyE8bOpDe6bbf8OnPxdO5b1lgrXsKQNP99e3scDyYfbNx8r0S8CnEOrRadINaEkKXUN+NdE85AsY
+ aa9P8pdzuGkZlC8gw8Y=;
+Received: by exim-smtp-5c6c85c787-dzmgd with esmtpa (envelope-from
+ <danila@jiaxyga.com>)
+ id 1sZEKm-00000000AEA-2sHn; Wed, 31 Jul 2024 21:46:01 +0300
+From: Danila Tikhonov <danila@jiaxyga.com>
+To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, robdclark@gmail.com,
+ sean@poorly.run, quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch,
+ fekz115@gmail.com
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, cros-qcom-dts-watchers@chromium.org,
+ linux@mainlining.org, Danila Tikhonov <danila@jiaxyga.com>
+Subject: [PATCH v2 0/2] Add Qualcomm Adreno 642L speedbin and update SC7280
+ OPPs
+Date: Wed, 31 Jul 2024 21:45:48 +0300
+Message-ID: <20240731184550.34411-1-danila@jiaxyga.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <20240703-msm-tiling-config-v2-0-b9da29ab6608@gmail.com>
-In-Reply-To: <20240703-msm-tiling-config-v2-0-b9da29ab6608@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 31 Jul 2024 09:05:12 -0700
-Message-ID: <CAF6AEGtr70TqFRDS3U9fEJ_vWHC53BC9G4tqgSJbsCD1H92qFA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] drm/msm: Further expose UBWC tiling parameters
-To: Connor Abbott <cwabbott0@gmail.com>
-Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Authentication-Results: exim-smtp-5c6c85c787-dzmgd;
+ auth=pass smtp.auth=danila@jiaxyga.com
+ smtp.mailfrom=danila@jiaxyga.com
+X-Mailru-Src: smtp
+X-7564579A: 646B95376F6C166E
+X-77F55803: 4F1203BC0FB41BD926BB450FD17188A9C7DD05013CA63362BF18B36FD939231F182A05F5380850406DD657F80B0BAC3F3DE06ABAFEAF67050B69D64FCD6D39210FD0310B1A6FC1CEE5BD31BE838A11F7
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE757F64E7FD849EB4FEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F79006374E88016F1B7D8D248638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D83B8852E31B8106584E40561C81143144BDADDF5849C030ACCC7F00164DA146DAFE8445B8C89999728AA50765F790063793270F7220657A0A389733CBF5DBD5E9C8A9BA7A39EFB766F5D81C698A659EA7CC7F00164DA146DA9985D098DBDEAEC87BD21ED50D08CA4DF6B57BC7E6449061A352F6E88A58FB86F5D81C698A659EA73AA81AA40904B5D9A18204E546F3947CB2DECCBDF547A30576E601842F6C81A12EF20D2F80756B5FB606B96278B59C4276E601842F6C81A127C277FBC8AE2E8B120C23C05AEC2B18EC76A7562686271ED91E3A1F190DE8FD2E808ACE2090B5E14AD6D5ED66289B5278DA827A17800CE76631511D42670FFE2EB15956EA79C166176DF2183F8FC7C04E672349037D5FA5725E5C173C3A84C361DD96311B40C2D435872C767BF85DA2F004C90652538430E4A6367B16DE6309
+X-C1DE0DAB: 0D63561A33F958A5C18F2A3FACA200B75002B1117B3ED696EDE7E9A5CBF811DC54BB1175C6E7DD94823CB91A9FED034534781492E4B8EEAD619183A7BD6BC6F1F36E2E0160E5C55395B8A2A0B6518DF68C46860778A80D54AF47762AB4810619
+X-C8649E89: 1C3962B70DF3F0ADBF74143AD284FC7177DD89D51EBB7742DC8270968E61249B1004E42C50DC4CA955A7F0CF078B5EC49A30900B95165D34980A6B448CFD1B8AC54EE019682A910FDF1150C1D50AA9285A25826F80F6501AF4CAA1C3482256DB1D7E09C32AA3244C81D539AEE2879AD077DD89D51EBB7742C9BD42142E7FF225EA455F16B58544A219BDBC76D41736405DA084F8E80FEBD322CFFF16B4474ECB4573B60270F1EB7C214C2BC1176D5C25
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2bioj2j9vV9f5a3sHc+HdFS244w==
+X-Mailru-Sender: 9EB879F2C80682A09F26F806C7394981A5B90ABC46C0EF5F4825860F061DF2142FDDA702506AA14E88DB4CD5F07DFD962C62728BC403A049225EC17F3711B6CF1A6F2E8989E84EC137BFB0221605B344978139F6FA5A77F05FEEDEB644C299C0ED14614B50AE0675
+X-Mras: Ok
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,84 +74,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jul 3, 2024 at 3:54=E2=80=AFAM Connor Abbott <cwabbott0@gmail.com> =
-wrote:
->
-> After testing, there are more parameters that we're programming which
-> affect how UBWC tiles are laid out in memory and therefore affect
-> the Mesa implementation of VK_EXT_host_image_copy [1], which includes a
-> CPU implementation of tiling and detiling images. In particular we have:
->
-> 1. ubwc_mode, which is used to enable level 1 bank swizzling to go back
->    to UBWC 1.0 when the implementation supports UBWC 2.0. a610 sets
->    this.
-> 2. macrotile_mode, which we previously left as default but according to
->    downstream we shouldn't for a680.
-> 3. level2_swizzling_dis, which according to downstream has to be set
->    differently for a663.
->
-> I want as much as possible to avoid problems from people trying to
-> upstream Mesa/kernel support not knowing what they're doing and blindly
-> copying things, so let's make this very explicit that you must set the
-> correct parameters in the kernel and then make sure that Mesa always
-> gets the right parameters from the "source of truth" in the kernel by
-> adding two new UAPI parameters. The Mesa MR has already been updated to
-> use this if available.
->
-> A secondary goal is to make the adreno settings look more like the MDSS
-> settings, by combining ubwc_mode and level2_swizzling_dis into a single
-> ubwc_swizzle parameter that matches the MDSS one. This will help with
-> creating a single source of truth for all drivers later. The UAPI also
-> matches this, and it makes the Mesa tiling and detiling implementation
-> simpler/more straightforward.
->
-> For more information on what all these parameters mean, see the comments
-> I've added in the first commit and the giant comment in
-> src/freedreno/fdl/fd6_tiled_memcpy.c I've added in [1].
->
-> Testing of the Mesa MR both with and without this series is appreciated,
-> there are many different SoCs out there with different UBWC
-> configurations and I cannot test them all.
->
-> [1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26578
->
-> Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+This patch series adds support for the A642L GPU speedbin (0x81) to the
+Adreno driver and updates the device tree for the SC7280 platform to
+include this new speedbin. The A642L is used in the Qualcomm Snapdragon
+SM7325 SoCs family, which is identical to the SC7280, just as the SM7125 is
+identical to the SC7180. Therefore, the SM7325 will use the SC7280 device
+tree. Patches for the SM7325 will be sent later, but in the meantime, you
+can find them at the following link:
+https://github.com/mainlining/linux/commits/danila/spacewar-upstream
 
-for the series,
+Updated: The first version of the submitted patches can be found at the
+following link:
+https://lore.kernel.org/all/20240729201843.142918-1-danila@jiaxyga.com/
 
-Reviewed-by: Rob Clark <robdclark@gmail.com>
+Changes in v2:
+- Add Konrad's R-b tag to patches no. 1 and 2 (Konrad)
+- Fix subject prefix for patch no. 1 (Bjorn)
+- Link to v1:
+https://lore.kernel.org/all/20240722184314.36510-1-danila@jiaxyga.com/
 
-But could you resend with updated a6xx.xml now that the perf cntrs
-have been corrected (to avoid further churn later)
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Rob Clark <robdclark@gmail.com>
+To: Sean Paul <sean@poorly.run>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+To: David Airlie <airlied@gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+To: Eugene Lepshy <fekz115@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+Cc: cros-qcom-dts-watchers@chromium.org
+Cc: linux@mainlining.org
+Signed-off-by: Danila Tikhonov <danila@jiaxyga.com>
 
-BR,
--R
+Eugene Lepshy (2):
+  drm/msm/a6xx: Add A642L speedbin (0x81)
+  arm64: dts: qcom: sc7280: Add 0x81 Adreno speed bin
 
-> ---
-> Changes in v2:
-> - Move ubwc_config field descriptions to kerneldoc comments on the struct
-> - Link to v1: https://lore.kernel.org/r/20240702-msm-tiling-config-v1-0-a=
-daa6a6e4523@gmail.com
->
-> ---
-> Connor Abbott (3):
->       drm/msm: Update a6xx register XML
->       drm/msm: Expand UBWC config setting
->       drm/msm: Expose expanded UBWC config uapi
->
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |    4 +
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |   34 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |    6 +
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h       |   32 +-
->  drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 1617 +++++++++++++++++++=
-+++++-
->  include/uapi/drm/msm_drm.h                    |    2 +
->  6 files changed, 1664 insertions(+), 31 deletions(-)
-> ---
-> base-commit: 269b88cb92e62e52718cd44c07b7517265193157
-> change-id: 20240701-msm-tiling-config-c5f222f5db1c
->
-> Best regards,
-> --
-> Connor Abbott <cwabbott0@gmail.com>
->
+ arch/arm64/boot/dts/qcom/sc7280.dtsi      | 8 ++++----
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 1 +
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+-- 
+2.45.2
+
