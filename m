@@ -2,83 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F40A94BDB8
-	for <lists+freedreno@lfdr.de>; Thu,  8 Aug 2024 14:42:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAA1A94BDC0
+	for <lists+freedreno@lfdr.de>; Thu,  8 Aug 2024 14:42:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1946A10E70B;
-	Thu,  8 Aug 2024 12:42:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6EEF10E717;
+	Thu,  8 Aug 2024 12:42:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=google.com header.i=@google.com header.b="sHOj2PVW";
+	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="Dg6A5Ykc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AD4710E39D
- for <freedreno@lists.freedesktop.org>; Mon, 29 Jul 2024 11:45:36 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-427fc9834deso56875e9.0
- for <freedreno@lists.freedesktop.org>; Mon, 29 Jul 2024 04:45:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1722253535; x=1722858335;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=Po1n89LJvram5HEqYwMALsMwnThZhO0DVQ6rc50fxBE=;
- b=sHOj2PVW3SYtSNjGulrhORQCtSbkOvYy6TXGpziDtm6uyGN8RhtbP1tr+OqYWnk4Ou
- I3ewphKYBqxSFtlO37BA9qAlvuFBe7C8L5lnFO4vYDjKK84XZp6Vbka63ae/88TCKwUp
- +VtwcoLMOYQaXk2wsTTBTFnQwxUFCl26VF3y1RRTCA/PJQt2X08DAsmUPjP/O/AsSLqn
- AthE8/1uFe537bC4sTpVB0CpV3ecOv5pW2X+I4xbtDEa86zxZf2HzpUW+4btRUwMDURE
- 7W9H/WV0iqegOo4H77P+umWYhOxnzFyDh5vCT+jq/p8Knoka3oj9K9bt6YSqNJvuLkHV
- 3iQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722253535; x=1722858335;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Po1n89LJvram5HEqYwMALsMwnThZhO0DVQ6rc50fxBE=;
- b=YM/KReRegGQzZx5dtKTmaZvITfY7YbzFuPZAJJ4fpAk4iX2LnK061vqF/g9t7j450q
- /oN6N2iOjt/tiv7GrBm6rtJzQN+uI5JYCA7lrLlLYTWPqCl3ydHgHBllIE7SnSNOuw2o
- Rb4s0PpGwBs/9nxtCDtC+myJfR4WZF8aGe8MrvP3meS4Goolit7snTOWVbAM3RZSFlOO
- Brhzu7rIsQQSsN8R3UjMS+nrxVMzVImSetK08/mJNpFXK0W8K6J5sghctuvKUQiRvYOx
- U1GdLwV6/7x1LbAwigt94V9q3GW6xug11nR8+IdIhWY3+NRSziTmWJq8m5+YwdUQ9ns2
- DrCg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX0q0/v1PYsSIbnnUmcDoYU+o4XIK1kiLHq09Ignh3obr9MTA9M55n6sKFMeE/5JwGtRmnqz49dt6V7AzC4izAYHci8FPYBHkfKnr6OJqzV
-X-Gm-Message-State: AOJu0Yxq6xotSrpOCpKi+X8dWRR3zgSyGN6ABb45ukQAs9XZ18IOJsnP
- P6siWqpZ33FeEam1q/1d6pNmWZu/7JbMFi2JPknNzXxFo2G0a73d1/I2VtPQLQ==
-X-Google-Smtp-Source: AGHT+IF9lmrrr4mU6SQTATPg4BGae20+2RN2oYvd82uqtDRGSOWYN9hk+RN/G33dubnGu66mSB8E8A==
-X-Received: by 2002:a05:600c:3c96:b0:426:8ee5:3e9c with SMTP id
- 5b1f17b1804b1-4280b142f23mr4818455e9.6.1722253534535; 
- Mon, 29 Jul 2024 04:45:34 -0700 (PDT)
-Received: from google.com (180.232.140.34.bc.googleusercontent.com.
- [34.140.232.180]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4280574003bsm171998655e9.17.2024.07.29.04.45.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jul 2024 04:45:34 -0700 (PDT)
-Date: Mon, 29 Jul 2024 11:45:30 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Rob Clark <robdclark@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, iommu@lists.linux.dev,
- Will Deacon <will@kernel.org>, Rob Clark <robdclark@chromium.org>,
- Joerg Roedel <jroedel@suse.de>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Lu Baolu <baolu.lu@linux.intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Joao Martins <joao.m.martins@oracle.com>,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v6 1/2] iommu/io-pgtable-arm: Add way to debug pgtable walk
-Message-ID: <ZqeA2tq5Nw4zvqwD@google.com>
-References: <20240717163627.43423-1-robdclark@gmail.com>
- <20240717163627.43423-2-robdclark@gmail.com>
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D4A710E8F0;
+ Thu,  1 Aug 2024 16:45:08 +0000 (UTC)
+Received: from [127.0.0.1] (254C2FDD.nat.pool.telekom.hu [37.76.47.221])
+ by mail.mainlining.org (Postfix) with ESMTPSA id DEA75E4504;
+ Thu,  1 Aug 2024 16:45:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mainlining.org;
+ s=psm; t=1722530706;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=v5l+UJOnTuIA2VF3IVpxLITj1fy8BGXTZgAAao9FeIc=;
+ b=Dg6A5YkcSa+bOJBu/209DtaFqEZs9XbCrbL1TMnnfdQqyMaoZX3JOS4cJltrVAISiyWllX
+ zI/QmqpZRKZInbCcxiuJr/1sZlrheR0Pacan5bI45PjmYbFjjzCCP8Q5vm5f3CH9NplQ+S
+ KLhIiaeOGhmeAHndl8Ax4MIWS62MmSUrxdqV50eM/quiZCR/LrSXQu7HfuBRtdtQmy/wcd
+ 6Itxv9kNyIgVp8JrlK/r72cK6PlUfL/PFhVKiKQiZMuUKgheGdxz44xEQCHS6todGMrL2Q
+ 39nnuD3L2wF3w3+PRZA4qbS7eJS62iALEti28VaG35ZmrpscfXHa7pUfjbg2Xg==
+Date: Thu, 01 Aug 2024 18:45:03 +0200
+From: =?ISO-8859-1?Q?Barnab=E1s_Cz=E9m=E1n?= <barnabas.czeman@mainlining.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+CC: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>
+Subject: Re: [PATCH 0/2] Add MSM8996/MSM8953 dpu catalog
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20240628-dpu-msm8953-msm8996-v1-0-a31c77248db7@mainlining.org>
+References: <20240628-dpu-msm8953-msm8996-v1-0-a31c77248db7@mainlining.org>
+Message-ID: <874E8EE9-6BE5-4801-AB2E-536B6A160AF8@mainlining.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240717163627.43423-2-robdclark@gmail.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 08 Aug 2024 12:42:47 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,157 +65,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Rob,
+Should i resend this patch set?
 
-On Wed, Jul 17, 2024 at 09:36:21AM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Add an io-pgtable method to walk the pgtable returning the raw PTEs that
-> would be traversed for a given iova access.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> Acked-by: Joerg Roedel <jroedel@suse.de>
-> 
-> ---
->  drivers/iommu/io-pgtable-arm.c | 36 +++++++++++++++++++++++++---------
->  include/linux/io-pgtable.h     | 17 ++++++++++++++++
->  2 files changed, 44 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
-> index 3d23b924cec1..e70803940b46 100644
-> --- a/drivers/iommu/io-pgtable-arm.c
-> +++ b/drivers/iommu/io-pgtable-arm.c
-> @@ -690,9 +690,11 @@ static size_t arm_lpae_unmap_pages(struct io_pgtable_ops *ops, unsigned long iov
->  				data->start_level, ptep);
->  }
->  
-> -static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
-> -					 unsigned long iova)
-> +static int arm_lpae_pgtable_walk(struct io_pgtable_ops *ops,
-> +				 unsigned long iova,
-> +				 void *_wd)
->  {
-> +	struct arm_lpae_io_pgtable_walk_data *wd = _wd;
->  	struct arm_lpae_io_pgtable *data = io_pgtable_ops_to_data(ops);
->  	arm_lpae_iopte pte, *ptep = data->pgd;
->  	int lvl = data->start_level;
-> @@ -700,7 +702,7 @@ static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
->  	do {
->  		/* Valid IOPTE pointer? */
->  		if (!ptep)
-> -			return 0;
-> +			return -ENOENT;
->  
->  		/* Grab the IOPTE we're interested in */
->  		ptep += ARM_LPAE_LVL_IDX(iova, lvl, data);
-> @@ -708,22 +710,37 @@ static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
->  
->  		/* Valid entry? */
->  		if (!pte)
-> -			return 0;
-> +			return -ENOENT;
->  
-> -		/* Leaf entry? */
-> +		wd->ptes[wd->level++] = pte;
-> +
-> +		/* Leaf entry?  If so, we've found the translation */
->  		if (iopte_leaf(pte, lvl, data->iop.fmt))
-> -			goto found_translation;
-> +			return 0;
->  
->  		/* Take it to the next level */
->  		ptep = iopte_deref(pte, data);
->  	} while (++lvl < ARM_LPAE_MAX_LEVELS);
->  
->  	/* Ran out of page tables to walk */
-> -	return 0;
-> +	return -ENOENT;
-> +}
-> +
-> +static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
-> +					 unsigned long iova)
-> +{
-> +	struct arm_lpae_io_pgtable *data = io_pgtable_ops_to_data(ops);
-> +	struct arm_lpae_io_pgtable_walk_data wd = {};
-> +	int ret, lvl;
-> +
-> +	ret = arm_lpae_pgtable_walk(ops, iova, &wd);
-> +	if (ret)
-> +		return 0;
-> +
-> +	lvl = wd.level + data->start_level;
->  
-> -found_translation:
->  	iova &= (ARM_LPAE_BLOCK_SIZE(lvl, data) - 1);
-> -	return iopte_to_paddr(pte, data) | iova;
-> +	return iopte_to_paddr(wd.ptes[wd.level - 1], data) | iova;
->  }
->  
->  static void arm_lpae_restrict_pgsizes(struct io_pgtable_cfg *cfg)
-> @@ -804,6 +821,7 @@ arm_lpae_alloc_pgtable(struct io_pgtable_cfg *cfg)
->  		.map_pages	= arm_lpae_map_pages,
->  		.unmap_pages	= arm_lpae_unmap_pages,
->  		.iova_to_phys	= arm_lpae_iova_to_phys,
-> +		.pgtable_walk	= arm_lpae_pgtable_walk,
->  	};
->  
->  	return data;
-> diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
-> index 86cf1f7ae389..df6f6e58310c 100644
-> --- a/include/linux/io-pgtable.h
-> +++ b/include/linux/io-pgtable.h
-> @@ -171,12 +171,28 @@ struct io_pgtable_cfg {
->  	};
->  };
->  
-> +/**
-> + * struct arm_lpae_io_pgtable_walk_data - information from a pgtable walk
-> + *
-> + * @ptes:     The recorded PTE values from the walk
-> + * @level:    The level of the last PTE
-> + *
-> + * @level also specifies the last valid index in @ptes
-> + */
-> +struct arm_lpae_io_pgtable_walk_data {
-> +	u64 ptes[4];
-
-I don’t see a reason to save the whole walk for iova_to_phys,
-I see that the DRM driver uses those next, but I am worried that
-won’t scale, a callback mechanism sounds better.
-
-Also, there is a page table walker recently added to io-pagtable-arm,
-for dirty bit tracking:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/iommu/io-pgtable-arm.c?id=4fe88fd8b4aecb7f9680bf898811db76b94095a9
-
-I’d suggest consolidating those into one walker where each caller
-has its own logic in a callback.
-
-Thanks,
-Mostafa
-
-> +	int level;
-> +};
-> +
->  /**
->   * struct io_pgtable_ops - Page table manipulation API for IOMMU drivers.
->   *
->   * @map_pages:    Map a physically contiguous range of pages of the same size.
->   * @unmap_pages:  Unmap a range of virtually contiguous pages of the same size.
->   * @iova_to_phys: Translate iova to physical address.
-> + * @pgtable_walk: (optional) Perform a page table walk for a given iova.  The
-> + *                type for the wd parameter is specific to pgtable type, as
-> + *                the PTE size and number of levels differs per pgtable type.
->   *
->   * These functions map directly onto the iommu_ops member functions with
->   * the same names.
-> @@ -190,6 +206,7 @@ struct io_pgtable_ops {
->  			      struct iommu_iotlb_gather *gather);
->  	phys_addr_t (*iova_to_phys)(struct io_pgtable_ops *ops,
->  				    unsigned long iova);
-> +	int (*pgtable_walk)(struct io_pgtable_ops *ops, unsigned long iova, void *wd);
->  	int (*read_and_clear_dirty)(struct io_pgtable_ops *ops,
->  				    unsigned long iova, size_t size,
->  				    unsigned long flags,
-> -- 
-> 2.45.2
-> 
+On June 28, 2024 4:39:38 PM GMT+02:00, "Barnab=C3=A1s Cz=C3=A9m=C3=A1n" <b=
+arnabas=2Eczeman@mainlining=2Eorg> wrote:
+>This patch series add dpu support for MSM8996/MSM8953 devices=2E
+>
+>Note, by default these platforms are still handled by the MDP5 driver
+>unless the `msm=2Eprefer_mdp5=3Dfalse' parameter is provided=2E
+>
+>Signed-off-by: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <barnabas=2Eczeman@mainlini=
+ng=2Eorg>
+>---
+>Dmitry Baryshkov (1):
+>      drm/msm/dpu: add support for MSM8953
+>
+>Konrad Dybcio (1):
+>      drm/msm/dpu: Add MSM8996 support
+>
+> =2E=2E=2E/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953=2Eh   | 218 +++++++=
+++++++
+> =2E=2E=2E/drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996=2Eh    | 348 +++++++=
+++++++++++++++
+> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog=2Ec     | 106 +++++++
+> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog=2Eh     |   2 +
+> drivers/gpu/drm/msm/disp/dpu1/dpu_kms=2Ec            |   2 +
+> drivers/gpu/drm/msm/msm_drv=2Ec                      |   2 +
+> 6 files changed, 678 insertions(+)
+>---
+>base-commit: df9574a57d02b265322e77fb8628d4d33641dda9
+>change-id: 20240528-dpu-msm8953-msm8996-5d0fb7e387b8
+>
+>Best regards,
