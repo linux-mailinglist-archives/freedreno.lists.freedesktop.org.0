@@ -2,82 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B481B94534E
-	for <lists+freedreno@lfdr.de>; Thu,  1 Aug 2024 21:25:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75C799454E4
+	for <lists+freedreno@lfdr.de>; Fri,  2 Aug 2024 01:26:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2AA510E92B;
-	Thu,  1 Aug 2024 19:25:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E12610E0FC;
+	Thu,  1 Aug 2024 23:26:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="lQ9q+Lh5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xhGSElYz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61C7C10E92A
- for <freedreno@lists.freedesktop.org>; Thu,  1 Aug 2024 19:25:14 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-52efba36802so12065079e87.2
- for <freedreno@lists.freedesktop.org>; Thu, 01 Aug 2024 12:25:14 -0700 (PDT)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42B3910E142
+ for <freedreno@lists.freedesktop.org>; Thu,  1 Aug 2024 23:26:51 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-2eeb1ba0481so116891591fa.2
+ for <freedreno@lists.freedesktop.org>; Thu, 01 Aug 2024 16:26:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1722540312; x=1723145112; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=NrLSwEPusse/MuTuJW5ek+V6ugLF2Iclegua7zatll8=;
- b=lQ9q+Lh51orWwAvANDfq59hI/RChrELI8VdZo3GWr06mpAsPeV+jwlJaACvXoRsVfV
- rON6exMEp0t4X9nDs6lEF9rV0e3QkQlK9copdjnyzZE7TsmvdZnbpr/FmHzKCBY/do7k
- jKqb0dVqxRwAYUNoYoDqO0ySUffVEElNEjPbK9HRU9l6B0hlw66M/rWVApAB26+YGQZy
- 8xTdm+ebwelEEXQSYDOI2d/rvzxGj/eaVA1IjoRuyO+rFo0nKdRXnDXZzLTJxIxLQJy4
- Z3ZAkB5nqWW0drtsQDbTT0qC7ParA0VY/WzavCS7xY13uf289j1L08+4fRT5ENV88ZZa
- Z5Jw==
+ d=linaro.org; s=google; t=1722554809; x=1723159609; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=2VEGUPDRRqhVW/PJkPAae6CRq9ZnKyovwy6ZCh6qQPw=;
+ b=xhGSElYz9cG3lNcHrn9wgu48Gn/a/8dNHru3vUMKsnRlFF513JCWb+uRlwILlufnw8
+ U180sJjcBj5fzTBMXzz5yGRziq2+QuogvEsWo7YlGn0zDM2iwUq2a2RTRurvIitjuTGG
+ GL9zGir5dcaTrT0FOq2i3rGxt5v01zNkwqokBjPf2unDgtlL6Fkgi7tH5soYORvNCNlg
+ p2UBPOD3N+ACdCImcBYhA76dsbfyEUs5wE1Unukiy0cggPbzX3H214Z1JbMXqTZLjRu1
+ A2Ji6wIgvxqI97bZvN9EjBnAs814Tltoon70zbcXKrjKUeqLyPNnHuTeKJ/bbd+RbG5c
+ 5pmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722540312; x=1723145112;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NrLSwEPusse/MuTuJW5ek+V6ugLF2Iclegua7zatll8=;
- b=PSEGlZpQMbJm50YVmwud6EZUuA0Ej05ZYwcpYuEvBwvs4XK42+e+IWoT3eZyNcYccA
- FS9ayGN/czUfmKwGP3wEiHG/kY5z1iSGkwbK+dEQa5UvGoJnAXkxDKYE7QcEoYXpsLLD
- jFTQXNijBOj/vLFxLr0oTRA2n2T+Dj1AZiHxWsWQuOmlbpsDjkMzLKpRaCkYfcN8LcAS
- vNULTsGxDae6nqOVhjQ8EWn0+WTgjNRyWNqrFBkiXri6xLojVXO3rqzXo1ZZZEfboY3Q
- E4i64foMH58Tt2LbUwQ3lAe7R46ZD9J0kkcu8J8Uh1iYZBA07Yier0vKBy7IrrF8BwhV
- hqow==
+ d=1e100.net; s=20230601; t=1722554809; x=1723159609;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2VEGUPDRRqhVW/PJkPAae6CRq9ZnKyovwy6ZCh6qQPw=;
+ b=BAG+yWEeFW+zeDdgRJCVIItrdDWO/EWAk63QOPWjNqb/k4ILcxOLlWx362e2cGBe02
+ 18adloZa3+RvUNsTa1dbohxp45x2Mj/AREeZEHc02hlTEBb3t3jVfint4OFtghh6lATM
+ XJkTbMwQvXy28BN99Hlq0a2nIC0lTLhXNjElxHf4aXS8ASoADrRI/mvXrUbpF362V+z+
+ EF31NTHuTPPJgFuJLnPmzpAQvHxkpl56fx5bQZM6hQWUYt/UFtMUSOFdrTINaVOi7r/M
+ orgZGot/n+o4ZzQGwHs5VbEjsNzt8GuRa5p+ktZsEE0kmyAzr5OjH63CL6Z172UfIMSU
+ EGUA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXga0Jx8LKq4WRwpCJUvbAi1RGWjriqbpSi9ufqyRCFZHmhgBRCu5tajYYbLqyopV+exk8aRdvQaL+3D8sduYNDAJSqr4kejsEprfMmKnBu
-X-Gm-Message-State: AOJu0Yy6u0eoHXHlLbjFgKllyVMS50grLLq5H58vaTI6KUgjAZgGIIeG
- Da04Pz82W604Yxgz+3fa5K5Q7vopcrdMrYyVmXu41zwRb2/AYdXdn0NptkyajjWzcHdRIP2NKZ4
- Y
-X-Google-Smtp-Source: AGHT+IHyvHO6F0PypSn/UmfAHe+RChPC8zWKCvyEdtI5ipmD0BkNJ+h95UKmnYJ0E129Lj7ff5XZnA==
-X-Received: by 2002:a05:6512:a96:b0:52c:8c4d:f8d6 with SMTP id
- 2adb3069b0e04-530bb39b0b0mr724584e87.45.1722540312231; 
- Thu, 01 Aug 2024 12:25:12 -0700 (PDT)
+ AJvYcCU7knBJqRyjIHooosgscPqICyVdCzeaGfK0fci4wuKKfoapVfQdL0xCMjwtGEJEDqUAP7rtu/Q5Cy9x/Us2vQeP36b/jKElR8h9cLKqflwF
+X-Gm-Message-State: AOJu0YyqJBnXNAJXYIDHEZq/cqSWrDiZRu0v5Bgakg1GF4PeKaASjATG
+ euxPbuI+lyeZ6SnRmVklnRZnJhA2+xOQekrg6yTijAHS+6hs5qLOU4qW/ObO4To=
+X-Google-Smtp-Source: AGHT+IE4Mua+Rvlk/mPH7ZfoTa6bGdKOO4U17oj0KhChirq7ABB8vqTIToIdDn48zSCe17DTxHCx/g==
+X-Received: by 2002:a05:6512:118a:b0:52c:dc57:868b with SMTP id
+ 2adb3069b0e04-530bb3b150cmr1017683e87.13.1722554809015; 
+ Thu, 01 Aug 2024 16:26:49 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-530bba10fd9sm35859e87.99.2024.08.01.12.25.11
+ 2adb3069b0e04-530bba3cfe3sm75233e87.281.2024.08.01.16.26.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Aug 2024 12:25:11 -0700 (PDT)
-Date: Thu, 1 Aug 2024 22:25:10 +0300
+ Thu, 01 Aug 2024 16:26:48 -0700 (PDT)
+Date: Fri, 2 Aug 2024 02:26:46 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>
-Subject: Re: [PATCH 0/2] Add MSM8996/MSM8953 dpu catalog
-Message-ID: <zeek3j7skstysho5bduxn23xipz3fpqsfwggue66dlyozhepnn@4wnnd7q6xf22>
-References: <20240628-dpu-msm8953-msm8996-v1-0-a31c77248db7@mainlining.org>
+ Daniel Vetter <daniel@ffwll.ch>, Chandan Uddaraju <chandanu@codeaurora.org>, 
+ Rajesh Yadav <ryadav@codeaurora.org>, Jeykumar Sankaran <jsanka@codeaurora.org>,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>,
+ Archit Taneja <architt@codeaurora.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dpu: move dpu_encoder's connector assignment to
+ atomic_enable()
+Message-ID: <tdmzxhdd2hml4zrecawelmw5p2wrqqhzqoxip4wlbzmb2dvfpe@tmoinnmcpxsf>
+References: <20240731191723.3050932-1-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240628-dpu-msm8953-msm8996-v1-0-a31c77248db7@mainlining.org>
+In-Reply-To: <20240731191723.3050932-1-quic_abhinavk@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,39 +91,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jun 28, 2024 at 04:39:38PM GMT, Barnabás Czémán wrote:
-> This patch series add dpu support for MSM8996/MSM8953 devices.
+On Wed, Jul 31, 2024 at 12:17:22PM GMT, Abhinav Kumar wrote:
+> For cases where the crtc's connectors_changed was set without enable/active
+> getting toggled , there is an atomic_enable() call followed by an
+> atomic_disable() but without an atomic_mode_set().
 > 
-> Note, by default these platforms are still handled by the MDP5 driver
-> unless the `msm.prefer_mdp5=false' parameter is provided.
-
-Could you please provide a summary of features actually tested with the
-DPU driver? Have you tested YUV output? Have you tested RGB planes?
-Which LMs have you tested?
-
-> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+> This results in a NULL ptr access for the dpu_encoder_get_drm_fmt() call in
+> the atomic_enable() as the dpu_encoder's connector was cleared in the
+> atomic_disable() but not re-assigned as there was no atomic_mode_set() call.
+> 
+> Fix the NULL ptr access by moving the assignment for atomic_enable() and also
+> use drm_atomic_get_new_connector_for_encoder() to get the connector from
+> the atomic_state.
+> 
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> Reported-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
-> Dmitry Baryshkov (1):
->       drm/msm/dpu: add support for MSM8953
-> 
-> Konrad Dybcio (1):
->       drm/msm/dpu: Add MSM8996 support
-> 
->  .../drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h   | 218 +++++++++++++
->  .../drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h    | 348 +++++++++++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 106 +++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   2 +
->  drivers/gpu/drm/msm/msm_drv.c                      |   2 +
->  6 files changed, 678 insertions(+)
-> ---
-> base-commit: df9574a57d02b265322e77fb8628d4d33641dda9
-> change-id: 20240528-dpu-msm8953-msm8996-5d0fb7e387b8
-> 
-> Best regards,
-> -- 
-> Barnabás Czémán <barnabas.czeman@mainlining.org>
-> 
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # SM8350-HDK
+
+Thanks a lot!
 
 -- 
 With best wishes
