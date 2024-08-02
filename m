@@ -2,51 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1204945F26
-	for <lists+freedreno@lfdr.de>; Fri,  2 Aug 2024 16:10:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB4CB946403
+	for <lists+freedreno@lfdr.de>; Fri,  2 Aug 2024 21:47:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9381410E138;
-	Fri,  2 Aug 2024 14:10:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E713410E1A3;
+	Fri,  2 Aug 2024 19:47:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="broSif41";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Bk8uy9uT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ACEF10E138;
- Fri,  2 Aug 2024 14:10:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 78A12629AD;
- Fri,  2 Aug 2024 14:10:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CA39C32782;
- Fri,  2 Aug 2024 14:10:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722607833;
- bh=t5TXMfkAFtrA0zYUGHYsxBjB6x511pWd/0k0tqIstK4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=broSif41v8x6AAdGNq6ymOWqaVU5xZqQoqe70jksXTqk+gsFYAOjFCI4z0oFRjZqK
- 3FKDJHH9cTiMNafacD0R6DxaDUjY+h9M7X6sSK3CWB0VdOzaOz3BwuzRedSwG/FQRu
- wiUB7yx1zwTDhRw6oFWpdR2uWZLRN+mj/NiRKd6gzpcLpY5PrvNCpeokVXnWxxl38k
- LhVU1ZLtc9tGxx/eqbBR+Itba7gwsN2O5syfBoxqzWBAsjJYSODAT7FugBqvf38lsu
- gSIJdVFdZaob0EYDsfh6K3Ah0RPqZSZLnNMUEdGDPwdy9HfYY1D3qHTbIW77inB3bZ
- XIc+Zxd7Wd2AQ==
-Date: Fri, 2 Aug 2024 19:40:27 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: freedreno@lists.freedesktop.org,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- dri-devel@lists.freedesktop.org, quic_jesszhan@quicinc.com,
- dmitry.baryshkov@linaro.org, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] phy: qcom: com-qmp-combo: fix swing and pre-emphasis
- table for sm8350
-Message-ID: <Zqzo08Siy5liaPAd@matsya>
-References: <20240725220608.131426-1-quic_abhinavk@quicinc.com>
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CC1910E1B6
+ for <freedreno@lists.freedesktop.org>; Fri,  2 Aug 2024 19:47:39 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-5b8c2a6135eso1527252a12.0
+ for <freedreno@lists.freedesktop.org>; Fri, 02 Aug 2024 12:47:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1722628057; x=1723232857; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=hRkZO0QxGsY8q5b8djGsFwrWLk6pIxSotLSe9SlQGrA=;
+ b=Bk8uy9uTQJfje5GEVXba1RMxR+tAAatUNbta7Qbpfpvqj56hDhizMNY1xrUiCMMNMk
+ iRSzjdB2/8gQgv9IS7AB9dvX8E1bXk8nfaMnYiTa+BNiNuwJfvVe+4lKsnsPIwlZCEJZ
+ TlazGi9wPlP+c8KJwlMc3gd+C4Ntwt4gWTt/7mMd/4XAldWN1QRmT+UzfbF7kKcA2Zbj
+ ihM/AiwHTbd+Y+DxejnkFBTQfRLapg/4UOTrvmzsmvlLTP46BrQEHyCUfe57avCEZjz+
+ Dyz4vMxQ6lCIUN+0Mna14aQo7KLXKHCjNUtpEg34K1YfToKTxddV86tMFsxT7d+ZE2rs
+ 2ocQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722628057; x=1723232857;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hRkZO0QxGsY8q5b8djGsFwrWLk6pIxSotLSe9SlQGrA=;
+ b=bfXd3GkT60SBOMNv4OpJhg85ftBbYR57knQPinTaDWebfzy0BEVr5K3+XQ+VPVR0Jp
+ R/AcJnDTdYUQpEz44NlUbemsU+BRkX9BlrIi/qIFeK51G+R4lpQE2qwfOV8n7uJvxR5n
+ kMeStpXcjGCdeB5L/Krji/SGVkEX1A+iACwPNu4nbqSr9RH2treoxBrS++g+Bd50fHOK
+ y8+P9dmnXw+k8u1kJh7zkVte8YXLQkuY8Tdnt792eb2KaHOTiHD8XRK6p+60Dlsh+rFL
+ 9hs0Jgnm5XsjOXGyLjGuAOWaKlLdCX+AnJO+1dldhuTJMxFZHeZNHZ7Zqm86ejLUGRqS
+ /1Pw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXiGHpMfdSfPFklMjOrk9aHJpsJpgcRYG00kn5vZLDeXr4r2Y26vPPXOY1Iqrf8IKHoWPg+UyhHM3B/y/xWVgzFZpzkz3TwsxtZ+Dkkf1yw
+X-Gm-Message-State: AOJu0Ywvt59rTem7+oMfYS9MD6WCSk8YYWg86WQRyo9NQv+pWO7NFSHt
+ G59EFPxbUeyHi5aLLvKf3cPnN2Nm0oe7RI8ibZxlFPe3ggOHI3RUDSIFqIUvhNY=
+X-Google-Smtp-Source: AGHT+IFic68LAIlCdG/bfKeHoDNIwgwWvtlOrgBoVGhYtpiN8xKfnemLwzBvFi2dD1lEy8v40ozXYA==
+X-Received: by 2002:aa7:db47:0:b0:5af:5538:e03e with SMTP id
+ 4fb4d7f45d1cf-5b80b18e4c0mr4159463a12.9.1722628056902; 
+ Fri, 02 Aug 2024 12:47:36 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5b839b2b556sm1440939a12.25.2024.08.02.12.47.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Aug 2024 12:47:36 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH v2 0/2] drm/msm/dpu: two fixes targeting 6.11
+Date: Fri, 02 Aug 2024 22:47:32 +0300
+Message-Id: <20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240725220608.131426-1-quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANQ3rWYC/22MQQ6CMBBFr0Jm7ZhSqiAr72FY0HaASQwlU0UN6
+ d2trF2+//PeBpGEKUJbbCC0cuQwZ9CHAtzUzyMh+8yglTaqVhf0yxMHfuPL4tn5U00V2bLRkIV
+ FKD977NZlnjg+gnz29lr+1r+ZtUSFxjSVaezgjbPXO8+9hGOQEbqU0heqIkHlpQAAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jeykumar Sankaran <jsanka@codeaurora.org>, stable@vger.kernel.org, 
+ Leonard Lausen <leonard@lausen.nl>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1075;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=TjN2mqLbZL+GZvBbQNPpxnmGx0zOZo0YLxgNMkhjNgE=;
+ b=owEBbAGT/pANAwAKAYs8ij4CKSjVAcsmYgBmrTfXh2xfj98dHX4dp4WVxiTewYFdEJvL8x9/I
+ +GVW9tGYNKJATIEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZq031wAKCRCLPIo+Aiko
+ 1RcBB/icOU+VTgYw+8b1leBG7lCGIGdzBaJb/Yxgd+nQYVsGIKxVnrqaSXzlWiXYlEgokYGnthp
+ 6NvhfFxjeUrr3Z7qKjz+cj2IHCWzZbhbqNwEEVuiKu6OPT5hotL2V2wm1byGs9oTK3xwI5htKzf
+ pTrTmbF9+w7BxxHRSa7hvERKYLj8bspW462GgiWhDzkGDf+i2FV6+xTKrkm0nTzMvYCAC50KsBU
+ xSQonKPKsCsZtbL3HOFHTy4SRWiMMgI0VQv8kCG+KbQ5lBQIFWFsDzMjUHgFuVgH8dCznLPyuVR
+ jdzl+JPgkLVmHUuhG9B5XbefEFaTNk5D0aYvJQyyPlr/eFE=
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,32 +100,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25-07-24, 15:06, Abhinav Kumar wrote:
-> Fix the voltage swing and pre-emphasis tables for sm8350 as the current
-> one do not match the hardware docs.
-> 
-> Fixes: ef14aff107bd ("phy: qcom: com-qmp-combo: add SM8350 & SM8450 support")
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> index 31e43638a649..c15b01aa5a48 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> @@ -1946,8 +1946,8 @@ static const struct qmp_phy_cfg sm8350_usb3dpphy_cfg = {
->  
->  	.swing_hbr_rbr		= &qmp_dp_v4_voltage_swing_hbr_rbr,
->  	.pre_emphasis_hbr_rbr	= &qmp_dp_v4_pre_emphasis_hbr_rbr,
-> -	.swing_hbr3_hbr2	= &qmp_dp_v3_voltage_swing_hbr3_hbr2,
-> -	.pre_emphasis_hbr3_hbr2 = &qmp_dp_v4_pre_emphasis_hbr3_hbr2,
-> +	.swing_hbr3_hbr2	= &qmp_dp_v5_voltage_swing_hbr3_hbr2,
-> +	.pre_emphasis_hbr3_hbr2 = &qmp_dp_v5_pre_emphasis_hbr3_hbr2,
+Leonard Lausen reported an issue with suspend/resume of the sc7180
+devices. Fix the WB atomic check, which caused the issue. Also make sure
+that DPU debugging logs are always directed to the drm_debug / DRIVER so
+that usual drm.debug masks work in an expected way.
 
-This is fine but you need to drop the unused qmp_dp_v4_pre_emphasis_hbr3_hbr2 table...
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v2:
+- Reworked the writeback to just drop the connector->status check.
+- Expanded commit message for the debugging patch.
+- Link to v1: https://lore.kernel.org/r/20240709-dpu-fix-wb-v1-0-448348bfd4cb@linaro.org
 
-It adds a warning, defined but unused!
+---
+Dmitry Baryshkov (2):
+      drm/msm/dpu1: don't choke on disabling the writeback connector
+      drm/msm/dpu: don't play tricks with debug macros
 
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       | 14 ++------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c |  3 ---
+ 2 files changed, 2 insertions(+), 15 deletions(-)
+---
+base-commit: 668d33c9ff922c4590c58754ab064aaf53c387dd
+change-id: 20240709-dpu-fix-wb-6cd57e3eb182
+
+Best regards,
 -- 
-~Vinod
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
