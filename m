@@ -2,87 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70B2A946405
-	for <lists+freedreno@lfdr.de>; Fri,  2 Aug 2024 21:47:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C6AF9466EB
+	for <lists+freedreno@lfdr.de>; Sat,  3 Aug 2024 04:38:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C91710E1DE;
-	Fri,  2 Aug 2024 19:47:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 839E310E07A;
+	Sat,  3 Aug 2024 02:37:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TgYQu9T3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DPNeQmWq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9944D10E1E5
- for <freedreno@lists.freedesktop.org>; Fri,  2 Aug 2024 19:47:41 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-2f025b94e07so108622491fa.0
- for <freedreno@lists.freedesktop.org>; Fri, 02 Aug 2024 12:47:41 -0700 (PDT)
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
+ [209.85.219.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A32610E03D;
+ Sat,  3 Aug 2024 02:37:58 +0000 (UTC)
+Received: by mail-qv1-f43.google.com with SMTP id
+ 6a1803df08f44-6b7b28442f9so8229286d6.3; 
+ Fri, 02 Aug 2024 19:37:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1722628060; x=1723232860; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=I0kj6XTh90iEEbA0uytJvfTg6LVq22XyHCEfhbdwFAc=;
- b=TgYQu9T3S7dmpN33ScL5p8PFDkGEfWiKtkgpnUjmBh3Sdum83wpVqhxIR14J3+dprK
- N8upNKvBc38Y+2n98ORyFJD2S6h9rhpD6R/LKUxeBa44KrLBbq1HYtKUfaWhEbFXJxt5
- rul/DLzFB18fFpfpr+oraFj5iWyUub7CZLAHZDRUFGisNY1tP/FE0iNnwfDy3vYwUe72
- +b0g9ogJKgr4w6EE8B2izLnyj602l5Ew9DhmNRF2f66WOXw8KV0T/78HYHaleki3RUhS
- 20Uox62//zho3iPyU6Xb2s4V3xJozHddqyyQpKRyoxyrHky+AdPLGDxtUqv3O57FUber
- z/Jw==
+ d=gmail.com; s=20230601; t=1722652677; x=1723257477; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=+tHm0XRKhcukZsBzcu2vuKzIiUg/x7QNB9tMmshFIF8=;
+ b=DPNeQmWqFI+pwcraiDYLdmawvJvxe2bOWap1RT74gP2razYhB7tzubjyJtR1mrBlsn
+ 7HxHADrQXErGwPHBWXid31qnrhGJvCCCoJEqSYq26XfT/bEQ95Ae5OdWeDKU1qnmUqPZ
+ tFPbX8B7tcOTD5ACxH2LAC0HT0QhtJvmVW9AToZWRNiK5kQ0LrKV2mxE1pI8gLX0e0DV
+ l33Svugma61u7eHPa/+q6Ibx65pFa2e+rqyZ4/rnGxoTCOeEsWLoKE2s4APRC9MrrdpM
+ H7gGycv8FBlLuIKuW0vuw+2ujrHZhcbdVrk+8wLQb9WvHOHZnmVXnS4M6TEjuesk547o
+ NB8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722628060; x=1723232860;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=I0kj6XTh90iEEbA0uytJvfTg6LVq22XyHCEfhbdwFAc=;
- b=s6k4Qe/jNq3jvCLAspqCkPI8EvoAg2tgjzANqM97AqK0Cm8wGdt+hUmlRue2EHEMjM
- bK7mADFlG8RoRyB9TeBEidmef5iGbKJg2H1lRVyYz5OKDwW1snjEEI9GZMLaLksrrIPL
- p5baqnhEi88NWGUs2BU7cD7KPIBIeRX+35NMTFw+Qkh5X8R2NDAyf4qhtjLwUw1HwDYc
- 7oTm37KOV+O5v/Z87KOw4qocCc3F2wuwf+gVjRkK04I2MbOVF/F20OMN4FtEPsL0m/gC
- f4Owv0qkQJ69dEkFXVlORpxPO0fIAKfgSxhvvKJMG3ay8eBBGyl0m5zdXNV+8rjnGQne
- vH4Q==
+ d=1e100.net; s=20230601; t=1722652677; x=1723257477;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+tHm0XRKhcukZsBzcu2vuKzIiUg/x7QNB9tMmshFIF8=;
+ b=hIZmogLZMvSZFXBfRHVxUACKzj0btTXFMGEFImCUBQxpOCD68hpNpydqPN4ZKtxsJu
+ joSjIETuxx9CO8XPJyns1a32gejhnBEpXf9qHxprjONQCcB1toRzE/rDLmJ1zkpXdgmi
+ M7Kod1Qk3l5l2XEW+bVj/t37bUh+TpreBN5Dn4lhwX1ShACUl7K8c9Ubvts8ChQRcOpF
+ HXa86askECBhymUm2RcK0i1RO6AHk3b3dLZp87Ts2Ds8Ui8mQXZHMFyVfupUbB2IHsTZ
+ iPB8lyhF9O4dekmJh98/kPXSxkzGzPkqd8JJ+EJVQaVXnAiGr8AbHCgokaKza+q4wIet
+ fr0g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUdVZpmw1b5EGP/X1Pj10o7RHq0Vj3dzzHewFJ4VYmaCTAJnM+bAJ8wY3RHp74jEolDNbEOe4Yqp5+yhUkoLy7APkkBm0bHkJiR9cZT8zGg
-X-Gm-Message-State: AOJu0YxXstkSY4vfCy1h93kqSwHWLIVigDRZHnY/t/2OQn/fRQl4nCRq
- 6cCzEvABHYVqNMBLaB/m4PhY8d0zMPHPXq6XxZF0x2YgsCOvpgf0Bu9dsSdTokM=
-X-Google-Smtp-Source: AGHT+IHC5pWQV5sUThqfkpYlt5hVUslppx0/7sOiLjAwX+Cah1N052U8+NZUkk4YN5HoI/4FIhX3ng==
-X-Received: by 2002:a2e:9107:0:b0:2ec:57c7:c737 with SMTP id
- 38308e7fff4ca-2f15ab24bd2mr32139401fa.40.1722628059116; 
- Fri, 02 Aug 2024 12:47:39 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5b839b2b556sm1440939a12.25.2024.08.02.12.47.38
+ AJvYcCU5OTDvLp/qDl9YYAuKuy0/gMc8JVgGgHQOsZ/O3HW5Os/sZ44T6ttobACfrjo+g/m8wOW8m2ZMpUzvVxS7P/NlsdxXv4ej9JFZfyjDHAyZiiHsC99evGawpJNajPTtxbm+DasrWNLw2VWEpoCTMQT2
+X-Gm-Message-State: AOJu0YzaRojIGkv1g9U73T/8Ok2pTZ561liaEADRsWy6LJ47d1iSU+lf
+ we7h70RKYaiqbactySIKd9nmandv2v/IjU6DioE8kUaGlIm+6zi1
+X-Google-Smtp-Source: AGHT+IHeW0oCuAYUKqNSkpMpIeXd9TfeijaXWhrzLO4R4P+EqckTLZqUm5DHdUGJdI1qvA79KSWVFg==
+X-Received: by 2002:a05:6214:4a02:b0:6b7:4398:594c with SMTP id
+ 6a1803df08f44-6bb9843efd0mr63557096d6.38.1722652676662; 
+ Fri, 02 Aug 2024 19:37:56 -0700 (PDT)
+Received: from localhost ([2607:fea8:52a3:d200:324c:b818:b179:79b])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6bb9c765e4asm12355006d6.25.2024.08.02.19.37.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Aug 2024 12:47:38 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 02 Aug 2024 22:47:34 +0300
-Subject: [PATCH v2 2/2] drm/msm/dpu: don't play tricks with debug macros
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240802-dpu-fix-wb-v2-2-7eac9eb8e895@linaro.org>
-References: <20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org>
-In-Reply-To: <20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
+ Fri, 02 Aug 2024 19:37:56 -0700 (PDT)
+Date: Fri, 2 Aug 2024 22:37:54 -0400
+From: Richard Acayan <mailingradian@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jeykumar Sankaran <jsanka@codeaurora.org>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2383;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=2b3yRHs49eX/1vL+P+Me3WH5qiaxmmgj2T78MMKIwZg=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ9pa8+s35u2WXFa2pm5rf9vtTZ2JXnH3Zy+0C47kqbxTW
- LSb8ezaTkZjFgZGLgZZMUUWn4KWqTGbksM+7JhaDzOIlQlkCgMXpwBMRHYRB0NfxVePmPnNa0+1
- pehX92+faVPQribE+KP6RvQjy4ju/SmFXzdu1/T/s5B1Lsc9LpW3gu/iU77+vmUcH361pKREo88
- wNYG9bO33qi/nvDaY7VjK/jTe4d8jh9KUpIyw5Ox4IT8L81WOu7bVbXLZPo2Nxa70YwlT+eWHHQ
- 18fa0tcpf4r+ZxR27ZFra8VDVBPuLqsT79cqcvj3Rd64IN/2lvduL+uLko4CPfndhbdelp76ydl
- 6p9feAn+UB//6r5Rv2LBYQyPR2kEuu/qDF5TlLt7Zv1IWRig0rH52DrLgV7W+mmpAPdE6dv/TE1
- Lsfw21SrafPiPm/cfdNlpWPndZm5loayJ7MTvpvWKEUDAA==
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: sdm670: add gpu
+Message-ID: <Zq2YAuxK5wRcNnve@radian>
+References: <20240730013844.41951-6-mailingradian@gmail.com>
+ <20240730013844.41951-9-mailingradian@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240730013844.41951-9-mailingradian@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,56 +93,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-DPU debugging macros need to be converted to a proper drm_debug_*
-macros, however this is a going an intrusive patch, not suitable for a
-fix. Wire DPU_DEBUG and DPU_DEBUG_DRIVER to always use DRM_DEBUG_DRIVER
-to make sure that DPU debugging messages always end up in the drm debug
-messages and are controlled via the usual drm.debug mask.
+On Mon, Jul 29, 2024 at 09:38:48PM -0400, Richard Acayan wrote:
+> The Snapdragon 670 has the Adreno A615 GPU. Add it along with its device
+> tree dependencies.
+>
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> ---
+>  arch/arm64/boot/dts/qcom/sdm670.dtsi | 168 +++++++++++++++++++++++++++
+>  1 file changed, 168 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+> index 187c6698835d..467006ab2bcb 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
 
-I don't think that it is a good idea for a generic DPU_DEBUG macro to be
-tied to DRM_UT_KMS. It is used to report a debug message from driver, so by
-default it should go to the DRM_UT_DRIVER channel. While refactoring
-debug macros later on we might end up with particular messages going to
-ATOMIC or KMS, but DRIVER should be the default.
+[snip]
 
-Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h | 14 ++------------
- 1 file changed, 2 insertions(+), 12 deletions(-)
+> +
+> +			gpu_opp_table: opp-table {
+> +				compatible = "operating-points-v2";
+> +
+> +				opp-780000000 {
+> +					opp-hz = /bits/ 64 <780000000>;
+> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
+> +					opp-peak-kBps = <7216000>;
+> +					opp-supported-hw = <0x8>;
+> +				};
+> +
+> +				opp-750000000 {
+> +					opp-hz = /bits/ 64 <750000000>;
+> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
+> +					opp-peak-kBps = <7216000>;
+> +					opp-supported-hw = <0xc>;
+> +				};
+> +
+> +				opp-650000000 {
+> +					opp-hz = /bits/ 64 <650000000>;
+> +					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
+> +					opp-peak-kBps = <7216000>;
+> +					opp-supported-hw = <0xc>;
+> +				};
+> +
+> +				opp-565000000 {
+> +					opp-hz = /bits/ 64 <565000000>;
+> +					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
+> +					opp-peak-kBps = <7216000>;
+> +					opp-supported-hw = <0xe>;
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-index e2adc937ea63..935ff6fd172c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-@@ -31,24 +31,14 @@
-  * @fmt: Pointer to format string
-  */
- #define DPU_DEBUG(fmt, ...)                                                \
--	do {                                                               \
--		if (drm_debug_enabled(DRM_UT_KMS))                         \
--			DRM_DEBUG(fmt, ##__VA_ARGS__); \
--		else                                                       \
--			pr_debug(fmt, ##__VA_ARGS__);                      \
--	} while (0)
-+	DRM_DEBUG_DRIVER(fmt, ##__VA_ARGS__)
- 
- /**
-  * DPU_DEBUG_DRIVER - macro for hardware driver logging
-  * @fmt: Pointer to format string
-  */
- #define DPU_DEBUG_DRIVER(fmt, ...)                                         \
--	do {                                                               \
--		if (drm_debug_enabled(DRM_UT_DRIVER))                      \
--			DRM_ERROR(fmt, ##__VA_ARGS__); \
--		else                                                       \
--			pr_debug(fmt, ##__VA_ARGS__);                      \
--	} while (0)
-+	DRM_DEBUG_DRIVER(fmt, ##__VA_ARGS__)
- 
- #define DPU_ERROR(fmt, ...) pr_err("[dpu error]" fmt, ##__VA_ARGS__)
- #define DPU_ERROR_RATELIMITED(fmt, ...) pr_err_ratelimited("[dpu error]" fmt, ##__VA_ARGS__)
+The speed bins aren't entirely accurate. There is a single speed bin
+that can reach exactly 504 MHz, but no higher, and one other speed bin
+that can reach exactly 700 MHz. Let's add their exclusive OPPs.
 
--- 
-2.39.2
-
+> +				};
+> +
+> +				opp-430000000 {
+> +					opp-hz = /bits/ 64 <430000000>;
+> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+> +					opp-peak-kBps = <7216000>;
+> +					opp-supported-hw = <0xf>;
+> +				};
+> +
+> +				opp-355000000 {
+> +					opp-hz = /bits/ 64 <355000000>;
+> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+> +					opp-peak-kBps = <6220000>;
+> +					opp-supported-hw = <0xf>;
+> +				};
+> +
+> +				opp-267000000 {
+> +					opp-hz = /bits/ 64 <267000000>;
+> +					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+> +					opp-peak-kBps = <4068000>;
+> +					opp-supported-hw = <0xf>;
+> +				};
+> +
+> +				opp-180000000 {
+> +					opp-hz = /bits/ 64 <180000000>;
+> +					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
+> +					opp-peak-kBps = <1804000>;
+> +					opp-supported-hw = <0xf>;
+> +				};
+> +			};
