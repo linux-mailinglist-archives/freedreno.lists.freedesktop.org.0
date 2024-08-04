@@ -2,82 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C6AF9466EB
-	for <lists+freedreno@lfdr.de>; Sat,  3 Aug 2024 04:38:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B639B946C33
+	for <lists+freedreno@lfdr.de>; Sun,  4 Aug 2024 07:40:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 839E310E07A;
-	Sat,  3 Aug 2024 02:37:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5920E10E051;
+	Sun,  4 Aug 2024 05:40:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DPNeQmWq";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QaK5BlsQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
- [209.85.219.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A32610E03D;
- Sat,  3 Aug 2024 02:37:58 +0000 (UTC)
-Received: by mail-qv1-f43.google.com with SMTP id
- 6a1803df08f44-6b7b28442f9so8229286d6.3; 
- Fri, 02 Aug 2024 19:37:58 -0700 (PDT)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0827410E042
+ for <freedreno@lists.freedesktop.org>; Sun,  4 Aug 2024 05:40:19 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-5bb477e3a6dso159111a12.0
+ for <freedreno@lists.freedesktop.org>; Sat, 03 Aug 2024 22:40:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722652677; x=1723257477; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+tHm0XRKhcukZsBzcu2vuKzIiUg/x7QNB9tMmshFIF8=;
- b=DPNeQmWqFI+pwcraiDYLdmawvJvxe2bOWap1RT74gP2razYhB7tzubjyJtR1mrBlsn
- 7HxHADrQXErGwPHBWXid31qnrhGJvCCCoJEqSYq26XfT/bEQ95Ae5OdWeDKU1qnmUqPZ
- tFPbX8B7tcOTD5ACxH2LAC0HT0QhtJvmVW9AToZWRNiK5kQ0LrKV2mxE1pI8gLX0e0DV
- l33Svugma61u7eHPa/+q6Ibx65pFa2e+rqyZ4/rnGxoTCOeEsWLoKE2s4APRC9MrrdpM
- H7gGycv8FBlLuIKuW0vuw+2ujrHZhcbdVrk+8wLQb9WvHOHZnmVXnS4M6TEjuesk547o
- NB8g==
+ d=linaro.org; s=google; t=1722750018; x=1723354818; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bV2UO3BH+2H70FIcXfsxxSdrx6CyxPDxlREVUWkdsMc=;
+ b=QaK5BlsQdbxr1xojZEvRXAHriPTrDa8nzBWEFsjFCvXLXiuImhHkxauR3f/oqWd0Mt
+ 0mO8VlL7+DRQJkOjE1U8rRUbApFh+QKVWdTuisXYwNpRJ/7H+VdR8VfEKNl0G4Pj+lw1
+ NtqqhrSBEhdEBGpZ/tAfdJy6PS0F9o2fyiSr7T5gtD1HozzBISd4mcY6xjx+vK6HOVTJ
+ MgNYf5PqA2TBqGQs2komfnF/7YytNBY1WUBky0SJg368BOZvmptPls2+3B17So8snFvc
+ aISEgKDRg7kk3c66fz7MmKjqbPwU3WnRloT3+8Gaarkj7MAMCBGKv727noF+9OYJVyny
+ G1KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722652677; x=1723257477;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+tHm0XRKhcukZsBzcu2vuKzIiUg/x7QNB9tMmshFIF8=;
- b=hIZmogLZMvSZFXBfRHVxUACKzj0btTXFMGEFImCUBQxpOCD68hpNpydqPN4ZKtxsJu
- joSjIETuxx9CO8XPJyns1a32gejhnBEpXf9qHxprjONQCcB1toRzE/rDLmJ1zkpXdgmi
- M7Kod1Qk3l5l2XEW+bVj/t37bUh+TpreBN5Dn4lhwX1ShACUl7K8c9Ubvts8ChQRcOpF
- HXa86askECBhymUm2RcK0i1RO6AHk3b3dLZp87Ts2Ds8Ui8mQXZHMFyVfupUbB2IHsTZ
- iPB8lyhF9O4dekmJh98/kPXSxkzGzPkqd8JJ+EJVQaVXnAiGr8AbHCgokaKza+q4wIet
- fr0g==
+ d=1e100.net; s=20230601; t=1722750018; x=1723354818;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bV2UO3BH+2H70FIcXfsxxSdrx6CyxPDxlREVUWkdsMc=;
+ b=Eu9Ddqhk+hV1+58seVW3OSV/GC1OqL7XMh/NAbVZz1pE4xABhZItXdA8+C1EG059Eg
+ KwOZQBq3Elw5i86Y26Igczogt4etk7/HMXtBrf1fXnCV7U+FktXmfkdIULhfOsFJkbVc
+ HbJfaF+yl5ZcPKVc5Fmh/gUYF4Tc5HisFcxIec7Zi1SoRIEhzAhtm++ZdoQLkj72/BAL
+ HCXhREU40To2WRDKhGSCPYdzk8qbpnW65IynP4iZjTy+ihUbvA0bB9TME3s5/h8wD8Hy
+ xp8px7OifYX033615hYBnWV2R65F+W0mHS8xghVfXcVR9lBT87yHmtv1wxf2fEUvJtna
+ SRnw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU5OTDvLp/qDl9YYAuKuy0/gMc8JVgGgHQOsZ/O3HW5Os/sZ44T6ttobACfrjo+g/m8wOW8m2ZMpUzvVxS7P/NlsdxXv4ej9JFZfyjDHAyZiiHsC99evGawpJNajPTtxbm+DasrWNLw2VWEpoCTMQT2
-X-Gm-Message-State: AOJu0YzaRojIGkv1g9U73T/8Ok2pTZ561liaEADRsWy6LJ47d1iSU+lf
- we7h70RKYaiqbactySIKd9nmandv2v/IjU6DioE8kUaGlIm+6zi1
-X-Google-Smtp-Source: AGHT+IHeW0oCuAYUKqNSkpMpIeXd9TfeijaXWhrzLO4R4P+EqckTLZqUm5DHdUGJdI1qvA79KSWVFg==
-X-Received: by 2002:a05:6214:4a02:b0:6b7:4398:594c with SMTP id
- 6a1803df08f44-6bb9843efd0mr63557096d6.38.1722652676662; 
- Fri, 02 Aug 2024 19:37:56 -0700 (PDT)
-Received: from localhost ([2607:fea8:52a3:d200:324c:b818:b179:79b])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6bb9c765e4asm12355006d6.25.2024.08.02.19.37.56
+ AJvYcCWfZBdESdQfGJgJVPlpl7PgrSLn5yshQglyEpBkKCXOVOW11d4RRnFLAcPO64Z+YI9LUdfPYeCUZ/hUKirT5tQUy1bJb25WQkzkOJzZHF7G
+X-Gm-Message-State: AOJu0YzOJq1HDbbT6/yIF6bZRMBqr86tplcyG00D/j4xr/GpAgnbuCe2
+ PycHxB8vktawTxNP08P5k+12tVKB85u3A9wiASjslMOduSJNLUOiiowBjU2RyB0=
+X-Google-Smtp-Source: AGHT+IEDT12fiPA57xX+iwmImdIwGveXHkEDrvXHMWxFxiDJTGmsEb2kKmkBKuleVWzhzq6BApdEQg==
+X-Received: by 2002:a17:907:847:b0:a7a:9f78:fee with SMTP id
+ a640c23a62f3a-a7dc4e282e9mr636574766b.17.1722750018105; 
+ Sat, 03 Aug 2024 22:40:18 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7dc9bc3bd7sm292248466b.34.2024.08.03.22.40.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Aug 2024 19:37:56 -0700 (PDT)
-Date: Fri, 2 Aug 2024 22:37:54 -0400
-From: Richard Acayan <mailingradian@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Cc: Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: sdm670: add gpu
-Message-ID: <Zq2YAuxK5wRcNnve@radian>
-References: <20240730013844.41951-6-mailingradian@gmail.com>
- <20240730013844.41951-9-mailingradian@gmail.com>
+ Sat, 03 Aug 2024 22:40:17 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH 00/11] arm64: qcom: set of fixes for SM8350 platform
+Date: Sun, 04 Aug 2024 08:40:04 +0300
+Message-Id: <20240804-sm8350-fixes-v1-0-1149dd8399fe@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240730013844.41951-9-mailingradian@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADQUr2YC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxMDCwMT3eJcC2NTA920zIrUYl3LVHNjwzRzy2RTszQloJaColSwBFBHdGx
+ tLQAQyxSaXgAAAA==
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Jonathan Marek <jonathan@marek.ca>, 
+ Robert Foss <rfoss@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Georgi Djakov <djakov@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Mike Tipton <quic_mdtipton@quicinc.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-pm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1823;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=lCsk1q0z8so6Y2tczVGuQeC5mXXz5zbJNYg4kt/XRZE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmrxQ+ijSCqimrSzppba3nf7rGrom+4OOr65gak
+ B81n9SelkeJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZq8UPgAKCRCLPIo+Aiko
+ 1RR5B/4iOJI+9B8r8uW0dwnq5eyzrbGTG/K7BtAZIo/nD+BBhfxtcJV0VW6pVahOnRDsAUmSZIo
+ 9DyIqFj7WIQVwS50imsIIaN+Ew1UEyBQUf5YG8Af1F9v9BH72QF4t0eqXjqd9eNx5fmVWDUQg5n
+ UfP+ik8pv2e1UhQDo2uCMVuu1ykW+UjmT6HDkvWcAsIQQX6zsx1336csEg84SBdCftMLWwVjMEM
+ XgSIYKa8cg8UFT8V2eDhIapjv9KjdVk/cqRWltWw+rVLE69u6kyov69PqxcwOxcdmhmAR13Q7Hg
+ umSDRCCpkGoetDEmftKCAUbolR7wAwzzpjFLN0INL58sRJUi
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,84 +108,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jul 29, 2024 at 09:38:48PM -0400, Richard Acayan wrote:
-> The Snapdragon 670 has the Adreno A615 GPU. Add it along with its device
-> tree dependencies.
->
-> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-> ---
->  arch/arm64/boot/dts/qcom/sdm670.dtsi | 168 +++++++++++++++++++++++++++
->  1 file changed, 168 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
-> index 187c6698835d..467006ab2bcb 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
+A set of fixes that target stability of the SM8350 platform.
 
-[snip]
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (11):
+      clk: qcom: dispcc-sm8250: use CLK_SET_RATE_PARENT for branch clocks
+      clk: qcom: dispcc-sm8250: use special function for Lucid 5LPE PLL
+      drm/msm/dsi: correct programming sequence for SM8350 / SM8450
+      interconnect: qcom: sm8350: drop DISP nodes
+      interconnect: qcom: sm8450: drop DISP nodes
+      dt-bindings: interconnect: qcom,sm8350: drop DISP nodes
+      dt-bindings: interconnect: qcom,sm8450: drop DISP nodes
+      interconnect: qcom: sm8250: Enable sync_state
+      arm64: dts: qcom: sm8350: add MDSS registers interconnect
+      arm64: dts: qcom: sm8350: add refgen regulator
+      arm64: defconfig: build CONFIG_REGULATOR_QCOM_REFGEN as module
 
-> +
-> +			gpu_opp_table: opp-table {
-> +				compatible = "operating-points-v2";
-> +
-> +				opp-780000000 {
-> +					opp-hz = /bits/ 64 <780000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-> +					opp-peak-kBps = <7216000>;
-> +					opp-supported-hw = <0x8>;
-> +				};
-> +
-> +				opp-750000000 {
-> +					opp-hz = /bits/ 64 <750000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-> +					opp-peak-kBps = <7216000>;
-> +					opp-supported-hw = <0xc>;
-> +				};
-> +
-> +				opp-650000000 {
-> +					opp-hz = /bits/ 64 <650000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-> +					opp-peak-kBps = <7216000>;
-> +					opp-supported-hw = <0xc>;
-> +				};
-> +
-> +				opp-565000000 {
-> +					opp-hz = /bits/ 64 <565000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-> +					opp-peak-kBps = <7216000>;
-> +					opp-supported-hw = <0xe>;
+ arch/arm64/boot/dts/qcom/sm8350.dtsi           |  16 ++-
+ arch/arm64/configs/defconfig                   |   1 +
+ drivers/clk/qcom/clk-alpha-pll.c               |  52 +++++++++
+ drivers/clk/qcom/clk-alpha-pll.h               |   2 +
+ drivers/clk/qcom/dispcc-sm8250.c               |  12 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c      |  12 +-
+ drivers/interconnect/qcom/sm8350.c             | 155 +------------------------
+ drivers/interconnect/qcom/sm8350.h             |  10 --
+ drivers/interconnect/qcom/sm8450.c             | 145 -----------------------
+ drivers/interconnect/qcom/sm8450.h             |  12 --
+ include/dt-bindings/interconnect/qcom,sm8350.h |  10 --
+ include/dt-bindings/interconnect/qcom,sm8450.h |  10 --
+ 12 files changed, 91 insertions(+), 346 deletions(-)
+---
+base-commit: 668d33c9ff922c4590c58754ab064aaf53c387dd
+change-id: 20240804-sm8350-fixes-9e731f79c56f
 
-The speed bins aren't entirely accurate. There is a single speed bin
-that can reach exactly 504 MHz, but no higher, and one other speed bin
-that can reach exactly 700 MHz. Let's add their exclusive OPPs.
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-> +				};
-> +
-> +				opp-430000000 {
-> +					opp-hz = /bits/ 64 <430000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-> +					opp-peak-kBps = <7216000>;
-> +					opp-supported-hw = <0xf>;
-> +				};
-> +
-> +				opp-355000000 {
-> +					opp-hz = /bits/ 64 <355000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-> +					opp-peak-kBps = <6220000>;
-> +					opp-supported-hw = <0xf>;
-> +				};
-> +
-> +				opp-267000000 {
-> +					opp-hz = /bits/ 64 <267000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-> +					opp-peak-kBps = <4068000>;
-> +					opp-supported-hw = <0xf>;
-> +				};
-> +
-> +				opp-180000000 {
-> +					opp-hz = /bits/ 64 <180000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-> +					opp-peak-kBps = <1804000>;
-> +					opp-supported-hw = <0xf>;
-> +				};
-> +			};
