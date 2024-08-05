@@ -2,84 +2,106 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E02F5946DDB
-	for <lists+freedreno@lfdr.de>; Sun,  4 Aug 2024 11:17:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABB6D947361
+	for <lists+freedreno@lfdr.de>; Mon,  5 Aug 2024 04:34:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6E1810E0DD;
-	Sun,  4 Aug 2024 09:17:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08EA410E0FC;
+	Mon,  5 Aug 2024 02:34:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="URsJ4CDl";
+	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=lausen.nl header.i=@lausen.nl header.b="K4lRPsur";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
- [209.85.128.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC14E10E0DD
- for <freedreno@lists.freedesktop.org>; Sun,  4 Aug 2024 09:17:11 +0000 (UTC)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-664ccd158b0so79534047b3.1
- for <freedreno@lists.freedesktop.org>; Sun, 04 Aug 2024 02:17:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1722763030; x=1723367830; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=mwig1T/GI7J6NZajQWaoVMnmbX4imhd/r3iYNF53W6Y=;
- b=URsJ4CDlyPnCDnoPHqqkFRFT8HpODIUwZLphmCRs/Ao11FeSphcJQKVTY0m6QoFJwe
- RDj1/v7vkSBXt5TjhYTC58X3G73D18Ilv0ri6R2qp1wPxVGJOisdR9/F4P6G2We98Q7Z
- 7rwW90xmk66HWfaZCP6lSYlhSimfo4sJU9Bok+xkxvWI05kqWVc4qI7DrZqdyqW8m/fN
- UmCGJxiV3Uzmb8KdRSwz7yJZPrgo77b47O+i27b7gla7ia7hCGT2OSy4jtmBiTznAvxk
- DS8nFUVX7loaYzaXUpshH3PAU0FzyXaxhX/doe3Yoifx/ZoqboXUbrsSeZc5wMRVc+PM
- 6IOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722763030; x=1723367830;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=mwig1T/GI7J6NZajQWaoVMnmbX4imhd/r3iYNF53W6Y=;
- b=FpVjwOrCpfKF5AxL558gldy9+70WytkkATWASH3rqAH6WLO6Tosm+tkOC25R+QgM+3
- 4hMtP9jCce93mOPJ0+9Np3qxI6hR58yTgVG2aoykaVBpa+xz6mLdCdsy50u9ciJ90cvr
- siQzbilLRJGbIrFcB7AvV5Mg/AFj0ld/3gPuA4gtE8IEFp4/8hnugrdBRuka9axLXl6U
- tIj10GKE5bkm+H6og1GSBvNxj81Fv/6wzok+dAm2YlZQIbf5KEHXHh4GL/66WvB6UiPI
- /Nh0bN4sToQo+NzCCM5ReUvjByStqvBAwuNi6MRbS32XR8/12zzhwe9gg5q56e5A9QR/
- DmEw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUVooChqxPG4knFpQHwSqaaNzIbnJr+lC6LtVttc/Ngg0T7ut1/nzFH7h5yjV+D2lfD6j0moTGpwtKJZYkuA9Gbt3BvY3Zo8Gan2WqQIP6e
-X-Gm-Message-State: AOJu0Yx5w4ob+n0/xo13BjGLsr3HnMKPBYSuVNrY5tjj69X01gL+wG7I
- PgK/sM4Ton1neV7/sU4VA71/MSHNDBebc0vJlV7FU0oLno3vVtbEpPIY72Pu1gNWdROIDfC+JKj
- g6dtj9eWFZB438alsMluDKDPfaybQAmNzZZKCCw==
-X-Google-Smtp-Source: AGHT+IEjvRALfHiK20+HqWr/VOyns/i1THpuPrDOhczyqEMfLwxtq9r+VorCam7xfy5I9cowlh1ysHraCKWf6o+C75Q=
-X-Received: by 2002:a0d:c247:0:b0:644:ffb2:5b19 with SMTP id
- 00721157ae682-6895fbdbd45mr94218977b3.9.1722763030652; Sun, 04 Aug 2024
- 02:17:10 -0700 (PDT)
+X-Greylist: delayed 400 seconds by postgrey-1.36 at gabe;
+ Mon, 05 Aug 2024 02:34:25 UTC
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03F5210E050
+ for <freedreno@lists.freedesktop.org>; Mon,  5 Aug 2024 02:34:25 +0000 (UTC)
+Received: (qmail 11250 invoked by uid 990); 5 Aug 2024 02:27:43 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unkown) (::1)
+ by devico.uberspace.de (Haraka/3.0.1) with ESMTPSA;
+ Mon, 05 Aug 2024 04:27:43 +0200
+Message-ID: <57cdac1a-1c4d-4299-8fde-92ae054fc6c0@lausen.nl>
+Date: Sun, 4 Aug 2024 22:27:39 -0400
 MIME-Version: 1.0
-References: <20240804-sm8350-fixes-v1-7-1149dd8399fe@linaro.org>
- <202408041643.qHy043eG-lkp@intel.com>
-In-Reply-To: <202408041643.qHy043eG-lkp@intel.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 4 Aug 2024 12:16:59 +0300
-Message-ID: <CAA8EJppbLUvSyq_AEh4Cw4ZOf2h=2-A3EuG5SPuhc2RDChWMFg@mail.gmail.com>
-Subject: Re: [PATCH 07/11] dt-bindings: interconnect: qcom,
- sm8450: drop DISP nodes
-To: kernel test robot <lkp@intel.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Jonathan Marek <jonathan@marek.ca>,
- Robert Foss <rfoss@kernel.org>, 
- Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Mike Tipton <quic_mdtipton@quicinc.com>,
- Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, oe-kbuild-all@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: Leonard Lausen <leonard@lausen.nl>
+Subject: Re: [PATCH v2 1/2] drm/msm/dpu1: don't choke on disabling the
+ writeback connector
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jeykumar Sankaran <jsanka@codeaurora.org>, stable@vger.kernel.org
+References: <20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org>
+ <20240802-dpu-fix-wb-v2-1-7eac9eb8e895@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=leonard@lausen.nl; keydata=
+ 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 Sw==
+In-Reply-To: <20240802-dpu-fix-wb-v2-1-7eac9eb8e895@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Bar: ---
+X-Rspamd-Report: BAYES_HAM(-2.998928) XM_UA_NO_VERSION(0.01) MIME_GOOD(-0.1)
+X-Rspamd-Score: -3.088928
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lausen.nl; s=uberspace;
+ h=from:to:cc:subject:date;
+ bh=Ammk7pbwhZIn4b/qhjLJz6McLAm2U1Jsq9rfxEJ51Ik=;
+ b=K4lRPsurzOf5+DH8VcDVwQDeFrIIBcwChtPl4rk+OHqwTio585FOtELtOp2zkhs3W9UAKqs/8I
+ sAdAn6cYd8Z9xVR1MhADRDTKYNEoxDfEbzS7LzWRJA+tM7tWG+BHpct6c1qqPtXZBmVLkv9d3k6w
+ Ox2LqMNFK5d8dO6k5UqfJC/UGEOI03zlffVaxaAp+nh0LKaREp9rcfT/3s8vNYxtKwV7bAM7kxvb
+ 3v7xfvkbZMGT+OAo5eCxKH667rXdkAEaHYsi72Phjfo3VaWQ3YWa5JRUEIfka1+D17+eQQBuo0Vp
+ pDp0/YWYsto9R0FiIqRuiCpa7Ps+SKyLN+Uz8uoA9mXaozkZZAvGutnJQQaH1wUoB1H7aw5+f5bo
+ rEzkBz4upAsABSJfm+mjcna6zWg2vLeroEFf5/OMAL1phbOi+uQnU1eh5tnnWauUzsIpdR9qq5fq
+ yDMOsU4sMyzeQwYomscBb9NQx3WNrQTfu+4Aa1tWBXfaBvcBUb1AQllzVp+tqqi1SpYRQ+w79E6o
+ SfIOIJS7/hWVCU3jo9D9Fnqxn1ARAcB2rxHU+Nc320Y8OJRUOr6nUiIFI+piG3GnMpUrSR4dcoWm
+ B9NplId6tANUyF4Bc9IMsTSa8mEqB49dlSxdW0VusRxaI9fCjx/ymaJcBj6Xned8/dZriQm0hFV1
+ c=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,36 +117,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 4 Aug 2024 at 11:50, kernel test robot <lkp@intel.com> wrote:
->
-> Hi Dmitry,
->
-> kernel test robot noticed the following build errors:
->
-> [auto build test ERROR on 668d33c9ff922c4590c58754ab064aaf53c387dd]
->
-> url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/clk-qcom-dispcc-sm8250-use-CLK_SET_RATE_PARENT-for-branch-clocks/20240804-134328
-> base:   668d33c9ff922c4590c58754ab064aaf53c387dd
-> patch link:    https://lore.kernel.org/r/20240804-sm8350-fixes-v1-7-1149dd8399fe%40linaro.org
-> patch subject: [PATCH 07/11] dt-bindings: interconnect: qcom,sm8450: drop DISP nodes
-> config: arm64-randconfig-051-20240804 (https://download.01.org/0day-ci/archive/20240804/202408041643.qHy043eG-lkp@intel.com/config)
-> compiler: aarch64-linux-gcc (GCC) 14.1.0
-> dtschema version: 2024.6.dev8+gf13c181
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240804/202408041643.qHy043eG-lkp@intel.com/reproduce)
->
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202408041643.qHy043eG-lkp@intel.com/
->
-> All errors (new ones prefixed by >>):
->
-> >> Error: arch/arm64/boot/dts/qcom/sm8450.dtsi:3055.31-32 syntax error
->    FATAL ERROR: Unable to parse input tree
+Dear Dmitry,
 
-I see, I had this patched in my tree. So for sm8450 we have to keep
-backwards compatibility. Please ignore sm8450 patches.
+Thank you for the patch. Unfortunately, the patch triggers a regression with
+respect to DRM CRTC state handling. With the patch applied, suspending and
+resuming a lazor sc7180 with external display connected, looses CRTC state on
+resume and prevents applying a new CRTC state. Without the patch, CRTC state is
+preserved across suspend and resume and it remains possible to change CRTC
+settings after resume. This means the patch regresses the user experience,
+preventing "Night Light" mode to work as expected. I've validated this on
+v6.10.2 vs. v6.10.2 with this patch applied.
 
--- 
-With best wishes
-Dmitry
+While the cause for the bug uncovered by this change is likely separate, given
+it's impact, would it be prudent to delay the application of this patch until
+the related bug is identified and fixed? Otherwise we would be fixing a dmesg
+error message "[dpu error]connector not connected 3" that appears to do no harm
+but thereby break more critical user visible behavior.
+
+Best regards
+Leonard
+
+On 8/2/24 15:47, Dmitry Baryshkov wrote:
+> During suspend/resume process all connectors are explicitly disabled and
+> then reenabled. However resume fails because of the connector_status check:
+> 
+> [ 1185.831970] [dpu error]connector not connected 3
+> 
+> It doesn't make sense to check for the Writeback connected status (and
+> other drivers don't perform such check), so drop the check.
+> 
+> Fixes: 71174f362d67 ("drm/msm/dpu: move writeback's atomic_check to dpu_writeback.c")
+> Cc: stable@vger.kernel.org
+> Reported-by: Leonard Lausen <leonard@lausen.nl>
+> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/57
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> index 16f144cbc0c9..8ff496082902 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> @@ -42,9 +42,6 @@ static int dpu_wb_conn_atomic_check(struct drm_connector *connector,
+>  	if (!conn_state || !conn_state->connector) {
+>  		DPU_ERROR("invalid connector state\n");
+>  		return -EINVAL;
+> -	} else if (conn_state->connector->status != connector_status_connected) {
+> -		DPU_ERROR("connector not connected %d\n", conn_state->connector->status);
+> -		return -EINVAL;
+>  	}
+>  
+>  	crtc = conn_state->crtc;
+> 
+
