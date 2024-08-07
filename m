@@ -2,83 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA4DB949A63
-	for <lists+freedreno@lfdr.de>; Tue,  6 Aug 2024 23:45:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C70094A5FB
+	for <lists+freedreno@lfdr.de>; Wed,  7 Aug 2024 12:44:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FE9010E413;
-	Tue,  6 Aug 2024 21:45:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C69310E49A;
+	Wed,  7 Aug 2024 10:44:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Mf+9tW7G";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="L8TI01zd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com
- [209.85.221.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6EC610E40C;
- Tue,  6 Aug 2024 21:45:11 +0000 (UTC)
-Received: by mail-vk1-f170.google.com with SMTP id
- 71dfb90a1353d-4f50dd3eab9so404429e0c.1; 
- Tue, 06 Aug 2024 14:45:11 -0700 (PDT)
+Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
+ [209.85.214.196])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 193BB10E497
+ for <freedreno@lists.freedesktop.org>; Wed,  7 Aug 2024 10:44:18 +0000 (UTC)
+Received: by mail-pl1-f196.google.com with SMTP id
+ d9443c01a7336-1fd69e44596so5845955ad.1
+ for <freedreno@lists.freedesktop.org>; Wed, 07 Aug 2024 03:44:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722980711; x=1723585511; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rG6C2q34NWeKgA7Rpje8FNPGJXT/EfHsIqSMnZCRL2s=;
- b=Mf+9tW7GZMQSqd1JPglMWmTPGbeJMq7VeHmxqWYjB590+XF7iJ2nw+ZBhiNqOdMAke
- AkDvC4RnWZo+3h5BLdIDvUUV+a4RCytSkKQsK2m3jWVOoIrx6l/MX1S52BZvIN2WQiNp
- whcQKL4vNGXtlV3Kz2A5S9WvvCZ+cpmPTZF7JrwLT2KYDYJQSphx7Ko1m2s7fi3/xTwR
- 3QIlnxe6AyzHe2Y4esiDX3eB5Zz/NYQzbfG76ryRheOEqYdrBpHpAGpzwQP5e7Upvf2/
- 60W+riBM+55hpMQwd08ohiR5pnp/n9a0wg1Hwsro9WugcGCDNd5imwP6qyt0dDb5t50j
- Q1aA==
+ d=linaro.org; s=google; t=1723027457; x=1723632257; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=F3o02Xw7ezzA14Pd+Lgc2BLB9SvalP82R9YVWF/sDxk=;
+ b=L8TI01zdxwBumFpGOfeQ5NGXNPy0tQ5K0W/y3a4p2RI9b/veA4hYi5yLkaWORFue/V
+ H7jFIeM4+z5sXIDvGOhiHqw2z2MVR1jUzHMLCeZhcQppu/ovNxU/LuDYOX/Lw0zak1VP
+ HYhJzYKfKCg+8Hs6f41ZB4Vy/tpZHXKNxvfhtxTiXFOdtWPTyOX5xeooy80vUTlQ/0YT
+ rFNygO9ZL8GVzaRk2IK70g1hGRJQ+HPD03P93UGW8ctroziHdubc5er+08oKACFvmd+Q
+ yBpTz5XRCXTCXiLb4PreG76D1B9fxePGBtouacyrAMg7U2uuHBZtimG6OnsRNECQwvwR
+ iFJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722980711; x=1723585511;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rG6C2q34NWeKgA7Rpje8FNPGJXT/EfHsIqSMnZCRL2s=;
- b=miodbMvIfYb+DMdTCA4xHoor/YR3VVfj9XMpXcqc/vNF5cnQz0HsusMl2xgPRtdoW6
- PXk1G+a8c5NZYIDeRnl9rJ7Bi+41KN7sCFjIPxXxx7GRYZ8vXAwm5Hkhe70rgMXtwOjw
- 634/Y1bWxGQ7igsFJ3ZvRbbHFwi08TYT/0Wq+PFaxiV/9GdSM/djA96I5ZKOZPJDi6G1
- 9uGg3jyXdWN+9sJrE8B4wnFg3V/wXBRPz49OoCWIuJLsNDaenshS4mv9fC0gZ+bdxBiZ
- A/DG+tjDjX9BKs1reQKpCtOQkGiKRVF1zz3IPZWvklpdfwWgc47VA3MWedrk4jy7bv45
- p7Yw==
+ d=1e100.net; s=20230601; t=1723027457; x=1723632257;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=F3o02Xw7ezzA14Pd+Lgc2BLB9SvalP82R9YVWF/sDxk=;
+ b=r3FxOTyWN47nI72Ws1s6qgGZZPJYhCQc8/SQ28N60M3MAdX/WFkc3FhhDL751r+jCN
+ EzZDGkHmpcbPXMoCzOjgp6RCFxGquXmSkWQzAIc/g7Bugj5uNDNQpwUR1xOdsxhFsf1u
+ BwQxO7q2kzCsuhtBiIsGP9PV/nUxeON1Kk/cw4rM75e+KOT/5nrc+OZ4Nyt6btS9Gjm7
+ wNkzWq8uAUdbM7fxXyw1YPJ4+lPE/6j4htdTNgBEbj1ls+BUjg1cx059lN3t6xnxx6tt
+ NkLggKeAv1k5cfIImvJSTqTMtgai6dkes5dsb7INzpVYzAE3KbzzC9++X0fMkPoOV7zq
+ tB5w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW8ycc37M2vp0lzM3KBlnugPfMQfRwBu1V2ZNjQnANbobMpeS1iIlgJcxJWDYnVA46F1eNvLiuzRV3l@lists.freedesktop.org,
- AJvYcCWI94YawV18XoZeGHmrvfydFBtOu4KGz8FPR/3eYbDVM+IQjZrobqKnMjLmN8jntENrmdR/S2aT7IQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyoikxLlnbhf+QI0T9CH2DdsGl2W+0Z52kLEgupVoWgElCT5UKq
- uupGZImCumlq+Og6VKw9RO6Y8ZOpTQWixFq5+t2NVWyOWjQ+C4F/
-X-Google-Smtp-Source: AGHT+IH/Dpe/wIyv8ocAPkGI7uZGGC4gjw5oaxM1OgPkTR3suXR/XYthhC4ZWU5segmKMX73hvgZxQ==
-X-Received: by 2002:a05:6122:4584:b0:4eb:5cb9:f219 with SMTP id
- 71dfb90a1353d-4f89fe84d6fmr20318387e0c.0.1722980710619; 
- Tue, 06 Aug 2024 14:45:10 -0700 (PDT)
-Received: from localhost ([2607:fea8:52a3:d200:324c:b818:b179:79b])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7a34f796911sm487104385a.131.2024.08.06.14.45.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Aug 2024 14:45:10 -0700 (PDT)
-From: Richard Acayan <mailingradian@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
+ AJvYcCVfQPHA/AO1OQZkjD6oqljKqVHUqOTmwjhqjxXDg9/NXIgAf8EvYykN4mZsX0t5pUIYtpxgdmc3ZG6t8vb+rN4U/PYdEoZIKAp6GW6F9Qg1
+X-Gm-Message-State: AOJu0Yzu+AB+AjqP9R4AJKEEz+TC6epxL6Jv/IjNsQI3YsURgeYpU3pm
+ 8fykwcWFXVFzFT7ifXgL922Socc5W/K7XmrEHuZc4Rvzip3jjaYdjEdggTkObNA=
+X-Google-Smtp-Source: AGHT+IFoNLrt1GaF+yeaFvmCHadWYdmm/RDr/6D/Md5qSi81mcUQk94i8uHGUfoK6lIe9cztu7TiAg==
+X-Received: by 2002:a17:903:a88:b0:1f9:ad91:f8d0 with SMTP id
+ d9443c01a7336-200853de85cmr23075065ad.8.1723027457532; 
+ Wed, 07 Aug 2024 03:44:17 -0700 (PDT)
+Received: from [127.0.0.1] ([182.232.168.81]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1ff5905e58fsm103268695ad.177.2024.08.07.03.44.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Aug 2024 03:44:17 -0700 (PDT)
+Date: Wed, 07 Aug 2024 17:44:12 +0700
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Leonard Lausen <leonard@lausen.nl>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Richard Acayan <mailingradian@gmail.com>
-Subject: [PATCH v2 4/4] arm64: dts: qcom: sdm670-google-sargo: enable gpu
-Date: Tue,  6 Aug 2024 17:44:58 -0400
-Message-ID: <20240806214452.16406-11-mailingradian@gmail.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240806214452.16406-7-mailingradian@gmail.com>
-References: <20240806214452.16406-7-mailingradian@gmail.com>
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+CC: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jeykumar Sankaran <jsanka@codeaurora.org>, stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_1/2=5D_drm/msm/dpu1=3A_don=27t_c?=
+ =?US-ASCII?Q?hoke_on_disabling_the_writeback_connector?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <57cdac1a-1c4d-4299-8fde-92ae054fc6c0@lausen.nl>
+References: <20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org>
+ <20240802-dpu-fix-wb-v2-1-7eac9eb8e895@linaro.org>
+ <57cdac1a-1c4d-4299-8fde-92ae054fc6c0@lausen.nl>
+Message-ID: <61D52432-DD30-4C43-BD5E-1CC9F84DF5B9@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,34 +91,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Enable the A615 GPU and GMU for the Pixel 3a. It has zap firmware, so
-add that in as well.
+On August 5, 2024 9:27:39 AM GMT+07:00, Leonard Lausen <leonard@lausen=2Enl=
+> wrote:
+>Dear Dmitry,
+>
+>Thank you for the patch=2E Unfortunately, the patch triggers a regression=
+ with
+>respect to DRM CRTC state handling=2E With the patch applied, suspending =
+and
+>resuming a lazor sc7180 with external display connected, looses CRTC stat=
+e on
+>resume and prevents applying a new CRTC state=2E Without the patch, CRTC =
+state is
+>preserved across suspend and resume and it remains possible to change CRT=
+C
+>settings after resume=2E This means the patch regresses the user experien=
+ce,
+>preventing "Night Light" mode to work as expected=2E I've validated this =
+on
+>v6=2E10=2E2 vs=2E v6=2E10=2E2 with this patch applied=2E
+>
 
-Signed-off-by: Richard Acayan <mailingradian@gmail.com>
----
- arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Could you please clarify, I was under the impression that currently whole =
+suspend/resume is broken, so it's more than a dmesg message=2E
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
-index 176b0119fe6d..465aedf32d56 100644
---- a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
-@@ -407,6 +407,15 @@ &gpi_dma1 {
- 	status = "okay";
- };
- 
-+&gpu {
-+	status = "okay";
-+
-+	zap-shader {
-+		memory-region = <&gpu_mem>;
-+		firmware-name = "qcom/sdm670/sargo/a615_zap.mbn";
-+	};
-+};
-+
- &i2c9 {
- 	clock-frequency = <100000>;
- 	status = "okay";
--- 
-2.46.0
+>While the cause for the bug uncovered by this change is likely separate, =
+given
+>it's impact, would it be prudent to delay the application of this patch u=
+ntil
+>the related bug is identified and fixed? Otherwise we would be fixing a d=
+mesg
+>error message "[dpu error]connector not connected 3" that appears to do n=
+o harm
+>but thereby break more critical user visible behavior=2E
+>
+>Best regards
+>Leonard
+>
+>On 8/2/24 15:47, Dmitry Baryshkov wrote:
+>> During suspend/resume process all connectors are explicitly disabled an=
+d
+>> then reenabled=2E However resume fails because of the connector_status =
+check:
+>>=20
+>> [ 1185=2E831970] [dpu error]connector not connected 3
+>>=20
+>> It doesn't make sense to check for the Writeback connected status (and
+>> other drivers don't perform such check), so drop the check=2E
+>>=20
+>> Fixes: 71174f362d67 ("drm/msm/dpu: move writeback's atomic_check to dpu=
+_writeback=2Ec")
+>> Cc: stable@vger=2Ekernel=2Eorg
+>> Reported-by: Leonard Lausen <leonard@lausen=2Enl>
+>> Closes: https://gitlab=2Efreedesktop=2Eorg/drm/msm/-/issues/57
+>> Signed-off-by: Dmitry Baryshkov <dmitry=2Ebaryshkov@linaro=2Eorg>
+>> ---
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback=2Ec | 3 ---
+>>  1 file changed, 3 deletions(-)
+>>=20
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback=2Ec b/drivers/=
+gpu/drm/msm/disp/dpu1/dpu_writeback=2Ec
+>> index 16f144cbc0c9=2E=2E8ff496082902 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback=2Ec
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback=2Ec
+>> @@ -42,9 +42,6 @@ static int dpu_wb_conn_atomic_check(struct drm_connec=
+tor *connector,
+>>  	if (!conn_state || !conn_state->connector) {
+>>  		DPU_ERROR("invalid connector state\n");
+>>  		return -EINVAL;
+>> -	} else if (conn_state->connector->status !=3D connector_status_connec=
+ted) {
+>> -		DPU_ERROR("connector not connected %d\n", conn_state->connector->sta=
+tus);
+>> -		return -EINVAL;
+>>  	}
+>> =20
+>>  	crtc =3D conn_state->crtc;
+>>=20
+>
 
+
+--=20
+With best wishes
+Dmitry
