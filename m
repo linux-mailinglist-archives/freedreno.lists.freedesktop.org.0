@@ -2,84 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26B2994A83A
-	for <lists+freedreno@lfdr.de>; Wed,  7 Aug 2024 15:05:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B06AF94ACA7
+	for <lists+freedreno@lfdr.de>; Wed,  7 Aug 2024 17:20:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAA6710E507;
-	Wed,  7 Aug 2024 13:05:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72A9510E567;
+	Wed,  7 Aug 2024 15:20:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nIs/WRe8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GAsphRfe";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3AD310E509;
- Wed,  7 Aug 2024 13:05:16 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4280b3a7efaso11937355e9.0; 
- Wed, 07 Aug 2024 06:05:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723035915; x=1723640715; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=1oksB2lPljdtr262j2OTvXCtWbemaDGwEg2PJlYW6+0=;
- b=nIs/WRe8i0pjaMg0OBfRCq+N2ZaQPNnSPxyGgTR2JNBr61OuhlLxuh+7TDhqbc1H44
- opr2eMrJt0xi5VEVbBQJrTDjwtGMuZnep2gB6060soezJEL6ESlovLlwOLWU45bOs9md
- xcvYRXqnKtlC1Zf8Gva9gtg7W5C8A/dU2PQLzgOH9+MqAwgSdF2jgZ9o9irx6bPzx2Qw
- r/LErywB/Gg2DSf5F9SrD+Wt5SFlhk3c8Mi8jwWV3LXBOLFpyQcZSHzYgOzbqQbHz75H
- DWaA6uq6Sizeta24i6V2JM7Ln9ESV4Won6YO+6UfDGlYthXHHhJk/M2lCFVFN+/TSMwX
- Qmtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723035915; x=1723640715;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1oksB2lPljdtr262j2OTvXCtWbemaDGwEg2PJlYW6+0=;
- b=H6Un5S0n30g5wie7+p5n+RL4+F6iTaNQmnVCWHAbT3F2uVeNGOaBCiQOBMyGD9Y7WJ
- uHXM6SJJtykilj1G/RlXs8pvwUZDuckXiEOSb+NtxGpT8bnwMNSUwIzWL8c4wvXCqc2x
- NYTqcM4Ba3g4haSoEaDyUVrSO+JRSQZEu6G9ZiP81XF3BaGcV4S6P6i4xVaqEO3n2JNs
- P+DSiySON2zi+0mvZ3ZDRH6eZZgq2ybXHWguAMx/m2WSRdHnvWuMe4cx/MQnIJzjL26Z
- bdI+7u3+XgKFciFh1hA4tlY/QiIqzsI2MtX2CdDaT7TDJpZpq1FQ2xZfGb9qIkYotLd0
- /VAA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUqdYsfC974zZHLJ8Snoho0MgQqO0RsVfnRwKeiN5uaN2W102o7CiVOn5JychCCvjo8Jlg3ORhxmVfWYxo+vwjMQpDYq8SwbQuJ0heyAMivM2Tx/KmZkM03EBfoafBwAbpNQJKqXqT3DaLFNQWnhcZp
-X-Gm-Message-State: AOJu0YzwgMe73HapB2VnPTSPxDNFPqcmqKgaUrFGeef3dP0cK6Aegzf+
- EUQsX7Y44w6suKJxclj2py0UF32yRGwKZ13qaYNhHyzgo8sRQwIR
-X-Google-Smtp-Source: AGHT+IF8+PrPZHWV2T+bDUo5FDlFFDLNOBnPVtzIKhRd7aZ73nUs+zF448eTPJkidsAIpuR0rNlmYQ==
-X-Received: by 2002:adf:e644:0:b0:365:980c:d281 with SMTP id
- ffacd0b85a97d-36bbc1bcce8mr10627386f8f.45.1723035914892; 
- Wed, 07 Aug 2024 06:05:14 -0700 (PDT)
-Received: from [192.168.0.12]
- (cpc115152-dals23-2-0-cust532.20-2.cable.virginm.net. [86.12.82.21])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36bbd05980csm16072849f8f.76.2024.08.07.06.05.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Aug 2024 06:05:14 -0700 (PDT)
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Wed, 07 Aug 2024 14:04:59 +0100
-Subject: [PATCH v3 4/4] drm/msm: Fix UBWC macrotile_mode for a680
-MIME-Version: 1.0
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3686010E197;
+ Wed,  7 Aug 2024 15:20:30 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 154D5CE0FD8;
+ Wed,  7 Aug 2024 15:20:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2BCC32781;
+ Wed,  7 Aug 2024 15:20:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1723044027;
+ bh=xERSTfQqUvdd2k3tAtUqyYEs/LVRZsmS4yVoWayUT+E=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=GAsphRfeDUfnMH1Vai3L+59Pwz/5hOlhZEhnZy+82Suaphx0tjjim+AGlEAmMYCPd
+ Y3X2HhARfVMOiaCGSNUbBGPn9+xxpJbiUhPx9/ENpXhS5XAI4DwQYIFQu1OFpvV3aP
+ IKtlwiR2xXYrj6+pX6aJjJFYCCaF+smjFYI3M6EoE8Ov/w1HzlvfJsZPUomkJtmnnW
+ jvFCjYz5BPtoRVAb9a+lZjpNrKp55P6oxsN5dZgGmEw7rbUUZPmb7sSn6U1IzfsKse
+ YHho8C49xpNHhT3yZBexGxnwtfdWptmblEY1ST+dRHAQ+r/vELsBXhMovmXw+/C7BV
+ VHzNOJNBio1Rg==
+Date: Wed, 07 Aug 2024 09:20:25 -0600
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240807-msm-tiling-config-v3-4-ef1bc26efb4c@gmail.com>
-References: <20240807-msm-tiling-config-v3-0-ef1bc26efb4c@gmail.com>
-In-Reply-To: <20240807-msm-tiling-config-v3-0-ef1bc26efb4c@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Richard Acayan <mailingradian@gmail.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, devicetree@vger.kernel.org, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
+ Maxime Ripard <mripard@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ linux-kernel@vger.kernel.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, Connor Abbott <cwabbott0@gmail.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1723035909; l=955;
- i=cwabbott0@gmail.com; s=20240426; h=from:subject:message-id;
- bh=/7yQqe2NBmmAI7rwVzTr03fHyeDp7IBl0NXw+ehR9bo=;
- b=NRs0NJvx7j8M5zqZYO/fc7C48wEQeY0hvIuRQ+ibgD3REpZMOSfpYrZ2wBj5shMArAsIl758E
- qMPqBlBFximDcNQMDNwJW+j/OoXvlGvDhCiIWPK7t6HjJRfEhX8LT1y
-X-Developer-Key: i=cwabbott0@gmail.com; a=ed25519;
- pk=dkpOeRSXLzVgqhy0Idr3nsBr4ranyERLMnoAgR4cHmY=
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
+ Sean Paul <sean@poorly.run>
+In-Reply-To: <20240806214452.16406-7-mailingradian@gmail.com>
+References: <20240806214452.16406-7-mailingradian@gmail.com>
+Message-Id: <172304385687.2508167.11953351079557363254.robh@kernel.org>
+Subject: Re: [PATCH v2 0/4] drm/msm/adreno: Add A615 GPU for SDM670 and
+ Pixel 3a
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,32 +69,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Make it match the MDSS settings for sc8180x and downstream.
 
-Note that without the previous commit that exposes the value of
-macrotile_mode to mesa, this will break mesa which expects the legacy
-default value of 0. Therefore we do *not* want to backport it.
+On Tue, 06 Aug 2024 17:44:54 -0400, Richard Acayan wrote:
+> This adds support for the speed-binned A615 GPU on SDM670.
+> 
+> Changes since v1 (20240730013844.41951-6-mailingradian@gmail.com):
+> - add Acked-by tag (1/4)
+> - add OPPs exclusive to some speed bins (3/4)
+> - enable GMU by default (3/4)
+> 
+> Richard Acayan (4):
+>   dt-bindings: display/msm/gmu: Add SDM670 compatible
+>   drm/msm/adreno: add a615 support
+>   arm64: dts: qcom: sdm670: add gpu
+>   arm64: dts: qcom: sdm670-google-sargo: enable gpu
+> 
+>  .../devicetree/bindings/display/msm/gmu.yaml  |   1 +
+>  .../boot/dts/qcom/sdm670-google-sargo.dts     |   9 +
+>  arch/arm64/boot/dts/qcom/sdm670.dtsi          | 180 ++++++++++++++++++
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c     |  27 +++
+>  4 files changed, 217 insertions(+)
+> 
+> --
+> 2.46.0
+> 
+> 
+> 
 
-Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 7c2fdd1e7684..7ceca633ceea 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -519,6 +519,9 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
- 	if (adreno_is_a640_family(gpu))
- 		gpu->ubwc_config.amsbc = 1;
- 
-+	if (adreno_is_a680(gpu))
-+		gpu->ubwc_config.macrotile_mode = 1;
-+
- 	if (adreno_is_a650(gpu) ||
- 	    adreno_is_a660(gpu) ||
- 	    adreno_is_a690(gpu) ||
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
 
--- 
-2.31.1
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
+
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
+
+  pip3 install dtschema --upgrade
+
+
+New warnings running 'make CHECK_DTBS=y qcom/sdm670-google-sargo.dtb' for 20240806214452.16406-7-mailingradian@gmail.com:
+
+arch/arm64/boot/dts/qcom/sdm670-google-sargo.dtb: iommu@5040000: compatible: 'oneOf' conditional failed, one must be fixed:
+	['qcom,sdm670-smmu-v2', 'qcom,adreno-smmu', 'qcom,smmu-v2'] is too long
+	['qcom,sdm670-smmu-v2', 'qcom,adreno-smmu', 'qcom,smmu-v2'] is too short
+	'qcom,sdm670-smmu-v2' is not one of ['qcom,msm8996-smmu-v2', 'qcom,msm8998-smmu-v2', 'qcom,sdm630-smmu-v2', 'qcom,sm6375-smmu-v2']
+	'qcom,sdm670-smmu-v2' is not one of ['qcom,qcm2290-smmu-500', 'qcom,qdu1000-smmu-500', 'qcom,sa8775p-smmu-500', 'qcom,sc7180-smmu-500', 'qcom,sc7280-smmu-500', 'qcom,sc8180x-smmu-500', 'qcom,sc8280xp-smmu-500', 'qcom,sdm670-smmu-500', 'qcom,sdm845-smmu-500', 'qcom,sdx55-smmu-500', 'qcom,sdx65-smmu-500', 'qcom,sdx75-smmu-500', 'qcom,sm6115-smmu-500', 'qcom,sm6125-smmu-500', 'qcom,sm6350-smmu-500', 'qcom,sm6375-smmu-500', 'qcom,sm8150-smmu-500', 'qcom,sm8250-smmu-500', 'qcom,sm8350-smmu-500', 'qcom,sm8450-smmu-500', 'qcom,sm8550-smmu-500', 'qcom,sm8650-smmu-500', 'qcom,x1e80100-smmu-500']
+	'qcom,sdm670-smmu-v2' is not one of ['qcom,qcm2290-smmu-500', 'qcom,sc7180-smmu-500', 'qcom,sc7280-smmu-500', 'qcom,sc8180x-smmu-500', 'qcom,sc8280xp-smmu-500', 'qcom,sdm845-smmu-500', 'qcom,sm6115-smmu-500', 'qcom,sm6350-smmu-500', 'qcom,sm6375-smmu-500', 'qcom,sm8150-smmu-500', 'qcom,sm8250-smmu-500', 'qcom,sm8350-smmu-500', 'qcom,sm8450-smmu-500']
+	'qcom,sdm670-smmu-v2' is not one of ['qcom,qcm2290-smmu-500', 'qcom,sa8775p-smmu-500', 'qcom,sc7280-smmu-500', 'qcom,sc8180x-smmu-500', 'qcom,sc8280xp-smmu-500', 'qcom,sm6115-smmu-500', 'qcom,sm6125-smmu-500', 'qcom,sm8150-smmu-500', 'qcom,sm8250-smmu-500', 'qcom,sm8350-smmu-500', 'qcom,sm8450-smmu-500', 'qcom,sm8550-smmu-500', 'qcom,sm8650-smmu-500', 'qcom,x1e80100-smmu-500']
+	'qcom,sdm670-smmu-v2' is not one of ['qcom,sc7280-smmu-500', 'qcom,sm8150-smmu-500', 'qcom,sm8250-smmu-500']
+	'qcom,sdm670-smmu-v2' is not one of ['qcom,msm8996-smmu-v2', 'qcom,sc7180-smmu-v2', 'qcom,sdm630-smmu-v2', 'qcom,sdm845-smmu-v2', 'qcom,sm6350-smmu-v2', 'qcom,sm7150-smmu-v2']
+	'qcom,sdm845-smmu-v2' was expected
+	'marvell,ap806-smmu-500' was expected
+	'qcom,sdm670-smmu-v2' is not one of ['nvidia,tegra186-smmu', 'nvidia,tegra194-smmu', 'nvidia,tegra234-smmu']
+	'arm,mmu-500' was expected
+	'qcom,sdm670-smmu-v2' is not one of ['arm,mmu-400', 'arm,mmu-401']
+	'qcom,sdm670-smmu-v2' is not one of ['arm,smmu-v1', 'arm,smmu-v2', 'arm,mmu-400', 'arm,mmu-401', 'arm,mmu-500', 'cavium,smmu-v2']
+	'qcom,smmu-v2' was expected
+	'qcom,smmu-500' was expected
+	'nvidia,smmu-500' was expected
+	'arm,smmu-v2' was expected
+	'arm,smmu-v1' was expected
+	from schema $id: http://devicetree.org/schemas/iommu/arm,smmu.yaml#
+arch/arm64/boot/dts/qcom/sdm670-google-sargo.dtb: /soc@0/iommu@5040000: failed to match any schema with compatible: ['qcom,sdm670-smmu-v2', 'qcom,adreno-smmu', 'qcom,smmu-v2']
+
+
+
+
 
