@@ -2,56 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 444B494BDB9
-	for <lists+freedreno@lfdr.de>; Thu,  8 Aug 2024 14:42:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8359094C778
+	for <lists+freedreno@lfdr.de>; Fri,  9 Aug 2024 01:52:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 272E410E70E;
-	Thu,  8 Aug 2024 12:42:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B66AC10E82C;
+	Thu,  8 Aug 2024 23:52:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="rSvMfWuQ";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="FWNDrtDF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CF9B10E0A5;
- Sun,  4 Aug 2024 09:24:26 +0000 (UTC)
-Received: from localhost (docker-mailserver-web-1.docker-mailserver_default
- [172.22.0.5])
- by mail.mainlining.org (Postfix) with ESMTPSA id 8180FE450D;
- Sun,  4 Aug 2024 09:24:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mainlining.org;
- s=psm; t=1722763464;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JHrUfDJ8wOPMyYjj64os5C3jTH7IZahgW6h7gmn5AHg=;
- b=rSvMfWuQrV+Eh9PLNkIh0X6tMnh3DQ0gbYumXjuBD98e9JMoJO1Zt9CY11e+SQ1Kt60TpQ
- 92gila1c6Q+dO2mdpfLPjiRWtehkex36K8jUKh0CLs2U5S4I5bur9gsMoz76Rskx26E6S5
- p264V9FHgMMuLr/wfO81DiwtgUmwwzDnVInG0frpJAyNhAbhRfMIht3I8wUh0PeGShjCPu
- Ah51N2qBEqkjNC1g/BmopVWRXNY+T45ROmsFit1N71uSm/eowSj4VJfgYUTQPngaaCfxZ+
- yk1bI5gB2rQ6/YgZtLo3ycP9iWqb2v2Bpp4T4kusqqqOD4ukQkasNON3uSTCCQ==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 488E510E347;
+ Thu,  8 Aug 2024 23:52:43 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 478KdMQg000984;
+ Thu, 8 Aug 2024 23:52:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=Y58ptjjUhGCMOz+7FvFiIg
+ /x6Y6RLTKIpv6zC/SCqn0=; b=FWNDrtDF6Ha4Pxmfo2guG9Jg/i4Jx3iWfhv8t4
+ N9dZHuvmUsgeZcfPJyTHa1/7Ry8CQxrEmlI1A0LJ/MCW1FHNZjbRabPnHA8SEWLN
+ XKwWcBFCjqG70PySXa6RAsH08iWWyAEOMg7mYrpGjLLfldR+YDLDRHQCsOWLz5hz
+ mTxl9pI5kKTujUGPzzBFqmS37DtRBCowvZboVSd8JHMKaGUFWDr27foWvO7TtxI6
+ oPgOYvI2wKNJFxFEROnDSYyQ3SfY+XKyFcf2W1VvifhA7fv46oQSp033SDqPL5X+
+ ZjR/Jn3hCw7xljhyqwmFdmWJN1iThC8CiX+eI3nBQE7Fzisg==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40vfav3nna-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 08 Aug 2024 23:52:38 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 478Nqba9026272
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 8 Aug 2024 23:52:37 GMT
+Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Thu, 8 Aug 2024 16:52:36 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, <quic_jesszhan@quicinc.com>,
+ <swboyd@chromium.org>, <dianders@chromium.org>,
+ <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] drm/msm: fix the highest_bank_bit for sc7180
+Date: Thu, 8 Aug 2024 16:52:27 -0700
+Message-ID: <20240808235227.2701479-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-Date: Sun, 04 Aug 2024 11:24:24 +0200
-From: barnabas.czeman@mainlining.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>
-Subject: Re: [PATCH 0/2] Add MSM8996/MSM8953 dpu catalog
-In-Reply-To: <zeek3j7skstysho5bduxn23xipz3fpqsfwggue66dlyozhepnn@4wnnd7q6xf22>
-References: <20240628-dpu-msm8953-msm8996-v1-0-a31c77248db7@mainlining.org>
- <zeek3j7skstysho5bduxn23xipz3fpqsfwggue66dlyozhepnn@4wnnd7q6xf22>
-Message-ID: <202f4237b0019fda0cf860bf55e534e1@mainlining.org>
-X-Sender: barnabas.czeman@mainlining.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 08 Aug 2024 12:42:47 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: tLrREVdqVD1VRV76mscCDOTuVCETMhfF
+X-Proofpoint-GUID: tLrREVdqVD1VRV76mscCDOTuVCETMhfF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-08-08_23,2024-08-07_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=954 adultscore=0
+ lowpriorityscore=0 mlxscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ impostorscore=0 clxscore=1015 spamscore=0 priorityscore=1501
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2408080171
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,58 +91,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2024-08-01 21:25, Dmitry Baryshkov wrote:
-> On Fri, Jun 28, 2024 at 04:39:38PM GMT, Barnabás Czémán wrote:
->> This patch series add dpu support for MSM8996/MSM8953 devices.
->> 
->> Note, by default these platforms are still handled by the MDP5 driver
->> unless the `msm.prefer_mdp5=false' parameter is provided.
-> 
-> Could you please provide a summary of features actually tested with the
-> DPU driver? Have you tested YUV output? Have you tested RGB planes?
-> Which LMs have you tested?
-> 
-It was tested in usage on multiple msm8953 (sdm450, msm8953, sdm632) 
-devices like
-- Samsung A6+ LTE (sdm450, cmd panel)
-- Xiaomi Redmi 7 (sdm632, video panel)
-- Xiaomi Redmi 5 (sdm450, video panel)
-- Xiaomi Redmi 5 Plus (msm8953, video panel)
-- Xiaomi Redmi Note 4 (msm8953, video panel)
-- Xiaomi Mi A1 (msm8953, video panel)
-- Xiaomi Mi A2 Lite/Redmi 6 Pro (msm8953, video panel)
-- Xiaomi Redmi S2 (msm8953, video panel)
-- Motorola G5 Plus (msm8953, video panel)
-and couple of msm8996 devices like
-- Xiaomi Mi Note 2 (video panel)
-- Xiaomi Mi5s (cmd panel)
-It was tested with glmark2 and with mobile shells like plasma-mobile 
-(dpu fixes night light) and phosh.
-If you can help how can I test specific features i will do it.
-How can I find out which LM is in use?
+sc7180 programs the ubwc settings as 0x1e as that would mean a
+highest bank bit of 14 which matches what the GPU sets as well.
 
->> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->> ---
->> Dmitry Baryshkov (1):
->>       drm/msm/dpu: add support for MSM8953
->> 
->> Konrad Dybcio (1):
->>       drm/msm/dpu: Add MSM8996 support
->> 
->>  .../drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h   | 218 
->> +++++++++++++
->>  .../drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h    | 348 
->> +++++++++++++++++++++
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 106 +++++++
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   2 +
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   2 +
->>  drivers/gpu/drm/msm/msm_drv.c                      |   2 +
->>  6 files changed, 678 insertions(+)
->> ---
->> base-commit: df9574a57d02b265322e77fb8628d4d33641dda9
->> change-id: 20240528-dpu-msm8953-msm8996-5d0fb7e387b8
->> 
->> Best regards,
->> --
->> Barnabás Czémán <barnabas.czeman@mainlining.org>
->> 
+However, the highest_bank_bit field of the msm_mdss_data which is
+being used to program the SSPP's fetch configuration is programmed
+to a highest bank bit of 16 as 0x3 translates to 16 and not 14.
+
+Fix the highest bank bit field used for the SSPP to match the mdss
+and gpu settings.
+
+Fixes: 6f410b246209 ("drm/msm/mdss: populate missing data")
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/msm_mdss.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+index d90b9471ba6f..faa88fd6eb4d 100644
+--- a/drivers/gpu/drm/msm/msm_mdss.c
++++ b/drivers/gpu/drm/msm/msm_mdss.c
+@@ -577,7 +577,7 @@ static const struct msm_mdss_data sc7180_data = {
+ 	.ubwc_enc_version = UBWC_2_0,
+ 	.ubwc_dec_version = UBWC_2_0,
+ 	.ubwc_static = 0x1e,
+-	.highest_bank_bit = 0x3,
++	.highest_bank_bit = 0x1,
+ 	.reg_bus_bw = 76800,
+ };
+ 
+-- 
+2.44.0
+
