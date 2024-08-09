@@ -2,80 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8359094C778
-	for <lists+freedreno@lfdr.de>; Fri,  9 Aug 2024 01:52:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C738394D658
+	for <lists+freedreno@lfdr.de>; Fri,  9 Aug 2024 20:37:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B66AC10E82C;
-	Thu,  8 Aug 2024 23:52:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A148410E9D1;
+	Fri,  9 Aug 2024 18:37:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="FWNDrtDF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KsU6FID5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 488E510E347;
- Thu,  8 Aug 2024 23:52:43 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 478KdMQg000984;
- Thu, 8 Aug 2024 23:52:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=Y58ptjjUhGCMOz+7FvFiIg
- /x6Y6RLTKIpv6zC/SCqn0=; b=FWNDrtDF6Ha4Pxmfo2guG9Jg/i4Jx3iWfhv8t4
- N9dZHuvmUsgeZcfPJyTHa1/7Ry8CQxrEmlI1A0LJ/MCW1FHNZjbRabPnHA8SEWLN
- XKwWcBFCjqG70PySXa6RAsH08iWWyAEOMg7mYrpGjLLfldR+YDLDRHQCsOWLz5hz
- mTxl9pI5kKTujUGPzzBFqmS37DtRBCowvZboVSd8JHMKaGUFWDr27foWvO7TtxI6
- oPgOYvI2wKNJFxFEROnDSYyQ3SfY+XKyFcf2W1VvifhA7fv46oQSp033SDqPL5X+
- ZjR/Jn3hCw7xljhyqwmFdmWJN1iThC8CiX+eI3nBQE7Fzisg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40vfav3nna-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 08 Aug 2024 23:52:38 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 478Nqba9026272
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 8 Aug 2024 23:52:37 GMT
-Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Thu, 8 Aug 2024 16:52:36 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <quic_jesszhan@quicinc.com>,
- <swboyd@chromium.org>, <dianders@chromium.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] drm/msm: fix the highest_bank_bit for sc7180
-Date: Thu, 8 Aug 2024 16:52:27 -0700
-Message-ID: <20240808235227.2701479-1-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.44.0
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
+ [209.85.160.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 422D810E954;
+ Fri,  9 Aug 2024 18:37:57 +0000 (UTC)
+Received: by mail-oa1-f42.google.com with SMTP id
+ 586e51a60fabf-2642cfb2f6aso1615953fac.2; 
+ Fri, 09 Aug 2024 11:37:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1723228676; x=1723833476; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=23V8N5AdZVNN/gtxnVahpyZ2F/zrIdL7fbh1DnGikW8=;
+ b=KsU6FID56mW1usWvWLwUpNiRuqUd0QVuoovaR7TfETYZbO1HbUEfk6VB//BY8p7VmI
+ EMe0Mi08T5AYofGOm8oHTujFeSRlMawfNwJir4oNrsCsNKef/+uzRrlmGyOX+lNyzssj
+ k6jcsW0Vl/WHZiJ0cnGtQC8deeMApxdGYJwpa9jds8JqETQMz22/zAQxV88VOD4N3y7v
+ aRVw9SjRCAWUDvHMouQAg7HVVAyE/4pJtIzddYV54PRpqNmYAMQyseCRuZO6RZ2Plygx
+ iyufSsbrUb5KSb2cgbaIHL+yeawF3YKg0Cjtg86T6vK9AqsFCGf8QcL3F90EP1AbIwox
+ G0uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723228676; x=1723833476;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=23V8N5AdZVNN/gtxnVahpyZ2F/zrIdL7fbh1DnGikW8=;
+ b=YpJszuvtr62N8hj+JD+IPhQpj5X5IhKnYVNjvL2RPJMBGxx4jqfNWDvNDPl8F/7pIh
+ e5xtXbmbBOSs9OGmsfWsjYv9a8jeg8DuY9ogfL1J5F+ZEVYnEBJWzTyj2CQ4tngTWTxT
+ oMkVC1qifywvwxweuIfCiAjtJhYfYsBk3EL70c8IyPGxGnVj34wQ0bOY0MhsO7lXPVmE
+ eV68B/HWFjKX6CPSefmBp+4Jjb91SMGyoLeSprkSqHVHWdbD/b8tVWxHqfmxcIaW3gl+
+ RVEp0a6jmOHzEXG1A/8NDnBKKaOWmXyXi/C0G2CC4t7r2PsSiKUTugtVnAk98cnqQY4i
+ J1aA==
+X-Gm-Message-State: AOJu0YxQThb0m09eBEpS2ITTaTkgyUJ+4mtRJwYZ80ADrzzgsZHMW70c
+ 4NVlBTUD0zxBJcHWeQzJQS7T74F5DgvJXpcXhUILKZOCI544ytP3IDlwsw==
+X-Google-Smtp-Source: AGHT+IENkZRkxsFSj8C+quRCgcAYIlP4KqTdlj4pXZh5I6G6gUctkIHTSWJe6NHYXlgtEeTz+miBOg==
+X-Received: by 2002:a05:6870:8318:b0:254:94a4:35d2 with SMTP id
+ 586e51a60fabf-26c63021a6dmr2759931fac.45.1723228675709; 
+ Fri, 09 Aug 2024 11:37:55 -0700 (PDT)
+Received: from localhost ([2a00:79e1:2e00:1301:12e9:d196:a1e9:ab67])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-710e5a4a962sm68841b3a.106.2024.08.09.11.37.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Aug 2024 11:37:54 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm/msm: Remove unused pm_state
+Date: Fri,  9 Aug 2024 11:37:52 -0700
+Message-ID: <20240809183752.160634-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: tLrREVdqVD1VRV76mscCDOTuVCETMhfF
-X-Proofpoint-GUID: tLrREVdqVD1VRV76mscCDOTuVCETMhfF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-08_23,2024-08-07_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=954 adultscore=0
- lowpriorityscore=0 mlxscore=0 bulkscore=0 phishscore=0 suspectscore=0
- impostorscore=0 clxscore=1015 spamscore=0 priorityscore=1501
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2407110000 definitions=main-2408080171
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,35 +84,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-sc7180 programs the ubwc settings as 0x1e as that would mean a
-highest bank bit of 14 which matches what the GPU sets as well.
+From: Rob Clark <robdclark@chromium.org>
 
-However, the highest_bank_bit field of the msm_mdss_data which is
-being used to program the SSPP's fetch configuration is programmed
-to a highest bank bit of 16 as 0x3 translates to 16 and not 14.
+This was added in commit ec446d09366c ("drm/msm: call
+drm_atomic_helper_suspend() and drm_atomic_helper_resume()"), but unused
+since commit ca8199f13498 ("drm/msm/dpu: ensure device suspend happens
+during PM sleep") which switched to drm_mode_config_helper_suspend()/
+drm_mode_config_helper_resume()..
 
-Fix the highest bank bit field used for the SSPP to match the mdss
-and gpu settings.
-
-Fixes: 6f410b246209 ("drm/msm/mdss: populate missing data")
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/msm_mdss.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/msm_drv.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index d90b9471ba6f..faa88fd6eb4d 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -577,7 +577,7 @@ static const struct msm_mdss_data sc7180_data = {
- 	.ubwc_enc_version = UBWC_2_0,
- 	.ubwc_dec_version = UBWC_2_0,
- 	.ubwc_static = 0x1e,
--	.highest_bank_bit = 0x3,
-+	.highest_bank_bit = 0x1,
- 	.reg_bus_bw = 76800,
- };
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index be016d7b4ef1..c2eb9f14323e 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -215,8 +215,6 @@ struct msm_drm_private {
+ 	struct notifier_block vmap_notifier;
+ 	struct shrinker *shrinker;
  
+-	struct drm_atomic_state *pm_state;
+-
+ 	/**
+ 	 * hangcheck_period: For hang detection, in ms
+ 	 *
 -- 
-2.44.0
+2.46.0
 
