@@ -2,90 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8204894EEEC
-	for <lists+freedreno@lfdr.de>; Mon, 12 Aug 2024 15:56:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ACDC94F3C2
+	for <lists+freedreno@lfdr.de>; Mon, 12 Aug 2024 18:21:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BBDD10E224;
-	Mon, 12 Aug 2024 13:56:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3815810E259;
+	Mon, 12 Aug 2024 16:21:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="Dj8DFXoR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RiTUYO/J";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77C4110E224
- for <freedreno@lists.freedesktop.org>; Mon, 12 Aug 2024 13:56:20 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4280b3a7efaso32560865e9.0
- for <freedreno@lists.freedesktop.org>; Mon, 12 Aug 2024 06:56:20 -0700 (PDT)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 155DC10E259
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Aug 2024 16:21:47 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-a7ab63a388bso151989766b.1
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Aug 2024 09:21:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1723470978; x=1724075778;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=S8pPBKCtj1qMblogWbM7RgQzND2CLqVTOWooV2IgGeU=;
- b=Dj8DFXoRCPdcDnirreMCxLHDVtHSNNVpYhFDJFC9t0BZWd3wMDObU7Qjzjq0VnHaCX
- nlh6oq3kZrNDLAqE0W/7a3FX8YLDgM3NkvDfPHCcXXIScOVSDHlY+YZx84NeObq5aBLE
- Oaqb0Z8EErpoiutdwt8nNy/j1wnnCA1rqsOS3ldgfStUb/w6hB8nHcSDX7L5whUfDWCc
- LkiAEtGXNeHkGtBs+FdCpy/+C1GogUqAR0xMIbc2JAVMwb3eJm4lgyoxNReULFUzKGQ0
- B7gnt0tHeqhpt2b6sjUPM2Wq6dPWxbCwrvz6cbaTtmEaYgWW30BmsClKvT2Wem4yBzAE
- 4Paw==
+ d=gmail.com; s=20230601; t=1723479705; x=1724084505; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vlneiZJQLXLqJDusxP+PQ5OxJj9g1fPFn2AHdkUar7w=;
+ b=RiTUYO/JjiQyFP0Cb2nubXaRTR23AF4KMpP6VzgZF23oQkmPA8dRcBC9GA6pgziTyc
+ AmAFU1P0sNEZ9lHxseZZvmFAtXVHVDUCR5O5wkFA9uRuaE3vFAhlRMwx3XvbXyMO+cX7
+ c5HR+pEeFvuRpTedjTbsUSPYhCMJphLvUkDfnTfto/h7a/KUpACVR2/KAsWlfd7+1UJg
+ UJeXUulTEM5Sia9RY9OhWNZbnaj0Dy6MH6w9gUhv+ywlbMRPgXsxYKLrf64q6SefDEYt
+ 76e5CKJ8S2tf0BZGT9dyU2Od6QWtUr2wiNTFLMRYBW06z0eiWG/zPUx+bKhWA/eI2B7r
+ wGjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723470978; x=1724075778;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=S8pPBKCtj1qMblogWbM7RgQzND2CLqVTOWooV2IgGeU=;
- b=buipff1r63t9xZH9QYu4xLFI9hQUrbMyX55lgVvjCrjbzJm0Y+QkWj7gJw5ZVwm9Xr
- yAtvjUVRtLWjY4e52lPbMhI974+LJHnHm9OcQmWQ5xb80ob2vMLP1FjOqnppHmd/AcCI
- ZwSVPBhVxeDbxm71A3fCirZYKUcqu+B4+qkV5vuKef6wTJ+V8PiGY5RmCXWsv3jS3Cln
- rpijcA9lbSbz2g2ONYGfZw+PraZ2vvwK9DuauzQZw/TaETz6iolm5DpXSGekj26rt6B2
- pZXSQ4HcXycC/j32ykDRKergGYTl56+vI6liB6e4MBeGfDP3kRgHC+69mcaLvv67+n6z
- n5Vg==
+ d=1e100.net; s=20230601; t=1723479705; x=1724084505;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=vlneiZJQLXLqJDusxP+PQ5OxJj9g1fPFn2AHdkUar7w=;
+ b=UaAazXiCj2a2/wvRNn7qBaCL979U1a70Cx9FtKyJzlWHfoodF2QM/hiPdXReYarmJo
+ 0gZOe1hxJe1N0FtXoGSIEWMu/S8YAND2Mh5jHa6M/bHc4pOU77Y9H1aZatubyE3jHKtG
+ b0eu4O/awaBjU7R7Ftkb3yW6aPeqEl3CwoZikgL814QEJV6fZVXYmiezDcAh9EANu8Pc
+ 8dAC4ZNHF03uwI7nIUapAapLsroBmk89spOi1paSwni7ya8T30ZPkge7PddxkROxCwm8
+ rqdBT9EFbiubSy6HYWLWV2P70yowlPYnEwMulCgNYScfPXsFhKN+mJKuJhFlSUQdw4iQ
+ H7Ng==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVWmWXNgTMO8t1cT91E0qVJpYjdtd28N2O3RoOYNHHj7F56U6W+aM/ZL2DHUEmcycrDHjCORxavSPJzz7a4Hogev4hOdovkY67EMdEseznk
-X-Gm-Message-State: AOJu0Yz1N+LRlTMC0wM/h/jnVANiVvmodTmOJ00KP03iHV2nuZ0fknEz
- XX3Wb418bkTEFCiXXsNOvLM370V1p1koAAQVomfAz4mBNzUOW6KvQdjxwsMWWlY=
-X-Google-Smtp-Source: AGHT+IGUCDDDJmPdkUeF51lGMXmc2B54eXkWDGs+ePmSEkQ87f4+LylylfieyVoH9qavVmYIfup6/A==
-X-Received: by 2002:a5d:52c8:0:b0:368:460a:961d with SMTP id
- ffacd0b85a97d-3716ccd6f24mr267787f8f.3.1723470978233; 
- Mon, 12 Aug 2024 06:56:18 -0700 (PDT)
-Received: from [192.168.108.81] (freebox.vlq16.iliad.fr. [213.36.7.13])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36e4f0a66e8sm7602815f8f.114.2024.08.12.06.56.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Aug 2024 06:56:17 -0700 (PDT)
-Message-ID: <0b2279f3-1591-4297-aae3-2b3b915b4a2b@freebox.fr>
-Date: Mon, 12 Aug 2024 15:56:17 +0200
+ AJvYcCVEvtNQM9yTAwSLEq4dwCVTCox6NUUzl9UGjCnrQgvAU40r++5i5Kuot5JyInHg7elKWvb2h2eP9Te23c5Sc6OGr+FhB7opAlUfbUhT4nJ2
+X-Gm-Message-State: AOJu0YzNnyxhxaYJHdJFNC5R5EvxvD2BvVuNIdTc2E22unyll6vC9POl
+ j0BpxRgq8Ce2DypouE5Da3763c7U6igxFSBWYf60vpvtpKjSoyLxU0AY1JfuKkD8B9xCtYMSe+c
+ Ur8148FrEgi/qcPpEoVjjmqjooy0=
+X-Google-Smtp-Source: AGHT+IHISTHcYY16RxKbGRvV7EHWIgqlMCPcmLVjjnPto7VUvfwCYLwREm2AVVcuhCSV9LPb+Rnhh6ldMe2MQ/TwyE0=
+X-Received: by 2002:a05:6402:35d5:b0:5a3:d140:1a57 with SMTP id
+ 4fb4d7f45d1cf-5bd44c0ced8mr813513a12.1.1723479704862; Mon, 12 Aug 2024
+ 09:21:44 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/6] HDMI TX support in msm8998
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Arnaud Vrac <avrac@freebox.fr>,
- Pierre-Hugues Husson <phhusson@freebox.fr>,
- Jeffrey Hugo <quic_jhugo@quicinc.com>,
- Conor Dooley <conor.dooley@microchip.com>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Jeffrey Hugo <quic_jhugo@quicinc.com>
-References: <20240724-hdmi-tx-v7-0-e44a20553464@freebox.fr>
-Content-Language: en-US
-From: Marc Gonzalez <mgonzalez@freebox.fr>
-In-Reply-To: <20240724-hdmi-tx-v7-0-e44a20553464@freebox.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20240807-a750-devcoredump-fixes-v2-0-d7483736d26d@gmail.com>
+ <20240807-a750-devcoredump-fixes-v2-1-d7483736d26d@gmail.com>
+ <20240812060854.xvtae4o6kvfnuxcx@hu-akhilpo-hyd.qualcomm.com>
+In-Reply-To: <20240812060854.xvtae4o6kvfnuxcx@hu-akhilpo-hyd.qualcomm.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 12 Aug 2024 09:21:31 -0700
+Message-ID: <CAF6AEGtOK5wD6X-oedZzN1quEAKyx1Xz5A-avuqma5rKpDTjUQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] drm/msm: Use a7xx family directly in gpu_state
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Connor Abbott <cwabbott0@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,84 +84,210 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Rob, Abhinav, Dmitry,
+On Sun, Aug 11, 2024 at 11:09=E2=80=AFPM Akhil P Oommen
+<quic_akhilpo@quicinc.com> wrote:
+>
+> On Wed, Aug 07, 2024 at 01:34:27PM +0100, Connor Abbott wrote:
+> > With a7xx, we need to import a new header for each new generation and
+> > switch to a different list of registers, instead of making
+> > backwards-compatible changes. Using the helpers inadvertently made a750
+> > use the a740 list of registers, instead use the family directly to fix
+> > this.
+>
+> This won't scale. What about other gpus in the same generation but has a
+> different register list? You don't see that issue currently because
+> there are no support for lower tier a7x GPUs yet.
+>
+> I think we should move to a "snapshot block list" like in the downstream
+> driver if you want to simplify the whole logic. Otherwise, we should
+> leave the chipid check as it is and just fix up a750 configurations.
 
-This series might be ready this time?
-Are all the patches supposed to go through
-https://gitlab.freedesktop.org/drm/msm.git ?
+Or maybe just move some of this to the device catalogue?
 
-(Probably not... patches 5 & 6 are probably
-supposed to go through Bjorn's tree?)
+BR,
+-R
 
-Regards
-
-
-On 24/07/2024 17:01, Marc Gonzalez wrote:
-
-> DT bits required for HDMI TX support in qcom APQ8098 (MSM8998 cousin)
-> 
-> ---
-> Changes in v7:
-> - prefix the labels hdmi: and hdmi_phy: with mdss_ (Konrad)
-> - DID NOT MODIFY patch 3, based on conversation between Conor & Dmitry
-> - tested 40+40 boots with/without maxcpus=1 => no iommu panic witnessed
-> - Collect tags from Konrad & Dmitry (hopefully b4 did the right thing)
-> - Link to v6: https://lore.kernel.org/r/20240715-hdmi-tx-v6-0-d27f029627ad@freebox.fr
-> 
-> Changes in v6:
-> - Fold HDMI PHY driver submission into this series
->   => [PATCH v2] drm/msm: add msm8998 hdmi phy/pll support
->   => Link to v2: https://lore.kernel.org/all/20240704-hdmi-phy-v2-1-a7f5af202cb5@freebox.fr/
->      - Rebase onto v6.10
->      - Move drivers/gpu/drm/msm/hdmi/hdmi.xml.h to drivers/gpu/drm/msm/registers/display/hdmi.xml
->      - Add copyright attribution
->      - Remove all dead/debug/temporary code
->   => Link to v1: https://lore.kernel.org/all/63337d63-67ef-4499-8a24-5f6e9285c36b@freebox.fr/
-> - split HDMI PHY driver patch in 2 parts (PHY & TX)
-> - Use same regulator names as msm8996 (Dmitry)
-> - Remove printk statements
-> - Add Vinod's Ack on patch 1
-> - Expand commit message on patch 4 = HDMI PHY driver
-> - Link to v5: https://lore.kernel.org/r/20240627-hdmi-tx-v5-0-355d5c1fbc3c@freebox.fr
-> 
-> Changes in v5:
-> - Fix property & property-names for TX pinctrl in DTSI (Konrad)
-> - NOT CHANGED: clock trees for TX & PHY based on Dmitry & Jeffrey's remarks
-> - Link to v4: https://lore.kernel.org/r/20240613-hdmi-tx-v4-0-4af17e468699@freebox.fr
-> 
-> Changes in v4:
-> - Collect tags since v3
-> - Reword patch 1 subject (Vinod)
-> - Link to v3: https://lore.kernel.org/r/20240606-hdmi-tx-v3-0-9d7feb6d3647@freebox.fr
-> 
-> Changes in v3
-> - Address Rob's comments on patch 2:
->   - 'maxItems: 5' for clocks in the 8996 if/then schema
->   - match the order of 8996 for the clock-names in common
-> 
-> ---
-> Arnaud Vrac (2):
->       drm/msm: add msm8998 hdmi phy/pll support
->       arm64: dts: qcom: add HDMI nodes for msm8998
-> 
-> Marc Gonzalez (4):
->       dt-bindings: phy: add qcom,hdmi-phy-8998
->       dt-bindings: display/msm: hdmi: add qcom,hdmi-tx-8998
->       drm/msm/hdmi: add "qcom,hdmi-tx-8998" compatible
->       arm64: dts: qcom: msm8998: add HDMI GPIOs
-> 
->  .../devicetree/bindings/display/msm/hdmi.yaml      |  28 +-
->  .../devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml |   1 +
->  arch/arm64/boot/dts/qcom/msm8998.dtsi              | 128 +++-
->  drivers/gpu/drm/msm/Makefile                       |   1 +
->  drivers/gpu/drm/msm/hdmi/hdmi.c                    |   1 +
->  drivers/gpu/drm/msm/hdmi/hdmi.h                    |   8 +
->  drivers/gpu/drm/msm/hdmi/hdmi_phy.c                |   5 +
->  drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c           | 779 +++++++++++++++++++++
->  drivers/gpu/drm/msm/registers/display/hdmi.xml     |  89 +++
->  9 files changed, 1037 insertions(+), 3 deletions(-)
-> ---
-> base-commit: 003a26f5074bfe024603cf76f8fd486a5344f307
-> change-id: 20240606-hdmi-tx-00ee8e7ddbac
-
-
+> -Akhil
+>
+> >
+> > Fixes: f3f8207d8aed ("drm/msm: Add devcoredump support for a750")
+> > Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+> > ---
+> >  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 41 ++++++++++++++-------=
+--------
+> >  1 file changed, 20 insertions(+), 21 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/=
+drm/msm/adreno/a6xx_gpu_state.c
+> > index 77146d30bcaa..c641ee7dec78 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+> > @@ -390,18 +390,18 @@ static void a7xx_get_debugbus_blocks(struct msm_g=
+pu *gpu,
+> >       const u32 *debugbus_blocks, *gbif_debugbus_blocks;
+> >       int i;
+> >
+> > -     if (adreno_is_a730(adreno_gpu)) {
+> > +     if (adreno_gpu->info->family =3D=3D ADRENO_7XX_GEN1) {
+> >               debugbus_blocks =3D gen7_0_0_debugbus_blocks;
+> >               debugbus_blocks_count =3D ARRAY_SIZE(gen7_0_0_debugbus_bl=
+ocks);
+> >               gbif_debugbus_blocks =3D a7xx_gbif_debugbus_blocks;
+> >               gbif_debugbus_blocks_count =3D ARRAY_SIZE(a7xx_gbif_debug=
+bus_blocks);
+> > -     } else if (adreno_is_a740_family(adreno_gpu)) {
+> > +     } else if (adreno_gpu->info->family =3D=3D ADRENO_7XX_GEN2) {
+> >               debugbus_blocks =3D gen7_2_0_debugbus_blocks;
+> >               debugbus_blocks_count =3D ARRAY_SIZE(gen7_2_0_debugbus_bl=
+ocks);
+> >               gbif_debugbus_blocks =3D a7xx_gbif_debugbus_blocks;
+> >               gbif_debugbus_blocks_count =3D ARRAY_SIZE(a7xx_gbif_debug=
+bus_blocks);
+> >       } else {
+> > -             BUG_ON(!adreno_is_a750(adreno_gpu));
+> > +             BUG_ON(adreno_gpu->info->family !=3D ADRENO_7XX_GEN3);
+> >               debugbus_blocks =3D gen7_9_0_debugbus_blocks;
+> >               debugbus_blocks_count =3D ARRAY_SIZE(gen7_9_0_debugbus_bl=
+ocks);
+> >               gbif_debugbus_blocks =3D gen7_9_0_gbif_debugbus_blocks;
+> > @@ -511,7 +511,7 @@ static void a6xx_get_debugbus(struct msm_gpu *gpu,
+> >               const struct a6xx_debugbus_block *cx_debugbus_blocks;
+> >
+> >               if (adreno_is_a7xx(adreno_gpu)) {
+> > -                     BUG_ON(!(adreno_is_a730(adreno_gpu) || adreno_is_=
+a740_family(adreno_gpu)));
+> > +                     BUG_ON(adreno_gpu->info->family > ADRENO_7XX_GEN3=
+);
+> >                       cx_debugbus_blocks =3D a7xx_cx_debugbus_blocks;
+> >                       nr_cx_debugbus_blocks =3D ARRAY_SIZE(a7xx_cx_debu=
+gbus_blocks);
+> >               } else {
+> > @@ -662,11 +662,11 @@ static void a7xx_get_dbgahb_clusters(struct msm_g=
+pu *gpu,
+> >       const struct gen7_sptp_cluster_registers *dbgahb_clusters;
+> >       unsigned dbgahb_clusters_size;
+> >
+> > -     if (adreno_is_a730(adreno_gpu)) {
+> > +     if (adreno_gpu->info->family =3D=3D ADRENO_7XX_GEN1) {
+> >               dbgahb_clusters =3D gen7_0_0_sptp_clusters;
+> >               dbgahb_clusters_size =3D ARRAY_SIZE(gen7_0_0_sptp_cluster=
+s);
+> >       } else {
+> > -             BUG_ON(!adreno_is_a740_family(adreno_gpu));
+> > +             BUG_ON(adreno_gpu->info->family > ADRENO_7XX_GEN3);
+> >               dbgahb_clusters =3D gen7_2_0_sptp_clusters;
+> >               dbgahb_clusters_size =3D ARRAY_SIZE(gen7_2_0_sptp_cluster=
+s);
+> >       }
+> > @@ -820,14 +820,14 @@ static void a7xx_get_clusters(struct msm_gpu *gpu=
+,
+> >       const struct gen7_cluster_registers *clusters;
+> >       unsigned clusters_size;
+> >
+> > -     if (adreno_is_a730(adreno_gpu)) {
+> > +     if (adreno_gpu->info->family =3D=3D ADRENO_7XX_GEN1) {
+> >               clusters =3D gen7_0_0_clusters;
+> >               clusters_size =3D ARRAY_SIZE(gen7_0_0_clusters);
+> > -     } else if (adreno_is_a740_family(adreno_gpu)) {
+> > +     } else if (adreno_gpu->info->family =3D=3D ADRENO_7XX_GEN2) {
+> >               clusters =3D gen7_2_0_clusters;
+> >               clusters_size =3D ARRAY_SIZE(gen7_2_0_clusters);
+> >       } else {
+> > -             BUG_ON(!adreno_is_a750(adreno_gpu));
+> > +             BUG_ON(adreno_gpu->info->family !=3D ADRENO_7XX_GEN3);
+> >               clusters =3D gen7_9_0_clusters;
+> >               clusters_size =3D ARRAY_SIZE(gen7_9_0_clusters);
+> >       }
+> > @@ -895,7 +895,7 @@ static void a7xx_get_shader_block(struct msm_gpu *g=
+pu,
+> >       if (WARN_ON(datasize > A6XX_CD_DATA_SIZE))
+> >               return;
+> >
+> > -     if (adreno_is_a730(adreno_gpu)) {
+> > +     if (adreno_gpu->info->family =3D=3D ADRENO_7XX_GEN1) {
+> >               gpu_rmw(gpu, REG_A7XX_SP_DBG_CNTL, GENMASK(1, 0), 3);
+> >       }
+> >
+> > @@ -925,7 +925,7 @@ static void a7xx_get_shader_block(struct msm_gpu *g=
+pu,
+> >               datasize);
+> >
+> >  out:
+> > -     if (adreno_is_a730(adreno_gpu)) {
+> > +     if (adreno_gpu->info->family =3D=3D ADRENO_7XX_GEN1) {
+> >               gpu_rmw(gpu, REG_A7XX_SP_DBG_CNTL, GENMASK(1, 0), 0);
+> >       }
+> >  }
+> > @@ -958,14 +958,14 @@ static void a7xx_get_shaders(struct msm_gpu *gpu,
+> >       unsigned num_shader_blocks;
+> >       int i;
+> >
+> > -     if (adreno_is_a730(adreno_gpu)) {
+> > +     if (adreno_gpu->info->family =3D=3D ADRENO_7XX_GEN1) {
+> >               shader_blocks =3D gen7_0_0_shader_blocks;
+> >               num_shader_blocks =3D ARRAY_SIZE(gen7_0_0_shader_blocks);
+> > -     } else if (adreno_is_a740_family(adreno_gpu)) {
+> > +     } else if (adreno_gpu->info->family =3D=3D ADRENO_7XX_GEN2) {
+> >               shader_blocks =3D gen7_2_0_shader_blocks;
+> >               num_shader_blocks =3D ARRAY_SIZE(gen7_2_0_shader_blocks);
+> >       } else {
+> > -             BUG_ON(!adreno_is_a750(adreno_gpu));
+> > +             BUG_ON(adreno_gpu->info->family !=3D ADRENO_7XX_GEN3);
+> >               shader_blocks =3D gen7_9_0_shader_blocks;
+> >               num_shader_blocks =3D ARRAY_SIZE(gen7_9_0_shader_blocks);
+> >       }
+> > @@ -1350,14 +1350,14 @@ static void a7xx_get_registers(struct msm_gpu *=
+gpu,
+> >       const u32 *pre_crashdumper_regs;
+> >       const struct gen7_reg_list *reglist;
+> >
+> > -     if (adreno_is_a730(adreno_gpu)) {
+> > +     if (adreno_gpu->info->family =3D=3D ADRENO_7XX_GEN1) {
+> >               reglist =3D gen7_0_0_reg_list;
+> >               pre_crashdumper_regs =3D gen7_0_0_pre_crashdumper_gpu_reg=
+isters;
+> > -     } else if (adreno_is_a740_family(adreno_gpu)) {
+> > +     } else if (adreno_gpu->info->family =3D=3D ADRENO_7XX_GEN2) {
+> >               reglist =3D gen7_2_0_reg_list;
+> >               pre_crashdumper_regs =3D gen7_0_0_pre_crashdumper_gpu_reg=
+isters;
+> >       } else {
+> > -             BUG_ON(!adreno_is_a750(adreno_gpu));
+> > +             BUG_ON(adreno_gpu->info->family !=3D ADRENO_7XX_GEN3);
+> >               reglist =3D gen7_9_0_reg_list;
+> >               pre_crashdumper_regs =3D gen7_9_0_pre_crashdumper_gpu_reg=
+isters;
+> >       }
+> > @@ -1407,8 +1407,7 @@ static void a7xx_get_post_crashdumper_registers(s=
+truct msm_gpu *gpu,
+> >       struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> >       const u32 *regs;
+> >
+> > -     BUG_ON(!(adreno_is_a730(adreno_gpu) || adreno_is_a740_family(adre=
+no_gpu) ||
+> > -              adreno_is_a750(adreno_gpu)));
+> > +     BUG_ON(adreno_gpu->info->family > ADRENO_7XX_GEN3);
+> >       regs =3D gen7_0_0_post_crashdumper_registers;
+> >
+> >       a7xx_get_ahb_gpu_registers(gpu,
+> > @@ -1514,11 +1513,11 @@ static void a7xx_get_indexed_registers(struct m=
+sm_gpu *gpu,
+> >       const struct a6xx_indexed_registers *indexed_regs;
+> >       int i, indexed_count, mempool_count;
+> >
+> > -     if (adreno_is_a730(adreno_gpu) || adreno_is_a740_family(adreno_gp=
+u)) {
+> > +     if (adreno_gpu->info->family <=3D ADRENO_7XX_GEN2) {
+> >               indexed_regs =3D a7xx_indexed_reglist;
+> >               indexed_count =3D ARRAY_SIZE(a7xx_indexed_reglist);
+> >       } else {
+> > -             BUG_ON(!adreno_is_a750(adreno_gpu));
+> > +             BUG_ON(adreno_gpu->info->family !=3D ADRENO_7XX_GEN3);
+> >               indexed_regs =3D gen7_9_0_cp_indexed_reg_list;
+> >               indexed_count =3D ARRAY_SIZE(gen7_9_0_cp_indexed_reg_list=
+);
+> >       }
+> >
+> > --
+> > 2.31.1
+> >
