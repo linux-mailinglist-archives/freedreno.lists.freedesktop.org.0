@@ -2,79 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0699394E682
-	for <lists+freedreno@lfdr.de>; Mon, 12 Aug 2024 08:22:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8204894EEEC
+	for <lists+freedreno@lfdr.de>; Mon, 12 Aug 2024 15:56:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D389710E0DC;
-	Mon, 12 Aug 2024 06:22:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BBDD10E224;
+	Mon, 12 Aug 2024 13:56:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="UOf1skM2";
+	dkim=pass (2048-bit key; unprotected) header.d=freebox-fr.20230601.gappssmtp.com header.i=@freebox-fr.20230601.gappssmtp.com header.b="Dj8DFXoR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB2CD10E0DC
- for <freedreno@lists.freedesktop.org>; Mon, 12 Aug 2024 06:22:46 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47C2Zdhc026749;
- Mon, 12 Aug 2024 06:22:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=c7kfLYR/umM4S8FWhltY+hdX
- /xVr0OLSm4xynhpyBFc=; b=UOf1skM2MyjQSs5iLbqG5GcfprT7XkX5Wm49STQu
- THxiFWMDDDzj73/BscdoOrUeU1BBdUiRIa/w7pBI0qNXIpj66SxpDAXWaSIv7YSB
- e3U9ifFWUARZMbxR1aSZBCHZDIYvijalSQBN4V0v593tjhS2UstMR2Ik65/bklG5
- esXSX2dsf2PVfLP/JRzWUUZUb/+MnRdcbRa692JANfQj0TdOpZJYR1eYB7Oyj1by
- zA9Z7iUJMKerjS7b44M8r7r4QGMa5G3CmKTzKj11yzw30LOHwosDEft+khb5nL1v
- wgvChBqss4laquIlrgF1TNr+PmCajOCwSYqU+mI7FUd/EA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40x1d4b0nu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Aug 2024 06:22:44 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 47C6MhOC021351
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Aug 2024 06:22:43 GMT
-Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Sun, 11 Aug 2024 23:22:40 -0700
-Date: Mon, 12 Aug 2024 11:52:36 +0530
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: Connor Abbott <cwabbott0@gmail.com>
-CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>
-Subject: Re: [PATCH v2 3/3] drm/msm: Fix CP_BV_DRAW_STATE_ADDR name
-Message-ID: <20240812062236.nihk2iyn6ya62ixh@hu-akhilpo-hyd.qualcomm.com>
-References: <20240807-a750-devcoredump-fixes-v2-0-d7483736d26d@gmail.com>
- <20240807-a750-devcoredump-fixes-v2-3-d7483736d26d@gmail.com>
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77C4110E224
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Aug 2024 13:56:20 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4280b3a7efaso32560865e9.0
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Aug 2024 06:56:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=freebox-fr.20230601.gappssmtp.com; s=20230601; t=1723470978; x=1724075778;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=S8pPBKCtj1qMblogWbM7RgQzND2CLqVTOWooV2IgGeU=;
+ b=Dj8DFXoRCPdcDnirreMCxLHDVtHSNNVpYhFDJFC9t0BZWd3wMDObU7Qjzjq0VnHaCX
+ nlh6oq3kZrNDLAqE0W/7a3FX8YLDgM3NkvDfPHCcXXIScOVSDHlY+YZx84NeObq5aBLE
+ Oaqb0Z8EErpoiutdwt8nNy/j1wnnCA1rqsOS3ldgfStUb/w6hB8nHcSDX7L5whUfDWCc
+ LkiAEtGXNeHkGtBs+FdCpy/+C1GogUqAR0xMIbc2JAVMwb3eJm4lgyoxNReULFUzKGQ0
+ B7gnt0tHeqhpt2b6sjUPM2Wq6dPWxbCwrvz6cbaTtmEaYgWW30BmsClKvT2Wem4yBzAE
+ 4Paw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723470978; x=1724075778;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=S8pPBKCtj1qMblogWbM7RgQzND2CLqVTOWooV2IgGeU=;
+ b=buipff1r63t9xZH9QYu4xLFI9hQUrbMyX55lgVvjCrjbzJm0Y+QkWj7gJw5ZVwm9Xr
+ yAtvjUVRtLWjY4e52lPbMhI974+LJHnHm9OcQmWQ5xb80ob2vMLP1FjOqnppHmd/AcCI
+ ZwSVPBhVxeDbxm71A3fCirZYKUcqu+B4+qkV5vuKef6wTJ+V8PiGY5RmCXWsv3jS3Cln
+ rpijcA9lbSbz2g2ONYGfZw+PraZ2vvwK9DuauzQZw/TaETz6iolm5DpXSGekj26rt6B2
+ pZXSQ4HcXycC/j32ykDRKergGYTl56+vI6liB6e4MBeGfDP3kRgHC+69mcaLvv67+n6z
+ n5Vg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVWmWXNgTMO8t1cT91E0qVJpYjdtd28N2O3RoOYNHHj7F56U6W+aM/ZL2DHUEmcycrDHjCORxavSPJzz7a4Hogev4hOdovkY67EMdEseznk
+X-Gm-Message-State: AOJu0Yz1N+LRlTMC0wM/h/jnVANiVvmodTmOJ00KP03iHV2nuZ0fknEz
+ XX3Wb418bkTEFCiXXsNOvLM370V1p1koAAQVomfAz4mBNzUOW6KvQdjxwsMWWlY=
+X-Google-Smtp-Source: AGHT+IGUCDDDJmPdkUeF51lGMXmc2B54eXkWDGs+ePmSEkQ87f4+LylylfieyVoH9qavVmYIfup6/A==
+X-Received: by 2002:a5d:52c8:0:b0:368:460a:961d with SMTP id
+ ffacd0b85a97d-3716ccd6f24mr267787f8f.3.1723470978233; 
+ Mon, 12 Aug 2024 06:56:18 -0700 (PDT)
+Received: from [192.168.108.81] (freebox.vlq16.iliad.fr. [213.36.7.13])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-36e4f0a66e8sm7602815f8f.114.2024.08.12.06.56.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Aug 2024 06:56:17 -0700 (PDT)
+Message-ID: <0b2279f3-1591-4297-aae3-2b3b915b4a2b@freebox.fr>
+Date: Mon, 12 Aug 2024 15:56:17 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20240807-a750-devcoredump-fixes-v2-3-d7483736d26d@gmail.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: MUq5Dl8ruf-4xIzM1wyYEsY6Fopblpme
-X-Proofpoint-GUID: MUq5Dl8ruf-4xIzM1wyYEsY6Fopblpme
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-11_25,2024-08-07_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0
- adultscore=0 phishscore=0 suspectscore=0 mlxscore=0 mlxlogscore=745
- malwarescore=0 bulkscore=0 priorityscore=1501 clxscore=1015
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2407110000 definitions=main-2408120047
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/6] HDMI TX support in msm8998
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Arnaud Vrac <avrac@freebox.fr>,
+ Pierre-Hugues Husson <phhusson@freebox.fr>,
+ Jeffrey Hugo <quic_jhugo@quicinc.com>,
+ Conor Dooley <conor.dooley@microchip.com>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Jeffrey Hugo <quic_jhugo@quicinc.com>
+References: <20240724-hdmi-tx-v7-0-e44a20553464@freebox.fr>
+Content-Language: en-US
+From: Marc Gonzalez <mgonzalez@freebox.fr>
+In-Reply-To: <20240724-hdmi-tx-v7-0-e44a20553464@freebox.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,35 +101,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Aug 07, 2024 at 01:34:29PM +0100, Connor Abbott wrote:
-> This was missed because we weren't using the a750-specific indexed regs.
+Hello Rob, Abhinav, Dmitry,
+
+This series might be ready this time?
+Are all the patches supposed to go through
+https://gitlab.freedesktop.org/drm/msm.git ?
+
+(Probably not... patches 5 & 6 are probably
+supposed to go through Bjorn's tree?)
+
+Regards
+
+
+On 24/07/2024 17:01, Marc Gonzalez wrote:
+
+> DT bits required for HDMI TX support in qcom APQ8098 (MSM8998 cousin)
 > 
-> Fixes: f3f8207d8aed ("drm/msm: Add devcoredump support for a750")
-> Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
-
-Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-
--Akhil
-
 > ---
->  drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Changes in v7:
+> - prefix the labels hdmi: and hdmi_phy: with mdss_ (Konrad)
+> - DID NOT MODIFY patch 3, based on conversation between Conor & Dmitry
+> - tested 40+40 boots with/without maxcpus=1 => no iommu panic witnessed
+> - Collect tags from Konrad & Dmitry (hopefully b4 did the right thing)
+> - Link to v6: https://lore.kernel.org/r/20240715-hdmi-tx-v6-0-d27f029627ad@freebox.fr
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h b/drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h
-> index 260d66eccfec..9a327d543f27 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h
-> @@ -1303,7 +1303,7 @@ static struct a6xx_indexed_registers gen7_9_0_cp_indexed_reg_list[] = {
->  		REG_A6XX_CP_ROQ_DBG_DATA, 0x00800},
->  	{ "CP_UCODE_DBG_DATA", REG_A6XX_CP_SQE_UCODE_DBG_ADDR,
->  		REG_A6XX_CP_SQE_UCODE_DBG_DATA, 0x08000},
-> -	{ "CP_BV_SQE_STAT_ADDR", REG_A7XX_CP_BV_DRAW_STATE_ADDR,
-> +	{ "CP_BV_DRAW_STATE_ADDR", REG_A7XX_CP_BV_DRAW_STATE_ADDR,
->  		REG_A7XX_CP_BV_DRAW_STATE_DATA, 0x00200},
->  	{ "CP_BV_ROQ_DBG_ADDR", REG_A7XX_CP_BV_ROQ_DBG_ADDR,
->  		REG_A7XX_CP_BV_ROQ_DBG_DATA, 0x00800},
+> Changes in v6:
+> - Fold HDMI PHY driver submission into this series
+>   => [PATCH v2] drm/msm: add msm8998 hdmi phy/pll support
+>   => Link to v2: https://lore.kernel.org/all/20240704-hdmi-phy-v2-1-a7f5af202cb5@freebox.fr/
+>      - Rebase onto v6.10
+>      - Move drivers/gpu/drm/msm/hdmi/hdmi.xml.h to drivers/gpu/drm/msm/registers/display/hdmi.xml
+>      - Add copyright attribution
+>      - Remove all dead/debug/temporary code
+>   => Link to v1: https://lore.kernel.org/all/63337d63-67ef-4499-8a24-5f6e9285c36b@freebox.fr/
+> - split HDMI PHY driver patch in 2 parts (PHY & TX)
+> - Use same regulator names as msm8996 (Dmitry)
+> - Remove printk statements
+> - Add Vinod's Ack on patch 1
+> - Expand commit message on patch 4 = HDMI PHY driver
+> - Link to v5: https://lore.kernel.org/r/20240627-hdmi-tx-v5-0-355d5c1fbc3c@freebox.fr
 > 
-> -- 
-> 2.31.1
+> Changes in v5:
+> - Fix property & property-names for TX pinctrl in DTSI (Konrad)
+> - NOT CHANGED: clock trees for TX & PHY based on Dmitry & Jeffrey's remarks
+> - Link to v4: https://lore.kernel.org/r/20240613-hdmi-tx-v4-0-4af17e468699@freebox.fr
 > 
+> Changes in v4:
+> - Collect tags since v3
+> - Reword patch 1 subject (Vinod)
+> - Link to v3: https://lore.kernel.org/r/20240606-hdmi-tx-v3-0-9d7feb6d3647@freebox.fr
 > 
+> Changes in v3
+> - Address Rob's comments on patch 2:
+>   - 'maxItems: 5' for clocks in the 8996 if/then schema
+>   - match the order of 8996 for the clock-names in common
+> 
+> ---
+> Arnaud Vrac (2):
+>       drm/msm: add msm8998 hdmi phy/pll support
+>       arm64: dts: qcom: add HDMI nodes for msm8998
+> 
+> Marc Gonzalez (4):
+>       dt-bindings: phy: add qcom,hdmi-phy-8998
+>       dt-bindings: display/msm: hdmi: add qcom,hdmi-tx-8998
+>       drm/msm/hdmi: add "qcom,hdmi-tx-8998" compatible
+>       arm64: dts: qcom: msm8998: add HDMI GPIOs
+> 
+>  .../devicetree/bindings/display/msm/hdmi.yaml      |  28 +-
+>  .../devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml |   1 +
+>  arch/arm64/boot/dts/qcom/msm8998.dtsi              | 128 +++-
+>  drivers/gpu/drm/msm/Makefile                       |   1 +
+>  drivers/gpu/drm/msm/hdmi/hdmi.c                    |   1 +
+>  drivers/gpu/drm/msm/hdmi/hdmi.h                    |   8 +
+>  drivers/gpu/drm/msm/hdmi/hdmi_phy.c                |   5 +
+>  drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c           | 779 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/registers/display/hdmi.xml     |  89 +++
+>  9 files changed, 1037 insertions(+), 3 deletions(-)
+> ---
+> base-commit: 003a26f5074bfe024603cf76f8fd486a5344f307
+> change-id: 20240606-hdmi-tx-00ee8e7ddbac
+
+
