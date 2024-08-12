@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD1B694F6C4
-	for <lists+freedreno@lfdr.de>; Mon, 12 Aug 2024 20:36:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7D7694F6D1
+	for <lists+freedreno@lfdr.de>; Mon, 12 Aug 2024 20:40:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBF8910E27A;
-	Mon, 12 Aug 2024 18:36:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63B9D10E27C;
+	Mon, 12 Aug 2024 18:40:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="XLRX+wDc";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="K1Xd8Uff";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
- [209.85.222.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADAEB10E27A
- for <freedreno@lists.freedesktop.org>; Mon, 12 Aug 2024 18:36:25 +0000 (UTC)
-Received: by mail-qk1-f178.google.com with SMTP id
- af79cd13be357-7a337501630so308249285a.3
- for <freedreno@lists.freedesktop.org>; Mon, 12 Aug 2024 11:36:25 -0700 (PDT)
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
+ [209.85.222.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97BEA10E27C
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Aug 2024 18:40:26 +0000 (UTC)
+Received: by mail-qk1-f169.google.com with SMTP id
+ af79cd13be357-7a1d3e93cceso519026585a.1
+ for <freedreno@lists.freedesktop.org>; Mon, 12 Aug 2024 11:40:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1723487784; x=1724092584;
+ d=chromium.org; s=google; t=1723488025; x=1724092825;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:user-agent:from:references
  :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=XVEY3EOQ7EfM3BETXw06qP0pD8+sQ+yqKMA+bsLb1lY=;
- b=XLRX+wDcLjZRpQr1vRgkwaZ4MrdybSfNYJdgxex3d9bO8mnWYGQV0mSj6Sx7fW+54+
- 6arPgrCMTl4e7SEnF+lKqSxU/CgqM/a4/gf59dY8VZYzYJQq65yTZkLOgZ/MFpTqmKaO
- jcRZgcFMHVRiEYzMh/qgHSj/OZv+4IL7fz/l8=
+ :reply-to; bh=Ncx0KjsnMUSOlidEu3+KOW8xjiQtkAoEgGIPpLUP9Bg=;
+ b=K1Xd8UffzzQM7vxBimUu/kOq4ZyV5TrMs5lub9IDT1YflakuFIy0XDYJH6P+zMbneH
+ ESFYPFsfzhnSHGObdfIOTbf7PuyHZXC/bAzn3AqJxH0RXSqQjwNt9gj3GgBpvx6Bpb8n
+ FrS13HmYA900AY/71RhVx219mlpqJi0sOTxWM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723487784; x=1724092584;
+ d=1e100.net; s=20230601; t=1723488025; x=1724092825;
  h=cc:to:subject:message-id:date:user-agent:from:references
  :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XVEY3EOQ7EfM3BETXw06qP0pD8+sQ+yqKMA+bsLb1lY=;
- b=EecSCdBz0cTXciR3rJpaSQ5VydYh3rda9kkNLzOKVAi8bhqtMEUA+BUCAmZYLfijgp
- qt8fANbyvq/Xub20fJowxtel1Rip8hu8WI5/jPv8nAi8IliJXjRRlL2j9PBJauTS+p/a
- FiHH3yqeVuNR7no8JkjS4yRgcyKynWqQRveTNv8hqJOS486WEB/KLgowZDkHyV+4t25e
- TUZuFdb6Tmz3OGKzjyio69HqKxAPpK90E6yTkVWRpjSrTPakTNL0IWipBEWuhqtyUf7J
- 6og5OZnz/h6svl5/+gccM89IwDxs5j0lAPoT4d8FhMAvfMswMNNUAbjFaXcHOESMFxHn
- HkmA==
+ bh=Ncx0KjsnMUSOlidEu3+KOW8xjiQtkAoEgGIPpLUP9Bg=;
+ b=ZFv8XNaHDMhZpojfdbhGayeEKBsd5Xfxqrt87IzzUVammMMZzHoOQF8J/oqBgmjcom
+ CT7GA+txu2ikwcdV63nuyXOmohboYtEJ3IV/ADqnzYPSSoZ5dht8Vrx7Vaxvz5AOgTLh
+ LVYZ8pkiMuG6akh4xZummbgLeJfYVDCCMsIZ/NC+CYMgP4PDnGcE3CoeAWVyCYhLf2zP
+ BN3KwoTlmcwcu2Oyka/R8nu4bqaw0aSKE8xOvYfLF2Gqut4tSeyfH+qLHDg2u9MeqClE
+ dj27a3r3Qb28rOagca5qS/PLj7+52nHA/vRIVuAE5h2v/hcJ3ppcEpEJH5fZhYBV9dbv
+ P6RA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUf1wV78cLE1VaEqng9bwVGBuN4UMI5A2fbluO/jmgE0Y2jthcVqUhLiL4VRnHIAK5GFR5r6Ou4Dw+lnsoxU4/axi8vE1lOKL4TIH6EdDLV
-X-Gm-Message-State: AOJu0Yzn9QCdpzMyQdyGLCk0ARfLoc0fAJvYSWuQGM7vuVtX6LUKcIYa
- r+1kQrZpYvlGhrINsAlCUQ3cO5e0awozojdlY6wxeI5zXbhyXXn/AF+Ny4guaDvRdxESUEKUDXv
- MnAE75fLG5JAuPXbycncseJL3NrIH2eUnxuzD
-X-Google-Smtp-Source: AGHT+IHmoofWaFYJnBjW3Mad9MwbSlnA+Lmn21+JRVXHiDX9eb3lBTF/fIYOBI/SdgNYe7IAkY5SEsY8XTjEOJNFGZk=
-X-Received: by 2002:a05:620a:4010:b0:7a1:d73f:53d2 with SMTP id
- af79cd13be357-7a4e151bd49mr129101485a.20.1723487784514; Mon, 12 Aug 2024
- 11:36:24 -0700 (PDT)
+ AJvYcCXDBgj32G7KphZnOgOfLduDL0W0lyjS77n/F/X36b0jnSdHyhjmVKE8I+iMLaEklhd1vIkDUn47dvKurGuE6bVPZB/3nLigrlLTML3ONJ6b
+X-Gm-Message-State: AOJu0Ywsub3VBRzoqOaCgXekTUwZmTq1dEdkYSrbFZI3jkr7pC6wSKyh
+ XUi+iiWXBau8E9ZUe7bPMOlqd+q/nOSbrmKFPVW2Hq7Qouik/mQtKTttHjqt8+aIc5GNzq/lBa9
+ lJfr5KC8I9ZI72HVlwfJCmxFYdCnpvlEb8SM8
+X-Google-Smtp-Source: AGHT+IHU7T7mETTa8o0eIAERX5Q/cpE4El91Q1zKhqhAZWti96HazCD976i3q3JmtZLa+HkARhuwHJyq8saSXRwQcCA=
+X-Received: by 2002:a05:620a:40d2:b0:79c:1178:dc9d with SMTP id
+ af79cd13be357-7a4e38410c4mr94180385a.24.1723488025574; Mon, 12 Aug 2024
+ 11:40:25 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 12 Aug 2024 11:36:23 -0700
+ HTTPREST; Mon, 12 Aug 2024 11:40:25 -0700
 MIME-Version: 1.0
 In-Reply-To: <20240808235227.2701479-1-quic_abhinavk@quicinc.com>
 References: <20240808235227.2701479-1-quic_abhinavk@quicinc.com>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Mon, 12 Aug 2024 11:36:23 -0700
-Message-ID: <CAE-0n523aJOogAidORYJNGUG4aW9Eq0wzoD3U72i8CFF=BqsaA@mail.gmail.com>
+Date: Mon, 12 Aug 2024 11:40:25 -0700
+Message-ID: <CAE-0n53qMJVbfb9oXbDexqhOj6qTBq9k5kMj1e6CXadObhBmLg@mail.gmail.com>
 Subject: Re: [PATCH] drm/msm: fix the highest_bank_bit for sc7180
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
  David Airlie <airlied@gmail.com>,
@@ -97,5 +97,19 @@ Quoting Abhinav Kumar (2024-08-08 16:52:27)
 > Fixes: 6f410b246209 ("drm/msm/mdss: populate missing data")
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
+>  drivers/gpu/drm/msm/msm_mdss.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+> index d90b9471ba6f..faa88fd6eb4d 100644
+> --- a/drivers/gpu/drm/msm/msm_mdss.c
+> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> @@ -577,7 +577,7 @@ static const struct msm_mdss_data sc7180_data = {
+>         .ubwc_enc_version = UBWC_2_0,
+>         .ubwc_dec_version = UBWC_2_0,
+>         .ubwc_static = 0x1e,
+> -       .highest_bank_bit = 0x3,
+> +       .highest_bank_bit = 0x1,
 
-Tested-by: Stephen Boyd <swboyd@chromium.org> # Trogdor.Lazor
+Usually when I see hex it's because there's a mask. This isn't a mask
+though? Can it just be '1'?
