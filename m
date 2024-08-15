@@ -2,34 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8447953B92
-	for <lists+freedreno@lfdr.de>; Thu, 15 Aug 2024 22:41:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4865C953D62
+	for <lists+freedreno@lfdr.de>; Fri, 16 Aug 2024 00:44:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D91510E549;
-	Thu, 15 Aug 2024 20:41:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E397A10E539;
+	Thu, 15 Aug 2024 22:44:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RyV/ygaH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bAiS1evz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 473CE10E547;
- Thu, 15 Aug 2024 20:41:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E93E10E539;
+ Thu, 15 Aug 2024 22:44:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7BBC561FE4;
- Thu, 15 Aug 2024 20:41:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E154C4AF16;
- Thu, 15 Aug 2024 20:41:04 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5A51362034;
+ Thu, 15 Aug 2024 22:44:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9291C32786;
+ Thu, 15 Aug 2024 22:44:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1723754467;
- bh=4KDaCGbSNqiZk9DvkwczOryM/7JAKZJoBwRV7J2iOQA=;
+ s=k20201202; t=1723761878;
+ bh=VQVwGklaI3ZSA24hRUS3BioayMkSZq8f6rSuQ+wiwm4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RyV/ygaHxqLeDKcNLkST1W9hvqTOSm9jmWb3eevfspe1avEkHl0izyJ/ICLHIVGDr
- FXcCSpbOUgj6QYs00c9z2hzGjnrKDlIaNGApf8FoqWmeGX69wyjuwRFDA7SHmWAp5i
- PB2bmFUxh8LWTRR+aYlMDcib/q6klTC9QumA0GS9r1AHZakRoVGEbGyyArjtg9wEiR
- 1i0ViY52R1Ms2F55YvTBoRU4J8fcRbJ4Qh9Rms1BdJL+saZ+vQ7hIz67b2eg3PEKT5
- givQyozG7FOX+qn8LZ/kn0sCCgDhmGal23HuhaZLEIpUvzumV7ptgJqEfb3jbgDgHM
- xjD86fiQAawGA==
+ b=bAiS1evzyrbktfGk54uagHfLPIPhysQriDybBBU6lw5kJ9ScGMo9+MiJStry8jcDp
+ NmW9NOkV0IF5umkkuqO5lKi8BVCXD7t93P2jR2Wfad41I0tqBhuARa9lLgVQIXcM7z
+ Kts8mo5+nX6CDoiMoIJ0NSzZFnKk/lY5/bEkIE2lQHiTsd5gkSpcAsQIBUOwibm4j2
+ F34SOcTUzFoRqp91S8zDRFg+Se2uj6RkIi9U/8QFLegpfyn6TcQW6WtgvcUwCr6eM6
+ fA6hvZSooj8Y4rFBcAcVlxa1jN/ZH8IEVYynDf7f0toNZRlMkYjqzR7dvhhWxdeiw4
+ QBampIF7y8Eug==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Michael Turquette <mturquette@baylibre.com>,
  Stephen Boyd <sboyd@kernel.org>, Jonathan Marek <jonathan@marek.ca>,
@@ -52,8 +52,8 @@ Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
  stable@vger.kernel.org
 Subject: Re: (subset) [PATCH 00/11] arm64: qcom: set of fixes for SM8350
  platform
-Date: Thu, 15 Aug 2024 15:40:24 -0500
-Message-ID: <172375444824.1011236.1594911619896752687.b4-ty@kernel.org>
+Date: Thu, 15 Aug 2024 17:44:32 -0500
+Message-ID: <172376187142.1033860.796127870290361446.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240804-sm8350-fixes-v1-0-1149dd8399fe@linaro.org>
 References: <20240804-sm8350-fixes-v1-0-1149dd8399fe@linaro.org>
@@ -83,8 +83,10 @@ On Sun, 04 Aug 2024 08:40:04 +0300, Dmitry Baryshkov wrote:
 
 Applied, thanks!
 
-[11/11] arm64: defconfig: build CONFIG_REGULATOR_QCOM_REFGEN as module
-        commit: 115c14ee54aae1d61d2405f9b31f67c1e8947f4e
+[09/11] arm64: dts: qcom: sm8350: add MDSS registers interconnect
+        commit: 5e1cf9f1f397a3d24dc6b06eda069be954504a16
+[10/11] arm64: dts: qcom: sm8350: add refgen regulator
+        commit: 08822cf3de00f1b9edb01b995d926595e48a54eb
 
 Best regards,
 -- 
