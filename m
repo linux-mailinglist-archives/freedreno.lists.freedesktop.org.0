@@ -2,69 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 653979548AD
-	for <lists+freedreno@lfdr.de>; Fri, 16 Aug 2024 14:24:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C82DC955039
+	for <lists+freedreno@lfdr.de>; Fri, 16 Aug 2024 19:48:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4039910E45B;
-	Fri, 16 Aug 2024 12:23:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47BB110E813;
+	Fri, 16 Aug 2024 17:48:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aYqtBBdg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RZPvsO7E";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C2FD10E452;
- Fri, 16 Aug 2024 12:23:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1723811038; x=1755347038;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=0XjBuQ5Ujk4jTqxw19KMbPoC57UVqxNo9JAgL8Zw148=;
- b=aYqtBBdgNnNTSV5pfAszHc7lgscHK0UzHc01ktKYC3lfFZjo0+opPpN2
- 4CGEVnstYDzgptBz1bTXFXn+I2617VLhkrt6QB42zVIaqyW6vxj3Lv3lX
- WgO9zFWC1U0GSJdK588geEg4Shrn7ZLN1Q0zd67o8grF964usTZ/nNi8g
- jNo1YO/ZJc9aH0dNk79EtOKUZXRcc5/n9XQpzYei8uGNUzVeVwbxO9RYm
- 3wkIfTwoDsx8kMjXuM2NEAY/0CtTV3+8Kjn1RNtKAjyprgEKa5/UQ4lyY
- ++30kDoNYZA8xJ0pyKZtBwBiMBm4kdo44dHULc7xO6oOgzwDWbMuSQboH w==;
-X-CSE-ConnectionGUID: pZW+88LESpmehENVouP8Ng==
-X-CSE-MsgGUID: whSn46kZSq64NoOFo4Sgeg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11166"; a="22250473"
-X-IronPort-AV: E=Sophos;i="6.10,151,1719903600"; d="scan'208";a="22250473"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2024 05:23:57 -0700
-X-CSE-ConnectionGUID: jTI0ERjdQYOOOYnshjCUog==
-X-CSE-MsgGUID: S9gzk8e6RFu1PRuXaiBdrQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,151,1719903600"; d="scan'208";a="60218489"
-Received: from lkp-server01.sh.intel.com (HELO 9a732dc145d3) ([10.239.97.150])
- by orviesa007.jf.intel.com with ESMTP; 16 Aug 2024 05:23:54 -0700
-Received: from kbuild by 9a732dc145d3 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sevzj-0006Os-1J;
- Fri, 16 Aug 2024 12:23:51 +0000
-Date: Fri, 16 Aug 2024 20:23:36 +0800
-From: kernel test robot <lkp@intel.com>
-To: Antonino Maniscalco <antomani103@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B44010E811;
+ Fri, 16 Aug 2024 17:48:04 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2f189a2a841so22020281fa.3; 
+ Fri, 16 Aug 2024 10:48:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1723830482; x=1724435282; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=riGddCBVcMqSZhpZl90A7CFiqL1QqGXrr5oPhf+7eSE=;
+ b=RZPvsO7E5eRx14GBLvCrTN8SGEB6yNopKtYQzWzeKcTJNKKoh1hWD2ZhoA+1jp1NDn
+ XYsbQzIeb3y3Ld+8DRZNSj2Riuxb3lc+A41O5vBOP9jBfJxK1sNPf0f58fo9kdYbjxZ2
+ evUV5h/RCM/SyFjQONsR7JZoQe0kWFjXQSNpCgrWjTG2myTlTpfcgU7F8x+opnyEIclq
+ F105cjZYD1WZhnLP5MnTEsps2yUsAkY2SS2xYfHVCd2epCwIpe9s2i5XHR4lt/jiWrWd
+ Doz/K3uns3dfcjyVhAw/PJRBOPmUEU8A/IL9uFZd0gGN25ULWTNVNhkPkIOTC8JMRWeQ
+ QF1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723830482; x=1724435282;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=riGddCBVcMqSZhpZl90A7CFiqL1QqGXrr5oPhf+7eSE=;
+ b=ZQXvcu2Z2RYXhs50SeM3bMV1yOrKuqwySwha/m6Tmus9wquxr9E/8nT7RmXJ7wOChq
+ wofJ7c+ZES/W62FVCEpftIBoXbc37CUcjKRM4aeFY0gt2l7L71fUI+mD2YPaGesRItmY
+ uuw2pU6Rv/gIqNau1EnmUbXFRZ3Ftjetn2wCovlXQXD2mntK9HoJ6yaCfXhplfKs6e2z
+ erEW/BAyW9sLLgmpD0l6dw9OAz7BAKlZue+DONli30g3kQsJd8rTBZtSDxOW+OWp1g/g
+ 30KhrblouxUZ4ZiuZBmF4hNPLyPo3rRmIK5ePl9ojo5FZ8vlze855g4PwntQkU9TkRmk
+ 6AEQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUJW8mn7SGodSle05A3x3CDntEzecK4yv3M30thVBqv+9TevznC1EGDuwKWdgItB3PoU39zipvYQNTJjYj4ZLn/olLwTsgnezaMRRQqJFQV9m5BQqR3bE8I/Fy4Bx6jiXHYMjqs4w29P4CR/ifrEa3a
+X-Gm-Message-State: AOJu0YyC9sGKW02HzVrTX+C3nGikI6nH8kRK+fimOjPJ6Pz2sdQbOUsQ
+ yrDbjXkc9fXfif93Z7Uu9uv+uNC+FajJ7g1kOzkoC9Y0sQbc8eDZaksyOjqHfpe10oZlkuK9G0t
+ /wUJa6zNbkl0W6UATufaI8Rn8UlY=
+X-Google-Smtp-Source: AGHT+IHZcHSyJ6Txw10o7YcCIzKf1ZlMMY3wB8pM2a/ajfH8agQCa9ezf0fW4JTyRoX4ydmf7qdRDClG5I7cxWTXrmY=
+X-Received: by 2002:a2e:9084:0:b0:2ef:2d58:ec24 with SMTP id
+ 38308e7fff4ca-2f3be5899a2mr23608561fa.17.1723830481402; Fri, 16 Aug 2024
+ 10:48:01 -0700 (PDT)
+MIME-Version: 1.0
+References: <20240815-preemption-a750-t-v1-0-7bda26c34037@gmail.com>
+In-Reply-To: <20240815-preemption-a750-t-v1-0-7bda26c34037@gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 16 Aug 2024 10:47:48 -0700
+Message-ID: <CAF6AEGsiu2OBbwQJO5nS55CAQtCvKebc59-mu2h0BDiu4C2gxg@mail.gmail.com>
+Subject: Re: [PATCH 0/7] Preemption support for A7XX
+To: Antonino Maniscalco <antomani103@gmail.com>
+Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Antonino Maniscalco <antomani103@gmail.com>,
- Sharat Masetty <smasetty@codeaurora.org>
-Subject: Re: [PATCH 4/7] drm/msm/A6xx: Implement preemption for A7XX targets
-Message-ID: <202408161951.81zgvcJ5-lkp@intel.com>
-References: <20240815-preemption-a750-t-v1-4-7bda26c34037@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240815-preemption-a750-t-v1-4-7bda26c34037@gmail.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,59 +87,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Antonino,
+On Thu, Aug 15, 2024 at 11:27=E2=80=AFAM Antonino Maniscalco
+<antomani103@gmail.com> wrote:
+>
+> This series implements preemption for A7XX targets, which allows the GPU =
+to
+> switch to an higher priority ring when work is pushed to it, reducing lat=
+ency
+> for high priority submissions.
+>
+> This series enables L1 preemption with skip_save_restore which requires
+> the following userspace patches to function:
+>
+> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/30544
+>
+> A flag is added to `msm_gem_submit` to only allow submissions from compat=
+ible
+> userspace to be preempted, therefore maintaining compatibility.
 
-kernel test robot noticed the following build warnings:
+I guess this last para is from an earlier iteration of this series?
+Looks like instead you are making this a submitqueue flag (which is an
+approach that I prefer)
 
-[auto build test WARNING on 7c626ce4bae1ac14f60076d00eafe71af30450ba]
+BR,
+-R
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Antonino-Maniscalco/drm-msm-Fix-bv_fence-being-used-as-bv_rptr/20240816-023442
-base:   7c626ce4bae1ac14f60076d00eafe71af30450ba
-patch link:    https://lore.kernel.org/r/20240815-preemption-a750-t-v1-4-7bda26c34037%40gmail.com
-patch subject: [PATCH 4/7] drm/msm/A6xx: Implement preemption for A7XX targets
-config: i386-buildonly-randconfig-001-20240816 (https://download.01.org/0day-ci/archive/20240816/202408161951.81zgvcJ5-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240816/202408161951.81zgvcJ5-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202408161951.81zgvcJ5-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/msm/adreno/a6xx_preempt.c: In function 'update_wptr':
->> drivers/gpu/drm/msm/adreno/a6xx_preempt.c:49:24: warning: unused variable 'cur_wptr' [-Wunused-variable]
-      49 |         uint32_t wptr, cur_wptr;
-         |                        ^~~~~~~~
-
-
-vim +/cur_wptr +49 drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-
-    44	
-    45	/* Write the most recent wptr for the given ring into the hardware */
-    46	static inline void update_wptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
-    47	{
-    48		unsigned long flags;
-  > 49		uint32_t wptr, cur_wptr;
-    50	
-    51		if (!ring)
-    52			return;
-    53	
-    54		spin_lock_irqsave(&ring->preempt_lock, flags);
-    55	
-    56		if (ring->skip_inline_wptr) {
-    57			wptr = get_wptr(ring);
-    58	
-    59			gpu_write(gpu, REG_A6XX_CP_RB_WPTR, wptr);
-    60	
-    61			ring->skip_inline_wptr = false;
-    62		}
-    63	
-    64		spin_unlock_irqrestore(&ring->preempt_lock, flags);
-    65	}
-    66	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> Some commits from this series are based on a previous series to enable
+> preemption on A6XX targets:
+>
+> https://lkml.kernel.org/1520489185-21828-1-git-send-email-smasetty@codeau=
+rora.org
+>
+> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
+> ---
+> Antonino Maniscalco (7):
+>       drm/msm: Fix bv_fence being used as bv_rptr
+>       drm/msm: Add submitqueue setup and close
+>       drm/msm: Add a `preempt_record_size` field
+>       drm/msm/A6xx: Implement preemption for A7XX targets
+>       drm/msm/A6xx: Add traces for preemption
+>       drm/msm/A6XX: Add a flag to allow preemption to submitqueue_create
+>       drm/msm/A6xx: Enable preemption for A7xx targets
+>
+>  drivers/gpu/drm/msm/Makefile              |   1 +
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c |   3 +
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 339 ++++++++++++++++++++++-
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     | 168 ++++++++++++
+>  drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 441 ++++++++++++++++++++++++=
+++++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |   1 +
+>  drivers/gpu/drm/msm/msm_gpu.h             |   7 +
+>  drivers/gpu/drm/msm/msm_gpu_trace.h       |  28 ++
+>  drivers/gpu/drm/msm/msm_ringbuffer.h      |   8 +
+>  drivers/gpu/drm/msm/msm_submitqueue.c     |  10 +
+>  include/uapi/drm/msm_drm.h                |   5 +-
+>  11 files changed, 995 insertions(+), 16 deletions(-)
+> ---
+> base-commit: 7c626ce4bae1ac14f60076d00eafe71af30450ba
+> change-id: 20240815-preemption-a750-t-fcee9a844b39
+>
+> Best regards,
+> --
+> Antonino Maniscalco <antomani103@gmail.com>
+>
