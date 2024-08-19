@@ -2,70 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61AB6955A79
-	for <lists+freedreno@lfdr.de>; Sun, 18 Aug 2024 02:35:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB1C795724D
+	for <lists+freedreno@lfdr.de>; Mon, 19 Aug 2024 19:44:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 973A610E15D;
-	Sun, 18 Aug 2024 00:35:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5F2810E334;
+	Mon, 19 Aug 2024 17:44:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="luH4jFJe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l/+eIxfS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFB7E10E148;
- Sun, 18 Aug 2024 00:35:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1723941301; x=1755477301;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=YUtKPX24NGFt1ahJB8hjdFaALbagaSaYs077AFGSgpM=;
- b=luH4jFJeg0VOfsX/CgcUHR7ptR4PvQoMKb8sdr1HcvU1wlY8GRDz8RfG
- cQHNshvJzQ7oMf5Jo/0fljsJ5uQAX3wFPcpEH0NJAvh//0UD45QUNwUKl
- eKHnNTz+dEMkmWYatcx3/YHwWuGJWv3jd6en2N9/yF+7UhyzG1hD+ALEl
- Qm+7AL0iSLikItSQbOgEbsPf0+0AszYQKrIF4VqewZnTHB5sKIIquW6B9
- rKy742YvnlosTU70Uov8gIOa29SCTw+XL2nQvagc+aWn2PasU2sPQmOQP
- 2xOiziudlQQm9bh7u2jOGkx8Usf1IyUregxe4FyCHQDvCc+qEvLXBrQOy Q==;
-X-CSE-ConnectionGUID: eBcAMuBnS6+8ezmoxook0g==
-X-CSE-MsgGUID: t9O1ooneS+C+L0M4ZgGR+A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11167"; a="22352658"
-X-IronPort-AV: E=Sophos;i="6.10,156,1719903600"; d="scan'208";a="22352658"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2024 17:35:01 -0700
-X-CSE-ConnectionGUID: sNZAGN9LTE640PeoEXN7aA==
-X-CSE-MsgGUID: 1W/FjaDzRiiTy6ulAyt7jg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,156,1719903600"; d="scan'208";a="60053989"
-Received: from lkp-server01.sh.intel.com (HELO 9a732dc145d3) ([10.239.97.150])
- by fmviesa009.fm.intel.com with ESMTP; 17 Aug 2024 17:34:56 -0700
-Received: from kbuild by 9a732dc145d3 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sfTsk-0007ui-11;
- Sun, 18 Aug 2024 00:34:54 +0000
-Date: Sun, 18 Aug 2024 08:34:36 +0800
-From: kernel test robot <lkp@intel.com>
-To: Antonino Maniscalco <antomani103@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Antonino Maniscalco <antomani103@gmail.com>,
- Sharat Masetty <smasetty@codeaurora.org>
-Subject: Re: [PATCH 4/7] drm/msm/A6xx: Implement preemption for A7XX targets
-Message-ID: <202408180848.cWzPm85G-lkp@intel.com>
-References: <20240815-preemption-a750-t-v1-4-7bda26c34037@gmail.com>
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
+ [209.85.160.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B262010E334;
+ Mon, 19 Aug 2024 17:44:56 +0000 (UTC)
+Received: by mail-qt1-f170.google.com with SMTP id
+ d75a77b69052e-454b12cc82cso15131111cf.1; 
+ Mon, 19 Aug 2024 10:44:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724089495; x=1724694295; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=wgl1BIT1Iozvq+rn/hswreZzgz/VlUWJ1e7JlV7+eKs=;
+ b=l/+eIxfSdCc8t9DrQLdjeqAYYvwQlKAPuakSmhMQfsG3ZDjvCkJCYbGfgqGhvYtCga
+ vkSqtSF2gmSIiJ2QgW1M8lMShpGEWKEywG7K342i++1Om/D4z630K2ikmFOxLoM64a03
+ 9PT9MDl2KOCgHVitRu+Hp+CXznm/1l0VjxlkZqHT1Hde2Jwo1k5YcU8F5CsK82Cy8l5V
+ hK1mCnBoMmY+R13INIDOvrkFpEA+fEYD4nBrf1FGTIlV3mnr8rXuGtjiD/o10FnQh7QJ
+ YS+rHS1DTjrCIK6+fLb/qHRJ5SeH5H5ZmQ97DXqvIaSZe859+tA0TSRSGuRgA7t7ZW2Q
+ oCqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724089495; x=1724694295;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=wgl1BIT1Iozvq+rn/hswreZzgz/VlUWJ1e7JlV7+eKs=;
+ b=G0UyKVCzvpeVGy5HFAM0+LlEWH9RZM5CZyNOEinnWagA/RlWqsFBxLqcaRQZA08Jet
+ a7nDBGIjp8/+kCC+9bYmFM4DZkiu55u49vozhJvrDAMPah7y3DrePWrLl62FijKOmg3T
+ GDMo83NdnfWxhetJkDNlg06T//tfuah5nTzt42XuCA2PORyj3QbWdMO42yV5TvLnZQgs
+ soMbcESdzsDS15V23m0PbtKqojHpddp76xfJ7ZhDUxIxPlzbv0qltOamkpg8C1uBwVmK
+ OCYhs7vIRzWmxx9eSgXd+W4vXd7r8TilaufIwHfXx06db4D1JL5XXz8NxN6OTDoO5rFt
+ kG7A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUAzekAXmbNg5wzINUXGraz03hkXmRvwFPOBBfcAgkgEwg8addFwafyRbQVEEV+5U1gcByP/pj1Zkh+LrjBkR6PxOGpTiYr3NhF27hTHPBW
+X-Gm-Message-State: AOJu0YwPxL7Y7FzePGRbyaUVVTx8wKGpkDRJZ3tmVPaMhVXksqhz6By8
+ aRSAh4Ffx3KweICJ8hctphgmdrpwtY7bH+f4BGXdT3+Hc+JLxhsCVNM1kKPr/hf9RtDj8C+WpDe
+ DRV0i1ek/59TvbZXh0uXSWOLBugQ=
+X-Google-Smtp-Source: AGHT+IHUDWyeHAWncFwmJ3gO/XndoAN8ewNPeGsyFPpfqXOgHze3iG++N1bdhT8TIQWKdZvcy9tcj394w7QRjDtw8nQ=
+X-Received: by 2002:a05:622a:2486:b0:451:c93a:5aa5 with SMTP id
+ d75a77b69052e-453743ac25bmr164309471cf.56.1724089495295; Mon, 19 Aug 2024
+ 10:44:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240815-preemption-a750-t-v1-4-7bda26c34037@gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 19 Aug 2024 10:44:42 -0700
+Message-ID: <CAF6AEGvxF2p3-AsjUydmSYrA0Vb+Ea7nh3VtNX0pT0Ae_Me-Kw@mail.gmail.com>
+Subject: [pull] drm/msm: drm-msm-fixes-2024-08-19 for v6.11-rc5
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,59 +77,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Antonino,
+Hi Dave,
 
-kernel test robot noticed the following build errors:
+A few fixes for v6.11, see description below.
 
-[auto build test ERROR on 7c626ce4bae1ac14f60076d00eafe71af30450ba]
+The following changes since commit fe34394ecdad459d2d7b1f30e4a39ac27fcd77f8:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Antonino-Maniscalco/drm-msm-Fix-bv_fence-being-used-as-bv_rptr/20240816-023442
-base:   7c626ce4bae1ac14f60076d00eafe71af30450ba
-patch link:    https://lore.kernel.org/r/20240815-preemption-a750-t-v1-4-7bda26c34037%40gmail.com
-patch subject: [PATCH 4/7] drm/msm/A6xx: Implement preemption for A7XX targets
-config: x86_64-buildonly-randconfig-001-20240818 (https://download.01.org/0day-ci/archive/20240818/202408180848.cWzPm85G-lkp@intel.com/config)
-compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240818/202408180848.cWzPm85G-lkp@intel.com/reproduce)
+  dt-bindings: display/msm: dsi-controller-main: Add SM7150
+(2024-07-03 05:57:35 -0700)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202408180848.cWzPm85G-lkp@intel.com/
+are available in the Git repository at:
 
-All errors (new ones prefixed by >>):
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2024-08-19
 
->> drivers/gpu/drm/msm/adreno/a6xx_preempt.c:49:17: error: unused variable 'cur_wptr' [-Werror,-Wunused-variable]
-      49 |         uint32_t wptr, cur_wptr;
-         |                        ^~~~~~~~
-   1 error generated.
+for you to fetch changes up to 624ab9cde26a9f150b4fd268b0f3dae3184dc40c:
 
+  drm/msm/adreno: Fix error return if missing firmware-name
+(2024-08-15 10:12:07 -0700)
 
-vim +/cur_wptr +49 drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+----------------------------------------------------------------
+Fixes for v6.11-rc5
 
-    44	
-    45	/* Write the most recent wptr for the given ring into the hardware */
-    46	static inline void update_wptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
-    47	{
-    48		unsigned long flags;
-  > 49		uint32_t wptr, cur_wptr;
-    50	
-    51		if (!ring)
-    52			return;
-    53	
-    54		spin_lock_irqsave(&ring->preempt_lock, flags);
-    55	
-    56		if (ring->skip_inline_wptr) {
-    57			wptr = get_wptr(ring);
-    58	
-    59			gpu_write(gpu, REG_A6XX_CP_RB_WPTR, wptr);
-    60	
-    61			ring->skip_inline_wptr = false;
-    62		}
-    63	
-    64		spin_unlock_irqrestore(&ring->preempt_lock, flags);
-    65	}
-    66	
+1) Fixes from the virtual plane series, namely
+   - fix the list of formats for QCM2290 since it has no YUV support
+   - minor fix in dpu_plane_atomic_check_pipe() to check only for csc and
+     not csc and scaler while allowing yuv formats
+   - take rotation into account while allocating virtual planes
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2) Fix to cleanup FB if dpu_format_populate_layout() fails. This fixes the
+   warning splat during DRM file closure
+
+3) Fix to reset the phy link params before re-starting link training. This
+   fixes the 100% link training failure when someone starts modetest while
+   cable is connected
+
+4) Long pending fix to fix a visual corruption seen for 4k modes. Root-cause
+   was we cannot support 4k@30 with 30bpp with 2 lanes so this is a critical
+   fix to use 24bpp for such cases
+
+5) Fix to move dpu encoder's connector assignment to atomic_enable(). This
+   fixes the NULL ptr crash for cases when there is an atomic_enable()
+   without atomic_modeset() after atomic_disable() . This happens for
+   connectors_changed case of crtc. It fixes a NULL ptr crash reported
+   during hotplug.
+
+6) Fix to simplify DPU's debug macros without which dynamic debug does not
+   work as expected
+
+7) Fix the highest bank bit setting for sc7180
+
+8) adreno: fix error return if missing firmware-name
+
+----------------------------------------------------------------
+Abhinav Kumar (4):
+      drm/msm/dp: fix the max supported bpp logic
+      drm/msm/dpu: move dpu_encoder's connector assignment to atomic_enable()
+      drm/msm/dp: reset the link phy params before link training
+      drm/msm: fix the highest_bank_bit for sc7180
+
+Dmitry Baryshkov (5):
+      drm/msm/dpu: don't play tricks with debug macros
+      drm/msm/dpu: cleanup FB if dpu_format_populate_layout fails
+      drm/msm/dpu: limit QCM2290 to RGB formats only
+      drm/msm/dpu: relax YUV requirements
+      drm/msm/dpu: take plane rotation into account for wide planes
+
+Rob Clark (1):
+      drm/msm/adreno: Fix error return if missing firmware-name
+
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c        |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c    |  4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h        | 14 ++------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      | 20 +++++++++++++++++---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c               |  2 ++
+ drivers/gpu/drm/msm/dp/dp_panel.c              | 19 ++++++++++---------
+ drivers/gpu/drm/msm/msm_mdss.c                 |  2 +-
+ 8 files changed, 37 insertions(+), 30 deletions(-)
