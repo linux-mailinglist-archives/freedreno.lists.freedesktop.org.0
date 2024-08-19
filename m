@@ -2,66 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB1C795724D
-	for <lists+freedreno@lfdr.de>; Mon, 19 Aug 2024 19:44:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ABF695751E
+	for <lists+freedreno@lfdr.de>; Mon, 19 Aug 2024 21:59:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5F2810E334;
-	Mon, 19 Aug 2024 17:44:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF3A510E35C;
+	Mon, 19 Aug 2024 19:59:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l/+eIxfS";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="nofXM9aP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
- [209.85.160.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B262010E334;
- Mon, 19 Aug 2024 17:44:56 +0000 (UTC)
-Received: by mail-qt1-f170.google.com with SMTP id
- d75a77b69052e-454b12cc82cso15131111cf.1; 
- Mon, 19 Aug 2024 10:44:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724089495; x=1724694295; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=wgl1BIT1Iozvq+rn/hswreZzgz/VlUWJ1e7JlV7+eKs=;
- b=l/+eIxfSdCc8t9DrQLdjeqAYYvwQlKAPuakSmhMQfsG3ZDjvCkJCYbGfgqGhvYtCga
- vkSqtSF2gmSIiJ2QgW1M8lMShpGEWKEywG7K342i++1Om/D4z630K2ikmFOxLoM64a03
- 9PT9MDl2KOCgHVitRu+Hp+CXznm/1l0VjxlkZqHT1Hde2Jwo1k5YcU8F5CsK82Cy8l5V
- hK1mCnBoMmY+R13INIDOvrkFpEA+fEYD4nBrf1FGTIlV3mnr8rXuGtjiD/o10FnQh7QJ
- YS+rHS1DTjrCIK6+fLb/qHRJ5SeH5H5ZmQ97DXqvIaSZe859+tA0TSRSGuRgA7t7ZW2Q
- oCqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724089495; x=1724694295;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=wgl1BIT1Iozvq+rn/hswreZzgz/VlUWJ1e7JlV7+eKs=;
- b=G0UyKVCzvpeVGy5HFAM0+LlEWH9RZM5CZyNOEinnWagA/RlWqsFBxLqcaRQZA08Jet
- a7nDBGIjp8/+kCC+9bYmFM4DZkiu55u49vozhJvrDAMPah7y3DrePWrLl62FijKOmg3T
- GDMo83NdnfWxhetJkDNlg06T//tfuah5nTzt42XuCA2PORyj3QbWdMO42yV5TvLnZQgs
- soMbcESdzsDS15V23m0PbtKqojHpddp76xfJ7ZhDUxIxPlzbv0qltOamkpg8C1uBwVmK
- OCYhs7vIRzWmxx9eSgXd+W4vXd7r8TilaufIwHfXx06db4D1JL5XXz8NxN6OTDoO5rFt
- kG7A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUAzekAXmbNg5wzINUXGraz03hkXmRvwFPOBBfcAgkgEwg8addFwafyRbQVEEV+5U1gcByP/pj1Zkh+LrjBkR6PxOGpTiYr3NhF27hTHPBW
-X-Gm-Message-State: AOJu0YwPxL7Y7FzePGRbyaUVVTx8wKGpkDRJZ3tmVPaMhVXksqhz6By8
- aRSAh4Ffx3KweICJ8hctphgmdrpwtY7bH+f4BGXdT3+Hc+JLxhsCVNM1kKPr/hf9RtDj8C+WpDe
- DRV0i1ek/59TvbZXh0uXSWOLBugQ=
-X-Google-Smtp-Source: AGHT+IHUDWyeHAWncFwmJ3gO/XndoAN8ewNPeGsyFPpfqXOgHze3iG++N1bdhT8TIQWKdZvcy9tcj394w7QRjDtw8nQ=
-X-Received: by 2002:a05:622a:2486:b0:451:c93a:5aa5 with SMTP id
- d75a77b69052e-453743ac25bmr164309471cf.56.1724089495295; Mon, 19 Aug 2024
- 10:44:55 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9963610E35C;
+ Mon, 19 Aug 2024 19:59:47 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47JB8uYA025662;
+ Mon, 19 Aug 2024 19:59:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=wZXGwo3NRahAKPBdC0x2drch
+ QdEI7BDLJxmJcB2J2wA=; b=nofXM9aPagJhjLp+yk1s9e2KEZHrgRMdOtgyQ+fD
+ s6rHksu+uaBCULIQ+6h0h6Py3wH1A3Gk5ExmG8U5lFBosAD/rptTeum1bY7KeOX0
+ N3ogatc75ETACvacBp9NpaIO+CBJ7D1yeYa4BAotNIXBzxUYwXbWTArh0BG5Ctfy
+ byHSRn6Reb6ju4wRLxUTvm1/fv8HpKN4adL/YLJ+sInytToyCWK2SKjsUA6bRmVe
+ R67Oa6PAhZXmKYTgDRztARNmG+P3Z4yVopQdyzAMsCX7XnEqLty6Dt8+ys01R9FQ
+ ZOwnonX/S9l8ul1Id4zju9Tmr77DERB8EUpyqOiOkacrXg==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 412n585avu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 19 Aug 2024 19:59:40 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 47JJxdTP024242
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 19 Aug 2024 19:59:39 GMT
+Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Mon, 19 Aug 2024 12:59:34 -0700
+Date: Tue, 20 Aug 2024 01:29:31 +0530
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: Antonino Maniscalco <antomani103@gmail.com>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konrad.dybcio@linaro.org>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, "Daniel Vetter" <daniel@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/7] drm/msm: Fix bv_fence being used as bv_rptr
+Message-ID: <20240819195931.5xl2c3fupgy6atif@hu-akhilpo-hyd.qualcomm.com>
+References: <20240815-preemption-a750-t-v1-0-7bda26c34037@gmail.com>
+ <20240815-preemption-a750-t-v1-1-7bda26c34037@gmail.com>
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 19 Aug 2024 10:44:42 -0700
-Message-ID: <CAF6AEGvxF2p3-AsjUydmSYrA0Vb+Ea7nh3VtNX0pT0Ae_Me-Kw@mail.gmail.com>
-Subject: [pull] drm/msm: drm-msm-fixes-2024-08-19 for v6.11-rc5
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20240815-preemption-a750-t-v1-1-7bda26c34037@gmail.com>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: W3z_s3mfWdk-mYIzd_dsBCs35O4smXaO
+X-Proofpoint-ORIG-GUID: W3z_s3mfWdk-mYIzd_dsBCs35O4smXaO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-08-19_16,2024-08-19_03,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 clxscore=1011 spamscore=0
+ mlxlogscore=913 mlxscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2408190136
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,80 +95,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave,
+On Thu, Aug 15, 2024 at 08:26:11PM +0200, Antonino Maniscalco wrote:
+> The bv_fence field of rbmemptrs was being used incorrectly as the BV
+> rptr shadow pointer in some places.
+> 
+> Add a bv_rptr field and change the code to use that instead.
+> 
+> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
 
-A few fixes for v6.11, see description below.
+Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 
-The following changes since commit fe34394ecdad459d2d7b1f30e4a39ac27fcd77f8:
+-Akhil.
 
-  dt-bindings: display/msm: dsi-controller-main: Add SM7150
-(2024-07-03 05:57:35 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2024-08-19
-
-for you to fetch changes up to 624ab9cde26a9f150b4fd268b0f3dae3184dc40c:
-
-  drm/msm/adreno: Fix error return if missing firmware-name
-(2024-08-15 10:12:07 -0700)
-
-----------------------------------------------------------------
-Fixes for v6.11-rc5
-
-1) Fixes from the virtual plane series, namely
-   - fix the list of formats for QCM2290 since it has no YUV support
-   - minor fix in dpu_plane_atomic_check_pipe() to check only for csc and
-     not csc and scaler while allowing yuv formats
-   - take rotation into account while allocating virtual planes
-
-2) Fix to cleanup FB if dpu_format_populate_layout() fails. This fixes the
-   warning splat during DRM file closure
-
-3) Fix to reset the phy link params before re-starting link training. This
-   fixes the 100% link training failure when someone starts modetest while
-   cable is connected
-
-4) Long pending fix to fix a visual corruption seen for 4k modes. Root-cause
-   was we cannot support 4k@30 with 30bpp with 2 lanes so this is a critical
-   fix to use 24bpp for such cases
-
-5) Fix to move dpu encoder's connector assignment to atomic_enable(). This
-   fixes the NULL ptr crash for cases when there is an atomic_enable()
-   without atomic_modeset() after atomic_disable() . This happens for
-   connectors_changed case of crtc. It fixes a NULL ptr crash reported
-   during hotplug.
-
-6) Fix to simplify DPU's debug macros without which dynamic debug does not
-   work as expected
-
-7) Fix the highest bank bit setting for sc7180
-
-8) adreno: fix error return if missing firmware-name
-
-----------------------------------------------------------------
-Abhinav Kumar (4):
-      drm/msm/dp: fix the max supported bpp logic
-      drm/msm/dpu: move dpu_encoder's connector assignment to atomic_enable()
-      drm/msm/dp: reset the link phy params before link training
-      drm/msm: fix the highest_bank_bit for sc7180
-
-Dmitry Baryshkov (5):
-      drm/msm/dpu: don't play tricks with debug macros
-      drm/msm/dpu: cleanup FB if dpu_format_populate_layout fails
-      drm/msm/dpu: limit QCM2290 to RGB formats only
-      drm/msm/dpu: relax YUV requirements
-      drm/msm/dpu: take plane rotation into account for wide planes
-
-Rob Clark (1):
-      drm/msm/adreno: Fix error return if missing firmware-name
-
- drivers/gpu/drm/msm/adreno/adreno_gpu.c        |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c    |  4 ++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  4 ++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h        | 14 ++------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      | 20 +++++++++++++++++---
- drivers/gpu/drm/msm/dp/dp_ctrl.c               |  2 ++
- drivers/gpu/drm/msm/dp/dp_panel.c              | 19 ++++++++++---------
- drivers/gpu/drm/msm/msm_mdss.c                 |  2 +-
- 8 files changed, 37 insertions(+), 30 deletions(-)
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
+>  drivers/gpu/drm/msm/msm_ringbuffer.h  | 1 +
+>  2 files changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index bcaec86ac67a..32a4faa93d7f 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1132,7 +1132,7 @@ static int hw_init(struct msm_gpu *gpu)
+>  	/* ..which means "always" on A7xx, also for BV shadow */
+>  	if (adreno_is_a7xx(adreno_gpu)) {
+>  		gpu_write64(gpu, REG_A7XX_CP_BV_RB_RPTR_ADDR,
+> -			    rbmemptr(gpu->rb[0], bv_fence));
+> +			    rbmemptr(gpu->rb[0], bv_rptr));
+>  	}
+>  
+>  	/* Always come up on rb 0 */
+> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/drm/msm/msm_ringbuffer.h
+> index 0d6beb8cd39a..40791b2ade46 100644
+> --- a/drivers/gpu/drm/msm/msm_ringbuffer.h
+> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
+> @@ -31,6 +31,7 @@ struct msm_rbmemptrs {
+>  	volatile uint32_t rptr;
+>  	volatile uint32_t fence;
+>  	/* Introduced on A7xx */
+> +	volatile uint32_t bv_rptr;
+>  	volatile uint32_t bv_fence;
+>  
+>  	volatile struct msm_gpu_submit_stats stats[MSM_GPU_SUBMIT_STATS_COUNT];
+> 
+> -- 
+> 2.46.0
+> 
+> 
