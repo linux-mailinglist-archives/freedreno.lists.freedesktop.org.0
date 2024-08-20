@@ -2,59 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC83F9585C1
-	for <lists+freedreno@lfdr.de>; Tue, 20 Aug 2024 13:26:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 986C5958841
+	for <lists+freedreno@lfdr.de>; Tue, 20 Aug 2024 15:49:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8617710E106;
-	Tue, 20 Aug 2024 11:26:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DEC110E7DC;
+	Tue, 20 Aug 2024 13:49:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IDtb8Ig5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MXaxDfzC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D75D010E106;
- Tue, 20 Aug 2024 11:26:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 3A2EBCE0B61;
- Tue, 20 Aug 2024 11:25:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32C6BC4AF0F;
- Tue, 20 Aug 2024 11:25:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724153158;
- bh=GIZXc/5y+AL+26n0oIBGlAp3mH1MplpwRwBGavdxHQE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=IDtb8Ig5XNtIXemPUKdpOrUkMh1O1LOWj4GSqsWHAFX61EzP/vPqyEuw8F1GGWwxD
- 5kpLMdDSgXvI5ONJki7p4rgL+Dx/UR8ZUEnnabAo309e1lMon5a+5Z9b/ciB/hFXE1
- uMuTFWd9iQLy8nU9tZ1vUtHyA0DVQA827EpXLodiPyY4xm1JZ72z72ODGUwBVN2Mga
- yonwxhFjkHgkahkVQyfJGIEJIJHI4vtkpilqDZGMP2NnayA5G98wshGP8okpDV3Aux
- LYXEgeRCp+AU3H+8RpRmyN8mEhETLPkb2FLrHyI4vpyHWsGYfox2ZKygBi4JNycoME
- V7Ua2Bhx1JECA==
-Message-ID: <f6258263-cea0-45ea-bee4-613b761fbff3@kernel.org>
-Date: Tue, 20 Aug 2024 13:25:50 +0200
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 317D310E7DC;
+ Tue, 20 Aug 2024 13:49:52 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-a8384008482so583539266b.2; 
+ Tue, 20 Aug 2024 06:49:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724161790; x=1724766590; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=mi6P0KgyJuOg2DIv54r5lv9DcqvreKk8Q0moUstK6LI=;
+ b=MXaxDfzC0wBP+QzXZDDJVHUuiRa6yMbV++0mSXLIMRNZgWWz8sHNVmzgzxeD47tCxE
+ 4z3ZsOFoWlRqRkQdhgkMk0Xm/CgoowHIa3l4vjTL1RF3drV+eNUxyO8J74VC7mKwg0e0
+ AkxqOXd/hWgOxP7Qx6MfEstdT5S5QfhsqbF/xo1AH+s7lT+GLFY3QZhiWm1uBr6IrHqr
+ iiPX6mqK1yUB3XFR1VLdPMbmMO5zLz7p1+IxECFJ0PuTCSa0swTQ9g0OW8hNkQrzX5vv
+ SGFSsdX32NtDPWx2ugPjvxNZ03cjczqioIfcS37hGTtl0VACbisNQK9aRkl4HFGtGY3H
+ GjEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724161790; x=1724766590;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=mi6P0KgyJuOg2DIv54r5lv9DcqvreKk8Q0moUstK6LI=;
+ b=toCXepMomFmdDGNxbkgq3ngqaIjl2SBZaQXTaJwuBqvOrFEEcspIod8h54jMLB4G7l
+ rH+Ch5/ID0uHWTV0lhOEAyGc0y1Ul0hwOMvTcMMN9D0lj0IwL/hqBMktEi5PTmJ2T8pE
+ e6iTamQL6L2/wCxL+fq4/V69+FYCZR7vQJytOqH7HncJzNDAEAOG9di2LMG8Y8TGOZaI
+ DJYTklct+XvF+xRCxk0YLSBAuH62FrbFZAh0lgwpCv7jJaoS5AVpPHBTSeRRZ63TLHjO
+ 5djG7KwGLWT19T+WZFKytkiQtIDEXmfBWyPZlg8LUn2iytviHLlgRi6erZtReKEJFiTO
+ nQbA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV/YLWVEgFPSuCw8h/K59ZRlzmkLyBUfhwovKwEKhFQ2ro/RtMMa31jCOso1cY17vcMRqE0UhfibgM=@lists.freedesktop.org,
+ AJvYcCWv1BRnvSTbiNVVw7rAffZQyuDAmnjsGa5GoTe8zDojfgvPvTH7ilKA8ujaGK6AxmwWVoKZKi6AZAsL@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxDLoX+m4o3EgYuL2le/2BwPfHKIxDuKfGChkggYi5nQ8k/3pEq
+ 15PSjk4p4evKwRnZOc0p3l9A+tZSk+oMjxO6WPRAhk7uPRxSDKDB
+X-Google-Smtp-Source: AGHT+IEXvQEyjaLUUTKVUVXyC1PuVlUVxioiqu3aSU26ykNG9MQuXj9MG1IeuWH1QcCO0RHfQJinRg==
+X-Received: by 2002:a17:907:3e1a:b0:a7d:a031:7bad with SMTP id
+ a640c23a62f3a-a86479ae76dmr141428466b.16.1724161790082; 
+ Tue, 20 Aug 2024 06:49:50 -0700 (PDT)
+Received: from [192.168.1.14] (host-80-104-252-9.retail.telecomitalia.it.
+ [80.104.252.9]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a83838cfa0dsm762254566b.69.2024.08.20.06.49.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 Aug 2024 06:49:49 -0700 (PDT)
+Message-ID: <e0ec6c9f-898e-4bd1-9b32-d291ec716788@gmail.com>
+Date: Tue, 20 Aug 2024 15:49:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] drm/msm: Fix bv_fence being used as bv_rptr
-To: Connor Abbott <cwabbott0@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: Antonino Maniscalco <antomani103@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+Subject: Re: [PATCH 2/7] drm/msm: Add submitqueue setup and close
+To: Konrad Dybcio <konradybcio@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>
 References: <20240815-preemption-a750-t-v1-0-7bda26c34037@gmail.com>
- <20240815-preemption-a750-t-v1-1-7bda26c34037@gmail.com>
- <e8d1534b-d592-43c4-8a34-4c7c4a04181a@kernel.org>
- <CACu1E7H6g=8thZfoRh8-svjqhdTOPg5diKoj+ENa4F5==d5RxA@mail.gmail.com>
+ <20240815-preemption-a750-t-v1-2-7bda26c34037@gmail.com>
+ <613c79a6-c32c-4c3f-b648-673529004e49@kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konradybcio@kernel.org>
-In-Reply-To: <CACu1E7H6g=8thZfoRh8-svjqhdTOPg5diKoj+ENa4F5==d5RxA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Antonino Maniscalco <antomani103@gmail.com>
+In-Reply-To: <613c79a6-c32c-4c3f-b648-673529004e49@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,55 +95,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20.08.2024 12:45 PM, Connor Abbott wrote:
-> On Tue, Aug 20, 2024 at 11:15 AM Konrad Dybcio <konradybcio@kernel.org> wrote:
+On 8/20/24 12:10 PM, Konrad Dybcio wrote:
+> On 15.08.2024 8:26 PM, Antonino Maniscalco wrote:
+>> This patch adds a bit of infrastructure to give the different Adreno
+>> targets the flexibility to setup the submitqueues per their needs.
 >>
->> On 15.08.2024 8:26 PM, Antonino Maniscalco wrote:
->>> The bv_fence field of rbmemptrs was being used incorrectly as the BV
->>> rptr shadow pointer in some places.
->>>
->>> Add a bv_rptr field and change the code to use that instead.
->>>
->>> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
->>> ---
->>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
->>>  drivers/gpu/drm/msm/msm_ringbuffer.h  | 1 +
->>>  2 files changed, 2 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>> index bcaec86ac67a..32a4faa93d7f 100644
->>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>> @@ -1132,7 +1132,7 @@ static int hw_init(struct msm_gpu *gpu)
->>>       /* ..which means "always" on A7xx, also for BV shadow */
->>>       if (adreno_is_a7xx(adreno_gpu)) {
->>>               gpu_write64(gpu, REG_A7XX_CP_BV_RB_RPTR_ADDR,
->>> -                         rbmemptr(gpu->rb[0], bv_fence));
->>> +                         rbmemptr(gpu->rb[0], bv_rptr));
->>>       }
->>>
->>>       /* Always come up on rb 0 */
->>> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/drm/msm/msm_ringbuffer.h
->>> index 0d6beb8cd39a..40791b2ade46 100644
->>> --- a/drivers/gpu/drm/msm/msm_ringbuffer.h
->>> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
->>> @@ -31,6 +31,7 @@ struct msm_rbmemptrs {
->>>       volatile uint32_t rptr;
->>>       volatile uint32_t fence;
->>>       /* Introduced on A7xx */
->>> +     volatile uint32_t bv_rptr;
->>
->> This is never initialized or assigned any value, no?
->>
->> Konrad
+>> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+>> ---
 > 
-> Neither is the original (retroactively BR) shadow RPTR, except
-> apparently on suspend (no idea why). It's written by the GPU as it
-> reads the ringbuffer, because CP_BV_RPTR_ADDR is set to its address.
-> For the BV shadow RPTR, we aren't really using it for anything (and
-> neither is kgsl) so we just need to point the register to a valid
-> "dummy" address that isn't used by anything else.
+> This email doesn't exist anymore and doesn't match yours
+> 
+> Konrad
 
-Alright, thanks
+I hadn't added mine since this commit is from the previous patch without 
+modifications, I will add my Signed-off-by to it since this address is 
+no longer valid.
 
-Konrad
+Best regards,
+-- 
+Antonino Maniscalco <antomani103@gmail.com>
+
