@@ -2,39 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B17449583BA
-	for <lists+freedreno@lfdr.de>; Tue, 20 Aug 2024 12:11:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD8889583EC
+	for <lists+freedreno@lfdr.de>; Tue, 20 Aug 2024 12:16:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DF2610E0C5;
-	Tue, 20 Aug 2024 10:11:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A2FC10E6A9;
+	Tue, 20 Aug 2024 10:16:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hU4Bk/3A";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E+tIGeo0";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1607A10E0C5;
- Tue, 20 Aug 2024 10:11:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD6A910E6A9;
+ Tue, 20 Aug 2024 10:16:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 74170CE0AC6;
- Tue, 20 Aug 2024 10:11:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94FF0C4AF10;
- Tue, 20 Aug 2024 10:11:01 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 1C86ACE068C;
+ Tue, 20 Aug 2024 10:16:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01800C4AF0F;
+ Tue, 20 Aug 2024 10:16:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724148665;
- bh=BpADP/Ry+du5JlYmwxVH1NvzPhRm4MYW1RLFt/IojHs=;
+ s=k20201202; t=1724148997;
+ bh=VYFz7I5L5KLTqazknj1Zai/JP5hjQosrywDopQoE93k=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=hU4Bk/3Aal4bz2q6+NryubNg5s2KrRiris1kQSXYzNWeJo8w81o05sa/jaxEiveso
- 4o2a4Z/TKZ0vhO31JWaqeYYxt9qGa/An72iwLhHNgsrgGWSRedRW0oUxfcjxwBdczI
- ltNirI+kDcvaGYxEPHhYnRb08FqvcZzd1YZRD1expivNJ0TNtjG6ztpN0Fi/UClkZq
- 3nFF11w08x5crm5xFJcB//7tjpQHH6U8qo+FyP1bo2Qq1dCMJZOGOLNQET4vdRbte3
- ujVhXZfemrDLVw/KoMSMx00QBh6JRetEDxjcEUNR2elgSfYt/k66S8k8fltSR1qttK
- XGYcaVtiYLWhQ==
-Message-ID: <613c79a6-c32c-4c3f-b648-673529004e49@kernel.org>
-Date: Tue, 20 Aug 2024 12:10:59 +0200
+ b=E+tIGeo0iURl25RExTGs5pQOg/7Ne4riA3599Qn9laJuUNeG3rju/UfWcobEr/rLL
+ KY7MLVjBDGeoi3oL7FgCRTHqHNuR8i3S9Hi2fQUmGXqtSd9SxA8G6B5L9kqBj7Fs5c
+ +DzDBl5T6bZCHW920X1yynZR93DPjy1vmGz770lm5zGnhzpb3ct8NiKhjk82t8ZMgU
+ iTnk4cN0gPsGM5lcEJFnIqhqsNHElxLR11uJ9cjA1CUJyTPks1Kd4NKBuu+cSCZNCB
+ TSVSuoVi7IYqIcVFoE63ydnI8jbqv7ho9hdcaVWvtfgyMlY4S9VASN8qCRf3m4foev
+ Sz2OTq8v1/abA==
+Message-ID: <af10c83a-4a7f-46fa-8287-d57b73532986@kernel.org>
+Date: Tue, 20 Aug 2024 12:16:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] drm/msm: Add submitqueue setup and close
+Subject: Re: [PATCH 6/7] drm/msm/A6XX: Add a flag to allow preemption to
+ submitqueue_create
 To: Antonino Maniscalco <antomani103@gmail.com>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -44,13 +45,12 @@ To: Antonino Maniscalco <antomani103@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Sharat Masetty <smasetty@codeaurora.org>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20240815-preemption-a750-t-v1-0-7bda26c34037@gmail.com>
- <20240815-preemption-a750-t-v1-2-7bda26c34037@gmail.com>
+ <20240815-preemption-a750-t-v1-6-7bda26c34037@gmail.com>
 Content-Language: en-US
 From: Konrad Dybcio <konradybcio@kernel.org>
-In-Reply-To: <20240815-preemption-a750-t-v1-2-7bda26c34037@gmail.com>
+In-Reply-To: <20240815-preemption-a750-t-v1-6-7bda26c34037@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -69,12 +69,16 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 15.08.2024 8:26 PM, Antonino Maniscalco wrote:
-> This patch adds a bit of infrastructure to give the different Adreno
-> targets the flexibility to setup the submitqueues per their needs.
+> Some userspace changes are necessary so add a flag for userspace to
+> advertise support for preemption.
 > 
-> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
 > ---
 
-This email doesn't exist anymore and doesn't match yours
+Squash this into the "add preemption" patch, or add the flag earlier
+(probably the latter, as that one is already big enough)
+
+As it stands, just applying patches 1..5 will break GPU IIUC.. and
+that's no bueno for running git bisect
 
 Konrad
