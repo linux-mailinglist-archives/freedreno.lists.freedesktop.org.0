@@ -2,44 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 514D8959234
-	for <lists+freedreno@lfdr.de>; Wed, 21 Aug 2024 03:33:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71CED95A000
+	for <lists+freedreno@lfdr.de>; Wed, 21 Aug 2024 16:34:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8E0710E549;
-	Wed, 21 Aug 2024 01:33:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49C0010E638;
+	Wed, 21 Aug 2024 14:34:22 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m0CV3BJx";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 1141 seconds by postgrey-1.36 at gabe;
- Wed, 21 Aug 2024 01:33:08 UTC
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E83C10E549;
- Wed, 21 Aug 2024 01:33:08 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.162.254])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4WpSwg1LJzzhXvK;
- Wed, 21 Aug 2024 09:12:03 +0800 (CST)
-Received: from kwepemd500012.china.huawei.com (unknown [7.221.188.25])
- by mail.maildlp.com (Postfix) with ESMTPS id 88BFA180101;
- Wed, 21 Aug 2024 09:14:03 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemd500012.china.huawei.com
- (7.221.188.25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.34; Wed, 21 Aug
- 2024 09:14:02 +0800
-From: Li Zetao <lizetao1@huawei.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <konrad.dybcio@linaro.org>,
- <quic_abhinavk@quicinc.com>, <dmitry.baryshkov@linaro.org>,
- <marijn.suijten@somainline.org>, <airlied@gmail.com>, <daniel@ffwll.ch>
-CC: <lizetao1@huawei.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-Subject: [PATCH -next] drm/msm/adreno: Use kvmemdup to simplify the code
-Date: Wed, 21 Aug 2024 09:21:34 +0800
-Message-ID: <20240821012134.1947547-1-lizetao1@huawei.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBD8810E638;
+ Wed, 21 Aug 2024 14:34:20 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-5bed68129a7so6284713a12.2; 
+ Wed, 21 Aug 2024 07:34:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724250859; x=1724855659; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=UR+KwYc9lrWNXtCafAT5/wVnX1MflyYbcpT1ZdueVMM=;
+ b=m0CV3BJxU5Q3O9AheFRa4Cc7ECbT3eN1/0JWSeP/I0RiMOOOeOczl65FqpCNyX+Fku
+ FD4VJK/DWDmE8bVdT4KaUHVuvNKtSrYZ3IyZuEY+KVe8MUPhFNjJLOkDUX0aVVAcKElv
+ HWFUly0gjAes4KVBJFvGYPfzl0bRDqdk/MIDTszJ9h+lcVXqX2wfZgcD4QvJB6rQRWWh
+ ygtKVX5E7dWQAiKNx7rH/zCIybO+Mo4wsRLAokzMFsMt1NW8UjpWsxmGx0bO33ouu9SB
+ ywWSD51ktObCAInJcH2tZknkDE+zvljjoOtoThGmjQ3Y+CQ2lyYOVOKYEQmtgBSoJ00+
+ mXOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724250859; x=1724855659;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=UR+KwYc9lrWNXtCafAT5/wVnX1MflyYbcpT1ZdueVMM=;
+ b=ArfEnbPvxv2o/LUJf5Y1qi29RyRcS0LK8COTt4iV6Gi7GGNhWYJBHRauOXRnmyf3fE
+ M3ztMaJhIaFCAGl7/EE+MXZe7pIK22YwRfD1k8pwLc13aWoZZjisb53rpt11WiX2dhJx
+ xlsVP9NCKeHJOdegNqV5cCiET9zFLhA0ie8Dk7mvt0gzkwNg1Md0IzhhsDRrOQeniTgo
+ jzUI6CUeL7roDklR0lG3B8veoejxyHLkrt8uVjtFUJHbqQIu71Sbxx8LXPXWy46G1GXC
+ IxjTBsgh0HCclZRuD2Cx+Pt8nsnTZu711jD1ZMDI49XKUmkd8GuzigltsIdrEibas8eo
+ j4ew==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUnyERQfZBOYoUdx+EJwK7n6y58ulbxU94SzRjyp7ThD1U6qhAgq+b5rzTU2vmoJGvXxdxu5ossGqDp@lists.freedesktop.org,
+ AJvYcCWid/7ZE1AjE+u8ZEf4vGHFwibBid6y0XYHvlKsvN+Q0NckevBg4HM2RGsS3Z1FzTO1B5X0IPIFN9w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcEhM4Gqo2IQpcFXmr6tyT5zQd+g2rg7kqYDDhcNmynnrnDuM0
+ OBnQT7wTMxzfp8gz1Ky2fn9RsTb4FnMJJyqZEt2pYJQgAO2t11SM
+X-Google-Smtp-Source: AGHT+IG00gtDcFSOH4+sQGkIehK6jaUt+gJZWvpFBFTs9mKnIYjUOIRHHw+Pbxh2Ln0y3OO1unQn0g==
+X-Received: by 2002:a05:6402:320d:b0:5a3:a9f8:cf20 with SMTP id
+ 4fb4d7f45d1cf-5bf1f25be42mr2012925a12.34.1724250858531; 
+ Wed, 21 Aug 2024 07:34:18 -0700 (PDT)
+Received: from [192.168.1.14] (host-80-104-252-9.retail.telecomitalia.it.
+ [80.104.252.9]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5bebc081db4sm8112609a12.88.2024.08.21.07.34.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Aug 2024 07:34:18 -0700 (PDT)
+Message-ID: <14591112-4455-49b4-8b1a-3feffc4d343f@gmail.com>
+Date: Wed, 21 Aug 2024 16:34:15 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- kwepemd500012.china.huawei.com (7.221.188.25)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/7] drm/msm/A6xx: Implement preemption for A7XX targets
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>
+References: <20240815-preemption-a750-t-v1-0-7bda26c34037@gmail.com>
+ <20240815-preemption-a750-t-v1-4-7bda26c34037@gmail.com>
+ <20240819200837.etzn7oaoamnceigr@hu-akhilpo-hyd.qualcomm.com>
+Content-Language: en-US
+From: Antonino Maniscalco <antomani103@gmail.com>
+In-Reply-To: <20240819200837.etzn7oaoamnceigr@hu-akhilpo-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,33 +97,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use kvmemdup instead of kvmalloc() + memcpy() to simplify the code.
+On 8/19/24 10:08 PM, Akhil P Oommen wrote:
+> On Thu, Aug 15, 2024 at 08:26:14PM +0200, Antonino Maniscalco wrote:
+>> This patch implements preemption feature for A6xx targets, this allows
+>> the GPU to switch to a higher priority ringbuffer if one is ready. A6XX
+>> hardware as such supports multiple levels of preemption granularities,
+>> ranging from coarse grained(ringbuffer level) to a more fine grained
+>> such as draw-call level or a bin boundary level preemption. This patch
+>> enables the basic preemption level, with more fine grained preemption
+>> support to follow.
+>>
+>> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+>> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
+>> ---
+> 
+> No postamble packets which resets perfcounters? It is necessary. Also, I
+> think we should disable preemption during profiling like we disable slumber.
+> 
+> -Akhil.
+> 
 
-No functional change intended.
+You mention that we disable slumber during profiling however I wasn't 
+able to find code doing that. Can you please clarify which code you are 
+referring to or a mechanism through which the kernel can know when we 
+are profiling?
 
-Signed-off-by: Li Zetao <lizetao1@huawei.com>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 1c6626747b98..ef473ac88159 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -688,11 +688,9 @@ int adreno_gpu_state_get(struct msm_gpu *gpu, struct msm_gpu_state *state)
- 				size = j + 1;
- 
- 		if (size) {
--			state->ring[i].data = kvmalloc(size << 2, GFP_KERNEL);
--			if (state->ring[i].data) {
--				memcpy(state->ring[i].data, gpu->rb[i]->start, size << 2);
-+			state->ring[i].data = kvmemdup(gpu->rb[i]->start, size << 2, GFP_KERNEL);
-+			if (state->ring[i].data)
- 				state->ring[i].data_size = size << 2;
--			}
- 		}
- 	}
- 
+Best regards,
 -- 
-2.34.1
+Antonino Maniscalco <antomani103@gmail.com>
 
