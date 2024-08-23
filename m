@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 807BB95D434
-	for <lists+freedreno@lfdr.de>; Fri, 23 Aug 2024 19:22:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6207695D439
+	for <lists+freedreno@lfdr.de>; Fri, 23 Aug 2024 19:23:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5780910E032;
-	Fri, 23 Aug 2024 17:22:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39BAF10E032;
+	Fri, 23 Aug 2024 17:23:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YA6rs5JI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ncqhK+N7";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4584A10E032
- for <freedreno@lists.freedesktop.org>; Fri, 23 Aug 2024 17:22:25 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-5bec78c3f85so2599123a12.1
- for <freedreno@lists.freedesktop.org>; Fri, 23 Aug 2024 10:22:25 -0700 (PDT)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A77A710E032
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Aug 2024 17:23:40 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-5bf006f37daso3753253a12.1
+ for <freedreno@lists.freedesktop.org>; Fri, 23 Aug 2024 10:23:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724433743; x=1725038543; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1724433819; x=1725038619; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=to9+ooQ8roiiPWwijQQKyxvjukW+kYNzLti9AMo/t7c=;
- b=YA6rs5JIF3qhaZqk24sVa4GN9WhLppqa1MsOm9wvjNh2BQK4cw94yjDc9v3zdTRuaL
- 7G8nrDh/Xm4+J8IViLIIqjAWYNIvV9oM+U7IpdTS74Zu1C+WQ/NqqGrtxMZbX/M9ktcI
- ep0hQ6annwkJjlm32M5ZZ/Z/rR9dWaox50yVm2tkhSWA9NamghuTj/HpxwC5PGmTnzH+
- b9BQ8X+yWi04SoKQoIOIoAK5x7Iauj8sI8mD52zGZOZz8Rfg5Gh7d1hyXrORsgkyvJEi
- 7lWUuNZ/JHidTn0zaHpd1LTko+Lt9LmeifVCls/L5Pjk1HL8mqBDx50zIALLban7i/VW
- LniA==
+ bh=igaQ+cq5DGxYKGyVENdg674ni4YlsPPzIF+5a4ikTl4=;
+ b=ncqhK+N7SumClQMWZMUExHLtknuuA1IL//GLJz4DJX55z4ydiomufygjZv1mitya3p
+ pOzpw7B0Tn/rjMmVnyKosv1S+c3rCRPDMj3XlOgVXo6tmG7eCPoYSvyLwOkDLu8HxLmt
+ jVEz2gNSYBpcHsjCA1TCcBw5xOC87bgbjdPIFgkHpcrctmmW3a/kn4j7fD93aw+4q2UO
+ U2kx8SeZqTrQNkqMKMq8EuqUmhstTFDjOuvHaF+vQ2yu93Y/3uBm7ijfTuOm92lIuX6k
+ z/Gcx49cS601yEwXUkBixxYhKJin45d2vD4egUJ2P2Lyf9fpkMHXiS7Eu/85w4nNTzai
+ VE3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724433743; x=1725038543;
+ d=1e100.net; s=20230601; t=1724433819; x=1725038619;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=to9+ooQ8roiiPWwijQQKyxvjukW+kYNzLti9AMo/t7c=;
- b=KDJ5ClCxIQIvO9LKZWT45LDlsO8k40iw8/oE9e2L9xmzdsoXZ9CFnPoPHGoIfH7Vri
- 7Baa2Iu5Bk5PPVqYcEG7LTx7Wyy/YMUX65UwrR4xBQzgvC5F9vA4U+xL/8hq49g6bLD6
- iOf5t8MNI3CvDjMVDkXsMxamhfiiO4rRwsffa/ucMMujrK4XCssEGvSMDPu8EAY3ryid
- aZCQRpMMY6jkyuqcd8BPcKGmBtJe0TxVATUexjzi5gK1phAtNAlmLovZfp+3S8QUdu5e
- qvohUrGMw9+tvxjJmqCTqd2RPfJsYnieQgJjwNDAAnfUrpU1NVUjz4ng+Qu8lZv7lMVy
- 8y3A==
+ bh=igaQ+cq5DGxYKGyVENdg674ni4YlsPPzIF+5a4ikTl4=;
+ b=OTpsjy8kpAe7FBcXE4yfIMbWhl6JzcVUoz8O4zjvT5nc16C3FLwojK5oxhdRtxY83b
+ Iuu+G34ESfQ+7Zgt00wmP/emxkoCgFormU6EB1pvp4Sw0Z5BwCjGiThhZz6MFZr0jF0u
+ Ecfn2T3G7mY259ml4UkORE1s/pJbVdziq8JQ0L4Xz77aWqms9AkN/Q9z20UYow2nby7s
+ nH49dqBBqGNxc8yyfCxYLBpqWBYqpvXNIFLSlUN/780020LMZYCgTqXBTsqVwrI3KDlo
+ JtZTiQegc45xPJqcVVf6IiaPUgiyetHzwwI3+DVJ015Y+OFPSvYZr2WIGSVD1QuisYgg
+ +FyQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVUH22hcxTya3RYm2YSQHmIXm266qfOTJvGr1Ne3v3Z6uSMWADBRkdpGjdOFlkQrfTEUIvPVrzEjvw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzS/t191XUaMaqLQrQAeUZavEpuD5q5nHMmvQs95XTQ8EI2FFs4
- 0a9gsi0rIIMUEQFkSqiLzqfyAH2/l+dXYSPzL9x23MzSWZauvdk5U75BfXvA2BM+2tD1mq2mG5s
- ZthfEMkAgw5HbE6Xg1pls210zRmA=
-X-Google-Smtp-Source: AGHT+IFuXT0FKUkEk5+963PnUNJ3N6G9Q52jPVUXuTKK5Gcc+EuJjboxEWGL4C/ondtpTBM89q0Dd2Hl/8/TbjklQKc=
-X-Received: by 2002:a05:6402:5109:b0:57c:a422:677b with SMTP id
- 4fb4d7f45d1cf-5c08915f498mr2302771a12.8.1724433742982; Fri, 23 Aug 2024
- 10:22:22 -0700 (PDT)
+ AJvYcCXufHGuQNwZRGpJUtq0sYUXHyc4afHEHWTa1eKqAU13YlZv1g3HWysmHgI6rGH5qo0uoXAOhkihejQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyzVcQOvnJgNTcIV9345HIGYUmDMokX2Rwni42mmqFMcqd1M151
+ fs4PuuMs4bJEnxPWxsIkMhmIRrPvG16gB4/vnzdF9jmOZSiijABUXsk3d2+ug9zPbhxdTq25nN+
+ Rc96eWZZ+RgWroyljljjq3Dv4L8k=
+X-Google-Smtp-Source: AGHT+IEvKoYswWA+Kv16z62fxTPQiFoASnuCbE+YY/d9Vq/hDJvvJimzLBjRmNdz9Z390iTh/rA9GLCllZDWraUA9ZU=
+X-Received: by 2002:a05:6402:35ce:b0:5c0:8ff8:d7da with SMTP id
+ 4fb4d7f45d1cf-5c08ff8d8d6mr1124508a12.12.1724433818375; Fri, 23 Aug 2024
+ 10:23:38 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240820171652.145673-1-robdclark@gmail.com>
- <20240820171652.145673-3-robdclark@gmail.com>
- <20240823161148.GB851@willie-the-truck>
-In-Reply-To: <20240823161148.GB851@willie-the-truck>
+ <20240820171652.145673-2-robdclark@gmail.com>
+ <20240823160929.GA851@willie-the-truck>
+In-Reply-To: <20240823160929.GA851@willie-the-truck>
 From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 23 Aug 2024 10:22:10 -0700
-Message-ID: <CAF6AEGvdKc3APaYVZ1G9iQfw22yb2MGssADhXU50MhZqp8tcrA@mail.gmail.com>
-Subject: Re: [PATCH v7 2/4] iommu/io-pgtable-arm: Re-use the pgtable walk for
- iova_to_phys
+Date: Fri, 23 Aug 2024 10:23:25 -0700
+Message-ID: <CAF6AEGtkwjs4XLEBpo2O7W+UgbdxGoMAsYd+3Cr_qY88ofpMjQ@mail.gmail.com>
+Subject: Re: [PATCH v7 1/4] iommu/io-pgtable-arm: Make pgtable walker more
+ generic
 To: Will Deacon <will@kernel.org>
 Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
  freedreno@lists.freedesktop.org, Mostafa Saleh <smostafa@google.com>, 
@@ -86,126 +86,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Aug 23, 2024 at 9:11=E2=80=AFAM Will Deacon <will@kernel.org> wrote=
+On Fri, Aug 23, 2024 at 9:09=E2=80=AFAM Will Deacon <will@kernel.org> wrote=
 :
 >
-> On Tue, Aug 20, 2024 at 10:16:45AM -0700, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Re-use the generic pgtable walk path.
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  drivers/iommu/io-pgtable-arm.c | 73 +++++++++++++++++-----------------
-> >  1 file changed, 36 insertions(+), 37 deletions(-)
-> >
+> On Tue, Aug 20, 2024 at 10:16:44AM -0700, Rob Clark wrote:
 > > diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-=
 arm.c
-> > index b4bc358740e0..5fa1274a665a 100644
+> > index f5d9fd1f45bf..b4bc358740e0 100644
 > > --- a/drivers/iommu/io-pgtable-arm.c
 > > +++ b/drivers/iommu/io-pgtable-arm.c
-> > @@ -710,42 +710,6 @@ static size_t arm_lpae_unmap_pages(struct io_pgtab=
-le_ops *ops, unsigned long iov
-> >                               data->start_level, ptep);
+> > @@ -747,33 +747,31 @@ static phys_addr_t arm_lpae_iova_to_phys(struct i=
+o_pgtable_ops *ops,
 > >  }
 > >
-> > -static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
-> > -                                      unsigned long iova)
-> > -{
-> > -     struct arm_lpae_io_pgtable *data =3D io_pgtable_ops_to_data(ops);
-> > -     arm_lpae_iopte pte, *ptep =3D data->pgd;
-> > -     int lvl =3D data->start_level;
-> > -
-> > -     do {
-> > -             /* Valid IOPTE pointer? */
-> > -             if (!ptep)
-> > -                     return 0;
-> > -
-> > -             /* Grab the IOPTE we're interested in */
-> > -             ptep +=3D ARM_LPAE_LVL_IDX(iova, lvl, data);
-> > -             pte =3D READ_ONCE(*ptep);
-> > -
-> > -             /* Valid entry? */
-> > -             if (!pte)
-> > -                     return 0;
-> > -
-> > -             /* Leaf entry? */
-> > -             if (iopte_leaf(pte, lvl, data->iop.fmt))
-> > -                     goto found_translation;
-> > -
-> > -             /* Take it to the next level */
-> > -             ptep =3D iopte_deref(pte, data);
-> > -     } while (++lvl < ARM_LPAE_MAX_LEVELS);
-> > -
-> > -     /* Ran out of page tables to walk */
-> > -     return 0;
-> > -
-> > -found_translation:
-> > -     iova &=3D (ARM_LPAE_BLOCK_SIZE(lvl, data) - 1);
-> > -     return iopte_to_paddr(pte, data) | iova;
-> > -}
-> > -
 > >  struct io_pgtable_walk_data {
-> >       void                            *data;
-> >       int (*visit)(struct io_pgtable_walk_data *walk_data, int lvl,
-> > @@ -760,6 +724,41 @@ static int __arm_lpae_iopte_walk(struct arm_lpae_i=
-o_pgtable *data,
-> >                                arm_lpae_iopte *ptep,
-> >                                int lvl);
+> > -     struct iommu_dirty_bitmap       *dirty;
+> > +     void                            *data;
+> > +     int (*visit)(struct io_pgtable_walk_data *walk_data, int lvl,
+> > +                  arm_lpae_iopte pte, size_t size);
+> >       unsigned long                   flags;
+> >       u64                             addr;
+> >       const u64                       end;
+> >  };
 > >
-> > +struct iova_to_phys_data {
-> > +     arm_lpae_iopte pte;
-> > +     int lvl;
-> > +};
-> > +
-> > +static int visit_iova_to_phys(struct io_pgtable_walk_data *walk_data, =
-int lvl,
-> > +                           arm_lpae_iopte pte, size_t size)
-> > +{
-> > +     struct iova_to_phys_data *data =3D walk_data->data;
-> > +     data->pte =3D pte;
-> > +     data->lvl =3D lvl;
-> > +     return 0;
-> > +}
-> > +
-> > +static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
-> > +                                      unsigned long iova)
-> > +{
-> > +     struct arm_lpae_io_pgtable *data =3D io_pgtable_ops_to_data(ops);
-> > +     struct iova_to_phys_data d;
-> > +     struct io_pgtable_walk_data walk_data =3D {
-> > +             .data =3D &d,
-> > +             .visit =3D visit_iova_to_phys,
-> > +             .addr =3D iova,
-> > +             .end =3D iova + 1,
-> > +     };
-> > +     int ret;
-> > +
-> > +     ret =3D __arm_lpae_iopte_walk(data, &walk_data, data->pgd, data->=
-start_level);
-> > +     if (ret)
-> > +             return 0;
-> > +
-> > +     iova &=3D (ARM_LPAE_BLOCK_SIZE(d.lvl, data) - 1);
-> > +     return iopte_to_paddr(d.pte, data) | iova;
-> > +}
-> > +
-> >  static int io_pgtable_visit(struct arm_lpae_io_pgtable *data,
-> >                           struct io_pgtable_walk_data *walk_data,
-> >                           arm_lpae_iopte *ptep, int lvl)
-> > @@ -776,7 +775,7 @@ static int io_pgtable_visit(struct arm_lpae_io_pgta=
-ble *data,
+> > -static int __arm_lpae_iopte_walk_dirty(struct arm_lpae_io_pgtable *dat=
+a,
+> > -                                    struct io_pgtable_walk_data *walk_=
+data,
+> > -                                    arm_lpae_iopte *ptep,
+> > -                                    int lvl);
+> > +static int __arm_lpae_iopte_walk(struct arm_lpae_io_pgtable *data,
+> > +                              struct io_pgtable_walk_data *walk_data,
+> > +                              arm_lpae_iopte *ptep,
+> > +                              int lvl);
+> >
+> > -static int io_pgtable_visit_dirty(struct arm_lpae_io_pgtable *data,
+> > -                               struct io_pgtable_walk_data *walk_data,
+> > -                               arm_lpae_iopte *ptep, int lvl)
+> > +static int io_pgtable_visit(struct arm_lpae_io_pgtable *data,
+> > +                         struct io_pgtable_walk_data *walk_data,
+> > +                         arm_lpae_iopte *ptep, int lvl)
+> >  {
+> >       struct io_pgtable *iop =3D &data->iop;
+> >       arm_lpae_iopte pte =3D READ_ONCE(*ptep);
+> >
+> >       if (iopte_leaf(pte, lvl, iop->fmt)) {
+> >               size_t size =3D ARM_LPAE_BLOCK_SIZE(lvl, data);
+> > -
+> > -             if (iopte_writeable_dirty(pte)) {
+> > -                     iommu_dirty_bitmap_record(walk_data->dirty,
+> > -                                               walk_data->addr, size);
+> > -                     if (!(walk_data->flags & IOMMU_DIRTY_NO_CLEAR))
+> > -                             iopte_set_writeable_clean(ptep);
+> > -             }
+> > +             int ret =3D walk_data->visit(walk_data, lvl, pte, size);
+> > +             if (ret)
+> > +                     return ret;
+> >               walk_data->addr +=3D size;
 > >               return 0;
 > >       }
+> > @@ -782,13 +780,13 @@ static int io_pgtable_visit_dirty(struct arm_lpae=
+_io_pgtable *data,
+> >               return -EINVAL;
 > >
-> > -     if (WARN_ON(!iopte_table(pte, lvl)))
-> > +     if (WARN_ON(!iopte_table(pte, lvl) && !selftest_running))
+> >       ptep =3D iopte_deref(pte, data);
+> > -     return __arm_lpae_iopte_walk_dirty(data, walk_data, ptep, lvl + 1=
+);
+> > +     return __arm_lpae_iopte_walk(data, walk_data, ptep, lvl + 1);
+> >  }
+> >
+> > -static int __arm_lpae_iopte_walk_dirty(struct arm_lpae_io_pgtable *dat=
+a,
+> > -                                    struct io_pgtable_walk_data *walk_=
+data,
+> > -                                    arm_lpae_iopte *ptep,
+> > -                                    int lvl)
+> > +static int __arm_lpae_iopte_walk(struct arm_lpae_io_pgtable *data,
+> > +                              struct io_pgtable_walk_data *walk_data,
+> > +                              arm_lpae_iopte *ptep,
+> > +                              int lvl)
+> >  {
+> >       u32 idx;
+> >       int max_entries, ret;
+> > @@ -803,7 +801,7 @@ static int __arm_lpae_iopte_walk_dirty(struct arm_l=
+pae_io_pgtable *data,
+> >
+> >       for (idx =3D ARM_LPAE_LVL_IDX(walk_data->addr, lvl, data);
+> >            (idx < max_entries) && (walk_data->addr < walk_data->end); +=
++idx) {
+> > -             ret =3D io_pgtable_visit_dirty(data, walk_data, ptep + id=
+x, lvl);
+> > +             ret =3D io_pgtable_visit(data, walk_data, ptep + idx, lvl=
+);
+> >               if (ret)
+> >                       return ret;
+> >       }
+> > @@ -811,6 +809,20 @@ static int __arm_lpae_iopte_walk_dirty(struct arm_=
+lpae_io_pgtable *data,
+> >       return 0;
+> >  }
+> >
+> > +static int visit_dirty(struct io_pgtable_walk_data *walk_data, int lvl=
+,
+> > +                    arm_lpae_iopte pte, size_t size)
+> > +{
+> > +     struct iommu_dirty_bitmap *dirty =3D walk_data->data;
+> > +
+> > +     if (iopte_writeable_dirty(pte)) {
+> > +             iommu_dirty_bitmap_record(dirty, walk_data->addr, size);
+> > +             if (!(walk_data->flags & IOMMU_DIRTY_NO_CLEAR))
+> > +                     iopte_set_writeable_clean(&pte);
 >
-> Why do you care about the selftest here?
+> Are you sure that's correct? I suspect we really want to update the actua=
+l
+> page-table in this case, so we probably want to pass the pointer in inste=
+ad
+> of the pte value.
 
-Otherwise we see a flood of WARN_ON from negative tests in the selftests
-
-BR,
--R
+oh, right
 
 > Will
