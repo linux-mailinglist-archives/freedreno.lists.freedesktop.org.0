@@ -2,88 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5414195F8EF
-	for <lists+freedreno@lfdr.de>; Mon, 26 Aug 2024 20:29:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EE9195FB34
+	for <lists+freedreno@lfdr.de>; Mon, 26 Aug 2024 23:08:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 309CF10E282;
-	Mon, 26 Aug 2024 18:29:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38C9210E15F;
+	Mon, 26 Aug 2024 21:08:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="QV6HdLMx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JU97ZDfJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C54710E282;
- Mon, 26 Aug 2024 18:29:40 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47QGjvZX014445;
- Mon, 26 Aug 2024 18:29:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- msHYl9Xj4RS1OPrJlrsccFKr/fThyPbI4ZRc5QLXCo4=; b=QV6HdLMxyIctrgGR
- 7lz7VoZEatuUThWWBnELhCuNFL74btoCP0O+2SknJ8rfgU3Z40s0BXaVQi4WC5Tg
- e1FbDzGcH8zuLDRLfrP4+VjfudCjn9aqW8myrqRUD7ak3V01DF6Njn11ZXZ7ig2R
- AR9Eegc4hPSgeU73mfvXOWYhVRg40f3BwnlOsmtMxsRrVwi70wI4Tqc3Yp4Z2HMQ
- Ik9tX2CHmj4cLoAgJWCO22fOBcJx8ScSPvJTtBWzv16jz03KdqDyoqARY85Tf+hK
- EPSvEwxsMyE+zrAFQJVUK7F1lRlFSTv6dBuYNKoqVV7eSrlWDFq13OKkmDo5I0jg
- PecNsg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 417993mgan-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 Aug 2024 18:29:32 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 47QITVRS029932
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 Aug 2024 18:29:31 GMT
-Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Mon, 26 Aug 2024 11:29:26 -0700
-Date: Mon, 26 Aug 2024 23:59:22 +0530
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>
-CC: <iommu@lists.linux.dev>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, Mostafa Saleh <smostafa@google.com>,
- "Will Deacon" <will@kernel.org>, Rob Clark <robdclark@chromium.org>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "open list:DRM DRIVER
- for Qualcomm Adreno GPUs" <dri-devel@lists.freedesktop.org>, open list
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v7 4/4] drm/msm: Extend gpu devcore dumps with pgtbl info
-Message-ID: <20240826182922.wxxx3bwflxga2dlr@hu-akhilpo-hyd.qualcomm.com>
-References: <20240820171652.145673-1-robdclark@gmail.com>
- <20240820171652.145673-5-robdclark@gmail.com>
- <20240822203401.odfmdlqto6lsqefz@hu-akhilpo-hyd.qualcomm.com>
- <CAF6AEGtGCT=TSp2XRmPaqb23dk42V_ic06OCB+JLEp6f5Y4tNg@mail.gmail.com>
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80A4910E15F;
+ Mon, 26 Aug 2024 21:07:59 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-5becc379f3fso5220723a12.3; 
+ Mon, 26 Aug 2024 14:07:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724706478; x=1725311278; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=J36/CymdnCHvVQ/2BT4x5qO1L0RUXRVdfDynGuZq2aY=;
+ b=JU97ZDfJWQF3cYoQjhkyC9ZQrJDBhgCyjz5hs9EWpYtGF+yXLrX1YGT3wsn73IlqJN
+ 3cfgLeYL/6jBYlP/5075FucrwBa0aAk9PHeDL9hvtUnsHPEXGtqktGPMAW8cqn0wYVGb
+ JbRdG4nok4+5T5OQ6SBfDahy2msFwYI2AQKIqkrSDN7bR4cqYIoDceuXYITpIagtL8hz
+ Wc+6fbbKmo9Z3kt/Rbz9QSWxV/m84hDVavMCkmU+S5Yvg58Pnd7QTK61kXcGZM2yywqb
+ zWqc+mpSMCna61XBaTST7wAdWgFGxgde8puXKqYQER445CEh1i4OgxZ1ORQglqi/EQDr
+ NvWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724706478; x=1725311278;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=J36/CymdnCHvVQ/2BT4x5qO1L0RUXRVdfDynGuZq2aY=;
+ b=h+5FhxnA0BRPITyxOE1zMC+kLv0cCtnbcpkKdylaJW0pOFzhkKqyLMhAFgTVnbthT2
+ NZWTHACMOSLVqLbNMcCw+cfoA38RyVRM/z+GITdALcViUVZAw3p+egx2VprCI28IuxgW
+ 3v9IxYbLDOO4wG92X/liyIIYjxUh62uo3Wntna8+MsystcS68HGomNQeTTHnHePt82UY
+ d9kkxLGjWEcFFVZs2jMXJmBuC1n2s+pOl3Xl4K0XHbnXIpZseEecAgOd3lXepRd+g46n
+ nPwAFgQ6dhOm6uTKthtnoLPVcq0OLgDzToKZ6M+di2Qy9mhy1Y2Lk/v1bIhERaSNIOBw
+ qtrg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWAJEckBavfoD48Hia3Gs/AEcGqSY0vX7OqFRTOzv+ZORi+r3k7bI9xt8ipjmdw1dV8Y5XN0/BeE9U=@lists.freedesktop.org,
+ AJvYcCWgpiVTAy6WvQiQlfY2tPwVseajhCDcMsE7ldV5CjZOU0U8WOlZZJdlvPfnuE2/x/0+skEpqzU26dQ5@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxjAPOmYN+kioMAirez2Hr6IZgbnhzGWa2O6VQt8YmVagmpP7Oc
+ KikyI0zkv4PeqREn9brPnap/1DwfGM73c+6+z+LJootURlUUL/lwuuwclvD11bhNgwFupxvtrxo
+ eOYRA1KHMDEbif8+o3Lpg0tV+kFg=
+X-Google-Smtp-Source: AGHT+IHvzWvB0zVgjvHOKFOfr1EK93YvT8CI+D2/F1twYSa20wJDGiGGI9Ey5WbmGIclEHIdFQtSkdOB9KO4UVkNs8A=
+X-Received: by 2002:a05:6402:3481:b0:57c:9d54:67db with SMTP id
+ 4fb4d7f45d1cf-5c0ba2ad84dmr504590a12.9.1724706476994; Mon, 26 Aug 2024
+ 14:07:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGtGCT=TSp2XRmPaqb23dk42V_ic06OCB+JLEp6f5Y4tNg@mail.gmail.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 4iY9OrKCU8OH8cKCTPCe6d5xiAVpZivz
-X-Proofpoint-ORIG-GUID: 4iY9OrKCU8OH8cKCTPCe6d5xiAVpZivz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-26_13,2024-08-26_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- priorityscore=1501 bulkscore=0 adultscore=0 mlxscore=0 clxscore=1015
- phishscore=0 mlxlogscore=999 spamscore=0 impostorscore=0
- lowpriorityscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2407110000 definitions=main-2408260140
+References: <20240719-topic-a621-v1-0-850ae5307cf4@linaro.org>
+ <20240719-topic-a621-v1-3-850ae5307cf4@linaro.org>
+In-Reply-To: <20240719-topic-a621-v1-3-850ae5307cf4@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 26 Aug 2024 14:07:44 -0700
+Message-ID: <CAF6AEGs23d5OqKst+ik-kMMXPCS_0=-a8ndskv3j4NduOVR1Vw@mail.gmail.com>
+Subject: Re: [PATCH 3/5] drm/msm/a6xx: Store gmu_cgc_mode in struct a6xx_info
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,168 +85,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 22, 2024 at 04:15:24PM -0700, Rob Clark wrote:
-> On Thu, Aug 22, 2024 at 1:34 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
-> >
-> > On Tue, Aug 20, 2024 at 10:16:47AM -0700, Rob Clark wrote: > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > In the case of iova fault triggered devcore dumps, include additional
-> > > debug information based on what we think is the current page tables,
-> > > including the TTBR0 value (which should match what we have in
-> > > adreno_smmu_fault_info unless things have gone horribly wrong), and
-> > > the pagetable entries traversed in the process of resolving the
-> > > faulting iova.
-> > >
-> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > ---
-> > >  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 10 ++++++++++
-> > >  drivers/gpu/drm/msm/msm_gpu.c           |  9 +++++++++
-> > >  drivers/gpu/drm/msm/msm_gpu.h           |  8 ++++++++
-> > >  drivers/gpu/drm/msm/msm_iommu.c         | 22 ++++++++++++++++++++++
-> > >  drivers/gpu/drm/msm/msm_mmu.h           |  3 ++-
-> > >  5 files changed, 51 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > index 1c6626747b98..3848b5a64351 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > @@ -864,6 +864,16 @@ void adreno_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
-> > >               drm_printf(p, "  - dir=%s\n", info->flags & IOMMU_FAULT_WRITE ? "WRITE" : "READ");
-> > >               drm_printf(p, "  - type=%s\n", info->type);
-> > >               drm_printf(p, "  - source=%s\n", info->block);
-> > > +
-> > > +             /* Information extracted from what we think are the current
-> > > +              * pgtables.  Hopefully the TTBR0 matches what we've extracted
-> > > +              * from the SMMU registers in smmu_info!
-> > > +              */
-> > > +             drm_puts(p, "pgtable-fault-info:\n");
-> > > +             drm_printf(p, "  - ttbr0: %.16llx\n", (u64)info->pgtbl_ttbr0);
-> >
-> > "0x" prefix? Otherwise, it is a bit confusing when the below one is
-> > decimal.
-> 
-> mixed feelings, the extra 0x is annoying when pasting into calc which
-> is a simple way to get binary decoding
-> 
-> OTOH none of this is machine decoded so I guess we could change it
+On Fri, Jul 19, 2024 at 3:03=E2=80=AFAM Konrad Dybcio <konrad.dybcio@linaro=
+.org> wrote:
+>
+> This was apparently almost never set on a6xx.. move the existing values
+> and fill out the remaining ones within the catalog.
+>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 19 ++++++++++++++++++-
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     |  6 ++----
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
+>  3 files changed, 21 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/=
+msm/adreno/a6xx_catalog.c
+> index 1ea535960f32..deee0b686962 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -448,7 +448,6 @@ static const struct adreno_reglist a690_hwcg[] =3D {
+>         {REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222},
+>         {REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111},
+>         {REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555},
+> -       {REG_A6XX_GPU_GMU_AO_GMU_CGC_MODE_CNTL, 0x20200},
+>         {REG_A6XX_GPU_GMU_AO_GMU_CGC_DELAY_CNTL, 0x10111},
+>         {REG_A6XX_GPU_GMU_AO_GMU_CGC_HYST_CNTL, 0x5555},
+>         {}
+> @@ -636,6 +635,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a612_hwcg,
+>                         .protect =3D &a630_protect,
+> +                       .gmu_cgc_mode =3D 0x00020202,
+>                         .prim_fifo_threshold =3D 0x00080000,
+>                 },
+>                 /*
+> @@ -668,6 +668,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a615_hwcg,
+>                         .protect =3D &a630_protect,
+> +                       .gmu_cgc_mode =3D 0x00000222,
+>                         .prim_fifo_threshold =3D 0x00180000,
+>                 },
+>                 .speedbins =3D ADRENO_SPEEDBINS(
+> @@ -691,6 +692,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .init =3D a6xx_gpu_init,
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .protect =3D &a630_protect,
+> +                       .gmu_cgc_mode =3D 0x00000222,
+>                         .prim_fifo_threshold =3D 0x00180000,
+>                 },
+>                 .speedbins =3D ADRENO_SPEEDBINS(
+> @@ -714,6 +716,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a615_hwcg,
+>                         .protect =3D &a630_protect,
+> +                       .gmu_cgc_mode =3D 0x00000222,
+>                         .prim_fifo_threshold =3D 0x00018000,
+>                 },
+>                 .speedbins =3D ADRENO_SPEEDBINS(
+> @@ -737,6 +740,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a615_hwcg,
+>                         .protect =3D &a630_protect,
+> +                       .gmu_cgc_mode =3D 0x00000222,
+>                         .prim_fifo_threshold =3D 0x00018000,
+>                 },
+>                 .speedbins =3D ADRENO_SPEEDBINS(
+> @@ -760,6 +764,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a615_hwcg,
+>                         .protect =3D &a630_protect,
+> +                       .gmu_cgc_mode =3D 0x00000222,
+>                         .prim_fifo_threshold =3D 0x00018000,
+>                 },
+>                 .speedbins =3D ADRENO_SPEEDBINS(
+> @@ -788,6 +793,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a630_hwcg,
+>                         .protect =3D &a630_protect,
+> +                       .gmu_cgc_mode =3D 0x00020202,
+>                         .prim_fifo_threshold =3D 0x00180000,
+>                 },
+>         }, {
+> @@ -806,6 +812,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a640_hwcg,
+>                         .protect =3D &a630_protect,
+> +                       .gmu_cgc_mode =3D 0x00020202,
+>                         .prim_fifo_threshold =3D 0x00180000,
+>                 },
+>                 .speedbins =3D ADRENO_SPEEDBINS(
+> @@ -829,6 +836,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a650_hwcg,
+>                         .protect =3D &a650_protect,
+> +                       .gmu_cgc_mode =3D 0x00020202,
+>                         .prim_fifo_threshold =3D 0x00300200,
+>                 },
+>                 .address_space_size =3D SZ_16G,
+> @@ -855,6 +863,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a660_hwcg,
+>                         .protect =3D &a660_protect,
+> +                       .gmu_cgc_mode =3D 0x00020000,
+>                         .prim_fifo_threshold =3D 0x00300200,
+>                 },
+>                 .address_space_size =3D SZ_16G,
+> @@ -874,6 +883,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a660_hwcg,
+>                         .protect =3D &a660_protect,
+> +                       .gmu_cgc_mode =3D 0x00020202,
+>                         .prim_fifo_threshold =3D 0x00200200,
+>                 },
+>                 .address_space_size =3D SZ_16G,
+> @@ -899,6 +909,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a640_hwcg,
+>                         .protect =3D &a630_protect,
+> +                       .gmu_cgc_mode =3D 0x00020202,
+>                         .prim_fifo_threshold =3D 0x00200200,
+>                 },
+>         }, {
+> @@ -917,6 +928,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a690_hwcg,
+>                         .protect =3D &a690_protect,
+> +                       .gmu_cgc_mode =3D 0x00020200,
+>                         .prim_fifo_threshold =3D 0x00800200,
+>                 },
+>                 .address_space_size =3D SZ_16G,
+> @@ -1178,6 +1190,7 @@ static const struct adreno_info a7xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a702_hwcg,
+>                         .protect =3D &a650_protect,
+> +                       .gmu_cgc_mode =3D 0x00020202,
+>                         .prim_fifo_threshold =3D 0x0000c000,
+>                 },
+>                 .speedbins =3D ADRENO_SPEEDBINS(
+> @@ -1202,6 +1215,7 @@ static const struct adreno_info a7xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .hwcg =3D a730_hwcg,
+>                         .protect =3D &a730_protect,
+> +                       .gmu_cgc_mode =3D 0x00020000,
+>                 },
+>                 .address_space_size =3D SZ_16G,
+>         }, {
+> @@ -1221,6 +1235,7 @@ static const struct adreno_info a7xx_gpus[] =3D {
+>                         .hwcg =3D a740_hwcg,
+>                         .protect =3D &a730_protect,
+>                         .gmu_chipid =3D 0x7020100,
+> +                       .gmu_cgc_mode =3D 0x00020202,
+>                 },
+>                 .address_space_size =3D SZ_16G,
+>         }, {
+> @@ -1239,6 +1254,7 @@ static const struct adreno_info a7xx_gpus[] =3D {
+>                         .hwcg =3D a740_hwcg,
+>                         .protect =3D &a730_protect,
+>                         .gmu_chipid =3D 0x7050001,
+> +                       .gmu_cgc_mode =3D 0x00020202,
+>                 },
+>                 .address_space_size =3D SZ_256G,
+>         }, {
+> @@ -1257,6 +1273,7 @@ static const struct adreno_info a7xx_gpus[] =3D {
+>                 .a6xx =3D &(const struct a6xx_info) {
+>                         .protect =3D &a730_protect,
+>                         .gmu_chipid =3D 0x7090100,
+> +                       .gmu_cgc_mode =3D 0x00020202,
+>                 },
+>                 .address_space_size =3D SZ_16G,
+>         }
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index aaeb1161f90d..871452daa189 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -402,7 +402,7 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool s=
+tate)
+>         struct a6xx_gmu *gmu =3D &a6xx_gpu->gmu;
+>         const struct adreno_reglist *reg;
+>         unsigned int i;
+> -       u32 val, clock_cntl_on, cgc_mode;
+> +       u32 val, clock_cntl_on;
+>
+>         if (!(adreno_gpu->info->a6xx->hwcg || adreno_is_a7xx(adreno_gpu))=
+)
+>                 return;
+> @@ -417,10 +417,8 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool =
+state)
+>                 clock_cntl_on =3D 0x8aa8aa82;
+>
+>         if (adreno_is_a7xx(adreno_gpu)) {
+> -               cgc_mode =3D adreno_is_a740_family(adreno_gpu) ? 0x20222 =
+: 0x20000;
+> -
 
-On second thought, I think it is fine as this is an address. Probably,
-it is helpful for the pte values below.
+This does appear to change the gmu_cgc_mode in nearly all cases.. was
+this intended?
 
-> 
-> > > +             drm_printf(p, "  - asid: %d\n", info->asid);
-> > > +             drm_printf(p, "  - ptes: %.16llx %.16llx %.16llx %.16llx\n",
-> > > +                        info->ptes[0], info->ptes[1], info->ptes[2], info->ptes[3]);
-> >
-> > Does crashdec decodes this?
-> 
-> No, it just passed thru for human eyeballs
-> 
-> crashdec _does_ have some logic to flag buffers that are "near" the
-> faulting iova to help identify if the fault is an underflow/overflow
-> (which has been, along with the pte trail, useful to debug some
-> issues)
+BR,
+-R
 
-Alright.
-
-Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-
--Akhil.
-> 
-> BR,
-> -R
-> 
-> > -Akhil.
-> >
-> > >       }
-> > >
-> > >       drm_printf(p, "rbbm-status: 0x%08x\n", state->rbbm_status);
-> > > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> > > index 3666b42b4ecd..bf2f8b2a7ccc 100644
-> > > --- a/drivers/gpu/drm/msm/msm_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> > > @@ -281,6 +281,15 @@ static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
-> > >       if (submit) {
-> > >               int i;
-> > >
-> > > +             if (state->fault_info.ttbr0) {
-> > > +                     struct msm_gpu_fault_info *info = &state->fault_info;
-> > > +                     struct msm_mmu *mmu = submit->aspace->mmu;
-> > > +
-> > > +                     msm_iommu_pagetable_params(mmu, &info->pgtbl_ttbr0,
-> > > +                                                &info->asid);
-> > > +                     msm_iommu_pagetable_walk(mmu, info->iova, info->ptes);
-> > > +             }
-> > > +
-> > >               state->bos = kcalloc(submit->nr_bos,
-> > >                       sizeof(struct msm_gpu_state_bo), GFP_KERNEL);
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> > > index 1f02bb9956be..82e838ba8c80 100644
-> > > --- a/drivers/gpu/drm/msm/msm_gpu.h
-> > > +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> > > @@ -101,6 +101,14 @@ struct msm_gpu_fault_info {
-> > >       int flags;
-> > >       const char *type;
-> > >       const char *block;
-> > > +
-> > > +     /* Information about what we think/expect is the current SMMU state,
-> > > +      * for example expected_ttbr0 should match smmu_info.ttbr0 which
-> > > +      * was read back from SMMU registers.
-> > > +      */
-> > > +     phys_addr_t pgtbl_ttbr0;
-> > > +     u64 ptes[4];
-> > > +     int asid;
-> > >  };
-> > >
-> > >  /**
-> > > diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-> > > index 2a94e82316f9..3e692818ba1f 100644
-> > > --- a/drivers/gpu/drm/msm/msm_iommu.c
-> > > +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> > > @@ -195,6 +195,28 @@ struct iommu_domain_geometry *msm_iommu_get_geometry(struct msm_mmu *mmu)
-> > >       return &iommu->domain->geometry;
-> > >  }
-> > >
-> > > +int
-> > > +msm_iommu_pagetable_walk(struct msm_mmu *mmu, unsigned long iova, uint64_t ptes[4])
-> > > +{
-> > > +     struct msm_iommu_pagetable *pagetable;
-> > > +     struct arm_lpae_io_pgtable_walk_data wd = {};
-> > > +
-> > > +     if (mmu->type != MSM_MMU_IOMMU_PAGETABLE)
-> > > +             return -EINVAL;
-> > > +
-> > > +     pagetable = to_pagetable(mmu);
-> > > +
-> > > +     if (!pagetable->pgtbl_ops->pgtable_walk)
-> > > +             return -EINVAL;
-> > > +
-> > > +     pagetable->pgtbl_ops->pgtable_walk(pagetable->pgtbl_ops, iova, &wd);
-> > > +
-> > > +     for (int i = 0; i < ARRAY_SIZE(wd.ptes); i++)
-> > > +             ptes[i] = wd.ptes[i];
-> > > +
-> > > +     return 0;
-> > > +}
-> > > +
-> > >  static const struct msm_mmu_funcs pagetable_funcs = {
-> > >               .map = msm_iommu_pagetable_map,
-> > >               .unmap = msm_iommu_pagetable_unmap,
-> > > diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
-> > > index 88af4f490881..96e509bd96a6 100644
-> > > --- a/drivers/gpu/drm/msm/msm_mmu.h
-> > > +++ b/drivers/gpu/drm/msm/msm_mmu.h
-> > > @@ -53,7 +53,8 @@ static inline void msm_mmu_set_fault_handler(struct msm_mmu *mmu, void *arg,
-> > >  struct msm_mmu *msm_iommu_pagetable_create(struct msm_mmu *parent);
-> > >
-> > >  int msm_iommu_pagetable_params(struct msm_mmu *mmu, phys_addr_t *ttbr,
-> > > -             int *asid);
-> > > +                            int *asid);
-> > > +int msm_iommu_pagetable_walk(struct msm_mmu *mmu, unsigned long iova, uint64_t ptes[4]);
-> > >  struct iommu_domain_geometry *msm_iommu_get_geometry(struct msm_mmu *mmu);
-> > >
-> > >  #endif /* __MSM_MMU_H__ */
-> > > --
-> > > 2.46.0
-> > >
+>                 gmu_write(&a6xx_gpu->gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_MOD=
+E_CNTL,
+> -                         state ? cgc_mode : 0);
+> +                         state ? adreno_gpu->info->a6xx->gmu_cgc_mode : =
+0);
+>                 gmu_write(&a6xx_gpu->gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_DEL=
+AY_CNTL,
+>                           state ? 0x10111 : 0);
+>                 gmu_write(&a6xx_gpu->gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_HYS=
+T_CNTL,
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.h
+> index bc37bd8c7f65..0fb7febf70e7 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> @@ -22,6 +22,7 @@ struct a6xx_info {
+>         const struct adreno_reglist *hwcg;
+>         const struct adreno_protect *protect;
+>         u32 gmu_chipid;
+> +       u32 gmu_cgc_mode;
+>         u32 prim_fifo_threshold;
+>  };
+>
+>
+> --
+> 2.45.2
+>
