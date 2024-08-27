@@ -2,53 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFC639605D2
-	for <lists+freedreno@lfdr.de>; Tue, 27 Aug 2024 11:39:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3210E9615EA
+	for <lists+freedreno@lfdr.de>; Tue, 27 Aug 2024 19:51:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96E5710E2C6;
-	Tue, 27 Aug 2024 09:39:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 086C010E3F3;
+	Tue, 27 Aug 2024 17:51:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JdQXMcf9";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="h8wlrkMW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB9E910E2C6;
- Tue, 27 Aug 2024 09:39:54 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 15081A40BE7;
- Tue, 27 Aug 2024 09:39:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38584C567ED;
- Tue, 27 Aug 2024 09:39:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724751593;
- bh=tTOdIYGEpUYrs7p5lDLezY5WL2wSjJff06XLjNySGvo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=JdQXMcf9y+ZrimiTarq68UJig4tgGu8n6JaFX46gXQIF5W5t5Oy1Oe2VPjHl7h9h/
- JDLr7WsHFWSurjIcf5XRGIcW/Tnn4zEV3YijsbjVSuSn2RSQMEo0OLjKsf7BCqan5A
- //YhAZd0HHeNUtNmfR33PuDttndBa8vmcyTpGdcYKFxiw8BymoZrVjuEdpYjybPNVR
- 01ufIm0CyAm6wA4tsWnUj7nTZQI1svsFDOKptC6m3qh7ZXxfTjlrC1ATLoVGNsqF5T
- DZMEn1K0GuwUw1eyaiGxwABan5lnvEy1lEyOdti8tKMXg1RcwuIbblIxYNqkt0aaSA
- zmmOyK4oeguYA==
-Message-ID: <1efd71c4-3bee-4c71-9e40-1284b9483824@kernel.org>
-Date: Tue, 27 Aug 2024 11:39:45 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF65E10E3F2;
+ Tue, 27 Aug 2024 17:51:09 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47RGWqRq002804;
+ Tue, 27 Aug 2024 17:51:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ kmAQPiK8M0fRx5xm+Hl50rN5MEsIa1ctSGh0cUkukik=; b=h8wlrkMWDWSIggh/
+ miO7z8Bdn51EHfrCEIQHfV4ZFlO3UZd3YK8z8lsOy4gMHUx6zCCVKZkCnieFqkM4
+ U2TvROhirTt6v5mh1EwLydUktsV8mP/yg48DdtanWE8URMlr5uQqqoHZbheeZC/G
+ PcdoCa0uHhQqHVTfoL1jVzxumZRN6v2bzlIha45pUcKxCkYuHXVCPuZCkk8t0i9C
+ GCNnCmxzFfgEqLfobg3MttMk4zxEQ/8pF0ogtHGYXJh5SNfweoxgKX/JsU+h5GwV
+ L9vTNf7GpYEwV2f38Rh/tMz7ZXzQ7x5ZuVzurMjRxT7ta0BrbRAtZQ0vl637rAHa
+ a48NOw==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 419aq79rax-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 27 Aug 2024 17:51:03 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 47RHp2oN011551
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 27 Aug 2024 17:51:02 GMT
+Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 27 Aug
+ 2024 10:51:02 -0700
+Message-ID: <e8169167-3de3-4fc7-90c4-ac3b9fb60c38@quicinc.com>
+Date: Tue, 27 Aug 2024 10:50:47 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/msm/dpu: don't play tricks with debug macros
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jeykumar Sankaran <jsanka@codeaurora.org>
-References: <20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org>
- <20240802-dpu-fix-wb-v2-2-7eac9eb8e895@linaro.org>
+Subject: Re: [PATCH 1/1] drm/msm: fix %s null argument error
+To: Sherry Yang <sherry.yang@oracle.com>, <robdclark@gmail.com>,
+ <dmitry.baryshkov@linaro.org>, <sean@poorly.run>,
+ <marijn.suijten@somainline.org>, <airlied@gmail.com>,
+ <daniel@ffwll.ch>, <ruanjinjie@huawei.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20240827165337.1075904-1-sherry.yang@oracle.com>
 Content-Language: en-US
-From: Konrad Dybcio <konradybcio@kernel.org>
-In-Reply-To: <20240802-dpu-fix-wb-v2-2-7eac9eb8e895@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240827165337.1075904-1-sherry.yang@oracle.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: RtvrCThp2LVSkESS0xIZVvJb_RG6hh9L
+X-Proofpoint-ORIG-GUID: RtvrCThp2LVSkESS0xIZVvJb_RG6hh9L
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-08-27_10,2024-08-27_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0
+ suspectscore=0 mlxlogscore=999 mlxscore=0 priorityscore=1501
+ lowpriorityscore=0 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
+ clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2408270134
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,42 +92,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2.08.2024 9:47 PM, Dmitry Baryshkov wrote:
-> DPU debugging macros need to be converted to a proper drm_debug_*
-> macros, however this is a going an intrusive patch, not suitable for a
-> fix. Wire DPU_DEBUG and DPU_DEBUG_DRIVER to always use DRM_DEBUG_DRIVER
-> to make sure that DPU debugging messages always end up in the drm debug
-> messages and are controlled via the usual drm.debug mask.
+
+
+On 8/27/2024 9:53 AM, Sherry Yang wrote:
+> The following build error was triggered because of NULL string argument:
 > 
-> I don't think that it is a good idea for a generic DPU_DEBUG macro to be
-> tied to DRM_UT_KMS. It is used to report a debug message from driver, so by
-> default it should go to the DRM_UT_DRIVER channel. While refactoring
-> debug macros later on we might end up with particular messages going to
-> ATOMIC or KMS, but DRIVER should be the default.
+> BUILDSTDERR: drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c: In function 'mdp5_smp_dump':
+> BUILDSTDERR: drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c:352:51: error: '%s' directive argument is null [-Werror=format-overflow=]
+> BUILDSTDERR:   352 |                         drm_printf(p, "%s:%d\t%d\t%s\n",
+> BUILDSTDERR:       |                                                   ^~
+> BUILDSTDERR: drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c:352:51: error: '%s' directive argument is null [-Werror=format-overflow=]
 > 
-> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> This happens from the commit a61ddb4393ad ("drm: enable (most) W=1
+> warnings by default across the subsystem"). Using "(null)" instead
+> to fix it.
+> 
+> Fixes: bc5289eed481 ("drm/msm/mdp5: add debugfs to show smp block status")
+> Signed-off-by: Sherry Yang <sherry.yang@oracle.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h | 14 ++------------
->  1 file changed, 2 insertions(+), 12 deletions(-)
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> index e2adc937ea63..935ff6fd172c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> @@ -31,24 +31,14 @@
->   * @fmt: Pointer to format string
->   */
->  #define DPU_DEBUG(fmt, ...)                                                \
-> -	do {                                                               \
-> -		if (drm_debug_enabled(DRM_UT_KMS))                         \
-> -			DRM_DEBUG(fmt, ##__VA_ARGS__); \
-> -		else                                                       \
-> -			pr_debug(fmt, ##__VA_ARGS__);                      \
-> -	} while (0)
-> +	DRM_DEBUG_DRIVER(fmt, ##__VA_ARGS__)
 
-Should we just get rid of these macros at this point and use
-DRM_DEBUG_DRIVER directly?
+I am not sure how the patch got titled 1/1 and not just "PATCH". It 
+should be just "PATCH"
 
-Konrad
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
+> index 3a7f7edda96b..500b7dc895d0 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
+> @@ -351,7 +351,7 @@ void mdp5_smp_dump(struct mdp5_smp *smp, struct drm_printer *p,
+>   
+>   			drm_printf(p, "%s:%d\t%d\t%s\n",
+>   				pipe2name(pipe), j, inuse,
+> -				plane ? plane->name : NULL);
+> +				plane ? plane->name : "(null)");
+>   
+>   			total += inuse;
+>   		}
+
+Change itself looks fine to me,
+
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
