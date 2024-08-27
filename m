@@ -2,57 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54D1C9625C1
-	for <lists+freedreno@lfdr.de>; Wed, 28 Aug 2024 13:16:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4611A9626E0
+	for <lists+freedreno@lfdr.de>; Wed, 28 Aug 2024 14:23:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 263E910E369;
-	Wed, 28 Aug 2024 11:16:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C694A10E47B;
+	Wed, 28 Aug 2024 12:23:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dh+Kei9l";
+	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="CL4uvBbA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A17710E35B;
- Wed, 28 Aug 2024 11:16:46 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 1170ECE17E0;
- Wed, 28 Aug 2024 11:16:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A81AC98EC6;
- Wed, 28 Aug 2024 11:16:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724843803;
- bh=WaqToENXOPqb2z6sLJVOLE/E0rhIdPZwlwNAG/Pv/xo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=dh+Kei9l669eirm87ad4gnsLiva4otm7C44LdJdRAcBaW99pECuC4yN6K1TvbqCUO
- dhmBNy6ytoMY+E06TCfrD9kFbeNtDkihlbG3mKFBdm/JRCD1OXsuP7PyzPNXWpmRir
- fSKvePui931OOHyIwJ2Pw1UOU7+upIo2fwsLBoCVvBPb5AsBkr/1KlL0uD1BugNufy
- yT2h3IIYlUXAw71Vj60NGLRn99BlDDG7jEx23P5UHs4PZsd/vOoxNprzMVVyaz3UKg
- c4fwdgJItMGrU7Rk33KBdfAQPcoUzWhopVjbhzMuVVqheBnvE/7NEsIY1r/iKGJq6u
- Dym/p8aMORQUA==
-Message-ID: <3ead166f-8108-4503-ae81-7605585c816b@kernel.org>
-Date: Wed, 28 Aug 2024 13:16:35 +0200
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26AC610E3AE;
+ Tue, 27 Aug 2024 16:53:46 +0000 (UTC)
+Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47RGiXb8021390;
+ Tue, 27 Aug 2024 16:53:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=corp-2023-11-20; bh=Vp+6WQq2VIxGi3
+ hpxGtx34d88TGe04IjV4ei0O11vis=; b=CL4uvBbAsMa+LCIwK1bLgTCM7p90Lm
+ pi2TxP8CpGsh1iPVjf9SNRhbOc6MUz07MaarNuMutLrLzhx+QTb986Bu6SMdwGRw
+ gTqhLUxQJDEYvX4R1Y+lnad0LWy9qI+P5JOHndVB5/rXUqXskxAnkNDZILOAAe0D
+ iQ7YCqsdccrsT1dRXUNyRFPI1jtUGZ34zO9x4Ziq39G/BuSh5jaxwkJ3Bee2ETfa
+ LRPKpOVOQrd2OuaEut7g9Tpgtt8gy1r0Dc7hXts++lEITS5I+vL/MTEX6Bnwe/+h
+ R1eY8r8wS3GnqqZ62LiaL97J9NDooRU/SySSvYbVL4tGNIzvnGxXNuMQ==
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4177npe3bn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 27 Aug 2024 16:53:39 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 47RFgWMn034790; Tue, 27 Aug 2024 16:53:39 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 4189stavcs-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 27 Aug 2024 16:53:39 +0000
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 47RGrcI5020689;
+ Tue, 27 Aug 2024 16:53:38 GMT
+Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
+ [10.129.136.47])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id
+ 4189stavbw-1; Tue, 27 Aug 2024 16:53:38 +0000
+From: Sherry Yang <sherry.yang@oracle.com>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch,
+ ruanjinjie@huawei.com
+Cc: sherry.yang@oracle.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 1/1] drm/msm: fix %s null argument error
+Date: Tue, 27 Aug 2024 09:53:37 -0700
+Message-ID: <20240827165337.1075904-1-sherry.yang@oracle.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] drm/msm/a6xx: Store gmu_cgc_mode in struct a6xx_info
-To: Rob Clark <robdclark@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-References: <20240719-topic-a621-v1-0-850ae5307cf4@linaro.org>
- <20240719-topic-a621-v1-3-850ae5307cf4@linaro.org>
- <CAF6AEGs23d5OqKst+ik-kMMXPCS_0=-a8ndskv3j4NduOVR1Vw@mail.gmail.com>
- <CAF6AEGuB5oB6RZLk+PfYMTV8ybboJymcvzJVu9ByHdu=KyvV+w@mail.gmail.com>
- <CAF6AEGtkikykNKHz0905HZ4FOJYieO5R3jr6-OO8QLYqok25BA@mail.gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konradybcio@kernel.org>
-In-Reply-To: <CAF6AEGtkikykNKHz0905HZ4FOJYieO5R3jr6-OO8QLYqok25BA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-08-27_10,2024-08-27_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ spamscore=0 suspectscore=0
+ mlxlogscore=999 malwarescore=0 bulkscore=0 phishscore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2407110000
+ definitions=main-2408270127
+X-Proofpoint-GUID: sa_GpcZb0-74TF_0Fg27T07J4iopr_0v
+X-Proofpoint-ORIG-GUID: sa_GpcZb0-74TF_0Fg27T07J4iopr_0v
+X-Mailman-Approved-At: Wed, 28 Aug 2024 12:23:40 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,63 +90,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27.08.2024 10:12 PM, Rob Clark wrote:
-> resending with updated Konrad email addr
-> 
-> On Mon, Aug 26, 2024 at 2:09 PM Rob Clark <robdclark@gmail.com> wrote:
->>
->> On Mon, Aug 26, 2024 at 2:07 PM Rob Clark <robdclark@gmail.com> wrote:
->>>
->>> On Fri, Jul 19, 2024 at 3:03 AM Konrad Dybcio <konrad.dybcio@linaro.org> wrote:
->>>>
->>>> This was apparently almost never set on a6xx.. move the existing values
->>>> and fill out the remaining ones within the catalog.
->>>>
->>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->>>> ---
+The following build error was triggered because of NULL string argument:
 
-[...]
+BUILDSTDERR: drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c: In function 'mdp5_smp_dump':
+BUILDSTDERR: drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c:352:51: error: '%s' directive argument is null [-Werror=format-overflow=]
+BUILDSTDERR:   352 |                         drm_printf(p, "%s:%d\t%d\t%s\n",
+BUILDSTDERR:       |                                                   ^~
+BUILDSTDERR: drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c:352:51: error: '%s' directive argument is null [-Werror=format-overflow=]
 
->>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>> @@ -402,7 +402,7 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
->>>>         struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
->>>>         const struct adreno_reglist *reg;
->>>>         unsigned int i;
->>>> -       u32 val, clock_cntl_on, cgc_mode;
->>>> +       u32 val, clock_cntl_on;
->>>>
->>>>         if (!(adreno_gpu->info->a6xx->hwcg || adreno_is_a7xx(adreno_gpu)))
->>>>                 return;
->>>> @@ -417,10 +417,8 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
->>>>                 clock_cntl_on = 0x8aa8aa82;
->>>>
->>>>         if (adreno_is_a7xx(adreno_gpu)) {
->>>> -               cgc_mode = adreno_is_a740_family(adreno_gpu) ? 0x20222 : 0x20000;
->>>> -
->>>
->>> This does appear to change the gmu_cgc_mode in nearly all cases.. was
->>> this intended?
->>
->> Hmm, and this will only get written for a7xx, so we're dropping the
->> reg write for a690..
+This happens from the commit a61ddb4393ad ("drm: enable (most) W=1
+warnings by default across the subsystem"). Using "(null)" instead
+to fix it.
 
-Right, this patch is a lot to chew through.. It:
+Fixes: bc5289eed481 ("drm/msm/mdp5: add debugfs to show smp block status")
+Signed-off-by: Sherry Yang <sherry.yang@oracle.com>
+---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- adds the proper magic value per gpu gen
-- removes the sneaky a690 write
-- uses the new struct entry
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
+index 3a7f7edda96b..500b7dc895d0 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
+@@ -351,7 +351,7 @@ void mdp5_smp_dump(struct mdp5_smp *smp, struct drm_printer *p,
+ 
+ 			drm_printf(p, "%s:%d\t%d\t%s\n",
+ 				pipe2name(pipe), j, inuse,
+-				plane ? plane->name : NULL);
++				plane ? plane->name : "(null)");
+ 
+ 			total += inuse;
+ 		}
+-- 
+2.45.2
 
-but also
-
-- fails to remove the if (a7xx) check
-
-so I suppose for v2 I can split it into:
-
-1. add the magic values
-2. fix the if (a7xx) check
-3. use the struct value and drop the a690 one
-
-does that sound good?
-
-Konrad
