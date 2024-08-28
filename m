@@ -2,60 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F46B962B38
-	for <lists+freedreno@lfdr.de>; Wed, 28 Aug 2024 17:07:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEAAB962FEC
+	for <lists+freedreno@lfdr.de>; Wed, 28 Aug 2024 20:27:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C2F510E570;
-	Wed, 28 Aug 2024 15:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB78210E5A9;
+	Wed, 28 Aug 2024 18:27:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mJKCP7HJ";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="HA7xUb5o";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E32A10E573;
- Wed, 28 Aug 2024 15:07:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 320F9A41597;
- Wed, 28 Aug 2024 15:07:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4C9C4CEC2;
- Wed, 28 Aug 2024 15:07:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724857653;
- bh=jILtHjxwjjgjZztGE+ONkoeHJvK1Bqz1u5O/Mgt87zo=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=mJKCP7HJpC7Xt9GPKaQpMw1iu94/AbDzSgkCeySm3xlDqzNaTfvLLLb6grL1S2oV9
- at7ECEuYsOUBkRRcoAlUuFIquJZKzJ2CRdU8ZXsJA/CdWqYCPqocQbbVpe8HidYqwd
- 9X9HvMLQoBjWSoXhGwvyBGNRqpWBZ9lofMNbC6LWSKTTyNQhZ9qCLCwaz9FxN+tCWy
- IbFnZDgP5qtUOpVNRhNisC2clbNrm7z0FVuohwxm1FuekIzujrkK3gH4Q+lHvKcy/k
- UTt5rn2ekStKnWpPdD77cLE1Ylx4xCcKR5RVe6HCD5SgFVlCKRDSER7oWPC/FdAncn
- 1LIpeQQ1uhkpw==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Wed, 28 Aug 2024 17:06:59 +0200
-Subject: [PATCH v2 6/6] drm/msm/a6xx: Add A621 support
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7314A10E5A9;
+ Wed, 28 Aug 2024 18:27:57 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47SBkOdH001796;
+ Wed, 28 Aug 2024 18:27:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ t6OiZigp34+5PZDO1ghwcrR5DceV0lzroVaQE5qnpj4=; b=HA7xUb5o4fjSk4d6
+ BNSuXPDf+1VfCnmncb300H5+EH3aRHRJxk70fMMZuT6fVQXngOTTsAvqD3dtbslY
+ 4Z6oYhf3N3zJeyWjvUZlUmTON1ZEwl9niWKH6sisCiLRS1m5cpUhDYPOEgOS1sU7
+ Q8C0/6NlQ0J0Nz439kP/z7z2djR7TjsZMsh8zJsKa3Km6v7oQQgoNFbFcnhnk1+R
+ 3E1dfN3d7uczPVEIfN4+hCLd2wuhjpSfZcCrc/RTOLKh35q9aTSlRNoydgj2Pk4f
+ 4uOlzxdQK+lDkU+1F+2+4v7HVWwc7FY0U2A/b8+WMFoRP3m09fOSxm9R46IpYVmf
+ FwoMbg==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 419puw2rfx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Aug 2024 18:27:54 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 47SIRrwE005623
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Aug 2024 18:27:53 GMT
+Received: from [10.71.111.76] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 28 Aug
+ 2024 11:27:53 -0700
+Message-ID: <1facdd7c-b15d-4d91-b96a-5b3b72dbad66@quicinc.com>
+Date: Wed, 28 Aug 2024 11:27:52 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 08/12] drm/msm/dpu: split dpu_plane_atomic_check()
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
+ Vetter <daniel@ffwll.ch>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20240627-dpu-virtual-wide-v5-0-5efb90cbb8be@linaro.org>
+ <20240627-dpu-virtual-wide-v5-8-5efb90cbb8be@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240627-dpu-virtual-wide-v5-8-5efb90cbb8be@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240828-topic-a621-v2-6-1882c6b57432@kernel.org>
-References: <20240828-topic-a621-v2-0-1882c6b57432@kernel.org>
-In-Reply-To: <20240828-topic-a621-v2-0-1882c6b57432@kernel.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1724857626; l=7367;
- i=konradybcio@kernel.org; s=20230215; h=from:subject:message-id;
- bh=RlDVPf4sSmjRNEQBMyj74j3T0Pz3TGytFQVkPF4yXA4=;
- b=4roaOxw8rygadrRbHoROYIC+eX5VJaNHf1BIzIoCP5mTnmb6/0LNZWwbkwkWElancN/KamruP
- O1872/4yPgKCCfOujsUwoQJBl2u4T/RQPSd2DMZxxq8eD1WWsP2RPJv
-X-Developer-Key: i=konradybcio@kernel.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: sLxxy_Ae_vYnYIcXMI49bTgP9t0eg_Ju
+X-Proofpoint-GUID: sLxxy_Ae_vYnYIcXMI49bTgP9t0eg_Ju
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-08-28_08,2024-08-28_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015
+ priorityscore=1501 malwarescore=0 bulkscore=0 mlxscore=0
+ lowpriorityscore=0 phishscore=0 mlxlogscore=999 suspectscore=0
+ adultscore=0 spamscore=0 impostorscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2407110000
+ definitions=main-2408280134
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,201 +94,246 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-A621 is a clear A662 derivative (same lineage as A650), no explosions
-or sick features, other than a NoC bug which can stall the GPU..
 
-Add support for it.
+On 6/26/2024 2:46 PM, Dmitry Baryshkov wrote:
+> Split dpu_plane_atomic_check() function into two pieces:
+> 
+> dpu_plane_atomic_check_nopipe() performing generic checks on the pstate,
+> without touching the associated pipe,
+> 
+> and
+> 
+> dpu_plane_atomic_check_pipes(), which takes into account used pipes.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 178 +++++++++++++++++++-----------
+>   1 file changed, 112 insertions(+), 66 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 115c1bd77bdd..9b9fe28052ad 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -788,49 +788,22 @@ static int dpu_plane_atomic_check_pipe(struct dpu_plane *pdpu,
+>   #define MAX_UPSCALE_RATIO	20
+>   #define MAX_DOWNSCALE_RATIO	4
+>   
+> -static int dpu_plane_atomic_check(struct drm_plane *plane,
+> -				  struct drm_atomic_state *state)
+> +static int dpu_plane_atomic_check_nopipe(struct drm_plane *plane,
+> +					 struct drm_plane_state *new_plane_state,
+> +					 const struct drm_crtc_state *crtc_state)
+>   {
+> -	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+> -										 plane);
+>   	int ret = 0, min_scale, max_scale;
+>   	struct dpu_plane *pdpu = to_dpu_plane(plane);
+>   	struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
+>   	u64 max_mdp_clk_rate = kms->perf.max_core_clk_rate;
+>   	struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
+> -	struct dpu_sw_pipe *pipe = &pstate->pipe;
+> -	struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
+> -	const struct drm_crtc_state *crtc_state = NULL;
+> -	const struct msm_format *fmt;
+>   	struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg;
+>   	struct dpu_sw_pipe_cfg *r_pipe_cfg = &pstate->r_pipe_cfg;
+>   	struct drm_rect fb_rect = { 0 };
+>   	uint32_t max_linewidth;
+> -	unsigned int rotation;
+> -	uint32_t supported_rotations;
+> -	const struct dpu_sspp_cfg *pipe_hw_caps;
+> -	const struct dpu_sspp_sub_blks *sblk;
+> -
+> -	if (new_plane_state->crtc)
+> -		crtc_state = drm_atomic_get_new_crtc_state(state,
+> -							   new_plane_state->crtc);
+> -
+> -	pipe->sspp = dpu_rm_get_sspp(&kms->rm, pdpu->pipe);
+> -	r_pipe->sspp = NULL;
+>   
+> -	if (!pipe->sspp)
+> -		return -EINVAL;
+> -
+> -	pipe_hw_caps = pipe->sspp->cap;
+> -	sblk = pipe->sspp->cap->sblk;
+> -
+> -	if (sblk->scaler_blk.len) {
+> -		min_scale = FRAC_16_16(1, MAX_UPSCALE_RATIO);
+> -		max_scale = MAX_DOWNSCALE_RATIO << 16;
+> -	} else {
+> -		min_scale = DRM_PLANE_NO_SCALING;
+> -		max_scale = DRM_PLANE_NO_SCALING;
+> -	}
+> +	min_scale = FRAC_16_16(1, MAX_UPSCALE_RATIO);
+> +	max_scale = MAX_DOWNSCALE_RATIO << 16;
+>   
+>   	ret = drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
+>   						  min_scale,
+> @@ -843,11 +816,6 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>   	if (!new_plane_state->visible)
+>   		return 0;
+>   
+> -	pipe->multirect_index = DPU_SSPP_RECT_SOLO;
+> -	pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> -	r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
+> -	r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> -
+>   	pstate->stage = DPU_STAGE_0 + pstate->base.normalized_zpos;
+>   	if (pstate->stage >= pdpu->catalog->caps->max_mixer_blendstages) {
+>   		DPU_ERROR("> %d plane stages assigned\n",
+> @@ -871,8 +839,6 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>   		return -E2BIG;
+>   	}
+>   
+> -	fmt = msm_framebuffer_format(new_plane_state->fb);
+> -
+>   	max_linewidth = pdpu->catalog->caps->max_linewidth;
+>   
+>   	drm_rect_rotate(&pipe_cfg->src_rect,
+> @@ -881,6 +847,78 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>   
+>   	if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) ||
+>   	     _dpu_plane_calc_clk(&crtc_state->adjusted_mode, pipe_cfg) > max_mdp_clk_rate) {
+> +		if (drm_rect_width(&pipe_cfg->src_rect) > 2 * max_linewidth) {
+> +			DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
+> +					DRM_RECT_ARG(&pipe_cfg->src_rect), max_linewidth);
+> +			return -E2BIG;
+> +		}
+> +
+> +		*r_pipe_cfg = *pipe_cfg;
+> +		pipe_cfg->src_rect.x2 = (pipe_cfg->src_rect.x1 + pipe_cfg->src_rect.x2) >> 1;
+> +		pipe_cfg->dst_rect.x2 = (pipe_cfg->dst_rect.x1 + pipe_cfg->dst_rect.x2) >> 1;
+> +		r_pipe_cfg->src_rect.x1 = pipe_cfg->src_rect.x2;
+> +		r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
+> +	} else {
+> +		memset(r_pipe_cfg, 0, sizeof(*r_pipe_cfg));
+> +	}
+> +
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 78 ++++++++++++++++++++++++++++++-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c     | 18 +++++++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c     |  6 +++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  5 ++
- 4 files changed, 106 insertions(+), 1 deletion(-)
+This is the part I am not able to fully understand. Assignment of 
+r_pipe_cfg is also pipe related so why should that move to 
+dpu_plane_atomic_check_nopipe(). It should be part of 
+dpu_plane_atomic_check_pipe().
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index deee0b686962..d9d4a3e821f7 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -129,6 +129,59 @@ static const struct adreno_reglist a615_hwcg[] = {
- 	{},
- };
- 
-+static const struct adreno_reglist a620_hwcg[] = {
-+	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x02222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02222220},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_SP0, 0x00000080},
-+	{REG_A6XX_RBBM_CLOCK_HYST_SP0, 0x0000f3cf},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_TP0, 0x02222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL2_TP0, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL3_TP0, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL4_TP0, 0x00022222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_TP0, 0x11111111},
-+	{REG_A6XX_RBBM_CLOCK_DELAY2_TP0, 0x11111111},
-+	{REG_A6XX_RBBM_CLOCK_DELAY3_TP0, 0x11111111},
-+	{REG_A6XX_RBBM_CLOCK_DELAY4_TP0, 0x00011111},
-+	{REG_A6XX_RBBM_CLOCK_HYST_TP0, 0x77777777},
-+	{REG_A6XX_RBBM_CLOCK_HYST2_TP0, 0x77777777},
-+	{REG_A6XX_RBBM_CLOCK_HYST3_TP0, 0x77777777},
-+	{REG_A6XX_RBBM_CLOCK_HYST4_TP0, 0x00077777},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_RB0, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL2_RB0, 0x01002222},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_CCU0, 0x00002220},
-+	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU0, 0x00040f00},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_RAC, 0x25222022},
-+	{REG_A6XX_RBBM_CLOCK_CNTL2_RAC, 0x00005555},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_RAC, 0x00000011},
-+	{REG_A6XX_RBBM_CLOCK_HYST_RAC, 0x00445044},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_TSE_RAS_RBBM, 0x04222222},
-+	{REG_A6XX_RBBM_CLOCK_MODE_VFD, 0x00002222},
-+	{REG_A6XX_RBBM_CLOCK_MODE_GPC, 0x00222222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ_2, 0x00000002},
-+	{REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_TSE_RAS_RBBM, 0x00004000},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_VFD, 0x00002222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_GPC, 0x00000200},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_HYST_TSE_RAS_RBBM, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_HYST_VFD, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_HYST_GPC, 0x04104004},
-+	{REG_A6XX_RBBM_CLOCK_HYST_HLSQ, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_TEX_FCHE, 0x00000222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_TEX_FCHE, 0x00000111},
-+	{REG_A6XX_RBBM_CLOCK_HYST_TEX_FCHE, 0x00000777},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_UCHE, 0x22222222},
-+	{REG_A6XX_RBBM_CLOCK_HYST_UCHE, 0x00000004},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_UCHE, 0x00000002},
-+	{REG_A6XX_RBBM_ISDB_CNT, 0x00000182},
-+	{REG_A6XX_RBBM_RAC_THRESHOLD_CNT, 0x00000000},
-+	{REG_A6XX_RBBM_SP_HYST_CNT, 0x00000000},
-+	{REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222},
-+	{REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111},
-+	{REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555},
-+	{},
-+};
-+
- static const struct adreno_reglist a630_hwcg[] = {
- 	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x22222222},
- 	{REG_A6XX_RBBM_CLOCK_CNTL_SP1, 0x22222222},
-@@ -490,7 +543,6 @@ static const u32 a630_protect_regs[] = {
- };
- DECLARE_ADRENO_PROTECT(a630_protect, 32);
- 
--/* These are for a620 and a650 */
- static const u32 a650_protect_regs[] = {
- 	A6XX_PROTECT_RDONLY(0x00000, 0x04ff),
- 	A6XX_PROTECT_RDONLY(0x00501, 0x0005),
-@@ -774,6 +826,30 @@ static const struct adreno_info a6xx_gpus[] = {
- 			{ 169, 2 },
- 			{ 180, 1 },
- 		),
-+	}, {
-+		.chip_ids = ADRENO_CHIP_IDS(0x06020100),
-+		.family = ADRENO_6XX_GEN3,
-+		.fw = {
-+			[ADRENO_FW_SQE] = "a650_sqe.fw",
-+			[ADRENO_FW_GMU] = "a621_gmu.bin",
-+		},
-+		.gmem = SZ_512K,
-+		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			  ADRENO_QUIRK_HAS_HW_APRIV,
-+		.init = a6xx_gpu_init,
-+		.zapfw = "a620_zap.mbn",
-+		.a6xx = &(const struct a6xx_info) {
-+			.hwcg = a620_hwcg,
-+			.protect = &a650_protect,
-+			.gmu_cgc_mode = 0x00020200,
-+			.prim_fifo_threshold = 0x00010000,
-+		},
-+		.address_space_size = SZ_16G,
-+		.speedbins = ADRENO_SPEEDBINS(
-+			{ 0, 0 },
-+			{ 137, 1 },
-+		),
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(
- 			0x06030001,
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 6f168f1f32d8..37927bdd6fbe 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -423,6 +423,20 @@ static int a6xx_gmu_gfx_rail_on(struct a6xx_gmu *gmu)
- 	return a6xx_gmu_set_oob(gmu, GMU_OOB_BOOT_SLUMBER);
- }
- 
-+static void a6xx_gemnoc_workaround(struct a6xx_gmu *gmu)
-+{
-+	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-+	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-+
-+	/*
-+	 * GEMNoC can power collapse whilst the GPU is being powered down, resulting
-+	 * in the power down sequence not being fully executed. That in turn can
-+	 * prevent CX_GDSC from collapsing. Assert Qactive to avoid this.
-+	 */
-+	if (adreno_is_a621(adreno_gpu) || adreno_is_7c3(adreno_gpu))
-+		gmu_write(gmu, REG_A6XX_GMU_AO_AHB_FENCE_CTRL, BIT(0));
-+}
-+
- /* Let the GMU know that we are about to go into slumber */
- static int a6xx_gmu_notify_slumber(struct a6xx_gmu *gmu)
- {
-@@ -456,6 +470,8 @@ static int a6xx_gmu_notify_slumber(struct a6xx_gmu *gmu)
- 	}
- 
- out:
-+	a6xx_gemnoc_workaround(gmu);
-+
- 	/* Put fence into allow mode */
- 	gmu_write(gmu, REG_A6XX_GMU_AO_AHB_FENCE_CTRL, 0);
- 	return ret;
-@@ -945,6 +961,8 @@ static void a6xx_gmu_force_off(struct a6xx_gmu *gmu)
- 	/* Force off SPTP in case the GMU is managing it */
- 	a6xx_sptprac_disable(gmu);
- 
-+	a6xx_gemnoc_workaround(gmu);
-+
- 	/* Make sure there are no outstanding RPMh votes */
- 	a6xx_gmu_rpmh_off(gmu);
- 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 33a319f7d200..f2eca69613af 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -523,6 +523,12 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
- 	if (adreno_is_a619_holi(gpu))
- 		gpu->ubwc_config.highest_bank_bit = 13;
- 
-+	if (adreno_is_a621(gpu)) {
-+		gpu->ubwc_config.highest_bank_bit = 13;
-+		gpu->ubwc_config.amsbc = 1;
-+		gpu->ubwc_config.uavflagprd_inv = 2;
-+	}
-+
- 	if (adreno_is_a640_family(gpu))
- 		gpu->ubwc_config.amsbc = 1;
- 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 26972b2cc896..ea2c25e007eb 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -384,6 +384,11 @@ static inline int adreno_is_a619_holi(const struct adreno_gpu *gpu)
- 	return adreno_is_a619(gpu) && adreno_has_gmu_wrapper(gpu);
- }
- 
-+static inline int adreno_is_a621(const struct adreno_gpu *gpu)
-+{
-+	return gpu->info->chip_ids[0] == 0x06020100;
-+}
-+
- static inline int adreno_is_a630(const struct adreno_gpu *gpu)
- {
- 	return adreno_is_revn(gpu, 630);
+> +	drm_rect_rotate_inv(&pipe_cfg->src_rect,
+> +			    new_plane_state->fb->width, new_plane_state->fb->height,
+> +			    new_plane_state->rotation);
+> +	if (r_pipe_cfg->src_rect.x1 != 0)
+> +		drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
+> +				    new_plane_state->fb->width, new_plane_state->fb->height,
+> +				    new_plane_state->rotation);
+> +
+> +	pstate->needs_qos_remap = drm_atomic_crtc_needs_modeset(crtc_state);
+> +
+> +	return 0;
+> +}
+> +
+> +static int dpu_plane_atomic_check_pipes(struct drm_plane *plane,
+> +					struct drm_atomic_state *state,
+> +					const struct drm_crtc_state *crtc_state)
+> +{
+> +	struct drm_plane_state *new_plane_state =
+> +		drm_atomic_get_new_plane_state(state, plane);
+> +	struct dpu_plane *pdpu = to_dpu_plane(plane);
+> +	struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
+> +	struct dpu_sw_pipe *pipe = &pstate->pipe;
+> +	struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
+> +	const struct msm_format *fmt;
+> +	struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg;
+> +	struct dpu_sw_pipe_cfg *r_pipe_cfg = &pstate->r_pipe_cfg;
+> +	uint32_t max_linewidth;
+> +	unsigned int rotation;
+> +	uint32_t supported_rotations;
+> +	const struct dpu_sspp_cfg *pipe_hw_caps;
+> +	const struct dpu_sspp_sub_blks *sblk;
+> +	int ret = 0;
+> +
+> +	pipe_hw_caps = pipe->sspp->cap;
+> +	sblk = pipe->sspp->cap->sblk;
+> +
+> +	/*
+> +	 * We already have verified scaling against platform limitations.
+> +	 * Now check if the SSPP supports scaling at all.
+> +	 */
+> +	if (!sblk->scaler_blk.len &&
+> +	    ((drm_rect_width(&new_plane_state->src) >> 16 !=
+> +	      drm_rect_width(&new_plane_state->dst)) ||
+> +	     (drm_rect_height(&new_plane_state->src) >> 16 !=
+> +	      drm_rect_height(&new_plane_state->dst))))
+> +		return -ERANGE;
+> +
 
--- 
-2.46.0
+Should this part be retained under dpu_plane_atomic_check_nopipe()?
+
+This is also not pipe dependent.
+
+> +	fmt = msm_framebuffer_format(new_plane_state->fb);
+> +
+> +	max_linewidth = pdpu->catalog->caps->max_linewidth;
+> +
+> +	ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt,
+> +					  &crtc_state->adjusted_mode);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (drm_rect_width(&r_pipe_cfg->src_rect) != 0) {
+>   		/*
+>   		 * In parallel multirect case only the half of the usual width
+>   		 * is supported for tiled formats. If we are here, we know that
+> @@ -894,12 +932,6 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>   			return -E2BIG;
+>   		}
+>   
+> -		if (drm_rect_width(&pipe_cfg->src_rect) > 2 * max_linewidth) {
+> -			DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
+> -					DRM_RECT_ARG(&pipe_cfg->src_rect), max_linewidth);
+> -			return -E2BIG;
+> -		}
+> -
+>   		if (drm_rect_width(&pipe_cfg->src_rect) != drm_rect_width(&pipe_cfg->dst_rect) ||
+>   		    drm_rect_height(&pipe_cfg->src_rect) != drm_rect_height(&pipe_cfg->dst_rect) ||
+>   		    (!test_bit(DPU_SSPP_SMART_DMA_V1, &pipe->sspp->cap->features) &&
+> @@ -921,26 +953,6 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>   		r_pipe->multirect_index = DPU_SSPP_RECT_1;
+>   		r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
+>   
+> -		*r_pipe_cfg = *pipe_cfg;
+> -		pipe_cfg->src_rect.x2 = (pipe_cfg->src_rect.x1 + pipe_cfg->src_rect.x2) >> 1;
+> -		pipe_cfg->dst_rect.x2 = (pipe_cfg->dst_rect.x1 + pipe_cfg->dst_rect.x2) >> 1;
+> -		r_pipe_cfg->src_rect.x1 = pipe_cfg->src_rect.x2;
+> -		r_pipe_cfg->dst_rect.x1 = pipe_cfg->dst_rect.x2;
+> -	}
+> -
+> -	drm_rect_rotate_inv(&pipe_cfg->src_rect,
+> -			    new_plane_state->fb->width, new_plane_state->fb->height,
+> -			    new_plane_state->rotation);
+> -	if (r_pipe->sspp)
+> -		drm_rect_rotate_inv(&r_pipe_cfg->src_rect,
+> -				    new_plane_state->fb->width, new_plane_state->fb->height,
+> -				    new_plane_state->rotation);
+> -
+> -	ret = dpu_plane_atomic_check_pipe(pdpu, pipe, pipe_cfg, fmt, &crtc_state->adjusted_mode);
+> -	if (ret)
+> -		return ret;
+> -
+> -	if (r_pipe->sspp) {
+>   		ret = dpu_plane_atomic_check_pipe(pdpu, r_pipe, r_pipe_cfg, fmt,
+>   						  &crtc_state->adjusted_mode);
+>   		if (ret)
+> @@ -963,11 +975,45 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>   	}
+>   
+>   	pstate->rotation = rotation;
+
+The dpu_plane_check_inline_rotation() is also pipe independent. So even 
+that goes to dpu_plane_atomic_check_nopipe()?
+
+> -	pstate->needs_qos_remap = drm_atomic_crtc_needs_modeset(crtc_state);
+>   
+>   	return 0;
+>   }
+>   
+
+<snip>
 
