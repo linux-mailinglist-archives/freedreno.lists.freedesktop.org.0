@@ -2,80 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC08396310B
-	for <lists+freedreno@lfdr.de>; Wed, 28 Aug 2024 21:38:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 478C0963128
+	for <lists+freedreno@lfdr.de>; Wed, 28 Aug 2024 21:46:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF5DF10E062;
-	Wed, 28 Aug 2024 19:38:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22F8710E004;
+	Wed, 28 Aug 2024 19:46:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eC/jy8kv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DJsUItu5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1027110E0EB
- for <freedreno@lists.freedesktop.org>; Wed, 28 Aug 2024 19:38:38 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-5334adf7249so8431117e87.3
- for <freedreno@lists.freedesktop.org>; Wed, 28 Aug 2024 12:38:37 -0700 (PDT)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2467C10E004;
+ Wed, 28 Aug 2024 19:46:56 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-a7aa086b077so655126366b.0; 
+ Wed, 28 Aug 2024 12:46:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1724873916; x=1725478716; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=S2boCnau9cNyFJbbhnQn5xxnCB2xmtbbHbu9uGAoNXM=;
- b=eC/jy8kvfLiBYStqPXyjrLGw6RzDP3RsrMdOJ+3TIRIdD8eHaQ6mXf8czDj+4Mo/ur
- i/y8bgW95mq1231GKoRzPQPHgxj4m5m4FW5V8EQsELNvCJbcKNXNa/FqLP/h2NTb4m0x
- DycAGm7rqE0LCfXtFTAppb3ixsDs8E50Vafrrwa3uY7n6VVU+gHpVQA/VZ2Vb3DEOisY
- KnwKHMrppKCZ0l4fjOUp8In1oPGK77S6UGZRRcGE0lIqTfxVIsQr0uI69BXa4HCTeuK3
- ouz25eBkO5xnvHwO0ZL/jkRfjUihyNuvsNSTE6Gr+SSSVGmol2CZJMjrcwFwwzyadzz0
- Ztpw==
+ d=gmail.com; s=20230601; t=1724874414; x=1725479214; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=cD7nXVNIH/PHGLLjSIJQT2JX0QXEmSqhiG+NCi9Wrzk=;
+ b=DJsUItu5Pmfm9TIVvPMRfDT0Waogkzh7UFdyTyCnlIsT1cxx9mJ5TBmcdirTr6+IEI
+ CwNGuUV1F3gyUBXo2Ikdeo8J2u3o/BffjhQ8QiII9PkX+vqrY3c0TWcHO2kXGFcZWbXl
+ wVLnOJddJU7g4ny8RHo/ElJXoYSZ1vZmkOZBmbwI0Jd+KS78BELr7G0ZVhTOUl9A55WQ
+ Jl1Cn0SfrQqwv3PC5GICjuXKfZWg3VRhUG/w3LyZ6Ypq8T9ZlwDZCGhcfKY5t93sWPUi
+ pG3M2yXdFjBOVGrFj3mqqIC/BOigItYMVWeVr97ImKbFgeChA5n+G+YStn1aSheq5++d
+ PUsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724873916; x=1725478716;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=S2boCnau9cNyFJbbhnQn5xxnCB2xmtbbHbu9uGAoNXM=;
- b=XklsklI5FNFdxFTXXLdZLYJnhqPi1Sc+mia8H3wq6xQmLVdSY/PjCmFpWbYOD2I8Sf
- MbNlYfh+oiU4+5HmAX/TgrhdnXZ/oWwNgCF3PMqOHHirhfM3VZpDsl89/GPYPul15G5A
- RyQcq7gzEphhqCsd6liD2VuYT8QtVdbN9YPScVunKW3R5S8/jyxwQD9BPAgHaR+TeGFc
- aUtHHrAvLpAv6ngWdg33H+CvTGOFh62WXP2m1hPnx7tdA4X1LYJbNeOF/V2BRkuJVVe/
- ZbAas2NxigkT8s1h519/f+asKfVctR9X1gcpe4xFPS1McKb9gRRoi0XME0XLqvNcKqDi
- GMSw==
+ d=1e100.net; s=20230601; t=1724874414; x=1725479214;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=cD7nXVNIH/PHGLLjSIJQT2JX0QXEmSqhiG+NCi9Wrzk=;
+ b=W3xsF0SsnXF0PZrdTK9p8yp52n7I7QNB9RAPOdLKvUz8AGHSswVKqc79bkatjL/a16
+ Yhn/UWrIrH7rjZd4JX3JVg+QVrnJC5ISoZHWizaf/9sCW6GQKG17yi4BOM4cQP1mVcdM
+ SaDOilOeYtqHqeo+wnS6s1fkE1g9b4c8llvxSiSU6+1t8Gj3PmukAJeApoywpsUcKysr
+ HK4pkF2BqylHGwvcxuqPhyyohuSZ26Q2cQVNDMQVrs/IQEMXJiHodQ3gwoFRaok7sKkp
+ tznsJP3isvBe1Y1MuHGZyM+o8hjbiGUHuMX8Qt5mN1JLJs4CtxdKERHgwAnVbddYZg15
+ fxag==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUvm6zpfLfZTxpy8gpAiaXAGhL8kfRucjAJ5y3CUzwxPEBxHrBcCgYpbcCewiSH7Jvm0IXahRr0/Xk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJs+3j1y57+OP27vmR/e24Ch/x315YXb962bmM3tECKGvU6Cky
- 1Fem9cPNScsoc+lLrMTwWSAwiXAezdyBdNC6d0eys1SY0cbXG629b5F2uJTA7yE=
-X-Google-Smtp-Source: AGHT+IFX0ICTjWKM1raHcDBZYIJQJARuE3gnbn2GEX7Oc+LTxOmCamgvksbRuiWzNjzPy3Id1Vcj8w==
-X-Received: by 2002:a05:6512:b84:b0:533:466d:698c with SMTP id
- 2adb3069b0e04-5353e5aad3bmr216482e87.39.1724873915220; 
- Wed, 28 Aug 2024 12:38:35 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5334ea5d34fsm2321105e87.192.2024.08.28.12.38.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Aug 2024 12:38:34 -0700 (PDT)
-Date: Wed, 28 Aug 2024 22:38:32 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jeykumar Sankaran <jsanka@codeaurora.org>
-Subject: Re: [PATCH v2 2/2] drm/msm/dpu: don't play tricks with debug macros
-Message-ID: <sfdha2ywvtuffsyyrrbwzjt6nkjojpbnribp2vva6fp62swftp@mjhm6r74rq7e>
-References: <20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org>
- <20240802-dpu-fix-wb-v2-2-7eac9eb8e895@linaro.org>
- <1efd71c4-3bee-4c71-9e40-1284b9483824@kernel.org>
+ AJvYcCUz/1IyRDOo+wmWk+MqF7JKpH/fUW0ZhtglVPDCwsZhbDcozSVAwEOX7gpsXWDB3LqfjU7upig6a/A=@lists.freedesktop.org,
+ AJvYcCWw/rZPZISV4CnlSQM04jIUZ8shp+wQgusxRfA3Abd4vreKyEP6q9tXIS5vGvYLidEaBxSlFH+ifCJF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyaR3QQ4+TUaMX8LN8Qw5JtECOcDdpIW2TV6Mqi6CQao+FU6V0T
+ r1bU2bhWxGlz42TsHClq3Rk4hUX5rjN7yIGtZMxfAk3Aqn5iVFV5
+X-Google-Smtp-Source: AGHT+IFHqUTDbsiy0KKd7d50tdZ3WO6P/LGDWj5MgTIjOlHaI3NCNO00uKJ0HUnPf8rmCkAsB1rt1g==
+X-Received: by 2002:a17:907:9482:b0:a86:700f:93c1 with SMTP id
+ a640c23a62f3a-a897face4cfmr38236766b.60.1724874413867; 
+ Wed, 28 Aug 2024 12:46:53 -0700 (PDT)
+Received: from [192.168.1.14] (host-95-249-206-143.retail.telecomitalia.it.
+ [95.249.206.143]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a86e582ded7sm277734266b.120.2024.08.28.12.46.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 Aug 2024 12:46:53 -0700 (PDT)
+Message-ID: <f3bc0b3f-d35b-4cf8-ace8-2f4a6e387e13@gmail.com>
+Date: Wed, 28 Aug 2024 21:46:51 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1efd71c4-3bee-4c71-9e40-1284b9483824@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/7] drm/msm/A6xx: Implement preemption for A7XX targets
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark <robdclark@gmail.com>
+Cc: Connor Abbott <cwabbott0@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>
+References: <CACu1E7E7FPJP-Ry64m257A7WrL3Q9jy8xMS9XpSBRNimBWzYUQ@mail.gmail.com>
+ <20240822200534.fgugb3zmcp7hjyck@hu-akhilpo-hyd.qualcomm.com>
+ <CACu1E7F068sAMFgn=D7qBGM81qvYP4iW1+hXpfXVKtQGWeyTKQ@mail.gmail.com>
+ <CACu1E7EueMnte9e+yLEtRE9WmG0J5bVMj59VbPfkDeB7OHbsAw@mail.gmail.com>
+ <20240827194828.jxwelq4xr2wsdxos@hu-akhilpo-hyd.qualcomm.com>
+ <d95ef763-7237-4080-b323-838ca337734a@gmail.com>
+ <CAF6AEGuASw0YO8b0X24-iq1pqTnBEpr0Tm3Scmt4-T+HeCMY_A@mail.gmail.com>
+ <57064da3-190c-4554-b085-d56daf979933@gmail.com>
+ <CAF6AEGtYh6jnYcFLcUnEobjQqKmqxuX29wO1qqnGYFQJ+EUBxw@mail.gmail.com>
+ <CAF6AEGuBMiQft4SCrf=xTQ76q8=+-OS3SEKMmw7TGT5rb=Sygw@mail.gmail.com>
+ <20240828192304.dojqyvbnqzhy63na@hu-akhilpo-hyd.qualcomm.com>
+Content-Language: en-US
+From: Antonino Maniscalco <antomani103@gmail.com>
+In-Reply-To: <20240828192304.dojqyvbnqzhy63na@hu-akhilpo-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,49 +105,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Aug 27, 2024 at 11:39:45AM GMT, Konrad Dybcio wrote:
-> On 2.08.2024 9:47 PM, Dmitry Baryshkov wrote:
-> > DPU debugging macros need to be converted to a proper drm_debug_*
-> > macros, however this is a going an intrusive patch, not suitable for a
-> > fix. Wire DPU_DEBUG and DPU_DEBUG_DRIVER to always use DRM_DEBUG_DRIVER
-> > to make sure that DPU debugging messages always end up in the drm debug
-> > messages and are controlled via the usual drm.debug mask.
-> > 
-> > I don't think that it is a good idea for a generic DPU_DEBUG macro to be
-> > tied to DRM_UT_KMS. It is used to report a debug message from driver, so by
-> > default it should go to the DRM_UT_DRIVER channel. While refactoring
-> > debug macros later on we might end up with particular messages going to
-> > ATOMIC or KMS, but DRIVER should be the default.
-> > 
-> > Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h | 14 ++------------
-> >  1 file changed, 2 insertions(+), 12 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> > index e2adc937ea63..935ff6fd172c 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> > @@ -31,24 +31,14 @@
-> >   * @fmt: Pointer to format string
-> >   */
-> >  #define DPU_DEBUG(fmt, ...)                                                \
-> > -	do {                                                               \
-> > -		if (drm_debug_enabled(DRM_UT_KMS))                         \
-> > -			DRM_DEBUG(fmt, ##__VA_ARGS__); \
-> > -		else                                                       \
-> > -			pr_debug(fmt, ##__VA_ARGS__);                      \
-> > -	} while (0)
-> > +	DRM_DEBUG_DRIVER(fmt, ##__VA_ARGS__)
+On 8/28/24 9:23 PM, Akhil P Oommen wrote:
+> On Wed, Aug 28, 2024 at 06:46:37AM -0700, Rob Clark wrote:
+>> On Wed, Aug 28, 2024 at 6:42 AM Rob Clark <robdclark@gmail.com> wrote:
+>>>
+>>> On Tue, Aug 27, 2024 at 3:56 PM Antonino Maniscalco
+>>> <antomani103@gmail.com> wrote:
+>>>>
+>>>> On 8/27/24 11:07 PM, Rob Clark wrote:
+>>>>> On Tue, Aug 27, 2024 at 1:25 PM Antonino Maniscalco
+>>>>> <antomani103@gmail.com> wrote:
+>>>>>>
+>>>>>> On 8/27/24 9:48 PM, Akhil P Oommen wrote:
+>>>>>>> On Fri, Aug 23, 2024 at 10:23:48AM +0100, Connor Abbott wrote:
+>>>>>>>> On Fri, Aug 23, 2024 at 10:21 AM Connor Abbott <cwabbott0@gmail.com> wrote:
+>>>>>>>>>
+>>>>>>>>> On Thu, Aug 22, 2024 at 9:06 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>>>>>>>>>>
+>>>>>>>>>> On Wed, Aug 21, 2024 at 05:02:56PM +0100, Connor Abbott wrote:
+>>>>>>>>>>> On Mon, Aug 19, 2024 at 9:09 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>>>>>>>>>>>>
+>>>>>>>>>>>> On Thu, Aug 15, 2024 at 08:26:14PM +0200, Antonino Maniscalco wrote:
+>>>>>>>>>>>>> This patch implements preemption feature for A6xx targets, this allows
+>>>>>>>>>>>>> the GPU to switch to a higher priority ringbuffer if one is ready. A6XX
+>>>>>>>>>>>>> hardware as such supports multiple levels of preemption granularities,
+>>>>>>>>>>>>> ranging from coarse grained(ringbuffer level) to a more fine grained
+>>>>>>>>>>>>> such as draw-call level or a bin boundary level preemption. This patch
+>>>>>>>>>>>>> enables the basic preemption level, with more fine grained preemption
+>>>>>>>>>>>>> support to follow.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+>>>>>>>>>>>>> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
+>>>>>>>>>>>>> ---
+>>>>>>>>>>>>
+>>>>>>>>>>>> No postamble packets which resets perfcounters? It is necessary. Also, I
+>>>>>>>>>>>> think we should disable preemption during profiling like we disable slumber.
+>>>>>>>>>>>>
+>>>>>>>>>>>> -Akhil.
+>>>>>>>>>>>
+>>>>>>>>>>> I don't see anything in kgsl which disables preemption during
+>>>>>>>>>>> profiling. It disables resetting perfcounters when doing system-wide
+>>>>>>>>>>> profiling, like freedreno, and in that case I assume preempting is
+>>>>>>>>>>> fine because the system profiler has a complete view of everything and
+>>>>>>>>>>> should "see" preemptions through the traces. For something like
+>>>>>>>>>>> VK_KHR_performance_query I suppose we'd want to disable preemption
+>>>>>>>>>>> because we disable saving/restoring perf counters, but that has to
+>>>>>>>>>>> happen in userspace because the kernel doesn't know what userspace
+>>>>>>>>>>> does.
+>>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> KGSL does some sort of arbitration of perfcounter configurations and
+>>>>>>>>>> adds the select/enablement reg configuration as part of dynamic
+>>>>>>>>>> power up register list which we are not doing here. Is this something
+>>>>>>>>>> you are taking care of from userspace via preamble?
+>>>>>>>>>>
+>>>>>>>>>> -Akhil
+>>>>>>>>>
+>>>>>>>>> I don't think we have to take care of that in userspace, because Mesa
+>>>>>>>>> will always configure the counter registers before reading them in the
+>>>>>>>>> same submission, and if it gets preempted in the meantime then we're
+>>>>>>>>> toast anyways (due to not saving/restoring perf counters). kgsl sets
+>>>>>>>>> them from userspace, which is why it has to do something to set them
+>>>>>>>>
+>>>>>>>> Sorry, should be "kgsl sets them from the kernel".
+>>>>>>>>
+>>>>>>>>> after IFPC slumber or a context switch when the HW state is gone.
+>>>>>>>>> Also, because the upstream approach doesn't play nicely with system
+>>>>>>>>> profilers like perfetto, VK_KHR_performance_query is hidden by default
+>>>>>>>>> behind a debug flag in turnip. So there's already an element of "this
+>>>>>>>>> is unsupported, you have to know what you're doing to use it."
+>>>>>>>
+>>>>>>> But when you have composition on GPU enabled, there will be very frequent
+>>>>>>> preemption. And I don't know how usable profiling tools will be in that
+>>>>>>> case unless you disable preemption with a Mesa debug flag. But for that
+>>>>>>> to work, all existing submitqueues should be destroyed and recreated.
+>>>>>>>
+>>>>>>> So I was thinking that we can use the sysprof propertry to force L0
+>>>>>>> preemption from kernel.
+>>>>>>>
+>>>>>>> -Akhil.
+>>>>>>>
+>>>>>>
+>>>>>> Right but when using a system profiler I imagined the expectation would
+>>>>>> be to be able to understand how applications and compositor interact. An
+>>>>>> use case could be measuring latency and understanding what contributes
+>>>>>> to it. That is actually the main reason I added traces for preemption.
+>>>>>> Disabling preemption would make it less useful for this type of
+>>>>>> analysis. Did you have an use case in mind for a system profiler that
+>>>>>> would benefit from disabling preemption and that is not covered by
+>>>>>> VK_KHR_performance_query (or equivalent GL ext)?
 > 
-> Should we just get rid of these macros at this point and use
-> DRM_DEBUG_DRIVER directly?
+> Please consider this as a friendly suggestion based on Conner's clarification.
+> Not a blocker. TBH, I don't have clairty on the profiling story in Mesa!
+> 
 
-I was hoping to get this into 6.11 as shown by the series subject.
-Reworking the debug macros is on my plate, but it going to be more
-intrusive. As such, it will probably be a 6.13+ material.
+Thanks, your input was appreciated :) I just wanted to make sure we 
+where on the same page. So considering this, I will be able to send v2 soon.
 
+>>>>>
+>>>>> I would think that we want to generate an event, with GPU timestamp
+>>>>> (ie. RB_DONE) and which ring we are switching to, so that perfetto/etc
+>>>>> could display multiple GPU timelines and where the switch from one to
+>>>>> the other happens.
+>>>>>
+>>>>> I'm a bit curious how this is handled on android, with AGI/etc.. I
+>>>>> don't see any support in perfetto for this.
+>>>>>
+>>>>> BR,
+>>>>> -R
+>>>>>
+>>>>>> Best regards,
+>>>>>> --
+>>>>>> Antonino Maniscalco <antomani103@gmail.com>
+>>>>>>
+>>>>
+>>>> Looking at KGSL they seem to use ftrace and I don't see it doing
+>>>> anything to get a timestamp from some GPU timer, really not sure how
+>>>> that would be put in a gpu timeline.
+> 
+> Yeah, we usually rely on ftraces which is good enough to measure preemption
+> latency.
+> 
+> -Akhil.
+> 
+
+Thanks for confirming! The traces I added are pretty similar to KGSL's 
+so it should be suitable for serving the same purpose.
+
+>>>
+>>> I suspect it would require some work on perfetto trace-processor.  It
+>>> can ingest ftrace events (but those would end up being something
+>>> driver specific).  Maybe with u_trace and some tracepoints in the
+>>> 'ambles something could be done that would be more driver agnostic
+>>> (but idk if that would work for gpu's where preemption happens more
+>>> autonomously in the fw)
+>>
+>> btw how to handle tracing preemption probably shouldn't hold up
+>> sending the next iteration of this series.  There isn't that much more
+>> time to get this in v6.12, and I think better visualization of
+>> preemption is going to take some work outside of the kernel.
+>>
+>> BR,
+>> -R
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Antonino Maniscalco <antomani103@gmail.com>
+
