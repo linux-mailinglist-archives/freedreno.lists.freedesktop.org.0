@@ -2,75 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDD86962AFD
-	for <lists+freedreno@lfdr.de>; Wed, 28 Aug 2024 17:02:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D32BE962B29
+	for <lists+freedreno@lfdr.de>; Wed, 28 Aug 2024 17:07:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C66E110E55F;
-	Wed, 28 Aug 2024 15:02:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F24910E564;
+	Wed, 28 Aug 2024 15:07:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Py/sfnT1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U1XMF6An";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BBB910E562;
- Wed, 28 Aug 2024 15:02:10 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-2d3ec4bacc5so553430a91.1; 
- Wed, 28 Aug 2024 08:02:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724857330; x=1725462130; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2T684eJY5uaT2GoNJQao8Ux/8bEW4DFpDBArVLTN0ng=;
- b=Py/sfnT1+amGj6tf70It4RmrmHG8EpbDfxfXsMXuTaE7XsWHQvpI/BIFswMPqYJXG7
- H4Strtm3msTsh7t5c16+BTGDPbhHACWA+xf/iGfBo2Nr8E6VZiO0JjKSIrMWpTnA13gD
- bRHFVaxZDLiIWZSsMJkHKfPtr4rCiSk3hU65X1loY8xhC8W+zg3NTUHibEYox279Ctuo
- Lp89iSuMaEi1Npr4kQ95G5Yvy3QXmV39OX3u8TDVeQhn7POzLkTpz+Y7aglkOk0BHlIV
- 0+RccZiXvVmmxshEfDdQQ7xHyWagyPUCmyMKnK2DStsfbwEJ1sGOkR2x/viyD6mVSEVg
- Md7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724857330; x=1725462130;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=2T684eJY5uaT2GoNJQao8Ux/8bEW4DFpDBArVLTN0ng=;
- b=lfgK3bpdAiSVM9Jcl/2evtyvHXDjijG53/hpzNpKVHSOCDOPjStyTDF4hwjE4Xsxgc
- mE9l1W791sdCzlkbSUzbetQK/pO3ftEdmL/f+i7Ck/GSjIO8GqbgLH9t35YmyLwfQexX
- 5bDNyqREFc7Cw0I/oYdqgkpbFQElZ74hUpB+XJoIDkUahRshbrL33PKkfmmL3kZoe3ti
- QRBp2cs6alcbWTUyyft62cfu/mP6XuHx6YhuQi/fhvZY13r46ucv5jL0Ds0B/2+1w1ER
- O4tZArQb4qrp+0Zy8O7gxLlPPrt3iPSzk69UJj7Nvooulo/NDbNq98cLaR5HKzi1CAz/
- cyGg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUlTgI+CH3e/qCuVp/fheJf+pCBILp7AbVWHjhmQKeka8eZcEVY3Oc3mgKlXOYEst86TUmMYtLrwmM=@lists.freedesktop.org,
- AJvYcCVOGDknRwOY0KDRdGM5RFAoc+4HMDLuSCD5Q0yxtD6ALMRlkrtwqfsyNw9+x8RbAYnRLSXxheaB+pdH@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxnT2WYt6hksWXXd6OkIKkaGO3hvrivbSApKOqfr5A4SN5xFmCl
- QGTgI0vACh++9K5kc7DyCJF6LBKewcKep8tkfiIRBydNYEk0dpuASUk+xqy5ZtcOIJcSCjTK6kG
- TQ1pRyVk498gmKfa1ANlEkKHHGks=
-X-Google-Smtp-Source: AGHT+IF7bNTPR1qyKoYtr4W+dmqFvYBuHOT06w+IqX5vqDvi6m7zgZ+Ib4Beyv/qmB8HmkrdfHIOYz2dLy3spp+c14A=
-X-Received: by 2002:a17:90a:644c:b0:2c9:90fa:b9f8 with SMTP id
- 98e67ed59e1d1-2d843d6f66dmr3633644a91.10.1724857329540; Wed, 28 Aug 2024
- 08:02:09 -0700 (PDT)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF4A810E564;
+ Wed, 28 Aug 2024 15:07:13 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id E1AFACE187D;
+ Wed, 28 Aug 2024 15:07:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A00C4CEC1;
+ Wed, 28 Aug 2024 15:07:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1724857630;
+ bh=Y/T51qG5H9yIxtDfRozOi8msshjZ7I3edVl1HlTN04Q=;
+ h=From:Subject:Date:To:Cc:From;
+ b=U1XMF6AnRX6lN1XO8k2+y4BYmXzcewRljhgmwEI5ZNSsmdAQBF8+KY/MUT05+z57n
+ J5jDipbg0+R8rdstgE7lcXI2iZOo2pgsSsQTGD3SFWzOnGaQYZeiEecwJ9Y+U0BC6V
+ ls6pGbwqbAUZFdzErKEoF+ch8g/Apwl9Kk2OaGPtKtqtwAgcypBZF5ePShlWImn+TB
+ CogqibmbjbhonX20OIhU0cKMdIj7hyhMMmuYqe8rWTA/qXCJpX2upSSoAVVbnl6Iwe
+ GPzhMsIdLVLJVuDv6GRF1mZcrZtDrhL1vH6h02TpyWTBOUkdr9ZBIFe2BKvhD56rYE
+ 3wuxm9Rd0NcdQ==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH v2 0/6] A621 support
+Date: Wed, 28 Aug 2024 17:06:53 +0200
+Message-Id: <20240828-topic-a621-v2-0-1882c6b57432@kernel.org>
 MIME-Version: 1.0
-References: <20240722-a306a-v3-1-cff90857c615@gmail.com>
-In-Reply-To: <20240722-a306a-v3-1-cff90857c615@gmail.com>
-From: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <trabarni@gmail.com>
-Date: Wed, 28 Aug 2024 17:01:58 +0200
-Message-ID: <CAGsSOWUO=+LE6Xat61yoE9u9TTAdpAEXo9ECvkAw9Cbyw_AZ8A@mail.gmail.com>
-Subject: Re: [PATCH v3] drm/msm/adreno: Add A306A support
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAA09z2YC/23MQQ6DIBCF4auYWZcGEIq66j0aF0gHnaQRA4a0M
+ dy91HWX/0ved0DCSJhgaA6ImClRWGvISwNuseuMjJ61QXKpuBE928NGjtmbFGzS2LXe9JPyBup
+ hi+jpfWKPsfZCaQ/xc9pZ/Na/TBaMs05zi7rlxnl1f9FqY7iGOMNYSvkCxw/2VaUAAAA=
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- =?UTF-8?Q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1724857626; l=1221;
+ i=konradybcio@kernel.org; s=20230215; h=from:subject:message-id;
+ bh=Y/T51qG5H9yIxtDfRozOi8msshjZ7I3edVl1HlTN04Q=;
+ b=V5k3zIxDNNV7Xvipbj8sgjaMITiUh2cdnRDVFJfMJtmyWATqqntlFpJgmhTzGJ1qfsKt3lpEM
+ M4VQdNWBVqBBA/2KvTDgkJRdnpdbPMqgjSMBwZVMRfxnzdiJ0fxudsh
+X-Developer-Key: i=konradybcio@kernel.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,134 +72,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-I hope it was not forgotten or am I missing something?
+Baby A650, needs mesa mr !30253 (or better)
 
-On Mon, Jul 22, 2024 at 4:58=E2=80=AFPM Barnab=C3=A1s Cz=C3=A9m=C3=A1n <tra=
-barni@gmail.com> wrote:
->
-> From: Otto Pfl=C3=BCger <otto.pflueger@abscue.de>
->
-> Add support for Adreno 306A GPU what is found in MSM8917 SoC.
-> This GPU marketing name is Adreno 308.
->
-> Signed-off-by: Otto Pfl=C3=BCger <otto.pflueger@abscue.de>
-> [use internal name of the GPU, reword the commit message]
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> Signed-off-by: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <trabarni@gmail.com>
-> ---
-> Changes in v3:
-> - Fix issues addressed by reviews.
-> - Rebase on latest next.
-> - Link to v2: https://lore.kernel.org/r/20240620-a306a-v2-1-0d388e1deebf@=
-gmail.com
->
-> Changes in v2:
-> - Rebase on https://patchwork.freedesktop.org/series/127393/
-> - Link to v1: https://lore.kernel.org/r/20240528-a306a-v1-1-03a66dacd8c7@=
-gmail.com
-> ---
->  drivers/gpu/drm/msm/adreno/a3xx_catalog.c | 11 +++++++++++
->  drivers/gpu/drm/msm/adreno/a3xx_gpu.c     | 14 +++++++++++---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  6 ++++++
->  3 files changed, 28 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a3xx_catalog.c b/drivers/gpu/drm/=
-msm/adreno/a3xx_catalog.c
-> index 0de8465b6cf0..2eb6c3e93748 100644
-> --- a/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
-> +++ b/drivers/gpu/drm/msm/adreno/a3xx_catalog.c
-> @@ -41,6 +41,17 @@ static const struct adreno_info a3xx_gpus[] =3D {
->                 .gmem  =3D SZ_128K,
->                 .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
->                 .init  =3D a3xx_gpu_init,
-> +       }, {
-> +               .chip_ids =3D ADRENO_CHIP_IDS(0x03000620),
-> +               .family =3D ADRENO_3XX,
-> +               .revn =3D 308,
-> +               .fw =3D {
-> +                       [ADRENO_FW_PM4] =3D "a300_pm4.fw",
-> +                       [ADRENO_FW_PFP] =3D "a300_pfp.fw",
-> +               },
-> +               .gmem =3D SZ_128K,
-> +               .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
-> +               .init =3D a3xx_gpu_init,
->         }, {
->                 .chip_ids =3D ADRENO_CHIP_IDS(
->                         0x03020000,
-> diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a3xx_gpu.c
-> index 5273dc849838..b46ff49f47cf 100644
-> --- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-> @@ -145,6 +145,10 @@ static int a3xx_hw_init(struct msm_gpu *gpu)
->                 gpu_write(gpu, REG_A3XX_VBIF_ROUND_ROBIN_QOS_ARB, 0x0003)=
-;
->                 gpu_write(gpu, REG_A3XX_VBIF_OUT_RD_LIM_CONF0, 0x0000000a=
-);
->                 gpu_write(gpu, REG_A3XX_VBIF_OUT_WR_LIM_CONF0, 0x0000000a=
-);
-> +       } else if (adreno_is_a306a(adreno_gpu)) {
-> +               gpu_write(gpu, REG_A3XX_VBIF_ROUND_ROBIN_QOS_ARB, 0x0003)=
-;
-> +               gpu_write(gpu, REG_A3XX_VBIF_OUT_RD_LIM_CONF0, 0x00000010=
-);
-> +               gpu_write(gpu, REG_A3XX_VBIF_OUT_WR_LIM_CONF0, 0x00000010=
-);
->         } else if (adreno_is_a320(adreno_gpu)) {
->                 /* Set up 16 deep read/write request queues: */
->                 gpu_write(gpu, REG_A3XX_VBIF_IN_RD_LIM_CONF0, 0x10101010)=
-;
-> @@ -237,7 +241,9 @@ static int a3xx_hw_init(struct msm_gpu *gpu)
->         gpu_write(gpu, REG_A3XX_UCHE_CACHE_MODE_CONTROL_REG, 0x00000001);
->
->         /* Enable Clock gating: */
-> -       if (adreno_is_a305b(adreno_gpu) || adreno_is_a306(adreno_gpu))
-> +       if (adreno_is_a305b(adreno_gpu) ||
-> +           adreno_is_a306(adreno_gpu) ||
-> +           adreno_is_a306a(adreno_gpu))
->                 gpu_write(gpu, REG_A3XX_RBBM_CLOCK_CTL, 0xaaaaaaaa);
->         else if (adreno_is_a320(adreno_gpu))
->                 gpu_write(gpu, REG_A3XX_RBBM_CLOCK_CTL, 0xbfffffff);
-> @@ -334,8 +340,10 @@ static int a3xx_hw_init(struct msm_gpu *gpu)
->                 gpu_write(gpu, REG_A3XX_CP_PFP_UCODE_DATA, ptr[i]);
->
->         /* CP ROQ queue sizes (bytes) - RB:16, ST:16, IB1:32, IB2:64 */
-> -       if (adreno_is_a305(adreno_gpu) || adreno_is_a306(adreno_gpu) ||
-> -                       adreno_is_a320(adreno_gpu)) {
-> +       if (adreno_is_a305(adreno_gpu) ||
-> +           adreno_is_a306(adreno_gpu) ||
-> +           adreno_is_a306a(adreno_gpu) ||
-> +           adreno_is_a320(adreno_gpu)) {
->                 gpu_write(gpu, REG_AXXX_CP_QUEUE_THRESHOLDS,
->                                 AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB1_START(2)=
- |
->                                 AXXX_CP_QUEUE_THRESHOLDS_CSQ_IB2_START(6)=
- |
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/ms=
-m/adreno/adreno_gpu.h
-> index 1ab523a163a0..c3b7970c2bfa 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -294,6 +294,12 @@ static inline bool adreno_is_a306(const struct adren=
-o_gpu *gpu)
->         return adreno_is_revn(gpu, 307);
->  }
->
-> +static inline bool adreno_is_a306a(const struct adreno_gpu *gpu)
-> +{
-> +       /* a306a (marketing name is a308) */
-> +       return adreno_is_revn(gpu, 308);
-> +}
-> +
->  static inline bool adreno_is_a320(const struct adreno_gpu *gpu)
->  {
->         return adreno_is_revn(gpu, 320);
->
-> ---
-> base-commit: dee7f101b64219f512bb2f842227bd04c14efe30
-> change-id: 20240528-a306a-48e173724d6c
->
-> Best regards,
-> --
-> Barnab=C3=A1s Cz=C3=A9m=C3=A1n <trabarni@gmail.com>
->
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+---
+Changes in v2:
+- Split up the gmu_cgc_mode patches more sensibly and write better
+  commit messages
+- Link to v1: https://lore.kernel.org/r/20240719-topic-a621-v1-0-850ae5307cf4@linaro.org
+
+---
+Konrad Dybcio (6):
+      drm/msm/a6xx: Evaluate adreno_is_a650_family in pdc_in_aop check
+      drm/msm/a6xx: Store primFifoThreshold in struct a6xx_info
+      drm/msm/a6xx: Store correct gmu_cgc_mode in struct a6xx_info
+      drm/msm/a6xx: Use the per-GPU value for gmu_cgc_mode
+      drm/msm/a6xx: Set GMU CGC properties on a6xx too
+      drm/msm/a6xx: Add A621 support
+
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 111 +++++++++++++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c     |  21 +++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c     |  52 ++++++--------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |   2 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  13 +++-
+ 5 files changed, 164 insertions(+), 35 deletions(-)
+---
+base-commit: 1019b7d66e8c015b2497edb64e6a2a5fd9d2aa24
+change-id: 20240719-topic-a621-b5e83f79b4f7
+
+Best regards,
+-- 
+Konrad Dybcio <konradybcio@kernel.org>
+
