@@ -2,205 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 523AF9626E1
-	for <lists+freedreno@lfdr.de>; Wed, 28 Aug 2024 14:23:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F2429628F9
+	for <lists+freedreno@lfdr.de>; Wed, 28 Aug 2024 15:43:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFB5C10E478;
-	Wed, 28 Aug 2024 12:23:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5438410E526;
+	Wed, 28 Aug 2024 13:43:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="iVsgildA";
-	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="VsK++v5r";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y8bv4gnB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A47610E046;
- Tue, 27 Aug 2024 18:48:46 +0000 (UTC)
-Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47RHMnnn028197;
- Tue, 27 Aug 2024 18:48:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=
- from:to:cc:subject:date:message-id:references:in-reply-to
- :content-type:content-id:content-transfer-encoding:mime-version;
- s=corp-2023-11-20; bh=igjtcnHDBDTJmrkKonygL4/Il4s5NOrLzA5di2mNv
- jo=; b=iVsgildAp98+hw9yJQSDJST+FPZX4rDUsgGdxEoFa9xiim4Kec4kkSgT2
- BwZrzuw7OEyYCBWtKAEFDHAbYceOpAP8b7C98iOfda4JKaIMx9ry/rMfFsGQdTjF
- nq+/kKCmE5jO66RhDsBKCzx1a/VJlt+ih4pNkTxcWRQJIwqw1WL6kP/pikKmMs/B
- yRHG/zbMZVGuYd6LStsaA2zdkbu3RCTdPhmQVb8RW9pBOlkd0A9r2x8W1T3iIa8W
- wjHSlcTNSS9TCsGId8JK20S/ux8hHHQqEAhJaGcgM2YxxaXV+3jKOfp9WtWjPBQU
- 0NEt4oSJSYXicEWWV6Z1UvBdXVSpw==
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4177npecfk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 27 Aug 2024 18:48:37 +0000 (GMT)
-Received: from pps.filterd
- (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 47RHpjJ6036544; Tue, 27 Aug 2024 18:48:36 GMT
-Received: from nam11-bn8-obe.outbound.protection.outlook.com
- (mail-bn8nam11lp2175.outbound.protection.outlook.com [104.47.58.175])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 4189jjugsx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 27 Aug 2024 18:48:36 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QwjgaSipy/3FoCwCKzzVqhgdm1RN34LEdW9gN0vFCxn+fbgo8vTUTvBAVljaeGj9i4cLjoysOwsiQsff10+VamcpVErdu8eJffgX5xuP2kd6q0gIJJbrOydGp/WC7FqC+YRHosyDqfU7mL0s+VwQuyZsBK4t510ecM38/xeglZxYiVTvte1WmIgl19aiWQ/yaXB+KwC1h0PXQjZvBQwk7xL3UBGu3NzgpS334DES4hynCahq3Aeslgq0hDRbsnfJx2ni3Ohn69tX86omjlnRExWVBZSHBo5palmTMpSO4QFRBebLPfuRZYglYm+ERdlKwrsNXbeBtSfxU6E4cJYBfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=igjtcnHDBDTJmrkKonygL4/Il4s5NOrLzA5di2mNvjo=;
- b=EceCMeNtRTpXjbxm3+jZIkPGXxJ2Xhdd11WV7GVsRiTTPwytWhqxwKzLgEEu9ysN6uIOWE+2hjfUY+fvFZU93wanPYGggK2WUc9DW07YC2FfxR5i/n4/zkXsY+pCv4WJR8CbXM0ycB7OfUS2M9hqs0c8m+No0kjSoycNeH4c0nHrbcW1UzpzmUUge7ITeFguqilAvD/xWFvthFjCTyGjGrvyE6bn0Zld+gA2+7wdGM9nlN0YXt5fC95jzrOucXTlPdUE227TdHCIwuxdqmzOkXbO0ageBqh3PpURH1T1xaEP7qaCccMIhxZbMpcQJwxlET8A82Tlnvl6mezWASQhlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A54F10E524;
+ Wed, 28 Aug 2024 13:43:14 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-5bef295a45bso3746762a12.0; 
+ Wed, 28 Aug 2024 06:43:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=igjtcnHDBDTJmrkKonygL4/Il4s5NOrLzA5di2mNvjo=;
- b=VsK++v5rijMJXxJKZwSYh6xUG3PX6O3ffu+sWHzJyuxxQ4Nw7D4PDOponNKgDlwDliqWriSSQnlnOK/O5CB9d215CGqSsvNL+oIQ8H2Y7kwwqHfzadMzxGOCFyNVGK9ca2bhpavoTZJbZJ4UFO047INWCIoUh14/WdL/BHWgEFU=
-Received: from SJ2PR10MB7082.namprd10.prod.outlook.com (2603:10b6:a03:4ca::6)
- by DM6PR10MB4187.namprd10.prod.outlook.com (2603:10b6:5:210::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.14; Tue, 27 Aug
- 2024 18:48:34 +0000
-Received: from SJ2PR10MB7082.namprd10.prod.outlook.com
- ([fe80::2cd7:990f:c932:1bcb]) by SJ2PR10MB7082.namprd10.prod.outlook.com
- ([fe80::2cd7:990f:c932:1bcb%5]) with mapi id 15.20.7918.012; Tue, 27 Aug 2024
- 18:48:34 +0000
-From: Sherry Yang <sherry.yang@oracle.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-CC: "robdclark@gmail.com" <robdclark@gmail.com>, "dmitry.baryshkov@linaro.org"
- <dmitry.baryshkov@linaro.org>, "sean@poorly.run" <sean@poorly.run>,
- "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
- "airlied@gmail.com" <airlied@gmail.com>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "ruanjinjie@huawei.com" <ruanjinjie@huawei.com>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/1] drm/msm: fix %s null argument error
-Thread-Topic: [PATCH 1/1] drm/msm: fix %s null argument error
-Thread-Index: AQHa+KGr1HqtUl0SnkCxUhcrM2wIVLI7YgeAgAAQGIA=
-Date: Tue, 27 Aug 2024 18:48:34 +0000
-Message-ID: <5BB01958-8611-458D-B813-F28CD3BA0A15@oracle.com>
-References: <20240827165337.1075904-1-sherry.yang@oracle.com>
- <e8169167-3de3-4fc7-90c4-ac3b9fb60c38@quicinc.com>
-In-Reply-To: <e8169167-3de3-4fc7-90c4-ac3b9fb60c38@quicinc.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ2PR10MB7082:EE_|DM6PR10MB4187:EE_
-x-ms-office365-filtering-correlation-id: 4ce873c8-b74f-40f9-5567-08dcc6c8da9c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|38070700018; 
-x-microsoft-antispam-message-info: =?utf-8?B?ODd3dkkyUnMycURMVytDTEJTem83TkZ2UXVwc0lTeUtzbU9DdGtlc2RGMTRz?=
- =?utf-8?B?ODJyaWlLWTliUEdKTDFDTXVCZnBPczV4cTlGUlozeTJxSVE4dlVxQ281elpk?=
- =?utf-8?B?Qm5nVTMyUU83SFZyWCtmZXdiNE9ZZFNYalJ5WWxRU3Z5WXpVRGlxZE9WaDNm?=
- =?utf-8?B?diszOWJ6cUhUdHAvQmpyYWRnZVlCeHJVb2h5em9WNE9zQlRnRjZYOVpDREV1?=
- =?utf-8?B?eWZjd0sxakRXcDJ6SStBOVpubnROZkw1Zjl6QktZekxqUXhpNDQ2WWFxSXg5?=
- =?utf-8?B?a0dRbTl2RDdUT3FXQmNVQzdJZHI4dVdNOEVHS1drRE1VVGtkUThKaEhMWURG?=
- =?utf-8?B?bWppdnRkQ243aFZCdldsbGN2b1FxdUF3YnpaeTNxYjlRaTR4NlVEZ09vSjBT?=
- =?utf-8?B?MENIM0NCTzhoMFAzMFJ6VHJwdmJJL2R2amRENHJDQUtLVEVLSGxWK1l2WGtE?=
- =?utf-8?B?NGJ5WGhpbnlhYWtXSW1qbUVYWXUrNkNPclhuUlZ2TThwRTMyUWxTQlhPWmhn?=
- =?utf-8?B?Nktkb21TK2E0cG9ZYjBNTmpNUXNjL3lMalpVb2swV05VUklOSm9URWRPWFpT?=
- =?utf-8?B?S0dSRWFsSW5GV1R6bDFjV3RRUGhjU1B4MWhTWHBTYWw4c2Zia2Uyb1NIVCt6?=
- =?utf-8?B?eVdPamJzYzZnbXh4STVWZTErZ3FkSFN4QlRJWmh4a01sQkhXUmZ3VkZnRDlI?=
- =?utf-8?B?SzlqbUh0YlJBU2gzS1dVVUJzMlZ4c1NaSGhNclR1bnpBeWZhMEJRQTcydjA5?=
- =?utf-8?B?a1NTenFyZkE1RWR1VHFIMkVTSnU5QUd4UUluOVRBaUZJSzJTYnpwS2pyTjhR?=
- =?utf-8?B?aXc4UHBaMEdXdkpKZUlES2FGc1htck14RnVEV2hRRnhmeVZXbkZJbFV5Y0Jm?=
- =?utf-8?B?WHZKNys3OUpXYWZzZjJmMitydjlic085ajU4ZDhLNzhmVndTZUpKVFM5OVZz?=
- =?utf-8?B?V3lTdDRSKzZ4anNzZUEzVFlYQ1VKZk5ZUzRzeEVlK2lIUVZKSzlkSzE2TGc3?=
- =?utf-8?B?bEhvWDFQQlQ2RXdkb0FjRkd0OGRBL0ZMYWNUNUMvbitSNzJiam0rckVzOSsz?=
- =?utf-8?B?aktyZzlrUkhEZncwbWpNOFh2ekdvazVIZi9yaVc4VHBKcFBBK25ub0N0QVBC?=
- =?utf-8?B?TjFMMUlzcUJnbUp5ZUpoeGRMRlhUYzE3SVczdUExTWNBNXNQc2ptbVlxQVk5?=
- =?utf-8?B?RUVQbXJEcm9nR2s0RDlaQzRKQUxuUHZ1bWFYb2dLVG8xUk9jVEtrbDR2bWI4?=
- =?utf-8?B?TU1NejlVenMrMVBSUE9xbGIrVEdpSHFqa29IcEYycDNKQlFwdUNoZ29aR3N3?=
- =?utf-8?B?SUpZM3E0ZUNZZzNZUUN1clhMamt2cWc2UEliVGZHTG9ONGhpUmZjUnNVZnJP?=
- =?utf-8?B?YkRpY2FKMENmTEgrWSswTEsxU3BOTE1KWVFxc3ZjMTBhYXdGYUtQS1U4WlB3?=
- =?utf-8?B?M0plTWNyRHpmNnkrQW14b2V1Unl2ZHFkdTdzbVoyMWJtT0ZmbWloSldpNmxK?=
- =?utf-8?B?QUR5U0V3R1NNMHZHbURCUzB2UGRBZGE3a2txaWZoZnhwWG90OEtLamhFWGVW?=
- =?utf-8?B?VmdSOTAzazZNQnFpVXNFeUNnVVdtQ3V3UlJYU0d6SjFtS3FqUHdPdEhhN0xY?=
- =?utf-8?B?aS9XUVYwWXRSQmFHaWNRS0xES1V0OVdBNnpWMWtnUytMemprQkVOblRoS21Z?=
- =?utf-8?B?SEs1WXgrZElPZlNDZTRUUElwNm9CTzg4cHMxbm04Q0pEckJDemo5R21kY0xL?=
- =?utf-8?B?dklQOEZoK3cyY1NDZVRncnNERDNTTGFHbkpHYWUxMjJQcXhDaER3RkFoRFlR?=
- =?utf-8?B?MXFHeS9tQm1ERHRwb0VqRkFBeTE1dHhhd3JWZW5DTTlCSFRjcHhNaHMzdU5k?=
- =?utf-8?B?aWV6M2N4R2lVMDh3ZldXV0p4WlBPbUV1VC9TT0p3THFGdXc9PQ==?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR10MB7082.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?b0JvMVpwSzltY21yWXcyVHhlby9jL2hac1hNaW5UaHNVaUpvT1Z6VUJtQzB3?=
- =?utf-8?B?K1ZVdG9uclllekZ2VUVmTU14RnFKbXplWlF2c1YxZllzQks5L1QwaExBZHkv?=
- =?utf-8?B?Zi9PcDZqcGdCUlhBQlQrS1pnYTl4UWJnaGJBZDNWMFErTFNCQnpsWVA0TFBZ?=
- =?utf-8?B?RzJoQmtXQTMzYlo2dWk4ZVhJaC85ZDJ0WVFnbENIZ21Xc2tQRnEvVGdqZzAx?=
- =?utf-8?B?U0pVeTdEMEJEZ3I1NlFIUzhnNExDWmpJZ0VUNUhrRmRtNlFCZFN5M1E0Q3BV?=
- =?utf-8?B?eXRoaDlTcnQveG1KQ05nb0t6ak5jRGFsMWNHZjlyd2t0QlhNRXFFUDZtaHc2?=
- =?utf-8?B?NkdjU1Z0ZXNybzZ4ai92R01pUVVHbzVVS0RiZUdQdmptRjNJWmZERkdqeFpC?=
- =?utf-8?B?MWtiY0d5VGpLU1lVb3JpVm92STNjTGM2bWRObVB6NEo3N2k3MXc1MUxGbmNQ?=
- =?utf-8?B?SzZicDMzWFUwWkpUalNId216RkhpYTV1ZE5JWklZU2hSQ1YzaFc1b1h1L1VG?=
- =?utf-8?B?REJtNlJncjN5ZjNjVUpMM1h3NW50MzlOUEFmbi9JR2VPQ1dncGZFNzg4bWtr?=
- =?utf-8?B?Wk4vSlhOYW56TXBaSkFUZEZvV3BXTk1GWUoxVTY0RS9Xd3Y4aHd1QXZIUWkv?=
- =?utf-8?B?T3FCOTRvR0ZkWnhmV0JqY3IvWVJWZ3dQbmttak5BTlQ0NCtuaERtYnk5V1gr?=
- =?utf-8?B?eVhrNEFsYVpZSU8vcW9WN296V3RSdjRmODZZMlNxTXZmODM0UWFHa3E4TzJN?=
- =?utf-8?B?Qk5TOVpqeHZGc3FIZTErNks0RFR1UkFuWUJkVjlEcjU1dFRLUWhsYUdrdVha?=
- =?utf-8?B?d3AxM2RYWm5VdmZHTEhpam1DVEFHYWJQQloyalpFT3N2dmhoZisrUU5vbkkr?=
- =?utf-8?B?N3VydGFJUWZmcjRPajJEREhWMXVvR3pUZUtZR1VubHFqK0xHVUZTRE1wWEdD?=
- =?utf-8?B?dENlK0Z0UnQ3d1Q4bHpBN0FpMXlpZjZiUmpDOEJZQnFDcmZsaityOE9zWnBo?=
- =?utf-8?B?Z2lwclpadXJUU1RYYTV6cjRscUoyVjdlcWtKNGw4ODU5MldlNG9YWWhSWm5M?=
- =?utf-8?B?QWFaREJlUTlxOGxqdEtnVG11b0c0UXJDSC9Ub05CV0R0YS9UNVdmRkQ2Q3k5?=
- =?utf-8?B?Z1FzWTI2czJ2eDVlNlJHN0JhUEF1UTk2cUlsSG0xRE5PK21rVVhrZmRPNk9p?=
- =?utf-8?B?L3pPcGhSbXlxNnBzdUZaTm00b2N0SXZJb3RWRGtRYTZ6MmwrTnFwd3NhNFRB?=
- =?utf-8?B?QlB6N1FPbG1lSVA5ZFJmOXBFejVIUFdacWc1ZXI5dG1zZVJGVEhaY0M2WHVW?=
- =?utf-8?B?WHBsTXdyYktsU0s3VUYvSjZoWW1oNnhzQU9wb3RRWTYyYTU3dnBrbFRBa2Vo?=
- =?utf-8?B?aVZlNnJwVldKZGk0QWVLdDZuVE1lSU0ycllzd1VTUXoybEg1VnNGU0tCTTFG?=
- =?utf-8?B?OGxJN0lSYlFUSXFxYm9EZktJYm5vNG1HK0FUdE44MDRRRUwyclB1TXh3RURQ?=
- =?utf-8?B?YmozZ1FsL2hmdU9WU2J6YTBDQ1N4OTZiY1Flb3J2ZEZiUWdjTVJUSnNrd2Na?=
- =?utf-8?B?OWdrbzFZZFI5NCtBRzVmTitvVTNJaU13Sm5iL1J2ZWZjQTNkYXQvNFFld1NE?=
- =?utf-8?B?TW9BdHAzVldjRys4OVFrYnFPVjh6NXpiQWU4THdFUW0zM2FqdUMzakVGT3gz?=
- =?utf-8?B?UHNGYUZaK0RqcC9jRWxvRmQ5aWdtbWNyOUUzUDNQQ1RId1BMazFTci9maTlo?=
- =?utf-8?B?QmkxV00yc0hxb3pMRnJZcGVLWFJ0dmtBb1pHNW56RTJSMldOL3Z6Z2ZRZ1Jz?=
- =?utf-8?B?NEtqaGs4K05UZzRpYnFqVGozZ0ptTEFTZnU2YUw2SUVNNEg3VUs3bFFXb1lq?=
- =?utf-8?B?cWs3bCtDSkJkdlZOQ3pGOXRYUmJSOWE4TU5jbGl6aFdYVHU2N1hxV3crWVNZ?=
- =?utf-8?B?WXhNUlp5Lyt6bHY5b3l3bHNNWjZkN2Y1U3BEcGpPZ1FqSTBLQnkxcDBkaTlo?=
- =?utf-8?B?ZVBYVnZtdFdla2xBRVJaOHlOOC9oVjJrZEx2YzR0aSt5cjFERmlxSSt0aFpL?=
- =?utf-8?B?SCt4TEZNTXFBQk9uN1RNdG1JVy8rU3FvQWU1cTdXWlNyMmV3eGRabWtpZjNW?=
- =?utf-8?B?VGwwdUlENDhhVDZJWk9Ob2tmbkJ2SHJoZFkzY3VWaThkanM0ektLRStkU1Bs?=
- =?utf-8?Q?E76GOVU8BJ5MjnGMG782Yy0=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <BABB4E540793DB4EAD97F7BD6AB94AF2@namprd10.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ d=gmail.com; s=20230601; t=1724852593; x=1725457393; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4pEqZjPIkfOrpkl6p6w9n8vu/E0lE1rdjJmvNSljER0=;
+ b=Y8bv4gnBg1d5RYzR0CffgIMEeHuJrSteESzMjFPlP9nf3/hsyuS4v1l7zCxBElfuOa
+ zjSVluuj+xNn86NxDDjguwy9iufDiNL0ADxcqKclu2Ned+pdQr0j3Ap/y2ijS3z46Ulz
+ 1+OiYj7HwP+nqBWDo4Q6+h90yKcza/ZzKJIp1iHncrCGYKnfcTUS3F97otCV4Bg4V5RQ
+ LCJeswgElutWgx+BnseXY7Y5opUcK3Ml09eTfT5P64OppQw6F8JEiT58M6Md4IfkHGMp
+ 4O7zCghFMxXNXvcsizm+Bpw4wy4Wn3h7MRN5QI24a4r+IIsPbSE46B8PMGLvTAuA7mmX
+ n8Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724852593; x=1725457393;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4pEqZjPIkfOrpkl6p6w9n8vu/E0lE1rdjJmvNSljER0=;
+ b=wEGdnyq8PXWXT5u0ycOqqL+txpdLtmXorRGI8WMFX6x+eVMIMMeLWaGfi8FaS+EDj4
+ U+O8gRoqPI+CVnoza/OcPg1EGF7cqfUspOzZsUEC/6JTnYG138E5AVAxxdYYChevDAKD
+ FLItIDeT1acOlgHAt1ZhX1KU4BSmAY2qvhBCFFHjtF/xOdhY8o/+o0muHqymu2LMN98M
+ lbE+iETkVcY7aSP67LSmP3mlBq+ollULJ0x9hx4J3Qo5QxJdEkM6iNqtGgEbUBf/MjLu
+ qFgo/0mhjEWqIcM+WU5c3SnIiPcQ8Bk3HAlM6PIEsDng2iZW6na0oE/nV6NlxKmmulio
+ DGZA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU+EDGnTHA0akB/n1qQE+w0UcYYnUI5rR/s2HgwrPODIY4KZbQ2xJY7mdtTXWfbcisCFji/A2FB0QM=@lists.freedesktop.org,
+ AJvYcCW/8eTQaQki377TC2MBg8ddGj1syGm3P4CsSy15zpMWuysFqMZefcbMNKV+N8eU2p0Vm+sIdN9oEZC4@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzaDL9X528LyCAF+P2n0MYaUiArE9KAy6HECljw14K6NOyvKZdy
+ VKasu3ab00YK/3gKCVmbAIZ26eOstUKnjAK6PZ6fJMUG+WOEuXSTRElELPfYkZGt177zUqFg+uY
+ oHRPoP39wAG9swKoFmnu/rg1oU30=
+X-Google-Smtp-Source: AGHT+IF2LPaReCgiSF2wFWIOBSNIVsBhtFt72m4yvlauwvxjZPteZ9QiL/jsA4kYTxq7xW1WENObJdlA9yG8gXzfDdY=
+X-Received: by 2002:a05:6402:3509:b0:5c0:c65f:819e with SMTP id
+ 4fb4d7f45d1cf-5c0c65f8230mr4586507a12.9.1724852592106; Wed, 28 Aug 2024
+ 06:43:12 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 5mqQmVvYVipavtKFkXORsfcrxT73hrICmj3LfHphS+Y2Mvv0CqfPykMDYQ6rkbAnLHqKsmcHdcrVCWNqB8kyQ5N//bSqSHcIdCUblP0+jvOXne+bMFdmT0AK4lHT/K8Y+m4x6bJMHUXR8g+9xXnzGrPi7Ku9IW7YcB1RWwApACC7gOmHvkSV9I9iZHZtVa9/TSSOQ6Eud1rjQ9kQz7A1Qw1RqFfWpW23hdrYWtGBHNw2KArQPXYp4Mk79kl1FFokPsBdAyFZhFWYwM8373endqhREGh1ksNYaVjkdMU21+3nvoQ80iIoZVr0Bp9IUVg25MX52gGjm4QGz2P3UWyi8CG5eWjfqOgiFfaDCni6ZyQuafAaRmHMZwL+11mj0h3VJu3Tlf+GJM2ON5w00V4xhfATMQot21qrBPfs60Irt+4GDVNmWXtQZa6fTezlyTAFWssBMEVCioUiOxCaNP75bVsBPpTFOFgox0Q/QuO7sWE96ZNtFeD9EbnJklYO7vXNrUdigvZFNi2V3AdBC4gEULbbjhn/jGAGMoJ30ACVFGyTMh+N5t7SKSkYmLC00aJKz1pjxB7KNaL9Aj8PFefDmkxtEo9LgIoABas++zrw9NQ=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR10MB7082.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ce873c8-b74f-40f9-5567-08dcc6c8da9c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2024 18:48:34.2773 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 35XubtmaLj/uJTtKLM7Hao3ZyWpD8qBToMpC4U0ci3T2EkqKw0cLeKGYhTwWJLteCAZX76uGk4sOs2yyxnQcUQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR10MB4187
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-27_10,2024-08-27_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- mlxscore=0 suspectscore=0
- phishscore=0 malwarescore=0 bulkscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2407110000
- definitions=main-2408270141
-X-Proofpoint-GUID: HvZkwRJ6uqSCQhIlr1QH4wXF70vs-NEO
-X-Proofpoint-ORIG-GUID: HvZkwRJ6uqSCQhIlr1QH4wXF70vs-NEO
-X-Mailman-Approved-At: Wed, 28 Aug 2024 12:23:40 +0000
+References: <20240815-preemption-a750-t-v1-0-7bda26c34037@gmail.com>
+ <20240815-preemption-a750-t-v1-4-7bda26c34037@gmail.com>
+ <20240819200837.etzn7oaoamnceigr@hu-akhilpo-hyd.qualcomm.com>
+ <CACu1E7E7FPJP-Ry64m257A7WrL3Q9jy8xMS9XpSBRNimBWzYUQ@mail.gmail.com>
+ <20240822200534.fgugb3zmcp7hjyck@hu-akhilpo-hyd.qualcomm.com>
+ <CACu1E7F068sAMFgn=D7qBGM81qvYP4iW1+hXpfXVKtQGWeyTKQ@mail.gmail.com>
+ <CACu1E7EueMnte9e+yLEtRE9WmG0J5bVMj59VbPfkDeB7OHbsAw@mail.gmail.com>
+ <20240827194828.jxwelq4xr2wsdxos@hu-akhilpo-hyd.qualcomm.com>
+ <d95ef763-7237-4080-b323-838ca337734a@gmail.com>
+ <CAF6AEGuASw0YO8b0X24-iq1pqTnBEpr0Tm3Scmt4-T+HeCMY_A@mail.gmail.com>
+ <57064da3-190c-4554-b085-d56daf979933@gmail.com>
+In-Reply-To: <57064da3-190c-4554-b085-d56daf979933@gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 28 Aug 2024 06:42:59 -0700
+Message-ID: <CAF6AEGtYh6jnYcFLcUnEobjQqKmqxuX29wO1qqnGYFQJ+EUBxw@mail.gmail.com>
+Subject: Re: [PATCH 4/7] drm/msm/A6xx: Implement preemption for A7XX targets
+To: Antonino Maniscalco <antomani103@gmail.com>
+Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Connor Abbott <cwabbott0@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -216,40 +100,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-DQo+IE9uIEF1ZyAyNywgMjAyNCwgYXQgMTA6NTDigK9BTSwgQWJoaW5hdiBLdW1hciA8cXVpY19h
-YmhpbmF2a0BxdWljaW5jLmNvbT4gd3JvdGU6DQo+IA0KPiANCj4gDQo+IE9uIDgvMjcvMjAyNCA5
-OjUzIEFNLCBTaGVycnkgWWFuZyB3cm90ZToNCj4+IFRoZSBmb2xsb3dpbmcgYnVpbGQgZXJyb3Ig
-d2FzIHRyaWdnZXJlZCBiZWNhdXNlIG9mIE5VTEwgc3RyaW5nIGFyZ3VtZW50Og0KPj4gQlVJTERT
-VERFUlI6IGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9tZHA1L21kcDVfc21wLmM6IEluIGZ1bmN0
-aW9uICdtZHA1X3NtcF9kdW1wJzoNCj4+IEJVSUxEU1RERVJSOiBkcml2ZXJzL2dwdS9kcm0vbXNt
-L2Rpc3AvbWRwNS9tZHA1X3NtcC5jOjM1Mjo1MTogZXJyb3I6ICclcycgZGlyZWN0aXZlIGFyZ3Vt
-ZW50IGlzIG51bGwgWy1XZXJyb3I9Zm9ybWF0LW92ZXJmbG93PV0NCj4+IEJVSUxEU1RERVJSOiAg
-IDM1MiB8ICAgICAgICAgICAgICAgICAgICAgICAgIGRybV9wcmludGYocCwgIiVzOiVkXHQlZFx0
-JXNcbiIsDQo+PiBCVUlMRFNUREVSUjogICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIF5+DQo+PiBCVUlMRFNUREVSUjogZHJpdmVycy9ncHUv
-ZHJtL21zbS9kaXNwL21kcDUvbWRwNV9zbXAuYzozNTI6NTE6IGVycm9yOiAnJXMnIGRpcmVjdGl2
-ZSBhcmd1bWVudCBpcyBudWxsIFstV2Vycm9yPWZvcm1hdC1vdmVyZmxvdz1dDQo+PiBUaGlzIGhh
-cHBlbnMgZnJvbSB0aGUgY29tbWl0IGE2MWRkYjQzOTNhZCAoImRybTogZW5hYmxlIChtb3N0KSBX
-PTENCj4+IHdhcm5pbmdzIGJ5IGRlZmF1bHQgYWNyb3NzIHRoZSBzdWJzeXN0ZW0iKS4gVXNpbmcg
-IihudWxsKSIgaW5zdGVhZA0KPj4gdG8gZml4IGl0Lg0KPj4gRml4ZXM6IGJjNTI4OWVlZDQ4MSAo
-ImRybS9tc20vbWRwNTogYWRkIGRlYnVnZnMgdG8gc2hvdyBzbXAgYmxvY2sgc3RhdHVzIikNCj4+
-IFNpZ25lZC1vZmYtYnk6IFNoZXJyeSBZYW5nIDxzaGVycnkueWFuZ0BvcmFjbGUuY29tPg0KPj4g
-LS0tDQo+PiAgZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL21kcDUvbWRwNV9zbXAuYyB8IDIgKy0N
-Cj4+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+
-IEkgYW0gbm90IHN1cmUgaG93IHRoZSBwYXRjaCBnb3QgdGl0bGVkIDEvMSBhbmQgbm90IGp1c3Qg
-IlBBVENIIi4gSXQgc2hvdWxkIGJlIGp1c3QgIlBBVENIIg0KDQpNeSBiYWQuIEkgZ2VuZXJhdGVk
-IHRoZSBwYXRjaCB3aXRoIHBhcmFtZXRlciDigJwtLW51bWJlcmVk4oCdIGluIOKAnGdpdCBmb3Jt
-YXQtcGF0Y2jigJ0sIGl0IHdpbGwgb3V0cHV0IGluIFtQQVRDSCBuL21dIGZvcm1hdCwgZXZlbiB3
-aXRoIGEgc2luZ2xlIHBhdGNoLiBXaWxsIGRyb3AgaXQgZm9yIHNpbmdsZSBwYXRjaCBuZXh0IHRp
-bWUuDQoNClRoYW5rcywNClNoZXJyeQ0KDQo+IA0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9tc20vZGlzcC9tZHA1L21kcDVfc21wLmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3Av
-bWRwNS9tZHA1X3NtcC5jDQo+PiBpbmRleCAzYTdmN2VkZGE5NmIuLjUwMGI3ZGM4OTVkMCAxMDA2
-NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9tZHA1L21kcDVfc21wLmMNCj4+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9tZHA1L21kcDVfc21wLmMNCj4+IEBAIC0z
-NTEsNyArMzUxLDcgQEAgdm9pZCBtZHA1X3NtcF9kdW1wKHN0cnVjdCBtZHA1X3NtcCAqc21wLCBz
-dHJ1Y3QgZHJtX3ByaW50ZXIgKnAsDQo+PiAgICAgZHJtX3ByaW50ZihwLCAiJXM6JWRcdCVkXHQl
-c1xuIiwNCj4+ICAgcGlwZTJuYW1lKHBpcGUpLCBqLCBpbnVzZSwNCj4+IC0gcGxhbmUgPyBwbGFu
-ZS0+bmFtZSA6IE5VTEwpOw0KPj4gKyBwbGFuZSA/IHBsYW5lLT5uYW1lIDogIihudWxsKSIpOw0K
-Pj4gICAgIHRvdGFsICs9IGludXNlOw0KPj4gICB9DQo+IA0KPiBDaGFuZ2UgaXRzZWxmIGxvb2tz
-IGZpbmUgdG8gbWUsDQo+IA0KPiANCj4gUmV2aWV3ZWQtYnk6IEFiaGluYXYgS3VtYXIgPHF1aWNf
-YWJoaW5hdmtAcXVpY2luYy5jb20+DQoNCg0K
+On Tue, Aug 27, 2024 at 3:56=E2=80=AFPM Antonino Maniscalco
+<antomani103@gmail.com> wrote:
+>
+> On 8/27/24 11:07 PM, Rob Clark wrote:
+> > On Tue, Aug 27, 2024 at 1:25=E2=80=AFPM Antonino Maniscalco
+> > <antomani103@gmail.com> wrote:
+> >>
+> >> On 8/27/24 9:48 PM, Akhil P Oommen wrote:
+> >>> On Fri, Aug 23, 2024 at 10:23:48AM +0100, Connor Abbott wrote:
+> >>>> On Fri, Aug 23, 2024 at 10:21=E2=80=AFAM Connor Abbott <cwabbott0@gm=
+ail.com> wrote:
+> >>>>>
+> >>>>> On Thu, Aug 22, 2024 at 9:06=E2=80=AFPM Akhil P Oommen <quic_akhilp=
+o@quicinc.com> wrote:
+> >>>>>>
+> >>>>>> On Wed, Aug 21, 2024 at 05:02:56PM +0100, Connor Abbott wrote:
+> >>>>>>> On Mon, Aug 19, 2024 at 9:09=E2=80=AFPM Akhil P Oommen <quic_akhi=
+lpo@quicinc.com> wrote:
+> >>>>>>>>
+> >>>>>>>> On Thu, Aug 15, 2024 at 08:26:14PM +0200, Antonino Maniscalco wr=
+ote:
+> >>>>>>>>> This patch implements preemption feature for A6xx targets, this=
+ allows
+> >>>>>>>>> the GPU to switch to a higher priority ringbuffer if one is rea=
+dy. A6XX
+> >>>>>>>>> hardware as such supports multiple levels of preemption granula=
+rities,
+> >>>>>>>>> ranging from coarse grained(ringbuffer level) to a more fine gr=
+ained
+> >>>>>>>>> such as draw-call level or a bin boundary level preemption. Thi=
+s patch
+> >>>>>>>>> enables the basic preemption level, with more fine grained pree=
+mption
+> >>>>>>>>> support to follow.
+> >>>>>>>>>
+> >>>>>>>>> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+> >>>>>>>>> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
+> >>>>>>>>> ---
+> >>>>>>>>
+> >>>>>>>> No postamble packets which resets perfcounters? It is necessary.=
+ Also, I
+> >>>>>>>> think we should disable preemption during profiling like we disa=
+ble slumber.
+> >>>>>>>>
+> >>>>>>>> -Akhil.
+> >>>>>>>
+> >>>>>>> I don't see anything in kgsl which disables preemption during
+> >>>>>>> profiling. It disables resetting perfcounters when doing system-w=
+ide
+> >>>>>>> profiling, like freedreno, and in that case I assume preempting i=
+s
+> >>>>>>> fine because the system profiler has a complete view of everythin=
+g and
+> >>>>>>> should "see" preemptions through the traces. For something like
+> >>>>>>> VK_KHR_performance_query I suppose we'd want to disable preemptio=
+n
+> >>>>>>> because we disable saving/restoring perf counters, but that has t=
+o
+> >>>>>>> happen in userspace because the kernel doesn't know what userspac=
+e
+> >>>>>>> does.
+> >>>>>>>
+> >>>>>>
+> >>>>>> KGSL does some sort of arbitration of perfcounter configurations a=
+nd
+> >>>>>> adds the select/enablement reg configuration as part of dynamic
+> >>>>>> power up register list which we are not doing here. Is this someth=
+ing
+> >>>>>> you are taking care of from userspace via preamble?
+> >>>>>>
+> >>>>>> -Akhil
+> >>>>>
+> >>>>> I don't think we have to take care of that in userspace, because Me=
+sa
+> >>>>> will always configure the counter registers before reading them in =
+the
+> >>>>> same submission, and if it gets preempted in the meantime then we'r=
+e
+> >>>>> toast anyways (due to not saving/restoring perf counters). kgsl set=
+s
+> >>>>> them from userspace, which is why it has to do something to set the=
+m
+> >>>>
+> >>>> Sorry, should be "kgsl sets them from the kernel".
+> >>>>
+> >>>>> after IFPC slumber or a context switch when the HW state is gone.
+> >>>>> Also, because the upstream approach doesn't play nicely with system
+> >>>>> profilers like perfetto, VK_KHR_performance_query is hidden by defa=
+ult
+> >>>>> behind a debug flag in turnip. So there's already an element of "th=
+is
+> >>>>> is unsupported, you have to know what you're doing to use it."
+> >>>
+> >>> But when you have composition on GPU enabled, there will be very freq=
+uent
+> >>> preemption. And I don't know how usable profiling tools will be in th=
+at
+> >>> case unless you disable preemption with a Mesa debug flag. But for th=
+at
+> >>> to work, all existing submitqueues should be destroyed and recreated.
+> >>>
+> >>> So I was thinking that we can use the sysprof propertry to force L0
+> >>> preemption from kernel.
+> >>>
+> >>> -Akhil.
+> >>>
+> >>
+> >> Right but when using a system profiler I imagined the expectation woul=
+d
+> >> be to be able to understand how applications and compositor interact. =
+An
+> >> use case could be measuring latency and understanding what contributes
+> >> to it. That is actually the main reason I added traces for preemption.
+> >> Disabling preemption would make it less useful for this type of
+> >> analysis. Did you have an use case in mind for a system profiler that
+> >> would benefit from disabling preemption and that is not covered by
+> >> VK_KHR_performance_query (or equivalent GL ext)?
+> >
+> > I would think that we want to generate an event, with GPU timestamp
+> > (ie. RB_DONE) and which ring we are switching to, so that perfetto/etc
+> > could display multiple GPU timelines and where the switch from one to
+> > the other happens.
+> >
+> > I'm a bit curious how this is handled on android, with AGI/etc.. I
+> > don't see any support in perfetto for this.
+> >
+> > BR,
+> > -R
+> >
+> >> Best regards,
+> >> --
+> >> Antonino Maniscalco <antomani103@gmail.com>
+> >>
+>
+> Looking at KGSL they seem to use ftrace and I don't see it doing
+> anything to get a timestamp from some GPU timer, really not sure how
+> that would be put in a gpu timeline.
+
+I suspect it would require some work on perfetto trace-processor.  It
+can ingest ftrace events (but those would end up being something
+driver specific).  Maybe with u_trace and some tracepoints in the
+'ambles something could be done that would be more driver agnostic
+(but idk if that would work for gpu's where preemption happens more
+autonomously in the fw)
+
+BR,
+-R
+
+> Best regards,
+> --
+> Antonino Maniscalco <antomani103@gmail.com>
+>
