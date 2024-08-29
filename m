@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59CAF964151
-	for <lists+freedreno@lfdr.de>; Thu, 29 Aug 2024 12:20:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C93CC964154
+	for <lists+freedreno@lfdr.de>; Thu, 29 Aug 2024 12:20:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3484B10E622;
-	Thu, 29 Aug 2024 10:20:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9BCD10E625;
+	Thu, 29 Aug 2024 10:20:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vzUG9GT/";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QUgvsW2e";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23BEA10E622
- for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 10:20:32 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- 46e09a7af769-70943b07c2cso293564a34.1
- for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 03:20:32 -0700 (PDT)
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
+ [209.85.210.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 904E710E625
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 10:20:39 +0000 (UTC)
+Received: by mail-ot1-f48.google.com with SMTP id
+ 46e09a7af769-7093efbade6so321165a34.2
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 03:20:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1724926831; x=1725531631; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1724926839; x=1725531639; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=3lbMpHi+idQrWBFT40ehkUCaBfcILsbcClLsstfOLPw=;
- b=vzUG9GT/4I4+e3SQLZKqdGyP1E1sXGq6JHF8SWPxvz3kOoa8OTUaBttpifpXo/PIlb
- WLYd6iChx2hoT8N3moSztC1ZFEs9cAlWC7djoRAe/iLeRHWmuvKdsCHlK2uqgH7rpCxB
- Vg+6iMHguU0T9L7MvNFEXdUWPeWo7gQiT/fLh+7wFSeXH96+AYIPxv5kgDUUppj9U1ly
- 8jcet5me75ETnEfm8fV54+h0VvFlcEBUIhbkDLXcQKtDEJhV0H7ecTGVNx7eUOeVsHg8
- d4Did98eklm92NwCWWVtgELMKNeJ17uDrr3aQiuHNgf/Gu4bOs13vhnaSaPNCSRemRsc
- FacQ==
+ :reply-to; bh=1Q+hoiaQgUkbwBnUwr/XhQnF7bzaey6Ce3LFLI7Ja2A=;
+ b=QUgvsW2eTGIL8A1fqcOElKlQfSvNN2QKgbDqofh4vR9dJpJyOGHu4D4DXR7WXxKBil
+ 6W8IYGXNhJ6WlUHRIJS/7H0jviTo4luGmPJ0v9JekXVo68N1XGy6aBuC1UjS3RCA4SyZ
+ DEoVCvOdb12riqJFW4ZB8YAevpHkhxUrgGTO1BaQGTOMZZR+dGmy72jE/1cVQ8eC94LO
+ QgplumOnIUHvVWwZ0+daoLI0naJLhWu2Z9x6RF4uRhVX8lPKIpW91sOEddYh9okGqqmA
+ 1xftezD0L33SPiJv8gadgclzVaZF8wOLMHLzQkQGp1iKe2o9ohY6eMsK0Tpo+qIGpo58
+ IUmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724926831; x=1725531631;
+ d=1e100.net; s=20230601; t=1724926839; x=1725531639;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3lbMpHi+idQrWBFT40ehkUCaBfcILsbcClLsstfOLPw=;
- b=G7WCbdhLQ3gK7qdC6W5d7PiaRB1Vp89t8UAXeI+P6CZo4PUzlNtNcw1RXvddYEr2gh
- vd49teKDkzwYG6r8fOZOmKB1z/JuiijXom9JOeHxCBtTvn5M7GWCX6zcKWbte/G9PXNP
- Drf6s75cpuBUMpqSPu6Yb/gGvaw8/5qELsGtDBXSgHTv/NNSqwRwycqP88QXGZyxkK5C
- DA8/0/LSYeN0+UUhAOdye+/g8YCQpM5uhEFa4SGapfM+6+ZIDDRx6tOz+9tkqdXWq1lz
- 3KXAunIr3/xY3aEfKc27sXjYZdGcwMoeA8Fm6bksb+BA2+DLoxTXOZVkqbiXGmPpPmlc
- Ontg==
+ bh=1Q+hoiaQgUkbwBnUwr/XhQnF7bzaey6Ce3LFLI7Ja2A=;
+ b=b9Nf4YEGM3SW047ntrdIwJFzN6l+tby/ccSla/E3m0Z6vmo7g/VyXnaZ4+MriKJN8L
+ jZ1svSa9x82Vf60cBZTq5H47lJbfmLphWbZ4kjJSnRLutx5k3qxG594++fq1xr0pRgia
+ Sp4wiMLSDJ7dpUhbpUt7wJZPrxkEp8JXMiG7x8KonKYt9Elvz0YhceR2irh/vy4sa6ND
+ 5NScFp4oeckc99n/Q3Sx/6zT+J+5KmUXgY4OesZQgitEJ7AOrCBFRcXUiEL1AdP2Cd6t
+ Spr6/a8Kx1JEQZvhYVwAqYuuE5jrf0Cl65EbACdeskms0IngvgU6IwmOBamtUWWFiH0i
+ qCvQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWhqHesDyDeBt9R4/v64ooZH5jKOIBdlNZRhong7dy3k2gcTlTW+Ed4MxcjvARUDP7wRmKHpqXvLPQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw3Up8FdZg4MRKnZApI0nFzE06ZA7b0vDauXl54GwTENORdp6vT
- 9Vx7ESTX6HkBTVAW+U6L6KvViQAly2G5MhWibk9doniyFGw0C3Bae4D7bEaGmPI=
-X-Google-Smtp-Source: AGHT+IFen9Jq7QnLTtz1M24pXV3owljduQ7AzBDQAdlqHW1BLOQlXouMHpCoA0U+fCxUk+qf1Qgf2Q==
-X-Received: by 2002:a05:6358:b00f:b0:1b5:fc87:f023 with SMTP id
- e5c5f4694b2df-1b603c4372amr301108555d.13.1724926831326; 
- Thu, 29 Aug 2024 03:20:31 -0700 (PDT)
+ AJvYcCWjwkbcncWIWiIh8d6C5p8KHSf/ltF6RSPWIWlEeQeoMa/MFWCrwNBYPdMPBAc+psnXZqNkQb1nJP0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzgQQQkdbMYFAA4Lj9IsME5idvK2M6ihIrq2yOECK98B5WKrs+
+ roqcOatyHJ1kJ9Iy1wOpzCATV0o9nRvXlk36cpepLLTFhDOhHXMDrVefhuAof7M=
+X-Google-Smtp-Source: AGHT+IHURAx1tsooOQ3BpeNpvN7C+aX7izExrX/ejBiTLN/buCsOS1Ed3EVamPLK9mdcOKp9oyzFHg==
+X-Received: by 2002:a05:6358:720d:b0:1b5:a060:678b with SMTP id
+ e5c5f4694b2df-1b603bedfacmr293928955d.3.1724926838743; 
+ Thu, 29 Aug 2024 03:20:38 -0700 (PDT)
 Received: from [127.0.1.1] ([112.65.12.167]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-7d22e9d4df4sm891684a12.82.2024.08.29.03.20.25
+ 41be03b00d2f7-7d22e9d4df4sm891684a12.82.2024.08.29.03.20.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Aug 2024 03:20:30 -0700 (PDT)
+ Thu, 29 Aug 2024 03:20:38 -0700 (PDT)
 From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 29 Aug 2024 18:17:39 +0800
-Subject: [PATCH 10/21] drm/msm/dpu: fix lm number counter for quad-pipe
+Date: Thu, 29 Aug 2024 18:17:40 +0800
+Subject: [PATCH 11/21] drm/msm/dpu: Support 4 mixers at most
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-10-bdb05b4b5a2e@linaro.org>
+Message-Id: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-11-bdb05b4b5a2e@linaro.org>
 References: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org>
 In-Reply-To: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -74,11 +74,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Jun Nie <jun.nie@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1724926736; l=2144;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1724926736; l=2904;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=MuxQ5OVXyjEXNTRIAzTsA5+Nkr/OtZrXgpfu/qynNjo=;
- b=c5oycrwiyxCtgi1nfLY3vtWDhILufF21AgERHS7eIpJZlVfAkbuFpgeVC38YmR06XIUAU4YmN
- QxzQETH4WtaAYAC2NLpgo2dhnESjmYc43hBzPc03Wxklc0SUMHi6fmq
+ bh=kZcvFgM7BrpSSre+N3AhgJe8dih69TpaDCUeGk49yQg=;
+ b=mFqZD0eT2dw9oeR2ZHc0FiJ57u/AjSO6ItzK6quKx8cKBjBQSZcjkn0eto2YSWy861soD7tvs
+ 4mW+Vaq5lU8A//Ocif+sSqA4ajsQ0iqXDMNcWh8CU+Q4fsNjOfNLRbn
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -96,64 +96,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add the case to reserve multiple pair mixer for high resolution
+Support 4 mixers case with increasing array size and checking
+the usage case.
 
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 6 +++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 8 +++++++-
- 2 files changed, 10 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         | 2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         | 6 +++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h | 3 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   | 1 +
+ 4 files changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 33cfd94badaba..f57725ad494d2 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -54,7 +54,7 @@
- #define MAX_PHYS_ENCODERS_PER_VIRTUAL \
- 	(MAX_H_TILES_PER_DISPLAY * NUM_PHYS_ENCODER_TYPES)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index d9f26e189eebf..2c21a1e13d32f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -200,7 +200,7 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc,
+ 		struct dpu_crtc_state *crtc_state)
+ {
+ 	struct dpu_crtc_mixer *m;
+-	u32 crcs[CRTC_DUAL_MIXERS];
++	u32 crcs[CRTC_QUAD_MIXERS];
  
--#define MAX_CHANNELS_PER_ENC 2
-+#define MAX_CHANNELS_PER_ENC 4
+ 	int rc = 0;
+ 	int i;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+index 701c35803633d..08fc88d03bf6c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+@@ -210,7 +210,7 @@ struct dpu_crtc_state {
  
- #define IDLE_SHORT_TIMEOUT	1
+ 	bool bw_control;
+ 	bool bw_split_vote;
+-	struct drm_rect lm_bounds[CRTC_DUAL_MIXERS];
++	struct drm_rect lm_bounds[CRTC_QUAD_MIXERS];
  
-@@ -2029,8 +2029,8 @@ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
- 	struct dpu_hw_mixer_cfg mixer;
- 	int i, num_lm;
- 	struct dpu_global_state *global_state;
--	struct dpu_hw_blk *hw_lm[2];
--	struct dpu_hw_mixer *hw_mixer[2];
-+	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-+	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
- 	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
+ 	uint64_t input_fence_timeout_ns;
  
- 	memset(&mixer, 0, sizeof(mixer));
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-index e219d706610c2..77d7ff789346e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-@@ -306,7 +306,11 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
- 		if (!rm->mixer_blks[i])
- 			continue;
+@@ -218,10 +218,10 @@ struct dpu_crtc_state {
  
--		lm_count = 0;
-+		/*
-+		 * Clear the last bit to drop the previous primary mixer if
-+		 * fail to find its peer.
-+		 */
-+		lm_count &= 0xfe;
- 		lm_idx[lm_count] = i;
+ 	/* HW Resources reserved for the crtc */
+ 	u32 num_mixers;
+-	struct dpu_crtc_mixer mixers[CRTC_DUAL_MIXERS];
++	struct dpu_crtc_mixer mixers[CRTC_QUAD_MIXERS];
  
- 		if (!_dpu_rm_check_lm_and_get_connected_blks(rm, global_state,
-@@ -353,6 +357,8 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
+ 	u32 num_ctls;
+-	struct dpu_hw_ctl *hw_ctls[CRTC_DUAL_MIXERS];
++	struct dpu_hw_ctl *hw_ctls[CRTC_QUAD_MIXERS];
  
- 		trace_dpu_rm_reserve_lms(lm_idx[i] + LM_0, enc_id,
- 					 pp_idx[i] + PINGPONG_0);
-+		DPU_DEBUG("reserve lm[%d]:%d, pp_idx[%d]:%d, dspp[%d]:%d for enc_id %d\n",
-+			  i, lm_idx[i], i, pp_idx[i], i, dspp_idx[i], enc_id);
- 	}
+ 	enum dpu_crtc_crc_source crc_source;
+ 	int crc_frame_skip_count;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+index e77ebe3a68da9..c877ee45535ac 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+@@ -324,7 +324,8 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
  
- 	return 0;
+ 	/* Use merge_3d unless DSC MERGE topology is used */
+ 	if (phys_enc->split_role == ENC_ROLE_SOLO &&
+-	    dpu_cstate->num_mixers == CRTC_DUAL_MIXERS &&
++	    (dpu_cstate->num_mixers == CRTC_DUAL_MIXERS ||
++		dpu_cstate->num_mixers == CRTC_QUAD_MIXERS) &&
+ 	    !dpu_encoder_use_dsc_merge(phys_enc->parent))
+ 		return BLEND_3D_H_ROW_INT;
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index bf86d643887dd..f79ecd409a830 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -25,6 +25,7 @@
+ #define MAX_IMG_HEIGHT 0x3fff
+ 
+ #define CRTC_DUAL_MIXERS	2
++#define CRTC_QUAD_MIXERS	4
+ 
+ #define MAX_XIN_COUNT 16
+ 
 
 -- 
 2.34.1
