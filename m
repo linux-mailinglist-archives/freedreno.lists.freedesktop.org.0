@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8BBE9642A5
-	for <lists+freedreno@lfdr.de>; Thu, 29 Aug 2024 13:07:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB11C9642BA
+	for <lists+freedreno@lfdr.de>; Thu, 29 Aug 2024 13:10:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9078510E61F;
-	Thu, 29 Aug 2024 11:07:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7C6710E623;
+	Thu, 29 Aug 2024 11:10:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jQ/pdOh4";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="X+po/v1h";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
- [209.85.219.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD9110E61F
- for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 11:07:03 +0000 (UTC)
-Received: by mail-yb1-f182.google.com with SMTP id
- 3f1490d57ef6-e164caa76e4so530789276.1
- for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 04:07:03 -0700 (PDT)
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
+ [209.85.128.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A80E10E623
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 11:10:27 +0000 (UTC)
+Received: by mail-yw1-f176.google.com with SMTP id
+ 00721157ae682-6d0e7dfab60so6479577b3.3
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 04:10:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1724929622; x=1725534422; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1724929826; x=1725534626; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=2FuiHRYmBII7CoQqq9xCL2kOtuNSnjrajQjxmPmHnZ8=;
- b=jQ/pdOh4e+fUuxEqOg50NqyVc3XZ5uaMvix3fp2lNGqivYc9Tp9iQNwF2bZjzFqcLl
- vlwCncUKLzEkLf/XZB2lHVwhiAwc8H6I9UFz9m7mkL7x8sTwLylvetMPHmBWm64lNREs
- UXH/Qz5F3KBLwQc9LBKtMmmV1ShsFc08IDfewjmC8nFlfKsW2W45KwLbqxIZC2pXdREr
- dsQ8Tlc/TOIhUVbMwDUttx8jV/4t6hQlQNeQdYYdbG3Uo3xCv1JxBdO/qjQJo4Ml2KA8
- j5NO/2sYRkzvuhKMiwLg/fvFxJ/wDqziUQHi2AWUJWZiU4cYK/R/l1Qjjzt8RTQUDhxK
- ymtw==
+ bh=IMZRn0sUhAT7QPLtxYhsMgrNJCWGnuhAKggHYsS2Lvc=;
+ b=X+po/v1hV7ppAP7m/Tug1UGZ5LmNRQ/gXqQ3DshM4PgYa29gBnev62vaDBYYfG+752
+ UXn0oHdThrKAVDfPBZomk1TG+3HU3KqWM8h0lSMCeXGGaf+3zEe7YXpcoe2xBuSY+cvN
+ IY4q6yGC8oiaQ0/2CngzaCDi0SkrYymrmjkq5mMlXR+pdG4a42+L6SS+srJO1gahOKZO
+ mDaznlrj8QXiG9/ibQ7q0Ae1V8nKO6W3FJLAdC32th0FK8orgRjDUxdWawRwdrsc7yja
+ wK/o9eA4MxRZTscW8ZP7rKPrevCqO6UyICyKoBxFmTU88O0hwqnZWmzkw7zHpd2tE9jX
+ y/gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724929622; x=1725534422;
+ d=1e100.net; s=20230601; t=1724929826; x=1725534626;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=2FuiHRYmBII7CoQqq9xCL2kOtuNSnjrajQjxmPmHnZ8=;
- b=dewndtsFASKvP21hS+CcMbGSKajEy82Wst90muyEnIw1bN4rrGoKM7n89gTTRIM9Q7
- WoouMwpDhsPmXLjo+l26SRm2V67O54yrL4pjYfq+NwrhtfRYtEGBcC2/IiartzRQBNx/
- ruP+egaASu9tDSTIRPxRXvhxCA1VA3w7m+Mrb722XGFo/QvbUlQRdpU9yApwcdUE1XIk
- RsogOkE3yRepQSGQSeiHDavT51G0vywKJFJpi/xcUAPYWipQ297kNtK/IPbsY4EKB/vi
- +iEfTnbyjigPQ3BnsCWKNinhI9282Rs7pUcWRtMKu7B2JuxQttbNBm9a+G/yWMWo1wi9
- i1hQ==
+ bh=IMZRn0sUhAT7QPLtxYhsMgrNJCWGnuhAKggHYsS2Lvc=;
+ b=lGj5eab7lZSwy4J3CYqSX7pC9G2dhpyRI65wD4oukfCGKuzjO0Wsds9RnTXzvxw2CG
+ beIEQlpkaama5177YsJ8J4TNmErHloDSqmVuh4mzIvoeLv6/97GKGCMuLLQXG1fTHUC5
+ z4wm+Ew5nacKHPUh3amkbt9isA8jOT5XK6Ndb8kl8Ihn8MkUf3DTUHFiOUoopqicaNZe
+ 6i17ayovuGJmXPu2btILXhYFZRVweXgeO+1Q2sqjV/PcpGBwn1Qk+eddc+mtvb/16X2O
+ 3r/kfIw7Du6TYppgm6FbIKbBcsyAe6NAU3xSeGpX59pi85YK3s4frZKtNzMM1F03p3n5
+ LXcQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWb4nWnFj+6avIp0JSlIzXCmuvV2/MsFsJwYtgGf+7atUCpR0+3OXkKyue/Z8394sSUiuHYwGNOcvw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzmJdgJ18c5ZCDuwYshhgcd2E0t35fDhuS+GGC+6aVySmqfBoY/
- UGyVQ9hxrZo/bzCLFxjFBXSUOHYsHMDEOiLBsZ3hdm07YV19cfcGxMZQ9V1uAKTmgug+a67P+Zw
- iDrdDUX91O/zx3+lJjwLXiPvf4b3O/Q29lxGg+Q==
-X-Google-Smtp-Source: AGHT+IG6C72qHtyISBm3HKfToRlotpCAtyStHxCL0ejzZ1LSExVqFZtCpufpvVkCjEjUXY8Iy4niYfvncKhgcjxsk1k=
-X-Received: by 2002:a25:a504:0:b0:e1a:6493:21e4 with SMTP id
- 3f1490d57ef6-e1a6493239bmr928134276.44.1724929621911; Thu, 29 Aug 2024
- 04:07:01 -0700 (PDT)
+ AJvYcCVqf0EbVQVJjz4DOtLb8m8oz1lKkBKbGR0VWB7yjtD8bkHMaekjv+B7fSM+uxJiO8ohSkvn9X4TX2k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxPB5E4wqNPAxT6eAwXax6C6Lv+zN/2HpYi7ZfcJAFGlMNReCL7
+ EWS/n5yGMA3SPbyP9fbDbZ8wRKkDMkg0JOMunp9JlbxtWFuCTGzYYhTocCkArcl10Y+WyHF1Je7
+ jh6dZ4p0/F67g/K/94Rpt7U/dAoPw8HJKCD/YkA==
+X-Google-Smtp-Source: AGHT+IExKB2y+YYKi+w/X2u1O51Cl6dOZJ7yQ6Ws+aZXHZmk8aKxUzPH5YQQBBnmoCI91r2oWOFUFXCggGYyUusPgOo=
+X-Received: by 2002:a05:6902:e0b:b0:e13:cb58:dd15 with SMTP id
+ 3f1490d57ef6-e1a5ab47dfbmr2665701276.8.1724929826178; Thu, 29 Aug 2024
+ 04:10:26 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org>
- <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-6-bdb05b4b5a2e@linaro.org>
-In-Reply-To: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-6-bdb05b4b5a2e@linaro.org>
+ <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-7-bdb05b4b5a2e@linaro.org>
+In-Reply-To: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-7-bdb05b4b5a2e@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 29 Aug 2024 14:06:51 +0300
-Message-ID: <CAA8EJppJUB=wmaU+Hnh1=46deh-_wgd2qKtS-MJRkowUr8bhPQ@mail.gmail.com>
-Subject: Re: [PATCH 06/21] drm/msm/dpu: Add utility to get mixer number
+Date: Thu, 29 Aug 2024 14:10:15 +0300
+Message-ID: <CAA8EJpqZjO9rfVgVkhyCpg9qfyc13MHtz=RRhZG6ihMsVM+bSA@mail.gmail.com>
+Subject: Re: [PATCH 07/21] drm/msm/dpu: Support dynamic DSC number
 To: Jun Nie <jun.nie@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -84,55 +84,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 29 Aug 2024 at 13:19, Jun Nie <jun.nie@linaro.org> wrote:
+On Thu, 29 Aug 2024 at 13:20, Jun Nie <jun.nie@linaro.org> wrote:
 >
-> Add utility to get mixer number via CRTC handler
+> Do not assume DSC number as 2. Because there are 4 DSC in
+> quad pipe case.
+
+Please expand the commit message. You prefer brevity, but your
+comments lack clarifications.
+
 >
 > Signed-off-by: Jun Nie <jun.nie@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 7 +++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h | 5 +++++
->  2 files changed, 12 insertions(+)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index 7d0fff9472441..a27e39c525d1a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1306,6 +1306,13 @@ int dpu_crtc_vblank(struct drm_crtc *crtc, bool en)
->         return 0;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 6bdd9c21ff3ed..05b203be2a9bc 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -553,9 +553,9 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
+>                 if (dpu_enc->phys_encs[i])
+>                         intf_count++;
+>
+> -       /* See dpu_encoder_get_topology, we only support 2:2:1 topology */
+> +       /* DSC and mixer are mapped 1:1, so reuse the mixer number */
+
+Why? DSCmerge is a valid topology even if it is not supported yet.
+
+>         if (dpu_enc->dsc)
+> -               num_dsc = 2;
+> +               num_dsc = dpu_crtc_get_lm_num(drm_enc->crtc->state);
+>
+>         return (num_dsc > 0) && (num_dsc > intf_count);
 >  }
->
-> +unsigned int dpu_crtc_get_lm_num(const struct drm_crtc_state *state)
-> +{
-> +       struct dpu_crtc_state *cstate = to_dpu_crtc_state(state);
-> +
-> +       return cstate->num_mixers;
-> +}
-
-Merge with the user
-
-> +
->  #ifdef CONFIG_DEBUG_FS
->  static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
->  {
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> index b26d5fe40c721..701c35803633d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> @@ -301,5 +301,10 @@ static inline enum dpu_crtc_client_type dpu_crtc_get_client_type(
->  }
->
->  void dpu_crtc_frame_event_cb(struct drm_crtc *crtc, u32 event);
-> +/**
-> + * dpu_crtc_get_lm_num - Get mixer number in this CRTC pipeline
-> + * @crtc: Pointer to drm crtc object
-> + */
-
-Move kerneldoc before the function implementation so that W=1 can check it.
-
-> +unsigned int dpu_crtc_get_lm_num(const struct drm_crtc_state *state);
->
->  #endif /* _DPU_CRTC_H_ */
 >
 > --
 > 2.34.1
