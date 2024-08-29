@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB11C9642BA
-	for <lists+freedreno@lfdr.de>; Thu, 29 Aug 2024 13:10:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43BBF9642C4
+	for <lists+freedreno@lfdr.de>; Thu, 29 Aug 2024 13:12:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7C6710E623;
-	Thu, 29 Aug 2024 11:10:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23B8C10E633;
+	Thu, 29 Aug 2024 11:12:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="X+po/v1h";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SVXzZRWR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
- [209.85.128.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A80E10E623
- for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 11:10:27 +0000 (UTC)
-Received: by mail-yw1-f176.google.com with SMTP id
- 00721157ae682-6d0e7dfab60so6479577b3.3
- for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 04:10:27 -0700 (PDT)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9063C10E62D
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 11:12:10 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-2d3ec4bacc5so1195699a91.1
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 04:12:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1724929826; x=1725534626; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1724929930; x=1725534730; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=IMZRn0sUhAT7QPLtxYhsMgrNJCWGnuhAKggHYsS2Lvc=;
- b=X+po/v1hV7ppAP7m/Tug1UGZ5LmNRQ/gXqQ3DshM4PgYa29gBnev62vaDBYYfG+752
- UXn0oHdThrKAVDfPBZomk1TG+3HU3KqWM8h0lSMCeXGGaf+3zEe7YXpcoe2xBuSY+cvN
- IY4q6yGC8oiaQ0/2CngzaCDi0SkrYymrmjkq5mMlXR+pdG4a42+L6SS+srJO1gahOKZO
- mDaznlrj8QXiG9/ibQ7q0Ae1V8nKO6W3FJLAdC32th0FK8orgRjDUxdWawRwdrsc7yja
- wK/o9eA4MxRZTscW8ZP7rKPrevCqO6UyICyKoBxFmTU88O0hwqnZWmzkw7zHpd2tE9jX
- y/gg==
+ bh=0LT3I5USuqdHB66fieoDxuDUolxHbQhLFiZF0asjZzM=;
+ b=SVXzZRWR3hTHZUKNi+uDfHjeWpO3gXrbqAErd7aapssDcEwvq5iR5afh/7ADV0yI0S
+ 1+3K+PioyvLx+1RYgH8Iag9o8Ox2tNS+/XrLdQUm38bHmNWwEvmTKy0rTor2FN4SZflq
+ S+VyGYiFUKLvu5WIldWRyt3rSjKsJSQxKVZfWK2+HsqeSLNOyDM4sPFzB225pQ0cpqCC
+ Uof4n4y8S8GVqoF3rUeuDOLYTGUVnlFW2UoeCihHO5oZOVA2A2rGBTilHkyVPYoiu47l
+ wMX8MIQYks95sqMOTTtwUjxkL0ms2GlhJTTYRWq+9PmKkMioxgAXd1fjlOk10HA9z/MP
+ 6ibA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724929826; x=1725534626;
+ d=1e100.net; s=20230601; t=1724929930; x=1725534730;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=IMZRn0sUhAT7QPLtxYhsMgrNJCWGnuhAKggHYsS2Lvc=;
- b=lGj5eab7lZSwy4J3CYqSX7pC9G2dhpyRI65wD4oukfCGKuzjO0Wsds9RnTXzvxw2CG
- beIEQlpkaama5177YsJ8J4TNmErHloDSqmVuh4mzIvoeLv6/97GKGCMuLLQXG1fTHUC5
- z4wm+Ew5nacKHPUh3amkbt9isA8jOT5XK6Ndb8kl8Ihn8MkUf3DTUHFiOUoopqicaNZe
- 6i17ayovuGJmXPu2btILXhYFZRVweXgeO+1Q2sqjV/PcpGBwn1Qk+eddc+mtvb/16X2O
- 3r/kfIw7Du6TYppgm6FbIKbBcsyAe6NAU3xSeGpX59pi85YK3s4frZKtNzMM1F03p3n5
- LXcQ==
+ bh=0LT3I5USuqdHB66fieoDxuDUolxHbQhLFiZF0asjZzM=;
+ b=Cnf66p32gMH+ehMDGAZ70r3Oy5K/3UI1hWoj80bUK8V8haH9wQ3kQWN/mH/Jrspdei
+ seLd/MWO7S0LtqegwUgX/gGV/ySE3rXQS6h9ebCPTVRrxCI66wUeFNCY34K7qP6CGoBk
+ y+y8yi3RjvRNcf47LDdhCok+r0y6hZCmmJRBHg/CytPi26NJMryBht+eD4U8pO/e2gm4
+ QG62DJZM6TVQFAzI0MYdMD2Jh+80alK1+pFY1KnTNeldsDy9RO3qHfBC6bdbNNwf6qiq
+ FBV9IG7eWM4x2aP7ENNJnT+GnnGDouY0wEwlHQ9Qi1HCDmdXMmILOubjH7o40EYnlWX2
+ Pgww==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVqf0EbVQVJjz4DOtLb8m8oz1lKkBKbGR0VWB7yjtD8bkHMaekjv+B7fSM+uxJiO8ohSkvn9X4TX2k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxPB5E4wqNPAxT6eAwXax6C6Lv+zN/2HpYi7ZfcJAFGlMNReCL7
- EWS/n5yGMA3SPbyP9fbDbZ8wRKkDMkg0JOMunp9JlbxtWFuCTGzYYhTocCkArcl10Y+WyHF1Je7
- jh6dZ4p0/F67g/K/94Rpt7U/dAoPw8HJKCD/YkA==
-X-Google-Smtp-Source: AGHT+IExKB2y+YYKi+w/X2u1O51Cl6dOZJ7yQ6Ws+aZXHZmk8aKxUzPH5YQQBBnmoCI91r2oWOFUFXCggGYyUusPgOo=
-X-Received: by 2002:a05:6902:e0b:b0:e13:cb58:dd15 with SMTP id
- 3f1490d57ef6-e1a5ab47dfbmr2665701276.8.1724929826178; Thu, 29 Aug 2024
- 04:10:26 -0700 (PDT)
+ AJvYcCUnZQ39LlCef/aAdpnMrVQpOOu/jNKm+rxXFAsp7Gvzo5UAsMpEsa5EpSGl4PnCh1qhaAB2CiZKD8o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzdTl/7Ez4GhMhHZMUFTom1ynuxZRZSz+RS97wLBfMfdo4+8jTq
+ V98eC+21H+JKBhsmmVfkw4lkMJAUMXNBRRYfya7jW70E6JMZVaArcYRKXRNweszMSKUW9cK/Z0w
+ dGguc+38Bg3SgSBquOL51nReM+DQEqM89xpYe7w==
+X-Google-Smtp-Source: AGHT+IHuUtkpV/kCfgeCDeFSQtyZmOGgPIEFHPTwcwQPFLoYSq23mMMBRn9u66SKdd6NIBPJ/VPiWoO9n5k9fZu1gIk=
+X-Received: by 2002:a17:902:c94c:b0:1fd:9648:2d66 with SMTP id
+ d9443c01a7336-20516776254mr21438125ad.17.1724929929590; Thu, 29 Aug 2024
+ 04:12:09 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org>
- <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-7-bdb05b4b5a2e@linaro.org>
-In-Reply-To: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-7-bdb05b4b5a2e@linaro.org>
+ <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-9-bdb05b4b5a2e@linaro.org>
+In-Reply-To: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-9-bdb05b4b5a2e@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 29 Aug 2024 14:10:15 +0300
-Message-ID: <CAA8EJpqZjO9rfVgVkhyCpg9qfyc13MHtz=RRhZG6ihMsVM+bSA@mail.gmail.com>
-Subject: Re: [PATCH 07/21] drm/msm/dpu: Support dynamic DSC number
+Date: Thu, 29 Aug 2024 14:11:57 +0300
+Message-ID: <CAA8EJppAaHtwaDLQVG6f4zTmhpkpuuF0-NK9-iB7UzFcwO3hdw@mail.gmail.com>
+Subject: Re: [PATCH 09/21] drm/msm/dpu: request more mixer for 4K+ DSC case
 To: Jun Nie <jun.nie@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -86,37 +86,78 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Thu, 29 Aug 2024 at 13:20, Jun Nie <jun.nie@linaro.org> wrote:
 >
-> Do not assume DSC number as 2. Because there are 4 DSC in
-> quad pipe case.
+> request more mixer for the case that hdisplay exceeding 4096
+> and DSC enabled.
 
-Please expand the commit message. You prefer brevity, but your
-comments lack clarifications.
+This doesn't seem to match the code. And it misses the _reason_ to do it.
 
 >
 > Signed-off-by: Jun Nie <jun.nie@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 24 ++++++++++++++++++++----
+>  1 file changed, 20 insertions(+), 4 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 6bdd9c21ff3ed..05b203be2a9bc 100644
+> index 05b203be2a9bc..33cfd94badaba 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -553,9 +553,9 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
->                 if (dpu_enc->phys_encs[i])
->                         intf_count++;
+> @@ -59,6 +59,7 @@
+>  #define IDLE_SHORT_TIMEOUT     1
 >
-> -       /* See dpu_encoder_get_topology, we only support 2:2:1 topology */
-> +       /* DSC and mixer are mapped 1:1, so reuse the mixer number */
-
-Why? DSCmerge is a valid topology even if it is not supported yet.
-
->         if (dpu_enc->dsc)
-> -               num_dsc = 2;
-> +               num_dsc = dpu_crtc_get_lm_num(drm_enc->crtc->state);
+>  #define MAX_HDISPLAY_SPLIT 1080
+> +#define MAX_HDISPLAY_DSC_SPLIT 2560
 >
->         return (num_dsc > 0) && (num_dsc > intf_count);
->  }
+>  /* timeout in frames waiting for frame done */
+>  #define DPU_ENCODER_FRAME_DONE_TIMEOUT_FRAMES 5
+> @@ -588,15 +589,19 @@ static struct msm_display_topology dpu_encoder_get_topology(
+>
+>         /* Datapath topology selection
+>          *
+> -        * Dual display
+> +        * Dual display without DSC
+>          * 2 LM, 2 INTF ( Split display using 2 interfaces)
+>          *
+> +        * Dual display with DSC
+> +        * 4 LM, 2 INTF ( Split display using 2 interfaces)
+
+This doesn't match the code
+
+> +        *
+>          * Single display
+>          * 1 LM, 1 INTF
+>          * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
+>          *
+>          * Add dspps to the reservation requirements if ctm is requested
+>          */
+> +
+>         if (intf_count == 2)
+>                 topology.num_lm = 2;
+>         else if (!dpu_kms->catalog->caps->has_3d_merge)
+> @@ -615,10 +620,21 @@ static struct msm_display_topology dpu_encoder_get_topology(
+>                  * 2 DSC encoders, 2 layer mixers and 1 interface
+>                  * this is power optimal and can drive up to (including) 4k
+>                  * screens
+> +                * But for dual display with hdisplay exceeding 4096, we need
+> +                * 4 layer mixer. Because DSC has a max width of 2048 and
+> +                * a single plane can only be used by one mixer pair
+>                  */
+> -               topology.num_dsc = 2;
+> -               topology.num_lm = 2;
+> -               topology.num_intf = 1;
+> +
+> +               if (intf_count == 2 &&
+> +                   mode->hdisplay > MAX_HDISPLAY_DSC_SPLIT) {
+> +                       topology.num_dsc = 4;
+> +                       topology.num_lm = 4;
+> +                       topology.num_intf = 2;
+> +               } else {
+> +                       topology.num_dsc = 2;
+> +                       topology.num_lm = 2;
+> +                       topology.num_intf = 1;
+> +               }
+>         }
+>
+>         return topology;
 >
 > --
 > 2.34.1
