@@ -2,63 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A62959643A0
-	for <lists+freedreno@lfdr.de>; Thu, 29 Aug 2024 13:57:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62D1296444A
+	for <lists+freedreno@lfdr.de>; Thu, 29 Aug 2024 14:23:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F2CD10E656;
-	Thu, 29 Aug 2024 11:56:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CEDD10E66A;
+	Thu, 29 Aug 2024 12:23:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZMkf4qTe";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JyXkxHZA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
- [209.85.219.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58EE910E656
- for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 11:56:58 +0000 (UTC)
-Received: by mail-yb1-f179.google.com with SMTP id
- 3f1490d57ef6-e16518785c2so455179276.1
- for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 04:56:58 -0700 (PDT)
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
+ [209.85.219.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9148410E668
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 12:23:06 +0000 (UTC)
+Received: by mail-yb1-f172.google.com with SMTP id
+ 3f1490d57ef6-e13cda45037so629647276.3
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 05:23:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1724932617; x=1725537417; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1724934185; x=1725538985; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=VGKYfZEA8ueSbdLkY5s5hU0jXKcQn2uFCbYV0qNbbxA=;
- b=ZMkf4qTeUJEIhIT1XmizROQF3fQ9L3GryXUkhsS01peVc3Xht+ZUVa/Ii7q1fXwnRP
- SYJsbzZ1UsUjaPeo+rKMVUHxZv5vFq/j/VKPEMTf3LCagFk51iJ4TUxLsh4/tK5cgs5I
- WWq9XdTQdeJCvHeIVquYQrDhwvGr/UENAgbstUZBeMWA9RB0gUyiTcGtNHCAQd26DW75
- 0cMuRNiFuWpESE9nWwkQfgGTJd4IA0MMGCGtI13tHDytpm84yDKngoSyBttyv4aICw8a
- glSpYosjJRcGz1j4pC2jzlMgQHll5TA3ah1iBmZtTpshpfA2G3MelFRz2j8Nmux82Bsz
- 1VhA==
+ bh=oBRgy1SwbqgGgsChwDpW9dCKtLDOgboL57fncnEqPqg=;
+ b=JyXkxHZAZxN6ccGMT6PYElC24jKC7iRvpifRyKt12BtGHXoBj7JkiUqIc14nGw5HXy
+ 265peszk4GOBh65IazmpxBBtRzJEyXk2SswfQX47z16WYV+XPKUwlqP8tdiQyka7VMyl
+ 2Q88GsUuwrd+ZEBqSQ6kJjLvQlj84XloPjzB0aoU+fKNfK41BNoa8I/AGM7aYd80x1mp
+ Dc/+dIA9o99pvIEvr2e2001KuB3YJoDt8SFQmsJmAx1BjyB+QcQiibYY56enQtCJ+5e7
+ S0TqCHto4qg7x6QXsAZ1U7XnG0FZlw3mJCcPaf8/rS6xtC3qcBuxFv/GeKQqZgIsJ83j
+ Iq4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724932617; x=1725537417;
+ d=1e100.net; s=20230601; t=1724934185; x=1725538985;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=VGKYfZEA8ueSbdLkY5s5hU0jXKcQn2uFCbYV0qNbbxA=;
- b=CM2669q42mqhmbmvPYwmNW1jaWe13T0bN9vVgRHQHehQJeN3mxqNuT3YbKRufMbX4x
- Mv7kBv1TvrFPcZUM/v7teveT8jveX4k1dlBn1shlaGcL2yV2s2R8bzYD/9rzowHbv9mp
- flPECd87j/eaksLpMT/W04g02q1AIunH4Dr4XFfz9/e6yMu3R+ZNTsddmQMk4Vq3X70Y
- ceTrVP8Dg9ZggSCATePzBQIBEmqwjV1iOhhQW9e6iCK3gkyLUPYWH/RbI42Tj5fOMKb5
- 7kMye8LROx6R2K8QqQtPEe5eRnejNNq3FpAJmxuNKmwxgRY+lSmZfJhwoDYYfLCCxKpL
- cmbw==
+ bh=oBRgy1SwbqgGgsChwDpW9dCKtLDOgboL57fncnEqPqg=;
+ b=ElxUfWpN8lpz6ul/JkL79FkVWiTgo05XIm361qFpfKoy4qf0bHoR2LOxYfOt51Zunm
+ wMV0/PE4nXdPT0c3A3lEgNgurqYfi79ppSYD7XASM1OM9iQgEN6jxi46FihNHc1T7kG1
+ pPVy4/ha1UQ2s5XCZ2V8lmhn6E9bWQk7+539cCiF6WrQainsYfZLg5UMP6MNM54TnnTf
+ Js5cazxE1SatpSTXYT+c1c2SB5wbATHUuQzo1ZeUnmCh1CdNrQUclXTUnKT1iGUSJqey
+ oK9h1vcpn4pFrF8+6h1HTowtn2mQmfLf/YtVmxRGWAVRS/25AAy4v+++9KkB98p42qPE
+ htdQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVjWGHelMmtlxwxkinc0+ryoPOXl1xGxvueMxrX/TXYSPkreIng/wrwjL9qVzOFlmFVyPbtiibH2Hc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLFXTDMBolfSfEilXRkp3jUgJ+pOeUVfCLHlvJ/vJI9egxLR4k
- tloeLLlG6lVhqEereVIIjs0i8H1MEfbur7qAzGED9ObVxJvibqpctMt8RjtcYOvV3sU5kCU6Sqi
- w8MYvLXsytQ7JfdWuquuRoWxXrBDCxsIUIDZhpA==
-X-Google-Smtp-Source: AGHT+IHXnArOKRKkv9aDeckq+KbsCjyogedUlTLo8qkAGBwyIvTaY1QBhm0kJiL7fKWjsTr1H+Cwlshy/HqGzV5bPpI=
-X-Received: by 2002:a05:6902:1002:b0:e11:7d82:9a88 with SMTP id
- 3f1490d57ef6-e1a5af0b5d9mr2601279276.42.1724932617145; Thu, 29 Aug 2024
- 04:56:57 -0700 (PDT)
+ AJvYcCUn207OXimLXs8BuJR01GNBA1rwjpVqJPiXdiJP79sOZ/XuxN3otbQR9fHr52jXj/vq31BfGQnnCpc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyJudMXoNxqG9HWs0AV3oYnt/iD0F5H9Hjuystkz8HS15oTlH1e
+ bZ0pUlPuFvDhPylNCiA+2uN1Facqj0/xiOfmMyrMcPVNZQto7zPBOTat6zFyF4Xtg9Z2i2P4Ok2
+ BYKGjO3txZMC1UCYKnAiUl+MBLfaOn1oPG1/JzUC6Qhfq6mDe
+X-Google-Smtp-Source: AGHT+IE2JwdDtHrXWOXkr8swPM5s7DryraYBiVanjT5C61UlNu+OUKVCm0356LXp35L2K1UItF9VpHBO/lLLY49AnQM=
+X-Received: by 2002:a05:6902:2e11:b0:e0b:e550:4e46 with SMTP id
+ 3f1490d57ef6-e1a5ab452e5mr2752227276.5.1724934185317; Thu, 29 Aug 2024
+ 05:23:05 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org>
- <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-20-bdb05b4b5a2e@linaro.org>
-In-Reply-To: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-20-bdb05b4b5a2e@linaro.org>
+In-Reply-To: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 29 Aug 2024 14:56:46 +0300
-Message-ID: <CAA8EJpoN-rWiKj37-9QGRVOJSXd0sk7kKbmO8VJEHQoyse6s3w@mail.gmail.com>
-Subject: Re: [PATCH 20/21] drm/msm/dpu: support quad pipe in general operations
+Date: Thu, 29 Aug 2024 15:22:54 +0300
+Message-ID: <CAA8EJpoD_=FaBL2xj+xu21BG0X2vOtVcskOyeZFrWg4XL3m_tw@mail.gmail.com>
+Subject: Re: [PATCH 00/21] drm/msm: Support quad pipe with dual-DSI
 To: Jun Nie <jun.nie@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -67,7 +66,7 @@ Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Maxime Ripard <mripard@kernel.org>, 
  Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,187 +83,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 29 Aug 2024 at 13:21, Jun Nie <jun.nie@linaro.org> wrote:
+On Thu, 29 Aug 2024 at 13:19, Jun Nie <jun.nie@linaro.org> wrote:
 >
-> Support quad pipe in general operations with unified method.
+> 2 SSPP and dual-DSI interface are need for super wide DSI panel.
+> This patch set make changes to DSI driver and extend pipes
+> and related mixer blending logic to support quad pipe.
+>
+> This patch set is based on virtual plane patch set:
+> https://patchwork.freedesktop.org/series/131109/
+
+Is this "depends" or "used some ideas" or something else?
+
+If it depends, please say that clearly, including the revision of the patchset.
+
+Next, generic feedback for the series.
+- Please provide detailed commit messages. Describe why the change is
+being introduced.
+- Please grok why and how SSPPs are handled in non-virtual and
+especially in a virtual case. Feel free to ask questions, but I really
+don't expect to see patches assuming single SSPP per pair of pipes.
+- Please drop all unrelated changes. DSI, DSC, etc must go to separate series.
+- Please take care about the commit trailers. If the change is a fix,
+it should have the Fixes trailer.
+
+Next, please restructure the series. The patches should be ordered and
+split in a logical order.
+Start with a commit that gets rid of r_pipe. Don't increase
+PIPES_PER_STAGE, etc, just loop over two pipes. Note how the code
+handles r_pipe->sspp and keep that unchanged. Be sure to handle odd
+plane sizes correctly. You can not just divide width by two to get the
+pipe width.
+Next, split PIPES_PER_STAGE into two defines: one for mixer code, one
+for the pipes per plane.
+Next come additional patches, like PP stride, etc.
+Then extract the code to handle a single LM pair.
+Finally introduce quad pipe, allocate two sets of LM configs, etc.
+Each LM config still gets two pipes per plane. Each plane can have 4
+pipes. Be extremely careful with splitting of the plane framebuffer
+into the pipe configuration. Both x coordinate and width can be odd.
+And a pair of pipes can not cross the screen middle line.
+
 >
 > Signed-off-by: Jun Nie <jun.nie@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 87 +++++++++++++++++--------------
->  1 file changed, 47 insertions(+), 40 deletions(-)
+> Jonathan Marek (3):
+>       drm/msm/dsi: add support to DSI CTRL v2.8.0
+>       drm/msm/dsi: fix DSC width for the bonded DSI case
+>       drm/msm/dsi: support DSC configurations with slice_per_pkt > 1
 >
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index c38c1bedd40fb..c3ea97b4ce439 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -619,6 +619,7 @@ static void _dpu_plane_color_fill(struct dpu_plane *pdpu,
->         struct msm_drm_private *priv = plane->dev->dev_private;
->         struct dpu_plane_state *pstate = to_dpu_plane_state(plane->state);
->         u32 fill_color = (color & 0xFFFFFF) | ((alpha & 0xFF) << 24);
-> +       int i;
+> Jun Nie (18):
+>       drm/msm/dsi: pass the right width to dsc
+>       drm/msm/dpu: polish log for resource allocation
+>       drm/msm/dpu: Add utility to get mixer number
+>       drm/msm/dpu: Support dynamic DSC number
+>       drm/msm/dpu: decide right side per last bit
+>       drm/msm/dpu: request more mixer for 4K+ DSC case
+>       drm/msm/dpu: fix lm number counter for quad-pipe
+>       drm/msm/dpu: Support 4 mixers at most
+>       drm/msm/dpu: switch RM to use crtc_id rather than enc_id for allocation
+>       drm/msm/dpu: Support quad pipe in header files
+>       drm/msm/dpu: Support quad-pipe in SSPP checking
+>       drm/msm/dpu: support plane splitting in quad-pipe case
+>       drm/msm/dpu: support SSPP assignment for quad-pipe case
+>       drm/msm/dpu: setup pipes with 2 set of stage config
+>       drm/msm/dpu: blend pipes by left and right
+>       drm/msm/dpu: bind correct pingpong for quad pipe
+>       drm/msm/dpu: support quad pipe in general operations
+>       drm/msm/dpu: revise debug info to support quad pipe
 >
->         DPU_DEBUG_PLANE(pdpu, "\n");
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         | 119 ++++---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  11 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      |  73 +++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |   3 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c       |  19 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h       |   4 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |   2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h      |  11 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h          |  12 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c        | 385 ++++++++++++-----------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h        |  30 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c           | 209 ++++++------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h           |  19 +-
+>  drivers/gpu/drm/msm/dsi/dsi.h                    |   3 +-
+>  drivers/gpu/drm/msm/dsi/dsi_host.c               |  54 ++--
+>  drivers/gpu/drm/msm/dsi/dsi_manager.c            |   2 +-
+>  include/drm/drm_mipi_dsi.h                       |   2 +
+>  18 files changed, 566 insertions(+), 393 deletions(-)
+> ---
+> base-commit: 9651fbfb684e7a1288dbae3bf1f15cd484c0217a
+> change-id: 20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-d2d6b3eb1d57
 >
-> @@ -632,12 +633,11 @@ static void _dpu_plane_color_fill(struct dpu_plane *pdpu,
->                 return;
->
->         /* update sspp */
-> -       _dpu_plane_color_fill_pipe(pstate, &pstate->pipe, &pstate->pipe_cfg.dst_rect,
-> -                                  fill_color, fmt);
-> -
-> -       if (pstate->r_pipe.sspp)
-> -               _dpu_plane_color_fill_pipe(pstate, &pstate->r_pipe, &pstate->r_pipe_cfg.dst_rect,
-> -                                          fill_color, fmt);
-> +       for (i = 0; i < PIPES_PER_STAGE; i++)
-> +               if (pstate->pipe[i].sspp)
-> +                       _dpu_plane_color_fill_pipe(pstate, &pstate->pipe[i],
-> +                                                  &pstate->pipe_cfg[i].dst_rect,
-> +                                                  fill_color, fmt);
->  }
->
->  static int dpu_plane_prepare_fb(struct drm_plane *plane,
-> @@ -1279,8 +1279,11 @@ void dpu_plane_flush(struct drm_plane *plane)
->                 /* force 100% alpha */
->                 _dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
->         else {
-> -               dpu_plane_flush_csc(pdpu, &pstate->pipe);
-> -               dpu_plane_flush_csc(pdpu, &pstate->r_pipe);
-> +               int i;
-> +
-> +               for (i = 0; i < PIPES_PER_STAGE; i++)
-> +                       if (pstate->pipe_cfg[i].visible)
-> +                               dpu_plane_flush_csc(pdpu, &pstate->pipe[i]);
->         }
->
->         /* flag h/w flush complete */
-> @@ -1380,20 +1383,17 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->         struct dpu_plane *pdpu = to_dpu_plane(plane);
->         struct drm_plane_state *state = plane->state;
->         struct dpu_plane_state *pstate = to_dpu_plane_state(state);
-> -       struct dpu_sw_pipe *pipe = &pstate->pipe;
-> -       struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
->         struct drm_crtc *crtc = state->crtc;
->         struct drm_framebuffer *fb = state->fb;
->         bool is_rt_pipe;
->         const struct msm_format *fmt =
->                 msm_framebuffer_format(fb);
-> -       struct dpu_sw_pipe_cfg *pipe_cfg = &pstate->pipe_cfg;
-> -       struct dpu_sw_pipe_cfg *r_pipe_cfg = &pstate->r_pipe_cfg;
-> +       struct dpu_sw_pipe_cfg *pipe_cfg;
->         struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
->         struct msm_gem_address_space *aspace = kms->base.aspace;
->         struct dpu_hw_fmt_layout layout;
->         bool layout_valid = false;
-> -       int ret;
-> +       int ret, i;
->
->         ret = dpu_format_populate_layout(aspace, fb, &layout);
->         if (ret)
-> @@ -1412,28 +1412,28 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->                         crtc->base.id, DRM_RECT_ARG(&state->dst),
->                         &fmt->pixel_format, MSM_FORMAT_IS_UBWC(fmt));
->
-> -       dpu_plane_sspp_update_pipe(plane, pipe, pipe_cfg, fmt,
-> -                                  drm_mode_vrefresh(&crtc->mode),
-> -                                  layout_valid ? &layout : NULL);
-> -
-> -       if (r_pipe->sspp) {
-> -               dpu_plane_sspp_update_pipe(plane, r_pipe, r_pipe_cfg, fmt,
-> -                                          drm_mode_vrefresh(&crtc->mode),
-> -                                          layout_valid ? &layout : NULL);
-> +       for (i = 0; i < PIPES_PER_STAGE; i++) {
-> +               if (pstate->pipe_cfg[i].visible && pstate->pipe[i].sspp)
-> +                       dpu_plane_sspp_update_pipe(plane, &pstate->pipe[i],
-> +                                                  &pstate->pipe_cfg[i], fmt,
-> +                                                  drm_mode_vrefresh(&crtc->mode),
-> +                                                  layout_valid ? &layout : NULL);
->         }
->
->         if (pstate->needs_qos_remap)
->                 pstate->needs_qos_remap = false;
->
-> -       pstate->plane_fetch_bw = _dpu_plane_calc_bw(pdpu->catalog, fmt,
-> -                                                   &crtc->mode, pipe_cfg);
-> -
-> -       pstate->plane_clk = _dpu_plane_calc_clk(&crtc->mode, pipe_cfg);
-> -
-> -       if (r_pipe->sspp) {
-> -               pstate->plane_fetch_bw += _dpu_plane_calc_bw(pdpu->catalog, fmt, &crtc->mode, r_pipe_cfg);
-> +       pstate->plane_fetch_bw = 0;
-> +       pstate->plane_clk = 0;
-> +       for (i = 0; i < PIPES_PER_STAGE; i++) {
-> +               pipe_cfg = &pstate->pipe_cfg[i];
-> +               if (pipe_cfg->visible) {
-> +                       pstate->plane_fetch_bw += _dpu_plane_calc_bw(pdpu->catalog, fmt,
-> +                                                                   &crtc->mode, pipe_cfg);
->
-> -               pstate->plane_clk = max(pstate->plane_clk, _dpu_plane_calc_clk(&crtc->mode, r_pipe_cfg));
-> +                       pstate->plane_clk = max(pstate->plane_clk,
-> +                                               _dpu_plane_calc_clk(&crtc->mode, pipe_cfg));
-> +               }
->         }
->  }
->
-> @@ -1441,17 +1441,21 @@ static void _dpu_plane_atomic_disable(struct drm_plane *plane)
->  {
->         struct drm_plane_state *state = plane->state;
->         struct dpu_plane_state *pstate = to_dpu_plane_state(state);
-> -       struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
-> +       struct dpu_sw_pipe *pipe;
-> +       int i;
->
-> -       trace_dpu_plane_disable(DRMID(plane), false,
-> -                               pstate->pipe.multirect_mode);
-> +       for (i = 0; i < PIPES_PER_STAGE; i++) {
-> +               pipe = &pstate->pipe[i];
-> +               if (pipe->multirect_index == DPU_SSPP_RECT_1) {
-
-No, the code isn't equivalent.
-
-> +                       trace_dpu_plane_disable(DRMID(plane), false,
-> +                                               pstate->pipe[i - 1].multirect_mode);
->
-> -       if (r_pipe->sspp) {
-> -               r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> -               r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> +                       pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> +                       pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
->
-> -               if (r_pipe->sspp->ops.setup_multirect)
-> -                       r_pipe->sspp->ops.setup_multirect(r_pipe);
-> +                       if (pipe->sspp && pipe->sspp->ops.setup_multirect)
-> +                               pipe->sspp->ops.setup_multirect(pipe);
-> +               }
->         }
->
->         pstate->pending = true;
-> @@ -1607,14 +1611,17 @@ void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable)
->         struct dpu_plane *pdpu = to_dpu_plane(plane);
->         struct dpu_plane_state *pstate = to_dpu_plane_state(plane->state);
->         struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
-> +       int i;
->
->         if (!pdpu->is_rt_pipe)
->                 return;
->
->         pm_runtime_get_sync(&dpu_kms->pdev->dev);
-> -       _dpu_plane_set_qos_ctrl(plane, &pstate->pipe, enable);
-> -       if (pstate->r_pipe.sspp)
-> -               _dpu_plane_set_qos_ctrl(plane, &pstate->r_pipe, enable);
-> +       for (i = 0; i < PIPES_PER_STAGE; i++) {
-> +               if (!pstate->pipe_cfg[i].visible)
-> +                       break;
-
-continue, not break.
-
-> +               _dpu_plane_set_qos_ctrl(plane, &pstate->pipe[i], enable);
-> +       }
->         pm_runtime_put_sync(&dpu_kms->pdev->dev);
->  }
->  #endif
->
+> Best regards,
 > --
-> 2.34.1
+> Jun Nie <jun.nie@linaro.org>
 >
 
 
