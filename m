@@ -2,73 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57A22963319
-	for <lists+freedreno@lfdr.de>; Wed, 28 Aug 2024 22:56:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B45E09640E6
+	for <lists+freedreno@lfdr.de>; Thu, 29 Aug 2024 12:07:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32F7D10E5E6;
-	Wed, 28 Aug 2024 20:56:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 393AE10E190;
+	Thu, 29 Aug 2024 10:07:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Bkekw5Jc";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QAZjHx5B";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8256510E5E7
- for <freedreno@lists.freedesktop.org>; Wed, 28 Aug 2024 20:56:11 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-7cd830e0711so791532a12.0
- for <freedreno@lists.freedesktop.org>; Wed, 28 Aug 2024 13:56:11 -0700 (PDT)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 709D610E190
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 10:07:00 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-533496017f8so634669e87.0
+ for <freedreno@lists.freedesktop.org>; Thu, 29 Aug 2024 03:07:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1724878571; x=1725483371; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=HTBxWJ9wyPByAunmw2nMzBk9ACw5+Pc6tm8AO9OHjfY=;
- b=Bkekw5JcdprazHjQ83crOgcCDdoroJgKoUnawog2xZvIdFP+JEsr+BQ4pR2UGq3/Mn
- 7OZKcVwzIPX5BCiDfPciYvGk3G0KQTI+tgg9+sjNUO1GObU6mFIJoMr4Jco6s/i7W8uy
- f0AGighvQT+wsMywowuhSkoGDxAn/NpMVBFFy0HrMvz21mrSh0y8CWVhYaufp39YlYj/
- 11mpcP/RVNm0MS5aVCCtO2qPPRbH2qC9EOKbGRyTcdJxWFu9Ri65ke3YURCDAoyq4CuF
- X+okBULXU7rNqfSud9TxM9jVXEfKwjAz+CufYapiLtbshBLQ4jqxwH+hlKhgdYozuXSG
- Njuw==
+ d=linaro.org; s=google; t=1724926019; x=1725530819; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=p4m4sFOZMDTMX82iw7f1HhdQ6KEhLtr+hrPhztMpqLI=;
+ b=QAZjHx5Bg5Pp/wHM2cc9lQF9HkeTFs1CuEq2G/bsp65DxdIUOaNFcmDStziPI8d3b7
+ V6VTyIAA5gya9a3TDe2Rz5G7w5XD9WOM9VvezNEjGY0S9UO0yywEL3ewi+nqpFyPVsDx
+ Pjr0Z6GC7lW1OQqismKr8SHy5sUGZ+/LDHziV/WHC8so5Vm8ZDtJnhtQlwolBDTsy5/J
+ KID17/apP0oXKtwscBoMRplVlT/hKekF/k80PN5R23WX6srZ1GN5794GHk38pOVhcSnc
+ 8qzYYBfz24qsesrRZgLsqb9JVjM13uggJh2u/GMEeoYI8iBjPeKZwdX/3dLMAQ4T688O
+ KVHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724878571; x=1725483371;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=HTBxWJ9wyPByAunmw2nMzBk9ACw5+Pc6tm8AO9OHjfY=;
- b=NGRnYJY6nOgIw7d04Lhofwia9bxzoaITgtsGxGJ8T6ltymt3Ns8oS4zy47HZ7cM6Iw
- C+XrXNEIR2ZLokgPzJhu15TruAVOqAFhcaEjV6UNYl+P81hUdsK6DtGPV7Js13II1QFQ
- LXl8Y567HmTAxtczY/0kFKVuUmBs+dnYJ1FglmiKY5Dym+Mqf2xs8hP9GwAuzCWLu6wf
- fWnQJrOgF89y/RC9Ym7UV/ZgjYDNeASsjAtSwLXRyjm7G7KrRqvXqNcCBIVGkrTz/uSS
- 2BwTi4c8MVhS3OdZ9nan2fSW9L0lWcWaGLKw9OV2UHeT75iSpZnjyNXR3MHIVyhenGD/
- ga/A==
+ d=1e100.net; s=20230601; t=1724926019; x=1725530819;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=p4m4sFOZMDTMX82iw7f1HhdQ6KEhLtr+hrPhztMpqLI=;
+ b=TaFyFLx9j1F0plWjK7t80BYX+1K711yFMacrPt9WDwNWPXELCKpLe/Vjh/IClEqbBO
+ PWpU+LCr2bJxyQf9Vpg72nYlcdCHMP/5y83fghGqeK+kEtlmFA+mvuVSQ2kZkby2qXOL
+ bf40O63Env8klhZgfjYGFWdm1en/8ucsc+KVqB+r/Ic25lVVX0FAduuysFkzV1To8zlJ
+ e7XCQfIBuptyX8Jq+esz9ht9sUWwoiobOD/QKDXB0nvYj/JRi46xQCb2K/V+/O4xJY0f
+ x0IVFf+BCqBHZSRqoElgjOMmMuvZhe5/0VJmGINMBeMVWBdw2XSXRdoKBbsKSuJuwwVF
+ 0qiA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUNJDYrJP6QzLkanXJiV7hijhZ6/b6Q8iXMp89ThwjjQZXpRmLK5+ZSCY8fCN364YRDHOznMzkUaU4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7gUJ+lCJtE2/gBRHcQa7nmgK/oTo+jfs7Sg6hR6XsZKLM0Wh7
- D0AeX77gTmozCJATcf8mL5tGY0g6l2FHRZYdxJo5Foutb3fBFyh7UE/gp7yw2n2Bb3nOPl4Jk/T
- OZDiBIi4OSqRFGh5xBVdTtxnnVXyAav+Mh3G0kg==
-X-Google-Smtp-Source: AGHT+IEz2rPhLvv7n23E6bzDV4iFmPIxFnrezQOlNwUK6zlcWpRR3csAoLfs4O3Xg+lVb6jAr5o5pCLeaKqNmgyCv14=
-X-Received: by 2002:a05:6a20:2594:b0:1c4:8694:6be8 with SMTP id
- adf61e73a8af0-1cce15f7ea3mr602404637.3.1724878570814; Wed, 28 Aug 2024
- 13:56:10 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240627-dpu-virtual-wide-v5-0-5efb90cbb8be@linaro.org>
- <20240627-dpu-virtual-wide-v5-9-5efb90cbb8be@linaro.org>
- <1bb90821-bc6f-4828-b947-d3123a035c60@quicinc.com>
-In-Reply-To: <1bb90821-bc6f-4828-b947-d3123a035c60@quicinc.com>
+ AJvYcCXbDl/BCL10WpKW9ndUwEZcdCpdl9L3fZLTJgk5tvsGtHtKvUOScpH0Gw6wKT/exF8DeLbkEX8+AKo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzO6cy1VfzTijIuOkGZusLp81Pcf5sTGNsLlZfJMRb9L0/KJuHU
+ 380xJM4xH0TOjVSXtZ+IxP5MuJ1seXFS64gVBiHyIisZV+nVfn6zjoYJKFn8oK4=
+X-Google-Smtp-Source: AGHT+IEAyzzgG0+l2SSqg3XbyWi54g9EJHgJyEiWmSeAfTXoSsLIi75kAP68EXftAzwcFS197Ifz8Q==
+X-Received: by 2002:a05:6512:3f0a:b0:533:460c:e42f with SMTP id
+ 2adb3069b0e04-5353e5449b2mr1408030e87.4.1724926018326; 
+ Thu, 29 Aug 2024 03:06:58 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-535408593d5sm112334e87.306.2024.08.29.03.06.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Aug 2024 03:06:57 -0700 (PDT)
+Date: Thu, 29 Aug 2024 13:06:56 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 28 Aug 2024 23:55:58 +0300
-Message-ID: <CAA8EJpocScDmfSpSctOYiMiOLKpcWOP8x4qjGkdx0sieUsnvzA@mail.gmail.com>
-Subject: Re: [PATCH v5 09/12] drm/msm/dpu: move rot90 checking to
- dpu_plane_atomic_check_pipe()
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run, 
+ marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH -next] drm/msm: Use devm_platform_ioremap_resource_byname()
+Message-ID: <6k6hghic2ay277jg5tddihqal2i2fta2aam2du6dbjqq4whcjh@lilojqbwgnsx>
+References: <20240828084849.2527115-1-ruanjinjie@huawei.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240828084849.2527115-1-ruanjinjie@huawei.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,38 +85,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 28 Aug 2024 at 22:05, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 6/26/2024 2:46 PM, Dmitry Baryshkov wrote:
-> > Move a call to dpu_plane_check_inline_rotation() to the
-> > dpu_plane_atomic_check_pipe() function, so that the rot90 constraints
-> > are checked for both pipes. Also move rotation field from struct
-> > dpu_plane_state to struct dpu_sw_pipe_cfg.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h |  2 ++
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 55 +++++++++++++++--------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h   |  2 --
-> >   3 files changed, 31 insertions(+), 28 deletions(-)
-> >
->
-> Change LGTM and addresses one of the questions I had in the prev patch.
->
-> One question though, till patch 11 which adds support for 2 different
-> SSPPs for the plane this change is not necessary right? Because till
-> that change we assign the same SSPP OR two rectangles of the same SSPP
-> so we dont need a per pipe_cfg check till then because both the
-> pipe_cfgs point to the same SSPP.
->
-> What is your thought on squashing this with patch 11 because from a
-> logical split PoV, this change is meaningful only after that.
+On Wed, Aug 28, 2024 at 04:48:49PM GMT, Jinjie Ruan wrote:
+> platform_get_resource_byname() and devm_ioremap_resource() can be
+> replaced by devm_platform_ioremap_resource_byname(), which can
+> simplify the code logic a bit, No functional change here.
 
-I'd say patch 11 is complicated enough. I'll check if I can change the
-order of patches 09 and 10 to make it more obvious.
+NAK.
 
+platform_get_resource_byname gets mdss_pdev, while devm_ function
+uses pdev->dev. Passing mdss_pdev to
+devm_platform_ioremap_resource_byname() means that the resource will get
+lifetime management attached to the lifecycle of the other driver.
+
+> 
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  drivers/gpu/drm/msm/msm_io_utils.c | 8 +-------
+>  1 file changed, 1 insertion(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_io_utils.c b/drivers/gpu/drm/msm/msm_io_utils.c
+> index afedd61c3e28..6f7933f01ae6 100644
+> --- a/drivers/gpu/drm/msm/msm_io_utils.c
+> +++ b/drivers/gpu/drm/msm/msm_io_utils.c
+> @@ -54,13 +54,7 @@ void __iomem *msm_ioremap_mdss(struct platform_device *mdss_pdev,
+>  			       struct platform_device *pdev,
+>  			       const char *name)
+>  {
+> -	struct resource *res;
+> -
+> -	res = platform_get_resource_byname(mdss_pdev, IORESOURCE_MEM, name);
+> -	if (!res)
+> -		return ERR_PTR(-EINVAL);
+> -
+> -	return devm_ioremap_resource(&pdev->dev, res);
+> +	return devm_platform_ioremap_resource_byname(mdss_pdev, name);
+>  }
+>  
+>  static void __iomem *_msm_ioremap(struct platform_device *pdev, const char *name,
+> -- 
+> 2.34.1
+> 
 
 -- 
 With best wishes
