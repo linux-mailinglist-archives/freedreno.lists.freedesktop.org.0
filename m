@@ -2,52 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37739966995
-	for <lists+freedreno@lfdr.de>; Fri, 30 Aug 2024 21:28:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 994C79669FB
+	for <lists+freedreno@lfdr.de>; Fri, 30 Aug 2024 21:42:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0531B10EAED;
-	Fri, 30 Aug 2024 19:28:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A55410E02E;
+	Fri, 30 Aug 2024 19:42:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="NBVQq2Xm";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="FpGoxpbY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBDD310EAEC;
- Fri, 30 Aug 2024 19:28:23 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47UFs9pU007623;
- Fri, 30 Aug 2024 19:28:15 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9711210E02E;
+ Fri, 30 Aug 2024 19:42:44 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47UFNwNf026547;
+ Fri, 30 Aug 2024 19:42:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- AcgT/476k0Npq3t+XDPm9gRME2dYfkE+YwdTSedGxfM=; b=NBVQq2XmO1T80xD0
- lrzAfHq8uxs4OttkoFKa6Nz7VFluOxR1KNkLjJH3SFIanKis5LswUg/d2dhPsJ0S
- yehHo2jbFyOSdUOyZMoVs5UeFlif6t/iBdgHruqYR3AfwReZT10Z1KBvkg6xwZnV
- HOypFbYF4wEoiCfukXW0udKWssveK3FYqa5KILDS50iRBw9tiwFHkOu6v6QSozkr
- v4f21Qic/Laq7joYGgu8Z2+W4EmfC2OYB+2eeI9IMYppGrItLY2/XrI3+KqCaG/f
- aBn0zXF6d9V9EeInL/ve7Kvunmvvt7F4bUc787dl3kbWCqevfLxrRBc3ls7k5xnO
- 0p7XjQ==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ WQgQSOmOou41lnjoOVdQJ1WiykWFVVUCp0NkH8CM0ck=; b=FpGoxpbYrTu5QaY/
+ A0UvBNbYdubJ6iwapbNkHL9YOf+v7DNSP+y/BVoiWYUrdtmTbvWARrVRhFEbii0H
+ jhucTi5kSxS0ISL4np8zvqJVCHNkZXUDWZmuVkV2AQBc0c069uTm34pmS0OKWT3Y
+ xqDEbi1FPGqe1Zak7TW1FubbRIYeFqLfmQkILBV1MFzwdxLFRKTJQp7l07+xb4vr
+ 99VPp7GZrWh8ug05ic3XfMxI4hxZYhT0KzyP2rTpZNH+Q5Wa35noDDF+7jffBqEA
+ ogx0Q16MMcjRBAJIQA0F3EeB4nfb6GeOD4o36Keb0++WYK0lpDl9mZG0xyT3mYHn
+ MSnWaw==
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 419pv0hyy4-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 419puvj0mt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Aug 2024 19:28:14 +0000 (GMT)
+ Fri, 30 Aug 2024 19:42:38 +0000 (GMT)
 Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
  [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 47UJSDUB028485
+ by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 47UJgbCr000412
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Aug 2024 19:28:13 GMT
+ Fri, 30 Aug 2024 19:42:37 GMT
 Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
  (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 30 Aug
- 2024 12:28:13 -0700
-Message-ID: <665da6e9-d9f3-4a28-a53b-0f467967fc78@quicinc.com>
-Date: Fri, 30 Aug 2024 12:28:12 -0700
+ 2024 12:42:30 -0700
+Message-ID: <092a7427-8971-4ee4-a417-52653ed892a4@quicinc.com>
+Date: Fri, 30 Aug 2024 12:42:26 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/21] drm/msm/dpu: Add RM support for allocating CWB
+Subject: Re: [PATCH 02/21] drm: print clone mode status in atomic state
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 CC: Rob Clark <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, Sean Paul
  <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
@@ -59,30 +59,30 @@ CC: Rob Clark <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, Sean Paul
  <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
  Rob Clark <robdclark@chromium.org>
 References: <20240829-concurrent-wb-v1-0-502b16ae2ebb@quicinc.com>
- <20240829-concurrent-wb-v1-11-502b16ae2ebb@quicinc.com>
- <pf6xgu7yjanzjigfpupons4ud6jbcmbr5icnd7yur6qhh3n5sf@plj4bi3beguw>
+ <20240829-concurrent-wb-v1-2-502b16ae2ebb@quicinc.com>
+ <e3moledbfob2xkgxpbta3onlzc5yi6u7cbsmuo5ao4qq7nyyhj@lr32vqnjzkbi>
 Content-Language: en-US
 From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <pf6xgu7yjanzjigfpupons4ud6jbcmbr5icnd7yur6qhh3n5sf@plj4bi3beguw>
+In-Reply-To: <e3moledbfob2xkgxpbta3onlzc5yi6u7cbsmuo5ao4qq7nyyhj@lr32vqnjzkbi>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: OhV9OyGasRv82lbgtaFTungIP973zmVg
-X-Proofpoint-ORIG-GUID: OhV9OyGasRv82lbgtaFTungIP973zmVg
+X-Proofpoint-ORIG-GUID: Q3rFbF65V4GUkrvwZWoJL0bf-rlb0wYf
+X-Proofpoint-GUID: Q3rFbF65V4GUkrvwZWoJL0bf-rlb0wYf
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-08-30_10,2024-08-30_01,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015
- priorityscore=1501 impostorscore=0 suspectscore=0 lowpriorityscore=0
- malwarescore=0 spamscore=0 mlxlogscore=999 mlxscore=0 bulkscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2407110000 definitions=main-2408300149
+ suspectscore=0
+ mlxlogscore=999 priorityscore=1501 bulkscore=0 impostorscore=0
+ adultscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0 mlxscore=0
+ spamscore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2408300151
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,115 +100,43 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 8/30/2024 10:18 AM, Dmitry Baryshkov wrote:
-> On Thu, Aug 29, 2024 at 01:48:32PM GMT, Jessica Zhang wrote:
->> Add support for allocating the concurrent writeback mux as part of the
->> WB allocation
+On 8/30/2024 9:38 AM, Dmitry Baryshkov wrote:
+> On Thu, Aug 29, 2024 at 01:48:23PM GMT, Jessica Zhang wrote:
+>> Add clone mode status to the DRM atomic print state
 >>
 >> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 >> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  5 ++++-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 30 +++++++++++++++++++++++++++--
->>   2 files changed, 32 insertions(+), 3 deletions(-)
+>>   drivers/gpu/drm/drm_atomic.c | 1 +
+>>   1 file changed, 1 insertion(+)
 >>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
->> index c17d2d356f7a..c43cb55fe1d2 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
->> @@ -1,5 +1,7 @@
->>   /* SPDX-License-Identifier: GPL-2.0-only */
->> -/* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
->> +/*
->> + * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
->> + * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
->>    */
->>   
->>   #ifndef _DPU_HW_MDSS_H
->> @@ -352,6 +354,7 @@ struct dpu_mdss_color {
->>   #define DPU_DBG_MASK_DSPP     (1 << 10)
->>   #define DPU_DBG_MASK_DSC      (1 << 11)
->>   #define DPU_DBG_MASK_CDM      (1 << 12)
->> +#define DPU_DBG_MASK_CWB      (1 << 13)
->>   
->>   /**
->>    * struct dpu_hw_tear_check - Struct contains parameters to configure
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> index bc99b04eae3a..738e9a081b10 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> @@ -1,9 +1,10 @@
->>   // SPDX-License-Identifier: GPL-2.0-only
->>   /*
->>    * Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
->> - * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
->> + * Copyright (c) 2023-2024 Qualcomm Innovation Center, Inc. All rights reserved.
->>    */
->>   
->> +#include <drm/drm_managed.h>
->>   #include "msm_drv.h"
->>   #define pr_fmt(fmt)	"[drm:%s] " fmt, __func__
->>   #include "dpu_kms.h"
->> @@ -34,6 +35,7 @@ int dpu_rm_init(struct drm_device *dev,
->>   		void __iomem *mmio)
->>   {
->>   	int rc, i;
->> +	struct dpu_hw_blk_reg_map *cwb_reg_map;
->>   
->>   	if (!rm || !cat || !mmio) {
->>   		DPU_ERROR("invalid kms\n");
->> @@ -100,11 +102,35 @@ int dpu_rm_init(struct drm_device *dev,
->>   		rm->hw_intf[intf->id - INTF_0] = hw;
->>   	}
->>   
->> +	if (cat->cwb_count > 0) {
->> +		cwb_reg_map = drmm_kzalloc(dev,
->> +				sizeof(*cwb_reg_map) * cat->cwb_count,
->> +				GFP_KERNEL);
+>> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+>> index 07b4b394e3bf..145d6a758d4d 100644
+>> --- a/drivers/gpu/drm/drm_atomic.c
+>> +++ b/drivers/gpu/drm/drm_atomic.c
+>> @@ -455,6 +455,7 @@ static void drm_atomic_crtc_print_state(struct drm_printer *p,
+>>   	drm_printf(p, "\tconnector_mask=%x\n", state->connector_mask);
+>>   	drm_printf(p, "\tencoder_mask=%x\n", state->encoder_mask);
+>>   	drm_printf(p, "\tmode: " DRM_MODE_FMT "\n", DRM_MODE_ARG(&state->mode));
+>> +	drm_printf(p, "\tin_clone_mode=%d\n", drm_crtc_in_clone_mode(crtc->state));
 > 
-> Please move CWB block pointers to dpu_rm. There is no need to allocate a
-> separate array.
+> We have encoder_mask two lines above. What is the benefit of having the
+> separate in_clone_mode?
 
 Hi Dmitry,
 
-Sorry, I'm not sure what you mean here. Can you clarify your comment?
+I was thinking that this would be an easy way to note if a CRTC was in 
+clone mode, but I can see why this is redundant.
 
-This is just allocating an array of the CWB register addresses so that 
-the hw_wb block can use it to configure the CWB mux registers.
+Will drop this patch.
 
 Thanks,
 
 Jessica Zhang
 
 > 
->> +
->> +		if (!cwb_reg_map) {
->> +			DPU_ERROR("failed cwb object creation\n");
->> +			return -ENOMEM;
->> +		}
->> +	}
->> +
->> +
->> +	for (i = 0; i < cat->cwb_count; i++) {
->> +		struct dpu_hw_blk_reg_map *cwb = &cwb_reg_map[i];
->> +
->> +		cwb->blk_addr = mmio + cat->cwb[i].base;
->> +		cwb->log_mask = DPU_DBG_MASK_CWB;
->> +	}
->> +
->>   	for (i = 0; i < cat->wb_count; i++) {
->>   		struct dpu_hw_wb *hw;
->>   		const struct dpu_wb_cfg *wb = &cat->wb[i];
 >>   
->> -		hw = dpu_hw_wb_init(dev, wb, mmio, cat->mdss_ver);
->> +		if (cat->cwb)
->> +			hw = dpu_hw_wb_init_with_cwb(dev, wb, mmio,
->> +					cat->mdss_ver, cwb_reg_map);
->> +		else
->> +			hw = dpu_hw_wb_init(dev, wb, mmio, cat->mdss_ver);
->> +
->>   		if (IS_ERR(hw)) {
->>   			rc = PTR_ERR(hw);
->>   			DPU_ERROR("failed wb object creation: err %d\n", rc);
+>>   	if (crtc->funcs->atomic_print_state)
+>>   		crtc->funcs->atomic_print_state(p, state);
 >>
 >> -- 
 >> 2.34.1
