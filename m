@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98E79966C50
-	for <lists+freedreno@lfdr.de>; Sat, 31 Aug 2024 00:27:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88E65966CC3
+	for <lists+freedreno@lfdr.de>; Sat, 31 Aug 2024 00:57:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70D6D10EB04;
-	Fri, 30 Aug 2024 22:27:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EF7710E0A3;
+	Fri, 30 Aug 2024 22:57:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dj6mvhpq";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="HkUnUeAe";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
- [209.85.128.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC18810EB04
- for <freedreno@lists.freedesktop.org>; Fri, 30 Aug 2024 22:27:24 +0000 (UTC)
-Received: by mail-yw1-f176.google.com with SMTP id
- 00721157ae682-6c0e22218d0so26211197b3.0
- for <freedreno@lists.freedesktop.org>; Fri, 30 Aug 2024 15:27:24 -0700 (PDT)
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6CD010E051
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Aug 2024 22:57:45 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-6c0e22218d0so26444227b3.0
+ for <freedreno@lists.freedesktop.org>; Fri, 30 Aug 2024 15:57:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725056844; x=1725661644; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1725058665; x=1725663465; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=s2YyHYQPYgxsMsPEBmOViYLSp8VfKsvDm7dsGMy40Fw=;
- b=dj6mvhpqKebmltlB5iU8lM1UsfLZs/wk1I6voqG27K/ttflgb1kouNHhthfY9GDO7h
- 22EAPvHtSo5I/2llXjE+6bwa77QB6GHrnCdBLa+VtWNNMaVO178HmV9N3HZelElez6t4
- jjKH3ezdXIl2BKZwhtDyc7BxtRBLfv0hDfKGqIOSt1AOmZ2X3LZMrDVLncIc3dEjqqyL
- Vi0GvYwK3ZeyxO/3cq9uNP0fPet1+hd2wIzDdBsrHZFERnNVmRsbLEkBwyxR742QGieP
- jdf0Rl6qwM9VgATURqEOj+bZdAzOi5lnHQeb4N79Pz88dgjli3fXCq+bou/8T4FI1Sp8
- NZHw==
+ bh=blK7NAlMTh3JcLkrTuTuxBcF6pT1N1f9hUEkKpKg934=;
+ b=HkUnUeAeQqo54ePb+t89gYI9Qe8CbUFZePVk6A0vlPlieWAAah9IjBvdPzUlOv0Edk
+ H29nwdfeXmb1idVEs50m8JrPXKLfq+k+aOEAN7HNCrAg8UhxdV8fUEIS8STkGBqYd83W
+ y0Qi4Vkhg5XokLfZqw4p/zaD1Q1abQyF9MRwvlfpPef1rrs1T7oToNFb1c0a+PYdAiet
+ ER62F7fxUvlPKDSrhVFrl3kqwZ2riWeHkeUZOpgYdN3+eGZKZ45dzY+Q7I7D1uzAn5qe
+ OFRQZizSAOwIydc00WeH/TM7e3TarITb+TjILaiQ4L81zI7dvYNOERAc8XKHt0YbChjG
+ ZCDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725056844; x=1725661644;
+ d=1e100.net; s=20230601; t=1725058665; x=1725663465;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=s2YyHYQPYgxsMsPEBmOViYLSp8VfKsvDm7dsGMy40Fw=;
- b=NQQN9aTXInwsWQ+2GDY9ZyKcTtJvLYs4pNaUlX6pmkbzj9VFEM3F6uVEiK+TNEq8DS
- WVMz57uquQ5OIyo/Qve0OAe4IPl7ozsaZPrSCnLWOr54DAEK/JH1pvLAvh490ekL9H2a
- sp+v/8ypwTcjs98A6wjEkFW2sE4fUEbpin0eKr4LN1ATh9mDPiXwit7/G48hT9vcOAh+
- GYkpWnAy6T6ED9F8g2S/B8ZZ9QF1OsDb6c9WB9tHPCNOCFyP2CRggTrFLr+SKWlE5bHh
- 1iK6rKRwY2S9DGYB18X1q1f5m7CW5MJ5siiWsOfD61hPdQqdxqjB5LdAvr9Yf4hZeWp5
- 5Vdg==
+ bh=blK7NAlMTh3JcLkrTuTuxBcF6pT1N1f9hUEkKpKg934=;
+ b=htylb/DjMZ6P3tZB4fenm/kZsNTuTRC2rq/gODzvKDBmTnxTHrPdOQMVZckYZB2IzG
+ kqlLjDqfazgFwjHhxyqk+PvQivgA/hdlKmM9Oj62Lct/dSV53MXlwlcUH5pYBejxzm77
+ jorLCvZkWVxd56Mk7ihN3366RhG+ztTNLn7S0s+o+NG7ChcsLzay0OJ+q5OpPlV7n0ih
+ 5XSCqmrp/EkP5CkUQdY62G7BW2XukPEGb07cdE953hpHdPsZeR1sR40aEyv9rnEEei1V
+ G2NDkKCwUvT7Fm+YcGF99lLWO5fxMKciUHgW8oyA/gUphh1Uzv33L0G3M59Zi/d8CCV5
+ vttQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVJ1yrQSLqhjqcITYc1YG8nqH1aiCIj8pA2Ldz4ogkMyNc6tTJpSfOqLMoMhQXjWE9aP0KA4sEOtlo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz2PPKFrS4CcTOO4GYDN/58Dehn/RV318Gr1MFPpH3OUx48OxFM
- 8OKGngHAjY4LoC2zqpfQw8XfEvOXUOE7PyjAanHAK3dn64M9ZAY/hgXJuHd0toElxMx8NKcemNf
- Ss62aU+YeS6DKRrRC1vGiQuXsEUzNpav3WUhlbQ==
-X-Google-Smtp-Source: AGHT+IG5eeD0svxWOfKQwLe6u0kOlsZgvlnrOv/bBgjzxMzWKdezSyNigVWnbhK/aYuDYPPFgPzzOaztniLlErcg8Yk=
-X-Received: by 2002:a05:690c:dc1:b0:643:92a8:ba00 with SMTP id
- 00721157ae682-6d40b0f7ea3mr46607747b3.0.1725056843655; Fri, 30 Aug 2024
- 15:27:23 -0700 (PDT)
+ AJvYcCUVM8Y5MMSsuBvBajPjVdCX7EfIE+WHGzXMVAFXqS5IE2hhZC+jmv5FJU7jnhX0QP104JtEBp7KAtY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz8XeqN1sbniNLavhNZphcK6ZUeARCjhKMPk1nD7q8qZGFBQT9t
+ ONeBHVCLfU7C67pzU62QXh7Q27wtTscCMIBKm35cJKtftQHOXOP88JvowQVGtD95/JMuAa4HwCu
+ e3ntKTwxPciIHafIVoSH02oyZZS8gXov7UateGA==
+X-Google-Smtp-Source: AGHT+IHaNIBsSSrOQ2E5MVgLuWqxCyO7W7yhIX6issB8LpruzHx5T1McdJK+wP1T3SSNj8NCo6Qje8DHbvX2SoXo6uc=
+X-Received: by 2002:a05:690c:418c:b0:6ad:bf4f:1bc3 with SMTP id
+ 00721157ae682-6d40f929f59mr35783557b3.32.1725058664513; Fri, 30 Aug 2024
+ 15:57:44 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240829-concurrent-wb-v1-0-502b16ae2ebb@quicinc.com>
- <20240829-concurrent-wb-v1-14-502b16ae2ebb@quicinc.com>
- <yohtzxysheoybac24hxil6zzzsqi4inx6oh6x7vaoj5lvtdf3u@vd5nax37ilqd>
- <a73def5c-46f6-4467-958d-20f28ce8ad2c@quicinc.com>
-In-Reply-To: <a73def5c-46f6-4467-958d-20f28ce8ad2c@quicinc.com>
+ <20240829-concurrent-wb-v1-15-502b16ae2ebb@quicinc.com>
+ <ioim2wu73yn425jpnb3qbrhtzbmdio47ri7fauxh4kd5eb57ib@wdmaeyk5yd6n>
+ <605d7a2e-5a73-4797-8526-8d9b0f617525@quicinc.com>
+In-Reply-To: <605d7a2e-5a73-4797-8526-8d9b0f617525@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 31 Aug 2024 01:27:12 +0300
-Message-ID: <CAA8EJppTqdCvaxBwretFVM6wV-NOLpxNGJCyxO8EXvvqZXF=sw@mail.gmail.com>
-Subject: Re: [PATCH 14/21] drm/msm/dpu: Reserve resources for CWB
+Date: Sat, 31 Aug 2024 01:57:32 +0300
+Message-ID: <CAA8EJpp1tcxKzftYot9td7_dBQwCLai_zWCB_AWYbZreAJbM6Q@mail.gmail.com>
+Subject: Re: [PATCH 15/21] drm/msm/dpu: Configure CWB in writeback encoder
 To: Jessica Zhang <quic_jesszhan@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -88,438 +88,341 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Fri, 30 Aug 2024 at 23:28, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
-> On 8/30/2024 10:25 AM, Dmitry Baryshkov wrote:
-> > On Thu, Aug 29, 2024 at 01:48:35PM GMT, Jessica Zhang wrote:
-> >> Reserve dedicated pingpong blocks for CWB
-> >
-> > Please explain design ideas. Having just a single phrase is usually not
-> > enough.
-> >
+>
+>
+>
+> On 8/30/2024 10:47 AM, Dmitry Baryshkov wrote:
+> > On Thu, Aug 29, 2024 at 01:48:36PM GMT, Jessica Zhang wrote:
+> >> Cache the CWB block mask in the DPU virtual encoder and configure CWB
+> >> according to the CWB block mask within the writeback phys encoder
 > >>
 > >> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 > >> ---
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 17 ++++++--
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  1 +
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 65 +++++++++++++++++++++++++++++
-> >>   3 files changed, 79 insertions(+), 4 deletions(-)
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           | 29 +++++++++++++++
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 43 ++++++++++++++++++++++
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  9 ++++-
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   | 18 ++++++++-
+> >>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    | 43 +++++++++++++++++++++-
+> >>   5 files changed, 139 insertions(+), 3 deletions(-)
 > >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> index 36b677cf9c7a..f1bd14d1f89e 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> @@ -2,7 +2,7 @@
-> >>   /*
-> >>    * Copyright (C) 2013 Red Hat
-> >>    * Copyright (c) 2014-2018, 2020-2021 The Linux Foundation. All rights reserved.
-> >> - * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
-> >> + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
-> >>    *
-> >>    * Author: Rob Clark <robdclark@gmail.com>
-> >>    */
-> >> @@ -1054,6 +1054,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
-> >>      struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
-> >>      struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
-> >>      int num_pp, num_dsc;
-> >> +    bool is_cwb_encoder;
-> >>      unsigned int dsc_mask = 0;
-> >>      int i;
+> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> >> index 99eaaca405a4..c8ef59af444c 100644
+> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> >> @@ -1236,6 +1236,33 @@ static bool dpu_crtc_has_valid_clones(struct drm_crtc *crtc,
+> >>      return true;
+> >>   }
 > >>
-> >> @@ -1067,6 +1068,8 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
-> >>
-> >>      priv = drm_enc->dev->dev_private;
-> >>      dpu_kms = to_dpu_kms(priv->kms);
-> >> +    is_cwb_encoder = drm_crtc_in_clone_mode(crtc_state) &&
-> >> +            dpu_enc->disp_info.intf_type == INTF_WB;
-> >>
-> >>      global_state = dpu_kms_get_existing_global_state(dpu_kms);
-> >>      if (IS_ERR_OR_NULL(global_state)) {
-> >> @@ -1077,9 +1080,15 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
-> >>      trace_dpu_enc_mode_set(DRMID(drm_enc));
-> >>
-> >>      /* Query resource that have been reserved in atomic check step. */
-> >> -    num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> >> -            drm_enc->crtc, DPU_HW_BLK_PINGPONG, hw_pp,
-> >> -            ARRAY_SIZE(hw_pp));
-> >> +    if (is_cwb_encoder)
-> >> +            num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> >> +                    drm_enc->crtc, DPU_HW_BLK_DCWB_PINGPONG, hw_pp,
-> >> +                    ARRAY_SIZE(hw_pp));
-> >> +    else
-> >> +            num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> >> +                    drm_enc->crtc, DPU_HW_BLK_PINGPONG, hw_pp,
-> >> +                    ARRAY_SIZE(hw_pp));
+> >> +static void dpu_crtc_set_encoder_cwb_mask(struct drm_crtc *crtc,
+> >> +            struct drm_crtc_state *crtc_state)
+> >> +{
+> >> +    struct drm_encoder *drm_enc;
+> >> +    struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc_state);
+> >> +    int cwb_idx = 0;
+> >> +    u32 cwb_mask = 0;
+> >> +
+> >> +    /*
+> >> +     * Since there can only be one CWB session at a time, if the CRTC LM
+> >> +     * starts with an even index we start with CWB_0. If the LM index is
+> >> +     * odd, we start with CWB_1
 > >
-> > Why is this necessary? Can we still use DPU_HW_BLK_PINGPONG?
+> > I'd prefer to get indices from RM. They can be set during mode_set /
+> > atomic_check calls.
 >
 > Hi Dmitry,
 >
-> Since both regular non-cwb pingpongs and pingpongs dedicated for cwb
-> both share the same pingpong_to_crtc_id map, I need a way to distinguish
-> between the real-time and dedicated cwb pingpongs.
->
-> If I don't do that, get_assigned_resources would populate the hw_pp
-> array for both the real-time and WB encoders with *only* the real-time
-> display pingpongs.
+> Do you mean having CWB being managed by RM or using rm's
+> get_assigned_blks() to grab the LM indices?
 
-I see. It looks like PINGPONG blocks should be allocated / filled
-per-encoder, not per-CRTC. Likewise CDM is encoder-specific, not
-CRTC-specific.
-Does that solve the issue?
+I was thinking of using either get_assigned_blks() or a new
+CWB-specific API. This way such odd-even requirements get abstracted
+in the RM.
+
+> >> +     */
+> >> +    if (cstate->mixers[0].hw_lm)
+> >> +            cwb_idx = (cstate->mixers[0].hw_lm->idx - LM_0) % 2;
+> >> +
+> >> +    if (drm_crtc_in_clone_mode(crtc_state)) {
+> >> +            for (int i = 0; i < cstate->num_mixers; i++) {
+> >> +                    cwb_mask |= (1 << cwb_idx);
+> >> +                    cwb_idx++;
+> >> +            }
+> >> +    }
+> >> +
+> >> +    drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc_state->encoder_mask)
+> >> +            dpu_encoder_set_cwb_mask(drm_enc, cwb_mask);
+> >
+> > Ugh, no. This function writes to dpu_enc, however there is being called
+> > from atomic_check(). You can not write non-state variables here as the
+> > commit can get completely dropped.
+>
+> Ack -- will change this API to `dpu_crtc_get_cwb_mask()` and call it
+> from dpu_encoder_virt_mode_set() instead.
+
+LGTM.
 
 >
 > >
+> >> +}
 > >> +
-> >>      dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> >>                      drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+> >>   static int dpu_crtc_assign_resources(struct drm_crtc *crtc, struct drm_crtc_state *crtc_state)
+> >>   {
+> >>      struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_CRTC];
+> >> @@ -1329,6 +1356,8 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+> >>                      !dpu_crtc_has_valid_clones(crtc, crtc_state))
+> >>              return -EINVAL;
 > >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> >> index c43cb55fe1d2..c87790a1b940 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> >> @@ -77,6 +77,7 @@ enum dpu_hw_blk_type {
-> >>      DPU_HW_BLK_LM,
-> >>      DPU_HW_BLK_CTL,
-> >>      DPU_HW_BLK_PINGPONG,
-> >> +    DPU_HW_BLK_DCWB_PINGPONG,
-> >>      DPU_HW_BLK_INTF,
-> >>      DPU_HW_BLK_WB,
-> >>      DPU_HW_BLK_DSPP,
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> >> index 13f84375e15d..afad26556cd5 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> >> @@ -236,6 +236,48 @@ static int _dpu_rm_get_lm_peer(struct dpu_rm *rm, int primary_idx)
-> >>      return -EINVAL;
+> >> +    dpu_crtc_set_encoder_cwb_mask(crtc, crtc_state);
+> >> +
+> >>      if (!crtc_state->enable || !drm_atomic_crtc_effectively_active(crtc_state)) {
+> >>              DRM_DEBUG_ATOMIC("crtc%d -> enable %d, active %d, skip atomic_check\n",
+> >>                              crtc->base.id, crtc_state->enable,
+> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> >> index f1bd14d1f89e..0f8f6c0182d5 100644
+> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> >> @@ -162,6 +162,7 @@ enum dpu_enc_rc_states {
+> >>    *                         clks and resources after IDLE_TIMEOUT time.
+> >>    * @topology:                   topology of the display
+> >>    * @idle_timeout:          idle timeout duration in milliseconds
+> >> + * @cwb_mask:                       current encoder is in clone mode
+> >>    * @wide_bus_en:           wide bus is enabled on this interface
+> >>    * @dsc:                   drm_dsc_config pointer, for DSC-enabled encoders
+> >>    */
+> >> @@ -202,6 +203,7 @@ struct dpu_encoder_virt {
+> >>      struct msm_display_topology topology;
+> >>
+> >>      u32 idle_timeout;
+> >> +    u32 cwb_mask;
+> >>
+> >>      bool wide_bus_en;
+> >>
+> >> @@ -638,6 +640,33 @@ bool dpu_encoder_needs_modeset(struct drm_encoder *drm_enc, struct drm_atomic_st
+> >>      return false;
 > >>   }
 > >>
-> >> +static int _dpu_rm_reserve_cwb_pingpong(struct dpu_rm *rm,
-> >> +            struct dpu_global_state *global_state, uint32_t crtc_id,
-> >> +            struct msm_display_topology *topology)
+> >> +void dpu_encoder_set_cwb_mask(struct drm_encoder *enc, u32 cwb_mask)
 > >> +{
-> >> +    int num_cwb_pp = topology->num_lm, cwb_pp_count = 0;
-> >> +    int cwb_pp_idx[MAX_BLOCKS];
+> >> +    struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(enc);
 > >> +
-> >> +    /*
-> >> +     * Reserve additional dedicated CWB pingpong blocks for each mixer
-> >> +     *
-> >> +     * TODO: add support for reserving non-dedicated CWB pingpong blocks
-> >> +     */
-> >> +    for (int i = 0; i < ARRAY_SIZE(rm->mixer_blks) &&
-> >> +                    cwb_pp_count < num_cwb_pp; i++) {
-> >> +            for (int j = PINGPONG_CWB_0 - PINGPONG_0;
-> >> +                            j < ARRAY_SIZE(rm->pingpong_blks); j++) {
+> >> +    dpu_enc->cwb_mask = cwb_mask;
+> >> +}
+> >> +
+> >> +u32 dpu_encoder_get_cwb_mask(struct drm_encoder *enc)
+> >> +{
+> >> +    struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(enc);
+> >> +
+> >> +    if (!dpu_enc)
+> >> +            return 0;
+> >> +
+> >> +    return dpu_enc->cwb_mask;
+> >> +}
+> >> +
+> >> +bool dpu_encoder_in_clone_mode(struct drm_encoder *enc)
+> >> +{
+> >> +    struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(enc);
+> >> +
+> >> +    if (!dpu_enc)
+> >> +            return 0;
+> >> +
+> >> +    return dpu_enc->cwb_mask != 0;
+> >> +}
+> >> +
+> >>   struct drm_dsc_config *dpu_encoder_get_dsc_config(struct drm_encoder *drm_enc)
+> >>   {
+> >>      struct msm_drm_private *priv = drm_enc->dev->dev_private;
+> >> @@ -2019,6 +2048,7 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
+> >>      struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
+> >>      struct dpu_hw_intf_cfg intf_cfg = { 0 };
+> >>      int i;
+> >> +    enum dpu_cwb cwb_idx;
+> >>      struct dpu_encoder_virt *dpu_enc;
+> >>
+> >>      dpu_enc = to_dpu_encoder_virt(phys_enc->parent);
+> >> @@ -2040,6 +2070,19 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
+> >>              /* mark WB flush as pending */
+> >>              if (phys_enc->hw_ctl->ops.update_pending_flush_wb)
+> >>                      phys_enc->hw_ctl->ops.update_pending_flush_wb(ctl, phys_enc->hw_wb->idx);
+> >> +
+> >> +            if (dpu_enc->cwb_mask) {
+> >> +                    for (i = 0; i < hweight32(dpu_enc->cwb_mask); i++) {
 > >
-> > Alignment...
+> > This will break if cwb_mask starts from bit 1: hweight will count bits,
+> > so the loop will not cover the highest bit set.
 >
-> Ack -- for future reference, should I always align the second line with
-> the bracket of the previous line?
+> Ah, good point. I should be doing `hweight() + 1` here instead.
+
+Not quite. I think it might be easier to loop up from CWB_0 to
+CWB_MAX. The optimization gain from using hweight32 should be
+negligible and using CWB constants will improve readability.
+
 >
-> I thought the general guideline was 2 tabs, but I might be misremembering.
+> >
+> >> +                            if (!(dpu_enc->cwb_mask & (1 << i)))
+> >> +                                    continue;
+> >> +
+> >> +                            cwb_idx = i + CWB_0;
+> >> +
+> >> +                            if (phys_enc->hw_wb->ops.setup_input_ctrl)
+> >> +                                    phys_enc->hw_wb->ops.setup_input_ctrl(phys_enc->hw_wb,
+> >> +                                                    cwb_idx, PINGPONG_NONE);
+> >> +                    }
+> >> +            }
+> >>      } else {
+> >>              for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+> >>                      if (dpu_enc->phys_encs[i] && phys_enc->hw_intf->ops.bind_pingpong_blk)
+> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> >> index 0d27e50384f0..131bb8b2c0ee 100644
+> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> >> @@ -1,6 +1,6 @@
+> >>   /* SPDX-License-Identifier: GPL-2.0-only */
+> >>   /*
+> >> - * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+> >> + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+> >>    * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+> >>    * Copyright (C) 2013 Red Hat
+> >>    * Author: Rob Clark <robdclark@gmail.com>
+> >> @@ -188,6 +188,13 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
+> >>    */
+> >>   bool dpu_encoder_needs_modeset(struct drm_encoder *drm_enc, struct drm_atomic_state *state);
+> >>
+> >> +/**
+> >> + * dpu_encoder_set_cwb_mask - set the CWB blocks mask for the encoder
+> >> + * @drm_enc:    Pointer to previously created drm encoder structure
+> >> + * @cwb_mask:   CWB blocks mask to set for the encoder
+> >> + */
+> >> +void dpu_encoder_set_cwb_mask(struct drm_encoder *drm_enc, u32 cwb_mask);
+> >> +
+> >>   /**
+> >>    * dpu_encoder_prepare_wb_job - prepare writeback job for the encoder.
+> >>    * @drm_enc:    Pointer to previously created drm encoder structure
+> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> >> index e77ebe3a68da..f0e5c5b073e5 100644
+> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> >> @@ -1,6 +1,6 @@
+> >>   /* SPDX-License-Identifier: GPL-2.0-only */
+> >>   /*
+> >> - * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+> >> + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+> >>    * Copyright (c) 2015-2018 The Linux Foundation. All rights reserved.
+> >>    */
+> >>
+> >> @@ -339,6 +339,22 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
+> >>    */
+> >>   unsigned int dpu_encoder_helper_get_dsc(struct dpu_encoder_phys *phys_enc);
+> >>
+> >> +/**
+> >> + * dpu_encoder_get_cwb_mask - get CWB blocks mask for DPU encoder
+> >> + *   This helper function is used by physical encoders to get the CWB blocks
+> >> + *   mask used for this encoder.
+> >> + * @enc: Pointer to DRM encoder structure
+> >> + */
+> >> +u32 dpu_encoder_get_cwb_mask(struct drm_encoder *enc);
+> >> +
+> >> +/**
+> >> + * dpu_encoder_in_clone_mode - determine if DPU encoder is in clone mode
+> >> + *   This helper is used by physical encoders to determine if the encoder is in
+> >> + *   clone mode.
+> >> + * @enc: Pointer to DRM encoder structure
+> >> + */
+> >> +bool dpu_encoder_in_clone_mode(struct drm_encoder *enc);
+> >> +
+> >>   /**
+> >>    * dpu_encoder_get_dsc_config - get DSC config for the DPU encoder
+> >>    *   This helper function is used by physical encoder to get DSC config
+> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> >> index 882c717859ce..e1ec64ffc742 100644
+> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> >> @@ -1,6 +1,6 @@
+> >>   // SPDX-License-Identifier: GPL-2.0-only
+> >>   /*
+> >> - * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+> >> + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+> >>    */
+> >>
+> >>   #define pr_fmt(fmt)        "[drm:%s:%d] " fmt, __func__, __LINE__
+> >> @@ -264,6 +264,45 @@ static void dpu_encoder_phys_wb_setup_ctl(struct dpu_encoder_phys *phys_enc)
+> >>      }
+> >>   }
+> >>
+> >> +static void dpu_encoder_phys_wb_setup_cwb(struct dpu_encoder_phys *phys_enc)
+> >> +{
+> >> +    struct dpu_hw_wb *hw_wb;
+> >> +    struct dpu_hw_ctl *hw_ctl;
+> >> +    struct dpu_hw_pingpong *hw_pp;
+> >> +    u32 cwb_mask, cwb_idx;
+> >> +
+> >> +    if (!phys_enc)
+> >> +            return;
+> >> +
+> >> +    hw_wb = phys_enc->hw_wb;
+> >> +    hw_ctl = phys_enc->hw_ctl;
+> >> +    hw_pp = phys_enc->hw_pp;
+> >> +
+> >> +    if (!hw_wb || !hw_ctl || !hw_pp) {
+> >> +            DPU_DEBUG("[wb:%d] no ctl or pp assigned\n", hw_wb->idx - WB_0);
+> >> +            return;
+> >> +    }
+> >> +
+> >> +    cwb_mask = dpu_encoder_get_cwb_mask(phys_enc->parent);
+> >> +
+> >> +    for (int i = 0; i < hweight32(cwb_mask); i++) {
+> >> +            if (!(cwb_mask & (1 << i)))
+> >> +                    continue;
+> >> +
+> >> +            cwb_idx = i + CWB_0;
+> >> +
+> >> +            if (hw_wb->ops.setup_input_ctrl)
+> >> +                    hw_wb->ops.setup_input_ctrl(hw_wb, cwb_idx, hw_pp->idx + i);
+>
+> Just wanted to note that the value being programmed here is incorrect.
+>
+> Instead of passing in the index of the dedicated cwb pingpong, it should
+> instead be the index of the *real time display* pingpong.
+>
+> To grab the correct value, I'm thinking of adding a DPU encoder API to
+> query the RM for (non-dedicated CWB) HW_BLK_PINGPONG to grab the
+> pingpong indices for the real-time encoder. I'll then call that API here
+> and pass the resulting real-time hw_pp index.
 
-I can't find the textual reference, however .clang-format in the root
-dir has 'AlignAfterOpenBracket: Align'. I'm more or less ignorant for
-the function argument alignment (especially if an old function is
-being modified), but aligning the conditions and loops makes it easier
-to read the code.
+Hmm. Having SDM845 and below and LM_2 / LM_5 pair in mind I thought
+that we might need to get a list of PPs. But then I noticed that this
+pair uses PP_2 / PP_3 pair of pingpong blocks. Yes, the proposed API
+sounds good.
 
+>
+> Please let me know if you have any feedback on this proposal or
+> alternate solutions.
 >
 > Thanks,
 >
 > Jessica Zhang
 >
-> >
-> >> +                    /*
-> >> +                     * Odd LMs must be assigned to odd pingpongs and even
-> >> +                     * LMs with even pingpongs
-> >> +                     */
-> >> +                    if (reserved_by_other(global_state->pingpong_to_crtc_id,
-> >> +                                            j, crtc_id) ||
-> >> +                                    i % 2 != j % 2)
-> >> +                            continue;
 > >> +
-> >> +                    cwb_pp_idx[cwb_pp_count] = j;
-> >> +                    cwb_pp_count++;
-> >> +                    break;
-> >> +            }
+> >> +            /*
+> >> +             * The CWB mux supports using LM or DSPP as tap points. For now,
+> >> +             * always use DSPP tap point
+> >> +             */
+> >> +            if (hw_wb->ops.setup_input_mode)
+> >> +                    hw_wb->ops.setup_input_mode(hw_wb, cwb_idx, INPUT_MODE_DSPP_OUT);
 > >> +    }
-> >> +
-> >> +    if (cwb_pp_count != num_cwb_pp) {
-> >> +            DPU_ERROR("Unable to reserve all cwb pingpongs\n");
-> >> +            return -ENAVAIL;
-> >> +    }
-> >> +
-> >> +    for (int i = 0; i < cwb_pp_count; i++)
-> >> +            global_state->pingpong_to_crtc_id[cwb_pp_idx[i]] = crtc_id;
-> >> +
-> >> +    return 0;
 > >> +}
 > >> +
 > >>   /**
-> >>    * _dpu_rm_check_lm_and_get_connected_blks - check if proposed layer mixer meets
-> >>    * proposed use case requirements, incl. hardwired dependent blocks like
-> >> @@ -617,6 +659,14 @@ static int _dpu_rm_make_reservation(
-> >>              return ret;
-> >>      }
+> >>    * _dpu_encoder_phys_wb_update_flush - flush hardware update
+> >>    * @phys_enc:      Pointer to physical encoder
+> >> @@ -342,6 +381,8 @@ static void dpu_encoder_phys_wb_setup(
 > >>
-> >> +    if (topology->cwb_enabled) {
-> >> +            ret = _dpu_rm_reserve_cwb_pingpong(rm, global_state,
-> >> +                            crtc_id, topology);
-> >> +            if (ret) {
-> >> +                    DPU_ERROR("unable to find appropriate dcwb pingpongs\n");
-> >> +                    return ret;
-> >> +            }
-> >> +    }
+> >>      dpu_encoder_helper_phys_setup_cdm(phys_enc, dpu_fmt, CDM_CDWN_OUTPUT_WB);
 > >>
-> >>      ret = _dpu_rm_reserve_ctls(rm, global_state, crtc_id,
-> >>                      topology);
-> >> @@ -706,6 +756,7 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
-> >>
-> >>      switch (type) {
-> >>      case DPU_HW_BLK_PINGPONG:
-> >> +    case DPU_HW_BLK_DCWB_PINGPONG:
-> >>              hw_blks = rm->pingpong_blks;
-> >>              hw_to_crtc_id = global_state->pingpong_to_crtc_id;
-> >>              max_blks = ARRAY_SIZE(rm->pingpong_blks);
-> >> @@ -745,6 +796,20 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
-> >>              if (hw_to_crtc_id[i] != crtc_id)
-> >>                      continue;
-> >>
-> >> +            if (type == DPU_HW_BLK_PINGPONG) {
-> >> +                    struct dpu_hw_pingpong *pp = to_dpu_hw_pingpong(hw_blks[i]);
+> >> +    dpu_encoder_phys_wb_setup_cwb(phys_enc);
 > >> +
-> >> +                    if (pp->idx >= PINGPONG_CWB_0)
-> >> +                            continue;
-> >> +            }
-> >> +
-> >> +            if (type == DPU_HW_BLK_DCWB_PINGPONG) {
-> >> +                    struct dpu_hw_pingpong *pp = to_dpu_hw_pingpong(hw_blks[i]);
-> >> +
-> >> +                    if (pp->idx < PINGPONG_CWB_0)
-> >> +                            continue;
-> >> +            }
-> >> +
-> >>              if (num_blks == blks_size) {
-> >>                      DPU_ERROR("More than %d resources assigned to crtc %d\n",
-> >>                                blks_size, crtc_id);
-> >>
-> >> --
-> >> 2.34.1
-> >>
-> >
-> > --
-> > With best wishes
-> > Dmitry
-
-
-
--- 
-With best wishes
-Dmitry
-
-On Fri, 30 Aug 2024 at 23:28, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
->
->
->
-> On 8/30/2024 10:25 AM, Dmitry Baryshkov wrote:
-> > On Thu, Aug 29, 2024 at 01:48:35PM GMT, Jessica Zhang wrote:
-> >> Reserve dedicated pingpong blocks for CWB
-> >
-> > Please explain design ideas. Having just a single phrase is usually not
-> > enough.
-> >
-> >>
-> >> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> >> ---
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 17 ++++++--
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  1 +
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 65 +++++++++++++++++++++++++++++
-> >>   3 files changed, 79 insertions(+), 4 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> index 36b677cf9c7a..f1bd14d1f89e 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> >> @@ -2,7 +2,7 @@
-> >>   /*
-> >>    * Copyright (C) 2013 Red Hat
-> >>    * Copyright (c) 2014-2018, 2020-2021 The Linux Foundation. All rights reserved.
-> >> - * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
-> >> + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
-> >>    *
-> >>    * Author: Rob Clark <robdclark@gmail.com>
-> >>    */
-> >> @@ -1054,6 +1054,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
-> >>      struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
-> >>      struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
-> >>      int num_pp, num_dsc;
-> >> +    bool is_cwb_encoder;
-> >>      unsigned int dsc_mask = 0;
-> >>      int i;
-> >>
-> >> @@ -1067,6 +1068,8 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
-> >>
-> >>      priv = drm_enc->dev->dev_private;
-> >>      dpu_kms = to_dpu_kms(priv->kms);
-> >> +    is_cwb_encoder = drm_crtc_in_clone_mode(crtc_state) &&
-> >> +            dpu_enc->disp_info.intf_type == INTF_WB;
-> >>
-> >>      global_state = dpu_kms_get_existing_global_state(dpu_kms);
-> >>      if (IS_ERR_OR_NULL(global_state)) {
-> >> @@ -1077,9 +1080,15 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
-> >>      trace_dpu_enc_mode_set(DRMID(drm_enc));
-> >>
-> >>      /* Query resource that have been reserved in atomic check step. */
-> >> -    num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> >> -            drm_enc->crtc, DPU_HW_BLK_PINGPONG, hw_pp,
-> >> -            ARRAY_SIZE(hw_pp));
-> >> +    if (is_cwb_encoder)
-> >> +            num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> >> +                    drm_enc->crtc, DPU_HW_BLK_DCWB_PINGPONG, hw_pp,
-> >> +                    ARRAY_SIZE(hw_pp));
-> >> +    else
-> >> +            num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> >> +                    drm_enc->crtc, DPU_HW_BLK_PINGPONG, hw_pp,
-> >> +                    ARRAY_SIZE(hw_pp));
-> >
-> > Why is this necessary? Can we still use DPU_HW_BLK_PINGPONG?
->
-> Hi Dmitry,
->
-> Since both regular non-cwb pingpongs and pingpongs dedicated for cwb
-> both share the same pingpong_to_crtc_id map, I need a way to distinguish
-> between the real-time and dedicated cwb pingpongs.
->
-> If I don't do that, get_assigned_resources would populate the hw_pp
-> array for both the real-time and WB encoders with *only* the real-time
-> display pingpongs.
->
-> >
-> >> +
-> >>      dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> >>                      drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> >> index c43cb55fe1d2..c87790a1b940 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> >> @@ -77,6 +77,7 @@ enum dpu_hw_blk_type {
-> >>      DPU_HW_BLK_LM,
-> >>      DPU_HW_BLK_CTL,
-> >>      DPU_HW_BLK_PINGPONG,
-> >> +    DPU_HW_BLK_DCWB_PINGPONG,
-> >>      DPU_HW_BLK_INTF,
-> >>      DPU_HW_BLK_WB,
-> >>      DPU_HW_BLK_DSPP,
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> >> index 13f84375e15d..afad26556cd5 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> >> @@ -236,6 +236,48 @@ static int _dpu_rm_get_lm_peer(struct dpu_rm *rm, int primary_idx)
-> >>      return -EINVAL;
+> >>      dpu_encoder_phys_wb_setup_ctl(phys_enc);
 > >>   }
 > >>
-> >> +static int _dpu_rm_reserve_cwb_pingpong(struct dpu_rm *rm,
-> >> +            struct dpu_global_state *global_state, uint32_t crtc_id,
-> >> +            struct msm_display_topology *topology)
-> >> +{
-> >> +    int num_cwb_pp = topology->num_lm, cwb_pp_count = 0;
-> >> +    int cwb_pp_idx[MAX_BLOCKS];
-> >> +
-> >> +    /*
-> >> +     * Reserve additional dedicated CWB pingpong blocks for each mixer
-> >> +     *
-> >> +     * TODO: add support for reserving non-dedicated CWB pingpong blocks
-> >> +     */
-> >> +    for (int i = 0; i < ARRAY_SIZE(rm->mixer_blks) &&
-> >> +                    cwb_pp_count < num_cwb_pp; i++) {
-> >> +            for (int j = PINGPONG_CWB_0 - PINGPONG_0;
-> >> +                            j < ARRAY_SIZE(rm->pingpong_blks); j++) {
-> >
-> > Alignment...
->
-> Ack -- for future reference, should I always align the second line with
-> the bracket of the previous line?
->
-> I thought the general guideline was 2 tabs, but I might be misremembering.
->
-> Thanks,
->
-> Jessica Zhang
->
-> >
-> >> +                    /*
-> >> +                     * Odd LMs must be assigned to odd pingpongs and even
-> >> +                     * LMs with even pingpongs
-> >> +                     */
-> >> +                    if (reserved_by_other(global_state->pingpong_to_crtc_id,
-> >> +                                            j, crtc_id) ||
-> >> +                                    i % 2 != j % 2)
-> >> +                            continue;
-> >> +
-> >> +                    cwb_pp_idx[cwb_pp_count] = j;
-> >> +                    cwb_pp_count++;
-> >> +                    break;
-> >> +            }
-> >> +    }
-> >> +
-> >> +    if (cwb_pp_count != num_cwb_pp) {
-> >> +            DPU_ERROR("Unable to reserve all cwb pingpongs\n");
-> >> +            return -ENAVAIL;
-> >> +    }
-> >> +
-> >> +    for (int i = 0; i < cwb_pp_count; i++)
-> >> +            global_state->pingpong_to_crtc_id[cwb_pp_idx[i]] = crtc_id;
-> >> +
-> >> +    return 0;
-> >> +}
-> >> +
-> >>   /**
-> >>    * _dpu_rm_check_lm_and_get_connected_blks - check if proposed layer mixer meets
-> >>    * proposed use case requirements, incl. hardwired dependent blocks like
-> >> @@ -617,6 +659,14 @@ static int _dpu_rm_make_reservation(
-> >>              return ret;
-> >>      }
-> >>
-> >> +    if (topology->cwb_enabled) {
-> >> +            ret = _dpu_rm_reserve_cwb_pingpong(rm, global_state,
-> >> +                            crtc_id, topology);
-> >> +            if (ret) {
-> >> +                    DPU_ERROR("unable to find appropriate dcwb pingpongs\n");
-> >> +                    return ret;
-> >> +            }
-> >> +    }
-> >>
-> >>      ret = _dpu_rm_reserve_ctls(rm, global_state, crtc_id,
-> >>                      topology);
-> >> @@ -706,6 +756,7 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
-> >>
-> >>      switch (type) {
-> >>      case DPU_HW_BLK_PINGPONG:
-> >> +    case DPU_HW_BLK_DCWB_PINGPONG:
-> >>              hw_blks = rm->pingpong_blks;
-> >>              hw_to_crtc_id = global_state->pingpong_to_crtc_id;
-> >>              max_blks = ARRAY_SIZE(rm->pingpong_blks);
-> >> @@ -745,6 +796,20 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
-> >>              if (hw_to_crtc_id[i] != crtc_id)
-> >>                      continue;
-> >>
-> >> +            if (type == DPU_HW_BLK_PINGPONG) {
-> >> +                    struct dpu_hw_pingpong *pp = to_dpu_hw_pingpong(hw_blks[i]);
-> >> +
-> >> +                    if (pp->idx >= PINGPONG_CWB_0)
-> >> +                            continue;
-> >> +            }
-> >> +
-> >> +            if (type == DPU_HW_BLK_DCWB_PINGPONG) {
-> >> +                    struct dpu_hw_pingpong *pp = to_dpu_hw_pingpong(hw_blks[i]);
-> >> +
-> >> +                    if (pp->idx < PINGPONG_CWB_0)
-> >> +                            continue;
-> >> +            }
-> >> +
-> >>              if (num_blks == blks_size) {
-> >>                      DPU_ERROR("More than %d resources assigned to crtc %d\n",
-> >>                                blks_size, crtc_id);
 > >>
 > >> --
 > >> 2.34.1
