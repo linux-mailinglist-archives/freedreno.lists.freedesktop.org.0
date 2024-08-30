@@ -2,91 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28C139650FC
-	for <lists+freedreno@lfdr.de>; Thu, 29 Aug 2024 22:49:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF01D96658A
+	for <lists+freedreno@lfdr.de>; Fri, 30 Aug 2024 17:33:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98AB710E747;
-	Thu, 29 Aug 2024 20:49:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B53310E21F;
+	Fri, 30 Aug 2024 15:33:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="DszwjYma";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gMtrxct9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78EE510E733;
- Thu, 29 Aug 2024 20:49:13 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47TGePBg006365;
- Thu, 29 Aug 2024 20:49:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- pLL17NErFn0beDKFMT994aik7V3gYXWvBuhXwiSVTHQ=; b=DszwjYmaXO8qPCQE
- Qyn3xEmDKx52rY0zkVdQuayDKhYPQDGRilwtNujHxVoNdjBhlYzEMjnRScswu3AM
- bKUavylYqUCqNwX4zSbqYQ6aohx6TvylU648viwGzFsUuw3t4sL3PyBDrMwQ5pKq
- LKB/5BIz3xgnaf0M+2FANDxD0oyv4PqL57WT/+htwUHIJjXLex9D1I/kwSAbNGnL
- PUJB/k5doBk29dZDIdg+aGC5wGT152HI2o/hNtJhMo2iDbwpt/b04RzwUh7Oom8q
- 0K0/HZRJWNS7naWVGLCLZg8M5HU1KioXf8wSsNxaNZ32k/9FJ/QRLDo+96+wupAJ
- 1KcAiw==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 419putxpbu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 29 Aug 2024 20:49:05 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 47TKn4KQ021054
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 29 Aug 2024 20:49:04 GMT
-Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Thu, 29 Aug 2024 13:49:04 -0700
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-Date: Thu, 29 Aug 2024 13:48:42 -0700
-Subject: [PATCH 21/21] drm/msm/dpu: Set possible clones for all encoders
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1730910E21F;
+ Fri, 30 Aug 2024 15:33:16 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-a8696e9bd24so239030966b.0; 
+ Fri, 30 Aug 2024 08:33:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725031994; x=1725636794; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=R1ZBcIcsd4bEjsD7xcbVzlCNWsKtjr2ojpG3+aHZkdM=;
+ b=gMtrxct92wWt+h9uQ24d/BtovstwURUVx8xJAsQyWel31yOwlQNfT99b7QMaLFs0UW
+ LsC8OxP7gphvmqFmCVevR2jFvRObBOB+U9VxINrDW415be8sO9Wb07GO116kxYJ+49tc
+ POd9jw7+UncHmu9AnWDgQNrv72J18di7xC5YC3ZlIMoDBnFSeKLDBtZD/JFiTPT12CkX
+ vpJpby1kYTtY67wBRhISQZRQl4v2R9CgNJXW2pG9WKkvaDMYJvUpFd/Vo8hAwASIXzyy
+ GzXzAE8YMiQtTanEuKKiApAChgkvRzQRt+L1ckFY9CevMYXObGB5EARyug9CUAJGHyB9
+ JriQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725031994; x=1725636794;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=R1ZBcIcsd4bEjsD7xcbVzlCNWsKtjr2ojpG3+aHZkdM=;
+ b=CiFM4RUwcw9apYSgEHLtrCehqmF9A6jsg1gxNoU58scS3OQSjVv+pRrGzeCLoO/kKs
+ rdN8JzK9WoGWd27d+Dd1c4hZJcKY43Hp1sbR9+GQkn8SzotO+IeSw0DsjcSvXlDy4n31
+ mmnDuT6BXcnfT1bBSoUH13SGLZnynN+tJT/pAnj/xrVjD8wf+VMHc9MFd+MNGXJW2C/v
+ eivNHluX1fyfnQ+YWA39JnJDzzUE1QxxSD0klu/ZWvhhio8LUKSb/R3CPIt7ZQAeZK/j
+ 68gQZAtp0UlSQF7Kf4DGQf2oDbnyVf5HdJjoula8iqxWVbUMaZQhGhzUjiVx713+kdON
+ biSw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWozK8ydz74g5wt+eWR9n+xX9dr3O5rSEaI0gbLAi88fMrCG7rd2BMHWQtP72X2NLg+IkkA2lGavbS6@lists.freedesktop.org,
+ AJvYcCXDmkyE1fp3u064h0kaC4+rS0aib8BmAOfRtP8kgGW4SaOziAbcjy4j6ZVoEGHzHQObsKDzwS0M5I4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwypqvyU+smBrGjRQ1p8yAA4WZtTjqeUOan9xL/CG2fCgPMebSu
+ 1SY8RVr5aLxxjqIEh12c5c5iGC2A5dVYHeeo4fEHz5PB9CsJJedp
+X-Google-Smtp-Source: AGHT+IGr2l5cXWMITLg/oTe7o7MpKjteV67FsCYxIox8G4FTimM1Iyjbl6EHRnVPBUhpI84sgaosgQ==
+X-Received: by 2002:a17:907:7e94:b0:a7a:a3f7:389e with SMTP id
+ a640c23a62f3a-a897f78daccmr600062466b.6.1725031993536; 
+ Fri, 30 Aug 2024 08:33:13 -0700 (PDT)
+Received: from [192.168.1.14] (host-95-234-170-37.retail.telecomitalia.it.
+ [95.234.170.37]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8988ff4233sm227157866b.25.2024.08.30.08.33.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Aug 2024 08:33:13 -0700 (PDT)
+From: Antonino Maniscalco <antomani103@gmail.com>
+Subject: [PATCH v2 0/9] Preemption support for A7XX
+Date: Fri, 30 Aug 2024 17:32:42 +0200
+Message-Id: <20240830-preemption-a750-t-v2-0-86aeead2cd80@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20240829-concurrent-wb-v1-21-502b16ae2ebb@quicinc.com>
-References: <20240829-concurrent-wb-v1-0-502b16ae2ebb@quicinc.com>
-In-Reply-To: <20240829-concurrent-wb-v1-0-502b16ae2ebb@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, <quic_abhinavk@quicinc.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
- Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-CC: <quic_ebharadw@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@chromium.org>,
- "Jessica Zhang" <quic_jesszhan@quicinc.com>
-X-Mailer: b4 0.15-dev-99b12
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1724964539; l=3416;
- i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
- bh=Zkfb0x1UhHELZyP7wkQbLW0HhqrMn1zVAR+JC51dopI=;
- b=LKMEdAVhhzG5AzVK2wzQBejPgyRawIrGfiCXQVn4QZZOtA2zQGMjuBZv9BkUeInhh0SParZ79
- 07HPjlnfqf8DRjZnC21lcSeeZCLX9E3MzOI0G41XY9g+ZmNoy4IN0DB
-X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
- pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: eQwKgQ5f36EI-sTq3enKJDvMoVLglevw
-X-Proofpoint-GUID: eQwKgQ5f36EI-sTq3enKJDvMoVLglevw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-29_06,2024-08-29_02,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- mlxlogscore=999 suspectscore=0 phishscore=0 spamscore=0 bulkscore=0
- clxscore=1015 mlxscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2407110000 definitions=main-2408290147
+X-B4-Tracking: v=1; b=H4sIABrm0WYC/32NTQ6CMBCFr0Jm7Zj+YcGV9zAsShlgEqGkJURDu
+ LuVA7j8Xt773g6JIlOCe7FDpI0ThzmDuhTgRzcPhNxlBiWUEZUscYlE07LmGjpbClyx90S1q4x
+ pdQ15lxs9v0/ns8k8clpD/JwXm/yl/2ybRIG27Zy6eW2Eto9hcvy6+jBBcxzHF0f9E6eyAAAA
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Antonino Maniscalco <antomani103@gmail.com>, 
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Sharat Masetty <smasetty@codeaurora.org>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1725031992; l=2848;
+ i=antomani103@gmail.com; s=20240815; h=from:subject:message-id;
+ bh=+/XloqlmCsquY7kMKECVJCoaSk/Is6TefQiw2Wa+1Fk=;
+ b=w9oRe0fzxNWwC/eWWHvVBB6Yv22prxU4QaZz5P1TKaHgZzw762E/J40AjyHtsIWM/tFdIDRSd
+ WSpN0PDPkx+AJrp9LYIholowKlxQ+RYnQci5ekgBaJcBY18hAAjWn4T
+X-Developer-Key: i=antomani103@gmail.com; a=ed25519;
+ pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,99 +103,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Set writeback encoders as possible clones for non-writeback encoders and
-vice versa.
+This series implements preemption for A7XX targets, which allows the GPU to
+switch to an higher priority ring when work is pushed to it, reducing latency
+for high priority submissions.
 
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+This series enables L1 preemption with skip_save_restore which requires
+the following userspace patches to function:
+
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/30544
+
+A flag is added to `msm_submitqueue_create` to only allow submissions
+from compatible userspace to be preempted, therefore maintaining
+compatibility.
+
+Some commits from this series are based on a previous series to enable
+preemption on A6XX targets:
+
+https://lkml.kernel.org/1520489185-21828-1-git-send-email-smasetty@codeaurora.org
+
+Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 27 +++++++++++++++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  7 +++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  7 +++++--
- 3 files changed, 39 insertions(+), 2 deletions(-)
+Changes in v2:
+- Added preept_record_size for X185 in PATCH 3/7
+- Added patches to reset perf counters
+- Dropped unused defines
+- Dropped unused variable (fixes warning)
+- Only enable preemption on a750
+- Reject MSM_SUBMITQUEUE_ALLOW_PREEMPT for unsupported targets
+- Added Akhil's Reviewed-By tags to patches 1/9,2/9,3/9
+- Added Neil's Tested-By tags
+- Added explanation for UAPI changes in commit message
+- Link to v1: https://lore.kernel.org/r/20240815-preemption-a750-t-v1-0-7bda26c34037@gmail.com
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 47b5a5994234..aad659e6d35b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2352,6 +2352,33 @@ static int dpu_encoder_virt_add_phys_encs(
- 	return 0;
- }
- 
-+uint32_t dpu_encoder_get_clones(struct drm_encoder *drm_enc)
-+{
-+	struct drm_encoder *curr;
-+	int type = drm_enc->encoder_type;
-+	uint32_t clone_mask = drm_encoder_mask(drm_enc);
-+
-+	/*
-+	 * Set writeback as possible clones of real-time encoders and real-time
-+	 * encoders as clones of writeback.
-+	 *
-+	 * Writeback encoders can't be clones of each other and real-time
-+	 * encoders can't be clones of each other.
-+	 */
-+	drm_for_each_encoder(curr, drm_enc->dev) {
-+		if (type == DRM_MODE_ENCODER_VIRTUAL &&
-+				curr->encoder_type == DRM_MODE_ENCODER_VIRTUAL)
-+			continue;
-+		if (type != DRM_MODE_ENCODER_VIRTUAL &&
-+				curr->encoder_type != DRM_MODE_ENCODER_VIRTUAL)
-+			continue;
-+
-+		clone_mask |= drm_encoder_mask(curr);
-+	}
-+
-+	return clone_mask;
-+}
-+
- static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
- 				 struct dpu_kms *dpu_kms,
- 				 struct msm_display_info *disp_info)
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-index 7ab5f9380bf5..70eda127488a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-@@ -98,6 +98,13 @@ enum dpu_intf_mode dpu_encoder_get_intf_mode(struct drm_encoder *encoder);
-  */
- void dpu_encoder_virt_runtime_resume(struct drm_encoder *encoder);
- 
-+/**
-+ * dpu_encoder_get_clones - set possible_clones for DPU encoder
-+ * @drm_enc:        DRM encoder pointer
-+ * Returns:         possible_clones mask
-+ */
-+uint32_t dpu_encoder_get_clones(struct drm_encoder *drm_enc);
-+
- /**
-  * dpu_encoder_init - initialize virtual encoder object
-  * @dev:        Pointer to drm device structure
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 87526d3c224a..1a82aa61d217 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -2,7 +2,7 @@
- /*
-  * Copyright (C) 2013 Red Hat
-  * Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
-- * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
-+ * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
-  *
-  * Author: Rob Clark <robdclark@gmail.com>
-  */
-@@ -793,8 +793,11 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
- 		return ret;
- 
- 	num_encoders = 0;
--	drm_for_each_encoder(encoder, dev)
-+	drm_for_each_encoder(encoder, dev) {
- 		num_encoders++;
-+		if (catalog->cwb_count > 0)
-+			encoder->possible_clones = dpu_encoder_get_clones(encoder);
-+	}
- 
- 	max_crtc_count = min(catalog->mixer_count, num_encoders);
- 
+---
+Antonino Maniscalco (9):
+      drm/msm: Fix bv_fence being used as bv_rptr
+      drm/msm: Add submitqueue setup and close
+      drm/msm: Add a `preempt_record_size` field
+      drm/msm/A6xx: Implement preemption for A7XX targets
+      drm/msm/A6xx: Sync relevant adreno_pm4.xml changes
+      drm/msm/A6xx: Use posamble to reset counters on preemption
+      drm/msm/A6xx: Add traces for preemption
+      drm/msm/A6XX: Add a flag to allow preemption to submitqueue_create
+      drm/msm/A6xx: Enable preemption for A750
 
+ drivers/gpu/drm/msm/Makefile                       |   1 +
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |   4 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              | 353 +++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              | 174 ++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_preempt.c          | 462 +++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   8 +-
+ drivers/gpu/drm/msm/msm_gpu.h                      |   7 +
+ drivers/gpu/drm/msm/msm_gpu_trace.h                |  28 ++
+ drivers/gpu/drm/msm/msm_ringbuffer.h               |   8 +
+ drivers/gpu/drm/msm/msm_submitqueue.c              |  13 +
+ .../gpu/drm/msm/registers/adreno/adreno_pm4.xml    |  39 +-
+ include/uapi/drm/msm_drm.h                         |   5 +-
+ 12 files changed, 1062 insertions(+), 40 deletions(-)
+---
+base-commit: 7c626ce4bae1ac14f60076d00eafe71af30450ba
+change-id: 20240815-preemption-a750-t-fcee9a844b39
+
+Best regards,
 -- 
-2.34.1
+Antonino Maniscalco <antomani103@gmail.com>
 
