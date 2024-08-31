@@ -2,34 +2,32 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5656D9676D9
-	for <lists+freedreno@lfdr.de>; Sun,  1 Sep 2024 15:54:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 798809676D8
+	for <lists+freedreno@lfdr.de>; Sun,  1 Sep 2024 15:54:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36FBF10E09A;
-	Sun,  1 Sep 2024 13:54:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15AFC10E08A;
+	Sun,  1 Sep 2024 13:54:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=kuruczgy.com header.i=@kuruczgy.com header.b="JxihGx2l";
+	dkim=pass (1024-bit key; unprotected) header.d=kuruczgy.com header.i=@kuruczgy.com header.b="Epo4RKkb";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 473 seconds by postgrey-1.36 at gabe;
- Sat, 31 Aug 2024 18:54:31 UTC
-Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com
- [95.215.58.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CE0910E155;
- Sat, 31 Aug 2024 18:54:31 +0000 (UTC)
-Message-ID: <56bf547a-08a5-4a08-87a9-c65f94416ef3@kuruczgy.com>
+Received: from out-187.mta0.migadu.com (out-187.mta0.migadu.com
+ [91.218.175.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC98110E0D2
+ for <freedreno@lists.freedesktop.org>; Sat, 31 Aug 2024 21:50:55 +0000 (UTC)
+Message-ID: <1f6676ae-62bf-40e1-b93c-463fa7d04cef@kuruczgy.com>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kuruczgy.com;
- s=default; t=1725129996;
+ s=default; t=1725141053;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=RaG84+/bdNFcK2s0BzGgnXzJQNkNWYStcn1LGw6NrpU=;
- b=JxihGx2lGXxk+1WGBTTuLdHOlldL9esbNFKgrjCnLAABchnfXS1f4YyejhWdaZOvPtciMw
- wN2a2kbxQgedVuJA7mGyVB9uFjzls6GGqwb0CoG0rcQicGxeJYp7R81Djg6V+l4xFEAb5d
- KmV3hpY477EDPzZFKcsB7qgQhSRVy94=
-Date: Sat, 31 Aug 2024 20:46:32 +0200
+ bh=oTTxbm5FRKBWZJPjYUBnkFj2GnM7Zwi1RSotZuqKSv0=;
+ b=Epo4RKkbvgj0Pu3nc0WR0rnBMIqrltiBcOrQH60nPt+RmBRL4pTlEiqvDdGCqzQHLaQphA
+ GxHcqdRBReY4Aby9hey2tRCLxkBRnlBjht5nKuPUJHYsGx3htSfPomMuRmcijkhmf5e5VH
+ LA00B8U2KZCkpHSIrjeY0l+AmXfD9pU=
+Date: Sat, 31 Aug 2024 23:50:50 +0200
 MIME-Version: 1.0
 Subject: Re: [v2,1/2] drm/msm/dpu1: don't choke on disabling the writeback
  connector
@@ -44,11 +42,13 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
 References: <20240802-dpu-fix-wb-v2-1-7eac9eb8e895@linaro.org>
  <b70a4d1d-f98f-4169-942c-cb9006a42b40@kuruczgy.com>
  <0b2286bf-42fc-45dc-a4e0-89f85e97b189@lausen.nl>
+ <56bf547a-08a5-4a08-87a9-c65f94416ef3@kuruczgy.com>
+ <9d359542-bd16-4aba-88a8-0bdea1c1de44@lausen.nl>
 Content-Language: en-US
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: =?UTF-8?Q?Gy=C3=B6rgy_Kurucz?= <me@kuruczgy.com>
-In-Reply-To: <0b2286bf-42fc-45dc-a4e0-89f85e97b189@lausen.nl>
+In-Reply-To: <9d359542-bd16-4aba-88a8-0bdea1c1de44@lausen.nl>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -70,35 +70,24 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Dear Leonard,
 
-> Do you observe this issue on every suspend-resume cycle?
+I installed KDE. First, I ran it with the my regular kernel without this 
+patch. The first interesting thing I notice is that the screen *does* 
+come back after resume. (The error messages are still present though.)
 
-I just did 10 suspend/resume cycles in a row to double check, and 
-without this patch the screen never comes back (always have to switch VT 
-back-and-forth to bring it back). The
+> Ack. Do you mean that Rob Clark also uses Yoga Slim 7x but does not face the "screen never comes back (always have to switch VT back-and-forth to bring it back)" issue?
 
-[dpu error]connector not connected 3
-[drm:drm_mode_config_helper_resume] *ERROR* Failed to resume (-22)
+Yes, at least that's what I gathered from our conversations on IRC. But 
+with the above in mind, I now suspect that this comes down to desktop 
+environment differences.
 
-pair of error messages also consistently appears after all resumes.
+> It would be great if you can validate whether this patch breaks CRTC state (which includes the CTM state) on Yoga Slim 7x, or whether that is specific to the trogdor lazor (Chromebook Acer Spin 513), though it may require you to install KDE.
 
-Though I think e.g. Rob Clark reported that suspend/resume already works 
-properly for him without this patch, so this experience is not universal 
-on the Yoga Slim 7x.
-
-> On sc7180 lazor, I do observe that this patch deterministically breaks restoring the CRTC state and functionality after resume. Can you please validate if you observe the same on Lenovo Yoga Slim 7x? Specifically, try set Night Light in your desktop environment to "Always On" and observe whether the screen remains in "Night Light" mode after resume. For lazor, "Night Light" is breaks after applying this patch and even manually toggling it off and on after resume does not restore "Night Light" / CRTC functionality.
-
-Unfortunately I cannot test this, as color temperature adjustments seems 
-to be completely non-functional for me in the first place. For color 
-temperature adjustment, I use gammastep on my machines, which uses 
-wlr_gamma_control_unstable_v1 under the hood. It outputs the following 
-warnings:
-
-Warning: Zero outputs support gamma adjustment.
-Warning: 1/1 output(s) do not support gamma adjustment.
-
-I haven't dug deeper into the cause yet, based on these it seems that 
-wlroots isn't detecting the display as being gamma-adjustable in the 
-first place.
+Well "Night Light" seems to be even more broken under KDE. I went into 
+System Settings, set it to "Always on night light", and tried to adjust 
+the temperature slider. While adjusting the slider, the screen goes 
+black, and only comes back after a few seconds. The color temperature 
+does not change, no matter what I change the slider to. Afterwards I 
+tried with this patch as well, but it produces the exact same behavior.
 
 Best regards,
 György
