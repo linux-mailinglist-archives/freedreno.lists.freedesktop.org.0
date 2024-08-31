@@ -2,36 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED99896727D
-	for <lists+freedreno@lfdr.de>; Sat, 31 Aug 2024 17:48:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63C86967314
+	for <lists+freedreno@lfdr.de>; Sat, 31 Aug 2024 21:00:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5201610E130;
-	Sat, 31 Aug 2024 15:48:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BCDE10E166;
+	Sat, 31 Aug 2024 19:00:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=lausen.nl header.i=@lausen.nl header.b="RvvXIg1n";
+	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=lausen.nl header.i=@lausen.nl header.b="iUyOoSzD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mailgate02.uberspace.is (mailgate02.uberspace.is
  [185.26.156.114])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11F0E10E130
- for <freedreno@lists.freedesktop.org>; Sat, 31 Aug 2024 15:48:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9822A10E166
+ for <freedreno@lists.freedesktop.org>; Sat, 31 Aug 2024 19:00:39 +0000 (UTC)
 Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
- by mailgate02.uberspace.is (Postfix) with ESMTPS id 474C618039E
- for <freedreno@lists.freedesktop.org>; Sat, 31 Aug 2024 17:48:03 +0200 (CEST)
-Received: (qmail 6512 invoked by uid 990); 31 Aug 2024 15:48:02 -0000
+ by mailgate02.uberspace.is (Postfix) with ESMTPS id 9E34717F679
+ for <freedreno@lists.freedesktop.org>; Sat, 31 Aug 2024 21:00:06 +0200 (CEST)
+Received: (qmail 21879 invoked by uid 990); 31 Aug 2024 19:00:06 -0000
 Authentication-Results: devico.uberspace.de;
 	auth=pass (plain)
 Received: from unknown (HELO unkown) (::1)
  by devico.uberspace.de (Haraka/3.0.1) with ESMTPSA;
- Sat, 31 Aug 2024 17:48:02 +0200
-Message-ID: <0b2286bf-42fc-45dc-a4e0-89f85e97b189@lausen.nl>
-Date: Sat, 31 Aug 2024 11:47:58 -0400
+ Sat, 31 Aug 2024 21:00:05 +0200
+Message-ID: <9d359542-bd16-4aba-88a8-0bdea1c1de44@lausen.nl>
+Date: Sat, 31 Aug 2024 15:00:00 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Leonard Lausen <leonard@lausen.nl>
 Subject: Re: [v2,1/2] drm/msm/dpu1: don't choke on disabling the writeback
  connector
+Content-Language: en-US
 To: =?UTF-8?Q?Gy=C3=B6rgy_Kurucz?= <me@kuruczgy.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
@@ -42,7 +42,9 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Jeykumar Sankaran <jsanka@codeaurora.org>, stable@vger.kernel.org
 References: <20240802-dpu-fix-wb-v2-1-7eac9eb8e895@linaro.org>
  <b70a4d1d-f98f-4169-942c-cb9006a42b40@kuruczgy.com>
-Content-Language: en-US
+ <0b2286bf-42fc-45dc-a4e0-89f85e97b189@lausen.nl>
+ <56bf547a-08a5-4a08-87a9-c65f94416ef3@kuruczgy.com>
+From: Leonard Lausen <leonard@lausen.nl>
 Autocrypt: addr=leonard@lausen.nl; keydata=
  xsFNBFDqr+kBEACh9pVkQnCP8c748JdNX3KKYZTtSgRDr9ZFIE5V5S39ws9kTxEOGFgUld4c
  zP5yU8hSO69khQi+AS9yqwUp/2vV6yQHh9m+aUJYSoI3Lj5/qj/NSaroF+Y5EPws23JgKYhs
@@ -86,25 +88,25 @@ Autocrypt: addr=leonard@lausen.nl; keydata=
  +qAYcACNLbHizXmKAkBgmprOuc5xat52thdz9vHqTf4Lq48W5ptXyxNPqC9MVWDV6C6tb7IY
  lBYs3LsNw//WuLgj5JSvRhFGZs1+3BirP7e/cLELOriu7hC6W+qbVCSb9wuyGeQrYparvLtn
  NPHVgeBBAUsUbFlEsaAbsF7q4I6Mv0Cg61IER5/CKqWzQWiVZ9mLSDYZq2LEK4XvhgvBRJ5q Sw==
-In-Reply-To: <b70a4d1d-f98f-4169-942c-cb9006a42b40@kuruczgy.com>
+In-Reply-To: <56bf547a-08a5-4a08-87a9-c65f94416ef3@kuruczgy.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Bar: /
-X-Rspamd-Report: BAYES_HAM(-0.003114) XM_UA_NO_VERSION(0.01) MIME_GOOD(-0.1)
-X-Rspamd-Score: -0.093114
+X-Rspamd-Report: BAYES_HAM(-0.002348) XM_UA_NO_VERSION(0.01) MIME_GOOD(-0.1)
+X-Rspamd-Score: -0.092348
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lausen.nl; s=uberspace;
  h=from:to:cc:subject:date;
- bh=tgZeO18/FatOKxCPfjewl3Otax0/Cbf5GNMDqKVUYK8=;
- b=RvvXIg1n1RMEkwDs+dHHZh2peLNIMlagK2CVB0gD1VGCP9JaviWXv5aWi8CnbiA8gEbQOBokuX
- sGVBGAMRHUkBQ9FFsSgPpTBx+ihl8BcQJkTckl1lWNnQLxUZbtAQQjboulh1pYAepMGZ6K8HYHKi
- aBJABGsq2dv3cPFJW07bwsYbyKMHGjFz0yRVDAzYP5uw/YOrfJvo1vZcYn4FPQybmnRygzGwamWH
- lAFd8PjFBnDqZqkdGY7aM/n/jAGYYTN8a4UcpSi/WfxIb/HTVySZLIs/gEBvh+HcLEY1d2vH6ZHz
- MqKEzNIk0Yk40o0+sFg/iHsZHvjhIpH7Ty19IUR02XVdrNQ/wuLOh+tZsNQVst2UlZaJw9hRU7Vw
- G4bi57SPS4zGoQv6CM4u15S9ukys5Yf12uC6Gue8PnlcyIgZfeehT89R++yoavVhL67bdvMM4912
- kcLCAlB+MM1VaUAtUy+LL2Y0cpWOj+EGn+7VeowCsEcgzpSTqvCWbdzjydkoHuFqBV14buj4ZTn0
- 4VdDw6sxE59DVzeJHyhWIh6E57yUZDh9WeLRSSPlEb5WkxT8Yrlz2FE1gdS5+Cd3xPUt7tv8s+5h
- mLAjDvwbbCdUudwiE5hYR6saY8AAsPHV3ny4SST9HlsIuzmlaIdphnhxeSmy27V4yB0h2Xq4xPmZ
- I=
+ bh=UwKPp9JUYK4rRvslxHWwmxYRfnMGtjCQxAzmaPwy3AY=;
+ b=iUyOoSzDtrStwnLKl6pqdhTdYhMsl73vXTx3XZBMpuwViJm+IgXBIn9nSY7KdrKSkRVTOQhwka
+ mDwkhNuWjyQeNX/W5ghF1t0EOmKSlC5x0TFcmoyamrMH34rQ8/eRWhis8xnUG/6CDBqZIcCtmqrj
+ t7X4I0LDcOJBFr9Nk8PdiFp5QKMdNXKVhcuW20S3vMNEuWG4YcRjQAexfS5fB0/GNFTOWj7tIG3p
+ YHyuRvo011aUN5dqzHSypuQMObfM2ciEEuhzevvc9AKEWYuRBB3zgUzGZxBqIhkxvG6Ur9t2SjRY
+ p4YYdFIXnx51ZcdcHpC9PVhdNdmpnZgC6w9sp424ateEb36IhKF7M4YswoqYnAvH5RY+RtGNv9p9
+ 7cBM6gsxIHeI0SVDrKbleTDCdnGLCcKUdg8ooix7hcZtvsYdYTuBDs4tDPXw0YsL9wiBrAWNpQmJ
+ OzdSvzzmrISC8brCWtGLG+C12vTKvKyz5Z07a9OJ+ElqYIQ4v1XjbkfJUBllBSjky6kR8sES1PFg
+ zftJ33NONN72iaUxBfz3bzp6gI7/8SXk/tytvaJ4fK6GCCxKAvnTtyNIetHQXWKaNTljm+EQLUz8
+ 1T0qrsAj1CLcIHUTm8yeRbLA8Xg2GFUssI93QjdP0VCSaMrqcvH+X/2cT+BXF7E+KBBFhfMmynY2
+ U=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,16 +122,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-(Resend as there was an email SPF record issue)
-
 Dear György,
 
-On 8/30/24 13:36, György Kurucz wrote:
-> For context, I have a Lenovo Yoga Slim 7x laptop, and was having issues with the display staying black after sleep. As a workaround, I could switch to a different VT and back.
+>> Do you observe this issue on every suspend-resume cycle?
+> 
+> I just did 10 suspend/resume cycles in a row to double check, and without this patch the screen never comes back (always have to switch VT back-and-forth to bring it back). The
+> 
+> [dpu error]connector not connected 3
+> [drm:drm_mode_config_helper_resume] *ERROR* Failed to resume (-22)
+> 
+> pair of error messages also consistently appears after all resumes.
+> 
+> Though I think e.g. Rob Clark reported that suspend/resume already works properly for him without this patch, so this experience is not universal on the Yoga Slim 7x.
 
-Do you observe this issue on every suspend-resume cycle? On sc7180 trogdor lazor, I do observe the same "display staying black after sleep" in some of the suspend-resume cycles. I have not been able to observe a pattern with respect to when the issue occurs and when it does not. "[drm:drm_mode_config_helper_resume] *ERROR* Failed to resume (-22)" is printed in either case. Switching to a different VT and back works to restore display functionality after those suspend-resume cycles that experience the issue.
+Ack. Do you mean that Rob Clark also uses Yoga Slim 7x but does not face the "screen never comes back (always have to switch VT back-and-forth to bring it back)" issue?
 
-On sc7180 lazor, I do observe that this patch deterministically breaks restoring the CRTC state and functionality after resume. Can you please validate if you observe the same on Lenovo Yoga Slim 7x? Specifically, try set Night Light in your desktop environment to "Always On" and observe whether the screen remains in "Night Light" mode after resume. For lazor, "Night Light" is breaks after applying this patch and even manually toggling it off and on after resume does not restore "Night Light" / CRTC functionality.
+>> On sc7180 lazor, I do observe that this patch deterministically breaks restoring the CRTC state and functionality after resume. Can you please validate if you observe the same on Lenovo Yoga Slim 7x? Specifically, try set Night Light in your desktop environment to "Always On" and observe whether the screen remains in "Night Light" mode after resume. For lazor, "Night Light" is breaks after applying this patch and even manually toggling it off and on after resume does not restore "Night Light" / CRTC functionality.
+> 
+> Unfortunately I cannot test this, as color temperature adjustments seems to be completely non-functional for me in the first place. For color temperature adjustment, I use gammastep on my machines, which uses wlr_gamma_control_unstable_v1 under the hood. It outputs the following warnings:
+> 
+> Warning: Zero outputs support gamma adjustment.
+> Warning: 1/1 output(s) do not support gamma adjustment.
+> 
+> I haven't dug deeper into the cause yet, based on these it seems that wlroots isn't detecting the display as being gamma-adjustable in the first place.
+
+The cause is simple: Qualcomm SoCs don't implement GAMMA_LUT support. Your desktop environment needs to use Color Transform Matrix (CTM) on ARM/QCom devices. You can refer to https://bugs.kde.org/show_bug.cgi?id=455720 for further details. It would be great if you can validate whether this patch breaks CRTC state (which includes the CTM state) on Yoga Slim 7x, or whether that is specific to the trogdor lazor (Chromebook Acer Spin 513), though it may require you to install KDE. Gnome does not support CTM yet (https://gitlab.gnome.org/GNOME/mutter/-/issues/2318).
 
 Best regards
 Leonard
