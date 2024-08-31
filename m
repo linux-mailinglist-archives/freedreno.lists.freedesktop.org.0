@@ -2,51 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24E7E9676D7
-	for <lists+freedreno@lfdr.de>; Sun,  1 Sep 2024 15:54:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5656D9676D9
+	for <lists+freedreno@lfdr.de>; Sun,  1 Sep 2024 15:54:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C21BD10E089;
-	Sun,  1 Sep 2024 13:54:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36FBF10E09A;
+	Sun,  1 Sep 2024 13:54:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=kuruczgy.com header.i=@kuruczgy.com header.b="ZCb3ubIv";
+	dkim=pass (1024-bit key; unprotected) header.d=kuruczgy.com header.i=@kuruczgy.com header.b="JxihGx2l";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 352 seconds by postgrey-1.36 at gabe;
- Fri, 30 Aug 2024 17:42:31 UTC
-Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com
- [91.218.175.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D874F10EAC4
- for <freedreno@lists.freedesktop.org>; Fri, 30 Aug 2024 17:42:31 +0000 (UTC)
-Message-ID: <b70a4d1d-f98f-4169-942c-cb9006a42b40@kuruczgy.com>
+X-Greylist: delayed 473 seconds by postgrey-1.36 at gabe;
+ Sat, 31 Aug 2024 18:54:31 UTC
+Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com
+ [95.215.58.186])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CE0910E155;
+ Sat, 31 Aug 2024 18:54:31 +0000 (UTC)
+Message-ID: <56bf547a-08a5-4a08-87a9-c65f94416ef3@kuruczgy.com>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kuruczgy.com;
- s=default; t=1725039397;
+ s=default; t=1725129996;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7Z8u6d0217V5Y/FNALKuOgpP9nl8oH/BQ1NaMD7vo7Q=;
- b=ZCb3ubIvTlPDtoBTf/DvHqLb7WEGL8/gB9SLOThcW8kMMmmCkvtnmQgKfyFZQdurXp8L3f
- 3wjZnevzcNpeQ84NCNtcMk7RcM+VBPqVyiEc2mXruLxmL0/hoYU33eNylk++XXx5XSS0eB
- K3P98H5FM2yMTgepxqpRe5lOXtmfiKM=
-Date: Fri, 30 Aug 2024 19:36:32 +0200
+ bh=RaG84+/bdNFcK2s0BzGgnXzJQNkNWYStcn1LGw6NrpU=;
+ b=JxihGx2lGXxk+1WGBTTuLdHOlldL9esbNFKgrjCnLAABchnfXS1f4YyejhWdaZOvPtciMw
+ wN2a2kbxQgedVuJA7mGyVB9uFjzls6GGqwb0CoG0rcQicGxeJYp7R81Djg6V+l4xFEAb5d
+ KmV3hpY477EDPzZFKcsB7qgQhSRVy94=
+Date: Sat, 31 Aug 2024 20:46:32 +0200
 MIME-Version: 1.0
 Subject: Re: [v2,1/2] drm/msm/dpu1: don't choke on disabling the writeback
  connector
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+To: Leonard Lausen <leonard@lausen.nl>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jeykumar Sankaran <jsanka@codeaurora.org>, stable@vger.kernel.org,
- Leonard Lausen <leonard@lausen.nl>
+ Jeykumar Sankaran <jsanka@codeaurora.org>, stable@vger.kernel.org
 References: <20240802-dpu-fix-wb-v2-1-7eac9eb8e895@linaro.org>
+ <b70a4d1d-f98f-4169-942c-cb9006a42b40@kuruczgy.com>
+ <0b2286bf-42fc-45dc-a4e0-89f85e97b189@lausen.nl>
 Content-Language: en-US
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: =?UTF-8?Q?Gy=C3=B6rgy_Kurucz?= <me@kuruczgy.com>
-In-Reply-To: <20240802-dpu-fix-wb-v2-1-7eac9eb8e895@linaro.org>
+In-Reply-To: <0b2286bf-42fc-45dc-a4e0-89f85e97b189@lausen.nl>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -66,34 +68,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Dear Dmitry,
+Dear Leonard,
 
-For context, I have a Lenovo Yoga Slim 7x laptop, and was having issues 
-with the display staying black after sleep. As a workaround, I could 
-switch to a different VT and back.
+> Do you observe this issue on every suspend-resume cycle?
 
-> [ 1185.831970] [dpu error]connector not connected 3
+I just did 10 suspend/resume cycles in a row to double check, and 
+without this patch the screen never comes back (always have to switch VT 
+back-and-forth to bring it back). The
 
-I can confirm that I was seeing this exact error message as well.
+[dpu error]connector not connected 3
+[drm:drm_mode_config_helper_resume] *ERROR* Failed to resume (-22)
 
->   	if (!conn_state || !conn_state->connector) {
->   		DPU_ERROR("invalid connector state\n");
->   		return -EINVAL;
-> -	} else if (conn_state->connector->status != connector_status_connected) {
-> -		DPU_ERROR("connector not connected %d\n", conn_state->connector->status);
-> -		return -EINVAL;
->   	}
->   
->   	crtc = conn_state->crtc;
+pair of error messages also consistently appears after all resumes.
 
-After applying this patch, the screen now resumes successfully, and the 
-errors are gone.
+Though I think e.g. Rob Clark reported that suspend/resume already works 
+properly for him without this patch, so this experience is not universal 
+on the Yoga Slim 7x.
 
-(For future reference, I am using this kernel: 
-https://github.com/jhovold/linux/commits/wip/x1e80100-6.11-rc5/, commit 
-cc2cb95cc77fec43edd407c993122085fa8c2dd7.)
+> On sc7180 lazor, I do observe that this patch deterministically breaks restoring the CRTC state and functionality after resume. Can you please validate if you observe the same on Lenovo Yoga Slim 7x? Specifically, try set Night Light in your desktop environment to "Always On" and observe whether the screen remains in "Night Light" mode after resume. For lazor, "Night Light" is breaks after applying this patch and even manually toggling it off and on after resume does not restore "Night Light" / CRTC functionality.
 
-Tested-by: György Kurucz <me@kuruczgy.com>
+Unfortunately I cannot test this, as color temperature adjustments seems 
+to be completely non-functional for me in the first place. For color 
+temperature adjustment, I use gammastep on my machines, which uses 
+wlr_gamma_control_unstable_v1 under the hood. It outputs the following 
+warnings:
+
+Warning: Zero outputs support gamma adjustment.
+Warning: 1/1 output(s) do not support gamma adjustment.
+
+I haven't dug deeper into the cause yet, based on these it seems that 
+wlroots isn't detecting the display as being gamma-adjustable in the 
+first place.
 
 Best regards,
 György
