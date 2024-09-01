@@ -2,57 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 798809676D8
-	for <lists+freedreno@lfdr.de>; Sun,  1 Sep 2024 15:54:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2901C9676DA
+	for <lists+freedreno@lfdr.de>; Sun,  1 Sep 2024 15:58:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15AFC10E08A;
-	Sun,  1 Sep 2024 13:54:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A76E10E09F;
+	Sun,  1 Sep 2024 13:58:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=kuruczgy.com header.i=@kuruczgy.com header.b="Epo4RKkb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FOtKvIzN";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from out-187.mta0.migadu.com (out-187.mta0.migadu.com
- [91.218.175.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC98110E0D2
- for <freedreno@lists.freedesktop.org>; Sat, 31 Aug 2024 21:50:55 +0000 (UTC)
-Message-ID: <1f6676ae-62bf-40e1-b93c-463fa7d04cef@kuruczgy.com>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kuruczgy.com;
- s=default; t=1725141053;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oTTxbm5FRKBWZJPjYUBnkFj2GnM7Zwi1RSotZuqKSv0=;
- b=Epo4RKkbvgj0Pu3nc0WR0rnBMIqrltiBcOrQH60nPt+RmBRL4pTlEiqvDdGCqzQHLaQphA
- GxHcqdRBReY4Aby9hey2tRCLxkBRnlBjht5nKuPUJHYsGx3htSfPomMuRmcijkhmf5e5VH
- LA00B8U2KZCkpHSIrjeY0l+AmXfD9pU=
-Date: Sat, 31 Aug 2024 23:50:50 +0200
-MIME-Version: 1.0
-Subject: Re: [v2,1/2] drm/msm/dpu1: don't choke on disabling the writeback
- connector
-To: Leonard Lausen <leonard@lausen.nl>,
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D04610E09F;
+ Sun,  1 Sep 2024 13:58:16 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-a8683dc3b17so203736366b.3; 
+ Sun, 01 Sep 2024 06:58:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725199095; x=1725803895; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=lqxrlwZgVOZrfaPkQI4LlyC8aVNLGRmKHeCXm7BpQqU=;
+ b=FOtKvIzNQ0R3uhp5xQEnW9VaRKO71rOZyjJyvuMHTlCb1eQMQd49d1lCW2F8wQUrA1
+ eIHUhtmIPoN0RBT9or+j2lw5hZHfyu0i2f2v+Z226NOO9qF/0VcY+pizbxI89PTUM1VB
+ C6rDxzxGTXL3giLLW3IWL3lYMQN2shGttvV+5OIij5z6WyaBf8GrnE+qiBTUDTwd2J2I
+ IkegPTbNHwm+x4WRXtmcya+uUa1+Yr4kq74mQOMewkIlZd4NH0+oYvu2IQm40FuXjZT2
+ ZJEYIpo4Sw8xdvivsRVhGBdTXhZ7hcJpjFopcfSFYxXq7dAXvj7PqKQZk1vLBAW0ZmGf
+ cZvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725199095; x=1725803895;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=lqxrlwZgVOZrfaPkQI4LlyC8aVNLGRmKHeCXm7BpQqU=;
+ b=YCnDMDhf/BxTT46hoow9ZaMmglMj20WtmRLpayrQEM/M5B+4Ga62Hw19y8PzWR0Ifj
+ GLunZh6oEIfWjhrymRDtOjG1edpVmDqdOms00aC4LNUBIH+Y2U5qhr0XWga1RnalJEHz
+ BRP25Am2zOqcH63Rlt/lr2FoPiZWeFO62sKys+0drE1eBZFdfk8pUt4P+IhoN8XOYgWB
+ gP0/8YibKVZbXLvyqvuBYhmjgQZgc6h5BWJwemoCc7fhiWQqO6H776OhJzb+wOxTTPR7
+ s5K4P0q6OG53zbzvwjYgo+MAzfn5Vtwo08Vcf8TtqBS38N9UpdrRQnq9pNekndT7s3jW
+ aCRw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUmeUF0K9lEWNNXASQdnaqonJIXBaKxC/qOEeKtbFnqOaJlM+/GFpX4BaxMp0ewupW9ykDB9kjeN0JR@lists.freedesktop.org,
+ AJvYcCXZt+956G6XYTPCJdaGkl30U+gYj7RUFFkq8rDgg/UtXD/3shWeroQcoRb9oVGYyDicqT1yIOMrFME=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwJR7M+ZscFJVoyPRJF5szuP4+5NnsRMUhTKzmBxDDohlZl4Iwl
+ e7ez5zBeObYfB4g/Ww2WeZ2Z7f86oC1iXgZnoAl01kVyBQjNl659
+X-Google-Smtp-Source: AGHT+IGKf5lWnIdWvQXm43UX9gltPdmoOxHDk3rgMDtuWMcrI5JctjcMpoKubosYad2+GjDL5ZOL4g==
+X-Received: by 2002:a05:6402:3506:b0:5c0:a8b4:3d92 with SMTP id
+ 4fb4d7f45d1cf-5c21ed8ba82mr11941841a12.27.1725199094059; 
+ Sun, 01 Sep 2024 06:58:14 -0700 (PDT)
+Received: from localhost.localdomain (public-nat-01.vpngate.v4.open.ad.jp.
+ [219.100.37.233]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c226ccff17sm4051295a12.73.2024.09.01.06.58.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 01 Sep 2024 06:58:13 -0700 (PDT)
+From: Vladimir Lypak <vladimir.lypak@gmail.com>
+To: Vladimir Lypak <vladimir.lypak@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jeykumar Sankaran <jsanka@codeaurora.org>, stable@vger.kernel.org
-References: <20240802-dpu-fix-wb-v2-1-7eac9eb8e895@linaro.org>
- <b70a4d1d-f98f-4169-942c-cb9006a42b40@kuruczgy.com>
- <0b2286bf-42fc-45dc-a4e0-89f85e97b189@lausen.nl>
- <56bf547a-08a5-4a08-87a9-c65f94416ef3@kuruczgy.com>
- <9d359542-bd16-4aba-88a8-0bdea1c1de44@lausen.nl>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: =?UTF-8?Q?Gy=C3=B6rgy_Kurucz?= <me@kuruczgy.com>
-In-Reply-To: <9d359542-bd16-4aba-88a8-0bdea1c1de44@lausen.nl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/4] fixes for Adreno A5Xx preemption
+Date: Sun,  1 Sep 2024 13:53:59 +0000
+Message-ID: <20240901135419.1075412-1-vladimir.lypak@gmail.com>
+X-Mailer: git-send-email 2.46.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Sun, 01 Sep 2024 13:54:31 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,26 +88,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Dear Leonard,
+There are several issues with preemption on Adreno A5XX GPUs which
+render system unusable if more than one priority level is used. Those
+issues include persistent GPU faults and hangs, full UI lockups with
+idling GPU.
 
-I installed KDE. First, I ran it with the my regular kernel without this 
-patch. The first interesting thing I notice is that the screen *does* 
-come back after resume. (The error messages are still present though.)
+---
+Changes in v2:
+- Use spinlock to serialize preemption initiation in patch 3
+- Added Reviewed-by on patch 2
+---
+Vladimir Lypak (4):
+  drm/msm/a5xx: disable preemption in submits by default
+  drm/msm/a5xx: properly clear preemption records on resume
+  drm/msm/a5xx: fix races in preemption evaluation stage
+  drm/msm/a5xx: workaround early ring-buffer emptiness check
 
-> Ack. Do you mean that Rob Clark also uses Yoga Slim 7x but does not face the "screen never comes back (always have to switch VT back-and-forth to bring it back)" issue?
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c     | 12 +++++++--
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.h     |  2 ++
+ drivers/gpu/drm/msm/adreno/a5xx_preempt.c | 30 +++++++++++++++++++++--
+ 3 files changed, 40 insertions(+), 4 deletions(-)
+---
+base-commit: 985bf40edf4343dcb04c33f58b40b4a85c1776d4
+-- 
+2.46.0
 
-Yes, at least that's what I gathered from our conversations on IRC. But 
-with the above in mind, I now suspect that this comes down to desktop 
-environment differences.
-
-> It would be great if you can validate whether this patch breaks CRTC state (which includes the CTM state) on Yoga Slim 7x, or whether that is specific to the trogdor lazor (Chromebook Acer Spin 513), though it may require you to install KDE.
-
-Well "Night Light" seems to be even more broken under KDE. I went into 
-System Settings, set it to "Always on night light", and tried to adjust 
-the temperature slider. While adjusting the slider, the screen goes 
-black, and only comes back after a few seconds. The color temperature 
-does not change, no matter what I change the slider to. Afterwards I 
-tried with this patch as well, but it produces the exact same behavior.
-
-Best regards,
-György
