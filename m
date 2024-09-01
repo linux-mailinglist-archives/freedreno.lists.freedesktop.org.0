@@ -2,79 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B13D79676EA
-	for <lists+freedreno@lfdr.de>; Sun,  1 Sep 2024 15:59:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C86539677C5
+	for <lists+freedreno@lfdr.de>; Sun,  1 Sep 2024 18:24:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 865EE10E199;
-	Sun,  1 Sep 2024 13:59:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F7D910E0BA;
+	Sun,  1 Sep 2024 16:24:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KMeUz0GW";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gCYD8Bp2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D568F10E199;
- Sun,  1 Sep 2024 13:59:32 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-5c245c62362so938654a12.0; 
- Sun, 01 Sep 2024 06:59:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725199171; x=1725803971; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=p8JB0+Bs8ErmsZEQvGhO4vH+N+VrdVzHLUwxPZWQG6E=;
- b=KMeUz0GWYlvE7rELpWxzLqqvOhKEKd5ha41jibQiIzKTtZtjeHGvscdv70ibdi/i08
- 6ZnzQqGHKGwBl88Ix+iDZohcvSxF0ZozMsn/nQktpHHFuUcy9qPmeFw0IdyejKrmPMfs
- uCRtv2XP5EUIB3sDXfU7ZDokJ4qQg5Patq9DpIyRI4bPVjYJukKYTa14C/G2q9Sbbj7N
- Kp4SLJ0nIo1E0FoFO/CIcq/F4jzdVRe1//i7tcdYaY0DxFaUnMlAlHLGhbkcyDpuw/NP
- pQMVUfQlauOtaIPCYyyyFRcPLK57aS8EHPpkaH0PIvBMIspUoKRyryVHHJ3vaMMjDWkl
- +ODQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725199171; x=1725803971;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=p8JB0+Bs8ErmsZEQvGhO4vH+N+VrdVzHLUwxPZWQG6E=;
- b=fvCzOLIPYbRXXQVzCB2Rl5f4HT3n1sVOZpFRmlAqf+iBfVkRudXPfibfymkKc0mf9J
- eALmRwMEZUqYcwjrhkJVJHdbK7p6sXfrrAa7g70yVElanOeLrHZTrWU1syiFYXkI7haa
- XSAGD0UHdKfEl29Haw/+qM+5GO0fjMLznrJxajw4ZZTSxiGyP4fhRsNlDwTjcwAbRRnT
- I72n/WZ+rODNznFO8ChU6qmIsdYCQ7319vhl1CiQc4ohVz2tYPmYtuapsyHqthMq27nZ
- koDBi9Ple80+9vWM06HUu4Fr8tWcT7WSbKKC/9fmyqM4vypQPui34FwyYreBurfylH/+
- 9oqw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW23tlRuh8HgIOvygEBWgsSZAMWUP6Xl6ECFk/Wb1jRl/km/SWWIg0kss5VlnIP1smDwPqQ/meDgbY=@lists.freedesktop.org,
- AJvYcCWBag0dpMZs6KLmhbiSOgQch/QV+Gma9gODXnYAyhSWfxjKalYv1yR/Rb3Xjc22vCMyDtU1OKGK5w7l@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw55BtkJSR7pQfTCgjPG3gv9MNzb/OqW7j4FAWyqa47EjSnfV7e
- VAgZnq/9w/gczvqNHUIUCejCPm0K0fFnjz0GegFimN8sNyCOdkO55XrmndvE
-X-Google-Smtp-Source: AGHT+IGJ7S2u5swfQvFXUIz2GMCV89hMMGXtojuyCo4a1PrgHeRFYoBgj84CD4toi9BdIGtUsaJ9yA==
-X-Received: by 2002:a05:6402:1d48:b0:5b8:34a9:7fd9 with SMTP id
- 4fb4d7f45d1cf-5c21ed86b5amr8442101a12.27.1725199170609; 
- Sun, 01 Sep 2024 06:59:30 -0700 (PDT)
-Received: from localhost.localdomain (public-nat-01.vpngate.v4.open.ad.jp.
- [219.100.37.233]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226ccff17sm4051295a12.73.2024.09.01.06.59.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 Sep 2024 06:59:30 -0700 (PDT)
-From: Vladimir Lypak <vladimir.lypak@gmail.com>
-To: Vladimir Lypak <vladimir.lypak@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/4] drm/msm/a5xx: workaround early ring-buffer emptiness
- check
-Date: Sun,  1 Sep 2024 13:54:03 +0000
-Message-ID: <20240901135419.1075412-5-vladimir.lypak@gmail.com>
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 912C110E0BA
+ for <freedreno@lists.freedesktop.org>; Sun,  1 Sep 2024 16:23:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 4596AA4116B;
+ Sun,  1 Sep 2024 16:23:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897F1C4CEC3;
+ Sun,  1 Sep 2024 16:23:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1725207838;
+ bh=wWRdV5p4nQfoqiJ0mlLfx4NkNTOoGZNwSUVpEcTxru0=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=gCYD8Bp2OMrFkC4W5H9jNgMZPCefXGqV+5MMbD+KGfb8a0+CnliVzuy2RL/XJwBEn
+ Knt8vjdjEIXldma0xzdgStxw7/5JCtKgYhiudOsmzZ+fiXb+Y+v5ih+dsa+jYbSTIb
+ S81Lsp58kmmRPH9e3f5/3aK/QtDh37qZg3D+e3NU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@intel.com>, Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 4.19 61/98] drm/msm: use drm_debug_enabled() to check for
+ debug categories
+Date: Sun,  1 Sep 2024 18:16:31 +0200
+Message-ID: <20240901160805.999662896@linuxfoundation.org>
 X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240901135419.1075412-1-vladimir.lypak@gmail.com>
-References: <20240901135419.1075412-1-vladimir.lypak@gmail.com>
+In-Reply-To: <20240901160803.673617007@linuxfoundation.org>
+References: <20240901160803.673617007@linuxfoundation.org>
+User-Agent: quilt/0.67
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -92,90 +60,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There is another cause for soft lock-up of GPU in empty ring-buffer:
-race between GPU executing last commands and CPU checking ring for
-emptiness. On GPU side IRQ for retire is triggered by CACHE_FLUSH_TS
-event and RPTR shadow (which is used to check ring emptiness) is updated
-a bit later from CP_CONTEXT_SWITCH_YIELD. Thus if GPU is executing its
-last commands slow enough or we check that ring too fast we will miss a
-chance to trigger switch to lower priority ring because current ring isn't
-empty just yet. This can escalate to lock-up situation described in
-previous patch.
-To work-around this issue we keep track of last submit sequence number
-for each ring and compare it with one written to memptrs from GPU during
-execution of CACHE_FLUSH_TS event.
+4.19-stable review patch.  If anyone has any objections, please let me know.
 
-Fixes: b1fc2839d2f9 ("drm/msm: Implement preemption for A5XX targets")
-Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
+------------------
+
+From: Jani Nikula <jani.nikula@intel.com>
+
+[ Upstream commit d8db0b36d888b6a5eb392f112dc156e694de2369 ]
+
+Allow better abstraction of the drm_debug global variable in the
+future. No functional changes.
+
+v2: Move unlikely() to drm_debug_enabled()
+
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+Reviewed-by: Rob Clark <robdclark@gmail.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/c7142cdebb5f6fed527272b333cd6c43c0aa68ec.1569329774.git.jani.nikula@intel.com
+Stable-dep-of: df24373435f5 ("drm/msm/dpu: don't play tricks with debug macros")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c     | 4 ++++
- drivers/gpu/drm/msm/adreno/a5xx_gpu.h     | 1 +
- drivers/gpu/drm/msm/adreno/a5xx_preempt.c | 4 ++++
- 3 files changed, 9 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 6c80d3003966..7cfefb5e6221 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -65,6 +65,8 @@ void a5xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
- 
- static void a5xx_submit_in_rb(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- {
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct a5xx_gpu *a5xx_gpu = to_a5xx_gpu(adreno_gpu);
- 	struct msm_ringbuffer *ring = submit->ring;
- 	struct drm_gem_object *obj;
- 	uint32_t *ptr, dwords;
-@@ -109,6 +111,7 @@ static void a5xx_submit_in_rb(struct msm_gpu *gpu, struct msm_gem_submit *submit
- 		}
- 	}
- 
-+	a5xx_gpu->last_seqno[ring->id] = submit->seqno;
- 	a5xx_flush(gpu, ring, true);
- 	a5xx_preempt_trigger(gpu);
- 
-@@ -210,6 +213,7 @@ static void a5xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	/* Write the fence to the scratch register */
- 	OUT_PKT4(ring, REG_A5XX_CP_SCRATCH_REG(2), 1);
- 	OUT_RING(ring, submit->seqno);
-+	a5xx_gpu->last_seqno[ring->id] = submit->seqno;
- 
- 	/*
- 	 * Execute a CACHE_FLUSH_TS event. This will ensure that the
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.h b/drivers/gpu/drm/msm/adreno/a5xx_gpu.h
-index b4d06ca3e499..9c0d701fe4b8 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.h
-@@ -34,6 +34,7 @@ struct a5xx_gpu {
- 	struct drm_gem_object *preempt_counters_bo[MSM_GPU_MAX_RINGS];
- 	struct a5xx_preempt_record *preempt[MSM_GPU_MAX_RINGS];
- 	uint64_t preempt_iova[MSM_GPU_MAX_RINGS];
-+	uint32_t last_seqno[MSM_GPU_MAX_RINGS];
- 
- 	atomic_t preempt_state;
- 	spinlock_t preempt_start_lock;
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_preempt.c b/drivers/gpu/drm/msm/adreno/a5xx_preempt.c
-index c65b34a4a8cc..0469fea55010 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_preempt.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_preempt.c
-@@ -55,6 +55,8 @@ static inline void update_wptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- /* Return the highest priority ringbuffer with something in it */
- static struct msm_ringbuffer *get_next_ring(struct msm_gpu *gpu)
- {
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct a5xx_gpu *a5xx_gpu = to_a5xx_gpu(adreno_gpu);
- 	unsigned long flags;
- 	int i;
- 
-@@ -64,6 +66,8 @@ static struct msm_ringbuffer *get_next_ring(struct msm_gpu *gpu)
- 
- 		spin_lock_irqsave(&ring->preempt_lock, flags);
- 		empty = (get_wptr(ring) == gpu->funcs->get_rptr(gpu, ring));
-+		if (!empty && ring == a5xx_gpu->cur_ring)
-+			empty = ring->memptrs->fence == a5xx_gpu->last_seqno[i];
- 		spin_unlock_irqrestore(&ring->preempt_lock, flags);
- 
- 		if (!empty)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+index 56ae888e18fc7..97840b29fd7a2 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+@@ -42,7 +42,7 @@
+  */
+ #define DPU_DEBUG(fmt, ...)                                                \
+ 	do {                                                               \
+-		if (unlikely(drm_debug & DRM_UT_KMS))                      \
++		if (drm_debug_enabled(DRM_UT_KMS))                         \
+ 			DRM_DEBUG(fmt, ##__VA_ARGS__); \
+ 		else                                                       \
+ 			pr_debug(fmt, ##__VA_ARGS__);                      \
+@@ -54,7 +54,7 @@
+  */
+ #define DPU_DEBUG_DRIVER(fmt, ...)                                         \
+ 	do {                                                               \
+-		if (unlikely(drm_debug & DRM_UT_DRIVER))                   \
++		if (drm_debug_enabled(DRM_UT_DRIVER))                      \
+ 			DRM_ERROR(fmt, ##__VA_ARGS__); \
+ 		else                                                       \
+ 			pr_debug(fmt, ##__VA_ARGS__);                      \
 -- 
-2.46.0
+2.43.0
+
+
 
