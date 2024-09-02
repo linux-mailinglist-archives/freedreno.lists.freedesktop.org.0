@@ -2,68 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABF7E968B78
-	for <lists+freedreno@lfdr.de>; Mon,  2 Sep 2024 18:02:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 751F0968E68
+	for <lists+freedreno@lfdr.de>; Mon,  2 Sep 2024 21:20:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84AB210E101;
-	Mon,  2 Sep 2024 16:02:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C01610E3A2;
+	Mon,  2 Sep 2024 19:20:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HVKrhbsF";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Z0pnexfn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9FF410E101;
- Mon,  2 Sep 2024 16:02:15 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id
- 4fb4d7f45d1cf-5c210e23651so4574730a12.3; 
- Mon, 02 Sep 2024 09:02:15 -0700 (PDT)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5D2B10E3A2
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Sep 2024 19:20:16 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-5343617fdddso7791021e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Sep 2024 12:20:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725292934; x=1725897734; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=C5Vz4j/A/EBROJlE9V4B05ru+E+LAW4sw0oP3utBImE=;
- b=HVKrhbsFL/CoNU+WXXSmIWnsbny8WwO9L+MG7xRYTr9HyeqtAxf5fzvZtg0DqvMz7U
- WcT+wBcRcT9LBW5KkMNYg41qYZdqheUINcngC2HsUd7kvZGfIlwdojjuHx7xBCNYRuwh
- 8fm9gIY9hxP2OcS1XhuTqZ/jMYHG31uBb9yTwU+tWdmjUcWwfmRuaaDS3roAujjtp0TA
- 3eDdrov07REB2bMyYso5HPUkKcmVCJFImxRRKRL/yxS38EQ4Hp2yNj0GpR6S/jql4UIQ
- Kz6UR2xlr8jR39T0sgdYI6VcaM8QXSNTIn+3hGJ337SNVcWsqh/0oumFpVwvZvhSk4zS
- EspA==
+ d=linaro.org; s=google; t=1725304815; x=1725909615; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=mUGAXK1hKOV3+wB8uekRhtvLfY66UbI/02mitVxdOs0=;
+ b=Z0pnexfnJ825h1UN6rdZdd9KZ8Bx2+rNm8uhTAgEwL6tvZLf0LcPi3cTI+yfe9yr/a
+ chC3Ip3JAdrFFG4Ezxs0nsc6uifDOl72SxZfL2Huh7fGev2bMJ/0+ta4RY4sQ6PJYb1N
+ vYUThQpvIBTO9NZTK8jT6sq/odiBx0xhulXBMyKgYsY4QEpLa9aPE9vrXbI6cO3uDQwY
+ hGyIXYvPGVNZVmgHz7XDMGVyzVfB5hSHfC+ieKZ7zfAZ8aOQcHEZIzzjHBbtd38mM8Ru
+ jDtWCJtw6UQeY6kXH8CeKfGOY8SdpTARcAaplrS/7O7BaqHeRavsbXoJjmltw0yQXSrv
+ kvUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725292934; x=1725897734;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=C5Vz4j/A/EBROJlE9V4B05ru+E+LAW4sw0oP3utBImE=;
- b=Arp0ChhXFN2nUDj0/YeSnF6w6/nLo1na9SGm7H6mmug47xYvqIyu8ayVvXUdocTko4
- VnVgKmpEPVNon6IfG77aMsDlrWwbNzYpBxYqdZl8v1fsTpwQ3QL6a6Ln7ZEu6RXlQy/8
- rtyNsXJ6eBoFO5Z6nL+jWqL+hO/QioMgwU9ZcUp6tj50y/9qHwL7KLtyb1iswHnKvaGh
- wjQ3u77YXNu4aTKbN06wscUPe8sXuDRpAZLxCx+ApUKj7EQRn/QNuJ49z8vL8fbSqPy9
- 09BpPltxOH3OHML6HGU8QWtp1q6h1hNqJMbT2VaVLAWKZE4Al0I+uOpZC5vissCglH2y
- gWeg==
+ d=1e100.net; s=20230601; t=1725304815; x=1725909615;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mUGAXK1hKOV3+wB8uekRhtvLfY66UbI/02mitVxdOs0=;
+ b=LbrMtqSv+8kOJLvL6r3EkThsqqoYVFQTbiEbmzkEM9ZRyqLqdMlpnZurEyjGvJmCPb
+ lezwclAC6mBI++WrPnO9ItZe/AD689MEHMs8X1th2QmCbQyl+lFKINMaSuLjQW6SaFha
+ D9uqehIaj2CTqA/uDBfnYOlJr+E9J+UpDXTai3L7RJp/G7+hJobGK3sni2Xm/RDmbrkr
+ y15LTK6tU7z58b+4MHBnu0R1in015qICGRt6P2Rt4BAd+eiAqlANzyk9+guep2xK2C0M
+ nMECLTaJGw3HCTj0dfnC4qrVZLMXl7lu0I/RxBi2uJv300Q707e/DhXLZXhz9rMsh9Yk
+ IIhw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW4QP9n0xYzZKA9OuJ2WRU4qVD4/TXtf1vFFc36mS7PVcKt768ziPbzf1UcG5/U7StiLY2kcpo+K6s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxQCV0CBrs7benuD13EbeOohUNoHZvX0Xr6hMQ1mYaiP0b+Edgq
- 4tsukFnrrf6fgGBYvgyGedK964sBVnLwRXn/rufCCQLCSvOr34sq087U1a6B2CaAWpH8IPrlOKw
- 6xc2oEluFfcj6Y9ErhX/tcrPMkXM=
-X-Google-Smtp-Source: AGHT+IEhc+/8y64ZulsxnV4yI6VLUOUZZy9iSB4IdqH34+WUVPpWjXBiGG98AToLe56K34DK7eKcTEBawagsbwAnfMs=
-X-Received: by 2002:a05:6402:350c:b0:5be:d7d8:49ad with SMTP id
- 4fb4d7f45d1cf-5c24374192amr4098204a12.22.1725292932960; Mon, 02 Sep 2024
- 09:02:12 -0700 (PDT)
+ AJvYcCXkb7nzPOmAecphZbIpnEAGegcnKGIvA/hf75fjHdN4FOdCxFZlODLm0KQtwjpyuMP32nuKHB/ux8k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YycZ9hxsYwxASic2xColhZvc4HfdQSSGgSkrYkEkYwWJL1iAyWc
+ 0aUBvNBAVdVT9M0ScKUt1uMvoTjzK2nAHOC8STAPcrb1s3ujPw7pvHf9WmhLWP8=
+X-Google-Smtp-Source: AGHT+IGGo56pov4G+ai8zQD/ZYuRwqu3sLehEJovaHclSKmZPLCymGG8vHRMwdbvoarWm4cuSQl1jg==
+X-Received: by 2002:a05:6512:159d:b0:52f:cd03:a84a with SMTP id
+ 2adb3069b0e04-53546bde0f1mr9344200e87.39.1725304814162; 
+ Mon, 02 Sep 2024 12:20:14 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5354084ddd9sm1747449e87.256.2024.09.02.12.20.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Sep 2024 12:20:13 -0700 (PDT)
+Date: Mon, 2 Sep 2024 22:20:12 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com,
+ Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, quic_ebharadw@quicinc.com,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>
+Subject: Re: [PATCH 13/21] drm/msm/dpu: Require modeset if clone mode status
+ changes
+Message-ID: <zg3v3uoq2j6qqnqai4epdsdqdkd7tr36dfb3nbtggc2wrmhszl@dkfqbb2g6lun>
+References: <20240829-concurrent-wb-v1-0-502b16ae2ebb@quicinc.com>
+ <20240829-concurrent-wb-v1-13-502b16ae2ebb@quicinc.com>
+ <ZtW_S0j5AEr4g0QW@phenom.ffwll.local>
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 2 Sep 2024 09:02:01 -0700
-Message-ID: <CAF6AEGudK7YMiKDhtvYgp=bY64OZZt0UQSkEkSxLo4rLmeVd9g@mail.gmail.com>
-Subject: [pull] drm/msm: drm-msm-next-2024-09-02 for v6.12
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZtW_S0j5AEr4g0QW@phenom.ffwll.local>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,163 +94,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
+On Mon, Sep 02, 2024 at 03:36:11PM GMT, Daniel Vetter wrote:
+> On Thu, Aug 29, 2024 at 01:48:34PM -0700, Jessica Zhang wrote:
+> > If the clone mode enabled status is changing, a modeset needs to happen
+> > so that the resources can be reassigned
+> > 
+> > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > index 1b0cc899e8c1..99eaaca405a4 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > @@ -1306,6 +1306,8 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+> >  	int rc = 0;
+> >  
+> >  	bool needs_dirtyfb = dpu_crtc_needs_dirtyfb(crtc_state);
+> > +	bool clone_mode_requested = drm_crtc_in_clone_mode(crtc->state);
+> > +	bool clone_mode_enabled = drm_crtc_in_clone_mode(crtc_state);
+> >  
+> >  	/* there might be cases where encoder needs a modeset too */
+> >  	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc_state->encoder_mask) {
+> > @@ -1313,6 +1315,10 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+> >  			crtc_state->mode_changed = true;
+> >  	}
+> >  
+> > +	if ((clone_mode_requested && !clone_mode_enabled) ||
+> > +			(!clone_mode_requested && clone_mode_enabled))
+> > +		crtc_state->mode_changed = true;
+> 
+> So two things, and kinda about the overall patch series:
+> 
+> - msm is confused about crtc_state->mode_changed, e.g. it sets it if
+>   crtc_state->active_changed, which is wrong. Or msm dpu code doesn't use
+>   drm_atomic_crtc_needs_modeset() correctly.
 
-This is the main pull for v6.12.  It ended a bit smaller this time,
-there are a few series on the dpu and gpu side that weren't quite
-ready to go this time around.
+This seems to be a leftover from prehistoric times and it should be
+removed or reworked. I'll take a look during the next development cycle.
 
-Further description below.
+> 
+> - changing crtc_state->mode_changed from your crtc or plane callbacks
+>   means you cannot use drm_atomic_helper_check directly, but need to roll
+>   your own that calls drm_atomic_helper_check_modesets again as needed.
+>   See the kerneldoc comment for drm_atomic_helper_check_modesets()
+> 
+> - the same holds if you set mode_changed from your encoder or bridge
+>   functions, but I think this doesn't apply here for this patch.
 
-The following changes since commit 6d0ebb3904853d18eeec7af5e8b4ca351b6f9025=
-:
+Yes. But we have it already in dpu_encoder.c. And we didn't notice that.
 
-  Merge tag 'drm-intel-next-2024-08-29' of
-https://gitlab.freedesktop.org/drm/i915/kernel into drm-next
-(2024-08-30 13:41:32 +1000)
+We have the code in dpu_encoder.c which makes sure that the hardware
+resources get reallocated if required. As we already have code in
+msm_atomic.c which sets mode_changed for this purpose (before calling
+drm_atomic_helper_check()) it might simply make sense to add pre-check
+callbacks to msm/dpu encoder. I will try working on that during or after
+the LPC if Abhinav doesn't pick up that issue.
 
-are available in the Git repository at:
+In the end we still have debt regarding the allow_modeset in
+msm_atomic_check(), I remember.
 
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-next-2024-09-02
+> 
+> I think it'd be really good to
+> 
+> - review existing kerneldoc and please submit patches where it's not clear
+>   or detailed enough
+> 
+> - add checks to the atomic helper code to catch this. I think the best way
+>   would be to check if drm_atomic_crtc_needs_modeset() changes outside of
+>   areas where the helper code allows it already (essentially connector
+>   functions setting ->connectors_changed), and set a new
+>   drm_atomic_state->dirty_needs_modeset. Which
+>   drm_atomic_helper_check_modeset would clear, and which would result in a
+>   WARN_ON in drm_atomic_check if it's not yet cleared when the driver
+>   returns with success.
+> 
+>   Otherwise there's just no way I think to make sure drivers get this
+>   right.
+> 
+> Can I please sign you up for these patches?
 
-for you to fetch changes up to 15302579373ed2c8ada629e9e7bcf9569393a48d:
+Ack.
 
-  drm/msm/dpu: enable writeback on SM6350 (2024-09-02 02:53:44 +0300)
+Thanks a lot for pointing out the issue!
 
-----------------------------------------------------------------
-Updates for v6.12
+> 
+> Thanks, Sima
+> 
+> > +
+> >  	if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+> >  		rc = dpu_crtc_assign_resources(crtc, crtc_state);
+> >  		if (rc < 0)
+> > 
+> > -- 
+> > 2.34.1
+> > 
+> 
+> -- 
+> Simona Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
 
-DPU:
-- Fix implement DP/PHY mapping on SC8180X
-- Enable writeback on SM8150, SC8180X, SM6125, SM6350
-
-DP:
-- Enable widebus on all relevant chipsets
-
-DSI:
-- Fix PHY programming on SM8350 / SM8450
-
-HDMI:
-- Add support for HDMI on MSM8998
-
-MDP5:
-- NULL string fix
-
-GPU:
-- A642L speedbin support
-- A615 support
-- A306 support
-- A621 support
-- Expand UBWC uapi
-- A7xx GPU devcoredump fixes
-- A5xx preemption fixes
-- cleanups
-
-----------------------------------------------------------------
-Abhinav Kumar (1):
-      drm/msm/dp: enable widebus on all relevant chipsets
-
-Aleksandr Mishin (1):
-      drm/msm: Fix incorrect file name output in adreno_request_fw()
-
-Arnaud Vrac (1):
-      drm/msm: add msm8998 hdmi phy/pll support
-
-Connor Abbott (7):
-      drm/msm: Use a7xx family directly in gpu_state
-      drm/msm: Dump correct dbgahb clusters on a750
-      drm/msm: Fix CP_BV_DRAW_STATE_ADDR name
-      drm/msm: Update a6xx register XML
-      drm/msm: Expand UBWC config setting
-      drm/msm: Expose expanded UBWC config uapi
-      drm/msm: Fix UBWC macrotile_mode for a680
-
-Dmitry Baryshkov (6):
-      drm/msm/dpu: Configure DP INTF/PHY selector
-      drm/msm/dsi: correct programming sequence for SM8350 / SM8450
-      drm/msm/dpu: enable writeback on SM8150
-      drm/msm/dpu: enable writeback on SC8108X
-      drm/msm/dpu: enable writeback on SM6125
-      drm/msm/dpu: enable writeback on SM6350
-
-Eugene Lepshy (1):
-      drm/msm/a6xx: Add A642L speedbin (0x81)
-
-Konrad Dybcio (7):
-      drm/msm/adreno: Assign msm_gpu->pdev earlier to avoid nullptrs
-      drm/msm/a6xx: Evaluate adreno_is_a650_family in pdc_in_aop check
-      drm/msm/a6xx: Store primFifoThreshold in struct a6xx_info
-      drm/msm/a6xx: Store correct gmu_cgc_mode in struct a6xx_info
-      drm/msm/a6xx: Use the per-GPU value for gmu_cgc_mode
-      drm/msm/a6xx: Set GMU CGC properties on a6xx too
-      drm/msm/a6xx: Add A621 support
-
-Laurent Pinchart (1):
-      drm/msm: Remove prototypes for non-existing functions
-
-Li Zetao (1):
-      drm/msm/adreno: Use kvmemdup to simplify the code
-
-Marc Gonzalez (3):
-      dt-bindings: phy: add qcom,hdmi-phy-8998
-      dt-bindings: display/msm: hdmi: add qcom,hdmi-tx-8998
-      drm/msm/hdmi: add "qcom,hdmi-tx-8998" compatible
-
-Otto Pfl=C3=BCger (1):
-      drm/msm/adreno: Add A306A support
-
-Richard Acayan (1):
-      drm/msm/adreno: add a615 support
-
-Rob Clark (1):
-      drm/msm: Remove unused pm_state
-
-Sherry Yang (1):
-      drm/msm: fix %s null argument error
-
-Vladimir Lypak (4):
-      drm/msm/a5xx: disable preemption in submits by default
-      drm/msm/a5xx: properly clear preemption records on resume
-      drm/msm/a5xx: fix races in preemption evaluation stage
-      drm/msm/a5xx: workaround early ring-buffer emptiness check
-
- .../devicetree/bindings/display/msm/hdmi.yaml      |   28 +-
- .../devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml |    1 +
- drivers/gpu/drm/msm/Makefile                       |    1 +
- drivers/gpu/drm/msm/adreno/a3xx_catalog.c          |   11 +
- drivers/gpu/drm/msm/adreno/a3xx_gpu.c              |   14 +-
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c              |   16 +-
- drivers/gpu/drm/msm/adreno/a5xx_gpu.h              |    2 +
- drivers/gpu/drm/msm/adreno/a5xx_preempt.c          |   30 +-
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |  141 ++-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   21 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |   89 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |    2 +
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c        |   46 +-
- .../gpu/drm/msm/adreno/adreno_gen7_9_0_snapshot.h  |    2 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.c            |   15 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   51 +-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h |   18 +
- .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |   18 +
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h |   18 +
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h |   18 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |    6 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         |   41 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h         |   18 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hwio.h           |    7 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   12 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c           |    2 +-
- drivers/gpu/drm/msm/dp/dp_display.c                |   10 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          |   12 +-
- drivers/gpu/drm/msm/hdmi/hdmi.c                    |    1 +
- drivers/gpu/drm/msm/hdmi/hdmi.h                    |    8 +
- drivers/gpu/drm/msm/hdmi/hdmi_phy.c                |    5 +
- drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c           |  779 ++++++++++++++
- drivers/gpu/drm/msm/msm_drv.h                      |    4 -
- drivers/gpu/drm/msm/msm_gpu.c                      |    1 -
- drivers/gpu/drm/msm/registers/adreno/a6xx.xml      | 1118 ++++++++++++++++=
-+++-
- drivers/gpu/drm/msm/registers/display/hdmi.xml     |   89 ++
- include/uapi/drm/msm_drm.h                         |    2 +
- 37 files changed, 2527 insertions(+), 130 deletions(-)
- create mode 100644 drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
+-- 
+With best wishes
+Dmitry
