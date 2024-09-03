@@ -2,67 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61CC49691E5
-	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 05:23:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12AA69691EB
+	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 05:23:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0256410E3EC;
-	Tue,  3 Sep 2024 03:23:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E17B10E3F1;
+	Tue,  3 Sep 2024 03:23:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RJRPpD58";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DbFHwn0P";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
- [209.85.208.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68AC510E3E0
- for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 03:23:06 +0000 (UTC)
-Received: by mail-lj1-f172.google.com with SMTP id
- 38308e7fff4ca-2f4f2cda058so51611581fa.1
- for <freedreno@lists.freedesktop.org>; Mon, 02 Sep 2024 20:23:06 -0700 (PDT)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
+ [209.85.208.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5611810E3E8
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 03:23:07 +0000 (UTC)
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-2f4f2868621so51132981fa.0
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Sep 2024 20:23:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725333784; x=1725938584; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1725333785; x=1725938585; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Jvt/zE2g5sFBtrEygf+RqS1sy6qu4DsII3e3BMDtLgg=;
- b=RJRPpD58NInwdqTY9GQm1E8atTIt9Q8SttpYdM59X0tuFUlYTHVjuY/dum4/eZgw2l
- uaihT+zvrdSg3z5mZlVfY/23QYWeKD65Kqo/qEE0bvml5Kt1n9MSZdofIDs6XjFJw+zp
- Ye3VDEMR92SmU0QlJB7gFZD5i0WvNSvvNg/luLU2qYGGczlO6mRCIMNzz1eA9WqozSxH
- JXup22KPffHhQyfLjdBoc9Ea0Q0YouzNcGUH6FPamKCeQtVfz6U/Iw5wL3Ns75xNAOW3
- tmKpi3k/3IjkarzWIIXUBIjz1DjclNw1ahrBybnMq9MQcLAmuF8OovuS3kkMbqzY0qVm
- fisg==
+ :reply-to; bh=TdplmJxptUI5vC4a8O6uUv9gCPQGqO+K3YZJZ67p41c=;
+ b=DbFHwn0PZs7AhZ/G7mO8oocOUiS3hpV2ObC7sYwGDsdWvYdhtQ93VWv9f5pFA/gVeg
+ Q8Kob8uC0P9vsOE0LRnxkk9Nsj6RYPl2qS0+UlfgjUK9Dm+amP6wT0bAsStTli2zT7bB
+ lEvOs98JTCxrSNyGnEFQRl+HYxQthfT7Pzq6mIC7eVEjoaP97rhQTi2dQIFHX4jlZSyp
+ pcroGnw0VCW+g0cq6Pry9/4HUZh2w0ZAuoZqPUA7CUohdS2pQ8qD0RIKwZxibqHQIOSN
+ 1aVX6kHPAR7TlHzHfZ7goLdyNpf5dMnzNi4+iR8OHvEbKXWwqZNBVTvwjWjWoUF5jnUU
+ EXPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725333784; x=1725938584;
+ d=1e100.net; s=20230601; t=1725333785; x=1725938585;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Jvt/zE2g5sFBtrEygf+RqS1sy6qu4DsII3e3BMDtLgg=;
- b=Tz1uHRpKh7RgWsNWWsCxm4K64+8bdY9qyrW+eH/jH2AZQYO0tPmb5G3/FzWPItnLe4
- l27xWkSUzPwDUlUwIsogygqAPys9KXcEQKIj+O5VSng+f7Ct4da231mABm5R2I9bQvDS
- 6fCtAtWKbhY1rMzS0XT1PmG+5042uUfVNmPvJlbP6GiSd7y6lWaIPrBfVzw6eTeoJzhw
- PTFxTNYLiTUDDSOLj4YwdApGHpQkb6W/HAztjxvy84yRTFCV2FBJMZebkN/vMXS670IU
- W4rhIliERoz3fMbD0z+ho+OOgwhiqbuzUnlH8eabZLHjxmR5ZhS4OxyjSPKs1xc/p/2D
- 1vLA==
+ bh=TdplmJxptUI5vC4a8O6uUv9gCPQGqO+K3YZJZ67p41c=;
+ b=m/LKo+lCG7+kP4BJH0t5a5hfGolxNedAU8DdvU2fsJoYyPIdLc5d0U8qpEbhe8YWa9
+ bbojz2L0xvwcv3+EgeHuu8UXF3reuQxhTKeKx/+roslVmh977OpC8PC5SUx8Alzpwk+2
+ i7oIrZQFSTbqzSErz3XHitm6zb8tLXlxka23BfUdbhXNiEIYjC0nKc7AVq79hX3bDhAT
+ AoYm4AkAmi/9+JiptKaUcHAjPU894LRWMbVYIjEUS6GpUz23MRUWL3cVhXgjP+HXtMYL
+ L21JHy0gPJ6UFONrIOdo7sIAVoXugO3zRaf2OA94XjZK0kQfJyLCzmtGxy0Sfuxhmoqx
+ Wb/w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXTfKH3Y7X2hmjtoRYHJZ6HEsh8HI4Agv56Kg5O1RfECus4G25D6a8Iaust4u8uvT7qrBaXDyBNjLY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyN/aliNSNJ4yxnPdi/rbhXKCjdaEoYZPjw4z+WeA1GtwEKtM8v
- WcITOrDS3gF5tDzJP3agQUT0zbPndr02BJ8vDB+9Go4NlpEW15IGVLzD4ppRLWpHT08QEQrtSWs
- w
-X-Google-Smtp-Source: AGHT+IG2NOKWv19yXd1KfDhyIT6XWtwr6LCZRVwMvgoMzIrmU00jl7ZCn89Eic6jhwshku1GLd/8UA==
-X-Received: by 2002:a2e:bc18:0:b0:2ef:28ed:1ff5 with SMTP id
- 38308e7fff4ca-2f612ae4c49mr50950591fa.15.1725333784099; 
+ AJvYcCX6DCTnFSI82U7OqK92bSM0CLmJLJ0QUOuDvlmJVoKcMjSxbYmKeNey4mzBzRlT+58X/2mryFj5FCY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YygorNDa6/N/eh1mxVZUN5dbhyc47Objg93et75aRwxSoBxDaS1
+ ju3qOa/5Ho88htHbeMKcARzJHhd/EM/18svXbPMWROfwXE4YjL0DNKuZ62k0rxc=
+X-Google-Smtp-Source: AGHT+IEOgwK1uzPezT8AfH6qRHEtNuFp5jh6ed6Oxbz/+Ff0gSLazpkDyq2/79FYkyfQ5VYW0A6ORA==
+X-Received: by 2002:a2e:a54f:0:b0:2f3:f068:b107 with SMTP id
+ 38308e7fff4ca-2f62dc25bfbmr60611641fa.40.1725333784770; 
  Mon, 02 Sep 2024 20:23:04 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f614ed15a5sm21003961fa.8.2024.09.02.20.23.03
+ 38308e7fff4ca-2f614ed15a5sm21003961fa.8.2024.09.02.20.23.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Sep 2024 20:23:03 -0700 (PDT)
+ Mon, 02 Sep 2024 20:23:04 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 03 Sep 2024 06:22:57 +0300
-Subject: [PATCH v6 14/15] drm/msm/dpu: merge MAX_IMG_WIDTH/HEIGHT with
- DPU_MAX_IMG_WIDTH/HEIGHT
+Date: Tue, 03 Sep 2024 06:22:58 +0300
+Subject: [PATCH v6 15/15] drm/msm/dpu: sync mode_config limits to the FB
+ limits in dpu_plane.c
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240903-dpu-mode-config-width-v6-14-617e1ecc4b7a@linaro.org>
+Message-Id: <20240903-dpu-mode-config-width-v6-15-617e1ecc4b7a@linaro.org>
 References: <20240903-dpu-mode-config-width-v6-0-617e1ecc4b7a@linaro.org>
 In-Reply-To: <20240903-dpu-mode-config-width-v6-0-617e1ecc4b7a@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -74,16 +73,16 @@ Cc: Abel Vesa <abel.vesa@linaro.org>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2318;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2539;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=iTBdjF6/hREMLxbMNkPCIYndio+J7XKe88temKLGweI=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ9q1Rh7Ly2t/9Jdt9WUIz9PPu21zjmVWyIXY/2t+MXzjt
- WH13N/ZyWjMwsDIxSArpsjiU9AyNWZTctiHHVPrYQaxMoFMYeDiFICJiFqz/5U62H9IXP/RpOZK
- u5A2Vj3B2Yd2LJ10vv2shpKNlZw3p2DI3JkHmVM6vY53tsnVm88uCLxz4OTaKYnTW6NuHxR4X7e
- S/2Pq0ZNrvPOC3+6auyfnc1f+pPBAy+KFXF4/vJWWCGypNLM0XuOdoxd2wyf8j3KmT/DpJiP7U7
- eDuxI/zWpgD3/G9WHzzbCpfj6lBRWx+v9ufyuZEdyduGehJeNu2ZLURJvq/a7h9+KneLJ/FO3qa
- PcOFCjou3pZIuNfSd4OT7O2+GPdd1Jm1RySVtYNNLBfllUeNEfFp8FCx+/7F7blK7TZfRYW9p2/
- O0PTlJU9Yv2Grg/vXrYK/A6f9//93C3qN5e7FN64xXYYAA==
+ bh=UDjBz+OwSb+7oXTheaAi3fvbBJbmIDiMCaat2ECDIjs=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBm1oENYwMah92zPW3oip3MLKiZnIUYlUa1xd+3t
+ /kh6S7kh0+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZtaBDQAKCRCLPIo+Aiko
+ 1cilCACqQ65UqNGu66yj8Yc5UtNC4Bxr5eciWwcxSeEPiNBcvfgPl6Z/KH0YARNLuYG3fmD6KlW
+ wAgWGaQj30qYfW9QlswHwi6fZuKIeEgyPlAbh7EdYng5U/RtXh8CkZ/7ypJrA74SNcxeRNsNYBD
+ Dm/6c+To2HvdKqwrSFjmIipYV/BP8MBa+yEMBqk8QQ1mD3Ypydo8qVht1lu0f6/usIxo3fUjG7K
+ TBvASFRwvgP8id0dUeerPnDPOqcbHiMYimEjrv9Iyd9EOvGWSPw9WD83HflHZURv12dXgSw2EOr
+ DwIf1EXXOTm29dCsQcc7HoniYrAM2OIIPzCfygu5IhQn1TME
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -101,63 +100,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-dpu_formats.c defines DPU_MAX_IMG_WIDTH and _HEIGHT, while
-dpu_hw_catalog.h defines just MAX_IMG_WIDTH and _HEIGHT. Merge these
-constants to remove duplication.
+Lift mode_config limits set by the DPU driver to the actual FB limits as
+handled by the dpu_plane.c. Move 2*max_lm_width check where it belongs,
+to the drm_crtc_helper_funcs::mode_valid() callback.
 
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Tested-by: Abhinav Kumar <quic_abhinavk@quicinc.com> # sc7280
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c    | 3 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 4 ++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      | 4 ++--
- 3 files changed, 4 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 14 ++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  9 ++-------
+ 2 files changed, 16 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-index 095bb947f1ff..b0909cbd91cb 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-@@ -13,9 +13,6 @@
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index db6c57900781..58595dcc3889 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1230,6 +1230,19 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+ 	return 0;
+ }
  
- #define DPU_UBWC_PLANE_SIZE_ALIGNMENT	4096
++static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
++						const struct drm_display_mode *mode)
++{
++	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
++
++	/*
++	 * max crtc width is equal to the max mixer width * 2 and max height is 4K
++	 */
++	return drm_mode_validate_size(mode,
++				      2 * dpu_kms->catalog->caps->max_mixer_width,
++				      4096);
++}
++
+ int dpu_crtc_vblank(struct drm_crtc *crtc, bool en)
+ {
+ 	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
+@@ -1445,6 +1458,7 @@ static const struct drm_crtc_helper_funcs dpu_crtc_helper_funcs = {
+ 	.atomic_check = dpu_crtc_atomic_check,
+ 	.atomic_begin = dpu_crtc_atomic_begin,
+ 	.atomic_flush = dpu_crtc_atomic_flush,
++	.mode_valid = dpu_crtc_mode_valid,
+ 	.get_scanout_position = dpu_crtc_get_scanout_position,
+ };
  
--#define DPU_MAX_IMG_WIDTH		0x3FFF
--#define DPU_MAX_IMG_HEIGHT		0x3FFF
--
- /*
-  * struct dpu_media_color_map - maps drm format to media format
-  * @format: DRM base pixel format
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 37e18e820a20..34e60483fbcf 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -21,8 +21,8 @@
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index daa42f289d2e..7083baf7d5ce 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1201,13 +1201,8 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+ 	dev->mode_config.min_width = 0;
+ 	dev->mode_config.min_height = 0;
  
- #define DPU_HW_BLK_NAME_LEN	16
+-	/*
+-	 * max crtc width is equal to the max mixer width * 2 and max height is
+-	 * is 4K
+-	 */
+-	dev->mode_config.max_width =
+-			dpu_kms->catalog->caps->max_mixer_width * 2;
+-	dev->mode_config.max_height = 4096;
++	dev->mode_config.max_width = DPU_MAX_IMG_WIDTH;
++	dev->mode_config.max_height = DPU_MAX_IMG_HEIGHT;
  
--#define MAX_IMG_WIDTH 0x3fff
--#define MAX_IMG_HEIGHT 0x3fff
-+#define DPU_MAX_IMG_WIDTH 0x3fff
-+#define DPU_MAX_IMG_HEIGHT 0x3fff
- 
- #define CRTC_DUAL_MIXERS	2
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index f686588bf896..e935e9c05f04 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -843,8 +843,8 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
- 	fb_rect.y2 = new_plane_state->fb->height;
- 
- 	/* Ensure fb size is supported */
--	if (drm_rect_width(&fb_rect) > MAX_IMG_WIDTH ||
--	    drm_rect_height(&fb_rect) > MAX_IMG_HEIGHT) {
-+	if (drm_rect_width(&fb_rect) > DPU_MAX_IMG_WIDTH ||
-+	    drm_rect_height(&fb_rect) > DPU_MAX_IMG_HEIGHT) {
- 		DPU_DEBUG_PLANE(pdpu, "invalid framebuffer " DRM_RECT_FMT "\n",
- 				DRM_RECT_ARG(&fb_rect));
- 		return -E2BIG;
+ 	dev->max_vblank_count = 0xffffffff;
+ 	/* Disable vblank irqs aggressively for power-saving */
 
 -- 
 2.39.2
