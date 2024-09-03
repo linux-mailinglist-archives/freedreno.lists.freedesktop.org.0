@@ -2,66 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 847A096A31C
-	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 17:45:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E9A696A3BC
+	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 18:09:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61F4E10E5D6;
-	Tue,  3 Sep 2024 15:45:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68FAA10E5E6;
+	Tue,  3 Sep 2024 16:09:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qT6bJmHU";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="o/y1t0ko";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD6AE10E5D6
- for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 15:45:46 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-2f029e9c9cfso68374151fa.2
- for <freedreno@lists.freedesktop.org>; Tue, 03 Sep 2024 08:45:46 -0700 (PDT)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CE6110E5E9
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 16:09:46 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-53560b2b444so923916e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Sep 2024 09:09:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725378344; x=1725983144; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1725379784; x=1725984584; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lvLFRuyWoi+K6FtpRUCVpbWJKizzVnbzbq+sI/tpAWs=;
- b=qT6bJmHUrK/P0kCKd0Ag1uGfDU/EvNUt0XudK2Fbg8yQc1xPr3bk2smkdo9YGzq7uP
- kIcQAjXfUDGElPEecLOcuGkXdGtFmCW8iUvhokBun9td1++uug0P/4uWFfFzgZUl7ajy
- NQ5SzU5UXR5FJanF+RxCw55/nyAslPVc8aaXtvi95V8jOGfC5HzpI0n3OLZ6uiMePChA
- 8SkwxnDLdDL5SBR6GzFb9S2lHcuhjX26LYQFjNc+r34OUBPKMmhmqxEnboFe+K9dmxYk
- cBQX48+x0tFlGW0ZTrDyffYRcUKPRx+mAbJtijTp16VxHkDo4xLQRCF/kpIlDdif1QkT
- byMA==
+ bh=pA4+e6iz7B2aVNnWGkq9LpoEssVLpjsdYRVXZGTjr7Y=;
+ b=o/y1t0koOIkhD0n07HH7DDViV7XRgfoDWQbT0VnoL/CfiitFSMtBJ/JV/j4sxxk+Ac
+ Olo71509GVDwKSa2e8yGx3Tg/Bb4hX+qdY/wX3x24/pZ0h95rbntFCQ1y9yafwz9ex0t
+ Y2zhzFKz0rq1A6LVk9XnK6h/sWQFqbBTaha7iA42lIpnDY6CiMzX9TbZ2h2s7O3c4hNc
+ 4w7PfQ/7AECFhkIIhrukO/iYHPl60s8qmQjU3NvgorSMHReFh3nyV7wXkRML/zsWb4Eb
+ tOk/tJzMdRTsnf40pNSZl9K1Fc2gCsRQ8H1YdlsnFjawo8QtUInIajnmEePMY28pl6+9
+ zIUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725378344; x=1725983144;
+ d=1e100.net; s=20230601; t=1725379784; x=1725984584;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=lvLFRuyWoi+K6FtpRUCVpbWJKizzVnbzbq+sI/tpAWs=;
- b=tlQpWZUtLQdGAqq1Klq9K4aicb/LrAtuTlqMs//Uum7X9ilN+8XX1yhHBCN+r/dNXL
- Ga0DPmupynPnmEZRMd9apSm5GV3lLoQcbtsTtN3lypuaP5WRIDiFmbaJZW0E9G6hcdy0
- ChRGnCmOzJPmZmZNqwxoYWglBF7FDaglfgHBT3q1gP532c1hzcmBsairBDSJx3VZfPRP
- sneLBbEl5F+G5Umjh2EN9q49Ojek0C6S29VvbuRkvnJWiK0bYeBlMFfbxZaC6VLaFSr+
- I2ttaBawM4yqN7V9ynhtxiANQAr9Jw53WdctTM8issKBzBhUfqsfCRLtskrCjktlaOee
- CV1w==
+ bh=pA4+e6iz7B2aVNnWGkq9LpoEssVLpjsdYRVXZGTjr7Y=;
+ b=JIHAI26r/rzU6kfbPox3hE4a0iP1P5Pl+yNJHL461zjhsumSGEuMhKB6bf4Lb3YXsi
+ eJ4jYW7Qyks6xJXoGc0DhKo2vhPemrfl7Af+P56yfFsR7xIpbGZsuKxA6XPF/0OKZurO
+ uTnTQe/r9Z2rYLG6pkSfIUSCi4shgXcRcPiD6H30QNsZ3oukqn9tYL6NIci1HccIl9PF
+ aL9y2bzN7uYx4v0RrYPsQ9l/qjNSVCLU33hkWkIBjOVfOGtUOpnfxU+Ks25tZUW+hesA
+ he7Bm0Oc5RgQ1IURm3iDsS6p1sMqapO21jcH50iXCjgN67zBDFv9ooQrHL1XbT+nb9ND
+ p8nw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXq83FH0R432PsYfx+SCl4xmGkP3JksazxuPuLezuv8RwWR4haBEzMHLq1CdcEeGUV9pEdw8BssjC4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2gRWBJOBmdVG+cQW6jY31OUc7yOqAiGRLP4mtzov7ePhAdyfp
- P9jm/vJMNrFyMPXA0n8Ie/OxCij2ASbI6lG3dc+ptAwK86w6xVQc4QCkHijuYQuOTbe3QSDOUgi
- aJBKPIlqXUBe4wajPomLMRAYqeDFsV7+Zez1E+A==
-X-Google-Smtp-Source: AGHT+IFZ2z10mUsHuIeTi5fGP7ImtWV0HNYj0otnbACk3A17lbvrUv4JGfz1TWIR0kU9riHTx1cIgtjOKQUelny19Sc=
-X-Received: by 2002:a05:651c:b0f:b0:2f3:e9fb:6d5a with SMTP id
- 38308e7fff4ca-2f6105d755amr166291761fa.13.1725378344000; Tue, 03 Sep 2024
- 08:45:44 -0700 (PDT)
+ AJvYcCXWFI2vH0G4Nu5T7urcI9x7HnI784/MQ1bxsBZMYZZtYE9WapgLI3z8bMzJAcsj68wyqQvN9XO8syY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5/2SbOfxAbgMCRxTvVONygcqU2BeglLcRi77qoDBndLeOhUvC
+ rbAeiSX3qDeAnYOhmuIMuPXlLUwMF//iHzoXnfaKtf152sPNOzH8ITmrkKJHhWosBUMsB7MGsom
+ uFVCnCRCohsI7oHO5En3EhlapEyMUAQv6y3p3IQ==
+X-Google-Smtp-Source: AGHT+IGRHktsRm1HDEhsFIDzbmUbTSXuUPrZPQCHgHDmunk/OKRP5dnXPD28QHNSKkwKkLB34FVrCkcx7HSZCUjaQxg=
+X-Received: by 2002:a05:6512:1045:b0:52c:dc56:ce62 with SMTP id
+ 2adb3069b0e04-5353ebafcbdmr5681695e87.12.1725379783701; Tue, 03 Sep 2024
+ 09:09:43 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org>
- <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-2-bdb05b4b5a2e@linaro.org>
- <rspuwp3zpnzwfe26hv2yezy5ad5o7wliq7ucpobyaheytvcs3j@qtshf6cewb2f>
- <p6xw4newsbrpog5ftclvgi2mpg3hn3ujfukmtilqewz7kbjhqh@6geosjawh3ul>
-In-Reply-To: <p6xw4newsbrpog5ftclvgi2mpg3hn3ujfukmtilqewz7kbjhqh@6geosjawh3ul>
+ <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-3-bdb05b4b5a2e@linaro.org>
+ <6kecwqe5npysc3rup5tkij5iepgk3pf5erattfv25caedixaml@6zev3sdwjjbu>
+In-Reply-To: <6kecwqe5npysc3rup5tkij5iepgk3pf5erattfv25caedixaml@6zev3sdwjjbu>
 From: Jun Nie <jun.nie@linaro.org>
-Date: Tue, 3 Sep 2024 23:45:31 +0800
-Message-ID: <CABymUCOji3BUyBhSRz-FXh0tge=kwUTiRN5aLhf=O4MUh_4Y3g@mail.gmail.com>
-Subject: Re: [PATCH 02/21] drm/msm/dsi: fix DSC width for the bonded DSI case
+Date: Wed, 4 Sep 2024 00:09:29 +0800
+Message-ID: <CABymUCM8zu1TY20kuEn7Dt9uDDC0hL9YAimWsTXnxDJeJFuiog@mail.gmail.com>
+Subject: Re: [PATCH 03/21] drm/msm/dsi: pass the right width to dsc
 To: Marijn Suijten <marijn.suijten@somainline.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
@@ -70,7 +69,7 @@ Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Maxime Ripard <mripard@kernel.org>, 
  Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -89,65 +88,51 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Marijn Suijten <marijn.suijten@somainline.org> =E4=BA=8E2024=E5=B9=B49=E6=
-=9C=883=E6=97=A5=E5=91=A8=E4=BA=8C 19:51=E5=86=99=E9=81=93=EF=BC=9A
+=9C=883=E6=97=A5=E5=91=A8=E4=BA=8C 18:12=E5=86=99=E9=81=93=EF=BC=9A
 >
-> On 2024-09-03 11:50:36, Marijn Suijten wrote:
-> > On 2024-08-29 18:17:31, Jun Nie wrote:
-> > > From: Jonathan Marek <jonathan@marek.ca>
-> > >
-> > > For the bonded DSI case, DSC pic_width and timing calculations should=
- use
-> > > the width of a single panel instead of the total combined width.
+> On 2024-08-29 18:17:32, Jun Nie wrote:
+> > Data width for dsc engine is aligned with pipe, not with whole screen
+> > width. Because the width may be halved in DSI bonded case.
 > >
-> > When this patch was originally proposed we already discussed [1] that t=
-his is
-> > **not** universally true.  On my hardware a single bonded panel always =
-receives
-> > the full width, at least on downstream kernels, and it works [2].
+> > The dsc width is not related to the timing with back front porch in
+> > later stage, so update dsc timing earlier.
 > >
-> > [1]: https://lore.kernel.org/linux-arm-msm/eanx45rnasj7lu3r2tfhtg4qkqkc=
-idd6zctsz6ci6jlklu4fgi@3nf73w2ka4li/T/#u
-> > [2]: https://gitlab.freedesktop.org/drm/msm/-/issues/41
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+>
+> I already sent a patch for this:
+> https://lore.kernel.org/linux-arm-msm/20240417-drm-msm-initial-dualpipe-d=
+sc-fixes-v1-2-78ae3ee9a697@somainline.org/
+>
+> And then came up with a better solution, outlined in:
+> https://lore.kernel.org/linux-arm-msm/7fqwkryeumkt7zxsec6va7ys22nfs3tr4rr=
+cz323extdz3f6zv@w4uu2lk4uh7v/
+>
+> Would you mind dropping this patch so that I can send a better solution?
+
+Sure. I am happy with a better solution from you.
+>
+> > ---
+> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 13 ++++++-------
+> >  1 file changed, 6 insertions(+), 7 deletions(-)
 > >
-> > Can we please figure this out before landing this patch?
+> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/d=
+si/dsi_host.c
+> > index 7a4d9c071be5a..5abade8f26b88 100644
+> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > @@ -953,7 +953,7 @@ static void dsi_timing_setup(struct msm_dsi_host *m=
+sm_host, bool is_bonded_dsi)
+> >                       return;
+> >               }
+> >
+> > -             dsc->pic_width =3D mode->hdisplay;
+> > +             dsc->pic_width =3D hdisplay;
 >
-> For completeness I've picked this patch, together with the following
-> mis-squashed change from patch 03/21:
->
->         diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm=
-/msm/dsi/dsi_host.c
->         index 7a4d9c071be5a..5abade8f26b88 100644
->         --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
->         +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->         @@ -953,7 +953,7 @@ static void dsi_timing_setup(struct msm_dsi_h=
-ost *msm_host, bool is_bonded_dsi)
->                                 return;
->                         }
->
->         -               dsc->pic_width =3D mode->hdisplay;
->         +               dsc->pic_width =3D hdisplay;
->                         dsc->pic_height =3D mode->vdisplay;
->                         DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_heig=
-ht);
->
-> And this is what it looks like on a bonded DSI CMD-mode display:
-> https://gitlab.freedesktop.org/drm/msm/-/issues/41#note_2553207
-> https://gitlab.freedesktop.org/-/project/2206/uploads/dc5c53d09ecb635fdc9=
-f190fbc9b37ac/1000027079.jpg
->
-> That's a clear regression :)
+> The other part of this already happened in patch 02/21?
 >
 > - Marijn
-
-Surely we should figure out what's going on here before we land this
-patch. Please help me to understand
-your setup first. Your panel works well on mainline kernel with
-2:2:2(?) topology, and you see issue with applying
-the change here, right?
-There are several parameter that impact the issue, video/command DSI
-mode, single panel with 2 DSI vs
-2 panels with single DSI on each panel, 4:4:2 topology on my device vs
-your topology. Let's list all of them
-before further discussion.
+>
+Patch 02/21 is just for parameter validation, not directly related to
+this patch.
 
 -Jun
