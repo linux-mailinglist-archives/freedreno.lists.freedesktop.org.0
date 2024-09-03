@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1F139691DD
-	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 05:23:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B35499691DA
+	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 05:23:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7026010E3E2;
-	Tue,  3 Sep 2024 03:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEFD810E3DD;
+	Tue,  3 Sep 2024 03:23:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ABUKY6la";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UQGKu44J";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
- [209.85.208.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BEF110E3D1
- for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 03:23:02 +0000 (UTC)
-Received: by mail-lj1-f178.google.com with SMTP id
- 38308e7fff4ca-2f4f24263acso71670121fa.0
- for <freedreno@lists.freedesktop.org>; Mon, 02 Sep 2024 20:23:02 -0700 (PDT)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
+ [209.85.208.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1848A10E3D2
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 03:23:03 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id
+ 38308e7fff4ca-2f5064816edso54876011fa.3
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Sep 2024 20:23:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725333780; x=1725938580; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1725333781; x=1725938581; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=vn4y0gVtwJEmmSUaMDUfTbNnv5xg0I2o5qI5Lo6C+nI=;
- b=ABUKY6lazO5EuPCP78TywmekepfRLApNAMGk2aHCRWgUyzwSfTJyPhC6nM+n+O01qt
- ZJQwyv9a+kVadLEuxb8WUux9TVWwKALqJSqukn1SpdvoPoYf6yuCoDb7WMk63kb5Tuce
- baZh8UUNaTNr9LLDyK2/lgKEQmsuj0cqn3lv79UC3X0FRH3kRF+2+JcDYMGPT8EelEon
- VA4tI7n+DIw7zhOAnEYTmLBlRmxMFW0acY/rj6Pn0Lw0Os6ytUmqluZQ7iXekppx1jug
- MMOo2ZpPC8AJRgszmhaIq8o543po5+eWGex26zQ5eYHsunRdyhqbJYm0hH9J/GKidC44
- sMBw==
+ :reply-to; bh=3Uo1WJaoJi5l7x5tFLTltWmiX3GtjP7d94O/uZZbrMc=;
+ b=UQGKu44JmIhlg3N1NNPqqb389pTwPJs0ZRbqGU4Eg/ANbtWyUDzYJhq1+nKhjvZpHq
+ Vgh6WYTRDSmB/JTMBZRM7UDfzNeAbov6N8+L/5ti8T1jf3MxEAEIcJ8tHqr4sJ7FGBVa
+ OpZAhiJkFxriwIwjjqJH8t05Yetx4AGgdMXGRVl6f1dGk9hnPLcgYHJggk6jEVrhcQ6U
+ bOEKXXhwoSgPlkB1qwPZUr9L3b9718Ak5Zk+nhftMGIllqoZnSs2R8ZlP+VXyzQUlCFl
+ aL6LleR2NJSVFUeFFz9kWF1JQJ4CkdjLLLxkQKO2qlkVtZDg0++PXWDI19TBeQsTCrGQ
+ hAZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725333780; x=1725938580;
+ d=1e100.net; s=20230601; t=1725333781; x=1725938581;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vn4y0gVtwJEmmSUaMDUfTbNnv5xg0I2o5qI5Lo6C+nI=;
- b=m2+Vz3+AdFRGiAI49An1G0KTiONQqG/Wujc4uPJz6AFELJestgoF+SQDMEfv9QnW7e
- JXfnmkfrMhjsYqJPEHxWxFybMXpABF1oO9Rc7GSeYjBVphucSlvrnJCVY6KZzacrSg19
- RexNPxBvHZmq7J63cJuADJaiP4S6h+Of5aVmlMYzJTwZNbT7Orx+Ha9Ursm5V42JniVX
- R2EidrUpvs3CB0GsHpU/QLzbM8hFyWx3pgStywSSCRtRL6q+BrXRh8xox47fHFYl27/N
- kppvt18YKRWjWcvgQ1s3BNAtl+QLCabvc8R/4QCNYk1xXNJNG22pVeSHCCWw/8eR68RX
- MDEQ==
+ bh=3Uo1WJaoJi5l7x5tFLTltWmiX3GtjP7d94O/uZZbrMc=;
+ b=vVVuaBQ5Zw15fRCk2x2/3r6LaGWdcO/EM8nB0OHUxF+NXqL5yUj1kuj6Poy9LEbAEl
+ m+SqQTYfXRxJ4C1OfS3u75KrBnGc9PixCar76QejvA1q0dTyNJW4bwvPwuKXp70QU9VS
+ nafJE3YdBWhO7nkZyaPEoqBVzOA/l/kNuAO9wmSNEuQiv24DDgAV39IM8/CP388ajK1j
+ EQz2qv74gDXAS/UbveAcKdiKtagUpJsH6mEOrATkCzUGMJpH+LworEjQ8LI4OlI79c/d
+ UFk849ZaCv9u+TUe1O6B13X8IODHgwgeQSHuHiMP2/Mn5lM4qHOm2+0iIMiCpb0kuXKR
+ 5h5Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU8NVnThjEzXnPyWp7hk7xvLzptbRWMr9W1dipUXejrS6D9xWri6QIdf2ANlSvqQm+kwF04JBx5a4c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy3DQ1V4nYEj16RAZh0clz7nejVq/9l/WMctlBSQ0DBfb9ZwP9I
- ybNMYFiJ68/XvUbYNw8rbdqG2SAPN7zrSlDB1/eLpql/xeQQj0IzTRI0Ha2Lb4k=
-X-Google-Smtp-Source: AGHT+IFfakhBSUwZNYaA3irBZwqBs+aaq4Y/jhBv4IZq4oAeR4GFjy3SZe2fV1GmZjkCukypIR7QwA==
-X-Received: by 2002:a2e:6111:0:b0:2f1:5d61:937e with SMTP id
- 38308e7fff4ca-2f610707e55mr118590661fa.29.1725333779948; 
- Mon, 02 Sep 2024 20:22:59 -0700 (PDT)
+ AJvYcCW8t+uQ8jPxxgk8UToABcoGyE8GaHUF1obQnMgObytcbiVYhskLNrfYD7WkyquBWF6XY9j/66hdBwI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyuN1YnLx8gaDZPBOJZpVmtsJdL9kHoBv014CyNmTk6Wvj5jIjN
+ dU+Ll0oq2KOUiXVWai4BAy2GXP+56y2ueaOs278kYP9rQQiJzgEAM+2xbJkOd+Y=
+X-Google-Smtp-Source: AGHT+IFOljbQ3f4QkvdnlpYaQ9zXmZPHExDy7nUsyA0Aa+cGyuQ/SwxvvjywoyhGAqzKJ1hmCWs14w==
+X-Received: by 2002:a2e:80cc:0:b0:2f0:2a55:8c4a with SMTP id
+ 38308e7fff4ca-2f610552deemr85722471fa.49.1725333780606; 
+ Mon, 02 Sep 2024 20:23:00 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f614ed15a5sm21003961fa.8.2024.09.02.20.22.59
+ 38308e7fff4ca-2f614ed15a5sm21003961fa.8.2024.09.02.20.23.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Sep 2024 20:22:59 -0700 (PDT)
+ Mon, 02 Sep 2024 20:23:00 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 03 Sep 2024 06:22:51 +0300
-Subject: [PATCH v6 08/15] drm/msm/dpu: pass drm_framebuffer to
- _dpu_format_get_plane_sizes()
+Date: Tue, 03 Sep 2024 06:22:52 +0300
+Subject: [PATCH v6 09/15] drm/msm/dpu: move pitch check to
+ _dpu_format_get_plane_sizes_linear()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240903-dpu-mode-config-width-v6-8-617e1ecc4b7a@linaro.org>
+Message-Id: <20240903-dpu-mode-config-width-v6-9-617e1ecc4b7a@linaro.org>
 References: <20240903-dpu-mode-config-width-v6-0-617e1ecc4b7a@linaro.org>
 In-Reply-To: <20240903-dpu-mode-config-width-v6-0-617e1ecc4b7a@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -73,16 +73,16 @@ Cc: Abel Vesa <abel.vesa@linaro.org>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7845;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1833;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=uzEkRjLwqwwp8yGM+VEKUZT5JztSQ+D7q1qSN8x5gD0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBm1oEL4EqkTVoZURQsdHu0HPZpMLH5nnPI7gs8y
- ZpQEwcCCkqJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZtaBCwAKCRCLPIo+Aiko
- 1akJCACmn37pXxD9pwZuDOcGc+duqzqFr8K5flqii/yMdCHu1+cRKVln0KfCVH6zGf0N8/n57eA
- WgcH9MC3Af8Bms2Gx8VkZEMIVQRNmiujKj6NBwu8eVwEyfSd2JwuwCX8MdBnuMiEC59B6Cm3zwW
- clxSax+AFGleQx4tjAGp2wCKPYpeBkvbCPlMtbYuJ86vfpCASfeOtl9+zge6B6wvVmYADpwu543
- aH9UXzjZSyyCAkgy4VuG8H8lGRioWckgvk5zVHMgP31ANUmMySmUrCya+hfND2AX7Vx/jxac+1F
- H8B3kG9QdcelrtVQmU8aQJ3SAfm9Zb6/LbJSl/g80AihXQiR
+ bh=Fbj8uMqodekZoSHu891oRcXYi7bheHJqE14udy7BZ7c=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ9q1Rp4n+5Zq7ts1/Yj/6qMdc0Je2d9tX11T3rx57uYgI
+ 2VpnoNanYzGLAyMXAyyYoosPgUtU2M2JYd92DG1HmYQKxPIFAYuTgGYiOxm9t8sjczprSbVct+i
+ hBWdE6r62N7N0vrqVf1UobRExPvP1R3vpfXM2laLVpV9ORQk0hr47+OPTZmBthdC10tf0dK9O1X
+ wzkRlq7qdsc2OPhHravN86/wuT/+T9Ji38Lm6vIG4wb18/YfXNobV2Kv5Lvjp+S6wJPXhlkOlU3
+ UjOj6Jx2jqOfxmiNmrnpq5b5uKgtbpffcv5+1+L+798au3SCDb8wbrisvz2gIk10qqzzQoTdB3T
+ TnxfW/IqRNLqlIrDpUv+6K59nAFd3zBe1m+9hNbHtjKO96QD77g+607q9dbP9Gk7U+I8SX1DCdX
+ Pmu10q08uxsSxNxj/i1YbMMQyOFixXdlgdTOB0z2GuYA
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -100,205 +100,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Instead of passing width / height / pitches, pass drm_framebuffer
-directly. This allows us to drop the useless check for !pitches, since
-an array can not be NULL.
+The _dpu_format_get_plane_sizes_linear() already compares pitches of
+the framebuffer with the calculated pitches. Move the check to the same
+place, demoting DPU_ERROR to DPU_DEBUG to prevent user from spamming the
+kernel log.
 
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 73 ++++++++++++++---------------
- 1 file changed, 34 insertions(+), 39 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-index 46237a1ca6a5..df046bc88715 100644
+index df046bc88715..4d17eb88af40 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
-@@ -95,8 +95,7 @@ static int _dpu_format_get_media_color_ubwc(const struct msm_format *fmt)
- 
- static int _dpu_format_get_plane_sizes_ubwc(
- 		const struct msm_format *fmt,
--		const uint32_t width,
--		const uint32_t height,
-+		struct drm_framebuffer *fb,
- 		struct dpu_hw_fmt_layout *layout)
- {
- 	int i;
-@@ -104,8 +103,8 @@ static int _dpu_format_get_plane_sizes_ubwc(
- 	bool meta = MSM_FORMAT_IS_UBWC(fmt);
- 
- 	memset(layout, 0, sizeof(struct dpu_hw_fmt_layout));
--	layout->width = width;
--	layout->height = height;
-+	layout->width = fb->width;
-+	layout->height = fb->height;
- 	layout->num_planes = fmt->num_planes;
- 
- 	color = _dpu_format_get_media_color_ubwc(fmt);
-@@ -121,13 +120,13 @@ static int _dpu_format_get_plane_sizes_ubwc(
- 		uint32_t uv_meta_scanlines = 0;
- 
- 		layout->num_planes = 2;
--		layout->plane_pitch[0] = VENUS_Y_STRIDE(color, width);
--		y_sclines = VENUS_Y_SCANLINES(color, height);
-+		layout->plane_pitch[0] = VENUS_Y_STRIDE(color, fb->width);
-+		y_sclines = VENUS_Y_SCANLINES(color, fb->height);
- 		layout->plane_size[0] = MSM_MEDIA_ALIGN(layout->plane_pitch[0] *
- 			y_sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 
--		layout->plane_pitch[1] = VENUS_UV_STRIDE(color, width);
--		uv_sclines = VENUS_UV_SCANLINES(color, height);
-+		layout->plane_pitch[1] = VENUS_UV_STRIDE(color, fb->width);
-+		uv_sclines = VENUS_UV_SCANLINES(color, fb->height);
- 		layout->plane_size[1] = MSM_MEDIA_ALIGN(layout->plane_pitch[1] *
- 			uv_sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 
-@@ -135,13 +134,13 @@ static int _dpu_format_get_plane_sizes_ubwc(
- 			goto done;
- 
- 		layout->num_planes += 2;
--		layout->plane_pitch[2] = VENUS_Y_META_STRIDE(color, width);
--		y_meta_scanlines = VENUS_Y_META_SCANLINES(color, height);
-+		layout->plane_pitch[2] = VENUS_Y_META_STRIDE(color, fb->width);
-+		y_meta_scanlines = VENUS_Y_META_SCANLINES(color, fb->height);
- 		layout->plane_size[2] = MSM_MEDIA_ALIGN(layout->plane_pitch[2] *
- 			y_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 
--		layout->plane_pitch[3] = VENUS_UV_META_STRIDE(color, width);
--		uv_meta_scanlines = VENUS_UV_META_SCANLINES(color, height);
-+		layout->plane_pitch[3] = VENUS_UV_META_STRIDE(color, fb->width);
-+		uv_meta_scanlines = VENUS_UV_META_SCANLINES(color, fb->height);
- 		layout->plane_size[3] = MSM_MEDIA_ALIGN(layout->plane_pitch[3] *
- 			uv_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 
-@@ -150,16 +149,16 @@ static int _dpu_format_get_plane_sizes_ubwc(
- 
- 		layout->num_planes = 1;
- 
--		layout->plane_pitch[0] = VENUS_RGB_STRIDE(color, width);
--		rgb_scanlines = VENUS_RGB_SCANLINES(color, height);
-+		layout->plane_pitch[0] = VENUS_RGB_STRIDE(color, fb->width);
-+		rgb_scanlines = VENUS_RGB_SCANLINES(color, fb->height);
- 		layout->plane_size[0] = MSM_MEDIA_ALIGN(layout->plane_pitch[0] *
- 			rgb_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 
- 		if (!meta)
- 			goto done;
- 		layout->num_planes += 2;
--		layout->plane_pitch[2] = VENUS_RGB_META_STRIDE(color, width);
--		rgb_meta_scanlines = VENUS_RGB_META_SCANLINES(color, height);
-+		layout->plane_pitch[2] = VENUS_RGB_META_STRIDE(color, fb->width);
-+		rgb_meta_scanlines = VENUS_RGB_META_SCANLINES(color, fb->height);
- 		layout->plane_size[2] = MSM_MEDIA_ALIGN(layout->plane_pitch[2] *
- 			rgb_meta_scanlines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
- 	}
-@@ -173,23 +172,21 @@ static int _dpu_format_get_plane_sizes_ubwc(
- 
- static int _dpu_format_get_plane_sizes_linear(
- 		const struct msm_format *fmt,
--		const uint32_t width,
--		const uint32_t height,
--		struct dpu_hw_fmt_layout *layout,
--		const uint32_t *pitches)
-+		struct drm_framebuffer *fb,
-+		struct dpu_hw_fmt_layout *layout)
- {
- 	int i;
- 
- 	memset(layout, 0, sizeof(struct dpu_hw_fmt_layout));
--	layout->width = width;
--	layout->height = height;
-+	layout->width = fb->width;
-+	layout->height = fb->height;
- 	layout->num_planes = fmt->num_planes;
- 
- 	/* Due to memset above, only need to set planes of interest */
- 	if (fmt->fetch_type == MDP_PLANE_INTERLEAVED) {
- 		layout->num_planes = 1;
--		layout->plane_size[0] = width * height * fmt->bpp;
--		layout->plane_pitch[0] = width * fmt->bpp;
-+		layout->plane_size[0] = fb->width * fb->height * fmt->bpp;
-+		layout->plane_pitch[0] = fb->width * fmt->bpp;
- 	} else {
- 		uint32_t v_subsample, h_subsample;
- 		uint32_t chroma_samp;
-@@ -199,7 +196,7 @@ static int _dpu_format_get_plane_sizes_linear(
- 		_dpu_get_v_h_subsample_rate(chroma_samp, &v_subsample,
- 				&h_subsample);
- 
--		if (width % h_subsample || height % v_subsample) {
-+		if (fb->width % h_subsample || fb->height % v_subsample) {
- 			DRM_ERROR("mismatch in subsample vs dimensions\n");
- 			return -EINVAL;
- 		}
-@@ -207,11 +204,11 @@ static int _dpu_format_get_plane_sizes_linear(
- 		if ((fmt->pixel_format == DRM_FORMAT_NV12) &&
- 			(MSM_FORMAT_IS_DX(fmt)))
- 			bpp = 2;
--		layout->plane_pitch[0] = width * bpp;
-+		layout->plane_pitch[0] = fb->width * bpp;
- 		layout->plane_pitch[1] = layout->plane_pitch[0] / h_subsample;
--		layout->plane_size[0] = layout->plane_pitch[0] * height;
-+		layout->plane_size[0] = layout->plane_pitch[0] * fb->height;
- 		layout->plane_size[1] = layout->plane_pitch[1] *
--				(height / v_subsample);
-+				(fb->height / v_subsample);
- 
- 		if (fmt->fetch_type == MDP_PLANE_PSEUDO_PLANAR) {
- 			layout->num_planes = 2;
-@@ -232,8 +229,8 @@ static int _dpu_format_get_plane_sizes_linear(
+@@ -229,8 +229,13 @@ static int _dpu_format_get_plane_sizes_linear(
  	 * all the components based on ubwc specifications.
  	 */
  	for (i = 0; i < layout->num_planes && i < DPU_MAX_PLANES; ++i) {
--		if (pitches && layout->plane_pitch[i] < pitches[i])
--			layout->plane_pitch[i] = pitches[i];
-+		if (layout->plane_pitch[i] < fb->pitches[i])
-+			layout->plane_pitch[i] = fb->pitches[i];
+-		if (layout->plane_pitch[i] < fb->pitches[i])
++		if (layout->plane_pitch[i] <= fb->pitches[i]) {
+ 			layout->plane_pitch[i] = fb->pitches[i];
++		} else {
++			DRM_DEBUG("plane %u expected pitch %u, fb %u\n",
++				  i, layout->plane_pitch[i], fb->pitches[i]);
++			return -EINVAL;
++		}
  	}
  
  	for (i = 0; i < DPU_MAX_PLANES; i++)
-@@ -244,25 +241,24 @@ static int _dpu_format_get_plane_sizes_linear(
- 
- static int dpu_format_get_plane_sizes(
- 		const struct msm_format *fmt,
--		const uint32_t w,
--		const uint32_t h,
--		struct dpu_hw_fmt_layout *layout,
--		const uint32_t *pitches)
-+		struct drm_framebuffer *fb,
-+		struct dpu_hw_fmt_layout *layout)
+@@ -360,15 +365,6 @@ static int _dpu_format_populate_addrs_linear(
  {
- 	if (!layout || !fmt) {
- 		DRM_ERROR("invalid pointer\n");
- 		return -EINVAL;
- 	}
+ 	unsigned int i;
  
--	if ((w > DPU_MAX_IMG_WIDTH) || (h > DPU_MAX_IMG_HEIGHT)) {
-+	if (fb->width > DPU_MAX_IMG_WIDTH ||
-+	    fb->height > DPU_MAX_IMG_HEIGHT) {
- 		DRM_ERROR("image dimensions outside max range\n");
- 		return -ERANGE;
- 	}
- 
- 	if (MSM_FORMAT_IS_UBWC(fmt) || MSM_FORMAT_IS_TILE(fmt))
--		return _dpu_format_get_plane_sizes_ubwc(fmt, w, h, layout);
-+		return _dpu_format_get_plane_sizes_ubwc(fmt, fb, layout);
- 
--	return _dpu_format_get_plane_sizes_linear(fmt, w, h, layout, pitches);
-+	return _dpu_format_get_plane_sizes_linear(fmt, fb, layout);
- }
- 
- static int _dpu_format_populate_addrs_ubwc(
-@@ -407,8 +403,7 @@ int dpu_format_populate_layout(
- 	fmt = msm_framebuffer_format(fb);
- 
- 	/* Populate the plane sizes etc via get_format */
--	ret = dpu_format_get_plane_sizes(fmt, fb->width, fb->height,
--			layout, fb->pitches);
-+	ret = dpu_format_get_plane_sizes(fmt, fb, layout);
- 	if (ret)
- 		return ret;
- 
+-	/* Can now check the pitches given vs pitches expected */
+-	for (i = 0; i < layout->num_planes; ++i) {
+-		if (layout->plane_pitch[i] > fb->pitches[i]) {
+-			DRM_ERROR("plane %u expected pitch %u, fb %u\n",
+-				i, layout->plane_pitch[i], fb->pitches[i]);
+-			return -EINVAL;
+-		}
+-	}
+-
+ 	/* Populate addresses for simple formats here */
+ 	for (i = 0; i < layout->num_planes; ++i) {
+ 		layout->plane_addr[i] = msm_framebuffer_iova(fb, aspace, i);
 
 -- 
 2.39.2
