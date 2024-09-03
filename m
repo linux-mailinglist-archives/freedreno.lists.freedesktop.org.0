@@ -2,119 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E6C4969132
-	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 04:02:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAADC9691AF
+	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 05:17:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DA3F10E3AA;
-	Tue,  3 Sep 2024 02:02:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A442810E309;
+	Tue,  3 Sep 2024 03:17:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="odSDSY+s";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yeXtR1H1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
- [209.85.208.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64F3010E2D6
- for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 02:02:08 +0000 (UTC)
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-2f50966c478so49909461fa.1
- for <freedreno@lists.freedesktop.org>; Mon, 02 Sep 2024 19:02:08 -0700 (PDT)
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
+ [209.85.128.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F20710E2B9
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 03:17:15 +0000 (UTC)
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-6b59a67ba12so38522117b3.1
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Sep 2024 20:17:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725328926; x=1725933726; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=UpzQw9LNt+SDHOumdIx/cD2vW3Vk+Ggm6Q+ZCEu5Pho=;
- b=odSDSY+sABky4oK/2g6jUbJmLOZYmImksvYGCFtJ8xElJtOsexQo8JmeyY8hN2zgk4
- lvUQayJzQLZaTw+WWHvhP0PyzOBYf6ozPhGkI39ZifjYEDfpscmejDRzVF1f+MpnLHvD
- 7mLQRDe3R0fWJ6vXJ+z9u40MzBKRDZrxdgIH1x0uabKintBBzr0YeKFSjzxHszCkyxGF
- xm5oMsFT9h8KFoGVUqgZnmSbLeX9k9tulYjhXcKQQJ3rp+HQyePCrcS77s1IU9kFV0RR
- uFLmC7BbOmmp5cb3T989zZgHhnAQs927DExY+oSVRNBS93wZNxwNyNT6yfuk+0VktvEl
- IRmg==
+ d=linaro.org; s=google; t=1725333434; x=1725938234; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=UUufsIJyHoy9RDK1kWaUN/LAKR3GALHApq+wLIQw3+Q=;
+ b=yeXtR1H1xBedlYr7JziONuJ0nzTInhdrqTrCWDdjiQpR25GtwH5Mg6n0qO4W05yQDA
+ 0A7woT3CS5chUx+tseQNcVOhEcT4zSEqclipyMjgcrAhgJqsNws4ya3KG1xFtxbmjHNd
+ o0X1QTUE6HgFLe9wxZDmJ+cxBFXrZsRMod9eM16OwHCkOIPdTvihXiDeGIggR80iTSxF
+ 2RUpbmvl0MfxNxDXwywDe5g5ARZi5XTymqWem4ZL6pqcg5TU8zmao8k+8RRBEXNVLLJZ
+ F01yCZ3mWglUIK0f+OcqCNgti1JvFP4kuE5AHmyj3/X2Gnug+P+K8WgqE4ua0PR7Qc+Q
+ OLaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725328926; x=1725933726;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UpzQw9LNt+SDHOumdIx/cD2vW3Vk+Ggm6Q+ZCEu5Pho=;
- b=Db7NQeMnnkzyw8d3LXIxuLgKZXpv00NFgwEvsD15WAIjA/b2Cm1b0l3UVVkXxaobMU
- KJSGB5OAea3RIY4dHk4wZ2VWBky/OjF9OMkz4wGaCrtiu5V/gOweAf9f6yj3x7Selnxq
- 9jWxBt3xh1F2ogmA5Xcq2w+w0kO0DkF9VFxhLP5WYV5INmEYsn7JhCxT43NmOuUsAKpn
- FnLYWiMKr0SXHT+aifyiBlDxXOhsDe/V8YzFjsa0T7PYHsFT8Uj+jvprP+NLRUOgzPlH
- bx70OASLNwk3DmIwcKIcswQokoyV4oTfFVEr6UlCX+7aFeKl9+DlGgxpf7Hem9kGnQgq
- 14rQ==
+ d=1e100.net; s=20230601; t=1725333434; x=1725938234;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=UUufsIJyHoy9RDK1kWaUN/LAKR3GALHApq+wLIQw3+Q=;
+ b=danW8708Oa2e3fAkpfmdGv840UGhOUIKxwQ3UB4xUdblWnybxn12GU1th4WE4I+sgD
+ 8NWt5NXQNjmEyWVaenOyBOqSA0whrgoAmy5H5vAj8X1JDArdss3TZ5XIW9TkcyvmjU5T
+ th5wD2EuvETrn6nZqK6tvePshbyUfNXRHjbYmoZYl5nnO+g6F5tWhaDo/1uj8t5+BYAa
+ PaXXPnh8g/nJTTTHs2QXM77htL/zcyn9LFhJW0qNb+vTVnLTlVTaI67cYM46o81ZnuG3
+ PpkuFhKSg3XF3mr29mHap1VsfNZhjo/2FHvd8WyrZvOi8NzDj8XnBT+/9trRFbt8AsSF
+ 1IeQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW6aJis+Bbfpyf2MzpQRjuW0RUk57zKbaB9gvHYXmZzjK8P1iIb90+cUOMkhfcfXPYXzectvLWQty0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwEGLiSPt45fjo1Xqci60PGd9TqP5r65vj6Cy7uRHTDbGWj/t+3
- 2jJBcaVu3TchpwogsqwnQnaCXeTaM2p5vr2Oscug5CaEVkYoUcUep75MpYiCkOk=
-X-Google-Smtp-Source: AGHT+IF8v8eYKKb2eQMr0Hsc2qs48UsPP7HLkrE86Dm+WJr2IzV/yR9tjZDK7rnfHNsBM4q2M+EhlA==
-X-Received: by 2002:a05:651c:19a9:b0:2ef:296d:1dda with SMTP id
- 38308e7fff4ca-2f61e025871mr77730561fa.1.1725328925919; 
- Mon, 02 Sep 2024 19:02:05 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f614ed15a5sm20827761fa.8.2024.09.02.19.02.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Sep 2024 19:02:05 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 03 Sep 2024 05:01:58 +0300
-Subject: [PATCH v5 3/3] drm/bridge-connector: reset the HDMI connector
- state
+ AJvYcCUv9i1i6nQK00d6Dtl5hSinDKn0L/AhPNHRlw/7/CA2TrFOJxDMTWOQqySfD/Hy/jLi3QibUSMDX90=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwVNVz5DRarAGcjUYoT2XqCb0BUIazPqU/fSqaLngpi021SnfUj
+ DyZCSoBondqbJTD7PjQfu6h8hjtF1ba+gHXQUGlxfLEGN9Hrls5/v5t0TK67aZxJaN19qNAA1Lm
+ N1fCEx62r8LYVaywH0nE5jXdMFFdY2nnjfrK1YQ==
+X-Google-Smtp-Source: AGHT+IHvvS/9h79ps7+GR2ul1mK14Sytg43Z6RoKgzmCiYkcQPCnUcSjywSaXN7Kh56xMRmxdmT3Z7QwTx6vIsjZmRM=
+X-Received: by 2002:a05:690c:ed2:b0:6d3:c673:e57a with SMTP id
+ 00721157ae682-6d40d987ad8mr129839817b3.5.1725333434116; Mon, 02 Sep 2024
+ 20:17:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240903-drm-bridge-connector-fix-hdmi-reset-v5-3-daebde6d9857@linaro.org>
-References: <20240903-drm-bridge-connector-fix-hdmi-reset-v5-0-daebde6d9857@linaro.org>
-In-Reply-To: <20240903-drm-bridge-connector-fix-hdmi-reset-v5-0-daebde6d9857@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
- Edmund Dea <edmund.j.dea@intel.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Kevin Hilman <khilman@baylibre.com>, 
- Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Biju Das <biju.das.jz@bp.renesas.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Jyri Sarha <jyri.sarha@iki.fi>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mips@vger.kernel.org, linux-mediatek@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2407;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=/mT5/AR35rbIDoBCMIT6yhd22qoLCIO/78RuGNtcQT0=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ9q1PMnqI1KVspetFZi3Gl8JEpLtUs6+nOiyV+WlRKv/7
- tQfLsWdjMYsDIxcDLJiiiw+BS1TYzYlh33YMbUeZhArE8gUBi5OAZhIbif7PxXBmk0v/1w+d0WT
- 71S6XpXL7jLtn4avhQsSLjYWFpWlNFyaLt3N/iGnatKcwkMCu7O/rjFqCDz8KJc5ufCiQ8KledW
- /uRseHIiy8MxMVvnEyeb7WHv1FZfUhPk9i/cUHg/6HX76mM8Wtf6ERceePG1tVaz5/H9DQNLcGZ
- y6Llcc8p0+KzalN0T9jE0QmaB78cCR07q69f850w4GJ+7JZ4t78CCmYvZnNaPsssesT1P7DzTWz
- mNsNlHTrT7mds9yCbu/axEfR516y5TjmctOSC///F7oMUO36NtU1kIT+YKzleddOzbMTjo2R/KQ
- K/f8d0nnXwQH3rwSL3mk4NsGjQcrfrHr8a45VH/B/RMXAA==
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+References: <20240625-dpu-mode-config-width-v5-0-501d984d634f@linaro.org>
+ <20240625-dpu-mode-config-width-v5-3-501d984d634f@linaro.org>
+ <cd60db7e-4ff2-445e-a8f8-b22d73d0f2b3@quicinc.com>
+In-Reply-To: <cd60db7e-4ff2-445e-a8f8-b22d73d0f2b3@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 3 Sep 2024 06:17:02 +0300
+Message-ID: <CAA8EJpr3oz7Rphg-HEJg=4yQuPZeWCs688-QoJwC=EjSArK+-Q@mail.gmail.com>
+Subject: Re: [PATCH v5 03/16] drm/msm/dpu: move CRTC resource assignment to
+ dpu_encoder_virt_atomic_mode_set
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, Abel Vesa <abel.vesa@linaro.org>, 
+ Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,65 +84,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On HDMI connectors which use drm_bridge_connector and DRM_BRIDGE_OP_HDMI
-IGT chokes on the max_bpc property in several kms_properties tests due
-to the drm_bridge_connector failing to reset HDMI-related
-properties.
+On Wed, 17 Jul 2024 at 01:40, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 6/24/2024 2:13 PM, Dmitry Baryshkov wrote:
+> > Historically CRTC resources (LMs and CTLs) were assigned in
+> > dpu_crtc_atomic_begin(). The commit 9222cdd27e82 ("drm/msm/dpu: move hw
+> > resource tracking to crtc state") simply moved resources to
+> > struct dpu_crtc_state, without changing the code sequence. Later on the
+> > commit b107603b4ad0 ("drm/msm/dpu: map mixer/ctl hw blocks in encoder
+> > modeset") rearanged the code, but still kept the cstate->num_mixers
+> > assignment to happen during commit phase. This makes dpu_crtc_state
+> > inconsistent between consequent atomic_check() calls.
+> >
+> > Move CRTC resource assignment to happen at the end of
+> > dpu_encoder_virt_atomic_check().
+> >
+> > Fixes: b107603b4ad0 ("drm/msm/dpu: map mixer/ctl hw blocks in encoder modeset")
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  3 --
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 60 +++++++++++++++++++----------
+> >   2 files changed, 39 insertions(+), 24 deletions(-)
+> >
 
-Call __drm_atomic_helper_connector_hdmi_reset() if the
-drm_bridge_connector has bridge_hdmi.
 
-It is impossible to call this function from HDMI bridges, none of the
-bridge callbacks correspond to the drm_connector_funcs::reset().
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > index 7613005fbfea..98f3a8d84300 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > @@ -628,6 +628,41 @@ static struct msm_display_topology dpu_encoder_get_topology(
+> >       return topology;
+> >   }
+> >
+> > +static void dpu_encoder_assign_crtc_resources(struct dpu_kms *dpu_kms,
+> > +                                           struct drm_encoder *drm_enc,
+> > +                                           struct dpu_global_state *global_state,
+> > +                                           struct drm_crtc_state *crtc_state)
+> > +{
+> > +     struct dpu_crtc_state *cstate;
+> > +     struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
+> > +     struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
+> > +     struct dpu_hw_blk *hw_dspp[MAX_CHANNELS_PER_ENC];
+> > +     int num_lm, num_ctl, num_dspp, i;
+> > +
+> > +     cstate = to_dpu_crtc_state(crtc_state);
+> > +
+> > +     memset(cstate->mixers, 0, sizeof(cstate->mixers));
+> > +
+> > +     num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > +             drm_enc->base.id, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+> > +     num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > +             drm_enc->base.id, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
+> > +     num_dspp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > +             drm_enc->base.id, DPU_HW_BLK_DSPP, hw_dspp,
+> > +             ARRAY_SIZE(hw_dspp));
+> > +
+> > +     for (i = 0; i < num_lm; i++) {
+> > +             int ctl_idx = (i < num_ctl) ? i : (num_ctl-1);
+> > +
+> > +             cstate->mixers[i].hw_lm = to_dpu_hw_mixer(hw_lm[i]);
+> > +             cstate->mixers[i].lm_ctl = to_dpu_hw_ctl(hw_ctl[ctl_idx]);
+> > +             if (i < num_dspp)
+>
+> Will there be a case where num_lm != num_dspp?
 
-Fixes: 6b4468b0c6ba ("drm/bridge-connector: implement glue code for HDMI connector")
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Acked-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/display/Kconfig                |  1 +
- drivers/gpu/drm/display/drm_bridge_connector.c | 13 ++++++++++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
+And there is one. If DSPPs were not requested at all. I'll handle this
+by setting hw_dspp to NULL instead.
 
-diff --git a/drivers/gpu/drm/display/Kconfig b/drivers/gpu/drm/display/Kconfig
-index 8c174ceb0c4d..3763649ba251 100644
---- a/drivers/gpu/drm/display/Kconfig
-+++ b/drivers/gpu/drm/display/Kconfig
-@@ -15,6 +15,7 @@ if DRM_DISPLAY_HELPER
- 
- config DRM_BRIDGE_CONNECTOR
- 	bool
-+	select DRM_DISPLAY_HDMI_STATE_HELPER
- 	help
- 	  DRM connector implementation terminating DRM bridge chains.
- 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index a4fbf1eb7ac5..3da5b8bf8259 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -216,8 +216,19 @@ static void drm_bridge_connector_debugfs_init(struct drm_connector *connector,
- 	}
- }
- 
-+static void drm_bridge_connector_reset(struct drm_connector *connector)
-+{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+
-+	drm_atomic_helper_connector_reset(connector);
-+	if (bridge_connector->bridge_hdmi)
-+		__drm_atomic_helper_connector_hdmi_reset(connector,
-+							 connector->state);
-+}
-+
- static const struct drm_connector_funcs drm_bridge_connector_funcs = {
--	.reset = drm_atomic_helper_connector_reset,
-+	.reset = drm_bridge_connector_reset,
- 	.detect = drm_bridge_connector_detect,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>
+> > +                     cstate->mixers[i].hw_dspp = to_dpu_hw_dspp(hw_dspp[i]);
+> > +     }
+> > +
+> > +     cstate->num_mixers = num_lm;
+> > +}
+> > +
+> >   static int dpu_encoder_virt_atomic_check(
+> >               struct drm_encoder *drm_enc,
+> >               struct drm_crtc_state *crtc_state,
+> > @@ -698,6 +733,9 @@ static int dpu_encoder_virt_atomic_check(
+> >                                       drm_enc, crtc_state, topology);
+> >       }
+> >
+> > +     if (!ret)
+> > +             dpu_encoder_assign_crtc_resources(dpu_kms, drm_enc, global_state, crtc_state);
+> > +
+> >       trace_dpu_enc_atomic_check_flags(DRMID(drm_enc), adj_mode->flags);
+> >
+> >       return ret;
+> > @@ -1097,14 +1135,11 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+> >       struct dpu_encoder_virt *dpu_enc;
+> >       struct msm_drm_private *priv;
+> >       struct dpu_kms *dpu_kms;
+> > -     struct dpu_crtc_state *cstate;
+> >       struct dpu_global_state *global_state;
+> >       struct dpu_hw_blk *hw_pp[MAX_CHANNELS_PER_ENC];
+> >       struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
+> > -     struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
+> > -     struct dpu_hw_blk *hw_dspp[MAX_CHANNELS_PER_ENC] = { NULL };
+> >       struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
+> > -     int num_lm, num_ctl, num_pp, num_dsc;
+> > +     int num_ctl, num_pp, num_dsc;
+> >       unsigned int dsc_mask = 0;
+> >       int i;
+> >
+> > @@ -1133,11 +1168,6 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+> >               ARRAY_SIZE(hw_pp));
+> >       num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> >               drm_enc->base.id, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+> > -     num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > -             drm_enc->base.id, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
+> > -     dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > -             drm_enc->base.id, DPU_HW_BLK_DSPP, hw_dspp,
+> > -             ARRAY_SIZE(hw_dspp));
+> >
+> >       for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
+> >               dpu_enc->hw_pp[i] = i < num_pp ? to_dpu_hw_pingpong(hw_pp[i])
+> > @@ -1163,18 +1193,6 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+> >               dpu_enc->cur_master->hw_cdm = hw_cdm ? to_dpu_hw_cdm(hw_cdm) : NULL;
+> >       }
+> >
+> > -     cstate = to_dpu_crtc_state(crtc_state);
+> > -
+> > -     for (i = 0; i < num_lm; i++) {
+> > -             int ctl_idx = (i < num_ctl) ? i : (num_ctl-1);
+> > -
+> > -             cstate->mixers[i].hw_lm = to_dpu_hw_mixer(hw_lm[i]);
+> > -             cstate->mixers[i].lm_ctl = to_dpu_hw_ctl(hw_ctl[ctl_idx]);
+> > -             cstate->mixers[i].hw_dspp = to_dpu_hw_dspp(hw_dspp[i]);
+> > -     }
+> > -
+> > -     cstate->num_mixers = num_lm;
+> > -
+> >       dpu_enc->connector = conn_state->connector;
+> >
+> >       for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+> >
+
+
 
 -- 
-2.39.2
-
+With best wishes
+Dmitry
