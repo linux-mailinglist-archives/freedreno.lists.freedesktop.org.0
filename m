@@ -2,89 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12AA69691EB
-	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 05:23:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95ADD969592
+	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 09:32:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E17B10E3F1;
-	Tue,  3 Sep 2024 03:23:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DF6210E412;
+	Tue,  3 Sep 2024 07:32:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DbFHwn0P";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="HRYsh4zs";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
- [209.85.208.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5611810E3E8
- for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 03:23:07 +0000 (UTC)
-Received: by mail-lj1-f179.google.com with SMTP id
- 38308e7fff4ca-2f4f2868621so51132981fa.0
- for <freedreno@lists.freedesktop.org>; Mon, 02 Sep 2024 20:23:07 -0700 (PDT)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6380010E411
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 07:32:52 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-5334b0e1a8eso6503510e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Sep 2024 00:32:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725333785; x=1725938585; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=TdplmJxptUI5vC4a8O6uUv9gCPQGqO+K3YZJZ67p41c=;
- b=DbFHwn0PZs7AhZ/G7mO8oocOUiS3hpV2ObC7sYwGDsdWvYdhtQ93VWv9f5pFA/gVeg
- Q8Kob8uC0P9vsOE0LRnxkk9Nsj6RYPl2qS0+UlfgjUK9Dm+amP6wT0bAsStTli2zT7bB
- lEvOs98JTCxrSNyGnEFQRl+HYxQthfT7Pzq6mIC7eVEjoaP97rhQTi2dQIFHX4jlZSyp
- pcroGnw0VCW+g0cq6Pry9/4HUZh2w0ZAuoZqPUA7CUohdS2pQ8qD0RIKwZxibqHQIOSN
- 1aVX6kHPAR7TlHzHfZ7goLdyNpf5dMnzNi4+iR8OHvEbKXWwqZNBVTvwjWjWoUF5jnUU
- EXPw==
+ d=linaro.org; s=google; t=1725348770; x=1725953570; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=U7FqpAKPzV4buH+ZI1vofCGLlOfNoJm00tc4Xp0bqlQ=;
+ b=HRYsh4zsSOihXfMwdCnAdYgheM3DkTSbTS8x/VJBoRjGxJEy+YJXhRsLEtmGC++Gow
+ L43I3hnkp4fVZ0zIAHezUaA3jfVmY0SDo1TqZbB/tCxityj02tUyBEpij42OzVw4j6sU
+ U+1Em54IRgXBluHlMVcFuM7NOo0RA7KbNr/sIlyoyUSylYl6Lagi/vSv6tITFnRtAG7w
+ vIz1ITCIVp/nOXf9cCsiICrzPG/fPqXUsRZ86p3nAKys9t0lw+xeFEjCGuIEWSNAXRSf
+ tAk2vrxhcIA2KIkMJMDcj9/YA4coDJXc+Srx3sl7i1NG7dYuFxwc5oKj53z+Y00PxoHe
+ aN8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725333785; x=1725938585;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1725348770; x=1725953570;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TdplmJxptUI5vC4a8O6uUv9gCPQGqO+K3YZJZ67p41c=;
- b=m/LKo+lCG7+kP4BJH0t5a5hfGolxNedAU8DdvU2fsJoYyPIdLc5d0U8qpEbhe8YWa9
- bbojz2L0xvwcv3+EgeHuu8UXF3reuQxhTKeKx/+roslVmh977OpC8PC5SUx8Alzpwk+2
- i7oIrZQFSTbqzSErz3XHitm6zb8tLXlxka23BfUdbhXNiEIYjC0nKc7AVq79hX3bDhAT
- AoYm4AkAmi/9+JiptKaUcHAjPU894LRWMbVYIjEUS6GpUz23MRUWL3cVhXgjP+HXtMYL
- L21JHy0gPJ6UFONrIOdo7sIAVoXugO3zRaf2OA94XjZK0kQfJyLCzmtGxy0Sfuxhmoqx
- Wb/w==
+ bh=U7FqpAKPzV4buH+ZI1vofCGLlOfNoJm00tc4Xp0bqlQ=;
+ b=S1eOpf0lcRO8pilHPOXWLkXewoJozERUNsBkxHk3LTk42lGm0qwFxrOMxTqXLkxsKW
+ IGIEFUdlB7BDz2F5zlkGzsg5CjwNkvLu7im9pRyku2IHNwKELMk0OI2Vc/1h1pQG5Vde
+ V06ZF+mUN6Q5inmgzzdTkHBPl2nz12SdNIDjJBGlQIKnLiS8537aJHR4cBKqi1rYNxen
+ J6EFkC6QBd7XG95GR9frAGzSeA7islf+AUcrb8gsGEmkrEwXEXpTe0NLxI4yuX28zbk2
+ Zr9r3XpACGUFRw+aWQCiyglBgEbVWwOPFX2ZY5aFnSXORrWmHul+KfrU+jNjjVd+euz2
+ Fl8g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX6DCTnFSI82U7OqK92bSM0CLmJLJ0QUOuDvlmJVoKcMjSxbYmKeNey4mzBzRlT+58X/2mryFj5FCY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YygorNDa6/N/eh1mxVZUN5dbhyc47Objg93et75aRwxSoBxDaS1
- ju3qOa/5Ho88htHbeMKcARzJHhd/EM/18svXbPMWROfwXE4YjL0DNKuZ62k0rxc=
-X-Google-Smtp-Source: AGHT+IEOgwK1uzPezT8AfH6qRHEtNuFp5jh6ed6Oxbz/+Ff0gSLazpkDyq2/79FYkyfQ5VYW0A6ORA==
-X-Received: by 2002:a2e:a54f:0:b0:2f3:f068:b107 with SMTP id
- 38308e7fff4ca-2f62dc25bfbmr60611641fa.40.1725333784770; 
- Mon, 02 Sep 2024 20:23:04 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f614ed15a5sm21003961fa.8.2024.09.02.20.23.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Sep 2024 20:23:04 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 03 Sep 2024 06:22:58 +0300
-Subject: [PATCH v6 15/15] drm/msm/dpu: sync mode_config limits to the FB
- limits in dpu_plane.c
+ AJvYcCUGa7BTzuMEwfg0A//FSd8b+V0xdmfb9H5cgf/gwmZtEgs1lmA5sC4W/acTUjyPDsksBNYj7uu1DuM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyyNIbIozzvjGwUwIOonVui3qxKpLRmSltiVAzGkWrj8Msj6ShQ
+ j5GAWMXuiDpq9GBKrvY+NixRGv8r8R9iOhdyEMk+wVC/vboiIikQKu4ZOloNrmrCfb6NZnDSPKr
+ 8gTtF4GXlhsH/VsIkhoy2ZmOqVx31+JEn/Kl3ag==
+X-Google-Smtp-Source: AGHT+IHrFPfCS/BVC8UCkjCGmyI7i7/wfoGrPytiT60dSKpQkQEML/b4+Lrc3MCNMZfPCyT+5uqmLNbJH1mOjM56rKk=
+X-Received: by 2002:a05:6512:3b11:b0:52c:e054:4149 with SMTP id
+ 2adb3069b0e04-53546b052fdmr9233089e87.15.1725348770143; Tue, 03 Sep 2024
+ 00:32:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240903-dpu-mode-config-width-v6-15-617e1ecc4b7a@linaro.org>
-References: <20240903-dpu-mode-config-width-v6-0-617e1ecc4b7a@linaro.org>
-In-Reply-To: <20240903-dpu-mode-config-width-v6-0-617e1ecc4b7a@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Abel Vesa <abel.vesa@linaro.org>, 
- Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org, 
+References: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org>
+ <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-2-bdb05b4b5a2e@linaro.org>
+ <CAA8EJpp_LWmuN8CFuQEAME-O44_wJXUKsR1QwahuigzSss5Rqw@mail.gmail.com>
+In-Reply-To: <CAA8EJpp_LWmuN8CFuQEAME-O44_wJXUKsR1QwahuigzSss5Rqw@mail.gmail.com>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Tue, 3 Sep 2024 15:32:38 +0800
+Message-ID: <CABymUCPXDTCVeeC0s+1UyuqYF0XNW55qtOBV9--BOoSjAzVjkg@mail.gmail.com>
+Subject: Re: [PATCH 02/21] drm/msm/dsi: fix DSC width for the bonded DSI case
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2539;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=UDjBz+OwSb+7oXTheaAi3fvbBJbmIDiMCaat2ECDIjs=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBm1oENYwMah92zPW3oip3MLKiZnIUYlUa1xd+3t
- /kh6S7kh0+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZtaBDQAKCRCLPIo+Aiko
- 1cilCACqQ65UqNGu66yj8Yc5UtNC4Bxr5eciWwcxSeEPiNBcvfgPl6Z/KH0YARNLuYG3fmD6KlW
- wAgWGaQj30qYfW9QlswHwi6fZuKIeEgyPlAbh7EdYng5U/RtXh8CkZ/7ypJrA74SNcxeRNsNYBD
- Dm/6c+To2HvdKqwrSFjmIipYV/BP8MBa+yEMBqk8QQ1mD3Ypydo8qVht1lu0f6/usIxo3fUjG7K
- TBvASFRwvgP8id0dUeerPnDPOqcbHiMYimEjrv9Iyd9EOvGWSPw9WD83HflHZURv12dXgSw2EOr
- DwIf1EXXOTm29dCsQcc7HoniYrAM2OIIPzCfygu5IhQn1TME
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+ linux-kernel@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,71 +87,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Lift mode_config limits set by the DPU driver to the actual FB limits as
-handled by the dpu_plane.c. Move 2*max_lm_width check where it belongs,
-to the drm_crtc_helper_funcs::mode_valid() callback.
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B48=E6=
+=9C=8829=E6=97=A5=E5=91=A8=E5=9B=9B 18:54=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Thu, 29 Aug 2024 at 13:19, Jun Nie <jun.nie@linaro.org> wrote:
+> >
+> > From: Jonathan Marek <jonathan@marek.ca>
+> >
+> > For the bonded DSI case, DSC pic_width and timing calculations should u=
+se
+> > the width of a single panel instead of the total combined width.
+>
+> What is a "single panel"? Please rephrase the commit message so that
+> it reads logically.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Tested-by: Abhinav Kumar <quic_abhinavk@quicinc.com> # sc7280
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 14 ++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  9 ++-------
- 2 files changed, 16 insertions(+), 7 deletions(-)
+Yeah, it is a bit confusing without the usage case explanation. "single DSI
+interface" shall be much better here. Because bonded-DSI can work with
+a single panel with 2 DSI, or with 2 panels with one DSI on each panel.
+>
+> >
+> > Bonded DSI can be used to drive a single panel having two input
+> > channels, or to drive two panels with a input channel on every panel th=
+at
+> > behave like single panel for display controller.
+>
+> Missing actual action. See Documentation/process/submitting-patches.rst
+>
+> >
+> > Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+>
+> As pointed out during internal review, missing Fixes tag. Any reason
+> for ignoring it?
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index db6c57900781..58595dcc3889 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1230,6 +1230,19 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
- 	return 0;
- }
- 
-+static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
-+						const struct drm_display_mode *mode)
-+{
-+	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
-+
-+	/*
-+	 * max crtc width is equal to the max mixer width * 2 and max height is 4K
-+	 */
-+	return drm_mode_validate_size(mode,
-+				      2 * dpu_kms->catalog->caps->max_mixer_width,
-+				      4096);
-+}
-+
- int dpu_crtc_vblank(struct drm_crtc *crtc, bool en)
- {
- 	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
-@@ -1445,6 +1458,7 @@ static const struct drm_crtc_helper_funcs dpu_crtc_helper_funcs = {
- 	.atomic_check = dpu_crtc_atomic_check,
- 	.atomic_begin = dpu_crtc_atomic_begin,
- 	.atomic_flush = dpu_crtc_atomic_flush,
-+	.mode_valid = dpu_crtc_mode_valid,
- 	.get_scanout_position = dpu_crtc_get_scanout_position,
- };
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index daa42f289d2e..7083baf7d5ce 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1201,13 +1201,8 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
- 	dev->mode_config.min_width = 0;
- 	dev->mode_config.min_height = 0;
- 
--	/*
--	 * max crtc width is equal to the max mixer width * 2 and max height is
--	 * is 4K
--	 */
--	dev->mode_config.max_width =
--			dpu_kms->catalog->caps->max_mixer_width * 2;
--	dev->mode_config.max_height = 4096;
-+	dev->mode_config.max_width = DPU_MAX_IMG_WIDTH;
-+	dev->mode_config.max_height = DPU_MAX_IMG_HEIGHT;
- 
- 	dev->max_vblank_count = 0xffffffff;
- 	/* Disable vblank irqs aggressively for power-saving */
-
--- 
-2.39.2
-
+Sorry, it is missed by mistaken. I am just more familiar with
+"Signed-off-by" than
+"Fixes:" tag, so not sensitive to Fixed tag and miss it when you
+mention it. Will
+add it.
