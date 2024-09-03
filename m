@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D094969863
-	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 11:12:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91443969888
+	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 11:17:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8CB910E07E;
-	Tue,  3 Sep 2024 09:12:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 126D410E44C;
+	Tue,  3 Sep 2024 09:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="e9Q5filZ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="uM8SNbmB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
- [209.85.128.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D046910E36C
- for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 09:12:10 +0000 (UTC)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-6b6b9867faaso41893017b3.2
- for <freedreno@lists.freedesktop.org>; Tue, 03 Sep 2024 02:12:10 -0700 (PDT)
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
+ [209.85.128.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E02AB10E44C
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 09:17:19 +0000 (UTC)
+Received: by mail-yw1-f181.google.com with SMTP id
+ 00721157ae682-6d6891012d5so18547967b3.2
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Sep 2024 02:17:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725354730; x=1725959530; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1725355039; x=1725959839; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=V/ta3uuFBPiaBh9lCEDL9Di51UHek4DoFtVES2+06H0=;
- b=e9Q5filZrNthsdqfW5wvaoUaCfxBROm6JT2fkFWWre7ncncePo7+NYerAb+jrTjdKT
- 4GEE8+3AnL2Q31AsT9WkMTjs4NbY4gsqcM9jF+NlZAFAdI89dHokdc81crju6wQhIKah
- 9Lsstt2JkZCOSds3tqSF13qp+Hq1tYuXBvuzbtJT0AFxUf/NIuSVzYmh/UBrLQ2eITq/
- hwL7tYw4FPP/tAeVRBn6iLPdg+H0e1H6M+sPseiQ3ltP8x2HilKFyrica3spklo+/Cqn
- lL7yvjks45JCKNiSetc7ZWhWpqNYUEZRufpPkD4zQgDtfzo791tJQTryHqvQj1ca++kr
- v2NQ==
+ bh=iHxPh6R8OUIMs2u3yUx/BuQ1WH7I4Ubp5ptPzIFLou8=;
+ b=uM8SNbmBSN0oc9YRgwK/jUx3hUwC3wAzbi0EFy8nb+74DtByxOmubqR1WRbrTkW3zz
+ wLGP2XhZFMHqqFFZPfIWRFXIpQugYXXQ099xbPvQmPaE4rM/x6s+YcbMbMTa6dKckVOU
+ QBbOO13lm4zwqHNbrxpXE2A7+r8DgqkysQhWdgOcryJWGRgMLS5fWeA+pwCv68cPsz+5
+ m45HLfTYUrFZ+9y3Hk8uPlLo7dx0420G7T/KNJPFqpL5EaZMOCXJMccRx69kzkZgFLAG
+ U6Pbr99SC+FL7B/DrdMf+opciIZG9J/9JbyOnrKufBKxEbz3Y1xDRe2q0G+D9na7a3vq
+ YmwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725354730; x=1725959530;
+ d=1e100.net; s=20230601; t=1725355039; x=1725959839;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=V/ta3uuFBPiaBh9lCEDL9Di51UHek4DoFtVES2+06H0=;
- b=tGQvOv08FPTbr/nfIL5V/5aJeWgA9EL8dyQZjLEhCLjV9Y30zlhDdnqB/AUL2BnhjO
- bDv1Z2TXWwWNbIg4YYleWEpNxT1MUzHYb6JkiuF+dVaJj4o6l9jQCPiHohDEC0QycUKm
- 0a6gd7inUb9i/JemAziPsb1AEQHmMrKU5N5RH4epJe3AbsEP23JUCkzwFgk/wzJ9GwtO
- z1kiralnpS2cqs3aliNv7EE/Q6bYGX8uZ05CQ8wqVR4mOmNROiWAZQrjUDSA/Q0/kkDB
- IB9UmcJW1caBeian7ibSKRS+XRyFnchguV7153LiN0k3cpj07zGBDy9IpIvjvFXfMTgk
- E4Jg==
+ bh=iHxPh6R8OUIMs2u3yUx/BuQ1WH7I4Ubp5ptPzIFLou8=;
+ b=wR0CdBq5VdBcTDgmpPUOYnh+Uypz4Nh7rTiHatV74u/C2JXF4hYMIhYf3o8x+bVHya
+ G8KJFndtXnI3I908rUmDshuIkGsJ7IYaa1e402m7KUno1JF3wZGVHB7Wn0nydKaEjaeK
+ zpJKkqVeHOwKHU67/uXkIxImd3p0KQrO+tgjV58inKHqwWb1ph7T9/PahoJaagY4aDQU
+ FcwzVIDy6YCuZRWFHt4wCRujvdHuAmz70nF0piVIYL+YjmtD5yxJfN4VS6lDztjM/pOw
+ z19dquth3w4Mg5ags/CDgSAbcfntU+RGhT515/lJBHiMICJsMe168RXHhai2AQls0Q2C
+ 4vag==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUfWaeBUdFdNGJOfex1CYMvao6JUCOwzYi0D1zrjKHbN5jdgP2lMgI+RRw6yUA2FzF/RuTuIWRwUmk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy4P+4tMUkDZ/OcuTX7Eqwvmn2VMtYf9xGbdHhUtIkJhoH+Z/Il
- ocCS/vp1WmGRiWPsmKuwbgmlUWa+Vsm+6m2iDtAkkTEfuaOT13IHX8d1EG5EPNnqh2CdkpfrErf
- nrqqslOCKfktfpT+l7XolrCgXUdGdlncbl6dLAw==
-X-Google-Smtp-Source: AGHT+IEb9jQ5qw60pC+3SsofsZgMNd8KJnoJD/AFd0pFQMqyVKD5minDKNeHUibGRXpas1sBxOmrGY3L1DJDYOVo5lc=
-X-Received: by 2002:a05:690c:6703:b0:6ae:528f:be36 with SMTP id
- 00721157ae682-6d40dc7b873mr165283987b3.12.1725354729654; Tue, 03 Sep 2024
- 02:12:09 -0700 (PDT)
+ AJvYcCV25jKRd05y0j1q9/rFx4g8ePlvhidAZML7N3ge5ccJPqDC8+mXbtPH2vIEKcRJD2uk0soikUTc410=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwbDshMNfVQdaarVd3jKBi8EPXgULfXVrLbdhPqFj4eLuvs9vlp
+ IKudHPe354QWQdqBaLrDb3oZYj4sNWVpP9fWB6DnsM6c7woL+7Rb0/YU/Lv55CWS4lVV83bDdd6
+ K47Zb8pdduB8z0jWLFUrwS3bqAGLLQl8SSHP09g==
+X-Google-Smtp-Source: AGHT+IG81YDgPBRq6/EYuW4vKT6fy1SFqxRv2KyQLs6HLXZ1o9IbzXMNe+6OWbwaOtbCurnbVfpd3OtZMgL5A8LguhM=
+X-Received: by 2002:a05:690c:81:b0:6b0:d9bc:5a29 with SMTP id
+ 00721157ae682-6d40f62dcf0mr167802017b3.32.1725355038732; Tue, 03 Sep 2024
+ 02:17:18 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org>
- <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-18-bdb05b4b5a2e@linaro.org>
- <CAA8EJpoj6vs1JsDWgqof9Ogt-0Zq6hUpuaK42YwByDGrpUopnw@mail.gmail.com>
- <CABymUCOOWSSUnk3wdh4bKiOJb8k44_F2-ik9MeKuB1kF66576A@mail.gmail.com>
-In-Reply-To: <CABymUCOOWSSUnk3wdh4bKiOJb8k44_F2-ik9MeKuB1kF66576A@mail.gmail.com>
+ <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-1-bdb05b4b5a2e@linaro.org>
+ <CAA8EJprgHAmuFxj5hO5BYFywW7sGC2VcMZwaadBLOmYJr88OYg@mail.gmail.com>
+ <CABymUCPEnU2ReAve=P6yzndZy5-=YQRB60bixxHGeoQK4cWTAw@mail.gmail.com>
+In-Reply-To: <CABymUCPEnU2ReAve=P6yzndZy5-=YQRB60bixxHGeoQK4cWTAw@mail.gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 3 Sep 2024 12:11:58 +0300
-Message-ID: <CAA8EJppd36417E2vprowz9UJZ5C+WgPPacbY91PFoa2fjSvkXg@mail.gmail.com>
-Subject: Re: [PATCH 18/21] drm/msm/dpu: blend pipes by left and right
+Date: Tue, 3 Sep 2024 12:17:07 +0300
+Message-ID: <CAA8EJppZvWH1y-WeNW+9zSonoR7vem7N7q0o94ZymiZfvvUfJQ@mail.gmail.com>
+Subject: Re: [PATCH 01/21] drm/msm/dsi: add support to DSI CTRL v2.8.0
 To: Jun Nie <jun.nie@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -70,7 +70,7 @@ Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Maxime Ripard <mripard@kernel.org>, 
  Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -88,201 +88,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 3 Sept 2024 at 10:53, Jun Nie <jun.nie@linaro.org> wrote:
+On Tue, 3 Sept 2024 at 11:11, Jun Nie <jun.nie@linaro.org> wrote:
 >
 > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B48=E6=
-=9C=8829=E6=97=A5=E5=91=A8=E5=9B=9B 19:51=E5=86=99=E9=81=93=EF=BC=9A
+=9C=8829=E6=97=A5=E5=91=A8=E5=9B=9B 18:35=E5=86=99=E9=81=93=EF=BC=9A
 > >
-> > On Thu, 29 Aug 2024 at 13:21, Jun Nie <jun.nie@linaro.org> wrote:
+> > On Thu, 29 Aug 2024 at 13:19, Jun Nie <jun.nie@linaro.org> wrote:
 > > >
-> > > Blend pipes by left and right. The first 2 pipes are for
-> > > left half screen and the later 2 pipes are for right in quad
-> > > pipe case.
+> > > From: Jonathan Marek <jonathan@marek.ca>
+> > >
+> > > Add support to DSI CTRL v2.8.0 with priority support
+> >
+> > Proper description is missing
+>
+> Actually, there is no clear doc for this register. Any URL or
+> doc key word to search?
+
+Do you have a corresponding change in the vendor driver? If not, where
+does this come from? What does it fix? What doesn't work if the
+register isn't programmed? Answers to such questions should be a part
+of the commit message.
+
+> >
 > > >
 > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > ---
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 13 +++++++++++--
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 10 +++++++---
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c  | 19 +++++++++++++++++--
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h  |  4 +++-
-> > >  4 files changed, 38 insertions(+), 8 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/d=
-rm/msm/disp/dpu1/dpu_crtc.c
-> > > index 3b3cd17976082..8fd56f8f2851f 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > @@ -574,8 +574,17 @@ static void _dpu_crtc_blend_setup(struct drm_crt=
-c *crtc)
-> > >                         mixer[i].mixer_op_mode,
-> > >                         ctl->idx - CTL_0);
-> > >
-> > > -               ctl->ops.setup_blendstage(ctl, mixer[i].hw_lm->idx,
-> > > -                       &stage_cfg);
-> > > +               /*
-> > > +                * call dpu_hw_ctl_setup_blendstage() to blend layers=
- per stage cfg.
-> > > +                * There is 4 mixers at most. The first 2 are for the=
- left half, and
-> > > +                * the later 2 are for the right half.
-> > > +                */
-> > > +               if (cstate->num_mixers =3D=3D 4 && i >=3D 2)
-> > > +                       ctl->ops.setup_blendstage(ctl, mixer[i].hw_lm=
-->idx,
-> > > +                               &stage_cfg, true);
-> > > +               else
-> > > +                       ctl->ops.setup_blendstage(ctl, mixer[i].hw_lm=
-->idx,
-> > > +                               &stage_cfg, false);
-> > >         }
-> > >  }
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gp=
-u/drm/msm/disp/dpu1/dpu_encoder.c
-> > > index 76793201b984e..5d927f23e35b2 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > > @@ -2049,9 +2049,13 @@ static void dpu_encoder_helper_reset_mixers(st=
-ruct dpu_encoder_phys *phys_enc)
-> > >                 if (phys_enc->hw_ctl->ops.update_pending_flush_mixer)
-> > >                         phys_enc->hw_ctl->ops.update_pending_flush_mi=
-xer(ctl, hw_mixer[i]->idx);
-> > >
-> > > -               /* clear all blendstages */
-> > > -               if (phys_enc->hw_ctl->ops.setup_blendstage)
-> > > -                       phys_enc->hw_ctl->ops.setup_blendstage(ctl, h=
-w_mixer[i]->idx, NULL);
-> > > +               /* clear all blendstages in both left and right */
-> > > +               if (phys_enc->hw_ctl->ops.setup_blendstage) {
-> > > +                       phys_enc->hw_ctl->ops.setup_blendstage(ctl,
-> > > +                               hw_mixer[i]->idx, NULL, false);
-> > > +                       phys_enc->hw_ctl->ops.setup_blendstage(ctl,
-> > > +                               hw_mixer[i]->idx, NULL, true);
-> > > +               }
-> > >         }
-> > >  }
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu=
-/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> > > index 602dfad127c2a..2072d18520326 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> > > @@ -478,12 +478,13 @@ static const struct ctl_blend_config ctl_blend_=
-config[][2] =3D {
-> > >  };
-> > >
-> > >  static void dpu_hw_ctl_setup_blendstage(struct dpu_hw_ctl *ctx,
-> > > -       enum dpu_lm lm, struct dpu_hw_stage_cfg *stage_cfg)
-> > > +       enum dpu_lm lm, struct dpu_hw_stage_cfg *stage_cfg, bool righ=
-t)
-> > >  {
-> > >         struct dpu_hw_blk_reg_map *c =3D &ctx->hw;
-> > >         u32 mix, ext, mix_ext;
-> > >         u32 mixercfg[5] =3D { 0 };
-> > >         int i, j;
-> > > +       int pipe_start, pipe_end;
-> > >         int stages;
-> > >         int pipes_per_stage;
-> > >
-> > > @@ -502,13 +503,27 @@ static void dpu_hw_ctl_setup_blendstage(struct =
-dpu_hw_ctl *ctx,
-> > >         if (!stage_cfg)
-> > >                 goto exit;
-> > >
-> > > +       /*
-> > > +        * For quad pipe case, blend pipes in right side separately. =
-Otherwise,
-> > > +        * all content is on the left half by defaut (no splitting ca=
-se).
-> > > +        */
-> > > +       if (!right) {
 > >
-> > I think the approach to set PIPES_PER_STAGE to 4 is incorrect. It
-> > complicates the code too much. Instead please use two separate
-> > instances, each one representing a single LM pair and corresponding
-> > set of SW pipes. Yes, you'd have to iterate over them manually.
-> > However I think it's also going to make code simpler.
+> > Several tags are missing here.
 >
-> OK. I can explore this method.
+> Co-develop and SoB tag, right?
+
+yep
+
 > >
-> > > +               pipe_start =3D 0;
-> > > +               pipe_end =3D pipes_per_stage =3D=3D PIPES_PER_STAGE ?=
- 2 : 1;
-> >
-> > pipe_end =3D pipes_per_stage
-> >
-> > > +       } else {
-> > > +               pipe_start =3D 2;
-> > > +               pipe_end =3D PIPES_PER_STAGE;
-> >
-> > So, the right part always has 2 pipes? What if the
-> > DPU_MIXER_SOURCESPLIT isn't supported?
+> > Also, how is this patch related to quadpipe?
 >
-> Yeah, the case is missed. It should be like this for the right half:
-> pipe_start =3D pipes_per_stage =3D=3D PIPES_PER_STAGE ? 2 : 1;
-> pipe_end =3D pipes_per_stage =3D=3D PIPES_PER_STAGE ? PIPES_PER_STAGE : 2=
-;
+> It is a must per test. Maybe it is just related to dual-DSI.
+> We can have answer if 2:2:2 is enabled.
 
-Well, we can be better than that and use
-pipe_start =3D left ? 0 : 2
-pipe_end =3D pipe_start + pipes_per_stage;
-
->
->
-> >
-> >
-> > > +       }
-> > > +
-> > > +       DRM_DEBUG_ATOMIC("blend lm %d on the %s side\n", lm - LM_0,
-> > > +                        right ? "right" : "left");
-> > >         for (i =3D 0; i <=3D stages; i++) {
-> > >                 /* overflow to ext register if 'i + 1 > 7' */
-> > >                 mix =3D (i + 1) & 0x7;
-> > >                 ext =3D i >=3D 7;
-> > >                 mix_ext =3D (i + 1) & 0xf;
-> > >
-> > > -               for (j =3D 0 ; j < pipes_per_stage; j++) {
-> > > +               for (j =3D pipe_start; j < pipe_end; j++) {
-> > >                         enum dpu_sspp_multirect_index rect_index =3D
-> > >                                 stage_cfg->multirect_index[i][j];
-> > >                         enum dpu_sspp pipe =3D stage_cfg->stage[i][j]=
-;
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu=
-/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> > > index 557ec9a924f81..2dac7885fc5e7 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> > > @@ -25,6 +25,8 @@ struct dpu_hw_ctl;
-> > >  /**
-> > >   * struct dpu_hw_stage_cfg - blending stage cfg
-> > >   * @stage : SSPP_ID at each stage
-> > > + *          The first 2 in PIPES_PER_STAGE(4) are for the first SSPP=
-.
-> > > + *          The 3rd/4th in PIPES_PER_STAGE(4) are for the 2nd SSPP.
-> > >   * @multirect_index: index of the rectangle of SSPP.
-> > >   */
-> > >  struct dpu_hw_stage_cfg {
-> > > @@ -243,7 +245,7 @@ struct dpu_hw_ctl_ops {
-> > >          * @cfg       : blend stage configuration
-> > >          */
-> > >         void (*setup_blendstage)(struct dpu_hw_ctl *ctx,
-> > > -               enum dpu_lm lm, struct dpu_hw_stage_cfg *cfg);
-> > > +               enum dpu_lm lm, struct dpu_hw_stage_cfg *cfg, bool ri=
-ght);
-> > >
-> > >         void (*set_active_pipes)(struct dpu_hw_ctl *ctx,
-> > >                 unsigned long *fetch_active);
-> > >
-> > > --
-> > > 2.34.1
-> > >
-> >
-> >
-> > --
-> > With best wishes
-> > Dmitry
-
-
+Tests are a separate story. You can send a separate series and mention
+it in the cover letter. However this is not a part of the quad-pipe
+support per se.
 
 --=20
 With best wishes
