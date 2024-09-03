@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95ADD969592
-	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 09:32:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9F4B9695AB
+	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 09:34:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DF6210E412;
-	Tue,  3 Sep 2024 07:32:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7498C10E380;
+	Tue,  3 Sep 2024 07:34:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="HRYsh4zs";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WPfQxxMr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6380010E411
- for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 07:32:52 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-5334b0e1a8eso6503510e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 03 Sep 2024 00:32:52 -0700 (PDT)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82F4D10E380
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 07:34:17 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2f029e9c9cfso61183141fa.2
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Sep 2024 00:34:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725348770; x=1725953570; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1725348855; x=1725953655; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=U7FqpAKPzV4buH+ZI1vofCGLlOfNoJm00tc4Xp0bqlQ=;
- b=HRYsh4zsSOihXfMwdCnAdYgheM3DkTSbTS8x/VJBoRjGxJEy+YJXhRsLEtmGC++Gow
- L43I3hnkp4fVZ0zIAHezUaA3jfVmY0SDo1TqZbB/tCxityj02tUyBEpij42OzVw4j6sU
- U+1Em54IRgXBluHlMVcFuM7NOo0RA7KbNr/sIlyoyUSylYl6Lagi/vSv6tITFnRtAG7w
- vIz1ITCIVp/nOXf9cCsiICrzPG/fPqXUsRZ86p3nAKys9t0lw+xeFEjCGuIEWSNAXRSf
- tAk2vrxhcIA2KIkMJMDcj9/YA4coDJXc+Srx3sl7i1NG7dYuFxwc5oKj53z+Y00PxoHe
- aN8w==
+ bh=vliWi3Scy6RbjNeD5IhoobKc4xR9iQkqtP489fUblNA=;
+ b=WPfQxxMrvAmciYhMGajBsgVc9LBT/VGQ/CjQlN4g/QJe4Q4Qx+EmMNV7Lj5nCfGzvg
+ YiqkckbTA4SlEyjfB6FUE0kFHlpcm/94XOdHizZVcjz/kW6b4djP+DNJ06s9rRc2eU6m
+ 2Ym71jrnuOHgacPeGv9Vgz7cWbRgJUMIUOxRFnnmzNsKrbjhTgV7CegbLgPwpIJjcaXs
+ sRgSginvMkl+D8O1LTa5SL9RHfp4ac6tU1QDCaOvlEfZBHxJ+cBQuwstJItY/oZ58dAB
+ Ou7Y9ASL9M8qhLp8z34rFWcidu913L8KKGn5kpRrVYmPyzhaWDVvf10diRCj6umdrqzA
+ njMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725348770; x=1725953570;
+ d=1e100.net; s=20230601; t=1725348856; x=1725953656;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=U7FqpAKPzV4buH+ZI1vofCGLlOfNoJm00tc4Xp0bqlQ=;
- b=S1eOpf0lcRO8pilHPOXWLkXewoJozERUNsBkxHk3LTk42lGm0qwFxrOMxTqXLkxsKW
- IGIEFUdlB7BDz2F5zlkGzsg5CjwNkvLu7im9pRyku2IHNwKELMk0OI2Vc/1h1pQG5Vde
- V06ZF+mUN6Q5inmgzzdTkHBPl2nz12SdNIDjJBGlQIKnLiS8537aJHR4cBKqi1rYNxen
- J6EFkC6QBd7XG95GR9frAGzSeA7islf+AUcrb8gsGEmkrEwXEXpTe0NLxI4yuX28zbk2
- Zr9r3XpACGUFRw+aWQCiyglBgEbVWwOPFX2ZY5aFnSXORrWmHul+KfrU+jNjjVd+euz2
- Fl8g==
+ bh=vliWi3Scy6RbjNeD5IhoobKc4xR9iQkqtP489fUblNA=;
+ b=LEAfxxTBVL3twwbOjkgWiHI29hhS6AOaPeVMJTBDlLbDhzkiZ/hL6WrLzyTQ9GKqb+
+ ljWHdNi9nHSqU9Kjhk2HK9yHVFQwgFKI2M4MuG+tc8cDlPM313gtcvjW/qzo72Bznjhr
+ E4EybG25PTdiEPEeoWADTTRmpwEjecWc2XT3uB8nit57ekKkJjxXgvpO7nJPOAtbKSho
+ /clK2IJ2yMCiKLbuwjdOYdy/acyOurGmyaSMZr2DFBrcZZBqXfsxoIHsZwTOsspjm9qI
+ lb/ZFFybFaeZRUdetToa0EvFEGG6ft8qdb0dDBkN1/DSGVw8aSTczSHB/3Ly9BGx8rh/
+ qeqQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUGa7BTzuMEwfg0A//FSd8b+V0xdmfb9H5cgf/gwmZtEgs1lmA5sC4W/acTUjyPDsksBNYj7uu1DuM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyyNIbIozzvjGwUwIOonVui3qxKpLRmSltiVAzGkWrj8Msj6ShQ
- j5GAWMXuiDpq9GBKrvY+NixRGv8r8R9iOhdyEMk+wVC/vboiIikQKu4ZOloNrmrCfb6NZnDSPKr
- 8gTtF4GXlhsH/VsIkhoy2ZmOqVx31+JEn/Kl3ag==
-X-Google-Smtp-Source: AGHT+IHrFPfCS/BVC8UCkjCGmyI7i7/wfoGrPytiT60dSKpQkQEML/b4+Lrc3MCNMZfPCyT+5uqmLNbJH1mOjM56rKk=
-X-Received: by 2002:a05:6512:3b11:b0:52c:e054:4149 with SMTP id
- 2adb3069b0e04-53546b052fdmr9233089e87.15.1725348770143; Tue, 03 Sep 2024
- 00:32:50 -0700 (PDT)
+ AJvYcCXpp4M49dk+NdCjpHOiJdHkfmpQ+h1YLREkqDqgKLTTfT+2sF7boAOnYzorPVuMJkRMwlZeXdK710M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy+6c77wyPjvI1gF99DkRimdaa6Piu+Ne02L3dkpQur48rBR6Pv
+ AS+4fr8jE1TiYzIp+gHlv4J57zldzCd/V0SR9qtnxTPs+TMy2mzbdd2eTOHhKVk0eC3xn/ecgAY
+ ggqrfKYUBz/rBgjf9T5FlqWoU52cTLfGVISOO5w==
+X-Google-Smtp-Source: AGHT+IHikyCHpHDr69r3AMp2hdtbS/gza98nV+dXCxjEmDuwsCsZHqpmx08yOwWIt7zcbWMhhcpZyTO9rvIXl6UZ4Wo=
+X-Received: by 2002:a05:651c:551:b0:2f0:27da:6864 with SMTP id
+ 38308e7fff4ca-2f6105d7954mr149363671fa.17.1725348855335; Tue, 03 Sep 2024
+ 00:34:15 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org>
- <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-2-bdb05b4b5a2e@linaro.org>
- <CAA8EJpp_LWmuN8CFuQEAME-O44_wJXUKsR1QwahuigzSss5Rqw@mail.gmail.com>
-In-Reply-To: <CAA8EJpp_LWmuN8CFuQEAME-O44_wJXUKsR1QwahuigzSss5Rqw@mail.gmail.com>
+ <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-3-bdb05b4b5a2e@linaro.org>
+ <CAA8EJpqCL1xFVB8_2j2QwPsF-vHBcFBt3yx=acpWgmo4_Oudug@mail.gmail.com>
+In-Reply-To: <CAA8EJpqCL1xFVB8_2j2QwPsF-vHBcFBt3yx=acpWgmo4_Oudug@mail.gmail.com>
 From: Jun Nie <jun.nie@linaro.org>
-Date: Tue, 3 Sep 2024 15:32:38 +0800
-Message-ID: <CABymUCPXDTCVeeC0s+1UyuqYF0XNW55qtOBV9--BOoSjAzVjkg@mail.gmail.com>
-Subject: Re: [PATCH 02/21] drm/msm/dsi: fix DSC width for the bonded DSI case
+Date: Tue, 3 Sep 2024 15:34:03 +0800
+Message-ID: <CABymUCOsF5gL_i-uEyBBpgV_9qO_T3hNQ6vSX-dMGRsdFfgPXg@mail.gmail.com>
+Subject: Re: [PATCH 03/21] drm/msm/dsi: pass the right width to dsc
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -69,7 +69,7 @@ Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Maxime Ripard <mripard@kernel.org>, 
  Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -88,39 +88,98 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B48=E6=
-=9C=8829=E6=97=A5=E5=91=A8=E5=9B=9B 18:54=E5=86=99=E9=81=93=EF=BC=9A
+=9C=8829=E6=97=A5=E5=91=A8=E5=9B=9B 18:57=E5=86=99=E9=81=93=EF=BC=9A
 >
 > On Thu, 29 Aug 2024 at 13:19, Jun Nie <jun.nie@linaro.org> wrote:
 > >
-> > From: Jonathan Marek <jonathan@marek.ca>
-> >
-> > For the bonded DSI case, DSC pic_width and timing calculations should u=
-se
-> > the width of a single panel instead of the total combined width.
+> > Data width for dsc engine is aligned with pipe, not with whole screen
+> > width. Because the width may be halved in DSI bonded case.
 >
-> What is a "single panel"? Please rephrase the commit message so that
-> it reads logically.
+> Can't really parse this.
 
-Yeah, it is a bit confusing without the usage case explanation. "single DSI
-interface" shall be much better here. Because bonded-DSI can work with
-a single panel with 2 DSI, or with 2 panels with one DSI on each panel.
->
-> >
-> > Bonded DSI can be used to drive a single panel having two input
-> > channels, or to drive two panels with a input channel on every panel th=
-at
-> > behave like single panel for display controller.
->
-> Missing actual action. See Documentation/process/submitting-patches.rst
->
-> >
-> > Signed-off-by: Jonathan Marek <jonathan@marek.ca>
->
-> As pointed out during internal review, missing Fixes tag. Any reason
-> for ignoring it?
+Please forgive me for my bad English. Is below words better?
 
-Sorry, it is missed by mistaken. I am just more familiar with
-"Signed-off-by" than
-"Fixes:" tag, so not sensitive to Fixed tag and miss it when you
-mention it. Will
-add it.
+Data width for DSC timing is aligned with the width that goes to a DSI
+interface, not with whole screen width. For bonded-DSI case, the
+width for DSC timing is half width of whole screen.
+>
+> >
+> > The dsc width is not related to the timing with back front porch in
+> > later stage, so update dsc timing earlier.
+> >
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > ---
+> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 13 ++++++-------
+> >  1 file changed, 6 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/d=
+si/dsi_host.c
+> > index 7a4d9c071be5a..5abade8f26b88 100644
+> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > @@ -953,7 +953,7 @@ static void dsi_timing_setup(struct msm_dsi_host *m=
+sm_host, bool is_bonded_dsi)
+> >                         return;
+> >                 }
+> >
+> > -               dsc->pic_width =3D mode->hdisplay;
+> > +               dsc->pic_width =3D hdisplay;
+> >                 dsc->pic_height =3D mode->vdisplay;
+> >                 DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
+>
+> Two separate commits
+
+OK. Will split it.
+
+>
+> >
+> > @@ -964,6 +964,11 @@ static void dsi_timing_setup(struct msm_dsi_host *=
+msm_host, bool is_bonded_dsi)
+> >                 if (ret)
+> >                         return;
+> >
+> > +               if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO)
+> > +                       dsi_update_dsc_timing(msm_host, false, hdisplay=
+);
+> > +               else
+> > +                       dsi_update_dsc_timing(msm_host, true, hdisplay)=
+;
+> > +
+> >                 /*
+> >                  * DPU sends 3 bytes per pclk cycle to DSI. If widebus =
+is
+> >                  * enabled, bus width is extended to 6 bytes.
+> > @@ -990,9 +995,6 @@ static void dsi_timing_setup(struct msm_dsi_host *m=
+sm_host, bool is_bonded_dsi)
+> >         }
+> >
+> >         if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO) {
+> > -               if (msm_host->dsc)
+> > -                       dsi_update_dsc_timing(msm_host, false, mode->hd=
+isplay);
+> > -
+> >                 dsi_write(msm_host, REG_DSI_ACTIVE_H,
+> >                         DSI_ACTIVE_H_START(ha_start) |
+> >                         DSI_ACTIVE_H_END(ha_end));
+> > @@ -1011,9 +1013,6 @@ static void dsi_timing_setup(struct msm_dsi_host =
+*msm_host, bool is_bonded_dsi)
+> >                         DSI_ACTIVE_VSYNC_VPOS_START(vs_start) |
+> >                         DSI_ACTIVE_VSYNC_VPOS_END(vs_end));
+> >         } else {                /* command mode */
+> > -               if (msm_host->dsc)
+> > -                       dsi_update_dsc_timing(msm_host, true, mode->hdi=
+splay);
+> > -
+> >                 /* image data and 1 byte write_memory_start cmd */
+> >                 if (!msm_host->dsc)
+> >                         wc =3D hdisplay * mipi_dsi_pixel_format_to_bpp(=
+msm_host->format) / 8 + 1;
+> >
+> > --
+> > 2.34.1
+> >
+>
+>
+> --
+> With best wishes
+> Dmitry
