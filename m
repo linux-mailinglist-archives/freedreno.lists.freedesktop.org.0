@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ACC7969727
-	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 10:34:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3793C969756
+	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 10:39:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11CEC10E1B4;
-	Tue,  3 Sep 2024 08:34:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C52510E398;
+	Tue,  3 Sep 2024 08:39:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="i34ARqnF";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZZqgrPJg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
- [209.85.128.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3064010E1B4
- for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 08:34:31 +0000 (UTC)
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-6daf46ee332so4454357b3.0
- for <freedreno@lists.freedesktop.org>; Tue, 03 Sep 2024 01:34:31 -0700 (PDT)
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
+ [209.85.128.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 699D810E398
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 08:39:04 +0000 (UTC)
+Received: by mail-yw1-f174.google.com with SMTP id
+ 00721157ae682-6b4412fac76so39761587b3.1
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Sep 2024 01:39:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725352470; x=1725957270; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1725352743; x=1725957543; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3o9D8uVOtpTVbk+TPNxYEMvtHmsKPOlQhjwdRt4OfR4=;
- b=i34ARqnFM+IohBRR7z4d1gBylGnz7ZiM3f2cY2DmszVUQROaU1oI7BHxHIWN8JxmyK
- 94T2+AGC3r2JH/bxQikBj9xNWS6Fs6kgVBNURIpj+JZp1YFZWgNq8i/gnplO7dxwNnlO
- xgb6zOnfaFUw+xIaHsMaBeD5YEKJXgJKExZIUiTqPepRhs4psMeWJgWQ4dLnkjwF7kZz
- IQH0mK9tNtIZEYxa36jQQiFWgeStMcZHBW0KavIR6GDqyF6Xg+DimuLG5SDyfFH5txTX
- f3FXFOkj364myZK3PZy1ZfvX4YB68hWuLQmYsa75H4lFqOtuNtBp7NtAORP77cdidkfP
- VPiw==
+ bh=SM1WY9R0jnBXvCH2B20Ux18/9VPyZZGXYMi6xyrsvoY=;
+ b=ZZqgrPJgFHzF23w+IQ2PkeopuV+fEn3jwS6OLEEPXeDjHAEKY9x4W6vxxwF3Tiz6if
+ imo3phkoO7tAOyB/CWhrXsekq3Qdpl28IpCIx6h5ym6V+PnyTq+I5Fo5ORD0wVcJieFl
+ c4z8ZqEOv8Ze0IcLwhFZjC7pyMApWcp+zqylhvM8f1ZaJ2Y74Ie+FTXHzPQpiDyxTBtc
+ muHwrkL1SQmmh8UrwMoK2M36U3P210VoOxy0OteJtKuEfFpVHaaq3n/j/NU7XhE1c6Kf
+ loFI6n/D6Jn/38vGmDCaR1+MTD8C07wbK0JrZ7PE4Gii6w1UqnQgWG2Plhl+AG+75jOY
+ LQIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725352470; x=1725957270;
+ d=1e100.net; s=20230601; t=1725352743; x=1725957543;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3o9D8uVOtpTVbk+TPNxYEMvtHmsKPOlQhjwdRt4OfR4=;
- b=UBn8SpHxWTcO3HHqMLl889FYJ/pLfYRX2Idd5jjundkoN2PKuvoytGaRMIN/Kh76rK
- j+OXOeYiIaeXQ02lSaddVFbUOytW3jHUnnUnYmnMV6N24rwq+JmdFfG4a4iHznxhjF4X
- BGN09jB1erkD7uwYOckOR3fL8n1B7nqEIiEkwBC8BWEpj0EVK511+4SzYGU7+qL31BIC
- punBbrFqxnfx948Lcl6UlplIRdY+akoL9Lc1jaszQ+zYMsMD0k4JJiLVqboeEewOVK/X
- L/+SipF50iSo9iQ/Iuc6AavD1wvoob8ttflWqPhZ/U8+L9JaDCRW/YHGbrM5crIZXlu3
- dSHQ==
+ bh=SM1WY9R0jnBXvCH2B20Ux18/9VPyZZGXYMi6xyrsvoY=;
+ b=CM1ResHBG/qgSziQCqhwgEwevMgVZ9c8GbabDZWFvNV7F8Skkw9oxhYUaB6dcTswe9
+ pA+IJxgskFI001Jn+viCS5XwpdUpbZYel1zKKc/XAlKsDbKNmhxYHrGlUC3kgQtvVtGH
+ lcd4oo68YIQ1nFGF8Zr2It6FZduRtdSIAge/v+UCpd0D/zWPeqQKijz4TInn8aRHiSDW
+ ibMt/ZTsolwOSP72oskXscYulxPyX3Hpan6e9Tp/q2WYDH/3zQXjpVunXJf5AIFSonr7
+ EktvFqYkzQdN1QbJaHhd67yG9drQIzn9wfEH8aB0jguWO9MJRvHV/0yoePyZ/gg5BFDz
+ BAbQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUzqS5to88JD7xVFbTBbE62oHySipLOaq80XRkmfglLr8smtHBPDAz4fOdQ6l4DfL80MXXHB+NbfmU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz47kswisLayif+5x+eptjHA8UkOY2LQjgu9YfWmP4HFEAExj7r
- eLoGnaCwk+2gtMHjdrAHhMhVqpw8nFTVN3z00lRKeQVd1u3MKLbVkdUG/v/IxOvVQzv9zPh9VyP
- obfAS0vi8Y/8ntytEaVqrUq2CEwFHDKZh69TYeA==
-X-Google-Smtp-Source: AGHT+IE/swZHdLRleFxe2nf/SNcWP2+mYsPYhZlOG8GFptpLYVix/nbfVUqMnxGfBq8VesnX9TqFoJ846I0MXEspRSE=
-X-Received: by 2002:a05:690c:dca:b0:631:78a1:baf with SMTP id
- 00721157ae682-6d40ee58397mr150471477b3.6.1725352470013; Tue, 03 Sep 2024
- 01:34:30 -0700 (PDT)
+ AJvYcCUA3wGr2yUjaiTa/c+IIT+hvnacfsvz7evcIeHoqGIDy8nwVo9jOadr2FhX4LBOyKi5F+7p+SqeCVo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwwgXRM8k0PzKmnQXvRb5CfsOxdlRY9RmRkowxu5fRgRf5Dmm4q
+ Al27LoE9mY4JNzL4Bpx22iGOEaMwtDq5/+UN5t4EvW62Djumv6TShBNS5ColIspsMY6QcLrysyT
+ tJ9KTzC5fMUNf/hUC+ulFTBoqlPJCMBP7Kwb7mw==
+X-Google-Smtp-Source: AGHT+IFbM1gU4uS9xIx6y43JcKI8YAURVYh6pDj9pYXO/pSHTCFGSGpn1z9v/8HVe+Fc4cpzOy4crENudRNUXfcTqTk=
+X-Received: by 2002:a05:690c:ed6:b0:65f:77c3:63a0 with SMTP id
+ 00721157ae682-6d40dd7035amr137045667b3.7.1725352743184; Tue, 03 Sep 2024
+ 01:39:03 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org>
- <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-3-bdb05b4b5a2e@linaro.org>
- <CAA8EJpqCL1xFVB8_2j2QwPsF-vHBcFBt3yx=acpWgmo4_Oudug@mail.gmail.com>
- <CABymUCOsF5gL_i-uEyBBpgV_9qO_T3hNQ6vSX-dMGRsdFfgPXg@mail.gmail.com>
-In-Reply-To: <CABymUCOsF5gL_i-uEyBBpgV_9qO_T3hNQ6vSX-dMGRsdFfgPXg@mail.gmail.com>
+ <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-7-bdb05b4b5a2e@linaro.org>
+ <CAA8EJpqZjO9rfVgVkhyCpg9qfyc13MHtz=RRhZG6ihMsVM+bSA@mail.gmail.com>
+ <CABymUCMCjYfXBOqXcLGZvH6CxU7Z_Qq1kKioZGC8PCORjtJM8Q@mail.gmail.com>
+In-Reply-To: <CABymUCMCjYfXBOqXcLGZvH6CxU7Z_Qq1kKioZGC8PCORjtJM8Q@mail.gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 3 Sep 2024 11:34:19 +0300
-Message-ID: <CAA8EJppjr=6LncRGZAKdefvsPFXra=HZPuD5TjJRvvaf7WbALA@mail.gmail.com>
-Subject: Re: [PATCH 03/21] drm/msm/dsi: pass the right width to dsc
+Date: Tue, 3 Sep 2024 11:38:52 +0300
+Message-ID: <CAA8EJpr1YxwFE5k3F3wjP2Gtf9H7ve7751OwJp3dVNKYiGsnZA@mail.gmail.com>
+Subject: Re: [PATCH 07/21] drm/msm/dpu: Support dynamic DSC number
 To: Jun Nie <jun.nie@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -88,101 +88,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 3 Sept 2024 at 10:34, Jun Nie <jun.nie@linaro.org> wrote:
+On Tue, 3 Sept 2024 at 10:48, Jun Nie <jun.nie@linaro.org> wrote:
 >
 > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B48=E6=
-=9C=8829=E6=97=A5=E5=91=A8=E5=9B=9B 18:57=E5=86=99=E9=81=93=EF=BC=9A
+=9C=8829=E6=97=A5=E5=91=A8=E5=9B=9B 19:10=E5=86=99=E9=81=93=EF=BC=9A
 > >
-> > On Thu, 29 Aug 2024 at 13:19, Jun Nie <jun.nie@linaro.org> wrote:
+> > On Thu, 29 Aug 2024 at 13:20, Jun Nie <jun.nie@linaro.org> wrote:
 > > >
-> > > Data width for dsc engine is aligned with pipe, not with whole screen
-> > > width. Because the width may be halved in DSI bonded case.
+> > > Do not assume DSC number as 2. Because there are 4 DSC in
+> > > quad pipe case.
 > >
-> > Can't really parse this.
+> > Please expand the commit message. You prefer brevity, but your
+> > comments lack clarifications.
 >
-> Please forgive me for my bad English. Is below words better?
+> Is below message OK?
 >
-> Data width for DSC timing is aligned with the width that goes to a DSI
+> Current DSC number is fixed to 2 for any DSC usage case. While there are
+> more usage case that involve different number of DSC engine, such 4 in
+> quad-pipe case with bonded-DSI scenario. So retrieve the real number with
+> this change.
 
-to a single DSI interface
+Please rewrite the last sentence. See
+Documentation/process/submitting-patches.rst "Describe your changes".
 
-> interface, not with whole screen width. For bonded-DSI case, the
-> width for DSC timing is half width of whole screen.
-
-sounds much better.
-
+>
 > >
-> > >
-> > > The dsc width is not related to the timing with back front porch in
-> > > later stage, so update dsc timing earlier.
 > > >
 > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
 > > > ---
-> > >  drivers/gpu/drm/msm/dsi/dsi_host.c | 13 ++++++-------
-> > >  1 file changed, 6 insertions(+), 7 deletions(-)
+> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 4 ++--
+> > >  1 file changed, 2 insertions(+), 2 deletions(-)
 > > >
-> > > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm=
-/dsi/dsi_host.c
-> > > index 7a4d9c071be5a..5abade8f26b88 100644
-> > > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > > @@ -953,7 +953,7 @@ static void dsi_timing_setup(struct msm_dsi_host =
-*msm_host, bool is_bonded_dsi)
-> > >                         return;
-> > >                 }
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gp=
+u/drm/msm/disp/dpu1/dpu_encoder.c
+> > > index 6bdd9c21ff3ed..05b203be2a9bc 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > @@ -553,9 +553,9 @@ bool dpu_encoder_use_dsc_merge(struct drm_encoder=
+ *drm_enc)
+> > >                 if (dpu_enc->phys_encs[i])
+> > >                         intf_count++;
 > > >
-> > > -               dsc->pic_width =3D mode->hdisplay;
-> > > +               dsc->pic_width =3D hdisplay;
-> > >                 dsc->pic_height =3D mode->vdisplay;
-> > >                 DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
+> > > -       /* See dpu_encoder_get_topology, we only support 2:2:1 topolo=
+gy */
+> > > +       /* DSC and mixer are mapped 1:1, so reuse the mixer number */
 > >
-> > Two separate commits
+> > Why? DSCmerge is a valid topology even if it is not supported yet.
 >
-> OK. Will split it.
+> DSC merge is already supported in 2:2:1 topology without this patch
+> set. This change
+> is to get real DSC number in 4:4:2 topology, so that DSC merge can be
+> enabled for the
+> case.
+
+Yep, 3DMerge, not DSC Merge. Basically the comment about 1:1 is
+incorrect. See sde_rm.h
+
+Also it's "number of mixers", not "mixer number" (two different things).
+
 >
 > >
+> > >         if (dpu_enc->dsc)
+> > > -               num_dsc =3D 2;
+> > > +               num_dsc =3D dpu_crtc_get_lm_num(drm_enc->crtc->state)=
+;
 > > >
-> > > @@ -964,6 +964,11 @@ static void dsi_timing_setup(struct msm_dsi_host=
- *msm_host, bool is_bonded_dsi)
-> > >                 if (ret)
-> > >                         return;
-> > >
-> > > +               if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO)
-> > > +                       dsi_update_dsc_timing(msm_host, false, hdispl=
-ay);
-> > > +               else
-> > > +                       dsi_update_dsc_timing(msm_host, true, hdispla=
-y);
-> > > +
-> > >                 /*
-> > >                  * DPU sends 3 bytes per pclk cycle to DSI. If widebu=
-s is
-> > >                  * enabled, bus width is extended to 6 bytes.
-> > > @@ -990,9 +995,6 @@ static void dsi_timing_setup(struct msm_dsi_host =
-*msm_host, bool is_bonded_dsi)
-> > >         }
-> > >
-> > >         if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO) {
-> > > -               if (msm_host->dsc)
-> > > -                       dsi_update_dsc_timing(msm_host, false, mode->=
-hdisplay);
-> > > -
-> > >                 dsi_write(msm_host, REG_DSI_ACTIVE_H,
-> > >                         DSI_ACTIVE_H_START(ha_start) |
-> > >                         DSI_ACTIVE_H_END(ha_end));
-> > > @@ -1011,9 +1013,6 @@ static void dsi_timing_setup(struct msm_dsi_hos=
-t *msm_host, bool is_bonded_dsi)
-> > >                         DSI_ACTIVE_VSYNC_VPOS_START(vs_start) |
-> > >                         DSI_ACTIVE_VSYNC_VPOS_END(vs_end));
-> > >         } else {                /* command mode */
-> > > -               if (msm_host->dsc)
-> > > -                       dsi_update_dsc_timing(msm_host, true, mode->h=
-display);
-> > > -
-> > >                 /* image data and 1 byte write_memory_start cmd */
-> > >                 if (!msm_host->dsc)
-> > >                         wc =3D hdisplay * mipi_dsi_pixel_format_to_bp=
-p(msm_host->format) / 8 + 1;
+> > >         return (num_dsc > 0) && (num_dsc > intf_count);
+> > >  }
 > > >
 > > > --
 > > > 2.34.1
