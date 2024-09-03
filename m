@@ -2,66 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 354549695BB
-	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 09:36:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3AE9695F2
+	for <lists+freedreno@lfdr.de>; Tue,  3 Sep 2024 09:47:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99B2110E413;
-	Tue,  3 Sep 2024 07:36:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E67310E418;
+	Tue,  3 Sep 2024 07:47:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rUjYgb7M";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="n9XvlQn2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C05C10E413
- for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 07:36:39 +0000 (UTC)
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-2f4f2868621so53219711fa.0
- for <freedreno@lists.freedesktop.org>; Tue, 03 Sep 2024 00:36:39 -0700 (PDT)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF2EC10E417
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Sep 2024 07:47:23 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-2f4f2868621so53366161fa.0
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Sep 2024 00:47:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725348998; x=1725953798; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1725349642; x=1725954442; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kqcEYObkrC0jQZ4XALAJ1vO1P6Mi2ZZhNfK7jC8/8yY=;
- b=rUjYgb7Mq2ae1JKbpP3x+/2iKfqVDRyqMB96A/g3bUMYuEw4cQH94ALmxP3zRDTcTY
- i0I7tnuz6dmsuc6agtgg5bUBAnnuShqkhcq0aCOV3SBNsZt17UT4LURbmhU4RpcuevM/
- WsCjS81CDJeC1ae9bcU70jYfGZztPXxx3kHCOIXzPnnpnx/cUNJyhuDvhyDIE8cMi9Mt
- oOZB8ayN3T4rkloKQBY8Vlw4pF0WRLKtUAhaij/O6IaOP1JBUOHwGXZ+CoaRWjv67YKJ
- l4Yf4Idlpuq/vYhLEgCNCL4nFXEnoe5bAl2xrotxe+EOA/b9iFeTLcCgSl9bX43w+tZE
- UfdQ==
+ bh=OL+O5F/W26pAAF8S9xmS5PPYBL0y/yPpcEVoxw70NHo=;
+ b=n9XvlQn2lgAcZhX+KeCY76hqomCOBSE4Xfd6ukGHxb6zSw5CcFdbYY764yq3opEXiC
+ TZHp49mtcgj203Hu+waUku3wGJsKij4uGMYi53AXwD+PAngnQk8RVrDyZws6MSWyjDBj
+ 1ivK95DjM7uq1ZG4ZPdKGKWW6e5hAmhheN/gI8tdFKmDVAlXSzx+BjkVLWqmy8OnCBmW
+ ARmyCrA4CPHhRAnTzHXT2Z01ERCkTi1EODaYz3d/+LxBIeuOrTvsEGA8U3om/LjDryrc
+ YM0aDZ1vvh9U6h1i8vOqbKK3jYlncVy+0lghRRTVfxZHll0Qq73beHeGZ0wcogcDByWh
+ K7Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725348998; x=1725953798;
+ d=1e100.net; s=20230601; t=1725349642; x=1725954442;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kqcEYObkrC0jQZ4XALAJ1vO1P6Mi2ZZhNfK7jC8/8yY=;
- b=mgZzAsJbhVxD8RQwHydpljvh+z8ofPA5om/EOVYJ52pdk7PibsUMC8uX8s2zOhu3CZ
- HpTbouNLrN4Tx5TGWCmjVcBEixXbOHM5J5M0c939ggWnPwUyaTrIsqcad/UjkcGaQKUb
- jKY38tNMiZ3JCdGx4sBZUQ+OGa2FZ7kADrVsXPOPvD0KzWVU/v3lcgUkSo398UvYmV0y
- 8VB8Ly21ixBUfe+P+hCfJd/Lr/p5vgkLGRD+LnaJaTJVv62m0J0YQWCr6dwJMITc0Y7L
- SAtF1WqJq5VJjBbb5hjPZ0LJR7wFQz9Ton9cxLJUQ1x+AXmilFTtXeVjq2Vq8efjF+7T
- bgdw==
+ bh=OL+O5F/W26pAAF8S9xmS5PPYBL0y/yPpcEVoxw70NHo=;
+ b=sk5THmAUECOiKGE1Qcy10Vudb5g4MmAR5N6B2vjfjx3cdSoYvLwT2wyjxa/jQTCpCz
+ neiRU0+eZEgr8SmOkypAr8XMOz+7B7ZKTXEjXdHkt0Bml/6M8jdjztJuKAngVFesDWwv
+ nP4YfdjvMMb010WOTytDvZEw2E5/7DqhBdOLvSHgqnNofEJTlEZXj9KdC18eLyArsWLg
+ pYOkTr3zNkszNLkeQzqUzfnESc6yWdynPxn3/Z7vCk1KFwlC2YF2jblRkRiuGBk1iWsu
+ aOETpqPEdrH/Qxns3nNZa+5m7E4tBFwd8H3U55SUjQOAwMcyIIyem6cBBhb4Lljj9KWU
+ tSNA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW6HUlzb83Pg1P000Gu1OESd3EI/p2zA1NQSqB3gsFoi1BpkGtaEpouw9TrPiqEU1XZLVYfeKsS7Wk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyo3qYM30BSfXSuXBjUyYkfqWli+laBoHumCnUWOln9LQA95Ert
- M1CwMEEuajPkC26Seawd22civQrWYGaPB4BZ4LfziJkamOw//Al4DuaCBrQ5HlFgVn5Qr+XiIiK
- RTcCdw+f74MgtUAyBQx+PoJ1zNC5pbmyQ0z6c8A==
-X-Google-Smtp-Source: AGHT+IGteQhWMzNbnFN2+qKmtjU62TM1lL3m0+11wewZW7P3uvaelhDjpcxaWwlb8wZ9QV901P1BCZNJ2yN7NdhKUJc=
-X-Received: by 2002:a05:651c:199f:b0:2f4:f8c1:2e91 with SMTP id
- 38308e7fff4ca-2f6290ea8a5mr60244041fa.45.1725348997477; Tue, 03 Sep 2024
- 00:36:37 -0700 (PDT)
+ AJvYcCXiq5777iaPogPE+n/xz4egdV704IvF7ZcAK3eoqlV/zfTEoTy5zE0YXPTyehBWRc1C3XHvQDOmF40=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyMvNZXXregAFJKrJRA7wSfd62uvk7JcmCSy0fDaBWezB1+gsaA
+ Z654liCThlgHncJh+kMnACpjgMX4dLKvKH1KN8ayMqts30407zb+bl2epK1JMAV0qYotf0hyf9q
+ 41kDiJ+QrrEutauBXXydmm6Eftyh0813pU8lv0Q==
+X-Google-Smtp-Source: AGHT+IEsITSehtqunQcllGI2R18oGW+LB35+NdwPbJ0C30RGSl/5d1tF2owb6nrGdmdjtxXKofybAcjZ3qWPaJdZmDU=
+X-Received: by 2002:a05:651c:220a:b0:2f0:20cd:35fc with SMTP id
+ 38308e7fff4ca-2f62902e264mr69310571fa.7.1725349641715; Tue, 03 Sep 2024
+ 00:47:21 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org>
- <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-4-bdb05b4b5a2e@linaro.org>
- <CAA8EJprKnd269S_KMVUDk7UfT-c4ighPq4VkX-nEkwGg8ys1cQ@mail.gmail.com>
-In-Reply-To: <CAA8EJprKnd269S_KMVUDk7UfT-c4ighPq4VkX-nEkwGg8ys1cQ@mail.gmail.com>
+ <20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-6-bdb05b4b5a2e@linaro.org>
+ <CAA8EJppJUB=wmaU+Hnh1=46deh-_wgd2qKtS-MJRkowUr8bhPQ@mail.gmail.com>
+In-Reply-To: <CAA8EJppJUB=wmaU+Hnh1=46deh-_wgd2qKtS-MJRkowUr8bhPQ@mail.gmail.com>
 From: Jun Nie <jun.nie@linaro.org>
-Date: Tue, 3 Sep 2024 15:36:26 +0800
-Message-ID: <CABymUCNCZFx3kMtxXt-U2L+_ks5oCCWMF0k-NyFkp99-aTqf-A@mail.gmail.com>
-Subject: Re: [PATCH 04/21] drm/msm/dsi: support DSC configurations with
- slice_per_pkt > 1
+Date: Tue, 3 Sep 2024 15:47:09 +0800
+Message-ID: <CABymUCMrXOXDxkO-n_b3woDUL=PALmQm5oVCp7N5d1887mZ7SA@mail.gmail.com>
+Subject: Re: [PATCH 06/21] drm/msm/dpu: Add utility to get mixer number
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -70,7 +69,7 @@ Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Maxime Ripard <mripard@kernel.org>, 
  Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -89,32 +88,74 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B48=E6=
-=9C=8829=E6=97=A5=E5=91=A8=E5=9B=9B 19:04=E5=86=99=E9=81=93=EF=BC=9A
+=9C=8829=E6=97=A5=E5=91=A8=E5=9B=9B 19:07=E5=86=99=E9=81=93=EF=BC=9A
 >
 > On Thu, 29 Aug 2024 at 13:19, Jun Nie <jun.nie@linaro.org> wrote:
 > >
-> > From: Jonathan Marek <jonathan@marek.ca>
+> > Add utility to get mixer number via CRTC handler
 > >
-> > MSM display controller support multiple slice to be sent in a single DS=
-C
-> > packet.
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 7 +++++++
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h | 5 +++++
+> >  2 files changed, 12 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm=
+/msm/disp/dpu1/dpu_crtc.c
+> > index 7d0fff9472441..a27e39c525d1a 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > @@ -1306,6 +1306,13 @@ int dpu_crtc_vblank(struct drm_crtc *crtc, bool =
+en)
+> >         return 0;
+> >  }
+> >
+> > +unsigned int dpu_crtc_get_lm_num(const struct drm_crtc_state *state)
+> > +{
+> > +       struct dpu_crtc_state *cstate =3D to_dpu_crtc_state(state);
+> > +
+> > +       return cstate->num_mixers;
+> > +}
 >
-> This is not MSM-specific. It is allowed per the standard.
+> Merge with the user
 
-I do not find it in VESA standard 1.1 and 1.2a. Could you help point
-me the standard
-link?
->
-> > Add a dsc_slice_per_pkt field to mipi_dsi_device struct and
-> > support this field in msm mdss driver.
->
-> This doesn't describe why this is necessary at all. Is it a fix or a feat=
-ure?
+OK.
 
-It is a feature per the name. But I do not know more than the code from QCO=
-M.
-And different value other than 1 is needed for some panel with QCOM
-SoC per test.
- So I suppose it is a key parameter. Any more idea?
 
 >
+> > +
+> >  #ifdef CONFIG_DEBUG_FS
+> >  static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
+> >  {
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm=
+/msm/disp/dpu1/dpu_crtc.h
+> > index b26d5fe40c721..701c35803633d 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> > @@ -301,5 +301,10 @@ static inline enum dpu_crtc_client_type dpu_crtc_g=
+et_client_type(
+> >  }
+> >
+> >  void dpu_crtc_frame_event_cb(struct drm_crtc *crtc, u32 event);
+> > +/**
+> > + * dpu_crtc_get_lm_num - Get mixer number in this CRTC pipeline
+> > + * @crtc: Pointer to drm crtc object
+> > + */
+>
+> Move kerneldoc before the function implementation so that W=3D1 can check=
+ it.
+
+
+>
+> > +unsigned int dpu_crtc_get_lm_num(const struct drm_crtc_state *state);
+> >
+> >  #endif /* _DPU_CRTC_H_ */
+> >
+> > --
+> > 2.34.1
+> >
+>
+>
+> --
+> With best wishes
+> Dmitry
