@@ -2,89 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20E2996AD95
-	for <lists+freedreno@lfdr.de>; Wed,  4 Sep 2024 03:04:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B704D96BEBF
+	for <lists+freedreno@lfdr.de>; Wed,  4 Sep 2024 15:39:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F389B10E676;
-	Wed,  4 Sep 2024 01:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 888D310E10D;
+	Wed,  4 Sep 2024 13:39:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="VNz3LRrQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KSz/r4iC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6349D10E675;
- Wed,  4 Sep 2024 01:04:25 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 483NVBjh020611;
- Wed, 4 Sep 2024 01:04:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- alvapbi0VYChpzGs1c+SE4QBePrSOaMdAIuaPbtJG40=; b=VNz3LRrQSaJW7bgD
- NyGLCFWDn0PhTxQv77QDWfJmDPPJxJ0tcd1SndZIuqKWdhZ6GLP4To+MD2fs4EQ2
- Oda2oVqdurgJl5nLCkV65YjUz6t1XZCqSH2pbQsrwfSftNvMIfNHqandCOatR2RL
- 3/rqy9XuqTWZYTfAExkZzzIXWe1JV3hitfzd+lC2cEoahq32Y/h0PuH0BZQ3ZmI5
- ecElLL4UeLowk6Wzvq+yCcPXUEgwGkTXAMo2dFtNTMvy4uBrZiTj1j7bfd3NA9NN
- hLvpPlHzYXhGIt0DeejGwXagzooV8fdNVH60l6j73lsyiRzV9yXwjPyqH03Twe0i
- 8AjE0g==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41btrxs4mw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Sep 2024 01:04:15 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48414EK0019853
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 4 Sep 2024 01:04:14 GMT
-Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 3 Sep 2024
- 18:04:13 -0700
-Message-ID: <0e5dc874-0b50-4a6b-ba98-83cb01f7cce6@quicinc.com>
-Date: Tue, 3 Sep 2024 18:04:13 -0700
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1B710E10D;
+ Wed,  4 Sep 2024 13:39:04 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-5c263118780so2744120a12.2; 
+ Wed, 04 Sep 2024 06:39:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725457143; x=1726061943; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=08yJDMGUC5nJvNhwZc+qx2S6bd96dFeBgNvhyQY1m4Y=;
+ b=KSz/r4iCTPiAttKyCkpdlOV7pgicZ/cQTqoq7bM170qnFL7bjxtN0RBfuS9msMfzay
+ x6MZppDU2fS3mxJSIqRIdh8KqmHyuS+Aj0NQvClUbGYpq7uXoT1uos3Y1aKGezAthWMs
+ MnqMMozbpyAr/OivJ0y7hivTr7aomn6uHTT2p/TWIWEwJDRaUO2QGvZCht4A9UtV4QU0
+ H/d8uMpZFjC68wEChjRr9Nrlx1Zqx48MYuWz/MGbTlcABmcEbHVLG8boEx9KbWpF9z7P
+ gyIpLInPHGxB09FodNqs9GU27N3lblRfYhUg/9rJ0FOe14gkaIvMZB0OVKi6nyl3S6U/
+ N9eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725457143; x=1726061943;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=08yJDMGUC5nJvNhwZc+qx2S6bd96dFeBgNvhyQY1m4Y=;
+ b=hPcANrrhLKaWMDe2wvQaz74b6NMDYu5BCZJVNax1VvqhhJgkusfPbJ28D9lNH7sak0
+ kdyAZZj+XaMXDA2mgvComzZZ3ZVOh5DlP09tiCnk/H1wkIMWaAGTvkuCpH5nqifAdCUi
+ TvdgWP7oDeR2Nst7OIr5OmkZD+66oeS/Vt6Vx9cvhWwQMtqIWVCKtLgwYi51GeeR8al4
+ vLfEA9mslMJPGqMSSQ85kqZ5kVaymS6oCLqYzV0poc8cnzGRYuLkro63uQSY/6mVLzzg
+ HlnfaR6rOd7WrQ04YSpCrYBTgd76i3BexL2RW+DPAPWFcEXfMZApuKXGso0uWzDZM4v1
+ qRUg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV6u4ZyuySTty07D9QYpWnTCay2gOkoMwYpTFDWxk32gociWqphxTAE7Gq6oPrEiVOdK0J7KnN8SDmT@lists.freedesktop.org,
+ AJvYcCVmvnpYxL2MZfx4x175PZVxBTHPxxJOaXFIm8F+BdEKMW+s+FngfvzsFaqXHdWkI85jl02e8gWAHnI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJpm8LB2mE3sjWMFDXrsUR93Ck2eUQyQf0NhlxgHmTZ5CSfnnw
+ zFAJoH1tpE/zU/AoeQijR8LpuhuC2YDT06jYzcSKNLfZtxSB52mx
+X-Google-Smtp-Source: AGHT+IFMURDKJcnkYF+8eavXj8ZUdnqa5cQaVjvuPu8moS+BA4V7/R/3KDv+62gvdYtT1mL3oEKeIQ==
+X-Received: by 2002:a05:6402:2110:b0:5bf:c8:78a with SMTP id
+ 4fb4d7f45d1cf-5c25f244d2cmr7313938a12.17.1725457141638; 
+ Wed, 04 Sep 2024 06:39:01 -0700 (PDT)
+Received: from [192.168.1.17] (host-87-16-167-153.retail.telecomitalia.it.
+ [87.16.167.153]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c226c6a36fsm7611564a12.16.2024.09.04.06.39.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Sep 2024 06:39:01 -0700 (PDT)
+Message-ID: <b899d35a-fedf-4748-ac23-6389a8742160@gmail.com>
+Date: Wed, 4 Sep 2024 15:38:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/21] drm/msm/dpu: Add RM support for allocating CWB
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
- Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, <quic_ebharadw@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@chromium.org>
-References: <20240829-concurrent-wb-v1-0-502b16ae2ebb@quicinc.com>
- <20240829-concurrent-wb-v1-11-502b16ae2ebb@quicinc.com>
- <pf6xgu7yjanzjigfpupons4ud6jbcmbr5icnd7yur6qhh3n5sf@plj4bi3beguw>
- <665da6e9-d9f3-4a28-a53b-0f467967fc78@quicinc.com>
- <CAA8EJpo0X7yRaqYV-tTco9+9WyexiPN_ey8hKivFrE3jTojUpg@mail.gmail.com>
+Subject: Re: [PATCH v2 6/9] drm/msm/A6xx: Use posamble to reset counters on
+ preemption
+To: Rob Clark <robdclark@gmail.com>
+Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20240830-preemption-a750-t-v2-0-86aeead2cd80@gmail.com>
+ <20240830-preemption-a750-t-v2-6-86aeead2cd80@gmail.com>
+ <CAF6AEGv82=N4=motCpGhp5N7Yv8oqtBcG4bGahgF53CpFYpTgg@mail.gmail.com>
 Content-Language: en-US
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <CAA8EJpo0X7yRaqYV-tTco9+9WyexiPN_ey8hKivFrE3jTojUpg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: WWU7yhrmGWheViu9JuNeh47IoUUVEu9n
-X-Proofpoint-ORIG-GUID: WWU7yhrmGWheViu9JuNeh47IoUUVEu9n
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-03_12,2024-09-03_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0
- clxscore=1015 suspectscore=0 phishscore=0 impostorscore=0
- priorityscore=1501 mlxscore=0 mlxlogscore=999 spamscore=0
- lowpriorityscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2407110000 definitions=main-2409040006
+From: Antonino Maniscalco <antomani103@gmail.com>
+In-Reply-To: <CAF6AEGv82=N4=motCpGhp5N7Yv8oqtBcG4bGahgF53CpFYpTgg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,147 +96,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 8/30/2024 3:16 PM, Dmitry Baryshkov wrote:
-> On Fri, 30 Aug 2024 at 22:28, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+On 8/30/24 8:32 PM, Rob Clark wrote:
+> On Fri, Aug 30, 2024 at 8:33 AM Antonino Maniscalco
+> <antomani103@gmail.com> wrote:
 >>
+>> Use the postamble to reset perf counters when switching between rings,
+>> except when sysprof is enabled, analogously to how they are reset
+>> between submissions when switching pagetables.
 >>
+>> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
+>> ---
+>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 14 +++++++++++++-
+>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  6 ++++++
+>>   drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 26 +++++++++++++++++++++++++-
+>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  7 +++++--
+>>   4 files changed, 49 insertions(+), 4 deletions(-)
 >>
->> On 8/30/2024 10:18 AM, Dmitry Baryshkov wrote:
->>> On Thu, Aug 29, 2024 at 01:48:32PM GMT, Jessica Zhang wrote:
->>>> Add support for allocating the concurrent writeback mux as part of the
->>>> WB allocation
->>>>
->>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>>> ---
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  5 ++++-
->>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 30 +++++++++++++++++++++++++++--
->>>>    2 files changed, 32 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
->>>> index c17d2d356f7a..c43cb55fe1d2 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
->>>> @@ -1,5 +1,7 @@
->>>>    /* SPDX-License-Identifier: GPL-2.0-only */
->>>> -/* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
->>>> +/*
->>>> + * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
->>>> + * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
->>>>     */
->>>>
->>>>    #ifndef _DPU_HW_MDSS_H
->>>> @@ -352,6 +354,7 @@ struct dpu_mdss_color {
->>>>    #define DPU_DBG_MASK_DSPP     (1 << 10)
->>>>    #define DPU_DBG_MASK_DSC      (1 << 11)
->>>>    #define DPU_DBG_MASK_CDM      (1 << 12)
->>>> +#define DPU_DBG_MASK_CWB      (1 << 13)
->>>>
->>>>    /**
->>>>     * struct dpu_hw_tear_check - Struct contains parameters to configure
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>> index bc99b04eae3a..738e9a081b10 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>> @@ -1,9 +1,10 @@
->>>>    // SPDX-License-Identifier: GPL-2.0-only
->>>>    /*
->>>>     * Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
->>>> - * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
->>>> + * Copyright (c) 2023-2024 Qualcomm Innovation Center, Inc. All rights reserved.
->>>>     */
->>>>
->>>> +#include <drm/drm_managed.h>
->>>>    #include "msm_drv.h"
->>>>    #define pr_fmt(fmt)        "[drm:%s] " fmt, __func__
->>>>    #include "dpu_kms.h"
->>>> @@ -34,6 +35,7 @@ int dpu_rm_init(struct drm_device *dev,
->>>>               void __iomem *mmio)
->>>>    {
->>>>       int rc, i;
->>>> +    struct dpu_hw_blk_reg_map *cwb_reg_map;
->>>>
->>>>       if (!rm || !cat || !mmio) {
->>>>               DPU_ERROR("invalid kms\n");
->>>> @@ -100,11 +102,35 @@ int dpu_rm_init(struct drm_device *dev,
->>>>               rm->hw_intf[intf->id - INTF_0] = hw;
->>>>       }
->>>>
->>>> +    if (cat->cwb_count > 0) {
->>>> +            cwb_reg_map = drmm_kzalloc(dev,
->>>> +                            sizeof(*cwb_reg_map) * cat->cwb_count,
->>>> +                            GFP_KERNEL);
->>>
->>> Please move CWB block pointers to dpu_rm. There is no need to allocate a
->>> separate array.
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> index 1a90db5759b8..3528ecbbc1ab 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> @@ -366,7 +366,8 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+>>   static void a6xx_emit_set_pseudo_reg(struct msm_ringbuffer *ring,
+>>                  struct a6xx_gpu *a6xx_gpu, struct msm_gpu_submitqueue *queue)
+>>   {
+>> -       u64 preempt_offset_priv_secure;
+>> +       bool sysprof = refcount_read(&a6xx_gpu->base.base.sysprof_active) > 1;
+>> +       u64 preempt_offset_priv_secure, preempt_postamble;
 >>
->> Hi Dmitry,
+>>          OUT_PKT7(ring, CP_SET_PSEUDO_REG, 15);
 >>
->> Sorry, I'm not sure what you mean here. Can you clarify your comment?
->>
->> This is just allocating an array of the CWB register addresses so that
->> the hw_wb block can use it to configure the CWB mux registers.
+>> @@ -403,6 +404,17 @@ static void a6xx_emit_set_pseudo_reg(struct msm_ringbuffer *ring,
+>>          /* seems OK to set to 0 to disable it */
+>>          OUT_RING(ring, 0);
+>>          OUT_RING(ring, 0);
+>> +
+>> +       if (!sysprof && a6xx_gpu->preempt_postamble_len) {
+>> +               preempt_postamble = SCRATCH_PREEMPT_POSTAMBLE_IOVA(a6xx_gpu);
+>> +
+>> +               OUT_PKT7(ring, CP_SET_AMBLE, 3);
+>> +               OUT_RING(ring, lower_32_bits(preempt_postamble));
+>> +               OUT_RING(ring, upper_32_bits(preempt_postamble));
+>> +               OUT_RING(ring, CP_SET_AMBLE_2_DWORDS(
+>> +                                       a6xx_gpu->preempt_postamble_len) |
+>> +                               CP_SET_AMBLE_2_TYPE(KMD_AMBLE_TYPE));
+>> +       }
 > 
-> Excuse me. I asked to make the cwb_reg_map array a part of the
-> existing dpu_rm structure. This way other subblocks can access it
-> through dpu_rm API.
+> Hmm, ok, we set this in the submit path.. but do we need to clear it
+> somehow when transitioning from !sysprof to sysprof?
+> 
 
-Got it, thanks for the clarification. Just wondering, is the intent here 
-to add CWB to rm's get_assigned_resourced?
+We can always emit the packet and 0 fields out when sysprof is enabled. 
+Would that be ok for you? Only emitting it when needed might be 
+nontrivial given that there are multiple rings and we would be paying 
+the overhead for emitting it in the more common case (not profiling) anyway.
 
-The CWB registers will be handled by hw_wb and isn't referenced anywhere 
-outside of hw_wb (aside from when it's being allocated and passed into 
-hw_wb_init) so I'm not sure what's the benefit of adding it to the 
-dpu_rm struct.
+> Also, how does this interact with UMD perfctr queries, I would expect
+> they would prefer save/restore?
+
+Right so my understanding given previous discussions is that we want to 
+disable preemption from userspace in that case? The vulkan extension 
+requires to acquire and release a lock so we could use that to emit the 
+packets that enable and disable preemption perhaps.
 
 > 
->>
->> Thanks,
->>
->> Jessica Zhang
->>
->>>
->>>> +
->>>> +            if (!cwb_reg_map) {
->>>> +                    DPU_ERROR("failed cwb object creation\n");
->>>> +                    return -ENOMEM;
->>>> +            }
->>>> +    }
->>>> +
->>>> +
->>>> +    for (i = 0; i < cat->cwb_count; i++) {
->>>> +            struct dpu_hw_blk_reg_map *cwb = &cwb_reg_map[i];
->>>> +
->>>> +            cwb->blk_addr = mmio + cat->cwb[i].base;
->>>> +            cwb->log_mask = DPU_DBG_MASK_CWB;
->>>> +    }
->>>> +
->>>>       for (i = 0; i < cat->wb_count; i++) {
->>>>               struct dpu_hw_wb *hw;
->>>>               const struct dpu_wb_cfg *wb = &cat->wb[i];
->>>>
->>>> -            hw = dpu_hw_wb_init(dev, wb, mmio, cat->mdss_ver);
->>>> +            if (cat->cwb)
->>>> +                    hw = dpu_hw_wb_init_with_cwb(dev, wb, mmio,
->>>> +                                    cat->mdss_ver, cwb_reg_map);
->>>> +            else
->>>> +                    hw = dpu_hw_wb_init(dev, wb, mmio, cat->mdss_ver);
->>>> +
->>>>               if (IS_ERR(hw)) {
->>>>                       rc = PTR_ERR(hw);
->>>>                       DPU_ERROR("failed wb object creation: err %d\n", rc);
->>>>
->>>> --
->>>> 2.34.1
->>>>
->>>
->>> --
->>> With best wishes
->>> Dmitry
+> BR,
+> -R
 > 
-> 
-> 
-> -- 
-> With best wishes
-> Dmitry
+>>   }
+>>
+>>   static void a7xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+>> index 652e49f01428..2338e36c8f47 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+>> @@ -66,6 +66,7 @@ struct a6xx_gpu {
+>>          atomic_t preempt_state;
+>>          spinlock_t eval_lock;
+>>          struct timer_list preempt_timer;
+>> +       uint64_t preempt_postamble_len;
+>>
+>>          unsigned int preempt_level;
+>>          bool uses_gmem;
+>> @@ -99,6 +100,11 @@ struct a6xx_gpu {
+>>   #define SCRATCH_USER_CTX_IOVA(ring_id, a6xx_gpu) \
+>>          (a6xx_gpu->scratch_iova + (ring_id * sizeof(uint64_t)))
+>>
+>> +#define SCRATCH_PREEMPT_POSTAMBLE_OFFSET (100 * sizeof(u64))
+>> +
+>> +#define SCRATCH_PREEMPT_POSTAMBLE_IOVA(a6xx_gpu) \
+>> +       (a6xx_gpu->scratch_iova + SCRATCH_PREEMPT_POSTAMBLE_OFFSET)
+>> +
+>>   /*
+>>    * In order to do lockless preemption we use a simple state machine to progress
+>>    * through the process.
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+>> index 4b61b993f75f..f586615db97e 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+>> @@ -351,6 +351,28 @@ static int preempt_init_ring(struct a6xx_gpu *a6xx_gpu,
+>>          return 0;
+>>   }
+>>
+>> +static void preempt_prepare_postamble(struct a6xx_gpu *a6xx_gpu)
+>> +{
+>> +       u32 *postamble = a6xx_gpu->scratch_ptr + SCRATCH_PREEMPT_POSTAMBLE_OFFSET;
+>> +       u32 count = 0;
+>> +
+>> +       postamble[count++] = PKT7(CP_REG_RMW, 3);
+>> +       postamble[count++] = REG_A6XX_RBBM_PERFCTR_SRAM_INIT_CMD;
+>> +       postamble[count++] = 0;
+>> +       postamble[count++] = 1;
+>> +
+>> +       postamble[count++] = PKT7(CP_WAIT_REG_MEM, 6);
+>> +       postamble[count++] = CP_WAIT_REG_MEM_0_FUNCTION(WRITE_EQ);
+>> +       postamble[count++] = CP_WAIT_REG_MEM_1_POLL_ADDR_LO(
+>> +                               REG_A6XX_RBBM_PERFCTR_SRAM_INIT_STATUS);
+>> +       postamble[count++] = CP_WAIT_REG_MEM_2_POLL_ADDR_HI(0);
+>> +       postamble[count++] = CP_WAIT_REG_MEM_3_REF(0x1);
+>> +       postamble[count++] = CP_WAIT_REG_MEM_4_MASK(0x1);
+>> +       postamble[count++] = CP_WAIT_REG_MEM_5_DELAY_LOOP_CYCLES(0);
+>> +
+>> +       a6xx_gpu->preempt_postamble_len = count;
+>> +}
+>> +
+>>   void a6xx_preempt_fini(struct msm_gpu *gpu)
+>>   {
+>>          struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>> @@ -382,10 +404,12 @@ void a6xx_preempt_init(struct msm_gpu *gpu)
+>>          a6xx_gpu->skip_save_restore = 1;
+>>
+>>          a6xx_gpu->scratch_ptr  = msm_gem_kernel_new(gpu->dev,
+>> -                       gpu->nr_rings * sizeof(uint64_t), MSM_BO_WC,
+>> +                       PAGE_SIZE, MSM_BO_WC,
+>>                          gpu->aspace, &a6xx_gpu->scratch_bo,
+>>                          &a6xx_gpu->scratch_iova);
+>>
+>> +       preempt_prepare_postamble(a6xx_gpu);
+>> +
+>>          if (IS_ERR(a6xx_gpu->scratch_ptr))
+>>                  goto fail;
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>> index 6b1888280a83..87098567483b 100644
+>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>> @@ -610,12 +610,15 @@ OUT_PKT4(struct msm_ringbuffer *ring, uint16_t regindx, uint16_t cnt)
+>>          OUT_RING(ring, PKT4(regindx, cnt));
+>>   }
+>>
+>> +#define PKT7(opcode, cnt) \
+>> +       (CP_TYPE7_PKT | (cnt << 0) | (PM4_PARITY(cnt) << 15) | \
+>> +               ((opcode & 0x7F) << 16) | (PM4_PARITY(opcode) << 23))
+>> +
+>>   static inline void
+>>   OUT_PKT7(struct msm_ringbuffer *ring, uint8_t opcode, uint16_t cnt)
+>>   {
+>>          adreno_wait_ring(ring, cnt + 1);
+>> -       OUT_RING(ring, CP_TYPE7_PKT | (cnt << 0) | (PM4_PARITY(cnt) << 15) |
+>> -               ((opcode & 0x7F) << 16) | (PM4_PARITY(opcode) << 23));
+>> +       OUT_RING(ring, PKT7(opcode, cnt));
+>>   }
+>>
+>>   struct msm_gpu *a2xx_gpu_init(struct drm_device *dev);
+>>
+>> --
+>> 2.46.0
+>>
+
+Best regards,
+-- 
+Antonino Maniscalco <antomani103@gmail.com>
+
