@@ -2,72 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4ED896CD4D
-	for <lists+freedreno@lfdr.de>; Thu,  5 Sep 2024 05:33:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98EF996D104
+	for <lists+freedreno@lfdr.de>; Thu,  5 Sep 2024 09:58:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36BDB10E681;
-	Thu,  5 Sep 2024 03:33:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB1310E757;
+	Thu,  5 Sep 2024 07:48:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="A/fz974x";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="vExL71mT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFCBC10E66B
- for <freedreno@lists.freedesktop.org>; Thu,  5 Sep 2024 03:33:46 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-53343bf5eddso222995e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 04 Sep 2024 20:33:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725507225; x=1726112025; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KyUpvOqb1HnLAQIbraYek0wvreZFpF6ISG16EWHJbNQ=;
- b=A/fz974xwM7afTu1R5RyrAE879bAWcGj+j7zR1sSLHtE3hUJV0GM4ZhG4KR66SN/a9
- rqQpCY2ak4tnLiwj199Ebbbd81H+zM1jWL7QmTc3zp4TYShOTVgS/E+OVRLsKh5xT+qT
- /hYxpxNOhKbKIJ2oKmsy8Zp0qNA/ynzzn3+Ao0DGr/PjAlD9usB16NJqk3SQkHNYIVFN
- TdLi587plAabS+lFFQ6iwuSt53Ks9sky9y2LAyOW4VdcPm5q1+sH9KW8tfVvRgF2Qehw
- BEJd77dfZXqp4Er+HF6ZCDAPV3CJsepWF/ioQ99IA1sgRIDUEIo5vyZNDkHbqgTrhGmK
- 4dQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725507225; x=1726112025;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KyUpvOqb1HnLAQIbraYek0wvreZFpF6ISG16EWHJbNQ=;
- b=r0asSrYIvKyKSZo0uZfDEmYg0lHL9kRLrS+kHSMn1rUuMt4l352CGEhi0oyPGxI1jB
- xiJqeeOC19yKy3LWI3HxxE7BpKoqM6GjIW1ixmbizfVZOS95CSTF4XmPAU5kn1rfBxmm
- 6CEbtKTemB9jfCdEXm00UjtF2YhGZyeM33QwN/w6iZuzFH5F7g4BRGiF0dcXhatEOLap
- pkiXWbCXEVDhbmLjsXwBURLbrpYsKvAbz9uhJZVBrZDatU8GUOyKpKGQrXOvqybNK8hR
- BcuJqW7rmklxSFOxMa76xH2sSghrSVgbf4Lr7mhLUxOvs5rLuwep/EuCMRugiFA94Oip
- 3KPg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU2MLlg3PqWyplRowZ5S12rL7zedNGwswt3lQp1N1Iq4WcYzSjSuIBEXOx5La6BUuedQFTt5XwWKx4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwnInxhCXp5Ky/eOnycOPLkBhYBT8JuNQRkO1caa1rbJ4BtNhCI
- Qqj6oz8/9S8UV39/twSm7M70FPynd34tNXU0UUF4JfX3osy1SIn/1AJfQjVv70c=
-X-Google-Smtp-Source: AGHT+IGL24J8npgJaD6qdH/iBLmRVEB4YeGZTdlYLtr6yfSabcuuW1+0DO4dioT58qUKhW1Yg6Av3g==
-X-Received: by 2002:a05:6512:4014:b0:530:daeb:c1d4 with SMTP id
- 2adb3069b0e04-53546b1920fmr12600653e87.12.1725507224725; 
- Wed, 04 Sep 2024 20:33:44 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.90])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53565f6d409sm389165e87.35.2024.09.04.20.33.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Sep 2024 20:33:43 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch,
- ruanjinjie@huawei.com, Sherry Yang <sherry.yang@oracle.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] drm/msm: fix %s null argument error
-Date: Thu,  5 Sep 2024 06:33:38 +0300
-Message-Id: <172550712137.3299484.13467941827572106122.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240827165337.1075904-1-sherry.yang@oracle.com>
-References: <20240827165337.1075904-1-sherry.yang@oracle.com>
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98A6A10E745;
+ Thu,  5 Sep 2024 07:48:00 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 7CDE5A4420F;
+ Thu,  5 Sep 2024 07:47:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17337C4CEC6;
+ Thu,  5 Sep 2024 07:47:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1725522479;
+ bh=k1A18bSItXyIZjz9DAyh4l9IJuamFYFuOFgUucR/180=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=vExL71mTerT7I7xz/5v1SVflbH9olWp560pi+0+leE5p1zeFtilW/1CEsEiY1mCXr
+ 5d399itNVtNKNziG/70I46CgyQUHc22/VfaVcDubaodmlIDnSXyAyKQoj/naVwvDt3
+ YE9qPUB0uoKDC/7X5/oSIIEOdEIfhNHEhSfFcZpZi9LbgQMu/u/6tabY+19gFQDtUP
+ WM8auwPCk1kXVwCmuZAmzG7AxF1CJtiUJoS4KcqiKy0RE4TverJG52yCDG3MJK1Ssy
+ DM0ItZ4aZ0iGLMrjAKHyT8H8ItFCfVFR4/rYruOXTA52UE02PTZ/jgBPrlUrIuGcqB
+ ImBO+hCBhC5HQ==
+From: Maxime Ripard <mripard@kernel.org>
+To: Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Maxime Ripard <mripard@kernel.org>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH 0/2] drm: add two missing DRM_DISPLAY_DSC_HELPER selects
+Date: Thu,  5 Sep 2024 09:47:55 +0200
+Message-ID: <172552245933.2905944.14392896379200688443.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20240905-fix-dsc-helpers-v1-0-3ae4b5900f89@linaro.org>
+References: <20240905-fix-dsc-helpers-v1-0-3ae4b5900f89@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -86,23 +69,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Tue, 27 Aug 2024 09:53:37 -0700, Sherry Yang wrote:
-> The following build error was triggered because of NULL string argument:
+On Thu, 05 Sep 2024 06:08:20 +0300, Dmitry Baryshkov wrote:
+> Add two selects for DRM_DISPLAY_DSC_HELPER which got missed in the
+> original commit ca097d4d94d8 ("drm/display: split DSC helpers from DP
+> helpers") and were later reported by LKP.
 > 
-> BUILDSTDERR: drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c: In function 'mdp5_smp_dump':
-> BUILDSTDERR: drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c:352:51: error: '%s' directive argument is null [-Werror=format-overflow=]
-> BUILDSTDERR:   352 |                         drm_printf(p, "%s:%d\t%d\t%s\n",
-> BUILDSTDERR:       |                                                   ^~
-> BUILDSTDERR: drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c:352:51: error: '%s' directive argument is null [-Werror=format-overflow=]
 > 
-> [...]
 
-Applied, thanks!
+Applied to misc/kernel.git (drm-misc-next).
 
-[1/1] drm/msm: fix %s null argument error
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/25b85075150f
-
-Best regards,
--- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Thanks!
+Maxime
