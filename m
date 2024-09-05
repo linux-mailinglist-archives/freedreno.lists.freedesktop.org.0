@@ -2,73 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD78496DAF2
-	for <lists+freedreno@lfdr.de>; Thu,  5 Sep 2024 15:57:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CED2496DC64
+	for <lists+freedreno@lfdr.de>; Thu,  5 Sep 2024 16:51:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 897BB10E8CB;
-	Thu,  5 Sep 2024 13:57:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7094A10E08F;
+	Thu,  5 Sep 2024 14:51:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DD6s9dJu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UIAdM+U4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
- [209.85.166.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 905AD10E8CA
- for <freedreno@lists.freedesktop.org>; Thu,  5 Sep 2024 13:57:35 +0000 (UTC)
-Received: by mail-il1-f181.google.com with SMTP id
- e9e14a558f8ab-39f4827a07aso2627365ab.1
- for <freedreno@lists.freedesktop.org>; Thu, 05 Sep 2024 06:57:35 -0700 (PDT)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D63410E08F;
+ Thu,  5 Sep 2024 14:51:27 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-5c27067b81aso974328a12.0; 
+ Thu, 05 Sep 2024 07:51:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725544655; x=1726149455; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oc5+mSx3W5XFfGXytntTUzm4xnx4wnnrB9kh6mhBy6M=;
- b=DD6s9dJuSH/WxuC5kGISbxY/gWwvg8InYUFzc6l69OtxwzqfpDwn9Kc63Ni52qQMZV
- RLihMPjlTbQegPvy7MkAMAFpcvhB0SKLzF4W3i7DzSYHK5jfobGlQTLOwnATSTmLNTbF
- DJma8YQRA6DaIyUffPyShG9iCuizsk+9ypmJJvm804E6WthE9YKQdfjPCKY1nCc8BvHo
- CqeaFS/SuXCZpTyCQfaDuBPXOZKsDcKHGRMvv/AS7h5//edkYFY+MoIF7TBFr5b+h/2u
- Xzo6CPnW2FtOKC7hnSsnKiPYeoZKarTFS58ejNAFVJx1avyiOB0A+fNh7E9E3k1QsNXx
- y2DA==
+ d=gmail.com; s=20230601; t=1725547886; x=1726152686; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=khBp+7bVE0pRYL+IURNeyyKfZwQKei0LfxEqGUBU3As=;
+ b=UIAdM+U4wMyutpB/KHfQ5kpEvOE0JePkEhCB6wt+nb6bxQHivMQ46pX/tAbd/adaCG
+ GwFWkMZ8byzR/pLMLAAgz3gZGe5tQffLk0E+N9+3ovAqMVRloVNiWyF/rAecVLe7VZpn
+ xFMMITz7u0+kEP4+/DsNzIglyguYmTMnEhofIr9YWm+CUykXxpdGJ2aCLc4w6pUEsnaM
+ lbIoL3v3ddRlc/MSBdd9oIfc4OHTSF868fn0QY/fOR7fOnJ8KlKvrE/M8WqWEd6wfAhj
+ +1lTZ30hBdiGZiIVvdZF8qIo0ONlF9e7ZJx5smE2cXfv6OTRJtweWQI8w2YiBIG5TvcX
+ vVHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725544655; x=1726149455;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=oc5+mSx3W5XFfGXytntTUzm4xnx4wnnrB9kh6mhBy6M=;
- b=nk7sfeOIQ7/1deJqr3ynmGPaBI8m2jvk1tAvDVGv80qsmbJVj5zK13CiUdnU8/6Lra
- 3BS87XqQlagomlBHSrIyvUyoA0QjrMgundjn+lnMFoZ9LAfhq/eaKJV27fALps3pFr3V
- bHNUj0OKe+ablTAGmvI8fDNKvbpsHK3pMWFfkp/01BTBkTOu1ouCkic3oepUooVfOJSI
- Yt/KOR5eNObr95b3IJuR5Zpkfwjrys0z6gGsL7Wz3p+HvS3HMrVc0VrNzceMJLQDADB+
- N3Ep6LbnB4uXGJSDldXnIMTKpw6YSUvbknUjc3ErpsznLsM5BpQRqG1M08AiAvvKi0tx
- uUiw==
+ d=1e100.net; s=20230601; t=1725547886; x=1726152686;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=khBp+7bVE0pRYL+IURNeyyKfZwQKei0LfxEqGUBU3As=;
+ b=kbgaPjIDnat6f8D6DLtV/pIbYM9hWFaNIUZ/shHm/vQOEeqw3ocgAczkjwVhNUduMj
+ zrGmTx+PA8EqRkz6qVpVm1iBIzUSmlZX7cRrVKDPPdXz4aUWNaE8s2JQotgSYgqYZwiK
+ 2HaMgmbEl5S9zPjCO6Gyad2Ie1kLg8z6ymLpmNrS6hFvRi1pKR6GnwwRYkvhVnftpSMD
+ B7zah+uTOwlFQZWjqHfHb8+DiOLHBr26D1NNaeiBydmeXMeyPDqMqgKcW3SoHX+ltZUG
+ 1pdfST4Gjwdgqr8vuL222sioW1LqvpKq7tFTndLKL7WCsO5RWq6Va5wBbQ7yWnvU6+Pl
+ QShQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVbS9hxU8+qnGNgFNMvGNdNdmqfeldzarhlEec8APLZdW08B76BhBJfuVOMjkWGJsgIfZKZnlAL9wE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzEdh/7pT04KeX7/n6E0zSkQh4bIfXhrurhMmMKoT50CHxW4Mho
- PJ1d4KZQs8lGelLzFCU49oGvHWKRYClUm6rFMDJ7ge9dJPcnHrMwoe6I29ZiZ0R2ELe85SHiNbI
- ltIQMJ54LphhppkRFrIaefBoml/k=
-X-Google-Smtp-Source: AGHT+IH19xIWuVYCDQUvgge4detxZmlypKKLvCBkh2uWT8rdoV0uXU1DBfLhUeWBn085IemWYq1jY9RKwCVgIwlHcUo=
-X-Received: by 2002:a05:6e02:1a6d:b0:39a:ea89:22ec with SMTP id
- e9e14a558f8ab-39f4f68d785mr219239495ab.9.1725544654507; Thu, 05 Sep 2024
- 06:57:34 -0700 (PDT)
+ AJvYcCUPjaDIQ0pGNHgaweAT7EjnYNaazWNrORfKROv05Un+w/JLZCO0CSzk2tLIN5ZJoonIIfy/DZ7Al7zS@lists.freedesktop.org,
+ AJvYcCWqL1SSWXK0fOW7R7LnPHGpVu1kNjXhkmIrDnYPnAI1vUgG34xUd4uNLR/74IArxmwN5YKsQa4yDEI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwDvTTacDfUM9911To+mnm2y9BvMo5fHI45ECN3/6FPWuhCQW+d
+ elYVZRtK9B8GgvrkBzhgscyZgx0fcSJyNf87jKQaFpkXNNsgBtQh
+X-Google-Smtp-Source: AGHT+IFmlJ+ocz+T/WgmYTqPNQl/xNecdLVUrUif/9DJxq37qVefgp0MMq8SLucOpU0+y5Dvnw0LKQ==
+X-Received: by 2002:a05:6402:848:b0:5c0:b33d:5fcc with SMTP id
+ 4fb4d7f45d1cf-5c21ed52b2amr20478966a12.20.1725547884673; 
+ Thu, 05 Sep 2024 07:51:24 -0700 (PDT)
+Received: from [192.168.1.17] (host-87-16-167-153.retail.telecomitalia.it.
+ [87.16.167.153]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c3cc52b376sm1320732a12.7.2024.09.05.07.51.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Sep 2024 07:51:24 -0700 (PDT)
+From: Antonino Maniscalco <antomani103@gmail.com>
+Subject: [PATCH v3 00/10] Preemption support for A7XX
+Date: Thu, 05 Sep 2024 16:51:18 +0200
+Message-Id: <20240905-preemption-a750-t-v3-0-fd947699f7bc@gmail.com>
 MIME-Version: 1.0
-References: <20240905124956.84932-1-robdclark@gmail.com>
- <fb54ef8d-f769-47d5-8a9d-aa93f96d5c41@arm.com>
-In-Reply-To: <fb54ef8d-f769-47d5-8a9d-aa93f96d5c41@arm.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 5 Sep 2024 06:57:22 -0700
-Message-ID: <CAF6AEGuv=yyVDx58iWU203BQPp-pT2SAC9yW-JMm2U+MTsGUaQ@mail.gmail.com>
-Subject: Re: [PATCH] Revert "iommu/io-pgtable-arm: Optimise non-coherent unmap"
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Ashish Mhetre <amhetre@nvidia.com>, 
- Rob Clark <robdclark@chromium.org>, Will Deacon <will@kernel.org>,
- Joerg Roedel <joro@8bytes.org>, 
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>, 
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGbF2WYC/33NTQ6DIBAF4KsY1p0GARW76j2aLhBGnaT+BAxpY
+ 7x70ZWLpss3ee+blQX0hIHdspV5jBRoGlOQl4zZ3owdArmUmeBCcZ0XMHvEYV5SDUxVcFigtYi
+ 10Uo1smZplxotvQ/z8Uy5p7BM/nO8iPl+/afFHDhUjTOitFJxWd27wdDraqeB7VoUJ0HyX4JIg
+ i4NonHCOs3PwrZtX3ik/nn0AAAA
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jonathan Corbet <corbet@lwn.net>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Antonino Maniscalco <antomani103@gmail.com>, 
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Sharat Masetty <smasetty@codeaurora.org>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1725547882; l=4165;
+ i=antomani103@gmail.com; s=20240815; h=from:subject:message-id;
+ bh=0370zKmzY2AWzHv1mdoNPa7o5cPmRzdjitFQ21GHXIc=;
+ b=mCl24BQ75phDXeT/B5kU0POxdwZ7HTJ42T58Nh/mIbwJGbUETSfM0cs6ORunMLC0gHfH3LAvQ
+ ehiWRn83Kv+De33cw9aPnQ0ULw34nC1xKtqkWAePe81KAz7CSvkG2dQ
+X-Developer-Key: i=antomani103@gmail.com; a=ed25519;
+ pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,143 +105,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 5, 2024 at 6:24=E2=80=AFAM Robin Murphy <robin.murphy@arm.com> =
-wrote:
->
-> On 05/09/2024 1:49 pm, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > This reverts commit 85b715a334583488ad7fbd3001fe6fd617b7d4c0.
-> >
-> > It was causing gpu smmu faults on x1e80100.
-> >
-> > I _think_ what is causing this is the change in ordering of
-> > __arm_lpae_clear_pte() (dma_sync_single_for_device() on the pgtable
-> > memory) and io_pgtable_tlb_flush_walk().
->
-> As I just commented, how do you believe the order of operations between:
->
->         __arm_lpae_clear_pte();
->         if (!iopte_leaf()) {
->                 io_pgtable_tlb_flush_walk();
->
-> and:
->
->         if (!iopte_leaf()) {
->                 __arm_lpae_clear_pte();
->                 io_pgtable_tlb_flush_walk();
->
-> fundamentally differs?
+This series implements preemption for A7XX targets, which allows the GPU to
+switch to an higher priority ring when work is pushed to it, reducing latency
+for high priority submissions.
 
-from my reading of the original patch, the ordering is the same for
-non-leaf nodes, but not for leaf nodes
+This series enables L1 preemption with skip_save_restore which requires
+the following userspace patches to function:
 
-> I'm not saying there couldn't be some subtle bug in the implementation
-> which we've all missed, but I still can't see an issue with the intended
-> logic.
->
-> >  I'm not entirely sure how
-> > this patch is supposed to work correctly in the face of other
-> > concurrent translations (to buffers unrelated to the one being
-> > unmapped(), because after the io_pgtable_tlb_flush_walk() we can have
-> > stale data read back into the tlb.
->
-> Read back from where? The ex-table PTE which was already set to zero
-> before tlb_flush_walk was called?
->
-> And isn't the hilariously overcomplicated TBU driver supposed to be
-> telling you exactly what happened here? Otherwise I'm going to continue
-> to seriously question the purpose of shoehorning that upstream at all...
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/30544
 
-I guess I could try the TBU driver.  But I already had my patchset to
-extract the pgtable walk for gpu devcore dump, and that is telling me
-that the CPU view of the pgtable is fine.  Which I think just leaves a
-tlbinv problem.  If that is the case, swapping the order of leaf node
-cpu cache ops and tlbinv ops seems like the cause.  But maybe I'm
-missing something.
+A flag is added to `msm_submitqueue_create` to only allow submissions
+from compatible userspace to be preempted, therefore maintaining
+compatibility.
 
-BR,
--R
+Preemption is currently only enabled by default on A750, it can be
+enabled on other targets through the `enable_preemption` module
+parameter. This is because more testing is required on other targets.
 
-> Thanks,
-> Robin.
->
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >   drivers/iommu/io-pgtable-arm.c | 31 ++++++++++++++-----------------
-> >   1 file changed, 14 insertions(+), 17 deletions(-)
-> >
-> > diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-=
-arm.c
-> > index 16e51528772d..85261baa3a04 100644
-> > --- a/drivers/iommu/io-pgtable-arm.c
-> > +++ b/drivers/iommu/io-pgtable-arm.c
-> > @@ -274,13 +274,13 @@ static void __arm_lpae_sync_pte(arm_lpae_iopte *p=
-tep, int num_entries,
-> >                                  sizeof(*ptep) * num_entries, DMA_TO_DE=
-VICE);
-> >   }
-> >
-> > -static void __arm_lpae_clear_pte(arm_lpae_iopte *ptep, struct io_pgtab=
-le_cfg *cfg, int num_entries)
-> > +static void __arm_lpae_clear_pte(arm_lpae_iopte *ptep, struct io_pgtab=
-le_cfg *cfg)
-> >   {
-> > -     for (int i =3D 0; i < num_entries; i++)
-> > -             ptep[i] =3D 0;
-> >
-> > -     if (!cfg->coherent_walk && num_entries)
-> > -             __arm_lpae_sync_pte(ptep, num_entries, cfg);
-> > +     *ptep =3D 0;
-> > +
-> > +     if (!cfg->coherent_walk)
-> > +             __arm_lpae_sync_pte(ptep, 1, cfg);
-> >   }
-> >
-> >   static size_t __arm_lpae_unmap(struct arm_lpae_io_pgtable *data,
-> > @@ -653,28 +653,25 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io=
-_pgtable *data,
-> >               max_entries =3D ARM_LPAE_PTES_PER_TABLE(data) - unmap_idx=
-_start;
-> >               num_entries =3D min_t(int, pgcount, max_entries);
-> >
-> > -             /* Find and handle non-leaf entries */
-> > -             for (i =3D 0; i < num_entries; i++) {
-> > -                     pte =3D READ_ONCE(ptep[i]);
-> > +             while (i < num_entries) {
-> > +                     pte =3D READ_ONCE(*ptep);
-> >                       if (WARN_ON(!pte))
-> >                               break;
-> >
-> > -                     if (!iopte_leaf(pte, lvl, iop->fmt)) {
-> > -                             __arm_lpae_clear_pte(&ptep[i], &iop->cfg,=
- 1);
-> > +                     __arm_lpae_clear_pte(ptep, &iop->cfg);
-> >
-> > +                     if (!iopte_leaf(pte, lvl, iop->fmt)) {
-> >                               /* Also flush any partial walks */
-> >                               io_pgtable_tlb_flush_walk(iop, iova + i *=
- size, size,
-> >                                                         ARM_LPAE_GRANUL=
-E(data));
-> >                               __arm_lpae_free_pgtable(data, lvl + 1, io=
-pte_deref(pte, data));
-> > +                     } else if (!iommu_iotlb_gather_queued(gather)) {
-> > +                             io_pgtable_tlb_add_page(iop, gather, iova=
- + i * size, size);
-> >                       }
-> > -             }
-> >
-> > -             /* Clear the remaining entries */
-> > -             __arm_lpae_clear_pte(ptep, &iop->cfg, i);
-> > -
-> > -             if (gather && !iommu_iotlb_gather_queued(gather))
-> > -                     for (int j =3D 0; j < i; j++)
-> > -                             io_pgtable_tlb_add_page(iop, gather, iova=
- + j * size, size);
-> > +                     ptep++;
-> > +                     i++;
-> > +             }
-> >
-> >               return i * size;
-> >       } else if (iopte_leaf(pte, lvl, iop->fmt)) {
+For testing on other HW it is sufficient to set that parameter to a
+value of 1, then using the branch of mesa linked above, `TU_DEBUG=hiprio`
+allows to run any application as high priority therefore preempting
+submissions from other applications.
+
+The `msm_gpu_preemption_trigger` and `msm_gpu_preemption_irq` traces
+added in this series can be used to observe preemption's behavior as
+well as measuring preemption latency.
+
+Some commits from this series are based on a previous series to enable
+preemption on A6XX targets:
+
+https://lkml.kernel.org/1520489185-21828-1-git-send-email-smasetty@codeaurora.org
+
+Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
+---
+Changes in v3:
+- Added documentation about preemption
+- Use quirks to determine which target supports preemption
+- Add a module parameter to force disabling or enabling preemption
+- Clear postamble when profiling
+- Define A6XX_CP_CONTEXT_SWITCH_CNTL_LEVEL fields in a6xx.xml
+- Make preemption records MAP_PRIV
+- Removed user ctx record (NON_PRIV) and patch 2/9 as it's not needed
+  anymore
+- Link to v2: https://lore.kernel.org/r/20240830-preemption-a750-t-v2-0-86aeead2cd80@gmail.com
+
+Changes in v2:
+- Added preept_record_size for X185 in PATCH 3/7
+- Added patches to reset perf counters
+- Dropped unused defines
+- Dropped unused variable (fixes warning)
+- Only enable preemption on a750
+- Reject MSM_SUBMITQUEUE_ALLOW_PREEMPT for unsupported targets
+- Added Akhil's Reviewed-By tags to patches 1/9,2/9,3/9
+- Added Neil's Tested-By tags
+- Added explanation for UAPI changes in commit message
+- Link to v1: https://lore.kernel.org/r/20240815-preemption-a750-t-v1-0-7bda26c34037@gmail.com
+
+---
+Antonino Maniscalco (10):
+      drm/msm: Fix bv_fence being used as bv_rptr
+      drm/msm: Add a `preempt_record_size` field
+      drm/msm: Add CONTEXT_SWITCH_CNTL bitfields
+      drm/msm/A6xx: Implement preemption for A7XX targets
+      drm/msm/A6xx: Sync relevant adreno_pm4.xml changes
+      drm/msm/A6xx: Use posamble to reset counters on preemption
+      drm/msm/A6xx: Add traces for preemption
+      drm/msm/A6XX: Add a flag to allow preemption to submitqueue_create
+      drm/msm/A6xx: Enable preemption for A750
+      Documentation: document adreno preemption
+
+ Documentation/gpu/msm-preemption.rst               |  98 +++++
+ drivers/gpu/drm/msm/Makefile                       |   1 +
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |   7 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              | 331 +++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              | 166 ++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_preempt.c          | 430 +++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   9 +-
+ drivers/gpu/drm/msm/msm_drv.c                      |   4 +
+ drivers/gpu/drm/msm/msm_gpu_trace.h                |  28 ++
+ drivers/gpu/drm/msm/msm_ringbuffer.h               |   8 +
+ drivers/gpu/drm/msm/msm_submitqueue.c              |   3 +
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml      |   7 +-
+ .../gpu/drm/msm/registers/adreno/adreno_pm4.xml    |  39 +-
+ include/uapi/drm/msm_drm.h                         |   5 +-
+ 14 files changed, 1094 insertions(+), 42 deletions(-)
+---
+base-commit: 7c626ce4bae1ac14f60076d00eafe71af30450ba
+change-id: 20240815-preemption-a750-t-fcee9a844b39
+
+Best regards,
+-- 
+Antonino Maniscalco <antomani103@gmail.com>
+
