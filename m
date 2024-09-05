@@ -2,75 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C83C96E0D5
-	for <lists+freedreno@lfdr.de>; Thu,  5 Sep 2024 19:10:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B8096E5AE
+	for <lists+freedreno@lfdr.de>; Fri,  6 Sep 2024 00:11:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F355710E91D;
-	Thu,  5 Sep 2024 17:10:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 815A010E96C;
+	Thu,  5 Sep 2024 22:11:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N40O89ag";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="gOB6O3HR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
- [209.85.166.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4230B10E91D
- for <freedreno@lists.freedesktop.org>; Thu,  5 Sep 2024 17:10:44 +0000 (UTC)
-Received: by mail-il1-f176.google.com with SMTP id
- e9e14a558f8ab-39f4fed788bso3774565ab.3
- for <freedreno@lists.freedesktop.org>; Thu, 05 Sep 2024 10:10:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725556243; x=1726161043; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TugYWWTmfA5+0ZqiY0zoD9lJrHPCBxbgSyyl1t8wKjk=;
- b=N40O89agRyINpD39t98XOZJEkw61x2Snl0/LdNMqOVw7aCYs/A+nOmFXx/opmZcJpV
- eyN1bnz5hq/K1crGgTmHwXBkTXsX7rQ+YwYadLjxfYkot34gO9Rm7OYi4ODJ00A5hniG
- ue/aRB0z/0xO3O3LppTGcpE4YMb8s11/IN0yY9dPHH+oUqcG3VM6/3pH0FVvNQ4PIRoC
- ZDM/yb/tLpINEkjN0I5CNSnMD68+fjUGOHR4HzVKS/BbZX7ClvtDdw55WZbcECFvwCZR
- XKwf/wAnf/pOG+sLHr7/+Y+7sPd9djk8K+GQQcUvYOUVzpufPk5hd4LOEWRsUVIIQd1S
- CqdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725556243; x=1726161043;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TugYWWTmfA5+0ZqiY0zoD9lJrHPCBxbgSyyl1t8wKjk=;
- b=apQHI+xQ7rG9JG58odXXnlXH9CDfkKpt3h85iC21mRMQIBfG8TQaUDGeD78X3Z1mW3
- 334Zs3yQ8g5QT0er7iNjb1SK/mPcuZ/fvYignr7IuNuQpdWOAbwsgTcEItynxXtJAQPI
- /f6rLqWsneZlbvqpHJAhiTjB9nW/yIjO/Czu1ba5y1c/9qLLe5oG1ewh3Mgvf/mh89ol
- eV1brHDwpT9PwC55HI764E+ztwCJFA8Uk2CVutjStn/vKRkVyBwJRikUqvMDKd/H570h
- V382acdBes9FGdvTJ2NA5R411mqZ/vhvY7hoNsSwEsjXijPZobmoHTDDXv+CdcDUIb3t
- 2g3g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWC/A95gUvW473k2mu3/JMNl7p1LMmHuEBF3aXJ5T0xMYiOOrDxO9wlIdGKjzEmsr2CtzZTTqF0Tb8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHIBBmvPccfYsZ1rtB67JscMvpFzIEKaJkOW3eZB6jaF3rZczk
- R66a3hVGBY18vmw3tyAw5+Q66bMkxHGpeLRpKN44jQCfwneo90WQOWElpQS2KFZ9mru8lUIRiCN
- Bi932GCwkQFW4a/Gq9XdSs0Hen/U=
-X-Google-Smtp-Source: AGHT+IH5kHkyh4TQY9qQMpV4jTCKCy2lyxsS5qWD7hz50R2gl4bk5tUOxy/O9US635pYUshC6lF6+mLFwVVPNAM4HVQ=
-X-Received: by 2002:a05:6e02:148e:b0:3a0:4d72:7f5e with SMTP id
- e9e14a558f8ab-3a04d7282c9mr15898065ab.7.1725556243238; Thu, 05 Sep 2024
- 10:10:43 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B73810E966;
+ Thu,  5 Sep 2024 22:11:43 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 485IQ4tE021829;
+ Thu, 5 Sep 2024 22:11:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=uICJMqyMR9W+E3c9itZUvA
+ 6mXI7wrkEBgAc0kuDayVk=; b=gOB6O3HRPNsmvvFF5aAPh8+fO2ixKdHakSU6cn
+ HcmhohiTtxvRS7PE9KhO3lbBT21A0mqivUg6tQH3pEb37rxBMTHfQTfuhwjATRPi
+ kcFvelXdQozHc1Ik/VVVm6M8m8ITIDl/456PbWFP5bMGc5iSZ5G1xnxd5SIlb1mb
+ vFqrHzw1raeVtpBa9Ba/I8Ndyv+js7th+zKYN29LX+gWYnkxcb4Sl1/sofELxQus
+ cr6jWUt0/nR03s1v7f53a1/g+8ZLLU9LdM8jAgoTHWjInlo7X5GSRuJEFzlwAMOJ
+ Y94VHXl0PYyD4MQN0uUhX4yt4Vm5QgYgA6bTbSsIhNnrib8w==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41fhws0des-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Sep 2024 22:11:36 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 485MBZP9023114
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 5 Sep 2024 22:11:35 GMT
+Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Thu, 5 Sep 2024 15:11:35 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+CC: Abhinav Kumar <quic_abhinavk@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <dmitry.baryshkov@linaro.org>, <quic_jesszhan@quicinc.com>,
+ <linux-kernel@vger.kernel.org>
+Subject: [RFC PATCH] drm: allow encoder mode_set even when connectors change
+ for crtc
+Date: Thu, 5 Sep 2024 15:11:24 -0700
+Message-ID: <20240905221124.2587271-1-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-References: <20240905124956.84932-1-robdclark@gmail.com>
- <20240905155330.GA15246@willie-the-truck>
- <53f13813-a515-475a-836d-0b6017a117eb@arm.com>
- <CAF6AEGs3aRXbnnhD84GBbz9wJmyNR=dA3hbGuMLcM22Vs8CU_g@mail.gmail.com>
-In-Reply-To: <CAF6AEGs3aRXbnnhD84GBbz9wJmyNR=dA3hbGuMLcM22Vs8CU_g@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 5 Sep 2024 10:10:31 -0700
-Message-ID: <CAF6AEGsqdxO4+kaz6jOLBS_syjEkZg-7Veqh3j-o=RiGNcBH8A@mail.gmail.com>
-Subject: Re: [PATCH] Revert "iommu/io-pgtable-arm: Optimise non-coherent unmap"
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Will Deacon <will@kernel.org>, iommu@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Ashish Mhetre <amhetre@nvidia.com>, 
- Rob Clark <robdclark@chromium.org>, Joerg Roedel <joro@8bytes.org>, 
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>, 
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Hvr95TcNMYKnzGZA-s50aOaSpSO56NQC
+X-Proofpoint-GUID: Hvr95TcNMYKnzGZA-s50aOaSpSO56NQC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-05_17,2024-09-05_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0
+ impostorscore=0 mlxlogscore=999 adultscore=0 bulkscore=0 clxscore=1011
+ suspectscore=0 lowpriorityscore=0 phishscore=0 priorityscore=1501
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2408220000 definitions=main-2409050165
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,106 +91,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 5, 2024 at 10:00=E2=80=AFAM Rob Clark <robdclark@gmail.com> wro=
-te:
->
-> On Thu, Sep 5, 2024 at 9:27=E2=80=AFAM Robin Murphy <robin.murphy@arm.com=
-> wrote:
-> >
-> > On 05/09/2024 4:53 pm, Will Deacon wrote:
-> > > Hi Rob,
-> > >
-> > > On Thu, Sep 05, 2024 at 05:49:56AM -0700, Rob Clark wrote:
-> > >> From: Rob Clark <robdclark@chromium.org>
-> > >>
-> > >> This reverts commit 85b715a334583488ad7fbd3001fe6fd617b7d4c0.
-> > >>
-> > >> It was causing gpu smmu faults on x1e80100.
-> > >>
-> > >> I _think_ what is causing this is the change in ordering of
-> > >> __arm_lpae_clear_pte() (dma_sync_single_for_device() on the pgtable
-> > >> memory) and io_pgtable_tlb_flush_walk().  I'm not entirely sure how
-> > >> this patch is supposed to work correctly in the face of other
-> > >> concurrent translations (to buffers unrelated to the one being
-> > >> unmapped(), because after the io_pgtable_tlb_flush_walk() we can hav=
-e
-> > >> stale data read back into the tlb.
-> > >>
-> > >> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > >> ---
-> > >>   drivers/iommu/io-pgtable-arm.c | 31 ++++++++++++++----------------=
--
-> > >>   1 file changed, 14 insertions(+), 17 deletions(-)
-> > >
-> > > Please can you try the diff below, instead?
-> >
-> > Given that the GPU driver's .tlb_add_page is a no-op, I can't see this
-> > making a difference. In fact, given that msm_iommu_pagetable_unmap()
-> > still does a brute-force iommu_flush_iotlb_all() after io-pgtable
-> > returns, and in fact only recently made .tlb_flush_walk start doing
-> > anything either for the sake of the map path, I'm now really wondering
-> > how this patch has had any effect at all... :/
->
-> Yeah..  and unfortunately the TBU code only supports two devices so
-> far, so I can't easily repro with TBU enabled atm.  Hmm..
-> __arm_lpae_unmap() is also called in the ->map() path, although not
-> sure how that changes things.
+In certain use-cases, a CRTC could switch between two encoders
+and because the mode being programmed on the CRTC remains
+the same during this switch, the CRTC's mode_changed remains false.
+In such cases, the encoder's mode_set also gets skipped.
 
-Ok, an update.. after a reboot, still with this patch reverted, I once
-again see faults.  So I guess that vindicates the original patch, and
-leaves me still searching..
+Skipping mode_set on the encoder for such cases could cause an issue
+because even though the same CRTC mode was being used, the encoder
+type could have changed like the CRTC could have switched from a
+real time encoder to a writeback encoder OR vice-versa.
 
-fwiw, fault info from the gpu devcore:
+Allow encoder's mode_set to happen even when connectors changed on a
+CRTC and not just when the mode changed.
 
--------------
-fault-info:
-  - ttbr0=3D0000000919306000
-  - iova=3D0000000100c17000
-  - dir=3DWRITE
-  - type=3DUNKNOWN
-  - source=3DCP
-pgtable-fault-info:
-  - ttbr0: 000000090ca40000
-  - asid: 0
-  - ptes: 000000095db47003 000000095db48003 0000000914c8f003 00000008fd7f0f=
-47
--------------
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/drm_atomic_helper.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-the 'ptes' part shows the table walk, which looks ok to me..
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index fb97b51b38f1..8dc50dd2481d 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -1376,7 +1376,7 @@ crtc_set_mode(struct drm_device *dev, struct drm_atomic_state *old_state)
+ 		mode = &new_crtc_state->mode;
+ 		adjusted_mode = &new_crtc_state->adjusted_mode;
+ 
+-		if (!new_crtc_state->mode_changed)
++		if (!new_crtc_state->mode_changed && !new_crtc_state->connectors_changed)
+ 			continue;
+ 
+ 		drm_dbg_atomic(dev, "modeset on [ENCODER:%d:%s]\n",
+-- 
+2.44.0
 
-BR,
--R
-
-> BR,
-> -R
->
-> > >
-> > > Will
-> > >
-> > > --->8
-> > >
-> > > diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtabl=
-e-arm.c
-> > > index 0e67f1721a3d..0a32e9499e2c 100644
-> > > --- a/drivers/iommu/io-pgtable-arm.c
-> > > +++ b/drivers/iommu/io-pgtable-arm.c
-> > > @@ -672,7 +672,7 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io=
-_pgtable *data,
-> > >                  /* Clear the remaining entries */
-> > >                  __arm_lpae_clear_pte(ptep, &iop->cfg, i);
-> > >
-> > > -               if (gather && !iommu_iotlb_gather_queued(gather))
-> > > +               if (!iommu_iotlb_gather_queued(gather))
-> >
-> > Note that this would reintroduce the latent issue which was present
-> > originally, wherein iommu_iotlb_gather_queued(NULL) is false, but if we
-> > actually allow a NULL gather to be passed to io_pgtable_tlb_add_page()
-> > it may end up being dereferenced (e.g. in arm-smmu-v3).
-> >
-> > Thanks,
-> > Robin.
-> >
-> > >                          for (int j =3D 0; j < i; j++)
-> > >                                  io_pgtable_tlb_add_page(iop, gather,=
- iova + j * size, size);
-> > >
