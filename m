@@ -2,63 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFC2896F99F
-	for <lists+freedreno@lfdr.de>; Fri,  6 Sep 2024 18:53:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D51996FA3B
+	for <lists+freedreno@lfdr.de>; Fri,  6 Sep 2024 19:59:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53A0410EAA6;
-	Fri,  6 Sep 2024 16:53:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 633FB10EABB;
+	Fri,  6 Sep 2024 17:59:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="KgTpVP7V";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jKX985g5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68A0C10EAA6;
- Fri,  6 Sep 2024 16:53:40 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4869FvF5024652;
- Fri, 6 Sep 2024 16:53:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- LQZIsTMcIZYlRIfIXwB/56IGDRZ1/2+NkCdoONYJ7KU=; b=KgTpVP7V9pr8ndsF
- yxp/az/oiWDejvvaf903Y8y70L7DPc2oLIRZOjFpkS8TB8EVQexeuRcnJYjqqHn9
- 4k7dJtU+jbvViCAPzAWeadRIHXcKEwG27/SrzAPisfuKJtNPGR4DT0FOo1lXXy0k
- ARFms/b9Wbc9A5bhqU7yZx5uT1pQGIivPBLeNOMwACpLw2Xae6agZ0xVENAbTv26
- 00u+xe3h/4mmwDM5887VcJ7r9KIIyHaFUkkkg4e1QVOMIyzOGhsH2TEZmrBBFujf
- upySTDK1UNY6PW/5W/ExI8XcTj8MfyawxYkNkBODSViN76L98tSzAhdrK/ZhY/Q7
- cwYKcw==
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41fj03av58-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Sep 2024 16:53:33 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 486GrWv1031606
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 6 Sep 2024 16:53:32 GMT
-Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 6 Sep 2024
- 09:53:26 -0700
-Message-ID: <3c9a6196-ad51-4ed5-b242-cc1e0eec42fc@quicinc.com>
-Date: Fri, 6 Sep 2024 09:53:13 -0700
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BDAE10EABA
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Sep 2024 17:59:03 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-6d49cec2a5dso22184787b3.3
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Sep 2024 10:59:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1725645543; x=1726250343; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Vwf8azTfLEVwrk4q0ZONZxCGFEEyLJBGTlFqLltUinM=;
+ b=jKX985g5nC06xw2qdRoLxGZQNM3M9BQz25qDPg4TmH5G42q41RkrVh+SasPPYIyOMP
+ cdOyua8Y5Aht4Jlsx6w9YpC2Y5h5qjgu81KIjVZ/quxZkGtH2VMBxtNQX5G01LGKan8f
+ XTmGVg9225Ng914eOeFp8vlgG6i/9q2x7EmPeYKlPzzKlABFZzNyKFWd95FeN92l3uT/
+ wMkOn5F21T9xq5hJHOR3N/IS/bQuJw8ma/7lbMn2I9O8hz7c7mLZD+ryj9OOmSRSIFa+
+ VNYAwNWi+g8QRQW1Z5li/ScI78dSRLk+zRCYpOERVNEeYmzLEzR15HPSVfIUp9+v8Ypu
+ tTxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725645543; x=1726250343;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Vwf8azTfLEVwrk4q0ZONZxCGFEEyLJBGTlFqLltUinM=;
+ b=jJysyn+j45YUNZuPhm4ilk88bajJFAFaS1tEcauSAv34srdeARpRCdOQqdMqamtCxL
+ Dkn0nLGNOPZ/6KWeVjzV206wL2NXfeCth3dpjKr//htDbO7ztr7mc1FM9bRI6qc4OODA
+ u0655o3+RA8Blp8z+pQgi8YxA3//Bp6YwScAMhqFzjKQhyKThdxMTe660FlPEBLNCabW
+ f797r23t+4aL5JwE4FG3Z/ozbFkx619AZ2AdwXntt3gP/Ek4md32s8Vn8OwIS4+fzLB3
+ IMNWr9+XHjDRObhVIoQFPG/ZRZxZ37BZgaNw6DQ1/q4SsRMlkhbnkkTYAJvyouK3LZE2
+ iGdQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVEpiPaULEivH7kYokPSpif4aH/LpsIdAWdDqJ7IBBz/NISTnY5mllt2TTk2TH/JKiw29qlG+a/ewI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+uWNNi/5McEBLXf5dvdUSUOdapVfalVY4Ts9feOXDfOre9ImR
+ SszCt2rZSYGpsLkcEfna70w0ShUoF5eDE7RaNuWnf7FGn5vl9Q6k8r+l+AdnGc/Yhrui8VpMOwu
+ D/kbD5ucvj4CCk0i1NzeXFZMAQK9/io31mFTkUQ==
+X-Google-Smtp-Source: AGHT+IFBvQgRTrcRyOEcfyewGa8BnP2XgpounWsqP29P1vhUU1KHc53htPzaUA3ZTCanCcbw/qeNziQdToJ9jrVBlzI=
+X-Received: by 2002:a05:690c:c89:b0:6d3:a447:24c7 with SMTP id
+ 00721157ae682-6db45273f7amr46641107b3.44.1725645542684; Fri, 06 Sep 2024
+ 10:59:02 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-Subject: Re: [PATCH 11/21] drm/msm/dpu: Add RM support for allocating CWB
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
- Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, <quic_ebharadw@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@chromium.org>
 References: <20240829-concurrent-wb-v1-0-502b16ae2ebb@quicinc.com>
  <20240829-concurrent-wb-v1-11-502b16ae2ebb@quicinc.com>
  <pf6xgu7yjanzjigfpupons4ud6jbcmbr5icnd7yur6qhh3n5sf@plj4bi3beguw>
@@ -66,27 +59,23 @@ References: <20240829-concurrent-wb-v1-0-502b16ae2ebb@quicinc.com>
  <CAA8EJpo0X7yRaqYV-tTco9+9WyexiPN_ey8hKivFrE3jTojUpg@mail.gmail.com>
  <0e5dc874-0b50-4a6b-ba98-83cb01f7cce6@quicinc.com>
  <7ya6xrvbhdqddkglzzj6mtdxn735j56quguhohd5oid7vqut2w@wygb7ryzkj4r>
-Content-Language: en-US
-In-Reply-To: <7ya6xrvbhdqddkglzzj6mtdxn735j56quguhohd5oid7vqut2w@wygb7ryzkj4r>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: qqJpHwI-Rw8NHQg8io6pHKJwtKz4o_TK
-X-Proofpoint-ORIG-GUID: qqJpHwI-Rw8NHQg8io6pHKJwtKz4o_TK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_03,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxlogscore=999
- impostorscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 mlxscore=0
- malwarescore=0 priorityscore=1501 bulkscore=0 clxscore=1015 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2408220000
- definitions=main-2409060123
+ <3c9a6196-ad51-4ed5-b242-cc1e0eec42fc@quicinc.com>
+In-Reply-To: <3c9a6196-ad51-4ed5-b242-cc1e0eec42fc@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 6 Sep 2024 20:58:51 +0300
+Message-ID: <CAA8EJpqdtK_GG-p1b4WNBAbmdnu-Nt5Z17HHnNeUyL25C0wW=w@mail.gmail.com>
+Subject: Re: [PATCH 11/21] drm/msm/dpu: Add RM support for allocating CWB
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, quic_ebharadw@quicinc.com, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Rob Clark <robdclark@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,180 +91,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Fri, 6 Sept 2024 at 19:53, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+>
+>
+>
+> On 9/5/2024 6:30 AM, Dmitry Baryshkov wrote:
+> > On Tue, Sep 03, 2024 at 06:04:13PM GMT, Jessica Zhang wrote:
+> >>
+> >>
+> >> On 8/30/2024 3:16 PM, Dmitry Baryshkov wrote:
+> >>> On Fri, 30 Aug 2024 at 22:28, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+> >>>>
+> >>>>
+> >>>>
+> >>>> On 8/30/2024 10:18 AM, Dmitry Baryshkov wrote:
+> >>>>> On Thu, Aug 29, 2024 at 01:48:32PM GMT, Jessica Zhang wrote:
+> >>>>>> Add support for allocating the concurrent writeback mux as part of the
+> >>>>>> WB allocation
+> >>>>>>
+> >>>>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> >>>>>> ---
+> >>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  5 ++++-
+> >>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 30 +++++++++++++++++++++++++++--
+> >>>>>>     2 files changed, 32 insertions(+), 3 deletions(-)
+> >>>>>>
+> >>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> >>>>>> index c17d2d356f7a..c43cb55fe1d2 100644
+> >>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> >>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> >>>>>> @@ -1,5 +1,7 @@
+> >>>>>>     /* SPDX-License-Identifier: GPL-2.0-only */
+> >>>>>> -/* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+> >>>>>> +/*
+> >>>>>> + * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+> >>>>>> + * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+> >>>>>>      */
+> >>>>>>
+> >>>>>>     #ifndef _DPU_HW_MDSS_H
+> >>>>>> @@ -352,6 +354,7 @@ struct dpu_mdss_color {
+> >>>>>>     #define DPU_DBG_MASK_DSPP     (1 << 10)
+> >>>>>>     #define DPU_DBG_MASK_DSC      (1 << 11)
+> >>>>>>     #define DPU_DBG_MASK_CDM      (1 << 12)
+> >>>>>> +#define DPU_DBG_MASK_CWB      (1 << 13)
+> >>>>>>
+> >>>>>>     /**
+> >>>>>>      * struct dpu_hw_tear_check - Struct contains parameters to configure
+> >>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> >>>>>> index bc99b04eae3a..738e9a081b10 100644
+> >>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> >>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> >>>>>> @@ -1,9 +1,10 @@
+> >>>>>>     // SPDX-License-Identifier: GPL-2.0-only
+> >>>>>>     /*
+> >>>>>>      * Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+> >>>>>> - * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
+> >>>>>> + * Copyright (c) 2023-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+> >>>>>>      */
+> >>>>>>
+> >>>>>> +#include <drm/drm_managed.h>
+> >>>>>>     #include "msm_drv.h"
+> >>>>>>     #define pr_fmt(fmt)        "[drm:%s] " fmt, __func__
+> >>>>>>     #include "dpu_kms.h"
+> >>>>>> @@ -34,6 +35,7 @@ int dpu_rm_init(struct drm_device *dev,
+> >>>>>>                void __iomem *mmio)
+> >>>>>>     {
+> >>>>>>        int rc, i;
+> >>>>>> +    struct dpu_hw_blk_reg_map *cwb_reg_map;
+> >>>>>>
+> >>>>>>        if (!rm || !cat || !mmio) {
+> >>>>>>                DPU_ERROR("invalid kms\n");
+> >>>>>> @@ -100,11 +102,35 @@ int dpu_rm_init(struct drm_device *dev,
+> >>>>>>                rm->hw_intf[intf->id - INTF_0] = hw;
+> >>>>>>        }
+> >>>>>>
+> >>>>>> +    if (cat->cwb_count > 0) {
+> >>>>>> +            cwb_reg_map = drmm_kzalloc(dev,
+> >>>>>> +                            sizeof(*cwb_reg_map) * cat->cwb_count,
+> >>>>>> +                            GFP_KERNEL);
+> >>>>>
+> >>>>> Please move CWB block pointers to dpu_rm. There is no need to allocate a
+> >>>>> separate array.
+> >>>>
+> >>>> Hi Dmitry,
+> >>>>
+> >>>> Sorry, I'm not sure what you mean here. Can you clarify your comment?
+> >>>>
+> >>>> This is just allocating an array of the CWB register addresses so that
+> >>>> the hw_wb block can use it to configure the CWB mux registers.
+> >>>
+> >>> Excuse me. I asked to make the cwb_reg_map array a part of the
+> >>> existing dpu_rm structure. This way other subblocks can access it
+> >>> through dpu_rm API.
+> >>
+> >> Got it, thanks for the clarification. Just wondering, is the intent here to
+> >> add CWB to rm's get_assigned_resourced?
+> >>
+> >> The CWB registers will be handled by hw_wb and isn't referenced anywhere
+> >> outside of hw_wb (aside from when it's being allocated and passed into
+> >> hw_wb_init) so I'm not sure what's the benefit of adding it to the dpu_rm
+> >> struct.
+> >
+> > To have a single point where all the blocks are handled, pretty much
+> > like we have a single catalog where all blocks are allocated. Note how
+> > e.g. how MERGE_3D is handled. Or how we return harware instances for
+> > INTF or WB.
+>
+> Got it, seems like you're leaning towards having CWB as a completely
+> independent hardware block with its own dpu_hw_cwb file and struct.
+>
+> FWIW, we did consider this approach at the very beginning, but decided
+> to go with having the CWB registers configured by dpu_hw_wb under the
+> hood because we thought it would be overkill to create a completely new
+> struct just to program 2 registers via 1 function op.
+>
+> We ended up adding the CWB mux programming to dpu_hw_wb because CWB is
+> closely tied with WB and it mirrored how downstream code was programming
+> CWB mux [1]
+>
+> If you prefer to have CWB mux completely independent, I can switch to
+> that instead.
+
+Well, I'd suggest to check a separate single-function interface
+approach. The reason is pretty simple: for DPU 3.x/4.x we'd need a
+completely different programming approach. And if at some point we
+will consider going for an sblk / non-sblk implementation for DPU 8.x+
+/ 5.x-7.x we'd also need to change that. Thus I think it's better to
+have less ties between hw_wb and hw_cwb.
+
+>
+> [1]
+> https://android.googlesource.com/kernel/msm-extra/display-drivers/+/e18d8e759a344ad4d86b31bbf8160cfe4c65b772/msm/sde/sde_hw_wb.c#265
+>
+> >
+> >>
+> >>>
+> >>>>
+> >>>> Thanks,
+> >>>>
+> >>>> Jessica Zhang
+> >>>>
+> >>>>>
+> >>>>>> +
+> >>>>>> +            if (!cwb_reg_map) {
+> >>>>>> +                    DPU_ERROR("failed cwb object creation\n");
+> >>>>>> +                    return -ENOMEM;
+> >>>>>> +            }
+> >>>>>> +    }
+> >>>>>> +
+> >>>>>> +
+> >>>>>> +    for (i = 0; i < cat->cwb_count; i++) {
+> >>>>>> +            struct dpu_hw_blk_reg_map *cwb = &cwb_reg_map[i];
+> >>>>>> +
+> >>>>>> +            cwb->blk_addr = mmio + cat->cwb[i].base;
+> >>>>>> +            cwb->log_mask = DPU_DBG_MASK_CWB;
+> >>>>>> +    }
+> >>>>>> +
+> >>>>>>        for (i = 0; i < cat->wb_count; i++) {
+> >>>>>>                struct dpu_hw_wb *hw;
+> >>>>>>                const struct dpu_wb_cfg *wb = &cat->wb[i];
+> >>>>>>
+> >>>>>> -            hw = dpu_hw_wb_init(dev, wb, mmio, cat->mdss_ver);
+> >>>>>> +            if (cat->cwb)
+> >>>>>> +                    hw = dpu_hw_wb_init_with_cwb(dev, wb, mmio,
+> >>>>>> +                                    cat->mdss_ver, cwb_reg_map);
+> >>>>>> +            else
+> >>>>>> +                    hw = dpu_hw_wb_init(dev, wb, mmio, cat->mdss_ver);
+> >>>>>> +
+> >>>>>>                if (IS_ERR(hw)) {
+> >>>>>>                        rc = PTR_ERR(hw);
+> >>>>>>                        DPU_ERROR("failed wb object creation: err %d\n", rc);
+> >>>>>>
+> >>>>>> --
+> >>>>>> 2.34.1
+> >>>>>>
+> >>>>>
+> >>>>> --
+> >>>>> With best wishes
+> >>>>> Dmitry
+> >>>
+> >>>
+> >>>
+> >>> --
+> >>> With best wishes
+> >>> Dmitry
+> >
+> > --
+> > With best wishes
+> > Dmitry
 
 
-On 9/5/2024 6:30 AM, Dmitry Baryshkov wrote:
-> On Tue, Sep 03, 2024 at 06:04:13PM GMT, Jessica Zhang wrote:
->>
->>
->> On 8/30/2024 3:16 PM, Dmitry Baryshkov wrote:
->>> On Fri, 30 Aug 2024 at 22:28, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
->>>>
->>>>
->>>>
->>>> On 8/30/2024 10:18 AM, Dmitry Baryshkov wrote:
->>>>> On Thu, Aug 29, 2024 at 01:48:32PM GMT, Jessica Zhang wrote:
->>>>>> Add support for allocating the concurrent writeback mux as part of the
->>>>>> WB allocation
->>>>>>
->>>>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>>>>> ---
->>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  5 ++++-
->>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 30 +++++++++++++++++++++++++++--
->>>>>>     2 files changed, 32 insertions(+), 3 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
->>>>>> index c17d2d356f7a..c43cb55fe1d2 100644
->>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
->>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
->>>>>> @@ -1,5 +1,7 @@
->>>>>>     /* SPDX-License-Identifier: GPL-2.0-only */
->>>>>> -/* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
->>>>>> +/*
->>>>>> + * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
->>>>>> + * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
->>>>>>      */
->>>>>>
->>>>>>     #ifndef _DPU_HW_MDSS_H
->>>>>> @@ -352,6 +354,7 @@ struct dpu_mdss_color {
->>>>>>     #define DPU_DBG_MASK_DSPP     (1 << 10)
->>>>>>     #define DPU_DBG_MASK_DSC      (1 << 11)
->>>>>>     #define DPU_DBG_MASK_CDM      (1 << 12)
->>>>>> +#define DPU_DBG_MASK_CWB      (1 << 13)
->>>>>>
->>>>>>     /**
->>>>>>      * struct dpu_hw_tear_check - Struct contains parameters to configure
->>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>>>> index bc99b04eae3a..738e9a081b10 100644
->>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->>>>>> @@ -1,9 +1,10 @@
->>>>>>     // SPDX-License-Identifier: GPL-2.0-only
->>>>>>     /*
->>>>>>      * Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
->>>>>> - * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
->>>>>> + * Copyright (c) 2023-2024 Qualcomm Innovation Center, Inc. All rights reserved.
->>>>>>      */
->>>>>>
->>>>>> +#include <drm/drm_managed.h>
->>>>>>     #include "msm_drv.h"
->>>>>>     #define pr_fmt(fmt)        "[drm:%s] " fmt, __func__
->>>>>>     #include "dpu_kms.h"
->>>>>> @@ -34,6 +35,7 @@ int dpu_rm_init(struct drm_device *dev,
->>>>>>                void __iomem *mmio)
->>>>>>     {
->>>>>>        int rc, i;
->>>>>> +    struct dpu_hw_blk_reg_map *cwb_reg_map;
->>>>>>
->>>>>>        if (!rm || !cat || !mmio) {
->>>>>>                DPU_ERROR("invalid kms\n");
->>>>>> @@ -100,11 +102,35 @@ int dpu_rm_init(struct drm_device *dev,
->>>>>>                rm->hw_intf[intf->id - INTF_0] = hw;
->>>>>>        }
->>>>>>
->>>>>> +    if (cat->cwb_count > 0) {
->>>>>> +            cwb_reg_map = drmm_kzalloc(dev,
->>>>>> +                            sizeof(*cwb_reg_map) * cat->cwb_count,
->>>>>> +                            GFP_KERNEL);
->>>>>
->>>>> Please move CWB block pointers to dpu_rm. There is no need to allocate a
->>>>> separate array.
->>>>
->>>> Hi Dmitry,
->>>>
->>>> Sorry, I'm not sure what you mean here. Can you clarify your comment?
->>>>
->>>> This is just allocating an array of the CWB register addresses so that
->>>> the hw_wb block can use it to configure the CWB mux registers.
->>>
->>> Excuse me. I asked to make the cwb_reg_map array a part of the
->>> existing dpu_rm structure. This way other subblocks can access it
->>> through dpu_rm API.
->>
->> Got it, thanks for the clarification. Just wondering, is the intent here to
->> add CWB to rm's get_assigned_resourced?
->>
->> The CWB registers will be handled by hw_wb and isn't referenced anywhere
->> outside of hw_wb (aside from when it's being allocated and passed into
->> hw_wb_init) so I'm not sure what's the benefit of adding it to the dpu_rm
->> struct.
-> 
-> To have a single point where all the blocks are handled, pretty much
-> like we have a single catalog where all blocks are allocated. Note how
-> e.g. how MERGE_3D is handled. Or how we return harware instances for
-> INTF or WB.
 
-Got it, seems like you're leaning towards having CWB as a completely 
-independent hardware block with its own dpu_hw_cwb file and struct.
-
-FWIW, we did consider this approach at the very beginning, but decided 
-to go with having the CWB registers configured by dpu_hw_wb under the 
-hood because we thought it would be overkill to create a completely new 
-struct just to program 2 registers via 1 function op.
-
-We ended up adding the CWB mux programming to dpu_hw_wb because CWB is 
-closely tied with WB and it mirrored how downstream code was programming 
-CWB mux [1]
-
-If you prefer to have CWB mux completely independent, I can switch to 
-that instead.
-
-[1] 
-https://android.googlesource.com/kernel/msm-extra/display-drivers/+/e18d8e759a344ad4d86b31bbf8160cfe4c65b772/msm/sde/sde_hw_wb.c#265
-
-> 
->>
->>>
->>>>
->>>> Thanks,
->>>>
->>>> Jessica Zhang
->>>>
->>>>>
->>>>>> +
->>>>>> +            if (!cwb_reg_map) {
->>>>>> +                    DPU_ERROR("failed cwb object creation\n");
->>>>>> +                    return -ENOMEM;
->>>>>> +            }
->>>>>> +    }
->>>>>> +
->>>>>> +
->>>>>> +    for (i = 0; i < cat->cwb_count; i++) {
->>>>>> +            struct dpu_hw_blk_reg_map *cwb = &cwb_reg_map[i];
->>>>>> +
->>>>>> +            cwb->blk_addr = mmio + cat->cwb[i].base;
->>>>>> +            cwb->log_mask = DPU_DBG_MASK_CWB;
->>>>>> +    }
->>>>>> +
->>>>>>        for (i = 0; i < cat->wb_count; i++) {
->>>>>>                struct dpu_hw_wb *hw;
->>>>>>                const struct dpu_wb_cfg *wb = &cat->wb[i];
->>>>>>
->>>>>> -            hw = dpu_hw_wb_init(dev, wb, mmio, cat->mdss_ver);
->>>>>> +            if (cat->cwb)
->>>>>> +                    hw = dpu_hw_wb_init_with_cwb(dev, wb, mmio,
->>>>>> +                                    cat->mdss_ver, cwb_reg_map);
->>>>>> +            else
->>>>>> +                    hw = dpu_hw_wb_init(dev, wb, mmio, cat->mdss_ver);
->>>>>> +
->>>>>>                if (IS_ERR(hw)) {
->>>>>>                        rc = PTR_ERR(hw);
->>>>>>                        DPU_ERROR("failed wb object creation: err %d\n", rc);
->>>>>>
->>>>>> --
->>>>>> 2.34.1
->>>>>>
->>>>>
->>>>> --
->>>>> With best wishes
->>>>> Dmitry
->>>
->>>
->>>
->>> -- 
->>> With best wishes
->>> Dmitry
-> 
-> -- 
-> With best wishes
-> Dmitry
+-- 
+With best wishes
+Dmitry
