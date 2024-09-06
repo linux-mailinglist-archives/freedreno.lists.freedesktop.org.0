@@ -2,52 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E595996ED5D
-	for <lists+freedreno@lfdr.de>; Fri,  6 Sep 2024 10:14:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 375EF96F06F
+	for <lists+freedreno@lfdr.de>; Fri,  6 Sep 2024 11:55:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BE4C10E9A4;
-	Fri,  6 Sep 2024 08:14:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E79C310E9E8;
+	Fri,  6 Sep 2024 09:55:39 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="b09e+0IY";
+	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2EFB10E9A0;
- Fri,  6 Sep 2024 08:14:55 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.48])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4X0TVh0lVxzfbjq;
- Fri,  6 Sep 2024 16:12:44 +0800 (CST)
-Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id 39E8D180064;
- Fri,  6 Sep 2024 16:14:52 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemh500013.china.huawei.com
- (7.202.181.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Fri, 6 Sep
- 2024 16:14:51 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <laurentiu.palcu@oss.nxp.com>, <l.stach@pengutronix.de>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <shawnguo@kernel.org>, <s.hauer@pengutronix.de>, <kernel@pengutronix.de>,
- <festevam@gmail.com>, <p.zabel@pengutronix.de>, <robdclark@gmail.com>,
- <sean@poorly.run>, <konradybcio@kernel.org>, <quic_abhinavk@quicinc.com>,
- <dmitry.baryshkov@linaro.org>, <marijn.suijten@somainline.org>,
- <thierry.reding@gmail.com>, <mperttunen@nvidia.com>, <jonathanh@nvidia.com>,
- <agx@sigxcpu.org>, <gregkh@linuxfoundation.org>, <jordan@cosmicpenguin.net>,
- <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, <freedreno@lists.freedesktop.org>,
- <linux-tegra@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH 5/5] drm/msm/adreno: Use IRQF_NO_AUTOEN flag in request_irq()
-Date: Fri, 6 Sep 2024 16:23:25 +0800
-Message-ID: <20240906082325.2677621-6-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240906082325.2677621-1-ruanjinjie@huawei.com>
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52A1B10E9E9
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Sep 2024 09:55:38 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5365b6bd901so114588e87.2
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Sep 2024 02:55:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1725616536; x=1726221336; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=E0KxWIleE3u20+F+aCD6IZbLW7v8LcTSKTjCbUE1knk=;
+ b=b09e+0IY+j4QoC7qydycW+i/xoaUdWZVO0G6+c76oK0XERL+4PY5lgoZjTI25ouV3J
+ peYVpAakGOX/eBRjuCVqSDE7VpPg13ZPnJaWf4UUvPIzd94chYYoRLOSDRyZJuDC/m6X
+ lns1mT1zMV83n2a8lbhRdSbBpPvolIvxXrBdo820wM/VpNRPfrO0IVLN+2H+r/Y4vlSV
+ gphzKVIE71SUzdy/pwyc02K6O+Qz8m0WKb2q5Afvv8h0l+Bo0Npw8gxawZvXy/p+W6c2
+ WxHFFraDjS+jYTIn7CQGncQWw3AVjnIMOMlC756trmhlX6EmlWEgOox3y+KYU8ndNW4Z
+ aO0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725616536; x=1726221336;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=E0KxWIleE3u20+F+aCD6IZbLW7v8LcTSKTjCbUE1knk=;
+ b=V5ozO2d0z29ZtI10GhF95MXTl/Rr9cRi9x7gsSCd1baN4FxVAtak8iPRnRHVwA3Q73
+ ujsi36YeOvUgqKWMW/Q0RFLtF9r1z/590Vd4Pbm1jr8nhWFOZieQpS5JeNq0C/WAC1sH
+ WhfKJLk0s266vZxZB0lpDCApTz4DB1V5S6Obc8PSUowFGXB4AUajJYy0wlDcT1O9K5HC
+ QIbRcFgU67hPJbc+YladvjiJ51r7zVPwpRTgK/j+CNnwe6ecmhQeqKFyapbYXWCXcTdU
+ LbuDTTZ4NyrAuvV1liJygpLYfz8y/YjMjXIGv6zmTZZEdL5RkiDLZTe9tPkcRBD1sPZl
+ ztCA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWKH0iqAd/hucLjdwXiBED1BXzR0ppLF6pZeCqPzF1pfk5KBBjjCKoOtNID6bnIiQP6Ry+Y17lL7CM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzE7fYp5JgMKL94yDBMQ8HlccPZ44zyhMTBOLul+mqagOrYV+P7
+ Ch+ZSGxIETNBUhOJc2z4oYKryCPQdfHjdnWSiEOlaW5vgzCYuVfrtmaBG1QS3a0=
+X-Google-Smtp-Source: AGHT+IHe6zEb04EsF0hZnI8DiBbVQp4TFTFoRxW/b4jeG49e40MhUMCQNyAhID2vjkNmhWuQrjfCRQ==
+X-Received: by 2002:a05:6512:1250:b0:535:ea75:e913 with SMTP id
+ 2adb3069b0e04-536587c6333mr1667237e87.33.1725616536233; 
+ Fri, 06 Sep 2024 02:55:36 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-536592c2dfcsm120331e87.260.2024.09.06.02.55.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Sep 2024 02:55:35 -0700 (PDT)
+Date: Fri, 6 Sep 2024 12:55:34 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: laurentiu.palcu@oss.nxp.com, l.stach@pengutronix.de, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, 
+ daniel@ffwll.ch, shawnguo@kernel.org, s.hauer@pengutronix.de, 
+ kernel@pengutronix.de, festevam@gmail.com, p.zabel@pengutronix.de,
+ robdclark@gmail.com, 
+ sean@poorly.run, konradybcio@kernel.org, quic_abhinavk@quicinc.com, 
+ marijn.suijten@somainline.org, thierry.reding@gmail.com, mperttunen@nvidia.com,
+ jonathanh@nvidia.com, agx@sigxcpu.org, gregkh@linuxfoundation.org, 
+ jordan@cosmicpenguin.net, dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 5/5] drm/msm/adreno: Use IRQF_NO_AUTOEN flag in
+ request_irq()
+Message-ID: <5j626cfkrv5otd7v766r5ml6v5xtxrxe6ezp4m3agei27bvb4f@whi2rott2qrt>
 References: <20240906082325.2677621-1-ruanjinjie@huawei.com>
+ <20240906082325.2677621-6-ruanjinjie@huawei.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
- kwepemh500013.china.huawei.com (7.202.181.146)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240906082325.2677621-6-ruanjinjie@huawei.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,37 +95,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-disable_irq() after request_irq() still has a time gap in which
-interrupts can come. request_irq() with IRQF_NO_AUTOEN flag will
-disable IRQ auto-enable when request IRQ.
+On Fri, Sep 06, 2024 at 04:23:25PM GMT, Jinjie Ruan wrote:
+> disable_irq() after request_irq() still has a time gap in which
+> interrupts can come. request_irq() with IRQF_NO_AUTOEN flag will
+> disable IRQ auto-enable when request IRQ.
+> 
+> Fixes: 4b565ca5a2cb ("drm/msm: Add A6XX device support")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
 
-Fixes: 4b565ca5a2cb ("drm/msm: Add A6XX device support")
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index cb538a262d1c..db36c81d0f12 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1505,15 +1505,13 @@ static int a6xx_gmu_get_irq(struct a6xx_gmu *gmu, struct platform_device *pdev,
- 
- 	irq = platform_get_irq_byname(pdev, name);
- 
--	ret = request_irq(irq, handler, IRQF_TRIGGER_HIGH, name, gmu);
-+	ret = request_irq(irq, handler, IRQF_TRIGGER_HIGH | IRQF_NO_AUTOEN, name, gmu);
- 	if (ret) {
- 		DRM_DEV_ERROR(&pdev->dev, "Unable to get interrupt %s %d\n",
- 			      name, ret);
- 		return ret;
- 	}
- 
--	disable_irq(irq);
--
- 	return irq;
- }
- 
 -- 
-2.34.1
-
+With best wishes
+Dmitry
