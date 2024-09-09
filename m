@@ -2,86 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57508971CE1
-	for <lists+freedreno@lfdr.de>; Mon,  9 Sep 2024 16:40:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A720971D19
+	for <lists+freedreno@lfdr.de>; Mon,  9 Sep 2024 16:50:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F9BB10E125;
-	Mon,  9 Sep 2024 14:40:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 342A010E5AD;
+	Mon,  9 Sep 2024 14:50:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZhmXJ4PH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="caE5/RNT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
- [209.85.166.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7395410E125;
- Mon,  9 Sep 2024 14:40:20 +0000 (UTC)
-Received: by mail-io1-f48.google.com with SMTP id
- ca18e2360f4ac-82ade877fbeso87552439f.0; 
- Mon, 09 Sep 2024 07:40:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725892819; x=1726497619; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yADGgFh0Qr9khviAqSL4T0j/ayR5ihAosN0nFeWJtFw=;
- b=ZhmXJ4PHVayrLSacXX2qJrapZ+na5uXtWiBem0oBzTRCSp3ugNBHJQIqTWyW9JCHG4
- TnFTNNCCbQdtAhgdCftqgloyLBxZegW1SQUhR0hChTqtgnfBrUC+2yQQpnEPsKDEc44M
- q3YR1zhMxk0kCoO6Vn47xXvjwT67sQY8AHsCRYkJm7ViBo0kyZbmyntmJ1BEHhqWPkTV
- SL6Voe3n6UwFQuf62FXuHekgchjAbvhamZqrYw8oxkgAOinggL/A9n6P2S2MGUbRrAvl
- RYGy0qsE+/99clTeQdDsJq9T7sa43P9P3jr2hXrj/gHQ+ayU4cFNNUMNWO8x564F1k94
- Wcqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725892819; x=1726497619;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yADGgFh0Qr9khviAqSL4T0j/ayR5ihAosN0nFeWJtFw=;
- b=RVG0Qvp6VGPVUUV2L5vj4yTA66bSXpTzsrv1yMd6w5GygTz6W2JMQRSwcStksWtqZB
- BxIYFzWbg2eNeYcJilZQV3DEOy8ZCHujjcefRR74T3Rc0thz5VKFHUnxCjCSoGJ+lPtw
- L89dcqt72RmWSdN8RAOY2QBZIzOuHtP5ZrO6n0/APV2wrBRGz5gwpnRBCDwPXBVcYrf5
- n48JQsoPJjwwqwmQy08WuCd2lheRe62CMvNo24axPdCJUIzsQqvc+FhHN9u5pCxRoGyP
- tK7rwyrphYh0VJ55pgcCqI4wc7UE2OMmAuTlMFVZBAx12T85RRAktSTwSSKDVTpNZ/YQ
- FgiA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU0SwlVQp0Ir8Y0JLQz2grZmbw2DtF/hdegVIDjGNOBrCbiawGeIBIruQC7E8sHUcmtI/U3dXgvdTcY@lists.freedesktop.org,
- AJvYcCXsjmwLYn2PSW8vnGw3jrNM5Dzj+0qmgpDosuYAJIB2b37FpKIuHdEIYvP2JUlXlYiTNHA9hrwN0qI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyqZDfZDoUCA4WkDJOy+1CBRNoEAbdy1wMuewFi5juhdaWJ6dZj
- UsBl+chs+49JhpRRdk7HWCX2ZIjhWDGyt+wkLo7x4YGIXiuwg4i5KIXglmNb9D9Uct7Mglyukhr
- mVE9SqzgX0UD2kCsTyuXtqw8DpNQ=
-X-Google-Smtp-Source: AGHT+IG/zidy3pUha3J4vBn+TgE6JlPVQqsYOcZPn1/PZgtYteEn9j/NJ/+ZfxxiFMsg3wdTfHQX1c5/CxyHbAkt+Ic=
-X-Received: by 2002:a05:6e02:1d06:b0:3a0:4a63:e7ac with SMTP id
- e9e14a558f8ab-3a04f0ccccfmr140661735ab.18.1725892819444; Mon, 09 Sep 2024
- 07:40:19 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16BAD10E5AD
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Sep 2024 14:50:10 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id B7E645C01E3;
+ Mon,  9 Sep 2024 14:50:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35CF6C4CEC5;
+ Mon,  9 Sep 2024 14:50:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1725893409;
+ bh=E55QCe1LlO+SgbpQ8x5M5ZFRadQoSvxYJkVZCOdkJ8M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=caE5/RNTOUOsQsj8LWstsX0UOrUi2jXtTVmUSgE0NSXCn1ylC4knk6tA3GzsVdO0L
+ OGM4P/yJlj/iV5nNgz9Zay3U0ENwIFNRAC3lw+4sNQIvaIM8BqSkm7ANQ8RFGc2G25
+ X16ImJ5hGf8Ml/26fhUB9tleasW6LHXdeRHVTfQDPzfktf2V3yQz8+GwHYYN/JLCwK
+ epTfR0BJS9jHfhoEWfX4fjqvqJS3DTtc3E8TsHITLxhudD8Xl7pWZLNlO7IrFf95AE
+ 1+aJ+4ntWXUFaOdDWPM5YZb8JbdXfa4epw+jLt6+JOgM3H0cmTrKhPdYQ6uQ0gJ0Hy
+ USV/12/5rovqw==
+Date: Mon, 9 Sep 2024 15:50:03 +0100
+From: Will Deacon <will@kernel.org>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Rob Clark <robdclark@gmail.com>, iommu@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Ashish Mhetre <amhetre@nvidia.com>,
+ Rob Clark <robdclark@chromium.org>, Joerg Roedel <joro@8bytes.org>,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] Revert "iommu/io-pgtable-arm: Optimise non-coherent unmap"
+Message-ID: <20240909145003.GB19863@willie-the-truck>
+References: <20240905124956.84932-1-robdclark@gmail.com>
+ <20240905155330.GA15246@willie-the-truck>
+ <53f13813-a515-475a-836d-0b6017a117eb@arm.com>
+ <20240906105656.GA16124@willie-the-truck>
+ <8e17f1ac-0178-454b-b9dc-bb14ad6c465b@arm.com>
 MIME-Version: 1.0
-References: <20240905-preemption-a750-t-v3-0-fd947699f7bc@gmail.com>
- <20240905-preemption-a750-t-v3-4-fd947699f7bc@gmail.com>
- <20240906195444.owz4eralirekr7r7@hu-akhilpo-hyd.qualcomm.com>
- <df85bf24-651c-4a35-929b-4de6c05555a1@gmail.com>
- <CACu1E7GSMQHa6258hV2OwS5nTGh+kTeZ-qQPMfGTy5YVP5kX3g@mail.gmail.com>
-In-Reply-To: <CACu1E7GSMQHa6258hV2OwS5nTGh+kTeZ-qQPMfGTy5YVP5kX3g@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 9 Sep 2024 07:40:07 -0700
-Message-ID: <CAF6AEGvv60CS43dCijsUCzELLn=t1PJQVCzMx01cFJsNJ1Uk9g@mail.gmail.com>
-Subject: Re: [PATCH v3 04/10] drm/msm/A6xx: Implement preemption for A7XX
- targets
-To: Connor Abbott <cwabbott0@gmail.com>
-Cc: Antonino Maniscalco <antomani103@gmail.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Jonathan Corbet <corbet@lwn.net>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Sharat Masetty <smasetty@codeaurora.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8e17f1ac-0178-454b-b9dc-bb14ad6c465b@arm.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,85 +66,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Sep 9, 2024 at 6:43=E2=80=AFAM Connor Abbott <cwabbott0@gmail.com> =
-wrote:
->
-> On Mon, Sep 9, 2024 at 2:15=E2=80=AFPM Antonino Maniscalco
-> <antomani103@gmail.com> wrote:
-> >
-> > On 9/6/24 9:54 PM, Akhil P Oommen wrote:
-> > > On Thu, Sep 05, 2024 at 04:51:22PM +0200, Antonino Maniscalco wrote:
-> > >> This patch implements preemption feature for A6xx targets, this allo=
-ws
-> > >> the GPU to switch to a higher priority ringbuffer if one is ready. A=
-6XX
-> > >> hardware as such supports multiple levels of preemption granularitie=
-s,
-> > >> ranging from coarse grained(ringbuffer level) to a more fine grained
-> > >> such as draw-call level or a bin boundary level preemption. This pat=
-ch
-> > >> enables the basic preemption level, with more fine grained preemptio=
-n
-> > >> support to follow.
-> > >>
-> > >> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-> > >> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
-> > >> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-QR=
-D
-> > >> ---
-> > >>   drivers/gpu/drm/msm/Makefile              |   1 +
-> > >>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 293 ++++++++++++++++++=
-+++-
-> > >>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h     | 161 ++++++++++++
-> > ...
-> > >
-> > > we can use the lighter smp variant here.
-> > >
-> > >> +
-> > >> +            if (a6xx_gpu->cur_ring =3D=3D ring)
-> > >> +                    gpu_write(gpu, REG_A6XX_CP_RB_WPTR, wptr);
-> > >> +            else
-> > >> +                    ring->skip_inline_wptr =3D true;
-> > >> +    } else {
-> > >> +            ring->skip_inline_wptr =3D true;
-> > >> +    }
-> > >> +
-> > >> +    spin_unlock_irqrestore(&ring->preempt_lock, flags);
-> > >>   }
-> > >>
-> > >>   static void get_stats_counter(struct msm_ringbuffer *ring, u32 cou=
-nter,
-> > >> @@ -138,12 +231,14 @@ static void a6xx_set_pagetable(struct a6xx_gpu=
- *a6xx_gpu,
-> > >
-> > > set_pagetable checks "cur_ctx_seqno" to see if pt switch is needed or
-> > > not. This is currently not tracked separately for each ring. Can you
-> > > please check that?
-> >
-> > I totally missed that. Thanks for catching it!
-> >
-> > >
-> > > I wonder why that didn't cause any gpu errors in testing. Not sure if=
- I
-> > > am missing something.
-> > >
-> >
-> > I think this is because, so long as a single context doesn't submit to
-> > two different rings with differenr priorities, we will only be incorrec=
-t
-> > in the sense that we emit more page table switches than necessary and
-> > never less. However untrusted userspace could create a context that
-> > submits to two different rings and that would lead to execution in the
-> > wrong context so we must fix this.
->
-> FWIW, in Mesa in the future we may want to expose multiple Vulkan
-> queues per device. Then this would definitely blow up.
+On Fri, Sep 06, 2024 at 04:25:19PM +0100, Robin Murphy wrote:
+> On 06/09/2024 11:56 am, Will Deacon wrote:
+> > On Thu, Sep 05, 2024 at 05:27:28PM +0100, Robin Murphy wrote:
+> > > On 05/09/2024 4:53 pm, Will Deacon wrote:
+> > > > On Thu, Sep 05, 2024 at 05:49:56AM -0700, Rob Clark wrote:
+> > > > > From: Rob Clark <robdclark@chromium.org>
+> > > > > 
+> > > > > This reverts commit 85b715a334583488ad7fbd3001fe6fd617b7d4c0.
+> > > > > 
+> > > > > It was causing gpu smmu faults on x1e80100.
+> > > > > 
+> > > > > I _think_ what is causing this is the change in ordering of
+> > > > > __arm_lpae_clear_pte() (dma_sync_single_for_device() on the pgtable
+> > > > > memory) and io_pgtable_tlb_flush_walk().  I'm not entirely sure how
+> > > > > this patch is supposed to work correctly in the face of other
+> > > > > concurrent translations (to buffers unrelated to the one being
+> > > > > unmapped(), because after the io_pgtable_tlb_flush_walk() we can have
+> > > > > stale data read back into the tlb.
+> > > > > 
+> > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > > ---
+> > > > >    drivers/iommu/io-pgtable-arm.c | 31 ++++++++++++++-----------------
+> > > > >    1 file changed, 14 insertions(+), 17 deletions(-)
+> > > > 
+> > > > Please can you try the diff below, instead?
+> > > 
+> > > Given that the GPU driver's .tlb_add_page is a no-op, I can't see this
+> > > making a difference. In fact, given that msm_iommu_pagetable_unmap() still
+> > > does a brute-force iommu_flush_iotlb_all() after io-pgtable returns, and in
+> > > fact only recently made .tlb_flush_walk start doing anything either for the
+> > > sake of the map path, I'm now really wondering how this patch has had any
+> > > effect at all... :/
+> > 
+> > Hmm, yup. Looks like Rob has come back to say the problem lies elsewhere
+> > anyway.
+> > 
+> > One thing below though...
+> > 
+> > > > 
+> > > > Will
+> > > > 
+> > > > --->8
+> > > > 
+> > > > diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
+> > > > index 0e67f1721a3d..0a32e9499e2c 100644
+> > > > --- a/drivers/iommu/io-pgtable-arm.c
+> > > > +++ b/drivers/iommu/io-pgtable-arm.c
+> > > > @@ -672,7 +672,7 @@ static size_t __arm_lpae_unmap(struct arm_lpae_io_pgtable *data,
+> > > >                   /* Clear the remaining entries */
+> > > >                   __arm_lpae_clear_pte(ptep, &iop->cfg, i);
+> > > > -               if (gather && !iommu_iotlb_gather_queued(gather))
+> > > > +               if (!iommu_iotlb_gather_queued(gather))
+> > > 
+> > > Note that this would reintroduce the latent issue which was present
+> > > originally, wherein iommu_iotlb_gather_queued(NULL) is false, but if we
+> > > actually allow a NULL gather to be passed to io_pgtable_tlb_add_page() it
+> > > may end up being dereferenced (e.g. in arm-smmu-v3).
+> > 
+> > I think there is still something to fix here. arm_lpae_init_pte() can
+> > pass a NULL gather to __arm_lpae_unmap() and I don't think skipping the
+> > invalidation is correct in that case. Either the drivers need to handle
+> > that or we shouldn't be passing NULL.
+> > 
+> > What do you think?
+> 
+> The subtlety there is that in that case it's always a non-leaf PTE, so all
+> that goes back to the driver is io_pgtable_tlb_flush_walk() and the gather
+> is never used.
 
-This will actually be required by future android versions, with the
-switch to vk hwui backend (because apparently locking is hard, the
-solution was to use different queue's for different threads)
+Beautiful...
 
-https://gitlab.freedesktop.org/mesa/mesa/-/issues/11326
-
-BR,
--R
+Will
