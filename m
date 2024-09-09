@@ -2,81 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63364971E23
-	for <lists+freedreno@lfdr.de>; Mon,  9 Sep 2024 17:36:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F5D3972061
+	for <lists+freedreno@lfdr.de>; Mon,  9 Sep 2024 19:24:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C62110E5B8;
-	Mon,  9 Sep 2024 15:36:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12C1110E608;
+	Mon,  9 Sep 2024 17:24:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Azi0bPw1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hODIdOXS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
- [209.85.166.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F170610E0CB;
- Mon,  9 Sep 2024 15:36:49 +0000 (UTC)
-Received: by mail-il1-f170.google.com with SMTP id
- e9e14a558f8ab-3a043390030so17842555ab.1; 
- Mon, 09 Sep 2024 08:36:49 -0700 (PDT)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75F0810E607;
+ Mon,  9 Sep 2024 17:24:22 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-53653682246so5696299e87.1; 
+ Mon, 09 Sep 2024 10:24:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725896209; x=1726501009; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=o555don3oiC4LbhNZvudRjyy7/nYs5wSbIdE6tIRHn4=;
- b=Azi0bPw1odyItwc71a2V15mYBjE/XfXDXwJ8kCjf+HbRAe/Vn9fQrhFXKPE3ftD2D4
- /eL2C/3E0zma01Ni+KWsLgczWbOwFPYvqQA6Ti3PK5ok1h5FVt+4SL0jupOQgCWoOd5K
- NMfWhZfvHj96M+EJOOOtTjrEM/L4YbxNApMiQBUBlNGwkih+cLhg5iuksB7JUNT0xZqD
- H8QDRrbSyEk1axbScl7AlCCFKGVyoKaP3pvwuh2pCVraScvWEms6+ly7MZ1UAa2kqM7b
- kcI2CV+G9MVdEzrT/ouNzYYgwsyqCnm0MEoya15RfLOUs45NfLeCAsM0AKo7DSjBDKb0
- +yqQ==
+ d=gmail.com; s=20230601; t=1725902660; x=1726507460; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=SzINnm2Ya0afTbpAAfgnl7iTn2CTj7St4+vT2jNDuJQ=;
+ b=hODIdOXSxPIitgLcdW4nxof3gH1FeS98MFyy2JuUkRtnUXcPVMu7fko+ol0ZmTPrK2
+ 01a9JqfsCY5J5GTYoM3EI2XVOKIIw5vjsiXwLnkMkP/TRY2ZrJNLeTP2MWGRi9zYL/G+
+ 1l6O6bFdQ8AUezA6hoC1qtAR/xbjQZIwBt1P6RF4x3thw+11YUzevAaHkEk9G9bJf7dG
+ ZQizK6GyFd7svQSnwuJtoWjd7ndWEh88u94NQdlqNepi0E6adJfkT3xgLZVzUJrdWMuc
+ qy0dpp5SbAWRy2Y4fl8stt3lFpKHbHP4ihHUeEuohYZ5a8wXZOc2DFVB+/n/BRqHjGZk
+ lWOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725896209; x=1726501009;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=o555don3oiC4LbhNZvudRjyy7/nYs5wSbIdE6tIRHn4=;
- b=VRTKQH6P1UJBq7yaMNN8W/6IW7yDkMVQQQWXz4zCxwcvVrluV+zbjpyLDQHDufiSuj
- W8yeONCWiGa+o/swK1NvYjDwBZTBL2zw7MA40V7g/qjd9Xt+e4rn0R7eTT2vd+JPlMTL
- H2NVNF37F6qA0BLlpGfZZ+ia87Qae2c41EKeePtNpSeVUjLsXbReeTVEId5N4yAgFSOo
- nLnnIP01jxruo5XlqDFN/tBmtSpvjJ8tnpGAaEpXVK2irM5WD3GyLYLq3j5Wh48Y/TM9
- i8mN7AainAyoGnpZqbh1XAD1azKNmc3s6u4e/A9grMBFekJ8Nr78tRhRjRZBUIr07yCR
- sFKA==
+ d=1e100.net; s=20230601; t=1725902660; x=1726507460;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:from:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=SzINnm2Ya0afTbpAAfgnl7iTn2CTj7St4+vT2jNDuJQ=;
+ b=EcoBnuYAtGoSgoboM0ootAjC9xT0c22WN5RuKvcxF5McSbsjgBc9mx1kTj9II6hyZK
+ kAVpgjh5iVV04fxTE5MixV+rIgfsO9SZYWYXxrR26W1NwjiRA8Ddz6+mfkV5fCdcY+Wv
+ 8i8SNN95tQPUvkpu+SwJ6gOzY2/8Fw0Qv9ZzbE+j9ekLN9IS8fRioImXa+PkXPvzsh21
+ ly33IdHfL0Y8ZR7TMH8oAZ1kTvPlP8G/LJXZ8gN6ecUvl9V4k5x1+904Nu0d4i7aOIi8
+ TSSFJ0ubhWGz89jn/Qijf8pAad5YMgAXBOyJrUINbrC8RaS4RW+bywnpHh4x4tK1WxB8
+ hQGw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU7BtcO2eTA2G0mh1X563uY6w2iZDFe+Qi2bd9ENBhqn1qFjX7vJ520ppv/YLvazR7eGcl1nVS7HSLs@lists.freedesktop.org,
- AJvYcCXfKZJ7mTgSEBOHhGuF4TefwGFc2wA0Lu/osldRF9bqAbwWxL/jBWZNwtmfr8ncc4qrz1BXrE4GU0w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwDQlRwVm9MoKH9VSySJfqGOFFvD01dWaD1YEpnqpGP1+2iXADy
- t7x8uj6Dw+11jApaiLpW4TIWeT+AcL2B2VraC1o/yDHy+oJNNRC8h+68VXzNAd8P0qHODctydo+
- 20YFuJuES5PaIq/tIdrIdHK7QCW8=
-X-Google-Smtp-Source: AGHT+IEQ7PpjhL1AvLnf149fn9AnLp54fSBeFsxA3zefzb71fMszaXFL5LDtBaaEqhzCMaDdFSi4xioCPJlDBQzjTA0=
-X-Received: by 2002:a05:6e02:17cd:b0:38b:48c9:55d5 with SMTP id
- e9e14a558f8ab-3a04f07e78bmr122325995ab.13.1725896208956; Mon, 09 Sep 2024
- 08:36:48 -0700 (PDT)
+ AJvYcCV2qgbWJFfIJQppOQCCkmXP3KlmrVVoo5meQ8Wt8x3tdWa1nMddGspKjhEe7lpMzHQ2Qk7kDIt9jNA=@lists.freedesktop.org,
+ AJvYcCWV+ex2KSNhpx5xQ9fsrA3nU3BVLJPhuYx9Ietq1uAWEhsrKpPwZHaZTa5c3+6DIAJqQHpdUAMomDeJ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcDPY3v58yNiwFTM7SMzKrBmFAI6U9+rO18uFH+3ZSWS2ZYMUR
+ heHYKndPldCGEC1wDwpMc3x7j1TCDDbOs/1BT/CKdk1WeHbcILzL
+X-Google-Smtp-Source: AGHT+IFkmOYlKeogDazf8XMnSUXgNmiAwvfoh3FwHyhTcsMIT75dT3NSUUQNHfQeSC4vcrbssokFxg==
+X-Received: by 2002:a05:6512:b24:b0:535:3d15:e718 with SMTP id
+ 2adb3069b0e04-536587fcf0fmr8663373e87.50.1725902659411; 
+ Mon, 09 Sep 2024 10:24:19 -0700 (PDT)
+Received: from [192.168.1.17] (host-95-246-172-178.retail.telecomitalia.it.
+ [95.246.172.178]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c3ebd52010sm3275587a12.43.2024.09.09.10.24.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Sep 2024 10:24:17 -0700 (PDT)
+Message-ID: <86b02057-3e25-45c4-afaf-597394132a37@gmail.com>
+Date: Mon, 9 Sep 2024 19:24:16 +0200
 MIME-Version: 1.0
-References: <20240905-preemption-a750-t-v3-0-fd947699f7bc@gmail.com>
- <20240906195827.at7tgesx55xt6k5o@hu-akhilpo-hyd.qualcomm.com>
-In-Reply-To: <20240906195827.at7tgesx55xt6k5o@hu-akhilpo-hyd.qualcomm.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 9 Sep 2024 08:36:37 -0700
-Message-ID: <CAF6AEGu==X-=HvXfoQycRFtameg8C=u3e+4bUFmnn4s1wJgwVw@mail.gmail.com>
-Subject: Re: [PATCH v3 00/10] Preemption support for A7XX
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/10] drm/msm/A6xx: Implement preemption for A7XX
+ targets
+From: Antonino Maniscalco <antomani103@gmail.com>
 To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Antonino Maniscalco <antomani103@gmail.com>, Sean Paul <sean@poorly.run>, 
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Jonathan Corbet <corbet@lwn.net>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Sharat Masetty <smasetty@codeaurora.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonathan Corbet <corbet@lwn.net>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20240905-preemption-a750-t-v3-0-fd947699f7bc@gmail.com>
+ <20240905-preemption-a750-t-v3-4-fd947699f7bc@gmail.com>
+ <20240906195444.owz4eralirekr7r7@hu-akhilpo-hyd.qualcomm.com>
+ <df85bf24-651c-4a35-929b-4de6c05555a1@gmail.com>
+Content-Language: en-US
+In-Reply-To: <df85bf24-651c-4a35-929b-4de6c05555a1@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,123 +101,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 6, 2024 at 12:59=E2=80=AFPM Akhil P Oommen <quic_akhilpo@quicin=
-c.com> wrote:
->
-> On Thu, Sep 05, 2024 at 04:51:18PM +0200, Antonino Maniscalco wrote:
-> > This series implements preemption for A7XX targets, which allows the GP=
-U to
-> > switch to an higher priority ring when work is pushed to it, reducing l=
-atency
-> > for high priority submissions.
-> >
-> > This series enables L1 preemption with skip_save_restore which requires
-> > the following userspace patches to function:
-> >
-> > https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/30544
-> >
-> > A flag is added to `msm_submitqueue_create` to only allow submissions
-> > from compatible userspace to be preempted, therefore maintaining
-> > compatibility.
-> >
-> > Preemption is currently only enabled by default on A750, it can be
-> > enabled on other targets through the `enable_preemption` module
-> > parameter. This is because more testing is required on other targets.
-> >
-> > For testing on other HW it is sufficient to set that parameter to a
-> > value of 1, then using the branch of mesa linked above, `TU_DEBUG=3Dhip=
-rio`
-> > allows to run any application as high priority therefore preempting
-> > submissions from other applications.
-> >
-> > The `msm_gpu_preemption_trigger` and `msm_gpu_preemption_irq` traces
-> > added in this series can be used to observe preemption's behavior as
-> > well as measuring preemption latency.
-> >
-> > Some commits from this series are based on a previous series to enable
-> > preemption on A6XX targets:
-> >
-> > https://lkml.kernel.org/1520489185-21828-1-git-send-email-smasetty@code=
-aurora.org
-> >
-> > Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
->
-> Antonino, can you please test this once with per-process pt disabled to
-> ensure that is not broken? It is handy sometimes while debugging.
-> We just need to remove "adreno-smmu" compatible string from gpu smmu
-> node in DT.
+On 9/9/24 3:15 PM, Antonino Maniscalco wrote:
+> On 9/6/24 9:54 PM, Akhil P Oommen wrote:
+>> On Thu, Sep 05, 2024 at 04:51:22PM +0200, Antonino Maniscalco wrote:
+>>> This patch implements preemption feature for A6xx targets, this allows
+>>> the GPU to switch to a higher priority ringbuffer if one is ready. A6XX
+>>> hardware as such supports multiple levels of preemption granularities,
+>>> ranging from coarse grained(ringbuffer level) to a more fine grained
+>>> such as draw-call level or a bin boundary level preemption. This patch
+>>> enables the basic preemption level, with more fine grained preemption
+>>> support to follow.
+>>>
+>>> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
+>>> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
+>>> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-QRD
+>>> ---
+>>>   drivers/gpu/drm/msm/Makefile              |   1 +
+>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 293 +++++++++++++++++++++-
+>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h     | 161 ++++++++++++
+> ...
+>>
+>> we can use the lighter smp variant here.
+>>
+>>> +
+>>> +        if (a6xx_gpu->cur_ring == ring)
+>>> +            gpu_write(gpu, REG_A6XX_CP_RB_WPTR, wptr);
+>>> +        else
+>>> +            ring->skip_inline_wptr = true;
+>>> +    } else {
+>>> +        ring->skip_inline_wptr = true;
+>>> +    }
+>>> +
+>>> +    spin_unlock_irqrestore(&ring->preempt_lock, flags);
+>>>   }
+>>>   static void get_stats_counter(struct msm_ringbuffer *ring, u32 
+>>> counter,
+>>> @@ -138,12 +231,14 @@ static void a6xx_set_pagetable(struct a6xx_gpu 
+>>> *a6xx_gpu,
+>>
+>> set_pagetable checks "cur_ctx_seqno" to see if pt switch is needed or
+>> not. This is currently not tracked separately for each ring. Can you
+>> please check that?
+> 
+> I totally missed that. Thanks for catching it!
+> 
+>>
+>> I wonder why that didn't cause any gpu errors in testing. Not sure if I
+>> am missing something.
+>>
+> 
+> I think this is because, so long as a single context doesn't submit to 
+> two different rings with differenr priorities, we will only be incorrect 
+> in the sense that we emit more page table switches than necessary and 
+> never less. However untrusted userspace could create a context that 
+> submits to two different rings and that would lead to execution in the 
+> wrong context so we must fix this.
+> 
+>>>       /*
+>>>        * Write the new TTBR0 to the memstore. This is good for 
+>>> debugging.
+>>> +     * Needed for preemption
+>>>        */
+>>> -    OUT_PKT7(ring, CP_MEM_WRITE, 4);
+>>> +    OUT_PKT7(ring, CP_MEM_WRITE, 5);
+>>>       OUT_RING(ring, CP_MEM_WRITE_0_ADDR_LO(lower_32_bits(memptr)));
+>>>       OUT_RING(ring, CP_MEM_WRITE_1_ADDR_HI(upper_32_bits(memptr)));
+>>>       OUT_RING(ring, lower_32_bits(ttbr));
+>>> -    OUT_RING(ring, (asid << 16) | upper_32_bits(ttbr));
+>>> +    OUT_RING(ring, upper_32_bits(ttbr));
+>>> +    OUT_RING(ring, ctx->seqno);
+>>>       /*
+>>>        * Sync both threads after switching pagetables and enable BR only
+>>> @@ -268,6 +363,43 @@ static void a6xx_submit(struct msm_gpu *gpu, 
+>>> struct msm_gem_submit *submit)
+>>>       a6xx_flush(gpu, ring);
+>>>   }
+> ...
+>>> +    struct a6xx_preempt_record *record_ptr =
+>>> +        a6xx_gpu->preempt[ring->id] + PREEMPT_OFFSET_PRIV_NON_SECURE;
+>>> +    u64 ttbr0 = ring->memptrs->ttbr0;
+>>> +    u32 context_idr = ring->memptrs->context_idr;
+>>> +
+>>> +    smmu_info_ptr->ttbr0 = ttbr0;
+>>> +    smmu_info_ptr->context_idr = context_idr;
+>>> +    record_ptr->wptr = get_wptr(ring);
+>>> +
+>>> +    /*
+>>> +     * The GPU will write the wptr we set above when we preempt. Reset
+>>> +     * skip_inline_wptr to make sure that we don't write WPTR to the 
+>>> same
+>>> +     * thing twice. It's still possible subsequent submissions will 
+>>> update
+>>> +     * wptr again, in which case they will set the flag to true. 
+>>> This has
+>>> +     * to be protected by the lock for setting the flag and updating 
+>>> wptr
+>>> +     * to be atomic.
+>>> +     */
+>>> +    ring->skip_inline_wptr = false;
+>>> +
+>>> +    spin_unlock_irqrestore(&ring->preempt_lock, flags);
+>>> +
+>>> +    gpu_write64(gpu,
+>>> +        REG_A6XX_CP_CONTEXT_SWITCH_SMMU_INFO,
+>>> +        a6xx_gpu->preempt_iova[ring->id] + PREEMPT_OFFSET_SMMU_INFO);
+>>> +
+>>> +    gpu_write64(gpu,
+>>> +        REG_A6XX_CP_CONTEXT_SWITCH_PRIV_NON_SECURE_RESTORE_ADDR,
+>>> +        a6xx_gpu->preempt_iova[ring->id] + 
+>>> PREEMPT_OFFSET_PRIV_NON_SECURE);
+>>> +
+>>> +    preempt_offset_priv_secure =
+>>> +        
+>>> PREEMPT_OFFSET_PRIV_SECURE(adreno_gpu->info->preempt_record_size);
+>>> +    gpu_write64(gpu,
+>>> +        REG_A6XX_CP_CONTEXT_SWITCH_PRIV_SECURE_RESTORE_ADDR,
+>>> +        a6xx_gpu->preempt_iova[ring->id] + preempt_offset_priv_secure);
+>>
+>> Secure buffers are not supported currently, so we can skip this and the
+>> context record allocation. Anyway this has to be a separate buffer
+>> mapped in secure pagetable which don't currently have. We can skip the
+>> same in pseudo register packet too.
+>>
+> 
+> Mmm it would appear that not setting it causes an hang very early. I'll 
+> see if I can find out more about what is going on.
 
-fwiw, I'd be ok supporting preemption on devices that have per-process
-pgtables.  (And maybe we should be tainting the kernel if per-process
-pgtables are disabled on a6xx+)
+Actually it was a mistake I had made when testing. The secure record 
+will be gone from the next revision.
 
-BR,
--R
+> 
+>>> +
+>>> +    a6xx_gpu->next_ring = ring;
+>>> +
+> ...
+>>>   struct msm_ringbuffer *msm_ringbuffer_new(struct msm_gpu *gpu, int id,
+>>>
+>>> -- 
+>>> 2.46.0
+>>>
+> 
+> Best regards,
 
-> -Akhil.
->
-> > ---
-> > Changes in v3:
-> > - Added documentation about preemption
-> > - Use quirks to determine which target supports preemption
-> > - Add a module parameter to force disabling or enabling preemption
-> > - Clear postamble when profiling
-> > - Define A6XX_CP_CONTEXT_SWITCH_CNTL_LEVEL fields in a6xx.xml
-> > - Make preemption records MAP_PRIV
-> > - Removed user ctx record (NON_PRIV) and patch 2/9 as it's not needed
-> >   anymore
-> > - Link to v2: https://lore.kernel.org/r/20240830-preemption-a750-t-v2-0=
--86aeead2cd80@gmail.com
-> >
-> > Changes in v2:
-> > - Added preept_record_size for X185 in PATCH 3/7
-> > - Added patches to reset perf counters
-> > - Dropped unused defines
-> > - Dropped unused variable (fixes warning)
-> > - Only enable preemption on a750
-> > - Reject MSM_SUBMITQUEUE_ALLOW_PREEMPT for unsupported targets
-> > - Added Akhil's Reviewed-By tags to patches 1/9,2/9,3/9
-> > - Added Neil's Tested-By tags
-> > - Added explanation for UAPI changes in commit message
-> > - Link to v1: https://lore.kernel.org/r/20240815-preemption-a750-t-v1-0=
--7bda26c34037@gmail.com
-> >
-> > ---
-> > Antonino Maniscalco (10):
-> >       drm/msm: Fix bv_fence being used as bv_rptr
-> >       drm/msm: Add a `preempt_record_size` field
-> >       drm/msm: Add CONTEXT_SWITCH_CNTL bitfields
-> >       drm/msm/A6xx: Implement preemption for A7XX targets
-> >       drm/msm/A6xx: Sync relevant adreno_pm4.xml changes
-> >       drm/msm/A6xx: Use posamble to reset counters on preemption
-> >       drm/msm/A6xx: Add traces for preemption
-> >       drm/msm/A6XX: Add a flag to allow preemption to submitqueue_creat=
-e
-> >       drm/msm/A6xx: Enable preemption for A750
-> >       Documentation: document adreno preemption
-> >
-> >  Documentation/gpu/msm-preemption.rst               |  98 +++++
-> >  drivers/gpu/drm/msm/Makefile                       |   1 +
-> >  drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |   7 +-
-> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c              | 331 +++++++++++++=
-++-
-> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.h              | 166 ++++++++
-> >  drivers/gpu/drm/msm/adreno/a6xx_preempt.c          | 430 +++++++++++++=
-++++++++
-> >  drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   9 +-
-> >  drivers/gpu/drm/msm/msm_drv.c                      |   4 +
-> >  drivers/gpu/drm/msm/msm_gpu_trace.h                |  28 ++
-> >  drivers/gpu/drm/msm/msm_ringbuffer.h               |   8 +
-> >  drivers/gpu/drm/msm/msm_submitqueue.c              |   3 +
-> >  drivers/gpu/drm/msm/registers/adreno/a6xx.xml      |   7 +-
-> >  .../gpu/drm/msm/registers/adreno/adreno_pm4.xml    |  39 +-
-> >  include/uapi/drm/msm_drm.h                         |   5 +-
-> >  14 files changed, 1094 insertions(+), 42 deletions(-)
-> > ---
-> > base-commit: 7c626ce4bae1ac14f60076d00eafe71af30450ba
-> > change-id: 20240815-preemption-a750-t-fcee9a844b39
-> >
-> > Best regards,
-> > --
-> > Antonino Maniscalco <antomani103@gmail.com>
-> >
+Best regards,
+-- 
+Antonino Maniscalco <antomani103@gmail.com>
+
