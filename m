@@ -2,63 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC31A972798
-	for <lists+freedreno@lfdr.de>; Tue, 10 Sep 2024 05:18:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8777972C5B
+	for <lists+freedreno@lfdr.de>; Tue, 10 Sep 2024 10:40:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04B5D10E0BB;
-	Tue, 10 Sep 2024 03:18:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83BD310E5C1;
+	Tue, 10 Sep 2024 08:40:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=vignesh.raman@collabora.com header.b="BQxSpvV9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VZfHL4E5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E06FB10E0BB;
- Tue, 10 Sep 2024 03:18:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1725938298; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=VtqSFNbvf928VOWfGCBQfRRCv3+VORszN9+RYtZf4MoCqQKRyzxAYTiP/oF/zSz3EXx2yAZI63TcHgaZ28Eb7xZr0RV10ZNz58bgPy0+tD0glIETDirBT155k+nanEjhKj7bjLU4l1BQM4AeBznIOrH+lQekl09SHN7Q2VhNmOk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1725938298;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=zMNgk/4ul36ty1KhK1x7zRnURtnot5pmmHU7u4Zm8jM=; 
- b=iLWCo3/ajouoadXqSC+64xrgpDZ/0DKAX24OOUewf38/4vA4Orxk30eDlANQi89pdkTZnX9kktnokEJkkSoFbaG4YmjfeCjIOLIbTCf8xZ3urgp5pkSDlKLBygjryZBBfh1SATcDYbJb0dCJwMKxpNpApTtkGvAsTS9kC+pVTEI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=vignesh.raman@collabora.com;
- dmarc=pass header.from=<vignesh.raman@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1725938298; 
- s=zohomail; d=collabora.com; i=vignesh.raman@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=zMNgk/4ul36ty1KhK1x7zRnURtnot5pmmHU7u4Zm8jM=;
- b=BQxSpvV9Z3y2YpL/qH7qEptaokZujRj7WbxQflp8GOwDPh7OOQqSOrO90E34sXqY
- BkirA/UEIkyhwTu85sZu2UDkUGwLMNqJElxzcHkRGaedDCvTpawyDmVsdetLP7E1Vzp
- 6cU7zO/ZcLCNijpPM3MgLbYrPiNqHdnpC7gIZJxA=
-Received: by mx.zohomail.com with SMTPS id 1725938296652565.1949948862483;
- Mon, 9 Sep 2024 20:18:16 -0700 (PDT)
-Message-ID: <64bc4bcf-de51-4e60-a9f7-1295a1e64c65@collabora.com>
-Date: Tue, 10 Sep 2024 08:48:09 +0530
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2C0210E70D;
+ Tue, 10 Sep 2024 08:40:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 0C557A442A3;
+ Tue, 10 Sep 2024 08:40:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3341C4CEC3;
+ Tue, 10 Sep 2024 08:40:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1725957641;
+ bh=fsRDU8wvHNbE3TrTlHlzeag4AIzuPwRtsz4XLaVWCOo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VZfHL4E58gsKWGd76dFjLQ6ho7Ez6+TYzBWDhMAgxL2bQ7jeHIusX1C+aLUCTQy3P
+ 27c1hMl1uXWVbJid/oN4YIYABYcxxN43sTL1Ptygw4kUEXVHe66rwUBuzDY3eqwZZA
+ zw3Cu6YBFs6+RuKYsr4h7I9aYxIgWVBJ/7YWPR6K8vIM51XJWN0vb2gR1jx+NGwDTh
+ ParUag1s4e7/z2HXRSBSCWbNWoZhhUjg3nq4MObIhmLJxfp4bYZc66Y3ENfrpFtTS4
+ BuDvDjwWOMQkgzM3ACF3hAZL+/UqIL2IIYQUQfY6JhKmq1YQ7unA3aU+0yPxHEyure
+ 0hg6a8UeI3UfQ==
+Date: Tue, 10 Sep 2024 10:40:38 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: dri-devel@lists.freedesktop.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, robdclark@gmail.com,
+ dmitry.baryshkov@linaro.org, 
+ quic_jesszhan@quicinc.com, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] drm: allow encoder mode_set even when connectors
+ change for crtc
+Message-ID: <20240910-liberal-platinum-scorpion-d43cff@houat>
+References: <20240905221124.2587271-1-quic_abhinavk@quicinc.com>
+ <20240909-neat-stoic-hamster-cbbe42@houat>
+ <33f29f1c-157a-424e-89c6-c1549a2d6403@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drm-ci: flaky tests for msm driver testing
-From: Vignesh Raman <vignesh.raman@collabora.com>
-To: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
-Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch,
- Daniel Stone <daniels@collabora.com>,
- Helen Mae Koike Fornazier <helen.koike@collabora.com>,
- Sergi Blanch Torne <sergi.blanch.torne@collabora.com>,
- Guilherme Alcarde Gallo <guilherme.gallo@collabora.com>
-References: <661483c8-ad82-400d-bcd8-e94986d20d7d@collabora.com>
- <c96d719b-1d26-4f16-812f-ede92da3869f@collabora.com>
-Content-Language: en-US
-In-Reply-To: <c96d719b-1d26-4f16-812f-ede92da3869f@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="7jrcqjaerdfyqd4f"
+Content-Disposition: inline
+In-Reply-To: <33f29f1c-157a-424e-89c6-c1549a2d6403@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,121 +67,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Maintainers,
 
-On 12/07/24 11:35, Vignesh Raman wrote:
-> Hi Maintainers,
-> 
-> On 28/05/24 11:39, Vignesh Raman wrote:
->> Hi Maintainers,
->>
->> There are some flaky tests reported for msm driver testing in drm-ci 
->> for the below boards.
->>
->> *)
->> # Board Name: apq8096-db820c
->> # IGT Version: 1.28-g0df7b9b97
->> # Linux Version: 6.9.0-rc7
->> # Failure Rate: 50
->> dumb_buffer@create-clear
->>
->> *)
->> # Board Name: sc7180-trogdor-kingoftown
->> # IGT Version: 1.28-g0df7b9b97
->> # Linux Version: 6.9.0-rc7
->> # Failure Rate: 50
->> msm_mapping@shadow
->> msm_shrink@copy-gpu-oom-32
->> msm_shrink@copy-gpu-oom-8
->>
->> *)
->> # Board Name: sc7180-trogdor-lazor-limozeen-nots-r5
->> # IGT Version: 1.28-g0df7b9b97
->> # Linux Version: 6.9.0-rc7
->> # Failure Rate: 50
->> msm_mapping@shadow
->>
->> *)
->> # Board Name: sdm845-cheza-r3
->> # IGT Version: 1.28-g0df7b9b97
->> # Linux Version: 6.9.0-rc7
->> # Failure Rate: 50
->> kms_cursor_legacy@basic-flip-after-cursor-atomic
->> kms_cursor_legacy@basic-flip-after-cursor-legacy
->> kms_cursor_legacy@basic-flip-after-cursor-varying-size
->> kms_cursor_legacy@basic-flip-before-cursor-varying-size
->> kms_cursor_legacy@flip-vs-cursor-atomic-transitions
->> kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size
->> kms_cursor_legacy@flip-vs-cursor-varying-size
->> kms_cursor_legacy@short-flip-after-cursor-atomic-transitions
->> kms_cursor_legacy@short-flip-after-cursor-atomic-transitions-varying-size
->> kms_cursor_legacy@short-flip-after-cursor-toggle
->> kms_cursor_legacy@short-flip-before-cursor-atomic-transitions
->> kms_cursor_legacy@short-flip-before-cursor-atomic-transitions-varying-size
->> msm_shrink@copy-gpu-32
->> msm_shrink@copy-gpu-oom-32
->>
->> Will add these tests in,
->> drivers/gpu/drm/ci/xfails/msm-apq8096-flakes.txt
->> drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-flakes.txt
->> drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-flakes.txt
->> drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt
->>
->> (https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/Documentation/gpu/automated_testing.rst#n70)
->>
->> Please could you have a look at these test results and let us know if 
->> you need more information. Thank you.
-> 
-> There are some flaky tests reported for msm driver testing in drm-ci 
-> with the recent IGT uprev 
-> (https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/0e7f4e6a20d550252c4f355d5a303b1d9c8ff052)
-> 
-> *)
-> # Board Name: sc7180-trogdor-lazor-limozeen-nots-r5
-> # Bug Report: 
-> https://lore.kernel.org/linux-arm-msm/661483c8-ad82-400d-bcd8-e94986d20d7d@collabora.com/T/#u
-> # Failure Rate: 100
-> # IGT Version: 1.28-gf13702b8e
-> # Linux Version: 6.10.0-rc5
-> kms_lease@page-flip-implicit-plane
-> 
-> *)
-> # Board Name: sdm845-cheza-r3
-> # Bug Report: 
-> https://lore.kernel.org/linux-arm-msm/661483c8-ad82-400d-bcd8-e94986d20d7d@collabora.com/T/#u
-> # Failure Rate: 50
-> # IGT Version: 1.28-gf13702b8e
-> # Linux Version: 6.10.0-rc5
-> kms_cursor_legacy@short-flip-before-cursor-toggle
-> kms_cursor_legacy@flip-vs-cursor-toggle
-> msm/msm_shrink@copy-mmap-oom-8s
-> 
-> The expectation files have been updated with these tests,
-> https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-lazor-limozeen-flakes.txt
-> 
-> https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt
+--7jrcqjaerdfyqd4f
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-There are some flaky tests reported for msm driver testing in drm-ci 
-with the recent IGT uprev.
+Hi,
 
-# Board Name: sdm845-cheza-r3
-# Failure Rate: 50
-# IGT Version: 1.28-ga73311079
-# Linux Version: 6.11.0-rc2
-kms_lease@page-flip-implicit-plane
+On Mon, Sep 09, 2024 at 12:59:47PM GMT, Abhinav Kumar wrote:
+> On 9/9/2024 6:37 AM, Maxime Ripard wrote:
+> > Hi,
+> >=20
+> > On Thu, Sep 05, 2024 at 03:11:24PM GMT, Abhinav Kumar wrote:
+> > > In certain use-cases, a CRTC could switch between two encoders
+> > > and because the mode being programmed on the CRTC remains
+> > > the same during this switch, the CRTC's mode_changed remains false.
+> > > In such cases, the encoder's mode_set also gets skipped.
+> > >=20
+> > > Skipping mode_set on the encoder for such cases could cause an issue
+> > > because even though the same CRTC mode was being used, the encoder
+> > > type could have changed like the CRTC could have switched from a
+> > > real time encoder to a writeback encoder OR vice-versa.
+> > >=20
+> > > Allow encoder's mode_set to happen even when connectors changed on a
+> > > CRTC and not just when the mode changed.
+> > >=20
+> > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> >=20
+> > The patch and rationale looks sane to me, but we should really add kunit
+> > tests for that scenarii.
+> >=20
+>=20
+> Thanks for the review.
+>=20
+> We have a IGT for recreating this scenario and thats how this issue was
+> captured
+>=20
+> kms_writeback --run-subtest writeback-check-output -c <primary display mo=
+de>
+>=20
+> We had added an option ( 'c' - custom mode) a couple of yrs ago to allow
+> writeback to be tested using any mode the user passes in (https://lore.ke=
+rnel.org/r/all/YuJhGkkxah9U6FGx@platvala-desk.ger.corp.intel.com/T/)
+>=20
+> If we pass in the same resolution as the primary RT display, this scenario
+> always happens as the CRTC switches between RT encoder and WB encoder. Ho=
+pe
+> that addresses some of the concern.
 
-# Board Name: sdm845-cheza-r3
-# Failure Rate: 50
-# IGT Version: 1.28-ga73311079
-# Linux Version: 6.11.0-rc5
-kms_flip@flip-vs-expired-vblank
+Unless it can easily be run in some sort of CI loop by anyone
+contributing to that part of the kernel, it doesn't.
 
-The expectation files have been updated with these tests,
+Don't get me wrong, it's a great feature, but it doesn't help making
+sure that issue never creeps back in.
 
-https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/drivers/gpu/drm/ci/xfails/msm-sdm845-flakes.txt
+> Regarding KUnit tests, I have a couple of questions:
+>=20
+> 1) This is more of a run-time scenario where CRTC switch happens, does th=
+is
+> qualify for a KUnit or perhaps I am missing something.
 
-Please could you have a look at these test results and let us know if 
-you need more information. Thank you.
+We've been using kunit to perform integration tests in the kernel too,
+so I would say that it definitely qualifies.
 
-Regards,
-Vignesh
+> 2) Is there any existing KUnit test file under drm/tests for validating
+> drm_atomic_helper_commit_modeset_disables() /
+> drm_atomic_helper_commit_modeset_enables() path because this will fall un=
+der
+> that bucket. I didnt find any matching case where we can extend this.
+
+We don't have that at the moment, but we shouldn't be too far off. The
+HDMI framework I contributed some months ago for example has all the
+mode checking infrastructure in kunit. So you already have some way to
+create a driver, a new state, modify that state and check it.
+
+The only thing missing in your case is being able to commit it and check
+that it has run, which shouldn't be too hard
+
+Maxime
+
+--7jrcqjaerdfyqd4f
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZuAGAQAKCRAnX84Zoj2+
+dpLoAXkBK8JwrsVQuf2LqGLxeVqzaRJ7su/AdURL0fGlvmHKMl3Gkfnx6EVK9WHW
+GYEp1HsBgJDp26/ccf7xUubr49cUDSZdR0n193929c9G9IRMkPKs7AJzrsWJDWu0
+Vo4Ay1itUw==
+=GnqI
+-----END PGP SIGNATURE-----
+
+--7jrcqjaerdfyqd4f--
