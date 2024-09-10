@@ -2,94 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73D36973DAA
-	for <lists+freedreno@lfdr.de>; Tue, 10 Sep 2024 18:49:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D32779744E3
+	for <lists+freedreno@lfdr.de>; Tue, 10 Sep 2024 23:34:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 462DB10E893;
-	Tue, 10 Sep 2024 16:49:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC96C10E92B;
+	Tue, 10 Sep 2024 21:34:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="LhtGBZYG";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="JKKEHfgP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C700310E88E;
- Tue, 10 Sep 2024 16:49:47 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48AEGH1R026724;
- Tue, 10 Sep 2024 16:49:16 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C136410E92B;
+ Tue, 10 Sep 2024 21:34:28 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48AFAGOW020308;
+ Tue, 10 Sep 2024 21:34:23 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- WRfTqMixwBg5SoLzyK2dFDLuqgG8kDpuG6PKjOadqIA=; b=LhtGBZYGnYBflcZh
- uS6/VzRRzlEEmcZnqfHKQNhZJfM0HhoGdVvfn3BBbOU0RvgHXgIffquZiI4Iw9UQ
- hztowMOu8Xaz+8qWy+92vbDqx1geC8j2oreu6A6BgTSyvhfK7eq12HYkKYFJ9Jw7
- bZXFsURKSd1Fi2YSlTYMW+WCn2TZEd54DpXb2YwCVgeb5y3l2gGNo0L69LHYH9yH
- G6zzMJRYwetsl2Khs34oOMNmiGy5pJQOVxWxw3cV0DPC481Czz0J3/vMk08TLYri
- dVnU6gvTu2P2lMNDiRR5im3EJ6CtlRYHlFHPnfM+hSxWPvknZR8YjesSmBUHiH2Z
- k9B0Tw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=/8YvRtEGh/rrd/XSJPHpbJwX
+ vwaw+cSYdAjRpmZdS8I=; b=JKKEHfgP3Q1Jqn6S5q3agtg/IfkQzfZtyFPvK/ni
+ s34GefNv8GVNx+D0MAdfXEjDjwtIaF1GwrXHcIYi2426wUOWMq8basvfl4YMswx4
+ hCICETA7wY22eCG7VpjL7OgUc7/y715YQwNdzPc8A5oTBM+IpLB68x8zb07kxwPL
+ km/dcIRHjC7kS0MpyksP9s8lvMzvjOdgZIjYKBIP28YlejsR2QgBoiuzhCsF77Qm
+ WDRUj87QCjv6BiU4xCTOXTBn2pDvjAW5WId2ouulfEp5fuhZc7GUMsQtgobZvz+t
+ s+IhhrOOzWL7mUEdD7FxFOwCqGkOwsibcJXsndvgylRLoA==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41gy6e6rbt-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41he5dxn11-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Sep 2024 16:49:15 +0000 (GMT)
+ Tue, 10 Sep 2024 21:34:22 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48AGnDmR004165
+ by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48ALYLYm010958
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Sep 2024 16:49:14 GMT
+ Tue, 10 Sep 2024 21:34:21 GMT
 Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 10 Sep 2024 09:49:08 -0700
-Date: Tue, 10 Sep 2024 22:19:04 +0530
+ 15.2.1544.9; Tue, 10 Sep 2024 14:34:16 -0700
+Date: Wed, 11 Sep 2024 03:04:12 +0530
 From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>
-CC: Connor Abbott <cwabbott0@gmail.com>, Antonino Maniscalco
- <antomani103@gmail.com>, Sean Paul <sean@poorly.run>, Konrad Dybcio
- <konrad.dybcio@linaro.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>, Maarten Lankhorst
+To: Antonino Maniscalco <antomani103@gmail.com>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konrad.dybcio@linaro.org>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, "Daniel Vetter" <daniel@ffwll.ch>, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Jonathan Corbet <corbet@lwn.net>, <linux-arm-msm@vger.kernel.org>,
  <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>, "Neil
- Armstrong" <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 04/10] drm/msm/A6xx: Implement preemption for A7XX
- targets
-Message-ID: <20240910164904.7ibuhbkcwh3jdzdd@hu-akhilpo-hyd.qualcomm.com>
+ <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v3 06/10] drm/msm/A6xx: Use posamble to reset counters on
+ preemption
+Message-ID: <20240910213412.xfw6abex5aqp7b66@hu-akhilpo-hyd.qualcomm.com>
 References: <20240905-preemption-a750-t-v3-0-fd947699f7bc@gmail.com>
- <20240905-preemption-a750-t-v3-4-fd947699f7bc@gmail.com>
- <20240906195444.owz4eralirekr7r7@hu-akhilpo-hyd.qualcomm.com>
- <df85bf24-651c-4a35-929b-4de6c05555a1@gmail.com>
- <CACu1E7GSMQHa6258hV2OwS5nTGh+kTeZ-qQPMfGTy5YVP5kX3g@mail.gmail.com>
- <CAF6AEGvv60CS43dCijsUCzELLn=t1PJQVCzMx01cFJsNJ1Uk9g@mail.gmail.com>
+ <20240905-preemption-a750-t-v3-6-fd947699f7bc@gmail.com>
+ <20240906200847.ajcrpikzl65fwbjz@hu-akhilpo-hyd.qualcomm.com>
+ <69efbf90-7ce1-429f-bf3a-d19acd7d649d@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGvv60CS43dCijsUCzELLn=t1PJQVCzMx01cFJsNJ1Uk9g@mail.gmail.com>
+In-Reply-To: <69efbf90-7ce1-429f-bf3a-d19acd7d649d@gmail.com>
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: mQtTwW6fkpMvxOSgBMwIcuWuwxw0wPov
-X-Proofpoint-ORIG-GUID: mQtTwW6fkpMvxOSgBMwIcuWuwxw0wPov
+X-Proofpoint-ORIG-GUID: -LsNJKvZl1vFyAp3lzcqKu6XdHnPxM5V
+X-Proofpoint-GUID: -LsNJKvZl1vFyAp3lzcqKu6XdHnPxM5V
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0
- bulkscore=0 clxscore=1015 mlxscore=0 lowpriorityscore=0 impostorscore=0
- mlxlogscore=999 spamscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2408220000
- definitions=main-2409100125
+ spamscore=0 clxscore=1015
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ malwarescore=0 mlxscore=0 phishscore=0 bulkscore=0 adultscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2408220000 definitions=main-2409100161
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,79 +99,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Sep 09, 2024 at 07:40:07AM -0700, Rob Clark wrote:
-> On Mon, Sep 9, 2024 at 6:43 AM Connor Abbott <cwabbott0@gmail.com> wrote:
-> >
-> > On Mon, Sep 9, 2024 at 2:15 PM Antonino Maniscalco
-> > <antomani103@gmail.com> wrote:
-> > >
-> > > On 9/6/24 9:54 PM, Akhil P Oommen wrote:
-> > > > On Thu, Sep 05, 2024 at 04:51:22PM +0200, Antonino Maniscalco wrote:
-> > > >> This patch implements preemption feature for A6xx targets, this allows
-> > > >> the GPU to switch to a higher priority ringbuffer if one is ready. A6XX
-> > > >> hardware as such supports multiple levels of preemption granularities,
-> > > >> ranging from coarse grained(ringbuffer level) to a more fine grained
-> > > >> such as draw-call level or a bin boundary level preemption. This patch
-> > > >> enables the basic preemption level, with more fine grained preemption
-> > > >> support to follow.
-> > > >>
-> > > >> Signed-off-by: Sharat Masetty <smasetty@codeaurora.org>
-> > > >> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
-> > > >> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-QRD
-> > > >> ---
-> > > >>   drivers/gpu/drm/msm/Makefile              |   1 +
-> > > >>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 293 +++++++++++++++++++++-
-> > > >>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h     | 161 ++++++++++++
-> > > ...
-> > > >
-> > > > we can use the lighter smp variant here.
-> > > >
-> > > >> +
-> > > >> +            if (a6xx_gpu->cur_ring == ring)
-> > > >> +                    gpu_write(gpu, REG_A6XX_CP_RB_WPTR, wptr);
-> > > >> +            else
-> > > >> +                    ring->skip_inline_wptr = true;
-> > > >> +    } else {
-> > > >> +            ring->skip_inline_wptr = true;
-> > > >> +    }
-> > > >> +
-> > > >> +    spin_unlock_irqrestore(&ring->preempt_lock, flags);
-> > > >>   }
-> > > >>
-> > > >>   static void get_stats_counter(struct msm_ringbuffer *ring, u32 counter,
-> > > >> @@ -138,12 +231,14 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
-> > > >
-> > > > set_pagetable checks "cur_ctx_seqno" to see if pt switch is needed or
-> > > > not. This is currently not tracked separately for each ring. Can you
-> > > > please check that?
-> > >
-> > > I totally missed that. Thanks for catching it!
-> > >
-> > > >
-> > > > I wonder why that didn't cause any gpu errors in testing. Not sure if I
-> > > > am missing something.
-> > > >
-> > >
-> > > I think this is because, so long as a single context doesn't submit to
-> > > two different rings with differenr priorities, we will only be incorrect
-> > > in the sense that we emit more page table switches than necessary and
-> > > never less. However untrusted userspace could create a context that
-> > > submits to two different rings and that would lead to execution in the
-> > > wrong context so we must fix this.
+On Mon, Sep 09, 2024 at 05:07:42PM +0200, Antonino Maniscalco wrote:
+> On 9/6/24 10:08 PM, Akhil P Oommen wrote:
+> > On Thu, Sep 05, 2024 at 04:51:24PM +0200, Antonino Maniscalco wrote:
+> > > Use the postamble to reset perf counters when switching between rings,
+> > > except when sysprof is enabled, analogously to how they are reset
+> > > between submissions when switching pagetables.
+> > > 
+> > > Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
+> > > ---
+> > >   drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 20 ++++++++++++++++++-
+> > >   drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  5 +++++
+> > >   drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 32 +++++++++++++++++++++++++++++++
+> > >   drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  7 +++++--
+> > >   4 files changed, 61 insertions(+), 3 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > > index ed0b138a2d66..710ec3ce2923 100644
+> > > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > > @@ -366,7 +366,8 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+> > >   static void a6xx_emit_set_pseudo_reg(struct msm_ringbuffer *ring,
+> > >   		struct a6xx_gpu *a6xx_gpu, struct msm_gpu_submitqueue *queue)
+> > >   {
+> > > -	u64 preempt_offset_priv_secure;
+> > > +	bool sysprof = refcount_read(&a6xx_gpu->base.base.sysprof_active) > 1;
+> > > +	u64 preempt_offset_priv_secure, preempt_postamble;
+> > >   	OUT_PKT7(ring, CP_SET_PSEUDO_REG, 15);
+> > > @@ -398,6 +399,23 @@ static void a6xx_emit_set_pseudo_reg(struct msm_ringbuffer *ring,
+> > >   	/* seems OK to set to 0 to disable it */
+> > >   	OUT_RING(ring, 0);
+> > >   	OUT_RING(ring, 0);
+> > > +
+> > > +	/* if not profiling set postamble to clear perfcounters, else clear it */
+> > > +	if (!sysprof && a6xx_gpu->preempt_postamble_len) {
 
-Yep, it would be a security bug!
+Setting len = 0 is enough to skip processing postamble packets. So how
+about a simpler:
 
--Akhil
+len = a6xx_gpu->preempt_postamble_len;
+if (sysprof)
+	len = 0;
 
-> >
-> > FWIW, in Mesa in the future we may want to expose multiple Vulkan
-> > queues per device. Then this would definitely blow up.
+OUT_PKT7(ring, CP_SET_AMBLE, 3);
+OUT_RING(ring, lower_32_bits(preempt_postamble));
+OUT_RING(ring, upper_32_bits(preempt_postamble));
+OUT_RING(ring, CP_SET_AMBLE_2_DWORDS(len) |
+		CP_SET_AMBLE_2_TYPE(KMD_AMBLE_TYPE));
+
+> > > +		preempt_postamble = a6xx_gpu->preempt_postamble_iova;
+> > > +
+> > > +		OUT_PKT7(ring, CP_SET_AMBLE, 3);
+> > > +		OUT_RING(ring, lower_32_bits(preempt_postamble));
+> > > +		OUT_RING(ring, upper_32_bits(preempt_postamble));
+> > > +		OUT_RING(ring, CP_SET_AMBLE_2_DWORDS(
+> > > +					a6xx_gpu->preempt_postamble_len) |
+> > > +				CP_SET_AMBLE_2_TYPE(KMD_AMBLE_TYPE));
+> > > +	} else {
+> > 
+> > Why do we need this else part?
 > 
-> This will actually be required by future android versions, with the
-> switch to vk hwui backend (because apparently locking is hard, the
-> solution was to use different queue's for different threads)
+> Wouldn't the postmable remain set if we don't explicitly set it to 0?
+
+Aah, that is a genuine concern. I am not sure! Lets keep it.
+
 > 
-> https://gitlab.freedesktop.org/mesa/mesa/-/issues/11326
+> > 
+> > > +		OUT_PKT7(ring, CP_SET_AMBLE, 3);
+> > > +		OUT_RING(ring, 0);
+> > > +		OUT_RING(ring, 0);
+> > > +		OUT_RING(ring, CP_SET_AMBLE_2_TYPE(KMD_AMBLE_TYPE));
+> > > +	}
+> > >   }
+> > >   static void a7xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+> > > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> > > index da10060e38dc..b009732c08c5 100644
+> > > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> > > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+> > > @@ -71,6 +71,11 @@ struct a6xx_gpu {
+> > >   	bool uses_gmem;
+> > >   	bool skip_save_restore;
+> > > +	struct drm_gem_object *preempt_postamble_bo;
+> > > +	void *preempt_postamble_ptr;
+> > > +	uint64_t preempt_postamble_iova;
+> > > +	uint64_t preempt_postamble_len;
+> > > +
+> > >   	struct a6xx_gmu gmu;
+> > >   	struct drm_gem_object *shadow_bo;
+> > > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> > > index 1caff76aca6e..ec44f44d925f 100644
+> > > --- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> > > +++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+> > > @@ -346,6 +346,28 @@ static int preempt_init_ring(struct a6xx_gpu *a6xx_gpu,
+> > >   	return 0;
+> > >   }
+> > > +static void preempt_prepare_postamble(struct a6xx_gpu *a6xx_gpu)
+> > > +{
+> > > +	u32 *postamble = a6xx_gpu->preempt_postamble_ptr;
+> > > +	u32 count = 0;
+> > > +
+> > > +	postamble[count++] = PKT7(CP_REG_RMW, 3);
+> > > +	postamble[count++] = REG_A6XX_RBBM_PERFCTR_SRAM_INIT_CMD;
+> > > +	postamble[count++] = 0;
+> > > +	postamble[count++] = 1;
+> > > +
+> > > +	postamble[count++] = PKT7(CP_WAIT_REG_MEM, 6);
+> > > +	postamble[count++] = CP_WAIT_REG_MEM_0_FUNCTION(WRITE_EQ);
+> > > +	postamble[count++] = CP_WAIT_REG_MEM_1_POLL_ADDR_LO(
+> > > +				REG_A6XX_RBBM_PERFCTR_SRAM_INIT_STATUS);
+> > > +	postamble[count++] = CP_WAIT_REG_MEM_2_POLL_ADDR_HI(0);
+> > > +	postamble[count++] = CP_WAIT_REG_MEM_3_REF(0x1);
+> > > +	postamble[count++] = CP_WAIT_REG_MEM_4_MASK(0x1);
+> > > +	postamble[count++] = CP_WAIT_REG_MEM_5_DELAY_LOOP_CYCLES(0);
+> > 
+> > Isn't it better to just replace this with NOP packets when sysprof is
+> > enabled, just before triggering preemption? It will help to have an
+> > immediate effect.
+> > 
+> > -Akhil
+> > 
 > 
-> BR,
-> -R
+> Mmm, this being a postamble I wonder whether we have the guarantee that it
+> finishes execution before the IRQ is called so updating it doesn't race with
+> the CP executing it.
+
+Yes, it will be complete. But on a second thought now, this suggestion from me
+looks like an overkill.
+
+-Akhil.
+
+> 
+> > > +
+> > > +	a6xx_gpu->preempt_postamble_len = count;
+> > > +}
+> > > +
+> > >   void a6xx_preempt_fini(struct msm_gpu *gpu)
+> > >   {
+> > >   	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+> > > @@ -376,6 +398,16 @@ void a6xx_preempt_init(struct msm_gpu *gpu)
+> > >   	a6xx_gpu->uses_gmem = 1;
+> > >   	a6xx_gpu->skip_save_restore = 1;
+> > > +	a6xx_gpu->preempt_postamble_ptr  = msm_gem_kernel_new(gpu->dev,
+> > > +			PAGE_SIZE, MSM_BO_WC | MSM_BO_MAP_PRIV,
+> > > +			gpu->aspace, &a6xx_gpu->preempt_postamble_bo,
+> > > +			&a6xx_gpu->preempt_postamble_iova);
+> > > +
+> > > +	preempt_prepare_postamble(a6xx_gpu);
+> > > +
+> > > +	if (IS_ERR(a6xx_gpu->preempt_postamble_ptr))
+> > > +		goto fail;
+> > > +
+> > >   	timer_setup(&a6xx_gpu->preempt_timer, a6xx_preempt_timer, 0);
+> > >   	return;
+> > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > > index 6b1888280a83..87098567483b 100644
+> > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > > @@ -610,12 +610,15 @@ OUT_PKT4(struct msm_ringbuffer *ring, uint16_t regindx, uint16_t cnt)
+> > >   	OUT_RING(ring, PKT4(regindx, cnt));
+> > >   }
+> > > +#define PKT7(opcode, cnt) \
+> > > +	(CP_TYPE7_PKT | (cnt << 0) | (PM4_PARITY(cnt) << 15) | \
+> > > +		((opcode & 0x7F) << 16) | (PM4_PARITY(opcode) << 23))
+> > > +
+> > >   static inline void
+> > >   OUT_PKT7(struct msm_ringbuffer *ring, uint8_t opcode, uint16_t cnt)
+> > >   {
+> > >   	adreno_wait_ring(ring, cnt + 1);
+> > > -	OUT_RING(ring, CP_TYPE7_PKT | (cnt << 0) | (PM4_PARITY(cnt) << 15) |
+> > > -		((opcode & 0x7F) << 16) | (PM4_PARITY(opcode) << 23));
+> > > +	OUT_RING(ring, PKT7(opcode, cnt));
+> > >   }
+> > >   struct msm_gpu *a2xx_gpu_init(struct drm_device *dev);
+> > > 
+> > > -- 
+> > > 2.46.0
+> > > 
+> 
+> Best regards,
+> -- 
+> Antonino Maniscalco <antomani103@gmail.com>
+> 
