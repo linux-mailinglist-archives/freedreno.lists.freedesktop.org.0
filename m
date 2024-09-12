@@ -2,91 +2,135 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 730DC976745
-	for <lists+freedreno@lfdr.de>; Thu, 12 Sep 2024 13:15:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D957897694E
+	for <lists+freedreno@lfdr.de>; Thu, 12 Sep 2024 14:42:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AE0610EB47;
-	Thu, 12 Sep 2024 11:15:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6BE510E588;
+	Thu, 12 Sep 2024 12:42:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T3W3fFaS";
+	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="hv0ela+t";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D101110EB2B;
- Thu, 12 Sep 2024 11:15:39 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-a8b155b5e9eso116437866b.1; 
- Thu, 12 Sep 2024 04:15:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1726139738; x=1726744538; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=+4S6glc4Oo1QgS1kNnp0+BV6au00fwd4yWgTCcyo2DY=;
- b=T3W3fFaSbXUTQzycDt0+YRl5usL2kJp6fSMENFpMyGnxwc0aB6udywCaNEKL3L0VCn
- Vz/S9C+6GoH2CBAoiGLnE7VBAWPUTQul22x+6dp8Gbkf7NmAbkia9QNpOJpI7swVD+iE
- Efs75zvGSOgH9ysAMLyOSh0Up95IIM3LxPfriK1+FILUWqW2VFW8OvurFbyAWpLE5aXP
- e7TZIT2bYdP0e/4Gwz4Rc4NBpG56gBvpFq910CplZLvRKudiylvBtof6OY0EtrJX3B+V
- r41uym9BTKfyD/2k7DCA5//QZC2HYIcdQGgs4vD/f5+1wWpahX3LF4ahRcS7z4wUWnhq
- 5lmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726139738; x=1726744538;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+4S6glc4Oo1QgS1kNnp0+BV6au00fwd4yWgTCcyo2DY=;
- b=sxzhnlfZMyIgkhgBT1r9rEQ6T2OUW7nfqyi3/DKVZMUTevbtvWxj5dXn6N9x0MtQlV
- zEvw1jMDaxx20mVcw5bmOHU9P3NnnScEn1w87PWmBzECE/L9V+GHNr/nDPdm1H6lAi12
- PKXTJfmSnWProtuka9kPfbbCroZdITI72jMDJG4JRgM4EZWqXUH2DyN0ZgLT2f2Oaf3N
- ETpjbADzzEolMgDBaVtcinlU1FiLj8MFMH0JGWS1lWez18bXChZTNYcU8Oj+WzwFdSTI
- hvCDhif0aruVFlprLTmQOx6DzrUE+BnMelIoFh92UqznZl8S73RZVCM5UVoGBLmH3BuV
- LWwg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUAMbPUVhLctnvWrqTJGTd3+60phgxVbtHx9Kj3jXW1+dMNvRKwBhMgsADmowYMZ3gVroyAqJNkG5Y=@lists.freedesktop.org,
- AJvYcCVeTvX96A750Isp9eFgAEvvTOTgwGBdD+OOrGuUdfQBR7e06t9YrnrkYFeytmJAXrNJXAhSlDjVNODq@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywl9UoUBRumrEkAKq+isBlUk0j1Yy5QMMwM8blM2yZMvUx9fJ55
- BgbEwf8yeHGPSxEgK9jVa6TUIBbJCBK2aywheUQ4WbXT4IuCODaE
-X-Google-Smtp-Source: AGHT+IGkGCSxpk0LKAatd+cPpkKSDrM50h5JJoqpXNZ1v5+cvzLmxSTsmgPFoentcNzIjGcrVQc0pQ==
-X-Received: by 2002:a17:907:948c:b0:a71:ddb8:9394 with SMTP id
- a640c23a62f3a-a902961794emr235436766b.40.1726139737206; 
- Thu, 12 Sep 2024 04:15:37 -0700 (PDT)
-Received: from [192.168.1.17] (host-87-20-168-161.retail.telecomitalia.it.
- [87.20.168.161]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25835d16sm725470066b.36.2024.09.12.04.15.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Sep 2024 04:15:36 -0700 (PDT)
-Message-ID: <4df30c9e-8604-42aa-bf48-c8bb508429ad@gmail.com>
-Date: Thu, 12 Sep 2024 13:15:34 +0200
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01on2052.outbound.protection.outlook.com [40.107.255.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3E8A10E721;
+ Thu, 12 Sep 2024 04:24:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wP3m9GOhWyQ8UWPgx0EpQr4KogfbaEZnsZRtT5DKMIkoiQDSQhcxFYUMhH0kfE3q2q6f6Vo0V3yGnAjlFUP1ZhzxSm1xjUEXxkSQ4RkzOLkIuCap1ZqUCJQnc6r2BSgMjLwuNOyqqhaXiEjwEyVFlkTDZtRBIFeldPI1qXf1q4kJoSjzK/sBNEGnYgZ2qRWhvULlcY+pN1OW/5zlzptIX1UVjuvvHta17toF0hc1C8DJ41PJHwerbZtjs1ggpEvEDkTGySed+FyIKCUJobplJ2bqa30AYc4Y+jLyx76K9grDVL+3EaEZCdXg9lSLeEAbphuqHEJXax7g8cjdgB/TdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=U2ZG7Rokpn3ocPjOAULaoJrHC46P9xn2RDCWmnk2r3Y=;
+ b=mAg2PKJvN04KF/nGMMV2BSMIkCs8+uxZ1n9XxKO+jgZ5BYqEvY3h+MVkTB0Kg0kQb61gItSJMFrtp3ecYOnQ17/jmKFiIIXgL7mUiTvXCXqHcY7QoDbM4GZ62sofuebo7C+KUn6XMtF8F9PvwbDNvad0n7DG+i0Bq1A/yGiDEX4u+sZpFm2aFKkjmAxLW2CSQJzeg+atggLj3nE6o7jmEoEHov9BDc2Gc6vnSOsA25qweuP0EfTkHDi/1s07fLXQXRnNf24mQtEfkwPT55h0QiH4pfOq4lMf0mx9pHWtMpdg7B0zZTkOJgG0q3+KuIw9eicfxuHcjLTZOUJuXiMURw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=U2ZG7Rokpn3ocPjOAULaoJrHC46P9xn2RDCWmnk2r3Y=;
+ b=hv0ela+tue8H7t+Xhi6N4CLsoHFm1Hb89fdrBNHoybKAzCi1+M7fjEsUo+9keUTQfk2E3EGTOg1xvDBX7uC5XBuxLpz1dRTG/9zz4Flo5JDLCEa9E280IcA9dhUAkqM2ehJuOB3dCprmpx16sL0A412wn6duNtOK989RqtnqlrbEIfrsC/Yq+g7HD2Zh/FYRsX/cftTZEIV+rrX+mtqZTHBBJ77+mzGg9tK7quu3WoMmArBo2D8tYpSaqePW30zpy8P8fnGTYCYvhCF3LuHrXilIN017jfuOadqNoGI3odakBm8VrN7RioRJVcD8+JwsLsWYPJ3IXCGkw6A87zkclg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SEZPR06MB5899.apcprd06.prod.outlook.com (2603:1096:101:e3::16)
+ by PUZPR06MB5888.apcprd06.prod.outlook.com (2603:1096:301:105::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.27; Thu, 12 Sep
+ 2024 04:24:38 +0000
+Received: from SEZPR06MB5899.apcprd06.prod.outlook.com
+ ([fe80::8bfc:f1ee:8923:77ce]) by SEZPR06MB5899.apcprd06.prod.outlook.com
+ ([fe80::8bfc:f1ee:8923:77ce%3]) with mapi id 15.20.7962.016; Thu, 12 Sep 2024
+ 04:24:38 +0000
+From: Shen Lichuan <shenlichuan@vivo.com>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, airlied@gmail.com, simona@ffwll.ch
+Cc: sean@poorly.run, konradybcio@kernel.org, marijn.suijten@somainline.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ opensource.kernel@vivo.com, Shen Lichuan <shenlichuan@vivo.com>
+Subject: [PATCH v1] drm/msm/dpu: Fix some typos in comment
+Date: Thu, 12 Sep 2024 12:24:25 +0800
+Message-Id: <20240912042425.4703-1-shenlichuan@vivo.com>
+X-Mailer: git-send-email 2.17.1
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR01CA0049.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:193::13) To SEZPR06MB5899.apcprd06.prod.outlook.com
+ (2603:1096:101:e3::16)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/10] drm/msm/A6xx: Use posamble to reset counters on
- preemption
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20240905-preemption-a750-t-v3-0-fd947699f7bc@gmail.com>
- <20240905-preemption-a750-t-v3-6-fd947699f7bc@gmail.com>
- <20240906200847.ajcrpikzl65fwbjz@hu-akhilpo-hyd.qualcomm.com>
- <69efbf90-7ce1-429f-bf3a-d19acd7d649d@gmail.com>
- <20240910213412.xfw6abex5aqp7b66@hu-akhilpo-hyd.qualcomm.com>
- <39d9e3bf-ad37-43f0-a7d9-edbfdedede8e@gmail.com>
- <20240912071235.cuhe6nhd6gufsmpm@hu-akhilpo-hyd.qualcomm.com>
-Content-Language: en-US
-From: Antonino Maniscalco <antomani103@gmail.com>
-In-Reply-To: <20240912071235.cuhe6nhd6gufsmpm@hu-akhilpo-hyd.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5899:EE_|PUZPR06MB5888:EE_
+X-MS-Office365-Filtering-Correlation-Id: f70d3c1f-8b2c-4afe-a448-08dcd2e2d070
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|52116014|38350700014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+WaYLft/iSYHeWIbz7KRZvZ2X2aEc3Ynygx2GLX7IoPJMnJnD3kqBHdNzJir?=
+ =?us-ascii?Q?BaWhPbH6Jyu4NRBFZ17Qwru1xChLEITeDuLw6oyfFZEt2EDR5rHTXJ5vDN4V?=
+ =?us-ascii?Q?p3QLtMoWyJ5kNkCmXc6yUYAC8boZ5cJELWKObYUkcuL0KPUBKoal1WYvz6Ua?=
+ =?us-ascii?Q?UO/scwyfXP2IrwwAZXKFFb4TN5SfDJnZ6KSaX2kvU5RgtRN07zTR+CjMAcCY?=
+ =?us-ascii?Q?QQwQgj4eRUC0KRjQfNIkwPyRnwt9UefBiysdAoY1t6lLWDvblOIfkT4hUuJc?=
+ =?us-ascii?Q?7azHPZkaU2L2axrUCtshDEtFDWcB5Xv41NG4MAmSyieyw4Bj8X1ClgkwSHHQ?=
+ =?us-ascii?Q?V19DwdimZro4V+Zi4+8geW4muvTFdkReBlLT5D2ePpJdhtWV295JNDOrB5Dt?=
+ =?us-ascii?Q?faupdKWdaofnemzOfinaVk5cwIFafsTJilH4HlTkMumEceoiIl9sRF0bKIcJ?=
+ =?us-ascii?Q?AU2fDDyEbZGLngslcBqf8ubxpI25XdCTQLj0BU05XSNQpFwimgGpaoUWfTXa?=
+ =?us-ascii?Q?1+QLDnJ1We80l31XqvVeUs0O+MNuvh2ljdIWR7QeJh53T0IzxBWeeJBV7ZJe?=
+ =?us-ascii?Q?eWPwCyrNmhOV0JF1uK6Y//PfDFB8UIIG8D/YnOibYDhIEutkV/1d0WN3SKMa?=
+ =?us-ascii?Q?yuef1wj4m0cebdqTx0JKioRxExPFLK3APzP9fQaVqHhQoQl4TBEGSwwPhyCG?=
+ =?us-ascii?Q?PQVZCS9BEC1ZA1vcscj/XfIVv3a1VkTSFUbMipSNS3b+2RQHK0E60I9V35Su?=
+ =?us-ascii?Q?qXy7b2fzRV0wOkZbrtTHZi30LvAbLPQ7ZaThPw/i+HAXytPNPYHt0PlUZLOb?=
+ =?us-ascii?Q?rlXIdml9G+5tmjxzvnge3WYgXn+VFI4VUpEpl3ZO6ji0MjDqIYDVXbrq89bK?=
+ =?us-ascii?Q?c3kKCP00aLFLoyEGPGLPw0kVepuyLofGDMKqYKdldA75JSILzyJsGkLU6ItX?=
+ =?us-ascii?Q?SV1SMibclF+KcOIFBmBXmjKKOqraGlutAHdoougTs3XNfY4SRIs79181HV84?=
+ =?us-ascii?Q?x2e/eajEyLSv5L4Bj99a0Oga4rEH5jFqAs0ZEGtdIrRDH8pxskAI2fnhsZg/?=
+ =?us-ascii?Q?p1iF4bzVMmT2LMRLDf7xqmsB06L0AI9GBQzn0bQC3KQhZPRvkfRpiouFKr5S?=
+ =?us-ascii?Q?LUmLtMBPKcybo0OtQobWQSj/amHsG6KMIFzjvdBhWaVSMuaI9Lr38hM0ee50?=
+ =?us-ascii?Q?oDvxg/ZdQO1geG3wpMTXDHp0Tme7eCPh7Km5391r9RQHrbFBOPfQFARD7aXe?=
+ =?us-ascii?Q?E8Uq2XfXA15d3BQ1nZrh7AyaHS9ipcjqJ2oEPuTNbKqnBIn1Kp5PMXadUlYo?=
+ =?us-ascii?Q?+FzrfDYP+0xqCOEFUIMlJAgoA1JljtGsW2XIlu+nT5Vz7EtncDR7PZWnFwFZ?=
+ =?us-ascii?Q?YX+sFXa3SrYPQ5XjlXE5VtLJoGN9o2drEQ5VT7FTVFFvolnx9g=3D=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SEZPR06MB5899.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(52116014)(38350700014);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?X+LqvFC4wKvjtVMajZDe7pC8galr0IhzUGmpW5fgSlOTMIcpgfJ2GH1mEmUF?=
+ =?us-ascii?Q?fOKUEZ+uNj8ie6AlRXlFGMMss1ZFdeX6GYci3TJGnI1KAdxVvPEJhVKc9pK5?=
+ =?us-ascii?Q?99gEvkGTojHmhgKhkkTUl464tTvy6wgVUAMLB8HfZVar/Tf8It3ph6QJXyl/?=
+ =?us-ascii?Q?Aua+rTDNO6TVd4PNkvooUcAGmb1724AGiwi9wbK/AcERxWLR3LzV4WlCYvsp?=
+ =?us-ascii?Q?B5rThNiibZump9j3zIFZfrNwFllKIIVEmmwKBd8v/gUZRYPi3+0yfavU0xC1?=
+ =?us-ascii?Q?LCBR7N4kl6VZrhPJSdMcqe1r3k1xFTXJll0dWgQGJkyNhSU5a5EUyX507H0a?=
+ =?us-ascii?Q?8FUguOdaB+xBJPHJ/phOsyPYf/vmpHQ2Hq0tRaD3q/B1l9lYpNXL2orZGrCd?=
+ =?us-ascii?Q?zOdK2Uin6CZtPR3LUgMLzDYacCR0+ZBKHl8dgI9OVnoYajk/JBfk+9fgN2xK?=
+ =?us-ascii?Q?GgmNEUFeifjvS5GSQeqDdEmCXZfgfmrwwsPgAY3aKvWet9fE5VRRuo8ea9yB?=
+ =?us-ascii?Q?MuyOeRiG1iFeCue15L5fPYg9LDEUPu+vg4oBRaeJvE3sFJEvJDY6/lFnOoKb?=
+ =?us-ascii?Q?NT/dxrc7meCxdMIJIOl3PFwU4tQG2YLVJMeoQYZZlEMlEg3etbHEQplJsJBJ?=
+ =?us-ascii?Q?lkfEcLb0ho5SCxrHi6pnA6R42kr7GRgextvuWOn/ZMBWqKkZ10ItnVg1Yr4m?=
+ =?us-ascii?Q?RpZF7Q5AemBooqEVnCMsfua2qlAqS9IOv2fEM9uJNLXQZ2I0ju2JHkbADYXb?=
+ =?us-ascii?Q?AZex8m3wIs4E0+jrNxPzhjUsuT1s4xZLMaMfZoEL/z4n8pa9JRzVTwMnrWP4?=
+ =?us-ascii?Q?2JOXXXHm8ntJ5Xewn8pOq58yTY5UM9E8I7EliwfuxErLwazWTQM8SaqbGsei?=
+ =?us-ascii?Q?5pnGX2eh7ye4h0+Dn2SMbcdBJ07Oy98NvaAexMb7cSMCIkTNVroGbxHoJMEz?=
+ =?us-ascii?Q?i351zTO8/LoEFpYb2+IGfcaNcH7MIdcsafiCC02122sHJjvlwJ1200SC7K+s?=
+ =?us-ascii?Q?a/+InYm2mEjRNuFOKat5JmDkgnc3xjnAB8TZwGYhdd+KRHzEvwZ5rdY1pKpQ?=
+ =?us-ascii?Q?3mx04mIRHpprIGbXFEQOdr9XLoMYVniB4LCVEfP2CRXeHzAG8hFn4D6XnIOc?=
+ =?us-ascii?Q?d/UjHlU9ZfntAKok6sr4pT4X3m3GAm4hUOMyahm62VC8AluZrZBFhdwkfwvw?=
+ =?us-ascii?Q?QOi3N3PV3SkcLlIR73EP7FN2UAZOzPddJzj183w3M47oE3hyGk1v1xv+osRP?=
+ =?us-ascii?Q?vkeKCFLawY7fb1piZ0ICjxh2s2N+Q9Fo+gRraSvqwyL3rJ5yM0BCkETZ+GcP?=
+ =?us-ascii?Q?H7bfqXnmjLi0Z7abYGb6JvidWVEHejOnl8yCrGD5A+6Ur5p8vxRQuod2nvSF?=
+ =?us-ascii?Q?EGsy7DJHpTEafHXpgFJ5rubvyMOQojPpbV+8lu9nymB2GPRkBdLk1il+paFV?=
+ =?us-ascii?Q?PSrrFIuhZ7d6N48XxDYU0tXA3C//6G/uump1LsLQodEVrK5E/4mtDvvgqLNj?=
+ =?us-ascii?Q?Isf+XCcC0siizTJQENe8YAbu+MQPUqXSTpJgcmKJpUADqOn8Vdhq3XAoYF5H?=
+ =?us-ascii?Q?DPXZ4DwuDB14p/vBkCfbefo9MIw9BpjnZTQfMnlt?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f70d3c1f-8b2c-4afe-a448-08dcd2e2d070
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5899.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2024 04:24:38.3136 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ciriEMYQuCOaAaYV+SPpGeLrgbNyjKnEINzY+BuYhv2GkPxhnknO+lztyODQVFHdpVzq6aICmZDqvgSLr9u/ng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR06MB5888
+X-Mailman-Approved-At: Thu, 12 Sep 2024 12:42:25 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,213 +146,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 9/12/24 9:12 AM, Akhil P Oommen wrote:
-> On Wed, Sep 11, 2024 at 12:35:08AM +0200, Antonino Maniscalco wrote:
->> On 9/10/24 11:34 PM, Akhil P Oommen wrote:
->>> On Mon, Sep 09, 2024 at 05:07:42PM +0200, Antonino Maniscalco wrote:
->>>> On 9/6/24 10:08 PM, Akhil P Oommen wrote:
->>>>> On Thu, Sep 05, 2024 at 04:51:24PM +0200, Antonino Maniscalco wrote:
->>>>>> Use the postamble to reset perf counters when switching between rings,
->>>>>> except when sysprof is enabled, analogously to how they are reset
->>>>>> between submissions when switching pagetables.
->>>>>>
->>>>>> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
->>>>>> ---
->>>>>>     drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 20 ++++++++++++++++++-
->>>>>>     drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  5 +++++
->>>>>>     drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 32 +++++++++++++++++++++++++++++++
->>>>>>     drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  7 +++++--
->>>>>>     4 files changed, 61 insertions(+), 3 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>>> index ed0b138a2d66..710ec3ce2923 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>>> @@ -366,7 +366,8 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
->>>>>>     static void a6xx_emit_set_pseudo_reg(struct msm_ringbuffer *ring,
->>>>>>     		struct a6xx_gpu *a6xx_gpu, struct msm_gpu_submitqueue *queue)
->>>>>>     {
->>>>>> -	u64 preempt_offset_priv_secure;
->>>>>> +	bool sysprof = refcount_read(&a6xx_gpu->base.base.sysprof_active) > 1;
->>>>>> +	u64 preempt_offset_priv_secure, preempt_postamble;
->>>>>>     	OUT_PKT7(ring, CP_SET_PSEUDO_REG, 15);
->>>>>> @@ -398,6 +399,23 @@ static void a6xx_emit_set_pseudo_reg(struct msm_ringbuffer *ring,
->>>>>>     	/* seems OK to set to 0 to disable it */
->>>>>>     	OUT_RING(ring, 0);
->>>>>>     	OUT_RING(ring, 0);
->>>>>> +
->>>>>> +	/* if not profiling set postamble to clear perfcounters, else clear it */
->>>>>> +	if (!sysprof && a6xx_gpu->preempt_postamble_len) {
->>>
->>> Setting len = 0 is enough to skip processing postamble packets. So how
->>> about a simpler:
->>>
->>> len = a6xx_gpu->preempt_postamble_len;
->>> if (sysprof)
->>> 	len = 0;
->>>
->>> OUT_PKT7(ring, CP_SET_AMBLE, 3);
->>> OUT_RING(ring, lower_32_bits(preempt_postamble));
->>> OUT_RING(ring, upper_32_bits(preempt_postamble));
->>> OUT_RING(ring, CP_SET_AMBLE_2_DWORDS(len) |
->>> 		CP_SET_AMBLE_2_TYPE(KMD_AMBLE_TYPE));
->>>
->>>>>> +		preempt_postamble = a6xx_gpu->preempt_postamble_iova;
->>>>>> +
->>>>>> +		OUT_PKT7(ring, CP_SET_AMBLE, 3);
->>>>>> +		OUT_RING(ring, lower_32_bits(preempt_postamble));
->>>>>> +		OUT_RING(ring, upper_32_bits(preempt_postamble));
->>>>>> +		OUT_RING(ring, CP_SET_AMBLE_2_DWORDS(
->>>>>> +					a6xx_gpu->preempt_postamble_len) |
->>>>>> +				CP_SET_AMBLE_2_TYPE(KMD_AMBLE_TYPE));
->>>>>> +	} else {
->>>>>
->>>>> Why do we need this else part?
->>>>
->>>> Wouldn't the postmable remain set if we don't explicitly set it to 0?
->>>
->>> Aah, that is a genuine concern. I am not sure! Lets keep it.
->>>
->>>>
->>>>>
->>>>>> +		OUT_PKT7(ring, CP_SET_AMBLE, 3);
->>>>>> +		OUT_RING(ring, 0);
->>>>>> +		OUT_RING(ring, 0);
->>>>>> +		OUT_RING(ring, CP_SET_AMBLE_2_TYPE(KMD_AMBLE_TYPE));
->>>>>> +	}
->>>>>>     }
->>>>>>     static void a7xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>>>> index da10060e38dc..b009732c08c5 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>>>> @@ -71,6 +71,11 @@ struct a6xx_gpu {
->>>>>>     	bool uses_gmem;
->>>>>>     	bool skip_save_restore;
->>>>>> +	struct drm_gem_object *preempt_postamble_bo;
->>>>>> +	void *preempt_postamble_ptr;
->>>>>> +	uint64_t preempt_postamble_iova;
->>>>>> +	uint64_t preempt_postamble_len;
->>>>>> +
->>>>>>     	struct a6xx_gmu gmu;
->>>>>>     	struct drm_gem_object *shadow_bo;
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
->>>>>> index 1caff76aca6e..ec44f44d925f 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
->>>>>> @@ -346,6 +346,28 @@ static int preempt_init_ring(struct a6xx_gpu *a6xx_gpu,
->>>>>>     	return 0;
->>>>>>     }
->>>>>> +static void preempt_prepare_postamble(struct a6xx_gpu *a6xx_gpu)
->>>>>> +{
->>>>>> +	u32 *postamble = a6xx_gpu->preempt_postamble_ptr;
->>>>>> +	u32 count = 0;
->>>>>> +
->>>>>> +	postamble[count++] = PKT7(CP_REG_RMW, 3);
->>>>>> +	postamble[count++] = REG_A6XX_RBBM_PERFCTR_SRAM_INIT_CMD;
->>>>>> +	postamble[count++] = 0;
->>>>>> +	postamble[count++] = 1;
->>>>>> +
->>>>>> +	postamble[count++] = PKT7(CP_WAIT_REG_MEM, 6);
->>>>>> +	postamble[count++] = CP_WAIT_REG_MEM_0_FUNCTION(WRITE_EQ);
->>>>>> +	postamble[count++] = CP_WAIT_REG_MEM_1_POLL_ADDR_LO(
->>>>>> +				REG_A6XX_RBBM_PERFCTR_SRAM_INIT_STATUS);
->>>>>> +	postamble[count++] = CP_WAIT_REG_MEM_2_POLL_ADDR_HI(0);
->>>>>> +	postamble[count++] = CP_WAIT_REG_MEM_3_REF(0x1);
->>>>>> +	postamble[count++] = CP_WAIT_REG_MEM_4_MASK(0x1);
->>>>>> +	postamble[count++] = CP_WAIT_REG_MEM_5_DELAY_LOOP_CYCLES(0);
->>>>>
->>>>> Isn't it better to just replace this with NOP packets when sysprof is
->>>>> enabled, just before triggering preemption? It will help to have an
->>>>> immediate effect.
->>>>>
->>>>> -Akhil
->>>>>
->>>>
->>>> Mmm, this being a postamble I wonder whether we have the guarantee that it
->>>> finishes execution before the IRQ is called so updating it doesn't race with
->>>> the CP executing it.
->>>
->>> Yes, it will be complete. But on a second thought now, this suggestion from me
->>> looks like an overkill.
->>
->> Thanks for confirming! I have actually already implemented something similar
->> to what you proposed https://gitlab.com/pac85/inux/-/commit/8b8ab1d89b0f611cfdbac4c3edba4192be91a7f9
->> so we can chose between the two. Let me know your prefence.
-> 
-> That looks fine. Can we try to simplify that patch further? We can lean
-> towards readability instead of saving few writes. I don't think there
-> will be frequent sysprof toggles.
-> 
+Fixed some spelling errors, the details are as follows:
 
-Sure yeah, I removed the patch argument on preempt_prepare_postamble so 
-when we enable the postamble we just re-emit the entire IB.
+-in the code comments:
+	collpase->collapse
+	firwmare->firmware
+	everwhere->everywhere
 
-> -Akhil
-> 
->>
->>>
->>> -Akhil.
->>>
->>>>
->>>>>> +
->>>>>> +	a6xx_gpu->preempt_postamble_len = count;
->>>>>> +}
->>>>>> +
->>>>>>     void a6xx_preempt_fini(struct msm_gpu *gpu)
->>>>>>     {
->>>>>>     	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>>>>> @@ -376,6 +398,16 @@ void a6xx_preempt_init(struct msm_gpu *gpu)
->>>>>>     	a6xx_gpu->uses_gmem = 1;
->>>>>>     	a6xx_gpu->skip_save_restore = 1;
->>>>>> +	a6xx_gpu->preempt_postamble_ptr  = msm_gem_kernel_new(gpu->dev,
->>>>>> +			PAGE_SIZE, MSM_BO_WC | MSM_BO_MAP_PRIV,
->>>>>> +			gpu->aspace, &a6xx_gpu->preempt_postamble_bo,
->>>>>> +			&a6xx_gpu->preempt_postamble_iova);
->>>>>> +
->>>>>> +	preempt_prepare_postamble(a6xx_gpu);
->>>>>> +
->>>>>> +	if (IS_ERR(a6xx_gpu->preempt_postamble_ptr))
->>>>>> +		goto fail;
->>>>>> +
->>>>>>     	timer_setup(&a6xx_gpu->preempt_timer, a6xx_preempt_timer, 0);
->>>>>>     	return;
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->>>>>> index 6b1888280a83..87098567483b 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->>>>>> @@ -610,12 +610,15 @@ OUT_PKT4(struct msm_ringbuffer *ring, uint16_t regindx, uint16_t cnt)
->>>>>>     	OUT_RING(ring, PKT4(regindx, cnt));
->>>>>>     }
->>>>>> +#define PKT7(opcode, cnt) \
->>>>>> +	(CP_TYPE7_PKT | (cnt << 0) | (PM4_PARITY(cnt) << 15) | \
->>>>>> +		((opcode & 0x7F) << 16) | (PM4_PARITY(opcode) << 23))
->>>>>> +
->>>>>>     static inline void
->>>>>>     OUT_PKT7(struct msm_ringbuffer *ring, uint8_t opcode, uint16_t cnt)
->>>>>>     {
->>>>>>     	adreno_wait_ring(ring, cnt + 1);
->>>>>> -	OUT_RING(ring, CP_TYPE7_PKT | (cnt << 0) | (PM4_PARITY(cnt) << 15) |
->>>>>> -		((opcode & 0x7F) << 16) | (PM4_PARITY(opcode) << 23));
->>>>>> +	OUT_RING(ring, PKT7(opcode, cnt));
->>>>>>     }
->>>>>>     struct msm_gpu *a2xx_gpu_init(struct drm_device *dev);
->>>>>>
->>>>>> -- 
->>>>>> 2.46.0
->>>>>>
->>>>
->>>> Best regards,
->>>> -- 
->>>> Antonino Maniscalco <antomani103@gmail.com>
->>>>
->>
->> Best regards,
->> -- 
->> Antonino Maniscalco <antomani103@gmail.com>
->>
+Signed-off-by: Shen Lichuan <shenlichuan@vivo.com>
+---
+ drivers/gpu/drm/msm/adreno/a5xx_power.c | 2 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
+ drivers/gpu/drm/msm/msm_ringbuffer.c    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-Best regards,
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_power.c b/drivers/gpu/drm/msm/adreno/a5xx_power.c
+index 7705f8010484..6b91e0bd1514 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_power.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_power.c
+@@ -307,7 +307,7 @@ int a5xx_power_init(struct msm_gpu *gpu)
+ 	else if (adreno_is_a540(adreno_gpu))
+ 		a540_lm_setup(gpu);
+ 
+-	/* Set up SP/TP power collpase */
++	/* Set up SP/TP power collapse */
+ 	a5xx_pc_init(gpu);
+ 
+ 	/* Start the GPMU */
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 465a4cd14a43..076be0473eb5 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -533,7 +533,7 @@ int adreno_load_fw(struct adreno_gpu *adreno_gpu)
+ 		if (!adreno_gpu->info->fw[i])
+ 			continue;
+ 
+-		/* Skip loading GMU firwmare with GMU Wrapper */
++		/* Skip loading GMU firmware with GMU Wrapper */
+ 		if (adreno_has_gmu_wrapper(adreno_gpu) && i == ADRENO_FW_GMU)
+ 			continue;
+ 
+diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+index 9d6655f96f0c..c803556a8f64 100644
+--- a/drivers/gpu/drm/msm/msm_ringbuffer.c
++++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+@@ -64,7 +64,7 @@ struct msm_ringbuffer *msm_ringbuffer_new(struct msm_gpu *gpu, int id,
+ 	char name[32];
+ 	int ret;
+ 
+-	/* We assume everwhere that MSM_GPU_RINGBUFFER_SZ is a power of 2 */
++	/* We assume everywhere that MSM_GPU_RINGBUFFER_SZ is a power of 2 */
+ 	BUILD_BUG_ON(!is_power_of_2(MSM_GPU_RINGBUFFER_SZ));
+ 
+ 	ring = kzalloc(sizeof(*ring), GFP_KERNEL);
 -- 
-Antonino Maniscalco <antomani103@gmail.com>
+2.17.1
 
