@@ -2,83 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37C0C9763E2
-	for <lists+freedreno@lfdr.de>; Thu, 12 Sep 2024 10:04:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3788B976476
+	for <lists+freedreno@lfdr.de>; Thu, 12 Sep 2024 10:29:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E13CA10EAF8;
-	Thu, 12 Sep 2024 08:04:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E56E110EB07;
+	Thu, 12 Sep 2024 08:29:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SHGNTMi1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sWdnb8CX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CF8D10EAF8
- for <freedreno@lists.freedesktop.org>; Thu, 12 Sep 2024 08:04:40 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2f7528f4658so6152281fa.3
- for <freedreno@lists.freedesktop.org>; Thu, 12 Sep 2024 01:04:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1726128278; x=1726733078; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=/oEATaPF98HAEF9WeFPXVXD5Ur+2p7oYCwhrXntghxU=;
- b=SHGNTMi1QCg0wzrPKTtILi//1yB5P+YN7J7W7BclZPA2u99ILbzXQFWoMa+eufxGth
- fDH9m1i4qHoXAqGjGi+r9hGSzUugmKvWXMSXYqE1Mk0LAWauonA7IOmbwAtuhuV/Z6+U
- si4I2ISZBJnml8x2wOw+ON2XdjD4RR8p/eepJ7z9qWM4+gqydRFVsxwE0nu3xcTeR5I1
- 3YeTaYGi3830uXOeeQdPB66IR2+R76yxOCZH8oF/i+BY0ubUhJhHNRjoxp8lAPCQLLwl
- sGb2zvT2/su3/0WbGPrN7TU9EzN98o7rDFo7OYGWhKS4RoR05XMWZNiIAx2ezHIm1Mh2
- XAMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726128278; x=1726733078;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/oEATaPF98HAEF9WeFPXVXD5Ur+2p7oYCwhrXntghxU=;
- b=PjdKIPP/R0OH474Kb+xkgoej++qAZqC9f5rLd4Er0btb/E6KjwWz/dKGn6uFiH3gdE
- v4y9Zrsx1cBJr0Yin82LPu+gzKXOUwPyiweabusH1e4Xhco0T8n+/NUyA/VK7LFcJJt+
- KYMCD7tHlPHh0mQodSW7H4HFWx4AAOChtIBgmgz4Cs9doUXAXv85DnWuNa8grJM7XN3b
- b5kgM+pZtExqjiBT+rCXsVJ7/zmL6O62Sw/lo+1xQGZGnjp17rgVyqttJcpfQxb8JwY8
- BpNE/odH5AP6bjNQ20nTw3NeMM80WZ8wdSuUbHVVWtc/qRlqIE7qZX9qY/ac3+jp4S8h
- qHOw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWhQyFqnQu//kU4Kc+4LvMgHtShdfg8vMCgCERw5c3WiFkOsGE6uSxsAAvcSDIIloBFI89+mTPCVE0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7Qpc0V5ELFMRLsscoTfKuMFiuz9d1pDOsmR+6pR9Oo5UcQE4P
- lCAJ3hCdLUNDU2ijmOnPN9Mxu8/YGEaaLjKDb9YRvCyL6qj8bCyN+4AcHNQh4Cw=
-X-Google-Smtp-Source: AGHT+IFHqLiPTltXOGd+Ez/Xm33J5+NdUdX8mL2x0mImf1QuSSFBf5X3gzGSMAQm5S0Bh13eVJrfug==
-X-Received: by 2002:a05:6512:3511:b0:535:d4e9:28ca with SMTP id
- 2adb3069b0e04-53678fec5e1mr766262e87.55.1726128277942; 
- Thu, 12 Sep 2024 01:04:37 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5365f871662sm1827694e87.115.2024.09.12.01.04.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Sep 2024 01:04:37 -0700 (PDT)
-Date: Thu, 12 Sep 2024 11:04:35 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Mahadevan <quic_mahap@quicinc.com>
-Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run, 
- marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, swboyd@chromium.org, 
- konrad.dybcio@linaro.org, danila@jiaxyga.com, bigfoot@classfun.cn, 
- neil.armstrong@linaro.org, mailingradian@gmail.com, quic_jesszhan@quicinc.com, 
- andersson@kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- quic_kalyant@quicinc.com, quic_jmadiset@quicinc.com, quic_vpolimer@quicinc.com
-Subject: Re: [PATCH 4/5] drm/msm/dpu: Add SA8775P support
-Message-ID: <v4cnmso3nl5oi3scd2lkg6kepb52vjrzgoti42ikds3y2wq6aw@sbn2yu4xeiun>
-References: <20240912071437.1708969-1-quic_mahap@quicinc.com>
- <20240912071437.1708969-5-quic_mahap@quicinc.com>
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DBAD10E212;
+ Thu, 12 Sep 2024 08:29:51 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id B2038A44283;
+ Thu, 12 Sep 2024 08:29:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BCFEC4CEC3;
+ Thu, 12 Sep 2024 08:29:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1726129790;
+ bh=vVZSVYNNMpsxf/Mtb1DzmqrGNnMqIEIm+Nt2IKnA8hA=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=sWdnb8CXle8EwZQtK4FF2OPZiO4WYQ+RQ0yo731sacd6+s9mXxQkLvJR41dZJLHR5
+ ku1BzgEoYxHHcVg9eIRn9Z0MrgaYViDkjpaq3AQLvODziVTMB+jfMBOz45mNR4JbpC
+ hIVnQqQx54h9mSjhfscWiRH4TVXlV9xw1ffrSWIXtARfD/oabDu/C6rhGUsCco9iYn
+ 8OgavysBhYcM677c8qTtpjdsvUGDcLOlJLauSgOfdo2XwN7IAVWVoYnnRVVPrF8Pz7
+ 3ebkCbIpvxUv7Rp50WELU2xHRUrEXQ9wUhklmQODO6Fawg2QlY1TkzbGMHH/ud68Wf
+ 014aV9hnrDymQ==
+Date: Thu, 12 Sep 2024 03:29:48 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240912071437.1708969-5-quic_mahap@quicinc.com>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Mahadevan <quic_mahap@quicinc.com>
+Cc: andersson@kernel.org, dmitry.baryshkov@linaro.org, sean@poorly.run, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ quic_jmadiset@quicinc.com, quic_vpolimer@quicinc.com, 
+ neil.armstrong@linaro.org, swboyd@chromium.org, mailingradian@gmail.com, 
+ quic_abhinavk@quicinc.com, freedreno@lists.freedesktop.org, 
+ danila@jiaxyga.com, quic_kalyant@quicinc.com, 
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, mripard@kernel.org, 
+ konrad.dybcio@linaro.org, linux-arm-msm@vger.kernel.org, 
+ marijn.suijten@somainline.org, robdclark@gmail.com, krzk+dt@kernel.org, 
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com, 
+ conor+dt@kernel.org, airlied@gmail.com, bigfoot@classfun.cn
+In-Reply-To: <20240912071437.1708969-2-quic_mahap@quicinc.com>
+References: <20240912071437.1708969-1-quic_mahap@quicinc.com>
+ <20240912071437.1708969-2-quic_mahap@quicinc.com>
+Message-Id: <172612978700.2592228.2560116576416075874.robh@kernel.org>
+Subject: Re: [PATCH 1/5] dt-bindings: display/msm: Document MDSS on SA8775P
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,581 +67,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 12, 2024 at 12:44:36PM GMT, Mahadevan wrote:
-> Add definitions for the display hardware used on the
-> Qualcomm SA8775P platform.
+
+On Thu, 12 Sep 2024 12:44:33 +0530, Mahadevan wrote:
+> Document the MDSS hardware found on the Qualcomm SA8775P platform.
 > 
 > Signed-off-by: Mahadevan <quic_mahap@quicinc.com>
 > ---
->  .../msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h   | 485 ++++++++++++++++++
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   3 +-
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   3 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   3 +-
->  4 files changed, 491 insertions(+), 3 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
-> new file mode 100644
-> index 000000000000..14d65b5d4093
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
-> @@ -0,0 +1,485 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
-> + * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
-> + */
-> +
-> +#ifndef _DPU_8_4_SA8775P_H
-> +#define _DPU_8_4_SA8775P_H
-> +
-> +static const struct dpu_caps sa8775p_dpu_caps = {
-> +	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
-> +	.max_mixer_blendstages = 0xb,
-> +	.has_src_split = true,
-> +	.has_dim_layer = true,
-> +	.has_idle_pc = true,
-> +	.has_3d_merge = true,
-> +	.max_linewidth = 5120,
-> +	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
-> +};
-> +
-> +static const struct dpu_mdp_cfg sa8775p_mdp = {
-> +	.name = "top_0",
-> +	.base = 0x0, .len = 0x494,
-> +	.features = BIT(DPU_MDP_PERIPH_0_REMOVED),
-> +	.clk_ctrls = {
-> +		[DPU_CLK_CTRL_VIG0] = { .reg_off = 0x2ac, .bit_off = 0 },
-> +		[DPU_CLK_CTRL_VIG1] = { .reg_off = 0x2b4, .bit_off = 0 },
-> +		[DPU_CLK_CTRL_VIG2] = { .reg_off = 0x2bc, .bit_off = 0 },
-> +		[DPU_CLK_CTRL_VIG3] = { .reg_off = 0x2c4, .bit_off = 0 },
-> +		[DPU_CLK_CTRL_DMA0] = { .reg_off = 0x2ac, .bit_off = 8 },
-> +		[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
-> +		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2bc, .bit_off = 8 },
-> +		[DPU_CLK_CTRL_DMA3] = { .reg_off = 0x2c4, .bit_off = 8 },
-> +		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x2bc, .bit_off = 16 },
-> +		[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
-> +	},
-> +};
-> +
-> +/* FIXME: get rid of DPU_CTL_SPLIT_DISPLAY in favour of proper ACTIVE_CTL support */
-> +static const struct dpu_ctl_cfg sa8775p_ctl[] = {
-> +	{
-> +		.name = "ctl_0", .id = CTL_0,
-> +		.base = 0x15000, .len = 0x204,
-> +		.features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
-> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
-> +	}, {
-> +		.name = "ctl_1", .id = CTL_1,
-> +		.base = 0x16000, .len = 0x204,
-> +		.features = BIT(DPU_CTL_SPLIT_DISPLAY) | CTL_SC7280_MASK,
-> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
-> +	}, {
-> +		.name = "ctl_2", .id = CTL_2,
-> +		.base = 0x17000, .len = 0x204,
-> +		.features = CTL_SC7280_MASK,
-> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
-> +	}, {
-> +		.name = "ctl_3", .id = CTL_3,
-> +		.base = 0x18000, .len = 0x204,
-> +		.features = CTL_SC7280_MASK,
-> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
-> +	}, {
-> +		.name = "ctl_4", .id = CTL_4,
-> +		.base = 0x19000, .len = 0x204,
-> +		.features = CTL_SC7280_MASK,
-> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
-> +	}, {
-> +		.name = "ctl_5", .id = CTL_5,
-> +		.base = 0x1a000, .len = 0x204,
-> +		.features = CTL_SC7280_MASK,
-> +		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
-> +	},
-> +};
-> +
-> +static const struct dpu_sspp_cfg sa8775p_sspp[] = {
-> +	{
-> +		.name = "sspp_0", .id = SSPP_VIG0,
-> +		.base = 0x4000, .len = 0x32c,
-> +		.features = VIG_SDM845_MASK_SDMA,
-> +		.sblk = &dpu_vig_sblk_qseed3_3_1,
-> +		.xin_id = 0,
-> +		.type = SSPP_TYPE_VIG,
-> +		.clk_ctrl = DPU_CLK_CTRL_VIG0,
-> +	}, {
-> +		.name = "sspp_1", .id = SSPP_VIG1,
-> +		.base = 0x6000, .len = 0x32c,
-> +		.features = VIG_SDM845_MASK_SDMA,
-> +		.sblk = &dpu_vig_sblk_qseed3_3_1,
-> +		.xin_id = 4,
-> +		.type = SSPP_TYPE_VIG,
-> +		.clk_ctrl = DPU_CLK_CTRL_VIG1,
-> +	}, {
-> +		.name = "sspp_2", .id = SSPP_VIG2,
-> +		.base = 0x8000, .len = 0x32c,
-> +		.features = VIG_SDM845_MASK_SDMA,
-> +		.sblk = &dpu_vig_sblk_qseed3_3_1,
-> +		.xin_id = 8,
-> +		.type = SSPP_TYPE_VIG,
-> +		.clk_ctrl = DPU_CLK_CTRL_VIG2,
-> +	}, {
-> +		.name = "sspp_3", .id = SSPP_VIG3,
-> +		.base = 0xa000, .len = 0x32c,
-> +		.features = VIG_SDM845_MASK_SDMA,
-> +		.sblk = &dpu_vig_sblk_qseed3_3_1,
-> +		.xin_id = 12,
-> +		.type = SSPP_TYPE_VIG,
-> +		.clk_ctrl = DPU_CLK_CTRL_VIG3,
-> +	}, {
-> +		.name = "sspp_8", .id = SSPP_DMA0,
-> +		.base = 0x24000, .len = 0x32c,
-> +		.features = DMA_SDM845_MASK_SDMA,
-> +		.sblk = &dpu_dma_sblk,
-> +		.xin_id = 1,
-> +		.type = SSPP_TYPE_DMA,
-> +		.clk_ctrl = DPU_CLK_CTRL_DMA0,
-> +	}, {
-> +		.name = "sspp_9", .id = SSPP_DMA1,
-> +		.base = 0x26000, .len = 0x32c,
-> +		.features = DMA_SDM845_MASK_SDMA,
-> +		.sblk = &dpu_dma_sblk,
-> +		.xin_id = 5,
-> +		.type = SSPP_TYPE_DMA,
-> +		.clk_ctrl = DPU_CLK_CTRL_DMA1,
-> +	}, {
-> +		.name = "sspp_10", .id = SSPP_DMA2,
-> +		.base = 0x28000, .len = 0x32c,
-> +		.features = DMA_CURSOR_SDM845_MASK_SDMA,
-> +		.sblk = &dpu_dma_sblk,
-> +		.xin_id = 9,
-> +		.type = SSPP_TYPE_DMA,
-> +		.clk_ctrl = DPU_CLK_CTRL_DMA2,
-> +	}, {
-> +		.name = "sspp_11", .id = SSPP_DMA3,
-> +		.base = 0x2a000, .len = 0x32c,
-> +		.features = DMA_CURSOR_SDM845_MASK_SDMA,
-> +		.sblk = &dpu_dma_sblk,
-> +		.xin_id = 13,
-> +		.type = SSPP_TYPE_DMA,
-> +		.clk_ctrl = DPU_CLK_CTRL_DMA3,
-> +	},
-> +};
-> +
-> +static const struct dpu_lm_cfg sa8775p_lm[] = {
-> +	{
-> +		.name = "lm_0", .id = LM_0,
-> +		.base = 0x44000, .len = 0x400,
-> +		.features = MIXER_SDM845_MASK,
-> +		.sblk = &sdm845_lm_sblk,
-> +		.lm_pair = LM_1,
-> +		.pingpong = PINGPONG_0,
-> +		.dspp = DSPP_0,
-> +	}, {
-> +		.name = "lm_1", .id = LM_1,
-> +		.base = 0x45000, .len = 0x400,
-> +		.features = MIXER_SDM845_MASK,
-> +		.sblk = &sdm845_lm_sblk,
-> +		.lm_pair = LM_0,
-> +		.pingpong = PINGPONG_1,
-> +		.dspp = DSPP_1,
-> +	}, {
-> +		.name = "lm_2", .id = LM_2,
-> +		.base = 0x46000, .len = 0x400,
-> +		.features = MIXER_SDM845_MASK,
-> +		.sblk = &sdm845_lm_sblk,
-> +		.lm_pair = LM_3,
-> +		.pingpong = PINGPONG_2,
-> +		.dspp = DSPP_2,
-> +	}, {
-> +		.name = "lm_3", .id = LM_3,
-> +		.base = 0x47000, .len = 0x400,
-> +		.features = MIXER_SDM845_MASK,
-> +		.sblk = &sdm845_lm_sblk,
-> +		.lm_pair = LM_2,
-> +		.pingpong = PINGPONG_3,
-> +		.dspp = DSPP_3,
-> +	}, {
-> +		.name = "lm_4", .id = LM_4,
-> +		.base = 0x48000, .len = 0x400,
-> +		.features = MIXER_SDM845_MASK,
-> +		.sblk = &sdm845_lm_sblk,
-> +		.lm_pair = LM_5,
-> +		.pingpong = PINGPONG_4,
-> +	}, {
-> +		.name = "lm_5", .id = LM_5,
-> +		.base = 0x49000, .len = 0x400,
-> +		.features = MIXER_SDM845_MASK,
-> +		.sblk = &sdm845_lm_sblk,
-> +		.lm_pair = LM_4,
-> +		.pingpong = PINGPONG_5,
-> +	},
-> +};
-> +
-> +static const struct dpu_dspp_cfg sa8775p_dspp[] = {
-> +	{
-> +		.name = "dspp_0", .id = DSPP_0,
-> +		.base = 0x54000, .len = 0x1800,
-> +		.features = DSPP_SC7180_MASK,
-> +		.sblk = &sdm845_dspp_sblk,
-> +	}, {
-> +		.name = "dspp_1", .id = DSPP_1,
-> +		.base = 0x56000, .len = 0x1800,
-> +		.features = DSPP_SC7180_MASK,
-> +		.sblk = &sdm845_dspp_sblk,
-> +	}, {
-> +		.name = "dspp_2", .id = DSPP_2,
-> +		.base = 0x58000, .len = 0x1800,
-> +		.features = DSPP_SC7180_MASK,
-> +		.sblk = &sdm845_dspp_sblk,
-> +	}, {
-> +		.name = "dspp_3", .id = DSPP_3,
-> +		.base = 0x5a000, .len = 0x1800,
-> +		.features = DSPP_SC7180_MASK,
-> +		.sblk = &sdm845_dspp_sblk,
-> +	},
-> +};
-> +
-> +static const struct dpu_pingpong_cfg sa8775p_pp[] = {
-> +	{
-> +		.name = "pingpong_0", .id = PINGPONG_0,
-> +		.base = 0x69000, .len = 0,
-> +		.features = BIT(DPU_PINGPONG_DITHER),
-> +		.sblk = &sc7280_pp_sblk,
-> +		.merge_3d = MERGE_3D_0,
-> +		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
-> +	}, {
-> +		.name = "pingpong_1", .id = PINGPONG_1,
-> +		.base = 0x6a000, .len = 0,
-> +		.features = BIT(DPU_PINGPONG_DITHER),
-> +		.sblk = &sc7280_pp_sblk,
-> +		.merge_3d = MERGE_3D_0,
-> +		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
-> +	}, {
-> +		.name = "pingpong_2", .id = PINGPONG_2,
-> +		.base = 0x6b000, .len = 0,
-> +		.features = BIT(DPU_PINGPONG_DITHER),
-> +		.sblk = &sc7280_pp_sblk,
-> +		.merge_3d = MERGE_3D_1,
-> +		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
-> +	}, {
-> +		.name = "pingpong_3", .id = PINGPONG_3,
-> +		.base = 0x6c000, .len = 0,
-> +		.features = BIT(DPU_PINGPONG_DITHER),
-> +		.sblk = &sc7280_pp_sblk,
-> +		.merge_3d = MERGE_3D_1,
-> +		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
-> +	}, {
-> +		.name = "pingpong_4", .id = PINGPONG_4,
-> +		.base = 0x6d000, .len = 0,
-> +		.features = BIT(DPU_PINGPONG_DITHER),
-> +		.sblk = &sc7280_pp_sblk,
-> +		.merge_3d = MERGE_3D_2,
-> +		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
-> +	}, {
-> +		.name = "pingpong_5", .id = PINGPONG_5,
-> +		.base = 0x6e000, .len = 0,
-> +		.features = BIT(DPU_PINGPONG_DITHER),
-> +		.sblk = &sc7280_pp_sblk,
-> +		.merge_3d = MERGE_3D_2,
-> +		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31),
-> +	}, {
-> +		.name = "pingpong_6", .id = PINGPONG_6,
-> +		.base = 0x65800, .len = 0,
-> +		.features = BIT(DPU_PINGPONG_DITHER),
-> +		.sblk = &sc7280_pp_sblk,
-> +		.merge_3d = MERGE_3D_3,
-> +	}, {
-> +		.name = "pingpong_7", .id = PINGPONG_7,
-> +		.base = 0x65c00, .len = 0,
-> +		.features = BIT(DPU_PINGPONG_DITHER),
-> +		.sblk = &sc7280_pp_sblk,
-> +		.merge_3d = MERGE_3D_3,
-> +	},
-> +};
-> +
-> +static const struct dpu_merge_3d_cfg sa8775p_merge_3d[] = {
-> +	{
-> +		.name = "merge_3d_0", .id = MERGE_3D_0,
-> +		.base = 0x4e000, .len = 0x8,
-> +	}, {
-> +		.name = "merge_3d_1", .id = MERGE_3D_1,
-> +		.base = 0x4f000, .len = 0x8,
-> +	}, {
-> +		.name = "merge_3d_2", .id = MERGE_3D_2,
-> +		.base = 0x50000, .len = 0x8,
-> +	}, {
-> +		.name = "merge_3d_3", .id = MERGE_3D_3,
-> +		.base = 0x65f00, .len = 0x8,
-> +	},
-> +};
-> +
-> +/*
-> + * NOTE: Each display compression engine (DCE) contains dual hard
-> + * slice DSC encoders so both share same base address but with
-> + * its own different sub block address.
-> + */
-> +static const struct dpu_dsc_cfg sa8775p_dsc[] = {
-> +	{
-> +		.name = "dce_0_0", .id = DSC_0,
-> +		.base = 0x80000, .len = 0x4,
-> +		.features = BIT(DPU_DSC_HW_REV_1_2),
-> +		.sblk = &dsc_sblk_0,
-> +	}, {
-> +		.name = "dce_0_1", .id = DSC_1,
-> +		.base = 0x80000, .len = 0x4,
-> +		.features = BIT(DPU_DSC_HW_REV_1_2),
-> +		.sblk = &dsc_sblk_1,
-> +	}, {
-> +		.name = "dce_1_0", .id = DSC_2,
-> +		.base = 0x81000, .len = 0x4,
-> +		.features = BIT(DPU_DSC_HW_REV_1_2) | BIT(DPU_DSC_NATIVE_42x_EN),
-> +		.sblk = &dsc_sblk_0,
-> +	}, {
-> +		.name = "dce_1_1", .id = DSC_3,
-> +		.base = 0x81000, .len = 0x4,
-> +		.features = BIT(DPU_DSC_HW_REV_1_2) | BIT(DPU_DSC_NATIVE_42x_EN),
-> +		.sblk = &dsc_sblk_1,
-> +	}, {
-> +		.name = "dce_2_0", .id = DSC_4,
-> +		.base = 0x82000, .len = 0x4,
-> +		.features = BIT(DPU_DSC_HW_REV_1_2),
-> +		.sblk = &dsc_sblk_0,
-> +	}, {
-> +		.name = "dce_2_1", .id = DSC_5,
-> +		.base = 0x82000, .len = 0x4,
-> +		.features = BIT(DPU_DSC_HW_REV_1_2),
-> +		.sblk = &dsc_sblk_1,
-> +	},
-> +};
-> +
-> +static const struct dpu_wb_cfg sa8775p_wb[] = {
-> +	{
-> +		.name = "wb_2", .id = WB_2,
-> +		.base = 0x65000, .len = 0x2c8,
-> +		.features = WB_SM8250_MASK,
-> +		.format_list = wb2_formats_rgb_yuv,
-> +		.num_formats = ARRAY_SIZE(wb2_formats_rgb_yuv),
-> +		.clk_ctrl = DPU_CLK_CTRL_WB2,
-> +		.xin_id = 6,
-> +		.vbif_idx = VBIF_RT,
-> +		.maxlinewidth = 4096,
-> +		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
-> +	},
-> +};
-> +/* TODO: INTF 3, 6, 7 and 8 are used for MST, marked as INTF_NONE for now */
-> +static const struct dpu_intf_cfg sa8775p_intf[] = {
-> +	{
-> +		.name = "intf_0", .id = INTF_0,
-> +		.base = 0x34000, .len = 0x280,
-> +		.features = INTF_SC7280_MASK,
-> +		.type = INTF_DP,
-> +		.controller_id = MSM_DP_CONTROLLER_0,
-> +		.prog_fetch_lines_worst_case = 24,
-> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
-> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25),
-> +	}, {
-> +		.name = "intf_1", .id = INTF_1,
-> +		.base = 0x35000, .len = 0x300,
-> +		.features = INTF_SC7280_MASK,
-> +		.type = INTF_DSI,
-> +		.controller_id = MSM_DSI_CONTROLLER_0,
-> +		.prog_fetch_lines_worst_case = 24,
-> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
-> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
-> +		.intr_tear_rd_ptr = DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2),
-> +	}, {
-> +		.name = "intf_2", .id = INTF_2,
-> +		.base = 0x36000, .len = 0x300,
-> +		.features = INTF_SC7280_MASK,
-> +		.type = INTF_DSI,
-> +		.controller_id = MSM_DSI_CONTROLLER_1,
-> +		.prog_fetch_lines_worst_case = 24,
-> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 28),
-> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 29),
-> +		.intr_tear_rd_ptr = DPU_IRQ_IDX(MDP_INTF2_TEAR_INTR, 2),
-> +	}, {
-> +		.name = "intf_3", .id = INTF_3,
-> +		.base = 0x37000, .len = 0x280,
-> +		.features = INTF_SC7280_MASK,
-> +		.type = INTF_NONE,
-> +		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
-> +		.prog_fetch_lines_worst_case = 24,
-> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
-> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31),
-> +	}, {
-> +		.name = "intf_4", .id = INTF_4,
-> +		.base = 0x38000, .len = 0x280,
-> +		.features = INTF_SC7280_MASK,
-> +		.type = INTF_DP,
-> +		.controller_id = MSM_DP_CONTROLLER_1,
-> +		.prog_fetch_lines_worst_case = 24,
-> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 20),
-> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 21),
-> +	}, {
-
-Where is intf_5 ?
-
-> +		.name = "intf_6", .id = INTF_6,
-> +		.base = 0x3A000, .len = 0x280,
-> +		.features = INTF_SC7280_MASK,
-> +		.type = INTF_NONE,
-> +		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
-> +		.prog_fetch_lines_worst_case = 24,
-> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 17),
-> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 16),
-> +	}, {
-> +		.name = "intf_7", .id = INTF_7,
-> +		.base = 0x3b000, .len = 0x280,
-> +		.features = INTF_SC7280_MASK,
-> +		.type = INTF_NONE,
-> +		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
-> +		.prog_fetch_lines_worst_case = 24,
-> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 18),
-> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 19),
-> +	}, {
-> +		.name = "intf_8", .id = INTF_8,
-> +		.base = 0x3c000, .len = 0x280,
-> +		.features = INTF_SC7280_MASK,
-> +		.type = INTF_NONE,
-> +		.controller_id = MSM_DP_CONTROLLER_1,	/* pair with intf_4 for DP MST */
-> +		.prog_fetch_lines_worst_case = 24,
-> +		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12),
-> +		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 13),
-> +	},
-> +};
-> +
-> +static const struct dpu_perf_cfg sa8775p_perf_data = {
-> +	.max_bw_low = 13600000,
-> +	.max_bw_high = 18200000,
-> +	.min_core_ib = 2500000,
-> +	.min_llcc_ib = 0,
-> +	.min_dram_ib = 800000,
-> +	.min_prefill_lines = 35,
-> +	/* FIXME: lut tables */
-> +	.danger_lut_tbl = {0x3ffff, 0x3ffff, 0x0},
-> +	.safe_lut_tbl = {0xfff0, 0xfff0, 0x1},
-> +	.qos_lut_tbl = {
-> +		{.nentry = ARRAY_SIZE(sm6350_qos_linear_macrotile),
-> +		.entries = sm6350_qos_linear_macrotile
-> +		},
-> +		{.nentry = ARRAY_SIZE(sm6350_qos_linear_macrotile),
-> +		.entries = sm6350_qos_linear_macrotile
-> +		},
-> +		{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
-> +		.entries = sc7180_qos_nrt
-> +		},
-> +		/* TODO: macrotile-qseed is different from macrotile */
-> +	},
-> +	.cdp_cfg = {
-> +		{.rd_enable = 1, .wr_enable = 1},
-> +		{.rd_enable = 1, .wr_enable = 0}
-> +	},
-> +	.clk_inefficiency_factor = 105,
-> +	.bw_inefficiency_factor = 120,
-> +};
-> +
-> +static const struct dpu_mdss_version sa8775p_mdss_ver = {
-> +	.core_major_ver = 8,
-> +	.core_minor_ver = 4,
-> +};
-> +
-> +const struct dpu_mdss_cfg dpu_sa8775p_cfg = {
-> +	.mdss_ver = &sa8775p_mdss_ver,
-> +	.caps = &sa8775p_dpu_caps,
-> +	.mdp = &sa8775p_mdp,
-> +	.cdm = &sc7280_cdm,
-> +	.ctl_count = ARRAY_SIZE(sa8775p_ctl),
-> +	.ctl = sa8775p_ctl,
-> +	.sspp_count = ARRAY_SIZE(sa8775p_sspp),
-> +	.sspp = sa8775p_sspp,
-> +	.mixer_count = ARRAY_SIZE(sa8775p_lm),
-> +	.mixer = sa8775p_lm,
-> +	.dspp_count = ARRAY_SIZE(sa8775p_dspp),
-> +	.dspp = sa8775p_dspp,
-> +	.pingpong_count = ARRAY_SIZE(sa8775p_pp),
-> +	.pingpong = sa8775p_pp,
-> +	.dsc_count = ARRAY_SIZE(sa8775p_dsc),
-> +	.dsc = sa8775p_dsc,
-> +	.merge_3d_count = ARRAY_SIZE(sa8775p_merge_3d),
-> +	.merge_3d = sa8775p_merge_3d,
-> +	.wb_count = ARRAY_SIZE(sa8775p_wb),
-> +	.wb = sa8775p_wb,
-> +	.intf_count = ARRAY_SIZE(sa8775p_intf),
-> +	.intf = sa8775p_intf,
-> +	.vbif_count = ARRAY_SIZE(sdm845_vbif),
-> +	.vbif = sdm845_vbif,
-> +	.perf = &sa8775p_perf_data,
-> +};
-> +
-> +#endif
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index dcb4fd85e73b..6f60fff2c9a6 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -1,6 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0-only
->  /* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
-> - * Copyright (c) 2022-2023, Qualcomm Innovation Center, Inc. All rights reserved.
-> + * Copyright (c) 2022-2024, Qualcomm Innovation Center, Inc. All rights reserved.
->   */
->  
->  #define pr_fmt(fmt)	"[drm:%s:%d] " fmt, __func__, __LINE__
-> @@ -699,6 +699,7 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
->  
->  #include "catalog/dpu_8_0_sc8280xp.h"
->  #include "catalog/dpu_8_1_sm8450.h"
-> +#include "catalog/dpu_8_4_sa8775p.h"
->  
->  #include "catalog/dpu_9_0_sm8550.h"
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index 37e18e820a20..cff16dcf277f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -1,6 +1,6 @@
->  /* SPDX-License-Identifier: GPL-2.0-only */
->  /*
-> - * Copyright (c) 2022-2023, Qualcomm Innovation Center, Inc. All rights reserved.
-> + * Copyright (c) 2022-2024, Qualcomm Innovation Center, Inc. All rights reserved.
->   * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
->   */
->  
-> @@ -850,6 +850,7 @@ extern const struct dpu_mdss_cfg dpu_sm8350_cfg;
->  extern const struct dpu_mdss_cfg dpu_sc7280_cfg;
->  extern const struct dpu_mdss_cfg dpu_sc8280xp_cfg;
->  extern const struct dpu_mdss_cfg dpu_sm8450_cfg;
-> +extern const struct dpu_mdss_cfg dpu_sa8775p_cfg;
->  extern const struct dpu_mdss_cfg dpu_sm8550_cfg;
->  extern const struct dpu_mdss_cfg dpu_sm8650_cfg;
->  extern const struct dpu_mdss_cfg dpu_x1e80100_cfg;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 9bcae53c4f45..20b17477cb98 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -2,7 +2,7 @@
->  /*
->   * Copyright (C) 2013 Red Hat
->   * Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
-> - * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
-> + * Copyright (c) 2022, 2024 Qualcomm Innovation Center, Inc. All rights reserved.
->   *
->   * Author: Rob Clark <robdclark@gmail.com>
->   */
-> @@ -1464,6 +1464,7 @@ static const struct of_device_id dpu_dt_match[] = {
->  	{ .compatible = "qcom,sm8250-dpu", .data = &dpu_sm8250_cfg, },
->  	{ .compatible = "qcom,sm8350-dpu", .data = &dpu_sm8350_cfg, },
->  	{ .compatible = "qcom,sm8450-dpu", .data = &dpu_sm8450_cfg, },
-> +	{ .compatible = "qcom,sa8775p-dpu", .data = &dpu_sa8775p_cfg, },
-
-Wrong sorting order
-
->  	{ .compatible = "qcom,sm8550-dpu", .data = &dpu_sm8550_cfg, },
->  	{ .compatible = "qcom,sm8650-dpu", .data = &dpu_sm8650_cfg, },
->  	{ .compatible = "qcom,x1e80100-dpu", .data = &dpu_x1e80100_cfg, },
-> -- 
-> 2.34.1
+>  .../display/msm/qcom,sa8775p-mdss.yaml        | 225 ++++++++++++++++++
+>  1 file changed, 225 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
 > 
 
--- 
-With best wishes
-Dmitry
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml: ^display-controller@[0-9a-f]+$: Missing additionalProperties/unevaluatedProperties constraint
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml: ^displayport-controller@[0-9a-f]+$: Missing additionalProperties/unevaluatedProperties constraint
+Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dts:24:18: fatal error: dt-bindings/clock/qcom,sa8775p-dispcc.h: No such file or directory
+   24 |         #include <dt-bindings/clock/qcom,sa8775p-dispcc.h>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[2]: *** [scripts/Makefile.lib:442: Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1432: dt_binding_check] Error 2
+make: *** [Makefile:224: __sub-make] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240912071437.1708969-2-quic_mahap@quicinc.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
