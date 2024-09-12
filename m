@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9768397637E
-	for <lists+freedreno@lfdr.de>; Thu, 12 Sep 2024 09:53:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5BE39763A4
+	for <lists+freedreno@lfdr.de>; Thu, 12 Sep 2024 09:56:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C5C510E78F;
-	Thu, 12 Sep 2024 07:53:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E82D10E88C;
+	Thu, 12 Sep 2024 07:56:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bpzG8Djz";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vIGrQv7u";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87E8910E78F
- for <freedreno@lists.freedesktop.org>; Thu, 12 Sep 2024 07:53:06 +0000 (UTC)
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-2f761461150so9597211fa.0
- for <freedreno@lists.freedesktop.org>; Thu, 12 Sep 2024 00:53:06 -0700 (PDT)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFA8910E88C
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Sep 2024 07:56:45 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2f75c0b78fbso7880851fa.1
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Sep 2024 00:56:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1726127584; x=1726732384; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1726127804; x=1726732604; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=plV9zVWaER2nVL76z2wZIDE0Ej/fFWbWekwnS0bRoPg=;
- b=bpzG8Djzlq2ZrF9ihhAI7EdlgWa27GL0+/Kn7pXGk5QK+lVz5Mc3mB9lbjxmiWrak6
- /nrjC4mBTSgLoMyRnokz7FMy9P41E5fkrRE5zv/Ij6UcPOrZWnSTy1MWBVfrxTRH8V7h
- n4FmMJXa8V3U8OW8YwCUn7ktDHHk6wRKuTNnay78jGSzhEkS2a4Im6u0FbbsXoYincDY
- XCaqWqWkJQgCbaSPRR7ueJEPuVZ/i6/WGDlUCFyxCkOetptK/bfmT/Yy5uclzeea8eiw
- H9BAqd1lZ4Vz9go2Q5UKS1LCDxJ8/gllp5EMmH32qGY/lyn2pdrmXxGkdeOlB3yrPpi7
- Z0iQ==
+ bh=rzUy16PQ8SDXmHcug8jXm/7h574vKZnBpTKJTICvI5k=;
+ b=vIGrQv7uxOeU9fUw4jiKGb7HMmeY2GV4NKz1phviMLR3zkGiAXv3lJp9G0gvD19xkc
+ UJALbvLpo7uPtvjf1+aUjWfG6qiztNJFYXi71+VHjbcBzLMWTRePa4n6voWUOS4hWxES
+ Voj7R9EzGvzVbZWYtN/+mtNFIj7hPnpYX6F1wgUlPv6/tt1p1Jxf5ngdg/iwEoE/f2Vl
+ QFx4WTi8+l37KzUfunTsCALjCfXuadkmusIre0gy+LfYiPagdS5D1lld8uWqY/jeXF/w
+ s9ngkYsPvRGM2WyIR1+s8EJ362O0H/xD8xrhN1Myb26k/4HhZS6zwrKoige/+1gyzOZe
+ b9kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726127584; x=1726732384;
+ d=1e100.net; s=20230601; t=1726127804; x=1726732604;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=plV9zVWaER2nVL76z2wZIDE0Ej/fFWbWekwnS0bRoPg=;
- b=ml2ra3NfwebYMofJiPar/MRBBk+0S4YZM3ke/oBscmBZHn7mww7Fh5KGoTxVz2vcKy
- c8vN5SZF9e8SkWlGHMqwMI9TwUGbfnwTCDjjrKtia3/IvSTEDLR0NibVarHxM3xKnlM7
- fOYfZKKDqjm35ajf2kIYhFtpf40YfC2gg4dt5Aqhv6PT8Ufel4mA3C0U+CpGGm422KlB
- CQGeAKYdtiUCcVgIDVsHV7zP2J7Vi5eNmg4/59g1ChqGQzkmV8ga6M0ZdjjxsymBIAZj
- VV6ECoyvPGqiMRbIS65npwT1y7+GZvxrvD0KjKGJqv29J2DxkBQSCfbE0bYEfxVKr1e7
- wtwQ==
+ bh=rzUy16PQ8SDXmHcug8jXm/7h574vKZnBpTKJTICvI5k=;
+ b=FojnSKfiud37xXE0wFVGkG/K+Qc3IFNrGEQ2Tnh3QaeAruF1E1hkmt4Y+4u2pQ2kjR
+ FvZUr/p3EbhGjTyDANM1VDjiSJbBPKHiECUFT7rvOaVEEkOs2Izcua6sBLIDbPi6CdRP
+ X41+P4iZNI1nOPfIqyiMNdVH/0XNItlVxllphzcgdvOvueCoqyGyY2qW8i3oB9HsMZnq
+ B3u/YhLx9uz2hkVnuSJ3kKniaReHlzKf5LmGiHFlXqDfwBIH4XISBLOH7MubtpSr9vUv
+ kzMMfwf22kUrORrQ8BintijtOHLey0CUys7Df1dglNzvPe6xLCU8DpSVs3fIeXVkajEI
+ 2q1g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVmwTvf5Zj9eSTRtvEhOpf9XvKybxmQJCKiyvVdYhJd6eS70elCee3beVbn/8srBuqSZfrC4R77X98=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxfFg/vBmDw8iV3YZJ+IVCxLDxQa7w72eMMxr8ob4BvRb+hMy23
- 31u9RW0VSjdt8YgA+nVbf0RRPlp2Ruev56afBD1f34FrCwXk2RfCbu63RSyGkc8=
-X-Google-Smtp-Source: AGHT+IGNAjjrqwXcc00olSCpw8KkiqSQhqCV9M6o89EyqQyNZCGyom+XQTk0RI8UmFhrk56pycAn7Q==
-X-Received: by 2002:a2e:a7c1:0:b0:2f6:4a89:9afa with SMTP id
- 38308e7fff4ca-2f78e18c52bmr1151811fa.22.1726127584296; 
- Thu, 12 Sep 2024 00:53:04 -0700 (PDT)
+ AJvYcCWdhUzd7n8EqLGLzJH+cYH4PqXoTdEEenzjcEF0C8qBEHxX4VyglSrDwq4zQJqJH5Nd3Heh2E+Fqwo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzh+Wdb7DQv4Br3zEgK0jhzno0waoeaL8F1dXZBsHt9UZlRwYMg
+ fr597gHv2reGXrIhXdqpgkMWShH8p89WP890Oxr8+A/OTZ/l4anGzMdwQV2xfBA=
+X-Google-Smtp-Source: AGHT+IEO+oaR2J+/C5HWt9j3Jqj2WBAglLEJ+Odvyq26KObdZCTNoi/+ljmrdSm1pK1NNmf0NzUFaQ==
+X-Received: by 2002:a2e:be91:0:b0:2ef:2016:262e with SMTP id
+ 38308e7fff4ca-2f787ca97e6mr12162111fa.0.1726127803444; 
+ Thu, 12 Sep 2024 00:56:43 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f75bffe937sm18013361fa.55.2024.09.12.00.53.03
+ 38308e7fff4ca-2f75c07c897sm18188401fa.75.2024.09.12.00.56.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Sep 2024 00:53:03 -0700 (PDT)
-Date: Thu, 12 Sep 2024 10:53:02 +0300
+ Thu, 12 Sep 2024 00:56:43 -0700 (PDT)
+Date: Thu, 12 Sep 2024 10:56:41 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Mahadevan <quic_mahap@quicinc.com>
 Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run, 
@@ -72,7 +72,7 @@ Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
  linux-kernel@vger.kernel.org, 
  quic_kalyant@quicinc.com, quic_jmadiset@quicinc.com, quic_vpolimer@quicinc.com
 Subject: Re: [PATCH 0/5] Add display support for Qualcomm SA8775P platform
-Message-ID: <3cpxwtqxapxhvg3w323xr7drv7p5sozrlwgoqscz4dqyuqft5x@x3pqxdjbpca6>
+Message-ID: <7fcbvouzb7gq6lclrkgs6pxondvj5wvutyw3swg55ugvzfpvd4@2ph7x7ulxoyv>
 References: <20240912071437.1708969-1-quic_mahap@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -95,13 +95,18 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Thu, Sep 12, 2024 at 12:44:32PM GMT, Mahadevan wrote:
 > Add support for mdss and dpu driver on Qualcomm SA8775P platform.
-
-You can not support a driver. Also, MDSS, DPU.
-
 > 
 > ---
 > This series depends on following series:
 > https://lore.kernel.org/all/20240816-sa8775p-mm-v3-v1-0-77d53c3c0cef@quicinc.com/
+
+As such, it probably can not be merged before 6.14 (the mentioned series
+will go on 6.13, we usually don't do cross-tree merges into drm). Please
+rework the bindings to drop the dependency (it is possible, use fake
+nodes instead of using dispcc + ID). Then you can specify that only the
+DTS patch depends on the dispcc support, allowing driver changes to go
+in first.
+
 > ---
 > 
 > Mahadevan (5):
