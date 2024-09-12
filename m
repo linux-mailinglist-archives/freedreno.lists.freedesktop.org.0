@@ -2,88 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB8BB975E9D
-	for <lists+freedreno@lfdr.de>; Thu, 12 Sep 2024 03:45:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5BCC976033
+	for <lists+freedreno@lfdr.de>; Thu, 12 Sep 2024 07:03:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52A1210EABE;
-	Thu, 12 Sep 2024 01:45:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADD2910E0AD;
+	Thu, 12 Sep 2024 05:03:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="M42jQbQd";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="p6C11gpI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 618BC10EA84;
- Thu, 12 Sep 2024 01:45:35 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48BEm5Tj019815;
- Thu, 12 Sep 2024 01:45:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=WscEjiD9hzzpsqZveTR3VhIR
- Mm9+9juNOelysgcOnVI=; b=M42jQbQdi0MeOEB+4DwDxloLVQr+avuBfq9h3sgW
- sbIP9dz6dBtclyOscqiKpQBPRjkPetYRxPoc8pvnxQZZDrFr8jSUCLy1wFTZIgpw
- c4nCxPwctH7UhGtDwqSJQ8ep8S3PrXo1qhpEXObAMd8JFW2+yyrrJ2N+v3D6Y712
- anYqOt/oISr3BDnd2SrB1Luy3CxHhmTl/V/vt6KTs7TyZY423rNs8ebwBqaRs01o
- z0imjUCbHdAEXYaPrXPYC99V1pIA1AiVSF1U7vVLArK3/ntN/BpyF4C//vTjqcZq
- sg+FnIl7iQAHBCLqFFAeGDIEAfnp1yJXSkG6OqAlJHnVPw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41gybpuf60-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 12 Sep 2024 01:45:27 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48C1jQDP007857
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 12 Sep 2024 01:45:27 GMT
-Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Wed, 11 Sep 2024 18:45:26 -0700
-Date: Wed, 11 Sep 2024 18:45:25 -0700
-From: Bjorn Andersson <quic_bjorande@quicinc.com>
-To: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
-CC: <vkoul@kernel.org>, <kishon@kernel.org>, <konradybcio@kernel.org>,
- <andersson@kernel.org>, <simona@ffwll.ch>,
- <dmitry.baryshkov@linaro.org>, <abel.vesa@linaro.org>,
- <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, <sean@poorly.run>,
- <marijn.suijten@somainline.org>, <airlied@gmail.com>,
- <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <quic_khsieh@quicinc.com>,
- <konrad.dybcio@linaro.org>, <quic_parellan@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <linux-phy@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <quic_riteshk@quicinc.com>, <quic_vproddut@quicinc.com>
-Subject: Re: [PATCH 2/5] phy: qcom: edp: Introduce aux_cfg array for version
- specific aux settings
-Message-ID: <ZuJHtXrZIRDd7Kyg@hu-bjorande-lv.qualcomm.com>
-References: <20240911100813.338-1-quic_mukhopad@quicinc.com>
- <20240911100813.338-3-quic_mukhopad@quicinc.com>
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D093010E1E8
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Sep 2024 05:03:44 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-53658f30749so604771e87.3
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Sep 2024 22:03:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1726117423; x=1726722223; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=noD0uf88q3RdaLafoUYt98P8HM8wv8kHm5RyRAQfAOE=;
+ b=p6C11gpIPHdQps05YKVJ5TtSHS+Aazpwf5jfOiw7Fn9+QNVFrFDQiKNLFyVzWvCbiU
+ bfNAW20vP01f9CvmPeKm2nBEq6r4Dl4UysBO2o8PvZqA7zMgCOqXGo8S0TetutXCokWo
+ j0jCtEvTs/MRggx6oVU1FWjGFeur5/pv8smrrpFuY5A18oz6NghGEt2oa4ZA7lZxlvCj
+ AB03YFPNvi6PZWRmc7pPJ8c7+UIy+Rx0CtwWztzWmw4SAE0X48v6VyL2MSWJ43tHtohc
+ 5mm7LY8SxSxXg2NrDwwOa9B4oW6TesaC35BHESBdYDnrmRInWTnOMaIcKvTT6PoMZUg6
+ TVpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726117423; x=1726722223;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=noD0uf88q3RdaLafoUYt98P8HM8wv8kHm5RyRAQfAOE=;
+ b=eu48kiOJP6q7GzWlRF9xKC/tgLU/fET7ioiRdwar+vBruLBg9ar8ME8FPZlYuS1FIx
+ qCqwVY4vTa3eW2YTsLySN6i8pcuro5Bno0hRzG90PdQkncOmx38s6rf8oTPwvQ7WzIvj
+ +kbF8HHZViKzj0z/pPIvnIp2iKm/Y1ZDw2b4jazh0Q0vUfnmxp4mleMd70DU617jk3WV
+ 7e14lucFn5/gcK+L2gRyZbyqwULeUfqLvDSwdNFoucZ+aU16w9R5y8nJnD14DGqJYkQE
+ TRxtK+uTx1kAUCm8VjNLyNevo0M6DTjsOdL4hUHsZ0SH1gdnHmhZN49gaj0kqJFYxQHG
+ he7A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVTOq5De65hHeoxyLNHwggAGC2joNxafjG+AzkmfElAOPanDykHExNiVgyHkT+OCOPZk/Kwtvc92kw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwfUMeLBBvDd2/rBxEzEMKQwrcvPnF0WY7xivZtpM8oUbUk2npb
+ xDWVRcMRLwuhrwo+A9zbblxY8GWbfu4kz6cLr8x9amo5AW31D6P9yiGtwWTkr2s=
+X-Google-Smtp-Source: AGHT+IEhvubGxjrEQVdVXNSpslGFKwSw4CRUWLIiO5R3/3qcm6MQuihMMnkeCR9XhehXo7BfZGCjhA==
+X-Received: by 2002:a05:6512:a87:b0:52c:d626:77aa with SMTP id
+ 2adb3069b0e04-53678ff4d11mr738269e87.58.1726117421945; 
+ Wed, 11 Sep 2024 22:03:41 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5365f868c5asm1775717e87.43.2024.09.11.22.03.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Sep 2024 22:03:41 -0700 (PDT)
+Date: Thu, 12 Sep 2024 08:03:39 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Shen Lichuan <shenlichuan@vivo.com>
+Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, airlied@gmail.com, 
+ simona@ffwll.ch, sean@poorly.run, konradybcio@kernel.org, 
+ marijn.suijten@somainline.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ opensource.kernel@vivo.com
+Subject: Re: [PATCH v1] drm/msm/dpu: Fix some typos in comment
+Message-ID: <pd76zf55h3kjpmgiydiu4br35bwlzsey2losublklv4o4ta7ko@z3gzy2eec5qh>
+References: <20240912042425.4703-1-shenlichuan@vivo.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240911100813.338-3-quic_mukhopad@quicinc.com>
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: -f8-IAEYCXekWPLFcgq1cRigKHN0bHZD
-X-Proofpoint-GUID: -f8-IAEYCXekWPLFcgq1cRigKHN0bHZD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 spamscore=0 adultscore=0
- lowpriorityscore=0 mlxlogscore=999 clxscore=1015 bulkscore=0
- impostorscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2408220000 definitions=main-2409120012
+In-Reply-To: <20240912042425.4703-1-shenlichuan@vivo.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,118 +87,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Sep 11, 2024 at 03:38:10PM +0530, Soutrik Mukhopadhyay wrote:
-> In order to support different HW versions, introduce aux_cfg array
-> to move v4 specific aux configuration settings.
+On Thu, Sep 12, 2024 at 12:24:25PM GMT, Shen Lichuan wrote:
+> Fixed some spelling errors, the details are as follows:
 > 
-> Signed-off-by: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
+> -in the code comments:
+> 	collpase->collapse
+> 	firwmare->firmware
+> 	everwhere->everywhere
+> 
+> Signed-off-by: Shen Lichuan <shenlichuan@vivo.com>
+
+Missing Fixes tag.
+
 > ---
->  drivers/phy/qualcomm/phy-qcom-edp.c | 34 +++++++++++++++++------------
->  1 file changed, 20 insertions(+), 14 deletions(-)
+>  drivers/gpu/drm/msm/adreno/a5xx_power.c | 2 +-
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
+>  drivers/gpu/drm/msm/msm_ringbuffer.c    | 2 +-
+
+Subject prefix is incorrect, none of these files belong to the DPU
+subdriver.
+
+>  3 files changed, 3 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
-> index da2b32fb5b45..0f860a807d1b 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-> @@ -90,6 +90,7 @@ struct phy_ver_ops {
->  
->  struct qcom_edp_phy_cfg {
->  	bool is_edp;
-> +	u8 *aux_cfg;
->  	const struct qcom_edp_swing_pre_emph_cfg *swing_pre_emph_cfg;
->  	const struct phy_ver_ops *ver_ops;
->  };
-> @@ -186,11 +187,14 @@ static const struct qcom_edp_swing_pre_emph_cfg edp_phy_swing_pre_emph_cfg = {
->  	.pre_emphasis_hbr3_hbr2 = &edp_pre_emp_hbr2_hbr3,
->  };
->  
-> +static u8 edp_phy_aux_cfg_v4[10] = {
-> +	0x00, 0x13, 0x24, 0x00, 0x0a, 0x26, 0x0a, 0x03, 0x37, 0x03
-> +};
-> +
->  static int qcom_edp_phy_init(struct phy *phy)
->  {
->  	struct qcom_edp *edp = phy_get_drvdata(phy);
->  	int ret;
-> -	u8 cfg8;
->  
->  	ret = regulator_bulk_enable(ARRAY_SIZE(edp->supplies), edp->supplies);
->  	if (ret)
-> @@ -222,22 +226,20 @@ static int qcom_edp_phy_init(struct phy *phy)
->  	 * even needed.
->  	 */
->  	if (edp->cfg->swing_pre_emph_cfg && !edp->is_edp)
-> -		cfg8 = 0xb7;
-> -	else
-> -		cfg8 = 0x37;
-> +		edp->cfg->aux_cfg[8] = 0xb7;
 
-If you have multiple instances of the eDP PHY they will all point to the
-same edp_phy_aux_cfg_v4[], so making instance-specific modifications
-to that array will not be okay.
-
-
-Make edp_phy_aux_cfg_v4[] const to reduce the likelihood for someone
-else to make this mistake in the future and make a local copy of the
-array on the stack so that you can modify it.
-
-Regards,
-Bjorn
-
->  
->  	writel(0xfc, edp->edp + DP_PHY_MODE);
->  
-> -	writel(0x00, edp->edp + DP_PHY_AUX_CFG0);
-> -	writel(0x13, edp->edp + DP_PHY_AUX_CFG1);
-> -	writel(0x24, edp->edp + DP_PHY_AUX_CFG2);
-> -	writel(0x00, edp->edp + DP_PHY_AUX_CFG3);
-> -	writel(0x0a, edp->edp + DP_PHY_AUX_CFG4);
-> -	writel(0x26, edp->edp + DP_PHY_AUX_CFG5);
-> -	writel(0x0a, edp->edp + DP_PHY_AUX_CFG6);
-> -	writel(0x03, edp->edp + DP_PHY_AUX_CFG7);
-> -	writel(cfg8, edp->edp + DP_PHY_AUX_CFG8);
-> -	writel(0x03, edp->edp + DP_PHY_AUX_CFG9);
-> +	writel(edp->cfg->aux_cfg[0], edp->edp + DP_PHY_AUX_CFG0);
-> +	writel(edp->cfg->aux_cfg[1], edp->edp + DP_PHY_AUX_CFG1);
-> +	writel(edp->cfg->aux_cfg[2], edp->edp + DP_PHY_AUX_CFG2);
-> +	writel(edp->cfg->aux_cfg[3], edp->edp + DP_PHY_AUX_CFG3);
-> +	writel(edp->cfg->aux_cfg[4], edp->edp + DP_PHY_AUX_CFG4);
-> +	writel(edp->cfg->aux_cfg[5], edp->edp + DP_PHY_AUX_CFG5);
-> +	writel(edp->cfg->aux_cfg[6], edp->edp + DP_PHY_AUX_CFG6);
-> +	writel(edp->cfg->aux_cfg[7], edp->edp + DP_PHY_AUX_CFG7);
-> +	writel(edp->cfg->aux_cfg[8], edp->edp + DP_PHY_AUX_CFG8);
-> +	writel(edp->cfg->aux_cfg[9], edp->edp + DP_PHY_AUX_CFG9);
->  
->  	writel(PHY_AUX_STOP_ERR_MASK | PHY_AUX_DEC_ERR_MASK |
->  	       PHY_AUX_SYNC_ERR_MASK | PHY_AUX_ALIGN_ERR_MASK |
-> @@ -519,16 +521,19 @@ static const struct phy_ver_ops qcom_edp_phy_ops_v4 = {
->  };
->  
->  static const struct qcom_edp_phy_cfg sc7280_dp_phy_cfg = {
-> +	.aux_cfg = edp_phy_aux_cfg_v4,
->  	.ver_ops = &qcom_edp_phy_ops_v4,
->  };
->  
->  static const struct qcom_edp_phy_cfg sc8280xp_dp_phy_cfg = {
-> +	.aux_cfg = edp_phy_aux_cfg_v4,
->  	.swing_pre_emph_cfg = &dp_phy_swing_pre_emph_cfg,
->  	.ver_ops = &qcom_edp_phy_ops_v4,
->  };
->  
->  static const struct qcom_edp_phy_cfg sc8280xp_edp_phy_cfg = {
->  	.is_edp = true,
-> +	.aux_cfg = edp_phy_aux_cfg_v4,
->  	.swing_pre_emph_cfg = &edp_phy_swing_pre_emph_cfg,
->  	.ver_ops = &qcom_edp_phy_ops_v4,
->  };
-> @@ -707,6 +712,7 @@ static const struct phy_ver_ops qcom_edp_phy_ops_v6 = {
->  };
->  
->  static struct qcom_edp_phy_cfg x1e80100_phy_cfg = {
-> +	.aux_cfg = edp_phy_aux_cfg_v4,
->  	.swing_pre_emph_cfg = &dp_phy_swing_pre_emph_cfg,
->  	.ver_ops = &qcom_edp_phy_ops_v6,
->  };
-> -- 
-> 2.17.1
-> 
+-- 
+With best wishes
+Dmitry
