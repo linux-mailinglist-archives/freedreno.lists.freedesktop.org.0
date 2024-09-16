@@ -2,80 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B8D397A93F
-	for <lists+freedreno@lfdr.de>; Tue, 17 Sep 2024 00:33:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 164C997A980
+	for <lists+freedreno@lfdr.de>; Tue, 17 Sep 2024 01:27:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57D8710E0FB;
-	Mon, 16 Sep 2024 22:33:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8670C10E23E;
+	Mon, 16 Sep 2024 23:27:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="WAXGtdTe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SqYtWNpW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13EDE10E0D1;
- Mon, 16 Sep 2024 22:33:49 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48GEjbli010095;
- Mon, 16 Sep 2024 22:33:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- jRQmS8uxgnbiobE0eClg3TQPkamskuwaAUNyzBVoJZI=; b=WAXGtdTeH+cZzt0s
- iO1bpKx1LlJZXdcPCZd3FzkPGfkjtM6grfIvFGE/KG4dX8F+x8YRLpdi5vTduUUA
- TPXw5pOwZ1B/r7q5pZqqYqAtBQ2jeCmLgQ+2iEg0oXTJCxiKF1HI+wvW7uYGIYv7
- pNvR/SIf91nSpIRUxDYsEIpf/BmCz6FIRyreyxFUEzA6/Q+tYDQ2E2VK0Yzn4B+W
- zbl8O8sHOmkLJ78z8/VS28oD0G+aZIsj1C5dgniznddNr5IQamoeqZcUoMqWJcMh
- whCiuIWgVdnOYn0oUes823kEZVP3MMoKf1eVu6S9A87IN4AiH++KsAyc4aWN49V1
- 46/AaA==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41n4hh5ayr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Sep 2024 22:33:44 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48GMXgsg014450
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Sep 2024 22:33:42 GMT
-Received: from [10.110.75.131] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 16 Sep
- 2024 15:33:42 -0700
-Message-ID: <13f79bfe-a67a-475c-9c1f-dbff802242eb@quicinc.com>
-Date: Mon, 16 Sep 2024 15:33:36 -0700
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0E8D10E1CB;
+ Mon, 16 Sep 2024 23:27:00 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id DD560A4038D;
+ Mon, 16 Sep 2024 23:26:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A89C4CEC4;
+ Mon, 16 Sep 2024 23:26:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1726529219;
+ bh=d9UEpU83x5hAG5oMvx4HxcrAGOkKGgQANVisyV8UGI8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=SqYtWNpWUVSHBdzHfFF//6C1+brsULRgPpUKjETvFj4vraaGw2aCwwLbh6Ei+plTj
+ bK02Q8DhvkxRslymdv/Y3pscVdgjI89OFN6aOjWvQnOjUPL8q6UVLI9ZcR1S88qQ6A
+ uiQc7Ow141IIoqccqUONlbKl+lLsaNIi+pgAwBXvjDwUuULVqUWZp49yctVCo6nMLW
+ mA0zVB31Ta4H/tZxlWFISn3r9Lc79n+ensJSulvSItS4zuRP4ClcXNDjgVQm2XuMUX
+ hv0MUI0+U/cNqHVW+ZOff08pxtTvAOj97rlZ4wFAe2mla6rgBKyXp2EuUu4GUSCrKh
+ Hn6GnXQk6EFAw==
+Message-ID: <f736f02e-f19b-4be2-86ad-73d6ae7c6dc2@kernel.org>
+Date: Tue, 17 Sep 2024 01:26:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH -next] drm/msm: Remove unneeded semicolon
-To: Yang Li <yang.lee@linux.alibaba.com>, <robdclark@gmail.com>,
- <dmitry.baryshkov@linaro.org>, <airlied@gmail.com>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, Abaci
- Robot <abaci@linux.alibaba.com>
-References: <20240903005655.4183-1-yang.lee@linux.alibaba.com>
+Subject: Re: [PATCH v2 1/5] dt-bindings: phy: Add eDP PHY compatible for
+ sa8775p
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>, vkoul@kernel.org,
+ kishon@kernel.org, konradybcio@kernel.org, andersson@kernel.org,
+ simona@ffwll.ch, abel.vesa@linaro.org, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, sean@poorly.run, marijn.suijten@somainline.org,
+ airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, quic_khsieh@quicinc.com,
+ konrad.dybcio@linaro.org, quic_parellan@quicinc.com,
+ quic_bjorande@quicinc.com, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, quic_riteshk@quicinc.com,
+ quic_vproddut@quicinc.com
+References: <20240913103755.7290-1-quic_mukhopad@quicinc.com>
+ <20240913103755.7290-2-quic_mukhopad@quicinc.com>
+ <2hv2hcpbanduw4wg2wbza4jkze4sgilrtyc7zack23uygwsjol@ckskl2rkd5xp>
+ <t4ytnii3sdiqsni74d7qsi2c6uv2klwmzmgznnirt2z55to4hj@lyaoh5fzcyti>
 Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240903005655.4183-1-yang.lee@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Konrad Dybcio <konradybcio@kernel.org>
+In-Reply-To: <t4ytnii3sdiqsni74d7qsi2c6uv2klwmzmgznnirt2z55to4hj@lyaoh5fzcyti>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: ldKj-MgSZdv3ahSQ8ulZKztzpJzJ3Jr9
-X-Proofpoint-ORIG-GUID: ldKj-MgSZdv3ahSQ8ulZKztzpJzJ3Jr9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0
- adultscore=0 impostorscore=0 phishscore=0 priorityscore=1501 clxscore=1011
- mlxlogscore=993 mlxscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2408220000
- definitions=main-2409160153
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,32 +75,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 9/2/2024 5:56 PM, Yang Li wrote:
-> ./drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c:282:2-3: Unneeded semicolon
+On 16.09.2024 10:33 PM, Dmitry Baryshkov wrote:
+> On Mon, Sep 16, 2024 at 05:23:55PM GMT, Krzysztof Kozlowski wrote:
+>> On Fri, Sep 13, 2024 at 04:07:51PM +0530, Soutrik Mukhopadhyay wrote:
+>>> Add compatible string for the supported eDP PHY on sa8775p platform.
+>>>
+>>> Signed-off-by: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
+>>> ---
+>>> v2: No change
+>>>  
+>>
+>> Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
 > 
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=9852
-> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
-> ---
->   drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+> So, is it reviewed or acked?
 
-Change looks fine but can you pls have a short one line in the commit 
-text instead of just pasting the error from the errorchecker?
+After a thorough review, it has been acked
 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-> index 0e3a2b16a2ce..65cf237c6b4e 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-> @@ -279,7 +279,7 @@ static int pll_get_post_div(struct hdmi_8998_post_divider *pd, u64 bclk)
->   	case 25:
->   		found_hsclk_divsel = 14;
->   		break;
-> -	};
-> +	}
->   
->   	pd->vco_freq = found_vco_freq;
->   	pd->tx_band_sel = found_tx_band_sel;
+Konrad
