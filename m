@@ -2,76 +2,95 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 420BF97B1CC
-	for <lists+freedreno@lfdr.de>; Tue, 17 Sep 2024 17:30:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A54A97B4BD
+	for <lists+freedreno@lfdr.de>; Tue, 17 Sep 2024 22:39:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 152EA10E491;
-	Tue, 17 Sep 2024 15:30:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5195910E179;
+	Tue, 17 Sep 2024 20:39:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MhURv13K";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ZQ8NpK79";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
- [209.85.166.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C84BC10E1D4;
- Tue, 17 Sep 2024 15:30:39 +0000 (UTC)
-Received: by mail-il1-f180.google.com with SMTP id
- e9e14a558f8ab-3a09af86744so10375935ab.1; 
- Tue, 17 Sep 2024 08:30:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1726587039; x=1727191839; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rPW/AgdMn9HEEBlCh+UVWWKGsOQrfUimterFynorjKM=;
- b=MhURv13KLad6WW9wscEu1/SAD/MAsQkHEl1i1dMd2CJGYOqs2ypDE8gX2mn+TUAbxN
- pojTSQ4yoLfIJts3hQFv2EUPol9Xi6MXoM7jSSiWsjxN0klNS1jOR9tl6M8w7fE511YE
- SMAcTv+GdbdESprALuIPyuaWg2SDnfkro0GuG08jsQsItcJ0mMX8AFWyWfipvWdl/2sK
- Zk9ac+DkUfeUlDqnBJpVagGQkiXq2YEjxdEEQXOMQoPrnzkMMtmFUCC2pKk9f+7tJkhn
- IcO38YbwyoqgoaX2imC2f8/oR4AqHGo2hamtrpOoMuYlewyNbidLLxpLjfxmfTbmzCRa
- 2iFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726587039; x=1727191839;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rPW/AgdMn9HEEBlCh+UVWWKGsOQrfUimterFynorjKM=;
- b=sUHrVs5zZ9wRoN/c6TDfPE8rQNTixQdpTYFnJQPMCwNUSVYrnolNG7W/QLrb5togWI
- IvXySXRQJ1gg7f2vHSvyADFhjEVNkULuO9st+ts9uv31RK2S4kUrpb1Ih/bL8n62PAos
- 8bmbsoJegqm+Hrc8gzADL0ZLqvLPjbhnhvkb+m5TORlikA4DyGNR50pnbjoXamj/ii9I
- 0bdPdxgLtv0KndXIUp6jMi7p+QgtF4H8Vy48+dhIFfawHJA3wSRtuPILfFfE6tg2bKNC
- oAhJeZp7ShMyFqOGJCJfOEM87zgY9Bxdo5g3Ulah0xKHXVU67+WSzNoSsLQPKv/DmOGi
- nYiw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU5hRJX49LoGh6bizxe75a9R5hG2WttEBO1C858nM9bcWQwXSoKE07ZI3ddJljy2kD1siH4mBJ2ziU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzeQXAV/LNQT6BgLNY7lMLiksgqlajAnrEjNr8VZRHA+f4CZE7k
- z45hFbDv3gCuGaDWBb4y7f6bn4lN04+v14zXxWcMYzYpH00GP3n9RgB7AiN7dRAbg6PR0WWoEiX
- nFwTvXEczwKlR4N/W8bzdexLbJwc=
-X-Google-Smtp-Source: AGHT+IFnQfX2Dm7t85FaLReCnsm/k3IVJHP6S0jDSauS+A3CY0LNPlrSmf9NZpTDLnGuUiYPAko0KJRt85OCKIPoMnY=
-X-Received: by 2002:a05:6e02:5a9:b0:3a0:8c68:7705 with SMTP id
- e9e14a558f8ab-3a08c6877c6mr117243125ab.21.1726587038839; Tue, 17 Sep 2024
- 08:30:38 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2271B10E0E9;
+ Tue, 17 Sep 2024 20:39:18 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48HI3REV031256;
+ Tue, 17 Sep 2024 20:39:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=FBYsgowN36zClN8wGKTrOi
+ Hp8mB6WDnMn8s5Z21bSpg=; b=ZQ8NpK79NTEfn3f9pMAQxyZJG/UIUubIpkW44X
+ DS+jdFDWMxpzRyORxBNWSamOR1K4/iZ6zyXKTCJ1rGVewge8geb2A4B2R34e27FI
+ Q9B2RzOxRhFb0Q9cXBVB1L6veHn+GI7fumOvkmgyKtmdvPVfiI7344PFuMXn2C1w
+ ICAMs6dQverHizfocA+JpTtJZscXw/AewwTAGDRWOsyj1JK9o4ro5DVhRSzKnSFa
+ iInMGn03PZsciCAmOrOmYJZc+LqleJvQjrNe5sdmJ9B4uH9omDDSZU0YkeZrZ6ML
+ /8vBz/o5rMW9F+W3htE5wt1dAfUhuXlmZYr6eVbsWSujdGAg==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41n4hffy21-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Sep 2024 20:39:11 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48HKdAAn032446
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Sep 2024 20:39:10 GMT
+Received: from [10.213.111.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 17 Sep
+ 2024 13:39:04 -0700
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Subject: [PATCH 0/3] DRM/MSM: Support for Adreno 663 GPU
+Date: Wed, 18 Sep 2024 02:08:40 +0530
+Message-ID: <20240918-a663-gpu-support-v1-0-25fea3f3d64d@quicinc.com>
 MIME-Version: 1.0
-References: <20240913195132.8282-1-robdclark@gmail.com>
- <e6991910-5058-4ef0-bfdf-6d33953535dd@kernel.org>
-In-Reply-To: <e6991910-5058-4ef0-bfdf-6d33953535dd@kernel.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 17 Sep 2024 08:30:25 -0700
-Message-ID: <CAF6AEGvgS-DD0+qGX_Mud75aES4AQQjmWx2j2gyz7uakTpnp0w@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/a6xx+: Insert a fence wait before SMMU table
- update
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>, 
- Connor Abbott <cwabbott0@gmail.com>, Rob Clark <robdclark@chromium.org>, 
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANDo6WYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxMDS0Nz3UQzM2Pd9IJS3eLSgoL8ohLdJEMTc9NkCyMLMwMzJaC2gqLUtMw
+ KsJHRsbW1AHYh7FpiAAAA
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konrad.dybcio@linaro.org>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, "Daniel Vetter" <daniel@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1726605543; l=2241;
+ i=quic_akhilpo@quicinc.com; s=20240726; h=from:subject:message-id;
+ bh=X3Klkl00DVZJKqB8dgiYqPRMiamn6rmCcwbo1LgCf1o=;
+ b=M2XfbCAhUtDRy3u6yuCDEWuHhCfWw1Ll7QXcdDWf4w/ghHSSW/SQMR3PazogiGi7ibD6M8Xqd
+ gGRP5dKMs4mCKz2GkV6VA8V+gt1VsCIWb4vgrGVhuW+WF/Ke22gYJUM
+X-Developer-Key: i=quic_akhilpo@quicinc.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Y2DWKw2Tm6M-jHVOYTnRQOgAQKGdYmyT
+X-Proofpoint-ORIG-GUID: Y2DWKw2Tm6M-jHVOYTnRQOgAQKGdYmyT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ clxscore=1011 phishscore=0 malwarescore=0 mlxlogscore=999 mlxscore=0
+ impostorscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2408220000 definitions=main-2409170147
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,31 +106,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Sep 17, 2024 at 6:47=E2=80=AFAM Konrad Dybcio <konradybcio@kernel.o=
-rg> wrote:
->
-> On 13.09.2024 9:51 PM, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > The CP_SMMU_TABLE_UPDATE _should_ be waiting for idle, but on some
-> > devices (x1-85, possibly others), it seems to pass that barrier while
-> > there are still things in the event completion FIFO waiting to be
-> > written back to memory.
->
-> Can we try to force-fault around here on other GPUs and perhaps
-> limit this workaround?
+This series adds support for Adreno 663 gpu found in SA8775P chipsets.
+The closest gpu which is currently supported in drm-msm is A660.
+Following are the major differences with that:
+	1. gmu/zap firmwares
+	2. Recommended to disable Level2 swizzling
 
-not sure what you mean by "force-fault"... we could probably limit
-this to certain GPUs, the only reason I didn't is (a) it should be
-harmless when it is not needed, and (b) I have no real good way to get
-an exhaustive list of where it is needed.  Maybe/hopefully it is only
-x1-85, but idk.
+Verified kmscube with the below Mesa change [1]. This series is rebased
+on top of msm-next.
 
-It does bring up an interesting question about preemption, though
+Patch (1) & (2) for Rob Clark and Patch (3) for Bjorn
 
-BR,
--R
+[0] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/31211
 
-> Akhil, do we have any insight on this?
->
-> Konrad
+To: Rob Clark <robdclark@gmail.com>
+To: Sean Paul <sean@poorly.run>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+To: David Airlie <airlied@gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+
+Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+---
+Puranam V G Tejaswi (3):
+      drm/msm/a6xx: Add support for A663
+      dt-bindings: display/msm/gmu: Add Adreno 663 GMU
+      arm64: dts: qcom: sa8775p: Add gpu and gmu nodes
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |  1 +
+ arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi         |  8 +++
+ arch/arm64/boot/dts/qcom/sa8775p.dtsi              | 75 ++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 19 ++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  8 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c              | 33 ++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  5 ++
+ 7 files changed, 148 insertions(+), 1 deletion(-)
+---
+base-commit: 15302579373ed2c8ada629e9e7bcf9569393a48d
+change-id: 20240917-a663-gpu-support-b1475c828606
+
+Best regards,
+-- 
+Akhil P Oommen <quic_akhilpo@quicinc.com>
+
