@@ -2,79 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F91897AB4A
-	for <lists+freedreno@lfdr.de>; Tue, 17 Sep 2024 08:13:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29D5D97ACAE
+	for <lists+freedreno@lfdr.de>; Tue, 17 Sep 2024 10:13:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EA6310E410;
-	Tue, 17 Sep 2024 06:13:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE6F210E3F6;
+	Tue, 17 Sep 2024 08:13:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="A5PB+ZYV";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="YyQ8hnum";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 558A210E416
- for <freedreno@lists.freedesktop.org>; Tue, 17 Sep 2024 06:13:42 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-5365928acd0so5751434e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 16 Sep 2024 23:13:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1726553620; x=1727158420; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=jVYJdvkFkNlxeJMRsZ4TNMxACduPDS+BlYyHwRQEdIQ=;
- b=A5PB+ZYVd18f1Y5d+WmYVSuCnmNsc+zIkOJ0uxrBsUU4btrnmojQ5SXms7214dDPnm
- iYu7xBQJTKBRuimQBEZ3FIbhY2v/eV8LleYiCfNZXxlwFheP7dCfD9QSFi/97q8pPSqu
- bYEWdS5tuSGDsXQnRzg9MCEuRPdRt0TR539eO5jXG5yzPOxGac8lvAJAi8iMALKyKvt7
- wc59jIs/PkO6Yy2icI0LykJcJIUvUmlQKmy9uxxGNwqz3dbvgdbp74OdZxPzpkkGcCH1
- ZdrekbONzJREK90WhbEphtdQn9hxPQRtkdLmVHn8De5O2MT0gtG5cp+SIRqCba05Aei+
- c1Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726553620; x=1727158420;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jVYJdvkFkNlxeJMRsZ4TNMxACduPDS+BlYyHwRQEdIQ=;
- b=vxwo9ewUsbw4BVpuRSYZ7GlJ/8QX77nwpkAjbOZuAIKtO7TST/98z5mrtHtmE8v1+g
- zzGzWPLMRIi1ZsKAqwsBDoJtBs4CJTwUAQzwr+FU+k9FwBhPdBmAIFZNP4vq/FJkfG0n
- sQRaYxJam3Z2n1zkki1MYtDak4Ew4lprRbc2ki6VspizfYn0amf4WKSbdhGgZCcHOAdc
- wyiayeJrnSe0HQwmMzvJA/n/fSCR7shcYfwgrqgukaRrWcDw7QLBzb6PebrWl89PY8eD
- QBg1qI0sByGbcwmG7TS0xGfSegu8ytiZBep8oP0DgUKTATC4xcJc1RWT1+eODpAI1B1N
- /hxg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWG21wfEpeVK3CoQ5trS6eMy4QR3uwE27yBO+P6zAaeftucpM4sK00QCCHnn5rTz/cionqyeFExzd4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyrbdj2tdcF3qBE8PS+JIU+TuTM2HUyBMxT+JAo7kjorYD8gF/H
- imdYE3uV7N13qRLCaL9o1CkM37f12a0BTffgXLmsEHrKb9RU6tReKKtngtxUzlQ=
-X-Google-Smtp-Source: AGHT+IFdBF7B4QyEPBZPGOnaXJlYt4ba+AFuUcaY/D5OQvGqZTdStRahA8ylEs0QG75e1xb02yE0Yw==
-X-Received: by 2002:a05:6512:2384:b0:536:55b3:470e with SMTP id
- 2adb3069b0e04-53678fb70a0mr9815758e87.19.1726553619760; 
- Mon, 16 Sep 2024 23:13:39 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-536870967a5sm1107728e87.181.2024.09.16.23.13.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Sep 2024 23:13:39 -0700 (PDT)
-Date: Tue, 17 Sep 2024 09:13:37 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Abel Vesa <abel.vesa@linaro.org>, 
- Johan Hovold <johan+linaro@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v6 02/15] drm/msm/dpu: move CRTC resource assignment to
- dpu_encoder_virt_atomic_check
-Message-ID: <rpmp4pvv2fcg3iprcesco4a73vd457cdvlqtjtl6tzrmxkdlw6@jczni6cbi226>
-References: <20240903-dpu-mode-config-width-v6-0-617e1ecc4b7a@linaro.org>
- <20240903-dpu-mode-config-width-v6-2-617e1ecc4b7a@linaro.org>
- <013aa39c-90d3-464a-9cb2-d52be4e51f17@quicinc.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D06F010E1FE;
+ Tue, 17 Sep 2024 08:13:20 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48GFEtL6007234;
+ Tue, 17 Sep 2024 08:13:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 6RdX0bFCBFita5q9pO6XTSQJpayvjOJ/luZyvNW3Cn0=; b=YyQ8hnumYeB79eof
+ espbv8XOu908CLozu+8rC7jxULWG1TzfYrKk1t65xpvxuCS1UU/tZGbGfgk3/6Ru
+ Q0QZu9KJ3fbHIAxStdQ92/9LKjMWoEFQlO4HR0m4NcmSzV8LAoTsk+yLsNXmdFDb
+ hRZTp5MJat/PTBlqTvwzC0dxJxseWEzt3Q0tmS9evQqwXkuwj2jXHw83raE4tcTd
+ v7kjws+vE0a7KDJLFXBsHGn7o+eKsCL8+v1E2pKckrs7hgNyT2D6VI1PzlSnlj4t
+ JsEqpy+j2NT7WL/XeHfPbGlQ1+RD026vBsteYGdVKl1MEwszKGJhe3Qp0B7e+J6W
+ kx11+w==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41n4jhp8e3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Sep 2024 08:13:07 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48H8D65w000864
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Sep 2024 08:13:06 GMT
+Received: from [10.204.67.70] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 17 Sep
+ 2024 01:12:57 -0700
+Message-ID: <b2d94fa5-6924-46f6-95cf-bde315ccbdbd@quicinc.com>
+Date: Tue, 17 Sep 2024 13:42:54 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <013aa39c-90d3-464a-9cb2-d52be4e51f17@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/5] drm/msm/dp: Add DisplayPort controller for SA8775P
+Content-Language: en-US
+To: Bjorn Andersson <quic_bjorande@quicinc.com>
+CC: <vkoul@kernel.org>, <kishon@kernel.org>, <konradybcio@kernel.org>,
+ <andersson@kernel.org>, <simona@ffwll.ch>,
+ <dmitry.baryshkov@linaro.org>, <abel.vesa@linaro.org>,
+ <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, <sean@poorly.run>,
+ <marijn.suijten@somainline.org>, <airlied@gmail.com>,
+ <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <robh@kernel.org>,
+ <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <quic_khsieh@quicinc.com>,
+ <konrad.dybcio@linaro.org>, <quic_parellan@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <quic_riteshk@quicinc.com>, <quic_vproddut@quicinc.com>
+References: <20240911100813.338-1-quic_mukhopad@quicinc.com>
+ <20240911100813.338-6-quic_mukhopad@quicinc.com>
+ <ZuH3WqMwn7fl3nhh@hu-bjorande-lv.qualcomm.com>
+ <a44a6f08-1f4a-4e5c-a4e4-30ab65c467f7@quicinc.com>
+ <ZuStkRFvwJT7re6D@hu-bjorande-lv.qualcomm.com>
+From: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
+In-Reply-To: <ZuStkRFvwJT7re6D@hu-bjorande-lv.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: C2cU45NdQrzcj1_yrumqfypF_LZ5lcmM
+X-Proofpoint-GUID: C2cU45NdQrzcj1_yrumqfypF_LZ5lcmM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ clxscore=1015 phishscore=0 impostorscore=0 bulkscore=0 adultscore=0
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 mlxscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2408220000 definitions=main-2409170061
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,98 +104,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Sep 16, 2024 at 06:04:08PM GMT, Abhinav Kumar wrote:
-> 
-> 
-> On 9/2/2024 8:22 PM, Dmitry Baryshkov wrote:
-> > Historically CRTC resources (LMs and CTLs) were assigned in
-> > dpu_crtc_atomic_begin(). The commit 9222cdd27e82 ("drm/msm/dpu: move hw
-> > resource tracking to crtc state") simply moved resources to
-> > struct dpu_crtc_state, without changing the code sequence. Later on the
-> > commit b107603b4ad0 ("drm/msm/dpu: map mixer/ctl hw blocks in encoder
-> > modeset") rearanged the code, but still kept the cstate->num_mixers
-> > assignment to happen during commit phase. This makes dpu_crtc_state
-> > inconsistent between consequent atomic_check() calls.
-> > 
-> > Move CRTC resource assignment to happen at the end of
-> > dpu_encoder_virt_atomic_check().
-> > 
-> 
-> Mostly LGTM now, a couple of comments/questions below:
-> 
-> > Fixes: b107603b4ad0 ("drm/msm/dpu: map mixer/ctl hw blocks in encoder modeset")
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  3 --
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 59 +++++++++++++++++++----------
-> >   2 files changed, 38 insertions(+), 24 deletions(-)
-> > 
 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > index 949ebda2fa82..bd3698bf0cf7 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > @@ -624,6 +624,40 @@ static struct msm_display_topology dpu_encoder_get_topology(
-> >   	return topology;
-> >   }
-> > +static void dpu_encoder_assign_crtc_resources(struct dpu_kms *dpu_kms,
-> > +					      struct drm_encoder *drm_enc,
-> > +					      struct dpu_global_state *global_state,
-> > +					      struct drm_crtc_state *crtc_state)
-> > +{
-> > +	struct dpu_crtc_state *cstate;
-> > +	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
-> > +	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-> > +	struct dpu_hw_blk *hw_dspp[MAX_CHANNELS_PER_ENC];
-> > +	int num_lm, num_ctl, num_dspp, i;
-> > +
-> > +	cstate = to_dpu_crtc_state(crtc_state);
-> > +
-> > +	memset(cstate->mixers, 0, sizeof(cstate->mixers));
-> > +
-> > +	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > +		drm_enc->base.id, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
-> > +	num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > +		drm_enc->base.id, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
-> > +	num_dspp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > +		drm_enc->base.id, DPU_HW_BLK_DSPP, hw_dspp,
-> > +		ARRAY_SIZE(hw_dspp));
-> > +
-> > +	for (i = 0; i < num_lm; i++) {
-> > +		int ctl_idx = (i < num_ctl) ? i : (num_ctl-1);
-> > +
-> > +		cstate->mixers[i].hw_lm = to_dpu_hw_mixer(hw_lm[i]);
-> > +		cstate->mixers[i].lm_ctl = to_dpu_hw_ctl(hw_ctl[ctl_idx]);
-> > +		cstate->mixers[i].hw_dspp = i < num_dspp ? to_dpu_hw_dspp(hw_dspp[i]) : NULL;
-> > +	}
-> > +
-> > +	cstate->num_mixers = num_lm;
-> > +}
-> > +
-> >   static int dpu_encoder_virt_atomic_check(
-> >   		struct drm_encoder *drm_enc,
-> >   		struct drm_crtc_state *crtc_state,
-> > @@ -692,6 +726,9 @@ static int dpu_encoder_virt_atomic_check(
-> >   		if (!crtc_state->active_changed || crtc_state->enable)
-> >   			ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
-> >   					drm_enc, crtc_state, topology);
-> > +		if (!ret)
-> > +			dpu_encoder_assign_crtc_resources(dpu_kms, drm_enc,
-> > +							  global_state, crtc_state);
-> >   	}
-> 
-> This is now under the drm_atomic_crtc_needs_modeset() condition which is
-> good, but shouldnt this also move under the same if condition as
-> dpu_rm_reserve()? There cannot be any assignment without reservation right?
+On 9/14/2024 2:54 AM, Bjorn Andersson wrote:
+> On Thu, Sep 12, 2024 at 03:34:05PM +0530, Soutrik Mukhopadhyay wrote:
+>> On 9/12/2024 1:32 AM, Bjorn Andersson wrote:
+>>> On Wed, Sep 11, 2024 at 03:38:13PM +0530, Soutrik Mukhopadhyay wrote:
+>>>> The Qualcomm SA8775P platform comes with a DisplayPort controller
+>>>> with a different base offset than the previous SoCs,
+>>>> add support for this in the DisplayPort driver.
+> Please check the line wrapping of this as well; the lines here should be
+> wrapped at 75 columns.
 
-Maybe it's not that obvious from the function name, but it will also
-clear previously assigned resources. So, I think it is correct to be
-called even if the resources were released without further assignment.
 
-> 
-> 
-> <snip>
+Yes, it is within 75 columns, we ran checkpatch.pl before posting the patch.
 
--- 
-With best wishes
-Dmitry
+
+>
+>>>> Signed-off-by: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
+>>>> ---
+>>>>    drivers/gpu/drm/msm/dp/dp_display.c | 7 +++++++
+>>>>    1 file changed, 7 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>>>> index e1228fb093ee..e4954fd99eb0 100644
+>>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>>>> @@ -118,6 +118,12 @@ struct msm_dp_desc {
+>>>>    	bool wide_bus_supported;
+>>>>    };
+>>>> +static const struct msm_dp_desc sa8775p_dp_descs[] = {
+>>>> +	{ .io_start = 0xaf54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
+>>>> +	{ .io_start = 0xaf5c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
+>>> Why is this list incomplete?
+>>>
+>>> Regards,
+>>> Bjorn
+>>
+>> Do you mean to add for mdss_1 as well?
+>>
+> I don't see a reason for not submitting them as well.
+
+
+Sure, we will add for mdss_1 as well.
+
+
+>
+>> We only added dp controllers for mdss_0 as we plan to validate and enable
+>> only these.
+>>
+> As far as I can tell there are 5 DPTX blocks on mdss_0.
+>
+>
+> It is perfectly fine that you just state in the commit message that
+> "Only MDSS0 DPTX0 and DPTX1 have been validated", but please add the
+> others as well in this commit.
+>
+> Regards,
+> Bjorn
+
+
+We cross-checked the mdss architecture and found that there are only 2 
+dp controllers for each mdss.
+
+We will add all 4 and mention in the commit message that "Only MDSS0 
+DPTX0 and DPTX1 have been validated".
+
+
+>
+>>>> +	{}
+>>>> +};
+>>>> +
+>>>>    static const struct msm_dp_desc sc7180_dp_descs[] = {
+>>>>    	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
+>>>>    	{}
+>>>> @@ -162,6 +168,7 @@ static const struct msm_dp_desc x1e80100_dp_descs[] = {
+>>>>    };
+>>>>    static const struct of_device_id dp_dt_match[] = {
+>>>> +	{ .compatible = "qcom,sa8775p-dp", .data = &sa8775p_dp_descs },
+>>>>    	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_descs },
+>>>>    	{ .compatible = "qcom,sc7280-dp", .data = &sc7280_dp_descs },
+>>>>    	{ .compatible = "qcom,sc7280-edp", .data = &sc7280_dp_descs },
+>>>> -- 
+>>>> 2.17.1
+>>>>
