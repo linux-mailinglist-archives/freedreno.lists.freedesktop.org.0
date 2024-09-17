@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46A9797B524
-	for <lists+freedreno@lfdr.de>; Tue, 17 Sep 2024 23:27:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7739497B53E
+	for <lists+freedreno@lfdr.de>; Tue, 17 Sep 2024 23:32:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B37BD10E0F5;
-	Tue, 17 Sep 2024 21:27:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0418810E0F5;
+	Tue, 17 Sep 2024 21:32:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hDlT6CpM";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="u/xO6nyL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
- [209.85.208.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B19F10E07D
- for <freedreno@lists.freedesktop.org>; Tue, 17 Sep 2024 21:27:09 +0000 (UTC)
-Received: by mail-lj1-f178.google.com with SMTP id
- 38308e7fff4ca-2f75c56f16aso76479931fa.0
- for <freedreno@lists.freedesktop.org>; Tue, 17 Sep 2024 14:27:09 -0700 (PDT)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02F9510E4FE
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Sep 2024 21:32:00 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-536748c7e9aso7284971e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Sep 2024 14:32:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1726608427; x=1727213227; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1726608719; x=1727213519; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=tK+eryvZIWB7XUY6xEZS8PhI/lDVITII9hGxNEZ3sN0=;
- b=hDlT6CpMZIYvJHNwux5lMGOFV/vJsZ6ewmui2kNrnnIpN5N/PiWjS8AnPJJ9Rd9glT
- rlF8YleUZ3vOvprRlqRNoALwjSOHSn1W/V8espNZeBTcSuu0UtXgQhPrfPtj5VTdjrc/
- t7BRrosAGuchRNn+KrygumGMvTzNLbY3VbZSFOVoyk8g+hUMQXNj9Owp/9FjbSkhyky/
- kegm2QNKJtqVjv5spmKvVD1ElLl6kG/uboNQKys8rZw7ceGx3lQVlBUH/pfwczlILw8z
- ypDR4HBnMj5oO7Ik3EohuMrYAeo4a3RRtKD+nYAvxV9N99frjBpgrtWEqL5tnO+/op9G
- q+1w==
+ bh=1R6BTw3CyHrPVMyIN0XqxDT3g5ElbidWKYOyL9ivcME=;
+ b=u/xO6nyLwk5UHMdWFj7sqNvj+ejhw+k5j/mVU/sTXx5BG7A9W3vdnDxBZk7IcYUUlO
+ PI44txlFprLi5YPHFZH8zKmv6bNE7cjOn7efbitknlFwV1AcN5Krj6BgeeTM5LBhTY03
+ LsMjeZIU50GN9CK8zNwnj+3jrvuKdyHHtkODpMX9Sbp8rRTA7iMqK3zNajnIP5JVndwZ
+ OkuYbIoQkG+HEmD05wy6n8CGSJUNG/+M3INsCmnZzTK2/VzbWZe09GT37iB90Jc/aDmg
+ uGH/YM4q6MXEEFKSPtgGprRoBos5SZgsfeFnc5HYKS458qipjLGVHdMsQwQupOTtnQlm
+ dQdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726608427; x=1727213227;
+ d=1e100.net; s=20230601; t=1726608719; x=1727213519;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tK+eryvZIWB7XUY6xEZS8PhI/lDVITII9hGxNEZ3sN0=;
- b=tKZFlFJQbW7b06Wwks4v0yanx2r4yI0/uwkIdtKVSuPIXkWMtGSJk+yllyUcxnAEKE
- JD+OXJcpdlRfMzjTEWH1gRQu8QHtYnOHES4xWYDFpIlPGuhVgRqoCpkwpxHaA/kjehyr
- 54hJuUmFgTbCOEb6uTyTj1g05b9aKom0Z+Bfr9mTSw7CcrDwYA2PMTkyB6vRN1/4GfHh
- q/hsz5LcdLMnsCgtGGA1MtkIOAHNWaiNXAeyuwnLNrExNMIozKTD0futFVeiqFF/clj8
- YY0byFQQ1b73NJcsY3A28FdCxGazNwRfG8ENgZ/2kG0FrTGwJ83RCZtRJQbDMcQv0AX6
- vk7w==
+ bh=1R6BTw3CyHrPVMyIN0XqxDT3g5ElbidWKYOyL9ivcME=;
+ b=IIbEzhV9OEBjxvQ2YQxk0H124+HHn5YhwOWBEFZ0jaNpPzuWl0+yU/DDsrJujMKUQ6
+ EMXtlwbZyeGBl3XhrhdanrLFZjx7SG+/b4M+UHLf8+M0++Cw+dztuzUDDM9FAiDeAvF+
+ GTvM3AGPFET2gOODA2hgmOifGVV6HpU5Xi/Wf2w1GSE3sgqvmKpLraw9wMq0XNQ/8dkn
+ godiEAMS+HDw5WDBZ5pZg++SsTgxBd8/G7MfyL/5v3N+Dw4pG2LpycqGkOv3ICIcsP0Z
+ hg5P//DoXFg33NyViRFtCtRY9oxdYGzm5T+CP/c4LgZtbGzX+KUquJlLwJ8CRx2WPC2+
+ 15CQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVnRARBd1zJZ5KZpO1721cf1vOKUQ5S2oaKRcGug+LxLaDwdUkzTVBJ4JAmRheKpxEuBHDVQT2vK1w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzurh7lxgnFMpJwTHSW69PkTJO2YloaJ9DUbk74jfpwEn4cYLnB
- KJNI5MrUMe1xCCf3OgFZ3HqxwPgx+DIHWArGDBlfNJw8NTAmHZ3ZbL8cAV/qY0I=
-X-Google-Smtp-Source: AGHT+IF3NskUcf8RUOcTnIF63jZutapZ5Jeb7rdsU+2KtEQcoz8cIrf/mUhNgh51RCcY1c8ixVHM1Q==
-X-Received: by 2002:a05:6512:118a:b0:52e:e3c3:643f with SMTP id
- 2adb3069b0e04-53678fb1d3bmr11190040e87.2.1726608427105; 
- Tue, 17 Sep 2024 14:27:07 -0700 (PDT)
+ AJvYcCX2OYr/9Yh44/+BSGp6c4v8tfZP71XrsJhBBIV3HxPMnyEQdALzQKwjtTEBLak4i7VgZ70H0vg0SFc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzmMV0aptf5geBYIkx7CcJ/1GiWnbP/sCJmWK+52Sa+npAxKeEb
+ KmuPOEX43W9cljw5niJCDjF1p/onnNfTZCw5mhLO4YhyCVOjIyM2aP3epzNenoU=
+X-Google-Smtp-Source: AGHT+IHhcqmPzBEx+mRQGBWjo5mWxJ/GGeo4PSbS+lWwhv89D5TADe1zKDPSG1PO6BnyN1AO9gTdww==
+X-Received: by 2002:a05:6512:3995:b0:52c:e326:f4cf with SMTP id
+ 2adb3069b0e04-53678fb4606mr12705813e87.3.1726608718749; 
+ Tue, 17 Sep 2024 14:31:58 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-536870a89d7sm1324239e87.239.2024.09.17.14.27.04
+ 2adb3069b0e04-5368704def1sm1313577e87.84.2024.09.17.14.31.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Sep 2024 14:27:06 -0700 (PDT)
-Date: Wed, 18 Sep 2024 00:27:03 +0300
+ Tue, 17 Sep 2024 14:31:57 -0700 (PDT)
+Date: Wed, 18 Sep 2024 00:31:55 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Akhil P Oommen <quic_akhilpo@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
@@ -72,14 +72,14 @@ Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  freedreno@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: sa8775p: Add gpu and gmu nodes
-Message-ID: <udt76i3sl7zekhudqpnvhvhfxchvixwoinz7metuwfrpynl47k@wlpforwv7mcf>
+Subject: Re: [PATCH 1/3] drm/msm/a6xx: Add support for A663
+Message-ID: <vahykyu4cck26sstulzukl323rskjoqebogz4ckv2aoibb2eo6@kmbrw7voa5tx>
 References: <20240918-a663-gpu-support-v1-0-25fea3f3d64d@quicinc.com>
- <20240918-a663-gpu-support-v1-3-25fea3f3d64d@quicinc.com>
+ <20240918-a663-gpu-support-v1-1-25fea3f3d64d@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240918-a663-gpu-support-v1-3-25fea3f3d64d@quicinc.com>
+In-Reply-To: <20240918-a663-gpu-support-v1-1-25fea3f3d64d@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,159 +95,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Sep 18, 2024 at 02:08:43AM GMT, Akhil P Oommen wrote:
+On Wed, Sep 18, 2024 at 02:08:41AM GMT, Akhil P Oommen wrote:
 > From: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
 > 
-> Add gpu and gmu nodes for sa8775p based platforms.
-
-Which platforms? The commit adds nodes to the SoC and the single RIDE
-platform.
-
+> Add support for Adreno 663 found on sa8775p based platforms.
 > 
 > Signed-off-by: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
 > Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 > ---
->  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi |  8 ++++
->  arch/arm64/boot/dts/qcom/sa8775p.dtsi      | 75 ++++++++++++++++++++++++++++++
->  2 files changed, 83 insertions(+)
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 19 ++++++++++++++++++
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     |  8 +++++++-
+>  drivers/gpu/drm/msm/adreno/a6xx_hfi.c     | 33 +++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  5 +++++
+>  4 files changed, 64 insertions(+), 1 deletion(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
-> index 2a6170623ea9..a01e6675c4bb 100644
-> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi
-> @@ -407,6 +407,14 @@ queue3 {
->  	};
->  };
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> index 0312b6ee0356..8d8d0d7630f0 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -972,6 +972,25 @@ static const struct adreno_info a6xx_gpus[] = {
+>  			.prim_fifo_threshold = 0x00300200,
+>  		},
+>  		.address_space_size = SZ_16G,
+> +	}, {
+> +		.chip_ids = ADRENO_CHIP_IDS(0x06060300),
+> +		.family = ADRENO_6XX_GEN4,
+> +		.fw = {
+> +			[ADRENO_FW_SQE] = "a660_sqe.fw",
+> +			[ADRENO_FW_GMU] = "a663_gmu.bin",
+> +		},
+> +		.gmem = SZ_1M + SZ_512K,
+> +		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+> +		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+> +			ADRENO_QUIRK_HAS_HW_APRIV,
+> +		.init = a6xx_gpu_init,
+> +		.a6xx = &(const struct a6xx_info) {
+> +			.hwcg = a690_hwcg,
+> +			.protect = &a660_protect,
+> +			.gmu_cgc_mode = 0x00020200,
+> +			.prim_fifo_threshold = 0x00300200,
+> +		},
+> +		.address_space_size = SZ_16G,
+>  	}, {
+>  		.chip_ids = ADRENO_CHIP_IDS(0x06030500),
+>  		.family = ADRENO_6XX_GEN4,
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 06cab2c6fd66..e317780caeae 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -541,6 +541,12 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+>  		gpu->ubwc_config.macrotile_mode = 1;
+>  	}
 >  
-> +&gpu {
-> +	status = "okay";
+> +	if (adreno_is_a663(gpu)) {
+> +		gpu->ubwc_config.highest_bank_bit = 13;
+> +		gpu->ubwc_config.ubwc_swizzle = 0x4;
+> +		gpu->ubwc_config.macrotile_mode = 1;
+
+If this looks like A660 / A690, shouldn't the driver also enable .amsbc,
+.rgb565_predicator and .uavflagprd_inv?
+
+> +	}
 > +
-> +	zap-shader {
-
-It's easier to add gpu_zap_shader_link label in the DTSI file and then
-reference it instead of using the subnode again.
-
-> +		firmware-name = "qcom/sa8775p/a663_zap.mbn";
-> +	};
-> +};
-
-Separate patch, please.
-
-> +
->  &i2c11 {
->  	clock-frequency = <400000>;
->  	pinctrl-0 = <&qup_i2c11_default>;
-> diff --git a/arch/arm64/boot/dts/qcom/sa8775p.dtsi b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-> index 23f1b2e5e624..12c79135a303 100644
-> --- a/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-> @@ -2824,6 +2824,81 @@ tcsr_mutex: hwlock@1f40000 {
->  			#hwlock-cells = <1>;
->  		};
+>  	if (adreno_is_7c3(gpu)) {
+>  		gpu->ubwc_config.highest_bank_bit = 14;
+>  		gpu->ubwc_config.amsbc = 1;
+> @@ -1062,7 +1068,7 @@ static int hw_init(struct msm_gpu *gpu)
+>  	if (adreno_is_a690(adreno_gpu))
+>  		gpu_write(gpu, REG_A6XX_UCHE_CMDQ_CONFIG, 0x90);
+>  	/* Set dualQ + disable afull for A660 GPU */
+> -	else if (adreno_is_a660(adreno_gpu))
+> +	else if (adreno_is_a660(adreno_gpu) || adreno_is_a663(adreno_gpu))
+>  		gpu_write(gpu, REG_A6XX_UCHE_CMDQ_CONFIG, 0x66906);
+>  	else if (adreno_is_a7xx(adreno_gpu))
+>  		gpu_write(gpu, REG_A6XX_UCHE_CMDQ_CONFIG,
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> index cdb3f6e74d3e..f1196d66055c 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> @@ -478,6 +478,37 @@ static void a660_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
+>  	msg->cnoc_cmds_data[1][0] =  0x60000001;
+>  }
 >  
-> +		gpu: gpu@3d00000 {
-> +			compatible = "qcom,adreno-663.0", "qcom,adreno";
-> +			reg = <0 0x03d00000 0 0x40000>,
-> +			      <0 0x03d9e000 0 0x1000>,
-> +			      <0 0x03d61000 0 0x800>;
-
-I think it's suggested to use 0x0 now
-
-> +			reg-names = "kgsl_3d0_reg_memory",
-> +				    "cx_mem",
-> +				    "cx_dbgc";
-> +			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
-> +			iommus = <&adreno_smmu 0 0xc00>,
-> +				 <&adreno_smmu 1 0xc00>;
-> +			operating-points-v2 = <&gpu_opp_table>;
-> +			qcom,gmu = <&gmu>;
-> +			interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
-
-QCOM_ICC_TAG_ALWAYS instead of 0
-
-> +			interconnect-names = "gfx-mem";
-> +			#cooling-cells = <2>;
-
-No speed bins?
-
+> +static void a663_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
+> +{
+> +	/*
+> +	 * Send a single "off" entry just to get things running
+> +	 * TODO: bus scaling
+> +	 */
+> +	msg->bw_level_num = 1;
 > +
-> +			status = "disabled";
+> +	msg->ddr_cmds_num = 3;
+> +	msg->ddr_wait_bitmask = 0x07;
 > +
-> +			zap-shader {
-
-gpu_zap_shader: zap-shader
-
-> +				memory-region = <&pil_gpu_mem>;
-> +			};
+> +	msg->ddr_cmds_addrs[0] = 0x50004;
+> +	msg->ddr_cmds_addrs[1] = 0x50000;
+> +	msg->ddr_cmds_addrs[2] = 0x500b4;
 > +
-> +			gpu_opp_table: opp-table {
-> +				compatible = "operating-points-v2";
+> +	msg->ddr_cmds_data[0][0] =  0x40000000;
+> +	msg->ddr_cmds_data[0][1] =  0x40000000;
+> +	msg->ddr_cmds_data[0][2] =  0x40000000;
 > +
-> +				opp-405000000 {
-
-Just a single freq?
-
-> +					opp-hz = /bits/ 64 <405000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-> +					opp-peak-kBps = <8368000>;
-> +				};
+> +	/*
+> +	 * These are the CX (CNOC) votes - these are used by the GMU but the
+> +	 * votes are known and fixed for the target
+> +	 */
+> +	msg->cnoc_cmds_num = 1;
+> +	msg->cnoc_wait_bitmask = 0x01;
 > +
-
-Drop the empty line, please.
-
-> +			};
-> +		};
+> +	msg->cnoc_cmds_addrs[0] = 0x50058;
+> +	msg->cnoc_cmds_data[0][0] =  0x40000000;
+> +	msg->cnoc_cmds_data[1][0] =  0x60000001;
+> +}
 > +
-> +		gmu: gmu@3d6a000 {
-> +			compatible = "qcom,adreno-gmu-663.0", "qcom,adreno-gmu";
-> +			reg = <0 0x03d6a000 0 0x34000>,
-> +				<0 0x3de0000 0 0x10000>,
-> +				<0 0x0b290000 0 0x10000>;
-
-Wrong indentation, please align to the angle bracket.
-Also I think it's suggested to use 0x0 now
-
-> +			reg-names = "gmu", "rscc", "gmu_pdc";
-> +			interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
-> +					<GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
-
-And here
-
-> +			interrupt-names = "hfi", "gmu";
-> +			clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
-> +				 <&gpucc GPU_CC_CXO_CLK>,
-> +				 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
-> +				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-> +				 <&gpucc GPU_CC_AHB_CLK>,
-> +				 <&gpucc GPU_CC_HUB_CX_INT_CLK>,
-> +				 <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>;
-> +			clock-names = "gmu",
-> +				      "cxo",
-> +				      "axi",
-> +				      "memnoc",
-> +				      "ahb",
-> +				      "hub",
-> +				      "smmu_vote";
-> +			power-domains = <&gpucc GPU_CC_CX_GDSC>,
-> +					<&gpucc GPU_CC_GX_GDSC>;
-> +			power-domain-names = "cx",
-> +					     "gx";
-> +			iommus = <&adreno_smmu 5 0xc00>;
-> +			operating-points-v2 = <&gmu_opp_table>;
+>  static void adreno_7c3_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
+>  {
+>  	/*
+> @@ -646,6 +677,8 @@ static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
+>  		adreno_7c3_build_bw_table(&msg);
+>  	else if (adreno_is_a660(adreno_gpu))
+>  		a660_build_bw_table(&msg);
+> +	else if (adreno_is_a663(adreno_gpu))
+> +		a663_build_bw_table(&msg);
+>  	else if (adreno_is_a690(adreno_gpu))
+>  		a690_build_bw_table(&msg);
+>  	else if (adreno_is_a730(adreno_gpu))
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> index 58d7e7915c57..10f8f25d8826 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -455,6 +455,11 @@ static inline int adreno_is_a680(const struct adreno_gpu *gpu)
+>  	return adreno_is_revn(gpu, 680);
+>  }
+>  
+> +static inline int adreno_is_a663(const struct adreno_gpu *gpu)
+> +{
+> +	return gpu->info->chip_ids[0] == 0x06060300;
+> +}
 > +
-> +			gmu_opp_table: opp-table {
-> +				compatible = "operating-points-v2";
-> +
-> +				opp-200000000 {
-> +					opp-hz = /bits/ 64 <200000000>;
-> +					opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
-> +				};
-> +			};
-> +		};
-> +
->  		gpucc: clock-controller@3d90000 {
->  			compatible = "qcom,sa8775p-gpucc";
->  			reg = <0x0 0x03d90000 0x0 0xa000>;
+>  static inline int adreno_is_a690(const struct adreno_gpu *gpu)
+>  {
+>  	return gpu->info->chip_ids[0] == 0x06090000;
 > 
 > -- 
 > 2.45.2
