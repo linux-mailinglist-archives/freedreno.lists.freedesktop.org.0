@@ -2,90 +2,144 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3755297CD9C
-	for <lists+freedreno@lfdr.de>; Thu, 19 Sep 2024 20:33:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CB9C97D595
+	for <lists+freedreno@lfdr.de>; Fri, 20 Sep 2024 14:44:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E994D10E750;
-	Thu, 19 Sep 2024 18:33:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01E0110E833;
+	Fri, 20 Sep 2024 12:44:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="pWEPHfSD";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="N+KnNc9H";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D0C610E16D;
- Thu, 19 Sep 2024 18:33:50 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48J9P1tq031418;
- Thu, 19 Sep 2024 18:33:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- E2v9W5ToTAXSX0uVR1sXtPadf0VJTte9c1GTqVCirCc=; b=pWEPHfSDcQIoV4Wz
- y8QRrJuXXmYACz7WxrGCO6a1c71RR2+4x3xFFwXAqg4owgjCjCNsZYMuQzp9Yk98
- 65BWQR3ZFiA3uRN8uGWyjVKempiYlpBIZJhez65H3c4rUJA/4jHa6e6lGWp5Up10
- GgVH23091NyKgN+JqaMeB8aUkmFEZqmkzGiu0/2BRDe7gIDMf/qd5tN/H4vOsj+n
- UmmxqzGVSBM9W1SerD/AEIstxwYjXOfRHR2gjP60+xRrF0tw+CHEyUC0qae6cmEH
- 70ow2f9JHClSbGgLsMoUUtcL09pd5jPC5yqCO922uqSTQjAzBEJ+EWu79/l3ReaO
- 0dmAfA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41n4gee5y3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 19 Sep 2024 18:33:02 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48JIX1xi028143
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 19 Sep 2024 18:33:01 GMT
-Received: from [10.110.111.10] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 19 Sep
- 2024 11:33:00 -0700
-Message-ID: <08494313-5ff4-4730-90f2-4fad14071c91@quicinc.com>
-Date: Thu, 19 Sep 2024 11:32:59 -0700
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2055.outbound.protection.outlook.com [40.107.20.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CAD510E0CD;
+ Fri, 20 Sep 2024 12:44:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LQrOSX3tIAsUxBnh5S7sICGA/mXfJARrK8d6FLUB8P3MG1NU6mxtyodd6sceHS+2+3j6RX97gzMuHniBeF0Qc/KY8vX3oYXRqYefonqpdEjW1nDL1MyrWFDZVwWJuGh0l1JFxP+S6OE5wEfN1aSKwe0Wf3OFBPP4eYjyIKR3lIieFgi87d7lJ1QNYDoCGXlxa2W+IRLg8afPwX5YTE0Eq73tB8um4ts8awptw15SC9wo/EoJ/phEA171xQ6KkCl9+uqsZj/lVnYBscp3NzB+InKP+sNv9CYIfDGGHQuFw0wTmamZplQUOsfCriJbCSHuL/2m+4QXZtvwZXovDyBLrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lNuGXDflSXOJJJ9luVlS4TJo37l/9M6SPKX1bdFZDzY=;
+ b=i8LHYdswvuVgXuywS1VBb8MZPxRG4b7yjvI2EqnFL58lxvc87bKADZ+y+qcBmPf+04s0OEWBz6UDjoHzXfyv8YJ2AUv5QnqjZ1RA8FvvAhI1ty5lecV82yTldV8rjULVURC22DNm/U3iwmOLpdP3z/8YB5eKrYP6P3SHK/t8vQlnDFh/VL1lhP5TWsoZsHObXadzL117Rc6Fy7aBYUT/v059fcSh1CPeB9N9OEq76m8E9pJCpoG0W58/6RnSITD0YZiUkWHF/p5m4BrR5EhHVE4OQ4I3IgR60h0DeCcrusp4qeThfaVvnW0cAkqCDBAehL3RSLoZ/vcBkYyp+26hcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lNuGXDflSXOJJJ9luVlS4TJo37l/9M6SPKX1bdFZDzY=;
+ b=N+KnNc9HfpiV+/FZ+SgKfO65B2b0T7WWzWz3axJQ+cYS/Mrz99AWTOR6/x7ylumLVjGjZ416bsW2vZ4+vuVbJHj8amvuRulGSRIF5kuAwMZqFo3W61WhQusAqZxfFb7EyUs7wl9Suz9LJQWOwJIIgEoYt/Nbgw6vyU9K9//Xr1u6RNIrUlQ17idndmX09JmT3XsWal6RW4ONh6cTUl7Ja7z8Dr1aEeyEe5SDdVaUqrOQz4Nscqi8TXTfIacy65yGiRL+TPctSmjG45hpTgh4LHTqEA5ZJV0KjolV9ydBzY0xApyEryGOZ09x9wKjwJp9iBJVsYawE0Wy5mnFIRbiUg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AS4PR04MB9576.eurprd04.prod.outlook.com (2603:10a6:20b:4fe::12)
+ by VI1PR04MB6847.eurprd04.prod.outlook.com (2603:10a6:803:134::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.22; Fri, 20 Sep
+ 2024 12:44:15 +0000
+Received: from AS4PR04MB9576.eurprd04.prod.outlook.com
+ ([fe80::9cf2:8eae:c3d1:2f30]) by AS4PR04MB9576.eurprd04.prod.outlook.com
+ ([fe80::9cf2:8eae:c3d1:2f30%7]) with mapi id 15.20.7982.018; Fri, 20 Sep 2024
+ 12:44:15 +0000
+Date: Fri, 20 Sep 2024 15:44:02 +0300
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: l.stach@pengutronix.de, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch, 
+ shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de, 
+ festevam@gmail.com, p.zabel@pengutronix.de, robdclark@gmail.com,
+ sean@poorly.run, 
+ konradybcio@kernel.org, quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, thierry.reding@gmail.com, mperttunen@nvidia.com,
+ jonathanh@nvidia.com, agx@sigxcpu.org, gregkh@linuxfoundation.org, 
+ jordan@cosmicpenguin.net, dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] drm/imx: Use IRQF_NO_AUTOEN flag in request_irq()
+Message-ID: <upylfysoypn36ktq3qjkoyoshbmfp43wvu5rf66pnyxysil5qc@pwx7ljvkvc4f>
+References: <20240912083020.3720233-1-ruanjinjie@huawei.com>
+ <20240912083020.3720233-2-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240912083020.3720233-2-ruanjinjie@huawei.com>
+X-ClientProxiedBy: BL1PR13CA0420.namprd13.prod.outlook.com
+ (2603:10b6:208:2c2::35) To AS4PR04MB9576.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4fe::12)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/msm/dpu: drop LM_3 / LM_4 on MSM8998
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, Sravanthi
- Kollukuduru <skolluku@codeaurora.org>,
- Rajesh Yadav <ryadav@codeaurora.org>,
- Archit Taneja <architt@codeaurora.org>, Jami Kettunen
- <jami.kettunen@somainline.org>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@somainline.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, Jeykumar
- Sankaran <jsanka@codeaurora.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>
-References: <20240905-dpu-fix-sdm845-catalog-v1-0-3363d03998bd@linaro.org>
- <20240905-dpu-fix-sdm845-catalog-v1-3-3363d03998bd@linaro.org>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240905-dpu-fix-sdm845-catalog-v1-3-3363d03998bd@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: KIfRM3LUNuoShbYbhEDhOEKIdzxXR4Zf
-X-Proofpoint-ORIG-GUID: KIfRM3LUNuoShbYbhEDhOEKIdzxXR4Zf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- mlxlogscore=768 impostorscore=0 bulkscore=0 clxscore=1015
- lowpriorityscore=0 adultscore=0 phishscore=0 suspectscore=0
- priorityscore=1501 mlxscore=0 spamscore=0 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.19.0-2408220000
- definitions=main-2409190124
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS4PR04MB9576:EE_|VI1PR04MB6847:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3d31bb3-fab0-499f-a29e-08dcd971ef2d
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?l6KU5pjsUgHWmSuORfk7rEz3FOYTdWNSp1Kg1NDvtiYiyOMsNIs+l0DaMO9m?=
+ =?us-ascii?Q?8bcyfF6BMpwhqRM50T4Ec4KBKERj+izR/zvA40ib4YfJlCie0m/soVnfQXgu?=
+ =?us-ascii?Q?mDNA5kX5ScOBoMb8lw9PR6y1WUaU0K3G7swh/feiL+olCeS4xIpvNtVpV57M?=
+ =?us-ascii?Q?xDoBFZ3k2VmhJ6n5PdSLFjDzdss+KStQsgZNK6eK+EXOwMBxnwsjRNSu3C20?=
+ =?us-ascii?Q?1jewCZ+FnP8BDhH2D8ZnEfdpy7FdM70NF2qCZ88XxwTjcsGquKmctVgkG9cb?=
+ =?us-ascii?Q?J9l+xQKrFjFTB61PZSnQsx9CEUwuz7Ov08dBBJxbSE8aQyjZ+CkZY07YBKvt?=
+ =?us-ascii?Q?/VODoRnu8yciffNJoIKHhjH+piAGN2Pa4A4RkMqZAhGK2sBNtK13l00iErEq?=
+ =?us-ascii?Q?DaTn3XoBfi6DQ0TMZiATOzqvcH0tZH4b9w+gTQLS1/ZL9Nka0utoDjVPt3RD?=
+ =?us-ascii?Q?xoCw7HEepWOdarQqPaBamUdZ7v07IaAzJ/VFuCX70P/gBS2MkYPzbGumoAlQ?=
+ =?us-ascii?Q?bkvh/drnH8lUPJydGlZCtN9MFAqXwEtkirXKxCYSCIppZkF0xLkp0byEU0jO?=
+ =?us-ascii?Q?grfMs0ykl7kiaPhgomrTLethljYoO8ey5eoHAUCCrqCQHPPRtEoavA8SbUnu?=
+ =?us-ascii?Q?ZVmqSJlKDSExQgdev4PZLWiiKPQrU8cXE2Ic1IPFs8C8oFjvD9hxs1LloYm7?=
+ =?us-ascii?Q?ll1Su8uG91svCyVXj3F7nS6W7ivwaEooZJAqD8V4+dPjZALlzqqDhr+gD4R3?=
+ =?us-ascii?Q?ngMckox765oRksfSjwLuy7s1iKk7S5WLs/MJVWlqM4VnEv5jK+3lBynzKUuL?=
+ =?us-ascii?Q?0j2nCmOi9vNmlzV7R/bpReJ3MJx9l6k56ku9K2o/Ac3AlpaMr+RVUZAWIDuc?=
+ =?us-ascii?Q?/hI6vv5TLPt3EnZvD11ndi0VgDTd4AE4v2B84jK3XvyK9NpNB3JMxriB3vZs?=
+ =?us-ascii?Q?L/iewvFOqiAy2pKZ+jzTV+NpFyhzo+tlucrsT7VuiG3V3cXClU4c6VN+U0eo?=
+ =?us-ascii?Q?greNgbjifGPMr2iCZLfkwatnbdYATvtJpvOL86o+VCZ9kQ+SI8q+z3FHJse2?=
+ =?us-ascii?Q?ubi9K660OaRHPo6w3xHkxZng+cygQ9fjwUVRjbKz4VTtEG4JBiHOvyIsClUa?=
+ =?us-ascii?Q?+FikqK+xCY+5utfBhqHBRHG//AFU08xp6bMLYVgNuBAflarrJzWUCbjmE9Tg?=
+ =?us-ascii?Q?2rSXMMMVeeInQE+CaiZvfJKMH0cZBeOCU/DGOwzcFTrqjPaYz09GWSxS7KCp?=
+ =?us-ascii?Q?UR9ecqkDePy3o3Fv78WA9f6AGZ9SUFzKr9ftFXxzjw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AS4PR04MB9576.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7ZLMaZZhpBGRdlo5StbEzeayDD7cVPSbGUyDI6/xNdNnoXLPv/9EmpLkVHBk?=
+ =?us-ascii?Q?q9IhemMVJqxThPiqSx5lINa6dm9YrFXHsip6Mhh3NjnRpavnk9FrubvOBQXc?=
+ =?us-ascii?Q?VShFbVZ7eaHT933sPf6RBgmcKe0F7bzFJ/R22rZR4MGDWrr+7eOz4Wpjvc/o?=
+ =?us-ascii?Q?U2/9JDzHguyJjIvZKaaLQ/LZfPG9ilOnkEol21QGuMwJF2g2owdluBG8DhDA?=
+ =?us-ascii?Q?bpNPITkfN6CeDjQ6lOaYzgDa0nUeEZwbskmDCQh0PNg6G4/j32j4938BVkDR?=
+ =?us-ascii?Q?/WDuYvwPFYnrE4EZT87Mp0yKmh6WJmubs0JlNJ9tHW8RWhaH4kwLP2kWspwF?=
+ =?us-ascii?Q?h8m8QKwOzhY3fzNqBZQxqVHkphHGyIjU28s9Ss4abxAEsKAQCvNdhvOELdN3?=
+ =?us-ascii?Q?rOrdlAKWBBLXkqUJLHT0PXInxa9DKFK1RHvXnslzPtDYFo7GKMNPV8v4hndN?=
+ =?us-ascii?Q?vKgTej3+IQpGsAlqk1hEPI2wBlBkkHJOa9VPEZCmnN6RnFoImXWd+H4UMSBL?=
+ =?us-ascii?Q?sRXNkJQPCJaqqe3qJFCyzIkHfa3QkeYLr0O47+E2yUZ7Mv5rULDA1ggj5Rcj?=
+ =?us-ascii?Q?/PI/5Z90PqxIh1m3HUy63sMZBtA6dJGoF7ir8aJVCVSQlzqHkzMDUCd8FNMo?=
+ =?us-ascii?Q?VA4tOEEdvkKNZ+/weV1+Xspx2+bLR1cLDR5ZY+4YPWV1OZoSFshhTBcM+6/G?=
+ =?us-ascii?Q?wdJf9YRK+x1x9QZ+jWokFAtdxdvABwSFLQh7XIJ3BeJbjY2gpU4Nv5yJoOsx?=
+ =?us-ascii?Q?e5/VKvc3ad2WNVORTBzs55NHfcQlAO0e60kkiTdb8UJg1Ddpyh8p5K2YVYR9?=
+ =?us-ascii?Q?SRZqCATxYfw6FuZI8/ndyv8Ed4IUNA9qufRutlTfVaQxRkE2JNfJyFr/HTYO?=
+ =?us-ascii?Q?Ti7z96Rj40hia8UPT3yROstkJ8I55obd1rMLiSx+at0nzlwjVAxg6BUT9dfj?=
+ =?us-ascii?Q?k7BRSihvoQMl1XHDDHBVwgivDurX4Ht7ze1zOiZLCc5a/OJ9W9WbEFCoGqXY?=
+ =?us-ascii?Q?wIqhZGg/sPRr8QGfeQJKN/fofUTx+3Cc11oh4XTmZhib8L/JZNDomCE1JSVG?=
+ =?us-ascii?Q?OgR+pumJEJhzpyEyx/o3Xiqto9xLiYR0aOHIZ5xEPvaWnXF0iROE4QiQpPhA?=
+ =?us-ascii?Q?HIlVPaxE33x8XFsgpcI6R0xP3WXhh8QF2oUruxWZzj8gjbuKK710aEc6Lkne?=
+ =?us-ascii?Q?QJXDn27aO5fhp8aMKlxrCpfeRk5HmapBXq1OCeR+HurxUgLQS2Z5z+JTcZVV?=
+ =?us-ascii?Q?KmUQ/W1A8Z2n6DO9rnhtubtWhPQNNk46x7M34vAfD97BpAFEjkH7nqiYp0vM?=
+ =?us-ascii?Q?yrMGzS5cSyoSXCBkFpZSkVY9gEHn08d9toPaeTFoth7RHOPiYhkHI8kveS3p?=
+ =?us-ascii?Q?Hyxd4XcYris3Fl0mDdacU8X7hKp1LH/6dENiSBEhjAds++winWn/ogqhGHLM?=
+ =?us-ascii?Q?fJi9ZyK9sYrlV9dNYf7sfl3Dxm2p4DD/BYjFWEMcZMQ/kDHifzn7B43sAH0y?=
+ =?us-ascii?Q?k1dizn0bCoNZ6WEpWC+3Dqpgl4FMsL1VmUUEPkRNNhvI2tbd8Jv7E4XmQ8es?=
+ =?us-ascii?Q?A3XhtisSE+z1Xk8sXVNQl4TdPW19TAEXxilLT09SR4iKHib/MuNnlJS02X1G?=
+ =?us-ascii?Q?Xg=3D=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3d31bb3-fab0-499f-a29e-08dcd971ef2d
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9576.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2024 12:44:15.1930 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J2Xu7SwLDN7V1ZA27P3ItK2uXikyzjmXnkdjdYoGja9F6Kjv78ha/dYfUvFiUSy84NF3LzTXx/j10gxdqQ9PMw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6847
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,20 +155,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Jinjie,
 
-
-On 9/4/2024 8:26 PM, Dmitry Baryshkov wrote:
-> On the MSM8998 platform ther are no LM_3 and LM_4 blocks. Drop them from
-> the MSM8998 catalog.
+On Thu, Sep 12, 2024 at 04:30:16PM +0800, Jinjie Ruan wrote:
+> disable_irq() after request_irq() still has a time gap in which
+> interrupts can come. request_irq() with IRQF_NO_AUTOEN flag will
+> disable IRQ auto-enable when request IRQ.
 > 
-> Fixes: 94391a14fc27 ("drm/msm/dpu1: Add MSM8998 to hw catalog")
-> Reported-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Fixes: 9021c317b770 ("drm/imx: Add initial support for DCSS on iMX8MQ")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+I think the commit subject should start with drm/imx/dcss. Not sure if
+this is worth another patch set just for that. I suppose the commiter
+could fix it before pushing.
+
+Other than that:
+Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+
+Thanks,
+Laurentiu
+
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h | 12 ------------
->   1 file changed, 12 deletions(-)
+> v2:
+> - Update the commit subject.
+> ---
+>  drivers/gpu/drm/imx/dcss/dcss-crtc.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
 > 
-
-LGTM
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> diff --git a/drivers/gpu/drm/imx/dcss/dcss-crtc.c b/drivers/gpu/drm/imx/dcss/dcss-crtc.c
+> index 31267c00782f..af91e45b5d13 100644
+> --- a/drivers/gpu/drm/imx/dcss/dcss-crtc.c
+> +++ b/drivers/gpu/drm/imx/dcss/dcss-crtc.c
+> @@ -206,15 +206,13 @@ int dcss_crtc_init(struct dcss_crtc *crtc, struct drm_device *drm)
+>  	if (crtc->irq < 0)
+>  		return crtc->irq;
+>  
+> -	ret = request_irq(crtc->irq, dcss_crtc_irq_handler,
+> -			  0, "dcss_drm", crtc);
+> +	ret = request_irq(crtc->irq, dcss_crtc_irq_handler, IRQF_NO_AUTOEN,
+> +			  "dcss_drm", crtc);
+>  	if (ret) {
+>  		dev_err(dcss->dev, "irq request failed with %d.\n", ret);
+>  		return ret;
+>  	}
+>  
+> -	disable_irq(crtc->irq);
+> -
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.34.1
+> 
