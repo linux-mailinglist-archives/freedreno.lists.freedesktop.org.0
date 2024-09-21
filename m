@@ -2,68 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5985997DC1D
-	for <lists+freedreno@lfdr.de>; Sat, 21 Sep 2024 10:17:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A80D797DC1E
+	for <lists+freedreno@lfdr.de>; Sat, 21 Sep 2024 10:17:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 293A110E033;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A5DF10E15F;
 	Sat, 21 Sep 2024 08:17:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vA+v2W5H";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TTPrqwjo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADE6D10E183
- for <freedreno@lists.freedesktop.org>; Sat, 21 Sep 2024 08:17:38 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-53659867cbdso4176874e87.3
- for <freedreno@lists.freedesktop.org>; Sat, 21 Sep 2024 01:17:38 -0700 (PDT)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B16410E033
+ for <freedreno@lists.freedesktop.org>; Sat, 21 Sep 2024 08:17:39 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-53661ac5ba1so2948842e87.2
+ for <freedreno@lists.freedesktop.org>; Sat, 21 Sep 2024 01:17:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1726906657; x=1727511457; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=E9/tDMi0UFQzl7ArS3IW9+nNYwPjqkN7+k/yDaV0L7c=;
- b=vA+v2W5HRk8wAATKvNzsQMgFlpF5DbilhpojgMkPQtBHJKfcL7SXv8M2OOf/PFsx3J
- aaGt7JajeYOUlc0Q+VGtS0qyAnRfP9Joyknq78+Yyt9kWhHNCIX4ee7Cl+E3SOmrXdbQ
- vBWdlurrnLkTIq260iVWgXKWloP/ytwQfM85OMsA6jL68lIM190NBK8PuDgV2C9iXU19
- j6n5ke05EjzD63aZ/s/fan3aO5Rh2wA/Rk+m2i3J0oonwHXQtiKTSP/UocsdnmR5qYxv
- abTEPqxmcD42+hATcrkZHHF+LhHCl8mh2L84BXVbMIpw5uCzg/h6uumW+fQ11V7+EuIz
- BbTw==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=wmjLhN45ALPPiR+iRXWQ3K4t8AHpJus0NbAIqkjIKHc=;
+ b=TTPrqwjojreSxotP7PjlLhdGAb4wWGuKCrg/XVgrRc67TlzymP4LwPXd1J7v9ZTN+B
+ 2a6CthtpmYysKrGNzfKcH4hRfgr4UYm6bNScdryRMMxOpSg7OH5y8VEptlvAE+9g62bD
+ b4SOFxfS8PRWyva5ZU5FqBYeT+fg7dpo9V1oasmzd0hq8B8vD3iY9NMj86vZIjSFrhex
+ k4pFolxWrY4xdUb706q0EhA67260XShXW2NiPtLDJFjeDFYXC/Bp/q+yh4t5ST9gto75
+ cBeygErouWlHwmguywWdOy/YI9UBco+Yy4MSTz0Zdkov+/4QrsOvXpMiSEmkLMkENBt1
+ GJZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1726906657; x=1727511457;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=E9/tDMi0UFQzl7ArS3IW9+nNYwPjqkN7+k/yDaV0L7c=;
- b=QzzeoPVRylj6UQEGPna9Urji0ME86tq8+RQgUuubcIqW5QMp5pVzX3FZed6KAArsz/
- 8Far17W29d71DzoFZ3OimErYXi33OcrRXRHKCO+lFgMbHicb5UeTuEB1vvokpkBoMY/e
- UOTrRumvXL2on17r+L7TWoSHMo4/Sw2sXusxnwa5okxChKvVLsQcaEl9PU8o+tw7se+V
- K57764bvQLSpz2R2HhICYSETDB/dCu36Twe5fazhJ4qGul1ucXTeAD9QhBQTT1ojIxpU
- CczhYh1YwK18sNEyXCfjSvrqp/iJDJyO4lJI72ofgpY0m/G/4/w3uxMslhA5mD3d/Uak
- he5w==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wmjLhN45ALPPiR+iRXWQ3K4t8AHpJus0NbAIqkjIKHc=;
+ b=TJdp63kzuApwzIETBzMmQfNgpGvQln8amoYkeZi2GWFyjmCMy08ki/zK0yfwizHlyR
+ z13X1oyH19LnS34VLqAgGIwJrCHAYYAL1Ef+tFFAOsiTtQXpFVrMS7DIuP2EN+Ti1/zi
+ JlQZHW4opPeGGEpMNZxcgb9TULctBy7sMiiht/E1xi/OuBp58WFsHv9VMhTu4YfuxeQj
+ VwiNC2D1WCSiv2z0JpDTF10McKA+rf0K2uehhttDuRAOH/AZ8m7DVrhAnGdM7Pw3s4vL
+ Pqfse9vv0LM05eUmDLbAb6emISh8vRkRdWFjoPcRsmt/797b2nW7tB+1dunY/ezomteL
+ 5g+Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXe5aeCMzOrF6KK6p3UtJoT7eoiW+Rxnynlq5PaN4ggekqu1/JjKzFmPdFytovJ6zmHU7sumfRAXao=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywk2L99ZaZX9y0iPlKUWTNY5JjnUMbK3Up+YNdbbF2oeryDaOGL
- QNrYzmzneaG9F45xuJc3guT0Ped2yYdp2wkEpYmJvIMLytRJkwNoywDy9DiX6zM=
-X-Google-Smtp-Source: AGHT+IExbB1kKJ/xoX5oGe5FlVKfWYeM9QjPTp2scSPuxwYz/2DPr8V3dCucC36g4rRThGdPEYK1tw==
-X-Received: by 2002:a05:6512:2395:b0:531:8f2f:8ae7 with SMTP id
- 2adb3069b0e04-536ac2f5196mr4283336e87.25.1726906656592; 
- Sat, 21 Sep 2024 01:17:36 -0700 (PDT)
+ AJvYcCWhJx7/zOXSRJKKO/vUcrrtqhzE8y4t7atoRWr2bDNxWeyynobkjaptD5pWU9TMfbJ7sOITi91ca8U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVmmtziOGp4lDocuMXT9wEtOK0ulhuQ7rHl9Hgnm1oLzFNGC4n
+ Qt0ffdsA/jt4gGRN7XrV2J+hCCdwAP62bY5SFbufjATVTHizIBSNSIHteTJwYtg=
+X-Google-Smtp-Source: AGHT+IGxbdLlaIHZI3XMOG8yIZU4pHHubytur/pR5AgxpylOBi198gvBqPuSta56H37+ZeQhmJjWRQ==
+X-Received: by 2002:a05:6512:12c4:b0:535:6cef:ffb8 with SMTP id
+ 2adb3069b0e04-536ac338a9amr3458360e87.54.1726906657229; 
+ Sat, 21 Sep 2024 01:17:37 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-536870968d1sm2466380e87.175.2024.09.21.01.17.35
+ 2adb3069b0e04-536870968d1sm2466380e87.175.2024.09.21.01.17.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 21 Sep 2024 01:17:35 -0700 (PDT)
+ Sat, 21 Sep 2024 01:17:36 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: [PATCH 0/4] drm/msm/mdss: rework UBWC registers programming
-Date: Sat, 21 Sep 2024 11:17:28 +0300
-Message-Id: <20240921-msm-mdss-ubwc-v1-0-411dcf309d05@linaro.org>
+Date: Sat, 21 Sep 2024 11:17:29 +0300
+Subject: [PATCH 1/4] drm/msm: move MDSS registers to separate header file
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIABiB7mYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIxMDSyND3dziXN3clOJi3dKk8mRdQwNTUwvLVAPTNGNTJaCegqLUtMwKsHn
- RsbW1AI4EzJNfAAAA
+Message-Id: <20240921-msm-mdss-ubwc-v1-1-411dcf309d05@linaro.org>
+References: <20240921-msm-mdss-ubwc-v1-0-411dcf309d05@linaro.org>
+In-Reply-To: <20240921-msm-mdss-ubwc-v1-0-411dcf309d05@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -71,16 +70,16 @@ To: Rob Clark <robdclark@gmail.com>,
 Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1666;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3169;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=FWxmz7a337bopVTKsWHeJLal3kuOKwjodrDrKroH46g=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBm7oEeg8QXbKlz5YvCz4t/2udl84Z9xp0WLVCjr
- E0eBawUMEqJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZu6BHgAKCRCLPIo+Aiko
- 1dKnB/9i7/Ti1b9MR9d1Q+g5lv7IhMcVt+9dwlNHrbmi/iy9XyTh/1MVVbxvteN44VxZYgkpElh
- icJx0jJby8V/YsrxcxsQBsDxzAbvCRl27Fawt5WCYzug44R7yjOt9V5h7sxfFjKj12IyeQVmfxO
- hk6+Xx+ZWDNotIFPeowgRgjuUAQpDJMHKCBfAO0xqO3+6gRxnb7GXfhDMZ/8DlumwSFGGRucnoE
- vPIsYP37wcOIpGh33G5ZiFP4sEbcJ7Uq+YezDOkpfvkeBWycxujNpUEhyagl7eSLdKVTfEBD1Dn
- KH84lfQRyxA3uNLrLiwKUtTqscI57VydcmSZJdCMtOV/fUvg
+ bh=xLM1ISnVwa/GRZKkuzfezgSM5E3kbR2k0DPUIeRVKCA=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ9q7RvmrvSzz6qY77lq3Y239d6FM0cAjy46E/LzRb+T8l
+ 7k7xzuyk9GYhYGRi0FWTJHFp6Blasym5LAPO6bWwwxiZQKZwsDFKQATWfKD/X/tKw3dxFsN4Ym3
+ YpXVTZRYN9jL5NXWnOlYHOdqu9t9jWvgkaZ1dg9d/m195H6t7pqhXHZW3vPbCv1xiybfcZVc++V
+ Dpt+F+mzlxzUmP1ofvWll2bBo4S+FXC9uy0ym9lCl9w8LbgucNHoix1W5a5bYwzKbPX9L3Jju2H
+ VOve4vPsk2Y7K33OLwstK9t2LUFy5huLT0oIqVwgV7nT+v7z49EbNsq2WfFa/VM9tb7TvDfvJ7L
+ 1N3WOb5/1ebqSTvlijxz65FZ2y09hxzSJ88tYmxLs6zoXjeeTGFJYWhLsvepWpK/85wCVr12z3W
+ jc9xzuuo6wzS9luXBKZYamvWSKsfZvv+tPuFQRuf9rY8AA==
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -98,40 +97,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Current way of programming of the UBWC-related registers has been
-inherited from vendor's drivers. The ubwc_static was supposed to contain
-raw data to be programmed to the hardware, but was later repurposed to
-define of the bits. As it can be seen by the commit 3e30296b374a
-("drm/msm: fix the highest_bank_bit for sc7180") sometimes this data
-gets out of sync.
-
-Rework existing msm_mdss_setup_ubwc_dec_NN() functions to be closer to
-the actual hardware bit definitions. Drop the ubwc_static field.
-
-Unfortunately this also introduces several "unknown" bits, for which we
-do not document the actual purpose. Hopefully comparing this data with
-the more documented Adreno UBWC feature bits will provide information
-about the meaning of those bits.
+In preparation of adding more registers, move MDSS-related headers to
+the separate top-level file.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-Dmitry Baryshkov (4):
-      drm/msm: move MDSS registers to separate header file
-      drm/msm/mdss: use register definitions instead of hand-coding them
-      drm/msm/mdss: define bitfields for the UBWC_STATIC register
-      drm/msm/mdss: reuse defined bitfields for UBWC 2.0
-
  drivers/gpu/drm/msm/Makefile                   |  1 +
- drivers/gpu/drm/msm/msm_mdss.c                 | 86 ++++++++++++++------------
- drivers/gpu/drm/msm/msm_mdss.h                 |  4 +-
- drivers/gpu/drm/msm/registers/display/mdp5.xml | 16 -----
- drivers/gpu/drm/msm/registers/display/mdss.xml | 38 ++++++++++++
- 5 files changed, 89 insertions(+), 56 deletions(-)
----
-base-commit: 32ffa5373540a8d1c06619f52d019c6cdc948bb4
-change-id: 20240921-msm-mdss-ubwc-105589e05f35
+ drivers/gpu/drm/msm/registers/display/mdp5.xml | 16 ----------------
+ drivers/gpu/drm/msm/registers/display/mdss.xml | 23 +++++++++++++++++++++++
+ 3 files changed, 24 insertions(+), 16 deletions(-)
 
-Best regards,
+diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+index 13110fcc46a8..db2174e2efa8 100644
+--- a/drivers/gpu/drm/msm/Makefile
++++ b/drivers/gpu/drm/msm/Makefile
+@@ -210,6 +210,7 @@ DISPLAY_HEADERS = \
+ 	generated/mdp4.xml.h \
+ 	generated/mdp5.xml.h \
+ 	generated/mdp_common.xml.h \
++	generated/mdss.xml.h \
+ 	generated/sfpb.xml.h
+ 
+ $(addprefix $(obj)/,$(adreno-y)): $(addprefix $(obj)/,$(ADRENO_HEADERS))
+diff --git a/drivers/gpu/drm/msm/registers/display/mdp5.xml b/drivers/gpu/drm/msm/registers/display/mdp5.xml
+index 92f3263af170..8c9c4af350aa 100644
+--- a/drivers/gpu/drm/msm/registers/display/mdp5.xml
++++ b/drivers/gpu/drm/msm/registers/display/mdp5.xml
+@@ -9,22 +9,6 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
+ <domain name="VBIF" width="32">
+ </domain>
+ 
+-<domain name="MDSS" width="32">
+-	<reg32 offset="0x00000" name="HW_VERSION">
+-		<bitfield name="STEP" low="0" high="15" type="uint"/>
+-		<bitfield name="MINOR" low="16" high="27" type="uint"/>
+-		<bitfield name="MAJOR" low="28" high="31" type="uint"/>
+-	</reg32>
+-
+-	<reg32 offset="0x00010" name="HW_INTR_STATUS">
+-		<bitfield name="INTR_MDP"  pos="0"  type="boolean"/>
+-		<bitfield name="INTR_DSI0" pos="4"  type="boolean"/>
+-		<bitfield name="INTR_DSI1" pos="5"  type="boolean"/>
+-		<bitfield name="INTR_HDMI" pos="8"  type="boolean"/>
+-		<bitfield name="INTR_EDP"  pos="12" type="boolean"/>
+-	</reg32>
+-</domain>
+-
+ <domain name="MDP5" width="32">
+ 
+ 	<enum name="mdp5_intf_type">
+diff --git a/drivers/gpu/drm/msm/registers/display/mdss.xml b/drivers/gpu/drm/msm/registers/display/mdss.xml
+new file mode 100644
+index 000000000000..9354cfffb730
+--- /dev/null
++++ b/drivers/gpu/drm/msm/registers/display/mdss.xml
+@@ -0,0 +1,23 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<database xmlns="http://nouveau.freedesktop.org/"
++xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
++<import file="freedreno_copyright.xml"/>
++
++<domain name="MDSS" width="32">
++	<reg32 offset="0x00000" name="HW_VERSION">
++		<bitfield name="STEP" low="0" high="15" type="uint"/>
++		<bitfield name="MINOR" low="16" high="27" type="uint"/>
++		<bitfield name="MAJOR" low="28" high="31" type="uint"/>
++	</reg32>
++
++	<reg32 offset="0x00010" name="HW_INTR_STATUS">
++		<bitfield name="INTR_MDP"  pos="0"  type="boolean"/>
++		<bitfield name="INTR_DSI0" pos="4"  type="boolean"/>
++		<bitfield name="INTR_DSI1" pos="5"  type="boolean"/>
++		<bitfield name="INTR_HDMI" pos="8"  type="boolean"/>
++		<bitfield name="INTR_EDP"  pos="12" type="boolean"/>
++	</reg32>
++</domain>
++
++</database>
+
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+2.39.5
 
