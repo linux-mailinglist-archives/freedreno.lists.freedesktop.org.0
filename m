@@ -2,82 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3FF297D903
-	for <lists+freedreno@lfdr.de>; Fri, 20 Sep 2024 19:29:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5985997DC1D
+	for <lists+freedreno@lfdr.de>; Sat, 21 Sep 2024 10:17:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFCB210E069;
-	Fri, 20 Sep 2024 17:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 293A110E033;
+	Sat, 21 Sep 2024 08:17:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cYiq1RoF";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vA+v2W5H";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
- [209.85.166.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3D5E10E069;
- Fri, 20 Sep 2024 17:29:56 +0000 (UTC)
-Received: by mail-il1-f180.google.com with SMTP id
- e9e14a558f8ab-39f56df0ddbso9392845ab.3; 
- Fri, 20 Sep 2024 10:29:56 -0700 (PDT)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADE6D10E183
+ for <freedreno@lists.freedesktop.org>; Sat, 21 Sep 2024 08:17:38 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-53659867cbdso4176874e87.3
+ for <freedreno@lists.freedesktop.org>; Sat, 21 Sep 2024 01:17:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1726853396; x=1727458196; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7vlHUoHs0FcmxQf+gRGeqkvknNNXsHGuxyDqS9sJWsg=;
- b=cYiq1RoFQPTKvQOjQmKYMAy21EKUMNWAlUzzL7JGPZpZlSdQPHD9EDIU1Jv/VIB11f
- 9Mz+pIaY/GMzwh5vNKO1SZWiyxes3EzH82qKVzsIi7x0y6bXHJfTiNFCCo9EWj/ExpIV
- jCdTe0zHfp1NWxJGUXanVJ5VGZyAVMHmIsiHjmyKw0PcEcVR4FYaDMbhY+a0ZBbTY96q
- hzlRGwrU5jNek4YvHedFwXgBNzNTJyiYRt3/2j1m9fJ1urvvbBfkT3KZY72HM4OsnZGg
- IHxGyi9w6qJHtCR3nq3N9jEBBJiArk2rKrVVnnLnGPQgQ9Oe/lFFXccSrFsOY4Qzm9Iz
- YBZw==
+ d=linaro.org; s=google; t=1726906657; x=1727511457; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=E9/tDMi0UFQzl7ArS3IW9+nNYwPjqkN7+k/yDaV0L7c=;
+ b=vA+v2W5HRk8wAATKvNzsQMgFlpF5DbilhpojgMkPQtBHJKfcL7SXv8M2OOf/PFsx3J
+ aaGt7JajeYOUlc0Q+VGtS0qyAnRfP9Joyknq78+Yyt9kWhHNCIX4ee7Cl+E3SOmrXdbQ
+ vBWdlurrnLkTIq260iVWgXKWloP/ytwQfM85OMsA6jL68lIM190NBK8PuDgV2C9iXU19
+ j6n5ke05EjzD63aZ/s/fan3aO5Rh2wA/Rk+m2i3J0oonwHXQtiKTSP/UocsdnmR5qYxv
+ abTEPqxmcD42+hATcrkZHHF+LhHCl8mh2L84BXVbMIpw5uCzg/h6uumW+fQ11V7+EuIz
+ BbTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726853396; x=1727458196;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=7vlHUoHs0FcmxQf+gRGeqkvknNNXsHGuxyDqS9sJWsg=;
- b=Rh2Vnf5qcMmFQLaVk2kqbAFt4uiJ4+fbP6VwjYG92GmUoXc40wFSm5JvZ7whhUW/1a
- fBbfflXPpGEU7LZEncuarJjIcXAfdtCZAcIl4nMAcPY6aAX8mpx+Q4ScZUqtw0Vp6uaj
- 83cKrFTQExC7Vol/D0yYS9fKrLfuH/3azCAloJgPR68l416z1AHiT1KkJC63+cPG4X3a
- B2DOL422udy7Ae2M8WSBx7fGU+4Uoeqf+yWyAHeUp6d22pNtVZUsOXHjMmWGoOuf8AJR
- zbVjrhxC+BVZVy3xmCsPBBnXO/xuYNM0Ev12E9TCP6cYTnjeEEXxU0vmvxVZGIWHOZOU
- lz9Q==
+ d=1e100.net; s=20230601; t=1726906657; x=1727511457;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=E9/tDMi0UFQzl7ArS3IW9+nNYwPjqkN7+k/yDaV0L7c=;
+ b=QzzeoPVRylj6UQEGPna9Urji0ME86tq8+RQgUuubcIqW5QMp5pVzX3FZed6KAArsz/
+ 8Far17W29d71DzoFZ3OimErYXi33OcrRXRHKCO+lFgMbHicb5UeTuEB1vvokpkBoMY/e
+ UOTrRumvXL2on17r+L7TWoSHMo4/Sw2sXusxnwa5okxChKvVLsQcaEl9PU8o+tw7se+V
+ K57764bvQLSpz2R2HhICYSETDB/dCu36Twe5fazhJ4qGul1ucXTeAD9QhBQTT1ojIxpU
+ CczhYh1YwK18sNEyXCfjSvrqp/iJDJyO4lJI72ofgpY0m/G/4/w3uxMslhA5mD3d/Uak
+ he5w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUxOwZsgBX+YMMusLhkPn6F+07qC+JLWK+23V+zS7xsNleGI004WKBZ1hRPDrJMn2ncCqu94Nvcf00=@lists.freedesktop.org,
- AJvYcCXlfjfndNEnW3YKCCsKObpokBAnT/ekOmsLkMMaXRrWH0h6H0qpI+zpmgFErj5ObGJmApJcTnWIVxj3@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx7B1BlLiMxuF8gr9wyGJIBJUTKMf8aenBDaCjQjpTvpxG7U85U
- Rrzlc4Y1Va2Z266aiqEt3qQTr/v1krdyUbwS967yTjGqeRunV+tIvrSbmdFk2Fo5doSN0q7nryo
- MahOrjF0b0oxhQrwKwUM3IgdNR+E=
-X-Google-Smtp-Source: AGHT+IHNXGCljUfMLJx6sCLO4++HQZjQ/FOVgWDT41eOWzzfjs+TkV2rqYcXQef9v8l+9n/cftti5MrlsII4SNy0Vq0=
-X-Received: by 2002:a05:6e02:1a2d:b0:3a0:9fa5:8f2 with SMTP id
- e9e14a558f8ab-3a0c8d15e27mr38885115ab.18.1726853395783; Fri, 20 Sep 2024
- 10:29:55 -0700 (PDT)
+ AJvYcCXe5aeCMzOrF6KK6p3UtJoT7eoiW+Rxnynlq5PaN4ggekqu1/JjKzFmPdFytovJ6zmHU7sumfRAXao=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywk2L99ZaZX9y0iPlKUWTNY5JjnUMbK3Up+YNdbbF2oeryDaOGL
+ QNrYzmzneaG9F45xuJc3guT0Ped2yYdp2wkEpYmJvIMLytRJkwNoywDy9DiX6zM=
+X-Google-Smtp-Source: AGHT+IExbB1kKJ/xoX5oGe5FlVKfWYeM9QjPTp2scSPuxwYz/2DPr8V3dCucC36g4rRThGdPEYK1tw==
+X-Received: by 2002:a05:6512:2395:b0:531:8f2f:8ae7 with SMTP id
+ 2adb3069b0e04-536ac2f5196mr4283336e87.25.1726906656592; 
+ Sat, 21 Sep 2024 01:17:36 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-536870968d1sm2466380e87.175.2024.09.21.01.17.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 21 Sep 2024 01:17:35 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH 0/4] drm/msm/mdss: rework UBWC registers programming
+Date: Sat, 21 Sep 2024 11:17:28 +0300
+Message-Id: <20240921-msm-mdss-ubwc-v1-0-411dcf309d05@linaro.org>
 MIME-Version: 1.0
-References: <20240917-preemption-a750-t-v4-0-95d48012e0ac@gmail.com>
- <20240917-preemption-a750-t-v4-9-95d48012e0ac@gmail.com>
- <20240920165427.wikjsywhbcb2kz7h@hu-akhilpo-hyd.qualcomm.com>
-In-Reply-To: <20240920165427.wikjsywhbcb2kz7h@hu-akhilpo-hyd.qualcomm.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 20 Sep 2024 10:29:44 -0700
-Message-ID: <CAF6AEGv95t=ioPGYLi6CdEuQzx9GC9ehMaTyG03ucbdVHx3eEg@mail.gmail.com>
-Subject: Re: [PATCH v4 09/11] drm/msm/A6XX: Add a flag to allow preemption to
- submitqueue_create
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Antonino Maniscalco <antomani103@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Jonathan Corbet <corbet@lwn.net>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABiB7mYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxMDSyND3dziXN3clOJi3dKk8mRdQwNTUwvLVAPTNGNTJaCegqLUtMwKsHn
+ RsbW1AI4EzJNfAAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1666;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=FWxmz7a337bopVTKsWHeJLal3kuOKwjodrDrKroH46g=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBm7oEeg8QXbKlz5YvCz4t/2udl84Z9xp0WLVCjr
+ E0eBawUMEqJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZu6BHgAKCRCLPIo+Aiko
+ 1dKnB/9i7/Ti1b9MR9d1Q+g5lv7IhMcVt+9dwlNHrbmi/iy9XyTh/1MVVbxvteN44VxZYgkpElh
+ icJx0jJby8V/YsrxcxsQBsDxzAbvCRl27Fawt5WCYzug44R7yjOt9V5h7sxfFjKj12IyeQVmfxO
+ hk6+Xx+ZWDNotIFPeowgRgjuUAQpDJMHKCBfAO0xqO3+6gRxnb7GXfhDMZ/8DlumwSFGGRucnoE
+ vPIsYP37wcOIpGh33G5ZiFP4sEbcJ7Uq+YezDOkpfvkeBWycxujNpUEhyagl7eSLdKVTfEBD1Dn
+ KH84lfQRyxA3uNLrLiwKUtTqscI57VydcmSZJdCMtOV/fUvg
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,111 +98,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 20, 2024 at 9:54=E2=80=AFAM Akhil P Oommen <quic_akhilpo@quicin=
-c.com> wrote:
->
-> On Tue, Sep 17, 2024 at 01:14:19PM +0200, Antonino Maniscalco wrote:
-> > Some userspace changes are necessary so add a flag for userspace to
-> > advertise support for preemption when creating the submitqueue.
-> >
-> > When this flag is not set preemption will not be allowed in the middle
-> > of the submitted IBs therefore mantaining compatibility with older
-> > userspace.
-> >
-> > The flag is rejected if preemption is not supported on the target, this
-> > allows userspace to know whether preemption is supported.
->
-> Just curious, what is the motivation behind informing userspace about
-> preemption support?
+Current way of programming of the UBWC-related registers has been
+inherited from vendor's drivers. The ubwc_static was supposed to contain
+raw data to be programmed to the hardware, but was later repurposed to
+define of the bits. As it can be seen by the commit 3e30296b374a
+("drm/msm: fix the highest_bank_bit for sc7180") sometimes this data
+gets out of sync.
 
-I think I requested that, as a "just in case" (because it would
-otherwise be awkward if we later needed to know the difference btwn
-drm/sched "preemption" which can only happen before submit is written
-to ring and "real" preemption)
+Rework existing msm_mdss_setup_ubwc_dec_NN() functions to be closer to
+the actual hardware bit definitions. Drop the ubwc_static field.
 
-BR,
--R
+Unfortunately this also introduces several "unknown" bits, for which we
+do not document the actual purpose. Hopefully comparing this data with
+the more documented Adreno UBWC feature bits will provide information
+about the meaning of those bits.
 
-> -Akhil
->
-> >
-> > Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
-> > Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-QRD
-> > ---
-> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 ++++++++----
-> >  drivers/gpu/drm/msm/msm_submitqueue.c |  3 +++
-> >  include/uapi/drm/msm_drm.h            |  5 ++++-
-> >  3 files changed, 15 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/ms=
-m/adreno/a6xx_gpu.c
-> > index 736f475d696f..edbcb6d229ba 100644
-> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > @@ -430,8 +430,10 @@ static void a7xx_submit(struct msm_gpu *gpu, struc=
-t msm_gem_submit *submit)
-> >       OUT_PKT7(ring, CP_SET_MARKER, 1);
-> >       OUT_RING(ring, 0x101); /* IFPC disable */
-> >
-> > -     OUT_PKT7(ring, CP_SET_MARKER, 1);
-> > -     OUT_RING(ring, 0x00d); /* IB1LIST start */
-> > +     if (submit->queue->flags & MSM_SUBMITQUEUE_ALLOW_PREEMPT) {
-> > +             OUT_PKT7(ring, CP_SET_MARKER, 1);
-> > +             OUT_RING(ring, 0x00d); /* IB1LIST start */
-> > +     }
-> >
-> >       /* Submit the commands */
-> >       for (i =3D 0; i < submit->nr_cmds; i++) {
-> > @@ -462,8 +464,10 @@ static void a7xx_submit(struct msm_gpu *gpu, struc=
-t msm_gem_submit *submit)
-> >                       update_shadow_rptr(gpu, ring);
-> >       }
-> >
-> > -     OUT_PKT7(ring, CP_SET_MARKER, 1);
-> > -     OUT_RING(ring, 0x00e); /* IB1LIST end */
-> > +     if (submit->queue->flags & MSM_SUBMITQUEUE_ALLOW_PREEMPT) {
-> > +             OUT_PKT7(ring, CP_SET_MARKER, 1);
-> > +             OUT_RING(ring, 0x00e); /* IB1LIST end */
-> > +     }
-> >
-> >       get_stats_counter(ring, REG_A7XX_RBBM_PERFCTR_CP(0),
-> >               rbmemptr_stats(ring, index, cpcycles_end));
-> > diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/ms=
-m/msm_submitqueue.c
-> > index 0e803125a325..9b3ffca3f3b4 100644
-> > --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> > +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> > @@ -170,6 +170,9 @@ int msm_submitqueue_create(struct drm_device *drm, =
-struct msm_file_private *ctx,
-> >       if (!priv->gpu)
-> >               return -ENODEV;
-> >
-> > +     if (flags & MSM_SUBMITQUEUE_ALLOW_PREEMPT && priv->gpu->nr_rings =
-=3D=3D 1)
-> > +             return -EINVAL;
-> > +
-> >       ret =3D msm_gpu_convert_priority(priv->gpu, prio, &ring_nr, &sche=
-d_prio);
-> >       if (ret)
-> >               return ret;
-> > diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-> > index 3fca72f73861..f37858db34e6 100644
-> > --- a/include/uapi/drm/msm_drm.h
-> > +++ b/include/uapi/drm/msm_drm.h
-> > @@ -345,7 +345,10 @@ struct drm_msm_gem_madvise {
-> >   * backwards compatibility as a "default" submitqueue
-> >   */
-> >
-> > -#define MSM_SUBMITQUEUE_FLAGS (0)
-> > +#define MSM_SUBMITQUEUE_ALLOW_PREEMPT        0x00000001
-> > +#define MSM_SUBMITQUEUE_FLAGS                    ( \
-> > +             MSM_SUBMITQUEUE_ALLOW_PREEMPT | \
-> > +             0)
-> >
-> >  /*
-> >   * The submitqueue priority should be between 0 and MSM_PARAM_PRIORITI=
-ES-1,
-> >
-> > --
-> > 2.46.0
-> >
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (4):
+      drm/msm: move MDSS registers to separate header file
+      drm/msm/mdss: use register definitions instead of hand-coding them
+      drm/msm/mdss: define bitfields for the UBWC_STATIC register
+      drm/msm/mdss: reuse defined bitfields for UBWC 2.0
+
+ drivers/gpu/drm/msm/Makefile                   |  1 +
+ drivers/gpu/drm/msm/msm_mdss.c                 | 86 ++++++++++++++------------
+ drivers/gpu/drm/msm/msm_mdss.h                 |  4 +-
+ drivers/gpu/drm/msm/registers/display/mdp5.xml | 16 -----
+ drivers/gpu/drm/msm/registers/display/mdss.xml | 38 ++++++++++++
+ 5 files changed, 89 insertions(+), 56 deletions(-)
+---
+base-commit: 32ffa5373540a8d1c06619f52d019c6cdc948bb4
+change-id: 20240921-msm-mdss-ubwc-105589e05f35
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
