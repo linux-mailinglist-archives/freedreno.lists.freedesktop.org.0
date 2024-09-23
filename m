@@ -2,65 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30DC597E616
-	for <lists+freedreno@lfdr.de>; Mon, 23 Sep 2024 08:38:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1C5A97E92A
+	for <lists+freedreno@lfdr.de>; Mon, 23 Sep 2024 11:58:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10C4C10E38A;
-	Mon, 23 Sep 2024 06:38:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D94510E3C4;
+	Mon, 23 Sep 2024 09:58:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mEiZNK9l";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nJnTgZZv";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D865210E387;
- Mon, 23 Sep 2024 06:38:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1727073495; x=1758609495;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=adkwsWEFcrcrhBa6//oKeGXzJBAGOjoocn+XTlCL0qs=;
- b=mEiZNK9lzeJv19r0KYrzHcoU+vqtKK4GAL6P1+BZzsc2YfF1uheFdMwp
- GDwbqHfJIJdru94uljINK0Z40d31thDaQM3kWFOeaIoZXTuGiaHcFlu/+
- 6YoqchovZqjO7keNUlp9HXgJp0eT9AYc94IyhRKVah59FszGCac75Kqkt
- kdo5z735RZAEutTzt17iTI3ixMFppyGVFFnTANMlhkhOSD7uLe1HVJWdr
- LpleF1nbPJ8C1AygTDcGyLOBFWullHNxaanMpdXcyPz3FfV0L35AjTdAQ
- e3oN9mQVO7ehAwl5YxYYTAc17P8MUtjMs1p6GrmoUeuFlPztdacePPQ+s A==;
-X-CSE-ConnectionGUID: NZTkA2mPQV2kZ4yM1/0hcg==
-X-CSE-MsgGUID: cw5qs47NSCqyuZ1FJ7ACxg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11202"; a="29793285"
-X-IronPort-AV: E=Sophos;i="6.10,250,1719903600"; d="scan'208";a="29793285"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2024 23:38:15 -0700
-X-CSE-ConnectionGUID: Ci5p0AlmR9KtN2G+m8XrqQ==
-X-CSE-MsgGUID: DGqgHnh+SPeowsoxjCJocQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,250,1719903600"; d="scan'208";a="75525517"
-Received: from sschumil-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.65])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2024 23:38:08 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean
- Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Nathan
- Chancellor <nathan@kernel.org>, Nick Desaulniers
- <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt
- <justinstitt@google.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A31B610E3C4
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Sep 2024 09:58:32 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-53653682246so4263864e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Sep 2024 02:58:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1727085511; x=1727690311; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ub4XgTiDaTnG37jRiFm9Y2Fc+WlrLGpXlCWkejMfFT4=;
+ b=nJnTgZZvE6MTnZCY1Mw8v8S6ZIl8/O0RMXgaANeKdAlY49tNHPzOv9OPMFUAaUaoZF
+ A0VTiZ/TmHZBU0EF/bad3v97e01CRhZ1/lFrYcU88a0LDbfSWoZpGXsiVxvE5S6g2pv3
+ 4ZZlUvfT1YMuwCa4bALInu8kLsMmNGrU3+iAraR0Nv+1CKyeY37ZRu1He+g/p+EZR2pv
+ WEYYf5eSNH9p79kfbZY0KgDsV2UrW4ObzSknm9SOe2l2vRKTdhV/0YNCFHomADhDKufe
+ Nw+zK7MsOf8EC+IBWz3sJX0N6J1kx6pcAI5rJ+F6pKPECbteKfSN0nYc7oeh8ECnUFz3
+ vNeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727085511; x=1727690311;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ub4XgTiDaTnG37jRiFm9Y2Fc+WlrLGpXlCWkejMfFT4=;
+ b=PhoFl8dMGy3Wq8Q71jL+wmeglnFhNXXgnAUSYUYmuFG2O29V24ydHIOIwO8CK8nXRr
+ gU/ODkj4dFJE8UNkPejNoUmIcgbGdmYnPK5t/SnrxM7Ad0yWP0kj1aAHcBLg5N9j43M6
+ mzSOwnfdU57X5Wtc5uFb/bNHK22MbCvFn93tWDkIMQ+kSzzKcCgnEsHszoivSgxu54Jo
+ srLiwHONh+F42k25NLOO0rjzZhDRKHVoviXQQmKr0XjP+f7dO44pjJyY/3c/XRrO14VU
+ gWNmDUC1tbuguT7JfPe5jp/2pqOJdA1kYIQT+OXtFFqV+hTx74Y6Fbd7k2yxANaK7zV9
+ 8Q/w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXo8+BDtFM6MXIPmgQYhwy0RGxn8XCJXkk5WbVJxqKqxVZpMdagdk8IW9CqT8yXjGzzGjxMI0TGgSY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3yCUijDA/6+U+984nJvUoMjR8ePOwnN9YHDf0YJvrsIBwnRVJ
+ L5NvLcqL39yKlsp953ceQOpik2CuTYnOkArBySBaO/ZDttWgz27nEU+sKi2u2Mc=
+X-Google-Smtp-Source: AGHT+IF70YCd6NPOg2g1uNWxOpDA5cEHVgZRGvQWfOhS4sHNqYU0tUy6qbj/ZoxZsUYtksuWhlIynw==
+X-Received: by 2002:a05:6512:1309:b0:536:568f:c5ed with SMTP id
+ 2adb3069b0e04-536ac2d6909mr5891988e87.1.1727085510477; 
+ Mon, 23 Sep 2024 02:58:30 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5368709684dsm3220907e87.148.2024.09.23.02.58.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Sep 2024 02:58:30 -0700 (PDT)
+Date: Mon, 23 Sep 2024 12:58:28 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+ llvm@lists.linux.dev, Jani Nikula <jani.nikula@intel.com>
 Subject: Re: [PATCH] drm/msm/hdmi: drop pll_cmp_to_fdata from hdmi_phy_8998
-In-Reply-To: <20240922-msm-drop-unused-func-v1-1-c5dc083415b8@linaro.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID: <utahvquemchnryqnbhuv2rfxqcgfowqqhjrbs3xtxej7ts47km@bbir4nq2mfwv>
 References: <20240922-msm-drop-unused-func-v1-1-c5dc083415b8@linaro.org>
-Date: Mon, 23 Sep 2024 09:38:05 +0300
-Message-ID: <874j6698oi.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240922-msm-drop-unused-func-v1-1-c5dc083415b8@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,46 +90,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 22 Sep 2024, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+On Sun, Sep 22, 2024 at 12:14:48AM GMT, Dmitry Baryshkov wrote:
 > The pll_cmp_to_fdata() was never used by the working code. Drop it to
 > prevent warnings with W=1 and clang.
->
+> 
 > Reported-by: Jani Nikula <jani.nikula@intel.com>
 > Closes: https://lore.kernel.org/dri-devel/3553b1db35665e6ff08592e35eb438a574d1ad65.1725962479.git.jani.nikula@intel.com
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-
 > ---
 >  drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c | 9 ---------
 >  1 file changed, 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-> index 0e3a2b16a2ce..e6ffaf92d26d 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-> @@ -153,15 +153,6 @@ static inline u32 pll_get_pll_cmp(u64 fdata, unsigned long ref_clk)
->  	return dividend - 1;
->  }
->  
-> -static inline u64 pll_cmp_to_fdata(u32 pll_cmp, unsigned long ref_clk)
-> -{
-> -	u64 fdata = ((u64)pll_cmp) * ref_clk * 10;
-> -
-> -	do_div(fdata, HDMI_PLL_CMP_CNT);
-> -
-> -	return fdata;
-> -}
-> -
->  #define HDMI_REF_CLOCK_HZ ((u64)19200000)
->  #define HDMI_MHZ_TO_HZ ((u64)1000000)
->  static int pll_get_post_div(struct hdmi_8998_post_divider *pd, u64 bclk)
->
-> ---
-> base-commit: 32ffa5373540a8d1c06619f52d019c6cdc948bb4
-> change-id: 20240922-msm-drop-unused-func-b9e76ad8e0ea
->
-> Best regards,
+> 
+
+
+And of course
+
+Fixes: caedbf17c48d ("drm/msm: add msm8998 hdmi phy/pll support")
 
 -- 
-Jani Nikula, Intel
+With best wishes
+Dmitry
