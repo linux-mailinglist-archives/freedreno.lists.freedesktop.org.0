@@ -2,91 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6C0697EABF
-	for <lists+freedreno@lfdr.de>; Mon, 23 Sep 2024 13:32:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F093A97EAE8
+	for <lists+freedreno@lfdr.de>; Mon, 23 Sep 2024 13:45:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30B6310E3E3;
-	Mon, 23 Sep 2024 11:32:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A934E10E242;
+	Mon, 23 Sep 2024 11:45:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="VCWMvZCu";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YY33hoYI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20B8C10E0E1;
- Mon, 23 Sep 2024 11:32:05 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48NAeBvx032019;
- Mon, 23 Sep 2024 11:31:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:date:from:in-reply-to:message-id:references:subject:to; s=
- qcppdkim1; bh=edL4kj+IIfPayS0gSR4CifL0/4nry9js71xAxy7RmWA=; b=VC
- WMvZCuc5/MVvlb03vbfTMOQulvjl47doMrP49JmRjxWxPLjBqH8Ktk1Sqx+PVgJO
- PiRKrC//72Kk4FSau7nP6K+lZKm5yOjb0exxqpZvuj9knJ6AIcOF1njS+2z5BUiI
- c0QHpEaA7Q8wNkKw4pMX3Szh5hnUYk2fyH7FFukXjt04GDxbPV93RxThNQM8VFKf
- n7Lxh9RtvxN7tp+8oj0EvrJ0zHm1ZyRxz8IaeT+dHa2NUcFcrmND475sFXEOCzN3
- KGgt36VDmclCEfiaSoV5v7mFcLP1MLwcCxdgi+d41VsX0pS8YSZxjT9srDw+fviA
- 0dmNzJjpxB7JU862B2Ow==
-Received: from apblrppmta02.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41sn3s4g0g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Sep 2024 11:31:58 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 48NBVs3L028952; 
- Mon, 23 Sep 2024 11:31:54 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 41sq7kstdv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Mon, 23 Sep 2024 11:31:54 +0000
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 48NBVsf8028947;
- Mon, 23 Sep 2024 11:31:54 GMT
-Received: from hu-maiyas-hyd.qualcomm.com (hu-mukhopad-hyd.qualcomm.com
- [10.147.244.250])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 48NBVr2q028943;
- Mon, 23 Sep 2024 11:31:54 +0000
-Received: by hu-maiyas-hyd.qualcomm.com (Postfix, from userid 3978529)
- id 9D6C35009E2; Mon, 23 Sep 2024 17:01:51 +0530 (+0530)
-From: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
-To: vkoul@kernel.org, kishon@kernel.org, konradybcio@kernel.org,
- andersson@kernel.org, simona@ffwll.ch, dmitry.baryshkov@linaro.org,
- abel.vesa@linaro.org, robdclark@gmail.com, quic_abhinavk@quicinc.com,
- sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, quic_khsieh@quicinc.com, konrad.dybcio@linaro.org,
- quic_parellan@quicinc.com, quic_bjorande@quicinc.com
-Cc: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 213E210E0E1
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Sep 2024 11:45:03 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-53653682246so4375562e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Sep 2024 04:45:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1727091901; x=1727696701; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=jhnBmWAe9NUrsichqtPogCcJph5ClsF7zPozObEyXA4=;
+ b=YY33hoYIIWle4Lp9+eKWSaMLMPS/frTD74dSOhwoQdEzgJUTMWFWM3LxVRHinJBeqv
+ hZUqgMw9DICjmObuR6kYQudtST522VavkCkVCCmDXhVNadkMZYlgBC+yVp8Oe+7Yy9iE
+ B85HOUosITXHPrAxLGqrph5F3ps7F4x+6CKBXN51Nr8QXPk6B+N7RatkX6xBROX7SXFz
+ UVdgsJyd7c7RI8DXrtmqRsTniAcpYuNG938iZnAluHKkfF17fvlVu7degZhBBeKk8bKV
+ f5jsRQlpULpBA5Ld/zcZK94lmjANtUVwW2w6MoxY8Fc/jfmUyrUfbVq6+y4bNZkVR9A6
+ RkiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727091901; x=1727696701;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jhnBmWAe9NUrsichqtPogCcJph5ClsF7zPozObEyXA4=;
+ b=WKI97cuqosH27KuePTzs+v1RcbG8kc16qS7LVGj22BU23lBD9p9oOKZShS8nLlaXyD
+ AXMU+ASJ2FxoPDmBK6jqCAi5to35cho7bYOa6w6D4wQEILsWzI6vLKimuUegIDsj8SX5
+ elVOVHaV+sWMWx7S6UGSFlTTJevaULJ4KLEEgXAnrdKPYpjJow3Xxye2f6H1w1gmrp/e
+ mAvvwH+KlIah1WAeksLNVS65pPxo8ZEi73Z0wQbc+uTPAHYJJcV5Oy1R295qO93ULULw
+ qHLjYywGqbDD7r+bN/0+Bs7gm3qayZjsqd6r0PEDD5Ysnm1liJimxkzrIIjpOzaneLtN
+ NMtA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUpJEnImc8GF5NoFN2ut3O+DO7RWilsV3fDz4ZjahoN4DdirCPw2FoUdDRdgVzxw2ihrlSj9zlpxn0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyZ060isknhpY5aRlx7O61/VbJFAAeUABJuFOtc8F1bj/0Ygjf/
+ DLjsxGdwQ1rVLZL/4YxnF4MtCVjwt7NUjXKt5nKzJMxdsaEYPn8/+rNz7eHjk3k=
+X-Google-Smtp-Source: AGHT+IHa4aqsZXTbC37KCXn5fe4mfHLWoWf0Nyyz2mtzA1/7uiKYj0/E1PRavXBv3jLrfICSOaxmpg==
+X-Received: by 2002:a05:6512:a8e:b0:536:52c4:e45c with SMTP id
+ 2adb3069b0e04-536ac2f54b4mr4462943e87.31.1727091901086; 
+ Mon, 23 Sep 2024 04:45:01 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-536870a875bsm3259740e87.224.2024.09.23.04.44.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Sep 2024 04:44:59 -0700 (PDT)
+Date: Mon, 23 Sep 2024 14:44:57 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
+Cc: vkoul@kernel.org, kishon@kernel.org, konradybcio@kernel.org, 
+ andersson@kernel.org, simona@ffwll.ch, abel.vesa@linaro.org,
+ robdclark@gmail.com, 
+ quic_abhinavk@quicinc.com, sean@poorly.run, marijn.suijten@somainline.org, 
+ airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, quic_khsieh@quicinc.com, konrad.dybcio@linaro.org, 
+ quic_parellan@quicinc.com, quic_bjorande@quicinc.com,
+ linux-arm-msm@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  quic_riteshk@quicinc.com, quic_vproddut@quicinc.com
-Subject: [PATCH v3 5/5] drm/msm/dp: Add DisplayPort controller for SA8775P
-Date: Mon, 23 Sep 2024 17:01:50 +0530
-Message-Id: <20240923113150.24711-6-quic_mukhopad@quicinc.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20240923113150.24711-1-quic_mukhopad@quicinc.com>
+Subject: Re: [PATCH v3 2/5] phy: qcom: edp: Introduce aux_cfg array for
+ version specific aux settings
+Message-ID: <qughwerqucheykdwxhip32n7epijn3625jxn2ls7t7nptu4tkw@ls2u7uzaoegj>
 References: <20240923113150.24711-1-quic_mukhopad@quicinc.com>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: kXKGx-0dPFfaIC7xCVsqhsNoOXpGogAp
-X-Proofpoint-ORIG-GUID: kXKGx-0dPFfaIC7xCVsqhsNoOXpGogAp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0
- mlxscore=0 impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0
- priorityscore=1501 lowpriorityscore=0 mlxlogscore=999 clxscore=1015
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2408220000 definitions=main-2409230085
+ <20240923113150.24711-3-quic_mukhopad@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240923113150.24711-3-quic_mukhopad@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,49 +96,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The Qualcomm SA8775P platform comes with 2 DisplayPort controllers
-for each mdss, having different base offsets than the previous
-SoCs. The support for all 4 DPTX have been added here, and
-validation of MDSS0 DPTX0 and DPTX1 have been conducted.
+On Mon, Sep 23, 2024 at 05:01:47PM GMT, Soutrik Mukhopadhyay wrote:
+> In order to support different HW versions, introduce aux_cfg array
+> to move v4 specific aux configuration settings.
+> 
+> Signed-off-by: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
+> ---
+> v2: Fixed review comments from Bjorn and Dmitry
+> 	- Made aux_cfg array as const.
+> 
+> v3: Fixed review comments from Dmitry
+> 	- Used a for loop to write the dp_phy_aux_cfg registers.
+> 	- Pre-defined the aux_cfg size to prevent any magic numbers.
+> 
+> ---
+>  drivers/phy/qualcomm/phy-qcom-edp.c | 41 ++++++++++++-----------------
+>  1 file changed, 17 insertions(+), 24 deletions(-)
+> 
 
-Signed-off-by: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
----
-v2: No change
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-v3: Fixed review comments from Konrad and Bjorn
-	-Added all the necessary DPTX controllers for this platform.
-
----
- drivers/gpu/drm/msm/dp/dp_display.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index e1228fb093ee..2195779584dc 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -118,6 +118,14 @@ struct msm_dp_desc {
- 	bool wide_bus_supported;
- };
- 
-+static const struct msm_dp_desc sa8775p_dp_descs[] = {
-+	{ .io_start = 0xaf54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
-+	{ .io_start = 0xaf5c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
-+	{ .io_start = 0x22154000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
-+	{ .io_start = 0x2215c000, .id = MSM_DP_CONTROLLER_3, .wide_bus_supported = true },
-+	{}
-+};
-+
- static const struct msm_dp_desc sc7180_dp_descs[] = {
- 	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
- 	{}
-@@ -162,6 +170,7 @@ static const struct msm_dp_desc x1e80100_dp_descs[] = {
- };
- 
- static const struct of_device_id dp_dt_match[] = {
-+	{ .compatible = "qcom,sa8775p-dp", .data = &sa8775p_dp_descs },
- 	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_descs },
- 	{ .compatible = "qcom,sc7280-dp", .data = &sc7280_dp_descs },
- 	{ .compatible = "qcom,sc7280-edp", .data = &sc7280_dp_descs },
 -- 
-2.17.1
-
+With best wishes
+Dmitry
