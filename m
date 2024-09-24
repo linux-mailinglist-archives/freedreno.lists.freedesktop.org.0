@@ -2,75 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6100A984947
-	for <lists+freedreno@lfdr.de>; Tue, 24 Sep 2024 18:11:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30BBF984994
+	for <lists+freedreno@lfdr.de>; Tue, 24 Sep 2024 18:27:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34F6E10E71C;
-	Tue, 24 Sep 2024 16:11:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F86A10E040;
+	Tue, 24 Sep 2024 16:27:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eMU5zkr0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S003kr6q";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
- [209.85.166.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD77A10E71C;
- Tue, 24 Sep 2024 16:11:57 +0000 (UTC)
-Received: by mail-io1-f51.google.com with SMTP id
- ca18e2360f4ac-82a626d73efso217348339f.1; 
- Tue, 24 Sep 2024 09:11:57 -0700 (PDT)
+Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
+ [209.85.166.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6483B10E040;
+ Tue, 24 Sep 2024 16:27:29 +0000 (UTC)
+Received: by mail-il1-f181.google.com with SMTP id
+ e9e14a558f8ab-3a07bd770e2so30698005ab.0; 
+ Tue, 24 Sep 2024 09:27:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727194317; x=1727799117; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1727195248; x=1727800048; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=sWeglnw6BZKB/VuyrSzHmYia1dbxFZbiLz4gI3HzQMY=;
- b=eMU5zkr05wmzQS66oxYiDdYW9a+ckM3jq8dPrNLaORfNQLEJH9XAyBFOno9UP6YGWc
- 7p3tATx81ZDTaypEdKdyBNNRrR/xKfxdk7fgkuU+lNzxQpBSpj8TGwuBMGS5O2lsPMk9
- zf3Rour5ycUqONGbycENdgAYAjFWcPY3r2JUrEDTvXYq4prXA1rVJxAyqzlKbUxLd3EI
- imeS2IjvMBtn09FIt4bgVJy84T/XqLrQP7lSJsw3BRevzJPZD6Ai3wmbfZVI778rNw8F
- v4mUUiwss2+2Rbnk65RJ6RbLPN3tqjUtSiwo4+BgRhKAf+DFBlYxAAi5vHCE81yG5O6F
- JKrA==
+ bh=tIKJ3tLYnjzjQAicXIIqfWRcuCEsTe9hsi8L1oCHUJE=;
+ b=S003kr6qDozVNzWFC7N9B2Za5RBiRpaumSZZ08t6X/1ZRR7gjMSKAXagc4n76x9TFn
+ rZPmf5QO3u8dOAUOG6dxKa93WnSvVa4bgaasXW/s7/QKv1c+T9g7oPDEzAJ7ARsiUvXK
+ KQTfx8Gza6+89PBQpQP1cuLeiNsf2WzoqCjgLnFFmyL2d1dR9+8SW+vZRn7F3rDcNph9
+ R8UxTgdGNG1vEEhVw01+T2O2D0mQn4dDMTvBFtRUb5MmwG1s93GPuCwpY7sdBd6iYdRY
+ SmcnlLXiT7roKvxCNkIDooze+Cz+XNmVHA4QkxjMv5U/5VnvWJZr1ITXHfckgDymFmmR
+ kJtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727194317; x=1727799117;
+ d=1e100.net; s=20230601; t=1727195248; x=1727800048;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=sWeglnw6BZKB/VuyrSzHmYia1dbxFZbiLz4gI3HzQMY=;
- b=Hxa6xLN5BGx1K2Kgo/jRZFyscyGe9vJ1oJAIxK7A7vHM5GzWnfBImLf8GQafPyM7te
- RwY7Y84HzHakf+Fbqy0FffGl21gLofihebxHf/zkuA021DS/Ct1BZSV1SvJmov1STGVO
- FsWv1SlPUDnu1XgkBf9a6jHek4TDcGzhXjmYfiL814PG7D7s/PXe9wjgG7LfmoJGY9dT
- htEsIVv3pVEmn4LmaLymYcZNXpSm2VqFFiiEpN2EIkqvswQb47D41bsiTJq9hYahk+z0
- 8k/W3uLHXy6fQDUDnmP551TR9ei8oj4JQnTPuxnnBI/XIL558A1u2r7oHku7EZ3fHDPw
- uFtg==
+ bh=tIKJ3tLYnjzjQAicXIIqfWRcuCEsTe9hsi8L1oCHUJE=;
+ b=EBO7YyYfRQEg3XtTAM13l1frBJKjo0VIpD9ij559lPpqjCDCmb2rdzpcDjm7kttqqy
+ ylllQ+4w4SNssD5FnIoWBcfV+RvIge6XcZNnTmU9/W8FBnyi4UQVCGgv2n5wK2qX9StH
+ UqXDQ8Q4yeX83rxOIk+38pd9xrs4KFkGKR3qPwDyVEKJEJgFBw5Uic1B9KimYTKrDDY1
+ mu++IvuNw1Pvfry4/xRqbiloYUCJtPqVePEFWdNUeHFmgWd3EkGerI637NTwxnSb3ONP
+ k5ksUV9+MtnbHH5jB6pgvDUeB/qFnbbkUnxnAzcJMclscK9LylKHrobOF7HWrSHOGh3V
+ XMDg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWe3lgj4a0x90Z+ZNJ+CseaPXwEvsRVOvueMSPoFU7z79vQTyTsZpCzcIH1SRTNv4TgrtCkRCQd6I8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw2VOrbXRMRJ60zPTMi2V/4vBkZL0C8VZJGmr9GWAi4wVF0zmq3
- wwu1McfArnw/dLsDgqmoVhCSGvzlU755icjaldVXcPDBxXEHHu17Uy+z2BziJ/iyLIZ6cKosddv
- usY4ls/irqerNSVZQXhsymb/jLkU=
-X-Google-Smtp-Source: AGHT+IG4Ne74kYPMdaaO0rPyy8apUK0dOKNk+6D4i79VukxVDUPWLBfaAP9Hxec3LUQE3xdsiYRvJgLiIFoB95h3b34=
-X-Received: by 2002:a05:6e02:2162:b0:3a0:a0bd:f92b with SMTP id
- e9e14a558f8ab-3a26d785d84mr81805ab.10.1727194316674; Tue, 24 Sep 2024
- 09:11:56 -0700 (PDT)
+ AJvYcCV/dDjoZdU9ocZtPC9aFAyRfxNEnjwvsRJ2nM33Mv8UYq11AvooCHE9zj/RqedHzDxcgoBoy4lg1x4=@lists.freedesktop.org,
+ AJvYcCVxRdchv3NiCVL8togeg2JqdvortwV0s0gAjucTRdU+x/ht+wHXw4o2nq2QPASIzVuRVdveH6JvUkuI@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzrBL7uyr9vwne/eseqrIZlut+LeahLIGXaFj0C4fNTxk1qP4Y
+ hs8foPu20zNAixTwVtl/1gQsPMyqA7Xo7wWbSj+04EfF3sj/oBXWijWGwTnrmOVxaNa7Mzpq2B2
+ dM5z2eCBmoAmSRotXWQ5DNSVAJkY=
+X-Google-Smtp-Source: AGHT+IG9boXyVk/1DBYrjUtsCFlsGG3k5A0clibRl0uG/AxfB6qhwgN3oUtXzCNhhSbUc7BmikIteq3R9XRZ7x4hGyY=
+X-Received: by 2002:a05:6e02:20c8:b0:3a0:9aff:5046 with SMTP id
+ e9e14a558f8ab-3a26d795471mr409395ab.15.1727195248272; Tue, 24 Sep 2024
+ 09:27:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240913195132.8282-1-robdclark@gmail.com>
- <CACu1E7ECxJLH8+GqUuWH=+oM=N=fgkpBBqJ8ShrSwbdZmw+nZQ@mail.gmail.com>
-In-Reply-To: <CACu1E7ECxJLH8+GqUuWH=+oM=N=fgkpBBqJ8ShrSwbdZmw+nZQ@mail.gmail.com>
+References: <20240924-preemption-a750-t-v5-0-0be2bf81c187@gmail.com>
+ <20240924-preemption-a750-t-v5-10-0be2bf81c187@gmail.com>
+In-Reply-To: <20240924-preemption-a750-t-v5-10-0be2bf81c187@gmail.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 24 Sep 2024 09:11:44 -0700
-Message-ID: <CAF6AEGsJpLwyXK7_TH0jZx64A1rOX9F23dL5TZUJUBV=tsKLCA@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/a6xx+: Insert a fence wait before SMMU table
- update
-To: Connor Abbott <cwabbott0@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>, 
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+Date: Tue, 24 Sep 2024 09:27:16 -0700
+Message-ID: <CAF6AEGsixas1wa4k6QjjwdjKqq1hHk8RDBeL-MUHTcmMRrFDoQ@mail.gmail.com>
+Subject: Re: [PATCH v5 10/11] drm/msm/A6xx: Enable preemption for A750
+To: Antonino Maniscalco <antomani103@gmail.com>
+Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jonathan Corbet <corbet@lwn.net>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -88,116 +90,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Sep 18, 2024 at 9:51=E2=80=AFAM Connor Abbott <cwabbott0@gmail.com>=
- wrote:
->
-> On Fri, Sep 13, 2024 at 8:51=E2=80=AFPM Rob Clark <robdclark@gmail.com> w=
-rote:
-> >
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > The CP_SMMU_TABLE_UPDATE _should_ be waiting for idle, but on some
-> > devices (x1-85, possibly others), it seems to pass that barrier while
-> > there are still things in the event completion FIFO waiting to be
-> > written back to memory.
-> >
-> > Work around that by adding a fence wait before context switch.  The
-> > CP_EVENT_WRITE that writes the fence is the last write from a submit,
-> > so seeing this value hit memory is a reliable indication that it is
-> > safe to proceed with the context switch.
-> >
-> > Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/63
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 14 +++++++++++---
-> >  1 file changed, 11 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/ms=
-m/adreno/a6xx_gpu.c
-> > index bcaec86ac67a..ba5b35502e6d 100644
-> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > @@ -101,9 +101,10 @@ static void get_stats_counter(struct msm_ringbuffe=
-r *ring, u32 counter,
-> >  }
-> >
-> >  static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
-> > -               struct msm_ringbuffer *ring, struct msm_file_private *c=
-tx)
-> > +               struct msm_ringbuffer *ring, struct msm_gem_submit *sub=
-mit)
-> >  {
-> >         bool sysprof =3D refcount_read(&a6xx_gpu->base.base.sysprof_act=
-ive) > 1;
-> > +       struct msm_file_private *ctx =3D submit->queue->ctx;
-> >         struct adreno_gpu *adreno_gpu =3D &a6xx_gpu->base;
-> >         phys_addr_t ttbr;
-> >         u32 asid;
-> > @@ -115,6 +116,13 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6=
-xx_gpu,
-> >         if (msm_iommu_pagetable_params(ctx->aspace->mmu, &ttbr, &asid))
-> >                 return;
-> >
-> > +       /* Wait for previous submit to complete before continuing: */
-> > +       OUT_PKT7(ring, CP_WAIT_TIMESTAMP, 4);
->
-> CP_WAIT_TIMESTAMP doesn't exist on a6xx, so this won't work there. I
-> don't know if the bug exists on a6xx, but I'd be inclined to say it
-> has always existed and we just never hit it because it requires some
-> very specific timing conditions. We can make it work on a6xx by using
-> CP_WAIT_REG_MEM and waiting for it to equal the exact value.
+nit, lowercase "a6xx" in subject prefix
 
-I've been unable to reproduce this on a690, despite running at a
-similar fps (so similar rate of CP_SMMU_TABLE_UPDATEs).  I guess I
-can't rule out that this is just _harder_ to hit on a6xx due to the
-shallower pipeline.  It would be nice to get some data points on other
-a7xx, but I only have the one.
+(no need to resend just for this, I can fix it up when applying
+patches if needed.. but if you do resend pls fix that)
 
-I did attempt to come up with an igt stand-alone reproducer by just
-ping-ponging between contexts (with fences to force context switches)
-with 1000's of CP_EVENT_WRITE's, to no avail.  I guess I'd need to
-actually setup a blit or draw to make the event-write asynchronous,
-but that would be a lot harder to do in igt.
-
-I guess for now I'll re-work this patch to only do the workaround on
-a7xx.  And wire up the gallium preemption support so we can confirm
-whether this is also an issue for preemption.
-
-BR,
+BR
 -R
 
-> Connor
+On Tue, Sep 24, 2024 at 4:30=E2=80=AFAM Antonino Maniscalco
+<antomani103@gmail.com> wrote:
 >
-> > +       OUT_RING(ring, 0);
-> > +       OUT_RING(ring, lower_32_bits(rbmemptr(ring, fence)));
-> > +       OUT_RING(ring, upper_32_bits(rbmemptr(ring, fence)));
-> > +       OUT_RING(ring, submit->seqno - 1);
-> > +
-> >         if (!sysprof) {
-> >                 if (!adreno_is_a7xx(adreno_gpu)) {
-> >                         /* Turn off protected mode to write to special =
-registers */
-> > @@ -193,7 +201,7 @@ static void a6xx_submit(struct msm_gpu *gpu, struct=
- msm_gem_submit *submit)
-> >         struct msm_ringbuffer *ring =3D submit->ring;
-> >         unsigned int i, ibs =3D 0;
-> >
-> > -       a6xx_set_pagetable(a6xx_gpu, ring, submit->queue->ctx);
-> > +       a6xx_set_pagetable(a6xx_gpu, ring, submit);
-> >
-> >         get_stats_counter(ring, REG_A6XX_RBBM_PERFCTR_CP(0),
-> >                 rbmemptr_stats(ring, index, cpcycles_start));
-> > @@ -283,7 +291,7 @@ static void a7xx_submit(struct msm_gpu *gpu, struct=
- msm_gem_submit *submit)
-> >         OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
-> >         OUT_RING(ring, CP_THREAD_CONTROL_0_SYNC_THREADS | CP_SET_THREAD=
-_BR);
-> >
-> > -       a6xx_set_pagetable(a6xx_gpu, ring, submit->queue->ctx);
-> > +       a6xx_set_pagetable(a6xx_gpu, ring, submit);
-> >
-> >         get_stats_counter(ring, REG_A7XX_RBBM_PERFCTR_CP(0),
-> >                 rbmemptr_stats(ring, index, cpcycles_start));
-> > --
-> > 2.46.0
-> >
+> Initialize with 4 rings to enable preemption.
+>
+> For now only on A750 as other targets require testing.
+>
+> Add the "preemption_enabled" module parameter to override this for other
+> A7xx targets.
+>
+> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-QRD
+> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
+> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8450-HDK
+> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c  | 3 ++-
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 6 +++++-
+>  drivers/gpu/drm/msm/adreno/adreno_device.c | 4 ++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h    | 1 +
+>  4 files changed, 12 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/=
+msm/adreno/a6xx_catalog.c
+> index 316f23ca91671d973797f2a5b69344f376707325..0e3041b2941905f1acdc9e571=
+e0549a960a7edfa 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1240,7 +1240,8 @@ static const struct adreno_info a7xx_gpus[] =3D {
+>                 .gmem =3D 3 * SZ_1M,
+>                 .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+>                 .quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT |
+> -                         ADRENO_QUIRK_HAS_HW_APRIV,
+> +                         ADRENO_QUIRK_HAS_HW_APRIV |
+> +                         ADRENO_QUIRK_PREEMPTION,
+>                 .init =3D a6xx_gpu_init,
+>                 .zapfw =3D "gen70900_zap.mbn",
+>                 .a6xx =3D &(const struct a6xx_info) {
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index edbcb6d229ba614be910ee70e75731538116e4a4..4760f9469613c0bf208f56be9=
+608747b5aa75606 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -2529,6 +2529,7 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *de=
+v)
+>         struct a6xx_gpu *a6xx_gpu;
+>         struct adreno_gpu *adreno_gpu;
+>         struct msm_gpu *gpu;
+> +       extern int enable_preemption;
+>         bool is_a7xx;
+>         int ret;
+>
+> @@ -2567,7 +2568,10 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *d=
+ev)
+>                 return ERR_PTR(ret);
+>         }
+>
+> -       if (is_a7xx)
+> +       if ((enable_preemption =3D=3D 1) || (enable_preemption =3D=3D -1 =
+&&
+> +           (config->info->quirks & ADRENO_QUIRK_PREEMPTION)))
+> +               ret =3D adreno_gpu_init(dev, pdev, adreno_gpu, &funcs_a7x=
+x, 4);
+> +       else if (is_a7xx)
+>                 ret =3D adreno_gpu_init(dev, pdev, adreno_gpu, &funcs_a7x=
+x, 1);
+>         else if (adreno_has_gmu_wrapper(adreno_gpu))
+>                 ret =3D adreno_gpu_init(dev, pdev, adreno_gpu, &funcs_gmu=
+wrapper, 1);
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm=
+/msm/adreno/adreno_device.c
+> index cfc74a9e2646d3de76a06bd67457d69afa49e309..9ffe91920fbfb4841b28aabec=
+9fbde94539fdd83 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> @@ -20,6 +20,10 @@ bool allow_vram_carveout =3D false;
+>  MODULE_PARM_DESC(allow_vram_carveout, "Allow using VRAM Carveout, in pla=
+ce of IOMMU");
+>  module_param_named(allow_vram_carveout, allow_vram_carveout, bool, 0600)=
+;
+>
+> +int enable_preemption =3D -1;
+> +MODULE_PARM_DESC(enable_preemption, "Enable preemption (A7xx only) (1=3D=
+on , 0=3Ddisable, -1=3Dauto (default))");
+> +module_param(enable_preemption, int, 0600);
+> +
+>  extern const struct adreno_gpulist a2xx_gpulist;
+>  extern const struct adreno_gpulist a3xx_gpulist;
+>  extern const struct adreno_gpulist a4xx_gpulist;
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.h
+> index 87098567483b69c21025b80f356e0a68f0e7f172..d1cd53f05de68b3873f355206=
+55e09e82fc40449 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -56,6 +56,7 @@ enum adreno_family {
+>  #define ADRENO_QUIRK_LMLOADKILL_DISABLE                BIT(2)
+>  #define ADRENO_QUIRK_HAS_HW_APRIV              BIT(3)
+>  #define ADRENO_QUIRK_HAS_CACHED_COHERENT       BIT(4)
+> +#define ADRENO_QUIRK_PREEMPTION                        BIT(5)
+>
+>  /* Helper for formating the chip_id in the way that userspace tools like
+>   * crashdec expect.
+>
+> --
+> 2.46.1
+>
