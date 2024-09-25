@@ -2,57 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4672A9853D6
-	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2024 09:23:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D894A98553A
+	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2024 10:12:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21A4E10E7AD;
-	Wed, 25 Sep 2024 07:23:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C81DF10E7B1;
+	Wed, 25 Sep 2024 08:12:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="upcxZK6c";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PWEdRAbi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62CD410E220;
- Wed, 25 Sep 2024 07:23:11 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 5D3DFA43C14;
- Wed, 25 Sep 2024 07:23:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1327C4CEC3;
- Wed, 25 Sep 2024 07:23:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727248990;
- bh=+MshezIUowXnhFogys8xJQLBrxENmFL5Y2dLYOhLzJU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=upcxZK6cgfxo3wt/KjWFpciHZWnFtGjvzOWMqfmWALgvfAIeNqpETpb0kaVuFZeRe
- 8idI676mrJR1AZmdTrVp7uQV7B/xgIO8DF3UlyMGthwM0FdZg4Ty25sS2LRc63tX1v
- rDo8tlIVQGkq5Zow2wjuVy8KTNOhT+cfOE1exG7pWUAkQq2ksUqNXOQROgn1n4wnMg
- LuyTXy99OTOmMv/x5DGITs5ifUAl/bZum1baVzyjKwW6Cru9c7UO298Rq5a3BlSFQ8
- 8b83yM8JkAZGdiefoBzRcMHJgS2CvW6MSqL9mdHb5fRrxGp9RyXp+Ttoxh+rmSl4Cj
- y94S3zIClEgeg==
-Date: Wed, 25 Sep 2024 09:23:07 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, quic_abhinavk@quicinc.com,
- Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, quic_ebharadw@quicinc.com,
- linux-arm-msm@vger.kernel.org, 
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7035A10E0AC;
+ Wed, 25 Sep 2024 08:12:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1727251949; x=1758787949;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=BXk9gzQe03a8tFekETgVv0Cx0DJNmF+MmhHSv8qjqkc=;
+ b=PWEdRAbiwP50ILSfk03mydQNs34GpumiNF/Tw+QtQN/8K4osSYl+6TE7
+ De/Ftk8vveKXVgWmTDwzxt8hK1f5rNSgAYqkxuxQSlEesy2J/SPepbP5r
+ LGXM0zt/k0MEDYtlrCU7Ijq+QOHwMoCTv8FG3Vlyoz30mHUjX1FYbm0fN
+ AW1JivEVSKC0B46YXNu0HnndenTi/ylAzmOyw9Mp9jyfID7OZEbalzL4A
+ MH1OYWdZBnxOJJBYikAIdOHoqTbBGW7OTxQjJCbXnwrFTgLaP+95Mow2w
+ U5KgBkjC8cETmmLKw5Hz4UXjB3MKC8G92Fuy21gcnfD27zvGqcfsvfyDg A==;
+X-CSE-ConnectionGUID: LPNrmEsuTeqzrmdY2uNmJA==
+X-CSE-MsgGUID: JKOducVlSXSS/q2d+0/nLg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11205"; a="43761890"
+X-IronPort-AV: E=Sophos;i="6.10,256,1719903600"; d="scan'208";a="43761890"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2024 01:12:28 -0700
+X-CSE-ConnectionGUID: js11HO6hQ8ykKzvcFxayuQ==
+X-CSE-MsgGUID: N+t14rGCQ0moy7uEw2n+4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,256,1719903600"; d="scan'208";a="109153754"
+Received: from sschumil-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.16])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2024 01:12:21 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ quic_abhinavk@quicinc.com, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David
+ Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v2 02/22] drm: Add valid clones check
-Message-ID: <20240925-hasty-bald-caribou-eedbf5@houat>
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>, Ville
+ =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Jessica Zhang
+ <quic_jesszhan@quicinc.com>
+Subject: Re: [PATCH v2 01/22] drm: add clone mode check for CRTC
+In-Reply-To: <20240924-concurrent-wb-v2-1-7849f900e863@quicinc.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20240924-concurrent-wb-v2-0-7849f900e863@quicinc.com>
- <20240924-concurrent-wb-v2-2-7849f900e863@quicinc.com>
+ <20240924-concurrent-wb-v2-1-7849f900e863@quicinc.com>
+Date: Wed, 25 Sep 2024 11:12:18 +0300
+Message-ID: <87bk0c40f1.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="tp2mdysvfttz7mch"
-Content-Disposition: inline
-In-Reply-To: <20240924-concurrent-wb-v2-2-7849f900e863@quicinc.com>
+Content-Type: text/plain
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,80 +79,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
---tp2mdysvfttz7mch
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Sep 24, 2024 at 03:59:18PM GMT, Jessica Zhang wrote:
-> Check that all encoders attached to a given CRTC are valid
-> possible_clones of each other.
->=20
+On Tue, 24 Sep 2024, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+> Add helper to check if the given CRTC state is in clone mode
+>
 > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 > ---
->  drivers/gpu/drm/drm_atomic_helper.c | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_at=
-omic_helper.c
-> index 43cdf39019a4..cc4001804fdc 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -574,6 +574,25 @@ mode_valid(struct drm_atomic_state *state)
->  	return 0;
->  }
-> =20
-> +static int drm_atomic_check_valid_clones(struct drm_atomic_state *state,
-> +					 struct drm_crtc *crtc)
+>  include/drm/drm_crtc.h | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+> index 8b48a1974da3..ecb93e2c4afc 100644
+> --- a/include/drm/drm_crtc.h
+> +++ b/include/drm/drm_crtc.h
+> @@ -1323,5 +1323,12 @@ static inline struct drm_crtc *drm_crtc_find(struct drm_device *dev,
+>  
+>  int drm_crtc_create_scaling_filter_property(struct drm_crtc *crtc,
+>  					    unsigned int supported_filters);
+> +static inline bool drm_crtc_in_clone_mode(struct drm_crtc_state *crtc_state)
 > +{
-> +	struct drm_encoder *drm_enc;
-> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
-te,
-> +									  crtc);
+> +	if (!crtc_state)
+> +		return false;
 > +
-> +	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc_state->encoder_mask)=
- {
-> +		if ((crtc_state->encoder_mask & drm_enc->possible_clones) !=3D
-> +		    crtc_state->encoder_mask) {
-> +			DRM_DEBUG("crtc%d failed valid clone check for mask 0x%x\n",
-> +				  crtc->base.id, crtc_state->encoder_mask);
-> +			return -EINVAL;
-> +		}
-> +	}
-> +
-> +	return 0;
+> +	return hweight32(crtc_state->encoder_mask) > 1;
 > +}
-> +
->  /**
->   * drm_atomic_helper_check_modeset - validate state object for modeset c=
-hanges
->   * @dev: DRM device
-> @@ -745,6 +764,10 @@ drm_atomic_helper_check_modeset(struct drm_device *d=
-ev,
->  		ret =3D drm_atomic_add_affected_planes(state, crtc);
->  		if (ret !=3D 0)
->  			return ret;
-> +
-> +		ret =3D drm_atomic_check_valid_clones(state, crtc);
-> +		if (ret !=3D 0)
-> +			return ret;
->  	}
 
-Pretty much the same comment, we should have kunit tests for this.
+What's the benefit of this being static inline?
 
-Maxime
+You're implicitly depending on hweight32() being available, basically
+<linux/bitops.h> being included. Maybe it already is, but it's the
+accumulation of small and innocent looking things like this that then
+explode the header dependencies, and make them harder to reduce.
 
---tp2mdysvfttz7mch
-Content-Type: application/pgp-signature; name="signature.asc"
+BR,
+Jani.
 
------BEGIN PGP SIGNATURE-----
+>  
+>  #endif /* __DRM_CRTC_H__ */
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZvO6WgAKCRAnX84Zoj2+
-droGAYDSol3kgX7wkzSE1oluNc2+KTnfRFY6zafC8+pe813u+oXEix2JgVyztgXw
-aPgARssBgIVCQkqjoD4G64sFreIbBdDVYhH6QcPY/DKdVoih5mbH1LB4c9jksnGD
-3arX4CTVbg==
-=pdXg
------END PGP SIGNATURE-----
-
---tp2mdysvfttz7mch--
+-- 
+Jani Nikula, Intel
