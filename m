@@ -2,69 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90AAF9867B5
-	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2024 22:39:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E5EE9867C3
+	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2024 22:47:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6456110E71F;
-	Wed, 25 Sep 2024 20:39:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B22C10E161;
+	Wed, 25 Sep 2024 20:47:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="VCqPid5m";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="pvlEHb9X";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A90B10E2FE;
- Wed, 25 Sep 2024 20:39:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E31B10E161;
+ Wed, 25 Sep 2024 20:47:19 +0000 (UTC)
 Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48PH5JRg021397;
- Wed, 25 Sep 2024 20:38:59 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48PH5Mdb021527;
+ Wed, 25 Sep 2024 20:47:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- P6P7lwm0vmj3CCAHkpq3SqDjbGrXo0A50h7s/zhPceM=; b=VCqPid5mj+qJiAnG
- 6WW3Oxr5GviTCmApAL3UwZSl7EIlwRW36jzxYz+iHBewIkIViWbDIgqbR1nviCpc
- 2OPy0X0+UphoSzXYB023+lVkCBuAv1isXpVPgpeYB6FaMlJr8FHDNXAlsTPJyIvN
- +jdMjNP774aYHnHRIEBqRCcENbLNHfvK4r1NQUSmerCbmSTLRRDEotJv7YZj1Eet
- auCV2PFGEoz5vnTJupa1K1twp+LbEYHoRBjn50VArZMCDeIWjqzDii+dzN4DmAU9
- A3NfMvuUZ1rEQIff9BKzBjcMITFCVPYS/9vUzne02VcrRI1plSrgiEi+0Y1uu1sF
- W9erng==
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ Ilg5tfgVnEPmPCjHj4egV6TXzDXzT2qIKba21pN5eZU=; b=pvlEHb9XNTAnKW8D
+ Fy+9+TNGHv8Zapn/YcB7/1YX9qC/dlPEezBZ+1CahoTkfk+QOi/2ot729qRpXp0L
+ TAdozfw8ZtLg/VrpvUmuFMgqNfRVYx0JaBYK8IqSVTwp6MTLWm0qBJlSegM4Ei7n
+ foCWwuTtl5DUJfhlUgXU4eRVGRZXE1u3dPdEeKJsErhBRsHrMbDDIhSTirt1PtEj
+ BuD71uQxbia2z67yeiq3S2WIsxFNucZ+7lJ24HWJCecsxsHxhX2eA1s6HoO4fpy3
+ NfHQjHEn/r6xIrSqqFzAO4Sf7A+rW4/NoafHt+xw6RyfS/vU7GZRcLJ+9SmJ6ZoF
+ z6RCVg==
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41sqakn0mm-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41sqakn11f-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Sep 2024 20:38:59 +0000 (GMT)
+ Wed, 25 Sep 2024 20:47:13 +0000 (GMT)
 Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
  [10.46.141.250])
- by NASANPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48PKcwdb025853
+ by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48PKlCWd030319
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Sep 2024 20:38:58 GMT
+ Wed, 25 Sep 2024 20:47:12 GMT
 Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
  (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 25 Sep
- 2024 13:38:55 -0700
-Message-ID: <24a11f4c-d848-4f1b-afbd-35b135fa3105@quicinc.com>
-Date: Wed, 25 Sep 2024 13:38:51 -0700
+ 2024 13:47:11 -0700
+Message-ID: <5a0be97f-a8a5-40dc-a2fa-b3c79c104915@quicinc.com>
+Date: Wed, 25 Sep 2024 13:47:11 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/22] drm/msm/dpu: move resource allocation to CRTC
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
- Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, <quic_ebharadw@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@chromium.org>,
+Subject: Re: [PATCH v2 01/22] drm: add clone mode check for CRTC
+To: Jani Nikula <jani.nikula@linux.intel.com>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
+ Vetter" <daniel@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+CC: <quic_ebharadw@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@chromium.org>,
  =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 References: <20240924-concurrent-wb-v2-0-7849f900e863@quicinc.com>
- <20240924-concurrent-wb-v2-5-7849f900e863@quicinc.com>
- <dv5iij6v76ieprfckdjo4yksrjrgqw73v2lh7u4xffpu7rdrf3@zgjcp3a2hlxo>
+ <20240924-concurrent-wb-v2-1-7849f900e863@quicinc.com>
+ <87bk0c40f1.fsf@intel.com>
 Content-Language: en-US
 From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <dv5iij6v76ieprfckdjo4yksrjrgqw73v2lh7u4xffpu7rdrf3@zgjcp3a2hlxo>
+In-Reply-To: <87bk0c40f1.fsf@intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -73,8 +73,8 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: HQfy6X8dyIuenG609UO1FYSJh9K-t1tf
-X-Proofpoint-GUID: HQfy6X8dyIuenG609UO1FYSJh9K-t1tf
+X-Proofpoint-ORIG-GUID: 9LRX0bmY2EJ0EHZhzSF9BBTzRPmaP3wO
+X-Proofpoint-GUID: 9LRX0bmY2EJ0EHZhzSF9BBTzRPmaP3wO
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
@@ -101,113 +101,53 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 9/24/2024 4:13 PM, Dmitry Baryshkov wrote:
-> On Tue, Sep 24, 2024 at 03:59:21PM GMT, Jessica Zhang wrote:
->> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On 9/25/2024 1:12 AM, Jani Nikula wrote:
+> On Tue, 24 Sep 2024, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
+>> Add helper to check if the given CRTC state is in clone mode
 >>
->> All resource allocation is centered around the LMs. Then other blocks
->> (except DSCs) are allocated basing on the LMs that was selected, and LM
->> powers up the CRTC rather than the encoder.
->>
->> Moreover if at some point the driver supports encoder cloning,
->> allocating resources from the encoder will be incorrect, as all clones
->> will have different encoder IDs, while LMs are to be shared by these
->> encoders.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> [quic_abhinavk@quicinc.com: Refactored resource allocation for CDM]
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> [quic_jesszhan@quicinc.com: Changed to grabbing exising global state]
 >> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 >> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  86 ++++++++++++
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 201 +++++++++++-----------------
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  19 +++
->>   3 files changed, 183 insertions(+), 123 deletions(-)
+>>   include/drm/drm_crtc.h | 7 +++++++
+>>   1 file changed, 7 insertions(+)
 >>
->> @@ -544,159 +542,117 @@ void dpu_encoder_helper_split_config(
->>   	}
->>   }
+>> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+>> index 8b48a1974da3..ecb93e2c4afc 100644
+>> --- a/include/drm/drm_crtc.h
+>> +++ b/include/drm/drm_crtc.h
+>> @@ -1323,5 +1323,12 @@ static inline struct drm_crtc *drm_crtc_find(struct drm_device *dev,
 >>   
->> -bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
->> +void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
->> +				 struct msm_display_topology *topology,
->> +				 struct drm_atomic_state *state,
->> +				 const struct drm_display_mode *adj_mode)
->>   {
->>   	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
->> -	int i, intf_count = 0, num_dsc = 0;
->> +	struct drm_connector *connector;
->> +	struct drm_connector_state *conn_state;
->> +	struct msm_display_info *disp_info;
->> +	struct drm_framebuffer *fb;
->> +	struct msm_drm_private *priv;
->> +	int i;
->>   
->>   	for (i = 0; i < MAX_PHYS_ENCODERS_PER_VIRTUAL; i++)
->>   		if (dpu_enc->phys_encs[i])
->> -			intf_count++;
->> +			topology->num_intf++;
->>   
->> -	/* See dpu_encoder_get_topology, we only support 2:2:1 topology */
->> +	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
->>   	if (dpu_enc->dsc)
->> -		num_dsc = 2;
->> +		topology->num_dsc += 2;
->>   
->> -	return (num_dsc > 0) && (num_dsc > intf_count);
->> -}
->> +	connector = drm_atomic_get_new_connector_for_encoder(state, drm_enc);
->> +	if (!connector)
->> +		return;
->> +	conn_state = drm_atomic_get_new_connector_state(state, connector);
->> +	if (!conn_state)
->> +		return;
->>   
->> -struct drm_dsc_config *dpu_encoder_get_dsc_config(struct drm_encoder *drm_enc)
->> -{
->> -	struct msm_drm_private *priv = drm_enc->dev->dev_private;
->> -	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
->> -	int index = dpu_enc->disp_info.h_tile_instance[0];
->> +	disp_info = &dpu_enc->disp_info;
->>   
->> -	if (dpu_enc->disp_info.intf_type == INTF_DSI)
->> -		return msm_dsi_get_dsc_config(priv->dsi[index]);
->> +	priv = drm_enc->dev->dev_private;
->>   
->> -	return NULL;
->> +	/*
->> +	 * Use CDM only for writeback or DP at the moment as other interfaces cannot handle it.
->> +	 * If writeback itself cannot handle cdm for some reason it will fail in its atomic_check()
->> +	 * earlier.
->> +	 */
->> +	if (disp_info->intf_type == INTF_WB && conn_state->writeback_job) {
->> +		fb = conn_state->writeback_job->fb;
+>>   int drm_crtc_create_scaling_filter_property(struct drm_crtc *crtc,
+>>   					    unsigned int supported_filters);
+>> +static inline bool drm_crtc_in_clone_mode(struct drm_crtc_state *crtc_state)
+>> +{
+>> +	if (!crtc_state)
+>> +		return false;
 >> +
->> +		if (fb && MSM_FORMAT_IS_YUV(msm_framebuffer_format(fb)))
->> +			topology->needs_cdm = true;
->> +	} else if (disp_info->intf_type == INTF_DP) {
->> +		if (msm_dp_is_yuv_420_enabled(priv->dp[disp_info->h_tile_instance[0]], adj_mode))
->> +			topology->needs_cdm = true;
->> +	}
+>> +	return hweight32(crtc_state->encoder_mask) > 1;
+>> +}
 > 
-> Just to note, the needs_cdm is not enough once you introduce CWB
-> support. E.g. DP/YUV420 + WB/YUV case requires two CDM blocks (which we
-> don't have), but this doesn't get reflected in the topology.
+> What's the benefit of this being static inline?
+> 
+> You're implicitly depending on hweight32() being available, basically
+> <linux/bitops.h> being included. Maybe it already is, but it's the
+> accumulation of small and innocent looking things like this that then
+> explode the header dependencies, and make them harder to reduce.
 
-Hi Dmitry,
+Hi Jani,
 
-Ack. I can add something to make atomic_check fail if the input FB is 
-YUV format and CWB is enabled.
+Good point, I'll move the implementation to drm_crtc.c.
 
 Thanks,
 
 Jessica Zhang
 
 > 
->>   }
+> BR,
+> Jani.
+> 
 >>   
+>>   #endif /* __DRM_CRTC_H__ */
+> 
 > -- 
-> With best wishes
-> Dmitry
+> Jani Nikula, Intel
 
