@@ -2,83 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C93B98554A
-	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2024 10:17:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA46A98557A
+	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2024 10:29:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC89510E7BB;
-	Wed, 25 Sep 2024 08:17:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83FAF10E7B8;
+	Wed, 25 Sep 2024 08:29:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="jMvGmndq";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xc/mEwir";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF27110E7B1
- for <freedreno@lists.freedesktop.org>; Wed, 25 Sep 2024 08:17:29 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-5356aa9a0afso10125964e87.2
- for <freedreno@lists.freedesktop.org>; Wed, 25 Sep 2024 01:17:29 -0700 (PDT)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7556310E7BF
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Sep 2024 08:29:02 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-53654e2ed93so7640763e87.0
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Sep 2024 01:29:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1727252248; x=1727857048; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1727252940; x=1727857740; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=PItdsNbKJCVfD2sQE4FIY5JPIF0NlmLuFR81Hxp3WNA=;
- b=jMvGmndqmrBmutyfvAjjNmF0KueuwASNid1LwYZD/67bApzW+5A+sJf9FzD9PcZWRZ
- GDIMtlL6CwIg/8ANUVKfo4oF7yDckaOvskbzBKEFs1GnPxg5Ogi0t1Bkg5xZnjAjoI17
- pvYRsqZ26eNUQJgnctP+CQK8Xn6mj5puITGxro1S2lW5KxguHEg5/0REXMPIYrcKZpFX
- edp9Wr9quyzph4XuyWbmOxrC3c4aKlRXbft4Q4f3lwydKWdT1s99xVzAxXzWDWHRWBWn
- araohrp+ir2TJkxrCXpE+hYYpY55tVSfHZYE9StS/mmCwHn/n2ycCPhodPCJxpPRIOf4
- z1mg==
+ bh=fJc/ZEonsSpvQx65a5f325f6xswc665KOha+qhiv8i8=;
+ b=xc/mEwir3cVnpPTqEC9ZCBUadI4yeSq3DqsPdO2Mipz8vILIo2Mn6rdyRcr4uIyQCn
+ bm4cAYXLMhwav7WaKzjviM2gSiLaAnDDP8AdsdXzFMSY9qXVaM1kPtkPQyFQjx4FVzv+
+ Sj+8aOxdosO+nM/kD2mORQi+E8ntu7BBxp8igz96UivNtKyqj4vqRCwUe2P6w1C7AGSo
+ 9btRID48025jALw21GsSavhnuaw5WI2zZ9jMeL8PloswbXeJ/i4zX1gxJgaR1xpCk209
+ tFyM66kewMtxsnE7DayBD5n2Pul9TMac3Q4fBfk/IVQqv9FfunBzNrWq6RllWepiQ/Ls
+ M2dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727252248; x=1727857048;
+ d=1e100.net; s=20230601; t=1727252940; x=1727857740;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=PItdsNbKJCVfD2sQE4FIY5JPIF0NlmLuFR81Hxp3WNA=;
- b=f8dm1sCv6NU0R2IoiXQWv4/8cQbLn5kfBsfbvtJCfenB/+VmxzjKbZeqmRD19rG3xa
- alz8Ow1vhXQsjWEKDUe00ReJc0PvnJJ9VmCmV+Am6NMGPNyh+bN+76l5soX53y+Q0mhh
- EX6ORbu2Jk5Jn1YkynqPz9OP7pqdSMxbYa4N4y6H8RalCXmeuHNcRWfprISx2gHTVkbd
- LV21ZgP7Dwb5dsFx7YIU8mEmjcWQ+W2+1HcHXNsK4+OYjkrMK7Yl9LaXO4zaEZs2Vzb5
- DhJDDA+TW4Jxbe+nylwdR1nncEedgaIlK9c0BVtMIpz6fHFtXt7xj5glebZqzu1rqN4F
- Zm9Q==
+ bh=fJc/ZEonsSpvQx65a5f325f6xswc665KOha+qhiv8i8=;
+ b=H3p2wZUArs/QaRMLJf2ldocw401eZFrrwflM5Ac2K91jA2LfMNMPHw7K6a1c2BtdLw
+ yp2T31JrC6pGEeEm6vKp5+PYFnHcXZ6LPcJLf72+SASGwsRZeHi3cMmT1EqN4WTGDDIt
+ lSCh2BwBNSNn3X2g9VfMcLGHk37ljFHYg1xlMQKtQs5aynaDGpAzC/B5He6Dag7HZKdt
+ 05yKt/cz/uuhoV8CwWxM3d+TrOazb4PjmVrDkRwJR6Dtzb5HzZ5QV1x3AS2zOrVv+HM/
+ Xs8rQx//wlC4XoiiiajKzTkEtipSaFmRblPv08wx++XQLfyJjoAHMZjDndZqG+D5Z4cI
+ 6log==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV5mThRdE3VsO/xITChBBDz6oMhYAHLbQ5FnitUnw43Ifoa+XeZrMGbOSC0GKvO2XuBgxG/Nym1GXU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxyEDoZfdjvBO2fFOrsagkSXFQi9X5imX6SPO+iyXtII9MP07uZ
- m4j8acpR0mzgen+9TGGBfuqe61I2m7bbdv1f8jKtShxDwmse/r9OsaxxZapU67M=
-X-Google-Smtp-Source: AGHT+IG5Nl0ptMYn5BJw3VOSRd7OvrwuUcJMu7vRDsBX1yDILY+iinhIQlUl9VUjVqNtD0ZEUfaV2Q==
-X-Received: by 2002:a05:6512:33d2:b0:536:7377:7d23 with SMTP id
- 2adb3069b0e04-5387755cf84mr1477993e87.40.1727252247573; 
- Wed, 25 Sep 2024 01:17:27 -0700 (PDT)
+ AJvYcCVACSzWBBr3qN+0p7mu9MmPk1e2qnEwmL2d9KBwmRLcVsEZnQPU6Cu3/tlqmw6aDyIdfcbmWqdNEwQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz9hta8L691p9SJYggwMsVYdm+wenVv7Md1nSQo8S/0hvmpyZ1L
+ W3nFiExjRCqibEJ9lOmxPaBQvV6UhfSA2edNh6ZaSnBBPl+4VAvzTqtk87DH9ag=
+X-Google-Smtp-Source: AGHT+IFWtR5Spi/hxHDKmyK+yEjL67FVSC0HLJLKUPO8bW2hzqf39SxWRho/7uZXgcWIoMTcw6ko+w==
+X-Received: by 2002:a05:6512:3f07:b0:535:6ba7:7725 with SMTP id
+ 2adb3069b0e04-5387048a6d7mr1170484e87.3.1727252940511; 
+ Wed, 25 Sep 2024 01:29:00 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-537a8640978sm452536e87.126.2024.09.25.01.17.25
+ 2adb3069b0e04-537a8648d41sm454852e87.224.2024.09.25.01.28.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Sep 2024 01:17:26 -0700 (PDT)
-Date: Wed, 25 Sep 2024 11:17:23 +0300
+ Wed, 25 Sep 2024 01:28:59 -0700 (PDT)
+Date: Wed, 25 Sep 2024 11:28:57 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, quic_ebharadw@quicinc.com,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>,
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, 
  Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v2 06/22] drm/msm/dpu: fill CRTC resources in dpu_crtc.c
-Message-ID: <tr2uoiypchf7wcytayvae3e26ye72vyoq763l2ysclwa25bxz7@ojtglsboe63f>
+Subject: Re: [PATCH v2 14/22] drm/msm/dpu: Require modeset if clone mode
+ status changes
+Message-ID: <zwxgml3qi3t253y2yhmi5lcpxg5odugrncfgh74y36kwubd4xv@oem2vicytu5i>
 References: <20240924-concurrent-wb-v2-0-7849f900e863@quicinc.com>
- <20240924-concurrent-wb-v2-6-7849f900e863@quicinc.com>
- <4c7spborzltmvjlbd2o4uwknraitjtf34mqt7r3x2ospnaidyn@abvn5zdumvwt>
- <b66264a9-2ff9-482a-96e0-453d55bc651c@quicinc.com>
+ <20240924-concurrent-wb-v2-14-7849f900e863@quicinc.com>
+ <yjfe5wajajeqmcp65kbvcttzgkrsfv5rhkbvqvioqx3rwdn6g6@2h2byk2l2imy>
+ <75297d0d-528a-4152-b35f-ba41fbf914dc@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b66264a9-2ff9-482a-96e0-453d55bc651c@quicinc.com>
+In-Reply-To: <75297d0d-528a-4152-b35f-ba41fbf914dc@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,169 +96,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Sep 24, 2024 at 05:37:30PM GMT, Jessica Zhang wrote:
+On Tue, Sep 24, 2024 at 05:05:43PM GMT, Abhinav Kumar wrote:
 > 
 > 
-> On 9/24/2024 4:16 PM, Dmitry Baryshkov wrote:
-> > On Tue, Sep 24, 2024 at 03:59:22PM GMT, Jessica Zhang wrote:
-> > > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > 
-> > > Stop poking into CRTC state from dpu_encoder.c, fill CRTC HW resources
-> > > from dpu_crtc_assign_resources().
-> > > 
-> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > [quic_abhinavk@quicinc.com: cleaned up formatting]
-> > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > [quic_jesszhan@quicinc.com: dropped clearing num_mixers in CRTC disable
-> > > path]
+> On 9/24/2024 4:25 PM, Dmitry Baryshkov wrote:
+> > On Tue, Sep 24, 2024 at 03:59:30PM GMT, Jessica Zhang wrote:
+> > > If the clone mode enabled status is changing, a modeset needs to happen
+> > > so that the resources can be reassigned
 > > 
-> > Same comment as before: the code is still there.
+> > Sima's comment regarding crtc_state->mode_changed seems to be ignored...
+> > 
 > 
-> Hi Dmitry,
-> 
-> I thought the original comment was to move the dropping `num_mixers = 0`
-> chunk from the previous patch to this one?
-> 
-> Sorry if I misunderstood.
+> Not ignored. One of us has to take that up. There is a broader cleanup
+> required for that.
 
-Code move is fine. The commit message should reflect the code though. So
-if you have "dropped clearing num_mixers..." in the commit message, it
-is surprising to see the code actually claring num_mixers.
+At least then it should be mentioned in the commit message or under the
+commit message.
 
 > 
-> Thanks,
+> We can sync up on how to tackle this : whether it needs to be in this series
+> or push another one cleaning up all the instances.
+
+
+Yes, let's sync separately.
+
 > 
-> Jessica Zhang
-> 
-> > 
+> > > 
 > > > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 > > > ---
-> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 32 ++++++++++++++++++++++++++---
-> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 24 ++--------------------
-> > >   2 files changed, 31 insertions(+), 25 deletions(-)
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 8 ++++++++
+> > >   1 file changed, 8 insertions(+)
 > > > 
 > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > index b918c80d30b3..d53e986eee54 100644
+> > > index a7850bf844db..f20e44e9fc05 100644
 > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
 > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > @@ -1091,9 +1091,6 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
-> > >   	dpu_core_perf_crtc_update(crtc, 0);
-> > > -	memset(cstate->mixers, 0, sizeof(cstate->mixers));
-> > > -	cstate->num_mixers = 0;
-> > > -
-> > >   	/* disable clk & bw control until clk & bw properties are set */
-> > >   	cstate->bw_control = false;
-> > >   	cstate->bw_split_vote = false;
-> > > @@ -1164,6 +1161,7 @@ static bool dpu_crtc_needs_dirtyfb(struct drm_crtc_state *cstate)
-> > >   }
-> > >   #define MAX_HDISPLAY_SPLIT 1080
-> > > +#define MAX_CHANNELS_PER_CRTC 2
-> > >   static struct msm_display_topology dpu_crtc_get_topology(
-> > >   		struct drm_crtc *crtc,
-> > > @@ -1208,9 +1206,14 @@ static struct msm_display_topology dpu_crtc_get_topology(
-> > >   static int dpu_crtc_assign_resources(struct drm_crtc *crtc, struct drm_crtc_state *crtc_state)
+> > > @@ -1268,6 +1268,8 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
 > > >   {
-> > > +	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_CRTC];
-> > > +	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_CRTC];
-> > > +	struct dpu_hw_blk *hw_dspp[MAX_CHANNELS_PER_CRTC];
-> > > +	int i, num_lm, num_ctl, num_dspp;
-> > >   	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
-> > >   	struct dpu_global_state *global_state;
-> > >   	struct msm_display_topology topology;
-> > > +	struct dpu_crtc_state *cstate;
-> > >   	int ret;
-> > >   	/*
-> > > @@ -1232,6 +1235,29 @@ static int dpu_crtc_assign_resources(struct drm_crtc *crtc, struct drm_crtc_stat
-> > >   	if (ret)
-> > >   		return ret;
-> > > +	cstate = to_dpu_crtc_state(crtc_state);
-> > > +
-> > > +	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > +						crtc, DPU_HW_BLK_CTL, hw_ctl,
-> > > +						ARRAY_SIZE(hw_ctl));
-> > > +	num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > +					       crtc, DPU_HW_BLK_LM, hw_lm,
-> > > +					       ARRAY_SIZE(hw_lm));
-> > > +	num_dspp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > +						 crtc, DPU_HW_BLK_DSPP, hw_dspp,
-> > > +						 ARRAY_SIZE(hw_dspp));
-> > > +
-> > > +	for (i = 0; i < num_lm; i++) {
-> > > +		int ctl_idx = (i < num_ctl) ? i : (num_ctl-1);
-> > > +
-> > > +		cstate->mixers[i].hw_lm = to_dpu_hw_mixer(hw_lm[i]);
-> > > +		cstate->mixers[i].lm_ctl = to_dpu_hw_ctl(hw_ctl[ctl_idx]);
-> > > +		if (i < num_dspp)
-> > > +			cstate->mixers[i].hw_dspp = to_dpu_hw_dspp(hw_dspp[i]);
-> > > +	}
-> > > +
-> > > +	cstate->num_mixers = num_lm;
-> > > +
-> > >   	return 0;
-> > >   }
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > > index ada9119326ca..36b677cf9c7a 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > > @@ -1049,14 +1049,11 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
-> > >   	struct dpu_encoder_virt *dpu_enc;
-> > >   	struct msm_drm_private *priv;
-> > >   	struct dpu_kms *dpu_kms;
-> > > -	struct dpu_crtc_state *cstate;
-> > >   	struct dpu_global_state *global_state;
-> > >   	struct dpu_hw_blk *hw_pp[MAX_CHANNELS_PER_ENC];
-> > >   	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
-> > > -	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-> > > -	struct dpu_hw_blk *hw_dspp[MAX_CHANNELS_PER_ENC] = { NULL };
-> > >   	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
-> > > -	int num_lm, num_ctl, num_pp, num_dsc;
-> > > +	int num_pp, num_dsc;
-> > >   	unsigned int dsc_mask = 0;
-> > >   	int i;
-> > > @@ -1083,13 +1080,8 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
-> > >   	num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > >   		drm_enc->crtc, DPU_HW_BLK_PINGPONG, hw_pp,
-> > >   		ARRAY_SIZE(hw_pp));
-> > > -	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > -		drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
-> > > -	num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > -		drm_enc->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
-> > >   	dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > -		drm_enc->crtc, DPU_HW_BLK_DSPP, hw_dspp,
-> > > -		ARRAY_SIZE(hw_dspp));
-> > > +			drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
-> > 
-> > Please don't mix reindentation with the actual changes. It makes it
-> > harder to read.
-> > 
-> > >   	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
-> > >   		dpu_enc->hw_pp[i] = i < num_pp ? to_dpu_hw_pingpong(hw_pp[i])
-> > > @@ -1115,18 +1107,6 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
-> > >   		dpu_enc->cur_master->hw_cdm = hw_cdm ? to_dpu_hw_cdm(hw_cdm) : NULL;
+> > >   	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state,
+> > >   									  crtc);
+> > > +	struct drm_crtc_state *old_crtc_state = drm_atomic_get_old_crtc_state(state,
+> > > +									      crtc);
+> > >   	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
+> > >   	struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc_state);
+> > > @@ -1279,6 +1281,8 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+> > >   	int rc = 0;
+> > >   	bool needs_dirtyfb = dpu_crtc_needs_dirtyfb(crtc_state);
+> > > +	bool clone_mode_requested = drm_crtc_in_clone_mode(old_crtc_state);
+> > > +	bool clone_mode_enabled = drm_crtc_in_clone_mode(crtc_state);
+> > >   	/* there might be cases where encoder needs a modeset too */
+> > >   	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc_state->encoder_mask) {
+> > > @@ -1286,6 +1290,10 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+> > >   			crtc_state->mode_changed = true;
 > > >   	}
-> > > -	cstate = to_dpu_crtc_state(crtc_state);
-> > > -
-> > > -	for (i = 0; i < num_lm; i++) {
-> > > -		int ctl_idx = (i < num_ctl) ? i : (num_ctl-1);
-> > > -
-> > > -		cstate->mixers[i].hw_lm = to_dpu_hw_mixer(hw_lm[i]);
-> > > -		cstate->mixers[i].lm_ctl = to_dpu_hw_ctl(hw_ctl[ctl_idx]);
-> > > -		cstate->mixers[i].hw_dspp = to_dpu_hw_dspp(hw_dspp[i]);
-> > > -	}
-> > > -
-> > > -	cstate->num_mixers = num_lm;
-> > > -
-> > >   	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-> > >   		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+> > > +	if ((clone_mode_requested && !clone_mode_enabled) ||
+> > > +	    (!clone_mode_requested && clone_mode_enabled))
+> > > +		crtc_state->mode_changed = true;
+> > > +
+> > >   	if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+> > >   		rc = dpu_crtc_assign_resources(crtc, crtc_state);
+> > >   		if (rc < 0)
 > > > 
 > > > -- 
 > > > 2.34.1
 > > > 
 > > 
-> > -- 
-> > With best wishes
-> > Dmitry
-> 
 
 -- 
 With best wishes
