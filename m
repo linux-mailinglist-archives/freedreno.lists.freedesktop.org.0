@@ -2,34 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 599E6985A36
-	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2024 14:06:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5A31985AF3
+	for <lists+freedreno@lfdr.de>; Wed, 25 Sep 2024 14:16:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65C1E10E9B7;
-	Wed, 25 Sep 2024 12:06:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB05210E9F2;
+	Wed, 25 Sep 2024 12:16:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YfKhmw8O";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n7FX6loS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A181710E9B7;
- Wed, 25 Sep 2024 12:06:29 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45DF810E9F4;
+ Wed, 25 Sep 2024 12:16:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2278D5C5D90;
- Wed, 25 Sep 2024 12:06:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 377C3C4CEC3;
- Wed, 25 Sep 2024 12:06:27 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 681CDA44197;
+ Wed, 25 Sep 2024 12:16:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91F33C4CEC7;
+ Wed, 25 Sep 2024 12:16:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727265988;
- bh=KNAOp0Up6Dc5BvPNr5AT2IVCyHij4LrdqYNtSm1p7Og=;
+ s=k20201202; t=1727266570;
+ bh=le/DKIW6llk9bNh5zKIyofSVB4oPnhRMvEKtZyeqgaY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YfKhmw8OomGlEydkl4uKMahHrpg1N+eKXOxkIdnKBsoBeHUOVLkkA2WD3pepbnGvQ
- Pt87WySYnu6EpiJ8HtepInZGNYqy0XjYIVvNxmOq1GN/T6Khrm2yAnP9Qa3RGs/lez
- FXaTzs1BCh3ZvohaGtc66oaxS/G9Nb6M+OxLpWwEP9hs7IEtGmH7I+Mieuq/h5RXzG
- zBtc8o7b1+MBzKOVkLn0tZLBrErUOhodSxln9kmEBSmY9y1SNXldVS9q5uL4ws1kEm
- lhZobge08E+ZqOiOU86igD03J0bDnidn/80xss6kjlLrwaD031I0lb6P8VF59jXRJl
- PlxfO2q8vO18A==
+ b=n7FX6loSHnXRDD65FXGHJlGdFofD0VQ6T4a9M5risR42iWRt/StYJp5ZeUdh6U4be
+ siPRd3YQxIxzQzvBs41a+E+wZz7zAebdoBosDVt3Uk2L9/NrGvYpmWADjAjf/tnJP/
+ SKGfXyTK64vZNxLSxnlGnjJ1DYIW016Cexrk7Pmf/vNEaZh26PCENwp4WWZ0o0mbIi
+ l3t+2U/vgxLTfrlFmnphFIknasUDZlwt9debklgl49zkgWBZY3FK5EHB5nG3N7/N3W
+ Geyc7eJTPtzscckn311qjACCo8p1Eh+DLMPvzA+evBsPO2trB5pR6qH3xy4+MiH+ux
+ BixC2y66Kz5qg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -39,17 +39,17 @@ Cc: Konrad Dybcio <konrad.dybcio@linaro.org>,
  dmitry.baryshkov@linaro.org, airlied@gmail.com, daniel@ffwll.ch,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.10 140/197] drm/msm/adreno: Assign msm_gpu->pdev
+Subject: [PATCH AUTOSEL 6.6 099/139] drm/msm/adreno: Assign msm_gpu->pdev
  earlier to avoid nullptrs
-Date: Wed, 25 Sep 2024 07:52:39 -0400
-Message-ID: <20240925115823.1303019-140-sashal@kernel.org>
+Date: Wed, 25 Sep 2024 08:08:39 -0400
+Message-ID: <20240925121137.1307574-99-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240925115823.1303019-1-sashal@kernel.org>
-References: <20240925115823.1303019-1-sashal@kernel.org>
+In-Reply-To: <20240925121137.1307574-1-sashal@kernel.org>
+References: <20240925121137.1307574-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.10.11
+X-stable-base: Linux 6.6.52
 Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,10 +96,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 074fb498706f2..036f024ea2595 100644
+index 8090dde032808..00419e0693419 100644
 --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
 +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -1079,6 +1079,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+@@ -1071,6 +1071,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
  	adreno_gpu->chip_id = config->chip_id;
  
  	gpu->allow_relocs = config->info->family < ADRENO_6XX_GEN1;
@@ -108,10 +108,10 @@ index 074fb498706f2..036f024ea2595 100644
  	/* Only handle the core clock when GMU is not in use (or is absent). */
  	if (adreno_has_gmu_wrapper(adreno_gpu) ||
 diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index cd185b9636d26..56b6de049bd7b 100644
+index 5c10b559a5957..5a7541597d0ce 100644
 --- a/drivers/gpu/drm/msm/msm_gpu.c
 +++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -929,7 +929,6 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+@@ -927,7 +927,6 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
  	if (IS_ERR(gpu->gpu_cx))
  		gpu->gpu_cx = NULL;
  
