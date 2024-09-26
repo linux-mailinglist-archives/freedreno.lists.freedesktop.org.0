@@ -2,90 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA8319872C3
-	for <lists+freedreno@lfdr.de>; Thu, 26 Sep 2024 13:25:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6F2A9873B6
+	for <lists+freedreno@lfdr.de>; Thu, 26 Sep 2024 14:40:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B40AF10E321;
-	Thu, 26 Sep 2024 11:25:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ADDC10EACC;
+	Thu, 26 Sep 2024 12:40:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="fy/K3EZv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EfZfmJ6V";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59CD610E318;
- Thu, 26 Sep 2024 11:25:26 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48Q7EqDs008306;
- Thu, 26 Sep 2024 11:25:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- u4A5clw8rWfBOMmmKrbBe5gQe1QAgockRUeNjkNYMwg=; b=fy/K3EZvKhmXSf7s
- dlb9mQOyup92d2jQxmNSGDw5kii6d2wZotDLWhytuEyvlimmAaDqJqK6av0lv+Fl
- 42YLXZNoRuBZg12b4Bf3cSALkNv9U2v1ZIwEf6+F8YHwHeWWi3bvCqP56LoApbqj
- 5KAcmh8QSoQXwaFdB1jhwXYfah+CjU+6kVScXr41EGEDlUC9sCAoXpb0TVjztwpa
- R2+oj1cE4n39DkndslKha6hfGtoBvbmUI01xDrRg9Vcmn1wbkgxdc/RGd+f5Zupw
- FxnZc3aXrbnV29oRDILg9QLlRuSzdqR7iN8HdZNFCeuXgjDx9nJB9/a7WfeUC8TV
- Wenkgw==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41skueyb3b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Sep 2024 11:25:15 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48QBPDLi024987
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Sep 2024 11:25:13 GMT
-Received: from [10.204.67.11] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 26 Sep
- 2024 04:25:05 -0700
-Message-ID: <46cd6c25-0a82-46c6-9382-167a44a689ba@quicinc.com>
-Date: Thu, 26 Sep 2024 16:55:02 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2BED10EACC;
+ Thu, 26 Sep 2024 12:39:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id D47C65C57FF;
+ Thu, 26 Sep 2024 12:39:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D05AC4CEC5;
+ Thu, 26 Sep 2024 12:39:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1727354398;
+ bh=X6di7L1Vl/r4MqrcmOwroFyWwMv/8RSXL4kKCm4I0Uw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EfZfmJ6VqztDgJbud3JS2fzpq6KH5KeBQkGd2j+5IpGu0weS6uAl615rS+tX7z33G
+ CXA3F2rsMHblUQ6Vt2aCl+yYu/frnvoSLSCjTuA+XRxMUsx/UB6bUfrFox9OTiCfL1
+ 2bDsCHoV8bzF3KX2hoOnM5722jhhxUALEgJ5KhQ5UOLmZP1kRtQ9Z1Ovbq3x6xkjsi
+ k5/f7SaSU/EfTm2pqVlo/qoAK1ysZWfKJmY/3Rz3CZqEdC5I7qUXsK6L113nF6KGfr
+ Oo4A6l503uL4uV1bbDl85CppdrfzhMmzXw+ZsCNfZz+ZoXRQ3wIVlEZ07VAFokjHTB
+ UmMe4bt4kYo9Q==
+Date: Thu, 26 Sep 2024 14:39:54 +0200
+From: Bjorn Andersson <andersson@kernel.org>
+To: Mahadevan P <quic_mahap@quicinc.com>
+Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, 
+ dmitry.baryshkov@linaro.org, sean@poorly.run, marijn.suijten@somainline.org, 
+ airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, swboyd@chromium.org, konrad.dybcio@linaro.org, 
+ danila@jiaxyga.com, bigfoot@classfun.cn, neil.armstrong@linaro.org, 
+ mailingradian@gmail.com, quic_jesszhan@quicinc.com,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, quic_kalyant@quicinc.com,
+ quic_jmadiset@quicinc.com, quic_vpolimer@quicinc.com
 Subject: Re: [PATCH v2 0/5] Display enablement changes for Qualcomm SA8775P
  platform
-Content-Language: en-US
-To: <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>,
- <dmitry.baryshkov@linaro.org>, <sean@poorly.run>,
- <marijn.suijten@somainline.org>, <airlied@gmail.com>,
- <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <swboyd@chromium.org>,
- <konrad.dybcio@linaro.org>, <danila@jiaxyga.com>,
- <bigfoot@classfun.cn>, <neil.armstrong@linaro.org>,
- <mailingradian@gmail.com>, <quic_jesszhan@quicinc.com>,
- <andersson@kernel.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <quic_kalyant@quicinc.com>,
- <quic_jmadiset@quicinc.com>, <quic_vpolimer@quicinc.com>
+Message-ID: <tabzs5jvy54rbwgjjmzodkpwm4emt2oevxjc2kto7znij2i23y@5wn45pstnmiy>
 References: <20240926110308.2201577-1-quic_mahap@quicinc.com>
-From: Mahadevan P <quic_mahap@quicinc.com>
-In-Reply-To: <20240926110308.2201577-1-quic_mahap@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: F_ctQFztPoh0Bqw2DLrJYcMOzd0SOZ6Q
-X-Proofpoint-ORIG-GUID: F_ctQFztPoh0Bqw2DLrJYcMOzd0SOZ6Q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0
- adultscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0
- malwarescore=0 impostorscore=0 mlxlogscore=999 bulkscore=0 mlxscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2408220000 definitions=main-2409260077
+ <46cd6c25-0a82-46c6-9382-167a44a689ba@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <46cd6c25-0a82-46c6-9382-167a44a689ba@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,51 +69,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Sorry, Please ignore this thread/coverletter
+On Thu, Sep 26, 2024 at 04:55:02PM GMT, Mahadevan P wrote:
+> Sorry, Please ignore this thread/coverletter
+> 
 
-On 9/26/2024 4:33 PM, Mahadevan wrote:
-> This series introduces support to enable the Mobile Display Subsystem (MDSS)
-> and Display Processing Unit (DPU) for the Qualcomm SA8775P target. It
-> includes the addition of the hardware catalog, compatible string,
-> relevant device tree changes, and their YAML bindings.
->
-> ---
->
-> In this series PATCH 5: "arm64: dts: qcom: sa8775p: add display dt nodes"
-> depends on the clock enablement change:
-> https://lore.kernel.org/all/20240816-sa8775p-mm-v3-v1-0-77d53c3c0cef@quicinc.com/
->
-> ---
->
-> [v2]
-> - Updated cover letter subject and message. [Dmitry]
-> - Use fake DISPCC nodes to avoid clock dependencies in dt-bindings. [Dmitry]
-> - Update bindings by fixing dt_binding_check tool errors (update includes in example),
->    adding proper spacing and indentation in the binding example, droping unused labels,
->    droping status disable, adding reset node. [Dmitry, Rob, Krzysztof]
-> - Reorder compatible string of MDSS and DPU based on alphabetical order.[Dmitry]
-> - add reg_bus_bw in msm_mdss_data. [Dmitry]
-> - Fix indentation in the devicetree. [Dmitry]
->
-> ---
->
-> Mahadevan (5):
->    dt-bindings: display/msm: Document MDSS on SA8775P
->    dt-bindings: display/msm: Document the DPU for SA8775P
->    drm/msm: mdss: Add SA8775P support
->    drm/msm/dpu: Add SA8775P support
->    arm64: dts: qcom: sa8775p: add display dt nodes
->
->   .../display/msm/qcom,sa8775p-dpu.yaml         | 122 +++++
->   .../display/msm/qcom,sa8775p-mdss.yaml        | 239 +++++++++
->   arch/arm64/boot/dts/qcom/sa8775p.dtsi         |  87 ++++
->   .../msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h   | 485 ++++++++++++++++++
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   3 +-
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   3 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   3 +-
->   drivers/gpu/drm/msm/msm_mdss.c                |  11 +
->   8 files changed, 950 insertions(+), 3 deletions(-)
->   create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sa8775p-dpu.yaml
->   create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
->   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
->
+go/upstream and adopt b4, please.
