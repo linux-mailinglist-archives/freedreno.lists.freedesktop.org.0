@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0D31987435
-	for <lists+freedreno@lfdr.de>; Thu, 26 Sep 2024 15:09:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 615CC987440
+	for <lists+freedreno@lfdr.de>; Thu, 26 Sep 2024 15:12:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC3D310EAF6;
-	Thu, 26 Sep 2024 13:09:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EBA210EB3A;
+	Thu, 26 Sep 2024 13:12:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EFrZV3Xx";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DbxvjvEm";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
- [209.85.208.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B00E210EAF6
- for <freedreno@lists.freedesktop.org>; Thu, 26 Sep 2024 13:09:47 +0000 (UTC)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-2f75c0b78fbso11168711fa.1
- for <freedreno@lists.freedesktop.org>; Thu, 26 Sep 2024 06:09:47 -0700 (PDT)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0220C10EB3A
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Sep 2024 13:12:16 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-2f77be8ffecso10940981fa.1
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Sep 2024 06:12:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1727356186; x=1727960986; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1727356335; x=1727961135; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=k0SGTX2nctnE3KyD4azI9HnZaZaGIo1VmsjB0a2s02c=;
- b=EFrZV3XxG+k3noVezCzEq6w1rpu+oZX4qSMRo/bWimoWIfCZu0ZRcHv916G0KI/3tI
- uqfqvCr4NAjOZSaQ/VKslB8HmKi3e/fpwy1nrvkHlAw6XKLiXBE38/6BkRt0ak9t9TWK
- 4XUx6q5DLJBUhr64OTvwoKXyc/SpL/Tqoy3mIUxWw/y6vlQf6YBGpuGxRBHZxgGgSN5k
- znSCZO7qtbrxRKVJiUBqd7FA+Lkngiezn33sCrUuAni4BtPnyobrDG9LeydFHCHBlN3I
- 8hE7O6HJGBA9bkkHVd15VU+/IyoHiqZ9X9VeyvePa1JJt6Dk/BZBMPfUnSdCdvi0xD67
- HBQQ==
+ bh=nKriAI4eZkRaHODPjuZ+jj+F+rk5iOr07UhYYqdkBLg=;
+ b=DbxvjvEmP66qxdbnPoczcY1dwg4JHqyZa/USvGjkq4+eWj9Q3mshuAfZGH7tG7HBwr
+ iMavcPGy0fhN3V8H7BwAjKzKG7bM0N5CozvOAdnSaIfE0X941HGz0Jyd6VJ5IHvbeYZw
+ h9ss614AHKI3J5+IcqR4mN3RQOZem3BKgxGcXTpjXHjM1CiODWbQ4VfWQV5CVffBFiqS
+ bAJilNxaHG0kZOQ+O+1YSLt255Iu0sNYStjdnrWYht/0QJJ9RN9spbhIXQAWl72ZB6GF
+ Ipr1hDUCcD/9C6vs3g1apnzOHu3c0fNmD1H+S6W1Zbv/gb1FI3AsbFSFudGWsvBfEB9x
+ /Nbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727356186; x=1727960986;
+ d=1e100.net; s=20230601; t=1727356335; x=1727961135;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=k0SGTX2nctnE3KyD4azI9HnZaZaGIo1VmsjB0a2s02c=;
- b=CDd6Lc4KcAVzvYtcEQaeU6d9pMxHs/S9hFddJ8xgwQV2cGw4oW8iDLT0XaRBmsSlvh
- mPubLC5MWBtwWbqmxzsY9dwnwzsEvgKzxUSedPSlANl5iP/ZiCJs23N45GWatI+OMPFY
- aFPXr9cs5R9sExmN7hGTP7kUorzrjBxc6cOV7F8ELDzgsf5ABmM4FMCSbhOwDfoY2gf/
- APL5tCmgeXPVQczDMqHndKsgRE52iH1Zyyug86VKJN4sjb1oDMWSLLKavGrSgBNA1Gvw
- WdOoEnXBlpLDxiLoOb021V0JMzyZ9hbA5oVFgNI35gg9lSPUAZ48muIlMga02KQaU4Mg
- 7Sag==
+ bh=nKriAI4eZkRaHODPjuZ+jj+F+rk5iOr07UhYYqdkBLg=;
+ b=aAnEe92tNjE2GsrpRfKq6SXT0dvntTpyfbiMu9z6nYN5uy1A3X4GNt0LgYmgK1aKQ6
+ quLKngz7hPDUt2kucXwEyGqTiIhNyKOd0fBCXU1Zw3uqgp6ZtY8Y8lJDfOa+Yj8gBMsc
+ Wp3pWwIY8h0JNC0hXlSYCrTvZohibKu4SEvmQB/SMLqGQUyXWBN9nP1SUIP18QFW5pVG
+ FbBGAy2NSNPhY3CL7jUO6PUm3NkC0DGoJNd71uvZtqE7gDu5nl/kPQ4UBWso429g43qB
+ myMhuJJZmH+Ai4di6+y8ylCkF1/cm/zfQ+xRgn7lvuJsqNy7nFrbMMX1AINc2yd8xSbd
+ V2RQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXzl76ZLEMI3VkAA3tNNOAfv9lL67XKhYoWrL8g35EYmQFIvMoxg1J0vQaQA6NmMMMmrhnLAe2fgMQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzlKruffXr1MYRdxhuIIdkl7docQhvZx8zV5F/k7PTAzOkLXZcw
- ccQ4YSNhzuwTzgvqw+4wNzfIygKBmrdNHaVkBw81FkGHP9Q5jEHFPgfNKB6OQY0=
-X-Google-Smtp-Source: AGHT+IFIZ8N2PzyIbt/P6m8oH4XHu1xxQSGSi1EgiBbvFKiw4ooio7bVELxIdaHYqsHU5DjpOpkmaw==
-X-Received: by 2002:a2e:a9aa:0:b0:2ef:2490:46fb with SMTP id
- 38308e7fff4ca-2f91ca45fd8mr43948201fa.37.1727356185641; 
- Thu, 26 Sep 2024 06:09:45 -0700 (PDT)
+ AJvYcCW81zjx0dyPualVUFZRdpScAiRLIQ7Mc38587EqzxdqWRdwoJ3wX3wKc+nFyYJUBJDS5ui/u2zr7w4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxekAcCiKpgXffIC0AKhvlRttbX4YSsO9I7lWVBh0oOglsPGkR7
+ wXmrqJ5KKukDWqjRvL/UUY/1vpiGCa51edB+xFN3LCoN0S6yq53c2URN7nj9RBE=
+X-Google-Smtp-Source: AGHT+IEdvfytwo17gCgvymeEaRhz2m8Z7wR8D5FYIwCXKva9/v1xhvvhMLWRmcQBnqRRYBVmBQbL8g==
+X-Received: by 2002:a05:651c:50f:b0:2f6:62c3:4e0e with SMTP id
+ 38308e7fff4ca-2f914ac3ff9mr40894901fa.6.1727356334934; 
+ Thu, 26 Sep 2024 06:12:14 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f8d283c427sm7986751fa.53.2024.09.26.06.09.42
+ 38308e7fff4ca-2f8d289b54bsm7832621fa.109.2024.09.26.06.12.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Sep 2024 06:09:44 -0700 (PDT)
-Date: Thu, 26 Sep 2024 16:09:41 +0300
+ Thu, 26 Sep 2024 06:12:13 -0700 (PDT)
+Date: Thu, 26 Sep 2024 16:12:12 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Mahadevan <quic_mahap@quicinc.com>
 Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run, 
@@ -71,14 +71,14 @@ Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  quic_kalyant@quicinc.com, quic_jmadiset@quicinc.com, quic_vpolimer@quicinc.com
-Subject: Re: [PATCH v2 4/5] drm/msm/dpu: Add SA8775P support
-Message-ID: <w26xpuqeltoxjvewo4zesnjazw23onovcasltzcwrejdpgav2h@p6fj2lts2n4s>
+Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: sa8775p: add display dt nodes
+Message-ID: <hyhsyl43xurr25ws2blejxbyae47a73f77hnjmjql3jwcpocvk@565kpktxs2fi>
 References: <20240926110137.2200158-1-quic_mahap@quicinc.com>
- <20240926110137.2200158-5-quic_mahap@quicinc.com>
+ <20240926110137.2200158-6-quic_mahap@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240926110137.2200158-5-quic_mahap@quicinc.com>
+In-Reply-To: <20240926110137.2200158-6-quic_mahap@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,108 +94,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 26, 2024 at 04:31:36PM GMT, Mahadevan wrote:
-> Add definitions for the display hardware used on the
-> Qualcomm SA8775P platform.
+On Thu, Sep 26, 2024 at 04:31:37PM GMT, Mahadevan wrote:
+> Add mdss0 and mdp devicetree nodes for sa8775p target.
 > 
 > Signed-off-by: Mahadevan <quic_mahap@quicinc.com>
+> 
 > ---
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Minor nit below.
-
+> 
+> This patch depends on the clock enablement change:
+> https://lore.kernel.org/all/20240816-sa8775p-mm-v3-v1-0-77d53c3c0cef@quicinc.com/
+> 
+> ---
+> 
 > [v2]
-> - Reorder compatible string of DPU based on alphabetical order.[Dmitry]
-> 
+> - Update commit message mentioning enablement of mdss0 only is done. [Dmitry]
+
+It doesn't
+
+> - Add resets node and fix indentation. [Dmitry]
 > ---
->  .../msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h   | 485 ++++++++++++++++++
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   3 +-
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   3 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   3 +-
->  4 files changed, 491 insertions(+), 3 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
+>  arch/arm64/boot/dts/qcom/sa8775p.dtsi | 87 +++++++++++++++++++++++++++
+>  1 file changed, 87 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
-> new file mode 100644
-> index 000000000000..14d65b5d4093
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
-> @@ -0,0 +1,485 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
-> + * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
+> diff --git a/arch/arm64/boot/dts/qcom/sa8775p.dtsi b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> index 93be4683a31f..27ab1921c1f3 100644
+> --- a/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> @@ -6,6 +6,7 @@
+>  #include <dt-bindings/interconnect/qcom,icc.h>
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+>  #include <dt-bindings/clock/qcom,rpmh.h>
+> +#include <dt-bindings/clock/qcom,sa8775p-dispcc.h>
+>  #include <dt-bindings/clock/qcom,sa8775p-gcc.h>
+>  #include <dt-bindings/clock/qcom,sa8775p-gpucc.h>
+>  #include <dt-bindings/interconnect/qcom,sa8775p-rpmh.h>
+> @@ -2937,6 +2938,92 @@ camcc: clock-controller@ade0000 {
+>  			#power-domain-cells = <1>;
+>  		};
+> 
+> +		mdss0: display-subsystem@ae00000 {
+> +			compatible = "qcom,sa8775p-mdss";
+> +			reg = <0x0 0x0ae00000 0x0 0x1000>;
+> +			reg-names = "mdss";
+> +
+> +			/* same path used twice */
+> +			interconnects = <&mmss_noc MASTER_MDP0 0 &mc_virt SLAVE_EBI1 0>,
+> +					<&mmss_noc MASTER_MDP1 0 &mc_virt SLAVE_EBI1 0>,
 
-What exactly is copyrighted by LF?
+QCOM_ICC_TAG_ACTIVE_ONLY ?
 
-> + */
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index dcb4fd85e73b..6f60fff2c9a6 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -1,6 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0-only
->  /* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
-> - * Copyright (c) 2022-2023, Qualcomm Innovation Center, Inc. All rights reserved.
-> + * Copyright (c) 2022-2024, Qualcomm Innovation Center, Inc. All rights reserved.
-
-I am not a lawyer, but I don't think a single #include is copyrightable.
-Neither are single data lines in other files.
-
->   */
->  
->  #define pr_fmt(fmt)	"[drm:%s:%d] " fmt, __func__, __LINE__
-> @@ -699,6 +699,7 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
->  
->  #include "catalog/dpu_8_0_sc8280xp.h"
->  #include "catalog/dpu_8_1_sm8450.h"
-> +#include "catalog/dpu_8_4_sa8775p.h"
->  
->  #include "catalog/dpu_9_0_sm8550.h"
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index 37e18e820a20..cff16dcf277f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -1,6 +1,6 @@
->  /* SPDX-License-Identifier: GPL-2.0-only */
->  /*
-> - * Copyright (c) 2022-2023, Qualcomm Innovation Center, Inc. All rights reserved.
-> + * Copyright (c) 2022-2024, Qualcomm Innovation Center, Inc. All rights reserved.
->   * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
->   */
->  
-> @@ -850,6 +850,7 @@ extern const struct dpu_mdss_cfg dpu_sm8350_cfg;
->  extern const struct dpu_mdss_cfg dpu_sc7280_cfg;
->  extern const struct dpu_mdss_cfg dpu_sc8280xp_cfg;
->  extern const struct dpu_mdss_cfg dpu_sm8450_cfg;
-> +extern const struct dpu_mdss_cfg dpu_sa8775p_cfg;
->  extern const struct dpu_mdss_cfg dpu_sm8550_cfg;
->  extern const struct dpu_mdss_cfg dpu_sm8650_cfg;
->  extern const struct dpu_mdss_cfg dpu_x1e80100_cfg;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 9bcae53c4f45..16a0b417435e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -2,7 +2,7 @@
->  /*
->   * Copyright (C) 2013 Red Hat
->   * Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
-> - * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
-> + * Copyright (c) 2022, 2024 Qualcomm Innovation Center, Inc. All rights reserved.
->   *
->   * Author: Rob Clark <robdclark@gmail.com>
->   */
-> @@ -1447,6 +1447,7 @@ static const struct dev_pm_ops dpu_pm_ops = {
->  static const struct of_device_id dpu_dt_match[] = {
->  	{ .compatible = "qcom,msm8998-dpu", .data = &dpu_msm8998_cfg, },
->  	{ .compatible = "qcom,qcm2290-dpu", .data = &dpu_qcm2290_cfg, },
-> +	{ .compatible = "qcom,sa8775p-dpu", .data = &dpu_sa8775p_cfg, },
->  	{ .compatible = "qcom,sdm630-mdp5", .data = &dpu_sdm630_cfg, },
->  	{ .compatible = "qcom,sdm660-mdp5", .data = &dpu_sdm660_cfg, },
->  	{ .compatible = "qcom,sdm670-dpu", .data = &dpu_sdm670_cfg, },
-> -- 
+> +					<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+> +					 &config_noc SLAVE_DISPLAY_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
+> +			interconnect-names = "mdp0-mem",
+> +					     "mdp1-mem",
+> +					     "cpu-cfg";
+> +
+> +			resets = <&dispcc0 MDSS_DISP_CC_MDSS_CORE_BCR>;
+> +
+> +			power-domains = <&dispcc0 MDSS_DISP_CC_MDSS_CORE_GDSC>;
+> +
+> +			clocks = <&dispcc0 MDSS_DISP_CC_MDSS_AHB_CLK>,
+> +				 <&gcc GCC_DISP_HF_AXI_CLK>,
+> +				 <&dispcc0 MDSS_DISP_CC_MDSS_MDP_CLK>;
+> +
+> +			interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-controller;
+> +			#interrupt-cells = <1>;
+> +
+> +			iommus = <&apps_smmu 0x1000 0x402>;
+> +
+> +			#address-cells = <2>;
+> +			#size-cells = <2>;
+> +			ranges;
+> +
+> +			status = "disabled";
+> +
+> +			mdss0_mdp: display-controller@ae01000 {
+> +				compatible = "qcom,sa8775p-dpu";
+> +				reg = <0x0 0x0ae01000 0x0 0x8f000>,
+> +				      <0x0 0x0aeb0000 0x0 0x2008>;
+> +				reg-names = "mdp", "vbif";
+> +
+> +				clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
+> +					 <&dispcc0 MDSS_DISP_CC_MDSS_AHB_CLK>,
+> +					 <&dispcc0 MDSS_DISP_CC_MDSS_MDP_LUT_CLK>,
+> +					 <&dispcc0 MDSS_DISP_CC_MDSS_MDP_CLK>,
+> +					 <&dispcc0 MDSS_DISP_CC_MDSS_VSYNC_CLK>;
+> +				clock-names = "bus",
+> +					      "iface",
+> +					      "lut",
+> +					      "core",
+> +					      "vsync";
+> +
+> +				assigned-clocks = <&dispcc0 MDSS_DISP_CC_MDSS_VSYNC_CLK>;
+> +				assigned-clock-rates = <19200000>;
+> +
+> +				operating-points-v2 = <&mdss0_mdp_opp_table>;
+> +				power-domains = <&rpmhpd RPMHPD_MMCX>;
+> +
+> +				interrupt-parent = <&mdss0>;
+> +				interrupts = <0>;
+> +
+> +				mdss0_mdp_opp_table: opp-table {
+> +					compatible = "operating-points-v2";
+> +
+> +					opp-375000000 {
+> +						opp-hz = /bits/ 64 <375000000>;
+> +						required-opps = <&rpmhpd_opp_svs_l1>;
+> +					};
+> +
+> +					opp-500000000 {
+> +						opp-hz = /bits/ 64 <500000000>;
+> +						required-opps = <&rpmhpd_opp_nom>;
+> +					};
+> +
+> +					opp-575000000 {
+> +						opp-hz = /bits/ 64 <575000000>;
+> +						required-opps = <&rpmhpd_opp_turbo>;
+> +					};
+> +
+> +					opp-650000000 {
+> +						opp-hz = /bits/ 64 <650000000>;
+> +						required-opps = <&rpmhpd_opp_turbo_l1>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+>  		dispcc0: clock-controller@af00000 {
+>  			compatible = "qcom,sa8775p-dispcc0";
+>  			reg = <0x0 0x0af00000 0x0 0x20000>;
+> --
 > 2.34.1
 > 
 
