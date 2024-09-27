@@ -2,85 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83C58988094
-	for <lists+freedreno@lfdr.de>; Fri, 27 Sep 2024 10:42:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D4FC988390
+	for <lists+freedreno@lfdr.de>; Fri, 27 Sep 2024 13:58:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D03F10EC7D;
-	Fri, 27 Sep 2024 08:42:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B979910E210;
+	Fri, 27 Sep 2024 11:57:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qmMT+Orc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mEwoWO8R";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73CDA10EC7C
- for <freedreno@lists.freedesktop.org>; Fri, 27 Sep 2024 08:42:20 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-53653ff0251so2341899e87.0
- for <freedreno@lists.freedesktop.org>; Fri, 27 Sep 2024 01:42:20 -0700 (PDT)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB2310E1FE;
+ Fri, 27 Sep 2024 11:57:58 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-2e07d87adc2so372634a91.3; 
+ Fri, 27 Sep 2024 04:57:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1727426538; x=1728031338; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=wORqZqv9cUGC80DSKYgE6tfqrN9lDUHFj2CIW1jLYmc=;
- b=qmMT+OrcdMgpQQ2yE3BpK/TAkn3H5ndqD6AqsuUn2uprYCJJTo2SyF3zLlt5q7QZpr
- WRpmGtAvrPWkBvK44txwSPspDRN8C4dGl4TQPm/bIt0HrSl2NeiKeBiv+SnwKCYU+guP
- AqKto4d9pOQWZKF31LRbIcjUIy6SRn5NjcseXPphPg23XqeuBAc3LYDpAjRbZbwYls4j
- TN1/Di3ppnNILU7HL03HobYznzKzj2w9Foeri+6jPX2AyWJIjTvwcpCx94lF4fuQoITV
- JwPv+fyioIcfVG/KpYHlE3/QPFAKbLwsimSaHyESStcdPboA5WJmXpDTuHzeiuYrPah3
- HzjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727426538; x=1728031338;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1727438277; x=1728043077; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wORqZqv9cUGC80DSKYgE6tfqrN9lDUHFj2CIW1jLYmc=;
- b=g3uSGnNEJDsVmKBBUqYohfryvqfiPuwk71tAK/Qq1AIc2+GDZcOG+Jyt9Z4yaja865
- M1Qz7WeMnpHBBoLgMyczoc2i7tn7En2aa3itSPGUvM9+VO3QT1bfvW8ema8qK7zMoe38
- XfLfn/VGLbKJTwenl6T7DV1xTGNNBFeMojDjW00crlzT/vxsM4BTvjvyLtqvXxdKakuH
- I9EsxvTJmHfW3BO6jRBNOXMBtfsS/azBNKC4FoWgm5z76qq/VuKS/YIWdqvGXT7XWjat
- qxJ/Q4iF07VXRxE+Ku0VoLx5oVcxEuiVB+UikGPXDTNDkz8c2+Ae/V4Va6OlBFJv2mmD
- U8JQ==
+ bh=/00YoVmyxoQD04QF3B+FPA5cgwCGWAPgMWHF0NDU/mM=;
+ b=mEwoWO8RMm9mBj88ZZ5J6kzegJzko0OJOU6loijISJ0RtxANlRffQqa0ODNZGmAGsK
+ wIwpuqf7TX0jxdMa1LwBDRIALPi0+hfLsOTiC9my3Kg78Llrab2yPsWyktwMZlmJpaJS
+ cNi0uGczV1gEW03zGTBSi1ekA/zouheDZbbCdEBOdF4Kv6nsla7T5DhKtUrCfVG+1s9M
+ b1akE1o6SokAr+yendMly+z/dfFOKIL7WbTj4hi64roRmgSHvYIwon/wRV5aXWxmwBDI
+ PBfudBRKL+vw1X7/sdxSAN4f+SY32xd2hhYgfljs1iCL4jSU9yKSu7W/BElA6737c9D4
+ 2lJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727438277; x=1728043077;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/00YoVmyxoQD04QF3B+FPA5cgwCGWAPgMWHF0NDU/mM=;
+ b=q7Q4WNp+7e7P0c3j/iv9CgrFA2JV9hH8+SoEnmEjKFXDP5TN7Vgy2rRMyVycNq97R+
+ wcXqZxB8wne4gkHub2HbUk25Wm9ASmvw6uCq1u3pP45iYaoJ23pC+s/1dBADida/Ml+t
+ OiI8Iik1f5zOVP5JWu+VcHwLzKWQj0PQlJ+tJi0IgnJco3XoOnf5YU8jAqRGzfps69Ab
+ hPju26IkF9poC8SfMbcMBFp7X/OhQ7y+6gDnCDK3HNDBIzKwtg7xL1NLyHj72wnennbi
+ +WGtnmECWYOrnRnR+i4d+BPywW0VLkNWwD+XbovyjuQQbzB0+49wTKeaOhQ+rPqVl0N5
+ azyg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXlNd90x0Jsqtz1g+EnzYAk6CBcVc6o3EK+6DTghUHZxf3g+uL7hOBwZy6PD8Vf99TOtyTN63RFH6M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxjvXRB4k2TDEjpdlR4xXm+PX6QhHMJwFC3P2qzrhCY0KRvotwt
- 8/SLNjphgBYFutCla2B+2ozZVDp7j2Sl+8cN7ZpduTrukrDudElzdR9E7Y2vEgw=
-X-Google-Smtp-Source: AGHT+IGKld9rtmGQC3DBnDTbpXbiuKQNjTBpR+lYTXMLGlZV+jtXEFJDHRP8wtIhf6Y6NwwWQqYIMg==
-X-Received: by 2002:a05:6512:3052:b0:52e:941d:7039 with SMTP id
- 2adb3069b0e04-5389fc70ef7mr1616146e87.59.1727426538329; 
- Fri, 27 Sep 2024 01:42:18 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5389fd54752sm226998e87.19.2024.09.27.01.42.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Sep 2024 01:42:17 -0700 (PDT)
-Date: Fri, 27 Sep 2024 11:42:15 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Mahadevan P <quic_mahap@quicinc.com>
-Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run, 
- marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, swboyd@chromium.org, 
- konrad.dybcio@linaro.org, danila@jiaxyga.com, bigfoot@classfun.cn, 
- neil.armstrong@linaro.org, mailingradian@gmail.com, quic_jesszhan@quicinc.com, 
- andersson@kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- quic_kalyant@quicinc.com, quic_jmadiset@quicinc.com, quic_vpolimer@quicinc.com
-Subject: Re: [PATCH v2 3/5] drm/msm: mdss: Add SA8775P support
-Message-ID: <lpxx7xa4j2ghsj4klcbmribpvl3dzksy6zblbdo4zt2huarzmv@zz4yomzsdwli>
-References: <20240926110137.2200158-1-quic_mahap@quicinc.com>
- <20240926110137.2200158-4-quic_mahap@quicinc.com>
- <35e6yleiy6wkja3ojlfjddifxv7kr7x6tyn5pszas2chouuvql@trpeb7b4eop2>
- <2414cba4-53f2-4aec-b87b-9f8d92035bad@quicinc.com>
+ AJvYcCUY0aoGhWkUek0ZI6LYpLNjLyc4ppxyiZ5YnuGDSFNFCmVSB/+CL26XwzwAsgchd+FBpC0MiVqQuYVZ@lists.freedesktop.org,
+ AJvYcCWiDwhdPYaRHfieXAwz0TI/Yh4jn1ChpDNeCvL6SSzaqjneLCsw5pb3FkmiigEUfAxYNn0e0srjc+Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyPWLtxgtYBiAmOE857pD8vPEnxXvJeDhlo9fQ0URQEP/x7tb6Z
+ LG/4M7S0ZJ/BEu/NFgTv5+jo89lVokIioTNSqDx1cBBIknPgCu10c/Ex7IkjnGTVult9eV/YcDZ
+ rEfxiZVlrUCD19+GG763kcaHJdkE=
+X-Google-Smtp-Source: AGHT+IFMYD0OH+mms5PX41lPPzr/Ohq/r9pchznWtwGPOOpsDLVNm08dDIYqmANikx8KUubtMRcg72JLma6cxaU0Aik=
+X-Received: by 2002:a17:90a:68ce:b0:2d8:e7ef:7d23 with SMTP id
+ 98e67ed59e1d1-2e0b8d7c62cmr1427986a91.4.1727438277454; Fri, 27 Sep 2024
+ 04:57:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2414cba4-53f2-4aec-b87b-9f8d92035bad@quicinc.com>
+References: <20240926-preemption-a750-t-v6-0-7b6e1ef3648f@gmail.com>
+ <20240926-preemption-a750-t-v6-4-7b6e1ef3648f@gmail.com>
+In-Reply-To: <20240926-preemption-a750-t-v6-4-7b6e1ef3648f@gmail.com>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Fri, 27 Sep 2024 12:57:46 +0100
+Message-ID: <CACu1E7HEZztQ3bctuVdrwLCVY2oJ_01AyeKdwCuuB6gmsPurpg@mail.gmail.com>
+Subject: Re: [PATCH v6 04/11] drm/msm: Add CONTEXT_SWITCH_CNTL bitfields
+To: Antonino Maniscalco <antomani103@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jonathan Corbet <corbet@lwn.net>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,41 +91,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 27, 2024 at 12:14:16PM GMT, Mahadevan P wrote:
-> 
-> On 9/26/2024 6:32 PM, Dmitry Baryshkov wrote:
-> > On Thu, Sep 26, 2024 at 04:31:35PM GMT, Mahadevan wrote:
-> > > Add Mobile Display Subsystem (MDSS) support for the SA8775P platform.
-> > > 
-> > > Signed-off-by: Mahadevan <quic_mahap@quicinc.com>
-> > > ---
-> > > 
-> > > [v2]
-> > > - Update commit message. [Dmitry]
-> > > - Reorder compatible string of MDSS based on alphabetical order. [Dmitry]
-> > > - add reg_bus_bw in msm_mdss_data. [Dmitry]
-> > > 
-> > > ---
-> > >   drivers/gpu/drm/msm/msm_mdss.c | 11 +++++++++++
-> > >   1 file changed, 11 insertions(+)
-> > > 
-> > > diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> > > index faa88fd6eb4d..8f1d42a43bd0 100644
-> > > --- a/drivers/gpu/drm/msm/msm_mdss.c
-> > > +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> > > @@ -573,6 +573,16 @@ static const struct msm_mdss_data qcm2290_data = {
-> > >   	.reg_bus_bw = 76800,
-> > >   };
-> > > +static const struct msm_mdss_data sa8775p_data = {
-> > > +	.ubwc_enc_version = UBWC_4_0,
-> > > +	.ubwc_dec_version = UBWC_4_0,
-> > Just 4.0 or 4.3?
-> 
-> 
-> UBWC version has to be 4.0 as per UBWC reference document of sa8775p.
+In the future, the right thing to do is open a mesa MR with just the
+register changes and then copy the file from mesa once it's merged,
+because all of the XML files are supposed to flow from mesa to keep
+mesa and the kernel in sync. I've opened a mesa MR [1] based on this
+that will hopefully get quickly acked and merged.
 
-Thanks for the confirmation.
+Connor
 
--- 
-With best wishes
-Dmitry
+[1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/31422
+
+On Thu, Sep 26, 2024 at 10:17=E2=80=AFPM Antonino Maniscalco
+<antomani103@gmail.com> wrote:
+>
+> Add missing bitfields to CONTEXT_SWITCH_CNTL in a6xx.xml.
+>
+> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-QRD
+> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
+> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8450-HDK
+> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
+> ---
+>  drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml b/drivers/gpu/=
+drm/msm/registers/adreno/a6xx.xml
+> index 2dfe6913ab4f52449b76c2f75b2d101c08115d16..fd31d1d7a11eef7f38dcc2975=
+dc1034f6b7a2e41 100644
+> --- a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+> +++ b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+> @@ -1337,7 +1337,12 @@ to upconvert to 32b float internally?
+>                 <reg32 offset=3D"0x0" name=3D"REG" type=3D"a6x_cp_protect=
+"/>
+>         </array>
+>
+> -       <reg32 offset=3D"0x08A0" name=3D"CP_CONTEXT_SWITCH_CNTL"/>
+> +       <reg32 offset=3D"0x08A0" name=3D"CP_CONTEXT_SWITCH_CNTL">
+> +               <bitfield name=3D"STOP" pos=3D"0" type=3D"boolean"/>
+
+This bit isn't set to 1 when it's stopped, it's set to
+
+> +               <bitfield name=3D"LEVEL" low=3D"6" high=3D"7"/>
+> +               <bitfield name=3D"USES_GMEM" pos=3D"8" type=3D"boolean"/>
+> +               <bitfield name=3D"SKIP_SAVE_RESTORE" pos=3D"9" type=3D"bo=
+olean"/>
+> +       </reg32>
+>         <reg64 offset=3D"0x08A1" name=3D"CP_CONTEXT_SWITCH_SMMU_INFO"/>
+>         <reg64 offset=3D"0x08A3" name=3D"CP_CONTEXT_SWITCH_PRIV_NON_SECUR=
+E_RESTORE_ADDR"/>
+>         <reg64 offset=3D"0x08A5" name=3D"CP_CONTEXT_SWITCH_PRIV_SECURE_RE=
+STORE_ADDR"/>
+>
+> --
+> 2.46.1
+>
