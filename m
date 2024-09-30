@@ -2,91 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 880DE98A8DD
-	for <lists+freedreno@lfdr.de>; Mon, 30 Sep 2024 17:42:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C52A98AC23
+	for <lists+freedreno@lfdr.de>; Mon, 30 Sep 2024 20:36:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88E0810E53C;
-	Mon, 30 Sep 2024 15:42:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2062410E2F0;
+	Mon, 30 Sep 2024 18:36:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="oI4L83S1";
+	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="NLnINYUF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63A6010E53C;
- Mon, 30 Sep 2024 15:42:08 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48U6RwYN014784;
- Mon, 30 Sep 2024 15:41:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Gc55ob5J5ocO4uDw82svtlrKc6l6j/9azVaUVKIUbzg=; b=oI4L83S1Yru2ByEf
- oaSvklSYWWKAJIYTd4fvvdv+/1FLUWnJikQlFF5FAc63q+qsAwuiyItbPPoS+NPb
- mEln0G2d5hjOMOnr4VTm9vVGsFq4r2HAGV0KiBCMaVsIx9VEYtwfyxyUcx+zSJHS
- 7Anduf9GAHea1R1mcz6Zm9Wod/1GCg3EqCi1WuMMLi56MFFARyhacR/adVIiO0lI
- 3u2vVTqMs1dPKKNuPn3k1W/FQ3QNqV73fzPlxtmGXyjsm8fvutJjJqbijwvDPrY2
- Fv96HIwV0e/IxaRio+HnMmGyWqgxy7O1GtfGGZRa/Aa+eAApRZYwKaB9X94Iyvay
- SpISrQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41yprahfsv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 30 Sep 2024 15:41:53 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48UFfqHM000802
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 30 Sep 2024 15:41:52 GMT
-Received: from [10.216.16.87] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 30 Sep
- 2024 08:41:41 -0700
-Message-ID: <942f6385-295a-4b48-8c1b-159930eeb828@quicinc.com>
-Date: Mon, 30 Sep 2024 21:11:36 +0530
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F307410E131;
+ Mon, 30 Sep 2024 18:36:01 +0000 (UTC)
+Received: from [192.168.1.130] (51B6DC6E.dsl.pool.telekom.hu [81.182.220.110])
+ by mail.mainlining.org (Postfix) with ESMTPSA id 9A650E451D;
+ Mon, 30 Sep 2024 18:35:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mainlining.org;
+ s=psm; t=1727721360;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=7f0TECQ0gRKG4FE+eX0Zs7r0JNAndVjKgypDK+kBGLo=;
+ b=NLnINYUFWu4SRGGAUPcqF/TnhauwhPcmhMZKPAUvLwREMuK2znax1xcv9wklN9/MjrwIgm
+ Ydr8Re9VdPuRMC/Y/2ydDF1tTH39JxiqGcilx5VwTR3ul7xkJHP948ZOA/5Ju0kC0r0ndQ
+ qxYu37mpUZHq5lQP28oZbOCxZJkC+if/Fy2ddveKhzrE2IWLkHv/jZJKCfKK24sSlgh2H8
+ uPbCmK7MPriQ/sTfHJGW5FIbKgH17+K9ReCndMUFyh8pZHKGMndTsILy0qdlEUNMFxBurM
+ YS4zQiwhBW5VakwnTzVZAj1rVTkt6dmplLNACeYV8ZPpI2ph36Sk6A3u/sJDBg==
+From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
+ <barnabas.czeman@mainlining.org>
+Subject: [PATCH v2 0/4] Add MSM8996/MSM8953/MSM8937/MSM8917 dpu catalog
+Date: Mon, 30 Sep 2024 20:35:55 +0200
+Message-Id: <20240930-dpu-msm8953-msm8996-v2-0-594c3e3190b4@mainlining.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] drm/msm/dpu: Add SA8775P support
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, <sean@poorly.run>,
- <marijn.suijten@somainline.org>, <airlied@gmail.com>,
- <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <swboyd@chromium.org>,
- <konrad.dybcio@linaro.org>, <danila@jiaxyga.com>,
- <bigfoot@classfun.cn>, <neil.armstrong@linaro.org>,
- <mailingradian@gmail.com>, <quic_jesszhan@quicinc.com>,
- <andersson@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <quic_kalyant@quicinc.com>, <quic_jmadiset@quicinc.com>,
- <quic_vpolimer@quicinc.com>
-References: <20240926110137.2200158-1-quic_mahap@quicinc.com>
- <20240926110137.2200158-5-quic_mahap@quicinc.com>
- <w26xpuqeltoxjvewo4zesnjazw23onovcasltzcwrejdpgav2h@p6fj2lts2n4s>
-Content-Language: en-US
-From: Mahadevan P <quic_mahap@quicinc.com>
-In-Reply-To: <w26xpuqeltoxjvewo4zesnjazw23onovcasltzcwrejdpgav2h@p6fj2lts2n4s>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: dsmez5AIwekIwyx4FTHzul4uvDZHFR0g
-X-Proofpoint-ORIG-GUID: dsmez5AIwekIwyx4FTHzul4uvDZHFR0g
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- malwarescore=0 spamscore=0 mlxscore=0 phishscore=0 impostorscore=0
- clxscore=1015 adultscore=0 mlxlogscore=999 bulkscore=0 priorityscore=1501
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2408220000 definitions=main-2409300112
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAIvv+mYC/3WNyw6DIBREf8XcdWkAH6Cr/kfjQgXxJgUMtKaN4
+ d9Ldd3V5EwyZ3aIOqCO0BU7BL1hRO8y8EsB0zI4owmqzMApr2jNJVHri9hoZVuXZ7YNqRWdR6F
+ LKUYJebkGPeP7sN77zAvGpw+f42Rjv/b0NX98GyOUDCWbhOCVVKO42QHdAx06c/XBQJ9S+gKrA
+ b/+uwAAAA==
+X-Change-ID: 20240528-dpu-msm8953-msm8996-5d0fb7e387b8
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Simona Vetter <simona.vetter@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1727721359; l=2399;
+ i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
+ bh=yA5cFMl8+ec5dJ+qtVHlQGI7o8LiFx+wlxEYVLtwrow=;
+ b=4yFIpr04nUzMdDTT+LVLobgMzkxFp320Gxd6fO64UPMLTRhV66pgQQGrwDoX2ENSu9x5zI/nm
+ +5DTiDMMUjDA/AeE+TdUCt4vyCpqsWi+L/gP3dSx6uaqwFG3lpC51o2
+X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
+ pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,114 +77,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This patch series add dpu support for MSM8996/MSM8953/MSM8937/MSM8917 SoCs.
 
-On 9/26/2024 6:39 PM, Dmitry Baryshkov wrote:
-> On Thu, Sep 26, 2024 at 04:31:36PM GMT, Mahadevan wrote:
->> Add definitions for the display hardware used on the
->> Qualcomm SA8775P platform.
->>
->> Signed-off-by: Mahadevan <quic_mahap@quicinc.com>
->> ---
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->
-> Minor nit below.
->
->> [v2]
->> - Reorder compatible string of DPU based on alphabetical order.[Dmitry]
->>
->> ---
->>   .../msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h   | 485 ++++++++++++++++++
->>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   3 +-
->>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   3 +-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   3 +-
->>   4 files changed, 491 insertions(+), 3 deletions(-)
->>   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
->> new file mode 100644
->> index 000000000000..14d65b5d4093
->> --- /dev/null
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
->> @@ -0,0 +1,485 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +/*
->> + * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
->> + * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
-> What exactly is copyrighted by LF?
+This parch series was tested on many devices:
 
+- Xiaomi Redmi 5A (msm8917, video panel)
+- Xiaomi Redmi Note 5A (msm8917, video panel)
+- Xiaomi Redmi Note 5A Prime (msm8940, video panel)
+- Motorola G5S (msm8937, video panel)
+- Xiaomi Redmi 3S (msm8937, video panel)
+- Xiaomi Redmi 4x (msm8940, video panel)
+- Samsung A6+ LTE (sdm450, cmd panel)
+- Xiaomi Redmi 7 (sdm632, video panel)
+- Xiaomi Redmi 5 (sdm450, video panel)
+- Xiaomi Redmi 5 Plus (msm8953, video panel)
+- Xiaomi Redmi Note 4 (msm8953, video panel)
+- Xiaomi Mi A1 (msm8953, video panel)
+- Xiaomi Mi A2 Lite/Redmi 6 Pro (msm8953, video panel)
+- Xiaomi Redmi S2 (msm8953, video panel)
+- Motorola G5 Plus (msm8953, video panel)
+- Xiaomi Mi Note 2 (msm8996, video panel)
+- Xiaomi Mi 5s (msm8996, cmd panel)
 
-LF copyright is not needed.
+All LMs and SSPPs was checked and works, except cmd panel related configs
+(SSPP_DMA0) on MSM8917 and MSM8937.
 
-Thanks for pointing out the copyrights in other files too. Will update 
-in subsequent patch.
+Note, by default these platforms are still handled by the MDP5 driver
+unless the `msm.prefer_mdp5=false' parameter is provided.
 
+Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+---
+Changes in v2:
+- Add MSM8917 and MSM8937 from previous attempts.
+- Remove LM_3 and LM_4 from msm8996.
+- Link to v1: https://lore.kernel.org/r/20240628-dpu-msm8953-msm8996-v1-0-a31c77248db7@mainlining.org
 
->
->> + */
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> index dcb4fd85e73b..6f60fff2c9a6 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> @@ -1,6 +1,6 @@
->>   // SPDX-License-Identifier: GPL-2.0-only
->>   /* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
->> - * Copyright (c) 2022-2023, Qualcomm Innovation Center, Inc. All rights reserved.
->> + * Copyright (c) 2022-2024, Qualcomm Innovation Center, Inc. All rights reserved.
-> I am not a lawyer, but I don't think a single #include is copyrightable.
-> Neither are single data lines in other files.
->
->>    */
->>   
->>   #define pr_fmt(fmt)	"[drm:%s:%d] " fmt, __func__, __LINE__
->> @@ -699,6 +699,7 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
->>   
->>   #include "catalog/dpu_8_0_sc8280xp.h"
->>   #include "catalog/dpu_8_1_sm8450.h"
->> +#include "catalog/dpu_8_4_sa8775p.h"
->>   
->>   #include "catalog/dpu_9_0_sm8550.h"
->>   
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
->> index 37e18e820a20..cff16dcf277f 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
->> @@ -1,6 +1,6 @@
->>   /* SPDX-License-Identifier: GPL-2.0-only */
->>   /*
->> - * Copyright (c) 2022-2023, Qualcomm Innovation Center, Inc. All rights reserved.
->> + * Copyright (c) 2022-2024, Qualcomm Innovation Center, Inc. All rights reserved.
->>    * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
->>    */
->>   
->> @@ -850,6 +850,7 @@ extern const struct dpu_mdss_cfg dpu_sm8350_cfg;
->>   extern const struct dpu_mdss_cfg dpu_sc7280_cfg;
->>   extern const struct dpu_mdss_cfg dpu_sc8280xp_cfg;
->>   extern const struct dpu_mdss_cfg dpu_sm8450_cfg;
->> +extern const struct dpu_mdss_cfg dpu_sa8775p_cfg;
->>   extern const struct dpu_mdss_cfg dpu_sm8550_cfg;
->>   extern const struct dpu_mdss_cfg dpu_sm8650_cfg;
->>   extern const struct dpu_mdss_cfg dpu_x1e80100_cfg;
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> index 9bcae53c4f45..16a0b417435e 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> @@ -2,7 +2,7 @@
->>   /*
->>    * Copyright (C) 2013 Red Hat
->>    * Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
->> - * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
->> + * Copyright (c) 2022, 2024 Qualcomm Innovation Center, Inc. All rights reserved.
->>    *
->>    * Author: Rob Clark <robdclark@gmail.com>
->>    */
->> @@ -1447,6 +1447,7 @@ static const struct dev_pm_ops dpu_pm_ops = {
->>   static const struct of_device_id dpu_dt_match[] = {
->>   	{ .compatible = "qcom,msm8998-dpu", .data = &dpu_msm8998_cfg, },
->>   	{ .compatible = "qcom,qcm2290-dpu", .data = &dpu_qcm2290_cfg, },
->> +	{ .compatible = "qcom,sa8775p-dpu", .data = &dpu_sa8775p_cfg, },
->>   	{ .compatible = "qcom,sdm630-mdp5", .data = &dpu_sdm630_cfg, },
->>   	{ .compatible = "qcom,sdm660-mdp5", .data = &dpu_sdm660_cfg, },
->>   	{ .compatible = "qcom,sdm670-dpu", .data = &dpu_sdm670_cfg, },
->> -- 
->> 2.34.1
->>
+---
+Dmitry Baryshkov (3):
+      drm/msm/dpu: Add support for MSM8953
+      drm/msm/dpu: Add support for MSM8937
+      drm/msm/dpu: Add support for MSM8917
+
+Konrad Dybcio (1):
+      drm/msm/dpu: Add support for MSM8996
+
+ .../drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h   | 210 +++++++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h   | 187 ++++++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h   | 218 +++++++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h    | 338 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 108 +++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   4 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   4 +
+ drivers/gpu/drm/msm/msm_drv.c                      |   4 +
+ 8 files changed, 1073 insertions(+)
+---
+base-commit: cea5425829f77e476b03702426f6b3701299b925
+change-id: 20240528-dpu-msm8953-msm8996-5d0fb7e387b8
+
+Best regards,
+-- 
+Barnabás Czémán <barnabas.czeman@mainlining.org>
+
