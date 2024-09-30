@@ -2,57 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD7529890F0
-	for <lists+freedreno@lfdr.de>; Sat, 28 Sep 2024 19:53:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72685989D8B
+	for <lists+freedreno@lfdr.de>; Mon, 30 Sep 2024 11:02:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7020110E241;
-	Sat, 28 Sep 2024 17:53:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB54510E3CE;
+	Mon, 30 Sep 2024 09:02:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="I4kUfdc6";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="JsZUd5fX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D0A210E23F;
- Sat, 28 Sep 2024 17:53:36 +0000 (UTC)
-Received: from localhost (docker-mailserver-web-1.docker-mailserver_default
- [172.22.0.5])
- by mail.mainlining.org (Postfix) with ESMTPSA id E5E9FE450F;
- Sat, 28 Sep 2024 17:53:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mainlining.org;
- s=psm; t=1727546013;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZSO46y2MsMCH4n0dK8IGiKeBd1ttkG4kqyrsA9j/Hq4=;
- b=I4kUfdc6sg9FvyVB2/m/sDCTm7HrDAsS4AI0dp/yO8e7iGyNDcWxXDrJAMTwFK2YPQJQaP
- tkvBJ96MWbDlUu1tFFL6YCBHOBN01X5oTHcugGECKY8FD1jnLECYaXVg3V3hA9nNsPQ6f3
- hVKT7pmAGC6dctibGKTTd6usR3qE+AaJtLs3QKfiQWRxS+0Q2vtmJ9xCn4fVHCkQk29xMQ
- 2cTb2fPvdvq2ejsVDHXqIn6ArbxvOAnk/S5swYCLEKm+uveIEP2jh1Cp8RK3Uwtq+ovVO/
- dFan15jcMyKm2Bv3KV6rp7xt1N8s652vuyDifo8nBJqpP9WLhNhgbpb2yj0W+w==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A75F10E1B2;
+ Mon, 30 Sep 2024 09:02:25 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48TLv5fF031959;
+ Mon, 30 Sep 2024 09:02:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ FNX5YhowYy+eVjnzuyMs3w2HI0xLolYtOn4aoWW1iOY=; b=JsZUd5fXATgwLzn+
+ mTwWUtQS30MjJNZmzDWLxS+C6dwZsGWElRBv7Dc7Fa64f1DcGp3wf1ifxi9rAGMs
+ Vs5MNLQ6+LUnQ3rUxyRzB/LmyTqhuxD68RdP/mPjPytFxFosvxy/i+L08ySVPUX8
+ W1BIkk822lSuAbU9iuZ4ksRn8RQjb6f/iq7EVLmP43+gKDDtWC9zGriD3VXpew/t
+ MqCD4/fm9uFnHtv4zu0VUObPnM0n8AwC8tIBbBla5s0tGqWUUjVVbYZDS600ZRm4
+ bPSAFnr+sZIiPzv77WkPaMVYUBup47RagmRy83NfXPMMdzw+/a+HpOYJHP4myqSg
+ 4rHudg==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41xaymc4k7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 30 Sep 2024 09:02:10 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48U9291M017417
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 30 Sep 2024 09:02:09 GMT
+Received: from [10.204.67.11] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 30 Sep
+ 2024 02:02:01 -0700
+Message-ID: <6bd73b6e-dde7-4bbf-b367-3479bbedf483@quicinc.com>
+Date: Mon, 30 Sep 2024 14:31:58 +0530
 MIME-Version: 1.0
-Date: Sat, 28 Sep 2024 19:53:33 +0200
-From: barnabas.czeman@mainlining.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Daniel
- Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Konrad Dybcio
- <konrad.dybcio@somainline.org>
-Subject: Re: [PATCH 0/2] Add MSM8996/MSM8953 dpu catalog
-In-Reply-To: <CAA8EJpr0C-gXDoJsStTxJzCMEkbZaPeEAcBES3GqZp1FcKb=4Q@mail.gmail.com>
-References: <20240628-dpu-msm8953-msm8996-v1-0-a31c77248db7@mainlining.org>
- <zeek3j7skstysho5bduxn23xipz3fpqsfwggue66dlyozhepnn@4wnnd7q6xf22>
- <05c1f93940c38087e8d245d2b6bf90e0@mainlining.org>
- <CAA8EJpr0C-gXDoJsStTxJzCMEkbZaPeEAcBES3GqZp1FcKb=4Q@mail.gmail.com>
-Message-ID: <675e6c45a3a2297ccc17aad9de1c802e@mainlining.org>
-X-Sender: barnabas.czeman@mainlining.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] dt-bindings: display/msm: Document MDSS on SA8775P
+To: Bjorn Andersson <quic_bjorande@quicinc.com>
+CC: <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>,
+ <dmitry.baryshkov@linaro.org>, <sean@poorly.run>,
+ <marijn.suijten@somainline.org>, <airlied@gmail.com>,
+ <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <robh@kernel.org>,
+ <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <swboyd@chromium.org>,
+ <konrad.dybcio@linaro.org>, <danila@jiaxyga.com>,
+ <bigfoot@classfun.cn>, <neil.armstrong@linaro.org>,
+ <mailingradian@gmail.com>, <quic_jesszhan@quicinc.com>,
+ <andersson@kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <quic_kalyant@quicinc.com>, <quic_jmadiset@quicinc.com>,
+ <quic_vpolimer@quicinc.com>
+References: <20240926110137.2200158-1-quic_mahap@quicinc.com>
+ <20240926110137.2200158-2-quic_mahap@quicinc.com>
+ <ZvVgmFUs2bwfEoWD@hu-bjorande-lv.qualcomm.com>
+Content-Language: en-US
+From: Mahadevan P <quic_mahap@quicinc.com>
+In-Reply-To: <ZvVgmFUs2bwfEoWD@hu-bjorande-lv.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: YpPzTDr9dkWwX9yJvwLbswVE89-G7XaX
+X-Proofpoint-GUID: YpPzTDr9dkWwX9yJvwLbswVE89-G7XaX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0
+ mlxscore=0 adultscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 mlxlogscore=999
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2408220000 definitions=main-2409300065
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,41 +103,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2024-09-27 18:02, Dmitry Baryshkov wrote:
-> On Fri, 27 Sept 2024 at 17:39, <barnabas.czeman@mainlining.org> wrote:
->> 
->> On 2024-08-01 21:25, Dmitry Baryshkov wrote:
->> > On Fri, Jun 28, 2024 at 04:39:38PM GMT, Barnabás Czémán wrote:
->> >> This patch series add dpu support for MSM8996/MSM8953 devices.
->> >>
->> >> Note, by default these platforms are still handled by the MDP5 driver
->> >> unless the `msm.prefer_mdp5=false' parameter is provided.
->> >
->> > Could you please provide a summary of features actually tested with the
->> > DPU driver? Have you tested YUV output? Have you tested RGB planes?
->> I have checked all planes they are working fine.
->> 
->> > Which LMs have you tested?
->> I have done some more testing and msm8953 LMs are fine but i have 
->> found
->> out
->> on msmm8996 LM_3 and LM_4 is not working as i see in downstream sde 
->> code
->> they are not exists.
->> This kind of messages i got for LM_3 and LM_4
->> [   34.751091] [drm:_dpu_rm_make_reservation] [dpu error]unable to 
->> find
->> appropriate mixers
->> [   34.751112] [drm:dpu_rm_reserve] [dpu error]failed to reserve hw
->> resources: -119
-> 
-> I think LM_3 / LM_4 are WB-only, but I didn't have time to check that.
-> Maybe it's easier to omit them for now.
-> 
-> I hope to get back to those platforms during the forthcoming or the
-> next development cycle, after (hopefully) finishing the HDMI
-> conversion story.
-I have tested MSM8917 and MSM8937 patches they are also working fine
-at least with video mode panels, maybe they can be added for next 
-iteration
-intr_start also should be removed from CTLs.
+
+On 9/26/2024 6:54 PM, Bjorn Andersson wrote:
+> On Thu, Sep 26, 2024 at 04:31:33PM +0530, Mahadevan wrote:
+>> Document the MDSS hardware found on the Qualcomm SA8775P platform.
+>>
+>> Signed-off-by: Mahadevan <quic_mahap@quicinc.com>
+>> ---
+>>
+>> [v2]
+>> - Use fake DISPCC nodes to avoid clock dependencies in dt-bindings. [Dmitry]
+>> - Update bindings by fixing dt_binding_check tool errors (update includes in example),
+>>    adding proper spacing and indentation in binding example, dropping unused labels,
+>>    dropping status disable, adding reset node. [Dmitry, Rob, Krzysztof]
+> No concerns with the changelog, but please adopt b4 (go/upstream has
+> instructions) for sending patches upstream.
+
+
+Sure, will follow while posting next patch.
+
+
+>
+>> ---
+>>   .../display/msm/qcom,sa8775p-mdss.yaml        | 239 ++++++++++++++++++
+>>   1 file changed, 239 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+>> new file mode 100644
+>> index 000000000000..e610b66ffa9f
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+>> @@ -0,0 +1,239 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/display/msm/qcom,sa8775p-mdss.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm Technologies, Inc. SA87755P Display MDSS
+>> +
+>> +maintainers:
+>> +  - Mahadevan <quic_mahap@quicinc.com>
+> Please use Firstname Lastname, if possible
+
+
+My name has only First name,  can I please go ahead with this.
+
+
+>
+>> +
+>> +description:
+>> +  SA8775P MSM Mobile Display Subsystem(MDSS), which encapsulates sub-blocks like
+>> +  DPU display controller, DP interfaces and EDP etc.
+>> +
+>> +$ref: /schemas/display/msm/mdss-common.yaml#
+>> +
+> [..]
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/interconnect/qcom,icc.h>
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/clock/qcom,sa8775p-gcc.h>
+>> +    #include <dt-bindings/interconnect/qcom,sa8775p-rpmh.h>
+>> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+>> +    #include <dt-bindings/power/qcom-rpmpd.h>
+>> +
+>> +    display-subsystem@ae00000 {
+>> +        compatible = "qcom,sa8775p-mdss";
+>> +        reg = <0 0x0ae00000 0 0x1000>;
+> #address-cells and #size-cells are 1 in the example root node, so drop
+> the two 0 entries.
+>
+>> +        reg-names = "mdss";
+>> +
+>> +        /* same path used twice */
+> What do you mean? All three paths below are unique.
+
+
+Yes all three are paths are unique, its same sm8450-mdss.
+Will remove the comment /* same path used twice */.
+
+
+>
+>> +        interconnects = <&mmss_noc MASTER_MDP0 0 &mc_virt SLAVE_EBI1 0>,
+>> +                        <&mmss_noc MASTER_MDP1 0 &mc_virt SLAVE_EBI1 0>,
+>> +                        <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+>> +                        &config_noc SLAVE_DISPLAY_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
+>> +        interconnect-names = "mdp0-mem",
+>> +                             "mdp1-mem",
+>> +                             "cpu-cfg";
+>> +
+>> +
+> Regards,
+> Bjorn
+
+
+Thanks,
+Mahadevan
+
