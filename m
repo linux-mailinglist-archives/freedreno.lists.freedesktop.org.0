@@ -2,85 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DEC798B1A8
-	for <lists+freedreno@lfdr.de>; Tue,  1 Oct 2024 03:10:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5013398B49E
+	for <lists+freedreno@lfdr.de>; Tue,  1 Oct 2024 08:42:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E310410E5B2;
-	Tue,  1 Oct 2024 01:10:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4A4C10E16C;
+	Tue,  1 Oct 2024 06:42:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AfBvX/Dh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KhOmqNeG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBA9F10E5B0;
- Tue,  1 Oct 2024 01:10:35 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-719b17b2da1so3580609b3a.0; 
- Mon, 30 Sep 2024 18:10:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727745035; x=1728349835; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=FvdIF2VgQWMoeFl6FMayPLRYZwY2PqqjPnhpbnh1x7I=;
- b=AfBvX/DhK7C/EHSLBMRziORXWHf+hN30GsZGS5BXJoNuemr0FyO71ce1m0wmeWzyf+
- nBI3u9IA9ldudIE3FxnAkYbesaDyUb4vUc9Z/J/W9KHabqJidp7dSchD6Q8+wry7AdZp
- eikKv4P8c7oikJYD0Cyj1AA/PQK7ErqvRDs1RBZY0m2q+uLeLCCb6KZliP8ohHp7sfsB
- 5LrD4tgf635Fjl7Klxficv5MY/XO3Uralh/7BLDP5jTB1JCG134FX2hqwuIl17SSUpUW
- Q5TOlVD0Iqkjv2vLIVN7osu2o8Q+OuANNNCaCQtEnGAD+fxwurSkfSzT/nXHfhVuAe8B
- p4lQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727745035; x=1728349835;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=FvdIF2VgQWMoeFl6FMayPLRYZwY2PqqjPnhpbnh1x7I=;
- b=HBOWbtq9+jnLNdhgMkUuKXakcug8PyH2KjaJyqmOygbR6nIOZcxPxQaa2un6HIQN8n
- Fc44ib+BYcO5yazELvKGxnF2MUPnEcOKfa3Syj+80YV+fGZNME8nhR3V/M3FANmemu+8
- QlK1qm/J3Nttz35kOi+MbpxjTBsJJ4E/LOgVXjO5+zpJPYbWYWGAbgN1KJg0tUuJNjad
- u/5WYLumppUzr0T5cFJDBxU+lANxp3AtV3TqfprCdLjtn2k7TS34zcjWYI2PDJfAGVsk
- rc7WZTnxn8O4+erIEkA7vB5RpQFoUz37q9yWE0r6+FeT3ORXOMbqcSDPwiO/A7fAZSc9
- Kpgw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUpiCi9aq24peLA8kSzp6yZiehp2zgDzZ/qg1Az4HpJIrCNRW8nU+fOsdBOiHDRnWXQBMakdONrDKM=@lists.freedesktop.org,
- AJvYcCWUcVt5/fb881UVKr5+Qk4FuYHK9mlQSWJy6HmobjL10Z2JrzgXy1Nm+iHf3PY90rLqz9amKlD+9UJT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyuKcHj+kwAtnuVUc5fC07hcx0Kdu0TvsjmK1ntDRdZfUgWUnW5
- 70koZ0CLBFgfyK9p+ZMqRf29JWRjBU5TMHaCm0TcRHbE+ZD6mbku
-X-Google-Smtp-Source: AGHT+IFTZYQuANSJgzSP6qownfZtm4a/W8hkuc2taZdmJPd2TwcsGnJaZRAPmx9ZgrAd8UvhecAJSg==
-X-Received: by 2002:a05:6a00:399e:b0:719:1f10:d1c9 with SMTP id
- d2e1a72fcca58-71b25effee7mr19083355b3a.2.1727745035146; 
- Mon, 30 Sep 2024 18:10:35 -0700 (PDT)
-Received: from archie.me ([103.124.138.155]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-71b26515e40sm6909155b3a.117.2024.09.30.18.10.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 18:10:34 -0700 (PDT)
-Received: by archie.me (Postfix, from userid 1000)
- id 70166451B098; Tue, 01 Oct 2024 08:10:31 +0700 (WIB)
-Date: Tue, 1 Oct 2024 08:10:31 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Antonino Maniscalco <antomani103@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v6 11/11] Documentation: document adreno preemption
-Message-ID: <ZvtMB14Yx5m3TzFJ@archie.me>
-References: <20240926-preemption-a750-t-v6-0-7b6e1ef3648f@gmail.com>
- <20240926-preemption-a750-t-v6-11-7b6e1ef3648f@gmail.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D185310E118;
+ Tue,  1 Oct 2024 06:42:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id BF0A75C541D;
+ Tue,  1 Oct 2024 06:42:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6B1B0C4CEC6;
+ Tue,  1 Oct 2024 06:42:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1727764924;
+ bh=RFBfeiQ3kImiTf9iCh1nA3uLTEXECoQ/rL+Pil+RxJ4=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=KhOmqNeGbIgspQXtvwN5PzW3TXgAKYmIvJjuiO1q7FF0QH1Z54WFynZjWWYedttCM
+ sh23yol9tc2T+NienYPUTr4/CuvdnUn7OXhLkC2g9ykIm/ez6jHAAd51uVl/5fNGjO
+ nBTN9YpRKWLS9G6hPl8XQPTWWdyiJ8xROB9cnQkjqdGbF01JRMmW+vgeBe+kWrDOep
+ DxulkHZZMPG/hO4PKcIOo/S+viS1MK+ul01GBa7NMjhPCM/Xk+syE+tvUI9X8SVYWL
+ 6YLuRZa4FaVpmKJvaqJ8u6s5WjAS4TyWfasNPa3wdvoam8+INGmHSJ0HoZxUG632mJ
+ OeyGGkvM6wt3A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 5D417CEB2E8;
+ Tue,  1 Oct 2024 06:42:04 +0000 (UTC)
+From: Mahadevan via B4 Relay <devnull+quic_mahap.quicinc.com@kernel.org>
+Subject: [PATCH v3 0/5] Display enablement changes for Qualcomm SA8775P
+ platform
+Date: Tue, 01 Oct 2024 12:11:35 +0530
+Message-Id: <20241001-patchv3_1-v3-0-d23284f45977@quicinc.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="N9PoR4/hp1IPn/XU"
-Content-Disposition: inline
-In-Reply-To: <20240926-preemption-a750-t-v6-11-7b6e1ef3648f@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJ+Z+2YC/03Myw6CMBCF4Vchs7ZkpgUEV76HMaSOg50FFwsSE
+ 8K7W125O19y8m8wS1SZ4ZRtEGXVWcchwR0y4OCHhxi9J4NFW2Dj0Ex+4bC6lkyFyDemsmikhvS
+ fonT6/rUu1+Qujr1ZQhT/V7AVEZI75tYiUlkbMs+Xctv74Kfzd+rAOY897PsH/jV1np0AAAA=
+X-Change-ID: 20240930-patchv3_1-600cbc1549e8
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Mahadevan <quic_mahap@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, 
+ Jayaprakash Madisetty <quic_jmadiset@quicinc.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1727764922; l=2620;
+ i=quic_mahap@quicinc.com; s=20241001; h=from:subject:message-id;
+ bh=RFBfeiQ3kImiTf9iCh1nA3uLTEXECoQ/rL+Pil+RxJ4=;
+ b=fKnZ5k6CWZ0PFBIPrYz4dqhEIPGH3wp8wZeAzyc0OGoAcdqef6TraNEIwSEfmKZwkFpmqMHzs
+ MZnQg9eND9eA7Bvp+uMIHt3HyFMvYwGE+Vz7VullWX2aU/kiEqTfgtx
+X-Developer-Key: i=quic_mahap@quicinc.com; a=ed25519;
+ pk=Xc9CA438o9mZKp4uZ8vZMclALnJ8XtlKn/n3Y42mMBI=
+X-Endpoint-Received: by B4 Relay for quic_mahap@quicinc.com/20241001 with
+ auth_id=236
+X-Original-From: Mahadevan <quic_mahap@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,56 +85,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: quic_mahap@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This series introduces support to enable the Mobile Display Subsystem (MDSS)
+and Display Processing Unit (DPU) for the Qualcomm SA8775P target. It
+includes the addition of the hardware catalog, compatible string,
+relevant device tree changes, and their YAML bindings.
 
---N9PoR4/hp1IPn/XU
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+---
+In this series PATCH 5: "arm64: dts: qcom: sa8775p: add display dt nodes for MDSS0 and DPU"
+depends on the clock enablement change:
+https://lore.kernel.org/all/20240816-sa8775p-mm-v3-v1-0-77d53c3c0cef@quicinc.com/
 
-On Thu, Sep 26, 2024 at 11:16:53PM +0200, Antonino Maniscalco wrote:
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
-> +:orphan:
+---
 
-Why don't this be added to toctree in Documentation/gpu/index.rst?
+[v3]
+-Edited copyright for catalog changes. [Dmitry]
+-Fix dt_binding_check tool errors(update reg address as address-cells and
+ size-cells of root node one and maintain the same for child nodes of mdss,
+ added additionalProperties in schema).
+ [Rob, Bjorn, Krzysztof]
+-Add QCOM_ICC_TAG_ACTIVE_ONLY interconnect path tag to mdp0-mem and mdp1-mem
+ path in devicetree. [Dmitry]
+-Update commit subject and message for DT change. [Dmitry]
+-Remove interconnect path tags from dt bindings. (ref sm8450-mdss yaml)
 
-> +
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +MSM Preemtion
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-s/Preemtion/Preemption/
+[v2]
+- Updated cover letter subject and message. [Dmitry]
+- Use fake DISPCC nodes to avoid clock dependencies in dt-bindings. [Dmitry]
+- Update bindings by fixing dt_binding_check tool errors (update includes in example),
+  adding proper spacing and indentation in the binding example, droping unused labels,
+  droping status disable, adding reset node. [Dmitry, Rob, Krzysztof]
+- Reorder compatible string of MDSS and DPU based on alphabetical order.[Dmitry]
+- add reg_bus_bw in msm_mdss_data. [Dmitry]
+- Fix indentation in the devicetree. [Dmitry]
+
+--
+2.34.1
+
+---
+Mahadevan (5):
+      dt-bindings: display/msm: Document MDSS on SA8775P
+      dt-bindings: display/msm: Document the DPU for SA8775P
+      drm/msm: mdss: Add SA8775P support
+      drm/msm/dpu: Add SA8775P support
+      arm64: dts: qcom: sa8775p: add display dt nodes for MDSS0 and DPU
+
+ .../bindings/display/msm/qcom,sa8775p-dpu.yaml     | 122 ++++++
+ .../bindings/display/msm/qcom,sa8775p-mdss.yaml    | 241 ++++++++++
+ arch/arm64/boot/dts/qcom/sa8775p.dtsi              |  89 ++++
+ .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    | 485 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                     |  11 +
+ 8 files changed, 951 insertions(+)
+---
+base-commit: e390603cfa79c860ed35e073f5fe77805b067a8e
+change-id: 20240930-patchv3_1-600cbc1549e8
+
+Best regards,
+-- 
+Mahadevan <quic_mahap@quicinc.com>
 
 
-> +This mechanism can be used by the kernel to switch between rings. Whenev=
-er a
-> +submission occurs the kernel finds the highest priority ring which isn't=
- empty
-> +and preempts to it if said ring is not the one being currently executed.=
- This is
-> +also done whenever a submission completes to make sure execution resumes=
- on a
-> +lower priority ring when a higher priority ring is done.
-
-Do you mean that the kernel finds highest priority ring possible that is not
-empty? What if all these 4 rings are empty?
-
-Confused...
-
---=20
-An old man doll... just what I always wanted! - Clara
-
---N9PoR4/hp1IPn/XU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZvtMAgAKCRD2uYlJVVFO
-owMHAP4ltJaCW82+9wro8f+8pORaq1s0Q0x94xkoLn07LbFABwEA470XBQpKJiVO
-BAaXK0VvHjFWK/2uc+OvsgYu6QucvAM=
-=sjyz
------END PGP SIGNATURE-----
-
---N9PoR4/hp1IPn/XU--
