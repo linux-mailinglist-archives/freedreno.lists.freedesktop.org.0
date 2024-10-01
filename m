@@ -2,86 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9113B98BAD3
-	for <lists+freedreno@lfdr.de>; Tue,  1 Oct 2024 13:18:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3B1398BF87
+	for <lists+freedreno@lfdr.de>; Tue,  1 Oct 2024 16:17:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE8AD10E1E1;
-	Tue,  1 Oct 2024 11:18:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94C6810E637;
+	Tue,  1 Oct 2024 14:17:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nh8UrUvW";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="doOfP70C";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1D6C10E1E1;
- Tue,  1 Oct 2024 11:18:22 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-a8d51a7d6f5so712493066b.2; 
- Tue, 01 Oct 2024 04:18:22 -0700 (PDT)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C888A10E634
+ for <freedreno@lists.freedesktop.org>; Tue,  1 Oct 2024 14:17:01 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-a90188ae58eso712188166b.1
+ for <freedreno@lists.freedesktop.org>; Tue, 01 Oct 2024 07:17:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727781501; x=1728386301; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=M7Y+01ypUJsEmgwdYhnhTchynt4rwwmYzwYQjNI7xpM=;
- b=Nh8UrUvWaypuLQREz98e1RYNxWQi+xWIJLn3ONSmxrsP/Wa63J12U/d5smCBaIL8kt
- bPZmgtf08Ia9yBQB4Rb0tkNMfXKdY5GW/1EoKbU1zkxe6x/aYVnnfNYSFcbpWMrv2e/d
- n7sNCUhPPR8gw30nAxdyT7dqLSxgfjG+rLplB7jgfgjVfcbLzxSpZ9u3/rhVBRDO4eyF
- sxDswafQWiAdISwcraSzSFvqnTKGG1HbvCoX7/YEserfztMwyB8BX/UzPm2OBpQsk572
- Hn0y9nSUKt5XZ5BOwS1HU8EayIVmNYD9MF35PA7JBp8hKioOn9W8yM9ltgPV3OL8nwhz
- mJkQ==
+ d=linaro.org; s=google; t=1727792220; x=1728397020; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=MvAacLaDBceNrpSd1jDzbEXuHGqrT8pU1AHDnl3+2N0=;
+ b=doOfP70C74sHI3iBIN6J7XjEVJFBJS1MoEkiaBa4POOwWOViIdacLIzJ5ocyIa6eQS
+ rsqIl+X1Ve3tZ+OzWDjgxYrcx6biUJQAHI2kDcn8Jbs3M0VC+ntTvxanU3ajf62UnVmh
+ zSt0kWplKDB7KWugtmeJxITNEXwoDmrn81nRp035DaulBzyEH0a9hnY2hy4FXxb0r7g9
+ fCNGXdJC24/JLgc0v21nO67gFRHXVToc7WmsQX9grOMYQFHMZSj0a1mLSeUt8bvz1uF1
+ BJQqVRn2b4PZiFQ8Iigdj8i8EUj4OzDJu5RXJKdD9UplnnmUGW+56duDbGkF++fqmpA/
+ eW8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727781501; x=1728386301;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=M7Y+01ypUJsEmgwdYhnhTchynt4rwwmYzwYQjNI7xpM=;
- b=eXXYxGApy4q6uV62niIObmd3NLAPSQ+ViPYsiaZNe9C2M7IpZKr4Y4efKJoVqQt6uO
- QSWDEf/cKEIB7IjtZXTxb7yg4cF8kfnSymqAV4Cb+f4Rw2P79cHRA7b0E2TnIOFYa6nQ
- 6+Fn57CtrQJV6rxAJutL0oylwlsVHQiQAeLKHI7gH6qUVXgERTUDMy6kKlqqBiuMj/Fv
- 5ujmR7uXVaRyfqshFJXQJNmHsayoHpVWO3cg8sG89+u5fdUW5kD5LWV1ZYHg2iRtdmO8
- 5h/D8ved4LweIVj/vEq993F2l5v/HZoNTCzyg5Wu+f5+S//R7+TyXQfVX/d8mZFd+3Da
- 5LIw==
+ d=1e100.net; s=20230601; t=1727792220; x=1728397020;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MvAacLaDBceNrpSd1jDzbEXuHGqrT8pU1AHDnl3+2N0=;
+ b=CMMKZTwhwALJuMjOulKNYT+DmobQrvRbiyvRwZopfCc8JLxMTnPliL2FLWHseCOqAu
+ ANLgoVLqZWeYuF4djBSP6B+VSRhIxb5i1Qg2fOYca5pexsHsoIANms4RWXqZ4UmkJyl+
+ O5h1ZnY/sS75WxNOuGrXDQiL9qHQmh1c2O7nj2dvlLQEDWjaV6pzI9dIdc3+YgbnVpDz
+ 2TC7IOEqIkUH76n2VTaWLroblDrcm+3rFNKu3FCReazLzWzeaMCGhfR9CgkeFQv4TIcl
+ 56zelJPxLnbOEOfKr30AYDcGj0kfF2MpuIXVAZyHtHdJS/rTocUnP97Oun3zK7YwEDjg
+ +wTQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWe92ojCjiybIzv1P4zPq/6EaLpBXSeFugFMcfuj7iiRPjWhHEJybnvgMldejytIRPyIgxThjOgSSM=@lists.freedesktop.org,
- AJvYcCWjK5n1vT88uDervbBtX4TO3wIkPnUiFY30OF4BpqycUeoiPrnuMkaagAOQnD0gMh/1vqnYWBg9nTdf@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz//44OoD0FPpBSkM8G1n3BuzTSaK3OhO6+tO5FD6KfOmgqAFnF
- +McSScvRw9jxexz2oDD0D7IL0aoH5nflCKyvr5dQgNg1o1eqTaUM
-X-Google-Smtp-Source: AGHT+IEjf7kjW+MgxUTDGHSJNPDYgDC2pVN3zKWGsYHhpG6QGdF/JkSRWRkTQCML9v/lBAseCkcp7g==
-X-Received: by 2002:a17:907:ea7:b0:a8a:8c92:1c76 with SMTP id
- a640c23a62f3a-a93c4961721mr1478843866b.36.1727781500535; 
- Tue, 01 Oct 2024 04:18:20 -0700 (PDT)
-Received: from [192.168.1.17] (host-79-12-161-203.retail.telecomitalia.it.
- [79.12.161.203]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c27ecf90sm694400766b.97.2024.10.01.04.18.19
+ AJvYcCUAVnF/XX6csrl9Uc4TcWLTP93L1VgzJ1KTo7jPEuslDgqoCJeZiBYelCzsq16eo8X5yncH8q15cio=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwwFfgBoxk/ncWeE5odAIr7HvbDQ2Bcrl5LZys73AE/juVB7JKq
+ xKPQh2Kkx8bbldYw19DyOpKZGtzakLqcw0cCB7Uq4a4BkUIIaZ8QzJW6pC+GdnA=
+X-Google-Smtp-Source: AGHT+IFEWffX/CHGY6XoMdO9kdp7HM2GYhPbJlSBDdG8O1hxbquzBTDo/fLcnh7exBe/tUwFPn8yXw==
+X-Received: by 2002:a17:906:db04:b0:a8a:18f9:269f with SMTP id
+ a640c23a62f3a-a93c4c267dfmr1736758766b.60.1727792220071; 
+ Tue, 01 Oct 2024 07:17:00 -0700 (PDT)
+Received: from [127.0.0.1] ([37.155.79.147]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93c2947487sm719545766b.139.2024.10.01.07.16.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Oct 2024 04:18:20 -0700 (PDT)
-Message-ID: <0aab9845-b960-477f-b869-e8d0759c4671@gmail.com>
-Date: Tue, 1 Oct 2024 13:18:18 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 11/11] Documentation: document adreno preemption
-To: Bagas Sanjaya <bagasdotme@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Tue, 01 Oct 2024 07:16:59 -0700 (PDT)
+Date: Tue, 01 Oct 2024 17:16:55 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>, quic_mahap@quicinc.com,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-References: <20240926-preemption-a750-t-v6-0-7b6e1ef3648f@gmail.com>
- <20240926-preemption-a750-t-v6-11-7b6e1ef3648f@gmail.com>
- <ZvtMB14Yx5m3TzFJ@archie.me>
-Content-Language: en-US
-From: Antonino Maniscalco <antomani103@gmail.com>
-In-Reply-To: <ZvtMB14Yx5m3TzFJ@archie.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+CC: Kalyan Thota <quic_kalyant@quicinc.com>,
+ Jayaprakash Madisetty <quic_jmadiset@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_0/5=5D_Display_enablement?=
+ =?US-ASCII?Q?_changes_for_Qualcomm_SA8775P_platform?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <609440b4-e46b-44c6-ba33-c30f4ca8d863@kernel.org>
+References: <20241001-patchv3_1-v3-0-d23284f45977@quicinc.com>
+ <609440b4-e46b-44c6-ba33-c30f4ca8d863@kernel.org>
+Message-ID: <576B115A-CB36-4795-BF23-75EACD0679E5@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,45 +97,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/1/24 3:10 AM, Bagas Sanjaya wrote:
-> On Thu, Sep 26, 2024 at 11:16:53PM +0200, Antonino Maniscalco wrote:
->> +.. SPDX-License-Identifier: GPL-2.0
->> +
->> +:orphan:
-> 
-> Why don't this be added to toctree in Documentation/gpu/index.rst?
+On October 1, 2024 1:16:31 PM GMT+03:00, Krzysztof Kozlowski <krzk@kernel=
+=2Eorg> wrote:
+>On 01/10/2024 08:41, Mahadevan via B4 Relay wrote:
+>> This series introduces support to enable the Mobile Display Subsystem (=
+MDSS)
+>> and Display Processing Unit (DPU) for the Qualcomm SA8775P target=2E It
+>> includes the addition of the hardware catalog, compatible string,
+>> relevant device tree changes, and their YAML bindings=2E
+>>=20
+>> ---
+>> In this series PATCH 5: "arm64: dts: qcom: sa8775p: add display dt node=
+s for MDSS0 and DPU"
+>> depends on the clock enablement change:
+>> https://lore=2Ekernel=2Eorg/all/20240816-sa8775p-mm-v3-v1-0-77d53c3c0ce=
+f@quicinc=2Ecom/
+>>=20
+>
+>b4 diff fails=2E b4 mbox + b4 diff -m also fail=2E Way to make reviewers
+>life more difficult than it should be=2E
+>
+>I'll move this patchset to the bottom of the queue=2E Please in the futur=
+e
+>send patches in standard way, so our tools can handle it easily=2E
 
-Yes so there is existing orphan documentation for msm so my intention 
-was to add it as orphan then eventually send out a series to organize it 
-properly (so creating an msm directory with an index which then points 
-two files we currently have). Does that sound good to you?
+This is the first time I read that using b4 tool is a strong requirement=
+=2E This iteration has been sent using b4, previous, probably, were not=2E=
+=20
 
-> 
->> +
->> +=============
->> +MSM Preemtion
->> +=============
-> s/Preemtion/Preemption/
 
-Thanks for pointing out the typo!
+>
+>Best regards,
+>Krzysztof
+>
 
-> 
-> 
->> +This mechanism can be used by the kernel to switch between rings. Whenever a
->> +submission occurs the kernel finds the highest priority ring which isn't empty
->> +and preempts to it if said ring is not the one being currently executed. This is
->> +also done whenever a submission completes to make sure execution resumes on a
->> +lower priority ring when a higher priority ring is done.
-> 
-> Do you mean that the kernel finds highest priority ring possible that is not
-> empty? What if all these 4 rings are empty?
-> 
-> Confused...
-> 
 
-Yep, if all rings are empty we don't preempt, same as when the highest 
-priority ring is the current one.
-
-Best regards,
--- 
-Antonino Maniscalco <antomani103@gmail.com>
+--=20
+With best wishes
+Dmitry
