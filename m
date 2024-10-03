@@ -2,81 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF01D98EFA8
-	for <lists+freedreno@lfdr.de>; Thu,  3 Oct 2024 14:49:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65FBB98EFAA
+	for <lists+freedreno@lfdr.de>; Thu,  3 Oct 2024 14:49:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42B2710E839;
-	Thu,  3 Oct 2024 12:49:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42CF910E844;
+	Thu,  3 Oct 2024 12:49:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xh9BdgBq";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LgUhfv4L";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D737210E0C0
- for <freedreno@lists.freedesktop.org>; Thu,  3 Oct 2024 02:58:41 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4932njbi020823
- for <freedreno@lists.freedesktop.org>; Thu, 3 Oct 2024 02:58:40 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D87610E0C0
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Oct 2024 02:58:44 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4932npmH025861
+ for <freedreno@lists.freedesktop.org>; Thu, 3 Oct 2024 02:58:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=q87Q2dHuDJxAM/tFgGrfhU
- NvO2zsd1XaxZiQ5xUbYkI=; b=Xh9BdgBqed78RooLrts88+5MfXP1B2E+kA59iY
- fTdK4Ao/Fn6AsaJ5v1uP97tglHAJkFD1tvxi+EA3OV9chymXuzTI+vsEOqKaCDjK
- HDETzGokqN5rp8lyTUP8qFyfp6JV+sI0g1PxvrreKE63zJGd4osqtV8tAbkVa50Q
- OTJZui/ekBfeO3BJV5mAKuGOKder1ycZRATijHx9QqC3CigVgPtMylvx6ocXbuLw
- lb4cLYlq8WxTbh2f78ULFELF00J/8YAb8ywcUM/Qngvl2edn/FoGqRtyj8xvojuB
- ndsIyi1N8a5ALnbyQcrC+tJf6ojouxh1N7r1XV21LuvwT3/Q==
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
- [209.85.160.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41xa67d6ug-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ uB3ZxPTHnAWMaOklWPn7Q1NGeCixNFs2bRfPkU5N7Mc=; b=LgUhfv4LVewn+8bo
+ dx8BfyMbjC81Otuq7Q8YxyCl7xKISjwzBH5oEBxc5oY7opOWy70qUIqaZdWY19g0
+ y9ttpAWqzKa6BrHXTQAOuNBHJ+69Fmfjvq3jyxu3o0UDwhNnPqzrTt/iz4Kk/EAg
+ 49rbUuFCoCPeuPiHmyAAI52uR4ZNIE9UR0v8Ko69F9R56zWATMOEHVRUThKX8Kib
+ mASfJUYdYFzk7+Rimj1bm24jF0ofeMpE8jpKijCMPZRp2IwXtzPXgOSMHtnwr+sj
+ iNxMscIjXOnORIT41K3XsP0KBg9q/KQfEQzaKygrBC1082niU5G6vXChgQKejGEJ
+ d8hR+w==
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
+ [209.85.161.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41xajfn34a-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 03 Oct 2024 02:58:40 +0000 (GMT)
-Received: by mail-oa1-f70.google.com with SMTP id
- 586e51a60fabf-2870466b20eso399927fac.0
- for <freedreno@lists.freedesktop.org>; Wed, 02 Oct 2024 19:58:40 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Oct 2024 02:58:43 +0000 (GMT)
+Received: by mail-oo1-f70.google.com with SMTP id
+ 006d021491bc7-5e1b5b8555fso417009eaf.0
+ for <freedreno@lists.freedesktop.org>; Wed, 02 Oct 2024 19:58:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727924319; x=1728529119;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=q87Q2dHuDJxAM/tFgGrfhUNvO2zsd1XaxZiQ5xUbYkI=;
- b=Y3Qtd80HnXSOtTL+Mygn60gjCLzpvabhQnkbjVPz8NDMGSaWmJBDXdTCVpkEhUDN1z
- noJPL2GPDkB5qkXHTAgHLwvgQA667fzjubsFa1sW94NFjyYwrUOylh7TeMlfGD2JoHRy
- kAFLUrgiyu1X9ZdZN5iTR5bvcJDmaWSOkXshxDEHnF++hF+ZWCOXSUcdjt8FwX3qCoje
- Kac43APADxZ0gVUPxizaCUn10xGKyHxZ2y0YXcBLJw2l93CCV07OU+byZE96LzYqFBDp
- 2S/y0N0KB7LFJAOT7LNBspud7hkxd6J2oMDxjF0qO4x8lUYLkVOuueKrFF7CxKXS3ax2
- r2xQ==
+ d=1e100.net; s=20230601; t=1727924322; x=1728529122;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=uB3ZxPTHnAWMaOklWPn7Q1NGeCixNFs2bRfPkU5N7Mc=;
+ b=aa/PxRur2tjXKcGqU1MaG838Tm7KiFoXe3sQ14jRCY5FwwJ9LTmZ13H7gLLDN2/rKe
+ K4maxeLvo7WGGOsKzJI8LxkUOiKY9IwVCvJbI0Jm+h9nR956KQfnJucs8Q1t0lX8cQtV
+ FyS6Hqzlsofd09NkTiQ/hz1uqgcPO4GKN0S0w4N048D3XBLKDena+jrAw7c9kY/+cOmX
+ NDHlual5nWS5ttss+g4qy9kp2GX8hSG9KFBEhFVXO+giYoH+vRf8Jk2kFgvDJHqU9/2K
+ BpU4KvYSHDI8/emSna93hhn9r3qX9Pnk0vYfh9+YqZIAbaNUHedjM30x4xZ8hxrAB0Z3
+ Ablg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXSIEMvgbqeIxBlTNMXLDyuqmv7W2+TSkUfN6httyJQy4/msCte/D8w0oX+QVuHfpmZwySBTTPSqhQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxmqyC6T4dwL7hLgEPZZVfvXMjFDugSZlm0algN0CjafOA75W4K
- KqFD+uQM1L1hWQ7VtKL7mMtfm8wqhNmDGM3IckPif2gS6pSoGv7PlScGP2qi/hyC5tw9+ZJHpro
- pvQUKPMRkpOkQrZ3CUc26R2MYRnqcG2T69Ui7XwKMdMpTE/qEbDK2HD5/fnhAr8Bq1tfTtF1uJh
- Ji3Y1eAZ21RXNXyy5aMgMTyIfYzy3b
-X-Received: by 2002:a05:6870:a551:b0:277:d790:6e99 with SMTP id
- 586e51a60fabf-287a404ebcemr915309fac.18.1727924319174; 
- Wed, 02 Oct 2024 19:58:39 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEg0JvlIROszA+vBjdJya8knWyGhXAkKydvC9LIezO0qqNQPEf4Qksob0bkVhdDzfAP+Z9+3g==
-X-Received: by 2002:a05:6870:a551:b0:277:d790:6e99 with SMTP id
- 586e51a60fabf-287a404ebcemr915298fac.18.1727924318822; 
- Wed, 02 Oct 2024 19:58:38 -0700 (PDT)
+ AJvYcCXQWttVVmAborntQjoJXHM9R+b18MytRYKzuKADCnyD6Lu0NIx0YjwFiFZB+abXvCl1OLo9ooqnFuE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyv1TpHgSm+YDb/nOgGi45Pwp1rcBPgIyEiaNzSVt+KAFFEWAzz
+ Gb7TLElClrO6YvKXA/61fDzMlTUHlic8xbqjym4QywUMZN8aYHE23gzGyGzMLobUqJYbTgJ8qPt
+ VP5G55zyki93nvH+5OEcQO07NBJcNKu8C5NSDMicKPLeUWYQOLrL2JizfMEmO4gxKtWqoWmE80L
+ 8wdw7NA8Qz/LqQjZXksJi5lkIAYw==
+X-Received: by 2002:a05:6871:8a6:b0:254:affe:5a05 with SMTP id
+ 586e51a60fabf-28788c46d29mr3849544fac.21.1727924321827; 
+ Wed, 02 Oct 2024 19:58:41 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHoRavS3UfpeB3yFBG10czruBQKvndSIjPg0YTRGNfVBE8+yBK/nh/+1v+zCglyQ9P7PQ7tmQ==
+X-Received: by 2002:a05:6871:8a6:b0:254:affe:5a05 with SMTP id
+ 586e51a60fabf-28788c46d29mr3849531fac.21.1727924321543; 
+ Wed, 02 Oct 2024 19:58:41 -0700 (PDT)
 Received: from [192.168.86.60]
  (104-57-184-186.lightspeed.austtx.sbcglobal.net. [104.57.184.186])
  by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-287ab9b5ba5sm188924fac.21.2024.10.02.19.58.37
+ 586e51a60fabf-287ab9b5ba5sm188924fac.21.2024.10.02.19.58.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Oct 2024 19:58:37 -0700 (PDT)
+ Wed, 02 Oct 2024 19:58:39 -0700 (PDT)
 From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Subject: [PATCH RFT 0/2] drm/msm/adreno: Setup SMMU aparture
-Date: Wed, 02 Oct 2024 20:01:31 -0700
-Message-Id: <20241002-adreno-smmu-aparture-v1-0-e9a63c9ccef5@oss.qualcomm.com>
+Date: Wed, 02 Oct 2024 20:01:32 -0700
+Subject: [PATCH RFT 1/2] firmware: qcom: scm: Introduce CP_SMMU_APERTURE_ID
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAsJ/mYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIxNDAwMj3cSUotS8fN3i3NxS3cSCxKKS0qJU3bRU8xTTRMPkJAtjEyWg1oK
- i1LTMCrCx0UpBbiFKsbW1ACRXU2ZrAAAA
+Message-Id: <20241002-adreno-smmu-aparture-v1-1-e9a63c9ccef5@oss.qualcomm.com>
+References: <20241002-adreno-smmu-aparture-v1-0-e9a63c9ccef5@oss.qualcomm.com>
+In-Reply-To: <20241002-adreno-smmu-aparture-v1-0-e9a63c9ccef5@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
@@ -88,34 +88,34 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1016;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2997;
  i=bjorn.andersson@oss.qualcomm.com; h=from:subject:message-id;
- bh=bNYddmgsyW8zpJaljT25nbUCMx0j2dCKdXD1Dvmcx/Y=;
- b=owEBgwJ8/ZANAwAIAQsfOT8Nma3FAcsmYgBm/gkch2/1mQLQC6vdzGTNgJUZUGqjflYJhWQTm
- hKmRcBFeIyJAkkEAAEIADMWIQQF3gPMXzXqTwlm1SULHzk/DZmtxQUCZv4JHBUcYW5kZXJzc29u
- QGtlcm5lbC5vcmcACgkQCx85Pw2ZrcWDMg//QeesKF52cIqBJpczFAINE9i+3Uutx4KLVAMSvm4
- fKb6Yk+MKfdjkxacJjdJvVw2ABwCXsVCZsdi/8e0kk8HuSKKzQytBdZYLXfGMyot0dKLA/uMjds
- apF2Io6qWCaVZrcy/OhMmpjSenKgw5wgtNaiiYJPJ1Nwq+0AFBka7mEHW4nrAv+X4p/1eWpGT/8
- RUu2rrdAwcKQYP8mzky5BCPr7L0nL1W8JjxbfF16dTWSfhzDNNE/+zvnZfDa2aIGmKNqvOPWV7c
- zza70jdEfgL9NBwIS/RezeNiWWtkxf+g9tcKHmQK/maoeGvN8wRshfhccvJOeqHGDQ2u8p8tTez
- z7Dnw3+rr8K0zI7dFlTmJNJqjmC9TD52VHoq3LNByuZzjOpziJ7Av2Rhx8sgwA4kZD5zXtqGtci
- IlZgdT8oz3vIvcsuAw+6trOZfoSsp7zEURhQmXn3hHmphcK6yth4PHSJFT8ohMyuyWGbYP7cEcG
- l624x48xjLA1qZ7HYfa80/kQnGPs2MDnAoVHN6hrE0v10MLk739fUiinOeQNy/cI2tSCmzjnu5f
- WPIxeqJPl6t3O/wIq6jfFMjW0WNQmEOiN8QAikMMQI8QP7RLIybFItf4DshLDCZS3K8rizTjh8C
- crfPs5/ZSyWA48j5qlO8q4HHEAjP6mzDAjclZA8xXeQM=
+ bh=ECeOnqwkL9oJWvy2IoxkgjFotjTcF/KXI8WgJ2j6Ppk=;
+ b=owEBgwJ8/ZANAwAIAQsfOT8Nma3FAcsmYgBm/gkcWIcpdn2/xdWuhuQYvPCj6vFgI+ERHLL5B
+ uxSWZReAIaJAkkEAAEIADMWIQQF3gPMXzXqTwlm1SULHzk/DZmtxQUCZv4JHBUcYW5kZXJzc29u
+ QGtlcm5lbC5vcmcACgkQCx85Pw2ZrcUMmA//eVBu9B7Ev3OMWmjXNH9MrFelo5hICM0seNCG3VO
+ +xJ2dGbDsRl0spsDLFrzU1Zc685JBF2nRUf49/4zzfxNRmatKgP6dl1sLrI7eop/q401e5JyXlI
+ ia82MIwlc9RIXwXJ5qRIK7rWHcSo2jx6LebTAnz6DZibrfxKO4w/F8OI6t7N5Mml0gCncndzk3/
+ D5C4PHwDkPA82gmRS0RxaC/KU8snVqQVN2PeJ9o6LmqA6jGrYJtAQeqY8c1gBVHitOakiWcSctr
+ X4MmOK0eZ/i1XmuSuX3L8c871yghyY6wIW8pxHKzcwOYC49YeKcSSNwZ4KOmMkYBbgBxInZc8Va
+ WOBSsObLppy1VnZnWjSaVCOI2E10xJRzwfw/D1lmcHcMWiEsCJ/S0O+HB0Aj6/ZAnfNxZ9GLE/n
+ 3b5cKMjF5aedpllWqJIPXL4CC6EdZP9iU+Ap9sR62bmmC0FsL62n0W/eslwZetwPWere3fsUSwm
+ jf9eVvc013pwtmg4mnkos3G3GNd6EwhjImSmCbFRaMpLH36WFtbszc2LvCnMQ+NTuIusthd8JTn
+ wUwgZ/tLBEQxZ8S47AHE4GdJmTBh7N+A7lSuBhSeeVaJbHyWkgaOGIexogqcthZLWqvtKGlf02S
+ IR2aCKp0+2A9BHC7dLood5uZVGjvCyQRUwlpn2IuX+V4=
 X-Developer-Key: i=bjorn.andersson@oss.qualcomm.com; a=openpgp;
  fpr=05DE03CC5F35EA4F0966D5250B1F393F0D99ADC5
-X-Proofpoint-GUID: sq8K5wndDNxl55mZQPjVzWPI335z3uTC
-X-Proofpoint-ORIG-GUID: sq8K5wndDNxl55mZQPjVzWPI335z3uTC
+X-Proofpoint-GUID: Gk66n7WzEM5oL0cUGygyGQRPw-zA6Y73
+X-Proofpoint-ORIG-GUID: Gk66n7WzEM5oL0cUGygyGQRPw-zA6Y73
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0
- lowpriorityscore=0 mlxlogscore=884 malwarescore=0 mlxscore=0
- priorityscore=1501 bulkscore=0 clxscore=1011 adultscore=0 suspectscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2408220000 definitions=main-2410030019
+ spamscore=0 mlxlogscore=999
+ impostorscore=0 mlxscore=0 clxscore=1015 priorityscore=1501 adultscore=0
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2408220000
+ definitions=main-2410030018
 X-Mailman-Approved-At: Thu, 03 Oct 2024 12:49:15 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -132,29 +132,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Support for per-page tables requires the SMMU aparture to be setup, on
-some targets this is done statically in firmware, on others it's
-expected to be requested in runtime by the driver, through a SCM call.
+The QCOM_SCM_SVC_MP service provides QCOM_SCM_MP_CP_SMMU_APERTURE_ID,
+which is used to trigger the mapping of register banks into the SMMU
+context for per-processes page tables to function (in case this isn't
+statically setup by firmware).
 
-Marking the series as RFT, as this has been tested on a few different
-modern platforms, but only with Qualcomm presence in EL2.
+This is necessary on e.g. QCS6490 Rb3Gen2, in order to avoid "CP | AHB
+bus error"-errors from the GPU.
+
+Introduce a function to allow the msm driver to invoke this call.
 
 Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 ---
-Bjorn Andersson (2):
-      firmware: qcom: scm: Introduce CP_SMMU_APERTURE_ID
-      drm/msm/adreno: Setup SMMU aparture for per-process page table
+ drivers/firmware/qcom/qcom_scm.c       | 19 +++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.h       |  1 +
+ include/linux/firmware/qcom/qcom_scm.h |  1 +
+ 3 files changed, 21 insertions(+)
 
- drivers/firmware/qcom/qcom_scm.c        | 19 +++++++++++++++++++
- drivers/firmware/qcom/qcom_scm.h        |  1 +
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 10 ++++++++++
- include/linux/firmware/qcom/qcom_scm.h  |  1 +
- 4 files changed, 31 insertions(+)
----
-base-commit: fe21733536749bb1b31c9c84e0b8d2ab8d82ce13
-change-id: 20241002-adreno-smmu-aparture-fe7d5a1cb834
+diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+index 10986cb11ec0..bd633c57b6e8 100644
+--- a/drivers/firmware/qcom/qcom_scm.c
++++ b/drivers/firmware/qcom/qcom_scm.c
+@@ -903,6 +903,25 @@ int qcom_scm_restore_sec_cfg(u32 device_id, u32 spare)
+ }
+ EXPORT_SYMBOL_GPL(qcom_scm_restore_sec_cfg);
+ 
++#define QCOM_SCM_CP_APERTURE_CONTEXT_MASK	GENMASK(7, 0)
++
++int qcom_scm_set_gpu_smmu_aperture(unsigned int context_bank)
++{
++	struct qcom_scm_desc desc = {
++		.svc = QCOM_SCM_SVC_MP,
++		.cmd = QCOM_SCM_MP_CP_SMMU_APERTURE_ID,
++		.arginfo = QCOM_SCM_ARGS(4),
++		.args[0] = 0xffff0000 | FIELD_PREP(QCOM_SCM_CP_APERTURE_CONTEXT_MASK, context_bank),
++		.args[1] = 0xffffffff,
++		.args[2] = 0xffffffff,
++		.args[3] = 0xffffffff,
++		.owner = ARM_SMCCC_OWNER_SIP
++	};
++
++	return qcom_scm_call(__scm->dev, &desc, NULL);
++}
++EXPORT_SYMBOL_GPL(qcom_scm_set_gpu_smmu_aperture);
++
+ int qcom_scm_iommu_secure_ptbl_size(u32 spare, size_t *size)
+ {
+ 	struct qcom_scm_desc desc = {
+diff --git a/drivers/firmware/qcom/qcom_scm.h b/drivers/firmware/qcom/qcom_scm.h
+index 685b8f59e7a6..e36b2f67607f 100644
+--- a/drivers/firmware/qcom/qcom_scm.h
++++ b/drivers/firmware/qcom/qcom_scm.h
+@@ -116,6 +116,7 @@ struct qcom_tzmem_pool *qcom_scm_get_tzmem_pool(void);
+ #define QCOM_SCM_MP_IOMMU_SET_CP_POOL_SIZE	0x05
+ #define QCOM_SCM_MP_VIDEO_VAR			0x08
+ #define QCOM_SCM_MP_ASSIGN			0x16
++#define QCOM_SCM_MP_CP_SMMU_APERTURE_ID		0x1b
+ #define QCOM_SCM_MP_SHM_BRIDGE_ENABLE		0x1c
+ #define QCOM_SCM_MP_SHM_BRIDGE_DELETE		0x1d
+ #define QCOM_SCM_MP_SHM_BRIDGE_CREATE		0x1e
+diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmware/qcom/qcom_scm.h
+index 9f14976399ab..23ec8ee5e49f 100644
+--- a/include/linux/firmware/qcom/qcom_scm.h
++++ b/include/linux/firmware/qcom/qcom_scm.h
+@@ -85,6 +85,7 @@ int qcom_scm_io_writel(phys_addr_t addr, unsigned int val);
+ 
+ bool qcom_scm_restore_sec_cfg_available(void);
+ int qcom_scm_restore_sec_cfg(u32 device_id, u32 spare);
++int qcom_scm_set_gpu_smmu_aperture(unsigned int context_bank);
+ int qcom_scm_iommu_secure_ptbl_size(u32 spare, size_t *size);
+ int qcom_scm_iommu_secure_ptbl_init(u64 addr, u32 size, u32 spare);
+ int qcom_scm_iommu_set_cp_pool_size(u32 spare, u32 size);
 
-Best regards,
 -- 
-Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+2.45.2
 
