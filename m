@@ -2,56 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2473198F4A2
-	for <lists+freedreno@lfdr.de>; Thu,  3 Oct 2024 18:56:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFE6598FAB7
+	for <lists+freedreno@lfdr.de>; Fri,  4 Oct 2024 01:41:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B42A010E23C;
-	Thu,  3 Oct 2024 16:56:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C487F10E9B6;
+	Thu,  3 Oct 2024 23:41:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mUBgoeXr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SCivXwtG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96CE610E23C;
- Thu,  3 Oct 2024 16:55:59 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA69510E9A6;
+ Thu,  3 Oct 2024 23:41:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 30DB3A441AE;
- Thu,  3 Oct 2024 16:55:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECFA5C4CEC5;
- Thu,  3 Oct 2024 16:55:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id F25695C5992;
+ Thu,  3 Oct 2024 23:41:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD0E3C4CEC5;
+ Thu,  3 Oct 2024 23:41:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727974558;
- bh=imNR9DXTopukjHkwo5tclh0f1T0zRA2E8rGys8K3ZBI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=mUBgoeXrHyFZRDnDFpzUHsyrA3zf4FusfHuV2snFvZRImM4+j7hwtqq+ZrBSE5D3n
- +rdmASkKWd/fwNc4EiIKOPcuKRL4ovfbG9e1T9T9utn0siEstG84ngnVYNVQFCKR0H
- a2nMO5EGxHa9Gv8oLd6M163qG4tqe/Oe5OvANnNKq+BwMbj3m9IVAePMwhALF/qYrn
- 77GTVxyHvspOo/svDpB5dNVt4uLddhwrn3bThmnrF22a9wjH96M7wDNnTfJssFDbNi
- VSg4b7UjtZOwHotpEY7baNida1iiOa+A+XTaFlC/g2xvW30DztVq2ee2fMhPjLRbFl
- 5ZyH4Wd0XM2Hw==
-Message-ID: <b084d738-19dd-469a-8ac8-e72c76e0997c@kernel.org>
-Date: Thu, 3 Oct 2024 18:55:52 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT 2/2] drm/msm/adreno: Setup SMMU aparture for
- per-process page table
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ s=k20201202; t=1727998873;
+ bh=izyo/MfvsnXCOlauszx1miz+7Gvkw2ssldnsTvhIVP4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SCivXwtGEbSKeZElFTxVQgRfL5vFjKzc3rrKnIJ0cHYk4TxyrYaf+h5ztyzKen1qb
+ 6Jd4BJh5v+rrRDsxEkIoLCiPUZkH4A6sYe+/BHuVPw8MYatgIDyi7Ge93Qv5b780y8
+ UbvQX3xzVHB9s+RJv999b8M9FBkYfBAzXJOLlug0PlYZA5f01Zkmhd5kkJ0CoSEw36
+ IyqdJ1DHfct/ZqAyyvKWU3zYYkEOAQQgzgmpcK6FeF2dZQyd8RddDUIjbQhvN3Fcj4
+ 6SBKEgq3sZhUpM1FoF2kllCun3EBnM7iyfeekQF1qLHgnJxXBviDnPc+BTywjCHcW7
+ yFQtF2yo6p/wQ==
+Date: Thu, 3 Oct 2024 18:41:12 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org,
+ Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-References: <20241002-adreno-smmu-aparture-v1-0-e9a63c9ccef5@oss.qualcomm.com>
- <20241002-adreno-smmu-aparture-v1-2-e9a63c9ccef5@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konradybcio@kernel.org>
-In-Reply-To: <20241002-adreno-smmu-aparture-v1-2-e9a63c9ccef5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Maxime Ripard <mripard@kernel.org>, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Subject: Re: [PATCH 3/5] dt-bindings: display/msm: merge SM8350 DPU into SC7280
+Message-ID: <172799887185.1833455.5440021996602281505.robh@kernel.org>
+References: <20241003-dt-binding-display-msm-merge-v1-0-91ab08fc76a2@linaro.org>
+ <20241003-dt-binding-display-msm-merge-v1-3-91ab08fc76a2@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241003-dt-binding-display-msm-merge-v1-3-91ab08fc76a2@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,30 +71,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 3.10.2024 5:01 AM, Bjorn Andersson wrote:
-> Support for per-process page tables requires the SMMU aparture to be
-> setup such that the GPU can make updates with the SMMU. On some targets
-> this is done statically in firmware, on others it's expected to be
-> requested in runtime by the driver, through a SCM call.
+
+On Thu, 03 Oct 2024 10:14:20 +0200, Krzysztof Kozlowski wrote:
+> Split of the bindings was artificial and not helping - we end up with
+> multiple binding files for very similar devices thus increasing the
+> chances of using different order of reg and clocks entries.
 > 
-> One place where configuration is expected to be done dynamically is the
-> QCS6490 rb3gen2.
+> Unify DPU bindings of SC7280 and SM8350, because they are the same.
 > 
-> The downstream driver does this unconditioanlly on any A6xx and newer,
-> so follow suite and make the call.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
+>  .../bindings/display/msm/qcom,sc7280-dpu.yaml      |   1 +
+>  .../bindings/display/msm/qcom,sm8350-dpu.yaml      | 120 ---------------------
+>  2 files changed, 1 insertion(+), 120 deletions(-)
+> 
 
-Not all A6xx targets support PPPT (e.g. A619 on SM6375 - but A619 on SM6350
-does..). We already print some error messages when that's the case, I think
-this may add one more.
-
-Nonetheless, I think that sticks to the accepted status quo where lacking
-PPPT is a bug, so..
-
-Tested-by: Konrad Dybcio <konradybcio@kernel.org> # FP5
-Reviewed-by: Konrad Dybcio <konradybcio@kernel.org>
-
-Konrad
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
