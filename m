@@ -2,121 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7698798EFA7
-	for <lists+freedreno@lfdr.de>; Thu,  3 Oct 2024 14:49:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16DA298EFA9
+	for <lists+freedreno@lfdr.de>; Thu,  3 Oct 2024 14:49:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3013C10E00E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6468F10E842;
 	Thu,  3 Oct 2024 12:49:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="chqIecEm";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="jaIPWC0X";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DBD210E0C0
- for <freedreno@lists.freedesktop.org>; Thu,  3 Oct 2024 02:58:48 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4932o1II026034
- for <freedreno@lists.freedesktop.org>; Thu, 3 Oct 2024 02:58:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- lbSF7jHlkaR5xovzGmMq56CCaUsco0zxxJXKbsOr+IA=; b=chqIecEmoTfYtV0m
- QD2D7AQld6dNmElt92FjUtUicC4xVeyuLxdSvc5Qa0o04ya0z6IHj72I1D6BnDta
- uPeO8Mvr8v/kTAsbHxnsJvKuL2K82XtKfJStXa2ubMracmbqDvNQybxdE2mYv+0o
- 2Tb5SdWcy4Oy3nBu56FFcbjy00qlWl7uDDZZcBTt++6QAxW5LmBIHeb/yHYfU87j
- 9eltgaVKlZ3MjbUdkYmb9VIby3jEyP8bWXI7yI4idPd1IVaR4u4OrDc/WuDB9bnq
- gOHjPykszITyMWvjI4+lx6QPHrJzegQniPDNqbsOZb+3JZsuxfuo0R+sJ+c9+PPM
- l1DsdQ==
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
- [209.85.160.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41x9vud7r2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 03 Oct 2024 02:58:47 +0000 (GMT)
-Received: by mail-oa1-f69.google.com with SMTP id
- 586e51a60fabf-27b732ecdaaso483530fac.1
- for <freedreno@lists.freedesktop.org>; Wed, 02 Oct 2024 19:58:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727924325; x=1728529125;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lbSF7jHlkaR5xovzGmMq56CCaUsco0zxxJXKbsOr+IA=;
- b=PqMLpOmInwyP532A0g+bu7hVf0vmmel554banWZj4gTxyYE9uuKRMuISWVfWogSn8Q
- 9vcmJanEXSf7FYwhPQkRAz7glXdYlKq2tU0w/rCVYwMSHWMMV9fPeh0VlDYKOU9oJjn/
- Gix38Q/7ULBUh5cYFINAcwvPWVbCJxL66xV9ljK/g4b308VeHnL9f1fQegVyYFs1fJAp
- zuyQiIpVv7qNuS/uyokaToYBLQMjSOhBPg5qI7cpAz0mi56h9wVMZhUgRVL9nSS2djei
- FA7nhrBTiLltx6DWNsJBWkryk+xv6x0yWULcS65FFuO02hziahNzSAE35CHUjb/edIu7
- G1Dw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXFDj53Hgy2kkNIlqdzIvY4O1PEDXWEbxj3Ml+jbMXPKrffF/2CDOKus82Xsrw9+lZnaSniubYSC2M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzfT+8nNu7KVPQ3k67GZYfZxqfDY6meAGts/4lSMN5E+utVbuaj
- 8lttiBvtDa69qFj+PQXvTnadJT/VAFBRGPYv66f/v73aDaah8M9gHcFjaw/KuyJSjhKVdq9n/RF
- r0//6bsFQik9dMyr0+NOSaw8L7WKWbBXFkqrMdiXnQ8v9oTZDK4SxguWDDIxnrLKv5iPZOeYQ9v
- KSA7KKZvC5XePw6zcVcvN1hylNPA==
-X-Received: by 2002:a05:687c:2c5b:b0:277:e457:6057 with SMTP id
- 586e51a60fabf-28788f4bf55mr3371452fac.44.1727924325204; 
- Wed, 02 Oct 2024 19:58:45 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEslbkkscbIupCM6YFAHuYU1JfX4Afm5uZdwnidaEUekyOLhEtI1qq/CLEky2lu9R/N3g9GLw==
-X-Received: by 2002:a05:687c:2c5b:b0:277:e457:6057 with SMTP id
- 586e51a60fabf-28788f4bf55mr3371438fac.44.1727924324832; 
- Wed, 02 Oct 2024 19:58:44 -0700 (PDT)
-Received: from [192.168.86.60]
- (104-57-184-186.lightspeed.austtx.sbcglobal.net. [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-287ab9b5ba5sm188924fac.21.2024.10.02.19.58.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Oct 2024 19:58:42 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Date: Wed, 02 Oct 2024 20:01:33 -0700
-Subject: [PATCH RFT 2/2] drm/msm/adreno: Setup SMMU aparture for
- per-process page table
+Received: from mslow1.mail.gandi.net (mslow1.mail.gandi.net [217.70.178.240])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82CE810E833;
+ Thu,  3 Oct 2024 12:42:22 +0000 (UTC)
+Received: from relay7-d.mail.gandi.net (unknown [217.70.183.200])
+ by mslow1.mail.gandi.net (Postfix) with ESMTP id B8C27C4E25;
+ Thu,  3 Oct 2024 12:38:42 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 1429220003;
+ Thu,  3 Oct 2024 12:38:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1727959119;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=G1WWqv8PxjeMLKflSPYmbUe7DeomMcAnSm/A8iMPhzI=;
+ b=jaIPWC0Xu79mrXEmZMnQsiXzA9Wr3uoH8MULWQT5IUuNp55G4sX5QevmhszIPLVwNB8KAr
+ O3AkPLtQl5yloTMbuyNDdO+X5TRPKMqYEvSTrAQoGgw5IuBAjgFtNYLiG0d10jUZ4bA3FH
+ m1e4s8kFAAe17/+QzeW38cun4KUy2aCMbNTrAFDwf/82DfLhx3fqZMuDYE4KWwrNFUQiLe
+ EpyU5sN7nS1+Zc1hdPjgaFvbZTVp4v512I9O9Hvnt/yMn7PWEyyffcB8w/4zGq889GcVPI
+ rtotQp17FYcj62LrbVAqrFIRzZevDuIvYg4y31zSeUiM6gR48lVIIrxWlvKtpw==
+Date: Thu, 3 Oct 2024 14:38:35 +0200
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Liviu Dudau <liviu.dudau@arm.com>, Russell King <linux@armlinux.org.uk>,
+ Inki Dae <inki.dae@samsung.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Sandy Huang <hjc@rock-chips.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
+ Zack Rusin <zack.rusin@broadcom.com>, amd-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 2/2] drm: Move crtc->{x, y, mode, enabled} to legacy
+ sub-structure
+Message-ID: <Zv6QF2EmIcogtlLA@louis-chauvet-laptop>
+Mail-Followup-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Inki Dae <inki.dae@samsung.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Sandy Huang <hjc@rock-chips.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
+ Zack Rusin <zack.rusin@broadcom.com>, amd-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, xen-devel@lists.xenproject.org
+References: <20241002182200.15363-1-ville.syrjala@linux.intel.com>
+ <20241002182200.15363-3-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241002-adreno-smmu-aparture-v1-2-e9a63c9ccef5@oss.qualcomm.com>
-References: <20241002-adreno-smmu-aparture-v1-0-e9a63c9ccef5@oss.qualcomm.com>
-In-Reply-To: <20241002-adreno-smmu-aparture-v1-0-e9a63c9ccef5@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1479;
- i=bjorn.andersson@oss.qualcomm.com; h=from:subject:message-id;
- bh=RbbsTxcQGy55FkTg6CEEGqhEsl4ZzuLrgtjdk4G2IrI=;
- b=owEBgwJ8/ZANAwAIAQsfOT8Nma3FAcsmYgBm/gkcRg/Y5KGivcfdeSGJkvp8pEtdIW6yxbLxG
- 8GyBcQb6reJAkkEAAEIADMWIQQF3gPMXzXqTwlm1SULHzk/DZmtxQUCZv4JHBUcYW5kZXJzc29u
- QGtlcm5lbC5vcmcACgkQCx85Pw2ZrcU03xAAqZOMzqIPiya3Ppbf4OVcDQbOrlD+YmTj9ARqMJl
- fYzVwMmwWNYPOAL7IzqyLt8+Ax+FTDtwopgfXtmY87dN/6NsEpuC7sG1XVkRdtxbvrvsWqWEPCr
- nokcf7lY5sVDWtQxdcMhl8TOUIe6at+MnDcbj9uSZ3qK9JiSWXYFzn5syFwz7QiABmjbNmkuZgN
- PNRzH+OLh/yeHP5AkDyDJqbVvTNAipzqXk6yAOV8yIY1WYPmH9MzEuXoJh3p05b4qbTADTJ3zWO
- G1ONmA2aHwvyRkP6YmkaAPCTFH/Uh1oEqEw7/4ftfOfisQazJBKDkWNEQ/Q3s6q+smhuVfLk+gd
- Cdy/38noYbMPzaf16k2OQ6i7mzYtCpFXEhtrjRjohB5XQyr0DzcSGMU4mygHExtHlAviGZb9dyV
- 4ybtfVIs+WVWveOTj4jFtGHrwp5rVJucX+kJcTJjb+kHeAVgsIHXbx4AcXibmaOiwo1gAtV6h+Z
- 2LZoM56C4i+TduAvtGXMiL9pH0xb7fA/EiudQa71FHLgEtxsGMZhL2Wz9mau/hUk2aA4c44UwAR
- DiFA7c5r3qzTUm8N15/BjRKy6bKkippQs+yNh19CRolZP7MBnRAHSGPl0uOLaRmdgtKJaBB7nJT
- uMqxT+jhPd/UfBEjL0Q3Z1Xudz9zz4pq/I3kQ5CLwXb0=
-X-Developer-Key: i=bjorn.andersson@oss.qualcomm.com; a=openpgp;
- fpr=05DE03CC5F35EA4F0966D5250B1F393F0D99ADC5
-X-Proofpoint-GUID: KW73xPelQO7B4_TTVWncghw8L2VjbFMM
-X-Proofpoint-ORIG-GUID: KW73xPelQO7B4_TTVWncghw8L2VjbFMM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 mlxlogscore=999
- lowpriorityscore=0 clxscore=1015 spamscore=0 suspectscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 adultscore=0 mlxscore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2408220000
- definitions=main-2410030019
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20241002182200.15363-3-ville.syrjala@linux.intel.com>
+X-GND-Sasl: louis.chauvet@bootlin.com
 X-Mailman-Approved-At: Thu, 03 Oct 2024 12:49:15 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -133,46 +94,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Support for per-process page tables requires the SMMU aparture to be
-setup such that the GPU can make updates with the SMMU. On some targets
-this is done statically in firmware, on others it's expected to be
-requested in runtime by the driver, through a SCM call.
+Le 02/10/24 - 21:22, Ville Syrjala a écrit :
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> Atomic drivers shouldn't be using the legacy state stored
+> directly under drm_crtc. Move that junk into a 'legacy' sub
+> structure to highlight the offenders, of which there are
+> quite a few unfortunately.
 
-One place where configuration is expected to be done dynamically is the
-QCS6490 rb3gen2.
+Hi,
 
-The downstream driver does this unconditioanlly on any A6xx and newer,
-so follow suite and make the call.
+Do we need to do something particular in an atomic driver except using
+state content?
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+I proposed some modifications for VKMS bellow. If you think this is good,
+I can send a patch to avoid being an offender :-) I just tested it, and it
+seems to work.
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 465a4cd14a43..5b06f7a04fe6 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -572,8 +572,18 @@ struct drm_gem_object *adreno_fw_create_bo(struct msm_gpu *gpu,
- 
- int adreno_hw_init(struct msm_gpu *gpu)
- {
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	int ret;
-+
- 	VERB("%s", gpu->name);
- 
-+	if (adreno_gpu->info->family >= ADRENO_6XX_GEN1) {
-+		/* We currently always use context bank 0, so hard code this */
-+		ret = qcom_scm_set_gpu_smmu_aperture(0);
-+		if (ret)
-+			DRM_DEV_ERROR(gpu->dev->dev, "unable to set SMMU aperture: %d\n", ret);
-+	}
-+
- 	for (int i = 0; i < gpu->nr_rings; i++) {
- 		struct msm_ringbuffer *ring = gpu->rb[i];
- 
+> I'm hoping we could get all these fixed and then declare
+> the legacy state off limits for atomic drivers (which is
+> what did long ago for plane->fb/etc). And maybe eventually
+> turn crtc->legacy into a pointer and only allocate it on
+> legacy drivers.
+> 
+> TODO: hwmode should probably go there too but it probably
+>       needs a closer look, maybe other stuff too...
+
+[...]
+
+> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+> index 57a5769fc994..a7f8b1da6e85 100644
+> --- a/drivers/gpu/drm/vkms/vkms_composer.c
+> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
+> @@ -187,7 +187,7 @@ static void blend(struct vkms_writeback_job *wb,
+>  
+>  	const struct pixel_argb_u16 background_color = { .a = 0xffff };
+>  
+> -	size_t crtc_y_limit = crtc_state->base.crtc->mode.vdisplay;
+> +	size_t crtc_y_limit = crtc_state->base.crtc->legacy.mode.vdisplay;
+
+	size_t crtc_y_limit = crtc_state->base.mode.vdisplay;
+
+>  	/*
+>  	 * The planes are composed line-by-line to avoid heavy memory usage. It is a necessary
+> @@ -270,7 +270,7 @@ static int compose_active_planes(struct vkms_writeback_job *active_wb,
+>  	if (WARN_ON(check_format_funcs(crtc_state, active_wb)))
+>  		return -EINVAL;
+>  
+> -	line_width = crtc_state->base.crtc->mode.hdisplay;
+> +	line_width = crtc_state->base.crtc->legacy.mode.hdisplay;
+
+	line_width = crtc_state->base.mode.hdisplay;
+
+>  	stage_buffer.n_pixels = line_width;
+>  	output_buffer.n_pixels = line_width;
+>  
+> diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
+> index a40295c18b48..780681ea77e4 100644
+> --- a/drivers/gpu/drm/vkms/vkms_crtc.c
+> +++ b/drivers/gpu/drm/vkms/vkms_crtc.c
+> @@ -64,7 +64,7 @@ static int vkms_enable_vblank(struct drm_crtc *crtc)
+>  	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+>  	struct vkms_output *out = drm_crtc_to_vkms_output(crtc);
+>  
+> -	drm_calc_timestamping_constants(crtc, &crtc->mode);
+> +	drm_calc_timestamping_constants(crtc, &crtc->legacy.mode);
+
+	drm_calc_timestamping_constants(crtc, &crtc->state->mode);
+
+>  	hrtimer_init(&out->vblank_hrtimer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+>  	out->vblank_hrtimer.function = &vkms_vblank_simulate;
+> diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
+> index bc724cbd5e3a..27164cddb94d 100644
+> --- a/drivers/gpu/drm/vkms/vkms_writeback.c
+> +++ b/drivers/gpu/drm/vkms/vkms_writeback.c
+> @@ -131,8 +131,8 @@ static void vkms_wb_atomic_commit(struct drm_connector *conn,
+>  	struct drm_connector_state *conn_state = wb_conn->base.state;
+>  	struct vkms_crtc_state *crtc_state = output->composer_state;
+>  	struct drm_framebuffer *fb = connector_state->writeback_job->fb;
+> -	u16 crtc_height = crtc_state->base.crtc->mode.vdisplay;
+> -	u16 crtc_width = crtc_state->base.crtc->mode.hdisplay;
+> +	u16 crtc_height = crtc_state->base.crtc->legacy.mode.vdisplay;
+> +	u16 crtc_width = crtc_state->base.crtc->legacy.mode.hdisplay;
+
+	u16 crtc_height = crtc_state->base.mode.vdisplay;
+	u16 crtc_width = crtc_state->base.mode.hdisplay;
+
+>  	struct vkms_writeback_job *active_wb;
+>  	struct vkms_frame_info *wb_frame_info;
+>  	u32 wb_format = fb->format->format;
+
+[...]
 
 -- 
-2.45.2
-
+Louis Chauvet, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
