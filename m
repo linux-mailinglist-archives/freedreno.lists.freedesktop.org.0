@@ -2,86 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1200399125A
-	for <lists+freedreno@lfdr.de>; Sat,  5 Oct 2024 00:35:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4743D991793
+	for <lists+freedreno@lfdr.de>; Sat,  5 Oct 2024 17:00:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7C8F10E0CB;
-	Fri,  4 Oct 2024 22:35:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E34310E021;
+	Sat,  5 Oct 2024 15:00:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="mSJsj870";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="jZraDx4+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BACD10E00D;
- Fri,  4 Oct 2024 22:35:52 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 494AqPGQ022237;
- Fri, 4 Oct 2024 22:35:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 8vvWlUlBG9LiEOXGXDsCZuQHQTqb1u8zSsuk4WJvbAY=; b=mSJsj87075KRGY5e
- TPQR9IUt9ID9B28wRQMIj+2bd3n/h1tXp7BrO1MmyM42Os8HMnbrcKspokq9qHdm
- Y2GSLrO48Ocxhzhhr1PApAvau4U/kPG8A0sd6P8uQNJ4Fs4sLHU9R+abUOlOWCP9
- LGyHf6KW4Vm5dKnL7liMzVXM9VBGj4Zf4jUUJnOnZtl8YisGZeKNgxDlv0RO2E0W
- XI2vJXTuSlfyjdAKGbmkZJCO02vx1jw2MI0GZlxr6WDC3h2w95w0dHKWXQtsst7a
- RYQbEL88Pdna0LcQbNja8WF56TjALGaMGP/JArPBMa/6wOynIVSWU1lvNcohJ611
- vHEvtA==
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42205dbdjk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 04 Oct 2024 22:35:47 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 494MZksl026135
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 4 Oct 2024 22:35:46 GMT
-Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 4 Oct 2024
- 15:35:46 -0700
-Message-ID: <92d5f299-b931-41a0-a337-001f4a0d9b90@quicinc.com>
-Date: Fri, 4 Oct 2024 15:35:45 -0700
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 810EC10EA09
+ for <freedreno@lists.freedesktop.org>; Fri,  4 Oct 2024 13:41:04 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-42cb7a2e4d6so21944575e9.0
+ for <freedreno@lists.freedesktop.org>; Fri, 04 Oct 2024 06:41:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1728049263; x=1728654063;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=XJJaYG/UjcPI9Vu1xZCbyJCG1qpp93Sl6ieZKzkzV10=;
+ b=jZraDx4+/2JeVPB9eQHaD/wKDKZ8w49NyYg/o3s5htqiL2poho+RoPtnr/youTfkLL
+ OS3ID0+LMHvevMLLo1DJpHbThOJ8U9azULV4YVu9zxP6nrZO/3UitezM+dDZOlIN9BsW
+ GoEJY/Me1kCVPv717QyJROOEYaesacQ44heeq8OfiOfUClB+AjCrkagebD2q/3rtEqZi
+ X79LEKRw1+NX+HnHLBW/wrN9rrdfkahUQSh7LOzLqsBN8GOi8KXrChL+xli5A9Xz0S5M
+ yIsPAadqnWh9fBPrObgTimqQ1oDWQKBgKTgga3kEImUIhD7NRUTV0Ih6AhbCwf4EVBQy
+ UAhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728049263; x=1728654063;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=XJJaYG/UjcPI9Vu1xZCbyJCG1qpp93Sl6ieZKzkzV10=;
+ b=PrLPvL5jmhYI47tImzoxpGZcvAGEujJJhtnuFn/CoRiKOC3U44D+GwPNUG03QhV1DP
+ X7SCBbgKb1lTcMMH76iXTIDlBBNg5hm+L+Gwo+YEJuywE92+LsVzduwJ36mZ5uLs0siM
+ r+fDO+iFQqSRKUkYL/0jCSpoy/MeRs6R44Hr43QJ/i3ioKsl/xF7De1OqRiUREtMnK2R
+ rQRLC62969gl+16Q0JRg3FHKb1QLyW3PBsh7CZFuvhQPl8ImFZDR5MnIpSCCxWDHmGj4
+ +JrCXx3Qad7GnF1RoyFIJeI4iZyS3jkmoXSCugbQW99Yhhuq+jp6A1TySgKzbwI1dAbO
+ DNKA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVDek9ko328lMa+VcBmrHEiL1Rppllxap4dGe0oNc9WINBQimg905oR/nO6TweBXFLwxk9htqUxtEk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyepo3aw3thWbjgIUAzM5QX/0j6wo+YJD3SwKlTh834f5cZxnfx
+ opfOgImwuiR9Fvg6EDf0jWKjOGavuQj8BNaVFDHEkRWJWRyAvulNfEkKWwIcOUI=
+X-Google-Smtp-Source: AGHT+IG4vBGF4NpEzfHeDyzIbE6mmFfjm+kFefPRmd5EuR7GcJ/3YlWKWt2QrBk+FicBBqpl77sSaA==
+X-Received: by 2002:a5d:68cc:0:b0:37c:d20e:37c with SMTP id
+ ffacd0b85a97d-37d0e8de7f9mr1579644f8f.36.1728049262455; 
+ Fri, 04 Oct 2024 06:41:02 -0700 (PDT)
+Received: from [192.168.0.101] ([90.241.98.187])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-37d0822995fsm3291067f8f.38.2024.10.04.06.41.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 04 Oct 2024 06:41:01 -0700 (PDT)
+Message-ID: <6657b080-f41e-4c95-8895-e474f1ca5d57@ursulin.net>
+Date: Fri, 4 Oct 2024 14:41:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT 2/2] drm/msm/adreno: Setup SMMU aparture for
- per-process page table
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-References: <20241002-adreno-smmu-aparture-v1-0-e9a63c9ccef5@oss.qualcomm.com>
- <20241002-adreno-smmu-aparture-v1-2-e9a63c9ccef5@oss.qualcomm.com>
-Content-Language: en-US
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20241002-adreno-smmu-aparture-v1-2-e9a63c9ccef5@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: cmSqWPSkbKUyLnkLWUe45Y7wUrxh-GFk
-X-Proofpoint-ORIG-GUID: cmSqWPSkbKUyLnkLWUe45Y7wUrxh-GFk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 spamscore=0
- phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0
- suspectscore=0 mlxlogscore=999 lowpriorityscore=0 adultscore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410040156
+Subject: Re: [RFC PATCH 1/2] drm/drm_file: Add display of driver's internal
+ memory size
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Melissa Wen <mwen@igalia.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+References: <20241002234531.3113431-1-adrian.larumbe@collabora.com>
+ <20241002234531.3113431-2-adrian.larumbe@collabora.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20241002234531.3113431-2-adrian.larumbe@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sat, 05 Oct 2024 15:00:20 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,59 +101,163 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
+Hi Adrian,
 
-On 10/2/2024 8:01 PM, Bjorn Andersson wrote:
-> Support for per-process page tables requires the SMMU aparture to be
-> setup such that the GPU can make updates with the SMMU. On some targets
-> this is done statically in firmware, on others it's expected to be
-> requested in runtime by the driver, through a SCM call.
+On 03/10/2024 00:45, Adrián Larumbe wrote:
+> Some drivers must allocate a considerable amount of memory for bookkeeping
+> structures and GPU's MCU-kernel shared communication regions. These are
+> often created as a result of the invocation of the driver's ioctl()
+> interface functions, so it is sensible to consider them as being owned by
+> the render context associated with an open drm file.
 > 
-> One place where configuration is expected to be done dynamically is the
-> QCS6490 rb3gen2.
+> However, at the moment drm_show_memory_stats only traverses the UM-exposed
+> drm objects for which a handle exists. Private driver objects and memory
+> regions, though connected to a render context, are unaccounted for in their
+> fdinfo numbers.
 > 
-> The downstream driver does this unconditioanlly on any A6xx and newer,
-> so follow suite and make the call.
+> Add a new drm_memory_stats 'internal' memory category.
 > 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-
-Hi Bjorn,
-
-Tested-by: Jessica Zhang <quic_jesszhan@quicinc.com> # Trogdor (sc7180)
-
-Thanks,
-
-Jessica Zhang
-
+> Because deciding what constitutes an 'internal' object and where to find
+> these are driver-dependent, calculation of this size must be done through a
+> driver-provided function pointer, which becomes the third argument of
+> drm_show_memory_stats. Drivers which have no interest in exposing the size
+> of internal memory objects can keep passing NULL for unaltered behaviour.
+> 
+> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 > ---
->   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 10 ++++++++++
->   1 file changed, 10 insertions(+)
+>   drivers/gpu/drm/drm_file.c              | 6 +++++-
+>   drivers/gpu/drm/msm/msm_drv.c           | 2 +-
+>   drivers/gpu/drm/panfrost/panfrost_drv.c | 2 +-
+>   drivers/gpu/drm/v3d/v3d_drv.c           | 2 +-
+>   include/drm/drm_file.h                  | 7 ++++++-
+>   5 files changed, 14 insertions(+), 5 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 465a4cd14a43..5b06f7a04fe6 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -572,8 +572,18 @@ struct drm_gem_object *adreno_fw_create_bo(struct msm_gpu *gpu,
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index ad1dc638c83b..937471339c9a 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -856,6 +856,7 @@ void drm_print_memory_stats(struct drm_printer *p,
+>   	print_size(p, "total", region, stats->private + stats->shared);
+>   	print_size(p, "shared", region, stats->shared);
+>   	print_size(p, "active", region, stats->active);
+> +	print_size(p, "internal", region, stats->internal);
 >   
->   int adreno_hw_init(struct msm_gpu *gpu)
+>   	if (supported_status & DRM_GEM_OBJECT_RESIDENT)
+>   		print_size(p, "resident", region, stats->resident);
+> @@ -873,7 +874,7 @@ EXPORT_SYMBOL(drm_print_memory_stats);
+>    * Helper to iterate over GEM objects with a handle allocated in the specified
+>    * file.
+>    */
+> -void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
+> +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file, internal_bos func)
 >   {
-> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> +	int ret;
-> +
->   	VERB("%s", gpu->name);
+>   	struct drm_gem_object *obj;
+>   	struct drm_memory_stats status = {};
+> @@ -919,6 +920,9 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
+>   	}
+>   	spin_unlock(&file->table_lock);
 >   
-> +	if (adreno_gpu->info->family >= ADRENO_6XX_GEN1) {
-> +		/* We currently always use context bank 0, so hard code this */
-> +		ret = qcom_scm_set_gpu_smmu_aperture(0);
-> +		if (ret)
-> +			DRM_DEV_ERROR(gpu->dev->dev, "unable to set SMMU aperture: %d\n", ret);
-> +	}
+> +	if (func)
+> +		func(&status, file);
 > +
->   	for (int i = 0; i < gpu->nr_rings; i++) {
->   		struct msm_ringbuffer *ring = gpu->rb[i];
+>   	drm_print_memory_stats(p, &status, supported_status, "memory");
+>   }
+>   EXPORT_SYMBOL(drm_show_memory_stats);
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index edbc1ab0fbc8..2b3feb79afc4 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -880,7 +880,7 @@ static void msm_show_fdinfo(struct drm_printer *p, struct drm_file *file)
 >   
-> 
-> -- 
-> 2.45.2
-> 
-> 
+>   	msm_gpu_show_fdinfo(priv->gpu, file->driver_priv, p);
+>   
+> -	drm_show_memory_stats(p, file);
+> +	drm_show_memory_stats(p, file, NULL);
+>   }
+>   
+>   static const struct file_operations fops = {
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> index 04d615df5259..aaa8602bf00d 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -609,7 +609,7 @@ static void panfrost_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+>   
+>   	panfrost_gpu_show_fdinfo(pfdev, file->driver_priv, p);
+>   
+> -	drm_show_memory_stats(p, file);
+> +	drm_show_memory_stats(p, file, NULL);
+>   }
+>   
+>   static const struct file_operations panfrost_drm_driver_fops = {
+> diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
+> index fb35c5c3f1a7..314e77c67972 100644
+> --- a/drivers/gpu/drm/v3d/v3d_drv.c
+> +++ b/drivers/gpu/drm/v3d/v3d_drv.c
+> @@ -195,7 +195,7 @@ static void v3d_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+>   			   v3d_queue_to_string(queue), jobs_completed);
+>   	}
+>   
+> -	drm_show_memory_stats(p, file);
+> +	drm_show_memory_stats(p, file, NULL);
+>   }
+>   
+>   static const struct file_operations v3d_drm_fops = {
+> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+> index 8c0030c77308..661d00d5350e 100644
+> --- a/include/drm/drm_file.h
+> +++ b/include/drm/drm_file.h
+> @@ -469,6 +469,7 @@ void drm_send_event_timestamp_locked(struct drm_device *dev,
+>    * @resident: Total size of GEM objects backing pages
+>    * @purgeable: Total size of GEM objects that can be purged (resident and not active)
+>    * @active: Total size of GEM objects active on one or more engines
+> + * @internal: Total size of GEM objects that aren't exposed to user space
+>    *
+>    * Used by drm_print_memory_stats()
+>    */
+> @@ -478,16 +479,20 @@ struct drm_memory_stats {
+>   	u64 resident;
+>   	u64 purgeable;
+>   	u64 active;
+> +	u64 internal;
 
+So equally as in the last round of discussion back in June, internal in 
+my mind still does not fit alongside the categories.
+
+Reason is that in some drivers, at least such as i915, "internal" can be:
+
+a) Backed by either system memory or device memory - so this does not 
+provice that visibility;
+
+b) They can also be resident or not, active or not, etc - so from that 
+angle it also does not fit.
+
+Do you lose anything if you add the internal objects into their 
+respective regions and under the existing categories? Like do you have 
+an use case in mind which needs to be able to distinguish between 
+userspace and internal, or the problem simply is internal are 
+unaccounted for?
+
+Regards,
+
+Tvrtko
+
+>   };
+>   
+>   enum drm_gem_object_status;
+>   
+> +typedef void (*internal_bos)(struct drm_memory_stats *status,
+> +			     struct drm_file *file);
+> +
+>   void drm_print_memory_stats(struct drm_printer *p,
+>   			    const struct drm_memory_stats *stats,
+>   			    enum drm_gem_object_status supported_status,
+>   			    const char *region);
+>   
+> -void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file);
+> +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file, internal_bos func);
+>   void drm_show_fdinfo(struct seq_file *m, struct file *f);
+>   
+>   struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flags);
