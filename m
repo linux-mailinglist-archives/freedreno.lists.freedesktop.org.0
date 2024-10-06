@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CCC3992163
-	for <lists+freedreno@lfdr.de>; Sun,  6 Oct 2024 22:51:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C62A992167
+	for <lists+freedreno@lfdr.de>; Sun,  6 Oct 2024 22:51:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3D6B10E2ED;
-	Sun,  6 Oct 2024 20:51:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AAA110E2E9;
+	Sun,  6 Oct 2024 20:51:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="E8MNtkZB";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XS+alPE2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
  [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 655E310E2ED
- for <freedreno@lists.freedesktop.org>; Sun,  6 Oct 2024 20:51:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0484710E2E9
+ for <freedreno@lists.freedesktop.org>; Sun,  6 Oct 2024 20:51:46 +0000 (UTC)
 Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5398cc2fcb7so4136445e87.1
- for <freedreno@lists.freedesktop.org>; Sun, 06 Oct 2024 13:51:30 -0700 (PDT)
+ 2adb3069b0e04-5389fbb28f3so3811856e87.1
+ for <freedreno@lists.freedesktop.org>; Sun, 06 Oct 2024 13:51:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728247888; x=1728852688; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1728247904; x=1728852704; darn=lists.freedesktop.org;
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:message-id:subject:cc:to:from:date:from:to
  :cc:subject:date:message-id:reply-to;
- bh=3HiBKSVX75LHHDNbaC77fS8s37J8jrwJ4P99mtP4pG4=;
- b=E8MNtkZBEkSQgs0deJ4NG/ubat9puzgYcEg96im7KFdXq3RP5C/gujmEMoRWcD/u6W
- sthxomisHWy0KePDreqjnvaJpvxe86Bvb20ZRap1fBJZpMuRYVUrklI3Ta7lA0PnGg+B
- e8SIC8X6F+8yL0/V6tjDPTdtPdZkzCv1SpEPb70cHVwjoshxJRJ3/3h5PG1nwxJc9wqc
- Zuk4lug7D4YzGOqwEO1r1LeRwrPeO14U7NmXb7BstQXWV9eQqV0xvTYnvxXN6KkY/OWS
- kBX0Dk8nRot1t3xmRPHa9of5M+iyJJm802jwKxP0Cc7AfKw2Y2+JdGS1hBsARF19nzjK
- 4ZRA==
+ bh=6fDEjUTjzLtS905mTVQnS2WQIUmuG01B4JauAoWq8Cw=;
+ b=XS+alPE2Sf+daS9TxeyU/N5yFruLVSXJ1K+rtCWPifijt5JJiQE1mxnl7vSaE7OxdB
+ c9jRoM/26tAHFxOz+yrLI6jPNAeokgv6mUz6TwBLHXJYOJX/bl+oPQ4QeBQ2y6HmnU8H
+ RNRHVhNWg5LoNV4jFYO3MDPtOCoGye12/RxSde5XwWrdTwSQW0EopOeSM2+mcHgHO/2P
+ TbyyB2MP5azmZU2JXW0kJnFzINNUkcvISk8ZPQjI90p5DStookAA1VP+Kxp/GOWYjmhx
+ WMxBkUXPucjNXiMhjAYj59k2sGrDm6dDgUtC06gnBaTnLmd2abzU21U1Qq7NpCKE3MxF
+ Ecqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728247888; x=1728852688;
+ d=1e100.net; s=20230601; t=1728247904; x=1728852704;
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3HiBKSVX75LHHDNbaC77fS8s37J8jrwJ4P99mtP4pG4=;
- b=vutJAaaaTe0mdwRp7Pww0/00IAJb1M5mB5QAmThO7p+LlZnF3qjqNVtOd3JQembbdS
- 21Oc6vzffFW9R5ncIVkRp9yt/WceBpvA6ZA2vCHSjvXgUB8j1BV6/E3YcnlPyX8mRoCr
- xyL6jNIOGu29KQ9ZT/RgkQ0jwCrBCZDqUx/oSBZGB3lj/ATa0BgNIBO9WXZO52gSw4BP
- DdjeOok1odElTtWRzXU+TUjAEDSkVjuJlD0dUJze1QXerwJNIM6emKh9vFv+wMWfhQaD
- QTJrMT2tM5/ZeSazh1tQa0q95unUauPj0fcHZFYh0Vy6P+ukXGsncg6TgNY58PpodEPg
- jCkw==
+ bh=6fDEjUTjzLtS905mTVQnS2WQIUmuG01B4JauAoWq8Cw=;
+ b=ardTz+jUR64q825lxYITnzJOBPHCQVUbbklKe799XjXH7HwFKXY56E+IdwtalM+q/X
+ XXCOxtW94FqSdALSoDxIWeFVMyX11+UAPBb2sKYhBqEeqGg/IJ+djJXiGEKKb9btKpA3
+ 0eOmn4mue/bo5d/Nqgk8bedKPBGQ224p+o4MyTeffFlv/sZ89td/TPG9nx6rerefQ/fP
+ vk1NDJTLyJgg3XVQlHcLQ91c4Nu+RGQc67GeoNtTSEEomdYO9KqtHOyECg8zMToSsSgQ
+ S536se0YilbLX4HTWgHr/iMLCpXhRYdFOFfPkgJlyWd16itNyxzYKziQaaALsHFpPbq4
+ PvMA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWFXcVMSsok07rBQ8RLVm08YCgU6sjoViWSoJhUZPnGQ3dOtzoSYV0RRmnkjPypsfRbAgN7aXKCtMY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwFFUuqdHCLHPDV/Mi/O7eckVNBEuuavuWdZCNXE1LIwMtAGLQH
- oAugjaz8/fgMO8TrgsO4dyNzXfnj6opzMMZzRRD+ttxH/tWR64j/q2agI76p2UI=
-X-Google-Smtp-Source: AGHT+IFYj5QIPKepGYx8O1cYCz5bguaSXuH74kBNDjDjaFAC/MHye9Vyl7Zez82XTrTQRF7q0Etevw==
-X-Received: by 2002:a05:6512:230c:b0:52c:df51:20bc with SMTP id
- 2adb3069b0e04-539ab858874mr4118687e87.16.1728247888476; 
- Sun, 06 Oct 2024 13:51:28 -0700 (PDT)
+ AJvYcCUQxJAzPuO1iPgVEV4wCR+6R2cNS+hz01Y84Zx8/C0okx2Gl+prNnvSe3ABv74/XQfqBsSuAZCF5XY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyG5jjNS7U1NCX2mNTJtOvikf9MGkaJS2OhqDxtt87iM21w3I/M
+ 5l5DLHumw2kFp5bnXKA342UHGQ9rT7riKGbWeetQ/3obsAx3MR0D7R6HOS/jUm0=
+X-Google-Smtp-Source: AGHT+IHA1dhDE6pxQBeIXUSkV+5WjaiKuLQOgi9ZWdiP841coIo7OznF4+2/EqVdEHJp5/8gE8mjHw==
+X-Received: by 2002:a05:6512:108e:b0:539:8dde:903e with SMTP id
+ 2adb3069b0e04-539a627badcmr4336222e87.22.1728247904116; 
+ Sun, 06 Oct 2024 13:51:44 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00-89ea-67f6-92cd-b49.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:89ea:67f6:92cd:b49])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539aff23334sm604877e87.184.2024.10.06.13.51.27
+ 2adb3069b0e04-539aff1d298sm611583e87.127.2024.10.06.13.51.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 06 Oct 2024 13:51:28 -0700 (PDT)
-Date: Sun, 6 Oct 2024 23:51:26 +0300
+ Sun, 06 Oct 2024 13:51:43 -0700 (PDT)
+Date: Sun, 6 Oct 2024 23:51:42 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
 Cc: Rob Clark <robdclark@gmail.com>, 
@@ -67,17 +67,16 @@ Cc: Rob Clark <robdclark@gmail.com>,
  David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>, 
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, Konrad Dybcio <konradybcio@kernel.org>
-Subject: Re: [PATCH v2 1/4] drm/msm/dpu: Add support for MSM8996
-Message-ID: <c3fbm76ei3phw5y3nq76q76zkxcytiivdboe2nwifndguz7vun@pt3u6rzqxf77>
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v2 2/4] drm/msm/dpu: Add support for MSM8953
+Message-ID: <awjaaluhzpuuqjeqvcdduxeeqotbuxeqbqd6obhcy74q2qljs6@c5fyet73al2d>
 References: <20240930-dpu-msm8953-msm8996-v2-0-594c3e3190b4@mainlining.org>
- <20240930-dpu-msm8953-msm8996-v2-1-594c3e3190b4@mainlining.org>
+ <20240930-dpu-msm8953-msm8996-v2-2-594c3e3190b4@mainlining.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240930-dpu-msm8953-msm8996-v2-1-594c3e3190b4@mainlining.org>
+In-Reply-To: <20240930-dpu-msm8953-msm8996-v2-2-594c3e3190b4@mainlining.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,36 +92,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Sep 30, 2024 at 08:35:56PM GMT, Barnabás Czémán wrote:
-> From: Konrad Dybcio <konradybcio@kernel.org>
+On Mon, Sep 30, 2024 at 08:35:57PM GMT, Barnabás Czémán wrote:
+> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > 
-> Add support for MSM8996, which - fun fact - was the SoC that this driver
-> (or rather SDE, its downstream origin) was meant for and first tested on.
+> Add support for MSM8953, which has MDP5 v1.16. It looks like
+> trimmed down version of MSM8996. Less SSPP, LM and PP blocks. No DSC,
+> etc.
 > 
-> It has some hardware that differs from the modern SoCs, so not a lot of
-> current structs could have been reused. It's also seemingly the only SoC
-> supported by DPU that uses RGB pipes.
-> 
-> Note, by default this platform is still handled by the MDP5 driver
-> unless the `msm.prefer_mdp5=false' parameter is provided.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> [DB: rebased on top of sblk changes, add dpu_rgb_sblk]
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Acked-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> [Removed intr_start from CTLs config, removed LM_3 and LM_4]
+> [Remove intr_start from CTLs config, reword the commit]
 > Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
 > ---
->  .../drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h    | 338 +++++++++++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  94 ++++++
+>  .../drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h   | 218 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  12 ++
 >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
 >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
 >  drivers/gpu/drm/msm/msm_drv.c                      |   1 +
->  5 files changed, 435 insertions(+)
+>  5 files changed, 233 insertions(+)
 > 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
 
 -- 
 With best wishes
