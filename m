@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 440FA991FED
-	for <lists+freedreno@lfdr.de>; Sun,  6 Oct 2024 19:32:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6E07991FF2
+	for <lists+freedreno@lfdr.de>; Sun,  6 Oct 2024 19:32:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D40210E05F;
-	Sun,  6 Oct 2024 17:32:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C564C10E05F;
+	Sun,  6 Oct 2024 17:32:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="euvjhSlX";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TsmKioV5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4015B10E04B
- for <freedreno@lists.freedesktop.org>; Sun,  6 Oct 2024 17:32:19 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-53959a88668so4439823e87.2
- for <freedreno@lists.freedesktop.org>; Sun, 06 Oct 2024 10:32:19 -0700 (PDT)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 392CF10E05F
+ for <freedreno@lists.freedesktop.org>; Sun,  6 Oct 2024 17:32:44 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2facaa16826so32085771fa.0
+ for <freedreno@lists.freedesktop.org>; Sun, 06 Oct 2024 10:32:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728235937; x=1728840737; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1728235962; x=1728840762; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=JkkTShwqvEkU2pXAQY0BAtAP+96Mr0a+LcjE8tjGdL0=;
- b=euvjhSlXd3IVmG63e8KtaG85ozT1BctPGNhBBOR543kdGL0FwEUO/W6i5pMvbfTvDJ
- TuQ49pQ6fUo7E76f0LRxyKb7O6wBsTGWtLiWi0dYBq3IquHl2RtrXraDrXL5yyJHTzHc
- h165godT0PPtxZS3q9dNi2DQzQK5BlCo0d4XGDHFHukg5Aiqu+mzWAPBiYLVldbybZdk
- NaDOP46I3fMgKt6oYpZQpQzyTNlxQKdMJR6LyNbuvCKJpxGeAJ6sj7EpZENcl7fxKQ5R
- tEQF6a+xF21djTkrWm3/R+TeH90jy7F0vNNwm0izjI1e11bpNQoMM7rSU0gwU8Vd02Cg
- LKsg==
+ bh=r1NxQI5QV4DE8+i0IvHuqmyv/ESZiy42eqq5jBNAK5E=;
+ b=TsmKioV5ACXxu5Uv3h9hBPDhwoXxTl5hhf/1IX+0JJ37pCpPkA1LFf+uwzgy6ZlWJv
+ aFvulU8Ym/X/5S92j98/ZThyH44jjRNOkdBo4YbCdxG7nCoeaGweWVgmXVGP/LpuAJTr
+ S4Wbs++MbusH/Tas8ye+B++alf9P3bwV+iT6axGEz/DIAbbIf6Bx3vo2l0gxZi1ChvzD
+ Qc6DWAB6J/WX6Loj0u69oqr08E+B+RTIDb8EHlvwUxVLGj4rua2nu2fLZusNaYCv7jHA
+ pVp64wADxvtwHlks/CTRfvy8I56hHOTgqHySrp0p5slzlvU2ZIyV/lkXfzMDxdSx64DV
+ 5ttA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728235937; x=1728840737;
+ d=1e100.net; s=20230601; t=1728235962; x=1728840762;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=JkkTShwqvEkU2pXAQY0BAtAP+96Mr0a+LcjE8tjGdL0=;
- b=qC4Qu1ZP5S2PjqAGklt8oDwMTKHLo0NBxU0X2roMEmIdA2ull/FCAvoYpnWd6zS12c
- TcZqgBkXZDPulRJF7axVpPboh9t5HEYqaNhG9lrqYsdLjqWTc8OBsIxcafAqxHFLX3a1
- sjeAL/9BUg6FzsA8K2c9wvsXtTVdGAlm0oU/yhzKKTI/22809KgT97WW2Ejw7hiZJLJm
- mXQXYlpaYg6LUnWGrN40XFvbF4FjRssKrg6NHgWv7ui2oibMyC/TdFnCbdgEQvf6QxtO
- MhwylrJsL14l1dz8VhWUclEzvuBgAMtqRIghk2KB4fNrPLpG/Bk8nBCB0N1qGcLYi1zQ
- Ycew==
-X-Gm-Message-State: AOJu0YxkJH+71Wr1jMq9ysbpJncPcwWGycehB7GVhkSXra2sEmsP+wis
- DOmD6/9RsU3JRoNDKx59/cjhDXTv7Wtm1WqcnNowGsU37kiRhlL5K8x81D0LLUs=
-X-Google-Smtp-Source: AGHT+IGK8Akt1ah5HhrTyw13URk23TpEFUe03bKEw6dqgLZPPsHuJ6XyU8+xsn5SsbthvxzekZGOIA==
-X-Received: by 2002:a05:6512:3c9f:b0:539:8f2d:a3bc with SMTP id
- 2adb3069b0e04-539ab9ec4c3mr4196367e87.49.1728235936960; 
- Sun, 06 Oct 2024 10:32:16 -0700 (PDT)
+ bh=r1NxQI5QV4DE8+i0IvHuqmyv/ESZiy42eqq5jBNAK5E=;
+ b=HaZIZGDzMHvDcvCdXTjG9kW1P8a+V+LRdV5WJT1Nxr+Zqh/NMu1f99MLIqZiILbsfi
+ uVYOfXJJIhb889CMh5L10ApJf3B5dKVAvKfDwUrOj53bYqMpjMu2FLt37oSyrhktZOOo
+ e5BytT4RaU9CkbNcejj3gMnqMzc6QlpNAsYcWfvlcPbtZvOBtny9fpReQXXlemsBj/XH
+ 50hYfQ8flMeHX7agtd+hJkF/amiRqheLGn/1uPYFPyIhUWREjiNVsuoyBbCTRQdeeMRZ
+ az+1CzWM0BtTzwlaQWahGDuSUL0URcniFj9qk1mSKXc947r81VlShY9s8N2NV2JMchie
+ JPtg==
+X-Gm-Message-State: AOJu0YxecdSIDdCVD0WNSxr4yG3wlOn3E1exPlC3lN7iYT8+a5l0p+au
+ cM1j6QIxQQ/xrGax0D8waaHywuUO4z3xTpp7p02iwLDUlVKYaUB/l/4TVUJezEk=
+X-Google-Smtp-Source: AGHT+IG+QwZQ4OCtQHyqoK1+CJ+GHxPI8u5RieuMZEEdbaGmBdONOTKZQW0bvOywQEuMFL4+NafBXw==
+X-Received: by 2002:a05:651c:544:b0:2fa:e658:27a1 with SMTP id
+ 38308e7fff4ca-2faf3c141aamr41730371fa.5.1728235962235; 
+ Sun, 06 Oct 2024 10:32:42 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00-89ea-67f6-92cd-b49.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:89ea:67f6:92cd:b49])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539aff2336fsm572403e87.203.2024.10.06.10.32.16
+ 38308e7fff4ca-2faf9b339b0sm5524611fa.124.2024.10.06.10.32.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 06 Oct 2024 10:32:16 -0700 (PDT)
-Date: Sun, 6 Oct 2024 20:32:15 +0300
+ Sun, 06 Oct 2024 10:32:40 -0700 (PDT)
+Date: Sun, 6 Oct 2024 20:32:38 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Jonathan Marek <jonathan@marek.ca>
 Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
@@ -68,13 +68,15 @@ Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
  <linux-arm-msm@vger.kernel.org>, 
  "open list:DRM DRIVER for Qualcomm display hardware"
  <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] drm/msm/dsi: improve/fix dsc pclk calculation
-Message-ID: <hibhrxq42xoffxa57fckiwbvzjvyzxi4rrtokdpzu533ul3wnb@kas6rhji52mz>
+Subject: Re: [PATCH 2/2] drm/msm/dsi: fix 32-bit signed integer extension in
+ pclk_rate calculation
+Message-ID: <mk5mrypbeeuzhcmqimck42gnykjwj3yz6ua4npkxymrvho6z7i@dvvrxsafqcxj>
 References: <20241005143818.2036-1-jonathan@marek.ca>
+ <20241005143818.2036-2-jonathan@marek.ca>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241005143818.2036-1-jonathan@marek.ca>
+In-Reply-To: <20241005143818.2036-2-jonathan@marek.ca>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,8 +92,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Oct 05, 2024 at 10:38:09AM GMT, Jonathan Marek wrote:
-> drm_mode_vrefresh() can introduce a large rounding error, avoid it.
+On Sat, Oct 05, 2024 at 10:38:10AM GMT, Jonathan Marek wrote:
+> When (mode->clock * 1000) is larger than (1<<31), int to unsigned long
+> conversion will sign extend the int to 64 bits and the pclk_rate value
+> will be incorrect.
+> 
+> Fix this by making the result of the multiplication unsigned.
+> 
+> Note that above (1<<32) would still be broken and require more changes, but
+> its unlikely anyone will need that anytime soon.
 > 
 
 Fixes?
@@ -102,18 +111,18 @@ Fixes?
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 185d7de0bf376..1205aa398e445 100644
+> index 1205aa398e445..a98d24b7cb00b 100644
 > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
 > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -542,7 +542,7 @@ static unsigned long dsi_adjust_pclk_for_compression(const struct drm_display_mo
+> @@ -550,7 +550,7 @@ static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode,
+>  {
+>  	unsigned long pclk_rate;
 >  
->  	int new_htotal = mode->htotal - mode->hdisplay + new_hdisplay;
+> -	pclk_rate = mode->clock * 1000;
+> +	pclk_rate = mode->clock * 1000u;
 >  
-> -	return new_htotal * mode->vtotal * drm_mode_vrefresh(mode);
-> +	return mult_frac(mode->clock * 1000u, new_htotal, mode->htotal);
->  }
->  
->  static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode,
+>  	if (dsc)
+>  		pclk_rate = dsi_adjust_pclk_for_compression(mode, dsc);
 > -- 
 > 2.45.1
 > 
