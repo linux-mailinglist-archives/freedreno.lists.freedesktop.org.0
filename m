@@ -2,81 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6E07991FF2
-	for <lists+freedreno@lfdr.de>; Sun,  6 Oct 2024 19:32:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D5E79920EF
+	for <lists+freedreno@lfdr.de>; Sun,  6 Oct 2024 21:51:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C564C10E05F;
-	Sun,  6 Oct 2024 17:32:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4115F10E19C;
+	Sun,  6 Oct 2024 19:51:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TsmKioV5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xbrl9OuX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
- [209.85.208.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 392CF10E05F
- for <freedreno@lists.freedesktop.org>; Sun,  6 Oct 2024 17:32:44 +0000 (UTC)
-Received: by mail-lj1-f172.google.com with SMTP id
- 38308e7fff4ca-2facaa16826so32085771fa.0
- for <freedreno@lists.freedesktop.org>; Sun, 06 Oct 2024 10:32:44 -0700 (PDT)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
+ [209.85.208.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0CDF10E19C
+ for <freedreno@lists.freedesktop.org>; Sun,  6 Oct 2024 19:51:50 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id
+ 38308e7fff4ca-2fac275471dso36975201fa.0
+ for <freedreno@lists.freedesktop.org>; Sun, 06 Oct 2024 12:51:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728235962; x=1728840762; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1728244309; x=1728849109; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=r1NxQI5QV4DE8+i0IvHuqmyv/ESZiy42eqq5jBNAK5E=;
- b=TsmKioV5ACXxu5Uv3h9hBPDhwoXxTl5hhf/1IX+0JJ37pCpPkA1LFf+uwzgy6ZlWJv
- aFvulU8Ym/X/5S92j98/ZThyH44jjRNOkdBo4YbCdxG7nCoeaGweWVgmXVGP/LpuAJTr
- S4Wbs++MbusH/Tas8ye+B++alf9P3bwV+iT6axGEz/DIAbbIf6Bx3vo2l0gxZi1ChvzD
- Qc6DWAB6J/WX6Loj0u69oqr08E+B+RTIDb8EHlvwUxVLGj4rua2nu2fLZusNaYCv7jHA
- pVp64wADxvtwHlks/CTRfvy8I56hHOTgqHySrp0p5slzlvU2ZIyV/lkXfzMDxdSx64DV
- 5ttA==
+ bh=HLQ0qGbobuBRSeV4tlw8iWIHrFfzRjusLkYkkaznzmM=;
+ b=xbrl9OuXN3Ior/9jIXqvycijKv9SODr1Y0XVOPyz439DpWG9ELGXP8f9N7oeugVK5B
+ TrmRPwdrfMT3tMCDHO2GFS0/vDA5szW+MwqgDd63mKtERLNcCzFg7i8stass9NS55nR1
+ 1mgBN1ex1GNKM8tfflKbRFVS32kY5U5C61OO9NrOpK7r27XNwndlFBe+ENr8bIkMFlUY
+ sTr1xUc3rfedhgoJICjijUhIkeMNNnydeZmPxL0HqgAcBYXGoGhEc3hlfHVu5MIue65n
+ VbXAy0Vi7tMBBVGmsLRhsG8T2ggnqTFLl6dOrTXgwLBPEno62vyw9WpBEVp9VmnEYRjg
+ 8nIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728235962; x=1728840762;
+ d=1e100.net; s=20230601; t=1728244309; x=1728849109;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=r1NxQI5QV4DE8+i0IvHuqmyv/ESZiy42eqq5jBNAK5E=;
- b=HaZIZGDzMHvDcvCdXTjG9kW1P8a+V+LRdV5WJT1Nxr+Zqh/NMu1f99MLIqZiILbsfi
- uVYOfXJJIhb889CMh5L10ApJf3B5dKVAvKfDwUrOj53bYqMpjMu2FLt37oSyrhktZOOo
- e5BytT4RaU9CkbNcejj3gMnqMzc6QlpNAsYcWfvlcPbtZvOBtny9fpReQXXlemsBj/XH
- 50hYfQ8flMeHX7agtd+hJkF/amiRqheLGn/1uPYFPyIhUWREjiNVsuoyBbCTRQdeeMRZ
- az+1CzWM0BtTzwlaQWahGDuSUL0URcniFj9qk1mSKXc947r81VlShY9s8N2NV2JMchie
- JPtg==
-X-Gm-Message-State: AOJu0YxecdSIDdCVD0WNSxr4yG3wlOn3E1exPlC3lN7iYT8+a5l0p+au
- cM1j6QIxQQ/xrGax0D8waaHywuUO4z3xTpp7p02iwLDUlVKYaUB/l/4TVUJezEk=
-X-Google-Smtp-Source: AGHT+IG+QwZQ4OCtQHyqoK1+CJ+GHxPI8u5RieuMZEEdbaGmBdONOTKZQW0bvOywQEuMFL4+NafBXw==
-X-Received: by 2002:a05:651c:544:b0:2fa:e658:27a1 with SMTP id
- 38308e7fff4ca-2faf3c141aamr41730371fa.5.1728235962235; 
- Sun, 06 Oct 2024 10:32:42 -0700 (PDT)
+ bh=HLQ0qGbobuBRSeV4tlw8iWIHrFfzRjusLkYkkaznzmM=;
+ b=hpcC0VsmvpoYFOc9+dGVi8bIe7VooMLRg8hrn2WfOlPHv+IFzpz11DyhmQJLKx/YMp
+ F1TSvKw7uZC2XprGeOXHPUk+cvJ1w4XgdxCMU23HPa0X1VvKfAWzJvGYGbRZJMnYjeHV
+ pJolv6GIxL0CQj/RMB0gXkmT8QqAWVJplTry8TTnrK3WV07pXHr6ZLuU/NOHTn7Ju+Z5
+ 8JBa1VYh0vstoATuK7nlvFfO5VwcamyL5aRzJwfQuF4vy94SUkx2wIJl8k0sV7BrimqR
+ ej5o3/1DrmSWBdo8uC99yU5GnDHuk2GdJigu5h32fw5in1uTOmsHlq9Fn+xmYncBoo+b
+ 97fA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXtiojE5xpewfHisG4ZBr+dECUGZVB40pv+on7Ia2FW3k2sOXHZ0Mz6F/fx3zB44JT7imrmfebtu64=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzer+t4UTQSK3zDJHc56sCgkoUn671DYpfLmYWWrRxAooPWbMHe
+ 6ms5UZDd/p34VP5C08kIMeYpuEbWkxjjFXARrXkunbh9g5+V6301scwRsGfpGps=
+X-Google-Smtp-Source: AGHT+IGRatu8NXdtFSTYD4sGTrAK8KQ3y0hxb5hgGzJcApZ29zymfe86p3XYxT0wL94dtWg73UlkWQ==
+X-Received: by 2002:a05:651c:b2c:b0:2ef:2c40:dd67 with SMTP id
+ 38308e7fff4ca-2faf3914675mr32011581fa.3.1728244308751; 
+ Sun, 06 Oct 2024 12:51:48 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00-89ea-67f6-92cd-b49.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:89ea:67f6:92cd:b49])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2faf9b339b0sm5524611fa.124.2024.10.06.10.32.39
+ 38308e7fff4ca-2faf9b329dbsm5920091fa.105.2024.10.06.12.51.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 06 Oct 2024 10:32:40 -0700 (PDT)
-Date: Sun, 6 Oct 2024 20:32:38 +0300
+ Sun, 06 Oct 2024 12:51:47 -0700 (PDT)
+Date: Sun, 6 Oct 2024 22:51:44 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jonathan Marek <jonathan@marek.ca>
-Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- "open list:DRM DRIVER for Qualcomm display hardware"
- <linux-arm-msm@vger.kernel.org>, 
- "open list:DRM DRIVER for Qualcomm display hardware"
- <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] drm/msm/dsi: fix 32-bit signed integer extension in
- pclk_rate calculation
-Message-ID: <mk5mrypbeeuzhcmqimck42gnykjwj3yz6ua4npkxymrvho6z7i@dvvrxsafqcxj>
-References: <20241005143818.2036-1-jonathan@marek.ca>
- <20241005143818.2036-2-jonathan@marek.ca>
+To: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
+Cc: vkoul@kernel.org, kishon@kernel.org, konradybcio@kernel.org, 
+ andersson@kernel.org, simona@ffwll.ch, abel.vesa@linaro.org,
+ robdclark@gmail.com, 
+ quic_abhinavk@quicinc.com, sean@poorly.run, marijn.suijten@somainline.org, 
+ airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, quic_khsieh@quicinc.com, konrad.dybcio@linaro.org, 
+ quic_parellan@quicinc.com, quic_bjorande@quicinc.com,
+ linux-arm-msm@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ quic_riteshk@quicinc.com, quic_vproddut@quicinc.com
+Subject: Re: [PATCH v4 5/5] drm/msm/dp: Add DisplayPort controller for SA8775P
+Message-ID: <wdslr77zwyyyesf47qmem3wmextrjfh5do4ckrk6vvzeqwi5gu@x3sxgiusspqp>
+References: <20241004103046.22209-1-quic_mukhopad@quicinc.com>
+ <20241004103046.22209-6-quic_mukhopad@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241005143818.2036-2-jonathan@marek.ca>
+In-Reply-To: <20241004103046.22209-6-quic_mukhopad@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,39 +96,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Oct 05, 2024 at 10:38:10AM GMT, Jonathan Marek wrote:
-> When (mode->clock * 1000) is larger than (1<<31), int to unsigned long
-> conversion will sign extend the int to 64 bits and the pclk_rate value
-> will be incorrect.
+On Fri, Oct 04, 2024 at 04:00:46PM GMT, Soutrik Mukhopadhyay wrote:
+> The Qualcomm SA8775P platform comes with 2 DisplayPort controllers
+> for each mdss, having different base offsets than the previous
+> SoCs. The support for all 4 DPTX have been added here, and
+> validation of only MDSS0 DPTX0 and DPTX1 have been conducted.
 > 
-> Fix this by making the result of the multiplication unsigned.
-> 
-> Note that above (1<<32) would still be broken and require more changes, but
-> its unlikely anyone will need that anytime soon.
-> 
-
-Fixes?
-
-> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> v2: No change
 > 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 1205aa398e445..a98d24b7cb00b 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -550,7 +550,7 @@ static unsigned long dsi_get_pclk_rate(const struct drm_display_mode *mode,
->  {
->  	unsigned long pclk_rate;
+> v3: Fixed review comments from Konrad and Bjorn
+> 	-Added all the necessary DPTX controllers for this platform.
+> 
+> v4: Updated commit message
+> 
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index e1228fb093ee..2195779584dc 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -118,6 +118,14 @@ struct msm_dp_desc {
+>  	bool wide_bus_supported;
+>  };
 >  
-> -	pclk_rate = mode->clock * 1000;
-> +	pclk_rate = mode->clock * 1000u;
+> +static const struct msm_dp_desc sa8775p_dp_descs[] = {
+> +	{ .io_start = 0xaf54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
+> +	{ .io_start = 0xaf5c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
+> +	{ .io_start = 0x22154000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
+> +	{ .io_start = 0x2215c000, .id = MSM_DP_CONTROLLER_3, .wide_bus_supported = true },
+
+Please take a look at other device descriptions in the file, note the
+difference and fix your DP description accordingly.
+
+> +	{}
+> +};
+> +
+>  static const struct msm_dp_desc sc7180_dp_descs[] = {
+>  	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
+>  	{}
+> @@ -162,6 +170,7 @@ static const struct msm_dp_desc x1e80100_dp_descs[] = {
+>  };
 >  
->  	if (dsc)
->  		pclk_rate = dsi_adjust_pclk_for_compression(mode, dsc);
+>  static const struct of_device_id dp_dt_match[] = {
+> +	{ .compatible = "qcom,sa8775p-dp", .data = &sa8775p_dp_descs },
+>  	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_descs },
+>  	{ .compatible = "qcom,sc7280-dp", .data = &sc7280_dp_descs },
+>  	{ .compatible = "qcom,sc7280-edp", .data = &sc7280_dp_descs },
 > -- 
-> 2.45.1
+> 2.17.1
 > 
 
 -- 
