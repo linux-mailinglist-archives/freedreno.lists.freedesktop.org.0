@@ -2,82 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E452A992D00
-	for <lists+freedreno@lfdr.de>; Mon,  7 Oct 2024 15:19:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B52E993B43
+	for <lists+freedreno@lfdr.de>; Tue,  8 Oct 2024 01:37:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD60110E390;
-	Mon,  7 Oct 2024 13:19:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 094F910E02B;
+	Mon,  7 Oct 2024 23:37:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Z9Ce8GHF";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="K7FtNjOA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3115D10E357
- for <freedreno@lists.freedesktop.org>; Mon,  7 Oct 2024 13:19:10 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-5398a26b64fso4262312e87.3
- for <freedreno@lists.freedesktop.org>; Mon, 07 Oct 2024 06:19:10 -0700 (PDT)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3540710E02B
+ for <freedreno@lists.freedesktop.org>; Mon,  7 Oct 2024 23:37:07 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-539908f238fso5588465e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 07 Oct 2024 16:37:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728307148; x=1728911948; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=0xLf663k7Unb9yQSVk3+yd3X5tyISjr5HvAhl1UQ5jk=;
- b=Z9Ce8GHFHdHpRzSHLWuGQvH0LTPFc2tDSHYcZctWKi5QwovsygKJ73ANXwL0XrSSqY
- 5RGUwT5lzdV0ICroB8Px8Ww71IwoRg17kBh+5bLcsfLAFQzwNh2NDopC2eHqgaXb0aOz
- PM/QgbqEJC+1PwiC/Yo6BmurMc0OSh67VfSLuIx09ip8QKk6lOsln2u/HQmgI/mIORZ7
- 3mUUKSH/XaQGFU/HKOtkVBhKXR5MiewU202UFC8aWwiKocppVo4762xJhOkX0HVkD9OF
- 28KIqkSXrV0a5y49ZTnB7jf3KztLsCGmDPPL/xls2UVpd3dQ8LxQ4E+SqeUtOZvSgtod
- nI1w==
+ d=linaro.org; s=google; t=1728344225; x=1728949025; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=1fSRcSeGkRbRggdwy/ysIZu2Q9Wo+gAgEeX3VDGQ66A=;
+ b=K7FtNjOA79p944GeGjnHAGuKa9+DmmKLUpoS3sw5b5NcF0PFJ8RbpUwglR4lu4hagW
+ 7O7YPaHRZGd6Hpar19a15UXcLvDQVEnP+FRD0bR2qIOkXfYqDRGnBuM5qLrXlpPb/dKv
+ g+nNEY7aSlX6hAfd1HUymydkbp1ZJRFIrREy50R752T/FaQVHRuL110CmrXtXZ6EjGNa
+ rOX1jQ/ozHltcaDi3KnyFKEP63gQB3cytZurHBMVAQ65kfgvTMVQGLuIuKQfL4vqeUxX
+ EsYKiNpuEXwiDBpbYkdxRJRdMSHTt5fQG5DG9n+wcnbrz6tSFCyNtJ1uv7yK788BYGIX
+ XO3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728307148; x=1728911948;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0xLf663k7Unb9yQSVk3+yd3X5tyISjr5HvAhl1UQ5jk=;
- b=LZ9Tc5y68ZLaQ8DxOBvLF86jQzCrVG5H6hpHsLFHbQKf3dcbBjN9zig8fEiT0C1EVC
- 1ExHo6OQnqzK+M7T5+0sLIqCRAlwlzGn7Xdj3xa7ULBu8NASJTns+0ar3YmDVkJaAUIA
- R+Oe39SuMcIDp84tSe1WU1C871GdCXo3YoJhZXVlkMcAAshrcph2Ha3t0zkv1Ert9i81
- cKFOCVQTeZOCHn6lk+uyqB/kx6G3gfE4WcSouiE38Cqi38hfE+c3YjC9970gz40GxSM8
- YVBwtI/rkXB2e7Sa2uX+s2J+siQBqMJaoGiRidUhYtHWq2g2yLWqrjNBA5rfXlyLeQpx
- SSHg==
-X-Gm-Message-State: AOJu0YyyZCLT9I9eku7vwjpPcFXCNtKZ8XrZb5G9QV8vcm7w0Fshm6W2
- geE/Cr7a0diaaVozYlf5MbGakfLjTf8xdp2ts6P6UO0FMLAkf8XhAP6coAnWRw0TUhx1AnqM8Tx
- IISgm3Pie
-X-Google-Smtp-Source: AGHT+IGYvxRBROgH87NQ+TOEw0fRmb9P07SdQ3NJxECmesIK4Eck3W4jA2bZJ7wyTSLJn8CYPOwSVw==
-X-Received: by 2002:a05:6512:220d:b0:52c:df6f:a66 with SMTP id
- 2adb3069b0e04-539ab9f1187mr5089552e87.58.1728307148223; 
- Mon, 07 Oct 2024 06:19:08 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00-89ea-67f6-92cd-b49.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:89ea:67f6:92cd:b49])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539afec847bsm840205e87.96.2024.10.07.06.19.07
+ d=1e100.net; s=20230601; t=1728344225; x=1728949025;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=1fSRcSeGkRbRggdwy/ysIZu2Q9Wo+gAgEeX3VDGQ66A=;
+ b=oHAov9ck5Tpf+P6FfrMd/L+5IRx1jHDc7j1bJrlMbrxi5NwAABq1TnRUZ0hS8skR6x
+ 5KzPdvC/kGJMCwXJz7niWymd+591tPcVKUtqakm8dgn0XPbFIt8STe2//UT6PYqnqwg+
+ GrJo3+awKZEC/qHDlihhiER9eNoZZrIKHYbbqn3XvilB5S+iwS7VWY6rx0vqZXAi9pyf
+ eN5Kxf4nBCFD2jIXcuOuT3FT2yBdSLJFUzXhlzeA07jxF15bzX21FneqZ7QBQAkSZLyC
+ EjTVCuPBNxqR8yKO2TwcfZUEemOMQCxeuFyj/VJtHq3C5QypcPUqIliLatIgAb3v4w49
+ PViQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXdZIk2OB8RJwKV2+mtwKO3lcVWwzuXjDIqlp16h/luDkIpGM+HSMfoiqfyoyOE38Kki7U7JqDRi5s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsuJM4z6vF1hfAYuMPpgf3I8CyqbgivyEDsRWSvLoqtaIcixsj
+ 6wWe151QmStjGBJ0ecE62llTc7Ih1G32TGufMxtBNAlj/PPIQ6TvUswYQg6GGwTSiuKpOhq3pk5
+ tnuY=
+X-Google-Smtp-Source: AGHT+IEKBnRIH5K44aS2nOdoaBpOvH88lb5K3oEWjkImbVEnflhPxXCkueBLYqrqC6/zh6K6cy9G1g==
+X-Received: by 2002:a05:6512:114c:b0:533:4477:28a2 with SMTP id
+ 2adb3069b0e04-539ab8780damr7036857e87.16.1728344225277; 
+ Mon, 07 Oct 2024 16:37:05 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-539afec1300sm1002256e87.17.2024.10.07.16.37.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Oct 2024 06:19:07 -0700 (PDT)
-Date: Mon, 7 Oct 2024 16:19:06 +0300
+ Mon, 07 Oct 2024 16:37:03 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jonathan Marek <jonathan@marek.ca>
-Cc: freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, Sibi Sankar <quic_sibis@quicinc.com>, 
- "open list:DRM DRIVER for Qualcomm display hardware"
- <linux-arm-msm@vger.kernel.org>, 
- "open list:DRM DRIVER for Qualcomm display hardware"
- <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] drm/msm/dsi: fix 32-bit signed integer extension
- in pclk_rate calculation
-Message-ID: <uuotcdtdnh7u6emjozmxicvdmaeztrdfa72bxl7w2elzanf3qc@2q4nip75flsx>
-References: <20241007050157.26855-1-jonathan@marek.ca>
- <20241007050157.26855-2-jonathan@marek.ca>
+Subject: [PATCH 0/2] arm64: dts: qcom: sm8[56]50: correct MDSS
+ interconnects
+Date: Tue, 08 Oct 2024 02:36:58 +0300
+Message-Id: <20241008-fix-sm8x50-mdp-icc-v1-0-77ffd361b8de@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241007050157.26855-2-jonathan@marek.ca>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJpwBGcC/x2MywqAIBAAfyX23MKqFdKvRAfRrfbQA4UQxH9PO
+ g7MTIHEUTjB3BWI/EqS+2qg+g784a6dUUJj0KQHRTThJhnTafNIeIYHxXtUxrotEJM1Dlr4RG7
+ WP13WWj87e/9iZAAAAA==
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Rob Clark <robdclark@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ stable@kernel.org
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=961;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=o1k0wd1xsMtQeGmlnJ4QiwL63SP7QPaIFJFOs+lOBAA=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnBHCe/xZ7GoUUEaJ/JKl6meVKRt15m1nEqLN9a
+ bj4GdKb5+OJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZwRwngAKCRCLPIo+Aiko
+ 1YkIB/9WbnPRqwRo0MjW4kelSSSk1Wuay9knh6ZTdgMzkthGbE11d8dPHDo2WXt4H3W7LWG8G5k
+ H4urwAcS5IDqOEM7sYe3YFAe1bQrVbvKaHCsDmhPFBp5eAKCoGYHS4iKZEY2ROVQ5X8Hafa7hDz
+ IWA13An17oOcwZOek7Ejo4v4keG11f6hXB9ZQGeNj8q/2Dt/S36MrXLZ8H/Vdl+7+q/nlkpOKjv
+ ba61V3tL0DKIi2Cfn8M76FE4/Rsfg7nOTSOggdPhqJTxaN3jNzq1WQFa8IEcGuf9Sh/I6la4f24
+ I43j2ZGs4Q73fFlX4pi2audZOoyq7IOlQs17mKZ4dlJDsp78
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,25 +105,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 07, 2024 at 01:01:49AM GMT, Jonathan Marek wrote:
-> When (mode->clock * 1000) is larger than (1<<31), int to unsigned long
-> conversion will sign extend the int to 64 bits and the pclk_rate value
-> will be incorrect.
-> 
-> Fix this by making the result of the multiplication unsigned.
-> 
-> Note that above (1<<32) would still be broken and require more changes, but
-> its unlikely anyone will need that anytime soon.
-> 
-> Fixes: c4d8cfe516dc ("drm/msm/dsi: add implementation for helper functions")
-> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+Both SM8550 and SM8650 misuse mdp1-mem interconnect path for the
+LLCC->EBI path, while it should only be used for the MDP->EBI paths.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+This kind of misuse can result in bandwidth underflows, possibly
+degradating picture quality as the required memory bandwidth is divided
+between all mdpN-mem paths (and LLCC-EBI should not be a part of such
+division).
 
+Drop mdp1-mem paths and use MDP-EBI path directly.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (2):
+      arm64: dts: qcom: sm8550: correct MDSS interconnects
+      arm64: dts: qcom: sm8650: correct MDSS interconnects
+
+ arch/arm64/boot/dts/qcom/sm8550.dtsi | 5 ++---
+ arch/arm64/boot/dts/qcom/sm8650.dtsi | 5 +----
+ 2 files changed, 3 insertions(+), 7 deletions(-)
+---
+base-commit: 58ca61c1a866bfdaa5e19fb19a2416764f847d75
+change-id: 20241006-fix-sm8x50-mdp-icc-138afd0e083a
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
