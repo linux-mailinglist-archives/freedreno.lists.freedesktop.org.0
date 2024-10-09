@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 709299963CE
-	for <lists+freedreno@lfdr.de>; Wed,  9 Oct 2024 10:51:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DE559963D1
+	for <lists+freedreno@lfdr.de>; Wed,  9 Oct 2024 10:51:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DB7110E6A4;
-	Wed,  9 Oct 2024 08:51:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF25110E6A5;
+	Wed,  9 Oct 2024 08:51:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="F5zXvJup";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="c5FfxcAr";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D55E10E6A0
- for <freedreno@lists.freedesktop.org>; Wed,  9 Oct 2024 08:51:07 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-2e09f67bc39so5465698a91.1
- for <freedreno@lists.freedesktop.org>; Wed, 09 Oct 2024 01:51:07 -0700 (PDT)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC70510E6A5
+ for <freedreno@lists.freedesktop.org>; Wed,  9 Oct 2024 08:51:13 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-2e28ba2d96aso1268457a91.3
+ for <freedreno@lists.freedesktop.org>; Wed, 09 Oct 2024 01:51:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728463867; x=1729068667; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1728463873; x=1729068673; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Xeuc89940OyZEzmfZGsShlcWun218secJztkD+/huVg=;
- b=F5zXvJupvZbVwXkjSSIqKwLPw3YFevOhIzf0m//A5NP2XoA6BVb36FA0m5m49eG20t
- BSnH8wIY071er8A6YLL5Zej82rKHW4G1VIQD+LxqGENvibVMxjlAwBudofGoSMyGDoUx
- VO4n/S5DycuA3V+6A66MpG8DLs3gcCTYUzTONrSxoRWZlRcR7NDDd2iVYV+P44eChYId
- y4XnXgvueRiSH0L/OBRCWTAl7kpmr3wNX1qoZ2iEQpZhKofOTSereDhKgtLz8KPfKqJQ
- ux4dtD2zu4sTZb/6AOv3iGFRgVzZjSN5PFCW151pq0aOQ9ZxZeesBerVl6sC5rzkbyiT
- wdhg==
+ :reply-to; bh=lGPiijXBHhXZLgDLI4yCnvpkLyy91sdQEmrQWlXpxFs=;
+ b=c5FfxcAr/3nLYOpBYXmiYcFSr6+ngse2GQWHPDZNLjnpPCBDsVkWXwbnPtnm34f+LH
+ c2JLG53PasgsEDthL+I8qlC+Npy98jS4Y30MsEzmoVG2leWDQvbh8KduUlnzt2lqzCJh
+ OsoMFcSwO//EEajjmbAdKgUjrKcvES9wTGijsv20Q/n+s/Lq27Of1uOjCJGGm0TTkumJ
+ smaRph5uuP4jSWM2n5UVS4lgLBeihKqfedwFGBzpezZPCqiNaZA75yEFNNrGCyZ/kkTo
+ ldKuvgmWy1nWqYekpFEzcQ29XFptf1vba3rmBwl/yMcMZBkV01eLePyAgircaCafdBQr
+ 3SPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728463867; x=1729068667;
+ d=1e100.net; s=20230601; t=1728463873; x=1729068673;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Xeuc89940OyZEzmfZGsShlcWun218secJztkD+/huVg=;
- b=sVV2xDGcni66xPDVvGsknUrl/e7XGZ5Dxl2XTNU9Ji5GS5sUHgyGXaD2WNM3wsQvTG
- qDtzmtb44h22tkNuxBpMu3G8IWWpndx6xrMbJf2WuLAdkZ0k4uO6nte5TbhI+EB5mZHK
- zHuK1ftlTH7XR4sUQ8AtadUo5wHlgtD2QbelvOfzO55IMuKPsDUCzTeDgCJxARhKUwPz
- Ci7LpE6B1mrNoznOKAGfTCiwLmRRUZgK/Iyood0wU7gq/RRdz0D+peGEOoya+6mz7IcG
- 897uWtMzL2QRZV5SQp3aDGmh3SV60HGjRHpwFdIbBrCkDLsW8XclRWECSm+PsX7hGhFE
- eQog==
+ bh=lGPiijXBHhXZLgDLI4yCnvpkLyy91sdQEmrQWlXpxFs=;
+ b=o0rV5fEbvOCruph+C22a7jYiNzxYFa+PyL4iEUcVY6IklNNV7yzNxCDKa0GwRexIe1
+ EUurLrJiiF1/iNvIeKnxf3dafAu17ViF6yFjPZgmzSCazD5egu5BITy0X8loLWdNxDVJ
+ PHh5GgPaTL/Mj/lgpQqb/r08IlS/O1ulDS42WMEhrnYy4HWQFOpo1avq9K7c66jkCHTW
+ iA8BiiAmn//q9XaS3wiw45ykb1rA3mBuWTjr5cqZBdpFwO4lfoRN+ru4TA6yvoh/Z2NC
+ Q/BIe55+uQCw4LxoW+6pcHFMiH24z3VI1sIDSc5neOSqhOBhCwtKqhNKOQ+CMwNducVE
+ v9wg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUgNMm84BjDKe0b02ZbltFZ/mQuuFIUWI64reJYIez2+HZf9+hBMcc4/4TQRIkRkyFAg3AiyHbXEiE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxBjYiuyX5Dwyx731v3kYqdAPrvTAiql+NBHvjweOrBxQj29Q9/
- KNkge9WuUPsGa1/gEXLK2CJ0TKTahS4TrMWq5+P+gFJO7GqgiWjO6RYUucXZPb4=
-X-Google-Smtp-Source: AGHT+IF0F7RtB5DS5euGqhy7U7rhzvEMjBeGrvubLOfvxfogUs8BIv6homsplq8ODB4C0o2n6DXgtQ==
-X-Received: by 2002:a17:90b:1104:b0:2e2:9522:279e with SMTP id
- 98e67ed59e1d1-2e2a25247e0mr2201199a91.31.1728463867148; 
- Wed, 09 Oct 2024 01:51:07 -0700 (PDT)
+ AJvYcCWCniPJn71L/QT1t2oyXOEQzbNxnXGJYL5j+Lj8H6sbKsTG+NhwYC/6kJrFWLZAJ3rXNOXaaO5Pet4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxUCwl3vZ7UrMkyuKoIZKpMs3Tg2Nhl61wlnC1BIfnmdqxHloq1
+ 0MGUfk90FblfGdIfyPAqXbk2T11AYtehoPIjMk31dYO00FZNNSLPTKobk8a1KxM=
+X-Google-Smtp-Source: AGHT+IHrjXqIDxYCqwvHmyuAo/2KaTwbzzxWXLOebacPfVE93Zx+pXmlthJkNcFwtHdZDvlnIGicew==
+X-Received: by 2002:a17:90b:4007:b0:2e0:970d:e37e with SMTP id
+ 98e67ed59e1d1-2e2a246d989mr2280624a91.21.1728463873256; 
+ Wed, 09 Oct 2024 01:51:13 -0700 (PDT)
 Received: from [127.0.1.1] ([112.65.12.217]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2e2abad236esm898157a91.10.2024.10.09.01.51.01
+ 98e67ed59e1d1-2e2abad236esm898157a91.10.2024.10.09.01.51.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Oct 2024 01:51:06 -0700 (PDT)
+ Wed, 09 Oct 2024 01:51:13 -0700 (PDT)
 From: Jun Nie <jun.nie@linaro.org>
-Date: Wed, 09 Oct 2024 16:50:21 +0800
-Subject: [PATCH v2 08/14] drm/msm/dpu: update mixer number info earlier
+Date: Wed, 09 Oct 2024 16:50:22 +0800
+Subject: [PATCH v2 09/14] drm/msm/dpu: blend pipes per mixer pairs config
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-8-76d4f5d413bf@linaro.org>
+Message-Id: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-9-76d4f5d413bf@linaro.org>
 References: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org>
 In-Reply-To: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -72,11 +72,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Jun Nie <jun.nie@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1728463820; l=1729;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1728463820; l=3761;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=zBBzWdWsfyqBIiT9wbwcVNQEKc8lnnOJ9lwiSkj7ngI=;
- b=olKDHeGrWWSragjDEGtR+qG7l03ad9g8wQu7Scz79ICx2dg8oxIEAOpVwrukiQ+/+oPfeExdI
- 7EvMgTVIa78DCYbucqzqXSwayrVfw07ZG1dzLBNsZo+LiJkdMYaFHoI
+ bh=vJuCxGkGWnTz/P7Gtny2/1VxQGiyRWGiMV+/Rk64D/Y=;
+ b=1MAjd3Jvkinq6GMa/Z1lrF4XLcay/hBv+mExg+EKDZlBZS5b9WsUnciLcQv8VCirNsVEuE42e
+ uUJS17Cr/0cCekZocENT5LBgQ/bZiJecz/rUoIPmrKAEUZGAwKJUYSi
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -94,51 +94,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Update mixer number info earlier so that the plane nopipe check
-can have the info to clip the plane. Otherwise, the first nonpipe
-check will have mixer number as 0 and plane is not checked.
+Blend pipes by set of mixer pair config. The first 2 pipes are for left
+half screen with the first set of mixer pair config. And the later 2 pipes
+are for right in quad pipe case.
 
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 38 ++++++++++++++++++-----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  1 +
+ 2 files changed, 25 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index dfe282c607933..68655c8817bf8 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -638,6 +638,7 @@ static int dpu_encoder_virt_atomic_check(
- 	struct dpu_global_state *global_state;
- 	struct drm_framebuffer *fb;
- 	struct drm_dsc_config *dsc;
-+	struct dpu_crtc_state *cstate;
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 43d9817cd858f..66f745399a602 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -442,7 +442,7 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+ 	const struct msm_format *format;
+ 	struct dpu_hw_ctl *ctl = mixer->lm_ctl;
  
- 	if (!drm_enc || !crtc_state || !conn_state) {
-@@ -662,6 +663,8 @@ static int dpu_encoder_virt_atomic_check(
- 	dsc = dpu_encoder_get_dsc_config(drm_enc);
+-	uint32_t lm_idx, i;
++	uint32_t lm_idx, lm_pair, i, pipe_idx;
+ 	bool bg_alpha_enable = false;
+ 	DECLARE_BITMAP(fetch_active, SSPP_MAX);
  
- 	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state, dsc);
-+	cstate = to_dpu_crtc_state(crtc_state);
-+	cstate->num_mixers = topology.num_lm;
+@@ -463,15 +463,20 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+ 		if (pstate->stage == DPU_STAGE_BASE && format->alpha_enable)
+ 			bg_alpha_enable = true;
  
- 	/*
- 	 * Use CDM only for writeback or DP at the moment as other interfaces cannot handle it.
-@@ -1170,7 +1173,13 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+-		for (i = 0; i < PIPES_PER_LM_PAIR; i++) {
+-			if (!pstate->pipe[i].sspp)
+-				continue;
+-			set_bit(pstate->pipe[i].sspp->idx, fetch_active);
+-			_dpu_crtc_blend_setup_pipe(crtc, plane,
+-						   mixer, cstate->num_mixers,
+-						   pstate->stage,
+-						   format, fb ? fb->modifier : 0,
+-						   &pstate->pipe[i], i, stage_cfg);
++		/* loop pipe per mixer pair */
++		for (lm_pair = 0; lm_pair < PIPES_PER_PLANE / 2; lm_pair++) {
++			for (i = 0; i < PIPES_PER_LM_PAIR; i++) {
++				pipe_idx = i + lm_pair * PIPES_PER_LM_PAIR;
++				if (!pstate->pipe[pipe_idx].sspp)
++					continue;
++				set_bit(pstate->pipe[pipe_idx].sspp->idx, fetch_active);
++				_dpu_crtc_blend_setup_pipe(crtc, plane,
++							   mixer, cstate->num_mixers,
++							   pstate->stage,
++							   format, fb ? fb->modifier : 0,
++							   &pstate->pipe[pipe_idx], i,
++							   &stage_cfg[lm_pair]);
++			}
+ 		}
+ 
+ 		/* blend config update */
+@@ -503,7 +508,7 @@ static void _dpu_crtc_blend_setup(struct drm_crtc *crtc)
+ 	struct dpu_crtc_mixer *mixer = cstate->mixers;
+ 	struct dpu_hw_ctl *ctl;
+ 	struct dpu_hw_mixer *lm;
+-	struct dpu_hw_stage_cfg stage_cfg;
++	struct dpu_hw_stage_cfg stage_cfg[LM_PAIRS_PER_PLANE];
+ 	int i;
+ 
+ 	DRM_DEBUG_ATOMIC("%s\n", dpu_crtc->name);
+@@ -516,9 +521,9 @@ static void _dpu_crtc_blend_setup(struct drm_crtc *crtc)
  	}
  
- 	cstate->num_dscs = num_dsc;
--	cstate->num_mixers = num_lm;
-+	if (cstate->num_mixers != num_lm) {
-+		if (!cstate->num_mixers)
-+			DPU_ERROR_ENC(dpu_enc,
-+				      "mixer number %d is not as expected %d\n",
-+				      num_lm, cstate->num_mixers);
-+		cstate->num_mixers = num_lm;
-+	}
- 	dpu_enc->connector = conn_state->connector;
+ 	/* initialize stage cfg */
+-	memset(&stage_cfg, 0, sizeof(struct dpu_hw_stage_cfg));
++	memset(&stage_cfg, 0, sizeof(stage_cfg));
  
- 	/*
+-	_dpu_crtc_blend_setup_mixer(crtc, dpu_crtc, mixer, &stage_cfg);
++	_dpu_crtc_blend_setup_mixer(crtc, dpu_crtc, mixer, &stage_cfg[0]);
+ 
+ 	for (i = 0; i < cstate->num_mixers; i++) {
+ 		ctl = mixer[i].lm_ctl;
+@@ -535,8 +540,13 @@ static void _dpu_crtc_blend_setup(struct drm_crtc *crtc)
+ 			mixer[i].mixer_op_mode,
+ 			ctl->idx - CTL_0);
+ 
++		/*
++		 * call dpu_hw_ctl_setup_blendstage() to blend layers per stage cfg.
++		 * There is 4 mixers at most. The first 2 are for the left half, and
++		 * the later 2 are for the right half.
++		 */
+ 		ctl->ops.setup_blendstage(ctl, mixer[i].hw_lm->idx,
+-			&stage_cfg);
++			&stage_cfg[i / 2]);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+index 3277debe11689..d8f5cffa60ea6 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+@@ -34,6 +34,7 @@
+ 
+ #define PIPES_PER_PLANE			2
+ #define PIPES_PER_LM_PAIR		2
++#define LM_PAIRS_PER_PLANE		2
+ #ifndef DPU_MAX_DE_CURVES
+ #define DPU_MAX_DE_CURVES		3
+ #endif
 
 -- 
 2.34.1
