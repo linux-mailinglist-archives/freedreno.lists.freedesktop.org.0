@@ -2,65 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C004996B50
-	for <lists+freedreno@lfdr.de>; Wed,  9 Oct 2024 15:04:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B320996E0B
+	for <lists+freedreno@lfdr.de>; Wed,  9 Oct 2024 16:34:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C4CF10E6EC;
-	Wed,  9 Oct 2024 13:04:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35E7410E755;
+	Wed,  9 Oct 2024 14:34:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; secure) header.d=ijzerbout.nl header.i=@ijzerbout.nl header.b="iMrmLS85";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="FXw2/bkS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 499 seconds by postgrey-1.36 at gabe;
- Tue, 08 Oct 2024 21:18:38 UTC
-Received: from bout3.ijzerbout.nl (bout3.ijzerbout.nl [136.144.140.114])
- by gabe.freedesktop.org (Postfix) with ESMTP id F0CA510E5F0
- for <freedreno@lists.freedesktop.org>; Tue,  8 Oct 2024 21:18:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ijzerbout.nl; s=key;
- t=1728421817; bh=lp34xle93S64JDLrFewD47jcAq158vsvHfk6XjoYYqs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=iMrmLS853loo0HAldVopE0pLNxAhpMt24hXWKsvcwmLTsDeZSG04JOrEnQzzfggRM
- ofvMczhyer48zQmPTwav/TKFaxsM+EIr3gfFL4XT70bkSsmLLPGFNJ7WjavDMoMXCM
- XQj1sjDApUXfQPp+bZ9WnjJA9yXBjNE/hIClhpddnYP9KfkxP0YeMO/au0d56okYC/
- qkQxZSz5pjO76hqsBrUoSvDeO2xJn75o6Qu7EDdM0HN/Dudg+Kzas2c6zOezzHn4Bn
- 5jvoz2IBa5x8DhtrRiA9lEciZ/UWnlwAI3PGdL4AtFfyu4jXOV5J2k9oDKeVFTwzPh
- mo8xWu4/HRz3OP9zDqYMRDBMRIlNnwV3+AIOeQdvulDyarO1aThWhkV5pAuVhXcUA+
- +pqKIRRBEC+v6oZ/v7kD2bDp0laVA6SrCU4fFKgDQefPxpu9jw3yMbYqwcIREvi0yc
- AuuImkurDVtHLpF1zlV80lmB3YzYkWGNusrV3ztK3u1DWiojUqrYdfoyuNTXhBHF0B
- CmQueOQvzubkRB4/wkqS/xyXAQS7QeAZB1u41plaYuyhn3uT/u1+TkUiBqlpaazMSU
- tkjLb6hx2PgM+lGKL6qNtLeILttuJOm75VODMsxHEkzkCRln8oiywPxcg1ftROmPM6
- J4Q+Tp55TrdaQoWq+2JNaWVc=
-Received: from [IPV6:2a10:3781:99:1:1ac0:4dff:fea7:ec3a] (racer.ijzerbout.nl
- [IPv6:2a10:3781:99:1:1ac0:4dff:fea7:ec3a])
- by bout3.ijzerbout.nl (Postfix) with ESMTPSA id 0420C16B16D;
- Tue,  8 Oct 2024 23:10:16 +0200 (CEST)
-Message-ID: <1b9afb20-d608-464c-ae6b-c535564b7e5a@ijzerbout.nl>
-Date: Tue, 8 Oct 2024 23:10:14 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3C4610E755;
+ Wed,  9 Oct 2024 14:34:18 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 499AcDTO022770;
+ Wed, 9 Oct 2024 14:34:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=OLrkGCm1M7uiupIDOq5/qG
+ HdS/WujAZlX6bgxfbtXwY=; b=FXw2/bkS5WANsxlZrV6LrJa/kwW1QrXJ3C0BMO
+ lxqkjaw1C6NhKA1yFn6tvv0Sy8OP6RZcTR5ksEFqp0PRB38MPqQkz+T+Rb5vrkia
+ 0cnTX3aCBo/APG/82tTybPHTZEj5NYGR2zHhbTgF61tWWIoFtQGgqhmCtQwG+TJU
+ zdZs9s+c+38krWw1OMkd4WfzEG/YSeBDFXamhPAzLN9BsMjFcu0ZhvyRESmDWkd2
+ 1HR34LpNBXbnPjVRnjJ4kxFUdzpe147XhA5+Yut5ZW2D3A89N6cIF3A8NmpGwfWr
+ vKPW/q9dvXA4LmlYEPtvY21q5m2mIhjQRfshk3z3Nq3/eO6g==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 424x7rw9qv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 09 Oct 2024 14:34:11 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 499EYA41009489
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 9 Oct 2024 14:34:10 GMT
+Received: from hu-mahap-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Wed, 9 Oct 2024 07:34:03 -0700
+From: Mahadevan <quic_mahap@quicinc.com>
+Subject: [PATCH v4 0/5] Display enablement changes for Qualcomm SA8775P
+ platform
+Date: Wed, 9 Oct 2024 20:02:00 +0530
+Message-ID: <20241009-patchv3_1-v4-0-cd683a9ca554@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [v8,09/12] drm/msm/a6xx: Add traces for preemption
-To: Antonino Maniscalco <antomani103@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOCTBmcC/03Myw6CMBCF4Vchs7ZkplwEV76HMaSOg50FFAsSE
+ 8K7W125O19y8m8wS1SZ4ZRtEGXVWcOYUB4yYO/Ghxi9J4NFW2JboJncwn4tOjI1It+YqrKVBtJ
+ /itLr+9e6XJP7GAaz+Cjur2BrIqTimFuLSFVjyDxfyt3gvJvO36kj5xwG2PcPpH4Cz50AAAA=
+X-Change-ID: 20240930-patchv3_1-600cbc1549e8
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20241003-preemption-a750-t-v8-9-5c6cb9f256e0@gmail.com>
-Content-Language: en-US
-From: Kees Bakker <kees@ijzerbout.nl>
-In-Reply-To: <20241003-preemption-a750-t-v8-9-5c6cb9f256e0@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 09 Oct 2024 13:04:32 +0000
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mahadevan <quic_mahap@quicinc.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Bjorn Andersson <andersson@kernel.org>,
+ "Konrad Dybcio" <konrad.dybcio@linaro.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Kalyan Thota <quic_kalyant@quicinc.com>,
+ Jayaprakash Madisetty <quic_jmadiset@quicinc.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1728484443; l=2983;
+ i=quic_mahap@quicinc.com; s=20241001; h=from:subject:message-id;
+ bh=J3ENcrjn9gEIimJlxP2OIgpuvAJFdi3AKCBmbm/60wE=;
+ b=+EPPiNwv5G+hrolpuquZXSzEBXrCBIZ1UlPq3ZOvzarNv61niYK3nZHwlWTZq/AV8+oifR5OX
+ 0ImZrITJIuTA9NHiitcPG9YbNQ3UD43QYJlqzWoJarRXn++m2XLhuUK
+X-Developer-Key: i=quic_mahap@quicinc.com; a=ed25519;
+ pk=Xc9CA438o9mZKp4uZ8vZMclALnJ8XtlKn/n3Y42mMBI=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: X1yNXcXptXpDn4GUjszpTT3tB2-six-5
+X-Proofpoint-ORIG-GUID: X1yNXcXptXpDn4GUjszpTT3tB2-six-5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0
+ phishscore=0 mlxlogscore=999 spamscore=0 clxscore=1011 malwarescore=0
+ lowpriorityscore=0 priorityscore=1501 mlxscore=0 adultscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410090090
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,52 +110,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Op 03-10-2024 om 18:12 schreef Antonino Maniscalco:
-> Add trace points corresponding to preemption being triggered and being
-> completed for latency measurement purposes.
->
-> Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> Tested-by: Rob Clark <robdclark@gmail.com>
-> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-QRD
-> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
-> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8450-HDK
-> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
-> ---
->   drivers/gpu/drm/msm/adreno/a6xx_preempt.c |  6 ++++++
->   drivers/gpu/drm/msm/msm_gpu_trace.h       | 28 ++++++++++++++++++++++++++++
->   2 files changed, 34 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-> index 21e333cb6342d33425eb96f97bcc853e9b041b36..6803d5af60cc8fb0f2a52ee160ffdbf0e8ef0209 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-> @@ -7,6 +7,7 @@
->   #include "a6xx_gpu.h"
->   #include "a6xx_gmu.xml.h"
->   #include "msm_mmu.h"
-> +#include "msm_gpu_trace.h"
->   
->   /*
->    * Try to transition the preemption state from old to new. Return
-> @@ -174,6 +175,8 @@ void a6xx_preempt_irq(struct msm_gpu *gpu)
->   
->   	set_preempt_state(a6xx_gpu, PREEMPT_NONE);
->   
-> +	trace_msm_gpu_preemption_irq(a6xx_gpu->cur_ring->id);
-> +
->   	/*
->   	 * Retrigger preemption to avoid a deadlock that might occur when preemption
->   	 * is skipped due to it being already in flight when requested.
-> @@ -294,6 +297,9 @@ void a6xx_preempt_trigger(struct msm_gpu *gpu)
->   	 */
->   	ring->restore_wptr = false;
->   
-> +	trace_msm_gpu_preemption_trigger(a6xx_gpu->cur_ring->id,
-> +		ring ? ring->id : -1);
-> +
-There is no need for the ternary operator. "ring" should be non-NULL, 
-otherwise the code would have already crashed.
-So the change can just be
-     trace_msm_gpu_preemption_trigger(a6xx_gpu->cur_ring->id, ring->id);
+This series introduces support to enable the Mobile Display Subsystem (MDSS)
+and Display Processing Unit (DPU) for the Qualcomm SA8775P target. It
+includes the addition of the hardware catalog, compatible string,
+relevant device tree changes, and their YAML bindings.
+
+---
+In this series
+- PATCH 1: "dt-bindings: display/msm: Document MDSS on SA8775P" depends on dp
+  binding documetion in this change:
+  https://lore.kernel.org/all/20240923113150.24711-5-quic_mukhopad@quicinc.com/
+- PATCH 5: "arm64: dts: qcom: sa8775p: add display dt nodes for MDSS0 and DPU"
+  depends on the clock enablement change:
+  https://lore.kernel.org/all/20240816-sa8775p-mm-v3-v1-0-77d53c3c0cef@quicinc.com/
+
+---
+
+[v4]
+- Removed new YAML added for sa8775p dpu dt-binding documention as it is similar
+  to qcom,sm8650-dpu.yaml and added the compatible in same. [Krzysztof]
+
+[v3]
+-Edited copyright for catalog changes. [Dmitry]
+-Fix dt_binding_check tool errors(update reg address as address-cells and
+ size-cells of root node one and maintain the same for child nodes of mdss,
+ added additionalProperties in schema).
+ [Rob, Bjorn, Krzysztof]
+-Add QCOM_ICC_TAG_ACTIVE_ONLY interconnect path tag to mdp0-mem and mdp1-mem
+ path in devicetree. [Dmitry]
+-Update commit subject and message for DT change. [Dmitry]
+-Remove interconnect path tags from dt bindings. (ref sm8450-mdss yaml)
+
+[v2]
+- Updated cover letter subject and message. [Dmitry]
+- Use fake DISPCC nodes to avoid clock dependencies in dt-bindings. [Dmitry]
+- Update bindings by fixing dt_binding_check tool errors (update includes in example),
+  adding proper spacing and indentation in the binding example, droping unused labels,
+  droping status disable, adding reset node. [Dmitry, Rob, Krzysztof]
+- Reorder compatible string of MDSS and DPU based on alphabetical order.[Dmitry]
+- add reg_bus_bw in msm_mdss_data. [Dmitry]
+- Fix indentation in the devicetree. [Dmitry]
+
+--
+2.34.1
+
+---
+Mahadevan (5):
+      dt-bindings: display/msm: Document MDSS on SA8775P
+      dt-bindings: display/msm: Document the DPU for SA8775P
+      drm/msm: mdss: Add SA8775P support
+      drm/msm/dpu: Add SA8775P support
+      arm64: dts: qcom: sa8775p: add display dt nodes for MDSS0 and DPU
+
+ .../bindings/display/msm/qcom,sa8775p-mdss.yaml    | 241 ++++++++++
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   1 +
+ arch/arm64/boot/dts/qcom/sa8775p.dtsi              |  89 ++++
+ .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    | 485 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                     |  11 +
+ 8 files changed, 830 insertions(+)
+---
+base-commit: e390603cfa79c860ed35e073f5fe77805b067a8e
+change-id: 20240930-patchv3_1-600cbc1549e8
+
+Best regards,
 -- 
-Kees
+Mahadevan <quic_mahap@quicinc.com>
+
