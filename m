@@ -2,70 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40FA2997840
-	for <lists+freedreno@lfdr.de>; Thu, 10 Oct 2024 00:10:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9176997851
+	for <lists+freedreno@lfdr.de>; Thu, 10 Oct 2024 00:14:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0417310E81E;
-	Wed,  9 Oct 2024 22:10:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B29CC10E820;
+	Wed,  9 Oct 2024 22:13:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YVwxhCMR";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BgH2grxe";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f181.google.com (mail-yb1-f181.google.com
- [209.85.219.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07C0A10E81F
- for <freedreno@lists.freedesktop.org>; Wed,  9 Oct 2024 22:10:44 +0000 (UTC)
-Received: by mail-yb1-f181.google.com with SMTP id
- 3f1490d57ef6-e25d164854dso241472276.2
- for <freedreno@lists.freedesktop.org>; Wed, 09 Oct 2024 15:10:43 -0700 (PDT)
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDE0110E81E
+ for <freedreno@lists.freedesktop.org>; Wed,  9 Oct 2024 22:13:58 +0000 (UTC)
+Received: by mail-yb1-f176.google.com with SMTP id
+ 3f1490d57ef6-e25d57072dcso225000276.0
+ for <freedreno@lists.freedesktop.org>; Wed, 09 Oct 2024 15:13:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728511843; x=1729116643; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1728512038; x=1729116838; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=xtAgb4fDwR8y044wOUqsOfoIaUs5RpregpF0Vbg17ec=;
- b=YVwxhCMRTA8KHe+3aBMSpBG7fUgRPDs5xVMTzZhQ7UB4w6Y9EdoQRdSBFoF/NZFK+n
- QnWolxuTDQbGJOASYRCqIRxBq1n5cmdgqRXOZ2dkfSsqh5Wv2prHzVbMGmmgydbGgFCo
- gAg3hXGqXdn7uQoTBqUKR1IYy1QOPptVqSxxEYqEwyRUV4KS8W+GZrriz7A/Jg4KPutG
- W6o/klpYkopM6MAfToGFvzG8lzvybqjFdl2VxKG2fyIXMD+j2Cx32b+lGy/Vii9pq6Ev
- o828pELMaEit5CCh06w4diJYD/wfaugBMGvb/3p768zcr0jgi4HB9jJy2qjP/RuqRkbd
- wIkA==
+ bh=7ZSnAryhvRVAxOzTa39firHYc0HGN21O7Mp2XuZXfKY=;
+ b=BgH2grxemHFA9VG+Y/aCLLVnR1of/LfNI3UKo7WpjCGS+/xeyKV5Kj82mN2BtUxbLQ
+ cBIyOEihixCWbgARwB1xaRvReN0SqsQGI2HSYOkBuXkIi1mopNvYcuiM5YUtDZy1qP8g
+ spYYuHv4vyFdpFqP7bEW66yDTE3xpwxzb4+cTNFQpVfPWTTnmRD09iEOjhORFP+yknuF
+ kRqDinaGFyIqUbTXxBEsk7xYwNdqRXZXrrBBe+e0enz7yZjZ5tQst3sragbqC0lKPED2
+ AFe0riLUg+DcYA2g/lN6jPj1DAU7GiPgWFWA9gON01sIZVRDDAHndTIv8m3UfYoy/3PR
+ w80A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728511843; x=1729116643;
+ d=1e100.net; s=20230601; t=1728512038; x=1729116838;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=xtAgb4fDwR8y044wOUqsOfoIaUs5RpregpF0Vbg17ec=;
- b=lypgi778afkEO7SMPpG6x/YLsF00ZFfN8f2HAugNbZJTPdQBTOxmrTwfYxGL0MYDy5
- 4XvUxMyczTg5F2NftZCHsmQaTgcHsqfOM58IQyMQbXybxAv+gZmJVQoIizs8T+mLMTqv
- uc4IKsGRI1uAbtgtXAoaHVWRfmsIkcDIehtAXfLx/yaw5BIoWxbabELBMdB09XmshvQT
- ysQrY+Rm+2UEtcIDghq73ntOMwCfz7cK5eKQ3kc1CETwvV3znGOOCl/yrWZ1d1cIn8ie
- sBXi82g2+6CmTLPlJHiSwTy1gXJChjBvAR3VfBnLRWyhox9d0KFLI1fq8mp2JGf5mGA4
- /cNA==
+ bh=7ZSnAryhvRVAxOzTa39firHYc0HGN21O7Mp2XuZXfKY=;
+ b=sQXluPn0Cj9ZTEsCkr5632f9TekyvDtKhpEqZ11Dz0A0B3NRbDpT3yh/XSOFeE/QDG
+ 1oC9upsagOxknFvxAdrAnExNFJ0lvhFIslDnO2d6dHO8Ix44VQeXBAr4JeNdjkNmwMKz
+ fLcTzKw4NfiUvoyJTQqock6/ofPoZa/7KPY7QsBtKrU4uyvkwLT8eexenbtN7SokPtKa
+ ticX38RQlucTtJQ9SJCZr6qdeT3eA5qFQJw7abz6reRjMEEWBZ4BGWXjXAgzfkTXMoH6
+ DrzWEG7EVl6bSO7aLJDPmN8Zm2epDAr55qdiePyA/79SWmhbENOrrrhbHRm/wPlotT6g
+ GK4Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXmzt6Qa8JvfE/CDNiVdn2n6wr/5uUbibcEN9dseAtz1R3vB3v9me3lwnWbQx7J2cZuGNbd8JWrEco=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwAZ2CymYYU4ah2QyYIaoBnmZNoIckSrcR7k86zKZyUB+SsRn07
- oFdWxZONUR2eK/+8q9S0NJGNYZGEJUMY0nPi4npb3dlxqOYERDaVHaBaL2i44Kn6+ESiM/k80DQ
- LALBeXaMWqsYwMgDf50wXWp94LKb10ul5VLH1yQ==
-X-Google-Smtp-Source: AGHT+IHACXmWe3jpzlY9m/ZYdvlB2E4eJi+KdXxEERqoyLJzG9ZNpE57951BZflPz6EbH6Z4ysSQYB+i+QLWebrYgNo=
-X-Received: by 2002:a05:6902:18d3:b0:e1a:72e9:b243 with SMTP id
- 3f1490d57ef6-e28fe33b965mr4050297276.9.1728511842970; Wed, 09 Oct 2024
- 15:10:42 -0700 (PDT)
+ AJvYcCVm+2bKuewuOFlgXvFjVTK/bt8uNJJM+3oqU7GE3w4RN0IRqiiAH3S3FgLGWKgJLTqfq5YSBHfReb4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzYMd46JzmKgpQUuQpchxGSbG+kQbY9APwfBR5/oIkB8i5rZG41
+ vTy9k2c7oJf3w0pGnSSRgta5T3vGGN32g86k3SJFNKfQEUkVyK+UQojxULde2lWlezgaTn9pG4f
+ Us7l8JQxWpng69SIZtZ/Dso0z86pLXgjqCdEbjw==
+X-Google-Smtp-Source: AGHT+IE8N/AQRHVkfQpViJ7j87DJYPlLqudgKJPaHi0a2xWoaLY/SYqNoHWu/8CjFR85/GwjoCayPnP8Gpj2MkizG/U=
+X-Received: by 2002:a05:690c:113:b0:6e3:ceb:ce2b with SMTP id
+ 00721157ae682-6e32250ade9mr39940947b3.44.1728512037720; Wed, 09 Oct 2024
+ 15:13:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-20-v1-0-139511076a9f@linaro.org>
- <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-20-v1-2-139511076a9f@linaro.org>
-In-Reply-To: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-20-v1-2-139511076a9f@linaro.org>
+References: <20241009-patchv3_1-v4-0-cd683a9ca554@quicinc.com>
+In-Reply-To: <20241009-patchv3_1-v4-0-cd683a9ca554@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 10 Oct 2024 01:10:31 +0300
-Message-ID: <CAA8EJpr-B2OZbn5_6dUnojf9ZTXkVcE2nUL1QHohTmk0Qa+bPg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/msm/dpu: configure DSC per number in use
-To: Jun Nie <jun.nie@linaro.org>
+Date: Thu, 10 Oct 2024 01:13:46 +0300
+Message-ID: <CAA8EJpquGKn1kC1Z7dDgBd-ZXKO34ZFRPAHjYaAZQguUs6N__w@mail.gmail.com>
+Subject: Re: [PATCH v4 0/5] Display enablement changes for Qualcomm SA8775P
+ platform
+To: Mahadevan <quic_mahap@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Kalyan Thota <quic_kalyant@quicinc.com>, 
+ Jayaprakash Madisetty <quic_jmadiset@quicinc.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,61 +91,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 9 Oct 2024 at 09:39, Jun Nie <jun.nie@linaro.org> wrote:
+On Wed, 9 Oct 2024 at 17:34, Mahadevan <quic_mahap@quicinc.com> wrote:
 >
-> Only 2 DSC engines are allowed, or no DSC is involved currently.
-
-Can't parse this phrase.
-
-> We need 4 DSC in quad-pipe topology in future. So let's only configure
-> DSC engines in use, instread of maximum number of DSC engines.
-
-Nit: instead
-
+> This series introduces support to enable the Mobile Display Subsystem (MDSS)
+> and Display Processing Unit (DPU) for the Qualcomm SA8775P target. It
+> includes the addition of the hardware catalog, compatible string,
+> relevant device tree changes, and their YAML bindings.
 >
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
+> In this series
+> - PATCH 1: "dt-bindings: display/msm: Document MDSS on SA8775P" depends on dp
+>   binding documetion in this change:
+>   https://lore.kernel.org/all/20240923113150.24711-5-quic_mukhopad@quicinc.com/
+> - PATCH 5: "arm64: dts: qcom: sa8775p: add display dt nodes for MDSS0 and DPU"
+>   depends on the clock enablement change:
+>   https://lore.kernel.org/all/20240816-sa8775p-mm-v3-v1-0-77d53c3c0cef@quicinc.com/
 >
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 39700b13e92f3..e8400b494687c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1871,10 +1871,13 @@ static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_ctl *ctl,
->                 ctl->ops.update_pending_flush_dsc(ctl, hw_dsc->idx);
->  }
+> ---
 >
-> -static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
-> -                                struct drm_dsc_config *dsc)
-> +static void dpu_encoder_prep_dsc(struct drm_encoder *drm_enc)
->  {
->         /* coding only for 2LM, 2enc, 1 dsc config */
-> +       struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
-> +       struct dpu_crtc_state *cstate = to_dpu_crtc_state(drm_enc->crtc->state);
-> +       struct drm_dsc_config *dsc = dpu_enc->dsc;
+> [v4]
+> - Removed new YAML added for sa8775p dpu dt-binding documention as it is similar
+>   to qcom,sm8650-dpu.yaml and added the compatible in same. [Krzysztof]
 
-Why? This doesn't seem to be related to num_dscs introduction.
+And this wasn't tested. Please test the bindings before posting.
 
-> +       int num_dsc = cstate->num_dscs;
->         struct dpu_encoder_phys *enc_master = dpu_enc->cur_master;
->         struct dpu_hw_ctl *ctl = enc_master->hw_ctl;
->         struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
-
-[...]
-
-> @@ -1953,7 +1956,7 @@ void dpu_encoder_prepare_for_kickoff(struct drm_encoder *drm_enc)
->         }
 >
->         if (dpu_enc->dsc)
-> -               dpu_encoder_prep_dsc(dpu_enc, dpu_enc->dsc);
-> +               dpu_encoder_prep_dsc(drm_enc);
->  }
+> [v3]
+> -Edited copyright for catalog changes. [Dmitry]
+> -Fix dt_binding_check tool errors(update reg address as address-cells and
+>  size-cells of root node one and maintain the same for child nodes of mdss,
+>  added additionalProperties in schema).
+>  [Rob, Bjorn, Krzysztof]
+> -Add QCOM_ICC_TAG_ACTIVE_ONLY interconnect path tag to mdp0-mem and mdp1-mem
+>  path in devicetree. [Dmitry]
+> -Update commit subject and message for DT change. [Dmitry]
+> -Remove interconnect path tags from dt bindings. (ref sm8450-mdss yaml)
 >
->  bool dpu_encoder_is_valid_for_commit(struct drm_encoder *drm_enc)
+> [v2]
+> - Updated cover letter subject and message. [Dmitry]
+> - Use fake DISPCC nodes to avoid clock dependencies in dt-bindings. [Dmitry]
+> - Update bindings by fixing dt_binding_check tool errors (update includes in example),
+>   adding proper spacing and indentation in the binding example, droping unused labels,
+>   droping status disable, adding reset node. [Dmitry, Rob, Krzysztof]
+> - Reorder compatible string of MDSS and DPU based on alphabetical order.[Dmitry]
+> - add reg_bus_bw in msm_mdss_data. [Dmitry]
+> - Fix indentation in the devicetree. [Dmitry]
 >
 > --
 > 2.34.1
+>
+> ---
+> Mahadevan (5):
+>       dt-bindings: display/msm: Document MDSS on SA8775P
+>       dt-bindings: display/msm: Document the DPU for SA8775P
+>       drm/msm: mdss: Add SA8775P support
+>       drm/msm/dpu: Add SA8775P support
+>       arm64: dts: qcom: sa8775p: add display dt nodes for MDSS0 and DPU
+>
+>  .../bindings/display/msm/qcom,sa8775p-mdss.yaml    | 241 ++++++++++
+>  .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   1 +
+>  arch/arm64/boot/dts/qcom/sa8775p.dtsi              |  89 ++++
+>  .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    | 485 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>  drivers/gpu/drm/msm/msm_mdss.c                     |  11 +
+>  8 files changed, 830 insertions(+)
+> ---
+> base-commit: e390603cfa79c860ed35e073f5fe77805b067a8e
+> change-id: 20240930-patchv3_1-600cbc1549e8
+>
+> Best regards,
+> --
+> Mahadevan <quic_mahap@quicinc.com>
 >
 
 
