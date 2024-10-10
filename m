@@ -2,89 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 915599982CF
-	for <lists+freedreno@lfdr.de>; Thu, 10 Oct 2024 11:50:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1CBE9986A9
+	for <lists+freedreno@lfdr.de>; Thu, 10 Oct 2024 14:53:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A95BA10E8AB;
-	Thu, 10 Oct 2024 09:50:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC2BF10E2CA;
+	Thu, 10 Oct 2024 12:53:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="aC6ES2aX";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="juPoRb/V";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F3EB10E10C
- for <freedreno@lists.freedesktop.org>; Thu, 10 Oct 2024 09:50:52 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-43057f4a16eso6125715e9.1
- for <freedreno@lists.freedesktop.org>; Thu, 10 Oct 2024 02:50:52 -0700 (PDT)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F3B910E2CA
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Oct 2024 12:53:23 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-5399675e14cso1159727e87.3
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Oct 2024 05:53:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1728553850; x=1729158650;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=FBHunO+Zz8TdiQTG9vtmDBYUCelVKI0y/eeya9uFaOU=;
- b=aC6ES2aXB06CEAjVsBMDgfqR0mrBeRumEmZvCW2OD30RJsjnw94ghb7sfnsvp/XeYJ
- XSHt9hGron26Y473K92g0GAG0vHTOdOmj2Zo/VsgYM0FpdqXoIFkQTcbh5gfdhLxp62G
- QI8HMryQBaQgAQCa1+LgwFXa9hPmD7/+gvA6/zzBwkpHxUm4Aow/yfckhRr56A0F51Rt
- bMQTBr3je/Nb+xu3dcSE46AnuOT35E/G95fvkpEyUSJYh08QlfWFEi4YUfW8+p3Z/U/J
- gJl+8aZXSc/gCRu0kusDI4alE4EIlTuntgcoW75mBdXcqNqhXIoy1KDNl/tvrZaaM2sN
- 86kQ==
+ d=linaro.org; s=google; t=1728564801; x=1729169601; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=SOG2cvcIa/f3eZvF9qCqDwajTrBJ79dSHibePI7xfTI=;
+ b=juPoRb/V9GI0NgtgN4BXPtVPq8Vnf/x0gaVrYgzCseg3w5wTpc3drzkefuOwYDi3iM
+ IzGpJ6bRzLaEinIVZgpvFNcH/d/dCVsxo32WAeE+eC0pESZAwnyrLtVYMNMMGfQxNN/W
+ I9xV+q1RO3HbOLHQv62ozmeg5hWpEeu4NTdh6mf2wskedf+oDakIrLWSzouBpAD/X7gG
+ AziAaSeiuHkvNfyM52Nxd63GImZl3mQTjpsTpULBg9Bqils7FLm5VMhQbYjxoOPa5IwI
+ SU1qOcsdAqCtjD43fMOAn1csyJeL+JFNYhgY11/NKWsywvtNf3QUd60DNytSqoHHFDRg
+ ClFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728553850; x=1729158650;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=FBHunO+Zz8TdiQTG9vtmDBYUCelVKI0y/eeya9uFaOU=;
- b=KVWbLHIh773snKQTutl5g/xGFCMJvYS1Qpn23D9cM7d8ccuXGecDpZG1qpvnIemSMX
- 7BLWfMKx9Ve/O/iUEnYXUZ/bNjuJ05pcoHX2xRwG4QzM59zEDEVddeKSDcKx6mzfov5p
- HgDnj70VnMlRQFo4jD/3Ym1feJnwZRqoegV0LuSNrddng04YUkaM2Bk7Xantx/JHW4Ch
- zfAqRGUHrFH/Xpn+kP5sLlrmd/hkKXupNyIxYLvMX7wsLZ7AokL3goY1Rw8Dp5VjCFM9
- nXB+xavufpkkrZdsgI4jy3cSh6hZHxyE1J/ZM+DwxxzbbsqYBhpphgYiQD2zrzTOJWIc
- Gmcg==
+ d=1e100.net; s=20230601; t=1728564801; x=1729169601;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SOG2cvcIa/f3eZvF9qCqDwajTrBJ79dSHibePI7xfTI=;
+ b=pQE0AmBD/dliAPXn4F8aOpzHBITDcxYbUHwgHPpV/ep2VY84VDsuA05as9aiqCH7Tj
+ CGm/1axNEbYzkkKaUrYQ1jK5kHYNKXFfbIr9IwIg0S3WniSx40CkjcaPB/jVfgGQr7CC
+ bacMJ46mdlZ99aaB/uBGURgwJ3OZit2VyhDg+SOwHtUrNQ8dt2jvXALb/ptRyWZjihif
+ EcV1finStqOfV63SnT25c/F2REzQvkR7vWU2+EgXbFzK+RTYR+n91HL7Nwl67Nnqd7Wu
+ pUPtVI9CcuvBLc/MXMwBWQnR7Y0qITK4Z8zkSrKjXTTH/z1E9f7pdvpR5T424HK/j9au
+ qIew==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXOib/NxUjFQ/WHvNpfCS1mibZ19Rr+rx83RVn9P0hkWZeeHHGNbfd2IlMaFkp6yr0lGFTgiaK3IYM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyC0kjjwcbyEhcZJNga1w7vd3apkvACfU4E7Ja2RG6zO8V9Og9Q
- jO2YBVcfezo+t2Qz2BitlReTviN2yHomBo7+xAHgukafqPtYOdi92RqgDiPNgCY=
-X-Google-Smtp-Source: AGHT+IFbMglBOaa77JYEQSIkwOuvW3U8Pg8Eka/aETTOJlI14e6FrPvdON50DpF1jbrure9vikjykw==
-X-Received: by 2002:a05:600c:a00a:b0:42c:b995:20d3 with SMTP id
- 5b1f17b1804b1-431157e55acmr27493495e9.26.1728553850511; 
- Thu, 10 Oct 2024 02:50:50 -0700 (PDT)
-Received: from [192.168.0.101] ([90.241.98.187])
+ AJvYcCWpMsApLFRObWAiBrqgaQwGk1Hd3iZnZEoqg973LfSKnAEoAGm1yEavVZw99Uiv/Nq4u0C4vqWPFvs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz9C5OAXtqOSY4PgnW/3bq/TzTAj4zKtuASu2UarxVi6+seN7xb
+ RePpf06gWCiZr+slpbN2LMP3z8Iv2UE9fBt/Rxl1nYIoWgtJSxOP98DUgGbWb94=
+X-Google-Smtp-Source: AGHT+IHwHdR/ayiiZrVWEQZ0jvj6QMy246EDnjvlSR6tXX1mW/aaU5oydDoW2K4KYVylDfBIuIqyDw==
+X-Received: by 2002:a05:6512:3c97:b0:536:a583:2777 with SMTP id
+ 2adb3069b0e04-539c48926aemr3865575e87.9.1728564801442; 
+ Thu, 10 Oct 2024 05:53:21 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-431182ffc75sm10971435e9.17.2024.10.10.02.50.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Oct 2024 02:50:50 -0700 (PDT)
-Message-ID: <87a21c19-8fd2-492a-a620-243cd9c642dc@ursulin.net>
-Date: Thu, 10 Oct 2024 10:50:49 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/2] drm/drm_file: Add display of driver's internal
- memory size
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ 2adb3069b0e04-539cb8f0f86sm240116e87.190.2024.10.10.05.53.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Oct 2024 05:53:20 -0700 (PDT)
+Date: Thu, 10 Oct 2024 15:53:19 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Melissa Wen <mwen@igalia.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, Lucas De Marchi <lucas.demarchi@intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-References: <20241002234531.3113431-1-adrian.larumbe@collabora.com>
- <20241002234531.3113431-2-adrian.larumbe@collabora.com>
- <6657b080-f41e-4c95-8895-e474f1ca5d57@ursulin.net>
- <p72rfjerzsg4wsp6rgfcoo5fmlu77jmzdynosflj2hlos63pql@mnetv3t66wsc>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <p72rfjerzsg4wsp6rgfcoo5fmlu77jmzdynosflj2hlos63pql@mnetv3t66wsc>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] drm/msm/dpu: configure DSC per number in use
+Message-ID: <3vrwrw7kia5h3vku2n3c7kwyyokrklqjjl22apzruvh535pnav@2ewlmdjobveh>
+References: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-20-v1-0-139511076a9f@linaro.org>
+ <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-20-v1-2-139511076a9f@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-20-v1-2-139511076a9f@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,209 +89,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On 09/10/2024 23:55, Adrián Larumbe wrote:
-> Hi Tvrtko,
+On Wed, Oct 09, 2024 at 02:38:43PM GMT, Jun Nie wrote:
+> Only 2 DSC engines are allowed, or no DSC is involved currently.
+> We need 4 DSC in quad-pipe topology in future. So let's only configure
+> DSC engines in use, instread of maximum number of DSC engines.
 > 
-> On 04.10.2024 14:41, Tvrtko Ursulin wrote:
->>
->> Hi Adrian,
->>
->> On 03/10/2024 00:45, Adrián Larumbe wrote:
->>> Some drivers must allocate a considerable amount of memory for bookkeeping
->>> structures and GPU's MCU-kernel shared communication regions. These are
->>> often created as a result of the invocation of the driver's ioctl()
->>> interface functions, so it is sensible to consider them as being owned by
->>> the render context associated with an open drm file.
->>>
->>> However, at the moment drm_show_memory_stats only traverses the UM-exposed
->>> drm objects for which a handle exists. Private driver objects and memory
->>> regions, though connected to a render context, are unaccounted for in their
->>> fdinfo numbers.
->>>
->>> Add a new drm_memory_stats 'internal' memory category.
->>>
->>> Because deciding what constitutes an 'internal' object and where to find
->>> these are driver-dependent, calculation of this size must be done through a
->>> driver-provided function pointer, which becomes the third argument of
->>> drm_show_memory_stats. Drivers which have no interest in exposing the size
->>> of internal memory objects can keep passing NULL for unaltered behaviour.
->>>
->>> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
->>> Cc: Rob Clark <robdclark@gmail.com>
->>> Cc: Tvrtko Ursulin <tursulin@ursulin.net>
->>> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->>> ---
->>>    drivers/gpu/drm/drm_file.c              | 6 +++++-
->>>    drivers/gpu/drm/msm/msm_drv.c           | 2 +-
->>>    drivers/gpu/drm/panfrost/panfrost_drv.c | 2 +-
->>>    drivers/gpu/drm/v3d/v3d_drv.c           | 2 +-
->>>    include/drm/drm_file.h                  | 7 ++++++-
->>>    5 files changed, 14 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
->>> index ad1dc638c83b..937471339c9a 100644
->>> --- a/drivers/gpu/drm/drm_file.c
->>> +++ b/drivers/gpu/drm/drm_file.c
->>> @@ -856,6 +856,7 @@ void drm_print_memory_stats(struct drm_printer *p,
->>>    	print_size(p, "total", region, stats->private + stats->shared);
->>>    	print_size(p, "shared", region, stats->shared);
->>>    	print_size(p, "active", region, stats->active);
->>> +	print_size(p, "internal", region, stats->internal);
->>>    	if (supported_status & DRM_GEM_OBJECT_RESIDENT)
->>>    		print_size(p, "resident", region, stats->resident);
->>> @@ -873,7 +874,7 @@ EXPORT_SYMBOL(drm_print_memory_stats);
->>>     * Helper to iterate over GEM objects with a handle allocated in the specified
->>>     * file.
->>>     */
->>> -void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
->>> +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file, internal_bos func)
->>>    {
->>>    	struct drm_gem_object *obj;
->>>    	struct drm_memory_stats status = {};
->>> @@ -919,6 +920,9 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
->>>    	}
->>>    	spin_unlock(&file->table_lock);
->>> +	if (func)
->>> +		func(&status, file);
->>> +
->>>    	drm_print_memory_stats(p, &status, supported_status, "memory");
->>>    }
->>>    EXPORT_SYMBOL(drm_show_memory_stats);
->>> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
->>> index edbc1ab0fbc8..2b3feb79afc4 100644
->>> --- a/drivers/gpu/drm/msm/msm_drv.c
->>> +++ b/drivers/gpu/drm/msm/msm_drv.c
->>> @@ -880,7 +880,7 @@ static void msm_show_fdinfo(struct drm_printer *p, struct drm_file *file)
->>>    	msm_gpu_show_fdinfo(priv->gpu, file->driver_priv, p);
->>> -	drm_show_memory_stats(p, file);
->>> +	drm_show_memory_stats(p, file, NULL);
->>>    }
->>>    static const struct file_operations fops = {
->>> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
->>> index 04d615df5259..aaa8602bf00d 100644
->>> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
->>> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
->>> @@ -609,7 +609,7 @@ static void panfrost_show_fdinfo(struct drm_printer *p, struct drm_file *file)
->>>    	panfrost_gpu_show_fdinfo(pfdev, file->driver_priv, p);
->>> -	drm_show_memory_stats(p, file);
->>> +	drm_show_memory_stats(p, file, NULL);
->>>    }
->>>    static const struct file_operations panfrost_drm_driver_fops = {
->>> diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
->>> index fb35c5c3f1a7..314e77c67972 100644
->>> --- a/drivers/gpu/drm/v3d/v3d_drv.c
->>> +++ b/drivers/gpu/drm/v3d/v3d_drv.c
->>> @@ -195,7 +195,7 @@ static void v3d_show_fdinfo(struct drm_printer *p, struct drm_file *file)
->>>    			   v3d_queue_to_string(queue), jobs_completed);
->>>    	}
->>> -	drm_show_memory_stats(p, file);
->>> +	drm_show_memory_stats(p, file, NULL);
->>>    }
->>>    static const struct file_operations v3d_drm_fops = {
->>> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
->>> index 8c0030c77308..661d00d5350e 100644
->>> --- a/include/drm/drm_file.h
->>> +++ b/include/drm/drm_file.h
->>> @@ -469,6 +469,7 @@ void drm_send_event_timestamp_locked(struct drm_device *dev,
->>>     * @resident: Total size of GEM objects backing pages
->>>     * @purgeable: Total size of GEM objects that can be purged (resident and not active)
->>>     * @active: Total size of GEM objects active on one or more engines
->>> + * @internal: Total size of GEM objects that aren't exposed to user space
->>>     *
->>>     * Used by drm_print_memory_stats()
->>>     */
->>> @@ -478,16 +479,20 @@ struct drm_memory_stats {
->>>    	u64 resident;
->>>    	u64 purgeable;
->>>    	u64 active;
->>> +	u64 internal;
->>
->> So equally as in the last round of discussion back in June, internal in my
->> mind still does not fit alongside the categories.
->>
->> Reason is that in some drivers, at least such as i915, "internal" can be:
->>
->> a) Backed by either system memory or device memory - so this does not provice
->> that visibility;
->>
->> b) They can also be resident or not, active or not, etc - so from that angle
->> it also does not fit.
->>
->> Do you lose anything if you add the internal objects into their respective
->> regions and under the existing categories? Like do you have an use case in
->> mind which needs to be able to distinguish between userspace and internal, or
->> the problem simply is internal are unaccounted for?
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
 > 
-> The main use case we have in mind is exposing the size of driver buffer
-> allocations that are triggered in respone to an ioctl(), and so linked to an
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 39700b13e92f3..e8400b494687c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1871,10 +1871,13 @@ static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_ctl *ctl,
+>  		ctl->ops.update_pending_flush_dsc(ctl, hw_dsc->idx);
+>  }
+>  
+> -static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
+> -				 struct drm_dsc_config *dsc)
+> +static void dpu_encoder_prep_dsc(struct drm_encoder *drm_enc)
+>  {
+>  	/* coding only for 2LM, 2enc, 1 dsc config */
+> +	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+> +	struct dpu_crtc_state *cstate = to_dpu_crtc_state(drm_enc->crtc->state);
+> +	struct drm_dsc_config *dsc = dpu_enc->dsc;
+> +	int num_dsc = cstate->num_dscs;
 
-Most of this and below is old and clear - but to this specific point - 
-so you do have an use case which specifically wants to know about the 
-internal allocations separately from the rest? Could you describe what 
-it is?
+I have been thinking about this part for a while. Please move num_dscs
+to the dpu_encoder_virt structure. The DSC blocks are logically related
+to the encoder, so having this field in dpu_crtc_state seems incorrect.
 
-> open file. I gave a summary of what these could be in the patch description, but
-> in Panthor's case all these allocations are done with drm shmem functions
-> because it makes it easier to retrieve the sgtable that gives us their system
-> memory layout so that we can more easily map them onto the MMU's address space
-> for a Pantor VM. These BO's, though managed by the drm shmem API, are never
-> added to the open file list of user-exposed drm objects but we would still like
-> to tell UM how much memory they take up.
-> 
-> In the case of Panthor, they all add into the resident tally because all these
-> internal BO's are immediately pinned so that they can also be accessed by the
-> HW, but it doesn't have to be so for other drivers which might also keep track
-> of similar allocations.
-> 
-> I think maybe naming that tag as 'internal' is a bit of a misnomer and I could
-> pick one that more accurately represents its meaning? Something like 'file-internal'
-> or else 'file-private'.
-> 
-> Regarding a), I don't think where the allocations happen (system or device memory)
-> is relevant in this case, just that the allocations are tied to an open file, but
-> not exposed to UM through a DRM buffer object handle.
+>  	struct dpu_encoder_phys *enc_master = dpu_enc->cur_master;
+>  	struct dpu_hw_ctl *ctl = enc_master->hw_ctl;
+>  	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
 
-On this last paragraph - right.. I possibly got confused on a). Which is 
-why I always say it is good to include example output at least in the 
-cover letter, if not the commit message.
-
-How would it look on this driver?
-
-drm-total-$what: ..
-drm-resident-$what: ..
-drm-internal-$what: ...
-
-b) still stands though in that internal can be resident or not, 
-purgeable or not.. Which is why I would like to know about the use case.
-
-Also if you add drm-internal for any driver calling 
-drm_print_memory_stats I think you "break" at least i915. There internal 
-objects are already accounted in the existing categories. And printing 
-out internal with zero would be very misleading.
-
-Regards,
-
-Tvrtko
-
-> 
-> Regards,
-> Adrian
-> 
->> Regards,
->>
->> Tvrtko
->>
->>>    };
->>>    enum drm_gem_object_status;
->>> +typedef void (*internal_bos)(struct drm_memory_stats *status,
->>> +			     struct drm_file *file);
->>> +
->>>    void drm_print_memory_stats(struct drm_printer *p,
->>>    			    const struct drm_memory_stats *stats,
->>>    			    enum drm_gem_object_status supported_status,
->>>    			    const char *region);
->>> -void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file);
->>> +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file, internal_bos func);
->>>    void drm_show_fdinfo(struct seq_file *m, struct file *f);
->>>    struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flags);
+-- 
+With best wishes
+Dmitry
