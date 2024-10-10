@@ -2,79 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3199998892
-	for <lists+freedreno@lfdr.de>; Thu, 10 Oct 2024 16:01:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B914B998B43
+	for <lists+freedreno@lfdr.de>; Thu, 10 Oct 2024 17:20:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7330810E910;
-	Thu, 10 Oct 2024 14:01:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93A0710E95D;
+	Thu, 10 Oct 2024 15:20:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="p0wNnwgh";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="u4t7IiRe";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
- [209.85.208.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DF4310E922
- for <freedreno@lists.freedesktop.org>; Thu, 10 Oct 2024 14:01:00 +0000 (UTC)
-Received: by mail-lj1-f172.google.com with SMTP id
- 38308e7fff4ca-2fad15b3eeeso8596051fa.2
- for <freedreno@lists.freedesktop.org>; Thu, 10 Oct 2024 07:00:59 -0700 (PDT)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A66810E95D
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Oct 2024 15:20:41 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-53995380bb3so1386668e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Oct 2024 08:20:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728568858; x=1729173658; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1728573639; x=1729178439; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=GuQJ+WTKIalk9f0kVjFjmlbMbJQEJBE3pr3wOCiST3A=;
- b=p0wNnwghsF1mcABuVlOSHyX+3xNJi8MjhKiTCdkJmT9wUJkXZAurPTwr8FFLmasrdd
- SOvPQZUTiEcF8Abw7eSnxhy9WkMxW8xT92Rq8lH5/gMKiPER0rZQM9QhM0faEuiCXF0X
- GzcknLsTYX0djrNlKo8dvxLyMpFIe1DwwQtzYtlxP+VA80n4pHVcPPaG54hQ9lOsA/Rc
- GJFvOS8B8WY9Oja8ztai7r9FGQ8h8Mle9kNt+Qc0pQ6v5ZdSwrPYoKibSF/24KDIPQv1
- re2+v2nMivLLu4fiFqsZ/6MvN71yxgh4ycuib6Gv0LAwU9XBFJdsENeZ9l0IUEz7oGN1
- xnIQ==
+ bh=Yl+AJ7lyFwjwDvwphBTlSXLZHqolk5S2mucilQyKVTA=;
+ b=u4t7IiRePivhQHQd0j5HZaNaWBwm7kX9C6c+z2uDe9CN44n9wbYnFfsImgY4vWDjBe
+ v/gIYX7Zkxz6utUBftuvUWUpLGDMbUkrWGFYPh8Qv9lZtVwHlNcIW9EfUBYYv4hvISvP
+ 78GVJkwlvXea3DN6FDUUTy7vgAoloFHNilAxxcYus3ZAcRrXC+SE+VNS2TWp9uL0eBq2
+ 64xzaQ2FxCvluWvWS4RLHpo7bd6tRyeIl1ZeKOuoWujHrKSDfj9cOMN+nS8t/gcjzXzJ
+ 76VTp+v4RtIIw01V9AgfMJzCCsP5tGjORJy4c20aN5fiP/SLQCYnd0HOPITtDQ+G8Oy0
+ InJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728568858; x=1729173658;
+ d=1e100.net; s=20230601; t=1728573639; x=1729178439;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=GuQJ+WTKIalk9f0kVjFjmlbMbJQEJBE3pr3wOCiST3A=;
- b=wYuLe2ls0mWTITDPt9492wFnX5N8aUst+esTCJKqj3OXBL3pZlMSOLgcKeTT4khWep
- 4vG71NP5q7oQ5rAh3R3S0BVyUpxYy2+LDYMafKgGwZPZk3/kYbE1WC6pMlyV22YgDUVR
- cLwjZDm5GGi694A3S12hlodN2MMJDwob4g2HuLd61VNFGPYK4PJuzwlMXB0wFBerGiYc
- WJTaKDoa0crKh/imEeGSedP9wcJzzET2c3b3HwopgExRarwGQk4gLiw1o60BqbWYx9Ve
- w4lNPxSeCkgACaftWo6AgnWu9VDzauMgZBfak9vx3CW3zWm7LB/bw5HUaUh5JjXNHcpo
- NtEA==
+ bh=Yl+AJ7lyFwjwDvwphBTlSXLZHqolk5S2mucilQyKVTA=;
+ b=cibdlomdDPXFjmKeIFsEvb+EVSGIJv5L+vJL/1FKp353IZdPZ5QLUZVEgc1TbI7HKz
+ R1kTQTcV9KLLKpvPJU4I41mI/xQRBsE4naq/euqRjkZj+k/QqIQPNtEabjX0kU9+sxD1
+ 1K3bzMh9V1e8Icp2Fp+fivkIK4g0oybMhm1fWTuoIIvyB10E4tkVfnU4F2+NqdssE8XJ
+ TaoPU7zBIy9YplV49BU7tkzO5OMc+5Q8oPkyurpzlVoolfiPtsMcArCQEnCRiowvrrsW
+ pHQc3XMQ9RZ68LyXgApKT8abDh1cX60GgFyApzp9GUnqEOlUK53ASDuBFwmnnnnPnVZX
+ MupA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU36oRPDvCND4XamXpbM/dbugbwgX1kmWeyLIPjhbscRxFT2+bpR9MBHLVMyPnWmNW06PKas6ksJpI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyMWA0uYtNewV94TWego4oO/dzT6x0yb2q4q1KDLwae3TzUkeyl
- 4BRl5oOCGfFs2zXG8obIgmB1hR0E26h+3d4OtVDRJ0m6P6ed73v7HWBzSnrPHY4=
-X-Google-Smtp-Source: AGHT+IFrF4G/q1LSEE7otBncLBp307ma3OuS5kLKhttKr1HVd467Z9RO2T62rEKs3DTe/GxAHiuZAw==
-X-Received: by 2002:a2e:bc0e:0:b0:2fa:c0fc:e3d8 with SMTP id
- 38308e7fff4ca-2fb1f891ef9mr20050011fa.38.1728568856319; 
- Thu, 10 Oct 2024 07:00:56 -0700 (PDT)
+ AJvYcCW7+44jh08OuCZpJdpNOoCNTtNbVkf3v37I4z4qAbML+9ZAyON8XKPxvyBUIGGygs7TKTKfglkCVLc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxpIg/303qwrM/e9WQjPIJmZ6lPYckGdLfduznACiKL7mRKJe5f
+ LsOaqSVcbgVyUbfz5z5jJdhVR2uGY1IzNX68K2O2EkUbHfC1Q7eAiQn94tqzagg=
+X-Google-Smtp-Source: AGHT+IH/AhoqLxAeDa8GrTS+pYtnDRk05gpq3mqxJbZBvTFUqCKS16r2AzappociNsYeq9ZA5HsNug==
+X-Received: by 2002:a05:6512:3195:b0:535:3ca5:daa with SMTP id
+ 2adb3069b0e04-539c488d6f3mr4627086e87.7.1728573638749; 
+ Thu, 10 Oct 2024 08:20:38 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2fb2474c0c4sm2153281fa.101.2024.10.10.07.00.52
+ 2adb3069b0e04-539cb905182sm287086e87.258.2024.10.10.08.20.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Oct 2024 07:00:54 -0700 (PDT)
-Date: Thu, 10 Oct 2024 17:00:50 +0300
+ Thu, 10 Oct 2024 08:20:37 -0700 (PDT)
+Date: Thu, 10 Oct 2024 18:20:36 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 14/14] drm/msm/dpu: Enable quad-pipe for DSC and
- dual-DSI case
-Message-ID: <sygn5eco3yn3tsk2urpubh74lt77wdm3pyd5rbhrrp2bl3ro6v@nyjjwhdrlnyp>
-References: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org>
- <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-14-76d4f5d413bf@linaro.org>
+ Simona Vetter <simona@ffwll.ch>, quic_abhinavk@quicinc.com,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>
+Subject: Re: [PATCH] drm/msm/dpu: Don't always set merge_3d pending flush
+Message-ID: <5scqahnsr5i26rkumg5eqdiwrg5n7rrnrp5642c6moxucf6w3r@xcgrxtjhj3pz>
+References: <20241009-mode3d-fix-v1-1-c0258354fadc@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-14-76d4f5d413bf@linaro.org>
+In-Reply-To: <20241009-mode3d-fix-v1-1-c0258354fadc@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,179 +88,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Oct 09, 2024 at 04:50:27PM GMT, Jun Nie wrote:
-> Request 4 mixers and 4 DSC for the case that both dual-DSI and DSC are
-> enabled. We prefer to use 4 pipes for dual DSI case for it is power optimal
-> for DSC.
+On Wed, Oct 09, 2024 at 08:41:13PM GMT, Jessica Zhang wrote:
+> Don't set the merge_3d pending flush bits if the mode_3d is
+> BLEND_3D_NONE.
 > 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> Always flushing merge_3d can cause timeout issues when there are
+> multiple commits with concurrent writeback enabled.
+> 
+> This is because the video phys enc waits for the hw_ctl flush register
+> to be completely cleared [1] in its wait_for_commit_done(), but the WB
+> encoder always sets the merge_3d pending flush during each commit
+> regardless of if the merge_3d is actually active.
+> 
+> This means that the hw_ctl flush register will never be 0 when there are
+> multiple CWB commits and the video phys enc will hit vblank timeout
+> errors after the first CWB commit.
+
+From this description, wouldn't it be more correct to always set
+intf_cfg.merge_3d in WB code (even if mode_3d is NONE)?
+
+> [1] commit fe9df3f50c39 ("drm/msm/dpu: add real wait_for_commit_done()")
+> 
+> Fixes: 3e79527a33a8 ("drm/msm/dpu: enable merge_3d support on sm8150/sm8250")
+> Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         |  2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 ++---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 29 ++++++++++++++++++------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  3 ++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
->  6 files changed, 30 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index d2aca0a9493d5..dbdfff1c7792a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -200,7 +200,7 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc,
->  		struct dpu_crtc_state *crtc_state)
->  {
->  	struct dpu_crtc_mixer *m;
-> -	u32 crcs[CRTC_DUAL_MIXERS];
-> +	u32 crcs[CRTC_QUAD_MIXERS];
->  
->  	int rc = 0;
->  	int i;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> index ee7cf71f89fc7..f8276afd99192 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> @@ -211,7 +211,7 @@ struct dpu_crtc_state {
->  
->  	bool bw_control;
->  	bool bw_split_vote;
-> -	struct drm_rect lm_bounds[CRTC_DUAL_MIXERS];
-> +	struct drm_rect lm_bounds[CRTC_QUAD_MIXERS];
->  
->  	uint64_t input_fence_timeout_ns;
->  
-> @@ -219,10 +219,10 @@ struct dpu_crtc_state {
->  
->  	/* HW Resources reserved for the crtc */
->  	u32 num_mixers;
-> -	struct dpu_crtc_mixer mixers[CRTC_DUAL_MIXERS];
-> +	struct dpu_crtc_mixer mixers[CRTC_QUAD_MIXERS];
->  
->  	u32 num_ctls;
-> -	struct dpu_hw_ctl *hw_ctls[CRTC_DUAL_MIXERS];
-> +	struct dpu_hw_ctl *hw_ctls[CRTC_QUAD_MIXERS];
->  
->  	u32 num_dscs;
->  	enum dpu_crtc_crc_source crc_source;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 68655c8817bf8..ed220ac691e8a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -54,7 +54,7 @@
->  #define MAX_PHYS_ENCODERS_PER_VIRTUAL \
->  	(MAX_H_TILES_PER_DISPLAY * NUM_PHYS_ENCODER_TYPES)
->  
-> -#define MAX_CHANNELS_PER_ENC 2
-> +#define MAX_CHANNELS_PER_ENC 4
->  
->  #define IDLE_SHORT_TIMEOUT	1
->  
-> @@ -588,15 +588,19 @@ static struct msm_display_topology dpu_encoder_get_topology(
->  
->  	/* Datapath topology selection
->  	 *
-> -	 * Dual display
-> +	 * Dual display without DSC
->  	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
->  	 *
-> +	 * Dual display with DSC
-> +	 * 4 LM, 2 INTF ( Split display using 2 interfaces)
-> +	 *
->  	 * Single display
->  	 * 1 LM, 1 INTF
->  	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
->  	 *
->  	 * Add dspps to the reservation requirements if ctm is requested
->  	 */
-> +
->  	if (intf_count == 2)
->  		topology.num_lm = 2;
->  	else if (!dpu_kms->catalog->caps->has_3d_merge)
-> @@ -615,10 +619,21 @@ static struct msm_display_topology dpu_encoder_get_topology(
->  		 * 2 DSC encoders, 2 layer mixers and 1 interface
->  		 * this is power optimal and can drive up to (including) 4k
->  		 * screens
-> +		 * But for dual display case, we prefer 4 layer mixers. Because
-> +		 * the resolution is always high in the case and 4 DSCs are more
-> +		 * power optimal. While a single SSPP can only co-work with one
-> +		 * mixer pair. So 4 mixers are needed in this case.
-
-What is the relationship between SSPP working with a mixer pair and
-high-res using 4 mixers? You have been writing about DSC, then you
-suddently mention SSPP.
-
->  		 */
-> -		topology.num_dsc = 2;
-> -		topology.num_lm = 2;
-> -		topology.num_intf = 1;
-> +
-> +		if (intf_count == 2) {
-> +			topology.num_dsc = 4;
-> +			topology.num_lm = 4;
-> +			topology.num_intf = 2;
-> +		} else {
-> +			topology.num_dsc = 2;
-> +			topology.num_lm = 2;
-> +			topology.num_intf = 1;
-> +		}
->  	}
->  
->  	return topology;
-> @@ -2031,8 +2046,8 @@ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
->  	struct dpu_hw_mixer_cfg mixer;
->  	int i, num_lm;
->  	struct dpu_global_state *global_state;
-> -	struct dpu_hw_blk *hw_lm[2];
-> -	struct dpu_hw_mixer *hw_mixer[2];
-> +	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-> +	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
->  	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
->  
->  	memset(&mixer, 0, sizeof(mixer));
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> index e77ebe3a68da9..c877ee45535ac 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> @@ -324,7 +324,8 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
->  
->  	/* Use merge_3d unless DSC MERGE topology is used */
->  	if (phys_enc->split_role == ENC_ROLE_SOLO &&
-> -	    dpu_cstate->num_mixers == CRTC_DUAL_MIXERS &&
-> +	    (dpu_cstate->num_mixers == CRTC_DUAL_MIXERS ||
-> +		dpu_cstate->num_mixers == CRTC_QUAD_MIXERS) &&
->  	    !dpu_encoder_use_dsc_merge(phys_enc->parent))
->  		return BLEND_3D_H_ROW_INT;
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index bf86d643887dd..f79ecd409a830 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -25,6 +25,7 @@
->  #define MAX_IMG_HEIGHT 0x3fff
->  
->  #define CRTC_DUAL_MIXERS	2
-> +#define CRTC_QUAD_MIXERS	4
->  
->  #define MAX_XIN_COUNT 16
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> index d8f5cffa60ea6..671e03406df74 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> @@ -32,9 +32,9 @@
->  #define DPU_MAX_PLANES			4
->  #endif
->  
-> -#define PIPES_PER_PLANE			2
->  #define PIPES_PER_LM_PAIR		2
->  #define LM_PAIRS_PER_PLANE		2
-> +#define PIPES_PER_PLANE			(PIPES_PER_LM_PAIR * LM_PAIRS_PER_PLANE)
->  #ifndef DPU_MAX_DE_CURVES
->  #define DPU_MAX_DE_CURVES		3
->  #endif
-> 
-> -- 
-> 2.34.1
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 5 ++++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c  | 5 ++++-
+>  2 files changed, 8 insertions(+), 2 deletions(-)
 > 
 
 -- 
