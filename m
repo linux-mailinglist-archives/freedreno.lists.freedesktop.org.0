@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E210C999D58
-	for <lists+freedreno@lfdr.de>; Fri, 11 Oct 2024 09:03:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 619E2999D6E
+	for <lists+freedreno@lfdr.de>; Fri, 11 Oct 2024 09:06:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA75D10EA51;
-	Fri, 11 Oct 2024 07:03:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AB5D10EA59;
+	Fri, 11 Oct 2024 07:06:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BRK6DyQV";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zwbjy4uW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
- [209.85.219.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2D0C10EA51
- for <freedreno@lists.freedesktop.org>; Fri, 11 Oct 2024 07:03:03 +0000 (UTC)
-Received: by mail-yb1-f173.google.com with SMTP id
- 3f1490d57ef6-e28ff55468dso1777897276.2
- for <freedreno@lists.freedesktop.org>; Fri, 11 Oct 2024 00:03:03 -0700 (PDT)
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7386810EA58
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Oct 2024 07:06:53 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-6e2772f7df9so15960507b3.2
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Oct 2024 00:06:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728630183; x=1729234983; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1728630412; x=1729235212; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=e/WrAkYmWTzQpnkkGqkA3T9eZ4D5Jk8JiEoDs0ZQrAM=;
- b=BRK6DyQV7mpvGa2hWMbhJDYwGa69COXLCOlGxGyjTUHCMUr0cTPt1Ai+azjsqXdGN1
- Xn/pZ7EybLJWnkodAOzc81ZN0czQWcbPCqgCZ5IPGft0Anwy5sh4KJndSF5ocATQnHa4
- cRZ3UoKQxpHGLg3r4YYp2M/94+0ex+TQqqJNv0eM550THQNomSy9Ij5kt55blhIq4zTt
- IZhROL7Wyi6geADLxGn8Iz1yeuV5dUC9M7b8VYAJURE/GO9Joq1F4R5Xhu3iPmR8LeO4
- /SmcxsSn5E3kzLzKPlzY7E5kNh7ODg6dTDQdwDf7RIkSASC++uhdre0mzAG+GOYsnV9G
- cc5g==
+ bh=KbDvhzRE0GcC1Dd4Kqw9/lX4StqtF0AG6/j/dYmGN1o=;
+ b=zwbjy4uWp2SFC8b8cdtaCHDCLhsuNisWrC61r5fwReXO117kQk/+cchesSE/shmcUp
+ wLWaFheroU476rve4LQimo6DVWVzqpwAvegZ/OWA2B4hMhqAHNX8703EwNSZ/kHdXX4c
+ om0+Bn3CkE06KuXckavtjIH0rHSxYyd097C6/iEoN/ZEWktEclD79Qm/xknH6bV+pn5d
+ c6E1B8IYxbxJWKDvYhXti0XBrWX8En4hOrL+atu6E17B8qadIh8WRN6BNQUvE7aZHQjJ
+ Apv0eNlvNuPfYpY4iu3M6Chfkgih8BLmktktqLdFm5d973bh3S7klYRN5JU3f+CJeE9Z
+ YeFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728630183; x=1729234983;
+ d=1e100.net; s=20230601; t=1728630412; x=1729235212;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=e/WrAkYmWTzQpnkkGqkA3T9eZ4D5Jk8JiEoDs0ZQrAM=;
- b=ctcCETWm/s14wR7Fbjax8s4UAp5GRrsDA7/acqfzszN9y+2xQzdn+MRvm51Y8fxRlT
- cuirG5TQiEV/A2S0ZnrSk6UQCHn9yO7auVF1aGz8hF9kg9SunGQWDZVtpNTOuBaE99nK
- 3Vr3S9mhD2UjEsFDa/BVmE2Cz1bsOoYcuIleqg4kSD4UmzmMrEtiHaT5xKsrk4Q+iIG6
- iW689UCr8wL4RXWRiqTXvHSqHUkDzLOszqdKfJz+YtbcjNxBFCnabFN/4oxByXnDZfIj
- AhmHGXyJ58kDpHVNhzUnDu+LDFgJqlDIcyXS7Sb1HVB+7hsa1F2viMrJrKpPA/oIYXAd
- 1vRg==
+ bh=KbDvhzRE0GcC1Dd4Kqw9/lX4StqtF0AG6/j/dYmGN1o=;
+ b=myXYkerNeY/0PHZqRXicUwAfLAoTGM8nlmDfs3W0WUWjj8vUmPKqjGh6mm5OtoiJQO
+ WdfnpybbOOfqUjLrOzQCJj75msIK7n9M5uA7KFltXQOC7CgMe8o48XJ3eFN0N0yQFilO
+ LXEzBMhJZsOjB7znd+xmVXnpL3rTIRaiydWwVgF/ONQzdDNeUsFywlEpBYyvfNHGjSqy
+ FmHcJ7OzMyV0nX4tZ/qZ1CsB35BuTw+21O248utsbvrLG9LTaa3P9CVRv9SKN1qaQECG
+ LvktiEWDSv+P3WAeaGIUVn4fTx0RmW1dz8eC69Fbb6ZCuETeBNZvgNE7VjxZIP5uBnM3
+ Wqwg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXCodW0dauV7b0eAg+osL6/t/iL+jGhyIYdG61LTSAkHUFPsGzIJ9xfFANS1b9FEfLqSO3xv9xXaP4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1fsMs0P4LUNmdwFnVRwzgX+IG5awOFu8EIcIrkQ/u7YW7ywe/
- Sfv9SHsbuTZtoZrR5NwvNp5Tb4NL6WLfwp55aeHMBj/gtTdO6v8985cfp3rO5fFkFlv9aawyId7
- NOAeGDkke/g14VrVLZnhNWkG8uQUVql9AFl3P9A==
-X-Google-Smtp-Source: AGHT+IExrPlFUulHFd/PrfCfhS/4BHjHsolgjvVdCJaeB+YAMnpZ8ogCYZHPoFPVad1Xx04WRVGP4lRAtqTIlIKyqzc=
-X-Received: by 2002:a05:690c:4e09:b0:6dd:bbb4:bcc7 with SMTP id
- 00721157ae682-6e347c4de20mr8741367b3.44.1728630182736; Fri, 11 Oct 2024
- 00:03:02 -0700 (PDT)
+ AJvYcCW0cu4e29c/V49xdON7qbKMiK+i+1Vf/YXDeNrLKCY35k+hafP9HSdTKDoQKbEjYiQ+DV30QBvslLY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx/3kZyxfHE3wX9jH7uosy//EURyXfFWcDDJog7DwvKO4hiK/ya
+ sM9wztd+Qv15WMEVAoRVeo+k7M25o6R1DWKWtF4cu/kGwE4S2e7vKfHbGv/jYV+7oogcLLr3vyl
+ SDF+POavJ3h3AAZnqtroXCsQIEv0ix9fpsHK11w==
+X-Google-Smtp-Source: AGHT+IGAqFf1aCWRylzQD2egBbLwi3qRNqcNEIYZaTvmCmq4ukOzJTKIvCqu2AgBinqdnGTEhCOpEXxLoURFTP8BrkA=
+X-Received: by 2002:a05:690c:fc7:b0:6e2:b263:1045 with SMTP id
+ 00721157ae682-6e3477befe2mr12970867b3.6.1728630412570; Fri, 11 Oct 2024
+ 00:06:52 -0700 (PDT)
 MIME-Version: 1.0
 References: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org>
- <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-9-76d4f5d413bf@linaro.org>
- <zig5zuf6hjcrkwmsdiahtzz3t3mxrmwxj65l43xij3zhfcyidn@fuisasnavvo3>
- <CABymUCP7bVBSWXCNp33x_B8KaZSFU-Dx+bU5ctkgDGXrzURrXQ@mail.gmail.com>
-In-Reply-To: <CABymUCP7bVBSWXCNp33x_B8KaZSFU-Dx+bU5ctkgDGXrzURrXQ@mail.gmail.com>
+ <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-8-76d4f5d413bf@linaro.org>
+ <n7bkvvxph2wxaxf2s7vonj273ouonlb2nisl7n7ora6j5stnlv@tt3v3uawwh2q>
+ <CABymUCPV+bu-MNGCRp_0A+jC9Z6hY3XRm4vZ5Ju2XxT5YuRzPA@mail.gmail.com>
+In-Reply-To: <CABymUCPV+bu-MNGCRp_0A+jC9Z6hY3XRm4vZ5Ju2XxT5YuRzPA@mail.gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 11 Oct 2024 10:02:52 +0300
-Message-ID: <CAA8EJpovnEq_ciO0YmiREhwvxv6yGKnRMPx5=6G7R+Ob6Hy_hA@mail.gmail.com>
-Subject: Re: [PATCH v2 09/14] drm/msm/dpu: blend pipes per mixer pairs config
+Date: Fri, 11 Oct 2024 10:06:41 +0300
+Message-ID: <CAA8EJpprO9pZ7bRf5HDA7-8UYKn5RiK2Yg9eW1NTYSEAE8ZDFw@mail.gmail.com>
+Subject: Re: [PATCH v2 08/14] drm/msm/dpu: update mixer number info earlier
 To: Jun Nie <jun.nie@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -86,107 +86,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 11 Oct 2024 at 09:40, Jun Nie <jun.nie@linaro.org> wrote:
+On Fri, 11 Oct 2024 at 09:30, Jun Nie <jun.nie@linaro.org> wrote:
 >
 > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B410=
-=E6=9C=8810=E6=97=A5=E5=91=A8=E5=9B=9B 21:15=E5=86=99=E9=81=93=EF=BC=9A
+=E6=9C=8810=E6=97=A5=E5=91=A8=E5=9B=9B 21:12=E5=86=99=E9=81=93=EF=BC=9A
 > >
-> > On Wed, Oct 09, 2024 at 04:50:22PM GMT, Jun Nie wrote:
-> > > Blend pipes by set of mixer pair config. The first 2 pipes are for le=
-ft
-> > > half screen with the first set of mixer pair config. And the later 2 =
-pipes
-> > > are for right in quad pipe case.
+> > On Wed, Oct 09, 2024 at 04:50:21PM GMT, Jun Nie wrote:
+> > > Update mixer number info earlier so that the plane nopipe check
+> > > can have the info to clip the plane. Otherwise, the first nonpipe
+> > > check will have mixer number as 0 and plane is not checked.
 > > >
 > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
 > > > ---
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 38 ++++++++++++++++++-=
-----------
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  1 +
-> > >  2 files changed, 25 insertions(+), 14 deletions(-)
+> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 11 ++++++++++-
+> > >  1 file changed, 10 insertions(+), 1 deletion(-)
 > > >
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/d=
-rm/msm/disp/dpu1/dpu_crtc.c
-> > > index 43d9817cd858f..66f745399a602 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > @@ -442,7 +442,7 @@ static void _dpu_crtc_blend_setup_mixer(struct dr=
-m_crtc *crtc,
-> > >       const struct msm_format *format;
-> > >       struct dpu_hw_ctl *ctl =3D mixer->lm_ctl;
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gp=
+u/drm/msm/disp/dpu1/dpu_encoder.c
+> > > index dfe282c607933..68655c8817bf8 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > @@ -638,6 +638,7 @@ static int dpu_encoder_virt_atomic_check(
+> > >       struct dpu_global_state *global_state;
+> > >       struct drm_framebuffer *fb;
+> > >       struct drm_dsc_config *dsc;
+> > > +     struct dpu_crtc_state *cstate;
+> > >       int ret =3D 0;
 > > >
-> > > -     uint32_t lm_idx, i;
-> > > +     uint32_t lm_idx, lm_pair, i, pipe_idx;
-> > >       bool bg_alpha_enable =3D false;
-> > >       DECLARE_BITMAP(fetch_active, SSPP_MAX);
+> > >       if (!drm_enc || !crtc_state || !conn_state) {
+> > > @@ -662,6 +663,8 @@ static int dpu_encoder_virt_atomic_check(
+> > >       dsc =3D dpu_encoder_get_dsc_config(drm_enc);
 > > >
-> > > @@ -463,15 +463,20 @@ static void _dpu_crtc_blend_setup_mixer(struct =
-drm_crtc *crtc,
-> > >               if (pstate->stage =3D=3D DPU_STAGE_BASE && format->alph=
-a_enable)
-> > >                       bg_alpha_enable =3D true;
+> > >       topology =3D dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mod=
+e, crtc_state, dsc);
+> > > +     cstate =3D to_dpu_crtc_state(crtc_state);
+> > > +     cstate->num_mixers =3D topology.num_lm;
 > > >
-> > > -             for (i =3D 0; i < PIPES_PER_LM_PAIR; i++) {
-> > > -                     if (!pstate->pipe[i].sspp)
-> > > -                             continue;
-> > > -                     set_bit(pstate->pipe[i].sspp->idx, fetch_active=
-);
-> > > -                     _dpu_crtc_blend_setup_pipe(crtc, plane,
-> > > -                                                mixer, cstate->num_m=
-ixers,
-> > > -                                                pstate->stage,
-> > > -                                                format, fb ? fb->mod=
-ifier : 0,
-> > > -                                                &pstate->pipe[i], i,=
- stage_cfg);
-> > > +             /* loop pipe per mixer pair */
-> > > +             for (lm_pair =3D 0; lm_pair < PIPES_PER_PLANE / 2; lm_p=
-air++) {
-> > > +                     for (i =3D 0; i < PIPES_PER_LM_PAIR; i++) {
-> > > +                             pipe_idx =3D i + lm_pair * PIPES_PER_LM=
-_PAIR;
-> > > +                             if (!pstate->pipe[pipe_idx].sspp)
-> > > +                                     continue;
-> > > +                             set_bit(pstate->pipe[pipe_idx].sspp->id=
-x, fetch_active);
-> > > +                             _dpu_crtc_blend_setup_pipe(crtc, plane,
-> > > +                                                        mixer, cstat=
-e->num_mixers,
-> > > +                                                        pstate->stag=
-e,
-> > > +                                                        format, fb ?=
- fb->modifier : 0,
-> > > +                                                        &pstate->pip=
-e[pipe_idx], i,
-> > > +                                                        &stage_cfg[l=
-m_pair]);
-> > > +                     }
-> > >               }
+> > >       /*
+> > >        * Use CDM only for writeback or DP at the moment as other inte=
+rfaces cannot handle it.
+> > > @@ -1170,7 +1173,13 @@ static void dpu_encoder_virt_atomic_mode_set(s=
+truct drm_encoder *drm_enc,
+> > >       }
 > > >
-> > >               /* blend config update */
-> > > @@ -503,7 +508,7 @@ static void _dpu_crtc_blend_setup(struct drm_crtc=
- *crtc)
-> > >       struct dpu_crtc_mixer *mixer =3D cstate->mixers;
-> > >       struct dpu_hw_ctl *ctl;
-> > >       struct dpu_hw_mixer *lm;
-> > > -     struct dpu_hw_stage_cfg stage_cfg;
-> > > +     struct dpu_hw_stage_cfg stage_cfg[LM_PAIRS_PER_PLANE];
+> > >       cstate->num_dscs =3D num_dsc;
+> > > -     cstate->num_mixers =3D num_lm;
+> > > +     if (cstate->num_mixers !=3D num_lm) {
+> > > +             if (!cstate->num_mixers)
+> > > +                     DPU_ERROR_ENC(dpu_enc,
+> > > +                                   "mixer number %d is not as expect=
+ed %d\n",
+> > > +                                   num_lm, cstate->num_mixers);
+> > > +             cstate->num_mixers =3D num_lm;
+> > > +     }
 > >
-> > After seeing this code, can we define STAGES_PER_PLANE (and
-> > also keep PLANES_PER_STAGE defined to 2)?
-> >
-> Could you elaborate it? Stages describe how many layers to be blended.
-> Plane is a DRM concept that describe a buffer to be display in specific
-> display driver. Plane is already mapped to SSPP/multi-rect in DPU driver
->  in blending stage level. So I am confused here.
-
-We have dpu_hw_stage_cfg, you are adding a second instance of it. So
-we now have two stages per plane.
-
+> > Is it a possible case or just defensive coding?
 >
-> -  Jun
+> The value is initialized beforehand only in virtual plane case. So we
+> still need this
+> for non virtual plane case.
 
-
+It looks better if it's handled in the non-virtual code instead.
 
 --=20
 With best wishes
