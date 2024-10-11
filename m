@@ -2,77 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B914B998B43
-	for <lists+freedreno@lfdr.de>; Thu, 10 Oct 2024 17:20:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2088999CA6
+	for <lists+freedreno@lfdr.de>; Fri, 11 Oct 2024 08:30:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93A0710E95D;
-	Thu, 10 Oct 2024 15:20:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80F4C10EA3E;
+	Fri, 11 Oct 2024 06:30:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="u4t7IiRe";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LoIKRx4E";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A66810E95D
- for <freedreno@lists.freedesktop.org>; Thu, 10 Oct 2024 15:20:41 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-53995380bb3so1386668e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 10 Oct 2024 08:20:40 -0700 (PDT)
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
+ [209.85.219.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4E2E10EA3E
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Oct 2024 06:30:19 +0000 (UTC)
+Received: by mail-yb1-f179.google.com with SMTP id
+ 3f1490d57ef6-e28fd83b5bbso1722675276.0
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Oct 2024 23:30:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728573639; x=1729178439; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Yl+AJ7lyFwjwDvwphBTlSXLZHqolk5S2mucilQyKVTA=;
- b=u4t7IiRePivhQHQd0j5HZaNaWBwm7kX9C6c+z2uDe9CN44n9wbYnFfsImgY4vWDjBe
- v/gIYX7Zkxz6utUBftuvUWUpLGDMbUkrWGFYPh8Qv9lZtVwHlNcIW9EfUBYYv4hvISvP
- 78GVJkwlvXea3DN6FDUUTy7vgAoloFHNilAxxcYus3ZAcRrXC+SE+VNS2TWp9uL0eBq2
- 64xzaQ2FxCvluWvWS4RLHpo7bd6tRyeIl1ZeKOuoWujHrKSDfj9cOMN+nS8t/gcjzXzJ
- 76VTp+v4RtIIw01V9AgfMJzCCsP5tGjORJy4c20aN5fiP/SLQCYnd0HOPITtDQ+G8Oy0
- InJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728573639; x=1729178439;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=linaro.org; s=google; t=1728628218; x=1729233018; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Yl+AJ7lyFwjwDvwphBTlSXLZHqolk5S2mucilQyKVTA=;
- b=cibdlomdDPXFjmKeIFsEvb+EVSGIJv5L+vJL/1FKp353IZdPZ5QLUZVEgc1TbI7HKz
- R1kTQTcV9KLLKpvPJU4I41mI/xQRBsE4naq/euqRjkZj+k/QqIQPNtEabjX0kU9+sxD1
- 1K3bzMh9V1e8Icp2Fp+fivkIK4g0oybMhm1fWTuoIIvyB10E4tkVfnU4F2+NqdssE8XJ
- TaoPU7zBIy9YplV49BU7tkzO5OMc+5Q8oPkyurpzlVoolfiPtsMcArCQEnCRiowvrrsW
- pHQc3XMQ9RZ68LyXgApKT8abDh1cX60GgFyApzp9GUnqEOlUK53ASDuBFwmnnnnPnVZX
- MupA==
+ bh=BVcEDroOEZwsIMVrx+9WRohn0DDzskEXWSGatUhqlGY=;
+ b=LoIKRx4EGK6+7MCvV0066gS+Y5GCrheatUV9y2jtq9JNzMHqMn5atBwWykwsxLbRGp
+ hQ3zE9nNweKqB23uykY/W0fCmAoYt6LjziSZntvKA9mGbNkqct0vLHlLWSprRUuPRSvY
+ /jhcqFgaJK0/cUuTPZafwrZ0qYVvMKwR5vXaq4wQqD9PITQHFyrHNMwFcJN6A53vy+qv
+ T2rnB1aQ4BH8px0WiSzLrjAQHR8v4ExnYrb54lCuXGjHMGKcKLB6hmVM8XA1BAOrIDLD
+ qlygymay1zWMFNdcxK1iNzL0uBaI046htRLZlD3jDT7n9+AQEsVVOb/AX+grTzI01KIb
+ H6Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728628218; x=1729233018;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=BVcEDroOEZwsIMVrx+9WRohn0DDzskEXWSGatUhqlGY=;
+ b=jkcprkBEJwm1gI7BvePMXq+UEJcADwSqJezrNJ72aJWdKh53BoIKwkCsLRl0AX2Ig9
+ vEXbI0X3u1rgduKNwDNE8iDvAeVFfbtVxFhGuItd97bPkKVYK5ZB5/pNFG9V1276Zj89
+ k39Jd1+tVVy+loNaeDqiZyASYglN3yEzLetnQLIz5AIRYqkKbTz5OWgRWadFU4LS02Df
+ dGT8KSox/WrWOzkEieOP3uAPSUB+WuBEz84cFVQncuQ4ahxYolO3NKebKSoQWQNwrCCL
+ ikvz8UK51PFAvYC+uPpMQqt+C69S0VK9lG5otVbyj6DndPnomSTebuEMJGYKgCNQAa9G
+ W6SQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW7+44jh08OuCZpJdpNOoCNTtNbVkf3v37I4z4qAbML+9ZAyON8XKPxvyBUIGGygs7TKTKfglkCVLc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxpIg/303qwrM/e9WQjPIJmZ6lPYckGdLfduznACiKL7mRKJe5f
- LsOaqSVcbgVyUbfz5z5jJdhVR2uGY1IzNX68K2O2EkUbHfC1Q7eAiQn94tqzagg=
-X-Google-Smtp-Source: AGHT+IH/AhoqLxAeDa8GrTS+pYtnDRk05gpq3mqxJbZBvTFUqCKS16r2AzappociNsYeq9ZA5HsNug==
-X-Received: by 2002:a05:6512:3195:b0:535:3ca5:daa with SMTP id
- 2adb3069b0e04-539c488d6f3mr4627086e87.7.1728573638749; 
- Thu, 10 Oct 2024 08:20:38 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539cb905182sm287086e87.258.2024.10.10.08.20.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Oct 2024 08:20:37 -0700 (PDT)
-Date: Thu, 10 Oct 2024 18:20:36 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, quic_abhinavk@quicinc.com,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>
-Subject: Re: [PATCH] drm/msm/dpu: Don't always set merge_3d pending flush
-Message-ID: <5scqahnsr5i26rkumg5eqdiwrg5n7rrnrp5642c6moxucf6w3r@xcgrxtjhj3pz>
-References: <20241009-mode3d-fix-v1-1-c0258354fadc@quicinc.com>
+ AJvYcCU5bKyRPzFqGtaPx1sgKKf2RLj59Jxy+nmLvbD4a3Y2/+q+ZKX18uPE6xRyGo7fWtMUKlFXQQsQYhk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzznybqwSG39p3MyqlgSEpPMK7rX/8QBVRlBmghc/iACajVEDc4
+ ou8ekNlzi5sxccp4dHl6W6sGrUry5eG6+QkMy4CBW9niVl6wDaCZSrXoffUPZiS7pGqb7pamdDV
+ GHZEMPFOMqBDZpMqN+fpnK3OivlKUChcXVZQTlA==
+X-Google-Smtp-Source: AGHT+IHJdQGSufApLca8LjP+ezebvoTYvY+Iadu6v7iZqW7H9NHt7SSVE59XTNWKkbubvse0s188tLVmRhsmcUOf89Q=
+X-Received: by 2002:a05:6902:1441:b0:e29:2e8:5c95 with SMTP id
+ 3f1490d57ef6-e2919fff5aemr1088090276.51.1728628218609; Thu, 10 Oct 2024
+ 23:30:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241009-mode3d-fix-v1-1-c0258354fadc@quicinc.com>
+References: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org>
+ <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-8-76d4f5d413bf@linaro.org>
+ <n7bkvvxph2wxaxf2s7vonj273ouonlb2nisl7n7ora6j5stnlv@tt3v3uawwh2q>
+In-Reply-To: <n7bkvvxph2wxaxf2s7vonj273ouonlb2nisl7n7ora6j5stnlv@tt3v3uawwh2q>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Fri, 11 Oct 2024 14:30:07 +0800
+Message-ID: <CABymUCPV+bu-MNGCRp_0A+jC9Z6hY3XRm4vZ5Ju2XxT5YuRzPA@mail.gmail.com>
+Subject: Re: [PATCH v2 08/14] drm/msm/dpu: update mixer number info earlier
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,36 +85,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Oct 09, 2024 at 08:41:13PM GMT, Jessica Zhang wrote:
-> Don't set the merge_3d pending flush bits if the mode_3d is
-> BLEND_3D_NONE.
-> 
-> Always flushing merge_3d can cause timeout issues when there are
-> multiple commits with concurrent writeback enabled.
-> 
-> This is because the video phys enc waits for the hw_ctl flush register
-> to be completely cleared [1] in its wait_for_commit_done(), but the WB
-> encoder always sets the merge_3d pending flush during each commit
-> regardless of if the merge_3d is actually active.
-> 
-> This means that the hw_ctl flush register will never be 0 when there are
-> multiple CWB commits and the video phys enc will hit vblank timeout
-> errors after the first CWB commit.
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B410=E6=
+=9C=8810=E6=97=A5=E5=91=A8=E5=9B=9B 21:12=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Wed, Oct 09, 2024 at 04:50:21PM GMT, Jun Nie wrote:
+> > Update mixer number info earlier so that the plane nopipe check
+> > can have the info to clip the plane. Otherwise, the first nonpipe
+> > check will have mixer number as 0 and plane is not checked.
+> >
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 11 ++++++++++-
+> >  1 file changed, 10 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/=
+drm/msm/disp/dpu1/dpu_encoder.c
+> > index dfe282c607933..68655c8817bf8 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > @@ -638,6 +638,7 @@ static int dpu_encoder_virt_atomic_check(
+> >       struct dpu_global_state *global_state;
+> >       struct drm_framebuffer *fb;
+> >       struct drm_dsc_config *dsc;
+> > +     struct dpu_crtc_state *cstate;
+> >       int ret =3D 0;
+> >
+> >       if (!drm_enc || !crtc_state || !conn_state) {
+> > @@ -662,6 +663,8 @@ static int dpu_encoder_virt_atomic_check(
+> >       dsc =3D dpu_encoder_get_dsc_config(drm_enc);
+> >
+> >       topology =3D dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode,=
+ crtc_state, dsc);
+> > +     cstate =3D to_dpu_crtc_state(crtc_state);
+> > +     cstate->num_mixers =3D topology.num_lm;
+> >
+> >       /*
+> >        * Use CDM only for writeback or DP at the moment as other interf=
+aces cannot handle it.
+> > @@ -1170,7 +1173,13 @@ static void dpu_encoder_virt_atomic_mode_set(str=
+uct drm_encoder *drm_enc,
+> >       }
+> >
+> >       cstate->num_dscs =3D num_dsc;
+> > -     cstate->num_mixers =3D num_lm;
+> > +     if (cstate->num_mixers !=3D num_lm) {
+> > +             if (!cstate->num_mixers)
+> > +                     DPU_ERROR_ENC(dpu_enc,
+> > +                                   "mixer number %d is not as expected=
+ %d\n",
+> > +                                   num_lm, cstate->num_mixers);
+> > +             cstate->num_mixers =3D num_lm;
+> > +     }
+>
+> Is it a possible case or just defensive coding?
 
-From this description, wouldn't it be more correct to always set
-intf_cfg.merge_3d in WB code (even if mode_3d is NONE)?
-
-> [1] commit fe9df3f50c39 ("drm/msm/dpu: add real wait_for_commit_done()")
-> 
-> Fixes: 3e79527a33a8 ("drm/msm/dpu: enable merge_3d support on sm8150/sm8250")
-> Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 5 ++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c  | 5 ++++-
->  2 files changed, 8 insertions(+), 2 deletions(-)
-> 
-
--- 
-With best wishes
-Dmitry
+The value is initialized beforehand only in virtual plane case. So we
+still need this
+for non virtual plane case.
+>
+> >       dpu_enc->connector =3D conn_state->connector;
+> >
+> >       /*
+> >
+> > --
+> > 2.34.1
+> >
+>
+> --
+> With best wishes
+> Dmitry
