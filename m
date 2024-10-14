@@ -2,77 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A192899D4CB
-	for <lists+freedreno@lfdr.de>; Mon, 14 Oct 2024 18:37:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D42599D6C9
+	for <lists+freedreno@lfdr.de>; Mon, 14 Oct 2024 20:53:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D126D10E48C;
-	Mon, 14 Oct 2024 16:37:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BBF810E137;
+	Mon, 14 Oct 2024 18:53:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="DrGK96AA";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="M6sILbTW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9509810E48F
- for <freedreno@lists.freedesktop.org>; Mon, 14 Oct 2024 16:37:38 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-71e483c83dbso2639080b3a.3
- for <freedreno@lists.freedesktop.org>; Mon, 14 Oct 2024 09:37:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1728923858; x=1729528658;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sVGl2ftbuqqnUqeIL1a1bElRQ/ry6hMTlQBnPSxP8Dk=;
- b=DrGK96AAtYnT7Ov0mWOFQVhsocHIYccTx0QgPZVBOqgwNsY4gi2A2zRB4r6nExildk
- covYrT5sYYkPHfmRBUoZa1ZKB+CCNlCYyDVdF9ToJ1D+V8esi+iriZpNn/A65xkYT748
- wilGFOLEh1kDs8cFY4Dh4NH7/Pijz1GLmqSfg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728923858; x=1729528658;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=sVGl2ftbuqqnUqeIL1a1bElRQ/ry6hMTlQBnPSxP8Dk=;
- b=dL0Vv2eOc2wjLhHxvHW3PLAoFTo4xDB1onwE1YU05N2KYLVC+PAKZ/WyZghVQ+4LOY
- FjPTvQ5QS5DYbPQ6Loyvk5bcq+w9y7O0caojt3UIdRL+OQGdffrAfEOShJ/pSSKDKTzw
- DCS7qUB3gAbbLWXJFqwyI+HVPU2wEMbe0B241IunQW6X4+LUIetPAPoDAPdGg6LO2uk7
- 5RtiUoGvkcVXjxpj5CURohRmXuc5IjgQ48bNw1KxUVNqQGUhyJEMAb3HM+EueTwXlnJZ
- AVHl6bPx5AnQrlVax0TvgwoOZYW4qlmEjvNyQwi2ogjxBmyJzM4WkwFgAG9yiWultEKg
- o0Ug==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWhYUHAti3pVb/L4SIVGhE+QOG0F9CbX6CVuu5pYqoRTfPfGxCHga8vRQ5E/O8frXee05Ix2icS/kU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwlZFVsTFPzmTFBW4FOmU1FfikQuc9I4FdZ3xR1AGwZNz/KpJV3
- 2DhvMMBqfRGymF/+Vl+UmKNZ/tCti1cQ3v1UG8zC+kmO5/5ow5cvKScwzO28NA==
-X-Google-Smtp-Source: AGHT+IEguS+DYgfr50X3amlVgerOKKT45qvqYFP4etgOkkRvUpQ1dDg9fKu0+t5LQwDSWp3K3ICKxw==
-X-Received: by 2002:a05:6a00:4652:b0:71e:4c86:659a with SMTP id
- d2e1a72fcca58-71e4c866d72mr13703071b3a.9.1728923858137; 
- Mon, 14 Oct 2024 09:37:38 -0700 (PDT)
-Received: from dianders.sjc.corp.google.com
- ([2620:15c:9d:2:1e71:8a09:a3b:1e00])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-71e51dc0617sm4383693b3a.165.2024.10.14.09.37.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Oct 2024 09:37:37 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B620810E137;
+ Mon, 14 Oct 2024 18:52:59 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49EAiBh6011283;
+ Mon, 14 Oct 2024 18:52:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ USPQITIPllVhWG5IEj1TfL6AbGFHobQWh5g/bbReJf0=; b=M6sILbTWz7gxNF+r
+ F74w5U0rhvWHumL4NS3enHeFvgdWiauXhLHMsJuSgQWZ3Sn8PiUn0i34gAxIIaUJ
+ piw1FmtE1PaEAAEj8LDxdKQUTp2CV6SjVJeAoxI/I0AbZlo+2MS0A7Xjg4mMSQ5Z
+ wbwQ8/jz8GU/pw9DsAiBQMnNCqwZLikD2xqvPMyXdAxRGLQGsfaieGmgDC2XDG51
+ 6r0lsdFTTb+BAuf5jCr6SPkolDfLSxJIBACFfU6fpFrG/y5Lx91vlYCEIfaYJSEK
+ UStsNb1hjc4FqlqGKIB9ZDFDkhdtXihQzkYam+jIh6cKnAOoolM4Bu5VwQsUbLYq
+ +vqOIw==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 427h6twdt3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Oct 2024 18:52:55 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49EIqsOU002490
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Oct 2024 18:52:54 GMT
+Received: from [10.110.109.95] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 14 Oct
+ 2024 11:52:53 -0700
+Message-ID: <a740622c-5d7f-48a0-9888-e01fa4ef4c2c@quicinc.com>
+Date: Mon, 14 Oct 2024 11:52:53 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/msm: Avoid NULL dereference in
+ msm_disp_state_print_regs()
+To: Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Stephen Boyd <swboyd@chromium.org>,
- Douglas Anderson <dianders@chromium.org>, David Airlie <airlied@gmail.com>,
+CC: Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] drm/msm: Simplify NULL checking in
- msm_disp_state_dump_regs()
-Date: Mon, 14 Oct 2024 09:36:10 -0700
-Message-ID: <20241014093605.3.I66049c2c17bd82767661f0ecd741b20453da02b2@changeid>
-X-Mailer: git-send-email 2.47.0.rc1.288.g06298d1525-goog
-In-Reply-To: <20241014093605.1.Ia1217cecec9ef09eb3c6d125360cc6c8574b0e73@changeid>
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
 References: <20241014093605.1.Ia1217cecec9ef09eb3c6d125360cc6c8574b0e73@changeid>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20241014093605.1.Ia1217cecec9ef09eb3c6d125360cc6c8574b0e73@changeid>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: WK0znMCj3ftNmauzp8zBAfBgbi1U25NZ
+X-Proofpoint-ORIG-GUID: WK0znMCj3ftNmauzp8zBAfBgbi1U25NZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0
+ mlxlogscore=999 malwarescore=0 lowpriorityscore=0 mlxscore=0 adultscore=0
+ spamscore=0 suspectscore=0 clxscore=1011 priorityscore=1501
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410140134
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,58 +94,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The msm_disp_state_dump_regs():
 
-- Doesn't allocate if the caller already allocated. ...but there's one
-  caller and it doesn't allocate so we don't need this check.
-- Checks for allocation failure over and over even though it could
-  just do it once right after the allocation.
 
-Clean this up.
+On 10/14/2024 9:36 AM, Douglas Anderson wrote:
+> If the allocation in msm_disp_state_dump_regs() failed then
+> `block->state` can be NULL. The msm_disp_state_print_regs() function
+> _does_ have code to try to handle it with:
+> 
+>    if (*reg)
+>      dump_addr = *reg;
+> 
+> ...but since "dump_addr" is initialized to NULL the above is actually
+> a noop. The code then goes on to dereference `dump_addr`.
+> 
+> Make the function print "Registers not stored" when it sees a NULL to
+> solve this. Since we're touching the code, fix
+> msm_disp_state_print_regs() not to pointlessly take a double-pointer
+> and properly mark the pointer as `const`.
+> 
+> Fixes: 98659487b845 ("drm/msm: add support to take dpu snapshot")
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> ---
+> 
+>   drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 15 ++++++++-------
+>   1 file changed, 8 insertions(+), 7 deletions(-)
+> 
 
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
----
+LGTM, thanks for the fix
 
- .../gpu/drm/msm/disp/msm_disp_snapshot_util.c | 19 ++++++++-----------
- 1 file changed, 8 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-index 4d55e3cf570f..07a2c1e87219 100644
---- a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-+++ b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-@@ -25,24 +25,21 @@ static void msm_disp_state_dump_regs(u32 **reg, u32 aligned_len, void __iomem *b
- 	addr = base_addr;
- 	end_addr = base_addr + aligned_len;
- 
--	if (!(*reg))
--		*reg = kvzalloc(len_padded, GFP_KERNEL);
--
--	if (*reg)
--		dump_addr = *reg;
-+	*reg = kvzalloc(len_padded, GFP_KERNEL);
-+	if (!*reg)
-+		return;
- 
-+	dump_addr = *reg;
- 	for (i = 0; i < num_rows; i++) {
- 		x0 = (addr < end_addr) ? readl_relaxed(addr + 0x0) : 0;
- 		x4 = (addr + 0x4 < end_addr) ? readl_relaxed(addr + 0x4) : 0;
- 		x8 = (addr + 0x8 < end_addr) ? readl_relaxed(addr + 0x8) : 0;
- 		xc = (addr + 0xc < end_addr) ? readl_relaxed(addr + 0xc) : 0;
- 
--		if (dump_addr) {
--			dump_addr[i * 4] = x0;
--			dump_addr[i * 4 + 1] = x4;
--			dump_addr[i * 4 + 2] = x8;
--			dump_addr[i * 4 + 3] = xc;
--		}
-+		dump_addr[i * 4] = x0;
-+		dump_addr[i * 4 + 1] = x4;
-+		dump_addr[i * 4 + 2] = x8;
-+		dump_addr[i * 4 + 3] = xc;
- 
- 		addr += REG_DUMP_ALIGN;
- 	}
--- 
-2.47.0.rc1.288.g06298d1525-goog
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
