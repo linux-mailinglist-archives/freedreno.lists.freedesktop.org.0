@@ -2,84 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AA3499D73D
-	for <lists+freedreno@lfdr.de>; Mon, 14 Oct 2024 21:22:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65ECA99D77E
+	for <lists+freedreno@lfdr.de>; Mon, 14 Oct 2024 21:30:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FDBF10E4AE;
-	Mon, 14 Oct 2024 19:22:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CE8810E4B2;
+	Mon, 14 Oct 2024 19:30:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="KH1RNvPZ";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="JfkgsnYZ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0086B10E4AE;
- Mon, 14 Oct 2024 19:22:49 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49EB551u004976;
- Mon, 14 Oct 2024 19:22:41 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDFE110E4B1;
+ Mon, 14 Oct 2024 19:30:29 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49EAYi5w030609;
+ Mon, 14 Oct 2024 19:30:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- +IFnL4mUMiitkJabSAAeUc+H/UvzVDoulSrPcPlL1KI=; b=KH1RNvPZcZ/qRI6t
- gC2ACP2gFUsltxUqhfnsJACkT4/US0zycLAHi2KhWFrF9hqBHc0UEuTSXEb94PCT
- iw+Y6NqB2fXuMHAt7swgGiBRKuWp4jD2Ovse2FQ04sQfw4WfjghkJ8DgQj3pS4eq
- 5S9PN54vnMa7uOrpDT6VlN0t8a6ZrK6mATgRkFMHp0seqJkSS9UmIWDZgvz3C+xt
- s3NLDohSHGrETzwVlzae2ZqGamYGz/rtovuO1vmXLVCTrrd9Pi44FSbwvCT5CwaO
- jpf9Y9xhNsTqC5xyO6xBkytXyaiV7wREJrY9kfvgLVraLojRG1+dpMP7C5EPmbbU
- qQOfPA==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ hhvTNL0MfexPhPQef4F60tN58ojWvhBWUNkCxE18s+E=; b=JfkgsnYZBvJcL4n3
+ 0ghC6o2S65/YacJqp50ftUgMfGFjI0bXJ5acbh56m2JqgJGk43CBUxfKadGR8n56
+ U/fe93MWZUUVi2PlAhNgL/Voeig2BATB2g4wBgpK/QK/aPQYaFW7SFkRRAJa0ZUJ
+ bnoI82hwBzgZEYzBhoz4ckS4NxnNfBZc/OotLltOYwQgIeA2wb+fUzdyzL67tzlu
+ A90a7Ok5ViZrbtSdU10MlNKruIMrmgyGJm9HjO+cn07tFMJJjGAegnKCDmjTKs7s
+ CpohnBEPCy72ijZth81kg/O9WoSlVuXpgTT3ITaBV57xHEptkf0XQ6+66j6jEYRN
+ 2pmqrQ==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 427jd8waer-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 427hvfw9eb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Oct 2024 19:22:40 +0000 (GMT)
+ Mon, 14 Oct 2024 19:30:24 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49EJMeFO026699
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49EJUNMZ021236
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Oct 2024 19:22:40 GMT
+ Mon, 14 Oct 2024 19:30:23 GMT
 Received: from [10.110.109.95] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 14 Oct
- 2024 12:22:39 -0700
-Message-ID: <e938ac3d-48f3-488a-96df-80c94b7686cf@quicinc.com>
-Date: Mon, 14 Oct 2024 12:22:38 -0700
+ 2024 12:30:22 -0700
+Message-ID: <a76d7a45-fa1a-42d0-a401-1335a7c6d38b@quicinc.com>
+Date: Mon, 14 Oct 2024 12:30:21 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/hdmi: drop pll_cmp_to_fdata from hdmi_phy_8998
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>, Nick
- Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <llvm@lists.linux.dev>, Jani Nikula <jani.nikula@intel.com>
-References: <20240922-msm-drop-unused-func-v1-1-c5dc083415b8@linaro.org>
+Subject: Re: [PATCH v2 2/2] drm/msm/dsi: fix 32-bit signed integer extension
+ in pclk_rate calculation
+To: Jonathan Marek <jonathan@marek.ca>, <freedreno@lists.freedesktop.org>
+CC: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ "Konrad Dybcio" <konradybcio@kernel.org>,
+ Sibi Sankar <quic_sibis@quicinc.com>, "open
+ list:DRM DRIVER for Qualcomm display hardware"
+ <linux-arm-msm@vger.kernel.org>, "open list:DRM DRIVER for Qualcomm display
+ hardware" <dri-devel@lists.freedesktop.org>, open list
+ <linux-kernel@vger.kernel.org>
+References: <20241007050157.26855-1-jonathan@marek.ca>
+ <20241007050157.26855-2-jonathan@marek.ca>
 Content-Language: en-US
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20240922-msm-drop-unused-func-v1-1-c5dc083415b8@linaro.org>
+In-Reply-To: <20241007050157.26855-2-jonathan@marek.ca>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: qdud2PHy7wMKhm9ZGVxgrNFYTxrpsi4i
-X-Proofpoint-ORIG-GUID: qdud2PHy7wMKhm9ZGVxgrNFYTxrpsi4i
+X-Proofpoint-GUID: cCA7OfkVxO5YBf3E17MiOh4pAEBJNSh5
+X-Proofpoint-ORIG-GUID: cCA7OfkVxO5YBf3E17MiOh4pAEBJNSh5
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0
- lowpriorityscore=0 phishscore=0 suspectscore=0 impostorscore=0 bulkscore=0
- mlxscore=0 mlxlogscore=887 malwarescore=0 priorityscore=1501 adultscore=0
- clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410140137
+ priorityscore=1501
+ phishscore=0 bulkscore=0 mlxlogscore=940 malwarescore=0 mlxscore=0
+ clxscore=1011 adultscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410140138
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,24 +101,21 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 9/21/2024 2:14 PM, Dmitry Baryshkov wrote:
-> The pll_cmp_to_fdata() was never used by the working code. Drop it to
-> prevent warnings with W=1 and clang.
+On 10/6/2024 10:01 PM, Jonathan Marek wrote:
+> When (mode->clock * 1000) is larger than (1<<31), int to unsigned long
+> conversion will sign extend the int to 64 bits and the pclk_rate value
+> will be incorrect.
 > 
-> Reported-by: Jani Nikula <jani.nikula@intel.com>
-> Closes: https://lore.kernel.org/dri-devel/3553b1db35665e6ff08592e35eb438a574d1ad65.1725962479.git.jani.nikula@intel.com
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Fix this by making the result of the multiplication unsigned.
+> 
+> Note that above (1<<32) would still be broken and require more changes, but
+> its unlikely anyone will need that anytime soon.
+> 
+> Fixes: c4d8cfe516dc ("drm/msm/dsi: add implementation for helper functions")
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 > ---
->   drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c | 9 ---------
->   1 file changed, 9 deletions(-)
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-> index 0e3a2b16a2ce..e6ffaf92d26d 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c
-> @@ -153,15 +153,6 @@ static inline u32 pll_get_pll_cmp(u64 fdata, unsigned long ref_clk)
->   	return dividend - 1;
->   }
->   
 
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
