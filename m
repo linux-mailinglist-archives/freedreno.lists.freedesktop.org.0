@@ -2,77 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F7FF99EA25
-	for <lists+freedreno@lfdr.de>; Tue, 15 Oct 2024 14:44:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D7B199F272
+	for <lists+freedreno@lfdr.de>; Tue, 15 Oct 2024 18:13:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C07710E0B1;
-	Tue, 15 Oct 2024 12:44:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2733310E5B6;
+	Tue, 15 Oct 2024 16:13:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="S5hE3wMZ";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="VXzX8QVI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
- [209.85.208.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A539010E57D
- for <freedreno@lists.freedesktop.org>; Tue, 15 Oct 2024 12:44:02 +0000 (UTC)
-Received: by mail-lj1-f179.google.com with SMTP id
- 38308e7fff4ca-2fb51f39394so19789791fa.2
- for <freedreno@lists.freedesktop.org>; Tue, 15 Oct 2024 05:44:02 -0700 (PDT)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8272A10E5B6
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Oct 2024 16:13:18 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-5c941623a5aso13870a12.0
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Oct 2024 09:13:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728996241; x=1729601041; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=3SQaNBGN1mxZVAMjEtaA/BhZGMt2iLPd/VivsuWhVfA=;
- b=S5hE3wMZSdtJpnV+/WtGp+DSOz5qcYE3UPB+/Vz+oxEXbIUcA7qu+pbws1yZwIu62r
- XAypkyIuU8pbpSv1DsTKUb+dww1ZvNGWo6pidYGM2Y2izI5zWHa5CTEeiEW68YI6f6e8
- p3lLrf6fCDBjfn4jQEd3yhDnlmvQB951uAwHBNPmV8GUh7wzHieBdMNWsgKNHaijsqOb
- 6K6an5cQvQI+nAPtjF9nBkgRhIDuCRbt7XbLfagbs18S8mz/jm6p+JRMG5hcs+0SecLx
- rdZ0M+2GGlLYr8pZi+vbQXY/a0WwECCIHWAmqX3Ax5fXclT856nc6XDdRPTTp0MmdCbA
- qiYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728996241; x=1729601041;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=chromium.org; s=google; t=1729008796; x=1729613596;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3SQaNBGN1mxZVAMjEtaA/BhZGMt2iLPd/VivsuWhVfA=;
- b=nkrpKPOgWITVotDUo8MRQzRRMu/dVEbX2kmKGcIXK+v4r3Uee5DzGfbUqqfkn7Ldvi
- 5BQrnk2tDcPwru4eLW3GgYI8FgtBN8FGwR9uO0K9LdpFVhfvSjHOtb28HHp3Bd+DwiCL
- 64MZbwotYFRAWCmjXy9aLG5ABB3HU7Z+bfxCgO05sjsnlmLu/UpuTeejD3vHqOe51LEu
- BTQSP2be9yt6h5BmV4m9gh/Ml+AAAu70Hz0YoIdsE659FYwWp7jGKIPhWk0l1SOUvbSe
- qtfGSfBEAb1oGdu6c9rWnolMsFe3nz2bdFpKjX8UiGry5RJKJ0aky7XdSy73bLCIn789
- p5SA==
+ bh=pXMfoHtJcAiX4YFy/v4VHJn4H6jq9Bc4cWujSEwbcdk=;
+ b=VXzX8QVIbhfcBtglcVel/aYDgbEGogROIV9vyPHJ7AKbtYvMz7KltiLhjiKhHWd0vN
+ G9wQOF33au4He6BFXqYzY3n/aGOCKeDB8dLs98NPAT5QX6OUX3zBW6rSMa4dNNMbWy2e
+ VVYET6DAD1mYWETwtqAT39wekTYgBvAAIx9tk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729008796; x=1729613596;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pXMfoHtJcAiX4YFy/v4VHJn4H6jq9Bc4cWujSEwbcdk=;
+ b=bXi2S5aZRQQREbp1yKlqoZcnzTOA9zPFg5UkEn+IQ0V4NlSL7O/fyRgsYg7ZFJZb61
+ /jXwYcl1DHDpCv2j2BIcF1cdp2PPM3HuUYFYkn7cC5DeY6/qW0656Py2ETesb4kdeNjX
+ 5OJyuPX9vc/dN9u+khJ9say7R9/aQK4OQD3Ijp9RnTFWREz2PKk5lpsX6DA38s8EVqDt
+ AGkqxwViewpzOSTLZubIhHK7uY7/5oDK6x6od9F2NcPcZ5EVa13TG3DY4UmiX/QH4gzp
+ 6Qqg8qGgqdnFZVkZB4P3TempKBEApnt5lTZ0jscDwNCJdg3TaAW4gjZ1+1qxurZjScCe
+ FY0w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW/xHFb1Dlkp6ZqJ0focJsEGUfJAI+A41AjtSXa2FwazOb/VNSrh+ku5iLfUgddZUHSynfUsIx4Mkk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyD11YZB4iM+LmCx6KPmKr3OWf5kmC8zvPZYQDVD+QzJjwlH0D9
- 5FUueY2HX0zRodLFjAv2d+/GS5+4ug0jSTN12ImMdEF38sas+s44NRuurwatdF8=
-X-Google-Smtp-Source: AGHT+IEtf1bxgczpfiNA8NzJb5A9RmLJNMO353LaV7Pw7z3bEbJ44JZ2pT+RaReMTzzfnefZ/EOInA==
-X-Received: by 2002:a2e:b164:0:b0:2fb:5504:7966 with SMTP id
- 38308e7fff4ca-2fb61bacc4fmr1979851fa.30.1728996240652; 
- Tue, 15 Oct 2024 05:44:00 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2fb5d126dd6sm1575741fa.52.2024.10.15.05.43.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Oct 2024 05:44:00 -0700 (PDT)
-Date: Tue, 15 Oct 2024 15:43:58 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, quic_abhinavk@quicinc.com,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>
-Subject: Re: [PATCH] drm/msm/dpu: Don't always set merge_3d pending flush
-Message-ID: <mkuayois4t463oqpxi47tl5npjdsafovivmx3pscnmxy3i4v3w@xt4omvobamim>
-References: <20241009-mode3d-fix-v1-1-c0258354fadc@quicinc.com>
+ AJvYcCW4lteW8wJgO4aIG0fTe6izKPPILjciv9rz38Ai4LtnDLyH59BFAK+GbndtKvwUxblDB72kO0vxw8g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzWGCy+f/e/ZfjC70BkzsjDCKc/3zAiLeEe/nS7J5sf9ZJS9xn/
+ jookHTCRM1abLm/WC5bIC958C3z0VQJ08Yj1fI9OhpXzFtY/gMLM66MzdyzsL0ZNZV/jELTLccq
+ nVWpY
+X-Google-Smtp-Source: AGHT+IFt44xxLd8ew8l4NpH5RqV8XFCjUXNSkIAT89dUcJYHwFlYiQ5SioYFM8705t0DSUyqbQtFeA==
+X-Received: by 2002:a17:906:7951:b0:a9a:597:8cc9 with SMTP id
+ a640c23a62f3a-a9a05978d8fmr826271966b.12.1729008796560; 
+ Tue, 15 Oct 2024 09:13:16 -0700 (PDT)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com.
+ [209.85.208.45]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9a29817576sm87105766b.130.2024.10.15.09.13.16
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Oct 2024 09:13:16 -0700 (PDT)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-5c937b5169cso8122478a12.1
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Oct 2024 09:13:16 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVHHyctu0ONrDFExe4Q0xMxb9FqIjJnblvuqxyyOZj5DWsvRJzU9cpqdqtJWILHjbwUkppQ4wf4zJE=@lists.freedesktop.org
+X-Received: by 2002:a05:6512:a95:b0:539:edc9:7400 with SMTP id
+ 2adb3069b0e04-53a03cc8dedmr370366e87.20.1729008378263; Tue, 15 Oct 2024
+ 09:06:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241009-mode3d-fix-v1-1-c0258354fadc@quicinc.com>
+References: <20241015134606.5b87093e@endymion.delvare>
+In-Reply-To: <20241015134606.5b87093e@endymion.delvare>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 15 Oct 2024 09:06:04 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WhVWswn28hbxNDLDhMeiZOpsWzsx8OkORniOxWVx_4Gg@mail.gmail.com>
+Message-ID: <CAD=FV=WhVWswn28hbxNDLDhMeiZOpsWzsx8OkORniOxWVx_4Gg@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/display: Drop obsolete dependency on COMPILE_TEST
+To: Jean Delvare <jdelvare@suse.de>
+Cc: dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ YueHaibing <yuehaibing@huawei.com>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,35 +101,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Oct 09, 2024 at 08:41:13PM -0700, Jessica Zhang wrote:
-> Don't set the merge_3d pending flush bits if the mode_3d is
-> BLEND_3D_NONE.
-> 
-> Always flushing merge_3d can cause timeout issues when there are
-> multiple commits with concurrent writeback enabled.
-> 
-> This is because the video phys enc waits for the hw_ctl flush register
-> to be completely cleared [1] in its wait_for_commit_done(), but the WB
-> encoder always sets the merge_3d pending flush during each commit
-> regardless of if the merge_3d is actually active.
-> 
-> This means that the hw_ctl flush register will never be 0 when there are
-> multiple CWB commits and the video phys enc will hit vblank timeout
-> errors after the first CWB commit.
-> 
-> [1] commit fe9df3f50c39 ("drm/msm/dpu: add real wait_for_commit_done()")
-> 
-> Fixes: 3e79527a33a8 ("drm/msm/dpu: enable merge_3d support on sm8150/sm8250")
-> Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+Hi,
+
+On Tue, Oct 15, 2024 at 4:46=E2=80=AFAM Jean Delvare <jdelvare@suse.de> wro=
+te:
+>
+> Since commit 0166dc11be91 ("of: make CONFIG_OF user selectable"), it
+> is possible to test-build any driver which depends on OF on any
+> architecture by explicitly selecting OF. Therefore depending on
+> COMPILE_TEST as an alternative is no longer needed.
+>
+> To avoid reintroducing the randconfig bug originally fixed by commit
+> 876271118aa4 ("drm/display: Fix build error without CONFIG_OF"),
+> DRM_MSM which selects DRM_DISPLAY_DP_HELPER must explicitly depend
+> on OF. This is consistent with what all other DRM drivers are doing.
+>
+> Signed-off-by: Jean Delvare <jdelvare@suse.de>
+> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 5 ++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c  | 5 ++++-
->  2 files changed, 8 insertions(+), 2 deletions(-)
-> 
+> For regular builds, this is a no-op, as OF is always enabled on
+> ARCH_QCOM and SOC_IMX5. So this change only affects test builds. As
+> explained before, allowing test builds only when OF is enabled
+> improves the quality of these test builds, as the result is then
+> closer to how the code is built on its intended targets.
+>
+> Changes in v3:
+> * Rebase on top of kernel v6.11.
+> Changes in v2:
+> * Let DRM_MSM depend on OF so that random test builds won't break.
+>
+>  drivers/gpu/drm/display/Kconfig |    2 +-
+>  drivers/gpu/drm/msm/Kconfig     |    1 +
+>  2 files changed, 2 insertions(+), 1 deletion(-)
+>
+> --- linux-6.11.orig/drivers/gpu/drm/display/Kconfig
+> +++ linux-6.11/drivers/gpu/drm/display/Kconfig
+> @@ -3,7 +3,7 @@
+>  config DRM_DISPLAY_DP_AUX_BUS
+>         tristate
+>         depends on DRM
+> -       depends on OF || COMPILE_TEST
+> +       depends on OF
+>
+>  config DRM_DISPLAY_HELPER
+>         tristate
+> --- linux-6.11.orig/drivers/gpu/drm/msm/Kconfig
+> +++ linux-6.11/drivers/gpu/drm/msm/Kconfig
+> @@ -6,6 +6,7 @@ config DRM_MSM
+>         depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
+>         depends on COMMON_CLK
+>         depends on IOMMU_SUPPORT
+> +       depends on OF
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Perhaps nobody landed this because you're missing the msm maintainers
+as specified by `./scripts/get_maintainer.pl -f
+drivers/gpu/drm/msm/Kconfig` ? I've added them here. It seems like
+we'd at least need an Ack by those guys since this modified the
+msm/Kconfig...
 
--- 
-With best wishes
-Dmitry
+FWIW I haven't spent massive time studying this, but what you have
+here looks reasonable. I'm happy at least with this from a DP AUX bus
+perspective:
+
+Acked-by: Douglas Anderson <dianders@chromium.org>
+
+Presumably landing this via drm-misc makes the most sense after MSM
+guys give it an Ack.
+
+
+-Doug
