@@ -2,90 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8161999DEFE
-	for <lists+freedreno@lfdr.de>; Tue, 15 Oct 2024 09:02:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C9E399E0FC
+	for <lists+freedreno@lfdr.de>; Tue, 15 Oct 2024 10:27:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E57210E511;
-	Tue, 15 Oct 2024 07:02:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BDD410E54A;
+	Tue, 15 Oct 2024 08:27:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="gHO0Krzv";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vgr2yqBl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B300910E51C;
- Tue, 15 Oct 2024 07:02:54 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49F0nqXK028943;
- Tue, 15 Oct 2024 07:02:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- MNxcovHaCZr4YyZwbkPjdIHNQ44b3u3Z8IXuc9mgySg=; b=gHO0KrzvEjmG+I38
- XvZ3iZIgIEfDAGnxjJ9THEildcaXiNRUlTLyVIepkEyRPRZZB/BhJ6aTkmlh+dKc
- lkXIZZhlBCyJh6JrIoUlQMeI0v3ED9EBc85hCtalLswsLq213f0gGeUC1V5ZGeqP
- fd9maBH5bwIn6Wl/dXbXaXVWSf7dIlIypsimDAK7XSsmFT73qFBihmy/hD0Ujvfb
- NMsxq9yox3t9yLuwgpkFA0b82hY5sbL6PfYsI735xRObr0+oNQ13HDtn6y5CVNTw
- 9hS+4UCrYCX2c7s0YnnWEFhSmcT50V2IzUa/tCVlRAWyj8NakRNGgtnCRBg5Gj1q
- 9Im+FA==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4292evjdhm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 15 Oct 2024 07:02:46 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49F72io5000952
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 15 Oct 2024 07:02:44 GMT
-Received: from [10.204.67.70] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 15 Oct
- 2024 00:02:36 -0700
-Message-ID: <2a2b1373-6cb4-4813-8736-dd7b12c90c0a@quicinc.com>
-Date: Tue, 15 Oct 2024 12:32:33 +0530
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
+ [209.85.219.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F37F10E54A
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Oct 2024 08:27:24 +0000 (UTC)
+Received: by mail-yb1-f172.google.com with SMTP id
+ 3f1490d57ef6-e2972abc807so186766276.3
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Oct 2024 01:27:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1728980843; x=1729585643; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Kh7NkmDAM9m5O1uSrySh2RZX18Uua/RhFygWOGIe73E=;
+ b=vgr2yqBlXLIu/3QpgZXGMlvVcjGMCd5s/rUh0X205F7bFHwirpiX1aJ0eKOiyyqeDO
+ u1fYF1K1bTWTAAtSFy8UvNR9VClOZOjJxSQ2sYG/xg+Ok0vxLNCTjXjxZfIU5MSzUIGo
+ 4rCIDOofT7/JIDyi/OPLyvzc/VL1+zO3ywWCHKv8V5Mqe3zu2FVWTztLKwWK4LdhLziL
+ wfIC1E6drnHfQW1oUhHkF1dg9teGc/Z3WhuTWVHGowQ9eIOh2+X5t/pXNW8GZc4Q2d6F
+ TyJIhdNj0r4acL6pIlvoazc9otjonU1j39flafeosIpiRpfhmUHBb7VWruHIERwAset3
+ UfVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728980843; x=1729585643;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Kh7NkmDAM9m5O1uSrySh2RZX18Uua/RhFygWOGIe73E=;
+ b=heNHEGKCAqu9nwB2y9CXwIhmVZBoiXKw6wqGy3btqeNwyvzaTwHT5CoWlm/zObn7Ep
+ RMNzkdhl33DSkkwmt7Wm6WB7ySs2Slu59sqadt5Z+hydL2SHesJCXO4e6argChadeCTT
+ beQRpoHHPw6cu4lqt0i4hr08Rg3Feib2NPITUc7/T6IOWIVEOro0uAyHyGRLg/eZ+Z1b
+ z3Xg9yGC1RBlaU/LKX9YcujZNSDl6CWbf/4FdzRyydOniNGgnG+T0SaN0Mk2o52q8igh
+ 56f6/aQewyK5I1IsKRc/5Fmx+TwsfKl0yuiJ8t+RAk+3o6Ymp9QQu4UQN5/xPIlaDcXO
+ upyw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU5DNcv6dmhLzazIGrSSDjtgCwOH/HyloiR+ON3X/wNIrNFzKcrMdli22A60aE6ZwLThw7g7COmWv4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxGVXbPIMpRYCEnQY9yjY6xoNYvYi/aEz4fSzV7HNtqATxg1pe
+ L9TtiiOfKjLDBd7FWfTEpqRLXPmpbLxj+rJjn/DHSPJkGH6CDTbg69lDrhuV2FknyC/Q66yOZ4Q
+ KEBtky70avZ5uVs0anWpVH7EuMMEdjeMZ5okIzg==
+X-Google-Smtp-Source: AGHT+IFkKg4baqyI1mR+ynKg6uqf1M6RVbil+T3rXQaW6Bdg4AXGejHp/kAEANso21Z43EVZ9cmSocT4SYoeks7pIAU=
+X-Received: by 2002:a05:6902:1893:b0:e29:2f00:803e with SMTP id
+ 3f1490d57ef6-e292f00c843mr9386451276.33.1728980843258; Tue, 15 Oct 2024
+ 01:27:23 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/5] Add support for DisplayPort on SA8775P platform
-Content-Language: en-US
+References: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org>
+ <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-9-76d4f5d413bf@linaro.org>
+ <zig5zuf6hjcrkwmsdiahtzz3t3mxrmwxj65l43xij3zhfcyidn@fuisasnavvo3>
+ <CABymUCP7bVBSWXCNp33x_B8KaZSFU-Dx+bU5ctkgDGXrzURrXQ@mail.gmail.com>
+ <CAA8EJpovnEq_ciO0YmiREhwvxv6yGKnRMPx5=6G7R+Ob6Hy_hA@mail.gmail.com>
+ <CABymUCPdu5+iz-amwv_O999sLUOmUMczo_v=1aUpJGpHo5f8CA@mail.gmail.com>
+ <CAA8EJppMu5o7juhKUN2Y_4CRYKtaWN9G01aPU2ZfksE_tzjqCQ@mail.gmail.com>
+In-Reply-To: <CAA8EJppMu5o7juhKUN2Y_4CRYKtaWN9G01aPU2ZfksE_tzjqCQ@mail.gmail.com>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Tue, 15 Oct 2024 16:27:12 +0800
+Message-ID: <CABymUCNbwY5hoaOxydPccFAdbnCQgUMspJLHkNziQyf=NxOj2A@mail.gmail.com>
+Subject: Re: [PATCH v2 09/14] drm/msm/dpu: blend pipes per mixer pairs config
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: <vkoul@kernel.org>, <kishon@kernel.org>, <konradybcio@kernel.org>,
- <andersson@kernel.org>, <simona@ffwll.ch>, <abel.vesa@linaro.org>,
- <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, <sean@poorly.run>,
- <marijn.suijten@somainline.org>, <airlied@gmail.com>,
- <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <quic_khsieh@quicinc.com>,
- <konrad.dybcio@linaro.org>, <quic_parellan@quicinc.com>,
- <quic_bjorande@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <linux-phy@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <quic_riteshk@quicinc.com>,
- <quic_vproddut@quicinc.com>
-References: <20241004103046.22209-1-quic_mukhopad@quicinc.com>
- <CAA8EJprNz-Byy6T3qkkUyZnTkyb_7osyuevP8E-xYzzPSmQjUw@mail.gmail.com>
-From: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
-In-Reply-To: <CAA8EJprNz-Byy6T3qkkUyZnTkyb_7osyuevP8E-xYzzPSmQjUw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: sX5TkqqPVxeTca0Ty3eh-82zg5gY4O8X
-X-Proofpoint-ORIG-GUID: sX5TkqqPVxeTca0Ty3eh-82zg5gY4O8X
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0
- priorityscore=1501 malwarescore=0 mlxlogscore=999 lowpriorityscore=0
- phishscore=0 adultscore=0 bulkscore=0 mlxscore=0 impostorscore=0
- suspectscore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2409260000 definitions=main-2410150047
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,55 +89,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B410=E6=
+=9C=8811=E6=97=A5=E5=91=A8=E4=BA=94 15:13=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Fri, 11 Oct 2024 at 10:11, Jun Nie <jun.nie@linaro.org> wrote:
+> >
+> > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B410=
+=E6=9C=8811=E6=97=A5=E5=91=A8=E4=BA=94 15:03=E5=86=99=E9=81=93=EF=BC=9A
+> > >
+> > > On Fri, 11 Oct 2024 at 09:40, Jun Nie <jun.nie@linaro.org> wrote:
+> > > >
+> > > > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=
+=B410=E6=9C=8810=E6=97=A5=E5=91=A8=E5=9B=9B 21:15=E5=86=99=E9=81=93=EF=BC=
+=9A
+> > > > >
+> > > > > On Wed, Oct 09, 2024 at 04:50:22PM GMT, Jun Nie wrote:
+> > > > > > Blend pipes by set of mixer pair config. The first 2 pipes are =
+for left
+> > > > > > half screen with the first set of mixer pair config. And the la=
+ter 2 pipes
+> > > > > > are for right in quad pipe case.
+> > > > > >
+> > > > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > > > > > ---
+> > > > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 38 +++++++++++++=
++++++-----------
+> > > > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  1 +
+> > > > > >  2 files changed, 25 insertions(+), 14 deletions(-)
+> > > > > >
+> > > > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers=
+/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > > > > index 43d9817cd858f..66f745399a602 100644
+> > > > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > > > > @@ -442,7 +442,7 @@ static void _dpu_crtc_blend_setup_mixer(str=
+uct drm_crtc *crtc,
+> > > > > >       const struct msm_format *format;
+> > > > > >       struct dpu_hw_ctl *ctl =3D mixer->lm_ctl;
+> > > > > >
+> > > > > > -     uint32_t lm_idx, i;
+> > > > > > +     uint32_t lm_idx, lm_pair, i, pipe_idx;
+> > > > > >       bool bg_alpha_enable =3D false;
+> > > > > >       DECLARE_BITMAP(fetch_active, SSPP_MAX);
+> > > > > >
+> > > > > > @@ -463,15 +463,20 @@ static void _dpu_crtc_blend_setup_mixer(s=
+truct drm_crtc *crtc,
+> > > > > >               if (pstate->stage =3D=3D DPU_STAGE_BASE && format=
+->alpha_enable)
+> > > > > >                       bg_alpha_enable =3D true;
+> > > > > >
+> > > > > > -             for (i =3D 0; i < PIPES_PER_LM_PAIR; i++) {
+> > > > > > -                     if (!pstate->pipe[i].sspp)
+> > > > > > -                             continue;
+> > > > > > -                     set_bit(pstate->pipe[i].sspp->idx, fetch_=
+active);
+> > > > > > -                     _dpu_crtc_blend_setup_pipe(crtc, plane,
+> > > > > > -                                                mixer, cstate-=
+>num_mixers,
+> > > > > > -                                                pstate->stage,
+> > > > > > -                                                format, fb ? f=
+b->modifier : 0,
+> > > > > > -                                                &pstate->pipe[=
+i], i, stage_cfg);
+> > > > > > +             /* loop pipe per mixer pair */
+> > > > > > +             for (lm_pair =3D 0; lm_pair < PIPES_PER_PLANE / 2=
+; lm_pair++) {
+> > > > > > +                     for (i =3D 0; i < PIPES_PER_LM_PAIR; i++)=
+ {
+> > > > > > +                             pipe_idx =3D i + lm_pair * PIPES_=
+PER_LM_PAIR;
+> > > > > > +                             if (!pstate->pipe[pipe_idx].sspp)
+> > > > > > +                                     continue;
+> > > > > > +                             set_bit(pstate->pipe[pipe_idx].ss=
+pp->idx, fetch_active);
+> > > > > > +                             _dpu_crtc_blend_setup_pipe(crtc, =
+plane,
+> > > > > > +                                                        mixer,=
+ cstate->num_mixers,
+> > > > > > +                                                        pstate=
+->stage,
+> > > > > > +                                                        format=
+, fb ? fb->modifier : 0,
+> > > > > > +                                                        &pstat=
+e->pipe[pipe_idx], i,
+> > > > > > +                                                        &stage=
+_cfg[lm_pair]);
+> > > > > > +                     }
+> > > > > >               }
+> > > > > >
+> > > > > >               /* blend config update */
+> > > > > > @@ -503,7 +508,7 @@ static void _dpu_crtc_blend_setup(struct dr=
+m_crtc *crtc)
+> > > > > >       struct dpu_crtc_mixer *mixer =3D cstate->mixers;
+> > > > > >       struct dpu_hw_ctl *ctl;
+> > > > > >       struct dpu_hw_mixer *lm;
+> > > > > > -     struct dpu_hw_stage_cfg stage_cfg;
+> > > > > > +     struct dpu_hw_stage_cfg stage_cfg[LM_PAIRS_PER_PLANE];
+> > > > >
+> > > > > After seeing this code, can we define STAGES_PER_PLANE (and
+> > > > > also keep PLANES_PER_STAGE defined to 2)?
+> > > > >
+> > > > Could you elaborate it? Stages describe how many layers to be blend=
+ed.
+> > > > Plane is a DRM concept that describe a buffer to be display in spec=
+ific
+> > > > display driver. Plane is already mapped to SSPP/multi-rect in DPU d=
+river
+> > > >  in blending stage level. So I am confused here.
+> > >
+> > > We have dpu_hw_stage_cfg, you are adding a second instance of it. So
+> > > we now have two stages per plane.
+> >
+> > So you suggest to replace LM_PAIRS_PER_PLANE with STAGES_PER_PLANE,
+> > right? I assume a stage is coupled with a LM pair.
+> >
+> > But for PLANES_PER_STAGE, I am still confused. A stage or a LM pair can
+> > involve many SSPP layers. How it related to planes? Plane is a concepts=
+ from
+> > higher level.
+>
+> PIPES_PER_STAGE, excuse me.
 
-On 10/6/2024 8:30 PM, Dmitry Baryshkov wrote:
-> On Fri, 4 Oct 2024 at 12:30, Soutrik Mukhopadhyay
-> <quic_mukhopad@quicinc.com> wrote:
->> This series adds support for the DisplayPort controller
->> and eDP PHY v5 found on the Qualcomm SA8775P platform.
->>
->> ---
->> v2: Fixed review comments from Dmitry and Bjorn
->>          - Made aux_cfg array as const.
->>          - Reused edp_swing_hbr_rbr and edp_swing_hbr2_hbr3 for v5.
->>
->> v3: Fixed review comments from Dmitry, Konrad and Bjorn
->>          - Used a for loop to write the dp_phy_aux_cfg registers.
->>          - Pre-defined the aux_cfg size to prevent any magic numbers.
->>          - Added all the necessary DPTX controllers for this platform.
->>
->> v4: Fixed review comments from Dmitry and Krzysztof
->>          - Updated commit message.
-> For which patches? How?
-
-
-We have removed the "reviewed by" and kept only the "acked by" for patch 
-1. We have updated
-
-the commit message of patch 5 , to mention specifically about the 
-validation of 'only' MDSS0 DPTX0 and
-
-DPTX1.
-
+Do you mean to keep PIPES_PER_STAGE and do not introduce PIPES_PER_LM_PAIR,
+or use both? Looks like they are equal in hardware nature. A stage
+structure serves
+a mixer pair with 2 pipes. We can use PIPES_PER_LM_PAIR and add comment to
+ indicate it, thus avoid defining too many macro.
 
 >
->> ---
->>
->> Soutrik Mukhopadhyay (5):
->>    dt-bindings: phy: Add eDP PHY compatible for sa8775p
->>    phy: qcom: edp: Introduce aux_cfg array for version specific aux
->>      settings
->>    phy: qcom: edp: Add support for eDP PHY on SA8775P
->>    dt-bindings: display: msm: dp-controller: document SA8775P compatible
->>    drm/msm/dp: Add DisplayPort controller for SA8775P
->>
->>   .../bindings/display/msm/dp-controller.yaml   |  1 +
->>   .../devicetree/bindings/phy/qcom,edp-phy.yaml |  1 +
->>   drivers/gpu/drm/msm/dp/dp_display.c           |  9 +++
->>   drivers/phy/qualcomm/phy-qcom-edp.c           | 74 +++++++++++++------
->>   4 files changed, 61 insertions(+), 24 deletions(-)
->>
->> --
->> 2.17.1
->>
->
+> --
+> With best wishes
+> Dmitry
