@@ -2,78 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8A4899E9B2
-	for <lists+freedreno@lfdr.de>; Tue, 15 Oct 2024 14:25:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48D9699E9C0
+	for <lists+freedreno@lfdr.de>; Tue, 15 Oct 2024 14:26:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B249A10E094;
-	Tue, 15 Oct 2024 12:25:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2418010E094;
+	Tue, 15 Oct 2024 12:26:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hgs0yvle";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fKG2kQ2G";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5DCC10E094
- for <freedreno@lists.freedesktop.org>; Tue, 15 Oct 2024 12:25:45 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-6db20e22c85so40016917b3.0
- for <freedreno@lists.freedesktop.org>; Tue, 15 Oct 2024 05:25:45 -0700 (PDT)
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
+ [209.85.128.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2803310E579
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Oct 2024 12:26:28 +0000 (UTC)
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-6e3b7b3e9acso10242607b3.1
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Oct 2024 05:26:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728995145; x=1729599945; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=+Go8RY3f3g+YNRtfmTAreeRvEns8DfLxEuJL0kCvf+w=;
- b=hgs0yvleuTzWDUN8kav2//Duprl/9UJ/5Rx8Kf0VOfNfvojic7FjJFMBTJk0pwysl3
- P4NK07qyEWV9i0shO3abIq0xZUwiiYYxDc9JLGC4kpaSOoQFxq87IHJwTiAgyxijTn4I
- LegG8OitRFDfTFpCNuD32KzDzWzcBgYXPJfxi9jtwC3Qcq7p0YOjutu41zsyHAM+xBMF
- uK+q256OyucF1phHB8kGA0x8MbFNtzszTkqKlOlUcfQlh8eVTOLnMOpBak6aI7UtYg8M
- Zz2ymKPR2rztedil/7RZmf8lvmM4QlTD/JhnSMDls8o52dRdbpGIlwUv4MVGgBJyArOt
- i21g==
+ d=linaro.org; s=google; t=1728995187; x=1729599987; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ug4CIhvI9c7efoiVjwADMKle6ML6zboAC9qottYj1qg=;
+ b=fKG2kQ2GEzlyINRgJUFvkVv3pl+z72Gc69DNqCgxFDQPW4/bmbND6FmEL572HoRq7s
+ XDY5R9PYIQVzwenJ7F1UgpfwsP6ZtzZrnOPCop7dImYvVVXWVEwYUvz0FeNyWRrdZAqx
+ vl1n2rnxzecehIQ4tKLlAPxf3FF01AO30wrrwatgINlzsf3zfH3FKPznjD9TFj21HtlA
+ 0EHjWM6NfvAn+iSRfl/skRIgCD6Nyjucb1QOCoNzl6grwPnmx35bLub1k2dPsKnH1VyF
+ /TVaKgAii/QUi+MzloweMFDnfAjEQvbG1NLZvxqVN36lDgqx/TWe16D20jUUYAV2UEj2
+ mq+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728995145; x=1729599945;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+Go8RY3f3g+YNRtfmTAreeRvEns8DfLxEuJL0kCvf+w=;
- b=pVIkMv6U0hHwbafuMAN9JShQCPKSJPMQvMEosNFfMw09ecDTLfKPw52JiB7CJa60mh
- UYTm4d2LFT8ajvJDgUxi4NUpa6tVaqyDT7A7WbcJ88enhIPH+bmYX1d/ZSZWJ2Fx+N75
- MzpdJgTFSwnqxr4GPtm3kKdd3Lcih+MdJTWS1OV9dNph/72SVRONY+GlXuUSxoxTPx2r
- oEcmFdYEQVlcvOxco5usxFAb5pL/rbpyeJvFHAeIoMtODM4vwFxFt5H66kUShbkb8243
- CT5NzGcPji+vZmJg+JHDqWYF2qtkYe+cPJPxXLNJ47Sulei+GTOe+vn2JcINyHb8+CPr
- 1zRA==
+ d=1e100.net; s=20230601; t=1728995187; x=1729599987;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ug4CIhvI9c7efoiVjwADMKle6ML6zboAC9qottYj1qg=;
+ b=l+bsC0wwWZiiaScqX9s01iqCEdcLSDI7Ti1w2z1/FdmUDc/yoNvkLKDaBkKZEoYyYO
+ uIxsHUwVR3uaDlZKgSs2Tex3A0iJGWP80OKwIUfyenzypGvYf0PnoUqIPJalJvwmPV7k
+ UUT6uNTY/dvdbRiJBU5DDblz9fqeuCCFkXIzJyZs2UTBVze6WRCfSAnn7wCXlTszFlzR
+ cTMVYmPOmg7vTM5lpne6klxS0qdWQgaKNTDpCBwQyEICK+GT10I3UL+u5qVYc2R6HQ5h
+ WhzCgmCKVJIqfP+gihz6oSTQOgxop4HW9027Lr9dzMt5FZDPlnVy+bZob/pVnJ64P7IR
+ iIfw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCURagoep6vE+y6WZMbk7O/Yyj2iXdSkleN+6zq9Z0WuQ6gQLasIDBF4PrQUncanyHo+MFrXbG7+Fuc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxMdXXGs22G4ehVMQL8ogUY1dORtSfOpU+n5VWz6h5oKe8PZMUp
- w6ThfBtFxOWW2HBLHaTNC0kUZ8qCpB36BdNzcZaCmfw1lShSopxhVgxkBXR2yNV4cUL6mFsinRw
- Ua/Yam0pK8+pGW+GJfyHHx0s00QYjw3BT1ep2dQ==
-X-Google-Smtp-Source: AGHT+IHZzOhozWT/zaACpirlbBqkB9AePGlI8+Gi4sFzG1jRzDW+IwnQjZ8DWZzBKqIJX+L8fdHUbM4O+vIm2GvBe4E=
-X-Received: by 2002:a05:690c:4c04:b0:6dd:b7e0:65b2 with SMTP id
- 00721157ae682-6e3d40d174cmr2743727b3.24.1728995144733; Tue, 15 Oct 2024
- 05:25:44 -0700 (PDT)
+ AJvYcCV2WorplorzePqFTfmCtB8gca5AMJuWZ0rfegBP+nhvLQu89YSOGnDIKc8prNSFnu3vEpfvpT2UOXo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw1WwqNIvxIxkTolM/RbhBhkY9+zPyqZFmj6VwGrN5nkNsbMyE/
+ 2Xewj+V2O/tUJlJgmNn/pfKBLVXZiTaRT3p8drqkP3Oc9Q7PzjPLHTjPGpRufJTtMMU4O9qbuU4
+ sUtzvpUhuOH5Tqq9312ingQbgnHOj78korFZl6A==
+X-Google-Smtp-Source: AGHT+IE2uEu5425yw6JXhtzkTXiIwiLHa2uxraMUMytCqyA0U+XKYqEdiFVahWOa8TyQsjCe2gI8WVQTReMheBwdMyM=
+X-Received: by 2002:a05:690c:dc7:b0:6dd:d2c5:b2c with SMTP id
+ 00721157ae682-6e364107ef0mr79205637b3.4.1728995187172; Tue, 15 Oct 2024
+ 05:26:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20241004103046.22209-1-quic_mukhopad@quicinc.com>
- <CAA8EJprNz-Byy6T3qkkUyZnTkyb_7osyuevP8E-xYzzPSmQjUw@mail.gmail.com>
- <2a2b1373-6cb4-4813-8736-dd7b12c90c0a@quicinc.com>
-In-Reply-To: <2a2b1373-6cb4-4813-8736-dd7b12c90c0a@quicinc.com>
+References: <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org>
+ <20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-9-76d4f5d413bf@linaro.org>
+ <zig5zuf6hjcrkwmsdiahtzz3t3mxrmwxj65l43xij3zhfcyidn@fuisasnavvo3>
+ <CABymUCP7bVBSWXCNp33x_B8KaZSFU-Dx+bU5ctkgDGXrzURrXQ@mail.gmail.com>
+ <CAA8EJpovnEq_ciO0YmiREhwvxv6yGKnRMPx5=6G7R+Ob6Hy_hA@mail.gmail.com>
+ <CABymUCPdu5+iz-amwv_O999sLUOmUMczo_v=1aUpJGpHo5f8CA@mail.gmail.com>
+ <CAA8EJppMu5o7juhKUN2Y_4CRYKtaWN9G01aPU2ZfksE_tzjqCQ@mail.gmail.com>
+ <CABymUCNbwY5hoaOxydPccFAdbnCQgUMspJLHkNziQyf=NxOj2A@mail.gmail.com>
+In-Reply-To: <CABymUCNbwY5hoaOxydPccFAdbnCQgUMspJLHkNziQyf=NxOj2A@mail.gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 15 Oct 2024 15:25:39 +0300
-Message-ID: <CAA8EJpoM5d=NgcugVdXfSNDAWp+nfDVV+jaLAqk1pEg7RvoM4g@mail.gmail.com>
-Subject: Re: [PATCH v4 0/5] Add support for DisplayPort on SA8775P platform
-To: Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
-Cc: vkoul@kernel.org, kishon@kernel.org, konradybcio@kernel.org, 
- andersson@kernel.org, simona@ffwll.ch, abel.vesa@linaro.org, 
- robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run, 
- marijn.suijten@somainline.org, airlied@gmail.com, daniel@ffwll.ch, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- quic_khsieh@quicinc.com, konrad.dybcio@linaro.org, quic_parellan@quicinc.com, 
- quic_bjorande@quicinc.com, linux-arm-msm@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
+Date: Tue, 15 Oct 2024 15:26:22 +0300
+Message-ID: <CAA8EJpo9XMo9EGKMzVaDrS7tPZ6CHw6RkqROF4-k94KpFXVjfw@mail.gmail.com>
+Subject: Re: [PATCH v2 09/14] drm/msm/dpu: blend pipes per mixer pairs config
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, quic_riteshk@quicinc.com, 
- quic_vproddut@quicinc.com
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,69 +90,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 15 Oct 2024 at 10:02, Soutrik Mukhopadhyay
-<quic_mukhopad@quicinc.com> wrote:
+On Tue, 15 Oct 2024 at 11:27, Jun Nie <jun.nie@linaro.org> wrote:
 >
+> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B410=
+=E6=9C=8811=E6=97=A5=E5=91=A8=E4=BA=94 15:13=E5=86=99=E9=81=93=EF=BC=9A
+> >
+> > On Fri, 11 Oct 2024 at 10:11, Jun Nie <jun.nie@linaro.org> wrote:
+> > >
+> > > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B4=
+10=E6=9C=8811=E6=97=A5=E5=91=A8=E4=BA=94 15:03=E5=86=99=E9=81=93=EF=BC=9A
+> > > >
+> > > > On Fri, 11 Oct 2024 at 09:40, Jun Nie <jun.nie@linaro.org> wrote:
+> > > > >
+> > > > > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=
+=B9=B410=E6=9C=8810=E6=97=A5=E5=91=A8=E5=9B=9B 21:15=E5=86=99=E9=81=93=EF=
+=BC=9A
+> > > > > >
+> > > > > > On Wed, Oct 09, 2024 at 04:50:22PM GMT, Jun Nie wrote:
+> > > > > > > Blend pipes by set of mixer pair config. The first 2 pipes ar=
+e for left
+> > > > > > > half screen with the first set of mixer pair config. And the =
+later 2 pipes
+> > > > > > > are for right in quad pipe case.
+> > > > > > >
+> > > > > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > > > > > > ---
+> > > > > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 38 +++++++++++=
++++++++-----------
+> > > > > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  1 +
+> > > > > > >  2 files changed, 25 insertions(+), 14 deletions(-)
+> > > > > > >
+> > > > > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drive=
+rs/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > > > > > index 43d9817cd858f..66f745399a602 100644
+> > > > > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > > > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > > > > > @@ -442,7 +442,7 @@ static void _dpu_crtc_blend_setup_mixer(s=
+truct drm_crtc *crtc,
+> > > > > > >       const struct msm_format *format;
+> > > > > > >       struct dpu_hw_ctl *ctl =3D mixer->lm_ctl;
+> > > > > > >
+> > > > > > > -     uint32_t lm_idx, i;
+> > > > > > > +     uint32_t lm_idx, lm_pair, i, pipe_idx;
+> > > > > > >       bool bg_alpha_enable =3D false;
+> > > > > > >       DECLARE_BITMAP(fetch_active, SSPP_MAX);
+> > > > > > >
+> > > > > > > @@ -463,15 +463,20 @@ static void _dpu_crtc_blend_setup_mixer=
+(struct drm_crtc *crtc,
+> > > > > > >               if (pstate->stage =3D=3D DPU_STAGE_BASE && form=
+at->alpha_enable)
+> > > > > > >                       bg_alpha_enable =3D true;
+> > > > > > >
+> > > > > > > -             for (i =3D 0; i < PIPES_PER_LM_PAIR; i++) {
+> > > > > > > -                     if (!pstate->pipe[i].sspp)
+> > > > > > > -                             continue;
+> > > > > > > -                     set_bit(pstate->pipe[i].sspp->idx, fetc=
+h_active);
+> > > > > > > -                     _dpu_crtc_blend_setup_pipe(crtc, plane,
+> > > > > > > -                                                mixer, cstat=
+e->num_mixers,
+> > > > > > > -                                                pstate->stag=
+e,
+> > > > > > > -                                                format, fb ?=
+ fb->modifier : 0,
+> > > > > > > -                                                &pstate->pip=
+e[i], i, stage_cfg);
+> > > > > > > +             /* loop pipe per mixer pair */
+> > > > > > > +             for (lm_pair =3D 0; lm_pair < PIPES_PER_PLANE /=
+ 2; lm_pair++) {
+> > > > > > > +                     for (i =3D 0; i < PIPES_PER_LM_PAIR; i+=
++) {
+> > > > > > > +                             pipe_idx =3D i + lm_pair * PIPE=
+S_PER_LM_PAIR;
+> > > > > > > +                             if (!pstate->pipe[pipe_idx].ssp=
+p)
+> > > > > > > +                                     continue;
+> > > > > > > +                             set_bit(pstate->pipe[pipe_idx].=
+sspp->idx, fetch_active);
+> > > > > > > +                             _dpu_crtc_blend_setup_pipe(crtc=
+, plane,
+> > > > > > > +                                                        mixe=
+r, cstate->num_mixers,
+> > > > > > > +                                                        psta=
+te->stage,
+> > > > > > > +                                                        form=
+at, fb ? fb->modifier : 0,
+> > > > > > > +                                                        &pst=
+ate->pipe[pipe_idx], i,
+> > > > > > > +                                                        &sta=
+ge_cfg[lm_pair]);
+> > > > > > > +                     }
+> > > > > > >               }
+> > > > > > >
+> > > > > > >               /* blend config update */
+> > > > > > > @@ -503,7 +508,7 @@ static void _dpu_crtc_blend_setup(struct =
+drm_crtc *crtc)
+> > > > > > >       struct dpu_crtc_mixer *mixer =3D cstate->mixers;
+> > > > > > >       struct dpu_hw_ctl *ctl;
+> > > > > > >       struct dpu_hw_mixer *lm;
+> > > > > > > -     struct dpu_hw_stage_cfg stage_cfg;
+> > > > > > > +     struct dpu_hw_stage_cfg stage_cfg[LM_PAIRS_PER_PLANE];
+> > > > > >
+> > > > > > After seeing this code, can we define STAGES_PER_PLANE (and
+> > > > > > also keep PLANES_PER_STAGE defined to 2)?
+> > > > > >
+> > > > > Could you elaborate it? Stages describe how many layers to be ble=
+nded.
+> > > > > Plane is a DRM concept that describe a buffer to be display in sp=
+ecific
+> > > > > display driver. Plane is already mapped to SSPP/multi-rect in DPU=
+ driver
+> > > > >  in blending stage level. So I am confused here.
+> > > >
+> > > > We have dpu_hw_stage_cfg, you are adding a second instance of it. S=
+o
+> > > > we now have two stages per plane.
+> > >
+> > > So you suggest to replace LM_PAIRS_PER_PLANE with STAGES_PER_PLANE,
+> > > right? I assume a stage is coupled with a LM pair.
+> > >
+> > > But for PLANES_PER_STAGE, I am still confused. A stage or a LM pair c=
+an
+> > > involve many SSPP layers. How it related to planes? Plane is a concep=
+ts from
+> > > higher level.
+> >
+> > PIPES_PER_STAGE, excuse me.
 >
-> On 10/6/2024 8:30 PM, Dmitry Baryshkov wrote:
-> > On Fri, 4 Oct 2024 at 12:30, Soutrik Mukhopadhyay
-> > <quic_mukhopad@quicinc.com> wrote:
-> >> This series adds support for the DisplayPort controller
-> >> and eDP PHY v5 found on the Qualcomm SA8775P platform.
-> >>
-> >> ---
-> >> v2: Fixed review comments from Dmitry and Bjorn
-> >>          - Made aux_cfg array as const.
-> >>          - Reused edp_swing_hbr_rbr and edp_swing_hbr2_hbr3 for v5.
-> >>
-> >> v3: Fixed review comments from Dmitry, Konrad and Bjorn
-> >>          - Used a for loop to write the dp_phy_aux_cfg registers.
-> >>          - Pre-defined the aux_cfg size to prevent any magic numbers.
-> >>          - Added all the necessary DPTX controllers for this platform.
-> >>
-> >> v4: Fixed review comments from Dmitry and Krzysztof
-> >>          - Updated commit message.
-> > For which patches? How?
->
->
-> We have removed the "reviewed by" and kept only the "acked by" for patch
-> 1. We have updated
->
-> the commit message of patch 5 , to mention specifically about the
-> validation of 'only' MDSS0 DPTX0 and
->
-> DPTX1.
+> Do you mean to keep PIPES_PER_STAGE and do not introduce PIPES_PER_LM_PAI=
+R,
+> or use both? Looks like they are equal in hardware nature. A stage
+> structure serves
+> a mixer pair with 2 pipes. We can use PIPES_PER_LM_PAIR and add comment t=
+o
+>  indicate it, thus avoid defining too many macro.
 
-All of this must be a part of the changelog. It's not enough to say
-"updated messages" or "fixed comments". At least please let the
-reviewers know which patches have changed and which didn't.
+Yes, don't introduce PIPES_PER_LM_PAIR and just add STAGES_PER_PLANE.
 
->
 >
 > >
-> >> ---
-> >>
-> >> Soutrik Mukhopadhyay (5):
-> >>    dt-bindings: phy: Add eDP PHY compatible for sa8775p
-> >>    phy: qcom: edp: Introduce aux_cfg array for version specific aux
-> >>      settings
-> >>    phy: qcom: edp: Add support for eDP PHY on SA8775P
-> >>    dt-bindings: display: msm: dp-controller: document SA8775P compatible
-> >>    drm/msm/dp: Add DisplayPort controller for SA8775P
-> >>
-> >>   .../bindings/display/msm/dp-controller.yaml   |  1 +
-> >>   .../devicetree/bindings/phy/qcom,edp-phy.yaml |  1 +
-> >>   drivers/gpu/drm/msm/dp/dp_display.c           |  9 +++
-> >>   drivers/phy/qualcomm/phy-qcom-edp.c           | 74 +++++++++++++------
-> >>   4 files changed, 61 insertions(+), 24 deletions(-)
-> >>
-> >> --
-> >> 2.17.1
-> >>
-> >
+> > --
+> > With best wishes
+> > Dmitry
 
 
 
--- 
+--=20
 With best wishes
 Dmitry
