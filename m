@@ -2,93 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FA739A17B2
-	for <lists+freedreno@lfdr.de>; Thu, 17 Oct 2024 03:21:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 149819A1A54
+	for <lists+freedreno@lfdr.de>; Thu, 17 Oct 2024 08:01:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01F4810E2E2;
-	Thu, 17 Oct 2024 01:21:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E125C10E2F0;
+	Thu, 17 Oct 2024 06:01:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="JdUf33sN";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Vfudumw1";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C360E10E774;
- Thu, 17 Oct 2024 01:21:32 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49GIoW3p011837;
- Thu, 17 Oct 2024 01:21:23 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B74B10E00B;
+ Thu, 17 Oct 2024 06:01:04 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49GGVHnW031506;
+ Thu, 17 Oct 2024 06:00:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- /XcRoZho/XbalM5+jE/UQCvCaPdIiwjsVlckhm3ziA8=; b=JdUf33sNC1u1pDHH
- q2YaDuoSugsGEQ+jD12Lhs7u+fwpKsfbHsWoFRZ0XazWmrq/xzEQQjuvMJH5fkzv
- dLAIxXdm8W99gI3NEFQ7Q8ReDeXa0MeVQhWeOlhLmRbsQGApG/hjxpY2gR+gJCv4
- wwHIwB7pXckEkKaL3ZePELVApbuC/80Aat5tgzruAUpqs6L4zuM6y4PCHaXXROVS
- a28TTt/a4X/euv069pm8OOwgcpPvfOIlrxuss+GitBwJXbJeOQ8YjBek+nB2MeDa
- Y9/hkL7Dujpl/pU97gdExPxjobo3W+L/VK3/Z6vAimFh07WFM30ZIBTUQQGtVdll
- hepDMA==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42abm5jaee-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=I2dJHSILrtgjFG6PlUEjpzHR
+ lJvtIybWLmLkKd+eYOU=; b=Vfudumw1OKzQml2AwCjQ6nnsvmsQ4+nSMTJITN8b
+ GHb7Q3t1Gt7z+V3y55l3SHDIWWziu007YNA/AvGoKwAygFx5gMaFmDL1UYdiObcB
+ /9hErl5oK37iXEp+cYXyKZLho+ouiaOm8eUn3nRibrSioLg1baGz5VJgGHMoNywi
+ T7M9P+r62v5akgAaWyskuBTTNW/A4VHX/f3M1lgLYyVxC3qRtREwuR/KmS8W7Pc0
+ ePUtGR37KUs6ZbIE6m3FaQ9qHmle2rP7cm6279K8Xy9APgi2/8oFty0UmN9LfjrB
+ xKwp7IMYXB36p7BuIjzZV8ZNAWeFvhl/ef1SH7G3zEhMrQ==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42a8nq3hf6-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 17 Oct 2024 01:21:23 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49H1LM3G006495
+ Thu, 17 Oct 2024 06:00:56 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49H60tL1032240
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 17 Oct 2024 01:21:22 GMT
-Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ Thu, 17 Oct 2024 06:00:55 GMT
+Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Wed, 16 Oct 2024 18:21:21 -0700
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-Date: Wed, 16 Oct 2024 18:21:29 -0700
-Subject: [PATCH v3 23/23] drm/msm/dpu: Set possible clones for all encoders
+ 15.2.1544.9; Wed, 16 Oct 2024 23:00:49 -0700
+Date: Thu, 17 Oct 2024 11:30:45 +0530
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>,
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH RFC 2/3] dt-bindings: opp: Add v2-qcom-adreno vendor
+ bindings
+Message-ID: <20241017060045.q2cz3o77aejq4g5m@hu-akhilpo-hyd.qualcomm.com>
+References: <20241012-gpu-acd-v1-0-1e5e91aa95b6@quicinc.com>
+ <20241012-gpu-acd-v1-2-1e5e91aa95b6@quicinc.com>
+ <he6cfrofgmdw2se4mcok25c54sboovevmlli42xh6ttnqiogat@ja6el35jyd65>
+ <20241015191314.pbz5v5u65gbpjheg@hu-akhilpo-hyd.qualcomm.com>
+ <294bf353-4aff-4d89-a5d7-5d2d19b089c1@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20241016-concurrent-wb-v3-23-a33cf9b93835@quicinc.com>
-References: <20241016-concurrent-wb-v3-0-a33cf9b93835@quicinc.com>
-In-Reply-To: <20241016-concurrent-wb-v3-0-a33cf9b93835@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, <quic_abhinavk@quicinc.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
- Airlie" <airlied@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- Simona Vetter <simona.vetter@ffwll.ch>
-CC: <quic_ebharadw@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@chromium.org>,
- =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- "Jessica Zhang" <quic_jesszhan@quicinc.com>
-X-Mailer: b4 0.15-dev-2a633
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1729128076; l=3734;
- i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
- bh=3xCis0LeZTVLzy2+rHx0s2TGJubZ9EAyvJkwx/q1ISo=;
- b=vQ6Ckh+bUBGDY/V7i6yVNb9VT2PMK92sRoZwiUDAfjq8+ey0ZIXaV46YaLRzwkiau22QNJZxF
- Eb+PFBmCFjXB/OsmB6XQf5ZshjDfDZ2TfZ1+eBLovD2aqyvv94HKy/f
-X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
- pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <294bf353-4aff-4d89-a5d7-5d2d19b089c1@kernel.org>
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: Eqj8-roXynbsvF89OTZKEifcLWNs86lZ
-X-Proofpoint-GUID: Eqj8-roXynbsvF89OTZKEifcLWNs86lZ
+X-Proofpoint-ORIG-GUID: OQCJ3d2kKtMLuWMuKguzHp4nbwFHygGB
+X-Proofpoint-GUID: OQCJ3d2kKtMLuWMuKguzHp4nbwFHygGB
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0
- clxscore=1015 impostorscore=0 mlxscore=0 bulkscore=0 suspectscore=0
- lowpriorityscore=0 phishscore=0 priorityscore=1501 spamscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410170008
+ lowpriorityscore=0
+ malwarescore=0 impostorscore=0 mlxlogscore=999 priorityscore=1501
+ suspectscore=0 adultscore=0 spamscore=0 bulkscore=0 clxscore=1011
+ mlxscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410170039
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,100 +102,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Set writeback encoders as possible clones for DSI encoders and vice
-versa.
+On Wed, Oct 16, 2024 at 09:53:58AM +0200, Krzysztof Kozlowski wrote:
+> On 15/10/2024 21:13, Akhil P Oommen wrote:
+> > On Mon, Oct 14, 2024 at 09:39:01AM +0200, Krzysztof Kozlowski wrote:
+> >> On Sat, Oct 12, 2024 at 01:59:29AM +0530, Akhil P Oommen wrote:
+> >>> Add a new schema which extends opp-v2 to support a new vendor specific
+> >>> property required for Adreno GPUs found in Qualcomm's SoCs. The new
+> >>> property called "qcom,opp-acd-level" carries a u32 value recommended
+> >>> for each opp needs to be shared to GMU during runtime.
+> >>>
+> >>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> >>> ---
+> >>>  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 84 ++++++++++++++++++++++
+> >>>  1 file changed, 84 insertions(+)
+> >>>
+> >>> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> >>> new file mode 100644
+> >>> index 000000000000..9fb828e9da86
+> >>> --- /dev/null
+> >>> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> >>> @@ -0,0 +1,84 @@
+> >>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> >>> +%YAML 1.2
+> >>> +---
+> >>> +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
+> >>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >>> +
+> >>> +title: Qualcomm Adreno compatible OPP supply
+> >>> +
+> >>> +description:
+> >>> +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
+> >>> +  ACD related information tailored for the specific chipset. This binding
+> >>> +  provides the information needed to describe such a hardware value.
+> >>> +
+> >>> +maintainers:
+> >>> +  - Rob Clark <robdclark@gmail.com>
+> >>> +
+> >>> +allOf:
+> >>> +  - $ref: opp-v2-base.yaml#
+> >>> +
+> >>> +properties:
+> >>> +  compatible:
+> >>> +    const: operating-points-v2-adreno
+> >>> +
+> >>> +patternProperties:
+> >>> +  '^opp-?[0-9]+$':
+> >>> +    type: object
+> >>> +    additionalProperties: false
+> >>> +
+> >>> +    properties:
+> >>> +      opp-hz: true
+> >>> +
+> >>> +      opp-level: true
+> >>> +
+> >>> +      opp-peak-kBps: true
+> >>> +
+> >>> +      opp-supported-hw: true
+> >>> +
+> >>> +      qcom,opp-acd-level:
+> >>> +        description: |
+> >>> +          A positive value representing the acd level associated with this
+> >>
+> >> What is acd?
+> > 
+> > Adaptive Clock Distribution, a fancy name for clock throttling during voltage
+> > droop. I will update the description to capture this.
+> > 
+> >>
+> >>> +          OPP node. This value is shared to GMU during GPU wake up. It may
+> >>
+> >> What is GMU?
+> > 
+> > A co-processor which does power management for Adreno GPU.
+> 
+> Everything, except obvious GPU, should be explained. GMU is not really
+> that obvious:
+> https://en.wikipedia.org/wiki/GMU
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 32 +++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  2 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  7 +++++--
- 3 files changed, 39 insertions(+), 2 deletions(-)
+Will do.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 2084f54e4a6235cc65dedcb0003f83d75dd51ec1..7b8fd1041acaea297ead2a4e0b33b43336ce1a1c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2397,6 +2397,38 @@ static int dpu_encoder_virt_add_phys_encs(
- 	return 0;
- }
- 
-+/**
-+ * dpu_encoder_get_clones - Calculate the possible_clones for DPU encoder
-+ * @drm_enc:        DRM encoder pointer
-+ * Returns:         possible_clones mask
-+ */
-+uint32_t dpu_encoder_get_clones(struct drm_encoder *drm_enc)
-+{
-+	struct drm_encoder *curr;
-+	int type = drm_enc->encoder_type;
-+	uint32_t clone_mask = drm_encoder_mask(drm_enc);
-+
-+	/*
-+	 * Set writeback as possible clones of real-time DSI encoders and vice
-+	 * versa
-+	 *
-+	 * Writeback encoders can't be clones of each other and DSI
-+	 * encoders can't be clones of each other.
-+	 *
-+	 * TODO: Add DP encoders as valid possible clones for writeback encoders
-+	 * (and vice versa) once concurrent writeback has been validated for DP
-+	 */
-+	drm_for_each_encoder(curr, drm_enc->dev) {
-+		if ((type == DRM_MODE_ENCODER_VIRTUAL &&
-+		    curr->encoder_type == DRM_MODE_ENCODER_DSI) ||
-+		    (type == DRM_MODE_ENCODER_DSI &&
-+		    curr->encoder_type == DRM_MODE_ENCODER_VIRTUAL))
-+			clone_mask |= drm_encoder_mask(curr);
-+	}
-+
-+	return clone_mask;
-+}
-+
- static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
- 				 struct dpu_kms *dpu_kms,
- 				 struct msm_display_info *disp_info)
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-index deaa0463b289fd12eaa0bb4179c58d04425007a6..1692e7de079d6e2e3d7ae20cece30b5b297a7763 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-@@ -98,6 +98,8 @@ enum dpu_intf_mode dpu_encoder_get_intf_mode(struct drm_encoder *encoder);
-  */
- void dpu_encoder_virt_runtime_resume(struct drm_encoder *encoder);
- 
-+uint32_t dpu_encoder_get_clones(struct drm_encoder *drm_enc);
-+
- /**
-  * dpu_encoder_init - initialize virtual encoder object
-  * @dev:        Pointer to drm device structure
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 47e304b357e89b8b3683c37b2abb447411e1e455..5effa108f3282cc52e6a15d71689e9def1205ebc 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -2,7 +2,7 @@
- /*
-  * Copyright (C) 2013 Red Hat
-  * Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
-- * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
-+ * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
-  *
-  * Author: Rob Clark <robdclark@gmail.com>
-  */
-@@ -793,8 +793,11 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
- 		return ret;
- 
- 	num_encoders = 0;
--	drm_for_each_encoder(encoder, dev)
-+	drm_for_each_encoder(encoder, dev) {
- 		num_encoders++;
-+		if (catalog->cwb_count > 0)
-+			encoder->possible_clones = dpu_encoder_get_clones(encoder);
-+	}
- 
- 	max_crtc_count = min(catalog->mixer_count, num_encoders);
- 
+> 
+> > 
+> >>
+> >>> +          not be present for some OPPs and GMU will disable ACD while
+> >>
+> >> acd or ACD?
+> > 
+> > should be uppercase everywhere in description.
+> > 
+> >>
+> >>> +          transitioning to that OPP.
+> >>> +        $ref: /schemas/types.yaml#/definitions/uint32
+> >>> +
+> >>> +    required:
+> >>> +      - opp-hz
+> >>> +      - opp-level
+> >>> +
+> >>> +required:
+> >>> +  - compatible
+> >>> +
+> >>> +additionalProperties: false
+> >>> +
+> >>> +examples:
+> >>> +  - |
+> >>> +
+> >>
+> >> Drop blank line
+> >>
+> >>> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> >>> +
+> >>> +    gpu_opp_table: opp-table {
+> >>> +        compatible = "operating-points-v2-adreno";
+> >>> +
+> >>> +        opp-550000000 {
+> >>> +                opp-hz = /bits/ 64 <550000000>;
+> >>> +                opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+> >>> +                opp-peak-kBps = <6074219>;
+> >>> +                qcom,opp-acd-level = <0xc0285ffd>;
+> >>> +        };
+> >>> +
+> >>> +        opp-390000000 {
+> >>> +                opp-hz = /bits/ 64 <390000000>;
+> >>> +                opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+> >>> +                opp-peak-kBps = <3000000>;
+> >>> +                qcom,opp-acd-level = <0xc0285ffd>;
+> >>
+> >> That's the same value used everywhere. What's the point? Just encode it
+> >> in the driver.
+> > 
+> > I will update this to keep a different value. In a real implmentation,
+> > these values may vary between OPPs. For eg:, please check the DT patch
+> > in this series:
+> > 
+> > https://patchwork.freedesktop.org/patch/619413/
+> 
+> OK. I still have concerns that it is just some magic hex value. Which
+> looks exactly how downstream code. No explanation, no meaning: neither
+> in property description nor in actual value (at least I could not spot it).
+> 
+> And why this is hex? Unit of "level" is either some logical meaning,
+> like "high" or "low", or some unit, e.g. Hertz or kBps. None of them are
+> hex values in real world.
 
--- 
-2.34.1
+This value (which is identified after characterization) encodes a voltage
+threshold for the ACD hardware and few other knobs required for each OPP.
+The intepretation of the bitfields changes between SoCs.
 
+Another point is that ACD is a requirement for higher GPU frequencies to
+meet the hw spec. So OPP dt node is the natural place to keep this info,
+which also helps to share this data between different OS.
+
+-Akhil
+
+> 
+> Best regards,
+> Krzysztof
+> 
