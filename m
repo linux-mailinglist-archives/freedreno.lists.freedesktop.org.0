@@ -2,59 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DABF9A2503
-	for <lists+freedreno@lfdr.de>; Thu, 17 Oct 2024 16:31:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B40FC9A26D9
+	for <lists+freedreno@lfdr.de>; Thu, 17 Oct 2024 17:36:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9F7510E201;
-	Thu, 17 Oct 2024 14:31:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F84810E860;
+	Thu, 17 Oct 2024 15:36:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G7QqYDS9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MNF8iDpY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A26210E1FE;
- Thu, 17 Oct 2024 14:31:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B75010E85F;
+ Thu, 17 Oct 2024 15:36:04 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id C0709A43D35;
- Thu, 17 Oct 2024 14:30:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A337BC4CEC3;
- Thu, 17 Oct 2024 14:31:03 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 1C454A44137;
+ Thu, 17 Oct 2024 15:35:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A788C4CECD;
+ Thu, 17 Oct 2024 15:35:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1729175464;
- bh=6UufKdmFAaPHOMthzmMqIm4AhJNWurr7EeT+mEyvhbI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=G7QqYDS98+RNBTT8+wxwSLCvqxCPxErdQ9HoJ1W7UJOu9d+FmwiIyPa8dCi91DKnW
- pXNHwGaL6xwDUbC1PaZvjSbRmNMDcSF8lzrVMweWoL/NSw5HjcNvk65h+eEnMOz+yE
- WldD5wxOo0b+T3bhwT6REndZSUhQXRg2ornLLYp+QtbstWPtW0ru5piedlJkTt1vdU
- ynhSup7thSLhuhwd4Bjw7YSIClYfiVIXd3PH7TVtzhyNdITLOq4+ONhrWgyQKJNe0K
- 29VD2z0tGuH6AUQyze5Gen0s3x4f6wzEKg7ZjW6haVkYOdkgr8mbMhmLnKi22piOld
- eSQNCJMepX4jA==
-Date: Thu, 17 Oct 2024 16:31:01 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, quic_abhinavk@quicinc.com,
- Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>, 
- quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, 
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v3 00/23] drm/msm/dpu: Add Concurrent Writeback Support
- for DPU 10.x+
-Message-ID: <20241017-didactic-hornet-of-glory-14fcce@houat>
-References: <20241016-concurrent-wb-v3-0-a33cf9b93835@quicinc.com>
+ s=k20201202; t=1729179362;
+ bh=UaHTT/HCPSCBmEoLaaHxWZ8kYjvp79Mh62xxOcsCz3g=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=MNF8iDpYfzr/MllJDBEf+0OjI4ejKzCH1MnIlFSj3P4DjmRkcLc722QW6DzmCk7tb
+ 1S7ib2J0Xvb1jpNMs8ytpfN5Qi0/0k0pt4cipphk4NUuSUB4jpl+Y1EAWfHf7rWRSa
+ icZ9z1Sos4ktrwFWtVXMOXGqVnRCJT7cozsoxHWVqQjuFcQCqdVA1QI/844GH/yd+V
+ 8f1YDsifxmjrF6l1etNSasGvuP36bIXEnpVed/mSWTUqgTIctM5YWgegG1aYN1k/zp
+ NKKkPLdfEjFrblCxAvJk0uBYR/PTRNXWlWhcg//OcuuGVzTLc7rR+XrqyJIu7cjE7z
+ wdHyVJ1tpTIVg==
+From: Vinod Koul <vkoul@kernel.org>
+To: kishon@kernel.org, konradybcio@kernel.org, andersson@kernel.org, 
+ simona@ffwll.ch, dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, 
+ robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run, 
+ marijn.suijten@somainline.org, airlied@gmail.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ quic_khsieh@quicinc.com, quic_parellan@quicinc.com, 
+ quic_bjorande@quicinc.com, Simona Vetter <simona.vetter@ffwll.ch>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ quic_riteshk@quicinc.com, quic_vproddut@quicinc.com
+In-Reply-To: <20241004103046.22209-1-quic_mukhopad@quicinc.com>
+References: <20241004103046.22209-1-quic_mukhopad@quicinc.com>
+Subject: Re: (subset) [PATCH v4 0/5] Add support for DisplayPort on SA8775P
+ platform
+Message-Id: <172917935474.288841.13832533870290794704.b4-ty@kernel.org>
+Date: Thu, 17 Oct 2024 21:05:54 +0530
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="mna2pfiquhuwbp5i"
-Content-Disposition: inline
-In-Reply-To: <20241016-concurrent-wb-v3-0-a33cf9b93835@quicinc.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.2
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,37 +71,22 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
---mna2pfiquhuwbp5i
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Fri, 04 Oct 2024 16:00:41 +0530, Soutrik Mukhopadhyay wrote:
+> This series adds support for the DisplayPort controller
+> and eDP PHY v5 found on the Qualcomm SA8775P platform.
+> 
 
-On Wed, Oct 16, 2024 at 06:21:06PM GMT, Jessica Zhang wrote:
-> Changes in v3:
-> - Dropped support for CWB on DP connectors for now
-> - Dropped unnecessary PINGPONG array in *_setup_cwb()
-> - Add a check to make sure CWB and CDM aren't supported simultaneously
->   (Dmitry)
-> - Document cwb_enabled checks in dpu_crtc_get_topology() (Dmitry)
-> - Moved implementation of drm_crtc_in_clone_mode() to drm_crtc.c (Jani)
-> - Dropped duplicate error message for reserving CWB resources (Dmitry)
-> - Added notes in framework changes about posting a separate series to
->   add proper KUnit tests (Maxime)
+Applied, thanks!
 
-I mean, I asked for kunit tests, not for a note that is going to be
-dropped when applying.
+[1/5] dt-bindings: phy: Add eDP PHY compatible for sa8775p
+      commit: 7adb3d221a4d6a4f5e0793c3bd35f1168934035c
+[2/5] phy: qcom: edp: Introduce aux_cfg array for version specific aux settings
+      commit: 913463587d528d766a8e12c7790995e273ec84fb
+[3/5] phy: qcom: edp: Add support for eDP PHY on SA8775P
+      commit: 3f12bf16213c30d8e645027efd94a19c13ee0253
 
-Maxime
+Best regards,
+-- 
+~Vinod
 
---mna2pfiquhuwbp5i
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZxEfpQAKCRAnX84Zoj2+
-dt09AYCudzOjIU8min87jZcaPuELHHOnPZG6jhTh5dZH5K8Oe9EURIc14NX99aCc
-tpYOeSUBewbLNSeA+CbKa1xstbwsaBZH7imXMUy/5oQkeNNNc0iwd7Uvwsip5rkS
-aQBrPzpRxQ==
-=Yh5a
------END PGP SIGNATURE-----
-
---mna2pfiquhuwbp5i--
