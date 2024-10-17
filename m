@@ -2,89 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED44C9A2BE5
-	for <lists+freedreno@lfdr.de>; Thu, 17 Oct 2024 20:16:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52AC49A30D1
+	for <lists+freedreno@lfdr.de>; Fri, 18 Oct 2024 00:36:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3B8110E0FF;
-	Thu, 17 Oct 2024 18:16:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D36CE10E064;
+	Thu, 17 Oct 2024 22:36:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="IOhVHhZ4";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Zslali07";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6C4010E0FF;
- Thu, 17 Oct 2024 18:16:12 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49HHEWHP000489;
- Thu, 17 Oct 2024 18:16:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- QeJRH/YAIkVBraIlzYlHPzq4ydysGr0w+AAJtV0hV1A=; b=IOhVHhZ4/NF4IlIB
- 63uqgnn46WPV2e++gO0jjl3mEohk20KBPIb64qLOyfR25DljsYVEzFtDOvdBnG65
- syzudRQf4fOycHAozU3mxCy+hI5I1JoWuufGPqfSWgUPPy9QkmpRVjvDqF39uyym
- kWVKcLzM0CyjBFoPIpEsIYWsoo8hdG8+6txk6vnHO29yaoZ/3e1CftaRFCYMkQUx
- 3/DURPhDJjrcy8RRAxfTMW+M2jo0YHboAtDfalUsBTKIZvjAXtOFAXacIcNY7N55
- GjIy0h3dp3JixKHfVbA7Q/MNCVbLfCsb1LaMCqg4LJuPhNDGIW6SnmbTmqzSDHNm
- Clh/gg==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42a8nq5n6j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 17 Oct 2024 18:16:01 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49HIG0G9016271
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 17 Oct 2024 18:16:00 GMT
-Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 17 Oct
- 2024 11:15:59 -0700
-Message-ID: <5bdafadb-aeb6-432a-8269-a45dc3e1ec66@quicinc.com>
-Date: Thu, 17 Oct 2024 11:15:49 -0700
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B059010E0FE
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Oct 2024 22:36:36 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-539eb97f26aso1806752e87.2
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Oct 2024 15:36:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1729204595; x=1729809395; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=cwAXFmWCXX0r1pv8K+QO23GJE7b+Aos8jpne2JMdjEc=;
+ b=Zslali07SbaQA1voQc+0KV8WEpdm+zNnD3mc2eg0OojAKJO5ZY+DQW0xmWMYzg61pM
+ yz+38Mf9MkpKkeHrwaV88L1XrXAIYQ0PtVRpO02z68tw9lhv/ntDcthdeOAxPXWv3/Rf
+ 4p5OtzQgt5QDc5n5borZob7isqiEt/PNVipIGE4QYOnExBWCr5xcNQ6+B4DBkaUQXrKA
+ S2f+1ydRNlN2R31JSyYnNZuzzkT4UtOLsOaFXyXMqSkF47gijUSdpbVCwnDBRyMSNYO6
+ mRp9w9dGlszDpsDy5o9jUUYgSOMiUOAfBnmiWfjXKaM23wddUgtAM4tjKqPcWfS459PS
+ Dn0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729204595; x=1729809395;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=cwAXFmWCXX0r1pv8K+QO23GJE7b+Aos8jpne2JMdjEc=;
+ b=pA5E/sMJ2TM422TwOJnYlrLM1RMfTqxLaqF26kDoqVlkxoYF6mJSSOmWDGpSVkU8SC
+ fzGGR0n1Kg/Z1XtaY/MJu/dL17I89s7zZZ4q7Jl5CjN7x0nTkI9AdNpxT7cf69bb/FSA
+ L3q4lflD7m8IsqDurRgbKLtRmq/dlIlzHXXnM2UVdgU3BVz2lew0M4qL9MYn14wXP9EH
+ R2k0OtS8FgABJDeIIe5hwKf9Sc8oWfeJOSKJ8MrhchZF+MLnkPEFYEcDwYadzdtsqKvm
+ kG5WuM7l6IILqKsYpmi7RLEI2d1Q4DoFr3AI1+2BddHGPItVeQZHKVwyoSrKlm8HhN1C
+ oIbQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX8lzq01liGJTj+ouhCG+oPc+3iOLb0CnQGR7TxO1TanNd2ioyfn0xk6xOjvAB2gs/ffPuOrVbzBqs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyPIEEUvccirZ7QUrL8U4UxyVh3O5pyV701KDS91pU1v85BYK6G
+ DFwOtho5/X0jm52rAbDqpQ04JV2DODN9WROpOTZbpV4SnlsIP6sPZyc8hHTlEYc=
+X-Google-Smtp-Source: AGHT+IF1I4kSsNnrKhsbvznyz4HHMXNbr14OcwbceyeuR4/kwFXejHD9xQxDdafw6ngrjvMnsFbQAQ==
+X-Received: by 2002:a05:6512:3b2a:b0:539:da76:4832 with SMTP id
+ 2adb3069b0e04-53a15443901mr211178e87.37.1729204594652; 
+ Thu, 17 Oct 2024 15:36:34 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-53a15211c32sm46086e87.273.2024.10.17.15.36.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Oct 2024 15:36:32 -0700 (PDT)
+Date: Fri, 18 Oct 2024 01:36:31 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Jean Delvare <jdelvare@suse.de>, dri-devel@lists.freedesktop.org, 
+ LKML <linux-kernel@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ YueHaibing <yuehaibing@huawei.com>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
+ freedreno <freedreno@lists.freedesktop.org>
+Subject: Re: [PATCH v3] drm/display: Drop obsolete dependency on COMPILE_TEST
+Message-ID: <zcwax3drscm2btazw3xc3i2lck62vzolg47cmsggkv4da23itw@w527axovqksz>
+References: <20241015134606.5b87093e@endymion.delvare>
+ <CAD=FV=WhVWswn28hbxNDLDhMeiZOpsWzsx8OkORniOxWVx_4Gg@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/23] drm/msm/dpu: Add Concurrent Writeback Support
- for DPU 10.x+
-To: Maxime Ripard <mripard@kernel.org>, Jessica Zhang
- <quic_jesszhan@quicinc.com>
-CC: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, Simona Vetter
- <simona.vetter@ffwll.ch>, <quic_ebharadw@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@chromium.org>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>
-References: <20241016-concurrent-wb-v3-0-a33cf9b93835@quicinc.com>
- <20241017-didactic-hornet-of-glory-14fcce@houat>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20241017-didactic-hornet-of-glory-14fcce@houat>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: jZeQjWMgWm9VhWRINs84pGPOUsVJbByY
-X-Proofpoint-GUID: jZeQjWMgWm9VhWRINs84pGPOUsVJbByY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- malwarescore=0 impostorscore=0 mlxlogscore=962 priorityscore=1501
- suspectscore=0 adultscore=0 spamscore=0 bulkscore=0 clxscore=1011
- mlxscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410170124
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD=FV=WhVWswn28hbxNDLDhMeiZOpsWzsx8OkORniOxWVx_4Gg@mail.gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,36 +94,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Maxime
-
-On 10/17/2024 7:31 AM, Maxime Ripard wrote:
-> On Wed, Oct 16, 2024 at 06:21:06PM GMT, Jessica Zhang wrote:
->> Changes in v3:
->> - Dropped support for CWB on DP connectors for now
->> - Dropped unnecessary PINGPONG array in *_setup_cwb()
->> - Add a check to make sure CWB and CDM aren't supported simultaneously
->>    (Dmitry)
->> - Document cwb_enabled checks in dpu_crtc_get_topology() (Dmitry)
->> - Moved implementation of drm_crtc_in_clone_mode() to drm_crtc.c (Jani)
->> - Dropped duplicate error message for reserving CWB resources (Dmitry)
->> - Added notes in framework changes about posting a separate series to
->>    add proper KUnit tests (Maxime)
+On Tue, Oct 15, 2024 at 09:06:04AM -0700, Doug Anderson wrote:
+> Hi,
 > 
-> I mean, I asked for kunit tests, not for a note that is going to be
-> dropped when applying.
+> On Tue, Oct 15, 2024 at 4:46 AM Jean Delvare <jdelvare@suse.de> wrote:
+> >
+> > Since commit 0166dc11be91 ("of: make CONFIG_OF user selectable"), it
+> > is possible to test-build any driver which depends on OF on any
+> > architecture by explicitly selecting OF. Therefore depending on
+> > COMPILE_TEST as an alternative is no longer needed.
+> >
+> > To avoid reintroducing the randconfig bug originally fixed by commit
+> > 876271118aa4 ("drm/display: Fix build error without CONFIG_OF"),
+> > DRM_MSM which selects DRM_DISPLAY_DP_HELPER must explicitly depend
+> > on OF. This is consistent with what all other DRM drivers are doing.
+> >
+> > Signed-off-by: Jean Delvare <jdelvare@suse.de>
+> > Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+> > Cc: David Airlie <airlied@gmail.com>
+> > Cc: Daniel Vetter <daniel@ffwll.ch>
+> > ---
+> > For regular builds, this is a no-op, as OF is always enabled on
+> > ARCH_QCOM and SOC_IMX5. So this change only affects test builds. As
+> > explained before, allowing test builds only when OF is enabled
+> > improves the quality of these test builds, as the result is then
+> > closer to how the code is built on its intended targets.
+> >
+> > Changes in v3:
+> > * Rebase on top of kernel v6.11.
+> > Changes in v2:
+> > * Let DRM_MSM depend on OF so that random test builds won't break.
+> >
+> >  drivers/gpu/drm/display/Kconfig |    2 +-
+> >  drivers/gpu/drm/msm/Kconfig     |    1 +
+> >  2 files changed, 2 insertions(+), 1 deletion(-)
+> >
+> > --- linux-6.11.orig/drivers/gpu/drm/display/Kconfig
+> > +++ linux-6.11/drivers/gpu/drm/display/Kconfig
+> > @@ -3,7 +3,7 @@
+> >  config DRM_DISPLAY_DP_AUX_BUS
+> >         tristate
+> >         depends on DRM
+> > -       depends on OF || COMPILE_TEST
+> > +       depends on OF
+> >
+> >  config DRM_DISPLAY_HELPER
+> >         tristate
+> > --- linux-6.11.orig/drivers/gpu/drm/msm/Kconfig
+> > +++ linux-6.11/drivers/gpu/drm/msm/Kconfig
+> > @@ -6,6 +6,7 @@ config DRM_MSM
+> >         depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
+> >         depends on COMMON_CLK
+> >         depends on IOMMU_SUPPORT
+> > +       depends on OF
 > 
-> Maxime
+> Perhaps nobody landed this because you're missing the msm maintainers
+> as specified by `./scripts/get_maintainer.pl -f
+> drivers/gpu/drm/msm/Kconfig` ? I've added them here. It seems like
+> we'd at least need an Ack by those guys since this modified the
+> msm/Kconfig...
+> 
+> FWIW I haven't spent massive time studying this, but what you have
+> here looks reasonable. I'm happy at least with this from a DP AUX bus
+> perspective:
+> 
+> Acked-by: Douglas Anderson <dianders@chromium.org>
+> 
+> Presumably landing this via drm-misc makes the most sense after MSM
+> guys give it an Ack.
 
-The framework changes wont be applied without an ack from you or in 
-other words till we add the KUnit tests :)
+Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-The series was re-pushed to get acks on all other MSM changes and keep 
-this series ready for validation by other developers and interested 
-parties. That way only KUnit will be the pending item.
-
-Based on cycles, one of us will add the KUnit and we can either link it 
-to this series or absorb it in this itself when its ready.
-
-Thanks
-
-Abhinav
+-- 
+With best wishes
+Dmitry
