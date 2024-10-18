@@ -2,82 +2,116 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E0C89A4E19
-	for <lists+freedreno@lfdr.de>; Sat, 19 Oct 2024 15:14:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 854089A4EC8
+	for <lists+freedreno@lfdr.de>; Sat, 19 Oct 2024 16:49:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EC5E10E258;
-	Sat, 19 Oct 2024 13:14:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21BC510E2A5;
+	Sat, 19 Oct 2024 14:49:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="tQ6dVtWF";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ahAgEk0z";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oFuBjuHY";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ahAgEk0z";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oFuBjuHY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4585310E258
- for <freedreno@lists.freedesktop.org>; Sat, 19 Oct 2024 13:14:19 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2fb5a9c7420so30341431fa.3
- for <freedreno@lists.freedesktop.org>; Sat, 19 Oct 2024 06:14:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729343657; x=1729948457; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=DsxiJAaLUxZ8WyINPgvN9VPitcA+1/D6dK458s/cN50=;
- b=tQ6dVtWFlDiifLXaVhRmqy75wdVX6y6oQxY0aQOdI321r+807ScS1/s01vqNCQA6Bw
- PAs5L6m0ltwYRbcJxitXltUEGDFtCyH3OPyUExyVSYbt0QjmG4ED89Y6yHiROevQBU8K
- qXkEnwugfyquvcmoqLQCbJmEdRkSZjKD3MsY/L7aefvN5TTqUi/nFs/c+M8YbAn6Rcz9
- 1gOMJNTwKWN6n9kUMK8wYY4rxDsE+cS02Me1i8th5wjt1F72ekutf40BTWzZPHsyofCB
- RuziivmSAr5vMb6VrQNsWRdJN1MSXAtDqLKtct87KT/Cz6WYhu28Av5zkhSNFD3swLxM
- 84Fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729343657; x=1729948457;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DsxiJAaLUxZ8WyINPgvN9VPitcA+1/D6dK458s/cN50=;
- b=QHQJfm5qRXuE36XPIS0Ui/zMtyu8+65bE+pfXPF6Kz9YMDn0DWrDq6E0kl7jlBcqV+
- EN14pfSQK1YAoVEvYd5j4Z1QqfBMm4xFQH5lTDod6ruYLAuJCvD9oVcB/YrPD3b/w+up
- iDR4/T+1HLmvlYUNr7QN80wBv0sWTumRGGA0Cy81br1NwNFwzoxiqiXtA5ae/43QaeDO
- ARbW8gY0rpQ+ZfrH6O2fvUwPWhIE+3X72HK+IsiC6pZdjhKbofnhx0aGXPyNDZw5vvCk
- o1ideoRloT+8GNyvRR1lN2dNNXaQcnybLX7im38hSKZRlPmkRVYM25p4RktAq60pyfX0
- L01A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWnHTMyBzReGMHqr2x71AhATuxbW5f+SD0bTdTlLhLfCOtVH7gITsxKCGwoDET9t1Av6Zcf+oP+Sug=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy71EefPje4ss/WB//mloE2BkgvWA+ZDEKmWf0WAKeMRk+HRFwz
- A/UtNYY/pcFf9n0X6Z/QcIRWzpiCQs0Uu2dXo/Yt+iKLwz1Ulst+vnur9nVhUOw=
-X-Google-Smtp-Source: AGHT+IEjv+MXakpefCsgi5HLZxPHwYDurtx/yD0nuWtCXMQYx9C38W3JKkkERUExxV4d2KBsbM6yEQ==
-X-Received: by 2002:a2e:e01:0:b0:2fa:cdd1:4f16 with SMTP id
- 38308e7fff4ca-2fb82ea761bmr22402471fa.14.1729343657256; 
- Sat, 19 Oct 2024 06:14:17 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2fb80712069sm5028321fa.0.2024.10.19.06.14.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 19 Oct 2024 06:14:15 -0700 (PDT)
-Date: Sat, 19 Oct 2024 16:14:13 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Arnd Bergmann <arnd@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>, 
- Arnd Bergmann <arnd@arndb.de>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev
-Subject: Re: [PATCH] drm: a6xx: avoid excessive stack usage
-Message-ID: <k42wmgziqia6balqsrfualbg73giesjxxtyaldkxsrdxkro2li@6neybqsu27me>
-References: <20241018151143.3543939-1-arnd@kernel.org>
- <20241019093146.kdp25pir5onjmg4g@hu-akhilpo-hyd.qualcomm.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B4C010E36B;
+ Fri, 18 Oct 2024 09:54:39 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 01AAD21DC1;
+ Fri, 18 Oct 2024 09:54:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1729245278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=CFYRTWF15ddtTIFg4BWAxR2N8EgXFZHV0oxaHhkdnNg=;
+ b=ahAgEk0zvzSSIQKUL6A814A0FQh5Ipctfq0BhVfFC8alaHTg9S3ZROEvSpX5X1LaJNClvf
+ bnXj8udeOg2oRFZCCdQWjyeAt9bw/y0LPKVxsJPZXpEhrq03imopMPJ5oVnLZ3+kcamyn8
+ 7oL7HdULCISOdNBdsUb8otGpzlKxZpM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1729245278;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=CFYRTWF15ddtTIFg4BWAxR2N8EgXFZHV0oxaHhkdnNg=;
+ b=oFuBjuHYSo7tV4kOJ8li0gcK975SC1ZvJIbYPhgffUBCO35Nj+nWZFcPS8hCL7ul1hMgE9
+ DblcD2auLZisyjCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1729245278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=CFYRTWF15ddtTIFg4BWAxR2N8EgXFZHV0oxaHhkdnNg=;
+ b=ahAgEk0zvzSSIQKUL6A814A0FQh5Ipctfq0BhVfFC8alaHTg9S3ZROEvSpX5X1LaJNClvf
+ bnXj8udeOg2oRFZCCdQWjyeAt9bw/y0LPKVxsJPZXpEhrq03imopMPJ5oVnLZ3+kcamyn8
+ 7oL7HdULCISOdNBdsUb8otGpzlKxZpM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1729245278;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=CFYRTWF15ddtTIFg4BWAxR2N8EgXFZHV0oxaHhkdnNg=;
+ b=oFuBjuHYSo7tV4kOJ8li0gcK975SC1ZvJIbYPhgffUBCO35Nj+nWZFcPS8hCL7ul1hMgE9
+ DblcD2auLZisyjCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 506CC13680;
+ Fri, 18 Oct 2024 09:54:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id l1ChEV0wEmcvYwAAD6G6ig
+ (envelope-from <jdelvare@suse.de>); Fri, 18 Oct 2024 09:54:37 +0000
+Date: Fri, 18 Oct 2024 11:54:35 +0200
+From: Jean Delvare <jdelvare@suse.de>
+To: Doug Anderson <dianders@chromium.org>
+Cc: dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, YueHaibing
+ <yuehaibing@huawei.com>, Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, linux-arm-msm
+ <linux-arm-msm@vger.kernel.org>, freedreno
+ <freedreno@lists.freedesktop.org>
+Subject: Re: [PATCH v3] drm/display: Drop obsolete dependency on COMPILE_TEST
+Message-ID: <20241018115435.3632cb10@endymion.delvare>
+In-Reply-To: <CAD=FV=WhVWswn28hbxNDLDhMeiZOpsWzsx8OkORniOxWVx_4Gg@mail.gmail.com>
+References: <20241015134606.5b87093e@endymion.delvare>
+ <CAD=FV=WhVWswn28hbxNDLDhMeiZOpsWzsx8OkORniOxWVx_4Gg@mail.gmail.com>
+Organization: SUSE Linux
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.34; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241019093146.kdp25pir5onjmg4g@hu-akhilpo-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Score: -4.30
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[16]; HAS_ORG_HEADER(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,huawei.com,quicinc.com,linaro.org,poorly.run,somainline.org];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FUZZY_BLOCKED(0.00)[rspamd.com];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Mailman-Approved-At: Sat, 19 Oct 2024 14:49:14 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,26 +127,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Oct 19, 2024 at 03:01:46PM +0530, Akhil P Oommen wrote:
-> On Fri, Oct 18, 2024 at 03:11:38PM +0000, Arnd Bergmann wrote:
-> > From: Arnd Bergmann <arnd@arndb.de>
-> > 
-> > Clang-19 and above sometimes end up with multiple copies of the large
-> > a6xx_hfi_msg_bw_table structure on the stack. The problem is that
-> > a6xx_hfi_send_bw_table() calls a number of device specific functions to
-> > fill the structure, but these create another copy of the structure on
-> > the stack which gets copied to the first.
-> > 
-> > If the functions get inlined, that busts the warning limit:
-> > 
-> > drivers/gpu/drm/msm/adreno/a6xx_hfi.c:631:12: error: stack frame size (1032) exceeds limit (1024) in 'a6xx_hfi_send_bw_table' [-Werror,-Wframe-larger-than]
-> 
-> Why does this warning says that the limit is 1024? 1024 bytes is too small, isn't it?
+Hi Doug,
 
-Kernel stacks are expected to be space limited, so 1024 is a logical
-limit for a single function.
+On Tue, 15 Oct 2024 09:06:04 -0700, Doug Anderson wrote:
+> On Tue, Oct 15, 2024 at 4:46=E2=80=AFAM Jean Delvare <jdelvare@suse.de> w=
+rote:
+> > Since commit 0166dc11be91 ("of: make CONFIG_OF user selectable"), it
+> > is possible to test-build any driver which depends on OF on any
+> > architecture by explicitly selecting OF. Therefore depending on
+> > COMPILE_TEST as an alternative is no longer needed.
+> >
+> > To avoid reintroducing the randconfig bug originally fixed by commit
+> > 876271118aa4 ("drm/display: Fix build error without CONFIG_OF"),
+> > DRM_MSM which selects DRM_DISPLAY_DP_HELPER must explicitly depend
+> > on OF. This is consistent with what all other DRM drivers are doing.
+> >
+> > Signed-off-by: Jean Delvare <jdelvare@suse.de>
+> > Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+> > Cc: David Airlie <airlied@gmail.com>
+> > Cc: Daniel Vetter <daniel@ffwll.ch>
+> > ---
+> > For regular builds, this is a no-op, as OF is always enabled on
+> > ARCH_QCOM and SOC_IMX5. So this change only affects test builds. As
+> > explained before, allowing test builds only when OF is enabled
+> > improves the quality of these test builds, as the result is then
+> > closer to how the code is built on its intended targets.
+> >
+> > Changes in v3:
+> > * Rebase on top of kernel v6.11.
+> > Changes in v2:
+> > * Let DRM_MSM depend on OF so that random test builds won't break.
+> >
+> >  drivers/gpu/drm/display/Kconfig |    2 +-
+> >  drivers/gpu/drm/msm/Kconfig     |    1 +
+> >  2 files changed, 2 insertions(+), 1 deletion(-)
+> >
+> > --- linux-6.11.orig/drivers/gpu/drm/display/Kconfig
+> > +++ linux-6.11/drivers/gpu/drm/display/Kconfig
+> > @@ -3,7 +3,7 @@
+> >  config DRM_DISPLAY_DP_AUX_BUS
+> >         tristate
+> >         depends on DRM
+> > -       depends on OF || COMPILE_TEST
+> > +       depends on OF
+> >
+> >  config DRM_DISPLAY_HELPER
+> >         tristate
+> > --- linux-6.11.orig/drivers/gpu/drm/msm/Kconfig
+> > +++ linux-6.11/drivers/gpu/drm/msm/Kconfig
+> > @@ -6,6 +6,7 @@ config DRM_MSM
+> >         depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
+> >         depends on COMMON_CLK
+> >         depends on IOMMU_SUPPORT
+> > +       depends on OF =20
+>=20
+> Perhaps nobody landed this because you're missing the msm maintainers
+> as specified by `./scripts/get_maintainer.pl -f
+> drivers/gpu/drm/msm/Kconfig` ? I've added them here. It seems like
+> we'd at least need an Ack by those guys since this modified the
+> msm/Kconfig...
 
+You are right. The fix originally only touched
+drivers/gpu/drm/display/Kconfig and I forgot to update the maintainers
+list for v2 when drivers/gpu/drm/msm/Kconfig had to be modified as
+well. Thank you for noticing and getting the right people involved,
+this clearly made a difference :-)
 
--- 
-With best wishes
-Dmitry
+> FWIW I haven't spent massive time studying this, but what you have
+> here looks reasonable. I'm happy at least with this from a DP AUX bus
+> perspective:
+>=20
+> Acked-by: Douglas Anderson <dianders@chromium.org>
+>=20
+> Presumably landing this via drm-misc makes the most sense after MSM
+> guys give it an Ack.
+
+Thanks,
+--=20
+Jean Delvare
+SUSE L3 Support
