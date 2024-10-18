@@ -2,53 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2AE39A4200
-	for <lists+freedreno@lfdr.de>; Fri, 18 Oct 2024 17:11:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D20709A4595
+	for <lists+freedreno@lfdr.de>; Fri, 18 Oct 2024 20:15:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B7C010E94D;
-	Fri, 18 Oct 2024 15:11:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82F9C10E383;
+	Fri, 18 Oct 2024 18:15:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o3xQvM09";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Ce944a95";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3EA310E948;
- Fri, 18 Oct 2024 15:11:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 8F39D5C5C76;
- Fri, 18 Oct 2024 15:11:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6BAEC4CEC3;
- Fri, 18 Oct 2024 15:11:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1729264310;
- bh=ozQGRjTiJsgBjbD1hrI8hLdNjmZDLyuYj4VRqdkZMfs=;
- h=From:To:Cc:Subject:Date:From;
- b=o3xQvM092JnNMfXjoiZXQ3+03M4ehf+23ubfGB63ZUkeZcA6TcPHiiEj1O/FkZ1ty
- F4e+jaMZ/V7rVsM5dqLbmJUsa88Ud2R3o97PZqdQ+y099WhpGIDaWtzJwkJq65ojPr
- jcgntWoGHOLS5LrcXLFq55jYN/8EdpChcmHgRWPQS5LHahiHkt4t42Hu53K3dzEPGx
- qEjhzWmr3Sm3uNSuxdyeeP0r4J8jrr5K94+1lGA3Pa8qt+pEiIuisx3JXasvn+Bces
- jnZNab9TtabZfeuFYQd5JKb8O7SYEO9Rm5nm5PtOlPFil/jGA8O0S9//dxmEbkb5Sy
- XdxW58/uAiOUg==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Nathan Chancellor <nathan@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev
-Subject: [PATCH] drm: a6xx: avoid excessive stack usage
-Date: Fri, 18 Oct 2024 15:11:38 +0000
-Message-Id: <20241018151143.3543939-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.5
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B230510E383;
+ Fri, 18 Oct 2024 18:15:36 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49IF1Zbj007753;
+ Fri, 18 Oct 2024 18:15:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ bhA28BU6El0DJUZoB4jqjni3gLuzg3EG2xRIHXxrnGs=; b=Ce944a95RdH92ru8
+ 3oLRLTLufJLhzVIQftwAjglxztEDqWuChySdsFPuqQeFW/Tqx0H0S5ZOX2C159bl
+ JuJKJWjkKgiQv7jjE4UpVg6KmwYzZdQNI5F93HgRoN+DZccgoeNZlQ4g0dIG4rgm
+ sraJkPjpJvAsyv14WMCCr/hpB74DrMdVg0TXyGoECKAMqK+2ngUu73RLIfq22G4f
+ EHnZVpJEDUhMOyKR6Ylv7mGiYS6gl1xnj9nJhg73mbWcEJSFMQo34q9m/7FRhC8W
+ Xu16V58Wx2RhtGklVYdVDzZ+8c/3tHPD4F5B+vkmfj5XFMVox+rxm8mLEq/8snWe
+ DYY16A==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42b5hsv4w9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 18 Oct 2024 18:15:34 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49IIFW2I021080
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 18 Oct 2024 18:15:32 GMT
+Received: from [10.110.77.126] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 18 Oct
+ 2024 11:15:31 -0700
+Message-ID: <e68b5271-01e9-46f5-bee0-c086e38927a2@quicinc.com>
+Date: Fri, 18 Oct 2024 11:15:30 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] drm/msm: move MDSS registers to separate header file
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>
+CC: <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
+References: <20240921-msm-mdss-ubwc-v1-0-411dcf309d05@linaro.org>
+ <20240921-msm-mdss-ubwc-v1-1-411dcf309d05@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20240921-msm-mdss-ubwc-v1-1-411dcf309d05@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: lqmNtzgceJTXxv-p_zWgB_Y8luMtJw7N
+X-Proofpoint-ORIG-GUID: lqmNtzgceJTXxv-p_zWgB_Y8luMtJw7N
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0
+ mlxscore=0 malwarescore=0 mlxlogscore=902 spamscore=0 adultscore=0
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 phishscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410180116
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,121 +93,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
 
-Clang-19 and above sometimes end up with multiple copies of the large
-a6xx_hfi_msg_bw_table structure on the stack. The problem is that
-a6xx_hfi_send_bw_table() calls a number of device specific functions to
-fill the structure, but these create another copy of the structure on
-the stack which gets copied to the first.
 
-If the functions get inlined, that busts the warning limit:
+On 9/21/2024 1:17 AM, Dmitry Baryshkov wrote:
+> In preparation of adding more registers, move MDSS-related headers to
+> the separate top-level file.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/Makefile                   |  1 +
+>   drivers/gpu/drm/msm/registers/display/mdp5.xml | 16 ----------------
+>   drivers/gpu/drm/msm/registers/display/mdss.xml | 23 +++++++++++++++++++++++
+>   3 files changed, 24 insertions(+), 16 deletions(-)
+> 
 
-drivers/gpu/drm/msm/adreno/a6xx_hfi.c:631:12: error: stack frame size (1032) exceeds limit (1024) in 'a6xx_hfi_send_bw_table' [-Werror,-Wframe-larger-than]
-
-Mark all of them as 'noinline_for_stack' ensure we only have one copy
-of the structure per function.
-
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-index cdb3f6e74d3e..5699e0420eb8 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-@@ -259,7 +259,8 @@ static int a6xx_hfi_send_perf_table(struct a6xx_gmu *gmu)
- 		NULL, 0);
- }
- 
--static void a618_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
-+/* noinline to avoid having multiple copies of 'msg' on stack */
-+static noinline_for_stack void a618_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- {
- 	/* Send a single "off" entry since the 618 GMU doesn't do bus scaling */
- 	msg->bw_level_num = 1;
-@@ -287,7 +288,7 @@ static void a618_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- 	msg->cnoc_cmds_data[1][0] =  0x60000001;
- }
- 
--static void a619_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
-+static noinline_for_stack void a619_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- {
- 	msg->bw_level_num = 13;
- 
-@@ -346,7 +347,7 @@ static void a619_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- 	msg->cnoc_cmds_data[0][0] = 0x40000000;
- }
- 
--static void a640_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
-+static noinline_for_stack void a640_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- {
- 	/*
- 	 * Send a single "off" entry just to get things running
-@@ -385,7 +386,7 @@ static void a640_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- 	msg->cnoc_cmds_data[1][2] =  0x60000001;
- }
- 
--static void a650_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
-+static noinline_for_stack void a650_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- {
- 	/*
- 	 * Send a single "off" entry just to get things running
-@@ -416,7 +417,7 @@ static void a650_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- 	msg->cnoc_cmds_data[1][0] =  0x60000001;
- }
- 
--static void a690_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
-+static noinline_for_stack void a690_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- {
- 	/*
- 	 * Send a single "off" entry just to get things running
-@@ -447,7 +448,7 @@ static void a690_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- 	msg->cnoc_cmds_data[1][0] =  0x60000001;
- }
- 
--static void a660_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
-+static noinline_for_stack void a660_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- {
- 	/*
- 	 * Send a single "off" entry just to get things running
-@@ -478,7 +479,7 @@ static void a660_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- 	msg->cnoc_cmds_data[1][0] =  0x60000001;
- }
- 
--static void adreno_7c3_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
-+static noinline_for_stack void adreno_7c3_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- {
- 	/*
- 	 * Send a single "off" entry just to get things running
-@@ -509,7 +510,7 @@ static void adreno_7c3_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- 	msg->cnoc_cmds_data[1][0] =  0x60000001;
- }
- 
--static void a730_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
-+static noinline_for_stack void a730_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- {
- 	msg->bw_level_num = 12;
- 
-@@ -565,7 +566,7 @@ static void a730_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- 	msg->cnoc_cmds_data[1][0] = 0x60000001;
- }
- 
--static void a740_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
-+static noinline_for_stack void a740_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- {
- 	msg->bw_level_num = 1;
- 
-@@ -590,7 +591,7 @@ static void a740_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- 	msg->cnoc_cmds_data[1][0] = 0x60000001;
- }
- 
--static void a6xx_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
-+static noinline_for_stack void a6xx_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
- {
- 	/* Send a single "off" entry since the 630 GMU doesn't do bus scaling */
- 	msg->bw_level_num = 1;
--- 
-2.39.5
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
