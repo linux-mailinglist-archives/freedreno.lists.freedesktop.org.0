@@ -2,92 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 548139A4934
-	for <lists+freedreno@lfdr.de>; Fri, 18 Oct 2024 23:49:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95E3C9A4BFF
+	for <lists+freedreno@lfdr.de>; Sat, 19 Oct 2024 10:30:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4391E10E9C8;
-	Fri, 18 Oct 2024 21:49:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D87910E23B;
+	Sat, 19 Oct 2024 08:30:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="sYcqgWUF";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ORUMewL+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
- [209.85.208.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32B6210E9CB
- for <freedreno@lists.freedesktop.org>; Fri, 18 Oct 2024 21:49:32 +0000 (UTC)
-Received: by mail-lj1-f172.google.com with SMTP id
- 38308e7fff4ca-2fb470a8b27so31938581fa.1
- for <freedreno@lists.freedesktop.org>; Fri, 18 Oct 2024 14:49:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729288170; x=1729892970; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=z3JlxuYLRvmuBAe/hXPotObPdIzfa3RGXwRrg41qHxk=;
- b=sYcqgWUF9QUQo53/+S66Kig5/o281J/V0RSaa/L1RFGjzCujRf0K6EPltBUGYS7dg2
- nMYBoxKssztZJELLfTuiE631iRvwTQvhpDrVeK7OOVqBcuRbuPoKFzYYsBHtlFK+K79i
- KotoE91aRYhLvIr25kp7hubWlBlmPeTj320zPg9lB5JTOMa26hriK+NEUEnMimgcQSQL
- fiAvOqLAxbIG+Mk/MdwlwWLD7rtUtyLO7N3Mg+R8y6FiyMFrOFd1XuGa2wSlEVs/MMl+
- eXOJchZCsPNbvBrPC53iFUvZTk+VahVhyzkBVbDh3UB8ypUqY3j88moiajCyBI2oXtVu
- 6dWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729288170; x=1729892970;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=z3JlxuYLRvmuBAe/hXPotObPdIzfa3RGXwRrg41qHxk=;
- b=LMFIW+HQFbCVIYVoAtcdzBPgap+Efpf7Q609wxrGMfKzH1lo7uV26RQWE3NYTxHxry
- 0cT6hUWM1PrXUUz5Mufl1eXYBcgo/bpcyY1sPCrQmR01SSR/tYykPHztCCLSbiUeXoq2
- JCnYKEWReFqB4niosnxLl9tJ8ymDAJzeVUQri0dC3yASESQvCA4zI9ENHysvRtXkBP+j
- bPZRpdaj3Aw482H66ImZEKTWy4BZXwNMWLo8f3eAjOQ9308fFCFw3uW9m61bGa3S5GMV
- 7pKSSrqFgGZkFTRNnsxMdsOcwHk0iL5NoUxaJkDrr4fAUlXQd8nlCjoW/k0jmCN2tFiD
- 9wig==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUBJNPfm7bnxh/2Rm78bMZRvcU/5ua3QbQBp0LS4WbiWi0pfJLUopOYOlTIL5jRsVmciG2yN38SrLM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyPvINVF5IEBFzHVhEjTx1SM5rfRYOZhgF4iZRCT1B8TXB5dn1n
- 4wUDaQbby7SWkQs2cd6f1W+7Fv4nL1DCqw/4RyR3Chu81ievcgXF3UYU5PJjU64=
-X-Google-Smtp-Source: AGHT+IHnKKr9DRlmVgrVc32PqUJ1XzjQFynXLr6N7p9iMEp4ytq6PRLtyD5ZxAK9ZZhPA+gqE3INBw==
-X-Received: by 2002:a05:6512:3f12:b0:53a:41a:69bb with SMTP id
- 2adb3069b0e04-53a15b995c1mr1118216e87.28.1729288170302; 
- Fri, 18 Oct 2024 14:49:30 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53a151f0ce5sm332088e87.181.2024.10.18.14.49.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Oct 2024 14:49:29 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 19 Oct 2024 00:49:17 +0300
-Subject: [PATCH 6/6] drm/bridge: dw-hdmi: set bridge's ycbcr_420_allowed flag
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BAE110E23B;
+ Sat, 19 Oct 2024 08:30:08 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49J805p3030117;
+ Sat, 19 Oct 2024 08:29:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=emllR5JbPryq2TscDbpDv5cW
+ SwVM0+1pn14ciuws77o=; b=ORUMewL+t29qNQUByzmn/UrHs2WSjgY3CzAo/A8B
+ ES+WXGn7JXLm1rS2HrpdzDm2cRlCW4ku18nZ9+GpT5D6VCggPuX4aH3PT7SMTDbf
+ 8lbPSUDot1yhi3XONHNXv8R1+aq4sx+0cHdEwts8JNvYhy6hI6dK0Y9Xszmysl/6
+ IxH2KMJgqqwJZJZt4X/VR7qAvTiPnlZZltc6zKEMGN96nhtUoEuPjnFwRgAz7qKD
+ krzzVgCgpjwysFyBWlqBIBxY9fXF4Sv0+Ttxzec+bpJC1xRI3k95xBaZiC6XNZaP
+ Rx4KyUCuw0uSTy51gabOqhj2L7aMIF5FWQ9CZz1hRe81sA==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42c6sj87r9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 19 Oct 2024 08:29:56 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49J8TtIm015223
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 19 Oct 2024 08:29:55 GMT
+Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Sat, 19 Oct 2024 01:29:48 -0700
+Date: Sat, 19 Oct 2024 13:59:44 +0530
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>,
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH RFC 3/3] arm64: dts: qcom: x1e80100: Add ACD levels for GPU
+Message-ID: <20241019082944.w2xnks54i34vj4qx@hu-akhilpo-hyd.qualcomm.com>
+References: <20241012-gpu-acd-v1-0-1e5e91aa95b6@quicinc.com>
+ <20241012-gpu-acd-v1-3-1e5e91aa95b6@quicinc.com>
+ <5axuqj4hetfkgg2f53ph4um24b7xfyumktreglxqyzfsdhy25e@deucq7vqxq5l>
+ <20241015193540.mcpp2dvkmikruncj@hu-akhilpo-hyd.qualcomm.com>
+ <921d3a39-d95c-4156-b376-44e8dc6a6467@kernel.org>
+ <20241017061217.mmq27egyg5cdlubb@hu-akhilpo-hyd.qualcomm.com>
+ <9ac861ae-b0b1-4f7a-a002-7d2048132ef3@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241019-bridge-yuv420-v1-6-d74efac9e4e6@linaro.org>
-References: <20241019-bridge-yuv420-v1-0-d74efac9e4e6@linaro.org>
-In-Reply-To: <20241019-bridge-yuv420-v1-0-d74efac9e4e6@linaro.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- Alexander Stein <alexander.stein@ew.tq-group.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=956;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=vSGIECGW576rwJsHdegRSgB/e6dJJG1yWk4yZ40815g=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ7rQ9Xve2779/pDOty7EYZXSyS8qsUqzJ364anNd+p/J8
- axaczmmTkZjFgZGLgZZMUUWn4KWqTGbksM+7JhaDzOIlQlkCgMXpwBMhFmQg6FNq7pWwjTa9/oz
- WwuPtULRWf7X2PdL+6+8e0tGRqG5R2r53MZrAjmrDb9tnWobqfHvwV3Gjhvqc1+sWT+x861LHd+
- ClVqcwj7lJZ8V+eR8VjbqCh4IzX0iXf90n0Ivr3x7ofi3pofPvr6VXbVcKp+l5IJueQa/9oOCD9
- /uXLlVfzNo6iaBwwUfrZI02pvOXz+e3v5v+673Idzia9prJ1QXdHxIK66sduHjulG9cU3ylzrLu
- /N3Wz6ezTMj0s9N6wTjufBcB/uDM28wl4l8ltwl0Jma+Tg03VzAeMLx7BwRhdf8QueFZ90Wu3Ar
- Pj41i/2RqZC/m+sz/wfVr58X+X18xFzvyvPm6M6g5aHlAA==
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <9ac861ae-b0b1-4f7a-a002-7d2048132ef3@kernel.org>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: gCOussZQS0CKV-Lk2cyLze9bBgMj7q8d
+X-Proofpoint-ORIG-GUID: gCOussZQS0CKV-Lk2cyLze9bBgMj7q8d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0
+ bulkscore=0 phishscore=0 mlxlogscore=289 clxscore=1015 priorityscore=1501
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 spamscore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2410190059
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,30 +103,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Set the drm_bridge's ycbcr_420_allowed flag if the YCbCr 420 output is
-supported by the hardware.
+On Thu, Oct 17, 2024 at 09:05:50AM +0200, Krzysztof Kozlowski wrote:
+> On 17/10/2024 08:12, Akhil P Oommen wrote:
+> > On Wed, Oct 16, 2024 at 09:50:04AM +0200, Krzysztof Kozlowski wrote:
+> >> On 15/10/2024 21:35, Akhil P Oommen wrote:
+> >>> On Mon, Oct 14, 2024 at 09:40:13AM +0200, Krzysztof Kozlowski wrote:
+> >>>> On Sat, Oct 12, 2024 at 01:59:30AM +0530, Akhil P Oommen wrote:
+> >>>>> Update GPU node to include acd level values.
+> >>>>>
+> >>>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> >>>>> ---
+> >>>>>  arch/arm64/boot/dts/qcom/x1e80100.dtsi | 11 ++++++++++-
+> >>>>>  1 file changed, 10 insertions(+), 1 deletion(-)
+> >>>>>
+> >>>>> diff --git a/arch/arm64/boot/dts/qcom/x1e80100.dtsi b/arch/arm64/boot/dts/qcom/x1e80100.dtsi
+> >>>>> index a36076e3c56b..e6c500480eb1 100644
+> >>>>> --- a/arch/arm64/boot/dts/qcom/x1e80100.dtsi
+> >>>>> +++ b/arch/arm64/boot/dts/qcom/x1e80100.dtsi
+> >>>>> @@ -3323,60 +3323,69 @@ zap-shader {
+> >>>>>  			};
+> >>>>>  
+> >>>>>  			gpu_opp_table: opp-table {
+> >>>>> -				compatible = "operating-points-v2";
+> >>>>> +				compatible = "operating-points-v2-adreno";
+> >>>>
+> >>>> This nicely breaks all existing users of this DTS. Sorry, no. We are way
+> >>>> past initial bringup/development. One year past.
+> > 
+> > How do I identify when devicetree is considered stable? An arbitrary
+> > time period doesn't sound like a good idea. Is there a general consensus
+> > on this?
+> > 
+> > X1E chipset is still considered under development at least till the end of this
+> > year, right?
+> 
+> Stable could be when people already get their consumer/final product
+> with it. I got some weeks ago Lenovo T14s laptop and since yesterday
+> working fine with Ubuntu:
+> https://discourse.ubuntu.com/t/ubuntu-24-10-concept-snapdragon-x-elite/48800
+> 
+> All chipsets are under development, even old SM8450, but we avoid
+> breaking it while doing that.
+> 
+I still have questions about the practicality especially in IoT/Auto chipsets,
+but I will try to get it clarified when I face them.
 
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 3 +++
- 1 file changed, 3 insertions(+)
+I will go ahead and send out the v2 series addressing the suggestions.
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 0031f3c54882..996733ed2c00 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -3503,6 +3503,9 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
- 	hdmi->bridge.of_node = pdev->dev.of_node;
- 	hdmi->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
- 
-+	if (hdmi->version >= 0x200a)
-+		hdmi->bridge.ycbcr_420_allowed = plat_data->ycbcr_420_allowed;
-+
- 	memset(&pdevinfo, 0, sizeof(pdevinfo));
- 	pdevinfo.parent = dev;
- 	pdevinfo.id = PLATFORM_DEVID_AUTO;
+-Akhil.
 
--- 
-2.39.5
-
+> 
+> 
+> Best regards,
+> Krzysztof
+> 
