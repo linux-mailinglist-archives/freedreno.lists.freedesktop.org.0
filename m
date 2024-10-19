@@ -2,116 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 854089A4EC8
-	for <lists+freedreno@lfdr.de>; Sat, 19 Oct 2024 16:49:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7753D9A4F26
+	for <lists+freedreno@lfdr.de>; Sat, 19 Oct 2024 17:38:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21BC510E2A5;
-	Sat, 19 Oct 2024 14:49:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5589410E2A4;
+	Sat, 19 Oct 2024 15:38:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ahAgEk0z";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oFuBjuHY";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ahAgEk0z";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oFuBjuHY";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="CtnDC+a4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B4C010E36B;
- Fri, 18 Oct 2024 09:54:39 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 01AAD21DC1;
- Fri, 18 Oct 2024 09:54:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1729245278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=CFYRTWF15ddtTIFg4BWAxR2N8EgXFZHV0oxaHhkdnNg=;
- b=ahAgEk0zvzSSIQKUL6A814A0FQh5Ipctfq0BhVfFC8alaHTg9S3ZROEvSpX5X1LaJNClvf
- bnXj8udeOg2oRFZCCdQWjyeAt9bw/y0LPKVxsJPZXpEhrq03imopMPJ5oVnLZ3+kcamyn8
- 7oL7HdULCISOdNBdsUb8otGpzlKxZpM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1729245278;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=CFYRTWF15ddtTIFg4BWAxR2N8EgXFZHV0oxaHhkdnNg=;
- b=oFuBjuHYSo7tV4kOJ8li0gcK975SC1ZvJIbYPhgffUBCO35Nj+nWZFcPS8hCL7ul1hMgE9
- DblcD2auLZisyjCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1729245278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=CFYRTWF15ddtTIFg4BWAxR2N8EgXFZHV0oxaHhkdnNg=;
- b=ahAgEk0zvzSSIQKUL6A814A0FQh5Ipctfq0BhVfFC8alaHTg9S3ZROEvSpX5X1LaJNClvf
- bnXj8udeOg2oRFZCCdQWjyeAt9bw/y0LPKVxsJPZXpEhrq03imopMPJ5oVnLZ3+kcamyn8
- 7oL7HdULCISOdNBdsUb8otGpzlKxZpM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1729245278;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=CFYRTWF15ddtTIFg4BWAxR2N8EgXFZHV0oxaHhkdnNg=;
- b=oFuBjuHYSo7tV4kOJ8li0gcK975SC1ZvJIbYPhgffUBCO35Nj+nWZFcPS8hCL7ul1hMgE9
- DblcD2auLZisyjCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 506CC13680;
- Fri, 18 Oct 2024 09:54:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id l1ChEV0wEmcvYwAAD6G6ig
- (envelope-from <jdelvare@suse.de>); Fri, 18 Oct 2024 09:54:37 +0000
-Date: Fri, 18 Oct 2024 11:54:35 +0200
-From: Jean Delvare <jdelvare@suse.de>
-To: Doug Anderson <dianders@chromium.org>
-Cc: dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, YueHaibing
- <yuehaibing@huawei.com>, Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, linux-arm-msm
- <linux-arm-msm@vger.kernel.org>, freedreno
- <freedreno@lists.freedesktop.org>
-Subject: Re: [PATCH v3] drm/display: Drop obsolete dependency on COMPILE_TEST
-Message-ID: <20241018115435.3632cb10@endymion.delvare>
-In-Reply-To: <CAD=FV=WhVWswn28hbxNDLDhMeiZOpsWzsx8OkORniOxWVx_4Gg@mail.gmail.com>
-References: <20241015134606.5b87093e@endymion.delvare>
- <CAD=FV=WhVWswn28hbxNDLDhMeiZOpsWzsx8OkORniOxWVx_4Gg@mail.gmail.com>
-Organization: SUSE Linux
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.34; x86_64-suse-linux-gnu)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 180B010E2A4;
+ Sat, 19 Oct 2024 15:38:11 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49JDB847023912;
+ Sat, 19 Oct 2024 15:38:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=qs8Q+il509YMyUfeoH1F98
+ 25BtzaHdk2l9pbd9/cZeY=; b=CtnDC+a4y2JhHzi8WIzPbvfnTnIfF6IQmjsqkV
+ R5qgbFOoXew3q12t3dHQjQjAkjunSeKisehEbQCnJJA22TkLZCEUdwvPvbgbrblv
+ 46ZA8A2PdbTwPBr2kbKSwd+vQZ4YaxkNP3+2e7yA3jhv4PYhc80mmD2BXZ+WIHn9
+ VDIPyRxTNSn0Pn6erf/IdT7gvitVPP/EgyHN44kdJFOGbmEeQ6cJKg4dyYLVtgnV
+ 6sAVSBXmpIkrkknOK0nFRJ1c00bb9QQpos+GwDqC1XYNQ2BNbZSujbA4R+6pN2hK
+ i/t2omeGuNaIUEOwy6ch+oUG3/45eC5KrjGi5PhYLSLbJhWQ==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42c6sj8sxe-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 19 Oct 2024 15:38:03 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49JFc1tA024767
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 19 Oct 2024 15:38:01 GMT
+Received: from hu-mahap-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Sat, 19 Oct 2024 08:37:54 -0700
+From: Mahadevan <quic_mahap@quicinc.com>
+Subject: [PATCH v4 0/5] Display enablement changes for Qualcomm SA8775P
+ platform
+Date: Sat, 19 Oct 2024 20:46:34 +0530
+Message-ID: <20241019-patchv3_1-v4-0-a95d8f0eae37@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Score: -4.30
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[16]; HAS_ORG_HEADER(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,huawei.com,quicinc.com,linaro.org,poorly.run,somainline.org];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FUZZY_BLOCKED(0.00)[rspamd.com];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Mailman-Approved-At: Sat, 19 Oct 2024 14:49:14 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFLNE2cC/03Myw6CMBCF4Vchs7ZkplwEV76HMaSOg50FFAsSE
+ 8K7W125O19y8m8wS1SZ4ZRtEGXVWcOYUB4yYO/Ghxi9J4NFW2JboJncwn4tOjI1It+YqrKVBtJ
+ /itLr+9e6XJP7GAaz+Cjur2BrIqTimFuLSFVjyDxfyt3gvJvO36kj5xwG2PcPpH4Cz50AAAA=
+X-Change-ID: 20240930-patchv3_1-600cbc1549e8
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mahadevan <quic_mahap@quicinc.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Bjorn Andersson <andersson@kernel.org>,
+ "Konrad Dybcio" <konrad.dybcio@linaro.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Kalyan Thota <quic_kalyant@quicinc.com>,
+ Jayaprakash Madisetty <quic_jmadiset@quicinc.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1729352274; l=3206;
+ i=quic_mahap@quicinc.com; s=20241001; h=from:subject:message-id;
+ bh=Cu7yHmohtP/E8jkXxeHzgFg4vscebnXSd6FQEfOAmN0=;
+ b=pO+Vfk6/rP8Oh8sBi03D1cgOAqn1zafX5LdB3b32mzL7xaACVpDU0620Kc89mD3rAzLMmBoU4
+ b9lW5wIyvrhADy4YwZ6IgS3slpc2/+Wdhja/Zj3l/aDDB/KsNklx+Cg
+X-Developer-Key: i=quic_mahap@quicinc.com; a=ed25519;
+ pk=Xc9CA438o9mZKp4uZ8vZMclALnJ8XtlKn/n3Y42mMBI=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: goaCu0HOL00icKSPx1FxtaqXuDba6h7N
+X-Proofpoint-ORIG-GUID: goaCu0HOL00icKSPx1FxtaqXuDba6h7N
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0
+ bulkscore=0 phishscore=0 mlxlogscore=999 clxscore=1015 priorityscore=1501
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 spamscore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2410190113
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,82 +110,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Doug,
+This series introduces support to enable the Mobile Display Subsystem (MDSS)
+and Display Processing Unit (DPU) for the Qualcomm SA8775P target. It
+includes the addition of the hardware catalog, compatible string,
+relevant device tree changes, and their YAML bindings.
 
-On Tue, 15 Oct 2024 09:06:04 -0700, Doug Anderson wrote:
-> On Tue, Oct 15, 2024 at 4:46=E2=80=AFAM Jean Delvare <jdelvare@suse.de> w=
-rote:
-> > Since commit 0166dc11be91 ("of: make CONFIG_OF user selectable"), it
-> > is possible to test-build any driver which depends on OF on any
-> > architecture by explicitly selecting OF. Therefore depending on
-> > COMPILE_TEST as an alternative is no longer needed.
-> >
-> > To avoid reintroducing the randconfig bug originally fixed by commit
-> > 876271118aa4 ("drm/display: Fix build error without CONFIG_OF"),
-> > DRM_MSM which selects DRM_DISPLAY_DP_HELPER must explicitly depend
-> > on OF. This is consistent with what all other DRM drivers are doing.
-> >
-> > Signed-off-by: Jean Delvare <jdelvare@suse.de>
-> > Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-> > Cc: David Airlie <airlied@gmail.com>
-> > Cc: Daniel Vetter <daniel@ffwll.ch>
-> > ---
-> > For regular builds, this is a no-op, as OF is always enabled on
-> > ARCH_QCOM and SOC_IMX5. So this change only affects test builds. As
-> > explained before, allowing test builds only when OF is enabled
-> > improves the quality of these test builds, as the result is then
-> > closer to how the code is built on its intended targets.
-> >
-> > Changes in v3:
-> > * Rebase on top of kernel v6.11.
-> > Changes in v2:
-> > * Let DRM_MSM depend on OF so that random test builds won't break.
-> >
-> >  drivers/gpu/drm/display/Kconfig |    2 +-
-> >  drivers/gpu/drm/msm/Kconfig     |    1 +
-> >  2 files changed, 2 insertions(+), 1 deletion(-)
-> >
-> > --- linux-6.11.orig/drivers/gpu/drm/display/Kconfig
-> > +++ linux-6.11/drivers/gpu/drm/display/Kconfig
-> > @@ -3,7 +3,7 @@
-> >  config DRM_DISPLAY_DP_AUX_BUS
-> >         tristate
-> >         depends on DRM
-> > -       depends on OF || COMPILE_TEST
-> > +       depends on OF
-> >
-> >  config DRM_DISPLAY_HELPER
-> >         tristate
-> > --- linux-6.11.orig/drivers/gpu/drm/msm/Kconfig
-> > +++ linux-6.11/drivers/gpu/drm/msm/Kconfig
-> > @@ -6,6 +6,7 @@ config DRM_MSM
-> >         depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
-> >         depends on COMMON_CLK
-> >         depends on IOMMU_SUPPORT
-> > +       depends on OF =20
->=20
-> Perhaps nobody landed this because you're missing the msm maintainers
-> as specified by `./scripts/get_maintainer.pl -f
-> drivers/gpu/drm/msm/Kconfig` ? I've added them here. It seems like
-> we'd at least need an Ack by those guys since this modified the
-> msm/Kconfig...
+---
+In this series
+- PATCH 1: "dt-bindings: display/msm: Document MDSS on SA8775P" depends on dp
+  binding documetion in this change:
+  https://lore.kernel.org/all/20240923113150.24711-5-quic_mukhopad@quicinc.com/
+- PATCH 5: "arm64: dts: qcom: sa8775p: add display dt nodes for MDSS0 and DPU"
+  depends on the clock enablement change:
+  https://lore.kernel.org/all/20240816-sa8775p-mm-v3-v1-0-77d53c3c0cef@quicinc.com/
 
-You are right. The fix originally only touched
-drivers/gpu/drm/display/Kconfig and I forgot to update the maintainers
-list for v2 when drivers/gpu/drm/msm/Kconfig had to be modified as
-well. Thank you for noticing and getting the right people involved,
-this clearly made a difference :-)
+---
+[v5]
+- Update clock-name of display-controller in MDSS documentation to align with
+  qcom,sm8650-dpu.yaml. [Rob]
+- Update power-domains of display-controller in DT to do proper voting on MMCX
+  rail. [Internal Review]
 
-> FWIW I haven't spent massive time studying this, but what you have
-> here looks reasonable. I'm happy at least with this from a DP AUX bus
-> perspective:
->=20
-> Acked-by: Douglas Anderson <dianders@chromium.org>
->=20
-> Presumably landing this via drm-misc makes the most sense after MSM
-> guys give it an Ack.
+[v4]
+- Removed new YAML added for sa8775p dpu dt-binding documention as it is similar
+  to qcom,sm8650-dpu.yaml and added the compatible in same. [Krzysztof]
 
-Thanks,
---=20
-Jean Delvare
-SUSE L3 Support
+[v3]
+-Edited copyright for catalog changes. [Dmitry]
+-Fix dt_binding_check tool errors(update reg address as address-cells and
+ size-cells of root node one and maintain the same for child nodes of mdss,
+ added additionalProperties in schema).
+ [Rob, Bjorn, Krzysztof]
+-Add QCOM_ICC_TAG_ACTIVE_ONLY interconnect path tag to mdp0-mem and mdp1-mem
+ path in devicetree. [Dmitry]
+-Update commit subject and message for DT change. [Dmitry]
+-Remove interconnect path tags from dt bindings. (ref sm8450-mdss yaml)
+
+[v2]
+- Updated cover letter subject and message. [Dmitry]
+- Use fake DISPCC nodes to avoid clock dependencies in dt-bindings. [Dmitry]
+- Update bindings by fixing dt_binding_check tool errors (update includes in example),
+  adding proper spacing and indentation in the binding example, droping unused labels,
+  droping status disable, adding reset node. [Dmitry, Rob, Krzysztof]
+- Reorder compatible string of MDSS and DPU based on alphabetical order.[Dmitry]
+- add reg_bus_bw in msm_mdss_data. [Dmitry]
+- Fix indentation in the devicetree. [Dmitry]
+
+--
+2.34.1
+
+---
+Mahadevan (5):
+      dt-bindings: display/msm: Document MDSS on SA8775P
+      dt-bindings: display/msm: Document the DPU for SA8775P
+      drm/msm: mdss: Add SA8775P support
+      drm/msm/dpu: Add SA8775P support
+      arm64: dts: qcom: sa8775p: add display dt nodes for MDSS0 and DPU
+
+ .../bindings/display/msm/qcom,sa8775p-mdss.yaml    | 241 ++++++++++
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   1 +
+ arch/arm64/boot/dts/qcom/sa8775p.dtsi              |  89 ++++
+ .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    | 485 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                     |  11 +
+ 8 files changed, 830 insertions(+)
+---
+base-commit: e390603cfa79c860ed35e073f5fe77805b067a8e
+change-id: 20240930-patchv3_1-600cbc1549e8
+
+Best regards,
+-- 
+Mahadevan <quic_mahap@quicinc.com>
+
