@@ -2,75 +2,110 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E8A19A67DC
-	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 14:18:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4062D9A688A
+	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 14:32:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1892F10E4A6;
-	Mon, 21 Oct 2024 12:17:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A8CD10E4C4;
+	Mon, 21 Oct 2024 12:32:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cVImfNE5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ebpvAms2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB86510E4C2
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 12:17:57 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-539f4d8ef84so4455999e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 05:17:57 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 890D410E4C9
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 12:32:44 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4315baa51d8so43261565e9.0
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 05:32:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729513076; x=1730117876; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=prphtPU0Rb62bRXSWJ4X3+5cxLNBcE3V+GKAi8EyFnY=;
- b=cVImfNE5wSiivYAu4EqYw1I7hzsGqgdZxXgayrq/N+u4kXgPzPwF04QTdBPvy7rvqI
- qDB+xVWaRWnOkkSc6QEd7jJmxYzOT3eDiFU+/F5G36CZTaCxifH/k2G0BqOGyEduMNZt
- Xd6LSx1AciCf0vU+NKQ1QAKAPFmIDUrFKTPDNrgy4fl1vtKTbP7KQ2e9OyfSpeJf6oPF
- Cx5cnBJTjBcFP/a714k2hmwRiQmCi6smauYNgWRmQryq4dre6gGFBeN8mjo4lyV4LhNj
- TTrboNdufFsnsQFNcULymjCblXIbmUiHsGfQloD1VjWv8LhYSGSwf98UceLWmuZIHztM
- opzw==
+ d=linaro.org; s=google; t=1729513963; x=1730118763; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=xK977l4SMZlVVZ120SxoAqshGqpipjnvBMfJGymAJIY=;
+ b=ebpvAms2Mj4wO88WtSkqrGGu6zamLc4l6j2PZjUAZBGJOZvh+LZB0Syr5Hydo/El/G
+ bvQ2sX+uJcntE5FAt+otLtSL2NdX5mD+LCYFCN7EuhST0w01QKPVSpJjKOpN552dgIRn
+ ACJWXJpWipE/DYcjfVcX1Oym6Qc+ZpURmvBkLMLomt0HwijkKzPYdMmQHL80kJJ/HvZD
+ eczx4UjnRk0GgpHFuv4+Xkgy+/q1OBHtANyxbFI8Eaq7sBxWXY+KEUPOdrTY5eCzZ87r
+ u9JFR0Ywv0kghlh+XUmHZh4iBPDQD/u8S031KkZPFxzSQI8g5QXM1NHHEgr8l8KEm7FD
+ lHSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729513076; x=1730117876;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=prphtPU0Rb62bRXSWJ4X3+5cxLNBcE3V+GKAi8EyFnY=;
- b=OAVI4IHZunHtWU0OozESBQRM5RfPS2Bmv132oOAgacE58Vtb2nSH4mO2Wd/1zOLZ44
- mWLSYHXebp613TEC99elb9D/ty2vmbtEATcFZIQrVpw6+C8akIM6vFVm+3HEU35AUtt8
- Tzgl6lSFdfvAx6fg70wQUQQeakC9YnfPANqMFsKcHoyQtKwjvpZgBi4TofWv6cCl+FNC
- WGoXz5R3uiPA550Kst7Qrdh5pZc6fu3hcVBMmsGIPknMEU07EneV7YyNhEbUin/e4Hxr
- iP0mhh3SxgoVzO2hK6FzxEuwOq0DWMQuwZ2IoriFbw7nP0j9TiEWlUzdnzazkGjWCAk3
- ynKQ==
+ d=1e100.net; s=20230601; t=1729513963; x=1730118763;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=xK977l4SMZlVVZ120SxoAqshGqpipjnvBMfJGymAJIY=;
+ b=iz/tyoy0BomEU7Qm6LQt9YzbEcKQMAIMcDhqmQAHKbtgYM5esmSrpAhOni0zronKcI
+ XzTXZ0zsPRCUC4/l+3bAL0LD9enIw3zXiLlJ/tnfD7WaKDbqAxUWeDOx8y8Np7eV0AAy
+ QfXkH7ajIbMD1itnku8KHEtlxDkjlXph4LE9YdIzE4YXpYWu5eX+wlX/rYgaECWlbTya
+ s/qRfIkpuo2Pz2EEhaMLRw8QKLZTyMf9ZhjpqMEX8nibhdBvxOogTgrq/D+fGpuv+cV5
+ BpsbhVqcL+GSXe6mAwjor4r2NXzA0fMoVzRmjq4mNba/O02F8jUtK20RhwPx/rH7ny1M
+ QUpA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUltLP7sC2XL0rYryJMY/x5FIAYHYcwX2LNARKyVUubqAE6KWH9B0mjU0ZFUtuAeFVX9T7pvxUDQ4o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxAIlmcTsaP4C7CVIWm28yJ7GGUli7dVU8zxwvznqoGCjWTB5nb
- xmrw5j1Rc29HsZsnSBALE+HGjsOKxwwoGRnBKXxyiasmkDPJMw5xdU2srppLMiPB6AhbBfd1pMN
- O3s4=
-X-Google-Smtp-Source: AGHT+IFNrDA2mdhvvKnYVCFjWkWFdc+2kOvP18TFsD7M+Ufianm1YsNMhkTyVIEclzmrFo67RWAnAQ==
-X-Received: by 2002:a05:6512:3a8d:b0:539:f1e3:ca5e with SMTP id
- 2adb3069b0e04-53a154fa75fmr5584953e87.44.1729513075791; 
- Mon, 21 Oct 2024 05:17:55 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.90])
+ AJvYcCUWjXrsumGxYJfBqGjdz59QiWNCuRKXbpD7poliU5SnbOUKBRbedMIkqIiVSJL0V3xPdnnQrrzvGdU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5mPVFy9R4ycbJiABOyEjgr1pXfgoHWwqcjKAAxtG1CYg8c0hm
+ ONBrqf53EbxozXaN5FS4i8l9xJU5hdJTVcs8a/hiwVqbvsZh5hI7/02vJA8NnZY=
+X-Google-Smtp-Source: AGHT+IEF5fcgC6ODgI4jJBJx2i1qOREjjBxmOShJ8ylB9dd5vueXyrRW5QKR45FnVPpf8X+wIJuZhg==
+X-Received: by 2002:adf:ec8a:0:b0:37d:4ef1:1820 with SMTP id
+ ffacd0b85a97d-37eb487c281mr7320360f8f.40.1729513962869; 
+ Mon, 21 Oct 2024 05:32:42 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:982:cbb0:3908:dea6:2ddd:be97?
+ ([2a01:e0a:982:cbb0:3908:dea6:2ddd:be97])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53a22431454sm464210e87.212.2024.10.21.05.17.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Oct 2024 05:17:55 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: quic_abhinavk@quicinc.com, robdclark@gmail.com, airlied@gmail.com,
- Yang Li <yang.lee@linux.alibaba.com>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Abaci Robot <abaci@linux.alibaba.com>
-Subject: Re: [PATCH -next v2] drm/msm: Remove unneeded semicolon
-Date: Mon, 21 Oct 2024 15:17:44 +0300
-Message-Id: <172950935861.2053501.17039063548411571436.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20240918023357.59399-1-yang.lee@linux.alibaba.com>
-References: <20240918023357.59399-1-yang.lee@linux.alibaba.com>
+ ffacd0b85a97d-37ee0a587f4sm4249896f8f.52.2024.10.21.05.32.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Oct 2024 05:32:42 -0700 (PDT)
+Message-ID: <a2d20619-0724-4b16-a9a5-4a3680f21c99@linaro.org>
+Date: Mon, 21 Oct 2024 14:32:40 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/6] drm/bridge: add ycbcr_420_allowed support
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Alexander Stein <alexander.stein@ew.tq-group.com>
+References: <20241019-bridge-yuv420-v1-0-d74efac9e4e6@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20241019-bridge-yuv420-v1-0-d74efac9e4e6@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,25 +118,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
 
-On Wed, 18 Sep 2024 10:33:57 +0800, Yang Li wrote:
-> ./drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c:282:2-3: Unneeded semicolon
+On 18/10/2024 23:49, Dmitry Baryshkov wrote:
+> One of the features that drm_bridge_connector can't handle currently is
+> setting of the ycbcr_420_allowed flag on the connector. Add the flag to
+> the drm_bridge struct and propagate it to the drm_connector as AND of
+> all flags in the bridge chain.
 > 
-> This patch removes an unneeded semicolon after a switch statement in the
-> pll_get_post_div function. Adding a semicolon after a switch statement is
-> unnecessary and can lead to confusion in the code structure.
+> As an example of the conversion, enable the flag on the DW HDMI bridge,
+> MSM DP bridge, display connector drivers (for DisplayPort and HDMI
+> outputs) and AUX bridges.
 > 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+> Dmitry Baryshkov (6):
+>        drm/display: bridge_connector: handle ycbcr_420_allowed
+>        drm/atomic: add interlaced and ycbcr_420 flags to connector's state dump
+>        drm/bridge: display-connector: allow YCbCr 420 for HDMI and DP
+>        drm/bridge: aux: allow interlaced and YCbCr 420 output
+>        drm/msm/dp: migrate the ycbcr_420_allowed to drm_bridge
+
+How do you plan to merge this serie ?
+
+>        drm/bridge: dw-hdmi: set bridge's ycbcr_420_allowed flag
 > 
-> [...]
+>   drivers/gpu/drm/bridge/aux-bridge.c            |  4 ++++
+>   drivers/gpu/drm/bridge/aux-hpd-bridge.c        |  4 ++++
+>   drivers/gpu/drm/bridge/display-connector.c     |  4 ++++
+>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c      |  3 +++
+>   drivers/gpu/drm/display/drm_bridge_connector.c |  6 ++++--
+>   drivers/gpu/drm/drm_atomic.c                   |  2 ++
+>   drivers/gpu/drm/msm/dp/dp_display.c            |  4 ++--
+>   drivers/gpu/drm/msm/dp/dp_drm.c                | 10 ++++------
+>   drivers/gpu/drm/msm/dp/dp_drm.h                |  7 ++++---
+>   include/drm/drm_bridge.h                       |  5 +++++
+>   10 files changed, 36 insertions(+), 13 deletions(-)
+> ---
+> base-commit: 7f796de9da37b78e05edde94ebc7e3f9ee53b3b4
+> change-id: 20241018-bridge-yuv420-aab94d4575de
+> 
+> Best regards,
 
-Applied, thanks!
-
-[1/1] drm/msm: Remove unneeded semicolon
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/00adf52efec3
-
-Best regards,
--- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Neil
