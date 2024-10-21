@@ -2,80 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 858489A67D8
-	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 14:17:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E8A19A67DC
+	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 14:18:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 755C510E4BA;
-	Mon, 21 Oct 2024 12:17:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1892F10E4A6;
+	Mon, 21 Oct 2024 12:17:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="c3hn7/VD";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cVImfNE5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
- [209.85.208.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2AB10E4BA
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 12:17:55 +0000 (UTC)
-Received: by mail-lj1-f169.google.com with SMTP id
- 38308e7fff4ca-2fb498a92f6so48194191fa.1
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 05:17:55 -0700 (PDT)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB86510E4C2
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 12:17:57 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-539f4d8ef84so4455999e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 05:17:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729513073; x=1730117873; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1729513076; x=1730117876; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=++p6IK2xyUkmxIiDtF8Kg/j4cQViLTJqoFU8d2o1atw=;
- b=c3hn7/VDnLmMTngmJpq2YFhj7mYpEwK5wNdgJck6kbnWnT70OqUYgIri2Qg73Q/KLe
- 2ghNOJMJ3Qzptv9ZzAsKFKU1nB+oKvSVdl6pc4bZWktvZgpN3Rgm6LutW9PIs0AT8XRw
- QI6miaXanfSBeIXmJxGnAwvZtWovNc63s3je5phi2b4Nc+AwyYy7VTIsHt3feMJ+cce4
- 3VvbXYKgshsYFH3NUdHmt/xeqdZBzcvL64KQHigjz04U8p7uOJYDtibT1iaackuOAs9h
- QiX5a+bAfBpZ9HjH3KtBKf+c1PKWDMYXsZ7PwC6rld0DAbt3MxjPM7u3ZrhsQ7vuopWo
- szPw==
+ bh=prphtPU0Rb62bRXSWJ4X3+5cxLNBcE3V+GKAi8EyFnY=;
+ b=cVImfNE5wSiivYAu4EqYw1I7hzsGqgdZxXgayrq/N+u4kXgPzPwF04QTdBPvy7rvqI
+ qDB+xVWaRWnOkkSc6QEd7jJmxYzOT3eDiFU+/F5G36CZTaCxifH/k2G0BqOGyEduMNZt
+ Xd6LSx1AciCf0vU+NKQ1QAKAPFmIDUrFKTPDNrgy4fl1vtKTbP7KQ2e9OyfSpeJf6oPF
+ Cx5cnBJTjBcFP/a714k2hmwRiQmCi6smauYNgWRmQryq4dre6gGFBeN8mjo4lyV4LhNj
+ TTrboNdufFsnsQFNcULymjCblXIbmUiHsGfQloD1VjWv8LhYSGSwf98UceLWmuZIHztM
+ opzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729513073; x=1730117873;
+ d=1e100.net; s=20230601; t=1729513076; x=1730117876;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=++p6IK2xyUkmxIiDtF8Kg/j4cQViLTJqoFU8d2o1atw=;
- b=ikdEy7gSXb/x6jX2jSH3I/0RDBhJmvewNM506rYxHkNAu3sdxWLFTORj2FsI/q96MK
- oqjV6p9BfzJNLReezDVUHRtpCwkuzyXMStYgaUNP/DMB0ijDPs3eOUNcNrH9R9Av7prj
- yblx/oARA96z4sN34B25MC5x7bClZN9/pbHoMRbhgn8m4lquyHMdzT7SEIhpXfw04COq
- DYXJgfGmIb/0S5fnTm4O4VVK6FKvCsCkDP+Bfr3f9j2KY7Ear96ZBgXY7/ZV+FG5qg3r
- GrWUp6ijY5bdUzzITlagbVEV7KVxAikcS5eKlwd3ZTqOGu+Iw9Y8s8iFq9rVkOKzodfV
- eUdQ==
+ bh=prphtPU0Rb62bRXSWJ4X3+5cxLNBcE3V+GKAi8EyFnY=;
+ b=OAVI4IHZunHtWU0OozESBQRM5RfPS2Bmv132oOAgacE58Vtb2nSH4mO2Wd/1zOLZ44
+ mWLSYHXebp613TEC99elb9D/ty2vmbtEATcFZIQrVpw6+C8akIM6vFVm+3HEU35AUtt8
+ Tzgl6lSFdfvAx6fg70wQUQQeakC9YnfPANqMFsKcHoyQtKwjvpZgBi4TofWv6cCl+FNC
+ WGoXz5R3uiPA550Kst7Qrdh5pZc6fu3hcVBMmsGIPknMEU07EneV7YyNhEbUin/e4Hxr
+ iP0mhh3SxgoVzO2hK6FzxEuwOq0DWMQuwZ2IoriFbw7nP0j9TiEWlUzdnzazkGjWCAk3
+ ynKQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVMk0WZ/LpMtJkMpG/T8IM5PQYvhvTxfhAqZC2Ygn0FVRr4MTnjTXyqPF5F5lBoLbnT/joL5/2dAqE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxmW16UZrG2JV0XcW5nSj8jlRWnwkFr5Ai5MUS0eaQl+fKucQ9y
- 9wRqa6FUQmYznFaR6kOv1uVJXJXLNWDVym7JAQpsrLcdGuJx0QoAhBHCxGCIC7s=
-X-Google-Smtp-Source: AGHT+IEaBDgO0bJNd009iFuyYoVj9ZrfomLRDAMi/yxMGgNzbZQlm++57S0iUYR+s+bCy7ZAO9vNng==
-X-Received: by 2002:a05:6512:2356:b0:539:e317:b05f with SMTP id
- 2adb3069b0e04-53a15229d00mr5612912e87.28.1729513073320; 
- Mon, 21 Oct 2024 05:17:53 -0700 (PDT)
+ AJvYcCUltLP7sC2XL0rYryJMY/x5FIAYHYcwX2LNARKyVUubqAE6KWH9B0mjU0ZFUtuAeFVX9T7pvxUDQ4o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxAIlmcTsaP4C7CVIWm28yJ7GGUli7dVU8zxwvznqoGCjWTB5nb
+ xmrw5j1Rc29HsZsnSBALE+HGjsOKxwwoGRnBKXxyiasmkDPJMw5xdU2srppLMiPB6AhbBfd1pMN
+ O3s4=
+X-Google-Smtp-Source: AGHT+IFNrDA2mdhvvKnYVCFjWkWFdc+2kOvP18TFsD7M+Ufianm1YsNMhkTyVIEclzmrFo67RWAnAQ==
+X-Received: by 2002:a05:6512:3a8d:b0:539:f1e3:ca5e with SMTP id
+ 2adb3069b0e04-53a154fa75fmr5584953e87.44.1729513075791; 
+ Mon, 21 Oct 2024 05:17:55 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.90])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53a22431454sm464210e87.212.2024.10.21.05.17.52
+ 2adb3069b0e04-53a22431454sm464210e87.212.2024.10.21.05.17.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Oct 2024 05:17:52 -0700 (PDT)
+ Mon, 21 Oct 2024 05:17:55 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: vkoul@kernel.org, kishon@kernel.org, konradybcio@kernel.org,
- andersson@kernel.org, simona@ffwll.ch, abel.vesa@linaro.org,
- robdclark@gmail.com, quic_abhinavk@quicinc.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- quic_khsieh@quicinc.com, quic_parellan@quicinc.com,
- quic_bjorande@quicinc.com, Simona Vetter <simona.vetter@ffwll.ch>,
- Soutrik Mukhopadhyay <quic_mukhopad@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- quic_riteshk@quicinc.com, quic_vproddut@quicinc.com
-Subject: Re: [PATCH v5 0/5] Add support for DisplayPort on SA8775P platform
-Date: Mon, 21 Oct 2024 15:17:42 +0300
-Message-Id: <172950935864.2053501.518573859877352853.b4-ty@linaro.org>
+To: quic_abhinavk@quicinc.com, robdclark@gmail.com, airlied@gmail.com,
+ Yang Li <yang.lee@linux.alibaba.com>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Abaci Robot <abaci@linux.alibaba.com>
+Subject: Re: [PATCH -next v2] drm/msm: Remove unneeded semicolon
+Date: Mon, 21 Oct 2024 15:17:44 +0300
+Message-Id: <172950935861.2053501.17039063548411571436.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241018070706.28980-1-quic_mukhopad@quicinc.com>
-References: <20241018070706.28980-1-quic_mukhopad@quicinc.com>
+In-Reply-To: <20240918023357.59399-1-yang.lee@linux.alibaba.com>
+References: <20240918023357.59399-1-yang.lee@linux.alibaba.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -95,17 +87,20 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Fri, 18 Oct 2024 12:37:01 +0530, Soutrik Mukhopadhyay wrote:
-> This series adds support for the DisplayPort controller
-> and eDP PHY v5 found on the Qualcomm SA8775P platform.
+On Wed, 18 Sep 2024 10:33:57 +0800, Yang Li wrote:
+> ./drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c:282:2-3: Unneeded semicolon
 > 
+> This patch removes an unneeded semicolon after a switch statement in the
+> pll_get_post_div function. Adding a semicolon after a switch statement is
+> unnecessary and can lead to confusion in the code structure.
+> 
+> 
+> [...]
 
 Applied, thanks!
 
-[4/5] dt-bindings: display: msm: dp-controller: document SA8775P compatible
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/c51ff89a8139
-[5/5] drm/msm/dp: Add DisplayPort controller for SA8775P
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/dcb380d19e58
+[1/1] drm/msm: Remove unneeded semicolon
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/00adf52efec3
 
 Best regards,
 -- 
