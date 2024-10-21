@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D638E9A60D6
-	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 11:57:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFB529A60D4
+	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 11:57:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D6D410E47C;
-	Mon, 21 Oct 2024 09:57:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8955210E47A;
+	Mon, 21 Oct 2024 09:57:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="g40tiUs8";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iccwf/ZP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
  [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B8A510E47F
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 09:57:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 281D610E47D
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 09:57:42 +0000 (UTC)
 Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4315df7b43fso41635495e9.0
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 02:57:44 -0700 (PDT)
+ 5b1f17b1804b1-431695fa98bso17766625e9.3
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 02:57:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729504662; x=1730109462; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1729504660; x=1730109460; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
  :reply-to; bh=YFJZ4BI8JgbDyIrmdc3YWzeoobktonPl/4kNXWfXXdA=;
- b=g40tiUs8QErL1LFEE6MzxaKzUpmdmsyFymz2qpjRUh//VQIpnAPZEPUiJYwLWA6w3Z
- Khjc8lEj6ievwMJNLFdnvOk2bledfTcnIyChrKetyqzvwA914elAE6CsKer8Q9sskrc/
- rDFNnrnpCVkl63ASQTKBoWyJ5UOmrguG7HSDr4IYuFCCRvCvgzWPynNDcoheFOEA0BiM
- uGuvRcDICBJIZhH3gwFqvhjKuesl8VyeJTtacFx4fNlxw85Di4xC1VWpUcSCVkCn341K
- w65yI/dL6lIJ+NZ45apZTkWptL9cluXk5RCTinq4JVrrtrwoSc2yiE1bn/BriQmOjlll
- AepQ==
+ b=iccwf/ZPAysziiomG2fNAV8m3apilbZYw5MaqWqsOnjcUVs5h1Rz32WOgN/LD2eKJB
+ uAkkeYari6O7rDEa7eUS8aFcj/HfWJaieqH37haCQ+uFZ8WZ/Yv4tAk9j1GGmvoATY24
+ S2Y2xHg/vx+7gH0w28Q+8RSHF+QfRVvnqU57J5pGdvH6WFf/u1xn8Ilm3EebeYLQeUMK
+ Iav7MHB9wqyuaDyUTk1PTGB7ywS13inWVRXZ6kXl6sa8P4zN3ixQeUwLzHYx/YudF5kt
+ 3t1aME3yb8dFHcdquEDJCQrxRjxqVgvjgyuMSdgFW3m/vP2B9zxh8FhCYZ59ZXDvxJW4
+ h3Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729504662; x=1730109462;
+ d=1e100.net; s=20230601; t=1729504660; x=1730109460;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to;
  bh=YFJZ4BI8JgbDyIrmdc3YWzeoobktonPl/4kNXWfXXdA=;
- b=lCVbjTSU0bJRg+0JDnha3V3y7EA5B+bxkBnXOBQxtzn+dvedJTKt8puhSNszC8wqhS
- jkIU7Ndja+6DxOPSH9TcR+detkaLh+AHjxLb00kyAseht4kFwMiSjV9rju6Ju9c8KT2z
- gDzL12FVxVIF75Mj0WjIadSWeRPfINjEaJzLrs1RmadZ8VNGC8Q0OSm97jhBe7YRc4qe
- G2MSjRkXBLwGiDH8YDCyEKRhJ1z403Bxp5Qwu0dWTup3mzU5tuoIfQamb5QWC8sn27/F
- AEDviTjUH7x1hL9LliZIjlYRMZDJ5XVg7GVVm3xq+ULXbIGEmxv1wN7rLyzZ/wmVMR0p
- qnSw==
+ b=n3XwyF1p8zcMjWNHRxuSrokzzEEnEJARtwNR6xaK2vijLqJygJUUcnN54GYuPpbvyi
+ +uVWneHBoUpXF9rAKt9VLkeDWPXtjb7X12OOk9yqSA62R4rzhEFm5utmKXGMnCSFR5vq
+ gmzqswikadCnYMaHHwKlUtKdpMa0ciDhTySJQWe1z8+I+pXEqCRPJzZBuW7juSRUZFl3
+ VZnXzRZ1W60oMWSydSrGYoKj1Ad/AtasFSC8tOMnU8kq2k7o6Te3KfWKLMDuAcGTcqLM
+ 1ORD+r8GvN3fuitDC1Ant82JU0UUfDMll6EBFqgou5dr2N+Wq2UIvNIqxH21AWCmlw7Q
+ 8v/w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX7B4MY1ad3DpxTBZLb+ZbWRglczcz4EFl5BNWdabF/qaJ9yIjyHIE9buCrbSsW0wqc2HVEpfYjq/w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxK3SJIPrMwt/QlsTJm+eTqmz6n11tWpPuwdZJyMtTbn0/H6bgX
- A+fXLXP3B8V0WGazv6Jp92PvCTXEjXi1VbLTDRzddks15uxdXIE0/QHAEXSdT+8=
-X-Google-Smtp-Source: AGHT+IGeGSva1dCGKJK0ItMljEFaN9RGTBSz4M7spLmPszck8GeOtwhoBXXlA6N5i6PY8nRM5qgSIQ==
-X-Received: by 2002:a05:600c:3b08:b0:42c:b4f2:7c30 with SMTP id
- 5b1f17b1804b1-43161687de8mr86397695e9.23.1729504662459; 
- Mon, 21 Oct 2024 02:57:42 -0700 (PDT)
+ AJvYcCUpbp+FDma3XnfbJPSvcMgWxwNeLyLxHFwjgocrZo4Cu0i4AUzJ1BiZJPnbRPhGcjpMUA6oKbymBn4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxu41EVc391xNX2nftVgGh0TZwiPYqyuPndENglnmZDCpknPxSu
+ olKmsN7fw+Oa5glL3tH5+9q0l/tNUmrqTSMujhQB2Qtet8X3+m3JNN+zlFNtECE=
+X-Google-Smtp-Source: AGHT+IFO9lcqmPoRyt0ErX5LTdNaVWVLlMS40TYpxYmHtzPlwUZJjen/Bk/r/iHiP055Nka13xV0cQ==
+X-Received: by 2002:a5d:6584:0:b0:374:c8a0:5d05 with SMTP id
+ ffacd0b85a97d-37eb48a0e89mr7173964f8f.50.1729504660440; 
+ Mon, 21 Oct 2024 02:57:40 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:982:cbb0:3908:dea6:2ddd:be97?
  ([2a01:e0a:982:cbb0:3908:dea6:2ddd:be97])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37ee0a37b35sm3926555f8f.2.2024.10.21.02.57.40
+ ffacd0b85a97d-37ee0a37b35sm3926555f8f.2.2024.10.21.02.57.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Oct 2024 02:57:42 -0700 (PDT)
-Message-ID: <3731a3d4-6435-4594-b97f-45c10d9cfcfd@linaro.org>
+ Mon, 21 Oct 2024 02:57:40 -0700 (PDT)
+Message-ID: <0dc5489c-f835-4319-baa0-546c5c5fb296@linaro.org>
 Date: Mon, 21 Oct 2024 11:57:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
