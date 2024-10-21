@@ -2,107 +2,113 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69A2B9A6046
-	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 11:38:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 352259A60B4
+	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 11:54:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3025110E461;
-	Mon, 21 Oct 2024 09:38:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 100F310E2D3;
+	Mon, 21 Oct 2024 09:54:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qshzu1NG";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mQhhPkcR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DED7010E2F3
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 09:38:47 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49KNOsJk020573
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 09:38:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- gn+gkmOeUyjRBUooDRR+2My5sXvmwkHI88BMxZAlKmE=; b=Qshzu1NGPFV8rsTh
- txIOPB3GFuckqrBScsLkjnrIuuT7jhuJiOz6yvjMOpWyZRN5rKHEvIet1nKtgOxZ
- xRjTgCApXxaGFy5Uspt38X1yhYRPKGdbw5DykooS4TvsXhfT5crN/yTF1rG8WthK
- o/PWB8BUzZUpcpjGci3nE1zaFet6EfRwlt64/kco889eZ/zeYDjKA6vcoaKwJHih
- PbX/R/39BknU39Mxqa1Wu09I1z48fwrNB7LCoTlsfEQ2ambgf+1dyAepy5wDpAgm
- vBTMHBogS3iqAZuJ35s4zfihjB5vgQMoXKc4cOqb9wNNTfkfpVBpyZIP2p2mRejF
- 4cI7Dw==
-Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
- [209.85.166.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42c6vc44bx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 09:38:47 +0000 (GMT)
-Received: by mail-io1-f69.google.com with SMTP id
- ca18e2360f4ac-837875efdbeso57550739f.2
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 02:38:47 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79A5E10E46B
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 09:54:07 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-43161e7bb25so28980925e9.2
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 02:54:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1729504445; x=1730109245; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=4qi7OYn87uV2q8GTh+ArF53BAcD9TZF/0fbdqswgZQc=;
+ b=mQhhPkcRwOxWyNUIB3I3ydlzr6vo42y6EcW3n+Lb0qi882huw6eBGzicxAcxLgWJmW
+ /vQMK69cfXpNh3Bs+Mpj6ESi+gyDUhONRPhKJrolciapm7/Wka0MG+pE9YqwX/YX3quE
+ 8vmJGvMjPJ+jygAawgIoy61D79ttSPhqScoNNWzkFoGKOpbKanHKGIZez+tuS6nBS725
+ fdGFyRJaN12JL1NEGJLJTyDmY+BaTHNBpoY0eSdWfHzKfCuT3wDqAoAomNrA6obU/8Jl
+ OhTh5g1GOrEz7mwgvTasRdXM9tA3UV0oV79Rq5xgCYq93kuutS1AYwh/lskcBO1caTHC
+ cPlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729503526; x=1730108326;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gn+gkmOeUyjRBUooDRR+2My5sXvmwkHI88BMxZAlKmE=;
- b=HMTTpy65SnS4mg+jlrsQrvXZ/WwHwHegjz6j/d0RSM5Yc2gy4poxKH3/ZMKfehsC9c
- Jvc22KCOSLwS4O24ImzhqJmyU2E7ES/XfJNxbfOlD/5e4nl4/fSXTC6Hf7/aPvLFevDK
- L3NbcIw9tJ0Rhbi7Pn+yIwxbzrfjvYruQ5yzP8xUgReNW4qYn4ZeT/clzlddCKbDMnBg
- syW3k9xEyzfvRMT69pZGbBcgv/wVBGrZj2CqnxahOcLAGx1kXQwZWZA2DdqofjBa1tJT
- 3ZTNXZnVJVNLIyWqObuDtLNW+mBXD6ZwxBWdjO8xggoq5wLq8UdK7lg1fYLsz5mVD/HD
- jtbA==
+ d=1e100.net; s=20230601; t=1729504445; x=1730109245;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=4qi7OYn87uV2q8GTh+ArF53BAcD9TZF/0fbdqswgZQc=;
+ b=QwtxSmR4Fagzl5R4QYU8MCe2VxENmTrQ6BTRtgIDuSiLl785AVo0zxN7yWs3ty7avL
+ aDqePLoOWzDT5xLnV/XH6wTQCqDM+b2uawvLcHLHZpreXzlno2yFdMmo61Dxm4d2SJlN
+ 7wnzzwOhl1PiZIIQijdh+5BPN2Vqc0slXNsQNWOeUwf8EwAb3r7NlBn7APRvX5MHp79T
+ F4hWis3KOjNqqaWU7+Y6uO0u5USPL7eEVwp1v6enUK+lSNntvrOsS8U11/09zNFbLFdB
+ BYADC2LGQy3tVI2fL5dQBvd2RR02EVRfTfhbxG5+PK6y2iwDdYpGzKL3p3pnBiZQwqrd
+ Gs5A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWmKQmcOMjqrz+hmS3Ar6EKtDD4bEyKOgIpzbq/mx9kb/ufDdbRKAh5tnMVwnhw+JYedhVUCjuk5Co=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxZztnhyfYtpvnppEH7Yi8Fc/FxoMFI36JQq8CjUO+B6XzQo3FT
- RjVy8ciaYagr/aEazf3MeECb+znjplR//FTy63BjuqTgHAI99xshjST0KfuBCByBibUkJ4qSxL1
- iWMMVQeXXfbHnfGeXLFNfb5Vw4tfRt+ZWcY+GQ/VVUiq61DksI1pelEvo7c8mCMQKt2g=
-X-Received: by 2002:a05:6e02:b2f:b0:3a2:6cd7:3255 with SMTP id
- e9e14a558f8ab-3a3f40b41afmr29449085ab.6.1729503526147; 
- Mon, 21 Oct 2024 02:38:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF/wHHBGM3zQyx0/OSXW35rXmYHrOpG+GrEQovUlYPyc88a/4376jQdZSvI4nY76nZm9i7w0w==
-X-Received: by 2002:a05:6e02:b2f:b0:3a2:6cd7:3255 with SMTP id
- e9e14a558f8ab-3a3f40b41afmr29448885ab.6.1729503525721; 
- Mon, 21 Oct 2024 02:38:45 -0700 (PDT)
-Received: from [192.168.212.120] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a912d6225sm185228266b.11.2024.10.21.02.38.42
+ AJvYcCVSs6WbE0mhzZR3XkkTTtkYi32ui8VlRbP5m95/JTbrRnXQe/H6L2eVNM4/zdavpAzWBQOg1E4FdAw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxrr4yCQuRkWr3tsQuLPm9Hp9h1Q+0DBVRs4s5cVsrl7gdjUtDt
+ 1LBnsbxrdsuVBq5BnZ3E5hHmhgjxumgOUIxGLl+unu8VrqWG7eDU/vxjioU7Qi0=
+X-Google-Smtp-Source: AGHT+IE9JUG+K0WiGUxbiRQjV6Ys6ZBgKlpyp4KdsaqN6dI9kfVnMsINzdIld9EWOaNctSRAQ0i66A==
+X-Received: by 2002:a05:600c:c8a:b0:431:2b66:44f7 with SMTP id
+ 5b1f17b1804b1-4316169737dmr79858395e9.31.1729504445445; 
+ Mon, 21 Oct 2024 02:54:05 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:982:cbb0:3908:dea6:2ddd:be97?
+ ([2a01:e0a:982:cbb0:3908:dea6:2ddd:be97])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4316f570da9sm52614305e9.5.2024.10.21.02.54.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Oct 2024 02:38:44 -0700 (PDT)
-Message-ID: <1543ae2a-76ff-4b36-adae-37076e48b7f8@oss.qualcomm.com>
-Date: Mon, 21 Oct 2024 11:38:41 +0200
+ Mon, 21 Oct 2024 02:54:04 -0700 (PDT)
+Message-ID: <88d16fd7-eac5-447b-8926-00eb8bafe3ff@linaro.org>
+Date: Mon, 21 Oct 2024 11:54:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/3] drm/msm/adreno: Add support for ACD
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH 3/6] drm/bridge: display-connector: allow YCbCr 420 for
+ HDMI and DP
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20241012-gpu-acd-v1-0-1e5e91aa95b6@quicinc.com>
- <20241012-gpu-acd-v1-1-1e5e91aa95b6@quicinc.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20241012-gpu-acd-v1-1-1e5e91aa95b6@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+References: <20241019-bridge-yuv420-v1-0-d74efac9e4e6@linaro.org>
+ <20241019-bridge-yuv420-v1-3-d74efac9e4e6@linaro.org>
+ <28fb5aed-0387-4c16-96fb-c2c23ae315b0@linaro.org>
+ <CAA8EJprfpKqJBvrS_dLKy40LHOaL4XVSpmXMGP__z1jsOjZ7Ag@mail.gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <CAA8EJprfpKqJBvrS_dLKy40LHOaL4XVSpmXMGP__z1jsOjZ7Ag@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: o5tCmzo0R6EeulvTiUWuZG6wO4YfaduD
-X-Proofpoint-ORIG-GUID: o5tCmzo0R6EeulvTiUWuZG6wO4YfaduD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 suspectscore=0
- spamscore=0 phishscore=0 bulkscore=0 mlxscore=0 adultscore=0
- mlxlogscore=936 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410210069
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,30 +121,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11.10.2024 10:29 PM, Akhil P Oommen wrote:
-> ACD a.k.a Adaptive Clock Distribution is a feature which helps to reduce
-> the power consumption. In some chipsets, it is also a requirement to
-> support higher GPU frequencies. This patch adds support for GPU ACD by
-> sending necessary data to GMU and AOSS. The feature support for the
-> chipset is detected based on devicetree data.
+On 21/10/2024 11:06, Dmitry Baryshkov wrote:
+> On Mon, 21 Oct 2024 at 10:29, Neil Armstrong <neil.armstrong@linaro.org> wrote:
+>>
+>> On 18/10/2024 23:49, Dmitry Baryshkov wrote:
+>>> Allow YCbCr 420 output for HDMI and DisplayPort connectors. Other
+>>> bridges in the chain still might limit YCbCr 420 support on the
+>>> corresponding connector.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>    drivers/gpu/drm/bridge/display-connector.c | 4 ++++
+>>>    1 file changed, 4 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+>>> index ab8e00baf3f1..aab9ce7be94c 100644
+>>> --- a/drivers/gpu/drm/bridge/display-connector.c
+>>> +++ b/drivers/gpu/drm/bridge/display-connector.c
+>>> @@ -270,6 +270,10 @@ static int display_connector_probe(struct platform_device *pdev)
+>>>        /* All the supported connector types support interlaced modes. */
+>>>        conn->bridge.interlace_allowed = true;
+>>>
+>>> +     if (type == DRM_MODE_CONNECTOR_HDMIA ||
+>>> +         type == DRM_MODE_CONNECTOR_DisplayPort)
+>>> +             conn->bridge.ycbcr_420_allowed = true;
+>>> +
+>>>        /* Get the optional connector label. */
+>>>        of_property_read_string(pdev->dev.of_node, "label", &label);
+>>>
+>>>
+>>
+>> I think we should make sure all HDMI bridges can filter out 420 before
+>> landing this, no ?
 > 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
+> No, it's the other way around: if one of the bridges in a chain
+> doesn't set 420_allowed, then 420_allowed won't be set for the
+> connector, disallowing YCbCr 420 modes.
+> Before this patchset the bridge / platform drivers had to manually set
+> the flag on the created connector (see dw-hdmi + meson-encoder-hdmi or
+> msm/dp).
+> 
 
-[...]
+Right, sorry for the noise...
 
-> +
-> +	/* Initialize qmp node to talk to AOSS */
-> +	gmu->qmp = qmp_get(gmu->dev);
-> +	if (IS_ERR(gmu->qmp)) {
-> +		cmd->enable_by_level = 0;
-> +		return dev_err_probe(gmu->dev, PTR_ERR(gmu->qmp), "Failed to initialize qmp\n");
-> +	}
-
-I'm still in favor of keeping qmp_get where it currently is, so that
-probe can fail/defer faster
-
-Konrad
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
