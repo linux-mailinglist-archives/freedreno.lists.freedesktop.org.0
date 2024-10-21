@@ -2,96 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DE739A6722
-	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 13:55:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B717D9A67CD
+	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 14:17:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78EEA10E4A6;
-	Mon, 21 Oct 2024 11:55:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9495410E4A6;
+	Mon, 21 Oct 2024 12:17:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="GjQjqaTe";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="M08BePj5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B859210E4A8;
- Mon, 21 Oct 2024 11:55:32 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49L8VwhH014493;
- Mon, 21 Oct 2024 11:55:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- PDz3KYrnNjKa/ecyIrk93047MeD5GWsgjdUbxViQq2M=; b=GjQjqaTeXzN6bfkJ
- I+HRfcTbmGM4+gym42aPkuPueJQ1hTCe9UcHJ1Ig3IQb8kjQ5HjEDDNMUhunCgs/
- 92tK1ROAkjlJ9+2HrprNN6sluNqgq/ZyuL8LzapJYJVNMPf5tMFflUcx5zxoToGE
- zRFCxE3Ng6TqekGHmgbtNt1ZrOQnzXzvGtkytcpVXi/h/viZA1+f4fKIMxaorcOY
- McBcJVEN8phwSE0dEBHrz6G0wOwAdYEifhDwM+wD5n7MligO/hJSelmgYd0qSryB
- /Hc5LD4DIHCpF/j/OjC8ajyByE65jD/0RQmQ1jPd2wA2MNpm6YKLzVamUTbxyVkg
- VtU7gA==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42dkhd0rxc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 21 Oct 2024 11:55:27 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49LBtQXw011529
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 21 Oct 2024 11:55:26 GMT
-Received: from [10.213.111.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 21 Oct
- 2024 04:55:20 -0700
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Date: Mon, 21 Oct 2024 17:23:44 +0530
-Subject: [PATCH v2 3/3] arm64: dts: qcom: x1e80100: Add ACD levels for GPU
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 603BB10E4A6
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 12:17:47 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-539e6c754bdso4192370e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 05:17:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1729513065; x=1730117865; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qj8L6W818gEgHt04vljDAKiaT7pf1UJVmBdDiPGwTI8=;
+ b=M08BePj56tvJNINwlI1C9nVFVguut7g0yfKqVCK+8p5HiDwbgRVze0wymSJ/bU09n6
+ HwvGwBps4pR/tfmagB7xLNVokz491r5ar+In42paiitjNjI9NwycMO3POH3UZCblsbMM
+ CHrlo5FerSdQWqSnBSwC5GFH9GKAB6HGabtzlie6CpICqWz1LpFbSKPrhTeebwhmvxXX
+ LViHZslTvsRDO+HFsvRL3DTmRy7A8ZcrC6BNSdRPjolrhyDGBnN0c8ICGrRq1lPtqPnO
+ NN+Deb5EuxHVwsG5gJl5/+w2/pZB2ok/T3JxzFA71Nr7aPZ4c/Z8GGizbBPGLS+JMIAl
+ ZSnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729513065; x=1730117865;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=qj8L6W818gEgHt04vljDAKiaT7pf1UJVmBdDiPGwTI8=;
+ b=HyRREahduVMZpw76NzoCjKz86tMLydgV0W53xDqg6oQJ/CWxA1jMSIh0x0Fow6DtI+
+ IIofUukgsU3pfc4aRkgorVjmkLgqxcFg/njKrNT4PizfjOshF2Vt3BUedsPrKy/dAj6B
+ /FD0O8EUOYuQHj67Jt8WuAwbTmqkIrpi9oem5lI9Z99NMUSy+SuSqarYpwTqBRXQ12K3
+ Vlx2HXDg1O0JnwsS5KGUZ3PgBvZ8wgDkUl97Fd0k4ri54XevviILf+XKmIG3Ql/U7gfc
+ lNpuXZR/SvAA03uJyq8ZaeZDgLcKtVKar6inFNqLY2F6v108LiHeKcEw0pgPksTfKDXI
+ jMUg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXWsarGJ3LgY2J7tLfKlm5hZzXmvNdXpSqDv+IGX/SCcMKqn91Rg0JvzSHUExPvEBokCQMGC/cRdPo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzQwbfwDPin5xawLu7EkRJJiBQtm6rL9fD6MuQZ04HhgXMfzFKD
+ nx3mOQCvRPOQWUpm4HREgz1zzQtaiG+hWhccD/qLTa3LaEdqQDcvPaS7xh8JyK0=
+X-Google-Smtp-Source: AGHT+IHpSQ4XePG/buVw97pZjciV4B9MDvBfVGMO4z5/K6mvahYyTrgpo88vPai+GK++A8fXgd+WnQ==
+X-Received: by 2002:a05:6512:220b:b0:53a:c17:a290 with SMTP id
+ 2adb3069b0e04-53a15492237mr5085994e87.21.1729513065460; 
+ Mon, 21 Oct 2024 05:17:45 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.90])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-53a22431454sm464210e87.212.2024.10.21.05.17.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Oct 2024 05:17:44 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Konrad Dybcio <konradybcio@kernel.org>
+Subject: Re: [PATCH v2 0/4] Add MSM8996/MSM8953/MSM8937/MSM8917 dpu catalog
+Date: Mon, 21 Oct 2024 15:17:36 +0300
+Message-Id: <172950935862.2053501.4807849758391227049.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20240930-dpu-msm8953-msm8996-v2-0-594c3e3190b4@mainlining.org>
+References: <20240930-dpu-msm8953-msm8996-v2-0-594c3e3190b4@mainlining.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20241021-gpu-acd-v2-3-9c25a62803bc@quicinc.com>
-References: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
-In-Reply-To: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
- Dybcio" <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Bjorn Andersson
- <andersson@kernel.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1729511702; l=2473;
- i=quic_akhilpo@quicinc.com; s=20240726; h=from:subject:message-id;
- bh=K4uDSeAHPqOF4dC/WveDCmG62plfuwrsaEiIRm+b/HM=;
- b=Tf6TshaeMcHaxPvEKYzkoSzM6VVlj92PY39DFNU6ywFxnG1ElvCn7hZucYqwdEC5uys4pJ2lB
- LxySXa7xU65BpI6tTFoA6I494oYHj1dOCbkimDsruky3wNZV/MH3xlg
-X-Developer-Key: i=quic_akhilpo@quicinc.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: SffZm4rIcDV7iLvG4r8Rl6vOxJvQf6Gh
-X-Proofpoint-GUID: SffZm4rIcDV7iLvG4r8Rl6vOxJvQf6Gh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0
- phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- mlxscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 mlxlogscore=779
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
- definitions=main-2410210085
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,89 +90,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Update GPU node to include acd level values.
 
-Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
----
- arch/arm64/boot/dts/qcom/x1e80100.dtsi | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+On Mon, 30 Sep 2024 20:35:55 +0200, Barnabás Czémán wrote:
+> This patch series add dpu support for MSM8996/MSM8953/MSM8937/MSM8917 SoCs.
+> 
+> This parch series was tested on many devices:
+> 
+> - Xiaomi Redmi 5A (msm8917, video panel)
+> - Xiaomi Redmi Note 5A (msm8917, video panel)
+> - Xiaomi Redmi Note 5A Prime (msm8940, video panel)
+> - Motorola G5S (msm8937, video panel)
+> - Xiaomi Redmi 3S (msm8937, video panel)
+> - Xiaomi Redmi 4x (msm8940, video panel)
+> - Samsung A6+ LTE (sdm450, cmd panel)
+> - Xiaomi Redmi 7 (sdm632, video panel)
+> - Xiaomi Redmi 5 (sdm450, video panel)
+> - Xiaomi Redmi 5 Plus (msm8953, video panel)
+> - Xiaomi Redmi Note 4 (msm8953, video panel)
+> - Xiaomi Mi A1 (msm8953, video panel)
+> - Xiaomi Mi A2 Lite/Redmi 6 Pro (msm8953, video panel)
+> - Xiaomi Redmi S2 (msm8953, video panel)
+> - Motorola G5 Plus (msm8953, video panel)
+> - Xiaomi Mi Note 2 (msm8996, video panel)
+> - Xiaomi Mi 5s (msm8996, cmd panel)
+> 
+> [...]
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100.dtsi b/arch/arm64/boot/dts/qcom/x1e80100.dtsi
-index a36076e3c56b..81ce8bccc7a5 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1e80100.dtsi
-@@ -3323,60 +3323,69 @@ zap-shader {
- 			};
- 
- 			gpu_opp_table: opp-table {
--				compatible = "operating-points-v2";
-+				compatible = "operating-points-v2-adreno", "operating-points-v2";
- 
- 				opp-1100000000 {
- 					opp-hz = /bits/ 64 <1100000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
- 					opp-peak-kBps = <16500000>;
-+					qcom,opp-acd-level = <0xa82a5ffd>;
- 				};
- 
- 				opp-1000000000 {
- 					opp-hz = /bits/ 64 <1000000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
- 					opp-peak-kBps = <14398438>;
-+					qcom,opp-acd-level = <0xa82b5ffd>;
- 				};
- 
- 				opp-925000000 {
- 					opp-hz = /bits/ 64 <925000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
- 					opp-peak-kBps = <14398438>;
-+					qcom,opp-acd-level = <0xa82b5ffd>;
- 				};
- 
- 				opp-800000000 {
- 					opp-hz = /bits/ 64 <800000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
- 					opp-peak-kBps = <12449219>;
-+					qcom,opp-acd-level = <0xa82c5ffd>;
- 				};
- 
- 				opp-744000000 {
- 					opp-hz = /bits/ 64 <744000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
- 					opp-peak-kBps = <10687500>;
-+					qcom,opp-acd-level = <0x882e5ffd>;
- 				};
- 
- 				opp-687000000 {
- 					opp-hz = /bits/ 64 <687000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
- 					opp-peak-kBps = <8171875>;
-+					qcom,opp-acd-level = <0x882e5ffd>;
- 				};
- 
- 				opp-550000000 {
- 					opp-hz = /bits/ 64 <550000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
- 					opp-peak-kBps = <6074219>;
-+					qcom,opp-acd-level = <0xc0285ffd>;
- 				};
- 
- 				opp-390000000 {
- 					opp-hz = /bits/ 64 <390000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
- 					opp-peak-kBps = <3000000>;
-+					qcom,opp-acd-level = <0xc0285ffd>;
- 				};
- 
- 				opp-300000000 {
- 					opp-hz = /bits/ 64 <300000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
- 					opp-peak-kBps = <2136719>;
-+					qcom,opp-acd-level = <0xc02b5ffd>;
- 				};
- 			};
- 		};
+Applied, thanks!
 
+[1/4] drm/msm/dpu: Add support for MSM8996
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/daf9a92daeb8
+[2/4] drm/msm/dpu: Add support for MSM8953
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/7a6109ce1c2c
+[3/4] drm/msm/dpu: Add support for MSM8937
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/c079680bb0fa
+[4/4] drm/msm/dpu: Add support for MSM8917
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/62af6e1cb596
+
+Best regards,
 -- 
-2.45.2
-
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
