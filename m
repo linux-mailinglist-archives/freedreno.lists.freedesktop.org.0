@@ -2,108 +2,107 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 079719A6008
-	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 11:32:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69A2B9A6046
+	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 11:38:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4B0310E465;
-	Mon, 21 Oct 2024 09:31:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3025110E461;
+	Mon, 21 Oct 2024 09:38:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MTlb5O/W";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qshzu1NG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5F3010E463
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 09:31:58 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49KNSVQ1013484
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 09:31:58 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DED7010E2F3
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 09:38:47 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49KNOsJk020573
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 09:38:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- fPR/B/rHBV/Ak5XBTURloMnJHkGLWJU2nK6mB1/kVDY=; b=MTlb5O/WLCXNriOH
- 4+xgldwiFuNOtemJZKERsdJsW1uBfmh/gJ2tDJ4+soYYyUAnl5ynBt0ZC9qe4wsx
- nVUpld6ricZY43xy2gcp/y/d8qSHsotBToHJ0L3OjJdKBIQUTtLtLfwrKptXg6cW
- P0LbEABCk6iwQhxZttDYmZ8waXKlkDPBt10W+gw+rlRCNbGAp/tsHYcJ/Ay/WEc3
- HNmwSUecRjs/dID2CgJBC+2XhSQ4wSHTId9Dfb477RxByCtB96UjlGDQ2SqKNlvy
- OaA+PG1FsiTTdTPAhwGvmBlimuVM9GJzCAr8Nn+gqjW1Hfju9XzIwqJM4pjBDhcr
- YakuDg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42c6rbc3e6-1
+ gn+gkmOeUyjRBUooDRR+2My5sXvmwkHI88BMxZAlKmE=; b=Qshzu1NGPFV8rsTh
+ txIOPB3GFuckqrBScsLkjnrIuuT7jhuJiOz6yvjMOpWyZRN5rKHEvIet1nKtgOxZ
+ xRjTgCApXxaGFy5Uspt38X1yhYRPKGdbw5DykooS4TvsXhfT5crN/yTF1rG8WthK
+ o/PWB8BUzZUpcpjGci3nE1zaFet6EfRwlt64/kco889eZ/zeYDjKA6vcoaKwJHih
+ PbX/R/39BknU39Mxqa1Wu09I1z48fwrNB7LCoTlsfEQ2ambgf+1dyAepy5wDpAgm
+ vBTMHBogS3iqAZuJ35s4zfihjB5vgQMoXKc4cOqb9wNNTfkfpVBpyZIP2p2mRejF
+ 4cI7Dw==
+Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
+ [209.85.166.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42c6vc44bx-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 09:31:57 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7b156e4572dso40010485a.2
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 02:31:57 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 09:38:47 +0000 (GMT)
+Received: by mail-io1-f69.google.com with SMTP id
+ ca18e2360f4ac-837875efdbeso57550739f.2
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 02:38:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729503116; x=1730107916;
+ d=1e100.net; s=20230601; t=1729503526; x=1730108326;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fPR/B/rHBV/Ak5XBTURloMnJHkGLWJU2nK6mB1/kVDY=;
- b=Cpk+JZ8Iu5FpDH8732SRYs9YZ006RKVDfojaXcdhZdlfCBCScF/0mCdKPJmtdeOb6p
- ltgLnXcufnEsHmYsUQIPQDo0D8YhgleUy5sYGMfuZms6uw1AmiwToR7xAbdEwgH4ALlo
- rj2cOzgOMrthY3PLISzQWZ3Xdm6hBymCozIR3rsS/7hCwf9lvOt8WtDyUijXmjnqHKrb
- VAxfxkDy+3b9u4HD1e6GrVXc0i9GQ4bK6LhJX2XOg8wVoDan/PgUlkbzrznNshJtQSAh
- xdWE3d023AvVOeKpYpnQsnfshukaPs5fvLIHDFPDHDfCoVUZ4KwqC7lEZMLuFyYHXDNR
- Gi4Q==
+ bh=gn+gkmOeUyjRBUooDRR+2My5sXvmwkHI88BMxZAlKmE=;
+ b=HMTTpy65SnS4mg+jlrsQrvXZ/WwHwHegjz6j/d0RSM5Yc2gy4poxKH3/ZMKfehsC9c
+ Jvc22KCOSLwS4O24ImzhqJmyU2E7ES/XfJNxbfOlD/5e4nl4/fSXTC6Hf7/aPvLFevDK
+ L3NbcIw9tJ0Rhbi7Pn+yIwxbzrfjvYruQ5yzP8xUgReNW4qYn4ZeT/clzlddCKbDMnBg
+ syW3k9xEyzfvRMT69pZGbBcgv/wVBGrZj2CqnxahOcLAGx1kXQwZWZA2DdqofjBa1tJT
+ 3ZTNXZnVJVNLIyWqObuDtLNW+mBXD6ZwxBWdjO8xggoq5wLq8UdK7lg1fYLsz5mVD/HD
+ jtbA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUzb073CmTp0+iAYLopBorU/iA6BVWkLhpRTra+ukTiMc4IDaeY2Dx07bwOh5L505/t4DSByCM2HWA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyo5jmYtwr85POObWzCETwF6Ub98R9zn6IRrjRDOgaSLWxxn/TG
- H7ZSy/uPcG2FDMUPsT2T8Rp0b4sBL0gNugZPnUbwnskAxq6gJjTUUuMVGL3mJHFZ0eVbiuaRRze
- EzxTQvge7wUI/CNpZ5Hg0qR3J32pqN5l7N7jPnfMSYZHrgD5VumrfNJOGTYMnqStAc38=
-X-Received: by 2002:a05:6214:dcf:b0:6cb:664e:38f4 with SMTP id
- 6a1803df08f44-6cde14b89f4mr72419916d6.1.1729503116638; 
- Mon, 21 Oct 2024 02:31:56 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH2O0KwDA6JcVjDVTyVWfeD78j3D/8uD+htQv91rhYe8+NiUDqHk/GOqcdLXeUcZIFh+xpOhw==
-X-Received: by 2002:a05:6214:dcf:b0:6cb:664e:38f4 with SMTP id
- 6a1803df08f44-6cde14b89f4mr72419786d6.1.1729503116321; 
- Mon, 21 Oct 2024 02:31:56 -0700 (PDT)
+ AJvYcCWmKQmcOMjqrz+hmS3Ar6EKtDD4bEyKOgIpzbq/mx9kb/ufDdbRKAh5tnMVwnhw+JYedhVUCjuk5Co=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZztnhyfYtpvnppEH7Yi8Fc/FxoMFI36JQq8CjUO+B6XzQo3FT
+ RjVy8ciaYagr/aEazf3MeECb+znjplR//FTy63BjuqTgHAI99xshjST0KfuBCByBibUkJ4qSxL1
+ iWMMVQeXXfbHnfGeXLFNfb5Vw4tfRt+ZWcY+GQ/VVUiq61DksI1pelEvo7c8mCMQKt2g=
+X-Received: by 2002:a05:6e02:b2f:b0:3a2:6cd7:3255 with SMTP id
+ e9e14a558f8ab-3a3f40b41afmr29449085ab.6.1729503526147; 
+ Mon, 21 Oct 2024 02:38:46 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF/wHHBGM3zQyx0/OSXW35rXmYHrOpG+GrEQovUlYPyc88a/4376jQdZSvI4nY76nZm9i7w0w==
+X-Received: by 2002:a05:6e02:b2f:b0:3a2:6cd7:3255 with SMTP id
+ e9e14a558f8ab-3a3f40b41afmr29448885ab.6.1729503525721; 
+ Mon, 21 Oct 2024 02:38:45 -0700 (PDT)
 Received: from [192.168.212.120] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a913077basm180611366b.97.2024.10.21.02.31.53
+ a640c23a62f3a-a9a912d6225sm185228266b.11.2024.10.21.02.38.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Oct 2024 02:31:55 -0700 (PDT)
-Message-ID: <c80309ad-52de-4998-ab0e-05db7cc5068b@oss.qualcomm.com>
-Date: Mon, 21 Oct 2024 11:31:52 +0200
+ Mon, 21 Oct 2024 02:38:44 -0700 (PDT)
+Message-ID: <1543ae2a-76ff-4b36-adae-37076e48b7f8@oss.qualcomm.com>
+Date: Mon, 21 Oct 2024 11:38:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm: a6xx: avoid excessive stack usage
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Arnd Bergmann <arnd@kernel.org>, Rob Clark <robdclark@gmail.com>,
+Subject: Re: [PATCH RFC 1/3] drm/msm/adreno: Add support for ACD
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Nathan Chancellor <nathan@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-References: <20241018151143.3543939-1-arnd@kernel.org>
- <20241019093146.kdp25pir5onjmg4g@hu-akhilpo-hyd.qualcomm.com>
- <k42wmgziqia6balqsrfualbg73giesjxxtyaldkxsrdxkro2li@6neybqsu27me>
- <20241021092509.tm4w3ufdgcd7of37@hu-akhilpo-hyd.qualcomm.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org
+References: <20241012-gpu-acd-v1-0-1e5e91aa95b6@quicinc.com>
+ <20241012-gpu-acd-v1-1-1e5e91aa95b6@quicinc.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20241021092509.tm4w3ufdgcd7of37@hu-akhilpo-hyd.qualcomm.com>
+In-Reply-To: <20241012-gpu-acd-v1-1-1e5e91aa95b6@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: tT9fFc8VJ0W_CxnkANq_BlwcEk3bGdsW
-X-Proofpoint-GUID: tT9fFc8VJ0W_CxnkANq_BlwcEk3bGdsW
+X-Proofpoint-GUID: o5tCmzo0R6EeulvTiUWuZG6wO4YfaduD
+X-Proofpoint-ORIG-GUID: o5tCmzo0R6EeulvTiUWuZG6wO4YfaduD
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- adultscore=0 malwarescore=0 mlxscore=0 suspectscore=0 spamscore=0
- impostorscore=0 phishscore=0 mlxlogscore=999 lowpriorityscore=0
- clxscore=1015 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410210068
+ malwarescore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ spamscore=0 phishscore=0 bulkscore=0 mlxscore=0 adultscore=0
+ mlxlogscore=936 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410210069
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,41 +118,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21.10.2024 11:25 AM, Akhil P Oommen wrote:
-> On Sat, Oct 19, 2024 at 04:14:13PM +0300, Dmitry Baryshkov wrote:
->> On Sat, Oct 19, 2024 at 03:01:46PM +0530, Akhil P Oommen wrote:
->>> On Fri, Oct 18, 2024 at 03:11:38PM +0000, Arnd Bergmann wrote:
->>>> From: Arnd Bergmann <arnd@arndb.de>
->>>>
->>>> Clang-19 and above sometimes end up with multiple copies of the large
->>>> a6xx_hfi_msg_bw_table structure on the stack. The problem is that
->>>> a6xx_hfi_send_bw_table() calls a number of device specific functions to
->>>> fill the structure, but these create another copy of the structure on
->>>> the stack which gets copied to the first.
->>>>
->>>> If the functions get inlined, that busts the warning limit:
->>>>
->>>> drivers/gpu/drm/msm/adreno/a6xx_hfi.c:631:12: error: stack frame size (1032) exceeds limit (1024) in 'a6xx_hfi_send_bw_table' [-Werror,-Wframe-larger-than]
->>>
->>> Why does this warning says that the limit is 1024? 1024 bytes is too small, isn't it?
->>
->> Kernel stacks are expected to be space limited, so 1024 is a logical
->> limit for a single function.
+On 11.10.2024 10:29 PM, Akhil P Oommen wrote:
+> ACD a.k.a Adaptive Clock Distribution is a feature which helps to reduce
+> the power consumption. In some chipsets, it is also a requirement to
+> support higher GPU frequencies. This patch adds support for GPU ACD by
+> sending necessary data to GMU and AOSS. The feature support for the
+> chipset is detected based on devicetree data.
 > 
-> Thanks for the clarification. I think it is better to move this table to
-> struct a6xx_gmu which is required anyway when we implement dynamic generation
-> of bw table. Also, we can skip initializing it in subsequent gpu wake ups.
-> 
-> Arnd, do you think that would be sufficient? I can send that patch if you
-> want help.
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
 
-FWIW I implemented this at one point.. ended up only rebasing it for months
-as I kept delaying GMU voting until we get an in-tree dram frequency LUT
-retrieving driver..
+[...]
 
-https://github.com/SoMainline/linux/commits/konrad/longbois-next/drivers/gpu/drm/msm/adreno
+> +
+> +	/* Initialize qmp node to talk to AOSS */
+> +	gmu->qmp = qmp_get(gmu->dev);
+> +	if (IS_ERR(gmu->qmp)) {
+> +		cmd->enable_by_level = 0;
+> +		return dev_err_probe(gmu->dev, PTR_ERR(gmu->qmp), "Failed to initialize qmp\n");
+> +	}
 
-worth noting that this used to be my R&D branch so this is very much err..
-"provided as-is".. but it did work on 8250!
+I'm still in favor of keeping qmp_get where it currently is, so that
+probe can fail/defer faster
 
 Konrad
