@@ -2,75 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0E2B9A67D2
-	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 14:17:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 116389A67D3
+	for <lists+freedreno@lfdr.de>; Mon, 21 Oct 2024 14:17:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9014B10E4B4;
-	Mon, 21 Oct 2024 12:17:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D904710E4B9;
+	Mon, 21 Oct 2024 12:17:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="tbUB+Jx6";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QuYxK2pt";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC85210E4B5
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 12:17:51 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-539fe02c386so5361619e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 05:17:51 -0700 (PDT)
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 076B010E4B4
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 12:17:53 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-2f7657f9f62so41196261fa.3
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Oct 2024 05:17:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729513070; x=1730117870; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1729513071; x=1730117871; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8qLLGlelXfw2kOWRgnYcArT7sxf7Sh5Qskx0JzdYb0Y=;
- b=tbUB+Jx6a1RMCmYkru8BmpqyuPJTUvgrbkNONbaQmQcsG+PHO9slbvv+Ym7Gkig947
- bGvEZqJRnWqPW3A0CIL2QljXcrzIp2yXHZLC5GUWwl+mN2Tq1Mpenp/+43BfqHE1Fe/H
- f1zUHARMGtuV+2Psoy9UiWJC2I4zN2pqPBlX78l7nKXO7Uz1KUwb9HBjwTWCo1hSFAB1
- nVud2KkiwZRigQJuSOXpZJzbNFN9ykS2ULlReEpv9pwhLi0dCgZjxJAhdVGg9uUy/tt6
- ZdReQHGXO1ZLVI4IavGKfPhG8GbzhvlrV7DwjeCEv7GMo4KXMen9PSbHp+JiC0LWIYd5
- xngA==
+ bh=a4XbVxeeKZbvEtWB+ooKpQYase0x2chrzmDf2sWa5VY=;
+ b=QuYxK2ptteZ8BYe7asXouyKobnFrZs0Fw3+z7zusMxfO0FMinueYPI61Ja/YFUAA19
+ QyqWRjRN9bxJwvEgn5/MAc6JLmDc4Zk7Phn9kMOxUhYxKsii/MbmeqIlLOw06id6iNwK
+ WmuvkW5Y4R2JV6fXiKdKUh18QQ1/HOdXyVY3OOTIO9sBnq0xEgEPns6DLZp4VwhJq1pY
+ xvQf5sJ7cAJo37KyEWaEhBbdZY/vnvFX4atBq2X5Fz72DlXiQsgeRx5nlL2AFXS13Pto
+ uik+9qqbVdt8Z1Y8R+ySeea93konfvLyKpGLFXcCAztyBaUx9mxJF0BymhbWnNmN0Fbm
+ Hj2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729513070; x=1730117870;
+ d=1e100.net; s=20230601; t=1729513071; x=1730117871;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8qLLGlelXfw2kOWRgnYcArT7sxf7Sh5Qskx0JzdYb0Y=;
- b=jfzJOMwqAVmkEnSp2V8Jy6SvfKg1DlykAlNcIewpcy0BRHenpv79ekUIUWbpSjoEF1
- ApP1cMHEqmrBMG+lemsgYRkf2Y1JN6q1PlyuX5pL4Fj+db1wd6c+0wBDvrGuNZvsC/xq
- On9VgvSOMSyVrxhM1tyKWbPskJ4ikCnSl7Nk8qhI5llM/nE7AruhdSKyxEklcWcZZG+u
- GQepVDmyRSXPViTsb4xs3ETIqdJdHmOCQ81dRaveaEFe7avdw5A7h5dJDLuZKekEH2LM
- xjH+mdJzAkZdeNo0Kh3cLHRA6HLuM7evCMDjZsu+NOokf20lHoTq5JwfDhgehhy7Ywdm
- 4yKw==
+ bh=a4XbVxeeKZbvEtWB+ooKpQYase0x2chrzmDf2sWa5VY=;
+ b=sBXlS6zngQ/VaMLGadPWsXCofcsyAmpiScsmQQOHWbfuPGGbqDCLwXBf9sMEEUrYM1
+ WgV5fV7DX2ViacLEiRRilYs/6tYLsnXPkrDKxqHo4u0uTkjSeVeJJIdfRQeN040lFRXV
+ YK/MYjOlTtIq8pNYs01UmcQ5fq4w3hpzSGKHTV8/jyK5QnaLUZgpbb9hGzkuXItiy5EC
+ jkGZPPyUYRrW+NBYaMW4JuWDDsI37SWeNd8lISpzBvG7ctQdsb0L10W5VdVL0An5+NuT
+ 9uw941Hwlyw6FIcTpHfksjS3EHegEDN8PVEhf7hIeO9bfK9vxQL9ofscWlzHoQP2xGsc
+ uVcQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWejjZsCN/phejB/jHpuD0456JAnrkVYb4cex5MKAri5Nh/fJsnlINa1aDYMwYLpJd64mYVOIJ8CqY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxzy5LsgGRSzWg3eVFWViHSXJxRLZESnddUVttNkRbT36Wjq7wX
- /fj3brWQpQqDrlhF/zULLEioAYKx1B84rFIbVYRYV25vqdZWJrx3a6+xaPMNXrM=
-X-Google-Smtp-Source: AGHT+IF0g/bNs020ktyvkJGhslYGuUa/hvVDeHmrz96Crq4Feba3diCTJ56gaV/wdKJy4llgsgIr6A==
-X-Received: by 2002:a05:6512:3ca3:b0:539:f1d2:725b with SMTP id
- 2adb3069b0e04-53a1583d16dmr3188181e87.4.1729513069926; 
- Mon, 21 Oct 2024 05:17:49 -0700 (PDT)
+ AJvYcCUEzMWO0uxIlpIiODTokCiFkbf1YhzObt/Cd3Kz3iUMjW9c9zBYg7yb+ayiXb1pyf9P0I0/hkP2Ycg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz+EOiItSbDKaEttbzlaue9s/hN3lscuNdbw/XJf4+Fz2cXylyy
+ OPJ/aLJi91igt+2W/11zx4XJB1XWIaNPTKNH7QdBoF6/BctiZCITDlEwQA9x38E=
+X-Google-Smtp-Source: AGHT+IHqv4mwsIjXZb0v6O893ub1mSBOA8nkk9+gOrcJG9wQN2aV6SmO6D5BhFYeJg15xKOKgafh2Q==
+X-Received: by 2002:a05:6512:2356:b0:539:e317:b05f with SMTP id
+ 2adb3069b0e04-53a15229d00mr5612832e87.28.1729513071088; 
+ Mon, 21 Oct 2024 05:17:51 -0700 (PDT)
 Received: from umbar.unikie.fi ([192.130.178.90])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53a22431454sm464210e87.212.2024.10.21.05.17.48
+ 2adb3069b0e04-53a22431454sm464210e87.212.2024.10.21.05.17.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Oct 2024 05:17:49 -0700 (PDT)
+ Mon, 21 Oct 2024 05:17:50 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Abel Vesa <abel.vesa@linaro.org>, Johan Hovold <johan+linaro@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v6 00/15] drm/msm/dpu: be more friendly to X.org
-Date: Mon, 21 Oct 2024 15:17:39 +0300
-Message-Id: <172950935859.2053501.3604062038723435525.b4-ty@linaro.org>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/5] dt-bindings: display/msm: dpu: merge bindings
+Date: Mon, 21 Oct 2024 15:17:40 +0300
+Message-Id: <172950935863.2053501.3423333346021124580.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20240903-dpu-mode-config-width-v6-0-617e1ecc4b7a@linaro.org>
-References: <20240903-dpu-mode-config-width-v6-0-617e1ecc4b7a@linaro.org>
+In-Reply-To: <20241003-dt-binding-display-msm-merge-v1-0-91ab08fc76a2@linaro.org>
+References: <20241003-dt-binding-display-msm-merge-v1-0-91ab08fc76a2@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -90,42 +97,28 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Tue, 03 Sep 2024 06:22:43 +0300, Dmitry Baryshkov wrote:
-> Unlike other compositors X.org allocates a single framebuffer covering
-> the whole screen space. This is not an issue with the single screens,
-> but with the multi-monitor setup 5120x4096 becomes a limiting factor.
-> Check the hardware-bound limitations and lift the FB max size to
-> 16383x16383.
+On Thu, 03 Oct 2024 10:14:17 +0200, Krzysztof Kozlowski wrote:
+> In 2022 the bindings were split each device per file, but this makes
+> not much sense.  Devices are the same in many cases, same clocks, same IO
+> register space.
 > 
+> Best regards,
+> Krzysztof
 > 
 > [...]
 
 Applied, thanks!
 
-[04/15] drm/msm/dpu: drop dpu_format_check_modified_format
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/a26991933c01
-[05/15] drm/msm/dpu: drop dpu_format_populate_layout from dpu_plane_sspp_atomic_update
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/759bcfe8e710
-[06/15] drm/msm/dpu: drop extra aspace checks in dpu_formats
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/ce357877e6df
-[07/15] drm/msm/dpu: drop msm_format from struct dpu_hw_fmt_layout
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/5e317a64967b
-[08/15] drm/msm/dpu: pass drm_framebuffer to _dpu_format_get_plane_sizes()
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/d13445bc61dc
-[09/15] drm/msm/dpu: move pitch check to _dpu_format_get_plane_sizes_linear()
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/d8cb42418207
-[10/15] drm/msm/dpu: split dpu_format_populate_layout
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/b05093f4296a
-[11/15] drm/msm/dpu: make dpu_format_populate_addrs return void
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/4f3ec1e5e152
-[12/15] drm/msm/dpu: move layout setup population out of dpu_plane_prepare_fb()
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/dc0def61a16e
-[13/15] drm/msm/dpu: check for the plane pitch overflow
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/707db375ecec
-[14/15] drm/msm/dpu: merge MAX_IMG_WIDTH/HEIGHT with DPU_MAX_IMG_WIDTH/HEIGHT
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/671cc420b5f8
-[15/15] drm/msm/dpu: sync mode_config limits to the FB limits in dpu_plane.c
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/2261751d5f22
+[1/5] dt-bindings: display/msm: merge SC8280XP DPU into SC7280
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/897ee967257a
+[2/5] dt-bindings: display/msm: merge SM8250 DPU into SM8150
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/5a1f6295a434
+[3/5] dt-bindings: display/msm: merge SM8350 DPU into SC7280
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/30c38fcd50d9
+[4/5] dt-bindings: display/msm: merge SM8450 DPU into SC7280
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/abf0a19c493e
+[5/5] dt-bindings: display/msm: merge SM8550 DPU into SC7280
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/342d48210577
 
 Best regards,
 -- 
