@@ -2,84 +2,110 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 777459A9DEC
-	for <lists+freedreno@lfdr.de>; Tue, 22 Oct 2024 11:08:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 368169AA1F8
+	for <lists+freedreno@lfdr.de>; Tue, 22 Oct 2024 14:16:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 528B210E624;
-	Tue, 22 Oct 2024 09:08:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEA1D10E31A;
+	Tue, 22 Oct 2024 12:16:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="E5LP/10G";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cM4DjDjC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC42E10E624
- for <freedreno@lists.freedesktop.org>; Tue, 22 Oct 2024 09:07:59 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-a93c1cc74fdso794726266b.3
- for <freedreno@lists.freedesktop.org>; Tue, 22 Oct 2024 02:07:59 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D139D10E31A
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Oct 2024 12:15:59 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-431616c23b5so27910325e9.0
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Oct 2024 05:15:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729588078; x=1730192878; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=sqANacwu59WVDubToPeLNd0ZLGqiBFI013WHEtWvuoY=;
- b=E5LP/10GXuifgehpA1bgFMD8Jg4WsTMQiI88802OBLU/8RvgHJdxwTvtNgAL1WjwL0
- y/ND9hlTtP8WabC1wzYir0kM4wRc5u4jJojgU/nXYNL5cUElpVepikRB7a6cV/70J1hE
- qu6Vl8n9G24ZV64ZRDBgzjyFGcWtElJb3ZuCDi6cg/zX4jcgT/c2gG1VLwD+5vstVgyY
- jVR0/Yr55zGUF5XPm/CnkCbdWHJLXG+XvWqz0JDjyEAgSuMMDSEjWy38Fp0HHqTP2R1+
- +4nhp/il/1aUl0DzhdkPgAkPlhBIrt+q8coWtJAxUpG4etPPKXZGbcki36dXkm8PNyLl
- L5Rg==
+ d=linaro.org; s=google; t=1729599358; x=1730204158; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=hzfBBiQZO/3JmQPAp3trpD9H/FhA5SSKZP4PSmekS78=;
+ b=cM4DjDjC1K2mOrzJ9Lme8mCW2FsowQguXr8EdIVCovQLTMEIz6QzXc2TXCvJC0Yj0X
+ ObSznX1nfR1SDRoUBbb3b3bznK2xNO7wBYS2mBHBw6Mfg09moiMHaCfxfw7hIDPd6+Bu
+ vvbQ3+FEsNbzD9ebBjDv2lSqqo7d6l0BSHtfRBMvp4FPfbh+66n0q8Ysi+aPGCDn0cI6
+ Bf0L4jE0mpq+3pI6SuuAmcml/RqqCvFtTo4+02pCSIBdSzBolvaiJj4Ti5pBDS7QmIhf
+ qkierOWxEKEEWnJ9DiIS71807BCBPlJ0PlfCAYeXkxuE7gE8/PSMgwpyw0LrzsGpDYYD
+ ZbdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729588078; x=1730192878;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=sqANacwu59WVDubToPeLNd0ZLGqiBFI013WHEtWvuoY=;
- b=UI44MPrD0FZ1qXR+UQH+LwWeNrEBnwwEtWwXoxeerchxU7iQOM/v9crKtUeAsd/lJ9
- JvDWwuC8uumNHBYnHctC74+cIwyLT1Ei7DhcCH0yA8FRKe4thJ9z/WsOqEOwZZcMCT0n
- Bgt/LsvpWDujuwV+ykjhffGbk3y86vRVZ5jN6nI4Y3YINRlKZE0hOYU0kWXaoZAlHCbU
- QoBxapz7/6mcWJY8k86zHRLir6uQcAS+9Q3VXAdgZuPZ5uCK6oqBzi4hIk7cFDtIylLI
- yPsjtkwphfmAYrKttnO2a6J2QkSuf5AKotJx7zQK/bAn2eiIzejuhQpnOLWHy1ypXZ33
- Er2w==
+ d=1e100.net; s=20230601; t=1729599358; x=1730204158;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=hzfBBiQZO/3JmQPAp3trpD9H/FhA5SSKZP4PSmekS78=;
+ b=B+9x77on0/YluXKjLQK56sNnJ3PcYa9OFjS9i9XjO73ewasJ+LX/kLG4PSezpbQpuA
+ 9mioRHFKLooDkEDmxvxcNgcKwPrydvA1JEyKNpHlIo8z//8P0q6Ryl4bRVeu7LDbmB0e
+ pMKFqRyGPtS0isU7/5yhqzxLiqFxmmaVCxVaP1ZZ5Z1mypjMhEDoOtpXzuT1dbtmbdks
+ cMmzfvyWLsHDr86KX/55Egmg8D4ew+079gRrs8Vm2wBiwd0ltpZLcCSeIh2WF2xPCjTy
+ SBF4KvBV8mf5XAESQrv+Lslm6iKiuBIpxzyoMwOK8DLmQ8JBFn2TSpRYXwSJsUF7QHNP
+ 9bFg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV2N94mI0RhNd5ChvTSXjRksTxA4ENQ3lQ702shqvodyKyGyQBQU1Z0oevDEd49RpkcjT0wfNYzkek=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6VI7N832UveD+t/Q5I2VqxS/UaXknGIPSPqjo12gbObRaZOb7
- bLPl6e1cLx7ICoWASZZIWnIH/L/imrMNmI8I61265663coWK0oKA8U2wVBGPN1M=
-X-Google-Smtp-Source: AGHT+IGoE+jrhGDPxvzS+WZimT/uQDCBFmA0e0z1M8EFELzXgykeI+0Jev6cLL5gP+5Bp6fGDKWWLg==
-X-Received: by 2002:a17:907:3e12:b0:a9a:4fd3:c35f with SMTP id
- a640c23a62f3a-a9a69a63db8mr1206244266b.9.1729588077786; 
- Tue, 22 Oct 2024 02:07:57 -0700 (PDT)
-Received: from [192.168.0.40] ([176.61.106.227])
+ AJvYcCXVw7+YFFW6mrmITZsasWjhQyrGS7951fhP9rFbXBcVaUo7bv+X6/VkDgOh4r0DD0Qo5KUZ0JS8HZg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YySeHe+ZIW2aDq5byQNB7wfmTRJ2QbL0PpNU0TCQQdEI5x95f09
+ +0u7t+5cVnP1H2zEB4eKxgfL9cbbgv5CiFFyadlbBKcddrA/2ohaHVu4Pa3nKTg=
+X-Google-Smtp-Source: AGHT+IHT8U2le7TP7Fhl0aRlnvkTfgE3DG0+6uSqVHO9u7XR2ZILafOv7A3oM9rdGHL/IP38m1XIAA==
+X-Received: by 2002:a05:600c:1d8e:b0:431:4e33:98b6 with SMTP id
+ 5b1f17b1804b1-4317bd858camr19814435e9.5.1729599358069; 
+ Tue, 22 Oct 2024 05:15:58 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:982:cbb0:43af:403f:2c26:9ea7?
+ ([2a01:e0a:982:cbb0:43af:403f:2c26:9ea7])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a912d6267sm311979566b.32.2024.10.22.02.07.56
+ 5b1f17b1804b1-4316f5cbe64sm86619065e9.40.2024.10.22.05.15.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Oct 2024 02:07:57 -0700 (PDT)
-Message-ID: <3ee7a1c9-2d6d-4fd5-982e-d86151e45662@linaro.org>
-Date: Tue, 22 Oct 2024 10:07:55 +0100
+ Tue, 22 Oct 2024 05:15:57 -0700 (PDT)
+Message-ID: <ad1d1208-fb0d-4656-80e7-1af0e8a4e421@linaro.org>
+Date: Tue, 22 Oct 2024 14:15:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] drm/msm/adreno: Add support for ACD
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH 0/6] drm/bridge: add ycbcr_420_allowed support
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
- <20241021-gpu-acd-v2-1-9c25a62803bc@quicinc.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20241021-gpu-acd-v2-1-9c25a62803bc@quicinc.com>
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Alexander Stein <alexander.stein@ew.tq-group.com>
+References: <20241019-bridge-yuv420-v1-0-d74efac9e4e6@linaro.org>
+ <a2d20619-0724-4b16-a9a5-4a3680f21c99@linaro.org>
+ <CAA8EJpoy=nYMix3m2n7KkwemCNoh_qg8FH0ENaa8VNcLtqZuww@mail.gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <CAA8EJpoy=nYMix3m2n7KkwemCNoh_qg8FH0ENaa8VNcLtqZuww@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -94,111 +120,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/10/2024 12:53, Akhil P Oommen wrote:
-> ACD a.k.a Adaptive Clock Distribution is a feature which helps to reduce
-> the power consumption. In some chipsets, it is also a requirement to
-> support higher GPU frequencies. This patch adds support for GPU ACD by
-> sending necessary data to GMU and AOSS. The feature support for the
-> chipset is detected based on devicetree data.
+On 21/10/2024 20:22, Dmitry Baryshkov wrote:
+> On Mon, 21 Oct 2024 at 15:32, Neil Armstrong <neil.armstrong@linaro.org> wrote:
+>>
+>> Hi,
+>>
+>> On 18/10/2024 23:49, Dmitry Baryshkov wrote:
+>>> One of the features that drm_bridge_connector can't handle currently is
+>>> setting of the ycbcr_420_allowed flag on the connector. Add the flag to
+>>> the drm_bridge struct and propagate it to the drm_connector as AND of
+>>> all flags in the bridge chain.
+>>>
+>>> As an example of the conversion, enable the flag on the DW HDMI bridge,
+>>> MSM DP bridge, display connector drivers (for DisplayPort and HDMI
+>>> outputs) and AUX bridges.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>> Dmitry Baryshkov (6):
+>>>         drm/display: bridge_connector: handle ycbcr_420_allowed
+>>>         drm/atomic: add interlaced and ycbcr_420 flags to connector's state dump
+>>>         drm/bridge: display-connector: allow YCbCr 420 for HDMI and DP
+>>>         drm/bridge: aux: allow interlaced and YCbCr 420 output
+>>>         drm/msm/dp: migrate the ycbcr_420_allowed to drm_bridge
+>>
+>> How do you plan to merge this serie ?
 > 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 81 ++++++++++++++++++++++++++++-------
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
->   drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 36 ++++++++++++++++
->   drivers/gpu/drm/msm/adreno/a6xx_hfi.h | 21 +++++++++
->   4 files changed, 124 insertions(+), 15 deletions(-)
+> Once Abhinav ack's the msm/dp change, I'd like to land it through
+> drm-misc. I think it's the most logical way to go.
+
+Yup, Abhinav acked it, LGTM
+
+Neil
+
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 37927bdd6fbe..09fb3f397dbb 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -1021,14 +1021,6 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
->   
->   	gmu->hung = false;
->   
-> -	/* Notify AOSS about the ACD state (unimplemented for now => disable it) */
-> -	if (!IS_ERR(gmu->qmp)) {
-> -		ret = qmp_send(gmu->qmp, "{class: gpu, res: acd, val: %d}",
-> -			       0 /* Hardcode ACD to be disabled for now */);
-> -		if (ret)
-> -			dev_err(gmu->dev, "failed to send GPU ACD state\n");
-> -	}
-> -
->   	/* Turn on the resources */
->   	pm_runtime_get_sync(gmu->dev);
->   
-> @@ -1476,6 +1468,64 @@ static int a6xx_gmu_pwrlevels_probe(struct a6xx_gmu *gmu)
->   	return a6xx_gmu_rpmh_votes_init(gmu);
->   }
->   
-> +static int a6xx_gmu_acd_probe(struct a6xx_gmu *gmu)
-> +{
-> +	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-> +	struct a6xx_hfi_acd_table *cmd = &gmu->acd_table;
-> +	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> +	struct msm_gpu *gpu = &adreno_gpu->base;
-> +	int ret, i, cmd_idx = 0;
-> +
-> +	cmd->version = 1;
-> +	cmd->stride = 1;
-> +	cmd->enable_by_level = 0;
-> +
-> +	/* Skip freq = 0 and parse acd-level for rest of the OPPs */
-> +	for (i = 1; i < gmu->nr_gpu_freqs; i++) {
-> +		struct dev_pm_opp *opp;
-> +		struct device_node *np;
-> +		unsigned long freq;
-> +		u32 val;
-> +
-> +		freq = gmu->gpu_freqs[i];
-> +		opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, freq, true);
-> +		np = dev_pm_opp_get_of_node(opp);
-> +
-> +		ret = of_property_read_u32(np, "qcom,opp-acd-level", &val);
-> +		of_node_put(np);
-> +		dev_pm_opp_put(opp);
-> +		if (ret == -EINVAL)
-> +			continue;
-> +		else if (ret) {
-> +			DRM_DEV_ERROR(gmu->dev, "Unable to read acd level for freq %lu\n", freq);
-> +			return ret;
-> +		}
-> +
-> +		cmd->enable_by_level |= BIT(i);
-> +		cmd->data[cmd_idx++] = val;
+> 
 
-How do you know that cmd_idx is always < sizeof(cmd->data); ?
-
-> +	}
-> +
-> +	cmd->num_levels = cmd_idx;
-> +
-> +	/* We are done here if ACD is not required for any of the OPPs */
-> +	if (!cmd->enable_by_level)
-> +		return 0;
-> +
-> +	/* Initialize qmp node to talk to AOSS */
-> +	gmu->qmp = qmp_get(gmu->dev);
-> +	if (IS_ERR(gmu->qmp)) {
-> +		cmd->enable_by_level = 0;
-> +		return dev_err_probe(gmu->dev, PTR_ERR(gmu->qmp), "Failed to initialize qmp\n");
-> +	}
-> +
-> +	/* Notify AOSS about the ACD state */
-> +	ret = qmp_send(gmu->qmp, "{class: gpu, res: acd, val: %d}", 1);
-> +	if (ret)
-> +		DRM_DEV_ERROR(gmu->dev, "failed to send GPU ACD state\n");
-> +
-> +	return 0;
-
-Shouldn't the ret from gmp_send() get propogated in the return of this 
-function ?
-
-i.e. how can your probe be successful if the notification failed ?
-
----
-bod
