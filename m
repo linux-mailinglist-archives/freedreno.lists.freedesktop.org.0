@@ -2,60 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 975509A98EE
-	for <lists+freedreno@lfdr.de>; Tue, 22 Oct 2024 07:49:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 777459A9DEC
+	for <lists+freedreno@lfdr.de>; Tue, 22 Oct 2024 11:08:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3080310E5DD;
-	Tue, 22 Oct 2024 05:49:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 528B210E624;
+	Tue, 22 Oct 2024 09:08:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sTr0kkj6";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="E5LP/10G";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0021610E1AA;
- Tue, 22 Oct 2024 05:49:45 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C30BC5C5D26;
- Tue, 22 Oct 2024 05:49:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F00C4CEC3;
- Tue, 22 Oct 2024 05:49:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1729576185;
- bh=J+BMzdYAVIwsWyzJPi9J0gP7+XqHtYLXb7+Voj/ccWY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sTr0kkj6mLVsNwMy25WhjN9EkizDQBRwDIo81ackxO79r1N0S6UUzVMo0sUn8WxVK
- A3B7FcFaJdNN+Q3TyTTTB/fKMc/JsGog/AsS63Ub+aGI7X9nImuW62qy4GjsgMWuoU
- RQvWpHl7Nw1hGQvpC4ePhArG9s6BTy/CLcYwM/9tDte/PIdLg1Yuo+G9cSfA/mOYJg
- l9wnQ/K6BtP7XgMpJ5qA1DTRCWgdYw48mAVwK3XF8cUWxgIQyTp3JVph+2Iw4ePa93
- ZfxLL5My7klK9BTRC9wNKoptNMboXBTJEHkiRlXnjPvHON5juqh01XuENiT0mOPMBD
- N7gaZ71qbc28g==
-Date: Tue, 22 Oct 2024 07:49:40 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: opp: Add v2-qcom-adreno vendor
- bindings
-Message-ID: <mz4zpcr4tqh2w7vt75f4ofxjzfve54ozzgpdbi2jjzk5pdxbk7@t36tlt3mmprt>
-References: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
- <20241021-gpu-acd-v2-2-9c25a62803bc@quicinc.com>
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC42E10E624
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Oct 2024 09:07:59 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-a93c1cc74fdso794726266b.3
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Oct 2024 02:07:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1729588078; x=1730192878; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=sqANacwu59WVDubToPeLNd0ZLGqiBFI013WHEtWvuoY=;
+ b=E5LP/10GXuifgehpA1bgFMD8Jg4WsTMQiI88802OBLU/8RvgHJdxwTvtNgAL1WjwL0
+ y/ND9hlTtP8WabC1wzYir0kM4wRc5u4jJojgU/nXYNL5cUElpVepikRB7a6cV/70J1hE
+ qu6Vl8n9G24ZV64ZRDBgzjyFGcWtElJb3ZuCDi6cg/zX4jcgT/c2gG1VLwD+5vstVgyY
+ jVR0/Yr55zGUF5XPm/CnkCbdWHJLXG+XvWqz0JDjyEAgSuMMDSEjWy38Fp0HHqTP2R1+
+ +4nhp/il/1aUl0DzhdkPgAkPlhBIrt+q8coWtJAxUpG4etPPKXZGbcki36dXkm8PNyLl
+ L5Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729588078; x=1730192878;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=sqANacwu59WVDubToPeLNd0ZLGqiBFI013WHEtWvuoY=;
+ b=UI44MPrD0FZ1qXR+UQH+LwWeNrEBnwwEtWwXoxeerchxU7iQOM/v9crKtUeAsd/lJ9
+ JvDWwuC8uumNHBYnHctC74+cIwyLT1Ei7DhcCH0yA8FRKe4thJ9z/WsOqEOwZZcMCT0n
+ Bgt/LsvpWDujuwV+ykjhffGbk3y86vRVZ5jN6nI4Y3YINRlKZE0hOYU0kWXaoZAlHCbU
+ QoBxapz7/6mcWJY8k86zHRLir6uQcAS+9Q3VXAdgZuPZ5uCK6oqBzi4hIk7cFDtIylLI
+ yPsjtkwphfmAYrKttnO2a6J2QkSuf5AKotJx7zQK/bAn2eiIzejuhQpnOLWHy1ypXZ33
+ Er2w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV2N94mI0RhNd5ChvTSXjRksTxA4ENQ3lQ702shqvodyKyGyQBQU1Z0oevDEd49RpkcjT0wfNYzkek=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy6VI7N832UveD+t/Q5I2VqxS/UaXknGIPSPqjo12gbObRaZOb7
+ bLPl6e1cLx7ICoWASZZIWnIH/L/imrMNmI8I61265663coWK0oKA8U2wVBGPN1M=
+X-Google-Smtp-Source: AGHT+IGoE+jrhGDPxvzS+WZimT/uQDCBFmA0e0z1M8EFELzXgykeI+0Jev6cLL5gP+5Bp6fGDKWWLg==
+X-Received: by 2002:a17:907:3e12:b0:a9a:4fd3:c35f with SMTP id
+ a640c23a62f3a-a9a69a63db8mr1206244266b.9.1729588077786; 
+ Tue, 22 Oct 2024 02:07:57 -0700 (PDT)
+Received: from [192.168.0.40] ([176.61.106.227])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9a912d6267sm311979566b.32.2024.10.22.02.07.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Oct 2024 02:07:57 -0700 (PDT)
+Message-ID: <3ee7a1c9-2d6d-4fd5-982e-d86151e45662@linaro.org>
+Date: Tue, 22 Oct 2024 10:07:55 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20241021-gpu-acd-v2-2-9c25a62803bc@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] drm/msm/adreno: Add support for ACD
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org
+References: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
+ <20241021-gpu-acd-v2-1-9c25a62803bc@quicinc.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20241021-gpu-acd-v2-1-9c25a62803bc@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,106 +97,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 21, 2024 at 05:23:43PM +0530, Akhil P Oommen wrote:
-> Add a new schema which extends opp-v2 to support a new vendor specific
-> property required for Adreno GPUs found in Qualcomm's SoCs. The new
-> property called "qcom,opp-acd-level" carries a u32 value recommended
-> for each opp needs to be shared to GMU during runtime.
+On 21/10/2024 12:53, Akhil P Oommen wrote:
+> ACD a.k.a Adaptive Clock Distribution is a feature which helps to reduce
+> the power consumption. In some chipsets, it is also a requirement to
+> support higher GPU frequencies. This patch adds support for GPU ACD by
+> sending necessary data to GMU and AOSS. The feature support for the
+> chipset is detected based on devicetree data.
 > 
-> Cc: Rob Clark <robdclark@gmail.com>
 > Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 > ---
->  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 96 ++++++++++++++++++++++
->  1 file changed, 96 insertions(+)
+>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 81 ++++++++++++++++++++++++++++-------
+>   drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
+>   drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 36 ++++++++++++++++
+>   drivers/gpu/drm/msm/adreno/a6xx_hfi.h | 21 +++++++++
+>   4 files changed, 124 insertions(+), 15 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
-> new file mode 100644
-> index 000000000000..6d50c0405ef8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
-> @@ -0,0 +1,96 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 37927bdd6fbe..09fb3f397dbb 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -1021,14 +1021,6 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
+>   
+>   	gmu->hung = false;
+>   
+> -	/* Notify AOSS about the ACD state (unimplemented for now => disable it) */
+> -	if (!IS_ERR(gmu->qmp)) {
+> -		ret = qmp_send(gmu->qmp, "{class: gpu, res: acd, val: %d}",
+> -			       0 /* Hardcode ACD to be disabled for now */);
+> -		if (ret)
+> -			dev_err(gmu->dev, "failed to send GPU ACD state\n");
+> -	}
+> -
+>   	/* Turn on the resources */
+>   	pm_runtime_get_sync(gmu->dev);
+>   
+> @@ -1476,6 +1468,64 @@ static int a6xx_gmu_pwrlevels_probe(struct a6xx_gmu *gmu)
+>   	return a6xx_gmu_rpmh_votes_init(gmu);
+>   }
+>   
+> +static int a6xx_gmu_acd_probe(struct a6xx_gmu *gmu)
+> +{
+> +	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
+> +	struct a6xx_hfi_acd_table *cmd = &gmu->acd_table;
+> +	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+> +	struct msm_gpu *gpu = &adreno_gpu->base;
+> +	int ret, i, cmd_idx = 0;
 > +
-> +title: Qualcomm Adreno compatible OPP supply
+> +	cmd->version = 1;
+> +	cmd->stride = 1;
+> +	cmd->enable_by_level = 0;
 > +
-> +description:
-> +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
-> +  ACD related information tailored for the specific chipset. This binding
-> +  provides the information needed to describe such a hardware value.
+> +	/* Skip freq = 0 and parse acd-level for rest of the OPPs */
+> +	for (i = 1; i < gmu->nr_gpu_freqs; i++) {
+> +		struct dev_pm_opp *opp;
+> +		struct device_node *np;
+> +		unsigned long freq;
+> +		u32 val;
 > +
-> +maintainers:
-> +  - Rob Clark <robdclark@gmail.com>
+> +		freq = gmu->gpu_freqs[i];
+> +		opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, freq, true);
+> +		np = dev_pm_opp_get_of_node(opp);
 > +
-> +allOf:
-> +  - $ref: opp-v2-base.yaml#
+> +		ret = of_property_read_u32(np, "qcom,opp-acd-level", &val);
+> +		of_node_put(np);
+> +		dev_pm_opp_put(opp);
+> +		if (ret == -EINVAL)
+> +			continue;
+> +		else if (ret) {
+> +			DRM_DEV_ERROR(gmu->dev, "Unable to read acd level for freq %lu\n", freq);
+> +			return ret;
+> +		}
 > +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: operating-points-v2-adreno
-> +      - const: operating-points-v2
-> +
-> +patternProperties:
-> +  '^opp-?[0-9]+$':
+> +		cmd->enable_by_level |= BIT(i);
+> +		cmd->data[cmd_idx++] = val;
 
-'-' should not be optional. opp1 is not expected name.
+How do you know that cmd_idx is always < sizeof(cmd->data); ?
 
-> +    type: object
-> +    additionalProperties: false
+> +	}
 > +
-> +    properties:
-> +      opp-hz: true
+> +	cmd->num_levels = cmd_idx;
 > +
-> +      opp-level: true
+> +	/* We are done here if ACD is not required for any of the OPPs */
+> +	if (!cmd->enable_by_level)
+> +		return 0;
 > +
-> +      opp-peak-kBps: true
+> +	/* Initialize qmp node to talk to AOSS */
+> +	gmu->qmp = qmp_get(gmu->dev);
+> +	if (IS_ERR(gmu->qmp)) {
+> +		cmd->enable_by_level = 0;
+> +		return dev_err_probe(gmu->dev, PTR_ERR(gmu->qmp), "Failed to initialize qmp\n");
+> +	}
 > +
-> +      opp-supported-hw: true
+> +	/* Notify AOSS about the ACD state */
+> +	ret = qmp_send(gmu->qmp, "{class: gpu, res: acd, val: %d}", 1);
+> +	if (ret)
+> +		DRM_DEV_ERROR(gmu->dev, "failed to send GPU ACD state\n");
 > +
-> +      qcom,opp-acd-level:
-> +        description: |
-> +          A positive value representing the ACD (Adaptive Clock Distribution,
-> +          a fancy name for clk throttling during voltage droop) level associated
-> +          with this OPP node. This value is shared to a co-processor inside GPU
-> +          (called Graphics Management Unit a.k.a GMU) during wake up. It may not
-> +          be present for some OPPs and GMU will disable ACD while transitioning
-> +          to that OPP. This value encodes a voltage threshold and few other knobs
-> +          which are identified by characterization of the SoC. So, it doesn't have
-> +          any unit.
+> +	return 0;
 
-Thanks for explanation and other updates. I am still not happy with this
-property. I do not see reason why DT should encode magic values in a
-quite generic piece of code. This creates poor ABI, difficult to
-maintain or understand.
+Shouldn't the ret from gmp_send() get propogated in the return of this 
+function ?
 
+i.e. how can your probe be successful if the notification failed ?
 
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +
-> +    required:
-> +      - opp-hz
-> +      - opp-level
-> +
-> +required:
-> +  - compatible
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/power/qcom-rpmpd.h>
-> +
-> +    gpu_opp_table: opp-table {
-> +        compatible = "operating-points-v2-adreno", "operating-points-v2";
-> +
-> +        opp-687000000 {
-> +                opp-hz = /bits/ 64 <687000000>;
-
-Messed indentation.
-
-Best regards,
-Krzysztof
-
+---
+bod
