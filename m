@@ -2,88 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF8549A9301
-	for <lists+freedreno@lfdr.de>; Tue, 22 Oct 2024 00:09:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 975509A98EE
+	for <lists+freedreno@lfdr.de>; Tue, 22 Oct 2024 07:49:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 819CF10E5B7;
-	Mon, 21 Oct 2024 22:09:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3080310E5DD;
+	Tue, 22 Oct 2024 05:49:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="SD2QvFNj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sTr0kkj6";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A7910E5B7;
- Mon, 21 Oct 2024 22:09:47 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49LKfrJ0029542;
- Mon, 21 Oct 2024 22:09:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=wpi7o+07TDt9MzAXwaqEjlsG
- 7+hYbr7RYO3nHtxlHmo=; b=SD2QvFNjfRKCxEmdlgivknQwgtNpKaChveNeCVqg
- oaYYKP0Q+wS7V+d/F0ZA/B3vaaph6ZO/8zK/kyiQcYXbGIQi7QIRoC0+XD4t/AG8
- aA3zJSoLv34YwX3uZTrYnTBaAEADleKh9HsMiG+xzl414/3rUQ6KjxsrCrhPRe6l
- wjMzULcJhSGLaPjJAbHd5FffmTzFU4yAcuoABU2oSnsOElyCZr7z0vXGZtU9byoB
- VHtIVSgoZV6HkafQTqDHPZtkdDBT9e+B88Mvx0YdiS5CLFeXawgE7QyQWMDLC7YD
- 70xE7olMEH8e/r31qbza/tQyquRl6HMIwb1AM/z7MQn6yg==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42c6vc67be-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 21 Oct 2024 22:09:41 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49LM9OXp029974
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 21 Oct 2024 22:09:24 GMT
-Received: from hu-akhilpo-hyd.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Mon, 21 Oct 2024 15:09:18 -0700
-Date: Tue, 22 Oct 2024 03:39:14 +0530
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
- Dybcio" <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>,
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0021610E1AA;
+ Tue, 22 Oct 2024 05:49:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id C30BC5C5D26;
+ Tue, 22 Oct 2024 05:49:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F00C4CEC3;
+ Tue, 22 Oct 2024 05:49:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1729576185;
+ bh=J+BMzdYAVIwsWyzJPi9J0gP7+XqHtYLXb7+Voj/ccWY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=sTr0kkj6mLVsNwMy25WhjN9EkizDQBRwDIo81ackxO79r1N0S6UUzVMo0sUn8WxVK
+ A3B7FcFaJdNN+Q3TyTTTB/fKMc/JsGog/AsS63Ub+aGI7X9nImuW62qy4GjsgMWuoU
+ RQvWpHl7Nw1hGQvpC4ePhArG9s6BTy/CLcYwM/9tDte/PIdLg1Yuo+G9cSfA/mOYJg
+ l9wnQ/K6BtP7XgMpJ5qA1DTRCWgdYw48mAVwK3XF8cUWxgIQyTp3JVph+2Iw4ePa93
+ ZfxLL5My7klK9BTRC9wNKoptNMboXBTJEHkiRlXnjPvHON5juqh01XuENiT0mOPMBD
+ N7gaZ71qbc28g==
+Date: Tue, 22 Oct 2024 07:49:40 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH RFC 1/3] drm/msm/adreno: Add support for ACD
-Message-ID: <20241021220914.vrxiyeoxjyxweovu@hu-akhilpo-hyd.qualcomm.com>
-References: <20241012-gpu-acd-v1-0-1e5e91aa95b6@quicinc.com>
- <20241012-gpu-acd-v1-1-1e5e91aa95b6@quicinc.com>
- <1543ae2a-76ff-4b36-adae-37076e48b7f8@oss.qualcomm.com>
+ Stephen Boyd <sboyd@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: opp: Add v2-qcom-adreno vendor
+ bindings
+Message-ID: <mz4zpcr4tqh2w7vt75f4ofxjzfve54ozzgpdbi2jjzk5pdxbk7@t36tlt3mmprt>
+References: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
+ <20241021-gpu-acd-v2-2-9c25a62803bc@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <1543ae2a-76ff-4b36-adae-37076e48b7f8@oss.qualcomm.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: NsB4opqiPqmhR1jwMIwzlPqCN0S6yBOw
-X-Proofpoint-ORIG-GUID: NsB4opqiPqmhR1jwMIwzlPqCN0S6yBOw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 suspectscore=0
- spamscore=0 phishscore=0 bulkscore=0 mlxscore=0 adultscore=0
- mlxlogscore=985 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410210158
+In-Reply-To: <20241021-gpu-acd-v2-2-9c25a62803bc@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,44 +71,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 21, 2024 at 11:38:41AM +0200, Konrad Dybcio wrote:
-> On 11.10.2024 10:29 PM, Akhil P Oommen wrote:
-> > ACD a.k.a Adaptive Clock Distribution is a feature which helps to reduce
-> > the power consumption. In some chipsets, it is also a requirement to
-> > support higher GPU frequencies. This patch adds support for GPU ACD by
-> > sending necessary data to GMU and AOSS. The feature support for the
-> > chipset is detected based on devicetree data.
-> > 
-> > Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> > ---
+On Mon, Oct 21, 2024 at 05:23:43PM +0530, Akhil P Oommen wrote:
+> Add a new schema which extends opp-v2 to support a new vendor specific
+> property required for Adreno GPUs found in Qualcomm's SoCs. The new
+> property called "qcom,opp-acd-level" carries a u32 value recommended
+> for each opp needs to be shared to GMU during runtime.
 > 
-> [...]
+> Cc: Rob Clark <robdclark@gmail.com>
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
+>  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 96 ++++++++++++++++++++++
+>  1 file changed, 96 insertions(+)
 > 
-> > +
-> > +	/* Initialize qmp node to talk to AOSS */
-> > +	gmu->qmp = qmp_get(gmu->dev);
-> > +	if (IS_ERR(gmu->qmp)) {
-> > +		cmd->enable_by_level = 0;
-> > +		return dev_err_probe(gmu->dev, PTR_ERR(gmu->qmp), "Failed to initialize qmp\n");
-> > +	}
-> 
-> I'm still in favor of keeping qmp_get where it currently is, so that
-> probe can fail/defer faster
+> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> new file mode 100644
+> index 000000000000..6d50c0405ef8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> @@ -0,0 +1,96 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Adreno compatible OPP supply
+> +
+> +description:
+> +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
+> +  ACD related information tailored for the specific chipset. This binding
+> +  provides the information needed to describe such a hardware value.
+> +
+> +maintainers:
+> +  - Rob Clark <robdclark@gmail.com>
+> +
+> +allOf:
+> +  - $ref: opp-v2-base.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: operating-points-v2-adreno
+> +      - const: operating-points-v2
+> +
+> +patternProperties:
+> +  '^opp-?[0-9]+$':
 
-Sorry, I somehow missed this email from you until now.
+'-' should not be optional. opp1 is not expected name.
 
-If it fails, then it probably doesn't matter if it is a bit late. But for defer, isn't there
-some optimizations to track the dependency from devicetree data? I am
-not entirely sure!
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      opp-hz: true
+> +
+> +      opp-level: true
+> +
+> +      opp-peak-kBps: true
+> +
+> +      opp-supported-hw: true
+> +
+> +      qcom,opp-acd-level:
+> +        description: |
+> +          A positive value representing the ACD (Adaptive Clock Distribution,
+> +          a fancy name for clk throttling during voltage droop) level associated
+> +          with this OPP node. This value is shared to a co-processor inside GPU
+> +          (called Graphics Management Unit a.k.a GMU) during wake up. It may not
+> +          be present for some OPPs and GMU will disable ACD while transitioning
+> +          to that OPP. This value encodes a voltage threshold and few other knobs
+> +          which are identified by characterization of the SoC. So, it doesn't have
+> +          any unit.
 
-Since qmp node is related to ACD, I felt it is better to:
-  1. Keep all acd probe related code in a single place.
-  2. Be more opportunistic in skipping qmp_get() wherever possible.
+Thanks for explanation and other updates. I am still not happy with this
+property. I do not see reason why DT should encode magic values in a
+quite generic piece of code. This creates poor ABI, difficult to
+maintain or understand.
 
-But if you still have strong opinion on this, I can move it back in the
-next revision (v3).
 
--Akhil
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +    required:
+> +      - opp-hz
+> +      - opp-level
+> +
+> +required:
+> +  - compatible
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    gpu_opp_table: opp-table {
+> +        compatible = "operating-points-v2-adreno", "operating-points-v2";
+> +
+> +        opp-687000000 {
+> +                opp-hz = /bits/ 64 <687000000>;
 
-> 
-> Konrad
+Messed indentation.
+
+Best regards,
+Krzysztof
+
