@@ -2,93 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78FA99AD014
-	for <lists+freedreno@lfdr.de>; Wed, 23 Oct 2024 18:22:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B16C9AD4C3
+	for <lists+freedreno@lfdr.de>; Wed, 23 Oct 2024 21:27:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BD0010E195;
-	Wed, 23 Oct 2024 16:22:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 170B610E21E;
+	Wed, 23 Oct 2024 19:27:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="k4kc1p9l";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="F3DKtvKD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D3EB10E078;
- Wed, 23 Oct 2024 16:22:22 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49N9emoX029512;
- Wed, 23 Oct 2024 16:21:48 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F76110E17D;
+ Wed, 23 Oct 2024 19:27:15 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49N9sMo0018092;
+ Wed, 23 Oct 2024 19:27:09 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- O05BUXY+Iyyfw6rJeI+5Tllnngy7zhbX4JR2+pf7q5Q=; b=k4kc1p9lhXA5+/0k
- dscB1G5WAXkiRm4sA74sdWLSXlFD4uIXrVfjUtQHhsV1b41dKBHmukNKXv8YWrI7
- pjCR8COFqk8k2RM5oeIdrs3VIsexTfogdvpUHlfrXvx/fvsi/SQgmwrTYmvY/Li0
- bGfrkl+CpTv3u1lL/kpPSjDJkrPuChEtBuFIkF9mARWTlKKglL7sGNW88O/MxHGJ
- 3Ml4HueCJIpsrr7GAH42ZbLuU5/9GAMjnVWjR6neafEYk2aKIQaW1jHjeJZ+HI1Q
- BvjLnGF6lUv4y+Ybj++KcA1DFCRTyoKxm9cvh7LbFo2zVKmb+u2Juh9OKY8PG674
- N45H1Q==
+ hbHEZ3g8fq7hQtiuP2HIxsItu1akAG8bAAbZChe0ops=; b=F3DKtvKDXJMiM59G
+ qXmN8NYJmda6LAMo2Qzl0ALxNkxC6n8r8HAXQPx9LbeS8P66B7+1RLpdUcuCNxUr
+ LwDAOnfYuwLaPT9gwX3wY+EBeIpp22dGDwAH4zg/MkIS8FrVD53rjs6sNXVz7b96
+ AXTjXuBLz/uzX3Pum6kVRiUaBoZsfogTgrUyIyOeNJefnqSerKJ1zGNc8Q1RFKBx
+ 73QaR0aqcJrX2tmGkrS5Cpb+urQtnYLxWI0Wms5TDi3rIZGRXUqsNVBKiJ1oU+z4
+ Cmc875avfrm31cYTAiNiWtnA/kGsuB9qBpoQ03+C0qbEZC/ceVTvsCla/uytqu5u
+ R9eh3g==
 Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42em3w2urq-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42em3wb9re-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 23 Oct 2024 16:21:48 +0000 (GMT)
+ Wed, 23 Oct 2024 19:27:09 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49NGLlYG022401
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49NJR7iA027983
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 23 Oct 2024 16:21:47 GMT
+ Wed, 23 Oct 2024 19:27:07 GMT
 Received: from [10.216.22.63] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 23 Oct
- 2024 09:21:41 -0700
-Message-ID: <a4055cb8-3067-44a5-a3bb-8fe264b03b5a@quicinc.com>
-Date: Wed, 23 Oct 2024 21:51:34 +0530
+ 2024 12:27:01 -0700
+Message-ID: <d858dadb-4098-4c9f-b4f0-393dc988db5f@quicinc.com>
+Date: Thu, 24 Oct 2024 00:56:58 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/11] Preemption support for A7XX
-To: Rob Clark <robdclark@gmail.com>
-CC: <g@hu-akhilpo-hyd.qualcomm.com>, <neil.armstrong@linaro.org>, "Antonino
- Maniscalco" <antomani103@gmail.com>, Sean Paul <sean@poorly.run>, "Abhinav
- Kumar" <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>
-References: <20240917-preemption-a750-t-v4-0-95d48012e0ac@gmail.com>
- <c70392bb-bda1-48c7-824e-23d6f92f54ef@linaro.org>
- <CAF6AEGso-AZhmOb+V_bc6w5Bw4Yz1fhoPOXbC0uoLXQ7QGnLqQ@mail.gmail.com>
- <20240920161425.y5ae2y4h64tsfjjx@hu-akhilpo-hyd.qualcomm.com>
- <CAF6AEGvmfKu2cD5r27KL6KRh8E9PJ1AprR4J8OrrSX+-W0OxNQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] dt-bindings: opp: Add v2-qcom-adreno vendor
+ bindings
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>,
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>
+References: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
+ <20241021-gpu-acd-v2-2-9c25a62803bc@quicinc.com>
+ <mz4zpcr4tqh2w7vt75f4ofxjzfve54ozzgpdbi2jjzk5pdxbk7@t36tlt3mmprt>
 Content-Language: en-US
 From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <CAF6AEGvmfKu2cD5r27KL6KRh8E9PJ1AprR4J8OrrSX+-W0OxNQ@mail.gmail.com>
+In-Reply-To: <mz4zpcr4tqh2w7vt75f4ofxjzfve54ozzgpdbi2jjzk5pdxbk7@t36tlt3mmprt>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: lLqYS_Uey1Dcw6LH9uHD2gEI7tJVXgnD
-X-Proofpoint-GUID: lLqYS_Uey1Dcw6LH9uHD2gEI7tJVXgnD
+X-Proofpoint-GUID: sygsDimvIhAM-eyZUnFnjmWrKR5d0XeP
+X-Proofpoint-ORIG-GUID: sygsDimvIhAM-eyZUnFnjmWrKR5d0XeP
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxlogscore=999
- priorityscore=1501 impostorscore=0 bulkscore=0 lowpriorityscore=0
- clxscore=1011 suspectscore=0 spamscore=0 malwarescore=0 mlxscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410230101
+ spamscore=0 malwarescore=0
+ mlxscore=0 lowpriorityscore=0 phishscore=0 impostorscore=0 clxscore=1015
+ priorityscore=1501 mlxlogscore=999 suspectscore=0 bulkscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2410230125
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,198 +103,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/22/2024 8:35 PM, Rob Clark wrote:
-> On Fri, Sep 20, 2024 at 9:15 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+On 10/22/2024 11:19 AM, Krzysztof Kozlowski wrote:
+> On Mon, Oct 21, 2024 at 05:23:43PM +0530, Akhil P Oommen wrote:
+>> Add a new schema which extends opp-v2 to support a new vendor specific
+>> property required for Adreno GPUs found in Qualcomm's SoCs. The new
+>> property called "qcom,opp-acd-level" carries a u32 value recommended
+>> for each opp needs to be shared to GMU during runtime.
 >>
->> On Wed, Sep 18, 2024 at 08:39:30AM -0700, Rob Clark wrote:
->>> On Wed, Sep 18, 2024 at 12:46 AM Neil Armstrong
->>> <neil.armstrong@linaro.org> wrote:
->>>>
->>>> Hi,
->>>>
->>>> On 17/09/2024 13:14, Antonino Maniscalco wrote:
->>>>> This series implements preemption for A7XX targets, which allows the GPU to
->>>>> switch to an higher priority ring when work is pushed to it, reducing latency
->>>>> for high priority submissions.
->>>>>
->>>>> This series enables L1 preemption with skip_save_restore which requires
->>>>> the following userspace patches to function:
->>>>>
->>>>> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/30544
->>>>>
->>>>> A flag is added to `msm_submitqueue_create` to only allow submissions
->>>>> from compatible userspace to be preempted, therefore maintaining
->>>>> compatibility.
->>>>>
->>>>> Preemption is currently only enabled by default on A750, it can be
->>>>> enabled on other targets through the `enable_preemption` module
->>>>> parameter. This is because more testing is required on other targets.
->>>>>
->>>>> For testing on other HW it is sufficient to set that parameter to a
->>>>> value of 1, then using the branch of mesa linked above, `TU_DEBUG=hiprio`
->>>>> allows to run any application as high priority therefore preempting
->>>>> submissions from other applications.
->>>>>
->>>>> The `msm_gpu_preemption_trigger` and `msm_gpu_preemption_irq` traces
->>>>> added in this series can be used to observe preemption's behavior as
->>>>> well as measuring preemption latency.
->>>>>
->>>>> Some commits from this series are based on a previous series to enable
->>>>> preemption on A6XX targets:
->>>>>
->>>>> https://lkml.kernel.org/1520489185-21828-1-git-send-email-smasetty@codeaurora.org
->>>>>
->>>>> Signed-off-by: Antonino Maniscalco <antomani103@gmail.com>
->>>>> ---
->>>>> Changes in v4:
->>>>> - Added missing register in pwrup list
->>>>> - Removed and rearrange barriers
->>>>> - Renamed `skip_inline_wptr` to `restore_wptr`
->>>>> - Track ctx seqno per ring
->>>>> - Removed secure preempt context
->>>>> - NOP out postamble to disable it instantly
->>>>> - Only emit pwrup reglist once
->>>>> - Document bv_rptr_addr
->>>>> - Removed unused A6XX_PREEMPT_USER_RECORD_SIZE
->>>>> - Set name on preempt record buffer
->>>>> - Link to v3: https://lore.kernel.org/r/20240905-preemption-a750-t-v3-0-fd947699f7bc@gmail.com
->>>>>
->>>>> Changes in v3:
->>>>> - Added documentation about preemption
->>>>> - Use quirks to determine which target supports preemption
->>>>> - Add a module parameter to force disabling or enabling preemption
->>>>> - Clear postamble when profiling
->>>>> - Define A6XX_CP_CONTEXT_SWITCH_CNTL_LEVEL fields in a6xx.xml
->>>>> - Make preemption records MAP_PRIV
->>>>> - Removed user ctx record (NON_PRIV) and patch 2/9 as it's not needed
->>>>>    anymore
->>>>> - Link to v2: https://lore.kernel.org/r/20240830-preemption-a750-t-v2-0-86aeead2cd80@gmail.com
->>>>>
->>>>> Changes in v2:
->>>>> - Added preept_record_size for X185 in PATCH 3/7
->>>>> - Added patches to reset perf counters
->>>>> - Dropped unused defines
->>>>> - Dropped unused variable (fixes warning)
->>>>> - Only enable preemption on a750
->>>>> - Reject MSM_SUBMITQUEUE_ALLOW_PREEMPT for unsupported targets
->>>>> - Added Akhil's Reviewed-By tags to patches 1/9,2/9,3/9
->>>>> - Added Neil's Tested-By tags
->>>>> - Added explanation for UAPI changes in commit message
->>>>> - Link to v1: https://lore.kernel.org/r/20240815-preemption-a750-t-v1-0-7bda26c34037@gmail.com
->>>>>
->>>>> ---
->>>>> Antonino Maniscalco (11):
->>>>>        drm/msm: Fix bv_fence being used as bv_rptr
->>>>>        drm/msm/A6XX: Track current_ctx_seqno per ring
->>>>>        drm/msm: Add a `preempt_record_size` field
->>>>>        drm/msm: Add CONTEXT_SWITCH_CNTL bitfields
->>>>>        drm/msm/A6xx: Implement preemption for A7XX targets
->>>>>        drm/msm/A6xx: Sync relevant adreno_pm4.xml changes
->>>>>        drm/msm/A6xx: Use posamble to reset counters on preemption
->>>>>        drm/msm/A6xx: Add traces for preemption
->>>>>        drm/msm/A6XX: Add a flag to allow preemption to submitqueue_create
->>>>>        drm/msm/A6xx: Enable preemption for A750
->>>>>        Documentation: document adreno preemption
->>>>>
->>>>>   Documentation/gpu/msm-preemption.rst               |  98 +++++
->>>>>   drivers/gpu/drm/msm/Makefile                       |   1 +
->>>>>   drivers/gpu/drm/msm/adreno/a2xx_gpu.c              |   2 +-
->>>>>   drivers/gpu/drm/msm/adreno/a3xx_gpu.c              |   2 +-
->>>>>   drivers/gpu/drm/msm/adreno/a4xx_gpu.c              |   2 +-
->>>>>   drivers/gpu/drm/msm/adreno/a5xx_gpu.c              |   6 +-
->>>>>   drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |   7 +-
->>>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c              | 325 ++++++++++++++-
->>>>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.h              | 174 ++++++++
->>>>>   drivers/gpu/drm/msm/adreno/a6xx_preempt.c          | 440 +++++++++++++++++++++
->>>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   9 +-
->>>>>   drivers/gpu/drm/msm/msm_drv.c                      |   4 +
->>>>>   drivers/gpu/drm/msm/msm_gpu.c                      |   2 +-
->>>>>   drivers/gpu/drm/msm/msm_gpu.h                      |  11 -
->>>>>   drivers/gpu/drm/msm/msm_gpu_trace.h                |  28 ++
->>>>>   drivers/gpu/drm/msm/msm_ringbuffer.h               |  18 +
->>>>>   drivers/gpu/drm/msm/msm_submitqueue.c              |   3 +
->>>>>   drivers/gpu/drm/msm/registers/adreno/a6xx.xml      |   7 +-
->>>>>   .../gpu/drm/msm/registers/adreno/adreno_pm4.xml    |  39 +-
->>>>>   include/uapi/drm/msm_drm.h                         |   5 +-
->>>>>   20 files changed, 1117 insertions(+), 66 deletions(-)
->>>>> ---
->>>>> base-commit: 7c626ce4bae1ac14f60076d00eafe71af30450ba
->>>>> change-id: 20240815-preemption-a750-t-fcee9a844b39
->>>>>
->>>>> Best regards,
->>>>
->>>> I've been running vulkan-cts (1.3.7.3-0-gd71a36db16d98313c431829432a136dbda692a08 from Yocto)
->>>> on SM8650-QRD, SM8550-QRD & SM8450-HDK boards with enable_preemption in default value
->>>> and forced to 1, and I've seen no regression so far
->>>>
->>>> On SM8550, I've seen a few:
->>>> platform 3d6a000.gmu: [drm:a6xx_hfi_send_msg.constprop.0 [msm]] *ERROR* Message HFI_H2F_MSG_GX_BW_PERF_VOTE id 2743 timed out waiting for response
->>>> platform 3d6a000.gmu: [drm:a6xx_hfi_send_msg.constprop.0 [msm]] *ERROR* Unexpected message id 2743 on the response queue
->>>> but it's unrelated to preempt
->>>>
->>>> and on SM8450:
->>>> platform 3d6a000.gmu: [drm:a6xx_gmu_set_oob [msm]] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x0
->>>> msm_dpu ae01000.display-controller: [drm:hangcheck_handler [msm]] *ERROR* 7.3.0.1: hangcheck detected gpu lockup rb 0!
->>>> msm_dpu ae01000.display-controller: [drm:hangcheck_handler [msm]] *ERROR* 7.3.0.1:     completed fence: 331235
->>>> msm_dpu ae01000.display-controller: [drm:hangcheck_handler [msm]] *ERROR* 7.3.0.1:     submitted fence: 331236
->>>> adreno 3d00000.gpu: [drm:a6xx_irq [msm]] *ERROR* gpu fault ring 0 fence 50de4 status 00800005 rb 0000/0699 ib1 0000000000000000/0000 ib2 0000000000000000/0000
->>>> msm_dpu ae01000.display-controller: [drm:recover_worker [msm]] *ERROR* 7.3.0.1: hangcheck recover!
->>>> msm_dpu ae01000.display-controller: [drm:recover_worker [msm]] *ERROR* 7.3.0.1: offending task: deqp-vk (/usr/lib/vulkan-cts/deqp-vk)
->>>> msm_dpu ae01000.display-controller: [drm:recover_worker [msm]] *ERROR* 7.3.0.1: hangcheck recover!
->>>> leading to a VK_ERROR_DEVICE_LOST, but again unrelated to preempt support.
->>>
->>> I suspect on newer devices we have trouble resetting the GMU, leading
->>> to (what I assume is happening here) the CPU thinking the GMU is in a
->>> different state than it is.
->>>
->>> Which has led to some stability issues on a660 in mesa CI, if anything
->>> crashes the gpu in the CI run it tends to kill the rest of the run
->>> until the board is power cycled.
->>>
->>> https://gitlab.freedesktop.org/drm/msm/-/issues/37
->>>
->>> I think we have some work to do on making recovery more robust on
->>> things newer than early a6xx things.
+>> Cc: Rob Clark <robdclark@gmail.com>
+>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>> ---
+>>  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 96 ++++++++++++++++++++++
+>>  1 file changed, 96 insertions(+)
 >>
->> Is this seen only with a particular scenario or is recovery always
->> broken? I fixed recovery on 7c3 (a660 based) a couple of year ago,
->> not sure what exactly regressed. At least I didn't see any issue on
->> x185.
+>> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+>> new file mode 100644
+>> index 000000000000..6d50c0405ef8
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+>> @@ -0,0 +1,96 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm Adreno compatible OPP supply
+>> +
+>> +description:
+>> +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
+>> +  ACD related information tailored for the specific chipset. This binding
+>> +  provides the information needed to describe such a hardware value.
+>> +
+>> +maintainers:
+>> +  - Rob Clark <robdclark@gmail.com>
+>> +
+>> +allOf:
+>> +  - $ref: opp-v2-base.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - const: operating-points-v2-adreno
+>> +      - const: operating-points-v2
+>> +
+>> +patternProperties:
+>> +  '^opp-?[0-9]+$':
 > 
-> More recently my x1e (x1-85) and sc8280xp (a690) have been pretty
-> reliable about recovery.  And mesa CI seems to have gotten more
-> reliable at recovery when they uprev'd from v6.6x to v6.11.x, so I
-> guess something in that range improved things?  But maybe not 100%,
-> kernel-ci (msm/msm_recovery@gpu-fault) can sometimes reproduce this,
-> apparently:
-> 
-> https://gitlab.freedesktop.org/drm/msm/-/issues/65
-> 
-> This test does 16 submits, with the 10th one having an invalid opc,
-> and then checks that all the ones before and after successfully
-> execute a CP_MEM_WRITE:
-> 
-> https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/msm/msm_recovery.c?ref_type=heads#L145
->
+> '-' should not be optional. opp1 is not expected name.
 
-I suppose we don't have a gpu coredump available. A663 is pretty similar to
-A660, so I can try to reproduce this issue there. Will check this out.
+Agree. Will change this to '^opp-[0-9]+$'
 
+> 
+>> +    type: object
+>> +    additionalProperties: false
+>> +
+>> +    properties:
+>> +      opp-hz: true
+>> +
+>> +      opp-level: true
+>> +
+>> +      opp-peak-kBps: true
+>> +
+>> +      opp-supported-hw: true
+>> +
+>> +      qcom,opp-acd-level:
+>> +        description: |
+>> +          A positive value representing the ACD (Adaptive Clock Distribution,
+>> +          a fancy name for clk throttling during voltage droop) level associated
+>> +          with this OPP node. This value is shared to a co-processor inside GPU
+>> +          (called Graphics Management Unit a.k.a GMU) during wake up. It may not
+>> +          be present for some OPPs and GMU will disable ACD while transitioning
+>> +          to that OPP. This value encodes a voltage threshold and few other knobs
+>> +          which are identified by characterization of the SoC. So, it doesn't have
+>> +          any unit.
+> 
+> Thanks for explanation and other updates. I am still not happy with this
+> property. I do not see reason why DT should encode magic values in a
+> quite generic piece of code. This creates poor ABI, difficult to
+> maintain or understand.
+> 
+
+Configuring GPU ACD block with its respective value is a requirement for each OPP.
+So OPP node seems like the natural place for this data.
+
+If it helps to resolve your concerns, I can elaborate the documentation with
+details on the GMU HFI interface where this value should be passed on to the
+hardware. Also replace "few other knobs" with "Delay cycles & Calibration margin"
+in the above doc.
+ 
+> 
+>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>> +
+>> +    required:
+>> +      - opp-hz
+>> +      - opp-level
+>> +
+>> +required:
+>> +  - compatible
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/power/qcom-rpmpd.h>
+>> +
+>> +    gpu_opp_table: opp-table {
+>> +        compatible = "operating-points-v2-adreno", "operating-points-v2";
+>> +
+>> +        opp-687000000 {
+>> +                opp-hz = /bits/ 64 <687000000>;
+> 
+> Messed indentation.
+
+It seems my text editor got confused here. Will fix.
+
+Thanks,
 -Akhil
 
-> BR,
-> -R
 > 
->> -Akhil.
->>
->>>
->>> BR,
->>> -R
->>>
->>>> So you can also add:
->>>> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8550-QRD
->>>> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8450-HDK
->>>>
->>>> Thanks,
->>>> Neil
+> Best regards,
+> Krzysztof
+> 
+> 
 
