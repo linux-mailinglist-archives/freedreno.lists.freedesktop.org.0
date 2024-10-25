@@ -2,69 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A6059AF5FE
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CAF09AF5FD
 	for <lists+freedreno@lfdr.de>; Fri, 25 Oct 2024 02:20:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 362F010E9BD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0420210E9BC;
 	Fri, 25 Oct 2024 00:20:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="IGlTGiRD";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="kqxgWbhl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A552010E9BC
- for <freedreno@lists.freedesktop.org>; Fri, 25 Oct 2024 00:20:16 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-539fbe22ac0so1795688e87.2
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1866E10E9BB
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Oct 2024 00:20:17 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-53b13ea6b78so2480023e87.2
  for <freedreno@lists.freedesktop.org>; Thu, 24 Oct 2024 17:20:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729815614; x=1730420414; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=PnmCf8UPcSyAfAGwfD2QhUDxxiR4XEmMmwHKfvOXzzg=;
- b=IGlTGiRDTvgHz7r5h8iqfYFSlFr0m/kqCJB3KAYxKyUcFtcNX9j7W9lL030WBjk0Dk
- D/HDEMN9zED1I7LTuFsBmMM7KvBtE93aiP7NCqL64Et9V1aJIBlfqvVwtaVMS1k/I9iZ
- ebi9658MMcH5igg6dLWUBCmaY2I2HnfB1PPHz2qhgkUKkmqPNrWZe1NfKBYH/OB9MzUG
- Rb+BJyY3cZF5C4DWXJKhTKSmDRAq+vHKdGfdIRU78gN+5tzupt9GKYbbY6CZ0fxmLB1K
- sbsX8RoPyt1wfHRFIu2/7HZEE4cfksMK+nKVo11IuAR0phmQ3SkRbH/jFrNKDLJzNPmL
- sH0w==
+ d=linaro.org; s=google; t=1729815615; x=1730420415; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=+xqrfLhi8maJ3GiZ3G/FlADlqaLUOMJAXiAxxK/1iKc=;
+ b=kqxgWbhl270e39uP0GAkLIODKix24wk6GcRBhOZGmAlVzH5/CAriYkM/uxNfqg1PVG
+ uvWodGjjqDe42iExcinbxc/ivJNyDo4v7cz6eG2DgpikEYjKLumlzl/INbxBdKbQ8NSt
+ XIKWr0A3zCnsnxiO47BgdBTnE9scUU49uAXQ7bSw3TsfjL0oPM2UPgliZFUCRBqhhaIw
+ ocpEQbOdXrcq9sgfqHwCBVAmVClb8kaE6TqGdE9Fg+IGx2FuK1XvjOXhpnpGk9qA5jlj
+ AHUL9FJLxdvlgS02pHiQ8udayeliFrF6i8R9zJQzSU/1Nj72x3clpKBLp8Jmd7cs2raA
+ QGQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729815614; x=1730420414;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PnmCf8UPcSyAfAGwfD2QhUDxxiR4XEmMmwHKfvOXzzg=;
- b=chCbMjq7l79VLNIlEKvpGfOCx+cURN8J4fLZRDReiRTsxJR3sE/5JunyxwcobGUbK8
- IK0cD6tqW58rXnjnSj4alkiJYaGSi4q3gvEfel+IlfSWm0bBe7NG5chTz/aXk+CMms36
- 8RXHGxPTZCWpeGOHb4NmqYg3oIG03g9IHmao0lrgmFaa2RWenwea6Tr9Mh5CrrBkUC+b
- kSoD27Aby619CwWTeFMrp26Tl9UdL02G/ZA+sNAu/JkrQdNTBJNlf0KclT8Z0GeaqeXc
- EuR9cYQAl6cjXvKglAF0DCWuwfnJ3q9XWhf2qHzvjCohpKPlxk3gXu8I53Ar/5IlHtNL
- uPqQ==
+ d=1e100.net; s=20230601; t=1729815615; x=1730420415;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+xqrfLhi8maJ3GiZ3G/FlADlqaLUOMJAXiAxxK/1iKc=;
+ b=r/bgmOf2NWhxIPYwaIdmvc9a62eljI+kNjjnkT5zcldhrbIUxPM4IvTPMICV2JLsCg
+ WpjtLXlR3VerA5ErFpgp4cIEJCMT3T3EUXlbGB6zfDyQ/IqO31PIPd5maiTv7bvPQ5g4
+ 6QnVggUJ0zhRseqxuzXsk2Nu8AVOzujPOBB5YcvuUwwedGKXxh91YI/wL8qNdzs2OI+m
+ h6wb5kI7vjo21KNpqn+apX3afgRF3SNdynH0eO6iOF0zt1ePDdcW2UVLDmffi2u9MM4q
+ QcIuHjy2qLrOImcPOYG5++ecG3QxEvvUPCMc4CC87kZAdiHQW9wWIE+w6QnBXIpCiQGc
+ Z/Hw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWCI8YpRCTw06JFNrOvNVgKlNq+L1o2+hS0qO8KoUMikqwugV6CMbFN7kgwpPg26ar3VOgG8XfFfHw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5UUfxkm03ktB9ZqTBAykkSmKLyrtbgGAMYk97z8jEAwTbM/ML
- +tR3znwCG48pv5jqPj02B7DG/KoWNhRN0uqt0bM06sn1XJ41k7KfRptwYCZZZCo=
-X-Google-Smtp-Source: AGHT+IHLpRs6BD0MjhLwqVPzLq4Gx5AH71ZiAkGzGzmIGfEwt1PSjS+GdrikSxEbJnMQsFEW7o7wqg==
-X-Received: by 2002:a05:6512:224e:b0:539:8df0:4d3f with SMTP id
- 2adb3069b0e04-53b23e8eb2fmr2794295e87.40.1729815614174; 
+ AJvYcCXKsNx20YYqedVITXb/LA2UbymLyvgFO+DntxWx+Co+isA0Uu0YafIjllkxvLWHclMMjNLtT7u36TI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxPtg7ZxCDNaVOR8ldJ2LnM9gVIFaar1sVkIJM7tcNhOOL1wntr
+ xaMl36Cb/RnGpO+2AEMcgP9AACJvNLPD/i3+pkZwkYy4rHCroKnNr/BK1QA5ayU=
+X-Google-Smtp-Source: AGHT+IHMp3Vj8D5xOK8sGcL7IZTD8X2M3Tusli278j57Rh6uC4B2tdfT0DQHDAHKsjpze0EnlHJyZg==
+X-Received: by 2002:a05:6512:350e:b0:53b:1e70:6ab4 with SMTP id
+ 2adb3069b0e04-53b1e706b9fmr4865361e87.14.1729815614849; 
  Thu, 24 Oct 2024 17:20:14 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53b2e1b05b3sm6227e87.161.2024.10.24.17.20.11
+ 2adb3069b0e04-53b2e1b05b3sm6227e87.161.2024.10.24.17.20.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Oct 2024 17:20:12 -0700 (PDT)
+ Thu, 24 Oct 2024 17:20:14 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: [PATCH v6 0/9] drm/msm/dpu: support virtual wide planes
-Date: Fri, 25 Oct 2024 03:20:07 +0300
-Message-Id: <20241025-dpu-virtual-wide-v6-0-0310fd519765@linaro.org>
+Date: Fri, 25 Oct 2024 03:20:08 +0300
+Subject: [PATCH v6 1/9] drm/msm/dpu: use drm_rect_fp_to_int()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADfkGmcC/2XOQQ6CMBCF4auYrh0yVKjiynsYFq0MMlGpmUKVG
- O5uNTGauHyL9+V/qEDCFNR28VBCkQP7Pg2zXKhDZ/sjATdpK426QKMNNNcRIssw2jPcuCFwRK1
- bF8ZWiCrdrkIt39/kvk67FX+BoROyX2iVF4ioc5OtKl0WFeTQXHiQKXNWptCdfNydubfiMy/Hl
- 9pxGLxM785YvuxP0vo/KZaAUKasCg/ObRz9YvU8z09Onz5F9wAAAA==
+Message-Id: <20241025-dpu-virtual-wide-v6-1-0310fd519765@linaro.org>
+References: <20241025-dpu-virtual-wide-v6-0-0310fd519765@linaro.org>
+In-Reply-To: <20241025-dpu-virtual-wide-v6-0-0310fd519765@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -72,16 +70,16 @@ To: Rob Clark <robdclark@gmail.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3971;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1020;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=gEmPtzvaszc7tBoZ+Kp2glF1v75duuWmxH0rar9ZL2I=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnGuQ5m3pKr0kVzZWcLNSXGtuP2iShZ+NFs+nUm
- cNQz2jOLu2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZxrkOQAKCRCLPIo+Aiko
- 1ZcIB/4/OOVahVWSiMTDscfmUCJ42RxQjj4h1oDljs2JXJjgQ1ZaFC4wToBo760ZJ0QAHvIVeJS
- yMaq1YaFiiqtCKzzQUk/0kNtT6KE79dfG9TieZAUgvTrI74aInsl3fVbmGDoEi90A00aEuyS+Uw
- 0H3L9EBhVlsSFftt2av/HQtAzdEa1QE+WbmvoHQMAJACTBdpoerWd1Qhs3MD2UubJl+L//yMLw6
- /d615HK1Y9J3xVkq8bJJ0b5RaSsv0FAsTo0aTKUNAILkICfAxF2IBLtx4iDBg+Ck6n9kBU+jkq3
- h1hFD/3zmRHj0m82JdhdZw1aMHtSlsWmG7enF4twcOyVxtnZ
+ bh=Z1DUfkZ6/oZuA6xRT2zKvLthKeLBEYc68oLVcqrozCs=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnGuQ5QZvFmOhdu+ChSig00R7PCHyXB/io4gx82
+ 9QJ266jmSmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZxrkOQAKCRCLPIo+Aiko
+ 1RuYB/9ryN0Vx5GSVzt0aq/0oxk0TaqWvPjOsc9vwGvdO+M17JlZMARorjXfRX+LVmsgsHRMSpL
+ TeR3TE9I6oOQjQbmZrRgw/1QKOowNUQVMeObdT1UshAlhiu4UPLsGSP84itcqEtTo6feXRAs8/O
+ iYeyRyUmt7GbRimV8tKYZUCBkHqTE3ZNs1voX7QlW7fpnEpGsnHKLMG5Qe4d2qkvp//XDaxPsw2
+ TcLV+wcvgUsB5YtkADcMyKJOtXxvP5crLjWMxyM/HMTt2LxVE4xqTSDbW9rpcfZO4x9Vnj4unbT
+ qH228PzTSLSGi5tOrDp7mDMxYYOaQ8cwYMA0P+wFgcpnK8CD
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -99,93 +97,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As promised in the basic wide planes support ([1]) here comes a series
-supporting 2*max_linewidth for all the planes.
+Use the drm_rect_fp_to_int() helper instead of using the hand-written
+code.
 
-Note: Unlike v1 and v2 this series finally includes support for
-additional planes - having more planes than the number of SSPP blocks.
-
-Note: this iteration features handling of rotation and reflection of the
-wide plane. However rot90 is still not tested: it is enabled on sc7280
-and it only supports UBWC (tiled) framebuffers, it was quite low on my
-priority list.
-
-[1] https://patchwork.freedesktop.org/series/99909/
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-Changes in v6:
-- Renamed dpu_plane_atomic_check_nopipe() ->
-  dpu_plane_atomic_check_nosspp() and dpu_plane_atomic_check_pipes() ->
-  dpu_plane_atomic_check_sspp() (Abhinav)
-- In dpu_rm_reserve_sspp() replaced hweight usage with explicit type
-  allocation (Abhinav)
-- In dpu_plane_atomic_check() set r_pipe->sspp (Jun Nie)
-- In dpu_rm_reserve_sspp() check hw_sspp->ops.setup_scaler to rule out
-  SSPP blocks with unsupported scaler blocks (RGB, QSEED2)
-- Link to v5: https://lore.kernel.org/r/20240627-dpu-virtual-wide-v5-0-5efb90cbb8be@linaro.org
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-Changes in v5:
-- Dropped extra dpu_kms instance from dpu_plane_atomic_check() (Abhinav)
-- Use DRM_PLANE_NO_SCALING instead of (1 << 16) (Abhinav)
-- Dropped excess returns documentation for dpu_rm_reserve_sspp() (Sui
-  Jingfeng, Abhinav)
-- best_weght -> best_weight (Abhinav)
-- Moved drm_rect_width() call back to the the patch "split
-  dpu_plane_atomic_check()" (Abhinav)
-- Got rid of saved_fmt / saved dimensions (Abhinav)
-- Expanded the commit message to describe SSPP allocation per CRTC id
-  (Abhinav)
-- Added comment on why the size change also causes resource reallocation
-  (Abhinav)
-- Dropeed several last "feature" patches, leaving only SSPP reallocation
-  and using 2 SSPPs per plane for now. The rest will be submitted
-  separately.
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index e935e9c05f04..37faf5b238b0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -829,13 +829,8 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+ 		return -EINVAL;
+ 	}
+ 
+-	pipe_cfg->src_rect = new_plane_state->src;
+-
+ 	/* state->src is 16.16, src_rect is not */
+-	pipe_cfg->src_rect.x1 >>= 16;
+-	pipe_cfg->src_rect.x2 >>= 16;
+-	pipe_cfg->src_rect.y1 >>= 16;
+-	pipe_cfg->src_rect.y2 >>= 16;
++	drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
+ 
+ 	pipe_cfg->dst_rect = new_plane_state->dst;
+ 
 
-Changes since v3:
-- Dropped the drm_atomic_helper_check_plane_noscale (Ville)
-- Reworked the scaling factor according to global value and then check
-  if SSPP has scaler_blk later on.
-- Split drm_rect_fp_to_int from the rotation-related fix (Abhinav)
-
-Changes since v2:
-- Dropped the encoder-related parts, leave all resource allocation as is
-  (Abhinav)
-- Significantly reworked the SSPP allocation code
-- Added debugging code to dump RM state in dri/N/state
-
-Changes since v1:
-- Fixed build error due to me missing one of fixups, it was left
-  uncommitted.
-- Implementated proper handling of wide plane rotation & reflection.
-
----
-Dmitry Baryshkov (9):
-      drm/msm/dpu: use drm_rect_fp_to_int()
-      drm/msm/dpu: move pstate->pipe initialization to dpu_plane_atomic_check
-      drm/msm/dpu: drop virt_formats from SSPP subblock configuration
-      drm/msm/dpu: move scaling limitations out of the hw_catalog
-      drm/msm/dpu: split dpu_plane_atomic_check()
-      drm/msm/dpu: move rot90 checking to dpu_plane_atomic_check_sspp()
-      drm/msm/dpu: add support for virtual planes
-      drm/msm/dpu: allow using two SSPP blocks for a single plane
-      drm/msm/dpu: include SSPP allocation state into the dumped state
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       |  50 +++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  28 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |   8 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h    |   2 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        |  10 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h        |   4 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      | 539 +++++++++++++++++++------
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h      |  18 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c         |  75 ++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h         |  27 ++
- 10 files changed, 606 insertions(+), 155 deletions(-)
----
-base-commit: 2261751d5f2233a7a5d4791d6d13a0271e838ca5
-change-id: 20240626-dpu-virtual-wide-beefb746a900
-
-Best regards,
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+2.39.5
 
