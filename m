@@ -2,86 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA8B59AF99C
-	for <lists+freedreno@lfdr.de>; Fri, 25 Oct 2024 08:10:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 567279AF9EA
+	for <lists+freedreno@lfdr.de>; Fri, 25 Oct 2024 08:28:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87B1E10E9F3;
-	Fri, 25 Oct 2024 06:10:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B6C010E9FB;
+	Fri, 25 Oct 2024 06:28:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="KSS3ntYH";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="lsnCoPuq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
- [209.85.208.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC2110E9F4
- for <freedreno@lists.freedesktop.org>; Fri, 25 Oct 2024 06:10:34 +0000 (UTC)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-2fb59652cb9so16992331fa.3
- for <freedreno@lists.freedesktop.org>; Thu, 24 Oct 2024 23:10:34 -0700 (PDT)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+ [209.85.208.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A4210E9FB
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Oct 2024 06:28:40 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-2fb58980711so16140341fa.0
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Oct 2024 23:28:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729836633; x=1730441433; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1729837719; x=1730442519; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6kkKPNMfQxKeojJArVyXseEAJLG1rkqHbjN5GAes3jo=;
- b=KSS3ntYHqvQdmfuHmNbNAVB/X+4d4ctc1xZyAPcd7F7g4fLr2YWNOKnR/2pIxqg0R5
- Jy6vHJ0n2q633BYmjBi9BcbOVKstDR0X1iiYBvDsbM56lGrXqqJ9Se60jxzR1G8kZkI3
- xLpmZDJd/SFtJBqccIOE6DDBCSL6Bl5MX6H0VPWhuv9W6jQrFj1hlBGY7gfLDuCHu32A
- yOMkkQl2Q/h8MiYYHNkEvI9a67nK++C3w44khOULZjEPo2jCGDUNOMywmEhiHktOI/SU
- Ved95yl6ySkUwk2PvgwJL0JTantKgZpmmaHknTH1ei0eN+iozn9FGHpQKJ8ljImpjLSQ
- fwYg==
+ bh=ggQprwB+vTricRp85OZCHCZrtqv0PIzjtgOf5gOgeCo=;
+ b=lsnCoPuqkaX7syxX1opA70oW+WVhUyMl3jU9X9EA2QKeyyuHVqmcUO01q9MxbF37/b
+ +EaJyaxvWizKDaPskikys7i7tqxtGEjGBIxHe5r2kNoav9F9RC5+qGEC0aKfrWLmfCAP
+ JFffsbeInq6/i1Rco3DuFDT4JEkwVmTmOjVxn/orAD7Gxmk/0gGJ9quAQgpGioMezWim
+ UEsOjUhTomQ59c952qvobXX8DuAX8l04swlEqibHJhgdvEe4S+/u/HZu+dALkMelDmDx
+ aZF11pQ69Zr4AA1k2tnKuCCY/z7f8IMnv7USZcxsmx7ZxWELxzoP3WCECWkAcjedlu+M
+ hwXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729836633; x=1730441433;
+ d=1e100.net; s=20230601; t=1729837719; x=1730442519;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6kkKPNMfQxKeojJArVyXseEAJLG1rkqHbjN5GAes3jo=;
- b=AKHRUPy8r2jKyGcJQfYLLvM4XLa7vD3F0x3gd2L/3/zkHZTFveyDtpxnD/82XyoBey
- cCkq21JnvMk9vT/Dmi5khkhKsopM85WvJF4kbDNdwSr/6BBm6DpDn4ShmYiZU5fT2M6R
- p0zBwrJzsPrIXi7kn0WeA5hfqVD2MYHVYe4ZDAtobZfSmAXpa6/4Eph1P+j8iTf6ItIL
- h5SJmxalYuLEqC8HmQVk2HkhSxPvxzwlMjGY/J/LOQ2n54Krnh4M56j1hQ9+bce96HOe
- ABvui6ffQcXFkUHZ7XTvYg89iyVl5yHWMCMmjLZDSDWAxT6rN4LIZY1WaaCU7QbLUtjZ
- KYtA==
+ bh=ggQprwB+vTricRp85OZCHCZrtqv0PIzjtgOf5gOgeCo=;
+ b=paeAcjthGOH63Zdb6tRcvQC9hNQIr4zqLsxyOciN98oI6TSglk7HsXpsjosMESRiQ7
+ XCOgTrLArnFDYUPMwXLpDGMArHQJm9TKDH8vSerrQ8+pRKLEkuCx9Lw5sCYvSSsRV5PM
+ MmYQdI5LvHm9wNKNcL+7bMJNcIg7s5LiWGX2gUJka6vpIL48w9gDi00mx+g0tNKQmXHq
+ O8c4eOquceoEkiPtAhpr5KWVEMDIy1hORuwfeN17H/VXSMmcv8DhrU8FbGhRvbdGPl0Y
+ pXS1lkNpZj8vCxgvMr4kcT0y517eYXGcTQJX1KdlkPhoDLtCUKOieQKq1waR/gjvCJxk
+ g3Cg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCURBge/TADhIDeOuOeRxJ2tomLVqTNKSNEk6FBUkpYpowUR2JTK4OREk22ZQ3dH80vNpt5F8E1JCHE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzCkJmL9AMkJNLc2l+cWhqMJ8Q/pf/qD4zsCet1aNUFRt7uBLj4
- lS1lCVg/HOXmNdqdgf3qjxO56Eo0MprylU/dL+qgNCPVLsthtlyGPp+41bARMoU=
-X-Google-Smtp-Source: AGHT+IFXtDyLhu4urkvu/zEBWCkjD6zDt8bX3VJFbWKeSAuwp/zDLD94N+n1R/o9WeiwSGWu061YMw==
-X-Received: by 2002:a05:651c:b20:b0:2fa:cd7e:3b40 with SMTP id
- 38308e7fff4ca-2fc9d3458camr51692481fa.11.1729836632473; 
- Thu, 24 Oct 2024 23:10:32 -0700 (PDT)
+ AJvYcCVPeAPjkOcx3i/ttWqYk6krEtOo7swgPniLAGf2v4X07b4F6hsVHRPhwjaiQW5hj4nQs9TIxMdc4mY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyuOFLakgct5KAlTJU0WkpGFJaBiWjnRFsZ/6Mk4JvGeR51QVBI
+ rbIh/dPMqj8ESZGxH3VrAlPlq1nlA2pY+Mp9UHwAKlFObi9vhotFElJfmnX2t0s=
+X-Google-Smtp-Source: AGHT+IFaqSi3YpsyTfNZEHslT6tXnIucCTkmvLVJIORZGEveGd+wYqYmRBCEZV5qZEaTCrCcylcBhg==
+X-Received: by 2002:a2e:b8c2:0:b0:2fb:382e:410f with SMTP id
+ 38308e7fff4ca-2fca8227ddbmr26408121fa.26.1729837718711; 
+ Thu, 24 Oct 2024 23:28:38 -0700 (PDT)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2fcb45d19d7sm692021fa.96.2024.10.24.23.10.29
+ 38308e7fff4ca-2fcb4612a5asm703221fa.122.2024.10.24.23.28.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Oct 2024 23:10:31 -0700 (PDT)
-Date: Fri, 25 Oct 2024 09:10:28 +0300
+ Thu, 24 Oct 2024 23:28:36 -0700 (PDT)
+Date: Fri, 25 Oct 2024 09:28:33 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Connor Abbott <cwabbott0@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, 
- Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: sa8775p-ride: Enable Adreno 663
- GPU
-Message-ID: <dfaszv64mpxtqnqfulibglshdrtb67fsmj7tqilrrisqq4274j@z7u4qcom77zi>
-References: <20241022-a663-gpu-support-v2-0-38da38234697@quicinc.com>
- <20241022-a663-gpu-support-v2-4-38da38234697@quicinc.com>
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: opp: Add v2-qcom-adreno vendor
+ bindings
+Message-ID: <4426b4kybtac6rc4twa5pgm3hvlegofemvqjcrvh6ni7f5z2h6@5dnlv3hgywh5>
+References: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
+ <20241021-gpu-acd-v2-2-9c25a62803bc@quicinc.com>
+ <mz4zpcr4tqh2w7vt75f4ofxjzfve54ozzgpdbi2jjzk5pdxbk7@t36tlt3mmprt>
+ <d858dadb-4098-4c9f-b4f0-393dc988db5f@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241022-a663-gpu-support-v2-4-38da38234697@quicinc.com>
+In-Reply-To: <d858dadb-4098-4c9f-b4f0-393dc988db5f@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,20 +98,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Oct 22, 2024 at 03:16:06AM +0530, Akhil P Oommen wrote:
-> From: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
+On Thu, Oct 24, 2024 at 12:56:58AM +0530, Akhil P Oommen wrote:
+> On 10/22/2024 11:19 AM, Krzysztof Kozlowski wrote:
+> > On Mon, Oct 21, 2024 at 05:23:43PM +0530, Akhil P Oommen wrote:
+> >> Add a new schema which extends opp-v2 to support a new vendor specific
+> >> property required for Adreno GPUs found in Qualcomm's SoCs. The new
+> >> property called "qcom,opp-acd-level" carries a u32 value recommended
+> >> for each opp needs to be shared to GMU during runtime.
+> >>
+> >> Cc: Rob Clark <robdclark@gmail.com>
+> >> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> >> ---
+> >>  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 96 ++++++++++++++++++++++
+> >>  1 file changed, 96 insertions(+)
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> >> new file mode 100644
+> >> index 000000000000..6d50c0405ef8
+> >> --- /dev/null
+> >> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> >> @@ -0,0 +1,96 @@
+> >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> >> +%YAML 1.2
+> >> +---
+> >> +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
+> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >> +
+> >> +title: Qualcomm Adreno compatible OPP supply
+> >> +
+> >> +description:
+> >> +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
+> >> +  ACD related information tailored for the specific chipset. This binding
+> >> +  provides the information needed to describe such a hardware value.
+> >> +
+> >> +maintainers:
+> >> +  - Rob Clark <robdclark@gmail.com>
+> >> +
+> >> +allOf:
+> >> +  - $ref: opp-v2-base.yaml#
+> >> +
+> >> +properties:
+> >> +  compatible:
+> >> +    items:
+> >> +      - const: operating-points-v2-adreno
+> >> +      - const: operating-points-v2
+> >> +
+> >> +patternProperties:
+> >> +  '^opp-?[0-9]+$':
+> > 
+> > '-' should not be optional. opp1 is not expected name.
 > 
-> Enable GPU for sa8775p-ride platform and provide path for zap
-> shader.
+> Agree. Will change this to '^opp-[0-9]+$'
 > 
-> Signed-off-by: Puranam V G Tejaswi <quic_pvgtejas@quicinc.com>
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
->  arch/arm64/boot/dts/qcom/sa8775p-ride.dtsi | 8 ++++++++
->  1 file changed, 8 insertions(+)
+> > 
+> >> +    type: object
+> >> +    additionalProperties: false
+> >> +
+> >> +    properties:
+> >> +      opp-hz: true
+> >> +
+> >> +      opp-level: true
+> >> +
+> >> +      opp-peak-kBps: true
+> >> +
+> >> +      opp-supported-hw: true
+> >> +
+> >> +      qcom,opp-acd-level:
+> >> +        description: |
+> >> +          A positive value representing the ACD (Adaptive Clock Distribution,
+> >> +          a fancy name for clk throttling during voltage droop) level associated
+> >> +          with this OPP node. This value is shared to a co-processor inside GPU
+> >> +          (called Graphics Management Unit a.k.a GMU) during wake up. It may not
+> >> +          be present for some OPPs and GMU will disable ACD while transitioning
+> >> +          to that OPP. This value encodes a voltage threshold and few other knobs
+> >> +          which are identified by characterization of the SoC. So, it doesn't have
+> >> +          any unit.
+> > 
+> > Thanks for explanation and other updates. I am still not happy with this
+> > property. I do not see reason why DT should encode magic values in a
+> > quite generic piece of code. This creates poor ABI, difficult to
+> > maintain or understand.
+> > 
 > 
+> Configuring GPU ACD block with its respective value is a requirement for each OPP.
+> So OPP node seems like the natural place for this data.
+> 
+> If it helps to resolve your concerns, I can elaborate the documentation with
+> details on the GMU HFI interface where this value should be passed on to the
+> hardware. Also replace "few other knobs" with "Delay cycles & Calibration margin"
+> in the above doc.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Usually the preference for DT is to specify data in a sensible way
+rather than just the values being programmed to the register. Is it
+possible to implement this approach for ACD values?
+
+>  
+> > 
 
 -- 
 With best wishes
