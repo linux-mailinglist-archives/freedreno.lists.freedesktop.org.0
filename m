@@ -2,76 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E36879AFFD1
-	for <lists+freedreno@lfdr.de>; Fri, 25 Oct 2024 12:15:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E31929B0DCF
+	for <lists+freedreno@lfdr.de>; Fri, 25 Oct 2024 21:00:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EE4B10EA6A;
-	Fri, 25 Oct 2024 10:15:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23D7010E055;
+	Fri, 25 Oct 2024 19:00:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="d/FcIrP4";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="CAF5XElo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCC8810E05C;
- Fri, 25 Oct 2024 10:15:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729851326; x=1761387326;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=kYN2dB4ddnWcQp0D9KeXmv8oxL33z53rJDsqLD0hKak=;
- b=d/FcIrP49z/QI7OaCkTkBAcnDnidYDb5U+v1E7feGTrwlaZE+Z+nQHRv
- QzTkfCvHnRRF48HKIlQaAxECxsKXcwX6PCAKt0Xhvrtdw42ehtOFb/LBA
- cT8GpUI5zKHGFOPH5qN5Ylce+ZRZzo1O8eC6EjdIWoeSs+ijb4bHJ59Bo
- 7aImBcTxImHdwr+coO8GKJiGI9eI6l0QoFgqzQZTiEyzSjxgrqnKlxrw4
- qNEM0c3ZbO3KuXE0L2Agf3SuCaPyVh3yFj4QKxsidPBlSQWW5VWcg0TCi
- KhKvaEfTAIajDH33LE/Yuhd0uzYijxYLMc0fGB3aEq2d4fkKH3pajXbiI A==;
-X-CSE-ConnectionGUID: 9ymU8nkVRF+iF5mRxheheQ==
-X-CSE-MsgGUID: rAYKmdaGQgSqble3+wFWYw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11235"; a="17146742"
-X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; d="scan'208";a="17146742"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2024 03:15:25 -0700
-X-CSE-ConnectionGUID: Jvp5S744RhGH2KlCx35tjQ==
-X-CSE-MsgGUID: Z+j7UqPCTj2FihB6FZNH6Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; d="scan'208";a="80985766"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 25 Oct 2024 03:15:19 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 25 Oct 2024 13:15:18 +0300
-Date: Fri, 25 Oct 2024 13:15:18 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@redhat.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-Subject: Re: [PATCH 1/2] drm: Move plane->{fb,old_fb,crtc} to legacy
- sub-structure
-Message-ID: <ZxtvtqQzME--oy7-@intel.com>
-References: <20241002182200.15363-1-ville.syrjala@linux.intel.com>
- <20241002182200.15363-2-ville.syrjala@linux.intel.com>
- <Zv58AalhFaMgh7c5@intel.com> <875xpgqzc1.fsf@intel.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F11BE10E055;
+ Fri, 25 Oct 2024 19:00:28 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49PB1xkB000880;
+ Fri, 25 Oct 2024 19:00:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 4m4ynzInmCYuKFAigjMuDiiA5+f08cG6+h6uxFu2fDQ=; b=CAF5XEloBiGlCdWT
+ 43VVSPkg0AyqWJnQOh/vSJrU1RwrYawm339SwppcmAta4kUz0sdl7xwIuF+yjbyc
+ ggqIqXstjim23jfOP/9qpuJ9sV0xQK4aPbRj/CVHjQwBInSrmz7SXhhkkFVz9q80
+ DDavxgl4dE2+h6AE1Ku0smYiscSaO3VjZnEeieBvtVZjLLePGUDMFVGEw9w+fnrV
+ NNeve5tK8J+PDuuUwR7MAgt23PFi0jm1I6CWKcCPJByFt8RJHLtT6T1ye4M753Wd
+ czGNbPNAv9XbYodzF2PG20LSYGDORMMVm7HkhAGYzRtJfsfts2Kae5hrfdzqyAh7
+ MSUJJw==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42ga3s1csn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Oct 2024 19:00:23 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49PJ0MHu011047
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Oct 2024 19:00:22 GMT
+Received: from [10.110.83.151] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 25 Oct
+ 2024 12:00:21 -0700
+Message-ID: <1dcf786e-463f-4e51-af71-66ee6077b5f1@quicinc.com>
+Date: Fri, 25 Oct 2024 12:00:20 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <875xpgqzc1.fsf@intel.com>
-X-Patchwork-Hint: comment
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/9] drm/msm/dpu: move pstate->pipe initialization to
+ dpu_plane_atomic_check
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20241025-dpu-virtual-wide-v6-0-0310fd519765@linaro.org>
+ <20241025-dpu-virtual-wide-v6-2-0310fd519765@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20241025-dpu-virtual-wide-v6-2-0310fd519765@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: ZWHZaI5rykXHJ0Ju0Xn8bsZKdz1nYDdx
+X-Proofpoint-GUID: ZWHZaI5rykXHJ0Ju0Xn8bsZKdz1nYDdx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015
+ impostorscore=0 bulkscore=0 mlxlogscore=999 malwarescore=0 suspectscore=0
+ phishscore=0 lowpriorityscore=0 mlxscore=0 priorityscore=1501 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2410250145
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,108 +94,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Oct 25, 2024 at 12:57:50PM +0300, Jani Nikula wrote:
-> On Thu, 03 Oct 2024, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
-> > On Wed, Oct 02, 2024 at 09:21:59PM +0300, Ville Syrjala wrote:
-> >> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> >> 
-> >> Hide the plane->fb/etc. footguns better by stashing them inside
-> >> a "legacy" sub struct.
-> >> 
-> >> Eventually maybe we could turn 'legacy' into a pointer
-> >> that only exists on legacy drivers to completely prevent
-> >> any abuse by atomic drivers...
-> >
-> > Hmm. I should probably make it a pointer from the start,
-> > to avoid having to go through the same churn yet again.
-> 
-> [snip]
-> 
-> >> diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-> >> index dd718c62ac31..a2d91ee4b40c 100644
-> >> --- a/include/drm/drm_plane.h
-> >> +++ b/include/drm/drm_plane.h
-> >> @@ -663,31 +663,33 @@ struct drm_plane {
-> >>  	/** @modifier_count: Size of the array pointed at by @modifier_count. */
-> >>  	unsigned int modifier_count;
-> >>  
-> >> -	/**
-> >> -	 * @crtc:
-> >> -	 *
-> >> -	 * Currently bound CRTC, only meaningful for non-atomic drivers. For
-> >> -	 * atomic drivers this is forced to be NULL, atomic drivers should
-> >> -	 * instead check &drm_plane_state.crtc.
-> >> -	 */
-> >> -	struct drm_crtc *crtc;
-> >> -
-> >> -	/**
-> >> -	 * @fb:
-> >> -	 *
-> >> -	 * Currently bound framebuffer, only meaningful for non-atomic drivers.
-> >> -	 * For atomic drivers this is forced to be NULL, atomic drivers should
-> >> -	 * instead check &drm_plane_state.fb.
-> >> -	 */
-> >> -	struct drm_framebuffer *fb;
-> >> -
-> >> -	/**
-> >> -	 * @old_fb:
-> >> -	 *
-> >> -	 * Temporary tracking of the old fb while a modeset is ongoing. Only
-> >> -	 * used by non-atomic drivers, forced to be NULL for atomic drivers.
-> >> -	 */
-> >> -	struct drm_framebuffer *old_fb;
-> >> +	struct {
-> 
-> Do you mean something along the lines of:
-> 
-> 	struct __plane_legacy_or_something {
-> 
-> >> +		/**
-> >> +		 * @crtc:
-> >> +		 *
-> >> +		 * Currently bound CRTC, only meaningful for non-atomic drivers. For
-> >> +		 * atomic drivers this is forced to be NULL, atomic drivers should
-> >> +		 * instead check &drm_plane_state.crtc.
-> >> +		 */
-> >> +		struct drm_crtc *crtc;
-> >> +
-> >> +		/**
-> >> +		 * @fb:
-> >> +		 *
-> >> +		 * Currently bound framebuffer, only meaningful for non-atomic drivers.
-> >> +		 * For atomic drivers this is forced to be NULL, atomic drivers should
-> >> +		 * instead check &drm_plane_state.fb.
-> >> +		 */
-> >> +		struct drm_framebuffer *fb;
-> >> +
-> >> +		/**
-> >> +		 * @old_fb:
-> >> +		 *
-> >> +		 * Temporary tracking of the old fb while a modeset is ongoing. Only
-> >> +		 * used by non-atomic drivers, forced to be NULL for atomic drivers.
-> >> +		 */
-> >> +		struct drm_framebuffer *old_fb;
-> >> +	} legacy;
-> 
-> and
-> 
-> 	} __legacy;
-> 
-> 	struct __plane_legacy_or_something *legacy;
-> 
-> and initially unconditionally:
-> 
->        	p->legacy = &p->__legacy;
-> 
-> but later, once atomic drivers have been fixed:
-> 
-> 	if (!drm_core_check_feature(dev, DRIVER_COMPUTE_ATOMIC))
-> 		p->legacy = &p->__legacy;
-> 
-> It would make the last update really simple.
 
-Yeah, something like that.
 
--- 
-Ville Syrjälä
-Intel
+On 10/24/2024 5:20 PM, Dmitry Baryshkov wrote:
+> In preparation for virtualized planes support, move pstate->pipe
+> initialization from dpu_plane_reset() to dpu_plane_atomic_check(). In
+> case of virtual planes the plane's pipe will not be known up to the
+> point of atomic_check() callback.
+> 
+
+I had R-bed this in v5. Did anything change in v6?
+
+But one comment below.
+
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 25 +++++++++++--------------
+>   1 file changed, 11 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 37faf5b238b0..725c9a5826fd 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -797,13 +797,22 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>   	uint32_t max_linewidth;
+>   	unsigned int rotation;
+>   	uint32_t supported_rotations;
+> -	const struct dpu_sspp_cfg *pipe_hw_caps = pstate->pipe.sspp->cap;
+> -	const struct dpu_sspp_sub_blks *sblk = pstate->pipe.sspp->cap->sblk;
+> +	const struct dpu_sspp_cfg *pipe_hw_caps;
+> +	const struct dpu_sspp_sub_blks *sblk;
+>   
+>   	if (new_plane_state->crtc)
+>   		crtc_state = drm_atomic_get_new_crtc_state(state,
+>   							   new_plane_state->crtc);
+>   
+> +	pipe->sspp = dpu_rm_get_sspp(&kms->rm, pdpu->pipe);
+> +	r_pipe->sspp = NULL;
+> +
+> +	if (!pipe->sspp)
+> +		return -EINVAL;
+> +
+> +	pipe_hw_caps = pipe->sspp->cap;
+> +	sblk = pipe->sspp->cap->sblk;
+> +
+>   	min_scale = FRAC_16_16(1, sblk->maxupscale);
+>   	ret = drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
+>   						  min_scale,
+
+Do you think it will be better to move the get_sspp() call after the 
+drm_atomic_helper_check_plane_state()?
+
+> @@ -820,7 +829,6 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+>   	pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+>   	r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
+>   	r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> -	r_pipe->sspp = NULL;
+>   
+>   	pstate->stage = DPU_STAGE_0 + pstate->base.normalized_zpos;
+>   	if (pstate->stage >= pdpu->catalog->caps->max_mixer_blendstages) {
+> @@ -1286,7 +1294,6 @@ static void dpu_plane_reset(struct drm_plane *plane)
+>   {
+>   	struct dpu_plane *pdpu;
+>   	struct dpu_plane_state *pstate;
+> -	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
+>   
+>   	if (!plane) {
+>   		DPU_ERROR("invalid plane\n");
+> @@ -1308,16 +1315,6 @@ static void dpu_plane_reset(struct drm_plane *plane)
+>   		return;
+>   	}
+>   
+> -	/*
+> -	 * Set the SSPP here until we have proper virtualized DPU planes.
+> -	 * This is the place where the state is allocated, so fill it fully.
+> -	 */
+> -	pstate->pipe.sspp = dpu_rm_get_sspp(&dpu_kms->rm, pdpu->pipe);
+> -	pstate->pipe.multirect_index = DPU_SSPP_RECT_SOLO;
+> -	pstate->pipe.multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> -
+> -	pstate->r_pipe.sspp = NULL;
+> -
+>   	__drm_atomic_helper_plane_reset(plane, &pstate->base);
+>   }
+>   
+> 
