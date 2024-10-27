@@ -2,78 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1C589B1BDC
-	for <lists+freedreno@lfdr.de>; Sun, 27 Oct 2024 03:04:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67E269B1F8B
+	for <lists+freedreno@lfdr.de>; Sun, 27 Oct 2024 19:06:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63D6910E130;
-	Sun, 27 Oct 2024 02:04:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6095310E1DB;
+	Sun, 27 Oct 2024 18:06:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qQlzKhpf";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="LPpfUFJV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC21210E130
- for <freedreno@lists.freedesktop.org>; Sun, 27 Oct 2024 02:04:29 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-539e7e73740so2770108e87.3
- for <freedreno@lists.freedesktop.org>; Sat, 26 Oct 2024 19:04:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729994668; x=1730599468; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LGZSUHq/ZmNUpRTh2RnbZ3KXbycvJz8k34ztj3MvaYU=;
- b=qQlzKhpfork1Kh0YwEigCBUXQNWD9MpWG5uLtDCpnuHOA4Csw28KL3eM0NJ2FK0Nvp
- NUCU2ikvUppOfManG36UtcX+8wVYfxeKCAvcV61GRwD1AdZVopD0r6qCrBDugQh7o+3k
- efm8YXcS3z60zyljIOy3NDUTpRv0SoaIDfvPwzlQvqoZhOEmkSHyjnNYq/AOMaLoI+XF
- wYq536sVGNngAKfhe+z4LSHfpv+5ytEbzG680/C7abpiuqyCLQrTnO3CU6KegG3jYYbD
- /GVh+OSMEsvJ9DwrHIeHCtr/l6LPu4MX4hCSwfxgm7Zbpaqzhe6WCq+BXhyTyFcINdFo
- yRgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729994668; x=1730599468;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LGZSUHq/ZmNUpRTh2RnbZ3KXbycvJz8k34ztj3MvaYU=;
- b=vs5Ccih7PSBVTgA0jB3aQThoOVIilrHIYdfFm6iF3mQU7f95PSDAzZRjiTSA3+UEXm
- /1UcGkm9i5mDjCTA59pCroGEelc2pIxoZPzj6l+MZeTZn26RRbOjFOPvg7u6TlkKweGz
- 0z1cug7+QeK4T3QgpJRi2Q4ZLaBqHt2Y8eSo75euouhrf7T2FQaAquAfGAAlFzaRFkaa
- OroV9J4oEdcNp0O/galHfvZS4rmnZARKptIN42GWIXC0VJkZojzHmUOPFfGx7TVbwXhH
- uZCHd1mdw9D1RynzRxDF/HlUyOSvirKysa507Vl0yMNdc2om+G/AUOp8aejduqusplB1
- m8UQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUjghhCbR/qjCxyj1xaYHRUYYsg20u+UNtWwLF9BleMnTx3cgbIkk0Kwnv8IpT1ggEqVt9bCRd7NXQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwUGmkIFEclkELzBKvq+oX88ZQmZPQ6hDDzzVs8U8E/7mAwoh+j
- V28+L99LloaeJdmWJdtAueYAsYwIL8pf+LYr7IvwJVMrigG7j+dRheBGe2dF7tg=
-X-Google-Smtp-Source: AGHT+IHPoUUcDRY5D2XJo8f0YTIXfcWPksVBaLDAXMrn0WjwoyAQfwqBD1jOM+o1BPYOuwrQECaMcQ==
-X-Received: by 2002:a05:6512:3f03:b0:52f:ca2b:1d33 with SMTP id
- 2adb3069b0e04-53b348cb983mr1473251e87.20.1729994667621; 
- Sat, 26 Oct 2024 19:04:27 -0700 (PDT)
-Received: from umbar.unikie.fi ([192.130.178.90])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53b2e10a915sm644940e87.12.2024.10.26.19.04.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 26 Oct 2024 19:04:26 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>
-Cc: Stephen Boyd <swboyd@chromium.org>, David Airlie <airlied@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] drm/msm: Avoid NULL dereference in
- msm_disp_state_print_regs()
-Date: Sun, 27 Oct 2024 04:04:26 +0200
-Message-Id: <172999465408.389213.17351972800864480225.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241014093605.1.Ia1217cecec9ef09eb3c6d125360cc6c8574b0e73@changeid>
-References: <20241014093605.1.Ia1217cecec9ef09eb3c6d125360cc6c8574b0e73@changeid>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89F9810E059;
+ Sun, 27 Oct 2024 18:06:34 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49RFo3l0012317;
+ Sun, 27 Oct 2024 18:06:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=5eLO2C1SYyEAk2YPDJc1FV
+ TLIAHKQlZLKgQt46vMoFQ=; b=LPpfUFJVv+S6IScpi1lQX3XnL+7s5tXrI68zhm
+ sROHoGVo+Y0cuYjTholK7OwguqX1lZqLCDZctFHognbFnvxt0DPKEIoDLoPX/WW+
+ fqHsddLeeDs1jSxQscSC0QhNxUcBcl3fnr51K2TbwbCTzi71XcCPUJsYh26fDTyB
+ jmWdd8W3ShoyvJDdsk6U2yauT9q3U6tQPCYFw6YNIz17IwzJ0NYXYe/OagEjPSBQ
+ Gbag3ttuDi7UtPLYC9ZB/wmDw1lta99hlH7MWjDVX1heTwDGGEHy8hzPyX9ZPedz
+ tgRxSs5agRflJpu2NvoUF8wc8V/7sxZiUNMus1DQfQtpe4pA==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42grt6tq4a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 27 Oct 2024 18:06:26 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49RI6PKC030401
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 27 Oct 2024 18:06:25 GMT
+Received: from [10.213.111.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 27 Oct
+ 2024 11:06:19 -0700
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Date: Sun, 27 Oct 2024 23:35:47 +0530
+Subject: [PATCH] drm/msm/a6xx: Fix excessive stack usage
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-ID: <20241027-stack-size-fix-v1-1-764e2e3566cb@quicinc.com>
+X-B4-Tracking: v=1; b=H4sIAPqAHmcC/yWMwQ6DIBAFf4XsuSQICOivNB4Al3bTqBVs09T47
+ yX18A4zyZsdCmbCAj3bIeObCi1zhebCIN79fENOY2WQQuqmjpfNxwcv9EWe6MOl88n6MKrkA9T
+ TM2PV/+B1ODnj+qrd7ZQQfEEel2mirWdWR2W10Q5H4TAFiUmpzrQmSWt0lC4KbbrWwHAcPxT9J
+ cSsAAAA
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>, "Nick
+ Desaulniers" <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
+ Justin Stitt <justinstitt@google.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <llvm@lists.linux.dev>, Arnd Bergmann <arnd@kernel.org>, Akhil P Oommen
+ <quic_akhilpo@quicinc.com>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1730052379; l=3569;
+ i=quic_akhilpo@quicinc.com; s=20240726; h=from:subject:message-id;
+ bh=4+0NulD4EEQ5BTETeq/86MPXoadMca0AwCvmywI7SSY=;
+ b=qJoax2Z2hTUQV4lstsski2oOlsORtBZY7vZ2fOfCUs/BduAPLP1/2H73fYix0YLuFj33ozm/G
+ cFTvuw0eZryA4UyFQf0K0O+7Awdno/9IvNOe8aDjOTumkGmAqnKzNuQ
+X-Developer-Key: i=quic_akhilpo@quicinc.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: VkbfgtwSZ3MAxdf5ovw3s8cmgryfRbg9
+X-Proofpoint-GUID: VkbfgtwSZ3MAxdf5ovw3s8cmgryfRbg9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0
+ adultscore=0 clxscore=1015 impostorscore=0 malwarescore=0
+ priorityscore=1501 phishscore=0 mlxscore=0 suspectscore=0 mlxlogscore=999
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410270159
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,22 +105,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Clang-19 and above sometimes end up with multiple copies of the large
+a6xx_hfi_msg_bw_table structure on the stack. The problem is that
+a6xx_hfi_send_bw_table() calls a number of device specific functions to
+fill the structure, but these create another copy of the structure on
+the stack which gets copied to the first.
 
-On Mon, 14 Oct 2024 09:36:08 -0700, Douglas Anderson wrote:
-> If the allocation in msm_disp_state_dump_regs() failed then
-> `block->state` can be NULL. The msm_disp_state_print_regs() function
-> _does_ have code to try to handle it with:
-> 
->   if (*reg)
->     dump_addr = *reg;
-> 
-> [...]
+If the functions get inlined, that busts the warning limit:
 
-Applied, thanks!
+drivers/gpu/drm/msm/adreno/a6xx_hfi.c:631:12: error: stack frame size (1032) exceeds limit (1024) in 'a6xx_hfi_send_bw_table' [-Werror,-Wframe-larger-than]
 
-[3/3] drm/msm: Simplify NULL checking in msm_disp_state_dump_regs()
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/74c374648ed0
+Fix this by kmalloc-ating struct a6xx_hfi_msg_bw_table instead of using
+the stack. Also, use this opportunity to skip re-initializing this table
+to optimize gpu wake up latency.
+
+Cc: Arnd Bergmann <arnd@kernel.org>
+
+Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 34 ++++++++++++++++++++++------------
+ 2 files changed, 23 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+index 94b6c5cab6f4..b4a79f88ccf4 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+@@ -99,6 +99,7 @@ struct a6xx_gmu {
+ 	struct completion pd_gate;
+ 
+ 	struct qmp *qmp;
++	struct a6xx_hfi_msg_bw_table *bw_table;
+ };
+ 
+ static inline u32 gmu_read(struct a6xx_gmu *gmu, u32 offset)
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+index cdb3f6e74d3e..55e51c81be1f 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+@@ -630,32 +630,42 @@ static void a6xx_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
+ 
+ static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
+ {
+-	struct a6xx_hfi_msg_bw_table msg = { 0 };
++	struct a6xx_hfi_msg_bw_table *msg;
+ 	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+ 
++	if (gmu->bw_table)
++		goto send;
++
++	msg = devm_kzalloc(gmu->dev, sizeof(*msg), GFP_KERNEL);
++	if (!msg)
++		return -ENOMEM;
++
+ 	if (adreno_is_a618(adreno_gpu))
+-		a618_build_bw_table(&msg);
++		a618_build_bw_table(msg);
+ 	else if (adreno_is_a619(adreno_gpu))
+-		a619_build_bw_table(&msg);
++		a619_build_bw_table(msg);
+ 	else if (adreno_is_a640_family(adreno_gpu))
+-		a640_build_bw_table(&msg);
++		a640_build_bw_table(msg);
+ 	else if (adreno_is_a650(adreno_gpu))
+-		a650_build_bw_table(&msg);
++		a650_build_bw_table(msg);
+ 	else if (adreno_is_7c3(adreno_gpu))
+-		adreno_7c3_build_bw_table(&msg);
++		adreno_7c3_build_bw_table(msg);
+ 	else if (adreno_is_a660(adreno_gpu))
+-		a660_build_bw_table(&msg);
++		a660_build_bw_table(msg);
+ 	else if (adreno_is_a690(adreno_gpu))
+-		a690_build_bw_table(&msg);
++		a690_build_bw_table(msg);
+ 	else if (adreno_is_a730(adreno_gpu))
+-		a730_build_bw_table(&msg);
++		a730_build_bw_table(msg);
+ 	else if (adreno_is_a740_family(adreno_gpu))
+-		a740_build_bw_table(&msg);
++		a740_build_bw_table(msg);
+ 	else
+-		a6xx_build_bw_table(&msg);
++		a6xx_build_bw_table(msg);
++
++	gmu->bw_table = msg;
+ 
+-	return a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_BW_TABLE, &msg, sizeof(msg),
++send:
++	return a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_BW_TABLE, gmu->bw_table, sizeof(*(gmu->bw_table)),
+ 		NULL, 0);
+ }
+ 
+
+---
+base-commit: 74c374648ed08efb2ef339656f2764c28c046956
+change-id: 20241024-stack-size-fix-28af7abd3fab
 
 Best regards,
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Akhil P Oommen <quic_akhilpo@quicinc.com>
+
