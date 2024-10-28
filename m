@@ -2,87 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 511AF9B2F2E
-	for <lists+freedreno@lfdr.de>; Mon, 28 Oct 2024 12:49:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C1339B2F52
+	for <lists+freedreno@lfdr.de>; Mon, 28 Oct 2024 12:53:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28B5910E485;
-	Mon, 28 Oct 2024 11:49:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB6BB10E485;
+	Mon, 28 Oct 2024 11:53:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="O+bnyjz7";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="15sGmTsn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A7A910E47F
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 11:49:25 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-539e63c8678so4148373e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 04:49:25 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F3D910E485
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 11:53:39 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4315ee633dcso143635e9.1
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 04:53:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1730116163; x=1730720963; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=VqmvUC9mUBY81VNYk4RmO3UDZ88zAWNWEvKa6xvfBdA=;
- b=O+bnyjz7tKUZY+uMKfe/TJIK7Drm6u7k7Iwl+znp9zBZ5gFpawko6TqOmUnf3eG/JJ
- nXif887YQRV0EMNt839qxSYwdg1J534bnKGNZzxxFyEEHQJ0igH4uriUvLLGJ1bs1Nto
- VAZglS29NIpx+MM9o7bPaEVm/Fdm/P6S9QUDztMKba9VeMfR8o7tFE3DIPl6oWFz4sQ9
- GUk/q5MzpX2nDG13hUuwg7p9jv5KwWY1ifveX4VFlLgxACd7pZcv9DeSbCNcrqHb42s6
- SB+u8C4qpv3Iaiv1U1Ldf/BzSaTh6EtLN/I2EzFDxOIytlmdo1LTbGip38gkwBiCig6B
- n9eQ==
+ d=google.com; s=20230601; t=1730116417; x=1730721217;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=s8ohfpnIEvg7feisWnyEQsAMOz4YBMRZ4DT963EvlJY=;
+ b=15sGmTsncheQoPqYf8kMsuPF65ZC5ZJ/UoF5SnAOxdbkkra+3di1yMfvnXC2GspHku
+ lPSDniaJ/4rGeiVG1xbaGTjx939WGeNhKKn5rEpC7h1Tg9jIcJTbhC+GM2F7WZV3WDIP
+ +iFIQ8EtgHRP/gP9pLlFGTpdDJ5rhVlEUtgg4Sgevw6pa7SlQQKVVjAxRqiiAFS0kbge
+ M46gPK86+O1mv1n68vyU6dbAuXGDriaDpC3rzW1j/GJBSS2k16UNNXDwHV2YpbHkAyiy
+ Kke+dXOItcHZadJoBMv8qVllrPJScUdGCELW2O03ZVj1WLH12Dy8OYClieNR/GjZBcs9
+ zVGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730116163; x=1730720963;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VqmvUC9mUBY81VNYk4RmO3UDZ88zAWNWEvKa6xvfBdA=;
- b=Z7y0ZPeEIK8BqcTwvIFzyrNsEhtpxt32F/z/2n7M7K2mL8NLd7deuiooVxuFPzpHsf
- n6/e8YGyNJh2axe4x0LKanYvltCXLO7z9nicyB8mzFqUaIplkvBwkfylsBvD2GvbRk9g
- DOJjkCvarJ3EsDcEMguD2QqTs5s7QYUMwaM3j5BzkPNCsmwzGYCfTMAp6er8y3DCn8TJ
- AJfMLk3YWDtha6aj+CD2gztHjVmm5tn5DPduTGkZe2luPLvKemzbA9jK2C9XjljFTHtE
- GjMxmPlmA30VMgCTtq7yWTEo4QjryhoMmmzmgJwl2nTtKYAEZHnv064EfdXpbfcjhHqK
- A9vA==
+ d=1e100.net; s=20230601; t=1730116417; x=1730721217;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=s8ohfpnIEvg7feisWnyEQsAMOz4YBMRZ4DT963EvlJY=;
+ b=H0I7Ohto0edWZjaifafG7XR5NeneTtT8mYpNdkdxclaQkXPweQeEOUhGxSN7qMmnKe
+ 1ScNeQ9EVIosP7Dgcz9DaWAAkl/eXVR4jYs+hzlWc5G3j29iKiLX4swF9fnbuoWxz+yp
+ wYhC8gShCKjRQ14ceLGbc10y17A3XQvWArhZdrkfI4nTxnJWVDCHwsgBHX5HBPcZfwD6
+ O9J0jM4W0t26QBOpW7KdJn03BNS0MjxDNpGRECMDQJdiyA/XJRt21Q12245rhBmXVPtS
+ UPNCsWkFiuJ9LvcuKBx2q+UMNrc5El33CTB0BeoFcQSHcyHK9IiDwGJWpb0jiUxewslA
+ wjxg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWqcp1IWYdVUSPMu8ryVzlHv/3Rn5hIcZJvK2kfFbpKhkr03nwpWwkGgMVJGB4VZ/ESboOz4TFkAik=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxBsaT0plBULWE8ndUGHxG1+a9IOgjs4xEbGSsKCQrUZnxMkaWq
- mBa+QhpeMwNefwDOee31t/lt6TCnWYeQ0IvO+1bowp+YCRdDOmIy0aEVzFHkm+yV1L3p/J44x7E
- s
-X-Google-Smtp-Source: AGHT+IFCBFQVwMmMDF/1rXBfglFe8gtvZb2+qpDl4CdOJk48ndJWKJGzOzxpV5lLnpQrnF8u7NjzQg==
-X-Received: by 2002:a05:6512:33cf:b0:52c:df6f:a66 with SMTP id
- 2adb3069b0e04-53b34b39628mr2359421e87.58.1730116163397; 
- Mon, 28 Oct 2024 04:49:23 -0700 (PDT)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53b2e10a5c6sm1042385e87.19.2024.10.28.04.49.22
+ AJvYcCUOvJSfq2GiWVfzDt4RNl2jik0lhcjRgv+feWg8gwNnWSB/jwS8EW9NpQh/9U5hYzQVHaAQMn6x3Xs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzF5Sx6hfwPOIegFAEW3Gb6d2qc4hLx72216bSA6sgRqJ1WFILc
+ 1Sq7vdIDpcWb1gwB0YiXBVMiejPKbg+y1suJM0bVU0pslBCP9Zzt/G/etIwhrA==
+X-Google-Smtp-Source: AGHT+IFAG1wQgZSHD4GZ1FDVInCNhg5i9ZX5wl+jOWzRo1tsON7IOnOTabrNuttxFekm1NvUnzUp2w==
+X-Received: by 2002:a05:600c:1e8f:b0:426:66a0:6df6 with SMTP id
+ 5b1f17b1804b1-4319ab034e8mr4472705e9.0.1730116417455; 
+ Mon, 28 Oct 2024 04:53:37 -0700 (PDT)
+Received: from google.com (88.140.78.34.bc.googleusercontent.com.
+ [34.78.140.88]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4319359527asm106666165e9.16.2024.10.28.04.53.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Oct 2024 04:49:23 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 28 Oct 2024 13:49:16 +0200
-Subject: [PATCH 3/3] drm/msm/dp: tidy up platform data names
+ Mon, 28 Oct 2024 04:53:36 -0700 (PDT)
+Date: Mon, 28 Oct 2024 11:53:33 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Rob Clark <robdclark@gmail.com>
+Cc: iommu@lists.linux.dev, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Rob Clark <robdclark@chromium.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ "open list:DRM DRIVER for Qualcomm Adreno GPUs"
+ <dri-devel@lists.freedesktop.org>, 
+ "open list:DRM DRIVER for Qualcomm Adreno GPUs"
+ <freedreno@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Joao Martins <joao.m.martins@oracle.com>,
+ Kevin Tian <kevin.tian@intel.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
+ "open list:DRM DRIVER for Qualcomm Adreno GPUs"
+ <linux-arm-msm@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ "open list:SUSPEND TO RAM" <linux-pm@vger.kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Sean Paul <sean@poorly.run>, Steven Price <steven.price@arm.com>
+Subject: Re: [PATCH v9 0/4] io-pgtable-arm + drm/msm: Extend iova fault
+ debugging
+Message-ID: <Zx97PU7cUEVCnpPl@google.com>
+References: <20240827181717.187245-1-robdclark@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241028-msm-dp-rename-v1-3-a2564e9457b0@linaro.org>
-References: <20241028-msm-dp-rename-v1-0-a2564e9457b0@linaro.org>
-In-Reply-To: <20241028-msm-dp-rename-v1-0-a2564e9457b0@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4825;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=dFghqADYMbSL+guev7kK1X/DtcuvYC+qJqgVPidJ+3I=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnH3o9hSNwX8nlxeM1HjSFvP+l6UmtoczeT12jJ
- 6FQLwOy2U+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZx96PQAKCRCLPIo+Aiko
- 1QM4B/sFhh+X0mTw7UUzLwrmpaCbAKOovwQlT2iXbBC25RFr2J2HdUS4qFB5bH3dlirFzXetMdl
- Q/Ax97WUoS8BnwAxlsnPIOZOHMyg3bHs8xRSSKwDt+Cha9xBTXaal6s1xUKGEbvtP28UVF9ybp/
- XAbgxBLtE45NUK0ZEqD5zdbcrsiKWt7i0FVpZwuBalqp5MXmd/2qkWwFxrDcOIctz4LFQTZ6Bhj
- esWjhy/xLLYxzuFk9YY7VoYfFlpf3EYs97SCB6xe+JkQMNw40ZQcQ4rwIqm/qStRiBDuOERjz2u
- 7CffZgeS2ZYMq0a0EAm7RhmJdNkpr8CNMliNlWZ/juJkJKc7
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240827181717.187245-1-robdclark@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,104 +99,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Follow the established symbol name pattern and rename platform data
-structures.
+Hi Rob,
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 38 ++++++++++++++++++-------------------
- 1 file changed, 19 insertions(+), 19 deletions(-)
+On Tue, Aug 27, 2024 at 11:17:08AM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> This series extends io-pgtable-arm with a method to retrieve the page
+> table entries traversed in the process of address translation, and then
+> beefs up drm/msm gpu devcore dump to include this (and additional info)
+> in the devcore dump.
+> 
+> This is a respin of https://patchwork.freedesktop.org/series/94968/
+> (minus a patch that was already merged)
+> 
+> v2: Fix an armv7/32b build error in the last patch
+> v3: Incorperate Will Deacon's suggestion to make the interface
+>     callback based.
+> v4: Actually wire up the callback
+> v5: Drop the callback approach
+> v6: Make walk-data struct pgtable specific and rename
+>     io_pgtable_walk_data to arm_lpae_io_pgtable_walk_data
+> v7: Re-use the pgtable walker added for arm_lpae_read_and_clear_dirty()
+> v8: Pass pte pointer to callback so it can modify the actual pte
+> v9: Fix selftests_running case
+> 
+> Rob Clark (4):
+>   iommu/io-pgtable-arm: Make pgtable walker more generic
+>   iommu/io-pgtable-arm: Re-use the pgtable walk for iova_to_phys
+>   iommu/io-pgtable-arm: Add way to debug pgtable walk
+>   drm/msm: Extend gpu devcore dumps with pgtbl info
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 5cc349f672c0..aba925aab7ad 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -118,7 +118,7 @@ struct msm_dp_desc {
- 	bool wide_bus_supported;
- };
- 
--static const struct msm_dp_desc sa8775p_dp_descs[] = {
-+static const struct msm_dp_desc msm_dp_desc_sa8775p[] = {
- 	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
- 	{ .io_start = 0x0af5c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
- 	{ .io_start = 0x22154000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
-@@ -126,25 +126,25 @@ static const struct msm_dp_desc sa8775p_dp_descs[] = {
- 	{}
- };
- 
--static const struct msm_dp_desc sc7180_dp_descs[] = {
-+static const struct msm_dp_desc msm_dp_desc_sc7180[] = {
- 	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
- 	{}
- };
- 
--static const struct msm_dp_desc sc7280_dp_descs[] = {
-+static const struct msm_dp_desc msm_dp_desc_sc7280[] = {
- 	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
- 	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
- 	{}
- };
- 
--static const struct msm_dp_desc sc8180x_dp_descs[] = {
-+static const struct msm_dp_desc msm_dp_desc_sc8180x[] = {
- 	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
- 	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
- 	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
- 	{}
- };
- 
--static const struct msm_dp_desc sc8280xp_dp_descs[] = {
-+static const struct msm_dp_desc msm_dp_desc_sc8280xp[] = {
- 	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
- 	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
- 	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
-@@ -156,12 +156,12 @@ static const struct msm_dp_desc sc8280xp_dp_descs[] = {
- 	{}
- };
- 
--static const struct msm_dp_desc sm8650_dp_descs[] = {
-+static const struct msm_dp_desc msm_dp_desc_sm8650[] = {
- 	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
- 	{}
- };
- 
--static const struct msm_dp_desc x1e80100_dp_descs[] = {
-+static const struct msm_dp_desc msm_dp_desc_x1e80100[] = {
- 	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
- 	{ .io_start = 0x0ae98000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
- 	{ .io_start = 0x0ae9a000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
-@@ -170,18 +170,18 @@ static const struct msm_dp_desc x1e80100_dp_descs[] = {
- };
- 
- static const struct of_device_id msm_dp_dt_match[] = {
--	{ .compatible = "qcom,sa8775p-dp", .data = &sa8775p_dp_descs },
--	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_descs },
--	{ .compatible = "qcom,sc7280-dp", .data = &sc7280_dp_descs },
--	{ .compatible = "qcom,sc7280-edp", .data = &sc7280_dp_descs },
--	{ .compatible = "qcom,sc8180x-dp", .data = &sc8180x_dp_descs },
--	{ .compatible = "qcom,sc8180x-edp", .data = &sc8180x_dp_descs },
--	{ .compatible = "qcom,sc8280xp-dp", .data = &sc8280xp_dp_descs },
--	{ .compatible = "qcom,sc8280xp-edp", .data = &sc8280xp_dp_descs },
--	{ .compatible = "qcom,sdm845-dp", .data = &sc7180_dp_descs },
--	{ .compatible = "qcom,sm8350-dp", .data = &sc7180_dp_descs },
--	{ .compatible = "qcom,sm8650-dp", .data = &sm8650_dp_descs },
--	{ .compatible = "qcom,x1e80100-dp", .data = &x1e80100_dp_descs },
-+	{ .compatible = "qcom,sa8775p-dp", .data = &msm_dp_desc_sa8775p },
-+	{ .compatible = "qcom,sc7180-dp", .data = &msm_dp_desc_sc7180 },
-+	{ .compatible = "qcom,sc7280-dp", .data = &msm_dp_desc_sc7280 },
-+	{ .compatible = "qcom,sc7280-edp", .data = &msm_dp_desc_sc7280 },
-+	{ .compatible = "qcom,sc8180x-dp", .data = &msm_dp_desc_sc8180x },
-+	{ .compatible = "qcom,sc8180x-edp", .data = &msm_dp_desc_sc8180x },
-+	{ .compatible = "qcom,sc8280xp-dp", .data = &msm_dp_desc_sc8280xp },
-+	{ .compatible = "qcom,sc8280xp-edp", .data = &msm_dp_desc_sc8280xp },
-+	{ .compatible = "qcom,sdm845-dp", .data = &msm_dp_desc_sc7180 },
-+	{ .compatible = "qcom,sm8350-dp", .data = &msm_dp_desc_sc7180 },
-+	{ .compatible = "qcom,sm8650-dp", .data = &msm_dp_desc_sm8650 },
-+	{ .compatible = "qcom,x1e80100-dp", .data = &msm_dp_desc_x1e80100 },
- 	{}
- };
- 
+Do you have plans to post another version of this series, as I am
+working on some patches, that would use some of the common page walk
+logic, so it would be more convenient to have them upstream.
+Otherwise, I can have your series as a dependency.
 
--- 
-2.39.5
+Thanks,
+Mostafa
 
+
+> 
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  10 ++
+>  drivers/gpu/drm/msm/msm_gpu.c           |   9 ++
+>  drivers/gpu/drm/msm/msm_gpu.h           |   8 ++
+>  drivers/gpu/drm/msm/msm_iommu.c         |  22 ++++
+>  drivers/gpu/drm/msm/msm_mmu.h           |   3 +-
+>  drivers/iommu/io-pgtable-arm.c          | 149 +++++++++++++++---------
+>  include/linux/io-pgtable.h              |  15 +++
+>  7 files changed, 160 insertions(+), 56 deletions(-)
+> 
+> -- 
+> 2.46.0
+> 
