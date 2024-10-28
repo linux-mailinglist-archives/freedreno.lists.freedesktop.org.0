@@ -2,72 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A45AA9B3228
-	for <lists+freedreno@lfdr.de>; Mon, 28 Oct 2024 14:52:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 805C19B39D9
+	for <lists+freedreno@lfdr.de>; Mon, 28 Oct 2024 20:00:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6770610E4B8;
-	Mon, 28 Oct 2024 13:52:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76FED10E51A;
+	Mon, 28 Oct 2024 19:00:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Ltg+LkrX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="icPMiGVV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1B4910E4B7;
- Mon, 28 Oct 2024 13:52:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1730123558; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=EcOmDm7hvmWzx7QQislKVWKADGy61mNauN2BcwCLtFaOR38dZSc0YfaTJt+uPLlCQWSIM3j2YUQU80Rt8T1NgQFYYzqwBv4vfhx/jMJqzFtsRLcmYbOSMVTnfjiEJt2Eaf9yu7Je30JIWtts88CDkUaNR/HyRYmc7mLCDJDeLMw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1730123558;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Hg092s3UQPlJ0VimOUJC6lF37+ZUflK9O9Jo2WEVTlE=; 
- b=FP3fFR0B6LTEQSZz/8EYJEj1a2NxsV1UHvDSJgQUYwaS49ogERtRb6nuaNaP7GGk9CpabQ09tVCcFv/EXkDvjv+rWYIW+o5aeaQeFkYMK6Zdi7dLe4axaN8yorDEIRb4o2xvx89lPB2grzF/SgFJrrDQutzn76q8saJRSTyUt84=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1730123558; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=Hg092s3UQPlJ0VimOUJC6lF37+ZUflK9O9Jo2WEVTlE=;
- b=Ltg+LkrX8T7NXz87K6LvnVR2y9DZ6nM+9RQUrAy7URb1bkdH61v3GcaImv5gqkt2
- 4YpaB3fx8ZkK2es+f2J8qPG2o1AfGLqmA9YS3D8A4U01C6Q4QuNuK+RJomCchjhhkuw
- 2soMz0Qvssa/WPbcvnoxmvagJ/tdTDNmjfZIe81E=
-Received: by mx.zohomail.com with SMTPS id 173012355592718.768318491229252;
- Mon, 28 Oct 2024 06:52:35 -0700 (PDT)
-Date: Mon, 28 Oct 2024 13:52:30 +0000
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Boris Brezillon <boris.brezillon@collabora.com>, Rob Herring <robh@kernel.org>,
- Steven Price <steven.price@arm.com>, Melissa Wen <mwen@igalia.com>, 
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [RFC PATCH 1/2] drm/drm_file: Add display of driver's internal
- memory size
-Message-ID: <jkbyhjvl4zx3tahpk3fiieujnwm2twb7gqt6g3hqtrb25ggxbn@66rvhu5n7tbg>
-References: <20241002234531.3113431-1-adrian.larumbe@collabora.com>
- <20241002234531.3113431-2-adrian.larumbe@collabora.com>
- <6657b080-f41e-4c95-8895-e474f1ca5d57@ursulin.net>
- <p72rfjerzsg4wsp6rgfcoo5fmlu77jmzdynosflj2hlos63pql@mnetv3t66wsc>
- <87a21c19-8fd2-492a-a620-243cd9c642dc@ursulin.net>
- <5h4vxk6hw7fkw4rebqprfdf3tmz7skdxfh6qgljcd4thxkpobu@jly67q62us4b>
- <54dd5ec4-3254-4d32-b6be-9a7b443d216b@ursulin.net>
+Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
+ [209.85.166.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21B1910E51A;
+ Mon, 28 Oct 2024 19:00:16 +0000 (UTC)
+Received: by mail-il1-f182.google.com with SMTP id
+ e9e14a558f8ab-3a3bd42955bso18052945ab.1; 
+ Mon, 28 Oct 2024 12:00:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1730142015; x=1730746815; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=DrJcv/aH8I8XOoCISZJRfuyHbZe3jDtZgV7phtsunRQ=;
+ b=icPMiGVVc6qD+8TUiv26Ar23shNiszXDqG+fiD0tDG7DK7o1DTwFycL58P7yCXmP8B
+ Q09x0oj/LjpsuF3+EWMeXeWG8haK3A+CATTc/KYDa0ZymXfu64CLKpnfvrLOM6uuPh8X
+ saQSMpNzBqVMXCJA7k/cXRbCkfkje7bCryDzXj0u1rRUWYQfon8n3nhUYwfuZ7AwOl+O
+ 0uKEF+S6ou7rfbSAArl4A5w7ZpjF314YHAQvDaUPcgVInb5mVeVop5RyOsV3PH0J7oNX
+ x27ZUu+nMhp0KVaZkZ3N9o9DSQesndnGnWpzCDYkKzWR3AeKh/06Auh3II3EW8toBdCY
+ wi6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730142015; x=1730746815;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=DrJcv/aH8I8XOoCISZJRfuyHbZe3jDtZgV7phtsunRQ=;
+ b=k1IfqrzCuk3epim9LuM7THJvgWBzh4BG89asIlmLiY/WniY8BojcLe9ybDVoWGD4HC
+ XN26hS90ZHY7qxp8ykPTCcib9UXgS6tbqIUjGbwRTuWrLib58t/vwTJYwX0JA42lYh1Y
+ OKwaLLBQ9RbJtdMvZuZtaW4/ZMZmq35o9+gWmHxX6mzoY4YpetbbNLfwU2BlTH2IjhBT
+ PV6xAbpdbzz7fle0O14Ive0WygXUETcr89a8SmYEXMim9B4Eb6BTQ9PM4lXBWg51kDny
+ nlfmjfPneVtyl9/gbEBw5s+7YOe4svJ3n4QAErKMCAJ5OOiVOCzzJjzu7rZUlIov2nrl
+ x6JQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXRHPHdRHWJ7DfUqYqKqbYuxUun5i6ZUbtil+KepuI/5+BeRZATmgIw+YN1Y5gkvdfj7fnXJYZt5LE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwltEy+3Lzmm6IEIfSqshpK2taCXILO4qjFF0wy71RJsWFOxFSz
+ LZOkiyNCA7PgBE8UBvBIiKpCmfCFH2AWzpLHxVDl/O70Ym6gKv8sJdzOqvJhk6zPb9UgBuzZnRK
+ 3JNMX/dZBHEX5SODC3AOem49XUnc=
+X-Google-Smtp-Source: AGHT+IHYNVJlfW4M0RA04mRZlU54bsrTqTyql/PhULJZPP4lJcsVkBp3FxDhhrl+AlOGnl0NFdP9BBkQaSASwNktjBQ=
+X-Received: by 2002:a92:c266:0:b0:3a4:e9c1:8f75 with SMTP id
+ e9e14a558f8ab-3a4ed311732mr73088995ab.24.1730142014993; Mon, 28 Oct 2024
+ 12:00:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <54dd5ec4-3254-4d32-b6be-9a7b443d216b@ursulin.net>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 28 Oct 2024 12:00:03 -0700
+Message-ID: <CAF6AEGt7k8zDHsg2Uzx9apzyQMut8XdLXMQSRNn7WArdPUV5Qw@mail.gmail.com>
+Subject: [pull] drm/msm: drm-msm-next-2024-10-28 for v6.13
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,316 +77,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 16.10.2024 09:07, Tvrtko Ursulin wrote:
-> 
-> On 15/10/2024 20:05, Adrián Larumbe wrote:
-> > Hi Tvrtko,
-> > 
-> > On 10.10.2024 10:50, Tvrtko Ursulin wrote:
-> > > 
-> > > On 09/10/2024 23:55, Adrián Larumbe wrote:
-> > > > Hi Tvrtko,
-> > > > 
-> > > > On 04.10.2024 14:41, Tvrtko Ursulin wrote:
-> > > > > 
-> > > > > Hi Adrian,
-> > > > > 
-> > > > > On 03/10/2024 00:45, Adrián Larumbe wrote:
-> > > > > > Some drivers must allocate a considerable amount of memory for bookkeeping
-> > > > > > structures and GPU's MCU-kernel shared communication regions. These are
-> > > > > > often created as a result of the invocation of the driver's ioctl()
-> > > > > > interface functions, so it is sensible to consider them as being owned by
-> > > > > > the render context associated with an open drm file.
-> > > > > > 
-> > > > > > However, at the moment drm_show_memory_stats only traverses the UM-exposed
-> > > > > > drm objects for which a handle exists. Private driver objects and memory
-> > > > > > regions, though connected to a render context, are unaccounted for in their
-> > > > > > fdinfo numbers.
-> > > > > > 
-> > > > > > Add a new drm_memory_stats 'internal' memory category.
-> > > > > > 
-> > > > > > Because deciding what constitutes an 'internal' object and where to find
-> > > > > > these are driver-dependent, calculation of this size must be done through a
-> > > > > > driver-provided function pointer, which becomes the third argument of
-> > > > > > drm_show_memory_stats. Drivers which have no interest in exposing the size
-> > > > > > of internal memory objects can keep passing NULL for unaltered behaviour.
-> > > > > > 
-> > > > > > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> > > > > > Cc: Rob Clark <robdclark@gmail.com>
-> > > > > > Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-> > > > > > Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> > > > > > ---
-> > > > > >     drivers/gpu/drm/drm_file.c              | 6 +++++-
-> > > > > >     drivers/gpu/drm/msm/msm_drv.c           | 2 +-
-> > > > > >     drivers/gpu/drm/panfrost/panfrost_drv.c | 2 +-
-> > > > > >     drivers/gpu/drm/v3d/v3d_drv.c           | 2 +-
-> > > > > >     include/drm/drm_file.h                  | 7 ++++++-
-> > > > > >     5 files changed, 14 insertions(+), 5 deletions(-)
-> > > > > > 
-> > > > > > diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> > > > > > index ad1dc638c83b..937471339c9a 100644
-> > > > > > --- a/drivers/gpu/drm/drm_file.c
-> > > > > > +++ b/drivers/gpu/drm/drm_file.c
-> > > > > > @@ -856,6 +856,7 @@ void drm_print_memory_stats(struct drm_printer *p,
-> > > > > >     	print_size(p, "total", region, stats->private + stats->shared);
-> > > > > >     	print_size(p, "shared", region, stats->shared);
-> > > > > >     	print_size(p, "active", region, stats->active);
-> > > > > > +	print_size(p, "internal", region, stats->internal);
-> > > > > >     	if (supported_status & DRM_GEM_OBJECT_RESIDENT)
-> > > > > >     		print_size(p, "resident", region, stats->resident);
-> > > > > > @@ -873,7 +874,7 @@ EXPORT_SYMBOL(drm_print_memory_stats);
-> > > > > >      * Helper to iterate over GEM objects with a handle allocated in the specified
-> > > > > >      * file.
-> > > > > >      */
-> > > > > > -void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
-> > > > > > +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file, internal_bos func)
-> > > > > >     {
-> > > > > >     	struct drm_gem_object *obj;
-> > > > > >     	struct drm_memory_stats status = {};
-> > > > > > @@ -919,6 +920,9 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
-> > > > > >     	}
-> > > > > >     	spin_unlock(&file->table_lock);
-> > > > > > +	if (func)
-> > > > > > +		func(&status, file);
-> > > > > > +
-> > > > > >     	drm_print_memory_stats(p, &status, supported_status, "memory");
-> > > > > >     }
-> > > > > >     EXPORT_SYMBOL(drm_show_memory_stats);
-> > > > > > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> > > > > > index edbc1ab0fbc8..2b3feb79afc4 100644
-> > > > > > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > > > > > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > > > > > @@ -880,7 +880,7 @@ static void msm_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-> > > > > >     	msm_gpu_show_fdinfo(priv->gpu, file->driver_priv, p);
-> > > > > > -	drm_show_memory_stats(p, file);
-> > > > > > +	drm_show_memory_stats(p, file, NULL);
-> > > > > >     }
-> > > > > >     static const struct file_operations fops = {
-> > > > > > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > > > > > index 04d615df5259..aaa8602bf00d 100644
-> > > > > > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > > > > > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > > > > > @@ -609,7 +609,7 @@ static void panfrost_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-> > > > > >     	panfrost_gpu_show_fdinfo(pfdev, file->driver_priv, p);
-> > > > > > -	drm_show_memory_stats(p, file);
-> > > > > > +	drm_show_memory_stats(p, file, NULL);
-> > > > > >     }
-> > > > > >     static const struct file_operations panfrost_drm_driver_fops = {
-> > > > > > diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
-> > > > > > index fb35c5c3f1a7..314e77c67972 100644
-> > > > > > --- a/drivers/gpu/drm/v3d/v3d_drv.c
-> > > > > > +++ b/drivers/gpu/drm/v3d/v3d_drv.c
-> > > > > > @@ -195,7 +195,7 @@ static void v3d_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-> > > > > >     			   v3d_queue_to_string(queue), jobs_completed);
-> > > > > >     	}
-> > > > > > -	drm_show_memory_stats(p, file);
-> > > > > > +	drm_show_memory_stats(p, file, NULL);
-> > > > > >     }
-> > > > > >     static const struct file_operations v3d_drm_fops = {
-> > > > > > diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> > > > > > index 8c0030c77308..661d00d5350e 100644
-> > > > > > --- a/include/drm/drm_file.h
-> > > > > > +++ b/include/drm/drm_file.h
-> > > > > > @@ -469,6 +469,7 @@ void drm_send_event_timestamp_locked(struct drm_device *dev,
-> > > > > >      * @resident: Total size of GEM objects backing pages
-> > > > > >      * @purgeable: Total size of GEM objects that can be purged (resident and not active)
-> > > > > >      * @active: Total size of GEM objects active on one or more engines
-> > > > > > + * @internal: Total size of GEM objects that aren't exposed to user space
-> > > > > >      *
-> > > > > >      * Used by drm_print_memory_stats()
-> > > > > >      */
-> > > > > > @@ -478,16 +479,20 @@ struct drm_memory_stats {
-> > > > > >     	u64 resident;
-> > > > > >     	u64 purgeable;
-> > > > > >     	u64 active;
-> > > > > > +	u64 internal;
-> > > > > 
-> > > > > So equally as in the last round of discussion back in June, internal in my
-> > > > > mind still does not fit alongside the categories.
-> > > > > 
-> > > > > Reason is that in some drivers, at least such as i915, "internal" can be:
-> > > > > 
-> > > > > a) Backed by either system memory or device memory - so this does not provice
-> > > > > that visibility;
-> > > > > 
-> > > > > b) They can also be resident or not, active or not, etc - so from that angle
-> > > > > it also does not fit.
-> > > > > 
-> > > > > Do you lose anything if you add the internal objects into their respective
-> > > > > regions and under the existing categories? Like do you have an use case in
-> > > > > mind which needs to be able to distinguish between userspace and internal, or
-> > > > > the problem simply is internal are unaccounted for?
-> > > > 
-> > > > The main use case we have in mind is exposing the size of driver buffer
-> > > > allocations that are triggered in respone to an ioctl(), and so linked to an
-> > > 
-> > > Most of this and below is old and clear - but to this specific point - so you
-> > > do have an use case which specifically wants to know about the internal
-> > > allocations separately from the rest? Could you describe what it is?
-> 
-> What about this?
+Hi Dave, Simona,
 
-I think the most obvious case would be accounting the size of tiler heap chunks. These
-are created as a response to OOM events when the device's tiling engine runs out of
-scratch space. Even though tiler heap growth events are kicked by the scheduler, they
-are bound to the DRM context for which the heap had first been created. We would like
-to keep a separate count of the size of these objects, together with the ones I described
-in the commit messages and before on this thread.
+This is the main pull for v6.13.  Further description below.
 
-> > > > open file. I gave a summary of what these could be in the patch description, but
-> > > > in Panthor's case all these allocations are done with drm shmem functions
-> > > > because it makes it easier to retrieve the sgtable that gives us their system
-> > > > memory layout so that we can more easily map them onto the MMU's address space
-> > > > for a Pantor VM. These BO's, though managed by the drm shmem API, are never
-> > > > added to the open file list of user-exposed drm objects but we would still like
-> > > > to tell UM how much memory they take up.
-> > > > 
-> > > > In the case of Panthor, they all add into the resident tally because all these
-> > > > internal BO's are immediately pinned so that they can also be accessed by the
-> > > > HW, but it doesn't have to be so for other drivers which might also keep track
-> > > > of similar allocations.
-> > > > 
-> > > > I think maybe naming that tag as 'internal' is a bit of a misnomer and I could
-> > > > pick one that more accurately represents its meaning? Something like 'file-internal'
-> > > > or else 'file-private'.
-> > > > 
-> > > > Regarding a), I don't think where the allocations happen (system or device memory)
-> > > > is relevant in this case, just that the allocations are tied to an open file, but
-> > > > not exposed to UM through a DRM buffer object handle.
-> > > 
-> > > On this last paragraph - right.. I possibly got confused on a). Which is why I
-> > > always say it is good to include example output at least in the cover letter,
-> > > if not the commit message.
-> > > 
-> > > How would it look on this driver?
-> > > 
-> > > drm-total-$what: ..
-> > > drm-resident-$what: ..
-> > > drm-internal-$what: ...
-> > 
-> > In the case of Panthor, it would look like this:
-> > 
-> > drm-driver:     panthor
-> > drm-client-id:  3
-> > drm-engine-panthor:     611046570346 ns
-> > drm-cycles-panthor:     1172733302061
-> > drm-maxfreq-panthor:    1000000000 Hz
-> > drm-curfreq-panthor:    1000000000 Hz
-> > drm-total-memory:       16480 KiB
-> > drm-shared-memory:      0
-> > drm-active-memory:      16200 KiB
-> > drm-internal-memory:    10396 KiB
-> > drm-resident-memory:    26876 KiB
-> > drm-purgeable-memory:   0
-> > 
-> > Then in Panfrost:
-> > 
-> > drm-driver:     panfrost
-> > drm-client-id:  6
-> > drm-engine-fragment:    481941638 ns
-> > drm-cycles-fragment:    60243117
-> > drm-maxfreq-fragment:   799999987 Hz
-> > drm-curfreq-fragment:   124999998 Hz
-> > drm-engine-vertex-tiler:        55546675 ns
-> > drm-cycles-vertex-tiler:        6943796
-> > drm-maxfreq-vertex-tiler:       799999987 Hz
-> > drm-curfreq-vertex-tiler:       124999998 Hz
-> > drm-total-memory:       138420 KiB
-> > drm-shared-memory:      7200 KiB
-> > drm-active-memory:      0
-> > drm-internal-memory:    0
-> > drm-resident-memory:    2196 KiB
-> > drm-purgeable-memory:   128 KiB
-> > 
-> > 
-> > > b) still stands though in that internal can be resident or not, purgeable or
-> > > not.. Which is why I would like to know about the use case.
-> > 
-> > This is true, DRM file-internal objects or memory allocations could fall
-> > into any of these categories, and adding their sizes to the right one would
-> > be the responsibility of the function pointer passed to drm_show_memory_stats(),
-> > because that decision would have to be made on a per-driver basis.
-> 
-> It could work like that yes.
-> 
-> I only wonder if it would creating too much of the usual DRM mess of common
-> helpers and vfuncs, and vfuncs implemented via common helpers, which call
-> vfuncs, implemented by common helpers.. mental stack overflow.
-> 
-> I also need to go back to one of the early threads on fdinfo to remind myself
-> what was my counter proposal to the current design. In case it would be more
-> clearly more elegant at this point.
-> 
-> But anyway, first the core question of whether we really need the internal
-> separated out.
+The following changes since commit 9852d85ec9d492ebef56dc5f229416c925758edc:
 
-In the case of Panthor, we definitely do, or at least that's the consensus we had
-struck at Collabora. However, if there's no interest in having this generalised onto
-other drivers, then perhaps the best way forward would be keeping this drm fdinfo
-key private for Panthor, and maybe discuss whether it would make sense to expand it
-to the DRM fdinfo core in the future.    
+  Linux 6.12-rc1 (2024-09-29 15:06:19 -0700)
 
-> > > Also if you add drm-internal for any driver calling drm_print_memory_stats I
-> > > think you "break" at least i915. There internal objects are already accounted
-> > > in the existing categories. And printing out internal with zero would be very
-> > > misleading.
-> > 
-> > I wasn't aware of this. So i915 is already doing this kind of accounting for internal
-> 
-> Xe and amddgpu too, at least. So I guess the general principle when proposing
-> extensions is to have a browse around all current users.
-> 
-> > memory allocations. In that case, maybe printing of the 'drm-internal-memory' could
-> > be done conditionally when it's greater than 0 to avoid 'breaking' existing drivers,
-> > or else renaming it to 'drm-file-memory' would be seen as less invasive?
-> 
-> Skipping the print maybe yeah. Or even better a supported status flag as is
-> for resident and purgeable. But first the discussion on justifying internal as
-> a separate thing.
-> 
-> > I'm asking this because if, at the end of the day, making this change part of the
-> > drm fdinfo core is going to clash with existing accounting in other DRM drivers, perhaps
-> > it'd be easier to keep it Panthor-specific and add that tag together with its meaning
-> > to Documentation/gpu/panfrost.rst.
-> > 
-> > I thought about this at first, but it also struck me as something other drivers might
-> > want to do in the future in a sort of unified way, since internal allocations happening
-> > in response to an ioctl() is a common thing.
-> 
-> I agree internal allocations should generally be accounted. Question is does
-> it need to be separately.
-> 
-> Regards,
-> 
-> Tvrtko
-> 
-> > 
-> > Cheers,
-> > Adrian
-> > 
-> > > Regards,
-> > > 
-> > > Tvrtko
-> > > 
-> > > > 
-> > > > Regards,
-> > > > Adrian
-> > > > 
-> > > > > Regards,
-> > > > > 
-> > > > > Tvrtko
-> > > > > 
-> > > > > >     };
-> > > > > >     enum drm_gem_object_status;
-> > > > > > +typedef void (*internal_bos)(struct drm_memory_stats *status,
-> > > > > > +			     struct drm_file *file);
-> > > > > > +
-> > > > > >     void drm_print_memory_stats(struct drm_printer *p,
-> > > > > >     			    const struct drm_memory_stats *stats,
-> > > > > >     			    enum drm_gem_object_status supported_status,
-> > > > > >     			    const char *region);
-> > > > > > -void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file);
-> > > > > > +void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file, internal_bos func);
-> > > > > >     void drm_show_fdinfo(struct seq_file *m, struct file *f);
-> > > > > >     struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flags);
+are available in the Git repository at:
 
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-next-2024-10-28
+
+for you to fetch changes up to d6d1ad32d00714ecf9f1996173c6f98e43c5b022:
+
+  drm/msm/a6xx: Fix excessive stack usage (2024-10-28 09:31:33 -0700)
+
+----------------------------------------------------------------
+Updates for v6.13
+
+Core:
+- Switch to aperture_remove_all_conflicting_devices()
+- Simplify msm_disp_state_dump_regs()
+
+DPU:
+- Add SA8775P support
+- Add (disabled by default) MSM8917, MSM8937, MSM8953 and MSM8996
+  support
+- Enable support for larger framebuffers (required for X.Org working
+  with several outputs)
+- Dropped LM_3, LM_4 (MSM8998, SDM845)
+- Fixed DSPP_3 routing on SDM845
+
+DP:
+- Add SA8775P support
+
+HDMI:
+- Mark two arrays as const in MSM8998 HDMI PHY driver
+
+GPU:
+- a7xx preemption support
+- Adreno A663 support
+- Typos fixes, etc
+- Fix excessive stack usage in a6xx GMU
+
+----------------------------------------------------------------
+Akhil P Oommen (1):
+      drm/msm/a6xx: Fix excessive stack usage
+
+Antonino Maniscalco (12):
+      drm/msm: Fix bv_fence being used as bv_rptr
+      drm/msm/a6xx: Track current_ctx_seqno per ring
+      drm/msm: Add a `preempt_record_size` field
+      drm/msm: Add CONTEXT_SWITCH_CNTL bitfields
+      drm/msm/a6xx: Add a pwrup_list field to a6xx_info
+      drm/msm/a6xx: Implement preemption for a7xx targets
+      drm/msm/a6xx: Sync relevant adreno_pm4.xml changes
+      drm/msm/a6xx: Use posamble to reset counters on preemption
+      drm/msm/a6xx: Add traces for preemption
+      drm/msm/a6xx: Add a flag to allow preemption to submitqueue_create
+      drm/msm/a6xx: Enable preemption for tested a7xx targets
+      Documentation: document adreno preemption
+
+Colin Ian King (1):
+      drm/msm8998: make const arrays ratio_list and band_list static
+
+Dmitry Baryshkov (22):
+      drm/msm/dpu: make sure phys resources are properly initialized
+      drm/msm/dpu: move CRTC resource assignment to
+dpu_encoder_virt_atomic_check
+      drm/msm/dpu: check for overflow in _dpu_crtc_setup_lm_bounds()
+      drm/msm/hdmi: drop pll_cmp_to_fdata from hdmi_phy_8998
+      drm/msm/dpu: Add support for MSM8953
+      drm/msm/dpu: Add support for MSM8937
+      drm/msm/dpu: Add support for MSM8917
+      drm/msm/dpu: on SDM845 move DSPP_3 to LM_5 block
+      drm/msm/dpu: drop LM_3 / LM_4 on SDM845
+      drm/msm/dpu: drop LM_3 / LM_4 on MSM8998
+      drm/msm/dpu: drop dpu_format_check_modified_format
+      drm/msm/dpu: drop dpu_format_populate_layout from
+dpu_plane_sspp_atomic_update
+      drm/msm/dpu: drop extra aspace checks in dpu_formats
+      drm/msm/dpu: drop msm_format from struct dpu_hw_fmt_layout
+      drm/msm/dpu: pass drm_framebuffer to _dpu_format_get_plane_sizes()
+      drm/msm/dpu: move pitch check to _dpu_format_get_plane_sizes_linear()
+      drm/msm/dpu: split dpu_format_populate_layout
+      drm/msm/dpu: make dpu_format_populate_addrs return void
+      drm/msm/dpu: move layout setup population out of dpu_plane_prepare_fb()
+      drm/msm/dpu: check for the plane pitch overflow
+      drm/msm/dpu: merge MAX_IMG_WIDTH/HEIGHT with DPU_MAX_IMG_WIDTH/HEIGHT
+      drm/msm/dpu: sync mode_config limits to the FB limits in dpu_plane.c
+
+Douglas Anderson (3):
+      drm/msm: Avoid NULL dereference in msm_disp_state_print_regs()
+      drm/msm: Allocate memory for disp snapshot with kvzalloc()
+      drm/msm: Simplify NULL checking in msm_disp_state_dump_regs()
+
+Everest K.C. (1):
+      drm/msm/a6xx: Remove logically deadcode in a6xx_preempt.c
+
+Jessica Zhang (2):
+      drm/msm/dpu: Don't always set merge_3d pending flush
+      drm/msm/dpu: don't always program merge_3d block
+
+Jinjie Ruan (1):
+      drm/msm/adreno: Use IRQF_NO_AUTOEN flag in request_irq()
+
+Jonathan Marek (2):
+      drm/msm/dsi: improve/fix dsc pclk calculation
+      drm/msm/dsi: fix 32-bit signed integer extension in pclk_rate calculation
+
+Konrad Dybcio (1):
+      drm/msm/dpu: Add support for MSM8996
+
+Krzysztof Kozlowski (5):
+      dt-bindings: display/msm: merge SC8280XP DPU into SC7280
+      dt-bindings: display/msm: merge SM8250 DPU into SM8150
+      dt-bindings: display/msm: merge SM8350 DPU into SC7280
+      dt-bindings: display/msm: merge SM8450 DPU into SC7280
+      dt-bindings: display/msm: merge SM8550 DPU into SC7280
+
+Lukasz Luba (1):
+      drm/msm/gpu: Check the status of registration to PM QoS
+
+Mahadevan (4):
+      dt-bindings: display/msm: Document MDSS on SA8775P
+      dt-bindings: display/msm: Document the DPU for SA8775P
+      drm/msm: mdss: Add SA8775P support
+      drm/msm/dpu: Add SA8775P support
+
+Puranam V G Tejaswi (2):
+      drm/msm/a6xx: Add support for A663
+      dt-bindings: display/msm/gmu: Add Adreno 663 GMU
+
+Rob Clark (2):
+      drm/msm/a6xx+: Insert a fence wait before SMMU table update
+      Merge branch 'msm-fixes' into msm-next
+
+Shen Lichuan (1):
+      drm/msm: Fix some typos in comment
+
+Soutrik Mukhopadhyay (2):
+      dt-bindings: display: msm: dp-controller: document SA8775P compatible
+      drm/msm/dp: Add DisplayPort controller for SA8775P
+
+Thomas Zimmermann (1):
+      drm/msm: Use video aperture helpers
+
+Yang Li (1):
+      drm/msm: Remove unneeded semicolon
+
+ .../bindings/display/msm/dp-controller.yaml        |   1 +
+ .../devicetree/bindings/display/msm/gmu.yaml       |   1 +
+ .../bindings/display/msm/qcom,sa8775p-mdss.yaml    | 241 ++++++++++
+ .../bindings/display/msm/qcom,sc7280-dpu.yaml      |  10 +-
+ .../bindings/display/msm/qcom,sc8280xp-dpu.yaml    | 122 ------
+ .../bindings/display/msm/qcom,sm8150-dpu.yaml      |   4 +-
+ .../bindings/display/msm/qcom,sm8250-dpu.yaml      |  99 -----
+ .../bindings/display/msm/qcom,sm8350-dpu.yaml      | 120 -----
+ .../bindings/display/msm/qcom,sm8450-dpu.yaml      | 139 ------
+ .../bindings/display/msm/qcom,sm8550-dpu.yaml      | 133 ------
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   1 +
+ Documentation/gpu/msm-preemption.rst               |  99 +++++
+ drivers/gpu/drm/msm/Makefile                       |   1 +
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c              |   2 +-
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c              |   2 +-
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c              |   2 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c              |   6 +-
+ drivers/gpu/drm/msm/adreno/a5xx_power.c            |   2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |  61 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |   1 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              | 262 +++++++++--
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              | 170 ++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c              |  67 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_preempt.c          | 456 +++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_device.c         |   4 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c            |   2 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  27 +-
+ .../drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h   | 210 +++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h   | 187 ++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h   | 218 +++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h    | 338 ++++++++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |  12 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h |  14 +-
+ .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    | 485 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  34 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  68 +--
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   7 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  42 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        | 243 ++++-------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h        |  30 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 109 +++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   9 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   2 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h        |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h          |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  15 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |  50 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h          |   3 +
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c  |  36 +-
+ drivers/gpu/drm/msm/dp/dp_display.c                |   9 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |   4 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c           |  16 +-
+ drivers/gpu/drm/msm/msm_drv.c                      |   4 +
+ drivers/gpu/drm/msm/msm_gpu.c                      |   2 +-
+ drivers/gpu/drm/msm/msm_gpu.h                      |  11 -
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c              |   9 +-
+ drivers/gpu/drm/msm/msm_gpu_trace.h                |  28 ++
+ drivers/gpu/drm/msm/msm_kms.c                      |   4 +-
+ drivers/gpu/drm/msm/msm_kms.h                      |   6 -
+ drivers/gpu/drm/msm/msm_mdss.c                     |  11 +
+ drivers/gpu/drm/msm/msm_ringbuffer.c               |   2 +-
+ drivers/gpu/drm/msm/msm_ringbuffer.h               |  18 +
+ drivers/gpu/drm/msm/msm_submitqueue.c              |   7 +
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml      |   7 +-
+ .../gpu/drm/msm/registers/adreno/adreno_pm4.xml    |  39 +-
+ include/uapi/drm/msm_drm.h                         |   5 +-
+ 68 files changed, 3275 insertions(+), 1067 deletions(-)
+ create mode 100644
+Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+ delete mode 100644
+Documentation/devicetree/bindings/display/msm/qcom,sc8280xp-dpu.yaml
+ delete mode 100644
+Documentation/devicetree/bindings/display/msm/qcom,sm8250-dpu.yaml
+ delete mode 100644
+Documentation/devicetree/bindings/display/msm/qcom,sm8350-dpu.yaml
+ delete mode 100644
+Documentation/devicetree/bindings/display/msm/qcom,sm8450-dpu.yaml
+ delete mode 100644
+Documentation/devicetree/bindings/display/msm/qcom,sm8550-dpu.yaml
+ create mode 100644 Documentation/gpu/msm-preemption.rst
+ create mode 100644 drivers/gpu/drm/msm/adreno/a6xx_preempt.c
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
