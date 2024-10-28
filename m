@@ -2,81 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 176A59B2A27
-	for <lists+freedreno@lfdr.de>; Mon, 28 Oct 2024 09:26:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D2D9B2BFF
+	for <lists+freedreno@lfdr.de>; Mon, 28 Oct 2024 10:52:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5B6610E36C;
-	Mon, 28 Oct 2024 08:26:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E0DF10E451;
+	Mon, 28 Oct 2024 09:52:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Un9BB11t";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="iS3C3XX8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6479110E222
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 08:26:35 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-539f4d8ef84so4496643e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 01:26:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1730103993; x=1730708793; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=BITs+5gpronmacO+fw89Zra8b9FvogOeRWU3QBgDY7o=;
- b=Un9BB11tn2YWyMr9WWFPJwuOO9W/AW9kfulWMpQze6rmlG128bo/QbDWSMn3K5QuwC
- bS1Z2/v/LBNiRTh28erORhAWo1LE3QVVIgsFz9mpu0Wl+qVtLErA7TVffCXrWP36IoZI
- QfRUlA4faro0EsZcNtSaCuTV75aicNJ0+OU9Q47axg6qTGFd8QCgy1ArsS7FyKn5FIYQ
- HtIp0QYxrwCj0gnoDQHk3mUqxwGe015c1dfmaI8R9GMYlc2vxwrC5lX11y/QUhRrrPlD
- e7FK9dtzwXsokv4sph0fiA/YDN2j4oRk7HmpJoAYfrD2cNALCBbi2GQpXYughjrApcM8
- xkFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730103993; x=1730708793;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BITs+5gpronmacO+fw89Zra8b9FvogOeRWU3QBgDY7o=;
- b=XChMX20OAn4rnW/JDm/jrquHlxi8Cbpfybq4vDiRZMAu8Mb4aKt/Z8LaXf2xxlktu5
- BDqoiXyIIx55qpn57JQXy//uefX1OCEcLHuNgGPlnqlhYm57QJZkSQpokKvnv2m61BDb
- oaQlvcIK2CNPCEPqhm581FjiAAo38zApQJR1eNFg7/DdZlc9A7Y0iGJl+iIaTLZ5sYf7
- ZC/srQfbvcK3Xp+NyV+ONTFWrpigCDZSXG53lj3eHp7EnNauORjEOabL+ygY48fqY0Rb
- 0splMnGScjyAfsQ/d2mhBeBAmYoJVdeq4OAv1WlTzNIbIHxXTRnK7af3OenzxXe23MGj
- FuNA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUQC6LoVPpsT4vNuV1m6j/wq/3pICKIZNl9FMEIVVQdyh4YuqJ+MqDWfk6OHTQ9xKrEGa1BLK2LBG4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzL1gjqzefCLeoLW7sl3uoGuODRKpomrMMzFyfRf15lsOuNr4vh
- RpCH0WWCUAa2AZ+7V2PHaLVXu8SQTHPbejYeDxQ2Nbaqskvt+CeIza52QZE/UpU=
-X-Google-Smtp-Source: AGHT+IE24xL8D3SXnXtqdBNqbz4ZSjA3URQxIZeML7v4SXR3TQncXvcqFR43I8ZLRP9xsv6pszixKg==
-X-Received: by 2002:a05:6512:1189:b0:539:ec87:bc7f with SMTP id
- 2adb3069b0e04-53b348d63ddmr2953106e87.19.1730103993172; 
- Mon, 28 Oct 2024 01:26:33 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53b2e10a47asm998715e87.1.2024.10.28.01.26.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Oct 2024 01:26:32 -0700 (PDT)
-Date: Mon, 28 Oct 2024 10:26:31 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [PATCH] drm/msm/a6xx: Fix excessive stack usage
-Message-ID: <j2qapo66f64y7ddqlu63dqvog2fdbhnaq3t24wp2srvdt4v7xl@fyqu4ry4wmts>
-References: <20241027-stack-size-fix-v1-1-764e2e3566cb@quicinc.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 316F010E454;
+ Mon, 28 Oct 2024 09:52:53 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49RMuLuk022812;
+ Mon, 28 Oct 2024 09:52:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ UkTxf4gaD036X0C6z7xJty9Jiq0rYK5X0z2wJjj4Rhs=; b=iS3C3XX8BTpl06zk
+ 0o5qPYFsIRWeMvJp2fGsw24Za5j+LO3Y3y8t0BQGsJ/gAFZl/sQqHo4/vLW8gUYB
+ pAGev9niTlTnBNuhe3EkDr1nRCS+MyT03owpE2QGVAgCytyugPLxUFVZ1ntnr3JP
+ 2axj+zGnYwfDZ/XqG94yAzTH2QNsV5Q5/50HsAzRLpxby4ErA+BSxGOtL27dq05M
+ GC1Af5fxrtA05YsLzgYvpJxzgpDy9WYXjP+KNcDn+c1BEvihwl3YN9POzBQuAgcY
+ Qvy4UvqjkLaGpe3bT2ywBlLt2iLgJcMPeV3Xpdy+q+yoXsoH1raFfo4LQvcA835h
+ y3Fk+Q==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42gqe5vd7b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 28 Oct 2024 09:52:44 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49S9qg0d025032
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 28 Oct 2024 09:52:42 GMT
+Received: from [10.216.3.65] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 28 Oct
+ 2024 02:52:37 -0700
+Message-ID: <6b7c2ae7-3210-4d57-a7b0-2efea594b2b9@quicinc.com>
+Date: Mon, 28 Oct 2024 15:22:35 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241027-stack-size-fix-v1-1-764e2e3566cb@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/a6xx: Fix excessive stack usage
+To: Arnd Bergmann <arnd@kernel.org>, Rob Clark <robdclark@gmail.com>, "Sean
+ Paul" <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, Abhinav
+ Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Dave Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>, Nick
+ Desaulniers <ndesaulniers@google.com>, "Bill Wendling" <morbo@google.com>,
+ Justin Stitt <justinstitt@google.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <llvm@lists.linux.dev>
+References: <20241027-stack-size-fix-v1-1-764e2e3566cb@quicinc.com>
+ <3fb376b3-2db7-4730-a2e1-958f1ddd9f5c@app.fastmail.com>
+Content-Language: en-US
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <3fb376b3-2db7-4730-a2e1-958f1ddd9f5c@app.fastmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: RLGzJP7jIKKYA0-T9wAJAa24yIyjvz53
+X-Proofpoint-ORIG-GUID: RLGzJP7jIKKYA0-T9wAJAa24yIyjvz53
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0
+ phishscore=0 bulkscore=0 mlxlogscore=999 malwarescore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 mlxscore=0 clxscore=1015
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410280080
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,114 +98,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Oct 27, 2024 at 11:35:47PM +0530, Akhil P Oommen wrote:
-> Clang-19 and above sometimes end up with multiple copies of the large
-> a6xx_hfi_msg_bw_table structure on the stack. The problem is that
-> a6xx_hfi_send_bw_table() calls a number of device specific functions to
-> fill the structure, but these create another copy of the structure on
-> the stack which gets copied to the first.
+On 10/28/2024 12:13 AM, Arnd Bergmann wrote:
+> On Sun, Oct 27, 2024, at 18:05, Akhil P Oommen wrote:
+>> Clang-19 and above sometimes end up with multiple copies of the large
+>> a6xx_hfi_msg_bw_table structure on the stack. The problem is that
+>> a6xx_hfi_send_bw_table() calls a number of device specific functions to
+>> fill the structure, but these create another copy of the structure on
+>> the stack which gets copied to the first.
+>>
+>> If the functions get inlined, that busts the warning limit:
+>>
+>> drivers/gpu/drm/msm/adreno/a6xx_hfi.c:631:12: error: stack frame size 
+>> (1032) exceeds limit (1024) in 'a6xx_hfi_send_bw_table' 
+>> [-Werror,-Wframe-larger-than]
+>>
+>> Fix this by kmalloc-ating struct a6xx_hfi_msg_bw_table instead of using
+>> the stack. Also, use this opportunity to skip re-initializing this table
+>> to optimize gpu wake up latency.
+>>
+>> Cc: Arnd Bergmann <arnd@kernel.org>
 > 
-> If the functions get inlined, that busts the warning limit:
-> 
-> drivers/gpu/drm/msm/adreno/a6xx_hfi.c:631:12: error: stack frame size (1032) exceeds limit (1024) in 'a6xx_hfi_send_bw_table' [-Werror,-Wframe-larger-than]
-> 
-> Fix this by kmalloc-ating struct a6xx_hfi_msg_bw_table instead of using
-> the stack. Also, use this opportunity to skip re-initializing this table
-> to optimize gpu wake up latency.
-> 
-> Cc: Arnd Bergmann <arnd@kernel.org>
-> 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
->  drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 34 ++++++++++++++++++++++------------
->  2 files changed, 23 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> index 94b6c5cab6f4..b4a79f88ccf4 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> @@ -99,6 +99,7 @@ struct a6xx_gmu {
->  	struct completion pd_gate;
->  
->  	struct qmp *qmp;
-> +	struct a6xx_hfi_msg_bw_table *bw_table;
->  };
->  
->  static inline u32 gmu_read(struct a6xx_gmu *gmu, u32 offset)
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-> index cdb3f6e74d3e..55e51c81be1f 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-> @@ -630,32 +630,42 @@ static void a6xx_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
->  
->  static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
->  {
-> -	struct a6xx_hfi_msg_bw_table msg = { 0 };
-> +	struct a6xx_hfi_msg_bw_table *msg;
->  	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
->  	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
->  
-> +	if (gmu->bw_table)
-> +		goto send;
-> +
-> +	msg = devm_kzalloc(gmu->dev, sizeof(*msg), GFP_KERNEL);
+> Please change this to "Reported-by:"
 
-Is it necessary after being sent? Isn't it better to just kzalloc() it
-and then kfree() it at the end of the function?
+Sure.
 
-> +	if (!msg)
-> +		return -ENOMEM;
-> +
->  	if (adreno_is_a618(adreno_gpu))
-> -		a618_build_bw_table(&msg);
-> +		a618_build_bw_table(msg);
->  	else if (adreno_is_a619(adreno_gpu))
-> -		a619_build_bw_table(&msg);
-> +		a619_build_bw_table(msg);
->  	else if (adreno_is_a640_family(adreno_gpu))
-> -		a640_build_bw_table(&msg);
-> +		a640_build_bw_table(msg);
->  	else if (adreno_is_a650(adreno_gpu))
-> -		a650_build_bw_table(&msg);
-> +		a650_build_bw_table(msg);
->  	else if (adreno_is_7c3(adreno_gpu))
-> -		adreno_7c3_build_bw_table(&msg);
-> +		adreno_7c3_build_bw_table(msg);
->  	else if (adreno_is_a660(adreno_gpu))
-> -		a660_build_bw_table(&msg);
-> +		a660_build_bw_table(msg);
->  	else if (adreno_is_a690(adreno_gpu))
-> -		a690_build_bw_table(&msg);
-> +		a690_build_bw_table(msg);
->  	else if (adreno_is_a730(adreno_gpu))
-> -		a730_build_bw_table(&msg);
-> +		a730_build_bw_table(msg);
->  	else if (adreno_is_a740_family(adreno_gpu))
-> -		a740_build_bw_table(&msg);
-> +		a740_build_bw_table(msg);
->  	else
-> -		a6xx_build_bw_table(&msg);
-> +		a6xx_build_bw_table(msg);
-> +
-> +	gmu->bw_table = msg;
->  
-> -	return a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_BW_TABLE, &msg, sizeof(msg),
-> +send:
-> +	return a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_BW_TABLE, gmu->bw_table, sizeof(*(gmu->bw_table)),
->  		NULL, 0);
->  }
->  
 > 
-> ---
-> base-commit: 74c374648ed08efb2ef339656f2764c28c046956
-> change-id: 20241024-stack-size-fix-28af7abd3fab
+> The patch looks correct to me, just one idea for improvement.
 > 
-> Best regards,
-> -- 
-> Akhil P Oommen <quic_akhilpo@quicinc.com>
+>> b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+>> index 94b6c5cab6f4..b4a79f88ccf4 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+>> @@ -99,6 +99,7 @@ struct a6xx_gmu {
+>>  	struct completion pd_gate;
+>>
+>>  	struct qmp *qmp;
+>> +	struct a6xx_hfi_msg_bw_table *bw_table;
+>>  };
 > 
+> I think the bw_table is better just embedded
+> in here rather than referenced as a pointer:
+> 
+There are some low tier chipsets with relatively lower RAM size that
+doesn't require this table. So, dynamically allocating this here helps
+to save 640 bytes (minus the overhead of tracking).
 
--- 
-With best wishes
-Dmitry
+-Akhil
+
+>> +	if (gmu->bw_table)
+>> +		goto send;
+>> +
+>> +	msg = devm_kzalloc(gmu->dev, sizeof(*msg), GFP_KERNEL);
+>> +	if (!msg)
+>> +		return -ENOMEM;
+> 
+> It looked like it's always allocated here when the device
+> is up, so you can avoid the extra overhead for keeping
+> track of the allocation.
+> 
+>       Arnd
+
