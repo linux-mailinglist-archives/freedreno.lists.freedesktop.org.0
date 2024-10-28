@@ -2,112 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B7459B2EEA
-	for <lists+freedreno@lfdr.de>; Mon, 28 Oct 2024 12:32:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 135C49B2F28
+	for <lists+freedreno@lfdr.de>; Mon, 28 Oct 2024 12:49:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE3E910E47C;
-	Mon, 28 Oct 2024 11:31:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF9F910E47D;
+	Mon, 28 Oct 2024 11:49:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="O48pUA0f";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JuVUeuz4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D4E810E47B
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 11:31:57 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49SBCv4d025571
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 11:31:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Fay1WfqSR5ZfNix8IeEA2i6PepY/ruW4Izlv+/bHV0A=; b=O48pUA0fHbAHs9On
- A0j2qJbEO+quqEysLo8jMe9xmB1AaO39EC43zjrhqCmbo+KwkaN03bDuY/4kEHj5
- 0q56AdsX/T8s6epYeDPU/w1QshWLaoFh5Tj9XO1n1ExjjEjL/8kpNGXiq8GbR2HB
- vdC/Vrm+fvtqSBU1Nw37m14wASTPpKznP2Gr+863Td8RFDg9e/nEmSzbbgxxJOWW
- epA+v79Fl4OgWSfPr3h1HNAW8+qwLBV0gcEkCPqLVS/7gyZThC/Hhkd5F8HCs9fo
- PyVuYOUu9lrL9w3gozkW61DQ8CmJTBRfkUFOGwVaIz5L5smg33kYxy23LyCLk0YE
- fADK7A==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42gs6e4ng5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 11:31:56 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6cbe91571easo15369476d6.0
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 04:31:56 -0700 (PDT)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D82910E47F
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 11:49:21 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-539fbbadf83so5301791e87.0
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 04:49:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1730116159; x=1730720959; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=mb9zRgHMvMC//b1yhfiL4OPzd+wPu7HZpSZkxfRgNjA=;
+ b=JuVUeuz4AZd2UY+wz3k+uXHuYZJxq6hO/DDC0oqftIWUh+N16I3O7h+6XEDOCu7TSV
+ f9fbtvOwmNHDlDz6oZ/nMxNwiM5OCChmLYz16p+YAjI1lYBfb/6GVfP7iJkV0uTyx79c
+ 9tMVYga0JT6oRMMJCbQiH8ex/ml6ZERCFRjlegpf5HYNw7UlKXNp9X/Yh6W45w5uG95k
+ 12c5dpUA1YJVkHj2mlIW/gF1kszxhb8J5H169rwoQQdu+7wiC9n+V9jSaC4BqDujZCAm
+ C3Atrpn0rwI+tGnMt5gBOSEcEp6AGhUMpzUaLXYXRhFOKylIvva5BNbkZLrziXqY2CHq
+ MRnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730115115; x=1730719915;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Fay1WfqSR5ZfNix8IeEA2i6PepY/ruW4Izlv+/bHV0A=;
- b=Lc4y1zzOoagLLBu4Odueh77uaQi1d1qGSBA4gsMM3eIhnY03pG7yLV97Py1VA5Cty7
- 2slENSnKzE5E71M0XSYpMp9i/lF+CDvqn3Z/Dm5DYlOgiRrCkhm4Kwy7y+G0vsYRuSIo
- bXCpln2KpQB+7TvWmePcCXFZ9psQhIr3HCVn4iwcGGa0l7Sq+hLejVHuoLEK78V4TTeG
- 9qTxl6vpxuqB/Q/mKIZKIsBfgkyBGpxljzYmTQGpHVKCf3uR3IkBl9VxJmV3D8APIFHW
- ug8HiPu+3bobXLcc7Ai9sZVgkPGECunQxhMM58zjvEFHraYuUzR9ON23b46yOTHcYmZy
- 2icA==
+ d=1e100.net; s=20230601; t=1730116159; x=1730720959;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mb9zRgHMvMC//b1yhfiL4OPzd+wPu7HZpSZkxfRgNjA=;
+ b=D5Ptah2nXJDI5BHNooCkFz/1PE2U46seqvgbcjZ9qfqRP21yuhKmDfuBATk2tKydCJ
+ G2MnNMAEe4NbVpiWgwKy44xv42XpFEmrR+UH36fym77cLOy8kWYebdaWqiqJFA/HNj1q
+ nYY7+atIZFv2V/Smt//Jwke+xY0qKJBVEvGpKYT2MHTdoe1jX016B9IhzE4XDOGieWUq
+ fufo0tHq6k2F5Os1X1CQL+YtMTAGTXBYqi6Su6mQwpx+FI5a5ArMVfsVqOdFk8HSLHpX
+ +dv2zYwMdDZDzkseQJJYcdMS7gyRjGW6NKSshzalUGm6sfiaDROkmyKjNcH4UywMQHvx
+ yHRw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWWKdobi6c+cmoemv7KLEOtAQNZFdOCUynMTSNoNTNgnURXAiLA7xTh5CCQHfBCjvujjqtSokIukpc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx5vkMtaUk8IO9bCAJZILEJWlcUpp95HnxEOBgtBx9A5m3yYoyC
- juYOeuEpIfgMsBis94e5B02jHnu4TeUOQ2h3/UYhQUwcbJZQ1gJAlW8WPgBb5qjTCAIiuZo7ik0
- 6Gl2beVkeLcTt+oLFyArHLIGlUZG0W+IlLu3DJuY4XSFEAqA24Ytig3TTFr77Cf4+8Zw=
-X-Received: by 2002:a05:6214:2583:b0:6c5:3338:45d6 with SMTP id
- 6a1803df08f44-6d18583be81mr55405666d6.11.1730115114830; 
- Mon, 28 Oct 2024 04:31:54 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEkvgYqxpo2ACrB5DdSvsn7yzDd4MDBFRzTXO/ZPMds196WuLyzCIGXKaPWm/X4ux6U8JcyOw==
-X-Received: by 2002:a05:6214:2583:b0:6c5:3338:45d6 with SMTP id
- 6a1803df08f44-6d18583be81mr55405456d6.11.1730115114488; 
- Mon, 28 Oct 2024 04:31:54 -0700 (PDT)
-Received: from [192.168.212.120] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b1e0b232dsm366494766b.26.2024.10.28.04.31.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 04:31:54 -0700 (PDT)
-Message-ID: <27bea27a-9aa3-42f5-9b0a-df5744276966@oss.qualcomm.com>
-Date: Mon, 28 Oct 2024 12:31:50 +0100
+ AJvYcCUuMngDu4GE/p0Y7dJX1Q3FnAfEVsYWEW5RTNSdebHnn669lfzWvhsBF0EU4V2EP024OJh0dOmq/FY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxDlIJU0ZaPfxCgqa8Gf4AnNTqZAGpHXnk714T+R4qXRuRymG0W
+ QHSuSkbzhs9Y9YD63sQued5xQkC5jrGGcbDfdyNut3q98jLR29gukYSfhlaJlQZ2hHQUMrt+97I
+ J
+X-Google-Smtp-Source: AGHT+IEXr0XfiZcxDUh4Ya/xhi7vFzeN0peBhYX1m8G09G4UCXSdXYHWqD8Jl8qKxIXMmJy7ffIoxQ==
+X-Received: by 2002:a05:6512:10d1:b0:539:89f7:3187 with SMTP id
+ 2adb3069b0e04-53b3490eef0mr3514599e87.47.1730116159070; 
+ Mon, 28 Oct 2024 04:49:19 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-53b2e10a5c6sm1042385e87.19.2024.10.28.04.49.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Oct 2024 04:49:17 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH 0/3] drm/msm/dp: mass-rename symbols
+Date: Mon, 28 Oct 2024 13:49:13 +0200
+Message-Id: <20241028-msm-dp-rename-v1-0-a2564e9457b0@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/a6xx: Fix excessive stack usage
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
- Arnd Bergmann <arnd@kernel.org>
-References: <20241027-stack-size-fix-v1-1-764e2e3566cb@quicinc.com>
- <j2qapo66f64y7ddqlu63dqvog2fdbhnaq3t24wp2srvdt4v7xl@fyqu4ry4wmts>
- <6fea85fc-ccdc-46ec-b612-3712e9431301@quicinc.com>
- <CAA8EJpodjP3rY0Twe9sP37LWwk5ppP36dyLC9WKD6CTDOtmwzA@mail.gmail.com>
- <b7f72f38-2758-405b-abc7-60b73448d8bb@oss.qualcomm.com>
- <vtj3yahojkozge4bvq66ax2c2idbw27c3hs7l6cy3e7ucz4jqb@qge2nckj3mr4>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <vtj3yahojkozge4bvq66ax2c2idbw27c3hs7l6cy3e7ucz4jqb@qge2nckj3mr4>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 8vVy6pLDJjYF-Mvd1u5uUF79YcDG5Sgs
-X-Proofpoint-GUID: 8vVy6pLDJjYF-Mvd1u5uUF79YcDG5Sgs
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxscore=0
- priorityscore=1501 lowpriorityscore=0 mlxlogscore=999 phishscore=0
- malwarescore=0 impostorscore=0 adultscore=0 spamscore=0 suspectscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410280093
+X-B4-Tracking: v=1; b=H4sIADl6H2cC/x3MQQqAIBBG4avErBvQyYV0lWgR+Vuz0EIhgujuS
+ ctv8d5DFUVRaeweKri06pEbbN/Rui95A2toJjHirBHPqSYOJxfkJYGjAYJ3HjJYas1ZEPX+f9P
+ 8vh/QXxqbXwAAAA==
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel test robot <lkp@intel.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1883;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=Co+0E9YaF8rU9Lu8dKrUnSBVVrsUQunT/qB+81qDOac=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnH3o8ciOKjsiOAq7UqyEELQvVVIibSVOFsy8AV
+ vA8UGDvQnKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZx96PAAKCRCLPIo+Aiko
+ 1UyHB/4vtNQGsmYkJ8efgL4QqmJSOaWdlUjtPu7p/+hvN4kqK4CH5fnnTNh0R7yl+YqUaRw0ibl
+ W5lNJs1zLmuAYc3odDWsVFjC/eRTNN9AOAbntyCS7BLMhm0aBtU3nKq4TVlPIijq/CtzM2puyvd
+ LQrziQ0aIuzpjScflkArCejxnTIUNdxalWXyyuiOgwIwDofYdSg7Vlt0+R6IlFkqefTltrSqDGs
+ JKpmj7HDB4UnLLYhcfu+Eu6Xl1Rd7qMoOEPVfQlBQbLdUgQ5u2Jz0SPg13z1l8XrJtFmLmz4IEY
+ yf3OqZzOGXmHQUWl1JkVeYSQN+4mKskfUrIwo4ozW6iiDO9X
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,83 +100,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28.10.2024 11:52 AM, Dmitry Baryshkov wrote:
-> On Mon, Oct 28, 2024 at 11:36:15AM +0100, Konrad Dybcio wrote:
->> On 28.10.2024 11:27 AM, Dmitry Baryshkov wrote:
->>> On Mon, 28 Oct 2024 at 12:08, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->>>>
->>>> On 10/28/2024 1:56 PM, Dmitry Baryshkov wrote:
->>>>> On Sun, Oct 27, 2024 at 11:35:47PM +0530, Akhil P Oommen wrote:
->>>>>> Clang-19 and above sometimes end up with multiple copies of the large
->>>>>> a6xx_hfi_msg_bw_table structure on the stack. The problem is that
->>>>>> a6xx_hfi_send_bw_table() calls a number of device specific functions to
->>>>>> fill the structure, but these create another copy of the structure on
->>>>>> the stack which gets copied to the first.
->>>>>>
->>>>>> If the functions get inlined, that busts the warning limit:
->>>>>>
->>>>>> drivers/gpu/drm/msm/adreno/a6xx_hfi.c:631:12: error: stack frame size (1032) exceeds limit (1024) in 'a6xx_hfi_send_bw_table' [-Werror,-Wframe-larger-than]
->>>>>>
->>>>>> Fix this by kmalloc-ating struct a6xx_hfi_msg_bw_table instead of using
->>>>>> the stack. Also, use this opportunity to skip re-initializing this table
->>>>>> to optimize gpu wake up latency.
->>>>>>
->>>>>> Cc: Arnd Bergmann <arnd@kernel.org>
->>>>>>
->>>>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>>>>> ---
->>>>>>  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
->>>>>>  drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 34 ++++++++++++++++++++++------------
->>>>>>  2 files changed, 23 insertions(+), 12 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->>>>>> index 94b6c5cab6f4..b4a79f88ccf4 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->>>>>> @@ -99,6 +99,7 @@ struct a6xx_gmu {
->>>>>>      struct completion pd_gate;
->>>>>>
->>>>>>      struct qmp *qmp;
->>>>>> +    struct a6xx_hfi_msg_bw_table *bw_table;
->>>>>>  };
->>>>>>
->>>>>>  static inline u32 gmu_read(struct a6xx_gmu *gmu, u32 offset)
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
->>>>>> index cdb3f6e74d3e..55e51c81be1f 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
->>>>>> @@ -630,32 +630,42 @@ static void a6xx_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
->>>>>>
->>>>>>  static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
->>>>>>  {
->>>>>> -    struct a6xx_hfi_msg_bw_table msg = { 0 };
->>>>>> +    struct a6xx_hfi_msg_bw_table *msg;
->>>>>>      struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
->>>>>>      struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
->>>>>>
->>>>>> +    if (gmu->bw_table)
->>>>>> +            goto send;
->>>>>> +
->>>>>> +    msg = devm_kzalloc(gmu->dev, sizeof(*msg), GFP_KERNEL);
->>>>>
->>>>> Is it necessary after being sent? Isn't it better to just kzalloc() it
->>>>> and then kfree() it at the end of the function?
->>>>
->>>> Keeping it around will help to cut down unnecessary work during
->>>> subsequent gpu wake ups.
->>>
->>> Then, I'd say, it is better to make it a part of the a6xx_gpu struct.
->>
->> I think a6xx_gmu makes more logical sense here.
->>
->> FWIW, the driver allocates both _gmu and _gpu for all GPUs regardless
-> 
-> Hmm, are we expected to handle / perform BW requests in case of GMU-less
-> devices?
+The LKP reported [1] a symbol clash between the drm/msm/dp and the HIMBC
+driver being sumbitted, because both of them use a generic dp_ prefix
+for a lot of symbols. It's a hight time we made msm/dp driver use
+something less generic, like msm_dp.
 
-opp-table does that for us
+[1] https://lore.kernel.org/oe-kbuild-all/202410250305.UHKDhtxy-lkp@intel.com/
 
-In case of no gmu ("gmu wrapper"), Linux is the only entity that controls
-things
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (3):
+      drm/msm/dp: prefix all symbols with msm_dp_
+      drm/msm/dp: rename edp_ bridge functions and struct
+      drm/msm/dp: tidy up platform data names
 
-Konrad
+ drivers/gpu/drm/msm/dp/dp_audio.c   | 294 ++++++------
+ drivers/gpu/drm/msm/dp/dp_audio.h   |  38 +-
+ drivers/gpu/drm/msm/dp/dp_aux.c     | 148 +++---
+ drivers/gpu/drm/msm/dp/dp_aux.h     |  18 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 734 ++++++++++++++---------------
+ drivers/gpu/drm/msm/dp/dp_catalog.h | 118 ++---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 482 +++++++++----------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |  40 +-
+ drivers/gpu/drm/msm/dp/dp_debug.c   |  68 +--
+ drivers/gpu/drm/msm/dp/dp_debug.h   |  10 +-
+ drivers/gpu/drm/msm/dp/dp_display.c | 904 ++++++++++++++++++------------------
+ drivers/gpu/drm/msm/dp/dp_display.h |  18 +-
+ drivers/gpu/drm/msm/dp/dp_drm.c     | 142 +++---
+ drivers/gpu/drm/msm/dp/dp_drm.h     |  22 +-
+ drivers/gpu/drm/msm/dp/dp_link.c    | 432 ++++++++---------
+ drivers/gpu/drm/msm/dp/dp_link.h    |  44 +-
+ drivers/gpu/drm/msm/dp/dp_panel.c   | 254 +++++-----
+ drivers/gpu/drm/msm/dp/dp_panel.h   |  42 +-
+ drivers/gpu/drm/msm/dp/dp_utils.c   |  20 +-
+ drivers/gpu/drm/msm/dp/dp_utils.h   |   8 +-
+ 20 files changed, 1918 insertions(+), 1918 deletions(-)
+---
+base-commit: dec9255a128e19c5fcc3bdb18175d78094cc624d
+change-id: 20241028-msm-dp-rename-f0eed848e231
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
