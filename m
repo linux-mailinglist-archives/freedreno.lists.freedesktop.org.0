@@ -2,109 +2,107 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FE7F9B2CFB
-	for <lists+freedreno@lfdr.de>; Mon, 28 Oct 2024 11:36:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD1C29B2D08
+	for <lists+freedreno@lfdr.de>; Mon, 28 Oct 2024 11:39:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D517110E461;
-	Mon, 28 Oct 2024 10:36:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4420610E46B;
+	Mon, 28 Oct 2024 10:39:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aFJMbP0C";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kUlXvH7R";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 119A810E461
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 10:36:22 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49RNT9qV025685
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 10:36:21 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E82E10E46B
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 10:39:21 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49RNRXhP008963
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 10:39:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- CH7JmnR4WoQC2OKYDorurQUr/WQqgAw1HO8xagcwjXY=; b=aFJMbP0Cfbwg1eTB
- G+c2VR8vLJLLVh3VXrzSwfBSQFbRRT5WNS/e6H+4Q44FmYNlgwad1A0Uj9nLJA6r
- JkJKukgPK5Qxpwpr2Df9on9/Vdk+ZmPB3XlvJ6jK+DpirQZL5QVawST2MasqCp/H
- WqjijgUc6vXxqqsL1hE7TkjWkpS4zT8z4tHKOyTNQM40oKPS9HVLomUQZF1Z9Xh7
- RB0Ivl7FgIQYMLece03yZBTfrVdaU1oRIujXdYbZSskexk3FdKGxYOwnPb4A55oY
- YkytiJ/EKtdca6Uduf9pxQJ6AygMgd6yBVfNVZnkPXsrZGWChugsXuc7MsXmq1eZ
- eQg8zA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42grn4vjvf-1
+ IvU7ZlrjHkB3EzPLVjXtJ5AQLhmlFJL/Cm51xZ+jJsU=; b=kUlXvH7ROgF8wWpO
+ BLdgBIYYnFUd5HTp+kThsGnuyDXxXxavDPKSyGEh9/btwaKgZEOyw3GTHsGsMIrE
+ qzumdr8gDR5BdMZqg39AiF4gaz7mkJmJ7xvck4zxltVHmIaktSSmgvRoQs10YqsR
+ ikOt5aOBMYoc+hIqATR9RJZMNcd5IG/5KuNmUqYbw6Mp4jgn/hUlRsz3caQ2WjHT
+ D7sRKonzvDJaTCKjRVtoFrCqB6Oh+ixRlZH1oi2nO3v0NmNuPEkAjFEKq5SK7GVa
+ vnHGRHvxUqVTEsdJzZ3f2gsBFW4kLnVKjba+/uDzpqd2cMneRkY5Js2wUiA6sQVZ
+ EdefOg==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42grguchtm-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 10:36:21 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-6cbe6e6bcf2so14292216d6.2
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 03:36:20 -0700 (PDT)
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 10:39:20 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-6cc290898adso11449006d6.0
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 03:39:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730111780; x=1730716580;
+ d=1e100.net; s=20230601; t=1730111959; x=1730716759;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=CH7JmnR4WoQC2OKYDorurQUr/WQqgAw1HO8xagcwjXY=;
- b=s+v7CxaMGoN034g0pB+XOLQnsuLYsoFtcEAeU6WqF2+0JBHu7x2KbU9vYgooY2AFiM
- nziS6D4FydwuAsXb/gz/XCur2h7ToiDhpCP4xHRyhxZ2trDeb8/7M4eMAvNc7rYEdfvt
- kLqrqdd3KELoeebddVEWAi3Pca89Zo3NTaBVegVr5lYpKKTcbqU/ikb9cri69D88LPNC
- yfDl87ft8DytutR+fP25IfOyHQHagXImFBVvKcetLVgvKEFxY9ENYNFjKZhFPbBTmrup
- xFjdlYEPoEHSRuW0NeWlzQBofcdD9BMCR7soQUbj7ciXjsbo9afFF7i2dTtz5TQLDVKF
- HAzw==
+ bh=IvU7ZlrjHkB3EzPLVjXtJ5AQLhmlFJL/Cm51xZ+jJsU=;
+ b=gQVoYVdJo9dHhcDUxeS+hf5QiEz8148JH91fTJe4qbsx8CumekQ7WU2KVzo0/KlKjG
+ L3zmrB+xeHcjKNFZIXXT1f1rcHl3t9/2yLa2qIb9ZRoW2qeeEbwhccCU3GPFHU4rj5nm
+ vUrxtdYVOdQTYv2VwwTbOwlL/Wv/xnoED/nqJ0tG1zhCmiw58IOr8CLLhtrasxoaYuQY
+ L26LxV2X0i83b3VJ2G8tmaatENh1JtGJ34XABuj3tSHV5K6w9OY/eegvExq0l0XnGT7/
+ 72J30hseKeFRz9oE9HbSP8M3dnUB9sZbFXC6Dq4C7X44DYg6wezRH8w3yc4lLOSDpKNf
+ UXbw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUWUKWehvsu1GOjK8unuAl5022P8rFgkQmxKg6xWk/jA5rGwWBOAaZPOErU2mJjSgVyw41M+e/FUbY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyN6tdcUZXCZ0FULFIXnaWJzh0c6Ko/ghfPZc1OkrHJxOFSilrg
- mu/f/eGwKFCYNP2mUUSMiEfZd/yrERwKIv8rx+OywVwAY/itl5RLx+nUSb8RUrGKQ8S9ndQKzX1
- PYCcxSFQDyF8CAq83p9z1maEzMEkZno3T5kK9DDLYfLIhSLcm+TTMUt7HWv8K26nldec=
-X-Received: by 2002:a05:6214:194b:b0:6cb:f0f2:f56d with SMTP id
- 6a1803df08f44-6d185680265mr57679226d6.4.1730111779773; 
- Mon, 28 Oct 2024 03:36:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IENDTBpL5QFAQCGHq9cO4L85islHNim+U5PehHq1rXAjJQ4OzkNGTFXOdlvbMWSpBERyIw2Zg==
-X-Received: by 2002:a05:6214:194b:b0:6cb:f0f2:f56d with SMTP id
- 6a1803df08f44-6d185680265mr57678966d6.4.1730111779381; 
- Mon, 28 Oct 2024 03:36:19 -0700 (PDT)
+ AJvYcCVzPXdF75sMz1gclR07WmkDoPumE3jFACMbWFEGXR6LOOmdee/H3Z3p7P6tlY3q26U31BlBFKYnhRw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8llt0iOAWZEK4C4db53UT5goQs67elBG/g/Bp0h4CzLEEbsN5
+ cGQz9C7MHpIaw6qPSW9ikG5L2vK3mA2fTULmY2Jn85x5lURJUDPOts6tbVce0z6HxDXye5RpCjL
+ cYbeuXUxT1rrss7rKs1pezrJiEQObl3v8/L/z3pKFeFte1MdsJSWjxvcDsjnq9C3gr+w=
+X-Received: by 2002:ad4:5c6f:0:b0:6cb:f0f2:f56c with SMTP id
+ 6a1803df08f44-6d1856943c8mr65408876d6.6.1730111959501; 
+ Mon, 28 Oct 2024 03:39:19 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGuXnJ9QctQQKnrr1B9d6Pnh3CdOC3tp1NlBtHDTDJwYz+DKoHJwok6hm3fQ7kNKdJ+ruWTuQ==
+X-Received: by 2002:ad4:5c6f:0:b0:6cb:f0f2:f56c with SMTP id
+ 6a1803df08f44-6d1856943c8mr65408636d6.6.1730111959225; 
+ Mon, 28 Oct 2024 03:39:19 -0700 (PDT)
 Received: from [192.168.212.120] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b1f028f36sm361269866b.63.2024.10.28.03.36.16
+ a640c23a62f3a-a9b3099ddb9sm369502766b.173.2024.10.28.03.39.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 03:36:19 -0700 (PDT)
-Message-ID: <b7f72f38-2758-405b-abc7-60b73448d8bb@oss.qualcomm.com>
-Date: Mon, 28 Oct 2024 11:36:15 +0100
+ Mon, 28 Oct 2024 03:39:18 -0700 (PDT)
+Message-ID: <55ca17a3-8ea6-450e-8ec6-9bda97808164@oss.qualcomm.com>
+Date: Mon, 28 Oct 2024 11:39:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/msm/a6xx: Fix excessive stack usage
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Arnd Bergmann
+ <arnd@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Nathan Chancellor <nathan@kernel.org>,
  Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
- Arnd Bergmann <arnd@kernel.org>
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev
 References: <20241027-stack-size-fix-v1-1-764e2e3566cb@quicinc.com>
- <j2qapo66f64y7ddqlu63dqvog2fdbhnaq3t24wp2srvdt4v7xl@fyqu4ry4wmts>
- <6fea85fc-ccdc-46ec-b612-3712e9431301@quicinc.com>
- <CAA8EJpodjP3rY0Twe9sP37LWwk5ppP36dyLC9WKD6CTDOtmwzA@mail.gmail.com>
+ <3fb376b3-2db7-4730-a2e1-958f1ddd9f5c@app.fastmail.com>
+ <6b7c2ae7-3210-4d57-a7b0-2efea594b2b9@quicinc.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <CAA8EJpodjP3rY0Twe9sP37LWwk5ppP36dyLC9WKD6CTDOtmwzA@mail.gmail.com>
+In-Reply-To: <6b7c2ae7-3210-4d57-a7b0-2efea594b2b9@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 0Lw3XJJwipy9vTNnForNKxt8RZUoMlig
-X-Proofpoint-ORIG-GUID: 0Lw3XJJwipy9vTNnForNKxt8RZUoMlig
+X-Proofpoint-ORIG-GUID: iN7n82OxJzwH5BLIpe2cuidX2qG7ueP3
+X-Proofpoint-GUID: iN7n82OxJzwH5BLIpe2cuidX2qG7ueP3
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 phishscore=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 mlxlogscore=999
- malwarescore=0 clxscore=1015 bulkscore=0 suspectscore=0 adultscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410280086
+ impostorscore=0 clxscore=1015
+ lowpriorityscore=0 adultscore=0 mlxscore=0 bulkscore=0 suspectscore=0
+ phishscore=0 spamscore=0 malwarescore=0 mlxlogscore=999 priorityscore=1501
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2410280086
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,73 +118,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28.10.2024 11:27 AM, Dmitry Baryshkov wrote:
-> On Mon, 28 Oct 2024 at 12:08, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->>
->> On 10/28/2024 1:56 PM, Dmitry Baryshkov wrote:
->>> On Sun, Oct 27, 2024 at 11:35:47PM +0530, Akhil P Oommen wrote:
->>>> Clang-19 and above sometimes end up with multiple copies of the large
->>>> a6xx_hfi_msg_bw_table structure on the stack. The problem is that
->>>> a6xx_hfi_send_bw_table() calls a number of device specific functions to
->>>> fill the structure, but these create another copy of the structure on
->>>> the stack which gets copied to the first.
->>>>
->>>> If the functions get inlined, that busts the warning limit:
->>>>
->>>> drivers/gpu/drm/msm/adreno/a6xx_hfi.c:631:12: error: stack frame size (1032) exceeds limit (1024) in 'a6xx_hfi_send_bw_table' [-Werror,-Wframe-larger-than]
->>>>
->>>> Fix this by kmalloc-ating struct a6xx_hfi_msg_bw_table instead of using
->>>> the stack. Also, use this opportunity to skip re-initializing this table
->>>> to optimize gpu wake up latency.
->>>>
->>>> Cc: Arnd Bergmann <arnd@kernel.org>
->>>>
->>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>>> ---
->>>>  drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
->>>>  drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 34 ++++++++++++++++++++++------------
->>>>  2 files changed, 23 insertions(+), 12 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->>>> index 94b6c5cab6f4..b4a79f88ccf4 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->>>> @@ -99,6 +99,7 @@ struct a6xx_gmu {
->>>>      struct completion pd_gate;
->>>>
->>>>      struct qmp *qmp;
->>>> +    struct a6xx_hfi_msg_bw_table *bw_table;
->>>>  };
->>>>
->>>>  static inline u32 gmu_read(struct a6xx_gmu *gmu, u32 offset)
->>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
->>>> index cdb3f6e74d3e..55e51c81be1f 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
->>>> @@ -630,32 +630,42 @@ static void a6xx_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
->>>>
->>>>  static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
->>>>  {
->>>> -    struct a6xx_hfi_msg_bw_table msg = { 0 };
->>>> +    struct a6xx_hfi_msg_bw_table *msg;
->>>>      struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
->>>>      struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
->>>>
->>>> +    if (gmu->bw_table)
->>>> +            goto send;
->>>> +
->>>> +    msg = devm_kzalloc(gmu->dev, sizeof(*msg), GFP_KERNEL);
+On 28.10.2024 10:52 AM, Akhil P Oommen wrote:
+> On 10/28/2024 12:13 AM, Arnd Bergmann wrote:
+>> On Sun, Oct 27, 2024, at 18:05, Akhil P Oommen wrote:
+>>> Clang-19 and above sometimes end up with multiple copies of the large
+>>> a6xx_hfi_msg_bw_table structure on the stack. The problem is that
+>>> a6xx_hfi_send_bw_table() calls a number of device specific functions to
+>>> fill the structure, but these create another copy of the structure on
+>>> the stack which gets copied to the first.
 >>>
->>> Is it necessary after being sent? Isn't it better to just kzalloc() it
->>> and then kfree() it at the end of the function?
+>>> If the functions get inlined, that busts the warning limit:
+>>>
+>>> drivers/gpu/drm/msm/adreno/a6xx_hfi.c:631:12: error: stack frame size 
+>>> (1032) exceeds limit (1024) in 'a6xx_hfi_send_bw_table' 
+>>> [-Werror,-Wframe-larger-than]
+>>>
+>>> Fix this by kmalloc-ating struct a6xx_hfi_msg_bw_table instead of using
+>>> the stack. Also, use this opportunity to skip re-initializing this table
+>>> to optimize gpu wake up latency.
+>>>
+>>> Cc: Arnd Bergmann <arnd@kernel.org>
 >>
->> Keeping it around will help to cut down unnecessary work during
->> subsequent gpu wake ups.
+>> Please change this to "Reported-by:"
 > 
-> Then, I'd say, it is better to make it a part of the a6xx_gpu struct.
+> Sure.
+> 
+>>
+>> The patch looks correct to me, just one idea for improvement.
+>>
+>>> b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+>>> index 94b6c5cab6f4..b4a79f88ccf4 100644
+>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+>>> @@ -99,6 +99,7 @@ struct a6xx_gmu {
+>>>  	struct completion pd_gate;
+>>>
+>>>  	struct qmp *qmp;
+>>> +	struct a6xx_hfi_msg_bw_table *bw_table;
+>>>  };
+>>
+>> I think the bw_table is better just embedded
+>> in here rather than referenced as a pointer:
+>>
+> There are some low tier chipsets with relatively lower RAM size that
+> doesn't require this table. So, dynamically allocating this here helps
+> to save 640 bytes (minus the overhead of tracking).
 
-I think a6xx_gmu makes more logical sense here.
-
-FWIW, the driver allocates both _gmu and _gpu for all GPUs regardless
+I'd second this, said chipsets often ship with 1-2 GiB of RAM (which
+is still a lot in comparison, but you know.. every little bit counts)
 
 Konrad
