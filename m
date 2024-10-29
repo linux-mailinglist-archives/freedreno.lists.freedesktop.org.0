@@ -2,82 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 493909B3CBF
-	for <lists+freedreno@lfdr.de>; Mon, 28 Oct 2024 22:33:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76CAA9B5208
+	for <lists+freedreno@lfdr.de>; Tue, 29 Oct 2024 19:47:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8D1F10E228;
-	Mon, 28 Oct 2024 21:33:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48C1C10E0B9;
+	Tue, 29 Oct 2024 18:47:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="EpaWWSuN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UVjL9U2i";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
- [209.85.166.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3E5710E385
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 21:33:24 +0000 (UTC)
-Received: by mail-io1-f52.google.com with SMTP id
- ca18e2360f4ac-83abcfb9f37so188807339f.1
- for <freedreno@lists.freedesktop.org>; Mon, 28 Oct 2024 14:33:24 -0700 (PDT)
+Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
+ [209.85.166.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 274EE10E362;
+ Tue, 29 Oct 2024 16:27:06 +0000 (UTC)
+Received: by mail-io1-f65.google.com with SMTP id
+ ca18e2360f4ac-83a9be2c028so211087239f.1; 
+ Tue, 29 Oct 2024 09:27:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1730151203; x=1730756003;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=HFZKIzMwJccmjbRWz8hr4dF1BDbSPdCqeQ+MDKxNuD8=;
- b=EpaWWSuNcTDbDh4mvkpxAk0Vtf3uIL2cvaBDiw2HMhmhw3cxhnKQIeZu/gH7TWNdCS
- B4UEQn6QVuBv5szyocaHdl3dj0PCZWMsl5swN0w4chUycIj3iEeskSu3xmXgwXntEzRI
- PDNB+NuAzvxAk5IExAuWxk3hpjgVj/hNC6WaE=
+ d=gmail.com; s=20230601; t=1730219225; x=1730824025; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ASoQSKASN9QgOSddChzWC0ph+ezd4/BJV7Zk4X4XopE=;
+ b=UVjL9U2i3HXBMIhRjfBNVgWe/5Gqqt30Ltx5+u18no9fzTFXjMG440feGwOwPUK+Ji
+ het22bv8oZbCZUfNX8BS8Y9tnici2OK+Kqj3zc8v+E1F2wTwvUdLrsKJj4T0FlZ1seir
+ NB/OdtAs/Xlk7tcZPPIxTZmnFxIdduyChjHhSIxiGRRSepr/mVue8y5/gJjWIcsAEWMM
+ 9tLZQMPzGdbbYwcQE+VSzdbOoOs14nryGFxnsLd2celWdMDQRZpqtP+0eEjr7yPLvelq
+ KrjnJgO4b3uCre0T3NlQAnEz3+rKaiqVDqY7ZwYoOPz72mDjcwnglZPq9Ek6N3AH2IdC
+ +E4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730151203; x=1730756003;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=HFZKIzMwJccmjbRWz8hr4dF1BDbSPdCqeQ+MDKxNuD8=;
- b=Vz641JSUZRB+8BuQFMKYCVKw9SOEDb59FtIXDVQQrRhTyny+o8MgmSAZByLTZ9/PSt
- 6h9RHFxzGVos5zyjoXDm/dSrCNmCaBRq2J7KXHC3PzoDRYY/0tu+PFp3h4xrdCbIHJVU
- 7tE+6hGZ6i9arOZLgx3bfq5/IEzG4m+7wOO8Ru5LLWUM3vEmOgFgusbH8tsMUF1+XQlY
- /uUrka/kJNCRwcrJC/k+GUO950HldgFZnHQOjqn2CxIYg3NZg501z3Mryj52/+qqyi1y
- +lBce36e4LzCtmeYvEZ1BbfFYW8/lqcKfzmPrqhdNuHSzaUcOSG9DhtzZK0sMVzgW2I+
- 1tGw==
+ d=1e100.net; s=20230601; t=1730219225; x=1730824025;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ASoQSKASN9QgOSddChzWC0ph+ezd4/BJV7Zk4X4XopE=;
+ b=K26FmO7DdVJpJIaqNPozHkhuUf7EJO2uKVAnJmUGAbpGdmMj+Ol/yQ3HgMiwU/z3Pn
+ ZcdP+k7oUnje2tUKpfBxNoriTu8Q/NhCKonNB8UdI0w7lXd9VGgdsDoFNA/SmPdEUKmF
+ ohG8V7j2xrs6Tl6EZL+zudwCc+Ub+OY82+8z8tYIrccUlAaySzuBzBS3+tZrb7WUEslR
+ Zns8U7Lh1k6rWcoVhAl1HDqKEvnfUm0p0305PG1QcswTspZ5bNXPzdJog6GKFVLG1MRZ
+ PontevIG7PC1yH92Vsm676Qt34IBkxHvmRQUbZ5gy2f3VMYV1tZZGD1lySZonSKDIw0T
+ puvQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX58k9kfUDJ7d0tghd1wb24lxnZdUQjnmjAXdmCwRe1xV1oM6/74qV+yXrNIYTv9LwtSFAstNMHQng=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyTLjNySNcFxWxr/QNFKTn0uohqSTvt/bzALgU9t24JbaIdTm0x
- wWPeuQ3c64up70DsWx8ap/KAeP+uMf+H0JZEuPo7VdTfAUuLpDkSiPHRiFYMdtu1+V/jNTmD2CU
- 6I8R2iwWUkmg80quP4bjG3NhoGXCCEI822Ckc
-X-Google-Smtp-Source: AGHT+IFRf7Qdfzoq2U9A+NIDwOGbIKY7nZWXffb09QD8AJkz3xy2j34ROShaH6Jj6HGBK3DfHA78bcGG4mf4sL65r5o=
-X-Received: by 2002:a05:6602:1686:b0:82a:2a67:9429 with SMTP id
- ca18e2360f4ac-83b1c3e7abemr939673139f.5.1730151203568; Mon, 28 Oct 2024
- 14:33:23 -0700 (PDT)
+ AJvYcCVbkxYdQm7qSrTYsIFp2E/uZn/VFl0AtVB1mxwFtXFVZhhYvCPcFtGAv4nOBU/lHtKvfw/N/XyXmTTC@lists.freedesktop.org,
+ AJvYcCX7P9KTLtjSgttwDj57DXY3XFJmosGWJZvD+f47IE9fyFR6UeWe7gFJNB3dCJ7ORQ/e8G2UudqwNXY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwCrlBi9pHVYcVp0bCz+aC3xKAiVxpbuRO3W3NfJxj1W1W44FqR
+ Y45Pmu83h9EyHsc8WTd/L5X3wBvuZDULZ/pQQk+p22JLRbe75NpV
+X-Google-Smtp-Source: AGHT+IEvtrNyNDg6roCPZ2SrcBJ3nsv+OgsLL9PX+PAZYjyDrP9VBVQKmfssIDDcJKdr59gYLOKekw==
+X-Received: by 2002:a05:6602:2d87:b0:82a:a949:11e7 with SMTP id
+ ca18e2360f4ac-83b1c4a9226mr1210900539f.7.1730219225039; 
+ Tue, 29 Oct 2024 09:27:05 -0700 (PDT)
+Received: from localhost.localdomain
+ (host-36-25.ilcul54.champaign.il.us.clients.pavlovmedia.net. [68.180.36.25])
+ by smtp.gmail.com with ESMTPSA id
+ 8926c6da1cb9f-4dc72751513sm2499769173.108.2024.10.29.09.27.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Oct 2024 09:27:04 -0700 (PDT)
+From: Gax-c <zichenxie0106@gmail.com>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ quic_kalyant@quicinc.com
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Zichen Xie <zichenxie0106@gmail.com>
+Subject: [PATCH] drm/msm/dpu: Cast an operand to u64 to prevent potential
+ overflow in _dpu_core_perf_calc_clk()
+Date: Tue, 29 Oct 2024 11:26:46 -0500
+Message-Id: <20241029162645.9060-1-zichenxie0106@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20240827181717.187245-1-robdclark@gmail.com>
- <Zx97PU7cUEVCnpPl@google.com>
-In-Reply-To: <Zx97PU7cUEVCnpPl@google.com>
-From: Rob Clark <robdclark@chromium.org>
-Date: Mon, 28 Oct 2024 14:33:12 -0700
-Message-ID: <CAJs_Fx6EB=0GMqe4cZVdxptFSV3b63HHybfTOgiYVBudgAafsA@mail.gmail.com>
-Subject: Re: [PATCH v9 0/4] io-pgtable-arm + drm/msm: Extend iova fault
- debugging
-To: Mostafa Saleh <smostafa@google.com>
-Cc: Rob Clark <robdclark@gmail.com>, iommu@lists.linux.dev, 
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- "open list:DRM DRIVER for Qualcomm Adreno GPUs"
- <dri-devel@lists.freedesktop.org>, 
- "open list:DRM DRIVER for Qualcomm Adreno GPUs"
- <freedreno@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Joao Martins <joao.m.martins@oracle.com>, Kevin Tian <kevin.tian@intel.com>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>, 
- "open list:DRM DRIVER for Qualcomm Adreno GPUs"
- <linux-arm-msm@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
- "open list:SUSPEND TO RAM" <linux-pm@vger.kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Sean Paul <sean@poorly.run>,
- Steven Price <steven.price@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 29 Oct 2024 18:47:32 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,64 +87,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 28, 2024 at 4:53=E2=80=AFAM Mostafa Saleh <smostafa@google.com>=
- wrote:
->
-> Hi Rob,
->
-> On Tue, Aug 27, 2024 at 11:17:08AM -0700, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > This series extends io-pgtable-arm with a method to retrieve the page
-> > table entries traversed in the process of address translation, and then
-> > beefs up drm/msm gpu devcore dump to include this (and additional info)
-> > in the devcore dump.
-> >
-> > This is a respin of https://patchwork.freedesktop.org/series/94968/
-> > (minus a patch that was already merged)
-> >
-> > v2: Fix an armv7/32b build error in the last patch
-> > v3: Incorperate Will Deacon's suggestion to make the interface
-> >     callback based.
-> > v4: Actually wire up the callback
-> > v5: Drop the callback approach
-> > v6: Make walk-data struct pgtable specific and rename
-> >     io_pgtable_walk_data to arm_lpae_io_pgtable_walk_data
-> > v7: Re-use the pgtable walker added for arm_lpae_read_and_clear_dirty()
-> > v8: Pass pte pointer to callback so it can modify the actual pte
-> > v9: Fix selftests_running case
-> >
-> > Rob Clark (4):
-> >   iommu/io-pgtable-arm: Make pgtable walker more generic
-> >   iommu/io-pgtable-arm: Re-use the pgtable walk for iova_to_phys
-> >   iommu/io-pgtable-arm: Add way to debug pgtable walk
-> >   drm/msm: Extend gpu devcore dumps with pgtbl info
->
-> Do you have plans to post another version of this series, as I am
-> working on some patches, that would use some of the common page walk
-> logic, so it would be more convenient to have them upstream.
-> Otherwise, I can have your series as a dependency.
+From: Zichen Xie <zichenxie0106@gmail.com>
 
-Sorry, this had dropped off my radar, I'll post an updated iteration
-in a couple minutes.
+There may be a potential integer overflow issue in
+_dpu_core_perf_calc_clk(). crtc_clk is defined as u64, while
+mode->vtotal, mode->hdisplay, and drm_mode_vrefresh(mode) are defined as
+a smaller data type. The result of the calculation will be limited to
+"int" in this case without correct casting. In screen with high
+resolution and high refresh rate, integer overflow may happen.
+So, we recommend adding an extra cast to prevent potential
+integer overflow.
 
-BR,
--R
+Fixes: c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling for display")
+Signed-off-by: Zichen Xie <zichenxie0106@gmail.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Thanks,
-> Mostafa
->
->
-> >
-> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  10 ++
-> >  drivers/gpu/drm/msm/msm_gpu.c           |   9 ++
-> >  drivers/gpu/drm/msm/msm_gpu.h           |   8 ++
-> >  drivers/gpu/drm/msm/msm_iommu.c         |  22 ++++
-> >  drivers/gpu/drm/msm/msm_mmu.h           |   3 +-
-> >  drivers/iommu/io-pgtable-arm.c          | 149 +++++++++++++++---------
-> >  include/linux/io-pgtable.h              |  15 +++
-> >  7 files changed, 160 insertions(+), 56 deletions(-)
-> >
-> > --
-> > 2.46.0
-> >
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+index 68fae048a9a8..260accc151d4 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+@@ -80,7 +80,7 @@ static u64 _dpu_core_perf_calc_clk(const struct dpu_perf_cfg *perf_cfg,
+ 
+ 	mode = &state->adjusted_mode;
+ 
+-	crtc_clk = mode->vtotal * mode->hdisplay * drm_mode_vrefresh(mode);
++	crtc_clk = (u64)mode->vtotal * mode->hdisplay * drm_mode_vrefresh(mode);
+ 
+ 	drm_atomic_crtc_for_each_plane(plane, crtc) {
+ 		pstate = to_dpu_plane_state(plane->state);
+-- 
+2.25.1
+
