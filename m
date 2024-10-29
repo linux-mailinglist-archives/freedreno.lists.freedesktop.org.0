@@ -2,76 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76CAA9B5208
-	for <lists+freedreno@lfdr.de>; Tue, 29 Oct 2024 19:47:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A12D19B5183
+	for <lists+freedreno@lfdr.de>; Tue, 29 Oct 2024 19:05:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48C1C10E0B9;
-	Tue, 29 Oct 2024 18:47:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7312310E3AF;
+	Tue, 29 Oct 2024 18:05:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UVjL9U2i";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="dy/eED5y";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
- [209.85.166.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 274EE10E362;
- Tue, 29 Oct 2024 16:27:06 +0000 (UTC)
-Received: by mail-io1-f65.google.com with SMTP id
- ca18e2360f4ac-83a9be2c028so211087239f.1; 
- Tue, 29 Oct 2024 09:27:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730219225; x=1730824025; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ASoQSKASN9QgOSddChzWC0ph+ezd4/BJV7Zk4X4XopE=;
- b=UVjL9U2i3HXBMIhRjfBNVgWe/5Gqqt30Ltx5+u18no9fzTFXjMG440feGwOwPUK+Ji
- het22bv8oZbCZUfNX8BS8Y9tnici2OK+Kqj3zc8v+E1F2wTwvUdLrsKJj4T0FlZ1seir
- NB/OdtAs/Xlk7tcZPPIxTZmnFxIdduyChjHhSIxiGRRSepr/mVue8y5/gJjWIcsAEWMM
- 9tLZQMPzGdbbYwcQE+VSzdbOoOs14nryGFxnsLd2celWdMDQRZpqtP+0eEjr7yPLvelq
- KrjnJgO4b3uCre0T3NlQAnEz3+rKaiqVDqY7ZwYoOPz72mDjcwnglZPq9Ek6N3AH2IdC
- +E4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730219225; x=1730824025;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ASoQSKASN9QgOSddChzWC0ph+ezd4/BJV7Zk4X4XopE=;
- b=K26FmO7DdVJpJIaqNPozHkhuUf7EJO2uKVAnJmUGAbpGdmMj+Ol/yQ3HgMiwU/z3Pn
- ZcdP+k7oUnje2tUKpfBxNoriTu8Q/NhCKonNB8UdI0w7lXd9VGgdsDoFNA/SmPdEUKmF
- ohG8V7j2xrs6Tl6EZL+zudwCc+Ub+OY82+8z8tYIrccUlAaySzuBzBS3+tZrb7WUEslR
- Zns8U7Lh1k6rWcoVhAl1HDqKEvnfUm0p0305PG1QcswTspZ5bNXPzdJog6GKFVLG1MRZ
- PontevIG7PC1yH92Vsm676Qt34IBkxHvmRQUbZ5gy2f3VMYV1tZZGD1lySZonSKDIw0T
- puvQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVbkxYdQm7qSrTYsIFp2E/uZn/VFl0AtVB1mxwFtXFVZhhYvCPcFtGAv4nOBU/lHtKvfw/N/XyXmTTC@lists.freedesktop.org,
- AJvYcCX7P9KTLtjSgttwDj57DXY3XFJmosGWJZvD+f47IE9fyFR6UeWe7gFJNB3dCJ7ORQ/e8G2UudqwNXY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwCrlBi9pHVYcVp0bCz+aC3xKAiVxpbuRO3W3NfJxj1W1W44FqR
- Y45Pmu83h9EyHsc8WTd/L5X3wBvuZDULZ/pQQk+p22JLRbe75NpV
-X-Google-Smtp-Source: AGHT+IEvtrNyNDg6roCPZ2SrcBJ3nsv+OgsLL9PX+PAZYjyDrP9VBVQKmfssIDDcJKdr59gYLOKekw==
-X-Received: by 2002:a05:6602:2d87:b0:82a:a949:11e7 with SMTP id
- ca18e2360f4ac-83b1c4a9226mr1210900539f.7.1730219225039; 
- Tue, 29 Oct 2024 09:27:05 -0700 (PDT)
-Received: from localhost.localdomain
- (host-36-25.ilcul54.champaign.il.us.clients.pavlovmedia.net. [68.180.36.25])
- by smtp.gmail.com with ESMTPSA id
- 8926c6da1cb9f-4dc72751513sm2499769173.108.2024.10.29.09.27.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Oct 2024 09:27:04 -0700 (PDT)
-From: Gax-c <zichenxie0106@gmail.com>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
- quic_kalyant@quicinc.com
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Zichen Xie <zichenxie0106@gmail.com>
-Subject: [PATCH] drm/msm/dpu: Cast an operand to u64 to prevent potential
- overflow in _dpu_core_perf_calc_clk()
-Date: Tue, 29 Oct 2024 11:26:46 -0500
-Message-Id: <20241029162645.9060-1-zichenxie0106@gmail.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6BD10E3AF;
+ Tue, 29 Oct 2024 18:05:56 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49TAJ7Mk024727;
+ Tue, 29 Oct 2024 18:05:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ElqSJb9a3b/RBSxunk3T5aAUndX26mkUaPtkTWA4g7E=; b=dy/eED5ykt8efLRE
+ 9M69M77k9tI2PJqKM9eKfW0Kei5RUWlCqoko0Yv6L2eGzJHZw8BFYCW6nqWQtweK
+ uiUkTLycLTpCR9yJBIH/5aHA7hFd+HbtsggbyxPxZChAYd9uCZ5mqGDaOaQ4NWa+
+ jGu1UylhF0HexzjUK1PpxHJaEickeJqp/3NY2bCP4AcvxCMTocPyC3yCJ/TgvjWp
+ 9qDxRm4CHxkpCNLa2qGIV6h9E+gECd9gmc4nykj3UPITZ9lkyBTyziB5IC+p9kjX
+ ewTadFZqbOvIlwfZKqLgQ/sUqv1GjVH+TdpSmg/APe7AFOTyhq3Z1+1KSmMdbrpd
+ PJRknw==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42gqrgs717-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 29 Oct 2024 18:05:51 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49TI5ocH001486
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 29 Oct 2024 18:05:50 GMT
+Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 29 Oct
+ 2024 11:05:48 -0700
+Message-ID: <584639e8-bad8-4083-8c84-c1edcd8fa14e@quicinc.com>
+Date: Tue, 29 Oct 2024 11:05:40 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 29 Oct 2024 18:47:32 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/msm/dp: prefix all symbols with msm_dp_
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, kernel
+ test robot <lkp@intel.com>
+References: <20241028-msm-dp-rename-v1-0-a2564e9457b0@linaro.org>
+ <20241028-msm-dp-rename-v1-1-a2564e9457b0@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20241028-msm-dp-rename-v1-1-a2564e9457b0@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: aLEk-rOU-c0NnxMW1J2d7rIxblRerLm7
+X-Proofpoint-GUID: aLEk-rOU-c0NnxMW1J2d7rIxblRerLm7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0
+ clxscore=1015 impostorscore=0 suspectscore=0 spamscore=0 mlxscore=0
+ adultscore=0 priorityscore=1501 mlxlogscore=780 phishscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410290136
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,36 +94,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Zichen Xie <zichenxie0106@gmail.com>
 
-There may be a potential integer overflow issue in
-_dpu_core_perf_calc_clk(). crtc_clk is defined as u64, while
-mode->vtotal, mode->hdisplay, and drm_mode_vrefresh(mode) are defined as
-a smaller data type. The result of the calculation will be limited to
-"int" in this case without correct casting. In screen with high
-resolution and high refresh rate, integer overflow may happen.
-So, we recommend adding an extra cast to prevent potential
-integer overflow.
 
-Fixes: c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling for display")
-Signed-off-by: Zichen Xie <zichenxie0106@gmail.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 10/28/2024 4:49 AM, Dmitry Baryshkov wrote:
+> For historical reasons a lot of symbols in the MSM DisplayPort driver
+> used the generic dp_ prefix. Perform a mass-rename of those symbols to
+> use msm_dp prefix.
+> 
+> Basically this is a result of the following script:
+> 
+> sed drivers/gpu/drm/msm/dp/* -i -e 's/\<dp_/msm_dp_/g'
+> sed drivers/gpu/drm/msm/dp/* -i -e 's/"msm_dp_/"dp_/g'
+> sed drivers/gpu/drm/msm/dp/* -i -e 's/msm_\(dp_sdp_header\|dp_sdp\)\>/\1/g'
+> 
+> Yes, this also results in renaming of several struct fields in addition
+> to renaming the structs and functions, but I think the simple solution
+> is better than the more complex one.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202410250305.UHKDhtxy-lkp@intel.com/
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_audio.c   | 294 ++++++------
+>   drivers/gpu/drm/msm/dp/dp_audio.h   |  38 +-
+>   drivers/gpu/drm/msm/dp/dp_aux.c     | 148 +++---
+>   drivers/gpu/drm/msm/dp/dp_aux.h     |  18 +-
+>   drivers/gpu/drm/msm/dp/dp_catalog.c | 734 +++++++++++++++---------------
+>   drivers/gpu/drm/msm/dp/dp_catalog.h | 118 ++---
+>   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 482 ++++++++++----------
+>   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  40 +-
+>   drivers/gpu/drm/msm/dp/dp_debug.c   |  68 +--
+>   drivers/gpu/drm/msm/dp/dp_debug.h   |  10 +-
+>   drivers/gpu/drm/msm/dp/dp_display.c | 866 ++++++++++++++++++------------------
+>   drivers/gpu/drm/msm/dp/dp_display.h |  18 +-
+>   drivers/gpu/drm/msm/dp/dp_drm.c     | 108 ++---
+>   drivers/gpu/drm/msm/dp/dp_drm.h     |  22 +-
+>   drivers/gpu/drm/msm/dp/dp_link.c    | 432 +++++++++---------
+>   drivers/gpu/drm/msm/dp/dp_link.h    |  44 +-
+>   drivers/gpu/drm/msm/dp/dp_panel.c   | 254 +++++------
+>   drivers/gpu/drm/msm/dp/dp_panel.h   |  42 +-
+>   drivers/gpu/drm/msm/dp/dp_utils.c   |  20 +-
+>   drivers/gpu/drm/msm/dp/dp_utils.h   |   8 +-
+>   20 files changed, 1882 insertions(+), 1882 deletions(-)
+> 
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-index 68fae048a9a8..260accc151d4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-@@ -80,7 +80,7 @@ static u64 _dpu_core_perf_calc_clk(const struct dpu_perf_cfg *perf_cfg,
- 
- 	mode = &state->adjusted_mode;
- 
--	crtc_clk = mode->vtotal * mode->hdisplay * drm_mode_vrefresh(mode);
-+	crtc_clk = (u64)mode->vtotal * mode->hdisplay * drm_mode_vrefresh(mode);
- 
- 	drm_atomic_crtc_for_each_plane(plane, crtc) {
- 		pstate = to_dpu_plane_state(plane->state);
--- 
-2.25.1
+There is some WIP going on related to DP features, so we will need to 
+rebase all of it but I think its better to get this in now rather than 
+later, hence
 
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
