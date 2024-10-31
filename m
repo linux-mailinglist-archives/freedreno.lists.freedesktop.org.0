@@ -2,88 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 847829B80A1
-	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 17:54:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9518B9B8286
+	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 19:23:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60B1710E02D;
-	Thu, 31 Oct 2024 16:54:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F5AE10E90C;
+	Thu, 31 Oct 2024 18:23:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eQ7s9rDk";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zYGDUFaE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
- [209.85.208.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 901DF10E0AE
- for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 16:54:30 +0000 (UTC)
-Received: by mail-lj1-f180.google.com with SMTP id
- 38308e7fff4ca-2fb559b0b00so9800031fa.0
- for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 09:54:30 -0700 (PDT)
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
+ [209.85.128.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 127ED10E903
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 18:23:12 +0000 (UTC)
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-6e34339d41bso10799477b3.0
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 11:23:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1730393668; x=1730998468; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=LcG1Cptwud8AIi8pa0Ca3S8gnx7zEHdaWmbNdickIkk=;
- b=eQ7s9rDkH7x/9tbsRPbw07Jf/D54ws+RfTZX4yHAdEuFowzvfMTzR4QB9QL1D4WLA2
- ApZ9+XijHoSiPzZ89IvZOd6rN4M3p8bRdo4+1Xppl9XlHTwoHJqhK5q0aN1gi51Cgh6O
- WaVhSrbu/AnV247ilCRpZHE/ZI2Iw/bkuJkWsK0qLsFe3goly5hdVEE8omG8tH164ABj
- 6X9xj5Qlerime4L8KKoCtSXl+y0CGio9+JFrlWKpktwJxHcju2iuVjGOA0WlrrggwRGi
- eAQvCnvUjAaUHSjIBr7k9atiXgb3Gc0fUef+nt3ZsgjQTks73eWOq/7uHnFJ2Byas9mb
- IOPA==
+ d=linaro.org; s=google; t=1730398991; x=1731003791; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=oyFaR/Nqjo7VFSddLUYVyYGruB0Du5lv6wuap1vCS68=;
+ b=zYGDUFaEQ7/ec/8jTyKQZXpc3DRNFR5GpFQfjKN4sWfYW1T9hmW0H/XuxgGSEhxhac
+ 0umYKKjlX/NbO4kqqcz4avVYwYFH54WkESh75fL1Cf/88jp6azzbUWqBaHSSRD3+0MEK
+ 9T5+8Y2KFBgChkq2Gfv3hxKHMrmWXpFPtp1fsJjiJleHOLdFO2s1Ro28fF32aQzKBe07
+ Xl05gzFP5M6D/6nkmVp9ORaG6LTRQi9iDS7AXG8N+bim1JLVYQx7NM0Bx0TgPOpdkvbJ
+ K1iyg2ejtcjzSaWtY31ywdY8yHrrrEzVL3KSGj15bB/OFAq4FmBcUFXrb4u4ctpuRBu1
+ uzrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730393668; x=1730998468;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LcG1Cptwud8AIi8pa0Ca3S8gnx7zEHdaWmbNdickIkk=;
- b=a6mQUwU6tvYB9f5Oo/C7SiFDtS11InOx3GmkBnbJyR5tmwFs+JnOibCgEzlPYhHh62
- hC1b8iRR4mPSpiXdD4VZH5QElNZrIbZ6r/TJTV1CVIAsGNnlN1J3vI3jA1EB0/NRS/uC
- w/nYEHZ5NWVmsBH6wuPmF/pt5DZrtLj2hr4/L8c33GficsqxDAItGycMDOr4bz6mC5Hm
- aNw8hua5JAiJcT5o/WnvmNX+jbHE8u/sn23jHlHpzaCwxAcl8aR7Yeo+KN57Nne/+Wj+
- NgKaH2zWzqESlGMjWTpI/1Yu31XXO0duP/bSBjtk1+jsoVeg3KiCzLq9zCVhWNdsK+JC
- 8J4A==
+ d=1e100.net; s=20230601; t=1730398991; x=1731003791;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=oyFaR/Nqjo7VFSddLUYVyYGruB0Du5lv6wuap1vCS68=;
+ b=Z++taLZ8ArABmkIntgYRtBMbyAmXMi8sBZR0C3Xf0kRLmGMoz/c7ZExpusa9xfOI6y
+ Ss3/3fzNXOwvzkpMLNVH1yGQRjH3TBpCbb/Sy8McVuV/JkHNH2KTns142gFrhvjeFljh
+ zQtd9ouIJooKiGkx1973GfqGyx4pw53YejeS72r2EzvR/BYapwrakaS7iaURnZ3JNIgU
+ eG/pyfbckVyze72p8TGNB65vYIlPUzir8ABQXhHoBOQ3pUNJzpRXdxhg+cPGUHXNtfQI
+ mCKTFk35kFKFiqRtS8DJr7TRApS0IWdN1kx+l4fWeNkKaM5fGbOxhf12J5omT2wz5+mA
+ eQmA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVs7wluuzDz3AeXY0snKTQa2NJ1tRgL0cEH4daspLr2seEtzeWS8PVlnimTmJwvJx561vAMbTQ9drQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx8op+XxMu9BtcpmFajfL3zpO7uaxUaQGIXNfnUJdrGzoA3XZZO
- OWSQ/TOSetrEbtnFqI9TEhRCW7YQMM7YKPqAupPTBadNulXu8DyE9qhJJIZ16qM=
-X-Google-Smtp-Source: AGHT+IFbZzedgv73FPhHSopZrrz16kElbA7K8+QBYnMOAyeDwtCyC0BGEf/LrmGOrhd3qp//daS0zw==
-X-Received: by 2002:a05:651c:1541:b0:2fb:5688:55a4 with SMTP id
- 38308e7fff4ca-2fedb7a2fe0mr3529681fa.17.1730393668492; 
- Thu, 31 Oct 2024 09:54:28 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2fdef6182dfsm2668051fa.71.2024.10.31.09.54.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Oct 2024 09:54:27 -0700 (PDT)
-Date: Thu, 31 Oct 2024 18:54:25 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abel Vesa <abel.vesa@linaro.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@redhat.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH RFC 4/4] drm/msm/dp: Add support for LTTPR handling
-Message-ID: <6lpeexb5menpwrzcnmr367x4lmhvzyovhdybn54mnwk55ieehy@mos4oso67boo>
-References: <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-0-cafbb9855f40@linaro.org>
- <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-4-cafbb9855f40@linaro.org>
+ AJvYcCXau0o+w/Riqfx377em5PoIxUWZ+0rgTUsU083HGXSb4uP8LH5JflMtGmxac3/i+H4ORaabR8HdmTU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyy60S0F/OT0ogGXt+Pf7E3TBBK4W4SCBqQX2zpeQr66/aGuumw
+ EXzZSnCgGJ7RPLOzR0H/ADLofDPl+G7xRSxgsSRlNx1jQmVntiG27bOObvORbnNiJaUQ3K2doUb
+ Ku9hBWHSb5uTdx8bG1b5/HOu7WCecTsX+yHHdLw==
+X-Google-Smtp-Source: AGHT+IFq8R0CLiSKN/KyW3w8yrGdFcwHeCP7az6vUpHoYzraiFHMKDOSyj3hQcHE8V/hDNjDyyFp/YsnTwuwz+WSQKo=
+X-Received: by 2002:a05:690c:fc2:b0:6e2:a962:d7ec with SMTP id
+ 00721157ae682-6e9d88e8babmr217442787b3.6.1730398991054; Thu, 31 Oct 2024
+ 11:23:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-4-cafbb9855f40@linaro.org>
+References: <20241030010723.3520941-1-quic_abhinavk@quicinc.com>
+In-Reply-To: <20241030010723.3520941-1-quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 31 Oct 2024 20:23:00 +0200
+Message-ID: <CAA8EJppKou84MZm0JS_4bPveMO2UxpMs5ejCoL7OMWd-umtDmQ@mail.gmail.com>
+Subject: Re: [RFC PATCH] i2c: skip of_i2c_register_device() for invalid child
+ nodes
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ freedreno@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, robdclark@gmail.com, swboyd@chromium.org, 
+ airlied@gmail.com, quic_jesszhan@quicinc.com, lyude@redhat.com, 
+ simona@ffwll.ch, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,97 +81,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 31, 2024 at 05:12:48PM +0200, Abel Vesa wrote:
-> Link Training Tunable PHY Repeaters (LTTPRs) are defined in DisplayPort
-> 1.4a specification. As the name suggests, these PHY repeaters are
-> capable of adjusting their output for link training purposes.
-> 
-> The msm DP driver is currently lacking any handling of LTTPRs.
-> This means that if at least one LTTPR is found between DPTX and DPRX,
-> the link training would fail if that LTTPR was not already configured
-> in transparent mode.
-
-It might be nice to mention what is the transparent mode, especially for
-those who do not have the standard at hand.
-
-> The section 3.6.6.1 from the DisplayPort v2.0 specification mandates
-> that before link training with the LTTPR is started, the DPTX may place
-> the LTTPR in non-transparent mode by first switching to transparent mode
-> and then to non-transparent mode. This operation seems to be needed only
-> on first link training and doesn't need to be done again until device is
-> unplugged.
-> 
-> It has been observed on a few X Elite-based platforms which have
-> such LTTPRs in their board design that the DPTX needs to follow the
-> procedure described above in order for the link training to be successful.
-> 
-> So add support for reading the LTTPR DPCD caps to figure out the number
-> of such LTTPRs first. Then, for platforms (or Type-C dongles) that have
-> at least one such an LTTPR, set its operation mode to transparent mode
-> first and then to non-transparent, just like the mentioned section of
-> the specification mandates.
-> 
-> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+On Wed, 30 Oct 2024 at 03:07, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+> of_i2c_register_devices() adds all child nodes of a given i2c bus
+> however in certain device trees of_alias_from_compatible() and
+> of_property_read_u32() can fail as the child nodes of the device
+> might not be valid i2c client devices. One such example is the
+> i2c aux device for the DRM MST toplogy manager which uses the
+> display controller device node to add the i2c adaptor [1] leading
+> to an error spam like below
+>
+> i2c i2c-20: of_i2c: register /soc@0/display-subsystem@ae00000/display-controller@ae01000/ports
+> i2c i2c-20: of_i2c: modalias failure on /soc@0/display-subsystem@ae00000/display-controller@ae01000/ports
+> i2c i2c-20: Failed to create I2C device for /soc@0/display-subsystem@ae00000/display-controller@ae01000/ports
+> i2c i2c-20: of_i2c: register /soc@0/display-subsystem@ae00000/display-controller@ae01000/opp-table
+> i2c i2c-20: of_i2c: invalid reg on /soc@0/display-subsystem@ae00000/display-controller@ae01000/opp-table
+> i2c i2c-20: Failed to create I2C device for /soc@0/display-subsystem@ae00000/display-controller@ae01000/opp-table
+>
+> Add protection against invalid child nodes before trying to register
+> i2c devices for all child nodes.
+>
+> [1] : https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/display/drm_dp_mst_topology.c#L5985
+>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 25 +++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index f01980b0888a40b719d3958cb96c6341feada077..5d3d318d7b87ce3bf567d8b7435931d8e087f713 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -107,6 +107,8 @@ struct dp_display_private {
->  	struct dp_event event_list[DP_EVENT_Q_MAX];
->  	spinlock_t event_lock;
->  
-> +	u8 lttpr_caps[DP_LTTPR_COMMON_CAP_SIZE];
-> +
->  	bool wide_bus_supported;
->  
->  	struct dp_audio *audio;
-> @@ -367,12 +369,35 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
->  	return 0;
->  }
->  
-> +static void dp_display_lttpr_init(struct dp_display_private *dp)
-> +{
-> +	int lttpr_count;
-> +
-> +	if (drm_dp_read_lttpr_common_caps(dp->aux, dp->panel->dpcd,
-> +					  dp->lttpr_caps))
-> +		return;
-> +
-> +	lttpr_count = drm_dp_lttpr_count(dp->lttpr_caps);
-> +
-> +	if (lttpr_count) {
-> +		drm_dp_lttpr_set_transparent_mode(dp->aux, true);
-> +
-> +		if (lttpr_count > 0) {
-> +			if (drm_dp_lttpr_set_transparent_mode(dp->aux, false) != 1)
-> +				drm_dp_lttpr_set_transparent_mode(dp->aux, true);
-> +		}
-> +	}
-> +}
-> +
->  static int dp_display_process_hpd_high(struct dp_display_private *dp)
+>  drivers/i2c/i2c-core-of.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/i2c/i2c-core-of.c b/drivers/i2c/i2c-core-of.c
+> index a6c407d36800..62a2603c3092 100644
+> --- a/drivers/i2c/i2c-core-of.c
+> +++ b/drivers/i2c/i2c-core-of.c
+> @@ -86,6 +86,8 @@ void of_i2c_register_devices(struct i2c_adapter *adap)
 >  {
->  	struct drm_connector *connector = dp->dp_display.connector;
->  	const struct drm_display_info *info = &connector->display_info;
->  	int rc = 0;
->  
-> +	if (!dp->dp_display.is_edp)
-> +		dp_display_lttpr_init(dp);
+>         struct device_node *bus, *node;
+>         struct i2c_client *client;
+> +       u32 addr;
+> +       char temp[16];
+>
+>         /* Only register child devices if the adapter has a node pointer set */
+>         if (!adap->dev.of_node)
+> @@ -101,6 +103,10 @@ void of_i2c_register_devices(struct i2c_adapter *adap)
+>                 if (of_node_test_and_set_flag(node, OF_POPULATED))
+>                         continue;
+>
+> +               if (of_property_read_u32(node, "reg", &addr) ||
+> +                   of_alias_from_compatible(node, temp, sizeof(temp)))
+> +                       continue;
 
-Why is it limited to non-eDP cases only.
+I think just of_property_read_u32() should be enough to skip
+non-I2C-device children. If of_alias_from_compatible() fails, it is a
+legit error.
 
 > +
->  	rc = dp_panel_read_sink_caps(dp->panel, connector);
->  	if (rc)
->  		goto end;
-> 
-> -- 
+>                 client = of_i2c_register_device(adap, node);
+>                 if (IS_ERR(client)) {
+>                         dev_err(&adap->dev,
+> --
 > 2.34.1
-> 
+>
+
 
 -- 
 With best wishes
