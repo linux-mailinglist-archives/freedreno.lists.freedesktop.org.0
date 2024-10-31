@@ -2,87 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF7A29B8399
-	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 20:46:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 592A89B83B1
+	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 20:53:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D99A10E91D;
-	Thu, 31 Oct 2024 19:46:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2735C10E91B;
+	Thu, 31 Oct 2024 19:53:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="WrZ3Vj8u";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nlGdy50F";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8EF510E91B;
- Thu, 31 Oct 2024 19:46:54 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49VAASK4009583;
- Thu, 31 Oct 2024 19:46:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- KpvpFB+byk8ASN4RFV2qVrBXqc1NDy5kC27SN7oPziU=; b=WrZ3Vj8u4RK0Pe5o
- P9vlbAd5Q3jpfceJ4wDqlAozdmjoDwJkNWsNAed5StH9qj8UglqdZ2Plw6dXWe7r
- EFo1paAAmAqIeC3rIfqg/O3lu48eqsBycEfTIBKS3Y6xJGVB4YJiFQ4jxzvVzpq/
- 3m7uViF/oC0DPcEKzEd8vFS0/XyHCQjBeU61CS9E0H+VIvUrTVlP1VAqjLNVBVNz
- DJDfpwqCOyQ8zOHzfoinNyDD03KUNCltaTVdoZUPWWjJreL/VFOXNgpRFqSeCOe/
- KwMupO6vDq0PgTL4g7mJ7NTtods8WerbXQuZbl6sUnQQvpCcYH9cL2WopEZcw/9K
- uuDswA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42kjm1d3r6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 31 Oct 2024 19:46:48 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49VJklL4004678
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 31 Oct 2024 19:46:47 GMT
-Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 31 Oct
- 2024 12:46:43 -0700
-Message-ID: <6e0a6c0e-dbc1-4c96-acc0-9dad891ea136@quicinc.com>
-Date: Thu, 31 Oct 2024 12:46:42 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/23] drm/msm/dpu: fill CRTC resources in dpu_crtc.c
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, "Sean
- Paul" <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- "David Airlie" <airlied@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- Simona Vetter <simona.vetter@ffwll.ch>
-CC: <quic_ebharadw@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@chromium.org>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77AFB10E91B
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 19:53:20 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-53b13ea6b78so2273408e87.2
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 12:53:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1730404399; x=1731009199; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=FfLXMCQQFkBg7dASFcVMaYIBkwL01Sjg2kKn5PFIJT4=;
+ b=nlGdy50FdDUJc6uuDdniQPiJcPiEV1IjTwOoL+vbHHwOOVAbWIAWhmTCnm5ntVmwRy
+ lDksX4GGkAHdTfhyTVrmDPBZkjg8nW3ZibKeUUYOkWrjcTTi6YWPt3oqSJ6+qiUsKL0e
+ +GQCZOyX6aX+NlMxgQlKkaKAmJgyfcdVKx94GtQtgsPzaSzMyyz4ymn+TDPXFGnPQmbO
+ vxu8czmFOYqSRTpcF0n5l3PwMgRGlFmRqUe628AZh0ZBM9JyXdvf9LH3S1/Ys2cF8B8D
+ Bge8yTaQNPix8eixRkcQbdL0NvVj7brmm5nI8GR6SF/BZdIvn2/TE0P4orflNhac7ATD
+ Z2FQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730404399; x=1731009199;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FfLXMCQQFkBg7dASFcVMaYIBkwL01Sjg2kKn5PFIJT4=;
+ b=Sd2IAatumlld3tcM0/7k/JyCN4N4o7sxigCLZxLBQTL5iH32MRre4VVgYySDaEL/mp
+ /8XDAs1ybaKiooB0msIKTFqIfcSby7T7zQZNFeMCjFSQq6WRXWlRtJEE6V1/a8TJtwk7
+ Qq6Xr+p0HKqulJ5u2TIFLZHPYjN4nPtzbaCMDsfKZE9JTF6ZnByqN2EaWiwcipvR+xkZ
+ 8QdygHhD2dPYGXfwtz1lqk/UybAvGviQfHJY+5OE4rAjceHvlfh0/eBR4LZ+W6nZuFYq
+ 7xJMCt/ttfDSajV0MOdjvLZECD0qP6SWLPkSrnezOnWtDauKN52dBathe1gHnuVkYoTJ
+ xPNA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVyNcLmokaUkcqHLy1pcVpLE2yRpBv5UFmKA7KbQh2aLnMv+Hyy4Ptsy6BGBqIDU+2QSHiskAA62L0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxjWk+/q1ER4qnM6893ietCCZ52+1IcLpvbFwNCVtSTLr6cZBkx
+ mJOEOiWUSlSY9mkqWJ0d32aZWWOffWAG/UhMySNoKVBFQV1NW4T610Zxb8/lid4=
+X-Google-Smtp-Source: AGHT+IFbIDigm0flj16NCCbZnnareTFGiMJU9B1xBShOIW2PD8XpTBELPIlnMY8x52kyuov0Cc5GyA==
+X-Received: by 2002:a05:6512:3e0d:b0:539:f10b:ff97 with SMTP id
+ 2adb3069b0e04-53d65e16242mr1025066e87.49.1730404398459; 
+ Thu, 31 Oct 2024 12:53:18 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-53c7bdcbcf6sm306468e87.194.2024.10.31.12.53.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 31 Oct 2024 12:53:17 -0700 (PDT)
+Date: Thu, 31 Oct 2024 21:53:14 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ Simona Vetter <simona.vetter@ffwll.ch>, quic_ebharadw@quicinc.com,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH v3 05/23] drm/msm/dpu: move resource allocation to CRTC
+Message-ID: <33b25qy73byvz35djhduq4r4kksqtvels2fty6ikxkawox33u5@udv6j6buxnj2>
 References: <20241016-concurrent-wb-v3-0-a33cf9b93835@quicinc.com>
- <20241016-concurrent-wb-v3-6-a33cf9b93835@quicinc.com>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20241016-concurrent-wb-v3-6-a33cf9b93835@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 6pjUxv6tKr_rTyz6XTXnuVJyhRKjuKkf
-X-Proofpoint-ORIG-GUID: 6pjUxv6tKr_rTyz6XTXnuVJyhRKjuKkf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 lowpriorityscore=0 adultscore=0
- mlxscore=0 mlxlogscore=999 spamscore=0 suspectscore=0 clxscore=1015
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410310149
+ <20241016-concurrent-wb-v3-5-a33cf9b93835@quicinc.com>
+ <3afded46-7aef-4444-9b61-b97f71d0e5fc@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3afded46-7aef-4444-9b61-b97f71d0e5fc@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,22 +95,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 10/16/2024 6:21 PM, Jessica Zhang wrote:
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Thu, Oct 31, 2024 at 12:37:03PM -0700, Abhinav Kumar wrote:
 > 
-> Stop poking into CRTC state from dpu_encoder.c, fill CRTC HW resources
-> from dpu_crtc_assign_resources().
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> [quic_abhinavk@quicinc.com: cleaned up formatting]
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 32 ++++++++++++++++++++++++++---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 24 ++--------------------
->   2 files changed, 31 insertions(+), 25 deletions(-)
+> On 10/16/2024 6:21 PM, Jessica Zhang wrote:
+> > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > 
+> > All resource allocation is centered around the LMs. Then other blocks
+> > (except DSCs) are allocated basing on the LMs that was selected, and LM
+> > powers up the CRTC rather than the encoder.
+> > 
+> > Moreover if at some point the driver supports encoder cloning,
+> > allocating resources from the encoder will be incorrect, as all clones
+> > will have different encoder IDs, while LMs are to be shared by these
+> > encoders.
+> > 
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > [quic_abhinavk@quicinc.com: Refactored resource allocation for CDM]
+> > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > [quic_jesszhan@quicinc.com: Changed to grabbing exising global state]
+> > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  86 ++++++++++++
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 201 +++++++++++-----------------
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  19 +++
+> >   3 files changed, 183 insertions(+), 123 deletions(-)
+> > 
 > 
+> <Snip>
+> 
+> > -	/* See dpu_encoder_get_topology, we only support 2:2:1 topology */
+> > +	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
+> >   	if (dpu_enc->dsc)
+> > -		num_dsc = 2;
+> > +		topology->num_dsc += 2;
+> > -	return (num_dsc > 0) && (num_dsc > intf_count);
+> > -}
+> 
+> I dont recall the context of replacing num_dsc = 2 with num_dsc += 2
+> and its not documented.
+> 
+> <Snip>
+> 
+> > +	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
+> > +	if (dpu_enc->dsc)
+> > +		num_dsc += 2;
+> > -	return topology;
+> > +	return (num_dsc > 0) && (num_dsc > num_intf);
+> >   }
+> 
+> Same here
+> 
+> This should not break anything with current code. We could land it the way
+> it is as this was the version which was last tested and post a follow up if
+> this was not right. Something to be documented though, hope this note serves
+> that purpose. Rest of the change LGTM,
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+As this is supposed to be a refactor, I'll land it as num_dsc = 2 and
+let Jessica fix it in the followup patches. I think it's better this
+way.
+
+> 
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+-- 
+With best wishes
+Dmitry
