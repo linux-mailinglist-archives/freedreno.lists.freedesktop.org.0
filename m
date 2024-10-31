@@ -2,82 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54C6B9B862F
-	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 23:41:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52B3A9B86E8
+	for <lists+freedreno@lfdr.de>; Fri,  1 Nov 2024 00:17:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D54110E119;
-	Thu, 31 Oct 2024 22:41:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D6BE10E0B4;
+	Thu, 31 Oct 2024 23:17:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="NcVclYxr";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="w7KuAx28";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C23810E033;
- Thu, 31 Oct 2024 22:41:56 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49VCMxqI020980;
- Thu, 31 Oct 2024 22:41:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- VWM5C3U31ChxFRxKbOzd93Cd/Q8iUF4CX5qj6C0QHWw=; b=NcVclYxreMveIF2z
- IAG2WiuvB7e70yCiaM9r7Qq7ck5pUCs3ZJ5QRSpEYnebzu1cdsLht8kC0Mp3OJVQ
- Di2xD9KO79vkcrnoUb6eDkMUZJCXI1wI3vlhPQGt1mV0C7nAen4W5kkMp/he7O4Z
- 4+9XAqTk/+SjkXHLMtPlio5EFbDH1EKHr3MzSjMC5WxNnzaRajMpYu8mSDbj80bA
- JuuTfmbsrwU4hGhxP3UOGG1w1MPOemyjA+TWhZr8gZLMF9vF+YGBdKyr0yX3al+W
- YbeWHeNokq2kBesy7Ckf23nE6BJd32FSrwyAxKVVwflk7dIXMSHuvFZU3KkOueBb
- RNYRmw==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42kmp0n6a0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 31 Oct 2024 22:41:52 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49VMfpMI031944
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 31 Oct 2024 22:41:51 GMT
-Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 31 Oct
- 2024 15:41:50 -0700
-Message-ID: <0f1322de-24f3-49fa-b619-faa2599334af@quicinc.com>
-Date: Thu, 31 Oct 2024 15:41:49 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/msm: drop MAX_BRIDGES define
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0E9D10E0B4
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 23:17:48 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-2fb518014b9so12400681fa.3
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 16:17:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1730416667; x=1731021467; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=frsp46Okfb5QiVmFNAXVWYtRI09WjPuac7vIqiSQUO4=;
+ b=w7KuAx28uLdWO47wDKvDNVr3XjkKX5mVHlvzqACWtalo8KNkxnA+YshkVi+QdCWIMI
+ Fblms4H+ZoF7qZp8J4/XuREoLTSsFxnYzPdq1nz1fnaglDgomSdgITsCiyxmRDXE3YRq
+ wJqmggdgZs3hYk4a4ZXzQ9h+IYz/g4DtjwL3nQpMiG7tH+wAqYuVxob93ZJSbk4IZWYo
+ tyDAT/zIj9RH31EFoWDvENRsDAaYOjht+dxgNXhDZvCRAB4/m3b7RYQq4sDRAcfmECQF
+ THeeizzTGK9a/ygtMCH2QcSN9YPLOldl78KPd4CQbPuUf2OJEDYgB3u4SUZbpJ3cN8pm
+ hFvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730416667; x=1731021467;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=frsp46Okfb5QiVmFNAXVWYtRI09WjPuac7vIqiSQUO4=;
+ b=tM/Pf00j3JT8kQvFamckJtMRckVus87FAXGIpcF4LJKQlvLIybskFASr88/+O6q3DR
+ LqkJhRcSd/KUskBhYYsR1aJy3yGENSXmop9poV27GY3dBgiqyrBZ8fDDIHOTcKcrmQTp
+ 3JDe5BEzh+iLqVdnO6wkZBi6k6lccrcikUesnNuxNyvmSlzAurC9SqV8nVSoBS3PKb0e
+ NI2b8jkvD2Rj+uQS+LEW9giRH1mKcZXkkFaulpuhGraF9r9sYRmS+VfkuzW/cq3MmhYW
+ iFE82QML0xNPhCJ1/pUev0pOoKab2y3naZFGZ/L0dHXXrczMTySZwSUkdGWTLDSEAskw
+ OeWw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVxbZNNq9qPs7Ued+OVbJ7FQTitF967lxOYDPVw8I6hfVl+GiSwHVjIacoI0skAfmT5CPf5DKCIptY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxT4pn/H9a506aQYFIpHTQ3GyMKt8ay7FheYs46j5obu/sJ5lTq
+ QaWfygFUVuXvs0RLPnOmfk5r1SsyIh6FNH3bAL9ZDq2LuHBEG9fDHCgP5YSn5xE=
+X-Google-Smtp-Source: AGHT+IErIn+8tk3gc2319GvFqnOquZWc1mPt8zpg0mrwwWOluM01t+jVj4/jowjH3KFQAqp0pQvtuw==
+X-Received: by 2002:a2e:5109:0:b0:2fb:4428:e0fa with SMTP id
+ 38308e7fff4ca-2fcbe04f435mr79462881fa.36.1730416666587; 
+ Thu, 31 Oct 2024 16:17:46 -0700 (PDT)
+Received: from umbar.unikie.fi ([192.130.178.90])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2fdef617ad0sm3536041fa.67.2024.10.31.16.17.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 31 Oct 2024 16:17:45 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] drm/msm: minor msm_drv.h cleanup
+Date: Fri,  1 Nov 2024 01:17:41 +0200
+Message-Id: <173041664077.3797608.17754324846652823290.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20241031-dpu-move-topology-v1-0-8ffa8122d3b6@linaro.org>
 References: <20241031-dpu-move-topology-v1-0-8ffa8122d3b6@linaro.org>
- <20241031-dpu-move-topology-v1-3-8ffa8122d3b6@linaro.org>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20241031-dpu-move-topology-v1-3-8ffa8122d3b6@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: cuiNnrkYtSIdHjVXRGeHx4Jbe_S8C_oC
-X-Proofpoint-ORIG-GUID: cuiNnrkYtSIdHjVXRGeHx4Jbe_S8C_oC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- bulkscore=0 malwarescore=0 impostorscore=0 mlxscore=0 suspectscore=0
- adultscore=0 clxscore=1015 phishscore=0 spamscore=0 mlxlogscore=691
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410310171
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,15 +89,21 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-
-On 10/31/2024 2:44 PM, Dmitry Baryshkov wrote:
-> The const MAX_BRIDGES is unused after the commit 4d1a1e4686bd ("drm/msm:
-> remove msm_drm_private::bridges field"), drop it now.
+On Thu, 31 Oct 2024 23:44:05 +0200, Dmitry Baryshkov wrote:
+> As I stumbled upon msm_display_topology define, perform minor cleanup of
+> msm_drv.h incldue file.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/msm_drv.h | 1 -
->   1 file changed, 1 deletion(-)
 > 
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Applied, thanks!
+
+[1/3] drm/msm: move msm_display_topology to the DPU driver
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/f8706bff68cb
+[2/3] drm/msm: move MAX_H_TILES_PER_DISPLAY to the DPU driver
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/858b64e21217
+[3/3] drm/msm: drop MAX_BRIDGES define
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/26d841fd1c15
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
