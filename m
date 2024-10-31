@@ -2,79 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E5AC9B8374
-	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 20:30:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 461959B8383
+	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 20:37:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6161310E917;
-	Thu, 31 Oct 2024 19:30:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B900010E917;
+	Thu, 31 Oct 2024 19:37:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="lHkDF9Ai";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="dGGYCdjW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 559F210E920
- for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 19:30:12 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-53a097aa3daso1287985e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 12:30:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1730403010; x=1731007810; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=31snwxEgII8Vk6u+4+11z3gM5zDzJPBD0BIeCBrJcCw=;
- b=lHkDF9AiOWRYrBeueyWHhVYLK2EuL2V0chi+Iv0BfHI1Vc/eXJJIuW9vC3hmlqPPaW
- IdJAa9Tr8aV+kB7xEd6O+Ivg/W8N+3lTA26cVCZ522dISFryrBMVloNxOfH+vt1VbzO4
- foepuiNAxUAzuQwtZynTl0n/7G5acreUODwdlTRZzeAYhOR4B1mwADsW/pah08ukFC5H
- tLHdjgFzQOuQzZr5Ghb680zmPFt8Q6SSXps1wGB2yWX6BSkiZACMsg50Tk2E1yJ52UYb
- r52popMyPVKlValqTL00e0IlKvxkkRlhv7PHHLGJoKUi0f+B5RorjmqF2xj5Ke+XdkHb
- mJaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730403010; x=1731007810;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=31snwxEgII8Vk6u+4+11z3gM5zDzJPBD0BIeCBrJcCw=;
- b=mKw/DBn6AvKfSa0JAkJYEVe5F5W+98C6ERrLHs6rXWTl0TLkBPY1U6ASB3aBffo+72
- I2XEbvcVHNPLaSonjXpdbKv3cjlFjUlaOQ6lzJoBablnr2BXg19GWLtCFK9hWlTPrLNk
- NueOSlE7qicJYPr2Gp+bOR8RB0V6nQC6fckeaEwKjvu9zwihViDiYp+lty7MBNYskevi
- 3X6omX45PiydLs3KfXsfF4nl7Edx1barCfiuZJJZd6fFwKhMDx2ZYLf7oAEe8Nipxa0A
- +AIgymJPgDxuQ0/yWlshAY/qDW7X3Bag1tlNZRi9hESOedjuWAKqK/mgq/ynxpcPYKLT
- ShuQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWVhizjbYmb1r13p2JaHdUs1x7sW7SaEujd06NhdMLycAXJC6M5Pmz580rH5EeUfjkRu5HLVwxZ3iY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwV2qS/hflNgiJUCIxXzyvEVVJvDp7ALIcXRFdnPslQb4PV+l0g
- KBMasFJ+vxwO3J7352mTEZuVyleRYFnX9lQcLzu23AQpN3WKIZdzkIS/7m79Myk=
-X-Google-Smtp-Source: AGHT+IEXOiLypbvMGxd2hyzMiKYXFJFT2FTyEhMspQ58nB+nmG3OjYg+hM8a0VciWysPPE0vTAJ4cA==
-X-Received: by 2002:a05:6512:2315:b0:536:a6c6:33f with SMTP id
- 2adb3069b0e04-53d65df22e7mr753424e87.13.1730403010310; 
- Thu, 31 Oct 2024 12:30:10 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53c7bc9bed5sm307283e87.74.2024.10.31.12.30.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Oct 2024 12:30:08 -0700 (PDT)
-Date: Thu, 31 Oct 2024 21:30:07 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, 
- swboyd@chromium.org, airlied@gmail.com, quic_jesszhan@quicinc.com,
- lyude@redhat.com, 
- simona@ffwll.ch, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] i2c: skip of_i2c_register_device() for invalid child
- nodes
-Message-ID: <mlpiuko7n6rp3x55z4qterdns2wzqnfwgjxikbshrvakrscsak@antl2vzla5bd>
-References: <20241030010723.3520941-1-quic_abhinavk@quicinc.com>
- <CAA8EJppKou84MZm0JS_4bPveMO2UxpMs5ejCoL7OMWd-umtDmQ@mail.gmail.com>
- <92217ec6-c21c-462a-a934-9e93183c1230@quicinc.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7496F10E917;
+ Thu, 31 Oct 2024 19:37:19 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49V8OqWF012768;
+ Thu, 31 Oct 2024 19:37:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ bIxwLsSg+CYH3T0ktKQwywNRP1Ozo2e29WPTyMrAnfE=; b=dGGYCdjWX4TlRuFo
+ 3BaN779XFxkcwhwzyZicrqtXZnRsxv7OrvQp+et9St8ZGpR9ShyoBm3s8oD5A6sM
+ /xzFPC7Nwuct/1iM600XcBN7jejwaDrhYvCepB/VBQY/8AY/5vfmUByr0C526pq3
+ gmAQj1/j2Tiatuv9Pk7RgfP5qr/E+5FqL7rf96Wu7HkIRkh/gxHuGEtTLzgeu0cf
+ +b8B7PYoytE16S3BG27b8r70b7qEbId2i5+uqzUU5rEhUFarfBoDoJAYFZYUvvJR
+ Hke7jeabwGWIzTyR5k99IIQIH05cmpDKSNBS0ngP7m7IpXZQf1KLPePe9lx3rH2l
+ pg51Tw==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42k6rpq113-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 31 Oct 2024 19:37:08 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49VJb7sQ020699
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 31 Oct 2024 19:37:07 GMT
+Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 31 Oct
+ 2024 12:37:04 -0700
+Message-ID: <3afded46-7aef-4444-9b61-b97f71d0e5fc@quicinc.com>
+Date: Thu, 31 Oct 2024 12:37:03 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <92217ec6-c21c-462a-a934-9e93183c1230@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 05/23] drm/msm/dpu: move resource allocation to CRTC
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, "Sean
+ Paul" <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ "David Airlie" <airlied@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Simona Vetter <simona.vetter@ffwll.ch>
+CC: <quic_ebharadw@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@chromium.org>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+References: <20241016-concurrent-wb-v3-0-a33cf9b93835@quicinc.com>
+ <20241016-concurrent-wb-v3-5-a33cf9b93835@quicinc.com>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20241016-concurrent-wb-v3-5-a33cf9b93835@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: cg68pWYdBUYYZT7pKzCXxlv2bltUcJXi
+X-Proofpoint-GUID: cg68pWYdBUYYZT7pKzCXxlv2bltUcJXi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0
+ clxscore=1015 mlxlogscore=999 priorityscore=1501 spamscore=0
+ malwarescore=0 impostorscore=0 mlxscore=0 lowpriorityscore=0
+ suspectscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2409260000 definitions=main-2410310148
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,86 +98,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 31, 2024 at 11:45:53AM -0700, Abhinav Kumar wrote:
-> 
-> 
-> On 10/31/2024 11:23 AM, Dmitry Baryshkov wrote:
-> > On Wed, 30 Oct 2024 at 03:07, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> > > 
-> > > of_i2c_register_devices() adds all child nodes of a given i2c bus
-> > > however in certain device trees of_alias_from_compatible() and
-> > > of_property_read_u32() can fail as the child nodes of the device
-> > > might not be valid i2c client devices. One such example is the
-> > > i2c aux device for the DRM MST toplogy manager which uses the
-> > > display controller device node to add the i2c adaptor [1] leading
-> > > to an error spam like below
-> > > 
-> > > i2c i2c-20: of_i2c: register /soc@0/display-subsystem@ae00000/display-controller@ae01000/ports
-> > > i2c i2c-20: of_i2c: modalias failure on /soc@0/display-subsystem@ae00000/display-controller@ae01000/ports
-> > > i2c i2c-20: Failed to create I2C device for /soc@0/display-subsystem@ae00000/display-controller@ae01000/ports
-> > > i2c i2c-20: of_i2c: register /soc@0/display-subsystem@ae00000/display-controller@ae01000/opp-table
-> > > i2c i2c-20: of_i2c: invalid reg on /soc@0/display-subsystem@ae00000/display-controller@ae01000/opp-table
-> > > i2c i2c-20: Failed to create I2C device for /soc@0/display-subsystem@ae00000/display-controller@ae01000/opp-table
-> > > 
-> > > Add protection against invalid child nodes before trying to register
-> > > i2c devices for all child nodes.
-> > > 
-> > > [1] : https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/display/drm_dp_mst_topology.c#L5985
-> > > 
-> > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > ---
-> > >   drivers/i2c/i2c-core-of.c | 6 ++++++
-> > >   1 file changed, 6 insertions(+)
-> > > 
-> > > diff --git a/drivers/i2c/i2c-core-of.c b/drivers/i2c/i2c-core-of.c
-> > > index a6c407d36800..62a2603c3092 100644
-> > > --- a/drivers/i2c/i2c-core-of.c
-> > > +++ b/drivers/i2c/i2c-core-of.c
-> > > @@ -86,6 +86,8 @@ void of_i2c_register_devices(struct i2c_adapter *adap)
-> > >   {
-> > >          struct device_node *bus, *node;
-> > >          struct i2c_client *client;
-> > > +       u32 addr;
-> > > +       char temp[16];
-> > > 
-> > >          /* Only register child devices if the adapter has a node pointer set */
-> > >          if (!adap->dev.of_node)
-> > > @@ -101,6 +103,10 @@ void of_i2c_register_devices(struct i2c_adapter *adap)
-> > >                  if (of_node_test_and_set_flag(node, OF_POPULATED))
-> > >                          continue;
-> > > 
-> > > +               if (of_property_read_u32(node, "reg", &addr) ||
-> > > +                   of_alias_from_compatible(node, temp, sizeof(temp)))
-> > > +                       continue;
-> > 
-> > I think just of_property_read_u32() should be enough to skip
-> > non-I2C-device children. If of_alias_from_compatible() fails, it is a
-> > legit error.
-> > 
-> 
-> Thanks for the review.
-> 
-> of_alias_from_compatible() looks for a compatible string but all child nodes
-> such as ports will not have the compatible. Hence below error will still be
-> seen:
-> 
-> i2c i2c-20: of_i2c: modalias failure on
-> /soc@0/display-subsystem@ae00000/display-controller@ae01000/ports
 
-But ports node don't have a reg property too, so it should be skipped
-based on that.
 
+On 10/16/2024 6:21 PM, Jessica Zhang wrote:
+> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > 
-> > > +
-> > >                  client = of_i2c_register_device(adap, node);
-> > >                  if (IS_ERR(client)) {
-> > >                          dev_err(&adap->dev,
-> > > --
-> > > 2.34.1
-> > > 
-> > 
-> > 
+> All resource allocation is centered around the LMs. Then other blocks
+> (except DSCs) are allocated basing on the LMs that was selected, and LM
+> powers up the CRTC rather than the encoder.
+> 
+> Moreover if at some point the driver supports encoder cloning,
+> allocating resources from the encoder will be incorrect, as all clones
+> will have different encoder IDs, while LMs are to be shared by these
+> encoders.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> [quic_abhinavk@quicinc.com: Refactored resource allocation for CDM]
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> [quic_jesszhan@quicinc.com: Changed to grabbing exising global state]
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  86 ++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 201 +++++++++++-----------------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  19 +++
+>   3 files changed, 183 insertions(+), 123 deletions(-)
+> 
 
--- 
-With best wishes
-Dmitry
+<Snip>
+
+> -	/* See dpu_encoder_get_topology, we only support 2:2:1 topology */
+> +	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
+>   	if (dpu_enc->dsc)
+> -		num_dsc = 2;
+> +		topology->num_dsc += 2;
+>   
+> -	return (num_dsc > 0) && (num_dsc > intf_count);
+> -}
+
+I dont recall the context of replacing num_dsc = 2 with num_dsc += 2
+and its not documented.
+
+<Snip>
+
+> +	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
+> +	if (dpu_enc->dsc)
+> +		num_dsc += 2;
+>   
+> -	return topology;
+> +	return (num_dsc > 0) && (num_dsc > num_intf);
+>   }
+>   
+
+Same here
+
+This should not break anything with current code. We could land it the 
+way it is as this was the version which was last tested and post a 
+follow up if this was not right. Something to be documented though, hope 
+this note serves that purpose. Rest of the change LGTM,
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
