@@ -2,83 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC5259B854B
-	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 22:29:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7683D9B8591
+	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 22:44:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9763710E93A;
-	Thu, 31 Oct 2024 21:29:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EE7410E181;
+	Thu, 31 Oct 2024 21:44:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="wXqPxzDS";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZMB/vUAX";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9233E10E93B
- for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 21:29:19 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-53a007743e7so1586022e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 14:29:19 -0700 (PDT)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16F8510E181
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 21:44:14 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-539ee1acb86so1478618e87.0
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 14:44:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1730410158; x=1731014958; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=1l+3xHgYCCQq5nw49XrfIzxDUYa4w0dQBbc1QfIfgMQ=;
- b=wXqPxzDSe14vdqNoydfwJiN9Dkz2F2IV4P5glMN1Mp4yFwMogcGp8nAjIPAbufVbwf
- MR4B7OxwcGVk7HNRMdwPiC10N02ghtg4ZdHHAF607J+ik9ArKt4Zar0RJw/N/yh4PdxP
- eHIekuKTM2Blpz8i1E6jaTa+CVA5aCkSEdfQL2/Iuc34Q3pW0sW94HYGmGwrrU40VTlU
- q7letxuVtb2K9vARmWYzh9TPu2hvZp27FXljACdNIt9jSh1BQTvhzskMHFiAtTOkHMUK
- SHMNPTCEhDJ74v9tggqwu7WtRB8SIqT5mBkbxSUyY3OQG2aKy/2uvuEH7ytVsFU61RDe
- 9lKw==
+ d=linaro.org; s=google; t=1730411052; x=1731015852; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=JABEHipC9Z0wTq9sKT+cueUNJ0QYw8iXu1pTjI6dILQ=;
+ b=ZMB/vUAX5/OubG6uFoEGAh6AHp188vma2fWuTzy3mzwjxZ7ent1R5B20/dnnE3T8/U
+ efjDj5+lW7gRRPqQsFj8y2NbZNuzmjovM+ryG/OWYr1oRmWjqYXONh2lZHQL3IKSUb6+
+ Cvw9+nRxfYFMcSuGSMOZ+u9NEERzoZ7tFCR3Bqu0wjo35iv8Fu79b+VlGonfEpJmm23Y
+ 0xESDAXDw5cfYGnOhYchXqkrs6fvdFBaUqW7wKyfcwaxtmQjWxDls3V1S/qhC+Ydz8lm
+ 5MutHgB+0xB2ymgJnbR7sDyKqhZEHvVu/9+mE+dx1PQGerIdhWfP+1mTF8dSHJwD/i2w
+ jIKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730410158; x=1731014958;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1l+3xHgYCCQq5nw49XrfIzxDUYa4w0dQBbc1QfIfgMQ=;
- b=swjP1pEaHhRCl6dDIvwuomre5hkowUNHCmjoUtDHFb0F7ixlPkWzd309mhpD7PjdRO
- K5KwCQzPMeRGc3l/i6LhXBPME04CyF1qiI4LrNuWPn+dGXvlF9sAUSNPvY+ZASqyXK7H
- 7eMvHwrqjKC1+E9Dv9Qt5iYM2F4LSI1oVOdhhf5fbGCjDulf8h1gcSu6vIEgelW/Kls4
- oWSchBAPMM3RXfiXzEsRxX0VOm/fQrxeMlu+5MZbtqzoQ6AKPuHRaqi3b/QpSbj5A06A
- wdn7fY09/FewWd0sGbrdYTgOFWt9VbOxadFaPf6PV7OnJnR2/olIrZjEDNb4n+Slv/6i
- SvmA==
+ d=1e100.net; s=20230601; t=1730411052; x=1731015852;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=JABEHipC9Z0wTq9sKT+cueUNJ0QYw8iXu1pTjI6dILQ=;
+ b=ZdNJyCNRdq+Zs3wqnS0uPFuFIBdqceWptSL7TU3aIQtwv32szgwWGh0lTgUzMtQ89G
+ /dfcp9kDba5wdiiYXcleiMxXtVqoV5eMwCl/x/tdOl+DTjQy9lVcgrknihb7FtpiHH36
+ +ax62Hd967Xd7cpbMdqn9kAoYQyjOmPnaFHKCQCiFx24Hkz9x+Z/wCDWynitlMGuepJN
+ T+lPs7qqdFRcrkWuJbFvF5O97PiQ2MNBd1S3X4hXFdmyxL9d15FBZlPDNT4UwUa0Bwp3
+ nesundpc49BUDIdUoInDVZjSZxPkWvIQAGh824udw7h9npiA0uEzxXgo1ozwCLEar2OY
+ 2unA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWOA9SruDmIrg5AsA6o+d5zzrpGqQ/39wGmW9PxvKCZhzjwbYKQZkqgz19jK31GLulLKTAJVFlibck=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxujF//NdLZ1s4CXjZEbfW82W/VcWMZQGbItNTqVSYlXWRgIkpC
- +/PR+/9PiU/w3J/kkqViMeuN60eCQ8LZd6+S9+9vSJRgp545C/k2Ah7fy9HI1y8=
-X-Google-Smtp-Source: AGHT+IGpv6ppMeT9Im8LWxqb/D03OQxodp9BRRepLf/IM+4jvPsQKd80qXzkkdEoHhs7i1sjnsTOdw==
-X-Received: by 2002:ac2:4e14:0:b0:539:d9e2:9d15 with SMTP id
- 2adb3069b0e04-53c79e4b459mr2526803e87.29.1730410157377; 
- Thu, 31 Oct 2024 14:29:17 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53c7bccd6b3sm329876e87.147.2024.10.31.14.29.14
+ AJvYcCWSjgZOfC5+6MyBjy2nk9NtoJm+2zizwn4dp/PQeZOqJZvvI7pBWsNSKm9lc4tDa4lzc1QpG+5tWf8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwrheckUwte3Zd15HBxkRXkWADJ7vFGPOzcX2lGiLKpmnZvRD46
+ +LvFyJ0KKkb4Xdb1NRnDaJuyESFiI9kZGbovz3Fc0+ykOII0kuyKtnDgWyg1vC8=
+X-Google-Smtp-Source: AGHT+IEF7sIF6pFMxEAg5enP1MZeKE+KWHTm+s7sQ42B2P3DpcIKoommDZFWzHt2IB4NWkD3YVwjMg==
+X-Received: by 2002:a05:6512:b83:b0:535:66ff:c681 with SMTP id
+ 2adb3069b0e04-53d65e1ab82mr763727e87.48.1730411052093; 
+ Thu, 31 Oct 2024 14:44:12 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-53c7bc9c162sm339567e87.96.2024.10.31.14.44.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Oct 2024 14:29:15 -0700 (PDT)
-Date: Thu, 31 Oct 2024 23:29:13 +0200
+ Thu, 31 Oct 2024 14:44:10 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>, 
- quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, 
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v3 03/23] drm/msm/dpu: get rid of struct
- dpu_rm_requirements
-Message-ID: <rc4v6jzq2qtjpt5ehvjqhnh24v5ny4fm4lavlkgt6qcv4g44qm@bqt7h4b2szrt>
-References: <20241016-concurrent-wb-v3-0-a33cf9b93835@quicinc.com>
- <20241016-concurrent-wb-v3-3-a33cf9b93835@quicinc.com>
+Subject: [PATCH 0/3] drm/msm: minor msm_drv.h cleanup
+Date: Thu, 31 Oct 2024 23:44:05 +0200
+Message-Id: <20241031-dpu-move-topology-v1-0-8ffa8122d3b6@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241016-concurrent-wb-v3-3-a33cf9b93835@quicinc.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACX6I2cC/x3MQQ5AMBBA0avIrE3SUgmuIhboYBJM0yJE3F1j+
+ Rb/PxDIMwWokwc8nRxYtgidJjDM3TYRso2GTGVGq1yjdQeuchLu4mSR6caxGIwpqzJXvYXYOU8
+ jX/+zad/3A8gAQ5JjAAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=784;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=lntCchS/1G7soOEmMcWvSKjNtV6NhH/Ttsm15XGOC80=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnI/opmTHlf339jNV9uBeC4JpuWF5R5x010IQSv
+ gdQZw72twCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZyP6KQAKCRCLPIo+Aiko
+ 1V9eCACly3YzaLuZBIXqln4CQ9UIdmDlWM7KWZt00dBGUajGtHRSxP1uBTTaKLTnrKhKe6lxXEI
+ fVnCkiQY2BOLVF8X+88N+d/NDmhnJDYJv7C2nIPPnAs72ZosfUVP9H6RtwmLWAnkmRCJZgHbNsB
+ FqLZlKulDEzHD5xWGjdi+tc5juDiSYy6lZfi/i40mK9I+YMZYVw+PKTlC6Bsk7EdFCb7Bj7CHA9
+ YmufZHFgXF5XR80IIkNFKJcnPglSgsz07Nq3GZMyaB7A5HDjhcJNzSVQROMd8IBvHFycFriSn3r
+ FnWbs2OKwccwm3Vq2LwuaXWxY6dLmPaIqAk47A9ubhc32dn7
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,266 +98,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Oct 16, 2024 at 06:21:09PM -0700, Jessica Zhang wrote:
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> The struct dpu_rm_requirements was used to wrap display topology and
-> hw resources, which meant INTF indices. As of commit ef58e0ad3436
-> ("drm/msm/dpu: get INTF blocks directly rather than through RM") the hw
-> resources struct was removed, leaving struct dpu_rm_requirements
-> containing a single field (topology). Remove the useless wrapper.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 71 ++++++++++-------------------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h      |  2 +-
->  3 files changed, 25 insertions(+), 50 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 3b171bf227d16f301545eefeac1e2bf61085b218..6293e716a1c3ae8ba07c0ee76f61766fdaab0710 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -691,7 +691,7 @@ static int dpu_encoder_virt_atomic_check(
->  
->  		if (!crtc_state->active_changed || crtc_state->enable)
->  			ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
-> -					drm_enc, crtc_state, topology);
-> +					drm_enc, crtc_state, &topology);
->  	}
->  
->  	trace_dpu_enc_atomic_check_flags(DRMID(drm_enc), adj_mode->flags);
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> index 44938ba7a2b7e618735447e0af51e91f9fa3242a..8193c3d579dfc86b0fb8395ba60b7b1f5137413f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> @@ -4,6 +4,7 @@
->   * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
->   */
->  
-> +#include "msm_drv.h"
+As I stumbled upon msm_display_topology define, perform minor cleanup of
+msm_drv.h incldue file.
 
-pr_fmt should be defined before all the includes. And anyway, we should
-probably move msm_display_topology to the DPU-specific header.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (3):
+      drm/msm: move msm_display_topology to the DPU driver
+      drm/msm: move MAX_H_TILES_PER_DISPLAY to the DPU driver
+      drm/msm: drop MAX_BRIDGES define
 
->  #define pr_fmt(fmt)	"[drm:%s] " fmt, __func__
->  #include "dpu_kms.h"
->  #include "dpu_hw_lm.h"
-> @@ -26,14 +27,6 @@ static inline bool reserved_by_other(uint32_t *res_map, int idx,
->  	return res_map[idx] && res_map[idx] != enc_id;
->  }
->  
-> -/**
-> - * struct dpu_rm_requirements - Reservation requirements parameter bundle
-> - * @topology:  selected topology for the display
-> - */
-> -struct dpu_rm_requirements {
-> -	struct msm_display_topology topology;
-> -};
-> -
->  int dpu_rm_init(struct drm_device *dev,
->  		struct dpu_rm *rm,
->  		const struct dpu_mdss_cfg *cat,
-> @@ -231,14 +224,13 @@ static int _dpu_rm_get_lm_peer(struct dpu_rm *rm, int primary_idx)
->   *      mixer in rm->pingpong_blks[].
->   * @dspp_idx: output parameter, index of dspp block attached to the layer
->   *      mixer in rm->dspp_blks[].
-> - * @reqs: input parameter, rm requirements for HW blocks needed in the
-> - *      datapath.
-> + * @topology:  selected topology for the display
->   * Return: true if lm matches all requirements, false otherwise
->   */
->  static bool _dpu_rm_check_lm_and_get_connected_blks(struct dpu_rm *rm,
->  		struct dpu_global_state *global_state,
->  		uint32_t enc_id, int lm_idx, int *pp_idx, int *dspp_idx,
-> -		struct dpu_rm_requirements *reqs)
-> +		struct msm_display_topology *topology)
->  {
->  	const struct dpu_lm_cfg *lm_cfg;
->  	int idx;
-> @@ -263,7 +255,7 @@ static bool _dpu_rm_check_lm_and_get_connected_blks(struct dpu_rm *rm,
->  	}
->  	*pp_idx = idx;
->  
-> -	if (!reqs->topology.num_dspp)
-> +	if (!topology->num_dspp)
->  		return true;
->  
->  	idx = lm_cfg->dspp - DSPP_0;
-> @@ -285,7 +277,7 @@ static bool _dpu_rm_check_lm_and_get_connected_blks(struct dpu_rm *rm,
->  static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
->  			       struct dpu_global_state *global_state,
->  			       uint32_t enc_id,
-> -			       struct dpu_rm_requirements *reqs)
-> +			       struct msm_display_topology *topology)
->  
->  {
->  	int lm_idx[MAX_BLOCKS];
-> @@ -293,14 +285,14 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
->  	int dspp_idx[MAX_BLOCKS] = {0};
->  	int i, lm_count = 0;
->  
-> -	if (!reqs->topology.num_lm) {
-> -		DPU_ERROR("invalid number of lm: %d\n", reqs->topology.num_lm);
-> +	if (!topology->num_lm) {
-> +		DPU_ERROR("invalid number of lm: %d\n", topology->num_lm);
->  		return -EINVAL;
->  	}
->  
->  	/* Find a primary mixer */
->  	for (i = 0; i < ARRAY_SIZE(rm->mixer_blks) &&
-> -			lm_count < reqs->topology.num_lm; i++) {
-> +			lm_count < topology->num_lm; i++) {
->  		if (!rm->mixer_blks[i])
->  			continue;
->  
-> @@ -309,14 +301,14 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
->  
->  		if (!_dpu_rm_check_lm_and_get_connected_blks(rm, global_state,
->  				enc_id, i, &pp_idx[lm_count],
-> -				&dspp_idx[lm_count], reqs)) {
-> +				&dspp_idx[lm_count], topology)) {
->  			continue;
->  		}
->  
->  		++lm_count;
->  
->  		/* Valid primary mixer found, find matching peers */
-> -		if (lm_count < reqs->topology.num_lm) {
-> +		if (lm_count < topology->num_lm) {
->  			int j = _dpu_rm_get_lm_peer(rm, i);
->  
->  			/* ignore the peer if there is an error or if the peer was already processed */
-> @@ -329,7 +321,7 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
->  			if (!_dpu_rm_check_lm_and_get_connected_blks(rm,
->  					global_state, enc_id, j,
->  					&pp_idx[lm_count], &dspp_idx[lm_count],
-> -					reqs)) {
-> +					topology)) {
->  				continue;
->  			}
->  
-> @@ -338,7 +330,7 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
->  		}
->  	}
->  
-> -	if (lm_count != reqs->topology.num_lm) {
-> +	if (lm_count != topology->num_lm) {
->  		DPU_DEBUG("unable to find appropriate mixers\n");
->  		return -ENAVAIL;
->  	}
-> @@ -347,7 +339,7 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
->  		global_state->mixer_to_enc_id[lm_idx[i]] = enc_id;
->  		global_state->pingpong_to_enc_id[pp_idx[i]] = enc_id;
->  		global_state->dspp_to_enc_id[dspp_idx[i]] =
-> -			reqs->topology.num_dspp ? enc_id : 0;
-> +			topology->num_dspp ? enc_id : 0;
->  
->  		trace_dpu_rm_reserve_lms(lm_idx[i] + LM_0, enc_id,
->  					 pp_idx[i] + PINGPONG_0);
-> @@ -584,28 +576,28 @@ static int _dpu_rm_make_reservation(
->  		struct dpu_rm *rm,
->  		struct dpu_global_state *global_state,
->  		struct drm_encoder *enc,
-> -		struct dpu_rm_requirements *reqs)
-> +		struct msm_display_topology *topology)
->  {
->  	int ret;
->  
-> -	ret = _dpu_rm_reserve_lms(rm, global_state, enc->base.id, reqs);
-> +	ret = _dpu_rm_reserve_lms(rm, global_state, enc->base.id, topology);
->  	if (ret) {
->  		DPU_ERROR("unable to find appropriate mixers\n");
->  		return ret;
->  	}
->  
->  	ret = _dpu_rm_reserve_ctls(rm, global_state, enc->base.id,
-> -				&reqs->topology);
-> +			topology);
->  	if (ret) {
->  		DPU_ERROR("unable to find appropriate CTL\n");
->  		return ret;
->  	}
->  
-> -	ret  = _dpu_rm_reserve_dsc(rm, global_state, enc, &reqs->topology);
-> +	ret  = _dpu_rm_reserve_dsc(rm, global_state, enc, topology);
->  	if (ret)
->  		return ret;
->  
-> -	if (reqs->topology.needs_cdm) {
-> +	if (topology->needs_cdm) {
->  		ret = _dpu_rm_reserve_cdm(rm, global_state, enc);
->  		if (ret) {
->  			DPU_ERROR("unable to find CDM blk\n");
-> @@ -616,20 +608,6 @@ static int _dpu_rm_make_reservation(
->  	return ret;
->  }
->  
-> -static int _dpu_rm_populate_requirements(
-> -		struct drm_encoder *enc,
-> -		struct dpu_rm_requirements *reqs,
-> -		struct msm_display_topology req_topology)
-> -{
-> -	reqs->topology = req_topology;
-> -
-> -	DRM_DEBUG_KMS("num_lm: %d num_dsc: %d num_intf: %d cdm: %d\n",
-> -		      reqs->topology.num_lm, reqs->topology.num_dsc,
-> -		      reqs->topology.num_intf, reqs->topology.needs_cdm);
-> -
-> -	return 0;
-> -}
-> -
->  static void _dpu_rm_clear_mapping(uint32_t *res_mapping, int cnt,
->  				  uint32_t enc_id)
->  {
-> @@ -662,9 +640,8 @@ int dpu_rm_reserve(
->  		struct dpu_global_state *global_state,
->  		struct drm_encoder *enc,
->  		struct drm_crtc_state *crtc_state,
-> -		struct msm_display_topology topology)
-> +		struct msm_display_topology *topology)
->  {
-> -	struct dpu_rm_requirements reqs;
->  	int ret;
->  
->  	/* Check if this is just a page-flip */
-> @@ -679,13 +656,11 @@ int dpu_rm_reserve(
->  	DRM_DEBUG_KMS("reserving hw for enc %d crtc %d\n",
->  		      enc->base.id, crtc_state->crtc->base.id);
->  
-> -	ret = _dpu_rm_populate_requirements(enc, &reqs, topology);
-> -	if (ret) {
-> -		DPU_ERROR("failed to populate hw requirements\n");
-> -		return ret;
-> -	}
-> +	DRM_DEBUG_KMS("num_lm: %d num_dsc: %d num_intf: %d\n",
-> +		      topology->num_lm, topology->num_dsc,
-> +		      topology->num_intf);
->  
-> -	ret = _dpu_rm_make_reservation(rm, global_state, enc, &reqs);
-> +	ret = _dpu_rm_make_reservation(rm, global_state, enc, topology);
->  	if (ret)
->  		DPU_ERROR("failed to reserve hw resources: %d\n", ret);
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> index e63db8ace6b940c48e081c9e11926788f6e333a3..62cc2edd2ee03f4acdba99c65ac94c8ac7b7fbf7 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> @@ -70,7 +70,7 @@ int dpu_rm_reserve(struct dpu_rm *rm,
->  		struct dpu_global_state *global_state,
->  		struct drm_encoder *drm_enc,
->  		struct drm_crtc_state *crtc_state,
-> -		struct msm_display_topology topology);
-> +		struct msm_display_topology *topology);
->  
->  /**
->   * dpu_rm_reserve - Given the encoder for the display chain, release any
-> 
-> -- 
-> 2.34.1
-> 
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  2 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h      | 16 ++++++++++++++++
+ drivers/gpu/drm/msm/msm_drv.h               | 18 ------------------
+ 3 files changed, 18 insertions(+), 18 deletions(-)
+---
+base-commit: 4a6fd06643afa99989a0e6b848e125099674227b
+change-id: 20241031-dpu-move-topology-f5c4489830bd
 
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
