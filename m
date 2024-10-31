@@ -2,75 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 920009B7ECA
-	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 16:44:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECF5E9B806D
+	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 17:45:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 613BE10E413;
-	Thu, 31 Oct 2024 15:44:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FC2C10E8F0;
+	Thu, 31 Oct 2024 16:45:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Tjnvvbal";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Nj+Bsm6B";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 898FC10E8D1
- for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 15:44:18 +0000 (UTC)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-6e5b7cd1ef5so9736317b3.1
- for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 08:44:18 -0700 (PDT)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCCA910E8EF
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 16:45:00 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2fabb837ddbso16520741fa.1
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 09:45:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1730389457; x=1730994257; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=WkbJktFWhQ17ZPncxvn3FN6iDF+dModwKTnXQceOjrk=;
- b=TjnvvballbNu5v6nbk+ZLCiiewbvWoLaYxcFWLGgMv0Hy06XngoI7DMZpARe42bNln
- m+hHg07JVVoPo57LwGtmsGLuR4JBE1bZHA8GMFSklnKRzSrExCBJ3o9eNhIc6s2/qoj8
- +F/J2JfXg8Eseu2eg1/+1hn28WTQOh2E46Fb+oZCuES6FVegPJOotyLZuyVyfuT89auj
- qFeUTOvUGddhoXkBZM2vJiTGdnUm/DDcQE6UUBstB5l/mMbQOB2iKgo2nyBqk4VpVOO3
- OHz6zFjb+kJY59BDdUuvskv+qJy28cbX1b1CDMpd3RnxcOgUDc86vf2ux4dO02V95Hgr
- w8dA==
+ d=linaro.org; s=google; t=1730393099; x=1730997899; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=kt+ok40lFX13Yzdkxs+h8BxbfiG8swFfP1jVOHqPZHk=;
+ b=Nj+Bsm6BxGU8gnBzosCZfSjwX+iDJD4I9QmqsfGxZ7iBzeI/4IoFSYWGiVtcgom5sy
+ niP4cXUUeaqrg1uqcG3PWWskQWi8tM3Aa9ZT4TzDY4pT2OFQZ6ug1vnzlcd27JSujnKH
+ cZELpWyLEPYkswjYX7svaIRN/ciMTF0c7Bq/i+nctTqFhvcLSh7npMq0YXMWZ8JjYIs6
+ W2mttKTetsYuO0UTETKSqncGBJ1R0OawUI17N8HLiyZKRzTI8AZduuSbQXl6IA2yFf+G
+ CixvMQZ/MyYBo0gTSCY8EoAPjxVK7OD1GBDrtlU47ZkWtOz5KyqS5JtR9Bjl4vIrW7lY
+ pj3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730389457; x=1730994257;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=WkbJktFWhQ17ZPncxvn3FN6iDF+dModwKTnXQceOjrk=;
- b=VspvmHRAs8Nf/iJvzcPWN9zfy54jeatCFlIE4Nt24QCoqvrKayyY4xXpoUOe4QAfi9
- VE84ecrhLL5sjaocIlJfMTdw3KbsQldWRa+lrjKIqxSVOHRNjzNzM+lFSkPufUuQyeR4
- kgAtLZ30VOxm7bmi7PgOsoJW+149v4MbFLzCI3RkMviOnZcE5JNDNb3g/Omo1xOuzNmP
- 0RycQDRLulAI/Jkd0DG0+GPVxMyD3I9/w/79AwUfzdXbI3KEiCmyxi/wu23v5WQtdC4E
- Ht7tdiYM2b661kMwkJPifMJVZeDdrU5sx2oSEBsqEs8lyoHWvq++4frz6WzBK6tpHEn9
- 8AQQ==
+ d=1e100.net; s=20230601; t=1730393099; x=1730997899;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kt+ok40lFX13Yzdkxs+h8BxbfiG8swFfP1jVOHqPZHk=;
+ b=eP1F+WvofgI2kLgV1S0q3rvTIrV1HXkny1EZ2p4FVFw+YL82FGZDbrbK+6CVxC8L45
+ qvlii2pGm6CCL71UcjHPuoJ0gU4rDQdbXGDg78pDnky1+BVc9Oxf3lULISiZqXvLfZfj
+ 8hDyWBPwd/ujnapwkwv7IaiLM2WyZQpryLtjWBmdQaFKp1nVYTwK1AEqtECGx9as17SC
+ NkBoKcLc9gA+bKYn/tZWIygGRtRydlwRW3gQu3+LzFmqp9BXaNT9Yfr0e3jEC4FdbHoJ
+ TPBLZX28yY1aG5TPvzfLLr3mrrbqmI2oV6QWT0UrVqGZQzq5hqFgfmD3rPCciq9f/Un0
+ e2RQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXnlI2fNyEJqKBkKY81DKlgWt5Nw4jrzveedCOma8FneFJZM1x093Db3AmIBy8Ah+S7rBqnG21Ho28=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxYJjhkVJhAJVv9Oa5CN0fn7qERqd73CTom1HecroTlt2r/7b0/
- AcxyHTy9QllNX2nP9bJANtGYl4PYz4LfuNKx37dpwjXBU12wPS2FwMSMioGYAnsaAyZvHn6+jR5
- SymRoZhoTVEpzbanaY29EDSbU2YNBeS/o0uk13g==
-X-Google-Smtp-Source: AGHT+IGjmqvpPX1+bGFGcSxEoEH+wnbP2rdjGZXV5omtO6akLQEwaojlUw/funiMKKjk1H8UlB7i4QA7KdZjNAhvlgE=
-X-Received: by 2002:a05:690c:d81:b0:6e3:430c:b120 with SMTP id
- 00721157ae682-6e9d88cecf3mr189401227b3.5.1730389457603; Thu, 31 Oct 2024
- 08:44:17 -0700 (PDT)
-MIME-Version: 1.0
-References: <20241025-dpu-virtual-wide-v6-0-0310fd519765@linaro.org>
- <20241025-dpu-virtual-wide-v6-7-0310fd519765@linaro.org>
- <e0f84f35-6d98-45c3-857c-c273820fab69@quicinc.com>
- <xxxedwb2t6xhfzmhpom6dirs2ur2qvmruimdxgvdkh7gmey5tr@qotm7xvbsg5a>
- <14531af0-29c3-40eb-bf52-8202ba155d0b@quicinc.com>
- <CAA8EJppCppQ_jJu4o62prW-Yp2E3WBfqdYgdJs-KB8kgghj0fg@mail.gmail.com>
-In-Reply-To: <CAA8EJppCppQ_jJu4o62prW-Yp2E3WBfqdYgdJs-KB8kgghj0fg@mail.gmail.com>
+ AJvYcCWtJEdSjoQkPoykh7EFgdxM/z9wyj41idABy6M+tZup5kmeeVMpjpBOWsG3gT7iqy6Mzxtcdd5fM2M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxn/9iUSr45x7u9WOHgAKhkCmSyztY3BUijajlGM5Zo0/QwDuPo
+ ODT+Qat862l/JvBTgYkDpQec914VEbOqNdMLoyvxW6Val/GfMYDNwl/KAH/jHdM=
+X-Google-Smtp-Source: AGHT+IHRQwOGhSkkEBtHlVJ+MZMA/jBWeUH8G5Fmi2dhuQ2z772Z0F7QMIMohuXdOiHSqhRBM4/r/w==
+X-Received: by 2002:a2e:bc27:0:b0:2fb:5bd:8ff2 with SMTP id
+ 38308e7fff4ca-2fedb7a2d4fmr5016331fa.16.1730393098676; 
+ Thu, 31 Oct 2024 09:44:58 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2fdef3bbea1sm2684791fa.24.2024.10.31.09.44.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 31 Oct 2024 09:44:57 -0700 (PDT)
+Date: Thu, 31 Oct 2024 18:44:55 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 31 Oct 2024 17:17:33 +0200
-Message-ID: <CAA8EJpr_8LkP8wnR8n0wSeFHOWdG9osg+XZu_vCDkv5Y6y0gXA@mail.gmail.com>
-Subject: Re: [PATCH v6 7/9] drm/msm/dpu: add support for virtual planes
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+To: Abel Vesa <abel.vesa@linaro.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH RFC 2/4] drm/nouveau/dp: Use the generic helper to
+ control LTTPR transparent mode
+Message-ID: <hh26gzyjhygphlrmhh2zkskoz7vezkgdepbx7fnzgfch75simf@hmr5ezp4khwi>
+References: <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-0-cafbb9855f40@linaro.org>
+ <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-2-cafbb9855f40@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-2-cafbb9855f40@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,81 +100,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 31 Oct 2024 at 17:11, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> Hi Abhinav,
->
-> On Wed, 30 Oct 2024 at 21:26, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> > On 10/30/2024 3:48 AM, Dmitry Baryshkov wrote:
-> > > On Tue, Oct 29, 2024 at 02:30:12PM -0700, Abhinav Kumar wrote:
-> > >> On 10/24/2024 5:20 PM, Dmitry Baryshkov wrote:
-> > >>> +           if (reqs->yuv && !hw_sspp->cap->sblk->csc_blk.len)
-> > >>> +                   continue;
-> > >>
-> > >> same here
-> > >>> +
-> > >>> +           if (reqs->rot90 && !(hw_sspp->cap->features & DPU_SSPP_INLINE_ROTATION))
-> > >>> +                   continue;
-> > >>> +
-> > >>> +           global_state->sspp_to_crtc_id[i] = crtc_id;
-> > >>> +
-> > >>> +           return rm->hw_sspp[i];
-> > >>> +   }
-> > >>> +
-> > >>> +   return NULL;
-> > >>> +}
-> > >>> +struct dpu_hw_sspp *dpu_rm_reserve_sspp(struct dpu_rm *rm,
-> > >>> +                                   struct dpu_global_state *global_state,
-> > >>> +                                   struct drm_crtc *crtc,
-> > >>> +                                   struct dpu_rm_sspp_requirements *reqs)
-> > >>> +{
-> > >>> +   struct dpu_hw_sspp *hw_sspp = NULL;
-> > >>> +
-> > >>> +   if (!reqs->scale && !reqs->yuv)
-> > >>> +           hw_sspp = dpu_rm_try_sspp(rm, global_state, crtc, reqs, SSPP_TYPE_DMA);
-> > >>> +   if (!hw_sspp && reqs->scale)
-> > >>> +           hw_sspp = dpu_rm_try_sspp(rm, global_state, crtc, reqs, SSPP_TYPE_RGB);
-> > >>
-> > >> I dont recollect whether RGB SSPPs supported scaling, if you have any source
-> > >> or link for this, that would help me for sure.
-> > >
-> > > I have to dig further into the old fbdev driver. It looks like
-> > > mdss_mdp_qseed2_setup() is getting called for all plane types on the
-> > > corresponding hardware, but then it rejects scaling only for DMA and
-> > > CURSOR planes, which means that RGB planes should get the scaler setup.
-> > >
-> > > For now this is from the SDE driver from 4.4:
-> > >
-> > >   * @SDE_SSPP_SCALER_RGB,     RGB Scaler, supported by RGB pipes
-> > >
-> > >> But even otherwise, I dont see any chipset in the catalog setting this SSPP
-> > >> type, so do we need to add this case?
-> > >
-> > > Yes, we do. MSM8996 / MSM8937 / MSM8917 / MSM8953 use RGB planes.
-> > >
-> >
-> > Yes those chipsets do have RGB SSPP. My question was whether they have
-> > migrated to dpu and thats why I wanted to know whether we want to
-> > include RGB SSPP handling.
-> >
-> > I do not even see them in msm_mdp5_dpu_migration.
->
-> Ugh, it's a bug then, I'll push a fix.
+On Thu, Oct 31, 2024 at 05:12:46PM +0200, Abel Vesa wrote:
+> LTTPRs operating modes are defined by the DisplayPort standard and the
+> generic framework now provides a helper to switch between them.
+> So use the drm generic helper instead as it makes the code a bit cleaner.
+> 
+> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> ---
+>  drivers/gpu/drm/nouveau/nouveau_dp.c | 9 +++------
+>  1 file changed, 3 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
+> index bcda0105160f1450df855281e0d932606a5095dd..80264e6186246903fa037861fe37493646de0c6e 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_dp.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
+> @@ -80,15 +80,12 @@ nouveau_dp_probe_dpcd(struct nouveau_connector *nv_connector,
+>  		int nr = drm_dp_lttpr_count(outp->dp.lttpr.caps);
+>  
+>  		if (nr) {
+> -			drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE,
+> -						DP_PHY_REPEATER_MODE_TRANSPARENT);
+> +			drm_dp_lttpr_set_transparent_mode(aux, true);
+>  
+>  			if (nr > 0) {
+> -				ret = drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE,
+> -							      DP_PHY_REPEATER_MODE_NON_TRANSPARENT);
+> +				ret = drm_dp_lttpr_set_transparent_mode(aux, false);
+>  				if (ret != 1) {
+> -					drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE,
+> -								DP_PHY_REPEATER_MODE_TRANSPARENT);
+> +					drm_dp_lttpr_set_transparent_mode(aux, true);
+>  				} else {
+>  					outp->dp.lttpr.nr = nr;
+>  				}
 
-Ok, this is very surprising:
+Could you please extract this true-false-true dance to a new helper too?
+This way Intel driver can use the simple helper, the rest of the drivers
+can benefit having the common code.
 
-static const char *const msm_mdp5_dpu_migration[] = {
-        "qcom,msm8917-mdp5",
-        "qcom,msm8937-mdp5",
-        "qcom,msm8953-mdp5",
-        "qcom,msm8996-mdp5",
-        "qcom,sdm630-mdp5",
-        "qcom,sdm660-mdp5",
-        NULL,
-};
-
-
+> 
+> -- 
+> 2.34.1
+> 
 
 -- 
 With best wishes
