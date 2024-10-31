@@ -2,103 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F10F19B7DF3
-	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 16:13:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 920009B7ECA
+	for <lists+freedreno@lfdr.de>; Thu, 31 Oct 2024 16:44:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D271410E8D9;
-	Thu, 31 Oct 2024 15:13:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 613BE10E413;
+	Thu, 31 Oct 2024 15:44:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gVYZuhPN";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Tjnvvbal";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A01B210E8DE
- for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 15:13:25 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-37d518f9abcso726622f8f.2
- for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 08:13:25 -0700 (PDT)
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
+ [209.85.128.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 898FC10E8D1
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 15:44:18 +0000 (UTC)
+Received: by mail-yw1-f172.google.com with SMTP id
+ 00721157ae682-6e5b7cd1ef5so9736317b3.1
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Oct 2024 08:44:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1730387604; x=1730992404; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=wsxO4tXj5cYVX5ty5sWr+rNFnN2giGJku8uLhfTXghk=;
- b=gVYZuhPNaCjs0H9evhTAgmmWzZsqk91Whwm/IEF+qehk293zvtzuNemTnoXJunyEYU
- o798Wd5PUSJVpyAFs8l/pZfthygEoOcwRtUNOedoKvpXPusJBRMoqMshdkSs+CJkUS2H
- EM8lAiNbxu5ufJRW4OJWjw2ov2IvegRbvIz5+xKPs3tD4WyU2Oqi5f9Ffy2TepWBONkD
- sNdU1UYOj71sgq3zxpuRRLNDyLCx9XXilwE/19p0YgpN4pQazvkn23rFhX1xv3OiuxJR
- iN7thof6ylCcCCaYPLqypbHsxO1D+9ixboMnniDIYQAhc3LG7NPZz+68uo72FKYEaHDG
- upyg==
+ d=linaro.org; s=google; t=1730389457; x=1730994257; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=WkbJktFWhQ17ZPncxvn3FN6iDF+dModwKTnXQceOjrk=;
+ b=TjnvvballbNu5v6nbk+ZLCiiewbvWoLaYxcFWLGgMv0Hy06XngoI7DMZpARe42bNln
+ m+hHg07JVVoPo57LwGtmsGLuR4JBE1bZHA8GMFSklnKRzSrExCBJ3o9eNhIc6s2/qoj8
+ +F/J2JfXg8Eseu2eg1/+1hn28WTQOh2E46Fb+oZCuES6FVegPJOotyLZuyVyfuT89auj
+ qFeUTOvUGddhoXkBZM2vJiTGdnUm/DDcQE6UUBstB5l/mMbQOB2iKgo2nyBqk4VpVOO3
+ OHz6zFjb+kJY59BDdUuvskv+qJy28cbX1b1CDMpd3RnxcOgUDc86vf2ux4dO02V95Hgr
+ w8dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730387604; x=1730992404;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=wsxO4tXj5cYVX5ty5sWr+rNFnN2giGJku8uLhfTXghk=;
- b=v5ZWGSHVXzydpMyxZEgDb+fzQiM4/TpBMWmXspwCRoO3hQ87jihqeyrCVr5t9qof3E
- pRsogvDqo1XgiKSjzej6J490cbQgndFq+KYq/ZVH0spmfh3IpHPnGGkebK+rOiEL8wjk
- hrKphGNPH/cy/lKr/f+t69/YcSFcz0GXtt67XqyYzORUo8buSV3+URmtd8657BC5EgD/
- uA4YUrGoYYt93EEKjAgV0sdzXh3mPlW+PenpPm0inbysKWhsGNRfQc2UphM0BwUzxfGp
- dw/EM+fK9/lP8ObM6ULdGfi+jSDlcYliLiJVyXs4NA8TaHp3AEbUInSQAXaslfiHJ7Um
- gVKQ==
+ d=1e100.net; s=20230601; t=1730389457; x=1730994257;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=WkbJktFWhQ17ZPncxvn3FN6iDF+dModwKTnXQceOjrk=;
+ b=VspvmHRAs8Nf/iJvzcPWN9zfy54jeatCFlIE4Nt24QCoqvrKayyY4xXpoUOe4QAfi9
+ VE84ecrhLL5sjaocIlJfMTdw3KbsQldWRa+lrjKIqxSVOHRNjzNzM+lFSkPufUuQyeR4
+ kgAtLZ30VOxm7bmi7PgOsoJW+149v4MbFLzCI3RkMviOnZcE5JNDNb3g/Omo1xOuzNmP
+ 0RycQDRLulAI/Jkd0DG0+GPVxMyD3I9/w/79AwUfzdXbI3KEiCmyxi/wu23v5WQtdC4E
+ Ht7tdiYM2b661kMwkJPifMJVZeDdrU5sx2oSEBsqEs8lyoHWvq++4frz6WzBK6tpHEn9
+ 8AQQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUCQnNyW6D20eQ3ux2/snh4zHeOYh3v+f/PLcTsvj5t98EbeyXBkGYd5JA09AT97BGWNVkY4Rd0Zg4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzh4xmhyJ9nqObGbCv+Rl6nwtGSEZhmA7Mr3iOmxBz9rDgQ7kUU
- 46F1YopdW8VMq4ilWP/hzchnrOzw10IC4GL6df9cXLG57MY5Qtx5ST9a0dUhMLo=
-X-Google-Smtp-Source: AGHT+IHmbLeS2jvvSq+XcHXIlfUKhKFp+lBKs4Bd0dZD1Q8Fgqy2HDTwkQq4YF13r1zeXwVZveQWXg==
-X-Received: by 2002:a05:6000:1c9:b0:37d:49a1:40c7 with SMTP id
- ffacd0b85a97d-3806115a20bmr13878276f8f.28.1730387603921; 
- Thu, 31 Oct 2024 08:13:23 -0700 (PDT)
-Received: from [127.0.1.1] ([82.76.168.176]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381c10e734csm2418920f8f.60.2024.10.31.08.13.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Oct 2024 08:13:22 -0700 (PDT)
-From: Abel Vesa <abel.vesa@linaro.org>
-Date: Thu, 31 Oct 2024 17:12:48 +0200
-Subject: [PATCH RFC 4/4] drm/msm/dp: Add support for LTTPR handling
+ AJvYcCXnlI2fNyEJqKBkKY81DKlgWt5Nw4jrzveedCOma8FneFJZM1x093Db3AmIBy8Ah+S7rBqnG21Ho28=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxYJjhkVJhAJVv9Oa5CN0fn7qERqd73CTom1HecroTlt2r/7b0/
+ AcxyHTy9QllNX2nP9bJANtGYl4PYz4LfuNKx37dpwjXBU12wPS2FwMSMioGYAnsaAyZvHn6+jR5
+ SymRoZhoTVEpzbanaY29EDSbU2YNBeS/o0uk13g==
+X-Google-Smtp-Source: AGHT+IGjmqvpPX1+bGFGcSxEoEH+wnbP2rdjGZXV5omtO6akLQEwaojlUw/funiMKKjk1H8UlB7i4QA7KdZjNAhvlgE=
+X-Received: by 2002:a05:690c:d81:b0:6e3:430c:b120 with SMTP id
+ 00721157ae682-6e9d88cecf3mr189401227b3.5.1730389457603; Thu, 31 Oct 2024
+ 08:44:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-4-cafbb9855f40@linaro.org>
-References: <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-0-cafbb9855f40@linaro.org>
-In-Reply-To: <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-0-cafbb9855f40@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@redhat.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Abel Vesa <abel.vesa@linaro.org>
-X-Mailer: b4 0.15-dev-dedf8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3009; i=abel.vesa@linaro.org; 
- h=from:subject:message-id;
- bh=qRn/jvW7tE4OUa9xySn5pIJn3QDJPl3Qlp7ZmkluObc=; 
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBnI55+9EzZOthRgX0FpnvhwBMl9FxxsDYIWqjv0
- XvSV6RJHv6JAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZyOefgAKCRAbX0TJAJUV
- VvZiD/45XA56D5YG0qJfIzf5NOwxDGg+R9f/jAazsIdYIb1x2Ob3QzjrmDvDHw0D7VOXJTWaZgA
- H7xLZgZTKPp1JeDPSWDc5oUnbMyiNZG1S9oa+tQ5diDxc7xapCeGNtbgXBz6ZyiKsjXAMn6MHEG
- yLcXzNNFOnwlrGmnYFkzFXwEchDmltJQVGLZhCpG/xSHtuyh8bjnC2QnHJI/kr7kLhHGKdRC0l2
- Xhkfv8pPnbokGW7JEw+40SeY+hxNUJQQywuWy836FkEgcV/4+j9jf6GQX1wS9bTVt1xhjUXGXe2
- YDCcpLkNvnruvFIG/jvcwsta8HMoi7LvKSiF2T4vVdohzqqDaT1e3BQvQTAFYsLlSyr9rPgeBxH
- G8WEtmTrNcP8rv/398u7KypnUsTR2uYPcR/F/fWlsk8brk2a8/AEyORANS3dwMOFlNZ+GXh+TTX
- tLtrYw5fCaV/ufD0oPnv04vsqrnd3dfpi8Cyz1ReCskjlDQEp49RREZ4wAt8BMewluN69ZN2kD3
- vxUELo7KvPdPW3TZ1+zJDXE1cJnChx8AFdCmDDcY6kwbedKV2DTdZ37zuvSL6zgwlVdzEIVwZce
- g0r8aezKvu5Mtlnv1rtcFbtim552XAdvIGM13ljZklYgMVtzhTH79QiE3Vwraw99FTQRCteSUC/
- iER7CQXfL8ValJQ==
-X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+References: <20241025-dpu-virtual-wide-v6-0-0310fd519765@linaro.org>
+ <20241025-dpu-virtual-wide-v6-7-0310fd519765@linaro.org>
+ <e0f84f35-6d98-45c3-857c-c273820fab69@quicinc.com>
+ <xxxedwb2t6xhfzmhpom6dirs2ur2qvmruimdxgvdkh7gmey5tr@qotm7xvbsg5a>
+ <14531af0-29c3-40eb-bf52-8202ba155d0b@quicinc.com>
+ <CAA8EJppCppQ_jJu4o62prW-Yp2E3WBfqdYgdJs-KB8kgghj0fg@mail.gmail.com>
+In-Reply-To: <CAA8EJppCppQ_jJu4o62prW-Yp2E3WBfqdYgdJs-KB8kgghj0fg@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 31 Oct 2024 17:17:33 +0200
+Message-ID: <CAA8EJpr_8LkP8wnR8n0wSeFHOWdG9osg+XZu_vCDkv5Y6y0gXA@mail.gmail.com>
+Subject: Re: [PATCH v6 7/9] drm/msm/dpu: add support for virtual planes
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,87 +86,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Link Training Tunable PHY Repeaters (LTTPRs) are defined in DisplayPort
-1.4a specification. As the name suggests, these PHY repeaters are
-capable of adjusting their output for link training purposes.
+On Thu, 31 Oct 2024 at 17:11, Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> Hi Abhinav,
+>
+> On Wed, 30 Oct 2024 at 21:26, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> > On 10/30/2024 3:48 AM, Dmitry Baryshkov wrote:
+> > > On Tue, Oct 29, 2024 at 02:30:12PM -0700, Abhinav Kumar wrote:
+> > >> On 10/24/2024 5:20 PM, Dmitry Baryshkov wrote:
+> > >>> +           if (reqs->yuv && !hw_sspp->cap->sblk->csc_blk.len)
+> > >>> +                   continue;
+> > >>
+> > >> same here
+> > >>> +
+> > >>> +           if (reqs->rot90 && !(hw_sspp->cap->features & DPU_SSPP_INLINE_ROTATION))
+> > >>> +                   continue;
+> > >>> +
+> > >>> +           global_state->sspp_to_crtc_id[i] = crtc_id;
+> > >>> +
+> > >>> +           return rm->hw_sspp[i];
+> > >>> +   }
+> > >>> +
+> > >>> +   return NULL;
+> > >>> +}
+> > >>> +struct dpu_hw_sspp *dpu_rm_reserve_sspp(struct dpu_rm *rm,
+> > >>> +                                   struct dpu_global_state *global_state,
+> > >>> +                                   struct drm_crtc *crtc,
+> > >>> +                                   struct dpu_rm_sspp_requirements *reqs)
+> > >>> +{
+> > >>> +   struct dpu_hw_sspp *hw_sspp = NULL;
+> > >>> +
+> > >>> +   if (!reqs->scale && !reqs->yuv)
+> > >>> +           hw_sspp = dpu_rm_try_sspp(rm, global_state, crtc, reqs, SSPP_TYPE_DMA);
+> > >>> +   if (!hw_sspp && reqs->scale)
+> > >>> +           hw_sspp = dpu_rm_try_sspp(rm, global_state, crtc, reqs, SSPP_TYPE_RGB);
+> > >>
+> > >> I dont recollect whether RGB SSPPs supported scaling, if you have any source
+> > >> or link for this, that would help me for sure.
+> > >
+> > > I have to dig further into the old fbdev driver. It looks like
+> > > mdss_mdp_qseed2_setup() is getting called for all plane types on the
+> > > corresponding hardware, but then it rejects scaling only for DMA and
+> > > CURSOR planes, which means that RGB planes should get the scaler setup.
+> > >
+> > > For now this is from the SDE driver from 4.4:
+> > >
+> > >   * @SDE_SSPP_SCALER_RGB,     RGB Scaler, supported by RGB pipes
+> > >
+> > >> But even otherwise, I dont see any chipset in the catalog setting this SSPP
+> > >> type, so do we need to add this case?
+> > >
+> > > Yes, we do. MSM8996 / MSM8937 / MSM8917 / MSM8953 use RGB planes.
+> > >
+> >
+> > Yes those chipsets do have RGB SSPP. My question was whether they have
+> > migrated to dpu and thats why I wanted to know whether we want to
+> > include RGB SSPP handling.
+> >
+> > I do not even see them in msm_mdp5_dpu_migration.
+>
+> Ugh, it's a bug then, I'll push a fix.
 
-The msm DP driver is currently lacking any handling of LTTPRs.
-This means that if at least one LTTPR is found between DPTX and DPRX,
-the link training would fail if that LTTPR was not already configured
-in transparent mode.
+Ok, this is very surprising:
 
-The section 3.6.6.1 from the DisplayPort v2.0 specification mandates
-that before link training with the LTTPR is started, the DPTX may place
-the LTTPR in non-transparent mode by first switching to transparent mode
-and then to non-transparent mode. This operation seems to be needed only
-on first link training and doesn't need to be done again until device is
-unplugged.
+static const char *const msm_mdp5_dpu_migration[] = {
+        "qcom,msm8917-mdp5",
+        "qcom,msm8937-mdp5",
+        "qcom,msm8953-mdp5",
+        "qcom,msm8996-mdp5",
+        "qcom,sdm630-mdp5",
+        "qcom,sdm660-mdp5",
+        NULL,
+};
 
-It has been observed on a few X Elite-based platforms which have
-such LTTPRs in their board design that the DPTX needs to follow the
-procedure described above in order for the link training to be successful.
 
-So add support for reading the LTTPR DPCD caps to figure out the number
-of such LTTPRs first. Then, for platforms (or Type-C dongles) that have
-at least one such an LTTPR, set its operation mode to transparent mode
-first and then to non-transparent, just like the mentioned section of
-the specification mandates.
-
-Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index f01980b0888a40b719d3958cb96c6341feada077..5d3d318d7b87ce3bf567d8b7435931d8e087f713 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -107,6 +107,8 @@ struct dp_display_private {
- 	struct dp_event event_list[DP_EVENT_Q_MAX];
- 	spinlock_t event_lock;
- 
-+	u8 lttpr_caps[DP_LTTPR_COMMON_CAP_SIZE];
-+
- 	bool wide_bus_supported;
- 
- 	struct dp_audio *audio;
-@@ -367,12 +369,35 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
- 	return 0;
- }
- 
-+static void dp_display_lttpr_init(struct dp_display_private *dp)
-+{
-+	int lttpr_count;
-+
-+	if (drm_dp_read_lttpr_common_caps(dp->aux, dp->panel->dpcd,
-+					  dp->lttpr_caps))
-+		return;
-+
-+	lttpr_count = drm_dp_lttpr_count(dp->lttpr_caps);
-+
-+	if (lttpr_count) {
-+		drm_dp_lttpr_set_transparent_mode(dp->aux, true);
-+
-+		if (lttpr_count > 0) {
-+			if (drm_dp_lttpr_set_transparent_mode(dp->aux, false) != 1)
-+				drm_dp_lttpr_set_transparent_mode(dp->aux, true);
-+		}
-+	}
-+}
-+
- static int dp_display_process_hpd_high(struct dp_display_private *dp)
- {
- 	struct drm_connector *connector = dp->dp_display.connector;
- 	const struct drm_display_info *info = &connector->display_info;
- 	int rc = 0;
- 
-+	if (!dp->dp_display.is_edp)
-+		dp_display_lttpr_init(dp);
-+
- 	rc = dp_panel_read_sink_caps(dp->panel, connector);
- 	if (rc)
- 		goto end;
 
 -- 
-2.34.1
-
+With best wishes
+Dmitry
