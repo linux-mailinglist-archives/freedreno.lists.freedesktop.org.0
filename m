@@ -2,93 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E11B9B953F
-	for <lists+freedreno@lfdr.de>; Fri,  1 Nov 2024 17:25:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D9B19B9937
+	for <lists+freedreno@lfdr.de>; Fri,  1 Nov 2024 21:12:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 642A310E2F9;
-	Fri,  1 Nov 2024 16:25:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B3BB10EA00;
+	Fri,  1 Nov 2024 20:12:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="KkkA25H/";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cehXVlHl";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99F3C10E2F9;
- Fri,  1 Nov 2024 16:25:27 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A1CZRRg002303;
- Fri, 1 Nov 2024 16:25:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 4QWx/7MUGYS6k2cD1W8BMEcfbzad37g6V5wvlkxyisc=; b=KkkA25H/GpanQOaE
- 7XRfHjuafIqbuwXCM4S9peLl/e1VFXiUiOzzi7W7KL+35MX1I89QbTLlImMuue8o
- GFyWcAklb6+A47uJltZfahxQT0DOFL5JDLF3dp1esuAITbZUz8hJRILjDuYayJ2A
- RUYHwcuIpSPoj1WVPiP1k8gUKEVojAiRMaDhZWcbanD7KwjyPemxCzDfcD5ZdNJc
- P91yVG3E8JBLV6A7qePwfNUfzUjYUvv2Ut/q0t5AT+qn9bRNrt5E5WLyAAsrFwUW
- RN/hzoAv3jrGgtjLshybBAH+S5CSNvnOWnfOF0YG15nHL9EPFigKGQUkyfB6uP8g
- T/w+GA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42kmn5fwjw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 01 Nov 2024 16:25:22 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4A1GPLBZ011343
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 1 Nov 2024 16:25:21 GMT
-Received: from [10.206.104.82] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 1 Nov 2024
- 09:25:05 -0700
-Message-ID: <c5e868e1-2dae-466c-a6fc-ef0f247fa0ce@quicinc.com>
-Date: Fri, 1 Nov 2024 21:54:56 +0530
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 291F210EA00
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Nov 2024 20:12:21 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-539ebb5a20aso2489615e87.2
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Nov 2024 13:12:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1730491939; x=1731096739; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=XRuudTPNmMwLHY1n1kU3xhjTGMpQc0UfbLasNRVgYtU=;
+ b=cehXVlHlYopBBlkinAfTLIr1ZjhzYZvoGn8MOluK6YsUcVUqN6JYU1Ok0R8HGn1zZQ
+ J3iBH4BUljq2rWOjTg4N+r6JyFPFwry3TxtxArxq/N49ccNb8jPtQidFkw89N/LFPBTn
+ BM++HRrTVaUM5HLi/sAiL1uij76LTtTaJYxXFin6jmsANUEpGowXhbs3cs8pNClrTAEE
+ eckTH0bud2aY92I0ZbZlGa70fVujmg+/4FbACVKu989Kn8KWmQyWz8kEdPbezFORvRGS
+ DTxKzSgjrwya080SmKfMGDEWRFWwmt+5b8h2JAJ+86Sl/emqBmhNqBd3L3tSuaixeubB
+ 7/Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730491939; x=1731096739;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XRuudTPNmMwLHY1n1kU3xhjTGMpQc0UfbLasNRVgYtU=;
+ b=g1uRnLXQbCqeUDKsA/UiUdtt4H+7aiTdj/U64qZ6/6h7U0A/R+Lpdpp4MYNblWSmze
+ Oppl4KXiFtUsRLmAuET3YZyBKv99qOixPP5ZtpSHmzXCO6arZTVtUi1N739mlSPRcM0v
+ C3mzMFfjJ8TA+LeSDB/yrIDVmNGfpq6ZbzPoSlXRxh5sYVRlR5VECWNWMt6ElxgBiMX7
+ JTX+LUEwS0CztSGwpL8RARMo9842wJOThtB05Yx2BXLdogMpA9wKDTjlhVF8GWRO10MN
+ pbBwuugZTBN4bvZT62JPN5DvcHoOm+1StR4cHpSWN0H3+MPsUJtmGbuaeGkAUZTIh15B
+ 5oNg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXZM6tSGrDi9vRsnbESJ00jx2elC3F70C5NQ3JmSNGYagPekBUWCCyknQ9uPtdGUPYbV2UzMNexh2I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYfBE2XQAG9mNu43iOkEW5Fm5Ii5mLve49zXCli9hF6xwb/lWL
+ pyPjOLuwab2umuqTTY+y9T/FhUMIIpw9s2gs4HLDQpEerUaL2WChHhmv8+OtcpM=
+X-Google-Smtp-Source: AGHT+IGIvW5ByRLM9GHWvfJdsh1B2I5joze+CQnZ10eSEsQVXQNXZharaJdv+roZF+ZF+jW9UKOllQ==
+X-Received: by 2002:a05:6512:3d21:b0:53c:7363:90c with SMTP id
+ 2adb3069b0e04-53d65df7d34mr2770112e87.35.1730491938782; 
+ Fri, 01 Nov 2024 13:12:18 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-53c7bcce3d9sm656782e87.161.2024.11.01.13.12.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Nov 2024 13:12:18 -0700 (PDT)
+Date: Fri, 1 Nov 2024 22:12:16 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Imre Deak <imre.deak@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Abel Vesa <abel.vesa@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH RFC 1/4] drm/dp: Add helper to set LTTPRs in transparent
+ mode
+Message-ID: <skyowhfl2qoaaoa4gyj5mf4j3nlznmtc6l5b3oicopmc5u5nxb@f3i2iif3r6ya>
+References: <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-0-cafbb9855f40@linaro.org>
+ <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-1-cafbb9855f40@linaro.org>
+ <ZyPxLpykHkO9Xx_R@ideak-desk.fi.intel.com>
+ <87msijjol6.fsf@intel.com>
+ <ZyTbDELVW5vqFoMS@ideak-desk.fi.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] dt-bindings: opp: Add v2-qcom-adreno vendor
- bindings
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Krzysztof Kozlowski <krzk@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- "Abhinav Kumar" <quic_abhinavk@quicinc.com>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>
-References: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
- <20241021-gpu-acd-v2-2-9c25a62803bc@quicinc.com>
- <mz4zpcr4tqh2w7vt75f4ofxjzfve54ozzgpdbi2jjzk5pdxbk7@t36tlt3mmprt>
- <d858dadb-4098-4c9f-b4f0-393dc988db5f@quicinc.com>
- <4426b4kybtac6rc4twa5pgm3hvlegofemvqjcrvh6ni7f5z2h6@5dnlv3hgywh5>
-Content-Language: en-US
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <4426b4kybtac6rc4twa5pgm3hvlegofemvqjcrvh6ni7f5z2h6@5dnlv3hgywh5>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: TGlv0mkW86Mz3fw9HgDqilPDJ4q9NQOF
-X-Proofpoint-GUID: TGlv0mkW86Mz3fw9HgDqilPDJ4q9NQOF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 mlxlogscore=999
- priorityscore=1501 mlxscore=0 malwarescore=0 bulkscore=0 suspectscore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2411010119
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZyTbDELVW5vqFoMS@ideak-desk.fi.intel.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,107 +103,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/25/2024 11:58 AM, Dmitry Baryshkov wrote:
-> On Thu, Oct 24, 2024 at 12:56:58AM +0530, Akhil P Oommen wrote:
->> On 10/22/2024 11:19 AM, Krzysztof Kozlowski wrote:
->>> On Mon, Oct 21, 2024 at 05:23:43PM +0530, Akhil P Oommen wrote:
->>>> Add a new schema which extends opp-v2 to support a new vendor specific
->>>> property required for Adreno GPUs found in Qualcomm's SoCs. The new
->>>> property called "qcom,opp-acd-level" carries a u32 value recommended
->>>> for each opp needs to be shared to GMU during runtime.
->>>>
->>>> Cc: Rob Clark <robdclark@gmail.com>
->>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>>> ---
->>>>  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 96 ++++++++++++++++++++++
->>>>  1 file changed, 96 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
->>>> new file mode 100644
->>>> index 000000000000..6d50c0405ef8
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
->>>> @@ -0,0 +1,96 @@
->>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Qualcomm Adreno compatible OPP supply
->>>> +
->>>> +description:
->>>> +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
->>>> +  ACD related information tailored for the specific chipset. This binding
->>>> +  provides the information needed to describe such a hardware value.
->>>> +
->>>> +maintainers:
->>>> +  - Rob Clark <robdclark@gmail.com>
->>>> +
->>>> +allOf:
->>>> +  - $ref: opp-v2-base.yaml#
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    items:
->>>> +      - const: operating-points-v2-adreno
->>>> +      - const: operating-points-v2
->>>> +
->>>> +patternProperties:
->>>> +  '^opp-?[0-9]+$':
->>>
->>> '-' should not be optional. opp1 is not expected name.
->>
->> Agree. Will change this to '^opp-[0-9]+$'
->>
->>>
->>>> +    type: object
->>>> +    additionalProperties: false
->>>> +
->>>> +    properties:
->>>> +      opp-hz: true
->>>> +
->>>> +      opp-level: true
->>>> +
->>>> +      opp-peak-kBps: true
->>>> +
->>>> +      opp-supported-hw: true
->>>> +
->>>> +      qcom,opp-acd-level:
->>>> +        description: |
->>>> +          A positive value representing the ACD (Adaptive Clock Distribution,
->>>> +          a fancy name for clk throttling during voltage droop) level associated
->>>> +          with this OPP node. This value is shared to a co-processor inside GPU
->>>> +          (called Graphics Management Unit a.k.a GMU) during wake up. It may not
->>>> +          be present for some OPPs and GMU will disable ACD while transitioning
->>>> +          to that OPP. This value encodes a voltage threshold and few other knobs
->>>> +          which are identified by characterization of the SoC. So, it doesn't have
->>>> +          any unit.
->>>
->>> Thanks for explanation and other updates. I am still not happy with this
->>> property. I do not see reason why DT should encode magic values in a
->>> quite generic piece of code. This creates poor ABI, difficult to
->>> maintain or understand.
->>>
->>
->> Configuring GPU ACD block with its respective value is a requirement for each OPP.
->> So OPP node seems like the natural place for this data.
->>
->> If it helps to resolve your concerns, I can elaborate the documentation with
->> details on the GMU HFI interface where this value should be passed on to the
->> hardware. Also replace "few other knobs" with "Delay cycles & Calibration margin"
->> in the above doc.
+On Fri, Nov 01, 2024 at 03:43:40PM +0200, Imre Deak wrote:
+> On Fri, Nov 01, 2024 at 11:22:13AM +0200, Jani Nikula wrote:
+> > On Thu, 31 Oct 2024, Imre Deak <imre.deak@intel.com> wrote:
+> > > On Thu, Oct 31, 2024 at 05:12:45PM +0200, Abel Vesa wrote:
+> > >> According to the DisplayPort standard, LTTPRs have two operating
+> > >> modes:
+> > >>  - non-transparent - it replies to DPCD LTTPR field specific AUX
+> > >>    requests, while passes through all other AUX requests
+> > >>  - transparent - it passes through all AUX requests.
+> > >> 
+> > >> Switching between this two modes is done by the DPTX by issuing
+> > >> an AUX write to the DPCD PHY_REPEATER_MODE register.
+> > >> 
+> > >> Add a generic helper that allows switching between these modes.
+> > >> 
+> > >> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> > >> ---
+> > >>  drivers/gpu/drm/display/drm_dp_helper.c | 17 +++++++++++++++++
+> > >>  include/drm/display/drm_dp_helper.h     |  1 +
+> > >>  2 files changed, 18 insertions(+)
+> > >> 
+> > >> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> > >> index 6ee51003de3ce616c3a52653c2f1979ad7658e21..38d612345986ad54b42228902ea718a089d169c4 100644
+> > >> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> > >> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> > >> @@ -2694,6 +2694,23 @@ int drm_dp_lttpr_max_link_rate(const u8 caps[DP_LTTPR_COMMON_CAP_SIZE])
+> > >>  }
+> > >>  EXPORT_SYMBOL(drm_dp_lttpr_max_link_rate);
+> > >>  
+> > >> +/**
+> > >> + * drm_dp_lttpr_set_transparent_mode - set the LTTPR in transparent mode
+> > >> + * @aux: DisplayPort AUX channel
+> > >> + * @enable: Enable or disable transparent mode
+> > >> + *
+> > >> + * Returns 0 on success or a negative error code on failure.
+> > >
+> > > Should be "Returns 1 on success".
+> > 
+> > But is that a sensible return value?
 > 
-> Usually the preference for DT is to specify data in a sensible way
-> rather than just the values being programmed to the register. Is it
-> possible to implement this approach for ACD values?
+> It matches what the function returns, but yes, would make more sense to
+> fix the return value instead to be 0 in case of success.
 
-I am still checking about this. Will get back.
-
--Akhil
+I think returning 0 is better in case of this function.
 
 > 
->>  
->>>
-> 
+> > >
+> > >> + */
+> > >> +
+> > 
+> > Superfluous newline.
+> > 
+> > >> +int drm_dp_lttpr_set_transparent_mode(struct drm_dp_aux *aux, bool enable)
+> > >> +{
+> > >> +	u8 val = enable ? DP_PHY_REPEATER_MODE_TRANSPARENT :
+> > >> +			  DP_PHY_REPEATER_MODE_NON_TRANSPARENT;
+> > >> +
+> > >> +	return drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE, val);
+> > >> +}
+> > >> +EXPORT_SYMBOL(drm_dp_lttpr_set_transparent_mode);
+> > >> +
+> > >>  /**
+> > >>   * drm_dp_lttpr_max_lane_count - get the maximum lane count supported by all LTTPRs
+> > >>   * @caps: LTTPR common capabilities
+> > >> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> > >> index 279624833ea9259809428162f4e845654359f8c9..8821ab2d36b0e04d38ccbdddcb703b34de7ed680 100644
+> > >> --- a/include/drm/display/drm_dp_helper.h
+> > >> +++ b/include/drm/display/drm_dp_helper.h
+> > >> @@ -625,6 +625,7 @@ int drm_dp_read_lttpr_phy_caps(struct drm_dp_aux *aux,
+> > >>  			       u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
+> > >>  int drm_dp_lttpr_count(const u8 cap[DP_LTTPR_COMMON_CAP_SIZE]);
+> > >>  int drm_dp_lttpr_max_link_rate(const u8 caps[DP_LTTPR_COMMON_CAP_SIZE]);
+> > >> +int drm_dp_lttpr_set_transparent_mode(struct drm_dp_aux *aux, bool enable);
+> > >>  int drm_dp_lttpr_max_lane_count(const u8 caps[DP_LTTPR_COMMON_CAP_SIZE]);
+> > >>  bool drm_dp_lttpr_voltage_swing_level_3_supported(const u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
+> > >>  bool drm_dp_lttpr_pre_emphasis_level_3_supported(const u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
+> > >> 
+> > >> -- 
+> > >> 2.34.1
+> > >> 
+> > 
+> > -- 
+> > Jani Nikula, Intel
 
+-- 
+With best wishes
+Dmitry
