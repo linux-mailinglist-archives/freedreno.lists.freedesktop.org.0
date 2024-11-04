@@ -2,113 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 037AB9BB943
-	for <lists+freedreno@lfdr.de>; Mon,  4 Nov 2024 16:45:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 277189BBA9D
+	for <lists+freedreno@lfdr.de>; Mon,  4 Nov 2024 17:54:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EC5E10E46B;
-	Mon,  4 Nov 2024 15:45:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C32510E06E;
+	Mon,  4 Nov 2024 16:54:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LpMvWi5q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GNRgtKd2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCF5610E469
- for <freedreno@lists.freedesktop.org>; Mon,  4 Nov 2024 15:45:01 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4316e9f4a40so35912445e9.2
- for <freedreno@lists.freedesktop.org>; Mon, 04 Nov 2024 07:45:01 -0800 (PST)
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 137B410E488;
+ Mon,  4 Nov 2024 16:54:29 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id
+ e9e14a558f8ab-3a3aeb19ea2so16410505ab.0; 
+ Mon, 04 Nov 2024 08:54:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1730735100; x=1731339900; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=ftipUFfbQyrbYTtkBKFzCTCmVmhbNpyQ5+49w8VdR7M=;
- b=LpMvWi5q/Jg1YjcUynaC4s0C+Z84Z88WQW6snyZw93nMDItFT+mTIh7qShe9L7rDfO
- PX32kdVd7Ro1WIZ0C0y3bAUK8/u8OJr8Eh+ZNcXcuZQfbv/nMUTNfw+RTPyYSVA4iIfM
- Jmn9RXHQ2P+sEpOcpkcGlOOcUmInFeyo73TGphQRlnElvZi8dqCNlISsyRng+TjRD1at
- Te1LWcSWqJG9WgBNEj09Xe6oQeU89MwqXwWhiat+opPBNBV+5XYis60bdgPW37NYAxBE
- KZuZINGKMKlo5EWU2AINy9qxNY66nEr2Mep5vDNgnrTUqa9a1cjSgPSR9msH1A/Jt9rH
- TgDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730735100; x=1731339900;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ d=gmail.com; s=20230601; t=1730739268; x=1731344068; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
  :date:message-id:reply-to;
- bh=ftipUFfbQyrbYTtkBKFzCTCmVmhbNpyQ5+49w8VdR7M=;
- b=ZycPsTfUbq0e3rzmPlshp5fkBl+cRfZGLa9iB+SR/lb6JOj5Ql+OdnF8d7rF+BSRaR
- VJqHV0ODLntKBfdfA0IQekP6l/LhPar+S32q5AYqL3kVyH8OXauoQlXlcLxCMt7LfBmq
- /ewbJFbBeG0wWEwch8c+VQhMbuDFHexN520nicV87Zc60t5Zhg+gJXI+K/gzZL+9ddap
- ScCHn7t533wsrBzmv74Fzi8p7DgEnA3sevf0HcVODi7nk0mObE8eLS1q5W69Akd6hzF4
- WGD7N1Zdn10TXfn6pPNR+JeuVR8s3BV0Q2Rcy9VXzYcNnndtt0C9gy3JbM9+WoP9mR6P
- tFtQ==
+ bh=Aow437kkXpAe5g9V7AdsRJo4FnK0hAm9Zw+vMmQfPGE=;
+ b=GNRgtKd2knBPlXbtnB1ryGnSpKJ3yGGFmF2e2wG5X2+bYlnnkf6WHZaOjiN7c2kpBb
+ veGQn7bElFAabIFfojc7tP1GJ5YOFMR41TUony7fFleQ7zY+Yw6ZVQT6Y4BhpXqDb4Bq
+ bQR83yKrwf4dJKNM2Mpxz4AKIsMyvpZPGarE1yipci4DfgElrH4zCzw6DoDvrc/vAuR2
+ 8f2K7iFTxOgdr5kD/9J10mBA1zOaTw5bKcTSiWCedS+7HxMDBWD+/+juUOqZmakgX8VN
+ xTXglAtK+nJcjPAJcutc3hgCLdacBb2PvSzncRKubG4cv13B5jDc0My/9+u5EGfGk+OB
+ cTAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730739268; x=1731344068;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Aow437kkXpAe5g9V7AdsRJo4FnK0hAm9Zw+vMmQfPGE=;
+ b=l9vwnKTxst2LFYszNiSHvmE4yzE/PtLwzWrfsEcMfIDKPysvrHB/mxkeI+PMNw+uid
+ cBIm/D9O/wzwuCt0dsMLLHcZ7tHetrodFKxEPC6E37TGjC7W0VNeEr7KbSCt0mAZHaWU
+ j0975Rv6gGaFaR3ImA9E+qYRpRLmTmT4mRivB8uM/rpxDUJIwDfRZ+wDCSc+pZjhDL8a
+ 5HFKRS4C6TGngSkYgxAVd5PMZHvuYF/vvpkoA7INimQYi3v19usSyMxOAPm7pyXzaghF
+ NgIuvSkfh0SxbGlSQCEHsGl6qAygNlGXvi6alw878wCWQta6YWu2W9uxqTj4wtnBDokD
+ iwtg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUsnDvFf9NLAqoXmhP/Tk0ImT22HQLIcVFefyKwMxPBgybv29MI+KHaT1b9pOpbJFi3V/NhOYVfU+Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwsEkmCdjNbEXF1hakxctiC++nnnuWBeCukgOBzOaqFk44441g7
- 7fKmBZBrE6ILrmuXqLl1nDMDGQKlL2I4ve4BWzu3C5RAGhpl4HURjUQT2B+f4wU=
-X-Google-Smtp-Source: AGHT+IEt227mWEkJ2KUldJ6cNcu5CXzPjyiwcrBv4UbMZfjjnIxrvAGFeU/8XnhL8EXXaevw1ExOPw==
-X-Received: by 2002:a05:600c:3c8c:b0:431:4fa0:2e0b with SMTP id
- 5b1f17b1804b1-4319ad146b1mr263095595e9.28.1730735100145; 
- Mon, 04 Nov 2024 07:45:00 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:5b00:c640:4c96:8a97?
- ([2a01:e0a:982:cbb0:5b00:c640:4c96:8a97])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4327d6852c3sm157054515e9.38.2024.11.04.07.44.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Nov 2024 07:44:59 -0800 (PST)
-Message-ID: <4aeec9f1-720b-400c-9582-d02847db2ac7@linaro.org>
-Date: Mon, 4 Nov 2024 16:44:56 +0100
+ AJvYcCWh9PPEiv2kFMTJZ77kKOAJmKRth8h31BNy95ZQDsb43FhuEcGl1WPFCKdFeKoa7oUq3rVqJHC/W9s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsJM0LyVjawrkFZXFulx4rkoeHWDLzVZHIqtkN0+phBz4YlRAl
+ yrmmVq/njPoZIJUSd/kuAoG3NOMf3dD2phCf+JxfTmHfAeTnu2aLOd5wYGds8TVB0UxM7wX94A/
+ ZH/xiCUxXfL2qii/1ciGvHbZPt30=
+X-Google-Smtp-Source: AGHT+IGkKB/ahqDlWLmEwv6DoJbRUpqg/GBMhf7DFFrb+gxRQ8+oqafUoL+oLxcfiLFlFK30d37eKC2E+AkrVSwfP4g=
+X-Received: by 2002:a92:c246:0:b0:3a0:8d2f:2914 with SMTP id
+ e9e14a558f8ab-3a4ed2fe5f9mr323276335ab.23.1730739268099; Mon, 04 Nov 2024
+ 08:54:28 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH RFC 1/3] drm/msm/adreno: Add support for ACD
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20241012-gpu-acd-v1-0-1e5e91aa95b6@quicinc.com>
- <20241012-gpu-acd-v1-1-1e5e91aa95b6@quicinc.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20241012-gpu-acd-v1-1-1e5e91aa95b6@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 4 Nov 2024 08:54:16 -0800
+Message-ID: <CAF6AEGuGL6k3CKXZ0Qv-FTQ589+_PWNtid6i7MmVJLopBm2sYg@mail.gmail.com>
+Subject: [pull] drm/msm: drm-msm-next-2024-11-04 for v6.13
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,115 +74,136 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/10/2024 22:29, Akhil P Oommen wrote:
-> ACD a.k.a Adaptive Clock Distribution is a feature which helps to reduce
-> the power consumption. In some chipsets, it is also a requirement to
-> support higher GPU frequencies. This patch adds support for GPU ACD by
-> sending necessary data to GMU and AOSS. The feature support for the
-> chipset is detected based on devicetree data.
-> 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 81 ++++++++++++++++++++++++++++-------
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
->   drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 36 ++++++++++++++++
->   drivers/gpu/drm/msm/adreno/a6xx_hfi.h | 21 +++++++++
->   4 files changed, 124 insertions(+), 15 deletions(-)
-> 
+Hi Dave, Simona,
 
-<snip>
+A second late pull for v6.13, mainly to get in big/churny but
+mechanical (mass dp symbol renames and kerneldoc cleanups) changes to
+avoid merge conflicts in the next cycle.
 
-> +
-> +static int a6xx_hfi_enable_acd(struct a6xx_gmu *gmu)
-> +{
-> +	struct a6xx_hfi_acd_table *acd_table = &gmu->acd_table;
-> +	struct a6xx_hfi_msg_feature_ctrl msg = {
-> +		.feature = HFI_FEATURE_ACD,
-> +		.enable = 1,
-> +		.data = 0,
-> +	};
-> +	int ret;
-> +
-> +	if (!acd_table->enable_by_level)
-> +		return 0;
-> +
-> +	/* Enable ACD feature at GMU */
-> +	ret = a6xx_hfi_send_msg(gmu, HFI_H2F_FEATURE_CTRL, &msg, sizeof(msg), NULL, 0);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(gmu->dev, "Unable to enable ACD (%d)\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* Send ACD table to GMU */
-> +	ret = a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_ACD, &msg, sizeof(msg), NULL, 0);
+The following changes since commit 4a6fd06643afa99989a0e6b848e125099674227b:
 
-This looks wrong, in this exact code, you never use the acd_table... perhaps it should be acd_table here
+  Merge remote-tracking branch 'drm-misc/drm-misc-next' into msm-next
+(2024-10-30 09:49:12 -0700)
 
-> +	if (ret) {
-> +		DRM_DEV_ERROR(gmu->dev, "Unable to ACD table (%d)\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static int a6xx_hfi_send_test(struct a6xx_gmu *gmu)
->   {
->   	struct a6xx_hfi_msg_test msg = { 0 };
-> @@ -756,6 +788,10 @@ int a6xx_hfi_start(struct a6xx_gmu *gmu, int boot_state)
->   	if (ret)
->   		return ret;
->   
-> +	ret = a6xx_hfi_enable_acd(gmu);
-> +	if (ret)
-> +		return ret;
-> +
->   	ret = a6xx_hfi_send_core_fw_start(gmu);
->   	if (ret)
->   		return ret;
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-> index 528110169398..51864c8ad0e6 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-> @@ -151,12 +151,33 @@ struct a6xx_hfi_msg_test {
->   	u32 header;
->   };
->   
-> +#define HFI_H2F_MSG_ACD 7
-> +#define MAX_ACD_STRIDE 2
-> +
-> +struct a6xx_hfi_acd_table {
-> +	u32 header;
-> +	u32 version;
-> +	u32 enable_by_level;
-> +	u32 stride;
-> +	u32 num_levels;
-> +	u32 data[16 * MAX_ACD_STRIDE];
-> +};
-> +
->   #define HFI_H2F_MSG_START 10
->   
->   struct a6xx_hfi_msg_start {
->   	u32 header;
->   };
->   
-> +#define HFI_H2F_FEATURE_CTRL 11
-> +
-> +struct a6xx_hfi_msg_feature_ctrl {
-> +	u32 header;
-> +	u32 feature;
-> +	u32 enable;
-> +	u32 data;
-> +};
-> +
->   #define HFI_H2F_MSG_CORE_FW_START 14
->   
->   struct a6xx_hfi_msg_core_fw_start {
-> 
+are available in the Git repository at:
 
-Thanks,
-Neil
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-next-2024-11-04
+
+for you to fetch changes up to 86313a9cd152330c634b25d826a281c6a002eb77:
+
+  drm/msm/dpu: rework documentation comments (2024-11-03 18:21:39 +0200)
+
+----------------------------------------------------------------
+Late updates for v6.13
+
+MDSS:
+- cleanup UBWC registers handling
+
+DP:
+- Mass-rename the symbols
+
+DPU:
+- SSPP handling cleanup
+- Move kerneldoc comments from headers to source files
+- Misc small fixes
+
+----------------------------------------------------------------
+Dmitry Baryshkov (15):
+      drm/msm/dp: prefix all symbols with msm_dp_
+      drm/msm/dp: rename edp_ bridge functions and struct
+      drm/msm/dp: tidy up platform data names
+      drm/msm: move msm_display_topology to the DPU driver
+      drm/msm: move MAX_H_TILES_PER_DISPLAY to the DPU driver
+      drm/msm: drop MAX_BRIDGES define
+      drm/msm/dpu: use drm_rect_fp_to_int()
+      drm/msm/dpu: move pstate->pipe initialization to dpu_plane_atomic_check
+      drm/msm/dpu: drop virt_formats from SSPP subblock configuration
+      drm/msm/dpu: move scaling limitations out of the hw_catalog
+      drm/msm/dpu: split dpu_plane_atomic_check()
+      drm/msm/dpu: move rot90 checking to dpu_plane_atomic_check_sspp()
+      drm/msm: move MDSS registers to separate header file
+      drm/msm/mdss: use register definitions instead of hand-coding them
+      drm/msm/dpu: rework documentation comments
+
+Zichen Xie (1):
+      drm/msm/dpu: cast crtc_clk calculation to u64 in _dpu_core_perf_calc_clk()
+
+ drivers/gpu/drm/msm/Makefile                       |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h       |  46 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c      |  25 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h      |  27 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  31 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h           |  38 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 179 ++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        | 107 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |  90 --
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |   6 +
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   6 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c        |  11 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h        |   7 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  28 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   8 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.c         |   8 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cdm.h         |   8 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |   9 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |   9 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c         |   7 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h         |  14 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c     |   7 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c        |   8 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.h        |   8 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  |  52 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |   6 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |   8 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |   8 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c          |   7 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.h          |   7 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c     |   8 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.h     |   8 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    |   9 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h    |   9 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        |   9 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h        |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         |   7 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.h         |   9 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.c        |   7 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h        |   7 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          |   8 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h          |   8 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  22 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |  34 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          | 247 +++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h          |  28 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |  46 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h             |  50 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c           |  13 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.h           |  18 -
+ drivers/gpu/drm/msm/dp/dp_audio.c                  | 294 +++----
+ drivers/gpu/drm/msm/dp/dp_audio.h                  |  38 +-
+ drivers/gpu/drm/msm/dp/dp_aux.c                    | 148 ++--
+ drivers/gpu/drm/msm/dp/dp_aux.h                    |  18 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.c                | 734 ++++++++---------
+ drivers/gpu/drm/msm/dp/dp_catalog.h                | 118 +--
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   | 482 +++++------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h                   |  40 +-
+ drivers/gpu/drm/msm/dp/dp_debug.c                  |  68 +-
+ drivers/gpu/drm/msm/dp/dp_debug.h                  |  10 +-
+ drivers/gpu/drm/msm/dp/dp_display.c                | 904 ++++++++++-----------
+ drivers/gpu/drm/msm/dp/dp_display.h                |  18 +-
+ drivers/gpu/drm/msm/dp/dp_drm.c                    | 142 ++--
+ drivers/gpu/drm/msm/dp/dp_drm.h                    |  22 +-
+ drivers/gpu/drm/msm/dp/dp_link.c                   | 432 +++++-----
+ drivers/gpu/drm/msm/dp/dp_link.h                   |  44 +-
+ drivers/gpu/drm/msm/dp/dp_panel.c                  | 254 +++---
+ drivers/gpu/drm/msm/dp/dp_panel.h                  |  42 +-
+ drivers/gpu/drm/msm/dp/dp_utils.c                  |  20 +-
+ drivers/gpu/drm/msm/dp/dp_utils.h                  |   8 +-
+ drivers/gpu/drm/msm/msm_drv.h                      |  18 -
+ drivers/gpu/drm/msm/msm_mdss.c                     |  35 +-
+ drivers/gpu/drm/msm/registers/display/mdp5.xml     |  16 -
+ drivers/gpu/drm/msm/registers/display/mdss.xml     |  29 +
+ 74 files changed, 2626 insertions(+), 2643 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/registers/display/mdss.xml
