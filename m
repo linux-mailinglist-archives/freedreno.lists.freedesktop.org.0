@@ -2,98 +2,102 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1F0E9BB049
-	for <lists+freedreno@lfdr.de>; Mon,  4 Nov 2024 10:53:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8766C9BB102
+	for <lists+freedreno@lfdr.de>; Mon,  4 Nov 2024 11:24:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD22510E2AD;
-	Mon,  4 Nov 2024 09:53:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC3DD10E3C6;
+	Mon,  4 Nov 2024 10:24:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LCiSwvcl";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MEHdljP9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C34EA10E2AD
- for <freedreno@lists.freedesktop.org>; Mon,  4 Nov 2024 09:53:56 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A3NuThi029772
- for <freedreno@lists.freedesktop.org>; Mon, 4 Nov 2024 09:53:56 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 567E610E0A9
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Nov 2024 10:24:55 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A3MxNJW013478
+ for <freedreno@lists.freedesktop.org>; Mon, 4 Nov 2024 10:24:55 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 48BbhzMG6nJlrKXOIqS7msafjr/+9ztjQ+P//OS3fys=; b=LCiSwvcltpIsTr4J
- yevfNJVC/ZLqCrYRj0AKP/nrsvkIIrcChljyktNYe+TSomgSkFAXJP6H4PILuhcv
- HFxOtIcXnm08CXdeUD8+vJNNZozBIAY2Y9B+scea5HmYpDfGG9Nk3BkgN6jcghs0
- 2wyy/cyl77dYrvYGGrW8ISDs1cXIsBzbv9N0awOBBL2V99Wgm2s7kPPe/fsOPhrC
- nYc0u+cUS8/XwI9LSK1X6E08wyIPjHDdAwwYlWrh/oQXwc+lCzma3cYPNVDBhhIN
- SqlcD9Avl/vqLSdVG0lGvlxpwbXThypxW7Ou2i9U28fGRYXjTKeITvPpoh26Zq65
- pZr4FA==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42nd2r3nne-1
+ 14N8KBf1u26bmeVNCJGFmppsaMPBOux6kP+dUcgR0Po=; b=MEHdljP9jKFt1lW9
+ RnAaj2PFcfzL6eaw+v9sw4oiaXsl5Qt/9cGA+UjdPW6J0Rmm9tdyBOu1+znDKQBS
+ N4u5Fvon/GQ3MBcNY+O+5xJwYYfSRfuBdFKYuAUSPEvdgncytSqGRG1MLkMd+Fn0
+ xAz/vHqrWkh7JzLWzDI32q4r9o13BoJwW5CXgg1vCFYMaXKqo+Cre2y/hFgdwOko
+ LWqu7TQqKSm+ki7uid6oKg5JU0PwiqCG11ujqSDGYL8WP5jfGK2csWVuSrEK8art
+ XoXtm8Loa1vftO3UF1x82j4JTUlkURtNFcBpg4sX1Vfs5Xz5YuHOgd8IGXiOFeuu
+ a4LxSQ==
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
+ [209.85.210.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42nd8hbqja-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 04 Nov 2024 09:53:56 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6cbe993f230so14830826d6.3
- for <freedreno@lists.freedesktop.org>; Mon, 04 Nov 2024 01:53:56 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Nov 2024 10:24:54 +0000 (GMT)
+Received: by mail-ot1-f71.google.com with SMTP id
+ 46e09a7af769-71813ca0342so447667a34.2
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Nov 2024 02:24:54 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730714035; x=1731318835;
+ d=1e100.net; s=20230601; t=1730715894; x=1731320694;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=48BbhzMG6nJlrKXOIqS7msafjr/+9ztjQ+P//OS3fys=;
- b=bMBe6JFGnaEmpoEOIN7XhIaoKUh92n6w4cDYiO8bP10JDz/VX8nK9Wcpl0Ks4737j/
- ASKkbN/NOc/eI9d8V9ADRCDRzbSgQwLIgR8hphpRRWDEJjNnWnrTHvtKLtHW9VPf6Olm
- 6ynueqTjtptNS5l+QxaqM7D0Z5MCEyac1bIaCq0ZMuZ8+pXHII5HKIIjkm78pSCMFSc2
- glvhbBoUWKFkIVb4pnrLzZVAFnvaRL9iWYcz2rjcr6fsZ8SjUkegW5kmClKwZmf/W+Ug
- hjVrvHScr6IcKi0owksX2e7WbV8FxdnqlKt1th5SaufOk82Qe5K2amprD+ogyITm5Kvc
- T34Q==
+ bh=14N8KBf1u26bmeVNCJGFmppsaMPBOux6kP+dUcgR0Po=;
+ b=K9nCqdh4xeQHWB90XnnyMIEEmsWj9uvqLXvNEpphBwM0x4M3VxfGB+N9z81XlBfXRn
+ f8oBmGpXSTEvDFzXNUDJB/3FmLlQPljtVubfAWKUmppSUiV7CV0wxrJEVMY2u5VLg5wg
+ gssv5dwWSu4JlhLURIeX7p3aEhGD+yYkcsz++/jzLtD6ClrFhxFPMKxm/Nfs9RaOSYP4
+ tjiqiDbvV51go8FxR/j5KOVHnJeIie6TUOxiAICmRYg5u9AhGFW2siIwmrrIg1zjQx9z
+ qAxFpKFdJf1kFPJflvLuK611mBwa6qN5/6KmGA5Sl2xxKe4ujS8/BkEQLDYhn1QIcG7B
+ zJPA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVykWjr3oleWRik7SE9aYlYDWPwJz942tOu34xS4etbgCCTOIpTOKdvkkwGwXTZH8GpYARZUFm0SH8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxokJu7Sp16zVile1zN+fH/xGdOT/1HBpRwS3cKwX9xLinRo13+
- ZkdP57F519HzGxqP2UqJWc8HtY7d+/MyevOLIexvH91ayo0FawwjhXyTu9UV8hfGZckh7zqNvgD
- vJFWpUBekXsstXnNRKxLjXtuLHrysvZDiyMho9tHrAOsw+lKUkUpCndk7E9iX9BQAzio=
-X-Received: by 2002:a05:620a:4443:b0:7b1:1313:cf42 with SMTP id
- af79cd13be357-7b193f73494mr2113114985a.14.1730714034906; 
- Mon, 04 Nov 2024 01:53:54 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFtxe5uqc7MvnqsqyGo/b1+j/YoMPpCIwglJ2JELVbc+hCFY6xRwAJFk2Rx8PoXnp6hGWQDww==
-X-Received: by 2002:a05:620a:4443:b0:7b1:1313:cf42 with SMTP id
- af79cd13be357-7b193f73494mr2113113585a.14.1730714034624; 
- Mon, 04 Nov 2024 01:53:54 -0800 (PST)
+ AJvYcCU0On1d3sztbF4ieCAVC0H/uPH8PzarOEBQPVTl2Q3nbAgDZxgwSiDuP0DgHpNqXpvbxVRl2BVE6lg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxBLoOVupW5JkOqdBMpgfP1d8B5FInkDXFvBVOQYZkLadGD6cqp
+ EufqnZyq+MRuUEf+g9DS/hbIwhS3SjNNJuIe6OTJ8VgiTM4yN+zVJ0JYvZNbwV9jIXIsD+v0dIf
+ fT6A0KVXPB8N45U0+VL8A7lUAMIFXNqMvKbzT+3xGTbS+SVhpGWZhrQvuvAMmGe//dxs=
+X-Received: by 2002:a05:6870:8a07:b0:27b:9f8b:277b with SMTP id
+ 586e51a60fabf-29051dd5067mr6199544fac.14.1730715893731; 
+ Mon, 04 Nov 2024 02:24:53 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHhQM8hd98D0U32vPf+b4FFMEFXYKxCKvHKBZQ3R89HcMCulRi8LEhSSN9eeCUQJwHA5tmbQA==
+X-Received: by 2002:a05:6870:8a07:b0:27b:9f8b:277b with SMTP id
+ 586e51a60fabf-29051dd5067mr6199541fac.14.1730715893442; 
+ Mon, 04 Nov 2024 02:24:53 -0800 (PST)
 Received: from [192.168.212.120] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9e564940basm538280066b.17.2024.11.04.01.53.53
+ a640c23a62f3a-a9e566435c0sm529917566b.162.2024.11.04.02.24.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Nov 2024 01:53:54 -0800 (PST)
-Message-ID: <07c5dbf2-8ce7-42fa-a511-3dc22f525325@oss.qualcomm.com>
-Date: Mon, 4 Nov 2024 10:53:52 +0100
+ Mon, 04 Nov 2024 02:24:52 -0800 (PST)
+Message-ID: <c83247da-a2c8-4dd7-ba85-5db17ac7ec79@oss.qualcomm.com>
+Date: Mon, 4 Nov 2024 11:24:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm: Check return value of of_dma_configure()
-To: Sui Jingfeng <sui.jingfeng@linux.dev>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20241104090738.529848-1-sui.jingfeng@linux.dev>
+Subject: Re: [PATCH] drm/msm/a6xx: Add support for Adreno 612
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jie Zhang <quic_jiezh@quicinc.com>
+References: <20241101-a612-gpu-support-v1-1-bdfe8f6d9306@quicinc.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20241104090738.529848-1-sui.jingfeng@linux.dev>
+In-Reply-To: <20241101-a612-gpu-support-v1-1-bdfe8f6d9306@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: XpUxrnGiC_vHDERraE2N2r0NAyYBPOTs
-X-Proofpoint-GUID: XpUxrnGiC_vHDERraE2N2r0NAyYBPOTs
+X-Proofpoint-ORIG-GUID: LAUKJfGdoIktjePgBPw7swT8ruGzUjjF
+X-Proofpoint-GUID: LAUKJfGdoIktjePgBPw7swT8ruGzUjjF
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- mlxlogscore=976 priorityscore=1501 malwarescore=0 bulkscore=0
- lowpriorityscore=0 suspectscore=0 clxscore=1015 phishscore=0 spamscore=0
- mlxscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2411040087
+ spamscore=0 malwarescore=0
+ priorityscore=1501 phishscore=0 clxscore=1015 mlxscore=0 impostorscore=0
+ bulkscore=0 mlxlogscore=999 adultscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2411040092
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,16 +113,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 4.11.2024 10:07 AM, Sui Jingfeng wrote:
-> Because the of_dma_configure() will returns '-EPROBE_DEFER' if the probe
-> procedure of the specific platform IOMMU driver is not finished yet. It
-> can also return other error code for various reasons.
+On 1.11.2024 4:10 PM, Akhil P Oommen wrote:
+> From: Jie Zhang <quic_jiezh@quicinc.com>
 > 
-> Stop pretending that it will always suceess, quit if it fail.
+> Add support for Adreno 612 GPU found in SM6150/QCS615 chipsets.
+> A612 falls under ADRENO_6XX_GEN1 family and is a cut down version
+> of A615 GPU.
 > 
-> Signed-off-by: Sui Jingfeng <sui.jingfeng@linux.dev>
+> A612 has a new IP called Reduced Graphics Management Unit or RGMU
+> which is a small state machine which helps to toggle GX GDSC
+> (connected to CX rail) to implement IFPC feature. It doesn't support
+> any other features of a full fledged GMU like clock control, resource
+> voting to rpmh etc. So we need linux clock driver support like other
+> gmu-wrapper implementations to control gpu core clock and gpu GX gdsc.
+> Since there is no benefit with enabling RGMU at the moment, RGMU is
+> entirely skipped in this patch.
+> 
+> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
+> Mesa support is already available for A612. Verified Glmark2 with
+> weston.
+> 
+> Some dependencies for the devicetree change are not yet available
+> in the mailing lists. I will send it out as a separate patch later.
 > ---
 
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
 Konrad
+
+[...]
+
+> -	return adreno_is_a610(gpu) || adreno_is_a702(gpu);
+> +	return adreno_is_a610(gpu) ||
+> +	       adreno_is_a702(gpu) ||
+> +	       adreno_is_a612(gpu);
+>  }
+
+Nit: it would be nice if these were sorted but that's minor
