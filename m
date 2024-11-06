@@ -2,60 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B49B79BCDCB
-	for <lists+freedreno@lfdr.de>; Tue,  5 Nov 2024 14:30:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 384259BDB5C
+	for <lists+freedreno@lfdr.de>; Wed,  6 Nov 2024 02:44:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF3B10E2D8;
-	Tue,  5 Nov 2024 13:30:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A10010E11C;
+	Wed,  6 Nov 2024 01:44:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=manjaro.org header.i=@manjaro.org header.b="DS1U727c";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="JuOMeicq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 524 seconds by postgrey-1.36 at gabe;
- Tue, 05 Nov 2024 06:42:40 UTC
-Received: from mail.manjaro.org (mail.manjaro.org [116.203.91.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F203410E117;
- Tue,  5 Nov 2024 06:42:40 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23EA710E11C;
+ Wed,  6 Nov 2024 01:44:44 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A5KIMJG004966;
+ Wed, 6 Nov 2024 01:44:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Z5Jv3Ed7XXZHWZLDW8oApx97KGEiepVHnuihRZtI6kc=; b=JuOMeicqNpZNNLSM
+ OwHF7tOGhhAwjHpPAZoHNm0IxF/4bzXD/afmF+nlPSD/E8vPG301kkhygiE3KonO
+ Qc5TyF76Lj+EopSwZxDv2uy3th4kiWSFai2BsYuY49if8wYGX1JYCOLJqclBNq6m
+ yJEi0YW76p/qHDDKukczulbOC8Lg/Qs+2jo1lsbk3JjlXq7b1Mf6tmZCaVS+leZ/
+ lijzurCdo4NKH0r9X12rUKgZ6zp+94bCVMyPmFI2HkEXbdGUuKpVZjrRXGRz2h0C
+ K4A921tIlp9MvUuvtPINsHOC1GSnVyyU9614RwxfKQovlKCWmXlmzsuDjewJfDPq
+ qo7cww==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42ndc71hyv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 06 Nov 2024 01:44:38 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4A61ibAW017863
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 6 Nov 2024 01:44:37 GMT
+Received: from [10.216.20.210] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 5 Nov 2024
+ 17:44:30 -0800
+Message-ID: <43404449-1830-4651-a85a-54404b1d35bc@quicinc.com>
+Date: Wed, 6 Nov 2024 07:14:27 +0530
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=manjaro.org; s=2021;
- t=1730788434;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=aTAKhxSFE8FvW11nxBit6CA7OkWpY8iwgm9r8H8Xrpg=;
- b=DS1U727cQQMKiGKjgi2ySybSh4sSk1DLW74/mB4SFQndpIqZSVN9n2j3+nXkmTPOuBRegb
- aA5s0UDKAOW3aMIUF2+0upqJriMxm2OMYgf4bfFIIe/IPGnUJlG7nJlsJHkzxI/rWNpVDU
- EfN5SJha5Nr6CjWfQIjbQYpVToL8XtrOAT6bIrMeKjRy4wBXxi8+uETESOSHISskujzuLC
- f1NWpEGJe3wnaTf6M9QZ9ZIurGL82YDS9nEj25ywbtKmQWwvVg91CtFjgtZ/lWovt0YqKM
- Heqy5jDSjKvF/hrql62SqOniX0/mTOU4GuHVWnlSxmMkVd1w9CGi6HClfE2OAQ==
-Date: Tue, 05 Nov 2024 07:33:53 +0100
-From: Dragan Simic <dsimic@manjaro.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Phong LE <ple@baylibre.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jessica Zhang
- <quic_jesszhan@quicinc.com>, Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH] drm: Use of_property_present() for non-boolean properties
-In-Reply-To: <20241104190636.274926-1-robh@kernel.org>
-References: <20241104190636.274926-1-robh@kernel.org>
-Message-ID: <16acf71de2a7d23f979ce286b2d8f606@manjaro.org>
-X-Sender: dsimic@manjaro.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Authentication-Results: ORIGINATING;
- auth=pass smtp.auth=dsimic@manjaro.org smtp.mailfrom=dsimic@manjaro.org
-X-Mailman-Approved-At: Tue, 05 Nov 2024 13:30:03 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 1/3] drm/msm/adreno: Add support for ACD
+To: <neil.armstrong@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Viresh Kumar
+ <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson
+ <andersson@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>
+References: <20241012-gpu-acd-v1-0-1e5e91aa95b6@quicinc.com>
+ <20241012-gpu-acd-v1-1-1e5e91aa95b6@quicinc.com>
+ <4aeec9f1-720b-400c-9582-d02847db2ac7@linaro.org>
+Content-Language: en-US
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <4aeec9f1-720b-400c-9582-d02847db2ac7@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Na1zWvxix9JPntdFw7-EW3kC17gUUl4y
+X-Proofpoint-GUID: Na1zWvxix9JPntdFw7-EW3kC17gUUl4y
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ lowpriorityscore=0 mlxlogscore=999 adultscore=0 clxscore=1015 mlxscore=0
+ phishscore=0 impostorscore=0 suspectscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2411060012
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,81 +101,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Rob,
+On 11/4/2024 9:14 PM, neil.armstrong@linaro.org wrote:
+> On 11/10/2024 22:29, Akhil P Oommen wrote:
+>> ACD a.k.a Adaptive Clock Distribution is a feature which helps to reduce
+>> the power consumption. In some chipsets, it is also a requirement to
+>> support higher GPU frequencies. This patch adds support for GPU ACD by
+>> sending necessary data to GMU and AOSS. The feature support for the
+>> chipset is detected based on devicetree data.
+>>
+>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 81 +++++++++++++++++++++++++
+>> +++-------
+>>   drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
+>>   drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 36 ++++++++++++++++
+>>   drivers/gpu/drm/msm/adreno/a6xx_hfi.h | 21 +++++++++
+>>   4 files changed, 124 insertions(+), 15 deletions(-)
+>>
+> 
+> <snip>
+> 
+>> +
+>> +static int a6xx_hfi_enable_acd(struct a6xx_gmu *gmu)
+>> +{
+>> +    struct a6xx_hfi_acd_table *acd_table = &gmu->acd_table;
+>> +    struct a6xx_hfi_msg_feature_ctrl msg = {
+>> +        .feature = HFI_FEATURE_ACD,
+>> +        .enable = 1,
+>> +        .data = 0,
+>> +    };
+>> +    int ret;
+>> +
+>> +    if (!acd_table->enable_by_level)
+>> +        return 0;
+>> +
+>> +    /* Enable ACD feature at GMU */
+>> +    ret = a6xx_hfi_send_msg(gmu, HFI_H2F_FEATURE_CTRL, &msg,
+>> sizeof(msg), NULL, 0);
+>> +    if (ret) {
+>> +        DRM_DEV_ERROR(gmu->dev, "Unable to enable ACD (%d)\n", ret);
+>> +        return ret;
+>> +    }
+>> +
+>> +    /* Send ACD table to GMU */
+>> +    ret = a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_ACD, &msg, sizeof(msg),
+>> NULL, 0);
+> 
+> This looks wrong, in this exact code, you never use the acd_table...
+> perhaps it should be acd_table here
 
-On 2024-11-04 20:06, Rob Herring (Arm) wrote:
-> The use of of_property_read_bool() for non-boolean properties is
-> deprecated in favor of of_property_present() when testing for property
-> presence.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+Whoops! Weirdly gmu didn't explode when I tested.
 
-Looking good to me, thanks for the patch!
+Thanks for your keen eye.
 
-Reviewed-by: Dragan Simic <dsimic@manjaro.org>
+-Akhil.
 
-> ---
->  drivers/gpu/drm/bridge/ite-it66121.c | 2 +-
->  drivers/gpu/drm/bridge/sii902x.c     | 2 +-
->  drivers/gpu/drm/drm_panel.c          | 2 +-
->  drivers/gpu/drm/msm/dsi/dsi_host.c   | 2 +-
->  4 files changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/bridge/ite-it66121.c
-> b/drivers/gpu/drm/bridge/ite-it66121.c
-> index 925e42f46cd8..0eae7c01b975 100644
-> --- a/drivers/gpu/drm/bridge/ite-it66121.c
-> +++ b/drivers/gpu/drm/bridge/ite-it66121.c
-> @@ -1480,7 +1480,7 @@ static int it66121_audio_codec_init(struct
-> it66121_ctx *ctx, struct device *dev)
+>> +    if (ret) {
+>> +        DRM_DEV_ERROR(gmu->dev, "Unable to ACD table (%d)\n", ret);
+>> +        return ret;
+>> +    }
+>> +
+>> +    return 0;
+>> +}
+>> +
+>>   static int a6xx_hfi_send_test(struct a6xx_gmu *gmu)
+>>   {
+>>       struct a6xx_hfi_msg_test msg = { 0 };
+>> @@ -756,6 +788,10 @@ int a6xx_hfi_start(struct a6xx_gmu *gmu, int
+>> boot_state)
+>>       if (ret)
+>>           return ret;
+>>   +    ret = a6xx_hfi_enable_acd(gmu);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>>       ret = a6xx_hfi_send_core_fw_start(gmu);
+>>       if (ret)
+>>           return ret;
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h b/drivers/gpu/drm/
+>> msm/adreno/a6xx_hfi.h
+>> index 528110169398..51864c8ad0e6 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
+>> @@ -151,12 +151,33 @@ struct a6xx_hfi_msg_test {
+>>       u32 header;
+>>   };
+>>   +#define HFI_H2F_MSG_ACD 7
+>> +#define MAX_ACD_STRIDE 2
+>> +
+>> +struct a6xx_hfi_acd_table {
+>> +    u32 header;
+>> +    u32 version;
+>> +    u32 enable_by_level;
+>> +    u32 stride;
+>> +    u32 num_levels;
+>> +    u32 data[16 * MAX_ACD_STRIDE];
+>> +};
+>> +
+>>   #define HFI_H2F_MSG_START 10
+>>     struct a6xx_hfi_msg_start {
+>>       u32 header;
+>>   };
+>>   +#define HFI_H2F_FEATURE_CTRL 11
+>> +
+>> +struct a6xx_hfi_msg_feature_ctrl {
+>> +    u32 header;
+>> +    u32 feature;
+>> +    u32 enable;
+>> +    u32 data;
+>> +};
+>> +
+>>   #define HFI_H2F_MSG_CORE_FW_START 14
+>>     struct a6xx_hfi_msg_core_fw_start {
+>>
 > 
->  	dev_dbg(dev, "%s\n", __func__);
-> 
-> -	if (!of_property_read_bool(dev->of_node, "#sound-dai-cells")) {
-> +	if (!of_property_present(dev->of_node, "#sound-dai-cells")) {
->  		dev_info(dev, "No \"#sound-dai-cells\", no audio\n");
->  		return 0;
->  	}
-> diff --git a/drivers/gpu/drm/bridge/sii902x.c 
-> b/drivers/gpu/drm/bridge/sii902x.c
-> index 7f91b0db161e..f73e1174a5ad 100644
-> --- a/drivers/gpu/drm/bridge/sii902x.c
-> +++ b/drivers/gpu/drm/bridge/sii902x.c
-> @@ -850,7 +850,7 @@ static int sii902x_audio_codec_init(struct sii902x 
-> *sii902x,
->  	u8 lanes[4];
->  	int num_lanes, i;
-> 
-> -	if (!of_property_read_bool(dev->of_node, "#sound-dai-cells")) {
-> +	if (!of_property_present(dev->of_node, "#sound-dai-cells")) {
->  		dev_dbg(dev, "%s: No \"#sound-dai-cells\", no audio\n",
->  			__func__);
->  		return 0;
-> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-> index 19ab0a794add..46d61cc871ca 100644
-> --- a/drivers/gpu/drm/drm_panel.c
-> +++ b/drivers/gpu/drm/drm_panel.c
-> @@ -413,7 +413,7 @@ bool drm_is_panel_follower(struct device *dev)
->  	 * don't bother trying to parse it here. We just need to know if the
->  	 * property is there.
->  	 */
-> -	return of_property_read_bool(dev->of_node, "panel");
-> +	return of_property_present(dev->of_node, "panel");
->  }
->  EXPORT_SYMBOL(drm_is_panel_follower);
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 185d7de0bf37..78cac4ecc58f 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -1831,7 +1831,7 @@ static int dsi_host_parse_dt(struct msm_dsi_host
-> *msm_host)
->  		msm_dsi->te_source = devm_kstrdup(dev, te_source, GFP_KERNEL);
->  	ret = 0;
-> 
-> -	if (of_property_read_bool(np, "syscon-sfpb")) {
-> +	if (of_property_present(np, "syscon-sfpb")) {
->  		msm_host->sfpb = syscon_regmap_lookup_by_phandle(np,
->  					"syscon-sfpb");
->  		if (IS_ERR(msm_host->sfpb)) {
+> Thanks,
+> Neil
+
