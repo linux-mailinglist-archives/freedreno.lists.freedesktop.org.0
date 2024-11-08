@@ -2,94 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F37C9C090B
-	for <lists+freedreno@lfdr.de>; Thu,  7 Nov 2024 15:36:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E0C29C12F2
+	for <lists+freedreno@lfdr.de>; Fri,  8 Nov 2024 01:21:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B06410E310;
-	Thu,  7 Nov 2024 14:36:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5387F10E327;
+	Fri,  8 Nov 2024 00:21:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="pZQ12oA0";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SiQ1Ljdx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6384D10E310;
- Thu,  7 Nov 2024 14:36:21 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A75hrql002118;
- Thu, 7 Nov 2024 14:36:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- z+3wHS3gqApFtMhQvOyrWRXfCH4jhD5FMxIgxyYjq3c=; b=pZQ12oA0yQWZatlq
- gf8DsHhL3z6BoGYBmgVrPBBD3dW26JuFT263GX94ZvdN3oGDivQmEFL5E4a148rR
- SIQ/NznCtP3AWX4Ne8GfDjEi9pC5qWeoIWIHHKFCxjMx7tNuTeh59ijZ/jCmmhcb
- 7F57vI+XY/VLffCVW9xyAZEF0nC9ro5U4XdcpxnhLwa+HsMMygCjk/Bccnd1/O4+
- /OTtdLQpKMUqYjTVeaupa+eI77ISu9sO7KE18nNaFKkXPkgBSdqU9n8t0EAEU26b
- CtS/RF8OIwi5+BX7YR+DkaeBYAF8Y/rUbwYXEuLkMNfXTyG6Bpl63cIY3aQ3gRot
- vPhlfA==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42r072n2r0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 07 Nov 2024 14:36:15 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4A7EZwUs009870
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 7 Nov 2024 14:35:58 GMT
-Received: from [10.206.104.82] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 7 Nov 2024
- 06:35:52 -0800
-Message-ID: <6e67ae77-a116-422c-a07b-77e991a664ea@quicinc.com>
-Date: Thu, 7 Nov 2024 20:05:49 +0530
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7E6710E321
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Nov 2024 00:21:41 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2fb470a8b27so25268401fa.1
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Nov 2024 16:21:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1731025300; x=1731630100; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=XkmztPsPBVyoZtfInzYanDDrqrjRXuvhvkAniG80EPw=;
+ b=SiQ1Ljdx6XwBQ7FhascwDUf6x9KflhOQ0yZNPeuZm1p+KTS6HZjDCDPlSoeeQ+JZT2
+ DfjDXayMhABt4zN9VtW3wlF8hQZB5zdomQSo9D8uqPm6RYHLAIS2VfadM/n1Jw3CtDhw
+ Eljqt46XGDa4pe+Ob769zlY8SN7odWxk1ygmQtGvH/DK8z4GP/oqmjuviP0IZZXcSyim
+ lU/qvXjQcEqxaKVvdepdugXsmH7WLUvATRivwz1jbL8ZQITg/RLR4prdX5khe94i4jmm
+ AB7QlpabcnCn5rE2MCNt72pv1WHr1S3JgzOvlM2T+ryZtHyk1Q53BnJhyRLMANXPgEyE
+ iSsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731025300; x=1731630100;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XkmztPsPBVyoZtfInzYanDDrqrjRXuvhvkAniG80EPw=;
+ b=wEG8N57zj2lZAIesTM6IAp8i2dGieVuWWztFy5tynsRhEi64GlOyS6XxqFT/Wd4dmy
+ JLjSPP4BcI9HS+wqvWkU38RyRt4jB9cHIafSABmHGeKqxujROtdA8U0XVDHPGn3ilWsa
+ buz2i+XE7lG8RCojC4pYp/BidkKGG+9PSSQHhWql1NnQIwGeJZ7moBlspEQejoZVUHLz
+ cvGBykdSS0RO5IOAzhLFnibkbYM15nkvXoM4TECy6NnwZmEmx53PLcbdMb/rDX1VVqGF
+ /c0R0SCDQH3/FeNnBQJbEeUQKcupSKOgVlKbjReQ2Y+jbdPVWA4jFJsbg3WJN5CTnlbB
+ Vi4Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVJm+KHq4ZKtNgABg8hHYorNTJb7Zal/UxUkyCYwPjeJmx1lIHgl5XFhGvxiHdP3GymHIwOdJgbUhA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwTG9GhybflLBEdeKiUWDSicTJhO6UomfAUU+fA+h9XujDJrliw
+ OTdL3ZctRNS5YyD9MoLXO0fp8Nl2L1IgTh6ITEA3GeMlsUBM0ZcyR5F2cS0SD2A=
+X-Google-Smtp-Source: AGHT+IFbNMtUPns1qTynN8HZcSiuZu16DPiMYzRyHXArsYkIgDJIRH1ePYCu1PPeNPpy2EObDqkAyw==
+X-Received: by 2002:a2e:a995:0:b0:2fb:5be4:3645 with SMTP id
+ 38308e7fff4ca-2ff2072d207mr1892951fa.0.1731025299517; 
+ Thu, 07 Nov 2024 16:21:39 -0800 (PST)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2ff17900a63sm4195191fa.47.2024.11.07.16.21.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Nov 2024 16:21:38 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH 00/14] drm/msm/dp: perform misc cleanups
+Date: Fri, 08 Nov 2024 02:21:31 +0200
+Message-Id: <20241108-fd-dp-audio-fixup-v1-0-40c8eeb60cf5@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/3] drm/msm/adreno: Add support for ACD
-To: <neil.armstrong@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Viresh Kumar
- <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson
- <andersson@kernel.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>
-References: <20241012-gpu-acd-v1-0-1e5e91aa95b6@quicinc.com>
- <20241012-gpu-acd-v1-1-1e5e91aa95b6@quicinc.com>
- <4aeec9f1-720b-400c-9582-d02847db2ac7@linaro.org>
- <43404449-1830-4651-a85a-54404b1d35bc@quicinc.com>
- <56a976d6-7dd6-4001-b6a8-268ed7d787d2@linaro.org>
- <49e1a6b6-683f-4826-b67e-8354a10a785d@quicinc.com>
- <85eaeaca-850d-47d4-b81d-b23f25084d81@linaro.org>
-Content-Language: en-US
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <85eaeaca-850d-47d4-b81d-b23f25084d81@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: ifBweuF2nDAoe7kEjNp7oTRinqJqKB89
-X-Proofpoint-GUID: ifBweuF2nDAoe7kEjNp7oTRinqJqKB89
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- priorityscore=1501 mlxscore=0 suspectscore=0 mlxlogscore=999 spamscore=0
- adultscore=0 malwarescore=0 phishscore=0 impostorscore=0 bulkscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2411070114
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAItZLWcC/x2MywqAIBBFf0Vm3YDaA+1XooXkVLOxUIwg+veGd
+ udwuPeBQpmpwKgeyHRx4SOJmEbBsoe0EXIUB6ttpwfT4xoxnhhq5ANXvquwt861FDx1GmR3ZpL
+ wf07z+35uosEiYwAAAA==
+X-Change-ID: 20240615-fd-dp-audio-fixup-a92883ea9e40
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Paloma Arellano <quic_parellan@quicinc.com>
+Cc: Douglas Anderson <dianders@chromium.org>, 
+ Stephen Boyd <swboyd@chromium.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2063;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=r9WESZjKdOkeXGTwKva4YI7nk9aqwglx/YUyTfzdpvw=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnLVmOZd/6kdB/fROCTsWps6ilXvB+F0J8Juy0+
+ dJdNf38eK+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZy1ZjgAKCRCLPIo+Aiko
+ 1S+lB/90k8vJL9oASKM6AlkVuibdH1L8eVx6hkMy9KAPhsWwxPe6eKiMs09KHBR1oJhRWZKaqHz
+ zNBc7Lc+2AV9+7GPFheJcQgb6PGwLkOoin9i90T4GVxvsu/Js1JNqNxM2dll1ZD9clbWqG2ukt5
+ 7b+2T5enDV/767x2uQuISdNUUB1egRIXudLvmtpYTPNI7qoIHZwu9h2fXV6Z3y/IlG9nRevba+5
+ Wy1OjYPDwXkfwmGSWv6q2NYPqwcAawqsV6SxNFEszxvMfJQNqnAbzihfDDFGbRFPe33kdKUAuo4
+ d2doKZ9KBdHY5Tb6AdwXvvPtRhJjotzBai1ptLLtMIw63u8A
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,203 +103,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/7/2024 8:01 PM, neil.armstrong@linaro.org wrote:
-> On 07/11/2024 13:46, Akhil P Oommen wrote:
->> On 11/7/2024 2:25 PM, neil.armstrong@linaro.org wrote:
->>> On 06/11/2024 02:44, Akhil P Oommen wrote:
->>>> On 11/4/2024 9:14 PM, neil.armstrong@linaro.org wrote:
->>>>> On 11/10/2024 22:29, Akhil P Oommen wrote:
->>>>>> ACD a.k.a Adaptive Clock Distribution is a feature which helps to
->>>>>> reduce
->>>>>> the power consumption. In some chipsets, it is also a requirement to
->>>>>> support higher GPU frequencies. This patch adds support for GPU
->>>>>> ACD by
->>>>>> sending necessary data to GMU and AOSS. The feature support for the
->>>>>> chipset is detected based on devicetree data.
->>>>>>
->>>>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>>>>> ---
->>>>>>     drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 81 +++++++++++++++++++
->>>>>> ++++++
->>>>>> +++-------
->>>>>>     drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
->>>>>>     drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 36 ++++++++++++++++
->>>>>>     drivers/gpu/drm/msm/adreno/a6xx_hfi.h | 21 +++++++++
->>>>>>     4 files changed, 124 insertions(+), 15 deletions(-)
->>>>>>
->>>>>
->>>>> <snip>
->>>>>
->>>>>> +
->>>>>> +static int a6xx_hfi_enable_acd(struct a6xx_gmu *gmu)
->>>>>> +{
->>>>>> +    struct a6xx_hfi_acd_table *acd_table = &gmu->acd_table;
->>>>>> +    struct a6xx_hfi_msg_feature_ctrl msg = {
->>>>>> +        .feature = HFI_FEATURE_ACD,
->>>>>> +        .enable = 1,
->>>>>> +        .data = 0,
->>>>>> +    };
->>>>>> +    int ret;
->>>>>> +
->>>>>> +    if (!acd_table->enable_by_level)
->>>>>> +        return 0;
->>>>>> +
->>>>>> +    /* Enable ACD feature at GMU */
->>>>>> +    ret = a6xx_hfi_send_msg(gmu, HFI_H2F_FEATURE_CTRL, &msg,
->>>>>> sizeof(msg), NULL, 0);
->>>>>> +    if (ret) {
->>>>>> +        DRM_DEV_ERROR(gmu->dev, "Unable to enable ACD (%d)\n", ret);
->>>>>> +        return ret;
->>>>>> +    }
->>>>>> +
->>>>>> +    /* Send ACD table to GMU */
->>>>>> +    ret = a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_ACD, &msg, sizeof(msg),
->>>>>> NULL, 0);
->>>>>
->>>>> This looks wrong, in this exact code, you never use the acd_table...
->>>>> perhaps it should be acd_table here
->>>>
->>>> Whoops! Weirdly gmu didn't explode when I tested.
->>>>
->>>> Thanks for your keen eye.
->>>
->>> You're welcome !
->>>
->>> I've been trying to enable this on SM8650, but HFI_H2F_MSG_ACD fails.
->>>
->>> My changes:
->>> ================><================================
->>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/
->>> msm/adreno/a6xx_hfi.c
->>> index 7c96d6f8aaa9..bd9d586f245e 100644
->>> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
->>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
->>> @@ -682,7 +682,7 @@ static int a6xx_hfi_enable_acd(struct a6xx_gmu *gmu)
->>>          }
->>>
->>>          /* Send ACD table to GMU */
->>> -       ret = a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_ACD, &acd_table,
->>> sizeof(*acd_table), NULL, 0);
->>> +       ret = a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_ACD, &acd_table,
->>
->> &acd_table -> acd_table here?
-> 
-> Damn, good catch !
-> 
-> Ok so it didn't explode anymore, but still fails:
-> =====
-> [    7.083258] platform 3d6a000.gmu: [drm:a6xx_hfi_send_msg.constprop.0
-> [msm]] *ERROR* Message HFI_H2F_MSG_GX_BW_PERF_VOTE id 7 timed out
-> waiting for response
-> [    7.149709] platform 3d6a000.gmu: [drm:a6xx_hfi_send_msg.constprop.0
-> [msm]] *ERROR* Unexpected message id 7 on the response queue
-> [    7.149744] platform 3d6a000.gmu: [drm:a6xx_hfi_send_msg.constprop.0
-> [msm]] *ERROR* The HFI response queue is unexpectedly empty
-> [    7.165163] platform 3d6a000.gmu: [drm:a6xx_hfi_send_msg.constprop.0
-> [msm]] *ERROR* Unexpected message id 8 on the response queue
-> [    7.165188] platform 3d6a000.gmu: [drm:a6xx_hfi_send_msg.constprop.0
-> [msm]] *ERROR* The HFI response queue is unexpectedly empty
-> ====
-> 
-> Seems with ACD enabled, first vote can take up to 100ms, and downstream
-> has 1s timeout, with a larger timeout I got it to work !
+- Fix register programming in the dp_audio module
+- Rework most of the register programming functions to be local to the
+  calling module rather than accessing everything through huge
+  dp_catalog monster.
 
-Yes, there is an additional overhead during first perf vote. Thanks for
-the heads up. I am yet to test with fixes.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (14):
+      drm/msm/dp: fix msm_dp_utils_pack_sdp_header interface
+      drm/msm/dp: drop msm_dp_panel_dump_regs() and msm_dp_catalog_dump_regs()
+      drm/msm/dp: drop msm_dp_panel_tpg_config()
+      drm/msm/dp: pull I/O data out of msm_dp_catalog_private()
+      drm/msm/dp: move I/O functions to global header
+      drm/msm/dp: move/inline AUX register functions
+      drm/msm/dp: move/inline ctrl register functions
+      drm/msm/dp: move/inline panel related functions
+      drm/msm/dp: use msm_dp_utils_pack_sdp_header() for audio packets
+      drm/msm/dp: drop obsolete audio headers access through catalog
+      drm/msm/dp: move/inline audio related functions
+      drm/msm/dp: move more AUX functions to dp_aux.c
+      drm/msm/dp: drop struct msm_dp_panel_in
+      drm/msm/dp: move interrupt handling to dp_ctrl
 
--Akhil.
+ drivers/gpu/drm/msm/dp/dp_audio.c   |  360 ++++------
+ drivers/gpu/drm/msm/dp/dp_aux.c     |  195 +++++-
+ drivers/gpu/drm/msm/dp/dp_aux.h     |    9 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 1267 +----------------------------------
+ drivers/gpu/drm/msm/dp/dp_catalog.h |  177 +++--
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    |  575 ++++++++++++++--
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |    5 +-
+ drivers/gpu/drm/msm/dp/dp_display.c |   36 +-
+ drivers/gpu/drm/msm/dp/dp_panel.c   |  150 +++--
+ drivers/gpu/drm/msm/dp/dp_panel.h   |   15 +-
+ drivers/gpu/drm/msm/dp/dp_reg.h     |   17 +
+ drivers/gpu/drm/msm/dp/dp_utils.c   |   10 +-
+ drivers/gpu/drm/msm/dp/dp_utils.h   |    2 +-
+ 13 files changed, 1078 insertions(+), 1740 deletions(-)
+---
+base-commit: 74741a050b79d31d8d2eeee12c77736596d0a6b2
+change-id: 20240615-fd-dp-audio-fixup-a92883ea9e40
 
-> 
-> Thanks,
-> Neil
->>
->> -Akhil
->>
->>> sizeof(struct a6xx_hfi_acd_table), NULL, 0);
->>>          if (ret) {
->>>                  DRM_DEV_ERROR(gmu->dev, "Unable to send ACD table
->>> (%d)\n", ret);
->>>                  return ret;
->>> ================><================================
->>>
->>> with the appropriate qcom,opp-acd-level in DT taken from downstream,
->>> I get:
->>> [    6.946184] platform 3d6a000.gmu: [drm:a6xx_hfi_send_msg.constprop.0
->>> [msm]] *ERROR* Message (null) id 4 timed out waiting for response
->>> [    6.958697] platform 3d6a000.gmu: [drm:a6xx_hfi_start [msm]] *ERROR*
->>> Unable to send ACD table (-110)
->>>
->>> is there something missing ?
->>>
->>> Neil
->>>
->>>>
->>>> -Akhil.
->>>>
->>>>>
->>>>>> +    if (ret) {
->>>>>> +        DRM_DEV_ERROR(gmu->dev, "Unable to ACD table (%d)\n", ret);
->>>>>> +        return ret;
->>>>>> +    }
->>>>>> +
->>>>>> +    return 0;
->>>>>> +}
->>>>>> +
->>>>>>     static int a6xx_hfi_send_test(struct a6xx_gmu *gmu)
->>>>>>     {
->>>>>>         struct a6xx_hfi_msg_test msg = { 0 };
->>>>>> @@ -756,6 +788,10 @@ int a6xx_hfi_start(struct a6xx_gmu *gmu, int
->>>>>> boot_state)
->>>>>>         if (ret)
->>>>>>             return ret;
->>>>>>     +    ret = a6xx_hfi_enable_acd(gmu);
->>>>>> +    if (ret)
->>>>>> +        return ret;
->>>>>> +
->>>>>>         ret = a6xx_hfi_send_core_fw_start(gmu);
->>>>>>         if (ret)
->>>>>>             return ret;
->>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h b/drivers/gpu/drm/
->>>>>> msm/adreno/a6xx_hfi.h
->>>>>> index 528110169398..51864c8ad0e6 100644
->>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
->>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
->>>>>> @@ -151,12 +151,33 @@ struct a6xx_hfi_msg_test {
->>>>>>         u32 header;
->>>>>>     };
->>>>>>     +#define HFI_H2F_MSG_ACD 7
->>>>>> +#define MAX_ACD_STRIDE 2
->>>>>> +
->>>>>> +struct a6xx_hfi_acd_table {
->>>>>> +    u32 header;
->>>>>> +    u32 version;
->>>>>> +    u32 enable_by_level;
->>>>>> +    u32 stride;
->>>>>> +    u32 num_levels;
->>>>>> +    u32 data[16 * MAX_ACD_STRIDE];
->>>>>> +};
->>>>>> +
->>>>>>     #define HFI_H2F_MSG_START 10
->>>>>>       struct a6xx_hfi_msg_start {
->>>>>>         u32 header;
->>>>>>     };
->>>>>>     +#define HFI_H2F_FEATURE_CTRL 11
->>>>>> +
->>>>>> +struct a6xx_hfi_msg_feature_ctrl {
->>>>>> +    u32 header;
->>>>>> +    u32 feature;
->>>>>> +    u32 enable;
->>>>>> +    u32 data;
->>>>>> +};
->>>>>> +
->>>>>>     #define HFI_H2F_MSG_CORE_FW_START 14
->>>>>>       struct a6xx_hfi_msg_core_fw_start {
->>>>>>
->>>>>
->>>>> Thanks,
->>>>> Neil
->>>>
->>>
->>
-> 
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
