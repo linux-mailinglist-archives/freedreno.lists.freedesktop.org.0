@@ -2,68 +2,121 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 179929C1A10
-	for <lists+freedreno@lfdr.de>; Fri,  8 Nov 2024 11:13:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EB8F9C33FB
+	for <lists+freedreno@lfdr.de>; Sun, 10 Nov 2024 18:31:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 973DD10E959;
-	Fri,  8 Nov 2024 10:13:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D89610E107;
+	Sun, 10 Nov 2024 17:31:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jRt8yXNt";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qan964He";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7E1A10E147;
- Fri,  8 Nov 2024 10:13:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731060784; x=1762596784;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=Er/tiXvYNotlGr/mneGDlszAar7ahjAVj3NcCM7/bH0=;
- b=jRt8yXNtvWL1zFBoUr2JnOw3u5/uWMGs8yHgGo3/XDDuvr/pa4RWEFDH
- befAvK6HqEMqXJcO3tiyuA6ZhRhNrOOPN+pTJfuXHeq8xWawdXWETH1ew
- MdwDCEXzksLQUrcE5pbd8hGX5IcJ8fwiaRNtLVWohV14gHk/UdYkgUoSz
- 5BBlWCGnYJ/oTAbaAEVL9VHFB/iYw1Tum0u0EDmMX23eT1uB9lj6chlYt
- J8BH+X4OAHqaJDYNZG2cc/W3wGo5duvqEqAHoi+q6Pbb9JZR++7uAeJZd
- nj1oVnnJGN1pLvWrngcHuhIeVPOKS3u5Fuw6A/41H9IWi8V3xu91YdLGz g==;
-X-CSE-ConnectionGUID: ckdstStJSLmuYGnRqEyw5Q==
-X-CSE-MsgGUID: YUt4g83qS9WPYpsI5H+ZAA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="31107461"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="31107461"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Nov 2024 02:13:03 -0800
-X-CSE-ConnectionGUID: jUkMLQ6oRBObxq1OX6AHXA==
-X-CSE-MsgGUID: G7grHtHIRay2/KDuPft3zA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,137,1728975600"; d="scan'208";a="85629448"
-Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
- by fmviesa008.fm.intel.com with ESMTP; 08 Nov 2024 02:12:58 -0800
-Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1t9Lz6-000rIQ-1U;
- Fri, 08 Nov 2024 10:12:56 +0000
-Date: Fri, 8 Nov 2024 18:12:26 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Paloma Arellano <quic_parellan@quicinc.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- Douglas Anderson <dianders@chromium.org>,
- Stephen Boyd <swboyd@chromium.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: Re: [PATCH 11/14] drm/msm/dp: move/inline audio related functions
-Message-ID: <202411081748.0PPL9MIj-lkp@intel.com>
-References: <20241108-fd-dp-audio-fixup-v1-11-40c8eeb60cf5@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 659C410E0C4
+ for <freedreno@lists.freedesktop.org>; Sun, 10 Nov 2024 17:31:30 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AAHCvdM020944
+ for <freedreno@lists.freedesktop.org>; Sun, 10 Nov 2024 17:31:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=BfoGuWGqfZy5a5pujI4mI7
+ lTKNP+ioKaRB/qKwK5Zlk=; b=Qan964HegQxHub/ll0dGdUf5CU2GCd4OFenytH
+ tvpGFc9mNYsuPSaNXUi73Se1YggzjM1rWPGevsElAm9X41WKl5SiK2NSbl064iK/
+ WaWAaXLqXPWvAyycoELwXZZLUuzYIFo/yfdiD4ofb+suMkHM9IW6FQMPXBVtfxf6
+ qiv/zJa6N3I7bUbGwvOw6SlwxYtCiM8bfvvaqmwu+e7rlOrJe0TAEN4pG9c3/ppz
+ EXfUDqCFILbPUg3Qf20QnTGVf/AgQs/vePGw2PPiuXFgny6yfWyiriZDC9k7P/RH
+ neLOwibcRz70kGkWBLMFGtkxYzhhSMBQabE2MoI90XAzv79A==
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42sy2fte8a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Sun, 10 Nov 2024 17:31:29 +0000 (GMT)
+Received: by mail-oi1-f199.google.com with SMTP id
+ 5614622812f47-3e7a1f72eadso382441b6e.3
+ for <freedreno@lists.freedesktop.org>; Sun, 10 Nov 2024 09:31:28 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731259888; x=1731864688;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BfoGuWGqfZy5a5pujI4mI7lTKNP+ioKaRB/qKwK5Zlk=;
+ b=gvoxrfXurrfbyTl7fXSs5MJy8f6gUFDjZNZVq2UnpYkDPoRva8kWOvuV+2FsNTXNqT
+ rm3K+ZI7E2Cx9VbTjwswsnSqF1xrdQHPMQ4U+bOnW8/KVYYmB/kHwAtn0vYMVhp78NRS
+ EMhj3Tyiu7fgWoXbobVjk7RRYGukQviztCOBFT6xlGx7nTJpzN+BZ64rsvHohBW/Gs3x
+ CVNRsCF2N1ocvUhCC60Y8G9s4wndW6Uve/FvZwJLcMWj1Pz3suVE6M8TYfOyjL6gpDl2
+ hJQOFWhuPqzLFNdhkVlqWN+ZEeSAuF/Ai4M4Lznl1U2yiCmd5S5bOGNFIruDQ2fJ+4HT
+ rnmg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX5omopnGTuy2ARmfqrmnXBw2Qs+egErwIRXOqkajfJnZwkQJCcGs8/9G/xHFfgpcih2KzH1sVmhnQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/jz7gBaKmnuRFJvpJ1MIf5xchHQCw85h5mZ5ar4S8Na2sddm8
+ nhMMWRytrtXjU20h6U40x9pSG6Aa1KzPDRqBLiu4kESKq7PHj/at2Zr/QHPPZU/lhoaoZ+2/zCf
+ ScaPax9Gevw9GbgdNLnloOweGjPdfd0RSIwKqzGq8MUrPhJ0gUEkKnxv4sq32MqmxPag=
+X-Received: by 2002:a05:6808:1591:b0:3e5:cf3b:4fc5 with SMTP id
+ 5614622812f47-3e794669a12mr8394412b6e.15.1731259888269; 
+ Sun, 10 Nov 2024 09:31:28 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGlOzi65P7xi3H7DBVKQLZt4+WlNHkeZhiSyvM/O9y9uS7YPurRkCY66DUaoOZ6gSGpxTWaoA==
+X-Received: by 2002:a05:6808:1591:b0:3e5:cf3b:4fc5 with SMTP id
+ 5614622812f47-3e794669a12mr8394387b6e.15.1731259887914; 
+ Sun, 10 Nov 2024 09:31:27 -0800 (PST)
+Received: from [192.168.86.60]
+ (104-57-184-186.lightspeed.austtx.sbcglobal.net. [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-3e78cb53843sm1718506b6e.0.2024.11.10.09.31.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 10 Nov 2024 09:31:27 -0800 (PST)
+From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] drm/msm/adreno: Setup SMMU aparture
+Date: Sun, 10 Nov 2024 09:33:39 -0800
+Message-Id: <20241110-adreno-smmu-aparture-v2-0-9b1fb2ee41d4@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241108-fd-dp-audio-fixup-v1-11-40c8eeb60cf5@linaro.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHPuMGcC/32NwQ6CMBBEf4Xs2ZK2gIonjRePHrwZDmtZpIml2
+ AWiIfy7DR/gZZI3k5mZgSlYYjgkMwSaLFvfRdCbBEyL3ZOErSODljpXUmqBdaDOC3ZuFNhjGMZ
+ AoqFdXaAyj32WQ6z2gRr7WWfvcD3dzheoot1aHnz4rmeTWsP/u5MSUlCJ28yUxlBTHD1z+h7xZ
+ bxzaRSolmX5AY2NMPHGAAAA
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1412;
+ i=bjorn.andersson@oss.qualcomm.com; h=from:subject:message-id;
+ bh=Vmdmtg+hk9uw5bKOQ3rjPE500KtSKYUR9oTuviBoIzQ=;
+ b=owEBgwJ8/ZANAwAIAQsfOT8Nma3FAcsmYgBnMO55x0I+eKkTr1RDsmXHn7vLUtSOtoH/M69Re
+ inY60N/+hOJAkkEAAEIADMWIQQF3gPMXzXqTwlm1SULHzk/DZmtxQUCZzDueRUcYW5kZXJzc29u
+ QGtlcm5lbC5vcmcACgkQCx85Pw2ZrcUWQBAA1HkfERObZWNLHmLRFtC9pnJiooFMnDQHX2hv3s8
+ 5nLxyDAgHelNapb5y8Gt48GHR3QJYXREROrOAC73BgGnqW+v9Ri/z0Ag4dYM3MjUYSQzOC3m/xT
+ iyZgamqJ/Q7kTmrpyX/r/RYLMtXpP5lg0ZEo7kPCS6x8QE2LjCjGIxpXqfOPT8wE5GrrpkpH/po
+ C1TbDIxMzxSeFR5SsmVWOBU7MfY+s+T0frf1cao581kXfr5Ey8dJWQw/dL1wrJBObu4/PQx6F7Q
+ dMQMGFPiG2swFoj8iDW6t2EQCb+1RazlC+yn18sisAu2/g/D9Xvl3qyZgjIgD7bpwt9iy8JKE7E
+ 9OEeqQaav2VYSkyu+UGp8tYF7VCCBUOef0O6Gifh9KPIbVU7G59HFA4XpI3uafphU/c6L9yHqmo
+ 5EWXvPM+/ubjUuYdcAcYECp1a5DmxnSXo/XcJrcEpawllXSqUli4b+ejSjuqMD1ZkQ5M0a8Kfye
+ WpIlezPYNLQidIML9u3vJ7QL+9aSqdFOTtKlOsRlATjrdJkSEBmZcizwTtQYGrJqI6cCcc7ZuXW
+ 22bwW7WAJXdk31UTJqauZgjmnsr46Uh4mguUWvC7dSfyyFQMO3HmuLZE+akqF28rJhZs6EINh9t
+ 7TgTWcka63ICQjbmGN9MVwJga7w3MnFpHfetXkNBHq3w=
+X-Developer-Key: i=bjorn.andersson@oss.qualcomm.com; a=openpgp;
+ fpr=05DE03CC5F35EA4F0966D5250B1F393F0D99ADC5
+X-Proofpoint-ORIG-GUID: DstKGiSuHBlTcPyJ9fgVl_ZdnhWon2DI
+X-Proofpoint-GUID: DstKGiSuHBlTcPyJ9fgVl_ZdnhWon2DI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 suspectscore=0 adultscore=0
+ mlxlogscore=999 phishscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2411100155
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,91 +132,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+Support for per-page tables requires the SMMU aparture to be setup, on
+some targets this is done statically in firmware, on others it's
+expected to be requested in runtime by the driver, through a SCM call.
 
-kernel test robot noticed the following build warnings:
+Marking the series as RFT, as this has been tested on a few different
+modern platforms, but only with Qualcomm presence in EL2.
 
-[auto build test WARNING on 74741a050b79d31d8d2eeee12c77736596d0a6b2]
+I did receive Tested-by from Konrad and Jessica, not picking these up,
+as I change the firmware call pattern in this version by introducing a
+"is_available" check.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-msm-dp-fix-msm_dp_utils_pack_sdp_header-interface/20241108-082302
-base:   74741a050b79d31d8d2eeee12c77736596d0a6b2
-patch link:    https://lore.kernel.org/r/20241108-fd-dp-audio-fixup-v1-11-40c8eeb60cf5%40linaro.org
-patch subject: [PATCH 11/14] drm/msm/dp: move/inline audio related functions
-config: x86_64-buildonly-randconfig-002-20241108 (https://download.01.org/0day-ci/archive/20241108/202411081748.0PPL9MIj-lkp@intel.com/config)
-compiler: clang version 19.1.3 (https://github.com/llvm/llvm-project ab51eccf88f5321e7c60591c5546b254b6afab99)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241108/202411081748.0PPL9MIj-lkp@intel.com/reproduce)
+Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+---
+Changes in v2:
+- Added a check to see if the SCM call is available, to avoid possibly
+  error prints.
+- Link to v1: https://lore.kernel.org/r/20241002-adreno-smmu-aparture-v1-0-e9a63c9ccef5@oss.qualcomm.com
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202411081748.0PPL9MIj-lkp@intel.com/
+---
+Bjorn Andersson (2):
+      firmware: qcom: scm: Introduce CP_SMMU_APERTURE_ID
+      drm/msm/adreno: Setup SMMU aparture for per-process page table
 
-All warnings (new ones prefixed by >>):
+ drivers/firmware/qcom/qcom_scm.c        | 26 ++++++++++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.h        |  1 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 +++++++++++
+ include/linux/firmware/qcom/qcom_scm.h  |  2 ++
+ 4 files changed, 40 insertions(+)
+---
+base-commit: 929beafbe7acce3267c06115e13e03ff6e50548a
+change-id: 20241002-adreno-smmu-aparture-fe7d5a1cb834
 
-   In file included from drivers/gpu/drm/msm/dp/dp_audio.c:11:
-   In file included from include/drm/display/drm_dp_helper.h:27:
-   In file included from include/linux/i2c.h:19:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:21:
-   In file included from include/linux/mm.h:2223:
-   include/linux/vmstat.h:518:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     518 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
->> drivers/gpu/drm/msm/dp/dp_audio.c:213:5: warning: variable 'safe_to_exit_level' is uninitialized when used here [-Wuninitialized]
-     213 |                                 safe_to_exit_level);
-         |                                 ^~~~~~~~~~~~~~~~~~
-   include/drm/drm_print.h:636:59: note: expanded from macro 'drm_dbg_dp'
-     636 |         drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DP, fmt, ##__VA_ARGS__)
-         |                                                                  ^~~~~~~~~~~
-   include/drm/drm_print.h:540:39: note: expanded from macro 'drm_dev_dbg'
-     540 |         __drm_dev_dbg(NULL, dev, cat, fmt, ##__VA_ARGS__)
-         |                                              ^~~~~~~~~~~
-   drivers/gpu/drm/msm/dp/dp_audio.c:198:24: note: initialize the variable 'safe_to_exit_level' to silence this warning
-     198 |         u32 safe_to_exit_level, mainlink_levels;
-         |                               ^
-         |                                = 0
-   2 warnings generated.
-
-
-vim +/safe_to_exit_level +213 drivers/gpu/drm/msm/dp/dp_audio.c
-
-d13e36d7d2227e Abhinav Kumar    2020-09-12  195  
-fb7d509b1710d1 Dmitry Baryshkov 2024-10-29  196  static void msm_dp_audio_safe_to_exit_level(struct msm_dp_audio_private *audio)
-d13e36d7d2227e Abhinav Kumar    2020-09-12  197  {
-568837beeb38ef Dmitry Baryshkov 2024-11-08  198  	u32 safe_to_exit_level, mainlink_levels;
-d13e36d7d2227e Abhinav Kumar    2020-09-12  199  
-fb7d509b1710d1 Dmitry Baryshkov 2024-10-29  200  	switch (audio->msm_dp_audio.lane_count) {
-d13e36d7d2227e Abhinav Kumar    2020-09-12  201  	case 1:
-d13e36d7d2227e Abhinav Kumar    2020-09-12  202  		safe_to_exit_level = 14;
-d13e36d7d2227e Abhinav Kumar    2020-09-12  203  		break;
-d13e36d7d2227e Abhinav Kumar    2020-09-12  204  	case 2:
-d13e36d7d2227e Abhinav Kumar    2020-09-12  205  		safe_to_exit_level = 8;
-d13e36d7d2227e Abhinav Kumar    2020-09-12  206  		break;
-d13e36d7d2227e Abhinav Kumar    2020-09-12  207  	case 4:
-d13e36d7d2227e Abhinav Kumar    2020-09-12  208  		safe_to_exit_level = 5;
-d13e36d7d2227e Abhinav Kumar    2020-09-12  209  		break;
-d13e36d7d2227e Abhinav Kumar    2020-09-12  210  	default:
-202aceac8bb3ae Kuogee Hsieh     2022-02-17  211  		drm_dbg_dp(audio->drm_dev,
-202aceac8bb3ae Kuogee Hsieh     2022-02-17  212  				"setting the default safe_to_exit_level = %u\n",
-d13e36d7d2227e Abhinav Kumar    2020-09-12 @213  				safe_to_exit_level);
-d13e36d7d2227e Abhinav Kumar    2020-09-12  214  		safe_to_exit_level = 14;
-d13e36d7d2227e Abhinav Kumar    2020-09-12  215  		break;
-d13e36d7d2227e Abhinav Kumar    2020-09-12  216  	}
-d13e36d7d2227e Abhinav Kumar    2020-09-12  217  
-568837beeb38ef Dmitry Baryshkov 2024-11-08  218  	mainlink_levels = msm_dp_read_link(audio->catalog, REG_DP_MAINLINK_LEVELS);
-568837beeb38ef Dmitry Baryshkov 2024-11-08  219  	mainlink_levels &= 0xFE0;
-568837beeb38ef Dmitry Baryshkov 2024-11-08  220  	mainlink_levels |= safe_to_exit_level;
-568837beeb38ef Dmitry Baryshkov 2024-11-08  221  
-568837beeb38ef Dmitry Baryshkov 2024-11-08  222  	drm_dbg_dp(audio->drm_dev,
-568837beeb38ef Dmitry Baryshkov 2024-11-08  223  		   "mainlink_level = 0x%x, safe_to_exit_level = 0x%x\n",
-568837beeb38ef Dmitry Baryshkov 2024-11-08  224  		   mainlink_levels, safe_to_exit_level);
-568837beeb38ef Dmitry Baryshkov 2024-11-08  225  
-568837beeb38ef Dmitry Baryshkov 2024-11-08  226  	msm_dp_write_link(audio->catalog, REG_DP_MAINLINK_LEVELS, mainlink_levels);
-d13e36d7d2227e Abhinav Kumar    2020-09-12  227  }
-d13e36d7d2227e Abhinav Kumar    2020-09-12  228  
-
+Best regards,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+
