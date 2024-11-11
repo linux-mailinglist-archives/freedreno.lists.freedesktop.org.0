@@ -2,76 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EDE39C4187
-	for <lists+freedreno@lfdr.de>; Mon, 11 Nov 2024 16:08:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5DA59C432C
+	for <lists+freedreno@lfdr.de>; Mon, 11 Nov 2024 18:06:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E99D910E1F2;
-	Mon, 11 Nov 2024 15:08:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 414B510E2EC;
+	Mon, 11 Nov 2024 17:06:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h8QVQtuY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fPLqLaiz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f177.google.com (mail-il1-f177.google.com
- [209.85.166.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33CA010E1F2;
- Mon, 11 Nov 2024 15:08:42 +0000 (UTC)
-Received: by mail-il1-f177.google.com with SMTP id
- e9e14a558f8ab-3a6e960fa2dso18264775ab.0; 
- Mon, 11 Nov 2024 07:08:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1731337721; x=1731942521; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xqDjKD0MpVgCKxlaiJrPGJcWbnb48b/VsDJVF/AEcyY=;
- b=h8QVQtuYL//MWjuYhECfr9YBoBgT3lklVxq/DdWSi0kXNisEHclRsrNyvjPqFfAHnO
- SBr4YHa9JE5hybZr40x/5O4kqDnsnib+dmY+sPyLCjhBxnBpgsNCmF/WAWw+oGFGtdyf
- tI+N0KU3M0yOnDFzfHHLZ1Xa3atIs+PcUqjivOUxiAEVp/kL2qqT5g2m6afz+uWSLbZN
- m4+r1Yvb4XEudU9VrHKIbV0Dhu4P3NJoXb10yZif4rePef/ZqJyovdI4/bfeCY7Frk7c
- sv0BICPGEjWolLgUpQzhWVJlig8BsyMJKV8Q3NpDMiwYT0rVO3unADzbgCsZO+BqaIZ2
- wZJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731337721; x=1731942521;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xqDjKD0MpVgCKxlaiJrPGJcWbnb48b/VsDJVF/AEcyY=;
- b=e0xm36IScwq5Msmvv/CO/N+rkIJHVcR9Vz86aCkZ5xzEDnG/dUi0Fzg3d7sfrEB0nx
- N8CbwQ5xfmcT1ipOlRXdJmXPmhOD7EXLyYdRT4VvL0Q7Jrxtt+oZeWAv8KZiFJcqgUUM
- fS6Sx4iCaQbRps7Wn221auhQYh/QSok2igbv+tB7TwKaS7tkLaxfpEEoezT8DS0C2lRz
- wNN6GVGldPRU15+NXtSuJ4TyCcSxOGx9ikfJW87pm2u3thnl7lm84SS3i+DVwBTppVE1
- 8t7x4jiA0HiynU1dIjGg3IWIDxXUyh1UbwbouJxwFBC6x1CrKb2wvRh7bp7Id5CJlCyx
- 4xuA==
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D0BD10E0AD;
+ Mon, 11 Nov 2024 17:06:54 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 6EBB7A4175D;
+ Mon, 11 Nov 2024 17:04:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27547C4CEDC;
+ Mon, 11 Nov 2024 17:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1731344813;
+ bh=feWL9fgmmw9QG92svt4ITVSK7A6maEehKtjcSkF0SEQ=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=fPLqLaizjJbk1Iwqs/BZnTbAdagLPzisXvNNbhWyaLKHrvoma1CBBYF7FS2u1c1mP
+ fNo+21tb+XpqWV9rtA1eu3k+EXUI8oVtYBw4VUEqs6oQeP7TqMjRbXi3nmI4MKwl++
+ GqYN0LNBrqpByijyayZtqlTrMS8b2c3aiLsrXo+0m4zDrCjnJ2ylKgbYSKn3AN0L/q
+ RQGf5ZdjWBjOQk9Hk9KZyqPnQDfk6CqEQc/U/LSlvdnN8HzKdCKG321AOFGHWToTIT
+ XefUPtjAP5ftbSDo9XtJ98BzT8jON61E2gHMiFOfTITNSsLHNrVZ8KaylrOobLQNIF
+ zP7ygysk+2nDg==
+Received: by mail-yb1-f182.google.com with SMTP id
+ 3f1490d57ef6-e33a8c84b9aso1144103276.0; 
+ Mon, 11 Nov 2024 09:06:53 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCU0tfkl5xszoG0cSyy9puN75unDM/p6RivsXWj5PzmFmNcwvwI5WtUb/xJEmiZ8BQyQMPHhiIJPTFk=@lists.freedesktop.org,
- AJvYcCXv74ieEi6BvpJvEdV9jIQ98bhbckVRSnX+2Q4d1lA8Lz5mul7spi+TDgFTFsKKMtL9hMQoLq08+iJ2@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyGtDDrpG12XeAa6BhiOGGvy2XVKQhPus2iLz1tvG+1zCztl8mM
- xCnTMEJ68P018Ga82V75EY0wXjcrT3PIx3njQxzufN8YHuDmgwBrP95nXF7AsHSjiWjqInlxHAR
- aZ11/9ybz8htfPztPjKmu2pHHIqs=
-X-Google-Smtp-Source: AGHT+IH2DqHNH1lAaBPMKHfZf8DIZICij4huNrVtkaYHzbXzeXmfugxejRRHAtF2NyamwSTWbJkMJPmJyjEc/FaMe+0=
-X-Received: by 2002:a05:6e02:160b:b0:3a3:4164:eec9 with SMTP id
- e9e14a558f8ab-3a6f1a15cb8mr141413625ab.14.1731337721225; Mon, 11 Nov 2024
- 07:08:41 -0800 (PST)
+ AJvYcCX+BIz6nzPRqJARuQd8V7UBg1UHyT6Z7AG7Z3LSZ/0lcoaCe2DuyZXBQov7avrkl89PWtDDpTaOU9r2@lists.freedesktop.org,
+ AJvYcCXqGVWayqLwaze10f1RUQVE29SNmh65JceUju0PSaaKTjIeDVUbkGvIViLRoQ3VaRM3Tdg2oZ19c48=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzpDNm6p0SXRXd8YMn3gDzbOg1fZ/imO4hxzYdT9HJ5py5rf+OA
+ cJ7D3k8d8JQSA0H7KbySLsBy++ScVIltwSiz9i/V4NoPb/45ZutGiPWa6JRUrkJftOAJV5gE1CO
+ x0WbtCl8JrAuL1qw7jYJmsPcUdQ==
+X-Google-Smtp-Source: AGHT+IEg+ZdXyhSVjowIdMTiFtczDqq6/O1NAD+xe1ZO9PXm0V/eW6I+PrJSsMZu5rrCYy4oAydNqSZhcQKsejZ/zxs=
+X-Received: by 2002:a05:690c:6b11:b0:6e2:ab93:8c68 with SMTP id
+ 00721157ae682-6eadddaf35cmr116692697b3.25.1731344812198; Mon, 11 Nov 2024
+ 09:06:52 -0800 (PST)
 MIME-Version: 1.0
-References: <20241110-adreno-smmu-aparture-v2-0-9b1fb2ee41d4@oss.qualcomm.com>
- <20241110-adreno-smmu-aparture-v2-2-9b1fb2ee41d4@oss.qualcomm.com>
-In-Reply-To: <20241110-adreno-smmu-aparture-v2-2-9b1fb2ee41d4@oss.qualcomm.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 11 Nov 2024 07:08:29 -0800
-Message-ID: <CAF6AEGvD95RyUXDBjgmoefgO6QyeRw3tpa7EG1MLFKdxcoZ-4g@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] drm/msm/adreno: Setup SMMU aparture for
- per-process page table
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, 
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+References: <20241009-patchv3_1-v4-0-cd683a9ca554@quicinc.com>
+ <20241009-patchv3_1-v4-1-cd683a9ca554@quicinc.com>
+ <ugkiv4m3etpydvosjkyzwr4qus74xnwccow7xrpvr77kzcx6bv@odlz7dzldqc5>
+In-Reply-To: <ugkiv4m3etpydvosjkyzwr4qus74xnwccow7xrpvr77kzcx6bv@odlz7dzldqc5>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 11 Nov 2024 11:06:40 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqJ0zoyaZAgZtyJ8xMsPY+YzrbF-YG1vPN6tFoFXQaW09w@mail.gmail.com>
+Message-ID: <CAL_JsqJ0zoyaZAgZtyJ8xMsPY+YzrbF-YG1vPN6tFoFXQaW09w@mail.gmail.com>
+Subject: Re: [PATCH v4 1/5] dt-bindings: display/msm: Document MDSS on SA8775P
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Mahadevan <quic_mahap@quicinc.com>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>, Simona Vetter <simona@ffwll.ch>, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Kalyan Thota <quic_kalyant@quicinc.com>, 
+ Jayaprakash Madisetty <quic_jmadiset@quicinc.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -89,61 +86,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Nov 10, 2024 at 9:31=E2=80=AFAM Bjorn Andersson
-<bjorn.andersson@oss.qualcomm.com> wrote:
+On Fri, Oct 18, 2024 at 6:00=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
 >
-> Support for per-process page tables requires the SMMU aparture to be
-> setup such that the GPU can make updates with the SMMU. On some targets
-> this is done statically in firmware, on others it's expected to be
-> requested in runtime by the driver, through a SCM call.
+> On Wed, Oct 09, 2024 at 08:02:01PM +0530, Mahadevan wrote:
+> > Document the MDSS hardware found on the Qualcomm SA8775P platform.
+> >
+> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> > Signed-off-by: Mahadevan <quic_mahap@quicinc.com>
+> > ---
+> >  .../bindings/display/msm/qcom,sa8775p-mdss.yaml    | 241 +++++++++++++=
+++++++++
+> >  1 file changed, 241 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p=
+-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mds=
+s.yaml
+> > new file mode 100644
+> > index 0000000000000000000000000000000000000000..37c04ae6876f873c2cddc51=
+b5160b1f54e2b5118
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.y=
+aml
 >
-> One place where configuration is expected to be done dynamically is the
-> QCS6490 rb3gen2.
+> [...]
 >
-> The downstream driver does this unconditioanlly on any A6xx and newer,
+> > +
+> > +        display-controller@ae01000 {
+> > +            compatible =3D "qcom,sa8775p-dpu";
+> > +            reg =3D <0x0ae01000 0x8f000>,
+> > +                  <0x0aeb0000 0x2008>;
+> > +            reg-names =3D "mdp", "vbif";
+> > +
+> > +            clocks =3D <&gcc GCC_DISP_HF_AXI_CLK>,
+> > +                     <&dispcc_ahb_clk>,
+> > +                     <&dispcc_mdp_lut_clk>,
+> > +                     <&dispcc_mdp_clk>,
+> > +                     <&dispcc_mdp_vsync_clk>;
+> > +            clock-names =3D "bus",
+> > +                          "iface",
+> > +                          "lut",
+> > +                          "core",
+> > +                          "vsync";
+> > +
+>
+> It's been more than a week since Rob reported issues with the bindings.
+> Any updates? Obviously I can not pick up patches with binding errors.
 
-nit, s/unconditioanlly/unconditionally/
+Well, someone picked up this version rather than v5 which appears to
+have fixed it. So, probably need an incremental patch to fix the
+warning in linux-next.
 
-> so follow suite and make the call.
->
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-
-Reviewed-by: Rob Clark <robdclark@gmail.com>
-
-
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
-m/adreno/adreno_gpu.c
-> index 076be0473eb5..75f5367e73ca 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -572,8 +572,19 @@ struct drm_gem_object *adreno_fw_create_bo(struct ms=
-m_gpu *gpu,
->
->  int adreno_hw_init(struct msm_gpu *gpu)
->  {
-> +       struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
-> +       int ret;
-> +
->         VERB("%s", gpu->name);
->
-> +       if (adreno_gpu->info->family >=3D ADRENO_6XX_GEN1 &&
-> +           qcom_scm_set_gpu_smmu_aperture_is_available()) {
-> +               /* We currently always use context bank 0, so hard code t=
-his */
-> +               ret =3D qcom_scm_set_gpu_smmu_aperture(0);
-> +               if (ret)
-> +                       DRM_DEV_ERROR(gpu->dev->dev, "unable to set SMMU =
-aperture: %d\n", ret);
-> +       }
-> +
->         for (int i =3D 0; i < gpu->nr_rings; i++) {
->                 struct msm_ringbuffer *ring =3D gpu->rb[i];
->
->
-> --
-> 2.45.2
->
+Rob
