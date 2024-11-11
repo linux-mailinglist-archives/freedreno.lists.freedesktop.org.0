@@ -2,121 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DA369C3404
-	for <lists+freedreno@lfdr.de>; Sun, 10 Nov 2024 18:31:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B60EA9C417E
+	for <lists+freedreno@lfdr.de>; Mon, 11 Nov 2024 16:08:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C061C10E3C6;
-	Sun, 10 Nov 2024 17:31:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 800EB10E1F2;
+	Mon, 11 Nov 2024 15:07:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lJFtCLRM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K7QLv6qe";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 031B510E3C6
- for <freedreno@lists.freedesktop.org>; Sun, 10 Nov 2024 17:31:47 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AAGUasV006330
- for <freedreno@lists.freedesktop.org>; Sun, 10 Nov 2024 17:31:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- NoqymUbSuzTfgs3YfQWe8EZeWIHhOdUDYitzaoggpdU=; b=lJFtCLRMl269Usas
- 3Ak6ouXeiC6W3fjbyHgv7FZ0OcFExRF4xKmJkBJoYGdhFOuVGovsvohqYUb/7PY1
- L7nscyrjJaICDQkCbNgB3HrN2uAOaO9F6JbLoHSj4pedpFszvc1eIoCokyAyfpcu
- eJ3Vn+DbOlKDCHwCjLL5dtZMSObUVdKbKV95UaXti/XqiH8mweqOXy0wp9bSRFvh
- mszqbBs4LTwyRRhVDA/Jq7z3/y799czRipsw0pSrnxAfhXuPvL5Cm3PKy4KuWi/F
- YzyjcbvIJn+nv+ocpXd/673oVYDs5GNnnsD+xkzB2ONRyWbcHI+TanKi+b85wrRp
- fys5sg==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42sytsjcxd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Sun, 10 Nov 2024 17:31:46 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id
- 5614622812f47-3e7a207b659so329064b6e.0
- for <freedreno@lists.freedesktop.org>; Sun, 10 Nov 2024 09:31:46 -0800 (PST)
+Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
+ [209.85.166.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D596510E1FB;
+ Mon, 11 Nov 2024 15:07:57 +0000 (UTC)
+Received: by mail-io1-f49.google.com with SMTP id
+ ca18e2360f4ac-83ab5b4b048so195603339f.2; 
+ Mon, 11 Nov 2024 07:07:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1731337677; x=1731942477; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=l+GB5tRv8BnowN5d0hYSrEc6wH0fHehQmpMwfq55PFY=;
+ b=K7QLv6qenBsPAkwWK1iyr7Ldf0H+6zRNMOKbjxdcERvZdZ42vfU9H+TpVbkRuaN7Nx
+ tnLPMc211BgUGoxRDTeRD9GxX1NCsDL9srXfToIlvQppcg9ENeWGjDkfOfaKwIUfhBu+
+ HMcDbi62zMpU5lra1X8qkkU+lXihPLKh6fP02uZfIhijAWW/YkStregpj/hXctKICQKa
+ 4jlm2mEva6bXefS+UbOrXA5TG+ApWpkU0oVXNvzSnHOPhtWDAMOiOIlh3h5YRwIqe5/b
+ wkNMOFKS6TVtFL0SyChDyCPcpmd0y4HcIC4CIjnXwgGYGqDT/RhN1EjYc31T+yJvhypI
+ vRmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731259890; x=1731864690;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1731337677; x=1731942477;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=NoqymUbSuzTfgs3YfQWe8EZeWIHhOdUDYitzaoggpdU=;
- b=AARxHXzSt8sxEOPTNGQUafIFlHQITvYweu+7hkDX3KnAAYSxix16Z06bEeHjLAfrCa
- LwIC9YEqvSwmO7PDEO+xO9unfPNIbreSLfG1/uP4s6Vyvw9EvaeaifHetnazmACH9Ls8
- wJpflrshRViWr61S1L7tFK2p+lUr1OXanYYt179I3MU8BKoi7v3jz+QhdEhJq+62WWtl
- WvEk8dzMVA1jJSVWIvZN1Wx96vMvGgKitW5pUtzVLLEHCHzgg775kZNv/hfHbSetr8lt
- JnRO+WCTLUGF/9tLWMc16XODJuRoizTTFUgokFZxPU3Tdzc21SdmaOIz+Pt7i9QirWI8
- IzAQ==
+ bh=l+GB5tRv8BnowN5d0hYSrEc6wH0fHehQmpMwfq55PFY=;
+ b=eafkz6dDIavoTCgREdmmIjcu0sNoyMM36hXz5g72bmD/SlDI91FqCoe/ECaDeWPmEe
+ AhrFGnj0/aDEmOP1DTyswtQv9uppy6c5ZQ3Gb+7r5wf48X4/1omVofa7vkJ7lFWv/1OL
+ 0oNqUsiZ4U98V19KBXLkfWbZWsQmwrsq1RLHgjvWlOqHbsZd56SOWwuPjey+JirlDlRD
+ oanzzaIQxlCk1waD5XED0Z77d0uV+mAOfDO3XfclYtnBpRpoW0n+DMoikEDEUG6cX8ZL
+ glb9RlyoFCoSNd5rtEKFvMabZ/zst7v1xMAGhGq8bgCc+7B4uTrP39vpmx5jfNpsZMVd
+ TZbw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUfftwRWZ8KEjuB01V5xaQAbN2w0k6dcs7Mk72DEx1cWn5UpxrPfsrz1V3ut+WUeKi0pfA7hDPbrt8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1nj+vardp62xW0Hv8h0GTuQKK7BYMvGCoHISS26Mn5DeI/wYN
- gQOZZ1kLiqLZz+yMLOa9RPgRcBG2Bl3Ea4XddngsWk4uUXkol1R5AZpCyfu8YqfAUh/qWq8PrwA
- D6TMEBJ9XOKYHPpwmOfCEXKpU9BYBi9Fi2t0p8UNLOZlWAem0S+PjnCSnyE/hyiluBcE=
-X-Received: by 2002:a05:6808:2105:b0:3e7:6468:1fd5 with SMTP id
- 5614622812f47-3e794657653mr8350235b6e.34.1731259890671; 
- Sun, 10 Nov 2024 09:31:30 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEWyxhZzgV8jj3hMo4wiNEnob3/wxI89e+SDHXIT7eMFyTQmCzwSrCFBhaciMwwS6unG6wSjg==
-X-Received: by 2002:a05:6808:2105:b0:3e7:6468:1fd5 with SMTP id
- 5614622812f47-3e794657653mr8350216b6e.34.1731259890376; 
- Sun, 10 Nov 2024 09:31:30 -0800 (PST)
-Received: from [192.168.86.60]
- (104-57-184-186.lightspeed.austtx.sbcglobal.net. [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id
- 5614622812f47-3e78cb53843sm1718506b6e.0.2024.11.10.09.31.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 10 Nov 2024 09:31:29 -0800 (PST)
-From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Date: Sun, 10 Nov 2024 09:33:41 -0800
-Subject: [PATCH v2 2/2] drm/msm/adreno: Setup SMMU aparture for per-process
- page table
+ AJvYcCUKYuDYeNtP1ps2sKBrIGDSeudCDf6wiNmboQDqlmcZ03WYI7ILbka3tSflfOiXb3GHeG2H4CbehhPX@lists.freedesktop.org,
+ AJvYcCXF22la6dxZJ5ryeEDvxQxB6j4kc9o9Zv5yncD0rbkU3bkkkn1OX1V+g1WvCFrq854FbXJaVVb0EDE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyRrnBTi8Yq9iJNYlnmKvbOQA+2yaMU/T/OsQqAGrvHyj5Hv567
+ /cxtiXTqrjam9GgPigF/YyLYW6oZ4tRTOm2WJmLMWMJWP7Yy5wgmntvkLsJNkHUGJH3ZpO0+Si2
+ aSFdg3Is+aDN2Nu1dXzV4tzKtbVM=
+X-Google-Smtp-Source: AGHT+IHTfIqlgcD2XKYGf2RKEMfl9C8IIiYjp31xSXeesmufP9858DAQdQl8IxPXotfWKb+wOlGIb7o99W1tYFqYnlQ=
+X-Received: by 2002:a05:6e02:20cd:b0:3a6:c716:ab29 with SMTP id
+ e9e14a558f8ab-3a6f19e383amr161829735ab.14.1731337676449; Mon, 11 Nov 2024
+ 07:07:56 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241110-adreno-smmu-aparture-v2-2-9b1fb2ee41d4@oss.qualcomm.com>
 References: <20241110-adreno-smmu-aparture-v2-0-9b1fb2ee41d4@oss.qualcomm.com>
-In-Reply-To: <20241110-adreno-smmu-aparture-v2-0-9b1fb2ee41d4@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ <20241110-adreno-smmu-aparture-v2-1-9b1fb2ee41d4@oss.qualcomm.com>
+In-Reply-To: <20241110-adreno-smmu-aparture-v2-1-9b1fb2ee41d4@oss.qualcomm.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 11 Nov 2024 07:07:44 -0800
+Message-ID: <CAF6AEGvVeDLtca0q300BMPYXgs00auBCDPAC=yk9J7cPRgkUQA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] firmware: qcom: scm: Introduce CP_SMMU_APERTURE_ID
+To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1536;
- i=bjorn.andersson@oss.qualcomm.com; h=from:subject:message-id;
- bh=HkkqzqYZ9I8U3OYgFmCXR7x8x0rR8hNjb441DaC0VZw=;
- b=owEBgwJ8/ZANAwAIAQsfOT8Nma3FAcsmYgBnMO552UOCpdvNfPRiy9GOkjK7Xvxw/DaFyCNyp
- jJhQw+LOgaJAkkEAAEIADMWIQQF3gPMXzXqTwlm1SULHzk/DZmtxQUCZzDueRUcYW5kZXJzc29u
- QGtlcm5lbC5vcmcACgkQCx85Pw2ZrcUORA/+JTP943OIpYznMXjcUo9YS9qQBZF3wzGvp2JZEcJ
- ClLWvzOfnzv8dYtF726azGr8Ww82GcjAhA7KnjubhyHOGZ2hkWs2dxIs35kdf2z2MCcLJ2nekTt
- eeopFGoypHfhjACVSDFLGUzPApt1Gjpp2YTO9a0o/kYe6L33kC7d6WDcKaTxB8TIWRbhKZCHxKZ
- OoB9b1W1nnfRt7XRnWJIHtctPLqL3sJ7Z+0IS27cudn1UMoxSc5J2Oz5HgOroLDTuZC9UCryrS5
- x2T3xBRvBgpICaqHJ7QeZefLfYSoy/9OGsMYPkUoYrXvMNvtWia3/HtFM3sBq0kweUPuzB3uVLQ
- lgnxZp2rf0n9mBVx1pSykK0cLFqzMcPktXLcMHAUPEX/jh6IizZzhiODgGbV3wNUge5QUkqu5pa
- Tonj1Vfj82AEDvtGkNcCGPH8tlv6SfetBONB0lHY5sWlIjT0z3bj2G9T8CLINtWRuoyRIxWSs5l
- RfvaIi8OOUiKKF4DwW49JCdmqsIuF5ptcPNwyT2qHB19Z8pGrcbwsOzm+9gH7XUCdeKNkw7HgUZ
- KfMmODvxKAsi8LZITL6ov/T6mqdGSurJp1b8VJ3wCHiBIGU6oiq/FBpU47+clyETjoIW/+OYy/x
- etfA38hrTphrg0AIM7PPlBglWVI2EKO/NFMAqHuUamc8=
-X-Developer-Key: i=bjorn.andersson@oss.qualcomm.com; a=openpgp;
- fpr=05DE03CC5F35EA4F0966D5250B1F393F0D99ADC5
-X-Proofpoint-GUID: uZ6uyc481J-IsFinx4IZWHzw1nlO2Szi
-X-Proofpoint-ORIG-GUID: uZ6uyc481J-IsFinx4IZWHzw1nlO2Szi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- priorityscore=1501 suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0
- mlxlogscore=999 lowpriorityscore=0 malwarescore=0 spamscore=0 mlxscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2411100156
+ David Airlie <airlied@gmail.com>, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Simona Vetter <simona@ffwll.ch>, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,47 +88,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Support for per-process page tables requires the SMMU aparture to be
-setup such that the GPU can make updates with the SMMU. On some targets
-this is done statically in firmware, on others it's expected to be
-requested in runtime by the driver, through a SCM call.
+On Sun, Nov 10, 2024 at 9:31=E2=80=AFAM Bjorn Andersson
+<bjorn.andersson@oss.qualcomm.com> wrote:
+>
+> The QCOM_SCM_SVC_MP service provides QCOM_SCM_MP_CP_SMMU_APERTURE_ID,
+> which is used to trigger the mapping of register banks into the SMMU
+> context for per-processes page tables to function (in case this isn't
+> statically setup by firmware).
+>
+> This is necessary on e.g. QCS6490 Rb3Gen2, in order to avoid "CP | AHB
+> bus error"-errors from the GPU.
+>
+> Introduce a function to allow the msm driver to invoke this call.
+>
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 
-One place where configuration is expected to be done dynamically is the
-QCS6490 rb3gen2.
+Reviewed-by: Rob Clark <robdclark@gmail.com>
 
-The downstream driver does this unconditioanlly on any A6xx and newer,
-so follow suite and make the call.
-
-Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 076be0473eb5..75f5367e73ca 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -572,8 +572,19 @@ struct drm_gem_object *adreno_fw_create_bo(struct msm_gpu *gpu,
- 
- int adreno_hw_init(struct msm_gpu *gpu)
- {
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	int ret;
-+
- 	VERB("%s", gpu->name);
- 
-+	if (adreno_gpu->info->family >= ADRENO_6XX_GEN1 &&
-+	    qcom_scm_set_gpu_smmu_aperture_is_available()) {
-+		/* We currently always use context bank 0, so hard code this */
-+		ret = qcom_scm_set_gpu_smmu_aperture(0);
-+		if (ret)
-+			DRM_DEV_ERROR(gpu->dev->dev, "unable to set SMMU aperture: %d\n", ret);
-+	}
-+
- 	for (int i = 0; i < gpu->nr_rings; i++) {
- 		struct msm_ringbuffer *ring = gpu->rb[i];
- 
-
--- 
-2.45.2
-
+> ---
+>  drivers/firmware/qcom/qcom_scm.c       | 26 ++++++++++++++++++++++++++
+>  drivers/firmware/qcom/qcom_scm.h       |  1 +
+>  include/linux/firmware/qcom/qcom_scm.h |  2 ++
+>  3 files changed, 29 insertions(+)
+>
+> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qco=
+m_scm.c
+> index 95815e64e1e6..72bf87ddcd96 100644
+> --- a/drivers/firmware/qcom/qcom_scm.c
+> +++ b/drivers/firmware/qcom/qcom_scm.c
+> @@ -904,6 +904,32 @@ int qcom_scm_restore_sec_cfg(u32 device_id, u32 spar=
+e)
+>  }
+>  EXPORT_SYMBOL_GPL(qcom_scm_restore_sec_cfg);
+>
+> +#define QCOM_SCM_CP_APERTURE_CONTEXT_MASK      GENMASK(7, 0)
+> +
+> +bool qcom_scm_set_gpu_smmu_aperture_is_available(void)
+> +{
+> +       return __qcom_scm_is_call_available(__scm->dev, QCOM_SCM_SVC_MP,
+> +                                           QCOM_SCM_MP_CP_SMMU_APERTURE_=
+ID);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_scm_set_gpu_smmu_aperture_is_available);
+> +
+> +int qcom_scm_set_gpu_smmu_aperture(unsigned int context_bank)
+> +{
+> +       struct qcom_scm_desc desc =3D {
+> +               .svc =3D QCOM_SCM_SVC_MP,
+> +               .cmd =3D QCOM_SCM_MP_CP_SMMU_APERTURE_ID,
+> +               .arginfo =3D QCOM_SCM_ARGS(4),
+> +               .args[0] =3D 0xffff0000 | FIELD_PREP(QCOM_SCM_CP_APERTURE=
+_CONTEXT_MASK, context_bank),
+> +               .args[1] =3D 0xffffffff,
+> +               .args[2] =3D 0xffffffff,
+> +               .args[3] =3D 0xffffffff,
+> +               .owner =3D ARM_SMCCC_OWNER_SIP
+> +       };
+> +
+> +       return qcom_scm_call(__scm->dev, &desc, NULL);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_scm_set_gpu_smmu_aperture);
+> +
+>  int qcom_scm_iommu_secure_ptbl_size(u32 spare, size_t *size)
+>  {
+>         struct qcom_scm_desc desc =3D {
+> diff --git a/drivers/firmware/qcom/qcom_scm.h b/drivers/firmware/qcom/qco=
+m_scm.h
+> index 685b8f59e7a6..e36b2f67607f 100644
+> --- a/drivers/firmware/qcom/qcom_scm.h
+> +++ b/drivers/firmware/qcom/qcom_scm.h
+> @@ -116,6 +116,7 @@ struct qcom_tzmem_pool *qcom_scm_get_tzmem_pool(void)=
+;
+>  #define QCOM_SCM_MP_IOMMU_SET_CP_POOL_SIZE     0x05
+>  #define QCOM_SCM_MP_VIDEO_VAR                  0x08
+>  #define QCOM_SCM_MP_ASSIGN                     0x16
+> +#define QCOM_SCM_MP_CP_SMMU_APERTURE_ID                0x1b
+>  #define QCOM_SCM_MP_SHM_BRIDGE_ENABLE          0x1c
+>  #define QCOM_SCM_MP_SHM_BRIDGE_DELETE          0x1d
+>  #define QCOM_SCM_MP_SHM_BRIDGE_CREATE          0x1e
+> diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmw=
+are/qcom/qcom_scm.h
+> index 9f14976399ab..4621aec0328c 100644
+> --- a/include/linux/firmware/qcom/qcom_scm.h
+> +++ b/include/linux/firmware/qcom/qcom_scm.h
+> @@ -85,6 +85,8 @@ int qcom_scm_io_writel(phys_addr_t addr, unsigned int v=
+al);
+>
+>  bool qcom_scm_restore_sec_cfg_available(void);
+>  int qcom_scm_restore_sec_cfg(u32 device_id, u32 spare);
+> +int qcom_scm_set_gpu_smmu_aperture(unsigned int context_bank);
+> +bool qcom_scm_set_gpu_smmu_aperture_is_available(void);
+>  int qcom_scm_iommu_secure_ptbl_size(u32 spare, size_t *size);
+>  int qcom_scm_iommu_secure_ptbl_init(u64 addr, u32 size, u32 spare);
+>  int qcom_scm_iommu_set_cp_pool_size(u32 spare, u32 size);
+>
+> --
+> 2.45.2
+>
