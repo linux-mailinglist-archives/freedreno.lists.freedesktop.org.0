@@ -2,53 +2,95 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F5409C448B
-	for <lists+freedreno@lfdr.de>; Mon, 11 Nov 2024 19:08:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 505BF9C4D2A
+	for <lists+freedreno@lfdr.de>; Tue, 12 Nov 2024 04:19:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4220010E15D;
-	Mon, 11 Nov 2024 18:08:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BFCB10E215;
+	Tue, 12 Nov 2024 03:19:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KZ8ZConb";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LyYIlVtb";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0364A10E15D;
- Mon, 11 Nov 2024 18:08:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id DACC15C5A95;
- Mon, 11 Nov 2024 18:07:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEC05C4CECF;
- Mon, 11 Nov 2024 18:08:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1731348514;
- bh=AEvF+lxs/+5g7LFaaobL1cTI1sRUJ97tB8YlBhuVWfg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KZ8ZConbsjyDJcVw6oxZ+ctk2irCZm2M8eq6B88tVhGYr1AabBhfilstVivond0wU
- zOJssRhGu/jQ/MtALIE4SZ+4Mj/Av6tc+Ozz5lYY+jcDKcBzysgN52dEXZCfO2Ss+z
- VpqvpT4SqEwAkzimaNDQV+75qtlUgbVxVuLHx39fs83eMObPj8RDdt4kdBIxqvaAdl
- bD26t3H79LIdJ2KuE2Zyk7EEzqCY5Hw3LFSB3GwYJJ3BVkEv4bsVmZ8GdyDelqy7W0
- NQwwFjlwWimiqvEINDyW092S++cw3enZ39km4PUoecwFW/Z6c33/T9uauTBMuBpelv
- k2UMAfkuGWkpw==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v2 0/2] drm/msm/adreno: Setup SMMU aparture
-Date: Mon, 11 Nov 2024 12:08:31 -0600
-Message-ID: <173134850914.212509.17711783777299070949.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20241110-adreno-smmu-aparture-v2-0-9b1fb2ee41d4@oss.qualcomm.com>
-References: <20241110-adreno-smmu-aparture-v2-0-9b1fb2ee41d4@oss.qualcomm.com>
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A28310E218
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Nov 2024 03:19:04 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-a93c1cc74fdso875937566b.3
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Nov 2024 19:19:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1731381542; x=1731986342; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=oIZCtXt4TQ04xJLqf1FpdE0pILm6/tx+QziF3KaXRzU=;
+ b=LyYIlVtbKYrTaE3Cr3ah34M6UykF4xMEJl69T4yuEOxQ1T8xTh0inTuynipTu3aLPI
+ iSzPdnlbkVbYmavRHc2nhSPJ6bayF0UQfZyhzccdiVmtYQ8srhhnPAPSB2V82wDHA8K1
+ Re5Sn0qLcnUcDkRVoUBMmh2YBVe00lMocW0E5IEmolh+Ik7vsx53rob+yhWq9bz2JQrW
+ AIMNhtQDrxvQZTKby8zcnG4O1/nmAmXVR8FWrQF4fAtgLevOALTfJ73x0sd6MHNhhCs7
+ VT+bt+vWvBIvSZQ05axXBjGMEFWIawJLyFsrvZ+s/z1giUo08s1OTwrJWPP6uzN/rB1i
+ eHpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731381542; x=1731986342;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=oIZCtXt4TQ04xJLqf1FpdE0pILm6/tx+QziF3KaXRzU=;
+ b=eVH6S2M443mHVBJlMlZ0qcrYYBl9cbkz3eFy0k67ZxjKPU1licPEIuwixfymoxLsrV
+ nPB+vQuSZMTWDJbnxommUIajcdmYndmUL7AcQYjNqmY2RXqt0XZz/vN2DM1udwGvvq4V
+ 0Yost5UdHZ5Mxwj1JiNvDpql0cEUf4YRPN3PwYc/FFvrpx0t5v7xNZ6Tsw70p8yBiKSi
+ Trk22lYJtQDMofQTVm9eABzqmR76H2YSnQbT+zadUM7esv9nnJAt7Q4qy6lv51f/RgND
+ dQpMcK1o078xP9r4+LdxIRoTXodPHgt+A95YyFlLQihwfTW6btYHph4u2NV3HIVjyNBJ
+ eOAQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXePH+Nzcnigrbi9eehRSczHz5VLf/kbSziIuxDn6+zDlRYtPZGW/3G9CCrLdB2tSY6zZ4NiGLvzzE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwhdSZRiaLLIW5jIEZhYDTz7opcHV7ix49S6fMj3p+taYfuY2Ul
+ sMBdAK3BSPGKGXAXxV4hXEdIDKRp8MVTdA6FMmjh+jKramKYz2wOuSiIfi9qXkI=
+X-Google-Smtp-Source: AGHT+IEepq4U46vHQx+388cSqSZ7dYjmvbGbqe2P+IAhGO5esI0/fqqyiUwogKBqBM8siJyJaJSuXg==
+X-Received: by 2002:a17:907:9603:b0:a9e:b5d0:de6 with SMTP id
+ a640c23a62f3a-a9ef0016d4emr1401236266b.50.1731381542331; 
+ Mon, 11 Nov 2024 19:19:02 -0800 (PST)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9ee0dc50ddsm672156866b.103.2024.11.11.19.18.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Nov 2024 19:19:01 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 12 Nov 2024 05:18:55 +0200
+Subject: [PATCH] dt-bindings: display/msm: qcom,sa8775p-mdss: fix the example
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20241112-fd-dp-fux-warning-v1-1-705b527f5a63@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAB7JMmcC/x3MQQqAIBBA0avErBtIi7SuEi1Ex5qNiVIJ0d2Tl
+ m/x/wOZElOGuXkg0cWZj1Ah2gbsbsJGyK4aZCcHIYRE79BF9GfB26TAYUOr1TjYqfdKK6hdTOS
+ 5/M9lfd8PUvtvj2MAAAA=
+X-Change-ID: 20241112-fd-dp-fux-warning-c8764c93f787
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Mahadevan <quic_mahap@quicinc.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1669;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=yQRCixh2ZkF3/J3DRO9bftX9zO4bUPMZm6ldnWS/5LY=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ7rRSeWfMV+iGi9bLjNSC2e4onl1X41i5xv1KrWD5p1Ji
+ qcE3mR3MhqzMDByMciKKbL4FLRMjdmUHPZhx9R6mEGsTCBTGLg4BWAiKz+y/y+4/vVyRY/8VvWN
+ bx9djg+d82vZS9W/R4/aFlZpPlyQVSKi/C4xL5Nn5QXl5qo1TGyXVvxurOmxsmF4eiLqcArXO5Y
+ oVu13TkV50bWqfJE3/ov7X3sofZd/39b/J6qLmtecmLP8WYNlLcPBnF479/DpjSGsc6M45+Vmes
+ n77916/onZ0knhB+Zf3H+Cwd+8V5LNJm+en7x9p+qxmdUap/l/C2i4pwYEG3Z4nNVitJznuP/nz
+ kavU//b6v42sFjYLLqa6ryXIe5dz/p/iznlV24NN1PS+zjvRLi9gX5VAyvr+T6O+eyTBeuKmrb/
+ Z/pRbjy/+9mS1CfTJC/rSIRsPekfmBwU4SGq73RQ7qU/AA==
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,24 +106,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Add p1 region to the list of DP registers in the SA8775p example. This
+fixes the following warning:
 
-On Sun, 10 Nov 2024 09:33:39 -0800, Bjorn Andersson wrote:
-> Support for per-page tables requires the SMMU aparture to be setup, on
-> some targets this is done statically in firmware, on others it's
-> expected to be requested in runtime by the driver, through a SCM call.
-> 
-> Marking the series as RFT, as this has been tested on a few different
-> modern platforms, but only with Qualcomm presence in EL2.
-> 
-> [...]
+Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: displayport-controller@af54000: reg: [[183844864, 260], [183845376, 192], [183848960, 1904], [183853056, 156]] is too short
 
-Applied, thanks!
+Fixes: 409685915f00 ("dt-bindings: display/msm: Document MDSS on SA8775P")
+Reported-by: Rob Herring <robh@kernel.org>
+Closes: https://lore.kernel.org/dri-devel/CAL_JsqJ0zoyaZAgZtyJ8xMsPY+YzrbF-YG1vPN6tFoFXQaW09w@mail.gmail.com/c
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-[1/2] firmware: qcom: scm: Introduce CP_SMMU_APERTURE_ID
-      commit: 1af75b2ad08bd5977c51c2d0fc11741a4c0a48d9
-[2/2] drm/msm/adreno: Setup SMMU aparture for per-process page table
-      commit: 98e5b7f98356cef2f13b54862ca9ac016b71ff06
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+index 58f8a01f29c7aaa9dc943c232363075686c06a7c..4536bb2f971f3b7173b8807f90c9af3e460bb01c 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+@@ -168,7 +168,8 @@ examples:
+             reg = <0xaf54000 0x104>,
+                   <0xaf54200 0x0c0>,
+                   <0xaf55000 0x770>,
+-                  <0xaf56000 0x09c>;
++                  <0xaf56000 0x09c>,
++                  <0xaf57000 0x09c>;
+ 
+             interrupt-parent = <&mdss0>;
+             interrupts = <12>;
+
+---
+base-commit: ff2ce06d5e28be5ee399a2ff894d6a551c70a318
+change-id: 20241112-fd-dp-fux-warning-c8764c93f787
 
 Best regards,
 -- 
-Bjorn Andersson <andersson@kernel.org>
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
