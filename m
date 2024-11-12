@@ -2,78 +2,119 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5655A9C58D2
-	for <lists+freedreno@lfdr.de>; Tue, 12 Nov 2024 14:20:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C9709C5BD8
+	for <lists+freedreno@lfdr.de>; Tue, 12 Nov 2024 16:28:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C83CC10E5E0;
-	Tue, 12 Nov 2024 13:20:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A82BB10E604;
+	Tue, 12 Nov 2024 15:28:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dL8qCvPy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XfwlvfQk";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9115210E01F;
- Tue, 12 Nov 2024 13:20:07 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-43167ff0f91so49833115e9.1; 
- Tue, 12 Nov 2024 05:20:07 -0800 (PST)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF9610E604;
+ Tue, 12 Nov 2024 15:28:24 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-a9ed7d8c86cso1037555066b.2; 
+ Tue, 12 Nov 2024 07:28:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1731417606; x=1732022406; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=+RJ1NMa1jB4YevqeHSrW28hy579MbHP2ndXxmXrQdAk=;
- b=dL8qCvPyLE2FxY9pgZkw3obNDOzTNDN3GWBICZ5XuPBFvSuAidVEqY43+2/Gs8Qlj1
- FZLy6PTv1A91c2oRu5vxAGceSLVBSqzg5MFhf1Ol788gLarMvhO1/I8GRH6mJvp8vE16
- 9LSC0hYcR4tA1tIKrgFqZk0Wz9U1eXmm260xSSNWCZmqrMhOEBZiIFqxpkmWRiDx03/F
- Sw3JAkPjFI3KboNZ0NZ75YDxga7Itc2gDzR2BJQnHpKy/t2tiZzcNEQpJiWt1GQpUxl3
- 3A3r92H3DNol+VZspMTgfqRO3emM8VYMC9z9QhZj2rjwg01zOVRF9tEfoOVJl9/SiCiB
- 74rA==
+ d=gmail.com; s=20230601; t=1731425303; x=1732030103; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ayot+HwfR74CXO2T1cgPWYEBdAmHU6mQcSK5AjZEZ+g=;
+ b=XfwlvfQkxk7+PTT8h+fktaMN+d4F5HjmQQ5IlJbU6vCGAIAGt4vUea7Mt4Jug7Knje
+ 9EulY18WLafS4/cNpsiWsjYR7WTmpXQwf+wAtaKhTAcTPvEmTXOxxXytaap53Imn/hmk
+ 4cNfZc7tQwbhLmzA9ly+g4Axbkjos+p8uDLln1hNEDnlUWw4s1AolD3kIKhYV1gNwdLu
+ tjXjb6VhTuXKQFUozv0ghGCs+eVsMcApy5gEmbFraBX7BigyOVReWlmp+qzuZiEf79iD
+ LZJ60nBDJ+SlT7svPZ0NfFNSsi9yGXVwibeP6ZbMQsUtplN+eG+BKvQm5aR+V/vNkule
+ hqbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731417606; x=1732022406;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+RJ1NMa1jB4YevqeHSrW28hy579MbHP2ndXxmXrQdAk=;
- b=NSFkD5SWsHOX1XYYh1ZJeUvP0SNJCr3Zj+H869IooCYxD5rHeX8Uq4WsiFsxJjThnB
- nQ49hXeXWAMdYKVgYPGm1+KY3KvmWnXBdXeFZJOhEfn+thWPiC9BcbJ6Srw0dRR1KuQv
- xLEAYpackJlf203NDuBSblnXKVZ6rVkloKY8QmgbvG9WNwQCBXfYL9QNzDBJ/RktvaF9
- jg5F2stA1DW/a87p0eJs55v+4BVx5hod9gSNKhVZlJePCtzVvfcJ8jkywgPxJXpRKg2S
- LoHlEXLybJsWzVze9dpzhFtUJZl253yBLIiWgzX9cw+MVWuLMJn0t7h3jMhHNzl4heUb
- yPYw==
+ d=1e100.net; s=20230601; t=1731425303; x=1732030103;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ayot+HwfR74CXO2T1cgPWYEBdAmHU6mQcSK5AjZEZ+g=;
+ b=MnKqmKoMdFh5bTu4C7SwNHuJJ2oUbqM8GYIwlcvkw+otuzN40YceAgujCz87FcpUhG
+ y0fhe94zZWilAdtzLRrdbeWaaA5yVwTZuO+LcfBPUq7jM/ZkqxwG1Mq9kjgQ4GYOvNX9
+ RnMtHA5WTzzy6LQxhvLHryYL6lvs+8EsH2l4vxGqwqucHa1iBzR4NL16J1B24xKVc7gS
+ X0Gy0unj3QVx+ZVeR2+5XhXGTE519EFJYyDBhjWPiXdTpaawJS6nJ4B5Gm1761QaYUbv
+ WqrDudcFNOKTeBqCNvwkcC6o3mXm7hEsL9QohL/LAw7yRng4jfIIJ52yzJOqhSiA3Nti
+ eunQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXVsigXbhiD2kKOaYEktRzdzc4WHhDj2zfLuEO93g7ESeu93iiZIo5QLn2dicdZ4dyKw40Qh8W2eAg=@lists.freedesktop.org,
- AJvYcCXmzVcQUjumjAjQt8WFTvMCF4Cs0cwwvhfMJPzYxXak/DdOPIwnMEAqNGtBE+rXJDAyaj7IDfjI6zBk@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwFrhjDLYxKgobyQn4CNpT2f043Q+xNF48LixOjHOKE2qhN8tLU
- XyKKqmpvl17H2LO1bVRCWOLcSD+SAuPUx6oRLt/obtbOOxtaLEHQ
-X-Google-Smtp-Source: AGHT+IFcy+h3FVW2hUep37o/iKMxNs6TxUByEJOBaG0afG7vcce/Vvw2QMhVc2yIJKrMe/bSSHTQzA==
-X-Received: by 2002:a05:6000:1a85:b0:37d:518f:995d with SMTP id
- ffacd0b85a97d-381f1835ba8mr15355680f8f.56.1731417605643; 
- Tue, 12 Nov 2024 05:20:05 -0800 (PST)
-Received: from localhost ([194.120.133.65]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381fc0f5f91sm6940911f8f.62.2024.11.12.05.20.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Nov 2024 05:20:05 -0800 (PST)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+ AJvYcCUxcU+yIzDObA07b0sC3nmHXQsZ1nampF+8GGdQ3JS248vX1vriBwQdXwu8VynVcQYuLLBSaQ3r51g=@lists.freedesktop.org,
+ AJvYcCXRMHNNYoHvKbQ6Xy0zCgnkxl9DyR+ny+A2uzIJDtbY1DZb9ttZi1FW0Kg7wS+BCnoFiHKdD2xE7yif@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx6WDloLpm+GTYGB1Zjk0r8a4rPkEOvFQnZXzZA3Vcm1lDPH3WH
+ eb+JxugWxHTY7LrnAqUali37OiNe5RWhqWOIM6oXpcg6G/YUd8Us
+X-Google-Smtp-Source: AGHT+IFk9HNfnlRuALtk4W7HEqbT7NEtlHSMqk6UkHeiuxG0PmCJQrKfLmHIBaR/9yR7cq9nw587NA==
+X-Received: by 2002:a17:906:d552:b0:a9e:c4df:e3c5 with SMTP id
+ a640c23a62f3a-a9ef0010e3cmr1550741766b.54.1731425302490; 
+ Tue, 12 Nov 2024 07:28:22 -0800 (PST)
+Received: from [87.246.220.203]
+ (netpanel-87-246-220-203.pol.akademiki.lublin.pl. [87.246.220.203])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9ee0a18b15sm730254166b.18.2024.11.12.07.28.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Nov 2024 07:28:21 -0800 (PST)
+Message-ID: <34bc44c2-e1d2-4610-8a87-f20078592e7e@gmail.com>
+Date: Tue, 12 Nov 2024 16:28:19 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/a5xx: Fix dereference of pointer pdev before null
+ check on pdev
+To: Colin Ian King <colin.i.king@gmail.com>, Rob Clark <robdclark@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm/a5xx: Fix dereference of pointer pdev before null
- check on pdev
-Date: Tue, 12 Nov 2024 13:20:05 +0000
-Message-Id: <20241112132005.469357-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.39.5
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20241112132005.469357-1-colin.i.king@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konradybcio@gmail.com>
+Autocrypt: addr=konradybcio@gmail.com; keydata=
+ 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
+ izWDgYvmBE8=
+In-Reply-To: <20241112132005.469357-1-colin.i.king@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,37 +130,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The pointer config is dereferencing pointer pdev before pdev is null
-checked, this could lead to a potential null pointer dereference on pdev.
-Fix this by only assinging config after pdev has been null checked.
 
-Fixes: 736a93273656 ("drm/msm/a5xx: really check for A510 in a5xx_gpu_init")
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index ee89db72e36e..e83081346059 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1753,7 +1753,7 @@ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
- {
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct platform_device *pdev = priv->gpu_pdev;
--	struct adreno_platform_config *config = pdev->dev.platform_data;
-+	struct adreno_platform_config *config;
- 	struct a5xx_gpu *a5xx_gpu = NULL;
- 	struct adreno_gpu *adreno_gpu;
- 	struct msm_gpu *gpu;
-@@ -1764,6 +1764,7 @@ struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
- 		DRM_DEV_ERROR(dev->dev, "No A5XX device is defined\n");
- 		return ERR_PTR(-ENXIO);
- 	}
-+	config = pdev->dev.platform_data;
- 
- 	a5xx_gpu = kzalloc(sizeof(*a5xx_gpu), GFP_KERNEL);
- 	if (!a5xx_gpu)
--- 
-2.39.5
+On 11/12/24 14:20, Colin Ian King wrote:
+> The pointer config is dereferencing pointer pdev before pdev is null
+> checked, this could lead to a potential null pointer dereference on pdev.
+> Fix this by only assinging config after pdev has been null checked.
+> 
+> Fixes: 736a93273656 ("drm/msm/a5xx: really check for A510 in a5xx_gpu_init")
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> ---
 
+I'd rather drop this check, the only call chain is rather
+safe here
+
+Konrad
