@@ -2,83 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D12689C6F0A
-	for <lists+freedreno@lfdr.de>; Wed, 13 Nov 2024 13:27:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8EF39C70B1
+	for <lists+freedreno@lfdr.de>; Wed, 13 Nov 2024 14:32:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A88B610E6E8;
-	Wed, 13 Nov 2024 12:27:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E13E10E6F9;
+	Wed, 13 Nov 2024 13:32:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="j8V9y4C2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZJqt32Th";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2C7A10E6E8
- for <freedreno@lists.freedesktop.org>; Wed, 13 Nov 2024 12:27:57 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-6ea1407e978so60778747b3.1
- for <freedreno@lists.freedesktop.org>; Wed, 13 Nov 2024 04:27:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731500877; x=1732105677; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=KImKDqWq4s21FhX0T9TYJY9R8T8zry6WhOX4TLZUuNk=;
- b=j8V9y4C2/dQ3Lyh9KbTsMlE+FGzSSyeOcfGHYcoxWzqhz4LCgHLyv8WUhH+zvlQkyP
- hGNx9gGI1aQiOn8INIIpCsh09y6dQlW6pi0T4U4CSYETVuTeFidadmQjGKKftaSbKu7B
- 9ffIYvb3tQmyy2fpqhI51EXCmMLwgF0GzbqAIFTiKyAvxaIKiuxKPmCwsmd9XnsshtBA
- kxz08U8ax056Q7RpbWW810BVffLaP+GhF5OWTLXX53cj6m7SPNNBGogfbmcWzoI3oGHb
- An0J9XPTzIml7rs6XP+GCLsIpcvrRv0OJX2N6JvwPN8KlDKlRjDefffLwPvQwv0mZVHH
- KVwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731500877; x=1732105677;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=KImKDqWq4s21FhX0T9TYJY9R8T8zry6WhOX4TLZUuNk=;
- b=HUpCqGev1ts24Jf86KiMePwtYsxKkPhXYse4cfv6foaf3hcC5QeDuZ2Ex8fzL+JCGi
- /Gz1Bl8zb/lP6fFL/a9eIrhG2g7noqZjhmiyq2tCcCg8+K/1OLJQS8HGKeht0jG+gaXO
- W1G8mGkkrafkv9U1kKr/MWdpHCf8cZkEBKluddlua29f1Vo2BubjXz/UfNRWOGlTLYbf
- 1YBBGTKLuhY0m9SyfvVZf5wL0pIstX0KqfdNk2fSWcQZxHf0Lf9Q+v6BvCnd0w6O1dgn
- u8AFei+J7wcSjaOklciWiaL2ykwKGKqPU72phcY+4vEG40MEmO157Wba6xsWT1mIF8Ka
- V1fQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVRBTKqH0Mbiav4rC4/RP0kDTqFSfPrYCFa1PKd0OpEWLg/+zL0I/Ovume/SW6+XJg4JE4K6aqZBIs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzOfs1596dpqIgubQT2TamCdrAzMzd62T+SvaLNoU4OdSywl9Tf
- w41Vg2a6BhivyJ0wH7PhToNW5UfOCLPiMKZRY8oajhLI7iZyAJTiY78qZPaSrfc9eChNJM65sQh
- B9PgaYgqgxhseglMTQiERC7konXITfPzpDJ3cKw==
-X-Google-Smtp-Source: AGHT+IHaAWOdAgML2ba4DzOA4z4U2wezC3VkawX20A2dPxMskv1IqJdFG+uwKU9K7bhxa9QyXticQbkM331fssKDcLk=
-X-Received: by 2002:a05:690c:30b:b0:6e3:16da:e74 with SMTP id
- 00721157ae682-6eaddd9418emr194176117b3.16.1731500876873; Wed, 13 Nov 2024
- 04:27:56 -0800 (PST)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A205610E6F9;
+ Wed, 13 Nov 2024 13:32:31 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 93691A40873;
+ Wed, 13 Nov 2024 13:30:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCE1C4CECD;
+ Wed, 13 Nov 2024 13:32:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1731504750;
+ bh=gfCmgl3jagwHGldFjUB4K2gH4J6eJxXe8/I/qAemYJk=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=ZJqt32ThN/8+imW4Kgw6RaW3o7K6lP9reDKy572Iu31gEfEj6vKcOiUy7grZrUrLV
+ 4oBs8fS3SxU1SQ+2fzOLAygB+gwDSMU5s+kNXqO+5Dyi4GE0ZH+7Dd65HlNCwkHUMS
+ UJUml5PZhst1zmCxBZigJFzCJVlLCXEnqukzdPvRpR0hcrrIU78SWJIPeIFwsSt8hu
+ XyGPX7fYzyWSIL3eJ4brqSOtqTpPtGMC7+PZPxV3vdCK+WDTgwRigx0RartzZVT9fZ
+ t2XT8pFt1mMkHRHxP6fqE28qR4UvBY82U4ZazE/zOIT4jWBOP/GDRE00uSRJ80/ZxB
+ 5MV5X6EP7fI3w==
+Date: Wed, 13 Nov 2024 07:32:28 -0600
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-References: <20241113-add-display-support-for-qcs615-platform-v2-0-2873eb6fb869@quicinc.com>
- <20241113-add-display-support-for-qcs615-platform-v2-8-2873eb6fb869@quicinc.com>
-In-Reply-To: <20241113-add-display-support-for-qcs615-platform-v2-8-2873eb6fb869@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 13 Nov 2024 14:27:45 +0200
-Message-ID: <CAA8EJprBxL0KuOm4f1peRCw9Y=bzXo=Vt-QEv37RzJ62zJriNw@mail.gmail.com>
-Subject: Re: [PATCH v2 8/9] arm64: dts: qcom: Add display support for QCS615
- RIDE board
-To: Fange Zhang <quic_fangez@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>,
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ Xiangxu Yin <quic_xiangxuy@quicinc.com>, linux-kernel@vger.kernel.org, 
+ Simona Vetter <simona@ffwll.ch>, Sean Paul <sean@poorly.run>, 
  Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Li Liu <quic_lliu6@quicinc.com>, 
- Xiangxu Yin <quic_xiangxuy@quicinc.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+ linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Li Liu <quic_lliu6@quicinc.com>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Will Deacon <will@kernel.org>, 
+ devicetree@vger.kernel.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Fange Zhang <quic_fangez@quicinc.com>
+In-Reply-To: <20241113-add-display-support-for-qcs615-platform-v2-3-2873eb6fb869@quicinc.com>
+References: <20241113-add-display-support-for-qcs615-platform-v2-0-2873eb6fb869@quicinc.com>
+ <20241113-add-display-support-for-qcs615-platform-v2-3-2873eb6fb869@quicinc.com>
+Message-Id: <173150474841.4106927.5975815443901282337.robh@kernel.org>
+Subject: Re: [PATCH v2 3/9] dt-bindings: display/msm: Add QCS615 MDSS & DPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,26 +72,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 13 Nov 2024 at 13:53, Fange Zhang <quic_fangez@quicinc.com> wrote:
->
+
+On Wed, 13 Nov 2024 19:51:45 +0800, Fange Zhang wrote:
 > From: Li Liu <quic_lliu6@quicinc.com>
->
-> Add display MDSS and DSI configuration for QCS615.
-> QCS615 has a DP port, and DP support will be added in a later patch.
->
+> 
+> Document the MDSS and DPU hardware found on the Qualcomm QCS615 platform.
+> 
 > Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
 > Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
 > ---
->  arch/arm64/boot/dts/qcom/qcs615-ride.dts | 109 +++++++++++++++++++++++++++++++
->  1 file changed, 109 insertions(+)
+>  .../bindings/display/msm/qcom,qcs615-dpu.yaml      | 118 ++++++++++
+>  .../bindings/display/msm/qcom,qcs615-mdss.yaml     | 252 +++++++++++++++++++++
+>  2 files changed, 370 insertions(+)
+> 
 
+My bot found errors running 'make dt_binding_check' on your patch:
 
-This patch has even more feedback that was ignored at v1. Please go to
-the v1 discussion, respond to _all_ the items, so that we can actually
-see what got ignored and why. Usually I don't require this (we can all
-make a mistake and miss an item or two), but with this patchset the
-number of the comments that were ignored is extremely high.
+yamllint warnings/errors:
 
--- 
-With best wishes
-Dmitry
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/msm/qcom,qcs615-mdss.example.dts:24:18: fatal error: dt-bindings/clock/qcom,qcs615-dispcc.h: No such file or directory
+   24 |         #include <dt-bindings/clock/qcom,qcs615-dispcc.h>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[2]: *** [scripts/Makefile.dtbs:129: Documentation/devicetree/bindings/display/msm/qcom,qcs615-mdss.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1442: dt_binding_check] Error 2
+make: *** [Makefile:224: __sub-make] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20241113-add-display-support-for-qcs615-platform-v2-3-2873eb6fb869@quicinc.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
