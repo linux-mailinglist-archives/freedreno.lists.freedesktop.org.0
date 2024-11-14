@@ -2,61 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BE2F9C81BB
-	for <lists+freedreno@lfdr.de>; Thu, 14 Nov 2024 05:10:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B84859C85F8
+	for <lists+freedreno@lfdr.de>; Thu, 14 Nov 2024 10:23:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82F1410E794;
-	Thu, 14 Nov 2024 04:10:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9517E10E7BF;
+	Thu, 14 Nov 2024 09:23:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="KvxQhZnm";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cashxR9p";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com
- [209.85.161.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DE1610E33E
- for <freedreno@lists.freedesktop.org>; Thu, 14 Nov 2024 04:10:49 +0000 (UTC)
-Received: by mail-oo1-f47.google.com with SMTP id
- 006d021491bc7-5ee58c5c2e3so64694eaf.2
- for <freedreno@lists.freedesktop.org>; Wed, 13 Nov 2024 20:10:48 -0800 (PST)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+ [209.85.208.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0295F10E7BF
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Nov 2024 09:23:11 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-2fb561f273eso3497851fa.2
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Nov 2024 01:23:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731557448; x=1732162248; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=714o0ZvV3ReDS0/ENHf9k2aMav2Bj5ZxwGFca11krmI=;
- b=KvxQhZnmtu7Byv0pT8DhAhiE8nrrARvb8bEIAKrelSBYMQifi7QQupFWt8iHboZmCH
- rtrCqJ2i+MxLp4R5Nc2RHDm09st2W6ATGdRrrpdeBVhulT1zsbUOuvLjPlV+v9OeZWG2
- zXv/7kd1Gn0epXxzhGKya5wwYDrqqGtQ2SEhJwxstUdKNUBOGC/bCHv2bQgPSAgBMS0+
- PK/w9srDXRBMey8f7EI6VMwnJrfE2twBv5M+nHKJQGAQRTsW5ITZLINKncVbGg1b6SYy
- /U47Wou9WE2oMRP2nHIbxIrXAwuUbH5OD9gVgpDWVDh5SDWAnZczktdZwc09ry3COjVz
- NmGg==
+ d=linaro.org; s=google; t=1731576190; x=1732180990; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=pKVskJH08XCjh0dvrOvGb7Xw0ql6HSZ5m3cIUFTJUOc=;
+ b=cashxR9ptbFTAE/dGs1GCcsLRVdhT2t/2EdFFUeZcv3wZmY6jP6uy/HM/yyqyt2A7w
+ A6PsnIlxRaC0FN3JWRRxIlxpvw8YXRh7ztNEBd9meHETssOhAsknTVeD2vnzxnouJ0pt
+ 1IeEHhHU4biGw77AGOw1hTMiGDZJEi+Y3Nml9KBSknQL8nF+GprHhRafF3mjIJXKjiup
+ bEuZj+YsWTYYaIauDjejXeuPXS0lRDlZzqnr4Z7aLG+5pnJ7lkY+POrDL+JhG/D4IvLQ
+ biXYI+U74QqkeKCAaXzzGAeiVU/lIq1JsxDgyZchotnNh24AldQSQ1d7gBTyY2577pdS
+ wtGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731557448; x=1732162248;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=714o0ZvV3ReDS0/ENHf9k2aMav2Bj5ZxwGFca11krmI=;
- b=Ej2v+mSdNBZpIxKmkZHWZQTZ15RlsWVbuIWXE+dYonPnxIH0t8X4JXn4WnIc2LPU+B
- Wy2+GF8MJedJVfZJFRQ9gQCCQp0Q8Be10B7H+SogRmWz8W/ube7jr2Ath42M7all+Jsu
- 6R3BHeowBqQvlYnGOEKB6hyKR4Wy5lI1la0okb9WY8m3ETKb8cMI2HKxaV4Nsot+Q+sx
- FTMubTqFUB972gwhln7m3E9iLsEwEyhzUyoTz6bGmvU6bmVXQIKymJ9mLU2Wa9xEvtdt
- wYrcvd4Ts4cgrwymwQf4d6Dw1uPOEpnLcC3ZY6jdPqbdROmjONzNnGOCza1dRmQidky6
- i1ng==
+ d=1e100.net; s=20230601; t=1731576190; x=1732180990;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=pKVskJH08XCjh0dvrOvGb7Xw0ql6HSZ5m3cIUFTJUOc=;
+ b=a0QuG8tqBpRiRkx1G83Yu5Xm/onNLCIiPpwdGxVKrHKGkZ4CAMCJPWcdGi/b/ZCWue
+ phptvNdih5ktIR+fVVMI9IBbRWd9aPiWxigMUm6sZzmpm/ei17REMly1KCuIf1TsAueB
+ dZ1xNwmE/eKpKscxUGN3dg35lGCO3PohKRi1A8R2CHvCWzen1O0C8skOHHaSrtoYiUaG
+ kgk7V0H8sPhCaJrwYAMFptX4E0bYtoEOcqVEl4tJA2fUHXf0bXgtOEi2odY5R9ritLm4
+ rAbOTQOFyrxOKHWzS+hvDagmugKUePlyuyM3AylJUYhBFjZkK8g4XKm4/Q2OKMgu1AbJ
+ jCFA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXvDB4uQ8oil1eKGDen1nfU/UN5OmggDvJ6dQkk5GIGPWeLOXE2SJ3w7eOACuo8NA/r77Rf7lCH3Bk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzHClAJAYlXY4V69OpMizHna9nlBVtlYmxJD3Sm54cCLhiQv073
- sWwq6aCBzrL71gB9+fu3E0iqfzPHX0sdeqB1n61xQAyJlUdJgsNf2T+G0lGgoB8=
-X-Google-Smtp-Source: AGHT+IHhmzaCqJTL1FZBlYi3QTXBwW4hYnnT5adF5L4Dt+rljYzEGjLvaeQoWgOAVbjH16kKWY3SWA==
-X-Received: by 2002:a05:6830:628d:b0:716:a62d:a8ac with SMTP id
- 46e09a7af769-71a601079a4mr6592178a34.9.1731557447938; 
- Wed, 13 Nov 2024 20:10:47 -0800 (PST)
-Received: from localhost ([122.172.86.146]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-7f8b39b3ad9sm129628a12.81.2024.11.13.20.10.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Nov 2024 20:10:47 -0800 (PST)
-Date: Thu, 14 Nov 2024 09:40:44 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
+ AJvYcCW6Z8fILuN+Q7kKtT5L1+vOqzrMF0///qqtEFDk7tDLXeuIgLPrjyxGmHAbD8CPh6UUdWU6gOAgOhk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz//UrssT4USrm3r78PWKqIGWhPCCDttE5lMvS/uG9K78xYUyMM
+ XkpT+JmJ1SC2i68QHFZxZ/GzKM5suob+F/M4xl/GXRpTrzdk+oXfOFEyL3zsf78=
+X-Google-Smtp-Source: AGHT+IGErzUCoRrzEItkg1L3C/jktxdQuqW4d/nGFV/zoyOKtwAeZgerInrjMql5bO5vzmezrLU3dw==
+X-Received: by 2002:a05:651c:e15:b0:2ff:53c7:a79f with SMTP id
+ 38308e7fff4ca-2ff53c7a8admr13442661fa.7.1731576189979; 
+ Thu, 14 Nov 2024 01:23:09 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:a62a:6bba:b737:406e?
+ ([2a01:e0a:982:cbb0:a62a:6bba:b737:406e])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-432da298c81sm16941005e9.39.2024.11.14.01.23.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Nov 2024 01:23:09 -0800 (PST)
+Message-ID: <ff0ec93b-e2d0-4022-b8ae-8e4d9d1eac9f@linaro.org>
+Date: Thu, 14 Nov 2024 10:23:08 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH RFC 1/8] opp: core: implement dev_pm_opp_get_bandwidth
+To: Viresh Kumar <viresh.kumar@linaro.org>
 Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
  Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
  Stephen Boyd <sboyd@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
@@ -67,20 +75,43 @@ Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Connor Abbott <cwabbott0@gmail.com>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 1/8] opp: core: implement dev_pm_opp_get_bandwidth
-Message-ID: <20241114041044.esfazw5mv6zfyrix@vireshk-i7>
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Connor Abbott <cwabbott0@gmail.com>,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
 References: <20241113-topic-sm8x50-gpu-bw-vote-v1-0-3b8d39737a9b@linaro.org>
  <20241113-topic-sm8x50-gpu-bw-vote-v1-1-3b8d39737a9b@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241113-topic-sm8x50-gpu-bw-vote-v1-1-3b8d39737a9b@linaro.org>
+ <20241114041044.esfazw5mv6zfyrix@vireshk-i7>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20241114041044.esfazw5mv6zfyrix@vireshk-i7>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,72 +124,88 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13-11-24, 16:48, Neil Armstrong wrote:
-> Add and implement the dev_pm_opp_get_bandwidth() to retrieve
-> the OPP's bandwidth in the same was as the dev_pm_opp_get_voltage()
+Hi,
 
-                                  way
-
-> helper.
+On 14/11/2024 05:10, Viresh Kumar wrote:
+> On 13-11-24, 16:48, Neil Armstrong wrote:
+>> Add and implement the dev_pm_opp_get_bandwidth() to retrieve
+>> the OPP's bandwidth in the same was as the dev_pm_opp_get_voltage()
 > 
-> Retrieving bandwidth is required in the case of the Adreno GPU
-> where the GPU Management Unit can handle the Bandwidth scaling.
+>                                    way
 > 
-> The helper can get the peak or everage bandwidth for any of
-
-                                 average
-
-> the interconnect path.
+>> helper.
+>>
+>> Retrieving bandwidth is required in the case of the Adreno GPU
+>> where the GPU Management Unit can handle the Bandwidth scaling.
+>>
+>> The helper can get the peak or everage bandwidth for any of
 > 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  drivers/opp/core.c     | 25 +++++++++++++++++++++++++
->  include/linux/pm_opp.h |  7 +++++++
->  2 files changed, 32 insertions(+)
+>                                   average
+
+Aww, good catch, thanks
+
 > 
-> diff --git a/drivers/opp/core.c b/drivers/opp/core.c
-> index 494f8860220d97fc690ebab5ed3b7f5f04f22d73..19fb82033de26b74e9604c33b9781689df2fe80a 100644
-> --- a/drivers/opp/core.c
-> +++ b/drivers/opp/core.c
-> @@ -106,6 +106,31 @@ static bool assert_single_clk(struct opp_table *opp_table)
->  	return !WARN_ON(opp_table->clk_count > 1);
->  }
->  
-> +/**
-> + * dev_pm_opp_get_bandwidth() - Gets the peak bandwidth corresponding to an opp
+>> the interconnect path.
+>>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+>>   drivers/opp/core.c     | 25 +++++++++++++++++++++++++
+>>   include/linux/pm_opp.h |  7 +++++++
+>>   2 files changed, 32 insertions(+)
+>>
+>> diff --git a/drivers/opp/core.c b/drivers/opp/core.c
+>> index 494f8860220d97fc690ebab5ed3b7f5f04f22d73..19fb82033de26b74e9604c33b9781689df2fe80a 100644
+>> --- a/drivers/opp/core.c
+>> +++ b/drivers/opp/core.c
+>> @@ -106,6 +106,31 @@ static bool assert_single_clk(struct opp_table *opp_table)
+>>   	return !WARN_ON(opp_table->clk_count > 1);
+>>   }
+>>   
+>> +/**
+>> + * dev_pm_opp_get_bandwidth() - Gets the peak bandwidth corresponding to an opp
+> 
+> s/peak bandwidth/bandwidth/
 
-s/peak bandwidth/bandwidth/
+Ack
 
-> + * @opp:	opp for which voltage has to be returned for
-> + * @peak:	select peak or average bandwidth
-> + * @index:	bandwidth index
-> + *
-> + * Return: peak bandwidth in kBps, else return 0
+> 
+>> + * @opp:	opp for which voltage has to be returned for
+>> + * @peak:	select peak or average bandwidth
+>> + * @index:	bandwidth index
+>> + *
+>> + * Return: peak bandwidth in kBps, else return 0
+> 
+> s/peak bandwidth/bandwidth/
 
-s/peak bandwidth/bandwidth/
+Ack
 
-> + */
-> +unsigned long dev_pm_opp_get_bandwidth(struct dev_pm_opp *opp, bool peak, int index)
-> +{
-> +	if (IS_ERR_OR_NULL(opp)) {
-> +		pr_err("%s: Invalid parameters\n", __func__);
-> +		return 0;
-> +	}
-> +
-> +	if (index > opp->opp_table->path_count)
-> +		return 0;
-> +
-> +	if (!opp->bandwidth)
-> +		return 0;
-> +
-> +	return peak ? opp->bandwidth[index].peak : opp->bandwidth[index].avg;
-> +}
-> +EXPORT_SYMBOL_GPL(dev_pm_opp_get_bandwidth);
+> 
+>> + */
+>> +unsigned long dev_pm_opp_get_bandwidth(struct dev_pm_opp *opp, bool peak, int index)
+>> +{
+>> +	if (IS_ERR_OR_NULL(opp)) {
+>> +		pr_err("%s: Invalid parameters\n", __func__);
+>> +		return 0;
+>> +	}
+>> +
+>> +	if (index > opp->opp_table->path_count)
+>> +		return 0;
+>> +
+>> +	if (!opp->bandwidth)
+>> +		return 0;
+>> +
+>> +	return peak ? opp->bandwidth[index].peak : opp->bandwidth[index].avg;
+>> +}
+>> +EXPORT_SYMBOL_GPL(dev_pm_opp_get_bandwidth);
+> 
+> All other bandwidth APIs are named as _bw, maybe do same here too ?
+> 
 
-All other bandwidth APIs are named as _bw, maybe do same here too ?
+Sure, I wasn't sure about that, will switch to _bw.
 
--- 
-viresh
+Neil
+
