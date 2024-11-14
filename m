@@ -2,116 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B84859C85F8
-	for <lists+freedreno@lfdr.de>; Thu, 14 Nov 2024 10:23:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C66909C8998
+	for <lists+freedreno@lfdr.de>; Thu, 14 Nov 2024 13:13:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9517E10E7BF;
-	Thu, 14 Nov 2024 09:23:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C67E310E2A1;
+	Thu, 14 Nov 2024 12:12:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cashxR9p";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EBzgp1kJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0295F10E7BF
- for <freedreno@lists.freedesktop.org>; Thu, 14 Nov 2024 09:23:11 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2fb561f273eso3497851fa.2
- for <freedreno@lists.freedesktop.org>; Thu, 14 Nov 2024 01:23:11 -0800 (PST)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C86D10E7E8
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Nov 2024 12:12:54 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-53a007743e7so559633e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Nov 2024 04:12:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731576190; x=1732180990; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=pKVskJH08XCjh0dvrOvGb7Xw0ql6HSZ5m3cIUFTJUOc=;
- b=cashxR9ptbFTAE/dGs1GCcsLRVdhT2t/2EdFFUeZcv3wZmY6jP6uy/HM/yyqyt2A7w
- A6PsnIlxRaC0FN3JWRRxIlxpvw8YXRh7ztNEBd9meHETssOhAsknTVeD2vnzxnouJ0pt
- 1IeEHhHU4biGw77AGOw1hTMiGDZJEi+Y3Nml9KBSknQL8nF+GprHhRafF3mjIJXKjiup
- bEuZj+YsWTYYaIauDjejXeuPXS0lRDlZzqnr4Z7aLG+5pnJ7lkY+POrDL+JhG/D4IvLQ
- biXYI+U74QqkeKCAaXzzGAeiVU/lIq1JsxDgyZchotnNh24AldQSQ1d7gBTyY2577pdS
- wtGg==
+ d=linaro.org; s=google; t=1731586372; x=1732191172; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=R1osO7NFmTGmX19JFLUCez78ik/qFqOXaEh8yYgfrqY=;
+ b=EBzgp1kJyiBdfFmq8qc3sd5Mxrd/zeR+34sc+YACpygZ/fEyQBQfwAz0UBAqJGGXOQ
+ tbPZRn/0fvjeG9o0WwL+iAWru/ADif2kj5bLAgRKtEcspJaEh8G39AGwJYFHvPKtusTy
+ am39rNPUOrsy+87rlnOzTLDVWZJaNYTZKJscTrp6WS89iuheCYnR+xCN8BQ3/bpzt3+t
+ QrCmCi/UsJA2Re9bvgVLiyBbfqSHMY08lJnWXj3D8rWgNpNsLYxa+ktzwKD389rqwH0/
+ Z2z9xZcgZHr67gFEdk6cWr2SDtbjagBJilNt3E6QxtCshCShYgbHeU6hhF0sg/I1p1WF
+ eLmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731576190; x=1732180990;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=pKVskJH08XCjh0dvrOvGb7Xw0ql6HSZ5m3cIUFTJUOc=;
- b=a0QuG8tqBpRiRkx1G83Yu5Xm/onNLCIiPpwdGxVKrHKGkZ4CAMCJPWcdGi/b/ZCWue
- phptvNdih5ktIR+fVVMI9IBbRWd9aPiWxigMUm6sZzmpm/ei17REMly1KCuIf1TsAueB
- dZ1xNwmE/eKpKscxUGN3dg35lGCO3PohKRi1A8R2CHvCWzen1O0C8skOHHaSrtoYiUaG
- kgk7V0H8sPhCaJrwYAMFptX4E0bYtoEOcqVEl4tJA2fUHXf0bXgtOEi2odY5R9ritLm4
- rAbOTQOFyrxOKHWzS+hvDagmugKUePlyuyM3AylJUYhBFjZkK8g4XKm4/Q2OKMgu1AbJ
- jCFA==
+ d=1e100.net; s=20230601; t=1731586372; x=1732191172;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=R1osO7NFmTGmX19JFLUCez78ik/qFqOXaEh8yYgfrqY=;
+ b=U5k0KjOdcHC7juZwFGgh4zicQNhPlgb6FftfBy9vvLgsCzGljWb6Rtkhlb6RN+BqQY
+ k2bQt+rMJIHYSaL2vtdmE91o6jTT6a7VL5V/hrGzq05HzP+VU7pMGUkpJ8qEr8g9v0L7
+ muVwASasYfsdJ9dXHxb2bY4hvgs40IeRW9pTJuV7U6FbyD5v05lXKlndpXKMm6njtUmj
+ 91IsM0VMUJPA7BFJIubU28nkhBuXXszyijuxRL+aZ2KwL3iNAQZfZxc0i0B6wqX1+lCh
+ iVlBPhpB3/eF8YtvWp16m+Tmg/JF0jz5vHUkx7+Y4UT1oBBhjkFx4qCCdekeDQV0FgoQ
+ DmRQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW6Z8fILuN+Q7kKtT5L1+vOqzrMF0///qqtEFDk7tDLXeuIgLPrjyxGmHAbD8CPh6UUdWU6gOAgOhk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz//UrssT4USrm3r78PWKqIGWhPCCDttE5lMvS/uG9K78xYUyMM
- XkpT+JmJ1SC2i68QHFZxZ/GzKM5suob+F/M4xl/GXRpTrzdk+oXfOFEyL3zsf78=
-X-Google-Smtp-Source: AGHT+IGErzUCoRrzEItkg1L3C/jktxdQuqW4d/nGFV/zoyOKtwAeZgerInrjMql5bO5vzmezrLU3dw==
-X-Received: by 2002:a05:651c:e15:b0:2ff:53c7:a79f with SMTP id
- 38308e7fff4ca-2ff53c7a8admr13442661fa.7.1731576189979; 
- Thu, 14 Nov 2024 01:23:09 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:a62a:6bba:b737:406e?
- ([2a01:e0a:982:cbb0:a62a:6bba:b737:406e])
+ AJvYcCVHcL4m/vUpQocaq95d8k+2KlfSIgIWkRw7B0qjyNl0ZnZxconW/Cwn9250UV4tWy5tvQjx0sE9iDY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz28LGoHi7A77YrK0RctWbJ2ariaJgtPphpZul4OJNpeUQA+V9c
+ YZO2Bg5cSxh4/3bCk70PAuaIkf/GWoitkcO2Ko4Oml/z9O/Q5InWBAVpuzLogZM=
+X-Google-Smtp-Source: AGHT+IEuR0xLWMXeFH8Hj+BtIFR3zIeL3E9KlzQyVZ9bHzcIKoypj3g/lYGAKeRXG1eysRTlMVJEog==
+X-Received: by 2002:a05:6512:3e17:b0:53a:7e:bcc6 with SMTP id
+ 2adb3069b0e04-53d9fee3452mr3399322e87.53.1731586372180; 
+ Thu, 14 Nov 2024 04:12:52 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432da298c81sm16941005e9.39.2024.11.14.01.23.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Nov 2024 01:23:09 -0800 (PST)
-Message-ID: <ff0ec93b-e2d0-4022-b8ae-8e4d9d1eac9f@linaro.org>
-Date: Thu, 14 Nov 2024 10:23:08 +0100
+ 2adb3069b0e04-53da653dd4csm162919e87.170.2024.11.14.04.12.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Nov 2024 04:12:50 -0800 (PST)
+Date: Thu, 14 Nov 2024 14:12:48 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rex Nie <rex.nie@jaguarmicro.com>
+Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, airlied@gmail.com, 
+ simona@ffwll.ch, avrac@freebox.fr, sean@poorly.run,
+ marijn.suijten@somainline.org, 
+ jani.nikula@intel.com, mgonzalez@freebox.fr, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, angus.chen@jaguarmicro.com
+Subject: Re: [PATCH] drm/msm/hdmi: simplify code in pll_get_integloop_gain
+Message-ID: <gqej2hhenngqzcla6mgxywfft5qbpglrlotetgiezdrt5t5fjo@tpazzxp7gleb>
+References: <20241112074101.2206-1-rex.nie@jaguarmicro.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH RFC 1/8] opp: core: implement dev_pm_opp_get_bandwidth
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Connor Abbott <cwabbott0@gmail.com>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20241113-topic-sm8x50-gpu-bw-vote-v1-0-3b8d39737a9b@linaro.org>
- <20241113-topic-sm8x50-gpu-bw-vote-v1-1-3b8d39737a9b@linaro.org>
- <20241114041044.esfazw5mv6zfyrix@vireshk-i7>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20241114041044.esfazw5mv6zfyrix@vireshk-i7>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241112074101.2206-1-rex.nie@jaguarmicro.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,88 +84,23 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 14/11/2024 05:10, Viresh Kumar wrote:
-> On 13-11-24, 16:48, Neil Armstrong wrote:
->> Add and implement the dev_pm_opp_get_bandwidth() to retrieve
->> the OPP's bandwidth in the same was as the dev_pm_opp_get_voltage()
+On Tue, Nov 12, 2024 at 03:41:00PM +0800, Rex Nie wrote:
+> In pll_get_integloop_gain(), digclk_divsel=1 or 2, base=63 or 196ULL,
+> so the base may be 63, 126, 196, 392. The condition base <= 2046
+> always true.
 > 
->                                    way
-> 
->> helper.
->>
->> Retrieving bandwidth is required in the case of the Adreno GPU
->> where the GPU Management Unit can handle the Bandwidth scaling.
->>
->> The helper can get the peak or everage bandwidth for any of
-> 
->                                   average
-
-Aww, good catch, thanks
-
-> 
->> the interconnect path.
->>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->>   drivers/opp/core.c     | 25 +++++++++++++++++++++++++
->>   include/linux/pm_opp.h |  7 +++++++
->>   2 files changed, 32 insertions(+)
->>
->> diff --git a/drivers/opp/core.c b/drivers/opp/core.c
->> index 494f8860220d97fc690ebab5ed3b7f5f04f22d73..19fb82033de26b74e9604c33b9781689df2fe80a 100644
->> --- a/drivers/opp/core.c
->> +++ b/drivers/opp/core.c
->> @@ -106,6 +106,31 @@ static bool assert_single_clk(struct opp_table *opp_table)
->>   	return !WARN_ON(opp_table->clk_count > 1);
->>   }
->>   
->> +/**
->> + * dev_pm_opp_get_bandwidth() - Gets the peak bandwidth corresponding to an opp
-> 
-> s/peak bandwidth/bandwidth/
-
-Ack
-
-> 
->> + * @opp:	opp for which voltage has to be returned for
->> + * @peak:	select peak or average bandwidth
->> + * @index:	bandwidth index
->> + *
->> + * Return: peak bandwidth in kBps, else return 0
-> 
-> s/peak bandwidth/bandwidth/
-
-Ack
-
-> 
->> + */
->> +unsigned long dev_pm_opp_get_bandwidth(struct dev_pm_opp *opp, bool peak, int index)
->> +{
->> +	if (IS_ERR_OR_NULL(opp)) {
->> +		pr_err("%s: Invalid parameters\n", __func__);
->> +		return 0;
->> +	}
->> +
->> +	if (index > opp->opp_table->path_count)
->> +		return 0;
->> +
->> +	if (!opp->bandwidth)
->> +		return 0;
->> +
->> +	return peak ? opp->bandwidth[index].peak : opp->bandwidth[index].avg;
->> +}
->> +EXPORT_SYMBOL_GPL(dev_pm_opp_get_bandwidth);
-> 
-> All other bandwidth APIs are named as _bw, maybe do same here too ?
+> Fixes: caedbf17c48d ("drm/msm: add msm8998 hdmi phy/pll support")
+> Signed-off-by: Rex Nie <rex.nie@jaguarmicro.com>
+> ---
+>  drivers/gpu/drm/msm/hdmi/hdmi_phy_8998.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
-Sure, I wasn't sure about that, will switch to _bw.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Neil
-
+-- 
+With best wishes
+Dmitry
