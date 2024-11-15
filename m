@@ -2,114 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35FC29CDB6C
-	for <lists+freedreno@lfdr.de>; Fri, 15 Nov 2024 10:21:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 413F69CDEBA
+	for <lists+freedreno@lfdr.de>; Fri, 15 Nov 2024 13:55:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C22A10E177;
-	Fri, 15 Nov 2024 09:21:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE26610E09D;
+	Fri, 15 Nov 2024 12:55:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="A1sQewWD";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="f8G/4qB2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EE5D10E3F4
- for <freedreno@lists.freedesktop.org>; Fri, 15 Nov 2024 09:21:24 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-431616c23b5so8948885e9.0
- for <freedreno@lists.freedesktop.org>; Fri, 15 Nov 2024 01:21:24 -0800 (PST)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D143D10E0C3
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Nov 2024 12:55:25 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-382242cd8bbso637877f8f.1
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Nov 2024 04:55:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731662483; x=1732267283; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=3Ubsq0FTtX7FXFxz4kQgMfN9vdpcOBE9XRs+CSKkAVU=;
- b=A1sQewWD65+CL+yi4Y8aK1jmDb7xGYgPUiK3KOjG/+WNnEDxSyeuOvQYnBdxm/2Ds0
- TxuNLNxPkuKnOwiTUyIALGDcGIvSW4zRxFByLbtU6/e/ozrnsYFaIq97x6V+Idy/Gcir
- q05KPdbuTFql0tj4FUWT3JPXnHUOTX9SWYpHpPcOtRSYkWUJMX+RIdbw9Dy0e67mlsl5
- TlROQ6c6gwQz7FZZmYueJpxF3BoQnGXSXeT2tGpJ09/CElDbvRirdUJNK+uOOq+M9Bdz
- hs6QMxhUCG3rCbPuOTnwX3H+fsMf5x4tPTbI1TU28QrvOKlcnQtCeRYj/SYIqD6HG9hs
- du8g==
+ d=linaro.org; s=google; t=1731675324; x=1732280124; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=CZze3yn24TXviwcT7N4kjvraoXCM6pscw+3oqLD8HvY=;
+ b=f8G/4qB2pTD+2ddYquDelpnPMDKIYJqiU5adwm24dzNLSeIz90l7iRRKB/+sB4Qbdh
+ cJUaY5ItTX7+IEP5SjU2SVNICaZ0Vu+1vtfRLso3E35TwjxEKl3cvGHKpdMB1JrEgqVv
+ fHkItjFDg1SswOcvBiVjlnMcHFSLfxyFbXEM2VqGHihqWED6wEUEoSxu+HY5A1b/eT1c
+ IM7g8jgPyQLMiHf2u+5XWpBJUAOxERNu/eYAJd94OknEmOxXIWTSvjqj56OP2phTfIoA
+ PEPeqh19GdOdlocnBIN2j4azq/DmkeonIUGrlwLq25qqI9ts4DFXlfAT+a7Gepgb3tBI
+ /qxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731662483; x=1732267283;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=3Ubsq0FTtX7FXFxz4kQgMfN9vdpcOBE9XRs+CSKkAVU=;
- b=sfLXJxBe6BbCj04cTgMeZ31FGSfgvzEfkvpAwkdrfjr/3zYjlIel208I2q2ak6UhkY
- d2jS0QCfyqTh2toXzqa1NzLnJ6YjvINYoB4FQ8zqUYCh1u3y4NgeqP4avdgBAxm7oYLc
- rjuylyd3uIqRU8aBKx/m7oaIb4XAdIk1079rCuOz3S300pccvBzSKrKfb8JpPsJW+DbH
- nScJ4nM7gCIstkudeRLhdrTF6cmZCLls0+n50hBDwNCzwjZm/vtvNxdTsam5r1REIYG0
- cvocU/SmoOLt5GC03VFST/Knrfn3qHd0PMHQ9s/djxJgCavR8pzUY5xVo2wBPyjQ630V
- kahQ==
+ d=1e100.net; s=20230601; t=1731675324; x=1732280124;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=CZze3yn24TXviwcT7N4kjvraoXCM6pscw+3oqLD8HvY=;
+ b=nhAJmo4HYwfNL0OHDifjSYpVLFfssXA/anzacT5J+3IbsV2H+YMIRcypECtBDtHmRY
+ jgQGY8rzB8z1FZDKS+Ltb3WSgAZ2wte38y7+wFdmW5acFkav3jlpZlyTRw7cqQ3HmRC/
+ Ui/NKUPRgHmO/7IA7Pxv2nEKg1JF5VUugf3avpgrBiASy87aJbrAKTVyY0+azi0NzbWT
+ tw019ENZmx4iyaBe4ZQ2Wbux+3tTcJxxIJbgwmaKF911yI2Wdc/yoAqFjzu/2ygaLmr2
+ pbfcXPiYEPRktEDCbBFHJn73xHUJhDDL58qf+ktAXlZDexK0A2a7yAzvEeWlSilVGhQR
+ UVIA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV3XA+Zeao6Ju5axaJyZ+JuOK8+5I7Qe+m2ulV6GvPi5RnZlLRiC8BEkdkYm+y/SUb7Xo5DmG5S/Vc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwLp3RNw8WR/98JEQbrb1bJ3BDJlmbohEWC1mPu8Vc8ferbUXz4
- LqNQoPnzdF2IPbZee2RIu+wHvIYw1Tu3rKxgLp5cPNfuXB0i7TUUq+7Sna8mv1U=
-X-Google-Smtp-Source: AGHT+IFhhzfXYJliCvhgMAnEBeivjS0/dTVTRYhH3Xvh8F0wAGfi8xwl9PwfcqxAfM7+X3hn+j6avA==
-X-Received: by 2002:a05:600c:1c29:b0:431:4e33:98b6 with SMTP id
- 5b1f17b1804b1-432defd2398mr17475545e9.5.1731662482814; 
- Fri, 15 Nov 2024 01:21:22 -0800 (PST)
-Received: from [192.168.7.189] ([212.114.21.58])
+ AJvYcCUkJO9gFPC9OZdYvIMxQyLw89JYD+cKyymTmRlXEBgmrDvRqcrh3lbXhlPBveZbwlpLo4DFSLHZOBg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywzlvt7fFqF4Tx9hvQxel87zrZztEWT9utMw1MORlqv0r78V5dc
+ Ir4+natOKcR7QeyjFyVt9YHGfJkxj7SeOyYjGauK528sPvhn5sg8mFxIsBOr0UE=
+X-Google-Smtp-Source: AGHT+IFCxeXdFwVvRfx+K9CW5GOw9LM/hVZhe41k/tOelfCV9iTkGBsMWti9JMRBfFAiS/C37CDtfA==
+X-Received: by 2002:a05:6000:70e:b0:37d:492c:4f54 with SMTP id
+ ffacd0b85a97d-3822590b9aemr1876457f8f.3.1731675324056; 
+ Fri, 15 Nov 2024 04:55:24 -0800 (PST)
+Received: from [127.0.0.2] ([2a02:2454:ff21:ef40:f4fb:dc44:5c32:eaef])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432da2445d4sm51991485e9.5.2024.11.15.01.21.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Nov 2024 01:21:22 -0800 (PST)
-Message-ID: <63a2b391-8b71-41cb-bed2-3bc7fd2154ab@linaro.org>
-Date: Fri, 15 Nov 2024 10:21:21 +0100
+ ffacd0b85a97d-3821ae31083sm4285582f8f.103.2024.11.15.04.55.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Nov 2024 04:55:23 -0800 (PST)
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+Date: Fri, 15 Nov 2024 13:55:13 +0100
+Subject: [PATCH] drm/msm/dpu: fix x1e80100 intf_6 underrun/vsync interrupt
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH RFC 2/8] drm/msm: adreno: add GMU_BW_VOTE quirk
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Connor Abbott <cwabbott0@gmail.com>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20241113-topic-sm8x50-gpu-bw-vote-v1-0-3b8d39737a9b@linaro.org>
- <20241113-topic-sm8x50-gpu-bw-vote-v1-2-3b8d39737a9b@linaro.org>
- <sgz4h6rlmekiwypaisjbnej326wv4vaqt3mgspp4fs4tg3mdfx@cwmdqcu6gwbf>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <sgz4h6rlmekiwypaisjbnej326wv4vaqt3mgspp4fs4tg3mdfx@cwmdqcu6gwbf>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20241115-x1e80100-dp2-fix-v1-1-727b9fe6f390@linaro.org>
+X-B4-Tracking: v=1; b=H4sIALBEN2cC/x2MQQqAIBAAvyJ7bsGViuor0cF0q71YKIQg/j3pO
+ AMzBRJH4QSLKhD5lSR3aECdAnfZcDKKbwxGm56IBszEkyat0T8GD8m4807Gjd5ZN0PLnshN/8t
+ 1q/UD7WkMTGIAAAA=
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Abel Vesa <abel.vesa@linaro.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.13.0
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,52 +88,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/11/2024 08:07, Dmitry Baryshkov wrote:
-> On Wed, Nov 13, 2024 at 04:48:28PM +0100, Neil Armstrong wrote:
->> The Adreno GMU Management Unit (GNU) can also scale the DDR Bandwidth
->> along the Frequency and Power Domain level, but by default we leave the
->> OPP core vote for the interconnect ddr path.
->>
->> While scaling via the interconnect path was sufficient, newer GPUs
->> like the A750 requires specific vote paremeters and bandwidth to
->> achieve full functionality.
->>
->> Add a new Quirk enabling DDR Bandwidth vote via GMU.
-> 
-> Please describe, why this is defined as a quirk rather than a proper
-> platform-level property. From my experience with 6xx and 7xx, all the
-> platforms need to send some kind of BW data to the GMU.
+The IRQ indexes for the intf_6 underrun/vsync interrupts are swapped.
+DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 16) is the actual underrun interrupt and
+DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 17) is the vsync interrupt.
 
-Well APRIV, CACHED_COHERENT & PREEMPTION are HW features, why this can't be part of this ?
+This causes timeout errors when using the DP2 controller, e.g.
+  [dpu error]enc37 frame done timeout
+  *ERROR* irq timeout id=37, intf_mode=INTF_MODE_VIDEO intf=6 wb=-1, pp=2, intr=0
+  *ERROR* wait disable failed: id:37 intf:6 ret:-110
 
-Perhaps the "quirks" bitfield should be features instead ?
+Correct them to fix these errors and make DP2 work properly.
 
-> 
->>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/adreno/adreno_gpu.h | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->> index e71f420f8b3a8e6cfc52dd1c4d5a63ef3704a07f..20b6b7f49473d42751cd4fb4fc82849be42cb807 100644
->> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->> @@ -57,6 +57,7 @@ enum adreno_family {
->>   #define ADRENO_QUIRK_HAS_HW_APRIV		BIT(3)
->>   #define ADRENO_QUIRK_HAS_CACHED_COHERENT	BIT(4)
->>   #define ADRENO_QUIRK_PREEMPTION			BIT(5)
->> +#define ADRENO_QUIRK_GMU_BW_VOTE		BIT(6)
->>   
->>   /* Helper for formating the chip_id in the way that userspace tools like
->>    * crashdec expect.
->>
->> -- 
->> 2.34.1
->>
-> 
+Cc: stable@vger.kernel.org
+Fixes: e3b1f369db5a ("drm/msm/dpu: Add X1E80100 support")
+Signed-off-by: Stephan Gerhold <stephan.gerhold@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
+index a3e60ac70689..d61895bb396f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
+@@ -389,8 +389,8 @@ static const struct dpu_intf_cfg x1e80100_intf[] = {
+ 		.type = INTF_DP,
+ 		.controller_id = MSM_DP_CONTROLLER_2,
+ 		.prog_fetch_lines_worst_case = 24,
+-		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 17),
+-		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 16),
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 16),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 17),
+ 	}, {
+ 		.name = "intf_7", .id = INTF_7,
+ 		.base = 0x3b000, .len = 0x280,
+
+---
+base-commit: 744cf71b8bdfcdd77aaf58395e068b7457634b2c
+change-id: 20241115-x1e80100-dp2-fix-beb12c6dcac9
+
+Best regards,
+-- 
+Stephan Gerhold <stephan.gerhold@linaro.org>
 
