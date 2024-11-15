@@ -2,80 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 413F69CDEBA
-	for <lists+freedreno@lfdr.de>; Fri, 15 Nov 2024 13:55:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A44DF9CDFB3
+	for <lists+freedreno@lfdr.de>; Fri, 15 Nov 2024 14:18:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE26610E09D;
-	Fri, 15 Nov 2024 12:55:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0943E10E873;
+	Fri, 15 Nov 2024 13:18:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="f8G/4qB2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j6Fmzj99";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D143D10E0C3
- for <freedreno@lists.freedesktop.org>; Fri, 15 Nov 2024 12:55:25 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-382242cd8bbso637877f8f.1
- for <freedreno@lists.freedesktop.org>; Fri, 15 Nov 2024 04:55:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731675324; x=1732280124; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=CZze3yn24TXviwcT7N4kjvraoXCM6pscw+3oqLD8HvY=;
- b=f8G/4qB2pTD+2ddYquDelpnPMDKIYJqiU5adwm24dzNLSeIz90l7iRRKB/+sB4Qbdh
- cJUaY5ItTX7+IEP5SjU2SVNICaZ0Vu+1vtfRLso3E35TwjxEKl3cvGHKpdMB1JrEgqVv
- fHkItjFDg1SswOcvBiVjlnMcHFSLfxyFbXEM2VqGHihqWED6wEUEoSxu+HY5A1b/eT1c
- IM7g8jgPyQLMiHf2u+5XWpBJUAOxERNu/eYAJd94OknEmOxXIWTSvjqj56OP2phTfIoA
- PEPeqh19GdOdlocnBIN2j4azq/DmkeonIUGrlwLq25qqI9ts4DFXlfAT+a7Gepgb3tBI
- /qxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731675324; x=1732280124;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CZze3yn24TXviwcT7N4kjvraoXCM6pscw+3oqLD8HvY=;
- b=nhAJmo4HYwfNL0OHDifjSYpVLFfssXA/anzacT5J+3IbsV2H+YMIRcypECtBDtHmRY
- jgQGY8rzB8z1FZDKS+Ltb3WSgAZ2wte38y7+wFdmW5acFkav3jlpZlyTRw7cqQ3HmRC/
- Ui/NKUPRgHmO/7IA7Pxv2nEKg1JF5VUugf3avpgrBiASy87aJbrAKTVyY0+azi0NzbWT
- tw019ENZmx4iyaBe4ZQ2Wbux+3tTcJxxIJbgwmaKF911yI2Wdc/yoAqFjzu/2ygaLmr2
- pbfcXPiYEPRktEDCbBFHJn73xHUJhDDL58qf+ktAXlZDexK0A2a7yAzvEeWlSilVGhQR
- UVIA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUkJO9gFPC9OZdYvIMxQyLw89JYD+cKyymTmRlXEBgmrDvRqcrh3lbXhlPBveZbwlpLo4DFSLHZOBg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywzlvt7fFqF4Tx9hvQxel87zrZztEWT9utMw1MORlqv0r78V5dc
- Ir4+natOKcR7QeyjFyVt9YHGfJkxj7SeOyYjGauK528sPvhn5sg8mFxIsBOr0UE=
-X-Google-Smtp-Source: AGHT+IFCxeXdFwVvRfx+K9CW5GOw9LM/hVZhe41k/tOelfCV9iTkGBsMWti9JMRBfFAiS/C37CDtfA==
-X-Received: by 2002:a05:6000:70e:b0:37d:492c:4f54 with SMTP id
- ffacd0b85a97d-3822590b9aemr1876457f8f.3.1731675324056; 
- Fri, 15 Nov 2024 04:55:24 -0800 (PST)
-Received: from [127.0.0.2] ([2a02:2454:ff21:ef40:f4fb:dc44:5c32:eaef])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3821ae31083sm4285582f8f.103.2024.11.15.04.55.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Nov 2024 04:55:23 -0800 (PST)
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-Date: Fri, 15 Nov 2024 13:55:13 +0100
-Subject: [PATCH] drm/msm/dpu: fix x1e80100 intf_6 underrun/vsync interrupt
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A76C110E876;
+ Fri, 15 Nov 2024 13:18:07 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 8C227A41E93;
+ Fri, 15 Nov 2024 13:16:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 089E0C4CECF;
+ Fri, 15 Nov 2024 13:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1731676686;
+ bh=7oXYRRawKbk2IfSVZUztCSg41vvROYYiVDjxrBKKIMI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=j6Fmzj99uXSicxhZaVYIP1mAqUdBb6FtTakNUHAvI1VPGUWWB6pibG7sVHb0cSeeO
+ EJ/JTP8LoN7EkMk8kPRoslm2sYJukIttY00hzCTxaBATPdkuh/p+6TNVgVSVswFVyQ
+ 4kxbbQGatL10thse9H7RS5tByKOOYa6scCzBB/3yRhVHZuGBKhpXRPUws7V6NDDMJo
+ 0jGAzpwQ5wKr2l/kz1D6fuC8TqNTFrA+nCqGQgyoHdmk8QeS35p24zH7CzqdCqiorq
+ LIT9+Y+kvF15a2gl0cp00uqyr3+OKlCmfw6jpmIWWC4k58Nc/xge4Iptu0V/3R9a39
+ xS8YkB4gQ+emA==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+ (envelope-from <johan@kernel.org>) id 1tBwCy-000000007nZ-0yyR;
+ Fri, 15 Nov 2024 14:17:56 +0100
+Date: Fri, 15 Nov 2024 14:17:56 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Abel Vesa <abel.vesa@linaro.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dpu: fix x1e80100 intf_6 underrun/vsync interrupt
+Message-ID: <ZzdKBMRKs2MgLGon@hovoldconsulting.com>
+References: <20241115-x1e80100-dp2-fix-v1-1-727b9fe6f390@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241115-x1e80100-dp2-fix-v1-1-727b9fe6f390@linaro.org>
-X-B4-Tracking: v=1; b=H4sIALBEN2cC/x2MQQqAIBAAvyJ7bsGViuor0cF0q71YKIQg/j3pO
- AMzBRJH4QSLKhD5lSR3aECdAnfZcDKKbwxGm56IBszEkyat0T8GD8m4807Gjd5ZN0PLnshN/8t
- 1q/UD7WkMTGIAAAA=
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Abel Vesa <abel.vesa@linaro.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241115-x1e80100-dp2-fix-v1-1-727b9fe6f390@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,45 +66,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The IRQ indexes for the intf_6 underrun/vsync interrupts are swapped.
-DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 16) is the actual underrun interrupt and
-DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 17) is the vsync interrupt.
+On Fri, Nov 15, 2024 at 01:55:13PM +0100, Stephan Gerhold wrote:
+> The IRQ indexes for the intf_6 underrun/vsync interrupts are swapped.
+> DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 16) is the actual underrun interrupt and
+> DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 17) is the vsync interrupt.
+> 
+> This causes timeout errors when using the DP2 controller, e.g.
+>   [dpu error]enc37 frame done timeout
+>   *ERROR* irq timeout id=37, intf_mode=INTF_MODE_VIDEO intf=6 wb=-1, pp=2, intr=0
+>   *ERROR* wait disable failed: id:37 intf:6 ret:-110
+> 
+> Correct them to fix these errors and make DP2 work properly.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: e3b1f369db5a ("drm/msm/dpu: Add X1E80100 support")
+> Signed-off-by: Stephan Gerhold <stephan.gerhold@linaro.org>
 
-This causes timeout errors when using the DP2 controller, e.g.
-  [dpu error]enc37 frame done timeout
-  *ERROR* irq timeout id=37, intf_mode=INTF_MODE_VIDEO intf=6 wb=-1, pp=2, intr=0
-  *ERROR* wait disable failed: id:37 intf:6 ret:-110
+This fixes the errors I was seeing with the third usb-c port on the
+x1e80100 CRD:
 
-Correct them to fix these errors and make DP2 work properly.
+Tested-by: Johan Hovold <johan+linaro@kernel.org>
 
-Cc: stable@vger.kernel.org
-Fixes: e3b1f369db5a ("drm/msm/dpu: Add X1E80100 support")
-Signed-off-by: Stephan Gerhold <stephan.gerhold@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
-index a3e60ac70689..d61895bb396f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
-@@ -389,8 +389,8 @@ static const struct dpu_intf_cfg x1e80100_intf[] = {
- 		.type = INTF_DP,
- 		.controller_id = MSM_DP_CONTROLLER_2,
- 		.prog_fetch_lines_worst_case = 24,
--		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 17),
--		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 16),
-+		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 16),
-+		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 17),
- 	}, {
- 		.name = "intf_7", .id = INTF_7,
- 		.base = 0x3b000, .len = 0x280,
-
----
-base-commit: 744cf71b8bdfcdd77aaf58395e068b7457634b2c
-change-id: 20241115-x1e80100-dp2-fix-beb12c6dcac9
-
-Best regards,
--- 
-Stephan Gerhold <stephan.gerhold@linaro.org>
-
+Johan
