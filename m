@@ -2,118 +2,96 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A20E09CEFD5
-	for <lists+freedreno@lfdr.de>; Fri, 15 Nov 2024 16:28:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 595CA9CF356
+	for <lists+freedreno@lfdr.de>; Fri, 15 Nov 2024 18:54:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69CA110E890;
-	Fri, 15 Nov 2024 15:28:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC1B010E065;
+	Fri, 15 Nov 2024 17:54:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="e48awq6g";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="QcBhrqqT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC1D210E892
- for <freedreno@lists.freedesktop.org>; Fri, 15 Nov 2024 15:28:32 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-37d462c91a9so1317408f8f.2
- for <freedreno@lists.freedesktop.org>; Fri, 15 Nov 2024 07:28:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731684511; x=1732289311; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=w9xxBkuOGfjMnpE8th+U2edWWxzoieKyXlSmx0+ZyMI=;
- b=e48awq6gN1U4GIaB4EnGu2Oa9Vw/8/F0Lps67tm2Ef9R61otKmrIjFz7wxEycVZXi0
- 1nKRKFjvzp6YTbKrYr03qKDeVNhP1SMH6Sl2esq9000mwJ8p2z1Mv6qXJoyGPA0ofHse
- 0WfLlwxC5sw2YjlXDg/drlahQI5ugEnfUW+SZKwtSbCZLMZbCF0r1MkdsConjhMKWPJp
- 2mk2F1gEX8cQl3AtODEBtoFeUJBB38eFe7gwlfKCjFxlzE8j7LDr0XhKqCOBJ0CHBn9m
- ix8AhXq3PCT98a95g2J/Rv5/nBUf5a4bhBCN6A/Kb7FbfKDv4Gm/IPRCM8E5v/dIKj4g
- SBkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731684511; x=1732289311;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=w9xxBkuOGfjMnpE8th+U2edWWxzoieKyXlSmx0+ZyMI=;
- b=D8zjWaDTiKiKGTpo6Wyfeim1tC7Lr2pCXL5JRbcVxXFE967ly07/4VAAQhkmjJdLi1
- VPMwsVt58n+c83Y0wdbD2Q+ylYDeAzmp8q/GOYZfaN2ruewHR+Thw81zrP/DKUT0q7zX
- pYyebma5Z82bhsS96bc2Vf8q7mJ2SfgfMHgHfecWeWUZuSZjQIyxTszWjMwGxi9X+NnT
- MEoPCs3WKWGcsli7w1Ivz8xqqFdCWpcsZSuAEW3WUtiFbt0DdwZMiee06APUxIPW12t+
- Qg5tR+VZVB+uS/rGTv8t021xRUai8B3xJVltrhGgzUjulFq70ZIHrnp0q7pNmcS48nyO
- dVEw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUmm62UDCxvh0YdmCKxKrcc92zdM+cpsKeo3X8iBl1t+/r6APJ2b4dpZvE/WqEOdfv9n468+yM/YEU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzaEzDGoYLaxihf7jVRTxHuR6ViigNaJ4tf43NptGR2C56meigB
- /NcpXFbUwEbl87tepiQWfVQg4M0tVAqrlFbPCR6hy1ZAV9G5wZKN37RNEqADOeA=
-X-Google-Smtp-Source: AGHT+IFE1m0PhvEE6X08D1MwP6KX2yhrXvWSidacGzSURnRLln0zDAOvKce6/l9aWa2qCaOvjt8d2w==
-X-Received: by 2002:a5d:6dab:0:b0:37e:d965:4e04 with SMTP id
- ffacd0b85a97d-38225a8ab23mr3000039f8f.36.1731684510986; 
- Fri, 15 Nov 2024 07:28:30 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:8512:42be:302f:f436?
- ([2a01:e0a:982:cbb0:8512:42be:302f:f436])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3822f6afc20sm576134f8f.81.2024.11.15.07.28.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Nov 2024 07:28:30 -0800 (PST)
-Message-ID: <73fd6d04-e965-4524-8d63-5e2c67677f52@linaro.org>
-Date: Fri, 15 Nov 2024 16:28:29 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3C5510E065;
+ Fri, 15 Nov 2024 17:54:40 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AF9DfuV004807;
+ Fri, 15 Nov 2024 17:54:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Qbrw4vWiwwRaFmlC1s11hJAUI/iOQfAy7hYy+ugzIpY=; b=QcBhrqqT4TTzAwS6
+ fGGXwq/RhnXiBpAqGHvU1iA2fhp39tdxTvwyHkdCB1hq2Bwq2gOxeErFGRxecCRc
+ 70gN2zG2gt5FaKU9zJ8pgfGD2F8RXksE9uECmejYnaqFjiAV/ykdgXgG3HiNEMLO
+ w3LbXJg6Ii9yifyHKCWzLuGgTTaANqAmF+BvdNoHHnfgHusgWxmfvm286hky6NmI
+ CxDfEfzg5vyD2PmbmgF7/3WTV9udXB4vYvGMDPa6tHSvtLZ+z+dVihrMKGQP7xlu
+ n8hSjn6PI6lx46aASx48Q0IkKlGerIMNLlhGuJtKzkJmk+ywWjgWW2Ci/i0zwmP8
+ YX3NtQ==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42x3g0scqw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 15 Nov 2024 17:54:27 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AFHsQOV018050
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 15 Nov 2024 17:54:26 GMT
+Received: from [10.206.104.82] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 15 Nov
+ 2024 09:54:19 -0800
+Message-ID: <f67c72c3-7393-47b0-9b9c-1bfadce13110@quicinc.com>
+Date: Fri, 15 Nov 2024 23:24:11 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH RFC 2/8] drm/msm: adreno: add GMU_BW_VOTE quirk
-To: Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+Subject: Re: [PATCH v2 2/3] dt-bindings: opp: Add v2-qcom-adreno vendor
+ bindings
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Krzysztof Kozlowski <krzk@kernel.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Connor Abbott <cwabbott0@gmail.com>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20241113-topic-sm8x50-gpu-bw-vote-v1-0-3b8d39737a9b@linaro.org>
- <20241113-topic-sm8x50-gpu-bw-vote-v1-2-3b8d39737a9b@linaro.org>
- <sgz4h6rlmekiwypaisjbnej326wv4vaqt3mgspp4fs4tg3mdfx@cwmdqcu6gwbf>
- <63a2b391-8b71-41cb-bed2-3bc7fd2154ab@linaro.org>
- <CAA8EJpoFm8EjfBq70RTPtwR7Y7Rm24kHO20NukGiLGRYD0p9Tg@mail.gmail.com>
- <CAF6AEGty1fcA13rDOOJQbhT4o=CTtBYtGFspowZbxD1c-VE9Bw@mail.gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <CAF6AEGty1fcA13rDOOJQbhT4o=CTtBYtGFspowZbxD1c-VE9Bw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ "Abhinav Kumar" <quic_abhinavk@quicinc.com>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>,
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>
+References: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
+ <20241021-gpu-acd-v2-2-9c25a62803bc@quicinc.com>
+ <mz4zpcr4tqh2w7vt75f4ofxjzfve54ozzgpdbi2jjzk5pdxbk7@t36tlt3mmprt>
+ <d858dadb-4098-4c9f-b4f0-393dc988db5f@quicinc.com>
+ <4426b4kybtac6rc4twa5pgm3hvlegofemvqjcrvh6ni7f5z2h6@5dnlv3hgywh5>
+ <c5e868e1-2dae-466c-a6fc-ef0f247fa0ce@quicinc.com>
+ <278e62e1-02a4-4e33-8592-fb4fafcedf7e@quicinc.com>
+ <CAA8EJprgshjbNqNErOb06jqV__LmbWvocsK5eD8PQqL+FaLb1g@mail.gmail.com>
+Content-Language: en-US
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <CAA8EJprgshjbNqNErOb06jqV__LmbWvocsK5eD8PQqL+FaLb1g@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: N4htPv4plm2XvnSzhfkVuCrgZqi_haRI
+X-Proofpoint-GUID: N4htPv4plm2XvnSzhfkVuCrgZqi_haRI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ lowpriorityscore=0 adultscore=0 bulkscore=0 priorityscore=1501
+ impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0 mlxlogscore=999
+ mlxscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2411150151
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,51 +104,148 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/11/2024 16:10, Rob Clark wrote:
-> On Fri, Nov 15, 2024 at 6:18 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
+On 11/15/2024 3:54 AM, Dmitry Baryshkov wrote:
+> Hello Akhil,
+> 
+> On Thu, 14 Nov 2024 at 20:50, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
 >>
->> On Fri, 15 Nov 2024 at 11:21, Neil Armstrong <neil.armstrong@linaro.org> wrote:
->>>
->>> On 15/11/2024 08:07, Dmitry Baryshkov wrote:
->>>> On Wed, Nov 13, 2024 at 04:48:28PM +0100, Neil Armstrong wrote:
->>>>> The Adreno GMU Management Unit (GNU) can also scale the DDR Bandwidth
->>>>> along the Frequency and Power Domain level, but by default we leave the
->>>>> OPP core vote for the interconnect ddr path.
+>> On 11/1/2024 9:54 PM, Akhil P Oommen wrote:
+>>> On 10/25/2024 11:58 AM, Dmitry Baryshkov wrote:
+>>>> On Thu, Oct 24, 2024 at 12:56:58AM +0530, Akhil P Oommen wrote:
+>>>>> On 10/22/2024 11:19 AM, Krzysztof Kozlowski wrote:
+>>>>>> On Mon, Oct 21, 2024 at 05:23:43PM +0530, Akhil P Oommen wrote:
+>>>>>>> Add a new schema which extends opp-v2 to support a new vendor specific
+>>>>>>> property required for Adreno GPUs found in Qualcomm's SoCs. The new
+>>>>>>> property called "qcom,opp-acd-level" carries a u32 value recommended
+>>>>>>> for each opp needs to be shared to GMU during runtime.
+>>>>>>>
+>>>>>>> Cc: Rob Clark <robdclark@gmail.com>
+>>>>>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>>>>>> ---
+>>>>>>>  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 96 ++++++++++++++++++++++
+>>>>>>>  1 file changed, 96 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+>>>>>>> new file mode 100644
+>>>>>>> index 000000000000..6d50c0405ef8
+>>>>>>> --- /dev/null
+>>>>>>> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+>>>>>>> @@ -0,0 +1,96 @@
+>>>>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>>>>>> +%YAML 1.2
+>>>>>>> +---
+>>>>>>> +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
+>>>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>>>>> +
+>>>>>>> +title: Qualcomm Adreno compatible OPP supply
+>>>>>>> +
+>>>>>>> +description:
+>>>>>>> +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
+>>>>>>> +  ACD related information tailored for the specific chipset. This binding
+>>>>>>> +  provides the information needed to describe such a hardware value.
+>>>>>>> +
+>>>>>>> +maintainers:
+>>>>>>> +  - Rob Clark <robdclark@gmail.com>
+>>>>>>> +
+>>>>>>> +allOf:
+>>>>>>> +  - $ref: opp-v2-base.yaml#
+>>>>>>> +
+>>>>>>> +properties:
+>>>>>>> +  compatible:
+>>>>>>> +    items:
+>>>>>>> +      - const: operating-points-v2-adreno
+>>>>>>> +      - const: operating-points-v2
+>>>>>>> +
+>>>>>>> +patternProperties:
+>>>>>>> +  '^opp-?[0-9]+$':
+>>>>>>
+>>>>>> '-' should not be optional. opp1 is not expected name.
 >>>>>
->>>>> While scaling via the interconnect path was sufficient, newer GPUs
->>>>> like the A750 requires specific vote paremeters and bandwidth to
->>>>> achieve full functionality.
+>>>>> Agree. Will change this to '^opp-[0-9]+$'
 >>>>>
->>>>> Add a new Quirk enabling DDR Bandwidth vote via GMU.
+>>>>>>
+>>>>>>> +    type: object
+>>>>>>> +    additionalProperties: false
+>>>>>>> +
+>>>>>>> +    properties:
+>>>>>>> +      opp-hz: true
+>>>>>>> +
+>>>>>>> +      opp-level: true
+>>>>>>> +
+>>>>>>> +      opp-peak-kBps: true
+>>>>>>> +
+>>>>>>> +      opp-supported-hw: true
+>>>>>>> +
+>>>>>>> +      qcom,opp-acd-level:
+>>>>>>> +        description: |
+>>>>>>> +          A positive value representing the ACD (Adaptive Clock Distribution,
+>>>>>>> +          a fancy name for clk throttling during voltage droop) level associated
+>>>>>>> +          with this OPP node. This value is shared to a co-processor inside GPU
+>>>>>>> +          (called Graphics Management Unit a.k.a GMU) during wake up. It may not
+>>>>>>> +          be present for some OPPs and GMU will disable ACD while transitioning
+>>>>>>> +          to that OPP. This value encodes a voltage threshold and few other knobs
+>>>>>>> +          which are identified by characterization of the SoC. So, it doesn't have
+>>>>>>> +          any unit.
+>>>>>>
+>>>>>> Thanks for explanation and other updates. I am still not happy with this
+>>>>>> property. I do not see reason why DT should encode magic values in a
+>>>>>> quite generic piece of code. This creates poor ABI, difficult to
+>>>>>> maintain or understand.
+>>>>>>
+>>>>>
+>>>>> Configuring GPU ACD block with its respective value is a requirement for each OPP.
+>>>>> So OPP node seems like the natural place for this data.
+>>>>>
+>>>>> If it helps to resolve your concerns, I can elaborate the documentation with
+>>>>> details on the GMU HFI interface where this value should be passed on to the
+>>>>> hardware. Also replace "few other knobs" with "Delay cycles & Calibration margin"
+>>>>> in the above doc.
 >>>>
->>>> Please describe, why this is defined as a quirk rather than a proper
->>>> platform-level property. From my experience with 6xx and 7xx, all the
->>>> platforms need to send some kind of BW data to the GMU.
->>>
->>> Well APRIV, CACHED_COHERENT & PREEMPTION are HW features, why this can't be part of this ?
->>>
->>> Perhaps the "quirks" bitfield should be features instead ?
+>>>> Usually the preference for DT is to specify data in a sensible way
+>>>> rather than just the values being programmed to the register. Is it
+>>>> possible to implement this approach for ACD values?
 >>
->> Sounds like that.
+>> Krzysztof/Dmitry,
+>>
+>> BIT(0)-BIT(15) are static configurations which doesn't change between
+>> OPPs. We can move it to driver.
+>>
+>> BIT(16)-BIT(31) indicates a threshold margin which triggers ACD. We can
+>> keep this in the devicetree. And the driver can construct the final
+>> value from both data and send it to GMU.
+>>
+>> If this is acceptable, I will send the v3 revision.
 > 
-> But LMLOADKILL_DISABLE and TWO_PASS_USE_WFI are quirks.. so it is kind
-> of a mix of quirks and features.  So meh
+> Can the upper bitfield have a sensible representation in DT (like uV
+> or something similar)?
 
-Well I can do a split and move the features into a clean .features bitfield, would it be ok ?
+Closest approximation is quantized voltage steps. So, unit-less.
+Converting it to the exact voltage requires identifying the pmic voltage
+steps and other stuffs which are outside of my expertise.
 
-Neil
+It is convenient if we can abstract it as an integer which correlates
+with the voltage margin that should be maintained for each regulator corner.
 
-> 
-> BR,
-> -R
+-Akhil.
+
 > 
 >>
->> --
->> With best wishes
->> Dmitry
+>> -Akhil.
+>>
+>>>
+>>> I am still checking about this. Will get back.
+>>>
+>>> -Akhil
+>>>
+>>>>
+>>>>>
+>>>>>>
+>>>>
+>>>
+>>
+> 
+> 
 
