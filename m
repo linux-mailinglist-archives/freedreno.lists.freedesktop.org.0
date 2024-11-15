@@ -2,66 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 595CA9CF356
-	for <lists+freedreno@lfdr.de>; Fri, 15 Nov 2024 18:54:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23B739CF535
+	for <lists+freedreno@lfdr.de>; Fri, 15 Nov 2024 20:48:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC1B010E065;
-	Fri, 15 Nov 2024 17:54:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B666B10E8BA;
+	Fri, 15 Nov 2024 19:48:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="QcBhrqqT";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DpQBKQBz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3C5510E065;
- Fri, 15 Nov 2024 17:54:40 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AF9DfuV004807;
- Fri, 15 Nov 2024 17:54:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Qbrw4vWiwwRaFmlC1s11hJAUI/iOQfAy7hYy+ugzIpY=; b=QcBhrqqT4TTzAwS6
- fGGXwq/RhnXiBpAqGHvU1iA2fhp39tdxTvwyHkdCB1hq2Bwq2gOxeErFGRxecCRc
- 70gN2zG2gt5FaKU9zJ8pgfGD2F8RXksE9uECmejYnaqFjiAV/ykdgXgG3HiNEMLO
- w3LbXJg6Ii9yifyHKCWzLuGgTTaANqAmF+BvdNoHHnfgHusgWxmfvm286hky6NmI
- CxDfEfzg5vyD2PmbmgF7/3WTV9udXB4vYvGMDPa6tHSvtLZ+z+dVihrMKGQP7xlu
- n8hSjn6PI6lx46aASx48Q0IkKlGerIMNLlhGuJtKzkJmk+ywWjgWW2Ci/i0zwmP8
- YX3NtQ==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42x3g0scqw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 Nov 2024 17:54:27 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AFHsQOV018050
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 Nov 2024 17:54:26 GMT
-Received: from [10.206.104.82] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 15 Nov
- 2024 09:54:19 -0800
-Message-ID: <f67c72c3-7393-47b0-9b9c-1bfadce13110@quicinc.com>
-Date: Fri, 15 Nov 2024 23:24:11 +0530
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
+ [209.85.128.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9CC010E8BC
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Nov 2024 19:48:04 +0000 (UTC)
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-6ea8419a57eso24366877b3.1
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Nov 2024 11:48:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1731700084; x=1732304884; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=5hqZZY2Xw4Iij5lMmhTNFkUvBmDKTrsfUBUbIBiu3tQ=;
+ b=DpQBKQBzZMaCoPZUFydQmquFBzaJvqVLmSmsoj++xOCyzhuSI99lf/RJmidFPvUWHi
+ ez1uD80Zlho4Znl7iGH1xlKUV5dPAAKp8AtC1/8g+uB/+HLB7n4gjD2Id/iIYxPPw4b1
+ Rdj90U3tTs0eRVDSznFpSejlWg3lZT2m87FuptIPDiW/oyGJHlHqiYk7wjHJYfwm41CP
+ 6EKY75UpVTkPkF7TrUM2lvhHHFn0yQX8UPb5VODYZ3wUVXonrj+UMYVMDmxkRIyDkoLH
+ PSd3H8DzYL2dAzt/06O2pKdhJjAo+cD17FQ7ocl6ZsxfDFI3iQsG6pjxpBXsMRAnorv+
+ hraA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731700084; x=1732304884;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5hqZZY2Xw4Iij5lMmhTNFkUvBmDKTrsfUBUbIBiu3tQ=;
+ b=Y3bA8Jrrn55B2GEEmYxW7L5hBxdGkM+tnfV9wWgbJHG/5XAJeyBQ1EtKM8HAIEnoDh
+ JxGWO+w4RlqDShgtcKqfgJ0BUGZLaf27RQbEFH3EynX2xLdBgEuZFyXHUpAC2m7WiUbR
+ mZ4I6SWocrEc4qT+pZjiC3WLoqYYNMdS7RWvJorsiuchfVWocXUgAKAouovGfyJZmZ8p
+ ne5QsBe2jkmkXx+ttLveSPLlWGwzBxyiezcGfao7Jb1aI+RErYrW6tKvI8Gp08br1EJL
+ Mmm6BIO++YVq1wtqLTa7DFmDhnpncd8WQLDe7fctGT1Hshd5cEk+sih3fcAdFtr5yU0/
+ 46Yg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVSnu8MSgUR1XiChPh+C2xkrcFa8NYchnVaqltol2T9kJe0BrrrPW3rw1LYTFYnH9TyzHpcxVRhXzk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyX705yV8stapn+M8tUeBpFjZ4C1ydBB2ymF9lJKAzIKOKD4/tE
+ 2BoPe3IkHgFshwd2+oaUKbR2g2m1waBiRissfbR5X90/mH+fk1o6/VX90CtjSHZHdeBmdUaEyuA
+ GHk8mgU/ArJ+MrxokKbc6RK+1HDTgXW9f751HVw==
+X-Google-Smtp-Source: AGHT+IGIukyB05CdIVdL1icbGYosMbFDk6j/Gtkmjlh6kGKZaRFg/N+JXtJlBfPhO8UT5MJlHu9T5PXAioWUh56J1Wc=
+X-Received: by 2002:a05:690c:e18:b0:6ea:8c14:7bfc with SMTP id
+ 00721157ae682-6ee55cbbedamr42076707b3.34.1731700083691; Fri, 15 Nov 2024
+ 11:48:03 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] dt-bindings: opp: Add v2-qcom-adreno vendor
- bindings
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Krzysztof Kozlowski <krzk@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- "Abhinav Kumar" <quic_abhinavk@quicinc.com>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>
 References: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
  <20241021-gpu-acd-v2-2-9c25a62803bc@quicinc.com>
  <mz4zpcr4tqh2w7vt75f4ofxjzfve54ozzgpdbi2jjzk5pdxbk7@t36tlt3mmprt>
@@ -70,28 +60,28 @@ References: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
  <c5e868e1-2dae-466c-a6fc-ef0f247fa0ce@quicinc.com>
  <278e62e1-02a4-4e33-8592-fb4fafcedf7e@quicinc.com>
  <CAA8EJprgshjbNqNErOb06jqV__LmbWvocsK5eD8PQqL+FaLb1g@mail.gmail.com>
-Content-Language: en-US
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <CAA8EJprgshjbNqNErOb06jqV__LmbWvocsK5eD8PQqL+FaLb1g@mail.gmail.com>
+ <f67c72c3-7393-47b0-9b9c-1bfadce13110@quicinc.com>
+In-Reply-To: <f67c72c3-7393-47b0-9b9c-1bfadce13110@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 15 Nov 2024 21:47:52 +0200
+Message-ID: <CAA8EJppy+V9m-t_qPEJh2iTkC7tyDcf2y8wD9vYoHtFSp=HrkQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] dt-bindings: opp: Add v2-qcom-adreno vendor
+ bindings
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Viresh Kumar <vireshk@kernel.org>,
+ Nishanth Menon <nm@ti.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ devicetree@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: N4htPv4plm2XvnSzhfkVuCrgZqi_haRI
-X-Proofpoint-GUID: N4htPv4plm2XvnSzhfkVuCrgZqi_haRI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0 mlxlogscore=999
- mlxscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2411150151
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,145 +97,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/15/2024 3:54 AM, Dmitry Baryshkov wrote:
-> Hello Akhil,
-> 
-> On Thu, 14 Nov 2024 at 20:50, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->>
->> On 11/1/2024 9:54 PM, Akhil P Oommen wrote:
->>> On 10/25/2024 11:58 AM, Dmitry Baryshkov wrote:
->>>> On Thu, Oct 24, 2024 at 12:56:58AM +0530, Akhil P Oommen wrote:
->>>>> On 10/22/2024 11:19 AM, Krzysztof Kozlowski wrote:
->>>>>> On Mon, Oct 21, 2024 at 05:23:43PM +0530, Akhil P Oommen wrote:
->>>>>>> Add a new schema which extends opp-v2 to support a new vendor specific
->>>>>>> property required for Adreno GPUs found in Qualcomm's SoCs. The new
->>>>>>> property called "qcom,opp-acd-level" carries a u32 value recommended
->>>>>>> for each opp needs to be shared to GMU during runtime.
->>>>>>>
->>>>>>> Cc: Rob Clark <robdclark@gmail.com>
->>>>>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>>>>>> ---
->>>>>>>  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 96 ++++++++++++++++++++++
->>>>>>>  1 file changed, 96 insertions(+)
->>>>>>>
->>>>>>> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
->>>>>>> new file mode 100644
->>>>>>> index 000000000000..6d50c0405ef8
->>>>>>> --- /dev/null
->>>>>>> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
->>>>>>> @@ -0,0 +1,96 @@
->>>>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>>>>> +%YAML 1.2
->>>>>>> +---
->>>>>>> +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
->>>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>>>>> +
->>>>>>> +title: Qualcomm Adreno compatible OPP supply
->>>>>>> +
->>>>>>> +description:
->>>>>>> +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
->>>>>>> +  ACD related information tailored for the specific chipset. This binding
->>>>>>> +  provides the information needed to describe such a hardware value.
->>>>>>> +
->>>>>>> +maintainers:
->>>>>>> +  - Rob Clark <robdclark@gmail.com>
->>>>>>> +
->>>>>>> +allOf:
->>>>>>> +  - $ref: opp-v2-base.yaml#
->>>>>>> +
->>>>>>> +properties:
->>>>>>> +  compatible:
->>>>>>> +    items:
->>>>>>> +      - const: operating-points-v2-adreno
->>>>>>> +      - const: operating-points-v2
->>>>>>> +
->>>>>>> +patternProperties:
->>>>>>> +  '^opp-?[0-9]+$':
->>>>>>
->>>>>> '-' should not be optional. opp1 is not expected name.
->>>>>
->>>>> Agree. Will change this to '^opp-[0-9]+$'
->>>>>
->>>>>>
->>>>>>> +    type: object
->>>>>>> +    additionalProperties: false
->>>>>>> +
->>>>>>> +    properties:
->>>>>>> +      opp-hz: true
->>>>>>> +
->>>>>>> +      opp-level: true
->>>>>>> +
->>>>>>> +      opp-peak-kBps: true
->>>>>>> +
->>>>>>> +      opp-supported-hw: true
->>>>>>> +
->>>>>>> +      qcom,opp-acd-level:
->>>>>>> +        description: |
->>>>>>> +          A positive value representing the ACD (Adaptive Clock Distribution,
->>>>>>> +          a fancy name for clk throttling during voltage droop) level associated
->>>>>>> +          with this OPP node. This value is shared to a co-processor inside GPU
->>>>>>> +          (called Graphics Management Unit a.k.a GMU) during wake up. It may not
->>>>>>> +          be present for some OPPs and GMU will disable ACD while transitioning
->>>>>>> +          to that OPP. This value encodes a voltage threshold and few other knobs
->>>>>>> +          which are identified by characterization of the SoC. So, it doesn't have
->>>>>>> +          any unit.
->>>>>>
->>>>>> Thanks for explanation and other updates. I am still not happy with this
->>>>>> property. I do not see reason why DT should encode magic values in a
->>>>>> quite generic piece of code. This creates poor ABI, difficult to
->>>>>> maintain or understand.
->>>>>>
->>>>>
->>>>> Configuring GPU ACD block with its respective value is a requirement for each OPP.
->>>>> So OPP node seems like the natural place for this data.
->>>>>
->>>>> If it helps to resolve your concerns, I can elaborate the documentation with
->>>>> details on the GMU HFI interface where this value should be passed on to the
->>>>> hardware. Also replace "few other knobs" with "Delay cycles & Calibration margin"
->>>>> in the above doc.
->>>>
->>>> Usually the preference for DT is to specify data in a sensible way
->>>> rather than just the values being programmed to the register. Is it
->>>> possible to implement this approach for ACD values?
->>
->> Krzysztof/Dmitry,
->>
->> BIT(0)-BIT(15) are static configurations which doesn't change between
->> OPPs. We can move it to driver.
->>
->> BIT(16)-BIT(31) indicates a threshold margin which triggers ACD. We can
->> keep this in the devicetree. And the driver can construct the final
->> value from both data and send it to GMU.
->>
->> If this is acceptable, I will send the v3 revision.
-> 
-> Can the upper bitfield have a sensible representation in DT (like uV
-> or something similar)?
+On Fri, 15 Nov 2024 at 19:54, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>
+> On 11/15/2024 3:54 AM, Dmitry Baryshkov wrote:
+> > Hello Akhil,
+> >
+> > On Thu, 14 Nov 2024 at 20:50, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+> >>
+> >> On 11/1/2024 9:54 PM, Akhil P Oommen wrote:
+> >>> On 10/25/2024 11:58 AM, Dmitry Baryshkov wrote:
+> >>>> On Thu, Oct 24, 2024 at 12:56:58AM +0530, Akhil P Oommen wrote:
+> >>>>> On 10/22/2024 11:19 AM, Krzysztof Kozlowski wrote:
+> >>>>>> On Mon, Oct 21, 2024 at 05:23:43PM +0530, Akhil P Oommen wrote:
+> >>>>>>> Add a new schema which extends opp-v2 to support a new vendor specific
+> >>>>>>> property required for Adreno GPUs found in Qualcomm's SoCs. The new
+> >>>>>>> property called "qcom,opp-acd-level" carries a u32 value recommended
+> >>>>>>> for each opp needs to be shared to GMU during runtime.
+> >>>>>>>
+> >>>>>>> Cc: Rob Clark <robdclark@gmail.com>
+> >>>>>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> >>>>>>> ---
+> >>>>>>>  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 96 ++++++++++++++++++++++
+> >>>>>>>  1 file changed, 96 insertions(+)
+> >>>>>>>
+> >>>>>>> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> >>>>>>> new file mode 100644
+> >>>>>>> index 000000000000..6d50c0405ef8
+> >>>>>>> --- /dev/null
+> >>>>>>> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+> >>>>>>> @@ -0,0 +1,96 @@
+> >>>>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> >>>>>>> +%YAML 1.2
+> >>>>>>> +---
+> >>>>>>> +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
+> >>>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >>>>>>> +
+> >>>>>>> +title: Qualcomm Adreno compatible OPP supply
+> >>>>>>> +
+> >>>>>>> +description:
+> >>>>>>> +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
+> >>>>>>> +  ACD related information tailored for the specific chipset. This binding
+> >>>>>>> +  provides the information needed to describe such a hardware value.
+> >>>>>>> +
+> >>>>>>> +maintainers:
+> >>>>>>> +  - Rob Clark <robdclark@gmail.com>
+> >>>>>>> +
+> >>>>>>> +allOf:
+> >>>>>>> +  - $ref: opp-v2-base.yaml#
+> >>>>>>> +
+> >>>>>>> +properties:
+> >>>>>>> +  compatible:
+> >>>>>>> +    items:
+> >>>>>>> +      - const: operating-points-v2-adreno
+> >>>>>>> +      - const: operating-points-v2
+> >>>>>>> +
+> >>>>>>> +patternProperties:
+> >>>>>>> +  '^opp-?[0-9]+$':
+> >>>>>>
+> >>>>>> '-' should not be optional. opp1 is not expected name.
+> >>>>>
+> >>>>> Agree. Will change this to '^opp-[0-9]+$'
+> >>>>>
+> >>>>>>
+> >>>>>>> +    type: object
+> >>>>>>> +    additionalProperties: false
+> >>>>>>> +
+> >>>>>>> +    properties:
+> >>>>>>> +      opp-hz: true
+> >>>>>>> +
+> >>>>>>> +      opp-level: true
+> >>>>>>> +
+> >>>>>>> +      opp-peak-kBps: true
+> >>>>>>> +
+> >>>>>>> +      opp-supported-hw: true
+> >>>>>>> +
+> >>>>>>> +      qcom,opp-acd-level:
+> >>>>>>> +        description: |
+> >>>>>>> +          A positive value representing the ACD (Adaptive Clock Distribution,
+> >>>>>>> +          a fancy name for clk throttling during voltage droop) level associated
+> >>>>>>> +          with this OPP node. This value is shared to a co-processor inside GPU
+> >>>>>>> +          (called Graphics Management Unit a.k.a GMU) during wake up. It may not
+> >>>>>>> +          be present for some OPPs and GMU will disable ACD while transitioning
+> >>>>>>> +          to that OPP. This value encodes a voltage threshold and few other knobs
+> >>>>>>> +          which are identified by characterization of the SoC. So, it doesn't have
+> >>>>>>> +          any unit.
+> >>>>>>
+> >>>>>> Thanks for explanation and other updates. I am still not happy with this
+> >>>>>> property. I do not see reason why DT should encode magic values in a
+> >>>>>> quite generic piece of code. This creates poor ABI, difficult to
+> >>>>>> maintain or understand.
+> >>>>>>
+> >>>>>
+> >>>>> Configuring GPU ACD block with its respective value is a requirement for each OPP.
+> >>>>> So OPP node seems like the natural place for this data.
+> >>>>>
+> >>>>> If it helps to resolve your concerns, I can elaborate the documentation with
+> >>>>> details on the GMU HFI interface where this value should be passed on to the
+> >>>>> hardware. Also replace "few other knobs" with "Delay cycles & Calibration margin"
+> >>>>> in the above doc.
+> >>>>
+> >>>> Usually the preference for DT is to specify data in a sensible way
+> >>>> rather than just the values being programmed to the register. Is it
+> >>>> possible to implement this approach for ACD values?
+> >>
+> >> Krzysztof/Dmitry,
+> >>
+> >> BIT(0)-BIT(15) are static configurations which doesn't change between
+> >> OPPs. We can move it to driver.
+> >>
+> >> BIT(16)-BIT(31) indicates a threshold margin which triggers ACD. We can
+> >> keep this in the devicetree. And the driver can construct the final
+> >> value from both data and send it to GMU.
+> >>
+> >> If this is acceptable, I will send the v3 revision.
+> >
+> > Can the upper bitfield have a sensible representation in DT (like uV
+> > or something similar)?
+>
+> Closest approximation is quantized voltage steps. So, unit-less.
+> Converting it to the exact voltage requires identifying the pmic voltage
+> steps and other stuffs which are outside of my expertise.
+>
+> It is convenient if we can abstract it as an integer which correlates
+> with the voltage margin that should be maintained for each regulator corner.
 
-Closest approximation is quantized voltage steps. So, unit-less.
-Converting it to the exact voltage requires identifying the pmic voltage
-steps and other stuffs which are outside of my expertise.
+I'd say, this is up to the DT maintainers then.
 
-It is convenient if we can abstract it as an integer which correlates
-with the voltage margin that should be maintained for each regulator corner.
+>
+> -Akhil.
+>
+> >
+> >>
+> >> -Akhil.
+> >>
+> >>>
+> >>> I am still checking about this. Will get back.
+> >>>
+> >>> -Akhil
+> >>>
+> >>>>
+> >>>>>
+> >>>>>>
+> >>>>
+> >>>
+> >>
+> >
+> >
+>
 
--Akhil.
 
-> 
->>
->> -Akhil.
->>
->>>
->>> I am still checking about this. Will get back.
->>>
->>> -Akhil
->>>
->>>>
->>>>>
->>>>>>
->>>>
->>>
->>
-> 
-> 
-
+-- 
+With best wishes
+Dmitry
