@@ -2,84 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CD769C951E
-	for <lists+freedreno@lfdr.de>; Thu, 14 Nov 2024 23:24:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C8EB9CD9A6
+	for <lists+freedreno@lfdr.de>; Fri, 15 Nov 2024 08:07:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1484A10E385;
-	Thu, 14 Nov 2024 22:24:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5201010E230;
+	Fri, 15 Nov 2024 07:07:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NUwokPaT";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="d0/BfRQm";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
- [209.85.128.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 340A210E385
- for <freedreno@lists.freedesktop.org>; Thu, 14 Nov 2024 22:24:45 +0000 (UTC)
-Received: by mail-yw1-f181.google.com with SMTP id
- 00721157ae682-6ea7c9227bfso13726347b3.2
- for <freedreno@lists.freedesktop.org>; Thu, 14 Nov 2024 14:24:45 -0800 (PST)
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBD9310E3A5
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Nov 2024 07:07:55 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-2fb4af0b6beso25005191fa.3
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Nov 2024 23:07:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731623084; x=1732227884; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=fz1cryoPNcmIIhBTuToySSNUuCG3KvwOQc0AQslJ9bk=;
- b=NUwokPaTrpUzK61Cyzo5l6hHuCDQVcHWvHr+bL1D4nByrcITcvf9+sAzdfumaGd+Lm
- xAhMWLUEaZbXsx+xMHqs7buSA0GCX12lOihlZdLsxXhStyCQd2ycM1dT8X7NbMorm7VB
- qfGQ8IdpXVNoCg0Gy0r7uuoIFhrn6wcwc6SSz7w5IVBVVFn0i61XLAIxUg+kB2R2IWND
- IRwDKkqOdbEAsMzNnSEOn0RiAUATvP+oemvkvRxi5AcEDzbuECL71yLKSJXvbVm+NKuP
- xjtWsKKQW3gtNflDQzTdDc5I6yB8yiZOY2SOWJrh7yWfr4TiJYovtNzFgjaFE/dTESPq
- /3CQ==
+ d=linaro.org; s=google; t=1731654474; x=1732259274; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=v6cKMaZCVTkVV3G8XB5LiWFxAM/cEoFnUMU7GwBqpgs=;
+ b=d0/BfRQmKAZ4AHtQeYHQQWHc0P6PNbR1SeUzX+o34CPFU8qAhqzPqHmQgxUc8q+v14
+ 8wOR+QeXFqA4zTNIlnDye73nWEMhdGGtXJlOwDQ9dRqX6ip50ZNjB8uSpcuAbbZg0xt/
+ xAXbU7nOv6npAZGLtIHtrX1u0BuCoOhokyeicryyLNrwk0AbqPZVcIsH3bGSVOR+WUef
+ H6yWo3atVG/xeVv9AwyNwVwhemoTI4YWOHko42Kw93RhLg7WRo8isfGLCjhYkbK9R4B/
+ vWxpQOj/vFwVQrMX8yqlmFkBqtnklBOAHVaV8QW9WMZOFvFetuOPQytqnswdt1KJQuml
+ TlOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731623084; x=1732227884;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=fz1cryoPNcmIIhBTuToySSNUuCG3KvwOQc0AQslJ9bk=;
- b=JXbSuHr0YmBn25qHjIr5NdEUMVAMA8d8DhVk3qGJkNOpen/bhUzQwiC0xLoL54bmsI
- 6lXwOHEeyGKPh4oVNTHIJjpbMnRp8e36XsIguRxcc87PmfGZoVEz7F0GVcEwkOVtUzpT
- PwN196arahqUIg3KaugII2IyoWpG2uJsqzhIXW/V2ar+Bs32CVlqjOyNekDMo2/t6BGr
- K+ufiXwEQJFdAAhqom3GE2J9py5Fhe5UWr/Phu0Ykic2wrJY93YiYYWUpsRGt5S1LcMN
- QGKvnrRrn+nU1Hs4H4s1PO0Vv0Ib9X4sdwZjqfQS5cwI1mqHbVGk/Ch4lvl1JMXByqwD
- xZbA==
+ d=1e100.net; s=20230601; t=1731654474; x=1732259274;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=v6cKMaZCVTkVV3G8XB5LiWFxAM/cEoFnUMU7GwBqpgs=;
+ b=gSza0uXKli4yO3PAasK6fyLx56lfk3ApD96zf6qcdtB4WirCD6QU27+sUcVU83NJPl
+ aiq0Kzi0EZ7UFpPnBWhwJBcJQ++yqt//bX5B9X5jj2WwY9OIKmWA3O3lEVNTVAMuPOOl
+ 01yfR+2ror8nl4gJwhOpb4IFNsoqnu9n0nnuOStDXGA18CX6Z+aPghukGuKyj0H+Risk
+ H5md9+axdr4SCEvPlIyrkIXGHCpmLlNYgGTsQ/TmN+4QmTG72+74ZREh/wZ92Yu/B7pb
+ buMWePQqOkU6BIwfh1KvGPMpBIx3h7vA2+EZ60RUWCZ/Fz6PCs3XIiAMXbVnkCBeuBsz
+ crng==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXpOH/8TOh+hGdBDUI1SaHum28iSY/xIfdOhMBT3UrVilCSZcFiJ/1uXBlAjXBz8ouPuelRqKIuhRA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwInVIg9qPaebhs3MOCVlx0pKNX4ixCCTud5dz2ESKxZOdaIm+n
- X42lBbnkbPIbYzBudutSbWeM2kgp/pts9Vn/IJspGKmGgU+pt8yle/ehzhKQm8SiIpHPC6dQ4um
- euzbxk/DK+WV6ppqaTreoi27YYGWYYuBJRdzg3A==
-X-Google-Smtp-Source: AGHT+IFrzmp0d+SxhQuy9csj+6FAqaRg2lAarl1XN3L0geodgrc2R/eWwEK9i0dJjAuD8YAqO7lGoVt6qLOTED2p30M=
-X-Received: by 2002:a05:690c:ed4:b0:6e3:b8f:59d1 with SMTP id
- 00721157ae682-6ee55cd17dfmr9350597b3.31.1731623083931; Thu, 14 Nov 2024
- 14:24:43 -0800 (PST)
-MIME-Version: 1.0
-References: <20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com>
- <20241021-gpu-acd-v2-2-9c25a62803bc@quicinc.com>
- <mz4zpcr4tqh2w7vt75f4ofxjzfve54ozzgpdbi2jjzk5pdxbk7@t36tlt3mmprt>
- <d858dadb-4098-4c9f-b4f0-393dc988db5f@quicinc.com>
- <4426b4kybtac6rc4twa5pgm3hvlegofemvqjcrvh6ni7f5z2h6@5dnlv3hgywh5>
- <c5e868e1-2dae-466c-a6fc-ef0f247fa0ce@quicinc.com>
- <278e62e1-02a4-4e33-8592-fb4fafcedf7e@quicinc.com>
-In-Reply-To: <278e62e1-02a4-4e33-8592-fb4fafcedf7e@quicinc.com>
+ AJvYcCU9SXW+ppLLk5S0NEyQAMNuZej/TaRvBLyy61NibGnbHno/cjxTxRQWl6Z5Uj+PQVK7Mf9Q3JR2yv4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVP2W/jVKZBHEgnwIXGpD4M77+1qIHUORv69qw94V4iUVc2FvM
+ a642vDHGo7iFXhFyQqV0mRBnRIAyfmQo8zuK+hUdG8QLcnhg3FZmXBA5Y3FZ4/A=
+X-Google-Smtp-Source: AGHT+IG1JSV4aGNvAct/tUZocWSedempVZ4kzonrQKqFj01UuIlfknN42Lm94EUeAmexpvhM1Oz5bw==
+X-Received: by 2002:a05:651c:4003:b0:2ff:6152:d773 with SMTP id
+ 38308e7fff4ca-2ff6152d8f4mr6807941fa.3.1731654473778; 
+ Thu, 14 Nov 2024 23:07:53 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2ff597a295fsm4440551fa.68.2024.11.14.23.07.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Nov 2024 23:07:52 -0800 (PST)
+Date: Fri, 15 Nov 2024 09:07:49 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 15 Nov 2024 00:24:34 +0200
-Message-ID: <CAA8EJprgshjbNqNErOb06jqV__LmbWvocsK5eD8PQqL+FaLb1g@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] dt-bindings: opp: Add v2-qcom-adreno vendor
- bindings
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Clark <robdclark@gmail.com>,
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>, 
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Viresh Kumar <vireshk@kernel.org>,
- Nishanth Menon <nm@ti.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ Simona Vetter <simona@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Connor Abbott <cwabbott0@gmail.com>,
+ linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH RFC 2/8] drm/msm: adreno: add GMU_BW_VOTE quirk
+Message-ID: <sgz4h6rlmekiwypaisjbnej326wv4vaqt3mgspp4fs4tg3mdfx@cwmdqcu6gwbf>
+References: <20241113-topic-sm8x50-gpu-bw-vote-v1-0-3b8d39737a9b@linaro.org>
+ <20241113-topic-sm8x50-gpu-bw-vote-v1-2-3b8d39737a9b@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241113-topic-sm8x50-gpu-bw-vote-v1-2-3b8d39737a9b@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,135 +97,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Akhil,
+On Wed, Nov 13, 2024 at 04:48:28PM +0100, Neil Armstrong wrote:
+> The Adreno GMU Management Unit (GNU) can also scale the DDR Bandwidth
+> along the Frequency and Power Domain level, but by default we leave the
+> OPP core vote for the interconnect ddr path.
+> 
+> While scaling via the interconnect path was sufficient, newer GPUs
+> like the A750 requires specific vote paremeters and bandwidth to
+> achieve full functionality.
+> 
+> Add a new Quirk enabling DDR Bandwidth vote via GMU.
 
-On Thu, 14 Nov 2024 at 20:50, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->
-> On 11/1/2024 9:54 PM, Akhil P Oommen wrote:
-> > On 10/25/2024 11:58 AM, Dmitry Baryshkov wrote:
-> >> On Thu, Oct 24, 2024 at 12:56:58AM +0530, Akhil P Oommen wrote:
-> >>> On 10/22/2024 11:19 AM, Krzysztof Kozlowski wrote:
-> >>>> On Mon, Oct 21, 2024 at 05:23:43PM +0530, Akhil P Oommen wrote:
-> >>>>> Add a new schema which extends opp-v2 to support a new vendor specific
-> >>>>> property required for Adreno GPUs found in Qualcomm's SoCs. The new
-> >>>>> property called "qcom,opp-acd-level" carries a u32 value recommended
-> >>>>> for each opp needs to be shared to GMU during runtime.
-> >>>>>
-> >>>>> Cc: Rob Clark <robdclark@gmail.com>
-> >>>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> >>>>> ---
-> >>>>>  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 96 ++++++++++++++++++++++
-> >>>>>  1 file changed, 96 insertions(+)
-> >>>>>
-> >>>>> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
-> >>>>> new file mode 100644
-> >>>>> index 000000000000..6d50c0405ef8
-> >>>>> --- /dev/null
-> >>>>> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
-> >>>>> @@ -0,0 +1,96 @@
-> >>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> >>>>> +%YAML 1.2
-> >>>>> +---
-> >>>>> +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-> >>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> >>>>> +
-> >>>>> +title: Qualcomm Adreno compatible OPP supply
-> >>>>> +
-> >>>>> +description:
-> >>>>> +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
-> >>>>> +  ACD related information tailored for the specific chipset. This binding
-> >>>>> +  provides the information needed to describe such a hardware value.
-> >>>>> +
-> >>>>> +maintainers:
-> >>>>> +  - Rob Clark <robdclark@gmail.com>
-> >>>>> +
-> >>>>> +allOf:
-> >>>>> +  - $ref: opp-v2-base.yaml#
-> >>>>> +
-> >>>>> +properties:
-> >>>>> +  compatible:
-> >>>>> +    items:
-> >>>>> +      - const: operating-points-v2-adreno
-> >>>>> +      - const: operating-points-v2
-> >>>>> +
-> >>>>> +patternProperties:
-> >>>>> +  '^opp-?[0-9]+$':
-> >>>>
-> >>>> '-' should not be optional. opp1 is not expected name.
-> >>>
-> >>> Agree. Will change this to '^opp-[0-9]+$'
-> >>>
-> >>>>
-> >>>>> +    type: object
-> >>>>> +    additionalProperties: false
-> >>>>> +
-> >>>>> +    properties:
-> >>>>> +      opp-hz: true
-> >>>>> +
-> >>>>> +      opp-level: true
-> >>>>> +
-> >>>>> +      opp-peak-kBps: true
-> >>>>> +
-> >>>>> +      opp-supported-hw: true
-> >>>>> +
-> >>>>> +      qcom,opp-acd-level:
-> >>>>> +        description: |
-> >>>>> +          A positive value representing the ACD (Adaptive Clock Distribution,
-> >>>>> +          a fancy name for clk throttling during voltage droop) level associated
-> >>>>> +          with this OPP node. This value is shared to a co-processor inside GPU
-> >>>>> +          (called Graphics Management Unit a.k.a GMU) during wake up. It may not
-> >>>>> +          be present for some OPPs and GMU will disable ACD while transitioning
-> >>>>> +          to that OPP. This value encodes a voltage threshold and few other knobs
-> >>>>> +          which are identified by characterization of the SoC. So, it doesn't have
-> >>>>> +          any unit.
-> >>>>
-> >>>> Thanks for explanation and other updates. I am still not happy with this
-> >>>> property. I do not see reason why DT should encode magic values in a
-> >>>> quite generic piece of code. This creates poor ABI, difficult to
-> >>>> maintain or understand.
-> >>>>
-> >>>
-> >>> Configuring GPU ACD block with its respective value is a requirement for each OPP.
-> >>> So OPP node seems like the natural place for this data.
-> >>>
-> >>> If it helps to resolve your concerns, I can elaborate the documentation with
-> >>> details on the GMU HFI interface where this value should be passed on to the
-> >>> hardware. Also replace "few other knobs" with "Delay cycles & Calibration margin"
-> >>> in the above doc.
-> >>
-> >> Usually the preference for DT is to specify data in a sensible way
-> >> rather than just the values being programmed to the register. Is it
-> >> possible to implement this approach for ACD values?
->
-> Krzysztof/Dmitry,
->
-> BIT(0)-BIT(15) are static configurations which doesn't change between
-> OPPs. We can move it to driver.
->
-> BIT(16)-BIT(31) indicates a threshold margin which triggers ACD. We can
-> keep this in the devicetree. And the driver can construct the final
-> value from both data and send it to GMU.
->
-> If this is acceptable, I will send the v3 revision.
+Please describe, why this is defined as a quirk rather than a proper
+platform-level property. From my experience with 6xx and 7xx, all the
+platforms need to send some kind of BW data to the GMU.
 
-Can the upper bitfield have a sensible representation in DT (like uV
-or something similar)?
-
->
-> -Akhil.
->
-> >
-> > I am still checking about this. Will get back.
-> >
-> > -Akhil
-> >
-> >>
-> >>>
-> >>>>
-> >>
-> >
->
-
+> 
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> index e71f420f8b3a8e6cfc52dd1c4d5a63ef3704a07f..20b6b7f49473d42751cd4fb4fc82849be42cb807 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -57,6 +57,7 @@ enum adreno_family {
+>  #define ADRENO_QUIRK_HAS_HW_APRIV		BIT(3)
+>  #define ADRENO_QUIRK_HAS_CACHED_COHERENT	BIT(4)
+>  #define ADRENO_QUIRK_PREEMPTION			BIT(5)
+> +#define ADRENO_QUIRK_GMU_BW_VOTE		BIT(6)
+>  
+>  /* Helper for formating the chip_id in the way that userspace tools like
+>   * crashdec expect.
+> 
+> -- 
+> 2.34.1
+> 
 
 -- 
 With best wishes
