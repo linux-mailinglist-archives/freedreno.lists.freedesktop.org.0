@@ -2,54 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB36A9D0998
-	for <lists+freedreno@lfdr.de>; Mon, 18 Nov 2024 07:26:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C7109D09EB
+	for <lists+freedreno@lfdr.de>; Mon, 18 Nov 2024 07:57:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A56510E1F9;
-	Mon, 18 Nov 2024 06:26:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B976810E1F9;
+	Mon, 18 Nov 2024 06:57:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ZW6uvM6u";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="AzLLkMc/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8372B10E24F;
- Mon, 18 Nov 2024 06:26:05 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AI5RlvS029968;
- Mon, 18 Nov 2024 06:25:56 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FBCE10E1F9;
+ Mon, 18 Nov 2024 06:57:38 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AI5RdZu001081;
+ Mon, 18 Nov 2024 06:57:30 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- mtN7HaNLk92Shd3TrhFCwIdNZ4NaCLNwJBs2aJnO8bA=; b=ZW6uvM6ufwj/v0np
- MkdZe3Eu1T0XuUt08LBTubz6LWnaVKRL0D2SjfecudOGQ2C2CPSBOYXJhKl2FLev
- MRrvfJ3oZ6sdHDU+DkGpLL+TTLdUCv9xRTOxHCKyx0vqlD0ZleaHCUqHk/uoT56Q
- ydAmEYK89Zfn3kDDwH2KLuIurqM852gPrF6O28SKKxGphV6A9WymkkXjQlKzeEHB
- 5FIKfjPLxJtfrlHlvODfAgrS25VI0axJ36wgNFhAZ3Auc+fGLnRD0/TUc9OHJLs9
- auhxcmOcM9+Ys88Crq19kQumFeFdhnViL1siyw9LqmX0zU9WxghcEzonr6FNgfWq
- pRLcPg==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ /Enk6OigKE9HeDXJAojnMi3vDdZMDLytoyuoacIrOFI=; b=AzLLkMc/M1NeqmJX
+ +2cC3KmRFuFRYzk0cQ9Ah8IOZNNufmh/X/Nx7ItkkPiQDP2Q6iOZkMrVCWdaBIgc
+ ywlVzBH6fvw4XNVjzdXwyU7CurYWB8qQezXuD+fGSTLjn2Lzrri4Smay9wMLYr4j
+ sgi7KEHYAS0zUff+53a2WKuzIpTkJ7oTDulXVnP6EwZAQSgHj9eDnusx26lh/hB+
+ VrBsct6efXjKkQ1q+9V5zVEkEaET2lWrYgsGF3+Jq6XGhEnZcE2R7Csc/W3lv7MZ
+ XVWaS8Oi5lKD/RXokEneN4tUoFlqOGBrhrQtvrXQuC1uSXxj1UFjbK3XlIKaa7XE
+ sc/dNg==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42xks6kkcy-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42ycuf9n84-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 18 Nov 2024 06:25:55 +0000 (GMT)
+ Mon, 18 Nov 2024 06:57:30 +0000 (GMT)
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
- by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AI6PsKY011914
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AI6vTCj021226
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 18 Nov 2024 06:25:54 GMT
+ Mon, 18 Nov 2024 06:57:29 GMT
 Received: from [10.64.16.151] (10.80.80.8) by nalasex01b.na.qualcomm.com
  (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 17 Nov
- 2024 22:25:47 -0800
-Message-ID: <1a0c1a49-d1fc-4b64-ae11-c4d343458133@quicinc.com>
-Date: Mon, 18 Nov 2024 14:25:44 +0800
+ 2024 22:57:22 -0800
+Message-ID: <0f5a1ce9-060b-44d3-b6f0-da88b26fc57d@quicinc.com>
+Date: Mon, 18 Nov 2024 14:57:19 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/9] drm/msm/dsi: Add support for QCS615
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 9/9] arm64: defconfig: Enable SX150X for QCS615 ride
+ board
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten
  <marijn.suijten@somainline.org>, Maarten Lankhorst
@@ -66,12 +66,11 @@ CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
 References: <20241113-add-display-support-for-qcs615-platform-v2-0-2873eb6fb869@quicinc.com>
- <20241113-add-display-support-for-qcs615-platform-v2-6-2873eb6fb869@quicinc.com>
- <404f006b-46e5-44db-9f22-ec2139468ecc@oss.qualcomm.com>
- <CAA8EJpqQSp5eXoKHHEchKpGq9ZpU0k0RDASA8T+t+SENNx+_fQ@mail.gmail.com>
+ <20241113-add-display-support-for-qcs615-platform-v2-9-2873eb6fb869@quicinc.com>
+ <CAA8EJpok20-7HXJJbcJi8YZYCU68g_DGThR_ckjBEz0e+gGBSA@mail.gmail.com>
 Content-Language: en-US
 From: fange zhang <quic_fangez@quicinc.com>
-In-Reply-To: <CAA8EJpqQSp5eXoKHHEchKpGq9ZpU0k0RDASA8T+t+SENNx+_fQ@mail.gmail.com>
+In-Reply-To: <CAA8EJpok20-7HXJJbcJi8YZYCU68g_DGThR_ckjBEz0e+gGBSA@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -80,17 +79,17 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: wWvdmn5f1Rc_thBbYjuCjU4IWId8jPsg
-X-Proofpoint-GUID: wWvdmn5f1Rc_thBbYjuCjU4IWId8jPsg
+X-Proofpoint-ORIG-GUID: VOJNeQms_kWtpsHJqazuKTbSkYBfIOw2
+X-Proofpoint-GUID: VOJNeQms_kWtpsHJqazuKTbSkYBfIOw2
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0
- priorityscore=1501 lowpriorityscore=0 phishscore=0 suspectscore=0
- mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0 clxscore=1015
- spamscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2411180052
+ malwarescore=0 clxscore=1015
+ mlxlogscore=999 phishscore=0 spamscore=0 impostorscore=0 adultscore=0
+ bulkscore=0 lowpriorityscore=0 priorityscore=1501 mlxscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2411180057
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,51 +107,46 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 2024/11/14 21:41, Dmitry Baryshkov wrote:
-> On Thu, 14 Nov 2024 at 15:32, Konrad Dybcio
-> <konrad.dybcio@oss.qualcomm.com> wrote:
+On 2024/11/13 20:21, Dmitry Baryshkov wrote:
+> On Wed, 13 Nov 2024 at 13:53, Fange Zhang <quic_fangez@quicinc.com> wrote:
 >>
->> On 13.11.2024 12:51 PM, Fange Zhang wrote:
->>> From: Li Liu <quic_lliu6@quicinc.com>
->>>
->>> Add support for DSI 2.3.1 (block used on QCS615).
->>> Add phy configuration for QCS615
->>>
->>> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
->>> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
->>> ---
->>>   drivers/gpu/drm/msm/dsi/dsi_cfg.c          | 17 +++++++++++++++++
->>>   drivers/gpu/drm/msm/dsi/dsi_cfg.h          |  1 +
->>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c      |  2 ++
->>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      |  1 +
->>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 21 +++++++++++++++++++++
->>>   5 files changed, 42 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
->>> index 10ba7d153d1cfc9015f527c911c4658558f6e29e..edbe50305d6e85fb615afa41f3b0db664d2f4413 100644
->>> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
->>> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
->>> @@ -221,6 +221,21 @@ static const struct msm_dsi_config sc7280_dsi_cfg = {
->>>        },
->>>   };
->>>
->>> +static const struct regulator_bulk_data qcs615_dsi_regulators[] = {
->>> +     { .supply = "vdda", .init_load_uA = 21800 },
->>> +};
+>> From: Li Liu <quic_lliu6@quicinc.com>
 >>
->> I believe refgen is also present here and you can reuse dsi_v2_4_regulators
+>> For the QCS615 ride board, enable the SX150X to activate the ANX7625
+>> allowing the DSI to output to the mDP through the external bridge.
+>> The ANX7625 relies on the SX150X chip to perform reset and HPD.
+>>
+>> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
+>> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
+>> ---
+>>   arch/arm64/configs/defconfig | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+>> index c0b8482ac6ad7498487718ba01d11b1c95e7543d..599a339a19435efbee7a5ef80c093b0e8c65f7ff 100644
+>> --- a/arch/arm64/configs/defconfig
+>> +++ b/arch/arm64/configs/defconfig
+>> @@ -631,6 +631,7 @@ CONFIG_PINCTRL_SM8350=y
+>>   CONFIG_PINCTRL_SM8450=y
+>>   CONFIG_PINCTRL_SM8550=y
+>>   CONFIG_PINCTRL_SM8650=y
+>> +CONFIG_PINCTRL_SX150X=y
 > 
-> This was in feedback for v1... And the patch should be further split,
-> having DSI and PHY parts separately.
+> Your commit message doesn't describe why it needs to be disabled as a
+> built-in. You are trying to enable it for all defconfig users.
+> Also the placement of the symbol is not correct. You've added it to
+> the section with msm pinctrl drivers, while the chip has nothing to do
+> with msm.
+ok, will remove it from the patch series
 
-ok will split the patch
-
-- DSI part
-drivers/gpu/drm/msm/dsi/dsi_cfg.c          | 17 +++++++++++++++++
-drivers/gpu/drm/msm/dsi/dsi_cfg.h          |  1 +
-- DSI phy part
-drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 21 +++++++++++++++++++++
-drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      |  1 +
-drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 21 +++++++++++++++++++++
+> 
+>>   CONFIG_PINCTRL_X1E80100=y
+>>   CONFIG_PINCTRL_QCOM_SPMI_PMIC=y
+>>   CONFIG_PINCTRL_LPASS_LPI=m
+>>
+>> --
+>> 2.34.1
+>>
+> 
 > 
 
