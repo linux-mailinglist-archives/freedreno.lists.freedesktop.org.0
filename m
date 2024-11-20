@@ -2,58 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 883029D35A1
-	for <lists+freedreno@lfdr.de>; Wed, 20 Nov 2024 09:39:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D22D9D38FB
+	for <lists+freedreno@lfdr.de>; Wed, 20 Nov 2024 12:02:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6726610E3BA;
-	Wed, 20 Nov 2024 08:39:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE56610E705;
+	Wed, 20 Nov 2024 11:02:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dXV7Z/pm";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DgAR179H";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1659910E3BA;
- Wed, 20 Nov 2024 08:39:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6385D5C4BAF;
- Wed, 20 Nov 2024 08:38:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11A8EC4CECD;
- Wed, 20 Nov 2024 08:39:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732091978;
- bh=uCabY3aXdU8knrzyUvKDoBC/ts+x8ZTTZaaPEX0zYC8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dXV7Z/pm3H/r3AO4Tq9FfR6TpXz+12dGVNcVBe4YnWLALAydN5KQPUMUuyqP+lzGc
- 6pS5yeOLEaQCj9p+3eAP2Up0tsIR/2X3YGP8WwavkFt/ebx2YOXWau1ZoMNTzhIL0J
- CSS/EhklqMdNOKXRwDg1CR+A8/3cumO0ZcW5fBY/G24NJgjXhbmXVSnrCvD/LQIf6f
- pDcGUqoBhfz9LqAWWJnalmmhYtPVxk/ZNYl7W1+c3Cmop1xfglJ4rRo9Wv+fNQYlV6
- uki1XOe5gh/lex7JBneDXof+3DxhhFljG2uhkIMBoMeaw88+NpD7XSILNWFkP9TYsK
- 1xlZ63Jhz8Izg==
-Received: from johan by xi.lan with local (Exim 4.97.1)
- (envelope-from <johan@kernel.org>) id 1tDgFD-000000007wu-3WTl;
- Wed, 20 Nov 2024 09:39:27 +0100
-Date: Wed, 20 Nov 2024 09:39:27 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31EB110E705
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Nov 2024 11:02:37 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-53da3545908so4877439e87.1
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Nov 2024 03:02:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1732100555; x=1732705355; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=a5zgbWAlYfYCr8Nk6Jg9k5X2+R3v6k9oDP6EluhSmbg=;
+ b=DgAR179HzXeU9ci3Ori1+pvJQ/xRLwOrcDhE2mL5XzYup+uhu1yThVaY5Sgzy6FSci
+ HpTte8TUwOPIh2+sXuDR7Qc8+YmitWOzM1Fz63bdsNvLD+bd4musEU3eysJIhINwlXPA
+ b+O6EKPLJrAMqqe3gfCgDsfMTJ4sOdKiywLVq279kakIhVk6C2PE1Wb/W8ulK907Nj/J
+ v+MaNlKhriRmefTFJSf5as92j6JmCTxjrm1Un2EnZAEULzZRvubM10x5ZD2fmnDrxvfN
+ kVCdtl6UguNKfO9hPMD86ANjcwmiTwVbX4snj0OD4HJGgrRTwQ2INmeANWi8pZfSnrml
+ b3mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732100555; x=1732705355;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=a5zgbWAlYfYCr8Nk6Jg9k5X2+R3v6k9oDP6EluhSmbg=;
+ b=KzSmFGDHjvGBsT+nB5MmexS6P3Tva3mfpFU0QDsyf1gz900IzgPxeDNRC/AN5gu4nr
+ bnKmEVcIns1vfG0qqTUTK3ikf96cBccb1b/m40LcizH8n5NlAtAchEKjf1UtnjR+enUs
+ z9DthnU6nZCcsI0jeye2wjCzXzxRCAdGFW3K17jlKqs+xxqkBVCmrZZk98Q1uHs03QmN
+ jYuAvqz0LpsfrQ+Dke1wAF9ZyeMmEaaoir1WIBktyYpJ/4EvB63wYcbUNMu1qfzhjjlH
+ qzWv+HIRkEMwq/ok19SY8Vp2AVDmc8mM4L5t3iBkq7ZfLRaUmErbtnqCEAsdavqo8dbz
+ dgyQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXtlpVwtXdQMz8wSJGzK2MTfPKypiEYIMVbctOsZ2YHsdHi9O6C+G4GbLsycBw6P3JfLM7qDcOltO4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxQ2miccx7pHga/ryb4ltlGbCII1Jnhu3Q+vW9HJSGp48fKNbfd
+ kvItHxJwKU6hQZ6mEcMRZFpC7A3TcxXTbGAJcLMyWqkcBW29dCww8gBqVwmj7z8=
+X-Google-Smtp-Source: AGHT+IHKWiTrRrCzYnYM6d7Ym7wDAknR4wn2POzDwbTPgBhBhzfbphYglKnHr9g6u4D92E9megUh/Q==
+X-Received: by 2002:a05:6512:3d19:b0:53d:a86a:6b2b with SMTP id
+ 2adb3069b0e04-53dc136a95emr1101614e87.35.1732100555170; 
+ Wed, 20 Nov 2024 03:02:35 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-53dbf09664esm394046e87.162.2024.11.20.03.02.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Nov 2024 03:02:34 -0800 (PST)
+Date: Wed, 20 Nov 2024 13:02:32 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Dheeraj Reddy Jonnalagadda <dheeraj.linuxdev@gmail.com>
+Cc: robdclark@gmail.com, quic_abhinavk@quicinc.com, 
+ linux-arm-msm@vger.kernel.org, sean@poorly.run, marijn.suijten@somainline.org, 
+ airlied@gmail.com, simona@ffwll.ch, quic_bjorande@quicinc.com, 
+ quic_parellan@quicinc.com, quic_khsieh@quicinc.com,
+ dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jeykumar Sankaran <jsanka@codeaurora.org>, stable@vger.kernel.org,
- Leonard Lausen <leonard@lausen.nl>
-Subject: Re: [PATCH v2 1/2] drm/msm/dpu1: don't choke on disabling the
- writeback connector
-Message-ID: <Zz2gP5jDr4Jq1OyP@hovoldconsulting.com>
-References: <20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org>
- <20240802-dpu-fix-wb-v2-1-7eac9eb8e895@linaro.org>
+ dianders@chromium.org
+Subject: Re: [PATCH drm-next] drm/msm/dp: Fix potential division by zero issue
+Message-ID: <piembwzz7x6plsps3umjg3b3pi2ii44svmeii3wwtydtriceny@uqq7ck2ge5zz>
+References: <20241120050451.100957-1-dheeraj.linuxdev@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240802-dpu-fix-wb-v2-1-7eac9eb8e895@linaro.org>
+In-Reply-To: <20241120050451.100957-1-dheeraj.linuxdev@gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,44 +88,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Aug 02, 2024 at 10:47:33PM +0300, Dmitry Baryshkov wrote:
-> During suspend/resume process all connectors are explicitly disabled and
-> then reenabled. However resume fails because of the connector_status check:
+On Wed, Nov 20, 2024 at 10:34:51AM +0530, Dheeraj Reddy Jonnalagadda wrote:
+> The variable pixel_div can remain zero due to an invalid rate input,
+
+No, it can not. Rate is set by the driver, which knowns which rates are
+supported. 
+
+> leading to a potential division by zero issue. This patch fixes it and
+> the function now logs an error and returns early.
+
+See Documentation/process/submitting-patches.rst, look for "This patch"
+string.
+
 > 
-> [ 1185.831970] [dpu error]connector not connected 3
+> Additionally, this patch resolves trailing whitespace issues detected
+> by checkpatch.pl in the same file.
 
-Please also include the follow-on resume error. I'm seeing:
+Additionally perform ... => separate commits.
 
-	[dpu error]connector not connected 3
-	[drm:drm_mode_config_helper_resume [drm_kms_helper]] *ERROR* Failed to resume (-22)
-
-and say something about that this can prevent displays from being
-enabled on resume in some setups (preferably with an explanation why if
-you have one).
-
-> It doesn't make sense to check for the Writeback connected status (and
-> other drivers don't perform such check), so drop the check.
 > 
-> Fixes: 71174f362d67 ("drm/msm/dpu: move writeback's atomic_check to dpu_writeback.c")
+> Signed-off-by: Dheeraj Reddy Jonnalagadda <dheeraj.linuxdev@gmail.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_catalog.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> index b4c8856fb25d..e170f70f1d42 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> @@ -225,7 +225,7 @@ int msm_dp_catalog_aux_clear_hw_interrupts(struct msm_dp_catalog *msm_dp_catalog
+>   * This function reset AUX controller
+>   *
+>   * NOTE: reset AUX controller will also clear any pending HPD related interrupts
+> - * 
+> + *
+>   */
+>  void msm_dp_catalog_aux_reset(struct msm_dp_catalog *msm_dp_catalog)
+>  {
+> @@ -487,8 +487,10 @@ void msm_dp_catalog_ctrl_config_msa(struct msm_dp_catalog *msm_dp_catalog,
+>  		pixel_div = 2;
+>  	else if (rate == link_rate_hbr2)
+>  		pixel_div = 4;
+> -	else
+> +	else {
+>  		DRM_ERROR("Invalid pixel mux divider\n");
+> +		return;
+> +	}
+>  
+>  	dispcc_input_rate = (rate * 10) / pixel_div;
+>  
+> @@ -579,7 +581,7 @@ u32 msm_dp_catalog_hw_revision(const struct msm_dp_catalog *msm_dp_catalog)
+>   * This function reset the DP controller
+>   *
+>   * NOTE: reset DP controller will also clear any pending HPD related interrupts
+> - * 
+> + *
+>   */
+>  void msm_dp_catalog_ctrl_reset(struct msm_dp_catalog *msm_dp_catalog)
+>  {
+> -- 
+> 2.34.1
+> 
 
-I noticed that the implementation had this status check also before
-71174f362d67 ("drm/msm/dpu: move writeback's atomic_check to
-dpu_writeback.c").
-
-Why did this not cause any trouble back then? Or is this not the right
-Fixes tag?
-
-> Cc: stable@vger.kernel.org
-> Reported-by: Leonard Lausen <leonard@lausen.nl>
-> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/57
-
-Perhaps you can include mine an György's reports here too.
-
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-With the above addressed:
-
-Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
-Tested-by: Johan Hovold <johan+linaro@kernel.org>
-
-Johan
+-- 
+With best wishes
+Dmitry
