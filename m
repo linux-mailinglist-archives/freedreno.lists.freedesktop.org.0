@@ -2,75 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F2D49D3C93
-	for <lists+freedreno@lfdr.de>; Wed, 20 Nov 2024 14:31:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DD3E9D356E
+	for <lists+freedreno@lfdr.de>; Wed, 20 Nov 2024 09:32:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1879810E2CC;
-	Wed, 20 Nov 2024 13:31:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54E5410E3B5;
+	Wed, 20 Nov 2024 08:32:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i74v8ZcP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Mg5ROsZ8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3370C10E0DF;
- Wed, 20 Nov 2024 05:04:57 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-7e9e38dd5f1so1388748a12.0; 
- Tue, 19 Nov 2024 21:04:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1732079096; x=1732683896; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=iDzqRQmbV2PA+ACm5mYhCZYmsznh/BcrPcsNX+5Rzd4=;
- b=i74v8ZcPRgd5npBxJhpRb30nxMtI/yanuMgIJ19wR7EiIylVRebZ1mHyvmu8dh4vi5
- 92BSCh1mBbjlDgsNaK3aDcVLzELGQO4eUDR42ZY7BlwIvo3jKdrtoRnMyjKko8m35PEi
- /ndfxXz9hYYZjN0db7cwGN8t0KfkJmtvxvY+Wg22u5zTvSEkVP4fWv3pMjT1dHvuEuhw
- lyEDZ9geiRQhVWiCU2X14vtGXkeXNhcP9N46n1oFz8huhIUBWLuxzKaZvpumUqcPj7/u
- 2KNzeagQlZG1vqLcbrphvBGq/9/o2BzRgLRp4gnzB4dIW5r8qPoLketjjGn3W93OCOs1
- HMvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732079096; x=1732683896;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=iDzqRQmbV2PA+ACm5mYhCZYmsznh/BcrPcsNX+5Rzd4=;
- b=QOyVYT6Wn5JswcwCTO8NPc/WLgr2HhxBqCFVhwjEkU320hqojaW/GuT1AWbzMoq9HM
- X5zJLRZuMSyql+EzBAr/Z67yzipxhshJGwg1ypwSoYs2UH1jhVRQGu3qcR+N8Zvgirn6
- Sg8iA+OVNm6doP4+9IFkG8GHLjscfu+5OZst1k2pEDXnRbsBJWJ9JP1GB1aFBPJCPFbd
- +/SUWMLMGobFMH3H2WDnkfNn2iagToh2NGzQ99GVT/ZmVGW2TCh5mOlnpLJ/8xRoYQj+
- rSeRDZ8kzXR3563yvLY/ZY9scIVpXCUV1ZXeBMW+MMslTUEq3FCKn/XVhw1wa0nVrWyo
- b3BQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUSREX8cusN4NVCtGxHRaxWksE1M7LnMUKsLHLgL2Z9S4TULHjb6ekiyGatb8fGQx+W2EJDCIWW82lv@lists.freedesktop.org,
- AJvYcCXyl4f+CplnuCwdiPicSexbEcGPaDBZ3XTOeTbMJZZ4X9A+Dv8LrvG6jWJHnzCI3JfIGcTwBg03w2w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyzZSzgnf0PdNe7oAFkwZ4bMNvrwt9ZcRhorxGjuq9fy9TCSmJV
- nNlkubazYANMUYd4PcmEP8KdgHtkUaIaQ3Uhq4up/p9nXdYStCDP
-X-Google-Smtp-Source: AGHT+IGXHKrgOAEXK8lTj10qUqfAMieZLXkbaFv8HzsFgHnzL3kEMyr/0wjhIgmVWuNZ4D1J6pHREg==
-X-Received: by 2002:a05:6a21:6d92:b0:1db:f642:8d8b with SMTP id
- adf61e73a8af0-1ddb09139d4mr2281960637.45.1732079096328; 
- Tue, 19 Nov 2024 21:04:56 -0800 (PST)
-Received: from HOME-PC ([223.185.132.211]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-724befa6f7fsm623414b3a.134.2024.11.19.21.04.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Nov 2024 21:04:56 -0800 (PST)
-From: Dheeraj Reddy Jonnalagadda <dheeraj.linuxdev@gmail.com>
-To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
- dmitry.baryshkov@linaro.org, linux-arm-msm@vger.kernel.org
-Cc: sean@poorly.run, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, quic_bjorande@quicinc.com, quic_parellan@quicinc.com,
- quic_khsieh@quicinc.com, dri-devel@lists.freedesktop.org,
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF99F10E3B3;
+ Wed, 20 Nov 2024 08:32:15 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 61E07A42C56;
+ Wed, 20 Nov 2024 08:30:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8073DC4CED0;
+ Wed, 20 Nov 2024 08:32:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1732091534;
+ bh=dXNHNSXuadyJpwK+4KKoncxf22sSJQuUbxURN0kr3Jk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Mg5ROsZ82qDNrjFvMfa3k85muGd/SAuUgfqiQuBBiq8aTAHKVrI5Mlw9WY1ZkiPi6
+ QX5QyPCChWgPrM2nhIX0unWkeQOgb4NdMKeSbd4LUfXcdTEAcCulJV4qIPGhNTWP7Z
+ jygIbqKXEoj5oTVVLgZ0Wz5IogX7kkYcNqaPYHtm5S4tv4LTle5qznElpqhWisPUi2
+ Le3LUUNUyWqlZ7MqVrAlfVmzqrklA2FOq/oYCtFX6i25jiOY0e/AIG2OjkSKqw962Q
+ qNY0SH11OhnqVJi4MKJmdIiPZHIgArpxtQ34LmmMjcKf3l2n0VkBhEpEh863rs04be
+ xj1hKcu4l9lOQ==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+ (envelope-from <johan@kernel.org>) id 1tDg84-000000007oI-0jgg;
+ Wed, 20 Nov 2024 09:32:04 +0100
+Date: Wed, 20 Nov 2024 09:32:04 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Leonard Lausen <leonard@lausen.nl>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ =?utf-8?Q?Gy=C3=B6rgy?= Kurucz <me@kuruczgy.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dianders@chromium.org,
- Dheeraj Reddy Jonnalagadda <dheeraj.linuxdev@gmail.com>
-Subject: [PATCH drm-next] drm/msm/dp: Fix potential division by zero issue
-Date: Wed, 20 Nov 2024 10:34:51 +0530
-Message-Id: <20241120050451.100957-1-dheeraj.linuxdev@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Jeykumar Sankaran <jsanka@codeaurora.org>, stable@vger.kernel.org,
+ Abel Vesa <abel.vesa@linaro.org>
+Subject: Re: [v2,1/2] drm/msm/dpu1: don't choke on disabling the writeback
+ connector
+Message-ID: <Zz2ehK4KoUbpdbBv@hovoldconsulting.com>
+References: <20240802-dpu-fix-wb-v2-1-7eac9eb8e895@linaro.org>
+ <b70a4d1d-f98f-4169-942c-cb9006a42b40@kuruczgy.com>
+ <ZzyYI8KkWK36FfXf@hovoldconsulting.com>
+ <2138d887-f1bf-424a-b3e5-e827a39cc855@lausen.nl>
+ <ZzyqhK-FUwoAcgx1@hovoldconsulting.com>
+ <4f145884-2c91-4e32-a7bc-b439746c6adb@lausen.nl>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 20 Nov 2024 13:31:56 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4f145884-2c91-4e32-a7bc-b439746c6adb@lausen.nl>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,52 +74,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The variable pixel_div can remain zero due to an invalid rate input,
-leading to a potential division by zero issue. This patch fixes it and
-the function now logs an error and returns early.
+On Tue, Nov 19, 2024 at 10:02:33PM -0500, Leonard Lausen wrote:
 
-Additionally, this patch resolves trailing whitespace issues detected
-by checkpatch.pl in the same file.
+> The finding is that while 6.10.14 with this patch applied still suffers from
+> that regression, 6.11.9 and 6.12 do not face the CRTC state regression.
+> Therefore, whatever issue the patch uncovered in older kernels and which
+> justified not merging it before due to regressing basic CTM functionality, is
+> now fixed. The patch should be good to merge and backport to 6.11, but from my
+> perspective should not be backported to older kernels unless the interaction
+> with the DRM CRTC state issue is understood and an associated fix backported as
+> well.
 
-Signed-off-by: Dheeraj Reddy Jonnalagadda <dheeraj.linuxdev@gmail.com>
----
- drivers/gpu/drm/msm/dp/dp_catalog.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+Thanks for testing. The 6.9 and 6.10 stable trees are EOL and backporting
+to 6.11 should not cause any trouble then.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-index b4c8856fb25d..e170f70f1d42 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-@@ -225,7 +225,7 @@ int msm_dp_catalog_aux_clear_hw_interrupts(struct msm_dp_catalog *msm_dp_catalog
-  * This function reset AUX controller
-  *
-  * NOTE: reset AUX controller will also clear any pending HPD related interrupts
-- * 
-+ *
-  */
- void msm_dp_catalog_aux_reset(struct msm_dp_catalog *msm_dp_catalog)
- {
-@@ -487,8 +487,10 @@ void msm_dp_catalog_ctrl_config_msa(struct msm_dp_catalog *msm_dp_catalog,
- 		pixel_div = 2;
- 	else if (rate == link_rate_hbr2)
- 		pixel_div = 4;
--	else
-+	else {
- 		DRM_ERROR("Invalid pixel mux divider\n");
-+		return;
-+	}
- 
- 	dispcc_input_rate = (rate * 10) / pixel_div;
- 
-@@ -579,7 +581,7 @@ u32 msm_dp_catalog_hw_revision(const struct msm_dp_catalog *msm_dp_catalog)
-  * This function reset the DP controller
-  *
-  * NOTE: reset DP controller will also clear any pending HPD related interrupts
-- * 
-+ *
-  */
- void msm_dp_catalog_ctrl_reset(struct msm_dp_catalog *msm_dp_catalog)
- {
--- 
-2.34.1
-
+Johan
