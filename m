@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C082D9D39C4
-	for <lists+freedreno@lfdr.de>; Wed, 20 Nov 2024 12:45:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 216479D39D4
+	for <lists+freedreno@lfdr.de>; Wed, 20 Nov 2024 12:47:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A2F010E720;
-	Wed, 20 Nov 2024 11:45:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5F6910E720;
+	Wed, 20 Nov 2024 11:47:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Ypj/b8kU";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="o3jlS4lH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ED9710E71F
- for <freedreno@lists.freedesktop.org>; Wed, 20 Nov 2024 11:45:56 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-539f53973fdso765160e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 20 Nov 2024 03:45:56 -0800 (PST)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95E3910E721
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Nov 2024 11:47:30 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-53d9ff8f1e4so5079545e87.2
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Nov 2024 03:47:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732103154; x=1732707954; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1732103249; x=1732708049; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=1/Zr+cOuoJa34h7or0PoA0CnB1TGkFgd4IlQqRmWY5w=;
- b=Ypj/b8kUsVUaTyeadZK85Ov3/8XYaqMOYXGBZqvSWS0QGtN5+O12mrrG8X5zjU2n97
- ONiswmOi7S6O+jGbdqbZnd1isGUPYBMh2tfi64wiAnuPZRpDLOedXLGQN/i0azxbcLni
- t2YaB2sgirg154P+yiVzvkT64pqqdSnE62PI4EFlowJMqpRSxlnZDswTwcv3fWM6RJUA
- i7t7Q/YnU66sGb5xyoBrhArS1M53keZvUsTpdvgEn9Bc8q2kpRR6EZ1d4ZcO3OcFrjiD
- +CHSwuEKOf4B+XVask6VHF/P2C00fPWrrwR9GFI1v5h5M0bRddEXMDKcBi/sRnrOFAI1
- M2NQ==
+ bh=dJFtAqhp3X0R4lOdvZ2r3USdMH+eAPxUwptYBdqe3Pw=;
+ b=o3jlS4lHDbV7o9OxSb4pGsSmJPwF94h6fZ7VuHI5fty0F8I0lLHSWbA0Ggt9Zk6X+8
+ 7aa1uB+HSZVf0UNHqhUStUAz+tMkFsFyYFrBLeCQYCfhxNahkinDj7z49zyz4KY+c5o5
+ bpeQMR57t5qappcoUCGlPHei2jBDO6xve8to4Fl+O5TxxL1ndKjhgoAWHHbL7DVfZE0P
+ mELsseF9PzK7qQ5P13O1mli6PQM96pK1jJPohs/fzg7Hb+z9wSj9E/502opLg0SUzZt7
+ unF7tVRf+C3fGoJotxyxE7W9qPiL/9lOZ3Tx/MPXWiG4DiQsyx2aMMoRBbshNk5SS8cu
+ ibcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732103154; x=1732707954;
+ d=1e100.net; s=20230601; t=1732103249; x=1732708049;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1/Zr+cOuoJa34h7or0PoA0CnB1TGkFgd4IlQqRmWY5w=;
- b=PUXPGhb9xZKbeuV/cpNBxPOSXbFpCbaOZvvUIOWg3NXJSw4vfQYnhqoutOtn8y57zH
- 9m9wnSIEOUGELscwr6/lLsrqQW2BwEnbaKj9uob2LZuKoujn+pHNL8P9cfQPsfPXXD+K
- 3OSNvm1cGb90UKkMwUTE5nWjCWWdJWpE+9o2QeM45HcOXr2AAob5cMG9ZeWNSbChxCSK
- t8eP6nfENnb6ctceMyMP8JL2QRQ4mSEoHlSf15EQrScrBny9bddO3RtraV5BsM0cOXY2
- 31QDorbneuSW8IrnfdFELGzJmfwzi1z9QFyjlQ4NwWPScCFUC9GPG6u7ZXRLcIcqyPUb
- j9Pg==
+ bh=dJFtAqhp3X0R4lOdvZ2r3USdMH+eAPxUwptYBdqe3Pw=;
+ b=RCoACmz9DeQqNwBNvPgsA5vokszrDXjHvNrSSPs7ixjuOIbiz6h4t2TbGLDWVCpuFG
+ zR2W2hfSRdMfh83DGFU7TSgkgg6vLjEwNf3JsOjUfeJXsrex/gnZpYWvM+ETSx6VqXv1
+ ZIblWWqUfG0ILuynKC0KdMSBYXe9a4oHoJXM9riEGRv4aTAXeLEcPc8d+bb5+R3iXD9E
+ 4pNJ2tvkIZSp7Fpt9yF/CUVYzo0L33NsdS+sHWdXh+h78TtdztcDwAiBxQSPejTKAgti
+ mv1mEvabjaRZvxKB3PNAz7ZP/bg8sHkHhLikLCwonqhHEqqbGC/bOj7fL+GBBkVSeI6i
+ hI1A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUZdBpLzYEGp8RWTPqzljMWYckV4KSuQQDMZlodLStOynX/hYViEoHsl6+1s26/apo/Mc2XzhszCyA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywe0kAZJNRNaKYP1goCjxut39GneDcjdGpJh1PvwoAYowjLJVXs
- 7Te76OTSk+h/nsnFyMrfwK55qjDpCdjinKaG/X8yHTnjrpLtlPeRryQxmWAdyuc=
-X-Google-Smtp-Source: AGHT+IH/4e+nGbdMaIeU1TUTsdcqmQ4z1YXjYyHyTiiprBXpu4guD3Gg+RbYTx+qPh8+mq5mPy62Ew==
-X-Received: by 2002:a05:6512:23a9:b0:53d:ace6:f64e with SMTP id
- 2adb3069b0e04-53dc0fa084emr1015414e87.16.1732103154348; 
- Wed, 20 Nov 2024 03:45:54 -0800 (PST)
+ AJvYcCVjDElq1cIM52FhQ1hlSvIDb82Co+3hs3YY6ehTkpEIUIorqSw0otFoR5M6cRapzgKoQjerd2SrJv8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzcLZT4pshAasIeVCUzMgggN9HwwTiqztkquxKuNlB73aceKeBm
+ EZQtf5lxoEUIOkEhYfQNNDEIdrhxYs9IXWyjSibxdkQn+ji/QOkmly+zv5ho0mM=
+X-Google-Smtp-Source: AGHT+IFgN81BwuakhVNlUrbTmfV59y85qdNvK5q+7qHNHoJCOed60HrFzITC+EJaIinpJ1WPb3899A==
+X-Received: by 2002:a05:6512:238b:b0:53d:a882:c2b1 with SMTP id
+ 2adb3069b0e04-53dc1343077mr1010869e87.26.1732103248736; 
+ Wed, 20 Nov 2024 03:47:28 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53dbd3fa030sm605142e87.59.2024.11.20.03.45.52
+ 2adb3069b0e04-53dbd3fccd3sm612181e87.105.2024.11.20.03.47.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Nov 2024 03:45:53 -0800 (PST)
-Date: Wed, 20 Nov 2024 13:45:50 +0200
+ Wed, 20 Nov 2024 03:47:27 -0800 (PST)
+Date: Wed, 20 Nov 2024 13:47:25 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>
 Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>, 
@@ -74,15 +74,15 @@ Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 09/11] drm/msm: adreno: enable GMU bandwidth for A740
- and A750
-Message-ID: <aw4t4hfxgk3wjlhcelv6hmv5mpqzwhvscumdvnuh6yo4uqu2tz@w5kzecb3gzza>
+Subject: Re: [PATCH v2 10/11] arm64: qcom: dts: sm8550: add interconnect and
+ opp-peak-kBps for GPU
+Message-ID: <ctx4ajfhrpu43scq7momrx6lhel6c5sk43yjtvowv25ur6swzh@igo7gofc4lpg>
 References: <20241119-topic-sm8x50-gpu-bw-vote-v2-0-4deb87be2498@linaro.org>
- <20241119-topic-sm8x50-gpu-bw-vote-v2-9-4deb87be2498@linaro.org>
+ <20241119-topic-sm8x50-gpu-bw-vote-v2-10-4deb87be2498@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241119-topic-sm8x50-gpu-bw-vote-v2-9-4deb87be2498@linaro.org>
+In-Reply-To: <20241119-topic-sm8x50-gpu-bw-vote-v2-10-4deb87be2498@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,19 +98,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Nov 19, 2024 at 06:56:44PM +0100, Neil Armstrong wrote:
-> Now all the DDR bandwidth voting via the GPU Management Unit (GMU)
-> is in place, declare the Bus Control Modules (BCMs) and the
-> corresponding parameters in the GPU info struct and add the
-> GMU_BW_VOTE feature bit to enable it.
+On Tue, Nov 19, 2024 at 06:56:45PM +0100, Neil Armstrong wrote:
+> Each GPU OPP requires a specific peak DDR bandwidth, let's add
+> those to each OPP and also the related interconnect path.
 > 
 > Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 26 ++++++++++++++++++++++++--
->  1 file changed, 24 insertions(+), 2 deletions(-)
+>  arch/arm64/boot/dts/qcom/sm8550.dtsi | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
 > 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> index 9dc0ee3eb98f8711e01934e47331b99e3bb73682..808dce3a624197d38222f53fffa280e63088c1c1 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> @@ -2113,6 +2113,9 @@ gpu: gpu@3d00000 {
+>  			qcom,gmu = <&gmu>;
+>  			#cooling-cells = <2>;
+>  
+> +			interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+QCOM_ICC_TAG_ALWAYS
+
+> +			interconnect-names = "gfx-mem";
+> +
+>  			status = "disabled";
+>  
+>  			zap-shader {
+> @@ -2126,41 +2129,49 @@ gpu_opp_table: opp-table {
+>  				opp-680000000 {
+>  					opp-hz = /bits/ 64 <680000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+> +					opp-peak-kBps = <16500000>;
+>  				};
+>  
+>  				opp-615000000 {
+>  					opp-hz = /bits/ 64 <615000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
+> +					opp-peak-kBps = <16500000>;
+>  				};
+>  
+>  				opp-550000000 {
+>  					opp-hz = /bits/ 64 <550000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+> +					opp-peak-kBps = <12449218>;
+>  				};
+>  
+>  				opp-475000000 {
+>  					opp-hz = /bits/ 64 <475000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
+> +					opp-peak-kBps = <8171875>;
+>  				};
+>  
+>  				opp-401000000 {
+>  					opp-hz = /bits/ 64 <401000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+> +					opp-peak-kBps = <6671875>;
+>  				};
+>  
+>  				opp-348000000 {
+>  					opp-hz = /bits/ 64 <348000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
+> +					opp-peak-kBps = <6074218>;
+>  				};
+>  
+>  				opp-295000000 {
+>  					opp-hz = /bits/ 64 <295000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
+> +					opp-peak-kBps = <6074218>;
+>  				};
+>  
+>  				opp-220000000 {
+>  					opp-hz = /bits/ 64 <220000000>;
+>  					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
+> +					opp-peak-kBps = <6074218>;
+>  				};
+>  			};
+>  		};
+> 
+> -- 
+> 2.34.1
+> 
 
 -- 
 With best wishes
