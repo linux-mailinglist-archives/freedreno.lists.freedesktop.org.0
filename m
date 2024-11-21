@@ -2,64 +2,114 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A98289D4388
-	for <lists+freedreno@lfdr.de>; Wed, 20 Nov 2024 22:35:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7D719D4D9E
+	for <lists+freedreno@lfdr.de>; Thu, 21 Nov 2024 14:21:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B40310E3DF;
-	Wed, 20 Nov 2024 21:35:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58FDA10E93B;
+	Thu, 21 Nov 2024 13:21:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AtSw+IkE";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="WTfy/D8l";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="sHoe/EPT";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="WTfy/D8l";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="sHoe/EPT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E54B710E3DF;
- Wed, 20 Nov 2024 21:35:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 04296A432BE;
- Wed, 20 Nov 2024 21:33:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B797C4CED2;
- Wed, 20 Nov 2024 21:35:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732138529;
- bh=221kYit23f9QJxeOwC9neMdzrf/0CgYCMcgmEKVkURI=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=AtSw+IkENfdI0iMOfNeq7N4J+o6eLyrxtLEhUpNLjN764qstmpkWErj6nM+WDxFvC
- KS7baZBiPlfQLyoTVQ/ZbCUOmn1KwYvwDisz4fYt+46LgWWwFgmx87JbRw81D8U5VW
- /5aAVRIkoBGzlVt7DEabGrd7tK2chDyXUo80bw8xJNFQGGdwwYIDozvkEdrWk6O2KO
- 0QX/rMGIZG8oH7EK2KxZJ8jACWLVQAzonzZUsCGBSf5Y/fg/NkAxhEHeHWB2dQYD1u
- IyN5E9jT3qy/B84GjPNFhwk0Nth3O31+HsseGvRqzl+zYnc3Nnsv2Pvc/Iyxu/OsXc
- M4Zk+a4/J6gug==
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-53b34ed38easo213138e87.0; 
- Wed, 20 Nov 2024 13:35:29 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCUSp/1EQ7PyFbrQid/qo+tPD4YMMJTyH3KPn4QHSMp5BcleIfCt6ydM4wl5XzgFvEbxs3PkZFiLHyU=@lists.freedesktop.org,
- AJvYcCW/Kwr8whVEV8n3+OlyTorNGVRuCYljpTbqHvJHLGCj/199uvHRXRqXe3Jle0g1n9bgsCD9hvXVoeEe@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwfOsCsHnoarXf0+7B2RdqfWQ/L7fSf3JEZPxpYBDCoH9p65FOY
- x8ctmia3eoSISZRSKt8Oli2qGO+ZGBf4StARLmMWjgEeeX8LubleYXAB1bd0grSQf9IJmtdHTy5
- XtaVIJ9+dvPMy24V9Nf9zhTDES9M=
-X-Google-Smtp-Source: AGHT+IFtmpACgo2WdBjeF3KSeMaOZg3iR6IINYTuzz6B/NBI3VQXA/HLNEHHfQg9tbjwQt/LklOU87alu/iYAe/eofU=
-X-Received: by 2002:a05:6512:3d8f:b0:53d:ab15:1aee with SMTP id
- 2adb3069b0e04-53dc136dc37mr2166462e87.49.1732138527773; Wed, 20 Nov 2024
- 13:35:27 -0800 (PST)
-MIME-Version: 1.0
-References: <20241120204125.52644-1-pvorel@suse.cz>
-In-Reply-To: <20241120204125.52644-1-pvorel@suse.cz>
-From: Masahiro Yamada <masahiroy@kernel.org>
-Date: Thu, 21 Nov 2024 06:34:51 +0900
-X-Gmail-Original-Message-ID: <CAK7LNASYr+pjUs-W40d_Gc+vP67nX7NHXyE0AnOpXxXgxrCtqQ@mail.gmail.com>
-Message-ID: <CAK7LNASYr+pjUs-W40d_Gc+vP67nX7NHXyE0AnOpXxXgxrCtqQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] init/Kconfig: add python3 availability config
-To: Petr Vorel <pvorel@suse.cz>
-Cc: linux-arm-msm@vger.kernel.org, 
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D906710E3E8;
+ Thu, 21 Nov 2024 01:17:24 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 33ACB218E8;
+ Thu, 21 Nov 2024 01:17:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1732151843;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qLQJlwjvQ2Dbsxi9xrvB3E+w9FqEmidg2MsLHAlaruU=;
+ b=WTfy/D8lXXnS1RCYj/kN8ybXIRGdK9y77RgIIzyC2F+xZxevqn2DN5XCMEVnC/Do6cMl0H
+ M2AJae9CvW7tMxtUVDf0Ipiqi8tjNeii2nWDh9zG2MCCsJ8B8NebR1eH2oOVVAu9q8jRFX
+ 271J45VO7uiuqFTr+2DFW7/HtOhaQy4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1732151843;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qLQJlwjvQ2Dbsxi9xrvB3E+w9FqEmidg2MsLHAlaruU=;
+ b=sHoe/EPT2FszmRf+WJP9eUtps0tEwuPNJ1TVh409aaJnFORCnA18Tw2+KbajPc5Kla0CRO
+ QcJELP0LMHFpTNDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1732151843;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qLQJlwjvQ2Dbsxi9xrvB3E+w9FqEmidg2MsLHAlaruU=;
+ b=WTfy/D8lXXnS1RCYj/kN8ybXIRGdK9y77RgIIzyC2F+xZxevqn2DN5XCMEVnC/Do6cMl0H
+ M2AJae9CvW7tMxtUVDf0Ipiqi8tjNeii2nWDh9zG2MCCsJ8B8NebR1eH2oOVVAu9q8jRFX
+ 271J45VO7uiuqFTr+2DFW7/HtOhaQy4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1732151843;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=qLQJlwjvQ2Dbsxi9xrvB3E+w9FqEmidg2MsLHAlaruU=;
+ b=sHoe/EPT2FszmRf+WJP9eUtps0tEwuPNJ1TVh409aaJnFORCnA18Tw2+KbajPc5Kla0CRO
+ QcJELP0LMHFpTNDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 93B9A1376E;
+ Thu, 21 Nov 2024 01:17:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id cNZzHyKKPme0XgAAD6G6ig
+ (envelope-from <pvorel@suse.cz>); Thu, 21 Nov 2024 01:17:22 +0000
+Date: Thu, 21 Nov 2024 02:17:20 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Masahiro Yamada <masahiroy@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andrew Morton <akpm@linux-foundation.org>, 
- linux-kbuild@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Andrew Morton <akpm@linux-foundation.org>,
+ linux-kbuild@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 1/2] init/Kconfig: add python3 availability config
+Message-ID: <20241121011720.GA69389@pevik>
+References: <20241120204125.52644-1-pvorel@suse.cz>
+ <CAK7LNASYr+pjUs-W40d_Gc+vP67nX7NHXyE0AnOpXxXgxrCtqQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAK7LNASYr+pjUs-W40d_Gc+vP67nX7NHXyE0AnOpXxXgxrCtqQ@mail.gmail.com>
+X-Spam-Score: -3.50
+X-Spamd-Result: default: False [-3.50 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ HAS_REPLYTO(0.30)[pvorel@suse.cz];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MISSING_XM_UA(0.00)[]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_SEVEN(0.00)[9];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[vger.kernel.org,linaro.org,linux-foundation.org,lists.freedesktop.org,gmail.com];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:replyto,suse.cz:email];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ REPLYTO_EQ_FROM(0.00)[]
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Mailman-Approved-At: Thu, 21 Nov 2024 13:21:21 +0000
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,46 +122,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Nov 21, 2024 at 5:41=E2=80=AFAM Petr Vorel <pvorel@suse.cz> wrote:
->
-> It will be used in the next commit for DRM_MSM.
->
-> Suggested-by: Rob Clark <robdclark@gmail.com>
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
-> Changes v3->v4:
-> * Move definition to the end of the file
+> On Thu, Nov 21, 2024 at 5:41 AM Petr Vorel <pvorel@suse.cz> wrote:
+
+> > It will be used in the next commit for DRM_MSM.
+
+> > Suggested-by: Rob Clark <robdclark@gmail.com>
+> > Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> > ---
+> > Changes v3->v4:
+> > * Move definition to the end of the file
 
 
-I prefer to not check the tool.
+> I prefer to not check the tool.
 
-Why don't you install python3?
+Ack.
 
+> Why don't you install python3?
 
+Everybody installs it when it's required, the question is how to inform about
+the dependency.
 
+There build environments are minimal environments:
+* chroot (e.g. cross compilation)
+* container
 
->  init/Kconfig | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/init/Kconfig b/init/Kconfig
-> index fbd0cb06a50a..c77e45484e81 100644
-> --- a/init/Kconfig
-> +++ b/init/Kconfig
-> @@ -2047,3 +2047,6 @@ config ARCH_HAS_SYNC_CORE_BEFORE_USERMODE
->  # <asm/syscall_wrapper.h>.
->  config ARCH_HAS_SYSCALL_WRAPPER
->         def_bool n
-> +
-> +config HAVE_PYTHON3
-> +       def_bool $(success,$(PYTHON3) -V)
-> --
-> 2.45.2
->
+These are used by both developers and distros.
 
+Kind regards,
+Petr
 
---=20
-Best Regards
-Masahiro Yamada
+> >  init/Kconfig | 3 +++
+> >  1 file changed, 3 insertions(+)
+
+> > diff --git a/init/Kconfig b/init/Kconfig
+> > index fbd0cb06a50a..c77e45484e81 100644
+> > --- a/init/Kconfig
+> > +++ b/init/Kconfig
+> > @@ -2047,3 +2047,6 @@ config ARCH_HAS_SYNC_CORE_BEFORE_USERMODE
+> >  # <asm/syscall_wrapper.h>.
+> >  config ARCH_HAS_SYSCALL_WRAPPER
+> >         def_bool n
+> > +
+> > +config HAVE_PYTHON3
+> > +       def_bool $(success,$(PYTHON3) -V)
+> > --
+> > 2.45.2
