@@ -2,80 +2,95 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C94B9D50ED
-	for <lists+freedreno@lfdr.de>; Thu, 21 Nov 2024 17:49:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51CA89D52AE
+	for <lists+freedreno@lfdr.de>; Thu, 21 Nov 2024 19:44:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8F7810E9E0;
-	Thu, 21 Nov 2024 16:49:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F58B10EA1C;
+	Thu, 21 Nov 2024 18:44:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TqTOfM9B";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ig6nyI6g";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF5D510E9D6;
- Thu, 21 Nov 2024 16:49:02 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-7f8b37edeb7so1036888a12.0; 
- Thu, 21 Nov 2024 08:49:02 -0800 (PST)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1232F10EA22
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Nov 2024 18:44:25 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-53d9ff8ef3aso1457066e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Nov 2024 10:44:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1732207742; x=1732812542; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=9Lg9gnCSYuEdgwerPVcEffpySWQtRml8e0nEZZPcun0=;
- b=TqTOfM9BBSjjITgUo+Acl/DQBzNlrWoP+PumK1uDWpJ77R7nXf9ENr57hGXWMnQ4vk
- kTSLJVXM0k4vDbMijxsPJ2r7APtxLei+tFQbE4VxuN5vHYdd1QAc86ufx4tQskIOmalp
- zmQidD2nxE1YhcCOP5BCDN1IQmNFU0HTINeanuyYSgKufjbkjQmomQrP4Jx+1L7B9W66
- kdPDWozXuQd2pIZgMSGH02fbHlZuYhn7ANbJECOK30Qwia5fa2RcuhisWdU77ntTVLaH
- H/k5+7suq6CmutPV9TNao1FD7dHPhJQGs+dr5WeXUtlSmp7IN8Jl4lQSA+e3x3oiHItw
- SoHw==
+ d=linaro.org; s=google; t=1732214663; x=1732819463; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=TZyh5R6Jjbt7oN7KVsZQw9ZFXBRvyZ4Sk/f6o54iZsw=;
+ b=ig6nyI6gtHUCxE+brUtfZLb0sPdoAHOL2fv1G4okKEI/1F3M0gmpqkrEn/6+kXlQvX
+ wGa6CQ4AoW5mdz3a1h/aAZpeOjPecIh6cQtnXA7kAqdsAk9F2/AKChD7vyEdvJAnnOmZ
+ WMm/UeH61wugPfDuZiHPnZjRYngwC9Mv/eJzlafGeOdHwKX9N0qlXpRrCUnROt+REYKN
+ 0hci1ZREy/1zpOia6k52xd9TtiYM0Fd1+u+yqbcRON4cDzFKSEzg8BMjEpcy9HPRr0YE
+ WRA84CUdxzNVP/v9L1ZQilKADGpM566AmBsCKOTEbTNjgbON7qhIjsUeV35Hf06tKOpL
+ VGog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732207742; x=1732812542;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=9Lg9gnCSYuEdgwerPVcEffpySWQtRml8e0nEZZPcun0=;
- b=im+EGdFIrEPKna41DBds6px826T99BZvraxRdORELl75Va+9UsehEvcoVKFPZicbMt
- bvBPuP4b8PYYJfeWe/OSX88fky5ne2VQG/BN7EwEIK5CNXM/XhCruVfYvTnIcS9ZBhjS
- 7h2MUrZSEI1a2NqxNc8OIZwNC2tvAH6laNvaOFkTm8Xx5BspP0xPB9BHW434MMnNrwDp
- GlyVh+sNQ93L3M06pjf6iUS8RyVuhLpAocZZP20TvVfXm+581fCIerreH8nDkiCVFqRN
- iIsDmZmAocttoMnyefAbDrJzLBqy0YU2o9TK0IwA7+5XbkJpF8EFnGGyOY0H7WntTltk
- RZWg==
+ d=1e100.net; s=20230601; t=1732214663; x=1732819463;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=TZyh5R6Jjbt7oN7KVsZQw9ZFXBRvyZ4Sk/f6o54iZsw=;
+ b=cW+8aO21bvtKU8ODxyIOT3gpaZrgzzaknLh1dpsjSopeLjTOaxtivpGEz+ndRnWqgP
+ C3MVzhEG6oKhWE22NdaRKxpubGEhDBl77uDoewDuN0sXxH2UXIYIqAJGmg2D21aXBfpk
+ qd3GFsPnRupOZkYz3VSUlxmpfCBKGUe1r9OtoxpYGdr6aBe8V7N4t/mMLrr03QhDZnZP
+ EWuvzGmqQmm6RFfoS8rn+saD+6tpdUk1Molo8EDqUbC3Y7hibJLJF6qZarZRtuOBT1PJ
+ zyauqTtm7PQWypo1LsA924fX+VX286tmJkZONpR0BowTOJEbEKuxSH0GvjIV+k7ELmjt
+ aFDQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV/Yo8KOtcAs3C2R42KAtWPQS1OOFRZq8emKYa1Q8l/JKUIDrbGHWKu+uCfoVkvf2j61wIQKx+h4/Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyxXWGaPZ//k3PfoFLVuqCqqRQfUUgf/rNRe0J0w7TeFoAGYFlN
- p0KSuC1+KTTKZhSVPL0IXVJ45n1fhhhOriDWE0JOBc3NFjm9qvghgDcIlg==
-X-Gm-Gg: ASbGncvTlUCF1f1+mZmFsaPXVhbv0N2IfxBdOYtQKB6uyiJhvm/3PPA9j5wkh5JX/Uw
- 2+hQbgdHfGGV7L6Wqsh60AWyCYqmYqba5+ZC7y4gNf/IJw4JJfp0BhMkNwSZJG1fCpECYv5Mr9f
- 8fOBgxE22TAK0Q5u/+WYSgLUdqmMOKXjDHFFBcbYB4JMm6X9Xdo3+P+uFSbbWLIcrYfZ1G2si7Z
- LU6ll8AoYCsYtZ9S8qQJpMPZPYjSR9YRTM/viKWOmENwp7jny59he6AccsXDSTJxrk8Avz6FL+H
- wGUbkbgbmJjydpWLLAPY25u3
-X-Google-Smtp-Source: AGHT+IEr8sMxxk2mSNugSYMB9QoJQO+o/emSoVpQewhlZkrxaDkG526RYEHoImks0bxGaguzSrv+LQ==
-X-Received: by 2002:a05:6a21:118a:b0:1db:dcc6:dd39 with SMTP id
- adf61e73a8af0-1ddaebd9b17mr9911924637.26.1732207741827; 
- Thu, 21 Nov 2024 08:49:01 -0800 (PST)
-Received: from localhost ([2a00:79e1:2e00:1301:12e9:d196:a1e9:ab67])
+ AJvYcCX1WXQSqpkC9Fs9g34S4Uj4Qo4Zf0i0vHrfv1niEXveoPjRnx7ZMBWzf+/x2TTHXz8ZDeJyodvKEl8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyGl58NOFFHVpAbghWLz8sk2Y16q/8mmj4IwKhSqXbBSfcqxYcq
+ SZWBuTx4d6N+4oLJCbi8Frfa3TZXcr/4Wor/gKNLlU87Ll0CDxdkOhNRrtjMxYI=
+X-Gm-Gg: ASbGnctNd4fkukMGQZq+RLLtB+l+uZcKvL8hCKcKJwv+NKe3kCWYuZUoz3H0PLbfaE4
+ MvS5QDjgRdQ9UiR9dxYmOb13l4zOcAOY91/sxkfxUKml5suJ//bycy9aQJeEs0fWGwYPBdgNU9i
+ rD7/7OdEjbVoQwT0ZVGbum2W+fHE42Lm+4oN8lCsK3qrly9avZxG/3iauQnkTSD1c/dQD+Ssbe5
+ RS/uBZz5E3E2kwdmAUwW5KXvS9CP8iMXQgPJ+Mv/nnoOBW33XJn2ITuvwUZml8/80slaWpf86bP
+ 2WoXHnr9TGhkf2SPeHXxMBmKKPoJxQ==
+X-Google-Smtp-Source: AGHT+IG7nxOfbTTnTu4v1sr9zkOK5csQupd0P6YOCsdv1of5Sqk8kO39dWTULCj7D8rgDzFjdACzwA==
+X-Received: by 2002:ac2:430a:0:b0:539:adb0:b91 with SMTP id
+ 2adb3069b0e04-53dc138a1ffmr3344284e87.57.1732214663097; 
+ Thu, 21 Nov 2024 10:44:23 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-724befe718csm3854365b3a.176.2024.11.21.08.49.00
+ 2adb3069b0e04-53dd2496a37sm43307e87.234.2024.11.21.10.44.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Nov 2024 08:49:01 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Thu, 21 Nov 2024 10:44:21 -0800 (PST)
+Date: Thu, 21 Nov 2024 20:44:19 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Viresh Kumar <vireshk@kernel.org>,
+ Nishanth Menon <nm@ti.com>, 
+ Stephen Boyd <sboyd@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm: UAPI error reporting
-Date: Thu, 21 Nov 2024 08:48:58 -0800
-Message-ID: <20241121164858.457921-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.47.0
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Connor Abbott <cwabbott0@gmail.com>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 03/11] drm/msm: adreno: move features bits in a
+ separate variable
+Message-ID: <dtt6d427u5yep3i3b3zxxef7uh572aeu3vtatmjvpbqfpjbvjc@epkkr7oumncn>
+References: <20241119-topic-sm8x50-gpu-bw-vote-v2-0-4deb87be2498@linaro.org>
+ <20241119-topic-sm8x50-gpu-bw-vote-v2-3-4deb87be2498@linaro.org>
+ <fkezpguictntg2wkouwqipnaaiauo6vu46n7a2xzvlorzvyeaw@bbcpj3bs5eko>
+ <CAF6AEGs6zT_kaTXNohUaA7KWZxZTr4byaoMoLAceuyqA7S+2CQ@mail.gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAF6AEGs6zT_kaTXNohUaA7KWZxZTr4byaoMoLAceuyqA7S+2CQ@mail.gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,338 +106,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Wed, Nov 20, 2024 at 10:54:24AM -0800, Rob Clark wrote:
+> On Wed, Nov 20, 2024 at 3:18 AM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+> >
+> > On Tue, Nov 19, 2024 at 06:56:38PM +0100, Neil Armstrong wrote:
+> > > Now the features defines have the right name, introduce a features
+> > > bitfield and move the features defines in it, fixing all code checking
+> > > for them.
+> > >
+> > > No functional changes intended.
+> >
+> > I think it might be better to squahs this patch into the previous one,
+> > it would simplify checking that we use .quirks for ADRENO_QUIRK_foo and
+> > .features for ADRENO_FEAT_bar.
+> >
+> 
+> IMHO better to keep this separated
 
-Debugging incorrect UAPI usage tends to be a bit painful, so add a
-helper macro to make it easier to add debug logging which can be enabled
-at runtime via drm.debug.
+If they are separated, it is easy to overlook presense of a statement
+checking .quirks against ADRENO_FEAT_bar.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++----
- drivers/gpu/drm/msm/msm_drv.c           |  2 +-
- drivers/gpu/drm/msm/msm_drv.h           |  7 +++
- drivers/gpu/drm/msm/msm_gem_submit.c    | 64 +++++++++++--------------
- 4 files changed, 46 insertions(+), 48 deletions(-)
+> 
+> But we don't have _that_ many features/quirks so I don't find
+> combining them all that problematic
+> 
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index b96ce6fed649..ad7df8736eec 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -310,10 +310,11 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
- 		     uint32_t param, uint64_t *value, uint32_t *len)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct drm_device *drm = gpu->dev;
- 
- 	/* No pointer params yet */
- 	if (*len != 0)
--		return -EINVAL;
-+		return UERR(EINVAL, drm, "invalid len");
- 
- 	switch (param) {
- 	case MSM_PARAM_GPU_ID:
-@@ -365,12 +366,12 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
- 		return 0;
- 	case MSM_PARAM_VA_START:
- 		if (ctx->aspace == gpu->aspace)
--			return -EINVAL;
-+			return UERR(EINVAL, drm, "requires per-process pgtables");
- 		*value = ctx->aspace->va_start;
- 		return 0;
- 	case MSM_PARAM_VA_SIZE:
- 		if (ctx->aspace == gpu->aspace)
--			return -EINVAL;
-+			return UERR(EINVAL, drm, "requires per-process pgtables");
- 		*value = ctx->aspace->va_size;
- 		return 0;
- 	case MSM_PARAM_HIGHEST_BANK_BIT:
-@@ -386,14 +387,15 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
- 		*value = adreno_gpu->ubwc_config.macrotile_mode;
- 		return 0;
- 	default:
--		DBG("%s: invalid param: %u", gpu->name, param);
--		return -EINVAL;
-+		return UERR(EINVAL, drm, "%s: invalid param: %u", gpu->name, param);
- 	}
- }
- 
- int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
- 		     uint32_t param, uint64_t value, uint32_t len)
- {
-+	struct drm_device *drm = gpu->dev;
-+
- 	switch (param) {
- 	case MSM_PARAM_COMM:
- 	case MSM_PARAM_CMDLINE:
-@@ -401,11 +403,11 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
- 		 * that should be a reasonable upper bound
- 		 */
- 		if (len > PAGE_SIZE)
--			return -EINVAL;
-+			return UERR(EINVAL, drm, "invalid len");
- 		break;
- 	default:
- 		if (len != 0)
--			return -EINVAL;
-+			return UERR(EINVAL, drm, "invalid len");
- 	}
- 
- 	switch (param) {
-@@ -434,11 +436,10 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
- 	}
- 	case MSM_PARAM_SYSPROF:
- 		if (!capable(CAP_SYS_ADMIN))
--			return -EPERM;
-+			return UERR(EPERM, drm, "invalid permissions");
- 		return msm_file_private_set_sysprof(ctx, gpu, value);
- 	default:
--		DBG("%s: invalid param: %u", gpu->name, param);
--		return -EINVAL;
-+		return UERR(EINVAL, drm, "%s: invalid param: %u", gpu->name, param);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 8c13b08708d2..6416d2cb4efc 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -537,7 +537,7 @@ static int msm_ioctl_gem_info_set_iova(struct drm_device *dev,
- 
- 	/* Only supported if per-process address space is supported: */
- 	if (priv->gpu->aspace == ctx->aspace)
--		return -EOPNOTSUPP;
-+		return UERR(EOPNOTSUPP, dev, "requires per-process pgtables");
- 
- 	if (should_fail(&fail_gem_iova, obj->size))
- 		return -ENOMEM;
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 2e28a1344636..7fe0c67a602c 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -28,6 +28,7 @@
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/display/drm_dsc.h>
- #include <drm/msm_drm.h>
-@@ -519,6 +520,12 @@ void msm_hrtimer_work_init(struct msm_hrtimer_work *work,
- 			   clockid_t clock_id,
- 			   enum hrtimer_mode mode);
- 
-+/* Helper for returning a UABI error with optional logging which can make
-+ * it easier for userspace to understand what it is doing wrong.
-+ */
-+#define UERR(err, drm, fmt, ...) \
-+	({ DRM_DEV_DEBUG_DRIVER((drm)->dev, fmt, ##__VA_ARGS__); -(err); })
-+
- #define DBG(fmt, ...) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
- #define VERB(fmt, ...) if (0) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
- 
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index fba78193127d..550f9b808f27 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -20,8 +20,8 @@
- /* For userspace errors, use DRM_UT_DRIVER.. so that userspace can enable
-  * error msgs for debugging, but we don't spam dmesg by default
-  */
--#define SUBMIT_ERROR(submit, fmt, ...) \
--	DRM_DEV_DEBUG_DRIVER((submit)->dev->dev, fmt, ##__VA_ARGS__)
-+#define SUBMIT_ERROR(err, submit, fmt, ...) \
-+	UERR(err, (submit)->dev, fmt, ##__VA_ARGS__)
- 
- /*
-  * Cmdstream submission:
-@@ -142,8 +142,7 @@ static int submit_lookup_objects(struct msm_gem_submit *submit,
- 
- 		if ((submit_bo.flags & ~MSM_SUBMIT_BO_FLAGS) ||
- 			!(submit_bo.flags & MANDATORY_FLAGS)) {
--			SUBMIT_ERROR(submit, "invalid flags: %x\n", submit_bo.flags);
--			ret = -EINVAL;
-+			ret = SUBMIT_ERROR(EINVAL, submit, "invalid flags: %x\n", submit_bo.flags);
- 			i = 0;
- 			goto out;
- 		}
-@@ -162,8 +161,7 @@ static int submit_lookup_objects(struct msm_gem_submit *submit,
- 		 */
- 		obj = idr_find(&file->object_idr, submit->bos[i].handle);
- 		if (!obj) {
--			SUBMIT_ERROR(submit, "invalid handle %u at index %u\n", submit->bos[i].handle, i);
--			ret = -EINVAL;
-+			ret = SUBMIT_ERROR(EINVAL, submit, "invalid handle %u at index %u\n", submit->bos[i].handle, i);
- 			goto out_unlock;
- 		}
- 
-@@ -206,14 +204,12 @@ static int submit_lookup_cmds(struct msm_gem_submit *submit,
- 		case MSM_SUBMIT_CMD_CTX_RESTORE_BUF:
- 			break;
- 		default:
--			SUBMIT_ERROR(submit, "invalid type: %08x\n", submit_cmd.type);
--			return -EINVAL;
-+			return SUBMIT_ERROR(EINVAL, submit, "invalid type: %08x\n", submit_cmd.type);
- 		}
- 
- 		if (submit_cmd.size % 4) {
--			SUBMIT_ERROR(submit, "non-aligned cmdstream buffer size: %u\n",
--				     submit_cmd.size);
--			ret = -EINVAL;
-+			ret = SUBMIT_ERROR(EINVAL, submit, "non-aligned cmdstream buffer size: %u\n",
-+					   submit_cmd.size);
- 			goto out;
- 		}
- 
-@@ -371,9 +367,8 @@ static int submit_bo(struct msm_gem_submit *submit, uint32_t idx,
- 		struct drm_gem_object **obj, uint64_t *iova)
- {
- 	if (idx >= submit->nr_bos) {
--		SUBMIT_ERROR(submit, "invalid buffer index: %u (out of %u)\n",
--			     idx, submit->nr_bos);
--		return -EINVAL;
-+		return SUBMIT_ERROR(EINVAL, submit, "invalid buffer index: %u (out of %u)\n",
-+				    idx, submit->nr_bos);
- 	}
- 
- 	if (obj)
-@@ -392,10 +387,8 @@ static int submit_reloc(struct msm_gem_submit *submit, struct drm_gem_object *ob
- 	uint32_t *ptr;
- 	int ret = 0;
- 
--	if (offset % 4) {
--		SUBMIT_ERROR(submit, "non-aligned cmdstream buffer: %u\n", offset);
--		return -EINVAL;
--	}
-+	if (offset % 4)
-+		return SUBMIT_ERROR(EINVAL, submit, "non-aligned cmdstream buffer: %u\n", offset);
- 
- 	/* For now, just map the entire thing.  Eventually we probably
- 	 * to do it page-by-page, w/ kmap() if not vmap()d..
-@@ -414,9 +407,8 @@ static int submit_reloc(struct msm_gem_submit *submit, struct drm_gem_object *ob
- 		uint64_t iova;
- 
- 		if (submit_reloc.submit_offset % 4) {
--			SUBMIT_ERROR(submit, "non-aligned reloc offset: %u\n",
--				     submit_reloc.submit_offset);
--			ret = -EINVAL;
-+			ret = SUBMIT_ERROR(EINVAL, submit, "non-aligned reloc offset: %u\n",
-+					   submit_reloc.submit_offset);
- 			goto out;
- 		}
- 
-@@ -425,8 +417,7 @@ static int submit_reloc(struct msm_gem_submit *submit, struct drm_gem_object *ob
- 
- 		if ((off >= (obj->size / 4)) ||
- 				(off < last_offset)) {
--			SUBMIT_ERROR(submit, "invalid offset %u at reloc %u\n", off, i);
--			ret = -EINVAL;
-+			ret = SUBMIT_ERROR(EINVAL, submit, "invalid offset %u at reloc %u\n", off, i);
- 			goto out;
- 		}
- 
-@@ -513,12 +504,12 @@ static struct drm_syncobj **msm_parse_deps(struct msm_gem_submit *submit,
- 
- 		if (syncobj_desc.point &&
- 		    !drm_core_check_feature(submit->dev, DRIVER_SYNCOBJ_TIMELINE)) {
--			ret = -EOPNOTSUPP;
-+			ret = SUBMIT_ERROR(EOPNOTSUPP, submit, "syncobj timeline unsupported");
- 			break;
- 		}
- 
- 		if (syncobj_desc.flags & ~MSM_SUBMIT_SYNCOBJ_FLAGS) {
--			ret = -EINVAL;
-+			ret = -SUBMIT_ERROR(EINVAL, submit, "invalid syncobj flags");
- 			break;
- 		}
- 
-@@ -531,7 +522,7 @@ static struct drm_syncobj **msm_parse_deps(struct msm_gem_submit *submit,
- 			syncobjs[i] =
- 				drm_syncobj_find(file, syncobj_desc.handle);
- 			if (!syncobjs[i]) {
--				ret = -EINVAL;
-+				ret = SUBMIT_ERROR(EINVAL, submit, "invalid syncobj handle");
- 				break;
- 			}
- 		}
-@@ -588,14 +579,14 @@ static struct msm_submit_post_dep *msm_parse_post_deps(struct drm_device *dev,
- 		post_deps[i].point = syncobj_desc.point;
- 
- 		if (syncobj_desc.flags) {
--			ret = -EINVAL;
-+			ret = UERR(EINVAL, dev, "invalid syncobj flags");
- 			break;
- 		}
- 
- 		if (syncobj_desc.point) {
- 			if (!drm_core_check_feature(dev,
- 			                            DRIVER_SYNCOBJ_TIMELINE)) {
--				ret = -EOPNOTSUPP;
-+				ret = UERR(EOPNOTSUPP, dev, "syncobj timeline unsupported");
- 				break;
- 			}
- 
-@@ -609,7 +600,7 @@ static struct msm_submit_post_dep *msm_parse_post_deps(struct drm_device *dev,
- 		post_deps[i].syncobj =
- 			drm_syncobj_find(file, syncobj_desc.handle);
- 		if (!post_deps[i].syncobj) {
--			ret = -EINVAL;
-+			ret = UERR(EINVAL, dev, "invalid syncobj handle");
- 			break;
- 		}
- 	}
-@@ -677,10 +668,10 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 	 * be more clever to dispatch to appropriate gpu module:
- 	 */
- 	if (MSM_PIPE_ID(args->flags) != MSM_PIPE_3D0)
--		return -EINVAL;
-+		return SUBMIT_ERROR(EINVAL, submit, "invalid pipe");
- 
- 	if (MSM_PIPE_FLAGS(args->flags) & ~MSM_SUBMIT_FLAGS)
--		return -EINVAL;
-+		return SUBMIT_ERROR(EINVAL, submit, "invalid flags");
- 
- 	if (args->flags & MSM_SUBMIT_SUDO) {
- 		if (!IS_ENABLED(CONFIG_DRM_MSM_GPU_SUDO) ||
-@@ -724,7 +715,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 		in_fence = sync_file_get_fence(args->fence_fd);
- 
- 		if (!in_fence) {
--			ret = -EINVAL;
-+			ret = SUBMIT_ERROR(EINVAL, submit, "invalid in-fence");
- 			goto out_unlock;
- 		}
- 
-@@ -789,8 +780,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 		if (!submit->cmd[i].size ||
- 			((submit->cmd[i].size + submit->cmd[i].offset) >
- 				obj->size / 4)) {
--			SUBMIT_ERROR(submit, "invalid cmdstream size: %u\n", submit->cmd[i].size * 4);
--			ret = -EINVAL;
-+			ret = SUBMIT_ERROR(EINVAL, submit, "invalid cmdstream size: %u\n",
-+					   submit->cmd[i].size * 4);
- 			goto out;
- 		}
- 
-@@ -800,8 +791,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 			continue;
- 
- 		if (!gpu->allow_relocs) {
--			SUBMIT_ERROR(submit, "relocs not allowed\n");
--			ret = -EINVAL;
-+			ret = SUBMIT_ERROR(EINVAL, submit, "relocs not allowed\n");
- 			goto out;
- 		}
- 
-@@ -827,7 +817,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 			(!args->fence || idr_find(&queue->fence_idr, args->fence))) {
- 		spin_unlock(&queue->idr_lock);
- 		idr_preload_end();
--		ret = -EINVAL;
-+		ret = SUBMIT_ERROR(EINVAL, submit, "invalid in-fence-sn");
- 		goto out;
- 	}
- 
 -- 
-2.47.0
-
+With best wishes
+Dmitry
