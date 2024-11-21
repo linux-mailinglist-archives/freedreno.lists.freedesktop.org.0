@@ -2,85 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 638B89D539C
-	for <lists+freedreno@lfdr.de>; Thu, 21 Nov 2024 20:53:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92E339D554B
+	for <lists+freedreno@lfdr.de>; Thu, 21 Nov 2024 23:17:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1640810EA54;
-	Thu, 21 Nov 2024 19:53:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 613F610E2EF;
+	Thu, 21 Nov 2024 22:17:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ekYF7WHx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oGFOQGfg";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
- [209.85.166.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8782610E351;
- Thu, 21 Nov 2024 19:53:16 +0000 (UTC)
-Received: by mail-io1-f46.google.com with SMTP id
- ca18e2360f4ac-83ab21c269eso48765439f.2; 
- Thu, 21 Nov 2024 11:53:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1732218796; x=1732823596; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=diAZCrMsMB3HqFx9gMbdYj2qxdjUwPEtwF8yqOBUtUA=;
- b=ekYF7WHxJLFxmXSmy+A/83oBHRRJQ9+U2KHbbXoXifvDSrApYsYARembUH/BSshTl0
- wVpwwDG80QJL66vRtF8wQNrB3lt+m0+xm6Z95grwmZFIjcSlWqYPxC5AhYWOeIK40BdA
- 6GM/Dxf62Vjsjm7IeKa3Dky0CDjnvQAp0Yc41Xi1okjXxa9pffRc8FG5XeoOPQSp2pBP
- 12BLXotQVqKsDwOQb5QMVWYhmUOAtILBIdTv+BDnkIioon+I/pYH5waLj1r1Fv8BNctl
- obnjmrPzyziWoUD/v4OtqTfmJlkYEAydVsbM65rmjPbXGe7XPjNmzeazxr2+AyapYQBT
- qngw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732218796; x=1732823596;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=diAZCrMsMB3HqFx9gMbdYj2qxdjUwPEtwF8yqOBUtUA=;
- b=fd/qrBa63CY87IC9WDWyWr00UFbbC2SnPTJGnV/ov3FbvmNUy7z8c1i2BITwkcgj9v
- jLBC+OTPwopvt4HhNKEWfINmARiYB0aqTSj0lcFNCavW8kzmUQNEZGXv6L9ddf1xvbe/
- IymbewMgJEcSoQSPICGibTTKJNynYmWHBIPPYReu4AhRnKINf+Imlofq3AV97B97wveD
- 6Gf2eD/vEua7jH24H7934EfuDLo0QMEaJ0rKRHzEsaO7DbzkHhp3jWPmldkUn5ge3rhs
- Y3ULMeJ6mXvSCYT3vYcXoNKBCZyPuWhnu6J5ImKSX1pb459GO9uc7OBIFa+s4CKVa/DD
- F3Mw==
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BECEA10E2EF;
+ Thu, 21 Nov 2024 22:17:28 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id EC2EB5C5549;
+ Thu, 21 Nov 2024 22:16:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CEE8C4CED2;
+ Thu, 21 Nov 2024 22:17:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1732227447;
+ bh=MLlq8+M+tw64hFOX9c9IBrDEY8JRJbyJBDIrXXaqd+k=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=oGFOQGfggCJy5L2K6kG9BCE2IChc89FYc/HSCB1upfT0yICiKWAW+pm4UZ+LJox6+
+ vVZTsriZv4j1zYIBm0Or/lC1CZV+BI3ZWTAUDdzL0rqgrxyzwSHvPZEE/+LYYx48Bo
+ ee6kjUyic+rqdCeAQbrwV0+dtmpORSs87xA0dgXbHgwgZAu9hNL/wXghccHbG8IjtN
+ eHJ3e5SzGgjUK5MQkUSLotDpg1VH+CjeR8DGCD5l1iPuDY2aWlEn37V7b2VwOtmKqN
+ g+yWDlskxerZYOg2dCSITNsVja2OhqLhY7hkX0Yf4KuQop4pTS2y9rFKwGX4nRvaA7
+ aP47c1kzR5gFQ==
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-53d9ff92edaso1586264e87.1; 
+ Thu, 21 Nov 2024 14:17:27 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCVyXjtIWgQ80qOnH8Osioce/PMyF6HAS4WZ3DHkpMcuW763/8TDLQT/4vx+V1wj3psReFqCsWvO1g4=@lists.freedesktop.org,
- AJvYcCXth5dl3PH0Uv1lfZpBryDZZYe4T8Qs5p7aZH5dA7mDsDGEPjDAzHo8CLL+z6bEZh9vBCZ6tw3lYiWS@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFDflQjGzQhuZFLt4+llK6FIaWrlc9ScCM5njyjn4MJudSbsWQ
- OfUIkKjRpwJM176HUrsoNzxGGnwkVmm5H+KWn9pi19pk1hb2/aeePig2wLwjrilSUw47xWlkSqj
- o5lD30qbxBeKDYTzbQteIYm33lWY=
-X-Gm-Gg: ASbGncuqL97jqW7rYXQkRWamQWpkvhaNlkFZPGPTxC/40gsdG+EScCwe6b7KvCIhPnG
- azaLGzt/8VUZZKpSfqPrxodz3Gh9eBpoev59DRNcOgxQCVCjICR5Leny7U275sQ==
-X-Google-Smtp-Source: AGHT+IGVvKdxeJ2KfZ5TpOhV5e8CaKf2OdRVRdRq27Mf98UYeu0Bs53rOSroYiruS8NzSiyjkP/fPk3EC6WgTw+tzqg=
-X-Received: by 2002:a05:6602:3f83:b0:83d:ff89:218c with SMTP id
- ca18e2360f4ac-83ecdc8f12dmr23501839f.7.1732218795759; Thu, 21 Nov 2024
- 11:53:15 -0800 (PST)
+ AJvYcCX/U2f8kpgv6aJJmJuZVXJVbW6wLcfqe1elSroww4h3lz+5zqBRiHyWsUH+iZEME7HMd70bhzLO4lk=@lists.freedesktop.org,
+ AJvYcCXHmrIvroWq8UriMs156XaWSQeZa73t73bWqp3uiK48/FgbyX9EccyVsMrwKpaZ6Yp3bKYh2tjSt/fX@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxGPVfWUGpfA5Y+kmiP7VNa3XtyFXetM8OVM85LabiGsUqUILEo
+ +x7sUvzin8nVv61drVau/gYbTEVtawWVAOc+6PzTWKbnirY4KIxXiecHR2HxgM8jBSUSLP41o0M
+ QzLfXQmXFmAYJyvyhvmBAwZwDGeM=
+X-Google-Smtp-Source: AGHT+IEDF/pd/Sz3sl47bUiAWd6bAMOR+fWYehca9LHB3zJLcbn10+vWnVIxV5UhcwMI+r07eJGD8MGL4Aptk38j+GA=
+X-Received: by 2002:a05:6512:31ce:b0:53d:d125:c26b with SMTP id
+ 2adb3069b0e04-53dd35a55edmr201881e87.9.1732227446129; Thu, 21 Nov 2024
+ 14:17:26 -0800 (PST)
 MIME-Version: 1.0
-References: <20241119-topic-sm8x50-gpu-bw-vote-v2-0-4deb87be2498@linaro.org>
- <20241119-topic-sm8x50-gpu-bw-vote-v2-4-4deb87be2498@linaro.org>
- <CAF6AEGtBVDERQjcoXriKK3d2VZy2QMUxZZJbFdSgbpvue=0QNA@mail.gmail.com>
-In-Reply-To: <CAF6AEGtBVDERQjcoXriKK3d2VZy2QMUxZZJbFdSgbpvue=0QNA@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 21 Nov 2024 11:53:03 -0800
-Message-ID: <CAF6AEGtrs8175V1+onoH4p6u4benT_tzz-Gg3JkNA+WE9Ltcsw@mail.gmail.com>
-Subject: Re: [PATCH v2 04/11] drm/msm: adreno: add GMU_BW_VOTE feature flag
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Viresh Kumar <vireshk@kernel.org>, 
- Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Connor Abbott <cwabbott0@gmail.com>, linux-pm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org
+References: <20241120204125.52644-1-pvorel@suse.cz>
+ <CAK7LNASYr+pjUs-W40d_Gc+vP67nX7NHXyE0AnOpXxXgxrCtqQ@mail.gmail.com>
+ <20241121011720.GA69389@pevik>
+In-Reply-To: <20241121011720.GA69389@pevik>
+From: Masahiro Yamada <masahiroy@kernel.org>
+Date: Fri, 22 Nov 2024 07:16:49 +0900
+X-Gmail-Original-Message-ID: <CAK7LNARc4Cp1a8G9p0KiCGyu0WL3BNEd0BY0COMPL4U8bLr8gA@mail.gmail.com>
+Message-ID: <CAK7LNARc4Cp1a8G9p0KiCGyu0WL3BNEd0BY0COMPL4U8bLr8gA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] init/Kconfig: add python3 availability config
+To: Petr Vorel <pvorel@suse.cz>
+Cc: linux-arm-msm@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ linux-kbuild@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -98,55 +77,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Nov 21, 2024 at 11:50=E2=80=AFAM Rob Clark <robdclark@gmail.com> wr=
-ote:
+On Thu, Nov 21, 2024 at 10:17=E2=80=AFAM Petr Vorel <pvorel@suse.cz> wrote:
 >
-> On Tue, Nov 19, 2024 at 9:56=E2=80=AFAM Neil Armstrong
-> <neil.armstrong@linaro.org> wrote:
-> >
-> > The Adreno GMU Management Unit (GNU) can also scale the DDR Bandwidth
+> > On Thu, Nov 21, 2024 at 5:41=E2=80=AFAM Petr Vorel <pvorel@suse.cz> wro=
+te:
 >
-> nit, s/GNU/GMU/
-
-And I guess you meant "GPU Management Unit" (presumably this isn't yet
-another recursive acronym
-
-Same comment in the next commit
-
+> > > It will be used in the next commit for DRM_MSM.
 >
-> > along the Frequency and Power Domain level, but by default we leave the
-> > OPP core vote for the interconnect ddr path.
-> >
-> > While scaling via the interconnect path was sufficient, newer GPUs
-> > like the A750 requires specific vote paremeters and bandwidth to
-> > achieve full functionality.
-> >
-> > While the feature will require some data in a6xx_info, it's safer
-> > to only enable tested platforms with this flag first.
-> >
-> > Add a new feature enabling DDR Bandwidth vote via GMU.
-> >
-> > Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> > ---
-> >  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/=
-msm/adreno/adreno_gpu.h
-> > index 4702d4cfca3b58fb3cbb25cb6805f1c19be2ebcb..394b96eb6c83354ae008b15=
-b562bedb96cd391dd 100644
-> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> > @@ -58,6 +58,7 @@ enum adreno_family {
-> >  #define ADRENO_FEAT_HAS_HW_APRIV               BIT(0)
-> >  #define ADRENO_FEAT_HAS_CACHED_COHERENT                BIT(1)
-> >  #define ADRENO_FEAT_PREEMPTION                 BIT(2)
-> > +#define ADRENO_FEAT_GMU_BW_VOTE                        BIT(3)
-> >
-> >  /* Helper for formating the chip_id in the way that userspace tools li=
-ke
-> >   * crashdec expect.
-> >
-> > --
-> > 2.34.1
-> >
+> > > Suggested-by: Rob Clark <robdclark@gmail.com>
+> > > Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> > > ---
+> > > Changes v3->v4:
+> > > * Move definition to the end of the file
+>
+>
+> > I prefer to not check the tool.
+>
+> Ack.
+>
+> > Why don't you install python3?
+>
+> Everybody installs it when it's required, the question is how to inform a=
+bout
+> the dependency.
+>
+> There build environments are minimal environments:
+> * chroot (e.g. cross compilation)
+> * container
+>
+> These are used by both developers and distros.
+
+
+Documentation/process/changes.rst
+documents basic tools necessary for building the kernel.
+
+Python3 is listed as "optional" because it is required
+only for some CONFIG options.
+
+If the exact dependency is unclear, it is better to install
+all tools listed in that table.
+
+
+
+
+> Kind regards,
+> Petr
+>
+> > >  init/Kconfig | 3 +++
+> > >  1 file changed, 3 insertions(+)
+>
+> > > diff --git a/init/Kconfig b/init/Kconfig
+> > > index fbd0cb06a50a..c77e45484e81 100644
+> > > --- a/init/Kconfig
+> > > +++ b/init/Kconfig
+> > > @@ -2047,3 +2047,6 @@ config ARCH_HAS_SYNC_CORE_BEFORE_USERMODE
+> > >  # <asm/syscall_wrapper.h>.
+> > >  config ARCH_HAS_SYSCALL_WRAPPER
+> > >         def_bool n
+> > > +
+> > > +config HAVE_PYTHON3
+> > > +       def_bool $(success,$(PYTHON3) -V)
+> > > --
+> > > 2.45.2
+
+
+
+--=20
+Best Regards
+Masahiro Yamada
