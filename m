@@ -2,95 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51CA89D52AE
-	for <lists+freedreno@lfdr.de>; Thu, 21 Nov 2024 19:44:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D4869D52B4
+	for <lists+freedreno@lfdr.de>; Thu, 21 Nov 2024 19:44:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F58B10EA1C;
-	Thu, 21 Nov 2024 18:44:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 555F110EA1C;
+	Thu, 21 Nov 2024 18:44:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ig6nyI6g";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FrdOXStx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1232F10EA22
- for <freedreno@lists.freedesktop.org>; Thu, 21 Nov 2024 18:44:25 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-53d9ff8ef3aso1457066e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 21 Nov 2024 10:44:24 -0800 (PST)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B7B210EA23
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Nov 2024 18:44:47 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2fc96f9c41fso13796311fa.0
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Nov 2024 10:44:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732214663; x=1732819463; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=TZyh5R6Jjbt7oN7KVsZQw9ZFXBRvyZ4Sk/f6o54iZsw=;
- b=ig6nyI6gtHUCxE+brUtfZLb0sPdoAHOL2fv1G4okKEI/1F3M0gmpqkrEn/6+kXlQvX
- wGa6CQ4AoW5mdz3a1h/aAZpeOjPecIh6cQtnXA7kAqdsAk9F2/AKChD7vyEdvJAnnOmZ
- WMm/UeH61wugPfDuZiHPnZjRYngwC9Mv/eJzlafGeOdHwKX9N0qlXpRrCUnROt+REYKN
- 0hci1ZREy/1zpOia6k52xd9TtiYM0Fd1+u+yqbcRON4cDzFKSEzg8BMjEpcy9HPRr0YE
- WRA84CUdxzNVP/v9L1ZQilKADGpM566AmBsCKOTEbTNjgbON7qhIjsUeV35Hf06tKOpL
- VGog==
+ d=linaro.org; s=google; t=1732214685; x=1732819485; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Lf6pEyNqxMlUop78/qMKAZ8N3+EDKOTAPwM9hjCyqUs=;
+ b=FrdOXStxveM7MkKfv/OrKpHCvMhlbhjQkHsyib9K8z8kTAMeYKMwV1bhh5wvhpU2X2
+ Z64lhY1M0lqoa+Fp6k6jYw3QGQf+wNnEyHEqekSDD3wfS7RW8kbvj48B/zJnJoR4wG3X
+ ysiq6BolUtrGOD1xBYQWs6HDIRzg6ODRxGlSuBRUP4FYXsohGZvoDBnuGiqJAx05H6kI
+ L5SUAaVTnerfn5gvXg0IIksURyURIqS2HbEX24rDpn0PzmZobrHTuitHMHN4LK6baHYh
+ 2YCReavU+IbjVzM5BnuxOjIYCGuB3xdZFHlMyif7oY0aTed74Kt5lIKMcuV1meEDFvFh
+ /ePQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732214663; x=1732819463;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TZyh5R6Jjbt7oN7KVsZQw9ZFXBRvyZ4Sk/f6o54iZsw=;
- b=cW+8aO21bvtKU8ODxyIOT3gpaZrgzzaknLh1dpsjSopeLjTOaxtivpGEz+ndRnWqgP
- C3MVzhEG6oKhWE22NdaRKxpubGEhDBl77uDoewDuN0sXxH2UXIYIqAJGmg2D21aXBfpk
- qd3GFsPnRupOZkYz3VSUlxmpfCBKGUe1r9OtoxpYGdr6aBe8V7N4t/mMLrr03QhDZnZP
- EWuvzGmqQmm6RFfoS8rn+saD+6tpdUk1Molo8EDqUbC3Y7hibJLJF6qZarZRtuOBT1PJ
- zyauqTtm7PQWypo1LsA924fX+VX286tmJkZONpR0BowTOJEbEKuxSH0GvjIV+k7ELmjt
- aFDQ==
+ d=1e100.net; s=20230601; t=1732214685; x=1732819485;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Lf6pEyNqxMlUop78/qMKAZ8N3+EDKOTAPwM9hjCyqUs=;
+ b=a0L0AaDLf4cGntF7vXHVgQYIITmqlt07bTDX2qy1ES/B7gSPzcZawKIPsB26ds1nX4
+ PDRw9IranDyYOwQj7LtqtxdVXfS27QLxpjXcO+9QFKa4AcwO8LcYkTaObQlyOtK/GvSo
+ j6bKtk42R/MCSLdbW/xcwh9ay59cQeAmk15ZFGkPk3CpwnrBqotqEZARlf5yTFxFypa7
+ coarRG0FQRl5o7RNO0wwgs0yYTZPnOVHNFeIoX47t1cS4ffiUBqor/vmdvM2xAl9w1TS
+ yLNf0k6wAV1TnWGlDeBmM9M0eyC0B7joChuk1G2fqjixtBRmthO7pwAFFk17FwDP3zYK
+ t8hA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX1WXQSqpkC9Fs9g34S4Uj4Qo4Zf0i0vHrfv1niEXveoPjRnx7ZMBWzf+/x2TTHXz8ZDeJyodvKEl8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyGl58NOFFHVpAbghWLz8sk2Y16q/8mmj4IwKhSqXbBSfcqxYcq
- SZWBuTx4d6N+4oLJCbi8Frfa3TZXcr/4Wor/gKNLlU87Ll0CDxdkOhNRrtjMxYI=
-X-Gm-Gg: ASbGnctNd4fkukMGQZq+RLLtB+l+uZcKvL8hCKcKJwv+NKe3kCWYuZUoz3H0PLbfaE4
- MvS5QDjgRdQ9UiR9dxYmOb13l4zOcAOY91/sxkfxUKml5suJ//bycy9aQJeEs0fWGwYPBdgNU9i
- rD7/7OdEjbVoQwT0ZVGbum2W+fHE42Lm+4oN8lCsK3qrly9avZxG/3iauQnkTSD1c/dQD+Ssbe5
- RS/uBZz5E3E2kwdmAUwW5KXvS9CP8iMXQgPJ+Mv/nnoOBW33XJn2ITuvwUZml8/80slaWpf86bP
- 2WoXHnr9TGhkf2SPeHXxMBmKKPoJxQ==
-X-Google-Smtp-Source: AGHT+IG7nxOfbTTnTu4v1sr9zkOK5csQupd0P6YOCsdv1of5Sqk8kO39dWTULCj7D8rgDzFjdACzwA==
-X-Received: by 2002:ac2:430a:0:b0:539:adb0:b91 with SMTP id
- 2adb3069b0e04-53dc138a1ffmr3344284e87.57.1732214663097; 
- Thu, 21 Nov 2024 10:44:23 -0800 (PST)
+ AJvYcCVoGxNfNre6/+YZJVqu13nSssniYaPfhRwHPl35QP8utBbwEqmEsNL0jHyy7KcuPS3M0bzG4CNToaI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxGJmspNSsC+/7sTZsuIbA7zCeCIspLsPHHkb+E1AFtSe+OJS1X
+ 4ckjCoHEkPfPpKS2zFHGL1kbNLyQ7ojTvMFuB+qASJPdLCxuH/ho2X5LOJa1MwU=
+X-Gm-Gg: ASbGncsJpmQ8LCfny4yVQKphTcLPARE36EDBkAmNBVxpGFovcfFyiybtjnTCzMLfIci
+ 5j8pIhUdIm8MBX5c03H5eDhGpomIwsp8zG/e6BAaeNrfj8J7bMTE0tX/+pSZoSOxHIJiuhzYPV2
+ 1/hjeEMSNlPFAzf+YGMmCiFPBC4lyPAHAyyRQwCqYtgCpFAZk+6mAZTQUVvLhvjgmo4pXkMfvO4
+ QXvhF5kMiyJ05HgoBlBEUD3y4YZTCu5cmWSekJ4u+WSr1NBqlGWPyaZk40WPTDnMTMtlzS4LQur
+ 4INg4vGRbmrwZatXTJEVQsSJqWsieA==
+X-Google-Smtp-Source: AGHT+IHi1NhWVZuelCT/g+ME6q6BNS23Y6fXekmq883H2WMs3ZLySQ3u7RX7hB18doxDPGP3Av5AMw==
+X-Received: by 2002:a05:651c:1612:b0:2fb:4da8:1e6a with SMTP id
+ 38308e7fff4ca-2ff9697ce2amr15005151fa.7.1732214685212; 
+ Thu, 21 Nov 2024 10:44:45 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53dd2496a37sm43307e87.234.2024.11.21.10.44.20
+ 38308e7fff4ca-2ffa4d40257sm177041fa.46.2024.11.21.10.44.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Nov 2024 10:44:21 -0800 (PST)
-Date: Thu, 21 Nov 2024 20:44:19 +0200
+ Thu, 21 Nov 2024 10:44:43 -0800 (PST)
+Date: Thu, 21 Nov 2024 20:44:41 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Viresh Kumar <vireshk@kernel.org>,
- Nishanth Menon <nm@ti.com>, 
- Stephen Boyd <sboyd@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Connor Abbott <cwabbott0@gmail.com>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>, 
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Connor Abbott <cwabbott0@gmail.com>,
+ linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 03/11] drm/msm: adreno: move features bits in a
- separate variable
-Message-ID: <dtt6d427u5yep3i3b3zxxef7uh572aeu3vtatmjvpbqfpjbvjc@epkkr7oumncn>
+Subject: Re: [PATCH v2 04/11] drm/msm: adreno: add GMU_BW_VOTE feature flag
+Message-ID: <4sxmrx3raiz2n3wz75n7gc6eekuh7nnox3xbau6dbyqyo3mzj2@jmml4c6lesgv>
 References: <20241119-topic-sm8x50-gpu-bw-vote-v2-0-4deb87be2498@linaro.org>
- <20241119-topic-sm8x50-gpu-bw-vote-v2-3-4deb87be2498@linaro.org>
- <fkezpguictntg2wkouwqipnaaiauo6vu46n7a2xzvlorzvyeaw@bbcpj3bs5eko>
- <CAF6AEGs6zT_kaTXNohUaA7KWZxZTr4byaoMoLAceuyqA7S+2CQ@mail.gmail.com>
+ <20241119-topic-sm8x50-gpu-bw-vote-v2-4-4deb87be2498@linaro.org>
+ <iw75ptavkqw3vybfov2f7koz5nh5lfzxcou3wey7rdsqt2gj5n@7luy2kqrzkj5>
+ <8218a053-6b69-4e1f-adb0-4c11930412ed@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGs6zT_kaTXNohUaA7KWZxZTr4byaoMoLAceuyqA7S+2CQ@mail.gmail.com>
+In-Reply-To: <8218a053-6b69-4e1f-adb0-4c11930412ed@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,30 +104,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Nov 20, 2024 at 10:54:24AM -0800, Rob Clark wrote:
-> On Wed, Nov 20, 2024 at 3:18 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> >
-> > On Tue, Nov 19, 2024 at 06:56:38PM +0100, Neil Armstrong wrote:
-> > > Now the features defines have the right name, introduce a features
-> > > bitfield and move the features defines in it, fixing all code checking
-> > > for them.
-> > >
-> > > No functional changes intended.
-> >
-> > I think it might be better to squahs this patch into the previous one,
-> > it would simplify checking that we use .quirks for ADRENO_QUIRK_foo and
-> > .features for ADRENO_FEAT_bar.
-> >
+On Wed, Nov 20, 2024 at 01:37:48PM +0100, Neil Armstrong wrote:
+> On 20/11/2024 12:19, Dmitry Baryshkov wrote:
+> > On Tue, Nov 19, 2024 at 06:56:39PM +0100, Neil Armstrong wrote:
+> > > The Adreno GMU Management Unit (GNU) can also scale the DDR Bandwidth
+> > > along the Frequency and Power Domain level, but by default we leave the
+> > > OPP core vote for the interconnect ddr path.
+> > > 
+> > > While scaling via the interconnect path was sufficient, newer GPUs
+> > > like the A750 requires specific vote paremeters and bandwidth to
+> > > achieve full functionality.
+> > > 
+> > > While the feature will require some data in a6xx_info, it's safer
+> > > to only enable tested platforms with this flag first.
+> > > 
+> > > Add a new feature enabling DDR Bandwidth vote via GMU.
+> > 
+> > Squash into the implementation patch.
 > 
-> IMHO better to keep this separated
+> Which one ? the flag is use in the next 3 patches
 
-If they are separated, it is easy to overlook presense of a statement
-checking .quirks against ADRENO_FEAT_bar.
+First one which uses it
 
 > 
-> But we don't have _that_ many features/quirks so I don't find
-> combining them all that problematic
+> > 
+> > > 
+> > > Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> > > ---
+> > >   drivers/gpu/drm/msm/adreno/adreno_gpu.h | 1 +
+> > >   1 file changed, 1 insertion(+)
+> > > 
+> > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > > index 4702d4cfca3b58fb3cbb25cb6805f1c19be2ebcb..394b96eb6c83354ae008b15b562bedb96cd391dd 100644
+> > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> > > @@ -58,6 +58,7 @@ enum adreno_family {
+> > >   #define ADRENO_FEAT_HAS_HW_APRIV		BIT(0)
+> > >   #define ADRENO_FEAT_HAS_CACHED_COHERENT		BIT(1)
+> > >   #define ADRENO_FEAT_PREEMPTION			BIT(2)
+> > > +#define ADRENO_FEAT_GMU_BW_VOTE			BIT(3)
+> > >   /* Helper for formating the chip_id in the way that userspace tools like
+> > >    * crashdec expect.
+> > > 
+> > > -- 
+> > > 2.34.1
+> > > 
+> > 
 > 
 
 -- 
