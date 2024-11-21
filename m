@@ -2,76 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 916939D456F
-	for <lists+freedreno@lfdr.de>; Thu, 21 Nov 2024 02:50:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDCF39D49E7
+	for <lists+freedreno@lfdr.de>; Thu, 21 Nov 2024 10:24:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0045A10E827;
-	Thu, 21 Nov 2024 01:49:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBA1910E8C6;
+	Thu, 21 Nov 2024 09:24:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Gr6rhYxv";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="QsNu8m7A";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
- [209.85.166.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8563C10E800;
- Thu, 21 Nov 2024 01:49:57 +0000 (UTC)
-Received: by mail-io1-f46.google.com with SMTP id
- ca18e2360f4ac-83b430a4cfdso16545339f.2; 
- Wed, 20 Nov 2024 17:49:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1732153797; x=1732758597; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JWUCvJsSdXoIhC6o2UMOCGwxpjGSWTPIQOwgtRNzfoc=;
- b=Gr6rhYxvR5t87rrywnwBIf9ICnHECYDMuwJsu25RjbmQcChUnswRvOxFky1lNlT1JO
- 2+ltZdzlWUvle/P7oG63LdZVxYBHgVO2Sl1fnFYqM/NiQSDfsPOjnj6Utu61ddGorLwO
- cy3Sn7pLnaGDZ+T+58Jb/dZxHzYQsl2wlHucQ77Tt5nWcYoSEnXZMTxeGLDyanFpTQOe
- eAd2kf7pOTNKgihhw147B0RhHPAQp7p7pBQfv775O9qve5pMtYLe3mJIqs0TkdJiX3iY
- vHOMQ6ah26+CICfdw7xiV85gWCs2z1gDIqowKTA/qn7CzabI1YLRHk2xT7naxCi3hPa6
- OV3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732153797; x=1732758597;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JWUCvJsSdXoIhC6o2UMOCGwxpjGSWTPIQOwgtRNzfoc=;
- b=TbfMVo+F609/m/pyc3kmz9B7qT6jgszGnqZ8Mt5owbCrrWCuuqgCSTtTkFQhyom5By
- 5hVHoO8khATV163TQeGgLBxceFDQ5fgpfWqJbPP0gRw8I6YKpG3bG/q+LuFOeMoX3C/F
- zQeQqmoQl+GKNoX9W1h6rfpJxZbgcF3lqsRIvIXyoiRK1aoB6sgRhor3g5XWvQGXa0gg
- mY4I0LRl0NI/ckQUf0kfUm1m2KuTqJKhY7mJLhDLBUFHFBjiDnRb5cClCQsqv57Ye3YM
- bjwCY+U+JddNkm+GqC9VbRpUgQvSYUXcTKTr/33svIko0QdriKVbUUYoTs3oI4smGLwx
- ljCw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCViotE+mDPVOe1ubcNoPBqmm3TeRMX+sLNxnVEYUTdo9N7tXs0a4dJYHwLfnl+SNA3FKgSWPdG2GsM=@lists.freedesktop.org,
- AJvYcCXvfCf42PA5KO1Prt9cVHEnvaiQ8H9/JgEFzbGaRqs3Of6KuRXZNyWZVZ92Z+5WifuEwH9M3z65CZ7i@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YydqglWICV1Zii0o2UI5cwEGcU3omEbXDH6fE5Na8NE/SuvpKw0
- GpuKP626CTJcWZxHTWH6LPs9iKUKk4BKeD+cIbDz2/dul2oAT5L+AR0IVp2iIB2Hv98zRgolBt5
- ppGkxNrpaI49BoNE992igcmPFDKc=
-X-Gm-Gg: ASbGncsqTfSB55psmaioVKI74hnWU+jpmh4IiDjmCQErHtqoUY9kxtSsUds+52QnoeN
- y0urpnSo2iMrTU7vvfUl5ocDP154qRR8=
-X-Google-Smtp-Source: AGHT+IFh8SZLjAYfaOvwEHKsujNC4f1OC6rw1sfTwjSfqOhitM4CoORxUcXQ/f2DBftwZf2WYV9HSVnid5nQordIXA4=
-X-Received: by 2002:a05:6602:13d4:b0:82a:7181:200f with SMTP id
- ca18e2360f4ac-83eb5ff1397mr521065939f.9.1732153796731; Wed, 20 Nov 2024
- 17:49:56 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E35B010E8BD;
+ Thu, 21 Nov 2024 09:24:12 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AL9KiEh007711;
+ Thu, 21 Nov 2024 09:24:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ QJzek0bdbC3Ntd/IGsSF3/5x+fHEg6vM7YVqfg+K9ec=; b=QsNu8m7A+mTFf1Vx
+ 03rdLjUJ7NtLTmJTOz+pqeLDvcOWK7N6Hw9hGUsolH4ekUzW/GhugfUltAHPs7Sn
+ J7yFSr1wcY4JxGZekFpHN3dzfKiu7ZGuuZtGi/7bpBAUpTrBwv22bp++0zWOGP7B
+ gHCIRReUc7lR0nclyIv0IViTgpTnXAN5+6QuNRtrae6EbpKn3pKXQm5T0yym8+NL
+ 93ZsOWoYfad3Yza+mr1L5vBvH9C6I7iPbe49qadTMxQWsJuFaaYlteQ3c4pfItkN
+ 7gqQx1q99GjirjfaOvpQVYZOk6XNaUVHhXtGezXJFPzQ80vilMiDvvdVkEOqgWR4
+ 2g/efQ==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4318uvm1xw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Nov 2024 09:24:02 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AL9O1hv032359
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Nov 2024 09:24:01 GMT
+Received: from [10.64.16.151] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 21 Nov
+ 2024 01:23:53 -0800
+Message-ID: <ddd6325a-c50e-4602-80b3-848faea6a266@quicinc.com>
+Date: Thu, 21 Nov 2024 17:23:50 +0800
 MIME-Version: 1.0
-References: <20241120204125.52644-1-pvorel@suse.cz>
- <CAK7LNASYr+pjUs-W40d_Gc+vP67nX7NHXyE0AnOpXxXgxrCtqQ@mail.gmail.com>
- <20241121011720.GA69389@pevik>
-In-Reply-To: <20241121011720.GA69389@pevik>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 20 Nov 2024 17:49:44 -0800
-Message-ID: <CAF6AEGuzFNVd5fE+b+hKcC8xAOg7CrkPaYuWC6tCVmioutoOOw@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] init/Kconfig: add python3 availability config
-To: Petr Vorel <pvorel@suse.cz>
-Cc: Masahiro Yamada <masahiroy@kernel.org>, linux-arm-msm@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andrew Morton <akpm@linux-foundation.org>, 
- linux-kbuild@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/9] drm/msm/dsi: Add support for QCS615
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ "Marijn Suijten" <marijn.suijten@somainline.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Krishna
+ Manikandan" <quic_mkrishn@quicinc.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, "Catalin
+ Marinas" <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Li Liu
+ <quic_lliu6@quicinc.com>, Xiangxu Yin <quic_xiangxuy@quicinc.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+References: <20241113-add-display-support-for-qcs615-platform-v2-0-2873eb6fb869@quicinc.com>
+ <20241113-add-display-support-for-qcs615-platform-v2-6-2873eb6fb869@quicinc.com>
+ <404f006b-46e5-44db-9f22-ec2139468ecc@oss.qualcomm.com>
+Content-Language: en-US
+From: fange zhang <quic_fangez@quicinc.com>
+In-Reply-To: <404f006b-46e5-44db-9f22-ec2139468ecc@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: fdm6g5vZ7vFP0pGBLjjxZTAH_bUfj3qQ
+X-Proofpoint-GUID: fdm6g5vZ7vFP0pGBLjjxZTAH_bUfj3qQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0
+ priorityscore=1501 phishscore=0 adultscore=0 malwarescore=0 mlxscore=0
+ lowpriorityscore=0 mlxlogscore=999 spamscore=0 suspectscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2411210073
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,60 +104,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Nov 20, 2024 at 5:17=E2=80=AFPM Petr Vorel <pvorel@suse.cz> wrote:
->
-> > On Thu, Nov 21, 2024 at 5:41=E2=80=AFAM Petr Vorel <pvorel@suse.cz> wro=
-te:
->
-> > > It will be used in the next commit for DRM_MSM.
->
-> > > Suggested-by: Rob Clark <robdclark@gmail.com>
-> > > Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> > > ---
-> > > Changes v3->v4:
-> > > * Move definition to the end of the file
->
->
-> > I prefer to not check the tool.
->
-> Ack.
->
-> > Why don't you install python3?
->
-> Everybody installs it when it's required, the question is how to inform a=
-bout
-> the dependency.
->
-> There build environments are minimal environments:
-> * chroot (e.g. cross compilation)
-> * container
->
-> These are used by both developers and distros.
 
-I don't think py3 is an _onerous_ dependency, but it has come up as a
-surprise in minimal distro build environments at least once.. so I'd
-be a fan of surfacing this dependency in a predictable/understandable
-way (ie. I'm in favor of this patchset)
 
-BR,
--R
+On 2024/11/14 21:32, Konrad Dybcio wrote:
+> On 13.11.2024 12:51 PM, Fange Zhang wrote:
+>> From: Li Liu <quic_lliu6@quicinc.com>
+>>
+>> Add support for DSI 2.3.1 (block used on QCS615).
+>> Add phy configuration for QCS615
+>>
+>> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
+>> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dsi/dsi_cfg.c          | 17 +++++++++++++++++
+>>   drivers/gpu/drm/msm/dsi/dsi_cfg.h          |  1 +
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c      |  2 ++
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      |  1 +
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 21 +++++++++++++++++++++
+>>   5 files changed, 42 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+>> index 10ba7d153d1cfc9015f527c911c4658558f6e29e..edbe50305d6e85fb615afa41f3b0db664d2f4413 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+>> @@ -221,6 +221,21 @@ static const struct msm_dsi_config sc7280_dsi_cfg = {
+>>   	},
+>>   };
+>>   
+>> +static const struct regulator_bulk_data qcs615_dsi_regulators[] = {
+>> +	{ .supply = "vdda", .init_load_uA = 21800 },
+>> +};
+> 
+> I believe refgen is also present here and you can reuse dsi_v2_4_regulators
+yes, will fix them in next patch
+will remove qcs615_dsi_regulators and reuse dsi_v2_4_regulators
+> 
+> Konrad
 
-> Kind regards,
-> Petr
->
-> > >  init/Kconfig | 3 +++
-> > >  1 file changed, 3 insertions(+)
->
-> > > diff --git a/init/Kconfig b/init/Kconfig
-> > > index fbd0cb06a50a..c77e45484e81 100644
-> > > --- a/init/Kconfig
-> > > +++ b/init/Kconfig
-> > > @@ -2047,3 +2047,6 @@ config ARCH_HAS_SYNC_CORE_BEFORE_USERMODE
-> > >  # <asm/syscall_wrapper.h>.
-> > >  config ARCH_HAS_SYSCALL_WRAPPER
-> > >         def_bool n
-> > > +
-> > > +config HAVE_PYTHON3
-> > > +       def_bool $(success,$(PYTHON3) -V)
-> > > --
-> > > 2.45.2
