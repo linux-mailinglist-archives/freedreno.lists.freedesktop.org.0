@@ -2,93 +2,106 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B3499D5D40
-	for <lists+freedreno@lfdr.de>; Fri, 22 Nov 2024 11:27:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14AB09D5EB6
+	for <lists+freedreno@lfdr.de>; Fri, 22 Nov 2024 13:21:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11F9C10EB43;
-	Fri, 22 Nov 2024 10:27:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87CF810E2EB;
+	Fri, 22 Nov 2024 12:21:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ozvfSgYP";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ceTL7KBv";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B49910EB43
- for <freedreno@lists.freedesktop.org>; Fri, 22 Nov 2024 10:27:13 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-2fc968b3545so21601911fa.2
- for <freedreno@lists.freedesktop.org>; Fri, 22 Nov 2024 02:27:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732271231; x=1732876031; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=CaM32T9+cjWvYMHqhuUqWhjRL+hOdvCIE9xX19bPtjY=;
- b=ozvfSgYP9B4YHXj0N/hswNDC/m/Ht6dJjP2vEcLlnHhPQ9S0CZ9SOQdNIIw1GAaStn
- ZYOhFTqJ9zR9pk/KjxqPKfdOQQl8LqVtYHDo4OeJokSODnLhWCC7j7tL6GthuwRMwnJJ
- rIYddDIhqQNYS3JMdGGr66KCp7ftYfHc8zUaX+rRCBvxA0Zx91bc6HuY6Yy2nfd7PpIt
- /LcHprp2SUfK6ctjyhl8zvdNwACsqOPduY9pPdD/7vnAONzkct249DX8KSt3OOQO18Vh
- 4xXra4dgrHqCHtC/DqK34mg62hX2g7ji92JU/7TzVHktthAqy2qt15KpN4TRlsDvKojc
- WgDQ==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4CF510EB54
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Nov 2024 12:21:49 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AM6HohY007191
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Nov 2024 12:21:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 2zyqdqOWon+Bb6KDq9EFahJ8KwOZlSLq3h9cfnJbehE=; b=ceTL7KBvdCZ22zVi
+ udzdRY3CYZAS9dHzjhEXUYpMQFNAUEyJJWx0j9AWTrlU1Sv50SUvlGWeV1wBj3ZV
+ xGDxL/L6fh9buUgSMMSoZGS2b5L4akX3K/u3qqbXWwWJuVwvF9Zs7E9S8GNSp9+a
+ G/idSgVQg/kUfpi8Syq65G0aCwvt/YCBlgQshS8wLWWw3wshLoznkEOghhIv2/q3
+ AV1vQs78BgOValB+FPpJW+G4Kw2OUqBrW4b6lBmf12UfSBYMgJoCfM4qmpdcHDkx
+ ibuMyzc6hyysA70lfHAv2OaPegJF7bTAYNPFj40x7aiCJwHHVIjtgHDhogLw3nne
+ Y1zz4A==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 432mjh8w38-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Nov 2024 12:21:48 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-6d40d17eed1so6071206d6.0
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Nov 2024 04:21:48 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732271231; x=1732876031;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CaM32T9+cjWvYMHqhuUqWhjRL+hOdvCIE9xX19bPtjY=;
- b=ACNYNsZVPSza/efCRPxFApeiev1coW5VFU9xVOwqTHe0VucpFcDU/gO1jSaiJrZpVv
- XfzxrMcVrTMfPfTdyblq9qcEWd88LEAc1CJCByCU1Rr4D9j+IeSWXWbNNaJwQTjjof1p
- ZQJEt1YdX+Wxh9903vdalbzhgGHYnuubqIj+OA5AxyxuwLRn2d4DIFVO7gWIU70fC8EN
- /xOkxYgaj4FaL8CGBsL8+3Atut2N09VsgmJJkNeL5n3TM2SKpw9I9Z3PaOihNzNkBGjl
- JaxzVMMoooVDc1Z9mR9WeEo9c3T1f0+8PljbdduuMskNS2m+xsOpFM1wlnpclvvj74Oy
- KjeA==
+ d=1e100.net; s=20230601; t=1732278108; x=1732882908;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=2zyqdqOWon+Bb6KDq9EFahJ8KwOZlSLq3h9cfnJbehE=;
+ b=TGhrMro/xBl9ppdMV3yNuLm1P8dYEsvOMeiwFADYUuZt/RP22uAuWIwBRJ9HLFYMFE
+ K5CLJlsYC3E+cjPhsdhydud2omDVFiH1s9DN6nCNbDz35OPflHcIF2xjqMNRHUBbwV1d
+ nCQuq3NtKSelMbfMogrthepw2oK2NjrYg//qYdnJ5xRCH5Kme32A071NpWyHL1MtVRwF
+ 1aPKgFYhi1OLVdg5XKWnEb8y7eNHNr0QvULvSbTvCxofr6UBdUUiY7cxQHtagdi3+kZu
+ Pca+4686uqHKv9x5clppr79AMlfXtJgwaFROJgOnoUYceHRS+WILX130GCJP+L+l8iz4
+ 7D5g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWOPjii5XZg/kE7quPm9NL4a71xFoEpeS4OLRuPvuyUJwKWl4KTn7Pe6jppMl8+MIx9CvS13uO2n5A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyNin4UpiX2I/EDyfvmOa1NBpipTSxNgTAo2Sg6tZKBxhh2bmHr
- dfCFgfr9qqZt4O1aJzjDOl7lb7pCE9VWmftUspxLNucY7vxSW1mHEHpHO8p/ZQI=
-X-Gm-Gg: ASbGnctfpqCpv57H+2HmjTjr/ObxnEkyNrGkaamuiMhNaIXU7RVZHdbRmvByqS719t7
- 0ZyBwKtkn548BjnxPHez0mgo/TnPvUb5zoqnTP/e4hkg1wD7js6C0zyCC0OQj6igyKT2wX9FKfU
- kWW82Xx3DIxhQ/P/NjcWDXu5525g5mx/H1Jah2w5PiiFLKZlnmsEblqRxl+T30e92oHkWHCePom
- Dld4GSLm3aXb2a/BowroPO7NcTBhKzBFGY6TGyNN3K9TkN9OKQCqtuAjLp7J6fqDOWHPm0OYfSo
- QTghxyXugwYmiz2ZUsonVdWefQiHSg==
-X-Google-Smtp-Source: AGHT+IG3oQHashA6tpFb+9+NmJi4GpOI+M8h9JPqYyxeNcEzdxQdY5O2kg12XYaqyKtAV7A8h+5UvA==
-X-Received: by 2002:a05:651c:198d:b0:2fb:5b23:edba with SMTP id
- 38308e7fff4ca-2ffa712dcb8mr11465241fa.23.1732271231158; 
- Fri, 22 Nov 2024 02:27:11 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ffa7a65786sm2280291fa.63.2024.11.22.02.27.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Nov 2024 02:27:09 -0800 (PST)
-Date: Fri, 22 Nov 2024 12:27:07 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Fange Zhang <quic_fangez@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Li Liu <quic_lliu6@quicinc.com>, 
- Xiangxu Yin <quic_xiangxuy@quicinc.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 8/9] arm64: dts: qcom: Add display support for QCS615
-Message-ID: <n7mnldqd2td2cm4uup6mlnmbzyg7unbzvert6kyweopplbfssz@vm3egater24k>
-References: <20241122-add-display-support-for-qcs615-platform-v3-0-35252e3a51fe@quicinc.com>
- <20241122-add-display-support-for-qcs615-platform-v3-8-35252e3a51fe@quicinc.com>
+ AJvYcCXyMeJ96lV1zTIQ+IqtMVqTaWgNq1ByQtvzsiKwiZm3rVeh4k01ykCsNTqh3u6mWsign4UgU1lNJe0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwbGoiGTy3HBHqbxXSMI1ClNbMLfNhUyJkl+oiO49UFDH7QP+13
+ TmYknwtKrRrK+9FuO3KqBeK5DAlrZA3KywDSxWV2FBHGh+0B473Lsm/dti5/w8RxtP+k+LbUURM
+ jTUFKNi8kWwYTjJRawEqIMqOJxEj4EVFiKDUYhq63LGpjiFEnB8ej5n8684mmTsVwRl0=
+X-Gm-Gg: ASbGncu6n2B+e/MV714ss3lK3CZRO5t2Buw/BeesuXfpKW+a98N83RzEN2d0Q3n5cAa
+ pxXQrnF/McQiwCwORGaS6Uoaap6xAUDvuNOXk4dHqDbsP2ek2j2fN3WuvuHL7J5rcoGYxGW0D+i
+ cVkcvKd3bh2cuTAssDvSNhYT3ofbAtT5wdcce+rMMFhyk+NVhicIc2oYtB/HfvJPBjj9Q4Lxomn
+ vJ0urWfHWxemENvZOdAmLyWnypkfEq/VLPkjGnElMeIfEbnFNye7aWds73mz1YOabyP9uBXAZdq
+ QGON3fKawGuaVpBE0Lb31KCh6349lwQ=
+X-Received: by 2002:a05:620a:1a16:b0:7a9:c0f2:75fc with SMTP id
+ af79cd13be357-7b51457fd82mr154414285a.12.1732278107923; 
+ Fri, 22 Nov 2024 04:21:47 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGHmLTbwm8pNChveHbGVRdyKfjc2M6rbis5hRH/aHBrK0D9jZQQS3R1hjWKmaZIuM4R3iO+zw==
+X-Received: by 2002:a05:620a:1a16:b0:7a9:c0f2:75fc with SMTP id
+ af79cd13be357-7b51457fd82mr154411085a.12.1732278107496; 
+ Fri, 22 Nov 2024 04:21:47 -0800 (PST)
+Received: from [192.168.212.120] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa50b57c19esm92298166b.154.2024.11.22.04.21.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 22 Nov 2024 04:21:46 -0800 (PST)
+Message-ID: <54601d79-4156-41f4-b1b7-250c5c970641@oss.qualcomm.com>
+Date: Fri, 22 Nov 2024 13:21:44 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241122-add-display-support-for-qcs615-platform-v3-8-35252e3a51fe@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm: UAPI error reporting
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20241121164858.457921-1-robdclark@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20241121164858.457921-1-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: k8w0298Y4AyJMtU2K5vecCY0qtMOGtEH
+X-Proofpoint-ORIG-GUID: k8w0298Y4AyJMtU2K5vecCY0qtMOGtEH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0
+ mlxlogscore=999 priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0
+ adultscore=0 impostorscore=0 mlxscore=0 lowpriorityscore=0 spamscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2411220105
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,21 +117,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Nov 22, 2024 at 05:56:51PM +0800, Fange Zhang wrote:
-> From: Li Liu <quic_lliu6@quicinc.com>
+On 21.11.2024 5:48 PM, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> Add display MDSS and DSI configuration for QCS615 platform.
-> QCS615 has a DP port, and DP support will be added in a later patch.
+> Debugging incorrect UAPI usage tends to be a bit painful, so add a
+> helper macro to make it easier to add debug logging which can be enabled
+> at runtime via drm.debug.
 > 
-> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
-> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->  arch/arm64/boot/dts/qcom/qcs615.dtsi | 186 ++++++++++++++++++++++++++++++++++-
->  1 file changed, 185 insertions(+), 1 deletion(-)
-> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+[...]
 
--- 
-With best wishes
-Dmitry
+> +/* Helper for returning a UABI error with optional logging which can make
+> + * it easier for userspace to understand what it is doing wrong.
+> + */
+> +#define UERR(err, drm, fmt, ...) \
+> +	({ DRM_DEV_DEBUG_DRIVER((drm)->dev, fmt, ##__VA_ARGS__); -(err); })
+> +
+>  #define DBG(fmt, ...) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
+>  #define VERB(fmt, ...) if (0) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
+
+I'm generally not a fan of adding driver-specific debug prints..
+
+Maybe that's something that could be pushed to the drm-common layer
+or even deeper down the stack?
+
+Konrad
