@@ -2,67 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAF999D6033
-	for <lists+freedreno@lfdr.de>; Fri, 22 Nov 2024 15:13:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 682D29D6187
+	for <lists+freedreno@lfdr.de>; Fri, 22 Nov 2024 16:51:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA81910EBAE;
-	Fri, 22 Nov 2024 14:13:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1324E10EBF3;
+	Fri, 22 Nov 2024 15:51:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UZpensGR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DGZ8nPDw";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4554D10EBAE;
- Fri, 22 Nov 2024 14:13:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732284829; x=1763820829;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=ypl+SVm/vowo72kux/mF1Apop3W03Eh3zLxLFhXiyeI=;
- b=UZpensGRV8BAOoEXZPyne2wSRUQ6wGLcBafB/5piEZXrTrJAVx+OZbrX
- xHM9+Ob2IPsu5jxuGWH9c5auJ9+Q4VEvZjRTgB5PUQqBdS9RJ3zswDbKN
- U4DiNHcVjkqnJgxyT36LtzDX50SGrQM43CKrJlLWrtY66B6W+7cTwO5wW
- cMxuzWVosczHGZXo0prXBR9gCsuMZlPGIGKXayCaf2kMaPVn9CKeUjzKK
- TXW7ybD/+SCxM5gJdD0KrMjz9hlqgy/4dIEqgw/wT/nL0kbDW3EWuxm3r
- pB/jHlWM2rjV9IPH+HBa8Fvha2SZcYtObCGG4iqW6aZaV7dSn1mIkZyUZ g==;
-X-CSE-ConnectionGUID: IFUEe7A6T0WkVo6E4Fq1CQ==
-X-CSE-MsgGUID: L0ifrP5eSkGyFqjlIMFyXg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11264"; a="54945914"
-X-IronPort-AV: E=Sophos;i="6.12,175,1728975600"; d="scan'208";a="54945914"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2024 06:13:48 -0800
-X-CSE-ConnectionGUID: frUTGn/+QE+IF4pFfk2OIg==
-X-CSE-MsgGUID: nopFpGsqQhu9zNHu+omBLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,175,1728975600"; d="scan'208";a="121539891"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.157])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2024 06:13:44 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Rob Clark <robdclark@gmail.com>
-Cc: Masahiro Yamada <masahiroy@kernel.org>, Petr Vorel <pvorel@suse.cz>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Andrew Morton <akpm@linux-foundation.org>,
- linux-kbuild@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave Airlie
- <airlied@redhat.com>
-Subject: Re: [PATCH v4 1/2] init/Kconfig: add python3 availability config
-In-Reply-To: <CAF6AEGtXEcNijTqH+NZ5-8ZX2TnzsxACJQ9XXWC9zGTJGxNv=w@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20241120204125.52644-1-pvorel@suse.cz>
- <CAK7LNASYr+pjUs-W40d_Gc+vP67nX7NHXyE0AnOpXxXgxrCtqQ@mail.gmail.com>
- <20241121011720.GA69389@pevik>
- <CAK7LNARc4Cp1a8G9p0KiCGyu0WL3BNEd0BY0COMPL4U8bLr8gA@mail.gmail.com>
- <87h67zzjdc.fsf@intel.com>
- <CAF6AEGtXEcNijTqH+NZ5-8ZX2TnzsxACJQ9XXWC9zGTJGxNv=w@mail.gmail.com>
-Date: Fri, 22 Nov 2024 16:13:37 +0200
-Message-ID: <878qtbz78u.fsf@intel.com>
+Received: from mail-io1-f43.google.com (mail-io1-f43.google.com
+ [209.85.166.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40BC310EBF2;
+ Fri, 22 Nov 2024 15:51:53 +0000 (UTC)
+Received: by mail-io1-f43.google.com with SMTP id
+ ca18e2360f4ac-83ac4dacaf9so79442639f.2; 
+ Fri, 22 Nov 2024 07:51:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1732290712; x=1732895512; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=z3uDWbNNWfkF0p1VhsZQPfqHnOGEpm0encXAZ7Sy8g0=;
+ b=DGZ8nPDw/1qWBvYVi0Gkler9WT6x8RqHgpT2MkC6txxnzcBIjxQ9Q2AV5vRe20wjwv
+ ARL03AMrLOuyjSqvcO7iKj9nhvrvIcsuKWvS7noA5FEj+MU8VCk85zIsJqHv7B2P+k6H
+ T3x5/i6GMeMDNguqThCPmYo99w8JtDITqlNFQTVqm8J0GHDUTo3iYtBDIrqKLEg5lLnG
+ Dzx7QFB7rHG2GDbpie+tWMJmEV+4D9cMSoVIyC0WID7JxrusbfUsqagv9Xay8DJ63ZrK
+ arAExc1mjU7F7H4mSczHXj9JJpr5p6yN9ZoUaP27Wv/RGc94+itA35NHUqihk3mCnX1r
+ 6Vag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732290712; x=1732895512;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=z3uDWbNNWfkF0p1VhsZQPfqHnOGEpm0encXAZ7Sy8g0=;
+ b=ARRLd0n0Mxw2xfuzjKa3EaDuixD4undBJgY13UsjxlKuVlT+X1rIEHuBtz5XFcUka5
+ LHGrg305aQgWqtkxrG8ib0UsaDTPHJj5Mj92kY0tDaKR1vb+n0L+WstYIwqwZMNsByqO
+ dYBtZ53nYKhjvVZt09Jh9iUKeMmvXqRCZWOs6KQOPnHfFy/C/Aw+pdDu7ypWuJfAopaF
+ +6RVrz6qJmeMxjnzorOUFrtolOdJgUmy9PJFcRpsalYhJYZff+X88DtaqAvnxOGQu4V2
+ yQ41YZUdlPwjMNo3jwH2yxNTk45qHsH4XSbQjzZgtlWnPp0HUSztrGw9cLtElRbIx+Eg
+ PCsQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUKPPVnEZSd/Rx+VP+Bt84GxINTBj2gjPA+J5vbePwmnUYZ51PHxAvB7DxC7j+OawdkiheUh5JJ71c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyTjKE2dPj+4ZtLPd50hQDE+J4mfhh7sMP1XbX7F0vO2HIWYh9O
+ DM1RZh1aQDoHm4vPiaRSReLcvo18+18nCI60zrkWkV9zXSyR8BupeRausDWOK+Ch9oZIdbhFyrN
+ oZu+3bFCH0ezGo+LhZu7dpnjcYiw=
+X-Gm-Gg: ASbGncuXzRcNs1+Bb1z2uHFRXAFhrPmoh7ht2J9bqAD3FhlCkuXQXuvtZZHOKQmQpeJ
+ lhPE726/sjwwnDNKEJ1v7Zh/vnlvrFtfVCPjE2gQ2OmwiIs6VfrhXxaTFIKjfIQ==
+X-Google-Smtp-Source: AGHT+IEmliz4spJROdLvbi9Jn1TCz/7JIiW2hFkXxCknMwyZDt+D+vscIFSEGuewCzsuk6Df/rQ+Qukh9F3P0iKGWrs=
+X-Received: by 2002:a05:6602:2cd2:b0:83b:7164:ebb4 with SMTP id
+ ca18e2360f4ac-83ecdd13818mr362392539f.14.1732290712314; Fri, 22 Nov 2024
+ 07:51:52 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20241121164858.457921-1-robdclark@gmail.com>
+ <54601d79-4156-41f4-b1b7-250c5c970641@oss.qualcomm.com>
+In-Reply-To: <54601d79-4156-41f4-b1b7-250c5c970641@oss.qualcomm.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 22 Nov 2024 07:51:40 -0800
+Message-ID: <CAF6AEGtafQM7-mYy163Krry3OHgPNH3e9A=9VEhBpiQTADtULQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm: UAPI error reporting
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,18 +88,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 22 Nov 2024, Rob Clark <robdclark@gmail.com> wrote:
-> I may be biased here, but being able to generate code/tables/etc at
-> build time is something that python is very useful for, and has been
-> used to great effect in mesa.
+On Fri, Nov 22, 2024 at 4:21=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 21.11.2024 5:48 PM, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Debugging incorrect UAPI usage tends to be a bit painful, so add a
+> > helper macro to make it easier to add debug logging which can be enable=
+d
+> > at runtime via drm.debug.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+>
+> [...]
+>
+> > +/* Helper for returning a UABI error with optional logging which can m=
+ake
+> > + * it easier for userspace to understand what it is doing wrong.
+> > + */
+> > +#define UERR(err, drm, fmt, ...) \
+> > +     ({ DRM_DEV_DEBUG_DRIVER((drm)->dev, fmt, ##__VA_ARGS__); -(err); =
+})
+> > +
+> >  #define DBG(fmt, ...) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
+> >  #define VERB(fmt, ...) if (0) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
+>
+> I'm generally not a fan of adding driver-specific debug prints..
+>
+> Maybe that's something that could be pushed to the drm-common layer
+> or even deeper down the stack?
 
-Agreed. I look at the list of required dependencies, and none of the
-alternatives seem more appropriate for the task. Not having to worry
-about hostprogs build is a bonus.
+Even if we had something like DRM_DBG_UABI_ERROR() I'd probably still
+just #define UERR() to be a wrapper for it, since line length/wrapping
+tends to be a bit of a challenge.  And I have a fairly substantial
+patch stack on top of this adding sparse/vm_bind support.  (Debugging
+that was actually the motivation for this patch.)
+
+I noticed that xe has something similar, but slightly different shape,
+in the form of XE_IOCTL_DBG().. but that kinda just moves the line
+length problem into the if() conditional.  (And doesn't provide the
+benefit of being able to display the incorrect param.)
 
 BR,
-Jani.
-
-
--- 
-Jani Nikula, Intel
+-R
