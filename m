@@ -2,127 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B11BD9D64F4
-	for <lists+freedreno@lfdr.de>; Fri, 22 Nov 2024 21:42:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E6029D6635
+	for <lists+freedreno@lfdr.de>; Sat, 23 Nov 2024 00:09:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3563110EC8B;
-	Fri, 22 Nov 2024 20:42:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6194810E31F;
+	Fri, 22 Nov 2024 23:09:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="AzsDTPqT";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XZz/Zwqu";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="AzsDTPqT";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XZz/Zwqu";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="pz+qUQ9o";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1B1910EC86;
- Fri, 22 Nov 2024 20:42:05 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4270221240;
- Fri, 22 Nov 2024 20:42:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1732308124;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KHKHQCXvuPqtS8zBtf2vIiBmq70MyYsvypTSAYgkiac=;
- b=AzsDTPqT7eoeHiGQhWEj4WP5gEbXkxHzIEV42sxL+XYjq1GcEtMKEkF9eTpm++y1OcS53L
- NgTKC68IcUn8EdftJ9vPGZNPjgcZJpkQj4/fRow2065DaZqdJSyQsbPgzr1FRasW0UD7bf
- PWhkcX5WaZRySP5fqFm7kMsF3sCxbOA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1732308124;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KHKHQCXvuPqtS8zBtf2vIiBmq70MyYsvypTSAYgkiac=;
- b=XZz/Zwqu27QgWYeUGgkJu5PLIx9ocmWILGpX51ZwduaMkHZ29nBQOgyXf0XF+TvouhrXj/
- Q0c5l2DwC/5zDaDA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=AzsDTPqT;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="XZz/Zwqu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1732308124;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KHKHQCXvuPqtS8zBtf2vIiBmq70MyYsvypTSAYgkiac=;
- b=AzsDTPqT7eoeHiGQhWEj4WP5gEbXkxHzIEV42sxL+XYjq1GcEtMKEkF9eTpm++y1OcS53L
- NgTKC68IcUn8EdftJ9vPGZNPjgcZJpkQj4/fRow2065DaZqdJSyQsbPgzr1FRasW0UD7bf
- PWhkcX5WaZRySP5fqFm7kMsF3sCxbOA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1732308124;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KHKHQCXvuPqtS8zBtf2vIiBmq70MyYsvypTSAYgkiac=;
- b=XZz/Zwqu27QgWYeUGgkJu5PLIx9ocmWILGpX51ZwduaMkHZ29nBQOgyXf0XF+TvouhrXj/
- Q0c5l2DwC/5zDaDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E8A59138A7;
- Fri, 22 Nov 2024 20:42:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 9uhuNpvsQGefVAAAD6G6ig
- (envelope-from <pvorel@suse.cz>); Fri, 22 Nov 2024 20:42:03 +0000
-Date: Fri, 22 Nov 2024 21:41:57 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Masahiro Yamada <masahiroy@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- linux-kbuild@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] init/Kconfig: add python3 availability config
-Message-ID: <20241122204157.GA125569@pevik>
-References: <20241120204125.52644-1-pvorel@suse.cz>
- <CAK7LNASYr+pjUs-W40d_Gc+vP67nX7NHXyE0AnOpXxXgxrCtqQ@mail.gmail.com>
- <20241121011720.GA69389@pevik>
- <CAF6AEGuzFNVd5fE+b+hKcC8xAOg7CrkPaYuWC6tCVmioutoOOw@mail.gmail.com>
- <CAK7LNAQDMJUYUF7BaN10bwctW7fuHmSMrrAjMmn4s7P2ys5P+Q@mail.gmail.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B7BD10E31F;
+ Fri, 22 Nov 2024 23:09:31 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AMHVGQf015521;
+ Fri, 22 Nov 2024 23:09:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=WiMlvrwkPosfBz2ctCmK2s
+ nOyJ8A+EyYdYrryfeNcEI=; b=pz+qUQ9o0cbnMCszL2VYgXzUKPDJomFUg5t6li
+ lzROxzFsHX+w7Ao9tjL/RhkyEL6egC9FdgwwnFTrJWA03o4sTOy16tuBT/XHWYtj
+ oWFgq0Zyds/VOgi+aInZrnX/D9/E7MYt6Fqfju5YpRjdBCCYF41V/dS0cy27tSVf
+ mKxgTT4vWd1HJHV1/ui+OkRnSNaSYJX8J/qPYAaU8KT5QT8AKbo0bHDqXVhMfjYd
+ z73/k+sF0JZdu6FukOPboCQmfHVeCe8nJYjum6w+r/dWC0r+uc9NxnVO5Vo8cXbs
+ 5b55d8y06Ris4GAuFA21ND06uK4o92jq/7lt4WkCzOsguU+g==
+Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4320y9nhd6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 Nov 2024 23:09:27 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AMN9RlM025232
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 Nov 2024 23:09:27 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Fri, 22 Nov 2024 15:09:26 -0800
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Fri, 22 Nov 2024 15:09:10 -0800
+Subject: [PATCH] drm/msm/dpu: Add VBIF to DPU snapshot
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAK7LNAQDMJUYUF7BaN10bwctW7fuHmSMrrAjMmn4s7P2ys5P+Q@mail.gmail.com>
-X-Rspamd-Queue-Id: 4270221240
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.71 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
- HAS_REPLYTO(0.30)[pvorel@suse.cz];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FUZZY_BLOCKED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,linaro.org,linux-foundation.org,lists.freedesktop.org];
- DKIM_TRACE(0.00)[suse.cz:+]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_SEVEN(0.00)[9];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MISSING_XM_UA(0.00)[];
- ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
- REPLYTO_EQ_FROM(0.00)[]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.71
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20241122-vbif-snapshot-v1-1-6e8fedd16fdf@quicinc.com>
+X-B4-Tracking: v=1; b=H4sIABUPQWcC/x3MQQqAIBBA0avIrBNSo6KrRAuzsWaj4oQE0t2Tl
+ m/xfwXGTMiwiAoZCzHF0KA6Ae6y4URJRzPoXg9KaS3LTl5ysImveMt9nMzsj8lY56E1KaOn5/+
+ t2/t+ZW9+Q18AAAA=
+X-Change-ID: 20241122-vbif-snapshot-b6738fd73acf
+To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>
+CC: <quic_abhinavk@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>
+X-Mailer: b4 0.15-dev-355e8
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732316966; l=1222;
+ i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
+ bh=TJOLdSpE1fHET9ApFeylxGcqytAo8E17FRHaAgSGC40=;
+ b=Iizvuq/vZQmlQPiypKszQNU+lN/yHM7hbto87+25xTZtAHzuTMU65pKQazOpyAPcKKxT5FSnV
+ mPemYxkt6ABCBiqe6kdtqRt6osXDm/kVs6Gmt+JP8NgyYMPvm9+gTmT
+X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
+ pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Q695kx613nNHlAvXGyWyEbtsvLBl0AP8
+X-Proofpoint-ORIG-GUID: Q695kx613nNHlAvXGyWyEbtsvLBl0AP8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ phishscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
+ mlxlogscore=915 spamscore=0 mlxscore=0 malwarescore=0 clxscore=1011
+ adultscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2411220196
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,81 +97,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-> On Thu, Nov 21, 2024 at 10:49 AM Rob Clark <robdclark@gmail.com> wrote:
+Add VBIF registers to the DPU snapshot to help with debugging.
 
-> > On Wed, Nov 20, 2024 at 5:17 PM Petr Vorel <pvorel@suse.cz> wrote:
+Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-> > > > On Thu, Nov 21, 2024 at 5:41 AM Petr Vorel <pvorel@suse.cz> wrote:
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index ca4847b2b73876c59dedff1e3ec4188ea70860a7..df90b080be5a1a07bea76bad4f282d80cc0e4397 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1024,6 +1024,14 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+ 		msm_disp_snapshot_add_block(disp_state, cat->cdm->len,
+ 					    dpu_kms->mmio + cat->cdm->base, cat->cdm->name);
+ 
++	for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
++		const struct dpu_vbif_cfg *vbif = &dpu_kms->catalog->vbif[i];
++
++		msm_disp_snapshot_add_block(disp_state, vbif->len,
++					    dpu_kms->vbif[vbif->id] + vbif->base,
++					    vbif->name);
++	}
++
+ 	pm_runtime_put_sync(&dpu_kms->pdev->dev);
+ }
+ 
 
-> > > > > It will be used in the next commit for DRM_MSM.
+---
+base-commit: 86313a9cd152330c634b25d826a281c6a002eb77
+change-id: 20241122-vbif-snapshot-b6738fd73acf
 
-> > > > > Suggested-by: Rob Clark <robdclark@gmail.com>
-> > > > > Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> > > > > ---
-> > > > > Changes v3->v4:
-> > > > > * Move definition to the end of the file
+Best regards,
+-- 
+Jessica Zhang <quic_jesszhan@quicinc.com>
 
-
-> > > > I prefer to not check the tool.
-
-> > > Ack.
-
-> > > > Why don't you install python3?
-
-> > > Everybody installs it when it's required, the question is how to inform about
-> > > the dependency.
-
-> > > There build environments are minimal environments:
-> > > * chroot (e.g. cross compilation)
-> > > * container
-
-> > > These are used by both developers and distros.
-
-> > I don't think py3 is an _onerous_ dependency, but it has come up as a
-> > surprise in minimal distro build environments at least once.. so I'd
-> > be a fan of surfacing this dependency in a predictable/understandable
-> > way (ie. I'm in favor of this patchset)
-
-
-> "once" is a keyword here.
-
-> "/bin/sh: python3: not found" provides sufficient information
-> about why the compilation failed, and you know what to do
-> to fix the problem.
-> This is good.
-
-> If you hide CONFIG_DRM_MSM silently
-> due to missing python3, you may scratch your head
-> "why drm/msm was not compiled?".
-It's not on the list, but still visible in help (via search).
-
-> This is worse.
-
-I'm ok with this being refused. Yes, it's a trivial thing to find that python3
-is not installed. I wasn't sure myself if this is really better. Having
-something like "requires $(PYTHON3)" would be best solution (e.g. not disable
-the config, but exit before starting to build), but of course unless this
-feature is needed for many modules it does not make sense to have it.
-It's because kernel mostly contains everything (unless languages like python
-or any other dependency starts to be added). For this reason I like that
-mconf-cfg.sh warns when missing ncurses devel files (even suggesting package
-names).
-
-Just to explain what was my motivation. CONFIG_DRM_MSM in in arm64 defconfig,
-thus it will affect anybody who uses the defconfig (any distro will need to add
-it).
-
-It's needed only for Qualcomm arm64 devices only. But only for these devices
-which are mainlined enough to really use CONFIG_DRM_MSM (many of them aren't in
-that state).
-
-postmarketOS is the distribution which supports Qualcomm. It stores kernel
-config for each device and devices often have individual maintainer. E.g. 175x
-"once" :).
-
-Kind regards,
-Petr
