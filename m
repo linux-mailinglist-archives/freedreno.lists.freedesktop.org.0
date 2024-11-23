@@ -2,91 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF04C9D67B3
-	for <lists+freedreno@lfdr.de>; Sat, 23 Nov 2024 06:45:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 249AD9D69EF
+	for <lists+freedreno@lfdr.de>; Sat, 23 Nov 2024 17:14:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C98D510E30A;
-	Sat, 23 Nov 2024 05:45:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF21010E246;
+	Sat, 23 Nov 2024 16:14:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zPCRWrBL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fCgDdIaH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4112B10E30A
- for <freedreno@lists.freedesktop.org>; Sat, 23 Nov 2024 05:45:09 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2ff99b5ede4so28569761fa.1
- for <freedreno@lists.freedesktop.org>; Fri, 22 Nov 2024 21:45:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732340707; x=1732945507; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=/hEtTqrfQSr9pI7m+IfwZIAeqdoTOG6+nBJQtRsFkFE=;
- b=zPCRWrBLTuC/UO1SLwk2wDjX6UjqUil6Bk6+5N3rAX7bDO3EjUn0TRCYt/gF7Apgmb
- lyWw8D7V5It3iZXuNv7TN78cxcbU+fPX08wJqvb8DluAEQ3jD1w8t8oAV/n6YeWldbAu
- rcA7kjVV2fpxHBaKh9HQO1N1GSS9MUlDfIdRZWySXkB6QubXl43uYK6OOPxvbnMzwFbq
- GILH1Il8jMjJNMmwmYwwSj9F4KPDW0Iz1Vpdly5DfFvlHgbmrW9RYvBZw+FuGDSBD+bH
- cJp/tNSQ+mnK/FFsjA6PaP13PVdHRT2G9QVOUoPI1QSOacN3KHsiu4N8Z7jecALkuRtt
- WMqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732340707; x=1732945507;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/hEtTqrfQSr9pI7m+IfwZIAeqdoTOG6+nBJQtRsFkFE=;
- b=qLkNu2FUVAs1jsbSGndkstAp+4uydwpzco5ou/0JNFBkkaAAB3UGf7NiazSQ+M75E7
- lLebJMNxqsUctnonP57/fm774Dq0v8rQN0LrfKLPd4gMwcnr0A8bjM0u8FDvMShegkeP
- cfWA0kxiMePsOQ1Xh5KmlC4oFLxo31YJjmzZL8cdVTVGhRAjaKUAKk1ecEwzsBeAurso
- DwDiGK3N2qZn3qwQYOjNQH13Ajn7iLFwDR0FQACcEcUf67A22oG9w8tQAxu6KzGylW5u
- ZdFTUyK0RhziJ5S8WAFIhv1t5A/Pt30MUmkJMkp5bKyv/ZrLAQOR6ERcwX6tp4FzyeZk
- HB0A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVFisF32l9NpyaqxxiArLydoDFYnm+UFfsvb40d7H48snkf5HZRAZsRmZVn+vNAVFja9eX9TsRMGa0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxiVssnhMn3lm9io+xwY0yvsBsqS7zvKO0v4HI8N0ePiNsqB3l2
- E5S6Z8mBiPDcELMN5YEXhyF0Z2Mqk+GZ73vW0RcxaVj7dWm5R4eYSk3mSxXHdK0=
-X-Gm-Gg: ASbGnctd9Cf8z4Wr61PIFqR++1hKVC8HyAsip2YoCudyejSuLxjq75N6J6dCJwMbiHA
- aef6wklSmdTrpumsTfpeh3RY4Zv9YewxM4455XGrRMjSqHb9O0/W/miAW9l2yBAQPPMRMIVTr7b
- cAflh3ws5iwgxK7kcpGDNuG6wIv/wC/QdIcSDo2S6vxzaHY028Nb6VlMsieCsrit9+uwdgVRPfS
- hgN0NEQYDO/y05ms3ad9EzfFD13bkRgd3wqEo4skfWQhHI1O/p0jUXsxw==
-X-Google-Smtp-Source: AGHT+IEJNfzSkuCdzOOYuqLdhThDbipynbQzrrmzQe+8Fcb8wjmn7htIVDE2uytHwA9HycVmGGo/ww==
-X-Received: by 2002:a05:6512:3a8d:b0:53d:dbec:9fca with SMTP id
- 2adb3069b0e04-53ddbeca289mr516396e87.0.1732340707412; 
- Fri, 22 Nov 2024 21:45:07 -0800 (PST)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53dd24457e1sm740143e87.34.2024.11.22.21.45.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Nov 2024 21:45:07 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 23 Nov 2024 07:44:56 +0200
-Subject: [PATCH v2 3/3] drm/msm/mdss: use boolean values for macrotile_mode
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E78110E246;
+ Sat, 23 Nov 2024 16:14:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 708175C5583;
+ Sat, 23 Nov 2024 16:13:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9FDC4CECD;
+ Sat, 23 Nov 2024 16:14:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1732378472;
+ bh=E02GaD6C2zW4KVX9ewnciYeUTWpwJEUwwnHlZ+OyWAA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=fCgDdIaHZ/hdTwWsN6WgLvT5q0urJF4+Z5E/Sa8AebGnhIzjcjzdtMv6lQT0jgxWH
+ 9Q7kcXz2wXkEUfRPjU/pr/3HijAkVNFBs3IbCVREQlCA0kzZTm2OMGUqMa9nrIvTCG
+ hI3w87j2uxmb/Ma4j2q79eV7AM1WYYzS09T+EEyci8RdtdOa9nExvQx4FwY5XA6eUw
+ 8uN9zRfIfcMu21Qbz5sBoLo0PgV+eFT0i4FhwAO1Pcyp/og3VKhJ2EegX/qVntPKbt
+ yRoU4YqT7JkZL15r1sGVOapWJckzUEXe7c7UeTIlWOGJl3ol2qXdLF4+CY4EOYaRoM
+ t31g5QM/vq8sA==
+Date: Sat, 23 Nov 2024 17:14:29 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Fange Zhang <quic_fangez@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Li Liu <quic_lliu6@quicinc.com>, 
+ Xiangxu Yin <quic_xiangxuy@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 0/9] Add display support for QCS615 platform
+Message-ID: <2ihy463xjiguluacmd3qhlskjtrpotk4mmflqdtgm3qhjzcrif@x2ckw5h6xqyj>
+References: <20241122-add-display-support-for-qcs615-platform-v3-0-35252e3a51fe@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241123-msm-mdss-ubwc-v2-3-41344bc6ef9c@linaro.org>
-References: <20241123-msm-mdss-ubwc-v2-0-41344bc6ef9c@linaro.org>
-In-Reply-To: <20241123-msm-mdss-ubwc-v2-0-41344bc6ef9c@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Connor Abbott <cwabbott0@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2536;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=gdM2PmIA7KXreNC4e0p5DKW62M8digF3+8KzLk+7N4s=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnQWvaGO+Y6FoVYTBQaZpzt8UIWJKd7OgPZXoQb
- 1CWB/ILgCCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ0Fr2gAKCRCLPIo+Aiko
- 1aiHCACm2sH3vJTnYnx5BmVp1ztQ3EUYnPTFk6PpxdglQX8AeznE9hDRIEelD+LPW43iHWofTU6
- pkI62suQqYHajFWAEqWMO18EwqVqy8xODNIIV0GBVjgYSpuWvZlSix4uU/5q/T/Kwi9ygdrhe2z
- sNdynfWUQE2Ey1w1uwdNpWI2v/n4ETEGp+y50kNNaroNRRgX0nJOy4Qt4zwdij2pr6Fg/QvqHi5
- 6DpG0F50H4ZDjhi8BmRCgHDpijcmR2jRVWR9JaGB2LlmjHrVbRK0IiWFItjDK72fIio18UrkFxZ
- Ek0kVpOmVc/k+s/ED6PQDFAFrTg+2vnXABrRLWw9SGP24yXx
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20241122-add-display-support-for-qcs615-platform-v3-0-35252e3a51fe@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,91 +73,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The macrotile_mode is a flag, not a bit value. Use true/false values to
-set it rather than 1/0.
+On Fri, Nov 22, 2024 at 05:56:43PM +0800, Fange Zhang wrote:
+> This series aims to enable display on the QCS615 platform
+> 
+> 1.Add MDSS & DPU support for QCS615
+> 2.Add DSI support for QCS615     
+> 
+> QCS615 platform supports DisplayPort, and this feature will be added in a future patch
+> 
+> This patch series depends on below patch series:
+> - rpmhcc
+> https://lore.kernel.org/all/20241022-qcs615-clock-driver-v4-2-3d716ad0d987@quicinc.com/
+> - gcc
+> https://lore.kernel.org/all/20241022-qcs615-clock-driver-v4-4-3d716ad0d987@quicinc.com/
+> - base
+> https://lore.kernel.org/all/20241104-add_initial_support_for_qcs615-v5-0-9dde8d7b80b0@quicinc.com/
+> - Apps SMMU
+> https://lore.kernel.org/all/20241105032107.9552-4-quic_qqzhou@quicinc.com/
+> - I2C
+> https://lore.kernel.org/all/20241111084331.2564643-1-quic_vdadhani@quicinc.com/
+> - dispcc
+> https://lore.kernel.org/all/20241108-qcs615-mm-clockcontroller-v3-0-7d3b2d235fdf@quicinc.com/
+> - dispcc dts
+> https://lore.kernel.org/lkml/20241108-qcs615-mm-dt-nodes-v1-0-b2669cac0624@quicinc.com/
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/msm_mdss.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+Which makes it unmergeable and untestable. I suggest decouple
+dependencies.
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index 2fdad0fa4bc159e9a10755da2c0402fd87734aee..2d9db179accb0fd8666fe80371ea44a1fcc15e1f 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -588,7 +588,7 @@ static const struct msm_mdss_data sa8775p_data = {
- 	.ubwc_swizzle = 4,
- 	.ubwc_bank_spread = true,
- 	.highest_bank_bit = 0,
--	.macrotile_mode = 1,
-+	.macrotile_mode = true,
- 	.reg_bus_bw = 74000,
- };
- 
-@@ -607,7 +607,7 @@ static const struct msm_mdss_data sc7280_data = {
- 	.ubwc_swizzle = 6,
- 	.ubwc_bank_spread = true,
- 	.highest_bank_bit = 1,
--	.macrotile_mode = 1,
-+	.macrotile_mode = true,
- 	.reg_bus_bw = 74000,
- };
- 
-@@ -615,7 +615,7 @@ static const struct msm_mdss_data sc8180x_data = {
- 	.ubwc_enc_version = UBWC_3_0,
- 	.ubwc_dec_version = UBWC_3_0,
- 	.highest_bank_bit = 3,
--	.macrotile_mode = 1,
-+	.macrotile_mode = true,
- 	.reg_bus_bw = 76800,
- };
- 
-@@ -625,7 +625,7 @@ static const struct msm_mdss_data sc8280xp_data = {
- 	.ubwc_swizzle = 6,
- 	.ubwc_bank_spread = true,
- 	.highest_bank_bit = 3,
--	.macrotile_mode = 1,
-+	.macrotile_mode = true,
- 	.reg_bus_bw = 76800,
- };
- 
-@@ -689,7 +689,7 @@ static const struct msm_mdss_data sm8250_data = {
- 	.ubwc_bank_spread = true,
- 	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
- 	.highest_bank_bit = 3,
--	.macrotile_mode = 1,
-+	.macrotile_mode = true,
- 	.reg_bus_bw = 76800,
- };
- 
-@@ -700,7 +700,7 @@ static const struct msm_mdss_data sm8350_data = {
- 	.ubwc_bank_spread = true,
- 	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
- 	.highest_bank_bit = 3,
--	.macrotile_mode = 1,
-+	.macrotile_mode = true,
- 	.reg_bus_bw = 74000,
- };
- 
-@@ -711,7 +711,7 @@ static const struct msm_mdss_data sm8550_data = {
- 	.ubwc_bank_spread = true,
- 	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
- 	.highest_bank_bit = 3,
--	.macrotile_mode = 1,
-+	.macrotile_mode = true,
- 	.reg_bus_bw = 57000,
- };
- 
-@@ -722,7 +722,7 @@ static const struct msm_mdss_data x1e80100_data = {
- 	.ubwc_bank_spread = true,
- 	/* TODO: highest_bank_bit = 2 for LP_DDR4 */
- 	.highest_bank_bit = 3,
--	.macrotile_mode = 1,
-+	.macrotile_mode = true,
- 	/* TODO: Add reg_bus_bw with real value */
- };
- 
-
--- 
-2.39.5
+Best regards,
+Krzysztof
 
