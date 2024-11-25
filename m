@@ -2,89 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EF029D7B10
-	for <lists+freedreno@lfdr.de>; Mon, 25 Nov 2024 06:19:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33B999D7C0B
+	for <lists+freedreno@lfdr.de>; Mon, 25 Nov 2024 08:39:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5317C10E11F;
-	Mon, 25 Nov 2024 05:19:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF84110E156;
+	Mon, 25 Nov 2024 07:39:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="IgUxnbEP";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="LRizIbrD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5F8D10E11F
- for <freedreno@lists.freedesktop.org>; Mon, 25 Nov 2024 05:18:56 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-724e5fb3f9dso1985507b3a.3
- for <freedreno@lists.freedesktop.org>; Sun, 24 Nov 2024 21:18:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732511936; x=1733116736; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=CaT7XHkUStAmSWQ7uMJ9CTvA+0ljM0SSdqJ8hkuHKAE=;
- b=IgUxnbEPlt7C7ECAVGi2uaSUl1piPz7QucwgrKuK7WiYvzlnqZn3Wnz1e9mLmy3hLF
- vR4pT0kUOls6093DvMjMAnsjD5xWugEUlhGekRPVGHT4fyXRrSEn2obJpWOIBpPMfth7
- n5UTXM2HHcwYFseS60dA1pcEes3Idrby+4pGvRMeJywrZZrC0gtXeF6Vqvq9UymVDjCp
- 8wz2CsOSRMZs0abbJoom3aJwxj2b2SWbRQ/b9lJUS18XJB5MEDsg1uiBtDc12knEuMeU
- oOgJkFT7ycKAnlfhnCQACcjY9kjn0G1K+sJuNfjyBGa7GgUqgxXwSQjAUWbVIWCruX+h
- aDYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732511936; x=1733116736;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CaT7XHkUStAmSWQ7uMJ9CTvA+0ljM0SSdqJ8hkuHKAE=;
- b=VH5rbvtmV09fO6AfbqbaPE9pLS9P4apyW+uhMk4VpQFoKmr9X2c2s4EqL5ziIV0M7H
- VQRQNzFPkkgOiVnQnBnnwXULSXNZ5Ig8FQZso9ZwgLBLbIKYi7eboLT6zefWpW2cgXk3
- uhY4WUq0/r1dI7nxqN78+34lJC8d2EwfuF1/oOs3jdKea1hyyOvDzRPd5UX20Ko88IW6
- h0bihbDj6a3Qy+x02AKcM0ayrp76s4gxWL5bnwIF/HT57MHojCMMn7jJ7a6gk75v+dvJ
- 55tDr5LS3w1C04GinDTZRkPNtoQUorje2yirwZNusK5NAEBx7NRWvsucemkLJ9aG0WJh
- Z5yg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXIxFN1LfPc8bqYdPaMM36rmsh0FdFFUWDGsYP+5Yhp2KafNk3YHr5lG2TU+wgZQBHM2YqXYnZA0fI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzL+mix1oFlBOlKJt1rYelY99YbP1CUT0JFmxmyHJKTz2lopiEc
- 2pg4Wpse+/Fy8aJuxLHJUNAM+OL74U31NlBSCYyowhUUhoNpF4myTCOMaea3YHU=
-X-Gm-Gg: ASbGnctjPL/52mYX/oA8ajcushyf/n/stnmqzTSopRTnYMHcWWZcBqsbM9Fuid54jcP
- zq8qunQKH+N6E+K+u4CO9a+s5CjNOYPCans37ppriyEBx11p0Asf9+a8CEh4Xado7CH1zrm1Sc7
- Ra4gqkGMiDwY/RHEMIFDZofXfQDmJGnOaQdaB+uvOx/Ud4AmXKLCMP/fChEPw8ELZua644PI0pz
- Y+6blYzgjKfgaJkAPmSjd6AcVQaM4jcUUSpi+f0dsBJHYChkvwa
-X-Google-Smtp-Source: AGHT+IGe6EIORCJn7aV9npBgDcZpDnf5jw/DaCFfKxvU0lKTbT+0M9zATqm1b+aolILMH8BpHhsBzw==
-X-Received: by 2002:a05:6a00:2d10:b0:71e:4a51:2007 with SMTP id
- d2e1a72fcca58-724df3c77ffmr14298594b3a.4.1732511936149; 
- Sun, 24 Nov 2024 21:18:56 -0800 (PST)
-Received: from localhost ([122.172.86.146]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-724de474c9fsm5506878b3a.44.2024.11.24.21.18.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 24 Nov 2024 21:18:55 -0800 (PST)
-Date: Mon, 25 Nov 2024 10:48:53 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Connor Abbott <cwabbott0@gmail.com>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 01/11] opp: core: implement dev_pm_opp_get_bw
-Message-ID: <20241125051853.taeysx2nhmrwoyde@vireshk-i7>
-References: <20241119-topic-sm8x50-gpu-bw-vote-v2-0-4deb87be2498@linaro.org>
- <20241119-topic-sm8x50-gpu-bw-vote-v2-1-4deb87be2498@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1253510E05A;
+ Mon, 25 Nov 2024 07:39:13 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AP7W3Q4011503;
+ Mon, 25 Nov 2024 07:39:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ mhiI0THbvHUoezO4NczBF99yryboUFqA+Fx/oj+SIJA=; b=LRizIbrDmbvLK26q
+ IJr9BOxlf/wLEVIIwXd3UAd/aXQXPY+b/hq9d1mBfzkd8zmSkh8s4JYtJxcLbZ9g
+ mYlmbQkCLkf2amcikViEhav+oCnwrDYg+iiJPiKisuXNYR8WBogrjg8vu5gdbEVj
+ 43Db+uJ7+YQz+Q5NMETeh98dC1xBW6+FdKLgwqz5eEoCFHZwVBG42z72H2X/mqyb
+ iJKkSG0HGI3DrjnnGFuJE8Xw23LVwS3PyANVxfJT7NmJ/1DTKnZIKOxvfFditdzM
+ AFhvKf2WgwCjyP7forb+UBsXOx/bMAH9YktlUznMWLYfW94+bsk7PJmmde+DjKIs
+ TyQLAw==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 434mx700fx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 25 Nov 2024 07:39:02 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AP7d11T003539
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 25 Nov 2024 07:39:01 GMT
+Received: from [10.64.16.151] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 24 Nov
+ 2024 23:38:54 -0800
+Message-ID: <520419eb-cedf-465b-a14a-12d97ab257a0@quicinc.com>
+Date: Mon, 25 Nov 2024 15:38:51 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241119-topic-sm8x50-gpu-bw-vote-v2-1-4deb87be2498@linaro.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 9/9] arm64: dts: qcom: Add display support for QCS615
+ RIDE board
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Krishna
+ Manikandan" <quic_mkrishn@quicinc.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, "Catalin
+ Marinas" <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Li Liu
+ <quic_lliu6@quicinc.com>, Xiangxu Yin <quic_xiangxuy@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+References: <20241122-add-display-support-for-qcs615-platform-v3-0-35252e3a51fe@quicinc.com>
+ <20241122-add-display-support-for-qcs615-platform-v3-9-35252e3a51fe@quicinc.com>
+ <azdmcs7uafw3n6cqbq4ei66oybzhtyvdyz2xl4wtaf3u5zextb@vdhbs6wnbeg4>
+Content-Language: en-US
+From: fange zhang <quic_fangez@quicinc.com>
+In-Reply-To: <azdmcs7uafw3n6cqbq4ei66oybzhtyvdyz2xl4wtaf3u5zextb@vdhbs6wnbeg4>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: LtXWYAU7mSB5PXQCwLcitGJoSMnov67f
+X-Proofpoint-ORIG-GUID: LtXWYAU7mSB5PXQCwLcitGJoSMnov67f
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0
+ mlxlogscore=999 malwarescore=0 adultscore=0 spamscore=0 mlxscore=0
+ bulkscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2411250064
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,89 +105,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19-11-24, 18:56, Neil Armstrong wrote:
-> Add and implement the dev_pm_opp_get_bw() to retrieve
-> the OPP's bandwidth in the same way as the dev_pm_opp_get_voltage()
-> helper.
-> 
-> Retrieving bandwidth is required in the case of the Adreno GPU
-> where the GPU Management Unit can handle the Bandwidth scaling.
-> 
-> The helper can get the peak or average bandwidth for any of
-> the interconnect path.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  drivers/opp/core.c     | 25 +++++++++++++++++++++++++
->  include/linux/pm_opp.h |  7 +++++++
->  2 files changed, 32 insertions(+)
-> 
-> diff --git a/drivers/opp/core.c b/drivers/opp/core.c
-> index 494f8860220d97fc690ebab5ed3b7f5f04f22d73..864b9b99b0129acaffaf45c584c5f34b8bababed 100644
-> --- a/drivers/opp/core.c
-> +++ b/drivers/opp/core.c
-> @@ -106,6 +106,31 @@ static bool assert_single_clk(struct opp_table *opp_table)
->  	return !WARN_ON(opp_table->clk_count > 1);
->  }
->  
-> +/**
-> + * dev_pm_opp_get_bw() - Gets the bandwidth corresponding to an opp
-> + * @opp:	opp for which voltage has to be returned for
 
-                              bandwidth
 
-> + * @peak:	select peak or average bandwidth
-> + * @index:	bandwidth index
-> + *
-> + * Return: bandwidth in kBps, else return 0
-> + */
-> +unsigned long dev_pm_opp_get_bw(struct dev_pm_opp *opp, bool peak, int index)
-> +{
-> +	if (IS_ERR_OR_NULL(opp)) {
-> +		pr_err("%s: Invalid parameters\n", __func__);
-> +		return 0;
-> +	}
-> +
-> +	if (index > opp->opp_table->path_count)
-> +		return 0;
-> +
-> +	if (!opp->bandwidth)
-> +		return 0;
-> +
-> +	return peak ? opp->bandwidth[index].peak : opp->bandwidth[index].avg;
-> +}
-> +EXPORT_SYMBOL_GPL(dev_pm_opp_get_bw);
-> +
->  /**
->   * dev_pm_opp_get_voltage() - Gets the voltage corresponding to an opp
->   * @opp:	opp for which voltage has to be returned for
-> diff --git a/include/linux/pm_opp.h b/include/linux/pm_opp.h
-> index 6424692c30b71fca471a1b7d63e018605dd9324b..cd9a257b8e7766d6c8631351a10a845c88414a74 100644
-> --- a/include/linux/pm_opp.h
-> +++ b/include/linux/pm_opp.h
-> @@ -106,6 +106,8 @@ struct dev_pm_opp_data {
->  struct opp_table *dev_pm_opp_get_opp_table(struct device *dev);
->  void dev_pm_opp_put_opp_table(struct opp_table *opp_table);
->  
-> +unsigned long dev_pm_opp_get_bw(struct dev_pm_opp *opp, bool peak, int index);
-> +
->  unsigned long dev_pm_opp_get_voltage(struct dev_pm_opp *opp);
->  
->  int dev_pm_opp_get_supplies(struct dev_pm_opp *opp, struct dev_pm_opp_supply *supplies);
-> @@ -209,6 +211,11 @@ static inline struct opp_table *dev_pm_opp_get_opp_table_indexed(struct device *
->  
->  static inline void dev_pm_opp_put_opp_table(struct opp_table *opp_table) {}
->  
-> +static inline unsigned long dev_pm_opp_get_bw(struct dev_pm_opp *opp, bool peak, int index)
-> +{
-> +	return 0;
-> +}
-> +
->  static inline unsigned long dev_pm_opp_get_voltage(struct dev_pm_opp *opp)
->  {
->  	return 0;
+On 2024/11/22 18:22, Dmitry Baryshkov wrote:
+> On Fri, Nov 22, 2024 at 05:56:52PM +0800, Fange Zhang wrote:
+>> From: Li Liu <quic_lliu6@quicinc.com>
+>>
+>> Add display MDSS and DSI configuration for QCS615 RIDE board.
+>> QCS615 has a DP port, and DP support will be added in a later patch.
+>>
+>> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
+>> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
+>> ---
+>>   arch/arm64/boot/dts/qcom/qcs615-ride.dts | 76 ++++++++++++++++++++++++++++++++
+>>   1 file changed, 76 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+>> index ee6cab3924a6d71f29934a8debba3a832882abdd..cc7dadc411ab79b9e60ccb15eaff84ea5f997c4c 100644
+>> --- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+>> +++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+>> @@ -202,6 +202,82 @@ &gcc {
+>>   		 <&sleep_clk>;
+>>   };
+>>   
+>> +&i2c2 {
+>> +	clock-frequency = <400000>;
+>> +	status = "okay";
+>> +
+>> +	ioexp: gpio@3e {
+>> +		compatible = "semtech,sx1509q";
+>> +		reg = <0x3e>;
+>> +		interrupt-parent = <&tlmm>;
+>> +		interrupts = <58 0>;
+>> +		gpio-controller;
+>> +		#gpio-cells = <2>;
+>> +		interrupt-controller;
+>> +		#interrupt-cells = <2>;
+>> +		semtech,probe-reset;
+>> +	};
+>> +
+>> +	i2c-mux@77 {
+>> +		compatible = "nxp,pca9542";
+>> +		reg = <0x77>;
+>> +		#address-cells = <1>;
+>> +		#size-cells = <0>;
+>> +		i2c@0 {
+>> +			reg = <0>;
+>> +			#address-cells = <1>;
+>> +			#size-cells = <0>;
+>> +
+>> +			anx7625@58 {
+>> +				compatible = "analogix,anx7625";
+>> +				reg = <0x58>;
+>> +				interrupt-parent = <&ioexp>;
+>> +				interrupts = <0 0>;
+>> +				enable-gpios = <&tlmm 4 GPIO_ACTIVE_HIGH>;
+>> +				reset-gpios = <&tlmm 5 GPIO_ACTIVE_HIGH>;
+>> +				wakeup-source;
+>> +
+>> +				ports {
+>> +					#address-cells = <1>;
+>> +					#size-cells = <0>;
+>> +
+>> +					port@0 {
+>> +						reg = <0>;
+>> +						anx_7625_in: endpoint {
+>> +							remote-endpoint = <&mdss_dsi0_out>;
+>> +						};
+>> +					};
+>> +
+>> +					port@1 {
+>> +						reg = <1>;
+>> +						anx_7625_out: endpoint {
+>> +						};
+> 
+> Where is it connected? Is it DP port? USB-C? eDP?
+yes, it's DP port
+> 
+>> +					};
+>> +				};
+>> +			};
+>> +		};
+>> +	};
+>> +};
+>> +
+>> +&mdss {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&mdss_dsi0 {
+>> +	vdda-supply = <&vreg_l11a>;
+>> +	status = "okay";
+>> +};
+>> +
+>> +&mdss_dsi0_out {
+>> +	remote-endpoint = <&anx_7625_in>;
+>> +	data-lanes = <0 1 2 3>;
+>> +};
+>> +
+>> +&mdss_dsi0_phy {
+>> +	vdds-supply = <&vreg_l5a>;
+>> +	status = "okay";
+>> +};
+>> +
+>>   &qupv3_id_0 {
+>>   	status = "okay";
+>>   };
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
 
-Applied. Thanks.
-
--- 
-viresh
