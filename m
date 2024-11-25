@@ -2,84 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA19F9D8A97
-	for <lists+freedreno@lfdr.de>; Mon, 25 Nov 2024 17:46:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 487BB9D8E50
+	for <lists+freedreno@lfdr.de>; Mon, 25 Nov 2024 23:08:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CEE010E2D6;
-	Mon, 25 Nov 2024 16:46:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18BA710E033;
+	Mon, 25 Nov 2024 22:08:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="czlhJIHn";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hq5ihD1q";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 689B410E2D6
- for <freedreno@lists.freedesktop.org>; Mon, 25 Nov 2024 16:46:43 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-53de652f242so831789e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 25 Nov 2024 08:46:43 -0800 (PST)
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
+ [209.85.128.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 148F210E3D8
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Nov 2024 22:08:22 +0000 (UTC)
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-6eeb741c26eso53043777b3.0
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Nov 2024 14:08:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732553201; x=1733158001; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=8ykbKQkuo2I4PEhIhBhe30Yc7TSw4jX5a63Tm3U6voo=;
- b=czlhJIHnjbr86+EL4yEVj06djN3gjs50TL2j329l8+gjstb2VDZNo3aZe9KkZpV6nY
- fnJ3aPxFWB9UPZn2mzG8OKgmtkiYumU3eNet/V09Fd/SDW/DMrFm5S/hRrTRW/Jcmbtq
- 6cDsGAQZqO+lzxzku+TpaFWaY37S0jTzreqjbo0In2oe8gB1MIItZe6/gKA6G+rj8yYA
- P+4yCzvlf+/sWA7JZpFuTd3rumE9qW2GdwExX8CmwxGenpC5/GYwtZ0GD0UOzKDcxyj+
- U2C3yg4ej4g+vSAu+KRaX5d5kr7sxmr5ebeZ6frORhIpHFEDCx6gy+YpsHbMh1cIgO80
- sj2w==
+ d=linaro.org; s=google; t=1732572501; x=1733177301; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=2eAVON7HGIpJamTV+1ul/jOyH9ikQLUzIAIpUaFRKeE=;
+ b=hq5ihD1qczCJ3WGh7tbutwy/gAsjTFlYaTOY0O8QEFVczM5rPMFJ4fPuB2j5q/BLch
+ vCydzYuNbCKWCZSZXAKy4E7zG3NeH7vK+Mtsd35pG9qNXAq2S7Xg3bvYr4FvY/RlLzXb
+ skDSonysG1u3/Ge8gxwdbK5ljaIEN3LKTzdKIeOTXHaDce3DFGz57+Bf1VaDC50sKpVl
+ Z5r06baIq+FXITdK5MHYgpvXTP+RZ2RXgI4hznmIKiz9n69Tfh2nD++B0onlhyyOGojQ
+ /YkZ+rp4FzMIKEIfQJAW1BlO6+2qjyNdd90SvvU+JA4CkO5U2/PizRCHGi74c6BAm926
+ ESnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732553201; x=1733158001;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8ykbKQkuo2I4PEhIhBhe30Yc7TSw4jX5a63Tm3U6voo=;
- b=pHZ4yefqK3WDQtWa42eeZX2GObpIRE0pZjXtaOfv+DGY6LTrX8jKbfBGtZiGzw6KhI
- muhD/Q9/dt2gXeP8ktYPypOynvXHs5BxWCcdYj4+bWAC6uJImvJSoyc9Zz8YmD+Nd8Vn
- QwCIe3gMVgdZE0PLBAHaXYXqeznOjG8MDejT5y6mXkd9RD0Tr18ziGABKgGuX765L7VJ
- MFPcNHiulAILjI3wsoYS/0fLYWt6whtT1DRKbqEzkMQhEhKroYMoBTGAi2XiQvgqf2sr
- 2/0Q1YL1h5ByZnw4WX/7S1XCEFWl9N0C7oL6z0NpmB9TT+KNwponoKQlhCsut+VZttMH
- xgcw==
+ d=1e100.net; s=20230601; t=1732572501; x=1733177301;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=2eAVON7HGIpJamTV+1ul/jOyH9ikQLUzIAIpUaFRKeE=;
+ b=oY+9Zxrc9U/tTnU41BlpbUJUD3xXOGDbw2e2ZdNfGIed/ByeNkC5LFL4MALhMTG4Kz
+ s4znWRwD6f0bfMjewwCuAqXIS2LKlBM0ODummclwaOmqBy3gnr4oeXUDvF6VgVP6w9R9
+ AGIoqYLW77txwV6Ltis0butc7XU4QXjMGCE9irha1LIuBMJt67F06rOvcAjmuH2/zifa
+ vSPQ+DkZWCI/etqS8kBVWx84hOAVYzdfNht4rrqugkMAqjXwSwXbkbIEEoa5Lz3uGzR7
+ XatW6dJZxfBlyHQwUnSFss8SndMPcIrq/vZCsq7dtHb4gyd2inqWE6rATEvQ90NuUsPW
+ lrLA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUs8W2727Zo6C7/fjw6j6UavWDvW51zg72TsM4eFez43+UGXL7LTHV+tB90pGEB9+Z23e6mQFSRyxk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwUfcwRkH7riZ6h9YeGceH0VO/cwcBgmZHxvj0iohUvAbTxdlRz
- Hdh9tJs1bO8E5nvSmysXK6Q1O5m50giCLLCa4FdumGmSvyOsWchSKZOLABrfqDc=
-X-Gm-Gg: ASbGncu08iD4kcs/4BbQsV4ZDOEMVJtPcn2XaYzikFOOnjM6gX447ZulP6pbJEArAxx
- QzmNrLGBIQ7hWvBqDVsMEm7FuYwS4hb3Rbhlk90H5zoZX/azq5ikkFnNrLuNHwl2DoL/s+/Li1c
- l74Chk+dHyJvkz0rClCTbzUw/ITbghKm7QBDX+O8K4fkOHfnz68ROgPGHlj2kMdmnAKsiDvXZ1p
- S7tKktn2jtHYNETaE70EJOtRov9HtWdve+ARkCk7/g/GYOmWONewfg7FQtkRS6TMhAQZjVOQE3M
- dZ4BvT+oBBEO3WDeCkf2uPvaTAdFCA==
-X-Google-Smtp-Source: AGHT+IEIEs10x32BmBHwyCvNs3GkmUc0gOFBfdig3YObcsa/6Cquloa5nXm0+6tXaumC980PBV2hcw==
-X-Received: by 2002:a05:6512:1593:b0:53d:dd50:1a94 with SMTP id
- 2adb3069b0e04-53ddd501c1dmr3313733e87.53.1732553201410; 
- Mon, 25 Nov 2024 08:46:41 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53dd2451091sm1715437e87.65.2024.11.25.08.46.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Nov 2024 08:46:40 -0800 (PST)
-Date: Mon, 25 Nov 2024 18:46:37 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] drm/msm/adreno: Introduce ADRENO_QUIRK_NO_SYSCACHE
-Message-ID: <vfbklrbereo3j5dp2w4pvctef364sb2dqogccmaevjerkm5u43@jytwobqwvuv2>
-References: <20241125-a612-gpu-support-v2-0-b7cc38e60191@quicinc.com>
- <20241125-a612-gpu-support-v2-1-b7cc38e60191@quicinc.com>
+ AJvYcCWqh6+6iRI9VnSAcQn0CgQmj73pEPpF+/M+8MPxg3IgAbCXl+/AMdDgQuI80MWUTDHLQ4PhyMEblDg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyj2wPWK1FnjkIsj9PeZK/yUQIzLyNqsR6vMBULzzIcl1i7ptIQ
+ SzgyVLsCa3LMOogcxhjsCy9K+/CVwiXeFpKDP9dgXrFWUGswjRowvdQovGaV7n3E6On1CEOu9oK
+ TAAHVq9pvLYAWtJLG9qErkoLc8SQP4YFxt6WjvQ==
+X-Gm-Gg: ASbGnct90rPKqDcBVG45ENb9w++un41/GpeS8qJ5Fzf065ZS1j3oTK/oNNImCNT2hr+
+ XAf8Nw90ukmcfFxWvPbMJva5+FM2DEcc+raS6V7BHz9QprQ==
+X-Google-Smtp-Source: AGHT+IH3FXdPBpJiJnoxYtZf5OcPuzoBCcHTS63VZoNzGC8i3tQMMu8CiFEfyuzsoE5SpSq1X+HyPrst164d4mk4PR4=
+X-Received: by 2002:a05:6902:2b85:b0:e38:bec9:527d with SMTP id
+ 3f1490d57ef6-e38f8b22061mr11846744276.26.1732572501125; Mon, 25 Nov 2024
+ 14:08:21 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241125-a612-gpu-support-v2-1-b7cc38e60191@quicinc.com>
+References: <20241122-add-display-support-for-qcs615-platform-v3-0-35252e3a51fe@quicinc.com>
+ <20241122-add-display-support-for-qcs615-platform-v3-9-35252e3a51fe@quicinc.com>
+ <azdmcs7uafw3n6cqbq4ei66oybzhtyvdyz2xl4wtaf3u5zextb@vdhbs6wnbeg4>
+ <520419eb-cedf-465b-a14a-12d97ab257a0@quicinc.com>
+In-Reply-To: <520419eb-cedf-465b-a14a-12d97ab257a0@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 26 Nov 2024 00:08:10 +0200
+Message-ID: <CAA8EJpqvkeMWgeWCx9D-HcJhRfipZJdEvpvag0wk-WXazkPahA@mail.gmail.com>
+Subject: Re: [PATCH v3 9/9] arm64: dts: qcom: Add display support for QCS615
+ RIDE board
+To: fange zhang <quic_fangez@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Li Liu <quic_lliu6@quicinc.com>, 
+ Xiangxu Yin <quic_xiangxuy@quicinc.com>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,87 +98,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Nov 25, 2024 at 10:03:00PM +0530, Akhil P Oommen wrote:
-> There are a few chipsets which don't have system cache a.k.a LLC.
-> Currently, the assumption in the driver is that the system cache
-> availability correlates with the presence of GMU or RPMH, which
-> is not true. For instance, Snapdragon 6 Gen 1 has RPMH and a GPU
-> with a full blown GMU, but doesnot have a system cache. So,
-> introduce an Adreno Quirk flag to check support for system cache
-> instead of using gmu_wrapper flag.
-> 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 3 ++-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 7 +------
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 1 +
->  3 files changed, 4 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> index 0c560e84ad5a..5e389f6b8b8a 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> @@ -682,6 +682,7 @@ static const struct adreno_info a6xx_gpus[] = {
->  		},
->  		.gmem = (SZ_128K + SZ_4K),
->  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +		.quirks = ADRENO_QUIRK_NO_SYSCACHE,
->  		.init = a6xx_gpu_init,
->  		.zapfw = "a610_zap.mdt",
->  		.a6xx = &(const struct a6xx_info) {
-> @@ -1331,7 +1332,7 @@ static const struct adreno_info a7xx_gpus[] = {
->  		},
->  		.gmem = SZ_128K,
->  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> -		.quirks = ADRENO_QUIRK_HAS_HW_APRIV,
-> +		.quirks = ADRENO_QUIRK_HAS_HW_APRIV | ADRENO_QUIRK_NO_SYSCACHE,
->  		.init = a6xx_gpu_init,
->  		.zapfw = "a702_zap.mbn",
->  		.a6xx = &(const struct a6xx_info) {
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 019610341df1..a8b928d0f320 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -1863,10 +1863,6 @@ static void a7xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
->  
->  static void a6xx_llc_slices_destroy(struct a6xx_gpu *a6xx_gpu)
->  {
-> -	/* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
-> -	if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
-> -		return;
-> -
+On Mon, 25 Nov 2024 at 09:39, fange zhang <quic_fangez@quicinc.com> wrote:
+>
+>
+>
+> On 2024/11/22 18:22, Dmitry Baryshkov wrote:
+> > On Fri, Nov 22, 2024 at 05:56:52PM +0800, Fange Zhang wrote:
+> >> From: Li Liu <quic_lliu6@quicinc.com>
+> >>
+> >> Add display MDSS and DSI configuration for QCS615 RIDE board.
+> >> QCS615 has a DP port, and DP support will be added in a later patch.
+> >>
+> >> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
+> >> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
+> >> ---
+> >>   arch/arm64/boot/dts/qcom/qcs615-ride.dts | 76 ++++++++++++++++++++++++++++++++
+> >>   1 file changed, 76 insertions(+)
+> >>
+> >> diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+> >> index ee6cab3924a6d71f29934a8debba3a832882abdd..cc7dadc411ab79b9e60ccb15eaff84ea5f997c4c 100644
+> >> --- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+> >> +++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+> >> @@ -202,6 +202,82 @@ &gcc {
+> >>               <&sleep_clk>;
+> >>   };
+> >>
+> >> +&i2c2 {
+> >> +    clock-frequency = <400000>;
+> >> +    status = "okay";
+> >> +
+> >> +    ioexp: gpio@3e {
+> >> +            compatible = "semtech,sx1509q";
+> >> +            reg = <0x3e>;
+> >> +            interrupt-parent = <&tlmm>;
+> >> +            interrupts = <58 0>;
+> >> +            gpio-controller;
+> >> +            #gpio-cells = <2>;
+> >> +            interrupt-controller;
+> >> +            #interrupt-cells = <2>;
+> >> +            semtech,probe-reset;
+> >> +    };
+> >> +
+> >> +    i2c-mux@77 {
+> >> +            compatible = "nxp,pca9542";
+> >> +            reg = <0x77>;
+> >> +            #address-cells = <1>;
+> >> +            #size-cells = <0>;
+> >> +            i2c@0 {
+> >> +                    reg = <0>;
+> >> +                    #address-cells = <1>;
+> >> +                    #size-cells = <0>;
+> >> +
+> >> +                    anx7625@58 {
+> >> +                            compatible = "analogix,anx7625";
+> >> +                            reg = <0x58>;
+> >> +                            interrupt-parent = <&ioexp>;
+> >> +                            interrupts = <0 0>;
+> >> +                            enable-gpios = <&tlmm 4 GPIO_ACTIVE_HIGH>;
+> >> +                            reset-gpios = <&tlmm 5 GPIO_ACTIVE_HIGH>;
+> >> +                            wakeup-source;
+> >> +
+> >> +                            ports {
+> >> +                                    #address-cells = <1>;
+> >> +                                    #size-cells = <0>;
+> >> +
+> >> +                                    port@0 {
+> >> +                                            reg = <0>;
+> >> +                                            anx_7625_in: endpoint {
+> >> +                                                    remote-endpoint = <&mdss_dsi0_out>;
+> >> +                                            };
+> >> +                                    };
+> >> +
+> >> +                                    port@1 {
+> >> +                                            reg = <1>;
+> >> +                                            anx_7625_out: endpoint {
+> >> +                                            };
+> >
+> > Where is it connected? Is it DP port? USB-C? eDP?
+> yes, it's DP port
 
-Shouldn't it also be a NO_SYSCACHE check?
+So, I'd expect to see a dp-connector node at the end, not the
+unterminated anx7625.
 
->  	llcc_slice_putd(a6xx_gpu->llc_slice);
->  	llcc_slice_putd(a6xx_gpu->htw_llc_slice);
->  }
-> @@ -1876,8 +1872,7 @@ static void a6xx_llc_slices_init(struct platform_device *pdev,
->  {
->  	struct device_node *phandle;
->  
-> -	/* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
-> -	if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
-> +	if (a6xx_gpu->base.info->quirks & ADRENO_QUIRK_NO_SYSCACHE)
->  		return;
->  
->  	/*
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index e71f420f8b3a..398be2218110 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -57,6 +57,7 @@ enum adreno_family {
->  #define ADRENO_QUIRK_HAS_HW_APRIV		BIT(3)
->  #define ADRENO_QUIRK_HAS_CACHED_COHERENT	BIT(4)
->  #define ADRENO_QUIRK_PREEMPTION			BIT(5)
-> +#define ADRENO_QUIRK_NO_SYSCACHE		BIT(6)
->  
->  /* Helper for formating the chip_id in the way that userspace tools like
->   * crashdec expect.
-> 
-> -- 
-> 2.45.2
-> 
+> >
+> >> +                                    };
+> >> +                            };
+> >> +                    };
+> >> +            };
+> >> +    };
+> >> +};
+> >> +
+> >> +&mdss {
+> >> +    status = "okay";
+> >> +};
+> >> +
+> >> +&mdss_dsi0 {
+> >> +    vdda-supply = <&vreg_l11a>;
+> >> +    status = "okay";
+> >> +};
+> >> +
+> >> +&mdss_dsi0_out {
+> >> +    remote-endpoint = <&anx_7625_in>;
+> >> +    data-lanes = <0 1 2 3>;
+> >> +};
+> >> +
+> >> +&mdss_dsi0_phy {
+> >> +    vdds-supply = <&vreg_l5a>;
+> >> +    status = "okay";
+> >> +};
+> >> +
+> >>   &qupv3_id_0 {
+> >>      status = "okay";
+> >>   };
+> >>
+> >> --
+> >> 2.34.1
+> >>
+> >
+>
+
 
 -- 
 With best wishes
