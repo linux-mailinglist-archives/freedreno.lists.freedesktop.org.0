@@ -2,120 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62D309D7CB7
-	for <lists+freedreno@lfdr.de>; Mon, 25 Nov 2024 09:16:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E0879D8A69
+	for <lists+freedreno@lfdr.de>; Mon, 25 Nov 2024 17:33:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E44DE10E5D5;
-	Mon, 25 Nov 2024 08:16:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01DDD10E6B4;
+	Mon, 25 Nov 2024 16:33:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Ih+Faeqm";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="mBKi96uU";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD14810E5DC
- for <freedreno@lists.freedesktop.org>; Mon, 25 Nov 2024 08:16:49 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-43169902057so36423785e9.0
- for <freedreno@lists.freedesktop.org>; Mon, 25 Nov 2024 00:16:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732522608; x=1733127408; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=D9tDhyHhmMtVAvULrIAhFRVk5xrXZSSMlYMbhL2ls4g=;
- b=Ih+Faeqm+FS8JSwX6tir39bAoHCKQH3TT/tdmjRhM7lvClTeIOF+CBlrUomjx+yWSf
- TrX3Rqpc086/t7hzuGl0pmNaw22JoM1se/sRzjMaUXQv9Dx9ATWECVtX2ufgx0DNGOvu
- F4EghDwO4mY/G9S6t3JM2LI673U+2T9ifFYqj0KkZKz7z1fYPH+BYS/WB0UDzbh2+2VT
- xrBHZCczA0snnvurGqtOO3KoJOuslm98jj/z5gNB6J7Cm+bFhE6sHy3bxn+WsHafzI2a
- tbGSzeKFSfDqhX6BTsvm+Lf3MjqkPVfEAJsd3ckckyhaHbjjdZ1akgm/t3maEfpPvZC8
- vVYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732522608; x=1733127408;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=D9tDhyHhmMtVAvULrIAhFRVk5xrXZSSMlYMbhL2ls4g=;
- b=LZJuDzIZ5C1GQQwb64CuvHHO84JKeWeIpLeZZClwZ+OxOwn8X0IX/K9iXA/VGxdk6r
- 8OFijopYkl71Yw0b9pSdYEJsKPU7ObzoF/Ps9NmMbuYh3rHjXiOj/Y2GFCctjyyMnRsI
- q6VqBjcu/4QgAqTWPOdZw2XApIe+DneiAB7gNPUNq6B+LnpPQvAD+CpVsTQAdfVyMzV+
- xYE3Q8ziHm1IMR7hUFR7QLj7K99R8Ek9YDLFq3XSkcKhBctIUhS1xc/YMTT3m5J1s3Bf
- jqW2uGkiYOq5kdNST/LRwLcyScJAWNkFHd2m356cZ7YAlNnAIk15Mb4HVT1yWGvnYPFz
- TgUA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVj8u0pBY/TNq2zMHL+kod3MfAeW2omYy6w7XUI/dJTvZzstb0UNWQxBqJEsNSW9RXusOmK+6u4UQQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwwhjRsdme5OkAqGaOCKWWfXNblq2en/RWX4uMsMEV/qPTvH82o
- d+o2Q3oeW125yRIvckhuCegxKdfEbe5BsnQyYcz6TCHa0+5rtUvueYdLdTt1LDU=
-X-Gm-Gg: ASbGncu1sYqXyw4z8rm/rzZV3j0iCpWkdRV3+9syGfIh+jO453mj7aWXIgTNSnu13Gc
- v2qU78SwoLKoHB91POMX+Xah9nNXwpvXWQVq6CDE+ex6JWyDdJtGNW61U+VkXoFuNkivHPf+8dy
- kUKINPdiltL+T0B02CjS0+BUveItcW+3aWRnNeb/z9CmEQkICTyA3sjGnuvX0gpzY5sfWn7cpy7
- ldJDxQkKVW8PYi5kkcZT5Qj4y3GxvChBKmJTJg3e+k/HI5LYVh6QaVGhCUvAw+MGLOWMj544NLM
- 6mpz2CVexDktTAFaTdHzvzxVNxc=
-X-Google-Smtp-Source: AGHT+IEHqbnxQqxNnabskvp/0vuLynuKH8d+VUfNVbcCpoeFlsv4NGAWYmcyUTS6ZjyH1Zls0XDyDQ==
-X-Received: by 2002:a05:600c:4690:b0:431:2b66:44f7 with SMTP id
- 5b1f17b1804b1-433ce4d4c6emr114888875e9.31.1732522607986; 
- Mon, 25 Nov 2024 00:16:47 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:9dc0:6c46:415c:5f8b?
- ([2a01:e0a:982:cbb0:9dc0:6c46:415c:5f8b])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-433b463ab6csm187362095e9.35.2024.11.25.00.16.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Nov 2024 00:16:47 -0800 (PST)
-Message-ID: <a936a9fc-6632-4f44-94d1-db304218b5a5@linaro.org>
-Date: Mon, 25 Nov 2024 09:16:47 +0100
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BA1E10E6AD;
+ Mon, 25 Nov 2024 16:33:35 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4APAiYId021756;
+ Mon, 25 Nov 2024 16:33:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=DNV8aShfwdMG0hhjEk7lLQ
+ 0CVQ8Nl+SDaaMKfGPMOlA=; b=mBKi96uUxvAkBn07aAURx+FAHdioBwviBHDj+j
+ Gh2QrTPpZ7G0JM+TkF8v/SBe0N+TT5nZ/b37hdtjqQJxWXCvOejNBCtMi/QdidBB
+ BJPGYnZ6Gb/jNC47NtGSzVsB1U5fuAa07A0uYzZ0Gex2IhOYIulbmOwBDtcs/zIS
+ CHz50MYYw+FQAfxQouXnNkEnLEPQ28hsxFXHM+nju/T+EoEQSdpCiZx+nJ7k4vYn
+ t5/fA6TvxsIytOvYJGHFGKtyMe7wrmfLcXpPLF+tK36eF627QCmdfpQEd3VxHSqQ
+ c4eczdf273S865adNr1xVSDx9gOrF8ahBlATdt7yledKb9KA==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4334rd5ptw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 25 Nov 2024 16:33:30 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4APGXTVN025775
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 25 Nov 2024 16:33:29 GMT
+Received: from [10.213.111.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 25 Nov
+ 2024 08:33:25 -0800
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Subject: [PATCH v2 0/2] Support for Adreno 612 GPU
+Date: Mon, 25 Nov 2024 22:02:59 +0530
+Message-ID: <20241125-a612-gpu-support-v2-0-b7cc38e60191@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 04/11] drm/msm: adreno: add GMU_BW_VOTE feature flag
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Connor Abbott <cwabbott0@gmail.com>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20241119-topic-sm8x50-gpu-bw-vote-v2-0-4deb87be2498@linaro.org>
- <20241119-topic-sm8x50-gpu-bw-vote-v2-4-4deb87be2498@linaro.org>
- <20241123194316.yqvovktcptfep4dr@hu-akhilpo-hyd.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20241123194316.yqvovktcptfep4dr@hu-akhilpo-hyd.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALumRGcC/22OOw6DMBBEr4K2zkZeQM6nyj0iCsBrcGEgtkFEi
+ LvHmDbljPTmzQaenWEPz2wDx4vxZhxiyC8ZtH09dIxGxQy5yEsSBWEtKcdumtHP0zS6gEoWhdB
+ 0U4I0RGxyrM2aJt/VmR1/5rgczhKa2jO2o7UmPDPlLFpvceA14GFBIhQlHGhvfBjdN51bKLHpB
+ 4k/PxZCwkZpvmupHoWQryhtzdBeowqqfd9/hUlykO0AAAA=
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Akhil P
+ Oommen" <quic_akhilpo@quicinc.com>, Jie Zhang <quic_jiezh@quicinc.com>,
+ "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732552405; l=1280;
+ i=quic_akhilpo@quicinc.com; s=20240726; h=from:subject:message-id;
+ bh=yafn+AyZe5YLNXnSSxWeZ5fEOk7gllMrldSy3aktjx8=;
+ b=qnm1VswaLeegwwJS1f37Bps4/tf1LpEnpifXetMjiAwdlF4VHm80+mIydQTlyA+oZmw1S07sW
+ d/+kBACUXO3DLNxS3apJHAESqtXtnGYHACovId91/iA//9wg5vuZlWi
+X-Developer-Key: i=quic_akhilpo@quicinc.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: md_ugEhDxX_3N6ht_tWc3PgGj4mxIK0-
+X-Proofpoint-GUID: md_ugEhDxX_3N6ht_tWc3PgGj4mxIK0-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 lowpriorityscore=0
+ bulkscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 malwarescore=0
+ spamscore=0 adultscore=0 impostorscore=0 phishscore=0 mlxlogscore=724
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2411250138
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,58 +100,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/11/2024 20:43, Akhil P Oommen wrote:
-> On Tue, Nov 19, 2024 at 06:56:39PM +0100, Neil Armstrong wrote:
->> The Adreno GMU Management Unit (GNU) can also scale the DDR Bandwidth
->> along the Frequency and Power Domain level, but by default we leave the
->> OPP core vote for the interconnect ddr path.
->>
->> While scaling via the interconnect path was sufficient, newer GPUs
->> like the A750 requires specific vote paremeters and bandwidth to
->> achieve full functionality.
->>
->> While the feature will require some data in a6xx_info, it's safer
->> to only enable tested platforms with this flag first.
->>
->> Add a new feature enabling DDR Bandwidth vote via GMU.
->>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/adreno/adreno_gpu.h | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->> index 4702d4cfca3b58fb3cbb25cb6805f1c19be2ebcb..394b96eb6c83354ae008b15b562bedb96cd391dd 100644
->> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
->> @@ -58,6 +58,7 @@ enum adreno_family {
->>   #define ADRENO_FEAT_HAS_HW_APRIV		BIT(0)
->>   #define ADRENO_FEAT_HAS_CACHED_COHERENT		BIT(1)
->>   #define ADRENO_FEAT_PREEMPTION			BIT(2)
->> +#define ADRENO_FEAT_GMU_BW_VOTE			BIT(3)
-> 
-> Do we really need a feature flag for this? We have to carry this for every
-> GPU going forward. IB voting is supported on all GMUs from A6xx GEN2 and
-> newer. So we can just check that along with whether the bw table is
-> dynamically generated or not.
+Mesa support is already available for A612. Verified Glmark2 with
+weston.
 
-It depends on the bw table _and_ the a6xx_info.gmu table, I don't want to
-check both in all parts on the driver.
+Some dependencies for the devicetree change are not yet available
+in the mailing lists. I will send it out as a separate patch later.
 
-Neil
+In v2 of this series, there is a new patch to check the LLC support
+by using a new QUIRK flag. This is required now because A612 is the
+first gpu which has gmu_wrapper along with LLC support.
 
-> 
-> -Akhil
-> 
->>   
->>   /* Helper for formating the chip_id in the way that userspace tools like
->>    * crashdec expect.
->>
->> -- 
->> 2.34.1
->>
+---
+Changes in v2:
+- Added a new quirk to check LLC support (new patch). This helps to
+correct LLC handling in A612's patch.
+- Rebased on msm-next tip
+- Captured R-b from Konrad
+- Link to v1: https://lore.kernel.org/r/20241101-a612-gpu-support-v1-1-bdfe8f6d9306@quicinc.com
+
+---
+Akhil P Oommen (1):
+      drm/msm/adreno: Introduce ADRENO_QUIRK_NO_SYSCACHE
+
+Jie Zhang (1):
+      drm/msm/a6xx: Add support for Adreno 612
+
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 18 ++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 42 ++++++++++++++++++++-----------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 12 ++++++---
+ 3 files changed, 54 insertions(+), 18 deletions(-)
+---
+base-commit: f4a867a46862c1743501bbe8c813238456ec8699
+change-id: 20241031-a612-gpu-support-d6330f17d01f
+
+Best regards,
+-- 
+Akhil P Oommen <quic_akhilpo@quicinc.com>
 
