@@ -2,82 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FF359D905B
-	for <lists+freedreno@lfdr.de>; Tue, 26 Nov 2024 03:20:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C433E9D90F2
+	for <lists+freedreno@lfdr.de>; Tue, 26 Nov 2024 05:13:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A0C610E181;
-	Tue, 26 Nov 2024 02:20:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A1F110E09F;
+	Tue, 26 Nov 2024 04:13:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="KhpAb/91";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uQTECpwG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1787910E08F;
- Tue, 26 Nov 2024 02:20:00 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4APJcf2a020756;
- Tue, 26 Nov 2024 02:19:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- HjaqFVwrTuva/2uiWCYDKlzMl9bZpHcZT+AzDMjzo1k=; b=KhpAb/91ri9rHyrN
- TlS87CtfpgXVbBg3rMe7DTjymsEtCj+AyIfHWMKWeE8m3gzlWxh/QYxm93CSVtJG
- c9GV2olhrTeFG4jWnPCSt7U+9vFvGfY3Q1TnFNqEmf7w65yxXDzUHqQrWKoHhQOU
- 16oS3qPr3ICkxFvrOByRCYcHRhtwoI6YXvWKZ100FXd517dUTVNv+I3oK+jQoz6X
- sj7wgxPC+e6IlUSP0pTHjAjctJduN3xDR3N3XIJ6m+mxo93pAd5Hv2RO47s/Cbww
- 4GgmjP4tWwUql2SdMi8xUzaAOCyrzcdK1O6s2pRrzkdSrpzmIvRCGsRHcsAzJ/5F
- yWLlQw==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43374sxjxm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 Nov 2024 02:19:58 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AQ2Jvx3005644
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 Nov 2024 02:19:57 GMT
-Received: from [10.110.75.163] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 25 Nov
- 2024 18:19:56 -0800
-Message-ID: <627d1c8f-5948-4593-836a-faf6d03d8c86@quicinc.com>
-Date: Mon, 25 Nov 2024 18:19:55 -0800
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F94610E06B;
+ Tue, 26 Nov 2024 04:13:13 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id F33D25C5CA1;
+ Tue, 26 Nov 2024 04:12:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1533CC4CED8;
+ Tue, 26 Nov 2024 04:13:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1732594392;
+ bh=wvE1j6jYlustZGPgO4za1DJpvm8S+eQ4rSParDa6Lgg=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=uQTECpwGCtXvgW65bmiUP/yGxJvz0r7mVGsCCqF/XcRfiIuZv42jYE+QPSuePckeG
+ dVbnsZ00LE3d97xJR0ePFq8U2Yna8qZuuLQRvwb8eQI1wxd3k/KmMWjdEoDku2wqsM
+ 5TBjzWODkEd91uKinwhXClwNwOgrMStAMcYizAy7nilQEqoHOb5j+YoNl+se83vScv
+ +42ovPaLlv1+IrKOuv6MgCjlDvHiXubKEt15Twjb9yqSSaQbJexzFs2nkEel1m063j
+ NmiD8mcuO+uw07c8qlCBNtJ2U/ke+no1KjokLVaCPMMy7AyeXY4qgL1/BNNqPb5+Jm
+ gINg2xT+7LbPQ==
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-53dde4f0f23so2304927e87.3; 
+ Mon, 25 Nov 2024 20:13:11 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWyogsCnfoBU2DfHiiVdY33VoRoThvAAXY7ruB05L7N5mMCgAUFplmcb89+PCBenqYQwC0p0SOZI8I=@lists.freedesktop.org,
+ AJvYcCXuomtRMrCF6K6MFG5QNDBcuRYoKRBWaTvj1/k1cKZeD0UrL93gabQD98nE/LYGLlCByq+jYitzyUn9@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy9cTx8EN1MXu/KtlUnRgV6bKUgfC8vre7h9ck69+yiAVWPjUOo
+ eiPdRAYnSAP7u2nYoQfe9zkW5skrbHkjeQYgqL6Mr1HkEx89RoaiBwkUhxTbE77EdiOQC3Fk8E0
+ a31RSb1lYpt5xqDmh9kDocYokz4I=
+X-Google-Smtp-Source: AGHT+IGax4HC8zIQqLB8xrI0moZd82uV5VPNJpszQ12dMOodNR4A+EElpdPN8bJ83seoA/fkNz8n4WUh6BTdRHvKAZE=
+X-Received: by 2002:a05:6512:b86:b0:53d:d0f0:ad0d with SMTP id
+ 2adb3069b0e04-53dd39b55bemr7255517e87.46.1732594390702; Mon, 25 Nov 2024
+ 20:13:10 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/msm/mdss: use boolean values for macrotile_mode
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Connor Abbott <cwabbott0@gmail.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-References: <20241123-msm-mdss-ubwc-v2-0-41344bc6ef9c@linaro.org>
- <20241123-msm-mdss-ubwc-v2-3-41344bc6ef9c@linaro.org>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20241123-msm-mdss-ubwc-v2-3-41344bc6ef9c@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: niNcOx5G9H4OLRuXTqNfhcHHeMR14kl5
-X-Proofpoint-ORIG-GUID: niNcOx5G9H4OLRuXTqNfhcHHeMR14kl5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011
- lowpriorityscore=0 mlxlogscore=987 bulkscore=0 malwarescore=0 adultscore=0
- priorityscore=1501 spamscore=0 mlxscore=0 impostorscore=0 phishscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2411260017
+References: <20241120204125.52644-1-pvorel@suse.cz>
+ <CAK7LNASYr+pjUs-W40d_Gc+vP67nX7NHXyE0AnOpXxXgxrCtqQ@mail.gmail.com>
+ <20241121011720.GA69389@pevik>
+ <CAF6AEGuzFNVd5fE+b+hKcC8xAOg7CrkPaYuWC6tCVmioutoOOw@mail.gmail.com>
+ <CAK7LNAQDMJUYUF7BaN10bwctW7fuHmSMrrAjMmn4s7P2ys5P+Q@mail.gmail.com>
+ <20241122204157.GA125569@pevik>
+In-Reply-To: <20241122204157.GA125569@pevik>
+From: Masahiro Yamada <masahiroy@kernel.org>
+Date: Tue, 26 Nov 2024 13:12:33 +0900
+X-Gmail-Original-Message-ID: <CAK7LNARDWAw6Yo9HdO-Sba=G_bohr_0uXuKtgNZSr1YLeQE2ug@mail.gmail.com>
+Message-ID: <CAK7LNARDWAw6Yo9HdO-Sba=G_bohr_0uXuKtgNZSr1YLeQE2ug@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] init/Kconfig: add python3 availability config
+To: Petr Vorel <pvorel@suse.cz>
+Cc: Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ linux-kbuild@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,16 +79,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Sat, Nov 23, 2024 at 5:42=E2=80=AFAM Petr Vorel <pvorel@suse.cz> wrote:
+>
+> > On Thu, Nov 21, 2024 at 10:49=E2=80=AFAM Rob Clark <robdclark@gmail.com=
+> wrote:
+>
+> > > On Wed, Nov 20, 2024 at 5:17=E2=80=AFPM Petr Vorel <pvorel@suse.cz> w=
+rote:
+>
+> > > > > On Thu, Nov 21, 2024 at 5:41=E2=80=AFAM Petr Vorel <pvorel@suse.c=
+z> wrote:
+>
+> > > > > > It will be used in the next commit for DRM_MSM.
+>
+> > > > > > Suggested-by: Rob Clark <robdclark@gmail.com>
+> > > > > > Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> > > > > > ---
+> > > > > > Changes v3->v4:
+> > > > > > * Move definition to the end of the file
+>
+>
+> > > > > I prefer to not check the tool.
+>
+> > > > Ack.
+>
+> > > > > Why don't you install python3?
+>
+> > > > Everybody installs it when it's required, the question is how to in=
+form about
+> > > > the dependency.
+>
+> > > > There build environments are minimal environments:
+> > > > * chroot (e.g. cross compilation)
+> > > > * container
+>
+> > > > These are used by both developers and distros.
+>
+> > > I don't think py3 is an _onerous_ dependency, but it has come up as a
+> > > surprise in minimal distro build environments at least once.. so I'd
+> > > be a fan of surfacing this dependency in a predictable/understandable
+> > > way (ie. I'm in favor of this patchset)
+>
+>
+> > "once" is a keyword here.
+>
+> > "/bin/sh: python3: not found" provides sufficient information
+> > about why the compilation failed, and you know what to do
+> > to fix the problem.
+> > This is good.
+>
+> > If you hide CONFIG_DRM_MSM silently
+> > due to missing python3, you may scratch your head
+> > "why drm/msm was not compiled?".
+> It's not on the list, but still visible in help (via search).
+>
+> > This is worse.
+>
+> I'm ok with this being refused. Yes, it's a trivial thing to find that py=
+thon3
+> is not installed. I wasn't sure myself if this is really better. Having
+> something like "requires $(PYTHON3)" would be best solution (e.g. not dis=
+able
+> the config, but exit before starting to build), but of course unless this
+> feature is needed for many modules it does not make sense to have it.
+> It's because kernel mostly contains everything (unless languages like pyt=
+hon
+> or any other dependency starts to be added). For this reason I like that
+> mconf-cfg.sh warns when missing ncurses devel files (even suggesting pack=
+age
+> names).
+>
+> Just to explain what was my motivation. CONFIG_DRM_MSM in in arm64 defcon=
+fig,
+> thus it will affect anybody who uses the defconfig (any distro will need =
+to add
+> it).
 
 
-On 11/22/2024 9:44 PM, Dmitry Baryshkov wrote:
-> The macrotile_mode is a flag, not a bit value. Use true/false values to
-> set it rather than 1/0.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/msm_mdss.c | 16 ++++++++--------
->   1 file changed, 8 insertions(+), 8 deletions(-)
-> 
+arch/arm64/configs/defconfig is a multi-platform config.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+If CONFIG_DRM_MSM exists in arch/arm64/configs/defconfig
+and if you want to build arm64 defconfig, you need to install
+all necessary tools for that.
+
+
+
+>
+> It's needed only for Qualcomm arm64 devices only. But only for these devi=
+ces
+> which are mainlined enough to really use CONFIG_DRM_MSM (many of them are=
+n't in
+> that state).
+>
+> postmarketOS is the distribution which supports Qualcomm. It stores kerne=
+l
+> config for each device and devices often have individual maintainer. E.g.=
+ 175x
+> "once" :).
+
+
+If you do not want to be bothered by unnecessary drivers,
+you need to disable the relevant CONFIG option.
+(e.g, scripts/config -d  CONFIG_DRM_MSM)
+
+
+This is the standard way we have for many years.
+
+
+
+--
+Best Regards
+Masahiro Yamada
