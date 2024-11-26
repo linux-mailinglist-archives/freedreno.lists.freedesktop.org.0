@@ -2,85 +2,101 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D74AE9D9720
-	for <lists+freedreno@lfdr.de>; Tue, 26 Nov 2024 13:18:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 005409D9928
+	for <lists+freedreno@lfdr.de>; Tue, 26 Nov 2024 15:09:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86A2A10E1AB;
-	Tue, 26 Nov 2024 12:17:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27A0810E88B;
+	Tue, 26 Nov 2024 14:09:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dRlevlLB";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="bpw74h2D";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F78010E3F0
- for <freedreno@lists.freedesktop.org>; Tue, 26 Nov 2024 12:17:58 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-53dee064f00so534822e87.3
- for <freedreno@lists.freedesktop.org>; Tue, 26 Nov 2024 04:17:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732623476; x=1733228276; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zIiJZ55i8NdMGDjfrOdk3DfZs/tLxD9oconoLO+oq+A=;
- b=dRlevlLBBNBXUBf2Bx/Os3BDeap5tilDAh7Tk3tGWwyybeaVRJe2Gl3L7g9cBJWPVq
- Edf6HcPP1WEQxg/NxxkkPC1gOYKHkvu6cof3ixTRnoi0LhjA/COcPmyJ8ccwtPkqrMwa
- Io0S/YcFuif4ZKuQl0l1UXEWG4ZpM93b8iPu2tP30QPPTEabEwxqclnw4yG36rCmD/Mh
- fctv00NF0ql/SlPDBvnRtvhbTdjyybCqEUoIyu6YE6KauPdfoYomayB1haHM8mnZDiTF
- lFi5xUPZl7kASTDVUmk0sllo9e/wHn/K9kNPXqhS6rjkagGIbI22kHvRgeEyqGTUYU/l
- 33HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732623476; x=1733228276;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zIiJZ55i8NdMGDjfrOdk3DfZs/tLxD9oconoLO+oq+A=;
- b=KRjdujsmPnZwhTgvV8chqEt3cZf1PP3BODVD3IVTYvrFEMCw44ukP6CN9xdZyTcO0E
- iH594mR3R0JkLzVTgTbCXCSNyCk6+69efgD+9+4L08XlrK0XZZNck2aaKDlYh5Zsxev9
- iRsuDj6fp/5+OsZoL1doXEvkXWqH1Yek0lhJxsy+vmPmuLvnzSvRrFeNGHRYLnoL/v2t
- XcbtNbvBD2fZooAuO0fYRZ6NWEic16/6IUBGZYt16DF+ztvEtCQku8ZAhX0cBZEbnkwW
- X/CcL0cfPEq3xNQp/e6syjZKFuHuvCbA5O9CtC/Cv2JQGJeXg0P0O1L7YOlQ+dxKQ4iB
- 5+Sw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUfV4/fJ5XfPab/5H4adY9ZI3Jeq/qKMcNxNczaPeNLeEErXD7rxHmgWfXZT76dh1YSth82Ib/r+YE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzL7nWo0doEKKlaVwb1bi7QfIlH4SRB0HcHwbWSnrwHiOcpVQuz
- N6e5XA4dZJ/1ekZdeKQtTf7X66SDtXGKg3W7E8iazpL6/faAQlHMd+HwzT6kuuU=
-X-Gm-Gg: ASbGncvxuChFI0zFberd/z6T5LjWUDHAD4bPoobCYxsSuE+aw9o5oWTr3q+EJXylJyT
- L2w0p40sXZjE9Tw/pjbGk+wCoVTZjHLJrVy76T3ov2MtvgnnnxY+4hyQ5kH3AHB2OIZ0umZ+vWM
- 6xf3xMRq+DBHgFubDMOFeSFdUqa10Hv/2YDEFcl2hekeEMqLlqwzX+DvI5tQg5ffmM2Ipb+7bg6
- UuONnIs/eF+gupmvSbvVAEyAuFQZAIWv5eeOHWCT/w5UdiW9dG6Q/JjYzceqh1ucR2pZKNmz4CT
- 22tuUqi8HzX6ba1CjajGfeg8sg21sg==
-X-Google-Smtp-Source: AGHT+IGNnMnzJzSH4csFVqMWLKW+PYj2pG4i5xQYfHjEXv1hvwV2rJVchkFPFu5thqmIhO3VCJ0s5A==
-X-Received: by 2002:a05:6512:3c84:b0:53b:1526:3a63 with SMTP id
- 2adb3069b0e04-53dd39b564bmr7770105e87.56.1732623475913; 
- Tue, 26 Nov 2024 04:17:55 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53dd68c64c7sm1790045e87.114.2024.11.26.04.17.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Nov 2024 04:17:54 -0800 (PST)
-Date: Tue, 26 Nov 2024 14:17:51 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Connor Abbott <cwabbott0@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v2 1/3] drm/msm/mdss: define bitfields for the
- UBWC_STATIC register
-Message-ID: <bclvvuo3i4icx5kraqsvmpdtokx46pnjmdhliz2mhsmdm256vm@rbkwhkhjvjtc>
-References: <20241123-msm-mdss-ubwc-v2-0-41344bc6ef9c@linaro.org>
- <20241123-msm-mdss-ubwc-v2-1-41344bc6ef9c@linaro.org>
- <784a7813-b024-452e-8d7e-8cbaea761bcd@quicinc.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E33C10E408;
+ Tue, 26 Nov 2024 14:09:48 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AQDweju019861;
+ Tue, 26 Nov 2024 14:09:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=qLa/jexMcmZaGRBDyAgRLR
+ o8c9MmhNNi6oP+B9/cXnk=; b=bpw74h2DSG4MQmlxPQcCQP+jjph1isFUrRBE8q
+ 12pZxItjkFAzxON1xfaNIcr0UumG0ZpEZL02C5EOjUKzORRGmLRGpjhQkUNSksex
+ s3JiHLMEFGcmYXC/0n5cNRvtP6cN7iBZc2JCCzCCGxvzKpUU4lbPSs7T2xhrBb/E
+ FAmu/0D9eqApu9bscEomL1dO1eMkxTgIKrnzcg4Z7gUcj5/rnDtZUjpHmLj8IIdZ
+ N2Rs9r/TH+BSb7ghOuBYUrKgQnxg9qWQ0zFwt9ZwwWfVsvqcIJ1kH29AEK0fjUcO
+ rX1KDHpwv+MtSTJ5rEHz7IMT9zBkJ7h6X6cNbEHLyf29rEPw==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4358399cud-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 26 Nov 2024 14:09:41 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AQE9dmV028166
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 26 Nov 2024 14:09:39 GMT
+Received: from [10.213.111.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 26 Nov
+ 2024 06:09:33 -0800
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Subject: [PATCH 0/3] Devicetree changes for QCS615's GPU
+Date: Tue, 26 Nov 2024 19:36:46 +0530
+Message-ID: <20241126-qcs615-gpu-dt-v1-0-a87782976dad@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <784a7813-b024-452e-8d7e-8cbaea761bcd@quicinc.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPbVRWcC/5WR3WqEMBBGX0W87iz5MRqXUvoeZZGYSXZD1Wii0
+ nbZd2927V4UCm0vv4HvzJnknEcTnIn5PjvnwawuOj+kQB+yXJ/UcDTgMOWcEVZQygRMOpZUwHF
+ cAGewSrcoleZU2jx1xmCse7vxXg5bDmZaEnbehnmrogHt+97N+4wT05aWtES2lFtkwijKFFelV
+ URJUVNBa6KpvqJ7E6O6+eyzx02HFKAQGze42amuics4+jA31ofmS3MVUECNaCRWrUyLnpOMdoP
+ eJYWnn7GEsfuVuvP6FTC41QRYC+DAsaKlQoK1rH5nkTrxCl4LuUtPl7Cp0IROHY/v8fQHFUrkX
+ aXvNxvthzn4rrsKcaigQt4yZFxYtP8mph8cPJoIKwUKLSvLWitNSlb8BcUYqYqasR2TVPAEuJ0
+ 3TR8nv3zvHy6XTxvaqx1qAgAA
+X-Change-ID: 20241125-qcs615-gpu-dt-facbd8ac318f
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Bjorn
+ Andersson" <andersson@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Jie Zhang <quic_jiezh@quicinc.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732630173; l=3156;
+ i=quic_akhilpo@quicinc.com; s=20240726; h=from:subject:message-id;
+ bh=d5iHBiGGN5jBz6LgxCxlnJnrYaoDxXw7Uj57uUApwcU=;
+ b=mvsPszG7J+F4lxa0BgQdH6pj/A+l/uewjtgFLL3wNNJKjsJaadH8ZugkGU4/OLZH84VXs/5nE
+ 65pGkw3XaolBs1GG0ER8HfNEcPPUGjpVNQ9+eIdT+knK8ydcZ0d/kPn
+X-Developer-Key: i=quic_akhilpo@quicinc.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: BBsP1mWnJii_gDhM9-3seYt7Vc1UhS02
+X-Proofpoint-ORIG-GUID: BBsP1mWnJii_gDhM9-3seYt7Vc1UhS02
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0
+ phishscore=0 suspectscore=0 spamscore=0 malwarescore=0 mlxscore=0
+ priorityscore=1501 impostorscore=0 mlxlogscore=999 lowpriorityscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2411260114
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,46 +112,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Nov 25, 2024 at 06:03:52PM -0800, Abhinav Kumar wrote:
-> 
-> 
-> On 11/22/2024 9:44 PM, Dmitry Baryshkov wrote:
-> > Rather than hand-coding UBWC_STATIC value calculation, define
-> > corresponding bitfields and use them to setup the register value.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/msm_mdss.c                 | 38 +++++++++++++++-----------
-> >   drivers/gpu/drm/msm/msm_mdss.h                 |  3 +-
-> >   drivers/gpu/drm/msm/registers/display/mdss.xml | 11 +++++++-
-> >   3 files changed, 34 insertions(+), 18 deletions(-)
-> > 
-> 
-> <snip>
-> 
-> > diff --git a/drivers/gpu/drm/msm/registers/display/mdss.xml b/drivers/gpu/drm/msm/registers/display/mdss.xml
-> > index ac85caf1575c7908bcf68f0249da38dccf4f07b6..b6f93984928522a35a782cbad9de006eac225725 100644
-> > --- a/drivers/gpu/drm/msm/registers/display/mdss.xml
-> > +++ b/drivers/gpu/drm/msm/registers/display/mdss.xml
-> > @@ -21,7 +21,16 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
-> >   	<reg32 offset="0x00058" name="UBWC_DEC_HW_VERSION"/>
-> > -	<reg32 offset="0x00144" name="UBWC_STATIC"/>
-> > +	<reg32 offset="0x00144" name="UBWC_STATIC">
-> > +		<bitfield name="UBWC_SWIZZLE" low="0" high="2"/>
-> > +		<bitfield name="UBWC_BANK_SPREAD" pos="3"/>
-> > +		<!-- high=5 for UBWC < 4.0 -->
-> > +		<bitfield name="HIGHEST_BANK_BIT" low="4" high="6"/>
-> > +		<bitfield name="UBWC_MIN_ACC_LEN" pos="8"/>
-> 
-> MIN_ACC_LEN OR MALSIZE has 2 bits , bits 8 and 9.
-> 
-> But bit 9 is unused today. Hence we were using it as a 1 or 0 today.
-> 
-> Its unused on all the chipsets I checked. Do you want to continue using the
-> same way or correct this?
+This series adds support for Adreno 612 to QCS615 chipset's devicetree.
+DRM driver's support was posted earlier and can be found here:
+	https://patchwork.freedesktop.org/patch/626066/
 
-Let's correct it. I will send next iteration.
+Patch#1 is for Rob Clark and the other 2 for Bjorn
 
+Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+---
+Akhil P Oommen (1):
+      dt-bindings: display/msm: gpu: Document A612 GPU
+
+Jie Zhang (2):
+      arm64: dts: qcom: qcs615: Add gpu and gmu nodes
+      arm64: dts: qcom: qcs615-ride: Enable Adreno 612 GPU
+
+ .../devicetree/bindings/display/msm/gpu.yaml       | 28 ++++---
+ arch/arm64/boot/dts/qcom/qcs615-ride.dts           |  8 ++
+ arch/arm64/boot/dts/qcom/qcs615.dtsi               | 86 ++++++++++++++++++++++
+ 3 files changed, 110 insertions(+), 12 deletions(-)
+---
+base-commit: 30eb6f0b08b13fd25ea12a3a6fa0a85915190c1c
+change-id: 20241125-qcs615-gpu-dt-facbd8ac318f
+prerequisite-message-id: <20241104-add_initial_support_for_qcs615-v5-4-9dde8d7b80b0@quicinc.com>
+prerequisite-patch-id: 09782474af7eecf1013425fd34f9d2f082fb3616
+prerequisite-patch-id: 04ca722967256efddc402b7bab94136a5174b0b9
+prerequisite-patch-id: 82481c82a20345548e2cb292d3098ed51843b809
+prerequisite-patch-id: 3bd8edd83297815fcb1b81fcd891d3c14908442f
+prerequisite-patch-id: fc1cfec4ecd56e669c161c4d2c3797fc0abff0ae
+prerequisite-message-id: <20241022-qcs615-clock-driver-v4-3-3d716ad0d987@quicinc.com>
+prerequisite-patch-id: cd9fc0a399ab430e293764d0911a38109664ca91
+prerequisite-patch-id: 07f2c7378c7bbd560f26b61785b6814270647f1b
+prerequisite-patch-id: a57054b890d767b45cca87e71b4a0f6bf6914c2f
+prerequisite-patch-id: 5a8e9ea15a2c3d60b4dbdf11b4e2695742d6333c
+prerequisite-message-id: <20240924143958.25-2-quic_rlaggysh@quicinc.com>
+prerequisite-patch-id: 3c73bafb074ea339d387a6aa39e5362c8775596d
+prerequisite-patch-id: 0e224a7310d36e9a633d57c4a177ff24c1e8e767
+prerequisite-message-id: <20241108-qcs615-mm-clockcontroller-v3-7-7d3b2d235fdf@quicinc.com>
+prerequisite-patch-id: 748a4e51bbedae9c6ebdbd642b2fd1badf958788
+prerequisite-patch-id: 72a894a3b19fdbd431e1cec9397365bc5b27abfe
+prerequisite-patch-id: da2b7a74f1afd58833c6a9a4544a0e271720641f
+prerequisite-patch-id: 40b79fe0b9101f5db3bddad23551c1123572aee5
+prerequisite-patch-id: cb93e5798f6bfe8cc3044c4ce973e3ae5f20dc6b
+prerequisite-patch-id: 13b0dbf97ac1865d241791afb4b46a28ca499523
+prerequisite-patch-id: 807019bedabd47c04f7ac78e9461d0b5a6e9131b
+prerequisite-patch-id: 8e2e841401fefbd96d78dd4a7c47514058c83bf2
+prerequisite-patch-id: 125bb8cb367109ba22cededf6e78754579e1ed03
+prerequisite-patch-id: b3cc42570d5826a4704f7702e7b26af9a0fe57b0
+prerequisite-patch-id: df8e2fdd997cbf6c0a107f1871ed9e2caaa97582
+prerequisite-message-id: <20241108-qcs615-mm-dt-nodes-v1-1-b2669cac0624@quicinc.com>
+prerequisite-patch-id: bcb1328b70868bb9c87c0e4c48e5c9d38853bc60
+prerequisite-patch-id: 8844a4661902eb44406639a3b7344416a0c88ed9
+prerequisite-message-id: <20241122074922.28153-1-quic_qqzhou@quicinc.com>
+prerequisite-patch-id: 50223f2370a7ae8053b164fa5219a1690d7e4567
+prerequisite-patch-id: c71c7897d6f250b381f7a9ac66ec58f4a10d49d6
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Akhil P Oommen <quic_akhilpo@quicinc.com>
+
