@@ -2,82 +2,122 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1529A9DAD2C
-	for <lists+freedreno@lfdr.de>; Wed, 27 Nov 2024 19:33:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A1F89DAD77
+	for <lists+freedreno@lfdr.de>; Wed, 27 Nov 2024 20:01:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4A9210EBA9;
-	Wed, 27 Nov 2024 18:33:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F97410EBCD;
+	Wed, 27 Nov 2024 19:01:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="kmBv5t3E";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="k3u0L/bf";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E56C710EBA9;
- Wed, 27 Nov 2024 18:33:22 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4ARGQkQN025440;
- Wed, 27 Nov 2024 18:33:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- z3ScfP7I5CJaqQpJ0XOCcSHZmjZZ+ZevPg9kjINMdqY=; b=kmBv5t3EqpWf6ojY
- HoKaIlaBze/eTIwr81USFIl7kgtkcBUmqMpkr26WohpKY+6vgg76kTuieCHT8mH7
- yFbk4DA/jOPBaTK38mmb0sLDP393meY8ZXh7EyPcIKBuH2i/W/9If/6d7JZhD3fo
- 3sNvtGW6HaEC3TC11ck08pRPk6vX0AjSco7ziMVEQqoawni4rSAQJY+nkrgpOakX
- qDUm0en53ZEck8dG7eu/ncKbrJQdTE72dabsDX1Se3jfgwloaY3p0R5PmoOEq6ty
- wdC8ed05j1Wbs11gbALliOkwMwLpLgGLXM/hzxBCHG4zTOdoZkMPMwg9oUTku50N
- +VJ/Zw==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4366xxr920-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 27 Nov 2024 18:33:20 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4ARIXJDB025606
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 27 Nov 2024 18:33:19 GMT
-Received: from [10.71.110.107] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 27 Nov
- 2024 10:33:18 -0800
-Message-ID: <ce46249e-3230-4bbc-800c-70ee0a98a999@quicinc.com>
-Date: Wed, 27 Nov 2024 10:33:17 -0800
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1DCE10EBCA
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Nov 2024 19:01:56 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-434a8b94fb5so758105e9.0
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Nov 2024 11:01:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1732734115; x=1733338915; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=z1yiyWo2SoYBonA2AnEougX0aSnWZiu2p9ZQOE6p3sA=;
+ b=k3u0L/bf1xihR6ZKJP+KbRAbbdz2qgAp8KLvXYYzV3VqfKAFHec6G3L2fwcFuyp9IG
+ Ff2L3wXxyCZWEOIhCDHl14jNWF81JAMc0jReErmwliRXNVke79veJjoNJhzwOyo5XMwv
+ 6lMv9rVZa9YqtWOsmPuP64MVFx42l+bS3pdCES+bj9mMXkjiUgKDw/kketWlf1K6VNvd
+ 9h4NAQH2qvb/4Vct8LKS57PSq5Z/GlEuBbXGE8tes+uL6uC5r79aG7ztWcx3SDWMnV7M
+ mYJpPK+JorsxhVJpxiRnsjp9LnekGN+/G3aNCFQr1RtcMLWnt5PrXmpWkCEi16KrM4Oe
+ uiSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732734115; x=1733338915;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=z1yiyWo2SoYBonA2AnEougX0aSnWZiu2p9ZQOE6p3sA=;
+ b=DMBjCyMDOq+7BdlN2FuJn+ZQrXJk1zJ0nzVcK7LVLrRl2fyJqI7Q3Irj58mpi8un0P
+ gr9u6TdH3gDlct6H5hv3EhzK4w/xOxuhTJo4oHUd2t4y/9cYsk/AJKdgBcsuM3WOOvbn
+ AAnvZMVu/Oj0Yvdwng+sX2+dPeA+IyUzVn26eI+CRbDSYYtNRi0kIwxtwmV7yEC9JG1r
+ dw371bXurnow9Kg/FIetZG69h1KO2dz6h4nvIpVAKm8nrnd9NR/slmaFsz0qnoZYFnTq
+ tdU/mVkMxGK5g9vY85mD4ETspRa7yKxXEkod9JrP+0B7lrx//mmoJ6qXWR/9AjKgpvlA
+ 6WRw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVpmJIYqsay/PCznTF/85wndVN9hE5tEU1MpOiGFIIqI3SNkfPkTYveYZwMZ3LJHFdgcmHKJkGy2+A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzlh3fBTPGEtzLChJe51zr+S/NQj9j/wVex4LiJk64RfhaJD2N7
+ StiP/7GzWLAKXzUuMoc5hxinTw6OwjmQrMkYzQ5OrVSas821N+j4z8tRm1W4TDs=
+X-Gm-Gg: ASbGnctw4ZfHC/fD9MH7PEsgfiLau/qCDYwiSFqlQsxZ0Igi9qS7AO5yVyLsfZ7kLzs
+ U+IUKW9aTxzpme1NwxjG3Hnl+isluTuFIKiAk4Z2CHFAeXt1IBtv3UxnEYPJz+i88jsFtvz8BXD
+ pyM0Bqgm1tJLbQ96qyqlSxsXJ9WJRp7lAewzDJejQ0YUHqMbVwmISXibKEqixSgVb9PcchDLboh
+ gVy5XseW4gbXIkFxJNNV8p+UeUwicpoxEtmUL3Gc+hLEsvhAWl1TUr79oTp5ngpOdjPGwXrbrZU
+ +Grcno1vNK2b6c5cKvYWVX9jsJE=
+X-Google-Smtp-Source: AGHT+IE0EkuY37ILnPKptg6uGReSxnPJE0X/fqU/3PWi9f79qp1lbwcINs44bUUuSRvUsJiz99sxZA==
+X-Received: by 2002:a05:600c:2d4b:b0:42c:baf1:4c7 with SMTP id
+ 5b1f17b1804b1-434afb94427mr4280355e9.4.1732734114928; 
+ Wed, 27 Nov 2024 11:01:54 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:8ad2:e64c:f150:ebc6?
+ ([2a01:e0a:982:cbb0:8ad2:e64c:f150:ebc6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-434aa7e5e59sm30134885e9.44.2024.11.27.11.01.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 Nov 2024 11:01:54 -0800 (PST)
+Message-ID: <4d237348-2128-479c-8122-b194ffb19e5c@linaro.org>
+Date: Wed, 27 Nov 2024 20:01:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] drm/msm/mdss: reuse defined bitfields for UBWC 2.0
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Connor Abbott <cwabbott0@gmail.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>
-References: <20241127-msm-mdss-ubwc-v3-0-9782a7c2b023@linaro.org>
- <20241127-msm-mdss-ubwc-v3-2-9782a7c2b023@linaro.org>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20241127-msm-mdss-ubwc-v3-2-9782a7c2b023@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: wVk7dztl9peavFIcO-K62eTJUIUagc3Y
-X-Proofpoint-ORIG-GUID: wVk7dztl9peavFIcO-K62eTJUIUagc3Y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 malwarescore=0 mlxscore=0
- phishscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
- mlxlogscore=664 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2411270145
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH v2 04/11] drm/msm: adreno: add GMU_BW_VOTE feature flag
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Connor Abbott <cwabbott0@gmail.com>,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <20241119-topic-sm8x50-gpu-bw-vote-v2-0-4deb87be2498@linaro.org>
+ <20241119-topic-sm8x50-gpu-bw-vote-v2-4-4deb87be2498@linaro.org>
+ <20241123194316.yqvovktcptfep4dr@hu-akhilpo-hyd.qualcomm.com>
+ <a936a9fc-6632-4f44-94d1-db304218b5a5@linaro.org>
+ <fe8f40aa-b9c7-4a85-9cb6-63df81190fab@quicinc.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <fe8f40aa-b9c7-4a85-9cb6-63df81190fab@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,21 +130,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 27/11/2024 17:00, Akhil P Oommen wrote:
+> On 11/25/2024 1:46 PM, Neil Armstrong wrote:
+>> On 23/11/2024 20:43, Akhil P Oommen wrote:
+>>> On Tue, Nov 19, 2024 at 06:56:39PM +0100, Neil Armstrong wrote:
+>>>> The Adreno GMU Management Unit (GNU) can also scale the DDR Bandwidth
+>>>> along the Frequency and Power Domain level, but by default we leave the
+>>>> OPP core vote for the interconnect ddr path.
+>>>>
+>>>> While scaling via the interconnect path was sufficient, newer GPUs
+>>>> like the A750 requires specific vote paremeters and bandwidth to
+>>>> achieve full functionality.
+>>>>
+>>>> While the feature will require some data in a6xx_info, it's safer
+>>>> to only enable tested platforms with this flag first.
+>>>>
+>>>> Add a new feature enabling DDR Bandwidth vote via GMU.
+>>>>
+>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>>> ---
+>>>>    drivers/gpu/drm/msm/adreno/adreno_gpu.h | 1 +
+>>>>    1 file changed, 1 insertion(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/
+>>>> drm/msm/adreno/adreno_gpu.h
+>>>> index
+>>>> 4702d4cfca3b58fb3cbb25cb6805f1c19be2ebcb..394b96eb6c83354ae008b15b562bedb96cd391dd 100644
+>>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>>>> @@ -58,6 +58,7 @@ enum adreno_family {
+>>>>    #define ADRENO_FEAT_HAS_HW_APRIV        BIT(0)
+>>>>    #define ADRENO_FEAT_HAS_CACHED_COHERENT        BIT(1)
+>>>>    #define ADRENO_FEAT_PREEMPTION            BIT(2)
+>>>> +#define ADRENO_FEAT_GMU_BW_VOTE            BIT(3)
+>>>
+>>> Do we really need a feature flag for this? We have to carry this for
+>>> every
+>>> GPU going forward. IB voting is supported on all GMUs from A6xx GEN2 and
+>>> newer. So we can just check that along with whether the bw table is
+>>> dynamically generated or not.
+>>
+>> It depends on the bw table _and_ the a6xx_info.gmu table, I don't want to
+>> check both in all parts on the driver.
+>>
+> Thats fine then.
 
+Finally I converted the a6xx_info to a pointer, and it's fine checking
+this pointer instead of the quirk, since anyway we already check num_bws.
 
-On 11/27/2024 6:04 AM, Dmitry Baryshkov wrote:
-> Follow other msm_mdss_setup_ubwc_dec_nn functions and use individual
-> bits instead of just specifying the value to be programmed to the
-> UBWC_STATIC register.
+Neil
+
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/msm_mdss.c | 17 +++++++++++++----
->   drivers/gpu/drm/msm/msm_mdss.h |  1 -
->   2 files changed, 13 insertions(+), 5 deletions(-)
+> -Akhil.
+> 
+>> Neil
+>>
+>>>
+>>> -Akhil
+>>>
+>>>>      /* Helper for formating the chip_id in the way that userspace
+>>>> tools like
+>>>>     * crashdec expect.
+>>>>
+>>>> -- 
+>>>> 2.34.1
+>>>>
+>>
+>>
 > 
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
