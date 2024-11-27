@@ -2,123 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E91929DAB24
-	for <lists+freedreno@lfdr.de>; Wed, 27 Nov 2024 16:55:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 897DF9DAB40
+	for <lists+freedreno@lfdr.de>; Wed, 27 Nov 2024 17:01:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 969EB10EB4A;
-	Wed, 27 Nov 2024 15:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62E0F10EB4E;
+	Wed, 27 Nov 2024 16:01:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Qzg5UHFR";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="kOSiKHkY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D05F610EB4A
- for <freedreno@lists.freedesktop.org>; Wed, 27 Nov 2024 15:55:30 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-432d86a3085so63170005e9.2
- for <freedreno@lists.freedesktop.org>; Wed, 27 Nov 2024 07:55:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732722929; x=1733327729; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=+fZHHyi9lrufyt8LGbh+sPd+B86keKpYadbG8L8712E=;
- b=Qzg5UHFR5ZAcaqWLEB5x/huet3cRcgK0gRSjn2T7t91YfU1yoSteIalru0YlGVG17C
- SfS6hZaoZYD729D0qa51ouscaFnXgs5goDu7+KdqBgwd2LJFDvfm648PIEx64vTbsLcH
- rexoLUdJzWrfBhzeHwe3HR/P+fLWvUlY3e4nL6s0bQSzED9twhjmXmpvZn1C1M/7JJHM
- K2XTBkvSpE1T+rs3qkOiWSNgizQkEjptqVehZ5ge0C+BNK9rImfxahf4Mzhf9MRsGHKK
- V14CTTF6BrOLntLmM1GTkDK7e1ebWfwVtXay5Wj5w+YsTgG6rqU1WVK3T3X03gI++hgM
- o+6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732722929; x=1733327729;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=+fZHHyi9lrufyt8LGbh+sPd+B86keKpYadbG8L8712E=;
- b=on8uRpVXxTkUaUMdd3QLSUVHMHKK3a4cbddooBUN1rNSi/1DuQqbRWBtawPWagcmfX
- 569LQBBRqCgj6vCISvCMjvw9ZShgC8ERbW97ThFc96bBLEUkvrVfKstS+hnZmU51USJa
- sg82qlnO+m7r/rI5Bsrb5+L1o/UBzGvmdTS1hxNourGloNGPzTEBkgsHIvblw/tvjC84
- a1sycfsO6EFQqSl+lp28jVqy4P5+WeelOBgtZla77vzLxDuFseEggEhOCu7P3VpJ6/Zs
- W8r8pLqEDnn4kvGehHbATepMq+rwZ2L4HfyVaEhgk0TkirlBYnXqTYDr+jGRWeXFnDIU
- uYzA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUpqEbGncYzIyY5HYDWgWwUi0jBZz2raCpP4Lxx0OAoAWRciYOGtKegGB9YYGu/SaTw9jLN+zEV9Wc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGxMA40dLheFQ0+BbgQCSsLp5Jga3yGVVcVAQ5ZPPzYHG5rXgH
- gmYaq0YbJ05rv4XtXKQvh7Z7ucwmXKTt5YW5qtYAIb21hlwPYj8N4v/50FL3zik=
-X-Gm-Gg: ASbGncsV3bA8N1dNinZpBYqdztAKO+2JcEmXtMl7L94B1cElLiEkp85g+D4k2jB+j9d
- WtmAmXrQJ71G1rA3brur9NW/zwz+mthcnHbCm80UoRSt4tuzRkTNenElWC1U3uT8YEuzwMFlSj9
- P9daQwUV+js82TCvuufSvsawuP3GkJmTi2S/pRBQHh+D7INXaK0boQFdly9YYSlwgS3FG8kdGpC
- KL0r3w6wnD1dzvzdnzJFYclFikQhELqIIY6ZwSdaMIOVI39VWWEEYmo/5gxjpTNxunU9GXSRPra
- WoixykNrJPZSebXWpE+UTbcH53U=
-X-Google-Smtp-Source: AGHT+IH0D2BTFO4lLWrwOI5qlHZb/ab3iD4eTxYpRNpC5w+FLQ9G/yFTXTi/l1wQsEuQuG8y3L4+Pw==
-X-Received: by 2002:a05:600c:354e:b0:434:a802:e9b2 with SMTP id
- 5b1f17b1804b1-434a9dbc589mr34098165e9.4.1732722929148; 
- Wed, 27 Nov 2024 07:55:29 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:8ad2:e64c:f150:ebc6?
- ([2a01:e0a:982:cbb0:8ad2:e64c:f150:ebc6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434aa7a4f69sm25388865e9.3.2024.11.27.07.55.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Nov 2024 07:55:28 -0800 (PST)
-Message-ID: <79e76b0d-15df-444e-ab14-24cf32678b96@linaro.org>
-Date: Wed, 27 Nov 2024 16:55:27 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64A8210EB4E;
+ Wed, 27 Nov 2024 16:01:06 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AR97lJC005652;
+ Wed, 27 Nov 2024 16:00:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ +Va95SJMT38If297mk1nUgJ1EjnxSRyhbUmPr7v/p8U=; b=kOSiKHkYI3AlYU2d
+ cUDj8ezOXu85m9ti6XLzlLQPoWA2yNQiX7UeXfVbCeJmXpJIfEEo+Ofzg5a09tpa
+ ODUowrXRRRVGOBJYRzoWPY8m+VQCCJEduOM/xyxPt7aYW/dAZ7zx8vDRoyqlWPIt
+ MdZfSDM/5ar0ySEllrHSFovzb+fNLUwUTG7898kClBZZbT5BVqHPWvFp3/SvHZ1G
+ SzRnvk1Jp9Y0YPYFx4BdnTNmNvvSyWpgFepgCR14s1/k+PrI6TsKetwB0m8t64Vu
+ CCbiZr685J2fgm8fx6lbeOp274DkT1r4CeyRm3BcLATLymDdTvPaAYBHAaTiLsMn
+ LVKM/Q==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 435cmqve3w-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 27 Nov 2024 16:00:53 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4ARG0quS001593
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 27 Nov 2024 16:00:52 GMT
+Received: from [10.206.104.82] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 27 Nov
+ 2024 08:00:45 -0800
+Message-ID: <fe8f40aa-b9c7-4a85-9cb6-63df81190fab@quicinc.com>
+Date: Wed, 27 Nov 2024 21:30:42 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH v2 08/11] drm/msm: adreno: request for maximum bus
- bandwidth usage
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Connor Abbott <cwabbott0@gmail.com>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 04/11] drm/msm: adreno: add GMU_BW_VOTE feature flag
+To: <neil.armstrong@linaro.org>
+CC: Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, "Stephen
+ Boyd" <sboyd@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Konrad Dybcio
+ <konradybcio@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>,
+ Connor Abbott <cwabbott0@gmail.com>, <linux-pm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <devicetree@vger.kernel.org>
 References: <20241119-topic-sm8x50-gpu-bw-vote-v2-0-4deb87be2498@linaro.org>
- <20241119-topic-sm8x50-gpu-bw-vote-v2-8-4deb87be2498@linaro.org>
- <20241123225954.lv3k2fxk7rxyh67z@hu-akhilpo-hyd.qualcomm.com>
- <1965cd01-7b31-4f16-82b2-27fd56fcb77e@linaro.org>
- <2d3a77da-cf73-4888-bc4d-68482181c908@quicinc.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <2d3a77da-cf73-4888-bc4d-68482181c908@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <20241119-topic-sm8x50-gpu-bw-vote-v2-4-4deb87be2498@linaro.org>
+ <20241123194316.yqvovktcptfep4dr@hu-akhilpo-hyd.qualcomm.com>
+ <a936a9fc-6632-4f44-94d1-db304218b5a5@linaro.org>
+Content-Language: en-US
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <a936a9fc-6632-4f44-94d1-db304218b5a5@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 1opIfsb-O5dhOZNYdhDvNnOQtwCCasRe
+X-Proofpoint-ORIG-GUID: 1opIfsb-O5dhOZNYdhDvNnOQtwCCasRe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0
+ lowpriorityscore=0 mlxscore=0 phishscore=0 malwarescore=0 mlxlogscore=999
+ impostorscore=0 bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2411270127
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,108 +100,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/11/2024 16:46, Akhil P Oommen wrote:
-> On 11/25/2024 1:44 PM, Neil Armstrong wrote:
->> On 23/11/2024 23:59, Akhil P Oommen wrote:
->>> On Tue, Nov 19, 2024 at 06:56:43PM +0100, Neil Armstrong wrote:
->>>> When requesting a DDR bandwidth level along a GPU frequency
->>>> level via the GMU, we can also specify the bus bandwidth usage in a
->>>> 16bit
->>>> quantitized value.
->>>>
->>>> For now simply request the maximum bus usage.
+On 11/25/2024 1:46 PM, Neil Armstrong wrote:
+> On 23/11/2024 20:43, Akhil P Oommen wrote:
+>> On Tue, Nov 19, 2024 at 06:56:39PM +0100, Neil Armstrong wrote:
+>>> The Adreno GMU Management Unit (GNU) can also scale the DDR Bandwidth
+>>> along the Frequency and Power Domain level, but by default we leave the
+>>> OPP core vote for the interconnect ddr path.
 >>>
->>> Why? You don't care about power efficiency?
->>> Lets drop this patch. We don't care about AB vote yet.
->>
->> I care about functionality, without this AB vote the spillall use
->> case that fails on SM8650 HDK fails on the SM8650 QRD.
-> 
-> This should have been documented as a comment so that someone doesn't
-> remove it in future.
-> 
->>
->> AB is a quantitized value of the BW voted, so yes I expect we can have
->> 100% of the BW voted, but since we scale the BW it's perfectly fine.
-> 
-> Ah! no. MAX AB vote here is equal to the Max IB vote value in the hfi
-> table. This is why I was asking about including all BW levels from the
-> DT in the hfi table in the other patch.
-> 
-> So you are always voting for Max DDR Freq which is probably helping (or
-> masking?) the spill all issue. We can just add a quirk to vote for MAX
-> IB probably.
-
-Oh, indeed I've been re-reading gen7_bus_ab_quantize() and it seems
-I should calculate the AB vote when building the bw_table.
-
-Thanks,
-Neil
-
-> 
-> -Akhil
-> 
->>
->> Neil
->>
+>>> While scaling via the interconnect path was sufficient, newer GPUs
+>>> like the A750 requires specific vote paremeters and bandwidth to
+>>> achieve full functionality.
 >>>
->>> -Akhil
+>>> While the feature will require some data in a6xx_info, it's safer
+>>> to only enable tested platforms with this flag first.
 >>>
->>>>
->>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>>> ---
->>>>    drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 11 +++++++++++
->>>>    drivers/gpu/drm/msm/adreno/a6xx_hfi.h |  5 +++++
->>>>    2 files changed, 16 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/
->>>> msm/adreno/a6xx_gmu.c
->>>> index
->>>> dc2d0035544e7848e5c4ea27f1ea9a191f9c4991..36c0f67fd8e109aabf09a0804bacbed3593c39d7 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>> @@ -134,6 +134,17 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu,
->>>> struct dev_pm_opp *opp,
->>>>                if (bw == gmu->gpu_bw_table[bw_index])
->>>>                    break;
->>>>            }
->>>> +
->>>> +        if (bw_index) {
->>>> +            /*
->>>> +             * Append AB vote to the maximum bus usage.
->>>> +             * AB represents a quantitized 16bit value of the
->>>> +             * max ddr bandwidth we could use, let's simply
->>>> +             * request the maximum for now.
->>>> +             */
->>>> +            bw_index |= AB_VOTE(MAX_AB_VOTE);
->>>> +            bw_index |= AB_VOTE_ENABLE;
->>>> +        }
->>>>        }
->>>>          gmu->current_perf_index = perf_index;
->>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h b/drivers/gpu/drm/
->>>> msm/adreno/a6xx_hfi.h
->>>> index
->>>> 528110169398f69f16443a29a1594d19c36fb595..52ba4a07d7b9a709289acd244a751ace9bdaab5d 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
->>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
->>>> @@ -173,6 +173,11 @@ struct a6xx_hfi_gx_bw_perf_vote_cmd {
->>>>        u32 bw;
->>>>    };
->>>>    +#define AB_VOTE_MASK        GENMASK(31, 16)
->>>> +#define MAX_AB_VOTE        (FIELD_MAX(AB_VOTE_MASK) - 1)
->>>> +#define AB_VOTE(vote)        FIELD_PREP(AB_VOTE_MASK, (vote))
->>>> +#define AB_VOTE_ENABLE        BIT(8)
->>>> +
->>>>    #define HFI_H2F_MSG_PREPARE_SLUMBER 33
->>>>      struct a6xx_hfi_prep_slumber_cmd {
->>>>
->>>> -- 
->>>> 2.34.1
->>>>
+>>> Add a new feature enabling DDR Bandwidth vote via GMU.
+>>>
+>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>> ---
+>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.h | 1 +
+>>>   1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/
+>>> drm/msm/adreno/adreno_gpu.h
+>>> index
+>>> 4702d4cfca3b58fb3cbb25cb6805f1c19be2ebcb..394b96eb6c83354ae008b15b562bedb96cd391dd 100644
+>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+>>> @@ -58,6 +58,7 @@ enum adreno_family {
+>>>   #define ADRENO_FEAT_HAS_HW_APRIV        BIT(0)
+>>>   #define ADRENO_FEAT_HAS_CACHED_COHERENT        BIT(1)
+>>>   #define ADRENO_FEAT_PREEMPTION            BIT(2)
+>>> +#define ADRENO_FEAT_GMU_BW_VOTE            BIT(3)
 >>
+>> Do we really need a feature flag for this? We have to carry this for
+>> every
+>> GPU going forward. IB voting is supported on all GMUs from A6xx GEN2 and
+>> newer. So we can just check that along with whether the bw table is
+>> dynamically generated or not.
+> 
+> It depends on the bw table _and_ the a6xx_info.gmu table, I don't want to
+> check both in all parts on the driver.
+> 
+Thats fine then.
+
+-Akhil.
+
+> Neil
+> 
+>>
+>> -Akhil
+>>
+>>>     /* Helper for formating the chip_id in the way that userspace
+>>> tools like
+>>>    * crashdec expect.
+>>>
+>>> -- 
+>>> 2.34.1
+>>>
+> 
 > 
 
