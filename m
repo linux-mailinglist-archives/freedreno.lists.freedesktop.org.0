@@ -2,68 +2,101 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2800A9D9E13
-	for <lists+freedreno@lfdr.de>; Tue, 26 Nov 2024 20:39:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38D7F9DA2AB
+	for <lists+freedreno@lfdr.de>; Wed, 27 Nov 2024 08:07:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0452B10E083;
-	Tue, 26 Nov 2024 19:39:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04E6D10E05D;
+	Wed, 27 Nov 2024 07:07:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pH/Q0Ee2";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ChoG0XzB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com
- [209.85.219.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF7E10E083
- for <freedreno@lists.freedesktop.org>; Tue, 26 Nov 2024 19:39:39 +0000 (UTC)
-Received: by mail-yb1-f175.google.com with SMTP id
- 3f1490d57ef6-e38df4166c7so5507444276.0
- for <freedreno@lists.freedesktop.org>; Tue, 26 Nov 2024 11:39:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732649978; x=1733254778; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=MKZGQZXr/HtSG6ikM1HGVeIoUI7E9BgamozW8+s0o9c=;
- b=pH/Q0Ee2vzUoRurW6f2zwJVgfypTCWuHfwuUwkrAhSgFkbBpxT00KkO/MRE2amn4bs
- HsDUNd8DnvqIwurGNq5xR19re3e/e8iVgkw1P3xN+JrGWq8T0rZ5J4Cxvi16q6IssRqz
- iezGJma6eVNwib+OwTMqa5JQRTM/tB4gNDjSpkWIGJcCUak/C1y35zK3krZtFI/rf6Lc
- LLYPa5ggvlxMnOYzf9ZP5JNEtJA2pxnTFzb5BCme0EiUwJNpB5KylohlY9f9hr/n3eJO
- ZZPxcV1asT9y5iiUZRSFj1Oxbj5cI+YzgsR0YY8wkbEX6a4s+T8huaw8XH7x31k2bezQ
- U01A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732649978; x=1733254778;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=MKZGQZXr/HtSG6ikM1HGVeIoUI7E9BgamozW8+s0o9c=;
- b=U6WY0LK8/DNVDpukH54JANgST0qF95wOHZmn1BckXh4ENoW3349eK4DaDojLnmjToO
- W1LGnWh531+xbPthKe2FiQ7tN8YHbe4aH3Q+F+7+V/QYBpcWvK1ObVa1mqKTO5tpNA6l
- tDBS7pLHZXsTFxoX0JwABo4kqICcblI0aa57cXQld+D+GYNWO5Wqotks+ke+v6zyVaEz
- DrFpFWPZtmOe/Jy2MetKIucz3Pn0Iff8ODwTOhwTj2FjeQwdnfeCshfCiN9QtqNNKPhu
- NU6N7P8+uttiZwZNRigrvddc2AOPQQhJr/ELFUPnCpxD5J6tmwfxUwX0nuuLRhSUb8Fl
- AUxw==
-X-Gm-Message-State: AOJu0YwpjpZOcba9rmLS3AeJMzGaRgsraZ+LDSSKPNsScxrUl18Levd+
- MyAZ0QbCiRubpSd2ynWt/6C1dwm8vkhv5aZp3UfeBXttsgERMIOeTWlZFWKPw9fJ37Eb/Ho64gQ
- lPBOsE3lYyVTVNVUUY5EkDZBSwyC4zC/6Ksq7CXpEw8BkYRpR
-X-Gm-Gg: ASbGnct0+mQufHCK1YeBjYVUpPUGIIvfDW2vSbV0z4v92A2aFqcpgBviJhw+BCftLLv
- NlJTVqSNpEtYukNA9vQHoRkGQX44z6vAkWj795FmV8gaXxIJnW0rQ+YrumuDZDOs=
-X-Google-Smtp-Source: AGHT+IGaq8XgSDiY+Bz/arCegPHjXVpSkwupysNHq2R3KZrtTqzwDKRJ+3vv4ewg4wRIBfdf2wOKq4l7jfURMd8bTTw=
-X-Received: by 2002:a05:6902:1022:b0:e38:93af:4133 with SMTP id
- 3f1490d57ef6-e395b943279mr309916276.41.1732649978266; Tue, 26 Nov 2024
- 11:39:38 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED50C10E9E2;
+ Wed, 27 Nov 2024 07:07:23 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AQKLXwn007146;
+ Wed, 27 Nov 2024 07:07:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=FdzhCJYyts+i+8/ip4aX/U
+ kHnExbLtaZrVSH+17mkFM=; b=ChoG0XzBlB2NFUVeAKPSGHBgmL7Q/4BHvfgYwL
+ v756JbLA43fvyVEw6awY2Um+G4wNHIUKfu2KNCYWS0zy30RuaIlV0EoAJ/rkKIsf
+ jaLV6FUK+LTs4VpmMOWRRJdT870z67eEVFkafTy1Ob86PSm6efTeuhqHFO5NbVT6
+ 6Ku0NyecRtJriB5eMG0r00Mp7n3HHRhSnZhYQ0dHFidBjtziqJ4oUUEcgZEaIMrY
+ LM66J2etKnW0U29RXnhcVdU9OdxPxpEWR3UIjwJ5zmUkZQx80n6dcHPz+LVbUuBO
+ /I/TKKkFP8u/oP30/pb3qHYcmh7klu/xDTfd5t8QtIox6gDA==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 434sw9dsua-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 27 Nov 2024 07:07:16 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AR77FwX027248
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 27 Nov 2024 07:07:15 GMT
+Received: from cse-cd01-lnx.ap.qualcomm.com (10.80.80.8) by
+ nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Tue, 26 Nov 2024 23:07:10 -0800
+From: Yongxing Mou <quic_yongmou@quicinc.com>
+Subject: [PATCH 0/5] Display enablement changes for Qualcomm QCS8300 platform
+Date: Wed, 27 Nov 2024 15:05:00 +0800
+Message-ID: <20241127-mdss_qcs8300-v1-0-29b2c3ee95b8@quicinc.com>
 MIME-Version: 1.0
-References: <20241125-a612-gpu-support-v2-0-b7cc38e60191@quicinc.com>
- <20241125-a612-gpu-support-v2-1-b7cc38e60191@quicinc.com>
- <vfbklrbereo3j5dp2w4pvctef364sb2dqogccmaevjerkm5u43@jytwobqwvuv2>
- <ba4e830c-e37f-4f5c-b461-2bcd8330234c@quicinc.com>
-In-Reply-To: <ba4e830c-e37f-4f5c-b461-2bcd8330234c@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 26 Nov 2024 21:39:27 +0200
-Message-ID: <CAA8EJpoUbUpzaQmTNeEFvt7Wcr86T=0bZg=QoiT_N6NL0BzD5g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/msm/adreno: Introduce ADRENO_QUIRK_NO_SYSCACHE
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALTERmcC/2WQQW7DIBBFr2Kx7lQMYANZ9R5VFcGAG6TaSQy1W
+ kW5e7GTSo2744/0HjP/wnKcUsxs11zYFOeU03GsAZ8aRgc3vkdIoWYmuFCIAmEIOe/PlI3kHEi
+ ibwXx0FrLKnKaYp++Vt3r2y1P8fxZreU2ZEPM2a3WXbM4uRUt3HX7NKaS3Mc+lJxgFsBBWUWK9
+ 044JV6qiNJIz3Qcls+2KkRUvyoYBiCCUODkCh1gRkDQzmrVckNadluZdzlCfQ+p7BqFiqwm23W
+ +s1G5LjrtpbC6boJ1KHrrbew5W248pFyO0/fa4IzrkfeyxGNZdQcOrvcYeKze0D7ssKhm+RdvN
+ 7isuCHfGWn74EL8j6u/uN7gquIyGC2ckUa78Ihfr9cfk4zp8QwCAAA=
+X-Change-ID: 20241121-mdss_qcs8300-c31b52c0d599
+To: Ritesh Kumar <quic_riteshk@quicinc.com>, Rob Clark <robdclark@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+CC: Abhinav Kumar <quic_abhinavk@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ Yongxing Mou <quic_yongmou@quicinc.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732691224; l=2087;
+ i=quic_yongmou@quicinc.com; s=20241121; h=from:subject:message-id;
+ bh=JaVHnEJJVx3WJIgnsINQ7pXkS53mrl5xi4vPx6Jyeko=;
+ b=yD1PeHCiVj2rBlrYMhHCDxLXmCzHE9yMK/bNScM2U6pdvVwdQzvJDXJo+gXKA6QnFqSill9Ua
+ HqOtww+dpx9CLHcj3KpXojS+c8ENKqdCi+s9WgJODKUYMX8AW9C9+co
+X-Developer-Key: i=quic_yongmou@quicinc.com; a=ed25519;
+ pk=zeCnFRUqtOQMeFvdwex2M5o0Yf67UHYfwCyBRQ3kFbU=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: cggMyCBySlYnhNnfs7W0LK4MQsvEIFfR
+X-Proofpoint-ORIG-GUID: cggMyCBySlYnhNnfs7W0LK4MQsvEIFfR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ mlxlogscore=878 adultscore=0 spamscore=0 impostorscore=0
+ priorityscore=1501 phishscore=0 clxscore=1011 mlxscore=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2411270057
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,101 +112,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 26 Nov 2024 at 17:37, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->
-> On 11/25/2024 10:16 PM, Dmitry Baryshkov wrote:
-> > On Mon, Nov 25, 2024 at 10:03:00PM +0530, Akhil P Oommen wrote:
-> >> There are a few chipsets which don't have system cache a.k.a LLC.
-> >> Currently, the assumption in the driver is that the system cache
-> >> availability correlates with the presence of GMU or RPMH, which
-> >> is not true. For instance, Snapdragon 6 Gen 1 has RPMH and a GPU
-> >> with a full blown GMU, but doesnot have a system cache. So,
-> >> introduce an Adreno Quirk flag to check support for system cache
-> >> instead of using gmu_wrapper flag.
-> >>
-> >> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> >> ---
-> >>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 3 ++-
-> >>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 7 +------
-> >>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 1 +
-> >>  3 files changed, 4 insertions(+), 7 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> >> index 0c560e84ad5a..5e389f6b8b8a 100644
-> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> >> @@ -682,6 +682,7 @@ static const struct adreno_info a6xx_gpus[] = {
-> >>              },
-> >>              .gmem = (SZ_128K + SZ_4K),
-> >>              .inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> >> +            .quirks = ADRENO_QUIRK_NO_SYSCACHE,
-> >>              .init = a6xx_gpu_init,
-> >>              .zapfw = "a610_zap.mdt",
-> >>              .a6xx = &(const struct a6xx_info) {
-> >> @@ -1331,7 +1332,7 @@ static const struct adreno_info a7xx_gpus[] = {
-> >>              },
-> >>              .gmem = SZ_128K,
-> >>              .inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> >> -            .quirks = ADRENO_QUIRK_HAS_HW_APRIV,
-> >> +            .quirks = ADRENO_QUIRK_HAS_HW_APRIV | ADRENO_QUIRK_NO_SYSCACHE,
-> >>              .init = a6xx_gpu_init,
-> >>              .zapfw = "a702_zap.mbn",
-> >>              .a6xx = &(const struct a6xx_info) {
-> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> index 019610341df1..a8b928d0f320 100644
-> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> @@ -1863,10 +1863,6 @@ static void a7xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
-> >>
-> >>  static void a6xx_llc_slices_destroy(struct a6xx_gpu *a6xx_gpu)
-> >>  {
-> >> -    /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
-> >> -    if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
-> >> -            return;
-> >> -
-> >
-> > Shouldn't it also be a NO_SYSCACHE check?
->
-> llcc_slice_putd() has an ERR_OR_NULL check inside. So, not really needed.
+This series introduces support to enable the Mobile Display Subsystem (MDSS)
+and Display Processing Unit (DPU) for the Qualcomm QCS8300 target. It
+includes the addition of the hardware catalog, compatible string,
+relevant device tree changes, and their YAML bindings.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
+---
+This series depends on following series:
+https://lore.kernel.org/all/20241114-qcs8300-mm-cc-dt-patch-v1-1-7a974508c736@quicinc.com/
+https://lore.kernel.org/all/20240925-qcs8300_initial_dtsi-v2-0-494c40fa2a42@quicinc.com/
 
->
-> -Akhil.
-> >
-> >>      llcc_slice_putd(a6xx_gpu->llc_slice);
-> >>      llcc_slice_putd(a6xx_gpu->htw_llc_slice);
-> >>  }
-> >> @@ -1876,8 +1872,7 @@ static void a6xx_llc_slices_init(struct platform_device *pdev,
-> >>  {
-> >>      struct device_node *phandle;
-> >>
-> >> -    /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
-> >> -    if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
-> >> +    if (a6xx_gpu->base.info->quirks & ADRENO_QUIRK_NO_SYSCACHE)
-> >>              return;
-> >>
-> >>      /*
-> >> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> >> index e71f420f8b3a..398be2218110 100644
-> >> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> >> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> >> @@ -57,6 +57,7 @@ enum adreno_family {
-> >>  #define ADRENO_QUIRK_HAS_HW_APRIV           BIT(3)
-> >>  #define ADRENO_QUIRK_HAS_CACHED_COHERENT    BIT(4)
-> >>  #define ADRENO_QUIRK_PREEMPTION                     BIT(5)
-> >> +#define ADRENO_QUIRK_NO_SYSCACHE            BIT(6)
-> >>
-> >>  /* Helper for formating the chip_id in the way that userspace tools like
-> >>   * crashdec expect.
-> >>
-> >> --
-> >> 2.45.2
-> >>
-> >
->
+---
+Yongxing Mou (5):
+      dt-bindings: display/msm: Document MDSS on QCS8300
+      dt-bindings: display/msm: Document the DPU for QCS8300
+      drm/msm: mdss: Add QCS8300 support
+      drm/msm/dpu: Add QCS8300 support
+      arm64: dts: qcom: qcs8300: add display dt nodes for MDSS and DPU
 
+ .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 239 ++++++++++
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   1 +
+ arch/arm64/boot/dts/qcom/qcs8300.dtsi              |  87 ++++
+ .../drm/msm/disp/dpu1/catalog/dpu_8_4_qcs8300.h    | 485 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/msm_mdss.c                     |  11 +
+ 8 files changed, 826 insertions(+)
+---
+base-commit: 414c97c966b69e4a6ea7b32970fa166b2f9b9ef0
+change-id: 20241121-mdss_qcs8300-c31b52c0d599
+prerequisite-message-id: 20240925-qcs8300_initial_dtsi-v2-0-494c40fa2a42@quicinc.com
+prerequisite-patch-id: 73c78f31fa1d504124d4a82b578a6a14126cccd8
+prerequisite-patch-id: 5a01283c8654ae7c696d9c69cb21505b71c5ca27
+prerequisite-patch-id: dc633d5aaac790776a8a213ea2faa4890a3f665d
+prerequisite-patch-id: 9ecf4cb8b5842ac64e51d6baa0e6c1fbe449ee66
+prerequisite-message-id: 20241114-qcs8300-mm-cc-dt-patch-v1-1-7a974508c736@quicinc.com
+prerequisite-patch-id: 8faad5c6d8ca255935d3e4d317dcbcc32b8261ff
 
+Best regards,
 -- 
-With best wishes
-Dmitry
+Yongxing Mou <quic_yongmou@quicinc.com>
+
