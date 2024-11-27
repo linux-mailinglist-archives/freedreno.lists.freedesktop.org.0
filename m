@@ -2,90 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F64A9DA8DB
-	for <lists+freedreno@lfdr.de>; Wed, 27 Nov 2024 14:43:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48F299DA8F1
+	for <lists+freedreno@lfdr.de>; Wed, 27 Nov 2024 14:46:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20B1710EAD6;
-	Wed, 27 Nov 2024 13:43:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC95810EADC;
+	Wed, 27 Nov 2024 13:46:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="CoKZ+Hmk";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VEU2gMiV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5B0F10EAD0
- for <freedreno@lists.freedesktop.org>; Wed, 27 Nov 2024 13:43:20 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-53de771c5ebso3386637e87.2
- for <freedreno@lists.freedesktop.org>; Wed, 27 Nov 2024 05:43:20 -0800 (PST)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF2FB10EADC
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Nov 2024 13:46:47 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-2ffc86948dcso31239111fa.2
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Nov 2024 05:46:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732714999; x=1733319799; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1732715206; x=1733320006; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=LIXGs4fTwSxjqXemGFw9+p2YdwTHf2NnHZwaHRGF6Nc=;
- b=CoKZ+HmkKQJhpm/3cKRXQzrzZHSrqzm87AxWyPPhH04wt+yNDu8o36Ip/6kuQVQPet
- rxef94W2fgsgaVVKHEtaTT7BquYA1WA5YMrCKOEUqdmAvgc59CpeRTmPKWrMqvkE9nR8
- t2yYnyP1ouA4JTVMfrZ7jGkzV6LIh+Y2XhNc/r+OlYTH0+Se3y6vmomAlyNKLaRpV9l2
- wxtTJheeOkjYir91k00uQXJs1J9CYvraHzkXxUx392WFTwNhhjV4+BZISw83FlmkJG+w
- iTg+z49G9l21ez8ZiW0HzR0tOQB8yIz3XSxEkj77baR0IRhdSQa//4CBiAnunT/pChz3
- J7Xg==
+ bh=gTlm0pK08VxN90bSYKa0+atSkrR5Fs4v3H4AKqAzKv8=;
+ b=VEU2gMiV1ysMVCoif1HiP9u/zupDgyJIorUDZjUPerekRBPPjnJKrIHoXYOf8F3Z6C
+ CyLY8HGpJlzH1xCHckBuqTkcvhxSVhwl16bQGG79ja0z2FY1bAkM9GOKfprsTuYRBLTC
+ 3m0BauzOqjU8U3uXJ8RDv1T4Dn90jlQxbrp/yhIDtEEzwcljoIAXUk3sgGpWZHGVpmIl
+ pHUbf/ZibdildOceAjrlvFgsA8BOX9e3ULpjMuE8vVgsHiDolOKtFHBONV5naaun00z9
+ V103GGoDDPeLKTyiEG0Y/p8XOmjomSvYUnjSDwhXY8FANJH65KDBF8ssKBJkXm97h5Hf
+ TDSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732714999; x=1733319799;
+ d=1e100.net; s=20230601; t=1732715206; x=1733320006;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=LIXGs4fTwSxjqXemGFw9+p2YdwTHf2NnHZwaHRGF6Nc=;
- b=SiZf4bbtRSjng+JErDCtNNcvPEiOwQETbTDlALWDJNerg6srlR02tw2D2e68bYVlQk
- UQEpkJfdilVk5M5bntCfdXk3xFiJeWqugR3lJHY1NRmJMTJShFUrulnCSNPdiaA4Fj01
- qKkAb8xpoLq1bjcplUTTACOq8xn7FklnPRGPg/ufK5y6u/VSY8BEkAJ2S6FA9wTg6cXI
- vLRilzyR6Cv/i3npT5H0kpAXFTaGxL9mvW0gH46MdjSZQ2XvLhNpxOzlcPjfliAMiRHT
- jDUwXrkWkGXc5AvC6NZw3T605HT8fLbJK/bwE6YtaH03GOxfm9w2UNKMwg24So2gVtgQ
- dVow==
+ bh=gTlm0pK08VxN90bSYKa0+atSkrR5Fs4v3H4AKqAzKv8=;
+ b=AjDjSo0Yve/om33Bqzeu1ShTIar1M3bjgB9Y3sf7vNYGmzQ4qQG4+71c0TafZpto3G
+ +VRVoZQh+pcE6ndWz3PH0KVNCpCcGlaweL3ltn1d7JETdC2MMf1YQmVI6WFcjqOZVnGt
+ VtOhuZgA4KoVgcclO1t3ZmO3+JcVs77VFxE3FE3pv6GqhcUMOuXC9nxhnhvxSEbVOAd2
+ VYxAYKOkoPHB1/fxJbQvPP9M9h8e3pxe07UHDCYMIstvOI0k4Q/YXFxdeiOM+4BQppmU
+ ubK9b5rUgTQo9xNrFzxDXSN2rYt5npfJLTAAPmHp7ikHeGYhXabNQ/Gh5y0eET67a2hH
+ dASw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX1etZZPDoLxzeD2rcfBhIwQIgHwuFPcExA6xSSaIffl2b+RtrtWO+4RrtpvWa5cV6teokTojsHsB4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwntbN+U9HpUBz5Zw7DHmRhVNmyt7cVH3s1ntHyEaBZYI1oDTQn
- Go70m1u1kTRAl1qwysriW4gsfZK8teqynCCY/sWnQs0ofaU6isKX+AmJHkTwqh0=
-X-Gm-Gg: ASbGncubCp96tB/X5Asd5CnGwWrp7fjxCjORp8jmHsiN618VdKIyXTlQ/ewdLEq6aQ0
- laOsBg8lDX6g+uvEyelcFnXmQoHLgEbSz6po/cgv4jjS4Lys3vkraKnGhzlp0os9R+Gk3tMmO9x
- Ah2ZfQAonKdbzlnHe7+fnM8tuVMcZ3tykW+/ub1NhhAG8BE1d+kshFIAxr/7GTYj5jofM9BuRab
- YCHwlEMJ2hkrHvFNFZf1p4zQtcVMTWAt0iIK1Y9cTb8am5PQAoFWYAH1s049187XynZpHKs8b21
- vGzFtDBDsk34XpMroTj09Y6491t5RA==
-X-Google-Smtp-Source: AGHT+IHl4xTqfFayy6N/PMSQFKk1zMBlFF166s3qCjZQxpVTE21zLDuT/xgWMcxx1dKM+yaLNkjIHg==
-X-Received: by 2002:a05:6512:313a:b0:53d:f177:51d0 with SMTP id
- 2adb3069b0e04-53df177526amr1071412e87.9.1732714998834; 
- Wed, 27 Nov 2024 05:43:18 -0800 (PST)
+ AJvYcCXkX2d16eEL0rmPsM1bUDFY7G7sqWWYqU+hTrIlUV0FY51qAR190bGEVCSY/t5IkW+TgRgUC/cwXsM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz7gdd06I9YMipwZVr4t1HlfqzsExATYUgvrCqbaa4/jiEkyKHq
+ mGWcPmNrT+Uv+KCzP+fKVN25NlmaoOv8fFGz/gz9aNxtLtSk+yyFUh/bZC0Otsg=
+X-Gm-Gg: ASbGnctI31ujLhpPiBcWIE6puk7cgSKGJaDheUpf5RiResLvuEdIG9GnNLKHC1Pwtq/
+ l+s8dI1FwpLMeY4gikS6gIlLzh4okKQEa54BEeL7WcQSKDFkm6Tk24yx6AG/gKMymd2JAwvR/PG
+ y6ye+gKnS/3jnbJtRZupHRQlQDcOsv+ZfxO4lXwOh/UxBHcahM7GBZSPKAHje+C0PdtpHDnS+XY
+ fRohdD3R06xrxDTUu++gESqIvz88IA+JWzCt93CmAVZ53HUMKdCngKZXNXwKoq1ZQhU5DrjthT/
+ 8X77xgtSlPD65ttBy/4o7dfJx1ajOQ==
+X-Google-Smtp-Source: AGHT+IE5YvUnBxv51yjqkhV3Fi45R5BfRmA/OHDbr1MX0yiJhZssNxaHBIh9Ihr9OWpmi0uPhR+jZg==
+X-Received: by 2002:a05:651c:220d:b0:2ff:a8e9:a64d with SMTP id
+ 38308e7fff4ca-2ffd5ff5131mr17990441fa.2.1732715205762; 
+ Wed, 27 Nov 2024 05:46:45 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53ddbfc2b7dsm1721318e87.129.2024.11.27.05.43.18
+ 38308e7fff4ca-2ffd3269561sm3194711fa.45.2024.11.27.05.46.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Nov 2024 05:43:18 -0800 (PST)
-Date: Wed, 27 Nov 2024 15:43:16 +0200
+ Wed, 27 Nov 2024 05:46:45 -0800 (PST)
+Date: Wed, 27 Nov 2024 15:46:42 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Yongxing Mou <quic_yongmou@quicinc.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+Cc: Ritesh Kumar <quic_riteshk@quicinc.com>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, Ritesh Kumar <quic_riteshk@quicinc.com>
-Subject: Re: [PATCH 4/4] drm/msm/dp: Add DisplayPort controller for QCS8300
-Message-ID: <2ld2iwmvhz6myn6ume3lspi63wjefa3hpctoj2rdreaqhwdxmx@seic3sq2yo4h>
-References: <20241127-qcs8300_dp-v1-0-0d30065c8c58@quicinc.com>
- <20241127-qcs8300_dp-v1-4-0d30065c8c58@quicinc.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/5] drm/msm: mdss: Add QCS8300 support
+Message-ID: <nllulh3vskl3hm3hvjux4khxtanqj7cpoytodwkzphwn4ajmo7@g46rgnhp637b>
+References: <20241127-mdss_qcs8300-v1-0-29b2c3ee95b8@quicinc.com>
+ <20241127-mdss_qcs8300-v1-3-29b2c3ee95b8@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241127-qcs8300_dp-v1-4-0d30065c8c58@quicinc.com>
+In-Reply-To: <20241127-mdss_qcs8300-v1-3-29b2c3ee95b8@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,44 +102,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Nov 27, 2024 at 04:15:51PM +0800, Yongxing Mou wrote:
-> The Qualcomm QCS8300 platform comes with a DisplayPort controller
-> with same base offset with SA8775P, add support for this in the
-> DisplayPort driver.
+On Wed, Nov 27, 2024 at 03:05:03PM +0800, Yongxing Mou wrote:
+> Add Mobile Display Subsystem (MDSS) support for the QCS8300 platform.
 
-Can we reuse SA8775P config then? And SA8775p compatible as a fallback,
-not requiring any driver modifications.
+Please mention, why do you need it at all. I see that the UBWC swizzle
+and HBB settings are different. Is this really the case? Is it because
+of the different memory being used on those platforms?
 
 > 
 > Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  drivers/gpu/drm/msm/msm_mdss.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index aba925aab7ad7c6652e81004043864c1cb3ac370..f870faa89f26a8cb5bd7f4caf11f42e919c9efac 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -118,6 +118,11 @@ struct msm_dp_desc {
->  	bool wide_bus_supported;
+> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+> index b7bd899ead44bf86998e7295bccb31a334fa6811..90d8fe469d3134ec73f386153509ac257d75930a 100644
+> --- a/drivers/gpu/drm/msm/msm_mdss.c
+> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> @@ -568,6 +568,16 @@ static const struct msm_mdss_data qcm2290_data = {
+>  	.reg_bus_bw = 76800,
 >  };
 >  
-> +static const struct msm_dp_desc msm_dp_desc_qcs8300[] = {
-> +	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
-> +	{}
+> +static const struct msm_mdss_data qcs8300_data = {
+> +	.ubwc_enc_version = UBWC_4_0,
+> +	.ubwc_dec_version = UBWC_4_0,
+> +	.ubwc_swizzle = 6,
+> +	.ubwc_static = 1,
+> +	.highest_bank_bit = 3,
+> +	.macrotile_mode = 1,
+> +	.reg_bus_bw = 74000,
 > +};
 > +
->  static const struct msm_dp_desc msm_dp_desc_sa8775p[] = {
->  	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
->  	{ .io_start = 0x0af5c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
-> @@ -170,6 +175,7 @@ static const struct msm_dp_desc msm_dp_desc_x1e80100[] = {
->  };
->  
->  static const struct of_device_id msm_dp_dt_match[] = {
-> +	{ .compatible = "qcom,qcs8300-dp", .data = &msm_dp_desc_qcs8300 },
->  	{ .compatible = "qcom,sa8775p-dp", .data = &msm_dp_desc_sa8775p },
->  	{ .compatible = "qcom,sc7180-dp", .data = &msm_dp_desc_sc7180 },
->  	{ .compatible = "qcom,sc7280-dp", .data = &msm_dp_desc_sc7280 },
+>  static const struct msm_mdss_data sa8775p_data = {
+>  	.ubwc_enc_version = UBWC_4_0,
+>  	.ubwc_dec_version = UBWC_4_0,
+> @@ -715,6 +725,7 @@ static const struct of_device_id mdss_dt_match[] = {
+>  	{ .compatible = "qcom,mdss" },
+>  	{ .compatible = "qcom,msm8998-mdss", .data = &msm8998_data },
+>  	{ .compatible = "qcom,qcm2290-mdss", .data = &qcm2290_data },
+> +	{ .compatible = "qcom,qcs8300-mdss", .data = &qcs8300_data },
+>  	{ .compatible = "qcom,sa8775p-mdss", .data = &sa8775p_data },
+>  	{ .compatible = "qcom,sdm670-mdss", .data = &sdm670_data },
+>  	{ .compatible = "qcom,sdm845-mdss", .data = &sdm845_data },
 > 
 > -- 
 > 2.34.1
