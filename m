@@ -2,104 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5499C9DB58E
-	for <lists+freedreno@lfdr.de>; Thu, 28 Nov 2024 11:25:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E1D29DB882
+	for <lists+freedreno@lfdr.de>; Thu, 28 Nov 2024 14:25:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C13310E346;
-	Thu, 28 Nov 2024 10:25:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B42510E0BD;
+	Thu, 28 Nov 2024 13:24:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fwIDA0z7";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="S3OnSy/a";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A383410E346
- for <freedreno@lists.freedesktop.org>; Thu, 28 Nov 2024 10:25:56 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-434a2f3bae4so5880555e9.3
- for <freedreno@lists.freedesktop.org>; Thu, 28 Nov 2024 02:25:56 -0800 (PST)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DB2310E13B
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Nov 2024 13:24:58 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-53df1e0641fso925224e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Nov 2024 05:24:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732789555; x=1733394355; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=MV2f7FQ+IZLtcez7+tYl5S56MAb02gKSe/ez4DkB/II=;
- b=fwIDA0z7HPW4Q4aG1855Luk2Pjc8JWXEWpjB7PT8OJxShv7lshvBaUB8dl3XuSZfT8
- D0fn3Me3NNbyu3+qrU3vYsyOsTa64HULdWYNcXxeopkZWd0aekrSwITIki6z2qAFKW74
- ivCX6tcaXuHjhiyPTywSLmqYxCrMhMcKUvX+L+55GmpKdxxAalRJGrGvNmKR0rOOwTRI
- rU2j3FRCNLbY3VLsXXVWyrk2eB52YoUHXZOl/LU7jIgSJrj6qNbBiZpcTGtTpNRjHQ35
- 5eynQt1Fb03BMg/sIVbRQmmWSIUK7Ag317eqAKQYHJrqV1xw1ckvPSNi4XMKjq5nDW9Y
- 9kpg==
+ d=linaro.org; s=google; t=1732800296; x=1733405096; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Xu+TtrzBU++n85lMLAMaz83aPvmp/GtLgt6yR9tcsxk=;
+ b=S3OnSy/amOoEVNMjXmpWB+Ewwfd75vxRmdeBhUdPLK4zJmwevPW/OrUvYTxCStQWFm
+ GWZIAcGExSJRhL1RE2/FZKYajplTDvLS7i2oeqsFD+A5GecSthe1aObO5E5zc5z7mia5
+ qlJAHzb/+cj9jvDf7pO/SQNOJp8WC7sFQA5BjNHFGcxCtGgcpncAWtwTwljGjUh6F2zz
+ 7kOR/uBUVfAPEZaJaqXrqLFXDZ1vDB7P8SaJWGi3vDfLzhfKZq3oQAYrNzBCwdV1cHz2
+ 13JsKIHVANQIdO4HooIdtTGs1Q3vyz5FcTsRlUuHpLeyNTZ3M/Q5+BOBv2RrKYj7x8fp
+ vFeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732789555; x=1733394355;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MV2f7FQ+IZLtcez7+tYl5S56MAb02gKSe/ez4DkB/II=;
- b=e+1lpVM6qLAK9ICF9Y/M++cctsLbC2Wb/xlQR2xaqt1lCEnhW/jjYL/rubWLT1Ljae
- XHb9W7TZ3k0AxZKOEQjXasRIill2K3TCw+pPvuahEiA3T8Y4ZOWmAp7s9uXsOV7QmMq3
- dk29ii7fNFdW24dzZHw3QFSuQSFDwSYGYShawJOU9bGf5rURnNVSq7LD5bXVA4cpOz1n
- J7djI8wbWHzNlLFWvNg6vijYg9xpHJI0L/g34NrbBjLOOMT/PVIosMQKce0HUFpvYrbb
- YK2jhpzw10Aoc+bhC5RTxlPZp4eMiCgdddAI0y4+xOBuWDXfpwPJ1fXhlUSczzr2kIdF
- 7EBw==
+ d=1e100.net; s=20230601; t=1732800296; x=1733405096;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Xu+TtrzBU++n85lMLAMaz83aPvmp/GtLgt6yR9tcsxk=;
+ b=kALn+1xr6cRyQWjHQAMLh/w+gKgv2dyThwhTnDMaxE7v3L0fFN8eQeu7p1w/EYZ3Zn
+ o5Nct4s7CtPODjGqglUULCJlkVzlQFVLbHdHgjo9MeRVfBjz9elV14zd4UE+G/XfDZRT
+ eFmZ0JqKyYYuWgmC6rUg+Rus5mw0kIiH7f6nZtc4zxpD6YdqffOTrlHpd/207eXYJngu
+ qzs1PIG1T5vqnQZFm2cf94B4Na1QuFeZtuDI47qj4ad3NJYDKSgEUszMoIFcQXLZufwi
+ nFZnoOkIBDx60bQBHYL2vyV04GUkyrzFHdHM5codHBRtwCzD2Ow/IlNeTbv7+IBrIGYJ
+ kATQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVf8uSESiCBI1DNZnUpytFolkeUcHDr8QNlsY96qezWNa35P7m5E1hyv6ifRzz2mYnrMbftn8yu4/I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyO9AEcH3eu7foABTAPAOEd93mLb6eWlx0IBB1yEoKrd+ITPM+q
- QKDI/RGMtbtERTfHWRxFCgDjcQG+uQ0lvI+r9fLEyCamvFTlNGtW451nHvHt/vzLTpFkEKKFc0R
- Kq/M=
-X-Gm-Gg: ASbGncv9CZio2HXnPVtBFnFyh/AtcXLT8mYaimeRYnDb3C2wvVk5b9r0owh8RiCn+o+
- kuUlnxx1tEMjyWpILK9XZJdvqSXekm+17Q7wjZ5iPyXtB9vZbuVnplZwLl8V3i8C3DTFvnybpYu
- CVt/9bYtt/Jgy23DUFEwS7WXscaInd9HVC6hBlh1yAvHLHZGnX9PoUzzTXrJ0d6NawsW88cCOCj
- ngLl6McyhIwofLvfkvfX7RI1ugwB67m2Z9gVuMzVM/HJDYE0YfJZM5x8WwQ8ugb8Czq3+I=
-X-Google-Smtp-Source: AGHT+IFDPNwfPwU7WoDGxeoMVmod7G7Th8E2EFadkBA7uRFVnWAcSGDgmzTL1DRYsdo/WKpUznV5Jw==
-X-Received: by 2002:a05:600c:3b16:b0:434:a4fe:cd6d with SMTP id
- 5b1f17b1804b1-434a9dc02c5mr60957305e9.12.1732789555076; 
- Thu, 28 Nov 2024 02:25:55 -0800 (PST)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
+ AJvYcCVVS31XPORDlZnqck5sCtScJQI7VOa46BY0v6auMX0NUQGbzb8TkAqHsxWDAN+gh07KcsjCvwlh3N4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwshxeJuYcU6ewPKCzLJ3cMEv74aHldcKdoJjOx61w0Zv39T+rQ
+ HdDUYYyihskT3D8IpeHCPEK70wa9P0FkrK9RJEWsKHFw+Bsr0P8iMtoOTf/GTOA=
+X-Gm-Gg: ASbGncu+PihPJdjRZUqVCfr4Zf3os8jr3yB5k0goZbpyvdmt8zWHWQVD59WPVAr+ND9
+ u7vbsEGCWwktl5+GtfTKSQnDgzmL+CtVRWgVMGCEZqo3jyVM+vCyimTvyTmFqKCMcoDO2/o4iss
+ ClJgZrX5Srd+/jty1iep4ws7J31c4cD67CXvg8AZq68jMdx+zI3C/ByDzTnm357NETr1FK/gH3N
+ RYOyaoXtar+bh4pvAWno5XeKXWz4LW+SNXcdtFHh1MEkkQaDU0knINm+KR4WoibXCI2MQp2/ALU
+ vrWE7w5txzm5gAxlzRqsFIQyMaqe3w==
+X-Google-Smtp-Source: AGHT+IEpZe9yoi47jMikkocK38/MKcOL4vKUAWk7lAfQh1r/azAfrCwMc0oz7RX7DyOhdOTWypto/Q==
+X-Received: by 2002:a05:6512:a90:b0:53d:ef49:5b5a with SMTP id
+ 2adb3069b0e04-53df00c6057mr4150533e87.1.1732800296195; 
+ Thu, 28 Nov 2024 05:24:56 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-385ccd2db59sm1265909f8f.11.2024.11.28.02.25.54
+ 2adb3069b0e04-53df644313bsm175297e87.69.2024.11.28.05.24.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Nov 2024 02:25:54 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 28 Nov 2024 11:25:47 +0100
-Subject: [PATCH v3 7/7] arm64: qcom: dts: sm8650: add interconnect and
- opp-peak-kBps for GPU
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241128-topic-sm8x50-gpu-bw-vote-v3-7-81d60c10fb73@linaro.org>
-References: <20241128-topic-sm8x50-gpu-bw-vote-v3-0-81d60c10fb73@linaro.org>
-In-Reply-To: <20241128-topic-sm8x50-gpu-bw-vote-v3-0-81d60c10fb73@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
+ Thu, 28 Nov 2024 05:24:55 -0800 (PST)
+Date: Thu, 28 Nov 2024 15:24:53 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2636;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=Z/fubARSNKiSdA4saAVoRo6dxj5fjC0/InYw7gi/1hw=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBnSEUq+h8O+EIw/Wmn20ule4XeaTlABW5canDbHBVJ
- hvj0Tk+JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZ0hFKgAKCRB33NvayMhJ0YUlD/
- 9AklTjzKjHTXsDNhxoMU2vlELfn13KBdQEWIH7QLvqednKgEWEfQJF/QAYc8iiDJEHIHnmaCbXADHa
- JHCBES8HZ7L1U8mnXKneTx3HJ92mYMbWKtjcderjdusT4Lxwv3uoj9WejleepYfBS3GGTIW3SspHtK
- +69uE+EeNwMP7zLvfSDiCvEhppZ4Vjg3lmAjp5d+2C0aQFFAWBie75uXLei3mO20W1nNCmo95Vgpv6
- sxbYN9NKLGDhQv2/5i+ZwjkpPN8s7CPji3gdO4ODau44hzRvcbUetfP/ZSZVPRj3C0f78ho42pz7t3
- 9U26Ay/sNCKAt/b638J6YA0jJd4StYkw7Q1A1f0hufut+1Mo208B3truFKCTiyfTGY5bg/n6p+sC5k
- qS719wFR2pr3CpuU/lC94xsSFhyK7WIhxcntyygzVphL8u4GpKx6yA//9FnIgZY6r4vJysR7qF18ZT
- G671aFiMFhH7OzHPqY+SAlEtAuFY23udPGTfeD6Mco3VXICcf3gahprPPZfg7L2nadNnqBWSD7fC4u
- EPOuQW6szIx32FHqvgumi6Ss5bXUlcfVAq2Q6idXkNDTCNY+t80e1qv/jIEoM2C/9o9P3X4BrGEU40
- pJTEJ5PKOxQpg7RVNZ/H/Jv2oWqt85dgvAgt5qnYBdU/N0xgrT6Lamw9+Uig==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Akhil P Oommen <quic_akhilpo@quicinc.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/7] drm/msm: adreno: add defines for gpu & gmu
+ frequency table sizes
+Message-ID: <emsraqtyxkanfzafej45dt47hdx37okvngomqgou35a47uly6k@5w6iwq6xfjul>
+References: <20241128-topic-sm8x50-gpu-bw-vote-v3-0-81d60c10fb73@linaro.org>
+ <20241128-topic-sm8x50-gpu-bw-vote-v3-1-81d60c10fb73@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241128-topic-sm8x50-gpu-bw-vote-v3-1-81d60c10fb73@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,97 +99,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Each GPU OPP requires a specific peak DDR bandwidth, let's add
-those to each OPP and also the related interconnect path.
+On Thu, Nov 28, 2024 at 11:25:41AM +0100, Neil Armstrong wrote:
+> Even if the code uses ARRAY_SIZE() to fill those tables,
+> it's still a best practice to not use magic values for
+> tables in structs.
+> 
+> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.h | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+> 
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8650.dtsi | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-index 25e47505adcb790d09f1d2726386438487255824..dc85ba8fe1d8f20981b6d7e9672fd7137b915b98 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -2636,6 +2636,9 @@ gpu: gpu@3d00000 {
- 			qcom,gmu = <&gmu>;
- 			#cooling-cells = <2>;
- 
-+			interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
-+			interconnect-names = "gfx-mem";
-+
- 			status = "disabled";
- 
- 			zap-shader {
-@@ -2649,56 +2652,67 @@ gpu_opp_table: opp-table {
- 				opp-231000000 {
- 					opp-hz = /bits/ 64 <231000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
-+					opp-peak-kBps = <2136718>;
- 				};
- 
- 				opp-310000000 {
- 					opp-hz = /bits/ 64 <310000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-+					opp-peak-kBps = <6074218>;
- 				};
- 
- 				opp-366000000 {
- 					opp-hz = /bits/ 64 <366000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
-+					opp-peak-kBps = <6074218>;
- 				};
- 
- 				opp-422000000 {
- 					opp-hz = /bits/ 64 <422000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+					opp-peak-kBps = <8171875>;
- 				};
- 
- 				opp-500000000 {
- 					opp-hz = /bits/ 64 <500000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
-+					opp-peak-kBps = <8171875>;
- 				};
- 
- 				opp-578000000 {
- 					opp-hz = /bits/ 64 <578000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+					opp-peak-kBps = <12449218>;
- 				};
- 
- 				opp-629000000 {
- 					opp-hz = /bits/ 64 <629000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
-+					opp-peak-kBps = <12449218>;
- 				};
- 
- 				opp-680000000 {
- 					opp-hz = /bits/ 64 <680000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-peak-kBps = <16500000>;
- 				};
- 
- 				opp-720000000 {
- 					opp-hz = /bits/ 64 <720000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+					opp-peak-kBps = <16500000>;
- 				};
- 
- 				opp-770000000 {
- 					opp-hz = /bits/ 64 <770000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+					opp-peak-kBps = <16500000>;
- 				};
- 
- 				opp-834000000 {
- 					opp-hz = /bits/ 64 <834000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+					opp-peak-kBps = <16500000>;
- 				};
- 			};
- 		};
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
-2.34.1
-
+With best wishes
+Dmitry
