@@ -2,70 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D20B69DB58A
-	for <lists+freedreno@lfdr.de>; Thu, 28 Nov 2024 11:25:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52C1B9DB593
+	for <lists+freedreno@lfdr.de>; Thu, 28 Nov 2024 11:26:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E2B710E336;
-	Thu, 28 Nov 2024 10:25:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D5A710EC74;
+	Thu, 28 Nov 2024 10:26:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="heFxQWsT";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fqpqtxaR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B9E510E336
- for <freedreno@lists.freedesktop.org>; Thu, 28 Nov 2024 10:25:54 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-434a83c6b01so5538905e9.0
- for <freedreno@lists.freedesktop.org>; Thu, 28 Nov 2024 02:25:54 -0800 (PST)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD4C910E345
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Nov 2024 10:25:55 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-434a8b94fb5so4063415e9.0
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Nov 2024 02:25:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732789553; x=1733394353; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1732789554; x=1733394354; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=onHZLTuuortukCIGD/zr91NsXEjXLUPL7AUDe8ckj8E=;
- b=heFxQWsT3TACdlzNu2YeHJGIBTdwtIWqOFXDb3UOHt2PL7r3Boarl7mMjLg2EoeJW3
- eoQajHfvI/p5hQ2Nu546SyC47CDWndLuBQrJOMkWRXrfBAP4gIraMIo7Z7vdwGpSqFh7
- uirKNdol0awncyvfJLimMqf2hYOiESYvqmFr7JKjKjoFoXPLA4y44Gyymhb4wNK/by2+
- gfuiaYPBXgcJEm86cyiLpvaAQJFtUFWY69AHgW53jmFl+SmaLsIHGZhtJHRUVQJWA8Hu
- T4i+5aENQqSEgzaRjdM7gupex+1nLjFW+9v42m+EYTCBIAR7s82OCSA+29QaWUEcUkck
- +ZvA==
+ :reply-to; bh=oxD1mwK+mwBfZm5ePvwF7qngRKOmVEln2kQY0A2fNXU=;
+ b=fqpqtxaRiiY5ue6d7SSFTtRi7p+8Y/p/yamGbupDWBOrClz+Bzi58KVJUo0S2/kc+M
+ CI+Q59YaBnLRdZ/8ngrUNBKzKiekBi7WaGFdHYS95ocpRK/FlAKHidQnhWi7HEd/I743
+ wTJ44rvhr+SWcQb4JBOnatvj/BNeHjIWiJlbjrLxR7umhHLQiZ/58kUgCHhUxnQfynw8
+ NBLiARmsAbkU+IEHPj6y1wSBWA97waQE4Fb9V7HBT6Qi9ZE1V+IfOY20qoC1KNtcv/T9
+ K4sZr15m3NwK7T2LSkTK2fO+Ahk/tb5+XuWC6ZoBc0A/Hu+gO2ts1qo9Mti8UVgElmyt
+ eeNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732789553; x=1733394353;
+ d=1e100.net; s=20230601; t=1732789554; x=1733394354;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=onHZLTuuortukCIGD/zr91NsXEjXLUPL7AUDe8ckj8E=;
- b=o12sj8qreUhiNzFZF6OXMjO1VM0BGd0eeSfVeUwiKIes/aBsOOSHGevI8/ro3gpuyq
- qL8A5oYUIlq2X7XLe8qh0lMLmwdcaRa+RR23GBJHYWjwCq0tDACQ7y9aDLuhSQxxmJMJ
- hglHQqBotcQroQe9tGMJZVRyKHS/esQf4Zv9RutoVBWxlhFX+W/hm/oDwr/865rXkA5d
- Ki82rkwv13tZqbn+8Yo9ep+5AJSA/a3tW/nAXF39Jx4wD5rCJmByO0ZQTzZJjDvBJAzd
- itbZihlgEQFTBVTy9U+rm3fZDpXe4mKbCBaHZQfiQDTLJL/qP6fBHDwrJ04NxMBediLm
- JoQg==
+ bh=oxD1mwK+mwBfZm5ePvwF7qngRKOmVEln2kQY0A2fNXU=;
+ b=a0Rti45wsFozatTbvM9yBcR+JHCb0qAQteCvwyx1j9DRdiDZzVk8LmTL1GhrOtbESp
+ 3SOEtFFoqIlv+WP99WgCjCt4koumU/gR3Qbn1GLn8wmCoobeEk7iqXJ47OIeKinIEENT
+ sMQaVx8ijyQxBssBNK25YPB7SXgOQbo6efr3x8I7ETeZutwiPzq5yybhY06ey6Qhafh3
+ 1CeEZNPBWOULzrenblRngg6pGnCwmAUj3EqiKxdTxzzZX4/2pRIB6VS23LcZ/5p1F8EX
+ RdQ7mvk9uatNSDWf13UUHwvuDmpfWGKN/J7cRl7RZG7RxdVg4agdP1YGBod16zBOyILF
+ d0rA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWA9Sy2CBqv+N764UEYeMdqV4TiDclrWDaEhwyPgB8SEL/U15OHIgfhIX5qzWp9S83L6bDWrZcyqtc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzQqQ4DSyggCMl4ASoK8HJAoBAG0NoY+/Sl3pk6zA9npYLiHq6k
- gqmv7Dr5c2zku8tJbo1bkeFyJLPTEnUtnAXaQXZM6pGFWALX693FMu77GzUExEE=
-X-Gm-Gg: ASbGncs79xhUeTD3IKaN56ztN/y6+qsD+RwXjLYMCIwS/gJh5d/fuiRtc2QwIbc05nL
- HDZ0AJvyXZRREct+hr4DFyo20r25l1lT8S8nMWGWPcXbEJs32kASzWqSMWpp3/3KgQmb7WgODDd
- B25wDYv4v0yIUudgHmLN/pnKDGmFQ6I/tGTig3ZmHCOUna+A2AGnix6EltB+T0MDFn2liXUNJLg
- 7wZV9QEPUayilG5hGNkxP5Sqkhc6ctuNaqYSux3bTt3NoFHErGK0pwJJ5Le9uO4k4T1c6s=
-X-Google-Smtp-Source: AGHT+IFc8baEE4obV/t+dZEaXnJYfvSi4j1JSnGZb5upEN1OOzGRPJoCXriBFRWmZ8/pRLNl0l74RQ==
-X-Received: by 2002:a05:600c:4f0e:b0:434:9cf0:d23d with SMTP id
- 5b1f17b1804b1-434a9deca10mr51252185e9.25.1732789553016; 
- Thu, 28 Nov 2024 02:25:53 -0800 (PST)
+ AJvYcCWQqJeeus1JmfyybHCC0dtBm5NFQLGyDaFoZOOvz3fQAhA0vZYZGZb3hPdoxMe3dSj3W0dLHqT+/4c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxQQ4kKBWjgtX/6lFVSWyrxY/io1KV277IIya2V9OggGAL/ryDX
+ FpMdg68PUAW7cQ1amOEEZ5hub7MAi8zvM9mtNuMORDHUW3eZkpsL66/7HAjmDa8=
+X-Gm-Gg: ASbGncvxnKftmIE4w4FF4vggq1TPtAU99PBBcijYvqtR7WQBg6pVjamEOVFZZjD7jeC
+ FR2uEFyhLBCR7l4szsWRSLaJWzlPkxSrQMVfH0K5muNokJsrcEEuoQ8yyNJiOUpkMxlCzkAMrRc
+ M1L9+ena6v0Y69lywlKuFZcS193RQbFoDLS1s4GqnLAu99V+kkGmo8VwI/U4dO/tqp0KB1e96iB
+ rnbJweZcaJzAs2M3Icvgl0SfARDCWlVh0vhZL6EyTSbSc/P2y0GsXpdc6+KbDdxVHkR4rs=
+X-Google-Smtp-Source: AGHT+IH9zTsMi4bXrztoim9bnTLqQthtJbqFnNXarWSa44HOSdk7AqCzL4tsxwQbZNvxNUCZd2R14A==
+X-Received: by 2002:a05:600c:5123:b0:434:9ff4:24a1 with SMTP id
+ 5b1f17b1804b1-434afc3e694mr22424005e9.13.1732789554035; 
+ Thu, 28 Nov 2024 02:25:54 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-385ccd2db59sm1265909f8f.11.2024.11.28.02.25.52
+ ffacd0b85a97d-385ccd2db59sm1265909f8f.11.2024.11.28.02.25.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Nov 2024 02:25:52 -0800 (PST)
+ Thu, 28 Nov 2024 02:25:53 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 28 Nov 2024 11:25:45 +0100
-Subject: [PATCH v3 5/7] drm/msm: adreno: enable GMU bandwidth for A740 and A750
+Date: Thu, 28 Nov 2024 11:25:46 +0100
+Subject: [PATCH v3 6/7] arm64: qcom: dts: sm8550: add interconnect and
+ opp-peak-kBps for GPU
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241128-topic-sm8x50-gpu-bw-vote-v3-5-81d60c10fb73@linaro.org>
+Message-Id: <20241128-topic-sm8x50-gpu-bw-vote-v3-6-81d60c10fb73@linaro.org>
 References: <20241128-topic-sm8x50-gpu-bw-vote-v3-0-81d60c10fb73@linaro.org>
 In-Reply-To: <20241128-topic-sm8x50-gpu-bw-vote-v3-0-81d60c10fb73@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
@@ -82,20 +83,20 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1786;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2162;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=924DT6oTDMvCY939ECy/haC6Lh7oI4FgArQiNZ+Ppug=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBnSEUpWCTm1P4HsUDHmzl+hSPFrHFr1Uz6nvhjAh0U
- ag9joeuJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZ0hFKQAKCRB33NvayMhJ0TPmEA
- CKNYmQ/3wwTCYJIWif0Ir+v4DtzD2ni3Il+Jkwn+SGIGlDWiB+kPTLReVehrzVtdJE7tMfRqCxHk7s
- 6j7H/H4Shl9fa1uAdH3ljKBgyGsvhytbWLsy4G9dVenGN+ps84hteAs8m/FPfQkGiLrHGrlYsd3kbv
- WXqzevlGmH1wL2GLJgWXikowi3pzHt0PCFdo4euBlSm+GDl4dPunOfQO44atfqOLVkmke+bJr//TKJ
- dcTA6qFZMYaal3iMUtzN+73AzuXgr+NYBTUC+VRHvdW7MymRSa0kAbo4HcBulVuEw3O6CLfG8ZiO96
- B7z+zOwqz86rsDDtr0dNhsagJHSP6te1/aCrSvBxUllDFAVpFDxmWcdvqP1l5J9e82bmO1UneYi1TA
- TLbvt/DjQrfSr5LJz6VywB6fFumm16csyVIEPv/QYPCLtvaTQrYQTcTKXXi1+kQD7hD2Ui5fTPfRaG
- y1KIoQogg+OuI25+n86i4vHX2QgpZK2bfYi2Esnod7LnC0V5j76Jg3nAh/e4sjRzsx+XdqKTcI8yM9
- Uf2TBYKuw5wXkOi6haDShbQNXeHGh4RF28bG0rvQrWh0L/HPCiwfxNtDAYUdoXc2AptTpa94gm3Hfo
- 6BqjfzI23rQb09w23GW2t6L7AV8+sopHmzVmN9q/IQ/5wsiP/neDNPGjqjSA==
+ bh=SPiS1PE0VaU+lZQZUAnT3yVj+1EZ8DKyTqWi4EEzxic=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBnSEUp3GWqkaAyvNyjK+Commp2P2mBY+OCujX5NST8
+ VlBWoKyJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZ0hFKQAKCRB33NvayMhJ0bUTEA
+ C0HDx8xWxvW60Vq1Fn6+4ZVKKnqrCLe/5/utX2NRP7PNDJFGb96Do4ba6K6JuHAwoqirVKXdhPBLDp
+ OQ1/jqoPoI+P0MZ/9DDvkZihtkzl31zXJY5RS+BpsGIOudVRLY8Fcj7CnSR9C9xrqNm3KXQ6cCjCI2
+ wQD47Ee6FNL/t/XurPl0ZsZTEY5S2Lytdyo7FxK0KIOjw0prOTC4YO0D7lybb+q++WKCPBpZ3goopg
+ IOYWckLX+xmmrQSP50gRZ3L3cSdhV8LDfpXEg6iD+ppH2Bbs1f94q602RTLVOzsdYpghreebEi8xkx
+ t6tsRvaXQewCqfvs4KukxEJfEIq6AgyUsahoEcuHOphsgowe3qvT3C70WWuJu3hCpsHr01FBf31opN
+ mz0BOSmsZFaDbl/VHnzV0QVppZJ+YukA4m49gR2/VQNtwLK1cklCqCwI88gK2iwAs4RDdnnT4GYkWB
+ p3VE3RWOJFQVi72pPAqxLtJEmvE+xbAsC4DHcFye1AY5rxHbQL0OW2n3sGZ02Z4EeL08P4reyFFvTB
+ aniTH+u4fB+cck65b/JewYNnWWWCG9+5K70XnkbBlwsYo1ygPp07ThCDL1Ie1hee8HC/CeBaXBFqDG
+ e//LsTfex1Iy1ZFFNXBucoeLHxh7/o+bMo1NWjYWXSezVEoZ39mkDLDNCETg==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -113,56 +114,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Now all the DDR bandwidth voting via the GPU Management Unit (GMU)
-is in place, declare the Bus Control Modules (BCMs) and the
-corresponding parameters in the GPU info struct and add the
-GMU_BW_VOTE feature bit to enable it.
+Each GPU OPP requires a specific peak DDR bandwidth, let's add
+those to each OPP and also the related interconnect path.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8550.dtsi | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index 0c560e84ad5a53bb4e8a49ba4e153ce9cf33f7ae..edffb7737a97b268bb2986d557969e651988a344 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -1388,6 +1388,17 @@ static const struct adreno_info a7xx_gpus[] = {
- 			.pwrup_reglist = &a7xx_pwrup_reglist,
- 			.gmu_chipid = 0x7020100,
- 			.gmu_cgc_mode = 0x00020202,
-+			.bcms = (const struct a6xx_bcm[]) {
-+				{ .name = "SH0", .buswidth = 16 },
-+				{ .name = "MC0", .buswidth = 4 },
-+				{
-+					.name = "ACV",
-+					.fixed = true,
-+					.perfmode = BIT(3),
-+					.perfmode_bw = 16500000,
-+				},
-+				{ /* sentinel */ },
-+			},
- 		},
- 		.address_space_size = SZ_16G,
- 		.preempt_record_size = 4192 * SZ_1K,
-@@ -1432,6 +1443,17 @@ static const struct adreno_info a7xx_gpus[] = {
- 			.pwrup_reglist = &a7xx_pwrup_reglist,
- 			.gmu_chipid = 0x7090100,
- 			.gmu_cgc_mode = 0x00020202,
-+			.bcms = (const struct a6xx_bcm[]) {
-+				{ .name = "SH0", .buswidth = 16 },
-+				{ .name = "MC0", .buswidth = 4 },
-+				{
-+					.name = "ACV",
-+					.fixed = true,
-+					.perfmode = BIT(2),
-+					.perfmode_bw = 10687500,
-+				},
-+				{ /* sentinel */ },
-+			},
- 		},
- 		.address_space_size = SZ_16G,
- 		.preempt_record_size = 3572 * SZ_1K,
+diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+index e7774d32fb6d2288748ecec00bf525b2b3c40fbb..545eb52174c704bbefa69189fad9fbff053d8569 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+@@ -2114,6 +2114,9 @@ gpu: gpu@3d00000 {
+ 			qcom,gmu = <&gmu>;
+ 			#cooling-cells = <2>;
+ 
++			interconnects = <&gem_noc MASTER_GFX3D 0 &mc_virt SLAVE_EBI1 0>;
++			interconnect-names = "gfx-mem";
++
+ 			status = "disabled";
+ 
+ 			zap-shader {
+@@ -2127,41 +2130,49 @@ gpu_opp_table: opp-table {
+ 				opp-680000000 {
+ 					opp-hz = /bits/ 64 <680000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
++					opp-peak-kBps = <16500000>;
+ 				};
+ 
+ 				opp-615000000 {
+ 					opp-hz = /bits/ 64 <615000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
++					opp-peak-kBps = <16500000>;
+ 				};
+ 
+ 				opp-550000000 {
+ 					opp-hz = /bits/ 64 <550000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
++					opp-peak-kBps = <12449218>;
+ 				};
+ 
+ 				opp-475000000 {
+ 					opp-hz = /bits/ 64 <475000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
++					opp-peak-kBps = <8171875>;
+ 				};
+ 
+ 				opp-401000000 {
+ 					opp-hz = /bits/ 64 <401000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++					opp-peak-kBps = <6671875>;
+ 				};
+ 
+ 				opp-348000000 {
+ 					opp-hz = /bits/ 64 <348000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
++					opp-peak-kBps = <6074218>;
+ 				};
+ 
+ 				opp-295000000 {
+ 					opp-hz = /bits/ 64 <295000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
++					opp-peak-kBps = <6074218>;
+ 				};
+ 
+ 				opp-220000000 {
+ 					opp-hz = /bits/ 64 <220000000>;
+ 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
++					opp-peak-kBps = <6074218>;
+ 				};
+ 			};
+ 		};
 
 -- 
 2.34.1
