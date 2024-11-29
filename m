@@ -2,76 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EBF39DC341
-	for <lists+freedreno@lfdr.de>; Fri, 29 Nov 2024 13:13:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81A9D9DE79C
+	for <lists+freedreno@lfdr.de>; Fri, 29 Nov 2024 14:32:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BC2610E4B4;
-	Fri, 29 Nov 2024 12:13:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC9A10EE21;
+	Fri, 29 Nov 2024 13:32:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hWTm9Ypb";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dWL18wr5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D316810E4B1;
- Fri, 29 Nov 2024 12:13:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732882383; x=1764418383;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ocQppVVNFhRwq7ha/VHFUhe3KayUiaBEiHqz3BhEtu0=;
- b=hWTm9YpbmQi5kKIo8gy2zY9bu1xG6cNPx6GhWtrRQULxUYNunqCyXRfd
- QbH2te0szxSyNujOXL0pZwk4LDEI/kkyRFKk7LwhMlSTX6p9B3T4njjxz
- ryNJKM4QOOBfsG3ahUnUBy+wFuVtLrcWASaZKIyRfkkJPl+SUSnFoW71V
- m51n0YgRGPwrWxGQ4LUT9hqveexjRUHXGbSmORdHAqpHFNsnpfhA3BJjs
- Y78x/4kTedmbZbDmKIFenWf1lvPAM974p3LnlGkyzYZZOenNSZIs4bREF
- hTjRImva/2sMQuqDdnq1nyFbPdlMFGRJAplA0FJTPL4zA+pZUBijxsPIJ w==;
-X-CSE-ConnectionGUID: 16SjNKpZT5uSi0vJlYOheQ==
-X-CSE-MsgGUID: UpyWWD+9QtyUlCR+9L1oSw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11270"; a="32486080"
-X-IronPort-AV: E=Sophos;i="6.12,195,1728975600"; d="scan'208";a="32486080"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2024 04:13:02 -0800
-X-CSE-ConnectionGUID: vwrFvSoWRaiFVOXbhsOqwg==
-X-CSE-MsgGUID: fJbP48qZT6m6AmlfXsrmzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,195,1728975600"; d="scan'208";a="97577588"
-Received: from lkp-server01.sh.intel.com (HELO 5e2646291792) ([10.239.97.150])
- by orviesa004.jf.intel.com with ESMTP; 29 Nov 2024 04:12:56 -0800
-Received: from kbuild by 5e2646291792 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tGzrh-0000It-18;
- Fri, 29 Nov 2024 12:12:53 +0000
-Date: Fri, 29 Nov 2024 20:12:22 +0800
-From: kernel test robot <lkp@intel.com>
-To: Xiangxu Yin <quic_xiangxuy@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, quic_lliu6@quicinc.com,
- quic_fangez@quicinc.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-gpio@vger.kernel.org, Xiangxu Yin <quic_xiangxuy@quicinc.com>
-Subject: Re: [PATCH 3/8] phy: qcom: qmp-usbc: Add DP phy mode support on QCS615
-Message-ID: <202411292042.NDeS4BGv-lkp@intel.com>
-References: <20241129-add-displayport-support-for-qcs615-platform-v1-3-09a4338d93ef@quicinc.com>
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
+ [209.85.219.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2162B10EE16
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Nov 2024 13:32:48 +0000 (UTC)
+Received: by mail-yb1-f172.google.com with SMTP id
+ 3f1490d57ef6-e396cff6d36so1549297276.3
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Nov 2024 05:32:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1732887167; x=1733491967; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=4rk8EqcQBJedHgZVFcqE3LAsuROmL1X9WJEUhmB7OiE=;
+ b=dWL18wr5hfLjfi8E0ObbGp9nq0eCZs6KwcqtxSg3Y14mkB3yXlb71wKyIKMle6Bz9Q
+ gs9HEnKj1LCcatFGHwB2Y4NSdYLnJkOZ34bzxRBLam6SZqVntkDTBoiotDqQPZzjdVva
+ QuiKz6WwpeDdTkSW4y8g7jZ4Ubqju1PJ1OigPnVBGPlObGzVFDBeyCj3rSaNCqtr/PH4
+ I6r3mRgepHqWTaJ56IgDnqungn6BKmLdxkIVUHrBsRjIcFeflvJT1Xbwzgc/VMWlpn6I
+ DDv7JTt9I/OI/4sIhI1tG2VMrWNEis1vJAY8ch1Fke6JtB8dAxsnzOcn0K6ihpVgvuzN
+ 3g5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732887167; x=1733491967;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4rk8EqcQBJedHgZVFcqE3LAsuROmL1X9WJEUhmB7OiE=;
+ b=AV0vh5tFy8CHtiuFTALo+hb81arwOMo8ngWk5exxjl4zVbH4yJYRxryHexrWNvqAg0
+ 83JXpAhnni9rbfN+6T4OnVxzSr7VBg4alDbVi3RqYwIp0GNznk8bmGOOAcMHiMWXHKsO
+ QfLAR9gCnjw1HtX0moH+13M/lUo7xP5yOJRlaf+gP8ZIYV1TpvEP0BhpN7lFq4T4Qvjg
+ A0IsvNXvNrdaR4TkGVoHbfiw/FtssvULezNaFCLd8ROGic0bTmwHnWADt5IerrtMlKcv
+ ZQEvbXwWeUG8cr+tl709UGMDVNQHCgUhF9Qj7Y+PewavJ7A83lpwey6kl7e0aESuECSw
+ CnqQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVF52uLgVqoBWopPGRgVshPakCQ+CmP7rFoNtwY+6YskvQNuj4r7Y3EicKUiMaDL4ozYIhlUBVjRj4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtyrtmuqnfG5Fedl/I3bpSunlKCSLcSnjqG1tSYYxW4teBpBIz
+ yYrR13WYISkMNEtisGgB6buUG25GmtaLOMEkqIJl5BS+k9Fc4W03SMQQ1eHpnUPSmwyGda33xaa
+ 7Y+4LFnIWt0f9Hb6eTLU+fOeoI/vhYh5uLSSeKQ==
+X-Gm-Gg: ASbGncvbCSXitM9PFXV/WNgyaHhZv126J0wWwWUcJJ9NYA8GksvPJsDoxe+sHmbrxSD
+ 8URVOPrj/iLuMIHt5NAnFlJS3TKbVJwo=
+X-Google-Smtp-Source: AGHT+IHfjxXnTdn0iSp1AqYYDcm5/K9nEAphNu1TQKr2ozphQmTsKuv3nB1lPh4zZEbpx4kmGb4PSCSBKcPFfDN6tJ4=
+X-Received: by 2002:a05:6902:1504:b0:e28:e407:610 with SMTP id
+ 3f1490d57ef6-e395b957479mr11164613276.47.1732887166767; Fri, 29 Nov 2024
+ 05:32:46 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241129-add-displayport-support-for-qcs615-platform-v1-3-09a4338d93ef@quicinc.com>
+References: <20241127-mdss_qcs8300-v1-0-29b2c3ee95b8@quicinc.com>
+ <20241127-mdss_qcs8300-v1-4-29b2c3ee95b8@quicinc.com>
+ <f5kqdxkhniwwxu6wm2q323vvlsfn3yyig7mfg3h5ctqo7jjxc7@7g32tirseuqs>
+ <9821c4d5-8d1d-4bed-b3e0-879d0aeba017@quicinc.com>
+In-Reply-To: <9821c4d5-8d1d-4bed-b3e0-879d0aeba017@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 29 Nov 2024 15:32:41 +0200
+Message-ID: <CAA8EJppDomrYvtJ46pi1_hDsf3zFeeTfrkQfVwE8UTN01KfKpw@mail.gmail.com>
+Subject: Re: [PATCH 4/5] drm/msm/dpu: Add QCS8300 support
+To: Yongxing Mou <quic_yongmou@quicinc.com>
+Cc: Ritesh Kumar <quic_riteshk@quicinc.com>, Rob Clark <robdclark@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,143 +95,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Xiangxu,
+On Fri, 29 Nov 2024 at 12:01, Yongxing Mou <quic_yongmou@quicinc.com> wrote:
+>
+>
+>
+> On 2024/11/27 21:49, Dmitry Baryshkov wrote:
+> > On Wed, Nov 27, 2024 at 03:05:04PM +0800, Yongxing Mou wrote:
+> >> Add definitions for the display hardware used on the
+> >> Qualcomm QCS8300 platform.
+> >>
+> >> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
+> >> ---
+> >>   .../drm/msm/disp/dpu1/catalog/dpu_8_4_qcs8300.h    | 485 +++++++++++++++++++++
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+> >>   4 files changed, 488 insertions(+)
+> >>
+> >>
+> >
+> > NAK, there is no need for this.
+> Got it,thanks. will modify it in next patchset.Compared to sa8775p, they
+> use same dpu but qcs8300 has one less intf and two fewer dp intfs. Other
+> configurations are the same.can we reuse it or a new catalog file to
+> show it.
 
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on f486c8aa16b8172f63bddc70116a0c897a7f3f02]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Xiangxu-Yin/dt-bindings-display-msm-Document-DP-on-QCS615/20241129-160612
-base:   f486c8aa16b8172f63bddc70116a0c897a7f3f02
-patch link:    https://lore.kernel.org/r/20241129-add-displayport-support-for-qcs615-platform-v1-3-09a4338d93ef%40quicinc.com
-patch subject: [PATCH 3/8] phy: qcom: qmp-usbc: Add DP phy mode support on QCS615
-config: arm64-allmodconfig (https://download.01.org/0day-ci/archive/20241129/202411292042.NDeS4BGv-lkp@intel.com/config)
-compiler: clang version 20.0.0git (https://github.com/llvm/llvm-project 592c0fe55f6d9a811028b5f3507be91458ab2713)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241129/202411292042.NDeS4BGv-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202411292042.NDeS4BGv-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   In file included from drivers/phy/qualcomm/phy-qcom-qmp-usbc.c:17:
-   In file included from include/linux/phy/phy.h:17:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:21:
-   In file included from include/linux/mm.h:2223:
-   include/linux/vmstat.h:504:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     504 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     505 |                            item];
-         |                            ~~~~
-   include/linux/vmstat.h:511:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     511 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     512 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/vmstat.h:518:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     518 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
-   include/linux/vmstat.h:524:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     524 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     525 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
->> drivers/phy/qualcomm/phy-qcom-qmp-usbc.c:721:24: warning: variable 'pre_emphasis_cfg' is uninitialized when used here [-Wuninitialized]
-     721 |         if ((v_level > 4) || (pre_emphasis_cfg > 4)) {
-         |                               ^~~~~~~~~~~~~~~~
-   drivers/phy/qualcomm/phy-qcom-qmp-usbc.c:708:40: note: initialize the variable 'pre_emphasis_cfg' to silence this warning
-     708 |         u8 voltage_swing_cfg, pre_emphasis_cfg;
-         |                                               ^
-         |                                                = '\0'
->> drivers/phy/qualcomm/phy-qcom-qmp-usbc.c:1801:47: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
-    1801 |                 dev_err(dev, "get resource fail, ret:%d\n", ret);
-         |                                                             ^~~
-   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
-     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                                                                        ^~~~~~~~~~~
-   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                                     ^~~~~~~~~~~
-   drivers/phy/qualcomm/phy-qcom-qmp-usbc.c:1797:9: note: initialize the variable 'ret' to silence this warning
-    1797 |         int ret;
-         |                ^
-         |                 = 0
->> drivers/phy/qualcomm/phy-qcom-qmp-usbc.c:2082:13: warning: variable 'np' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
-    2082 |         } else if (qmp->type == QMP_PHY_USBC_DP) {
-         |                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/phy/qualcomm/phy-qcom-qmp-usbc.c:2150:14: note: uninitialized use occurs here
-    2150 |         of_node_put(np);
-         |                     ^~
-   drivers/phy/qualcomm/phy-qcom-qmp-usbc.c:2082:9: note: remove the 'if' if its condition is always true
-    2082 |         } else if (qmp->type == QMP_PHY_USBC_DP) {
-         |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/phy/qualcomm/phy-qcom-qmp-usbc.c:2027:24: note: initialize the variable 'np' to silence this warning
-    2027 |         struct device_node *np;
-         |                               ^
-         |                                = NULL
-   7 warnings generated.
-
-
-vim +/pre_emphasis_cfg +721 drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
-
-   699	
-   700	static int qcs615_qmp_configure_dp_voltages(struct qmp_usbc *qmp)
-   701	{
-   702		struct qmp_phy_dp_layout *layout = to_dp_layout(qmp);
-   703		struct qmp_phy_dp_cfg *cfg = to_dp_cfg(qmp);
-   704		const struct phy_configure_opts_dp *dp_opts = &layout->dp_opts;
-   705		void __iomem *tx = layout->dp_tx;
-   706		void __iomem *tx2 = layout->dp_tx2;
-   707		unsigned int v_level = 0, p_level = 0;
-   708		u8 voltage_swing_cfg, pre_emphasis_cfg;
-   709		int i;
-   710	
-   711		if (dp_opts->lanes > 4) {
-   712			dev_err(qmp->dev, "Invalid lane_num(%d)\n", dp_opts->lanes);
-   713			return -EINVAL;
-   714		}
-   715	
-   716		for (i = 0; i < dp_opts->lanes; i++) {
-   717			v_level = max(v_level, dp_opts->voltage[i]);
-   718			p_level = max(p_level, dp_opts->pre[i]);
-   719		}
-   720	
- > 721		if ((v_level > 4) || (pre_emphasis_cfg > 4)) {
-   722			dev_err(qmp->dev, "Invalid v(%d) | p(%d) level)\n",
-   723				v_level, pre_emphasis_cfg);
-   724			return -EINVAL;
-   725		}
-   726	
-   727		voltage_swing_cfg = (*cfg->swing_tbl)[v_level][p_level];
-   728		pre_emphasis_cfg = (*cfg->pre_emphasis_tbl)[v_level][p_level];
-   729	
-   730		/* Enable MUX to use Cursor values from these registers */
-   731		voltage_swing_cfg |= DP_PHY_TXn_TX_DRV_LVL_MUX_EN;
-   732		pre_emphasis_cfg |= DP_PHY_TXn_TX_EMP_POST1_LVL_MUX_EN;
-   733	
-   734		if (voltage_swing_cfg == 0xFF && pre_emphasis_cfg == 0xFF)
-   735			return -EINVAL;
-   736	
-   737		/* program default setting first */
-   738		writel(0x2A, tx + QSERDES_V3_TX_TX_DRV_LVL);
-   739		writel(0x20, tx + QSERDES_V3_TX_TX_EMP_POST1_LVL);
-   740		writel(0x2A, tx2 + QSERDES_V3_TX_TX_DRV_LVL);
-   741		writel(0x20, tx2 + QSERDES_V3_TX_TX_EMP_POST1_LVL);
-   742	
-   743		writel(voltage_swing_cfg, tx + QSERDES_V3_TX_TX_DRV_LVL);
-   744		writel(pre_emphasis_cfg, tx + QSERDES_V3_TX_TX_EMP_POST1_LVL);
-   745		writel(voltage_swing_cfg, tx2 + QSERDES_V3_TX_TX_DRV_LVL);
-   746		writel(pre_emphasis_cfg, tx2 + QSERDES_V3_TX_TX_EMP_POST1_LVL);
-   747	
-   748		return 0;
-   749	}
-   750	
+Is it actually not populated in the silicon? What happens if one
+access those INTF_n registers?
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+With best wishes
+Dmitry
