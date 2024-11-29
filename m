@@ -2,66 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F21179DE7E8
-	for <lists+freedreno@lfdr.de>; Fri, 29 Nov 2024 14:45:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CEBF9DE802
+	for <lists+freedreno@lfdr.de>; Fri, 29 Nov 2024 14:50:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1FAE10E4C0;
-	Fri, 29 Nov 2024 13:45:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E92DB10E524;
+	Fri, 29 Nov 2024 13:50:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="aHSEeEjn";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="R2eV/khG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F13A010E1AF
- for <freedreno@lists.freedesktop.org>; Fri, 29 Nov 2024 13:45:35 +0000 (UTC)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-6ee676b4e20so21658377b3.3
- for <freedreno@lists.freedesktop.org>; Fri, 29 Nov 2024 05:45:35 -0800 (PST)
+Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
+ [209.85.219.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4897010E524
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Nov 2024 13:50:46 +0000 (UTC)
+Received: by mail-yb1-f182.google.com with SMTP id
+ 3f1490d57ef6-e3985aabf43so659152276.3
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Nov 2024 05:50:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732887935; x=1733492735; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1732888245; x=1733493045; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=jnuFPvHlqF2+V5h7gDxD9QoNqnoE7Ul8whcq/eg7E7s=;
- b=aHSEeEjnjFZOJo3cgM4dFTXnxnk+GXbua2GZkG02HcJBNdHGw1Mp36S8G/JUOAULht
- 2CH6mxfSSzBiNOB0LEzHtNBuqY7ZcCgrnvGdfM9VcSybcLRYaj9w0N9E/qGHMXZVSLOE
- j+1u9bYyH4bVMcaODTBoAJH+ks2imgrad6VEmiiYVPMiravoHHVaBSj5m70fbxVBRka5
- HUGi/pOIUbG+7Xkh/mgnow3FFkn4+i3SEVxRINIZvFMjIwbV1WrAtTmxaLv8qOTjGldu
- JZkfG6SydVM5cx5gP2RiK6Jd/6ac/HNnWaQOePjtAONPx0LoupkyR7mhQiB4Nwwf6Ky8
- OqZg==
+ bh=7WQXtZAjWFqN8mKK3853FsLiUq722zhwbqGIVz24roM=;
+ b=R2eV/khG4oLg8GBs6FW7eqNgYaXSsBBN1lSBFqyLvoC24XmENkU+OGDpidiIN4KnSX
+ m65lVilXJ0ZTAGfxsmYZB/nINutj1Rb6Wvh/C3/fMmN9OpolXmjnZyQHsa56H3gc1cBS
+ onNeRHtdACZY6H+9x2d/Q1cCtfVwX8VeWmCd6XeQEzR1CyLPT1lbmhE23SMtvQSfTrb3
+ AR8uRBoUjtVVYEK/HmbhRZhyO/Yg/LxUxLVfDZpdB0aY7hb7ZZxD4JCiAdPw8u0YvP3p
+ iG6Fk1LcehJT2fSlXfI08u0tuHsQIgnojOZSOxF1RkGHgIaO/R0t4aeCDsqU3Fj8LcSL
+ Eisg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732887935; x=1733492735;
+ d=1e100.net; s=20230601; t=1732888245; x=1733493045;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=jnuFPvHlqF2+V5h7gDxD9QoNqnoE7Ul8whcq/eg7E7s=;
- b=bxf8fxBkNQjYnmvMp8aRMDuefgUWh3Yu0hbqJ7WDSKpzcfTD1sI/irYH92JOiWB/9f
- eUIY9TdjqYlZrqNqkWugQpTy5BSeIOvx3nHSL4UrBqST3GHXSOhso7QWnHlyUMDDYb9w
- 0aQrQqdHAkmhUodJLPbHwMVoycynd9VGHaTlQ9P5Gt1GPCVVHLkBVOQhYpLhRQgdC1d2
- CSksyfB4aJnngYDV/LQw/jCm38NxtOBml2Y39qD9+dXrqyUbA0tWu02FLnAy6plFwkOL
- VIOQxcwi/fOkUYsVDuxGCT8nKeuhOovXrQkU4dZL8omjeXN3mhXsTrlADWz9Ah7NjtVd
- 9iqA==
+ bh=7WQXtZAjWFqN8mKK3853FsLiUq722zhwbqGIVz24roM=;
+ b=vsBLloQ2thy5JY0gLeS1k/KE9tkiTMgMayHSXiTV7ke/izbBIzzzEHRdIpQHPF0/IQ
+ mwaVFPvgl7Qc3uzk7ifSy16Xu6P3PQRV67r3TjhdiDSBiepXtVL0LveW946uylv97Qc+
+ 8xBol3UxMAx2W+cHQVPlc4/JryhFhrQoWyzY7bXkgyojmKFTt2l22nkGeGoVmo2Zam8z
+ IagH1KUaVO8TTomWXEMe0xHTGH3FEJIwa/hWWMCs/xCAmVMemtWUCvtdLM5f3cQQzT7u
+ 5G5ydittezoC64/OvkuAHqUqd4qeqlliwXs1W2tucJWgita+3Vth1jPnbEr9B8yV+yWH
+ PTZQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV7lWUAwEb97Ro2fkILkS1o0dhFi33oawl90T1WDvOD0C5YM0vemMBuqXmY0gtoGfAcXClv3J8PyXE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzTd/owitNPpSJ5M1uCzClQoSvtoolgNYKo4HmdZsRpqPWFLM7N
- 8s8B9td1STtWW/lvUReoyGsfh7cS0HSSbpRjQkG73i87R10UVUwqeQc+4b65DWU+Na5etnwtgpU
- VIA0izSWgCH96g2d3DRHzW/LWWHDtaLC5r+XGXw==
-X-Gm-Gg: ASbGncsdSJXmiyAXtuUr5o685ie0eH8Nbbl1xnqBVlZeNa68VpeJsbyGNXo/T+cWoxS
- tHjHkaffqqKErFELWrL89aoL2R42p0w8=
-X-Google-Smtp-Source: AGHT+IFcdw16JjCHhf6pyyNofTqnqJtbeYn35N5Sw7fR5PMwJk8S0Dust9v7sJdcUjiPz0hKcc++q+mU90RLLwYFzZk=
-X-Received: by 2002:a05:690c:9c08:b0:6ef:4ed2:7dfe with SMTP id
- 00721157ae682-6ef4ed381ecmr63286207b3.31.1732887934964; Fri, 29 Nov 2024
- 05:45:34 -0800 (PST)
+ AJvYcCWFv1VmDyEf2rI7DIylmH1dktKnjcvigtrzFZxOVsqrf2CRYrlKDDdASUYL4nRQiu82Sul+iuBe7Pk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyMgdV/ZtWPwmK74NSSniy0P4VARoPGm1vFvONy1m9dsYyByaxT
+ 6LkzzV6sGFtY5rfBtv8yR21Hb47kYKmg3GKENqrwSTPjo9h1sC7eIQ5Aay0QsQ2fzRelzlr1sCS
+ Giq6JPtR8JUdAsM4EBcmpL3Yu2M9AuaydT5Ifng==
+X-Gm-Gg: ASbGnctaJn/i5D1cmT4/QcSJxto5qGat9B2JBN7YgBKcgizEJ4kCBVKtfqHpw8EuTfr
+ 19oyFWRWV0rwd0xEqZiH+ILKu/Sj7EC8=
+X-Google-Smtp-Source: AGHT+IE0BIIdCa1JDpOjyTRYlwlbjuOqEl95UYxl+xvUnPElLVGBvG1eFLCUkRkyHmX0HZXqS4NsAg2SmNUQAHEPcuE=
+X-Received: by 2002:a05:6902:2b0e:b0:e38:f30e:9b52 with SMTP id
+ 3f1490d57ef6-e395b8698e0mr9367911276.4.1732888245294; Fri, 29 Nov 2024
+ 05:50:45 -0800 (PST)
 MIME-Version: 1.0
 References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
- <20241129-add-displayport-support-for-qcs615-platform-v1-8-09a4338d93ef@quicinc.com>
-In-Reply-To: <20241129-add-displayport-support-for-qcs615-platform-v1-8-09a4338d93ef@quicinc.com>
+ <20241129-add-displayport-support-for-qcs615-platform-v1-5-09a4338d93ef@quicinc.com>
+In-Reply-To: <20241129-add-displayport-support-for-qcs615-platform-v1-5-09a4338d93ef@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 29 Nov 2024 15:45:29 +0200
-Message-ID: <CAA8EJpqMug4u1YPxBGfDUT8Cf8F5XckxnJdau-Gm6swyU5VT=w@mail.gmail.com>
-Subject: Re: [PATCH 8/8] drm/msm/dp: Support external GPIO HPD with 3rd
- pinctrl chip
+Date: Fri, 29 Nov 2024 15:50:40 +0200
+Message-ID: <CAA8EJpoY8hySQd00yODGeHjSpVZpEBLjF3aBiKGJPUhpr-2mgw@mail.gmail.com>
+Subject: Re: [PATCH 5/8] drm/msm/dp: Add support for lane mapping configuration
 To: Xiangxu Yin <quic_xiangxuy@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -98,22 +97,149 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
 >
-> Add support for handling HPD (Hot Plug Detect) signals via external
-> GPIOs connected through pinctrl chips (e.g., Semtech SX1509Q). This
-> involves reinitializing the relevant GPIO and binding an interrupt
-> handler to process hot plug events. Since external GPIOs only support
-> edge interrupts (rising or falling) rather than state interrupts, the
-> GPIO state must be read during the first DP bridge HPD enablement. This
-> ensures the current connection state is determined and a hot plug event
-> is reported accordingly.
-
-NAK, use dp-connector instead.
-
+> Add the ability to configure lane mapping for the DP controller. This is
+> required when the platform's lane mapping does not follow the default
+> order (0, 1, 2, 3). The mapping rules are now configurable via the
+> `data-lane` property in the devicetree. This property defines the
+> logical-to-physical lane mapping sequence, ensuring correct lane
+> assignment for non-default configurations.
 >
 > Signed-off-by: Xiangxu Yin <quic_xiangxuy@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 83 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 83 insertions(+)
+>  drivers/gpu/drm/msm/dp/dp_catalog.c | 11 +++++------
+>  drivers/gpu/drm/msm/dp/dp_catalog.h |  2 +-
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c    |  2 +-
+>  drivers/gpu/drm/msm/dp/dp_panel.c   | 13 ++++++++++---
+>  drivers/gpu/drm/msm/dp/dp_panel.h   |  3 +++
+>  5 files changed, 20 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> index b4c8856fb25d01dd1b30c5ec33ce821aafa9551d..34439d0709d2e1437e5669fd0b995936420ee16f 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> @@ -361,17 +361,16 @@ void msm_dp_catalog_ctrl_config_ctrl(struct msm_dp_catalog *msm_dp_catalog, u32
+>         msm_dp_write_link(catalog, REG_DP_CONFIGURATION_CTRL, cfg);
+>  }
+>
+> -void msm_dp_catalog_ctrl_lane_mapping(struct msm_dp_catalog *msm_dp_catalog)
+> +void msm_dp_catalog_ctrl_lane_mapping(struct msm_dp_catalog *msm_dp_catalog, u32 *l_map)
+
+lane_map, not l_map.
+
+>  {
+>         struct msm_dp_catalog_private *catalog = container_of(msm_dp_catalog,
+>                                 struct msm_dp_catalog_private, msm_dp_catalog);
+> -       u32 ln_0 = 0, ln_1 = 1, ln_2 = 2, ln_3 = 3; /* One-to-One mapping */
+>         u32 ln_mapping;
+>
+> -       ln_mapping = ln_0 << LANE0_MAPPING_SHIFT;
+> -       ln_mapping |= ln_1 << LANE1_MAPPING_SHIFT;
+> -       ln_mapping |= ln_2 << LANE2_MAPPING_SHIFT;
+> -       ln_mapping |= ln_3 << LANE3_MAPPING_SHIFT;
+> +       ln_mapping = l_map[0] << LANE0_MAPPING_SHIFT;
+> +       ln_mapping |= l_map[1] << LANE1_MAPPING_SHIFT;
+> +       ln_mapping |= l_map[2] << LANE2_MAPPING_SHIFT;
+> +       ln_mapping |= l_map[3] << LANE3_MAPPING_SHIFT;
+>
+>         msm_dp_write_link(catalog, REG_DP_LOGICAL2PHYSICAL_LANE_MAPPING,
+>                         ln_mapping);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> index e932b17eecbf514070cd8cd0b98ca0fefbe81ab7..8b8de2a7d3ad561c1901e1bdaad92d4fab12e808 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
+> @@ -69,7 +69,7 @@ u32 msm_dp_catalog_aux_get_irq(struct msm_dp_catalog *msm_dp_catalog);
+>  /* DP Controller APIs */
+>  void msm_dp_catalog_ctrl_state_ctrl(struct msm_dp_catalog *msm_dp_catalog, u32 state);
+>  void msm_dp_catalog_ctrl_config_ctrl(struct msm_dp_catalog *msm_dp_catalog, u32 config);
+> -void msm_dp_catalog_ctrl_lane_mapping(struct msm_dp_catalog *msm_dp_catalog);
+> +void msm_dp_catalog_ctrl_lane_mapping(struct msm_dp_catalog *msm_dp_catalog, u32 *l_map);
+>  void msm_dp_catalog_ctrl_mainlink_ctrl(struct msm_dp_catalog *msm_dp_catalog, bool enable);
+>  void msm_dp_catalog_ctrl_psr_mainlink_enable(struct msm_dp_catalog *msm_dp_catalog, bool enable);
+>  void msm_dp_catalog_setup_peripheral_flush(struct msm_dp_catalog *msm_dp_catalog);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index bc2ca8133b790fc049e18ab3b37a629558664dd4..49c8ce9b2d0e57a613e50865be3fe98e814d425a 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -177,7 +177,7 @@ static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl
+>  {
+>         u32 cc, tb;
+>
+> -       msm_dp_catalog_ctrl_lane_mapping(ctrl->catalog);
+> +       msm_dp_catalog_ctrl_lane_mapping(ctrl->catalog, ctrl->panel->lane_map);
+>         msm_dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, true);
+>         msm_dp_catalog_setup_peripheral_flush(ctrl->catalog);
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+> index 5d7eaa31bf3176566f40f01ff636bee64e81c64f..8654180aa259234bbd41f4f88c13c485f9791b1d 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> @@ -11,7 +11,6 @@
+>  #include <drm/drm_of.h>
+>  #include <drm/drm_print.h>
+>
+> -#define DP_MAX_NUM_DP_LANES    4
+>  #define DP_LINK_RATE_HBR2      540000 /* kbytes */
+>
+>  struct msm_dp_panel_private {
+> @@ -461,6 +460,7 @@ static int msm_dp_panel_parse_dt(struct msm_dp_panel *msm_dp_panel)
+>         struct msm_dp_panel_private *panel;
+>         struct device_node *of_node;
+>         int cnt;
+> +       u32 lane_map[DP_MAX_NUM_DP_LANES] = {0, 1, 2, 3};
+>
+>         panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
+>         of_node = panel->dev->of_node;
+> @@ -474,10 +474,17 @@ static int msm_dp_panel_parse_dt(struct msm_dp_panel *msm_dp_panel)
+>                 cnt = drm_of_get_data_lanes_count(of_node, 1, DP_MAX_NUM_DP_LANES);
+>         }
+>
+> -       if (cnt > 0)
+> +       if (cnt > 0) {
+> +               struct device_node *endpoint;
+> +
+>                 msm_dp_panel->max_dp_lanes = cnt;
+> -       else
+> +               endpoint = of_graph_get_endpoint_by_regs(of_node, 1, -1);
+> +               of_property_read_u32_array(endpoint, "data-lanes", lane_map, cnt);
+> +       } else {
+>                 msm_dp_panel->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
+> +       }
+
+Why? This sounds more like dp_catalog or (after the refactoring at
+[1]) dp_ctrl. But not the dp_panel.
+
+[1] https://patchwork.freedesktop.org/project/freedreno/series/?ordering=-last_updated
+
+> +
+> +       memcpy(msm_dp_panel->lane_map, lane_map, msm_dp_panel->max_dp_lanes * sizeof(u32));
+>
+>         msm_dp_panel->max_dp_link_rate = msm_dp_panel_link_frequencies(of_node);
+>         if (!msm_dp_panel->max_dp_link_rate)
+> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
+> index 0e944db3adf2f187f313664fe80cf540ec7a19f2..7603b92c32902bd3d4485539bd6308537ff75a2c 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_panel.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_panel.h
+> @@ -11,6 +11,8 @@
+>  #include "dp_aux.h"
+>  #include "dp_link.h"
+>
+> +#define DP_MAX_NUM_DP_LANES    4
+> +
+>  struct edid;
+>
+>  struct msm_dp_display_mode {
+> @@ -46,6 +48,7 @@ struct msm_dp_panel {
+>         bool video_test;
+>         bool vsc_sdp_supported;
+>
+> +       u32 lane_map[DP_MAX_NUM_DP_LANES];
+>         u32 max_dp_lanes;
+>         u32 max_dp_link_rate;
+>
+>
+> --
+> 2.25.1
+>
 
 
 -- 
