@@ -2,67 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69DE79DE7E2
-	for <lists+freedreno@lfdr.de>; Fri, 29 Nov 2024 14:44:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F21179DE7E8
+	for <lists+freedreno@lfdr.de>; Fri, 29 Nov 2024 14:45:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45F8810E1AF;
-	Fri, 29 Nov 2024 13:44:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1FAE10E4C0;
+	Fri, 29 Nov 2024 13:45:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PvbyHfo6";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="aHSEeEjn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
- [209.85.219.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 006D710E1AF
- for <freedreno@lists.freedesktop.org>; Fri, 29 Nov 2024 13:44:27 +0000 (UTC)
-Received: by mail-yb1-f180.google.com with SMTP id
- 3f1490d57ef6-e398823d6aaso525193276.0
- for <freedreno@lists.freedesktop.org>; Fri, 29 Nov 2024 05:44:27 -0800 (PST)
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F13A010E1AF
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Nov 2024 13:45:35 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-6ee676b4e20so21658377b3.3
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Nov 2024 05:45:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1732887867; x=1733492667; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1732887935; x=1733492735; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=9FzSqCyT6ED4LwMS943kRoDEw/2qyqjJNe5mJ97Pz/I=;
- b=PvbyHfo6M8w7yW56JGutE8JFdgxR5KxoE2EUYCR9EQc38yM528Lg+if/0tRoC+yYcw
- dOkP/dpgIuVqWoQknE9t/O7eRUL9AYyPnzJO82p+pAQQPzknDATkM5GxCEhx6M4t43c7
- vQa04pqA9LGbvOkQojeDobiGGhQ+7tgsVL9EsPDJGAjyoUt8TMLKi8pASTwxMDvDlcUg
- pTksysf3hKupnEqWE47kItiHpToMyQdLA+pHT28yGIrhrOghFUpByps2ntOd53fNnWjd
- s+GG7pRmXOfLjEiJ5UNTDnl3zktloTnJGwTYPvENl2I4AShhkeuKOqcmUJ7krYiBlc79
- 42bg==
+ bh=jnuFPvHlqF2+V5h7gDxD9QoNqnoE7Ul8whcq/eg7E7s=;
+ b=aHSEeEjnjFZOJo3cgM4dFTXnxnk+GXbua2GZkG02HcJBNdHGw1Mp36S8G/JUOAULht
+ 2CH6mxfSSzBiNOB0LEzHtNBuqY7ZcCgrnvGdfM9VcSybcLRYaj9w0N9E/qGHMXZVSLOE
+ j+1u9bYyH4bVMcaODTBoAJH+ks2imgrad6VEmiiYVPMiravoHHVaBSj5m70fbxVBRka5
+ HUGi/pOIUbG+7Xkh/mgnow3FFkn4+i3SEVxRINIZvFMjIwbV1WrAtTmxaLv8qOTjGldu
+ JZkfG6SydVM5cx5gP2RiK6Jd/6ac/HNnWaQOePjtAONPx0LoupkyR7mhQiB4Nwwf6Ky8
+ OqZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732887867; x=1733492667;
+ d=1e100.net; s=20230601; t=1732887935; x=1733492735;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=9FzSqCyT6ED4LwMS943kRoDEw/2qyqjJNe5mJ97Pz/I=;
- b=fOrHzc4GMZN0N6f1JRCs2ZLAM98nGEl41Da0T/J/vv/a8f9PGOsgXA8K7d5ZalbhqW
- 3W9FVJMLK5lh7/KIKv8H+xNJr01PWSD92ThUF5pW56hTOSy+UMBsZRNwTGVyGZMYD3X4
- yOdFbmvxCCL1ZGCETklMILv4JNFQOQf7HCcvgGO3OQ93cH3Lvw79JzJxEitUf41so4oc
- 1AtAT9OeYLWfM1vUHozDZbMBRh5zggDhTRfphQ7N0ix6sGFKRkJtK2zmlZnXWwetBk39
- Ao7XjcMyTa+92rUIotZm5zaSJ7tvz01kx6rVn7CzBJXTtl1H2b8jbOwb+FtTXP619Q2X
- XqLQ==
-X-Gm-Message-State: AOJu0Yz9Fyjl04FDNGsoClT6scfvBT5Uuw00TQ2y4cXQOD2HA4EXi2+d
- 0bpME1SZFWRlbCelzoh9SE65Y0a3aEcAKQPygSmio4v57+3jPkLHcOP74WLzmPlMT/Dc5S+FWlP
- 9JCrnIj4OaLyQuD4bZjgCQS/xJ10SYGtjRFFISh+WzUchCh5p
-X-Gm-Gg: ASbGncsdYURp/NvSUSnvGl9lgh/arXJMjpLF4lX8ftIPR+M0SIx/b2o12RlpOmBqdYk
- sz9qGlXA2VUR86ibFzaanvReLTOlYzgk=
-X-Google-Smtp-Source: AGHT+IGRtsx3ySGeA06XeL4KfmMFOWFpVAI3lPsNOQ8Qb0P9PitLpPoB556rkuRQ5xor1ZiYMmrMB1R7Ox+7NZy7UVg=
-X-Received: by 2002:a05:6902:1b91:b0:e28:e700:2821 with SMTP id
- 3f1490d57ef6-e39719a4244mr5345637276.25.1732887867071; Fri, 29 Nov 2024
- 05:44:27 -0800 (PST)
+ bh=jnuFPvHlqF2+V5h7gDxD9QoNqnoE7Ul8whcq/eg7E7s=;
+ b=bxf8fxBkNQjYnmvMp8aRMDuefgUWh3Yu0hbqJ7WDSKpzcfTD1sI/irYH92JOiWB/9f
+ eUIY9TdjqYlZrqNqkWugQpTy5BSeIOvx3nHSL4UrBqST3GHXSOhso7QWnHlyUMDDYb9w
+ 0aQrQqdHAkmhUodJLPbHwMVoycynd9VGHaTlQ9P5Gt1GPCVVHLkBVOQhYpLhRQgdC1d2
+ CSksyfB4aJnngYDV/LQw/jCm38NxtOBml2Y39qD9+dXrqyUbA0tWu02FLnAy6plFwkOL
+ VIOQxcwi/fOkUYsVDuxGCT8nKeuhOovXrQkU4dZL8omjeXN3mhXsTrlADWz9Ah7NjtVd
+ 9iqA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV7lWUAwEb97Ro2fkILkS1o0dhFi33oawl90T1WDvOD0C5YM0vemMBuqXmY0gtoGfAcXClv3J8PyXE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzTd/owitNPpSJ5M1uCzClQoSvtoolgNYKo4HmdZsRpqPWFLM7N
+ 8s8B9td1STtWW/lvUReoyGsfh7cS0HSSbpRjQkG73i87R10UVUwqeQc+4b65DWU+Na5etnwtgpU
+ VIA0izSWgCH96g2d3DRHzW/LWWHDtaLC5r+XGXw==
+X-Gm-Gg: ASbGncsdSJXmiyAXtuUr5o685ie0eH8Nbbl1xnqBVlZeNa68VpeJsbyGNXo/T+cWoxS
+ tHjHkaffqqKErFELWrL89aoL2R42p0w8=
+X-Google-Smtp-Source: AGHT+IFcdw16JjCHhf6pyyNofTqnqJtbeYn35N5Sw7fR5PMwJk8S0Dust9v7sJdcUjiPz0hKcc++q+mU90RLLwYFzZk=
+X-Received: by 2002:a05:690c:9c08:b0:6ef:4ed2:7dfe with SMTP id
+ 00721157ae682-6ef4ed381ecmr63286207b3.31.1732887934964; Fri, 29 Nov 2024
+ 05:45:34 -0800 (PST)
 MIME-Version: 1.0
-References: <20241127-mdss_qcs8300-v1-0-29b2c3ee95b8@quicinc.com>
- <20241127-mdss_qcs8300-v1-2-29b2c3ee95b8@quicinc.com>
- <bzuzxddbxtlzeps7zfx33ghrfm7pbz64mynnnv6t4pznppxjyn@zhjpqwsliinu>
- <7538d45a-e1a6-42fa-93d3-69b6f394e450@quicinc.com>
-In-Reply-To: <7538d45a-e1a6-42fa-93d3-69b6f394e450@quicinc.com>
+References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
+ <20241129-add-displayport-support-for-qcs615-platform-v1-8-09a4338d93ef@quicinc.com>
+In-Reply-To: <20241129-add-displayport-support-for-qcs615-platform-v1-8-09a4338d93ef@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 29 Nov 2024 15:44:21 +0200
-Message-ID: <CAA8EJpoRF+d5=gLxVpwB-AR9N3z_1PoG35eoDpckD8JHhn-=Fw@mail.gmail.com>
-Subject: Re: [PATCH 2/5] dt-bindings: display/msm: Document the DPU for QCS8300
-To: Yongxing Mou <quic_yongmou@quicinc.com>
-Cc: freedreno@lists.freedesktop.org
+Date: Fri, 29 Nov 2024 15:45:29 +0200
+Message-ID: <CAA8EJpqMug4u1YPxBGfDUT8Cf8F5XckxnJdau-Gm6swyU5VT=w@mail.gmail.com>
+Subject: Re: [PATCH 8/8] drm/msm/dp: Support external GPIO HPD with 3rd
+ pinctrl chip
+To: Xiangxu Yin <quic_xiangxuy@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, 
+ Bartosz Golaszewski <brgl@bgdev.pl>, quic_lliu6@quicinc.com,
+ quic_fangez@quicinc.com, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-gpio@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,52 +96,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 29 Nov 2024 at 11:51, Yongxing Mou <quic_yongmou@quicinc.com> wrote:
+On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
 >
->
->
-> On 2024/11/27 21:56, Dmitry Baryshkov wrote:
-> > On Wed, Nov 27, 2024 at 03:05:02PM +0800, Yongxing Mou wrote:
-> >> Document the DPU for Qualcomm QCS8300 platform.
-> >>
-> >> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
-> >> ---
-> >>   Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml | 1 +
-> >>   1 file changed, 1 insertion(+)
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-> >> index 01cf79bd754b491349c52c5aef49ba06e835d0bf..631181df2bcf2752679be4de0dee74e15e2c66c2 100644
-> >> --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-> >> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-> >> @@ -14,6 +14,7 @@ $ref: /schemas/display/msm/dpu-common.yaml#
-> >>   properties:
-> >>     compatible:
-> >>       enum:
-> >> +      - qcom,qcs8300-dpu
-> >
-> > The DPU is the same as the one on SA8775P. Drop it completely.
-> Thanks,got it.The DPU of qcs8300 and sa8775p are exactly the same, but
-> sa8775p has two DPUs, while qcs8300 has only one DPU and has removed
-> intf2, intf4, and intf8. That's their difference.Can qcs8300 reuse
-> sa8775p's dpu driver? if we can reuse it,will drop this patch.
+> Add support for handling HPD (Hot Plug Detect) signals via external
+> GPIOs connected through pinctrl chips (e.g., Semtech SX1509Q). This
+> involves reinitializing the relevant GPIO and binding an interrupt
+> handler to process hot plug events. Since external GPIOs only support
+> edge interrupts (rising or falling) rather than state interrupts, the
+> GPIO state must be read during the first DP bridge HPD enablement. This
+> ensures the current connection state is determined and a hot plug event
+> is reported accordingly.
 
-Are INTF_n blocks implemented in silicon or not? What happens if one
-reads one of INTF_2 or INTF_4 registers?
-If they are actually RAZ or cause data aborts, you can not reuse
-SA8775P catalog entry. Please add corresponding data structures to
-dpu_8_4_sa8775p.h.
+NAK, use dp-connector instead.
 
 >
-> >
-> >>         - qcom,sa8775p-dpu
-> >>         - qcom,sm8650-dpu
-> >>         - qcom,x1e80100-dpu
-> >>
-> >> --
-> >> 2.34.1
-> >>
-> >
->
+> Signed-off-by: Xiangxu Yin <quic_xiangxuy@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 83 +++++++++++++++++++++++++++++++++++++
+>  1 file changed, 83 insertions(+)
 
 
 -- 
