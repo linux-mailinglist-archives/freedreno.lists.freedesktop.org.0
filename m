@@ -2,96 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5F0D9DBF21
-	for <lists+freedreno@lfdr.de>; Fri, 29 Nov 2024 05:55:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5227D9DBFF8
+	for <lists+freedreno@lfdr.de>; Fri, 29 Nov 2024 08:58:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A71B710E49C;
-	Fri, 29 Nov 2024 04:55:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3060510EDB6;
+	Fri, 29 Nov 2024 07:58:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="pP34Ozw0";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Kn5UV2/R";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9A3F10E49C;
- Fri, 29 Nov 2024 04:55:24 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4ASMBJFV005202;
- Fri, 29 Nov 2024 04:55:13 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63FA010EDB6;
+ Fri, 29 Nov 2024 07:58:47 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4ASLZ9lV032583;
+ Fri, 29 Nov 2024 07:58:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- PfeJXRYiD6OxAQIRHwQBONi9OeXoG+H3tiX8WCnNxPc=; b=pP34Ozw09qTZDNRm
- q4+Fm4D3woD5y2XTk1NaDRNNerZQygoRLrtDr0Jf0EY6AwyiaaV49K8SC5qt6Mw9
- fXo20Sp56RG8oYn7q5PT4rJlDDhl8AUPXAb9+ng6wgXbK7aS6vFsLSpFECjGN6wZ
- 1UMC9Nsm0g2yTIVoQDfx42hmYNYmXVf/WKO7my9r9UGTiSpEBjL1ogUvKEAu0mR+
- sZxYJY7WxBFRVcUSEc6KAh2iOBDbpOzuaj69s99Ih24/zsjZLj3BIO7vZiOSfu+K
- 7AS78GYdzBkYcGYw0ZNNiTNtiUjxtGFII8nCJdXmmsgm/NxsrUj1et3CmhRDfZLa
- G9jWrA==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4366xxmfru-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=wmDwwPYdRhYwNyIOV1zgnK
+ J886oOT+Cnazeu21JtPFo=; b=Kn5UV2/R4aHp64GS44iiYZBnw+84mnisIBU0ZY
+ 8wt8xAAIiWzEzPCTRqynn+dxiKV2nicF8w/9kSR4n1dn6aPwCjldlPASq3XBcSGI
+ nSRs0Q3TuLsMEU0B0YvtNnpyhpc/3x9SPS2af4g/jwQnpUaYj8KJZPGGc1XzJ+GZ
+ GvQNc7CA+dC8T85AoPK6H5RjeFhoV7drU37wtiyHw4EeYFEcg0yNJFoXridQUxy8
+ Y/2l1EspoF55N+AHTtxfSKfo98Toc/TyrxR7UW01uMNPG+4B+Xct7Xoh9K7fN01J
+ LF3+C2j4O1V8UCG4TTuLddkgGTcztDA+1DReVnSoTMG6TgaQ==
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43671ecrcs-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 29 Nov 2024 04:55:12 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AT4tBrH006092
+ Fri, 29 Nov 2024 07:58:33 +0000 (GMT)
+Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
+ [10.45.79.139])
+ by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AT7wX3m028949
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 29 Nov 2024 04:55:11 GMT
-Received: from [10.64.16.151] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 28 Nov
- 2024 20:55:05 -0800
-Message-ID: <ce4210dc-9bd6-4b21-a7ff-f6a9afa22741@quicinc.com>
-Date: Fri, 29 Nov 2024 12:55:02 +0800
+ Fri, 29 Nov 2024 07:58:33 GMT
+Received: from szioemm-lnxbld002.qualcomm.com (10.80.80.8) by
+ nasanex01c.na.qualcomm.com (10.45.79.139) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Thu, 28 Nov 2024 23:58:25 -0800
+From: Xiangxu Yin <quic_xiangxuy@quicinc.com>
+Subject: [PATCH 0/8] Add DisplayPort support for QCS615 platform
+Date: Fri, 29 Nov 2024 15:57:40 +0800
+Message-ID: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 9/9] arm64: dts: qcom: Add display support for QCS615
- RIDE board
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Krishna
- Manikandan" <quic_mkrishn@quicinc.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, "Catalin
- Marinas" <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Li Liu
- <quic_lliu6@quicinc.com>, Xiangxu Yin <quic_xiangxuy@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-References: <20241122-add-display-support-for-qcs615-platform-v3-0-35252e3a51fe@quicinc.com>
- <20241122-add-display-support-for-qcs615-platform-v3-9-35252e3a51fe@quicinc.com>
- <azdmcs7uafw3n6cqbq4ei66oybzhtyvdyz2xl4wtaf3u5zextb@vdhbs6wnbeg4>
- <520419eb-cedf-465b-a14a-12d97ab257a0@quicinc.com>
- <CAA8EJpqvkeMWgeWCx9D-HcJhRfipZJdEvpvag0wk-WXazkPahA@mail.gmail.com>
-Content-Language: en-US
-From: fange zhang <quic_fangez@quicinc.com>
-In-Reply-To: <CAA8EJpqvkeMWgeWCx9D-HcJhRfipZJdEvpvag0wk-WXazkPahA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPdzSWcC/x3NwQrCMBAE0F8pe3bBTbUYf0V6iNlEF7SJ2SpK6
+ b+79DQ8BmYW0NQkKZy7BVr6iEqZDLTrIN7DdEsobAa3dwci5zEwI4vWR/jV0mbUd90yl4avqAM
+ d0brZ+MTc03XgeOo9ebDF2lKW7/Z2Gdf1D6bApOl9AAAA
+X-Change-ID: 20241129-add-displayport-support-for-qcs615-platform-f31b6dc83919
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, <quic_lliu6@quicinc.com>,
+ <quic_fangez@quicinc.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+ <linux-gpio@vger.kernel.org>, Xiangxu Yin <quic_xiangxuy@quicinc.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732867102; l=1753;
+ i=quic_xiangxuy@quicinc.com; s=20241125; h=from:subject:message-id;
+ bh=Fd1OV19tKe/iRpJtP65nSl/tyRA4w5O73ceQTpa9AhM=;
+ b=wGx2t6A6cR5ttTbyh1L6muXBC2nNyPEJEHutJc+jkfQVdR4jkzt4NRc6+2V7HLBPHztZpzht8
+ pc06a+nec4QCswG4jagVbKXhTlaG4ZIZ3KqPr/xp91omKCftMJqu8Sw
+X-Developer-Key: i=quic_xiangxuy@quicinc.com; a=ed25519;
+ pk=F1TwipJzpywfbt3n/RPi4l/A4AVF+QC89XzCHgZYaOc=
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
+ nasanex01c.na.qualcomm.com (10.45.79.139)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: wSxIzY7Q56qwHsCqgxI6Muy0vK8xA0Tf
-X-Proofpoint-ORIG-GUID: wSxIzY7Q56qwHsCqgxI6Muy0vK8xA0Tf
+X-Proofpoint-ORIG-GUID: Hfd54WROFUaa1CI-iA_qBkFYE0apdKyE
+X-Proofpoint-GUID: Hfd54WROFUaa1CI-iA_qBkFYE0apdKyE
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0
- lowpriorityscore=0 impostorscore=0 bulkscore=0 mlxscore=0 malwarescore=0
- priorityscore=1501 spamscore=0 mlxlogscore=999 phishscore=0 suspectscore=0
+ malwarescore=0 suspectscore=0
+ impostorscore=0 mlxscore=0 phishscore=0 priorityscore=1501 clxscore=1011
+ bulkscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 mlxlogscore=999
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
- definitions=main-2411290037
+ definitions=main-2411290064
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,140 +110,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This series aims to extend the USB-C PHY to support DP mode and enable
+DisplayPort on the Qualcomm QCS615 platform.
 
+The devicetree modification for DisplayPort on QCS615 will be provided
+in a future patch.
 
-On 2024/11/26 6:08, Dmitry Baryshkov wrote:
-> On Mon, 25 Nov 2024 at 09:39, fange zhang <quic_fangez@quicinc.com> wrote:
->>
->>
->>
->> On 2024/11/22 18:22, Dmitry Baryshkov wrote:
->>> On Fri, Nov 22, 2024 at 05:56:52PM +0800, Fange Zhang wrote:
->>>> From: Li Liu <quic_lliu6@quicinc.com>
->>>>
->>>> Add display MDSS and DSI configuration for QCS615 RIDE board.
->>>> QCS615 has a DP port, and DP support will be added in a later patch.
->>>>
->>>> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
->>>> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
->>>> ---
->>>>    arch/arm64/boot/dts/qcom/qcs615-ride.dts | 76 ++++++++++++++++++++++++++++++++
->>>>    1 file changed, 76 insertions(+)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
->>>> index ee6cab3924a6d71f29934a8debba3a832882abdd..cc7dadc411ab79b9e60ccb15eaff84ea5f997c4c 100644
->>>> --- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
->>>> +++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
->>>> @@ -202,6 +202,82 @@ &gcc {
->>>>                <&sleep_clk>;
->>>>    };
->>>>
->>>> +&i2c2 {
->>>> +    clock-frequency = <400000>;
->>>> +    status = "okay";
->>>> +
->>>> +    ioexp: gpio@3e {
->>>> +            compatible = "semtech,sx1509q";
->>>> +            reg = <0x3e>;
->>>> +            interrupt-parent = <&tlmm>;
->>>> +            interrupts = <58 0>;
->>>> +            gpio-controller;
->>>> +            #gpio-cells = <2>;
->>>> +            interrupt-controller;
->>>> +            #interrupt-cells = <2>;
->>>> +            semtech,probe-reset;
->>>> +    };
->>>> +
->>>> +    i2c-mux@77 {
->>>> +            compatible = "nxp,pca9542";
->>>> +            reg = <0x77>;
->>>> +            #address-cells = <1>;
->>>> +            #size-cells = <0>;
->>>> +            i2c@0 {
->>>> +                    reg = <0>;
->>>> +                    #address-cells = <1>;
->>>> +                    #size-cells = <0>;
->>>> +
->>>> +                    anx7625@58 {
->>>> +                            compatible = "analogix,anx7625";
->>>> +                            reg = <0x58>;
->>>> +                            interrupt-parent = <&ioexp>;
->>>> +                            interrupts = <0 0>;
->>>> +                            enable-gpios = <&tlmm 4 GPIO_ACTIVE_HIGH>;
->>>> +                            reset-gpios = <&tlmm 5 GPIO_ACTIVE_HIGH>;
->>>> +                            wakeup-source;
->>>> +
->>>> +                            ports {
->>>> +                                    #address-cells = <1>;
->>>> +                                    #size-cells = <0>;
->>>> +
->>>> +                                    port@0 {
->>>> +                                            reg = <0>;
->>>> +                                            anx_7625_in: endpoint {
->>>> +                                                    remote-endpoint = <&mdss_dsi0_out>;
->>>> +                                            };
->>>> +                                    };
->>>> +
->>>> +                                    port@1 {
->>>> +                                            reg = <1>;
->>>> +                                            anx_7625_out: endpoint {
-+ remote-endpoint = <&dp_connector_out>;
->>>> +                                            };
->>>
->>> Where is it connected? Is it DP port? USB-C? eDP?
->> yes, it's DP port
-> 
-> So, I'd expect to see a dp-connector node at the end, not the
-> unterminated anx7625.
-got it, will add it in next patch
-+       dp-connector {
-+               compatible = "dp-connector";
-+               label = "DP";
-+               type = "mini";
-+
-+               port {
-+                       dp_connector_out: endpoint {
-+                               remote-endpoint = <&anx_7625_out>;
-+                       };
-+               };
-+       };
-> 
->>>
->>>> +                                    };
->>>> +                            };
->>>> +                    };
->>>> +            };
->>>> +    };
->>>> +};
->>>> +
->>>> +&mdss {
->>>> +    status = "okay";
->>>> +};
->>>> +
->>>> +&mdss_dsi0 {
->>>> +    vdda-supply = <&vreg_l11a>;
->>>> +    status = "okay";
->>>> +};
->>>> +
->>>> +&mdss_dsi0_out {
->>>> +    remote-endpoint = <&anx_7625_in>;
->>>> +    data-lanes = <0 1 2 3>;
->>>> +};
->>>> +
->>>> +&mdss_dsi0_phy {
->>>> +    vdds-supply = <&vreg_l5a>;
->>>> +    status = "okay";
->>>> +};
->>>> +
->>>>    &qupv3_id_0 {
->>>>       status = "okay";
->>>>    };
->>>>
->>>> --
->>>> 2.34.1
->>>>
->>>
->>
-> 
-> 
+Signed-off-by: Xiangxu Yin <quic_xiangxuy@quicinc.com>
+---
+Xiangxu Yin (8):
+      dt-bindings: display/msm: Document DP on QCS615
+      dt-bindings: phy: qcom,msm8998-qmp-usb3-phy: Add DP support for QCS615
+      phy: qcom: qmp-usbc: Add DP phy mode support on QCS615
+      drm/msm/dp: Add DisplayPort support for QCS615
+      drm/msm/dp: Add support for lane mapping configuration
+      drm/msm/dp: Add maximum width limitation for modes
+      drm/msm/dp: Retry Link Training 2 with lower pattern
+      drm/msm/dp: Support external GPIO HPD with 3rd pinctrl chip
+
+ .../bindings/display/msm/dp-controller.yaml        |   13 +
+ .../bindings/phy/qcom,msm8998-qmp-usb3-phy.yaml    |   21 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.c                |   11 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.h                |    2 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   |   36 +-
+ drivers/gpu/drm/msm/dp/dp_display.c                |   87 ++
+ drivers/gpu/drm/msm/dp/dp_display.h                |    1 +
+ drivers/gpu/drm/msm/dp/dp_panel.c                  |   26 +-
+ drivers/gpu/drm/msm/dp/dp_panel.h                  |    4 +
+ drivers/phy/qualcomm/phy-qcom-qmp-dp-phy.h         |    1 +
+ drivers/phy/qualcomm/phy-qcom-qmp-usbc.c           | 1453 +++++++++++++++++---
+ 11 files changed, 1438 insertions(+), 217 deletions(-)
+---
+base-commit: f486c8aa16b8172f63bddc70116a0c897a7f3f02
+change-id: 20241129-add-displayport-support-for-qcs615-platform-f31b6dc83919
+
+Best regards,
+-- 
+xiangxuy <quic_xiangxuy@quicinc.com>
 
