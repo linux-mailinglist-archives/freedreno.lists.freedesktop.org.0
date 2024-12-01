@@ -2,118 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4C069DF40E
-	for <lists+freedreno@lfdr.de>; Sun,  1 Dec 2024 00:56:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87DDC9DF680
+	for <lists+freedreno@lfdr.de>; Sun,  1 Dec 2024 17:36:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA61C10E3D3;
-	Sat, 30 Nov 2024 23:56:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49F1E10E13A;
+	Sun,  1 Dec 2024 16:36:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UMqCJubV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kSqbNXNt";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC6410E5FF
- for <freedreno@lists.freedesktop.org>; Sat, 30 Nov 2024 23:55:56 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-53ded167ae3so3457881e87.0
- for <freedreno@lists.freedesktop.org>; Sat, 30 Nov 2024 15:55:56 -0800 (PST)
+Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
+ [209.85.166.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB0710E13A;
+ Sun,  1 Dec 2024 16:36:35 +0000 (UTC)
+Received: by mail-io1-f50.google.com with SMTP id
+ ca18e2360f4ac-84197b4e61aso131056139f.3; 
+ Sun, 01 Dec 2024 08:36:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733010955; x=1733615755; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=IxPAXAkXtGSfHE+6MDrNppIG4p1UF1/hBXNkV/LR66A=;
- b=UMqCJubVZ2qCds0DqN8GOzRtWt7koNud8Buv/B/CCDiIH+5SXrMq+ZgIjp6lKSnYo7
- jGqkM6EF4sypEZqPM3A67fefDcfBNZkhRjwCrsmXBi+bXl81IGb4GsyQhaxQDXpXhtW0
- g9CFP+ZWtIosora26dWZDOJGsKVf4uB8Xzlk1rznlhQU2Oudl7hkdiM73lNEabDz68iV
- s5h7pON/MbNGbigsUW4F1yvRagyoJ3X3GIowcjU6cr0L8MLg3y29uG4dPwsePKZPO3HL
- i59DNDEgt2xS/vgIOY4hakxVrj+RFXy7r1UTO6Es0IWr/8MzvmW1E60VZo0ivlZRUZUV
- 27UA==
+ d=gmail.com; s=20230601; t=1733070995; x=1733675795; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+35eOzfvYajKV3Nm3HQixZpInvCrAeOE/bEVYUk458g=;
+ b=kSqbNXNtilSGqZR3iG/UtMW51O2AMlT0tQPuOxKDDF59FasgWfwSCNZsFHkaCz60/3
+ 2q3+xBwalimehxU+FRuPL0KiAgfWxXjSV+jlat9s/eKLzwEvaqNdJo0jwzXmQDcueCj2
+ ATAwC9p2HXTtlr+eHC1+77s/LaaX6g2x40PLolxuSpBr1UrZMHYro4KSmYizEPiA/45F
+ /attmGLrk0WVt0Jw8oB44hSVrS2zk8p6e3bcrLqTP6IEDmEjlUT/Kb96OjE2WQ3HxyHC
+ lEktP/Fs7sE/Cj3TZk/GEwFzVTAVn8NCsP6OwpJQPgW3B4yueGD5PouFHPYYvpg/kMfq
+ I+nQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733010955; x=1733615755;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1733070995; x=1733675795;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IxPAXAkXtGSfHE+6MDrNppIG4p1UF1/hBXNkV/LR66A=;
- b=rSwN/Ke9mspOGjqgili5uC223vRdRUvQrkGI6jAvRb38TTk1SfCZXc5zlGvwPu7shN
- hrXaCaG+XGOXbT7gh7pTqfe1H92amxgbWwe75noofSMzqIEfOtTDMPhNafwyukFb53eI
- p51DyCGH+KOUrIv3Gvqqr6Rh9LvB79AAQU4KoX8cdBJXJGQMDSKjmvhBK3CuDdZdsJLw
- di/w6qemptjxpeREUgi7gL2J5qQHURkEaAipjUhSQ2Q46mBxiHQQyhbfAMXtJthhjgnN
- /xoUnChIaAgpYVmRqDnoSEK5lZUi1+qU2jiZ9fokDZG6PKdgiRkw0eiR+UKMXzwdAA6E
- +6Yg==
+ bh=+35eOzfvYajKV3Nm3HQixZpInvCrAeOE/bEVYUk458g=;
+ b=J7YIkew+mkuUmANDl5/7MxwgPCRg213gEOQvtUV+a351O5PMDKuO4M/9DXcQJ/E2BE
+ 3/BQO4oC7ChlP9tsPBl73NYuyu9BCIckJ3y4dhFh7Vm45R+Qp+dOkDeDED70b3Wp2vMA
+ siGBhda7uNurh1ESttJRquj6WZWsBfYA23FX9s6LU/vaVIMGUxylpjapBq1ep1nFeSS1
+ iO/9PhSVx4+9whaFVoesV18v3B0vJZZfIufihCL5YHyttuWR9vF8UECdXy0HXiBpWyp0
+ OOcMlTEdaLwn+RCiFbLvkmK9i3o2hNmNI0StIN9nm0TaO2Ib2EDkkmezmFul99a386qd
+ bWxg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVtNtyWFKTwynYO4nqbP21MJYbcPRSX6HoItKv3oJ7+rtzybVKyw3j4j0hluC5AYaqEwI3lPuZjLr8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyxMQK+jKEQR8J2YHN6PzkD7pR/n46ILBMKN2zvcvN7M4d5YNPr
- nT2rqgpRKXohRIFKiOHE/2/T5Ck33JbuCNG51vAOQWoPXTyWanfog9lual8jleW7hcmtYWe5SpE
- Y
-X-Gm-Gg: ASbGncuOJF5yeV8FnDJcJIKgd0LTmUwqEGIxOZPReKb4Oj3YAxZNjMJsHKxdCUbi0wx
- UD/jnuCj/DwyvGdveii/FmP1TX09kx13EBXYyUEuJCy8kCtnYyoWvI0wMP7VyCAI0GjRwJWn4sr
- Du+rJ5A+5g1rl8z11pEpESL13oBLH6OzJjLxpBl7/fOh1OQXGgZDUrMnw1g2jPgQlbG4QS46K+D
- cy/rMPGRoND8OMqja7uoGZz7AF/X3RvTaQKr5F9MKzP+WfinBCP8FWMMA==
-X-Google-Smtp-Source: AGHT+IEiP7LHRrhx+1WZHRcdbmuf6q9u5MgJwOgShs4CTI9tBcamTyp7ARZo+XbTG2Yuz34sCo+pVA==
-X-Received: by 2002:a05:6512:2355:b0:53d:e41a:c182 with SMTP id
- 2adb3069b0e04-53df00dc9afmr8720884e87.31.1733010954752; 
- Sat, 30 Nov 2024 15:55:54 -0800 (PST)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53df649647dsm900706e87.195.2024.11.30.15.55.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 30 Nov 2024 15:55:53 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 01 Dec 2024 01:55:27 +0200
-Subject: [PATCH 10/10] drm/vc4: hdmi: use eld_mutex to protect access to
- connector->eld
+ AJvYcCUuc+G3IP4aTPjCZ67PFQs2hMobrMbiv0omGK4iw5GZfnfsZhwfRkAcp6Z8kvm5ihDnSTErysmDaY4=@lists.freedesktop.org,
+ AJvYcCVYHHvpMj9HyWhMV4z6VO7+IVzrJremIiYPxv5U5Tls4owzqegfASfsNKNrA85XklhkFxaJ5bQlcpz/@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyNxnqj34bQR+wzb7VOgeCabmWogVydjK+Q2O03bX5NCrnnxkvT
+ M06qpAISha4RdyDY0mEiKj/URQZjxl4LKID/wb3j1HtNPPoFO/k/cexLKW7xrpMUlx6/Wms4bJD
+ vp8kV1n4R34iNfIJsLDgfMcdH18M=
+X-Gm-Gg: ASbGncu8eiECmzPQUSVSKVl3IG4AI5DFzhHH0Yz3mnmH1VzVl10zygugbZCElPQisuE
+ 2hvWS6f32ydrPKZrMYaFA8znQ/behUIQ=
+X-Google-Smtp-Source: AGHT+IGAFxd+VmGnfW2AJOQn/sdbZ1aJbEv+tkoCAMmunmiIAyzosR/XXQh7YEEUfl26fOoBWaBNVr43pumc1fETHe4=
+X-Received: by 2002:a05:6602:2d84:b0:834:f2d5:c758 with SMTP id
+ ca18e2360f4ac-843ed01ca9amr1900930739f.13.1733070995124; Sun, 01 Dec 2024
+ 08:36:35 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241201-drm-connector-eld-mutex-v1-10-ba56a6545c03@linaro.org>
-References: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
-In-Reply-To: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1060;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=lgKbIB6YZtC8eZYzJNVRgp7pi8XWpClyliAzF0BBx7c=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnS6XuosVGIxLVzwgwJF8Kv6UpGUOBhiO+tdbfv
- UsZEOLUAHeJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ0ul7gAKCRCLPIo+Aiko
- 1V2qB/9kxbcsSq/MwiRkIP4VkcbtJ6bvhuQ7s59Dqdt1LcK7+6hylNonFqksssAfCJeGxk6Rz41
- PgtsXMXUIVf52olUBxeNBxH2OY+HNW4u5Q21SkNlRJh2M0Jmo7qcQnvJomIEF/JLLln7LE967u4
- LJzHO8MY0j+0/Z9PGmgWmBObyPWPr4XVV5y/Wl9HZN+30NHViJDwIBGE1n0gmK2YS1053O/fbr7
- UN4+r2D3Hx6EkhG2ZPFdgyrFznaQnOHP4P43x3PUt3CBr+Op2Wwa39k2bJPTyZy7IXk/JXc3yhM
- OB9LNQpibUSlojNLFeX59UmOP5dzC3uJw9JhdOJFJ+2D7v9S
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+References: <20241125-a612-gpu-support-v2-0-b7cc38e60191@quicinc.com>
+ <20241125-a612-gpu-support-v2-1-b7cc38e60191@quicinc.com>
+ <752484b5-2db1-4714-8046-17cd5496d81d@oss.qualcomm.com>
+ <0aa547fc-4c88-4457-8d01-81f93fb3832c@quicinc.com>
+In-Reply-To: <0aa547fc-4c88-4457-8d01-81f93fb3832c@quicinc.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Sun, 1 Dec 2024 08:36:23 -0800
+Message-ID: <CAF6AEGvqPEFN+j0Txa5KPmxF8tXCn_uUsM86i4uo+tc2mTWYgg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/msm/adreno: Introduce ADRENO_QUIRK_NO_SYSCACHE
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,32 +92,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Reading access to connector->eld can happen at the same time the
-drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
-order to protect connector->eld from concurrent access.
+On Sat, Nov 30, 2024 at 12:30=E2=80=AFPM Akhil P Oommen
+<quic_akhilpo@quicinc.com> wrote:
+>
+> On 11/30/2024 7:01 PM, Konrad Dybcio wrote:
+> > On 25.11.2024 5:33 PM, Akhil P Oommen wrote:
+> >> There are a few chipsets which don't have system cache a.k.a LLC.
+> >> Currently, the assumption in the driver is that the system cache
+> >> availability correlates with the presence of GMU or RPMH, which
+> >> is not true. For instance, Snapdragon 6 Gen 1 has RPMH and a GPU
+> >> with a full blown GMU, but doesnot have a system cache. So,
+> >> introduce an Adreno Quirk flag to check support for system cache
+> >> instead of using gmu_wrapper flag.
+> >>
+> >> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> >> ---
+> >>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 3 ++-
+> >>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 7 +------
+> >>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 1 +
+> >>  3 files changed, 4 insertions(+), 7 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/d=
+rm/msm/adreno/a6xx_catalog.c
+> >> index 0c560e84ad5a..5e389f6b8b8a 100644
+> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> >> @@ -682,6 +682,7 @@ static const struct adreno_info a6xx_gpus[] =3D {
+> >>              },
+> >>              .gmem =3D (SZ_128K + SZ_4K),
+> >>              .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> >> +            .quirks =3D ADRENO_QUIRK_NO_SYSCACHE,
+> >>              .init =3D a6xx_gpu_init,
+> >>              .zapfw =3D "a610_zap.mdt",
+> >>              .a6xx =3D &(const struct a6xx_info) {
+> >> @@ -1331,7 +1332,7 @@ static const struct adreno_info a7xx_gpus[] =3D =
+{
+> >>              },
+> >>              .gmem =3D SZ_128K,
+> >>              .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> >> -            .quirks =3D ADRENO_QUIRK_HAS_HW_APRIV,
+> >> +            .quirks =3D ADRENO_QUIRK_HAS_HW_APRIV | ADRENO_QUIRK_NO_S=
+YSCACHE,
+> >>              .init =3D a6xx_gpu_init,
+> >>              .zapfw =3D "a702_zap.mbn",
+> >>              .a6xx =3D &(const struct a6xx_info) {
+> >
+> > +a619_holi
+> >
+> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/m=
+sm/adreno/a6xx_gpu.c
+> >> index 019610341df1..a8b928d0f320 100644
+> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >> @@ -1863,10 +1863,6 @@ static void a7xx_llc_activate(struct a6xx_gpu *=
+a6xx_gpu)
+> >>
+> >>  static void a6xx_llc_slices_destroy(struct a6xx_gpu *a6xx_gpu)
+> >>  {
+> >> -    /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
+> >> -    if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
+> >> -            return;
+> >> -
+> >>      llcc_slice_putd(a6xx_gpu->llc_slice);
+> >>      llcc_slice_putd(a6xx_gpu->htw_llc_slice);
+> >>  }
+> >> @@ -1876,8 +1872,7 @@ static void a6xx_llc_slices_init(struct platform=
+_device *pdev,
+> >>  {
+> >>      struct device_node *phandle;
+> >>
+> >> -    /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
+> >> -    if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
+> >> +    if (a6xx_gpu->base.info->quirks & ADRENO_QUIRK_NO_SYSCACHE)
+> >>              return;
+> >
+> > I think A612 is the "quirky" one here.. it has some sort of a GMU,
+> > but we're choosing not to implement it. maybe a check for
+> >
+> > if (adreno_has_gmu_wrapper && !adreno_is_a612)
+> >
+> > would be clearer here, with a comment that RGMU support is not
+> > implemented
+> >
+> >
+> >
+> > But going further, I'm a bit concerned about dt-bindings.. If we
+> > implement RGMU on the driver side in the future, that will require
+> > DT changes which will make the currently proposed description invalid.
+> >
+> > I think a better angle would be to add a adreno_has_rgmu() func with
+> > a qcom,adreno-rgmu compatible and plumb it correctly from the get-go.
+> >
+> > This way, we can avoid this syscache quirk as well.
+> >
+>
+> I am aware of at least Adreno 710 which doesn't have syscache, but has
+> proper GMU. And I don't see any reason why there couldn't be another one
+> in future to save silicon area. So, a quirk flag doesn't seem so bad in
+> this case.
+>
+> The correct way to avoid this quirk flag is by making LLCC driver return
+> a proper error to detect the absence of syscache. Currently, it just
+> returns EPROBE_DEFER which put driver in an infinite probe loop.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/vc4/vc4_hdmi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Hmm, this seems solvable?  llcc has a node in the dt, so it seems like
+it should be able to tell the difference between not existing and not
+being probed yet.  Something maybe like, initialize drv_data to NULL
+instead of -EPROBE_DEFER, and then in the various entry points, if
+(!drv_data) return not_probed_helper(); which would check if a
+compatible node exists in dt?
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index b9fc4d981cf4d682bedd978795cf7284d2650e74..7295834e75fb1ab0cd241ed274e675567e66870b 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -2221,9 +2221,9 @@ static int vc4_hdmi_audio_get_eld(struct device *dev, void *data,
- 	struct vc4_hdmi *vc4_hdmi = dev_get_drvdata(dev);
- 	struct drm_connector *connector = &vc4_hdmi->connector;
- 
--	mutex_lock(&vc4_hdmi->mutex);
-+	mutex_lock(&connector->eld_mutex);
- 	memcpy(buf, connector->eld, min(sizeof(connector->eld), len));
--	mutex_unlock(&vc4_hdmi->mutex);
-+	mutex_unlock(&connector->eld_mutex);
- 
- 	return 0;
- }
+BR,
+-R
 
--- 
-2.39.5
-
+> Agree about the dt binding suggestion. I will define a new compatible
+> string for rgmu.
+>
+> -Akhil.
+>
+> > Konrad
+>
