@@ -2,119 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 253599DFC61
-	for <lists+freedreno@lfdr.de>; Mon,  2 Dec 2024 09:47:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CED319DFCC0
+	for <lists+freedreno@lfdr.de>; Mon,  2 Dec 2024 10:06:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0479710E662;
-	Mon,  2 Dec 2024 08:47:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9CEF10E21B;
+	Mon,  2 Dec 2024 09:06:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="uGRRCUPH";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Lvk0Nskf";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E41EE10E662
- for <freedreno@lists.freedesktop.org>; Mon,  2 Dec 2024 08:47:48 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4349fb56260so33828675e9.3
- for <freedreno@lists.freedesktop.org>; Mon, 02 Dec 2024 00:47:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733129267; x=1733734067; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=868g4RybWVTONYV+5WNJ4Psz8+PDv8VmyMXOni0Et/E=;
- b=uGRRCUPHydQ8UP/0FvhEfgQ0Qh71Vd31AStbm82/snNCZ7H0PTr2YNAnZc7GmcvIAl
- A+f9gM4zc7De2rDDnFVF7AgJ5lvCRD+LVBA3wM1963NHftha0ZZ6tndJDn3sRh1Pp+eV
- qPL1iT+JP0i0H8qLmGxfoMilNVw8o4w4Uo2mLkMKA5vliJJke4kwzDPdf1gFosn8eUzb
- lbyGCWQZdBHnXwayDxBKKlHaqPoXwqJyAHmPFbTQXFdhUjnc1tpnFmMBZA9dV1puaSzf
- QE8P13IrGMuFaiBF8Ogee9r5aeqMnAKRI3w1aAUtkuwjuHFihOnI49ZPZ1rihRQU8+LP
- Uj8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733129267; x=1733734067;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=868g4RybWVTONYV+5WNJ4Psz8+PDv8VmyMXOni0Et/E=;
- b=OvblrNCTD9o0UTD2bYiwrMsaEQj50ZnVH3dVjNMP3W+cJSUE5bn8uhF7/E11LcXIvd
- VxeivqeoB4v1SUCpcx9gTU7o4U1kBfNvhY20xcrnn66/Omrp64gLFlUj3pvb4QqDKPNG
- jZqD8IUtiIohXr+bUMn7xu2lV0p+GvMXWIffprVrS0fM57PBrwuqe50FkXNq5x5xp5Qj
- dzITW3am4gX72TiGYvAvbFJPPxv6ouaubD+esoFzGffZ9LG+HGZKLkq9EWhO3vpUaz1f
- X2aE2uur67YYobkApNay/bimaLI+w29EktnQmfNHYKuFzfCUJ0fg2mSVX7f6eUogspXN
- abLA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU/MFa+dQIB7SDtq3m2nEDksWKcYoeAG0qo9T4oS7iBC47yeewK40Q9CMFqhUZgwfDjzU0khcDXMXg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzXMRYAmY6BPJp5kWHQOcbzeqBcnm37B4kgj5DFs2DUSN+/mKu6
- GMtRM/8Xd/VpVbb+s07REDwvJc5jeotG2LK3qCb9ss4kmOOW8UX86ZC0KiKwPb0=
-X-Gm-Gg: ASbGncuVTO3diHout/j3cF234wwPojeXRT14pwQf1ixQorcePz/uq61/iI9UCuK4JZo
- EyzdxQkBKxKY56XMCtFtxOFofjg7mXohUkDhorgKq784aRJCmvtmGNEXj/AUN6lvCeirLs+3Hem
- oN/5t8wuTnV+jW5MhCtmuAOglIQTn/Y7EWx0N4U5IKDI3ysX651vzfvK3igKYyPlV1woraU+1Ta
- pvvGO8w3MEK1O7Fk44Zij5o98e1Zcbl2/TPnUGJkBA609Hh21aNTPHms1SvnRGURhmkgNLuW7gG
- EWFl7O0RLCACuxzfGJA1owfoQv4=
-X-Google-Smtp-Source: AGHT+IGJHbzNJoBprBMkButUw4pIj5gIiLHg+0YoFuF1r/DNY4OA1vmPgg66dYl398uyPtEYyLRRXg==
-X-Received: by 2002:a05:600c:1d9c:b0:434:9ef2:f6e3 with SMTP id
- 5b1f17b1804b1-434a9dbf66bmr188026545e9.8.1733129267215; 
- Mon, 02 Dec 2024 00:47:47 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:1485:2a78:787c:c669?
- ([2a01:e0a:982:cbb0:1485:2a78:787c:c669])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-385f0056637sm3156494f8f.15.2024.12.02.00.47.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Dec 2024 00:47:46 -0800 (PST)
-Message-ID: <9add2288-36eb-43cd-a591-68f1819fb911@linaro.org>
-Date: Mon, 2 Dec 2024 09:47:46 +0100
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A3A10E21B;
+ Mon,  2 Dec 2024 09:06:00 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B290TwE010338;
+ Mon, 2 Dec 2024 09:05:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Q+PjIrCert+/x3e/5SEkFOVcd9o7Q54etqy826imJuw=; b=Lvk0Nskf1gPfvfDw
+ 6oiXQJKJretf1FbX6tCF65Oin00bzsNqPMVLSqto5EjPwoOpWEPYgs+gRxPnYPvJ
+ OugShnOB3gSM79fEDqRmEQ8XPhpWD3KqT1LC5gxg6NKa8wQee/sdLBKJLOJl84Ml
+ z+puN4qOi2uAEjJAArl7BULURcrB2m5egdBKKGFp/IT0RtKVgs+rMAS1BZAtm56/
+ 9edM3NsNnYyqQnpTLI6H7otEPojliXVkq7xuuxMSf5t+cW/0HXwfYHh0sttMSi+0
+ OipxLk/k6/UWv5z098AG+rtXMIaiTw8GXzuHuhrR3+ki+ByzTzCeacU2DFtjVHIh
+ 9ZfvvQ==
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 437v07m479-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 02 Dec 2024 09:05:52 +0000 (GMT)
+Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
+ [10.45.79.139])
+ by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B295qEj015760
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 2 Dec 2024 09:05:52 GMT
+Received: from [10.64.16.135] (10.80.80.8) by nasanex01c.na.qualcomm.com
+ (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 2 Dec 2024
+ 01:05:45 -0800
+Message-ID: <95a78722-8266-4d5d-8d2f-e8efa1aa2e87@quicinc.com>
+Date: Mon, 2 Dec 2024 17:05:37 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 5/7] drm/msm: adreno: enable GMU bandwidth for A740 and
- A750
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Subject: Re: [PATCH 6/8] drm/msm/dp: Add maximum width limitation for modes
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20241128-topic-sm8x50-gpu-bw-vote-v3-0-81d60c10fb73@linaro.org>
- <20241128-topic-sm8x50-gpu-bw-vote-v3-5-81d60c10fb73@linaro.org>
- <5fc71011-7a67-47b9-b372-b5e52ffea757@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <5fc71011-7a67-47b9-b372-b5e52ffea757@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Kuogee
+ Hsieh" <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, "Kishon
+ Vijay Abraham I" <kishon@kernel.org>, Linus Walleij
+ <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, <quic_lliu6@quicinc.com>,
+ <quic_fangez@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-phy@lists.infradead.org>, <linux-gpio@vger.kernel.org>
+References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
+ <20241129-add-displayport-support-for-qcs615-platform-v1-6-09a4338d93ef@quicinc.com>
+ <CAA8EJpprTGRTxO+9BC6GRwxE4A3CuvmySsxS2Nh4Tqj0nDRT_Q@mail.gmail.com>
+From: Xiangxu Yin <quic_xiangxuy@quicinc.com>
+In-Reply-To: <CAA8EJpprTGRTxO+9BC6GRwxE4A3CuvmySsxS2Nh4Tqj0nDRT_Q@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01c.na.qualcomm.com (10.45.79.139)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: GJp2ATP3aUD-3hgyB8FaFF86sI5EXzVQ
+X-Proofpoint-GUID: GJp2ATP3aUD-3hgyB8FaFF86sI5EXzVQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0
+ adultscore=0 mlxlogscore=999 bulkscore=0 suspectscore=0 priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 spamscore=0 mlxscore=0 clxscore=1015
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2412020079
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,52 +101,118 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 29/11/2024 16:25, Konrad Dybcio wrote:
-> On 28.11.2024 11:25 AM, Neil Armstrong wrote:
->> Now all the DDR bandwidth voting via the GPU Management Unit (GMU)
->> is in place, declare the Bus Control Modules (BCMs) and the
->> corresponding parameters in the GPU info struct and add the
->> GMU_BW_VOTE feature bit to enable it.
+
+
+On 11/29/2024 9:52 PM, Dmitry Baryshkov wrote:
+> On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
 >>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> Introduce a maximum width constraint for modes during validation. This
+>> ensures that the modes are filtered based on hardware capabilities,
+>> specifically addressing the line buffer limitations of individual pipes.
+> 
+> This doesn't describe, why this is necessary. What does "buffer
+> limitations of individual pipes" mean?
+> If the platforms have hw capabilities like being unable to support 8k
+> or 10k, it should go to platform data
+> 
+It's SSPP line buffer limitation for this platform and only support to 2160 mode width.
+Then, shall I add max_width config to struct msm_dp_desc in next patch? for other platform will set defualt value to ‘DP_MAX_WIDTH 7680'
+>>
+>> Signed-off-by: Xiangxu Yin <quic_xiangxuy@quicinc.com>
 >> ---
->>   drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 22 ++++++++++++++++++++++
->>   1 file changed, 22 insertions(+)
+>>  drivers/gpu/drm/msm/dp/dp_display.c |  3 +++
+>>  drivers/gpu/drm/msm/dp/dp_display.h |  1 +
+>>  drivers/gpu/drm/msm/dp/dp_panel.c   | 13 +++++++++++++
+>>  drivers/gpu/drm/msm/dp/dp_panel.h   |  1 +
+>>  4 files changed, 18 insertions(+)
 >>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->> index 0c560e84ad5a53bb4e8a49ba4e153ce9cf33f7ae..edffb7737a97b268bb2986d557969e651988a344 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->> @@ -1388,6 +1388,17 @@ static const struct adreno_info a7xx_gpus[] = {
->>   			.pwrup_reglist = &a7xx_pwrup_reglist,
->>   			.gmu_chipid = 0x7020100,
->>   			.gmu_cgc_mode = 0x00020202,
->> +			.bcms = (const struct a6xx_bcm[]) {
->> +				{ .name = "SH0", .buswidth = 16 },
->> +				{ .name = "MC0", .buswidth = 4 },
->> +				{
->> +					.name = "ACV",
->> +					.fixed = true,
->> +					.perfmode = BIT(3),
->> +					.perfmode_bw = 16500000,
->> +				},
->> +				{ /* sentinel */ },
->> +			},
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 4c83402fc7e0d41cb7621fa2efda043269d0a608..eb6fb76c68e505fafbec563440e9784f51e1894b 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -944,6 +944,9 @@ enum drm_mode_status msm_dp_bridge_mode_valid(struct drm_bridge *bridge,
+>>         msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
+>>         link_info = &msm_dp_display->panel->link_info;
+>>
+>> +       if (mode->hdisplay > msm_dp_display->panel->max_dp_width)
+>> +               return MODE_BAD;
+>> +
+>>         if (drm_mode_is_420_only(&dp->connector->display_info, mode) &&
+>>             msm_dp_display->panel->vsc_sdp_supported)
+>>                 mode_pclk_khz /= 2;
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+>> index ecbc2d92f546a346ee53adcf1b060933e4f54317..7a11f7eeb691976f06afc7aff67650397d7deb90 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
+>> @@ -11,6 +11,7 @@
+>>  #include "disp/msm_disp_snapshot.h"
+>>
+>>  #define DP_MAX_PIXEL_CLK_KHZ   675000
+>> +#define DP_MAX_WIDTH   7680
+>>
+>>  struct msm_dp {
+>>         struct drm_device *drm_dev;
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+>> index 8654180aa259234bbd41f4f88c13c485f9791b1d..10501e301c5e073d8d34093b86a15d72e646a01f 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+>> @@ -4,6 +4,7 @@
+>>   */
+>>
+>>  #include "dp_panel.h"
+>> +#include "dp_display.h"
+>>  #include "dp_utils.h"
+>>
+>>  #include <drm/drm_connector.h>
+>> @@ -455,6 +456,16 @@ static u32 msm_dp_panel_link_frequencies(struct device_node *of_node)
+>>         return frequency;
+>>  }
+>>
+>> +static u32 msm_dp_panel_max_width(struct device_node *of_node)
+>> +{
+>> +       u32 max_width = 0;
+>> +
+>> +       if (of_property_read_u32(of_node, "max-width", &max_width))
+>> +               max_width = DP_MAX_WIDTH;
+>> +
+>> +       return max_width;
 > 
-> This is not going to fly the second there's two SoCs implementing the
-> same GPU with a difference in bus topology. I think we could add
-> something like drvdata to ICC nodes and use it for BCMs on icc-rpmh.
-> Then, we could retrieve it from the interconnect path we get from the
-> dt node. It would also reduce duplication.
-
-I don't want to go into that, we can optimize this when adding topologies
-for other GPUs later, as-is this is a pointer so we can already share the
-same table between GPUs.
-
+> msm_dp_panel->max_dp_width = DP_MAX_WIDTH;
+> of_property_read_u32(of_node, "max-width", &msm_dp_panel->max_dp_width);
 > 
-> Konrad
+>> +}
+>> +
+>>  static int msm_dp_panel_parse_dt(struct msm_dp_panel *msm_dp_panel)
+>>  {
+>>         struct msm_dp_panel_private *panel;
+>> @@ -490,6 +501,8 @@ static int msm_dp_panel_parse_dt(struct msm_dp_panel *msm_dp_panel)
+>>         if (!msm_dp_panel->max_dp_link_rate)
+>>                 msm_dp_panel->max_dp_link_rate = DP_LINK_RATE_HBR2;
+>>
+>> +       msm_dp_panel->max_dp_width = msm_dp_panel_max_width(of_node);
+>> +
+>>         return 0;
+>>  }
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
+>> index 7603b92c32902bd3d4485539bd6308537ff75a2c..61513644161209c243bbb623ee4ded951b2a0597 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_panel.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_panel.h
+>> @@ -51,6 +51,7 @@ struct msm_dp_panel {
+>>         u32 lane_map[DP_MAX_NUM_DP_LANES];
+>>         u32 max_dp_lanes;
+>>         u32 max_dp_link_rate;
+>> +       u32 max_dp_width;
+>>
+>>         u32 max_bw_code;
+>>  };
+>>
+>> --
+>> 2.25.1
+>>
+> 
+> 
 
