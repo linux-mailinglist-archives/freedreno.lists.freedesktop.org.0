@@ -2,95 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 718C49E077A
-	for <lists+freedreno@lfdr.de>; Mon,  2 Dec 2024 16:48:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9DF29E0D33
+	for <lists+freedreno@lfdr.de>; Mon,  2 Dec 2024 21:42:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4880410E79F;
-	Mon,  2 Dec 2024 15:48:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 938D610E841;
+	Mon,  2 Dec 2024 20:42:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="K0ZqI242";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Ma9Ethht";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72CC210E7B6
- for <freedreno@lists.freedesktop.org>; Mon,  2 Dec 2024 15:48:18 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-53de579f775so6088439e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 02 Dec 2024 07:48:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733154496; x=1733759296; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=xfHRG0ckbabpB5WkAOGLFC/tsNXMkX3A9rmcYDbuN4Y=;
- b=K0ZqI242aiYpVJK5uuPa93cfyDxeH2LfmEAXQ3VIqKyy11Vue7D+4T/M8qnuNiGz7k
- jzi2OKPbQW9UaCPoj3V8PUNGu+BdcnExkHlIL6Dd0fv36iZdB3zkzeKCdqzLkOUINDPS
- Oi4K3KmE048vMhN3xuqYYEdGBuQafR4CvJERY7mi8cbyvsdL6U1K2q611Fix3Vx6Q1dh
- UMZJwMyDQWfAPOPfExpY1Pz9DQvpbr1Z1D+kEMvuztfcgPGAwWwSZSrSn/YFR0LeZzk8
- KXqNgECX6d5P7xqeWuA015sDfrCMMjpFU3q4lCcLTPuSlCPvBq4iSRWGHDwFE7/ZirN9
- tH2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733154496; x=1733759296;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xfHRG0ckbabpB5WkAOGLFC/tsNXMkX3A9rmcYDbuN4Y=;
- b=jqoqszwTHOSAr7eap6UE00ny2euPC9sclLdKpAXBNJRHoAVxvW9ZcotmS49nVEaoQS
- bWOIlnvsw8UXuJPwta8Nf29MBgFEVcRGKOQr4q+WTEev7xFYbVffDatKWi3pmaqovM/2
- E23hoItx8sPFPrqZkI+tOhdJbG01Vfd+Zzs7Qgi0b8Z1cY5dY1RuncEQhoAYb60R3AZY
- N3sK1SqaZHP8rWBBeUX3lOb5vMipYVqNHq1N2XpL2oZ+nE+0OWtTgJ8TwS9xOekj3BCn
- QbX6/VIPHMgcVUE1CSPgJvPe5ylJoSqaPfkZ222i7C/Vq0P18oJX/ZmG3lXnHj1o8LV7
- 78dA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWbnF4hUzHSbXSckWgt0V1VPZSGB9Dg3wNpWY2zvan98D9pnTds9+0AUFKqoTMy6cE44XIBmDbT2bk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRBYO5eZfQoUEOR7gdv7znLsiHom2b3Q3N/6I4HPhI9RfHGqHs
- 0BHGHwaUYe09kfvbosA2zaLtrjJ+v0EYMpkPwe9fN4KJqU1yy8cSfrDJoHRXYqQ=
-X-Gm-Gg: ASbGncunTvqfBb4PMFHzBY0BYaCubb8gjqOhZ2h61Q95i1ZgEVHa3Sa94LhIt4oLDfZ
- 9yGEB8bAYU3vxkPBPz7anKEIO5y273pD6HJ4l6YYpCXkWvrC20Ylw8iM4J6XzG0JjllKXfCmA2f
- 3QohhA/vDkoEMehl8EAhyTN2LckSvTPsOywyubq2l/IZRzk3m3eJZS2MN6IHTCJLZN+mguSVrB3
- yC3cvTjW1qGAi4tZkzdvi+iwr2kUhxFoevJc5DB+9np35P8CfUkduphi+kDfwRg7yNp6MV/VTlT
- 9LUl6+M0NrBvZqQq98P+5+Gz3JxhhA==
-X-Google-Smtp-Source: AGHT+IG0Q5k/W3ed0OQwMlkM6qlSogEM4cPmSjYiJhbwpudSDr/7EC5mlTOxyGWNLuXKmiBWsxS+wQ==
-X-Received: by 2002:a05:6512:3b0d:b0:53d:ed95:9bfa with SMTP id
- 2adb3069b0e04-53df00a96d2mr17148818e87.7.1733154496365; 
- Mon, 02 Dec 2024 07:48:16 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53df649f638sm1511742e87.239.2024.12.02.07.48.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Dec 2024 07:48:15 -0800 (PST)
-Date: Mon, 2 Dec 2024 17:48:13 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Xiangxu Yin <quic_xiangxuy@quicinc.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, 
- Bartosz Golaszewski <brgl@bgdev.pl>, quic_lliu6@quicinc.com,
- quic_fangez@quicinc.com, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 3/8] phy: qcom: qmp-usbc: Add DP phy mode support on QCS615
-Message-ID: <gnrdym5o345fsbtxmfis6ykep7mzvhkxxnizlj5xplrsaaijjq@5465y2oamqoh>
-References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
- <20241129-add-displayport-support-for-qcs615-platform-v1-3-09a4338d93ef@quicinc.com>
- <b310587f-c6c3-41dd-83bf-6affbcc65730@kernel.org>
- <22600892-3b0d-4b0f-9c46-e74241960dda@quicinc.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C55C10E30B;
+ Mon,  2 Dec 2024 20:42:38 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B2I7ORU025063;
+ Mon, 2 Dec 2024 20:42:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=xMjbrLpqiHzo2gjywHAVJE
+ b4mFrRLFpVJWVaBh8N47o=; b=Ma9Ethhtm7peN7b3/HoInHXRHnD3KT6JXzJE+z
+ kz+7+xCCBR6D0o8KbfHYXf3+ulvZhB5L7MJrgPFcDcAdHb9R/4SF0vUp2lJ6e6YH
+ Bc88sKdreH499hBrRMDX+WuLybM5WN190guuHY2UoMSl3inm/694+Ic9pAwIxWOF
+ i0Ocvkyhkj54JXgZq3mPuWyuXG2fvOeAKA6d921xziA95EqgvI2K1slA+g+HQEDn
+ 8JSfj4LMuus8lcHJpzspt4E7/9o5G5263ii2QoWTT/RQiiGFbAG+OVmdR74ZJTQM
+ nx9Hlnx6GcI5k4pO+Ffc+aLJJVKO+/vbbqHeHXuoor19+xkA==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 437sq65ypq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 02 Dec 2024 20:42:36 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B2KgZl8019538
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 2 Dec 2024 20:42:35 GMT
+Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Mon, 2 Dec 2024 12:42:34 -0800
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Subject: [PATCH 0/3] drm/msm/dp: Fix and utilize TPG with a debugfs
+Date: Mon, 2 Dec 2024 12:41:57 -0800
+Message-ID: <20241202-tpg-v1-0-0fd6b518b914@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <22600892-3b0d-4b0f-9c46-e74241960dda@quicinc.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJUbTmcC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxNDIKFbUpCua5xmbmpinGxgbJaYrARUWVCUmpZZATYlOra2FgAcDRJtVQA
+ AAA==
+To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh
+ <quic_khsieh@quicinc.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Jessica
+ Zhang" <quic_jesszhan@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1733172154; l=1740;
+ i=quic_abhinavk@quicinc.com; s=20240509; h=from:subject:message-id;
+ bh=+zwkQ2xiEGesgq3ksOB6NlbLoLnhqA8QQLYFAakVol0=;
+ b=TKzMLnDkUr6YRlX0lEd3aSBNgxptty1rvGIsue6pwNTv79OZrnUW8Y9ifADNVgOKsKxvxKfZA
+ U3XUtgIu8r1A3ZK9lD58BwwspLgw9UC5vAtMGwyKopjCP5KF2cmVWAL
+X-Developer-Key: i=quic_abhinavk@quicinc.com; a=ed25519;
+ pk=SD3D8dOKDDh6BoX3jEYjsHrTFwuIK8+o0cLPgQok9ys=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: -F_0jUNmRv_5nDoA0m4_DIHe5Ys7w-CC
+X-Proofpoint-ORIG-GUID: -F_0jUNmRv_5nDoA0m4_DIHe5Ys7w-CC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0
+ priorityscore=1501 mlxscore=0 clxscore=1015 lowpriorityscore=0
+ suspectscore=0 adultscore=0 spamscore=0 impostorscore=0 mlxlogscore=720
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412020174
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,40 +101,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 02, 2024 at 06:31:44PM +0800, Xiangxu Yin wrote:
-> 
-> 
-> On 11/29/2024 4:18 PM, Krzysztof Kozlowski wrote:
-> > On 29/11/2024 08:57, Xiangxu Yin wrote:
-> >> +static int qmp_usbc_com_init(struct phy *phy)
-> >>  {
-> >>  	struct qmp_usbc *qmp = phy_get_drvdata(phy);
-> >> -	const struct qmp_phy_cfg *cfg = qmp->cfg;
-> >> -	void __iomem *pcs = qmp->pcs;
-> >> +	int num_vregs;
-> >>  	u32 val = 0;
-> >>  	int ret;
-> >> +	unsigned int reg_pwr_dn;
-> >>  
-> >> -	ret = regulator_bulk_enable(cfg->num_vregs, qmp->vregs);
-> >> +	if (qmp->type == QMP_PHY_USBC_USB) {
-> > 
-> > 
-> > Sorry, all this code is unreviewable. Organize your changes in logical,
-> > reviewable chunks.
-> > 
-> Will create new patch list and seperate patchsets.
+DP Test Patten Generator is a very useful tool to debug issues such
+as blank screen or corruption seen on the DP monitor by isolating it
+to whether the corruption is coming from further upstream such as DPU
+OR from the DP controller and below. It was noted in [1] that this API
+is unused. Rather than dropping the API, it should be fixed and used.
 
-Please respond to the comment regarding the single PHY vs multiple PHYs
-first.
+Hence, this series fixes the DP Test Patten Generator API and also utilizes
+it by adding a debugfs for it.
 
-> >> +		struct qmp_phy_usb_cfg *cfg = to_usb_cfg(qmp);
-> >> +
-> >> +		num_vregs = cfg->num_vregs;
-> >> +		reg_pwr_dn = cfg->regs[QPHY_PCS_POWER_DOWN_CONTROL];
-> >> +	} else {
-> > 
+[1] : https://patchwork.freedesktop.org/patch/623508/?series=141074&rev=1
 
+To: Rob Clark <robdclark@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Sean Paul <sean@poorly.run>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Stephen Boyd <swboyd@chromium.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Jessica Zhang <quic_jesszhan@quicinc.com>
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+Abhinav Kumar (3):
+      drm/msm/dp: account for widebus in msm_dp_catalog_panel_tpg_enable()
+      drm/msm/dp: do not touch the MMSS_DP_INTF_CONFIG for tpg
+      drm/msm/dp: add a debugfs node for using tpg
+
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 15 +++++++--
+ drivers/gpu/drm/msm/dp/dp_debug.c   | 61 +++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_panel.h   |  2 ++
+ 3 files changed, 76 insertions(+), 2 deletions(-)
+---
+base-commit: 798bb342e0416d846cf67f4725a3428f39bfb96b
+change-id: 20241202-tpg-3f7543c036ac
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Abhinav Kumar <quic_abhinavk@quicinc.com>
+
