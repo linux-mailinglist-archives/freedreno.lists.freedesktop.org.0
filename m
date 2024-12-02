@@ -2,113 +2,95 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D7939E062C
-	for <lists+freedreno@lfdr.de>; Mon,  2 Dec 2024 16:03:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 718C49E077A
+	for <lists+freedreno@lfdr.de>; Mon,  2 Dec 2024 16:48:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB5810E793;
-	Mon,  2 Dec 2024 15:03:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4880410E79F;
+	Mon,  2 Dec 2024 15:48:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T+7XcBNR";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="K0ZqI242";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED5DA10E283;
- Mon,  2 Dec 2024 15:03:48 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-434a742481aso35385005e9.3; 
- Mon, 02 Dec 2024 07:03:48 -0800 (PST)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72CC210E7B6
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Dec 2024 15:48:18 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-53de579f775so6088439e87.2
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Dec 2024 07:48:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733151827; x=1733756627; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=qujM4d7qCY1L5TaGGSMsXfZ1apvo+jAfsCE8VLdjQ4I=;
- b=T+7XcBNRWuMrN5dmxYuTZPo/OWfy8Hfox5UmYP1yzzvJnVDT1xMSDw6TVwVmLsSXOv
- p1W4Lm4I+uj3BxxhqG1YXFo88YrZEdBB+fKyfqPcCNFz0518W/l6WZp7cEK+8pZPEV6+
- OFR5M+eouJl0etUCwXOo+S8yVR7tAOe+tOK/qz8L57Vyjb9aAjS88xk6UviT6v6a/OHY
- QEv1iC+385KIuGOj0DxzTS1QrCwMUlRDjJnVlvKI80WnmupnbCqeht5NpEd3AcjcF+Zh
- 80hcHKHdHCSgzD+RrWEtzrxiMK4eABg+Eqeyx/iRias/wq0YjmuANwAX8oief2WDM7zz
- dY7w==
+ d=linaro.org; s=google; t=1733154496; x=1733759296; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=xfHRG0ckbabpB5WkAOGLFC/tsNXMkX3A9rmcYDbuN4Y=;
+ b=K0ZqI242aiYpVJK5uuPa93cfyDxeH2LfmEAXQ3VIqKyy11Vue7D+4T/M8qnuNiGz7k
+ jzi2OKPbQW9UaCPoj3V8PUNGu+BdcnExkHlIL6Dd0fv36iZdB3zkzeKCdqzLkOUINDPS
+ Oi4K3KmE048vMhN3xuqYYEdGBuQafR4CvJERY7mi8cbyvsdL6U1K2q611Fix3Vx6Q1dh
+ UMZJwMyDQWfAPOPfExpY1Pz9DQvpbr1Z1D+kEMvuztfcgPGAwWwSZSrSn/YFR0LeZzk8
+ KXqNgECX6d5P7xqeWuA015sDfrCMMjpFU3q4lCcLTPuSlCPvBq4iSRWGHDwFE7/ZirN9
+ tH2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733151827; x=1733756627;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qujM4d7qCY1L5TaGGSMsXfZ1apvo+jAfsCE8VLdjQ4I=;
- b=HY3Lug/LQttgXvkFAe6zN5EiQCmR2qJXZNcqxXKI1je2qVzef6mjeoDhHLEEW6bZ3s
- B8CFRVrL3bVYZ4vNidwkVE2Qi6vLC6TdjeUXO1U979jI4Rf/Hpfkt5zPXz5p/7mUIJmO
- wqZQBQA7NBvR/93/4tF8f0/IDi/8BMzgW7u7S98yqcH0qJ4BO2qD4VeG3XSGB1DFBPv3
- O/krlaAbu853h9yaoS1jXbjjVKs/geD0/XezhKYq2vDpSGQhlJaGyaL1o1os4gwaY7xv
- Qjr16mPk7qOa2F0AKZc3/GvU5HzZ77XoNbFqEdhtjYwpZ8OGYk75uzy4SXQMk6DZtJdv
- PH0g==
+ d=1e100.net; s=20230601; t=1733154496; x=1733759296;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xfHRG0ckbabpB5WkAOGLFC/tsNXMkX3A9rmcYDbuN4Y=;
+ b=jqoqszwTHOSAr7eap6UE00ny2euPC9sclLdKpAXBNJRHoAVxvW9ZcotmS49nVEaoQS
+ bWOIlnvsw8UXuJPwta8Nf29MBgFEVcRGKOQr4q+WTEev7xFYbVffDatKWi3pmaqovM/2
+ E23hoItx8sPFPrqZkI+tOhdJbG01Vfd+Zzs7Qgi0b8Z1cY5dY1RuncEQhoAYb60R3AZY
+ N3sK1SqaZHP8rWBBeUX3lOb5vMipYVqNHq1N2XpL2oZ+nE+0OWtTgJ8TwS9xOekj3BCn
+ QbX6/VIPHMgcVUE1CSPgJvPe5ylJoSqaPfkZ222i7C/Vq0P18oJX/ZmG3lXnHj1o8LV7
+ 78dA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUPARCcDdV87+x6+JcQ1OtGA8SmNTdnKi6mUF6ht7cU4CsNp+nhPtfRNtyBLhy14loqqmA4SFsYMH0=@lists.freedesktop.org,
- AJvYcCUuCa5RBPO+l/cgTin+SafUgpetmjpeK5jD684ce0/v37LcfYiPswQh05hSbjp63fafhYJzWJt4h+EG@lists.freedesktop.org,
- AJvYcCVeu9yH3AtP1yKZZv7ncRgVBNGTiRvwq6PvongqQtCJKHDQYI5CblYa0/nGpMdlDWvWg26Sp1vRCz7D@lists.freedesktop.org,
- AJvYcCXOt1U7l9U1lDcClyJyV5Ud24wdq6JAJNJPZT92kvDDrMdGXgA8UQJx9PeBzWQsLEcDgUtmw6//@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwHjGNioabcM13DRD88pSasny1gwZ7k/hLLoi1kvKazYwxTTsXb
- EF8HUxm8zohEZxEN2b1sGTHjHaRURD8QqYR4a5gaE9fUZcUtnXFr
-X-Gm-Gg: ASbGncvKO+1XIHXeEPyajkKRaBRWnRS2BHF8yoql5LikIDjY8QGCjRelnxz1wZkxD9c
- 2YIY1394NsDWTRllN+SBgv3gGae/CvB7ucGx+Y9OlOH40y7S73u5Q6jScHZMAEGPrNSfxKDnhFK
- FRlKe+imLuzTeDDOOpNmGVDb/gAlanRjLVZcX5wdcDLmwHXFLpbSPydpkRH5yxLIq6lBtWB2/AN
- GcjJPmOafLq/worvQgIjazf457353WzzBfJ9Hwpy1Mf59TpQj6Eu+HB8OObMisSBKWIB4wdgkd0
- fojfWwqh3yaImeaLRE0=
-X-Google-Smtp-Source: AGHT+IGDnqoQPM9S2ZXAYcJFrCBwMFmcYVdD5NrlXMVFXBAOrzgALnyLT6wqVMw+fFjssl311bGusQ==
-X-Received: by 2002:a5d:64cc:0:b0:385:f092:e16 with SMTP id
- ffacd0b85a97d-385f0a153ccmr4698133f8f.55.1733151825042; 
- Mon, 02 Dec 2024 07:03:45 -0800 (PST)
-Received: from ?IPV6:2001:861:3385:e20:6384:4cf:52c5:3194?
- ([2001:861:3385:e20:6384:4cf:52c5:3194])
+ AJvYcCWbnF4hUzHSbXSckWgt0V1VPZSGB9Dg3wNpWY2zvan98D9pnTds9+0AUFKqoTMy6cE44XIBmDbT2bk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwRBYO5eZfQoUEOR7gdv7znLsiHom2b3Q3N/6I4HPhI9RfHGqHs
+ 0BHGHwaUYe09kfvbosA2zaLtrjJ+v0EYMpkPwe9fN4KJqU1yy8cSfrDJoHRXYqQ=
+X-Gm-Gg: ASbGncunTvqfBb4PMFHzBY0BYaCubb8gjqOhZ2h61Q95i1ZgEVHa3Sa94LhIt4oLDfZ
+ 9yGEB8bAYU3vxkPBPz7anKEIO5y273pD6HJ4l6YYpCXkWvrC20Ylw8iM4J6XzG0JjllKXfCmA2f
+ 3QohhA/vDkoEMehl8EAhyTN2LckSvTPsOywyubq2l/IZRzk3m3eJZS2MN6IHTCJLZN+mguSVrB3
+ yC3cvTjW1qGAi4tZkzdvi+iwr2kUhxFoevJc5DB+9np35P8CfUkduphi+kDfwRg7yNp6MV/VTlT
+ 9LUl6+M0NrBvZqQq98P+5+Gz3JxhhA==
+X-Google-Smtp-Source: AGHT+IG0Q5k/W3ed0OQwMlkM6qlSogEM4cPmSjYiJhbwpudSDr/7EC5mlTOxyGWNLuXKmiBWsxS+wQ==
+X-Received: by 2002:a05:6512:3b0d:b0:53d:ed95:9bfa with SMTP id
+ 2adb3069b0e04-53df00a96d2mr17148818e87.7.1733154496365; 
+ Mon, 02 Dec 2024 07:48:16 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-385ec6a3d8fsm5080310f8f.101.2024.12.02.07.03.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Dec 2024 07:03:44 -0800 (PST)
-Message-ID: <0eb908f2-2304-4a91-9c91-e7f291da9dcd@gmail.com>
-Date: Mon, 2 Dec 2024 16:03:42 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/10] drm/sti: hdmi: use eld_mutex to protect access to
- connector->eld
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar
- <alim.akhtar@samsung.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ 2adb3069b0e04-53df649f638sm1511742e87.239.2024.12.02.07.48.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Dec 2024 07:48:15 -0800 (PST)
+Date: Mon, 2 Dec 2024 17:48:13 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Xiangxu Yin <quic_xiangxuy@quicinc.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-References: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
- <20241201-drm-connector-eld-mutex-v1-9-ba56a6545c03@linaro.org>
-Content-Language: en-US, fr
-From: =?UTF-8?Q?Rapha=C3=ABl_Gallais-Pou?= <rgallaispou@gmail.com>
-In-Reply-To: <20241201-drm-connector-eld-mutex-v1-9-ba56a6545c03@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, 
+ Bartosz Golaszewski <brgl@bgdev.pl>, quic_lliu6@quicinc.com,
+ quic_fangez@quicinc.com, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 3/8] phy: qcom: qmp-usbc: Add DP phy mode support on QCS615
+Message-ID: <gnrdym5o345fsbtxmfis6ykep7mzvhkxxnizlj5xplrsaaijjq@5465y2oamqoh>
+References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
+ <20241129-add-displayport-support-for-qcs615-platform-v1-3-09a4338d93ef@quicinc.com>
+ <b310587f-c6c3-41dd-83bf-6affbcc65730@kernel.org>
+ <22600892-3b0d-4b0f-9c46-e74241960dda@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <22600892-3b0d-4b0f-9c46-e74241960dda@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,38 +106,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-Le 01/12/2024 à 00:55, Dmitry Baryshkov a écrit :
-> Reading access to connector->eld can happen at the same time the
-> drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
-> order to protect connector->eld from concurrent access.
+On Mon, Dec 02, 2024 at 06:31:44PM +0800, Xiangxu Yin wrote:
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Hi Dmitry,
-
-Acked-by: Raphael Gallais-Pou <rgallaispou@gmail.com>
-
-Thanks,
-Raphaël
-> ---
->   drivers/gpu/drm/sti/sti_hdmi.c | 2 ++
->   1 file changed, 2 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
-> index 847470f747c0efad61c2ebdc3fb3746a7a13a863..3c8f3532c79723e7b1a720c855c90e40584cc6ca 100644
-> --- a/drivers/gpu/drm/sti/sti_hdmi.c
-> +++ b/drivers/gpu/drm/sti/sti_hdmi.c
-> @@ -1225,7 +1225,9 @@ static int hdmi_audio_get_eld(struct device *dev, void *data, uint8_t *buf, size
->   	struct drm_connector *connector = hdmi->drm_connector;
->   
->   	DRM_DEBUG_DRIVER("\n");
-> +	mutex_lock(&connector->eld_mutex);
->   	memcpy(buf, connector->eld, min(sizeof(connector->eld), len));
-> +	mutex_unlock(&connector->eld_mutex);
->   
->   	return 0;
->   }
-> 
+> On 11/29/2024 4:18 PM, Krzysztof Kozlowski wrote:
+> > On 29/11/2024 08:57, Xiangxu Yin wrote:
+> >> +static int qmp_usbc_com_init(struct phy *phy)
+> >>  {
+> >>  	struct qmp_usbc *qmp = phy_get_drvdata(phy);
+> >> -	const struct qmp_phy_cfg *cfg = qmp->cfg;
+> >> -	void __iomem *pcs = qmp->pcs;
+> >> +	int num_vregs;
+> >>  	u32 val = 0;
+> >>  	int ret;
+> >> +	unsigned int reg_pwr_dn;
+> >>  
+> >> -	ret = regulator_bulk_enable(cfg->num_vregs, qmp->vregs);
+> >> +	if (qmp->type == QMP_PHY_USBC_USB) {
+> > 
+> > 
+> > Sorry, all this code is unreviewable. Organize your changes in logical,
+> > reviewable chunks.
+> > 
+> Will create new patch list and seperate patchsets.
 
+Please respond to the comment regarding the single PHY vs multiple PHYs
+first.
+
+> >> +		struct qmp_phy_usb_cfg *cfg = to_usb_cfg(qmp);
+> >> +
+> >> +		num_vregs = cfg->num_vregs;
+> >> +		reg_pwr_dn = cfg->regs[QPHY_PCS_POWER_DOWN_CONTROL];
+> >> +	} else {
+> > 
+
+-- 
+With best wishes
+Dmitry
