@@ -2,95 +2,108 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 670399DFF3F
-	for <lists+freedreno@lfdr.de>; Mon,  2 Dec 2024 11:46:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64D5E9DFF93
+	for <lists+freedreno@lfdr.de>; Mon,  2 Dec 2024 12:03:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41A2510E6C5;
-	Mon,  2 Dec 2024 10:46:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 892E310E6D5;
+	Mon,  2 Dec 2024 11:03:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dh9oDKVD";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bly6xU5h";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BE4F10E6C5
- for <freedreno@lists.freedesktop.org>; Mon,  2 Dec 2024 10:46:17 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-53de852a287so4583027e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 02 Dec 2024 02:46:17 -0800 (PST)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E13310E6D3
+ for <freedreno@lists.freedesktop.org>; Mon,  2 Dec 2024 11:03:14 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-53df1d1b6e8so4310341e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 02 Dec 2024 03:03:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733136375; x=1733741175; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1733137392; x=1733742192; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=sW5g5zNCxuwuA9CkgMzqa+U4e2iYbFVfy38zh54cXVg=;
- b=dh9oDKVDUQJo40Us2JnD4UykEZdFf0vFoDceWnnjeiMOqJXGF75piy+Lc9es6g/k4n
- 1A54aH+zpmfUlAOMUAMT+qM55xrFo7Idwc8f87RaRPxpOe/JudeVGDO7va0bN8nfCNQl
- DheYhRTa33CJihAukZX8FaHHzwiiuXNnC+Z4mrc6EnRMurv1h6hVlvgEO4v0dEEa7soQ
- p2xIFU9Q3po1eA3ZGIS91ZbIQuQ6RnFmVGE9sjxEmt0kkyqkZT7AjbDAv2t6hTxpoaxN
- nUtHuidoiBM1sZqLlJYjQfHjy0HYhLpVww+/vGubB+Yl0/spu/Dh334d+YvNqIlUEL6P
- Qntw==
+ bh=6X4f5B7p/4ISxO7icMRqa8h5IT36sTqoFNtM1b1oYjE=;
+ b=bly6xU5hN3JrB5LSazECeKpAtIqVdVpb7mdZ2D115fr3uffGfNqr8mmPlJ09jGk3yl
+ 1r2jYyBbO1nBTuKpINfcuvCDx0Hs1mrBocCElQvhG3Tflu+iIj8QswnuhIL7mmQo7HdR
+ VedbycDpCPvO1WrubCu8TFsLJY3Eo6dQ2H3MjcHKOiM0sWcikXqdR6h2DS6aIMv5s2By
+ wyNypOHkLO3i58sZ5geck2efru3X7NU8tShqxDdB9cF+bBS4/IER6yy+UbBn5j0+9nWA
+ E+YZ4MpTCvHgWXNiM5RTGEl/qkxRdrOCLY+BEq/DDkv2eWK+9tDe2NlUdPK8beocEx8w
+ YOKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733136375; x=1733741175;
+ d=1e100.net; s=20230601; t=1733137392; x=1733742192;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=sW5g5zNCxuwuA9CkgMzqa+U4e2iYbFVfy38zh54cXVg=;
- b=FUpfdLl/TVssD0q25VtSXXLjKRsDZvYfkLHM+Zdb+Zuubgm3gDBOpELsvmefzamX4n
- YMWZ7os6NEmb3+T5FgLvN22Z9dSqVVAP46rj03M1Dh0WL/k5b7XMh/dmvcWuKSNMCDXp
- 2Xzz79Pj20BbMGoehCaUKtoD05WeBHR1Y3xDG21vTT/9m5fD9hIsXEAz+KWt9ZBWx+dT
- hCP43TZwpXEyyy9vNjVF0t8gSD4NRz+v5wtD5tiZwQ0JXsd7AxaEMFkQzh2ZXUkkn5T3
- hOWvmVxG9RDsat5Q2Ioys8cQ0xgNiNQPFoXHZw+tZNZvEdYYX/4bMt7SYglSGgFyp5w3
- Remg==
+ bh=6X4f5B7p/4ISxO7icMRqa8h5IT36sTqoFNtM1b1oYjE=;
+ b=H8HLKsKEzLSIlL5Fie4pl7Vb73dGoIevDGDupGIJIfLeg6PSMnOcCnXXcWFQ3VjMoU
+ Bc64JzGvJXa6V70FTH4Y8r6PkFM1hY2u1Jehl2d+j5aXTJ4bXkqhFRdz2AmI8TTIepPh
+ 2ynlYRJs0TxCG4kZ0uMTbom4lTVrQ4+Iz71drmHkGp+IIEul2s5TtpxiL51MZhRQD8+L
+ 8qVdzdJEQjJFAHMSPWjuNpQiRWY/WII10j69OTI1cMLMgYIVc1CxzzNGOA1n9a47ZxGX
+ MPu/mDSeQO4QBfG887KBy7GQlElQgEBVZBkG37cduwXN33nvv4+2XmmbudMIuX4FCWDA
+ Ck0A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUW55cE0DkY2y8Jlk/txzePl5HdS3kumLfdFs/uPBLN0b6TVrjWJQU0XT0XZq7wWNxXBGL484Z8no8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwiTzh5PSBqJFW4fSWUTk5yCWMxIX6bcJ+Wk+uvbJ37MexRDqJQ
- Vtah6fwnVFRiq34K0MzXWqWwAK7O8GTwNtmE5Ml1Vdxut/YjuEcOPU2rQga/Csk=
-X-Gm-Gg: ASbGncthB2ebooGrdMXWKboYlbYIEDY2C74mOyCGGvPYAQviULKnHWenMFXc9lF/ii0
- QvEMrxlVBjCP/S4XccRsaf5aCSoeHVsq0KYf0tLUkpWTBjfiocmdW206zDmJex7F6/5SHum+mEG
- 62AUproZ63tM1pakEqCHISvKs1Y3TFBYM1T84CebiEIQMArpsSIlZrNznGWG8xX5VxWSsNVS9M5
- BdapW6RwyLu4nhBhPOFYP+fCs26a0ha5UrBT/DEoZy0/Jx3ldpH4JmHDqOzXVDAoLYf0A5Y0twf
- PBm1HEWRf0nOPdS6NV+PQdzRdlxvLw==
-X-Google-Smtp-Source: AGHT+IHSCZMOjWupesy5/0HxHZeda2UBmkbWGoOoF1ozJXCQtPgXFWsr4uPvfC7x0xE42+mBQm6WWA==
-X-Received: by 2002:a05:6512:124e:b0:53d:d3bc:cc11 with SMTP id
- 2adb3069b0e04-53df0112095mr7509493e87.48.1733136374959; 
- Mon, 02 Dec 2024 02:46:14 -0800 (PST)
+ AJvYcCUsKsSHxVJvMNJYZZsLAPPsv/vTMYwmGIvjA4Mmu6v7ElfHAxqhK8nWe477Avb1v0ueOg10gbk3lRE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyADBGBGOt5IaZnl8Ar6wOl1Io94sRmMDm2YZSN/jdBXMoLTjSh
+ 3pCA0hM8NiU7tfBvUd70dDp3GkpHe9Kq5RYqnngO5GFeQpN2/aB0Kz2IY1A0pk4=
+X-Gm-Gg: ASbGncsR++9oRz1m195b+qVv87QLqlAZrBVhqLXrqs0kxaq1dsx9PiJrelPhkZoB2i+
+ ZjsTpsKSUPVPW4mzZXD/NbcmM+CRdHcIJAFhR1Zp1RKObL/p4ss++XuWmBufJQF6lKY6ozaAnjE
+ 2kf8gDQir43JiQEoPN9v9voO2y3iCAYA/uwaH/bvbPZszHCwxCtOmf7T01Q6cOl1rg8hArNqhe9
+ XLIbe/i20yKNQyowjTU8xYnZxE+2sB9bmnyfwDFierjt2TvD/Pphi6N0ytkFU+3J6myulT/SFUD
+ y/xUuv0XYLTbhJYX0bT1cByMOMXYzQ==
+X-Google-Smtp-Source: AGHT+IFGDFefBhtw1PCqTOI5KhQIlj3rWjRnFP/b36RPBBTJEaQRx6orQjZk5ZBCQurK/QAedMSg2Q==
+X-Received: by 2002:a05:6512:2385:b0:53d:ed25:fb75 with SMTP id
+ 2adb3069b0e04-53df00d3e65mr7699888e87.15.1733137392309; 
+ Mon, 02 Dec 2024 03:03:12 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53df644341bsm1424070e87.99.2024.12.02.02.46.13
+ 2adb3069b0e04-53df646efd9sm1443877e87.143.2024.12.02.03.03.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Dec 2024 02:46:14 -0800 (PST)
-Date: Mon, 2 Dec 2024 12:46:12 +0200
+ Mon, 02 Dec 2024 03:03:10 -0800 (PST)
+Date: Mon, 2 Dec 2024 13:03:07 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Xiangxu Yin <quic_xiangxuy@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
+To: Maxime Ripard <mripard@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ linux-samsung-soc@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Inki Dae <inki.dae@samsung.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Leo Li <sunpeng.li@amd.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, 
- Bartosz Golaszewski <brgl@bgdev.pl>, quic_lliu6@quicinc.com,
- quic_fangez@quicinc.com, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/8] drm/msm/dp: Add support for lane mapping configuration
-Message-ID: <zvapsvfftai4fp6vwrn33edqsyuuprq2pxz6spij6j7t4y6xmn@zzgp7gbsivbk>
-References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
- <20241129-add-displayport-support-for-qcs615-platform-v1-5-09a4338d93ef@quicinc.com>
- <CAA8EJpoY8hySQd00yODGeHjSpVZpEBLjF3aBiKGJPUhpr-2mgw@mail.gmail.com>
- <d2a3cd6f-1077-4edb-9f0c-0c940a639050@quicinc.com>
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Phong LE <ple@baylibre.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Rob Clark <robdclark@gmail.com>, Robert Foss <rfoss@kernel.org>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Sean Paul <sean@poorly.run>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Xinhui Pan <Xinhui.Pan@amd.com>
+Subject: Re: [PATCH 00/10] drm/connector: add eld_mutex to protect
+ connector->eld
+Message-ID: <ohbtatnn33jj6y3q4milf4txi4n7yirnny2eefdjddlkn2dnhp@eqjedetct4q3>
+References: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
+ <77545786331df8bfaf5fdcb309437358@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d2a3cd6f-1077-4edb-9f0c-0c940a639050@quicinc.com>
+In-Reply-To: <77545786331df8bfaf5fdcb309437358@kernel.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,113 +119,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 02, 2024 at 04:40:05PM +0800, Xiangxu Yin wrote:
+On Mon, Dec 02, 2024 at 10:19:41AM +0000, Maxime Ripard wrote:
+> On Sun, 1 Dec 2024 01:55:17 +0200, Dmitry Baryshkov wrote:
+> > The connector->eld is accessed by the .get_eld() callback. This access
+> > can collide with the drm_edid_to_eld() updating the data at the same
+> > time. Add drm_connector.eld_mutex to protect the data from concurrenct
+> > access.
+> > 
+> > 
+> > [ ... ]
 > 
-> 
-> On 11/29/2024 9:50 PM, Dmitry Baryshkov wrote:
-> > On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
-> >>
-> >> Add the ability to configure lane mapping for the DP controller. This is
-> >> required when the platform's lane mapping does not follow the default
-> >> order (0, 1, 2, 3). The mapping rules are now configurable via the
-> >> `data-lane` property in the devicetree. This property defines the
-> >> logical-to-physical lane mapping sequence, ensuring correct lane
-> >> assignment for non-default configurations.
-> >>
-> >> Signed-off-by: Xiangxu Yin <quic_xiangxuy@quicinc.com>
-> >> ---
-> >>  drivers/gpu/drm/msm/dp/dp_catalog.c | 11 +++++------
-> >>  drivers/gpu/drm/msm/dp/dp_catalog.h |  2 +-
-> >>  drivers/gpu/drm/msm/dp/dp_ctrl.c    |  2 +-
-> >>  drivers/gpu/drm/msm/dp/dp_panel.c   | 13 ++++++++++---
-> >>  drivers/gpu/drm/msm/dp/dp_panel.h   |  3 +++
-> >>  5 files changed, 20 insertions(+), 11 deletions(-)
-> >>
+> Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
-> >> @@ -461,6 +460,7 @@ static int msm_dp_panel_parse_dt(struct msm_dp_panel *msm_dp_panel)
-> >>         struct msm_dp_panel_private *panel;
-> >>         struct device_node *of_node;
-> >>         int cnt;
-> >> +       u32 lane_map[DP_MAX_NUM_DP_LANES] = {0, 1, 2, 3};
-> >>
-> >>         panel = container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
-> >>         of_node = panel->dev->of_node;
-> >> @@ -474,10 +474,17 @@ static int msm_dp_panel_parse_dt(struct msm_dp_panel *msm_dp_panel)
-> >>                 cnt = drm_of_get_data_lanes_count(of_node, 1, DP_MAX_NUM_DP_LANES);
-> >>         }
-> >>
-> >> -       if (cnt > 0)
-> >> +       if (cnt > 0) {
-> >> +               struct device_node *endpoint;
-> >> +
-> >>                 msm_dp_panel->max_dp_lanes = cnt;
-> >> -       else
-> >> +               endpoint = of_graph_get_endpoint_by_regs(of_node, 1, -1);
-> >> +               of_property_read_u32_array(endpoint, "data-lanes", lane_map, cnt);
-> >> +       } else {
-> >>                 msm_dp_panel->max_dp_lanes = DP_MAX_NUM_DP_LANES; /* 4 lanes */
-> >> +       }
-> > 
-> > Why? This sounds more like dp_catalog or (after the refactoring at
-> > [1]) dp_ctrl. But not the dp_panel.
-> > 
-> > [1] https://patchwork.freedesktop.org/project/freedreno/series/?ordering=-last_updated
-> > 
-> We are used the same prop 'data-lanes = <3 2 0 1>' in mdss_dp_out to keep similar behaviour with dsi_host_parse_lane_data.
-> From the modules used, catalog seems more appropriate, but since the max_dp_lanes is parsed at dp_panel, it has been placed here.
-> Should lane_map parsing in msm_dp_catalog_get, and keep max_dp_lanes parsing at the dp_panel?
+Thanks!
 
-msm_dp_catalog_get() is going to be removed. Since the functions that
-are going to use it are in dp_ctrl module, I thought that dp_ctrl.c is
-the best place. A better option might be to move max_dp_lanes and
-max_dp_link_rate to dp_link.c as those are link params. Then
-lane_mapping also logically becomes a part of dp_link module.
-
-But now I have a more important question (triggered by Krishna's email
-about SAR2130P's USB): if the lanes are swapped, does USB 3 work on that
-platform? Or is it being demoted to USB 2 with nobody noticing that?
-
-If lanes 0/1 and 2/3 are swapped, shouldn't it be handled in the QMP
-PHY, where we handle lanes and orientation switching?
-
-> >> +
-> >> +       memcpy(msm_dp_panel->lane_map, lane_map, msm_dp_panel->max_dp_lanes * sizeof(u32));
-> >>
-> >>         msm_dp_panel->max_dp_link_rate = msm_dp_panel_link_frequencies(of_node);
-> >>         if (!msm_dp_panel->max_dp_link_rate)
-> >> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
-> >> index 0e944db3adf2f187f313664fe80cf540ec7a19f2..7603b92c32902bd3d4485539bd6308537ff75a2c 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_panel.h
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_panel.h
-> >> @@ -11,6 +11,8 @@
-> >>  #include "dp_aux.h"
-> >>  #include "dp_link.h"
-> >>
-> >> +#define DP_MAX_NUM_DP_LANES    4
-> >> +
-> >>  struct edid;
-> >>
-> >>  struct msm_dp_display_mode {
-> >> @@ -46,6 +48,7 @@ struct msm_dp_panel {
-> >>         bool video_test;
-> >>         bool vsc_sdp_supported;
-> >>
-> >> +       u32 lane_map[DP_MAX_NUM_DP_LANES];
-> >>         u32 max_dp_lanes;
-> >>         u32 max_dp_link_rate;
-> >>
-> >>
-> >> --
-> >> 2.25.1
-> >>
-> > 
-> > 
-> 
-> 
-> -- 
-> linux-phy mailing list
-> linux-phy@lists.infradead.org
-> https://lists.infradead.org/mailman/listinfo/linux-phy
+I'm going to post v2 to fix Jani's comment, but what should be the merge
+strategy? Merge patches 1-3, 5, 9-10 through drm-misc and the rest (AMD,
+i915, MSM, radeon) through the driver trees?
 
 -- 
 With best wishes
