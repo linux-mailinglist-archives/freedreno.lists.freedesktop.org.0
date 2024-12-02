@@ -2,109 +2,113 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C54F99E053D
-	for <lists+freedreno@lfdr.de>; Mon,  2 Dec 2024 15:39:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D7939E062C
+	for <lists+freedreno@lfdr.de>; Mon,  2 Dec 2024 16:03:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DC7A10E771;
-	Mon,  2 Dec 2024 14:39:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB5810E793;
+	Mon,  2 Dec 2024 15:03:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="K1MTDluf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T+7XcBNR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B04C10E784
- for <freedreno@lists.freedesktop.org>; Mon,  2 Dec 2024 14:39:09 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B293grF002804
- for <freedreno@lists.freedesktop.org>; Mon, 2 Dec 2024 14:39:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- g6AHa+2hrNPXyHkYqMwv/F89CPs7fpLf/SFfF1BRFFI=; b=K1MTDlufvtvpJQmr
- OimYmvMcwTVI4zv5B+SND0p/IMTank1OPXf498JGJbQBrQ7Gne8DOSz0P4u39mCy
- Pv9tWOjALOS1a76F6HrM/7AJvOGrcOTcy7Jthl5qYlcVUshUyYcTzK2ZddmKnKt3
- Sbk5zWfCRDAS4RdDLXYPfNkIq7v1CwjObQluZIPrbo1JhjjNB2vNdxC8Gdur5n2J
- i7jts3cbkgEo9f2WmjP7+v9Pm9KYFgZZFRAur8dQ6yZrURcjhIP4ZB7MQmXFjUyM
- MlJS+1xS0U+x3U/5nwiNDpWTvfgIv6v584s1TeZ54vHAl4dDLxmfKeJpHw8u+mQx
- ZL7JlQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 437uvjvxab-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 02 Dec 2024 14:39:08 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-46692fb862bso5063381cf.1
- for <freedreno@lists.freedesktop.org>; Mon, 02 Dec 2024 06:39:08 -0800 (PST)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED5DA10E283;
+ Mon,  2 Dec 2024 15:03:48 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-434a742481aso35385005e9.3; 
+ Mon, 02 Dec 2024 07:03:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1733151827; x=1733756627; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=qujM4d7qCY1L5TaGGSMsXfZ1apvo+jAfsCE8VLdjQ4I=;
+ b=T+7XcBNRWuMrN5dmxYuTZPo/OWfy8Hfox5UmYP1yzzvJnVDT1xMSDw6TVwVmLsSXOv
+ p1W4Lm4I+uj3BxxhqG1YXFo88YrZEdBB+fKyfqPcCNFz0518W/l6WZp7cEK+8pZPEV6+
+ OFR5M+eouJl0etUCwXOo+S8yVR7tAOe+tOK/qz8L57Vyjb9aAjS88xk6UviT6v6a/OHY
+ QEv1iC+385KIuGOj0DxzTS1QrCwMUlRDjJnVlvKI80WnmupnbCqeht5NpEd3AcjcF+Zh
+ 80hcHKHdHCSgzD+RrWEtzrxiMK4eABg+Eqeyx/iRias/wq0YjmuANwAX8oief2WDM7zz
+ dY7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733150347; x=1733755147;
+ d=1e100.net; s=20230601; t=1733151827; x=1733756627;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=g6AHa+2hrNPXyHkYqMwv/F89CPs7fpLf/SFfF1BRFFI=;
- b=VCckRRH0+e5fUV9idVVGsiT/S0lm6p4r77MnZc1tVlWNkhukvzLjVfvcwGA+E6Ep0U
- IV12tEEeCtHlm04NnYBKxJf4kY2qEm99hfAnSsF13kN1a13bTO2Ih9eY1w5PSTqU/waJ
- yCFJnWK/5YhHygASnoLaNgoe46iNscMPxhdrc/QD4NomacZgy51WuGnT8SA+OpyqUn80
- vYlwTfB1jtdoSZA55CWr8LQ4gK+lH965BfZssY6JvOv5IiLkc+scQp6OaaaNOW1cKaKe
- hACfTbyAuoZ7lErC5sF2oC4FC/WeBizbf8So3yZs1w+dqbdDhcb8jnUwX9AVvY1M7TR1
- EFSg==
+ bh=qujM4d7qCY1L5TaGGSMsXfZ1apvo+jAfsCE8VLdjQ4I=;
+ b=HY3Lug/LQttgXvkFAe6zN5EiQCmR2qJXZNcqxXKI1je2qVzef6mjeoDhHLEEW6bZ3s
+ B8CFRVrL3bVYZ4vNidwkVE2Qi6vLC6TdjeUXO1U979jI4Rf/Hpfkt5zPXz5p/7mUIJmO
+ wqZQBQA7NBvR/93/4tF8f0/IDi/8BMzgW7u7S98yqcH0qJ4BO2qD4VeG3XSGB1DFBPv3
+ O/krlaAbu853h9yaoS1jXbjjVKs/geD0/XezhKYq2vDpSGQhlJaGyaL1o1os4gwaY7xv
+ Qjr16mPk7qOa2F0AKZc3/GvU5HzZ77XoNbFqEdhtjYwpZ8OGYk75uzy4SXQMk6DZtJdv
+ PH0g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVaUpCxXIjwwZBMf9LnpbQQPFFfLQILXitz4dm4YF31H20fYBMYBkyEZDJPdr2f9jzy9vtabPJy+TU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy7cIhz1Y5WRGmG/8LjGp3KE/sLQkCkFd/d+damUrM8oXRgFmfE
- XdbtzlYYOB4ILNb8up13GPRokDhXzuSO5HWhFxWEBkGW9Xw1cHzPwZaHjCn+Spur1bx0bSZMJdb
- +0uTeK5wilL6JzWFJvdM72ygxL7+4VyMcd6fIMJAmnhdZrcp390mu4TUlH34f0dLFtj0=
-X-Gm-Gg: ASbGncvCpgWICwVjd9ec+O6pWaxwAtB9UbGcndUUj2NqMoKvN7lrnkHSSVjkPlQrD+B
- dWx8DShIUR43hxJYFf2Cn6wvAtlqvA7PKZ4GZ24Eu0vLGRfg7gJMwIYLyYAVm82RNfTGIJAP4tm
- 10Oxw+EWgPhdhTDfFcUBJU522vtsEE/tK9v97tGEDtQx8iplYnIZBZV9QtcYyW2DUDdAXluLNzM
- AcdFq5ZKKFuSIghkQdoVtGAeF2bt54z5Xs4NE1K3QHHUtej9PtnkkjYuDLdIIe7WIU2iD3HdnOv
- onWhrg5QqmdyZp4o4J6e8rHKVbYA5EY=
-X-Received: by 2002:a05:622a:cf:b0:466:8033:7dd2 with SMTP id
- d75a77b69052e-466b365e8d0mr166007371cf.15.1733150347063; 
- Mon, 02 Dec 2024 06:39:07 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFRWwFbKz7t/fucB4yBe2bX2YgC+0oLMQnDi8dNTq6P8UMCq+YzXzq+ExBumA4HfzOz/BTPFQ==
-X-Received: by 2002:a05:622a:cf:b0:466:8033:7dd2 with SMTP id
- d75a77b69052e-466b365e8d0mr166007091cf.15.1733150346436; 
- Mon, 02 Dec 2024 06:39:06 -0800 (PST)
-Received: from [192.168.212.120] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa5996de7fdsm514344466b.54.2024.12.02.06.39.04
+ AJvYcCUPARCcDdV87+x6+JcQ1OtGA8SmNTdnKi6mUF6ht7cU4CsNp+nhPtfRNtyBLhy14loqqmA4SFsYMH0=@lists.freedesktop.org,
+ AJvYcCUuCa5RBPO+l/cgTin+SafUgpetmjpeK5jD684ce0/v37LcfYiPswQh05hSbjp63fafhYJzWJt4h+EG@lists.freedesktop.org,
+ AJvYcCVeu9yH3AtP1yKZZv7ncRgVBNGTiRvwq6PvongqQtCJKHDQYI5CblYa0/nGpMdlDWvWg26Sp1vRCz7D@lists.freedesktop.org,
+ AJvYcCXOt1U7l9U1lDcClyJyV5Ud24wdq6JAJNJPZT92kvDDrMdGXgA8UQJx9PeBzWQsLEcDgUtmw6//@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwHjGNioabcM13DRD88pSasny1gwZ7k/hLLoi1kvKazYwxTTsXb
+ EF8HUxm8zohEZxEN2b1sGTHjHaRURD8QqYR4a5gaE9fUZcUtnXFr
+X-Gm-Gg: ASbGncvKO+1XIHXeEPyajkKRaBRWnRS2BHF8yoql5LikIDjY8QGCjRelnxz1wZkxD9c
+ 2YIY1394NsDWTRllN+SBgv3gGae/CvB7ucGx+Y9OlOH40y7S73u5Q6jScHZMAEGPrNSfxKDnhFK
+ FRlKe+imLuzTeDDOOpNmGVDb/gAlanRjLVZcX5wdcDLmwHXFLpbSPydpkRH5yxLIq6lBtWB2/AN
+ GcjJPmOafLq/worvQgIjazf457353WzzBfJ9Hwpy1Mf59TpQj6Eu+HB8OObMisSBKWIB4wdgkd0
+ fojfWwqh3yaImeaLRE0=
+X-Google-Smtp-Source: AGHT+IGDnqoQPM9S2ZXAYcJFrCBwMFmcYVdD5NrlXMVFXBAOrzgALnyLT6wqVMw+fFjssl311bGusQ==
+X-Received: by 2002:a5d:64cc:0:b0:385:f092:e16 with SMTP id
+ ffacd0b85a97d-385f0a153ccmr4698133f8f.55.1733151825042; 
+ Mon, 02 Dec 2024 07:03:45 -0800 (PST)
+Received: from ?IPV6:2001:861:3385:e20:6384:4cf:52c5:3194?
+ ([2001:861:3385:e20:6384:4cf:52c5:3194])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-385ec6a3d8fsm5080310f8f.101.2024.12.02.07.03.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Dec 2024 06:39:06 -0800 (PST)
-Message-ID: <d8e1c1d0-a375-4944-aada-2bbd6a4739ff@oss.qualcomm.com>
-Date: Mon, 2 Dec 2024 15:39:04 +0100
+ Mon, 02 Dec 2024 07:03:44 -0800 (PST)
+Message-ID: <0eb908f2-2304-4a91-9c91-e7f291da9dcd@gmail.com>
+Date: Mon, 2 Dec 2024 16:03:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: sm8550: correct MDSS
- interconnects
+Subject: Re: [PATCH 09/10] drm/sti: hdmi: use eld_mutex to protect access to
+ connector->eld
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar
+ <alim.akhtar@samsung.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
- stable@kernel.org
-References: <20241026-fix-sm8x50-mdp-icc-v2-0-fd8ddf755acc@linaro.org>
- <20241026-fix-sm8x50-mdp-icc-v2-1-fd8ddf755acc@linaro.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20241026-fix-sm8x50-mdp-icc-v2-1-fd8ddf755acc@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: J_MYrQA5-gdJdkOZiaOGyNqG0c-9umo-
-X-Proofpoint-ORIG-GUID: J_MYrQA5-gdJdkOZiaOGyNqG0c-9umo-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 malwarescore=0
- suspectscore=0 mlxlogscore=773 impostorscore=0 adultscore=0 phishscore=0
- bulkscore=0 priorityscore=1501 clxscore=1015 spamscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412020126
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+References: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
+ <20241201-drm-connector-eld-mutex-v1-9-ba56a6545c03@linaro.org>
+Content-Language: en-US, fr
+From: =?UTF-8?Q?Rapha=C3=ABl_Gallais-Pou?= <rgallaispou@gmail.com>
+In-Reply-To: <20241201-drm-connector-eld-mutex-v1-9-ba56a6545c03@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,26 +124,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26.10.2024 7:59 PM, Dmitry Baryshkov wrote:
-> SM8550 lists two interconnects for the display subsystem, mdp0-mem
-> (between MDP and LLCC) and mdp1-mem (between LLCC and EBI, memory).
-> The second interconnect is a misuse. mdpN-mem paths should be used for
-> several outboud MDP interconnects rather than the path between LLCC and
-> memory. This kind of misuse can result in bandwidth underflows, possibly
-> degrading picture quality as the required memory bandwidth is divided
-> between all mdpN-mem paths (and LLCC-EBI should not be a part of such
-> division).
+
+
+Le 01/12/2024 à 00:55, Dmitry Baryshkov a écrit :
+> Reading access to connector->eld can happen at the same time the
+> drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
+> order to protect connector->eld from concurrent access.
 > 
-> Drop the second path and use direct MDP-EBI path for mdp0-mem until we
-> support separate MDP-LLCC and LLCC-EBI paths.
-> 
-> Fixes: d7da51db5b81 ("arm64: dts: qcom: sm8550: add display hardware devices")
-> Cc: stable@kernel.org
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Hi Dmitry,
+
+Acked-by: Raphael Gallais-Pou <rgallaispou@gmail.com>
+
+Thanks,
+Raphaël
 > ---
+>   drivers/gpu/drm/sti/sti_hdmi.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
+> index 847470f747c0efad61c2ebdc3fb3746a7a13a863..3c8f3532c79723e7b1a720c855c90e40584cc6ca 100644
+> --- a/drivers/gpu/drm/sti/sti_hdmi.c
+> +++ b/drivers/gpu/drm/sti/sti_hdmi.c
+> @@ -1225,7 +1225,9 @@ static int hdmi_audio_get_eld(struct device *dev, void *data, uint8_t *buf, size
+>   	struct drm_connector *connector = hdmi->drm_connector;
+>   
+>   	DRM_DEBUG_DRIVER("\n");
+> +	mutex_lock(&connector->eld_mutex);
+>   	memcpy(buf, connector->eld, min(sizeof(connector->eld), len));
+> +	mutex_unlock(&connector->eld_mutex);
+>   
+>   	return 0;
+>   }
+> 
 
-Feel free to use QCOM_ICC_TAG_ALWAYS, for both patches:
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
