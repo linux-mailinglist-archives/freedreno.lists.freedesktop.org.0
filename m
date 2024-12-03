@@ -2,110 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2AC29E1E70
-	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 14:58:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D5F29E1E80
+	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 14:59:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B88310EA05;
-	Tue,  3 Dec 2024 13:58:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5650410E47A;
+	Tue,  3 Dec 2024 13:59:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="kzS0bno6";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="HpLumwtk";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
- [209.85.208.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E92B10EA03
- for <freedreno@lists.freedesktop.org>; Tue,  3 Dec 2024 13:58:12 +0000 (UTC)
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-2ffb3cbcbe4so59649441fa.0
- for <freedreno@lists.freedesktop.org>; Tue, 03 Dec 2024 05:58:12 -0800 (PST)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1232810E47A
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Dec 2024 13:59:00 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-53de92be287so8238181e87.1
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Dec 2024 05:58:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733234291; x=1733839091; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Pj5SaA33rGzeah/pbmVRQIoqaIyNVExU4n/MvIb6OOM=;
- b=kzS0bno6VkoUaC6sICl5OB/3XbyxpU/aaO2kIlsL6o0CRZKNEXkgzAmHQNK4A+r4Rw
- wCG53nqIWVrcA+FAh68x3Q1n7S2BfORvR8MlNEenXVibjdlPzGMOobwiO8Cj5MhUlOHE
- tpzFhPyA42GKe1Ta85WPycoh3z7EZFNWpS8CDKXxvSrripw1jzehX0+W2obfBGAdDML8
- 3jg16VcLw3h8VN8L1ZtKdpdrHwd5Y86GFSY6fZytB6Y3du9l1sDUqgoJV3fAgJG2Sgzt
- mDODnErzAOrcLuY/CXJwc8cZLJVBuyTqjrmzJJSILNzvm2nzOl7hVgjon2XoQED+f3gG
- 38jQ==
+ d=linaro.org; s=google; t=1733234338; x=1733839138; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=ratoXWp/EmolcxNUAUNGQ1kmRPcGIDYTBbsytoKVT70=;
+ b=HpLumwtkdnyMDrp/OzbJgs/LjMnyOWRoNadhBgG9LoMhhzVm0FjrV9lM+R6z6mYdXw
+ NoLngG5qu2Jo37Csotlb8acwrfyUuyXNorArxdOt8xuNY6T9pj4l1vmYIVhbPYGQl6pt
+ plmrIxRWD9jLXw1bvGc0UW5Nty/4Cc+OEVA8WweghahSIHb59lWsHUnSA018sthi5xFq
+ v7XOet8kJ+JFJ86r+R5+jluFgoSiOeQyrabzeC1iyMWpO0aCnS1BcdYF0xtGoas7uBok
+ /EZeZGVDj7JPxx6VOv/S4s+1XjeSeQAREEliIh8QnmCfC2vpCTDOqNNaWk2as+JRY2vd
+ YJYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733234291; x=1733839091;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Pj5SaA33rGzeah/pbmVRQIoqaIyNVExU4n/MvIb6OOM=;
- b=P9m94tG10JaRErOZiVZKXnPv3Rf6xvHCDx6Gv/gu3gOGjt1qGYKmMPtZSPc/yFXZDI
- cfK3BaJWb7V3OEgtMPyq4BroOnaj9YKeV3qZ+B+QfTJchrqHf4gS+bOrrwyVIRZeOiBP
- Jhj5KnOioZ3K7/Tcod0WfdziqAbYlfXDJxoPeN6as4VDZXdPCSJiQKuxl4BIXaI4XD2/
- hejRcn9HwUC9V+KTrAWxJUpR7jMfeUghYwqBAxdGEhYfotYAcx7yoGTHm3C5tY0dr4pc
- Dp4htF+vYevbbmijD9oK6OKA5Ien/8XEmrCEuAWtfAmrF6KTUMw7CoeWeQJ5sceCUnxf
- Lbew==
+ d=1e100.net; s=20230601; t=1733234338; x=1733839138;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ratoXWp/EmolcxNUAUNGQ1kmRPcGIDYTBbsytoKVT70=;
+ b=oWK3emwoSb/0DcA7x40iUTMDEkbiJyYP//tgGxFmmdwj9htOrQJrJfCUJw5sVX6rUr
+ CCOiXq5IwHm4Cv0IDCztMC6zbkIK2+ldp9F7Hw+YOdjucz6XpDvi6SdP7nmYNcYIp3W6
+ Ff8edt7rz3LfIolvWcb5Df9buADiAH0ADJ0pssmldzN1uT6LBho3Ed246HhZwzs/bFy6
+ ZH0qahAiCierf1cktouHfI2yRnPwLhZpnkTh745IT5hqSOmkIcA4tbctzfCfY356FteZ
+ JLU/sz9jhwVecCb0qV1IrTxUM7+9NbhVe6W8tnDf3q3/dyGYxHJo1OFGrJG3urLIE4b6
+ L68Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUOgWnJ+s3sB12kbRPih+fSIcKNCYCULEp3Q/pJd1GZmWg/9DN/EB6SX/iszd1GkdYTHbxUWjvHT2s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzKIAsD9+rkiwzUuucsLapbcZhuyf/+4OgK+WV4aekFvArwW2EV
- 0kxz0l7ieKgjhsptoX3e9UkodHlCLJFdQgxofttbWsUdwiMcPL51RS/6W5YXlA4=
-X-Gm-Gg: ASbGncv/LfrkJavciCUgXAGcsnksXSNFh/b5J+ZTAnGsNyUbc/nBAVbAorAkGLB7nxP
- pU+0qO3xYKJVmPgCkzXcipSfr4yGv3nsOpnbDaxmB3tJ2+h7xF7XAFZNdkG+P1W7mXO4ISFX2sy
- urlsAtRmrjLN79un90grXr/meDYpQwCChIXu128S9aCpbKGTz7Jf0pwQAGHKVYJE+OXTdKAeGGC
- Y92CDTWuCXH5F3O4gG1FfAsUWv/6QZzSndm3AGiYCV1E1XS68bgiPXqYvr34aWoBoNYiifXGwuZ
- SFUVV8nfVMufxd4bErACE4EeWPp4mw==
-X-Google-Smtp-Source: AGHT+IHfqup3wRu/YlQwHjftG9hZZW4Odf6KSlTWBL24IqkfpJKbOUgrh1DX0z2m6JH7KpitaUiUxw==
-X-Received: by 2002:a05:6512:2810:b0:53d:cf78:f240 with SMTP id
- 2adb3069b0e04-53e12a2e9bcmr1842991e87.35.1733234290592; 
- Tue, 03 Dec 2024 05:58:10 -0800 (PST)
+ AJvYcCXUTpNpmaItyCkoV7vsqw8efVFCQ48zjQQGz3a1AkZHGUJyGCu/swRGltmZwjG0zPt47fqqpuPktzM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyatR/aBQaejeLdcZwl/vLA5yRJ/Wzp52igmd8FFnkpjvp1Xn0X
+ mbzPLECn5ED6M6JK7Tt9n6x6O42f9pP+2gL4J9DBWcnGqQgLnVIF//IKxy9J0jM=
+X-Gm-Gg: ASbGncvN31Otd2uOg8/29l/4YzIWybMUFhPuPZwEyqMfhoERFmB+sAChgM9bYPY5hTd
+ HbKUCVcrlPlmx3faoVo7mAKtQ77FuxIL5d1VUqaFt4S/sRuGk/AivtnvcAr00Hpr1SzrOlpvjNj
+ c+584UATCiKYWdJAnFJmpjCF1eSeQeGa2BH8pbcKukQ7ihs+V31BfZ5SQLDO04s8boPFAsx05kP
+ ccXL8n/WEV4hAge2NGpoYPa5N1FGe8s3+jngDoYho8xJsvdMlhIy0zue1IOJhwFfyN/mVwKJGkQ
+ 2mIxReHIUsNFmOnuE3gHi4/TmtcNMA==
+X-Google-Smtp-Source: AGHT+IGXwu7iAMc0T7nz4ZWr7DVCTldVmrbcWesEg5VeYru0HhyDfTDMH7KA7Bk8Gf9p7i1oKm3lyg==
+X-Received: by 2002:a05:6512:3182:b0:53d:a025:1142 with SMTP id
+ 2adb3069b0e04-53e12a39336mr2285402e87.54.1733234338202; 
+ Tue, 03 Dec 2024 05:58:58 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53df6496a43sm1829234e87.213.2024.12.03.05.58.08
+ 2adb3069b0e04-53df64a06fesm1843812e87.258.2024.12.03.05.58.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Dec 2024 05:58:09 -0800 (PST)
-Date: Tue, 3 Dec 2024 15:58:07 +0200
+ Tue, 03 Dec 2024 05:58:56 -0800 (PST)
+Date: Tue, 3 Dec 2024 15:58:54 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+To: Xiangxu Yin <quic_xiangxuy@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 07/10] drm/msm/dp: use eld_mutex to protect access to
- connector->eld
-Message-ID: <n2zmw4wquxzht6gvlx6yjurpobgwlsryh75n5gw65j5vjclhgr@jqubqjispqsr>
-References: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
- <20241201-drm-connector-eld-mutex-v1-7-ba56a6545c03@linaro.org>
- <ca906dc4-ac72-4a76-a670-36c011c853c9@quicinc.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, 
+ Bartosz Golaszewski <brgl@bgdev.pl>, quic_lliu6@quicinc.com,
+ quic_fangez@quicinc.com, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 6/8] drm/msm/dp: Add maximum width limitation for modes
+Message-ID: <fb6enh3wzusadc6r7clg7n7ik2jsucimoi7dnecnsstcz4r6e6@dtahvlm522jj>
+References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
+ <20241129-add-displayport-support-for-qcs615-platform-v1-6-09a4338d93ef@quicinc.com>
+ <CAA8EJpprTGRTxO+9BC6GRwxE4A3CuvmySsxS2Nh4Tqj0nDRT_Q@mail.gmail.com>
+ <95a78722-8266-4d5d-8d2f-e8efa1aa2e87@quicinc.com>
+ <CAA8EJpo-1o9i4JhZgdbvRxvoYQE2v18Lz_8dVg=Za7a_pk5EDA@mail.gmail.com>
+ <86b9a8be-8972-4c19-af0c-da6b3667cbf4@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <ca906dc4-ac72-4a76-a670-36c011c853c9@quicinc.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <86b9a8be-8972-4c19-af0c-da6b3667cbf4@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,23 +110,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 02, 2024 at 07:27:45PM -0800, Abhinav Kumar wrote:
+On Tue, Dec 03, 2024 at 03:41:53PM +0800, Xiangxu Yin wrote:
 > 
 > 
-> On 11/30/2024 3:55 PM, Dmitry Baryshkov wrote:
-> > Reading access to connector->eld can happen at the same time the
-> > drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
-> > order to protect connector->eld from concurrent access.
+> On 12/2/2024 5:32 PM, Dmitry Baryshkov wrote:
+> > On Mon, 2 Dec 2024 at 11:05, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
+> >>
+> >>
+> >>
+> >> On 11/29/2024 9:52 PM, Dmitry Baryshkov wrote:
+> >>> On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
+> >>>>
+> >>>> Introduce a maximum width constraint for modes during validation. This
+> >>>> ensures that the modes are filtered based on hardware capabilities,
+> >>>> specifically addressing the line buffer limitations of individual pipes.
+> >>>
+> >>> This doesn't describe, why this is necessary. What does "buffer
+> >>> limitations of individual pipes" mean?
+> >>> If the platforms have hw capabilities like being unable to support 8k
+> >>> or 10k, it should go to platform data
+> >>>
+> >> It's SSPP line buffer limitation for this platform and only support to 2160 mode width.
+> >> Then, shall I add max_width config to struct msm_dp_desc in next patch? for other platform will set defualt value to ‘DP_MAX_WIDTH 7680'
 > > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/dp/dp_audio.c | 2 ++
-> >   1 file changed, 2 insertions(+)
+> > SSPP line buffer limitations are to be handled in the DPU driver. The
+> > DP driver shouldn't care about those.
 > > 
-> 
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Ok, Will drop this part in next patch.
 
-Ack to merge through drm-misc?
+If you drop it, what will be left from the patch itself?
+
+> >>>>
+> >>>> Signed-off-by: Xiangxu Yin <quic_xiangxuy@quicinc.com>
+> >>>> ---
+> >>>>  drivers/gpu/drm/msm/dp/dp_display.c |  3 +++
+> >>>>  drivers/gpu/drm/msm/dp/dp_display.h |  1 +
+> >>>>  drivers/gpu/drm/msm/dp/dp_panel.c   | 13 +++++++++++++
+> >>>>  drivers/gpu/drm/msm/dp/dp_panel.h   |  1 +
+> >>>>  4 files changed, 18 insertions(+)
+> > 
+> > 
+> 
 
 -- 
 With best wishes
