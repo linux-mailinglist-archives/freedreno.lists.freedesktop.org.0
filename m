@@ -2,70 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E7FC9E1DD3
-	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 14:41:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4799E9E1DF0
+	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 14:43:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BBD910E46B;
-	Tue,  3 Dec 2024 13:41:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2082A10E13B;
+	Tue,  3 Dec 2024 13:43:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dgOtvvRH";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Yj5hAAty";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E376D10E45E
- for <freedreno@lists.freedesktop.org>; Tue,  3 Dec 2024 13:41:53 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-2ffbfee94d7so46126061fa.3
- for <freedreno@lists.freedesktop.org>; Tue, 03 Dec 2024 05:41:53 -0800 (PST)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 269EB10E45B
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Dec 2024 13:43:40 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-53dde4f0f23so5534708e87.3
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Dec 2024 05:43:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733233312; x=1733838112; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1733233418; x=1733838218; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=b9EQvBAb2SX0qrGU/ZgIliBiKbnHvi2rA/qAWxRRbY0=;
- b=dgOtvvRHMG24nfe3O4fPch6BmK70W6Ss+RcbmHMmvVcZie4jnLSn2R0ioVWMx5YQxH
- AEikMefN713cb/6pkjphrUytDNyfnjoPUfbEiOOjAOFywYuRhFq82Gll1MozwF0BXtQE
- hb4dO8KU+EogoU9fARusk8OpS+PDwmOeRZhZgcAzUXIOFKhOT3zZr8ro9KSUdaJXtIkK
- vCoAShRx8h/LgBFIDWr62UWPhH+Vzh1u3GAC9N1qmEllWUEzHkXJo4jHi+etEGfCVWaI
- 2aOnD8oHJC7UkMzU+4CD+guhybVNgLDbEiSvn6sgIBGNkS1s2dek7Q76id77449BXq6M
- rC5w==
+ bh=BexXqu1YANquKbhWrZTOr7m0R8hKt1AEONAGEhu8ML8=;
+ b=Yj5hAAtyVtQ2f3UoILIMS42IOMZV+vm/V8tjosat+CANgf20GvmxdhmKNPVRcQHwta
+ 8paQdUWSkY0bvUNQhgiZUygC3KmDauXAnAVQCrtkjHQ3rjQMIdKjbtDYWFtxMOScbHFh
+ /MWFsdV2pG9gMyWURY803NBBz+J1ga/g2YPDEbsBYftulen9hXtb+FEO3WSehx29pa3z
+ zF22FoVl+9w+F0FdrcgPYi0ivq6cuFKBEI5TvQwPhN9ZH30b0Vd3cKI7Qd+Uvm8Lsh2A
+ EaLAAmdqylSd3UhD2oHqtijDYP/5zFLY0BNJeN4NfLlMlpNXqEifV4En/yWo/xyVgRIG
+ N5dQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733233312; x=1733838112;
+ d=1e100.net; s=20230601; t=1733233418; x=1733838218;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=b9EQvBAb2SX0qrGU/ZgIliBiKbnHvi2rA/qAWxRRbY0=;
- b=wcfuep6EQ3o1EEEDBG6d9KNftUCDcHksS/X9h21U7tG9gB79WEmu3izQ6Fd7DD7GB7
- CuzrtVN3MPBs0ud8dle9nkfHmoVPbkrv4yeq+CKhKT40PTzetQk8G0QGrxq6dGNo27xh
- 0VWPXuFIfPHc+jCpb5Fb0lmQT0Fgnp5pSa5kRBTO359nNDfKGZCge0cg2OaDmzKUJDBu
- NBLv9OxMZO0tqhqgbOFPIPx/6M1xPb9OObaYIRzWalJsHHIhJoWn8X1eXIqXbdDneA6I
- NL0+q0clK/ODhK8NA0x6LFIoQ5kDefF+/0JxK5+38SSPH/V8Au/S2yy3ILsDQ5qzsvWN
- 5sfw==
+ bh=BexXqu1YANquKbhWrZTOr7m0R8hKt1AEONAGEhu8ML8=;
+ b=BOvScTQPwd+plwqgsjCKRy4XpXu0/DNBxOEhd5/b5XwT9q7VI/UNNDnRsTst0+ShwE
+ kAXN/7ybshzqZB54rCOh6GXtbY+XO8uV6o+NzsD1x3AxOiNuvF/6AbukXgtq4ZUCywyd
+ TEQPzRgFlHknsNmW5nou8G8xGWlkS43mb/ZtEizmH64EeCyDFStgyFp0uQWikmLxlSAi
+ p3UH/g1M2oZP07Urix4vpwLv4qFJ+OB6qATm+dY5x6vzmUQx7f85re3YNICMmEjWcnEd
+ 4lbJsCzsQvuZauE9uj2kn4iye13R4t2sj/zjT/Be4BgpevxzR53tU2EOOo2LwoaF7nyG
+ ZpMA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUfe3ML3gPgOA9a8D9xY2DmO0Jjp2WH73hx2hgHj0TGdPngd5sLW82K4l+5Yi5dIgZ4lYIZomzP3Qc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwlA5tgbfOaPe6b0ldd7e4TbUmogLbCb5yqY4CYZ8puOLfvAy+G
- kSaTKwqQk2CN//iTZnmHvmpCg6jc6rjDYbG6F6OD59VfZ5fgjzzW2tXy1R8azAs=
-X-Gm-Gg: ASbGncvYozBajYbBhgoEK7ZQs9qefVxp/zc0oxax3SaYKRc/JvPomHG5tS4B82EMVzk
- OpAcKdkMvLsVayMONsXMav3N9bg32h8fGt2fAlLz5KBrdSw9Ti/0go/9cFms1NsdYHPdIuOEWk3
- /yleD7CU9ISrajMG+9bVeDjyQOPVvMt5t8D8YOl2Ov6GemiM5QO6mcwYZGTqIdsKEGsVw2nGcgn
- sss6dRFXuAMsx5GO4cgply8CSWeuffSZNZnfPW+eCHobqEBie9x2jDnfP6lltF8eW/pDGE/TxPz
- OcxTSIfrBMMsI2E6JsmO68YOzlVM5g==
-X-Google-Smtp-Source: AGHT+IHpMzPr6Lls4GRyBuCcJBMUBsc/X9uSkqqmTyZzvhlEVvAz5e+LXYqBKqUPPK3QZnPGFneqVQ==
-X-Received: by 2002:a2e:a99f:0:b0:2ff:d49f:dd4a with SMTP id
- 38308e7fff4ca-30014e2437fmr870081fa.21.1733233311908; 
- Tue, 03 Dec 2024 05:41:51 -0800 (PST)
+ AJvYcCXfO7oW1B1eDrOkC5uuE2fRecf9WV76YyC2tbbXYg/JCFpOU+SSVRsuce9YfHX31gtLULhXtlKsn2s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxhGDgSIA47CFqIjUCt18NiGqn9d1y3Ie2p0315sdsLEtx37VwS
+ MPNeBU2AJfySLm/rEKakoL4hJurAzvGxVgM/Il8xMMq4pIZMzRE1dtH8EBUTRqQ=
+X-Gm-Gg: ASbGncsys+IfH6mX7xJ+EhnMQkA26wETIx30jc2YdpZ32EGIQTLDzjgd2eRxrBcuyop
+ JOramPUE5xsoWXlZc8VV+uu4dujbDe5RTB40XwrXo+Uq67lnGSUD9fNX9rVk31flOdLIUc1YsBP
+ p9xRr4WwOaGm7kGhwhrh3HGBe2q20iOG72KGAR2FeVP3+NgEdxFQqgNmm8F7N0ET6kqYHZ3GRnS
+ jN8eJORFAiEZk7A2qnVUh1L7uhUJKHKC4y0KQ43ZPqnZMb9VP+j1+xrV2soB9O5Ur5aGq2qgXo2
+ Zg0JZKp+yV2VADeNwc0FWMrOvMzbfQ==
+X-Google-Smtp-Source: AGHT+IE8R6jm4cCT/ek6WXdRlNZG6O64AcF1SkyDRfFBDn4mzR/uUulOEMTuStC5oxV2xJ+QqSD9DQ==
+X-Received: by 2002:a05:6512:12cd:b0:53d:ea1d:50fc with SMTP id
+ 2adb3069b0e04-53e12a28351mr1659356e87.48.1733233418239; 
+ Tue, 03 Dec 2024 05:43:38 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ffdfc75236sm16038451fa.86.2024.12.03.05.41.49
+ 2adb3069b0e04-53e1394662fsm197862e87.38.2024.12.03.05.43.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Dec 2024 05:41:50 -0800 (PST)
-Date: Tue, 3 Dec 2024 15:41:48 +0200
+ Tue, 03 Dec 2024 05:43:37 -0800 (PST)
+Date: Tue, 3 Dec 2024 15:43:35 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -76,16 +75,15 @@ Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>,
  dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] dt-bindings: display: msm: dp-controller: document
- clock parents better
-Message-ID: <gpqrugcsyhz32bvip5mgjtcservhral2o5b6c5nz4ocwbjw5uo@eypv4x6jyrdr>
+Subject: Re: [PATCH 3/4] dt-bindings: display/msm: add stream 1 pixel clock
+ binding
+Message-ID: <edlw7grqy74rihy5jw5t2krcyfn24c6b2lfxht4b52wx6fvck6@pqeqrbnwtsf3>
 References: <20241202-dp_mst_bindings-v1-0-9a9a43b0624a@quicinc.com>
- <20241202-dp_mst_bindings-v1-2-9a9a43b0624a@quicinc.com>
- <bfa857c2-cd74-4fe2-a88c-3b35a58710b0@kernel.org>
+ <20241202-dp_mst_bindings-v1-3-9a9a43b0624a@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <bfa857c2-cd74-4fe2-a88c-3b35a58710b0@kernel.org>
+In-Reply-To: <20241202-dp_mst_bindings-v1-3-9a9a43b0624a@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,43 +99,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Dec 03, 2024 at 09:01:31AM +0100, Krzysztof Kozlowski wrote:
-> On 03/12/2024 04:31, Abhinav Kumar wrote:
-> > Document the assigned-clock-parents better for the DP controller node
-> > to indicate its functionality better.
+On Mon, Dec 02, 2024 at 07:31:41PM -0800, Abhinav Kumar wrote:
+> On some chipsets the display port controller can support more
+> than one pixel stream (multi-stream transport). To support MST
+> on such chipsets, add the binding for stream 1 pixel clock for
+> display port controller. Since this mode is not supported on all
+> chipsets, add exception rules and min/max items to clearly mark
+> which chipsets support only SST mode (single stream) and which ones
+> support MST.
 > 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>  .../bindings/display/msm/dp-controller.yaml        | 32 ++++++++++++++++++++++
+>  .../bindings/display/msm/qcom,sa8775p-mdss.yaml    |  9 ++++--
+>  2 files changed, 38 insertions(+), 3 deletions(-)
 > 
-> You change the clocks entirely, not "document". I would say that's an
-> ABI break if it really is a Linux requirement. You could avoid any
-> problems by just dropping the property from binding.
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index 9fe2bf0484d8..650d19e58277 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -50,30 +50,38 @@ properties:
+>      maxItems: 1
+>  
+>    clocks:
+> +    minItems: 5
+>      items:
+>        - description: AHB clock to enable register access
+>        - description: Display Port AUX clock
+>        - description: Display Port Link clock
+>        - description: Link interface clock between DP and PHY
+>        - description: Display Port stream 0 Pixel clock
+> +      - description: Display Port stream 1 Pixel clock
+>  
+>    clock-names:
+> +    minItems: 5
+>      items:
+>        - const: core_iface
+>        - const: core_aux
+>        - const: ctrl_link
+>        - const: ctrl_link_iface
+>        - const: stream_pixel
+> +      - const: stream_1_pixel
+>  
+>    assigned-clocks:
+> +    minItems: 2
+>      items:
+>        - description: link clock source
+>        - description: stream 0 pixel clock source
+> +      - description: stream 1 pixel clock source
+>  
+>    assigned-clock-parents:
+> +    minItems: 2
+>      items:
+>        - description: Link clock PLL output provided by PHY block
+>        - description: Stream 0 pixel clock PLL output provided by PHY block
+> +      - description: Stream 1 pixel clock PLL output provided by PHY block
+>  
+>    phys:
+>      maxItems: 1
+> @@ -175,6 +183,30 @@ allOf:
+>        required:
+>          - "#sound-dai-cells"
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,sa8775p-dp
 
-But if you take a look at the existing usage, the proposed change
-matches the behaviour. So, I'd say, it's really a change that makes
-documentation follow the actual hardware.
+Why do you need an extra platform conditional?
 
+> +
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 6
+> +        clock-names:
+> +          items:
+> +            - const: core_iface
+> +            - const: core_aux
+> +            - const: ctrl_link
+> +            - const: ctrl_link_iface
+> +            - const: stream_pixel
+> +            - const: stream_1_pixel
+> +        assigned-clocks:
+> +          maxItems: 3
+> +        assigned-clock-parents:
+> +          maxItems: 3
+> +
+>  additionalProperties: false
+>  
+>  examples:
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> index 58f8a01f29c7..7f10e6ad8f63 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+> @@ -177,16 +177,19 @@ examples:
+>                       <&dispcc_dptx0_aux_clk>,
+>                       <&dispcc_dptx0_link_clk>,
+>                       <&dispcc_dptx0_link_intf_clk>,
+> -                     <&dispcc_dptx0_pixel0_clk>;
+> +                     <&dispcc_dptx0_pixel0_clk>,
+> +                     <&dispcc_dptx0_pixel1_clk>;
+>              clock-names = "core_iface",
+>                            "core_aux",
+>                            "ctrl_link",
+>                            "ctrl_link_iface",
+> -                          "stream_pixel";
+> +                          "stream_pixel",
+> +                          "stream_1_pixel";
+>  
+>              assigned-clocks = <&dispcc_mdss_dptx0_link_clk_src>,
+> +                              <&dispcc_mdss_dptx0_pixel1_clk_src>,
+>                                <&dispcc_mdss_dptx0_pixel0_clk_src>;
+> -            assigned-clock-parents = <&mdss0_edp_phy 0>, <&mdss0_edp_phy 1>;
+> +            assigned-clock-parents = <&mdss0_edp_phy 0>, <&mdss0_edp_phy 1>, <&mdss0_edp_phy 1>;
+>  
+>              phys = <&mdss0_edp_phy>;
+>              phy-names = "dp";
 > 
-> > 
-> > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > ---
-> >  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> > index 35ae2630c2b3..9fe2bf0484d8 100644
-> > --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> > +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> > @@ -72,8 +72,8 @@ properties:
-> >  
-> >    assigned-clock-parents:
-> >      items:
-> > -      - description: phy 0 parent
-> > -      - description: phy 1 parent
-> > +      - description: Link clock PLL output provided by PHY block
-> > +      - description: Stream 0 pixel clock PLL output provided by PHY block
+> -- 
+> 2.34.1
 > 
-> 
-> Best regards,
-> Krzysztof
 
 -- 
 With best wishes
