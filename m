@@ -2,67 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D5F29E1E80
-	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 14:59:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D0199E1EA2
+	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 15:07:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5650410E47A;
-	Tue,  3 Dec 2024 13:59:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0DA110EA09;
+	Tue,  3 Dec 2024 14:07:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="HpLumwtk";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="RK08XOP+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1232810E47A
- for <freedreno@lists.freedesktop.org>; Tue,  3 Dec 2024 13:59:00 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-53de92be287so8238181e87.1
- for <freedreno@lists.freedesktop.org>; Tue, 03 Dec 2024 05:58:59 -0800 (PST)
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+ [209.85.208.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52A0910E21C
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Dec 2024 14:07:39 +0000 (UTC)
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-2ffa49f623cso70510761fa.1
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Dec 2024 06:07:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733234338; x=1733839138; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=ratoXWp/EmolcxNUAUNGQ1kmRPcGIDYTBbsytoKVT70=;
- b=HpLumwtkdnyMDrp/OzbJgs/LjMnyOWRoNadhBgG9LoMhhzVm0FjrV9lM+R6z6mYdXw
- NoLngG5qu2Jo37Csotlb8acwrfyUuyXNorArxdOt8xuNY6T9pj4l1vmYIVhbPYGQl6pt
- plmrIxRWD9jLXw1bvGc0UW5Nty/4Cc+OEVA8WweghahSIHb59lWsHUnSA018sthi5xFq
- v7XOet8kJ+JFJ86r+R5+jluFgoSiOeQyrabzeC1iyMWpO0aCnS1BcdYF0xtGoas7uBok
- /EZeZGVDj7JPxx6VOv/S4s+1XjeSeQAREEliIh8QnmCfC2vpCTDOqNNaWk2as+JRY2vd
- YJYw==
+ d=linaro.org; s=google; t=1733234857; x=1733839657; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=alsc9vr73lToVKNbHqTqZ3F3g1arQk5UqwKIUtPE6Ps=;
+ b=RK08XOP+o18SfPMgqsYu6pxaRmt6++1KyXhmwaJlavBI9IVLWWYhGqh9LXUEbKrWwK
+ dOMXLmagReBPsnKaaC38gGEv+zCrIYJYuM+yUa84v9u6PRQTFLEsmn+PBdEpX71O/wSl
+ 65pZyixuYGS5rfDUAGSNfiomXhGwPAhVqiWQEG2hspY/eazNEaQT5dfniVfke4EGFv1W
+ 8XoDhXVY1iOSc9nQ1twvcVpnpGodk+ye9FhIDWcPmiiUg7SNFAavxliPxpuH4mXy9WVd
+ 2IeQUDgsp+8ZPFs+Cj4lNOCZvUylscimg5G18iqXiVJxOWzT3NKpqZJTjrrOIo/Wc1ze
+ iHqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733234338; x=1733839138;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ratoXWp/EmolcxNUAUNGQ1kmRPcGIDYTBbsytoKVT70=;
- b=oWK3emwoSb/0DcA7x40iUTMDEkbiJyYP//tgGxFmmdwj9htOrQJrJfCUJw5sVX6rUr
- CCOiXq5IwHm4Cv0IDCztMC6zbkIK2+ldp9F7Hw+YOdjucz6XpDvi6SdP7nmYNcYIp3W6
- Ff8edt7rz3LfIolvWcb5Df9buADiAH0ADJ0pssmldzN1uT6LBho3Ed246HhZwzs/bFy6
- ZH0qahAiCierf1cktouHfI2yRnPwLhZpnkTh745IT5hqSOmkIcA4tbctzfCfY356FteZ
- JLU/sz9jhwVecCb0qV1IrTxUM7+9NbhVe6W8tnDf3q3/dyGYxHJo1OFGrJG3urLIE4b6
- L68Q==
+ d=1e100.net; s=20230601; t=1733234857; x=1733839657;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=alsc9vr73lToVKNbHqTqZ3F3g1arQk5UqwKIUtPE6Ps=;
+ b=bl4IFGR0gIIs0zX9q8xdfMDJ7utoAub4C5rtsY81NuOGhvbY8sCvfE+bI25B6G3lxz
+ 1EyFfz+b7p7g5VM1aQMJRY2YGBH0ahJyBkMq9wadvE3c7WY6TOfscVC/b15EblOXmES0
+ /EnQv7dkn30p9B//vArMpmXpbSGzP2iydJB0ccmTL8oMRTQAOZ/nrrzWAbSZ6htglFGv
+ RrNtTvgo7wZSLYpJ70ZTPiPkUXXmOyoLHlVyjKVGVpE2ck3F9cyRbEhWOU5qO86G7XLg
+ mbk2sz7PfmLMB9Tuo0SlUNKmNLbP5vVXGKdld+tkEBfP8fZaq5MKjY3y7w9Hd2hq0giu
+ Nwnw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXUTpNpmaItyCkoV7vsqw8efVFCQ48zjQQGz3a1AkZHGUJyGCu/swRGltmZwjG0zPt47fqqpuPktzM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyatR/aBQaejeLdcZwl/vLA5yRJ/Wzp52igmd8FFnkpjvp1Xn0X
- mbzPLECn5ED6M6JK7Tt9n6x6O42f9pP+2gL4J9DBWcnGqQgLnVIF//IKxy9J0jM=
-X-Gm-Gg: ASbGncvN31Otd2uOg8/29l/4YzIWybMUFhPuPZwEyqMfhoERFmB+sAChgM9bYPY5hTd
- HbKUCVcrlPlmx3faoVo7mAKtQ77FuxIL5d1VUqaFt4S/sRuGk/AivtnvcAr00Hpr1SzrOlpvjNj
- c+584UATCiKYWdJAnFJmpjCF1eSeQeGa2BH8pbcKukQ7ihs+V31BfZ5SQLDO04s8boPFAsx05kP
- ccXL8n/WEV4hAge2NGpoYPa5N1FGe8s3+jngDoYho8xJsvdMlhIy0zue1IOJhwFfyN/mVwKJGkQ
- 2mIxReHIUsNFmOnuE3gHi4/TmtcNMA==
-X-Google-Smtp-Source: AGHT+IGXwu7iAMc0T7nz4ZWr7DVCTldVmrbcWesEg5VeYru0HhyDfTDMH7KA7Bk8Gf9p7i1oKm3lyg==
-X-Received: by 2002:a05:6512:3182:b0:53d:a025:1142 with SMTP id
- 2adb3069b0e04-53e12a39336mr2285402e87.54.1733234338202; 
- Tue, 03 Dec 2024 05:58:58 -0800 (PST)
+ AJvYcCVmG/fNWNQNv39uie6Q84KyPTtelX2UliOZdTmZniaiT6tTZldpE/BhNX8kO+2P81sDjy+A8gLKfRA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVk7PwH1r6FCnpXZMG9G11YF5cUO2VGvph/sn57NcZCItL3Pwe
+ brODX5zEW2fjvSmbwC84qszcDrx2juiUmoTOZjdT8gTsJGhFO0JHXQZV0rI++aY=
+X-Gm-Gg: ASbGnctuI+coaMM5IhKmYlNnVW58v5zv/5X6Uei4UclYwb/yY50vz5NP07tV2Yxv+tS
+ 6RtdpUjDPt9xUGtxtHOYFd70CY2L+w6IdZJwaPuZdjhjN4Z0SGSaQA4xmECveX/EEEaGd0/W2hy
+ loQbsAzWzP0Q0dDVyhxLwFcp5VuOigWosK5ISQBel0G1NVmSdxRImjvx+OW14n2052gPta3DE32
+ w6PKHyESTCdEPrgDSJvG4B7NKnnu/RFtUu9CXLX/qzY4w8eoi9SxTVTDM0f9cDjJ5viOXM7fpHb
+ KtrUChKgQUJtz/8spE7Oz6CBBTESww==
+X-Google-Smtp-Source: AGHT+IGzMeET4siJUKFgW4BnmqUwqvzwcdd9B9sOmlcJgCBnOeScvQxwQ4zyH6t4AC935j3xTebwFQ==
+X-Received: by 2002:a2e:bd82:0:b0:2fb:5ebe:ed40 with SMTP id
+ 38308e7fff4ca-30009c3443dmr15745541fa.15.1733234855610; 
+ Tue, 03 Dec 2024 06:07:35 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53df64a06fesm1843812e87.258.2024.12.03.05.58.55
+ 38308e7fff4ca-2ffdfc74a1csm16403761fa.69.2024.12.03.06.07.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Dec 2024 05:58:56 -0800 (PST)
-Date: Tue, 3 Dec 2024 15:58:54 +0200
+ Tue, 03 Dec 2024 06:07:33 -0800 (PST)
+Date: Tue, 3 Dec 2024 16:07:31 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Xiangxu Yin <quic_xiangxuy@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, 
@@ -82,19 +81,16 @@ Cc: Rob Clark <robdclark@gmail.com>,
  freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 6/8] drm/msm/dp: Add maximum width limitation for modes
-Message-ID: <fb6enh3wzusadc6r7clg7n7ik2jsucimoi7dnecnsstcz4r6e6@dtahvlm522jj>
+Subject: Re: [PATCH 7/8] drm/msm/dp: Retry Link Training 2 with lower pattern
+Message-ID: <xlmgdysjah3ueypdrdu5b6botvidb2wn4rfm4qpeysclscmuwy@vpfv2ymprblj>
 References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
- <20241129-add-displayport-support-for-qcs615-platform-v1-6-09a4338d93ef@quicinc.com>
- <CAA8EJpprTGRTxO+9BC6GRwxE4A3CuvmySsxS2Nh4Tqj0nDRT_Q@mail.gmail.com>
- <95a78722-8266-4d5d-8d2f-e8efa1aa2e87@quicinc.com>
- <CAA8EJpo-1o9i4JhZgdbvRxvoYQE2v18Lz_8dVg=Za7a_pk5EDA@mail.gmail.com>
- <86b9a8be-8972-4c19-af0c-da6b3667cbf4@quicinc.com>
+ <20241129-add-displayport-support-for-qcs615-platform-v1-7-09a4338d93ef@quicinc.com>
+ <CAA8EJpoN1qBHyZrQJT_=e_26+tcaKRnSrhtxrK6zBP4BwpL=Hg@mail.gmail.com>
+ <b4345b9e-62c6-470d-b1b0-4758cef7f175@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <86b9a8be-8972-4c19-af0c-da6b3667cbf4@quicinc.com>
+In-Reply-To: <b4345b9e-62c6-470d-b1b0-4758cef7f175@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,47 +106,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Dec 03, 2024 at 03:41:53PM +0800, Xiangxu Yin wrote:
+On Tue, Dec 03, 2024 at 04:13:22PM +0800, Xiangxu Yin wrote:
 > 
 > 
-> On 12/2/2024 5:32 PM, Dmitry Baryshkov wrote:
-> > On Mon, 2 Dec 2024 at 11:05, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
+> On 11/29/2024 9:53 PM, Dmitry Baryshkov wrote:
+> > On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
 > >>
-> >>
-> >>
-> >> On 11/29/2024 9:52 PM, Dmitry Baryshkov wrote:
-> >>> On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
-> >>>>
-> >>>> Introduce a maximum width constraint for modes during validation. This
-> >>>> ensures that the modes are filtered based on hardware capabilities,
-> >>>> specifically addressing the line buffer limitations of individual pipes.
-> >>>
-> >>> This doesn't describe, why this is necessary. What does "buffer
-> >>> limitations of individual pipes" mean?
-> >>> If the platforms have hw capabilities like being unable to support 8k
-> >>> or 10k, it should go to platform data
-> >>>
-> >> It's SSPP line buffer limitation for this platform and only support to 2160 mode width.
-> >> Then, shall I add max_width config to struct msm_dp_desc in next patch? for other platform will set defualt value to ‘DP_MAX_WIDTH 7680'
+> >> Add a mechanism to retry Link Training 2 by lowering the pattern level
+> >> when the link training #2 first attempt fails. This approach enhances
+> >> compatibility, particularly addressing issues caused by certain hub
+> >> configurations.
 > > 
-> > SSPP line buffer limitations are to be handled in the DPU driver. The
-> > DP driver shouldn't care about those.
+> > Please reference corresponding part of the standard, describing this lowering.
 > > 
-> Ok, Will drop this part in next patch.
+> Per DisplayPort 1.4a specification Section 3.5.1.2 and Table 3-10, while the standard doesn't explicitly define a TPS downgrade mechanism, it does specify:
 
-If you drop it, what will be left from the patch itself?
+Anything in DP 2.1?
 
-> >>>>
-> >>>> Signed-off-by: Xiangxu Yin <quic_xiangxuy@quicinc.com>
-> >>>> ---
-> >>>>  drivers/gpu/drm/msm/dp/dp_display.c |  3 +++
-> >>>>  drivers/gpu/drm/msm/dp/dp_display.h |  1 +
-> >>>>  drivers/gpu/drm/msm/dp/dp_panel.c   | 13 +++++++++++++
-> >>>>  drivers/gpu/drm/msm/dp/dp_panel.h   |  1 +
-> >>>>  4 files changed, 18 insertions(+)
+> - All devices shall support TPS1 and TPS2
+> - HDR2-capable devices shall support TPS3
+> - HDR3-capable devices shall support TPS4
+> While these capabilities are explicitly defined DPCD for sink devices, source device capabilities are less strictly defined, with the minimum requirement being support for TPS1 and TPS2.
+> In QCS615 DP phy is only supporting to HBR2, we observed a critical interoperability scenario with a DP->HDMI bridge. When link training at TPS4 consistently failed, downgrading to the next lower training pattern successfully established the link and display output successfully.
+
+Any other driver doing such TPS lowering? Or maybe we should be
+selecting TPS3 for HBR2-only devices?
+
+> 
+> This experience suggests that implementing a flexible link training pattern downgrade mechanism can significantly improve compatibility with third-party, non-standard hubs and displays,
+> especially in scenarios where strict adherence to the highest training pattern might prevent successful connection.
+> >>
+> >> Signed-off-by: Xiangxu Yin <quic_xiangxuy@quicinc.com>
+> >> ---
+> >>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 34 ++++++++++++++++++++++++++++++----
+> >>  1 file changed, 30 insertions(+), 4 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> >> index 49c8ce9b2d0e57a613e50865be3fe98e814d425a..b1862294cb98c9f756b0108b7670cb42de37bae4 100644
+> >> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> >> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> >> @@ -1220,7 +1220,7 @@ static void msm_dp_ctrl_clear_training_pattern(struct msm_dp_ctrl_private *ctrl)
+> >>  }
+> >>
+> >>  static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
+> >> -                       int *training_step)
+> >> +                       int *training_step, bool downgrade)
+> >>  {
+> >>         int tries = 0, ret = 0;
+> >>         u8 pattern;
+> >> @@ -1243,6 +1243,28 @@ static int msm_dp_ctrl_link_train_2(struct msm_dp_ctrl_private *ctrl,
+> >>                 state_ctrl_bit = 2;
+> >>         }
+> >>
+> >> +       /*
+> >> +        * DP link training uses the highest allowed pattern by default.
+> >> +        * If it fails, the pattern is downgraded to improve cable and monitor compatibility.
+> >> +        */
+> >> +       if (downgrade) {
+> >> +               switch (pattern) {
+> >> +               case DP_TRAINING_PATTERN_4:
+> >> +                       pattern = DP_TRAINING_PATTERN_3;
+> >> +                       state_ctrl_bit = 3;
+> >> +                       break;
+> >> +               case DP_TRAINING_PATTERN_3:
+> >> +                       pattern = DP_TRAINING_PATTERN_2;
+> >> +                       state_ctrl_bit = 2;
+> >> +                       break;
+> >> +               default:
+> >> +                       break;
+> >> +               }
+> >> +       }
+> >> +
+> >> +       drm_dbg_dp(ctrl->drm_dev, "pattern(%d) state_ctrl_bit(%d) downgrade(%d)\n",
+> >> +               pattern, state_ctrl_bit, downgrade);
+> >> +
+> >>         ret = msm_dp_catalog_ctrl_set_pattern_state_bit(ctrl->catalog, state_ctrl_bit);
+> >>         if (ret)
+> >>                 return ret;
+> >> @@ -1311,10 +1333,14 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
+> >>         /* print success info as this is a result of user initiated action */
+> >>         drm_dbg_dp(ctrl->drm_dev, "link training #1 successful\n");
+> >>
+> >> -       ret = msm_dp_ctrl_link_train_2(ctrl, training_step);
+> >> +       ret = msm_dp_ctrl_link_train_2(ctrl, training_step, false);
+> >>         if (ret) {
+> >> -               DRM_ERROR("link training #2 failed. ret=%d\n", ret);
+> >> -               goto end;
+> >> +               drm_dbg_dp(ctrl->drm_dev, "link training #2 failed, retry downgrade.\n");
+> >> +               ret = msm_dp_ctrl_link_train_2(ctrl, training_step, true);
+> >> +               if (ret) {
+> >> +                       DRM_ERROR("link training #2 failed. ret=%d\n", ret);
+> >> +                       goto end;
+> >> +               }
+> >>         }
+> >>
+> >>         /* print success info as this is a result of user initiated action */
+> >>
+> >> --
+> >> 2.25.1
+> >>
 > > 
 > > 
 > 
+> 
+> -- 
+> linux-phy mailing list
+> linux-phy@lists.infradead.org
+> https://lists.infradead.org/mailman/listinfo/linux-phy
 
 -- 
 With best wishes
