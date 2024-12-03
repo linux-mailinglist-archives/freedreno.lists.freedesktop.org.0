@@ -2,90 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1E259E1042
-	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 01:39:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C8FE9E114F
+	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 03:31:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 628DE10E8A1;
-	Tue,  3 Dec 2024 00:39:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE76D10E17D;
+	Tue,  3 Dec 2024 02:31:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Hvcw3jKS";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="kXKTI3IB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9431A10E883;
- Tue,  3 Dec 2024 00:39:29 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B2KU1xK011334;
- Tue, 3 Dec 2024 00:39:23 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A33CD10E17D;
+ Tue,  3 Dec 2024 02:31:40 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B2IqWun032595;
+ Tue, 3 Dec 2024 02:31:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- CGAy285+Ap8X45IoJ32yK9EFvGsvP/RImqPBvNwlEHM=; b=Hvcw3jKSWNnC3B3j
- NwjSUsmcifRxvcXkvNyI6Pzw959GIRT74vSAbhekXW4L+GMWdaH8qKU+KNrsO1Nu
- AMqvqUFX/zkqJjy17MTolrzeVcNbMDMI/lHQ5ZL7qr7Q+ysmTzX2NxyXWzN7a65F
- iDwpSkS2X4LC/S+O19hln7TPCVbursFQTsX3rbQLnwT3m2l+cqnbRyg0Z8AGP7yr
- 1s47JhKQvP2bOh40QOMtStVIbKdPTxDwO8cdS03u0ttjziFUuRMlbYYamwdtc2kw
- 6/6ibYkgDKsQDSBhU2Eqw2fiu+7hUlZElxU6/7RKkK6Fd9EYYxDvEGY+daVk2hj7
- E4o3rg==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ cKfFTBye+b5/2bGwd2c4xoVvT+UBpVfZ9oklao5OV0U=; b=kXKTI3IBk9BZq6YO
+ JEK8v6hxeEApqSmmff+fWkBRidw5rlETKhIsejz7Rot8ARye3Bkmk+Z+Ipk36wXa
+ 8dqlRiWhetITzyVr2iJiLSql1RJVBUjbBJihgeRgB8n60KcTO0Qg5AyRiAqpiod9
+ 0Wqo3NSHdMjsWLPELw0ifOuPv/sWE0WDFiQfQMcoXuZRgmR2IR7rMf+3U2rKfI3q
+ +nMiVJPDppSe8qOtwD+ugKiaPimvdbjHASVbIUZ3oFitnKBtoXaHWgGrzsM7WcVb
+ DTF6YlZsqucIeVW9J4Odc1bO4IsJR4O24+MavsYmfFkKtUDvB+uQOH6TPLj25M7q
+ TR9hcA==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4393mpb9m5-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 437sq66jyc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 03 Dec 2024 00:39:22 +0000 (GMT)
+ Tue, 03 Dec 2024 02:31:35 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B30dMhG020557
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B32VYvt018685
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 3 Dec 2024 00:39:22 GMT
-Received: from abhinavk-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Mon, 2 Dec 2024 16:39:21 -0800
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Mon, 2 Dec 2024 16:39:03 -0800
-Subject: [PATCH 4/4] drm/msm/dp: remove ST_DISPLAY_OFF as a hpd_state
+ Tue, 3 Dec 2024 02:31:34 GMT
+Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 2 Dec 2024
+ 18:31:33 -0800
+Message-ID: <d65a9bd8-13a7-447c-bb9b-bcff732e08ee@quicinc.com>
+Date: Mon, 2 Dec 2024 18:31:26 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20241202-hpd_display_off-v1-4-8d0551847753@quicinc.com>
-References: <20241202-hpd_display_off-v1-0-8d0551847753@quicinc.com>
-In-Reply-To: <20241202-hpd_display_off-v1-0-8d0551847753@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/14] drm/msm/dp: set safe_to_exit_level before
+ printing it
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
  <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, Stephen Boyd <swboyd@chromium.org>,
- "Doug Anderson" <dianders@chromium.org>, Johan Hovold <johan@kernel.org>,
- "Bjorn Andersson" <quic_bjorande@quicinc.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1733186360; l=1725;
- i=quic_abhinavk@quicinc.com; s=20240509; h=from:subject:message-id;
- bh=JDeyPOy+yLJYgNCcXbssRDVsV9iiD2C0BptxDxcCDCQ=;
- b=+lG1RLKkdCSVtkJ1BBC6V1q7APgWmqraYICOUfKQBxwNGTEE7RhQyEovD1Vhn4Ms8/PHPlbzk
- EyXdKGQBTy1CuoEsN3OETWoY7kTG0GAKYDuM5pFtXfKfl+bycEgKYiz
-X-Developer-Key: i=quic_abhinavk@quicinc.com; a=ed25519;
- pk=SD3D8dOKDDh6BoX3jEYjsHrTFwuIK8+o0cLPgQok9ys=
+ Vetter" <simona@ffwll.ch>, Paloma Arellano <quic_parellan@quicinc.com>
+CC: Douglas Anderson <dianders@chromium.org>, Stephen Boyd
+ <swboyd@chromium.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, kernel test robot <lkp@intel.com>
+References: <20241202-fd-dp-audio-fixup-v2-0-d9187ea96dad@linaro.org>
+ <20241202-fd-dp-audio-fixup-v2-1-d9187ea96dad@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20241202-fd-dp-audio-fixup-v2-1-d9187ea96dad@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: _5LUvbaDvYd4A2fVPts6TaBdGveGLhu_
-X-Proofpoint-GUID: _5LUvbaDvYd4A2fVPts6TaBdGveGLhu_
+X-Proofpoint-GUID: 6Bse4H9EcygaWlkUl8OvQJ6HvbZLQ6E7
+X-Proofpoint-ORIG-GUID: 6Bse4H9EcygaWlkUl8OvQJ6HvbZLQ6E7
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxlogscore=999
- impostorscore=0 mlxscore=0 malwarescore=0 suspectscore=0
- lowpriorityscore=0 adultscore=0 spamscore=0 priorityscore=1501
- clxscore=1015 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412030002
+ malwarescore=0 bulkscore=0
+ priorityscore=1501 mlxscore=0 clxscore=1015 lowpriorityscore=0
+ suspectscore=0 adultscore=0 spamscore=0 impostorscore=0 mlxlogscore=862
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412030020
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,53 +96,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-ST_DISPLAY_OFF check in msm_dp_bridge_atomic_enable() is used to check
-that if the display was disabled while still hotplugged, phy needs
-to be re-initialized. This can be replaced with a different check as
-it just means the hpd_state was still ST_CONNECTED but without display
-being powered on. Replace the ST_DISPLAY_OFF check with a combination
-of connected and power_on checks.
 
-Since all consumers of ST_DISPLAY_OFF have now been removed,
-drop ST_DISPLAY_OFF from the list of hpd_states as technically
-this was never a 'hpd' state anyway.
 
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+On 12/2/2024 2:06 AM, Dmitry Baryshkov wrote:
+> Rather than printing random garbage from stack and pretending that it is
+> the default safe_to_exit_level, set the variable beforehand.
+> 
+> Fixes: d13e36d7d222 ("drm/msm/dp: add audio support for Display Port on MSM")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202411081748.0PPL9MIj-lkp@intel.com/
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_audio.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 831876aa5b35..340366bdb277 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -48,7 +48,6 @@ enum {
- 	ST_MAINLINK_READY,
- 	ST_CONNECTED,
- 	ST_DISCONNECT_PENDING,
--	ST_DISPLAY_OFF,
- };
- 
- enum {
-@@ -1522,7 +1521,7 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
- 
- 	state =  msm_dp_display->hpd_state;
- 
--	if (state == ST_DISPLAY_OFF) {
-+	if (state == ST_CONNECTED && !dp->power_on) {
- 		msm_dp_display_host_phy_init(msm_dp_display);
- 		force_link_train = true;
- 	}
-@@ -1580,8 +1579,6 @@ void msm_dp_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
- 	if (state == ST_DISCONNECT_PENDING) {
- 		/* completed disconnection */
- 		msm_dp_display->hpd_state = ST_DISCONNECTED;
--	} else {
--		msm_dp_display->hpd_state = ST_DISPLAY_OFF;
- 	}
- 
- 	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", dp->connector_type);
-
--- 
-2.34.1
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
