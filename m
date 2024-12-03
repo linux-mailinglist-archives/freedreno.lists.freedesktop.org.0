@@ -2,40 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36BE09E14E1
-	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 09:01:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 783179E14E5
+	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 09:02:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA5DB10E92F;
-	Tue,  3 Dec 2024 08:01:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52F4210E92D;
+	Tue,  3 Dec 2024 08:02:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tnRpPtR/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tEKfuRrO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1256610E924;
- Tue,  3 Dec 2024 08:01:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A27F10E92D;
+ Tue,  3 Dec 2024 08:02:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 6D473A409E3;
- Tue,  3 Dec 2024 07:59:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 025ABC4CECF;
- Tue,  3 Dec 2024 08:01:33 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 7CE61A40A30;
+ Tue,  3 Dec 2024 08:00:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C781C4CECF;
+ Tue,  3 Dec 2024 08:02:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733212900;
- bh=zjPIbEhtW1+E9dxrS28Qf8oLMzie0UIPL/ztZ9hT0ps=;
+ s=k20201202; t=1733212927;
+ bh=TY2CTVQLZDBZSpPG3TOd4Vss8QMMAeKC2lgYdcC23NI=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=tnRpPtR/vyxrY1PW4DbKl10xGVlpEAXRfoV6NUaXS9O84buoFJmLu4upVx+HohxYR
- RAME+IN6PIpr3FDDcuxRhu4GNRTgscJqSxfXPnojklJUTG+pDhzYGhYXwEILvuSF7o
- vAPN9BnDuz++EKgOItE8UrVLudK0KziIQzJFtMb23FE6u1TyJfHk+KLgkoYBOzEiGF
- 8AQe70FltXppTDF1M/z4TNDrMbqVcnaCbw3Z25igEipcPTjUxBynj5wWP1D7XrNB6J
- DcpRO4YfRlZ0VS/COZlqtDfCC+con7JWCmGEhwwoO1lCsbeG/0kds8XCbEyQ4Ef++Q
- B2JqCRpdRROcA==
-Message-ID: <bfa857c2-cd74-4fe2-a88c-3b35a58710b0@kernel.org>
-Date: Tue, 3 Dec 2024 09:01:31 +0100
+ b=tEKfuRrOMJv8493iIDmbaFpdTTaIxxhGSqdGE+HDe5vdg47HuPFeVIYLq5UV8UyEb
+ WxipH4EVEilfFYaLgzl9DHb8flIM3ERVPomw0ldZLenyqb/lwaWhAp7Heur1FGtVJO
+ uSRulUdiYm3M/MVUKlRcKXurCfL0dXz7tME5T7hixBKmxg5ivlw+5B2CPly6fS38yh
+ DrxDCYrVzsP9oFvxlFwPKUZWoZoGQdSHlnXdig93bh7pbmtVcQRczKAuYeP7dsvkMC
+ O9pzCCerjVmdaeDMYVYs5O/RxId9KIHv2atpYgZAtDyrkyahX18AbSqkDIthANyyM7
+ B2R+9jH8DIZkg==
+Message-ID: <e8f2e17c-13c1-4485-8e9a-d67705e461d6@kernel.org>
+Date: Tue, 3 Dec 2024 09:01:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] dt-bindings: display: msm: dp-controller: document
- clock parents better
+Subject: Re: [PATCH 1/4] dt-bindings: display: msm: dp-controller: document
+ pixel clock stream
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
  <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
@@ -49,7 +49,7 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20241202-dp_mst_bindings-v1-0-9a9a43b0624a@quicinc.com>
- <20241202-dp_mst_bindings-v1-2-9a9a43b0624a@quicinc.com>
+ <20241202-dp_mst_bindings-v1-1-9a9a43b0624a@quicinc.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,7 +95,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20241202-dp_mst_bindings-v1-2-9a9a43b0624a@quicinc.com>
+In-Reply-To: <20241202-dp_mst_bindings-v1-1-9a9a43b0624a@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -114,33 +114,11 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 03/12/2024 04:31, Abhinav Kumar wrote:
-> Document the assigned-clock-parents better for the DP controller node
-> to indicate its functionality better.
-
-
-You change the clocks entirely, not "document". I would say that's an
-ABI break if it really is a Linux requirement. You could avoid any
-problems by just dropping the property from binding.
-
+> Display port controller on some MSM chipsets are capable of supporting
+> multiple streams. In order to distinguish the streams better, describe
+> the current pixel clock better to emphasize that it drives the stream 0.
 > 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index 35ae2630c2b3..9fe2bf0484d8 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -72,8 +72,8 @@ properties:
->  
->    assigned-clock-parents:
->      items:
-> -      - description: phy 0 parent
-> -      - description: phy 1 parent
-> +      - description: Link clock PLL output provided by PHY block
-> +      - description: Stream 0 pixel clock PLL output provided by PHY block
-
+This should be squashed with patch adding stream 1.
 
 Best regards,
 Krzysztof
