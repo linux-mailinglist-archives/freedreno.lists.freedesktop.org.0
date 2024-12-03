@@ -2,52 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E381D9E2C34
-	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 20:42:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62D279E2C50
+	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 20:49:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C22C210E040;
-	Tue,  3 Dec 2024 19:42:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39E4810E040;
+	Tue,  3 Dec 2024 19:49:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="YAJe7iUt";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="C4Euj+4g";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CA2C10E288;
- Tue,  3 Dec 2024 19:42:49 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B3Gi0Mu027853;
- Tue, 3 Dec 2024 19:42:45 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1425610E040;
+ Tue,  3 Dec 2024 19:49:04 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B3H54BS031010;
+ Tue, 3 Dec 2024 19:49:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 9EPMgjVNLChb8n92Kc2ub47qgMBtVTWQlZoZbDBRsJs=; b=YAJe7iUtIyJ/+L2f
- tjUYspVQTeKXRpZMXI6qVoJGQdOCn8CigFsag6A4bjGhneu05KggD7zNiSqpLnpc
- Wt2J5JSEWgQ/JJ4gpv0NfRDkYQ6lxSCq6lIasYucfdwxQBjfS9LkzQkUvkugf5e3
- 5Q3+qsnd5iVz/6nUUxazTd0J/mAovvtvFtZXez5GvdkoEBVwKfocIAwgqnEtfre2
- 3eE1aATImGoVhMqsl1ywtcvVl/qyMtmCGio7WzAmJUq+s/N2wwNJBt1RnH2aILPE
- //KGLEvRnxPRWVAC3cZzKm6eFd8zVCAE+DqQtSofdoxKWBul6rxnxtPTfcWlO23R
- tJ9Kuw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ +qlWJCdACN3uDoeCirvsVrdCJamGztoN021PP8aBD0E=; b=C4Euj+4gxRRTChOh
+ 4eNztPO4Rj810gofmK4L3OG+aH4k++VmUTPQD1CCVjYPMFm7X/ptDET7KSJun55p
+ saOx0999Jfbuiq0bcFfFlOKd6HN2H6U0gWyathK9CesnNskCNyTCi0Coizr0oLrl
+ VP8aT0eRXq6xZsyjLO3qEjzUAmHFUJ6ztNdrABcc2Ea1PVVPYZjS7jhMbjy/wqWo
+ IuRa7+QV9QaU0HcPLrddaC335D/5UfV6pPzd6fp4x13TtskfqUaMAQyGFVS3sboW
+ DFygiFSx48d7k0HV6NmMFrI/69ONTUL2DDV5C3NF4CBtgrzOUoGsqPOFe71JByzK
+ T6uzVA==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 439vcej41h-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 439w90syq8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 03 Dec 2024 19:42:44 +0000 (GMT)
+ Tue, 03 Dec 2024 19:49:01 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B3JgiIA008499
+ by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B3Jn0H7012699
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 3 Dec 2024 19:42:44 GMT
+ Tue, 3 Dec 2024 19:49:00 GMT
 Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 3 Dec 2024
- 11:42:43 -0800
-Message-ID: <f8bb9597-c5b3-4dbf-a65e-7bd17cd3ffc5@quicinc.com>
-Date: Tue, 3 Dec 2024 11:42:42 -0800
+ 11:49:00 -0800
+Message-ID: <6d9aea46-b18b-4bc2-86f6-0805258cc3c4@quicinc.com>
+Date: Tue, 3 Dec 2024 11:48:59 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] drm/msm/dp: Fix and utilize TPG with a debugfs
+Subject: Re: [PATCH 1/3] drm/msm/dp: account for widebus in
+ msm_dp_catalog_panel_tpg_enable()
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
  Suijten" <marijn.suijten@somainline.org>,
@@ -58,10 +59,11 @@ CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
  <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
  Jessica Zhang <quic_jesszhan@quicinc.com>
 References: <20241202-tpg-v1-0-0fd6b518b914@quicinc.com>
- <lpkhftx62hbnrftzoy6zprhvir7dffz5ynwo3kr5j5obc3dcle@73ljnmpdt7ts>
+ <20241202-tpg-v1-1-0fd6b518b914@quicinc.com>
+ <hwomnwmuak3optjooe6g5szqi77nc7znsfjrxqbxx72nqe3e7k@om2e65vaurov>
 Content-Language: en-US
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <lpkhftx62hbnrftzoy6zprhvir7dffz5ynwo3kr5j5obc3dcle@73ljnmpdt7ts>
+In-Reply-To: <hwomnwmuak3optjooe6g5szqi77nc7znsfjrxqbxx72nqe3e7k@om2e65vaurov>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -70,16 +72,16 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: uWTxjPu4I4L3dZ9LsX6b3pNVeN4PKqB9
-X-Proofpoint-ORIG-GUID: uWTxjPu4I4L3dZ9LsX6b3pNVeN4PKqB9
+X-Proofpoint-ORIG-GUID: ya0G7rExtnQ0jiRBPGplpdQt7C5vj2gM
+X-Proofpoint-GUID: ya0G7rExtnQ0jiRBPGplpdQt7C5vj2gM
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- bulkscore=0 mlxlogscore=832 adultscore=0 suspectscore=0 spamscore=0
- impostorscore=0 phishscore=0 mlxscore=0 malwarescore=0 clxscore=1015
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ mlxlogscore=999 bulkscore=0
+ impostorscore=0 phishscore=0 suspectscore=0 adultscore=0 mlxscore=0
+ spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.19.0-2411120000 definitions=main-2412030163
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,63 +100,62 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 12/3/2024 6:31 AM, Dmitry Baryshkov wrote:
-> On Mon, Dec 02, 2024 at 12:41:57PM -0800, Abhinav Kumar wrote:
->> DP Test Patten Generator is a very useful tool to debug issues such
->> as blank screen or corruption seen on the DP monitor by isolating it
->> to whether the corruption is coming from further upstream such as DPU
->> OR from the DP controller and below. It was noted in [1] that this API
->> is unused. Rather than dropping the API, it should be fixed and used.
+On 12/3/2024 6:34 AM, Dmitry Baryshkov wrote:
+> On Mon, Dec 02, 2024 at 12:41:58PM -0800, Abhinav Kumar wrote:
+>> Adjust the h_active calculation to account for widebus in tpg.
 >>
->> Hence, this series fixes the DP Test Patten Generator API and also utilizes
->> it by adding a debugfs for it.
->>
->> [1] : https://patchwork.freedesktop.org/patch/623508/?series=141074&rev=1
-> 
-> I'd prefer for this to be rebased on top of [2]. The series has been
-> posted a month ago.
-> 
-> [2] https://patchwork.freedesktop.org/series/141074/
-> 
-
-Well, the review of that series which tried dropping the tpg led to this 
-one really.
-
-I will review that one within a couple of days. Lets first agree on that 
-series before deciding to rebase.
-
->>
->> To: Rob Clark <robdclark@gmail.com>
->> To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> To: Sean Paul <sean@poorly.run>
->> To: Marijn Suijten <marijn.suijten@somainline.org>
->> To: David Airlie <airlied@gmail.com>
->> To: Simona Vetter <simona@ffwll.ch>
->> To: Stephen Boyd <swboyd@chromium.org>
->> To: Kuogee Hsieh <quic_khsieh@quicinc.com>
->> Cc: linux-arm-msm@vger.kernel.org
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: freedreno@lists.freedesktop.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: Jessica Zhang <quic_jesszhan@quicinc.com>
->>
+>> Fixes: 757a2f36ab09 ("drm/msm/dp: enable widebus feature for display port")
 >> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 >> ---
->> Abhinav Kumar (3):
->>        drm/msm/dp: account for widebus in msm_dp_catalog_panel_tpg_enable()
->>        drm/msm/dp: do not touch the MMSS_DP_INTF_CONFIG for tpg
->>        drm/msm/dp: add a debugfs node for using tpg
+>>   drivers/gpu/drm/msm/dp/dp_catalog.c | 14 +++++++++++++-
+>>   1 file changed, 13 insertions(+), 1 deletion(-)
 >>
->>   drivers/gpu/drm/msm/dp/dp_catalog.c | 15 +++++++--
->>   drivers/gpu/drm/msm/dp/dp_debug.c   | 61 +++++++++++++++++++++++++++++++++++++
->>   drivers/gpu/drm/msm/dp/dp_panel.h   |  2 ++
->>   3 files changed, 76 insertions(+), 2 deletions(-)
->> ---
->> base-commit: 798bb342e0416d846cf67f4725a3428f39bfb96b
->> change-id: 20241202-tpg-3f7543c036ac
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+>> index b4c8856fb25d..05c8e1996f60 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+>> @@ -1011,9 +1011,21 @@ void msm_dp_catalog_panel_tpg_enable(struct msm_dp_catalog *msm_dp_catalog,
+>>   	u32 v_sync_width;
+>>   	u32 hsync_ctl;
+>>   	u32 display_hctl;
+>> +	u32 h_sync_width;
+>> +	u32 h_front_porch;
+>> +	u32 h_back_porch;
+>> +	u32 h_active;
+>> +
+>> +	h_active = drm_mode->hdisplay;
+>> +	h_back_porch = drm_mode->htotal - drm_mode->hsync_end;
+>> +	h_sync_width = drm_mode->htotal - (drm_mode->hsync_start + h_back_porch);
+> 
+> It's at least drm_mode->hsync_end - drm_mode->hsync_start
+> 
+>> +	h_front_porch = drm_mode->hsync_start - drm_mode->hdisplay;
+>> +
+>> +	if (msm_dp_catalog->wide_bus_en)
+>> +		h_active /= 2;
+>>   
+>>   	/* TPG config parameters*/
+>> -	hsync_period = drm_mode->htotal;
+>> +	hsync_period = h_sync_width + h_back_porch + h_active + h_front_porch;
+> 
+> Is it equivalent to:
+> 
+> hsync_period = drm_mode->htotal;
+> if (msm_dp_catalog->wide_bus_en)
+>      hsync_period -= drm_mode->hdisplay / 2;
+> 
+> I think it's simpler to handle.
+> 
+
+Yes certainly!
+
+Thanks for the feedback. Will fix it up.
+
+>>   	vsync_period = drm_mode->vtotal;
+>>   
+>>   	display_v_start = ((drm_mode->vtotal - drm_mode->vsync_start) *
 >>
->> Best regards,
 >> -- 
->> Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> 2.34.1
 >>
 > 
