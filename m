@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 475FD9E1E47
-	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 14:53:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 142879E1E4D
+	for <lists+freedreno@lfdr.de>; Tue,  3 Dec 2024 14:54:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFE7410E469;
-	Tue,  3 Dec 2024 13:53:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E829E10E469;
+	Tue,  3 Dec 2024 13:54:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dBwm9ck5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PMfkfRx+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E73810E469
- for <freedreno@lists.freedesktop.org>; Tue,  3 Dec 2024 13:53:46 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-53de92be287so8229222e87.1
- for <freedreno@lists.freedesktop.org>; Tue, 03 Dec 2024 05:53:46 -0800 (PST)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09B2010E469
+ for <freedreno@lists.freedesktop.org>; Tue,  3 Dec 2024 13:54:33 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-53ddb99e9dcso5620830e87.3
+ for <freedreno@lists.freedesktop.org>; Tue, 03 Dec 2024 05:54:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733234024; x=1733838824; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1733234071; x=1733838871; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Y2z7Lw9AnAApn3+Fq4NPDiMReJ0TWjBn2iXkUvuhnlA=;
- b=dBwm9ck56PrZGeVWt0L+6jlrwX1EFsxpDDZT+LB1m90gDCmN9RiDn7QnSWVJTFfXe2
- t+20a7iVpQBqhx75Fu7jf8Tcbwdrs+K4GQUIgTY39T4qgkWs/CSPlP+vH/tK1uAhc463
- 6UqBcZh1WliZKjBUAJJt0tNxfE9OLlR52sc+zjVUENHh1A0D41PR/Ac+rFnACsqRtR4s
- uiTuD96G26/++qMy5/1/BEKM5PHsin4rg8Tp8GWLs4z0mm3tc6nk7m6prpC5o3lam6/7
- sPCZgzZdGGWXBF4KX94VNcAFuKBQsoHdbYvmD30pTSR4GV2J7X7HQslQnZ/SEMehYjUs
- xuuQ==
+ bh=7uNJWGh5QWIcANOkbpAmV+WuUq2lB7oYxMgbIDfhiSY=;
+ b=PMfkfRx+s37M0Mt657K49wQiD4Xw/WHZERw0HfxpbT1NnibekdJJgsZfqbK6t+WIeY
+ Y/3NYpnLbITfE722ACcgsAjcsocfOzVugGPleDhFncXx9zBmfpbu0VivDB4PequXY0dR
+ Y9FNdqnbI7xTFuIsXvjBZX7Ud0yp1Na2g7oBeYNH51CJRvgWfxE1uSKfNOiFE1IBTz3A
+ H6Jt0gH5//dlnP5Wy/J1W+wt7CfZTKYFNq7KZzS9+aTdsB5FDnYyg5nIKE/NVAsKtYnT
+ grLcOBGV+vNty/yFTHJ5jF6tj0rT03WQ3gyHZVk1FA6kNciRsHmvKkveC91C/bm5bCiM
+ iLxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733234024; x=1733838824;
+ d=1e100.net; s=20230601; t=1733234071; x=1733838871;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Y2z7Lw9AnAApn3+Fq4NPDiMReJ0TWjBn2iXkUvuhnlA=;
- b=FIuh6/IM7nMTEcSVykuGXXtQum36/RX1LpEUjULmv2TRRGZWJ48Fdz8ldh7UZMW/Bq
- auzIi6mF1GEJmEEItU8jokQ0m7RGl3mgQnYnaMAEjVzFiu8+zlOVsmQZkSNAon1QRlYC
- D40io28Wi01SQHvmDOMKfQJUSdTzNoe7uHewRT/m1gguOByoQuQnhkSGfKA8QNLhPqYM
- RjKPuw5Xv3PKLo9e2zzjFitmFXfAYWyBE62kXBw1EtjHxXlCVfHcANletK6AdW7UBmSs
- d86SJsug5UbxGl3GCnb4Qd6YK7iWeQ/sZ39H1kDO+PzYbSaIEPSXtZV+oCxka9Zv255z
- F7yQ==
+ bh=7uNJWGh5QWIcANOkbpAmV+WuUq2lB7oYxMgbIDfhiSY=;
+ b=RrJwACKew/1hlSrIgEdH4R1c+au3/S7B6GNjKvmPOjLDZmQ0W/8ktYBrKv9AooB6pp
+ W5tmL6brWXOrXtxsZ8S3c/ZSZNpbyRndYYjRQ+5xCk7Rit690FoHCP+Vg/de/kmTqI6s
+ dT3dBbzx2sogknZqBmFuw9be1sWbev1SHBkGeZSgWUK8IqOTs5WB2jPSP7pXKZ88KUeW
+ BXmD7XnMme4T0/BLbippM7jH1wTEGH7ejgYO9NpRHZsojk13JPAp8woqBSaYTbobuFb2
+ dXMnlM7D0SLi0HPIIgODc6bzAvihb96BEYKZ870YOivAT/kr3Lf61X9mVHtNmf7MXDAW
+ nffg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVM7mxB5zOXlx5LzRE3RwUa4QyU90dkIT0DxtESHwaUNAlo4736o4pS2i64kLcHaUP6ElDjtzgnMOI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyzMSahKyXfpv81cv7FTRmUAoSeYPnpvNp0tZbP5wW6T8940yK6
- fHnU0mCrSiPSaB9nMLD9IpCsdqxYLYVsAbkSIvso/MdIvZRQEYr+r85xsxZ7Ijo=
-X-Gm-Gg: ASbGnctuipSvWXtclEeFxTIg546dR8zTQEpLFKHAeCREOzR2mUCLFTQ6FQR7YGvypKz
- mHR28QkzVC+apwkRf0hOAm09/SBtz3/qBUUhG14KD1rgge9aE96cjuNKPYEFcBHyo4ytMD9jHpv
- kahSjTAXq2SyaOcnJUcFR/6AwIH3eX7cmAU+Sknm/OEmQqmRen0jOE0RIqfsCvZL+vncdUSVEd1
- LayxVEqHvV/kb/B4R2tdzmKJmYKPPwY4EvmC8dAkVmi/BtqtZzF/MDtRy1O4Z44CmQmoHcorPi+
- SQ2lZzHCTscNlmtcsNtuS+zoS+TgNA==
-X-Google-Smtp-Source: AGHT+IGIVJilF847DUoQ5IIjS97Q02Ms+T6DT7oFUW5dd74axuuCY4gvMyDsqnLd1Arq5x+/ERo8Kw==
-X-Received: by 2002:a05:6512:b14:b0:53d:e7b6:c701 with SMTP id
- 2adb3069b0e04-53e12a06d37mr2329892e87.33.1733234024535; 
- Tue, 03 Dec 2024 05:53:44 -0800 (PST)
+ AJvYcCWSlmcOFI3zS6EWLYaffYVIOy8dcrFmQd8kOhhVybE4rLQKNrUA3/o5VCwNFRCqZp4qUql51WUMnlM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy/Xh/dFv8DE4WKvOHIVRkFLXyLMkbGIHPZRSorUCxe4/7dWQh2
+ TOOgl1GOTBbO5QjkOy0vUYrr/2V9W3pGFKM54DAPN+5na8FdrJzS9oOJFyF25bg=
+X-Gm-Gg: ASbGncuS1lGZaVHTQbobMiXlvfP7/XqpORNYZiYxoz5OCCwg1mVD5tF52VtzXWr5HFF
+ tVId5CclpCTuTnHWCYtStoN87s/ZR67U8NAVQGSDmsnW0j/SsUcQLCPj07z34uZ4oo4ErLp+/dN
+ NKqViLoD1QUlhVFxcktuLurlWoGWLz0cK98am7XzYLJiNwETLBbacYFW0qKA5lAKE5WlUFU6YAg
+ NfwVl7FyX3lqYdsnhX7qMeoHLTwT+5hR9DCgf3WDN5ZdASd0ZsERX6dZD6ty4mVQA8Z4VMB/h4o
+ +IZDNjbTaFo4Aj2tWUfON5oeiHOxJw==
+X-Google-Smtp-Source: AGHT+IE7c1Kb8HtD45thYMsSVhmzZ9BdudadoQnajTE11NmQT7idsUke6l4BDT5LccQiDuRy+BsDXg==
+X-Received: by 2002:a05:6512:3ba3:b0:53d:d443:1ab0 with SMTP id
+ 2adb3069b0e04-53e12a22f2dmr1693409e87.43.1733234071182; 
+ Tue, 03 Dec 2024 05:54:31 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53e0d4dff67sm562441e87.10.2024.12.03.05.53.43
+ 2adb3069b0e04-53df646f0e6sm1833037e87.154.2024.12.03.05.54.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Dec 2024 05:53:44 -0800 (PST)
-Date: Tue, 3 Dec 2024 15:53:42 +0200
+ Tue, 03 Dec 2024 05:54:29 -0800 (PST)
+Date: Tue, 3 Dec 2024 15:54:27 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
@@ -72,15 +72,14 @@ Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  freedreno@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>, 
  Doug Anderson <dianders@chromium.org>, Johan Hovold <johan@kernel.org>, 
  Bjorn Andersson <quic_bjorande@quicinc.com>
-Subject: Re: [PATCH 3/4] drm/msm/dp: replace ST_DISPLAY_OFF with power_on in
- msm_dp_hpd_unplug_handle()
-Message-ID: <lcr5i4s7it5goppdi5at6jplnrvb5xl4cmv22n5jtjdnlbda43@54z7afarengg>
+Subject: Re: [PATCH 4/4] drm/msm/dp: remove ST_DISPLAY_OFF as a hpd_state
+Message-ID: <3fy3klftm7tlr3oki26dros4xbfs62hw3edw3ebsbcuxpcd4w4@l7uesddnkjbs>
 References: <20241202-hpd_display_off-v1-0-8d0551847753@quicinc.com>
- <20241202-hpd_display_off-v1-3-8d0551847753@quicinc.com>
+ <20241202-hpd_display_off-v1-4-8d0551847753@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241202-hpd_display_off-v1-3-8d0551847753@quicinc.com>
+In-Reply-To: <20241202-hpd_display_off-v1-4-8d0551847753@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,17 +95,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 02, 2024 at 04:39:02PM -0800, Abhinav Kumar wrote:
-> msm_dp_hpd_unplug_handle() checks if the display was already disabled and if
-> so does not transition to ST_DISCONNECT_PENDING state and goes directly to
-> ST_DISCONNECTED. The same result can be achieved with the !power_on check.
+On Mon, Dec 02, 2024 at 04:39:03PM -0800, Abhinav Kumar wrote:
+> ST_DISPLAY_OFF check in msm_dp_bridge_atomic_enable() is used to check
+> that if the display was disabled while still hotplugged, phy needs
+> to be re-initialized. This can be replaced with a different check as
+> it just means the hpd_state was still ST_CONNECTED but without display
+> being powered on. Replace the ST_DISPLAY_OFF check with a combination
+> of connected and power_on checks.
 > 
-> Replace ST_DISPLAY_OFF with !power_on to achieve the same outcome.
+> Since all consumers of ST_DISPLAY_OFF have now been removed,
+> drop ST_DISPLAY_OFF from the list of hpd_states as technically
+> this was never a 'hpd' state anyway.
 > 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/dp/dp_display.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
 > 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
