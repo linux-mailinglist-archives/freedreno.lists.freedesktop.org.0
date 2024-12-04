@@ -2,70 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75B7B9E45D0
-	for <lists+freedreno@lfdr.de>; Wed,  4 Dec 2024 21:33:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 703349E4724
+	for <lists+freedreno@lfdr.de>; Wed,  4 Dec 2024 22:47:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54AD810E578;
-	Wed,  4 Dec 2024 20:33:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E1F810E36A;
+	Wed,  4 Dec 2024 21:47:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=helen.koike@collabora.com header.b="lIvSMnZM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m0W4cD33";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7201710E578;
- Wed,  4 Dec 2024 20:33:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1733344384; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=dmboizcmPLouPwkpAFlnvXlApJpw1fL/XD5uBeTZdda2O0IkEgLXgii8v6QBPLH18FQyX/nLW/P3Lcd2im0soN+J4boEmy0OjYvmF/1EK0wnZ2mgisk3BSYwZJv+FjvjyxiaBsfgGMIKGKv63KFV14IJBVI15twfCoz690gShYU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1733344384;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=0WHgurEffc4IU34BPpyNJvfGIYmAwAM0WUxEVWgpiKY=; 
- b=eohVHJ9hjyT3FByzZyIGOEHJeTBONjeOh9b2hBghqRvJHfA6eqvigngzCwTyzbCH+dsbp1571VdEfFCCnkzjTsPdjN3OvkEAI8GYiapiiC8Pk7pAc1AcMJS8/iJNeIHOEmAlfc0VVJEdK+vlCdgAsuw1hPUv5DHJUWWKJTjOIic=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=helen.koike@collabora.com;
- dmarc=pass header.from=<helen.koike@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1733344384; 
- s=zohomail; d=collabora.com; i=helen.koike@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=0WHgurEffc4IU34BPpyNJvfGIYmAwAM0WUxEVWgpiKY=;
- b=lIvSMnZM2jM/saNZpSynuPs79b3gtMyMJRG80cR6Kl1wv4gcIR3SERxF00551dbA
- Aq4LxLR/i+Xc+BZmMHeaG+xddm4nB5zJ0/d3aAxFTyNcARxJSkkYGOqECm2VWu1sZTe
- LE1aWXjCQoI3V45Z3vJdW4H8cf7uCOR/4EBjw/JY=
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 1733344382514675.959292617333;
- Wed, 4 Dec 2024 12:33:02 -0800 (PST)
-Date: Wed, 04 Dec 2024 17:33:02 -0300
-From: Helen Mae Koike Fornazier <helen.koike@collabora.com>
-To: "Abhinav Kumar" <quic_abhinavk@quicinc.com>,
- "Vignesh Raman" <vignesh.raman@collabora.com>
-Cc: "Rob Clark" <robdclark@gmail.com>,
- "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>,
- "Sean Paul" <sean@poorly.run>,
- "Marijn Suijten" <marijn.suijten@somainline.org>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "linux-kernel" <linux-kernel@vger.kernel.org>,
- "linux-arm-msm" <linux-arm-msm@vger.kernel.org>,
- "dri-devel" <dri-devel@lists.freedesktop.org>,
- "freedreno" <freedreno@lists.freedesktop.org>
-Message-ID: <19393604e18.f9b6fe7d298023.1937039548910081216@collabora.com>
-In-Reply-To: <20a3955e-3d10-47c5-8e68-d70342805010@quicinc.com>
-References: <20241204-cursor_tor_skip-v1-1-f5f0bba5df7b@quicinc.com>
- <193931869a5.f923adf2270026.8321075661083367617@collabora.com>
- <20a3955e-3d10-47c5-8e68-d70342805010@quicinc.com>
-Subject: Re: [PATCH] drm/ci: add kms_cursor_legacy@torture-bo to apq8016 flakes
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
+ [209.85.166.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86FA410E591;
+ Wed,  4 Dec 2024 21:47:49 +0000 (UTC)
+Received: by mail-io1-f47.google.com with SMTP id
+ ca18e2360f4ac-84386a6669bso8217339f.3; 
+ Wed, 04 Dec 2024 13:47:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1733348868; x=1733953668; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YkUWpt632yNwjVGL7Px9OoDHkkL3C4ca4wA/IGFSQ2g=;
+ b=m0W4cD33a47665sheoc3pyMnUFpaF2+3p/Leq3Zejc8Ktva2fKW6Z2Wklf1wbeGgPX
+ yNmb16GqQiOozzifODgZs+F6pmLHvk2rvmKp85XkOinLF9BZ7Wp/p2PtkbcBh75ziJO7
+ pbDe7DmKEQikLipZi1yhLn9nM1Sj+RIsMPbELM9brp7J1uCNi2UwmBHkCCrOiXPtAwcS
+ +6nqDT9Z8a5KV+UtNOPeRg62h7znFMPL/ugacP7gZHNjWashW/Yt7xF4z2wSYYwrwaNC
+ jor9vQsndUQQHYuUnHsBhF7wT+DKVPOtBqZkBeEZovGmdTDxlvbXRpXPCxLnUEVaTU1S
+ 0qcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733348868; x=1733953668;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=YkUWpt632yNwjVGL7Px9OoDHkkL3C4ca4wA/IGFSQ2g=;
+ b=RgRqJR7peRNWCqT2BWV0SiTLnpK49clxxhiOExCQNtjxOQpT7IMhj75eVGmuwc+EJJ
+ eLTnoZdBO5QweYxJNmbKAFLLpcAPc3OCMyF4s/mlley6YIIvLFjSN+dJjjdQoMUyJPbe
+ m1EDllX/v3Go9Jg2kkeLDxqNHYoP1dXc0Pyi5b71PY7GzeUFfQXcmh23AVOc8zZUxGOG
+ 92cHEsPlBz4ISuMlP0VF1m0U5oex6OLCerwdrF/jMDwoKvg1J3z2Z0cCkxVrv7NgKhVY
+ erQBEZBOX2qndA82PLBfto4q/Sm+QXi2KaKEpDdBGMdpXeIC6Pgow+tC09Lf9ldIju5/
+ QaLg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX7DQjKO5NdPNvxw2heCT7h0TuWy26nkob8awl9Dw98QMA+eBMsp2wI070YO95aVcD5Rfux3IgX3585@lists.freedesktop.org,
+ AJvYcCXnnoTxpHqgcXiyqSJHSp2RbbscxLUbObXYZFeEMUPJD6IQlsdFfjbqpT61M4g0b7HzoVT/8CXZMYI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwK4mRxXjZdFG7nTsqMiVD1s/Xta59N9Iz/c6/tGyPmJyYJUA5e
+ w2++U4oHrwTtXc7Jr0GCZ3eNGn48naGh/KDReq+xDQY3nwAclVGAOLhameC7jDVp0Jal1ZODWL1
+ 8wZDzB7O0v1iptDnxBMDiwL50fjc=
+X-Gm-Gg: ASbGnctByddim7EDUvMbg0SJed4ti6QcdQMtNhD4+95/f6CBOq24xYTBWatSKFoQ1Pp
+ PclAZfVvrb+ad39R1IFcgZSmdBKt9hmF0lITCbdi1dJUi+9jUx3zDhWHmO21vKven6Q==
+X-Google-Smtp-Source: AGHT+IEQ7xEThkcg5PY00J7uHpV2UKEhB5xX4Rm23g6H9R7iyEVJfwjFNZv40WQcyubiRxoi2BHB25XQxHAoYB3sERo=
+X-Received: by 2002:a05:6602:13c5:b0:835:4402:e2eb with SMTP id
+ ca18e2360f4ac-8445b574378mr878085539f.7.1733348868624; Wed, 04 Dec 2024
+ 13:47:48 -0800 (PST)
 MIME-Version: 1.0
+References: <20241125-a612-gpu-support-v2-0-b7cc38e60191@quicinc.com>
+ <20241125-a612-gpu-support-v2-1-b7cc38e60191@quicinc.com>
+ <752484b5-2db1-4714-8046-17cd5496d81d@oss.qualcomm.com>
+ <0aa547fc-4c88-4457-8d01-81f93fb3832c@quicinc.com>
+ <CAF6AEGvqPEFN+j0Txa5KPmxF8tXCn_uUsM86i4uo+tc2mTWYgg@mail.gmail.com>
+ <f603f71c-64f4-4f29-b8b9-430d758a738b@quicinc.com>
+In-Reply-To: <f603f71c-64f4-4f29-b8b9-430d758a738b@quicinc.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 4 Dec 2024 13:47:36 -0800
+Message-ID: <CAF6AEGt-wojTde=OfqSyez3fD1jiyUTP08TWxNQMgkoWhF-MVA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/msm/adreno: Introduce ADRENO_QUIRK_NO_SYSCACHE
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,88 +94,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Wed, Dec 4, 2024 at 11:04=E2=80=AFAM Akhil P Oommen <quic_akhilpo@quicin=
+c.com> wrote:
+>
+> On 12/1/2024 10:06 PM, Rob Clark wrote:
+> > On Sat, Nov 30, 2024 at 12:30=E2=80=AFPM Akhil P Oommen
+> > <quic_akhilpo@quicinc.com> wrote:
+> >>
+> >> On 11/30/2024 7:01 PM, Konrad Dybcio wrote:
+> >>> On 25.11.2024 5:33 PM, Akhil P Oommen wrote:
+> >>>> There are a few chipsets which don't have system cache a.k.a LLC.
+> >>>> Currently, the assumption in the driver is that the system cache
+> >>>> availability correlates with the presence of GMU or RPMH, which
+> >>>> is not true. For instance, Snapdragon 6 Gen 1 has RPMH and a GPU
+> >>>> with a full blown GMU, but doesnot have a system cache. So,
+> >>>> introduce an Adreno Quirk flag to check support for system cache
+> >>>> instead of using gmu_wrapper flag.
+> >>>>
+> >>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> >>>> ---
+> >>>>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 3 ++-
+> >>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 7 +------
+> >>>>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 1 +
+> >>>>  3 files changed, 4 insertions(+), 7 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu=
+/drm/msm/adreno/a6xx_catalog.c
+> >>>> index 0c560e84ad5a..5e389f6b8b8a 100644
+> >>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> >>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> >>>> @@ -682,6 +682,7 @@ static const struct adreno_info a6xx_gpus[] =3D =
+{
+> >>>>              },
+> >>>>              .gmem =3D (SZ_128K + SZ_4K),
+> >>>>              .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> >>>> +            .quirks =3D ADRENO_QUIRK_NO_SYSCACHE,
+> >>>>              .init =3D a6xx_gpu_init,
+> >>>>              .zapfw =3D "a610_zap.mdt",
+> >>>>              .a6xx =3D &(const struct a6xx_info) {
+> >>>> @@ -1331,7 +1332,7 @@ static const struct adreno_info a7xx_gpus[] =
+=3D {
+> >>>>              },
+> >>>>              .gmem =3D SZ_128K,
+> >>>>              .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
+> >>>> -            .quirks =3D ADRENO_QUIRK_HAS_HW_APRIV,
+> >>>> +            .quirks =3D ADRENO_QUIRK_HAS_HW_APRIV | ADRENO_QUIRK_NO=
+_SYSCACHE,
+> >>>>              .init =3D a6xx_gpu_init,
+> >>>>              .zapfw =3D "a702_zap.mbn",
+> >>>>              .a6xx =3D &(const struct a6xx_info) {
+> >>>
+> >>> +a619_holi
+> >>>
+> >>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm=
+/msm/adreno/a6xx_gpu.c
+> >>>> index 019610341df1..a8b928d0f320 100644
+> >>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> >>>> @@ -1863,10 +1863,6 @@ static void a7xx_llc_activate(struct a6xx_gpu=
+ *a6xx_gpu)
+> >>>>
+> >>>>  static void a6xx_llc_slices_destroy(struct a6xx_gpu *a6xx_gpu)
+> >>>>  {
+> >>>> -    /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
+> >>>> -    if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
+> >>>> -            return;
+> >>>> -
+> >>>>      llcc_slice_putd(a6xx_gpu->llc_slice);
+> >>>>      llcc_slice_putd(a6xx_gpu->htw_llc_slice);
+> >>>>  }
+> >>>> @@ -1876,8 +1872,7 @@ static void a6xx_llc_slices_init(struct platfo=
+rm_device *pdev,
+> >>>>  {
+> >>>>      struct device_node *phandle;
+> >>>>
+> >>>> -    /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
+> >>>> -    if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
+> >>>> +    if (a6xx_gpu->base.info->quirks & ADRENO_QUIRK_NO_SYSCACHE)
+> >>>>              return;
+> >>>
+> >>> I think A612 is the "quirky" one here.. it has some sort of a GMU,
+> >>> but we're choosing not to implement it. maybe a check for
+> >>>
+> >>> if (adreno_has_gmu_wrapper && !adreno_is_a612)
+> >>>
+> >>> would be clearer here, with a comment that RGMU support is not
+> >>> implemented
+> >>>
+> >>>
+> >>>
+> >>> But going further, I'm a bit concerned about dt-bindings.. If we
+> >>> implement RGMU on the driver side in the future, that will require
+> >>> DT changes which will make the currently proposed description invalid=
+.
+> >>>
+> >>> I think a better angle would be to add a adreno_has_rgmu() func with
+> >>> a qcom,adreno-rgmu compatible and plumb it correctly from the get-go.
+> >>>
+> >>> This way, we can avoid this syscache quirk as well.
+> >>>
+> >>
+> >> I am aware of at least Adreno 710 which doesn't have syscache, but has
+> >> proper GMU. And I don't see any reason why there couldn't be another o=
+ne
+> >> in future to save silicon area. So, a quirk flag doesn't seem so bad i=
+n
+> >> this case.
+> >>
+> >> The correct way to avoid this quirk flag is by making LLCC driver retu=
+rn
+> >> a proper error to detect the absence of syscache. Currently, it just
+> >> returns EPROBE_DEFER which put driver in an infinite probe loop.
+> >
+> > Hmm, this seems solvable?  llcc has a node in the dt, so it seems like
+> > it should be able to tell the difference between not existing and not
+> > being probed yet.  Something maybe like, initialize drv_data to NULL
+> > instead of -EPROBE_DEFER, and then in the various entry points, if
+> > (!drv_data) return not_probed_helper(); which would check if a
+> > compatible node exists in dt?
+>
+> Sounds like that would work. Can we explore that separately?
+>
+> I am a bit worried about adding another subsystem's patch to this
+> series. That might delay this series by weeks.
 
+I don't think there is a dependency between the two, so it shouldn't
+delay anything.  We can just merge the first patch in this series as
+it is and drop the second.  And the llcc change is a legit bug fix,
+IMO, -EPROBE_DEFER is the incorrect return value when the device is
+not present.
 
+BR,
+-R
 
-
----- On Wed, 04 Dec 2024 16:21:26 -0300 Abhinav Kumar  wrote ---
-
- > Hi Helen 
- >  
- > On 12/4/2024 11:14 AM, Helen Mae Koike Fornazier wrote: 
- > > Hi Abhinav, 
- > > 
- > > Thanks for your patch. 
- > > 
- > > 
- > > 
- > > ---- On Wed, 04 Dec 2024 15:55:17 -0300 Abhinav Kumar  wrote --- 
- > > 
- > >   > From the jobs [1] and [2] of pipeline [3], its clear that 
- > >   > kms_cursor_legacy@torture-bo is most certainly a flake and 
- > >   > not a fail for apq8016. Mark the test accordingly to match the results. 
- > >   > 
- > >   > [1] : https://gitlab.freedesktop.org/drm/msm/-/jobs/67676481 
- > >   > [2] : https://gitlab.freedesktop.org/drm/msm/-/jobs/67677430 
- > >   > [3]: https://gitlab.freedesktop.org/drm/msm/-/pipelines/1322770 
- > >   > 
- > >   > Signed-off-by: Abhinav Kumar quic_abhinavk@quicinc.com> 
- > >   > --- 
- > >   >  drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt | 5 +++++ 
- > >   >  1 file changed, 5 insertions(+) 
- > >   > 
- > >   > diff --git a/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt 
- > >   > new file mode 100644 
- > >   > index 000000000000..18639853f18f 
- > >   > --- /dev/null 
- > >   > +++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt 
- > >   > @@ -0,0 +1,5 @@ 
- > >   > +# Board Name: msm-apq8016-db410c 
- > >   > +# Failure Rate: 100 
- > > 
- > > Is failure rate is 100%, isn't it a fail than? 
- > > (I know we have other cases with Failure Rate: 100, maybe we should fix them as well) 
- > > 
- >  
- > Maybe I misunderstood the meaning of "Failure rate" for a flake. 
- >  
- > I interpreted this as this test being flaky 100% of the time :) 
-
-Ah right, I see, inside deqp-runner (that auto-retries).
-
-I'd like to hear Vignesh's opinion on this.
-
-(In any case, we probably should document this better)
-
-Regards,
-Helen
-
- >  
- > Out of the 3 runs of the test, it passed 2/3 times and failed 1/3. 
- >  
- > So its fail % actually is 33.33% in that case. 
- >  
- > I think I saw a Failure rate of 100% on msm-sm8350-hdk-flakes.txt and 
- > mistook that as the rate at which flakes are seen. 
- >  
- > Let me fix this up as 33% 
- >  
- > > Regards, 
- > > Helen 
- > > 
- > >   > +# IGT Version: 1.28-ga73311079 
- > >   > +# Linux Version: 6.12.0-rc2 
- > >   > +kms_cursor_legacy@torture-bo 
- > >   > 
- > >   > --- 
- > >   > base-commit: 798bb342e0416d846cf67f4725a3428f39bfb96b 
- > >   > change-id: 20241204-cursor_tor_skip-9d128dd62c4f 
- > >   > 
- > >   > Best regards, 
- > >   > -- 
- > >   > Abhinav Kumar quic_abhinavk@quicinc.com> 
- > >   > 
- > >   > 
- > > 
- > 
-
+> -Akhil
+>
+> >
+> > BR,
+> > -R
+> >
+> >> Agree about the dt binding suggestion. I will define a new compatible
+> >> string for rgmu.
+> >>
+> >> -Akhil.
+> >>
+> >>> Konrad
+> >>
+>
