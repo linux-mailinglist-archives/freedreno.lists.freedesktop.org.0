@@ -2,88 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F4289E3862
-	for <lists+freedreno@lfdr.de>; Wed,  4 Dec 2024 12:10:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 145B69E38CC
+	for <lists+freedreno@lfdr.de>; Wed,  4 Dec 2024 12:29:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43A9910ECD8;
-	Wed,  4 Dec 2024 11:10:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFF1F10E22A;
+	Wed,  4 Dec 2024 11:29:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="weqflYIK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nX5Ft9Df";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
- [209.85.208.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F336D10ECD8
- for <freedreno@lists.freedesktop.org>; Wed,  4 Dec 2024 11:09:59 +0000 (UTC)
-Received: by mail-lj1-f169.google.com with SMTP id
- 38308e7fff4ca-2ffdd9fc913so70212291fa.3
- for <freedreno@lists.freedesktop.org>; Wed, 04 Dec 2024 03:09:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733310598; x=1733915398; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=qmvDv+aJXodq+mhX0D5y6kJ1JtvDvnKdqZyOWQy8lzc=;
- b=weqflYIK3JMCTXP7541RqQNTgp21yTE4tV5X0oGPquG2hw5KTPT7ybwQ5uZEWLwd8W
- U7/ddBwpMkMFLsElVAmll4OUIre9sis2p8YdzKIYWeZXvkTlpl8ymV5EywwaJIo8HGxh
- wb7TqwaxB0sdNU+w6xL/t3poGwxNe9LmwNS3bZCd1RVUfBCKnOAeucHY1aLbBMiYmZ/O
- Q+vO3zJX06r/oW1vl445t6xtA/HPtoQtehRaSQ5+1Zj4lUxwgofG/bIjjqIyV4dZfMSB
- oKOTHdvDyxZFQlq0AX9n9QiVb06WAvI+eFTFYAkKCUB092Wt6fIziqFkLgkSvYobRPoH
- lPsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733310598; x=1733915398;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qmvDv+aJXodq+mhX0D5y6kJ1JtvDvnKdqZyOWQy8lzc=;
- b=FfhNVlNgTjfZ1grrLvwvDodU75LfEyUgDIrY08DslESG+mqY6pjUjjRNn377rR/MEo
- 2peceWzKUXSaFIPwx9RHHMfiBnAf9AldEt8YHmu8VLxPi4X6ADQMafzvQCCTVq4qn2uq
- wZkzrcuJZJLUwBZpMP1NitysVJJhQf9r1LEa2Y1np/xYVDIAG8K4+shXtYzIZWbVYHhd
- bHsGeBQOCrKyZUu3+f69jiRHCR/RxKy7Q0KTKgmL1VfaoavPRdQLKer5Ufbla3F+7ZLv
- L72K4nw3LgFgYtVcLFvuqFmVnNiktXv+AbDNwR+759fX+ON4cB83B7OkEA1OPSkF3Svb
- 21lQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXar/oPKFkIDnjQ33vMWNI2NSNua0mwp7z26hGe+HiuqLJiD+iUpwXAahyAwL/aG6DMUTTmIEY+rLQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwZxMZitzDzRoWv1s6x/OgPzZ7PcTJikeTW52UOSkVk1SPqumUf
- 9BvKbrXbyqj7EdyBtovCDqgmdVtmoSQfiJYz2XVL7Uv2FawIbKrqVG1Q2lPbN+o=
-X-Gm-Gg: ASbGncsSObqpl51bL+CNNrdQ32GGK4C+1timqSkpkA3gOyfoyWxn/cQtAS0kN8XwSqH
- SNj9GKbfEsaAWfCmArShC56giOq9OZYaK1eDVNnA6fNiQ1LRp8QGouOlcbQDeON9B4w5IeJXQX0
- TX8d/XxgKAFiUB2nZikCGxYz65v6gr6ZSBibhIpRS6s60mXjFD0YGxGRm9KRYXkOGhFH3tyjFlx
- XtHq9IShfFyxDBK2dp38FA1A9OGjiXt2jmbrZKgAUJwJG79gVJGwKMOZ8EsilMRujVn7fOq6YVQ
- 3SpjZx+r3otXTJdxGHpgmnmE34qS/Q==
-X-Google-Smtp-Source: AGHT+IFyqI3egCOEc9OzhfUKK2S/yE8XPBtr9AUCyqUOlyCRKeSwjfIHLpWDvtQ93zwWyBHTRLlv9g==
-X-Received: by 2002:a05:651c:b1f:b0:2ff:d81f:2d34 with SMTP id
- 38308e7fff4ca-30009c0de15mr41820741fa.8.1733310597934; 
- Wed, 04 Dec 2024 03:09:57 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ffdfca12b8sm19252051fa.99.2024.12.04.03.09.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Dec 2024 03:09:56 -0800 (PST)
-Date: Wed, 4 Dec 2024 13:09:54 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED31C10E22A;
+ Wed,  4 Dec 2024 11:29:28 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 8D47EA41328;
+ Wed,  4 Dec 2024 11:27:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39183C4CED1;
+ Wed,  4 Dec 2024 11:29:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733311767;
+ bh=QRBMAHrwweIqh048wM3KrM83eMO0ESk41FRcpvhVQmA=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=nX5Ft9DfBblqTs7c/nKmC+u/cjdwSptI6KfxNp8KyaP0WN1Z4AdxJfQRgjvetJw7k
+ Vu9K3ukcc67MVsdy+kzgRtRURd5bi7R2M5G+by0u0Bd0SzGgePKRD3FMzVzJ9Sopsk
+ 42ajT/s48EXlA+Sv/LpnmHROrRko3fPD4CipF8lINrSlKG9n1OZDrhhr1WJ9J8cJ+S
+ R5ESBVDoQ95urYk1uhiuEekhyM/HeJ6cpLeiiUpd5nbD65QeUcR5Pgczn8wOb7CpP+
+ lobaClyc5+jRr00bf4SjtrPMWA7fzv/RcivJLWUZ0zoFaSP5almJSmMX4rYok6IzJy
+ 0NCAIDx2WUoeQ==
+Date: Wed, 04 Dec 2024 05:29:25 -0600
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Robert Foss <rfoss@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Robert Foss <rfoss@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@gmail.com>, Rob Clark <robdclark@gmail.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+In-Reply-To: <20241204-topic-misc-sm8350-mdss-bindings-fix-v1-1-aa492a306bdb@linaro.org>
+References: <20241204-topic-misc-sm8350-mdss-bindings-fix-v1-1-aa492a306bdb@linaro.org>
+Message-Id: <173331176548.4095099.9767845657326548018.robh@kernel.org>
 Subject: Re: [PATCH] dt-bindings: display: msm: sm8350-mdss: document the
  third interconnect path
-Message-ID: <e2ldpjkymkqz7twlhfthba3datrdunacay23znikdregd5p5mb@vwzpwhushgmw>
-References: <20241204-topic-misc-sm8350-mdss-bindings-fix-v1-1-aa492a306bdb@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241204-topic-misc-sm8350-mdss-bindings-fix-v1-1-aa492a306bdb@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,7 +67,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Dec 04, 2024 at 11:36:37AM +0100, Neil Armstrong wrote:
+
+On Wed, 04 Dec 2024 11:36:37 +0100, Neil Armstrong wrote:
 > Document the missing third "cpu-cfg" interconnect path for the MDSS hardware
 > found on the Qualcomm SM8350 platform.
 > 
@@ -116,8 +85,30 @@ On Wed, Dec 04, 2024 at 11:36:37AM +0100, Neil Armstrong wrote:
 >  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+My bot found errors running 'make dt_binding_check' on your patch:
 
--- 
-With best wishes
-Dmitry
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: display-subsystem@ae00000: interconnects: [[4294967295, 7, 0, 4294967295, 1, 0], [4294967295, 8, 0, 4294967295, 1, 0]] is too short
+	from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8350-mdss.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: display-subsystem@ae00000: interconnect-names: ['mdp0-mem', 'mdp1-mem'] is too short
+	from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8350-mdss.yaml#
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20241204-topic-misc-sm8350-mdss-bindings-fix-v1-1-aa492a306bdb@linaro.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
