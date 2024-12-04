@@ -2,82 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3BA79E2FFB
-	for <lists+freedreno@lfdr.de>; Wed,  4 Dec 2024 00:41:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA4D09E3176
+	for <lists+freedreno@lfdr.de>; Wed,  4 Dec 2024 03:36:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68D2710E0B9;
-	Tue,  3 Dec 2024 23:41:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A24C10E298;
+	Wed,  4 Dec 2024 02:36:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gw/zaVH7";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Ew5hCMAB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DAF810E0B9
- for <freedreno@lists.freedesktop.org>; Tue,  3 Dec 2024 23:41:34 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-53df80eeeedso6305846e87.2
- for <freedreno@lists.freedesktop.org>; Tue, 03 Dec 2024 15:41:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733269292; x=1733874092; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=8VaC+AymHtSt0FKShOF4pPudg6QHjxqRoyWJzcS7cQs=;
- b=gw/zaVH7WqVhJxbraw999YeUs5b4jZ0pe+LAjXBSmdKmLxgTiJmk5tn1nc68Kkb3W6
- v3VmkqjYB3HRcpsN4QG6fuWzpFBHRzRAL5qaUNuhV5rTiGoKgB8le647EWbQbZLbj70W
- Pzfe6QV7jXSvyWSfvlvfZC28zRS0k04JV+nAVfzbx3BUpNFBhqLzGKvEC+HWsuzALNuD
- jgMBrhULq+Yx4v6q0i3kb/UwkgR/eAEGmJwNSoLBQAzxY9dzhT9WkDW0nWICM/no1uT5
- N1/Zk2TpWCMNNZHFUh+8UgpcAYLKQPNnyjRePoiQrqf34k2oNVWDG0J+uW35t5DSLs2k
- PkMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733269292; x=1733874092;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8VaC+AymHtSt0FKShOF4pPudg6QHjxqRoyWJzcS7cQs=;
- b=Djtb9PDf7RlgCbtVX5kywHw+qe0egT4OfbdVjT/qAMnX0bXfrif+1twyM7CBhR/TVQ
- k7Psv8SRPmIkNMt1fSOCH45bJO60lDgmSdYjFNK9YWDHxkgAqOyyCA/nrA1loJvkdBmF
- 8ylcWwAVup8cu7qEOBt60qVOLIEusLJEkIJOPlCLy/JpqhWu2RCkS1G+ki591RGe7l3y
- hILbHFZrds8sfIKGX1apv/Yelgy9EDEkKUl0Zi7SQia4RKSxz8Ef9010tv07PACPWsoi
- LrjWmZhdmufN2GfTGakl+834Sr7z+E1Qg6Qu1Uwt4fTc+yCtCYEhSqX8dhMSS6WHmj1q
- l06Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW60QouBwIPz1rgTfKYqnN46aAVrT24LWkLv8R7BFbAH2A9pcRlYkWjkILNVsyTDBOQK5mfUT4v/nc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwDyq2SmNS3k0viWVoiyHmyl9gBQCLUp8wnBW7zgVDy46f6UbpK
- J7IcGacxQik1ZbOxdVYE1KyherzT5jYh0ljVTfIAxN+bvwtRHJOqQMh8Z2sz4rU=
-X-Gm-Gg: ASbGnctUGtCELczZsbWAY0wuh1gXVcMLh66zcHcblt2J54oWqdA7VHL36+ooQQuLTuG
- S+30jwujYemFDjM9FOiGMpxZMTWC7XBN/+xS/WY3HObww2DwjbZOiO8QyqH3R0MVwfhzZApKazM
- Fm6yXOMhjO8nwM4TRqSFQqzfvOkpPunrHqJKK+RPXAQ8UIyPpBri4/msbL6ifglUk61KOqI/A6H
- yYu2nZ0mJHDF7c2GyckLt4EwKqD6i4O8AXXy2gu5P7klualwD5P1PANirtdqQRXDj/hFZDSayyY
- cp/KxSAGDeSXT0FnS0hsqIy498xGvA==
-X-Google-Smtp-Source: AGHT+IHKVny7lfTjFjv8vQ1LYIothrll+JFM6c9K9LYC/aAoAQoTnV/eiGZCUxd2b4XbU8ATpvpJTA==
-X-Received: by 2002:a05:6512:239a:b0:53e:1364:f982 with SMTP id
- 2adb3069b0e04-53e1364fa93mr2296539e87.17.1733269292308; 
- Tue, 03 Dec 2024 15:41:32 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53e1356906esm371633e87.15.2024.12.03.15.41.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Dec 2024 15:41:30 -0800 (PST)
-Date: Wed, 4 Dec 2024 01:41:28 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Danylo Piliaiev <danylo.piliaiev@gmail.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v2 1/1] drm/msm: Expose uche trap base via uapi
-Message-ID: <owl2yqfvo3riismpltxu2puytquy63hrx375mxedntfjxq3wve@yhofuagrozeh>
-References: <20241203095920.505018-1-dpiliaiev@igalia.com>
- <20241203174011.731980-1-dpiliaiev@igalia.com>
- <20241203174011.731980-2-dpiliaiev@igalia.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E708210E298;
+ Wed,  4 Dec 2024 02:36:53 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B3H9kZ9006043;
+ Wed, 4 Dec 2024 02:36:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ t3T0mqUa9sTQWb1BXIXhHaYCIxwf//4VB0Ss4dGNzvs=; b=Ew5hCMABEvwYzzbU
+ 74j3SZx5pp+lAcmq/K8Ac8OJ8uVHT4jCX+N0M2ZpQemiUg/1PnxfScxekAR2XSL8
+ dpGhq8pe0G48DX1/twuLoYUy/En56CVsrEi0azWtLauxNrfSUii6TcAXBYD09kC2
+ 27/tQ7Etu3hM877lWKTEX8vWI6+6ZEp2e71BuzA3Y+DbwJp61KZGqCi1NVhuPjcy
+ moJC690cIX5F9HW6se2ZQzk1bOLFlaSesEkj9JuY99eJ/KAH+IHGv/4Tr2RHnYOJ
+ JUjL1cMgVknLp/jIJue+NgJ13Wmze/jYbibOCWUQv4FfvZU/VoyPEBD//BzAGpzg
+ kO8QPg==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 439w3ejs79-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Dec 2024 02:36:46 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B42akfb029027
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 4 Dec 2024 02:36:46 GMT
+Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 3 Dec 2024
+ 18:36:45 -0800
+Message-ID: <41725f98-5c23-47d2-966b-ebd5f4e1c532@quicinc.com>
+Date: Tue, 3 Dec 2024 18:36:45 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241203174011.731980-2-dpiliaiev@igalia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] drm/msm/dp: remove redundant checks related to
+ ST_DISPLAY_OFF in plug/irq_ipd handlers
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, "Stephen Boyd" <swboyd@chromium.org>,
+ Doug Anderson <dianders@chromium.org>, "Johan Hovold" <johan@kernel.org>,
+ Bjorn Andersson <quic_bjorande@quicinc.com>
+References: <20241202-hpd_display_off-v1-0-8d0551847753@quicinc.com>
+ <20241202-hpd_display_off-v1-1-8d0551847753@quicinc.com>
+ <pa3jwxpnipj7lcusioqnjesz4cpgc2oyqgspqqvk2i5kb6ud4k@fi4grx6w5k7d>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <pa3jwxpnipj7lcusioqnjesz4cpgc2oyqgspqqvk2i5kb6ud4k@fi4grx6w5k7d>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: L2e5QloQhN0dgRPNSNM_BHnx-bVK-6QN
+X-Proofpoint-ORIG-GUID: L2e5QloQhN0dgRPNSNM_BHnx-bVK-6QN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0
+ bulkscore=0 mlxscore=0 adultscore=0 priorityscore=1501 mlxlogscore=999
+ spamscore=0 malwarescore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2412040021
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,39 +97,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Dec 03, 2024 at 06:40:11PM +0100, Danylo Piliaiev wrote:
-> On at least a6xx+, shader could read 64b ALWAYSON counter
-> from UCHE_TRAP_BASE+0 address. In Mesa it will be used
-> to implement VK_KHR_shader_clock and GL_ARB_shader_clock.
-> These extensions provide shader functions to query a real-time or
-> monotonically incrementing counter at the subgroup level or
-> across the device level.
+
+
+On 12/3/2024 5:50 AM, Dmitry Baryshkov wrote:
+> On Mon, Dec 02, 2024 at 04:39:00PM -0800, Abhinav Kumar wrote:
+>> In commit 8ede2ecc3e5ee ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets"),
+>> checks were introduced to avoid handling any plug or irq hpd events in
+>> ST_DISPLAY_OFF state.
+>>
+>> Even if we do get hpd events, after the bridge was disabled,
+>> it should get handled. Moreover, its unclear under what circumstances
+>> these events will fire because ST_DISPLAY_OFF means that the link was
+>> still connected but only the bridge was disabled. If the link was untouched,
+>> then interrupts shouldn't fire.
 > 
-> On a4xx and a5xx it was not tested what is at UCHE_TRAP_BASE
-> address, there uche trap base is exposed just for completeness.
-> 
-> Signed-off-by: Danylo Piliaiev <dpiliaiev@igalia.com>
-> ---
-> Changes in v2:
-> - Rebased on top of https://patchwork.freedesktop.org/series/141667/
->   in order to return error via UERR when there is no uche trap base.
-> - Updated commit message to explain why we need to expose the value.
-> 
-> ---
->  drivers/gpu/drm/msm/adreno/a4xx_gpu.c   |  6 ++++--
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   | 10 ++++++----
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 12 +++++++-----
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  5 +++++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  2 ++
->  include/uapi/drm/msm_drm.h              |  1 +
->  6 files changed, 25 insertions(+), 11 deletions(-)
+> What about the link being untouched, but the monitor being toggled
+> somehow, which might generate HPD / attention events?
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To confirm my understanding of this, I tested this case again with and 
+without a dongle on sc7180.
 
-Nit: in future please don't send new versions of the patch as a reply to
-the previous version. Please start a new thread for each new revision.
+Without a dongle - When the monitor is powered off and powered on, 
+without physically disturbing the cable, it still generates a hotplug 
+disconnect event when powered off and hotplug connect event when its 
+powered on again.
 
--- 
-With best wishes
-Dmitry
+It gets handled the same way as a user would hotplug it using the cable.
+
+With a dongle - When the monitor is powered off , nothing happens and it 
+stays in connected state. When the monitor is powered back on, it 
+generates a hotplug disable followed by hotplug enable event. This 
+behavior is consistent with or without this series with this dongle.
+
+So from the DP driver point of view, for both these cases, its just 
+another hotlplug disconnect/connect.
+
+Both these cases still work fine with these changes.
+
+>>
+>> Even in the case of the DP compliance equipment, it should be raising these
+>> interrupts during the start of the test which is usually accompanied with either
+>> a HPD pulse or a IRQ HPD but after the bridge is disabled it should be fine
+>> to handle these anyway. In the absence of a better reason to keep these checks,
+>> drop these and if any other issues do arise, it should be handled in a different
+>> way.
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 10 ----------
+>>   1 file changed, 10 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index aba925aab7ad..992184cc17e4 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -562,11 +562,6 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp, u32 data)
+>>   	drm_dbg_dp(dp->drm_dev, "Before, type=%d hpd_state=%d\n",
+>>   			dp->msm_dp_display.connector_type, state);
+>>   
+>> -	if (state == ST_DISPLAY_OFF) {
+>> -		mutex_unlock(&dp->event_mutex);
+>> -		return 0;
+>> -	}
+>> -
+>>   	if (state == ST_MAINLINK_READY || state == ST_CONNECTED) {
+>>   		mutex_unlock(&dp->event_mutex);
+>>   		return 0;
+>> @@ -689,11 +684,6 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_display_private *dp, u32 data)
+>>   	drm_dbg_dp(dp->drm_dev, "Before, type=%d hpd_state=%d\n",
+>>   			dp->msm_dp_display.connector_type, state);
+>>   
+>> -	if (state == ST_DISPLAY_OFF) {
+>> -		mutex_unlock(&dp->event_mutex);
+>> -		return 0;
+>> -	}
+>> -
+>>   	if (state == ST_MAINLINK_READY || state == ST_DISCONNECT_PENDING) {
+>>   		/* wait until ST_CONNECTED */
+>>   		msm_dp_add_event(dp, EV_IRQ_HPD_INT, 0, 1); /* delay = 1 */
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
