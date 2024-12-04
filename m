@@ -2,84 +2,109 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 792279E4738
-	for <lists+freedreno@lfdr.de>; Wed,  4 Dec 2024 22:50:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DB239E48D5
+	for <lists+freedreno@lfdr.de>; Thu,  5 Dec 2024 00:26:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44D3310E358;
-	Wed,  4 Dec 2024 21:50:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B130410ED69;
+	Wed,  4 Dec 2024 23:26:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XeBpWy3o";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="THa7UkIn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
- [209.85.166.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80C8110E358;
- Wed,  4 Dec 2024 21:50:48 +0000 (UTC)
-Received: by mail-il1-f179.google.com with SMTP id
- e9e14a558f8ab-3a777fd574bso718335ab.1; 
- Wed, 04 Dec 2024 13:50:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733349048; x=1733953848; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=c0hg9lZJZN9avUvJdZ9Zeao5cWyz1cd0v08GATDUcUo=;
- b=XeBpWy3okbaEbeN7OdvDosxuqqiO5+QgIaA8TvnajYO242nNsMB+TRVc82snHXmq9K
- G509YSzaZwFpJHj0vz65PRGCp4hYsOUWIbVEicHiVL2a46rVoksVwuNOZHkngMUTEyXw
- smTKlujx2hASV+6cXmuIxqOB8/z9kqNdlSW/o5Wo/RYH34X7I9qDHbAjwp34KEaQwJsm
- J6GIN/0CfoF2mOQ8pLeKBWP+171T982YBVskm4d69B+2M1yve8XYQRXKqNsoVImBxYLQ
- vy8RIhDZn26Sos1rHmebylp9B05va0PKnMC1ltZ5Gw1DMV86WNfaKvhKxSJmpi1x6Qxt
- 1C6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733349048; x=1733953848;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=c0hg9lZJZN9avUvJdZ9Zeao5cWyz1cd0v08GATDUcUo=;
- b=QgtfaiLZFYdooh4CrkpBa2jPRFr7EHHkUOnekkPIuuunKTK2VWNRvkoP+cPk3fLuD4
- 3Yy4nqjLCnYZVba0B+ZMwA1goFP29Ci6v+Xfq5pSAbzjcyiSVeFU1REaErtZjAEivozL
- 9k6jQjvLJyuK0BeSDyXBPCmypeXL6aSf7tBykrKsNbLYHuwIiszYSDaeBXlz80hnRgDm
- XYy1jRR/xMgub38SP2Qd0VY27+icgcm6JmKV+5xeowkNs0tZF+Z5UD2KW6/YMoVNtcj6
- H/9aStnRnMA/pV0K3cRMrcXHpA42Os2KMFYnzPAZG/MnIvPqIWIYIC6jzhWmuTRgBu1Z
- NuLw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUomCjcJkBwHr8ifTkgR+938YwiVxu00oOyEX2+B9icsCxRgDX/C+UKEOad3O80XSQt79RTTTQv5oI=@lists.freedesktop.org,
- AJvYcCXb8vsiBQL1aUqrU0tIjaQXOOBOFwxBGmotE7NlliRY9Drn9Y+CGp2viFdkS8KW0w3G0kduKNGcMAqg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzx9pL3Vc9EjbTDPe4RMRw+VTK3C+y0ErzZZHRaSci4l9RiHLm9
- kdheK3Wmnk5EVelPX2ezenKbFzMONAfBTBquCgOunktUXRLLznDKT98ejPiicyZqS4XZCHAFX+R
- kZVujs6zY6iy0Me5+2ZCIMn7rT08=
-X-Gm-Gg: ASbGncuBu287lPAItbS9mBY/ZCjOKGsz0sgb7UUE04bxRjtCwqhE+vLvPS1rAtRwHll
- F7GjfDm5HG1EG2Q0HbX1BLBhWPVb/Nr1PcTtldDaj2lzGah8w0u92NHMptwXJGA6FGQ==
-X-Google-Smtp-Source: AGHT+IEN22zZO17beulhc91zwdhUV4FuS5A/AGEPOGDx/jgh8nXD72t6NrVHshchMWIfdwnMPRMw2pDkgVwvxaSGD24=
-X-Received: by 2002:a05:6e02:1c43:b0:3a7:819c:5129 with SMTP id
- e9e14a558f8ab-3a7f9a8d86fmr107044695ab.18.1733349047572; Wed, 04 Dec 2024
- 13:50:47 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E6AB10E5A5;
+ Wed,  4 Dec 2024 23:26:46 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B4GwrnU023313;
+ Wed, 4 Dec 2024 23:26:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ +NcU+NmHJdNR31TOBlMnx/TcllfV5Lqqi/BTC8sXm10=; b=THa7UkInrllMtWzJ
+ uYkCvLLot7XsIfeRzLNoQGWv6Sj3rWCWJlXyW3UZnreHGwEtRTUooSNUvHEgK1PR
+ K5Vm8zZAg+ebgd8n6M7uBY8jje3BMUl+6FEq3qCHA9PA8ii7qvuLQZM0nuVhsJZi
+ 182C2/CCqy1eSDupcgPyJ6Vvk6e0mtbA2QvKA0BR5OQAI0mTksQcZg7PPQf+lpvM
+ l7HU0Fc5YBYUgQtojE1QP6NIsEgsmnunjne+QWyxD8hGDmk15RJQ1+qC6Go4TFk6
+ xs0kXCPNIJys991PW+dDAvF7bgEVttrt4oW952qRKZbYE/C0wJJMqNlLP+r09eCD
+ M8h8MA==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43aj42aeds-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Dec 2024 23:26:23 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B4NQMKZ030623
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 4 Dec 2024 23:26:22 GMT
+Received: from [10.71.110.107] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 4 Dec 2024
+ 15:26:19 -0800
+Message-ID: <c4c3dd96-727b-4be1-9152-e384478a7508@quicinc.com>
+Date: Wed, 4 Dec 2024 15:26:18 -0800
 MIME-Version: 1.0
-References: <20241125-a612-gpu-support-v2-0-b7cc38e60191@quicinc.com>
- <20241125-a612-gpu-support-v2-1-b7cc38e60191@quicinc.com>
- <752484b5-2db1-4714-8046-17cd5496d81d@oss.qualcomm.com>
- <0aa547fc-4c88-4457-8d01-81f93fb3832c@quicinc.com>
- <CAF6AEGvqPEFN+j0Txa5KPmxF8tXCn_uUsM86i4uo+tc2mTWYgg@mail.gmail.com>
- <f603f71c-64f4-4f29-b8b9-430d758a738b@quicinc.com>
- <CAF6AEGt-wojTde=OfqSyez3fD1jiyUTP08TWxNQMgkoWhF-MVA@mail.gmail.com>
-In-Reply-To: <CAF6AEGt-wojTde=OfqSyez3fD1jiyUTP08TWxNQMgkoWhF-MVA@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 4 Dec 2024 13:50:36 -0800
-Message-ID: <CAF6AEGuedG4j0no=9GYK=y2HZHVVporDfkpL9y9dg8H5PhZdKg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/msm/adreno: Introduce ADRENO_QUIRK_NO_SYSCACHE
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/10] drm/msm/dp: use eld_mutex to protect access to
+ connector->eld
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
+ <Rodrigo.Siqueira@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Xinhui Pan
+ <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park
+ <kyungmin.park@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, Alim
+ Akhtar <alim.akhtar@samsung.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance
+ <kernel-list@raspberrypi.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-samsung-soc@vger.kernel.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
+ <20241201-drm-connector-eld-mutex-v1-7-ba56a6545c03@linaro.org>
+ <ca906dc4-ac72-4a76-a670-36c011c853c9@quicinc.com>
+ <n2zmw4wquxzht6gvlx6yjurpobgwlsryh75n5gw65j5vjclhgr@jqubqjispqsr>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <n2zmw4wquxzht6gvlx6yjurpobgwlsryh75n5gw65j5vjclhgr@jqubqjispqsr>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: ih6cbWCa3Fo1OS03TdHomljQ100iLSU9
+X-Proofpoint-ORIG-GUID: ih6cbWCa3Fo1OS03TdHomljQ100iLSU9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0
+ mlxscore=0 mlxlogscore=925 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ priorityscore=1501 spamscore=0 adultscore=0 suspectscore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2412040179
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,169 +120,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Dec 4, 2024 at 1:47=E2=80=AFPM Rob Clark <robdclark@gmail.com> wrot=
-e:
->
-> On Wed, Dec 4, 2024 at 11:04=E2=80=AFAM Akhil P Oommen <quic_akhilpo@quic=
-inc.com> wrote:
-> >
-> > On 12/1/2024 10:06 PM, Rob Clark wrote:
-> > > On Sat, Nov 30, 2024 at 12:30=E2=80=AFPM Akhil P Oommen
-> > > <quic_akhilpo@quicinc.com> wrote:
-> > >>
-> > >> On 11/30/2024 7:01 PM, Konrad Dybcio wrote:
-> > >>> On 25.11.2024 5:33 PM, Akhil P Oommen wrote:
-> > >>>> There are a few chipsets which don't have system cache a.k.a LLC.
-> > >>>> Currently, the assumption in the driver is that the system cache
-> > >>>> availability correlates with the presence of GMU or RPMH, which
-> > >>>> is not true. For instance, Snapdragon 6 Gen 1 has RPMH and a GPU
-> > >>>> with a full blown GMU, but doesnot have a system cache. So,
-> > >>>> introduce an Adreno Quirk flag to check support for system cache
-> > >>>> instead of using gmu_wrapper flag.
-> > >>>>
-> > >>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> > >>>> ---
-> > >>>>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 3 ++-
-> > >>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 7 +------
-> > >>>>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 1 +
-> > >>>>  3 files changed, 4 insertions(+), 7 deletions(-)
-> > >>>>
-> > >>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/g=
-pu/drm/msm/adreno/a6xx_catalog.c
-> > >>>> index 0c560e84ad5a..5e389f6b8b8a 100644
-> > >>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> > >>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> > >>>> @@ -682,6 +682,7 @@ static const struct adreno_info a6xx_gpus[] =
-=3D {
-> > >>>>              },
-> > >>>>              .gmem =3D (SZ_128K + SZ_4K),
-> > >>>>              .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
-> > >>>> +            .quirks =3D ADRENO_QUIRK_NO_SYSCACHE,
-> > >>>>              .init =3D a6xx_gpu_init,
-> > >>>>              .zapfw =3D "a610_zap.mdt",
-> > >>>>              .a6xx =3D &(const struct a6xx_info) {
-> > >>>> @@ -1331,7 +1332,7 @@ static const struct adreno_info a7xx_gpus[] =
-=3D {
-> > >>>>              },
-> > >>>>              .gmem =3D SZ_128K,
-> > >>>>              .inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
-> > >>>> -            .quirks =3D ADRENO_QUIRK_HAS_HW_APRIV,
-> > >>>> +            .quirks =3D ADRENO_QUIRK_HAS_HW_APRIV | ADRENO_QUIRK_=
-NO_SYSCACHE,
-> > >>>>              .init =3D a6xx_gpu_init,
-> > >>>>              .zapfw =3D "a702_zap.mbn",
-> > >>>>              .a6xx =3D &(const struct a6xx_info) {
-> > >>>
-> > >>> +a619_holi
-> > >>>
-> > >>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/d=
-rm/msm/adreno/a6xx_gpu.c
-> > >>>> index 019610341df1..a8b928d0f320 100644
-> > >>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > >>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > >>>> @@ -1863,10 +1863,6 @@ static void a7xx_llc_activate(struct a6xx_g=
-pu *a6xx_gpu)
-> > >>>>
-> > >>>>  static void a6xx_llc_slices_destroy(struct a6xx_gpu *a6xx_gpu)
-> > >>>>  {
-> > >>>> -    /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
-> > >>>> -    if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
-> > >>>> -            return;
-> > >>>> -
-> > >>>>      llcc_slice_putd(a6xx_gpu->llc_slice);
-> > >>>>      llcc_slice_putd(a6xx_gpu->htw_llc_slice);
-> > >>>>  }
-> > >>>> @@ -1876,8 +1872,7 @@ static void a6xx_llc_slices_init(struct plat=
-form_device *pdev,
-> > >>>>  {
-> > >>>>      struct device_node *phandle;
-> > >>>>
-> > >>>> -    /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
-> > >>>> -    if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
-> > >>>> +    if (a6xx_gpu->base.info->quirks & ADRENO_QUIRK_NO_SYSCACHE)
-> > >>>>              return;
-> > >>>
-> > >>> I think A612 is the "quirky" one here.. it has some sort of a GMU,
-> > >>> but we're choosing not to implement it. maybe a check for
-> > >>>
-> > >>> if (adreno_has_gmu_wrapper && !adreno_is_a612)
-> > >>>
-> > >>> would be clearer here, with a comment that RGMU support is not
-> > >>> implemented
-> > >>>
-> > >>>
-> > >>>
-> > >>> But going further, I'm a bit concerned about dt-bindings.. If we
-> > >>> implement RGMU on the driver side in the future, that will require
-> > >>> DT changes which will make the currently proposed description inval=
-id.
-> > >>>
-> > >>> I think a better angle would be to add a adreno_has_rgmu() func wit=
-h
-> > >>> a qcom,adreno-rgmu compatible and plumb it correctly from the get-g=
-o.
-> > >>>
-> > >>> This way, we can avoid this syscache quirk as well.
-> > >>>
-> > >>
-> > >> I am aware of at least Adreno 710 which doesn't have syscache, but h=
-as
-> > >> proper GMU. And I don't see any reason why there couldn't be another=
- one
-> > >> in future to save silicon area. So, a quirk flag doesn't seem so bad=
- in
-> > >> this case.
-> > >>
-> > >> The correct way to avoid this quirk flag is by making LLCC driver re=
-turn
-> > >> a proper error to detect the absence of syscache. Currently, it just
-> > >> returns EPROBE_DEFER which put driver in an infinite probe loop.
-> > >
-> > > Hmm, this seems solvable?  llcc has a node in the dt, so it seems lik=
-e
-> > > it should be able to tell the difference between not existing and not
-> > > being probed yet.  Something maybe like, initialize drv_data to NULL
-> > > instead of -EPROBE_DEFER, and then in the various entry points, if
-> > > (!drv_data) return not_probed_helper(); which would check if a
-> > > compatible node exists in dt?
-> >
-> > Sounds like that would work. Can we explore that separately?
-> >
-> > I am a bit worried about adding another subsystem's patch to this
-> > series. That might delay this series by weeks.
->
-> I don't think there is a dependency between the two, so it shouldn't
-> delay anything.  We can just merge the first patch in this series as
-> it is and drop the second.  And the llcc change is a legit bug fix,
-> IMO, -EPROBE_DEFER is the incorrect return value when the device is
-> not present.
 
-Actually, that wasn't _quite_ correct, but the idea still stands.
-Re-send second patch, but without the ADRENO_QUIRK_NO_SYSCACHE parts,
-and drop the first.
 
-In parallel send the llcc fix.  There is no compile time dependency,
-so they can go thru different trees.
+On 12/3/2024 5:58 AM, Dmitry Baryshkov wrote:
+> On Mon, Dec 02, 2024 at 07:27:45PM -0800, Abhinav Kumar wrote:
+>>
+>>
+>> On 11/30/2024 3:55 PM, Dmitry Baryshkov wrote:
+>>> Reading access to connector->eld can happen at the same time the
+>>> drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
+>>> order to protect connector->eld from concurrent access.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>    drivers/gpu/drm/msm/dp/dp_audio.c | 2 ++
+>>>    1 file changed, 2 insertions(+)
+>>>
+>>
+>> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> 
+> Ack to merge through drm-misc?
+> 
 
-BR,
--R
+Yes,
 
->
-> BR,
-> -R
->
-> > -Akhil
-> >
-> > >
-> > > BR,
-> > > -R
-> > >
-> > >> Agree about the dt binding suggestion. I will define a new compatibl=
-e
-> > >> string for rgmu.
-> > >>
-> > >> -Akhil.
-> > >>
-> > >>> Konrad
-> > >>
-> >
+Acked-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
