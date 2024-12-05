@@ -2,106 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4254A9E4E7B
-	for <lists+freedreno@lfdr.de>; Thu,  5 Dec 2024 08:33:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5A569E5077
+	for <lists+freedreno@lfdr.de>; Thu,  5 Dec 2024 10:01:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EBD510EDBF;
-	Thu,  5 Dec 2024 07:33:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2CEB10EE00;
+	Thu,  5 Dec 2024 09:01:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Udkuqoi/";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="BlZPxUnp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DF2510EDBF;
- Thu,  5 Dec 2024 07:33:33 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 9EF86A41522;
- Thu,  5 Dec 2024 07:31:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58075C4CED1;
- Thu,  5 Dec 2024 07:33:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733384012;
- bh=N6b6G1hccUjy50KfZUwq8KJZvPbyplkKkBKQG+61mK4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Udkuqoi/TpU9taIdDluAHlQrGzg6PJ7ZcepZ46TL+2pOJv5/uDBzoNUi9AflB3bbL
- LI3Ty6ZLopqblld66CarHdx51UdnCkXemecjuzLG+y4oO2pNF57czqKCJhfVYP2jPN
- 4aRzBbGGOhrPFWq78yJB6aN4uxBgxEu5Zu4Sth/XSkEFyw5vEwV+AMcGp6awb/AqhJ
- bXVvupEqNwl0TjfcDF9Xe62OwsNEfX9BZ6iwwp6xFdw/4DrRlV0uQlSrz+uwdIBl6l
- Vp30G1UFU6yrQvmow6p2bT7j4niPxYcg3Ea0VUGd0rkkE0NShtM4KrWAbyLuDDTIR1
- rilfwuA60BvwQ==
-Message-ID: <2ef59c6d-bef2-4763-9463-06116a2e7d04@kernel.org>
-Date: Thu, 5 Dec 2024 08:33:24 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4589710EE00
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Dec 2024 09:01:43 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B4NAes2026206
+ for <freedreno@lists.freedesktop.org>; Thu, 5 Dec 2024 09:01:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ UBlV71/S/1hIrwvQvF8onkqeXPfF0uj7g0z4CXkoqgQ=; b=BlZPxUnp28Dgjs0R
+ /rNkCFf77C5OYR2Vh528B5zj5I50k9LRNtUDRdg4IzP1bXPFmLJPNViNBOo6T3gO
+ yAKTEocTFj9eu/YbTSAvPM2ffbPNl6ruovGzk32taSMzhrNvAyV3aMkbvnhcag28
+ ehJPnxCjMEKWD2h2OySknEWxMkigU/t9b4rlQ9lu0j9VN+f8Tf8MVS/RwUTGLH2t
+ qUcFd+eoEvRMFKK/nhSpXZGoB3Qf3F7XXBwmb3+YmYzkoIgCyPXuhhkyLZZn7XTm
+ 5ihRc+mnk9BhtSvrOqOSi+Py3K3cl3Qo5fpI+c+Z7r9AZFMUNrzVFQswI/cOVxVW
+ NZUW3w==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 439yr9pdcx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Dec 2024 09:01:42 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B591ftB009908
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 5 Dec 2024 09:01:41 GMT
+Received: from [10.64.68.119] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 5 Dec 2024
+ 01:01:40 -0800
+Message-ID: <0bd19e44-f601-4035-ac87-13b3e646cdd5@quicinc.com>
+Date: Thu, 5 Dec 2024 17:01:37 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] dt-bindings: display: msm: dp-controller: document
- clock parents better
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Mahadevan <quic_mahap@quicinc.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20241202-dp_mst_bindings-v1-0-9a9a43b0624a@quicinc.com>
- <20241202-dp_mst_bindings-v1-2-9a9a43b0624a@quicinc.com>
- <bfa857c2-cd74-4fe2-a88c-3b35a58710b0@kernel.org>
- <gpqrugcsyhz32bvip5mgjtcservhral2o5b6c5nz4ocwbjw5uo@eypv4x6jyrdr>
- <hqe2pipkcnxftoq5mvdk36xmkj3ybr3oto6eghimq75rqlncsm@v45smglhedy7>
- <pxi2nf4h34xtkickkkuwh4svvhbtsutuz5u3ukzgfgd5rzzcps@g4gct5zuc6kj>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 4/5] drm/msm/dpu: Add QCS8300 support
+To: <freedreno@lists.freedesktop.org>
+References: <20241127-mdss_qcs8300-v1-0-29b2c3ee95b8@quicinc.com>
+ <20241127-mdss_qcs8300-v1-4-29b2c3ee95b8@quicinc.com>
+ <f5kqdxkhniwwxu6wm2q323vvlsfn3yyig7mfg3h5ctqo7jjxc7@7g32tirseuqs>
+ <9821c4d5-8d1d-4bed-b3e0-879d0aeba017@quicinc.com>
+ <CAA8EJppDomrYvtJ46pi1_hDsf3zFeeTfrkQfVwE8UTN01KfKpw@mail.gmail.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <pxi2nf4h34xtkickkkuwh4svvhbtsutuz5u3ukzgfgd5rzzcps@g4gct5zuc6kj>
-Content-Type: text/plain; charset=UTF-8
+From: Yongxing Mou <quic_yongmou@quicinc.com>
+In-Reply-To: <CAA8EJppDomrYvtJ46pi1_hDsf3zFeeTfrkQfVwE8UTN01KfKpw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: nJUOC48CvLKQOAZst0jVH3vdHcyXYPNt
+X-Proofpoint-GUID: nJUOC48CvLKQOAZst0jVH3vdHcyXYPNt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0
+ clxscore=1015 priorityscore=1501 mlxlogscore=717 phishscore=0
+ lowpriorityscore=0 malwarescore=0 mlxscore=0 suspectscore=0 adultscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412050064
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,37 +91,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/12/2024 11:09, Dmitry Baryshkov wrote:
-> On Wed, Dec 04, 2024 at 09:02:18AM +0100, Krzysztof Kozlowski wrote:
->> On Tue, Dec 03, 2024 at 03:41:48PM +0200, Dmitry Baryshkov wrote:
->>> On Tue, Dec 03, 2024 at 09:01:31AM +0100, Krzysztof Kozlowski wrote:
->>>> On 03/12/2024 04:31, Abhinav Kumar wrote:
->>>>> Document the assigned-clock-parents better for the DP controller node
->>>>> to indicate its functionality better.
+
+
+On 2024/11/29 21:32, Dmitry Baryshkov wrote:
+> On Fri, 29 Nov 2024 at 12:01, Yongxing Mou <quic_yongmou@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 2024/11/27 21:49, Dmitry Baryshkov wrote:
+>>> On Wed, Nov 27, 2024 at 03:05:04PM +0800, Yongxing Mou wrote:
+>>>> Add definitions for the display hardware used on the
+>>>> Qualcomm QCS8300 platform.
+>>>>
+>>>> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
+>>>> ---
+>>>>    .../drm/msm/disp/dpu1/catalog/dpu_8_4_qcs8300.h    | 485 +++++++++++++++++++++
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>>>>    4 files changed, 488 insertions(+)
 >>>>
 >>>>
->>>> You change the clocks entirely, not "document". I would say that's an
->>>> ABI break if it really is a Linux requirement. You could avoid any
->>>> problems by just dropping the property from binding.
 >>>
->>> But if you take a look at the existing usage, the proposed change
->>> matches the behaviour. So, I'd say, it's really a change that makes
->>> documentation follow the actual hardware.
->>
->> First, this should be in the commit msg, instead of "document better to
->> indicate functionality better".
->>
->> Second, what is the point of documenting it in the first place if you
->> can change it and changing has no impact? So maybe just drop?
+>>> NAK, there is no need for this.
+>> Got it,thanks. will modify it in next patchset.Compared to sa8775p, they
+>> use same dpu but qcs8300 has one less intf and two fewer dp intfs. Other
+>> configurations are the same.can we reuse it or a new catalog file to
+>> show it.
 > 
-> So, do you suggest setting both of the property descriptions to true? Or
-> dropping them completely and using unevaluatedProperties instead of
-> additionalProperties?
+> Is it actually not populated in the silicon? What happens if one
+> access those INTF_n registers?
 > 
-
-Dropping them entirely, without any changes of additionalProperties.
-Unless this property was added due to limitation of dtschema?
-
-
-Best regards,
-Krzysztof
+yes, intf_n and ctrl is present in silicon.it is fine to dump intf/ctrl 
+registers.
