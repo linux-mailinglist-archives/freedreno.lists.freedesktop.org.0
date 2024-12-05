@@ -2,92 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A7BB9E59D1
-	for <lists+freedreno@lfdr.de>; Thu,  5 Dec 2024 16:36:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2A289E5C3E
+	for <lists+freedreno@lfdr.de>; Thu,  5 Dec 2024 17:55:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D434C10EEC8;
-	Thu,  5 Dec 2024 15:36:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86E0910EF2A;
+	Thu,  5 Dec 2024 16:54:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="RROnMdPd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JZtIDQ9p";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EAD710EEC8;
- Thu,  5 Dec 2024 15:36:42 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B5BpOfM029794;
- Thu, 5 Dec 2024 15:36:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Cb3O6xRMhUCG8YtfIhJ8Q/gXI786mdIHSOXUpNgnVeE=; b=RROnMdPdjje+rQhr
- QlqozCKDTYFpvpggHsw2Dp9HusSUhKp2P5FsgGKczS6iBeal2ma4U3AiI3mHE0Yb
- KgXAeShxg8g+CIctNjPDOpg9tpgV9HdK8McAW431updGmfv4wN5Eitn9nYCRCkkN
- XSFfmjl0K7vcVRIiRvcIPbcy3aEdN/DrV0vf+ghmMrZazmcUFXt9MtgHtuQzOHmb
- O+Nu5AvZbxPa3kfJuOEvyrBcit2soYrn62uBXwGStIveQeiABjfrNE1pXpmxigzz
- 9JBJJnrlfhauabERfoWjR0qyUO5gZtcfWsCwplI89iMe1yGIu/eGd60Sl9p6kaqx
- UsXDdg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43bbnj0ksn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Dec 2024 15:36:35 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B5FaYBq001994
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 5 Dec 2024 15:36:34 GMT
-Received: from [10.206.104.82] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 5 Dec 2024
- 07:36:16 -0800
-Message-ID: <77879a46-d6c4-4f74-af25-775312e91f08@quicinc.com>
-Date: Thu, 5 Dec 2024 21:06:12 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/msm/adreno: Introduce ADRENO_QUIRK_NO_SYSCACHE
-To: Rob Clark <robdclark@gmail.com>
-CC: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Sean Paul
- <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>,
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9991010EF23;
+ Thu,  5 Dec 2024 16:54:35 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-7fc88476a02so1174003a12.2; 
+ Thu, 05 Dec 2024 08:54:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1733417674; x=1734022474; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Kn0SGYEpdVC2XTloHJxrfRD+aLFLQ4os0UEd17zTTWs=;
+ b=JZtIDQ9pht5U1dJ+mHibAiUhUlbRkR/zF0S9SAfthzu0NQLBQOXXVpLuW/sRNzOfgG
+ tDxngVy63cbSbsTtdGXiGHCDaRQiPF3GvGaToi9KfewskQJa6dPfSA+uhWf7bjL693LR
+ /VdGQGCK1l1+va2DhZ4hgEiMbuE1zxYVaF4Ku8AWFC02I1MnO4MwykViLA9CiSDdCqaB
+ GdEKFerGPvzhoJSu/R0koP2hLMwA0YUmy2qMvxouDJad/tq8mxi2m7MwWUiujuLBSU8w
+ MLIfYd6uHbAuseh+eqM0FjYlKmjEoTcNp5vbR1NLUfUHZQtjYLfm6l7CXKnFya1KJYzq
+ Umig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733417674; x=1734022474;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Kn0SGYEpdVC2XTloHJxrfRD+aLFLQ4os0UEd17zTTWs=;
+ b=S3cAHXE1dWUvVMnwELZa3tTCS37YsoZpWlM3zOxw2NWDTHbqqY7eUTUEA7WC6sSGF7
+ bFcF2M4eafhakZMDILFq5dOQHS7aOJc9yBlMBChAbu17HV2gJ1knekrpvaMo0tP0lXN1
+ uEoOznRxCrmEHsioZroEKQCHfmXmKI06py4pNjWfg3eVHrQzDG5naHVlLbqpXeqEAgxA
+ Bg7byp0TDNdsKwp36yKnZaSKX6jgUEXZSM95hvQ7T7nuQf1Q6Q7//HFFFaj2DKmjN4t/
+ pi02vzsYWaybnJkHrF7438C0syXHh7VLuiqM1zBAZi+LUDTGXSA5HT/mk6rzPOyP+k1g
+ KcFw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUlMUL8Lr42fSb7wLNMQKubP5dlm4WwKJdDBU0pgM0RlOSw8ffQiGj0a6l7Cb5xw7giPsYeyi/ZA0U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzhrDY6czY0JdjfW8aGsyKOOwbZSfBhoedVhSnHwnbFH+Kk50pL
+ ygUB4tHxGXYkMepcjVodXsHIPBS6Ir/3S56J/TeveTYqtHWGnP5DiEVzuQ==
+X-Gm-Gg: ASbGnctfwHeF95Pgwm5ggAAJ+I0CPQyEfczhgVnMmisAqM7V6UOQ9XGPFY/cCyzEFqx
+ UXqIz6dFVVbK0Y3galqV8ZblcYeVoLZI/azd5DGhky0q07CslPcadi4HddA4tAFil8Yz3SHCgLy
+ ek2y7qmfXtGSR+43Y4O3Rxt7+IcWS7w9u4SQ2fO893OKDpRCIGjpE+N6ZfoJNOR9TEnbhj/Z4TD
+ 7FL9nIhSNmhYtIHoBt0ohWOHJYtOk5YUZ4d0AkhVdaO0vdFWnbOPVfFLQw82D6IdOnsSIBaDVEO
+ m0UBQDJYjIDAAbZG8xkxV0MR
+X-Google-Smtp-Source: AGHT+IH6c4n4lMWz2tkVfQAsnwNt3ElGSgYjtnyjOea/GD2+GgVwTpqe57dWmQRReNubG+Nmvyx/Yg==
+X-Received: by 2002:a05:6a20:7f9a:b0:1db:915b:ab11 with SMTP id
+ adf61e73a8af0-1e1653c834bmr16834822637.24.1733417674330; 
+ Thu, 05 Dec 2024 08:54:34 -0800 (PST)
+Received: from localhost ([2a00:79e1:2e00:1301:12e9:d196:a1e9:ab67])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-725a2cc6ea2sm1495088b3a.186.2024.12.05.08.54.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Dec 2024 08:54:33 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@chromium.org>
-References: <20241125-a612-gpu-support-v2-0-b7cc38e60191@quicinc.com>
- <20241125-a612-gpu-support-v2-1-b7cc38e60191@quicinc.com>
- <752484b5-2db1-4714-8046-17cd5496d81d@oss.qualcomm.com>
- <0aa547fc-4c88-4457-8d01-81f93fb3832c@quicinc.com>
- <CAF6AEGvqPEFN+j0Txa5KPmxF8tXCn_uUsM86i4uo+tc2mTWYgg@mail.gmail.com>
- <f603f71c-64f4-4f29-b8b9-430d758a738b@quicinc.com>
- <CAF6AEGt-wojTde=OfqSyez3fD1jiyUTP08TWxNQMgkoWhF-MVA@mail.gmail.com>
- <CAF6AEGuedG4j0no=9GYK=y2HZHVVporDfkpL9y9dg8H5PhZdKg@mail.gmail.com>
-Content-Language: en-US
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <CAF6AEGuedG4j0no=9GYK=y2HZHVVporDfkpL9y9dg8H5PhZdKg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [RFC] drm/msm: Add UABI to request perfcntr usage
+Date: Thu,  5 Dec 2024 08:54:18 -0800
+Message-ID: <20241205165419.54080-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.47.1
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 2R-8z458vlweMt8_3UT5FCxoEHfuIRQw
-X-Proofpoint-ORIG-GUID: 2R-8z458vlweMt8_3UT5FCxoEHfuIRQw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0
- clxscore=1011 priorityscore=1501 mlxscore=0 phishscore=0 impostorscore=0
- malwarescore=0 mlxlogscore=999 lowpriorityscore=0 spamscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
- definitions=main-2412050113
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,158 +96,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/5/2024 3:20 AM, Rob Clark wrote:
-> On Wed, Dec 4, 2024 at 1:47 PM Rob Clark <robdclark@gmail.com> wrote:
->>
->> On Wed, Dec 4, 2024 at 11:04 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->>>
->>> On 12/1/2024 10:06 PM, Rob Clark wrote:
->>>> On Sat, Nov 30, 2024 at 12:30 PM Akhil P Oommen
->>>> <quic_akhilpo@quicinc.com> wrote:
->>>>>
->>>>> On 11/30/2024 7:01 PM, Konrad Dybcio wrote:
->>>>>> On 25.11.2024 5:33 PM, Akhil P Oommen wrote:
->>>>>>> There are a few chipsets which don't have system cache a.k.a LLC.
->>>>>>> Currently, the assumption in the driver is that the system cache
->>>>>>> availability correlates with the presence of GMU or RPMH, which
->>>>>>> is not true. For instance, Snapdragon 6 Gen 1 has RPMH and a GPU
->>>>>>> with a full blown GMU, but doesnot have a system cache. So,
->>>>>>> introduce an Adreno Quirk flag to check support for system cache
->>>>>>> instead of using gmu_wrapper flag.
->>>>>>>
->>>>>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>>>>>> ---
->>>>>>>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 3 ++-
->>>>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 7 +------
->>>>>>>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 1 +
->>>>>>>  3 files changed, 4 insertions(+), 7 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>>>> index 0c560e84ad5a..5e389f6b8b8a 100644
->>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
->>>>>>> @@ -682,6 +682,7 @@ static const struct adreno_info a6xx_gpus[] = {
->>>>>>>              },
->>>>>>>              .gmem = (SZ_128K + SZ_4K),
->>>>>>>              .inactive_period = DRM_MSM_INACTIVE_PERIOD,
->>>>>>> +            .quirks = ADRENO_QUIRK_NO_SYSCACHE,
->>>>>>>              .init = a6xx_gpu_init,
->>>>>>>              .zapfw = "a610_zap.mdt",
->>>>>>>              .a6xx = &(const struct a6xx_info) {
->>>>>>> @@ -1331,7 +1332,7 @@ static const struct adreno_info a7xx_gpus[] = {
->>>>>>>              },
->>>>>>>              .gmem = SZ_128K,
->>>>>>>              .inactive_period = DRM_MSM_INACTIVE_PERIOD,
->>>>>>> -            .quirks = ADRENO_QUIRK_HAS_HW_APRIV,
->>>>>>> +            .quirks = ADRENO_QUIRK_HAS_HW_APRIV | ADRENO_QUIRK_NO_SYSCACHE,
->>>>>>>              .init = a6xx_gpu_init,
->>>>>>>              .zapfw = "a702_zap.mbn",
->>>>>>>              .a6xx = &(const struct a6xx_info) {
->>>>>>
->>>>>> +a619_holi
->>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>>>> index 019610341df1..a8b928d0f320 100644
->>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>>>>> @@ -1863,10 +1863,6 @@ static void a7xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
->>>>>>>
->>>>>>>  static void a6xx_llc_slices_destroy(struct a6xx_gpu *a6xx_gpu)
->>>>>>>  {
->>>>>>> -    /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
->>>>>>> -    if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
->>>>>>> -            return;
->>>>>>> -
->>>>>>>      llcc_slice_putd(a6xx_gpu->llc_slice);
->>>>>>>      llcc_slice_putd(a6xx_gpu->htw_llc_slice);
->>>>>>>  }
->>>>>>> @@ -1876,8 +1872,7 @@ static void a6xx_llc_slices_init(struct platform_device *pdev,
->>>>>>>  {
->>>>>>>      struct device_node *phandle;
->>>>>>>
->>>>>>> -    /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
->>>>>>> -    if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
->>>>>>> +    if (a6xx_gpu->base.info->quirks & ADRENO_QUIRK_NO_SYSCACHE)
->>>>>>>              return;
->>>>>>
->>>>>> I think A612 is the "quirky" one here.. it has some sort of a GMU,
->>>>>> but we're choosing not to implement it. maybe a check for
->>>>>>
->>>>>> if (adreno_has_gmu_wrapper && !adreno_is_a612)
->>>>>>
->>>>>> would be clearer here, with a comment that RGMU support is not
->>>>>> implemented
->>>>>>
->>>>>>
->>>>>>
->>>>>> But going further, I'm a bit concerned about dt-bindings.. If we
->>>>>> implement RGMU on the driver side in the future, that will require
->>>>>> DT changes which will make the currently proposed description invalid.
->>>>>>
->>>>>> I think a better angle would be to add a adreno_has_rgmu() func with
->>>>>> a qcom,adreno-rgmu compatible and plumb it correctly from the get-go.
->>>>>>
->>>>>> This way, we can avoid this syscache quirk as well.
->>>>>>
->>>>>
->>>>> I am aware of at least Adreno 710 which doesn't have syscache, but has
->>>>> proper GMU. And I don't see any reason why there couldn't be another one
->>>>> in future to save silicon area. So, a quirk flag doesn't seem so bad in
->>>>> this case.
->>>>>
->>>>> The correct way to avoid this quirk flag is by making LLCC driver return
->>>>> a proper error to detect the absence of syscache. Currently, it just
->>>>> returns EPROBE_DEFER which put driver in an infinite probe loop.
->>>>
->>>> Hmm, this seems solvable?  llcc has a node in the dt, so it seems like
->>>> it should be able to tell the difference between not existing and not
->>>> being probed yet.  Something maybe like, initialize drv_data to NULL
->>>> instead of -EPROBE_DEFER, and then in the various entry points, if
->>>> (!drv_data) return not_probed_helper(); which would check if a
->>>> compatible node exists in dt?
->>>
->>> Sounds like that would work. Can we explore that separately?
->>>
->>> I am a bit worried about adding another subsystem's patch to this
->>> series. That might delay this series by weeks.
->>
->> I don't think there is a dependency between the two, so it shouldn't
->> delay anything.  We can just merge the first patch in this series as
->> it is and drop the second.  And the llcc change is a legit bug fix,
->> IMO, -EPROBE_DEFER is the incorrect return value when the device is
->> not present.
-> 
-> Actually, that wasn't _quite_ correct, but the idea still stands.
-> Re-send second patch, but without the ADRENO_QUIRK_NO_SYSCACHE parts,
-> and drop the first.
-> 
-> In parallel send the llcc fix.  There is no compile time dependency,
-> so they can go thru different trees.
-> 
+From: Rob Clark <robdclark@chromium.org>
 
-Ack, will send separate patches.
+Performance counter usage falls into two categories:
 
--Akhil.
+1. Local usage, where the counter configuration, start, and end read
+   happen within (locally to) a single SUBMIT.  In this case, there is
+   no dependency on counter configuration or values between submits, and
+   in fact counters are normally cleared on context switches, making it
+   impossible to rely on cross-submit state.
 
-> BR,
-> -R
-> 
->>
->> BR,
->> -R
->>
->>> -Akhil
->>>
->>>>
->>>> BR,
->>>> -R
->>>>
->>>>> Agree about the dt binding suggestion. I will define a new compatible
->>>>> string for rgmu.
->>>>>
->>>>> -Akhil.
->>>>>
->>>>>> Konrad
->>>>>
->>>
+2. Global usage, where a single privilaged daemon/process is sampling
+   counter values across all processes for profiling.
+
+The two categories are mutually exclusive.  While you can have many
+processes making local counter usage, you cannot combine global and
+local usage without the two stepping on each others feet (by changing
+counter configuration).
+
+For global counter usage, there is already a SYSPROF param (since global
+counter usage requires disabling counter clearing on context switch).
+This patch adds a REQ_CNTRS param to request local counter usage.  If
+one or more processes has requested counter usage, then a SYSPROF
+request will fail with -EBUSY.  And if SYSPROF is active, then REQ_CNTRS
+will fail with -EBUSY, maintaining the mutual exclusivity.
+
+This is purely an advisory interface to help coordinate userspace.
+There is no real means of enforcement, but the worst that can happen if
+userspace ignores a REQ_CNTRS failure is that you'll get nonsense
+profiling data.
+
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+kgsl takes a different approach, which involves a lot more UABI for
+assigning counters to different processes.  But I think by taking
+advantage of the fact that mesa (freedreno+turnip) reconfigure the
+counters they need in each SUBMIT, for their respective gl/vk perf-
+counter extensions, we can take this simpler approach.
+
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c |  2 +
+ drivers/gpu/drm/msm/msm_drv.c           |  5 ++-
+ drivers/gpu/drm/msm/msm_gpu.c           |  1 +
+ drivers/gpu/drm/msm/msm_gpu.h           | 29 +++++++++++++-
+ drivers/gpu/drm/msm/msm_submitqueue.c   | 52 ++++++++++++++++++++++++-
+ include/uapi/drm/msm_drm.h              |  1 +
+ 6 files changed, 85 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 31bbf2c83de4..f688e37059b8 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -441,6 +441,8 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+ 		if (!capable(CAP_SYS_ADMIN))
+ 			return UERR(EPERM, drm, "invalid permissions");
+ 		return msm_file_private_set_sysprof(ctx, gpu, value);
++	case MSM_PARAM_REQ_CNTRS:
++		return msm_file_private_request_counters(ctx, gpu, value);
+ 	default:
+ 		return UERR(EINVAL, drm, "%s: invalid param: %u", gpu->name, param);
+ 	}
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 6416d2cb4efc..bf8314ff4a25 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -377,9 +377,12 @@ static void msm_postclose(struct drm_device *dev, struct drm_file *file)
+ 	 * It is not possible to set sysprof param to non-zero if gpu
+ 	 * is not initialized:
+ 	 */
+-	if (priv->gpu)
++	if (ctx->sysprof)
+ 		msm_file_private_set_sysprof(ctx, priv->gpu, 0);
+ 
++	if (ctx->counters_requested)
++		msm_file_private_request_counters(ctx, priv->gpu, 0);
++
+ 	context_close(ctx);
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 82f204f3bb8f..013b59ca3bb1 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -991,6 +991,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	gpu->nr_rings = nr_rings;
+ 
+ 	refcount_set(&gpu->sysprof_active, 1);
++	refcount_set(&gpu->local_counters_active, 1);
+ 
+ 	return 0;
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index e25009150579..83c61e523b1b 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -195,12 +195,28 @@ struct msm_gpu {
+ 	int nr_rings;
+ 
+ 	/**
+-	 * sysprof_active:
++	 * @sysprof_active:
+ 	 *
+-	 * The count of contexts that have enabled system profiling.
++	 * The count of contexts that have enabled system profiling plus one.
++	 *
++	 * Note: refcount_t does not like 0->1 transitions.. we want to keep
++	 * the under/overflow checks that refcount_t provides, but allow
++	 * multiple on/off transitions so we track the logical value plus one.)
+ 	 */
+ 	refcount_t sysprof_active;
+ 
++	/**
++	 * @local_counters_active:
++	 *
++	 * The count of contexts that have requested local (intra-submit)
++	 * performance counter usage plus one.
++	 *
++	 * Note: refcount_t does not like 0->1 transitions.. we want to keep
++	 * the under/overflow checks that refcount_t provides, but allow
++	 * multiple on/off transitions so we track the logical value plus one.)
++	 */
++	refcount_t local_counters_active;
++
+ 	/**
+ 	 * lock:
+ 	 *
+@@ -383,6 +399,13 @@ struct msm_file_private {
+ 	 */
+ 	int sysprof;
+ 
++	/**
++	 * @counters_requested:
++	 *
++	 * Has the context requested local perfcntr usage.
++	 */
++	bool counters_requested;
++
+ 	/**
+ 	 * comm: Overridden task comm, see MSM_PARAM_COMM
+ 	 *
+@@ -626,6 +649,8 @@ void msm_submitqueue_destroy(struct kref *kref);
+ 
+ int msm_file_private_set_sysprof(struct msm_file_private *ctx,
+ 				 struct msm_gpu *gpu, int sysprof);
++int msm_file_private_request_counters(struct msm_file_private *ctx,
++				      struct msm_gpu *gpu, int reqcntrs);
+ void __msm_file_private_destroy(struct kref *kref);
+ 
+ static inline void msm_file_private_put(struct msm_file_private *ctx)
+diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
+index 7fed1de63b5d..1e1e21e6f7ae 100644
+--- a/drivers/gpu/drm/msm/msm_submitqueue.c
++++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+@@ -10,6 +10,15 @@
+ int msm_file_private_set_sysprof(struct msm_file_private *ctx,
+ 				 struct msm_gpu *gpu, int sysprof)
+ {
++	int ret = 0;
++
++	mutex_lock(&gpu->lock);
++
++	if (sysprof && (refcount_read(&gpu->local_counters_active) > 1)) {
++		ret = UERR(EBUSY, gpu->dev, "Local counter usage active");
++		goto out_unlock;
++	}
++
+ 	/*
+ 	 * Since pm_runtime and sysprof_active are both refcounts, we
+ 	 * call apply the new value first, and then unwind the previous
+@@ -18,7 +27,8 @@ int msm_file_private_set_sysprof(struct msm_file_private *ctx,
+ 
+ 	switch (sysprof) {
+ 	default:
+-		return UERR(EINVAL, gpu->dev, "Invalid sysprof: %d", sysprof);
++		ret = UERR(EINVAL, gpu->dev, "Invalid sysprof: %d", sysprof);
++		goto out_unlock;
+ 	case 2:
+ 		pm_runtime_get_sync(&gpu->pdev->dev);
+ 		fallthrough;
+@@ -43,7 +53,45 @@ int msm_file_private_set_sysprof(struct msm_file_private *ctx,
+ 
+ 	ctx->sysprof = sysprof;
+ 
+-	return 0;
++out_unlock:
++	mutex_unlock(&gpu->lock);
++
++	return ret;
++}
++
++int msm_file_private_request_counters(struct msm_file_private *ctx,
++				      struct msm_gpu *gpu, int reqctrs)
++{
++	int ret = 0;
++
++	mutex_lock(&gpu->lock);
++
++	if (reqctrs && (refcount_read(&gpu->sysprof_active) > 1)) {
++		ret = UERR(EBUSY, gpu->dev, "System profiling active");
++		goto out_unlock;
++	}
++
++	if (reqctrs) {
++		if (ctx->counters_requested) {
++			ret = UERR(EINVAL, gpu->dev, "Already requested");
++			goto out_unlock;
++		}
++
++		ctx->counters_requested = true;
++		refcount_inc(&gpu->local_counters_active);
++	} else {
++		if (!ctx->counters_requested) {
++			ret = UERR(EINVAL, gpu->dev, "Not requested");
++			goto out_unlock;
++		}
++		refcount_dec(&gpu->local_counters_active);
++		ctx->counters_requested = false;
++	}
++
++out_unlock:
++	mutex_unlock(&gpu->lock);
++
++	return ret;
+ }
+ 
+ void __msm_file_private_destroy(struct kref *kref)
+diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+index 2342cb90857e..ae7fb355e4a1 100644
+--- a/include/uapi/drm/msm_drm.h
++++ b/include/uapi/drm/msm_drm.h
+@@ -91,6 +91,7 @@ struct drm_msm_timespec {
+ #define MSM_PARAM_UBWC_SWIZZLE 0x12 /* RO */
+ #define MSM_PARAM_MACROTILE_MODE 0x13 /* RO */
+ #define MSM_PARAM_UCHE_TRAP_BASE 0x14 /* RO */
++#define MSM_PARAM_REQ_CNTRS  0x15 /* WO: request "local" (intra-submit) perfcntr usage  */
+ 
+ /* For backwards compat.  The original support for preemption was based on
+  * a single ring per priority level so # of priority levels equals the #
+-- 
+2.47.1
 
