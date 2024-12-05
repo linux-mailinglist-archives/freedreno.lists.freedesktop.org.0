@@ -2,103 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F0909E5921
-	for <lists+freedreno@lfdr.de>; Thu,  5 Dec 2024 16:01:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A7BB9E59D1
+	for <lists+freedreno@lfdr.de>; Thu,  5 Dec 2024 16:36:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F6BA10EEBD;
-	Thu,  5 Dec 2024 15:01:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D434C10EEC8;
+	Thu,  5 Dec 2024 15:36:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ezDKGwDV";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="RROnMdPd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B66B610EEBC
- for <freedreno@lists.freedesktop.org>; Thu,  5 Dec 2024 15:01:28 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-434aabd688fso6998885e9.3
- for <freedreno@lists.freedesktop.org>; Thu, 05 Dec 2024 07:01:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733410887; x=1734015687; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=TPWex3NjhW2vBY02766onHCegT7hgDE9dyhsg/tMa2g=;
- b=ezDKGwDVR+w6yRbxyuhEMSMY6mEdHCziSFfnzHv3+0cP5qV9XyU/tM1+ZFS5VGshP7
- 7UOpVymzJCQ852V5BSx9n2sE/HcOTOkwLLLMxqE/bFqex9uYNhahEb/TjHeKbPovp5Qk
- MhGcz+O+nZ1jUBTekjcPgWqiQ0v5Mb8tMQzIqzGMPcNGRodPDCJWX97RC1b6f1rUdHrw
- sdROXRR7kQ3fn3Yio5o8QQXO3I4Wx15CGLfxKskXbndpySEE4bzjuOdtqbnHI7akmIZN
- NNtqfnNvUYv6I8zdu9whLdM89VxYCepGvvB3es4dFpCnXK09Xs9+2lK1Q95P8FclCrEl
- MnOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733410887; x=1734015687;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TPWex3NjhW2vBY02766onHCegT7hgDE9dyhsg/tMa2g=;
- b=vXGtNMde3jEPsRsDMBUBtLdy/CUbgKSyOaCN08ohNegZUZTLkq5LYKOsOegP6tfHiM
- 1DkhfJSmOQmKffKMHpt1x8VvwWigoJg/5M6t7rVWvyLmBgLlrYqr3/mxkD0zmTZR0RFi
- aQf7AzfLcz18kitdQ7PKVD6vG4451GhuDjUyylaFcxdzsrODrLGG6sKAQCQk5vjFDjBX
- WiakxEisQKHfQalYyNbMnXgBNxPv+NgFOR/BRe5h2U8tOZpvDaCcPztk+GPzzs/m4W28
- noxqk3Md2sBTjlhDzAso/jvdfJb2usm8EQoehJZmGcpWdh8NLWXQxoPc5im53B7Qr4wr
- 15tw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX7+gHM7LtK6h4bJ3aprFTUWyXWPfU6MkQSByrWMX8QqyTWkf0xPXdTcPtKFb0OKglj6Kedj+Ktbdc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz6n3JaMmhKp4G/hTGuUeBbwOMPXcvwiKJIpABZnmye62VY2/IC
- Hr/3+uThC7vBuTII7i7SOxNIJyuZNW4eFE66oufcXt0Bh08aUESOmDhXAxTlwhQ=
-X-Gm-Gg: ASbGncut0eaKa4/BxPDPGKOCwwbeYkwyKdCxYdLCBd0HFHzZFI1b7SeBQQAzXaH6MMM
- RIlRez4rGa+w9DYfEWaJNl6qs6PF8YmWShVyVLYc4+9/OVrgGgCoCZhUTZX2YwalZKgPbo9j9v5
- 6tvoBm2IFrRVxesxI/FPriJISnX1pkB0YDkCbyBqmI1Cft1D+gZ+PZTTR+kqkaVwhtlnqItT/mF
- ovL1wTvuCeq8EFEI82ObNxCU4r6BIe/15dgkF6MNiyVnolBsFYcVdbBNdCr4+arLeChwCg=
-X-Google-Smtp-Source: AGHT+IGKNF8m6/P0t+uOND8u3TqccJB3NWyZR7DF6laJJjSGk7SxVgGuFUCe2VWQPy6USrZuONmIlA==
-X-Received: by 2002:a05:600c:4ed0:b0:434:a929:42bb with SMTP id
- 5b1f17b1804b1-434d3fae263mr79611665e9.18.1733410884709; 
- Thu, 05 Dec 2024 07:01:24 -0800 (PST)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434d52c0bc7sm62830795e9.35.2024.12.05.07.01.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Dec 2024 07:01:24 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 05 Dec 2024 16:01:11 +0100
-Subject: [PATCH v4 7/7] arm64: qcom: dts: sm8650: add interconnect and
- opp-peak-kBps for GPU
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EAD710EEC8;
+ Thu,  5 Dec 2024 15:36:42 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B5BpOfM029794;
+ Thu, 5 Dec 2024 15:36:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Cb3O6xRMhUCG8YtfIhJ8Q/gXI786mdIHSOXUpNgnVeE=; b=RROnMdPdjje+rQhr
+ QlqozCKDTYFpvpggHsw2Dp9HusSUhKp2P5FsgGKczS6iBeal2ma4U3AiI3mHE0Yb
+ KgXAeShxg8g+CIctNjPDOpg9tpgV9HdK8McAW431updGmfv4wN5Eitn9nYCRCkkN
+ XSFfmjl0K7vcVRIiRvcIPbcy3aEdN/DrV0vf+ghmMrZazmcUFXt9MtgHtuQzOHmb
+ O+Nu5AvZbxPa3kfJuOEvyrBcit2soYrn62uBXwGStIveQeiABjfrNE1pXpmxigzz
+ 9JBJJnrlfhauabERfoWjR0qyUO5gZtcfWsCwplI89iMe1yGIu/eGd60Sl9p6kaqx
+ UsXDdg==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43bbnj0ksn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Dec 2024 15:36:35 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B5FaYBq001994
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 5 Dec 2024 15:36:34 GMT
+Received: from [10.206.104.82] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 5 Dec 2024
+ 07:36:16 -0800
+Message-ID: <77879a46-d6c4-4f74-af25-775312e91f08@quicinc.com>
+Date: Thu, 5 Dec 2024 21:06:12 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241205-topic-sm8x50-gpu-bw-vote-v4-7-9650d15dd435@linaro.org>
-References: <20241205-topic-sm8x50-gpu-bw-vote-v4-0-9650d15dd435@linaro.org>
-In-Reply-To: <20241205-topic-sm8x50-gpu-bw-vote-v4-0-9650d15dd435@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2682;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=IgxztTAMWyT29UYzJNKnw7bdbAV70geqeOh7ctUQCIM=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBnUcA6jBwt5/lJeHAuMw2p6QcJ8KfjQQOOW4fyFl/Y
- WsBO3zGJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZ1HAOgAKCRB33NvayMhJ0e20EA
- CdtdyWN37WortzYjsbLjT6L16akMfEu8GAtTyJt4D8BSQ1G0yVf0YbZhZbO+cIksZi9QkgfPsR+9eh
- 73pd5WF+1wx6Navr5WyAm9I6yO0Cc3M2iVEM/nb00z6p4o5rr+N04AxVyhOnJOTFdzM92wvC9LXySn
- BBDc18x3Ka+L08ygo/P8c2Yvh4Qurr8lM4OHbwarxYl3+ZqQNC/gyt66qvTy5rohJS7Wb24yKlbl3H
- Q+8gGmjsohJoT+5Ny3E+EhZkNSWrpL2+pKOHRKpJ37jmPLfR/OM6WsinrPcMWy1WXpz/4oZTEuyjEc
- mxlspjJITpZQ3bwevUkmSBG2kKzVtTaF6S/xhzKM52T37aaXeuN/yh0vi8h6THpVuvt9d2NUSLT09x
- xgB/R7HAAD+WBpsTpCj3bVacxYuTWT9JPh0GDTGdrNCnz5rLe6Qag20/ahOEeQ0wIiuXLSdcgkxmgQ
- xBQnPUBtULm+hS0Q7V+1UFBjHBJY/iKUdT+j1W0Ma5L5tRp8cltsVqp8IsJSVioA5KVQTBw/4DD1+z
- YK9wGfi3YcITvaWCzrlEIbL2ozgfSzYF14ukaytf/4LszqCyo9PJNQJqTlTCoiW8WIOpw1aM3N2kPH
- 8Gr/0CneZdDb+EXtaKOZ6Ak0uIhyt54sP9j6tp+zFeCgRGGelx4hp7g2tV9Q==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm/msm/adreno: Introduce ADRENO_QUIRK_NO_SYSCACHE
+To: Rob Clark <robdclark@gmail.com>
+CC: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Sean Paul
+ <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ Rob Clark <robdclark@chromium.org>
+References: <20241125-a612-gpu-support-v2-0-b7cc38e60191@quicinc.com>
+ <20241125-a612-gpu-support-v2-1-b7cc38e60191@quicinc.com>
+ <752484b5-2db1-4714-8046-17cd5496d81d@oss.qualcomm.com>
+ <0aa547fc-4c88-4457-8d01-81f93fb3832c@quicinc.com>
+ <CAF6AEGvqPEFN+j0Txa5KPmxF8tXCn_uUsM86i4uo+tc2mTWYgg@mail.gmail.com>
+ <f603f71c-64f4-4f29-b8b9-430d758a738b@quicinc.com>
+ <CAF6AEGt-wojTde=OfqSyez3fD1jiyUTP08TWxNQMgkoWhF-MVA@mail.gmail.com>
+ <CAF6AEGuedG4j0no=9GYK=y2HZHVVporDfkpL9y9dg8H5PhZdKg@mail.gmail.com>
+Content-Language: en-US
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <CAF6AEGuedG4j0no=9GYK=y2HZHVVporDfkpL9y9dg8H5PhZdKg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 2R-8z458vlweMt8_3UT5FCxoEHfuIRQw
+X-Proofpoint-ORIG-GUID: 2R-8z458vlweMt8_3UT5FCxoEHfuIRQw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0
+ clxscore=1011 priorityscore=1501 mlxscore=0 phishscore=0 impostorscore=0
+ malwarescore=0 mlxlogscore=999 lowpriorityscore=0 spamscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2412050113
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,98 +103,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Each GPU OPP requires a specific peak DDR bandwidth, let's add
-those to each OPP and also the related interconnect path.
+On 12/5/2024 3:20 AM, Rob Clark wrote:
+> On Wed, Dec 4, 2024 at 1:47 PM Rob Clark <robdclark@gmail.com> wrote:
+>>
+>> On Wed, Dec 4, 2024 at 11:04 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>>>
+>>> On 12/1/2024 10:06 PM, Rob Clark wrote:
+>>>> On Sat, Nov 30, 2024 at 12:30 PM Akhil P Oommen
+>>>> <quic_akhilpo@quicinc.com> wrote:
+>>>>>
+>>>>> On 11/30/2024 7:01 PM, Konrad Dybcio wrote:
+>>>>>> On 25.11.2024 5:33 PM, Akhil P Oommen wrote:
+>>>>>>> There are a few chipsets which don't have system cache a.k.a LLC.
+>>>>>>> Currently, the assumption in the driver is that the system cache
+>>>>>>> availability correlates with the presence of GMU or RPMH, which
+>>>>>>> is not true. For instance, Snapdragon 6 Gen 1 has RPMH and a GPU
+>>>>>>> with a full blown GMU, but doesnot have a system cache. So,
+>>>>>>> introduce an Adreno Quirk flag to check support for system cache
+>>>>>>> instead of using gmu_wrapper flag.
+>>>>>>>
+>>>>>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>>>>>> ---
+>>>>>>>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 3 ++-
+>>>>>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 7 +------
+>>>>>>>  drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 1 +
+>>>>>>>  3 files changed, 4 insertions(+), 7 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>>>>> index 0c560e84ad5a..5e389f6b8b8a 100644
+>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>>>>> @@ -682,6 +682,7 @@ static const struct adreno_info a6xx_gpus[] = {
+>>>>>>>              },
+>>>>>>>              .gmem = (SZ_128K + SZ_4K),
+>>>>>>>              .inactive_period = DRM_MSM_INACTIVE_PERIOD,
+>>>>>>> +            .quirks = ADRENO_QUIRK_NO_SYSCACHE,
+>>>>>>>              .init = a6xx_gpu_init,
+>>>>>>>              .zapfw = "a610_zap.mdt",
+>>>>>>>              .a6xx = &(const struct a6xx_info) {
+>>>>>>> @@ -1331,7 +1332,7 @@ static const struct adreno_info a7xx_gpus[] = {
+>>>>>>>              },
+>>>>>>>              .gmem = SZ_128K,
+>>>>>>>              .inactive_period = DRM_MSM_INACTIVE_PERIOD,
+>>>>>>> -            .quirks = ADRENO_QUIRK_HAS_HW_APRIV,
+>>>>>>> +            .quirks = ADRENO_QUIRK_HAS_HW_APRIV | ADRENO_QUIRK_NO_SYSCACHE,
+>>>>>>>              .init = a6xx_gpu_init,
+>>>>>>>              .zapfw = "a702_zap.mbn",
+>>>>>>>              .a6xx = &(const struct a6xx_info) {
+>>>>>>
+>>>>>> +a619_holi
+>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>> index 019610341df1..a8b928d0f320 100644
+>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>>>>>>> @@ -1863,10 +1863,6 @@ static void a7xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
+>>>>>>>
+>>>>>>>  static void a6xx_llc_slices_destroy(struct a6xx_gpu *a6xx_gpu)
+>>>>>>>  {
+>>>>>>> -    /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
+>>>>>>> -    if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
+>>>>>>> -            return;
+>>>>>>> -
+>>>>>>>      llcc_slice_putd(a6xx_gpu->llc_slice);
+>>>>>>>      llcc_slice_putd(a6xx_gpu->htw_llc_slice);
+>>>>>>>  }
+>>>>>>> @@ -1876,8 +1872,7 @@ static void a6xx_llc_slices_init(struct platform_device *pdev,
+>>>>>>>  {
+>>>>>>>      struct device_node *phandle;
+>>>>>>>
+>>>>>>> -    /* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
+>>>>>>> -    if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
+>>>>>>> +    if (a6xx_gpu->base.info->quirks & ADRENO_QUIRK_NO_SYSCACHE)
+>>>>>>>              return;
+>>>>>>
+>>>>>> I think A612 is the "quirky" one here.. it has some sort of a GMU,
+>>>>>> but we're choosing not to implement it. maybe a check for
+>>>>>>
+>>>>>> if (adreno_has_gmu_wrapper && !adreno_is_a612)
+>>>>>>
+>>>>>> would be clearer here, with a comment that RGMU support is not
+>>>>>> implemented
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>> But going further, I'm a bit concerned about dt-bindings.. If we
+>>>>>> implement RGMU on the driver side in the future, that will require
+>>>>>> DT changes which will make the currently proposed description invalid.
+>>>>>>
+>>>>>> I think a better angle would be to add a adreno_has_rgmu() func with
+>>>>>> a qcom,adreno-rgmu compatible and plumb it correctly from the get-go.
+>>>>>>
+>>>>>> This way, we can avoid this syscache quirk as well.
+>>>>>>
+>>>>>
+>>>>> I am aware of at least Adreno 710 which doesn't have syscache, but has
+>>>>> proper GMU. And I don't see any reason why there couldn't be another one
+>>>>> in future to save silicon area. So, a quirk flag doesn't seem so bad in
+>>>>> this case.
+>>>>>
+>>>>> The correct way to avoid this quirk flag is by making LLCC driver return
+>>>>> a proper error to detect the absence of syscache. Currently, it just
+>>>>> returns EPROBE_DEFER which put driver in an infinite probe loop.
+>>>>
+>>>> Hmm, this seems solvable?  llcc has a node in the dt, so it seems like
+>>>> it should be able to tell the difference between not existing and not
+>>>> being probed yet.  Something maybe like, initialize drv_data to NULL
+>>>> instead of -EPROBE_DEFER, and then in the various entry points, if
+>>>> (!drv_data) return not_probed_helper(); which would check if a
+>>>> compatible node exists in dt?
+>>>
+>>> Sounds like that would work. Can we explore that separately?
+>>>
+>>> I am a bit worried about adding another subsystem's patch to this
+>>> series. That might delay this series by weeks.
+>>
+>> I don't think there is a dependency between the two, so it shouldn't
+>> delay anything.  We can just merge the first patch in this series as
+>> it is and drop the second.  And the llcc change is a legit bug fix,
+>> IMO, -EPROBE_DEFER is the incorrect return value when the device is
+>> not present.
+> 
+> Actually, that wasn't _quite_ correct, but the idea still stands.
+> Re-send second patch, but without the ADRENO_QUIRK_NO_SYSCACHE parts,
+> and drop the first.
+> 
+> In parallel send the llcc fix.  There is no compile time dependency,
+> so they can go thru different trees.
+> 
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8650.dtsi | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Ack, will send separate patches.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-index 25e47505adcb790d09f1d2726386438487255824..6ee7f362dedb73bcee6e8b2a7da6b71840de9001 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -2636,6 +2636,10 @@ gpu: gpu@3d00000 {
- 			qcom,gmu = <&gmu>;
- 			#cooling-cells = <2>;
- 
-+			interconnects = <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+			interconnect-names = "gfx-mem";
-+
- 			status = "disabled";
- 
- 			zap-shader {
-@@ -2649,56 +2653,67 @@ gpu_opp_table: opp-table {
- 				opp-231000000 {
- 					opp-hz = /bits/ 64 <231000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
-+					opp-peak-kBps = <2136718>;
- 				};
- 
- 				opp-310000000 {
- 					opp-hz = /bits/ 64 <310000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-+					opp-peak-kBps = <6074218>;
- 				};
- 
- 				opp-366000000 {
- 					opp-hz = /bits/ 64 <366000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
-+					opp-peak-kBps = <6074218>;
- 				};
- 
- 				opp-422000000 {
- 					opp-hz = /bits/ 64 <422000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+					opp-peak-kBps = <8171875>;
- 				};
- 
- 				opp-500000000 {
- 					opp-hz = /bits/ 64 <500000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
-+					opp-peak-kBps = <8171875>;
- 				};
- 
- 				opp-578000000 {
- 					opp-hz = /bits/ 64 <578000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+					opp-peak-kBps = <12449218>;
- 				};
- 
- 				opp-629000000 {
- 					opp-hz = /bits/ 64 <629000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
-+					opp-peak-kBps = <12449218>;
- 				};
- 
- 				opp-680000000 {
- 					opp-hz = /bits/ 64 <680000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-peak-kBps = <16500000>;
- 				};
- 
- 				opp-720000000 {
- 					opp-hz = /bits/ 64 <720000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+					opp-peak-kBps = <16500000>;
- 				};
- 
- 				opp-770000000 {
- 					opp-hz = /bits/ 64 <770000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+					opp-peak-kBps = <16500000>;
- 				};
- 
- 				opp-834000000 {
- 					opp-hz = /bits/ 64 <834000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+					opp-peak-kBps = <16500000>;
- 				};
- 			};
- 		};
+-Akhil.
 
--- 
-2.34.1
+> BR,
+> -R
+> 
+>>
+>> BR,
+>> -R
+>>
+>>> -Akhil
+>>>
+>>>>
+>>>> BR,
+>>>> -R
+>>>>
+>>>>> Agree about the dt binding suggestion. I will define a new compatible
+>>>>> string for rgmu.
+>>>>>
+>>>>> -Akhil.
+>>>>>
+>>>>>> Konrad
+>>>>>
+>>>
 
