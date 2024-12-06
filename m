@@ -2,70 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B7C69E6AA6
-	for <lists+freedreno@lfdr.de>; Fri,  6 Dec 2024 10:43:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2452E9E6AAD
+	for <lists+freedreno@lfdr.de>; Fri,  6 Dec 2024 10:43:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61B2F10F071;
-	Fri,  6 Dec 2024 09:43:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E969310F07F;
+	Fri,  6 Dec 2024 09:43:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rcZBAASm";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fbnPiOq5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
  [209.85.208.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D424810F072
- for <freedreno@lists.freedesktop.org>; Fri,  6 Dec 2024 09:43:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 622EE10F077
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Dec 2024 09:43:19 +0000 (UTC)
 Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-2ffc1009a06so15202701fa.2
- for <freedreno@lists.freedesktop.org>; Fri, 06 Dec 2024 01:43:16 -0800 (PST)
+ 38308e7fff4ca-30034ad2ca3so1923551fa.1
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Dec 2024 01:43:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733478195; x=1734082995; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1733478197; x=1734082997; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=VnGo6ZNwboubgG4PK3zPxjFnyRb2ICdQLCcJ6lGvxCQ=;
- b=rcZBAASmatwg9f76M348+EcTSbYZaeOPRCNcWgVEfPuDGFP0Lw1InpBU18rx5IMwSF
- 0FOMKdojjnA6cVidyXqJuqab6EiOo8CzGIUkwVQ1TybSKbJ/8tPKb2LmO8d3/Fm5Js5+
- 7+77NIJgJ5VJvVy+7b7WBgOke9BeueQ9ZhmNRf9qeF5juzMgNSNOCOg3ZBZqCzHzM/+b
- 9a/N+exj+lodJHs55sGWUS3sdPYgSREmQMlRV3TFWsOAKWrayrke6ybZcs+kk9J2wB08
- cixjq8o5l644vwGlIRoWLY65oOBblIkJXRoz/0gI+/RkkgQkM9H4brvcuEusF6PIQUVO
- ouZQ==
+ :reply-to; bh=BXd2OzHxXLbpmSJUeio7TPXwyPaZHSalM8FhliMGDmw=;
+ b=fbnPiOq5pCcywQT9RYZCjt4qazoN+DTdo8NEbMZkADw41Y1MwS1vRkfRjTRpbkaqg/
+ AopCHx5yXGW5TZ1ZbxvtMTGFpTT5e4vm3+ACJ9ZUMOI9BL2hsmg1A4OK2GnQs/+Ab+tb
+ 56elA9SeN+judg7k5PIRIdjIb6lo/54VX2O/QUG90N3dqVNmpPEr0dHenZ3sUDL8pm55
+ 6qknxdLtp148HdDpQimXcW3tLzD92PsQWo29nW2rJM6uXTV0soAd0Zflwt1zFey8UEy0
+ WVfINTwY6V0shY5oZB6LFoY0wwhQ7EGJTzRnxCRhM8M/YFX25Kq86NSj6AX3CHhWnVaP
+ oDaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733478195; x=1734082995;
+ d=1e100.net; s=20230601; t=1733478197; x=1734082997;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=VnGo6ZNwboubgG4PK3zPxjFnyRb2ICdQLCcJ6lGvxCQ=;
- b=VPIsESVdb3dwgK2IWlZ8H86g42xCewY12zgDjkhr6nVjuyaZD/WvE0ybMlE0I+KWC3
- 7NjhJnoZ+9nYXCNx3OZhfBDQxVtjciWU7SOZr6fwdaOvTrBp1EjVOVBV9BLUJ7VnnUYp
- ZIiqnap506NPDIKnxKLXTT7mhbXs0n6NcpaF7FT6idkHmRaNz2eyVKRlj3EmVjcPsjGT
- ZRikwC5Zx2sqmtlKUZbYm8cdDvMptTVm+HDNxspSflAKa7ReKQ5bA1N+vDYWLlHlirMc
- c8Y80O7bNKZn4ZSXP1U8K1pJoPNyVWKyySeYjkPSf2++qDEDqBT4h3goHndm37IrMnrN
- zyQQ==
+ bh=BXd2OzHxXLbpmSJUeio7TPXwyPaZHSalM8FhliMGDmw=;
+ b=dA97yWIKlDs5/iMa7rID0Ghzx7AAAJxGiUHVgOh5lbA1lERWmb4oGo20CXvV5Re7ne
+ pVHsMBgeeUcudviQsC7OHUDwymOQL/tp6wCKsPDrycemiT36/SeIbWUkDnCRCIhMlmQK
+ yjEUsha/LxCU+lAfHdq9RIrgg62yRkqu0SgxBtXepdx8AF8VuJYdIADywBzrDJRbewXY
+ /7mHswTP5fRiBKXWntZ0OLmF94sXixZNQlem49R62IFEMd6lrXGLQf2zDkR/0MzteNvQ
+ ADZzEJB3NXSVU0TRzgAWGKDPJMtSv5w4VmX4nMJ/APVYK5bwNoMdRlJjR7ZTWg0teQBN
+ f8PA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV/pBhiZl++Ij9oNfkVpCIIxEbRL/MqtI9CzdXf7NLCV+qnD4cgpr39BJ/4aD8IBSgy7E2k/V78Rm4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHZ8r3nFRPWnSZuHS/6j//XDzm7WiN1atNEF4tQxHQISTfZ0Ro
- TNT8nAHJUIzl/QXhq+u0tl2d5CgfYAEpb3i6Iza9d1+HKowcS9mv5G9cTYovbTU=
-X-Gm-Gg: ASbGncsmzt8PEr7wUZpQUYrfoItUY0U/Y8Kw4DYt48bVQOwQIPX/JnxRGpGWkBTxsmM
- RIOb9Gt4OvVvsHoPwbkrgUJ27E4mqoNOtZIeKbW2R0MEo+/dqb0dO72FOntIhaRAtUOk7JVX2cT
- CWHNTsh26cljUSDXKq4Ob0fD2+LosiqqO/D+iUxfV8ZnQYmTfK1VAMQhSP8fyvyva+miSUpdjPm
- zmHpBQeRGbzytXSi5TeV04csq5NqbxWOvPYDgd8ZneG34bKrtcVytTTiw==
-X-Google-Smtp-Source: AGHT+IHOfIBmoyEolZXZdyLfUjfRu7LK9x/y6e2NRNb0G1IfVvxWYDXdxw9kGPS8sm9OVNX+a5FRXQ==
-X-Received: by 2002:a2e:bea8:0:b0:2ff:df01:2b43 with SMTP id
- 38308e7fff4ca-3002f8aaef2mr6873121fa.18.1733478194869; 
- Fri, 06 Dec 2024 01:43:14 -0800 (PST)
+ AJvYcCWbaNNfE0lIXdn7Yjhlj715WzwgsV4IkAnX45ztl1Dm9ChS1k8F6hBdBw4pqpLQ4sNd9v5d8+la3k8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsJeRGxoueFLLymZEhA/SbTDNrDvrKXhmycX+Nc784qEDEofGA
+ BSuQQ3Qd2jKiiUheab7O8pDX0SNQ+LmsNBKaTwjUFjESXGafqMH0fzJuVTaojuQ=
+X-Gm-Gg: ASbGncvvT1hhgAgjmKcMfySpn/nN385iqKDUAOlAF+2WanA/uc5CGwcu9GbsURzqqZO
+ 6TxKE4q+FG4cPYI0ZjDbzos2E+JNQHDV9S0ocFvqc3GESO/S16fJZgGYC0UM2NCLJc98r3wXVyH
+ 1gnO6VS+TMmVoUqg6oEfGQWgB4MMZ/ym0+luZjCtiEITP3UINlrqD/qMMqdcmBe/J7SbCsf1Phs
+ 8cFY70H+/Kpx5IYzZCmj6v3HanQcsHVq/DbqeybvS+Vk4Pt1v8CDn1Umg==
+X-Google-Smtp-Source: AGHT+IHOzYvZJj8Vkykxd2x0JSD+NBvzpXfm6jlvPobPhv2vFXWDLmCYeuoQOdT69cvmzqWGVgvY9Q==
+X-Received: by 2002:a2e:a9ab:0:b0:2ff:d0aa:11b with SMTP id
+ 38308e7fff4ca-3002f79b514mr6682241fa.16.1733478197396; 
+ Fri, 06 Dec 2024 01:43:17 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30020db3805sm4128441fa.50.2024.12.06.01.43.13
+ 38308e7fff4ca-30020db3805sm4128441fa.50.2024.12.06.01.43.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Dec 2024 01:43:13 -0800 (PST)
+ Fri, 06 Dec 2024 01:43:16 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 06 Dec 2024 11:43:04 +0200
-Subject: [PATCH v2 01/10] drm/connector: add mutex to protect ELD from
- concurrent access
+Date: Fri, 06 Dec 2024 11:43:05 +0200
+Subject: [PATCH v2 02/10] drm/bridge: anx7625: use eld_mutex to protect
+ access to connector->eld
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241206-drm-connector-eld-mutex-v2-1-c9bce1ee8bea@linaro.org>
+Message-Id: <20241206-drm-connector-eld-mutex-v2-2-c9bce1ee8bea@linaro.org>
 References: <20241206-drm-connector-eld-mutex-v2-0-c9bce1ee8bea@linaro.org>
 In-Reply-To: <20241206-drm-connector-eld-mutex-v2-0-c9bce1ee8bea@linaro.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -101,16 +101,16 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
  freedreno@lists.freedesktop.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3318;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1073;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=3Q5pbMu5lborNDPG00HVqHDspCjjhjGT9968qr3bz9k=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnUsctUfPifOTQ8tgTrVr4NDA9HQHo4lV6wGZ/x
- 802YkRE+OKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ1LHLQAKCRCLPIo+Aiko
- 1YTBB/4+LnnhEaD+gppGgLjgyd7DzGULNQMgJ2hoRulbF1tCZiqhH2JwwQgaiFxKaCK13GN72v/
- +MlHzrTYbtF24x6wcNLxIFk87u2wdjCt5dO8xqKiiFF4My86VJebVFFgPQmUXcFvMWkWUS3PByj
- f9McLONHSWPtO0XRW3DbeQ8zzl5cChJhSN8/mkvwrNqq0BkWWOEDxxROis0bi2KSFK0/SBEJ2rN
- X+RhP/l08plhS1bGyEvzzOyAMvtpjSEsEYXf5mCZGGnypfY+YKJQ1VDkpPcX3/Si3R6D3pZ0Vpw
- Wfr3vj5voa6Xeg3e/NqY4k/PPQjahgFQwpQeJMdgalo1w5Zq
+ bh=zYvAEMAKJI/pMjPuMCGmB4bmJnIIZvQ3OxFQhHsqYJE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnUscuOWsnWIy+09WL6ZmIga61MhuoPN14wFRyc
+ CTUUhM7PIGJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ1LHLgAKCRCLPIo+Aiko
+ 1QuCB/9GVQCw++i7vtbIm18C0qWy2CcrBgiveGKyYFt0iSpolRcgaG6RbcwjW5qst9mjy3Q6fyT
+ wfoOatec5nsxe7H0nq3z0RdLACzVly4qvlxnotelWRdH/BQ6ujFXyFerWcmtX3JM/VBGIQ2IBAc
+ cy6kBFVrFFfY0hrjJEvNHpO8Jw7wJ8KQT4IzkIw7DCzBnKyhq7QShr5O2I++bdw+2PCmYR+Ig4l
+ AKpe8UolsbHTV1DesMVMTPNQMXDw/veYJp5B5GOVzXYZoSXeg0/Wp4HONWYO6yhjuqBKn4BL1Kz
+ Qv9O5BOb777DITYj54ixLYloqlzSi9P0cRUdPa0UewnOGLrp
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -128,82 +128,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The connector->eld is accessed by the .get_eld() callback. This access
-can collide with the drm_edid_to_eld() updating the data at the same
-time. Add drm_connector.eld_mutex to protect the data from concurrenct
-access. Individual drivers are not updated (to reduce possible issues
-while applying the patch), maintainers are to find a best suitable way
-to lock that mutex while accessing the ELD data.
+Reading access to connector->eld can happen at the same time the
+drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
+order to protect connector->eld from concurrent access.
 
 Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/drm_connector.c | 1 +
- drivers/gpu/drm/drm_edid.c      | 6 ++++++
- include/drm/drm_connector.h     | 5 ++++-
- 3 files changed, 11 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/analogix/anx7625.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index fc35f47e2849ed6786d6223ac9c69e1c359fc648..bbdaaf7022b62d84594a29f1b60144920903a99a 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -277,6 +277,7 @@ static int __drm_connector_init(struct drm_device *dev,
- 	INIT_LIST_HEAD(&connector->probed_modes);
- 	INIT_LIST_HEAD(&connector->modes);
- 	mutex_init(&connector->mutex);
-+	mutex_init(&connector->eld_mutex);
- 	mutex_init(&connector->edid_override_mutex);
- 	mutex_init(&connector->hdmi.infoframes.lock);
- 	connector->edid_blob_ptr = NULL;
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 855beafb76ffbecf5c08d58e2f54bfb76f30b930..13bc4c290b17d556d654b7cdd8c48c24a32aba9c 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -5605,7 +5605,9 @@ EXPORT_SYMBOL(drm_edid_get_monitor_name);
+diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
+index a2675b121fe44b96945f34215fd900f35bfde43a..c036bbc92ba96ec4663c55cca091cd5da9f6d271 100644
+--- a/drivers/gpu/drm/bridge/analogix/anx7625.c
++++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+@@ -2002,8 +2002,10 @@ static int anx7625_audio_get_eld(struct device *dev, void *data,
+ 		memset(buf, 0, len);
+ 	} else {
+ 		dev_dbg(dev, "audio copy eld\n");
++		mutex_lock(&ctx->connector->eld_mutex);
+ 		memcpy(buf, ctx->connector->eld,
+ 		       min(sizeof(ctx->connector->eld), len));
++		mutex_unlock(&ctx->connector->eld_mutex);
+ 	}
  
- static void clear_eld(struct drm_connector *connector)
- {
-+	mutex_lock(&connector->eld_mutex);
- 	memset(connector->eld, 0, sizeof(connector->eld));
-+	mutex_unlock(&connector->eld_mutex);
- 
- 	connector->latency_present[0] = false;
- 	connector->latency_present[1] = false;
-@@ -5657,6 +5659,8 @@ static void drm_edid_to_eld(struct drm_connector *connector,
- 	if (!drm_edid)
- 		return;
- 
-+	mutex_lock(&connector->eld_mutex);
-+
- 	mnl = get_monitor_name(drm_edid, &eld[DRM_ELD_MONITOR_NAME_STRING]);
- 	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] ELD monitor %s\n",
- 		    connector->base.id, connector->name,
-@@ -5717,6 +5721,8 @@ static void drm_edid_to_eld(struct drm_connector *connector,
- 	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] ELD size %d, SAD count %d\n",
- 		    connector->base.id, connector->name,
- 		    drm_eld_size(eld), total_sad_count);
-+
-+	mutex_unlock(&connector->eld_mutex);
- }
- 
- static int _drm_edid_to_sad(const struct drm_edid *drm_edid,
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index e3fa43291f449d70f3b92a00985336c4f2237bc6..1e2b25e204cb523d61d30f5409faa059bf2b86eb 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2001,8 +2001,11 @@ struct drm_connector {
- 	struct drm_encoder *encoder;
- 
- #define MAX_ELD_BYTES	128
--	/** @eld: EDID-like data, if present */
-+	/** @eld: EDID-like data, if present, protected by @eld_mutex */
- 	uint8_t eld[MAX_ELD_BYTES];
-+	/** @eld_mutex: protection for concurrenct access to @eld */
-+	struct mutex eld_mutex;
-+
- 	/** @latency_present: AV delay info from ELD, if found */
- 	bool latency_present[2];
- 	/**
+ 	return 0;
 
 -- 
 2.39.5
