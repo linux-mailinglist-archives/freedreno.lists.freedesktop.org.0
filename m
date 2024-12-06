@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73FC09E6A07
-	for <lists+freedreno@lfdr.de>; Fri,  6 Dec 2024 10:27:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 109429E6A21
+	for <lists+freedreno@lfdr.de>; Fri,  6 Dec 2024 10:32:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5168810F048;
-	Fri,  6 Dec 2024 09:27:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFCD910F04C;
+	Fri,  6 Dec 2024 09:32:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EwIFUu5q";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cGAx6oGY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
- [209.85.208.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9E9710F048
- for <freedreno@lists.freedesktop.org>; Fri,  6 Dec 2024 09:27:07 +0000 (UTC)
-Received: by mail-lj1-f178.google.com with SMTP id
- 38308e7fff4ca-2ffdbc0c103so16622121fa.3
- for <freedreno@lists.freedesktop.org>; Fri, 06 Dec 2024 01:27:07 -0800 (PST)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B835810F04C
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Dec 2024 09:32:49 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-2ffc86948dcso19238681fa.2
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Dec 2024 01:32:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733477226; x=1734082026; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1733477568; x=1734082368; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=7broW1gZ7NVHflpX84N2WQlsqRcFTPMTUqNg9tqTtk8=;
- b=EwIFUu5qJQINaHdwp34O961RVfAJtGGs0eC+Z0gYo1LAgLpCwtayYL/sQDxofXsp7Z
- A5JO6DvEyuMPVabvKZ8EURW7eKnBvrs6eqDiQL4kF6OjK7B7VbsffffJatXok1QoRJ+W
- ZIq5pObExZRpZIimV8fc506XYzUnq5F9Cq86vuG8Ogf1tOiGlYvhfRATOumULAGaSzxw
- Y4lGrhS4U2b6tPjL3VKWp7g5+mM/awxcWmO9uy7gMM1+Ox3pcytLwWPe+PiInD2K5p4J
- VrdEzIYtyY+lhH2fCOFXzvDxzek9PVkgsxF7C7R/7Uzgo2s03c0LVU4cscre5kmMVzgv
- AHGQ==
+ bh=zadEHboo0cdlPFvzQWo8pskzaBuEAY7TqZ8rPSIgr8o=;
+ b=cGAx6oGYOlp7gUdk1HOrP+RtUye7wbG+FWQwkSTsosJEFefjdDSV+h2xNMJfL5bCy3
+ 3Vfd+p33fieMLZBv14Gg3hkjaweRfWokPH+9wF/f2I4vSdSov++kcERbN95rkJ2T2XMN
+ +labPKZpsvAP886SHIKHBEYwtNpfckAoAIFchXDp/S+qvQ0SV3v8sES9v1EV4EGZGfyJ
+ J2gnoQs6jeCsgaae+Xt2hoFAHNHOWBh3fa1FBlVtnv3/YdYd7r8ln89EaOUV977XXUn8
+ YMl+QZj90ys86l9woJNntkgmaMOWvoQFta5LUqmwkYe+l2CJ8Ijhgaln38MqSBys7hr8
+ 5yjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733477226; x=1734082026;
+ d=1e100.net; s=20230601; t=1733477568; x=1734082368;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7broW1gZ7NVHflpX84N2WQlsqRcFTPMTUqNg9tqTtk8=;
- b=H1ikmatgGN624LGxLt4ehWMhskg09fDzu2oxRXiU4TLac2YbJ9+2Btbc+6UmKH9u+5
- fLUvIew5yzsvh8Igf121O6sTfPM6qIKvjA37fenGALd1uVycXoBuwDrYZ5t2YbU0lBrp
- erUrKc0I2kr95/sphsaO5grz4RcDfdQymOHVCT+OJ7aDgTLhxz7jthISeSarlR/thH57
- V8/MOvCrYsqZoq4icdt4EOpUvitQuhJt+7aAwtBipaJrdiXYvZAWzatkNrdmK19T+Bdl
- o85D5oaW5uxMCQjZs1vmkGDHyT5Rpydqt1SS8YS+vs9Pnsn+Zt3kirM9L2G/Q/Lp9fq9
- bEgw==
+ bh=zadEHboo0cdlPFvzQWo8pskzaBuEAY7TqZ8rPSIgr8o=;
+ b=HVUhnwG5/gAlLo8UTxnKIaTusqQAW5HnV0LD6jC+vSyIAEf4dtuRVtfqbsFmWbY8lp
+ M5tc3VcEY+sXu/hMGsryPKCUS5+A5LAI2/WHBPh9hSQR3aXHkLA3pWERaTZSAreMTfwa
+ 0oSbJ7KbjZX7s7kTo7/sp2EX6WzLk6GGEJkA9dwn0VoC1w7v2c2AZj/1DW94iqmtWEuY
+ P/Ybju39IPIQ357nfqnR9qtpaVhwmyHD5jg8URACvK6cYbJoqYF0m5lOQV4K9QBrNDyj
+ bKM5o9JY6j7JJ+CRgAimOuYMQzVJeSrXEQUoCj3ZQ3PgrLhzbgpKzVAourI+6ysbym3r
+ IGkg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVi8KbwzvuHhgAS+uDaI2QmkTdJkz9WrWbH8hghaa8w2Vszs9lvW3wnUnBclnHvCcg6oxfd8ThJw0k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwPZk4PFGGpMN9yh0axHG7RgsQ+oM8vC5Az379acmOh+OmdtNH1
- 3VRlBr0dvTzi1jb44yTMRgOY+3OIfYCWCi8Xx8VFsQEF2oSUDfg2RfAwHImKtKA=
-X-Gm-Gg: ASbGnctV3JH0ZbvThGVu8v5Fe/9Q9zK/LXmXH141T/WYjkacKxXWYT7SrIbOZmm90oY
- mjr/tDRV99+L5J7FjqjEjydx7sy59YNyGcihckoI8w/00g3z4ZWW/57q6GQUxRBsiv5lz5+s5uw
- 6e3nBriDJtGrOyoN+zV38rZ0B4Xis0ub7405xhxebyXMESmV+NXq0bPvoA8OQnLYlZWriYNsNoJ
- gfcn4UwP6HA5lOEuOqW8QzU+550Oh0CCsin0TTnEcw0D1QCmUMS6dARY+uJ9iQi9bpQcm0QLbxP
- gMkkPFXP3vgBN59ns69cyu5NId3fAQ==
-X-Google-Smtp-Source: AGHT+IE19qPwbx3UFDXuLqxlrNLClxfZsWNhadyWFpGu/ahSESOQg+xnLVgzOuZizB2iVY3wNhLDgw==
-X-Received: by 2002:a05:6512:3ba3:b0:53e:2751:84fd with SMTP id
- 2adb3069b0e04-53e2c28e5d1mr584353e87.1.1733477225873; 
- Fri, 06 Dec 2024 01:27:05 -0800 (PST)
+ AJvYcCUbzhhqhKFx9yJuW8stKeBqIHkmXGg0tDw7/eYvOZiQu1CFpIx23dZf6VzGy9odI8LGoAqkjUvk1JU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy9LdxXBl2Fx1jnQuD7e1BzPF0d4mdTCQcQ18L6NqaOzMvhspT3
+ 3DxwU2z4ZpD23lIJD8D7baLrmWiM+tFvgEAQl4SeR79zm9oZjRtl4yda/btN1OA=
+X-Gm-Gg: ASbGncvBjl1M+4njdOeMQkkOP739T/uz1w/AjBg49+Q1wqVIA6DJ7eJuS2gDyZsIgSD
+ gPnYmVUV7kZBORicEempLMAGlJgfSO0jfcCvHpdfucXAYmChBdrRtXlMkoSZDjgw2Pt1/EifK6U
+ YVpj/agej6IHPdJc6tJMg4W1efD+3nRH/LykXtucceRiOPWovFVAKBjqTwxXYYjWdxhU94z5ZTQ
+ 375Q29Nks9sv4DDzUR3Hbf8kKyqlD9vrATt72RdvYweZYMejAFs675VdeZLOpnV3+5+E9H/BhuN
+ 0ovbDbkqJeOK/nxDTXl1Jcc1nADreg==
+X-Google-Smtp-Source: AGHT+IFt0oQZraChA0vm7bTmEKxi678+NtImtNYWtNbmFt/Emc59radqf3VL2rny8/rMaB+weccu/w==
+X-Received: by 2002:a05:6512:31c9:b0:53d:eec4:2bfa with SMTP id
+ 2adb3069b0e04-53e2c4fed10mr1145884e87.37.1733477567848; 
+ Fri, 06 Dec 2024 01:32:47 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53e229c23d8sm445851e87.211.2024.12.06.01.27.04
+ 2adb3069b0e04-53e229ba6fdsm449887e87.151.2024.12.06.01.32.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Dec 2024 01:27:04 -0800 (PST)
-Date: Fri, 6 Dec 2024 11:27:02 +0200
+ Fri, 06 Dec 2024 01:32:46 -0800 (PST)
+Date: Fri, 6 Dec 2024 11:32:44 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
@@ -78,14 +78,14 @@ Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [PATCH 37/45] drm/msm: add support for non-blocking commits
-Message-ID: <odawd4djmpowav7beu76s3m7xtocw7tqsqjjkl7n5xxupn5u66@wpytoudtcizb>
+Subject: Re: [PATCH 29/45] drm/msm/dp: skip reading the EDID for MST cases
+Message-ID: <7khoxaafl2eclgqe2jfwgdmruvtoug5fpjdkvcrmpcynddnloa@toooyaio7rzm>
 References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
- <20241205-dp_mst-v1-37-f8618d42a99a@quicinc.com>
+ <20241205-dp_mst-v1-29-f8618d42a99a@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241205-dp_mst-v1-37-f8618d42a99a@quicinc.com>
+In-Reply-To: <20241205-dp_mst-v1-29-f8618d42a99a@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,58 +101,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 05, 2024 at 08:32:08PM -0800, Abhinav Kumar wrote:
-> Hook up the mst framework APIs with atomic_commit_setup() and
-> atomic_commit_tail() APIs to handle non-blocking commits.
+On Thu, Dec 05, 2024 at 08:32:00PM -0800, Abhinav Kumar wrote:
+> For MST cases, EDID is handled through AUX sideband messaging.
+> Skip the EDID read during hotplug handle for MST cases.
+
+But why? Isn't EDID being read at the hotplug time to update
+drm_connector's data?
+
 > 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/msm_atomic.c | 2 ++
->  drivers/gpu/drm/msm/msm_drv.h    | 1 +
->  drivers/gpu/drm/msm/msm_kms.c    | 1 +
->  3 files changed, 4 insertions(+)
+>  drivers/gpu/drm/msm/dp/dp_display.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-> index 9c45d641b5212c11078ab38c13a519663d85e10a..801399419c3d26f68d9b0a65d41fc4e1706c70be 100644
-> --- a/drivers/gpu/drm/msm/msm_atomic.c
-> +++ b/drivers/gpu/drm/msm/msm_atomic.c
-> @@ -210,6 +210,8 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 033d238e956263c1212fce45aab01316ef341edb..a67bc7c1b83a5a9996435804ff7337f72dae93a0 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -420,9 +420,11 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+>  	if (rc)
+>  		goto end;
 >  
->  	trace_msm_atomic_commit_tail_start(async, crtc_mask);
+> -	rc = msm_dp_panel_read_edid(dp->panel, connector);
+> -	if (rc)
+> -		goto end;
+> +	if (dp->max_stream <= DEFAULT_STREAM_COUNT || !msm_dp_panel_read_mst_cap(dp->panel)) {
+> +		rc = msm_dp_panel_read_edid(dp->panel, connector);
+> +		if (rc)
+> +			goto end;
+> +	}
 >  
-> +	drm_dp_mst_atomic_wait_for_dependencies(state);
-> +
->  	kms->funcs->enable_commit(kms);
+>  	msm_dp_link_process_request(dp->link);
 >  
->  	/*
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index d8c9a1b192632d3e29ff125bd7bb2d0bb491275d..1616a4682795f6b9b30cc0bef2baf448ccc62bc0 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -30,6 +30,7 @@
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_probe_helper.h>
->  #include <drm/display/drm_dsc.h>
-> +#include <drm/display/drm_dp_mst_helper.h>
-
-Please don't bring extra dependencies to the global list. Individual
-files can perfectly include the header on their own.
-
->  #include <drm/msm_drm.h>
->  #include <drm/drm_gem.h>
->  
-> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-> index f3326d09bdbce19d40d0b48549c330c2b836476f..343ad9e9988f6c8d99c5867cf8e81ae625aaa90d 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.c
-> +++ b/drivers/gpu/drm/msm/msm_kms.c
-> @@ -28,6 +28,7 @@ static const struct drm_mode_config_funcs mode_config_funcs = {
->  
->  static const struct drm_mode_config_helper_funcs mode_config_helper_funcs = {
->  	.atomic_commit_tail = msm_atomic_commit_tail,
-> +	.atomic_commit_setup = drm_dp_mst_atomic_setup_commit,
->  };
->  
->  static irqreturn_t msm_irq(int irq, void *arg)
 > 
 > -- 
 > 2.34.1
