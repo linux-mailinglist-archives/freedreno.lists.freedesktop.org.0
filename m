@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 008149E69FF
-	for <lists+freedreno@lfdr.de>; Fri,  6 Dec 2024 10:25:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73FC09E6A07
+	for <lists+freedreno@lfdr.de>; Fri,  6 Dec 2024 10:27:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3BF610F048;
-	Fri,  6 Dec 2024 09:25:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5168810F048;
+	Fri,  6 Dec 2024 09:27:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ypyiiPM1";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EwIFUu5q";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
- [209.85.208.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47CC110F049
- for <freedreno@lists.freedesktop.org>; Fri,  6 Dec 2024 09:25:57 +0000 (UTC)
-Received: by mail-lj1-f169.google.com with SMTP id
- 38308e7fff4ca-2ffc80318c9so15966531fa.2
- for <freedreno@lists.freedesktop.org>; Fri, 06 Dec 2024 01:25:57 -0800 (PST)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9E9710F048
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Dec 2024 09:27:07 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-2ffdbc0c103so16622121fa.3
+ for <freedreno@lists.freedesktop.org>; Fri, 06 Dec 2024 01:27:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733477155; x=1734081955; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1733477226; x=1734082026; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=OoUr7wn0ZUiIfTkQsgOoOd0m6IiBq8HA9tyXLM1N7tU=;
- b=ypyiiPM1lQytqXRXhIXp3wu97YAUdHbDih4ieLQ6U3ItQPygkdIs/PPoaKOJNJ3BzB
- CwsmPnhJ1PYAP8h2UUjPjdqh1OQC4qkm5qsWp0/TOlp7PzoYC0DsJLeA1CANMTbLe0Dp
- gOLeX4z/LR7x6UfSAVbNVSBiYuusZ0WkGzAukgjuIpvOrkiYRCDEY2rqs7EdFndTMiN+
- l4gayUDbymCQTQGEuODenzoZJr3jTRKEzun6+VRQP7Sn/MrjA4/MW+Bj3loaUh5/bqx+
- WGaf7yQh70YN42IxkgDs/eyZ1G6DkQy+Vkst1sId31ptyOBUHBy5UtLSv4CH6maySjX+
- fMBg==
+ bh=7broW1gZ7NVHflpX84N2WQlsqRcFTPMTUqNg9tqTtk8=;
+ b=EwIFUu5qJQINaHdwp34O961RVfAJtGGs0eC+Z0gYo1LAgLpCwtayYL/sQDxofXsp7Z
+ A5JO6DvEyuMPVabvKZ8EURW7eKnBvrs6eqDiQL4kF6OjK7B7VbsffffJatXok1QoRJ+W
+ ZIq5pObExZRpZIimV8fc506XYzUnq5F9Cq86vuG8Ogf1tOiGlYvhfRATOumULAGaSzxw
+ Y4lGrhS4U2b6tPjL3VKWp7g5+mM/awxcWmO9uy7gMM1+Ox3pcytLwWPe+PiInD2K5p4J
+ VrdEzIYtyY+lhH2fCOFXzvDxzek9PVkgsxF7C7R/7Uzgo2s03c0LVU4cscre5kmMVzgv
+ AHGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733477155; x=1734081955;
+ d=1e100.net; s=20230601; t=1733477226; x=1734082026;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OoUr7wn0ZUiIfTkQsgOoOd0m6IiBq8HA9tyXLM1N7tU=;
- b=XDAVWhlKVv9Ci5KZXEjWkM6lE3+3GJ2EZ0wirY6oLdSpGQLj+UMs1LGAyTevc/HxvD
- pRf4TbP4mKQNF/NELxYyHeTZeaCAqcE+OcksKgxc/khInBy0C6BO/hFJOFX6IC0FpbHE
- gLm2iIIOVddH2Os3Jt5b0sE7CQZN3CpQPJ8YOxRKoEZ7E8OuD/7EZ9w3pd0JOzfmzscd
- XJs0VBafVg0BFU9KAkZeKCQG10+y4BuypRSRTQKulJ8/D5SO3cSCg59folh6VcHQ9+I1
- DoLiSJXc+uWkQHo2rk/ByO69xED4vHS1GsBiq1OyVrCFm/FWZlLy4VTCLdCtXgo3ecji
- juug==
+ bh=7broW1gZ7NVHflpX84N2WQlsqRcFTPMTUqNg9tqTtk8=;
+ b=H1ikmatgGN624LGxLt4ehWMhskg09fDzu2oxRXiU4TLac2YbJ9+2Btbc+6UmKH9u+5
+ fLUvIew5yzsvh8Igf121O6sTfPM6qIKvjA37fenGALd1uVycXoBuwDrYZ5t2YbU0lBrp
+ erUrKc0I2kr95/sphsaO5grz4RcDfdQymOHVCT+OJ7aDgTLhxz7jthISeSarlR/thH57
+ V8/MOvCrYsqZoq4icdt4EOpUvitQuhJt+7aAwtBipaJrdiXYvZAWzatkNrdmK19T+Bdl
+ o85D5oaW5uxMCQjZs1vmkGDHyT5Rpydqt1SS8YS+vs9Pnsn+Zt3kirM9L2G/Q/Lp9fq9
+ bEgw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWZHW0Q+ajUoygXrGPHklE1SJGgVTegKhPoGwOVTPLLwYDJyovLd8Mn9iUCjPwDM3x18bv26WYkyeQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YygEhVdQ6S9fAOBjpWaoX4LCoj2htvq7ZNKYm+yQVJnc2bsmCkF
- NHrVL9sCUZzs8CNCn+bcLbCW+3P9fHOhnchel/qeIPELI78fEUwvcm399K5/V/M=
-X-Gm-Gg: ASbGncs+hQi7gJZO5JHkRZEGAcVuFV+8aSt+uMJSi3lwz8bdkzstY0phU6yub1GW/d/
- FR+is7kv0NevyaPuWS1RqPnZFA6s460X7PqCbmeXP/deDsSVRXyaOoNx6WC3y6mm3AH+RaoPg3c
- dUpcBI1FtvvGIcZxklc48SVQ3xwcHiRGRW5KghqNYCOkPDaQWVCb/wF0sln1R7poWffJvSagFap
- hNUq3QcyF8DOPIIbBz8CRlWrpQ2oxhxPtiG4iTMmRjmbXJttHxhO+6v1hNvm4bnhQMFokZJ3GIU
- WBYvRgiOwncSHYlKd8XBiJR9G3j7mA==
-X-Google-Smtp-Source: AGHT+IHEPjXcBrm7XkLeyj1S9Myc1Ilx1u8zaCsZKn1lMH6hzLdh64MAK0T3iqxzwepLT5rGpHD/Mw==
-X-Received: by 2002:a05:651c:553:b0:2ff:d7e8:b712 with SMTP id
- 38308e7fff4ca-3002f8c88b6mr7541101fa.13.1733477155305; 
- Fri, 06 Dec 2024 01:25:55 -0800 (PST)
+ AJvYcCVi8KbwzvuHhgAS+uDaI2QmkTdJkz9WrWbH8hghaa8w2Vszs9lvW3wnUnBclnHvCcg6oxfd8ThJw0k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwPZk4PFGGpMN9yh0axHG7RgsQ+oM8vC5Az379acmOh+OmdtNH1
+ 3VRlBr0dvTzi1jb44yTMRgOY+3OIfYCWCi8Xx8VFsQEF2oSUDfg2RfAwHImKtKA=
+X-Gm-Gg: ASbGnctV3JH0ZbvThGVu8v5Fe/9Q9zK/LXmXH141T/WYjkacKxXWYT7SrIbOZmm90oY
+ mjr/tDRV99+L5J7FjqjEjydx7sy59YNyGcihckoI8w/00g3z4ZWW/57q6GQUxRBsiv5lz5+s5uw
+ 6e3nBriDJtGrOyoN+zV38rZ0B4Xis0ub7405xhxebyXMESmV+NXq0bPvoA8OQnLYlZWriYNsNoJ
+ gfcn4UwP6HA5lOEuOqW8QzU+550Oh0CCsin0TTnEcw0D1QCmUMS6dARY+uJ9iQi9bpQcm0QLbxP
+ gMkkPFXP3vgBN59ns69cyu5NId3fAQ==
+X-Google-Smtp-Source: AGHT+IE19qPwbx3UFDXuLqxlrNLClxfZsWNhadyWFpGu/ahSESOQg+xnLVgzOuZizB2iVY3wNhLDgw==
+X-Received: by 2002:a05:6512:3ba3:b0:53e:2751:84fd with SMTP id
+ 2adb3069b0e04-53e2c28e5d1mr584353e87.1.1733477225873; 
+ Fri, 06 Dec 2024 01:27:05 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30020d85356sm4231801fa.15.2024.12.06.01.25.52
+ 2adb3069b0e04-53e229c23d8sm445851e87.211.2024.12.06.01.27.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Dec 2024 01:25:54 -0800 (PST)
-Date: Fri, 6 Dec 2024 11:25:51 +0200
+ Fri, 06 Dec 2024 01:27:04 -0800 (PST)
+Date: Fri, 6 Dec 2024 11:27:02 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
@@ -78,15 +78,14 @@ Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [PATCH 41/45] drm/msm/dpu: use msm_dp_get_mst_intf_id() to get
- the intf id
-Message-ID: <tqxoqjrpi3smnjuipnog5idh4kjhld7jem7s637pdjhcoc4paf@75kcofgrxwdv>
+Subject: Re: [PATCH 37/45] drm/msm: add support for non-blocking commits
+Message-ID: <odawd4djmpowav7beu76s3m7xtocw7tqsqjjkl7n5xxupn5u66@wpytoudtcizb>
 References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
- <20241205-dp_mst-v1-41-f8618d42a99a@quicinc.com>
+ <20241205-dp_mst-v1-37-f8618d42a99a@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241205-dp_mst-v1-41-f8618d42a99a@quicinc.com>
+In-Reply-To: <20241205-dp_mst-v1-37-f8618d42a99a@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,79 +101,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 05, 2024 at 08:32:12PM -0800, Abhinav Kumar wrote:
-> Use msm_dp_get_mst_intf_id() to get the intf id for the DP MST
-> controller as the intf_id is unique for each MST stream of each
-> DP controller.
+On Thu, Dec 05, 2024 at 08:32:08PM -0800, Abhinav Kumar wrote:
+> Hook up the mst framework APIs with atomic_commit_setup() and
+> atomic_commit_tail() APIs to handle non-blocking commits.
 > 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 25 ++++++++++++++++++++-----
->  1 file changed, 20 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/msm/msm_atomic.c | 2 ++
+>  drivers/gpu/drm/msm/msm_drv.h    | 1 +
+>  drivers/gpu/drm/msm/msm_kms.c    | 1 +
+>  3 files changed, 4 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 83de7564e2c1fe14fcf8c4f82335cafc937e1b99..ce2f0fa8ebb1efd1a229a99543593965dbccd752 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -2512,17 +2512,23 @@ static int dpu_encoder_virt_add_phys_encs(
+> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+> index 9c45d641b5212c11078ab38c13a519663d85e10a..801399419c3d26f68d9b0a65d41fc4e1706c70be 100644
+> --- a/drivers/gpu/drm/msm/msm_atomic.c
+> +++ b/drivers/gpu/drm/msm/msm_atomic.c
+> @@ -210,6 +210,8 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
 >  
->  static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
->  				 struct dpu_kms *dpu_kms,
-> -				 struct msm_display_info *disp_info)
-> +				 struct msm_display_info *disp_info,
-> +				 int drm_enc_mode)
-
-No need to, use dpu_enc->base.encoder_type
-
->  {
->  	int ret = 0;
->  	int i = 0;
->  	struct dpu_enc_phys_init_params phys_params;
-> +	unsigned int intf_id;
-> +	struct msm_drm_private *priv;
-> +	struct drm_encoder *drm_enc;
+>  	trace_msm_atomic_commit_tail_start(async, crtc_mask);
 >  
->  	if (!dpu_enc) {
->  		DPU_ERROR("invalid arg(s), enc %d\n", dpu_enc != NULL);
->  		return -EINVAL;
->  	}
->  
-> +	drm_enc = &dpu_enc->base;
-> +	priv = drm_enc->dev->dev_private;
->  	dpu_enc->cur_master = NULL;
->  
->  	memset(&phys_params, 0, sizeof(phys_params));
-> @@ -2559,9 +2565,18 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
->  		DPU_DEBUG("h_tile_instance %d = %d, split_role %d\n",
->  				i, controller_id, phys_params.split_role);
->  
-> -		phys_params.hw_intf = dpu_encoder_get_intf(dpu_kms->catalog, &dpu_kms->rm,
-> -							   disp_info->intf_type,
-> -							   controller_id);
-> +		if (drm_enc_mode == DRM_MODE_ENCODER_DPMST) {
-> +			intf_id = msm_dp_get_mst_intf_id(priv->dp[controller_id],
-> +							 disp_info->stream_id);
-> +			DPU_DEBUG("intf_id %d for disp_info->stream_id = %d\n", intf_id,
-> +				  disp_info->stream_id);
-> +			phys_params.hw_intf = dpu_rm_get_intf(&dpu_kms->rm, intf_id);
+> +	drm_dp_mst_atomic_wait_for_dependencies(state);
 > +
-> +		} else {
-> +			phys_params.hw_intf = dpu_encoder_get_intf(dpu_kms->catalog, &dpu_kms->rm,
-> +								   disp_info->intf_type,
-> +								   controller_id);
-> +		}
+>  	kms->funcs->enable_commit(kms);
 >  
->  		if (disp_info->intf_type == INTF_WB && controller_id < WB_MAX)
->  			phys_params.hw_wb = dpu_rm_get_wb(&dpu_kms->rm, controller_id);
-> @@ -2662,7 +2677,7 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
->  	mutex_init(&dpu_enc->enc_lock);
->  	mutex_init(&dpu_enc->rc_lock);
+>  	/*
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index d8c9a1b192632d3e29ff125bd7bb2d0bb491275d..1616a4682795f6b9b30cc0bef2baf448ccc62bc0 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -30,6 +30,7 @@
+>  #include <drm/drm_atomic_helper.h>
+>  #include <drm/drm_probe_helper.h>
+>  #include <drm/display/drm_dsc.h>
+> +#include <drm/display/drm_dp_mst_helper.h>
+
+Please don't bring extra dependencies to the global list. Individual
+files can perfectly include the header on their own.
+
+>  #include <drm/msm_drm.h>
+>  #include <drm/drm_gem.h>
 >  
-> -	ret = dpu_encoder_setup_display(dpu_enc, dpu_kms, disp_info);
-> +	ret = dpu_encoder_setup_display(dpu_enc, dpu_kms, disp_info, drm_enc_mode);
->  	if (ret) {
->  		DPU_ERROR("failed to setup encoder\n");
->  		return ERR_PTR(-ENOMEM);
+> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+> index f3326d09bdbce19d40d0b48549c330c2b836476f..343ad9e9988f6c8d99c5867cf8e81ae625aaa90d 100644
+> --- a/drivers/gpu/drm/msm/msm_kms.c
+> +++ b/drivers/gpu/drm/msm/msm_kms.c
+> @@ -28,6 +28,7 @@ static const struct drm_mode_config_funcs mode_config_funcs = {
+>  
+>  static const struct drm_mode_config_helper_funcs mode_config_helper_funcs = {
+>  	.atomic_commit_tail = msm_atomic_commit_tail,
+> +	.atomic_commit_setup = drm_dp_mst_atomic_setup_commit,
+>  };
+>  
+>  static irqreturn_t msm_irq(int irq, void *arg)
 > 
 > -- 
 > 2.34.1
