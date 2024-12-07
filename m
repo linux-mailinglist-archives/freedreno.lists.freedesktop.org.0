@@ -2,92 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A66D9E79EF
-	for <lists+freedreno@lfdr.de>; Fri,  6 Dec 2024 21:17:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6661B9E7D9B
+	for <lists+freedreno@lfdr.de>; Sat,  7 Dec 2024 01:49:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68F2010F1AF;
-	Fri,  6 Dec 2024 20:17:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8843A10F1E1;
+	Sat,  7 Dec 2024 00:49:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="pfzvquSl";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="OpS0FShT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9161310F1AF;
- Fri,  6 Dec 2024 20:17:45 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B6KA5Nx018614;
- Fri, 6 Dec 2024 20:17:37 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73BD610E1FD;
+ Sat,  7 Dec 2024 00:49:02 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B70JxQX023369;
+ Sat, 7 Dec 2024 00:48:46 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- V8TXl6zc2x9wr3hGp8Wkq7mrYvv14H9MajeE4l2soGU=; b=pfzvquSl9jFS5XtS
- tAoOZtrim8gZQPs9cdpo363apKv0TijVSBDzpZFsDW/mSMypc/57phqSljh2+sFL
- Apb/yVPWVM62UtABfUz2U7Dhb3D3mtmMjKu3r2I7NaPHNEbEEkZHA9TawigrCHzi
- cR1KXgfY9nuOT0PUpswQjWZ0LKOQ6w4N4qIDwpSidzKLgx4SJcLyHUIr/RZ8fDOS
- Pnw5+CZHbD+G1oJ7O+ma0ZZaVuGn4hTDvdBRjpDUn1YNXNiFYy/mJyzLJbUp23zp
- V7yIG7Vwvac+mp88zkp3fba7fmelzFUY8+ysrI93f5QsduheLtejRA/eNzgvqds1
- tI5Pcg==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43bjk8ufkb-1
+ AK74VPG6A9e2QYgKpR9cQJBVCOoLg7G7LnluO38hQd4=; b=OpS0FShTGFm0IoR/
+ 6a64wEG/tISKcsQYtnmqcQQVyFbhRSZDPkh+D/Y/UUzcqL80PTLKhKl8xgDUbbLF
+ 6vxADF+2/CztOaUPLELPJC7FbWbf3YbZJKsJRl6sqNUJWcA9mL63+EZdIJ6VN2CN
+ 2gvvpwsbsDCC/+5T7IBMsra+cFIpRPrdRDMGGV9pPEHIndEjzugHM3ZG1dOwUnsh
+ ybHwv5y77qP0o6htqAFDlfP0geOckmGewnGz+/s87BK1aeutBU8840IYzan04gPG
+ DsQb+Ogelkz0Fn6rED2K54b2J0t/lboOiY1uzy833azMCB/tQOHZlEztvbtA1S8L
+ Fepf9A==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43cbqn019d-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Dec 2024 20:17:37 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B6KHael018454
+ Sat, 07 Dec 2024 00:48:45 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B70miY1011072
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 6 Dec 2024 20:17:36 GMT
-Received: from [10.110.95.46] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ Sat, 7 Dec 2024 00:48:44 GMT
+Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 6 Dec 2024
- 12:17:31 -0800
-Message-ID: <c1b2fe04-e43e-4ab7-b0f8-2bb2ce6e1313@quicinc.com>
-Date: Fri, 6 Dec 2024 12:17:29 -0800
+ 16:48:44 -0800
+Message-ID: <80d08449-71de-4a7f-8b2a-8af565d8d701@quicinc.com>
+Date: Fri, 6 Dec 2024 16:48:43 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/9] drm/msm/dpu: Add SM6150 support
-To: Fange Zhang <quic_fangez@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Krishna
- Manikandan" <quic_mkrishn@quicinc.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, "Catalin
- Marinas" <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Li Liu
- <quic_lliu6@quicinc.com>, Xiangxu Yin <quic_xiangxuy@quicinc.com>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-References: <20241122-add-display-support-for-qcs615-platform-v3-0-35252e3a51fe@quicinc.com>
- <20241122-add-display-support-for-qcs615-platform-v3-5-35252e3a51fe@quicinc.com>
+Subject: Re: [PATCH v2 02/22] drm: Add valid clones check
+To: Maxime Ripard <mripard@kernel.org>
+CC: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, <quic_abhinavk@quicinc.com>, Sean Paul
+ <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
+ Airlie" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, <quic_ebharadw@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ Rob Clark <robdclark@chromium.org>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>
+References: <20240924-concurrent-wb-v2-0-7849f900e863@quicinc.com>
+ <20240924-concurrent-wb-v2-2-7849f900e863@quicinc.com>
+ <20240925-hasty-bald-caribou-eedbf5@houat>
 Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20241122-add-display-support-for-qcs615-platform-v3-5-35252e3a51fe@quicinc.com>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20240925-hasty-bald-caribou-eedbf5@houat>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+ nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: yj9fXnaj5lnOP6LN3qd6Slds2MgrbGF-
-X-Proofpoint-GUID: yj9fXnaj5lnOP6LN3qd6Slds2MgrbGF-
+X-Proofpoint-ORIG-GUID: -zKcDFja7cx9ZYMB7kSujIe0CKHcr77J
+X-Proofpoint-GUID: -zKcDFja7cx9ZYMB7kSujIe0CKHcr77J
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0 spamscore=0
- lowpriorityscore=0 adultscore=0 mlxscore=0 mlxlogscore=999
- priorityscore=1501 clxscore=1011 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2411120000 definitions=main-2412060152
+ priorityscore=1501 mlxscore=0
+ spamscore=0 bulkscore=0 adultscore=0 clxscore=1015 mlxlogscore=999
+ malwarescore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412070003
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,89 +101,73 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 11/22/2024 1:56 AM, Fange Zhang wrote:
-> From: Li Liu <quic_lliu6@quicinc.com>
+On 9/25/2024 12:23 AM, Maxime Ripard wrote:
+> On Tue, Sep 24, 2024 at 03:59:18PM GMT, Jessica Zhang wrote:
+>> Check that all encoders attached to a given CRTC are valid
+>> possible_clones of each other.
+>>
+>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/drm_atomic_helper.c | 23 +++++++++++++++++++++++
+>>   1 file changed, 23 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+>> index 43cdf39019a4..cc4001804fdc 100644
+>> --- a/drivers/gpu/drm/drm_atomic_helper.c
+>> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+>> @@ -574,6 +574,25 @@ mode_valid(struct drm_atomic_state *state)
+>>   	return 0;
+>>   }
+>>   
+>> +static int drm_atomic_check_valid_clones(struct drm_atomic_state *state,
+>> +					 struct drm_crtc *crtc)
+>> +{
+>> +	struct drm_encoder *drm_enc;
+>> +	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state,
+>> +									  crtc);
+>> +
+>> +	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc_state->encoder_mask) {
+>> +		if ((crtc_state->encoder_mask & drm_enc->possible_clones) !=
+>> +		    crtc_state->encoder_mask) {
+>> +			DRM_DEBUG("crtc%d failed valid clone check for mask 0x%x\n",
+>> +				  crtc->base.id, crtc_state->encoder_mask);
+>> +			return -EINVAL;
+>> +		}
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   /**
+>>    * drm_atomic_helper_check_modeset - validate state object for modeset changes
+>>    * @dev: DRM device
+>> @@ -745,6 +764,10 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
+>>   		ret = drm_atomic_add_affected_planes(state, crtc);
+>>   		if (ret != 0)
+>>   			return ret;
+>> +
+>> +		ret = drm_atomic_check_valid_clones(state, crtc);
+>> +		if (ret != 0)
+>> +			return ret;
+>>   	}
 > 
-> Add definitions for the display hardware used on the Qualcomm SM6150
-> platform.
+> Pretty much the same comment, we should have kunit tests for this.
+
+Hey Maxime,
+
+I'm working on the kunit test for this and had a question on the design 
+for the unit test:
+
+Since this is a static helper that returns a pretty common error code, 
+how would you recommend going about making sure that 
+`drm_atomic_check_valid_clones()` specifically is returning the error 
+(and not a different part of check_modeset) when testing the 
+check_valid_clones() failure path?
+
+Thanks,
+
+Jessica Zhang
+
 > 
-> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
-> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
-> ---
->   .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h | 263 +++++++++++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
->   4 files changed, 266 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..e8b7f694b885d69a9bbfaa85b0faf0c7af677a75
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
-> @@ -0,0 +1,263 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
-> + */
-> +
-> +#ifndef _DPU_5_3_SM6150_H
-> +#define _DPU_5_3_SM6150_H
-> +
-> +
+> Maxime
 
-<snip>
-
-> +static const struct dpu_sspp_cfg sm6150_sspp[] = {
-> +	{
-> +		.name = "sspp_0", .id = SSPP_VIG0,
-> +		.base = 0x4000, .len = 0x1f0,
-> +		.features = VIG_SDM845_MASK,
-
-This is not correct. Smartdma is supported on this chipset on both Vig 
-and DMA SSPPs.
-
-Please use VIG_SDM845_MASK_SDMA and DMA_SDM845_MASK_SDMA respectively.
-
-
-> +		.sblk = &dpu_vig_sblk_qseed3_2_4,
-> +		.xin_id = 0,
-> +		.type = SSPP_TYPE_VIG,
-> +		.clk_ctrl = DPU_CLK_CTRL_VIG0,
-> +	}, {
-> +		.name = "sspp_8", .id = SSPP_DMA0,
-> +		.base = 0x24000, .len = 0x1f0,
-> +		.features = DMA_SDM845_MASK,
-> +		.sblk = &dpu_dma_sblk,
-> +		.xin_id = 1,
-> +		.type = SSPP_TYPE_DMA,
-> +		.clk_ctrl = DPU_CLK_CTRL_DMA0,
-> +	}, {
-> +		.name = "sspp_9", .id = SSPP_DMA1,
-> +		.base = 0x26000, .len = 0x1f0,
-> +		.features = DMA_SDM845_MASK,
-> +		.sblk = &dpu_dma_sblk,
-> +		.xin_id = 5,
-> +		.type = SSPP_TYPE_DMA,
-> +		.clk_ctrl = DPU_CLK_CTRL_DMA1,
-> +	}, {
-> +		.name = "sspp_10", .id = SSPP_DMA2,
-> +		.base = 0x28000, .len = 0x1f0,
-> +		.features = DMA_CURSOR_SDM845_MASK_SDMA,
-> +		.sblk = &dpu_dma_sblk,
-> +		.xin_id = 9,
-> +		.type = SSPP_TYPE_DMA,
-> +		.clk_ctrl = DPU_CLK_CTRL_DMA2,
-> +	}, {
-> +		.name = "sspp_11", .id = SSPP_DMA3,
-> +		.base = 0x2a000, .len = 0x1f0,
-> +		.features = DMA_CURSOR_SDM845_MASK_SDMA,
-> +		.sblk = &dpu_dma_sblk,
-> +		.xin_id = 13,
-> +		.type = SSPP_TYPE_DMA,
-> +		.clk_ctrl = DPU_CLK_CTRL_DMA3,
-> +	},
-> +};
-> +
-
-<snip>
