@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F3A29E84CE
-	for <lists+freedreno@lfdr.de>; Sun,  8 Dec 2024 12:51:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2F3E9E84D6
+	for <lists+freedreno@lfdr.de>; Sun,  8 Dec 2024 12:56:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8131710E32F;
-	Sun,  8 Dec 2024 11:51:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85A3810E32F;
+	Sun,  8 Dec 2024 11:56:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mELXXTMt";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="msOUbg+4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2E6110E336
- for <freedreno@lists.freedesktop.org>; Sun,  8 Dec 2024 11:51:09 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-53e3a90336eso1132212e87.3
- for <freedreno@lists.freedesktop.org>; Sun, 08 Dec 2024 03:51:09 -0800 (PST)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 540E410E32F
+ for <freedreno@lists.freedesktop.org>; Sun,  8 Dec 2024 11:56:37 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-53e23fb807dso3161029e87.3
+ for <freedreno@lists.freedesktop.org>; Sun, 08 Dec 2024 03:56:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733658668; x=1734263468; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1733658995; x=1734263795; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=BjiC5PAenMu08TFijRNbc2fm2ozHjMgrzs8cxLgoxyE=;
- b=mELXXTMtUc9U9HCJGBDfwcRIUpCe50E1QvuyG04leOjqmnZGdMFXptYPeKBWbpq1UH
- 6Nt/K2FdXqRHjhb5eAMoyO0Mh7lsL8nrOINQbcObScqNx2YcxgMa1NOYFl80lvsqf9MQ
- QB3C9j32m/dk0mS8KB75LbjR8Mf3Rd+KpbntctjtvvLCvEpQNqkqjMK2Uf4Dnp8CGvq+
- I+ZWTTWpqHiFrlb4gTyg0OLwpxjGTIfqJgI3BBeza7q3gzGBx2zkyV2kEyca8fMjI9IA
- v9YISgpR2LT1D6MVpJtFxb2+mdb7mXCbPJTYyIduXxC47wjAsq4w4j6rHA2m7i6cOp+n
- hpsA==
+ bh=pOAwyqX0ldTVE84PV+ORU4SPmAJDMuBSaqC47OQg++s=;
+ b=msOUbg+4uXFJQ+VHkCYfDbeud4VzRMpnkN5tpIcAszjp/zNR4405SN0AJETHjfbQgv
+ KlDWHi34dAJnsflUMSzeG7h6vz3Dt6mf0nmaaeuxjnoRPUeYygODLRx14g3jh0Ss0k+O
+ ambacTmMNJ3KYkpktnatHZv98l0H/tcB5eiY8hZ6t/9Uz/bkusFWZWWahu6Hy8EQnwTj
+ fQE4Z0wVjsavOb58f4RT8F7CcQNqhjvqQvS7UnDFIvm7eX4xw3csfkL7UeY/ZZZUmU6k
+ uAkURxWB7PivfXF20yy8XV/1X9EpEc8veuuOzjYejf31Ca9qruhZ8Vt1g/zhe7JXazTL
+ 9UQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733658668; x=1734263468;
+ d=1e100.net; s=20230601; t=1733658995; x=1734263795;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BjiC5PAenMu08TFijRNbc2fm2ozHjMgrzs8cxLgoxyE=;
- b=cw8H1dOo5zryWMciizEKTj6TehS8ixQHlrcjeyZ9zLz94lb5PHpcJIn6W6vV2edPOO
- c583baJJ5t9fec1Kw8RCQ7K7l0mXa5cj/4t3V7GkElSyuaRs5YLYobU1MaZ95/tAxUwF
- N0Ipsr9Q3jPg8u5I22u22nLj/+kaLWvte7bXrRkdQQoOVbZq84DtYWpm+JglCvS7Be/1
- z2mxpcOm6hsVNRJpVuVuxuxdZkT058iArctaguBrRWI2A2s6fo1IpJYx+oLjcTGdwfFx
- j+DPmW8kpxz1neDapyYWttfscwfqTMGPdgFeQXNL0OFk3m/CVrRwOdoINR5MPVmizX+P
- PUZA==
+ bh=pOAwyqX0ldTVE84PV+ORU4SPmAJDMuBSaqC47OQg++s=;
+ b=T5qiEqFJEWE6hx88JGl7Z792mV7NGRoptqWjm7y7/xrgTtpR+qTIuIovib5PQWmNti
+ lVfSkARV5g8uDseH4sGhEJWiayXKY2fxu+pKe5Xuh0pl4oKfk5WEyka4Gy/wlmHn+IrH
+ P4M5BgsVE0OuZ/EfXuMBUaF8RFPejM/t/EfyIvRagIh/aKsDqoNH2xLd7+MRQDIENVl8
+ R9/whQGDzTIAsuyWEAdhODxX00QlmyNAet8i5J9RSEvQsnMYucPtq9JVHzfuIk56z6L5
+ CornYUenB6wynPCnXso6BKSHrwgyjde/WC5LWrKG7VzJHyWvpgNaS/XEiby2+vfkZwuE
+ l4ng==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVViUGmyKgsi6IJU+4ny34aVBFKsE5SaYYPqDlyokb3R8Lr7hB+zzp4ZD1AGzxW9K7xrR0+3DJNSf0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwYuEusHMcSrtEAMSKg2tHJxPwJSo3+bFxDeufjI+n1VWOjEKAK
- x63ws2dFOvTom7mv+kGxyxz8/LwBrmp2qqduVz1YUCe/p7Mk6Q9/DLe6mcZNfYg=
-X-Gm-Gg: ASbGncthQ6IdTI4mMD50mxgxWJQBrTlzaRqVWk78/knmRPbmSRBbJnGGj8H+Yvxjc4S
- MPjRAeXleAkvM41m01R0tYVuXJyqoe1rX0VpWfbu6bXHZdsFtNVX35V0YO3AR61cI2O9MsdEs+V
- K7w2ST1oO671bWNO4AusT0ZIRJ1pes5L8NcYkQvmxpZRxyRT1h9XxXj1SCPv+alo2PftMmow1KK
- Xazrizubf/FXJRcLSv7GF3N63kzFmqu3heNmaXC+35h4NTvYTSA+M7Oa8867rqPxc0Y3mO/ePUO
- yGWOARsJ1uxf++hFiXE5NUGtZftoNA==
-X-Google-Smtp-Source: AGHT+IETn40N7+7crT4iVG8T/A8ynVmzE/UWImTWcqofhQT1b5XaQk0o+SD2OB6XC+TybBpfRfOZsQ==
-X-Received: by 2002:a05:6512:12c1:b0:540:1be6:f15e with SMTP id
- 2adb3069b0e04-5401be6f545mr507128e87.0.1733658667917; 
- Sun, 08 Dec 2024 03:51:07 -0800 (PST)
+ AJvYcCVYiUt21YkLXZPdrCFjWhkIb99l6mC4TPnHMr0hbDvnBWMAhU4oPJVVR1pqX7Ef0QuJpMk7WVWywiE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz4dFGHbK+eK2zcNCSSIBRjUsmv2WY7Lzpo487RiJ4uJ4cR4Nzw
+ DMoErpbUwh4hobEWFGikUFbGpGegWF7Ny1yoNN1m7tocSALcgBctkX1xs+/rpto=
+X-Gm-Gg: ASbGncuOfySyLhq8N82yY6Mdy6Y7ZAesNqK1nHt9iiIcsBPXIv/yOwZPAadgedT0nB3
+ dK+GqjQbG5lJ9WA+7ZR5BsuIXelOYmY14wKUg1pbwBcAT1LOcaXbi1E/noB5iJeDFTNyyxuvaPA
+ bUn0l0Ppk0AD9HdlojTniIZubceNfLHoSHnE/FsYecJTKGfH2zKsey1aWdE7BFYF+HKMURFyMve
+ RNTLlT0ypLxd4w7F7iFQPhIX0f6dHPiKOd9We334A9xl6gGZ89BPuPm29i5fEe/+vRWR1mvOkGo
+ 02YhYrQETHkgOpywIQKx+hmQ1l1qPQ==
+X-Google-Smtp-Source: AGHT+IElZN3RNDN+oy40fWovlokmqjWYMAvL7r94k082zliwfNbajhQWzK7ZKlu/0oW09/kjFwm7PA==
+X-Received: by 2002:a05:6512:131d:b0:53e:23ec:b2e7 with SMTP id
+ 2adb3069b0e04-53e2c2c4b9dmr3131142e87.34.1733658995453; 
+ Sun, 08 Dec 2024 03:56:35 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53f93369b98sm354427e87.280.2024.12.08.03.51.05
+ 2adb3069b0e04-53f232a9629sm387293e87.25.2024.12.08.03.56.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Dec 2024 03:51:06 -0800 (PST)
-Date: Sun, 8 Dec 2024 13:51:04 +0200
+ Sun, 08 Dec 2024 03:56:34 -0800 (PST)
+Date: Sun, 8 Dec 2024 13:56:31 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
@@ -78,15 +78,15 @@ Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [PATCH 27/45] drm/msm/dp: make the SST bridge disconnected when
- mst is active
-Message-ID: <mzo5hjocxp666mfadqdmzzbkcbzcga3aatqtv7p5jfrlfeide2@hmmamwhvbfik>
+Subject: Re: [PATCH 28/45] drm/msm/dp: add an API to initialize MST on sink
+ side
+Message-ID: <6xqscvg7kuxd6l3kjfhrbqedijjfmaql5j3ie2lsnsxt2htx76@4u5iub577mg4>
 References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
- <20241205-dp_mst-v1-27-f8618d42a99a@quicinc.com>
+ <20241205-dp_mst-v1-28-f8618d42a99a@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241205-dp_mst-v1-27-f8618d42a99a@quicinc.com>
+In-Reply-To: <20241205-dp_mst-v1-28-f8618d42a99a@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,28 +102,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 05, 2024 at 08:31:58PM -0800, Abhinav Kumar wrote:
-
-missing commit message
-
+On Thu, Dec 05, 2024 at 08:31:59PM -0800, Abhinav Kumar wrote:
+> If the DP controller is capable of supporting multiple streams
+> then initialize the DP sink in MST mode by programming the DP_MSTM_CTRL
+> DPCD register to enable MST mode.
+> 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_drm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/dp/dp_display.c | 32 ++++++++++++++++++++++++++++++++
+>  1 file changed, 32 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-> index 920392b3c688821bccdc66d50fb7052ac3a9a85a..225858c6240512cf2c5ca3b5eb52cf9b7f4db3e3 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-> @@ -27,7 +27,7 @@ static enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge)
->  	drm_dbg_dp(dp->drm_dev, "link_ready = %s\n",
->  		(dp->link_ready) ? "true" : "false");
->  
-> -	return (dp->link_ready) ? connector_status_connected :
-> +	return (dp->link_ready && !dp->mst_active) ? connector_status_connected :
->  					connector_status_disconnected;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index e69cdfbbe10484e47475ef189849f8ff6628bd7a..033d238e956263c1212fce45aab01316ef341edb 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -380,6 +380,35 @@ static int msm_dp_display_send_hpd_notification(struct msm_dp_display_private *d
+>  	return 0;
 >  }
 >  
+> +static void msm_dp_display_mst_init(struct msm_dp_display_private *dp)
+> +{
+> +	const unsigned long clear_mstm_ctrl_timeout_us = 100000;
+> +	u8 old_mstm_ctrl;
+> +	struct msm_dp *msm_dp = &dp->msm_dp_display;
+> +	int ret;
+> +
+> +	/* clear sink mst state */
+> +	drm_dp_dpcd_readb(dp->aux, DP_MSTM_CTRL, &old_mstm_ctrl);
+> +	drm_dp_dpcd_writeb(dp->aux, DP_MSTM_CTRL, 0);
+> +
+> +	/* add extra delay if MST state is not cleared */
+> +	if (old_mstm_ctrl) {
+> +		drm_dbg_dp(dp->drm_dev, "MSTM_CTRL is not cleared, wait %luus\n",
+> +			   clear_mstm_ctrl_timeout_us);
+
+"is not cleared" usually means that we wrote 0 to it, but the value
+still stays on. Please rephrase the message, drop wait time.
+
+> +		usleep_range(clear_mstm_ctrl_timeout_us,
+> +			     clear_mstm_ctrl_timeout_us + 1000);
+> +	}
+> +
+> +	ret = drm_dp_dpcd_writeb(dp->aux, DP_MSTM_CTRL,
+> +				 DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC);
+> +	if (ret < 0) {
+
+if (ret != 1) ?
+
+> +		DRM_ERROR("sink mst enablement failed\n");
+> +		return;
+> +	}
+> +
+> +	msm_dp->mst_active = true;
+> +}
+> +
+>  static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+>  {
+>  	struct drm_connector *connector = dp->msm_dp_display.connector;
+> @@ -414,6 +443,9 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+>  	 */
+>  	msm_dp_link_psm_config(dp->link, &dp->panel->link_info, false);
+>  
+> +	if (dp->max_stream > DEFAULT_STREAM_COUNT && msm_dp_panel_read_mst_cap(dp->panel))
+> +		msm_dp_display_mst_init(dp);
+> +
+>  	msm_dp_link_reset_phy_params_vx_px(dp->link);
+>  	rc = msm_dp_ctrl_on_link(dp->ctrl, dp_display->mst_active);
+>  	if (rc) {
 > 
 > -- 
 > 2.34.1
