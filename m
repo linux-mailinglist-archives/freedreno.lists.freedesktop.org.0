@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFB679E84C9
-	for <lists+freedreno@lfdr.de>; Sun,  8 Dec 2024 12:50:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F3A29E84CE
+	for <lists+freedreno@lfdr.de>; Sun,  8 Dec 2024 12:51:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3726910E32F;
-	Sun,  8 Dec 2024 11:50:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8131710E32F;
+	Sun,  8 Dec 2024 11:51:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LQ9kPO/z";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mELXXTMt";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AF5110E32D
- for <freedreno@lists.freedesktop.org>; Sun,  8 Dec 2024 11:50:48 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-53e3a90336eso1132075e87.3
- for <freedreno@lists.freedesktop.org>; Sun, 08 Dec 2024 03:50:48 -0800 (PST)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2E6110E336
+ for <freedreno@lists.freedesktop.org>; Sun,  8 Dec 2024 11:51:09 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-53e3a90336eso1132212e87.3
+ for <freedreno@lists.freedesktop.org>; Sun, 08 Dec 2024 03:51:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733658646; x=1734263446; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1733658668; x=1734263468; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Oun+K+EMFqetiro2F/rNjcDe33esgYQxsDbhRp+6WB4=;
- b=LQ9kPO/zyeFiSJsp+Io88M4ANvO44JVF/+3KBVu1VWLr0A+lt7o6aFp45cCNtmhUeS
- OylMP3fWovtgj6U93JR4oDdhPYVGDtAIySTCkiQ4jphQUOZ9YNrVTywVS9X84WkCe6XK
- K4SjF07XPYgUr5H67XcZK0nvIdYoOxeW9vjsVOsgZxXEAVpigxCQ7QW0B/SAEhCwrJDn
- tR4BHFQLAKpe9CnLdnicDTpXIa5xdmtA7otVBiW5s2klE4iprgbXJjsv52M8fIB96eui
- S5K9mi6fAAw6vRASSlO2+lHDjaQsbMotUTI8ic4l4BMXdN/SxpqK3kx2BN4qiTa47A4H
- j+8A==
+ bh=BjiC5PAenMu08TFijRNbc2fm2ozHjMgrzs8cxLgoxyE=;
+ b=mELXXTMtUc9U9HCJGBDfwcRIUpCe50E1QvuyG04leOjqmnZGdMFXptYPeKBWbpq1UH
+ 6Nt/K2FdXqRHjhb5eAMoyO0Mh7lsL8nrOINQbcObScqNx2YcxgMa1NOYFl80lvsqf9MQ
+ QB3C9j32m/dk0mS8KB75LbjR8Mf3Rd+KpbntctjtvvLCvEpQNqkqjMK2Uf4Dnp8CGvq+
+ I+ZWTTWpqHiFrlb4gTyg0OLwpxjGTIfqJgI3BBeza7q3gzGBx2zkyV2kEyca8fMjI9IA
+ v9YISgpR2LT1D6MVpJtFxb2+mdb7mXCbPJTYyIduXxC47wjAsq4w4j6rHA2m7i6cOp+n
+ hpsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733658646; x=1734263446;
+ d=1e100.net; s=20230601; t=1733658668; x=1734263468;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Oun+K+EMFqetiro2F/rNjcDe33esgYQxsDbhRp+6WB4=;
- b=dy0tc0tXnhLwWFX6AV556WTU0wInniGHIJPA/AXjPDHygrrdTFyItsldhTLiTmIFsD
- 0j8SLzhTLi7a/bg41tU2RwtuT66gOQ15hnNp8FjJfFsIf+7lFFi5P5jhx8XH5bULoMpp
- G+cJXb+FWesjvIktVuBoIHkXpdU5+hdGl+2AsQAa/6ijzRjIz75MgcAF/VYf+/dIjUjh
- pHspfqi35lBn4JXbjAETJSei9PnWo7/+0i8k0NrA//uonvkBgba4RBsXR3/1c6FkaogZ
- V3PXd64wtX19A4m+SJDyFll59h8orbCA7AMxjyySWwat31wDwGR6f52PSqenRReGVKpm
- PNYg==
+ bh=BjiC5PAenMu08TFijRNbc2fm2ozHjMgrzs8cxLgoxyE=;
+ b=cw8H1dOo5zryWMciizEKTj6TehS8ixQHlrcjeyZ9zLz94lb5PHpcJIn6W6vV2edPOO
+ c583baJJ5t9fec1Kw8RCQ7K7l0mXa5cj/4t3V7GkElSyuaRs5YLYobU1MaZ95/tAxUwF
+ N0Ipsr9Q3jPg8u5I22u22nLj/+kaLWvte7bXrRkdQQoOVbZq84DtYWpm+JglCvS7Be/1
+ z2mxpcOm6hsVNRJpVuVuxuxdZkT058iArctaguBrRWI2A2s6fo1IpJYx+oLjcTGdwfFx
+ j+DPmW8kpxz1neDapyYWttfscwfqTMGPdgFeQXNL0OFk3m/CVrRwOdoINR5MPVmizX+P
+ PUZA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXARHc+mK7t3jG2YnHlUjG5FSFvjNX3M1kG3J9V8VSxDddpKnyaYdhGnHU0ZF2UOsvdZsdBkJvJUbo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyfBxIcgl4/ZZR7u941TZVwTK29lf9NLeMwlVK6//adbi08xz24
- SYC/Ed4+SCTAkjflPwYGhGnR03Xq8BUv4K+ubSYM9ZdePSjCGsByAHEil+tuz0g=
-X-Gm-Gg: ASbGncuYq1jJRIz1mjv+7LFe2RQDogQyBupttQYiyO5qzMfO2EIKV2oAaD+gEbZ1Pql
- RWMad2nDFoRigu8G13vmkIHJWi4el1W8yEhSBWKat4LH++o7A0dlR4pAXQuhrJ7wpj1mRwDIA2I
- 6AA2kqJuEVmYpoCBn9WNmmCQHYoNkbqvlaEpdbfEu1r+Z/FxKcFA2LZsEz7l7pwH3N5Qm3GCeJl
- TK1QNWeVX02wwuNWQZgK+Z8A8BFAUIhB8iNjLN07OI+ar9ygGGlPfATo2WaR3Yk7UfRxks6HmO4
- LoXzZ6nOFtsFuc8D9TsGhbYYixRMFQ==
-X-Google-Smtp-Source: AGHT+IFON8ulrpLU68pOJOmwTjUY9DTeD7p4bAWPDsvZgnewDN7qknWszAcJ9yPWcxocxPPFC1T4OQ==
-X-Received: by 2002:a05:6512:2245:b0:53e:389d:8ce6 with SMTP id
- 2adb3069b0e04-53e389d8e61mr2465693e87.28.1733658646469; 
- Sun, 08 Dec 2024 03:50:46 -0800 (PST)
+ AJvYcCVViUGmyKgsi6IJU+4ny34aVBFKsE5SaYYPqDlyokb3R8Lr7hB+zzp4ZD1AGzxW9K7xrR0+3DJNSf0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYuEusHMcSrtEAMSKg2tHJxPwJSo3+bFxDeufjI+n1VWOjEKAK
+ x63ws2dFOvTom7mv+kGxyxz8/LwBrmp2qqduVz1YUCe/p7Mk6Q9/DLe6mcZNfYg=
+X-Gm-Gg: ASbGncthQ6IdTI4mMD50mxgxWJQBrTlzaRqVWk78/knmRPbmSRBbJnGGj8H+Yvxjc4S
+ MPjRAeXleAkvM41m01R0tYVuXJyqoe1rX0VpWfbu6bXHZdsFtNVX35V0YO3AR61cI2O9MsdEs+V
+ K7w2ST1oO671bWNO4AusT0ZIRJ1pes5L8NcYkQvmxpZRxyRT1h9XxXj1SCPv+alo2PftMmow1KK
+ Xazrizubf/FXJRcLSv7GF3N63kzFmqu3heNmaXC+35h4NTvYTSA+M7Oa8867rqPxc0Y3mO/ePUO
+ yGWOARsJ1uxf++hFiXE5NUGtZftoNA==
+X-Google-Smtp-Source: AGHT+IETn40N7+7crT4iVG8T/A8ynVmzE/UWImTWcqofhQT1b5XaQk0o+SD2OB6XC+TybBpfRfOZsQ==
+X-Received: by 2002:a05:6512:12c1:b0:540:1be6:f15e with SMTP id
+ 2adb3069b0e04-5401be6f545mr507128e87.0.1733658667917; 
+ Sun, 08 Dec 2024 03:51:07 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5401b8f5842sm211406e87.130.2024.12.08.03.50.43
+ 2adb3069b0e04-53f93369b98sm354427e87.280.2024.12.08.03.51.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Dec 2024 03:50:45 -0800 (PST)
-Date: Sun, 8 Dec 2024 13:50:42 +0200
+ Sun, 08 Dec 2024 03:51:06 -0800 (PST)
+Date: Sun, 8 Dec 2024 13:51:04 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
@@ -78,15 +78,15 @@ Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [PATCH 26/45] drm/msm/dp: replace power_on with
- active_stream_cnt for dp_display
-Message-ID: <7kok44t3q4dv7jsapvdq45t4lpoaxwkxe3f345ewpfyq3ndgoh@t532yskl2wys>
+Subject: Re: [PATCH 27/45] drm/msm/dp: make the SST bridge disconnected when
+ mst is active
+Message-ID: <mzo5hjocxp666mfadqdmzzbkcbzcga3aatqtv7p5jfrlfeide2@hmmamwhvbfik>
 References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
- <20241205-dp_mst-v1-26-f8618d42a99a@quicinc.com>
+ <20241205-dp_mst-v1-27-f8618d42a99a@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241205-dp_mst-v1-26-f8618d42a99a@quicinc.com>
+In-Reply-To: <20241205-dp_mst-v1-27-f8618d42a99a@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,28 +102,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 05, 2024 at 08:31:57PM -0800, Abhinav Kumar wrote:
-> For DP MST, the link clock and power domain resources stay on until
-> both streams have been disabled OR we receive hotplug. Introduce an
-> active_stream_cnt to track the number of active streams and necessary
-> state handling. Replace the power_on variable with active_stream_cnt
-> as power_on boolean works only for a single stream.
+On Thu, Dec 05, 2024 at 08:31:58PM -0800, Abhinav Kumar wrote:
 
-Okay, this answers one of my previous questions. Swapping these two
-patches might be beneficial.
+missing commit message
 
-For this patch: 
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-
-> 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_audio.c   |  2 +-
->  drivers/gpu/drm/msm/dp/dp_display.c | 42 ++++++++++++++++++++++++-------------
->  drivers/gpu/drm/msm/dp/dp_display.h |  3 ++-
->  3 files changed, 31 insertions(+), 16 deletions(-)
+>  drivers/gpu/drm/msm/dp/dp_drm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> index 920392b3c688821bccdc66d50fb7052ac3a9a85a..225858c6240512cf2c5ca3b5eb52cf9b7f4db3e3 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -27,7 +27,7 @@ static enum drm_connector_status msm_dp_bridge_detect(struct drm_bridge *bridge)
+>  	drm_dbg_dp(dp->drm_dev, "link_ready = %s\n",
+>  		(dp->link_ready) ? "true" : "false");
+>  
+> -	return (dp->link_ready) ? connector_status_connected :
+> +	return (dp->link_ready && !dp->mst_active) ? connector_status_connected :
+>  					connector_status_disconnected;
+>  }
+>  
+> 
+> -- 
+> 2.34.1
 > 
 
 -- 
