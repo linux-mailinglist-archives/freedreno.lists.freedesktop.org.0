@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 838119E84BB
-	for <lists+freedreno@lfdr.de>; Sun,  8 Dec 2024 12:44:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D1359E84BF
+	for <lists+freedreno@lfdr.de>; Sun,  8 Dec 2024 12:46:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FAF810E315;
-	Sun,  8 Dec 2024 11:44:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE14010E315;
+	Sun,  8 Dec 2024 11:46:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="F9Ql346Y";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MGPRq1Ke";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9221D10E313
- for <freedreno@lists.freedesktop.org>; Sun,  8 Dec 2024 11:44:33 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-30020d33d05so30905651fa.0
- for <freedreno@lists.freedesktop.org>; Sun, 08 Dec 2024 03:44:33 -0800 (PST)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F9A010E313
+ for <freedreno@lists.freedesktop.org>; Sun,  8 Dec 2024 11:46:10 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-53df6322ea7so4028327e87.0
+ for <freedreno@lists.freedesktop.org>; Sun, 08 Dec 2024 03:46:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733658272; x=1734263072; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1733658369; x=1734263169; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=eWB3sye8cWIxHYXqy1h9WuTO1cA5DNUjc+3vEKAXYac=;
- b=F9Ql346YIuS+Ke44NyN4UKaGPBnT0GOL4a7YJmmcGyC+sNLc1aHGnQyJmQ43hDvS5q
- KC6tWxQWlhFZPvCxZYyitBbn9JXirmYA9SlJ/lDYTxGnnTxVpysOnTS0v3VzhTDxbvm/
- uZVcL8Vy2wZ9Y4JBNQxnKD9a5sRv5PNDtZIYOE1a02n+WHfs016tq63zIoONi/taHw87
- BSeRImHlS/t3wx0eT4tEwrL/2HcaRM7yO3DYT4WPlyegncpv78OOYzqiIKu8/S2+4D7u
- D2YIFTi2j4XcjZszuBHOTWdtPyrFvXz+j4vi5WGFddXr/uASRCmPU9Mw5pjA2nNUeefM
- AorA==
+ bh=IfA+EW7HYbS2f5B0n2A9Kj+SC/+mY9Ybrf2J4xK35QU=;
+ b=MGPRq1KeQTjd+G3Ak6wAz8EWZnjpW8rApu1zZNUUhR4M+jxK4Qg9jRimvJyvNX/l58
+ TnaR0Mdn7ftcgvSu6MIaM9XvhHCR6A03Xc3TH2c4wO6ykG3nP82R8ZduL3tUrri5FEiv
+ mtUnWiUszentMoIzJP+OyKlTJ8at/mt+0u8v3c1CXHj6KBLMBEuICepnHyrBSI/p+wsR
+ 0kOsn20T5RLoq/bEODdWyCGGbHDhlZ4yoi/d7eOJ0S3MCHRA0nC4e/u7Zdc6xhWKzJ5Q
+ K84BNGY6eVmsSBBoE4iBgQZOzPak3OTBAO+cD7ewGe0K2p+8VPctOiAV8nIsxLvZy7av
+ ERKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733658272; x=1734263072;
+ d=1e100.net; s=20230601; t=1733658369; x=1734263169;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=eWB3sye8cWIxHYXqy1h9WuTO1cA5DNUjc+3vEKAXYac=;
- b=jNbwc61fZm8NExWIvLIO7PitBrNXr7tPeaUQdPCDEn8DQORQaPuDqrNJBgjMvDet0r
- +veOBBwn/yfivEMRxoJxXBQLeueEK2W7pc5vM5woNQiKC8L7Kz09MYOhJiIWoWT2OSlr
- Y5Gbuw8USJKted39aE9SlLBwphiFPI+sMXOqYiBplHJkOpVnApoETLvuz3ivq/NLhN/p
- Hw8EYWpssJz1hU/Inz407091nRjF6wBQTkQfZjpTnqLH4U16A6wHso5bTMQ1w3CBNorv
- g4CRts3ZJ0K7UMqMXjv+I3wy5TpMnkxSPYxXQb2vU3yWaWnoypA5iJqZKEZKN1wi2aA8
- 0QBQ==
+ bh=IfA+EW7HYbS2f5B0n2A9Kj+SC/+mY9Ybrf2J4xK35QU=;
+ b=OLMeW/5K2d+SFiQEPx0RlorEH417JBzAQHORiV4lwbCG7fiVJQJh6YctB8AGioojb2
+ uOj+yW1mXkRoSgTqCi5/uiHPM/Eb9krmaxbH2mRk8FIaEO7vfX3okONQPdX0QKUDIbwK
+ 6A7+XhU2hxNGT+BFAirj1MOtQdWBN337oV/paryRTPENb29OnYeyEGMX6oi5V+axmm5A
+ 6igNgwplLSGOM+Dneqou2c6RYUKiVUFHuN8See78ZbeHHdm8RPM+dnH8aTuVc2n+nj0Y
+ v7XiXDftzobgfFkKxRSwRnhJGcsOR9eskoihWq546QDMvRZgaSloCwn9xZfAuHhh46Kb
+ DlZw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUJFvB3DsvzYKheFA+Tvz/Xr6SNcnsFkC2P/ncBmYMx4SZeIDjXIgrZw1SsY7VV2tyTSUXEI8BfLik=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzdDpY5kz1FEwOONFxwxJ1eaiYwECA8ZqRi7r8VgmWGFUR/KWi8
- vhfTvjEP+qzEXAFV0WXL2bkJkcvqriA9kVx38iq992kvpLnTovUPsTwex5lXzak=
-X-Gm-Gg: ASbGnctjm3gDumET4cZg8LiuYbsnImtaV0uzsLNQYetQ0+4qcvRXcAg8M0VpzafZGO8
- ZLBsSO42G4/IhaYM4hSuCzqGqaFzAdNOXbVA7Zna8FsJCxCwaheeio/XgSNiGdxGlIwxKnVVxBB
- 3ZTOgDO7iGsVCsW1r6drusahYopD0/Z03xh0hAQ760sY2yHYpGtHOxktMOjZJiXmR5Q/wTChi05
- Uj0euH+QbZFLmXoPV+Ig6G30jviJ2rIX/yh1h9fnsLGRSZc9503yyP4sQt+aelNR3TF+GENbo01
- KdywEbW7N/ZQ/lSzCl9Aec30QH9LWA==
-X-Google-Smtp-Source: AGHT+IF9OLSj0xMfFrYE07UenkQPdpJOUslvuXVUW/CXO34qS9IIktGa66/ZoTzyAzDfoEFHUCLSFw==
-X-Received: by 2002:a05:651c:1614:b0:302:1d85:1045 with SMTP id
- 38308e7fff4ca-3021d851207mr5037341fa.20.1733658271617; 
- Sun, 08 Dec 2024 03:44:31 -0800 (PST)
+ AJvYcCWomKUwCaABUn/vKjhKwDGQRBqHYftwC+0UBF2Bben4DH3itfZWYjceEjI9u91q4tZ0QdoHEk80Uq4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEwKt1URLD5njeN+ON9Tf/RopoYmyRn+FGLfq1mU6NO5FBhau+
+ HAYyM9sAk7M4iBGC56MtRzqejSaijTAs4yNi6K72l2WqHIf8eNXFB+bZ3P5Smu0=
+X-Gm-Gg: ASbGncuzoHiX9+VQn5k/905KQmFyRBC1CXOcH4+uZB7bO5KQRPJs8ZXMMNLQOn47btw
+ SWQpjJZPxybK8Ss4/V4Sizu60dwwirliZRMwoeBkS5eXloo0+ZH5viLDQpoMqT+rPsVeEkqzV0o
+ ogSyzufoQod1K/vY5zJjG00R9+yTBwUaaTuZPVxtHkt8698OVPWAV2G5tg78kcsbP8V2zuVunei
+ tLHSZPueKgftTDqT097keDVyqvFBE/1o2aDTZaFZmLbHg2uHgQ/PRhK7uEa7izY1xLkVlR8jWKV
+ VNG1M4kLe1ZexY70lC+x1wdzArY/WQ==
+X-Google-Smtp-Source: AGHT+IEx47LPXGtMN2Qdi7Jr7coC2oOjlkSQj8nWEB8aPxjot+Y8yYG2w+3Vfwe9hD23gXbIU0gAVQ==
+X-Received: by 2002:a05:6512:1256:b0:53e:94f8:bb30 with SMTP id
+ 2adb3069b0e04-53e94f8bbedmr1548267e87.24.1733658368723; 
+ Sun, 08 Dec 2024 03:46:08 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30020e6fbcfsm10100841fa.121.2024.12.08.03.44.29
+ 2adb3069b0e04-53e3a9ca138sm491814e87.132.2024.12.08.03.46.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Dec 2024 03:44:30 -0800 (PST)
-Date: Sun, 8 Dec 2024 13:44:27 +0200
+ Sun, 08 Dec 2024 03:46:07 -0800 (PST)
+Date: Sun, 8 Dec 2024 13:46:05 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
@@ -78,15 +78,15 @@ Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [PATCH 23/45] drm/msm/dp: always program MST_FIFO_CONSTANT_FILL
- for MST
-Message-ID: <lks6otgplrjldckvce6a3jrofefm7q3kp5swab6y5hk22iz6f3@lp2pg7kzzhoq>
+Subject: Re: [PATCH 24/45] drm/msm/dp: abstract out the dp_display stream
+ helpers to accept a panel
+Message-ID: <f2gpfrvzuib6rkrltubnlqkjknjdezalr6bqxaacsihkwxt5ij@n2zakzxkv2ao>
 References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
- <20241205-dp_mst-v1-23-f8618d42a99a@quicinc.com>
+ <20241205-dp_mst-v1-24-f8618d42a99a@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241205-dp_mst-v1-23-f8618d42a99a@quicinc.com>
+In-Reply-To: <20241205-dp_mst-v1-24-f8618d42a99a@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,83 +102,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 05, 2024 at 08:31:54PM -0800, Abhinav Kumar wrote:
-> As required by the hardware programming guide, always program
-> the MST_FIFO_CONSTANT_FILL for MST use-cases.
+On Thu, Dec 05, 2024 at 08:31:55PM -0800, Abhinav Kumar wrote:
+> Currently the dp_display bridge helpers, in particular the
+> dp_display_enable()/dp_display_disable() use the cached panel.
+> To be able to re-use these helpers for MST use-case abstract the
+> helpers to use the panel which is passed in to them.
 > 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_catalog.c | 24 ++++++++++++++++++++++++
->  drivers/gpu/drm/msm/dp/dp_catalog.h |  1 +
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    |  3 +++
->  3 files changed, 28 insertions(+)
+>  drivers/gpu/drm/msm/dp/dp_display.c | 96 ++++++++++++++++++++++++++-----------
+>  drivers/gpu/drm/msm/dp/dp_display.h |  8 ++++
+>  2 files changed, 75 insertions(+), 29 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> index 4826a698979ce7c37112812299879411c5743fa9..3cfa9fd0c6f5e664a65e6d9b74e5c9f22ad711f2 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> @@ -1009,6 +1009,30 @@ int msm_dp_catalog_panel_timing_cfg(struct msm_dp_catalog *msm_dp_catalog, u32 t
->  	return 0;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 1dfc82211c50bb4ed239f9730b91c33c4897c78f..e169cd22db960c0c30707ddbe6a79999dc2a273d 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -868,7 +868,8 @@ static int msm_dp_display_prepare(struct msm_dp_display_private *dp)
+>  	return rc;
 >  }
 >  
-> +int msm_dp_catalog_mst_async_fifo(struct msm_dp_catalog *msm_dp_catalog)
+> -static int msm_dp_display_enable(struct msm_dp_display_private *dp)
+> +static int msm_dp_display_enable(struct msm_dp_display_private *dp,
+> +				 struct msm_dp_panel *msm_dp_panel)
+>  {
+>  	int rc = 0;
+>  	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+> @@ -879,7 +880,7 @@ static int msm_dp_display_enable(struct msm_dp_display_private *dp)
+>  		return 0;
+>  	}
+>  
+> -	rc = msm_dp_ctrl_on_stream(dp->ctrl, dp->panel, dp->max_stream);
+> +	rc = msm_dp_ctrl_on_stream(dp->ctrl, msm_dp_panel, dp->max_stream);
+>  	if (!rc)
+>  		msm_dp_display->power_on = true;
+>  
+> @@ -925,20 +926,21 @@ static void msm_dp_display_audio_notify_disable(struct msm_dp_display_private *d
+>  	msm_dp_display->audio_enabled = false;
+>  }
+>  
+> -static int msm_dp_display_disable(struct msm_dp_display_private *dp)
+> +static int msm_dp_display_disable(struct msm_dp_display_private *dp,
+> +				  struct msm_dp_panel *msm_dp_panel)
+>  {
+>  	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+>  
+>  	if (!msm_dp_display->power_on)
+>  		return 0;
+>  
+> -	msm_dp_ctrl_clear_vsc_sdp_pkt(dp->ctrl, dp->panel);
+> +	msm_dp_ctrl_clear_vsc_sdp_pkt(dp->ctrl, msm_dp_panel);
+>  
+>  	/* dongle is still connected but sinks are disconnected */
+>  	if (dp->link->sink_count == 0)
+>  		msm_dp_ctrl_psm_config(dp->ctrl);
+>  
+> -	msm_dp_ctrl_stream_clk_off(dp->ctrl, dp->panel);
+> +	msm_dp_ctrl_stream_clk_off(dp->ctrl, msm_dp_panel);
+>  
+>  	msm_dp_ctrl_off_link(dp->ctrl);
+>  
+> @@ -1607,7 +1609,7 @@ void msm_dp_display_atomic_prepare(struct msm_dp *dp)
+>  	mutex_unlock(&msm_dp_display->event_mutex);
+>  }
+>  
+> -void msm_dp_display_atomic_enable(struct msm_dp *dp)
+> +void msm_dp_display_enable_helper(struct msm_dp *dp, struct msm_dp_panel *msm_dp_panel)
+>  {
+>  	int rc = 0;
+>  
+> @@ -1620,16 +1622,14 @@ void msm_dp_display_atomic_enable(struct msm_dp *dp)
+>  
+>  	mutex_lock(&msm_dp_display->event_mutex);
+>  
+> -	msm_dp_display_set_stream_info(dp, msm_dp_display->panel, 0, 0, 0, 0, 0);
+> -
+
+Why? You have added it few patches ago.
+
+>  	if (dp->prepared) {
+> -		rc = msm_dp_display_enable(msm_dp_display);
+> +		rc = msm_dp_display_enable(msm_dp_display, msm_dp_panel);
+>  		if (rc)
+>  			DRM_ERROR("DP display enable failed, rc=%d\n", rc);
+>  		rc = msm_dp_display_post_enable(dp);
+>  		if (rc) {
+>  			DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
+> -			msm_dp_display_disable(msm_dp_display);
+> +			msm_dp_display_disable(msm_dp_display, msm_dp_panel);
+>  		}
+>  	}
+>  
+> @@ -1640,14 +1640,25 @@ void msm_dp_display_atomic_enable(struct msm_dp *dp)
+>  	mutex_unlock(&msm_dp_display->event_mutex);
+>  }
+>  
+> -void msm_dp_display_atomic_disable(struct msm_dp *dp)
+> +void msm_dp_display_atomic_enable(struct msm_dp *msm_dp)
 > +{
-> +	struct msm_dp_catalog_private *catalog = container_of(msm_dp_catalog,
-> +							      struct msm_dp_catalog_private,
-> +							      msm_dp_catalog);
+> +	struct msm_dp_display_private *msm_dp_display;
 > +
-> +	u32 reg;
+> +	msm_dp_display = container_of(msm_dp, struct msm_dp_display_private, msm_dp_display);
 > +
-> +	if (msm_dp_catalog->stream_id == DP_STREAM_0)
-> +		reg = msm_dp_read_p0(catalog, MMSS_DP_ASYNC_FIFO_CONFIG);
-> +	else
-> +		reg = msm_dp_read_p1(catalog, MMSS_DP_ASYNC_FIFO_CONFIG);
+> +	msm_dp_display_set_stream_info(msm_dp, msm_dp_display->panel, 0, 0, 0, 0, 0);
 > +
-> +	/* enable MST_FIFO_CONSTANT_FILL */
-> +	reg |= BIT(0);
-
-#define
-
-> +
-> +	if (msm_dp_catalog->stream_id == DP_STREAM_0)
-> +		msm_dp_write_p0(catalog, MMSS_DP_ASYNC_FIFO_CONFIG, reg);
-> +	else
-> +		msm_dp_write_p1(catalog, MMSS_DP_ASYNC_FIFO_CONFIG, reg);
-> +
-> +	return 0;
+> +	msm_dp_display_enable_helper(msm_dp, msm_dp_display->panel);
 > +}
 > +
->  static void msm_dp_catalog_panel_send_vsc_sdp(struct msm_dp_catalog *msm_dp_catalog, struct dp_sdp *vsc_sdp)
+> +void msm_dp_display_disable_helper(struct msm_dp *dp, struct msm_dp_panel *msm_dp_panel)
 >  {
->  	struct msm_dp_catalog_private *catalog;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
-> index 323858c587f85996d296156c7b8b201cdb7b7eb4..0025ecc0adb2f351c44f10af82332a6622749416 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_catalog.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
-> @@ -150,5 +150,6 @@ void msm_dp_catalog_mst_channel_alloc(struct msm_dp_catalog *ctrl,
->  				      u32 ch, u32 ch_start_slot, u32 tot_slot_cnt);
->  void msm_dp_catalog_ctrl_update_rg(struct msm_dp_catalog *ctrl, u32 stream,
->  				   u32 x_int, u32 y_frac_enum);
-> +int msm_dp_catalog_mst_async_fifo(struct msm_dp_catalog *dp_catalog);
+>  	struct msm_dp_display_private *msm_dp_display;
 >  
->  #endif /* _DP_CATALOG_H_ */
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 2288c379283c721a01c81302f8d307d0b3c76527..d4915a962f97b3d2a347456e197265a5dc043eb0 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -236,6 +236,9 @@ static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl
->  	cc = msm_dp_link_get_colorimetry_config(ctrl->link);
->  	msm_dp_catalog_ctrl_config_misc(ctrl->catalog, cc, tb);
->  	msm_dp_panel_timing_cfg(msm_dp_panel);
-> +
-> +	if (ctrl->mst_active)
-> +		msm_dp_catalog_mst_async_fifo(ctrl->catalog);
-
-Should it be disabled further on in a non-MST case?
-
+>  	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
+>  
+>  	if (msm_dp_display->max_stream > DEFAULT_STREAM_COUNT)
+> -		msm_dp_ctrl_push_vcpf(msm_dp_display->ctrl, msm_dp_display->panel);
+> +		msm_dp_ctrl_push_vcpf(msm_dp_display->ctrl, msm_dp_panel);
+>  	else
+>  		msm_dp_ctrl_push_idle(msm_dp_display->ctrl);
+>  
+> @@ -1658,21 +1669,30 @@ void msm_dp_display_atomic_disable(struct msm_dp *dp)
+>  	}
 >  }
 >  
->  /*
+> -static void msm_dp_display_unprepare(struct msm_dp_display_private *dp)
+> +void msm_dp_display_atomic_disable(struct msm_dp *msm_dp)
+>  {
+> -	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+> +	struct msm_dp_display_private *msm_dp_display;
+>  
+> -	if (!msm_dp_display->prepared) {
+> -		drm_dbg_dp(dp->drm_dev, "Link already setup, return\n");
+> +	msm_dp_display = container_of(msm_dp, struct msm_dp_display_private, msm_dp_display);
+> +
+> +	msm_dp_display_disable_helper(msm_dp, msm_dp_display->panel);
+> +}
+> +
+> +static void msm_dp_display_unprepare(struct msm_dp_display_private *msm_dp_display_priv)
+> +{
+> +	struct msm_dp *msm_dp = &msm_dp_display_priv->msm_dp_display;
+> +
+> +	if (!msm_dp->prepared) {
+> +		drm_dbg_dp(msm_dp->drm_dev, "Link already setup, return\n");
+>  		return;
+>  	}
+>  
+> -	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
+> +	pm_runtime_put_sync(&msm_dp->pdev->dev);
+>  
+> -	msm_dp_display->prepared = false;
+> +	msm_dp->prepared = false;
+>  }
+>  
+> -void msm_dp_display_atomic_post_disable(struct msm_dp *dp)
+> +void msm_dp_display_atomic_post_disable_helper(struct msm_dp *dp, struct msm_dp_panel *msm_dp_panel)
+>  {
+>  	u32 state;
+>  	struct msm_dp_display_private *msm_dp_display;
+> @@ -1691,7 +1711,7 @@ void msm_dp_display_atomic_post_disable(struct msm_dp *dp)
+>  
+>  	msm_dp_display_audio_notify_disable(msm_dp_display);
+>  
+> -	msm_dp_display_disable(msm_dp_display);
+> +	msm_dp_display_disable(msm_dp_display, msm_dp_panel);
+>  
+>  	state =  msm_dp_display->hpd_state;
+>  	if (state == ST_DISCONNECT_PENDING) {
+> @@ -1699,25 +1719,32 @@ void msm_dp_display_atomic_post_disable(struct msm_dp *dp)
+>  		msm_dp_display->hpd_state = ST_DISCONNECTED;
+>  	}
+>  
+> -	msm_dp_display_unprepare(msm_dp_display);
+> -
+
+Please split refactoring to a separate patch.
+
+>  	drm_dbg_dp(dp->drm_dev, "type=%d Done\n", dp->connector_type);
+>  
+>  	mutex_unlock(&msm_dp_display->event_mutex);
+>  }
+>  
+> -void msm_dp_display_mode_set(struct msm_dp *dp,
+> -			     const struct drm_display_mode *mode,
+> -			     const struct drm_display_mode *adjusted_mode)
+> +void msm_dp_display_atomic_post_disable(struct msm_dp *msm_dp)
+>  {
+>  	struct msm_dp_display_private *msm_dp_display;
+> -	struct msm_dp_panel *msm_dp_panel;
+>  
+> -	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
+> -	msm_dp_panel = msm_dp_display->panel;
+> +	msm_dp_display = container_of(msm_dp, struct msm_dp_display_private, msm_dp_display);
+> +
+> +	msm_dp_display_atomic_post_disable_helper(msm_dp, msm_dp_display->panel);
+> +
+> +	msm_dp_display_unprepare(msm_dp_display);
+> +}
+> +
+> +void msm_dp_display_mode_set_helper(struct msm_dp *msm_dp,
+> +				    const struct drm_display_mode *mode,
+> +				    const struct drm_display_mode *adjusted_mode,
+> +				    struct msm_dp_panel *msm_dp_panel)
+> +{
+> +	struct msm_dp_display_private *msm_dp_display;
+>  
+> +	msm_dp_display = container_of(msm_dp, struct msm_dp_display_private, msm_dp_display);
+>  
+> -	msm_dp_display_set_mode(dp, adjusted_mode, msm_dp_panel);
+> +	msm_dp_display_set_mode(msm_dp, adjusted_mode, msm_dp_panel);
+>  
+>  	/* populate wide_bus_support to different layers */
+>  	msm_dp_display->ctrl->wide_bus_en =
+> @@ -1726,6 +1753,17 @@ void msm_dp_display_mode_set(struct msm_dp *dp,
+>  		msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420 ? false : msm_dp_display->wide_bus_supported;
+>  }
+>  
+> +void msm_dp_display_mode_set(struct msm_dp *msm_dp,
+> +			     const struct drm_display_mode *mode,
+> +			     const struct drm_display_mode *adjusted_mode)
+> +{
+> +	struct msm_dp_display_private *msm_dp_display;
+> +
+> +	msm_dp_display = container_of(msm_dp, struct msm_dp_display_private, msm_dp_display);
+> +
+> +	msm_dp_display_mode_set_helper(msm_dp, mode, adjusted_mode, msm_dp_display->panel);
+> +}
+> +
+>  void msm_dp_bridge_hpd_enable(struct drm_bridge *bridge)
+>  {
+>  	struct msm_dp_bridge *msm_dp_bridge = to_dp_bridge(bridge);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+> index 258c240de580b634c05cf5895a8e52160449eba1..2b23f2bf7535d3fd513d40a8411a1903fcd560b0 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
+> @@ -56,5 +56,13 @@ enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
+>  int msm_dp_display_set_stream_info(struct msm_dp *dp,
+>  				   struct msm_dp_panel *panel, u32 strm_id,
+>  				   u32 start_slot, u32 num_slots, u32 pbn, int vcpi);
+> +void msm_dp_display_enable_helper(struct msm_dp *msm_dp, struct msm_dp_panel *msm_dp_panel);
+> +void msm_dp_display_disable_helper(struct msm_dp *msm_dp, struct msm_dp_panel *msm_dp_panel);
+> +void msm_dp_display_mode_set_helper(struct msm_dp *msm_dp,
+> +				    const struct drm_display_mode *mode,
+> +				    const struct drm_display_mode *adjusted_mode,
+> +				    struct msm_dp_panel *msm_dp_panel);
+> +void msm_dp_display_atomic_post_disable_helper(struct msm_dp *msm_dp,
+> +					       struct msm_dp_panel *msm_dp_panel);
+>  
+>  #endif /* _DP_DISPLAY_H_ */
 > 
 > -- 
 > 2.34.1
