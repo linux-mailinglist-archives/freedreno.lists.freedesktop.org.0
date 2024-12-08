@@ -2,83 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 477A09E80CF
-	for <lists+freedreno@lfdr.de>; Sat,  7 Dec 2024 17:18:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 589B39E83A0
+	for <lists+freedreno@lfdr.de>; Sun,  8 Dec 2024 06:29:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26E0510E644;
-	Sat,  7 Dec 2024 16:18:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6B6E10E08E;
+	Sun,  8 Dec 2024 05:29:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GzX2PZtv";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ugv10qjS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80F3110E643;
- Sat,  7 Dec 2024 16:18:20 +0000 (UTC)
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-725c0dd1fbcso1591642b3a.0; 
- Sat, 07 Dec 2024 08:18:20 -0800 (PST)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CDE710E08E
+ for <freedreno@lists.freedesktop.org>; Sun,  8 Dec 2024 05:29:21 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-53e0844ee50so3323302e87.0
+ for <freedreno@lists.freedesktop.org>; Sat, 07 Dec 2024 21:29:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733588300; x=1734193100; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rKEc7pfcoe2pEfex+pxqSNNJz1K7IYFf9h97WA1H0CA=;
- b=GzX2PZtv/vKWb5KIgrBEmbMHPVC2q6FgxYCxngJ0CkmldjB4bP+hup1smc6zI7mV8R
- zkBoILaM4EbsQhxTZy5CdpG+Gig/Uh6scQCpVwxQ8qirtshjmaSGfmVoPDnNPvAZgbg1
- lz2mdf4XZg/XmtHDaDCB+Cjtse4AsX7J31Ql0C2BVt4Z+KSlgvcYtZh3BiDNXp8E0XBN
- LgIj2IzWVAephkK+KMtSufrpE2EXzjI6qYk6VxDiCqB15vEEXztsF/cKD4JAvQ/Js5Cm
- MbzF6bv9WXHRbrlN6cTgXs7+2YwtVWdN179ru+NoMkwoL7Oe2WluAJG+cIR/huI1eYmQ
- +Bbg==
+ d=linaro.org; s=google; t=1733635760; x=1734240560; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=vNGx5T/kut2PnS1TJVU24AmFFsWO3iytxgtvJA9Xvfs=;
+ b=ugv10qjS/mesx7HkqDGJx9AVh/h+x5YGqik1rkw23p9a5LLIhXGUFaUMA1xe37x2Mq
+ CHmGsFpDqlF1UrrzuCg22RAWCeoRLTBHHdzAqUh700kks5d2VXg7b+G5VURgMVIcHpxp
+ uqKwm4AxSW18GjTx0Knognt/QNfO3iE00XA/m38Vo4xe3mfe2q+hCMj5wUlbuNSffqUj
+ KCvua+g+dwxebDeTkktQFFT7jTR4pkWYKo/OcKoCxsV+BLakyBCt2E+++6aZAN2ZF1Xm
+ pfHjPu3YBDraqae/hORgB0ViGnnPgTMlC8eNYnG+jaejORqNWq9LQeBeV+URmSPFqquI
+ a1sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733588300; x=1734193100;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rKEc7pfcoe2pEfex+pxqSNNJz1K7IYFf9h97WA1H0CA=;
- b=u3/l+AWYbHNujDd7EbeANJpWcs7+kNqCVXFPnjE/HK6PPD0dF9lhQo/3Ftmbdmv3ze
- uz6zafDQURu/ion5PJuMkeVKXH4QDWwgP0znIwWV5nHCqWddIi/IwpXJjXK3VZaegFRZ
- 372Je6tRuBc5PWMyhSIJI/RsZoFADI3YOqikpKadh0cG5l6MUZBiETCLgDddPH/TZyDA
- 6puugQnIav79A6hHiOExP9umyd93g5wBwEV6r+wPyLXl0R/FUeN7LjjK9hiJ3ByygrRe
- XFr0Sot+EBbjTN7mzu+OYUgCg2roOzL3EHjcOb1uIVnNrNw4ubOjNWZFPJy2WDyFTJMP
- 4ktg==
-X-Gm-Message-State: AOJu0Yy2aM5tK7YzE5PkAB9Ilw0vY0IvXqSLtcbCAbF+88in/sKi7BVd
- dseUOuHLm7pPSZL26nDqkZ/OrsihiSPrImY0D8yTc2jZXUPXlXdCkNLkWw==
-X-Gm-Gg: ASbGncu9CSequ/L5pE7Xl9mRhAk/rbXSN7rbDm1gwop9AjqMlLl94eqrUYw+QhN2Ymp
- ZWzT7ErTWZT/qamBT7VbAig5ElrjlOkR66Q5G8hDxv5N35m1RHzHpj43aKyCBq0Qfg+04ytgnW2
- KTkxNxXULDsXN1WTYRwisz9X/ofG3mMNouB94M53vJ3vkzueJodo5XACpP2k6WPBJuPRrHw0OpK
- PZauVytqmRfb5N80r+divDtVmX2FlGFEyXJogBpyxcYnZ5tnnA0f+8M3bKzu3Ro8Lm5Nq0cDttQ
- j0eKRQfL
-X-Google-Smtp-Source: AGHT+IGDDW73BrrybWnhgDLvwKJyffdiYjbRHUUDZGdP2yCEnF2SVu6E9reKoz8edCA+hBCTjpoxkQ==
-X-Received: by 2002:a05:6a20:2589:b0:1d6:fb3e:78cf with SMTP id
- adf61e73a8af0-1e187156a70mr9628465637.41.1733588299724; 
- Sat, 07 Dec 2024 08:18:19 -0800 (PST)
-Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
+ d=1e100.net; s=20230601; t=1733635760; x=1734240560;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vNGx5T/kut2PnS1TJVU24AmFFsWO3iytxgtvJA9Xvfs=;
+ b=ulKUXcQDV3MaoHNYy0VNyC71r6Dz5J4tpLQjb3wAbFaN1Xxpt2UXIaMY0iGE7gdZkU
+ omVUmpHIN6Kdyzy2PCSn68pROjEwNdKfdVqJMmvsUJBMOiVtDDJdMoDY7MYdm7k1jjE7
+ 8AyG+Xq0gJ4cVfOTQIcDW/9xfn5s5srJgyXTY9ExF/T8Z3VoqWYGrV1cfWm2sJ310BIP
+ POkEnMWSG0y5Q6VgOQVisiv6GYLBjXsohc2+HDg+1EdBl5rWu8dpSE1CQ6k06tKwHHCe
+ pa1FIFdkbdiGLC+kYHDoMEEj12m8Qae9NVyos7SU7x+Pizwg5TpkxU6AIerL032yL8V2
+ sMTQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUSMYu2xyzDL4wOb3Y3TKihxxgHBXRwKQfyPcF4OVnPB5KtrTYJusLec5Bk4CPRmHs1qeRkkDIDGLI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxyBgTYPYcGaKhH15sREHD1z9S5uFbuX6XxypI1jcgnszRhublV
+ ipq5FLB9S7VrHwfLyhIoYStLZgkZF0xiGkaUS5FBGjhoM6pco3xaR6tJApBW1lQ=
+X-Gm-Gg: ASbGnctAHIWnjTWKC26AVFa9AP1hSOUon8J8AS0/dj9gG4sPSlKPGEcYCdPBVVl6nvq
+ aEr8oN15YN+VOM7XUQEs1ZTEGOHqYK+nWZNiO4N/uU0N2v3Kp80jr4E2C9kormxd7e/moYsjTJL
+ Rg8ma4Qj5sJBDkdjY3NRpie3icA9K01enWkqZjVeF82SLJCgz2HG3FHyxC1ei1cYnNGHehRQhhu
+ iIqg0/Yw4pTM0SNOXy4sZ6lCBD6zi0+lrojRPvH11zQBiqYQa7QEJmD7ckN5aGSHHAIaPPccjFT
+ XJccyxr4ZYvrb+23OsT0bwT+NgBMcA==
+X-Google-Smtp-Source: AGHT+IGOhQSpceSZ9KEm21ZiMJVHBV/c3kQtKDrxqIsT6LPxNRV9WJHBnedhtMHtbPhWJEJ/Z4HNTg==
+X-Received: by 2002:ac2:4c4d:0:b0:53f:8c46:42b0 with SMTP id
+ 2adb3069b0e04-53f8c46432cmr719545e87.42.1733635758999; 
+ Sat, 07 Dec 2024 21:29:18 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-7fd2f40dc81sm1874742a12.64.2024.12.07.08.18.19
+ 2adb3069b0e04-53e3a90336fsm420105e87.265.2024.12.07.21.29.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Dec 2024 08:18:19 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Connor Abbott <cwabbott0@gmail.com>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
+ Sat, 07 Dec 2024 21:29:17 -0800 (PST)
+Date: Sun, 8 Dec 2024 07:29:15 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [RFC 24/24] drm/msm: Bump UAPI version
-Date: Sat,  7 Dec 2024 08:15:24 -0800
-Message-ID: <20241207161651.410556-25-robdclark@gmail.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20241207161651.410556-1-robdclark@gmail.com>
-References: <20241207161651.410556-1-robdclark@gmail.com>
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dpu: filter out too wide modes if no 3dmux is
+ present
+Message-ID: <zae7rlojv5iiq2dx7bxhdsmmzj73o65cwk7kmryxsst36gy2of@k3vcm6omcias>
+References: <20241206-no_3dmux-v1-1-72ad2677a323@quicinc.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241206-no_3dmux-v1-1-72ad2677a323@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,31 +93,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Fri, Dec 06, 2024 at 12:00:53PM -0800, Abhinav Kumar wrote:
+> On chipsets such as QCS615, there is no 3dmux present. In such
+> a case, a layer exceeding the max_mixer_width cannot be split,
+> hence cannot be supported.
+> 
+> Filter out the modes which exceed the max_mixer_width when there
+> is no 3dmux present. Also, add a check in the dpu_crtc_atomic_check()
+> to return failure for such modes.
+> 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+> Note: this was only compile tested, so its pending validation on QCS615
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 9f6ffd344693ecfb633095772a31ada5613345dc..e6e5540aae83be7c20d8ae29115b8fdd42056e55 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -732,6 +732,13 @@ static int _dpu_crtc_check_and_setup_lm_bounds(struct drm_crtc *crtc,
+>  	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
+>  	int i;
+>  
+> +	/* if we cannot merge 2 LMs (no 3d mux) better to fail earlier
+> +	 * before even checking the width after the split
+> +	 */
+> +	if (!dpu_kms->catalog->caps->has_3d_merge
+> +	    && adj_mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
+> +		return -E2BIG;
 
-Bump version to signal to userspace that VM_BIND is supported.
+Is it the same as checking that there are LMs which support
+DPU_MIXER_SOURCESPLIT ?
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> +
+>  	for (i = 0; i < cstate->num_mixers; i++) {
+>  		struct drm_rect *r = &cstate->lm_bounds[i];
+>  		r->x1 = crtc_split_width * i;
+> @@ -1251,6 +1258,12 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
+>  {
+>  	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
+>  
+> +	/* if there is no 3d_mux block we cannot merge LMs so we cannot
+> +	 * split the large layer into 2 LMs, filter out such modes
+> +	 */
+> +	if (!dpu_kms->catalog->caps->has_3d_merge
+> +	    && mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
+> +		return MODE_BAD;
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index b31ec287c600..dc00781a099d 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -41,9 +41,10 @@
-  * - 1.10.0 - Add MSM_SUBMIT_BO_NO_IMPLICIT
-  * - 1.11.0 - Add wait boost (MSM_WAIT_FENCE_BOOST, MSM_PREP_BOOST)
-  * - 1.12.0 - Add MSM_INFO_SET_METADATA and MSM_INFO_GET_METADATA
-+ * - 1.13.0 - Add VM_BIND
-  */
- #define MSM_VERSION_MAJOR	1
--#define MSM_VERSION_MINOR	12
-+#define MSM_VERSION_MINOR	13
- #define MSM_VERSION_PATCHLEVEL	0
- 
- bool dumpstate;
+This can be more specific, like MODE_BAD_HVALUE.
+
+>  	/*
+>  	 * max crtc width is equal to the max mixer width * 2 and max height is 4K
+>  	 */
+> 
+> ---
+> base-commit: af2ea8ab7a546b430726183458da0a173d331272
+> change-id: 20241206-no_3dmux-521a55ea0669
+> 
+> Best regards,
+> -- 
+> Abhinav Kumar <quic_abhinavk@quicinc.com>
+> 
+
 -- 
-2.47.1
-
+With best wishes
+Dmitry
