@@ -2,91 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9DF19E8725
-	for <lists+freedreno@lfdr.de>; Sun,  8 Dec 2024 18:50:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4EB49E8902
+	for <lists+freedreno@lfdr.de>; Mon,  9 Dec 2024 02:44:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 394EC10E32F;
-	Sun,  8 Dec 2024 17:50:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 063CC10E27D;
+	Mon,  9 Dec 2024 01:44:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="oFrH0KwN";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="CRdQVIiV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9560510E334
- for <freedreno@lists.freedesktop.org>; Sun,  8 Dec 2024 17:50:16 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-53e274f149fso4130905e87.1
- for <freedreno@lists.freedesktop.org>; Sun, 08 Dec 2024 09:50:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733680215; x=1734285015; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=5u+YWQpYadE0OMjiReHLCH4W+mWwJz1CAGoagd9qERs=;
- b=oFrH0KwNLvZtK3DaLGt4M3A3s4JR8em7AjgVIywpmwkuvfvy+2y4VpXh5+34yXIqJY
- P2C+Hdit7tNwFm7Ly+qnsGdtdK2bx/0PfkrAYH4wFZIiJNCDljnJNnbZ8pMBZyij54y/
- IsVJCHrHBjxCf1tXlsRpHOcydykwBPUbbZl1CeNrVgmx3lpHMywRTYcqotMbYTZgXjdO
- gcBL/DG4BXr3I8gSgMFMsm3Kg7uxt48jKI55OrD1g9yxBPyHheDW+WoKvb833nwyU3+l
- RjJuXN0XEwviM8DYkO0Ip5WmWXVXPB5PYAcfoXOh13L3OxJt6jM28iH0j11Zn1kqMMtd
- g90g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733680215; x=1734285015;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5u+YWQpYadE0OMjiReHLCH4W+mWwJz1CAGoagd9qERs=;
- b=chhCdylsiGGH4pWo8wj0ZDuJmm5pm5jY5jQwhMoGLRhnab+LltS5L1vLfejyLyeTgI
- exkl+iGzq2IMcszNTcRc2bnZUMItzrTwktWi2GKM2N+p+N+qtlNhJpVe0++QfH57Igqr
- j+6MDIHijiJYAm5L4EchgT5Zg267d69xmvolP88Po2EEok5QnObGQmIQjbSey++nZpfH
- JTv4Z20aqzNMvn05oIZpUhtBRLqWS+1B2DZ0g91C1wPI0jhVMKfBjkYaVSCICM4C9TuI
- Rf+4NiBQMhtLDB6NiYDGMn8+BNzgMjH1X99r2z7dNerr+lmcFZiq12TeDumMRwWbDXiV
- EVFQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXSZnNxzp6GASOFMteHbSZUhozmZfdxQvLR1JSAiQeKOJYUFCjRUC3M4/eLTydEYOswOeOgHQKs+rg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyZscSI5DaWMO6UA5Go7W9scu5CHtGu5N52XGhALaeKmKOOB/gg
- iv4L0aVmhP55SQLPzn4Iob/Bwll5YYXJVTcg3oAZfEAjEwEr6smt3kCmoZgt3rI=
-X-Gm-Gg: ASbGnct7nkhL/mDNlRXmSOoaWu4gLAsVby6rDaWxdt6cnqnbQ2d8bWEXtGknMKwWPX/
- 0eae6AgL1haH7yGoUUzfAjx50F1bluAikDYNS3lD+/vijwQbbVz1Z6ExO3KceWCpSWPgl8dsgn1
- SUptHlJV3VKmAygHve9uz5gR5mld+ReLHgcyPmemqw9dkLiniE9Q3tSmJd74BtxzHJ2B1CDHBJK
- 0nA8Hn2RME65eQUQo3C6cXP4UmTnqLMnxOBoSALM2zgttHUPFzeOqICvo/7XKWXpEnBKjFhbOfA
- eDv8CNBQyxUzpihiq2TeQK51SFa6CA==
-X-Google-Smtp-Source: AGHT+IEVJLXOPnyFmKaPz9KPMKbv70YRlg73dziKIo45JVQh26G1HQVfDj7ebpdmC8hy5ZJT275q6A==
-X-Received: by 2002:a05:6512:33d0:b0:53d:cfdb:c65c with SMTP id
- 2adb3069b0e04-53e2c504c25mr3188513e87.52.1733680214661; 
- Sun, 08 Dec 2024 09:50:14 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53e3968850dsm659447e87.31.2024.12.08.09.50.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Dec 2024 09:50:13 -0800 (PST)
-Date: Sun, 8 Dec 2024 19:50:10 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>, 
- Chandan Uddaraju <chandanu@codeaurora.org>, Guenter Roeck <groeck@chromium.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Vara Reddy <quic_varar@quicinc.com>, Rob Clark <robdclark@chromium.org>, 
- Tanmay Shah <tanmay@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [PATCH 01/45] drm/msm/dp: dont call
- dp_catalog_ctrl_mainlink_ctrl in dp_ctrl_configure_source_params()
-Message-ID: <vemardbn3siohtg74hgjsnugkm4adqw6ekc4xhvjq3fty2rfov@5yhhsvjsnp6z>
-References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
- <20241205-dp_mst-v1-1-f8618d42a99a@quicinc.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2868610E27D;
+ Mon,  9 Dec 2024 01:44:41 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B9017xs012697;
+ Mon, 9 Dec 2024 01:44:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ mONfncm9hTek7jcougy3xSCm6rv4bmG3B6zaPol5p8s=; b=CRdQVIiVJoyJvgfP
+ sNwJrCXjY0zLONqgfds4bqv3EyyGmMjgD45okpHdukbx7fb/MH9gXYxIcu0vHCgE
+ aeDkX90GyuwF1jPUR6M3EUuKD3VdqsFPKG7WmXXi1JcgtP7fcncdYF08ZZO6HN64
+ r/bvWnBERBZ4xPHX50JSRRhexDQ2+eNk6ni/dyM7j/gRou9MLLBI7M5anFUPhAdV
+ 7ZYXBzbSOO0zabPL1Y7qvJFG150maTpp4OiMs/Cq2skBSQLpNHssfpC3Z6L1Jnjm
+ 7ly3FVDqjZW6GfZn4scPciwGlimNLoIqBUDwrB8M56pB+P+0KhXS9q1fkqZo0Iog
+ 2MgtFA==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43ceetk03m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 09 Dec 2024 01:44:29 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B91iSBn020361
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 9 Dec 2024 01:44:28 GMT
+Received: from [10.64.16.151] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 8 Dec 2024
+ 17:44:22 -0800
+Message-ID: <afd00fdf-af62-46b5-9131-ed360a93e094@quicinc.com>
+Date: Mon, 9 Dec 2024 09:44:19 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241205-dp_mst-v1-1-f8618d42a99a@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/9] drm/msm/dpu: Add SM6150 support
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, "Sean
+ Paul" <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ "Bjorn Andersson" <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, "Li Liu" <quic_lliu6@quicinc.com>,
+ Xiangxu Yin <quic_xiangxuy@quicinc.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+References: <20241122-add-display-support-for-qcs615-platform-v3-0-35252e3a51fe@quicinc.com>
+ <20241122-add-display-support-for-qcs615-platform-v3-5-35252e3a51fe@quicinc.com>
+ <c1b2fe04-e43e-4ab7-b0f8-2bb2ce6e1313@quicinc.com>
+Content-Language: en-US
+From: fange zhang <quic_fangez@quicinc.com>
+In-Reply-To: <c1b2fe04-e43e-4ab7-b0f8-2bb2ce6e1313@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: FwBFuB_mvjA8on_c0eMLzgSptP0zqSaY
+X-Proofpoint-ORIG-GUID: FwBFuB_mvjA8on_c0eMLzgSptP0zqSaY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 phishscore=0
+ spamscore=0 adultscore=0 clxscore=1015 impostorscore=0 mlxlogscore=999
+ bulkscore=0 suspectscore=0 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412090012
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,20 +104,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 05, 2024 at 08:31:32PM -0800, Abhinav Kumar wrote:
-> Once the link has already been setup there is no need to call
-> dp_catalog_ctrl_mainlink_ctrl() as this does a reset on the mainlink
-> thereby tearing down the link briefly.
-> 
-> Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
--- 
-With best wishes
-Dmitry
+On 2024/12/7 4:17, Abhinav Kumar wrote:
+> 
+> 
+> On 11/22/2024 1:56 AM, Fange Zhang wrote:
+>> From: Li Liu <quic_lliu6@quicinc.com>
+>>
+>> Add definitions for the display hardware used on the Qualcomm SM6150
+>> platform.
+>>
+>> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
+>> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
+>> ---
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h | 263 +++++++++++ 
+>> ++++++++++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>>   4 files changed, 266 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h b/ 
+>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
+>> new file mode 100644
+>> index 
+>> 0000000000000000000000000000000000000000..e8b7f694b885d69a9bbfaa85b0faf0c7af677a75
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
+>> @@ -0,0 +1,263 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights 
+>> reserved.
+>> + */
+>> +
+>> +#ifndef _DPU_5_3_SM6150_H
+>> +#define _DPU_5_3_SM6150_H
+>> +
+>> +
+> 
+> <snip>
+> 
+>> +static const struct dpu_sspp_cfg sm6150_sspp[] = {
+>> +    {
+>> +        .name = "sspp_0", .id = SSPP_VIG0,
+>> +        .base = 0x4000, .len = 0x1f0,
+>> +        .features = VIG_SDM845_MASK,
+> 
+> This is not correct. Smartdma is supported on this chipset on both Vig 
+> and DMA SSPPs.
+> 
+> Please use VIG_SDM845_MASK_SDMA and DMA_SDM845_MASK_SDMA respectively.
+Got it, will replace them in next patch
+> 
+> 
+>> +        .sblk = &dpu_vig_sblk_qseed3_2_4,
+>> +        .xin_id = 0,
+>> +        .type = SSPP_TYPE_VIG,
+>> +        .clk_ctrl = DPU_CLK_CTRL_VIG0,
+>> +    }, {
+>> +        .name = "sspp_8", .id = SSPP_DMA0,
+>> +        .base = 0x24000, .len = 0x1f0,
+>> +        .features = DMA_SDM845_MASK,
+>> +        .sblk = &dpu_dma_sblk,
+>> +        .xin_id = 1,
+>> +        .type = SSPP_TYPE_DMA,
+>> +        .clk_ctrl = DPU_CLK_CTRL_DMA0,
+>> +    }, {
+>> +        .name = "sspp_9", .id = SSPP_DMA1,
+>> +        .base = 0x26000, .len = 0x1f0,
+>> +        .features = DMA_SDM845_MASK,
+>> +        .sblk = &dpu_dma_sblk,
+>> +        .xin_id = 5,
+>> +        .type = SSPP_TYPE_DMA,
+>> +        .clk_ctrl = DPU_CLK_CTRL_DMA1,
+>> +    }, {
+>> +        .name = "sspp_10", .id = SSPP_DMA2,
+>> +        .base = 0x28000, .len = 0x1f0,
+>> +        .features = DMA_CURSOR_SDM845_MASK_SDMA,
+>> +        .sblk = &dpu_dma_sblk,
+>> +        .xin_id = 9,
+>> +        .type = SSPP_TYPE_DMA,
+>> +        .clk_ctrl = DPU_CLK_CTRL_DMA2,
+>> +    }, {
+>> +        .name = "sspp_11", .id = SSPP_DMA3,
+>> +        .base = 0x2a000, .len = 0x1f0,
+>> +        .features = DMA_CURSOR_SDM845_MASK_SDMA,
+>> +        .sblk = &dpu_dma_sblk,
+>> +        .xin_id = 13,
+>> +        .type = SSPP_TYPE_DMA,
+>> +        .clk_ctrl = DPU_CLK_CTRL_DMA3,
+>> +    },
+>> +};
+>> +
+> 
+> <snip>
+
