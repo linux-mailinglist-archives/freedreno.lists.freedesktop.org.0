@@ -2,93 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E52839E8D34
-	for <lists+freedreno@lfdr.de>; Mon,  9 Dec 2024 09:20:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 221D59E8EA5
+	for <lists+freedreno@lfdr.de>; Mon,  9 Dec 2024 10:25:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AED710E5A1;
-	Mon,  9 Dec 2024 08:20:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3AAE10E69F;
+	Mon,  9 Dec 2024 09:25:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="kFhDhNvc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cCMxqDnz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E67110E5A1;
- Mon,  9 Dec 2024 08:20:14 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B8NRkM9007232;
- Mon, 9 Dec 2024 08:20:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=sdNWNVryJQx5h8jYbXCmZe
- /MFgrUPGTmXDFDkbVAL6o=; b=kFhDhNvcVH9SXoGgyWUIvutdu7sYWza4wSDSTM
- qf6cHUgc80RYdyRr9I69MdBEiH7UM0BM8Aj2F4fy0WoBkPev+4Ve/kdKj4qLcD02
- 6OO3HzvfvkbuEIGB2QKOcLiWKrl8ChLK3hNJ1RMsv31TuWvWeQSlWCzj/fcvbNhR
- vYUH+7ZHmZ/OeBEtz9DT3cHosnh00bB0N6bK7LLpavvbQhngZCpfq7OukVp5SN3R
- YIN4O23L8gNZIZxgT3gZCpFNZHVfFRjwA0OZztH8L4FmFC03/PHwqPEcQmfoPKNY
- WR/4BUtyhePtp3Is0dUMPZ4PHbz4+67mSqt/9YuUzmOBqqSg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43cek1uuj6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 Dec 2024 08:20:07 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B98K6m6010277
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 9 Dec 2024 08:20:06 GMT
-Received: from [10.213.111.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 9 Dec 2024
- 00:20:02 -0800
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Date: Mon, 9 Dec 2024 13:49:15 +0530
-Subject: [PATCH] drm/msm/a6xx: Skip gpu secure fw load in EL2 mode
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C22A10E6B2;
+ Mon,  9 Dec 2024 09:25:33 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 113065C5890;
+ Mon,  9 Dec 2024 09:24:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 523E1C4CED1;
+ Mon,  9 Dec 2024 09:25:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733736332;
+ bh=88xmwrsOxb/rfeNxdG6aUEgD3A6p2p0EBuhsh7SZGvw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cCMxqDnz7YQUfzPVxRb4JKz9/JanER6RYYKBQZuj7IMT9GdDWfAaEnSYGW2MZT6b4
+ ZAITV0DMiwMG08wSVNzUf5NPcqaReGI3KBOSzckRRcKWCh9VKpQBBhoxhxQKufuHf4
+ PTLdN5fvAc7SnKWFcnCdPditNcy0z3cnWJmOjWuDjnodAycqMtT8eHlnXU3d8nwy4d
+ vzzKW6W8PAeDT2f/FHvhK0xI7bfP+4m1JlrO0uFWYIOeXcVHWMxfvmkCnmdiSzkRG4
+ EN4LkE3mL2M38S0Bm2/ziqyXwMmAak5ggHdV/fl2gfBRU7IUMdWoeN9yNqoSKudk0h
+ oqxL8zyMw3UyA==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+ (envelope-from <johan@kernel.org>) id 1tKa1E-0000000073t-1px6;
+ Mon, 09 Dec 2024 10:25:33 +0100
+Date: Mon, 9 Dec 2024 10:25:32 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Leonard Lausen <leonard@lausen.nl>,
+ =?utf-8?Q?Gy=C3=B6rgy?= Kurucz <me@kuruczgy.com>,
+ Johan Hovold <johan+linaro@kernel.org>
+Subject: Re: [PATCH v3] drm/msm/dpu1: don't choke on disabling the writeback
+ connector
+Message-ID: <Z1a3jOB8CutzRZud@hovoldconsulting.com>
+References: <20241208-dpu-fix-wb-v3-1-a1de69ce4a1b@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20241209-drm-msm-kvm-support-v1-1-1c983a8a8087@quicinc.com>
-X-B4-Tracking: v=1; b=H4sIAAKoVmcC/32OwQ6CMBBEf4Xs2TVsg6Cc/A/DAdtVGtMW20Iwh
- H+3QLx6nEnevJkhsNccoM5m8DzqoJ1NgQ4ZyK61T0atUgaRi4JI5Ki8QRMMvkaDYeh75yNKVXJ
- ZFYVkVUIie88PPW2rt2bPnt9DGo97Cfc2MEpnjI519pu0PEVcRUiEeQEr2ukQnf9s/0ba2L9XR
- kJCQdVZsZDVSV2uySu1lcdkg2ZZli9ALLLJ8wAAAA==
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
- Dybcio" <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Elliot Berman <quic_eberman@quicinc.com>, "Pavan
- Kondeti" <quic_pkondeti@quicinc.com>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, Akhil P Oommen
- <quic_akhilpo@quicinc.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1733732402; l=4603;
- i=quic_akhilpo@quicinc.com; s=20240726; h=from:subject:message-id;
- bh=lHuPWHa/efQT1BNZFlGjszR58NyERmLq8SkocIwsOP4=;
- b=uijuPtexS6QSDML4UKcSB3E9bXi4aONbzEzVfNZqP2oJwoHkvem7wi2HIfpJBkMe0jz5bDsiy
- HTfbLBTrF+pAYdb84cYLUYrxH59U/aLRq9URRB4n2z899kpiIc/C2Zy
-X-Developer-Key: i=quic_akhilpo@quicinc.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: t7ty5QztJhS1rH1mryfB75g24t2twoGK
-X-Proofpoint-ORIG-GUID: t7ty5QztJhS1rH1mryfB75g24t2twoGK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0
- mlxscore=0 adultscore=0 clxscore=1011 malwarescore=0 phishscore=0
- spamscore=0 mlxlogscore=999 lowpriorityscore=0 priorityscore=1501
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412090063
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20241208-dpu-fix-wb-v3-1-a1de69ce4a1b@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,142 +70,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When kernel is booted in EL2, SECVID registers are accessible to the
-KMD. So we can use that to switch GPU's secure mode to avoid dependency
-on Zap firmware. Also, we can't load a secure firmware without a
-hypervisor that supports it.
+Dmitry,
 
-Tested following configurations on sa8775p chipset (Adreno 663 gpu):
+Looks like you just silently ignored my reviewed feedback, yet included
+my conditional reviewed-by tag. Repeating below.
 
-1. Gunyah (No KVM) - Loads zap shader based on DT
-2. KVM in VHE - Skips zap shader load and programs SECVID register
-3. KVM in nVHE - Loads zap shader based on DT
-4. Kernel in EL2 with CONFIG_KVM=n - Skips zap shader load and
-	programs SECVID register
+On Sun, Dec 08, 2024 at 07:29:11PM +0200, Dmitry Baryshkov wrote:
+> During suspend/resume process all connectors are explicitly disabled and
+> then reenabled. However resume fails because of the connector_status check:
+> 
+> [ 1185.831970] [dpu error]connector not connected 3
 
-For (1) and (3) configuration, this patch doesn't have any impact.
-Driver loads secure firmware based on other existing hints.
+Please also include the follow-on resume error. I'm seeing:
 
-Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
----
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 82 +++++++++++++++++++++++------------
- 1 file changed, 54 insertions(+), 28 deletions(-)
+	[dpu error]connector not connected 3
+	[drm:drm_mode_config_helper_resume [drm_kms_helper]] *ERROR* Failed to resume (-22)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 019610341df1..9dcaa8472430 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -14,6 +14,10 @@
- #include <linux/pm_domain.h>
- #include <linux/soc/qcom/llcc-qcom.h>
- 
-+#ifdef CONFIG_ARM64
-+#include <asm/virt.h>
-+#endif
-+
- #define GPU_PAS_ID 13
- 
- static inline bool _a6xx_check_idle(struct msm_gpu *gpu)
-@@ -998,6 +1002,54 @@ static int a6xx_zap_shader_init(struct msm_gpu *gpu)
- 	return ret;
- }
- 
-+static int a6xx_switch_secure_mode(struct msm_gpu *gpu)
-+{
-+	int ret;
-+
-+#ifdef CONFIG_ARM64
-+	/*
-+	 * We can access SECVID_TRUST_CNTL register when kernel is booted in EL2 mode. So, use it
-+	 * to switch the secure mode to avoid the dependency on zap shader.
-+	 */
-+	if (is_kernel_in_hyp_mode())
-+		goto direct_switch;
-+#endif
-+
-+	/*
-+	 * Try to load a zap shader into the secure world. If successful
-+	 * we can use the CP to switch out of secure mode. If not then we
-+	 * have no resource but to try to switch ourselves out manually. If we
-+	 * guessed wrong then access to the RBBM_SECVID_TRUST_CNTL register will
-+	 * be blocked and a permissions violation will soon follow.
-+	 */
-+	ret = a6xx_zap_shader_init(gpu);
-+	if (ret == -ENODEV) {
-+		/*
-+		 * This device does not use zap shader (but print a warning
-+		 * just in case someone got their dt wrong.. hopefully they
-+		 * have a debug UART to realize the error of their ways...
-+		 * if you mess this up you are about to crash horribly)
-+		 */
-+		dev_warn_once(gpu->dev->dev,
-+			"Zap shader not enabled - using SECVID_TRUST_CNTL instead\n");
-+		goto direct_switch;
-+	} else if (ret)
-+		return ret;
-+
-+	OUT_PKT7(gpu->rb[0], CP_SET_SECURE_MODE, 1);
-+	OUT_RING(gpu->rb[0], 0x00000000);
-+
-+	a6xx_flush(gpu, gpu->rb[0]);
-+	if (!a6xx_idle(gpu, gpu->rb[0]))
-+		return -EINVAL;
-+
-+	return 0;
-+
-+direct_switch:
-+	gpu_write(gpu, REG_A6XX_RBBM_SECVID_TRUST_CNTL, 0x0);
-+	return 0;
-+}
-+
- #define A6XX_INT_MASK (A6XX_RBBM_INT_0_MASK_CP_AHB_ERROR | \
- 		       A6XX_RBBM_INT_0_MASK_RBBM_ATB_ASYNCFIFO_OVERFLOW | \
- 		       A6XX_RBBM_INT_0_MASK_CP_HW_ERROR | \
-@@ -1341,35 +1393,9 @@ static int hw_init(struct msm_gpu *gpu)
- 	if (ret)
- 		goto out;
- 
--	/*
--	 * Try to load a zap shader into the secure world. If successful
--	 * we can use the CP to switch out of secure mode. If not then we
--	 * have no resource but to try to switch ourselves out manually. If we
--	 * guessed wrong then access to the RBBM_SECVID_TRUST_CNTL register will
--	 * be blocked and a permissions violation will soon follow.
--	 */
--	ret = a6xx_zap_shader_init(gpu);
--	if (!ret) {
--		OUT_PKT7(gpu->rb[0], CP_SET_SECURE_MODE, 1);
--		OUT_RING(gpu->rb[0], 0x00000000);
--
--		a6xx_flush(gpu, gpu->rb[0]);
--		if (!a6xx_idle(gpu, gpu->rb[0]))
--			return -EINVAL;
--	} else if (ret == -ENODEV) {
--		/*
--		 * This device does not use zap shader (but print a warning
--		 * just in case someone got their dt wrong.. hopefully they
--		 * have a debug UART to realize the error of their ways...
--		 * if you mess this up you are about to crash horribly)
--		 */
--		dev_warn_once(gpu->dev->dev,
--			"Zap shader not enabled - using SECVID_TRUST_CNTL instead\n");
--		gpu_write(gpu, REG_A6XX_RBBM_SECVID_TRUST_CNTL, 0x0);
--		ret = 0;
--	} else {
-+	ret = a6xx_switch_secure_mode(gpu);
-+	if (!ret)
- 		return ret;
--	}
- 
- out:
- 	if (adreno_has_gmu_wrapper(adreno_gpu))
+and say something about that this can prevent *displays* from being
+enabled on resume in *some* setups (preferably with an explanation why
+if you have one).
 
----
-base-commit: f4a867a46862c1743501bbe8c813238456ec8699
-change-id: 20241120-drm-msm-kvm-support-cd6e6744ced6
+> It doesn't make sense to check for the Writeback connected status (and
+> other drivers don't perform such check), so drop the check.
+> 
+> Fixes: 71174f362d67 ("drm/msm/dpu: move writeback's atomic_check to dpu_writeback.c")
 
-Best regards,
--- 
-Akhil P Oommen <quic_akhilpo@quicinc.com>
+I noticed that the implementation had this status check also before
+71174f362d67 ("drm/msm/dpu: move writeback's atomic_check to
+dpu_writeback.c").
 
+Why did this not cause any trouble back then? Or is this not the right
+Fixes tag?
+
+> Cc: stable@vger.kernel.org
+> Reported-by: Leonard Lausen <leonard@lausen.nl>
+> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/57
+
+Please include mine an György's reports here too.
+
+Since this has dragged on for many months now, more people have run into
+this issue and have reported this to you. Giving them credit for this is
+the least you can do especially since you failed to include the
+corresponding details about how this manifests itself to users in the
+commit message:
+
+Reported-by: György Kurucz <me@kuruczgy.com>
+Link: https://lore.kernel.org/all/b70a4d1d-f98f-4169-942c-cb9006a42b40@kuruczgy.com/
+
+Reported-by: Johan Hovold <johan+linaro@kernel.org>
+Link: https://lore.kernel.org/all/ZzyYI8KkWK36FfXf@hovoldconsulting.com/
+
+> Tested-by: Leonard Lausen <leonard@lausen.nl> # on sc7180 lazor
+> Tested-by: György Kurucz <me@kuruczgy.com>
+> Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
+> Tested-by: Johan Hovold <johan+linaro@kernel.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+> Leonard Lausen reported an issue with suspend/resume of the sc7180
+> devices. Fix the WB atomic check, which caused the issue.
+> ---
+> Changes in v3:
+> - Rebased on top of msm-fixes
+> - Link to v2: https://lore.kernel.org/r/20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org
+
+Johan
