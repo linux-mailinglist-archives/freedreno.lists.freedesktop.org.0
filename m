@@ -2,89 +2,119 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5FB69E95DC
-	for <lists+freedreno@lfdr.de>; Mon,  9 Dec 2024 14:10:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 786469E9845
+	for <lists+freedreno@lfdr.de>; Mon,  9 Dec 2024 15:06:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EA6910E726;
-	Mon,  9 Dec 2024 13:10:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1184210E49F;
+	Mon,  9 Dec 2024 14:06:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="nj6OOccX";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YEf08H5K";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EDA910E726;
- Mon,  9 Dec 2024 13:10:48 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B9AafGm023581;
- Mon, 9 Dec 2024 13:10:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- xEIrlTfhnV+Y0u0AleY89FQXrZJ5wuQflXdaa+2Y57M=; b=nj6OOccXe+KpHece
- C85WnxUaqYmDOSGN+51bpq8mAh81yaDJBMASzOZArV78GnD0rU5z9c1EchdaKeGh
- 9JkJ2roEXOIkJjXXe/fuTUn3bxvh3yE5CUvJ1Sivc5yc+NHdC6Eolb6KJ9+2BfgQ
- 1Nims5Vah90ierwEA7uR/1d6ZA6ZtBT6+dpU3cuks9AFI3gh5EqU+EigqHeleL0B
- LCnc/kSXRSmpWbe/2g8o90+in4IV08iDmlOIbLQ/cZvO0tEMlboL5NteXm3gTnsV
- nYtni5lWWW6P8IbkCaNWP2v/yM665o8oRlWTRU+CucgWH36kV2knpXyVN9sYvYR6
- sqnQug==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43cfhkcqu4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 Dec 2024 13:10:42 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B9DAfeQ003008
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 9 Dec 2024 13:10:41 GMT
-Received: from [10.216.3.14] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 9 Dec 2024
- 05:10:36 -0800
-Message-ID: <1af37251-3cdf-47da-8228-2cd5622e1770@quicinc.com>
-Date: Mon, 9 Dec 2024 18:40:33 +0530
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B02FE10E49F
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Dec 2024 14:06:26 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-38634c35129so1582512f8f.3
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Dec 2024 06:06:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1733753185; x=1734357985; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=//R8xUNwl611axD8q7sOD2Oi6OV6JAsc3ZQmBEFC26I=;
+ b=YEf08H5KAuma6FqvqD9A8EvebJrh4FA/QF7nhZuoM/fepgj/8sKDmfoC6ogalMM6xi
+ s33hE6wfMXZ5jpL8p2Uun0brfrvasRSqCKAkAzB4U/xWI02ZKDWapDMfrFBpHWs/jaZ7
+ mBH470K6lWnHQkSUI7cnTphSETC78zkUEbzW2nOJM2WBztB8BV+cAUAD1GM7MTjgPmvA
+ U/rJQNyJaE9wtIDQL/oIEiEVZlBpYW4aYfbTq84oC/fgK+K3MgfJeuFoaigsL+1+nJMh
+ fpXp7/lTcvcktE7oJw0tBGqohn7UGWXm1Icg41ahY8hxo3O+aln128VRwvokgQQfs+Qx
+ b7bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733753185; x=1734357985;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=//R8xUNwl611axD8q7sOD2Oi6OV6JAsc3ZQmBEFC26I=;
+ b=nMMx3AfUhvK4sX5pkZx0RHwuyWzAjJNohpp2L2drFBD70Hb/1HENIrWB0U4YAI5MpX
+ TQ+fflOkcJ4/tmZyk5nocmJpAPUPJVa1MBpiz1jIjTKCVOim/X8HMIgB451C7C7aH9hA
+ KkB80av48G3PtKwIB/pyXyVHJUAYPzf7jLR2UOQlqKhHw+1k2pnNp/CX2PmB6il307eP
+ w9ZfCZSuQqzPnkKycKsX0YJPdD4F27PuJedUQ99vnJYwyvgofS4qP8qjj+YVleS4zdki
+ gSIb8ZksUnDXP+YTanJyaxZvZ8ZyUgDyy7k2gW0h9xRDuW2gUgLQDlc80yuLJEcjvZ5I
+ 3KxA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXtLrKB47cIwbaDTKueBh5ceIKlneKtCUz59F1laK+YxS6i+Wt9Qe82PsmVXK0bbd39hdGGeJmZ1yY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzxIUkFqMQxuvGQcVk+P9DfJPcmPpvM4+enCihcv58PmcyckvEC
+ dNBIRuwed3x31IkSpc9QNPXKN7DULKkPBfAYMZQMAzXO2qZQfBqvQIB1uVxxO+4=
+X-Gm-Gg: ASbGncvQ9vK/p9AjCT9zhDxbdVPwhNAJHBqa42w8CnN44Q3ZICGSd4oHbtx+q1KmYGM
+ OLdoJajSMErheh8gnrYaWFFJCfGj/vokfikGTqc+4fu3yD7w1zFtqQ8evg1A74Ku0n6TohdtRV4
+ mFQaEAOhVf0LWM3epAoKn125l9AG3sU0FkebrQE/I2uc3p0gCtfTBmQnIElHqWc3N60lRIc7nwh
+ vkGdlNyERNAD0RlPYTWyj9qg44XegrqzGJhZhqHkWIPvjQuzdoNDULYsxh6vQ3eRWy/6mksJovp
+ 9sC3RWMrrd6rHkk6Z8TBpD/J9HI=
+X-Google-Smtp-Source: AGHT+IGuc3kl0BPq1T0cBMQtdVQ6O1SOWF+l7YeZdVn0jR38h6Ps6U9v6wBjWn9jE3WgTd6CBA9q0Q==
+X-Received: by 2002:a05:6000:2d81:b0:385:df73:2f18 with SMTP id
+ ffacd0b85a97d-386453fff14mr278848f8f.51.1733753184744; 
+ Mon, 09 Dec 2024 06:06:24 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:7546:6147:f006:709b?
+ ([2a01:e0a:982:cbb0:7546:6147:f006:709b])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-434faba810csm28873865e9.18.2024.12.09.06.06.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Dec 2024 06:06:24 -0800 (PST)
+Message-ID: <d2ce1009-15ba-44bc-9dbb-4d606fb25739@linaro.org>
+Date: Mon, 9 Dec 2024 15:06:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
 Subject: Re: [PATCH v4 6/7] arm64: qcom: dts: sm8550: add interconnect and
  opp-peak-kBps for GPU
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Konrad Dybcio
- <konradybcio@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
 References: <20241205-topic-sm8x50-gpu-bw-vote-v4-0-9650d15dd435@linaro.org>
  <20241205-topic-sm8x50-gpu-bw-vote-v4-6-9650d15dd435@linaro.org>
  <e56cd9bf-8fa7-44b0-b00f-45cedb73e194@quicinc.com>
-Content-Language: en-US
-In-Reply-To: <e56cd9bf-8fa7-44b0-b00f-45cedb73e194@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+ <1af37251-3cdf-47da-8228-2cd5622e1770@quicinc.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <1af37251-3cdf-47da-8228-2cd5622e1770@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: wo6nb1-qKU0vVSzahaGu9FNOprCeZAIL
-X-Proofpoint-GUID: wo6nb1-qKU0vVSzahaGu9FNOprCeZAIL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- impostorscore=0 mlxlogscore=999 mlxscore=0 adultscore=0 lowpriorityscore=0
- phishscore=0 clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412090103
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,107 +127,115 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/9/2024 6:32 PM, Akhil P Oommen wrote:
-> On 12/5/2024 8:31 PM, Neil Armstrong wrote:
->> Each GPU OPP requires a specific peak DDR bandwidth, let's add
->> those to each OPP and also the related interconnect path.
+On 09/12/2024 14:10, Akhil P Oommen wrote:
+> On 12/9/2024 6:32 PM, Akhil P Oommen wrote:
+>> On 12/5/2024 8:31 PM, Neil Armstrong wrote:
+>>> Each GPU OPP requires a specific peak DDR bandwidth, let's add
+>>> those to each OPP and also the related interconnect path.
+>>>
+>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 >>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> I haven't checked each bw value, still
-> 
-> Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> 
-> -Akhil
-> 
->> ---
->>  arch/arm64/boot/dts/qcom/sm8550.dtsi | 13 +++++++++++++
->>  1 file changed, 13 insertions(+)
+>> I haven't checked each bw value, still
 >>
->> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
->> index e7774d32fb6d2288748ecec00bf525b2b3c40fbb..955f58b2cb4e4ca3fd33f1555e36a15cfc82d642 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
->> @@ -14,6 +14,7 @@
->>  #include <dt-bindings/firmware/qcom,scm.h>
->>  #include <dt-bindings/gpio/gpio.h>
->>  #include <dt-bindings/interrupt-controller/arm-gic.h>
->> +#include <dt-bindings/interconnect/qcom,icc.h>
->>  #include <dt-bindings/interconnect/qcom,sm8550-rpmh.h>
->>  #include <dt-bindings/mailbox/qcom-ipcc.h>
->>  #include <dt-bindings/power/qcom-rpmpd.h>
->> @@ -2114,6 +2115,10 @@ gpu: gpu@3d00000 {
->>  			qcom,gmu = <&gmu>;
->>  			#cooling-cells = <2>;
->>  
->> +			interconnects = <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
->> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
->> +			interconnect-names = "gfx-mem";
->> +
->>  			status = "disabled";
->>  
->>  			zap-shader {
->> @@ -2127,41 +2132,49 @@ gpu_opp_table: opp-table {
->>  				opp-680000000 {
->>  					opp-hz = /bits/ 64 <680000000>;
->>  					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
->> +					opp-peak-kBps = <16500000>;
->>  				};
->>  
->>  				opp-615000000 {
->>  					opp-hz = /bits/ 64 <615000000>;
->>  					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
->> +					opp-peak-kBps = <16500000>;
+>> Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>
+>> -Akhil
+>>
+>>> ---
+>>>   arch/arm64/boot/dts/qcom/sm8550.dtsi | 13 +++++++++++++
+>>>   1 file changed, 13 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+>>> index e7774d32fb6d2288748ecec00bf525b2b3c40fbb..955f58b2cb4e4ca3fd33f1555e36a15cfc82d642 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+>>> @@ -14,6 +14,7 @@
+>>>   #include <dt-bindings/firmware/qcom,scm.h>
+>>>   #include <dt-bindings/gpio/gpio.h>
+>>>   #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>> +#include <dt-bindings/interconnect/qcom,icc.h>
+>>>   #include <dt-bindings/interconnect/qcom,sm8550-rpmh.h>
+>>>   #include <dt-bindings/mailbox/qcom-ipcc.h>
+>>>   #include <dt-bindings/power/qcom-rpmpd.h>
+>>> @@ -2114,6 +2115,10 @@ gpu: gpu@3d00000 {
+>>>   			qcom,gmu = <&gmu>;
+>>>   			#cooling-cells = <2>;
+>>>   
+>>> +			interconnects = <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
+>>> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
+>>> +			interconnect-names = "gfx-mem";
+>>> +
+>>>   			status = "disabled";
+>>>   
+>>>   			zap-shader {
+>>> @@ -2127,41 +2132,49 @@ gpu_opp_table: opp-table {
+>>>   				opp-680000000 {
+>>>   					opp-hz = /bits/ 64 <680000000>;
+>>>   					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+>>> +					opp-peak-kBps = <16500000>;
+>>>   				};
+>>>   
+>>>   				opp-615000000 {
+>>>   					opp-hz = /bits/ 64 <615000000>;
+>>>   					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
+>>> +					opp-peak-kBps = <16500000>;
+> 
+> Seems like you are using value from "qcom,bus-max" node for each opp in
+> downstream devicetree. Except for the highest OPP, we should use the
+> value from "qcom,bus-freq" node. That is supposed to give the best perf
+> per watt.
 
-Seems like you are using value from "qcom,bus-max" node for each opp in
-downstream devicetree. Except for the highest OPP, we should use the
-value from "qcom,bus-freq" node. That is supposed to give the best perf
-per watt.
+Ack, I'll switch to the qcom,bus-freq value,
 
--Akhil.
-
->>  				};
->>  
->>  				opp-550000000 {
->>  					opp-hz = /bits/ 64 <550000000>;
->>  					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
->> +					opp-peak-kBps = <12449218>;
->>  				};
->>  
->>  				opp-475000000 {
->>  					opp-hz = /bits/ 64 <475000000>;
->>  					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
->> +					opp-peak-kBps = <8171875>;
->>  				};
->>  
->>  				opp-401000000 {
->>  					opp-hz = /bits/ 64 <401000000>;
->>  					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
->> +					opp-peak-kBps = <6671875>;
->>  				};
->>  
->>  				opp-348000000 {
->>  					opp-hz = /bits/ 64 <348000000>;
->>  					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
->> +					opp-peak-kBps = <6074218>;
->>  				};
->>  
->>  				opp-295000000 {
->>  					opp-hz = /bits/ 64 <295000000>;
->>  					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
->> +					opp-peak-kBps = <6074218>;
->>  				};
->>  
->>  				opp-220000000 {
->>  					opp-hz = /bits/ 64 <220000000>;
->>  					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
->> +					opp-peak-kBps = <6074218>;
->>  				};
->>  			};
->>  		};
+Thanks,
+Neil
+> 
+> -Akhil.
+> 
+>>>   				};
+>>>   
+>>>   				opp-550000000 {
+>>>   					opp-hz = /bits/ 64 <550000000>;
+>>>   					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+>>> +					opp-peak-kBps = <12449218>;
+>>>   				};
+>>>   
+>>>   				opp-475000000 {
+>>>   					opp-hz = /bits/ 64 <475000000>;
+>>>   					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
+>>> +					opp-peak-kBps = <8171875>;
+>>>   				};
+>>>   
+>>>   				opp-401000000 {
+>>>   					opp-hz = /bits/ 64 <401000000>;
+>>>   					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+>>> +					opp-peak-kBps = <6671875>;
+>>>   				};
+>>>   
+>>>   				opp-348000000 {
+>>>   					opp-hz = /bits/ 64 <348000000>;
+>>>   					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
+>>> +					opp-peak-kBps = <6074218>;
+>>>   				};
+>>>   
+>>>   				opp-295000000 {
+>>>   					opp-hz = /bits/ 64 <295000000>;
+>>>   					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
+>>> +					opp-peak-kBps = <6074218>;
+>>>   				};
+>>>   
+>>>   				opp-220000000 {
+>>>   					opp-hz = /bits/ 64 <220000000>;
+>>>   					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
+>>> +					opp-peak-kBps = <6074218>;
+>>>   				};
+>>>   			};
+>>>   		};
+>>>
 >>
 > 
 
