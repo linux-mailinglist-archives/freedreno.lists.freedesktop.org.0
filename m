@@ -2,82 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84C789EA230
-	for <lists+freedreno@lfdr.de>; Mon,  9 Dec 2024 23:56:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34BD69EA2E4
+	for <lists+freedreno@lfdr.de>; Tue, 10 Dec 2024 00:36:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 145FD10E365;
-	Mon,  9 Dec 2024 22:56:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0069310E360;
+	Mon,  9 Dec 2024 23:36:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Nt8MDA4A";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="lAeIIkpd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72DC610E362
- for <freedreno@lists.freedesktop.org>; Mon,  9 Dec 2024 22:56:37 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-5401bd6cdb4so1847380e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 09 Dec 2024 14:56:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733784995; x=1734389795; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=k3A1k+Apjq9O2ocS5a9hIgUNttSFxzpyEaBV4mfnunw=;
- b=Nt8MDA4AF3rD76KifKwwMt4wzBq0WUNC70fn3YLlRbuts+hxOfIx/YvR2b3lR1Z2xJ
- MP/OteHUovksNwmInwxMU2aML+dIB/QlkEPGqyElLDsyFxbTGS3VJSEdDuQNBXIKx28J
- +oDxrx1Mc1yj5x2/AuSND60Ez6sdLI3LcKGpshgEVPH2jrcx+mspF7lo7Y8UATb5cXy8
- xRyQE88vE3qTYngvrEDrgYP4g5b5YD3AWVv4fQrT6VrQwuHdW4lLEjRzbfqBA+tOsHq6
- DUOliQfTUGWTgS9MADjbNuAe5/5hSdQR8TsXfCNBjIFrYeuCmrcoqSe90BBzjonucw6e
- 8gww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733784995; x=1734389795;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=k3A1k+Apjq9O2ocS5a9hIgUNttSFxzpyEaBV4mfnunw=;
- b=EIoq6sCM1nw1azkSVDIyxFS/LHp4pnudkboR7sHmJhk1lKrEzF8erYvPMgmBk+NwON
- Lx6GcUjIphUyaq8KwbjqqjRye1KpwG57wrFMc/X4M2tKCXNzG5NQsLloZenrj10NlAe6
- XfRKLmOaXM/asOrjcrqxIawCTd2cCSqyXAm+oN99kxYhg1PqYBxUaDBFF9CjYkeb9IxN
- wRf9Z/CYCKAliNEC0rt8CHg9VO+Dy+XOtg5mJmj6z2dyFdTdRsVdJzjowqynH+35Rbxv
- 467HqeOvOro6nseUgD9LNSc4QGcr4jyj1SvXHXsmNroxc2OV65e7gouxmtl84/L2M4w1
- x/Pg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXOBaEcKiS/Z7S+s1j+TFMd9pahqNfuseEY4l7YSElG21FczlbU/egGClQGVTcR1ii2K9qAfwYRup0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YznsFffqW5gfe+IW+6+vzQpz21O6yiXpIhUykK1xMlSK9kG32Id
- 9CBU50ZPWEFcEPQaezlSxI6vvZS6BMJXEVTEImRlC4MqnNBmvxmr4D9wxqsdzeA=
-X-Gm-Gg: ASbGncuCPOtzaul5OgX9LsVTKWaUz0n3QX4Sz06MM4ODZgwhkujFoYtFtvan/hbllU/
- 7GYFtI4XJTSa87vBOBaFrTqHQmfDj4h7KPz0tVxBVwGZz5Ma1iN+R9n1Icu6mcmpKb+QKA73hvk
- wzt+lX74hCpafnsdfej0Pk5QdZt2Krvwy3pbKn109uquzyws1zEqDnEfOaf7LsDVOnyZZBaz1vA
- 31uPclNoyNBlVpQyvQbm4DlLl5EGTnMQ/mO5usnYS32s1gFPbwt0Lu6iMt6q1SORNngrdhSYhHH
- HaRzxdlg0Yi7+ayk4ABI5pr5x3Geu+FwSQ==
-X-Google-Smtp-Source: AGHT+IHiXsoJOwZjiLBWplafOKbA1GHw3HlIwWuqcon2AqQvv21BwklgIEqY4mWvDfuXx6g/4hQk/g==
-X-Received: by 2002:a05:6512:3a8a:b0:540:1b07:e031 with SMTP id
- 2adb3069b0e04-540240d9a8bmr1013012e87.24.1733784995434; 
- Mon, 09 Dec 2024 14:56:35 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53e3115cb25sm1144888e87.56.2024.12.09.14.56.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Dec 2024 14:56:34 -0800 (PST)
-Date: Tue, 10 Dec 2024 00:56:31 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drm/msm/dpu: filter out too wide modes if no 3dmux is
- present
-Message-ID: <ouufiq72x46hxmatao6xyjbb4qk527pktowqpsutlu63sftwyu@uupkodk5ty4b>
-References: <20241209-no_3dmux-v3-1-48aaa555b0d3@quicinc.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F7BA10E359;
+ Mon,  9 Dec 2024 23:36:54 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B9E6kxx006930;
+ Mon, 9 Dec 2024 23:36:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ S4/jRw10YAjFx+3/nCGJzhXy6tTQOY51O8+dTPwLffU=; b=lAeIIkpdK+mh4bmU
+ HV90lf+vVbj6YjGNqPczW7aYlYw9YZLlbnAcLrxjZXF+atvSdR/lfchjfUQT5ThY
+ ghS+6TYrz37yOlTnR8XkBocFrRwJMEyX3cbLxoTE7LJbqVSjTWvHO14qyMZbnO6V
+ JSaUG6kr/mSTExxBzjqrn7U334skH2mgp37ie32PoOnLqYIZ5ffyaMDYpeaUytWU
+ iFTW6pFTiD9h5sPKp0Uiq6PHS8QsYXDcahHaj7SeBBbx8drxsYawgzK57rR+5mHB
+ JJqV8WV2w6s3Kk/61cDdQZCtBLtaUbmduRtci+pv5PCZ1CgEizETvLeqgzICUzW8
+ swZAvw==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43e21bhes3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 09 Dec 2024 23:36:32 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B9NaVGC003760
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 9 Dec 2024 23:36:31 GMT
+Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 9 Dec 2024
+ 15:36:30 -0800
+Message-ID: <a22262d5-f1e3-498b-a850-d377f29166f1@quicinc.com>
+Date: Mon, 9 Dec 2024 15:36:29 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241209-no_3dmux-v3-1-48aaa555b0d3@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drm/msm/dpu1: don't choke on disabling the writeback
+ connector
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>, Leonard Lausen <leonard@lausen.nl>,
+ =?UTF-8?Q?Gy=C3=B6rgy_Kurucz?= <me@kuruczgy.com>, Johan Hovold
+ <johan+linaro@kernel.org>
+References: <20241209-dpu-fix-wb-v4-1-7fe93059f9e0@linaro.org>
+ <9c42bbb1-bf6c-4323-95f9-0ac9e7426d0c@quicinc.com>
+ <CAA8EJppMA-AREJata0MWHCDYC-7ra723zhC4Nu_xD59O0mX_Ag@mail.gmail.com>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJppMA-AREJata0MWHCDYC-7ra723zhC4Nu_xD59O0mX_Ag@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: UIQDnhkmJuC0ts5-timquwcr0iBX5h58
+X-Proofpoint-ORIG-GUID: UIQDnhkmJuC0ts5-timquwcr0iBX5h58
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015
+ malwarescore=0 lowpriorityscore=0 mlxlogscore=999 priorityscore=1501
+ spamscore=0 impostorscore=0 adultscore=0 bulkscore=0 phishscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412090184
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,32 +99,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 09, 2024 at 01:18:36PM -0800, Abhinav Kumar wrote:
-> On chipsets such as QCS615, there is no 3dmux present. In such
-> a case, a layer exceeding the max_mixer_width cannot be split,
-> hence cannot be supported.
-> 
-> Filter out the modes which exceed the max_mixer_width when there
-> is no 3dmux present. Also, add a check in the dpu_crtc_atomic_check()
-> to return failure for such modes.
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
-> Note: this was only compile tested, so its pending validation on QCS615
-> ---
-> Changes in v3:
-> - Move && to previous line
-> - Link to v2: https://lore.kernel.org/r/20241209-no_3dmux-v2-1-fcad057eb92e@quicinc.com
-> 
-> Changes in v2:
-> - replace MODE_BAD with MODE_BAD_HVALUE to indicate the failure better
-> - Link to v1: https://lore.kernel.org/r/20241206-no_3dmux-v1-1-72ad2677a323@quicinc.com
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
--- 
-With best wishes
-Dmitry
+On 12/9/2024 1:55 PM, Dmitry Baryshkov wrote:
+> On Mon, 9 Dec 2024 at 21:54, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 12/9/2024 2:04 AM, Dmitry Baryshkov wrote:
+>>> During suspend/resume process all connectors are explicitly disabled and
+>>> then reenabled. However resume fails because of the connector_status check:
+>>>
+>>> [dpu error]connector not connected 3
+>>> [drm:drm_mode_config_helper_resume [drm_kms_helper]] *ERROR* Failed to resume (-22)
+>>>
+>>> It doesn't make sense to check for the Writeback connected status (and
+>>> other drivers don't perform such check), so drop the check.
+>>>
+>>> It wasn't a problem before the commit 71174f362d67 ("drm/msm/dpu: move
+>>> writeback's atomic_check to dpu_writeback.c"), since encoder's
+>>> atomic_check() is called under a different conditions that the
+>>> connector's atomic_check() (e.g. it is not called if there is no
+>>> connected CRTC or if the corresponding connector is not a part of the
+>>> new state).
+>>>
+>>> Fixes: 71174f362d67 ("drm/msm/dpu: move writeback's atomic_check to dpu_writeback.c")
+>>> Cc: stable@vger.kernel.org
+>>> Reported-by: Leonard Lausen <leonard@lausen.nl>
+>>> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/57
+>>> Tested-by: Leonard Lausen <leonard@lausen.nl> # on sc7180 lazor
+>>> Reported-by: György Kurucz <me@kuruczgy.com>
+>>> Link: https://lore.kernel.org/all/b70a4d1d-f98f-4169-942c-cb9006a42b40@kuruczgy.com/
+>>> Reported-by: Johan Hovold <johan+linaro@kernel.org>
+>>> Link: https://lore.kernel.org/all/ZzyYI8KkWK36FfXf@hovoldconsulting.com/
+>>> Tested-by: György Kurucz <me@kuruczgy.com>
+>>> Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
+>>> Tested-by: Johan Hovold <johan+linaro@kernel.org>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>> Leonard Lausen reported an issue with suspend/resume of the sc7180
+>>> devices. Fix the WB atomic check, which caused the issue.
+>>> ---
+>>> Changes in v4:
+>>> - Epanded commit message (Johan)
+>>> - Link to v3: https://lore.kernel.org/r/20241208-dpu-fix-wb-v3-1-a1de69ce4a1b@linaro.org
+>>>
+>>> Changes in v3:
+>>> - Rebased on top of msm-fixes
+>>> - Link to v2: https://lore.kernel.org/r/20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org
+>>>
+>>> Changes in v2:
+>>> - Reworked the writeback to just drop the connector->status check.
+>>> - Expanded commit message for the debugging patch.
+>>> - Link to v1: https://lore.kernel.org/r/20240709-dpu-fix-wb-v1-0-448348bfd4cb@linaro.org
+>>> ---
+>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 3 ---
+>>>    1 file changed, 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+>>> index 16f144cbc0c986ee266412223d9e605b01f9fb8c..8ff496082902b1ee713e806140f39b4730ed256a 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+>>> @@ -42,9 +42,6 @@ static int dpu_wb_conn_atomic_check(struct drm_connector *connector,
+>>>        if (!conn_state || !conn_state->connector) {
+>>>                DPU_ERROR("invalid connector state\n");
+>>>                return -EINVAL;
+>>> -     } else if (conn_state->connector->status != connector_status_connected) {
+>>> -             DPU_ERROR("connector not connected %d\n", conn_state->connector->status);
+>>> -             return -EINVAL;
+>>>        }
+>>
+>> Can you please explain me about why the status was not already connected?
+>>
+>> In all the places I checked (unless I missed something), if the detect()
+>> callback is not registered, the connector is assumed connected like below:
+>>
+>> 404     if (funcs->detect_ctx)
+>> 405             ret = funcs->detect_ctx(connector, ctx, force);
+>> 406     else if (connector->funcs->detect)
+>> 407             ret = connector->funcs->detect(connector, force);
+>> 408     else
+>> 409             ret = connector_status_connected;
+>>
+>> We do not register .detect for WB as WB connector should be always
+>> connected.
+>>
+>> What scenario or use-case is making the connector status to something
+>> other than connected?
+>>
+>> The places which mark the connector as unknown seem to be covered by
+>> warnings in drm_probe_helper.c but the bug report doesnt seem to be
+>> hitting those.
+> 
+> Because nobody asks for the getconnector on that connector. For
+> example,drm_client_for_each_connector_iter() explicitly skips
+> WRITEBACK connectors. So, drm_client_modeset_probe() also doesn't
+> request ->fill_modes() on that connector.
+> 
+> I'm almost sure that if somebody runs a `modetest -ac` on the
+> unpatched kernel after boot, there will be no suspend-related issues.
+> In fact, I've just checked on RB5.
+> /sys/class/drm/card0-Writeback-1/status reports 'unknown' before and
+> 'connected' afterwards. You can easily replicate that on your
+> hardware.
+> 
+
+Yes this is correct, I just checked on sc7180.
+
+It stays at unknown till we run IGT. This matches your explanation 
+perfectly.
+
+>>
+>> I am wondering if there is some case in fwk resetting this to unknown
+>> silently (which is incorrect) and perhaps other drivers dont hit this as
+>> there is a .detect registered which always returns connected and MSM
+>> should follow that.
+>>
+>> 111 static enum drm_connector_status
+>> 112 komeda_wb_connector_detect(struct drm_connector *connector, bool force)
+>> 113 {
+>> 114     return connector_status_connected;
+>> 115 }
+>> 116
+> 
+> No, that won't help. You can add a detect() callback and verify that
+> simply isn't getting called. It's not resetting the connector->status,
+> it's nobody setting it for the first time.
+> 
+
+What we found is that drm_atomic_helper_suspend() which calls 
+drm_atomic_helper_duplicate_state(), uses drm_for_each_connector_iter() 
+which does not rely on the last atomic state but actually uses the 
+config->connector_list which in-turn disables all connectors including WB.
+
+Is this expected that even though WB was not really there in the last 
+atomic_state before the suspend, still ended up suspending / resuming 
+and thus exposing this bug?
+
+I am  now more convinced of this change as I understand the flow better. 
+But wanted to highlight above observation.
+
+>>>
+>>>        crtc = conn_state->crtc;
+>>>
+>>> ---
+>>> base-commit: 86313a9cd152330c634b25d826a281c6a002eb77
+>>> change-id: 20240709-dpu-fix-wb-6cd57e3eb182
+>>>
+>>> Best regards,
+> 
+> 
+> 
