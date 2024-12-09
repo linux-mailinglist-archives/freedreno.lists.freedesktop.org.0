@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D9059EA0C8
-	for <lists+freedreno@lfdr.de>; Mon,  9 Dec 2024 22:04:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BCD79EA0CD
+	for <lists+freedreno@lfdr.de>; Mon,  9 Dec 2024 22:05:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6035A10E580;
-	Mon,  9 Dec 2024 21:04:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC8510E7E7;
+	Mon,  9 Dec 2024 21:05:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZuQ0hoCP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SGN/XvUn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B3E910E7F1
- for <freedreno@lists.freedesktop.org>; Mon,  9 Dec 2024 21:04:17 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-30034ad2ca3so23071551fa.1
- for <freedreno@lists.freedesktop.org>; Mon, 09 Dec 2024 13:04:17 -0800 (PST)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F33A610E7E7
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Dec 2024 21:05:35 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-54024aa9febso483118e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Dec 2024 13:05:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733778255; x=1734383055; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1733778334; x=1734383134; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=7Ma5GtyG8ioog91EhM+P4GWHWrGCT15M/sea78+XBKE=;
- b=ZuQ0hoCPBtrYSB/aQiaKWC4cDFh0zz8omD1tLHkOqKCwxyubvzGI/hJSikr9wanhj2
- H7v6HJ5oW8iNTtE2cjGvgTIeI+L38ci6/PtPpOZzPbnACjdCreOyC7J9IbcIbd60gIco
- KdXOjMlsQ/Cz2Jl03Gnuzq5NV9UAFdjNwLGrS6I8GPciJazfYS0xinni5PoHoDZO+cWm
- dnA8gi/a/QyhrhfYASAMcEtc6saMv5SNMIeMKxxhjNDn9FhqialZPLHHKI2sy+ryj8T9
- SHrm5+6rfzNWnaxS8FblLIeV+E3L6L8ZnlVStD756JSzF5Pi24tU78yKuwwfJRK6hXez
- TUfg==
+ bh=hbwD0xdtFeO2X81Q2PXEiGy5cSfyM0/IvSDcuNaHUrA=;
+ b=SGN/XvUniupNkXtKK8OAKWO8Vo30dxW387V1xKoOZWDd13eCRMe94/yofWN1Yllb5H
+ AIuBJRub84y05PCfmqqZObCUs7Kyg6lDxV5iYIBwgOHsaV3wwI4dwvMt9mQLk8kcuvy4
+ KqOwiXl/3VJqKfmAUIru0C1jzF8hun7CjvRtMT0QprW13663457Y1Vrx9pPftFgkTfLf
+ RsEN2qCA9fYAicpjkSIx+G/IM079QorZRCCckslrvDyCVyd010GkECNtYT/EultRiJkZ
+ sGgl/G2mXAHaHW7jhxddBcB9gkRgmzVp3fiK0SDD/freGb76vUTmSRbjC+WG/Ai2/wij
+ ncAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733778255; x=1734383055;
+ d=1e100.net; s=20230601; t=1733778334; x=1734383134;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7Ma5GtyG8ioog91EhM+P4GWHWrGCT15M/sea78+XBKE=;
- b=TwRkO+qSbffgwwW57g3+Jowl6J4JXgdPzZec+0mlq6h4tarM3z7DpQsieuyBUm/vz/
- IHqyifh/Trw4jzK4iDOOMt7z00/S3wF88AViPzr2x2C4FMDqhN2K/Vp/2mXKM536rapK
- yCM92qN4+r1hVL5cOW7GoBffKPL92qZ7T2HeP3zdGdSB/iwMg1waqZvAZ+cdewrlqFoj
- kki4M1EGsomNYM2YqHMTNwhpqyxwVBKw+8YqyVwW6+yXC1fGiM+TfRSJ2p91vcjXtqC6
- PdBnGcGd28dea/Hu+RWwfD+1JmUDpd+nxMmtqF1leR1UoRKQmox9+0mZUYQSwyvxA/Cf
- ZVPA==
+ bh=hbwD0xdtFeO2X81Q2PXEiGy5cSfyM0/IvSDcuNaHUrA=;
+ b=dV79O+OXDMx7+Em6OMEX37Cz0AUKdU617V1JVlj99A87vlYw9WtMxLcPr3XXkpWscj
+ YCS1wrTxgu6Jt2ydJpiAHX8ZeU+5dKa1fPZMk46UbphHOrIlGB3oCz9H1Kmm0pT9N0p3
+ w4wcC+YXOZ3L34JybBRev2xAqLUF2RkkG2Zq3wxveqcQTUrEpBXxJ+qv2fUJEZbOOCSO
+ hImTqHbOhJ7vlK6lHQlUiEsKIKy66VhUpaAjaPGFek93c6Asyj2glXDH1MCGQjgO8IvG
+ d3SypyeN+7LoCTyuKvFs0K2i2IpEr0pSPZyXcjTMT7NVEJAoYVAd9Y48DRZDMFrWWZGA
+ K+FQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVne2C8HVIiAwf0Z/KgCPG2U054QN9x164Slw/5c03giGSFA3fvJC0Ogkyn5n2++JdghT11RqMyoCc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx6ABAK7HyPuYxZ8Gr93v1HE45FFIUqQSYYBtDDIJVWy7ULVhvx
- GIgUasPOmnZVpB2/uzOW9OK+Xc1ZdNiba2vV/9VqVvwhk6kFiNCzl7sIe9NpTiU=
-X-Gm-Gg: ASbGnct6lvJ1aEnLnnv9r98d0FIIbEaRMjInJpO82Nq5UGs+GnSeiq/VLugbYSdFv72
- VyiFc2sv6tAtXSXrJPe1gpTr/6FoSRT2NjeA7a6eelTewToUY/mhh9j2WGv6gR0kjr2tUmoNa2H
- ACRHYQ6PNe/8bbNoDAwxlggAJgvX3bBaA0ka/g7NprPOpTwTDtkICq4Gu1YwY/+ujpBi8Trbh/Z
- cBAGFFzN/sdetC3jedpQtih3Pf0mau+k+fWSoVXXON4YVqHd2yQ8/YVq+hwNAUb+FBmyDDl349J
- ojX3o9vfVvjS9Idd1FZ6WiuZUPO4CQUfNA==
-X-Google-Smtp-Source: AGHT+IGyoN5lvEyWoIQKeZ0cauegZG/9/HnT3c9dEG7V7kOpedR0OZrCmSQf0J/flV38TzNZUm43Vg==
-X-Received: by 2002:a05:651c:541:b0:302:2c61:a1d3 with SMTP id
- 38308e7fff4ca-3022fd89c5dmr7913551fa.36.1733778255053; 
- Mon, 09 Dec 2024 13:04:15 -0800 (PST)
+ AJvYcCVHrU+AgrH4Rg9dNjUAFVHz0rOyo/OgogqX7SsUllMtgxpFYl4xbLHBwL7bExUh8Mb6OPvQhmdB1bc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyC/nTlak14yMA5pfGuk9gGLyeWJ1gCTMRiyxr1Ay5xCp75xBJ5
+ UpUoBnxyYQfCW8qxjJyuWaXwv0MzSwxgYMq/f7L07LLgg0UbFffdCOb3oSZX/M4=
+X-Gm-Gg: ASbGncv92vPY2QkRliyTM2IwMgDZlv7JRd6FvFj2TA5Ha7NU2QT0nmOBHigJlhrZLch
+ gYqibCBI4iALyqN7qtds6Zh6YosrT2OUGm/AZXdw+0oGyumVLTCP5Pln5acGVnLuPpGg3hhVs28
+ IV8FbfV8OOgNUePC8DUdTewcJVGCC070O4p98ezn5l9pNrUMuWervHrm9HJu8CMEO+jhaSGDdv7
+ /rmpT937UJImvrvt7cNalU0fNajp3sUHHr6ZKSPtojqvRjZRzZ6psPorymBi2/I/XYOAFpxYCE+
+ HkRMDtlBwpDH2O0CgAdEywL0ckr5TQ==
+X-Google-Smtp-Source: AGHT+IE63q6tbZgiYfnAuYiETrebmlUHAEwKw2EoVr6nHG3mwSFQhamy8uW4P5FHyhiMyHhSRBOR9g==
+X-Received: by 2002:a05:6512:ad0:b0:53f:8c46:42c7 with SMTP id
+ 2adb3069b0e04-53f8c4643dbmr3412654e87.14.1733778334011; 
+ Mon, 09 Dec 2024 13:05:34 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30220d0b34fsm4716121fa.60.2024.12.09.13.04.12
+ 2adb3069b0e04-53e34916befsm1095574e87.120.2024.12.09.13.05.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Dec 2024 13:04:13 -0800 (PST)
-Date: Mon, 9 Dec 2024 23:04:11 +0200
+ Mon, 09 Dec 2024 13:05:32 -0800 (PST)
+Date: Mon, 9 Dec 2024 23:05:30 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
@@ -69,16 +69,15 @@ Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Stephen Boyd <swboyd@chromium.org>
-Subject: Re: [PATCH] drm/msm/dpu: check dpu_plane_atomic_print_state() for
- valid sspp
-Message-ID: <d5yfas7yzilvjryrtdi2miaw5khnycm7egn4dd5ff3vu7z4op5@oit2xvsyx5l5>
-References: <20241209-check-state-before-dump-v1-1-7a9d8bc6048f@quicinc.com>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/msm/dpu: filter out too wide modes if no 3dmux is
+ present
+Message-ID: <jzbqtrhiebtb6oveg35b4cdu57epqattu5lqhtfhbzctomzhrl@vnl3vklpnvd3>
+References: <20241209-no_3dmux-v2-1-fcad057eb92e@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241209-check-state-before-dump-v1-1-7a9d8bc6048f@quicinc.com>
+In-Reply-To: <20241209-no_3dmux-v2-1-fcad057eb92e@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,68 +93,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 09, 2024 at 12:37:51PM -0800, Abhinav Kumar wrote:
-> Similar to the r_pipe sspp protect, add a check to protect
-> the pipe state prints to avoid NULL ptr dereference for cases when
-> the state is dumped without a corresponding atomic_check() where the
-> pipe->sspp is assigned.
+On Mon, Dec 09, 2024 at 12:15:57PM -0800, Abhinav Kumar wrote:
+> On chipsets such as QCS615, there is no 3dmux present. In such
+> a case, a layer exceeding the max_mixer_width cannot be split,
+> hence cannot be supported.
 > 
-> Fixes: 31f7148fd370 ("drm/msm/dpu: move pstate->pipe initialization to dpu_plane_atomic_check")
-> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/67
+> Filter out the modes which exceed the max_mixer_width when there
+> is no 3dmux present. Also, add a check in the dpu_crtc_atomic_check()
+> to return failure for such modes.
+> 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
-> To: Rob Clark <robdclark@gmail.com>
-> To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> To: Sean Paul <sean@poorly.run>
-> To: Marijn Suijten <marijn.suijten@somainline.org>
-> To: David Airlie <airlied@gmail.com>
-> To: Simona Vetter <simona@ffwll.ch>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: Stephen Boyd <swboyd@chromium.org>
+> Note: this was only compile tested, so its pending validation on QCS615
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 19 +++++++++++--------
->  1 file changed, 11 insertions(+), 8 deletions(-)
+> Changes in v2:
+> - replace MODE_BAD with MODE_BAD_HVALUE to indicate the failure better
+> - Link to v1: https://lore.kernel.org/r/20241206-no_3dmux-v1-1-72ad2677a323@quicinc.com
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 3ffac24333a2a5b01135d4ece418432d4a74dc04..fe3fd9587ec61f241ccb8c28925c7902b92bcdcd 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -1333,14 +1333,17 @@ static void dpu_plane_atomic_print_state(struct drm_printer *p,
->  	const struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
->  	const struct dpu_sw_pipe_cfg *r_pipe_cfg = &pstate->r_pipe_cfg;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 9f6ffd344693ecfb633095772a31ada5613345dc..87d76f388bef48c880ae70ddcdb76ccb0336ad32 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -732,6 +732,13 @@ static int _dpu_crtc_check_and_setup_lm_bounds(struct drm_crtc *crtc,
+>  	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
+>  	int i;
 >  
-> -	drm_printf(p, "\tstage=%d\n", pstate->stage);
-> -
-> -	drm_printf(p, "\tsspp[0]=%s\n", pipe->sspp->cap->name);
-> -	drm_printf(p, "\tmultirect_mode[0]=%s\n", dpu_get_multirect_mode(pipe->multirect_mode));
-> -	drm_printf(p, "\tmultirect_index[0]=%s\n",
-> -		   dpu_get_multirect_index(pipe->multirect_index));
-> -	drm_printf(p, "\tsrc[0]=" DRM_RECT_FMT "\n", DRM_RECT_ARG(&pipe_cfg->src_rect));
-> -	drm_printf(p, "\tdst[0]=" DRM_RECT_FMT "\n", DRM_RECT_ARG(&pipe_cfg->dst_rect));
-> +	if (pipe->sspp) {
-> +		drm_printf(p, "\tstage=%d\n", pstate->stage);
+> +	/* if we cannot merge 2 LMs (no 3d mux) better to fail earlier
+> +	 * before even checking the width after the split
+> +	 */
+> +	if (!dpu_kms->catalog->caps->has_3d_merge
+> +	    && adj_mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
 
-Please keep pstate->stage out of the if() statement. LGTM otherwise.
+Excuse me that I didn't notice that earlier. && should go to the
+previous line, not to the next line.
 
+> +		return -E2BIG;
 > +
-> +		drm_printf(p, "\tsspp[0]=%s\n", pipe->sspp->cap->name);
-> +		drm_printf(p, "\tmultirect_mode[0]=%s\n",
-> +			   dpu_get_multirect_mode(pipe->multirect_mode));
-> +		drm_printf(p, "\tmultirect_index[0]=%s\n",
-> +			   dpu_get_multirect_index(pipe->multirect_index));
-> +		drm_printf(p, "\tsrc[0]=" DRM_RECT_FMT "\n", DRM_RECT_ARG(&pipe_cfg->src_rect));
-> +		drm_printf(p, "\tdst[0]=" DRM_RECT_FMT "\n", DRM_RECT_ARG(&pipe_cfg->dst_rect));
-> +	}
+>  	for (i = 0; i < cstate->num_mixers; i++) {
+>  		struct drm_rect *r = &cstate->lm_bounds[i];
+>  		r->x1 = crtc_split_width * i;
+> @@ -1251,6 +1258,12 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
+>  {
+>  	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
 >  
->  	if (r_pipe->sspp) {
->  		drm_printf(p, "\tsspp[1]=%s\n", r_pipe->sspp->cap->name);
+> +	/* if there is no 3d_mux block we cannot merge LMs so we cannot
+> +	 * split the large layer into 2 LMs, filter out such modes
+> +	 */
+> +	if (!dpu_kms->catalog->caps->has_3d_merge
+> +	    && mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
+> +		return MODE_BAD_HVALUE;
+>  	/*
+>  	 * max crtc width is equal to the max mixer width * 2 and max height is 4K
+>  	 */
 > 
 > ---
-> base-commit: 9d6a414ad31e8eb296cd6f2c1834b2c6994960a0
-> change-id: 20241209-check-state-before-dump-2a015ace5f49
+> base-commit: af2ea8ab7a546b430726183458da0a173d331272
+> change-id: 20241206-no_3dmux-521a55ea0669
 > 
 > Best regards,
 > -- 
