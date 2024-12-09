@@ -2,86 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C209A9EA09E
-	for <lists+freedreno@lfdr.de>; Mon,  9 Dec 2024 21:54:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D9059EA0C8
+	for <lists+freedreno@lfdr.de>; Mon,  9 Dec 2024 22:04:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D02810E58C;
-	Mon,  9 Dec 2024 20:54:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6035A10E580;
+	Mon,  9 Dec 2024 21:04:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="EAM3e9CG";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZuQ0hoCP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B6DA10E57F;
- Mon,  9 Dec 2024 20:54:40 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B9IdACu025163;
- Mon, 9 Dec 2024 20:54:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- On+/zsCoz/Q3ZJ3ZLOQOcM65UnYlf7UMHxrOCNbEXXg=; b=EAM3e9CGmyYNkDnj
- hfVNs+xVXrWl9zR5Yz976b7S+uD4cFFOIIVoEk+6W2bhLA/eYbC0WcIEK/MBMW+O
- oht3gP7iuvcrnYxjxgAXWk6IC4ix6eb8ZiT7qvPaO5kHVsm1oNaT6JxMAPrlBCRu
- L7TxUEGCZ85zrMYjY4qv2ukr4MRMozzGYRf2ejNVvvedTmJ/O/o9r8GdY7f7qv7r
- mrS+TWv4kuI19DBGX95l5diTkXSExR8lmsU2KGGhUvMHMH3I4NBJH5H3IrHKEalB
- c4AfHBsHXkJHjdT2vshcL6cxkuYVmRxQCdXhapm+7fvNTnwDufGeLvtugugpXEFi
- L2ObkQ==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43cek1x3vh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 Dec 2024 20:54:35 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B9KsZHL028159
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 9 Dec 2024 20:54:35 GMT
-Received: from [10.216.3.14] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 9 Dec 2024
- 12:54:30 -0800
-Message-ID: <a3f39ee2-cdb6-4d54-a5db-6208e435972c@quicinc.com>
-Date: Tue, 10 Dec 2024 02:24:27 +0530
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B3E910E7F1
+ for <freedreno@lists.freedesktop.org>; Mon,  9 Dec 2024 21:04:17 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-30034ad2ca3so23071551fa.1
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Dec 2024 13:04:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1733778255; x=1734383055; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=7Ma5GtyG8ioog91EhM+P4GWHWrGCT15M/sea78+XBKE=;
+ b=ZuQ0hoCPBtrYSB/aQiaKWC4cDFh0zz8omD1tLHkOqKCwxyubvzGI/hJSikr9wanhj2
+ H7v6HJ5oW8iNTtE2cjGvgTIeI+L38ci6/PtPpOZzPbnACjdCreOyC7J9IbcIbd60gIco
+ KdXOjMlsQ/Cz2Jl03Gnuzq5NV9UAFdjNwLGrS6I8GPciJazfYS0xinni5PoHoDZO+cWm
+ dnA8gi/a/QyhrhfYASAMcEtc6saMv5SNMIeMKxxhjNDn9FhqialZPLHHKI2sy+ryj8T9
+ SHrm5+6rfzNWnaxS8FblLIeV+E3L6L8ZnlVStD756JSzF5Pi24tU78yKuwwfJRK6hXez
+ TUfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733778255; x=1734383055;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7Ma5GtyG8ioog91EhM+P4GWHWrGCT15M/sea78+XBKE=;
+ b=TwRkO+qSbffgwwW57g3+Jowl6J4JXgdPzZec+0mlq6h4tarM3z7DpQsieuyBUm/vz/
+ IHqyifh/Trw4jzK4iDOOMt7z00/S3wF88AViPzr2x2C4FMDqhN2K/Vp/2mXKM536rapK
+ yCM92qN4+r1hVL5cOW7GoBffKPL92qZ7T2HeP3zdGdSB/iwMg1waqZvAZ+cdewrlqFoj
+ kki4M1EGsomNYM2YqHMTNwhpqyxwVBKw+8YqyVwW6+yXC1fGiM+TfRSJ2p91vcjXtqC6
+ PdBnGcGd28dea/Hu+RWwfD+1JmUDpd+nxMmtqF1leR1UoRKQmox9+0mZUYQSwyvxA/Cf
+ ZVPA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVne2C8HVIiAwf0Z/KgCPG2U054QN9x164Slw/5c03giGSFA3fvJC0Ogkyn5n2++JdghT11RqMyoCc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx6ABAK7HyPuYxZ8Gr93v1HE45FFIUqQSYYBtDDIJVWy7ULVhvx
+ GIgUasPOmnZVpB2/uzOW9OK+Xc1ZdNiba2vV/9VqVvwhk6kFiNCzl7sIe9NpTiU=
+X-Gm-Gg: ASbGnct6lvJ1aEnLnnv9r98d0FIIbEaRMjInJpO82Nq5UGs+GnSeiq/VLugbYSdFv72
+ VyiFc2sv6tAtXSXrJPe1gpTr/6FoSRT2NjeA7a6eelTewToUY/mhh9j2WGv6gR0kjr2tUmoNa2H
+ ACRHYQ6PNe/8bbNoDAwxlggAJgvX3bBaA0ka/g7NprPOpTwTDtkICq4Gu1YwY/+ujpBi8Trbh/Z
+ cBAGFFzN/sdetC3jedpQtih3Pf0mau+k+fWSoVXXON4YVqHd2yQ8/YVq+hwNAUb+FBmyDDl349J
+ ojX3o9vfVvjS9Idd1FZ6WiuZUPO4CQUfNA==
+X-Google-Smtp-Source: AGHT+IGyoN5lvEyWoIQKeZ0cauegZG/9/HnT3c9dEG7V7kOpedR0OZrCmSQf0J/flV38TzNZUm43Vg==
+X-Received: by 2002:a05:651c:541:b0:302:2c61:a1d3 with SMTP id
+ 38308e7fff4ca-3022fd89c5dmr7913551fa.36.1733778255053; 
+ Mon, 09 Dec 2024 13:04:15 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-30220d0b34fsm4716121fa.60.2024.12.09.13.04.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Dec 2024 13:04:13 -0800 (PST)
+Date: Mon, 9 Dec 2024 23:04:11 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Stephen Boyd <swboyd@chromium.org>
+Subject: Re: [PATCH] drm/msm/dpu: check dpu_plane_atomic_print_state() for
+ valid sspp
+Message-ID: <d5yfas7yzilvjryrtdi2miaw5khnycm7egn4dd5ff3vu7z4op5@oit2xvsyx5l5>
+References: <20241209-check-state-before-dump-v1-1-7a9d8bc6048f@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/a6xx: Skip gpu secure fw load in EL2 mode
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Konrad Dybcio
- <konradybcio@kernel.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "Dmitry Baryshkov" <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Elliot Berman <quic_eberman@quicinc.com>, "Pavan
- Kondeti" <quic_pkondeti@quicinc.com>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>
-References: <20241209-drm-msm-kvm-support-v1-1-1c983a8a8087@quicinc.com>
- <08440076-3c04-4bb1-b339-071b82d638d2@oss.qualcomm.com>
-Content-Language: en-US
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <08440076-3c04-4bb1-b339-071b82d638d2@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: aLzk8rpoL2kyujEGSdTdyy901kFjb8CY
-X-Proofpoint-ORIG-GUID: aLzk8rpoL2kyujEGSdTdyy901kFjb8CY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0
- mlxscore=0 adultscore=0 clxscore=1015 malwarescore=0 phishscore=0
- spamscore=0 mlxlogscore=930 lowpriorityscore=0 priorityscore=1501
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412090162
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241209-check-state-before-dump-v1-1-7a9d8bc6048f@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,54 +94,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/9/2024 8:33 PM, Konrad Dybcio wrote:
-> On 9.12.2024 9:19 AM, Akhil P Oommen wrote:
->> When kernel is booted in EL2, SECVID registers are accessible to the
->> KMD. So we can use that to switch GPU's secure mode to avoid dependency
->> on Zap firmware. Also, we can't load a secure firmware without a
->> hypervisor that supports it.
->>
->> Tested following configurations on sa8775p chipset (Adreno 663 gpu):
->>
->> 1. Gunyah (No KVM) - Loads zap shader based on DT
->> 2. KVM in VHE - Skips zap shader load and programs SECVID register
->> 3. KVM in nVHE - Loads zap shader based on DT
->> 4. Kernel in EL2 with CONFIG_KVM=n - Skips zap shader load and
->> 	programs SECVID register
->>
->> For (1) and (3) configuration, this patch doesn't have any impact.
->> Driver loads secure firmware based on other existing hints.
->>
->> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->> ---
+On Mon, Dec 09, 2024 at 12:37:51PM -0800, Abhinav Kumar wrote:
+> Similar to the r_pipe sspp protect, add a check to protect
+> the pipe state prints to avoid NULL ptr dereference for cases when
+> the state is dumped without a corresponding atomic_check() where the
+> pipe->sspp is assigned.
 > 
-> [...]
+> Fixes: 31f7148fd370 ("drm/msm/dpu: move pstate->pipe initialization to dpu_plane_atomic_check")
+> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/67
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+> To: Rob Clark <robdclark@gmail.com>
+> To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> To: Sean Paul <sean@poorly.run>
+> To: Marijn Suijten <marijn.suijten@somainline.org>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: Stephen Boyd <swboyd@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 19 +++++++++++--------
+>  1 file changed, 11 insertions(+), 8 deletions(-)
 > 
->> +
->> +#ifdef CONFIG_ARM64
->> +	/*
->> +	 * We can access SECVID_TRUST_CNTL register when kernel is booted in EL2 mode. So, use it
->> +	 * to switch the secure mode to avoid the dependency on zap shader.
->> +	 */
->> +	if (is_kernel_in_hyp_mode())
->> +		goto direct_switch;
-> 
-> So I suppose this would ideally be like hv_is_hyperv_initialized()
-> but for QHEE/Gunyah, which is not going to happen, as we have
-> millions of devices with old unupstreamable-ABI-Gunyah running..
-> 
-> This looks like the next best things then, so no objections, but..
-> 
-> [...]
-> 
->> +	ret = a6xx_switch_secure_mode(gpu);
->> +	if (!ret)
-> 
-> this should definitely be a if (ret)
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 3ffac24333a2a5b01135d4ece418432d4a74dc04..fe3fd9587ec61f241ccb8c28925c7902b92bcdcd 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -1333,14 +1333,17 @@ static void dpu_plane_atomic_print_state(struct drm_printer *p,
+>  	const struct dpu_sw_pipe *r_pipe = &pstate->r_pipe;
+>  	const struct dpu_sw_pipe_cfg *r_pipe_cfg = &pstate->r_pipe_cfg;
+>  
+> -	drm_printf(p, "\tstage=%d\n", pstate->stage);
+> -
+> -	drm_printf(p, "\tsspp[0]=%s\n", pipe->sspp->cap->name);
+> -	drm_printf(p, "\tmultirect_mode[0]=%s\n", dpu_get_multirect_mode(pipe->multirect_mode));
+> -	drm_printf(p, "\tmultirect_index[0]=%s\n",
+> -		   dpu_get_multirect_index(pipe->multirect_index));
+> -	drm_printf(p, "\tsrc[0]=" DRM_RECT_FMT "\n", DRM_RECT_ARG(&pipe_cfg->src_rect));
+> -	drm_printf(p, "\tdst[0]=" DRM_RECT_FMT "\n", DRM_RECT_ARG(&pipe_cfg->dst_rect));
+> +	if (pipe->sspp) {
+> +		drm_printf(p, "\tstage=%d\n", pstate->stage);
 
-My bad! Thanks.
+Please keep pstate->stage out of the if() statement. LGTM otherwise.
 
--Akhil.
+> +
+> +		drm_printf(p, "\tsspp[0]=%s\n", pipe->sspp->cap->name);
+> +		drm_printf(p, "\tmultirect_mode[0]=%s\n",
+> +			   dpu_get_multirect_mode(pipe->multirect_mode));
+> +		drm_printf(p, "\tmultirect_index[0]=%s\n",
+> +			   dpu_get_multirect_index(pipe->multirect_index));
+> +		drm_printf(p, "\tsrc[0]=" DRM_RECT_FMT "\n", DRM_RECT_ARG(&pipe_cfg->src_rect));
+> +		drm_printf(p, "\tdst[0]=" DRM_RECT_FMT "\n", DRM_RECT_ARG(&pipe_cfg->dst_rect));
+> +	}
+>  
+>  	if (r_pipe->sspp) {
+>  		drm_printf(p, "\tsspp[1]=%s\n", r_pipe->sspp->cap->name);
 > 
-> Konrad
+> ---
+> base-commit: 9d6a414ad31e8eb296cd6f2c1834b2c6994960a0
+> change-id: 20241209-check-state-before-dump-2a015ace5f49
+> 
+> Best regards,
+> -- 
+> Abhinav Kumar <quic_abhinavk@quicinc.com>
+> 
 
+-- 
+With best wishes
+Dmitry
