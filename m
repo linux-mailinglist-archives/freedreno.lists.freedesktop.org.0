@@ -2,92 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C04169EAEF0
-	for <lists+freedreno@lfdr.de>; Tue, 10 Dec 2024 12:02:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7F249EAF81
+	for <lists+freedreno@lfdr.de>; Tue, 10 Dec 2024 12:15:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1C3E10E873;
-	Tue, 10 Dec 2024 11:02:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E7EC10E88D;
+	Tue, 10 Dec 2024 11:15:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nZMYcnt2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oPiwb6ii";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69C2C10E879
- for <freedreno@lists.freedesktop.org>; Tue, 10 Dec 2024 11:02:23 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-540215984f0so1704281e87.1
- for <freedreno@lists.freedesktop.org>; Tue, 10 Dec 2024 03:02:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733828541; x=1734433341; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=NLSLnG5Y+Q5zBa0vxq3CyVrMI+PkK9k80FsG1LPecs4=;
- b=nZMYcnt2H5QZG09N0WoMVpHFUbjF5gEjB+4vjSR7Q2GhaSMAWlX8zkoKF2VGV03/Y3
- 57WntmtO55kqO7BXrMw89SuFzKwals6zg0k12MTmY8hxSy8ti2W087ikerQ+Wl4E4nLl
- aeTwPcmgs993D3NJkvxeUB0wqZksiWCgj5Bnn54y2aRvx2nx7bKzUIIgDFyeDhjqI4Y9
- iTRQIj5FeiqnnYsrflgsoL6yOl928FKWi9E35fE8XKAoNRUdU8eru7rFbW99DhVpfQxf
- kt7ZwB7bCcSA1FLjbGLwqulb7J1bbkeCQEh+fM7JUsRPpH+9yx0UqjIPLrQCBl1nZ5V4
- 2Cbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733828541; x=1734433341;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NLSLnG5Y+Q5zBa0vxq3CyVrMI+PkK9k80FsG1LPecs4=;
- b=rDEFzZYRNkAwPI2cZJMWN4giQAhIdNTqaZ4VMc/su/NykkFsRsoQz4WlSKoCifSsrL
- Jt+LztL/+3ZQuJkh51h/g+VnXYlpyL1wKloeDtZ3hBi2/5m20Ija4GGBqwkj3lSJKAEc
- NfpQVjaaCSEKUY3tBdduZRydwc+VSEJ+pUENBkMkUMJuFcAj9ytsmDbrahM3Vch3QPFT
- 2i3E71CfRS4bBdSyY/iwAZ81HNhDw4IyKkN+cmxGaazGv0tiYZsDhfRogEgcW//6/ADt
- hz6qpkvmX01szpA0Lu6JxX3PXp/BTVxJRYyEHLYeabBKL06GON35lZ4auJNW+/o6zQYi
- AHdA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWmwo/hJuW2z3rxkEQK1h2Hn4VUx/wII5tj2MW+3fhMLK0YJQuvx3idh2Li/L2CIvfKrJE4i223Z5Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwaXkhOwgNw6Hnr5UM3XUiQD7Tn25blVLfGuLlCUOtOUjja57aA
- Elia6rPuFIX5kbOF+G3RnBEK/WWJiB2DRZGpygsnzwlHjg1UHRuHay6PUwz7BHs=
-X-Gm-Gg: ASbGncvYuKQbmCDMFdQpHrnwSqjOV7fr1yIcHXLXJ4iztLgjyDaMz0uJqdpsn3v6g8T
- 5nmCb/KocFywgityX6LML2wUCVi6K2YfSHAh2pZgD2F2J5VxhFg35BImryrhvRmLFqVKvEyuuY9
- HfECN+PfS+gCR+OO4jL5ARFAvtd9SP82X+m1lUuPHTveNYmff0HBQapc8mlDLz3lm7D5cCOYle+
- ViVaW6aAl2Al0dbj/hCCMv43yJRdYjZ88MrHKCbtPi0bzexhDuU4+tCzX5toJYRK8Lu6uGnf/c4
- 8P4nXEmn3gQLyb24tMXhTgNwl9liaTdFMQ==
-X-Google-Smtp-Source: AGHT+IGd9pUHyOFytE8kKcuQvQX5JanFuKXTkqWjRgdaLSxeotjVnnczl7OXF6dV39l7CqIuih4Vog==
-X-Received: by 2002:a05:6512:104b:b0:53e:362e:ed6 with SMTP id
- 2adb3069b0e04-5402410d24emr1565097e87.50.1733828541548; 
- Tue, 10 Dec 2024 03:02:21 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53e39ce0551sm1148049e87.29.2024.12.10.03.02.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Dec 2024 03:02:20 -0800 (PST)
-Date: Tue, 10 Dec 2024 13:02:17 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Fange Zhang <quic_fangez@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62D2510E88A;
+ Tue, 10 Dec 2024 11:14:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id C8C4BA40BE8;
+ Tue, 10 Dec 2024 11:13:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B3CDC4CED6;
+ Tue, 10 Dec 2024 11:14:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733829297;
+ bh=lhICE9COOAdzLbeeCIG0N4z0GPEAUpsD9Gqft5qjfv4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=oPiwb6iiYNDZ/WGH9n+gRvMNUl6iGEU0HBgF/24GiCfBXOtlBxpMlXU2u10//8QC8
+ WqMttv5upsoZ3Tccjav4vJtLriG2z2rEYDsmEwVN/VvwArcRysn0T6bYIm41crkJJi
+ sl87IZYqvkQV6kkCxvZux0h/iSCXHxL+rzPJIg7IUXYsrf8XX7OdYAOgsTC9Mt6yrS
+ i0cjfLiLJFBKdSeY8auwuEVGyBJjgmQdF1jsB9TmQsBJLu/1gUHvM1k0/M620uRqjc
+ LqySKf6zHG+OnkBUJPKGWGfTB29xpI/OQhVkIq7IrAf3p6AyEoCARe02X2SdIi2UIZ
+ uzdvgQ8KgEQ0Q==
+Date: Tue, 10 Dec 2024 11:14:51 +0000
+From: Will Deacon <will@kernel.org>
+To: Rob Clark <robdclark@gmail.com>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Robin Murphy <robin.murphy@arm.com>,
+ Mostafa Saleh <smostafa@google.com>, Rob Clark <robdclark@chromium.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ "open list:DRM DRIVER for Qualcomm Adreno GPUs"
+ <dri-devel@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Joao Martins <joao.m.martins@oracle.com>, Joerg Roedel <jroedel@suse.de>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:POWER MANAGEMENT CORE" <linux-pm@vger.kernel.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Liu Li <quic_lliu6@quicinc.com>, 
- Xiangxu Yin <quic_xiangxuy@quicinc.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 9/9] arm64: dts: qcom: Add display support for QCS615
- RIDE board
-Message-ID: <cfdyvcxdkmf4sv5f75koflayyx74wd3tuscdl7byp5peaag5ty@yhr3275jhftn>
-References: <20241210-add-display-support-for-qcs615-platform-v4-0-2d875a67602d@quicinc.com>
- <20241210-add-display-support-for-qcs615-platform-v4-9-2d875a67602d@quicinc.com>
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Sean Paul <sean@poorly.run>, Steven Price <steven.price@arm.com>
+Subject: Re: [PATCH v10 0/4] io-pgtable-arm + drm/msm: Extend iova fault
+ debugging
+Message-ID: <20241210111450.GA14735@willie-the-truck>
+References: <20241028213146.238941-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241210-add-display-support-for-qcs615-platform-v4-9-2d875a67602d@quicinc.com>
+In-Reply-To: <20241028213146.238941-1-robdclark@gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,137 +71,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Dec 10, 2024 at 02:54:00PM +0800, Fange Zhang wrote:
-> From: Li Liu <quic_lliu6@quicinc.com>
-> 
-> Add display MDSS and DSI configuration for QCS615 RIDE board.
-> QCS615 has a DP port, and DP support will be added in a later patch.
-> 
-> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
-> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
-> ---
->  arch/arm64/boot/dts/qcom/qcs615-ride.dts | 89 ++++++++++++++++++++++++++++++++
->  1 file changed, 89 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-> index a25928933e2b66241258e418c6e5bc36c306101e..694719a09ac46bfa2fe34f1883c0970b9d0902be 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-> @@ -32,6 +32,18 @@ xo_board_clk: xo-board-clk {
->  			#clock-cells = <0>;
->  		};
->  	};
-> +
-> +	dp-connector {
-> +		compatible = "dp-connector";
-> +		label = "DP";
-> +		type = "mini";
-> +
-> +		port {
-> +			dp_connector_out: endpoint {
-> +				remote-endpoint = <&anx_7625_out>;
-> +			};
-> +		};
-> +	};
->  };
->  
->  &apps_rsc {
-> @@ -202,6 +214,83 @@ &gcc {
->  		 <&sleep_clk>;
->  };
->  
-> +&i2c2 {
-> +	clock-frequency = <400000>;
-> +	status = "okay";
-> +
-> +	ioexp: gpio@3e {
-> +		compatible = "semtech,sx1509q";
-> +		reg = <0x3e>;
-> +		interrupt-parent = <&tlmm>;
-> +		interrupts = <58 0>;
+Hi Rob,
 
-Use IRQ flags instead of just 0 (here and further on). Also it might be
-better to use interrupts-extended instead.
-
-> +		gpio-controller;
-> +		#gpio-cells = <2>;
-> +		interrupt-controller;
-> +		#interrupt-cells = <2>;
-> +		semtech,probe-reset;
-> +	};
-> +
-> +	i2c-mux@77 {
-> +		compatible = "nxp,pca9542";
-> +		reg = <0x77>;
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-
-Add empty line before device nodes (here and furher on).
-
-> +		i2c@0 {
-> +			reg = <0>;
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			anx7625@58 {
-> +				compatible = "analogix,anx7625";
-> +				reg = <0x58>;
-> +				interrupt-parent = <&ioexp>;
-> +				interrupts = <0 0>;
-> +				enable-gpios = <&tlmm 4 GPIO_ACTIVE_HIGH>;
-> +				reset-gpios = <&tlmm 5 GPIO_ACTIVE_HIGH>;
-> +				wakeup-source;
-> +
-> +				ports {
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
-> +
-> +					port@0 {
-> +						reg = <0>;
-> +						anx_7625_in: endpoint {
-> +							remote-endpoint = <&mdss_dsi0_out>;
-> +						};
-> +					};
-> +
-> +					port@1 {
-> +						reg = <1>;
-> +						anx_7625_out: endpoint {
-> +							remote-endpoint = <&dp_connector_out>;
-> +						};
-> +					};
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&mdss {
-> +	status = "okay";
-> +};
-> +
-> +&mdss_dsi0 {
-> +	vdda-supply = <&vreg_l11a>;
-> +	status = "okay";
-> +};
-> +
-> +&mdss_dsi0_out {
-> +	remote-endpoint = <&anx_7625_in>;
-> +	data-lanes = <0 1 2 3>;
-> +};
-> +
-> +&mdss_dsi0_phy {
-> +	vdds-supply = <&vreg_l5a>;
-> +	status = "okay";
-> +};
-> +
->  &qupv3_id_0 {
->  	status = "okay";
->  };
+On Mon, Oct 28, 2024 at 02:31:36PM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> -- 
-> 2.34.1
+> This series extends io-pgtable-arm with a method to retrieve the page
+> table entries traversed in the process of address translation, and then
+> beefs up drm/msm gpu devcore dump to include this (and additional info)
+> in the devcore dump.
 > 
+> This is a respin of https://patchwork.freedesktop.org/series/94968/
+> (minus a patch that was already merged)
+> 
+> v2:  Fix an armv7/32b build error in the last patch
+> v3:  Incorperate Will Deacon's suggestion to make the interface
+>      callback based.
+> v4:  Actually wire up the callback
+> v5:  Drop the callback approach
+> v6:  Make walk-data struct pgtable specific and rename
+>      io_pgtable_walk_data to arm_lpae_io_pgtable_walk_data
+> v7:  Re-use the pgtable walker added for arm_lpae_read_and_clear_dirty()
+> v8:  Pass pte pointer to callback so it can modify the actual pte
+> v9:  Fix selftests_running case
+> v10: Call visit cb for all nodes traversed, leave the decision about
+>      whether to care about non-leaf nodes to the callback
 
--- 
-With best wishes
-Dmitry
+Do you plan to respin this? I see Mostafa left a proposal on patch 3.
+
+Thanks,
+
+Will
