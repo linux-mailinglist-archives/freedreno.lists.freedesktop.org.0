@@ -2,98 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FBE99EB458
-	for <lists+freedreno@lfdr.de>; Tue, 10 Dec 2024 16:09:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16CF29EB70E
+	for <lists+freedreno@lfdr.de>; Tue, 10 Dec 2024 17:51:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DDAE10E8F9;
-	Tue, 10 Dec 2024 15:09:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73DC110E2CC;
+	Tue, 10 Dec 2024 16:51:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="W0GXBK16";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SBHDUgxR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
- [209.85.208.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 809C210E8FB
- for <freedreno@lists.freedesktop.org>; Tue, 10 Dec 2024 15:09:25 +0000 (UTC)
-Received: by mail-lj1-f178.google.com with SMTP id
- 38308e7fff4ca-3023c51146cso5322591fa.1
- for <freedreno@lists.freedesktop.org>; Tue, 10 Dec 2024 07:09:25 -0800 (PST)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 479AF10E2CC;
+ Tue, 10 Dec 2024 16:51:45 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-21636268e43so35163475ad.2; 
+ Tue, 10 Dec 2024 08:51:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733843363; x=1734448163; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=ONPoAWCr/z6lJfjDFKtgqfFAw1BGCZer+GCPiaXmPhw=;
- b=W0GXBK16LisKO2CNSUVY89xaF3GVq0jl+t1/fOJptjx9oRlFhhaAiTU0kQ3UXMM0MH
- zvzPX2hLOtlSTlSXIsbik/w+qa8WNUoXcRb5AOaIxsuUeXx+oYMOfaY2h1LgMYYSnWQm
- ACw0Ttjpe3Dt59qQR92Khbs0bTBjvN3lXJP4gdJKyQUxpwUJSSIXEny9xO5J+FHcP3e9
- BfpKZidQmM0XI+xJeZ+xE4TvawqTpcHNk7cSnkeTxDYItEkt59srYjGsraodWvei4dwC
- PveaL2Pr26NVyvkQbogfcSuTqDkNmx00jpUJSN9a/ikbE2xVwU+51trvyfA26bde0y0F
- ilZg==
+ d=gmail.com; s=20230601; t=1733849505; x=1734454305; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=JuzEEwZKQf9j9mqhaN0lST/eQY9CbMt5tK8I46FKdZM=;
+ b=SBHDUgxRImDpF4RhulmPN1WOtZb5l7Iy3tE6cI/hmUZFaaSfpUrJDq7ayAuFyfuxcx
+ oW1IvqEiSFYc1yoXxHCIQ0HEsmUNOqX3y7MXurgbnQp7/RhtkHKHrLFcSr6k/M653DIM
+ R/QIPiD05CAOTEAy8to8Cb/wkgnZuTGMeMV8Fwq7vKGEaEyXAfta2os+Pd0bij8g78wz
+ z4x0r4Utqng50iHMPrq4A91q3QYzk/ZW18REr8OoWfwrZS0Lc8+1lUwCiTGDw9N5Fv0h
+ o6dA8SXAJAVW9jPjoHAnjDQnHrXzdeTjZII4K2RgXQ6d2gW6N/Yij8dKGb56DH76vU2i
+ hXqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733843363; x=1734448163;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ONPoAWCr/z6lJfjDFKtgqfFAw1BGCZer+GCPiaXmPhw=;
- b=ir5G/mXGPeahmP1gWudPZcNMieoTm44ciWGNxXth4Lh2ciGwSsQlfMR9ss7r+Sh67e
- 62S8uzcQ9JBct0b/9xH5IgHrH1mKRpR+9WqDqQAC1e76rn253NM20C3lQ8x2CvJdAhQt
- KrtZhOlXRiOr/ITzVDrZN39odk0TU2/3T4nOhU9yUmiPxnoq92ZX/fUgzrp2Y0927s7E
- QK3NTgDfejunAiNREcjFpf3FDqZ3p7M/0lpQewECgD9nEh+kFGA7ZD9dloRBs/ZAOKbB
- LHj09fMIhpB+IqZ24Mj8912W27/Rb992mwr9mmiX5SboQy+6OQxGHMM9qhCvSAMHASuY
- 9RIA==
+ d=1e100.net; s=20230601; t=1733849505; x=1734454305;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=JuzEEwZKQf9j9mqhaN0lST/eQY9CbMt5tK8I46FKdZM=;
+ b=rJPSVVeIvIZMH2lPNMvPG3pQHcpWAGpk9OdIdWopw2916/GvsEBZ+5UP6a2lv65EdF
+ on2ZzE71h95iXHTVk1AxiLSSpAgGJ36WUXfjvrz90RrxGwihqpwiMrkQ73yQ49v80qI4
+ wQ98jv8Om0eXmnjoGmLzyyfDAq3Ph1beqEPp6e8RtzUM5bafpuAjaQpQpzW2qCpCihWK
+ eMrhkXTN2dshBKTf9mmTCW81UMl49Bl4b3Dpwv4assdIt4+wuzGm6nBMIZE23mce7Ii7
+ d3XUJjvbTOseNi1IErAgL5VBwXbxaal6XwoWDblEVTfzSAUZIcSSAMHiwsFnC9iQQL5l
+ hrAw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW3nzqz/a+/8HNYWvH3uEgGcQY3ZMR1LBndH7x4qSBWJmNIRT98SURn2w2E9PDidxF2bt/B72sZBZk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzYMdFDYvfzyBXmfF0qqxdy9K3/p+tpzTTs7SvtPpUdRhu/kql1
- c8THQPZHXy8Mx85QOyABD5S+CLUOiKDEQoAtY+nU5w/UiQs3jChK9lyoImwZyNc=
-X-Gm-Gg: ASbGncsrFl3fJ+NDHCikhQUzvmH0tcQmm/xNjoEZ2Kdpw8KbvTGcfjU/vsNdewqW6od
- vr0wHdoYiVBmhRNDfNCmXqMoJmqfvIQchu95a88E6H5hNJu+83xwF9gtuzT/5QQ38M5sOtwLCCP
- 5BLXrzTSaKCZFdv/PgnGa3ULv/akeQwx7VBbzbx57aekFeu4rxs6qRN21D936U4AP2oS4d6njjI
- QndfX4NRolfvbQLF7e5b5MSNCoqZP/DULq9PNCTEFJR23cadRpFW0zQdGb0EGSRncCDgURG6s9j
- ZCeFcp60T4DMNlHlXw1K577HTTL0U5xQSQ==
-X-Google-Smtp-Source: AGHT+IH4LG5o5SbyEh1Vovj71WLwSfFbBGhk7NJh/k58qLpSj2p2TBBGrOFSDDq9rnPlmsaGShNmLg==
-X-Received: by 2002:a2e:be0b:0:b0:2ff:b8f5:5a17 with SMTP id
- 38308e7fff4ca-3023282c1femr12568441fa.5.1733843363188; 
- Tue, 10 Dec 2024 07:09:23 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ AJvYcCVAd1B/2EC6ugSnKipyELM2Lcwei0dgvjvEO73THfTiajUUAmLER6/XxKUA9Nz6MhTFuV0IQOkaots=@lists.freedesktop.org,
+ AJvYcCVOrS6GM0cY0ldKGvHbP4Do1UfDnHKXefjLcjMdiNu2oKqiP8TaWK26L1IYAFkcJGW2k0mO1xJTyb2g@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWwNaAfae0umyugx1YBGKyG/E6Fp6qHlG1+82lW4GU/T55uybW
+ KKsdmNRBw6dJ4RoLSeFEIRYjB9ktPZbYlZLByAYIcH45kY9cZhOW
+X-Gm-Gg: ASbGncvfnDuwVKdoJ4swyPw9TP0gpWuMePwiz1F2dRjJeRbe7niyEt2yEHQuUDhse9Y
+ NQG7ScyE3cOrsPYW6DKVoLOjrjn9Q3hTjoXJjnbEYgAz67hx2/ihemACdvKABtvF6g5AKUpA8dg
+ PxK9Bc3Dk0eUYVl9gMr3tMKHkCeU61wzR638EQZzLvOCcdUs7mMSRyYQrv9gXyXutJLP+lCgty2
+ hlvT8HE+Ur/KlZGBeS6N0iJlfo6IX4CIIKAw/W+3zXkSlwAqn/AZMa4uHUfVVZ1+QlTT+i41mME
+ iiwKXJSSrtko6n5ItNlpCkzhZC/Z
+X-Google-Smtp-Source: AGHT+IHq5GJLA69hWJIqMBI3xX9I2B1vs+oiOQMLHk1Gt8OrfhdtpCShimUSU+G1kzy0p/Cgwakamg==
+X-Received: by 2002:a17:902:e750:b0:216:3c36:69a7 with SMTP id
+ d9443c01a7336-2166a0987ddmr69103725ad.45.1733849504588; 
+ Tue, 10 Dec 2024 08:51:44 -0800 (PST)
+Received: from localhost ([2a00:79e1:2e00:1301:12e9:d196:a1e9:ab67])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-302259416c5sm5907321fa.6.2024.12.10.07.09.22
+ d9443c01a7336-216363a3176sm51054905ad.246.2024.12.10.08.51.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Dec 2024 07:09:22 -0800 (PST)
-Date: Tue, 10 Dec 2024 17:09:21 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Xiangxu Yin <quic_xiangxuy@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Tue, 10 Dec 2024 08:51:44 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: iommu@lists.linux.dev
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Mostafa Saleh <smostafa@google.com>, Will Deacon <will@kernel.org>,
+ Rob Clark <robdclark@chromium.org>,
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVER for Qualcomm Adreno
+ GPUs), Jason Gunthorpe <jgg@ziepe.ca>,
+ Joao Martins <joao.m.martins@oracle.com>,
+ Kevin Tian <kevin.tian@intel.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ linux-arm-kernel@lists.infradead.org (moderated list:ARM SMMU DRIVERS),
+ linux-kernel@vger.kernel.org (open list),
+ linux-pm@vger.kernel.org (open list:SUSPEND TO RAM),
  Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, 
- Bartosz Golaszewski <brgl@bgdev.pl>, quic_lliu6@quicinc.com,
- quic_fangez@quicinc.com, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 3/8] phy: qcom: qmp-usbc: Add DP phy mode support on QCS615
-Message-ID: <iqcofcntirmlwcpyfr4yabymqfcgyrij57bibf337tmxpa73t6@npkt6wquenf6>
-References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
- <20241129-add-displayport-support-for-qcs615-platform-v1-3-09a4338d93ef@quicinc.com>
- <CAA8EJppOR_UXoVpMt-dhfWdCz3UNfsXGdz8X9NqpaSmYj3AZDg@mail.gmail.com>
- <5ea14162-567b-462d-be02-b73b954b7507@quicinc.com>
- <5whv4z7u6fkfwlv5muox5dmv6fow4mga76ammapw7wph7vwv3f@xibcjdfqorgf>
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Sean Paul <sean@poorly.run>
+Subject: [PATCH v11 0/4] io-pgtable-arm + drm/msm: Extend iova fault debugging
+Date: Tue, 10 Dec 2024 08:51:18 -0800
+Message-ID: <20241210165127.600817-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <5whv4z7u6fkfwlv5muox5dmv6fow4mga76ammapw7wph7vwv3f@xibcjdfqorgf>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,54 +98,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 05, 2024 at 08:31:24PM +0200, Dmitry Baryshkov wrote:
-> On Thu, Dec 05, 2024 at 09:26:47PM +0800, Xiangxu Yin wrote:
-> > 
-> > 
-> > On 11/29/2024 10:33 PM, Dmitry Baryshkov wrote:
-> > > On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
-> > >>
-> > >> Extended DP support for QCS615 USB or DP phy. Differentiated between
-> > >> USBC and DP PHY using the match table’s type, dynamically generating
-> > >> different types of cfg and layout attributes during initialization based
-> > >> on this type. Static variables are stored in cfg, while parsed values
-> > >> are organized into the layout structure.
-> > > 
-> > > We didn't have an understanding / conclusion whether
-> > > qcom,usb-ssphy-qmp-usb3-or-dp PHYs are actually a single device / PHY
-> > > or two PHYs being placed next to each other. Could you please start
-> > > your commit message by explaining it? Or even better, make that a part
-> > > of the cover letter for a new series touching just the USBC PHY
-> > > driver. DP changes don't have anything in common with the PHY changes,
-> > > so you can split the series into two.
-> > > 
-> > Before implement DP extension, we have discussed with abhinav and krishna about whether use combo, usbc or separate phy.
-> 
-> What is "DP extension"?
-> 
-> > 
-> > We identified that DP and USB share some common controls for phy_mode and orientation.
-> > Specifically, 'TCSR_USB3_0_DP_PHYMODE' controls who must use the lanes - USB or DP,
-> > while PERIPH_SS_USB0_USB3PHY_PCS_MISC_TYPEC_CTRL controls the orientation.
-> > It would be more efficient for a single driver to manage these controls. 
-> 
-> The question is about the hardware, not about the driver.
-> 
-> > Additionally, this PHY does not support Alt Mode, and the two control registers are located in separate address spaces. 
-> > Therefore, even though the orientation for DP on this platform is always normal and connected to the video output board, 
-> > we still decided to base it on the USBC extension.
-> 
-> Could you please clarify, do usb3-or-dp PHYs support DP-over-USB-C? I
-> thought that usbc-or-dp platforms support that, but they don't
-> support DP+USB pin configuration. Note, the question is broader than
-> just QCS615, it covers the PHY type itself.
-> 
-> Also, is TCSR configuration read/write or read-only? Are we supposed to
-> set the register from OS or are we supposed to read it and thus detemine
-> the PHY mode?
+From: Rob Clark <robdclark@chromium.org>
 
-Any updates on these two topics?
+This series extends io-pgtable-arm with a method to retrieve the page
+table entries traversed in the process of address translation, and then
+beefs up drm/msm gpu devcore dump to include this (and additional info)
+in the devcore dump.
+
+This is a respin of https://patchwork.freedesktop.org/series/94968/
+(minus a patch that was already merged)
+
+v2:  Fix an armv7/32b build error in the last patch
+v3:  Incorperate Will Deacon's suggestion to make the interface
+     callback based.
+v4:  Actually wire up the callback
+v5:  Drop the callback approach
+v6:  Make walk-data struct pgtable specific and rename
+     io_pgtable_walk_data to arm_lpae_io_pgtable_walk_data
+v7:  Re-use the pgtable walker added for arm_lpae_read_and_clear_dirty()
+v8:  Pass pte pointer to callback so it can modify the actual pte
+v9:  Fix selftests_running case
+v10: Call visit cb for all nodes traversed, leave the decision about
+     whether to care about non-leaf nodes to the callback
+v11: Adjust logic in 3/4 [smostafa@]
+
+Rob Clark (4):
+  iommu/io-pgtable-arm: Make pgtable walker more generic
+  iommu/io-pgtable-arm: Re-use the pgtable walk for iova_to_phys
+  iommu/io-pgtable-arm: Add way to debug pgtable walk
+  drm/msm: Extend gpu devcore dumps with pgtbl info
+
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c |  10 ++
+ drivers/gpu/drm/msm/msm_gpu.c           |   9 ++
+ drivers/gpu/drm/msm/msm_gpu.h           |   8 ++
+ drivers/gpu/drm/msm/msm_iommu.c         |  22 ++++
+ drivers/gpu/drm/msm/msm_mmu.h           |   3 +-
+ drivers/iommu/io-pgtable-arm.c          | 157 +++++++++++++++---------
+ include/linux/io-pgtable.h              |  15 +++
+ 7 files changed, 167 insertions(+), 57 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.47.1
+
