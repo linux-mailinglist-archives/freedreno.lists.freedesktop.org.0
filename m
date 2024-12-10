@@ -2,60 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7F249EAF81
-	for <lists+freedreno@lfdr.de>; Tue, 10 Dec 2024 12:15:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF3BA9EB355
+	for <lists+freedreno@lfdr.de>; Tue, 10 Dec 2024 15:31:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E7EC10E88D;
-	Tue, 10 Dec 2024 11:15:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E615810E8F1;
+	Tue, 10 Dec 2024 14:31:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oPiwb6ii";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jQNlkG+F";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62D2510E88A;
- Tue, 10 Dec 2024 11:14:59 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id C8C4BA40BE8;
- Tue, 10 Dec 2024 11:13:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B3CDC4CED6;
- Tue, 10 Dec 2024 11:14:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733829297;
- bh=lhICE9COOAdzLbeeCIG0N4z0GPEAUpsD9Gqft5qjfv4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oPiwb6iiYNDZ/WGH9n+gRvMNUl6iGEU0HBgF/24GiCfBXOtlBxpMlXU2u10//8QC8
- WqMttv5upsoZ3Tccjav4vJtLriG2z2rEYDsmEwVN/VvwArcRysn0T6bYIm41crkJJi
- sl87IZYqvkQV6kkCxvZux0h/iSCXHxL+rzPJIg7IUXYsrf8XX7OdYAOgsTC9Mt6yrS
- i0cjfLiLJFBKdSeY8auwuEVGyBJjgmQdF1jsB9TmQsBJLu/1gUHvM1k0/M620uRqjc
- LqySKf6zHG+OnkBUJPKGWGfTB29xpI/OQhVkIq7IrAf3p6AyEoCARe02X2SdIi2UIZ
- uzdvgQ8KgEQ0Q==
-Date: Tue, 10 Dec 2024 11:14:51 +0000
-From: Will Deacon <will@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Robin Murphy <robin.murphy@arm.com>,
- Mostafa Saleh <smostafa@google.com>, Rob Clark <robdclark@chromium.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- "open list:DRM DRIVER for Qualcomm Adreno GPUs"
- <dri-devel@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Joao Martins <joao.m.martins@oracle.com>, Joerg Roedel <jroedel@suse.de>,
- Konrad Dybcio <konradybcio@kernel.org>,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:POWER MANAGEMENT CORE" <linux-pm@vger.kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Sean Paul <sean@poorly.run>, Steven Price <steven.price@arm.com>
+Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
+ [209.85.166.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E65310E8F4;
+ Tue, 10 Dec 2024 14:30:59 +0000 (UTC)
+Received: by mail-il1-f178.google.com with SMTP id
+ e9e14a558f8ab-3a7d690479eso29266755ab.0; 
+ Tue, 10 Dec 2024 06:30:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1733841058; x=1734445858; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=i2N7XAtorM72yACmDgop2No+2dzqpehTFwae9k1iios=;
+ b=jQNlkG+FRwmqdlb7LR+ZVJQviDPKi/h3LdFAcQVhwQBDh+f/W/GpGmNIxUq1pqJv/q
+ mKM9FQH4m03EkIEy9NhoqalW+/YlWxqJ0lBSt/a23L8/KvfkQfyNpTcNkw5zC7ZFq/Se
+ tFJ0kM/Ls++1d536DK8mbuzQj8j1c119egWEnPrdISzcSGWH9GNmwG6Ee066dXlrT4Tm
+ jRxsCjC3LPIOu4jnGVkZF2f6pM5FqWRizkbjW0oVfgx+ePH0xceCiEUqGr6Rm8L+dRNH
+ PHwF97KY02fuxvVNeZyJE/Ol9cfB1FiZh1hhurfervOMZsEKm9cv6PplDzbJHQVbaeFr
+ eH+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733841058; x=1734445858;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=i2N7XAtorM72yACmDgop2No+2dzqpehTFwae9k1iios=;
+ b=psd6ZhjP2cWSLvxs5pkLHOmO6dKVLu7NttfsH3lODMjuPyiMPVIDevk3cfCQ/E/rDa
+ KNHtq4fCnb9Tu7tCwVs4frZzDTpPwMGGERuo0NJbevo1ozk3lKAKH6vXSNgwl8V3dXsm
+ /5H7AlauiDatu7aMeE8nFW3PocwnvBkFQIRQ/ARU8rrSQ/L5yNZQd7vPLT1As5usisKm
+ BWDkD3VNs/FwZ2V0zxcwrxfQyVZOhGb3rxVmFztHi7EkqNdG+Qnz6FjQvDUq1gsDSSev
+ LN51ucs6aB+9E+1Hsci3fwpGnUl8KynvWntzV2MnhTBBnwrw+bkuTWR9HNX6QjMdpNlc
+ 4IQg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXrM62SrCBfw+2BmFRbdrxxUSGNX1DI6ELKFKc1Rjfdgm8nQb27tbXTL84jfqXu1acr2a+xnpdJnnsE@lists.freedesktop.org,
+ AJvYcCXtpox+dtqpTb/jVGMCBnGAdmo1P86S5/ijNijP4S1i4BuxO09O8MRUnZ6Fws/Yg3p5rLImVfB9AtY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxviUd8++YNKFGFfScGiG/Z+tQTL3gH/1RkEKI9OYqLOPcOsuxO
+ xTcn45ItjeJKXziaFBnlVb3ZSngiEtkc4YDFpmqnEa7gP2G5QX2TJo8iRkSOsS/gEDyCwH+Vx9m
+ kJT32NBcSvbDetSX91kRHRi1XAT0=
+X-Gm-Gg: ASbGncuuIIgBIboAZlyiUK3B03PJtsXayzsoEsVNoEBUpJpcgQ9Sprw155twHWM8Zfy
+ GB9NRI1ABEaaf5MbKMv0NIjLXz+UffmEo3KU=
+X-Google-Smtp-Source: AGHT+IGZsjUHNHgZScctt9GhUUISo0b3ncG99pwHqmoX8StIWNsTQgzRKfAm5Fp0Di2hDokmvL3agPwZ+93jj5g8oTU=
+X-Received: by 2002:a05:6e02:1ca7:b0:3a7:6e34:9219 with SMTP id
+ e9e14a558f8ab-3a811db26admr175649315ab.14.1733841056498; Tue, 10 Dec 2024
+ 06:30:56 -0800 (PST)
+MIME-Version: 1.0
+References: <20241028213146.238941-1-robdclark@gmail.com>
+ <20241210111450.GA14735@willie-the-truck>
+In-Reply-To: <20241210111450.GA14735@willie-the-truck>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 10 Dec 2024 06:30:44 -0800
+Message-ID: <CAF6AEGs72rxvguSYbALWPL2FrO5coyijQXY4HEQdwvr8Fj4XKQ@mail.gmail.com>
 Subject: Re: [PATCH v10 0/4] io-pgtable-arm + drm/msm: Extend iova fault
  debugging
-Message-ID: <20241210111450.GA14735@willie-the-truck>
-References: <20241028213146.238941-1-robdclark@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241028213146.238941-1-robdclark@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+To: Will Deacon <will@kernel.org>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, Robin Murphy <robin.murphy@arm.com>, 
+ Mostafa Saleh <smostafa@google.com>, Rob Clark <robdclark@chromium.org>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ "open list:DRM DRIVER for Qualcomm Adreno GPUs"
+ <dri-devel@lists.freedesktop.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Joao Martins <joao.m.martins@oracle.com>, Joerg Roedel <jroedel@suse.de>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>, 
+ open list <linux-kernel@vger.kernel.org>, 
+ "open list:POWER MANAGEMENT CORE" <linux-pm@vger.kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Sean Paul <sean@poorly.run>,
+ Steven Price <steven.price@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,34 +96,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Rob,
+On Tue, Dec 10, 2024 at 3:14=E2=80=AFAM Will Deacon <will@kernel.org> wrote=
+:
+>
+> Hi Rob,
+>
+> On Mon, Oct 28, 2024 at 02:31:36PM -0700, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > This series extends io-pgtable-arm with a method to retrieve the page
+> > table entries traversed in the process of address translation, and then
+> > beefs up drm/msm gpu devcore dump to include this (and additional info)
+> > in the devcore dump.
+> >
+> > This is a respin of https://patchwork.freedesktop.org/series/94968/
+> > (minus a patch that was already merged)
+> >
+> > v2:  Fix an armv7/32b build error in the last patch
+> > v3:  Incorperate Will Deacon's suggestion to make the interface
+> >      callback based.
+> > v4:  Actually wire up the callback
+> > v5:  Drop the callback approach
+> > v6:  Make walk-data struct pgtable specific and rename
+> >      io_pgtable_walk_data to arm_lpae_io_pgtable_walk_data
+> > v7:  Re-use the pgtable walker added for arm_lpae_read_and_clear_dirty(=
+)
+> > v8:  Pass pte pointer to callback so it can modify the actual pte
+> > v9:  Fix selftests_running case
+> > v10: Call visit cb for all nodes traversed, leave the decision about
+> >      whether to care about non-leaf nodes to the callback
+>
+> Do you plan to respin this? I see Mostafa left a proposal on patch 3.
 
-On Mon, Oct 28, 2024 at 02:31:36PM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> This series extends io-pgtable-arm with a method to retrieve the page
-> table entries traversed in the process of address translation, and then
-> beefs up drm/msm gpu devcore dump to include this (and additional info)
-> in the devcore dump.
-> 
-> This is a respin of https://patchwork.freedesktop.org/series/94968/
-> (minus a patch that was already merged)
-> 
-> v2:  Fix an armv7/32b build error in the last patch
-> v3:  Incorperate Will Deacon's suggestion to make the interface
->      callback based.
-> v4:  Actually wire up the callback
-> v5:  Drop the callback approach
-> v6:  Make walk-data struct pgtable specific and rename
->      io_pgtable_walk_data to arm_lpae_io_pgtable_walk_data
-> v7:  Re-use the pgtable walker added for arm_lpae_read_and_clear_dirty()
-> v8:  Pass pte pointer to callback so it can modify the actual pte
-> v9:  Fix selftests_running case
-> v10: Call visit cb for all nodes traversed, leave the decision about
->      whether to care about non-leaf nodes to the callback
+Yeah, his suggestion looked reasonable.  I'll try to get back to this
+patchset today.
 
-Do you plan to respin this? I see Mostafa left a proposal on patch 3.
-
-Thanks,
-
-Will
+BR,
+-R
