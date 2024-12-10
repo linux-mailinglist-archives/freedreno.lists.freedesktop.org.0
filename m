@@ -2,86 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD1CB9EA377
-	for <lists+freedreno@lfdr.de>; Tue, 10 Dec 2024 01:13:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22FDE9EA6CB
+	for <lists+freedreno@lfdr.de>; Tue, 10 Dec 2024 04:48:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5C4810E593;
-	Tue, 10 Dec 2024 00:13:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F1ED10E0A4;
+	Tue, 10 Dec 2024 03:48:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="BfDm81It";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="lt1sFw6E";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66B6110E357;
- Tue, 10 Dec 2024 00:13:19 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B9Id8ai004005;
- Tue, 10 Dec 2024 00:12:51 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31A7F10E0A4;
+ Tue, 10 Dec 2024 03:47:59 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B9Gop96010830;
+ Tue, 10 Dec 2024 03:47:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- oCl1BV2fHuuqqAlK2xaxNjelJuvim/AfeNRMvUso7Rs=; b=BfDm81ItqnCEthpw
- w6V/iDyAaUyRlwoD1H12sf++0/XmFK1fn9J5Z1ALRbK1/OO5npc8bnYulVhxG/d1
- t8DWJZd+Ci3IuNxhiMrV08I3bO+J9QtdhkM4ziPuMjtmwMcGPdXl5Rr9TevZSz/O
- xfP3UcqY0Xwn6D5dG6MMciB4r1j5TQU++eWJI8XCsbzUIAIWA+FTET5MrOZ4ctN2
- lDcTPmsyG0X1wZwllsqYSVziqD6Kh7f+TN7MrCYopwS4PyZXBInbDnc6fp747lDX
- iM/Hg97xhddPO0oIet0jF/ZWX9vJk5uTL/TpENtPIkfnfsZHjDwYgcJ9pqxXeg+y
- L4k8nw==
+ 0sp+NriK9XK3JaCzsb/sGmpDPHE14rYe/jnqALky9D4=; b=lt1sFw6E8behZiVy
+ 3skjjFT3HaEwRyoJAO88EPsZiXkT6W6Udi65HIszP1ZmIywMkPrPUfCrc/+/zZBH
+ P8TeH+x/mHM1g4pFIVv7fLttanp6zxrZYpXkThb3gJhi5w3coxyS/E1+B4dIbd6Z
+ tWyi6dIruXm1H3nzmTiExPKJxTNZDfG4HYbIlBiE5RRRt+Gu1fYFhnjEsss0HBKc
+ bL4NXROnGTpVFs7t5Wk9YCdC0Wlo/WGheME7ZL1Hoz2Uu8+F1SaNjm6uiEittXy0
+ p5sEXgIdt48OVnsBRCbgUuiekl5tTQI3BMYgvJ9dhwuF21sR8UYzJAX1pQJi8Y2u
+ G4JqVg==
 Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43cek1xfyn-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43ceetq5p8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Dec 2024 00:12:50 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BA0CoYd028470
+ Tue, 10 Dec 2024 03:47:55 +0000 (GMT)
+Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
+ [10.45.79.139])
+ by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BA3lsu2015327
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Dec 2024 00:12:50 GMT
-Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ Tue, 10 Dec 2024 03:47:54 GMT
+Received: from [10.64.16.135] (10.80.80.8) by nasanex01c.na.qualcomm.com
+ (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 9 Dec 2024
- 16:12:49 -0800
-Message-ID: <71656363-1b35-4150-9273-dbfe7d3d28be@quicinc.com>
-Date: Mon, 9 Dec 2024 16:12:48 -0800
+ 19:47:51 -0800
+Message-ID: <8c9f35dd-3176-4d76-b3b4-06ba25d898ec@quicinc.com>
+Date: Tue, 10 Dec 2024 11:47:49 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/msm/dpu1: don't choke on disabling the writeback
- connector
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
- Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Simona Vetter
- <simona.vetter@ffwll.ch>
+Subject: Re: [PATCH v3] drm/msm/dpu: filter out too wide modes if no 3dmux is
+ present
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, "Sean
+ Paul" <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ "David Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>, Leonard Lausen <leonard@lausen.nl>,
- =?UTF-8?Q?Gy=C3=B6rgy_Kurucz?= <me@kuruczgy.com>, Johan Hovold
- <johan+linaro@kernel.org>
-References: <20241209-dpu-fix-wb-v4-1-7fe93059f9e0@linaro.org>
-Content-Language: en-US
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20241209-dpu-fix-wb-v4-1-7fe93059f9e0@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20241209-no_3dmux-v3-1-48aaa555b0d3@quicinc.com>
+From: Xiangxu Yin <quic_xiangxuy@quicinc.com>
+In-Reply-To: <20241209-no_3dmux-v3-1-48aaa555b0d3@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
+ nasanex01c.na.qualcomm.com (10.45.79.139)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: 5mJ68cI9azIwJroRb_7-ju-JPNC2ON_s
-X-Proofpoint-ORIG-GUID: 5mJ68cI9azIwJroRb_7-ju-JPNC2ON_s
+X-Proofpoint-GUID: dwBLimgYi_zaqjlbn0BGVRXooJALkntk
+X-Proofpoint-ORIG-GUID: dwBLimgYi_zaqjlbn0BGVRXooJALkntk
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0
- mlxscore=0 adultscore=0 clxscore=1011 malwarescore=0 phishscore=0
- spamscore=0 mlxlogscore=999 lowpriorityscore=0 priorityscore=1501
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412090188
+ mlxscore=0 phishscore=0
+ spamscore=0 adultscore=0 clxscore=1015 impostorscore=0 mlxlogscore=889
+ bulkscore=0 suspectscore=0 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412100025
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,81 +94,66 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 12/9/2024 2:04 AM, Dmitry Baryshkov wrote:
-> During suspend/resume process all connectors are explicitly disabled and
-> then reenabled. However resume fails because of the connector_status check:
+On 12/10/2024 5:18 AM, Abhinav Kumar wrote:
+> On chipsets such as QCS615, there is no 3dmux present. In such
+> a case, a layer exceeding the max_mixer_width cannot be split,
+> hence cannot be supported.
 > 
-> [dpu error]connector not connected 3
-> [drm:drm_mode_config_helper_resume [drm_kms_helper]] *ERROR* Failed to resume (-22)
+> Filter out the modes which exceed the max_mixer_width when there
+> is no 3dmux present. Also, add a check in the dpu_crtc_atomic_check()
+> to return failure for such modes.
 > 
-> It doesn't make sense to check for the Writeback connected status (and
-> other drivers don't perform such check), so drop the check.
-> 
-> It wasn't a problem before the commit 71174f362d67 ("drm/msm/dpu: move
-> writeback's atomic_check to dpu_writeback.c"), since encoder's
-> atomic_check() is called under a different conditions that the
-> connector's atomic_check() (e.g. it is not called if there is no
-> connected CRTC or if the corresponding connector is not a part of the
-> new state).
-> 
-> Fixes: 71174f362d67 ("drm/msm/dpu: move writeback's atomic_check to dpu_writeback.c")
-> Cc: stable@vger.kernel.org
-> Reported-by: Leonard Lausen <leonard@lausen.nl>
-> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/57
-> Tested-by: Leonard Lausen <leonard@lausen.nl> # on sc7180 lazor
-> Reported-by: György Kurucz <me@kuruczgy.com>
-> Link: https://lore.kernel.org/all/b70a4d1d-f98f-4169-942c-cb9006a42b40@kuruczgy.com/
-> Reported-by: Johan Hovold <johan+linaro@kernel.org>
-> Link: https://lore.kernel.org/all/ZzyYI8KkWK36FfXf@hovoldconsulting.com/
-> Tested-by: György Kurucz <me@kuruczgy.com>
-> Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
-> Tested-by: Johan Hovold <johan+linaro@kernel.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Tested-by: Jessica Zhang <quic_jesszhan@quicinc.com> # Trogdor (sc7180)
-
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
-> Leonard Lausen reported an issue with suspend/resume of the sc7180
-> devices. Fix the WB atomic check, which caused the issue.
+> Note: this was only compile tested, so its pending validation on QCS615
 > ---
-> Changes in v4:
-> - Epanded commit message (Johan)
-> - Link to v3: https://lore.kernel.org/r/20241208-dpu-fix-wb-v3-1-a1de69ce4a1b@linaro.org
-> 
 > Changes in v3:
-> - Rebased on top of msm-fixes
-> - Link to v2: https://lore.kernel.org/r/20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org
+> - Move && to previous line
+> - Link to v2: https://lore.kernel.org/r/20241209-no_3dmux-v2-1-fcad057eb92e@quicinc.com
 > 
 > Changes in v2:
-> - Reworked the writeback to just drop the connector->status check.
-> - Expanded commit message for the debugging patch.
-> - Link to v1: https://lore.kernel.org/r/20240709-dpu-fix-wb-v1-0-448348bfd4cb@linaro.org
+> - replace MODE_BAD with MODE_BAD_HVALUE to indicate the failure better
+> - Link to v1: https://lore.kernel.org/r/20241206-no_3dmux-v1-1-72ad2677a323@quicinc.com
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 3 ---
->   1 file changed, 3 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-> index 16f144cbc0c986ee266412223d9e605b01f9fb8c..8ff496082902b1ee713e806140f39b4730ed256a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-> @@ -42,9 +42,6 @@ static int dpu_wb_conn_atomic_check(struct drm_connector *connector,
->   	if (!conn_state || !conn_state->connector) {
->   		DPU_ERROR("invalid connector state\n");
->   		return -EINVAL;
-> -	} else if (conn_state->connector->status != connector_status_connected) {
-> -		DPU_ERROR("connector not connected %d\n", conn_state->connector->status);
-> -		return -EINVAL;
->   	}
->   
->   	crtc = conn_state->crtc;
+Tested-by: Xiangxu Yin <quic_xiangxuy@quicinc.com> # QCS615
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 9f6ffd344693ecfb633095772a31ada5613345dc..ad3462476a143ec01a3b8817a2c85b0f50435a9e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -732,6 +732,13 @@ static int _dpu_crtc_check_and_setup_lm_bounds(struct drm_crtc *crtc,
+>  	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
+>  	int i;
+>  
+> +	/* if we cannot merge 2 LMs (no 3d mux) better to fail earlier
+> +	 * before even checking the width after the split
+> +	 */
+> +	if (!dpu_kms->catalog->caps->has_3d_merge &&
+> +	    adj_mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
+> +		return -E2BIG;
+> +
+>  	for (i = 0; i < cstate->num_mixers; i++) {
+>  		struct drm_rect *r = &cstate->lm_bounds[i];
+>  		r->x1 = crtc_split_width * i;
+> @@ -1251,6 +1258,12 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
+>  {
+>  	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
+>  
+> +	/* if there is no 3d_mux block we cannot merge LMs so we cannot
+> +	 * split the large layer into 2 LMs, filter out such modes
+> +	 */
+> +	if (!dpu_kms->catalog->caps->has_3d_merge &&
+> +	    mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
+> +		return MODE_BAD_HVALUE;
+>  	/*
+>  	 * max crtc width is equal to the max mixer width * 2 and max height is 4K
+>  	 */
 > 
 > ---
-> base-commit: 86313a9cd152330c634b25d826a281c6a002eb77
-> change-id: 20240709-dpu-fix-wb-6cd57e3eb182
+> base-commit: af2ea8ab7a546b430726183458da0a173d331272
+> change-id: 20241206-no_3dmux-521a55ea0669
 > 
 > Best regards,
-> -- 
-> Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> 
 
