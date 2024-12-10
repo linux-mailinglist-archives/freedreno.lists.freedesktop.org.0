@@ -2,81 +2,101 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22FDE9EA6CB
-	for <lists+freedreno@lfdr.de>; Tue, 10 Dec 2024 04:48:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF8909EA8F7
+	for <lists+freedreno@lfdr.de>; Tue, 10 Dec 2024 07:55:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F1ED10E0A4;
-	Tue, 10 Dec 2024 03:48:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86DBF10E021;
+	Tue, 10 Dec 2024 06:55:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="lt1sFw6E";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="BtV/7KkH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31A7F10E0A4;
- Tue, 10 Dec 2024 03:47:59 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B9Gop96010830;
- Tue, 10 Dec 2024 03:47:56 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2C6B10E021;
+ Tue, 10 Dec 2024 06:55:02 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B9HtKoj024253;
+ Tue, 10 Dec 2024 06:54:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 0sp+NriK9XK3JaCzsb/sGmpDPHE14rYe/jnqALky9D4=; b=lt1sFw6E8behZiVy
- 3skjjFT3HaEwRyoJAO88EPsZiXkT6W6Udi65HIszP1ZmIywMkPrPUfCrc/+/zZBH
- P8TeH+x/mHM1g4pFIVv7fLttanp6zxrZYpXkThb3gJhi5w3coxyS/E1+B4dIbd6Z
- tWyi6dIruXm1H3nzmTiExPKJxTNZDfG4HYbIlBiE5RRRt+Gu1fYFhnjEsss0HBKc
- bL4NXROnGTpVFs7t5Wk9YCdC0Wlo/WGheME7ZL1Hoz2Uu8+F1SaNjm6uiEittXy0
- p5sEXgIdt48OVnsBRCbgUuiekl5tTQI3BMYgvJ9dhwuF21sR8UYzJAX1pQJi8Y2u
- G4JqVg==
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43ceetq5p8-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=ILnGMq/YFrokozpNPwUaxX
+ PgTNYu2Etv9v6KilgcEBg=; b=BtV/7KkHd2WosM5gxLUv5XOE/Sh5yTdD1huy77
+ k1456rZow/F6Kc6VJfgK4XELJOfz3nKvSiyhw/fDk7SwU/YMQm57jaToq5RLuY2+
+ 56U5EyR1N5tsG6O2/GrA0nTaTv+CB2DK7qPxdV32VCvBJmxQN57TMaHRLDfdzXoN
+ PhHh7yO0Y15HjuXuL2zEmvuU18cfJ1DTR74s4E7xYpiKRBWbGQciav1JQbLFbbJ5
+ TsJPWNIpoezi9ivFoGA5sepzkjlUsRIN5TQmn+vFUEjZusPaXHK8Feh5iCT6gsDa
+ lcSpNBwJoU8zEmkEyLqd9oyHgJCnZOIE8pkZUBmPPk/szF9g==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43e5c7sn2e-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Dec 2024 03:47:55 +0000 (GMT)
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.45.79.139])
- by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BA3lsu2015327
+ Tue, 10 Dec 2024 06:54:56 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BA6ssnd002815
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Dec 2024 03:47:54 GMT
-Received: from [10.64.16.135] (10.80.80.8) by nasanex01c.na.qualcomm.com
- (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 9 Dec 2024
- 19:47:51 -0800
-Message-ID: <8c9f35dd-3176-4d76-b3b4-06ba25d898ec@quicinc.com>
-Date: Tue, 10 Dec 2024 11:47:49 +0800
+ Tue, 10 Dec 2024 06:54:54 GMT
+Received: from robotics-lnxbld017.ap.qualcomm.com (10.80.80.8) by
+ nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Mon, 9 Dec 2024 22:54:48 -0800
+From: Fange Zhang <quic_fangez@quicinc.com>
+Subject: [PATCH v4 0/9] Add display support for QCS615 platform
+Date: Tue, 10 Dec 2024 14:53:51 +0800
+Message-ID: <20241210-add-display-support-for-qcs615-platform-v4-0-2d875a67602d@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/msm/dpu: filter out too wide modes if no 3dmux is
- present
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, "Sean
- Paul" <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- "David Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20241209-no_3dmux-v3-1-48aaa555b0d3@quicinc.com>
-From: Xiangxu Yin <quic_xiangxuy@quicinc.com>
-In-Reply-To: <20241209-no_3dmux-v3-1-48aaa555b0d3@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIHlV2cC/43OQU7DMBCF4atUXjMoM3ZSpyvugVCU2GNqicapn
+ VpUVe6OUyIBYtPlm8X3z00kjp6TOOxuInL2yYexDPW0E+bYj+8M3pYtqCKFVLXQWwvWp+mjv0K
+ 6TFOIM7gQ4WxSgzWU+1zmCYgGzVor7fReFG2K7PznvfT6VvbRpznE6z2ccb1+NypUa6PbGt3W6
+ ArabY2MUIFi12OLdrBWvZwv3vjRPJtwEiue6QdElA8/nanIpPeSh8YNumn/y/KXTPS4LIssa6q
+ JZV+j47/ysixfBWLS2IsBAAA=
+X-Change-ID: 20241209-add-display-support-for-qcs615-platform-22b8e8848f87
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ "Bjorn Andersson" <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Fange Zhang <quic_fangez@quicinc.com>, Liu Li <quic_lliu6@quicinc.com>,
+ Xiangxu Yin <quic_xiangxuy@quicinc.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1733813685; l=5006;
+ i=quic_fangez@quicinc.com; s=20241014; h=from:subject:message-id;
+ bh=x1Oq9M6L775bMyJbxZD9/dZKHEwJiP0qzF5uyPwo+gI=;
+ b=TJ7taYFc6Uf3ZgVYSPp3ixqXfn5T8qH8UaSXkOPGXsAvyKHQ2HH37zse1ebny0prgh0yBsdvj
+ ro2FeQsYo2jBo4bYZR/1xT+M0fmJzvIZqehTkFph8wchyKby4EGTOGv
+X-Developer-Key: i=quic_fangez@quicinc.com; a=ed25519;
+ pk=tJv8Cz0npA34ynt53o5GaQfBC0ySFhyb2FGj+V2Use4=
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01c.na.qualcomm.com (10.45.79.139)
+ nalasex01b.na.qualcomm.com (10.47.209.197)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: dwBLimgYi_zaqjlbn0BGVRXooJALkntk
-X-Proofpoint-ORIG-GUID: dwBLimgYi_zaqjlbn0BGVRXooJALkntk
+X-Proofpoint-GUID: 8rQcqOrv5uNcp2351a_3uA4n32Wi3HId
+X-Proofpoint-ORIG-GUID: 8rQcqOrv5uNcp2351a_3uA4n32Wi3HId
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 phishscore=0
- spamscore=0 adultscore=0 clxscore=1015 impostorscore=0 mlxlogscore=889
- bulkscore=0 suspectscore=0 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412100025
+ mlxscore=0 adultscore=0
+ lowpriorityscore=0 phishscore=0 malwarescore=0 bulkscore=0 clxscore=1011
+ suspectscore=0 priorityscore=1501 impostorscore=0 spamscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412100051
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,68 +112,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This series aims to enable display on the QCS615 platform
 
+1.Add MDSS & DPU support for QCS615
+2.Add DSI support for QCS615
 
-On 12/10/2024 5:18 AM, Abhinav Kumar wrote:
-> On chipsets such as QCS615, there is no 3dmux present. In such
-> a case, a layer exceeding the max_mixer_width cannot be split,
-> hence cannot be supported.
-> 
-> Filter out the modes which exceed the max_mixer_width when there
-> is no 3dmux present. Also, add a check in the dpu_crtc_atomic_check()
-> to return failure for such modes.
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
-> Note: this was only compile tested, so its pending validation on QCS615
-> ---
-> Changes in v3:
-> - Move && to previous line
-> - Link to v2: https://lore.kernel.org/r/20241209-no_3dmux-v2-1-fcad057eb92e@quicinc.com
-> 
-> Changes in v2:
-> - replace MODE_BAD with MODE_BAD_HVALUE to indicate the failure better
-> - Link to v1: https://lore.kernel.org/r/20241206-no_3dmux-v1-1-72ad2677a323@quicinc.com
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-Tested-by: Xiangxu Yin <quic_xiangxuy@quicinc.com> # QCS615
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index 9f6ffd344693ecfb633095772a31ada5613345dc..ad3462476a143ec01a3b8817a2c85b0f50435a9e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -732,6 +732,13 @@ static int _dpu_crtc_check_and_setup_lm_bounds(struct drm_crtc *crtc,
->  	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
->  	int i;
->  
-> +	/* if we cannot merge 2 LMs (no 3d mux) better to fail earlier
-> +	 * before even checking the width after the split
-> +	 */
-> +	if (!dpu_kms->catalog->caps->has_3d_merge &&
-> +	    adj_mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
-> +		return -E2BIG;
-> +
->  	for (i = 0; i < cstate->num_mixers; i++) {
->  		struct drm_rect *r = &cstate->lm_bounds[i];
->  		r->x1 = crtc_split_width * i;
-> @@ -1251,6 +1258,12 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
->  {
->  	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
->  
-> +	/* if there is no 3d_mux block we cannot merge LMs so we cannot
-> +	 * split the large layer into 2 LMs, filter out such modes
-> +	 */
-> +	if (!dpu_kms->catalog->caps->has_3d_merge &&
-> +	    mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
-> +		return MODE_BAD_HVALUE;
->  	/*
->  	 * max crtc width is equal to the max mixer width * 2 and max height is 4K
->  	 */
-> 
-> ---
-> base-commit: af2ea8ab7a546b430726183458da0a173d331272
-> change-id: 20241206-no_3dmux-521a55ea0669
-> 
-> Best regards,
+QCS615 platform supports DisplayPort, and this feature will be added in a future patch
+
+Only dts part of this patch series depends on the following patch series
+The other dependency patches have already been merged into linux-next
+- dispcc
+https://lore.kernel.org/all/20241108-qcs615-mm-clockcontroller-v3-0-7d3b2d235fdf@quicinc.com/
+- dispcc dts
+https://lore.kernel.org/lkml/20241108-qcs615-mm-dt-nodes-v1-0-b2669cac0624@quicinc.com/
+
+Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
+Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
+---
+Changes in v4:
+- Add dp-connector node for anx_7625_out [Dmitry]
+- Add missing qcom,sm6150-dsi-ctrl for dsi-controller-main.yaml [Krzysztof]
+- Change VIG_SDM845_MASK to VIG_SDM845_MASK_SDMA for sm6150_sspp [Abhinav]
+- Change DMA_SDM845_MASK to DMA_SDM845_MASK_SDMA for sm6150_sspp [Abhinav]
+- Remove redundant annotation from sdm845_dsi_cfg [Dmitry]
+- Remove redundant blocks from sm6150_intf [Dmitry]
+- Update mdp_opp_table opp clk to correct value
+- Link to v3: https://lore.kernel.org/r/20241122-add-display-support-for-qcs615-platform-v3-0-35252e3a51fe@quicinc.com
+
+Changes in v3:
+- Add reg_bus_bw for sm6150_data [Dmitry]
+- Remove patch for SX150X defconfig [Dmitry]
+- Remove dsi0_hpd_cfg_pins from ioexp [Dmitry]
+- Remove dsi0_cdet_cfg_pins from ioexpa [Dmitry]
+- Remove tlmm node for ioexp_intr_active and ioAexp_reset_active [Dmitry]
+- Remove qcs615_dsi_regulators and reuse sdm845_dsi_cfg [Dmitry, Konrad]
+- Rename qcs615/QCS615 to sm6150/SM6150 for whole patch [Dmitry]
+- Rename qcom,dsi-phy-14nm-615 to qcom,sm6150-dsi-phy-14nm [Dmitry]
+- Rename qcom,qcs615-dsi-ctrl to qcom,sm6150-dsi-ctrl [Dmitry]
+- Rename qcom,qcs615-dpu to qcom,sm6150-dpu [Dmitry]
+- Rename qcom,qcs615-mdss to qcom,sm6150-mdss [Dmitry]
+- Split drm dsi patch to dsi and dsi phy [Dmitry]
+- Update yaml clocks node with ephemeral nodes and remove unsed include [Dmitry, Rob]
+- Link to v2: https://lore.kernel.org/r/20241113-add-display-support-for-qcs615-platform-v2-0-2873eb6fb869@quicinc.com
+
+Changes in v2:
+- Add QCS615 DP controller comment in commit message [Dmitry]
+- Add comments for dsi_dp_hpd_cfg_pins and dsi_dp_cdet_cfg_pins [Dmitry]
+- Add missing port@1 for connector for anx7625 [Dmitry]
+- Change 0 to QCOM_ICC_TAG_ALWAYS for mdss interconnects [Dmitry]
+- Change 0 to GPIO_ACTIVE_HIGH for GPIO flags [Dmitry]
+- Move anx_7625 to same node [Dmitry]
+- Move status to last in mdss_dsi0 [Dmitry]
+- Rename dsi0_hpd_cfg_pins to dsi_dp_hpd_cfg_pins in ioexp [Dmitry]
+- Rename dsi0_cdet_cfg_pins to dsi_dp_cdet_cfg_pins in ioexp [Dmitry]
+- Rename anx_7625_1 to dsi_anx_7625 in ioexp [Dmitry]
+- Remove absent block in qcs615_lm [Dmitry]
+- Remove merge_3d value in qcs615_pp [Dmitry]
+- Remove redundant annotation in qcs615_sspp [Dmitry]
+- Remove unsupported dsi clk from dsi0_opp_table [Dmitry]
+- Remove dp_hpd_cfg_pins node from ioexp [Dmitry]
+- Splite drm driver patches to mdss, dpu and dsi [Dmitry]
+- Link to v1: https://lore.kernel.org/r/20241014-add_display_support_for_qcs615-v1-0-4efa191dbdd4@quicinc.com
+
+---
+Li Liu (9):
+      dt-bindings: display/msm: Add SM6150 DSI phy
+      dt-bindings: display/msm: dsi-controller-main: Document SM6150
+      dt-bindings: display/msm: Add SM6150 MDSS & DPU
+      drm/msm: mdss: Add SM6150 support
+      drm/msm/dpu: Add SM6150 support
+      drm/msm/dsi: Add dsi phy support for SM6150
+      drm/msm/dsi: Add support for SM6150
+      arm64: dts: qcom: Add display support for QCS615
+      arm64: dts: qcom: Add display support for QCS615 RIDE board
+
+ .../bindings/display/msm/dsi-controller-main.yaml  |   2 +
+ .../bindings/display/msm/dsi-phy-14nm.yaml         |   1 +
+ .../bindings/display/msm/qcom,sm6150-dpu.yaml      | 108 +++++++++
+ .../bindings/display/msm/qcom,sm6150-mdss.yaml     | 245 ++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/qcs615-ride.dts           |  89 ++++++++
+ arch/arm64/boot/dts/qcom/qcs615.dtsi               | 181 ++++++++++++++-
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h | 254 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c                  |   2 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c         |  21 ++
+ drivers/gpu/drm/msm/msm_mdss.c                     |   8 +
+ 16 files changed, 917 insertions(+), 1 deletion(-)
+---
+base-commit: 1031240d9d007339c6661dddfbe2efda0b3859e9
+change-id: 20241209-add-display-support-for-qcs615-platform-22b8e8848f87
+
+Best regards,
+-- 
+fangez <quic_fangez@quicinc.com>
 
