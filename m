@@ -1,67 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5C4C9ED83B
-	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 22:14:45 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2A1E9ED851
+	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 22:19:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7573B10E630;
-	Wed, 11 Dec 2024 21:14:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26E5E10EC17;
+	Wed, 11 Dec 2024 21:19:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="jKUR2A7x";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="L1swpjVG";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb2f.google.com (mail-yb1-xb2f.google.com
- [IPv6:2607:f8b0:4864:20::b2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72A5710E630
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 21:14:42 +0000 (UTC)
-Received: by mail-yb1-xb2f.google.com with SMTP id
- 3f1490d57ef6-e3a1cfeb711so3724217276.0
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 13:14:42 -0800 (PST)
+Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
+ [IPv6:2607:f8b0:4864:20::b2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B53410EC17
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 21:19:33 +0000 (UTC)
+Received: by mail-yb1-xb2a.google.com with SMTP id
+ 3f1490d57ef6-e399e904940so5613151276.2
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 13:19:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1733951681; x=1734556481;
+ d=chromium.org; s=google; t=1733951972; x=1734556772;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:user-agent:from:references
  :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=ezBwnwc54xrxIW8WnnX9hiVaqGX6VzJ/z+kaEQox7Lk=;
- b=jKUR2A7xIZaeP2p1zdAXOmyfdjQvbZY5evnsOQecUzROuSkNrYK7feYOHbUxEaegzK
- Ia39wpAf9TNWJxzU+DxO021esHAT/u72Rbx7dhF3lCYnU7k1UEPZ4tGY7FoDhO/jfmAA
- NvGm82G7cUGJ/IiH4t1FkgPLqfgSfDkhmNDXM=
+ :reply-to; bh=HYpTBgw49iGGQnoZixVyDOp+jWreZ3c1N/xlRY2EXfY=;
+ b=L1swpjVG3QVuqiSH8Jf/qaeqoobJTCWeJOUnpKe+78tkhQkz3Jl73F/eCx44iOG5uc
+ t/Z7SN8OQruUNIT0sYFiwIzZ9JfL02DRKSbj8y6B5aAPO2vByU0TwyL9L/yiz3tha62A
+ PeD9HLs0fkASwRQSPRkaj4lWYZSijIhDy83+w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733951681; x=1734556481;
+ d=1e100.net; s=20230601; t=1733951972; x=1734556772;
  h=cc:to:subject:message-id:date:user-agent:from:references
  :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ezBwnwc54xrxIW8WnnX9hiVaqGX6VzJ/z+kaEQox7Lk=;
- b=w1XJEhj4OTWAczKs0Gx/TipuTpDH2d/XEOutSzVtk3XjZwTWD0owa7DDZSbKrDLmyS
- ZtMsQdQQcI1/wcH6qiwHYEqraNjV7IHaXGNpzrEjmPo5J1k3uEhXKF6hICGLkawDkZxe
- RkqarxX6dbuRWmsi5bX7OImx9ffXaEj+IddrLj3uLYyteHpekzAepok2mGlZQL0Lx52D
- zzpm6m7CqIOzHJf+0rsYshjjzM+s0e8HmgcdB9/CXtb8ZbW8R1ls43704R9LxUtIXY/2
- agUgrW6oYO9FLGfaul4r++5jspHjTDwmfMu+XS19/Br3NKg09UgmvbNwvwvjHpNpNuCf
- 7t4A==
+ bh=HYpTBgw49iGGQnoZixVyDOp+jWreZ3c1N/xlRY2EXfY=;
+ b=GggHiFXBg9/rM8yqBb0rwcT4exVchRoS3j8stBxvK4O8Wdo8Paleg9mv7TbiKa1G9L
+ VYlPOB8Zo18LtIXRvx58lHOmjRKXx98v/ZQCfDTxFfRlXwEFPLCAAxYSMw/sPx+2CLI+
+ CuOs4qlIpD/UIB7UK9NxTKTrnd4KB+VV/X9S93BIe6cjj8h61b4n6NXsgoeXGgD3Dk9k
+ pjdaM0ng6zaqd20DrXsscw27j2YHZHfUvLsyAbrHuuoyPMxx2XoXpMyfOnBRxxGw0GFR
+ +yIbJiTC3aUGR9tNHj2IA5o7jvN7FSq88p/ryxvuQ4hi/BzGxs+9ieLaCa2a0hMMnwjd
+ pN0Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWJkZ9belLGhjkjSWg3V5cdH4eXnSVkoNECLFzfFa/gwayvViBmcG5i8CTLw31yIFk6+0zvlFDdrdU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyW9pHpCwtfK3nAohRFbn0w3aOYsl3bJYSY2mlfdwc6O3VVg4II
- t7HBXALFVdD7VONHfXO7weNZM3i2jT9ul5GQog3DGZHSxuvCgAB70Y7S9w2gskoAdxOiLhBXH1/
- je+A6EQETUg1q1ojFXojxdblPfRxJ2ITwoQiO
-X-Gm-Gg: ASbGnctnf81TlGFFVgc2xWWfM1eBuQZCT1eALO4zEzRiImYVSsjhMqJkNFuOoKTAFB9
- Ne1MIR9VsF/btqG0ADhjh4kiZDjsUVKmANUrXQl7EAwXhXhUCJKxqDyBw1f7WmsM=
-X-Google-Smtp-Source: AGHT+IGVGcprZk95xhhOtOKM+7JPgPvLrPlsxoiz5xiivClwV1s7VtMi2gtLbOTTJ+cbuh16Xk9oGKjJ+Ksx04T7VN4=
-X-Received: by 2002:a05:6902:1447:b0:e3a:5820:febb with SMTP id
- 3f1490d57ef6-e3da1df70c1mr852810276.32.1733951681689; Wed, 11 Dec 2024
- 13:14:41 -0800 (PST)
+ AJvYcCVqYKp0Knhh9M0iTbhX4ZeqC0RGgQsxlsT3TSw6EmBpERWF+3mT5k7uBmS8ay0yjfOYPP0cBltw4Uc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwdnmZbCReYBFdlfW9OA9kNKuyeKGFbmB4P8ynlXBFaPb/xwVxR
+ f3/fu5JBvrP9ELiTto+UGMfbomuiNO+EZS+tqC44QZnPth3UtQJ8K06x0qA5fW55+s+OFvtMXGH
+ RX8YGFyk6I93zKM80a2EF2FMjU6M9o5+k9YO6
+X-Gm-Gg: ASbGncuJVJ8Km+/AIVf17BxcsWt9AkmpTUhhNA9y2o/tbqToclYUKdIgVnpegZGxXQq
+ sdt+4uWDFM01LhWdMSva6+GuT3YMLPX9gJuSrRCLBvJURiAXQmGpuk0N8+Hh5lAU=
+X-Google-Smtp-Source: AGHT+IG0n1apsTNyaVMm69eKfJ0OWmTmr6rAMEZdQLhM95ckH8dadOxw475UNN17L54dURE+0mDPgl6bERAbF28z3lI=
+X-Received: by 2002:a05:6902:2709:b0:e3c:9ed1:4944 with SMTP id
+ 3f1490d57ef6-e3d8fb607a4mr1059614276.1.1733951972207; Wed, 11 Dec 2024
+ 13:19:32 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 11 Dec 2024 13:14:41 -0800
+ HTTPREST; Wed, 11 Dec 2024 13:19:31 -0800
 MIME-Version: 1.0
-In-Reply-To: <20241202-fd-dp-audio-fixup-v2-6-d9187ea96dad@linaro.org>
+In-Reply-To: <20241202-fd-dp-audio-fixup-v2-1-d9187ea96dad@linaro.org>
 References: <20241202-fd-dp-audio-fixup-v2-0-d9187ea96dad@linaro.org>
- <20241202-fd-dp-audio-fixup-v2-6-d9187ea96dad@linaro.org>
+ <20241202-fd-dp-audio-fixup-v2-1-d9187ea96dad@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.12.dev1+gaa8c22fdeedb
-Date: Wed, 11 Dec 2024 13:14:41 -0800
-Message-ID: <CAE-0n52+nKDyzUPzg_uFsLXRh4XQW+TngD6PyuvetTKXthi_tg@mail.gmail.com>
-Subject: Re: [PATCH v2 06/14] drm/msm/dp: move/inline AUX register functions
+Date: Wed, 11 Dec 2024 13:19:31 -0800
+Message-ID: <CAE-0n533qmCvd78GncN=cEkYqvfQ8ejs3xr7E=ucUJ8SqfSeDA@mail.gmail.com>
+Subject: Re: [PATCH v2 01/14] drm/msm/dp: set safe_to_exit_level before
+ printing it
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
@@ -70,7 +71,7 @@ To: Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: Douglas Anderson <dianders@chromium.org>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,26 +88,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2024-12-02 02:06:36)
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-> index bc8d46abfc619d669dce339477d58fb0c464a3ea..46e8a2e13ac1d1249fbad9b50a6d64c52d51cf38 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> @@ -45,6 +46,73 @@ struct msm_dp_aux_private {
->         struct drm_dp_aux msm_dp_aux;
->  };
+Quoting Dmitry Baryshkov (2024-12-02 02:06:31)
+> Rather than printing random garbage from stack and pretending that it is
+> the default safe_to_exit_level, set the variable beforehand.
 >
-> +static int msm_dp_aux_clear_hw_interrupts(struct msm_dp_aux_private *aux)
+> Fixes: d13e36d7d222 ("drm/msm/dp: add audio support for Display Port on MSM")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202411081748.0PPL9MIj-lkp@intel.com/
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-Can you make this return void as well?
-
-> +{
-> +       struct msm_dp_catalog *msm_dp_catalog = aux->catalog;
-> +
-> +       msm_dp_read_aux(msm_dp_catalog, REG_DP_PHY_AUX_INTERRUPT_STATUS);
-> +       msm_dp_write_aux(msm_dp_catalog, REG_DP_PHY_AUX_INTERRUPT_CLEAR, 0x1f);
-> +       msm_dp_write_aux(msm_dp_catalog, REG_DP_PHY_AUX_INTERRUPT_CLEAR, 0x9f);
-> +       msm_dp_write_aux(msm_dp_catalog, REG_DP_PHY_AUX_INTERRUPT_CLEAR, 0);
-> +
-> +       return 0;
-> +}
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
