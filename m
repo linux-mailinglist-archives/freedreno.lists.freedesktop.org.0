@@ -2,98 +2,111 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 287729ECC91
-	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 13:50:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 900089ECCB7
+	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 14:04:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E8CD10EB24;
-	Wed, 11 Dec 2024 12:50:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A04BD10E613;
+	Wed, 11 Dec 2024 13:04:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="bKHlB12J";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yQz6MjAe";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7692810EB24;
- Wed, 11 Dec 2024 12:50:23 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BBAokM2006981;
- Wed, 11 Dec 2024 12:50:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- zk4s7vhB2asnvEBnYuTFCimLlmm/nGDu1HLQOKCWzJw=; b=bKHlB12Jc8cR9Zp4
- /EF33Rrz2D9AwqIyHOV5F1upJtrVWdK1NJn3tfowkFdhpPIj7/wGLCiGjgx7KchR
- tHdxHg8Vt/dadt2UERt8XsQ1wpOEudK1WorLRGBu2l6EQb4U8avn0yxwThtrA+eN
- XeNR8i2DeyOjPcQ8t1vNVl925MX25zjNjb/pVjitF8WQNyOaWQ12CobMMICCWgCT
- OQIgvGu9ppiUGoMr9H/8nv26lrxm0qUYRME+Irxx0dpEEZSArssg0mSygxrYgdfT
- DJkBAyM0Gh2mVkb2C6i51qmsUBHECMAlhZyGC8qOi4dHLo3SyAQYzQZXnlXt/i2s
- RKsFhw==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43f0r9swvp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Dec 2024 12:50:13 +0000 (GMT)
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.45.79.139])
- by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BBCoCuX026022
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Dec 2024 12:50:12 GMT
-Received: from [10.64.16.135] (10.80.80.8) by nasanex01c.na.qualcomm.com
- (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 11 Dec
- 2024 04:50:05 -0800
-Message-ID: <d5151b82-5f05-4826-99b4-e925c20550b4@quicinc.com>
-Date: Wed, 11 Dec 2024 20:50:02 +0800
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 548D910EB3A
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 13:04:30 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-434b3e32e9dso71381475e9.2
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 05:04:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1733922269; x=1734527069; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=YpUlzLd4DTvOwWsmuqzajXz424W9CnL0q6rjmHsBkGw=;
+ b=yQz6MjAe6BESbgI3G8QPgNkVlRdW8zibCHN3VxB3gAujn3lJ25xUKYwipeN12KYdqo
+ Nt8La/I4Xf8ocNjONP97puPbxlrc0XZ4a8u02kzMXRKaG9yPkiQVzXT1M9IlcgE0KJjE
+ UHzBzLJjjVcB1fEgRYGiMCyKz3Fx9SkC2Z1X67JGStirdbamKOaKNMi2ElWqWzQIqGgb
+ SvrYS6EvNEzO/OL2vZmpgN5drDiAioJbdHjP8VXxkGG+UkjPEzAynHwYQNrqcZoPhQ2d
+ axdAmiZ4ACDVtbU337/p7kH9FU/5bGMeDJLDVhB9GF2FhYEArzP4eWPqnR7lgugciqHc
+ BWwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733922269; x=1734527069;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YpUlzLd4DTvOwWsmuqzajXz424W9CnL0q6rjmHsBkGw=;
+ b=l7C2W9thkYplyOAda9BDcLgR0Ulotf/j5Crny0eKYdCx2QpvFzTaBwIyaGbv94mkFj
+ 8a7DL4ERhGdITbNcCk4f+ajSx0/GO4IAllTUCP7dkmcuDwQFDfB4iwVfjG1l5/FV4d2u
+ vp28qRaRTLA7JHuNsL/j4LwhkZGfEipHYeZEH1su6rhmxSGW3wcAJgKNplzXSKTyY2n+
+ 7v1IL6KnJkBBeDB1NT8TclQMeEpbEbU5K0ersom77rIL2E7IcHZgXu1ZTcaPjm67gjzE
+ P/310+UFX7B7n2Jc0B3ISkk9sia5LJnqJEs2/jT7Ac1BCBtOFhS1/YOY8Rk5HCgGMOxI
+ ItZg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV5IaaQYaziuKXg6LPw6yuPf7ogIKCRyC2BrEVwlP8RgByP8VdUwQJoyJYUt8LqoV2s1Ytjkj7DbnI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyk2QJO3plQfEbZMR5gAXGeQ6JxU3tQmv5rh5JtM77h45IO9d52
+ yoJBnJ25jzx7PSd9jsPKLF8ljjqqN1XZXxcaHSpA3LnPQE3D1N08dTNUxqkbO9o=
+X-Gm-Gg: ASbGnctJaF3pD72adWiSIfqhdKKsEwo/LWq8jZDKYqtPo0bcV28N95toQT7bPBK50hf
+ u1EL8mVOW/Jn5c3MoAZCU3dlDPvaq54fEfvQcS5Nx1mI+5cKcYjmw4X1uIH4hqOAsMmTQu95+Yu
+ bfGYHE4EofWbmPkHK1JOJEWUTzpLWpaC7Jd2omY19BjKkr5uZKkPhIfCb1d1Uw4Ud2pYLzHDpnY
+ zWu26hDfjxhbTIMKVROs+xqE+PJrYNuof7ak1m+93yDq0UfFVcQng==
+X-Google-Smtp-Source: AGHT+IGPWcM8yhYn2nQJ26y7MGhayOqx4M0waL4G4OgaFUlHH0NcR4gyX+40Z605D2RCeHuL57tWCQ==
+X-Received: by 2002:a05:600c:5122:b0:436:1b96:7072 with SMTP id
+ 5b1f17b1804b1-4361c393b80mr20312535e9.5.1733922268551; 
+ Wed, 11 Dec 2024 05:04:28 -0800 (PST)
+Received: from [127.0.1.1] ([82.76.168.176]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3878248e633sm1288081f8f.4.2024.12.11.05.04.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Dec 2024 05:04:27 -0800 (PST)
+From: Abel Vesa <abel.vesa@linaro.org>
+Subject: [PATCH v2 0/4] drm/dp: Rework LTTPR transparent mode handling and
+ add support to msm driver
+Date: Wed, 11 Dec 2024 15:04:11 +0200
+Message-Id: <20241211-drm-dp-msm-add-lttpr-transparent-mode-set-v2-0-d5906ed38b28@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/8] phy: qcom: qmp-usbc: Add DP phy mode support on QCS615
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Kuogee
- Hsieh" <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, "Kishon
- Vijay Abraham I" <kishon@kernel.org>, Linus Walleij
- <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, <quic_lliu6@quicinc.com>,
- <quic_fangez@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-phy@lists.infradead.org>, <linux-gpio@vger.kernel.org>
-References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
- <20241129-add-displayport-support-for-qcs615-platform-v1-3-09a4338d93ef@quicinc.com>
- <CAA8EJppOR_UXoVpMt-dhfWdCz3UNfsXGdz8X9NqpaSmYj3AZDg@mail.gmail.com>
- <5ea14162-567b-462d-be02-b73b954b7507@quicinc.com>
- <5whv4z7u6fkfwlv5muox5dmv6fow4mga76ammapw7wph7vwv3f@xibcjdfqorgf>
- <iqcofcntirmlwcpyfr4yabymqfcgyrij57bibf337tmxpa73t6@npkt6wquenf6>
- <527baded-f348-48a8-81cd-3f84c0ff1077@quicinc.com>
- <t5vcjlf44fhae4f2h75cfs3f7r6tdstw4ysmkapvvawj6xp23x@xnxqnxvyhshe>
-From: Xiangxu Yin <quic_xiangxuy@quicinc.com>
-In-Reply-To: <t5vcjlf44fhae4f2h75cfs3f7r6tdstw4ysmkapvvawj6xp23x@xnxqnxvyhshe>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01c.na.qualcomm.com (10.45.79.139)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: YEcBUSMTawlFVl6QGG7shl_PtInvRli7
-X-Proofpoint-GUID: YEcBUSMTawlFVl6QGG7shl_PtInvRli7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- impostorscore=0 phishscore=0 spamscore=0 clxscore=1015 mlxlogscore=999
- malwarescore=0 lowpriorityscore=0 mlxscore=0 bulkscore=0 suspectscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412110093
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMuNWWcC/53NOQ6DMBCF4asg15nIZslW5R4RhWHGYAkvGlsoE
+ eLucThCyv8V79tEIraUxKPaBNNqkw2+RH2qxDhrPxFYLC1qWbdKNgqQHWAElxxoRFhyjgyZtU9
+ RM/kMLiBBogyquYzYDQZJXkX5i0zGvg/r1ZeebcqBPwe9qt/6j7IqkDBqMwz3W9eZVj4X6zWHc
+ +BJ9Pu+fwHZAlYD4wAAAA==
+X-Change-ID: 20241031-drm-dp-msm-add-lttpr-transparent-mode-set-136cd5bfde07
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, Abel Vesa <abel.vesa@linaro.org>
+X-Mailer: b4 0.15-dev-dedf8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2672; i=abel.vesa@linaro.org; 
+ h=from:subject:message-id;
+ bh=4SL3oSOYfNGgaeWhz9HDRuhRuGic1VpdSQb4rkQTyyA=; 
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBnWY3PEZV7dIYTv5NvvJXM3bZDVMPWNYimil7AK
+ wt2J3+5kbiJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZ1mNzwAKCRAbX0TJAJUV
+ Vo+dD/4p2AWAAkQ6OSPj6dUqNsHrnpSa3jbwEi3CcIbbOwg6w5LxgpXI1osFK7ghd4bn6Ig6n5S
+ pkj3wHywKPBCxJWqi7jKnnXgs4PPIqNxpCHODl3GGC0ezCO/PxMQoWLEJk3U1iqzMAQ8s07ZYk8
+ eKoLR0VebD1mor9uLs/eXYrB29VgU0MNkN5fs+BEGX6nsuBgwbdM3GmYtUPTLkEfEOi22PHwVS4
+ gDPbedPBwC5WMRxSa8EdC7qa20EENKBjYe+FyaV6eeFmRvLeBfVTy9VPrkEHNz5LEsHtBwZHCPs
+ RxzQCDlf68mEMVviyJdoDZAW89YbVdYIzast2OTufD+bjaHiIVMe9jnCrJ66jiISmBR/YbtkC37
+ Xi3KfJgqkohhzIxprEkUZfWGQcz/OnGu5jWK1SvNA7gvBIFKoiLWEsBLqspRundFegj1qn9x1+u
+ kflAoK89iwBD29SohLCrpT7nZjXFMnav0IzlAYtHm8nkrLhgQyBa4OmzGf2In0itA2XPtPLZJHT
+ dLANf/svi+j8riF7VblBUUzP2+UWOrSR+NyFXKT+Doeo8vHdqHXYOpnh5u+ONAM2RYVy7fp+zEj
+ H+q2xUnOn+t8VXv+cYKRkUi4CNeG251xYVZBGERrDrq19e/P5l3Og1mTiByzs6/33xy/qkECKYM
+ ZLJitm6X2eAAmrA==
+X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,92 +122,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Looking at both i915 and nouveau DP drivers, both are setting the first
+LTTPR (if found) in transparent mode first and then in non-transparent
+mode, just like the DP v2.0 specification mentions in section 3.6.6.1.
 
+Being part of the standard, setting the LTTPR in a specific operation mode
+can be easily moved in the generic framework. So do that by adding a new
+helper.
 
-On 12/11/2024 5:46 PM, Dmitry Baryshkov wrote:
-> On Wed, Dec 11, 2024 at 08:46:16AM +0800, Xiangxu Yin wrote:
->>
->>
->> On 12/10/2024 11:09 PM, Dmitry Baryshkov wrote:
->>> On Thu, Dec 05, 2024 at 08:31:24PM +0200, Dmitry Baryshkov wrote:
->>>> On Thu, Dec 05, 2024 at 09:26:47PM +0800, Xiangxu Yin wrote:
->>>>>
->>>>>
->>>>> On 11/29/2024 10:33 PM, Dmitry Baryshkov wrote:
->>>>>> On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
->>>>>>>
->>>>>>> Extended DP support for QCS615 USB or DP phy. Differentiated between
->>>>>>> USBC and DP PHY using the match table’s type, dynamically generating
->>>>>>> different types of cfg and layout attributes during initialization based
->>>>>>> on this type. Static variables are stored in cfg, while parsed values
->>>>>>> are organized into the layout structure.
->>>>>>
->>>>>> We didn't have an understanding / conclusion whether
->>>>>> qcom,usb-ssphy-qmp-usb3-or-dp PHYs are actually a single device / PHY
->>>>>> or two PHYs being placed next to each other. Could you please start
->>>>>> your commit message by explaining it? Or even better, make that a part
->>>>>> of the cover letter for a new series touching just the USBC PHY
->>>>>> driver. DP changes don't have anything in common with the PHY changes,
->>>>>> so you can split the series into two.
->>>>>>
->>>>> Before implement DP extension, we have discussed with abhinav and krishna about whether use combo, usbc or separate phy.
->>>>
->>>> What is "DP extension"?
->>>>
->> I'm sorry confusion casued by my description. It's means extend DP implemnt for USBC phy driver.
->>>>>
->>>>> We identified that DP and USB share some common controls for phy_mode and orientation.
->>>>> Specifically, 'TCSR_USB3_0_DP_PHYMODE' controls who must use the lanes - USB or DP,
->>>>> while PERIPH_SS_USB0_USB3PHY_PCS_MISC_TYPEC_CTRL controls the orientation.
->>>>> It would be more efficient for a single driver to manage these controls. 
->>>>
->>>> The question is about the hardware, not about the driver.
->>>>
->>>>> Additionally, this PHY does not support Alt Mode, and the two control registers are located in separate address spaces. 
->>>>> Therefore, even though the orientation for DP on this platform is always normal and connected to the video output board, 
->>>>> we still decided to base it on the USBC extension.
->>>>
->>>> Could you please clarify, do usb3-or-dp PHYs support DP-over-USB-C? I
->>>> thought that usbc-or-dp platforms support that, but they don't
->>>> support DP+USB pin configuration. Note, the question is broader than
->>>> just QCS615, it covers the PHY type itself.
->>>>
->>>> Also, is TCSR configuration read/write or read-only? Are we supposed to
->>>> set the register from OS or are we supposed to read it and thus detemine
->>>> the PHY mode?
->>>
->>> Any updates on these two topics?
->>>
->> Still confirming detail info with HW & design team.
->> I’ll update the information that has been confirmed so far.
->> This phy support DP-over-USB-C,but it's not support alt-mode which 2 lane work for DP, other 2 lane work for USB.
->> TCSR phy mode is read/write reg and we can read for determine phy mode.
-> 
-> Ok, thanks for the explanation. From my point of view:
-> 
-> - Implement the DP PHY to be a part of the same driver. Each device
->   supported by the usbc driver should get both PHYs.
-> 
-> - Make sure not to break the ABI: #phy-cells = <0> should still work and
->   return USB PHY, keeping backwards compatibility. Newer devices or
->   upgraded DT for old devices should return USB PHY for <... 0> and DP
->   PHY for <... 1>.
-> 
-Yes, currently we have implemented like your description,
-Each deivce shoud get both PHYs, DP PHY for <... 1> and USB PHY for <... 0>.
-> - I'm not shure how to handle the USB and DP coexistence, especially in
->   your case of the USB-or-DP PHY.
-> 
-For coexistence process:
+Then, the msm DP driver is lacking any kind of support for LTTPR handling,
+so add it by reading the LTTPR caps for figuring out the number of LTTPRs
+found on plug detect and then do exactly what the i915 and nouveau drivers
+do with respect to toggling through operating modes, just like the
+up-mentioned section from DP spec describes.
 
-When we start implement DP part, usb driver team said only need config TCSR phy mode and orientation during switch in USB-C port.
-Based on your previous comments avout SW_PWRDN, I'm confirming with the USB team whether SW_REST/SWPWRDN/START_CTRL registers might affect DP.
+At some point, link training per sub-segment will probably be needed, but
+for now, toggling the operating modes seems to be enough at least for the
+X Elite-based platforms that this patchset has been tested on.
 
-Anyway, even though the original SoC design supports DP or USB over Type-C，
-but on QCS615 ADP AIR platform, there are only four USB-A port which works with 'qcs615-qmp-usb3-phy' driver, and no USB-C port.
-DP port is mappped from usb pin to the video out sub-board.
-so we are unable to verify the switching case between DP and USB devices under USB-C.
+Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+---
+Changes in v2:
+- Added new wrapper over the set_transparent new helper in order to
+  move the non-transparent disable and the its enable->disable sequence
+  mentioned in the DP standard section 3.6.6.1 entirely in the generic
+  implemetation.
+- Switch all 3 drivers to use the new wrapper.
+- Fixed the return value of the helper to return 0 on success and
+  negative value on error.
+- Added explanation about the transparent/non-transparent modes into the
+  msm dp commit message.
+- Dropped the condition for non-eDP in msm DP driver since it is allowed
+  to try to get the number of LTTPRs even on eDP and it will be always
+  0 anyway.
+- Dropped the RFC prefix
+- Link to v1: https://lore.kernel.org/r/20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-0-cafbb9855f40@linaro.org
 
-However, I'm also confirming whether anything other will affect USB and DP each other.
+---
+Abel Vesa (4):
+      drm/dp: Add helper to set LTTPRs in transparent mode
+      drm/nouveau/dp: Use the generic helper to control LTTPR transparent mode
+      drm/i915/dp: Use the generic helper to control LTTPR transparent mode
+      drm/msm/dp: Add support for LTTPR handling
 
+ drivers/gpu/drm/display/drm_dp_helper.c            | 50 ++++++++++++++++++++++
+ .../gpu/drm/i915/display/intel_dp_link_training.c  | 24 +++--------
+ drivers/gpu/drm/msm/dp/dp_display.c                | 17 ++++++++
+ drivers/gpu/drm/nouveau/nouveau_dp.c               | 17 +-------
+ include/drm/display/drm_dp_helper.h                |  2 +
+ 5 files changed, 76 insertions(+), 34 deletions(-)
+---
+base-commit: 91e71d606356e50f238d7a87aacdee4abc427f07
+change-id: 20241031-drm-dp-msm-add-lttpr-transparent-mode-set-136cd5bfde07
+
+Best regards,
+-- 
+Abel Vesa <abel.vesa@linaro.org>
 
