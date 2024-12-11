@@ -2,84 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35DB99ED993
-	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 23:24:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 542AF9ED99E
+	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 23:26:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BDE710EC46;
-	Wed, 11 Dec 2024 22:24:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6244F10EC3C;
+	Wed, 11 Dec 2024 22:26:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AFXCXLUS";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="nqHXuctD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F038D10EC3C
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 22:24:20 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-54026562221so2016377e87.1
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 14:24:20 -0800 (PST)
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [IPv6:2607:f8b0:4864:20::735])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA05610E138
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 22:26:23 +0000 (UTC)
+Received: by mail-qk1-x735.google.com with SMTP id
+ af79cd13be357-7b6e8814842so1970485a.0
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 14:26:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733955859; x=1734560659; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=TQt0c/B79tzZ92JCkmXyGPgoiCeeT1lFWyXxnDRmJf0=;
- b=AFXCXLUStuFZSaar+9cl4lZ++6ifJdxE/BCRgAdCTm0GhMofPbRLB7bWmD0unyTZpt
- mf3HQhzJSzZa42PmIYjs1RQdjI+U4OqudLS7ZebsJS4WCCS/eFGAPIG3qZh3/2b5sF5K
- 4o4WubPeHBjkpLSfh4LxbnKspcz0WCRmc2weEYqmAIlWY6Iby+8oH9J55NksKOgihaKY
- dweylNflBjSGjIQFt/xaCjBZX9m1IqtS48yV2DgEA8+4lsiJY6PeE/8cYC8T32OE9qna
- B1MLme5VBxXog4q26Bc1kxW4oPAC1MG6u2gqiO0+aQaw+QetX5g+Tr7TcEdzVIvgsJWN
- ipZg==
+ d=chromium.org; s=google; t=1733955982; x=1734560782;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+ :reply-to; bh=/M/xqt3HYEq8xu0qvRyIhfyiL/m77tfLGjHEA9e2rtQ=;
+ b=nqHXuctDT8hlIGtmDowe3z7VHrvXAWpxPs9d8QjV8uSGOxPNTSiqZdW0waWqrVbXVi
+ AR3iX0kTiGvJHQhK8ntfwXG8FENy+KEY7Iepv0yaEomwCDgXGWsU8z6FWkZ1qf6T8JG+
+ J4y0TsVvP+LRVZK3g5UOW/oId9JKzFw07hwao=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733955859; x=1734560659;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20230601; t=1733955982; x=1734560782;
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=TQt0c/B79tzZ92JCkmXyGPgoiCeeT1lFWyXxnDRmJf0=;
- b=bb9uamzx56apkQTutEImbwsElDACYmVKdgabWzp6e5UPRXfAjuV0lNyaOhooKOLrQO
- PNIRMBN3jMM+ieVtu3BLIJqjyWwC+XWpbxaGsAMKSjsi+eMbJ5CLQVbLvIdbnYADT+I8
- DGyRWARGkUGZJxIcb2aKxvCjxzihGfmczbXESykjZQpWcJLuASdwRYPKdr8z49W8RXHI
- 20lbHAncLOkM8sh3YBztQ7aoZGlQwHqYA7gEZsh6FL+znAgASIknZ42g6m1mW1HN5lG4
- M1CIpkVnlbQTObOt5Ns7OxM4x7qBkc2C7wiYiFnE2XphoWSD3W1nzFyxk2TCH/B77ZZU
- vn6g==
+ bh=/M/xqt3HYEq8xu0qvRyIhfyiL/m77tfLGjHEA9e2rtQ=;
+ b=Ze6IsTZK7g4Z39d4zF4td5PUZCt1zvQEeZZC7uSoOp2s5ai7kqbFA4cDXHZcvtoxcz
+ xJSKlcuitKmxVX0lwII7hxLcyCRrOmTqYiOfhpBxm6xZ9/kF3YJlpqk/xNWdwfLimm0L
+ 79FQxc3P2RGjtiSze1fJqgHspE/VLWWW/S7Z/UlfL7TtqeI/NUpK1HLBPh5z4lxT5YYQ
+ 5Uxznh3/28fOiiAHmRQicF/RndS8SKJR3V32tlYMwB0xEUSQ1I5YNuSYMY/m0P9n6Fxv
+ sf/3A0su7MB8eeAYFVz8aHzLSe3934a/T88HWznK/aZKHK3s54mygFtfXonlGae5fUnQ
+ v5FQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWTiDMsdnZGhXj9VGhJPyGJehct8ehMYrqbZlksYIKd5enC5exSsnlscFyBhsq8BHQEHLx5DcXGdhw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyi8FTsBihCrjdONQCpuH6Umty8dS2veIAZv1NYufH92lJn+s38
- Jqe+IKeqCaKWYkoeO0rwESkPcweW/yNHe1AMLgTQLoCCA64cs/l6ZC9jxP2EEg8=
-X-Gm-Gg: ASbGncszLa0+3x+HBoC3U+JilkRvntxqtrc/9XN34KjJoRmEW2VHoQO0vyG8lShno1J
- tguBIDOytVkScCYr3w3wh4mcE/LSdLKyZmerQx3+TanoS7hscAXWRkR4U77Zf+SliSVQFQcH5Kh
- VeI1c2AMH/pf81pkj9GhjP30VrCoJRrs5KCBqaAbGnWTmowHfSUNESgrt9S8KljG5lIDF/pYNoe
- Qk7/PSpzKEYeZ54/f4C/7AKFhH8IZgATYDUf+Tj/Zps36vp+CABQNnwY0XV2mFD+0wrlxwYOtPA
- jo/YmEpR61j5/YjRnTDbUGyE7MITg7zPsA==
-X-Google-Smtp-Source: AGHT+IGUjnHXz8xm14gX4NMTwgGnSmfUk9Frni6oN0Mq2JYlv9txb+UhgRCFjpynV3Xptsxw0hq6Fg==
-X-Received: by 2002:a05:6512:238b:b0:53e:39b7:54a3 with SMTP id
- 2adb3069b0e04-5402a5daa14mr1547884e87.24.1733955859171; 
- Wed, 11 Dec 2024 14:24:19 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53e3c48b122sm1519955e87.65.2024.12.11.14.24.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Dec 2024 14:24:17 -0800 (PST)
-Date: Thu, 12 Dec 2024 00:24:12 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/3] drm/msm/dpu: allow using two SSPP blocks for a
- single plane
-Message-ID: <hpmxj7tjmvbo55izoxgygqmysbabnpb35mprvn6w53vbtehnwe@yxmiigoeuyf3>
-References: <20241130-dpu-virtual-wide-v7-0-991053fcf63c@linaro.org>
- <20241130-dpu-virtual-wide-v7-2-991053fcf63c@linaro.org>
- <160151f0-9cc6-40f6-9f53-466185835e4d@quicinc.com>
+ AJvYcCUpd2EuWN117cVe7LPdofK4QDWSGgBXUOj7yxZYFDP2xFLhdWcYQTkim3SHJChzKkjdKHBBN3IHKTs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzbG/h1ktLAGNvinaLQDApIJKb6yY7SzAaGFlFtCPIJYeifWdsz
+ qDmY7W67uBze5e8V79KIO66imiCW3rHiZvMO7n5IBtdGxjbgWuGQwgLl4jhUoIioPGk7O+OkPyr
+ lhaiCHDtvXF76j/1V/ugOs4Dnrbrf8CWkW2gY
+X-Gm-Gg: ASbGncs8507/GRVllmLnXbLWwi43Bl3VMHwZzYdxrUV7UQOltp5iNMWtJxt1gUhMc+F
+ Cx2QthL9T/9mXhCbKNg5GZvw9qtzXuFUc+PetoJz0C88vNad5+Hc+q3NY6BFEPFA=
+X-Google-Smtp-Source: AGHT+IG1XnoTiDslXI0cLjNa0JxPS1XzZXpqmwomEHJN72jbeseiTASByoXZoRuL5Gwb8j0Gd5R1nHZIPbm0MA4yihY=
+X-Received: by 2002:ad4:5caa:0:b0:6d8:883b:142a with SMTP id
+ 6a1803df08f44-6dae38de1f2mr20414676d6.2.1733955982669; Wed, 11 Dec 2024
+ 14:26:22 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 11 Dec 2024 14:26:22 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <160151f0-9cc6-40f6-9f53-466185835e4d@quicinc.com>
+In-Reply-To: <20241202-fd-dp-audio-fixup-v2-8-d9187ea96dad@linaro.org>
+References: <20241202-fd-dp-audio-fixup-v2-0-d9187ea96dad@linaro.org>
+ <20241202-fd-dp-audio-fixup-v2-8-d9187ea96dad@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.12.dev1+gaa8c22fdeedb
+Date: Wed, 11 Dec 2024 14:26:22 -0800
+Message-ID: <CAE-0n524xYp30nsCh4+-N=dy8g3EuKTkwA5yXbOOXzMeHJztFw@mail.gmail.com>
+Subject: Re: [PATCH v2 08/14] drm/msm/dp: move/inline panel related functions
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Paloma Arellano <quic_parellan@quicinc.com>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Douglas Anderson <dianders@chromium.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,66 +87,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Dec 11, 2024 at 01:51:51PM -0800, Abhinav Kumar wrote:
-> 
-> 
-> On 11/29/2024 5:55 PM, Dmitry Baryshkov wrote:
-> > Virtual wide planes give high amount of flexibility, but it is not
-> > always enough:
-> > 
-> > In parallel multirect case only the half of the usual width is supported
-> > for tiled formats. Thus the whole width of two tiled multirect
-> > rectangles can not be greater than max_linewidth, which is not enough
-> > for some platforms/compositors.
-> > 
-> > Another example is as simple as wide YUV plane. YUV planes can not use
-> > multirect, so currently they are limited to max_linewidth too.
-> > 
-> > Now that the planes are fully virtualized, add support for allocating
-> > two SSPP blocks to drive a single DRM plane. This fixes both mentioned
-> > cases and allows all planes to go up to 2*max_linewidth (at the cost of
-> > making some of the planes unavailable to the user).
-> > 
-> 
-> Overall looks so much cleaner after unification!
-> 
-> One small nit below,
-> 
-> 
-> You can still have,
-> 
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
-> Note: we have started testing this series with sc7180 CrOS, and will report
-> our findings/ give tested-by this week.
-> 
-> 
-> <snip>
-> 
-> > +static bool dpu_plane_try_multirect_parallel(struct dpu_sw_pipe *pipe, struct dpu_sw_pipe_cfg *pipe_cfg,
-> > +					     struct dpu_sw_pipe *r_pipe, struct dpu_sw_pipe_cfg *r_pipe_cfg,
-> > +					     struct dpu_hw_sspp *sspp, const struct msm_format *fmt,
-> > +					     uint32_t max_linewidth)
-> > +{
-> > +	r_pipe->sspp = NULL;
-> > +
-> > +	pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> > +	pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> > +
-> > +	r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> > +	r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> > +
-> 
-> 
-> There are two places where the multirect_index and multirect_mode are reset.
-> Would it be better to just have a small api dpu_plane_reset_multirect() and
-> do this there?
+Quoting Dmitry Baryshkov (2024-12-02 02:06:38)
+> Move panel-related functions to dp_panel.c, following up the cleanup
+> done by the rest of the submodules.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-I'm not sure, what's the benefit. We can add an API to reset one pipe
-(to also be able to use it in _dpu_plane_atomic_disable()), but then
-it's just deduplication for the sake of deduplication.
-
-
--- 
-With best wishes
-Dmitry
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
