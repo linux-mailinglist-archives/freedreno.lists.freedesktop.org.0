@@ -2,95 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A138A9EC9C2
-	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 10:56:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B52D9ECA7E
+	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 11:40:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8517810EAE5;
-	Wed, 11 Dec 2024 09:56:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4AF310EAF5;
+	Wed, 11 Dec 2024 10:40:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="uX+Uiavo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="noWAWngN";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02B1810EAE7
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 09:56:01 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-53df80eeeedso6229535e87.2
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 01:56:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733910959; x=1734515759; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=5o6spnVR6ajql5nXA/7yn9qe6fHy4wd5WT4oqg7Hxjg=;
- b=uX+UiavoJnIJpbc4RZVahVPLdUAHhP2N3jeuj2S9scuX9pU2VH0QNlQhTuzzoTLHmL
- PlRmZkXED1Ly7RXAo1r6F8ncXSYTsoD5bdAdowQm+kdl6E0+E+6tjCEhms3H3yKhm6j0
- gCCJBLCNSZXUApwhkncT9XHtlCn0iH8hOo1mFjJEw3xrEYjlyvTqmfR8EnKf+FmxoPp0
- JKFXTk5bWWSyPobGSwTvQyr9lizn1FvnM1LOR9WHmImaiKn2+krEwJhDWQ5GJVAOaXM2
- F7EG4u2LOHXoecCl2vbZYUPNVtGUgpUxL/1kP9/HiETCChYZgbhSy4m1VtOhdA7f5/Wc
- 3YVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733910959; x=1734515759;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5o6spnVR6ajql5nXA/7yn9qe6fHy4wd5WT4oqg7Hxjg=;
- b=f4kdHveK3LOjHcSPdm1Y/tgDg7tkzga6i6c5HXFCrH1FsrB3i7gkVZl3lrdGxFIzA7
- +NDTiGuZAcNGgslfO+UgyG6cCYRzHXbi8CvrpeRovd4Eme9TJSDIIVH888tX0vhVSR8Q
- h2dggLfJDiiGP5WP7fCe0ZTgxoXZl4Ut26yQoG017r5i2LqV5IuUbrvQir3zDE8ZG7um
- Z1FLkbpH7MZphO/aqAJfuTeTsVF3yWf9LaHr7JKlBul+bmSmpoAkkNpcBxRYFKzEWpst
- qcLd+EBHpFF/M2vLTyTSnoWq0Mc3ikZsCKtuBd4ply8ZA0FKW6TWj8rkdSQBO8r+ElPg
- fXlg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXRvsBEg7dcOUiBeL1RS7fyHbQByvE7MCbmDryjLvxScEOePjWr4ZC2Ube2K85QzcPGvAR3KaEUTg4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx6zOFUkq/pSigFFz/eTOiLNt0wtW0uC5/4PyKgoOFLSXUr+l2f
- 48uWI9MnqPObnr4qxvIoER5Fbjv2nT7HOFHPsNr4gFpCrik0bBVWlaZKa1xfkEw=
-X-Gm-Gg: ASbGncukmexDDoN/wXOczpUrlorXBSU4i5gVVWVH0kAgq7cZLS+0/evLn23e5EJQbpx
- bg0pLKLxdWmNmuNn8OAA4c8DXF7p6m37rpC26cXX4p/rodHjjDkCAvzYETDfL4UE6fwPZOHRCtr
- GPauVU8iiyDHk8A2ox0Fg4sIKKdWrTCo9chBctclCMY425NOW1vbb1DTMhqsLgPmflIU29GG3dm
- ugTE5BbeRJB1CZuFGC/5sbefYNGbf9Tlh87SwJP9m5/JHfcfoZKqLadOnkrwu9DwUo1svLLdKIu
- r60ZGaeqGrefa4YpFhEsYlULlSl/zS+ZoA==
-X-Google-Smtp-Source: AGHT+IFChwIInqKh4toLH7hhsT9qt9s90iu0Z0ak8AysLNTaQPEcT5Yq2WRNWpMzPvyheGTGJPWcWQ==
-X-Received: by 2002:a05:6512:158b:b0:540:1fcd:1d9b with SMTP id
- 2adb3069b0e04-5402a609b3fmr630278e87.54.1733910958544; 
- Wed, 11 Dec 2024 01:55:58 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53e372946dcsm1563735e87.163.2024.12.11.01.55.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Dec 2024 01:55:57 -0800 (PST)
-Date: Wed, 11 Dec 2024 11:55:54 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abel Vesa <abel.vesa@linaro.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@redhat.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH RFC 4/4] drm/msm/dp: Add support for LTTPR handling
-Message-ID: <iqt3i5mha44wksx7zqjjccz3od5tavyxygyda2dn2fz2w77n36@gyo3dh6a6j72>
-References: <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-0-cafbb9855f40@linaro.org>
- <20241031-drm-dp-msm-add-lttpr-transparent-mode-set-v1-4-cafbb9855f40@linaro.org>
- <6lpeexb5menpwrzcnmr367x4lmhvzyovhdybn54mnwk55ieehy@mos4oso67boo>
- <Z1lWgDk6vzbx4ew7@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Z1lWgDk6vzbx4ew7@linaro.org>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 944F110EAF5;
+ Wed, 11 Dec 2024 10:40:07 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6F5F75C628A;
+ Wed, 11 Dec 2024 10:39:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92C48C4CED2;
+ Wed, 11 Dec 2024 10:40:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733913606;
+ bh=t82GYym6sYXkwYHFKbUNwczVpT4+Pzss6XRP9JPCUDE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=noWAWngNql9dKYob5AyZaw+cnVxhtwRWgj7TNoC3MNkQsrMRf0Vbtn4h8dWUm74DS
+ M7j4LakUfAzAMmoDNGrLUncUpWpLx0UvGrFfEeRBdfCZgaxFnzUeXt+KqMGGMWiOMp
+ uWyyT/znJEgzytqre2pLme5qhFkeFR9SVT0GJnm72utdHL6i2yxO9ARzlw0uzsZ7KW
+ 96n60qZtP038+EwpjwmwaoShJFGu9HUl3WEMa+0Icq3UGhLPFMPUmG3QJpmaTI0FDD
+ 11yaeyZMCWZ1bjCOob1r0yCUXj/hHOzgGQrAfXmjBaLJ9DDI54qGcaimfTDKj683IS
+ 6xU9zsG00FZWQ==
+Received: from sofa.misterjones.org ([185.219.108.64]
+ helo=goblin-girl.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
+ (envelope-from <maz@kernel.org>) id 1tLK8R-002dSW-Hv;
+ Wed, 11 Dec 2024 10:40:03 +0000
+Date: Wed, 11 Dec 2024 10:40:02 +0000
+Message-ID: <86sequsdtp.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Pavan Kondeti <quic_pkondeti@quicinc.com>
+Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, "Dmitry\
+ Baryshkov" <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona\
+ Vetter" <simona@ffwll.ch>, Elliot Berman <quic_eberman@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH] drm/msm/a6xx: Skip gpu secure fw load in EL2 mode
+In-Reply-To: <92cee905-a505-4ce9-9bbc-6fba4cea1d80@quicinc.com>
+References: <20241209-drm-msm-kvm-support-v1-1-1c983a8a8087@quicinc.com>
+ <87ed2fs03w.wl-maz@kernel.org>
+ <92cee905-a505-4ce9-9bbc-6fba4cea1d80@quicinc.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/29.4
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: quic_pkondeti@quicinc.com, quic_akhilpo@quicinc.com,
+ robdclark@gmail.com, sean@poorly.run, konradybcio@kernel.org,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ quic_eberman@quicinc.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,124 +86,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Dec 11, 2024 at 11:08:16AM +0200, Abel Vesa wrote:
-> On 24-10-31 18:54:25, Dmitry Baryshkov wrote:
-> > On Thu, Oct 31, 2024 at 05:12:48PM +0200, Abel Vesa wrote:
-> > > Link Training Tunable PHY Repeaters (LTTPRs) are defined in DisplayPort
-> > > 1.4a specification. As the name suggests, these PHY repeaters are
-> > > capable of adjusting their output for link training purposes.
-> > > 
-> > > The msm DP driver is currently lacking any handling of LTTPRs.
-> > > This means that if at least one LTTPR is found between DPTX and DPRX,
-> > > the link training would fail if that LTTPR was not already configured
-> > > in transparent mode.
-> > 
-> > It might be nice to mention what is the transparent mode, especially for
-> > those who do not have the standard at hand.
-> 
-> Sorry for the late reply.
-> 
-> Will do in the next version.
-> 
-> > 
-> > > The section 3.6.6.1 from the DisplayPort v2.0 specification mandates
-> > > that before link training with the LTTPR is started, the DPTX may place
-> > > the LTTPR in non-transparent mode by first switching to transparent mode
-> > > and then to non-transparent mode. This operation seems to be needed only
-> > > on first link training and doesn't need to be done again until device is
-> > > unplugged.
-> > > 
-> > > It has been observed on a few X Elite-based platforms which have
-> > > such LTTPRs in their board design that the DPTX needs to follow the
-> > > procedure described above in order for the link training to be successful.
-> > > 
-> > > So add support for reading the LTTPR DPCD caps to figure out the number
-> > > of such LTTPRs first. Then, for platforms (or Type-C dongles) that have
-> > > at least one such an LTTPR, set its operation mode to transparent mode
-> > > first and then to non-transparent, just like the mentioned section of
-> > > the specification mandates.
-> > > 
-> > > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-> > > ---
-> > >  drivers/gpu/drm/msm/dp/dp_display.c | 25 +++++++++++++++++++++++++
-> > >  1 file changed, 25 insertions(+)
-> > > 
-> > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > index f01980b0888a40b719d3958cb96c6341feada077..5d3d318d7b87ce3bf567d8b7435931d8e087f713 100644
-> > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > @@ -107,6 +107,8 @@ struct dp_display_private {
-> > >  	struct dp_event event_list[DP_EVENT_Q_MAX];
-> > >  	spinlock_t event_lock;
-> > >  
-> > > +	u8 lttpr_caps[DP_LTTPR_COMMON_CAP_SIZE];
-> > > +
-> > >  	bool wide_bus_supported;
-> > >  
-> > >  	struct dp_audio *audio;
-> > > @@ -367,12 +369,35 @@ static int dp_display_send_hpd_notification(struct dp_display_private *dp,
-> > >  	return 0;
-> > >  }
-> > >  
-> > > +static void dp_display_lttpr_init(struct dp_display_private *dp)
+On Wed, 11 Dec 2024 00:37:34 +0000,
+Pavan Kondeti <quic_pkondeti@quicinc.com> wrote:
+>=20
+> On Tue, Dec 10, 2024 at 09:24:03PM +0000, Marc Zyngier wrote:
+> > > +static int a6xx_switch_secure_mode(struct msm_gpu *gpu)
 > > > +{
-> > > +	int lttpr_count;
+> > > +	int ret;
 > > > +
-> > > +	if (drm_dp_read_lttpr_common_caps(dp->aux, dp->panel->dpcd,
-> > > +					  dp->lttpr_caps))
-> > > +		return;
-> > > +
-> > > +	lttpr_count = drm_dp_lttpr_count(dp->lttpr_caps);
-> > > +
-> > > +	if (lttpr_count) {
-> > > +		drm_dp_lttpr_set_transparent_mode(dp->aux, true);
-> > > +
-> > > +		if (lttpr_count > 0) {
-> > > +			if (drm_dp_lttpr_set_transparent_mode(dp->aux, false) != 1)
-> > > +				drm_dp_lttpr_set_transparent_mode(dp->aux, true);
-> > > +		}
-> > > +	}
-> > > +}
-> > > +
-> > >  static int dp_display_process_hpd_high(struct dp_display_private *dp)
-> > >  {
-> > >  	struct drm_connector *connector = dp->dp_display.connector;
-> > >  	const struct drm_display_info *info = &connector->display_info;
-> > >  	int rc = 0;
-> > >  
-> > > +	if (!dp->dp_display.is_edp)
-> > > +		dp_display_lttpr_init(dp);
-> > 
-> > Why is it limited to non-eDP cases only.
-> 
-> In case of eDP, I don't think that there will ever by a case that will
-> need an LTTPR in between the eDP PHY and the actual panel. It just
-> doesn't make sense.
-> 
-> IIUC, the LTTPRs, since are Training Tunnable capable, they help when
-> the physical link between the PHY and the sink can differ based on
-> different dongles and cables. This is obviously not applicable to eDP.
+> > > +#ifdef CONFIG_ARM64
+> > > +	/*
+> > > +	 * We can access SECVID_TRUST_CNTL register when kernel is booted i=
+n EL2 mode. So, use it
+> > > +	 * to switch the secure mode to avoid the dependency on zap shader.
+> > > +	 */
+> > > +	if (is_kernel_in_hyp_mode())
+> > > +		goto direct_switch;
+> >=20
+> > No, please. To check whether you are *booted* at EL2, you need to
+> > check for is_hyp_available(). Whether the kernel runs at EL1 or EL2 is
+> > none of the driver's business, really. This is still absolutely
+> > disgusting from an abstraction perspective, but I guess we don't have
+> > much choice here.
+> >=20
+>=20
+> Thanks Marc. Any suggestions on how we can make is_hyp_mode_available()
+> available for modules? Do you prefer exporting
+> kvm_protected_mode_initialized and __boot_cpu_mode symbols directly or
+> try something like [1]?
 
-I think I just have a different paradigm: if the driver explicitly skips
-calling a function in some codepath, I assume that the usecase it broken
-or expected not to work (e.g. I read your patch like: LTTPR is expected
-not to work in eDP). If you would prefer to keep two separate code
-paths, please add a comment like 'we don't expect LTTPRs in eDP
-usecase`.
+Ideally, neither. These were bad ideas nine years ago, and they still
+are. The least ugly hack I can come up with is the patch below, and
+you'd write something like:
 
-> > > +
-> > >  	rc = dp_panel_read_sink_caps(dp->panel, connector);
-> > >  	if (rc)
-> > >  		goto end;
-> > > 
-> > > -- 
-> > > 2.34.1
-> > > 
-> > 
-> > -- 
-> > With best wishes
-> > Dmitry
+	if (cpus_have_cap(ARM64_HAS_EL2_OWNERSHIP))
+		blah();
 
--- 
-With best wishes
-Dmitry
+This is obviously completely untested.
+
+It also doesn't solve the problem of the kernel booted on bare-metal
+at EL1, or with a hypervisor that doesn't change the programming
+interface of the device under the guest's feet. Eventually, someone
+will have to address these cases.
+
+Thanks,
+
+	M.
+
+=46rom 4823e7bb868d3ac2b938ecc4c3dbbdd460656af1 Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Wed, 11 Dec 2024 10:02:25 +0000
+Subject: [PATCH] arm64: Expose kernel ownership of EL2 via a capability
+
+It appears that some drivers have to jump through a lot of hoops
+to initialise correctly when running under a particular hypervisor,
+while they can directly do it when running bare-metal.
+
+Unfortunately, said hypervisor cannot be directly identified as it
+doesn't implement the correct SMCCC interface, leaving the driver
+with a certain amount of guesswork.
+
+Being booted at EL2 provides at least an indication that there is no
+non-nesting hypervisor, which is good enough to discriminate the
+humpy hypervisor.
+
+For this purpose, expose a new system-wide CPU capability aptly named
+ARM64_HAS_EL2_OWNERSHIP, which said driver can check.
+
+Note that this doesn't solve the problem of a kernel booted at EL1
+without a hypervisor, or with a hypervisor that doesn't break the
+device programming interface.
+
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+---
+ arch/arm64/kernel/cpufeature.c | 11 +++++++++++
+ arch/arm64/tools/cpucaps       |  1 +
+ 2 files changed, 12 insertions(+)
+
+diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+index 36c7b29ddf9e8..8fdc3ef23d9dc 100644
+--- a/arch/arm64/kernel/cpufeature.c
++++ b/arch/arm64/kernel/cpufeature.c
+@@ -1868,6 +1868,11 @@ static bool has_nv1(const struct arm64_cpu_capabilit=
+ies *entry, int scope)
+ 		  is_midr_in_range_list(read_cpuid_id(), nv1_ni_list)));
+ }
+=20
++static bool has_el2_ownership(const struct arm64_cpu_capabilities *entry, =
+int scope)
++{
++	return is_hyp_mode_available();
++}
++
+ #if defined(ID_AA64MMFR0_EL1_TGRAN_LPA2) && defined(ID_AA64MMFR0_EL1_TGRAN=
+_2_SUPPORTED_LPA2)
+ static bool has_lpa2_at_stage1(u64 mmfr0)
+ {
+@@ -3012,6 +3017,12 @@ static const struct arm64_cpu_capabilities arm64_fea=
+tures[] =3D {
+ 		ARM64_CPUID_FIELDS(ID_AA64PFR1_EL1, GCS, IMP)
+ 	},
+ #endif
++	{
++		.desc =3D "Kernel owns EL2",
++		.capability =3D ARM64_HAS_EL2_OWNERSHIP,
++		.type =3D ARM64_CPUCAP_SYSTEM_FEATURE,
++		.matches =3D has_el2_ownership,
++	},
+ 	{},
+ };
+=20
+diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
+index 1e65f2fb45bd1..94ce3462e6298 100644
+--- a/arch/arm64/tools/cpucaps
++++ b/arch/arm64/tools/cpucaps
+@@ -24,6 +24,7 @@ HAS_DIT
+ HAS_E0PD
+ HAS_ECV
+ HAS_ECV_CNTPOFF
++HAS_EL2_OWNERSHIP
+ HAS_EPAN
+ HAS_EVT
+ HAS_FPMR
+--=20
+2.39.2
+
+
+--=20
+Without deviation from the norm, progress is not possible.
