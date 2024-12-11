@@ -1,78 +1,94 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FCEB9EDA3A
-	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 23:41:06 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 718BD9EDA64
+	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 23:51:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A12210E93A;
-	Wed, 11 Dec 2024 22:41:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99D0C10EC45;
+	Wed, 11 Dec 2024 22:51:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="blyP3rsy";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="VgaNfR3B";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B903710E93A
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 22:41:03 +0000 (UTC)
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-6eff4f0d627so41988497b3.1
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 14:41:03 -0800 (PST)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8960310EC3F
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 22:51:08 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-5401b7f7141so3514366e87.1
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 14:51:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733956863; x=1734561663; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=kQZXgd67ZCOvJ076FqycnZdlFNGoIk/UlxfteNEpnm8=;
- b=blyP3rsy8T/c6khdZ/SafY+lBRm4MsBwfpRaAJx1botjJ2lddxXtCq6+8RDU3ygyIR
- 1W3dSX6K/Iub1ID7x281R8asaTUD6R/DjPzZGtUS3im4O3bgxxFIX8/cYLEEXmrtLF/E
- WJTIUua1RRAxN4VSx49E6y9upv6JhCNqLK+HIbmw5pnKKRcjtAzTOLE9ZlQtgUE/H/hl
- Se9J3sP88NuWr+be6f7MUQsSks9mqhWpV5um1HtO/aUe/N/Gqy31aag0O9sYZzSyHiyU
- aHj5JBTn6v4WID7tE8GffOalraFlTUR+8f+Ytgg/CUBs2pI42cY67yvKk1K8WQc8NIAB
- 0f2g==
+ d=chromium.org; s=google; t=1733957464; x=1734562264;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wKgmtaCixVS2eTp9TrZ+8kVzXwyvmutreSuRkttynvI=;
+ b=VgaNfR3BM/vCpvo214nF9SkA8gu66dtskgJFcdP2WsMrz16PHjtNqBN7zY/y6Wkhgj
+ 6GagQ66YEvk40q2uKY6smWnMQ30xJY6uKyElnijhMVq1Rm+ZjvjqAvd/yuETqiv76XG2
+ xXCnrTf6d9+gLkACo6Wf8BIMKrEs00ekpFrPw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733956863; x=1734561663;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=kQZXgd67ZCOvJ076FqycnZdlFNGoIk/UlxfteNEpnm8=;
- b=v34iW03IiW1xXallj64TAC+SbkbM8twS69NNni8RltgpWYJD2vHYvQIaVPdSXFzhK4
- MV+sLILJBPSJEqzBk9HxqOwFYM0VW3w+5ysjXseVPATkhVMdf1p2IrBDQQYTSeQQcxd6
- 8VkMZ5oUlDNGCjgJbGAHLD/HSWJXlpRBSnbVOus+O4laubBFf8Ft7xnv8Kty6riBvX/g
- lbEykoyNcbVLW6cgfbjOd0L9HFOYxfBj6CNl5nqu8xKXLn8N//u/qVmq1ujPketyP9ps
- 8MyO+fBJM9tCGzGw+7A1ACfdZVNamgELkJdP74c1Kbm0+tdfTRZ+VdzMB4W1jXFEXthB
- mAug==
+ d=1e100.net; s=20230601; t=1733957464; x=1734562264;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wKgmtaCixVS2eTp9TrZ+8kVzXwyvmutreSuRkttynvI=;
+ b=FfyD4+KvqYT7Aer3850D4rkkNalTEn+vQfIxkmwc9wg7U2PxN8ciys+HIjnnn0NQzB
+ Fmk4Rk6JV9OGHRfQNbnJng5yZRKtimVJiq96oL5FhH/lG+wIh0skWWEoWrA3ucpV40rR
+ zGuLZiA4dYyFXjttVXuWViwU94YkO5mxCNp730lnL/3eWpqfY42kcJMX+BLAzP6Fpr/s
+ iPJABv1V3YpY/WC4j2gdhJpHYcC7jv7pHnqavL3PtA9bAsHTF5omYJ4pKzFjwIygPe2i
+ q6viesHnCkSYJ3pF/bRUZI45fdLo7/T9RDMgHs9eS0u4NYsU7g5JsryLMQXaDfYy5ios
+ 8q8Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWXnHEJjhSZV/fbubx5T4ZBehy2llMSzlOPNDoDTeEDOax+IxtiztocBYdTC8wwZUcAHkKEe6AhJP4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyi+piBGO9V3gVi5EESl78UJ/4CK3Jr7oRG/X/Q2o4f0PuYZojV
- 9LcN9tK3+hlR1hm9ziDUOuqhKbdFL7pqLgs+F48Z7PNGdQxfHqyLNQQURQVzBM61TIymiZ/62rp
- OFn0oadZtixbP0vh1cr8Jflzplr8M08beCn0BqA==
-X-Gm-Gg: ASbGncsutkqgofIWN9qLTvNPa9V5GLrsSHK/Wp0W8dBdyi70B0jvxugYZOWZaLKm6uE
- UO+9pk+NE2gKvoyyaF60Zz5Jgdy8le+3hiH2m
-X-Google-Smtp-Source: AGHT+IFx9U1xmIQiDX1vBx6D7MZb4EK2Reh5V7D+ZfzgWjxQn2K+gafTKYLrSeI+6HrlwX0/AVB9Z8wzIXTbGCE1GE0=
-X-Received: by 2002:a05:690c:6f92:b0:6ef:7fdb:7d41 with SMTP id
- 00721157ae682-6f19060cabemr17208557b3.0.1733956862793; Wed, 11 Dec 2024
- 14:41:02 -0800 (PST)
+ AJvYcCVsX/ETZGHYFyw8ZT8C9ILXpu9oyyxsvA2XduvmZEb0dGDcO6KP4cXJ2oKESyNrDJ33PdODkrRQycU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxvgQCz0TRyD10gKx7kCDm5O3tsX8+FLxYLJVGkauiC4EGDRxTV
+ AGc696Cy4d4K9iSENF18c6vf8m9vPPT90CwlIoR5pXA7mnIuwo0cwWPRg2arg6g6Brano6LX8iF
+ PZeLb
+X-Gm-Gg: ASbGnctk9lz/muM5VXHP8wF4aMK2uoWOnUe1pAEdNoDBDFQnM9W4jaNEBZcLvi5tE/+
+ KlZDydvr/3SRIGDJ6gFrxdUsK+fE+DFum7GEjw2DAzCM6I7joOouw++/X1f6/jW6Sp91iQlMNm4
+ TuYiu01VGguLTbpfNILJBZwSn6ejrastRNOWgKK2A+g2ZHeHYRlRPsKz+hwxGvzcTEwP6mtgMLL
+ MrvGrf1v9hSvTJP1JCG0mQ05I9m5ztjf/OCCuBtnyY/WacVLqNDHLzb4ZobOmctruT4H31TpZeU
+ LCCEpowZpZJ3PrfWlQ==
+X-Google-Smtp-Source: AGHT+IFRUTKQbj7are6UO28Y+FZviuOYHr4k4CF1/hazYBW2AK1Gp4xxh0rjip2KBVlaOrB2AnTtyg==
+X-Received: by 2002:a05:6512:3e10:b0:53e:335e:774d with SMTP id
+ 2adb3069b0e04-5402a605e24mr1360270e87.56.1733957464583; 
+ Wed, 11 Dec 2024 14:51:04 -0800 (PST)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com.
+ [209.85.167.45]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-53e39579e47sm1684708e87.30.2024.12.11.14.51.03
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Dec 2024 14:51:03 -0800 (PST)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5401b7f7141so3514325e87.1
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 14:51:03 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVqGRydlBNhTJeQ7dey8kRfRoYpv2OnsqwaA3K+8k+yFQDpL6XCl3W6sqjGRzb9TFHVmmXAHy7tJhw=@lists.freedesktop.org
+X-Received: by 2002:a05:6512:3d11:b0:540:17ac:b379 with SMTP id
+ 2adb3069b0e04-5402a5e5682mr1002664e87.25.1733957462810; Wed, 11 Dec 2024
+ 14:51:02 -0800 (PST)
 MIME-Version: 1.0
-References: <20241130-dpu-virtual-wide-v7-0-991053fcf63c@linaro.org>
- <20241130-dpu-virtual-wide-v7-2-991053fcf63c@linaro.org>
- <160151f0-9cc6-40f6-9f53-466185835e4d@quicinc.com>
- <hpmxj7tjmvbo55izoxgygqmysbabnpb35mprvn6w53vbtehnwe@yxmiigoeuyf3>
- <cfbadc5a-6de0-4081-948c-3542c615a992@quicinc.com>
-In-Reply-To: <cfbadc5a-6de0-4081-948c-3542c615a992@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 12 Dec 2024 00:40:51 +0200
-Message-ID: <CAA8EJpoLwOVN3MB70UkiPe-dRhFMBigpTYc2PMn+tXnD=LhoBg@mail.gmail.com>
-Subject: Re: [PATCH v7 2/3] drm/msm/dpu: allow using two SSPP blocks for a
- single plane
+References: <20241211-check-state-before-dump-v2-1-62647a501e8c@quicinc.com>
+In-Reply-To: <20241211-check-state-before-dump-v2-1-62647a501e8c@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 11 Dec 2024 14:50:51 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=V33utY6rby5e+RkRfUQQ40g2Bq3xr=G9q3if8TNoq1kg@mail.gmail.com>
+X-Gm-Features: AZHOrDlpR97b9ybDcxqzZ165UcoKpL_oopMC2BgdmlXON_-hpEKkrEAlm1wccLg
+Message-ID: <CAD=FV=V33utY6rby5e+RkRfUQQ40g2Bq3xr=G9q3if8TNoq1kg@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/msm/dpu: check dpu_plane_atomic_print_state() for
+ valid sspp
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org, 
+Cc: Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,83 +104,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 12 Dec 2024 at 00:38, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 12/11/2024 2:24 PM, Dmitry Baryshkov wrote:
-> > On Wed, Dec 11, 2024 at 01:51:51PM -0800, Abhinav Kumar wrote:
-> >>
-> >>
-> >> On 11/29/2024 5:55 PM, Dmitry Baryshkov wrote:
-> >>> Virtual wide planes give high amount of flexibility, but it is not
-> >>> always enough:
-> >>>
-> >>> In parallel multirect case only the half of the usual width is supported
-> >>> for tiled formats. Thus the whole width of two tiled multirect
-> >>> rectangles can not be greater than max_linewidth, which is not enough
-> >>> for some platforms/compositors.
-> >>>
-> >>> Another example is as simple as wide YUV plane. YUV planes can not use
-> >>> multirect, so currently they are limited to max_linewidth too.
-> >>>
-> >>> Now that the planes are fully virtualized, add support for allocating
-> >>> two SSPP blocks to drive a single DRM plane. This fixes both mentioned
-> >>> cases and allows all planes to go up to 2*max_linewidth (at the cost of
-> >>> making some of the planes unavailable to the user).
-> >>>
-> >>
-> >> Overall looks so much cleaner after unification!
-> >>
-> >> One small nit below,
-> >>
-> >>
-> >> You can still have,
-> >>
-> >> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >>
-> >> Note: we have started testing this series with sc7180 CrOS, and will report
-> >> our findings/ give tested-by this week.
-> >>
-> >>
-> >> <snip>
-> >>
-> >>> +static bool dpu_plane_try_multirect_parallel(struct dpu_sw_pipe *pipe, struct dpu_sw_pipe_cfg *pipe_cfg,
-> >>> +                                        struct dpu_sw_pipe *r_pipe, struct dpu_sw_pipe_cfg *r_pipe_cfg,
-> >>> +                                        struct dpu_hw_sspp *sspp, const struct msm_format *fmt,
-> >>> +                                        uint32_t max_linewidth)
-> >>> +{
-> >>> +   r_pipe->sspp = NULL;
-> >>> +
-> >>> +   pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> >>> +   pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> >>> +
-> >>> +   r_pipe->multirect_index = DPU_SSPP_RECT_SOLO;
-> >>> +   r_pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> >>> +
-> >>
-> >>
-> >> There are two places where the multirect_index and multirect_mode are reset.
-> >> Would it be better to just have a small api dpu_plane_reset_multirect() and
-> >> do this there?
-> >
-> > I'm not sure, what's the benefit. We can add an API to reset one pipe
-> > (to also be able to use it in _dpu_plane_atomic_disable()), but then
-> > it's just deduplication for the sake of deduplication.
-> >
->
-> Yeah I was thinking something like
->
-> dpu_plane_reset_multirect(pipe);
-> dpu_plane_reset_multirect(r_pipe);
->
-> But its only a minor benefit, hence as I wrote it as a nit. We can keep
-> things as it is, if its unnecessary in your opinion.
+Hi,
 
-Well, granted that I hope to be able to drop non-virtual planes after
-a few releases, I don't think it makes real sense.
+On Wed, Dec 11, 2024 at 11:51=E2=80=AFAM Abhinav Kumar
+<quic_abhinavk@quicinc.com> wrote:
+>
+> Similar to the r_pipe sspp protect, add a check to protect
+> the pipe state prints to avoid NULL ptr dereference for cases when
+> the state is dumped without a corresponding atomic_check() where the
+> pipe->sspp is assigned.
+>
+> Fixes: 31f7148fd370 ("drm/msm/dpu: move pstate->pipe initialization to dp=
+u_plane_atomic_check")
+> Reported-by: Stephen Boyd <swboyd@chromium.org>
+> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/67
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+> To: Rob Clark <robdclark@gmail.com>
+> To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> To: Sean Paul <sean@poorly.run>
+> To: Marijn Suijten <marijn.suijten@somainline.org>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: Stephen Boyd <swboyd@chromium.org>
+> ---
+> Changes in v2:
+> - move pstate->stage out of the pipe->sspp check
+> - add reported-by credits for Stephen
+> - Link to v1: https://lore.kernel.org/r/20241209-check-state-before-dump-=
+v1-1-7a9d8bc6048f@quicinc.com
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 15 +++++++++------
+>  1 file changed, 9 insertions(+), 6 deletions(-)
 
-
--- 
-With best wishes
-Dmitry
+Tested-by: Douglas Anderson <dianders@chromium.org>
