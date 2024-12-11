@@ -1,68 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08FBD9ED9E0
-	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 23:34:57 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BFED9ED9F7
+	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 23:35:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18F1610E08C;
-	Wed, 11 Dec 2024 22:34:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E50D10E169;
+	Wed, 11 Dec 2024 22:35:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="V4ERCPNd";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="khNmPFqd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
- [IPv6:2607:f8b0:4864:20::f36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7CA210E0AD
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 22:34:53 +0000 (UTC)
-Received: by mail-qv1-xf36.google.com with SMTP id
- 6a1803df08f44-6d8f75b31bfso41258216d6.3
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 14:34:53 -0800 (PST)
+Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
+ [IPv6:2607:f8b0:4864:20::834])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A452710E163
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 22:35:42 +0000 (UTC)
+Received: by mail-qt1-x834.google.com with SMTP id
+ d75a77b69052e-46772a0f8fbso27992721cf.3
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 14:35:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1733956493; x=1734561293;
+ d=chromium.org; s=google; t=1733956542; x=1734561342;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:user-agent:from:references
  :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=xk9mjVxKh0Cpv8VTlttHozyBPYsnqFLG9k7nQi8tKJA=;
- b=V4ERCPNdHG7YaO6uFhX6vLkrGvhe/89vlRjX74hqW88LAEuzb4dlq0sGDl0gwJUqAO
- T4C6ox+P+r0DGEwJm1gqsK4tfUGJJuv6txyO6+ZFDLHxqBm0uwowJpPAIESzgmfvE8gA
- YaIdGcjPGqk8eBzKSM6CzQr4Ti5A/6Lq2YEa0=
+ :reply-to; bh=WkXMEqZ/gF/xnWJ/mhzzg/miOHHNVWajJShRngxnHGY=;
+ b=khNmPFqd1PT6t91gqvE8KR6hkcncdZ5bBfvzzNvS//V4iPoJCWd1FJJQ238hAEcsnc
+ 7w4B5bpJ11Rva5tQqgkIbpHl+AvVMcwGetnMhl1UVy3zItThLceutYY+p+5wPpHPLsTg
+ /gIQkFMeqSlNTjZ+hZKdQmcaO+GDbohRayR/E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733956493; x=1734561293;
+ d=1e100.net; s=20230601; t=1733956542; x=1734561342;
  h=cc:to:subject:message-id:date:user-agent:from:references
  :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xk9mjVxKh0Cpv8VTlttHozyBPYsnqFLG9k7nQi8tKJA=;
- b=CofJYSLSK67QJonc3GTaeyVyY7iT8jx/8irPkn0HWRRLHuWsi2IQ1pyMUEFlyD9/o9
- o+/nGf2xvIsxZD4Z5CG7aDp1OAZ7LD416kycOoNCUKeKKqFXFE9d0yRCOiXLJsjUQuCJ
- UafiREclzKH4ixdP9tGNnVq+OLSjURTdLitnQRxp99R/k9JYKXUgkGadabc9fRPenbHy
- tQOcTvQzPKuZekeaWEDmFwsOWTmawDlarTwVQfBn7IVNtbCFLFc0FAMvruplx6zonXyZ
- b5ccQQnPawH1JVV4ArKh+kmpDab40qpy4G0fk4iWIVYd4S2cXV2IDturGXH2rnM8bbm0
- Vz7g==
+ bh=WkXMEqZ/gF/xnWJ/mhzzg/miOHHNVWajJShRngxnHGY=;
+ b=ifk26LHi6j71GWk5URgVDO8S98gsCXrX8D2a5DQVS2svDIigjbL1Oks3dIDaJJK5Kx
+ FtUSomym9NmLtHD8ZEREQ/1obNbz0GoDIzBP+ett+yBcolFv1fupdR0MQ4b7yqI/2m0J
+ R6eVeIOp9F/MwfGbcqyiXTQ+jliuQ7Yzg8bJq/K7kGU8/OfXj4LYUF3mqSsQk7TVpM78
+ m7VIao0lm4v4a6Pm5e8gqv1Iw8zCUPxlbWnmVWUTTEkL7ErzC/uJzogkjG9U9wUyuwN0
+ kKN35O8WMEoscq0SWTyDT7+0JoI/GEl261UyCbMOTX8LruePF7sr7hZ28ufSGBQ2rPM7
+ Fy8w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWvrbFhdHtehdMyBmU06JBarDElcJ+w5NRJkdg/BKXxMh3EnVRHpCgj1N75Gi4iztBFO4zHRASS1nM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwVvULQ+2WvM8IOkPTN6tnVy52KHS2Z2o0zO9zxUYRh7zd/VqqP
- xMyr/EPdwfpVHwWxFaLCBcG2s49JbHxLjNdsuR2guZpqdzIjQ7WGFM0D33V+pdBqRLeJpUDQJwR
- 27jqpb/2cZpYwX9v0yetAtuTgh5jsLbDbJVkH
-X-Gm-Gg: ASbGnct8T4S5TDl4Rl31cIrhBz7+DnFoavCsktGVCJJY/aBB6pKWe6foBL0tYQYNGMf
- Dm1Rg2KikWhJGq43J6wOtFj6xuzcoNsGnPZm9IRvWC4BPi4HPUTQ6UER+NEfs3kg=
-X-Google-Smtp-Source: AGHT+IEmNl1A02u+Et+QaYelQl7de4pzHAlegixn/lag8TVHIDn3QbqOGZ1uvtk5TAuOj8J/cuxjMvpZP+M69zQwnG4=
-X-Received: by 2002:a05:6214:d83:b0:6d8:9c50:52be with SMTP id
- 6a1803df08f44-6dae39a1d71mr15934046d6.44.1733956493056; Wed, 11 Dec 2024
- 14:34:53 -0800 (PST)
+ AJvYcCWHsFjU+UDFVuvG9hySeAqie5U8q3ROSqnveYr43LaGahC48CHt/7nOPzrooGwHPJqDJC7C8PAWk5U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcFXxTXJbuMvmW/ZV3w16DSYr0H7/FDKJXS+0w6gc3VQ77bVhK
+ S3UOUxw+4rmCQdPUQSWF2jeJEEniHMn+XiM+t1wshj+ezqZS80J7vTgwRc+vvB554jU3odeUfEo
+ 0TiVzOhMo4yw5eO3FtkfEGZxbffg/Ko51qNYR
+X-Gm-Gg: ASbGncudkELd1svHByRLyELZDolw/n0kG/Ls7aZ4e62SgvpFQ+FBhcYITxA1qxGoVSJ
+ T4DxmOQxDSt5h/gY/tR1SGS/xbtHqouhd2c0O4BGnBFPWVAgv6JM/x38j+t7pV1LXvA==
+X-Google-Smtp-Source: AGHT+IG9f7BHz8iDa6A37ISXD8md+OMJZHRpC/Cm+CFql7zV4E9ytytJpMb018vR23ZL3eujA5g0+FW3B1/RL8ezpns=
+X-Received: by 2002:ac8:5e54:0:b0:467:43c1:f0ea with SMTP id
+ d75a77b69052e-467961786bbmr14756091cf.16.1733956541804; Wed, 11 Dec 2024
+ 14:35:41 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 11 Dec 2024 14:34:52 -0800
+ HTTPREST; Wed, 11 Dec 2024 14:35:41 -0800
 MIME-Version: 1.0
-In-Reply-To: <20241202-fd-dp-audio-fixup-v2-9-d9187ea96dad@linaro.org>
+In-Reply-To: <20241202-fd-dp-audio-fixup-v2-11-d9187ea96dad@linaro.org>
 References: <20241202-fd-dp-audio-fixup-v2-0-d9187ea96dad@linaro.org>
- <20241202-fd-dp-audio-fixup-v2-9-d9187ea96dad@linaro.org>
+ <20241202-fd-dp-audio-fixup-v2-11-d9187ea96dad@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.12.dev1+gaa8c22fdeedb
-Date: Wed, 11 Dec 2024 14:34:52 -0800
-Message-ID: <CAE-0n50Ei+DodV6VRmm_aSEZ_DdeMZ_vMnK7Mq0=X441B+YreQ@mail.gmail.com>
-Subject: Re: [PATCH v2 09/14] drm/msm/dp: use msm_dp_utils_pack_sdp_header()
- for audio packets
+Date: Wed, 11 Dec 2024 14:35:41 -0800
+Message-ID: <CAE-0n52kSzNeFazUpL0e1C-tTZHv7nzOCYinYCX72pKk-E9_XQ@mail.gmail.com>
+Subject: Re: [PATCH v2 11/14] drm/msm/dp: move/inline audio related functions
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
@@ -88,35 +87,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2024-12-02 02:06:39)
-> Use msm_dp_utils_pack_sdp_header() and call msm_dp_write_link() directly
-> to program audio packet data. Use 0 as Packet ID, as it was not
-> programmed earlier.
+Quoting Dmitry Baryshkov (2024-12-02 02:06:41)
+> Move audio-related functions to dp_audio.c, following up the cleanup
+> done by the rest of the submodules. Inline functions with simple
+> register access patterns.
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
 
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-
-> diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
-> index 5cbb11986460d1e4ed1890bdf66d0913e013083c..1aa52d5cc08684a49102e45ed6e40ac2b13497c7 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_audio.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_audio.c
-[...]
-> +               .HB0 = 0x00,
-> +               .HB1 = 0x06,
-> +               .HB2 = 0x0f,
-> +               .HB3 = 0x00,
-> +       };
-> +       u32 header[2];
-> +       u32 reg;
-> +
-> +       /* XXX: is it necessary to preserve this field? */
-
-Maybe qcom can comment.
-
-> +       reg = msm_dp_read_link(catalog, MMSS_DP_AUDIO_ISRC_1);
-> +       sdp_hdr.HB3 = FIELD_GET(HEADER_3_MASK, reg);
-> +
-> +       msm_dp_utils_pack_sdp_header(&sdp_hdr, header);
-> +
