@@ -2,126 +2,107 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 351B29EC701
-	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 09:23:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B46BB9EC730
+	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 09:30:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B196510EA9B;
-	Wed, 11 Dec 2024 08:23:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1251310EAAE;
+	Wed, 11 Dec 2024 08:30:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ocn9sYQ8";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="TNTXy61p";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EF0710EAA2
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 08:23:46 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-385e0e224cbso3247579f8f.2
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 00:23:46 -0800 (PST)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8234410EAAE
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 08:30:01 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-435004228c0so24649015e9.0
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 00:30:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733905425; x=1734510225; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=tc6e8x3Y2yJVBLDwF3tycQz8lImgNaHz3Vj84SxFzmw=;
- b=ocn9sYQ8S3s0CizTt+Jr8wWC1qr3nYivx73hbDJ4AtWY8i6MbneHSl9I1jl9StfM1e
- ryc5wtZbWFdcaNr7MfFxZuaCsNicCBpez18E1EmvhQdV0lQvzMSN6DwmaOcIZClOfMsi
- QmBl0hNX9fvxb+CLXIQ8nFMJ23QfTRgNf4jHrarlbX9POWPHmcc7QJVFAFHbSROWp2lN
- GVzL3quDi92ujyuXzrs6YihuYduzxhikHruaIampS7thw2McXRRRR3Yc/8yRGTVSgnN4
- wS50uasd1ShqJF/MkaLycaFBmbPANMF8M9TJfgtZm2n380ywUOrFaQUluQATu27mDUBh
- Ci+w==
+ d=linaro.org; s=google; t=1733905800; x=1734510600; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=uN5AdeRScLJtHfsSOT+MoztnVZIiM+ZCP6fGO7QOEEw=;
+ b=TNTXy61p1M45Rs+GQJ0OqP+iiTF65ioPPfB8128o3/5dpv0Q7ATK59YpoVLwj542Ve
+ oAsR9T7PQ1s3Hf+MRh5/58PTMyYiU53GohX79hSm5LqxNI2K1T//TrvrMNe2zmq97ulo
+ QU4iG0mRVopxxzovn3pMojPb83niSHpj3syVfjImNjxLnA3A79RN+nK+FTDPBvJg0igo
+ cScRnQPM84FgzaRfIo4+YQpQrDETmjP4A1zdugA/GsuokMSYCpaKx+yZl6QB19ASDY+u
+ Hui2qFjmtzdsoSuKOdGIADRKQYd+1x3KnCdeRsEXkC/CZ7Z+JDA+0gpr5116P+08P4TW
+ fiwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733905425; x=1734510225;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=tc6e8x3Y2yJVBLDwF3tycQz8lImgNaHz3Vj84SxFzmw=;
- b=Ojmg5tgevlICPBlxr1Kq19MuXZtogSt85BsyZqdqZhhXrzvXiRMTSWJD8mGJ2O2Kw+
- JQW+BMCr4HIKaBhawJ7nuTcMzJ8IGPm5iQF+J20pmXNQzVKIjtD3Jmk690PYGjzSh8mb
- CCs2RCbsCkhnjcdGtQ+C7l2sadn0B7S5daHGUb45+tXlHNSxX5C8f4wG5c8KsxaprDa3
- xzxkfCODQZSJVKbTO8bj6WTdtUNvcg9J8DUDmXgafNiXZJynIFckmFP/IjwDQ899Xqup
- ckW0iru87yz2DsRBHJCAEGrsQrSl4fkKIfsP34M5FpldxBZpx6sINnTDZrxLw4VFSKOo
- gwPw==
+ d=1e100.net; s=20230601; t=1733905800; x=1734510600;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uN5AdeRScLJtHfsSOT+MoztnVZIiM+ZCP6fGO7QOEEw=;
+ b=Hvt3T8ZK7AASLzJ+8rX8CByuqGkHG7LOb/5U9rTOVQgoTpuU7ItWTMAGF7gAWWRC7D
+ aAea6EDakfzzwVJIB2mLHno2aez16InvDqkBZnEF5IcD1ib/AQ+EOhbcwKr4XU32AuG2
+ 98ur3hfMZBfDK9h9NSH/XkuOMFoRHVoisGBsT8EjLnFR1Smb6Ega5q7luhx6ThBUScIK
+ N8k+fMC218WqXWXRU+V8dObvA0yyP7JX+M/FLsZ9gnd4XT5Xuvh5SLmsxFmTBa9lDJVN
+ Arro8W+Nbs4O7CgGHX6dpYueEYweGMwUmXNzoUC6mfFPm4xfoRMEDJuF/BYSzImCIWFD
+ DPFw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXXg5yz9AlBfkOizrcbgBtTxYB7LfhJWXN04yne/Sou3u+lRvde0mwjtTGXnfL6325mSWoSFZE2k7U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzXZ+4GM7MEHSyVtD0I5+fWdJ+Jicc/xbQ1wxASF32abd7Z0ZCY
- slG115+xO/Bx8hqqF4hu65c+rrlpWMJcRLABO169yW/Efjsr6213yqvaRg74KMI=
-X-Gm-Gg: ASbGncvTPk6hb1MlcjGvpMdxyMCzK9nFdAgGSAoy94Lgd+fNqFfhAiJ+sC328A9EGHc
- kOLgtt3OMffqfbWu3mPQLMAXis/Dr0gOspCq7/hLLlgZ/JMK8jgtEzVH161ALxa5NlXIVe/5tz3
- 7gXQKGlT5BIoKCGlVDjZCqSCy5Isb/nu2rKhXklDZxib+CbBQdC+u/u4YYxm3LFn1cm/ONu0tIu
- JBSWm6HjNwGvEoXNXnElqsyM87RQUWS4c7XMR0CiSCjR8xcyYj5rqv+sz3z9UtvIAV8VLr1cKFD
- uhZ1R/XeHzsoeKulDpUs4vsnYV4jirk=
-X-Google-Smtp-Source: AGHT+IGEi9agyoEzTdWmCqTOqIAkVp1VR630KO2OVwmzbLRVaXPRYWwH67ybi3Ye9LMc/1v1TFeoPA==
-X-Received: by 2002:a5d:6c62:0:b0:385:fae4:424e with SMTP id
- ffacd0b85a97d-3864cea43famr1492564f8f.52.1733905424397; 
- Wed, 11 Dec 2024 00:23:44 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:d426:8f10:1673:5657?
- ([2a01:e0a:982:cbb0:d426:8f10:1673:5657])
+ AJvYcCUbii2Hrx6S/4sZDOJqNCBOhJE3VO5SPTyRxhEvwbM0sbGNmVFKihxDkfYG5Z++bxprKgDIuLtBiow=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw3EXY5Rp4IeWGlzcXTLdfQ3cD0aAKxndJyUqR7ho3/l/eqTWFI
+ Fkma07Qv6XHr1JIQ715Kw4JljNd6T/a7GM2KpOpDK0845VX+z0lssiCbe6C90g8=
+X-Gm-Gg: ASbGncs5DUh1gSdbJhQQefFwO7nvd8Y+azjmYF0znXWeWUdwN3OvJajusIBsZnJVVNu
+ /WC0D2e1J4irbhAMZ0jAMMQS4SQwk98tDzbWJd2KSCRzFeFIqea2DvFJYIlFEPDAF6cCAd122Nz
+ 21MBru7sizkE/mpsJHVmjB9AUD/C44c8WhgW91L1dEl+AjGyyiBm0fvz3VJ6WCYvwthatpWEVQV
+ luIXaaTuL1/QrvcPiWUZo7vl/iR7v/2aAf7F5T8xREYAYb0uSRmpop6RxdM9/e8WUPHHkhEnPQ=
+X-Google-Smtp-Source: AGHT+IGvKUv7p0bySo4rj/rZSBrceXdME0hrdstc13IuQeGdJAJK/A7l8wW6sihQ18u8uzyhFCb/lg==
+X-Received: by 2002:a5d:5f91:0:b0:382:46ea:113f with SMTP id
+ ffacd0b85a97d-3864ce86a3fmr1725077f8f.10.1733905799294; 
+ Wed, 11 Dec 2024 00:29:59 -0800 (PST)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38782514dadsm707894f8f.68.2024.12.11.00.23.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Dec 2024 00:23:43 -0800 (PST)
-Message-ID: <d7616518-f108-49f2-9e24-64ecb207be89@linaro.org>
-Date: Wed, 11 Dec 2024 09:23:42 +0100
+ ffacd0b85a97d-387824a3e38sm735687f8f.23.2024.12.11.00.29.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Dec 2024 00:29:58 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v5 0/7] drm/msm: adreno: add support for DDR bandwidth
+ scaling via GMU
+Date: Wed, 11 Dec 2024 09:29:50 +0100
+Message-Id: <20241211-topic-sm8x50-gpu-bw-vote-v5-0-6112f9f785ec@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH v2 05/11] drm/msm: adreno: add plumbing to generate
- bandwidth vote table for GMU
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Connor Abbott <cwabbott0@gmail.com>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20241119-topic-sm8x50-gpu-bw-vote-v2-0-4deb87be2498@linaro.org>
- <20241119-topic-sm8x50-gpu-bw-vote-v2-5-4deb87be2498@linaro.org>
- <20241123212246.46hdznrgusr2pj4v@hu-akhilpo-hyd.qualcomm.com>
- <20241123224648.kgc6hxdsgz4shhw4@hu-akhilpo-hyd.qualcomm.com>
- <1f322b31-a516-4ff8-84b1-5000cdfc1c4a@linaro.org>
- <16e646ff-7bc1-4dad-9fcd-d4346c1dde96@quicinc.com>
- <85977827-5f17-4071-a8a5-adefadce0ca2@linaro.org>
- <512701db-cdc9-44f3-819f-23752e28f06e@quicinc.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <512701db-cdc9-44f3-819f-23752e28f06e@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAH5NWWcC/43NQW7DIBCF4atErDsVDBAgq94j6sKYsYPUGgtck
+ iry3UuyaapIVpf/k+abKyuUIxV22F1ZphpLTFML/bJj/ambRoIYWjPkqIQQEpY0xx7Kp71oDuP
+ 8Bf4MNS0EgyaOOJDplGHtfM40xMudPr63PsWypPx9/1TFbf0HWgVwkN4G6Yw0nfNvH3HqcnpNe
+ WQ3teKj5DYkbJIK5K3xhMrZJ0k+SGg3JNkkK8Ke94IP3sgnSf1KyPWGpJrk9poHoUNQUv+R1nX
+ 9AZlHnqqfAQAA
+X-Change-ID: 20241113-topic-sm8x50-gpu-bw-vote-f5e022fe7a47
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4929;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=ghVOoUCP6ClulQHKSlvN1uTAOqfE8YlIThvntPRyWMk=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBnWU2Cia4TKjc0Ij6gMzsPHdLygGocf+k8W30t9bd/
+ H4zFC2GJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZ1lNggAKCRB33NvayMhJ0XA4D/
+ 4qDdfOHr4uO7VFWs4QAIMuSpAsaARTcV3cNztIoVua7vvMixLg4wt641nl6a6oLQlwDKLImfuv49+u
+ IVbbITNnANRFvHAqRJas3dif+WKOyz70U7zWvSB8iZPmiecX8Xw5etHb91wWWDfJ4Xh48Vz7E6FGxk
+ zA+V9/w8HKFpZCeqFsKrQDE0miY2bMLPb7Agjug+y7YA2DEg32JWpGQ8nSNrWGrxsRgSCHYv4WF8wy
+ Ob1I20jPHcZ5zpktuN4QFAwA+Y4SJUK91dITaoIL+O+5G7WkpGBoLs7bg8JrpsI8G33/v6sITgfzX5
+ KxPoECeY4zj76rO67O5OC1z4wxWSU29/FCUPX09ZcIJyHD6Ldv/qQ+r7hsPhfKWzoAHrIxQrlHkQZg
+ P0rgq4207sXXNC0lJy28EyPnNgipX1Us2kZN39RjEQO+RCvXRyZGySJ1d+3FaEkMmeqCVCy7wxc7xJ
+ /rx4a9gVPwMPQLqqf9EX0RZMCxA23yTLbiBjzyToJGlrcKQQa+Sbsypq0lPwVBtV7FqwQvAzfQ75bd
+ /LcmrARqy3Iv91ZLr1QWxmq0l8mZinvSXEf+rDph3PwuOhXFlr6qTkYIx9GSrPVo0IgklVUt5NjlbM
+ o8GLhXca4StR8amW0tM2IQN352Z+BAHxlau03DO4RJk5aNDonffT4UK+3LAg==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,398 +115,111 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/11/2024 21:36, Akhil P Oommen wrote:
-> On 11/27/2024 9:17 PM, neil.armstrong@linaro.org wrote:
->> On 27/11/2024 16:29, Akhil P Oommen wrote:
->>> On 11/25/2024 1:42 PM, Neil Armstrong wrote:
->>>> On 23/11/2024 23:46, Akhil P Oommen wrote:
->>>>> On Sun, Nov 24, 2024 at 02:52:46AM +0530, Akhil P Oommen wrote:
->>>>>> On Tue, Nov 19, 2024 at 06:56:40PM +0100, Neil Armstrong wrote:
->>>>>>> The Adreno GMU Management Unit (GMU) can also scale DDR Bandwidth
->>>>>>> along
->>>>>>> the Frequency and Power Domain level, but by default we leave the
->>>>>>> OPP core scale the interconnect ddr path.
->>>>>>>
->>>>>>> In order to calculate vote values used by the GPU Management
->>>>>>> Unit (GMU), we need to parse all the possible OPP Bandwidths and
->>>>>>
->>>>>> GMU expects a table of votes for each DDR frequency corners. Can we
->>>>>> please try to figure out a way to do that? Generally, we should
->>>>>> ensure the
->>>>>> data that is send to GMU firmware match downstream exactly. Because,
->>>>>> when something breaks in firmware or worst, at SoC level, it will be
->>>>>> pretty
->>>>>> hard to narrow down the issue. So, I prefer to be very conservative
->>>>>> about
->>>>>> this.
->>>>>>
->>>>>> KGSL keeps the ddr frequency table in the devicetree. That helps to
->>>>>> keep
->>>>>> the driver lean, but I am not sure if that is viable upstream.
->>>>
->>>> No it's not, opp table is here for that, and we can reproduce the same
->>>> bahaviour by parsing all the bandwidths in the opp table.
->>>>
->>>>>>
->>>>>> -Akhil.
->>>>>>
->>>>>>> create a vote value to be sent to the appropriate Bus Control
->>>>>>> Modules (BCMs) declared in the GPU info struct.
->>>>>>>
->>>>>>> The vote array will then be used to dynamically generate the GMU
->>>>>>> bw_table sent during the GMU power-up.
->>>>>>>
->>>>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>>>>>> ---
->>>>>>>     drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 153 ++++++++++++++++++++++
->>>>>>> ++++++++++++
->>>>>>>     drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  14 ++++
->>>>>>>     drivers/gpu/drm/msm/adreno/a6xx_gpu.h |   1 +
->>>>>>>     3 files changed, 168 insertions(+)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/
->>>>>>> drm/msm/adreno/a6xx_gmu.c
->>>>>>> index
->>>>>>> 14db7376c712d19446b38152e480bd5a1e0a5198..f6814d92a4edb29ba8a34a34aabb8b2324e9c6a4 100644
->>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>>>>> @@ -9,6 +9,7 @@
->>>>>>>     #include <linux/pm_domain.h>
->>>>>>>     #include <linux/pm_opp.h>
->>>>>>>     #include <soc/qcom/cmd-db.h>
->>>>>>> +#include <soc/qcom/tcs.h>
->>>>>>>     #include <drm/drm_gem.h>
->>>>>>>       #include "a6xx_gpu.h"
->>>>>>> @@ -1287,6 +1288,109 @@ static int a6xx_gmu_memory_probe(struct
->>>>>>> a6xx_gmu *gmu)
->>>>>>>         return 0;
->>>>>>>     }
->>>>>>>     +/**
->>>>>>> + * struct bcm_db - Auxiliary data pertaining to each Bus Clock
->>>>>>> Manager (BCM)
->>>>>>> + * @unit: divisor used to convert bytes/sec bw value to an RPMh msg
->>>>>>> + * @width: multiplier used to convert bytes/sec bw value to an RPMh
->>>>>>> msg
->>>>>>> + * @vcd: virtual clock domain that this bcm belongs to
->>>>>>> + * @reserved: reserved field
->>>>>>> + */
->>>>>>> +struct bcm_db {
->>>>>>> +    __le32 unit;
->>>>>>> +    __le16 width;
->>>>>>> +    u8 vcd;
->>>>>>> +    u8 reserved;
->>>>>>> +};
->>>>>
->>>>> Shouldn't this be a packed struct? It is naturally aligned, but still!
->>>>
->>>> It's used as-is in the interconnecty driver, so I assume it's fine.
->>>>
->>>>>
->>>>>>> +
->>>>>>> +static u64 bcm_div(u64 num, u32 base)
->>>>>>> +{
->>>>>>> +    /* Ensure that small votes aren't lost. */
->>>>>>> +    if (num && num < base)
->>>>>>> +        return 1;
->>>>>>> +
->>>>>>> +    do_div(num, base);
->>>>>>> +
->>>>>>> +    return num;
->>>>>>> +}
->>>>>>> +
->>>>>>> +static int a6xx_gmu_rpmh_bw_votes_init(const struct a6xx_info *info,
->>>>>>> +                       struct a6xx_gmu *gmu)
->>>>>>> +{
->>>>>>> +    const struct bcm_db *bcm_data[GMU_MAX_BCMS] = { 0 };
->>>>>>> +    unsigned int bcm_index, bw_index;
->>>>>>> +
->>>>>>> +    /* Retrieve BCM data from cmd-db */
->>>>>>> +    for (bcm_index = 0; bcm_index < GMU_MAX_BCMS; bcm_index++) {
->>>>>>> +        size_t count;
->>>>>>> +
->>>>>>> +        /* Skip unconfigured BCM */
->>>>>>> +        if (!info->bcm[bcm_index].name)
->>>>>>> +            continue;
->>>>>>> +
->>>>>>> +        bcm_data[bcm_index] = cmd_db_read_aux_data(
->>>>>>> +                        info->bcm[bcm_index].name,
->>>>>>> +                        &count);
->>>>>>> +        if (IS_ERR(bcm_data[bcm_index]))
->>>>>>> +            return PTR_ERR(bcm_data[bcm_index]);
->>>>>>> +
->>>>>>> +        if (!count)
->>>>>>> +            return -EINVAL;
->>>>>>> +    }
->>>>>>> +
->>>>>>> +    /* Generate BCM votes values for each bandwidth & BCM */
->>>>>>> +    for (bw_index = 0; bw_index < gmu->nr_gpu_bws; bw_index++) {
->>>>>>> +        u32 *data = gmu->gpu_bw_votes[bw_index];
->>>>>>> +        u32 bw = gmu->gpu_bw_table[bw_index];
->>>>>>> +
->>>>>>> +        /* Calculations loosely copied from bcm_aggregate() &
->>>>>>> tcs_cmd_gen() */
->>>>>>> +        for (bcm_index = 0; bcm_index < GMU_MAX_BCMS; bcm_index++) {
->>>>>>> +            bool commit = false;
->>>>>>> +            u64 peak, vote;
->>>>>>> +            u16 width;
->>>>>>> +            u32 unit;
->>>>>>> +
->>>>>>> +            /* Skip unconfigured BCM */
->>>>>>> +            if (!info->bcm[bcm_index].name || !bcm_data[bcm_index])
->>>>>>> +                continue;
->>>>>>> +
->>>>>>> +            if (bcm_index == GMU_MAX_BCMS - 1 ||
->>>>>>> +                (bcm_data[bcm_index + 1] &&
->>>>>>> +                 bcm_data[bcm_index]->vcd != bcm_data[bcm_index +
->>>>>>> 1]->vcd))
->>>>>>> +                commit = true;
->>>>>>> +
->>>>>>> +            if (!bw) {
->>>>>>> +                data[bcm_index] = BCM_TCS_CMD(commit, false, 0, 0);
->>>>>>> +                continue;
->>>>>>> +            }
->>>>>>> +
->>>>>>> +            if (info->bcm[bcm_index].fixed) {
->>>>>>> +                u32 perfmode = 0;
->>>>>>> +
->>>>>>> +                if (bw >= info->bcm[bcm_index].perfmode_bw)
->>>>>>> +                    perfmode = info->bcm[bcm_index].perfmode;
->>>>>>> +
->>>>>>> +                data[bcm_index] = BCM_TCS_CMD(commit, true, 0,
->>>>>>> perfmode);
->>>>>>> +                continue;
->>>>>>> +            }
->>>>>>> +
->>>>>>> +            /* Multiply the bandwidth by the width of the
->>>>>>> connection */
->>>>>>> +            width = le16_to_cpu(bcm_data[bcm_index]->width);
->>>>>>> +            peak = bcm_div((u64)bw * width, info-
->>>>>>>> bcm[bcm_index].buswidth);
->>>>>>> +
->>>>>>> +            /* Input bandwidth value is in KBps, scale the value to
->>>>>>> BCM unit */
->>>>>>> +            unit = le32_to_cpu(bcm_data[bcm_index]->unit);
->>>>>>> +            vote = bcm_div(peak * 1000ULL, unit);
->>>>>>> +
->>>>>>> +            if (vote > BCM_TCS_CMD_VOTE_MASK)
->>>>>>> +                vote = BCM_TCS_CMD_VOTE_MASK;
->>>>>>> +
->>>>>>> +            data[bcm_index] = BCM_TCS_CMD(commit, true, vote, vote);
->>>>>>> +        }
->>>>>>> +    }
->>>>>>> +
->>>>>>> +    return 0;
->>>>>>> +}
->>>>>>> +
->>>>>>>     /* Return the 'arc-level' for the given frequency */
->>>>>>>     static unsigned int a6xx_gmu_get_arc_level(struct device *dev,
->>>>>>>                            unsigned long freq)
->>>>>>> @@ -1390,12 +1494,15 @@ static int
->>>>>>> a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
->>>>>>>      * The GMU votes with the RPMh for itself and on behalf of the GPU
->>>>>>> but we need
->>>>>>>      * to construct the list of votes on the CPU and send it over.
->>>>>>> Query the RPMh
->>>>>>>      * voltage levels and build the votes
->>>>>>> + * The GMU can also vote for DDR interconnects, use the OPP
->>>>>>> bandwidth entries
->>>>>>> + * and BCM parameters to build the votes.
->>>>>>>      */
->>>>>>>       static int a6xx_gmu_rpmh_votes_init(struct a6xx_gmu *gmu)
->>>>>>>     {
->>>>>>>         struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu,
->>>>>>> gmu);
->>>>>>>         struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
->>>>>>> +    const struct a6xx_info *info = adreno_gpu->info->a6xx;
->>>>>>>         struct msm_gpu *gpu = &adreno_gpu->base;
->>>>>>>         int ret;
->>>>>>>     @@ -1407,6 +1514,10 @@ static int a6xx_gmu_rpmh_votes_init(struct
->>>>>>> a6xx_gmu *gmu)
->>>>>>>         ret |= a6xx_gmu_rpmh_arc_votes_init(gmu->dev, gmu-
->>>>>>>> cx_arc_votes,
->>>>>>>             gmu->gmu_freqs, gmu->nr_gmu_freqs, "cx.lvl");
->>>>>>>     +    /* Build the interconnect votes */
->>>>>>> +    if (adreno_gpu->info->features & ADRENO_FEAT_GMU_BW_VOTE)
->>>>>>> +        ret |= a6xx_gmu_rpmh_bw_votes_init(info, gmu);
->>>>>>> +
->>>>>>>         return ret;
->>>>>>>     }
->>>>>>>     @@ -1442,6 +1553,38 @@ static int a6xx_gmu_build_freq_table(struct
->>>>>>> device *dev, unsigned long *freqs,
->>>>>>>         return index;
->>>>>>>     }
->>>>>>>     +static int a6xx_gmu_build_bw_table(struct device *dev, unsigned
->>>>>>> long *bandwidths,
->>>>>>> +        u32 size)
->>>>>>> +{
->>>>>>> +    int count = dev_pm_opp_get_opp_count(dev);
->>>>>
->>>>> I suppose this doesn't count the opps which are not supported by the
->>>>> SKU. If we can go through *all* OPPs in the opp table irrespective of
->>>>> the SKU, we will get something close to a full DDR bw table I mentioned
->>>>> in the prevous mail.
->>>>
->>>> It parses _all_ bandwitdh declared in the opp table, without any
->>>> discard,
->>>> so yes we're close to a full DDR table. It only lacks a few low
->>>> bandwidths.
->>>>
->>> Isn't opp_table->opp_list created after filtering with supported_hw
->>> bitmask?
->>
->> Sure, but opp filtering is not supported on a7xx, and nevetheless only
->> the high OPPs would be filtered out, so I don't understand why it would
->> matter ?
->>
->> As of today, the gx_arc_votes are already constructed the exact same way
->> I build the BW vote table, so why the BW table should be the ____exact____
->> same as downstream while we don't care about the gx_arc_votes ?
->>
-> 
-> Sorry to comment on the older revision, but how is arc votes table
-> different from kgsl? Just want to check if we have a problem. It should
-> match downstream driver exactly.
+The Adreno GPU Management Unit (GMU) can also vote for DDR Bandwidth
+along the Frequency and Power Domain level, but by default we leave the
+OPP core scale the interconnect ddr path.
 
-It will match downstream _if_ DT has the exact same OPP entries, we can't
-really control that from the driver side.
+While scaling the interconnect path was sufficient, newer GPUs
+like the A750 requires specific vote parameters and bandwidth to
+achieve full functionnality.
 
-And since we don't support speedbin on a7xx yet, it's already different.
+In order to get the vote values to be used by the GPU Management
+Unit (GMU), we need to parse all the possible OPP Bandwidths and
+create a vote value to be send to the appropriate Bus Control
+Modules (BCMs) declared in the GPU info struct.
+The added dev_pm_opp_get_bw() is used in this case.
 
-And obviously it's the same for the BW vote table.
+The vote array will then be used to dynamically generate the GMU
+bw_table sent during the GMU power-up.
 
-Neil
+Those entries will then be used by passing the appropriate
+bandwidth level when voting for a GPU frequency.
 
-> 
-> -Akhil
-> 
->> Neil
->>
->>>
->>> -Akhil.
->>>>>
->>>>>>> +    struct dev_pm_opp *opp;
->>>>>>> +    int i, index = 0;
->>>>>>> +    unsigned int bandwidth = 1;
->>>>>>> +
->>>>>>> +    /*
->>>>>>> +     * The OPP table doesn't contain the "off" bandwidth level so
->>>>>>> we need to
->>>>>>> +     * add 1 to the table size to account for it
->>>>>>> +     */
->>>>>>> +
->>>>>>> +    if (WARN(count + 1 > size,
->>>>>>> +        "The GMU bandwidth table is being truncated\n"))
->>>>>>> +        count = size - 1;
->>>>>>> +
->>>>>>> +    /* Set the "off" bandwidth */
->>>>>>> +    bandwidths[index++] = 0;
->>>>>>> +
->>>>>>> +    for (i = 0; i < count; i++) {
->>>>>>> +        opp = dev_pm_opp_find_bw_ceil(dev, &bandwidth, 0);
->>>>>>> +        if (IS_ERR(opp))
->>>>>>> +            break;
->>>>>>> +
->>>>>>> +        dev_pm_opp_put(opp);
->>>>>>> +        bandwidths[index++] = bandwidth++;
->>>>>>> +    }
->>>>>>> +
->>>>>>> +    return index;
->>>>>>> +}
->>>>>>> +
->>>>>>>     static int a6xx_gmu_pwrlevels_probe(struct a6xx_gmu *gmu)
->>>>>>>     {
->>>>>>>         struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu,
->>>>>>> gmu);
->>>>>>> @@ -1472,6 +1615,16 @@ static int a6xx_gmu_pwrlevels_probe(struct
->>>>>>> a6xx_gmu *gmu)
->>>>>>>           gmu->current_perf_index = gmu->nr_gpu_freqs - 1;
->>>>>>>     +    /*
->>>>>>> +     * The GMU also handles GPU Interconnect Votes so build a list
->>>>>>> +     * of DDR bandwidths from the GPU OPP table
->>>>>>> +     */
->>>>>>> +    if (adreno_gpu->info->features & ADRENO_FEAT_GMU_BW_VOTE)
->>>>>>> +        gmu->nr_gpu_bws = a6xx_gmu_build_bw_table(&gpu->pdev->dev,
->>>>>>> +            gmu->gpu_bw_table, ARRAY_SIZE(gmu->gpu_bw_table));
->>>>>>> +
->>>>>>> +    gmu->current_perf_index = gmu->nr_gpu_freqs - 1;
->>>>>
->>>>> duplicate line.
->>>>>
->>>>>>> +
->>>>>>>         /* Build the list of RPMh votes that we'll send to the GMU */
->>>>>>>         return a6xx_gmu_rpmh_votes_init(gmu);
->>>>>>>     }
->>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/
->>>>>>> drm/msm/adreno/a6xx_gmu.h
->>>>>>> index
->>>>>>> b4a79f88ccf45cfe651c86d2a9da39541c5772b3..03603eadc0f9ed866899c95e99f333a511ebc3c1 100644
->>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
->>>>>>> @@ -19,6 +19,16 @@ struct a6xx_gmu_bo {
->>>>>>>         u64 iova;
->>>>>>>     };
->>>>>>>     +#define GMU_MAX_BCMS    3
->>>>>>> +
->>>>>>> +struct a6xx_bcm {
->>>>>>> +    char *name;
->>>>>>> +    unsigned int buswidth;
->>>>>>> +    bool fixed;
->>>>>>> +    unsigned int perfmode;
->>>>>>> +    unsigned int perfmode_bw;
->>>>>>> +};
->>>>>>> +
->>>>>>>     /*
->>>>>>>      * These define the different GMU wake up options - these define
->>>>>>> how both the
->>>>>>>      * CPU and the GMU bring up the hardware
->>>>>>> @@ -82,6 +92,10 @@ struct a6xx_gmu {
->>>>>>>         unsigned long gpu_freqs[16];
->>>>>>>         u32 gx_arc_votes[16];
->>>>>>>     +    int nr_gpu_bws;
->>>>>>> +    unsigned long gpu_bw_table[16];
->>>>>>> +    u32 gpu_bw_votes[16][GMU_MAX_BCMS];
->>>>>>> +
->>>>>>>         int nr_gmu_freqs;
->>>>>>>         unsigned long gmu_freqs[4];
->>>>>>>         u32 cx_arc_votes[4];
->>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/
->>>>>>> drm/msm/adreno/a6xx_gpu.h
->>>>>>> index
->>>>>>> 4aceffb6aae89c781facc2a6e4a82b20b341b6cb..5b80919e595fa1ba0a3afcca55feb89e60870cb1 100644
->>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>>>>> @@ -44,6 +44,7 @@ struct a6xx_info {
->>>>>>>         u32 gmu_chipid;
->>>>>>>         u32 gmu_cgc_mode;
->>>>>>>         u32 prim_fifo_threshold;
->>>>>>> +    const struct a6xx_bcm bcm[GMU_MAX_BCMS];
->>>>>
->>>>> This table is duplicated a lot. Lets keep a pointer instead. We can
->>>>> probably use
->>>>> this pointer as a flag to check for GMU_IB_VOTE support too.
->>>>
->>>> It's partially duplicated, basically only the permode bits and level is
->>>> different.
->>>>
->>>> We can move it out when we support more GPUs with this feature.
->>>>
->>>> Neil
->>>>
->>>>>
->>>>> -Akhil
->>>>>
->>>>>>>     };
->>>>>>>       struct a6xx_gpu {
->>>>>>>
->>>>>>> -- 
->>>>>>> 2.34.1
->>>>>>>
->>>>
->>>
->>
-> 
+This will make sure all resources are equally voted for a
+same OPP, whatever decision is done by the GMU, it will
+ensure all resources votes are synchronized.
+
+Depends on [1] to avoid crashing when getting OPP bandwidths.
+
+[1] https://lore.kernel.org/all/20241203-topic-opp-fix-assert-index-check-v3-0-1d4f6f763138@linaro.org/
+
+Ran full vulkan-cts-1.3.7.3-0-gd71a36db16d98313c431829432a136dbda692a08 with mesa 25.0.0+git3ecf2a0518 on:
+- QRD8550
+- QRD8650
+- HDK8650
+
+Any feedback is welcome.
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v5:
+- Dropped bogus qcom,icc.h flags
+- Properly calculate _wait_bitmask from votes
+- Switch DT to qcom,bus-freq values from downstream
+- Added review tags
+- Link to v4: https://lore.kernel.org/r/20241205-topic-sm8x50-gpu-bw-vote-v4-0-9650d15dd435@linaro.org
+
+Changes in v4:
+- Collected review tags
+- Dropped bcm_div() and switched to clamp() instead
+- Dropped pre-calculation of AB votes
+- Instead calculate a 25% floor vote in a6xx_gmu_set_freq() as recommended
+- Use QCOM_ICC_TAG_ALWAYS in DT
+- Made a740_generate_bw_table() generic, using defines to fill the table
+- Link to v3: https://lore.kernel.org/r/20241128-topic-sm8x50-gpu-bw-vote-v3-0-81d60c10fb73@linaro.org
+
+Changes in v3:
+- I didn't take Dmitry's review tags since I significantly changed the patches
+- Dropped applied OPP change
+- Dropped QUIRK/FEATURE addition/rename in favor of checking the a6xx_info->bcms pointer
+- Switch a6xx_info->bcms to a pointer, so it can be easy to share the table
+- Generate AB votes in advance, the voting was wrong in v2 we need to quantitiwe each bandwidth value
+- Do not vote via GMU is there's only the OFF vote because DT doesn't have the right properties
+- Added defines for the a6xx_gmu freqs tables to not have magic 16 and 4 values
+- Renamed gpu_bw_votes to gpu_ib_votes to match the downstream naming
+- Changed the parameters of a6xx_hfi_set_freq() to u32 to match the data type we pass
+- Drop "request for maximum bus bandwidth usage" and merge it in previous changes
+- Link to v2: https://lore.kernel.org/r/20241119-topic-sm8x50-gpu-bw-vote-v2-0-4deb87be2498@linaro.org
+
+Changes in v2:
+- opp: rename to dev_pm_opp_get_bw, fix commit message and kerneldoc
+- remove quirks that are features and move them to a dedicated .features bitfield
+- get icc bcm kerneldoc, and simplify/cleanup a6xx_gmu_rpmh_bw_votes_init()
+  - no more copies of data
+  - take calculations from icc-rpmh/bcm-voter
+  - move into a single cleaner function
+- fix a6xx_gmu_set_freq() but not calling dev_pm_opp_set_opp() if !bw_index
+- also vote for maximum bus bandwidth usage (AB)
+- overall fix typos in commit messages
+- Link to v1: https://lore.kernel.org/r/20241113-topic-sm8x50-gpu-bw-vote-v1-0-3b8d39737a9b@linaro.org
+
+---
+Neil Armstrong (7):
+      drm/msm: adreno: add defines for gpu & gmu frequency table sizes
+      drm/msm: adreno: add plumbing to generate bandwidth vote table for GMU
+      drm/msm: adreno: dynamically generate GMU bw table
+      drm/msm: adreno: find bandwidth index of OPP and set it along freq index
+      drm/msm: adreno: enable GMU bandwidth for A740 and A750
+      arm64: qcom: dts: sm8550: add interconnect and opp-peak-kBps for GPU
+      arm64: qcom: dts: sm8650: add interconnect and opp-peak-kBps for GPU
+
+ arch/arm64/boot/dts/qcom/sm8550.dtsi      |  13 +++
+ arch/arm64/boot/dts/qcom/sm8650.dtsi      |  15 +++
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c |  22 ++++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c     | 183 +++++++++++++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h     |  26 ++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |   1 +
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c     |  54 ++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.h     |   5 +
+ 8 files changed, 308 insertions(+), 11 deletions(-)
+---
+base-commit: df210b30304e9113866a213363894a6d768411ec
+change-id: 20241113-topic-sm8x50-gpu-bw-vote-f5e022fe7a47
+
+Best regards,
+-- 
+Neil Armstrong <neil.armstrong@linaro.org>
 
