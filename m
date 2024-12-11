@@ -2,103 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B3AA9EC741
-	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 09:30:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F8849EC7BB
+	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 09:53:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EBD610EAB7;
-	Wed, 11 Dec 2024 08:30:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB12510EABC;
+	Wed, 11 Dec 2024 08:52:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="HJOe5CGR";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="oFVAzGtV";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 989A210EAC2
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 08:30:09 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-3862a4b8ec2so2675824f8f.1
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 00:30:09 -0800 (PST)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7491310EAB9
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 08:52:57 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-5401be44b58so3522609e87.0
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 00:52:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733905808; x=1734510608; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=B4/tn0+NaXoZvCxd7DO6dwQt1/7UILyIFVNQSPfY62g=;
- b=HJOe5CGR11DeI5xikr58iKPgQzZoWZ91AM/xQ2ip5OsA/tfoKHQcqwtCy9YORExaVC
- EbHVMDwzAf63aqtqXf0czk82Vh4OphhYRxfydCFF/Yt0foUwZFrsJUZ8z3ZhNSJhkZ38
- RiiTS3wg6uWWEarRb5s2NZHRV6ceGtDTu5aOuJBB4NoLJHBQLCtG9Y3coWho2u8kAget
- p2oOj1+Qu60syQtfrVZlzHu4lMj4/zqyWnuKkXsMz1Va40miNMf+6AqhhqdM5CzXpZK/
- X4Z/e4XlgwSyyg0zjZ9qTUEDaFQmDYglmNAKwrXi+xvCgofYe4Qt2OpNSQsIFhc/woXu
- 9o5w==
+ d=linaro.org; s=google; t=1733907175; x=1734511975; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=PQvn4I1rIMKsaknMKxkICyEP4l6YBY0h5q6GbALy4aI=;
+ b=oFVAzGtVmMn5cH3L2iCQopJUZwa0i6Lk0JAp1iR3javRgnFtUgiO+g9L86CzEg+xDb
+ Kw3bYTlFhNYciTnzgCBqcoPnUc7/pXDAxWmoRhAP3cnIzdyMI5sw3Cr3cORizwY4fyJi
+ 6NTW/rB4CSkZ7A0O+kXlTY7UGtJ/Uglc81OrnYLBzc2TGE/ePtoF6G6WctXkTy2vzp9i
+ eHvClFURkUe1Dpj4XWW77sZq8Ja/58AQuisnML5BIqxKLL66egf658xN+7H/cQvVFGah
+ +5SzgZ4fw2uOESPVELGTBPPdvAGBovtRekHQX2+SxOhUSvZ4g/yQRkbMcn4zOXkb8yMy
+ qCiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733905808; x=1734510608;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=B4/tn0+NaXoZvCxd7DO6dwQt1/7UILyIFVNQSPfY62g=;
- b=F4Ahh9pkS3K9mMqZ//GL41AHy2E4AzVfzmNPdhGmYrysZuK1aikHWJeOc2ternTo96
- FStiwl2n4S43mPEdIYjTYLw9kNiyrihbdnl9rgVoTBIn6JwmqlfSV08INcKUkUX2P6Vh
- bFrE2l48MF2LpkWogzEV+kXH/fxFb36GG6MvjIumlvWRm7azAhg38Gnw+RDExE9Pa+GZ
- egVONOekQSVKOdGkIdRB3Hi7YAHp2dU+jm026ncZ29p5hndUtQcRTNrpFWy+HFNtYkxr
- OtRt+KOXJkvtdYDaqGH7kTF61oJv/YU+XMKjeHQ0euDQi+RpzcyTQ1i7p8csxLTp4EbX
- 1Icw==
+ d=1e100.net; s=20230601; t=1733907175; x=1734511975;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=PQvn4I1rIMKsaknMKxkICyEP4l6YBY0h5q6GbALy4aI=;
+ b=ty5jquP0d3LPqoTZB0CWrsACZ39IywESiNu/q3qWC5rScsZjbRa+1iTwEZpjqoLXKe
+ O/1ESXM7ROBebcqUc+6c0LuqFuZ8phQC8mbMnhqq7WqdKc9U9LQ7asNGRCZFHuAnb4ay
+ a+zrXhqzuSOsrrbaZ+KsqvntmCTg48Y3I7HlI8C6ba6fSBIQmla2UPm5PS4aBLHUtTLk
+ JR2fJS0dIcRwPFkPqe0mZmwcZxUeqwgEwlLllhWw68z/bjvHniyF0A4qCcehIqcSkgei
+ Ck9AjqwZCMeyWoy83w8D8dJjOmVze71Po7ptfMZhBs1/q4dv+RV9jxZXVED22bAX1aoQ
+ FqSg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWMWT24dUGkEf0PZ1tbAQMGAJFMFrh7yl54qqwiUKl+Kr5HTu415iTREbvMk45Tzwg6OaHIldcU9Qo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHwT1XZZIqavmfyjLb+hG52NF4qzH7NNZWzliJ9XlfcvmZc7Hz
- 7idFOBFYUotfQVxGwEhm9DJZxbkFcytoFLViHCm36/Kb2uMoDz9GC83SHbrC+bQ=
-X-Gm-Gg: ASbGncuIWr70F6kc57Se6dNnjSFWbS3sOBwJ8dQ4RHdSTetmnaABvABEz3LqPy8ig07
- iMhpbQgi64cCkJDF9gTJHaSrgsfrVdAQK2MktKZTXF8PB8UvvVcM+0zpdTXfvG5I9ApVoVlzrdt
- mRfPT5aBgVO7CaKRAWBA031ek8/YiM3jb0mGvSr3n/P+6Hmuqrtn2nK5l9Oho4nDBLFwZHFI4zZ
- OMv8Qrvwbi4b93MHWWUAy8vbhvlZTsbrERTISK6QibciDO+LkqVioxRH7zM+GB8RRsfHN/ZJKE=
-X-Google-Smtp-Source: AGHT+IFH/NzXNJbgRyEoKdsrxfAQKdSlTl8if4/S8TBRBKiFSopNd9WK8zDKR4VFHgwJ90urpCjVjA==
-X-Received: by 2002:a05:6000:1a8b:b0:382:30a5:c38e with SMTP id
- ffacd0b85a97d-3864cea3ea9mr1488908f8f.31.1733905807963; 
- Wed, 11 Dec 2024 00:30:07 -0800 (PST)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
+ AJvYcCV/mQ7UtN/sd9eT3QUNZFXRtS1CKPU+ifK6OdbNcKnR6K5Ve5WzLF1Gqy2SeS+kzwuMgJRx/sDRP5w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzrJUqe9Y3oG2tA9fw8xPivXM6Ns7bfQqLIkqAcrhPjnyzVX50C
+ AoMzg4uzio8s40zPCo76YzBxk/MYYSeekTrdrsuCOFwl6D+fEcIaDbkHMDZ9774=
+X-Gm-Gg: ASbGnctK6xCG5+bAoZeke2trfndcXRnbKejgDkV71GoIftUF9GlFvJMY231SenPQLrI
+ ssFG4E5KEq8LPG9E5fR1UeOlZpxANg7o4c4c2QH4xkyBIwuExU0F3H4ojes82C1GbI2x25byGlf
+ Jpajzj+5FOEzTj+dX/KfACrVQPJnFY3sYiOBP4so7hNvvi2JMk9exochRMFQMP5QecDquswN91Z
+ 9koc8dJqiF/it211NaJvyga/8MBNNq79s+j7W/j2Oj6XJxYglGk2jW+wQPOQLJ7xrxESlb46ZWH
+ ZkEQzFrcppcygcMXfHAMijk8bxe1XDvGlw==
+X-Google-Smtp-Source: AGHT+IGuour6lJxXBzgCzGK78I8fo7xj6s/UcHmwFWIUOfdM9PKGmWIYOC26HeAtncqnF//cs2PKFA==
+X-Received: by 2002:a05:6512:3988:b0:540:25a6:c342 with SMTP id
+ 2adb3069b0e04-5402a5d8e27mr581372e87.4.1733907175524; 
+ Wed, 11 Dec 2024 00:52:55 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-387824a3e38sm735687f8f.23.2024.12.11.00.30.06
+ 2adb3069b0e04-5401cacc70fsm1012887e87.5.2024.12.11.00.52.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Dec 2024 00:30:07 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 11 Dec 2024 09:29:57 +0100
-Subject: [PATCH v5 7/7] arm64: qcom: dts: sm8650: add interconnect and
- opp-peak-kBps for GPU
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241211-topic-sm8x50-gpu-bw-vote-v5-7-6112f9f785ec@linaro.org>
-References: <20241211-topic-sm8x50-gpu-bw-vote-v5-0-6112f9f785ec@linaro.org>
-In-Reply-To: <20241211-topic-sm8x50-gpu-bw-vote-v5-0-6112f9f785ec@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Wed, 11 Dec 2024 00:52:54 -0800 (PST)
+Date: Wed, 11 Dec 2024 10:52:51 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Pavan Kondeti <quic_pkondeti@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Marijn Suijten <marijn.suijten@somainline.org>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Elliot Berman <quic_eberman@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2681;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=mRmcybJomrA8DtYq9fiyqS6rR7q297sl5lRf/i/VlGk=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBnWU2FIURdxNJLLaES0fnJrqYO+HzNf4JEpRojHmTZ
- gBojavyJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZ1lNhQAKCRB33NvayMhJ0ZWEEA
- CaXmuD++16A4jWWDPTEnOk6gHg/IoOGcwhhh5hSIk7V1mQdjU/g5+hVTcDxpB7epXvCSHEei5zO7l8
- j151YYqlSesFX58NbskoPn4b5RnO5oTgQojQ+s1fSk+4sy5ma7p7eavT3ScwnkZmmePM9CZcFYixFv
- maLVtAqSC9HX1UbotSMFXkl49O4YNS3NmD691m3yaqz584LXPApnDnsL7vk9cYucv+wb+cRt32i8aV
- zkDut4H7bGNPxieMKeSPddgeGrPI2lbeOyF1KEMo9HXRqqNH7W9bryUOcKOyNnU1fIjvWX+WEJ2Pa3
- GMjrFD66Z6NYSthpEO6yhvWhBliW9g26Md2JO8QwIG2V4hEKS/afML23yoQM8MezF3johQgLBQ4WFP
- JuVUVb70eptjRYCC4NMk4Hpe1+sI00FhEtRTv8sLCcS9bqfw5R1fuO/edkzlhIqckvoZEviiJBReJ5
- z+OEs9GqX1Gk4p20epT7VQJuL74ywqCBm18WqgMuUnuVR8Zvwbhjc+0mHJR8RJZ8AtUuK7TzPDkzcu
- PFt1AFR4vtuZW3ap+J76jHpTBf0Ufg8jEP9US4gjrRMNKm/lxk++tJzD/d2pkZnpGFLu8RdGGzjxdV
- 3Sm0R2CkIrPFb2c0Z8e1L++R/uV3E1BDLcUL54gh3YTqROKG3BiLEK+2ijSw==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/a6xx: Skip gpu secure fw load in EL2 mode
+Message-ID: <pndxbcduiwytfwkortyxpdqgwa4bm3ajnjpa5nedjtgndq6z5v@mziv5z36zeqr>
+References: <20241209-drm-msm-kvm-support-v1-1-1c983a8a8087@quicinc.com>
+ <CAF6AEGtKfWOGpd1gMfJ96BjCqwERZzBVmj5GzmjKxw8_vmSrJg@mail.gmail.com>
+ <f4813046-5952-4d16-bae6-37303f22ad1a@quicinc.com>
+ <iyknardi445n4h74am22arpgc4vlchh6z6cvkbff2xg76pd655@nozwz7snt476>
+ <1219b46d-2aea-4377-a8ca-024039ee1499@quicinc.com>
+ <CAF6AEGs4EebrwyQZviNXqB2=3h2wgZpmbrdGHuEU4z1D014GRA@mail.gmail.com>
+ <b47d44cc-77b7-4137-97e3-b245e1394580@quicinc.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b47d44cc-77b7-4137-97e3-b245e1394580@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,98 +105,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Each GPU OPP requires a specific peak DDR bandwidth, let's add
-those to each OPP and also the related interconnect path.
+On Wed, Dec 11, 2024 at 01:06:58PM +0530, Pavan Kondeti wrote:
+> +devicetree
+> 
+> On Tue, Dec 10, 2024 at 07:43:19PM -0800, Rob Clark wrote:
+> > On Tue, Dec 10, 2024 at 7:08 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+> > >
+> > > On 12/11/2024 6:43 AM, Bjorn Andersson wrote:
+> > > > On Tue, Dec 10, 2024 at 02:22:27AM +0530, Akhil P Oommen wrote:
+> > > >> On 12/10/2024 1:24 AM, Rob Clark wrote:
+> > > >>> On Mon, Dec 9, 2024 at 12:20 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+> > > >>>>
+> > > >>>> When kernel is booted in EL2, SECVID registers are accessible to the
+> > > >>>> KMD. So we can use that to switch GPU's secure mode to avoid dependency
+> > > >>>> on Zap firmware. Also, we can't load a secure firmware without a
+> > > >>>> hypervisor that supports it.
+> > > >>>
+> > > >>> Shouldn't we do this based on whether zap node is in dtb (and not disabled)?
+> > > >>
+> > > >> This is better, isn't it? Otherwise, multiple overlays should be
+> > > >> maintained for each soc/board since EL2 can be toggled from bootloader.
+> > > >> And this feature is likely going to be more widely available.
+> > > >>
+> > > >
+> > > > The DeviceTree passed to the OS needs to describe the world that said OS
+> > > > is going to operate in. If you change the world you need to change the
+> > > > description.
+> > > > There are several other examples where this would be necessary
+> > > > (remoteproc and watchdog to name two examples from the Qualcomm upstream
+> > > > world).
+> > >
+> > > But basic things work without those changes, right? For eg: Desktop UI
+> > 
+> > It isn't really so much about whether certain use-cases can work with
+> > a sub-optimal description of the hw (where in this case "hw" really
+> > means "hw plus how the fw allows things to look to the HLOS").. It is
+> > more about the hw/fw/whatever providing an accurate description of
+> > what things look like to the HLOS.
+> > 
+> > I'm leaning more towards the hw+fw providing HLOS an accurate view...
+> > and the fact that that carries over into other areas of dtb (ie. it
+> > isn't the only thing that slbounce needs to patch, as I previously
+> > mentioned) reinforces my view there.  This seems like a thing to fix
+> > in fw/bootloader tbh.
+> > 
+> 
+> Thanks Rob and Bjorn for your inputs. At the moment, we don't have
+> capability in our bootloader to apply a *specific* overlay when Linux
+> kernel is starteed in EL, this is making GPU non-functional. This patch
+> from Akhil fixes the problem without depending on the bootloader.
+> 
+> From this discussion, I understand that it is recommended to provide
+> HW+FW view in dT correctly instead of doing runtime checks in the
+> kernel. We can take this as a requirement to the bootloader.
+> 
+> I would like to check how we should proceed with overlay. Should we
+> submit dtso upstream and let bootloader apply the overlay at runtime or
+> this whole overlay needs to be maintained in the bootloader. Also,
+> Should we build all board dtb for EL2 as well or just leave it at compiling
+> the EL2 dtbo (one per SoC)?
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8650.dtsi | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-index 25e47505adcb790d09f1d2726386438487255824..c76c0038c35ab048c88be9870b14c3a0b24b4183 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -2636,6 +2636,10 @@ gpu: gpu@3d00000 {
- 			qcom,gmu = <&gmu>;
- 			#cooling-cells = <2>;
- 
-+			interconnects = <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+			interconnect-names = "gfx-mem";
-+
- 			status = "disabled";
- 
- 			zap-shader {
-@@ -2649,56 +2653,67 @@ gpu_opp_table: opp-table {
- 				opp-231000000 {
- 					opp-hz = /bits/ 64 <231000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
-+					opp-peak-kBps = <2136718>;
- 				};
- 
- 				opp-310000000 {
- 					opp-hz = /bits/ 64 <310000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-+					opp-peak-kBps = <2136718>;
- 				};
- 
- 				opp-366000000 {
- 					opp-hz = /bits/ 64 <366000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
-+					opp-peak-kBps = <6074218>;
- 				};
- 
- 				opp-422000000 {
- 					opp-hz = /bits/ 64 <422000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+					opp-peak-kBps = <8171875>;
- 				};
- 
- 				opp-500000000 {
- 					opp-hz = /bits/ 64 <500000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
-+					opp-peak-kBps = <8171875>;
- 				};
- 
- 				opp-578000000 {
- 					opp-hz = /bits/ 64 <578000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+					opp-peak-kBps = <8171875>;
- 				};
- 
- 				opp-629000000 {
- 					opp-hz = /bits/ 64 <629000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
-+					opp-peak-kBps = <10687500>;
- 				};
- 
- 				opp-680000000 {
- 					opp-hz = /bits/ 64 <680000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-peak-kBps = <12449218>;
- 				};
- 
- 				opp-720000000 {
- 					opp-hz = /bits/ 64 <720000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+					opp-peak-kBps = <12449218>;
- 				};
- 
- 				opp-770000000 {
- 					opp-hz = /bits/ 64 <770000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+					opp-peak-kBps = <12449218>;
- 				};
- 
- 				opp-834000000 {
- 					opp-hz = /bits/ 64 <834000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+					opp-peak-kBps = <14398437>;
- 				};
- 			};
- 		};
+It doesn't have to be a dtbo. Instead you might just patch the DT
+(Ideally via the https://github.com/U-Boot-EFI/EFI_DT_FIXUP_PROTOCOL).
+I think the bootloader already changes the DT (by fixing memory sizes,
+etc), so enabling or disabling ZAP & fixing several other bits and
+pieces sounds logical.
 
 -- 
-2.34.1
-
+With best wishes
+Dmitry
