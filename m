@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCAD49ED855
-	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 22:20:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD0DF9ED860
+	for <lists+freedreno@lfdr.de>; Wed, 11 Dec 2024 22:21:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83E4A10EC19;
-	Wed, 11 Dec 2024 21:20:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7130810E15F;
+	Wed, 11 Dec 2024 21:21:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="L4Rt4Xs4";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="KglMSAMh";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC12510EC17
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 21:20:23 +0000 (UTC)
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-6f006748fd1so38872777b3.3
- for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 13:20:23 -0800 (PST)
+Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
+ [IPv6:2607:f8b0:4864:20::112d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1AA10E15F
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 21:21:08 +0000 (UTC)
+Received: by mail-yw1-x112d.google.com with SMTP id
+ 00721157ae682-6efc58fae20so64476027b3.0
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Dec 2024 13:21:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1733952023; x=1734556823;
+ d=chromium.org; s=google; t=1733952067; x=1734556867;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:user-agent:from:references
  :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=SKfxs3pDMj3GC7YQPCyoK1BtKC5bUlyrggnykcN/Mw8=;
- b=L4Rt4Xs4TMuaG65RwVya/usnaaqdglSpdrO/xgc2VkrbE72RBDIsbt6kk/6KmsxQKN
- BTHRSvKAA5ieKk5xtlnklVWePVw8WiPISSmq6veuDm3LtW1eU0AMHs0S90UgE4OEO5w+
- c7+54x+ujARL8l0LG7j4nU5SYjtN4wc1W7N4U=
+ :reply-to; bh=brnEi/aJpSTL43ttJW7MhyFkF6Ud+FSLpSFKqAmDpCw=;
+ b=KglMSAMh5I4Yz+BY5qB5zZjshoNtovcyv6hUburz/x96AAgeLMN681lXk/xOssf2Rj
+ WRvzVaMbF8JL/fCtShNdYC1GxOSb0XKnXiXh09DeEDuFUd/Sslqt3M/aaB/bWgwbEEkw
+ luJWjqkEriG8f9pTyNnzQsD7lt1SI+VG/rniw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733952023; x=1734556823;
+ d=1e100.net; s=20230601; t=1733952067; x=1734556867;
  h=cc:to:subject:message-id:date:user-agent:from:references
  :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SKfxs3pDMj3GC7YQPCyoK1BtKC5bUlyrggnykcN/Mw8=;
- b=p7PUSQU6oTDgZRP2iJjTqeSV4cMYRZmsvYe+SPXEny8L+0FWSElSDYR/OP2O48HUa5
- k4+WOKajvqMxtPVvSF1/DXW5/uSabeiCVDMSr9UwMH6kG1inTknMb5U7HTbhg/9EYQhZ
- AmNqoyNkTFsahRUpBchEl/X84HChy35b6sY66EzuBrTMsxTRYiTYn7wXOiTy33XudgVa
- 6P1F90odtyWMoCs5zVIK7t8Fad5+5z823Cad8rCUgXT8FQ/GcuwuFgLvO+YHR43h5BAa
- OayFQb9ZBeSv9TrzIx80sbvix6gtWXcJCR9l6+YhbVeiM05ilPb8PWyBGp1FUgn/eLWj
- BoSA==
+ bh=brnEi/aJpSTL43ttJW7MhyFkF6Ud+FSLpSFKqAmDpCw=;
+ b=bAGxTOUD0Sq/jv/dFpUfhNzlBmokKy5q3/h/mXgaFUFMzDgrwizNHdzRg2K7lQpQOJ
+ kPzUmTXD5mtp0n54SdzbhsqJtrYO5ODzLU3qpnNnUbpIvEo69JXWQSfooaMogWs+bCfp
+ uxG00aLYXSxKtZ9gIjovcDHAcGFKUqljT18IaC/s/GKwm4TfTJIj3jNXjnNcdQ66J0RS
+ ZsbNk62HhiVP4nPmcIZqGxPvkV9FfRFodRUTMJq2/wiVaMZs19ILv8ZC5UIDHdn2x08E
+ SK1BRxrj7cqXQtzqa9P8R2Ia1QDP9dLVDi7QfVIvbPWybzl266Ofke5zIXKwHIhWIw3l
+ 0GIA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXjbdCUbnhq1r4j49GyIUhy8iu497a0hX1jk7ESThwHdngwepBGwVVq7DDS1kvBOXLZ6RBB5fmq8OE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx/4tEbhtycslajgZKEMxaR0gHauRRZr1YaQ/i6nq2aKbER4PPY
- h7R2R9V9E26AfF6kAamSbo4R+9xNbhVwAfkBzsycWkl6wRelm7r6gEtvxMeJq8eNSM+MwVN//X8
- MCkFu73I7hwvxOgGW5IktiT8EmiOpByXBqz0v
-X-Gm-Gg: ASbGnctdQjVTH1xrCmYL2rwOzZYjY7kDnS3+vHjUG2vw7hqz4Qgg1SlCePkgTU5bQJd
- tRaKVD2/jdF9Sht4PEm3CNum//kIc5LFXtFg80fBwzU58bSEPInT8T6g/4K81mRY=
-X-Google-Smtp-Source: AGHT+IGiqcJUcizFAGyQuCjc5BPiqK/fm5496Pa//h9SFBYiB9+QTvjnCAELvBpBSrKYiF5MVCjIFkIU1R/GLCyr/Zg=
-X-Received: by 2002:a05:690c:6e03:b0:6ef:8122:282f with SMTP id
- 00721157ae682-6f1a508837dmr10285587b3.24.1733952023136; Wed, 11 Dec 2024
- 13:20:23 -0800 (PST)
+ AJvYcCUpHyTsfthS1JSu4AZa7sxpYEmVrRhkUvk2rt4le5gTvuinaFKn8r+2gDPUYebay5hpTfSoF9LLB14=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyEkhyy1OEVq60khlcaf/o8wKT44xPqJzaOxNa6DP44xuBIrYJY
+ 8+Uhk2Z7oXK0vkkK82EOtm1xe3oK4S3oZM1SZDFScezE05QJV91pMbALAfQb5mgoH/Wo2p7eIFF
+ Qfhr/882UY3FuT+2UwuHiJlRRFw1S1+CWcxER
+X-Gm-Gg: ASbGncujYcPnHO7GkY6PQTjsGm4VE+CD86kn94llJZXMvnHMQXRZrqcGxaRnqUbupsj
+ nm+zx+1pdjyUcbAQFuJbASoF94cPEKyoz1DByblS8L7gjuwqJ+CgK2YResIB/+SE=
+X-Google-Smtp-Source: AGHT+IEq7Zw2BDt+iOPDyUWk0YHRW/a0ILaMn5oRc2ufsHMgU7TT14V8Ms7zyoIfRG/qrZpS8pIGFl7jVktKfKw+4P4=
+X-Received: by 2002:a05:690c:4c13:b0:6ee:4ce9:b33e with SMTP id
+ 00721157ae682-6f19e4f0f18mr13027267b3.12.1733952067697; Wed, 11 Dec 2024
+ 13:21:07 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 11 Dec 2024 13:20:22 -0800
+ HTTPREST; Wed, 11 Dec 2024 13:21:07 -0800
 MIME-Version: 1.0
-In-Reply-To: <20241202-fd-dp-audio-fixup-v2-2-d9187ea96dad@linaro.org>
+In-Reply-To: <20241202-fd-dp-audio-fixup-v2-3-d9187ea96dad@linaro.org>
 References: <20241202-fd-dp-audio-fixup-v2-0-d9187ea96dad@linaro.org>
- <20241202-fd-dp-audio-fixup-v2-2-d9187ea96dad@linaro.org>
+ <20241202-fd-dp-audio-fixup-v2-3-d9187ea96dad@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.12.dev1+gaa8c22fdeedb
-Date: Wed, 11 Dec 2024 13:20:22 -0800
-Message-ID: <CAE-0n52dsQko18bY2uu_k4AFNdeirQ0FaE-k0Jy9=Re_fGV+-Q@mail.gmail.com>
-Subject: Re: [PATCH v2 02/14] drm/msm/dp: fix msm_dp_utils_pack_sdp_header
- interface
+Date: Wed, 11 Dec 2024 13:21:07 -0800
+Message-ID: <CAE-0n50U56XYpayM64BBOPE5U8xQaYg9TOWWmCvtyzB4kChgYg@mail.gmail.com>
+Subject: Re: [PATCH v2 03/14] drm/msm/dp: drop msm_dp_panel_dump_regs() and
+ msm_dp_catalog_dump_regs()
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
@@ -88,17 +88,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2024-12-02 02:06:32)
-> The msm_dp_utils_pack_sdp_header() accepts an unlimited-size u32 pointer
-> for the header output, while it expects a two-element array. It performs
-> a sizeof check which is always true on 64-bit platforms (since
-> sizeof(u32*) is 8) and is always falce on 32-bit platforms. It returns
-> an error code which nobody actually checks.
+Quoting Dmitry Baryshkov (2024-12-02 02:06:33)
+> The msm_dp_panel_dump_regs() and msm_dp_catalog_dump_regs() are not
+> called anywhere. If there is a necessity to dump registers, the
+> snapshotting should be used instead. Drop these two functions.
 >
-> Fix the function interface to accept u32[2] and return void, skipping
-> all the checks.
->
-> Fixes: 55fb8ffc1802 ("drm/msm/dp: add VSC SDP support for YUV420 over DP")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
 
