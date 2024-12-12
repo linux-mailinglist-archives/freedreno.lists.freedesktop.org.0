@@ -2,46 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39B0D9EE7D0
-	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 14:39:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C6DE9EF189
+	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 17:39:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF9BC10EDBC;
-	Thu, 12 Dec 2024 13:39:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1205A10E48A;
+	Thu, 12 Dec 2024 16:39:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rRSsqAby";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DL3shQLB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8925010E426
- for <freedreno@lists.freedesktop.org>; Thu, 12 Dec 2024 13:39:38 +0000 (UTC)
+X-Greylist: delayed 10774 seconds by postgrey-1.36 at gabe;
+ Thu, 12 Dec 2024 16:39:11 UTC
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6727010E423;
+ Thu, 12 Dec 2024 16:39:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A24EE5C5FE2;
- Thu, 12 Dec 2024 13:38:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E04DC4CED0;
- Thu, 12 Dec 2024 13:39:35 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 302C65C5FCC;
+ Thu, 12 Dec 2024 16:38:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95D80C4CECE;
+ Thu, 12 Dec 2024 16:39:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1734010775;
- bh=/GVsZ2epC2AQhd27Zheod42Ud2/VmKAfu1dnKlAuEyA=;
- h=Subject:To:Cc:From:Date:From;
- b=rRSsqAby0KnOdjkqVuBVJB0DKJuUmsAkzyIfrrxVMfZPN9pG2KWV2hFWg6BlkWqKJ
- Dg9/3FU3ab5qSEz3pQpdNkK3tU9e1KbuUwkdf08jNBvz2r6qSGkIUrJsN8l/hS/dK7
- xP7SKNS4l4O0W26hYvgvBDwTadGXu2ckx12sCdfU=
-Subject: Patch "drm/msm: DEVFREQ_GOV_SIMPLE_ONDEMAND is no longer needed" has
- been added to the 6.1-stable tree
-To: airlied@gmail.com, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ s=korg; t=1734021550;
+ bh=28GP+if8s00JfMq5taAXrfU0aH0wD2Yn6kBzI4rgY08=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=DL3shQLBwTjBSdjzL9+2ith3R5CzuoT5egOIPt4F3E0Wgh43wnd6a+wciXi5Z2xKO
+ x6z9g6vKbD4dwVpxLNgn2Ti1d47qd0p5yjTQEv5WNQQcA2bSrwWK/jYUG0KUvJn8PY
+ lgw+Pd6PWkMMxCiodVe+lTccF5PiDZyyaJ86LmKU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Randy Dunlap <rdunlap@infradead.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- gregkh@linuxfoundation.org, quic_abhinavk@quicinc.com, rdunlap@infradead.org,
- robdclark@chromium.org, robdclark@gmail.com, sean@poorly.run
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 12 Dec 2024 14:39:27 +0100
-Message-ID: <2024121227-tweet-washbasin-f16e@gregkh>
+ Rob Clark <robdclark@chromium.org>
+Subject: [PATCH 6.1 769/772] drm/msm: DEVFREQ_GOV_SIMPLE_ONDEMAND is no longer
+ needed
+Date: Thu, 12 Dec 2024 16:01:54 +0100
+Message-ID: <20241212144421.709324965@linuxfoundation.org>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20241212144349.797589255@linuxfoundation.org>
+References: <20241212144349.797589255@linuxfoundation.org>
+User-Agent: quilt/0.67
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,26 +67,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-This is a note to let you know that I've just added the patch titled
-
-    drm/msm: DEVFREQ_GOV_SIMPLE_ONDEMAND is no longer needed
-
-to the 6.1-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-msm-devfreq_gov_simple_ondemand-is-no-longer-needed.patch
-and it can be found in the queue-6.1 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From a722511b18268bd1f7084eee243af416b85f288f Mon Sep 17 00:00:00 2001
-From: Randy Dunlap <rdunlap@infradead.org>
-Date: Sun, 19 Feb 2023 17:04:28 -0800
-Subject: drm/msm: DEVFREQ_GOV_SIMPLE_ONDEMAND is no longer needed
+------------------
 
 From: Randy Dunlap <rdunlap@infradead.org>
 
@@ -119,8 +112,3 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	select SYNC_FILE
 
 
-Patches currently in stable-queue which might be from rdunlap@infradead.org are
-
-queue-6.1/drm-msm-devfreq_gov_simple_ondemand-is-no-longer-needed.patch
-queue-6.1/fs_parser-update-mount_api-doc-to-match-function-sig.patch
-queue-6.1/scatterlist-fix-incorrect-func-name-in-kernel-doc.patch
