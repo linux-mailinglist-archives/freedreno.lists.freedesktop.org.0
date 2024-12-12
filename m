@@ -1,87 +1,50 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A66A79EE209
-	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 09:58:20 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9ED89EE45B
+	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 11:41:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93C6B10ED0E;
-	Thu, 12 Dec 2024 08:58:18 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vP8M9vpy";
-	dkim-atps=neutral
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4487F10E417;
+	Thu, 12 Dec 2024 10:40:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F59E10ED0E
- for <freedreno@lists.freedesktop.org>; Thu, 12 Dec 2024 08:58:17 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-5401fb9fa03so345634e87.1
- for <freedreno@lists.freedesktop.org>; Thu, 12 Dec 2024 00:58:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733993895; x=1734598695; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=0zULvzH3pBwj/buB357mGt94OsxfZJXtnXCYQYT/Q3I=;
- b=vP8M9vpyhLk2qoUUPM/Ivoi/tstiJz2MY1/pU6GbAk7ymDimk3yGAl/1iXr7sm25xC
- 5miiJYhxWRA0cRk4pIWkqWq5RkK1YH0GVICo0uYo9axbgULm94LYvecoF7NF2SDLZKhr
- zEInsraz1dA9zEedKlkOCyOm4XRWnC2TPyFNQFapxiUYI/elfjTIjCgH6eeCk+k2N0yh
- HmogJUX4swKnW2Oe02iAXVr/2gyqNVEaSQHX2UjFuyCWKVl5lZ9TPve12KIBXW4iLjKk
- HNoAwefPKm+llxCr9FMpTBTbP/V7xBq/R9WNoqbxybCDuyYJx6tkNMiNODKBlu0AnWLM
- xPLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733993895; x=1734598695;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0zULvzH3pBwj/buB357mGt94OsxfZJXtnXCYQYT/Q3I=;
- b=bsftxvbZLd1NWz0Nv6FB0XY7kQ2ChpMrs99LKeEruRkjhr5UVhHfKLXO88OjH8mct2
- CVfUm8at8xJC3gMtqSaTVmc6D5yexLB7JPaoD9RvDq7cmqSqrZAUlBY5wr7TFbJYjgvO
- sWjTx+IgGub9KAvZi0MmjysHJA7jfmofcRoAj3d7Tl5jhubhLW2Wtu9KFEdLW9GqtzBl
- T1mdiWkDLWS+uDx8sdSfin5cAwbHRJuA18GafjPy7/vuuxl46r6LjRBUwE2I2tKuurkD
- /BosNtppqGNpZCEzetWaQlD40s42hXXJqD782vR5Xn4jg+LAnNdjuXXlx+Rz2K5RYt5M
- AMaQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUzv9GED5D1e0HZkxaBXsRaAD0+9B4W/0J5LXrywz1a5baR38GBquR+3qP0Kqy6yKb7FoDCNlzlbpY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw7qn3ZaMZ/soc5awst+ILZtktAiHR3BoAAJ32H0su7JV28PoP6
- Q43nALLTvyOocnveP12UJOJ0kKwny7EIk9traXqGoiRJZSoA5QvjkPi+4vFJGNU=
-X-Gm-Gg: ASbGncsC6pMDgUMQSET2Vj5mi10usvhVBvKY+5N2wefeLFOhQoGSb93IIt4Th50TtYr
- /xdKtF8r8A+5mY7aj95Ee8eSZIZh9WBXUNtvDGEe/FhU9M2UcLisA/HQAj6AVibDCqPeZ355TQn
- Ubo6f17VdWGNBeWFrk6k8ZtNFHrYxtcQSh0t015yrP6GYL0x2OWs+EjdH1X4ik7NG21xLCNa99l
- gIUiSWXsVfPDd9R3eh/hdSvh9ux1aPg8QCbEVLVADlTspBP+EzLewz4WkO/N3duNiras3Sp8rUY
- /OXguBEgDZ4zNAdOxUuBPSbqc6cuw4qTgiid
-X-Google-Smtp-Source: AGHT+IFu73D5FA5z5HI+3RvFUYF8dHx/2OrBQKBCGrrR98zpwQOoDZGpuD2JAU6jhKxYEcNRR36Ziw==
-X-Received: by 2002:a05:6512:ba0:b0:540:2fe6:6a3c with SMTP id
- 2adb3069b0e04-54032bfde4fmr243145e87.0.1733993895382; 
- Thu, 12 Dec 2024 00:58:15 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53e36ec76fesm1884440e87.246.2024.12.12.00.58.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Dec 2024 00:58:14 -0800 (PST)
-Date: Thu, 12 Dec 2024 10:58:11 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 48A0710E417;
+ Thu, 12 Dec 2024 10:40:58 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 79EF9169E;
+ Thu, 12 Dec 2024 02:41:25 -0800 (PST)
+Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 77F7F3F58B;
+ Thu, 12 Dec 2024 02:40:54 -0800 (PST)
+Date: Thu, 12 Dec 2024 10:40:46 +0000
+From: Mark Rutland <mark.rutland@arm.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Pavan Kondeti <quic_pkondeti@quicinc.com>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Paloma Arellano <quic_parellan@quicinc.com>, 
- Douglas Anderson <dianders@chromium.org>, Stephen Boyd <swboyd@chromium.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Elliot Berman <quic_eberman@quicinc.com>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH v3 01/14] drm/msm/dp: set safe_to_exit_level before
- printing it
-Message-ID: <iugoc25pnh5zzzr5mamutycqohj2z2255omgh3ztyoqgyjkg23@c7axf3mg5wy5>
-References: <20241212-fd-dp-audio-fixup-v3-0-0b1c65e7dba3@linaro.org>
- <20241212-fd-dp-audio-fixup-v3-1-0b1c65e7dba3@linaro.org>
- <01f84965-8a11-4d6d-99a6-b0e37240d4cb@quicinc.com>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH] drm/msm/a6xx: Skip gpu secure fw load in EL2 mode
+Message-ID: <Z1q9rnzOlB9J5dXb@J2N7QTR9R3>
+References: <20241209-drm-msm-kvm-support-v1-1-1c983a8a8087@quicinc.com>
+ <87ed2fs03w.wl-maz@kernel.org>
+ <92cee905-a505-4ce9-9bbc-6fba4cea1d80@quicinc.com>
+ <86sequsdtp.wl-maz@kernel.org>
+ <c197264b-3791-493a-b717-3dfd844de922@quicinc.com>
+ <87bjxhs2t7.wl-maz@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <01f84965-8a11-4d6d-99a6-b0e37240d4cb@quicinc.com>
+In-Reply-To: <87bjxhs2t7.wl-maz@kernel.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,45 +60,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Dec 11, 2024 at 05:14:18PM -0800, Abhinav Kumar wrote:
-> 
-> 
-> On 12/11/2024 3:41 PM, Dmitry Baryshkov wrote:
-> > Rather than printing random garbage from stack and pretending that it is
-> > the default safe_to_exit_level, set the variable beforehand.
+On Thu, Dec 12, 2024 at 08:50:12AM +0000, Marc Zyngier wrote:
+> On Thu, 12 Dec 2024 05:31:00 +0000,
+> Pavan Kondeti <quic_pkondeti@quicinc.com> wrote:
 > > 
-> > Fixes: d13e36d7d222 ("drm/msm/dp: add audio support for Display Port on MSM")
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Closes: https://lore.kernel.org/oe-kbuild-all/202411081748.0PPL9MIj-lkp@intel.com/
-> > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> > Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/dp/dp_audio.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > On Wed, Dec 11, 2024 at 10:40:02AM +0000, Marc Zyngier wrote:
+> > > On Wed, 11 Dec 2024 00:37:34 +0000,
+> > > Pavan Kondeti <quic_pkondeti@quicinc.com> wrote:
+> > > > 
+> > > > On Tue, Dec 10, 2024 at 09:24:03PM +0000, Marc Zyngier wrote:
+> > > > > > +static int a6xx_switch_secure_mode(struct msm_gpu *gpu)
+> > > > > > +{
+> > > > > > +	int ret;
+> > > > > > +
+> > > > > > +#ifdef CONFIG_ARM64
+> > > > > > +	/*
+> > > > > > +	 * We can access SECVID_TRUST_CNTL register when kernel is booted in EL2 mode. So, use it
+> > > > > > +	 * to switch the secure mode to avoid the dependency on zap shader.
+> > > > > > +	 */
+> > > > > > +	if (is_kernel_in_hyp_mode())
+> > > > > > +		goto direct_switch;
+> > > > > 
+> > > > > No, please. To check whether you are *booted* at EL2, you need to
+> > > > > check for is_hyp_available(). Whether the kernel runs at EL1 or EL2 is
+> > > > > none of the driver's business, really. This is still absolutely
+> > > > > disgusting from an abstraction perspective, but I guess we don't have
+> > > > > much choice here.
+> > > > > 
+> > > > 
+> > > > Thanks Marc. Any suggestions on how we can make is_hyp_mode_available()
+> > > > available for modules? Do you prefer exporting
+> > > > kvm_protected_mode_initialized and __boot_cpu_mode symbols directly or
+> > > > try something like [1]?
+> > > 
+> > > Ideally, neither. These were bad ideas nine years ago, and they still
+> > > are. The least ugly hack I can come up with is the patch below, and
+> > > you'd write something like:
+> > > 
+> > > 	if (cpus_have_cap(ARM64_HAS_EL2_OWNERSHIP))
+> > > 		blah();
+> > > 
+> > > This is obviously completely untested.
+> > > 
 > > 
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
-> > index 74e01a5dd4195d5e0e04250663886f1116f25711..5cbb11986460d1e4ed1890bdf66d0913e013083c 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_audio.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_audio.c
-> > @@ -329,10 +329,10 @@ static void msm_dp_audio_safe_to_exit_level(struct msm_dp_audio_private *audio)
-> >   		safe_to_exit_level = 5;
-> >   		break;
-> >   	default:
-> > +		safe_to_exit_level = 14;
-> >   		drm_dbg_dp(audio->drm_dev,
-> >   				"setting the default safe_to_exit_level = %u\n",
-> >   				safe_to_exit_level);
-> > -		safe_to_exit_level = 14;
-> >   		break;
-> >   	}
-> > 
+> > I have tested your patch. It works as intended. Thanks Marc.
 > 
-> This was already picked up in -fixes, so no need to include
+> Note that you will probably get some push-back from the arm64
+> maintainers on this front, because this is a fairly incomplete (and
+> fragile) solution.
+> 
+> It would be much better if the discriminant came from the device tree.
+> After all, the hypervisor is fscking-up^W^Wchanging the programming
+> model of the GPU, and that should be reflected in the DT. Because for
+> all intent and purposes, this is not the same hardware anymore.
 
-I have been rebasing on linux-next. Please make sure that your -fixes
-branch is a part of linux-next.
+FWIW I agree 100%, this should be described in DT.
 
--- 
-With best wishes
-Dmitry
+The cpucap doesn't describe the actual property we care about, and it
+cannot in general (e.g. for nested virt). I would strongly prefer to not
+have that as it's setting ourselves up for failure.
+
+> The GPU isn't the only device that needs fixing in that way: the
+> SMMUv3 needs to be exposed to the OS, and the PCIe ports need to be
+> linked to it and the ITS. So at the end of the day, detecting EL2 only
+> serves a limited purpose. You need to handle these cases, and might as
+> well put the GPU in the same bag.
+> 
+> Which means that you'd either have a pair of static DTs (one that
+> exposes the brokenness of the firmware, and one that doesn't), or you
+> go the dtbhack route to compose the DT at boot time.
+
+Liekwise, agreed on all of this.
+
+Mark.
