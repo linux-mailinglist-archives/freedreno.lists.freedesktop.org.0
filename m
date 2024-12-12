@@ -1,88 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B09E9EDEED
-	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 06:31:35 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 159589EE10F
+	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 09:18:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03C6510E467;
-	Thu, 12 Dec 2024 05:31:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B9A410E45A;
+	Thu, 12 Dec 2024 08:18:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="nPNTCbkf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="N/QLTTsZ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25FDC10E467;
- Thu, 12 Dec 2024 05:31:31 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BBHD59G002087;
- Thu, 12 Dec 2024 05:31:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=y9+wJ+4THMZ6aKAeDHGQEFe1
- hJ+XvdzKUMLTnVrjnRQ=; b=nPNTCbkfWfCu1Te64iYQgIXGCFr8bTR33PE4GjrL
- 9kVDhksvM8ujfIKTSZFleSwdeavUPq7cAvuAdyFGTD6UianYJ2zMVCK+dkESgpHn
- Ej5e9dBFYyr3EZCwTnh1fHJa9iaKen0r3icOq5f27zqDZhlekAKrZfUrIVWpHd0u
- ynf2kx7+zX/u0q+0Xw+suOzNnbHmotFLP0X9hLw2NmHGA1ACCZ2kuZfoUWbKhFL2
- 0R7d/tdlT/nO7hjpuZz5+q2F8gmrv9mXFqjmbn3DHKmZzy4pqg4P+L1wo8rIsJSR
- 63si0/SyuyHETlHcmZqV5BjP0xLY1rqB8CkCvaTL2+rFHA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43f0r9v76c-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 12 Dec 2024 05:31:24 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BC5V804029685
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 12 Dec 2024 05:31:08 GMT
-Received: from hu-pkondeti-hyd (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 11 Dec
- 2024 21:31:03 -0800
-Date: Thu, 12 Dec 2024 11:01:00 +0530
-From: Pavan Kondeti <quic_pkondeti@quicinc.com>
-To: Marc Zyngier <maz@kernel.org>
-CC: Pavan Kondeti <quic_pkondeti@quicinc.com>, Akhil P Oommen
- <quic_akhilpo@quicinc.com>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Elliot Berman
- <quic_eberman@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH] drm/msm/a6xx: Skip gpu secure fw load in EL2 mode
-Message-ID: <c197264b-3791-493a-b717-3dfd844de922@quicinc.com>
-References: <20241209-drm-msm-kvm-support-v1-1-1c983a8a8087@quicinc.com>
- <87ed2fs03w.wl-maz@kernel.org>
- <92cee905-a505-4ce9-9bbc-6fba4cea1d80@quicinc.com>
- <86sequsdtp.wl-maz@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39E5F10E20A;
+ Thu, 12 Dec 2024 08:18:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1733991521; x=1765527521;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=dVHHLoWyfFDn4SykayA6jpY7XugJsCld6W0h27L/1oo=;
+ b=N/QLTTsZ5sPUx3LVxIO4pLi5GS1T0ZyV9b9QThbJZvExwsLGtPQuYLNG
+ N3nAeRBDZoHN5tWJnStvzToGV1uhGCPExQB04wg/VGYyHykkwoTnWh2qN
+ yVQ/dcuSchgIfRnza9hGEwsS2Vua5j79yOerul/avUcIu3Fi/6yPZ1mWg
+ lKyEiHR/48BvSE0dUEjdbZOoeiISH+JMKGzNEsZ+BJFzevuq0xvmPa/Wf
+ XWKmEHuzKw3p1IkAcK4Mq4eB8jIl+UxBe1emO3YmquH+XHtlHLE5hE16u
+ XfOQ96O+ewdk3CSafOpY6IRdLLVhg7JhMjp5j9ss7JWUQZQKi+I7+9U6X g==;
+X-CSE-ConnectionGUID: pJ6q5DxpTtaSXM7CeVeNuQ==
+X-CSE-MsgGUID: LPZ8zC+gTFGYKfoAl44vbw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11283"; a="38086245"
+X-IronPort-AV: E=Sophos;i="6.12,227,1728975600"; d="scan'208";a="38086245"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Dec 2024 00:18:41 -0800
+X-CSE-ConnectionGUID: AIQA0pf8S+KINcKZiVC2wA==
+X-CSE-MsgGUID: 5JT1BapkSSCqRnj0Cwzaiw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,227,1728975600"; d="scan'208";a="96397015"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.101])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Dec 2024 00:18:33 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Johan Hovold
+ <johan@kernel.org>
+Cc: Abel Vesa <abel.vesa@linaro.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Karol Herbst <kherbst@redhat.com>, Lyude
+ Paul <lyude@redhat.com>, Danilo Krummrich <dakr@redhat.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v2 1/4] drm/dp: Add helper to set LTTPRs in transparent
+ mode
+In-Reply-To: <3omcjrgfkdmw466ok7gej2jge25vtwzaiycwz2xgejwppyvkza@rhssgk7xz4hj>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20241211-drm-dp-msm-add-lttpr-transparent-mode-set-v2-0-d5906ed38b28@linaro.org>
+ <20241211-drm-dp-msm-add-lttpr-transparent-mode-set-v2-1-d5906ed38b28@linaro.org>
+ <Z1mk08SHEd5_vc99@hovoldconsulting.com>
+ <3omcjrgfkdmw466ok7gej2jge25vtwzaiycwz2xgejwppyvkza@rhssgk7xz4hj>
+Date: Thu, 12 Dec 2024 10:18:30 +0200
+Message-ID: <87pllxxqjt.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <86sequsdtp.wl-maz@kernel.org>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: tyQb_xK72c8u2XdN2OgQP_4VMJmSutu8
-X-Proofpoint-GUID: tyQb_xK72c8u2XdN2OgQP_4VMJmSutu8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- impostorscore=0 phishscore=0 spamscore=0 clxscore=1015 mlxlogscore=968
- malwarescore=0 lowpriorityscore=0 mlxscore=0 bulkscore=0 suspectscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412120037
+Content-Type: text/plain
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,53 +86,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Dec 11, 2024 at 10:40:02AM +0000, Marc Zyngier wrote:
-> On Wed, 11 Dec 2024 00:37:34 +0000,
-> Pavan Kondeti <quic_pkondeti@quicinc.com> wrote:
-> > 
-> > On Tue, Dec 10, 2024 at 09:24:03PM +0000, Marc Zyngier wrote:
-> > > > +static int a6xx_switch_secure_mode(struct msm_gpu *gpu)
-> > > > +{
-> > > > +	int ret;
-> > > > +
-> > > > +#ifdef CONFIG_ARM64
-> > > > +	/*
-> > > > +	 * We can access SECVID_TRUST_CNTL register when kernel is booted in EL2 mode. So, use it
-> > > > +	 * to switch the secure mode to avoid the dependency on zap shader.
-> > > > +	 */
-> > > > +	if (is_kernel_in_hyp_mode())
-> > > > +		goto direct_switch;
-> > > 
-> > > No, please. To check whether you are *booted* at EL2, you need to
-> > > check for is_hyp_available(). Whether the kernel runs at EL1 or EL2 is
-> > > none of the driver's business, really. This is still absolutely
-> > > disgusting from an abstraction perspective, but I guess we don't have
-> > > much choice here.
-> > > 
-> > 
-> > Thanks Marc. Any suggestions on how we can make is_hyp_mode_available()
-> > available for modules? Do you prefer exporting
-> > kvm_protected_mode_initialized and __boot_cpu_mode symbols directly or
-> > try something like [1]?
-> 
-> Ideally, neither. These were bad ideas nine years ago, and they still
-> are. The least ugly hack I can come up with is the patch below, and
-> you'd write something like:
-> 
-> 	if (cpus_have_cap(ARM64_HAS_EL2_OWNERSHIP))
-> 		blah();
-> 
-> This is obviously completely untested.
-> 
+On Wed, 11 Dec 2024, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+> On Wed, Dec 11, 2024 at 03:42:27PM +0100, Johan Hovold wrote:
+>> On Wed, Dec 11, 2024 at 03:04:12PM +0200, Abel Vesa wrote:
+>>  
+>> > +/**
+>> > + * drm_dp_lttpr_set_transparent_mode - set the LTTPR in transparent mode
+>> > + * @aux: DisplayPort AUX channel
+>> > + * @enable: Enable or disable transparent mode
+>> > + *
+>> > + * Returns 0 on success or a negative error code on failure.
+>> > + */
+>> > +int drm_dp_lttpr_set_transparent_mode(struct drm_dp_aux *aux, bool enable)
+>> > +{
+>> > +	u8 val = enable ? DP_PHY_REPEATER_MODE_TRANSPARENT :
+>> > +			  DP_PHY_REPEATER_MODE_NON_TRANSPARENT;
+>> > +	int ret = drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE, val);
+>> > +
+>> > +	return ret == 1 ? 0 : ret;
+>> 
+>> This looks correct, but I had to go look at drm_dp_dpcd_writeb() to make
+>> sure it never returns 0 (for short transfers).
+>> 
+>> > +}
+>> > +EXPORT_SYMBOL(drm_dp_lttpr_set_transparent_mode);
+>> 
+>> This appears to be what the driver currently uses, but why not
+>> EXPORT_SYMBOL_GPL?
+>
+> $ git grep EXPORT_SYMBOL drivers/gpu/drm/*.c | wc -l
+> 962
+> $ git grep EXPORT_SYMBOL_GPL drivers/gpu/drm/*.c | wc -l
+> 93
 
-I have tested your patch. It works as intended. Thanks Marc.
+It's even more tilted under display/.
 
-> It also doesn't solve the problem of the kernel booted on bare-metal
-> at EL1, or with a hypervisor that doesn't change the programming
-> interface of the device under the guest's feet. Eventually, someone
-> will have to address these cases.
-> 
+BR,
+Jani.
 
-Noted, Thanks.
 
-~Pavan
+-- 
+Jani Nikula, Intel
