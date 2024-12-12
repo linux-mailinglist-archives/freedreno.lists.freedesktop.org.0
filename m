@@ -1,85 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A5819EDDE8
-	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 04:27:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BE2EF9EDEB2
+	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 06:10:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CDC910ECA9;
-	Thu, 12 Dec 2024 03:26:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3CD10E2EC;
+	Thu, 12 Dec 2024 05:10:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="a0pD2XvE";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="B6rdBSCP";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91B3210ECA8;
- Thu, 12 Dec 2024 03:26:55 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BC2sMHe001661;
- Thu, 12 Dec 2024 03:26:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- MW3p45C1aVFnAUrnHtHhzTdvN3PeBB9KcL6/WYRsWpo=; b=a0pD2XvEP8x8GSlB
- uGsqORd1yoqomrpOzQm+hZlKmCUml6Pck02wLJsTgYf7AAfX9suyQmG4wng97za6
- t8IsUE7F5JwN2uVQ3xPrnEePKbcVgcDk/7xRlBI4C4Lx7lhA/kWYhQnJ3sQpdvhw
- tsbrtWGN37kf6rFL89cVeTIW9UBzEiNQTmUSjoK1jkX4w6NHfPeALtVihrRRLK1w
- G2p7GnBRL48TB83MXJWfUWWie0+H2vVGRf7FuaqmwT3bw0lJ/wW+zr/eSrBCp8M0
- K+dT+kvYNFm27C0F/f03IXYDLXg4NPW1ZYpkNqNEHlxPKCXIkeKWHimkaX6W86XS
- NxFZlg==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43fqes0293-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 12 Dec 2024 03:26:52 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BC3QpIK003880
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 12 Dec 2024 03:26:51 GMT
-Received: from [10.110.5.240] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 11 Dec
- 2024 19:26:48 -0800
-Message-ID: <3346b2fb-1366-476b-bb52-e42a2170d719@quicinc.com>
-Date: Wed, 11 Dec 2024 19:26:47 -0800
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D876010E270;
+ Thu, 12 Dec 2024 05:10:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1733980224;
+ bh=hI0EGDPmpP7XnD6A+7EcRF/bfUEgIBo0whGbTy18VlA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=B6rdBSCP9h676c8clZYZaXnW6OJAvCH9vRGJFhKXO/Pfac5/85AD5LzEd/+VtM2Hl
+ VOKnKCwkyqxc2+mv9wejP1ZEJTBQ3mjtNEcpqCSr18v4xzbxhrMU7ylAwjJYcp8BUf
+ IIQ/CoqUKzl/R4qvazwtrygEkb9X/xry3zXqJJ5HDFHhy4RZaSkJDPaR0QZwenlFi7
+ X24ZVRiaPAWSswhD6GDwMnY9xIkVfRFeGsgoO1AFMbjEGn1cJJ4TcXrQVgYpo+gFjO
+ e0K3dpOYe3Ero5WIvC7P2S8yV8n2D0L+UoxpoDmv6xch5D1HR0LfnQZ5BVc1wKLbXc
+ quwAsMIgDbIbg==
+Received: from [192.168.50.250] (unknown [171.76.86.135])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id BBA7917E1067;
+ Thu, 12 Dec 2024 06:10:19 +0100 (CET)
+Message-ID: <ed90ca8c-ed81-419f-a5db-a4e8bcd35835@collabora.com>
+Date: Thu, 12 Dec 2024 10:40:16 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/14] drm/msm/dp: drop struct msm_dp_panel_in
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Paloma Arellano <quic_parellan@quicinc.com>
-CC: Douglas Anderson <dianders@chromium.org>, Stephen Boyd
- <swboyd@chromium.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-References: <20241212-fd-dp-audio-fixup-v3-0-0b1c65e7dba3@linaro.org>
- <20241212-fd-dp-audio-fixup-v3-13-0b1c65e7dba3@linaro.org>
+Subject: Re: [PATCH] drm/ci: add kms_cursor_legacy@torture-bo to apq8016 flakes
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Helen Mae Koike Fornazier <helen.koike@collabora.com>
+Cc: Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ freedreno <freedreno@lists.freedesktop.org>
+References: <20241204-cursor_tor_skip-v1-1-f5f0bba5df7b@quicinc.com>
+ <193931869a5.f923adf2270026.8321075661083367617@collabora.com>
+ <20a3955e-3d10-47c5-8e68-d70342805010@quicinc.com>
+ <19393604e18.f9b6fe7d298023.1937039548910081216@collabora.com>
+ <a03ae7e8-391e-4303-91fc-15a59979fd2a@quicinc.com>
 Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20241212-fd-dp-audio-fixup-v3-13-0b1c65e7dba3@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: qYW9_2wf1htsXJ7FB596U-RpzFEXhYH0
-X-Proofpoint-ORIG-GUID: qYW9_2wf1htsXJ7FB596U-RpzFEXhYH0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0
- lowpriorityscore=0 impostorscore=0 clxscore=1015 malwarescore=0
- mlxlogscore=807 priorityscore=1501 bulkscore=0 phishscore=0 mlxscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412120023
+From: Vignesh Raman <vignesh.raman@collabora.com>
+In-Reply-To: <a03ae7e8-391e-4303-91fc-15a59979fd2a@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,128 +74,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Abhinav / Helen,
 
-
-On 12/11/2024 3:41 PM, Dmitry Baryshkov wrote:
-> All other submodules pass arguments directly. Drop struct
-> msm_dp_panel_in that is used to wrap dp_panel's submodule args and pass
-> all data to msm_dp_panel_get() directly.
+On 12/12/24 01:48, Abhinav Kumar wrote:
+> Hi Helen / Vignesh
 > 
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/dp/dp_display.c |  9 +--------
->   drivers/gpu/drm/msm/dp/dp_panel.c   | 15 ++++++++-------
->   drivers/gpu/drm/msm/dp/dp_panel.h   | 10 ++--------
->   3 files changed, 11 insertions(+), 23 deletions(-)
+> On 12/4/2024 12:33 PM, Helen Mae Koike Fornazier wrote:
+>>
+>>
+>>
+>>
+>> ---- On Wed, 04 Dec 2024 16:21:26 -0300 Abhinav Kumar  wrote ---
+>>
+>>   > Hi Helen
+>>   >
+>>   > On 12/4/2024 11:14 AM, Helen Mae Koike Fornazier wrote:
+>>   > > Hi Abhinav,
+>>   > >
+>>   > > Thanks for your patch.
+>>   > >
+>>   > >
+>>   > >
+>>   > > ---- On Wed, 04 Dec 2024 15:55:17 -0300 Abhinav Kumar  wrote ---
+>>   > >
+>>   > >   > From the jobs [1] and [2] of pipeline [3], its clear that
+>>   > >   > kms_cursor_legacy@torture-bo is most certainly a flake and
+>>   > >   > not a fail for apq8016. Mark the test accordingly to match 
+>> the results.
+>>   > >   >
+>>   > >   > [1] : https://gitlab.freedesktop.org/drm/msm/-/jobs/67676481
+
+The test passes - kms_cursor_legacy@torture-bo,UnexpectedImprovement(Pass)
+
+>>   > >   > [2] : https://gitlab.freedesktop.org/drm/msm/-/jobs/67677430
+
+There are no test failures
+
+>>   > >   > [3]: https://gitlab.freedesktop.org/drm/msm/-/pipelines/1322770
+
+The job is same as 2
+
+In this case, the test passes and deqp-runner does not report it as 
+flake. So we only need to remove it from fails file.
+
+
+>>   > >   >
+>>   > >   > Signed-off-by: Abhinav Kumar quic_abhinavk@quicinc.com>
+>>   > >   > ---
+>>   > >   >  drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt | 5 +++++
+>>   > >   >  1 file changed, 5 insertions(+)
+>>   > >   >
+>>   > >   > diff --git 
+>> a/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt 
+>> b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
+>>   > >   > new file mode 100644
+>>   > >   > index 000000000000..18639853f18f
+>>   > >   > --- /dev/null
+>>   > >   > +++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
+>>   > >   > @@ -0,0 +1,5 @@
+>>   > >   > +# Board Name: msm-apq8016-db410c
+>>   > >   > +# Failure Rate: 100
+>>   > >
+>>   > > Is failure rate is 100%, isn't it a fail than?
+>>   > > (I know we have other cases with Failure Rate: 100, maybe we 
+>> should fix them as well)
+>>   > >
+>>   >
+>>   > Maybe I misunderstood the meaning of "Failure rate" for a flake.
+>>   >
+>>   > I interpreted this as this test being flaky 100% of the time :)
+>>
+>> Ah right, I see, inside deqp-runner (that auto-retries).
+>>
+>> I'd like to hear Vignesh's opinion on this.
+>>
+>> (In any case, we probably should document this better)
+
+deqp-runner reports new (not present in flakes file) or known (present 
+in flakes file) flakes
+
+2024-12-11 07:25:44.709666: Some new flakes found:
+2024-12-11 07:25:44.709676:   kms_lease@page-flip-implicit-plane
+
+2024-12-11 13:15:16.482890: Some known flakes found:
+2024-12-11 13:15:16.482898: 
+kms_async_flips@async-flip-with-page-flip-events-atomic
+
+we add it to flakes file if deqp runner reports new flakes. Another case 
+where we update flake tests is when a test passes in one run but fails 
+in another, but deqp-runner does not report it as flake.
+
+Regards,
+Vignesh
+
+>>
+>> Regards,
+>> Helen
+>>
 > 
-
-Change not necessarily tied to catalog cleanup, and can be sent 
-independently IMO.
-
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index cb02d5d5b404925707c737ed75e9e83fbec34f83..a2cdcdac042d63a59ff71aefcecb7f8b22f01167 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -722,9 +722,6 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
->   {
->   	int rc = 0;
->   	struct device *dev = &dp->msm_dp_display.pdev->dev;
-> -	struct msm_dp_panel_in panel_in = {
-> -		.dev = dev,
-> -	};
->   	struct phy *phy;
->   
->   	phy = devm_phy_get(dev, "dp");
-> @@ -765,11 +762,7 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
->   		goto error_link;
->   	}
->   
-> -	panel_in.aux = dp->aux;
-> -	panel_in.catalog = dp->catalog;
-> -	panel_in.link = dp->link;
-> -
-> -	dp->panel = msm_dp_panel_get(&panel_in);
-> +	dp->panel = msm_dp_panel_get(dev, dp->aux, dp->link, dp->catalog);
->   	if (IS_ERR(dp->panel)) {
->   		rc = PTR_ERR(dp->panel);
->   		DRM_ERROR("failed to initialize panel, rc = %d\n", rc);
-> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-> index 25869e2ac93aba0bffeddae9f95917d81870d8cb..49bbcde8cf60ac1b297310a50191135d79b092fb 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-> @@ -659,25 +659,26 @@ static int msm_dp_panel_parse_dt(struct msm_dp_panel *msm_dp_panel)
->   	return 0;
->   }
->   
-> -struct msm_dp_panel *msm_dp_panel_get(struct msm_dp_panel_in *in)
-> +struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux,
-> +			      struct msm_dp_link *link, struct msm_dp_catalog *catalog)
->   {
-
-so this API, takes a filled input panel, makes a msm_dp_panel out of it 
-by filling out more information on top of what was already passed in and 
-returns a msm_dp_panel.
-
-So IOW, converts a msm_dp_panel_in to msm_dp_panel.
-
-What is the gain by passing individual params rather than passing them 
-as a struct instead? Isnt it better to have it within that struct to 
-show the conversion and moreover we dont have to pass in 4 arguments 
-instead of 1.
-
-
->   	struct msm_dp_panel_private *panel;
->   	struct msm_dp_panel *msm_dp_panel;
->   	int ret;
->   
-> -	if (!in->dev || !in->catalog || !in->aux || !in->link) {
-> +	if (!dev || !catalog || !aux || !link) {
->   		DRM_ERROR("invalid input\n");
->   		return ERR_PTR(-EINVAL);
->   	}
->   
-> -	panel = devm_kzalloc(in->dev, sizeof(*panel), GFP_KERNEL);
-> +	panel = devm_kzalloc(dev, sizeof(*panel), GFP_KERNEL);
->   	if (!panel)
->   		return ERR_PTR(-ENOMEM);
->   
-> -	panel->dev = in->dev;
-> -	panel->aux = in->aux;
-> -	panel->catalog = in->catalog;
-> -	panel->link = in->link;
-> +	panel->dev = dev;
-> +	panel->aux = aux;
-> +	panel->catalog = catalog;
-> +	panel->link = link;
->   
->   	msm_dp_panel = &panel->msm_dp_panel;
->   	msm_dp_panel->max_bw_code = DP_LINK_BW_8_1;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
-> index f305b1151118b53762368905b70d951a366ba1a8..a4719a3bbbddd18304227a006e82a5ce9ad7bbf3 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_panel.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_panel.h
-> @@ -21,13 +21,6 @@ struct msm_dp_display_mode {
->   	bool out_fmt_is_yuv_420;
->   };
->   
-> -struct msm_dp_panel_in {
-> -	struct device *dev;
-> -	struct drm_dp_aux *aux;
-> -	struct msm_dp_link *link;
-> -	struct msm_dp_catalog *catalog;
-> -};
-> -
->   struct msm_dp_panel_psr {
->   	u8 version;
->   	u8 capabilities;
-> @@ -94,6 +87,7 @@ static inline bool is_lane_count_valid(u32 lane_count)
->   		lane_count == 4);
->   }
->   
-> -struct msm_dp_panel *msm_dp_panel_get(struct msm_dp_panel_in *in);
-> +struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux,
-> +			      struct msm_dp_link *link, struct msm_dp_catalog *catalog);
->   void msm_dp_panel_put(struct msm_dp_panel *msm_dp_panel);
->   #endif /* _DP_PANEL_H_ */
+> Can you let me know which way we need to go?
 > 
+> Just in case I did post a v2 fixing this, 
+> https://patchwork.freedesktop.org/patch/627276/
+> 
+> If thats the way to go, can you pls take a look?
+> 
+> Thanks
+> 
+> Abhinav
+>>   >
+>>   > Out of the 3 runs of the test, it passed 2/3 times and failed 1/3.
+>>   >
+>>   > So its fail % actually is 33.33% in that case.
+>>   >
+>>   > I think I saw a Failure rate of 100% on msm-sm8350-hdk-flakes.txt and
+>>   > mistook that as the rate at which flakes are seen.
+>>   >
+>>   > Let me fix this up as 33%
+>>   >
+>>   > > Regards,
+>>   > > Helen
+>>   > >
+>>   > >   > +# IGT Version: 1.28-ga73311079
+>>   > >   > +# Linux Version: 6.12.0-rc2
+>>   > >   > +kms_cursor_legacy@torture-bo
+>>   > >   >
+>>   > >   > ---
+>>   > >   > base-commit: 798bb342e0416d846cf67f4725a3428f39bfb96b
+>>   > >   > change-id: 20241204-cursor_tor_skip-9d128dd62c4f
+>>   > >   >
+>>   > >   > Best regards,
+>>   > >   > --
+>>   > >   > Abhinav Kumar quic_abhinavk@quicinc.com>
+>>   > >   >
+>>   > >   >
+>>   > >
+>>   >
+>>
