@@ -1,82 +1,89 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B44F9EF4FB
-	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 18:12:43 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 517459EFAF1
+	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 19:32:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67B2110E16A;
-	Thu, 12 Dec 2024 17:12:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CA6110E642;
+	Thu, 12 Dec 2024 18:32:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cqto9TAM";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="iUhTdkgu";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
- [IPv6:2607:f8b0:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB8F610E16A;
- Thu, 12 Dec 2024 17:12:41 +0000 (UTC)
-Received: by mail-il1-x12e.google.com with SMTP id
- e9e14a558f8ab-3a77bd62fdeso5740045ab.2; 
- Thu, 12 Dec 2024 09:12:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734023561; x=1734628361; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=x0fRwQnBqs424zaulDp4I7McdiEztUjLXQgRfKoU/UY=;
- b=cqto9TAMQu/OTOCUv9YX2IMtfRAzaZOstfaM2RpGefL49uv7APd3I+s517JAQBjiHd
- E8XG9ul/TL1aHw16UH0gGVafWBI/g9PX9myyiy5T9p9aSndMF8j4UMpMDm1jk4nRZpWf
- IyCH0GjjulCWG7+4yYIqwESRC+Rt1DvfgopybfY1+Q9o8r4ePB5Bvmztbx/EC9uam0fF
- RA+eKdoFru31WbVxq6y7+kr6rwonzBwfsnuKCSK3u1ktFJaE17+XwbAM58EHlFA39C5F
- khaS1OkiTNg1JsXBGdKUG/sMx7vYfEvUNpj3euQvFcHp1xTr4r7hEBcWZvkE/Ay/okXI
- si3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734023561; x=1734628361;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=x0fRwQnBqs424zaulDp4I7McdiEztUjLXQgRfKoU/UY=;
- b=MJkcKzYuogF+IdbeeIKv2Nzy4aZzlrjRIGDWpc7X/RgrG5FzUSch7mSZGGmAkgTtZT
- mLgZ28Bmv26uCYNAt39b3Qc5lUb851AxKg/rEUdNoKLg/kzxWj1rlB7NCHiYD6m41+KA
- 5w4TIWneVrIJGp2v6BqoqAoaLgVFkTx2BoZlf/Y7OMIHMxXNdKugCDG/TX3ihXENJJEC
- d3/pZa4gaGQevvmXmNLSnRzwwO6S5G+olFgFXCmvLT3NcCnstLHPwv/yhhgYR/3pZ9Q9
- uAfVEr3HDIsN0wZyQMWoUwJWdHHTVLDZVv6QI2Q3xpYwNFIxx+iSaTkaY4aKMy/H6WUE
- 9ZVg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXl+6ZNCwoU+9uKuMV1MAcC/joqCwjdhV+DQ9sFuHyaFcbmRoqVT1/PrvUei4Tr9SaVZiLUb4Ax6TU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YymTshlnPOEyg/hLw6S/SBRCD71yFD7apHPbLR+xNuKeyLbu7yL
- MuNvj4sgag1y8/ycf1AdnQqX+Rz69oRTpEwQ/FrTNC5BgSQXamC9wC+mt+3nBLfXeospMMUCPGi
- qH96BxSBjzC+pc4zIwlaiPDOaFRY=
-X-Gm-Gg: ASbGnctTzfaD4xxA5E8SRft7EqCClKZJB5J53hUxdorfwwOwdkc3G1jZctAmvjWGqvD
- BiK1ZfV0lhrYRJc+j0RdPtSf/IYPoRqWksbgLTptmssfn8aVkZghwK1BtaGaDsf15/CU=
-X-Google-Smtp-Source: AGHT+IEmswyd6ISDCvchzyloWP85gYK+P4nivngZhJTM/ix1v833jeMLlihcMLtvuOrejmj3LTvR4BxaPzaPEFibDuc=
-X-Received: by 2002:a05:6e02:1f83:b0:3a7:44d9:c7dd with SMTP id
- e9e14a558f8ab-3ae54db1f2bmr13259565ab.6.1734023560805; Thu, 12 Dec 2024
- 09:12:40 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC6C410E642;
+ Thu, 12 Dec 2024 18:32:01 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BCHajns002411;
+ Thu, 12 Dec 2024 18:31:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ rv5HUNjIlXFQs6ODfZw9V74Slw/yRWWLUDImaJfgRmc=; b=iUhTdkgu+jD75nkd
+ orHiyeE6ffsov4SOfKq5LXAk/73ROjLc8+nMoZOdKNZ8zkZpRX7VaNNVQMgifqla
+ 0xqvBEQkDXxb/xR7JklF1BFaAQkvr8o7EiBpL8K7fnNVuo+gtfFajkEj4fnwTxUe
+ c3drzbCzVyq0xusoZDLjid/5dhSMkQ8JcvGU6h7THdUHLZOHEbrhbaraPNthjduc
+ EovARNDInFvWPiBCRpUipWFK1h9WiNv3LEGjpy8AipF21mb6whfweO+32SUURzYg
+ 9NyTKBIvFTzyw50unxXOySMcqn6eHA/dwI9CdEBZBc6YqL74oDQoXGyfhXyUvkVp
+ ZZlMmA==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43eyg66ebd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 12 Dec 2024 18:31:56 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BCIVt3i012317
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 12 Dec 2024 18:31:55 GMT
+Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 12 Dec
+ 2024 10:31:54 -0800
+Message-ID: <49d330b8-86fe-40a6-864b-cbb28dc2f555@quicinc.com>
+Date: Thu, 12 Dec 2024 10:31:53 -0800
 MIME-Version: 1.0
-References: <20241205165419.54080-1-robdclark@gmail.com>
- <eca60b8e-8a8a-41c4-816a-d084822646f1@quicinc.com>
- <CAF6AEGtqSW1mpN14S8ffyV=tUG=0GTmNWq_oVEXo+0RYDJfOnA@mail.gmail.com>
-In-Reply-To: <CAF6AEGtqSW1mpN14S8ffyV=tUG=0GTmNWq_oVEXo+0RYDJfOnA@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 12 Dec 2024 09:12:28 -0800
-Message-ID: <CAF6AEGssTcO=qhXPVTd54=jQv8dke=JY0Qm3C96JMKDsgT3==g@mail.gmail.com>
-Subject: Re: [RFC] drm/msm: Add UABI to request perfcntr usage
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Antonino Maniscalco <antomani103@gmail.com>, 
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/14] drm/msm/dp: set safe_to_exit_level before
+ printing it
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Paloma Arellano <quic_parellan@quicinc.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Stephen Boyd <swboyd@chromium.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "kernel test robot" <lkp@intel.com>
+References: <20241212-fd-dp-audio-fixup-v3-0-0b1c65e7dba3@linaro.org>
+ <20241212-fd-dp-audio-fixup-v3-1-0b1c65e7dba3@linaro.org>
+ <01f84965-8a11-4d6d-99a6-b0e37240d4cb@quicinc.com>
+ <iugoc25pnh5zzzr5mamutycqohj2z2255omgh3ztyoqgyjkg23@c7axf3mg5wy5>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <iugoc25pnh5zzzr5mamutycqohj2z2255omgh3ztyoqgyjkg23@c7axf3mg5wy5>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: b8rp9n-jGicYSN3nLJ3dPfkVlmIMNjsp
+X-Proofpoint-ORIG-GUID: b8rp9n-jGicYSN3nLJ3dPfkVlmIMNjsp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0
+ lowpriorityscore=0 priorityscore=1501 adultscore=0 impostorscore=0
+ mlxlogscore=957 phishscore=0 suspectscore=0 mlxscore=0 clxscore=1015
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412120134
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,335 +99,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 12, 2024 at 9:08=E2=80=AFAM Rob Clark <robdclark@gmail.com> wro=
-te:
->
-> On Thu, Dec 12, 2024 at 7:59=E2=80=AFAM Akhil P Oommen <quic_akhilpo@quic=
-inc.com> wrote:
-> >
-> > On 12/5/2024 10:24 PM, Rob Clark wrote:
-> > > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > Performance counter usage falls into two categories:
-> > >
-> > > 1. Local usage, where the counter configuration, start, and end read
-> > >    happen within (locally to) a single SUBMIT.  In this case, there i=
-s
-> > >    no dependency on counter configuration or values between submits, =
-and
-> > >    in fact counters are normally cleared on context switches, making =
-it
-> > >    impossible to rely on cross-submit state.
-> > >
-> > > 2. Global usage, where a single privilaged daemon/process is sampling
-> > >    counter values across all processes for profiling.
-> > >
-> > > The two categories are mutually exclusive.  While you can have many
-> > > processes making local counter usage, you cannot combine global and
-> > > local usage without the two stepping on each others feet (by changing
-> > > counter configuration).
-> > >
-> > > For global counter usage, there is already a SYSPROF param (since glo=
-bal
-> > > counter usage requires disabling counter clearing on context switch).
-> > > This patch adds a REQ_CNTRS param to request local counter usage.  If
-> > > one or more processes has requested counter usage, then a SYSPROF
-> > > request will fail with -EBUSY.  And if SYSPROF is active, then REQ_CN=
-TRS
-> > > will fail with -EBUSY, maintaining the mutual exclusivity.
-> > >
-> > > This is purely an advisory interface to help coordinate userspace.
-> > > There is no real means of enforcement, but the worst that can happen =
-if
-> > > userspace ignores a REQ_CNTRS failure is that you'll get nonsense
-> > > profiling data.
-> > >
-> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > ---
-> > > kgsl takes a different approach, which involves a lot more UABI for
-> > > assigning counters to different processes.  But I think by taking
-> > > advantage of the fact that mesa (freedreno+turnip) reconfigure the
-> > > counters they need in each SUBMIT, for their respective gl/vk perf-
-> > > counter extensions, we can take this simpler approach.
-> >
-> > KGSL's approach is preemption and ifpc safe (also whatever HW changes
-> > that will come up in future generations). How will we ensure that here?
-> >
-> > I have plans to bring up IFPC support in near future. Also, I brought u=
-p
-> > this point during preemption series. But from the responses, I felt tha=
-t
-> > profiling was not considered a serious usecase. Still I wonder how the
-> > perfcounter extensions work accurately with preemption.
->
-> Re: IFPC, I think initially we have to inhibit IFPC when SYSPROF is activ=
-e
->
-> Longer term, I think we want to just save and restore all of the SEL
-> regs as well as the counters themselves on preemption.  AFAIU
-> currently only the counters themselves are saved/restored.  But there
-> is only one 32b SEL reg for each 64b counter, so I'm not sure that you
-> save that many cycles by not just saving/restoring the SEL regs as
-> well.  (And of course with REQ_CNTRS the kernel knows which processes
-> need counter save/restore and which do not, so you are only taking the
-> extra context switch overhead if a process is actually using the
-> perfcntrs.)
 
-Actually I'm maybe blending two different, but similar cases.
-PREAMBLE/POSTAMBLE, I think, cover us for preemption
 
-For IFPC, we'd need a way to tell GMU that SYSPROF is active, so it
-could save/restore all the counters and selectors  (IFPC shouldn't
-matter for local profiling / REQ_CNTRS case, since you wouldn't go
-into IFPC mid-submit.)
+On 12/12/2024 12:58 AM, Dmitry Baryshkov wrote:
+> On Wed, Dec 11, 2024 at 05:14:18PM -0800, Abhinav Kumar wrote:
+>>
+>>
+>> On 12/11/2024 3:41 PM, Dmitry Baryshkov wrote:
+>>> Rather than printing random garbage from stack and pretending that it is
+>>> the default safe_to_exit_level, set the variable beforehand.
+>>>
+>>> Fixes: d13e36d7d222 ("drm/msm/dp: add audio support for Display Port on MSM")
+>>> Reported-by: kernel test robot <lkp@intel.com>
+>>> Closes: https://lore.kernel.org/oe-kbuild-all/202411081748.0PPL9MIj-lkp@intel.com/
+>>> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+>>> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>    drivers/gpu/drm/msm/dp/dp_audio.c | 2 +-
+>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
+>>> index 74e01a5dd4195d5e0e04250663886f1116f25711..5cbb11986460d1e4ed1890bdf66d0913e013083c 100644
+>>> --- a/drivers/gpu/drm/msm/dp/dp_audio.c
+>>> +++ b/drivers/gpu/drm/msm/dp/dp_audio.c
+>>> @@ -329,10 +329,10 @@ static void msm_dp_audio_safe_to_exit_level(struct msm_dp_audio_private *audio)
+>>>    		safe_to_exit_level = 5;
+>>>    		break;
+>>>    	default:
+>>> +		safe_to_exit_level = 14;
+>>>    		drm_dbg_dp(audio->drm_dev,
+>>>    				"setting the default safe_to_exit_level = %u\n",
+>>>    				safe_to_exit_level);
+>>> -		safe_to_exit_level = 14;
+>>>    		break;
+>>>    	}
+>>>
+>>
+>> This was already picked up in -fixes, so no need to include
+> 
+> I have been rebasing on linux-next. Please make sure that your -fixes
+> branch is a part of linux-next.
+> 
 
-BR,
--R
-
-> Alternatively, I think we could just declare this as a userspace
-> problem, and solve it with CP_SET_AMBLE PREAMBLE/POSTAMBLE?
->
-> Just for background, rendernode UABI is exposed to all processes that
-> can use the GPU, ie. basically everything.  Which makes it an
-> attractive attack surface.  This is why I prefer minimalism when it
-> comes to UABI, and not adding new ioctls and complexity in the kernel
-> when it is not essential ;-)
->
-> BR,
-> -R
->
-> > -Akhil
-> >
-> > >
-> > >  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  2 +
-> > >  drivers/gpu/drm/msm/msm_drv.c           |  5 ++-
-> > >  drivers/gpu/drm/msm/msm_gpu.c           |  1 +
-> > >  drivers/gpu/drm/msm/msm_gpu.h           | 29 +++++++++++++-
-> > >  drivers/gpu/drm/msm/msm_submitqueue.c   | 52 +++++++++++++++++++++++=
-+-
-> > >  include/uapi/drm/msm_drm.h              |  1 +
-> > >  6 files changed, 85 insertions(+), 5 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/dr=
-m/msm/adreno/adreno_gpu.c
-> > > index 31bbf2c83de4..f688e37059b8 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > > @@ -441,6 +441,8 @@ int adreno_set_param(struct msm_gpu *gpu, struct =
-msm_file_private *ctx,
-> > >               if (!capable(CAP_SYS_ADMIN))
-> > >                       return UERR(EPERM, drm, "invalid permissions");
-> > >               return msm_file_private_set_sysprof(ctx, gpu, value);
-> > > +     case MSM_PARAM_REQ_CNTRS:
-> > > +             return msm_file_private_request_counters(ctx, gpu, valu=
-e);
-> > >       default:
-> > >               return UERR(EINVAL, drm, "%s: invalid param: %u", gpu->=
-name, param);
-> > >       }
-> > > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_=
-drv.c
-> > > index 6416d2cb4efc..bf8314ff4a25 100644
-> > > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > > @@ -377,9 +377,12 @@ static void msm_postclose(struct drm_device *dev=
-, struct drm_file *file)
-> > >        * It is not possible to set sysprof param to non-zero if gpu
-> > >        * is not initialized:
-> > >        */
-> > > -     if (priv->gpu)
-> > > +     if (ctx->sysprof)
-> > >               msm_file_private_set_sysprof(ctx, priv->gpu, 0);
-> > >
-> > > +     if (ctx->counters_requested)
-> > > +             msm_file_private_request_counters(ctx, priv->gpu, 0);
-> > > +
-> > >       context_close(ctx);
-> > >  }
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_=
-gpu.c
-> > > index 82f204f3bb8f..013b59ca3bb1 100644
-> > > --- a/drivers/gpu/drm/msm/msm_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> > > @@ -991,6 +991,7 @@ int msm_gpu_init(struct drm_device *drm, struct p=
-latform_device *pdev,
-> > >       gpu->nr_rings =3D nr_rings;
-> > >
-> > >       refcount_set(&gpu->sysprof_active, 1);
-> > > +     refcount_set(&gpu->local_counters_active, 1);
-> > >
-> > >       return 0;
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_=
-gpu.h
-> > > index e25009150579..83c61e523b1b 100644
-> > > --- a/drivers/gpu/drm/msm/msm_gpu.h
-> > > +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> > > @@ -195,12 +195,28 @@ struct msm_gpu {
-> > >       int nr_rings;
-> > >
-> > >       /**
-> > > -      * sysprof_active:
-> > > +      * @sysprof_active:
-> > >        *
-> > > -      * The count of contexts that have enabled system profiling.
-> > > +      * The count of contexts that have enabled system profiling plu=
-s one.
-> > > +      *
-> > > +      * Note: refcount_t does not like 0->1 transitions.. we want to=
- keep
-> > > +      * the under/overflow checks that refcount_t provides, but allo=
-w
-> > > +      * multiple on/off transitions so we track the logical value pl=
-us one.)
-> > >        */
-> > >       refcount_t sysprof_active;
-> > >
-> > > +     /**
-> > > +      * @local_counters_active:
-> > > +      *
-> > > +      * The count of contexts that have requested local (intra-submi=
-t)
-> > > +      * performance counter usage plus one.
-> > > +      *
-> > > +      * Note: refcount_t does not like 0->1 transitions.. we want to=
- keep
-> > > +      * the under/overflow checks that refcount_t provides, but allo=
-w
-> > > +      * multiple on/off transitions so we track the logical value pl=
-us one.)
-> > > +      */
-> > > +     refcount_t local_counters_active;
-> > > +
-> > >       /**
-> > >        * lock:
-> > >        *
-> > > @@ -383,6 +399,13 @@ struct msm_file_private {
-> > >        */
-> > >       int sysprof;
-> > >
-> > > +     /**
-> > > +      * @counters_requested:
-> > > +      *
-> > > +      * Has the context requested local perfcntr usage.
-> > > +      */
-> > > +     bool counters_requested;
-> > > +
-> > >       /**
-> > >        * comm: Overridden task comm, see MSM_PARAM_COMM
-> > >        *
-> > > @@ -626,6 +649,8 @@ void msm_submitqueue_destroy(struct kref *kref);
-> > >
-> > >  int msm_file_private_set_sysprof(struct msm_file_private *ctx,
-> > >                                struct msm_gpu *gpu, int sysprof);
-> > > +int msm_file_private_request_counters(struct msm_file_private *ctx,
-> > > +                                   struct msm_gpu *gpu, int reqcntrs=
-);
-> > >  void __msm_file_private_destroy(struct kref *kref);
-> > >
-> > >  static inline void msm_file_private_put(struct msm_file_private *ctx=
-)
-> > > diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/=
-msm/msm_submitqueue.c
-> > > index 7fed1de63b5d..1e1e21e6f7ae 100644
-> > > --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> > > +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> > > @@ -10,6 +10,15 @@
-> > >  int msm_file_private_set_sysprof(struct msm_file_private *ctx,
-> > >                                struct msm_gpu *gpu, int sysprof)
-> > >  {
-> > > +     int ret =3D 0;
-> > > +
-> > > +     mutex_lock(&gpu->lock);
-> > > +
-> > > +     if (sysprof && (refcount_read(&gpu->local_counters_active) > 1)=
-) {
-> > > +             ret =3D UERR(EBUSY, gpu->dev, "Local counter usage acti=
-ve");
-> > > +             goto out_unlock;
-> > > +     }
-> > > +
-> > >       /*
-> > >        * Since pm_runtime and sysprof_active are both refcounts, we
-> > >        * call apply the new value first, and then unwind the previous
-> > > @@ -18,7 +27,8 @@ int msm_file_private_set_sysprof(struct msm_file_pr=
-ivate *ctx,
-> > >
-> > >       switch (sysprof) {
-> > >       default:
-> > > -             return UERR(EINVAL, gpu->dev, "Invalid sysprof: %d", sy=
-sprof);
-> > > +             ret =3D UERR(EINVAL, gpu->dev, "Invalid sysprof: %d", s=
-ysprof);
-> > > +             goto out_unlock;
-> > >       case 2:
-> > >               pm_runtime_get_sync(&gpu->pdev->dev);
-> > >               fallthrough;
-> > > @@ -43,7 +53,45 @@ int msm_file_private_set_sysprof(struct msm_file_p=
-rivate *ctx,
-> > >
-> > >       ctx->sysprof =3D sysprof;
-> > >
-> > > -     return 0;
-> > > +out_unlock:
-> > > +     mutex_unlock(&gpu->lock);
-> > > +
-> > > +     return ret;
-> > > +}
-> > > +
-> > > +int msm_file_private_request_counters(struct msm_file_private *ctx,
-> > > +                                   struct msm_gpu *gpu, int reqctrs)
-> > > +{
-> > > +     int ret =3D 0;
-> > > +
-> > > +     mutex_lock(&gpu->lock);
-> > > +
-> > > +     if (reqctrs && (refcount_read(&gpu->sysprof_active) > 1)) {
-> > > +             ret =3D UERR(EBUSY, gpu->dev, "System profiling active"=
-);
-> > > +             goto out_unlock;
-> > > +     }
-> > > +
-> > > +     if (reqctrs) {
-> > > +             if (ctx->counters_requested) {
-> > > +                     ret =3D UERR(EINVAL, gpu->dev, "Already request=
-ed");
-> > > +                     goto out_unlock;
-> > > +             }
-> > > +
-> > > +             ctx->counters_requested =3D true;
-> > > +             refcount_inc(&gpu->local_counters_active);
-> > > +     } else {
-> > > +             if (!ctx->counters_requested) {
-> > > +                     ret =3D UERR(EINVAL, gpu->dev, "Not requested")=
-;
-> > > +                     goto out_unlock;
-> > > +             }
-> > > +             refcount_dec(&gpu->local_counters_active);
-> > > +             ctx->counters_requested =3D false;
-> > > +     }
-> > > +
-> > > +out_unlock:
-> > > +     mutex_unlock(&gpu->lock);
-> > > +
-> > > +     return ret;
-> > >  }
-> > >
-> > >  void __msm_file_private_destroy(struct kref *kref)
-> > > diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-> > > index 2342cb90857e..ae7fb355e4a1 100644
-> > > --- a/include/uapi/drm/msm_drm.h
-> > > +++ b/include/uapi/drm/msm_drm.h
-> > > @@ -91,6 +91,7 @@ struct drm_msm_timespec {
-> > >  #define MSM_PARAM_UBWC_SWIZZLE 0x12 /* RO */
-> > >  #define MSM_PARAM_MACROTILE_MODE 0x13 /* RO */
-> > >  #define MSM_PARAM_UCHE_TRAP_BASE 0x14 /* RO */
-> > > +#define MSM_PARAM_REQ_CNTRS  0x15 /* WO: request "local" (intra-subm=
-it) perfcntr usage  */
-> > >
-> > >  /* For backwards compat.  The original support for preemption was ba=
-sed on
-> > >   * a single ring per priority level so # of priority levels equals t=
-he #
-> >
+Its merged to msm-fixes not just my fixes branch. I am pretty sure 
+msm-fixes is part of linux-next.
