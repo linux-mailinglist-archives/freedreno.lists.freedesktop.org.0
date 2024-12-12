@@ -2,123 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21F179EE148
-	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 09:31:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76A469EE17A
+	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 09:41:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 023CA10E45A;
-	Thu, 12 Dec 2024 08:31:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F17D10ECFC;
+	Thu, 12 Dec 2024 08:41:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fc8tOnGy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="t1549Ovb";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 365AA10E45A
- for <freedreno@lists.freedesktop.org>; Thu, 12 Dec 2024 08:31:13 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43618283dedso2833785e9.3
- for <freedreno@lists.freedesktop.org>; Thu, 12 Dec 2024 00:31:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733992272; x=1734597072; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=5XYu4I8D9gBdmo7eYgjvc8ss5lWgqbeNPvu7neTItSw=;
- b=fc8tOnGyZ3fvSMPUe+VhqnboxA0o1P76HpVyz6h7A/LLn6YE9ciRU/pusvcb9ND3HE
- KrxEU38MZajGKwcB35UZiSQ8KdgJPZtBzXfnCAB+WJHVbTFXSRdYmVrMeOt+3t3jF/q7
- 5xVsGwtKBtKh13vdXmSJB5oqNezYXR87DVRZ1V2yhVGbQEjD6Z5mtx0VN9ZOHCILTCKj
- kGa5LVzsHrpZC0VdnPC+IHzd2sCbQXj+ZvsDavDURPmHE74fsTs+4Rd82S/cYuk/BycL
- b3/TJ9ouxyr2iDe3Zg8EL1DhCDveQvBLwew9l3LXEaF4SiU+zUhKug/7UX/yUKTuOLLj
- Rv/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733992272; x=1734597072;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=5XYu4I8D9gBdmo7eYgjvc8ss5lWgqbeNPvu7neTItSw=;
- b=pGxzF6BR7m6Bdd3qXVFkKDXY30wfwJu2XhADbZrw94Z8RRkuUkmpiv+fJMX/XyC3+w
- X1zG82iM4zDRIbrceKRvE5TcLPyMFdv+fDInlbvqVgUiYCvMNUcQvp7H19Oj41+qDRzj
- gyJYlQoT7mQLiN0C6iNl4quRqrL8mRYifnoa7Gj7nP37XCivCyAAKLHUF5Owm8cRebYx
- 8XP66u27OiqP0WM5WEadwtHQN1jK/gTfgxXhnJzdoiuInwxiBq2oS01B2lq2Tf4OMo7A
- akFTTYuHxmlOtFIiPtJW5+240prVtR36C02++9XBAWvqHrNBS6UeQWkzLBGFveGF86WH
- qfvg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW97Ow3am80DSmgyyHR7TEm7URa2g4V3MAoc/fKeOf7h+il5J5F01fq/jhT6qCyzqiEdCQoOUsWhE8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyNkyf6klfwgixTwv+dUSLpbAvZN+en8TgTopoOfqABQCYWV5r7
- MTJK/2MrS8lfaK4RFYnPAgQtU89KVlcS0aEmzcqiltfhClZU/wiUkFIqYewsxFI=
-X-Gm-Gg: ASbGncvEbbdP48wvU5s3B1XXCP/vRWNWrYzkW3TC6M9jNGsC4lyoskWPJUiwUoGuS0U
- bO0tr3Jnq+nS+0xkTQbMA1IhoglWwIN6KuTAc23g/6gV1iEybnqpEe+YLakt/LYiybN3mRJ2wp5
- LcFiMuFMJkjXDsXfQ8bIzV9XcEyjVlV+2P92clCVCAxJJ3Pbsj7/B6j0CWKN7ac6sg5Vxh5iS1r
- iqUXIyMDZzdtWqkhO8v6Oxmm98kUONNqXDmVQUSEojemf9YA5TK6CUQCugV7pJwhtdArq/ZOBpL
- +7v2JeOBpFb/WZmH7YFxx+VxwObXvMhfiQ==
-X-Google-Smtp-Source: AGHT+IFg5rVsYNoj1OLL00/jahvhS0YEuapxQEmBGH2dEHoxfZsQpcAyjRpBUgBdyI8WiwrhrVyjPA==
-X-Received: by 2002:a05:600c:348e:b0:435:14d:f61a with SMTP id
- 5b1f17b1804b1-436228638c1mr17805585e9.25.1733992271590; 
- Thu, 12 Dec 2024 00:31:11 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:b98a:c6fe:3a5d:f20a?
- ([2a01:e0a:982:cbb0:b98a:c6fe:3a5d:f20a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436255830b0sm9467275e9.18.2024.12.12.00.31.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Dec 2024 00:31:11 -0800 (PST)
-Message-ID: <0d0a8157-32a4-4e8e-92cd-dac9a4471641@linaro.org>
-Date: Thu, 12 Dec 2024 09:31:09 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH v2 1/4] drm/dp: Add helper to set LTTPRs in transparent
- mode
-To: Johan Hovold <johan@kernel.org>, Abel Vesa <abel.vesa@linaro.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70A0410ECF9;
+ Thu, 12 Dec 2024 08:41:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 26929A42657;
+ Thu, 12 Dec 2024 08:39:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31A90C4CECE;
+ Thu, 12 Dec 2024 08:41:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733992885;
+ bh=V9ZgLYGS9V5D6sBRuPJglgqlae/xhudICyCZ7OL/n2E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=t1549Ovbr5zL06yJKspZfmXMo8dUwEMV8eT3j8RWWpS608U5NPB76hbmWFa1Y06M7
+ T2sMOwViHk6hKi5SIZN258drWGkyeHHAUEzeRBA8K/pwwcEXKSmqQ+pd7z34FJE6NX
+ Nqe0kOzdi45/n4a41fz9y9QECic4KnIzaHYVmdHbt2GGryPin7eCGUlQyDptlJNN/Y
+ XxNBuunkR5hgYcUkzWEo5xfLdsk5xS1G7FU10x1eIjcB5k5v5uy0QD+bpZ5znv2YPU
+ HQREUJPPOzLwS1qO2HCk25kr81GKC65lL8PjMWo5DEFbIRkdD64qW8v6TebmUAKGKC
+ XpEorO1fIO/tQ==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+ (envelope-from <johan@kernel.org>) id 1tLelD-000000006Rn-36L4;
+ Thu, 12 Dec 2024 09:41:28 +0100
+Date: Thu, 12 Dec 2024 09:41:27 +0100
+From: Johan Hovold <johan@kernel.org>
+To: neil.armstrong@linaro.org
+Cc: Abel Vesa <abel.vesa@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@redhat.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Danilo Krummrich <dakr@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+ Konrad Dybcio <konradybcio@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v2 1/4] drm/dp: Add helper to set LTTPRs in transparent
+ mode
+Message-ID: <Z1qht5W66I1-3RLL@hovoldconsulting.com>
 References: <20241211-drm-dp-msm-add-lttpr-transparent-mode-set-v2-0-d5906ed38b28@linaro.org>
  <20241211-drm-dp-msm-add-lttpr-transparent-mode-set-v2-1-d5906ed38b28@linaro.org>
  <Z1mk08SHEd5_vc99@hovoldconsulting.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <Z1mk08SHEd5_vc99@hovoldconsulting.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <0d0a8157-32a4-4e8e-92cd-dac9a4471641@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0d0a8157-32a4-4e8e-92cd-dac9a4471641@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,96 +80,20 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/12/2024 15:42, Johan Hovold wrote:
-> On Wed, Dec 11, 2024 at 03:04:12PM +0200, Abel Vesa wrote:
->   
->> +/**
->> + * drm_dp_lttpr_set_transparent_mode - set the LTTPR in transparent mode
->> + * @aux: DisplayPort AUX channel
->> + * @enable: Enable or disable transparent mode
->> + *
->> + * Returns 0 on success or a negative error code on failure.
->> + */
->> +int drm_dp_lttpr_set_transparent_mode(struct drm_dp_aux *aux, bool enable)
->> +{
->> +	u8 val = enable ? DP_PHY_REPEATER_MODE_TRANSPARENT :
->> +			  DP_PHY_REPEATER_MODE_NON_TRANSPARENT;
->> +	int ret = drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE, val);
->> +
->> +	return ret == 1 ? 0 : ret;
-> 
-> This looks correct, but I had to go look at drm_dp_dpcd_writeb() to make
-> sure it never returns 0 (for short transfers).
-> 
->> +}
->> +EXPORT_SYMBOL(drm_dp_lttpr_set_transparent_mode);
-> 
-> This appears to be what the driver currently uses, but why not
-> EXPORT_SYMBOL_GPL?
+On Thu, Dec 12, 2024 at 09:31:09AM +0100, neil.armstrong@linaro.org wrote:
+> On 11/12/2024 15:42, Johan Hovold wrote:
 
-drivers/gpu/drm/display/drm_dp_helper.c is not GPL licenced, so
-this is the right macro to use.
+> >> +EXPORT_SYMBOL(drm_dp_lttpr_set_transparent_mode);
+> > 
+> > This appears to be what the driver currently uses, but why not
+> > EXPORT_SYMBOL_GPL?
+> 
+> drivers/gpu/drm/display/drm_dp_helper.c is not GPL licenced, so
+> this is the right macro to use.
 
-Neil
+Wow. I should have checked the header. Thanks for explaining.
 
-> 
->> +
->> +/**
->> + * drm_dp_lttpr_init - init LTTPR transparency mode according to DP standard
->> + *
->> + * @aux: DisplayPort AUX channel
->> + * @lttpr_count: Number of LTTPRs
->> + *
->> + * Returns 0 on success or a negative error code on failure.
->> + */
->> +int drm_dp_lttpr_init(struct drm_dp_aux *aux, int lttpr_count)
->> +{
->> +	if (!lttpr_count)
->> +		return 0;
->> +
->> +	/*
->> +	 * See DP Standard v2.0 3.6.6.1 about the explicit disabling of
->> +	 * non-transparent mode and the disable->enable non-transparent mode
->> +	 * sequence.
->> +	 */
->> +	drm_dp_lttpr_set_transparent_mode(aux, true);
-> 
-> Error handling?
-> 
->> +
->> +	if (lttpr_count > 0 && !drm_dp_lttpr_set_transparent_mode(aux, false))
-> 
-> No need to check lttpr_count again here.
-> 
->> +		return 0;
-> 
-> I'd check for errors instead of success here and do the rollback before
-> returning -EINVAL.
-> 
->> +
->> +	/*
->> +	 * Roll-back to tranparent mode if setting non-tranparent mode failed or
->> +	 * the number of LTTPRs is invalid
->> +	 */
->> +	drm_dp_lttpr_set_transparent_mode(aux, true);
->> +
->> +	return -EINVAL;
-> 
-> And return 0 explicitly here.
-> 
->> +}
->> +EXPORT_SYMBOL(drm_dp_lttpr_init);
-> 
-> In any case this works well and is needed for external display on the
-> Lenovo ThinkPad T14s, while not breaking the X13s which does not need
-> it:
-> 
-> Tested-by: Johan Hovold <johan+linaro@kernel.org>
-> 
-> Johan
-> 
-
+Johan
