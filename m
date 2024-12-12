@@ -1,88 +1,90 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BD1A9EFBBB
-	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 19:56:20 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A3739EFC16
+	for <lists+freedreno@lfdr.de>; Thu, 12 Dec 2024 20:12:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69F8510E048;
-	Thu, 12 Dec 2024 18:56:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 397EF10EE7F;
+	Thu, 12 Dec 2024 19:12:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="fvlgoC84";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="SPODvFpf";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D11CE10E048;
- Thu, 12 Dec 2024 18:56:18 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BCICeHO022791;
- Thu, 12 Dec 2024 18:56:14 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A98E10EE7F;
+ Thu, 12 Dec 2024 19:12:13 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BCH1Cde032195;
+ Thu, 12 Dec 2024 19:12:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- eHPUIVDs5n/Gl5GXexFw9AKnGU1HBb2QBrWPPNCrp3s=; b=fvlgoC84WQe/6sjS
- 5LEcdEWlaneg66rOQb4kA9Y0H6R5Ml1RPhutlTIPA3tq4kQi6JHEc6W21kbA6c9o
- Zjo2RturTJogtBCZH85vsr0JY7XzpRseZCN33C/i1MYoDDS7QqwaQy/1p18d2FsE
- oCos1dVk1vLwcGDjHDjI2Jpwl0rQDaE67BzFccUQNph3Xe3eA8wrqRg80L18ovtT
- WnUkoXYadwmxvZaT6nfGm8R/xMxjdP2WP7hjPRx0KPXsm2rmB1tveMsvqEL4GFy/
- iuRjt49eh6oipc5JdtUedByikwZ7VTA3mJO0EVbBH5NEvbllXv38o6suqtLqyYJh
- j9ih4g==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43g4wn83aw-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=IZJGZji0n5Hg7/QDH3Jah+
+ hYEpDhXrfXmcIulQaQNJk=; b=SPODvFpflXm8BisM8oIA9kNmLOzp7rYt90D/Be
+ 4ZoD1pTlBKlvNeVtH7npKu+d0LZKBOafAW4+rndnJ/OSjzeRugnIiEkyLu3xNrTR
+ H8pS9M8r2gQuO1fGj9Jd7IO2mo/MVBapXS1GF54Iv8Pf6knFbmCJIlcQPqENNxOv
+ qn58gCJEWsB39kk3CTvrY5QRNYJS3GT4v6ZUnzcNcT7bBsNcIyDQWK1rEvKR3WCE
+ BPcPaVZBxBsvVlYKW/ZoqqN/4xIXDJSGSDeSgTUe+b4rcN1wDj2kiTuV8CqoUsTt
+ L6cbXYLyKpZmEnLMBE8x5rttnW10x6NPoth/3BvKdC9YkW0A==
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43f6tfd8d2-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 12 Dec 2024 18:56:14 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BCIu8hs026719
+ Thu, 12 Dec 2024 19:12:10 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BCJC9xR006023
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 12 Dec 2024 18:56:08 GMT
-Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 12 Dec
- 2024 10:56:07 -0800
-Message-ID: <3d7a82d5-3c7f-40dc-a896-daf1e564bdb0@quicinc.com>
-Date: Thu, 12 Dec 2024 10:56:06 -0800
+ Thu, 12 Dec 2024 19:12:09 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Thu, 12 Dec 2024 11:12:09 -0800
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+Date: Thu, 12 Dec 2024 11:11:54 -0800
+Subject: [PATCH] drm/msm/dpu: Filter modes based on adjusted mode clock
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/14] drm/msm/dp: drop struct msm_dp_panel_in
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Paloma Arellano <quic_parellan@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>,
- Stephen Boyd <swboyd@chromium.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-References: <20241212-fd-dp-audio-fixup-v3-0-0b1c65e7dba3@linaro.org>
- <20241212-fd-dp-audio-fixup-v3-13-0b1c65e7dba3@linaro.org>
- <3346b2fb-1366-476b-bb52-e42a2170d719@quicinc.com>
- <CAA8EJppthF3aVq0T2FmjLRNySP2pW36QnEXoWt5fFAKh+Nmz5A@mail.gmail.com>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJppthF3aVq0T2FmjLRNySP2pW36QnEXoWt5fFAKh+Nmz5A@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20241212-filter-mode-clock-v1-1-f4441988d6aa@quicinc.com>
+X-B4-Tracking: v=1; b=H4sIAHk1W2cC/x3MSQqAMAxA0atI1gZscL6KuNCaanCotCKC9O4Wl
+ 2/x/wuenbCHNnnB8S1e7BGh0gT0Mhwzo0zRQBnlihShke1ih7udGPVm9Yq1HomrsjFZMULsTsd
+ Gnv/Z9SF8MxBgNmMAAAA=
+X-Change-ID: 20241212-filter-mode-clock-8cb2e769f05b
+To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>
+CC: <quic_abhinavk@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>
+X-Mailer: b4 0.15-dev-355e8
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1734030729; l=4582;
+ i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
+ bh=EcbOV0s5NkPGBlJ6bf2+qtaCaWHaRvTPaID4wWfUs38=;
+ b=//CeavGe+5m8ZKtTTkXsuYJvlFaPm3n08epl96aLYEXOZPXyRgKSmQpSv8XTyhKdYgsofqedk
+ n8JLvF2F0mMDq0yMMIXPPnw2RogzA7CCuslkkv2aTiGEyjz4AxpG//3
+X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
+ pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: sDJnQmMVbzxYWel2XUlylzPKonssNJev
-X-Proofpoint-GUID: sDJnQmMVbzxYWel2XUlylzPKonssNJev
+X-Proofpoint-GUID: AEHBiz-qRpy-DjdKVNYTUd9uVfxcgvLW
+X-Proofpoint-ORIG-GUID: AEHBiz-qRpy-DjdKVNYTUd9uVfxcgvLW
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- lowpriorityscore=0 priorityscore=1501 mlxlogscore=702 spamscore=0
- mlxscore=0 clxscore=1015 adultscore=0 phishscore=0 suspectscore=0
- bulkscore=0 impostorscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2411120000 definitions=main-2412120137
+ mlxscore=0 suspectscore=0
+ mlxlogscore=999 malwarescore=0 spamscore=0 lowpriorityscore=0
+ impostorscore=0 adultscore=0 bulkscore=0 phishscore=0 priorityscore=1501
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412120139
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,91 +100,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Filter out modes that have a clock rate greater than the max core clock
+rate when adjusted for the perf clock factor
 
+This is especially important for chipsets such as QCS615 that have lower
+limits for the MDP max core clock.
 
-On 12/12/2024 12:53 AM, Dmitry Baryshkov wrote:
-> On Thu, 12 Dec 2024 at 05:26, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 12/11/2024 3:41 PM, Dmitry Baryshkov wrote:
->>> All other submodules pass arguments directly. Drop struct
->>> msm_dp_panel_in that is used to wrap dp_panel's submodule args and pass
->>> all data to msm_dp_panel_get() directly.
->>>
->>> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>    drivers/gpu/drm/msm/dp/dp_display.c |  9 +--------
->>>    drivers/gpu/drm/msm/dp/dp_panel.c   | 15 ++++++++-------
->>>    drivers/gpu/drm/msm/dp/dp_panel.h   | 10 ++--------
->>>    3 files changed, 11 insertions(+), 23 deletions(-)
->>>
->>
->> Change not necessarily tied to catalog cleanup, and can be sent
->> independently IMO.
->>
->>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->>> index cb02d5d5b404925707c737ed75e9e83fbec34f83..a2cdcdac042d63a59ff71aefcecb7f8b22f01167 100644
->>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>> @@ -722,9 +722,6 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
->>>    {
->>>        int rc = 0;
->>>        struct device *dev = &dp->msm_dp_display.pdev->dev;
->>> -     struct msm_dp_panel_in panel_in = {
->>> -             .dev = dev,
->>> -     };
->>>        struct phy *phy;
->>>
->>>        phy = devm_phy_get(dev, "dp");
->>> @@ -765,11 +762,7 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
->>>                goto error_link;
->>>        }
->>>
->>> -     panel_in.aux = dp->aux;
->>> -     panel_in.catalog = dp->catalog;
->>> -     panel_in.link = dp->link;
->>> -
->>> -     dp->panel = msm_dp_panel_get(&panel_in);
->>> +     dp->panel = msm_dp_panel_get(dev, dp->aux, dp->link, dp->catalog);
->>>        if (IS_ERR(dp->panel)) {
->>>                rc = PTR_ERR(dp->panel);
->>>                DRM_ERROR("failed to initialize panel, rc = %d\n", rc);
->>> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
->>> index 25869e2ac93aba0bffeddae9f95917d81870d8cb..49bbcde8cf60ac1b297310a50191135d79b092fb 100644
->>> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
->>> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
->>> @@ -659,25 +659,26 @@ static int msm_dp_panel_parse_dt(struct msm_dp_panel *msm_dp_panel)
->>>        return 0;
->>>    }
->>>
->>> -struct msm_dp_panel *msm_dp_panel_get(struct msm_dp_panel_in *in)
->>> +struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux,
->>> +                           struct msm_dp_link *link, struct msm_dp_catalog *catalog)
->>>    {
->>
->> so this API, takes a filled input panel, makes a msm_dp_panel out of it
->> by filling out more information on top of what was already passed in and
->> returns a msm_dp_panel.
->>
->> So IOW, converts a msm_dp_panel_in to msm_dp_panel.
->>
->> What is the gain by passing individual params rather than passing them
->> as a struct instead? Isnt it better to have it within that struct to
->> show the conversion and moreover we dont have to pass in 4 arguments
->> instead of 1.
-> 
-> We gain uniformity. All other modules use params. And, as pointed out
-> by Maxime during HDMI Codec reviews, it's easier to handle function
-> params - it makes it more obvious that one of the params got missing.
-> 
+Since the core CRTC clock is at least the mode clock (adjusted for the
+perf clock factor) [1], the modes supported by the driver should be less
+than the max core clock rate.
 
-Point noted but a very long param list also makes it harder to manage. 
-So we should really evaluate on a case-by-case basis and not generalize 
-here.
+[1] https://elixir.bootlin.com/linux/v6.12.4/source/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c#L83
 
-Here its only 4, so i would say its kindof okay. If it goes beyond it, 
-then msm_dp_panel_in is probably going to come back.
+Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 29 +++++++++++++++++++--------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  3 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 12 +++++++++++
+ 3 files changed, 36 insertions(+), 8 deletions(-)
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+index 6f0a37f954fe8797a4e3a34e7876a93d5e477642..0afd7c81981c722a1a9176062250c418255fe6d0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+@@ -31,6 +31,26 @@ enum dpu_perf_mode {
+ 	DPU_PERF_MODE_MAX
+ };
+ 
++/**
++ * dpu_core_perf_adjusted_crtc_clk - Adjust given crtc clock rate according to
++ *   the perf clock factor.
++ * @crtc_clk_rate - Unadjusted crtc clock rate
++ * @perf_cfg: performance configuration
++ */
++u64 dpu_core_perf_adjusted_crtc_clk(u64 crtc_clk_rate,
++				    const struct dpu_perf_cfg *perf_cfg)
++{
++	u32 clk_factor;
++
++	clk_factor = perf_cfg->clk_inefficiency_factor;
++	if (clk_factor) {
++		crtc_clk_rate *= clk_factor;
++		do_div(crtc_clk_rate, 100);
++	}
++
++	return crtc_clk_rate;
++}
++
+ /**
+  * _dpu_core_perf_calc_bw() - to calculate BW per crtc
+  * @perf_cfg: performance configuration
+@@ -76,7 +96,6 @@ static u64 _dpu_core_perf_calc_clk(const struct dpu_perf_cfg *perf_cfg,
+ 	struct dpu_plane_state *pstate;
+ 	struct drm_display_mode *mode;
+ 	u64 crtc_clk;
+-	u32 clk_factor;
+ 
+ 	mode = &state->adjusted_mode;
+ 
+@@ -90,13 +109,7 @@ static u64 _dpu_core_perf_calc_clk(const struct dpu_perf_cfg *perf_cfg,
+ 		crtc_clk = max(pstate->plane_clk, crtc_clk);
+ 	}
+ 
+-	clk_factor = perf_cfg->clk_inefficiency_factor;
+-	if (clk_factor) {
+-		crtc_clk *= clk_factor;
+-		do_div(crtc_clk, 100);
+-	}
+-
+-	return crtc_clk;
++	return dpu_core_perf_adjusted_crtc_clk(crtc_clk, perf_cfg);
+ }
+ 
+ static struct dpu_kms *_dpu_crtc_get_kms(struct drm_crtc *crtc)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+index 451bf8021114d9d4a2dfdbb81ed4150fc559c681..c3bcd567cdfb66647c83682d1feedd69e33f0680 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+@@ -54,6 +54,9 @@ struct dpu_core_perf {
+ 	u64 fix_core_ab_vote;
+ };
+ 
++u64 dpu_core_perf_adjusted_crtc_clk(u64 clk_rate,
++				    const struct dpu_perf_cfg *perf_cfg);
++
+ int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
+ 		struct drm_crtc_state *state);
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index ad3462476a143ec01a3b8817a2c85b0f50435a9e..cd7b84ab57a7526948c2beb7c5cefdddcbe4f6d9 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1257,6 +1257,7 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
+ 						const struct drm_display_mode *mode)
+ {
+ 	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
++	u64 adjusted_mode_clk;
+ 
+ 	/* if there is no 3d_mux block we cannot merge LMs so we cannot
+ 	 * split the large layer into 2 LMs, filter out such modes
+@@ -1264,6 +1265,17 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
+ 	if (!dpu_kms->catalog->caps->has_3d_merge &&
+ 	    mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
+ 		return MODE_BAD_HVALUE;
++
++	adjusted_mode_clk = dpu_core_perf_adjusted_crtc_clk(mode->clock,
++							    dpu_kms->perf.perf_cfg);
++
++	/*
++	 * The given mode, adjusted for the perf clock factor, should not exceed
++	 * the max core clock rate
++	 */
++	if (adjusted_mode_clk > dpu_kms->perf.max_core_clk_rate / 1000)
++		return MODE_CLOCK_HIGH;
++
+ 	/*
+ 	 * max crtc width is equal to the max mixer width * 2 and max height is 4K
+ 	 */
+
+---
+base-commit: 423c1c96d6b2d3bb35072e33a5fdd8db6d2c0a74
+change-id: 20241212-filter-mode-clock-8cb2e769f05b
+
+Best regards,
+-- 
+Jessica Zhang <quic_jesszhan@quicinc.com>
+
