@@ -2,95 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF0BC9F0B54
-	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2024 12:36:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81BB79F0B96
+	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2024 12:47:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A72210EFE0;
-	Fri, 13 Dec 2024 11:36:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF6710E1CA;
+	Fri, 13 Dec 2024 11:47:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="DwAchiPh";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Eeot40Q5";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D68FF10EFDE;
- Fri, 13 Dec 2024 11:36:17 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BD9p2U0018134;
- Fri, 13 Dec 2024 11:36:13 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A36810E1CA;
+ Fri, 13 Dec 2024 11:47:10 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BD45wNU017909;
+ Fri, 13 Dec 2024 11:47:05 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- P9ngzF+6pmV+EgfShHZQvxGopT1DCTPRVlNKi+UgZsI=; b=DwAchiPhP/4yecjz
- t0+g1r0HVNr0tIqqzqlBpf3IzHX6A1YJInIIf/LW/FtQvVQhj3RWdYKcWv13OmZ8
- bkkOPO4bi7/R0T80CVTZqoQD9XXCV7DUa8AE8Xhx6IBKH3X1DJmChh1MnqFx4yci
- 1EP2HPf9eWPSxXLhaYDf9iICczaBlQsymcNl2rgDXqSjgl1AFLqh5n3GERaGeG07
- ljjXK3NeN5x1lEGPJUD+zkKns0iy5Oy+Cqr5qL+y1MfZM5KkxshA5bBikgvY7EDa
- iDgFgp2SZelutbo+HxmiwMm5eblTYS2EDrxJ7RHZL63uJR9xde3hnytIqC34USiJ
- NfKfUQ==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=9c00TPaXGjBylzxiLMEcOn
+ 3RbRS5qc4bVq+xO45pylg=; b=Eeot40Q5wmo1PGnv2zbIOoBAmCssMTuEYsOLts
+ cc1Ay4iLb+EIIV2PW449tFd2pCFldDBQ3b6mYXcmKigSQSklc9/bl7cflmdH3BFN
+ DAch3MAr5LNnxcZuR8KmCYzK9bCv/+wMtJk/ZcMo0FecfhKWQOxmgU/40nLSWiD8
+ E4AiY2pJg097o2d3FXQ6hjYykGRJ1eZCpXVwZsNh1Vg/qGwyTo14W04bcJMXcdPu
+ t37z1P0a6sMtibbz3aSd6AaVX4oEStL1bINqO5y5Xf9ZSb3cUB0af/Zwmq0Mk/pq
+ 6JToUlZHzCwj1FbnvT7Ow7a1OQUv3ZJ/yRF/A9/udpEl5Otg==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43gjnb0ada-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43gdkn15x2-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 13 Dec 2024 11:36:12 +0000 (GMT)
+ Fri, 13 Dec 2024 11:47:05 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BDBaAR9027307
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BDBl4WK005852
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 13 Dec 2024 11:36:10 GMT
-Received: from [10.204.101.130] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ Fri, 13 Dec 2024 11:47:04 GMT
+Received: from [10.213.111.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 13 Dec
- 2024 03:36:01 -0800
-Message-ID: <1b085554-1694-4979-89a8-2334e33a80a0@quicinc.com>
-Date: Fri, 13 Dec 2024 17:05:58 +0530
+ 2024 03:46:59 -0800
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Date: Fri, 13 Dec 2024 17:16:42 +0530
+Subject: [PATCH v3] drm/msm/a6xx: Add support for Adreno 612
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v2 00/26] Devicetree changes for QCS615's GPU
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20241213-a612-gpu-support-v3-1-0e9b25570a69@quicinc.com>
+X-B4-Tracking: v=1; b=H4sIAKEeXGcC/22OS47DIBBEr2Kxnh51g0M+q7nHKAsbmoQFtgPYS
+ hT57sFkMyNl+UqqV/UUiaPnJE7NU0RefPLjUEB9NcJcu+HC4G1hIVG2hIqg0yThMs2Q5mkaYwa
+ rlUJHe4vkRKlNkZ2/V+Xv+c2Rb3Mx53co+i4xmDEEn0+NjQFCCjDwPcO2AkSArdiqV5/yGB/13
+ EK1W38QfvixEBD01vHBaXtUqH/KqPGD+S5TVbfIPwq5+6CQgNDvjVEH1khH+q9Y1/UFAFwqHTA
+ BAAA=
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
  Dybcio" <konradybcio@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Bjorn
- Andersson" <andersson@kernel.org>
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>
 CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, Lijuan Gao <quic_lijuang@quicinc.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Taniya Das
- <quic_tdas@quicinc.com>, Raviteja Laggyshetty <quic_rlaggysh@quicinc.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Bryan O'Donoghue
- <bryan.odonoghue@linaro.org>, Qingqing Zhou <quic_qqzhou@quicinc.com>,
- "Imran Shaik" <quic_imrashai@quicinc.com>,
- Jie Zhang <quic_jiezh@quicinc.com>
-References: <20241213-qcs615-gpu-dt-v2-0-64751d9c3748@quicinc.com>
-Content-Language: en-US
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <20241213-qcs615-gpu-dt-v2-0-64751d9c3748@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ Jie Zhang <quic_jiezh@quicinc.com>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, "Konrad
+ Dybcio" <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1734090419; l=8706;
+ i=quic_akhilpo@quicinc.com; s=20240726; h=from:subject:message-id;
+ bh=OTRC5Fyb0neX+liac7A7duCulOjj1fW/TglbaZF/dy4=;
+ b=K3xaEKGV1zR9O0xrfWcJMAgeJpbuULJ6PrzjndBtRp64dt4u53zv6qz+0NqqS1wfM1vbIj2t8
+ 99HOQjGUoWsBWHej+KX7KiVox7+HyYRvgG97wHT5OPPoSBYDuJBgGc5
+X-Developer-Key: i=quic_akhilpo@quicinc.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: mu4hUP6PJ--NyvsY_9cQxZRGEWc5nnMy
-X-Proofpoint-GUID: mu4hUP6PJ--NyvsY_9cQxZRGEWc5nnMy
+X-Proofpoint-GUID: KY7nX912bdl5xQpOpS22KBbSodRrs8aQ
+X-Proofpoint-ORIG-GUID: KY7nX912bdl5xQpOpS22KBbSodRrs8aQ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0
- lowpriorityscore=0 bulkscore=0 clxscore=1011 phishscore=0
- priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0 mlxscore=0
- suspectscore=0 mlxlogscore=999 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2411120000 definitions=main-2412130081
+ spamscore=0 mlxlogscore=999
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ phishscore=0 bulkscore=0 suspectscore=0 mlxscore=0 adultscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412130082
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,75 +105,245 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/13/2024 4:54 PM, Akhil P Oommen wrote:
-> This series adds support for Adreno 612 to QCS615 chipset's devicetree.
-> DRM driver's support was posted earlier and can be found here:
-> 	https://patchwork.freedesktop.org/patch/626066/
-> 
-> Patch#1 & #2 are for Rob Clark and the other 2 for Bjorn
-> 
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> ---
-> Changes in v2:
-> - Completely describe RGMU in devicetree and also add necessary binding
-> documentation (Konrad, feedback on the driver patch)
-> - Remove smmu_vote clk from clock list (Konrad)
-> - Add R-b from Dmitry
-> - Link to v1: https://lore.kernel.org/r/20241126-qcs615-gpu-dt-v1-0-a87782976dad@quicinc.com
-> 
-> ---
-> Akhil P Oommen (2):
->       dt-bindings: display/msm: gpu: Document A612 GPU
->       dt-bindings: display/msm/gmu: Document RGMU
-> 
-> Jie Zhang (2):
->       arm64: dts: qcom: qcs615: Add gpu and gmu nodes
->       arm64: dts: qcom: qcs615-ride: Enable Adreno 612 GPU
-> 
->  .../devicetree/bindings/display/msm/gmu.yaml       |  7 +-
->  .../devicetree/bindings/display/msm/gpu.yaml       | 36 +++++++++
->  arch/arm64/boot/dts/qcom/qcs615-ride.dts           |  8 ++
->  arch/arm64/boot/dts/qcom/qcs615.dtsi               | 88 ++++++++++++++++++++++
->  4 files changed, 137 insertions(+), 2 deletions(-)
-> ---
-> base-commit: 30eb6f0b08b13fd25ea12a3a6fa0a85915190c1c
-> change-id: 20241125-qcs615-gpu-dt-facbd8ac318f
-> prerequisite-message-id: <20241104-add_initial_support_for_qcs615-v5-4-9dde8d7b80b0@quicinc.com>
-> prerequisite-patch-id: 82481c82a20345548e2cb292d3098ed51843b809
-> prerequisite-patch-id: fc1cfec4ecd56e669c161c4d2c3797fc0abff0ae
-> prerequisite-patch-id: 04ca722967256efddc402b7bab94136a5174b0b9
-> prerequisite-patch-id: 3bd8edd83297815fcb1b81fcd891d3c14908442f
-> prerequisite-patch-id: 09782474af7eecf1013425fd34f9d2f082fb3616
-> prerequisite-message-id: <20241022-qcs615-clock-driver-v4-3-3d716ad0d987@quicinc.com>
-> prerequisite-patch-id: a57054b890d767b45cca87e71b4a0f6bf6914c2f
-> prerequisite-patch-id: 07f2c7378c7bbd560f26b61785b6814270647f1b
-> prerequisite-patch-id: cd9fc0a399ab430e293764d0911a38109664ca91
-> prerequisite-patch-id: 5a8e9ea15a2c3d60b4dbdf11b4e2695742d6333c
-> prerequisite-message-id: <20240924143958.25-2-quic_rlaggysh@quicinc.com>
-> prerequisite-patch-id: 0e224a7310d36e9a633d57c4a177ff24c1e8e767
-> prerequisite-patch-id: 3c73bafb074ea339d387a6aa39e5362c8775596d
-> prerequisite-message-id: <20241108-qcs615-mm-clockcontroller-v3-7-7d3b2d235fdf@quicinc.com>
-> prerequisite-patch-id: df8e2fdd997cbf6c0a107f1871ed9e2caaa97582
-> prerequisite-patch-id: b3cc42570d5826a4704f7702e7b26af9a0fe57b0
-> prerequisite-patch-id: 125bb8cb367109ba22cededf6e78754579e1ed03
-> prerequisite-patch-id: 8e2e841401fefbd96d78dd4a7c47514058c83bf2
-> prerequisite-patch-id: 807019bedabd47c04f7ac78e9461d0b5a6e9131b
-> prerequisite-patch-id: 13b0dbf97ac1865d241791afb4b46a28ca499523
-> prerequisite-patch-id: 40b79fe0b9101f5db3bddad23551c1123572aee5
-> prerequisite-patch-id: cb93e5798f6bfe8cc3044c4ce973e3ae5f20dc6b
-> prerequisite-patch-id: da2b7a74f1afd58833c6a9a4544a0e271720641f
-> prerequisite-patch-id: 72a894a3b19fdbd431e1cec9397365bc5b27abfe
-> prerequisite-patch-id: 748a4e51bbedae9c6ebdbd642b2fd1badf958788
-> prerequisite-message-id: <20241108-qcs615-mm-dt-nodes-v1-1-b2669cac0624@quicinc.com>
-> prerequisite-patch-id: 8844a4661902eb44406639a3b7344416a0c88ed9
-> prerequisite-patch-id: bcb1328b70868bb9c87c0e4c48e5c9d38853bc60
-> prerequisite-message-id: <20241122074922.28153-1-quic_qqzhou@quicinc.com>
-> prerequisite-patch-id: c71c7897d6f250b381f7a9ac66ec58f4a10d49d6
-> prerequisite-patch-id: 50223f2370a7ae8053b164fa5219a1690d7e4567
-> 
-> Best regards,
+From: Jie Zhang <quic_jiezh@quicinc.com>
 
-Please ignore this and check the RESEND here:
-https://patchwork.freedesktop.org/series/142552/
+Add support for Adreno 612 GPU found in SM6150/QCS615 chipsets.
+A612 falls under ADRENO_6XX_GEN1 family and is a cut down version
+of A615 GPU.
 
--Akhil
+A612 has a new IP called Reduced Graphics Management Unit or RGMU
+which is a small state machine which helps to toggle GX GDSC
+(connected to CX rail) to implement IFPC feature. It doesn't support
+any other features of a full fledged GMU like clock control, resource
+voting to rpmh etc. So we need linux clock driver support like other
+gmu-wrapper implementations to control gpu core clock and gpu GX gdsc.
+Since there is no benefit with enabling RGMU at the moment, RGMU is
+entirely skipped in this patch.
+
+Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
+Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Mesa support is already available for A612. Verified Glmark2 with
+weston.
+
+Some dependencies for the devicetree change are not yet available
+in the mailing lists. I will send it out as a separate patch later.
+---
+Changes in v3:
+- Drop the NO_SYSCACHE quirk patch (Konrad/Rob)
+- Use the new "qcom,adreno-rgmu" compatible string (Konrad)
+- Link to v2: https://lore.kernel.org/r/20241125-a612-gpu-support-v2-0-b7cc38e60191@quicinc.com
+
+Changes in v2:
+- Added a new quirk to check LLC support (new patch). This helps to
+correct LLC handling in A612's patch.
+- Rebased on msm-next tip
+- Captured R-b from Konrad
+- Link to v1: https://lore.kernel.org/r/20241101-a612-gpu-support-v1-1-bdfe8f6d9306@quicinc.com
+---
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 15 ++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 47 ++++++++++++++++++++++---------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h   | 11 ++++++--
+ 3 files changed, 57 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 0c560e84ad5a..234083b69844 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -704,6 +704,21 @@ static const struct adreno_info a6xx_gpus[] = {
+ 			{ 157, 3 },
+ 			{ 127, 4 },
+ 		),
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x06010200),
++		.family = ADRENO_6XX_GEN1,
++		.fw = {
++			[ADRENO_FW_SQE] = "a630_sqe.fw",
++		},
++		.gmem = (SZ_128K + SZ_4K),
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.init = a6xx_gpu_init,
++		.a6xx = &(const struct a6xx_info) {
++			.hwcg = a612_hwcg,
++			.protect = &a630_protect,
++			.gmu_cgc_mode = 0x00000022,
++			.prim_fifo_threshold = 0x00080000,
++		},
+ 	}, {
+ 		.chip_ids = ADRENO_CHIP_IDS(0x06010500),
+ 		.family = ADRENO_6XX_GEN1,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 019610341df1..630932693951 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -504,15 +504,26 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
+ 
+ 	if (adreno_is_a630(adreno_gpu))
+ 		clock_cntl_on = 0x8aa8aa02;
+-	else if (adreno_is_a610(adreno_gpu))
++	else if (adreno_is_a610(adreno_gpu) || adreno_is_a612(adreno_gpu))
+ 		clock_cntl_on = 0xaaa8aa82;
+ 	else if (adreno_is_a702(adreno_gpu))
+ 		clock_cntl_on = 0xaaaaaa82;
+ 	else
+ 		clock_cntl_on = 0x8aa8aa82;
+ 
+-	cgc_delay = adreno_is_a615_family(adreno_gpu) ? 0x111 : 0x10111;
+-	cgc_hyst = adreno_is_a615_family(adreno_gpu) ? 0x555 : 0x5555;
++	if (adreno_is_a612(adreno_gpu))
++		cgc_delay = 0x11;
++	else if (adreno_is_a615_family(adreno_gpu))
++		cgc_delay = 0x111;
++	else
++		cgc_delay = 0x10111;
++
++	if (adreno_is_a612(adreno_gpu))
++		cgc_hyst = 0x55;
++	else if (adreno_is_a615_family(adreno_gpu))
++		cgc_delay = 0x555;
++	else
++		cgc_delay = 0x5555;
+ 
+ 	gmu_write(&a6xx_gpu->gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_MODE_CNTL,
+ 			state ? adreno_gpu->info->a6xx->gmu_cgc_mode : 0);
+@@ -600,6 +611,9 @@ static void a6xx_calc_ubwc_config(struct adreno_gpu *gpu)
+ 		gpu->ubwc_config.ubwc_swizzle = 0x7;
+ 	}
+ 
++	if (adreno_is_a612(gpu))
++		gpu->ubwc_config.highest_bank_bit = 13;
++
+ 	if (adreno_is_a618(gpu))
+ 		gpu->ubwc_config.highest_bank_bit = 14;
+ 
+@@ -1165,7 +1179,7 @@ static int hw_init(struct msm_gpu *gpu)
+ 		gpu_write(gpu, REG_A6XX_CP_LPAC_PROG_FIFO_SIZE, 0x00000020);
+ 
+ 	/* Setting the mem pool size */
+-	if (adreno_is_a610(adreno_gpu)) {
++	if (adreno_is_a610(adreno_gpu) || adreno_is_a612(adreno_gpu)) {
+ 		gpu_write(gpu, REG_A6XX_CP_MEM_POOL_SIZE, 48);
+ 		gpu_write(gpu, REG_A6XX_CP_MEM_POOL_DBG_ADDR, 47);
+ 	} else if (adreno_is_a702(adreno_gpu)) {
+@@ -1199,7 +1213,7 @@ static int hw_init(struct msm_gpu *gpu)
+ 
+ 	/* Enable fault detection */
+ 	if (adreno_is_a730(adreno_gpu) ||
+-	    adreno_is_a740_family(adreno_gpu))
++	    adreno_is_a740_family(adreno_gpu) || adreno_is_a612(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0xcfffff);
+ 	else if (adreno_is_a690(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_RBBM_INTERFACE_HANG_INT_CNTL, (1 << 30) | 0x4fffff);
+@@ -1863,8 +1877,8 @@ static void a7xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
+ 
+ static void a6xx_llc_slices_destroy(struct a6xx_gpu *a6xx_gpu)
+ {
+-	/* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
+-	if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
++	/* A612 is actually not a gmu-wrapper and has LLCC */
++	if (adreno_has_gmu_wrapper(&a6xx_gpu->base) && !adreno_is_a612(&a6xx_gpu->base))
+ 		return;
+ 
+ 	llcc_slice_putd(a6xx_gpu->llc_slice);
+@@ -1876,8 +1890,8 @@ static void a6xx_llc_slices_init(struct platform_device *pdev,
+ {
+ 	struct device_node *phandle;
+ 
+-	/* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
+-	if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
++	/* A612 is actually not a gmu-wrapper and has LLCC */
++	if (adreno_has_gmu_wrapper(&a6xx_gpu->base) && !adreno_is_a612(&a6xx_gpu->base))
+ 		return;
+ 
+ 	/*
+@@ -2081,6 +2095,9 @@ static int a6xx_pm_resume(struct msm_gpu *gpu)
+ 	if (!ret)
+ 		msm_devfreq_resume(gpu);
+ 
++	if (adreno_is_a612(&a6xx_gpu->base))
++		a6xx_llc_activate(a6xx_gpu);
++
+ 	return ret;
+ }
+ 
+@@ -2120,6 +2137,9 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
+ 
+ 	trace_msm_gpu_suspend(0);
+ 
++	if (adreno_is_a612(&a6xx_gpu->base))
++		a6xx_llc_deactivate(a6xx_gpu);
++
+ 	msm_devfreq_suspend(gpu);
+ 
+ 	mutex_lock(&a6xx_gpu->gmu.lock);
+@@ -2475,7 +2495,9 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ 	/* FIXME: How do we gracefully handle this? */
+ 	BUG_ON(!node);
+ 
+-	adreno_gpu->gmu_is_wrapper = of_device_is_compatible(node, "qcom,adreno-gmu-wrapper");
++	/* We do not support RGMU at the moment, so assume it is a gmu wrapper for now */
++	adreno_gpu->gmu_is_wrapper = of_device_is_compatible(node, "qcom,adreno-gmu-wrapper") ||
++		of_device_is_compatible(node, "qcom,adreno-rgmu");
+ 
+ 	adreno_gpu->base.hw_apriv =
+ 		!!(config->info->quirks & ADRENO_QUIRK_HAS_HW_APRIV);
+@@ -2485,11 +2507,8 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ 		  config->info->family == ADRENO_7XX_GEN2 ||
+ 		  config->info->family == ADRENO_7XX_GEN3;
+ 
+-	a6xx_llc_slices_init(pdev, a6xx_gpu, is_a7xx);
+-
+ 	ret = a6xx_set_supported_hw(&pdev->dev, config->info);
+ 	if (ret) {
+-		a6xx_llc_slices_destroy(a6xx_gpu);
+ 		kfree(a6xx_gpu);
+ 		return ERR_PTR(ret);
+ 	}
+@@ -2508,6 +2527,8 @@ struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ 		return ERR_PTR(ret);
+ 	}
+ 
++	a6xx_llc_slices_init(pdev, a6xx_gpu, is_a7xx);
++
+ 	/*
+ 	 * For now only clamp to idle freq for devices where this is known not
+ 	 * to cause power supply issues:
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index e71f420f8b3a..61b9141a63ab 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -420,6 +420,11 @@ static inline int adreno_is_a610(const struct adreno_gpu *gpu)
+ 	return adreno_is_revn(gpu, 610);
+ }
+ 
++static inline int adreno_is_a612(const struct adreno_gpu *gpu)
++{
++	return gpu->info->chip_ids[0] == 0x06010200;
++}
++
+ static inline int adreno_is_a618(const struct adreno_gpu *gpu)
+ {
+ 	return adreno_is_revn(gpu, 618);
+@@ -489,9 +494,9 @@ static inline int adreno_is_a610_family(const struct adreno_gpu *gpu)
+ {
+ 	if (WARN_ON_ONCE(!gpu->info))
+ 		return false;
+-
+-	/* TODO: A612 */
+-	return adreno_is_a610(gpu) || adreno_is_a702(gpu);
++	return adreno_is_a610(gpu) ||
++	       adreno_is_a612(gpu) ||
++	       adreno_is_a702(gpu);
+ }
+ 
+ /* TODO: 615/616 */
+
+---
+base-commit: f4a867a46862c1743501bbe8c813238456ec8699
+change-id: 20241031-a612-gpu-support-d6330f17d01f
+
+Best regards,
+-- 
+Akhil P Oommen <quic_akhilpo@quicinc.com>
+
