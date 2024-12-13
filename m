@@ -2,80 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 796979F0A1A
-	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2024 11:53:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1292C9F0A29
+	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2024 11:57:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93D8410EFBC;
-	Fri, 13 Dec 2024 10:53:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E03E110EFC1;
+	Fri, 13 Dec 2024 10:57:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="awszngcr";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="iUR+GAL+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3592510EFBB
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 10:53:28 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BDAj5as028134
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 10:53:27 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B6B010EFC2
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 10:57:23 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BD7rDtV027780
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 10:57:22 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- irpyIGk/Q0YF6woDF/wcVcUCJnQrVPx3H7tZ92Jopi8=; b=awszngcrShQZzvPi
- n0hEB9bmooPgpZMyxjWdWzE1FdZbWqj0rY+4baPFg33/WXHP3sYkcH1MER0bcb6Z
- GBGQjqtFicTO4Yk9za0JTmJt2w6+krDe2OHTzo5nuRsE5p0Up7e48hfHCCIqzanN
- ONm+ZGMnJOX6QL4cIFPm37VsovtYSR5hKAz+MfvvFwelvo1ibQl0cvbrVbt7HVYK
- SWiU54j9uq/1MS8IVskDjcrdGgbqi0ji2l4eu3VdtD5bCBpA66+SxUMCz5pXgJPT
- Dy4Yt8Jp5w/4gCsdPuiTxiUnxJwrrWXyjNyk7q4FVCFEYnr/JED9weoKVI/ZlaeC
- 8P2jqg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43fxw4uc5w-1
+ JusCHnvBtzBIGRb/d57GWf9yYHTzp5QMdm9npfIyIzQ=; b=iUR+GAL+yhWTF29b
+ ctUXoIJ8p3GpDIML3QTXmY6aHLkYhld3ZJVcsgyj0KjyYFFQbEH23RTOHcl9Sqyl
+ m6DzHGEAGIkFOv/cSS1YMby/oDaaFvK+6Etk6zsA/sdih7z8ScIGU3i11mr/RRVh
+ NX1zM5HzILUgQ0mCJIqFNszgoI8wRuXDNiyX7aezlapCHh2f3vpHjJoHFLAMgZlv
+ CQ0bJy5fhzC3Ff7WritZmhMXWfRYtaxPH4walQ9Z+Am8BJpJj6AW0V9M+61o5IW2
+ Zx7HVaoxKN6LrYc+MrmjJLhTBOsppHGssQw6q4qmEJomGR4+rRH8eUM7wfkIttKy
+ Q6hWFA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43fd40p3dp-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 10:53:27 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-467975f1b53so4262461cf.3
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 02:53:27 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 10:57:22 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-467a39f07f8so1794731cf.3
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 02:57:22 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734087206; x=1734692006;
+ d=1e100.net; s=20230601; t=1734087441; x=1734692241;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=irpyIGk/Q0YF6woDF/wcVcUCJnQrVPx3H7tZ92Jopi8=;
- b=XCD8XleORhgcRXEc7hAs25gCVCD3lxu4JnyAM5YqJFz7Dzj1aADcyKTMimCkZ1UUAc
- vVVay3tSMwI1TcidfW/73wZnwRtX1LTwLPpjopjY7TqBRvAFQm3NXepzIVPKBZg4Vc8+
- lGN983yUMjDWjVmLi+k3wmwodkyslk9cUjk0eao9daQ32Ps+WlyUtI9sx4/5iu/xguVR
- jFQSn2Otc6xHbGri9gYVPcPtv8+75ZLhj87TlFrqOjeBJJdLtSUa2OHiC6gDwU93voVw
- dAs1rO9yI/3sjrtrLnvGhIXaP3hnFQOFfOy2CKbD+lia5cI27x9rwwzU49X0ybTVBE5A
- e5kQ==
+ bh=JusCHnvBtzBIGRb/d57GWf9yYHTzp5QMdm9npfIyIzQ=;
+ b=psm5KBc9/9egR9Saq6b4xIemh0f06FYqe+MT7fotZwunlgJq1mQ3G5lZSYQ7dULjZy
+ aPffY6/qGnkGGLXU3oou14mrho9ayJqjYIL95OH27LvxK975Mm0WgYQfq6CdZN+ItzJ/
+ wFfoKqDQQcpJ8gItV3MFRzLn9wuDNUVof/WgmcSO+3hLe13zGMpClprlD+sKZ0fJgvzd
+ hpAE4H1ARXGElAPpNssICc7WswnJNL/Jf7gsMQ/lQ/xrgBqlZLkb7YvOPnpTSf3hMYNW
+ aZb2rqITkXsncZ0yHc71bdt5+DE6j0seaX4oJvoNWE82i1aFOMwJGeI04UudRs18kiBj
+ IwBw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVS96tposllDLj86qDgDR4hBuWj+x25FMReUNYNTgVCZcubCyGHedHXdJ8ZwdEfG2uPWspOt5E7z30=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzpCj7PLczxhNgS846eULd+cxwaxg77fIpQhDhzcl+6zYjHvfCG
- LRulRD4sIIRVmpuPBGJmw2XmhfpL5NVT9j6xVr93l7wg9Qw9m2HJukpKeDhd+XSj61mXAxoROnq
- wlD7Cd8UKn5g7Lo6Us2kIsURF1s8w2UINCVsfshdD+yaVEW5hnGTFV1butN1I0uBzhuw=
-X-Gm-Gg: ASbGncuN3/BuQb3oMOBF+EZVf9/UdLm77FbkYDYu/AHnEquRnUrJufVu7E0mOz5FQou
- El+tl6JCOGVfnCwYCSRpRl7aiomdjsXrix6Qj62fudn9pGDAWFKGfLcyQZRgVrOjOTY6teWYStX
- IlKnXkbd162eqETpbLUiD8P1g5i1aTPa8cjKe00cdLIjacANIV0yF/hSTOY1uvkLcw1/3U/SMpp
- 0a9c378TVPZWanSVb7HOV+D9N01QXdsFCGspMrdMchYpwu1k6WHatZfawHYVmBy6gjaN6UcDBDY
- W4gCozeV1Kyaho07c2dfDlceMBtm9Uk+lpiY
-X-Received: by 2002:a05:622a:13d1:b0:467:825e:133b with SMTP id
- d75a77b69052e-467a582600cmr13964411cf.13.1734087206079; 
- Fri, 13 Dec 2024 02:53:26 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IECRFHuS1VOciP42gwRe9QYsYpR8HsKDaOPO2V5MwSaCuCKb67oOndG87qRS6M/GWLhkhClaA==
-X-Received: by 2002:a05:622a:13d1:b0:467:825e:133b with SMTP id
- d75a77b69052e-467a582600cmr13964081cf.13.1734087205613; 
- Fri, 13 Dec 2024 02:53:25 -0800 (PST)
+ AJvYcCWA3Jg0YcPXyjBzaprYSCORcHAFQqe7x1YYRztQjkgYJZQQ80sLdiPeDuj7MtPBkY7yR/AnIKbS4ak=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxNahdmKbX0o4B/4m5iwXuftM44KFUfrwww/Kdd2bE3HorTLTk4
+ PzFEGZEIvo34+47/BoEoJ2BautzQWXp6bpgA7nJBboxJXjNDg4YEW9cV5OVedkNTVhCXr1ieAUM
+ uhfD+iC1fJMLe0ZoWFoEKmXoOYsx55JPUE59oyNpiGKp3Tiwn/PJBjWGEubbZkKCfNik=
+X-Gm-Gg: ASbGncuqlvld1iK/0jC3ahdKTZBTUWTM8OHFqmt12TULV0k3rRv0x5r4zL2fkhXUWNj
+ dZSIte66suh0E0vUn4K5WMM6oJETGTt56G31uZED3WXFQ5sGEIZ1zEMGppmmrcKyEyQl5M1e5j5
+ CrHprsLERWL9mv02pvAQDZDNG/7RvZm2cIXcYU+j5kECiv34yG/tBfeobaLpQ7iSTf0GNlR83cx
+ b3wZ2M4wN7gXjtaCvss86bpshRJo6EHn3WnExMjbIJnqyXNn1XuFFRrubno3XoVsFwjY5kipiBz
+ e7z5ca7mCxIXU2R91sd1Yw3zPHtUMohYRP4+
+X-Received: by 2002:ac8:5790:0:b0:467:5931:f6a8 with SMTP id
+ d75a77b69052e-467a586e7c4mr11384711cf.16.1734087441026; 
+ Fri, 13 Dec 2024 02:57:21 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGSa8UhHBfw+RnGpfBYEd5suCh19lyMpMorCOQaWkpQtF7q4Vveq1D0+NrFe8GAuyzu8dsZ8w==
+X-Received: by 2002:ac8:5790:0:b0:467:5931:f6a8 with SMTP id
+ d75a77b69052e-467a586e7c4mr11384521cf.16.1734087440615; 
+ Fri, 13 Dec 2024 02:57:20 -0800 (PST)
 Received: from [192.168.58.241] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d3bf50397csm10148990a12.79.2024.12.13.02.53.21
+ a640c23a62f3a-aa686af6709sm701440666b.88.2024.12.13.02.57.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Dec 2024 02:53:24 -0800 (PST)
-Message-ID: <28bf46a5-dedb-4491-b9be-23fdfb99035f@oss.qualcomm.com>
-Date: Fri, 13 Dec 2024 11:53:21 +0100
+ Fri, 13 Dec 2024 02:57:20 -0800 (PST)
+Message-ID: <a44027ee-40d3-4552-8f61-bcab77476f68@oss.qualcomm.com>
+Date: Fri, 13 Dec 2024 11:57:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] dt-bindings: display/msm/gmu: Document RGMU
+Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: qcs615: Add gpu and gmu nodes
 To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konradybcio@kernel.org>,
@@ -96,25 +96,26 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  20240924143958.25-2-quic_rlaggysh@quicinc.com,
  20241108-qcs615-mm-clockcontroller-v3-7-7d3b2d235fdf@quicinc.com,
  20241108-qcs615-mm-dt-nodes-v1-1-b2669cac0624@quicinc.com,
- 20241122074922.28153-1-quic_qqzhou@quicinc.com
+ 20241122074922.28153-1-quic_qqzhou@quicinc.com,
+ Jie Zhang <quic_jiezh@quicinc.com>
 References: <20241213-qcs615-gpu-dt-v2-0-6606c64f03b5@quicinc.com>
- <20241213-qcs615-gpu-dt-v2-2-6606c64f03b5@quicinc.com>
+ <20241213-qcs615-gpu-dt-v2-3-6606c64f03b5@quicinc.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20241213-qcs615-gpu-dt-v2-2-6606c64f03b5@quicinc.com>
+In-Reply-To: <20241213-qcs615-gpu-dt-v2-3-6606c64f03b5@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: Kkbxp_alHWN5Acg-D5TMSOlGMS5LgDvb
-X-Proofpoint-GUID: Kkbxp_alHWN5Acg-D5TMSOlGMS5LgDvb
+X-Proofpoint-GUID: _siz2BqOR7MrcgNwQmLHjbcZNxUAvixV
+X-Proofpoint-ORIG-GUID: _siz2BqOR7MrcgNwQmLHjbcZNxUAvixV
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- impostorscore=0 clxscore=1015 phishscore=0 spamscore=0 priorityscore=1501
- malwarescore=0 mlxscore=0 bulkscore=0 lowpriorityscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412130074
+ adultscore=0 spamscore=0
+ suspectscore=0 impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0
+ lowpriorityscore=0 mlxlogscore=999 priorityscore=1501 mlxscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412130075
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,19 +132,85 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 13.12.2024 11:35 AM, Akhil P Oommen wrote:
-> RGMU a.k.a Reduced Graphics Management Unit is a small state machine
-> with the sole purpose of providing IFPC support. Compared to GMU, it
-> doesn't manage GPU clock, voltage scaling, bw voting or any other
-> functionalities. All it does is detect an idle GPU and toggle the
-> GDSC switch. So it doesn't require iommu & opp table.
+> From: Jie Zhang <quic_jiezh@quicinc.com>
 > 
+> Add gpu and gmu nodes for qcs615 chipset.
+> 
+> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
 > Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
+>  arch/arm64/boot/dts/qcom/qcs615.dtsi | 88 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 88 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/qcs615.dtsi b/arch/arm64/boot/dts/qcom/qcs615.dtsi
+> index 8df26efde3fd..dee5d3be4aa3 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs615.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/qcs615.dtsi
+> @@ -387,6 +387,11 @@ smem_region: smem@86000000 {
+>  			no-map;
+>  			hwlocks = <&tcsr_mutex 3>;
+>  		};
+> +
+> +		pil_gpu_mem: pil-gpu@97715000 {
+> +			reg = <0x0 0x97715000 0x0 0x2000>;
+> +			no-map;
+> +		};
+>  	};
+>  
+>  	soc: soc@0 {
+> @@ -508,6 +513,89 @@ qup_uart0_rx: qup-uart0-rx-state {
+>  			};
+>  		};
+>  
+> +		gpu: gpu@5000000 {
+> +			compatible = "qcom,adreno-612.0", "qcom,adreno";
+> +			reg = <0x0 0x05000000 0x0 0x90000>;
+> +			reg-names = "kgsl_3d0_reg_memory";
+> +
+> +			clocks = <&gpucc GPU_CC_GX_GFX3D_CLK>,
+> +				 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
+> +				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
+> +				 <&gpucc GPU_CC_CX_GMU_CLK>,
+> +				 <&gpucc GPU_CC_CXO_CLK>;
+> +			clock-names = "core",
+> +				      "mem_iface",
+> +				      "alt_mem_iface",
+> +				      "gmu",
+> +				      "xo";
+> +
+> +			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +			interconnects = <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
+> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
+> +			interconnect-names = "gfx-mem";
+> +
+> +			iommus = <&adreno_smmu 0x0 0x401>;
 
-The bindings file exists so that people that are not in the know, can
-reference it and learn about the hardware. Please spell out IFPC, as
-that's a non-obvious, hw-specific  acronym.
+No LPAC context?
 
-Otherwise looks ok
+
+> +			operating-points-v2 = <&gpu_opp_table>;
+> +			power-domains = <&rpmhpd RPMHPD_CX>;
+> +			qcom,gmu = <&rgmu>;
+> +
+> +			#cooling-cells = <2>;
+> +
+> +			status = "disabled";
+> +
+> +			gpu_zap_shader: zap-shader {
+> +				memory-region = <&pil_gpu_mem>;
+> +			};
+> +
+> +			gpu_opp_table: opp-table {
+> +				compatible = "operating-points-v2";
+> +
+> +				opp-435000000 {
+> +					opp-hz = /bits/ 64 <435000000>;
+> +					required-opps = <&rpmhpd_opp_svs>;
+> +					opp-peak-kBps = <3000000>;
+> +				};
+
+I'm also seeing 290 MHz @ LOW_SVS
 
 Konrad
