@@ -1,84 +1,84 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E0149F1454
-	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2024 18:50:50 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B019F159C
+	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2024 20:15:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E1E110E337;
-	Fri, 13 Dec 2024 17:50:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 702FC10E36F;
+	Fri, 13 Dec 2024 19:15:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LzEc+eAz";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="oSEH4wEm";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
- [IPv6:2607:f8b0:4864:20::d2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2C5210E249;
- Fri, 13 Dec 2024 17:50:47 +0000 (UTC)
-Received: by mail-io1-xd2c.google.com with SMTP id
- ca18e2360f4ac-844e161a957so144527839f.0; 
- Fri, 13 Dec 2024 09:50:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734112247; x=1734717047; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KoT3CdV9DzlGXKlTClGK1n+oQrqyglDEDa5xoQzVrpk=;
- b=LzEc+eAzhXHyK+Qr6H5O3BB8NTmiqK/hn+LDuJOYKDuizY/KXu7SHOsZGk9GYtsrL7
- +PhpWupdOg6kZVxZljLv5AoxsT85OLx5fgDhakhJeQmtTYHX8orejmkbaGewH5XnF91r
- 7c1JpWTtfmWAU63LohzRCR4km9hsmsGEbEVwhFpRgmCZHoUh1OBBx++B3JigeeuvjeCJ
- 0PaehXL2+k9qrgx2R9TRqDFj+Cy1jmxHHpIeH5QUtxB6AWKlA3N5nVCNVZegoh6xQvOm
- jQMR/pgwW5yeKYPvETPCs7H72iAM8TZzB1jXo68Ncpqs+UBuVpuxj51q245Ob0SuQRft
- 8eXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734112247; x=1734717047;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KoT3CdV9DzlGXKlTClGK1n+oQrqyglDEDa5xoQzVrpk=;
- b=qAqO6BgWEE7tvHncmCF6yuty0vKDqs18PnmmROGh7LB6pizX8HVf8pLLBW0vcmn4zj
- BKYMdfWg2UpuLQSxjcRuV+oG/gJwYS7XLwGUG2U4CtloRTTp037sK4K537KyGskWIiHj
- 1D7Yt/lFeSGHaf2W52ogInoWyoEQRi/43BaiPYe/+HYu57COKj6WZMuiWqt4KjruLRmb
- VnR1RPxaeDnRPWFJ2VQTVmnMIBCMZKE4D8Cr2o6FNi5Ly6Bw6z3AoF2Ve1MM6zgY9Enb
- 0cpVwEZl5UZ765iARcm6X+Q/7gjRDLcko2r3nNPTsCS9M6Urs5ASclJdX7qDc2LbtR97
- jZzg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWEhl/+e+4NjEl4AvcfgKwU4KrJH0qJytp/UTlLKzb5g0hFp2+qwvisLN+Bs1+h0bY61WBDJRflyUg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNdALvlOZv14X/ug1nM+QmMP48udh1TjeN6fFEMK4NZoC/WvNq
- FZMnfmj0ETO9xZlZu756iTj9pU4w4gxnnR9Yrgfp0Rq7Alq60jtYvoeX7pz1Dv1Dk8e+bqdz1i/
- l3n7OnI+4k1kAB0gGYuTybsTZ/wc=
-X-Gm-Gg: ASbGncuAeu+rA3sp4MlO3/R68D6VUkXaYHnKyoIR8XHu/EfymTewR5CMNjqvmGoESnE
- E4UJHa9JeO2GUcRBHUKrZuiPTjtrEZjB7JZmxrMkKdu7oYUr3qKuy/mmsKidkBA72DntT
-X-Google-Smtp-Source: AGHT+IHhbgTLDzEGVC+JxMSDn13inm7KukLU1cnovvUjtiY26cjroUqNsrD7d27uvsZKQiwA1rSWnDmG+OivvDJI+lE=
-X-Received: by 2002:a05:6e02:156a:b0:3a7:a3a4:2cb3 with SMTP id
- e9e14a558f8ab-3aff8c92298mr37621935ab.15.1734112246892; Fri, 13 Dec 2024
- 09:50:46 -0800 (PST)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DDAF10E32F;
+ Fri, 13 Dec 2024 19:15:34 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BDEM6fG018816;
+ Fri, 13 Dec 2024 19:15:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ kOmrJY2UJAdjml2gxMQ7smKsXvd45uAs7aZ6ReHQP7M=; b=oSEH4wEmmHfm2mtW
+ gPAOH0P330Mf9SmFoZZQ04+S7BGu/AIdhqk3hIS7za2iQOlgR5k4mNfvfabM/JPd
+ W4Tpg+QC0MEuTXouHK7VxCCdSQRl71fkwU3b9aeqwlxq1uIMHqFmZeyY0H9oLHsQ
+ rV5eYKQ29IJ7nQ2s+8Zpzff7B63ebshkuLuDRji+UmI7oEmGg/lSV6d8MOPJc/6P
+ DCxD3PKeTdx91gkEpOHmEaIpYv09vDA2DfwobsnS2LOJWOyRZi3wokt2+SZwWxHu
+ B08wE4B0HvAonvUgXXvTZ+b/difabkZB0haJDj3Usj9QSaHzIjod72jbkexV9iFO
+ ZVQAGg==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43gdkn29ce-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 13 Dec 2024 19:15:31 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BDJFUZU023237
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 13 Dec 2024 19:15:30 GMT
+Received: from [10.110.102.127] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 13 Dec
+ 2024 11:15:26 -0800
+Message-ID: <1f71a352-ab8a-47fb-a4ed-ae0a4767aec6@quicinc.com>
+Date: Fri, 13 Dec 2024 11:15:25 -0800
 MIME-Version: 1.0
-References: <20241205165419.54080-1-robdclark@gmail.com>
- <eca60b8e-8a8a-41c4-816a-d084822646f1@quicinc.com>
- <CAF6AEGtqSW1mpN14S8ffyV=tUG=0GTmNWq_oVEXo+0RYDJfOnA@mail.gmail.com>
- <CAF6AEGssTcO=qhXPVTd54=jQv8dke=JY0Qm3C96JMKDsgT3==g@mail.gmail.com>
- <7293c3f6-d1d8-4397-8f31-a456cd06c7cb@quicinc.com>
-In-Reply-To: <7293c3f6-d1d8-4397-8f31-a456cd06c7cb@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 13 Dec 2024 09:50:35 -0800
-Message-ID: <CAF6AEGt1u29Rorf7oYB85xPcO+TdxYzB7aYzMxsxLaYtD8Q7cA@mail.gmail.com>
-Subject: Re: [RFC] drm/msm: Add UABI to request perfcntr usage
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Antonino Maniscalco <antomani103@gmail.com>, 
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/dpu: Filter modes based on adjusted mode clock
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jessica Zhang
+ <quic_jesszhan@quicinc.com>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20241212-filter-mode-clock-v1-1-f4441988d6aa@quicinc.com>
+ <onavg2s7uamgwh34ozhbt56c74ktj5chp3jnn4bw5m22y5sdjr@fktyn5yt4gmw>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <onavg2s7uamgwh34ozhbt56c74ktj5chp3jnn4bw5m22y5sdjr@fktyn5yt4gmw>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: AvSeruY6qNaRYYHvDOVw1TtQNLYUSgdV
+X-Proofpoint-ORIG-GUID: AvSeruY6qNaRYYHvDOVw1TtQNLYUSgdV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 mlxlogscore=999
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ phishscore=0 bulkscore=0 suspectscore=0 mlxscore=0 adultscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412130136
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,410 +94,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Dec 13, 2024 at 8:47=E2=80=AFAM Akhil P Oommen <quic_akhilpo@quicin=
-c.com> wrote:
->
-> On 12/12/2024 10:42 PM, Rob Clark wrote:
-> > On Thu, Dec 12, 2024 at 9:08=E2=80=AFAM Rob Clark <robdclark@gmail.com>=
- wrote:
-> >>
-> >> On Thu, Dec 12, 2024 at 7:59=E2=80=AFAM Akhil P Oommen <quic_akhilpo@q=
-uicinc.com> wrote:
-> >>>
-> >>> On 12/5/2024 10:24 PM, Rob Clark wrote:
-> >>>> From: Rob Clark <robdclark@chromium.org>
-> >>>>
-> >>>> Performance counter usage falls into two categories:
-> >>>>
-> >>>> 1. Local usage, where the counter configuration, start, and end read
-> >>>>    happen within (locally to) a single SUBMIT.  In this case, there =
-is
-> >>>>    no dependency on counter configuration or values between submits,=
- and
-> >>>>    in fact counters are normally cleared on context switches, making=
- it
-> >>>>    impossible to rely on cross-submit state.
-> >>>>
-> >>>> 2. Global usage, where a single privilaged daemon/process is samplin=
-g
-> >>>>    counter values across all processes for profiling.
-> >>>>
-> >>>> The two categories are mutually exclusive.  While you can have many
-> >>>> processes making local counter usage, you cannot combine global and
-> >>>> local usage without the two stepping on each others feet (by changin=
-g
-> >>>> counter configuration).
->
-> As such the HW doesn't have any limitation, unless you run out of
-> counters in a group. We just need an arbitration between processes (UMD
-> or KMD based).
 
-True.. but is this actually needed?  Are there real-life use-cases?
-Or is it just something that someone wrote down in a requirements
-document because they could?
 
-An app _can_ query the counters itself, although in isolation they
-aren't super useful.  What a user/developer would actually find useful
-are the derived counters that the global/system profiler provides.
-The local counters are useful to get per-shader cycle counts, but I've
-never found myself looking at that _and_ global/system profiler at the
-same time.  Getting accurate local counter values involves inserting
-extra WFI's breaking the GPU pipelining, making global profiling kinda
-useless.
+On 12/12/2024 5:05 PM, Dmitry Baryshkov wrote:
+> On Thu, Dec 12, 2024 at 11:11:54AM -0800, Jessica Zhang wrote:
+>> Filter out modes that have a clock rate greater than the max core clock
+>> rate when adjusted for the perf clock factor
+>>
+>> This is especially important for chipsets such as QCS615 that have lower
+>> limits for the MDP max core clock.
+>>
+>> Since the core CRTC clock is at least the mode clock (adjusted for the
+>> perf clock factor) [1], the modes supported by the driver should be less
+>> than the max core clock rate.
+>>
+>> [1] https://elixir.bootlin.com/linux/v6.12.4/source/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c#L83
+>>
+>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 29 +++++++++++++++++++--------
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  3 +++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 12 +++++++++++
+>>   3 files changed, 36 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+>> index 6f0a37f954fe8797a4e3a34e7876a93d5e477642..0afd7c81981c722a1a9176062250c418255fe6d0 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+>> @@ -31,6 +31,26 @@ enum dpu_perf_mode {
+>>   	DPU_PERF_MODE_MAX
+>>   };
+>>   
+>> +/**
+>> + * dpu_core_perf_adjusted_crtc_clk - Adjust given crtc clock rate according to
+> 
+> Nit: CRTC (here and further)
+> 
+>> + *   the perf clock factor.
+>> + * @crtc_clk_rate - Unadjusted crtc clock rate
+>> + * @perf_cfg: performance configuration
+>> + */
+>> +u64 dpu_core_perf_adjusted_crtc_clk(u64 crtc_clk_rate,
+>> +				    const struct dpu_perf_cfg *perf_cfg)
+> 
+> It's not just the CRTC clocks
+> 
 
-> Also, KGSL exposes an ioctl to directly read the counter with a fixed
-> minimal latency. Because inline reads via submission may have huge
-> latency spikes based on workload especially when compute shaders are
-> involved. Isn't a low latency counter reads desirable in a fullfledged
-> system profiler?
+Do you mean we should use adjusted mode clock here?
 
-For system profiler, we read back the counters from the cpu[1].
-Although we might need to revisit that for android.
+>> +{
+>> +	u32 clk_factor;
+>> +
+>> +	clk_factor = perf_cfg->clk_inefficiency_factor;
+>> +	if (clk_factor) {
+>> +		crtc_clk_rate *= clk_factor;
+>> +		do_div(crtc_clk_rate, 100);
+>> +	}
+>> +
+>> +	return crtc_clk_rate;
+>> +}
+>> +
+>>   /**
+>>    * _dpu_core_perf_calc_bw() - to calculate BW per crtc
+>>    * @perf_cfg: performance configuration
+>> @@ -76,7 +96,6 @@ static u64 _dpu_core_perf_calc_clk(const struct dpu_perf_cfg *perf_cfg,
+>>   	struct dpu_plane_state *pstate;
+>>   	struct drm_display_mode *mode;
+>>   	u64 crtc_clk;
+> 
+> While you are at it, could you please also add a patch, replacing height
+> * vidth * vrefresh with mode->clock * 1000? The former one has limited
+> precision.
+> 
+>> -	u32 clk_factor;
+>>   
+>>   	mode = &state->adjusted_mode;
+>>   
+>> @@ -90,13 +109,7 @@ static u64 _dpu_core_perf_calc_clk(const struct dpu_perf_cfg *perf_cfg,
+>>   		crtc_clk = max(pstate->plane_clk, crtc_clk);
+>>   	}
+> 
+> This function calculates crtc_clk as max(plane_clk, crtc_clk). Shouldn't
+> we also reject the atomic_state if for any of the planes the corrected
+> clock is lower than max_core_clk_rate
+> 
 
-[1] https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/freedreno/perf=
-cntrs/freedreno_dt.c?ref_type=3Dheads#L223
+You mean higher than max_core_clk_rate? If so, yes we can fix that up.
 
-> >>>>
-> >>>> For global counter usage, there is already a SYSPROF param (since gl=
-obal
-> >>>> counter usage requires disabling counter clearing on context switch)=
-.
-> >>>> This patch adds a REQ_CNTRS param to request local counter usage.  I=
-f
-> >>>> one or more processes has requested counter usage, then a SYSPROF
-> >>>> request will fail with -EBUSY.  And if SYSPROF is active, then REQ_C=
-NTRS
-> >>>> will fail with -EBUSY, maintaining the mutual exclusivity.
-> >>>>
-> >>>> This is purely an advisory interface to help coordinate userspace.
-> >>>> There is no real means of enforcement, but the worst that can happen=
- if
-> >>>> userspace ignores a REQ_CNTRS failure is that you'll get nonsense
-> >>>> profiling data.
-> >>>>
-> >>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> >>>> ---
-> >>>> kgsl takes a different approach, which involves a lot more UABI for
-> >>>> assigning counters to different processes.  But I think by taking
-> >>>> advantage of the fact that mesa (freedreno+turnip) reconfigure the
-> >>>> counters they need in each SUBMIT, for their respective gl/vk perf-
-> >>>> counter extensions, we can take this simpler approach.
-> >>>
-> >>> KGSL's approach is preemption and ifpc safe (also whatever HW changes
-> >>> that will come up in future generations). How will we ensure that her=
-e?
-> >>>
-> >>> I have plans to bring up IFPC support in near future. Also, I brought=
- up
-> >>> this point during preemption series. But from the responses, I felt t=
-hat
-> >>> profiling was not considered a serious usecase. Still I wonder how th=
-e
-> >>> perfcounter extensions work accurately with preemption.
-> >>
-> >> Re: IFPC, I think initially we have to inhibit IFPC when SYSPROF is ac=
-tive
-> >>
-> >> Longer term, I think we want to just save and restore all of the SEL
-> >> regs as well as the counters themselves on preemption.  AFAIU
-> >> currently only the counters themselves are saved/restored.  But there
-> >> is only one 32b SEL reg for each 64b counter, so I'm not sure that you
-> >> save that many cycles by not just saving/restoring the SEL regs as
-> >> well.  (And of course with REQ_CNTRS the kernel knows which processes
-> >> need counter save/restore and which do not, so you are only taking the
-> >> extra context switch overhead if a process is actually using the
-> >> perfcntrs.)
-> >
-> > Actually I'm maybe blending two different, but similar cases.
-> > PREAMBLE/POSTAMBLE, I think, cover us for preemption
-> >
-> > For IFPC, we'd need a way to tell GMU that SYSPROF is active, so it
-> > could save/restore all the counters and selectors  (IFPC shouldn't
-> > matter for local profiling / REQ_CNTRS case, since you wouldn't go
-> > into IFPC mid-submit.)
-> >
-> > BR,
-> > -R
-> >
-> >> Alternatively, I think we could just declare this as a userspace
-> >> problem, and solve it with CP_SET_AMBLE PREAMBLE/POSTAMBLE?
-> >>
-> >> Just for background, rendernode UABI is exposed to all processes that
-> >> can use the GPU, ie. basically everything.  Which makes it an
-> >> attractive attack surface.  This is why I prefer minimalism when it
-> >> comes to UABI, and not adding new ioctls and complexity in the kernel
-> >> when it is not essential ;-)
->
-> I fully agree with you about maintaining minimalism in KMD. Here all we
-> need is a way for UMD to ask "give me a counter offset with 'x'
-> countable from 'y' group". And let KMD do the arbitration of counters
-> between userspace processes and also within KMD. And we can cut down on
-> some of the related things present in kgsl which are unnecessary at the
-> moment.
-
-I'm not completely ruling it out.. just trying to figure out if we
-actually need it.  Maybe android forces us to switch to something
-other than devmem for reading counters?  That is the most plausible
-reason I could think of to add UABI for this.
-
-(OTOH we could alternatively just give privileged userspace a way to
-mmap the mmio for percntrs via drm instead of devmem)
-
-> More importantly, I am not sure if we should really fight hard against
-> something that is basically an architectur spec. Future HW evolution
-> happens based on this architecture. So is it really wise to build things
-> in the opposite direction. FYI, all other GPU KMD drivers which Qcom
-> uses are aligned on this.
-
-Sure, but future hw is going to need future userspace.  It isn't
-really problematic to introduce a new UABI for future hw, because
-there is no "new kernel + old userspace" scenario.
-
-BR,
--R
-
-> -Akhil
->
-> >>
-> >> BR,
-> >> -R
-> >>
-> >>> -Akhil
-> >>>
-> >>>>
-> >>>>  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  2 +
-> >>>>  drivers/gpu/drm/msm/msm_drv.c           |  5 ++-
-> >>>>  drivers/gpu/drm/msm/msm_gpu.c           |  1 +
-> >>>>  drivers/gpu/drm/msm/msm_gpu.h           | 29 +++++++++++++-
-> >>>>  drivers/gpu/drm/msm/msm_submitqueue.c   | 52 ++++++++++++++++++++++=
-++-
-> >>>>  include/uapi/drm/msm_drm.h              |  1 +
-> >>>>  6 files changed, 85 insertions(+), 5 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/d=
-rm/msm/adreno/adreno_gpu.c
-> >>>> index 31bbf2c83de4..f688e37059b8 100644
-> >>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> >>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> >>>> @@ -441,6 +441,8 @@ int adreno_set_param(struct msm_gpu *gpu, struct=
- msm_file_private *ctx,
-> >>>>               if (!capable(CAP_SYS_ADMIN))
-> >>>>                       return UERR(EPERM, drm, "invalid permissions")=
-;
-> >>>>               return msm_file_private_set_sysprof(ctx, gpu, value);
-> >>>> +     case MSM_PARAM_REQ_CNTRS:
-> >>>> +             return msm_file_private_request_counters(ctx, gpu, val=
-ue);
-> >>>>       default:
-> >>>>               return UERR(EINVAL, drm, "%s: invalid param: %u", gpu-=
->name, param);
-> >>>>       }
-> >>>> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm=
-_drv.c
-> >>>> index 6416d2cb4efc..bf8314ff4a25 100644
-> >>>> --- a/drivers/gpu/drm/msm/msm_drv.c
-> >>>> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> >>>> @@ -377,9 +377,12 @@ static void msm_postclose(struct drm_device *de=
-v, struct drm_file *file)
-> >>>>        * It is not possible to set sysprof param to non-zero if gpu
-> >>>>        * is not initialized:
-> >>>>        */
-> >>>> -     if (priv->gpu)
-> >>>> +     if (ctx->sysprof)
-> >>>>               msm_file_private_set_sysprof(ctx, priv->gpu, 0);
-> >>>>
-> >>>> +     if (ctx->counters_requested)
-> >>>> +             msm_file_private_request_counters(ctx, priv->gpu, 0);
-> >>>> +
-> >>>>       context_close(ctx);
-> >>>>  }
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm=
-_gpu.c
-> >>>> index 82f204f3bb8f..013b59ca3bb1 100644
-> >>>> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> >>>> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> >>>> @@ -991,6 +991,7 @@ int msm_gpu_init(struct drm_device *drm, struct =
-platform_device *pdev,
-> >>>>       gpu->nr_rings =3D nr_rings;
-> >>>>
-> >>>>       refcount_set(&gpu->sysprof_active, 1);
-> >>>> +     refcount_set(&gpu->local_counters_active, 1);
-> >>>>
-> >>>>       return 0;
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm=
-_gpu.h
-> >>>> index e25009150579..83c61e523b1b 100644
-> >>>> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> >>>> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> >>>> @@ -195,12 +195,28 @@ struct msm_gpu {
-> >>>>       int nr_rings;
-> >>>>
-> >>>>       /**
-> >>>> -      * sysprof_active:
-> >>>> +      * @sysprof_active:
-> >>>>        *
-> >>>> -      * The count of contexts that have enabled system profiling.
-> >>>> +      * The count of contexts that have enabled system profiling pl=
-us one.
-> >>>> +      *
-> >>>> +      * Note: refcount_t does not like 0->1 transitions.. we want t=
-o keep
-> >>>> +      * the under/overflow checks that refcount_t provides, but all=
-ow
-> >>>> +      * multiple on/off transitions so we track the logical value p=
-lus one.)
-> >>>>        */
-> >>>>       refcount_t sysprof_active;
-> >>>>
-> >>>> +     /**
-> >>>> +      * @local_counters_active:
-> >>>> +      *
-> >>>> +      * The count of contexts that have requested local (intra-subm=
-it)
-> >>>> +      * performance counter usage plus one.
-> >>>> +      *
-> >>>> +      * Note: refcount_t does not like 0->1 transitions.. we want t=
-o keep
-> >>>> +      * the under/overflow checks that refcount_t provides, but all=
-ow
-> >>>> +      * multiple on/off transitions so we track the logical value p=
-lus one.)
-> >>>> +      */
-> >>>> +     refcount_t local_counters_active;
-> >>>> +
-> >>>>       /**
-> >>>>        * lock:
-> >>>>        *
-> >>>> @@ -383,6 +399,13 @@ struct msm_file_private {
-> >>>>        */
-> >>>>       int sysprof;
-> >>>>
-> >>>> +     /**
-> >>>> +      * @counters_requested:
-> >>>> +      *
-> >>>> +      * Has the context requested local perfcntr usage.
-> >>>> +      */
-> >>>> +     bool counters_requested;
-> >>>> +
-> >>>>       /**
-> >>>>        * comm: Overridden task comm, see MSM_PARAM_COMM
-> >>>>        *
-> >>>> @@ -626,6 +649,8 @@ void msm_submitqueue_destroy(struct kref *kref);
-> >>>>
-> >>>>  int msm_file_private_set_sysprof(struct msm_file_private *ctx,
-> >>>>                                struct msm_gpu *gpu, int sysprof);
-> >>>> +int msm_file_private_request_counters(struct msm_file_private *ctx,
-> >>>> +                                   struct msm_gpu *gpu, int reqcntr=
-s);
-> >>>>  void __msm_file_private_destroy(struct kref *kref);
-> >>>>
-> >>>>  static inline void msm_file_private_put(struct msm_file_private *ct=
-x)
-> >>>> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm=
-/msm/msm_submitqueue.c
-> >>>> index 7fed1de63b5d..1e1e21e6f7ae 100644
-> >>>> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> >>>> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> >>>> @@ -10,6 +10,15 @@
-> >>>>  int msm_file_private_set_sysprof(struct msm_file_private *ctx,
-> >>>>                                struct msm_gpu *gpu, int sysprof)
-> >>>>  {
-> >>>> +     int ret =3D 0;
-> >>>> +
-> >>>> +     mutex_lock(&gpu->lock);
-> >>>> +
-> >>>> +     if (sysprof && (refcount_read(&gpu->local_counters_active) > 1=
-)) {
-> >>>> +             ret =3D UERR(EBUSY, gpu->dev, "Local counter usage act=
-ive");
-> >>>> +             goto out_unlock;
-> >>>> +     }
-> >>>> +
-> >>>>       /*
-> >>>>        * Since pm_runtime and sysprof_active are both refcounts, we
-> >>>>        * call apply the new value first, and then unwind the previou=
-s
-> >>>> @@ -18,7 +27,8 @@ int msm_file_private_set_sysprof(struct msm_file_p=
-rivate *ctx,
-> >>>>
-> >>>>       switch (sysprof) {
-> >>>>       default:
-> >>>> -             return UERR(EINVAL, gpu->dev, "Invalid sysprof: %d", s=
-ysprof);
-> >>>> +             ret =3D UERR(EINVAL, gpu->dev, "Invalid sysprof: %d", =
-sysprof);
-> >>>> +             goto out_unlock;
-> >>>>       case 2:
-> >>>>               pm_runtime_get_sync(&gpu->pdev->dev);
-> >>>>               fallthrough;
-> >>>> @@ -43,7 +53,45 @@ int msm_file_private_set_sysprof(struct msm_file_=
-private *ctx,
-> >>>>
-> >>>>       ctx->sysprof =3D sysprof;
-> >>>>
-> >>>> -     return 0;
-> >>>> +out_unlock:
-> >>>> +     mutex_unlock(&gpu->lock);
-> >>>> +
-> >>>> +     return ret;
-> >>>> +}
-> >>>> +
-> >>>> +int msm_file_private_request_counters(struct msm_file_private *ctx,
-> >>>> +                                   struct msm_gpu *gpu, int reqctrs=
-)
-> >>>> +{
-> >>>> +     int ret =3D 0;
-> >>>> +
-> >>>> +     mutex_lock(&gpu->lock);
-> >>>> +
-> >>>> +     if (reqctrs && (refcount_read(&gpu->sysprof_active) > 1)) {
-> >>>> +             ret =3D UERR(EBUSY, gpu->dev, "System profiling active=
-");
-> >>>> +             goto out_unlock;
-> >>>> +     }
-> >>>> +
-> >>>> +     if (reqctrs) {
-> >>>> +             if (ctx->counters_requested) {
-> >>>> +                     ret =3D UERR(EINVAL, gpu->dev, "Already reques=
-ted");
-> >>>> +                     goto out_unlock;
-> >>>> +             }
-> >>>> +
-> >>>> +             ctx->counters_requested =3D true;
-> >>>> +             refcount_inc(&gpu->local_counters_active);
-> >>>> +     } else {
-> >>>> +             if (!ctx->counters_requested) {
-> >>>> +                     ret =3D UERR(EINVAL, gpu->dev, "Not requested"=
-);
-> >>>> +                     goto out_unlock;
-> >>>> +             }
-> >>>> +             refcount_dec(&gpu->local_counters_active);
-> >>>> +             ctx->counters_requested =3D false;
-> >>>> +     }
-> >>>> +
-> >>>> +out_unlock:
-> >>>> +     mutex_unlock(&gpu->lock);
-> >>>> +
-> >>>> +     return ret;
-> >>>>  }
-> >>>>
-> >>>>  void __msm_file_private_destroy(struct kref *kref)
-> >>>> diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-> >>>> index 2342cb90857e..ae7fb355e4a1 100644
-> >>>> --- a/include/uapi/drm/msm_drm.h
-> >>>> +++ b/include/uapi/drm/msm_drm.h
-> >>>> @@ -91,6 +91,7 @@ struct drm_msm_timespec {
-> >>>>  #define MSM_PARAM_UBWC_SWIZZLE 0x12 /* RO */
-> >>>>  #define MSM_PARAM_MACROTILE_MODE 0x13 /* RO */
-> >>>>  #define MSM_PARAM_UCHE_TRAP_BASE 0x14 /* RO */
-> >>>> +#define MSM_PARAM_REQ_CNTRS  0x15 /* WO: request "local" (intra-sub=
-mit) perfcntr usage  */
-> >>>>
-> >>>>  /* For backwards compat.  The original support for preemption was b=
-ased on
-> >>>>   * a single ring per priority level so # of priority levels equals =
-the #
-> >>>
->
+>>   
+>> -	clk_factor = perf_cfg->clk_inefficiency_factor;
+>> -	if (clk_factor) {
+>> -		crtc_clk *= clk_factor;
+>> -		do_div(crtc_clk, 100);
+>> -	}
+>> -
+>> -	return crtc_clk;
+>> +	return dpu_core_perf_adjusted_crtc_clk(crtc_clk, perf_cfg);
+>>   }
+>>   
+>>   static struct dpu_kms *_dpu_crtc_get_kms(struct drm_crtc *crtc)
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+>> index 451bf8021114d9d4a2dfdbb81ed4150fc559c681..c3bcd567cdfb66647c83682d1feedd69e33f0680 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+>> @@ -54,6 +54,9 @@ struct dpu_core_perf {
+>>   	u64 fix_core_ab_vote;
+>>   };
+>>   
+>> +u64 dpu_core_perf_adjusted_crtc_clk(u64 clk_rate,
+>> +				    const struct dpu_perf_cfg *perf_cfg);
+>> +
+>>   int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
+>>   		struct drm_crtc_state *state);
+>>   
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> index ad3462476a143ec01a3b8817a2c85b0f50435a9e..cd7b84ab57a7526948c2beb7c5cefdddcbe4f6d9 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> @@ -1257,6 +1257,7 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
+>>   						const struct drm_display_mode *mode)
+>>   {
+>>   	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
+>> +	u64 adjusted_mode_clk;
+>>   
+>>   	/* if there is no 3d_mux block we cannot merge LMs so we cannot
+>>   	 * split the large layer into 2 LMs, filter out such modes
+>> @@ -1264,6 +1265,17 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
+>>   	if (!dpu_kms->catalog->caps->has_3d_merge &&
+>>   	    mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
+>>   		return MODE_BAD_HVALUE;
+>> +
+>> +	adjusted_mode_clk = dpu_core_perf_adjusted_crtc_clk(mode->clock,
+>> +							    dpu_kms->perf.perf_cfg);
+>> +
+>> +	/*
+>> +	 * The given mode, adjusted for the perf clock factor, should not exceed
+>> +	 * the max core clock rate
+>> +	 */
+>> +	if (adjusted_mode_clk > dpu_kms->perf.max_core_clk_rate / 1000)
+>> +		return MODE_CLOCK_HIGH;
+>> +
+>>   	/*
+>>   	 * max crtc width is equal to the max mixer width * 2 and max height is 4K
+>>   	 */
+>>
+>> ---
+>> base-commit: 423c1c96d6b2d3bb35072e33a5fdd8db6d2c0a74
+>> change-id: 20241212-filter-mode-clock-8cb2e769f05b
+>>
+>> Best regards,
+>> -- 
+>> Jessica Zhang <quic_jesszhan@quicinc.com>
+>>
+> 
