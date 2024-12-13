@@ -2,113 +2,121 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10B379F11EB
-	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2024 17:20:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8123B9F1214
+	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2024 17:28:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6FB910E343;
-	Fri, 13 Dec 2024 16:20:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44AAD10E343;
+	Fri, 13 Dec 2024 16:28:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="T+wwqVfV";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="g3/bTR5Z";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6210810E343
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 16:20:55 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BDEBZqp017168
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 16:20:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- LJzNiX6iYpTiDnCLLyKz3UVsvFtEyVBnlS5uhDkC/hw=; b=T+wwqVfVwXu/aRbt
- 5d2NQFCt3JJauOjFxhu1kw6riF7ptTYfDmGjQp9urSyNqEazD8Ufe2lwOcrPPlqN
- RPXIS8OLFhcPR/+2WNHfDrUEKWNgMDCImLeEL8g5+Rsv7fmSV9KOpxed9Gekxq2J
- AYng8A8ib5B7U+PxH4IzpdcdO9en+9QYxZBy7YfMNQM5QsEHtL66Are1hYb57HPy
- RnpAhiw6JvI4aGAQtVa3B9DddB1k3fBNLmpLMdIQLIxBmGz2IS65qrURAgL8mE8V
- y9lE5/U82cXIvY3ddpJuNf/CE90cmE5ryvdEYWk2BJCH1PSHzXNmqyYkIG4jmBwC
- XSfOxg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43gdkn1vph-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 16:20:54 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-6db1009a608so3569666d6.2
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 08:20:54 -0800 (PST)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2F6010E343
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 16:28:37 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-436249df846so13978675e9.3
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 08:28:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1734107316; x=1734712116; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=2I58Ux8ZY0ny+rlH6gmLJtOle4a/IZMpAzFy/1Nda2k=;
+ b=g3/bTR5ZnyzdogDuD6yoBINgysb9KwCMW00XJflZhrZD5BTZvZOHmG1OUEfbW0g5go
+ nY2UkbDw4kbuezDgMfwqG6RPssDSrbNiAg8m7XelSb9alNSaNjHIeD2v6kfUPCFobBBk
+ vIblW8gTd+hyw20kCiDwG5Cz4tssE1e14SQBlns0tpXvXGdNlOqTaBLEwR0okicQgN1I
+ x9SrwK7jHdngVF8dN2egp1w05kMx6bL481hfyoA1CjOlXw1ctTwMFqIukO9aSE6jTJ6S
+ ecFhrTMICpxU/ZXJvv15+hIIlt0uRt03acieu5cgi+sATHKSuS1kRWl8PzfLJNLUvex3
+ rqYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734106853; x=1734711653;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=LJzNiX6iYpTiDnCLLyKz3UVsvFtEyVBnlS5uhDkC/hw=;
- b=kC+ksXl43RnpMYvF9ChLq7l0V8KyeD89Ms4nppbTY6J54vSyG0FpkgDwUW+aiCOE6o
- sxAljE5hDP8dAO2GQaoGdrhmcnrAZYt6jsMQAqef8iUwvN9K0FeaE85DPHfLKkBlKxmV
- ZOHVqFaqipDqQa7IGg7iMsnLoLh1E9FgE2hgLT/4dya38ldpZV4ODqoY550RMcidllAx
- KoI/byvEg+/ZF3clk2GlyaIrJ25X2PWD+ajAYyOH44B46YHecpxCY7krAjvUa+/hi9iT
- KXUWJFTeriWIi3DUKUNOF/WVSZVfkfAWTsHECzQZCaqRyb37G8dxFzz6/e+Fsq2XZEkq
- d55A==
+ d=1e100.net; s=20230601; t=1734107316; x=1734712116;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=2I58Ux8ZY0ny+rlH6gmLJtOle4a/IZMpAzFy/1Nda2k=;
+ b=TYhn5HEPt7LWEho/eM6XVyC+modZVX/75Gm1pIA0N08kVGkWMCok4HVfhYEIOK+Vd0
+ 2nJ7bESbWTN5uzaSF1NAwO3iXFbB6P3DcSCXHRyXcs1J7q4ndwQC2uRee5oyRPyE9Y3j
+ Zo1rTNHG67o9CV0i4iUaZ6nr6zHlZaZ9BoJxv6dLk1JemtLCKggh7Gj54Phvbzvxg8qH
+ KL5A2ar5eoX+IqcejeD6vPHQO0N6zT0MGDJBHNYkO0xxSXeOemzqzF0h8RkJGoX/ZWh3
+ YWGD4nJPMdAWkA0kVDvh3qf8KBHcs3Yl6/XVgZGGKPgsYn0QC6OVLPLzFWGiS6kTaMIF
+ m6mw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVOa/9F8JGVAbceC6tzyfUcLQTDW2u9CjU7VMyFlzptr1B19x4+msZQ2IHz1H0cC0vjVQaORc7VXlk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFmINhBiASVGEDwIARyRvoakHzG5Y1G3wxotXrRbRQnmCvk3OW
- 7Gy+Bo33yvw9eNUfGw3EkOvrsowHZ7oA+y605xAMSB3r5Zsv4d9Xkx01HhPV6TbIPemrZXXhU7F
- 6eW6gjHe5hwOkvTMyxZr8mscqeZaAfKOEsJhA2ESfA411nzZdXJRXyZbYerAO5/9inDI=
-X-Gm-Gg: ASbGncuPHIyoYqsQmTPFVObhYFx3SYVJVI7/7Z3by/eXX+aOCmUFAvV4uzc2FKjbLM9
- 6lDsX3LpV/ZcMqPXWoq3oF6sLcz00jr4+pMXpVvDUn8A2+P98a605uzkrhG4Xxau8CH73/qT8ut
- vjj4tcFucIsCUVOUFgeC7Jot6xPHsvJvuFp3ROqAe5VArMXyt8ruZR/sZXOs0dsJZI3eEW6JXpw
- FfKHqneTZhzbldR+QFEyOCz2E67BtbiGidG8+QonH/Sw5mthDEddN1CVUO+aqNTxz6pXwcMV/Yl
- h6ywhA/wfk32Dy5oTS6HCYsnl8rBexRMYgOD
-X-Received: by 2002:a05:620a:191c:b0:7b6:c405:b586 with SMTP id
- af79cd13be357-7b6fbf19210mr160749385a.8.1734106853625; 
- Fri, 13 Dec 2024 08:20:53 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGKjgYE2HMUK/BdaPHwAs2/uw9TGCamOV2HO19BbVwzz0upI8ZzF1jYQWfJT7RvYnQ9qDVRqg==
-X-Received: by 2002:a05:620a:191c:b0:7b6:c405:b586 with SMTP id
- af79cd13be357-7b6fbf19210mr160746985a.8.1734106853151; 
- Fri, 13 Dec 2024 08:20:53 -0800 (PST)
-Received: from [192.168.58.241] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa683a0a736sm752537966b.142.2024.12.13.08.20.51
+ AJvYcCVqptyrYQop4kMuw8PfBpZxKKfPJ249588m8Yubqh8FfErVmEsVefExvu0k62Op8Qp5LXKcLBTll3E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YydMK1XQz5KJj/wHlclFXhz+DpLNpv4+wG1rJqgRQ/8+q2gcS4Z
+ eOU7t2i2tyS185rPDFP2mtE+LFx8wi95Qt+ZuUr/fCeyv4Gaye5+ZIFtZ/4gh00=
+X-Gm-Gg: ASbGncuq3upmowK+hjjPNM2fATLLapCfpFo6D15sXiX+/OnaPnGJe1tOLWjtQAbcrMl
+ nsE152L6q6SS0Aj5yYntXUf1p3jzwpQyT4DdkmN4wEMkrwfOndWcwJEbGihvDD8190i3ks8UVWJ
+ k2fbzzjHruI10PsrWXXgFM+/UjLUDvqug1FVVdGUD5SzQAUu0vGVqqc771yJsCkXHsXqwXAQZfD
+ lDItOKX0AE6o4vIPUEGkTISYnh4gCEhyBtexejFvtE8UkX8Rc/6/XExSOLyEBzw9hmPJybE0P4N
+ a/BDvzBekVcKmRZsnZeeMUCtdZPvMJXTcQ==
+X-Google-Smtp-Source: AGHT+IG10KHBp4AjIN6xfhVMKlOUcoFdTkAxXshzx/1Y8OW+O4y1zH3Z0ZF6t8CbjS1337UOxrK/BA==
+X-Received: by 2002:a05:600c:5254:b0:434:a902:97cd with SMTP id
+ 5b1f17b1804b1-4362aa3f7damr27164525e9.12.1734107314723; 
+ Fri, 13 Dec 2024 08:28:34 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:4795:2d16:2587:ed70?
+ ([2a01:e0a:982:cbb0:4795:2d16:2587:ed70])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3878248f680sm7680018f8f.9.2024.12.13.08.28.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Dec 2024 08:20:52 -0800 (PST)
-Message-ID: <8257e193-df34-4060-af51-0097bdaf11b5@oss.qualcomm.com>
-Date: Fri, 13 Dec 2024 17:20:50 +0100
+ Fri, 13 Dec 2024 08:28:34 -0800 (PST)
+Message-ID: <268d67c0-efdf-4ad4-b5fe-5b4f04e73131@linaro.org>
+Date: Fri, 13 Dec 2024 17:28:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm: UAPI error reporting
-To: Rob Clark <robdclark@gmail.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH v5 4/7] drm/msm: adreno: find bandwidth index of OPP and
+ set it along freq index
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-References: <20241121164858.457921-1-robdclark@gmail.com>
- <54601d79-4156-41f4-b1b7-250c5c970641@oss.qualcomm.com>
- <CAF6AEGtafQM7-mYy163Krry3OHgPNH3e9A=9VEhBpiQTADtULQ@mail.gmail.com>
- <5ff5d720-ccf7-42ee-9a4b-90cc168a4b7b@oss.qualcomm.com>
- <CAF6AEGuwjpizRy+S-xCmGdZV9MX+CDACwQp-NNKc2eBroCt1CQ@mail.gmail.com>
- <b792f88b-71c3-4430-b194-0a627de2f05c@oss.qualcomm.com>
- <CAF6AEGtbSwF2NVAurJxHwb-D7=SutGtMZ-UQbFAPr0ohDsK1OA@mail.gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <CAF6AEGtbSwF2NVAurJxHwb-D7=SutGtMZ-UQbFAPr0ohDsK1OA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20241211-topic-sm8x50-gpu-bw-vote-v5-0-6112f9f785ec@linaro.org>
+ <20241211-topic-sm8x50-gpu-bw-vote-v5-4-6112f9f785ec@linaro.org>
+ <ddf91ba2-cab2-4653-b842-65a8e82b5160@oss.qualcomm.com>
+ <2f1c6deb-29f8-4144-b086-743fb0f8495c@linaro.org>
+ <80bed70e-7802-4555-a15e-e06fe46214c6@quicinc.com>
+ <c2d8f443-5876-4293-8d2b-ecd13eaf8285@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <c2d8f443-5876-4293-8d2b-ecd13eaf8285@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: iwgaNes4JQhdAI-Sv8W7kqdfYM_owmPK
-X-Proofpoint-ORIG-GUID: iwgaNes4JQhdAI-Sv8W7kqdfYM_owmPK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 mlxlogscore=642
- impostorscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- phishscore=0 bulkscore=0 suspectscore=0 mlxscore=0 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412130114
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,87 +129,101 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13.12.2024 4:55 PM, Rob Clark wrote:
-> On Fri, Dec 13, 2024 at 5:11 AM Konrad Dybcio
-> <konrad.dybcio@oss.qualcomm.com> wrote:
->>
->> On 23.11.2024 3:41 AM, Rob Clark wrote:
->>> On Fri, Nov 22, 2024 at 4:19 PM Konrad Dybcio
->>> <konrad.dybcio@oss.qualcomm.com> wrote:
->>>>
->>>> On 22.11.2024 4:51 PM, Rob Clark wrote:
->>>>> On Fri, Nov 22, 2024 at 4:21 AM Konrad Dybcio
->>>>> <konrad.dybcio@oss.qualcomm.com> wrote:
->>>>>>
->>>>>> On 21.11.2024 5:48 PM, Rob Clark wrote:
->>>>>>> From: Rob Clark <robdclark@chromium.org>
->>>>>>>
->>>>>>> Debugging incorrect UAPI usage tends to be a bit painful, so add a
->>>>>>> helper macro to make it easier to add debug logging which can be enabled
->>>>>>> at runtime via drm.debug.
->>>>>>>
->>>>>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
->>>>>>> ---
->>>>>>
->>>>>> [...]
->>>>>>
->>>>>>> +/* Helper for returning a UABI error with optional logging which can make
->>>>>>> + * it easier for userspace to understand what it is doing wrong.
->>>>>>> + */
->>>>>>> +#define UERR(err, drm, fmt, ...) \
->>>>>>> +     ({ DRM_DEV_DEBUG_DRIVER((drm)->dev, fmt, ##__VA_ARGS__); -(err); })
->>>>>>> +
->>>>>>>  #define DBG(fmt, ...) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
->>>>>>>  #define VERB(fmt, ...) if (0) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
->>>>>>
->>>>>> I'm generally not a fan of adding driver-specific debug prints..
->>>>>>
->>>>>> Maybe that's something that could be pushed to the drm-common layer
->>>>>> or even deeper down the stack?
+On 13/12/2024 16:37, Konrad Dybcio wrote:
+> On 13.12.2024 2:12 PM, Akhil P Oommen wrote:
+>> On 12/13/2024 3:07 AM, Neil Armstrong wrote:
+>>> On 12/12/2024 21:21, Konrad Dybcio wrote:
+>>>> On 11.12.2024 9:29 AM, Neil Armstrong wrote:
+>>>>> The Adreno GPU Management Unit (GMU) can also scale the DDR Bandwidth
+>>>>> along the Frequency and Power Domain level, until now we left the OPP
+>>>>> core scale the OPP bandwidth via the interconnect path.
 >>>>>
->>>>> Even if we had something like DRM_DBG_UABI_ERROR() I'd probably still
->>>>> just #define UERR() to be a wrapper for it, since line length/wrapping
->>>>> tends to be a bit of a challenge.  And I have a fairly substantial
->>>>> patch stack on top of this adding sparse/vm_bind support.  (Debugging
->>>>> that was actually the motivation for this patch.)
+>>>>> In order to enable bandwidth voting via the GPU Management
+>>>>> Unit (GMU), when an opp is set by devfreq we also look for
+>>>>> the corresponding bandwidth index in the previously generated
+>>>>> bw_table and pass this value along the frequency index to the GMU.
+>>>>>
+>>>>> The GMU also takes another vote called AB which is a 16bit quantized
+>>>>> value of the floor bandwidth against the maximum supported bandwidth.
+>>>>>
+>>>>> The AB is calculated with a default 25% of the bandwidth like the
+>>>>> downstream implementation too inform the GMU firmware the minimal
+>>>>> quantity of bandwidth we require for this OPP.
+>>>>>
+>>>>> Since we now vote for all resources via the GMU, setting the OPP
+>>>>> is no more needed, so we can completely skip calling
+>>>>> dev_pm_opp_set_opp() in this situation.
+>>>>>
+>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>> Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>>>> ---
+>>>>>    drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 39 ++++++++++++++++++++++++
+>>>>> +++++++++--
+>>>>>    drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  2 +-
+>>>>>    drivers/gpu/drm/msm/adreno/a6xx_hfi.c |  6 +++---
+>>>>>    drivers/gpu/drm/msm/adreno/a6xx_hfi.h |  5 +++++
+>>>>>    4 files changed, 46 insertions(+), 6 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/
+>>>>> msm/adreno/a6xx_gmu.c
+>>>>> index
+>>>>> 36696d372a42a27b26a018b19e73bc6d8a4a5235..46ae0ec7a16a41d55755ce04fb32404cdba087be 100644
+>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+>>>>> @@ -110,9 +110,11 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu,
+>>>>> struct dev_pm_opp *opp,
+>>>>>                   bool suspended)
+>>>>>    {
+>>>>>        struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+>>>>> +    const struct a6xx_info *info = adreno_gpu->info->a6xx;
+>>>>>        struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+>>>>>        struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+>>>>>        u32 perf_index;
+>>>>> +    u32 bw_index = 0;
+>>>>>        unsigned long gpu_freq;
+>>>>>        int ret = 0;
+>>>>>    @@ -125,6 +127,37 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu,
+>>>>> struct dev_pm_opp *opp,
+>>>>>            if (gpu_freq == gmu->gpu_freqs[perf_index])
+>>>>>                break;
+>>>>>    +    /* If enabled, find the corresponding DDR bandwidth index */
+>>>>> +    if (info->bcms && gmu->nr_gpu_bws > 1) {
 >>>>
->>>> Alright, let's not get in the way then
->>>>
->>>>> I noticed that xe has something similar, but slightly different shape,
->>>>> in the form of XE_IOCTL_DBG().. but that kinda just moves the line
->>>>> length problem into the if() conditional.  (And doesn't provide the
->>>>> benefit of being able to display the incorrect param.)
->>>>
->>>> Maybe rust comes one day and the lines will start growing vertically ;)
+>>>> if (gmu->nr_gpu_bws)
 >>>
->>> Rust for the userspace facing rendernode side of the driver, in
->>> particular, would be interesting for me, tbh.  Especially if handle
->>> related rust<->c layers are designed properly.  I've lost track of how
->>> many handle lifetime race condition UAF's I've seen ;-)
+>>> gmu->nr_gpu_bws == 1 means there's not BW in the OPPs (index 0 is the
+>>> "off" state)
 >>>
->>> Re-writing entire drivers is a big lift, especially when there is so
->>> much hw+features to enable.  KMS is limited to drm master (generally a
->>> somewhat privileged process), so less of a concern from a security
->>> standpoint.  Much of the GPU side of things is "boring" power related
->>> stuff (suspend/resume/devfreq).  But the rendernode ioctls are open to
->>> any process that can use the GPU in a typical setup.
+>>>>
+>>>>> +        unsigned int bw = dev_pm_opp_get_bw(opp, true, 0);
+>>>>> +
+>>>>> +        for (bw_index = 0; bw_index < gmu->nr_gpu_bws - 1; bw_index+
+>>>>> +) {
+>>>>> +            if (bw == gmu->gpu_bw_table[bw_index])
+>>>>> +                break;
+>>>>> +        }
+>>>>> +
+>>>>> +        /* Vote AB as a fraction of the max bandwidth */
+>>>>> +        if (bw) {
+>>>>
+>>>> This seems to only be introduced with certain a7xx too.. you should
+>>>> ping the GMU with HFI_VALUE_GMU_AB_VOTE to check if it's supported
+>>>
+>>> Good point
 >>
->> The boring part would benefit greatly from automatic scope exit
->> cleanup.. We've had lots of issues in the past with that (that are
->> hopefully? sorted out now, or should I say, for now)
+>> No no. Doing this will trigger some assert in pre-A750 gmu firmwares. We
+>> learned it the hard way. No improvisation please. :)
 > 
-> Maybe some of the cleanup.h stuff would be useful?
+> We shouldn't be sending that AB data to firmware that doesn't expect
+> it either too, though..
 
-Very possibly.
+Well we don't !
 
-Though the main issue is that we're juggling two "real" power rails
-and two GDSCs that hang off them (with GX being juggled from both AP
-and GPU/GMU PoV), and it's simply confusing for the programmer..
-
-I'd rather delay that until some next great cleanup (tm)
-
-Konrad
+> 
+> Konrad
 
