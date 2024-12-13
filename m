@@ -2,78 +2,82 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 808549F0D42
-	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2024 14:27:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA8439F0D4D
+	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2024 14:31:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D20B10EFF9;
-	Fri, 13 Dec 2024 13:27:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 709F410F002;
+	Fri, 13 Dec 2024 13:31:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="RsQxNlb5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SjbPXjBA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D791210EFF9
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 13:27:29 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BDAH2vO031133
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 13:27:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 9txSCb1IC1Nu0LWc67oEXLeaFExT74mZB2MDrVFA5QY=; b=RsQxNlb5nc5rmEM5
- b01D4BcVfSQQdHPHMKLqXWYhoI/e+Kw3eYiplz8wnLkn9xifMvQ7gjRREQ18Ey3+
- I4DdZpDuuZgC7PqkBzJc3/Sb3IyuVvuq8paOXg4QdjxujHrz1jpxn9dGxMtXKEFq
- KE0CaRovry6JIB0whCix8IVGQ5QLfeNhV5Tq8d9eK0qAGA57yWB6WnPdp78D1Z9W
- erLL0qNB31PRFXDRDfcI/MmKlxaXVGLg2eccqw2JnGfzSZBbikBCEgzw+dayFrpQ
- tHKbFj6L0ZAA1yOv1onvCBhG9pvZfGZ8QvsYuzd0NunmiPxDRO/1Ki6YXtwX2Kb2
- Qt0a6w==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43fwgekymf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 13:27:29 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BDDRSv4015976
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 13:27:28 GMT
-Received: from [10.204.101.130] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 13 Dec
- 2024 05:27:27 -0800
-Message-ID: <bc35b8b3-9784-47cc-b2f5-03a9d66171e4@quicinc.com>
-Date: Fri, 13 Dec 2024 18:57:24 +0530
+Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
+ [IPv6:2607:f8b0:4864:20::112f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B05C510F002
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 13:31:37 +0000 (UTC)
+Received: by mail-yw1-x112f.google.com with SMTP id
+ 00721157ae682-6f00b10bc1dso15976567b3.3
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 05:31:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1734096697; x=1734701497; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=sfJqbpO8fzR7hotkw8WChASKcoelnmQh7lFNBgHegyc=;
+ b=SjbPXjBAfxC9XY2jwgeLrAyIA5O0Uj2AvVE+grzHIH0WR9fvBJYZf6bouispY9x8Tz
+ liQhIQCaCxsrjkrAMR7Ofnqt15CBAD4Cd2wjux5XYjRSS8aPX1jusisOndw64BEUgNQT
+ uWghjwaUWOVkxV3TzrKtCtbO9YTunkwSpuFrI3XPDTnc/xVl5i/2JGmhLpiFgPqDDFnp
+ 6QIbsxrc3h+nRGVD3Fjn87kRyFc+P6FTPhfsIQm9MdX0ySEOXAZ+5AiZgJfgH88Djc+d
+ BVR1KtlVl0ChBgAIa58fqOupqZ/nKCII1/CVed3iACA9Iw8vgHW0JMbSY+WZqKG/oUYB
+ yKoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734096697; x=1734701497;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=sfJqbpO8fzR7hotkw8WChASKcoelnmQh7lFNBgHegyc=;
+ b=FOfY9f+j3w+zZ6TyJD0ygSNs4+GQDFivnYZQQWEppDJ+meG1RsYUbpUeX7BT1GXwvt
+ 0ekDZG/X1I8iNMhQSRtZPJABlQzF2143N69FTs8CGNkJKZOmBvWz6P1HJo5vD+0/riZo
+ /2XI4FcC6ttFP06fNZjXPsurwoF4PWuKCNM244ljF0e70jT3DIJCALR9zEeZUtpHz4Sm
+ SA8ayCoTj793/hmnOYe7trAKZNocE9UT+mUGrTlS2+IyL7DmtCIMu/wgBz3OGrJda9SA
+ MEu8u6zj45x04bEFwjr+UgD6PboxIvoBDmKSdiKCqPat0X/rTc9TcYhZgXG3JTpoKvoe
+ 9YcQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXT2NS0Oxv6J59XTej470addC/imXnraIYfYwsYSI+4LOB7vg2AnZ+XPvGK4QWzHthSQtN70vj417I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzvt6OwwqfJQD+/pyHjnz//ObJwn65OOwKjCSQ3Fv7fMSYkxfFE
+ QLWjQjPjfH8pALyMKwXIOy0hVUV3MGwWNDsAQ0BQQyqh3OaexM/QrzT6861OmkclaUZnZFcAoOl
+ t5Fvh+7PKfrDOZUGP2lRzwNof/9qtgK5H0e94RA==
+X-Gm-Gg: ASbGncvGFA3i0hVkNKersHU+qGyEaFRF5BKaur/MAoDLSfDs+X0HEJop8CgPurLUEqD
+ /nfEYb1C13LsUvmd4PG037pyOZZ1b67DSfM2I
+X-Google-Smtp-Source: AGHT+IG2oQo9/pJojNxPge9b6BLy5vw+9wYfAvJ7mQMiGJU6v/4xK8PvgaXtkMMl3WrEhcVUtJlFxa3Ns2fJC50KKas=
+X-Received: by 2002:a05:690c:6e13:b0:6ef:7fdb:7d41 with SMTP id
+ 00721157ae682-6f2798e0c42mr25633727b3.0.1734096696819; Fri, 13 Dec 2024
+ 05:31:36 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: qcs615: Add gpu and gmu nodes
-To: <freedreno@lists.freedesktop.org>
-References: <20241213-qcs615-gpu-dt-v2-0-6606c64f03b5@quicinc.com>
- <20241213-qcs615-gpu-dt-v2-3-6606c64f03b5@quicinc.com>
- <a44027ee-40d3-4552-8f61-bcab77476f68@oss.qualcomm.com>
-Content-Language: en-US
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <a44027ee-40d3-4552-8f61-bcab77476f68@oss.qualcomm.com>
+References: <20241213-qcs615-gpu-dt-v2-0-47f3b312b178@quicinc.com>
+ <20241213-qcs615-gpu-dt-v2-4-47f3b312b178@quicinc.com>
+In-Reply-To: <20241213-qcs615-gpu-dt-v2-4-47f3b312b178@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 13 Dec 2024 15:31:25 +0200
+Message-ID: <CAA8EJpom2amWzH5QpXrPSdMKS6bB_8O4CU67OVNuEjkjA-wseA@mail.gmail.com>
+Subject: Re: [PATCH RESEND v2 4/4] arm64: dts: qcom: qcs615-ride: Enable
+ Adreno 612 GPU
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jie Zhang <quic_jiezh@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: H0DJqp1zwWcKxqobg0R5ter62M8uBm60
-X-Proofpoint-ORIG-GUID: H0DJqp1zwWcKxqobg0R5ter62M8uBm60
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- suspectscore=0 bulkscore=0 mlxlogscore=999 spamscore=0 clxscore=1015
- impostorscore=0 mlxscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412130095
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,97 +93,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 12/13/2024 4:27 PM, Konrad Dybcio wrote:
-> On 13.12.2024 11:35 AM, Akhil P Oommen wrote:
->> From: Jie Zhang <quic_jiezh@quicinc.com>
->>
->> Add gpu and gmu nodes for qcs615 chipset.
->>
->> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
->> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>  arch/arm64/boot/dts/qcom/qcs615.dtsi | 88 ++++++++++++++++++++++++++++++++++++
->>  1 file changed, 88 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/qcs615.dtsi b/arch/arm64/boot/dts/qcom/qcs615.dtsi
->> index 8df26efde3fd..dee5d3be4aa3 100644
->> --- a/arch/arm64/boot/dts/qcom/qcs615.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/qcs615.dtsi
->> @@ -387,6 +387,11 @@ smem_region: smem@86000000 {
->>  			no-map;
->>  			hwlocks = <&tcsr_mutex 3>;
->>  		};
->> +
->> +		pil_gpu_mem: pil-gpu@97715000 {
->> +			reg = <0x0 0x97715000 0x0 0x2000>;
->> +			no-map;
->> +		};
->>  	};
->>  
->>  	soc: soc@0 {
->> @@ -508,6 +513,89 @@ qup_uart0_rx: qup-uart0-rx-state {
->>  			};
->>  		};
->>  
->> +		gpu: gpu@5000000 {
->> +			compatible = "qcom,adreno-612.0", "qcom,adreno";
->> +			reg = <0x0 0x05000000 0x0 0x90000>;
->> +			reg-names = "kgsl_3d0_reg_memory";
->> +
->> +			clocks = <&gpucc GPU_CC_GX_GFX3D_CLK>,
->> +				 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
->> +				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
->> +				 <&gpucc GPU_CC_CX_GMU_CLK>,
->> +				 <&gpucc GPU_CC_CXO_CLK>;
->> +			clock-names = "core",
->> +				      "mem_iface",
->> +				      "alt_mem_iface",
->> +				      "gmu",
->> +				      "xo";
->> +
->> +			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
->> +
->> +			interconnects = <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
->> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
->> +			interconnect-names = "gfx-mem";
->> +
->> +			iommus = <&adreno_smmu 0x0 0x401>;
-> 
-> No LPAC context?
+On Fri, 13 Dec 2024 at 13:32, Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>
+> From: Jie Zhang <quic_jiezh@quicinc.com>
+>
+> Enable GPU for qcs615-ride platform and provide path for zap
+> shader.
+>
+> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
+>  arch/arm64/boot/dts/qcom/qcs615-ride.dts | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+> index ee6cab3924a6d71f29934a8debba3a832882abdd..860a0db1908cfe32a250b14aac14065923c5a575 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+> @@ -202,6 +202,14 @@ &gcc {
+>                  <&sleep_clk>;
+>  };
+>
+> +&gpu {
+> +       status = "okay";
+> +};
+> +
+> +&gpu_zap_shader {
+> +       firmware-name = "qcom/qcs615/a612_zap.mbn";
 
-Nope. A6XX_GEN1 family here.
+This brings up my usual question: should it be qcom/qcs615 (fine with
+me) or qcom/sm6150 (maybe even better?)
 
-> 
-> 
->> +			operating-points-v2 = <&gpu_opp_table>;
->> +			power-domains = <&rpmhpd RPMHPD_CX>;
->> +			qcom,gmu = <&rgmu>;
->> +
->> +			#cooling-cells = <2>;
->> +
->> +			status = "disabled";
->> +
->> +			gpu_zap_shader: zap-shader {
->> +				memory-region = <&pil_gpu_mem>;
->> +			};
->> +
->> +			gpu_opp_table: opp-table {
->> +				compatible = "operating-points-v2";
->> +
->> +				opp-435000000 {
->> +					opp-hz = /bits/ 64 <435000000>;
->> +					required-opps = <&rpmhpd_opp_svs>;
->> +					opp-peak-kBps = <3000000>;
->> +				};
-> 
-> I'm also seeing 290 MHz @ LOW_SVS
+> +};
+> +
+>  &qupv3_id_0 {
+>         status = "okay";
+>  };
+>
+> --
+> 2.45.2
+>
 
-Likely because the downstream automotive driver didn't use that corner
-for some reason. Let me check.
 
--Akhil
-
-> 
-> Konrad
-
+-- 
+With best wishes
+Dmitry
