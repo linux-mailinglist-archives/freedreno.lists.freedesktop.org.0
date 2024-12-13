@@ -2,74 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 232739F1773
-	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2024 21:38:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 758D09F1856
+	for <lists+freedreno@lfdr.de>; Fri, 13 Dec 2024 23:14:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3FD810F0D2;
-	Fri, 13 Dec 2024 20:38:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D4710E277;
+	Fri, 13 Dec 2024 22:14:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mAu7EOJe";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MLznq2oo";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1135.google.com (mail-yw1-x1135.google.com
- [IPv6:2607:f8b0:4864:20::1135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3A9110F0D9
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 20:38:18 +0000 (UTC)
-Received: by mail-yw1-x1135.google.com with SMTP id
- 00721157ae682-6f26c517979so17000527b3.2
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 12:38:18 -0800 (PST)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72D4610E277
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 22:14:38 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-30227c56b11so20666291fa.3
+ for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 14:14:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734122298; x=1734727098; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=K+k5fKdkj/4CuPycJ1siIOzYtXibL2hQFpVwz2mgPAk=;
- b=mAu7EOJeLEKtNPa0xgkusYn8UtImrTp2wUIaRwRx1aBB0ogym74HBWJoenuLevEGfB
- 49nUsNKxDgkxq1s0gyd11OhAlcLQLOPA129Ur5BuKF+5WbTSawTpkqKsAW+FnrIAbgpm
- G4IYUOPdIPnAj0+tI9JwYwDeC8oKq044+Y7TRqlX1mcf3z2QLfY3HZ5OboHPweU95XVn
- 75udPFS7mPcIsIKt6ncdK4Obh46p4yQ7EvPcmz+RTQzX/s3wfiuQSQDWP1tnar2LeEs8
- Gz55N8PI+6BFcnEvT6B5q9f8GRa1ZIV9YShaQ8NAYSZxrTjxaGO7NBUX0i8jkwTl+SYB
- foOQ==
+ d=linaro.org; s=google; t=1734128076; x=1734732876; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=piO3iEUonvXG/YpP5cYnqXXHXA3RyScwDLylgHSdgeM=;
+ b=MLznq2oo99W1gy5dQI6nCl88YGxSqqymi9YL3WC4nUpowWUxnz6Lw+4c2z3Zkw4MTR
+ aLuTS6ucVFn0qHH0Pl1plCdISa7XuWiF1mRNfs/qXk4Dr3pAkOEWPYy7378d66eD4H5t
+ 9bdO0YZ/MSqCNhLjBoq/K0EBCzQf1uas8+2HhCtG0NewTmW3UkdqwdeuFW/cKdEBgb5D
+ rXdl/tbVa68gtR9px+tmwqyv48fMNyLpcj96W2iyPyBbfJu5+pnFOLmiSiR7DPRimgfZ
+ SLJJxZRbSZ9J1HuhIEyU/BG7yVvq4hUFs2FP3q2mSjuAr0nl5/p5awY7cPqY9rTB1Ewb
+ eQtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734122298; x=1734727098;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1734128076; x=1734732876;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=K+k5fKdkj/4CuPycJ1siIOzYtXibL2hQFpVwz2mgPAk=;
- b=S3znoXeRTU9CmtDjdhDJN0BY8duOmcON7xMoCAWhkwEm4G/9sTSr2aHNOJCeRCCLWE
- bkIUX9fH39hO/NIlDH8dlT/vpiS6ie+SZ1XDhx42emszb8kZkMpx4eKSwY2c44OVZMvv
- 8Qcbc32cow5wT5NiVuy57o7pLjbkXl/blm5O5+DsRlXmjYAc5/sjhz/avnJa2ElCb0JF
- g7cagg2g/W3qWsMr1cOxrKnP5WkxZCnKcKcjdI+Xp97yZe4yk8W7HuNZskToeFNEBI//
- u6MVyRMf9RRvQR0QhiVhvM/Aakh8L5aIzgweajwfK9pHQ+rWB4IPxA1QO6+qImjdFLvm
- hJlQ==
+ bh=piO3iEUonvXG/YpP5cYnqXXHXA3RyScwDLylgHSdgeM=;
+ b=PAdhbB17EkpB8WbZ471FxPUPK4uZimAfubbBd6yHjVcG6V9C4TtYvjA7PxCAkILrEs
+ a0zHboMsEQVlJU/wX7JnrdsWU2xFB+4BtGjC7Lad5Yx1FYYR0y26bnlZ+N28A6iSxXiw
+ gug9bzrDb2dldfbhHEVqG4xQ7Us/FMcys6DbJWVunhu/U6ibXNYPakkH61tcx4KIe791
+ cGex5cK8unuEmqqKcV9Xbra2XZO4yYCtuOis1VR68lk6GKLI4acbnN7CwNpxVSOGSeq1
+ nFuJq77hEGrtX9fkMUVMwzdL59xmgSb2CC7Oqyw1MHERFaRIAkcAGdVlPd1bRW7V6iTV
+ OdAQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVxy6Hd903EB8dlKF3y7h6MKSCKupyabPFli+0a+Wwio5Smsqf02dX54IMRRmtuA+DPwIFVzUYn+cM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywmuy5gGwRMb0iuWVi7oPcLnroY9Qh3cYDdBSYUuNw1r21KDdGG
- U4OX6JsTjDwjUw69z0P0PHn6AUo8yrISIf7XgwHgP7tBtsv2T4J6LMvmfTXJW340aPoE6xrWZsi
- pxsrry2t20+6IS8G/40jBKthFzDuQwOMnzlit8w==
-X-Gm-Gg: ASbGncuy9J+DJdMogEGB3MYpQNFi5e6DdXjBuqdviXXW0Lf1qnkjMuQld6j/Cbna3GV
- ljhSxCR+jWZXSKB/mo+jKeFGvPp8WWEIowZ56gxeg4u5ZQy88LFcw
-X-Google-Smtp-Source: AGHT+IFOHxgqNg+sN7EOtBunHW1em5TfmLksd63iIdUybzrhYuWy5ZpRnCEphZhMbq+wQyfFBmYaHhDNrvmwOqtTc9M=
-X-Received: by 2002:a05:690c:fd5:b0:6ef:4a1f:36d6 with SMTP id
- 00721157ae682-6f279b23db1mr35730337b3.23.1734122297673; Fri, 13 Dec 2024
- 12:38:17 -0800 (PST)
-MIME-Version: 1.0
-References: <20241212-filter-mode-clock-v1-1-f4441988d6aa@quicinc.com>
- <onavg2s7uamgwh34ozhbt56c74ktj5chp3jnn4bw5m22y5sdjr@fktyn5yt4gmw>
- <1f71a352-ab8a-47fb-a4ed-ae0a4767aec6@quicinc.com>
-In-Reply-To: <1f71a352-ab8a-47fb-a4ed-ae0a4767aec6@quicinc.com>
+ AJvYcCUh1JtW6w21PKMOhCX23rMVRGp0W2Ad6rwmCUa7VKFSsX4fHnJBvxcbKblPCHTq3uZV+eQUkXsnC+E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwX60fIKGBzpNp+2SWDrO4MH1/7JOLlrhnkY1FbyJVBXf/66GX5
+ nFSZrCfNGvUfxxpUaGGCUh6DnU5u0oOY1e+JwI6hy5fT8PSXh0sHXA6Lka7A1e5B+O8DtG/5gRT
+ 38SLJ9g==
+X-Gm-Gg: ASbGncurrtn6T3in+Ue+fKTt7e00jKyf5P364GgRcXGxR6qmb9uSsRkAES28E4WROc2
+ 0O3knBkWZVcPBAMYqq593Pbqd+KFID/1uclCi4QxyFOEPsD62NmI2/1LM0KQ52moziYjCuaJg86
+ Af/uKUd+wdh+VSd0icVHxjLomsZUgkh83fo4rRr0M9kDu5LNNvTvS63nJHDdt9cNznSAW/tuzrD
+ YidlgGJm2/nR6JqPkkvcTznYDynjGHM227QiiSdMIhBAcYlkFGs1v1f5iNWyJWz
+X-Google-Smtp-Source: AGHT+IGbQqQ7Qu8wQL0kA96Y19GVt8yuyIETIpiRDuqRBPKtq0Iu6InmLiOUw9B5NZ9yHih+nFaIkg==
+X-Received: by 2002:a05:651c:54f:b0:300:3bcd:8d05 with SMTP id
+ 38308e7fff4ca-3025443fe17mr12038911fa.15.1734128076440; 
+ Fri, 13 Dec 2024 14:14:36 -0800 (PST)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-303441e0f43sm413451fa.125.2024.12.13.14.14.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Dec 2024 14:14:35 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 13 Dec 2024 22:38:07 +0200
-Message-ID: <CAA8EJprwE-zV1cX4OUJJfJ1en1+riHZVCQNGNYHxnPe_S=2cwA@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: Filter modes based on adjusted mode clock
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Subject: [PATCH 00/35] drm/msm/dpu: rework HW block feature handling
+Date: Sat, 14 Dec 2024 00:14:16 +0200
+Message-Id: <20241214-dpu-drop-features-v1-0-988f0662cb7e@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALixXGcC/x3MOwqAMBBF0a3I1A6YRPxtRSzEPHUaDRMVQdy7w
+ fIU9z4UoYJIXfaQ4pIo+5Zg8oymddwWsPhksoUtjTWOfTjZ6x54xnicish1VTg/OcA0LaUuKGa
+ 5/2c/vO8HvttxPGMAAAA=
+X-Change-ID: 20241213-dpu-drop-features-7603dc3ee189
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Vinod Koul <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5889;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=AGT0VwRtMSmQJOGxsFl1LCGIke4RBrOxt2Uij10pqgU=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ3rMxsOXTfVnHvEOViw5rhYkmXLKpKmjzXtdQezx2jJ3y
+ 5SCq8adjMYsDIxcDLJiiiw+BS1TYzYlh33YMbUeZhArE8gUBi5OAZhI7SMOhplWHlseaZ38crrJ
+ tP7onjQv+RlWLyPsQ92nzL3tvm/F7saIjT3zmuZ/vGp2+MWGrZrSHw7tyl3yeYHlIW3/jOSGAw9
+ v2StxhoiY7OV2PDg9y/DTpK8SHawJfutS/WLLUs7oKrs+ZPk0VVF+Q4Gi+2nZekMVo4kf9O72+k
+ i/kdw4+fbZZgv9i8YmAdefP7L+/abSYdaHJ87n+6rF7nHfsJ5oxjCVc21IiMikEvkb6X5bJhb5b
+ +Be1Zk3I15mJ6czNwujTqG1asDt9gUSRWGFps94RCsF3VwOSWZMjnqufMUtbW9o9pEY4y2VevrX
+ Xt25W6IUfePk19zwp1aSfgYuPexf7fyreeNvTNh06ZkGAA==
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,171 +105,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 13 Dec 2024 at 21:15, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
->
->
-> On 12/12/2024 5:05 PM, Dmitry Baryshkov wrote:
-> > On Thu, Dec 12, 2024 at 11:11:54AM -0800, Jessica Zhang wrote:
-> >> Filter out modes that have a clock rate greater than the max core clock
-> >> rate when adjusted for the perf clock factor
-> >>
-> >> This is especially important for chipsets such as QCS615 that have lower
-> >> limits for the MDP max core clock.
-> >>
-> >> Since the core CRTC clock is at least the mode clock (adjusted for the
-> >> perf clock factor) [1], the modes supported by the driver should be less
-> >> than the max core clock rate.
-> >>
-> >> [1] https://elixir.bootlin.com/linux/v6.12.4/source/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c#L83
-> >>
-> >> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> >> ---
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 29 +++++++++++++++++++--------
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  3 +++
-> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 12 +++++++++++
-> >>   3 files changed, 36 insertions(+), 8 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> >> index 6f0a37f954fe8797a4e3a34e7876a93d5e477642..0afd7c81981c722a1a9176062250c418255fe6d0 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> >> @@ -31,6 +31,26 @@ enum dpu_perf_mode {
-> >>      DPU_PERF_MODE_MAX
-> >>   };
-> >>
-> >> +/**
-> >> + * dpu_core_perf_adjusted_crtc_clk - Adjust given crtc clock rate according to
-> >
-> > Nit: CRTC (here and further)
-> >
-> >> + *   the perf clock factor.
-> >> + * @crtc_clk_rate - Unadjusted crtc clock rate
-> >> + * @perf_cfg: performance configuration
-> >> + */
-> >> +u64 dpu_core_perf_adjusted_crtc_clk(u64 crtc_clk_rate,
-> >> +                                const struct dpu_perf_cfg *perf_cfg)
-> >
-> > It's not just the CRTC clocks
-> >
->
-> Do you mean we should use adjusted mode clock here?
+Some time ago we started the process of converting HW blocks to use
+revision-based checks instead of having feature bits (which are easy to
+miss or to set incorrectly). Then the process of such a conversion was
+postponed. (Mostly) finish the conversion. The only blocks which still
+have feature bits are SSPP, WB and VBIF. In the rare cases where
+behaviour actually differs from platform to platform (or from block to
+block) use unsigned long bitfields, they have simpler syntax to be
+checked and don't involve test_bit() invocation.
 
-This also applies, etc. But my point was that you can not name it just
-"adjusted CRTC clock" if you also add the plane clocks handling.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Dmitry Baryshkov (35):
+      drm/msm/dpu: skip watchdog timer programming through TOP on >= SM8450
+      drm/msm/dpu: enable DPU_WB_INPUT_CTRL for DPU 5.x
+      drm/msm/dpu: stop passing mdss_ver to setup_timing_gen()
+      drm/msm/dpu: drop INTF_SC7280_MASK
+      drm/msm/dpu: inline _setup_ctl_ops()
+      drm/msm/dpu: inline _setup_dsc_ops()
+      drm/msm/dpu: inline _setup_dspp_ops()
+      drm/msm/dpu: inline _setup_mixer_ops()
+      drm/msm/dpu: remove DSPP_SC7180_MASK
+      drm/msm/dpu: get rid of DPU_CTL_HAS_LAYER_EXT4
+      drm/msm/dpu: get rid of DPU_CTL_ACTIVE_CFG
+      drm/msm/dpu: get rid of DPU_CTL_FETCH_ACTIVE
+      drm/msm/dpu: get rid of DPU_CTL_DSPP_SUB_BLOCK_FLUSH
+      drm/msm/dpu: get rid of DPU_CTL_VM_CFG
+      drm/msm/dpu: get rid of DPU_DATA_HCTL_EN
+      drm/msm/dpu: get rid of DPU_INTF_STATUS_SUPPORTED
+      drm/msm/dpu: get rid of DPU_INTF_INPUT_CTRL
+      drm/msm/dpu: get rid of DPU_PINGPONG_DSC
+      drm/msm/dpu: get rid of DPU_PINGPONG_DITHER
+      drm/msm/dpu: get rid of DPU_MDP_VSYNC_SEL
+      drm/msm/dpu: get rid of DPU_MDP_PERIPH_0_REMOVED
+      drm/msm/dpu: get rid of DPU_MDP_AUDIO_SELECT
+      drm/msm/dpu: get rid of DPU_MIXER_COMBINED_ALPHA
+      drm/msm/dpu: get rid of DPU_DIM_LAYER
+      drm/msm/dpu: get rid of DPU_DSC_HW_REV_1_2
+      drm/msm/dpu: get rid of DPU_DSC_OUTPUT_CTRL
+      drm/msm/dpu: get rid of DPU_WB_INPUT_CTRL
+      drm/msm/dpu: get rid of DPU_SSPP_QOS_8LVL
+      drm/msm/dpu: drop unused MDP TOP features
+      drm/msm/dpu: drop ununused PINGPONG features
+      drm/msm/dpu: drop ununused MIXER features
+      drm/msm/dpu: get rid of DPU_MIXER_SOURCESPLIT
+      drm/msm/dpu: get rid of DPU_DSC_NATIVE_42x_EN
+      drm/msm/dpu: get rid of DPU_CTL_SPLIT_DISPLAY
+      drm/msm/dpu: move features out of the DPU_HW_BLK_INFO
 
->
-> >> +{
-> >> +    u32 clk_factor;
-> >> +
-> >> +    clk_factor = perf_cfg->clk_inefficiency_factor;
-> >> +    if (clk_factor) {
-> >> +            crtc_clk_rate *= clk_factor;
-> >> +            do_div(crtc_clk_rate, 100);
-> >> +    }
-> >> +
-> >> +    return crtc_clk_rate;
-> >> +}
-> >> +
-> >>   /**
-> >>    * _dpu_core_perf_calc_bw() - to calculate BW per crtc
-> >>    * @perf_cfg: performance configuration
-> >> @@ -76,7 +96,6 @@ static u64 _dpu_core_perf_calc_clk(const struct dpu_perf_cfg *perf_cfg,
-> >>      struct dpu_plane_state *pstate;
-> >>      struct drm_display_mode *mode;
-> >>      u64 crtc_clk;
-> >
-> > While you are at it, could you please also add a patch, replacing height
-> > * vidth * vrefresh with mode->clock * 1000? The former one has limited
-> > precision.
-> >
-> >> -    u32 clk_factor;
-> >>
-> >>      mode = &state->adjusted_mode;
-> >>
-> >> @@ -90,13 +109,7 @@ static u64 _dpu_core_perf_calc_clk(const struct dpu_perf_cfg *perf_cfg,
-> >>              crtc_clk = max(pstate->plane_clk, crtc_clk);
-> >>      }
-> >
-> > This function calculates crtc_clk as max(plane_clk, crtc_clk). Shouldn't
-> > we also reject the atomic_state if for any of the planes the corrected
-> > clock is lower than max_core_clk_rate
-> >
->
-> You mean higher than max_core_clk_rate? If so, yes we can fix that up.
+ .../drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h    |  53 +++-----
+ .../drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h   |   4 -
+ .../drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h   |   3 -
+ .../drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h   |   4 -
+ .../drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h    |  15 +--
+ .../drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h    |  19 +--
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h |  19 +--
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h |  12 +-
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h |  21 +---
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h |   1 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h |  41 ++-----
+ .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |  43 ++-----
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h |  31 ++---
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h |  14 ---
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h |  42 ++-----
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h |  14 +--
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_3_sm6115.h |   5 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h |  16 +--
+ .../drm/msm/disp/dpu1/catalog/dpu_6_5_qcm2290.h    |   5 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_9_sm6375.h |   6 -
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h |  44 ++-----
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h |  22 +---
+ .../drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h   |  50 ++------
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h |  47 ++------
+ .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    |  53 ++------
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h |  47 ++------
+ .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   |  52 ++------
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |   2 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   3 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |   7 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  51 +-------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     | 134 ++-------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         | 106 ++++++++--------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |   4 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c         |  21 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h         |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc_1_2.c     |   7 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c        |  10 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |  14 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |   5 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c          |  28 ++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.h          |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c     |   5 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        |   5 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h        |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c         |  11 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |  17 ++-
+ 50 files changed, 295 insertions(+), 836 deletions(-)
+---
+base-commit: 789384eb1437aed94155dc0eac8a8a6ba1baf578
+change-id: 20241213-dpu-drop-features-7603dc3ee189
 
-Yes
-
->
-> >>
-> >> -    clk_factor = perf_cfg->clk_inefficiency_factor;
-> >> -    if (clk_factor) {
-> >> -            crtc_clk *= clk_factor;
-> >> -            do_div(crtc_clk, 100);
-> >> -    }
-> >> -
-> >> -    return crtc_clk;
-> >> +    return dpu_core_perf_adjusted_crtc_clk(crtc_clk, perf_cfg);
-> >>   }
-> >>
-> >>   static struct dpu_kms *_dpu_crtc_get_kms(struct drm_crtc *crtc)
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> >> index 451bf8021114d9d4a2dfdbb81ed4150fc559c681..c3bcd567cdfb66647c83682d1feedd69e33f0680 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> >> @@ -54,6 +54,9 @@ struct dpu_core_perf {
-> >>      u64 fix_core_ab_vote;
-> >>   };
-> >>
-> >> +u64 dpu_core_perf_adjusted_crtc_clk(u64 clk_rate,
-> >> +                                const struct dpu_perf_cfg *perf_cfg);
-> >> +
-> >>   int dpu_core_perf_crtc_check(struct drm_crtc *crtc,
-> >>              struct drm_crtc_state *state);
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> >> index ad3462476a143ec01a3b8817a2c85b0f50435a9e..cd7b84ab57a7526948c2beb7c5cefdddcbe4f6d9 100644
-> >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> >> @@ -1257,6 +1257,7 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
-> >>                                              const struct drm_display_mode *mode)
-> >>   {
-> >>      struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
-> >> +    u64 adjusted_mode_clk;
-> >>
-> >>      /* if there is no 3d_mux block we cannot merge LMs so we cannot
-> >>       * split the large layer into 2 LMs, filter out such modes
-> >> @@ -1264,6 +1265,17 @@ static enum drm_mode_status dpu_crtc_mode_valid(struct drm_crtc *crtc,
-> >>      if (!dpu_kms->catalog->caps->has_3d_merge &&
-> >>          mode->hdisplay > dpu_kms->catalog->caps->max_mixer_width)
-> >>              return MODE_BAD_HVALUE;
-> >> +
-> >> +    adjusted_mode_clk = dpu_core_perf_adjusted_crtc_clk(mode->clock,
-> >> +                                                        dpu_kms->perf.perf_cfg);
-> >> +
-> >> +    /*
-> >> +     * The given mode, adjusted for the perf clock factor, should not exceed
-> >> +     * the max core clock rate
-> >> +     */
-> >> +    if (adjusted_mode_clk > dpu_kms->perf.max_core_clk_rate / 1000)
-> >> +            return MODE_CLOCK_HIGH;
-> >> +
-> >>      /*
-> >>       * max crtc width is equal to the max mixer width * 2 and max height is 4K
-> >>       */
-> >>
-> >> ---
-> >> base-commit: 423c1c96d6b2d3bb35072e33a5fdd8db6d2c0a74
-> >> change-id: 20241212-filter-mode-clock-8cb2e769f05b
-> >>
-> >> Best regards,
-> >> --
-> >> Jessica Zhang <quic_jesszhan@quicinc.com>
-> >>
-> >
-
-
-
+Best regards,
 -- 
-With best wishes
-Dmitry
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
