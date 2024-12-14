@@ -2,121 +2,144 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3B6E9F1A44
-	for <lists+freedreno@lfdr.de>; Sat, 14 Dec 2024 00:46:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 564399F1ECC
+	for <lists+freedreno@lfdr.de>; Sat, 14 Dec 2024 14:37:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FDAA10E164;
-	Fri, 13 Dec 2024 23:46:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7749610E0A7;
+	Sat, 14 Dec 2024 13:37:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gZqrro9X";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OR0OVJOd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4657010F125
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 23:46:14 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BDM1bow018931
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 23:46:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- A3QIerfx78NmYkCrlJfcZSdKmbPQzIVKrXzxKR8GzwQ=; b=gZqrro9Xq6luInFH
- fKdSPF3V07/iUegNtsRGUSFf6J041zkpWMldxDp70NnI0IvX/pSqT7UjlDXeJo9v
- t3tqqKq7VwynQKaThojT8NRYagmbmVqx1ZCuXucHmw0eXxcuCv7cKTOtOFqt01yp
- hmWtwHUhUTjtyPMV/gVXNC2TfAoGLJ00BCbWZBAJzOEB9W20jTpUapo+sSgwIAjI
- TounpVek0PPEMoUBJNCuZLQGgvGobqwMqwVdNEQoVfiNDbKHW2l3X2UYIGsWIzas
- GnNc9tzDu9Wqrq1CtJ2tP40FGPnSp90WvqY5R1XBpeEnHYtURv24NcJFf9f1NRwZ
- tTNO+Q==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43gjnb1wq9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 23:46:13 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4679ef4565aso4631601cf.2
- for <freedreno@lists.freedesktop.org>; Fri, 13 Dec 2024 15:46:13 -0800 (PST)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84A2F10E0A7
+ for <freedreno@lists.freedesktop.org>; Sat, 14 Dec 2024 13:37:13 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-53f22fd6832so2780676e87.1
+ for <freedreno@lists.freedesktop.org>; Sat, 14 Dec 2024 05:37:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1734183432; x=1734788232; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=D5Yifu5AHqHdXbQoT1ZLOpnCiREtj9Cd9aALDn2mK+0=;
+ b=OR0OVJOdeRRCp8MjZa1V8fmVVa9aehr2OMdCl9ADzCLQSP9Rpl/AybHry9cQP0fyqy
+ L9pMDBDl68Wkl9ywG0fqnEoSnCvJFuukthUof9Eko6LTMitf3f6WUyLyVT+yWQU3ysKf
+ RLNXP0ls/MMeZn6mqTgfqjsa9/g8PHGBeuxnYpPV5gvOX9qGg+azhxu9C1RNWlnWzSJ+
+ U8zSxLLHhZTZG+61onX9vjXoEh6k4BLevpzVTzwiu/+lT4zvEG4JxL5TlcoPPuWr+Mgb
+ 0awVtXj6AayzhkjIOuw+/yaB8ftgv27yGe6erpWg8BEsK1+Mm9+ajgd919zpJhD+cy0P
+ yAoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734133572; x=1734738372;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=A3QIerfx78NmYkCrlJfcZSdKmbPQzIVKrXzxKR8GzwQ=;
- b=ZH+enbnLndf6OKulBonZZklrxoOF8gsG7w2PmEZYtLSYW9nvczJijaZ7SBZFYAdj3t
- t8AR1qPu9uqOi+gneS/M2pvDnY8q0//azRw/Kg1HSgvIIE1Z1ANPqqsnTKP4VpEQRo8T
- +Cg6wLkKQm/0Q7/lgg1JFaQ758+ar58oEsqrrMOGq8IkE6Y5LUTDIfPaSV9EBjmP/eLD
- MmRLsjzbCGSahn3HY416X7clflwVhA0s2Md6Gr/iy74PxadQRDMeeUJ/VdB8FGxEJYBo
- 8j3t30+jaSemkug/Fc4601cK8adSkjT6122Qsqec7W5/9YudZ0agM9vAWmSfmy2OFrXe
- 2x/A==
+ d=1e100.net; s=20230601; t=1734183432; x=1734788232;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=D5Yifu5AHqHdXbQoT1ZLOpnCiREtj9Cd9aALDn2mK+0=;
+ b=GGboHlxQbOuJMbgeLkPov0/VTY0bSArO/nBrHQDN/huNbr1dbQws1RlJjsMKlVkciQ
+ 8WZAlqufgeuSattygsEYwhTZIapUKf9MyRwfer8AL3cGBjhLao37+ux/tgdYHXewFH4g
+ i77yX/iM73O+vl/o7gGTaVFnkUnOmmZ+zbrUcL4QN0ojf5t8gjLmUwGXZ/AYnRFJDnkl
+ ofObWHQiEWIw3o9G6vh2lUyAd+iJymQPKFSbR3Xff6PyNL/xEeg7vCGsokKHClSlFa6I
+ Eva14HxXJLLbpEKnfPVdy2jKSrTn4AM+WN+nzzvbfkatmSU/2Simo8RwkLnYsmOGG+6q
+ dK0Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXYqERlsGNn4fhdynmByMSOb55FYjQJLB2RiohP3jqL2gSM3MBbEbrCescCeqnT2AqE78wuFamKCLE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx5GRB+3R+NRdZxnyQBQ5A6E/11s7M5XMSRCk4YNlPErp8oOxqJ
- Kqa9T5Mgm79a/w+haNuh7INHrISorBx69kwsn9HrHRoYZBJ7zCgikl8jVygRJxsrAqCzaswKYMa
- Tkj58VnV5AldCWGq+1F0c3uwxnNrS4cFsUYTV2AoLyLmPnRvczjBZXt+nqF0PqIMAtCI=
-X-Gm-Gg: ASbGncu772k/oRYuxp0BLkiil3khaFARyOwyis7yzFhREluaiG4brFYJRo1qlkEJzVA
- lI92qFlIpHTlzNW92vhXyjw9OYzchtJ1qkT4d5fNp+ChY5eVZY3WnDQ692Di1lptgggPE2BeA+v
- v8mOyGpka14MTOeScsXxQ+0WuX7oiZQA5xFszOitpTbMHW4/cc1gkYMUHcmfSjzcFgiNB+Ztnun
- BusUg0nAsSr8T40USNj1t1s8/VbWXdNVHb8IEVJ4dTLxj0opKwCrd9EFE8FB9g6sWBc2NiGUxfY
- 9P9E+0OwHSVLILzXTV2UJsoQuVIELoZYHKk=
-X-Received: by 2002:a05:622a:1306:b0:467:5eaf:7d23 with SMTP id
- d75a77b69052e-467a5720eebmr29977431cf.2.1734133572197; 
- Fri, 13 Dec 2024 15:46:12 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IE1rwFoU7hAM5HFaRUBQFO6amnIenH6rDzSz7apTrGST9e0IKot5CQTz+/0AqZmQjtaXr+0AA==
-X-Received: by 2002:a05:622a:1306:b0:467:5eaf:7d23 with SMTP id
- d75a77b69052e-467a5720eebmr29977261cf.2.1734133571808; 
- Fri, 13 Dec 2024 15:46:11 -0800 (PST)
-Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d652ad1805sm319345a12.27.2024.12.13.15.46.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Dec 2024 15:46:10 -0800 (PST)
-Message-ID: <f730135f-b952-4f5c-bcb8-dc725e7db336@oss.qualcomm.com>
-Date: Sat, 14 Dec 2024 00:46:07 +0100
+ AJvYcCUeI5CDJAAHiTa05M1hWLe30bOx3xdRcPeEFvQILcc9VcZngzV8xkHCYFSwJqr8QNbR39jP7BGwNBI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVwq9rP/OxZZBHP/svfP5JBhhI5ewZRqt70dyMCAbiZNu9bp/h
+ bJepiCZIu3D1t0L4Dj+Sgyfe13Db/PsjQm0ge6/B83KrKbHaxo4Klg8SvUZfS00=
+X-Gm-Gg: ASbGncsR9QK+XlFnqDKkseIWC1s09qML54nmAQjq1alRyjMwnRQCRAfu+hc7+W5iCDa
+ y2oOmAfB6j+CpfvUt1nWfpq0m0LpdVuU1rypTEG+d1TTYJFsjwMlJ1ur/MW39XtHNjS/DesjPqh
+ Ctr9yZCrANQjUdhKvBukMmrWLJd/eFDKt1RMkd0vOwCe8J7BMVEVJ2lMxm1w0uLBeDCpZpcweFt
+ rMzRB6PqhT/vAzQxZjB5zKMeRP93X66wYFnq/FTgsH6BZTiWXvd+WoC3ePgWmiw
+X-Google-Smtp-Source: AGHT+IEmz28NMTXAP81JXsAlUmRjxWGG4URFEoZPW2057H7lgb26FPjGbNMLBZ5J86SvfmTU0Z3DXQ==
+X-Received: by 2002:a05:6512:ba3:b0:540:3567:2ede with SMTP id
+ 2adb3069b0e04-5408ad822dcmr1895173e87.12.1734183431555; 
+ Sat, 14 Dec 2024 05:37:11 -0800 (PST)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54120baa474sm220131e87.90.2024.12.14.05.37.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 14 Dec 2024 05:37:10 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH v2 0/5] drm/connector: make mode_valid() callback accept
+ const mode pointer
+Date: Sat, 14 Dec 2024 15:37:04 +0200
+Message-Id: <20241214-drm-connector-mode-valid-const-v2-0-4f9498a4c822@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/7] drm/msm: adreno: find bandwidth index of OPP and
- set it along freq index
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>, neil.armstrong@linaro.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20241211-topic-sm8x50-gpu-bw-vote-v5-0-6112f9f785ec@linaro.org>
- <20241211-topic-sm8x50-gpu-bw-vote-v5-4-6112f9f785ec@linaro.org>
- <ddf91ba2-cab2-4653-b842-65a8e82b5160@oss.qualcomm.com>
- <2f1c6deb-29f8-4144-b086-743fb0f8495c@linaro.org>
- <80bed70e-7802-4555-a15e-e06fe46214c6@quicinc.com>
- <c2d8f443-5876-4293-8d2b-ecd13eaf8285@oss.qualcomm.com>
- <268d67c0-efdf-4ad4-b5fe-5b4f04e73131@linaro.org>
- <0d4d3ca3-ec8a-4e85-9838-a2bf1e07e872@oss.qualcomm.com>
- <9dcf26e5-1c25-4a18-ab01-58ddf3fbd607@linaro.org>
- <cf298ca5-e2fe-4e0e-a0e7-a2cdad3c657b@quicinc.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <cf298ca5-e2fe-4e0e-a0e7-a2cdad3c657b@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: owzr7Aq89u5Rumkvw-a3JM56k43gKWJa
-X-Proofpoint-GUID: owzr7Aq89u5Rumkvw-a3JM56k43gKWJa
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 phishscore=0
- priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0 mlxscore=0
- suspectscore=0 mlxlogscore=999 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2411120000 definitions=main-2412130169
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAACKXWcC/42NTQqDMBBGr1Jm3SlOrApd9R7FRX5GHdCkJBJax
+ Ls3eoIu34PvfRskjsIJHpcNImdJEnwBdb2AnbQfGcUVBlWpOxE16OKCNnjPdg0Rl+AYs57FHTK
+ tqLl2puKhtaaDEnlHHuRzHrz6wpOksvuef5kO+3c6E1ZoyDSqpqYdOnrO4nUMtxBH6Pd9/wHZe
+ zDbzQAAAA==
+X-Change-ID: 20241115-drm-connector-mode-valid-const-ae3db0ef6cb7
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Peter Senna Tschudin <peter.senna@gmail.com>, Ian Ray <ian.ray@ge.com>, 
+ Martyn Welch <martyn.welch@collabora.co.uk>, 
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Stefan Agner <stefan@agner.ch>, 
+ Alison Wang <alison.wang@nxp.com>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ spice-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Jani Nikula <jani.nikula@intel.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6418;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=CFKCP8gmNVOgeqNjr+3QJjtmtNC/tAX/00xUMnJ/tTs=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnXYoDmM2S87MrW8vu+JbVhyOODFafbOCaZxOjt
+ xp9pGfUjhmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ12KAwAKCRCLPIo+Aiko
+ 1eEwB/4jmBS/ZZEzFjxaESTGxzhJNhkCvznhOV0ymm9HyVmb5cREFRRAYjI5LoTWx7bG2RoJpPx
+ UvuWQ54Hy/EBhfpWcduIr/JhudedQ7jBPBIKLI9pTuxk9R5EX73GEkl63Fke70Rl4RJk106amoZ
+ L5UKcCV/8bd4eJp0zytj96tqIz4Ck6AKNLE/phVZ9qgSiEy8WyBf4S97qdT56EH3M7y0HwvvZUR
+ hYu0+I8MmFd53hj3SU9abEOy2j4vRwWzuePJ9fgEjSd8QoY+ntVzjh+bjurDQ8D7x0pTI/WJqrS
+ 6pXMPMXEdtL00Ib+8dAXox6yumWc5m53LQxFithWGBOqgCaL
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,122 +155,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 13.12.2024 5:55 PM, Akhil P Oommen wrote:
-> On 12/13/2024 10:10 PM, neil.armstrong@linaro.org wrote:
->> On 13/12/2024 17:31, Konrad Dybcio wrote:
->>> On 13.12.2024 5:28 PM, neil.armstrong@linaro.org wrote:
->>>> On 13/12/2024 16:37, Konrad Dybcio wrote:
->>>>> On 13.12.2024 2:12 PM, Akhil P Oommen wrote:
->>>>>> On 12/13/2024 3:07 AM, Neil Armstrong wrote:
->>>>>>> On 12/12/2024 21:21, Konrad Dybcio wrote:
->>>>>>>> On 11.12.2024 9:29 AM, Neil Armstrong wrote:
->>>>>>>>> The Adreno GPU Management Unit (GMU) can also scale the DDR
->>>>>>>>> Bandwidth
->>>>>>>>> along the Frequency and Power Domain level, until now we left
->>>>>>>>> the OPP
->>>>>>>>> core scale the OPP bandwidth via the interconnect path.
->>>>>>>>>
->>>>>>>>> In order to enable bandwidth voting via the GPU Management
->>>>>>>>> Unit (GMU), when an opp is set by devfreq we also look for
->>>>>>>>> the corresponding bandwidth index in the previously generated
->>>>>>>>> bw_table and pass this value along the frequency index to the GMU.
->>>>>>>>>
->>>>>>>>> The GMU also takes another vote called AB which is a 16bit
->>>>>>>>> quantized
->>>>>>>>> value of the floor bandwidth against the maximum supported
->>>>>>>>> bandwidth.
->>>>>>>>>
->>>>>>>>> The AB is calculated with a default 25% of the bandwidth like the
->>>>>>>>> downstream implementation too inform the GMU firmware the minimal
->>>>>>>>> quantity of bandwidth we require for this OPP.
->>>>>>>>>
->>>>>>>>> Since we now vote for all resources via the GMU, setting the OPP
->>>>>>>>> is no more needed, so we can completely skip calling
->>>>>>>>> dev_pm_opp_set_opp() in this situation.
->>>>>>>>>
->>>>>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>>>>>> Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>>>>>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>>>>>>>> ---
->>>>>>>>>     drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 39 +++++++++++++++++
->>>>>>>>> +++++++
->>>>>>>>> +++++++++--
->>>>>>>>>     drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  2 +-
->>>>>>>>>     drivers/gpu/drm/msm/adreno/a6xx_hfi.c |  6 +++---
->>>>>>>>>     drivers/gpu/drm/msm/adreno/a6xx_hfi.h |  5 +++++
->>>>>>>>>     4 files changed, 46 insertions(+), 6 deletions(-)
->>>>>>>>>
->>>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/
->>>>>>>>> gpu/drm/
->>>>>>>>> msm/adreno/a6xx_gmu.c
->>>>>>>>> index
->>>>>>>>> 36696d372a42a27b26a018b19e73bc6d8a4a5235..46ae0ec7a16a41d55755ce04fb32404cdba087be 100644
->>>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>>>>>>> @@ -110,9 +110,11 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu,
->>>>>>>>> struct dev_pm_opp *opp,
->>>>>>>>>                    bool suspended)
->>>>>>>>>     {
->>>>>>>>>         struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>>>>>>>> +    const struct a6xx_info *info = adreno_gpu->info->a6xx;
->>>>>>>>>         struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->>>>>>>>>         struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
->>>>>>>>>         u32 perf_index;
->>>>>>>>> +    u32 bw_index = 0;
->>>>>>>>>         unsigned long gpu_freq;
->>>>>>>>>         int ret = 0;
->>>>>>>>>     @@ -125,6 +127,37 @@ void a6xx_gmu_set_freq(struct msm_gpu
->>>>>>>>> *gpu,
->>>>>>>>> struct dev_pm_opp *opp,
->>>>>>>>>             if (gpu_freq == gmu->gpu_freqs[perf_index])
->>>>>>>>>                 break;
->>>>>>>>>     +    /* If enabled, find the corresponding DDR bandwidth
->>>>>>>>> index */
->>>>>>>>> +    if (info->bcms && gmu->nr_gpu_bws > 1) {
->>>>>>>>
->>>>>>>> if (gmu->nr_gpu_bws)
->>>>>>>
->>>>>>> gmu->nr_gpu_bws == 1 means there's not BW in the OPPs (index 0 is the
->>>>>>> "off" state)
->>>>>>>
->>>>>>>>
->>>>>>>>> +        unsigned int bw = dev_pm_opp_get_bw(opp, true, 0);
->>>>>>>>> +
->>>>>>>>> +        for (bw_index = 0; bw_index < gmu->nr_gpu_bws - 1;
->>>>>>>>> bw_index+
->>>>>>>>> +) {
->>>>>>>>> +            if (bw == gmu->gpu_bw_table[bw_index])
->>>>>>>>> +                break;
->>>>>>>>> +        }
->>>>>>>>> +
->>>>>>>>> +        /* Vote AB as a fraction of the max bandwidth */
->>>>>>>>> +        if (bw) {
->>>>>>>>
->>>>>>>> This seems to only be introduced with certain a7xx too.. you should
->>>>>>>> ping the GMU with HFI_VALUE_GMU_AB_VOTE to check if it's supported
->>>>>>>
->>>>>>> Good point
->>>>>>
->>>>>> No no. Doing this will trigger some assert in pre-A750 gmu
->>>>>> firmwares. We
->>>>>> learned it the hard way. No improvisation please. :)
->>>>>
->>>>> We shouldn't be sending that AB data to firmware that doesn't expect
->>>>> it either too, though..
->>>>
->>>> Well we don't !
->>>
->>> The code in the scope that I quoted above does that
->>
->> No it doesn't, if the proper bcms are not declared in the gpu_info, it
->> won't
-> 
-> I think what Konrad meant was that IB voting is supported from a650+,
-> but AB voting is support only from a750+. So we can add bcm nodes to
-> enable IB voting, but how do we ensure AB voting via GMU is done only on
-> a750+.
+While working on the generic mode_valid() implementation for the HDMI
+Connector framework I noticed that unlike other DRM objects
+drm_connector accepts non-const pointer to struct drm_display_mode,
+while obviously mode_valid() isn't expected to modify the argument.
 
-Yep, relying on incomplete data in the catalog is not a great way
-to ensure that
+Mass-change the DRM framework code to pass const argument to that
+callback.
 
-Konrad
+The series has been compile-tested with defconfig for x86-64, arm and
+arm64.
+
+Note: yes, I understand that this change might be hard to review and
+merge. The only viable option that I foresee is to add new callback,
+having the const argument and migrate drivers into using it one by one.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v2:
+- Rebased on top of linux-next
+- Replaced 'accept const argument' with 'take a const arugment'
+  (Laurent)
+- Link to v1: https://lore.kernel.org/r/20241115-drm-connector-mode-valid-const-v1-0-b1b523156f71@linaro.org
+
+---
+Dmitry Baryshkov (5):
+      drm/encoder_slave: make mode_valid accept const struct drm_display_mode
+      drm/amdgpu: don't change mode in amdgpu_dm_connector_mode_valid()
+      drm/sti: hda: pass const struct drm_display_mode* to hda_get_mode_idx()
+      drm/connector: make mode_valid_ctx take a const struct drm_display_mode
+      drm/connector: make mode_valid take a const struct drm_display_mode
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c           |  8 ++++----
+ drivers/gpu/drm/amd/amdgpu/atombios_dp.c                 |  2 +-
+ drivers/gpu/drm/amd/amdgpu/atombios_dp.h                 |  2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c        | 12 +++++++++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h        |  2 +-
+ drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c |  2 +-
+ drivers/gpu/drm/arm/malidp_mw.c                          |  2 +-
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c             |  2 +-
+ drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c      |  2 +-
+ drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c |  7 -------
+ drivers/gpu/drm/display/drm_bridge_connector.c           |  2 +-
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c          |  2 +-
+ drivers/gpu/drm/drm_crtc_helper_internal.h               |  2 +-
+ drivers/gpu/drm/drm_probe_helper.c                       |  2 +-
+ drivers/gpu/drm/exynos/exynos_hdmi.c                     |  2 +-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c                |  2 +-
+ drivers/gpu/drm/gma500/cdv_intel_crt.c                   |  2 +-
+ drivers/gpu/drm/gma500/cdv_intel_dp.c                    |  2 +-
+ drivers/gpu/drm/gma500/cdv_intel_hdmi.c                  |  2 +-
+ drivers/gpu/drm/gma500/cdv_intel_lvds.c                  |  2 +-
+ drivers/gpu/drm/gma500/oaktrail_hdmi.c                   |  2 +-
+ drivers/gpu/drm/gma500/psb_intel_drv.h                   |  2 +-
+ drivers/gpu/drm/gma500/psb_intel_lvds.c                  |  2 +-
+ drivers/gpu/drm/gma500/psb_intel_sdvo.c                  |  2 +-
+ drivers/gpu/drm/i2c/ch7006_drv.c                         |  2 +-
+ drivers/gpu/drm/i2c/sil164_drv.c                         |  2 +-
+ drivers/gpu/drm/i915/display/dvo_ch7017.c                |  2 +-
+ drivers/gpu/drm/i915/display/dvo_ch7xxx.c                |  2 +-
+ drivers/gpu/drm/i915/display/dvo_ivch.c                  |  2 +-
+ drivers/gpu/drm/i915/display/dvo_ns2501.c                |  2 +-
+ drivers/gpu/drm/i915/display/dvo_sil164.c                |  2 +-
+ drivers/gpu/drm/i915/display/dvo_tfp410.c                |  2 +-
+ drivers/gpu/drm/i915/display/icl_dsi.c                   |  2 +-
+ drivers/gpu/drm/i915/display/intel_crt.c                 |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp.c                  |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c              |  2 +-
+ drivers/gpu/drm/i915/display/intel_dsi.c                 |  2 +-
+ drivers/gpu/drm/i915/display/intel_dsi.h                 |  2 +-
+ drivers/gpu/drm/i915/display/intel_dvo.c                 |  2 +-
+ drivers/gpu/drm/i915/display/intel_dvo_dev.h             |  2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c                |  2 +-
+ drivers/gpu/drm/i915/display/intel_lvds.c                |  2 +-
+ drivers/gpu/drm/i915/display/intel_sdvo.c                |  2 +-
+ drivers/gpu/drm/i915/display/intel_tv.c                  |  2 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c                   |  2 +-
+ drivers/gpu/drm/imx/ipuv3/imx-tve.c                      |  2 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c      |  2 +-
+ drivers/gpu/drm/nouveau/dispnv04/tvnv17.c                |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c                  |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_connector.c              |  2 +-
+ drivers/gpu/drm/qxl/qxl_display.c                        |  2 +-
+ drivers/gpu/drm/radeon/atombios_dp.c                     |  2 +-
+ drivers/gpu/drm/radeon/radeon_connectors.c               | 10 +++++-----
+ drivers/gpu/drm/radeon/radeon_mode.h                     |  2 +-
+ drivers/gpu/drm/rockchip/cdn-dp-core.c                   |  2 +-
+ drivers/gpu/drm/rockchip/inno_hdmi.c                     |  4 ++--
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c                   |  2 +-
+ drivers/gpu/drm/sti/sti_dvo.c                            |  2 +-
+ drivers/gpu/drm/sti/sti_hda.c                            | 12 ++++++------
+ drivers/gpu/drm/sti/sti_hdmi.c                           |  2 +-
+ drivers/gpu/drm/tegra/dsi.c                              |  2 +-
+ drivers/gpu/drm/tegra/hdmi.c                             |  2 +-
+ drivers/gpu/drm/tegra/sor.c                              |  2 +-
+ drivers/gpu/drm/vc4/vc4_txp.c                            |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_display.c                 |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                      |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                      |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c                     |  2 +-
+ include/drm/display/drm_hdmi_state_helper.h              |  2 +-
+ include/drm/drm_encoder_slave.h                          |  2 +-
+ include/drm/drm_modeset_helper_vtables.h                 |  4 ++--
+ 71 files changed, 92 insertions(+), 93 deletions(-)
+---
+base-commit: 4176cf5c5651c33769de83bb61b0287f4ec7719f
+change-id: 20241115-drm-connector-mode-valid-const-ae3db0ef6cb7
+
+Best regards,
+-- 
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
