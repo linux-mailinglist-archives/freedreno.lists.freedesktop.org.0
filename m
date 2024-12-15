@@ -1,82 +1,97 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E79E99F2418
-	for <lists+freedreno@lfdr.de>; Sun, 15 Dec 2024 14:10:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 25E759F26A2
+	for <lists+freedreno@lfdr.de>; Sun, 15 Dec 2024 23:44:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACCC110E0D5;
-	Sun, 15 Dec 2024 13:10:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F237610E115;
+	Sun, 15 Dec 2024 22:44:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="uCzPSGk5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="W159ikD4";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3308810E38B
- for <freedreno@lists.freedesktop.org>; Sun, 15 Dec 2024 13:10:57 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-3003d7ca01cso32594061fa.0
- for <freedreno@lists.freedesktop.org>; Sun, 15 Dec 2024 05:10:57 -0800 (PST)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 038B510E115
+ for <freedreno@lists.freedesktop.org>; Sun, 15 Dec 2024 22:44:15 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-3011c7b39c7so38392461fa.1
+ for <freedreno@lists.freedesktop.org>; Sun, 15 Dec 2024 14:44:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734268255; x=1734873055; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+cnbx6Y9yMJBvsPZY055b2Z+E7Q3d8VBnIiflj19jBI=;
- b=uCzPSGk58kI+3Ba2bJE33D8zsjL/oIXNKDhZ8Hlh7QcQv+yLzKSnnVaaPHb+UsBTZS
- 5REurEwLxLjPfr4+K3Dxt6N/f8A4eYTBvY/q8xzKK826a7yJLe2cWFBvbRpKQ00HbtAn
- uAhridAmV7dwpS2NI6g2QZ1stIbceodiXV4q9xe/RsgULjAFNPckWLTOLogINF7c8iXr
- UlotXV+sHXfsVLBh1AEzRA2n2OK+mbKb89HBin/9aO4PLTSFxWz+aoItkchvs4OqL5k3
- 1VHiOfW1VewtGel66zZb2AaArzwoFfeUcyOgIroRjRG3sG5b0zJKk92khR47VfjPpJHf
- uw8A==
+ d=linaro.org; s=google; t=1734302654; x=1734907454; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=wiyM++KsOVFJwW6aj3SElwGQilAMp0843gWRbVSsNyE=;
+ b=W159ikD4v62lt7lp2gI24YJiyLxeIDhNqqmi1gBF/gWHCG1J9ycBKqzYLCsRbkcVqb
+ wgmjG8RgRMnigzxs9cTQl37DN/lfJt69vTL3v80ZHXssUBcpgM0z1Q47B/YbXl7vUOPu
+ Fx5tSdUF1lcwYIaxw6nR2my3PwTlpkj9ESqWf8flx21kXIbcdySIb0ok6fdtVLK4zdDA
+ qtDKgJbTezO87Da7pyjFaZFffO91ofx1olADyUEORgdDTzOJ7dIRa4US/I5abIWCKf0W
+ 4fZs/pOuIal3Kz6btPf69pCVLeiHsuETMVHos738HIkZJ0WAWsOuG441qi3TgqWKEQft
+ R3FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734268255; x=1734873055;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+cnbx6Y9yMJBvsPZY055b2Z+E7Q3d8VBnIiflj19jBI=;
- b=qtx+h1iPkDs42rk3HWf7A4iV+M3gbpECvSNjfplGujl6gby7e2M6GxtxZW5u2EeiUG
- 4ifUIOn13GhURChwfBTfJC1f3TeWU5GdJBJbyqnqsePI2hLI7Is/X7z5o94H/0y6TenN
- Ez270HmrEfjXKZepZ69AhDtbAkPMFht7+ywkugpNWNqkgUHtyf76IY6R85ZOV74C8tJR
- UIohM6ko/f4UGUpvpjg98+qpcByscFpGV2rSbqmRVTiRnqC5+DlLEv8aTcFR69MtcpR1
- /rDHBTJW8MQVvC42Ib+uH0JWvouDuDRiNFkOZoVlV2yqFWULi/wsU3l9m0JwZ17I2ZTc
- rBFw==
+ d=1e100.net; s=20230601; t=1734302654; x=1734907454;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=wiyM++KsOVFJwW6aj3SElwGQilAMp0843gWRbVSsNyE=;
+ b=fGgAapRrsB72tbEjS/Vvir9Q5vknVu8pd4BcsCrEU/o/3mQVDqK+jJX/kK0QLRpWhz
+ yP/7Tr5Eg2XE681K2nFx5/ntmp0bGhn6KuO0EL71L99oDYFVpDX9sw33aYpCf1r2i0C0
+ jQkjhDIjUOxhfTsdfhO3WnZYz21bsW6Pkcj90V7xUjaXvQ8KxxyvptQoDBSNj1UEFEop
+ 8T6dxzL+sJ3Ioi6JMQzrXtArVMrvzEk6F23uPtKwSPlIolmZN0ryaGEHvH1rZkP1zOYN
+ zeKGht2FLaLdDO05Lz7G5DA6QSK6DJ8Kp/PCgQ4i9DwqEpuTzMSD5GSTEqkn9FdGXKiQ
+ 6bFw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVOXB8krYZoSABrxiYCoZMlx7OgTdPEXJZ2L0GtDM4q/vcOns/jUWF5d8NMlZw7IDyQCzRLfCmd1i4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxdkk4cR7hdI3len6oFFpV9uZgsG2v49Fqn8OFL8odbb8K3VfnY
- DSINnH1G8Yts9PjdIymHTpXKWvZEARuxTIndD3I+86SlivmO65S7+9FkXnKKN2w=
-X-Gm-Gg: ASbGncuvdadfvyoeWY8dtp9Jtc7IZJRFtgEQdBUaGiuGhfntqzGon8EfPE9dFVzqODs
- r9abOjtqjU3rSZ1prH3S8X6nbP+ePyCaZo5g6SvH6ZJBFtQhv576+UdHeVy5QbZFnpj/kSdYUuG
- PvDXLTtATJ+o7yPGs/mJf+j53+Dj+KrYG/c45h0AuYW8HKQx1YqjftHrnt1k9LpJLP6i6q/0pty
- a3Czq/VWdj2OsFTpuohlLr7rcjOqh/GST0nz6DoqV38N2n9xoiuKlKgeJ8qkiAiAUOJiwsT
-X-Google-Smtp-Source: AGHT+IHTw20hSoY1t2S8hQDm6sAR/6CNjVdyRnyImaVn8xVxpAXP6KiR+1x/jnjFYeOmyB9D3YqAAg==
-X-Received: by 2002:a05:6512:3195:b0:53e:395c:688e with SMTP id
- 2adb3069b0e04-5408badcf28mr2596428e87.10.1734268255530; 
- Sun, 15 Dec 2024 05:10:55 -0800 (PST)
-Received: from umbar.unikie.fi ([192.130.178.90])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54120c00262sm496316e87.138.2024.12.15.05.10.52
+ AJvYcCW6FNOg9CvOb4LJi8SNclP0TYJpW5ZByOKRObUhcMowTHP0NJQcF21yF9aTvge/b2RjUWdccMt2OOo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyegzQkEmJnebBnuTp8GM1TqXVSLNapr6Ro2lhQw+uFqOi48KbK
+ 7iFSRP0E2Del8681adPvdpHEl1yEoOXKFNt1aScFeDuP+ufuTNuUTFtYMah1x5g=
+X-Gm-Gg: ASbGncu31Ws6pHWgpLZc2W/Y2hIwHQ+TXyeJcrom+C93+py3gHUrKedSxGFXkRFrFwR
+ SQCWbf8XMoUenjIkSCQQ6HHKsFt3EP6u0m9s7/W5FOJ2eKLeF5FEpbnb4cxRsTcmBvX2bMavBW1
+ /hS066VjmJSfbMpQFAwFeR0LtLIImUEne+BueAlCZdyD8cweYhBuLHdlNgO3zO2qkiHNfP9gEAr
+ 180hy2IBTbVs9Lm6hEjaOSBPXpnK75iwAmzZeH8PowSjYVRxySwrQmioYQkWyZb
+X-Google-Smtp-Source: AGHT+IEOhOyrKe1fLpCJJfj1HpV10RlKePzB/U3HENJTDq1jhvZe00iwG9BTg13phbpjEcOYuHRqmQ==
+X-Received: by 2002:a05:651c:a0b:b0:302:1861:6df4 with SMTP id
+ 38308e7fff4ca-302545b95a2mr31173471fa.35.1734302654082; 
+ Sun, 15 Dec 2024 14:44:14 -0800 (PST)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-303441a41d1sm7201701fa.100.2024.12.15.14.44.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Dec 2024 05:10:54 -0800 (PST)
+ Sun, 15 Dec 2024 14:44:12 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: quic_abhinavk@quicinc.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: Add VBIF to DPU snapshot
-Date: Sun, 15 Dec 2024 15:10:43 +0200
-Message-Id: <173426667309.2196979.11608285674325095814.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241122-vbif-snapshot-v1-1-6e8fedd16fdf@quicinc.com>
-References: <20241122-vbif-snapshot-v1-1-6e8fedd16fdf@quicinc.com>
+Subject: [PATCH v4 00/16] drm/msm/dp: perform misc cleanups
+Date: Mon, 16 Dec 2024 00:44:05 +0200
+Message-Id: <20241216-fd-dp-audio-fixup-v4-0-f8d1961cf22f@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALVbX2cC/23OzQ6CMAwH8FcxOzuzDxjDk+9hPIytwBLDyCaLh
+ vDuFi5q5LL036a/biYJoodEzoeZRMg++TBgKI4HYnszdEC9w0wEEwVTvKSto26kZnI+0NY/J6x
+ robUEU0PBCO6NEXCwmdcb5t6nR4iv7UTma3fTOGd6R8ucMlowqwEaxWxbXu5+MDGcQuzIymXxI
+ fDZIwQSrua6wk8pZ9wfIb8IvktIJFjDrSqhco2RP8SyLG/EYisrOQEAAA==
+X-Change-ID: 20240615-fd-dp-audio-fixup-a92883ea9e40
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Paloma Arellano <quic_parellan@quicinc.com>
+Cc: Douglas Anderson <dianders@chromium.org>, 
+ Stephen Boyd <swboyd@chromium.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3146;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=Wpqm+AyDhFEWkmbxwA9sIDOpZewkcmgIhwh63TRGv8s=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnX1u4wieuIPQwzqElGGzCtUpWfcSN8u5hmioBG
+ RarSfXTLzWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ19buAAKCRCLPIo+Aiko
+ 1RJcCACHIiksgRxZonl/xVOB+7hh+ZEPQ+0ON2piCtujhFjfY4qqgmkz0jzhN89O3CsYSmJtMca
+ Ay3TCNKsqVU/ePat29r97DSBJs6y/rR4JLt6Mznv+mSNsapkLMvzguM6O9umxUe5WzqRID52g5M
+ 8EnVYbpmp3hDmdqVUiUE+eKQdmVzNw4E9jj7c6py2rgkLv+keNS1rzyZJ7UcKs+4wgoqjrO27KN
+ LP/82VaUeROMzU8kUkSS/nYgK+PhQD44gU2b/U/5uCfNS8i8BsGUsA/IqRrptXX3vZqd9TNzIgf
+ 2x7cFeOF8A9Njdoei6P0E6bSqckwZdwML+b4jw+AYrDhbq3I
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,17 +107,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+- Fix register programming in the dp_audio module
+- Rework most of the register programming functions to be local to the
+  calling module rather than accessing everything through huge
+  dp_catalog monster.
 
-On Fri, 22 Nov 2024 15:09:10 -0800, Jessica Zhang wrote:
-> Add VBIF registers to the DPU snapshot to help with debugging.
-> 
-> 
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes in v4:
+- Rebased on top of linux-next + msm-fixes, dropping picked up patches
+  (Abhinav)
+- Reordered patches to move dp_audio patches earlier (Abhinav).
+- Added several more patches, dropping dp_catalog.c completely.
+- Link to v3: https://lore.kernel.org/r/20241212-fd-dp-audio-fixup-v3-0-0b1c65e7dba3@linaro.org
 
-Applied, thanks!
+Changes in v3:
+- Fixed falce -> false typo (Abhinav)
+- Dropped wrong c&p comment from msm_dp_read_p0() (Stephen)
+- Changed msm_dp_aux_clear_hw_interrupts() to return void (Stephen)
+- Fixed most of line length warnings
+- Link to v2: https://lore.kernel.org/r/20241202-fd-dp-audio-fixup-v2-0-d9187ea96dad@linaro.org
 
-[1/1] drm/msm/dpu: Add VBIF to DPU snapshot
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/1a40bb31fcf1
+Changes in v2:
+- Set safe_to_exit_level before printing it (LKP)
+- Keep TPG-related functions (Abhinav)
+- Link to v1: https://lore.kernel.org/r/20241108-fd-dp-audio-fixup-v1-0-40c8eeb60cf5@linaro.org
+
+---
+Dmitry Baryshkov (16):
+      drm/msm/dp: drop msm_dp_panel_dump_regs() and msm_dp_catalog_dump_regs()
+      drm/msm/dp: use msm_dp_utils_pack_sdp_header() for audio packets
+      drm/msm/dp: drop obsolete audio headers access through catalog
+      drm/msm/dp: drop struct msm_dp_panel_in
+      drm/msm/dp: stop passing panel to msm_dp_audio_get()
+      drm/msm/dp: split MMSS_DP_DSC_DTO register write to a separate function
+      drm/msm/dp: pull I/O data out of msm_dp_catalog_private()
+      drm/msm/dp: move I/O functions to global header
+      drm/msm/dp: move/inline AUX register functions
+      drm/msm/dp: move/inline ctrl register functions
+      drm/msm/dp: move/inline panel related functions
+      drm/msm/dp: move/inline audio related functions
+      drm/msm/dp: move more AUX functions to dp_aux.c
+      drm/msm/dp: move interrupt handling to dp_ctrl
+      drm/msm/dp: read hw revision only once
+      drm/msm/dp: drop the msm_dp_catalog module
+
+ drivers/gpu/drm/msm/Makefile        |    1 -
+ drivers/gpu/drm/msm/dp/dp_audio.c   |  379 ++++------
+ drivers/gpu/drm/msm/dp/dp_audio.h   |    8 +-
+ drivers/gpu/drm/msm/dp/dp_aux.c     |  216 +++++-
+ drivers/gpu/drm/msm/dp/dp_aux.h     |   15 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 1340 -----------------------------------
+ drivers/gpu/drm/msm/dp/dp_catalog.h |  128 ----
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    |  607 ++++++++++++++--
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |   19 +-
+ drivers/gpu/drm/msm/dp/dp_debug.c   |    1 -
+ drivers/gpu/drm/msm/dp/dp_display.c |  157 ++--
+ drivers/gpu/drm/msm/dp/dp_link.c    |    1 +
+ drivers/gpu/drm/msm/dp/dp_panel.c   |  276 +++++++-
+ drivers/gpu/drm/msm/dp/dp_panel.h   |   22 +-
+ drivers/gpu/drm/msm/dp/dp_reg.h     |   19 +
+ 15 files changed, 1278 insertions(+), 1911 deletions(-)
+---
+base-commit: 952b5ed3020b50205f223e28ab182539210089c7
+change-id: 20240615-fd-dp-audio-fixup-a92883ea9e40
 
 Best regards,
 -- 
 Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
