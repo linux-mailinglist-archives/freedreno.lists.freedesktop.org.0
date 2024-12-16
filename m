@@ -2,86 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B9709F3768
-	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 18:22:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D43D69F38EB
+	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 19:28:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B55D310E724;
-	Mon, 16 Dec 2024 17:22:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEE4710E757;
+	Mon, 16 Dec 2024 18:28:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="HQFwuLt5";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="RjghAhZK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F26210E724;
- Mon, 16 Dec 2024 17:22:12 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BGFHqo2022103;
- Mon, 16 Dec 2024 17:21:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 57mXg//zJJ5EQoQavecLesiluqversb+hD+IQZmv2X0=; b=HQFwuLt5sGfKR+6d
- jkHdPU/asp+BVmnhZ83kQMJrInyJ7Z7WO6a1bWXuggos5bfu9UlLOrBJQ7zhUgEo
- q5sG4LCIVwCB63nZYVaAtmAVfLDQNRm4xAFf1vH/27f+EWi6Nb8NrjZ96YIiBYap
- dGY/w1w8vO24PzqB3Cse4TLi4yN8x4fBCFP7c7+JwTkUfnoocjO79prNpBNY4MZT
- PbAcPC6uUnwBlgFZopDaMXDnF7z/6rJomYFvdtIM/MbnxmIdG4yu9OSSrgwLi7Gv
- xXyHsjMGNSJxrTXd11nAKS7qS0GoTLRlHcgS+77Lsr/PM2qw/6uWXyqDInFxYvNL
- xovcKg==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43jpqmgaxq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Dec 2024 17:21:58 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BGHLvSJ028436
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Dec 2024 17:21:57 GMT
-Received: from [10.110.102.127] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 16 Dec
- 2024 09:21:55 -0800
-Message-ID: <99148f0a-e46c-47a7-a910-12269817a0e6@quicinc.com>
-Date: Mon, 16 Dec 2024 09:21:53 -0800
+Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
+ [IPv6:2607:f8b0:4864:20::112e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E67010E757
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 18:28:34 +0000 (UTC)
+Received: by mail-yw1-x112e.google.com with SMTP id
+ 00721157ae682-6efea3c9e6eso31670707b3.0
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 10:28:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1734373713; x=1734978513;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+ :reply-to; bh=rO0fP7kC0ChLCdFf2h9Dk5fHEcQ84J84WudIRLZjttI=;
+ b=RjghAhZKmDRNBYCHUXzycX9Gr6Avl6uCgipbCyiy/A6IjwyjRCHd3sAr79yWPpzz4+
+ JWlvNEwonxrQz7ajNjqiFJBA+57Q3gZnMPh0A6lYG2CFeMLJFaKEb4eW+ZxBUAom5VLj
+ WhzV6MgKLFSqPMhu8PhsRSL407sp+8psfRYyQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734373713; x=1734978513;
+ h=cc:to:subject:message-id:date:user-agent:from:references
+ :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rO0fP7kC0ChLCdFf2h9Dk5fHEcQ84J84WudIRLZjttI=;
+ b=BR5D7HrsR9FW8rg7MBshXeQaSUt5Tx6IsMIaUoVGVvn/pZuIe8EMycUtcTgXBjPhLP
+ y2iCR8yP8Ll3Ro5gObtkBexmGMVqoB/EK7d4hfKMcFOqNDdz1g+EiHMW+93KWWC5QqPI
+ zQfRHv0RPzCOJpzuZmJnJZfOHcAvf6yGiG3eTix4l1R18j9Ur3DS9Ve4rNT8tGta6L1i
+ AhCkU4Xwm5KZ9KwbTRIGC3Nmx+m070N385tOf2TbVXAIKxooqI78bQCgq7DCEpZ8HY3P
+ CjL4ZpaCAxsJtJ55F2OKSq0V1Y8Km9K63WGqZoZKU7A/oreOg2zoNHEywyezZKQIVGJ2
+ MrSQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWLfr+GSnfZuRRdLiwpROCMJUWp3CM87ghOMyY/4NhMOK93GGhGCKjiuwJoWLnJpqJhr15n0wW8b+E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz0z9IFkm0P2gG6D/2sFAe40GjQiCogopRc9qBQj0z0v8Rw6+LF
+ qHngRFaonLvYvI8FajQjtFgj8QbLxcZAY4b+/fWF1QNBttP/+sLAxO5AfUg65r/946rig296yGh
+ +M2ig9PGAFzL6mHzFyisRmrSWIsVFt1AECrZR
+X-Gm-Gg: ASbGncv2YZOcbqAulqr+UFx6Tyi8mOyeL5Yn9P4DKuOWYbVF1Zt6h/deTP4KFMlViOX
+ +iayaW1KV3u/F1kSg/cd/adjGlBZQ0nayAk8U3otfJgXnwuTUp3T1KnLeFioF5GIm7w==
+X-Google-Smtp-Source: AGHT+IE4CdB36DYH9vipsU7nBQzIha3QX2anHYVsV1wQT8Ge+vTgkTSbipalEX/mJfncpySK3J6yzUz+Iw2WBcHVy54=
+X-Received: by 2002:a05:690c:6408:b0:6ef:6d61:c249 with SMTP id
+ 00721157ae682-6f2bb3a54c2mr8410207b3.39.1734373713619; Mon, 16 Dec 2024
+ 10:28:33 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 16 Dec 2024 10:28:33 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm: fix -Wformat-security warnings
-To: Arnd Bergmann <arnd@kernel.org>, Rob Clark <robdclark@gmail.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@linaro.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>
-CC: Arnd Bergmann <arnd@arndb.de>, Sean Paul <sean@poorly.run>, Konrad Dybcio
- <konradybcio@kernel.org>, Marijn Suijten <marijn.suijten@somainline.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Jinjie Ruan <ruanjinjie@huawei.com>,
- =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20241216083319.1838449-1-arnd@kernel.org>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20241216083319.1838449-1-arnd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: esH0aAL_b0cg8n4lb3vzFaKfR5wwSlig
-X-Proofpoint-GUID: esH0aAL_b0cg8n4lb3vzFaKfR5wwSlig
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxlogscore=999
- spamscore=0 malwarescore=0 lowpriorityscore=0 mlxscore=0 phishscore=0
- suspectscore=0 priorityscore=1501 bulkscore=0 clxscore=1011
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412160145
+In-Reply-To: <20241216-fd-dp-audio-fixup-v4-2-f8d1961cf22f@linaro.org>
+References: <20241216-fd-dp-audio-fixup-v4-0-f8d1961cf22f@linaro.org>
+ <20241216-fd-dp-audio-fixup-v4-2-f8d1961cf22f@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.12.dev1+gaa8c22fdeedb
+Date: Mon, 16 Dec 2024 10:28:32 -0800
+Message-ID: <CAE-0n52uH4q5=QbU7V1jvRmvccAWTF1bOSXZ32j2NxKEKQVhMQ@mail.gmail.com>
+Subject: Re: [PATCH v4 02/16] drm/msm/dp: use msm_dp_utils_pack_sdp_header()
+ for audio packets
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Paloma Arellano <quic_parellan@quicinc.com>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Douglas Anderson <dianders@chromium.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,33 +88,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 12/16/2024 12:33 AM, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> Passing a variable string as a printf style format is potentially
-> dangerous that -Wformat-security can warn about if enabled. A new
-> instance just got added:
-> 
-> drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c: In function 'dpu_kms_mdp_snapshot':
-> drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:1046:49: error: format not a string literal and no format arguments [-Werror=format-security]
->   1046 |                                             vbif->name);
->        |                                             ~~~~^~~~~~
-> 
-> Fix this one and the preexisting -Wformat-security warnings the in the
-> DRM code for snapdragon.
-> 
-> Fixes: 1a40bb31fcf1 ("drm/msm/dpu: Add VBIF to DPU snapshot") # and others
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Quoting Dmitry Baryshkov (2024-12-15 14:44:07)
+> Use msm_dp_utils_pack_sdp_header() and call msm_dp_write_link() directly
+> to program audio packet data. Use 0 as Packet ID, as it was not
+> programmed earlier.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
-> I have a larger series that I still plan to send eventually, sending this
-> one now as I just saw another one get added. The warning is enabled by
-> default because there are still over 100 other files with the same problem.
-> ---
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.c   |  2 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 28 ++++++++++++++++---------
->   2 files changed, 19 insertions(+), 11 deletions(-)
-> 
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Tested-by: Stephen Boyd <swboyd@chromium.org> # sc7180-trogdor
