@@ -1,89 +1,92 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CF5F9F3E1E
-	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 00:16:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF2C49F3E2C
+	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 00:24:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 180CF10E631;
-	Mon, 16 Dec 2024 23:16:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8682B10E138;
+	Mon, 16 Dec 2024 23:24:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="YpRr3oEa";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nCHHP5/g";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EE0710E1B1;
- Mon, 16 Dec 2024 23:15:59 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BGKtPMW012689;
- Mon, 16 Dec 2024 23:15:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- C6if4xr6MsuydTIX9/EohnHTK91u3Ps3oBFjjYhkPwk=; b=YpRr3oEaX5vyGVR5
- XazwAZkmFMNhZnD2bro3PxLlYf1C8hANRycsvKNRVlb1/SiUbPky3lYcnNzIGabk
- OFrJdF2VOkSs6IUVAzv4Vf0s+8IxSQtKDmHpW6M508Lm5y5TVmHCqjJne+Jl2Mje
- 1YufEq+s5XBHJJqMwn4dgh7taQzO8xbKrIb6+Bke6TlogpL+55Bpp3fKerDTFOIH
- 0nge8vdFCyoxJl4J9BX/KXI7HAdE4KXZll3Le0poEPSelhmuUEqgmP660D5bLW5w
- Gs76tKm3eBZFsumlAYGH7jKZqZ6J7ZhjoXFOQOzKsa9Zfc3aQiXLKkMZKJGiLpXq
- kRpJiA==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43junjg8aa-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Dec 2024 23:15:56 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BGNFsaW031816
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Dec 2024 23:15:54 GMT
-Received: from [10.110.119.169] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 16 Dec
- 2024 15:15:53 -0800
-Message-ID: <f47fb29b-ae6a-4f6c-acc8-79f436560808@quicinc.com>
-Date: Mon, 16 Dec 2024 15:15:52 -0800
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25FA110E138
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 23:24:24 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-30229d5b1caso47157061fa.2
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 15:24:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1734391462; x=1734996262; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=5d2rf2aNBycQkqqEpsH+XCLSNdixlru/WLCsKGG9aC4=;
+ b=nCHHP5/gBVplgR/xMCSVozdloSH4gzejANRDAP3llSplAl0y1mIFp+yGUk2wbo8TYh
+ Lz3p/hUWAVNaVdC8KnKtNTZGVW4UXhl+Qv0CMVfohhhHHbs6fADc+hBInwqLM6iScTuw
+ vPTEjqbiU5wbh9ZA9S2YcNuyjGMwQrWuUcKRJCYSpDpjKgefCfEDRqbAC33bp/mq+SRd
+ yqNLndSmI2nsP3gK/9VjwIwCmHlSd2a9ZkZDZsRrPnxMVLuM8QUEdPTqZTVjSHuB9GQA
+ hIVm6XsWeTyI/xQD2BTTF2a27rf5N+ykoHD2EMOSyNTMYrbUyeSkBoU85EXWF6hXI74s
+ KXBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734391462; x=1734996262;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5d2rf2aNBycQkqqEpsH+XCLSNdixlru/WLCsKGG9aC4=;
+ b=QGVklqJTKy68GiWkj0bJcuvdHRVYPxzkTJNwi7v97pl7ib8VDGtJDgssVF8UFxr+fK
+ L68gj/Tqg/Bf37pgbvedJMG6q4oAW2GaYLK3zyTmYjHoF+s9pary5uCSivPyVUA/SaDT
+ rAGytMlnSQckAjEu96ipJqNgGKOW4OL/4BTrLji6Zchz6KejAKOgochCVXPJU86NT8Id
+ 7l2YSKYDDqVdSQYbBNwWYibQq1m5WbSlHQfIFTdpEnpybfDEnEjGL3+mL2DDzPvC2NIB
+ rG6vNSi4j2T1h0l/v4YzFEexgW0TE782LEhW78rt5uM1zTyDgxgcD/IdNq3b3y9Iola4
+ VbgA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXcXeb+VYy3/07khINDmoaVPWQGbf2yrnj3blha73Cn5wK5OSJLgGTySAF0r5HH5yF3vg8n6iUnhw4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwSb8ta1iUW+xtcz9Ye9zys/J1yruX7HchCHs8MHq63kKRzmwwE
+ x8ZaTGw24qEeNs7KIFZGORGJXTBzhwbTn7BKDu4/NVRYVL+InneDNDYFRemTt6w=
+X-Gm-Gg: ASbGncueZo7Gsi0jMm0GeVsuo8ZAXmMiqk5iJPd6KEmMlYDJ7jbxi03f99igLSufhSV
+ KE4+nO+LWm8vqMpt7mqIJen6yuOFibbO4wINPNBz7cf3Vnxa8moGHypWSRCLfjXn9GsE9agKK/+
+ DN5G4/EKShFuP+pxk28MfNBAOFGyoudaD9xkxwmNSs6wS1+jey/TpsjFP3se6TReWXC/gV4tAgz
+ WqWAdBp/1HNSzCkvdIcR3miq2FQHLQMofqHlHnt2H2JqHENTpaBAt3z1JSh3ES/1nOCY1CBfBdx
+ vr3kJ582w75XcTNN7kTIopsdvNNQV2hxIjhw
+X-Google-Smtp-Source: AGHT+IHdIjEdSsa2sUjJmegZv6cwUM/4it3l18LUo8lodNgP20ohJ/gjjjtjj/lKnZnU7r14iuee9A==
+X-Received: by 2002:a05:6512:1094:b0:540:358e:36b9 with SMTP id
+ 2adb3069b0e04-540905a6f6dmr5254157e87.45.1734391462045; 
+ Mon, 16 Dec 2024 15:24:22 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54120b9f5f3sm974050e87.21.2024.12.16.15.24.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Dec 2024 15:24:20 -0800 (PST)
+Date: Tue, 17 Dec 2024 01:24:18 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Paloma Arellano <quic_parellan@quicinc.com>, 
+ Douglas Anderson <dianders@chromium.org>, Stephen Boyd <swboyd@chromium.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 04/14] drm/msm/dp: pull I/O data out of
+ msm_dp_catalog_private()
+Message-ID: <u3763wvxpnbykwwgthrn5ubsi3p56wi7pketmuggjvgdgf5t4r@dud2t4bdivba>
+References: <20241212-fd-dp-audio-fixup-v3-0-0b1c65e7dba3@linaro.org>
+ <20241212-fd-dp-audio-fixup-v3-4-0b1c65e7dba3@linaro.org>
+ <c5090fcc-d7ec-4d49-aa21-8d1aa7f6a1c7@quicinc.com>
+ <CAA8EJppOjAjFVUFSEXJMbJ4aV_MvzpeTuKDkL7P+t_Mw47YECw@mail.gmail.com>
+ <5cb7b1b1-5596-4704-bd01-beaadf8bba51@quicinc.com>
+ <CAA8EJppyNceC+t-2MKqq1QhCj2cYb+jprc++cFEen8Cqhhbo0w@mail.gmail.com>
+ <459e59b1-1212-4a93-89cd-f5a2e062543e@quicinc.com>
+ <CAA8EJpqaigaJmHJB73doAxwWMWXDHS4Drs0R0w=YEtZ3iZkWcw@mail.gmail.com>
+ <3be2e15c-9dfd-4521-a1cf-99a0c502686b@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/16] drm/msm/dp: use msm_dp_utils_pack_sdp_header()
- for audio packets
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Paloma Arellano <quic_parellan@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>,
- Stephen Boyd <swboyd@chromium.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-References: <20241216-fd-dp-audio-fixup-v4-0-f8d1961cf22f@linaro.org>
- <20241216-fd-dp-audio-fixup-v4-2-f8d1961cf22f@linaro.org>
- <0cbe48cd-b830-444a-8de0-529343d86192@quicinc.com>
- <wfgn4oomnlsgckazp6z2cqoj5lk76gd5wmphrg6kwiomfvo2j2@rinnzg2ml7is>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <wfgn4oomnlsgckazp6z2cqoj5lk76gd5wmphrg6kwiomfvo2j2@rinnzg2ml7is>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: KxcEQAIwMY25EuhGXjoA_HgnJ-p2zP9p
-X-Proofpoint-GUID: KxcEQAIwMY25EuhGXjoA_HgnJ-p2zP9p
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- phishscore=0 mlxlogscore=739 clxscore=1015 suspectscore=0 malwarescore=0
- mlxscore=0 adultscore=0 spamscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412160190
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3be2e15c-9dfd-4521-a1cf-99a0c502686b@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,47 +102,363 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 12/16/2024 2:24 PM, Dmitry Baryshkov wrote:
-> On Mon, Dec 16, 2024 at 11:32:57AM -0800, Abhinav Kumar wrote:
->>
->>
->> On 12/15/2024 2:44 PM, Dmitry Baryshkov wrote:
->>> Use msm_dp_utils_pack_sdp_header() and call msm_dp_write_link() directly
->>> to program audio packet data. Use 0 as Packet ID, as it was not
->>> programmed earlier.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>    drivers/gpu/drm/msm/dp/dp_audio.c   | 268 ++++++------------------------------
->>>    drivers/gpu/drm/msm/dp/dp_catalog.c |  71 ++++++++++
->>>    drivers/gpu/drm/msm/dp/dp_catalog.h |  10 ++
->>>    3 files changed, 122 insertions(+), 227 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
->>> index 5cbb11986460d1e4ed1890bdf66d0913e013083c..46fbf8601eea8e43a152049dfd1dc1d77943d922 100644
->>> --- a/drivers/gpu/drm/msm/dp/dp_audio.c
->>> +++ b/drivers/gpu/drm/msm/dp/dp_audio.c
->>> @@ -14,6 +14,7 @@
->>>    #include "dp_catalog.h"
->>>    #include "dp_audio.h"
->>>    #include "dp_panel.h"
->>> +#include "dp_reg.h"
->>
->> This change still does reg writes through catalog. Why do you need to
->> include dp_reg.h here?
+On Mon, Dec 16, 2024 at 12:45:13PM -0800, Abhinav Kumar wrote:
 > 
-> A leftover from the previous patchset.
+> 
+> On 12/14/2024 2:05 PM, Dmitry Baryshkov wrote:
+> > On Sat, 14 Dec 2024 at 22:53, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> > > 
+> > > Hi Dmitry
+> > > 
+> > > On 12/12/2024 3:09 PM, Dmitry Baryshkov wrote:
+> > > > On Thu, 12 Dec 2024 at 21:15, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> > > > > 
+> > > > > 
+> > > > > 
+> > > > > On 12/12/2024 12:52 AM, Dmitry Baryshkov wrote:
+> > > > > > On Thu, 12 Dec 2024 at 04:59, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> > > > > > > 
+> > > > > > > 
+> > > > > > > 
+> > > > > > > On 12/11/2024 3:41 PM, Dmitry Baryshkov wrote:
+> > > > > > > > Having I/O regions inside a msm_dp_catalog_private() results in extra
+> > > > > > > > layers of one-line wrappers for accessing the data. Move I/O region base
+> > > > > > > > and size to the globally visible struct msm_dp_catalog.
+> > > > > > > > 
+> > > > > > > > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> > > > > > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > > > > > > ---
+> > > > > > > >      drivers/gpu/drm/msm/dp/dp_catalog.c | 457 +++++++++++++++---------------------
+> > > > > > > >      drivers/gpu/drm/msm/dp/dp_catalog.h |  12 +
+> > > > > > > >      2 files changed, 197 insertions(+), 272 deletions(-)
+> > > > > > > > 
+> > > > > > > 
+> > > > > > > 
+> > > > > > > Fundamentally, the whole point of catalog was that it needs to be the
+> > > > > > > only place where we want to access the registers. Thats how this really
+> > > > > > > started.
+> > > > > > > 
+> > > > > > > This pre-dates my time with the DP driver but as I understand thats what
+> > > > > > > it was for.
+> > > > > > > 
+> > > > > > > Basically separating out the logical abstraction vs actual register writes .
+> > > > > > > 
+> > > > > > > If there are hardware sequence differences within the controller reset
+> > > > > > > OR any other register offsets which moved around, catalog should have
+> > > > > > > been able to absorb it without that spilling over to all the layers.
+> > > > > > > 
+> > > > > > > So for example, if we call dp_ctrl_reset() --> ctrl->catalog->reset_ctrl()
+> > > > > > > 
+> > > > > > > Then the reset_ctrl op of the catalog should manage any controller
+> > > > > > > version differences within the reset sequence.
+> > > > > > 
+> > > > > > The problem is that the register-level writes are usually not the best
+> > > > > > abstraction. So, instead of designing the code around dp_catalog I'd
+> > > > > > prefer to see actual hw / programming changes first.
+> > > > > > 
+> > > > > 
+> > > > > So thats the issue here. If we did end up with registers and sequences
+> > > > > different for controller versions, the ctrl layer was expected to just
+> > > > > call a reset() op for example similar to the DPU example you gave. And
+> > > > > as you rightly noted, the dpu_hw_xxx files only expose the ops based on
+> > > > > version and the upper layers were supposed to just call into the ops
+> > > > > without knowing the register level details. Thats pretty much what
+> > > > > dp_ctrl tried to do here. We did not want to expose all the register
+> > > > > defines in those layers. This series is doing exactly opposite of that.
+> > > > 
+> > > > We don't have the issue up to now, even though we support DP
+> > > > controllers since SDM845 up to SM8650 and X1E80100. The SDE driver has
+> > > > v200 vs v420 catalog files for PHY programming, the rest of the
+> > > > functions are common. So, for me it looks like a preparation for the
+> > > > imaginary case that didn't come to existence up to now.
+> > > > So, yes. I want to get rid of extra useless indirection and I want to
+> > > > expose register sequences in those layers.
+> > > > 
+> > > 
+> > > Yes because PHY programming is managed in the PHY driver today and does
+> > > not go through catalog whereas in SDE driver it does, I do not have any
+> > > other concrete example to give you which exists in the current code
+> > > where sequence changes across chipset variants for DP controller and
+> > > since I certainly cannot discuss how things can evolve moving forward,
+> > > as usual, I have to accept it as one of those things which is not used
+> > > today. So yes, I guess the register sequencing point changing across
+> > > chipset variants, does not have a good example which I can really share.
+> > > 
+> > > But exposing register sequences within the same file, I am not too sure
+> > > about that. For example, you can take a look at
+> > > dp_catalog_panel_config_hdr in the SDE code OR even
+> > > msm_dp_catalog_panel_enable_vsc_sdp in the current upstream code. Why
+> > > should this entire sequence be exposed to the dp_panel layer?
+> > 
+> > Why not? The dp_catalog_panel_config_hdr() is a bit tough, we don't
+> > implement similar functions currently. For
+> > msm_dp_catalog_panel_enable_vsc_sdp() this is also a logical sequence:
+> > configure GENERIC0, write the package to GENERIC0, indicate presence
+> > of the VSC SDP. I really don't see why this should go to a separate
+> > file.
+> > 
+> 
+> We have to plan for hdr for sure. its not an imaginary use-case.
+> 
+> msm_dp_catalog_panel_enable_vsc_sdp() does a bunch of things, packing the
+> size, programming the SDP and triggering the update. dp_panel does not need
+> to know all these details.
+> 
+> There are many other examples. Take a look at
+> msm_dp_catalog_ctrl_mainlink_ctrl(). from the dp_ctl standpoint, all it
+> needs to know is it needs to program the mainlink_Ctrl() at some point, it
+> really does not need to know the full sequence of doing that. Thats the
+> abstraction getting lost with this.
+> 
+> > > For smaller functions which are one-liners the redirection seems
+> > > redundant but when the sequence is bigger like in the examples I gave,
+> > > the logical Vs register sequence separation grows. Thats where the
+> > > dp_catalog came from.
+> > > 
+> > > 
+> > > > > 
+> > > > > > > 
+> > > > > > > We do not use or have catalog ops today so it looks redundant as we just
+> > > > > > > call the dp_catalog APIs directly but that was really the intention.
+> > > > > > > 
+> > > > > > > Another reason which was behind this split but not applicable to current
+> > > > > > > upstream driver is that the AUX is part of the PHY driver in upstream
+> > > > > > > but in downstream, that remains a part of catalog and as we know the AUX
+> > > > > > > component keeps changing with chipsets especially the settings. That was
+> > > > > > > the reason of keeping catalog separate and the only place which should
+> > > > > > > deal with registers and not the entire DP driver.
+> > > > > > > 
+> > > > > > > The second point seems not applicable to this driver but first point
+> > > > > > > still is. I do admit there is re-direction like ctrl->catalog
+> > > > > > > instead of just writing it within dp_ctrl itself but the redirection was
+> > > > > > > only because ctrl layers were not really meant to deal with the register
+> > > > > > > programming. So for example, now with patch 7 of this series every
+> > > > > > > register being written to i exposed in dp_ctrl.c and likewise for other
+> > > > > > > files. That seems unnecessary. Because if we do end up with some
+> > > > > > > variants which need separate registers written, then we will now have to
+> > > > > > > end up touching every file as opposed to only touching dp_catalog.
+> > > > > > 
+> > > > > > Yes. I think that it's a bonus, not a problem. We end up touching the
+> > > > > > files that are actually changed, so we see what is happening. Quite
+> > > > > > frequently register changes are paired with the functionality changes.
+> > > > > > 
+> > > > > 
+> > > > > Not exactly. Why should dp_ctrl really know that some register offset or
+> > > > > some block shift happened for example. It only needs to know when to
+> > > > > reset the hardware and not how. Thats the separation getting broken with
+> > > > > this.
+> > > > 
+> > > > Yes. And I'm removing that separation very intentionally. If one is
+> > > > looking for AUX programming, they should be looking into dp_aux only,
+> > > > not dp_aux & dp_catalog. Likewise all audio code should be in
+> > > > dp_audio. By using dp_catalog we ended up with a very very very bad
+> > > > abstraction of msm_dp_catalog_audio_get_header() /
+> > > > msm_dp_catalog_audio_set_header() / enum
+> > > > msm_dp_catalog_audio_sdp_type. Just because reads & writes should go
+> > > > through the catalog.
+> > > 
+> > > No, I think this is where there is some correction needed. the
+> > > get_header() / set_header() was done not because all writes need to go
+> > > through catalog but because the audio headers were thought to be written
+> > > only one header at a time and we had thought that read-modify-write had
+> > > to be done to preserve the bytes. And when we have to do only one header
+> > > at a time and because two headers map to one register, catalog had to
+> > > end up managing an audio_map. Now, after checking where it came from as
+> > > I commented on that patch, this requirement was not a functional one but
+> > > was just trying to preserve the pre-silicon validation scripts sequence,
+> > > this part of it can be dropped. So no need of get_header() /
+> > > set_header() and an audio_map. Now all registers going through catalog
+> > > is another thing which we are still discussing here.
+> > 
+> > You've skipped the msm_dp_catalog_audio_sdp_type enum (which was
+> > explicitly mentioned). It is an abstraction which in my opinion also
+> > isn't required, but it clearly comes from dp_catalog.
+> > 
+> 
+> msm_dp_catalog_audio_sdp_type was needed only till the map was needed as it
+> was made with an intention of trying to re-use the sdp_map layout for
+> different packets. So its still tied to the fact that we needed a map. After
+> dropping the map, this can be dropped too as you already did.
 
-Feel free to add my
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-Once this include is dropped.
+I'm not sure if I understood what you've meant by the sdp_map layout
+re-use.
 
 > 
->>
->>>    #include "dp_display.h"
->>>    #include "dp_utils.h"
 > 
+> > > 
+> > > > For dp_panel likewise there is no need to look into some other source
+> > > > file to follow the register sequences. It can all be contained within
+> > > > dp_panel.c, helping one to understand the code.
+> > > > 
+> > > 
+> > > > Last, but not least. Code complexity. dp_catalog.c consists of 1340
+> > > > lines, covering different submodules. It is hard to follow it in this
+> > > > way.
+> > > > 
+> > > 
+> > > Its just a question of spreading up the functions all over, not reducing
+> > > code complexity. So yes, it reduces the file size of dp_catalog whereas
+> > > increases that of others. Code complexity impact due to that is subjective.
+> > 
+> > The main issue is that dp_catalog now contains unrelated sets of
+> > functions. That's code complexity.
+> > 
+> 
+> dp_catalog was never meant to be a place where we have related functions. It
+> was supposed to provide the register space abstraction and hiding away the
+> details from rest of the layers. Going by what you are saying even the APIs
+> in dsi_host.c should be related but they are not because of the same reason.
+> I think this series went too far in terms of what it was trying to achieve
+> trying to clenaup even useful things. Audio map removal was a problem tied
+> to the fact that that read-modify-write behavior was preserved. That was
+> removed after we identified its background. No issues with that. but beyond
+> that, this is too much of a rework. I will let other developers chime into
+> this. But I am not too fond of this one.
+
+Sure. It seems the important parts have been reviewed in the next
+iteration, so we can land those. Stephen, one of DP reviewers / expers,
+seems to like the remaining patches.
+
+> 
+> > > 
+> > > > > 
+> > > > > > For example (a very simple and dumb one), when designing code around
+> > > > > > dp_catalog you ended up adding separate _p1 handlers.
+> > > > > > Doing that from the data source point of view demands adding a stream_id param.
+> > > > > > 
+> > > > > 
+> > > > > I have not checked your comment on that series here but if your concern
+> > > > 
+> > > > This is really a bad cadence. I have provided most of the feedback
+> > > > almost a week ago.
+> > > > 
+> > > 
+> > > Yes, was a very tight week trying to enable upstream developers to land
+> > > their platforms such as QCS615 by fixing platform specific dpu things
+> > > and had the fixes cycle this week too so as a result my own feature took
+> > > a bit of a hit this week :(
+> > > 
+> > > > > is stream_id should not be stored in the catalog but just passed, thats
+> > > > > fine, we can change it. stream_id as a param is needed anyway because
+> > > > > the register programming layer needs to know which offset to use. This
+> > > > > series is not mitigating that fact.
+> > > > 
+> > > > No, my concern was that you have been adding separate _p1() functions
+> > > > which are a duplicate of _p0() counterparts. When one looks at the
+> > > > dp_catalog.c it is logical: there are two different register areas, so
+> > > > there are two distinct sets of functions. If one starts looking from
+> > > > the dp_panel point of view, it's obvious that there should be a single
+> > > > msm_dp_write_stream() function which accepts stream_id and then
+> > > > multiplexes it to go to p0 or p1.
+> > > > 
+> > > 
+> > > Your multiplexing suggestion of adding a msm_dp_read_pn/msm_dp_write_pn
+> > > by passing a stream_id can be done even with current dp_catalog intact
+> > > as it will help reduce storing the stream_id in the dp_catalog. So its a
+> > > valid suggestion and can be implemented even in the current code and not
+> > > tied to the fact that register writing is done in dp_catalog or dp_panel.
+> > 
+> > It can. The point was about the implementation logic, not about the possibility.
+> > 
+> > > 
+> > > > > 
+> > > > > > In the DPU driver we also have version-related conditionals in the HW
+> > > > > > modules rather than pushing all data access to dpu_hw_catalog.c &
+> > > > > > counterparts.
+> > > > > 
+> > > > > The dpu_hw_catalog.c and the dp_catalog.c are not the right files to
+> > > > > compare with each other. dp_catalog.c should be compared with
+> > > > > dpu_hw_xxx.c and as you noted, DPU version dependencies are handled in
+> > > > > those files only and not all over the files like what this series is doing.
+> > > > 
+> > > > Not really. dpu_encoder_phys_cmd_init() checks for the core_major_ver.
+> > > > Let me see if other files check for the version under the hood.
+> > > > 
+> > > 
+> > > Well, thats because only cmd mode panel cares about TE. No other files
+> > > from what I checked.
+> > 
+> > I've sent a series which refactors feature bits into core_major_ver.
+> > Now HW revision is being checked inside dpu_encoder_phys_wb.c,
+> > dpu_kms.c and dpu_rm.c. And I didn't refactor SSPP, which would bring
+> > similar checks to dpu_plane.c and possibly dpu_vbif.c
+> > 
+> 
+> We will evaluate it on its merits / demerits as usual and decide.
+
+Sure :-)
+
+> 
+> > > 
+> > > > Also as you wrote, there are multiple dpu_hw_xxx.c files, each
+> > > > handling register issues on its own. We don't have a single file which
+> > > > keeps all such differences in one place.
+> > > > 
+> > > 
+> > > Thats because of the way the registers are laid our in the SW interface
+> > > document aligns nicely with the file split we have in the DPU even when
+> > > the first DPU post happened.
+> > > 
+> > > But I still dont think its a fair comparison.
+> > > 
+> > > If you really had to go deeper into this thought, then even dp_reg.h
+> > > should be broken down into smaller headers because the offsets in
+> > > dpu_hw_*** files are relevant only to those files but after this change
+> > > all DP files must include dp_reg.h even though they will not be using
+> > > all of the offsets. Since current code was already doing that, which it
+> > > didnt have to as dp_Catalog was the only one writing all registers, this
+> > > went unnoticed.
+> > 
+> > Well... I had a thought about reworking DP into using XML files to
+> > describe registers. It will make it slightly cleaner and
+> > self-documented, but it most likely will be a single file.
+> > 
+> 
+> It being in a single file is leaning towards the same model we have right
+> now. If dp_regs.h is remaining one unified file, I dont see why dp_catalog
+> can stay as well.
+
+It is typical to have a single file with the full register information.
+MDP5 for example also has a single register file.
+
+> 
+> > > 
+> > > 
+> > > > Last, but not least, in the DPU driver there are actual differences
+> > > > between generations, which require different code paths. In the DP
+> > > > driver there are none.
+> > > > 
+> > > > > 
+> > > > > > I think it's better to make DP driver reflect DPU rather than keeping
+> > > > > > a separate wrapper for no particular reason (note, DPU has hardware
+> > > > > > abstractions, but on a block level, not on a register level).
+> > > > > > 
+> > > > > 
+> > > > > Thats the issue here. DPU hardware blocks are arranged according to the
+> > > > > sub-blocks both in the software interface document and hence the code
+> > > > > matches it file-by-file. DP registers are grouped by clock domains and
+> > > > > the file separation we have today does not match that anyway. Hence
+> > > > > grouping link registers writes or pixel clock register writes into
+> > > > > dp_ctrl is also not correct that way. Let catalog handle that separation
+> > > > > internally which it already does.
+> > > > 
+> > > > I'd say, dp_panel, dp_audio and dp_link are already pretty
+> > > > self-contained. I was hoping to look at dp_display vs dp_drm later on,
+> > > > once the HPD issue gets resolved. Only dp_ctrl is not that logical
+> > > > from my point of view.
+> > > > 
+> 
+> Not from the point of view of the register separation of what belongs where.
+> Its just a subjective opinion of what belongs where. Different developers
+> can view it differently.
+
+Even from the register separation point of view: it's better to separate
+the AUX and p0/p1 functions rather than keeping them in the dp_catalog.c
+together with the rest of the unrelated functions.
+
+Note, that dp_link.c also uses dp_reg.h though it doesn't use dp_catalog
+at all.
+
+-- 
+With best wishes
+Dmitry
