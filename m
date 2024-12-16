@@ -1,94 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 621769F2BD2
-	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 09:27:53 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 758AB9F2BF7
+	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 09:33:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2232710E3E0;
-	Mon, 16 Dec 2024 08:27:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E05A10E540;
+	Mon, 16 Dec 2024 08:33:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="HmVcfcAi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rzWTKc1F";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0884910E533
- for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 08:27:47 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-3003943288bso36594071fa.0
- for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 00:27:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734337665; x=1734942465; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=jFueXj50GklXs26URhroJEyDlIZhDwWcbd/CoZUqrUk=;
- b=HmVcfcAiwSjvh5U2Bv54ltdo4tdfTBxCagdSaLATyYy7r0fXlf7jUKSDhrEexNvUP1
- g6q5AMMl5yUig8HOvKjK78gr/2P3qVen+j5MKwil46kio97QJ5LGHi9esxZgFCJuo0j1
- LNBA4c+lZ8DsWCAQWZQQDC1LAg6TU3zgGgAy6PZKf39e2Z/Fb4x+ZUfHjSsLXyUd9g8g
- eYRhLHadoBQ6rFO2fv42K+84Ybguqv7svGxrVygVdD+NArKeGLoVGV2pEZGcsxavaATV
- hJgt9s+Og2pFgtpTZw1j7vniFwm3AZ/RLwLm+BJC1tVDCkpBqcnezNcS3al8yzxkOkZq
- Qz6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734337665; x=1734942465;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=jFueXj50GklXs26URhroJEyDlIZhDwWcbd/CoZUqrUk=;
- b=Et6ylUF7aHHBAWxtOHupKFhQP4o8lqUqvSOOIVZrn530Yq2rwHwE5Z2JqgvMeNsNit
- G+wgVcBCR2cUTkVJiX5TLZLUt1M+f4Y6r9RDxiY08J5Np7ky4d1mj2/RN7PW/EBVXImc
- 3DDUkP4xov1Sw3rARVPW53cIEmEFlddnKDtNxMHlOGGS71/gNTbH+j0GKi17W2rBqnpC
- dT45FgNtH1hE4BP+4Z+axNa0hB2sFYantMK6Tl9K7f0jRmuRijkXzncgUAtD/W4J0iDp
- 8HtFX/eVQHm1GFjn00SyJiAki9WMsCPIVxYJlE5A+uKBJOUCZVQzq2UKcZNlk1KutSxz
- feuw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXHcQW1xOAYVh1DjPsg0eZgTOc1eeTmfefv09kZK/i4FJ8luPLrKFw+Q+UMDnCuXSTiRsck6mtuJkI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy0F9puE3npQAip/Od9bghCRB5WHZKruDmCVwrf28/I5kWnYwyP
- x5EymmWDhTK4G01qZavZNYW2FnecbEKXWJ09jF9FkGPt1Q3nyKecMfDyQa4Ak2o=
-X-Gm-Gg: ASbGncvffyT3MqtBhsVuF7dCFH8kkZB3P2e593SZ7J0sRaDcbpwfbtY3iI0NOm+sF2M
- RvVZbgXX7ByeKGI/6EFJm+JXU/RckMQhyHCU1M1wxA6+4O7+IwDCkfavl5htrXYwSiU3prxzBjV
- GxNULgj0xxXED1gR424bVEsIDhuLxCIB7aZ1NcJBZDEpcs9v+tYjkqQ8iR2Tu3Ai1ZPJBUY+2RM
- 5uaCLYF7y1+5nPnUZzg9pFj9f/ImcqwSaa5Pppi86Y0ab0n7dTE/RbcyD9b+hjM
-X-Google-Smtp-Source: AGHT+IGsrhukEvweE+kATGZLKV7abTQp6BM2UyFHz+pdJV3ZnHx5w2xQCWTcZUPlJgEfT6lvq/IlrA==
-X-Received: by 2002:a05:651c:2122:b0:300:1de5:59e3 with SMTP id
- 38308e7fff4ca-30254521ed0mr38410041fa.2.1734337665329; 
- Mon, 16 Dec 2024 00:27:45 -0800 (PST)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30344045342sm8543371fa.33.2024.12.16.00.27.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Dec 2024 00:27:44 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 16 Dec 2024 10:27:29 +0200
-Subject: [PATCH 8/8] drm/msm/dpu: provide DSPP and correct LM config for SDM670
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AED6B10E542;
+ Mon, 16 Dec 2024 08:33:26 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id CB1F6A40B98;
+ Mon, 16 Dec 2024 08:31:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA6D6C4CED0;
+ Mon, 16 Dec 2024 08:33:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1734338005;
+ bh=nNpiYk/Bgo7XjluscFFgC12Os5gcxVOGXcf8Cg321mI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=rzWTKc1FTUX3lkjT2ZRELBXxGj5388ZHH8nL6+dQH7mjhagII/7tnPkM2x0H4JhGG
+ 0EgjtTDsY7ZuwcJDYYMfHeInCZ1koYnMxnJ+5FytWRlk2xJdWXBG2/6rt8ZRQpbeLk
+ ArZO5waWAHlav+0fu0VDeZGyXz/NdIJXCFdSr3rO9i8NHaTkss61lB/oZGtOFgTtL5
+ 84HtFnyyXN5fPxg6kotu+iiOkoaAAVUMoLJgWPYy7cb4Csohem4hO5pOZ+kLrIKx97
+ Bx7/og/Xh6b+kL1+ewjfqAkkmcKLj2d7Ud2u78catf4Il1vB10LRTYdVoeP8SpBPRt
+ FN8pTDOrdjwWg==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jinjie Ruan <ruanjinjie@huawei.com>,
+ =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/msm: fix -Wformat-security warnings
+Date: Mon, 16 Dec 2024 09:33:13 +0100
+Message-Id: <20241216083319.1838449-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241216-dpu-fix-catalog-v1-8-15bf0807dba1@linaro.org>
-References: <20241216-dpu-fix-catalog-v1-0-15bf0807dba1@linaro.org>
-In-Reply-To: <20241216-dpu-fix-catalog-v1-0-15bf0807dba1@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Robert Foss <rfoss@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Abel Vesa <abel.vesa@linaro.org>, Richard Acayan <mailingradian@gmail.com>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2663;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=onC/sZOCceTmvl+85uTb+5rs4Fex+BwK8WACCKdIkwI=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnX+RstmAKkhUgDFSMOhulvZdpJWZcJyZTinijT
- 6Z1u7es4gqJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ1/kbAAKCRCLPIo+Aiko
- 1aAOB/91xjMOv0FVK7azVd6PO2iTLH9oMN0HMJWRapBLHclS/S2HRw4THhS0ZTXl3SQWdRSKTzi
- wIF0W3NfZ7im9NKZR6BNny0YHjrC4g8ctYty0aFeoGiCyAKdHSzf3n0ws09fsYYKkpKTxpvF+pf
- +u1+U1KJN/2e8b3eUkzrdnVy1naigTtie8j7011s4SkhnbTbkF9QIn0ky4UqNxEaBzuCNuuLUVP
- xb+A22DDN96Y1ASkC+ta8ZI6TQR+qyUccvPAL4VKZOVLA8kHl1kNPqUNGLVncSzKoEvDeWa6mVG
- sOV3h9QmLI9X8KpCwJYjMA9uHtbm2rAZXondZBSxwraOMne/
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,89 +65,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On SDM670 the DPU has two DSPP blocks compared to 4 DSPP blocks on
-SDM845. Currently SDM670 just reuses LMs and DSPPs from SDM845. Define
-platform-specific configuration for those blocks.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Fixes: e140b7e496b7 ("drm/msm/dpu: Add hw revision 4.1 (SDM670)")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Passing a variable string as a printf style format is potentially
+dangerous that -Wformat-security can warn about if enabled. A new
+instance just got added:
+
+drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c: In function 'dpu_kms_mdp_snapshot':
+drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:1046:49: error: format not a string literal and no format arguments [-Werror=format-security]
+ 1046 |                                             vbif->name);
+      |                                             ~~~~^~~~~~
+
+Fix this one and the preexisting -Wformat-security warnings the in the
+DRM code for snapdragon.
+
+Fixes: 1a40bb31fcf1 ("drm/msm/dpu: Add VBIF to DPU snapshot") # and others
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h | 54 +++++++++++++++++++++-
- 1 file changed, 52 insertions(+), 2 deletions(-)
+I have a larger series that I still plan to send eventually, sending this
+one now as I just saw another one get added. The warning is enabled by
+default because there are still over 100 other files with the same problem.
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c   |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 28 ++++++++++++++++---------
+ 2 files changed, 19 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
-index cbbdaebe357ec4a82a3c3d950aa13792a1fb2d6e..daef07924886a529ee30349ae80375a324bbc245 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
-@@ -65,6 +65,54 @@ static const struct dpu_sspp_cfg sdm670_sspp[] = {
- 	},
- };
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 14db7376c712..fac3128695c6 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -1265,7 +1265,7 @@ static int a6xx_gmu_memory_alloc(struct a6xx_gmu *gmu, struct a6xx_gmu_bo *bo,
+ 	bo->virt = msm_gem_get_vaddr(bo->obj);
+ 	bo->size = size;
  
-+static const struct dpu_lm_cfg sdm670_lm[] = {
-+	{
-+		.name = "lm_0", .id = LM_0,
-+		.base = 0x44000, .len = 0x320,
-+		.features = MIXER_SDM845_MASK,
-+		.sblk = &sdm845_lm_sblk,
-+		.lm_pair = LM_1,
-+		.pingpong = PINGPONG_0,
-+		.dspp = DSPP_0,
-+	}, {
-+		.name = "lm_1", .id = LM_1,
-+		.base = 0x45000, .len = 0x320,
-+		.features = MIXER_SDM845_MASK,
-+		.sblk = &sdm845_lm_sblk,
-+		.lm_pair = LM_0,
-+		.pingpong = PINGPONG_1,
-+		.dspp = DSPP_1,
-+	}, {
-+		.name = "lm_2", .id = LM_2,
-+		.base = 0x46000, .len = 0x320,
-+		.features = MIXER_SDM845_MASK,
-+		.sblk = &sdm845_lm_sblk,
-+		.lm_pair = LM_5,
-+		.pingpong = PINGPONG_2,
-+	}, {
-+		.name = "lm_5", .id = LM_5,
-+		.base = 0x49000, .len = 0x320,
-+		.features = MIXER_SDM845_MASK,
-+		.sblk = &sdm845_lm_sblk,
-+		.lm_pair = LM_2,
-+		.pingpong = PINGPONG_3,
-+	},
-+};
-+
-+static const struct dpu_dspp_cfg sdm670_dspp[] = {
-+	{
-+		.name = "dspp_0", .id = DSPP_0,
-+		.base = 0x54000, .len = 0x1800,
-+		.features = DSPP_SC7180_MASK,
-+		.sblk = &sdm845_dspp_sblk,
-+	}, {
-+		.name = "dspp_1", .id = DSPP_1,
-+		.base = 0x56000, .len = 0x1800,
-+		.features = DSPP_SC7180_MASK,
-+		.sblk = &sdm845_dspp_sblk,
-+	},
-+};
-+
- static const struct dpu_dsc_cfg sdm670_dsc[] = {
- 	{
- 		.name = "dsc_0", .id = DSC_0,
-@@ -88,8 +136,10 @@ const struct dpu_mdss_cfg dpu_sdm670_cfg = {
- 	.ctl = sdm845_ctl,
- 	.sspp_count = ARRAY_SIZE(sdm670_sspp),
- 	.sspp = sdm670_sspp,
--	.mixer_count = ARRAY_SIZE(sdm845_lm),
--	.mixer = sdm845_lm,
-+	.mixer_count = ARRAY_SIZE(sdm670_lm),
-+	.mixer = sdm670_lm,
-+	.dspp_count = ARRAY_SIZE(sdm670_dspp),
-+	.dspp = sdm670_dspp,
- 	.pingpong_count = ARRAY_SIZE(sdm845_pp),
- 	.pingpong = sdm845_pp,
- 	.dsc_count = ARRAY_SIZE(sdm670_dsc),
-
+-	msm_gem_object_set_name(bo->obj, name);
++	msm_gem_object_set_name(bo->obj, "%s", name);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index dae8a94d3366..cdd6379545d2 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -938,12 +938,14 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+ 	/* dump CTL sub-blocks HW regs info */
+ 	for (i = 0; i < cat->ctl_count; i++)
+ 		msm_disp_snapshot_add_block(disp_state, cat->ctl[i].len,
+-				dpu_kms->mmio + cat->ctl[i].base, cat->ctl[i].name);
++				dpu_kms->mmio + cat->ctl[i].base, "%s",
++				cat->ctl[i].name);
+ 
+ 	/* dump DSPP sub-blocks HW regs info */
+ 	for (i = 0; i < cat->dspp_count; i++) {
+ 		base = dpu_kms->mmio + cat->dspp[i].base;
+-		msm_disp_snapshot_add_block(disp_state, cat->dspp[i].len, base, cat->dspp[i].name);
++		msm_disp_snapshot_add_block(disp_state, cat->dspp[i].len, base,
++					    "%s", cat->dspp[i].name);
+ 
+ 		if (cat->dspp[i].sblk && cat->dspp[i].sblk->pcc.len > 0)
+ 			msm_disp_snapshot_add_block(disp_state, cat->dspp[i].sblk->pcc.len,
+@@ -955,13 +957,14 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+ 	/* dump INTF sub-blocks HW regs info */
+ 	for (i = 0; i < cat->intf_count; i++)
+ 		msm_disp_snapshot_add_block(disp_state, cat->intf[i].len,
+-				dpu_kms->mmio + cat->intf[i].base, cat->intf[i].name);
++				dpu_kms->mmio + cat->intf[i].base, "%s",
++				cat->intf[i].name);
+ 
+ 	/* dump PP sub-blocks HW regs info */
+ 	for (i = 0; i < cat->pingpong_count; i++) {
+ 		base = dpu_kms->mmio + cat->pingpong[i].base;
+ 		msm_disp_snapshot_add_block(disp_state, cat->pingpong[i].len, base,
+-					    cat->pingpong[i].name);
++					    "%s", cat->pingpong[i].name);
+ 
+ 		/* TE2 sub-block has length of 0, so will not print it */
+ 
+@@ -975,7 +978,8 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+ 	/* dump SSPP sub-blocks HW regs info */
+ 	for (i = 0; i < cat->sspp_count; i++) {
+ 		base = dpu_kms->mmio + cat->sspp[i].base;
+-		msm_disp_snapshot_add_block(disp_state, cat->sspp[i].len, base, cat->sspp[i].name);
++		msm_disp_snapshot_add_block(disp_state, cat->sspp[i].len, base,
++					    "%s", cat->sspp[i].name);
+ 
+ 		if (cat->sspp[i].sblk && cat->sspp[i].sblk->scaler_blk.len > 0)
+ 			msm_disp_snapshot_add_block(disp_state, cat->sspp[i].sblk->scaler_blk.len,
+@@ -993,12 +997,14 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+ 	/* dump LM sub-blocks HW regs info */
+ 	for (i = 0; i < cat->mixer_count; i++)
+ 		msm_disp_snapshot_add_block(disp_state, cat->mixer[i].len,
+-				dpu_kms->mmio + cat->mixer[i].base, cat->mixer[i].name);
++				dpu_kms->mmio + cat->mixer[i].base,
++				"%s", cat->mixer[i].name);
+ 
+ 	/* dump WB sub-blocks HW regs info */
+ 	for (i = 0; i < cat->wb_count; i++)
+ 		msm_disp_snapshot_add_block(disp_state, cat->wb[i].len,
+-				dpu_kms->mmio + cat->wb[i].base, cat->wb[i].name);
++				dpu_kms->mmio + cat->wb[i].base, "%s",
++				cat->wb[i].name);
+ 
+ 	if (cat->mdp[0].features & BIT(DPU_MDP_PERIPH_0_REMOVED)) {
+ 		msm_disp_snapshot_add_block(disp_state, MDP_PERIPH_TOP0,
+@@ -1013,7 +1019,8 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+ 	/* dump DSC sub-blocks HW regs info */
+ 	for (i = 0; i < cat->dsc_count; i++) {
+ 		base = dpu_kms->mmio + cat->dsc[i].base;
+-		msm_disp_snapshot_add_block(disp_state, cat->dsc[i].len, base, cat->dsc[i].name);
++		msm_disp_snapshot_add_block(disp_state, cat->dsc[i].len, base,
++					    "%s", cat->dsc[i].name);
+ 
+ 		if (cat->dsc[i].features & BIT(DPU_DSC_HW_REV_1_2)) {
+ 			struct dpu_dsc_blk enc = cat->dsc[i].sblk->enc;
+@@ -1028,14 +1035,15 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+ 
+ 	if (cat->cdm)
+ 		msm_disp_snapshot_add_block(disp_state, cat->cdm->len,
+-					    dpu_kms->mmio + cat->cdm->base, cat->cdm->name);
++					    dpu_kms->mmio + cat->cdm->base,
++					    "%s", cat->cdm->name);
+ 
+ 	for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
+ 		const struct dpu_vbif_cfg *vbif = &dpu_kms->catalog->vbif[i];
+ 
+ 		msm_disp_snapshot_add_block(disp_state, vbif->len,
+ 					    dpu_kms->vbif[vbif->id] + vbif->base,
+-					    vbif->name);
++					    "%s", vbif->name);
+ 	}
+ 
+ 	pm_runtime_put_sync(&dpu_kms->pdev->dev);
 -- 
 2.39.5
 
