@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D43D69F38EB
-	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 19:28:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 205649F38F1
+	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 19:29:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEE4710E757;
-	Mon, 16 Dec 2024 18:28:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C194D10E75A;
+	Mon, 16 Dec 2024 18:29:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="RjghAhZK";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="UW8NUrUU";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [IPv6:2607:f8b0:4864:20::112e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E67010E757
- for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 18:28:34 +0000 (UTC)
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-6efea3c9e6eso31670707b3.0
- for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 10:28:34 -0800 (PST)
+Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
+ [IPv6:2607:f8b0:4864:20::1129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C1E710E75A
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 18:29:03 +0000 (UTC)
+Received: by mail-yw1-x1129.google.com with SMTP id
+ 00721157ae682-6ef9b8b4f13so36447947b3.2
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 10:29:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1734373713; x=1734978513;
+ d=chromium.org; s=google; t=1734373742; x=1734978542;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:user-agent:from:references
  :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to; bh=rO0fP7kC0ChLCdFf2h9Dk5fHEcQ84J84WudIRLZjttI=;
- b=RjghAhZKmDRNBYCHUXzycX9Gr6Avl6uCgipbCyiy/A6IjwyjRCHd3sAr79yWPpzz4+
- JWlvNEwonxrQz7ajNjqiFJBA+57Q3gZnMPh0A6lYG2CFeMLJFaKEb4eW+ZxBUAom5VLj
- WhzV6MgKLFSqPMhu8PhsRSL407sp+8psfRYyQ=
+ :reply-to; bh=/TIlSRQ7ahuGDkgFihn78l4akEjGDGdpYykjVXL65kQ=;
+ b=UW8NUrUUe9654SEVe7pI1c+Lgs2TMoTdolmBW3KaAKrfvcGLDCLTYhHCnyueCw4MPZ
+ 77FdCuOkz5qjXZwl4YkmI5qYvUfbMK1q7vBq3cqd5HzMvazTFdqg61jqa0LCsPXx/6gU
+ YQdrQXnlVabKmgjv46sTJfVoIbgpRpXaL3r8Y=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734373713; x=1734978513;
+ d=1e100.net; s=20230601; t=1734373742; x=1734978542;
  h=cc:to:subject:message-id:date:user-agent:from:references
  :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rO0fP7kC0ChLCdFf2h9Dk5fHEcQ84J84WudIRLZjttI=;
- b=BR5D7HrsR9FW8rg7MBshXeQaSUt5Tx6IsMIaUoVGVvn/pZuIe8EMycUtcTgXBjPhLP
- y2iCR8yP8Ll3Ro5gObtkBexmGMVqoB/EK7d4hfKMcFOqNDdz1g+EiHMW+93KWWC5QqPI
- zQfRHv0RPzCOJpzuZmJnJZfOHcAvf6yGiG3eTix4l1R18j9Ur3DS9Ve4rNT8tGta6L1i
- AhCkU4Xwm5KZ9KwbTRIGC3Nmx+m070N385tOf2TbVXAIKxooqI78bQCgq7DCEpZ8HY3P
- CjL4ZpaCAxsJtJ55F2OKSq0V1Y8Km9K63WGqZoZKU7A/oreOg2zoNHEywyezZKQIVGJ2
- MrSQ==
+ bh=/TIlSRQ7ahuGDkgFihn78l4akEjGDGdpYykjVXL65kQ=;
+ b=ZPzjF7lqxqpZ5Xzbn8vB/zaiXDh/Vbq+JnA+AfrhAl1JjWdu8hBL0dJU58Cpw/ADVh
+ pZEytDTjGu1bASer6OEbXZ12vWpSBYR/sC8uSU/1ATOsQdCSAmMVjqrO67jo35xFqyLM
+ nM31E+MAsgrkQBNr1OHbi6EqJd5aDnb01Nwmf9eEHh44J9tEdZvnrjS2Epd56a7TEQIu
+ 7hHSL+WV7jbWZqFZJ1OD6Ls1gMt1h2X0MMQhsCIXFfQzyTYWQvkKkwrlnRKyo0oFnT1s
+ gGNwkjKYb3QYATOuRQKk4VNWj2b8KoYgkyr6lz4BcnrTM1lk258KDzU8Hjet8M5SzA/O
+ bnWQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWLfr+GSnfZuRRdLiwpROCMJUWp3CM87ghOMyY/4NhMOK93GGhGCKjiuwJoWLnJpqJhr15n0wW8b+E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0z9IFkm0P2gG6D/2sFAe40GjQiCogopRc9qBQj0z0v8Rw6+LF
- qHngRFaonLvYvI8FajQjtFgj8QbLxcZAY4b+/fWF1QNBttP/+sLAxO5AfUg65r/946rig296yGh
- +M2ig9PGAFzL6mHzFyisRmrSWIsVFt1AECrZR
-X-Gm-Gg: ASbGncv2YZOcbqAulqr+UFx6Tyi8mOyeL5Yn9P4DKuOWYbVF1Zt6h/deTP4KFMlViOX
- +iayaW1KV3u/F1kSg/cd/adjGlBZQ0nayAk8U3otfJgXnwuTUp3T1KnLeFioF5GIm7w==
-X-Google-Smtp-Source: AGHT+IE4CdB36DYH9vipsU7nBQzIha3QX2anHYVsV1wQT8Ge+vTgkTSbipalEX/mJfncpySK3J6yzUz+Iw2WBcHVy54=
-X-Received: by 2002:a05:690c:6408:b0:6ef:6d61:c249 with SMTP id
- 00721157ae682-6f2bb3a54c2mr8410207b3.39.1734373713619; Mon, 16 Dec 2024
- 10:28:33 -0800 (PST)
+ AJvYcCXLrv1eURLaXtBVhQEZgnhw+K8GNZXBzEkv58GQCfa7W9dHTkUo78DrjbDAZtZK90SOCg4AwUnWN7g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyqo4MusacDRuSI6zCR9th15XrkPpHKXGKQ2nf0Mb9oYfADrpWC
+ kAImzD/iBuJlR2A/hIhXrd0xmVEA+/Ab4XBY04o0SRKIm2Q+95ZJd7oz+a2t1r14U3+XJRuAlz2
+ nCCU3w1pUiDVRjhanfulW8gHvExVce8JmhHiF
+X-Gm-Gg: ASbGnctb3CMv/xxYtZKoP4fW1N74WvbQRAxzJEAmjFIbik447K0Iq7igL42wXfLLYAs
+ UEzrnUOmwGbd/xkzKz9I+xpHRu98h6Siuu2A1XGmnNCC4NYhU2axsmZ8UgMrQ+4/TKQ==
+X-Google-Smtp-Source: AGHT+IFQ80scUMo8d9IxWp5aJ4xwNtnqqvy6ffJBkw26JRJsHSxXxD+1I6D1JK6A0t7aCTHue6+bvR9ehNx3WdpmehA=
+X-Received: by 2002:a05:690c:b15:b0:6ee:5cf9:f898 with SMTP id
+ 00721157ae682-6f279b75052mr120990327b3.33.1734373742393; Mon, 16 Dec 2024
+ 10:29:02 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 16 Dec 2024 10:28:33 -0800
+ HTTPREST; Mon, 16 Dec 2024 12:29:01 -0600
 MIME-Version: 1.0
-In-Reply-To: <20241216-fd-dp-audio-fixup-v4-2-f8d1961cf22f@linaro.org>
+In-Reply-To: <20241216-fd-dp-audio-fixup-v4-5-f8d1961cf22f@linaro.org>
 References: <20241216-fd-dp-audio-fixup-v4-0-f8d1961cf22f@linaro.org>
- <20241216-fd-dp-audio-fixup-v4-2-f8d1961cf22f@linaro.org>
+ <20241216-fd-dp-audio-fixup-v4-5-f8d1961cf22f@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.12.dev1+gaa8c22fdeedb
-Date: Mon, 16 Dec 2024 10:28:32 -0800
-Message-ID: <CAE-0n52uH4q5=QbU7V1jvRmvccAWTF1bOSXZ32j2NxKEKQVhMQ@mail.gmail.com>
-Subject: Re: [PATCH v4 02/16] drm/msm/dp: use msm_dp_utils_pack_sdp_header()
- for audio packets
+Date: Mon, 16 Dec 2024 12:29:01 -0600
+Message-ID: <CAE-0n52S3k01eueL_GZ4Dk359x879EDiOJ7zHK_BduM3bkJVOQ@mail.gmail.com>
+Subject: Re: [PATCH v4 05/16] drm/msm/dp: stop passing panel to
+ msm_dp_audio_get()
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
@@ -88,10 +88,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2024-12-15 14:44:07)
-> Use msm_dp_utils_pack_sdp_header() and call msm_dp_write_link() directly
-> to program audio packet data. Use 0 as Packet ID, as it was not
-> programmed earlier.
+Quoting Dmitry Baryshkov (2024-12-15 14:44:10)
+> The dp_audio module doesn't make any use of the passed DP panel
+> instance. Drop the argument.
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
