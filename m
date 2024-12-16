@@ -1,91 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D6CC9F2877
-	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 03:19:29 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 93DA49F29B1
+	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 06:45:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D006E10E0A6;
-	Mon, 16 Dec 2024 02:19:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979F710E17C;
+	Mon, 16 Dec 2024 05:45:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="PPTqzWMp";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="gmA9RupJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64AE110E0A6;
- Mon, 16 Dec 2024 02:19:26 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BG28xsY025873;
- Mon, 16 Dec 2024 02:19:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- DxqPQuZdtSzYqadtsbgVmkNynvY2w4/NYzWtD/niH+M=; b=PPTqzWMp40LW53uG
- t2+Yd/An6bEnxidi9776V8uE0G+88Okix0mUxWDkONr3/GGBFWGTmeoLRuLyLxU9
- 5KsbDlwCt+yzdeUlr9AcOc/o4HGoKIu4Bvgtvk3fiazcc5pMfmpKDjcyBET+mJSs
- lalY6xA8Y+YPFWEr1xmUOlKbqY+zoZTdk4mWMYnLpdIrJkj5pvB32ELqwndjLMOf
- YOGoQ/1EECEvGi5esR7dcBHrvdWLGBWYiHGZV5nmqMUb642Ze5eZ3MN0DBb9SNd4
- hsUF5SgtoDcWs1gLJQAQ9aIEUI87NwwaDXqTTUCPy7haRHX7lNlZ8yWiL1m1S+sQ
- 3gmifQ==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43jb5rr0k0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Dec 2024 02:19:12 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BG2JBB5010962
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Dec 2024 02:19:11 GMT
-Received: from [10.110.102.127] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 15 Dec
- 2024 18:19:10 -0800
-Message-ID: <54188c68-41c7-4a42-9eca-67363b30217a@quicinc.com>
-Date: Sun, 15 Dec 2024 18:19:08 -0800
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 207DC10E08F;
+ Mon, 16 Dec 2024 05:45:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1734327935;
+ bh=NFnPSyCtd3ps3+TJDsq8UKYTFYz9rkyKLyypRCEEKE0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=gmA9RupJYdqiZ5WAtJIcA7FVRT/WYvzjGt083zjvZGti+W8H7BEziuMuV9Rc7L4e8
+ ct7bz7ajOqtyQtEYsxHCKdaFLlKOgbSznw4Pc7A6gUlq9BwFtuScEhPsTcCLlcNNkN
+ KhEsi6Ok9gyixXZfH40KJsqdjPuOBQYt4wAZ50Xx7XHqynmIyuwwW3yWHMqJysce8D
+ QYRMVP2ilWqozEDBYFtlho+8YFdGNgyfjuOxJJd+i7Re8eTSwWoRQn+40OIoKq5P2w
+ /jCnkF6wcqy8whklKd5HBJKhMkeG2E9oJvztnbA1cQg9CdvWv8xgWy/3PAkSlqo5KD
+ cKe1GjtN4SCtQ==
+Received: from [192.168.50.250] (unknown [171.76.86.135])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C069517E10C2;
+ Mon, 16 Dec 2024 06:45:29 +0100 (CET)
+Message-ID: <8edba6c9-cf7d-4616-8791-65abd108f538@collabora.com>
+Date: Mon, 16 Dec 2024 11:15:24 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/22] drm: Add valid clones check
-To: Jessica Zhang <quic_jesszhan@quicinc.com>, Maxime Ripard
- <mripard@kernel.org>
-CC: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Daniel
- Vetter" <daniel@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, <quic_ebharadw@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- Rob Clark <robdclark@chromium.org>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-References: <20240924-concurrent-wb-v2-0-7849f900e863@quicinc.com>
- <20240924-concurrent-wb-v2-2-7849f900e863@quicinc.com>
- <20240925-hasty-bald-caribou-eedbf5@houat>
- <80d08449-71de-4a7f-8b2a-8af565d8d701@quicinc.com>
+Subject: Re: [PATCH] drm/ci: add kms_cursor_legacy@torture-bo to apq8016 flakes
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Helen Mae Koike Fornazier <helen.koike@collabora.com>
+Cc: Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ freedreno <freedreno@lists.freedesktop.org>
+References: <20241204-cursor_tor_skip-v1-1-f5f0bba5df7b@quicinc.com>
+ <193931869a5.f923adf2270026.8321075661083367617@collabora.com>
+ <20a3955e-3d10-47c5-8e68-d70342805010@quicinc.com>
+ <19393604e18.f9b6fe7d298023.1937039548910081216@collabora.com>
+ <a03ae7e8-391e-4303-91fc-15a59979fd2a@quicinc.com>
+ <ed90ca8c-ed81-419f-a5db-a4e8bcd35835@collabora.com>
+ <ac13139d-1cbf-47dd-b200-1a511ffc9453@quicinc.com>
 Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <80d08449-71de-4a7f-8b2a-8af565d8d701@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Vignesh Raman <vignesh.raman@collabora.com>
+In-Reply-To: <ac13139d-1cbf-47dd-b200-1a511ffc9453@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: K9r6Da7mMNK9VrorMF6wFaFU1tsW4mz0
-X-Proofpoint-ORIG-GUID: K9r6Da7mMNK9VrorMF6wFaFU1tsW4mz0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- impostorscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0
- spamscore=0 mlxscore=0 adultscore=0 clxscore=1015 bulkscore=0
- mlxlogscore=999 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2411120000 definitions=main-2412160017
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,95 +76,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Maxime
+Hi Abhinav,
 
-Gentle reminder on this one.
-
-We are looking for some advice on how to go about KUnit for this static 
-function.
-
-Please help with our question below.
-
-Thanks
-
-Abhinav
-
-On 12/6/2024 4:48 PM, Jessica Zhang wrote:
+On 14/12/24 01:09, Abhinav Kumar wrote:
+> Hi Vignesh
 > 
-> 
-> On 9/25/2024 12:23 AM, Maxime Ripard wrote:
->> On Tue, Sep 24, 2024 at 03:59:18PM GMT, Jessica Zhang wrote:
->>> Check that all encoders attached to a given CRTC are valid
->>> possible_clones of each other.
->>>
->>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>> ---
->>>   drivers/gpu/drm/drm_atomic_helper.c | 23 +++++++++++++++++++++++
->>>   1 file changed, 23 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/drm_atomic_helper.c 
->>> b/drivers/gpu/drm/drm_atomic_helper.c
->>> index 43cdf39019a4..cc4001804fdc 100644
->>> --- a/drivers/gpu/drm/drm_atomic_helper.c
->>> +++ b/drivers/gpu/drm/drm_atomic_helper.c
->>> @@ -574,6 +574,25 @@ mode_valid(struct drm_atomic_state *state)
->>>       return 0;
->>>   }
->>> +static int drm_atomic_check_valid_clones(struct drm_atomic_state 
->>> *state,
->>> +                     struct drm_crtc *crtc)
->>> +{
->>> +    struct drm_encoder *drm_enc;
->>> +    struct drm_crtc_state *crtc_state = 
->>> drm_atomic_get_new_crtc_state(state,
->>> +                                      crtc);
->>> +
->>> +    drm_for_each_encoder_mask(drm_enc, crtc->dev, 
->>> crtc_state->encoder_mask) {
->>> +        if ((crtc_state->encoder_mask & drm_enc->possible_clones) !=
->>> +            crtc_state->encoder_mask) {
->>> +            DRM_DEBUG("crtc%d failed valid clone check for mask 
->>> 0x%x\n",
->>> +                  crtc->base.id, crtc_state->encoder_mask);
->>> +            return -EINVAL;
->>> +        }
->>> +    }
->>> +
->>> +    return 0;
->>> +}
->>> +
->>>   /**
->>>    * drm_atomic_helper_check_modeset - validate state object for 
->>> modeset changes
->>>    * @dev: DRM device
->>> @@ -745,6 +764,10 @@ drm_atomic_helper_check_modeset(struct 
->>> drm_device *dev,
->>>           ret = drm_atomic_add_affected_planes(state, crtc);
->>>           if (ret != 0)
->>>               return ret;
->>> +
->>> +        ret = drm_atomic_check_valid_clones(state, crtc);
->>> +        if (ret != 0)
->>> +            return ret;
->>>       }
+> On 12/11/2024 9:10 PM, Vignesh Raman wrote:
+>> Hi Abhinav / Helen,
 >>
->> Pretty much the same comment, we should have kunit tests for this.
+>> On 12/12/24 01:48, Abhinav Kumar wrote:
+>>> Hi Helen / Vignesh
+>>>
+>>> On 12/4/2024 12:33 PM, Helen Mae Koike Fornazier wrote:
+>>>>
+>>>>
+>>>>
+>>>>
+>>>> ---- On Wed, 04 Dec 2024 16:21:26 -0300 Abhinav Kumar  wrote ---
+>>>>
+>>>>   > Hi Helen
+>>>>   >
+>>>>   > On 12/4/2024 11:14 AM, Helen Mae Koike Fornazier wrote:
+>>>>   > > Hi Abhinav,
+>>>>   > >
+>>>>   > > Thanks for your patch.
+>>>>   > >
+>>>>   > >
+>>>>   > >
+>>>>   > > ---- On Wed, 04 Dec 2024 15:55:17 -0300 Abhinav Kumar  wrote ---
+>>>>   > >
+>>>>   > >   > From the jobs [1] and [2] of pipeline [3], its clear that
+>>>>   > >   > kms_cursor_legacy@torture-bo is most certainly a flake and
+>>>>   > >   > not a fail for apq8016. Mark the test accordingly to match 
+>>>> the results.
+>>>>   > >   >
+>>>>   > >   > [1] : https://gitlab.freedesktop.org/drm/msm/-/jobs/67676481
+>>
+>> The test passes - 
+>> kms_cursor_legacy@torture-bo,UnexpectedImprovement(Pass)
+>>
 > 
-> Hey Maxime,
+> Yes, thats the problem
 > 
-> I'm working on the kunit test for this and had a question on the design 
-> for the unit test:
+> https://gitlab.freedesktop.org/drm/msm/-/jobs/67676481/viewer#L2696
 > 
-> Since this is a static helper that returns a pretty common error code, 
-> how would you recommend going about making sure that 
-> `drm_atomic_check_valid_clones()` specifically is returning the error 
-> (and not a different part of check_modeset) when testing the 
-> check_valid_clones() failure path?
+> 24-12-04 03:51:55 R SERIAL> [  179.241309] [IGT] kms_cursor_legacy: 
+> finished subtest all-pipes, SUCCESS
+> 24-12-04 03:51:55 R SERIAL> [  179.241812] [IGT] kms_cursor_legacy: 
+> finished subtest torture-bo, SUCCESS
 > 
-> Thanks,
+> Here it passes whereas it was marked a failure. Hence pipeline fails.
+
+Yes it fails due to,
+
+Unexpected results:
+  kms_cursor_legacy@torture-bo,UnexpectedImprovement(Pass)
+
+In this case, we need to remove this test from fails.txt
+
 > 
-> Jessica Zhang
+>>>>   > >   > [2] : https://gitlab.freedesktop.org/drm/msm/-/jobs/67677430
+>>
+>> There are no test failures
+>>
+> 
+> No, thats not true
+> 
+> https://gitlab.freedesktop.org/drm/msm/-/jobs/67677430/viewer#L2694
+> 
+> 24-12-04 04:18:38 R SERIAL> [  170.379649] Console: switching to colour 
+> dummy device 80x25
+> 24-12-04 04:18:38 R SERIAL> [  170.379938] [IGT] kms_cursor_legacy: 
+> executing
+> 24-12-04 04:18:38 R SERIAL> [  170.393868] [IGT] kms_cursor_legacy: 
+> starting subtest torture-bo
+> 24-12-04 04:18:38 R SERIAL> [  170.394186] [IGT] kms_cursor_legacy: 
+> starting dynamic subtest pipe-A
+> 24-12-04 04:18:38 R SERIAL> [  170.661749] [IGT] kms_cursor_legacy: 
+> finished subtest pipe-A, FAIL
+> 24-12-04 04:18:38 R SERIAL> [  170.662060] [IGT] kms_cursor_legacy: 
+> starting dynamic subtest all-pipes
+> 24-12-04 04:18:38 R SERIAL> [  170.713237] [IGT] kms_cursor_legacy: 
+> finished subtest all-pipes, FAIL
+> 24-12-04 04:18:38 R SERIAL> [  170.713513] [IGT] kms_cursor_legacy: 
+> finished subtest torture-bo, FAIL
+> 24-12-04 04:18:38 R SERIAL> [  170.721263] [IGT] kms_cursor_legacy: 
+> exiting, ret=98
+> 24-12-04 04:18:38 R SERIAL> [  170.737857] Console: switching to colour 
+> frame buffer device 128x48
+> 
+> Please check these logs, the torture-bo test-case did fail. The pipeline 
+> was marked pass because it was an expected fail.
+> 
+> So we have two pipelines, where one failed and the other passed. So 
+> thats a flake for me.
+
+Yes agree. So if we had removed the test from fails, deqp-runner would 
+have reported this as flake.
+
+deqp-runner runs the test and if it fails, it retries. If the test 
+passes on retry, it is reported as a flake.
+
+> 
+>>>>   > >   > [3]: 
+>>>> https://gitlab.freedesktop.org/drm/msm/-/pipelines/1322770
+>>
+>> The job is same as 2
+>>
+>> In this case, the test passes and deqp-runner does not report it as 
+>> flake. So we only need to remove it from fails file.
+>>
+> 
+> No, like I mentioned above we have a pass and a fail.
 > 
 >>
->> Maxime
+>>>>   > >   >
+>>>>   > >   > Signed-off-by: Abhinav Kumar quic_abhinavk@quicinc.com>
+>>>>   > >   > ---
+>>>>   > >   >  drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt | 5 +++++
+>>>>   > >   >  1 file changed, 5 insertions(+)
+>>>>   > >   >
+>>>>   > >   > diff --git 
+>>>> a/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt 
+>>>> b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
+>>>>   > >   > new file mode 100644
+>>>>   > >   > index 000000000000..18639853f18f
+>>>>   > >   > --- /dev/null
+>>>>   > >   > +++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
+>>>>   > >   > @@ -0,0 +1,5 @@
+>>>>   > >   > +# Board Name: msm-apq8016-db410c
+>>>>   > >   > +# Failure Rate: 100
+>>>>   > >
+>>>>   > > Is failure rate is 100%, isn't it a fail than?
+>>>>   > > (I know we have other cases with Failure Rate: 100, maybe we 
+>>>> should fix them as well)
+>>>>   > >
+>>>>   >
+>>>>   > Maybe I misunderstood the meaning of "Failure rate" for a flake.
+>>>>   >
+>>>>   > I interpreted this as this test being flaky 100% of the time :)
+>>>>
+>>>> Ah right, I see, inside deqp-runner (that auto-retries).
+>>>>
+>>>> I'd like to hear Vignesh's opinion on this.
+>>>>
+>>>> (In any case, we probably should document this better)
+>>
+>> deqp-runner reports new (not present in flakes file) or known (present 
+>> in flakes file) flakes
+>>
+>> 2024-12-11 07:25:44.709666: Some new flakes found:
+>> 2024-12-11 07:25:44.709676:   kms_lease@page-flip-implicit-plane
+>>
+>> 2024-12-11 13:15:16.482890: Some known flakes found:
+>> 2024-12-11 13:15:16.482898: 
+>> kms_async_flips@async-flip-with-page-flip-events-atomic
+>>
+>> we add it to flakes file if deqp runner reports new flakes. Another 
+>> case where we update flake tests is when a test passes in one run but 
+>> fails in another, but deqp-runner does not report it as flake.
+>>
+>> Regards,
+>> Vignesh
+>>
 > 
+> The confusion here i guess is about what to mention as a "Failure rate"
+> 
+> Failure rate means how many times it fails (like normally) ? In that 
+> case 100% which I used is wrong and I used 33% instead for which I have 
+> pushed v2.
+
+Yes, 33% is correct and please remove this test from fails.txt
+
+Regards,
+Vignesh
+
+> 
+>>>>
+>>>> Regards,
+>>>> Helen
+>>>>
+>>>
+>>> Can you let me know which way we need to go?
+>>>
+>>> Just in case I did post a v2 fixing this, 
+>>> https://patchwork.freedesktop.org/patch/627276/
+>>>
+>>> If thats the way to go, can you pls take a look?
+>>>
+>>> Thanks
+>>>
+>>> Abhinav
+>>>>   >
+>>>>   > Out of the 3 runs of the test, it passed 2/3 times and failed 1/3.
+>>>>   >
+>>>>   > So its fail % actually is 33.33% in that case.
+>>>>   >
+>>>>   > I think I saw a Failure rate of 100% on 
+>>>> msm-sm8350-hdk-flakes.txt and
+>>>>   > mistook that as the rate at which flakes are seen.
+>>>>   >
+>>>>   > Let me fix this up as 33%
+>>>>   >
+>>>>   > > Regards,
+>>>>   > > Helen
+>>>>   > >
+>>>>   > >   > +# IGT Version: 1.28-ga73311079
+>>>>   > >   > +# Linux Version: 6.12.0-rc2
+>>>>   > >   > +kms_cursor_legacy@torture-bo
+>>>>   > >   >
+>>>>   > >   > ---
+>>>>   > >   > base-commit: 798bb342e0416d846cf67f4725a3428f39bfb96b
+>>>>   > >   > change-id: 20241204-cursor_tor_skip-9d128dd62c4f
+>>>>   > >   >
+>>>>   > >   > Best regards,
+>>>>   > >   > --
+>>>>   > >   > Abhinav Kumar quic_abhinavk@quicinc.com>
+>>>>   > >   >
+>>>>   > >   >
+>>>>   > >
+>>>>   >
+>>>>
