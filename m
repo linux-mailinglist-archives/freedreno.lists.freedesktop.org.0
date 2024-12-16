@@ -1,95 +1,92 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FA069F29DE
-	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 07:10:07 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D30BD9F2B5D
+	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 09:02:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D6AD10E1AD;
-	Mon, 16 Dec 2024 06:10:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5FFB10E3F5;
+	Mon, 16 Dec 2024 08:02:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="FcJeMfTy";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="WePX7sRc";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92D6210E1AD;
- Mon, 16 Dec 2024 06:10:04 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BFNecwI008209;
- Mon, 16 Dec 2024 06:09:57 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E11110E3F5;
+ Mon, 16 Dec 2024 08:02:45 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BG26Hxq010102;
+ Mon, 16 Dec 2024 08:02:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- AcvzuNPngltImk5uUcCBRUKmFK2+eqam7+P2bDzqP/I=; b=FcJeMfTy4uKQL7im
- IpDU47Iqcsm4eaWhtbBoIZBp7Tv7FdnzVlXqgHGPmRHHL8QnZ6c8ksngWIlb8Fm7
- THkchv+Ju9CCoXQ7Tt2fsRyqA5+EucSx32fydXxfXT2bEuczXiALer6dQsXKpPOM
- rx8iyHq6nhSI104Ett1gVg8u0dXZF4irx8bCsCq13ZmbldgL5gYFfrSk4oP7wPty
- 4RKWD979oIrvcCy1gQcwC4f8BPUhHNGmnTEYqL2nHhBti8PxTQ+HeeL4qH44PmU+
- F2C0kJFTc6dJw2AFvr1petljFvH0UJRYbWUAWg4MUL/eydKmTYlKn0zu48EWsE3b
- ya856g==
+ O85h79tpvZ71FNj2qEOI06WHnYJLI2YhJlHOL8gZ+4E=; b=WePX7sRcQAMhUdXR
+ Aj51f7coBgIzpk//0JUW2n0xH3K7mhYLeeImulEeaO03cxEN630EPjBZTT2m3NF5
+ g2GjsBGf95sVPd/N71qJPxukn9JYf9yuSj3tC7ynvcufV9el4ozoJpPyd5/oBK34
+ wJakNM8tb/beQXPobO6NnLVRy3tGgYZU6ah7EOrd6zfHG6UOQsFkgRrtPhPMcDFt
+ cuCToou530KX+eu9u/rkttG+DpjwZ4zjLjSoUqzSnqpwjmENrmVAps7HW4vFHqwU
+ vX346qWuhzVSC/Tbf1/iuOC7Wzx1SSLgNo6SUakYA1pX2gS3HPRG3fpiO2vx03Gn
+ 7UHc7A==
 Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43hjc2a9b2-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43jb49gvgw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Dec 2024 06:09:57 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BG69tgl016995
+ Mon, 16 Dec 2024 08:02:38 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BG82b7L031851
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Dec 2024 06:09:55 GMT
-Received: from [10.110.102.127] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 15 Dec
- 2024 22:09:53 -0800
-Message-ID: <adea523d-df80-413c-97c1-92cf3923f4e3@quicinc.com>
-Date: Sun, 15 Dec 2024 22:09:46 -0800
+ Mon, 16 Dec 2024 08:02:37 GMT
+Received: from [10.64.16.151] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 16 Dec
+ 2024 00:02:30 -0800
+Message-ID: <f6754fdf-56e5-4c32-8949-4070f8135159@quicinc.com>
+Date: Mon, 16 Dec 2024 16:02:27 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/ci: add kms_cursor_legacy@torture-bo to apq8016 flakes
-To: Vignesh Raman <vignesh.raman@collabora.com>, Helen Mae Koike Fornazier
- <helen.koike@collabora.com>
-CC: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, dri-devel
- <dri-devel@lists.freedesktop.org>, freedreno
- <freedreno@lists.freedesktop.org>
-References: <20241204-cursor_tor_skip-v1-1-f5f0bba5df7b@quicinc.com>
- <193931869a5.f923adf2270026.8321075661083367617@collabora.com>
- <20a3955e-3d10-47c5-8e68-d70342805010@quicinc.com>
- <19393604e18.f9b6fe7d298023.1937039548910081216@collabora.com>
- <a03ae7e8-391e-4303-91fc-15a59979fd2a@quicinc.com>
- <ed90ca8c-ed81-419f-a5db-a4e8bcd35835@collabora.com>
- <ac13139d-1cbf-47dd-b200-1a511ffc9453@quicinc.com>
- <8edba6c9-cf7d-4616-8791-65abd108f538@collabora.com>
+Subject: Re: [PATCH v4 0/9] Add display support for QCS615 platform
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul
+ <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ "Bjorn Andersson" <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, "Liu Li" <quic_lliu6@quicinc.com>,
+ Xiangxu Yin <quic_xiangxuy@quicinc.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@linaro.org>
+References: <20241210-add-display-support-for-qcs615-platform-v4-0-2d875a67602d@quicinc.com>
+ <173426667308.2196979.11322859869026651489.b4-ty@linaro.org>
 Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <8edba6c9-cf7d-4616-8791-65abd108f538@collabora.com>
+From: fange zhang <quic_fangez@quicinc.com>
+In-Reply-To: <173426667308.2196979.11322859869026651489.b4-ty@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: pzcRdAR_iPmV3mebmygfZ2V_1rLR5iNu
-X-Proofpoint-ORIG-GUID: pzcRdAR_iPmV3mebmygfZ2V_1rLR5iNu
+X-Proofpoint-ORIG-GUID: hLqVv4zo-PX3VfPhP0AVMM4p6Sh_mZHI
+X-Proofpoint-GUID: hLqVv4zo-PX3VfPhP0AVMM4p6Sh_mZHI
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 mlxscore=0
- adultscore=0 bulkscore=0 mlxlogscore=999 malwarescore=0 impostorscore=0
- priorityscore=1501 suspectscore=0 lowpriorityscore=0 phishscore=0
+ impostorscore=0
+ priorityscore=1501 mlxscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 mlxlogscore=972 phishscore=0 spamscore=0 lowpriorityscore=0
  clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412160048
+ engine=8.19.0-2411120000 definitions=main-2412160065
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,231 +104,37 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 12/15/2024 9:45 PM, Vignesh Raman wrote:
-> Hi Abhinav,
+On 2024/12/15 21:10, Dmitry Baryshkov wrote:
 > 
-> On 14/12/24 01:09, Abhinav Kumar wrote:
->> Hi Vignesh
+> On Tue, 10 Dec 2024 14:53:51 +0800, Fange Zhang wrote:
+>> This series aims to enable display on the QCS615 platform
 >>
->> On 12/11/2024 9:10 PM, Vignesh Raman wrote:
->>> Hi Abhinav / Helen,
->>>
->>> On 12/12/24 01:48, Abhinav Kumar wrote:
->>>> Hi Helen / Vignesh
->>>>
->>>> On 12/4/2024 12:33 PM, Helen Mae Koike Fornazier wrote:
->>>>>
->>>>>
->>>>>
->>>>>
->>>>> ---- On Wed, 04 Dec 2024 16:21:26 -0300 Abhinav Kumar  wrote ---
->>>>>
->>>>>   > Hi Helen
->>>>>   >
->>>>>   > On 12/4/2024 11:14 AM, Helen Mae Koike Fornazier wrote:
->>>>>   > > Hi Abhinav,
->>>>>   > >
->>>>>   > > Thanks for your patch.
->>>>>   > >
->>>>>   > >
->>>>>   > >
->>>>>   > > ---- On Wed, 04 Dec 2024 15:55:17 -0300 Abhinav Kumar  wrote ---
->>>>>   > >
->>>>>   > >   > From the jobs [1] and [2] of pipeline [3], its clear that
->>>>>   > >   > kms_cursor_legacy@torture-bo is most certainly a flake and
->>>>>   > >   > not a fail for apq8016. Mark the test accordingly to 
->>>>> match the results.
->>>>>   > >   >
->>>>>   > >   > [1] : https://gitlab.freedesktop.org/drm/msm/-/jobs/67676481
->>>
->>> The test passes - 
->>> kms_cursor_legacy@torture-bo,UnexpectedImprovement(Pass)
->>>
+>> 1.Add MDSS & DPU support for QCS615
+>> 2.Add DSI support for QCS615
 >>
->> Yes, thats the problem
+>> QCS615 platform supports DisplayPort, and this feature will be added in a future patch
 >>
->> https://gitlab.freedesktop.org/drm/msm/-/jobs/67676481/viewer#L2696
->>
->> 24-12-04 03:51:55 R SERIAL> [  179.241309] [IGT] kms_cursor_legacy: 
->> finished subtest all-pipes, SUCCESS
->> 24-12-04 03:51:55 R SERIAL> [  179.241812] [IGT] kms_cursor_legacy: 
->> finished subtest torture-bo, SUCCESS
->>
->> Here it passes whereas it was marked a failure. Hence pipeline fails.
+>> [...]
 > 
-> Yes it fails due to,
+> Applied, thanks!
+ok, got it,thank you!
+will only include DTS changes and remove following patches in the next 
+update
 > 
-> Unexpected results:
->   kms_cursor_legacy@torture-bo,UnexpectedImprovement(Pass)
+> [1/9] dt-bindings: display/msm: Add SM6150 DSI phy
+>        https://gitlab.freedesktop.org/lumag/msm/-/commit/5902cd2212eb
+> [2/9] dt-bindings: display/msm: dsi-controller-main: Document SM6150
+>        https://gitlab.freedesktop.org/lumag/msm/-/commit/e9280f124b3c
+> [3/9] dt-bindings: display/msm: Add SM6150 MDSS & DPU
+>        https://gitlab.freedesktop.org/lumag/msm/-/commit/701da2861cbc
+> [4/9] drm/msm: mdss: Add SM6150 support
+>        https://gitlab.freedesktop.org/lumag/msm/-/commit/b8871563eb96
+> [5/9] drm/msm/dpu: Add SM6150 support
+>        https://gitlab.freedesktop.org/lumag/msm/-/commit/cb2f9144693b
+> [6/9] drm/msm/dsi: Add dsi phy support for SM6150
+>        https://gitlab.freedesktop.org/lumag/msm/-/commit/fbf937a89ad2
+> [7/9] drm/msm/dsi: Add support for SM6150
+>        https://gitlab.freedesktop.org/lumag/msm/-/commit/8a570c93fb67
 > 
-> In this case, we need to remove this test from fails.txt
-> 
->>
->>>>>   > >   > [2] : https://gitlab.freedesktop.org/drm/msm/-/jobs/67677430
->>>
->>> There are no test failures
->>>
->>
->> No, thats not true
->>
->> https://gitlab.freedesktop.org/drm/msm/-/jobs/67677430/viewer#L2694
->>
->> 24-12-04 04:18:38 R SERIAL> [  170.379649] Console: switching to 
->> colour dummy device 80x25
->> 24-12-04 04:18:38 R SERIAL> [  170.379938] [IGT] kms_cursor_legacy: 
->> executing
->> 24-12-04 04:18:38 R SERIAL> [  170.393868] [IGT] kms_cursor_legacy: 
->> starting subtest torture-bo
->> 24-12-04 04:18:38 R SERIAL> [  170.394186] [IGT] kms_cursor_legacy: 
->> starting dynamic subtest pipe-A
->> 24-12-04 04:18:38 R SERIAL> [  170.661749] [IGT] kms_cursor_legacy: 
->> finished subtest pipe-A, FAIL
->> 24-12-04 04:18:38 R SERIAL> [  170.662060] [IGT] kms_cursor_legacy: 
->> starting dynamic subtest all-pipes
->> 24-12-04 04:18:38 R SERIAL> [  170.713237] [IGT] kms_cursor_legacy: 
->> finished subtest all-pipes, FAIL
->> 24-12-04 04:18:38 R SERIAL> [  170.713513] [IGT] kms_cursor_legacy: 
->> finished subtest torture-bo, FAIL
->> 24-12-04 04:18:38 R SERIAL> [  170.721263] [IGT] kms_cursor_legacy: 
->> exiting, ret=98
->> 24-12-04 04:18:38 R SERIAL> [  170.737857] Console: switching to 
->> colour frame buffer device 128x48
->>
->> Please check these logs, the torture-bo test-case did fail. The 
->> pipeline was marked pass because it was an expected fail.
->>
->> So we have two pipelines, where one failed and the other passed. So 
->> thats a flake for me.
-> 
-> Yes agree. So if we had removed the test from fails, deqp-runner would 
-> have reported this as flake.
-> 
-> deqp-runner runs the test and if it fails, it retries. If the test 
-> passes on retry, it is reported as a flake.
-> 
->>
->>>>>   > >   > [3]: 
->>>>> https://gitlab.freedesktop.org/drm/msm/-/pipelines/1322770
->>>
->>> The job is same as 2
->>>
->>> In this case, the test passes and deqp-runner does not report it as 
->>> flake. So we only need to remove it from fails file.
->>>
->>
->> No, like I mentioned above we have a pass and a fail.
->>
->>>
->>>>>   > >   >
->>>>>   > >   > Signed-off-by: Abhinav Kumar quic_abhinavk@quicinc.com>
->>>>>   > >   > ---
->>>>>   > >   >  drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt | 5 +++++
->>>>>   > >   >  1 file changed, 5 insertions(+)
->>>>>   > >   >
->>>>>   > >   > diff --git 
->>>>> a/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt 
->>>>> b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
->>>>>   > >   > new file mode 100644
->>>>>   > >   > index 000000000000..18639853f18f
->>>>>   > >   > --- /dev/null
->>>>>   > >   > +++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
->>>>>   > >   > @@ -0,0 +1,5 @@
->>>>>   > >   > +# Board Name: msm-apq8016-db410c
->>>>>   > >   > +# Failure Rate: 100
->>>>>   > >
->>>>>   > > Is failure rate is 100%, isn't it a fail than?
->>>>>   > > (I know we have other cases with Failure Rate: 100, maybe we 
->>>>> should fix them as well)
->>>>>   > >
->>>>>   >
->>>>>   > Maybe I misunderstood the meaning of "Failure rate" for a flake.
->>>>>   >
->>>>>   > I interpreted this as this test being flaky 100% of the time :)
->>>>>
->>>>> Ah right, I see, inside deqp-runner (that auto-retries).
->>>>>
->>>>> I'd like to hear Vignesh's opinion on this.
->>>>>
->>>>> (In any case, we probably should document this better)
->>>
->>> deqp-runner reports new (not present in flakes file) or known 
->>> (present in flakes file) flakes
->>>
->>> 2024-12-11 07:25:44.709666: Some new flakes found:
->>> 2024-12-11 07:25:44.709676:   kms_lease@page-flip-implicit-plane
->>>
->>> 2024-12-11 13:15:16.482890: Some known flakes found:
->>> 2024-12-11 13:15:16.482898: 
->>> kms_async_flips@async-flip-with-page-flip-events-atomic
->>>
->>> we add it to flakes file if deqp runner reports new flakes. Another 
->>> case where we update flake tests is when a test passes in one run but 
->>> fails in another, but deqp-runner does not report it as flake.
->>>
->>> Regards,
->>> Vignesh
->>>
->>
->> The confusion here i guess is about what to mention as a "Failure rate"
->>
->> Failure rate means how many times it fails (like normally) ? In that 
->> case 100% which I used is wrong and I used 33% instead for which I 
->> have pushed v2.
-> 
-> Yes, 33% is correct and please remove this test from fails.txt
-> 
-> Regards,
-> Vignesh
-> 
+> Best regards,
 
-Ack, let me remove this test from fails and keep it only in flakes.
-
-Thanks
-
-Abhinav
->>
->>>>>
->>>>> Regards,
->>>>> Helen
->>>>>
->>>>
->>>> Can you let me know which way we need to go?
->>>>
->>>> Just in case I did post a v2 fixing this, 
->>>> https://patchwork.freedesktop.org/patch/627276/
->>>>
->>>> If thats the way to go, can you pls take a look?
->>>>
->>>> Thanks
->>>>
->>>> Abhinav
->>>>>   >
->>>>>   > Out of the 3 runs of the test, it passed 2/3 times and failed 1/3.
->>>>>   >
->>>>>   > So its fail % actually is 33.33% in that case.
->>>>>   >
->>>>>   > I think I saw a Failure rate of 100% on 
->>>>> msm-sm8350-hdk-flakes.txt and
->>>>>   > mistook that as the rate at which flakes are seen.
->>>>>   >
->>>>>   > Let me fix this up as 33%
->>>>>   >
->>>>>   > > Regards,
->>>>>   > > Helen
->>>>>   > >
->>>>>   > >   > +# IGT Version: 1.28-ga73311079
->>>>>   > >   > +# Linux Version: 6.12.0-rc2
->>>>>   > >   > +kms_cursor_legacy@torture-bo
->>>>>   > >   >
->>>>>   > >   > ---
->>>>>   > >   > base-commit: 798bb342e0416d846cf67f4725a3428f39bfb96b
->>>>>   > >   > change-id: 20241204-cursor_tor_skip-9d128dd62c4f
->>>>>   > >   >
->>>>>   > >   > Best regards,
->>>>>   > >   > --
->>>>>   > >   > Abhinav Kumar quic_abhinavk@quicinc.com>
->>>>>   > >   >
->>>>>   > >   >
->>>>>   > >
->>>>>   >
->>>>>
