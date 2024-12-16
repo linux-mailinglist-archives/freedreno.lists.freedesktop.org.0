@@ -1,88 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B945B9F2C2E
-	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 09:47:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2582D9F2D09
+	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 10:33:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FABF10E53D;
-	Mon, 16 Dec 2024 08:47:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02F8210E565;
+	Mon, 16 Dec 2024 09:33:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="e3iN2EA2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KlYjIsnB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FD8F10E10D
- for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 08:47:31 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-5401c52000dso4297499e87.3
- for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 00:47:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734338850; x=1734943650; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zzeD8yx+TMqcm5gDE+gRIinKwvYdm3w/pVg+Fc5PpMU=;
- b=e3iN2EA2z8FPEZRcsHtTIymJ1TXdnWcAfekENNew59Pxegrn/IHIrzV72wZoUCUBFy
- DZMZ0Wd5oD0bRukysP+SgRiRoTjjoNdD4TBb+Q6OjbMVd0PrwXcfHLcBeumFDxP639o0
- xsUaq0FfyGnWUOhxqK88mwXuJbXjkGK0csf281beUTjBWzmaPbEfMB4jArCEgR3mgPww
- wcV0A7nyUAi6AcLJ6xyQLYfzYcRbycXhi7bTwh9NhxXjdGse8yVehEXB37CSk8HckRbH
- R1ddMj/jevEgdopg9fXdR8/0IbI47lRPGYFjVwD5l8iORfIAju93QfpU5KvdtV/SsKAF
- S6xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734338850; x=1734943650;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zzeD8yx+TMqcm5gDE+gRIinKwvYdm3w/pVg+Fc5PpMU=;
- b=xIENctw12mjgUkUodsqtVGNJn1ysVavFjza4byFtqeONFnEWM77Y0Yrhi8cRx6VFXr
- Xxw+wTr/Jr8Rgygqg87ghAlhJhWidSIyXh9Fg9kVlpzzLSsaL2Z+5Gl0vzzFyDKo5QrB
- kaODNylJSXuWO+fn8Rd/AN2SwVf/B2oAVh4t7zUPtGlU/QPoO59w9JOwb9Q2vMxr3bX5
- eVJNlRWpVbjcmlFL2vY3cr5FXSbKwg1ETQuHauVCZKojukzHKI2UyG8IOhjWO/aTH8JJ
- xBViQJfiLIrD1xsXJckuh6j7bYusvkxKM9UTm0s7B26NpgXJoYQWV+asZq6b7mODjXYY
- qPJA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXfRmK8jr3Uo5Z52Fbrhc95pPaxzFOj1BQwfsmipVcm0Ml0ePGMSGmzPjpNoIYnxQc1rGu7YClxhJ4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyy1GetItwKRyJXfvKsOuMQKv24F+43KV7hGDWvmItLnGRVK7QQ
- gNFlTk8cVNB6Zk/+OJHZSMCk8HtENOEdg7gyGTuIfqsSXsgGgiw2457wtFjzCeg=
-X-Gm-Gg: ASbGncvoM7Aqnxa5sPRgEuDPkDumHSxkjDeSPTCJx6v+nE3QXzEMWfUYIdZNYqnLB3w
- C3rI9TiA393ww6gYRDxOfzKgPLq/NNBlB0EsbhEC7H26L15A9BWeNS3H0rPDmutGw/Kfq1XfSfm
- kgnvkTzqCzvrgc5DumvPt4TJ5+BimILJTc+LSkYsl0ISnbgK/oDb0SGJOdAgXCAzvEMvQu3By2r
- 75Vh1Cstew9dETPePQvOh6M3gV0OcUrbE4f6qR3slhmWHIJtU0nYnlOURIANDlfxML+ZSXIo7RX
- sFHFQXb8/83brkTxU3MvPHTkt7rlYy6sKCjT
-X-Google-Smtp-Source: AGHT+IEJ5sTe3G9+gTy1m1ue9pwhxg6TL/Rf2dQWkQ9/Vzvc3a6UV9wPa7hVqJ6GvzWOli/HF0b54w==
-X-Received: by 2002:a05:6512:3088:b0:540:2111:db71 with SMTP id
- 2adb3069b0e04-540905a6fd4mr3379358e87.42.1734338849696; 
- Mon, 16 Dec 2024 00:47:29 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54120b9f4cesm751665e87.14.2024.12.16.00.47.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Dec 2024 00:47:29 -0800 (PST)
-Date: Mon, 16 Dec 2024 10:47:26 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>, 
- Arnd Bergmann <arnd@arndb.de>, Sean Paul <sean@poorly.run>, 
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A791310E562;
+ Mon, 16 Dec 2024 09:33:18 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 986195C1101;
+ Mon, 16 Dec 2024 09:32:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02CD2C4CED0;
+ Mon, 16 Dec 2024 09:33:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1734341597;
+ bh=yndVn34bCyl1mk7624b3uy12Ns2e5Qunxm39WYYBdts=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KlYjIsnBEL4QGqc+5XEvmXKjI9BYHk2jAGISl3dcIy6WB3L/Go8Hde9JbdNRaABg/
+ 5CuPLu9J43l7Q9SbWGUGlCBcwl2+yLzInKyrobgT2mdvAWJmAiUAjpjIsthSUFLBev
+ Jxvi+VhWZJ8RCmKAAzJtif9WnKBTUy+lfWKpD6MG6vHOhfQRx+cdbD3LdRMjd5k7GC
+ kJ9mEX5eqKmWt9UsfeT1bsOAL0P6OnNjjag4be6LE1mwediA8y3MimeP00gqZoEqEz
+ H83HllpQgXB32Wgxtpdk88dFA4fLyC46ezfaXfdWh1tSHzc0opwF2lzSpYLFZhCkO8
+ ozOKCR0Rb89tQ==
+Date: Mon, 16 Dec 2024 10:33:15 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
  Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Marijn Suijten <marijn.suijten@somainline.org>, 
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jinjie Ruan <ruanjinjie@huawei.com>, 
- =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm: fix -Wformat-security warnings
-Message-ID: <4lyhh4ayevevk5nkyjo7kbn3r5vk66f4j34dgncycwprxs5dsa@pnkjgxstlfng>
-References: <20241216083319.1838449-1-arnd@kernel.org>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND v2 1/4] dt-bindings: display/msm: gpu: Document
+ A612 GPU
+Message-ID: <zzqp3ejgdtaala6ksdwnlmfv7c32o43eghqbmulp2f2p4pqlvs@5ihzuzav3tah>
+References: <20241213-qcs615-gpu-dt-v2-0-47f3b312b178@quicinc.com>
+ <20241213-qcs615-gpu-dt-v2-1-47f3b312b178@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20241216083319.1838449-1-arnd@kernel.org>
+In-Reply-To: <20241213-qcs615-gpu-dt-v2-1-47f3b312b178@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,34 +71,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 16, 2024 at 09:33:13AM +0100, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+On Fri, Dec 13, 2024 at 05:01:03PM +0530, Akhil P Oommen wrote:
+> A612 GPU requires an additional smmu_vote clock. Update the bindings to
+> reflect this.
 > 
-> Passing a variable string as a printf style format is potentially
-> dangerous that -Wformat-security can warn about if enabled. A new
-> instance just got added:
-> 
-> drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c: In function 'dpu_kms_mdp_snapshot':
-> drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:1046:49: error: format not a string literal and no format arguments [-Werror=format-security]
->  1046 |                                             vbif->name);
->       |                                             ~~~~^~~~~~
-> 
-> Fix this one and the preexisting -Wformat-security warnings the in the
-> DRM code for snapdragon.
-> 
-> Fixes: 1a40bb31fcf1 ("drm/msm/dpu: Add VBIF to DPU snapshot") # and others
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 > ---
-> I have a larger series that I still plan to send eventually, sending this
-> one now as I just saw another one get added. The warning is enabled by
-> default because there are still over 100 other files with the same problem.
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c   |  2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 28 ++++++++++++++++---------
->  2 files changed, 19 insertions(+), 11 deletions(-)
+>  .../devicetree/bindings/display/msm/gpu.yaml       | 36 ++++++++++++++++++++++
+>  1 file changed, 36 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+> index 6ddc72fd85b04537ea270754a897b4e7eb269641..1276331cb262e64cc94d6a9973463b3c1ff8b7a8 100644
+> --- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+> @@ -217,6 +217,42 @@ allOf:
+>        required:
+>          - clocks
+>          - clock-names
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,adreno-612.0
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 5
+> +          maxItems: 5
+> +
+> +        clock-names:
+> +          items:
+> +            - const: core
+> +              description: GPU Core clock
+> +            - const: mem_iface
+> +              description: GPU Memory Interface clock
+> +            - const: alt_mem_iface
+> +              description: GPU Alternative Memory Interface clock
+> +            - const: gmu
+> +              description: CX GMU clock
+> +            - const: xo
+> +              description: GPUCC clocksource clock
+> +
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Missing constraints for reg. xxx and xxx-names cannot be different.
 
--- 
-With best wishes
-Dmitry
+Best regards,
+Krzysztof
+
