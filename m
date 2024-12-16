@@ -1,130 +1,109 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E3259F2EC1
-	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 12:03:23 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F16B59F2F0F
+	for <lists+freedreno@lfdr.de>; Mon, 16 Dec 2024 12:24:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36D0510E595;
-	Mon, 16 Dec 2024 11:03:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C894F10E5D9;
+	Mon, 16 Dec 2024 11:24:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="K2RbRTd5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="X3l5Ybth";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 948F810E592
- for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 11:03:20 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-385e27c75f4so3087163f8f.2
- for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 03:03:20 -0800 (PST)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4BB910E5B1
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 11:24:34 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-30229d5b22fso42259241fa.2
+ for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 03:24:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734346999; x=1734951799; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=cvKtKcX1PGSNlXT+b1lUYaOVxett0awWm9NBofHHbsM=;
- b=K2RbRTd5vfd9GzgehIDHR7NMzffQbE5Cksyj1ycS7Dn3dPgmuFeBo+xg4kgXKBzmLM
- LLA1Yq8D++moHnngKi73vBYzDV+bOlTNXtkSVAIiQ7y+9SYrZKXZoatgMBU3lBbXsIAl
- loq4JjtPD0IrjwDXTnaer23H3Kp1ZuGkiXjXeeTp/05SWjhqZw3DIDCytLb10Km0JqOe
- jsWMGSpk2ULfZjCW8UuwEDx/fAx33ztG68ejwLda1iN3DgClrCe8AdQinJifcYwiAhd7
- Tmyvnp3kTYPjwDnyxwAUTBTn/oHR+t8UMdtvGZJCfPLU/04u5/mBx0gCORZeieQHj3b2
- oCCQ==
+ d=linaro.org; s=google; t=1734348273; x=1734953073; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=gty21mjzYgvbYsbhfcrs7XMj7b14Ja6LtCdRiQMw9IQ=;
+ b=X3l5YbthhhVTEeMbX8SZAbqoPCr7Mmq1yC0hwAnhNTsutlpSvKMegr3H3PgSj175H7
+ Yy0BS7IsIqgy2tt+I8qk00T/eEoE6KlR63+KCxeBrQcbxsY9l4DA49NT7sqNbiS3W231
+ 98YgYxiRlbgR426qrBld7CHuGaCVWnCkMa4zb5JUzYRZRkxl/fSWQxDDT7/Mgl367UX4
+ XwGRPoV6EIUnczu3oIglF9yfPlX+Xfr1YFJDBst2s0K4+lDSVvYeHz/Ez+9HwkoZDGX0
+ qov42N9YUtyuTD9zw/CFasHNDaB3uz8+5rlaNC+8+Z9HfURIQKWnkhAy4U4uXvb0CB4Y
+ L4XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734346999; x=1734951799;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=cvKtKcX1PGSNlXT+b1lUYaOVxett0awWm9NBofHHbsM=;
- b=L7N2q1O0aQAEedd9iyLIBMZoJqb5SIwX3oYAicDGTVfDUtOxuL4hRUXVH2y1lEOSmw
- d83qiBDC36tNpovHB67G2YRt0nvdRW1tPs7QeGfwKDf29HZ9bjltHHdDFAEVqOpELbRn
- 66WYPiRLCsVxjTE6h0q9Yr2cl2NteApEciKzSFt18cwWsR8VWH2I0N4xDHH0FEtHqNj7
- 2di1lqimgH2FvYJpsoLfnz9k59YfnuxJFdD3mA00hc3PPCfiNeATj6+fxEjlyHrv42CZ
- TW71Q/D9/pAwdx7Mh3a4WJgiyuGk4Eszew988tYmYacDk7rxd5hJHJL51iq+7qQ/Hhby
- xJ6g==
+ d=1e100.net; s=20230601; t=1734348273; x=1734953073;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=gty21mjzYgvbYsbhfcrs7XMj7b14Ja6LtCdRiQMw9IQ=;
+ b=CqhGgz+eW2vAdrPiqOYwbfHxBNlnaPyBapZMwflghM5m7a3uFD6zfaUW/CufHsHxjj
+ 9NLljO2kavGPxSTOAlMriQ1sBrQLmtv6wvTg3chBMFnQg+Y7/ggEqpQgdSWlRctRaxwy
+ PiLcpzfqc8/V/kp3yPiHdGoTVXHu3zDquiG2hQCkmLnHLwV6/Rud33+4ZDS2wMv0dA0r
+ +v+hW6+pnfxJRGRXSkA89xbxDmVRNJFrcnw5IlvytCWTx3LelPMDj2gdGNcsW6h19coq
+ l2mYJZTO5FjClzLWFnT+8ykbOJXq6nOFiczpqb2aWxdtCXYyfBGioIR07mQcWwXek1e6
+ TSMw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW95uAk1qTzbxDBvMtb4z3SnX7zVEFd2oWB1rmgpIbI/rnLhTUMW4Ie45e3nzzAcVHKNxbIE0MoxLs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw724zTMqe7a6i0dR96ckjEGj6czjKj3qcttVx1hTfJx/Wga2mD
- Saj67VUFaNnsyKt1wFrl5VE7vrJBNfjfKRnLlKmoGp4LP/J5mx4BxGtD98Vi1m4=
-X-Gm-Gg: ASbGncvrI0STo/r4Bi1rNbSMxK4qsRV0jOvq3L/YLXUsxz2HZ6o+3/8x2oDDyoXKvga
- N+9adBjSmAW1kQqJYOo/Ug4H9elXU3c2tpyjO3iFa4s7UcHKwiCI8+QFt2syZhYtBmFcf8v6ydJ
- 8lcPzmw8Jw5vixseBlib/apNHMzl4YYfFQag7LRGopXsVXhJ5jw8eLIvFDK0OrntYBMYnhaZn9J
- KIozfi9aCX6eQDQaMqUDB2EiPJKpFjyzHolZ8NC1VbbnHSBBNf0xIo+070hN+bfA43s6UiPQ20I
- gNFuejL7KmcDQtw5qNlrwJ2Koma534YK2Q==
-X-Google-Smtp-Source: AGHT+IGy2W5pNa1ih2XUUMBTIRgIZwSMaTZxIYWp6bt6/smB6KrDlitrxfBHrwQAiJNHIl0VbQtfjg==
-X-Received: by 2002:a05:6000:1869:b0:385:f092:df2 with SMTP id
- ffacd0b85a97d-38880adb4e8mr9602393f8f.34.1734346998984; 
- Mon, 16 Dec 2024 03:03:18 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:8b75:a430:7bc1:919b?
- ([2a01:e0a:982:cbb0:8b75:a430:7bc1:919b])
+ AJvYcCWAYi1JfhmMZl11qzN//O4WAuWsAgd9QNmCGJMFgh0ICTZQI6+9EOqMTDcPQSxHEDX+Lm/s4rAvWDw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxw7fjzpEL0kXXMvJ7VwPI2DGV51DoALsj1M3E7lSayxq0CZtIH
+ 4ytFiUZgN1rctyoRKle+JFU7fmxwRVwGTMbbUNJvrhHnwPX1dofiTVOlsffRGME=
+X-Gm-Gg: ASbGncvmEREQV/xEOMPSlnssgPZiFLNYDwva+KhiuLWCGnGGEZfJ8Cgfg3Qd5wtD0J4
+ XIWMObwpCry1aCjIUMjTuhPAdUJFZnulUxtTjfm0pgj8uWUsTqWaOzgZ5FCBm2bd5Ab0V5M2g6t
+ 4Z8bWT3O91UMGvgPtVLLU842rXQ39yUl4Js+hhoZSjKyUcJkr5A3uFRG4GPcHwRogUs4khswIOA
+ OqREs4e4Ly0CANx954Z/AhpsoZkyMPuXVrBwGXBclX5VeJgqxSyVaS45l/oTF3HiKk/cctqZi9+
+ bctq5w4PkVc+ewiR6xLJIzHMnm3/DK+pOGxQ
+X-Google-Smtp-Source: AGHT+IHzioRjGIPfaVwEFSX3By+G0bPm5p1y4IolLwPf7YBpM4LUQ/QUZx/r1EiqpYtLRC9+8oUd8Q==
+X-Received: by 2002:a05:6512:2212:b0:540:1a3f:e848 with SMTP id
+ 2adb3069b0e04-5409054bce1mr3948864e87.15.1734348273018; 
+ Mon, 16 Dec 2024 03:24:33 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-388c8012105sm7764885f8f.16.2024.12.16.03.03.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Dec 2024 03:03:18 -0800 (PST)
-Message-ID: <493748c0-fa2b-467f-8a21-921ce87b7866@linaro.org>
-Date: Mon, 16 Dec 2024 12:03:16 +0100
+ 2adb3069b0e04-54120c1612asm817266e87.222.2024.12.16.03.24.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Dec 2024 03:24:31 -0800 (PST)
+Date: Mon, 16 Dec 2024 13:24:29 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ Jani Nikula <jani.nikula@intel.com>
+Subject: Re: [PATCH v2 00/10] drm/connector: add eld_mutex to protect
+ connector->eld
+Message-ID: <xchjpeykkqwlpniaspbzitaozuoltoq7aturtu7jq6z4lcxh77@y7t5ge2sa4er>
+References: <20241206-drm-connector-eld-mutex-v2-0-c9bce1ee8bea@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH v5 4/7] drm/msm: adreno: find bandwidth index of OPP and
- set it along freq index
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20241211-topic-sm8x50-gpu-bw-vote-v5-0-6112f9f785ec@linaro.org>
- <20241211-topic-sm8x50-gpu-bw-vote-v5-4-6112f9f785ec@linaro.org>
- <ddf91ba2-cab2-4653-b842-65a8e82b5160@oss.qualcomm.com>
- <2f1c6deb-29f8-4144-b086-743fb0f8495c@linaro.org>
- <80bed70e-7802-4555-a15e-e06fe46214c6@quicinc.com>
- <c2d8f443-5876-4293-8d2b-ecd13eaf8285@oss.qualcomm.com>
- <268d67c0-efdf-4ad4-b5fe-5b4f04e73131@linaro.org>
- <0d4d3ca3-ec8a-4e85-9838-a2bf1e07e872@oss.qualcomm.com>
- <9dcf26e5-1c25-4a18-ab01-58ddf3fbd607@linaro.org>
- <cf298ca5-e2fe-4e0e-a0e7-a2cdad3c657b@quicinc.com>
- <f730135f-b952-4f5c-bcb8-dc725e7db336@oss.qualcomm.com>
- <bc1e71e3-c487-4700-869a-ed21f3633267@linaro.org>
- <6c8f7f48-1aae-4336-b66b-5b02609caa57@quicinc.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <6c8f7f48-1aae-4336-b66b-5b02609caa57@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241206-drm-connector-eld-mutex-v2-0-c9bce1ee8bea@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,159 +116,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 16/12/2024 11:40, Akhil P Oommen wrote:
-> On 12/16/2024 3:13 PM, neil.armstrong@linaro.org wrote:
->> On 14/12/2024 00:46, Konrad Dybcio wrote:
->>> On 13.12.2024 5:55 PM, Akhil P Oommen wrote:
->>>> On 12/13/2024 10:10 PM, neil.armstrong@linaro.org wrote:
->>>>> On 13/12/2024 17:31, Konrad Dybcio wrote:
->>>>>> On 13.12.2024 5:28 PM, neil.armstrong@linaro.org wrote:
->>>>>>> On 13/12/2024 16:37, Konrad Dybcio wrote:
->>>>>>>> On 13.12.2024 2:12 PM, Akhil P Oommen wrote:
->>>>>>>>> On 12/13/2024 3:07 AM, Neil Armstrong wrote:
->>>>>>>>>> On 12/12/2024 21:21, Konrad Dybcio wrote:
->>>>>>>>>>> On 11.12.2024 9:29 AM, Neil Armstrong wrote:
->>>>>>>>>>>> The Adreno GPU Management Unit (GMU) can also scale the DDR
->>>>>>>>>>>> Bandwidth
->>>>>>>>>>>> along the Frequency and Power Domain level, until now we left
->>>>>>>>>>>> the OPP
->>>>>>>>>>>> core scale the OPP bandwidth via the interconnect path.
->>>>>>>>>>>>
->>>>>>>>>>>> In order to enable bandwidth voting via the GPU Management
->>>>>>>>>>>> Unit (GMU), when an opp is set by devfreq we also look for
->>>>>>>>>>>> the corresponding bandwidth index in the previously generated
->>>>>>>>>>>> bw_table and pass this value along the frequency index to the
->>>>>>>>>>>> GMU.
->>>>>>>>>>>>
->>>>>>>>>>>> The GMU also takes another vote called AB which is a 16bit
->>>>>>>>>>>> quantized
->>>>>>>>>>>> value of the floor bandwidth against the maximum supported
->>>>>>>>>>>> bandwidth.
->>>>>>>>>>>>
->>>>>>>>>>>> The AB is calculated with a default 25% of the bandwidth like
->>>>>>>>>>>> the
->>>>>>>>>>>> downstream implementation too inform the GMU firmware the
->>>>>>>>>>>> minimal
->>>>>>>>>>>> quantity of bandwidth we require for this OPP.
->>>>>>>>>>>>
->>>>>>>>>>>> Since we now vote for all resources via the GMU, setting the OPP
->>>>>>>>>>>> is no more needed, so we can completely skip calling
->>>>>>>>>>>> dev_pm_opp_set_opp() in this situation.
->>>>>>>>>>>>
->>>>>>>>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>>>>>>>>> Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->>>>>>>>>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>>>>>>>>>>> ---
->>>>>>>>>>>>       drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 39 +++++++++++++
->>>>>>>>>>>> ++++
->>>>>>>>>>>> +++++++
->>>>>>>>>>>> +++++++++--
->>>>>>>>>>>>       drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  2 +-
->>>>>>>>>>>>       drivers/gpu/drm/msm/adreno/a6xx_hfi.c |  6 +++---
->>>>>>>>>>>>       drivers/gpu/drm/msm/adreno/a6xx_hfi.h |  5 +++++
->>>>>>>>>>>>       4 files changed, 46 insertions(+), 6 deletions(-)
->>>>>>>>>>>>
->>>>>>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/
->>>>>>>>>>>> gpu/drm/
->>>>>>>>>>>> msm/adreno/a6xx_gmu.c
->>>>>>>>>>>> index
->>>>>>>>>>>> 36696d372a42a27b26a018b19e73bc6d8a4a5235..46ae0ec7a16a41d55755ce04fb32404cdba087be 100644
->>>>>>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>>>>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>>>>>>>>>> @@ -110,9 +110,11 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu,
->>>>>>>>>>>> struct dev_pm_opp *opp,
->>>>>>>>>>>>                      bool suspended)
->>>>>>>>>>>>       {
->>>>>>>>>>>>           struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>>>>>>>>>>> +    const struct a6xx_info *info = adreno_gpu->info->a6xx;
->>>>>>>>>>>>           struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->>>>>>>>>>>>           struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
->>>>>>>>>>>>           u32 perf_index;
->>>>>>>>>>>> +    u32 bw_index = 0;
->>>>>>>>>>>>           unsigned long gpu_freq;
->>>>>>>>>>>>           int ret = 0;
->>>>>>>>>>>>       @@ -125,6 +127,37 @@ void a6xx_gmu_set_freq(struct msm_gpu
->>>>>>>>>>>> *gpu,
->>>>>>>>>>>> struct dev_pm_opp *opp,
->>>>>>>>>>>>               if (gpu_freq == gmu->gpu_freqs[perf_index])
->>>>>>>>>>>>                   break;
->>>>>>>>>>>>       +    /* If enabled, find the corresponding DDR bandwidth
->>>>>>>>>>>> index */
->>>>>>>>>>>> +    if (info->bcms && gmu->nr_gpu_bws > 1) {
->>>>>>>>>>>
->>>>>>>>>>> if (gmu->nr_gpu_bws)
->>>>>>>>>>
->>>>>>>>>> gmu->nr_gpu_bws == 1 means there's not BW in the OPPs (index 0
->>>>>>>>>> is the
->>>>>>>>>> "off" state)
->>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>>> +        unsigned int bw = dev_pm_opp_get_bw(opp, true, 0);
->>>>>>>>>>>> +
->>>>>>>>>>>> +        for (bw_index = 0; bw_index < gmu->nr_gpu_bws - 1;
->>>>>>>>>>>> bw_index+
->>>>>>>>>>>> +) {
->>>>>>>>>>>> +            if (bw == gmu->gpu_bw_table[bw_index])
->>>>>>>>>>>> +                break;
->>>>>>>>>>>> +        }
->>>>>>>>>>>> +
->>>>>>>>>>>> +        /* Vote AB as a fraction of the max bandwidth */
->>>>>>>>>>>> +        if (bw) {
->>>>>>>>>>>
->>>>>>>>>>> This seems to only be introduced with certain a7xx too.. you
->>>>>>>>>>> should
->>>>>>>>>>> ping the GMU with HFI_VALUE_GMU_AB_VOTE to check if it's
->>>>>>>>>>> supported
->>>>>>>>>>
->>>>>>>>>> Good point
->>>>>>>>>
->>>>>>>>> No no. Doing this will trigger some assert in pre-A750 gmu
->>>>>>>>> firmwares. We
->>>>>>>>> learned it the hard way. No improvisation please. :)
->>>>>>>>
->>>>>>>> We shouldn't be sending that AB data to firmware that doesn't expect
->>>>>>>> it either too, though..
->>>>>>>
->>>>>>> Well we don't !
->>>>>>
->>>>>> The code in the scope that I quoted above does that
->>>>>
->>>>> No it doesn't, if the proper bcms are not declared in the gpu_info, it
->>>>> won't
->>>>
->>>> I think what Konrad meant was that IB voting is supported from a650+,
->>>> but AB voting is support only from a750+. So we can add bcm nodes to
->>>> enable IB voting, but how do we ensure AB voting via GMU is done only on
->>>> a750+.
->>>
->>> Yep, relying on incomplete data in the catalog is not a great way
->>> to ensure that
->>
->> I understood correctly, so I'll add a bool to enable AB voting, but please
->> don't ask me to remove it because it's dead code and useless if only
->> enabled on a750+...
+On Fri, Dec 06, 2024 at 11:43:03AM +0200, Dmitry Baryshkov wrote:
+> The connector->eld is accessed by the .get_eld() callback. This access
+> can collide with the drm_edid_to_eld() updating the data at the same
+> time. Add drm_connector.eld_mutex to protect the data from concurrenct
+> access.
 > 
-> Can't we just add ">= A7XX_GEN3" check here to decide on GMU AB VOTE?
-> For older generation, AB vote should be via icc driver. And that I guess
-> is out of the scope of this series.
-
-Sure, I'll do that.
-
-Thanks,
-Neil
-
+> The individual drivers were just compile tested. I propose to merge the
+> drm_connector and bridge drivers through drm-misc, allowing other
+> maintainers either to ack merging through drm-misc or merging the
+> drm-misc into their tree and then picking up correcponding patch.
 > 
-> -Akhil.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+> Changes in v2:
+> - Also take the mutex in clear_eld() (Jani)
+> - Rebased on top of linux-next + drm-misc-next to solve build error
+> - Link to v1: https://lore.kernel.org/r/20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org
 > 
->>
->> Neil
->>
->>>
->>> Konrad
->>
-> 
+> ---
+> Dmitry Baryshkov (10):
+>       drm/connector: add mutex to protect ELD from concurrent access
+>       drm/bridge: anx7625: use eld_mutex to protect access to connector->eld
+>       drm/bridge: ite-it66121: use eld_mutex to protect access to connector->eld
+>       drm/amd/display: use eld_mutex to protect access to connector->eld
+>       drm/exynos: hdmi: use eld_mutex to protect access to connector->eld
+>       drm/i915/audio: use eld_mutex to protect access to connector->eld
+>       drm/msm/dp: use eld_mutex to protect access to connector->eld
+>       drm/radeon: use eld_mutex to protect access to connector->eld
+>       drm/sti: hdmi: use eld_mutex to protect access to connector->eld
+>       drm/vc4: hdmi: use eld_mutex to protect access to connector->eld
 
+Granted the lack of reviews from AMD maintainers and granted that the
+rest of the series was reviewed and acked, is it suitable to leave those
+two patches out and merge the rest through drm-misc-next?
+
+-- 
+With best wishes
+Dmitry
