@@ -1,70 +1,87 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC3E29F4642
-	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 09:43:16 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 051EA9F4906
+	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 11:38:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E3A410E87D;
-	Tue, 17 Dec 2024 08:43:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99F5C10E1AC;
+	Tue, 17 Dec 2024 10:38:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="aOzXt2TC";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="f5Bk3EcC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D57410E874
- for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 08:43:15 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-aa6c0dbce1fso700307766b.2
- for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 00:43:14 -0800 (PST)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7FD10E1B0
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 10:38:22 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-54021daa6cbso5793085e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 02:38:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734424993; x=1735029793; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Hiu9HwglMl8R0iD4e34J2UKryh0tlFaMmUgSj2KvQ5I=;
- b=aOzXt2TCXLORh3LcqlFrPJJeEwgWN76d2H70qPMTWB9LIsScfvZscoWs3wHYauFr5w
- 3F+gsAe8ey63reCeTSfH4QdHKVZ8qTX2uhAMq0ZbcwcXDWpWMsH5shqSMTSCllLX9lLI
- DyUMcNIWSnIjilscKtNNgvjAM7IS8xA4gnVtnnRnOC14s4bS6zj+zlqdxcToEJ3FgMjV
- AFKbJREFuhBhaOm7SjkRIqa5c3dd4ZBq+sv9ULSya42hDw6FAFppAepsiobD3N19vHJZ
- spzI8duxKAqKC5cKvM2pkVNhpOEfjZaXCRJNDKJciMkuHs1JHHdW8aWFn01AVpmMvWkM
- Davw==
+ d=linaro.org; s=google; t=1734431901; x=1735036701; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=O2WYb32ky6fmIX8AC+7yLOBouXJ1HTE92cVXzHw7p0Q=;
+ b=f5Bk3EcCqUd+ETLL8ETU2V95ukUbxHSQLWgdiErnB8M+fWQhMFa8r/uatsCeg8beO9
+ H/G/gQJlGP6WlM2oKkZwaQ7oD27TXIulthXka+eEkADmNkJVt+M+ke8huCFuNHLnOCt1
+ wNGxE80EUa49HQpJ5AC/6L+lzv26DMI5TGe83F8lEEriLgHs3QoNbwl+Nhp7IMRW2NQx
+ gWhBv2YJy/2vLXXn8RKcb/XT/XzZfimR7IZeOIF6lCIR+le4V5+6UgtfQPl1U7a28HyM
+ lIvV3xZuUHyyo9AVKqUJXwsqYcaVx6p1FVhoBR+GbZUdq9b7KshoCy6OLajepBc80UdI
+ mMsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734424993; x=1735029793;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Hiu9HwglMl8R0iD4e34J2UKryh0tlFaMmUgSj2KvQ5I=;
- b=gs/z+cazB+pK6qMTWmjZpAqbgf+sHDLlWdJzTkFDe5x+BF82flwbBixNlrgjhXFfDp
- CQKNMuY640R+I2YyZvHN96f5SLYSfD/4+EC7oqXeHCYvkilbE8U+0TFjY+mRn5zYfRrN
- +YMXkd5DPA/x/Gy7Lxw83hOpgjyxZLo2AKjRX1uAU5jDzHOm3fGhxC+caiBiLFlv0te7
- tMXe7jwX87u4pScb/pbEs8+IXOajbKnty/I/hmdioxweXhoHstsOZYC3grux4S7z6I7N
- rhkzuiI2AIeYuoExeylzwb2Ef18jzAMSwtBn7S3qy11AQSjAq212ETd/qMUmw32oMyfO
- eplA==
-X-Gm-Message-State: AOJu0YxQ/cLjCAqP2/QcPCEuG/Ibw5/LfTGoojK25GJEHyaW6l+yG/HF
- +Nz6kTe+noDVD34y5Eh5SgZ897NM8eZd1RHa+tmgk4XfAV/bi+ADgOC7tIzd3hpPHplFv+lbJ2r
- l
-X-Gm-Gg: ASbGncuoD8SnBAFTAX9a7wcCqcX51+T9pxmn6h/Ei8ERDjJGWsYJpBl2stigRoxq+Ix
- SsL5GKx26CQFSFUDQ+NRUrJeaEqWUoa9Z0wHyZZNBeiJLQVzRRdXbA0akiqVKIfoXxoEZf7fiig
- 3A/JLDtvyz9NS6Qq+nSfvi44XBDTBcQwYkv6AgSD/3yRz2hXgEV327bYSMSPHVgTNFTBk5GJoHJ
- +zHfwLfqqQmRMd9fqe1KupTZNKP1RTb6LSjOAgfdEY32lx9E58+dehtYq0lKw==
-X-Google-Smtp-Source: AGHT+IGrzonxMatjuG4bZaYlfOUbgqkUNaXWwwF+W6A6JMV8WxShHm27eYpccj5y0cXi8db1jI6FrA==
-X-Received: by 2002:a05:6402:254e:b0:5d2:7270:6128 with SMTP id
- 4fb4d7f45d1cf-5d63c3dbe25mr36464887a12.25.1734424993450; 
- Tue, 17 Dec 2024 00:43:13 -0800 (PST)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aab9635988dsm423372766b.125.2024.12.17.00.43.12
+ d=1e100.net; s=20230601; t=1734431901; x=1735036701;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=O2WYb32ky6fmIX8AC+7yLOBouXJ1HTE92cVXzHw7p0Q=;
+ b=wYVHP/nHZj2+FkEqdwznwp0g3cvQ9PRwfq8b8RNj+3KfM80QMl2TYF7RM9+NCezGlq
+ mXazLeeqEFsTVzVtxWDsicrymbegoiBYRFYHA59YCemL+F4ODON4oY6O8+lw2GQESAtZ
+ f1zvUr/iHcFbDMEVVGOilt7a+EsSS6OAhkbX/FfBopX4t9XUJTdT3vX0EcuQZ3d9faJp
+ He/FhpNFBNgx9HASmwYO6FsNsjlGYWqYWCT4i7uvBRxL/O3TTPQG8Nu/YvZ5x63k/maZ
+ LT35oke2zAFCdPvdIOEe+Tj/4EPEbCEHFdMIstT7D7wGiLLfhqEsDAZDrt3ORNxVwPZ/
+ xh2g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXiBrq5HWGOPKUX8/xxJJc9a8dFX9GRsDQKsMy7dRhzvX7udItgrvK/2mXbJQOsAuApwbGK1322wuc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzmA1w3orcBD93UK2DlKbGs+euQBoLAC5jUnN24PBICRTvZtfdH
+ kod4bEBt2kN2KajH48EKP0l3IKvqdcsRv664aQCboHLqJtCLy1EdAF6QWyrNiWs=
+X-Gm-Gg: ASbGncuoinItTft28mVpLk0Ry8YKLXGLwzKGHy+E6OInZwFg6fHufvQJd1jBytkhfx/
+ +dwJgQisZwuCHmYAiplCXhxa5p5mI1T0xCLvhd36fStq+14WYuZAl5opEv+y6qP/t5vOZ26R6AG
+ cWEhtrjBSodYwC1ZSM2x7XKn558J9X0kTbgQ2qnSFsUzPY+urqCi5XGDqJzmTWWueAaXuqEscfT
+ Qymdb7MOEhHiYJO1+tGDL2DQWouveBJAUQmFpougIQtPdP089hxYuk6E6b0CFUCI3CTxOw4aikD
+ IV96CSomfWKvD4tuW1lMFQz6f1rBtgCR/iTu
+X-Google-Smtp-Source: AGHT+IEIrR2bMxG3Grf1QUMhkQELSDXhmLc/tmsZ1cto3QX1pRwRlgidZ0/hzrqApkhKtNgij3EB+g==
+X-Received: by 2002:a05:6512:3b9d:b0:540:1dac:c042 with SMTP id
+ 2adb3069b0e04-5408ad82317mr5526367e87.8.1734431900751; 
+ Tue, 17 Dec 2024 02:38:20 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54120c1fc1csm1114367e87.240.2024.12.17.02.38.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Dec 2024 00:43:12 -0800 (PST)
-Date: Tue, 17 Dec 2024 11:43:09 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: freedreno@lists.freedesktop.org
-Subject: [bug report] drm/msm/dpu: add support for virtual planes
-Message-ID: <960b44e7-f5d4-4b5a-af5f-cfe6bb8a20b0@stanley.mountain>
+ Tue, 17 Dec 2024 02:38:20 -0800 (PST)
+Date: Tue, 17 Dec 2024 12:38:17 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Robert Foss <rfoss@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Abel Vesa <abel.vesa@linaro.org>, 
+ Richard Acayan <mailingradian@gmail.com>, Rob Clark <robdclark@chromium.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 7/8] drm/msm/dpu: link DSPP_2/_3 blocks on X1E80100
+Message-ID: <2e7ijil4v3wxzi7y2gsbyhh4o3vrhcbydcpzfcniij6cack3yf@wb2s2m7xet6a>
+References: <20241216-dpu-fix-catalog-v1-0-15bf0807dba1@linaro.org>
+ <20241216-dpu-fix-catalog-v1-7-15bf0807dba1@linaro.org>
+ <Z2E5SGIfAaKugNTP@hovoldconsulting.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <Z2E5SGIfAaKugNTP@hovoldconsulting.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,73 +97,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello Dmitry Baryshkov,
+On Tue, Dec 17, 2024 at 09:41:44AM +0100, Johan Hovold wrote:
+> On Mon, Dec 16, 2024 at 10:27:28AM +0200, Dmitry Baryshkov wrote:
+> > Link DSPP_2 to the LM_2 and DSPP_3 to the LM_3 mixer blocks.
+> 
+> Please say something about why you're doing this and what the expected
+> outcome of doing so is.
+> 
+> There is currently no way for a third party (e.g. stable or distro
+> maintainer) to determine what this patch does, if it needs to be
+> backported or if it's essentially just a clean up like Abhinav indicated
+> in one of his replies.
 
-Commit 774bcfb73176 ("drm/msm/dpu: add support for virtual planes")
-from Dec 15, 2024 (linux-next), leads to the following Smatch static
-checker warning:
+These patches allow using colour transformation matrix (aka night mode)
+with more outputs at the same time. I think at this point only CrOS
+compositor actually uses CTM, so these changes do not need to be
+backported. However they are not cleanups, it was a feedback for the
+SM6150 patch for the reasons expressed in the Abhinav's email.
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:1062 dpu_plane_virtual_atomic_check() error: 'plane_state' dereferencing possible ERR_PTR()
-drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:1066 dpu_plane_virtual_atomic_check() error: uninitialized symbol 'crtc_state'.
+> 
+> > Fixes: e3b1f369db5a ("drm/msm/dpu: Add X1E80100 support")
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> Johan
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-    1051 static int dpu_plane_virtual_atomic_check(struct drm_plane *plane,
-    1052                                           struct drm_atomic_state *state)
-    1053 {
-    1054         struct drm_plane_state *plane_state =
-    1055                 drm_atomic_get_plane_state(state, plane);
-                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
-drm_atomic_get_plane_state() can fail.
-
-    1056         struct drm_plane_state *old_plane_state =
-    1057                 drm_atomic_get_old_plane_state(state, plane);
-    1058         struct dpu_plane_state *pstate = to_dpu_plane_state(plane_state);
-    1059         struct drm_crtc_state *crtc_state;
-    1060         int ret;
-    1061 
---> 1062         if (plane_state->crtc)
-                     ^^^^^^^^^^^
-    1063                 crtc_state = drm_atomic_get_new_crtc_state(state,
-    1064                                                            plane_state->crtc);
-
-crtc_state isn't initialized on else path.
-
-    1065 
-    1066         ret = dpu_plane_atomic_check_nosspp(plane, plane_state, crtc_state);
-
-Presumably crtc_state isn't used, but it's still considered a bug.  It's
-undefined behavior in C.
-
-    1067         if (ret)
-    1068                 return ret;
-    1069 
-    1070         if (!plane_state->visible) {
-    1071                 /*
-    1072                  * resources are freed by dpu_crtc_assign_plane_resources(),
-    1073                  * but clean them here.
-    1074                  */
-    1075                 pstate->pipe.sspp = NULL;
-    1076                 pstate->r_pipe.sspp = NULL;
-    1077 
-    1078                 return 0;
-    1079         }
-    1080 
-    1081         /*
-    1082          * Force resource reallocation if the format of FB or src/dst have
-    1083          * changed. We might need to allocate different SSPP or SSPPs for this
-    1084          * plane than the one used previously.
-    1085          */
-    1086         if (!old_plane_state || !old_plane_state->fb ||
-    1087             old_plane_state->src_w != plane_state->src_w ||
-    1088             old_plane_state->src_h != plane_state->src_h ||
-    1089             old_plane_state->src_w != plane_state->src_w ||
-    1090             old_plane_state->crtc_h != plane_state->crtc_h ||
-    1091             msm_framebuffer_format(old_plane_state->fb) !=
-    1092             msm_framebuffer_format(plane_state->fb))
-    1093                 crtc_state->planes_changed = true;
-    1094 
-    1095         return 0;
-    1096 }
-
-regards,
-dan carpenter
+-- 
+With best wishes
+Dmitry
