@@ -1,89 +1,88 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AD289F3FF5
-	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 02:26:52 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A3F69F4012
+	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 02:39:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDD3B10E82C;
-	Tue, 17 Dec 2024 01:26:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 066A110E82D;
+	Tue, 17 Dec 2024 01:39:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hJ6Xdkon";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="NmJk2acJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E76510E2DB
- for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 01:26:48 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-54024ecc33dso5146694e87.0
- for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 17:26:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734398807; x=1735003607; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=qIrp81ZiiTPfk+3VPzj+WgFvsCEPmx+xpVPwG8ujmf0=;
- b=hJ6XdkonPvFI6AuJbo8lsBBFFALTCNlHiRizuOzPQ0VqG8YgohNjwMNxLcm76hLqEL
- jEa6l50HDrGOu1Q76vazyex3dIBMtdEohWEAQnarQneTU2Q1ilX1Rggxsxz+pnvjiTXV
- gtvUb+3BYCb5vnUxITkEYxH+Z8Be7dlIrGV7m2/it9MazTrnlRty8LqL/muxRCnpzimJ
- KNGVrbrQHd/KzZQFW30PyCRSolqu73kF/QnCeYMURJNg7akIrGy8PAxXSc8yT8UYuDn8
- AQ9ziD+iWa8Sefle2rEUKR8xIHdV3B/jQBW3dnYBnVB+n7ri73lqE1WUiMh/uhwlQSgl
- YdDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734398807; x=1735003607;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qIrp81ZiiTPfk+3VPzj+WgFvsCEPmx+xpVPwG8ujmf0=;
- b=Zw1SjEdGK+u6QFAknfsa7W+Qraf2FeOpLtmnKP16UMnDyEi4pkz6+kQOpVC3LF4x1/
- Nb5+YhaFVeYuxRQ2t4BukdohPmBaI/5h/Rh2dRPZQX475PjfJmCWNq7ILilbyNNuUHZA
- NeLQaLCXpe1inVGY4k1xaa3sTuA4UPq36LOFUnEZEN2TMOdQi/pGAfZc5AwlK5piM9PO
- zYgzJhqGKEz/MFuOmF/RsWEQGWZCRXz3nbWxoRJpb414KhAfgvivQQUQ8WUM/3g6sfR3
- UvVrgv7I+E/Mg1PDVS/1gS60HjVXQ8GrFh/uzbsIeJOS1m7rZfho+mos/RcKOLmK3RvZ
- w0zw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUjB2bqOL684o0P5fntviQX6xgOBsTYerjoOIUs456P+hwhc4uXN/H55ZTGaA7qv0m3++1oy/6FRo4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxNa0jSIP+ZaCAixSk1BLWNvgn9YP4v1jvIm+03uYESVteR/3fR
- lxbT/uKAlU3LqHXK8DcxD2YbitdlSIGmpYITr+pg11NKdFYdL3vmaiHopRr+Gnw=
-X-Gm-Gg: ASbGncvMrd4GC3aPzeWUH/3Ch0Yb+hInUNgbB7GbDfejA1gdviMyIPEsfPlS3uqFaHz
- cy28V6TXIl7ZP11lGInSyBiH4V1FkoivmSBJsWjCK1/v/vJ3u0mQSBQ2DApLHvqHpxaCj05JUfM
- qPAfqXWLmDYMrq+OHm3oZqGWGsgq6qAw0lz36XQYLZSccNQPAz6MXX12XbGU7f16fP/ZM9zN6sW
- aiEwwEBEBVWIK/8BGRi9jsOfAsiB3J0XzHqrmHLmKUd+Xh//IcKPj7h6Vrh4BjLUWkWwVXAUnDh
- Wp+FYiDfrZbprfxv/QSjbeC8KT1ppCCdO8df
-X-Google-Smtp-Source: AGHT+IEFAVlmrtBdKZDemHD4kc4Sr3HT/4sKo+aUJjr1NtBRsFlsJQQbmQnA6rmmhL+0WNq+tfoLFA==
-X-Received: by 2002:a05:6512:b94:b0:540:1be6:f15f with SMTP id
- 2adb3069b0e04-540857ff3b8mr5394531e87.0.1734398806909; 
- Mon, 16 Dec 2024 17:26:46 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54120b9f62dsm1002965e87.17.2024.12.16.17.26.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Dec 2024 17:26:45 -0800 (PST)
-Date: Tue, 17 Dec 2024 03:26:43 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>, 
- quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, 
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v4 05/25] drm/msm/dpu: get rid of struct
- dpu_rm_requirements
-Message-ID: <ykvaxv26maaxz5z4odttbfumuqanhtjsnleebprsh273ci6k6k@alm6o7vuzkfi>
-References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
- <20241216-concurrent-wb-v4-5-fe220297a7f0@quicinc.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E2E710E2DB;
+ Tue, 17 Dec 2024 01:39:24 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BH02Sga027348;
+ Tue, 17 Dec 2024 01:39:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ EeSmEL1eAu+2FwGVKFMhhMKFg7nchA3n0VWF12eik4g=; b=NmJk2acJAMoquG+q
+ QTi5xFhXJf/kPtMfQrM1nddFMkY13qmor84xVlAmGb9UTTF138XbejC27dio7XoL
+ Gn4hUFCb+kl03MuQK5TXp6r20QcxoV5FtMvi9DvQN3fh0tplHhRwCOCmWJPHvb7Z
+ BBd787ZVKlWZmBo7ROpYczUUm6TWrfTxByDCRJf5wtifV600Nd+Qq2zjCq/hXDdV
+ 8yukA/21C5zw8kBknCo8cUusq8omvH7hrHQWsbUfGBwOBFgB0CiTKBtQtRcsQ0WJ
+ lKfIXBrgvtgXzmgGo8TAnErE725Jc5VKXCE8iyU5gqjcnjkor7iD+bRk0jH8UsCf
+ AFRncg==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43jxdm06e3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Dec 2024 01:39:18 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BH1dHU0014990
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Dec 2024 01:39:17 GMT
+Received: from [10.110.119.169] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 16 Dec
+ 2024 17:39:16 -0800
+Message-ID: <097a3d10-0992-46a4-8f89-aa54538c9776@quicinc.com>
+Date: Mon, 16 Dec 2024 17:39:15 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241216-concurrent-wb-v4-5-fe220297a7f0@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 08/25] drm/msm/dpu: fill CRTC resources in dpu_crtc.c
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, "Sean
+ Paul" <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ "David Airlie" <airlied@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Simona Vetter <simona.vetter@ffwll.ch>
+CC: <quic_ebharadw@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@chromium.org>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
+ <20241216-concurrent-wb-v4-8-fe220297a7f0@quicinc.com>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20241216-concurrent-wb-v4-8-fe220297a7f0@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Ko__uVmEa7xBH6bgayo2H4Wh3FwXrJaT
+X-Proofpoint-ORIG-GUID: Ko__uVmEa7xBH6bgayo2H4Wh3FwXrJaT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999
+ suspectscore=0 priorityscore=1501 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 malwarescore=0 adultscore=0 phishscore=0 mlxscore=0
+ spamscore=0 impostorscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2411120000 definitions=main-2412170011
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,53 +98,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 16, 2024 at 04:43:16PM -0800, Jessica Zhang wrote:
+
+
+On 12/16/2024 4:43 PM, Jessica Zhang wrote:
 > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > 
-> The struct dpu_rm_requirements was used to wrap display topology and
-> hw resources, which meant INTF indices. As of commit ef58e0ad3436
-> ("drm/msm/dpu: get INTF blocks directly rather than through RM") the hw
-> resources struct was removed, leaving struct dpu_rm_requirements
-> containing a single field (topology). Remove the useless wrapper.
+> Stop poking into CRTC state from dpu_encoder.c, fill CRTC HW resources
+> from dpu_crtc_assign_resources().
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> [quic_abhinavk@quicinc.com: cleaned up formatting]
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 71 ++++++++++-------------------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h      |  2 +-
->  3 files changed, 25 insertions(+), 50 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 29 +++++++++++++++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  4 ++--
+>   2 files changed, 31 insertions(+), 2 deletions(-)
 > 
+
+<snip>
+
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 83de7564e2c1fe14fcf8c4f82335cafc937e1b99..5172ab4dea995a154cd88d05c3842d7425fc34ce 100644
+> index 2b999a0558b2a016644ed5d25bf54ab45c38d1d9..a895d48fe81ccc71d265e089992786e8b6268b1b 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -800,7 +800,7 @@ static int dpu_encoder_virt_atomic_check(
->  
->  		if (!crtc_state->active_changed || crtc_state->enable)
->  			ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
-> -					drm_enc, crtc_state, topology);
-> +					drm_enc, crtc_state, &topology);
->  		if (!ret)
->  			dpu_encoder_assign_crtc_resources(dpu_kms, drm_enc,
->  							  global_state, crtc_state);
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> index c247af03dc8ef7174eedf3d5cc267d64f17a8656..cd5960af4a151428cc6fb7154c3ffdb65ebcf287 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> @@ -5,6 +5,7 @@
->   */
->  
->  #define pr_fmt(fmt)	"[drm:%s] " fmt, __func__
-> +#include "msm_drv.h"
+> @@ -1138,7 +1138,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>   	struct dpu_hw_blk *hw_pp[MAX_CHANNELS_PER_ENC];
+>   	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
+>   	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
+> -	int num_ctl, num_pp, num_dsc;
+> +	int num_pp, num_dsc, num_ctl;
+>   	unsigned int dsc_mask = 0;
+>   	int i;
+>   
+> @@ -1166,7 +1166,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>   		drm_enc->crtc, DPU_HW_BLK_PINGPONG, hw_pp,
+>   		ARRAY_SIZE(hw_pp));
+>   	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> -		drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+> +			drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+>   
+>   	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
+>   		dpu_enc->hw_pp[i] = i < num_pp ? to_dpu_hw_pingpong(hw_pp[i])
+> 
 
-Why is it necessary? struct msm_display_topology has been moved to
-dpu_rm.h
-
->  #include "dpu_kms.h"
->  #include "dpu_hw_lm.h"
->  #include "dpu_hw_ctl.h"
-
--- 
-With best wishes
-Dmitry
+This chunk of diff is unnecessary. You are just changing the order of 
+defines and fixing alignment. Does not have to be in this change.
