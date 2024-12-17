@@ -2,86 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 051EA9F4906
-	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 11:38:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D178C9F4947
+	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 11:55:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99F5C10E1AC;
-	Tue, 17 Dec 2024 10:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A482C10E073;
+	Tue, 17 Dec 2024 10:55:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="f5Bk3EcC";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Rw1GuGDq";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7FD10E1B0
- for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 10:38:22 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-54021daa6cbso5793085e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 02:38:22 -0800 (PST)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F052D10E073
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 10:55:00 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5401be44b58so5185889e87.0
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 02:55:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734431901; x=1735036701; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1734432899; x=1735037699; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=O2WYb32ky6fmIX8AC+7yLOBouXJ1HTE92cVXzHw7p0Q=;
- b=f5Bk3EcCqUd+ETLL8ETU2V95ukUbxHSQLWgdiErnB8M+fWQhMFa8r/uatsCeg8beO9
- H/G/gQJlGP6WlM2oKkZwaQ7oD27TXIulthXka+eEkADmNkJVt+M+ke8huCFuNHLnOCt1
- wNGxE80EUa49HQpJ5AC/6L+lzv26DMI5TGe83F8lEEriLgHs3QoNbwl+Nhp7IMRW2NQx
- gWhBv2YJy/2vLXXn8RKcb/XT/XzZfimR7IZeOIF6lCIR+le4V5+6UgtfQPl1U7a28HyM
- lIvV3xZuUHyyo9AVKqUJXwsqYcaVx6p1FVhoBR+GbZUdq9b7KshoCy6OLajepBc80UdI
- mMsQ==
+ bh=tHWIkqKFIPrZfDR6fwGCJpX7T0cdK1Nh9XGTjtxdWTw=;
+ b=Rw1GuGDqQGv0lOFFH+AWlA+ImBkamv7+1SozeeArAEnuv9C9Dr3Q+u5hHxL9HSoDZI
+ TzV1Bk3BZNaxTVUEqQJYEcV9+9vPpR6jNDGVsezlpndzpAmUeMHO4N1HXUiVMQKEPbPJ
+ OhnZEsLx04Ujz9SRTv/DTBvdY0naUio6X+lBDsvhEu10++f6J9qO4QgasdejM2yTuUD3
+ JmrynPG6PvsSaUd6LHyLk52mGpSexQOyMVeW7fBS4v7xD1MFkXHbeTIuVB5nM64MK5c9
+ NgQP/QPzaYVwzFO+qMJhyRVLk7AbBcOfEJUpYnlZRFOHNLtCzr0pNUOdxb70zZ88Nna2
+ upRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734431901; x=1735036701;
+ d=1e100.net; s=20230601; t=1734432899; x=1735037699;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=O2WYb32ky6fmIX8AC+7yLOBouXJ1HTE92cVXzHw7p0Q=;
- b=wYVHP/nHZj2+FkEqdwznwp0g3cvQ9PRwfq8b8RNj+3KfM80QMl2TYF7RM9+NCezGlq
- mXazLeeqEFsTVzVtxWDsicrymbegoiBYRFYHA59YCemL+F4ODON4oY6O8+lw2GQESAtZ
- f1zvUr/iHcFbDMEVVGOilt7a+EsSS6OAhkbX/FfBopX4t9XUJTdT3vX0EcuQZ3d9faJp
- He/FhpNFBNgx9HASmwYO6FsNsjlGYWqYWCT4i7uvBRxL/O3TTPQG8Nu/YvZ5x63k/maZ
- LT35oke2zAFCdPvdIOEe+Tj/4EPEbCEHFdMIstT7D7wGiLLfhqEsDAZDrt3ORNxVwPZ/
- xh2g==
+ bh=tHWIkqKFIPrZfDR6fwGCJpX7T0cdK1Nh9XGTjtxdWTw=;
+ b=hiSjE+4VodCu1nDRfZKZiTWrb81cIpkHXn3Ag+SuSPfpicvt//xRx+GzoTDAROciKt
+ sRyrtuGzsU9DQWlG2feB7BL00hj8toq/eMuH8moW3u2jYfffG0Nr78qFlQuBMBW6LvzX
+ v2rfn7NiJWl4VtWBV2wJObnPwViezPg9JT2jVSS0Xc9DjlRF7vFaj86hjQ21pf6MCJIQ
+ O959HjTsqwj9rRj6yFLdqRvJNd12jxrP/2p96Lz6+q6KolI3ixzWtRqdTsWQsMj2KnTZ
+ 2KA14/Js8qE6hY8/dsq25g5lnMNEo6dn2Nm3B6CRk+vJ9629NaN7VDNdSeroAFq2ADQ8
+ 7YMQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXiBrq5HWGOPKUX8/xxJJc9a8dFX9GRsDQKsMy7dRhzvX7udItgrvK/2mXbJQOsAuApwbGK1322wuc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzmA1w3orcBD93UK2DlKbGs+euQBoLAC5jUnN24PBICRTvZtfdH
- kod4bEBt2kN2KajH48EKP0l3IKvqdcsRv664aQCboHLqJtCLy1EdAF6QWyrNiWs=
-X-Gm-Gg: ASbGncuoinItTft28mVpLk0Ry8YKLXGLwzKGHy+E6OInZwFg6fHufvQJd1jBytkhfx/
- +dwJgQisZwuCHmYAiplCXhxa5p5mI1T0xCLvhd36fStq+14WYuZAl5opEv+y6qP/t5vOZ26R6AG
- cWEhtrjBSodYwC1ZSM2x7XKn558J9X0kTbgQ2qnSFsUzPY+urqCi5XGDqJzmTWWueAaXuqEscfT
- Qymdb7MOEhHiYJO1+tGDL2DQWouveBJAUQmFpougIQtPdP089hxYuk6E6b0CFUCI3CTxOw4aikD
- IV96CSomfWKvD4tuW1lMFQz6f1rBtgCR/iTu
-X-Google-Smtp-Source: AGHT+IEIrR2bMxG3Grf1QUMhkQELSDXhmLc/tmsZ1cto3QX1pRwRlgidZ0/hzrqApkhKtNgij3EB+g==
-X-Received: by 2002:a05:6512:3b9d:b0:540:1dac:c042 with SMTP id
- 2adb3069b0e04-5408ad82317mr5526367e87.8.1734431900751; 
- Tue, 17 Dec 2024 02:38:20 -0800 (PST)
+ AJvYcCXkkoA79c56aOknHW+GERrdvpf3DddIq9wRdkjca0B2fLRtjzrwwtHpyvRbp63Honjr1uFQueMcdI4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YywPBpXkUSukSmgr5SB2931B6xLoxeQD8innv13/AP1sXQgNoKt
+ BkIb5X8/aNoJJhOlpKyftwXasVWkuWVMGJEcpR785gs0PizfD69iYaqS9I+X8C0=
+X-Gm-Gg: ASbGncuqNhjgC2qA5qEk5hs2yyb8MrWLJRR9YZPTudiUqSVeJazKFtlAuliTO29m2vg
+ tLVaecuUtnHTPuTwEk4oI5etPxxM5dWBN2VHjOm9eY515sth+/GmANvdrAgKDJTSdVYN4h28AdX
+ rHQhCRi6ZKP+iryoGV9BP0tRhTp5voeot3ARfWn3qOVyinHwruBGyQWTMBXmtAqtYZqQAKPaRrs
+ b96ukTBACPezCOgrGI577NWxyQ0+8j3kxjM1lUWHpUOdCwVHjx2y2E3Ybzyf8JDv3rCRpqZiYes
+ TEqq8PLGrKTL3pjrypo3Fu2umcshUaHkTUC8
+X-Google-Smtp-Source: AGHT+IHIIXGB/X+gwvncRHBdy9tDryU1EfA09rbZDao5aKxh/K7dmzH4R4ChpaOmldxWkT0LNMbwvw==
+X-Received: by 2002:a05:6512:2809:b0:53e:362e:ed0 with SMTP id
+ 2adb3069b0e04-540916d7331mr4458490e87.44.1734432899164; 
+ Tue, 17 Dec 2024 02:54:59 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54120c1fc1csm1114367e87.240.2024.12.17.02.38.19
+ 2adb3069b0e04-54120c1fb46sm1125836e87.235.2024.12.17.02.54.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Dec 2024 02:38:20 -0800 (PST)
-Date: Tue, 17 Dec 2024 12:38:17 +0200
+ Tue, 17 Dec 2024 02:54:57 -0800 (PST)
+Date: Tue, 17 Dec 2024 12:54:55 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Johan Hovold <johan@kernel.org>
+To: Fange Zhang <quic_fangez@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Robert Foss <rfoss@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Abel Vesa <abel.vesa@linaro.org>, 
- Richard Acayan <mailingradian@gmail.com>, Rob Clark <robdclark@chromium.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 7/8] drm/msm/dpu: link DSPP_2/_3 blocks on X1E80100
-Message-ID: <2e7ijil4v3wxzi7y2gsbyhh4o3vrhcbydcpzfcniij6cack3yf@wb2s2m7xet6a>
-References: <20241216-dpu-fix-catalog-v1-0-15bf0807dba1@linaro.org>
- <20241216-dpu-fix-catalog-v1-7-15bf0807dba1@linaro.org>
- <Z2E5SGIfAaKugNTP@hovoldconsulting.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Liu Li <quic_lliu6@quicinc.com>, 
+ Xiangxu Yin <quic_xiangxuy@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 5/9] drm/msm/dpu: Add SM6150 support
+Message-ID: <ntffm2jwr44m77z2bvuifv3itkpywco3cemgzkizzdp7e2ekdv@htfktmyyoe3k>
+References: <20241210-add-display-support-for-qcs615-platform-v4-0-2d875a67602d@quicinc.com>
+ <20241210-add-display-support-for-qcs615-platform-v4-5-2d875a67602d@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <Z2E5SGIfAaKugNTP@hovoldconsulting.com>
+In-Reply-To: <20241210-add-display-support-for-qcs615-platform-v4-5-2d875a67602d@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,29 +102,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Dec 17, 2024 at 09:41:44AM +0100, Johan Hovold wrote:
-> On Mon, Dec 16, 2024 at 10:27:28AM +0200, Dmitry Baryshkov wrote:
-> > Link DSPP_2 to the LM_2 and DSPP_3 to the LM_3 mixer blocks.
+On Tue, Dec 10, 2024 at 02:53:56PM +0800, Fange Zhang wrote:
+> From: Li Liu <quic_lliu6@quicinc.com>
 > 
-> Please say something about why you're doing this and what the expected
-> outcome of doing so is.
+> Add definitions for the display hardware used on the Qualcomm SM6150
+> platform.
 > 
-> There is currently no way for a third party (e.g. stable or distro
-> maintainer) to determine what this patch does, if it needs to be
-> backported or if it's essentially just a clean up like Abhinav indicated
-> in one of his replies.
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
+> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
+> ---
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h | 254 +++++++++++++++++++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>  4 files changed, 257 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..621a2140f675fa28b3a7fcd8573e59b306cd6832
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
 
-These patches allow using colour transformation matrix (aka night mode)
-with more outputs at the same time. I think at this point only CrOS
-compositor actually uses CTM, so these changes do not need to be
-backported. However they are not cleanups, it was a feedback for the
-SM6150 patch for the reasons expressed in the Abhinav's email.
+[...]
 
-> 
-> > Fixes: e3b1f369db5a ("drm/msm/dpu: Add X1E80100 support")
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> Johan
+> +
+> +const struct dpu_mdss_cfg dpu_sm6150_cfg = {
+> +	.mdss_ver = &sm6150_mdss_ver,
+> +	.caps = &sm6150_dpu_caps,
+> +	.mdp = &sm6150_mdp,
+> +	.ctl_count = ARRAY_SIZE(sm6150_ctl),
+> +	.ctl = sm6150_ctl,
+> +	.sspp_count = ARRAY_SIZE(sm6150_sspp),
+> +	.sspp = sm6150_sspp,
+> +	.mixer_count = ARRAY_SIZE(sm6150_lm),
+> +	.mixer = sm6150_lm,
+> +	.dspp_count = ARRAY_SIZE(sm6150_dspp),
+> +	.dspp = sm6150_dspp,
+> +	.pingpong_count = ARRAY_SIZE(sm6150_pp),
+> +	.pingpong = sm6150_pp,
+> +	.intf_count = ARRAY_SIZE(sm6150_intf),
+> +	.intf = sm6150_intf,
+> +	.vbif_count = ARRAY_SIZE(sdm845_vbif),
+> +	.vbif = sdm845_vbif,
+> +	.perf = &sm6150_perf_data,
+
+I noticed that the catalog entry doesn't provide writeback configuration
+although the vendor DTSi specified that there is WB_2 on this platform.
+Please send a followup patch enabling writeback on this platform.
+
+> +};
+> +
+> +#endif
 
 -- 
 With best wishes
