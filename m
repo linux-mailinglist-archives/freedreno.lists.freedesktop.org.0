@@ -2,104 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DE739F4E59
-	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 15:51:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFCA19F5235
+	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 18:16:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 287DC10E9BD;
-	Tue, 17 Dec 2024 14:51:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7220410EA23;
+	Tue, 17 Dec 2024 17:16:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hroTZ7Ew";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h/Rk5cr7";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7355D10E9B8
- for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 14:51:31 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4361fe642ddso57120935e9.2
- for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 06:51:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734447090; x=1735051890; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=B4/tn0+NaXoZvCxd7DO6dwQt1/7UILyIFVNQSPfY62g=;
- b=hroTZ7EwQjnubEGhoiYEGdHO90iZQWug0TZGxo9i9SFt/ThJ5ROp8JR+CWDBRKvWQK
- Hd4vZgda5Nn0UHxNfsZek/AYGERPdAnhaeG6uS4UBWASQ/MoQqsGQmPdV/+Ykya++ziI
- Lt5ytk76S5Vqi3Qr2l/qZdiBMDA05UXwElc4f0SHndP+wLWT3WREZgR6hbmJYeC6OL1o
- GJ+8xtC/AC4Cxy8qGn2h16xbWVHjI6AeCckXJ9LYOjIu1h7OpjG12v22rbtQ5DwrQIHx
- FFvdGXbpwuKRVXIhG+Pbb+ixFNmjAM51jLA14GrDebiBE+4OpKChKRuUmQy+ANiqwLgY
- AfVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734447090; x=1735051890;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=B4/tn0+NaXoZvCxd7DO6dwQt1/7UILyIFVNQSPfY62g=;
- b=wevZq3jnSjzy1ziPXjiItQH+z5ih6KJfOedmcKLR4+0Na7jZlfGX7bi3Ng1cQesg/n
- fSzqiql0RLeCl1rZGFkvOYPV2wen9xoGUkgFWW0p7IdGu9hyhN40oYUZiCrOt5qxYfwG
- da4sH45cWXDFPbj7QfGfpd4kpoyGKPx5HC1W11PRUiBKdHc/eWm/Ijhcd0lSwYs2vK+n
- D0a0vKjxFYgwjEGTAAqVMwVGEZpU0YfPMooD443AbrSOlPcN7F4T3DNTBuIes5e4Qmv/
- JW7S1v9lPxc53CudxTNHbNhSb1PQNbLwci6fuJ0qOCTQ+lUOZW0zAl3bEmTj9kqjm/HE
- Dhxg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVknB4v+VpslXrzGqNjmbA30VerIZHLLCc4517Q3zI9g/QUFgvo32Grq3QKn/MUQ3Zn1c50GukOMGM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzjLdWmMeVq2441iNnC/hSvlcs7aKWleunkqOgWHhlox6Ax0Iyn
- EtbvItcmWTsuW9OZm/+/ZMdUOQshiSQjN/iVH34IlXoAshWK1+6dlMCggJap++Q=
-X-Gm-Gg: ASbGncsDraGaCJJu/8kxP5fAyOA7s+DzV/OHO6X89BZFtOkx2q7PIQPzg5KiiU+d0Wx
- zn92x/+Dn0m1mWldrC2lX0IUYai5LpePHgEKUHCJc9nSKL0CDUtp+88nhJAaJ4TTNF1glYUAQb2
- NJBacOEFA++F6s6ycVeZBv+IJTst94qI9wG1cIPtys6yxuZJO7xb/hrgihKjZlNk6L3RrpPuIU3
- of9UzJvE3xkz4rjdf+KHyh0maT8Fqk/bb2Ib2mBLOzmDJ/hJEPQNXWbMHj2ASZm14/a9h+4epmD
- tw==
-X-Google-Smtp-Source: AGHT+IH/5sriNzAD6IaFFPEiS4CWanvVfWJxtccBMyLLxpopN0MCzfz2fRQvDKyhFZ41uHBFsZ98Mw==
-X-Received: by 2002:a05:600c:1f0b:b0:434:a94f:f8a9 with SMTP id
- 5b1f17b1804b1-4362aaa495emr130893345e9.28.1734447089987; 
- Tue, 17 Dec 2024 06:51:29 -0800 (PST)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43636066f51sm118417375e9.22.2024.12.17.06.51.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Dec 2024 06:51:29 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Tue, 17 Dec 2024 15:51:20 +0100
-Subject: [PATCH v6 7/7] arm64: qcom: dts: sm8650: add interconnect and
- opp-peak-kBps for GPU
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-Greylist: delayed 18147 seconds by postgrey-1.36 at gabe;
+ Tue, 17 Dec 2024 17:16:38 UTC
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AFD710EA23;
+ Tue, 17 Dec 2024 17:16:38 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id EF0E0A41E9A;
+ Tue, 17 Dec 2024 17:14:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091D7C4CEDD;
+ Tue, 17 Dec 2024 17:16:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1734455797;
+ bh=mALeudlsz4tffkWUerdlBg3NdDAP0x7MdgTaQvMmqbg=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc:From;
+ b=h/Rk5cr7NWBk4BGvrUY/Pz6jXQkhT6ZT6iM7rxav2vLeqobPJTZNG2MK0U4kI8OfN
+ kt5AV7A6swzUFZ1Ji4Zk7/M8yGUFHDYENdfVcT/rammZklLlxisWRh1uVurzzIX2Vl
+ gKUUh3H17ue1Q8ilf5HOU8p18NKDJlc1AC0cR6iW3p/go844hZqK6fepR7D5jb71tg
+ x5dOXqkZ9JjWfLLYMQ5M0/AlE4BWT0rPOXgYOuQNa0GPsOfWcMgd/FD4liN6dOnkNY
+ NcfPBIJQD6YcwaKMiHlr5MJGuPEHoIkJEVNJ6g41jc5tBLz7j8UIfpHBXV+yEPva2j
+ gPHt4GK62yB8Q==
+Message-ID: <de77731bc192ae3d8d2cd184f076619c@kernel.org>
+Date: Tue, 17 Dec 2024 17:16:35 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Jessica Zhang" <quic_jesszhan@quicinc.com>
+Subject: Re: [PATCH v4 01/25] drm: add clone mode check for CRTC
+In-Reply-To: <20241216-concurrent-wb-v4-1-fe220297a7f0@quicinc.com>
+References: <20241216-concurrent-wb-v4-1-fe220297a7f0@quicinc.com>
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ quic_abhinavk@quicinc.com, quic_ebharadw@quicinc.com,
+ DavidAirlie <airlied@gmail.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@linaro.org>,
+ JessicaZhang <quic_jesszhan@quicinc.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Marijn Suijten" <marijn.suijten@somainline.org>, "Maxime
+ Ripard" <mripard@kernel.org>, "Rob Clark" <robdclark@chromium.org>, "Rob
+ Clark" <robdclark@gmail.com>, "Sean Paul" <sean@poorly.run>,
+ "Simona Vetter" <simona.vetter@ffwll.ch>, "Simona
+ Vetter" <simona@ffwll.ch>, "Thomas Zimmermann" <tzimmermann@suse.de>,
+ =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241217-topic-sm8x50-gpu-bw-vote-v6-7-1adaf97e7310@linaro.org>
-References: <20241217-topic-sm8x50-gpu-bw-vote-v6-0-1adaf97e7310@linaro.org>
-In-Reply-To: <20241217-topic-sm8x50-gpu-bw-vote-v6-0-1adaf97e7310@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2681;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=mRmcybJomrA8DtYq9fiyqS6rR7q297sl5lRf/i/VlGk=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBnYY/obfz13xZbRrotrGQIw50hlz2scCvq+FWxJcUZ
- 9RBFiZeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZ2GP6AAKCRB33NvayMhJ0TEbD/
- 9LdU33QP0qcYGWuG7UuVR7KT5vp8m/DQImoa/Hpl51HouhcVrZshNZwY4bSn1uMlj2v8iCcI8lQ006
- UnDSdei+wedcHwZdYM5t4ME6EPDaIBWI0PDVozWIUy4jbDaCp6G/0zWgJIoY4nCRCnA7RGaeusFVXa
- 9rVGS0aCsmF2uiYynvpqgrsc5Z6FHtKVNTb9lCIXBpfzIXlDsFGTKQzKRjJvOHBmEKJB3APvjextbd
- EOw0N6KiAsCHqysZgpIW1BpjcwEfW3Sh2ko4kYiBBzl0Qbz20wAbg8HAMj/LGQQ747ajKjICqZzZTd
- 1FS3N4LWO59SmtPLRImaDO14GFniJkLyhtptdiT/R/7RY9i6gDHdBe1ZZoiBN9AHHt3qyc2rvMxxxE
- Ml5iK0AkBQZYdGUR6moLrQlAybVFqlOAdikPA7bXQpsNiAIME3tQXBZFQtK0gzhMQd5HBkgNU+o5it
- sbrod/DJiHI1NFK7+U0XA8+/lEr3xvurM5EWKsdh6W4vYBU73vGogyNpDNfg6SH2GFk20qSIrRD9Gq
- 6pLjhanFozPRudSjnyN5HBmvBsNeGKv8LBNsmicf24Yq33zlyKFFC21DcjTbEscCyjaoR3zK9/k/eo
- vpF8hw9h9kDloT50VlK1fAuWdBaf/CjJgQq1B93WyYgl87GZe1X9OmlTiyLA==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,98 +69,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Each GPU OPP requires a specific peak DDR bandwidth, let's add
-those to each OPP and also the related interconnect path.
+On Mon, 16 Dec 2024 16:43:12 -0800, Jessica Zhang wrote:
+> Add a common helper to check if the given CRTC state is in clone mode.
+> This can be used by drivers to help detect if a CRTC is being shared by
+> multiple encoders
+> 
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> 
+> [ ... ]
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8650.dtsi | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-index 25e47505adcb790d09f1d2726386438487255824..c76c0038c35ab048c88be9870b14c3a0b24b4183 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -2636,6 +2636,10 @@ gpu: gpu@3d00000 {
- 			qcom,gmu = <&gmu>;
- 			#cooling-cells = <2>;
- 
-+			interconnects = <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+			interconnect-names = "gfx-mem";
-+
- 			status = "disabled";
- 
- 			zap-shader {
-@@ -2649,56 +2653,67 @@ gpu_opp_table: opp-table {
- 				opp-231000000 {
- 					opp-hz = /bits/ 64 <231000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
-+					opp-peak-kBps = <2136718>;
- 				};
- 
- 				opp-310000000 {
- 					opp-hz = /bits/ 64 <310000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-+					opp-peak-kBps = <2136718>;
- 				};
- 
- 				opp-366000000 {
- 					opp-hz = /bits/ 64 <366000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
-+					opp-peak-kBps = <6074218>;
- 				};
- 
- 				opp-422000000 {
- 					opp-hz = /bits/ 64 <422000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+					opp-peak-kBps = <8171875>;
- 				};
- 
- 				opp-500000000 {
- 					opp-hz = /bits/ 64 <500000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
-+					opp-peak-kBps = <8171875>;
- 				};
- 
- 				opp-578000000 {
- 					opp-hz = /bits/ 64 <578000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
-+					opp-peak-kBps = <8171875>;
- 				};
- 
- 				opp-629000000 {
- 					opp-hz = /bits/ 64 <629000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
-+					opp-peak-kBps = <10687500>;
- 				};
- 
- 				opp-680000000 {
- 					opp-hz = /bits/ 64 <680000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+					opp-peak-kBps = <12449218>;
- 				};
- 
- 				opp-720000000 {
- 					opp-hz = /bits/ 64 <720000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+					opp-peak-kBps = <12449218>;
- 				};
- 
- 				opp-770000000 {
- 					opp-hz = /bits/ 64 <770000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+					opp-peak-kBps = <12449218>;
- 				};
- 
- 				opp-834000000 {
- 					opp-hz = /bits/ 64 <834000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+					opp-peak-kBps = <14398437>;
- 				};
- 			};
- 		};
-
--- 
-2.34.1
-
+Thanks!
+Maxime
