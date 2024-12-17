@@ -1,105 +1,109 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A80639F4BEA
-	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 14:22:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C51D99F4E4B
+	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 15:51:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E32810E416;
-	Tue, 17 Dec 2024 13:21:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70B5110E9B2;
+	Tue, 17 Dec 2024 14:51:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="MiOtjqkW";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mlgO+lvF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16E9410E6A6
- for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 14:27:10 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43628e97467so37644635e9.3
- for <freedreno@lists.freedesktop.org>; Mon, 16 Dec 2024 06:27:10 -0800 (PST)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7858F10E9AE
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 14:51:23 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43622354a3eso37958405e9.1
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 06:51:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1734359228; x=1734964028; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Z8Oktj07WxPQkf8tAMVutVUrZO5J/YvoL7NP4SyxFZg=;
- b=MiOtjqkWnu8PIC/QMcJpe9++rkN8qRiMQLbuHODN8AKA8MNhpksdVRcbnl2YI2XF4S
- cXFj4eFJHWZpkmy6KyvUvnT7EA0fNG8puIIWyZkmsJS44r09yowJnX5fZj65wHBQEBmt
- nh0LCxveeqXjrO6M3RkYmZgjtcBvMB4f74UOg=
+ d=linaro.org; s=google; t=1734447082; x=1735051882; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7GbXDl8LUFfVMAPVd1mF5EDk6hx6b9at0dYoXeRYVRY=;
+ b=mlgO+lvFa+WwnoJGpzWp0DampbxMcgQtun8tpPOibiBAooGPQFyzlo91RJTNFh0Qxv
+ twWZBvLPoVHnFpzoCIOfGfmZrM7CvT7Pdm3lEcgEQtDI/HcRg5fWWZUMADG+417/TGNb
+ kaBFmjCgf1m5n7G01BeGISTlJTvm8y6Xj0AHNscytvPAcfArG5In7HO2sPTudUXccKkb
+ XBOlJ8YsBW/1kfiAsdQaExzxFxfbG8bY+jKztiUKMs1GQI2Xsc3mx8vo4BQNlJzSUgIO
+ O7d4RH5dBBE/9u8Vxs2cgey19tAwiWGaup/Pah6AEwuSwh7bFbCpAwDd0LTI4f+Sbtqv
+ MmhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734359228; x=1734964028;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1734447082; x=1735051882;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Z8Oktj07WxPQkf8tAMVutVUrZO5J/YvoL7NP4SyxFZg=;
- b=CxZYYKKDU6SChEGHV8veV16naufn+Vl9OIsEFagfKys9cnf21N34r0ApbvTLBZzsjo
- /1P7ERbDSupPbPGUuc4uiTGC3f8QXonVfGu7OQfPU3EA8/RendFQ3vgiiqWyQ47sviwi
- inohb4r5N3980LyNHh4mIh9GK7wRiymin+9ZVFLNuLsygbyj54glscDRFkejUd0sh7DJ
- lqQ/y90op3S47dcTmNsSwXszrW1O0BIEux3cpu9tSpNgFE666QWquP08cPKxlNliqI/S
- yYvVUhdk5m2EbZye3yPZOH3yb6P0bAX1CorM02p3KisVHbWTkETygtSpOYgUtajeA2w3
- OmVA==
+ bh=7GbXDl8LUFfVMAPVd1mF5EDk6hx6b9at0dYoXeRYVRY=;
+ b=R/L3++lmU13h/4IgJKRAq1rCwi6rd0rksp7Ew3ejk8we5e7a6EQ360C2G6GWTt0AAs
+ B+3m4y2zXZfE3LsMbq1lFPV0iH8vDyg6K8TJvDAquWAepoZA1OTHd5ewI+Rvl4dU/1HS
+ I1tCXmnjAhuYTw4coIwjf77hcWi9dW0jINi1xXCqQoU5HDF36ovllwzUiZJ/s5BeYJNM
+ 2MetIwoxX/w6xgaJjHf5gsGa3I2t94iKQmT8LqWnVSu0q32wfmW0g83Rf8W8/UWOiLEz
+ SUXa4HN+njHjI+iL4WJva9eVcd6GQz6ink76m9IBeoEPSEvC2oWnZQTQrLIQa0Y2qOMQ
+ dRYQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUi5c3WHxY8Tg82w/zmtWyM44kcewXuGnHdmg10jUA2V7EpLc8iMu9TE446Ol3tAHeqJP0MiReKP7g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx9smd5OIS5gvDL5wpfwFShvkZwvG0DiSkruXOFTeTlivbg6EHE
- 7FIHJ+6ZU3ZFoCkXtmDTwQ2olThkWxBeXJ+fbBpXtYYXffhzrSC9TvIZ/aLedhY=
-X-Gm-Gg: ASbGncsZ/wdylmVuUybxl4TeTgRlJAyak5fuU2JtybmBKfApvGvYoaUSz52zJLdiqOA
- wHjAqszDXZwSTlHvnDWAiqDEmo1AjZhPXTwt8Tdi1UTgDCLXYbdXsnYub7C125KeIlgwrV3xvvT
- d5qnssTodBRstFJkOTBGG4zwf7jrvo9wiBVRJfgOyCv0tzNjEMBU5lua9Fj2aOofgU1GbfSOJux
- sfIubk+qakdZCBBlvrRLEMwnL6dlYScq07rH3FqS8WoPtsOrKf3/n2YzHB5Mph8HQp0
-X-Google-Smtp-Source: AGHT+IGn5RgQ81hy0jW21u7TUA0sQjR5dFe9QEPAlFJD5h/VCFCRbd8HnQjhW9nAjZ+l5PGK8UsXnQ==
-X-Received: by 2002:a05:600c:b99:b0:435:9ed3:5698 with SMTP id
- 5b1f17b1804b1-4362aa9784cmr102190165e9.24.1734359228496; 
- Mon, 16 Dec 2024 06:27:08 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ AJvYcCW3flQwBFz36JfGZSlU97gYi6Rh8mBtEFGNUV5H9rdEToXEvzmWN3PPDXwrIDlLmVUM6vEhkHJnL1s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyQTEt1P893hSnqyd849ve3e1NDXHnWjJ7djXX9VL5kVNdQDtsv
+ Fnbf7im/Hhsnpl3QiZpM8Cs7JbtwhO0tGugZoMlMrfNubqcOZWxur5B7ywD8cwI=
+X-Gm-Gg: ASbGncuwfdkceGDlC5fZk8GtgDVNZdKY4gauw29IOsNeU/6rT5JhYZV7v3ac2HZ9edV
+ 7aDB6PUltaK2dAvbH0BQETyrVL1/NcanYNsQ8HXzX+7e679OJcnjwJp8dcHMTDwEAu6PS+mQEGL
+ 0GYQ0qipmCBX4rVl0+42Rrr2T92n6mWSAh295kCviGk40IdPpgHEl7Q5pAH8qFrGjha5lxgI8NB
+ lP6ciWc3DxkJT3e9zXM7xUXzBY9A0aNx4lxmNl3i2SA3WlP82uE2eeexV/0KnkhcA9GaS31651+
+ 2g==
+X-Google-Smtp-Source: AGHT+IEyF5JqI6dc+Cr21DWt8VokNuhVRMBamyPiTK82TkRe5pggjl0Bdb/QStuHXSlZxBNPFJKn5w==
+X-Received: by 2002:a05:6000:4609:b0:386:39fd:5ec with SMTP id
+ ffacd0b85a97d-3888e0c15c4mr15483460f8f.57.1734447081862; 
+ Tue, 17 Dec 2024 06:51:21 -0800 (PST)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4362557c54bsm141004955e9.13.2024.12.16.06.27.07
+ 5b1f17b1804b1-43636066f51sm118417375e9.22.2024.12.17.06.51.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Dec 2024 06:27:07 -0800 (PST)
-Date: Mon, 16 Dec 2024 15:27:05 +0100
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Jessica Zhang <quic_jesszhan@quicinc.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, quic_ebharadw@quicinc.com,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v2 02/22] drm: Add valid clones check
-Message-ID: <Z2A4uahCHuOz45Fc@phenom.ffwll.local>
-Mail-Followup-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, quic_ebharadw@quicinc.com,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-References: <20240924-concurrent-wb-v2-0-7849f900e863@quicinc.com>
- <20240924-concurrent-wb-v2-2-7849f900e863@quicinc.com>
- <20240925-hasty-bald-caribou-eedbf5@houat>
- <80d08449-71de-4a7f-8b2a-8af565d8d701@quicinc.com>
- <54188c68-41c7-4a42-9eca-67363b30217a@quicinc.com>
+ Tue, 17 Dec 2024 06:51:21 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v6 0/7] drm/msm: adreno: add support for DDR bandwidth
+ scaling via GMU
+Date: Tue, 17 Dec 2024 15:51:13 +0100
+Message-Id: <20241217-topic-sm8x50-gpu-bw-vote-v6-0-1adaf97e7310@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <54188c68-41c7-4a42-9eca-67363b30217a@quicinc.com>
-X-Operating-System: Linux phenom 6.12.3-amd64 
-X-Mailman-Approved-At: Tue, 17 Dec 2024 13:21:57 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOGPYWcC/43OzU7EIBDA8VfZcBbD8FFgT76H8VDK0CXR0kDFN
+ Zu+u+xerGnSePxPMr+ZGymYIxZyPt1IxhpLTFOL7ulEhks/jUijb0044xIABF3SHAdaPsxVMTr
+ On9R90ZoWpEEh4zyg7qUmbX3OGOL1Qb++tb7EsqT8/bhU4T79B1qBMiqc8cJqoXvrXt7j1Of0n
+ PJI7mrlW8keSLxJ0qMz2iGX1uwksZG4OZBEkwz4jg3AgtNiJ8lfiTN1IMkm2U4xD8p7KdROUhs
+ J4EBSTera38EGbRQOf6R1XX8ALnjF2ukBAAA=
+X-Change-ID: 20241113-topic-sm8x50-gpu-bw-vote-f5e022fe7a47
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5493;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=iHt3DEjYJD2zOnsRwBQshG58EadYS/b9sYswjmBDDMw=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBnYY/llNmmQRE9gWmT3Sf9PjuPLNbFu7nIZyMikhrn
+ tYoF82WJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZ2GP5QAKCRB33NvayMhJ0YmuD/
+ 9aO6EoLCqbEdjiWk6zYW1kupo75uv6TYWpJqij3EMM2ArBBu9qawT5pOE12zccFx5dYkcVMrLL5SOA
+ aZd0nufQWdWa3+DwWj5KAnA2i0mxj0arqT8u4kv4bVzPq5R6OpSzbYrM3p6AUW2ZeEFAIy0F3/6DVw
+ Wr0jd/Z0flQfD8AL9uj3bWhc2mLj5LTKHIwILXO+zRjSf0CoCl5a2ivMwE17Syhs6unKbfpEGa7dHn
+ cAMruEIdMKAp/64GwW74gM0birB2Q6GwMQaZOGBBXM921HKrkwJa+RAZFr1VPhYmrRBrsLsIQ1a3bm
+ A7gKem3kZotb8/GK5MAUc2A5AJhb8LGpplnMi+Wh2u9P3MhefUy3TMY4barOxnpLIRNNY2vql5eIw/
+ EfBfK1IB1Ohi0JpJxALuqnqbtcFv76QAWJbfe7TAHzzgj7XJCnjNejkXBXC8O7oAYgE4cE/ap50PFK
+ GoyGYBD9yhzV50bnPVOK0MmE4AtysOPmSK8HoeFxeuaAKn2EtrcwpMaOHb37Dmc6OBomfjvL0nkvAT
+ hGHMv4mQMxfdl0NUM9tSEAS//ov9JtfzkU40clRLcXlAMyDQU5qb5z5/pXZg9QQB3fBYxPH4HL6yT8
+ Slt4QONpZAXEY6LMJHKJj1x7qTY3gkTRyZB/q0StQWOaj5+AZOx2CTvopAZg==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,117 +119,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Dec 15, 2024 at 06:19:08PM -0800, Abhinav Kumar wrote:
-> Hi Maxime
-> 
-> Gentle reminder on this one.
-> 
-> We are looking for some advice on how to go about KUnit for this static
-> function.
-> 
-> Please help with our question below.
-> 
-> Thanks
-> 
-> Abhinav
-> 
-> On 12/6/2024 4:48 PM, Jessica Zhang wrote:
-> > 
-> > 
-> > On 9/25/2024 12:23 AM, Maxime Ripard wrote:
-> > > On Tue, Sep 24, 2024 at 03:59:18PM GMT, Jessica Zhang wrote:
-> > > > Check that all encoders attached to a given CRTC are valid
-> > > > possible_clones of each other.
-> > > > 
-> > > > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> > > > ---
-> > > >   drivers/gpu/drm/drm_atomic_helper.c | 23 +++++++++++++++++++++++
-> > > >   1 file changed, 23 insertions(+)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/drm_atomic_helper.c
-> > > > b/drivers/gpu/drm/drm_atomic_helper.c
-> > > > index 43cdf39019a4..cc4001804fdc 100644
-> > > > --- a/drivers/gpu/drm/drm_atomic_helper.c
-> > > > +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> > > > @@ -574,6 +574,25 @@ mode_valid(struct drm_atomic_state *state)
-> > > >       return 0;
-> > > >   }
-> > > > +static int drm_atomic_check_valid_clones(struct
-> > > > drm_atomic_state *state,
-> > > > +                     struct drm_crtc *crtc)
-> > > > +{
-> > > > +    struct drm_encoder *drm_enc;
-> > > > +    struct drm_crtc_state *crtc_state =
-> > > > drm_atomic_get_new_crtc_state(state,
-> > > > +                                      crtc);
-> > > > +
-> > > > +    drm_for_each_encoder_mask(drm_enc, crtc->dev,
-> > > > crtc_state->encoder_mask) {
-> > > > +        if ((crtc_state->encoder_mask & drm_enc->possible_clones) !=
-> > > > +            crtc_state->encoder_mask) {
-> > > > +            DRM_DEBUG("crtc%d failed valid clone check for mask
-> > > > 0x%x\n",
-> > > > +                  crtc->base.id, crtc_state->encoder_mask);
-> > > > +            return -EINVAL;
-> > > > +        }
-> > > > +    }
-> > > > +
-> > > > +    return 0;
-> > > > +}
-> > > > +
-> > > >   /**
-> > > >    * drm_atomic_helper_check_modeset - validate state object for
-> > > > modeset changes
-> > > >    * @dev: DRM device
-> > > > @@ -745,6 +764,10 @@ drm_atomic_helper_check_modeset(struct
-> > > > drm_device *dev,
-> > > >           ret = drm_atomic_add_affected_planes(state, crtc);
-> > > >           if (ret != 0)
-> > > >               return ret;
-> > > > +
-> > > > +        ret = drm_atomic_check_valid_clones(state, crtc);
-> > > > +        if (ret != 0)
-> > > > +            return ret;
-> > > >       }
-> > > 
-> > > Pretty much the same comment, we should have kunit tests for this.
-> > 
-> > Hey Maxime,
-> > 
-> > I'm working on the kunit test for this and had a question on the design
-> > for the unit test:
-> > 
-> > Since this is a static helper that returns a pretty common error code,
-> > how would you recommend going about making sure that
-> > `drm_atomic_check_valid_clones()` specifically is returning the error
-> > (and not a different part of check_modeset) when testing the
-> > check_valid_clones() failure path?
+The Adreno GPU Management Unit (GMU) can also vote for DDR Bandwidth
+along the Frequency and Power Domain level, but by default we leave the
+OPP core scale the interconnect ddr path.
 
-So the usual way to test very specific things of a big function is to
-first setup a driver and atomic request which does pass all checks. And
-then do a minimal change which does not pass anymore.
+While scaling the interconnect path was sufficient, newer GPUs
+like the A750 requires specific vote parameters and bandwidth to
+achieve full functionnality.
 
-So what you could do here is have 3 connectors 1 crtc, but only the first
-two connectors can be cloned. Then do an atomic request with those two
-connectors and the crtc. Then the 2nd request is with one of the
-connectors replaced with the 3rd one (so it's still a clone config, but
-not an invalid one), then have a failure.
+In order to get the vote values to be used by the GPU Management
+Unit (GMU), we need to parse all the possible OPP Bandwidths and
+create a vote value to be send to the appropriate Bus Control
+Modules (BCMs) declared in the GPU info struct.
+The added dev_pm_opp_get_bw() is used in this case.
 
-Note: I didn't check all the details, I might be getting something wrong
-here, but the idea should work.
+The vote array will then be used to dynamically generate the GMU
+bw_table sent during the GMU power-up.
 
-Cheers, Sima
+Those entries will then be used by passing the appropriate
+bandwidth level when voting for a GPU frequency.
 
-> > 
-> > Thanks,
-> > 
-> > Jessica Zhang
-> > 
-> > > 
-> > > Maxime
-> > 
+This will make sure all resources are equally voted for a
+same OPP, whatever decision is done by the GMU, it will
+ensure all resources votes are synchronized.
 
+Depends on [1] to avoid crashing when getting OPP bandwidths.
+
+[1] https://lore.kernel.org/all/20241203-topic-opp-fix-assert-index-check-v3-0-1d4f6f763138@linaro.org/
+
+Ran full vulkan-cts-1.3.7.3-0-gd71a36db16d98313c431829432a136dbda692a08 with mesa 25.0.0+git3ecf2a0518 on:
+- QRD8550
+- QRD8650
+- HDK8650
+
+Any feedback is welcome.
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v6:
+- Account for A6xx in a6xx_gmu_rpmh_bw_votes_init():
+  - always vote the perfmode bit on a6xx
+  - only vote X & Y on A7xx
+- Only AB vote starting from A750
+- Cleanup a6xx_gmu_rpmh_bw_votes_init()
+  - drop useless tests
+  - add local const struct a6xx_bcm to avoid &info->bcms[bcm_index]
+  - remove useless ULL to 1000ULL
+  - add an error if cmd_db_read_aux_data() returns count==0
+- Link to v5: https://lore.kernel.org/r/20241211-topic-sm8x50-gpu-bw-vote-v5-0-6112f9f785ec@linaro.org
+
+Changes in v5:
+- Dropped bogus qcom,icc.h flags
+- Properly calculate _wait_bitmask from votes
+- Switch DT to qcom,bus-freq values from downstream
+- Added review tags
+- Link to v4: https://lore.kernel.org/r/20241205-topic-sm8x50-gpu-bw-vote-v4-0-9650d15dd435@linaro.org
+
+Changes in v4:
+- Collected review tags
+- Dropped bcm_div() and switched to clamp() instead
+- Dropped pre-calculation of AB votes
+- Instead calculate a 25% floor vote in a6xx_gmu_set_freq() as recommended
+- Use QCOM_ICC_TAG_ALWAYS in DT
+- Made a740_generate_bw_table() generic, using defines to fill the table
+- Link to v3: https://lore.kernel.org/r/20241128-topic-sm8x50-gpu-bw-vote-v3-0-81d60c10fb73@linaro.org
+
+Changes in v3:
+- I didn't take Dmitry's review tags since I significantly changed the patches
+- Dropped applied OPP change
+- Dropped QUIRK/FEATURE addition/rename in favor of checking the a6xx_info->bcms pointer
+- Switch a6xx_info->bcms to a pointer, so it can be easy to share the table
+- Generate AB votes in advance, the voting was wrong in v2 we need to quantitiwe each bandwidth value
+- Do not vote via GMU is there's only the OFF vote because DT doesn't have the right properties
+- Added defines for the a6xx_gmu freqs tables to not have magic 16 and 4 values
+- Renamed gpu_bw_votes to gpu_ib_votes to match the downstream naming
+- Changed the parameters of a6xx_hfi_set_freq() to u32 to match the data type we pass
+- Drop "request for maximum bus bandwidth usage" and merge it in previous changes
+- Link to v2: https://lore.kernel.org/r/20241119-topic-sm8x50-gpu-bw-vote-v2-0-4deb87be2498@linaro.org
+
+Changes in v2:
+- opp: rename to dev_pm_opp_get_bw, fix commit message and kerneldoc
+- remove quirks that are features and move them to a dedicated .features bitfield
+- get icc bcm kerneldoc, and simplify/cleanup a6xx_gmu_rpmh_bw_votes_init()
+  - no more copies of data
+  - take calculations from icc-rpmh/bcm-voter
+  - move into a single cleaner function
+- fix a6xx_gmu_set_freq() but not calling dev_pm_opp_set_opp() if !bw_index
+- also vote for maximum bus bandwidth usage (AB)
+- overall fix typos in commit messages
+- Link to v1: https://lore.kernel.org/r/20241113-topic-sm8x50-gpu-bw-vote-v1-0-3b8d39737a9b@linaro.org
+
+---
+Neil Armstrong (7):
+      drm/msm: adreno: add defines for gpu & gmu frequency table sizes
+      drm/msm: adreno: add plumbing to generate bandwidth vote table for GMU
+      drm/msm: adreno: dynamically generate GMU bw table
+      drm/msm: adreno: find bandwidth index of OPP and set it along freq index
+      drm/msm: adreno: enable GMU bandwidth for A740 and A750
+      arm64: qcom: dts: sm8550: add interconnect and opp-peak-kBps for GPU
+      arm64: qcom: dts: sm8650: add interconnect and opp-peak-kBps for GPU
+
+ arch/arm64/boot/dts/qcom/sm8550.dtsi      |  13 +++
+ arch/arm64/boot/dts/qcom/sm8650.dtsi      |  15 +++
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c |  22 ++++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c     | 186 +++++++++++++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h     |  26 ++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |   1 +
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c     |  54 ++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.h     |   5 +
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h   |   5 +
+ 9 files changed, 316 insertions(+), 11 deletions(-)
+---
+base-commit: 4176cf5c5651c33769de83bb61b0287f4ec7719f
+change-id: 20241113-topic-sm8x50-gpu-bw-vote-f5e022fe7a47
+
+Best regards,
 -- 
-Simona Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Neil Armstrong <neil.armstrong@linaro.org>
+
