@@ -2,92 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8E959F497B
-	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 12:02:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF77C9F4A9A
+	for <lists+freedreno@lfdr.de>; Tue, 17 Dec 2024 13:06:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4ABE10E918;
-	Tue, 17 Dec 2024 11:02:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B9BC10E94C;
+	Tue, 17 Dec 2024 12:06:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Y75yTFa/";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="n6NqXr5l";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A878F10E915;
- Tue, 17 Dec 2024 11:02:33 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BH6RaNc002735;
- Tue, 17 Dec 2024 11:02:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- N/UEEKnJSCLAcig2TeX2+ECErL1789cyoyRocGA+Rig=; b=Y75yTFa/dYF1upt/
- Q0LI/rEHDtjgszW/ZPzllrbj5bE7c958dVxOryT6iCUhAzordd3tiMH+n3ivg7QV
- cqqMF4krSYLQ3EYicj/TaTSUg6AKbZYWlc2Qd1TUVO8KE2wvMxARt+K8a/JbS5ex
- AtkXNZs9P43bp/4GTnkgctJvwsref2Zr3I/SpraLNe/3oEHszjneIAYTTVH65ZVc
- TM+Sw/LHVQN5SLs59ZeCd9tzUp/RcRWIekaCmOSlBzFjEPqVv+oq8QbbwtDkPNV4
- zFrySocOCE+/ACKExZqQz6uBRi9vq46hHQzrcFjWiuXEt/Q2R5ZKeP9VoQlYV36C
- tHbmYA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43k424gs37-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 17 Dec 2024 11:02:25 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BHB2OTI031577
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 17 Dec 2024 11:02:24 GMT
-Received: from [10.64.16.151] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 17 Dec
- 2024 03:02:17 -0800
-Message-ID: <ba59f164-2ccd-4cf9-9426-9b6a2c199224@quicinc.com>
-Date: Tue, 17 Dec 2024 19:02:14 +0800
+Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
+ [IPv6:2607:f8b0:4864:20::b35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A327310E948
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 12:06:53 +0000 (UTC)
+Received: by mail-yb1-xb35.google.com with SMTP id
+ 3f1490d57ef6-e3c8f39cab1so4098100276.0
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Dec 2024 04:06:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1734437213; x=1735042013; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=xtcNS4WYNQ7vwgcHRVs06xAqqZt34Z8yAs31pHoB2MM=;
+ b=n6NqXr5l53ALWLMr25ftXM93mMm9AfKl4xhmpoNCbzW8tWoexZ5IeUMt0R+7UmC17O
+ q7kvFOa4zfan5pmjVwgqST4IdhuoNU2z/ldnqe5xmJ3W8zJwSeLwzW7/TUhWjsDw48lT
+ 3yVnS8p9YGwYPfwt5UVTLt8HV5h3TCpuDgt4qCPwTMVAxeR3tAbMYurYJ/9yFmQPJT2W
+ Z3bSG63AnQePAvvfRltiX2GRyP6riNj65zlyEiQZBLoCTH0xvJEkMOwm7p/0JERtKXbz
+ DUOOM7y/n2kRdVwdEwsUE04P9LyFlL/52PfRQUf8TlVAmIaxp2DL0rQXSKCVOg6o8Ccq
+ CArQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734437213; x=1735042013;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xtcNS4WYNQ7vwgcHRVs06xAqqZt34Z8yAs31pHoB2MM=;
+ b=YjuYEP09u4ajHXJz2Y+dCvVV/gB2SXZ5syfB9eGlqeIld2FnU4rOrGQse8+CgvDkVX
+ kWnF5RqMC1Kqz64wS5pdzdYxYO7+wVReLTqHDV0V5mWIBFXJN1NlL0knci03ndexe1dO
+ oja+ccwGcyKkhICGt5iwF8tn7N72RcbdFSU8z/GhipMRK26CuTbBlZvAF+hdDms2f6Er
+ JjWtKAV0YSQSsTdzfr4WYy8wuZu+BhXnhwhMwrro2w5Dxd7bMJ6YCyxm1PhCGGjqsAZL
+ LJMGmG3l5XlAbGPlsbtdh791yk9FqHw18+q9lheCgJIyM71ZvHhunvV/jHfqt00jG8I7
+ X7Zw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUtmRP6eVq2rrfu86Qq32WfmrT63+vLZ9wjh2xUKLP0TFhKS5JlNZCS4lCr34VOL+3ioUOub/Ub1hg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxTkr+WQCiakXLI71xHfNBMflGrXOBsdXaE09I+qoppZWQZjdCa
+ CkMXnbn0kiP3vNpxPaa9ok5eneF7VGKuWNOHmd+LuAI5O6kFHwvF/7GuHCvnMj/RS2ieacVPHCr
+ XkTuwEYKQh9syj3o8orRuFhNISiifVcY7pJrGbQ==
+X-Gm-Gg: ASbGncvImtEUWqbdHCKTrNWWXcuwQGc12NUuw5Z7OpYteQBNGcJlUHDtTkVBZ1IKPdv
+ EBYwTZ83HQ4Rck2tHg3vQmf1PHFJBKhSsdJNk5dwDhKBnGavFpqKf
+X-Google-Smtp-Source: AGHT+IHA892uAzKw6cPgSlziTULlXbGE7tU9YemAvZukjV0KTn0lzS8KUSWqbZi8euRBjZNVY3gThecx/TV6P6m2k58=
+X-Received: by 2002:a25:acce:0:b0:e38:8d3b:66e0 with SMTP id
+ 3f1490d57ef6-e53299709aemr2594135276.19.1734437212629; Tue, 17 Dec 2024
+ 04:06:52 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/9] drm/msm/dpu: Add SM6150 support
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Krishna
- Manikandan" <quic_mkrishn@quicinc.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Liu Li
- <quic_lliu6@quicinc.com>, Xiangxu Yin <quic_xiangxuy@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
 References: <20241210-add-display-support-for-qcs615-platform-v4-0-2d875a67602d@quicinc.com>
  <20241210-add-display-support-for-qcs615-platform-v4-5-2d875a67602d@quicinc.com>
  <ntffm2jwr44m77z2bvuifv3itkpywco3cemgzkizzdp7e2ekdv@htfktmyyoe3k>
-Content-Language: en-US
-From: fange zhang <quic_fangez@quicinc.com>
-In-Reply-To: <ntffm2jwr44m77z2bvuifv3itkpywco3cemgzkizzdp7e2ekdv@htfktmyyoe3k>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: zhQzBUp5kvAn7wY0sTvHo4kcdgYHBDui
-X-Proofpoint-ORIG-GUID: zhQzBUp5kvAn7wY0sTvHo4kcdgYHBDui
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- mlxlogscore=999 spamscore=0 bulkscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 suspectscore=0
- mlxscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412170091
+ <ba59f164-2ccd-4cf9-9426-9b6a2c199224@quicinc.com>
+In-Reply-To: <ba59f164-2ccd-4cf9-9426-9b6a2c199224@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 17 Dec 2024 14:06:41 +0200
+Message-ID: <CAA8EJpqApTLaNTkfHyfg5vgPtDQZs1cWjBSgdGULP=xRm+WmMw@mail.gmail.com>
+Subject: Re: [PATCH v4 5/9] drm/msm/dpu: Add SM6150 support
+To: fange zhang <quic_fangez@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Liu Li <quic_lliu6@quicinc.com>, 
+ Xiangxu Yin <quic_xiangxuy@quicinc.com>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,61 +94,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, 17 Dec 2024 at 13:02, fange zhang <quic_fangez@quicinc.com> wrote:
+>
+>
+>
+> On 2024/12/17 18:54, Dmitry Baryshkov wrote:
+> > On Tue, Dec 10, 2024 at 02:53:56PM +0800, Fange Zhang wrote:
+> >> From: Li Liu <quic_lliu6@quicinc.com>
+> >>
+> >> Add definitions for the display hardware used on the Qualcomm SM6150
+> >> platform.
+> >>
+> >> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
+> >> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
+> >> ---
+> >>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h | 254 +++++++++++++++++++++
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+> >>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+> >>   4 files changed, 257 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
+> >> new file mode 100644
+> >> index 0000000000000000000000000000000000000000..621a2140f675fa28b3a7fcd8573e59b306cd6832
+> >> --- /dev/null
+> >> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
+> >
+> > [...]
+> >
+> >> +
+> >> +const struct dpu_mdss_cfg dpu_sm6150_cfg = {
+> >> +    .mdss_ver = &sm6150_mdss_ver,
+> >> +    .caps = &sm6150_dpu_caps,
+> >> +    .mdp = &sm6150_mdp,
+> >> +    .ctl_count = ARRAY_SIZE(sm6150_ctl),
+> >> +    .ctl = sm6150_ctl,
+> >> +    .sspp_count = ARRAY_SIZE(sm6150_sspp),
+> >> +    .sspp = sm6150_sspp,
+> >> +    .mixer_count = ARRAY_SIZE(sm6150_lm),
+> >> +    .mixer = sm6150_lm,
+> >> +    .dspp_count = ARRAY_SIZE(sm6150_dspp),
+> >> +    .dspp = sm6150_dspp,
+> >> +    .pingpong_count = ARRAY_SIZE(sm6150_pp),
+> >> +    .pingpong = sm6150_pp,
+> >> +    .intf_count = ARRAY_SIZE(sm6150_intf),
+> >> +    .intf = sm6150_intf,
+> >> +    .vbif_count = ARRAY_SIZE(sdm845_vbif),
+> >> +    .vbif = sdm845_vbif,
+> >> +    .perf = &sm6150_perf_data,
+> >
+> > I noticed that the catalog entry doesn't provide writeback configuration
+> > although the vendor DTSi specified that there is WB_2 on this platform.
+> > Please send a followup patch enabling writeback on this platform.
+> ok, will update it in next update
+
+Just a followup patch is fine.
+
+> >
+> >> +};
+> >> +
+> >> +#endif
+> >
+>
 
 
-On 2024/12/17 18:54, Dmitry Baryshkov wrote:
-> On Tue, Dec 10, 2024 at 02:53:56PM +0800, Fange Zhang wrote:
->> From: Li Liu <quic_lliu6@quicinc.com>
->>
->> Add definitions for the display hardware used on the Qualcomm SM6150
->> platform.
->>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
->> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
->> ---
->>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h | 254 +++++++++++++++++++++
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
->>   4 files changed, 257 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..621a2140f675fa28b3a7fcd8573e59b306cd6832
->> --- /dev/null
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
-> 
-> [...]
-> 
->> +
->> +const struct dpu_mdss_cfg dpu_sm6150_cfg = {
->> +	.mdss_ver = &sm6150_mdss_ver,
->> +	.caps = &sm6150_dpu_caps,
->> +	.mdp = &sm6150_mdp,
->> +	.ctl_count = ARRAY_SIZE(sm6150_ctl),
->> +	.ctl = sm6150_ctl,
->> +	.sspp_count = ARRAY_SIZE(sm6150_sspp),
->> +	.sspp = sm6150_sspp,
->> +	.mixer_count = ARRAY_SIZE(sm6150_lm),
->> +	.mixer = sm6150_lm,
->> +	.dspp_count = ARRAY_SIZE(sm6150_dspp),
->> +	.dspp = sm6150_dspp,
->> +	.pingpong_count = ARRAY_SIZE(sm6150_pp),
->> +	.pingpong = sm6150_pp,
->> +	.intf_count = ARRAY_SIZE(sm6150_intf),
->> +	.intf = sm6150_intf,
->> +	.vbif_count = ARRAY_SIZE(sdm845_vbif),
->> +	.vbif = sdm845_vbif,
->> +	.perf = &sm6150_perf_data,
-> 
-> I noticed that the catalog entry doesn't provide writeback configuration
-> although the vendor DTSi specified that there is WB_2 on this platform.
-> Please send a followup patch enabling writeback on this platform.
-ok, will update it in next update
-> 
->> +};
->> +
->> +#endif
-> 
-
+-- 
+With best wishes
+Dmitry
