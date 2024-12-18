@@ -2,100 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 848949F6640
-	for <lists+freedreno@lfdr.de>; Wed, 18 Dec 2024 13:56:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CB3E9F67C5
+	for <lists+freedreno@lfdr.de>; Wed, 18 Dec 2024 14:57:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9F610E267;
-	Wed, 18 Dec 2024 12:56:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D904210E1A0;
+	Wed, 18 Dec 2024 13:57:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="R2IMnZh0";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="X6q9nV5K";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 890AB10E1C5;
- Wed, 18 Dec 2024 12:56:13 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BI5D5hK014164;
- Wed, 18 Dec 2024 12:56:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 5EFi+D8L1sliDzm+pZs/Y3qUJhXMvOXHIkiSpJAY964=; b=R2IMnZh0orlzs4SL
- eW0O4wZHHWPWVDijHIoLvsYcMV2tLz8i+62up42gexTgKbj+K1RUlKSu+6vydKgJ
- caMaBIamhC4QeJVyKSMhIgPUgQuFMUNlwOFvE+syE72WUCb/OaXv2m3jxr97oaOu
- wu4KzAsAsVrU7CDyDOXFKl0Xk2i1rmoold72Lipioy14pEJ4Xbvh5P0nil6iJJGu
- AnQxNpjvfjyn7L/w/TdlO9cOzG1fvM5wc1N+OZD3c/zLmmA8v45UKo/aHHSWmICd
- 42VA1nU/fFZ9/VGrfbyuAauYW5X+DxMyZQ7kTYMebu0nL1zzpOWSes1o2q+Nzd4H
- RKxq4Q==
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43kr1xs4jd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Dec 2024 12:56:05 +0000 (GMT)
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.45.79.139])
- by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BICu438019784
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Dec 2024 12:56:04 GMT
-Received: from [10.64.16.135] (10.80.80.8) by nasanex01c.na.qualcomm.com
- (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 18 Dec
- 2024 04:55:57 -0800
-Message-ID: <df1a4457-129e-452c-8089-ee1e6f9a3e12@quicinc.com>
-Date: Wed, 18 Dec 2024 20:55:54 +0800
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59F8410E0E2;
+ Wed, 18 Dec 2024 13:57:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1734530243;
+ bh=Vc/ZM9fAvz09aWlUkt1tgjwmGq/TmY7xSsGfE0yV9pQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=X6q9nV5KSijo9GZAWpqJ5ytDPQ9aWfV7WRw5Mnhew/vWo/qEnHr0KrDfjP3VEuud5
+ F8Bh8VLz+uK4BefvbhHZLcWd2sxoIzHDh0zhvKp7cuVkCNpQSqsoiXtaTv+TZnyqyE
+ yD40DmXrgZwl02e45GfmVqWSwIv6rcgzUnx6K1AFWi/AZuK/2wkscnhVlpuxK8E8gA
+ CEGWSDGDC4YJH4zB9p+HUtW2mQmZ9NeUIm41d5tfDLIMRnegU5YyvPvgxFu39TzU6s
+ jTdoEP4CrW3aEFROSFeNBGUWhDbOFVLq+mkGx+E05mOJk86KZN4hwGhPlnutDt0lOL
+ ayyn+GWoaTvOg==
+Received: from [192.168.50.250] (unknown [171.76.86.135])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A989B17E376D;
+ Wed, 18 Dec 2024 14:57:20 +0100 (CET)
+Message-ID: <58005033-5708-4a3a-a5b1-58898ce3fbac@collabora.com>
+Date: Wed, 18 Dec 2024 19:27:12 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/8] phy: qcom: qmp-usbc: Add DP phy mode support on QCS615
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Subject: Re: [PATCH] drm/ci: add kms_cursor_legacy@torture-bo to apq8016 flakes
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Helen Mae Koike Fornazier <helen.koike@collabora.com>
+Cc: Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Kuogee
- Hsieh" <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, "Kishon
- Vijay Abraham I" <kishon@kernel.org>, Linus Walleij
- <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, <quic_lliu6@quicinc.com>,
- <quic_fangez@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-phy@lists.infradead.org>, <linux-gpio@vger.kernel.org>
-References: <20241129-add-displayport-support-for-qcs615-platform-v1-0-09a4338d93ef@quicinc.com>
- <20241129-add-displayport-support-for-qcs615-platform-v1-3-09a4338d93ef@quicinc.com>
- <CAA8EJppOR_UXoVpMt-dhfWdCz3UNfsXGdz8X9NqpaSmYj3AZDg@mail.gmail.com>
- <5ea14162-567b-462d-be02-b73b954b7507@quicinc.com>
- <5whv4z7u6fkfwlv5muox5dmv6fow4mga76ammapw7wph7vwv3f@xibcjdfqorgf>
- <iqcofcntirmlwcpyfr4yabymqfcgyrij57bibf337tmxpa73t6@npkt6wquenf6>
- <527baded-f348-48a8-81cd-3f84c0ff1077@quicinc.com>
- <t5vcjlf44fhae4f2h75cfs3f7r6tdstw4ysmkapvvawj6xp23x@xnxqnxvyhshe>
- <d5151b82-5f05-4826-99b4-e925c20550b4@quicinc.com>
- <7vdaasc3flhpabnorjty5qjorlbp22honuscgpbteakgagg2tq@frqa6flk2mmv>
-From: Xiangxu Yin <quic_xiangxuy@quicinc.com>
-In-Reply-To: <7vdaasc3flhpabnorjty5qjorlbp22honuscgpbteakgagg2tq@frqa6flk2mmv>
-Content-Type: text/plain; charset="UTF-8"
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ freedreno <freedreno@lists.freedesktop.org>
+References: <20241204-cursor_tor_skip-v1-1-f5f0bba5df7b@quicinc.com>
+ <193931869a5.f923adf2270026.8321075661083367617@collabora.com>
+ <20a3955e-3d10-47c5-8e68-d70342805010@quicinc.com>
+ <19393604e18.f9b6fe7d298023.1937039548910081216@collabora.com>
+ <a03ae7e8-391e-4303-91fc-15a59979fd2a@quicinc.com>
+ <ed90ca8c-ed81-419f-a5db-a4e8bcd35835@collabora.com>
+ <ac13139d-1cbf-47dd-b200-1a511ffc9453@quicinc.com>
+ <8edba6c9-cf7d-4616-8791-65abd108f538@collabora.com>
+ <adea523d-df80-413c-97c1-92cf3923f4e3@quicinc.com>
+Content-Language: en-US
+From: Vignesh Raman <vignesh.raman@collabora.com>
+In-Reply-To: <adea523d-df80-413c-97c1-92cf3923f4e3@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01c.na.qualcomm.com (10.45.79.139)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: -kPUvlmlGHd-fDfNQ53Dseg79wQrHHl1
-X-Proofpoint-ORIG-GUID: -kPUvlmlGHd-fDfNQ53Dseg79wQrHHl1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0 mlxlogscore=999
- lowpriorityscore=0 clxscore=1015 spamscore=0 mlxscore=0 priorityscore=1501
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412180103
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,140 +78,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Abhinav,
 
-
-On 12/12/2024 3:15 AM, Dmitry Baryshkov wrote:
-> On Wed, Dec 11, 2024 at 08:50:02PM +0800, Xiangxu Yin wrote:
+On 16/12/24 11:39, Abhinav Kumar wrote:
+> 
+> 
+> On 12/15/2024 9:45 PM, Vignesh Raman wrote:
+>> Hi Abhinav,
 >>
->>
->> On 12/11/2024 5:46 PM, Dmitry Baryshkov wrote:
->>> On Wed, Dec 11, 2024 at 08:46:16AM +0800, Xiangxu Yin wrote:
+>> On 14/12/24 01:09, Abhinav Kumar wrote:
+>>> Hi Vignesh
+>>>
+>>> On 12/11/2024 9:10 PM, Vignesh Raman wrote:
+>>>> Hi Abhinav / Helen,
 >>>>
+>>>> On 12/12/24 01:48, Abhinav Kumar wrote:
+>>>>> Hi Helen / Vignesh
+>>>>>
+>>>>> On 12/4/2024 12:33 PM, Helen Mae Koike Fornazier wrote:
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>> ---- On Wed, 04 Dec 2024 16:21:26 -0300 Abhinav Kumar  wrote ---
+>>>>>>
+>>>>>>   > Hi Helen
+>>>>>>   >
+>>>>>>   > On 12/4/2024 11:14 AM, Helen Mae Koike Fornazier wrote:
+>>>>>>   > > Hi Abhinav,
+>>>>>>   > >
+>>>>>>   > > Thanks for your patch.
+>>>>>>   > >
+>>>>>>   > >
+>>>>>>   > >
+>>>>>>   > > ---- On Wed, 04 Dec 2024 15:55:17 -0300 Abhinav Kumar  wrote 
+>>>>>> ---
+>>>>>>   > >
+>>>>>>   > >   > From the jobs [1] and [2] of pipeline [3], its clear that
+>>>>>>   > >   > kms_cursor_legacy@torture-bo is most certainly a flake and
+>>>>>>   > >   > not a fail for apq8016. Mark the test accordingly to 
+>>>>>> match the results.
+>>>>>>   > >   >
+>>>>>>   > >   > [1] : 
+>>>>>> https://gitlab.freedesktop.org/drm/msm/-/jobs/67676481
 >>>>
->>>> On 12/10/2024 11:09 PM, Dmitry Baryshkov wrote:
->>>>> On Thu, Dec 05, 2024 at 08:31:24PM +0200, Dmitry Baryshkov wrote:
->>>>>> On Thu, Dec 05, 2024 at 09:26:47PM +0800, Xiangxu Yin wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 11/29/2024 10:33 PM, Dmitry Baryshkov wrote:
->>>>>>>> On Fri, 29 Nov 2024 at 09:59, Xiangxu Yin <quic_xiangxuy@quicinc.com> wrote:
->>>>>>>>>
->>>>>>>>> Extended DP support for QCS615 USB or DP phy. Differentiated between
->>>>>>>>> USBC and DP PHY using the match table’s type, dynamically generating
->>>>>>>>> different types of cfg and layout attributes during initialization based
->>>>>>>>> on this type. Static variables are stored in cfg, while parsed values
->>>>>>>>> are organized into the layout structure.
->>>>>>>>
->>>>>>>> We didn't have an understanding / conclusion whether
->>>>>>>> qcom,usb-ssphy-qmp-usb3-or-dp PHYs are actually a single device / PHY
->>>>>>>> or two PHYs being placed next to each other. Could you please start
->>>>>>>> your commit message by explaining it? Or even better, make that a part
->>>>>>>> of the cover letter for a new series touching just the USBC PHY
->>>>>>>> driver. DP changes don't have anything in common with the PHY changes,
->>>>>>>> so you can split the series into two.
->>>>>>>>
->>>>>>> Before implement DP extension, we have discussed with abhinav and krishna about whether use combo, usbc or separate phy.
->>>>>>
->>>>>> What is "DP extension"?
->>>>>>
->>>> I'm sorry confusion casued by my description. It's means extend DP implemnt for USBC phy driver.
->>>>>>>
->>>>>>> We identified that DP and USB share some common controls for phy_mode and orientation.
->>>>>>> Specifically, 'TCSR_USB3_0_DP_PHYMODE' controls who must use the lanes - USB or DP,
->>>>>>> while PERIPH_SS_USB0_USB3PHY_PCS_MISC_TYPEC_CTRL controls the orientation.
->>>>>>> It would be more efficient for a single driver to manage these controls. 
->>>>>>
->>>>>> The question is about the hardware, not about the driver.
->>>>>>
->>>>>>> Additionally, this PHY does not support Alt Mode, and the two control registers are located in separate address spaces. 
->>>>>>> Therefore, even though the orientation for DP on this platform is always normal and connected to the video output board, 
->>>>>>> we still decided to base it on the USBC extension.
->>>>>>
->>>>>> Could you please clarify, do usb3-or-dp PHYs support DP-over-USB-C? I
->>>>>> thought that usbc-or-dp platforms support that, but they don't
->>>>>> support DP+USB pin configuration. Note, the question is broader than
->>>>>> just QCS615, it covers the PHY type itself.
->>>>>>
->>>>>> Also, is TCSR configuration read/write or read-only? Are we supposed to
->>>>>> set the register from OS or are we supposed to read it and thus detemine
->>>>>> the PHY mode?
->>>>>
->>>>> Any updates on these two topics?
->>>>>
->>>> Still confirming detail info with HW & design team.
->>>> I’ll update the information that has been confirmed so far.
->>>> This phy support DP-over-USB-C,but it's not support alt-mode which 2 lane work for DP, other 2 lane work for USB.
->>>> TCSR phy mode is read/write reg and we can read for determine phy mode.
+>>>> The test passes - 
+>>>> kms_cursor_legacy@torture-bo,UnexpectedImprovement(Pass)
+>>>>
 >>>
->>> Ok, thanks for the explanation. From my point of view:
+>>> Yes, thats the problem
 >>>
->>> - Implement the DP PHY to be a part of the same driver. Each device
->>>   supported by the usbc driver should get both PHYs.
+>>> https://gitlab.freedesktop.org/drm/msm/-/jobs/67676481/viewer#L2696
 >>>
->>> - Make sure not to break the ABI: #phy-cells = <0> should still work and
->>>   return USB PHY, keeping backwards compatibility. Newer devices or
->>>   upgraded DT for old devices should return USB PHY for <... 0> and DP
->>>   PHY for <... 1>.
+>>> 24-12-04 03:51:55 R SERIAL> [  179.241309] [IGT] kms_cursor_legacy: 
+>>> finished subtest all-pipes, SUCCESS
+>>> 24-12-04 03:51:55 R SERIAL> [  179.241812] [IGT] kms_cursor_legacy: 
+>>> finished subtest torture-bo, SUCCESS
 >>>
->> Yes, currently we have implemented like your description,
->> Each deivce shoud get both PHYs, DP PHY for <... 1> and USB PHY for <... 0>.
-> 
-> Please note the backwards compatibility clause.
-> 
-For the USB node, we kept the same implementation as the original function interface, and the devicetree node definition also remains unchanged.
-In subsequent patches, I will follow Krzysztof’s suggestion to use a separate DT-binding to describe the DP PHY configuration, 
-without making changes to the USB devicetree and DT-binding implementation.
->>> - I'm not shure how to handle the USB and DP coexistence, especially in
->>>   your case of the USB-or-DP PHY.
->>>
->> For coexistence process:
+>>> Here it passes whereas it was marked a failure. Hence pipeline fails.
 >>
->> When we start implement DP part, usb driver team said only need config TCSR phy mode and orientation during switch in USB-C port.
->> Based on your previous comments avout SW_PWRDN, I'm confirming with the USB team whether SW_REST/SWPWRDN/START_CTRL registers might affect DP.
+>> Yes it fails due to,
+>>
+>> Unexpected results:
+>>   kms_cursor_legacy@torture-bo,UnexpectedImprovement(Pass)
+>>
+>> In this case, we need to remove this test from fails.txt
+>>
+>>>
+>>>>>>   > >   > [2] : 
+>>>>>> https://gitlab.freedesktop.org/drm/msm/-/jobs/67677430
+>>>>
+>>>> There are no test failures
+>>>>
+>>>
+>>> No, thats not true
+>>>
+>>> https://gitlab.freedesktop.org/drm/msm/-/jobs/67677430/viewer#L2694
+>>>
+>>> 24-12-04 04:18:38 R SERIAL> [  170.379649] Console: switching to 
+>>> colour dummy device 80x25
+>>> 24-12-04 04:18:38 R SERIAL> [  170.379938] [IGT] kms_cursor_legacy: 
+>>> executing
+>>> 24-12-04 04:18:38 R SERIAL> [  170.393868] [IGT] kms_cursor_legacy: 
+>>> starting subtest torture-bo
+>>> 24-12-04 04:18:38 R SERIAL> [  170.394186] [IGT] kms_cursor_legacy: 
+>>> starting dynamic subtest pipe-A
+>>> 24-12-04 04:18:38 R SERIAL> [  170.661749] [IGT] kms_cursor_legacy: 
+>>> finished subtest pipe-A, FAIL
+>>> 24-12-04 04:18:38 R SERIAL> [  170.662060] [IGT] kms_cursor_legacy: 
+>>> starting dynamic subtest all-pipes
+>>> 24-12-04 04:18:38 R SERIAL> [  170.713237] [IGT] kms_cursor_legacy: 
+>>> finished subtest all-pipes, FAIL
+>>> 24-12-04 04:18:38 R SERIAL> [  170.713513] [IGT] kms_cursor_legacy: 
+>>> finished subtest torture-bo, FAIL
+>>> 24-12-04 04:18:38 R SERIAL> [  170.721263] [IGT] kms_cursor_legacy: 
+>>> exiting, ret=98
+>>> 24-12-04 04:18:38 R SERIAL> [  170.737857] Console: switching to 
+>>> colour frame buffer device 128x48
+>>>
+>>> Please check these logs, the torture-bo test-case did fail. The 
+>>> pipeline was marked pass because it was an expected fail.
+>>>
+>>> So we have two pipelines, where one failed and the other passed. So 
+>>> thats a flake for me.
+>>
+>> Yes agree. So if we had removed the test from fails, deqp-runner would 
+>> have reported this as flake.
+>>
+>> deqp-runner runs the test and if it fails, it retries. If the test 
+>> passes on retry, it is reported as a flake.
+>>
+>>>
+>>>>>>   > >   > [3]: 
+>>>>>> https://gitlab.freedesktop.org/drm/msm/-/pipelines/1322770
+>>>>
+>>>> The job is same as 2
+>>>>
+>>>> In this case, the test passes and deqp-runner does not report it as 
+>>>> flake. So we only need to remove it from fails file.
+>>>>
+>>>
+>>> No, like I mentioned above we have a pass and a fail.
+>>>
+>>>>
+>>>>>>   > >   >
+>>>>>>   > >   > Signed-off-by: Abhinav Kumar quic_abhinavk@quicinc.com>
+>>>>>>   > >   > ---
+>>>>>>   > >   >  drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt | 5 +++++
+>>>>>>   > >   >  1 file changed, 5 insertions(+)
+>>>>>>   > >   >
+>>>>>>   > >   > diff --git 
+>>>>>> a/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt 
+>>>>>> b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
+>>>>>>   > >   > new file mode 100644
+>>>>>>   > >   > index 000000000000..18639853f18f
+>>>>>>   > >   > --- /dev/null
+>>>>>>   > >   > +++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
+>>>>>>   > >   > @@ -0,0 +1,5 @@
+>>>>>>   > >   > +# Board Name: msm-apq8016-db410c
+>>>>>>   > >   > +# Failure Rate: 100
+>>>>>>   > >
+>>>>>>   > > Is failure rate is 100%, isn't it a fail than?
+>>>>>>   > > (I know we have other cases with Failure Rate: 100, maybe we 
+>>>>>> should fix them as well)
+>>>>>>   > >
+>>>>>>   >
+>>>>>>   > Maybe I misunderstood the meaning of "Failure rate" for a flake.
+>>>>>>   >
+>>>>>>   > I interpreted this as this test being flaky 100% of the time :)
+>>>>>>
+>>>>>> Ah right, I see, inside deqp-runner (that auto-retries).
+>>>>>>
+>>>>>> I'd like to hear Vignesh's opinion on this.
+>>>>>>
+>>>>>> (In any case, we probably should document this better)
+>>>>
+>>>> deqp-runner reports new (not present in flakes file) or known 
+>>>> (present in flakes file) flakes
+>>>>
+>>>> 2024-12-11 07:25:44.709666: Some new flakes found:
+>>>> 2024-12-11 07:25:44.709676:   kms_lease@page-flip-implicit-plane
+>>>>
+>>>> 2024-12-11 13:15:16.482890: Some known flakes found:
+>>>> 2024-12-11 13:15:16.482898: 
+>>>> kms_async_flips@async-flip-with-page-flip-events-atomic
+>>>>
+>>>> we add it to flakes file if deqp runner reports new flakes. Another 
+>>>> case where we update flake tests is when a test passes in one run 
+>>>> but fails in another, but deqp-runner does not report it as flake.
+>>>>
+>>>> Regards,
+>>>> Vignesh
+>>>>
+>>>
+>>> The confusion here i guess is about what to mention as a "Failure rate"
+>>>
+>>> Failure rate means how many times it fails (like normally) ? In that 
+>>> case 100% which I used is wrong and I used 33% instead for which I 
+>>> have pushed v2.
+>>
+>> Yes, 33% is correct and please remove this test from fails.txt
+>>
+>> Regards,
+>> Vignesh
+>>
 > 
-> Thanks!
+> Ack, let me remove this test from fails and keep it only in flakes.
+
+Can you remove it from the fails without adding it to the flakes, and 
+rerun the pipeline a few times to see if deqp-runner reports it as a flake?
+
+Thanks.
+
+Regards,
+Vignesh
+
 > 
->> Anyway, even though the original SoC design supports DP or USB over Type-C，
->> but on QCS615 ADP AIR platform, there are only four USB-A port which works with 'qcs615-qmp-usb3-phy' driver, and no USB-C port.
->> DP port is mappped from usb pin to the video out sub-board.
->> so we are unable to verify the switching case between DP and USB devices under USB-C.
+> Thanks
 > 
-> That's also fine. We will get to that point once MSM8998 / SDM660
-> get USB-C support (the only current blocker is the support for the
-> TYPEC block of the PMI8998).
-> 
-I can't access MSM8998 / SDM660 documents now, but I have confirmed detail info about USB & DP phy design for sm6150.
-
-The 'usb-ssphy-qmp-usb3-or-dp PHY' on the current platform is essentially composed of three sub-PHYs, 
-which can even be considered as three separate PHYs: USB3 primary PHY, USB3 secondary PHY, and USB3 DP PHY.
-
-On the QCS615, the USB primary PHY is currently used to handle USB 3.0 communication for the previously mentioned four USB Type-A ports, 
-while the USB3 secondary PHY and USB3 DP PHY are used for the output of the Type-C port,
-but since the Type-C port is forcibly pin-to-pin configured to the video out board, the Type-C port will always configure as DP PHY.
-
-The internal registers of these three PHYs are independent of each other, Neither their respective SWPWR_DN nor SWRST will affect the other two PHYs.
-Additionally, there was a misunderstanding about the orientation previously.
-The USB orientation setting only affects the current PHY and does not impact the DP PHY. The DP PHY is configured in the DP_PHY_CFG_1.
-
-TSCR_PHY_MODE can specify which PHY outputs to the Type-C port, and the global reset will simultaneously reset the two associated PHYs. 
-Therefore, the correct switching process is as follows.
-When switching the inserted device:
-	1.Identify the PHY type.
-	2.Enable the regulator.
-	3.Trigger a reset.
-	4.Enable the clock.
-	5.Configure PHY type related orientation
-	6.switch the TCSR PHY mode.
-	7.Configure the registers of PHY.
-During release:
-	1.Reset.
-	2.Disable the clock.
-	3.Disable the regulator.
-
-Our current design overall complies with this process, but it lacks the configuration for DP_PHY_CFG_1.
-
-Shall we continue the discussion to clarify remain comments of the USBC driver?
-
->> However, I'm also confirming whether anything other will affect USB and DP each other.
-> 
-
+> Abhinav
+>>>
+>>>>>>
+>>>>>> Regards,
+>>>>>> Helen
+>>>>>>
+>>>>>
+>>>>> Can you let me know which way we need to go?
+>>>>>
+>>>>> Just in case I did post a v2 fixing this, 
+>>>>> https://patchwork.freedesktop.org/patch/627276/
+>>>>>
+>>>>> If thats the way to go, can you pls take a look?
+>>>>>
+>>>>> Thanks
+>>>>>
+>>>>> Abhinav
+>>>>>>   >
+>>>>>>   > Out of the 3 runs of the test, it passed 2/3 times and failed 
+>>>>>> 1/3.
+>>>>>>   >
+>>>>>>   > So its fail % actually is 33.33% in that case.
+>>>>>>   >
+>>>>>>   > I think I saw a Failure rate of 100% on 
+>>>>>> msm-sm8350-hdk-flakes.txt and
+>>>>>>   > mistook that as the rate at which flakes are seen.
+>>>>>>   >
+>>>>>>   > Let me fix this up as 33%
+>>>>>>   >
+>>>>>>   > > Regards,
+>>>>>>   > > Helen
+>>>>>>   > >
+>>>>>>   > >   > +# IGT Version: 1.28-ga73311079
+>>>>>>   > >   > +# Linux Version: 6.12.0-rc2
+>>>>>>   > >   > +kms_cursor_legacy@torture-bo
+>>>>>>   > >   >
+>>>>>>   > >   > ---
+>>>>>>   > >   > base-commit: 798bb342e0416d846cf67f4725a3428f39bfb96b
+>>>>>>   > >   > change-id: 20241204-cursor_tor_skip-9d128dd62c4f
+>>>>>>   > >   >
+>>>>>>   > >   > Best regards,
+>>>>>>   > >   > --
+>>>>>>   > >   > Abhinav Kumar quic_abhinavk@quicinc.com>
+>>>>>>   > >   >
+>>>>>>   > >   >
+>>>>>>   > >
+>>>>>>   >
+>>>>>>
