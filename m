@@ -2,95 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C404A9F5D54
-	for <lists+freedreno@lfdr.de>; Wed, 18 Dec 2024 04:18:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16E7A9F64AC
+	for <lists+freedreno@lfdr.de>; Wed, 18 Dec 2024 12:20:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4079010E637;
-	Wed, 18 Dec 2024 03:18:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89C6910EB72;
+	Wed, 18 Dec 2024 11:20:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="HuQed8pp";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bZdGe+h8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76FEF10E637;
- Wed, 18 Dec 2024 03:18:20 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BHKdkXD001491;
- Wed, 18 Dec 2024 03:18:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- MY4bThfd3nHovNrRAuLqu4dGpe6E0cynHU9jcVwEij4=; b=HuQed8pp07PEh9Dv
- UUghu+uZvjhmU9aPQtf6Thx+UiLI1hgiGbURJV4wWUd2j7KjrkH57KK5mWRnzCD5
- Ig4Pt/rKI/qa6nNNJzb+l1B+h9FObKumV36o1S4MYJwA7G2goE3ARRCwdJ2s9Z2s
- KRs5vTx8E6PcRHb0kOOMbBMwztG14XtbMysm95uN9pSQNZxmK1oC2nq+pkFsrv6G
- zr7o6R3wkYHqjOyOOvW5Xe2bWAfeGfkiyStvXANomrbi/ar7RvtTG6QtnahiUtdT
- MCEjwEY+XtEiPafdzoaD7CBa1HTRNqmwMvEscOaK76BsR2tjMTrKf9g8znxqU5EE
- jVTm9w==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43kghk0qmf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Dec 2024 03:18:11 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BI3IA19009355
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Dec 2024 03:18:10 GMT
-Received: from [10.64.16.151] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 17 Dec
- 2024 19:18:04 -0800
-Message-ID: <baab6fc5-755a-4675-a42d-ba7ba7facf0c@quicinc.com>
-Date: Wed, 18 Dec 2024 11:18:01 +0800
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0128A10EB73
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Dec 2024 11:20:12 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-53e3a37ae07so6768050e87.3
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Dec 2024 03:20:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1734520811; x=1735125611; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Qjj+KlXAewunzNPcgO1iCpfTnrF5Imc7Y+KKQVgYXa0=;
+ b=bZdGe+h8PfepLb1dn8TXlgWwOnp2Go4BlekislIETEJ1Npw9bxndY8rGv+Wt9m7Mjl
+ RWTfhsPWjFcNnjfRZHxHnenJUc2r0rpW6wz0HolIFoNwYU+7fSIQ4gto1jSLeTvheZ9p
+ OBmmX/F+IRlpnHur6JXNLDEccCPQbX26zZP5CssRpgBuSycExevVZIAlUMVvOPJayxl5
+ r3EkcwtizduPZofgaoeqB3UOm4N+NZ8EDej2/DilPoyv08VuRcB/8ofyTxIje9xqQSLw
+ REFb5ChygL5meeevt5SLhsedYlKRMiDl0Dz0kaeilGq6bPHK8XeM0LIH7H/h3R+h94tF
+ 2Flg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734520811; x=1735125611;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Qjj+KlXAewunzNPcgO1iCpfTnrF5Imc7Y+KKQVgYXa0=;
+ b=Rfd4TUAwL/KPnLrLq+CWqGr1D1Mpl4cL3/B1RJEiotFHPLT0/JYJY2G4CJq8MBVpt3
+ lNSWXKT5kWVHcwt4CH7EoJ6XVeBkXsGiXryC119f3BPOiGPBMPGuNsxWVCPv0TiZMhBz
+ tvfOn0NdV2/qaW3EutVdRjtJI8jrXTH3JadnEVQbn//v0U+uDnc/4du7yp1W89c7MmiF
+ JqHXqIVmCldUJT6oh6Wjpm8idef0m3MpShbAnHP/A31oCv5AQNqcbTZx/4AzSIqfRBBM
+ PV0Ron9fEcKdsyqYsesub1omSAwnD0L1//EjerFKuCAvQP403GD6DuLjce7ZnoEaCnR0
+ JNNA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWpfjfIq1cwuktuPxWG9toNLZzTGBCW8Pt9io4ZSOz8QKLfYdALlm4ktrD+2jN31GCOJxLDsJfPD3I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyH7YR8yMY6jW9i7E/qMhf07uArF2ZMa9Foeta/GVWAm2LTbJoM
+ MV53/ZB47R+2x5YEAmpQP0tw9X7uj6YcbTRPn2urCg+SGKi0bEF6lG+WCxCkn48=
+X-Gm-Gg: ASbGnct+hn6sJadMYSqRbYNm6OvUdx2INevDcInaCVZQ5oQGr1eMD31vRH0ktZoXqEu
+ Dx9HqEYC7u0LOI58+PxKy/TuGNqAeMeRtzwX+V9CuUl1sdOs7FTfqJzDWhlZPTQW6Zelw6mcEYc
+ QfULGBRW+K7v+lkd74GBwI5qD4lKS6M53ZoZyGiHsXcrWqI1Hi6u8xg+o0R212rHuEiTBjSJ6bl
+ 4FUb4+UL2Krh3V8w27F94xqN5gtKi6A8zIKBfIxORI8Uky7Td/FIsR30+DlHaP+RzWzhsWJnF/7
+ yhavE2iPwJzsY7sTU4gFSMorGWMPjj/oMP/E
+X-Google-Smtp-Source: AGHT+IGoMLpfK0AlU4GXbEuAfh2gfaHTUuRjjC5sL5Ab5KUlHrgJDsb/9UEzt0pS0syIvxRwbaMgOQ==
+X-Received: by 2002:a05:6512:15a2:b0:540:c349:a80f with SMTP id
+ 2adb3069b0e04-541ed90142fmr1009563e87.38.1734520811195; 
+ Wed, 18 Dec 2024 03:20:11 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54120c00262sm1412055e87.138.2024.12.18.03.20.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Dec 2024 03:20:09 -0800 (PST)
+Date: Wed, 18 Dec 2024 13:20:08 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, quic_abhinavk@quicinc.com,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 5/5] drm/msm/dpu: rate limit snapshot capture for mmu
+ faults
+Message-ID: <mbtwyyfryvltkeicgmrzrfas3u35ocathehswi4rme5tbs6r37@plcl6gzpl2ld>
+References: <20241217-abhinavk-smmu-fault-handler-v2-0-451377666cad@quicinc.com>
+ <20241217-abhinavk-smmu-fault-handler-v2-5-451377666cad@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 9/9] arm64: dts: qcom: Add display support for QCS615
- RIDE board
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Krishna
- Manikandan" <quic_mkrishn@quicinc.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Liu Li
- <quic_lliu6@quicinc.com>, Xiangxu Yin <quic_xiangxuy@quicinc.com>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-References: <20241210-add-display-support-for-qcs615-platform-v4-0-2d875a67602d@quicinc.com>
- <20241210-add-display-support-for-qcs615-platform-v4-9-2d875a67602d@quicinc.com>
- <cfdyvcxdkmf4sv5f75koflayyx74wd3tuscdl7byp5peaag5ty@yhr3275jhftn>
- <92b6335e-a303-49d3-9b77-f951663fc10c@quicinc.com>
- <CAA8EJpqyM-r3jvY7sTpG-KKRHP9K7c3q0xfoLb_f0th7vunPYw@mail.gmail.com>
-Content-Language: en-US
-From: fange zhang <quic_fangez@quicinc.com>
-In-Reply-To: <CAA8EJpqyM-r3jvY7sTpG-KKRHP9K7c3q0xfoLb_f0th7vunPYw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: p98UkB7seudijRo0Vqo4k0l5gySZ6_zn
-X-Proofpoint-ORIG-GUID: p98UkB7seudijRo0Vqo4k0l5gySZ6_zn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- priorityscore=1501 phishscore=0 malwarescore=0 bulkscore=0 mlxscore=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 mlxlogscore=999
- adultscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412180023
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241217-abhinavk-smmu-fault-handler-v2-5-451377666cad@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,161 +95,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, Dec 17, 2024 at 04:27:57PM -0800, Jessica Zhang wrote:
+> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> 
+> There is no recovery mechanism in place yet to recover from mmu
+> faults for DPU. We can only prevent the faults by making sure there
+> is no misconfiguration.
+> 
+> Rate-limit the snapshot capture for mmu faults to once per
+> msm_atomic_commit_tail() as that should be sufficient to capture
+> the snapshot for debugging otherwise there will be a lot of DPU
+> snapshots getting captured for the same fault which is redundant
+> and also might affect capturing even one snapshot accurately.
+> 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/msm_atomic.c | 2 ++
+>  drivers/gpu/drm/msm/msm_kms.c    | 5 ++++-
+>  drivers/gpu/drm/msm/msm_kms.h    | 3 +++
+>  3 files changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+> index 9c45d641b5212c11078ab38c13a519663d85e10a..9ad7eeb14d4336abd9d8a8eb1382bdddce80508a 100644
+> --- a/drivers/gpu/drm/msm/msm_atomic.c
+> +++ b/drivers/gpu/drm/msm/msm_atomic.c
+> @@ -228,6 +228,8 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+>  	if (kms->funcs->prepare_commit)
+>  		kms->funcs->prepare_commit(kms, state);
+>  
+> +	kms->fault_snapshot_capture = 0;
+> +
 
+- Please move it before the prepare_commit().
+- You are accessing the same variable from different threads / cores.
+  There should be some kind of a sync barrier.
 
-On 2024/12/13 18:19, Dmitry Baryshkov wrote:
-> On Fri, 13 Dec 2024 at 11:21, fange zhang <quic_fangez@quicinc.com> wrote:
->>
->>
->>
->> On 2024/12/10 19:02, Dmitry Baryshkov wrote:
->>> On Tue, Dec 10, 2024 at 02:54:00PM +0800, Fange Zhang wrote:
->>>> From: Li Liu <quic_lliu6@quicinc.com>
->>>>
->>>> Add display MDSS and DSI configuration for QCS615 RIDE board.
->>>> QCS615 has a DP port, and DP support will be added in a later patch.
->>>>
->>>> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
->>>> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
->>>> ---
->>>>    arch/arm64/boot/dts/qcom/qcs615-ride.dts | 89 ++++++++++++++++++++++++++++++++
->>>>    1 file changed, 89 insertions(+)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
->>>> index a25928933e2b66241258e418c6e5bc36c306101e..694719a09ac46bfa2fe34f1883c0970b9d0902be 100644
->>>> --- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
->>>> +++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
->>>> @@ -32,6 +32,18 @@ xo_board_clk: xo-board-clk {
->>>>                       #clock-cells = <0>;
->>>>               };
->>>>       };
->>>> +
->>>> +    dp-connector {
->>>> +            compatible = "dp-connector";
->>>> +            label = "DP";
->>>> +            type = "mini";
->>>> +
->>>> +            port {
->>>> +                    dp_connector_out: endpoint {
->>>> +                            remote-endpoint = <&anx_7625_out>;
->>>> +                    };
->>>> +            };
->>>> +    };
->>>>    };
->>>>
->>>>    &apps_rsc {
->>>> @@ -202,6 +214,83 @@ &gcc {
->>>>                <&sleep_clk>;
->>>>    };
->>>>
->>>> +&i2c2 {
->>>> +    clock-frequency = <400000>;
->>>> +    status = "okay";
->>>> +
->>>> +    ioexp: gpio@3e {
->>>> +            compatible = "semtech,sx1509q";
->>>> +            reg = <0x3e>;
->>>> +            interrupt-parent = <&tlmm>;
->>>> +            interrupts = <58 0>;
->>>
->>> Use IRQ flags instead of just 0 (here and further on). Also it might be
->>> better to use interrupts-extended instead.
->> Got it, will use interrupts-extended instead
->> -               interrupt-parent = <&tlmm>;
->> -               interrupts = <58 0>;
->> +               interrupts-extended = <&tlmm 58 IRQ_TYPE_NONE>;
->>>
->>>> +            gpio-controller;
->>>> +            #gpio-cells = <2>;
->>>> +            interrupt-controller;
->>>> +            #interrupt-cells = <2>;
->>>> +            semtech,probe-reset;
->>>> +    };
->>>> +
->>>> +    i2c-mux@77 {
->>>> +            compatible = "nxp,pca9542";
->>>> +            reg = <0x77>;
->>>> +            #address-cells = <1>;
->>>> +            #size-cells = <0>;
->>>
->>> Add empty line before device nodes (here and furher on).
->> Sorry, will add it in next patch.
->>>
->>>> +            i2c@0 {
->>>> +                    reg = <0>;
->>>> +                    #address-cells = <1>;
->>>> +                    #size-cells = <0>;
->>>> +
->>>> +                    anx7625@58 {
->>>> +                            compatible = "analogix,anx7625";
->>>> +                            reg = <0x58>;
->>>> +                            interrupt-parent = <&ioexp>;
->>>> +                            interrupts = <0 0>;
->> will change it to interrupts-extended in next patch
->> -               interrupt-parent = <&ioexp>;
->> -               interrupts = <0 0>;
->> +               interrupts-extended = <&ioexp 0 IRQ_TYPE_NONE>;
+>  	/*
+>  	 * Push atomic updates down to hardware:
+>  	 */
+> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+> index 78830e446355f77154fa21a5d107635bc88ba3ed..3327caf396d4fc905dc127f09515559c12666dc8 100644
+> --- a/drivers/gpu/drm/msm/msm_kms.c
+> +++ b/drivers/gpu/drm/msm/msm_kms.c
+> @@ -168,7 +168,10 @@ static int msm_kms_fault_handler(void *arg, unsigned long iova, int flags, void
+>  {
+>  	struct msm_kms *kms = arg;
+>  
+> -	msm_disp_snapshot_state(kms->dev);
+> +	if (!kms->fault_snapshot_capture) {
+> +		msm_disp_snapshot_state(kms->dev);
+> +		kms->fault_snapshot_capture++;
+> +	}
+>  
+>  	return -ENOSYS;
+>  }
+> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+> index e60162744c669773b6e5aef824a173647626ab4e..3ac089e26e14b824567f3cd2c62f82a1b9ea9878 100644
+> --- a/drivers/gpu/drm/msm/msm_kms.h
+> +++ b/drivers/gpu/drm/msm/msm_kms.h
+> @@ -128,6 +128,9 @@ struct msm_kms {
+>  	int irq;
+>  	bool irq_requested;
+>  
+> +	/* rate limit the snapshot capture to once per attach */
+> +	int fault_snapshot_capture;
+> +
+>  	/* mapper-id used to request GEM buffer mapped for scanout: */
+>  	struct msm_gem_address_space *aspace;
+>  
 > 
-> Yes, much better. BTW: are you sure that it's really IRQ_TYPE_NONE?
-We extensively tested FALLING and BOTH type, and they all work. However, 
-I believe it’s better to use the default type, which is the same as the 
-downstream approach. This way, it will be more stable.
-> 
->>>> +                            enable-gpios = <&tlmm 4 GPIO_ACTIVE_HIGH>;
->>>> +                            reset-gpios = <&tlmm 5 GPIO_ACTIVE_HIGH>;
->>>> +                            wakeup-source;
->>>> +
->>>> +                            ports {
->>>> +                                    #address-cells = <1>;
->>>> +                                    #size-cells = <0>;
->>>> +
->>>> +                                    port@0 {
->>>> +                                            reg = <0>;
->>>> +                                            anx_7625_in: endpoint {
->>>> +                                                    remote-endpoint = <&mdss_dsi0_out>;
->>>> +                                            };
->>>> +                                    };
->>>> +
->>>> +                                    port@1 {
->>>> +                                            reg = <1>;
->>>> +                                            anx_7625_out: endpoint {
->>>> +                                                    remote-endpoint = <&dp_connector_out>;
->>>> +                                            };
->>>> +                                    };
->>>> +                            };
->>>> +                    };
->>>> +            };
->>>> +    };
->>>> +};
->>>> +
->>>> +&mdss {
->>>> +    status = "okay";
->>>> +};
->>>> +
->>>> +&mdss_dsi0 {
->>>> +    vdda-supply = <&vreg_l11a>;
->>>> +    status = "okay";
->>>> +};
->>>> +
->>>> +&mdss_dsi0_out {
->>>> +    remote-endpoint = <&anx_7625_in>;
->>>> +    data-lanes = <0 1 2 3>;
->>>> +};
->>>> +
->>>> +&mdss_dsi0_phy {
->>>> +    vdds-supply = <&vreg_l5a>;
->>>> +    status = "okay";
->>>> +};
->>>> +
->>>>    &qupv3_id_0 {
->>>>       status = "okay";
->>>>    };
->>>>
->>>> --
->>>> 2.34.1
->>>>
->>>
->>
-> 
+> -- 
+> 2.34.1
 > 
 
+-- 
+With best wishes
+Dmitry
