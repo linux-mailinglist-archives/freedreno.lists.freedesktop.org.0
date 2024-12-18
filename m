@@ -1,89 +1,96 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90FE69F5B65
-	for <lists+freedreno@lfdr.de>; Wed, 18 Dec 2024 01:28:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C404A9F5D54
+	for <lists+freedreno@lfdr.de>; Wed, 18 Dec 2024 04:18:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA4E710E933;
-	Wed, 18 Dec 2024 00:28:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4079010E637;
+	Wed, 18 Dec 2024 03:18:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="bt9uSA1l";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="HuQed8pp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A90110E415;
- Wed, 18 Dec 2024 00:28:27 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BHE4rI6026168;
- Wed, 18 Dec 2024 00:28:25 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76FEF10E637;
+ Wed, 18 Dec 2024 03:18:20 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BHKdkXD001491;
+ Wed, 18 Dec 2024 03:18:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 9zPu5578fHXgKm6aG05j7Ltg6oSrBHiTo7Y8BTLCckE=; b=bt9uSA1llNkPCvKw
- sscrYdwQnwT0FBsv5gvp0weD2L5sa94OHUa4EJ5hBJs8OOPFdrH4Y6e+Dw9RISed
- o0aN1f2RVQ+8QgKIaKo2vxe2xgqmb7nRQTvtu2yZFrYnhH2rysLkR6KB1lvyw0GH
- RaB2UO1n9DG2beuO9/4BTIhxo128FZM3Vx/0cUuL9ztm6vcCiSEuMd0l5vQWJ3Di
- ljGPH6BQV6+NghHqJHzsE7Kr3K5yuxldFV1lS2jGECRfppORql/33ghAHlC8hnNE
- tDsb/TBLYlmB1Pcm5IP0p4DMFPQFno3fzY2nhnOJ+8uuPeZWIKSVhMedeHTSOe35
- qnfQcg==
-Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43kare9cwt-1
+ MY4bThfd3nHovNrRAuLqu4dGpe6E0cynHU9jcVwEij4=; b=HuQed8pp07PEh9Dv
+ UUghu+uZvjhmU9aPQtf6Thx+UiLI1hgiGbURJV4wWUd2j7KjrkH57KK5mWRnzCD5
+ Ig4Pt/rKI/qa6nNNJzb+l1B+h9FObKumV36o1S4MYJwA7G2goE3ARRCwdJ2s9Z2s
+ KRs5vTx8E6PcRHb0kOOMbBMwztG14XtbMysm95uN9pSQNZxmK1oC2nq+pkFsrv6G
+ zr7o6R3wkYHqjOyOOvW5Xe2bWAfeGfkiyStvXANomrbi/ar7RvtTG6QtnahiUtdT
+ MCEjwEY+XtEiPafdzoaD7CBa1HTRNqmwMvEscOaK76BsR2tjMTrKf9g8znxqU5EE
+ jVTm9w==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43kghk0qmf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Dec 2024 00:28:25 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BI0SOfP023110
+ Wed, 18 Dec 2024 03:18:11 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BI3IA19009355
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Dec 2024 00:28:24 GMT
-Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 17 Dec 2024 16:28:23 -0800
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-Date: Tue, 17 Dec 2024 16:27:57 -0800
-Subject: [PATCH v2 5/5] drm/msm/dpu: rate limit snapshot capture for mmu faults
+ Wed, 18 Dec 2024 03:18:10 GMT
+Received: from [10.64.16.151] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 17 Dec
+ 2024 19:18:04 -0800
+Message-ID: <baab6fc5-755a-4675-a42d-ba7ba7facf0c@quicinc.com>
+Date: Wed, 18 Dec 2024 11:18:01 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20241217-abhinavk-smmu-fault-handler-v2-5-451377666cad@quicinc.com>
-References: <20241217-abhinavk-smmu-fault-handler-v2-0-451377666cad@quicinc.com>
-In-Reply-To: <20241217-abhinavk-smmu-fault-handler-v2-0-451377666cad@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>
-CC: <quic_abhinavk@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>
-X-Mailer: b4 0.15-dev-1b0d6
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1734481701; l=2414;
- i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
- bh=HJ7RWgRkY6ApuZm7VqpdWzwUZGEUtmUze9UqrXO46Rc=;
- b=SZKgJifpUAfV+o3W/8J+inQAcLfsV+XDEwFGK9mukoJAlfYknzGRKYLvtcNIS9BV8r4197Guk
- HIb3qEvWYO6CAH/8PK+YQZwRYxfLleovo/bSJpOscjWRBlMnFx5EXfa
-X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
- pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 9/9] arm64: dts: qcom: Add display support for QCS615
+ RIDE board
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Krishna
+ Manikandan" <quic_mkrishn@quicinc.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Liu Li
+ <quic_lliu6@quicinc.com>, Xiangxu Yin <quic_xiangxuy@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+References: <20241210-add-display-support-for-qcs615-platform-v4-0-2d875a67602d@quicinc.com>
+ <20241210-add-display-support-for-qcs615-platform-v4-9-2d875a67602d@quicinc.com>
+ <cfdyvcxdkmf4sv5f75koflayyx74wd3tuscdl7byp5peaag5ty@yhr3275jhftn>
+ <92b6335e-a303-49d3-9b77-f951663fc10c@quicinc.com>
+ <CAA8EJpqyM-r3jvY7sTpG-KKRHP9K7c3q0xfoLb_f0th7vunPYw@mail.gmail.com>
+Content-Language: en-US
+From: fange zhang <quic_fangez@quicinc.com>
+In-Reply-To: <CAA8EJpqyM-r3jvY7sTpG-KKRHP9K7c3q0xfoLb_f0th7vunPYw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
+ nalasex01b.na.qualcomm.com (10.47.209.197)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: sfg_IKGFsAKEca6aFbgzJaf_ankWKESf
-X-Proofpoint-ORIG-GUID: sfg_IKGFsAKEca6aFbgzJaf_ankWKESf
+X-Proofpoint-GUID: p98UkB7seudijRo0Vqo4k0l5gySZ6_zn
+X-Proofpoint-ORIG-GUID: p98UkB7seudijRo0Vqo4k0l5gySZ6_zn
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 phishscore=0
- suspectscore=0 mlxlogscore=937 mlxscore=0 clxscore=1015 malwarescore=0
- impostorscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2411120000 definitions=main-2412180001
+ clxscore=1015
+ priorityscore=1501 phishscore=0 malwarescore=0 bulkscore=0 mlxscore=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 mlxlogscore=999
+ adultscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412180023
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,70 +106,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-There is no recovery mechanism in place yet to recover from mmu
-faults for DPU. We can only prevent the faults by making sure there
-is no misconfiguration.
 
-Rate-limit the snapshot capture for mmu faults to once per
-msm_atomic_commit_tail() as that should be sufficient to capture
-the snapshot for debugging otherwise there will be a lot of DPU
-snapshots getting captured for the same fault which is redundant
-and also might affect capturing even one snapshot accurately.
-
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
----
- drivers/gpu/drm/msm/msm_atomic.c | 2 ++
- drivers/gpu/drm/msm/msm_kms.c    | 5 ++++-
- drivers/gpu/drm/msm/msm_kms.h    | 3 +++
- 3 files changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-index 9c45d641b5212c11078ab38c13a519663d85e10a..9ad7eeb14d4336abd9d8a8eb1382bdddce80508a 100644
---- a/drivers/gpu/drm/msm/msm_atomic.c
-+++ b/drivers/gpu/drm/msm/msm_atomic.c
-@@ -228,6 +228,8 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
- 	if (kms->funcs->prepare_commit)
- 		kms->funcs->prepare_commit(kms, state);
- 
-+	kms->fault_snapshot_capture = 0;
-+
- 	/*
- 	 * Push atomic updates down to hardware:
- 	 */
-diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-index 78830e446355f77154fa21a5d107635bc88ba3ed..3327caf396d4fc905dc127f09515559c12666dc8 100644
---- a/drivers/gpu/drm/msm/msm_kms.c
-+++ b/drivers/gpu/drm/msm/msm_kms.c
-@@ -168,7 +168,10 @@ static int msm_kms_fault_handler(void *arg, unsigned long iova, int flags, void
- {
- 	struct msm_kms *kms = arg;
- 
--	msm_disp_snapshot_state(kms->dev);
-+	if (!kms->fault_snapshot_capture) {
-+		msm_disp_snapshot_state(kms->dev);
-+		kms->fault_snapshot_capture++;
-+	}
- 
- 	return -ENOSYS;
- }
-diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-index e60162744c669773b6e5aef824a173647626ab4e..3ac089e26e14b824567f3cd2c62f82a1b9ea9878 100644
---- a/drivers/gpu/drm/msm/msm_kms.h
-+++ b/drivers/gpu/drm/msm/msm_kms.h
-@@ -128,6 +128,9 @@ struct msm_kms {
- 	int irq;
- 	bool irq_requested;
- 
-+	/* rate limit the snapshot capture to once per attach */
-+	int fault_snapshot_capture;
-+
- 	/* mapper-id used to request GEM buffer mapped for scanout: */
- 	struct msm_gem_address_space *aspace;
- 
-
--- 
-2.34.1
+On 2024/12/13 18:19, Dmitry Baryshkov wrote:
+> On Fri, 13 Dec 2024 at 11:21, fange zhang <quic_fangez@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 2024/12/10 19:02, Dmitry Baryshkov wrote:
+>>> On Tue, Dec 10, 2024 at 02:54:00PM +0800, Fange Zhang wrote:
+>>>> From: Li Liu <quic_lliu6@quicinc.com>
+>>>>
+>>>> Add display MDSS and DSI configuration for QCS615 RIDE board.
+>>>> QCS615 has a DP port, and DP support will be added in a later patch.
+>>>>
+>>>> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
+>>>> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
+>>>> ---
+>>>>    arch/arm64/boot/dts/qcom/qcs615-ride.dts | 89 ++++++++++++++++++++++++++++++++
+>>>>    1 file changed, 89 insertions(+)
+>>>>
+>>>> diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+>>>> index a25928933e2b66241258e418c6e5bc36c306101e..694719a09ac46bfa2fe34f1883c0970b9d0902be 100644
+>>>> --- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+>>>> +++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+>>>> @@ -32,6 +32,18 @@ xo_board_clk: xo-board-clk {
+>>>>                       #clock-cells = <0>;
+>>>>               };
+>>>>       };
+>>>> +
+>>>> +    dp-connector {
+>>>> +            compatible = "dp-connector";
+>>>> +            label = "DP";
+>>>> +            type = "mini";
+>>>> +
+>>>> +            port {
+>>>> +                    dp_connector_out: endpoint {
+>>>> +                            remote-endpoint = <&anx_7625_out>;
+>>>> +                    };
+>>>> +            };
+>>>> +    };
+>>>>    };
+>>>>
+>>>>    &apps_rsc {
+>>>> @@ -202,6 +214,83 @@ &gcc {
+>>>>                <&sleep_clk>;
+>>>>    };
+>>>>
+>>>> +&i2c2 {
+>>>> +    clock-frequency = <400000>;
+>>>> +    status = "okay";
+>>>> +
+>>>> +    ioexp: gpio@3e {
+>>>> +            compatible = "semtech,sx1509q";
+>>>> +            reg = <0x3e>;
+>>>> +            interrupt-parent = <&tlmm>;
+>>>> +            interrupts = <58 0>;
+>>>
+>>> Use IRQ flags instead of just 0 (here and further on). Also it might be
+>>> better to use interrupts-extended instead.
+>> Got it, will use interrupts-extended instead
+>> -               interrupt-parent = <&tlmm>;
+>> -               interrupts = <58 0>;
+>> +               interrupts-extended = <&tlmm 58 IRQ_TYPE_NONE>;
+>>>
+>>>> +            gpio-controller;
+>>>> +            #gpio-cells = <2>;
+>>>> +            interrupt-controller;
+>>>> +            #interrupt-cells = <2>;
+>>>> +            semtech,probe-reset;
+>>>> +    };
+>>>> +
+>>>> +    i2c-mux@77 {
+>>>> +            compatible = "nxp,pca9542";
+>>>> +            reg = <0x77>;
+>>>> +            #address-cells = <1>;
+>>>> +            #size-cells = <0>;
+>>>
+>>> Add empty line before device nodes (here and furher on).
+>> Sorry, will add it in next patch.
+>>>
+>>>> +            i2c@0 {
+>>>> +                    reg = <0>;
+>>>> +                    #address-cells = <1>;
+>>>> +                    #size-cells = <0>;
+>>>> +
+>>>> +                    anx7625@58 {
+>>>> +                            compatible = "analogix,anx7625";
+>>>> +                            reg = <0x58>;
+>>>> +                            interrupt-parent = <&ioexp>;
+>>>> +                            interrupts = <0 0>;
+>> will change it to interrupts-extended in next patch
+>> -               interrupt-parent = <&ioexp>;
+>> -               interrupts = <0 0>;
+>> +               interrupts-extended = <&ioexp 0 IRQ_TYPE_NONE>;
+> 
+> Yes, much better. BTW: are you sure that it's really IRQ_TYPE_NONE?
+We extensively tested FALLING and BOTH type, and they all work. However, 
+I believe it’s better to use the default type, which is the same as the 
+downstream approach. This way, it will be more stable.
+> 
+>>>> +                            enable-gpios = <&tlmm 4 GPIO_ACTIVE_HIGH>;
+>>>> +                            reset-gpios = <&tlmm 5 GPIO_ACTIVE_HIGH>;
+>>>> +                            wakeup-source;
+>>>> +
+>>>> +                            ports {
+>>>> +                                    #address-cells = <1>;
+>>>> +                                    #size-cells = <0>;
+>>>> +
+>>>> +                                    port@0 {
+>>>> +                                            reg = <0>;
+>>>> +                                            anx_7625_in: endpoint {
+>>>> +                                                    remote-endpoint = <&mdss_dsi0_out>;
+>>>> +                                            };
+>>>> +                                    };
+>>>> +
+>>>> +                                    port@1 {
+>>>> +                                            reg = <1>;
+>>>> +                                            anx_7625_out: endpoint {
+>>>> +                                                    remote-endpoint = <&dp_connector_out>;
+>>>> +                                            };
+>>>> +                                    };
+>>>> +                            };
+>>>> +                    };
+>>>> +            };
+>>>> +    };
+>>>> +};
+>>>> +
+>>>> +&mdss {
+>>>> +    status = "okay";
+>>>> +};
+>>>> +
+>>>> +&mdss_dsi0 {
+>>>> +    vdda-supply = <&vreg_l11a>;
+>>>> +    status = "okay";
+>>>> +};
+>>>> +
+>>>> +&mdss_dsi0_out {
+>>>> +    remote-endpoint = <&anx_7625_in>;
+>>>> +    data-lanes = <0 1 2 3>;
+>>>> +};
+>>>> +
+>>>> +&mdss_dsi0_phy {
+>>>> +    vdds-supply = <&vreg_l5a>;
+>>>> +    status = "okay";
+>>>> +};
+>>>> +
+>>>>    &qupv3_id_0 {
+>>>>       status = "okay";
+>>>>    };
+>>>>
+>>>> --
+>>>> 2.34.1
+>>>>
+>>>
+>>
+> 
+> 
 
