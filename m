@@ -2,67 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CB3E9F67C5
-	for <lists+freedreno@lfdr.de>; Wed, 18 Dec 2024 14:57:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7591C9F6F7E
+	for <lists+freedreno@lfdr.de>; Wed, 18 Dec 2024 22:34:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D904210E1A0;
-	Wed, 18 Dec 2024 13:57:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C8B610E24C;
+	Wed, 18 Dec 2024 21:34:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="X6q9nV5K";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="FdBRP8h+";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59F8410E0E2;
- Wed, 18 Dec 2024 13:57:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1734530243;
- bh=Vc/ZM9fAvz09aWlUkt1tgjwmGq/TmY7xSsGfE0yV9pQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=X6q9nV5KSijo9GZAWpqJ5ytDPQ9aWfV7WRw5Mnhew/vWo/qEnHr0KrDfjP3VEuud5
- F8Bh8VLz+uK4BefvbhHZLcWd2sxoIzHDh0zhvKp7cuVkCNpQSqsoiXtaTv+TZnyqyE
- yD40DmXrgZwl02e45GfmVqWSwIv6rcgzUnx6K1AFWi/AZuK/2wkscnhVlpuxK8E8gA
- CEGWSDGDC4YJH4zB9p+HUtW2mQmZ9NeUIm41d5tfDLIMRnegU5YyvPvgxFu39TzU6s
- jTdoEP4CrW3aEFROSFeNBGUWhDbOFVLq+mkGx+E05mOJk86KZN4hwGhPlnutDt0lOL
- ayyn+GWoaTvOg==
-Received: from [192.168.50.250] (unknown [171.76.86.135])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: vignesh)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A989B17E376D;
- Wed, 18 Dec 2024 14:57:20 +0100 (CET)
-Message-ID: <58005033-5708-4a3a-a5b1-58898ce3fbac@collabora.com>
-Date: Wed, 18 Dec 2024 19:27:12 +0530
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7244F10E13E;
+ Wed, 18 Dec 2024 21:34:17 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BIGQtKv023946;
+ Wed, 18 Dec 2024 21:34:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ x7h51NnDJyUD/OUOZyQAzkX/KpLa4aFP230owX2e5Uw=; b=FdBRP8h+9GccklAZ
+ 4CbHZsI+vBsxceOM5Kw1Tr5nuUz+gcgqRjiK/L/om9OeqoQniVopXa0kZBcNe2Pf
+ Haw7lqxncLhyNpHfqh7xSVHfoiTTM51VNNhtGwQ+X++vXTdQef6KFPy2zD+6HGn8
+ bA7VeYuA01rG39wGzVIIzizgv8bT8D4M4TYooDFhoJPGXWnVH7tGth41Wh0v882A
+ gRe5szdGNBp/jypuyfChjz9lzLuNHlxSHUnqztMXyxOaeQqv8ZRnzgPPfMZyMI/3
+ zXB6EZH6SA6Lmq22azJLK9vZANA1uZErhi1gcca3i7h+lHrUQ0Q95hHM1szRwI8x
+ FctTGQ==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43m01gh21d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Dec 2024 21:34:14 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BILYDKi006323
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Dec 2024 21:34:13 GMT
+Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 18 Dec
+ 2024 13:34:13 -0800
+Message-ID: <dbe94c6b-e981-4f40-9261-2e44b5fb73cc@quicinc.com>
+Date: Wed, 18 Dec 2024 13:33:59 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/ci: add kms_cursor_legacy@torture-bo to apq8016 flakes
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Helen Mae Koike Fornazier <helen.koike@collabora.com>
-Cc: Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Subject: Re: [PATCH v2 5/5] drm/msm/dpu: rate limit snapshot capture for mmu
+ faults
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>
-References: <20241204-cursor_tor_skip-v1-1-f5f0bba5df7b@quicinc.com>
- <193931869a5.f923adf2270026.8321075661083367617@collabora.com>
- <20a3955e-3d10-47c5-8e68-d70342805010@quicinc.com>
- <19393604e18.f9b6fe7d298023.1937039548910081216@collabora.com>
- <a03ae7e8-391e-4303-91fc-15a59979fd2a@quicinc.com>
- <ed90ca8c-ed81-419f-a5db-a4e8bcd35835@collabora.com>
- <ac13139d-1cbf-47dd-b200-1a511ffc9453@quicinc.com>
- <8edba6c9-cf7d-4616-8791-65abd108f538@collabora.com>
- <adea523d-df80-413c-97c1-92cf3923f4e3@quicinc.com>
+ <quic_abhinavk@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+References: <20241217-abhinavk-smmu-fault-handler-v2-0-451377666cad@quicinc.com>
+ <20241217-abhinavk-smmu-fault-handler-v2-5-451377666cad@quicinc.com>
+ <mbtwyyfryvltkeicgmrzrfas3u35ocathehswi4rme5tbs6r37@plcl6gzpl2ld>
 Content-Language: en-US
-From: Vignesh Raman <vignesh.raman@collabora.com>
-In-Reply-To: <adea523d-df80-413c-97c1-92cf3923f4e3@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <mbtwyyfryvltkeicgmrzrfas3u35ocathehswi4rme5tbs6r37@plcl6gzpl2ld>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 7y6KQiIizqm9XtIm61CgaacJPrY4NkYX
+X-Proofpoint-ORIG-GUID: 7y6KQiIizqm9XtIm61CgaacJPrY4NkYX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0
+ clxscore=1015 mlxscore=0 bulkscore=0 impostorscore=0 malwarescore=0
+ suspectscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412180168
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,249 +96,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Abhinav,
 
-On 16/12/24 11:39, Abhinav Kumar wrote:
+
+On 12/18/2024 3:20 AM, Dmitry Baryshkov wrote:
+> On Tue, Dec 17, 2024 at 04:27:57PM -0800, Jessica Zhang wrote:
+>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>
+>> There is no recovery mechanism in place yet to recover from mmu
+>> faults for DPU. We can only prevent the faults by making sure there
+>> is no misconfiguration.
+>>
+>> Rate-limit the snapshot capture for mmu faults to once per
+>> msm_atomic_commit_tail() as that should be sufficient to capture
+>> the snapshot for debugging otherwise there will be a lot of DPU
+>> snapshots getting captured for the same fault which is redundant
+>> and also might affect capturing even one snapshot accurately.
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/msm_atomic.c | 2 ++
+>>   drivers/gpu/drm/msm/msm_kms.c    | 5 ++++-
+>>   drivers/gpu/drm/msm/msm_kms.h    | 3 +++
+>>   3 files changed, 9 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+>> index 9c45d641b5212c11078ab38c13a519663d85e10a..9ad7eeb14d4336abd9d8a8eb1382bdddce80508a 100644
+>> --- a/drivers/gpu/drm/msm/msm_atomic.c
+>> +++ b/drivers/gpu/drm/msm/msm_atomic.c
+>> @@ -228,6 +228,8 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
+>>   	if (kms->funcs->prepare_commit)
+>>   		kms->funcs->prepare_commit(kms, state);
+>>   
+>> +	kms->fault_snapshot_capture = 0;
+>> +
 > 
-> 
-> On 12/15/2024 9:45 PM, Vignesh Raman wrote:
->> Hi Abhinav,
->>
->> On 14/12/24 01:09, Abhinav Kumar wrote:
->>> Hi Vignesh
->>>
->>> On 12/11/2024 9:10 PM, Vignesh Raman wrote:
->>>> Hi Abhinav / Helen,
->>>>
->>>> On 12/12/24 01:48, Abhinav Kumar wrote:
->>>>> Hi Helen / Vignesh
->>>>>
->>>>> On 12/4/2024 12:33 PM, Helen Mae Koike Fornazier wrote:
->>>>>>
->>>>>>
->>>>>>
->>>>>>
->>>>>> ---- On Wed, 04 Dec 2024 16:21:26 -0300 Abhinav Kumar  wrote ---
->>>>>>
->>>>>>   > Hi Helen
->>>>>>   >
->>>>>>   > On 12/4/2024 11:14 AM, Helen Mae Koike Fornazier wrote:
->>>>>>   > > Hi Abhinav,
->>>>>>   > >
->>>>>>   > > Thanks for your patch.
->>>>>>   > >
->>>>>>   > >
->>>>>>   > >
->>>>>>   > > ---- On Wed, 04 Dec 2024 15:55:17 -0300 Abhinav Kumar  wrote 
->>>>>> ---
->>>>>>   > >
->>>>>>   > >   > From the jobs [1] and [2] of pipeline [3], its clear that
->>>>>>   > >   > kms_cursor_legacy@torture-bo is most certainly a flake and
->>>>>>   > >   > not a fail for apq8016. Mark the test accordingly to 
->>>>>> match the results.
->>>>>>   > >   >
->>>>>>   > >   > [1] : 
->>>>>> https://gitlab.freedesktop.org/drm/msm/-/jobs/67676481
->>>>
->>>> The test passes - 
->>>> kms_cursor_legacy@torture-bo,UnexpectedImprovement(Pass)
->>>>
->>>
->>> Yes, thats the problem
->>>
->>> https://gitlab.freedesktop.org/drm/msm/-/jobs/67676481/viewer#L2696
->>>
->>> 24-12-04 03:51:55 R SERIAL> [  179.241309] [IGT] kms_cursor_legacy: 
->>> finished subtest all-pipes, SUCCESS
->>> 24-12-04 03:51:55 R SERIAL> [  179.241812] [IGT] kms_cursor_legacy: 
->>> finished subtest torture-bo, SUCCESS
->>>
->>> Here it passes whereas it was marked a failure. Hence pipeline fails.
->>
->> Yes it fails due to,
->>
->> Unexpected results:
->>   kms_cursor_legacy@torture-bo,UnexpectedImprovement(Pass)
->>
->> In this case, we need to remove this test from fails.txt
->>
->>>
->>>>>>   > >   > [2] : 
->>>>>> https://gitlab.freedesktop.org/drm/msm/-/jobs/67677430
->>>>
->>>> There are no test failures
->>>>
->>>
->>> No, thats not true
->>>
->>> https://gitlab.freedesktop.org/drm/msm/-/jobs/67677430/viewer#L2694
->>>
->>> 24-12-04 04:18:38 R SERIAL> [  170.379649] Console: switching to 
->>> colour dummy device 80x25
->>> 24-12-04 04:18:38 R SERIAL> [  170.379938] [IGT] kms_cursor_legacy: 
->>> executing
->>> 24-12-04 04:18:38 R SERIAL> [  170.393868] [IGT] kms_cursor_legacy: 
->>> starting subtest torture-bo
->>> 24-12-04 04:18:38 R SERIAL> [  170.394186] [IGT] kms_cursor_legacy: 
->>> starting dynamic subtest pipe-A
->>> 24-12-04 04:18:38 R SERIAL> [  170.661749] [IGT] kms_cursor_legacy: 
->>> finished subtest pipe-A, FAIL
->>> 24-12-04 04:18:38 R SERIAL> [  170.662060] [IGT] kms_cursor_legacy: 
->>> starting dynamic subtest all-pipes
->>> 24-12-04 04:18:38 R SERIAL> [  170.713237] [IGT] kms_cursor_legacy: 
->>> finished subtest all-pipes, FAIL
->>> 24-12-04 04:18:38 R SERIAL> [  170.713513] [IGT] kms_cursor_legacy: 
->>> finished subtest torture-bo, FAIL
->>> 24-12-04 04:18:38 R SERIAL> [  170.721263] [IGT] kms_cursor_legacy: 
->>> exiting, ret=98
->>> 24-12-04 04:18:38 R SERIAL> [  170.737857] Console: switching to 
->>> colour frame buffer device 128x48
->>>
->>> Please check these logs, the torture-bo test-case did fail. The 
->>> pipeline was marked pass because it was an expected fail.
->>>
->>> So we have two pipelines, where one failed and the other passed. So 
->>> thats a flake for me.
->>
->> Yes agree. So if we had removed the test from fails, deqp-runner would 
->> have reported this as flake.
->>
->> deqp-runner runs the test and if it fails, it retries. If the test 
->> passes on retry, it is reported as a flake.
->>
->>>
->>>>>>   > >   > [3]: 
->>>>>> https://gitlab.freedesktop.org/drm/msm/-/pipelines/1322770
->>>>
->>>> The job is same as 2
->>>>
->>>> In this case, the test passes and deqp-runner does not report it as 
->>>> flake. So we only need to remove it from fails file.
->>>>
->>>
->>> No, like I mentioned above we have a pass and a fail.
->>>
->>>>
->>>>>>   > >   >
->>>>>>   > >   > Signed-off-by: Abhinav Kumar quic_abhinavk@quicinc.com>
->>>>>>   > >   > ---
->>>>>>   > >   >  drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt | 5 +++++
->>>>>>   > >   >  1 file changed, 5 insertions(+)
->>>>>>   > >   >
->>>>>>   > >   > diff --git 
->>>>>> a/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt 
->>>>>> b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
->>>>>>   > >   > new file mode 100644
->>>>>>   > >   > index 000000000000..18639853f18f
->>>>>>   > >   > --- /dev/null
->>>>>>   > >   > +++ b/drivers/gpu/drm/ci/xfails/msm-apq8016-flakes.txt
->>>>>>   > >   > @@ -0,0 +1,5 @@
->>>>>>   > >   > +# Board Name: msm-apq8016-db410c
->>>>>>   > >   > +# Failure Rate: 100
->>>>>>   > >
->>>>>>   > > Is failure rate is 100%, isn't it a fail than?
->>>>>>   > > (I know we have other cases with Failure Rate: 100, maybe we 
->>>>>> should fix them as well)
->>>>>>   > >
->>>>>>   >
->>>>>>   > Maybe I misunderstood the meaning of "Failure rate" for a flake.
->>>>>>   >
->>>>>>   > I interpreted this as this test being flaky 100% of the time :)
->>>>>>
->>>>>> Ah right, I see, inside deqp-runner (that auto-retries).
->>>>>>
->>>>>> I'd like to hear Vignesh's opinion on this.
->>>>>>
->>>>>> (In any case, we probably should document this better)
->>>>
->>>> deqp-runner reports new (not present in flakes file) or known 
->>>> (present in flakes file) flakes
->>>>
->>>> 2024-12-11 07:25:44.709666: Some new flakes found:
->>>> 2024-12-11 07:25:44.709676:   kms_lease@page-flip-implicit-plane
->>>>
->>>> 2024-12-11 13:15:16.482890: Some known flakes found:
->>>> 2024-12-11 13:15:16.482898: 
->>>> kms_async_flips@async-flip-with-page-flip-events-atomic
->>>>
->>>> we add it to flakes file if deqp runner reports new flakes. Another 
->>>> case where we update flake tests is when a test passes in one run 
->>>> but fails in another, but deqp-runner does not report it as flake.
->>>>
->>>> Regards,
->>>> Vignesh
->>>>
->>>
->>> The confusion here i guess is about what to mention as a "Failure rate"
->>>
->>> Failure rate means how many times it fails (like normally) ? In that 
->>> case 100% which I used is wrong and I used 33% instead for which I 
->>> have pushed v2.
->>
->> Yes, 33% is correct and please remove this test from fails.txt
->>
->> Regards,
->> Vignesh
->>
-> 
-> Ack, let me remove this test from fails and keep it only in flakes.
+> - Please move it before the prepare_commit().
+> - You are accessing the same variable from different threads / cores.
+>    There should be some kind of a sync barrier.
 
-Can you remove it from the fails without adding it to the flakes, and 
-rerun the pipeline a few times to see if deqp-runner reports it as a flake?
+Hi Dmitry,
 
-Thanks.
+Ack, will add a lock for the snapshot capture counter.
 
-Regards,
-Vignesh
+Thanks,
+
+Jessica Zhang
 
 > 
-> Thanks
+>>   	/*
+>>   	 * Push atomic updates down to hardware:
+>>   	 */
+>> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+>> index 78830e446355f77154fa21a5d107635bc88ba3ed..3327caf396d4fc905dc127f09515559c12666dc8 100644
+>> --- a/drivers/gpu/drm/msm/msm_kms.c
+>> +++ b/drivers/gpu/drm/msm/msm_kms.c
+>> @@ -168,7 +168,10 @@ static int msm_kms_fault_handler(void *arg, unsigned long iova, int flags, void
+>>   {
+>>   	struct msm_kms *kms = arg;
+>>   
+>> -	msm_disp_snapshot_state(kms->dev);
+>> +	if (!kms->fault_snapshot_capture) {
+>> +		msm_disp_snapshot_state(kms->dev);
+>> +		kms->fault_snapshot_capture++;
+>> +	}
+>>   
+>>   	return -ENOSYS;
+>>   }
+>> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+>> index e60162744c669773b6e5aef824a173647626ab4e..3ac089e26e14b824567f3cd2c62f82a1b9ea9878 100644
+>> --- a/drivers/gpu/drm/msm/msm_kms.h
+>> +++ b/drivers/gpu/drm/msm/msm_kms.h
+>> @@ -128,6 +128,9 @@ struct msm_kms {
+>>   	int irq;
+>>   	bool irq_requested;
+>>   
+>> +	/* rate limit the snapshot capture to once per attach */
+>> +	int fault_snapshot_capture;
+>> +
+>>   	/* mapper-id used to request GEM buffer mapped for scanout: */
+>>   	struct msm_gem_address_space *aspace;
+>>   
+>>
+>> -- 
+>> 2.34.1
+>>
 > 
-> Abhinav
->>>
->>>>>>
->>>>>> Regards,
->>>>>> Helen
->>>>>>
->>>>>
->>>>> Can you let me know which way we need to go?
->>>>>
->>>>> Just in case I did post a v2 fixing this, 
->>>>> https://patchwork.freedesktop.org/patch/627276/
->>>>>
->>>>> If thats the way to go, can you pls take a look?
->>>>>
->>>>> Thanks
->>>>>
->>>>> Abhinav
->>>>>>   >
->>>>>>   > Out of the 3 runs of the test, it passed 2/3 times and failed 
->>>>>> 1/3.
->>>>>>   >
->>>>>>   > So its fail % actually is 33.33% in that case.
->>>>>>   >
->>>>>>   > I think I saw a Failure rate of 100% on 
->>>>>> msm-sm8350-hdk-flakes.txt and
->>>>>>   > mistook that as the rate at which flakes are seen.
->>>>>>   >
->>>>>>   > Let me fix this up as 33%
->>>>>>   >
->>>>>>   > > Regards,
->>>>>>   > > Helen
->>>>>>   > >
->>>>>>   > >   > +# IGT Version: 1.28-ga73311079
->>>>>>   > >   > +# Linux Version: 6.12.0-rc2
->>>>>>   > >   > +kms_cursor_legacy@torture-bo
->>>>>>   > >   >
->>>>>>   > >   > ---
->>>>>>   > >   > base-commit: 798bb342e0416d846cf67f4725a3428f39bfb96b
->>>>>>   > >   > change-id: 20241204-cursor_tor_skip-9d128dd62c4f
->>>>>>   > >   >
->>>>>>   > >   > Best regards,
->>>>>>   > >   > --
->>>>>>   > >   > Abhinav Kumar quic_abhinavk@quicinc.com>
->>>>>>   > >   >
->>>>>>   > >   >
->>>>>>   > >
->>>>>>   >
->>>>>>
+> -- 
+> With best wishes
+> Dmitry
+
