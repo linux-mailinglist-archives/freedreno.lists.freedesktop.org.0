@@ -2,76 +2,114 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFBC09F7D81
-	for <lists+freedreno@lfdr.de>; Thu, 19 Dec 2024 16:01:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0E209F81FC
+	for <lists+freedreno@lfdr.de>; Thu, 19 Dec 2024 18:35:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A34A910E48C;
-	Thu, 19 Dec 2024 15:01:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8262010ED6F;
+	Thu, 19 Dec 2024 17:34:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="W3tylp9y";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="IANavPCy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
- [IPv6:2607:f8b0:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABD1F10E48C
- for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 15:01:01 +0000 (UTC)
-Received: by mail-il1-x12b.google.com with SMTP id
- e9e14a558f8ab-3a9caa3726fso3027535ab.1
- for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 07:01:01 -0800 (PST)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9914310ED6F
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 17:34:58 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43635796b48so7177045e9.0
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 09:34:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734620461; x=1735225261; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kGSpD3+3yxS9yz0CYWixS3C/FoBfovGzSM7W4jlHvCA=;
- b=W3tylp9yctyx9NutBV6b7oNCKNFdkifrlSPutlbnubq7W2CESCQqeNLK4saLNWdy5u
- yErwl+8f6X89DDXDm5xVilD+H2LpOQkUFY1kI175J4LjRXLbsvVIrZBAuXJAQjB9+uWG
- 7Mls8dB8djiQQvYRofrXvLetDcsNg88osEV56TnB9CCbpd/ZS8OMe4nK9MX5Us63fMeu
- qLGXzsDwsFzlW2agFX0y1qwXFZ6rmGppZy24JW468qOitJ+sKKXL4/OvB6okwTVsvaZP
- /Cw+9fVknwXsagvQw430eqriU90KjfeXK555cIaOKuFAiJJw4RXJTx+sRwKQzuFECaXn
- Ha9A==
+ d=linaro.org; s=google; t=1734629697; x=1735234497; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=F9Q4C68e9yW8gyyBPkqZLZg7ZZOGLbvSB7afrJbR9o8=;
+ b=IANavPCyiWHD2AqJhgAuI8C3Bb0DLVnKfsBqLSkZYR3jX0Cp65Q+R17s2w9AQvWK2X
+ 5zHXTDOkN9f6gzO9SDSKsoa7yqNtnbaAmEwWOGTOLN217Flzt8OGZ2GeuE9qIH8FTex0
+ Ws4f+uRhkRMJM8pc1K8jlv0EF88LNmaT0sfMRjxyKxAPH5ACe5ZHVj+ZoasuDntzKjbN
+ nJImz3MB7SqdzxC7InZTnNyR7ynG+TBqOmFjnuSD77y2pCypYPboO6RdWBGMUuBN14TK
+ FXUgbOeXp6ch1J88mbaJV9zykJReeO8coqQIsdldxCkEHUmhApvzYa3auKMg5ISJy/YP
+ tkcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734620461; x=1735225261;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=kGSpD3+3yxS9yz0CYWixS3C/FoBfovGzSM7W4jlHvCA=;
- b=r4soBCD8zUjI6YdcqwoQdT//Yhb+vPVy2PN41u9j49bUFSjizrsq3QlLD6rvwcP/j+
- THjDsC/sRSy+i+EWirHNYPm/IbZlURD1cJVSIDV+wy/jILm2UBhCtOarz7qgfRutE7Dy
- wJc0DjT4L8q8EiO6z/lC26a9hKFROnZrQzQjb+YS5iJvcTHPkITDjncVOK4rJha+Y1wh
- mhVHTFpfjctM0ZbJH97wHyA5ffGNH6PKtX+ivZbIK6mNKlV9WsL1AjUpldeJVXclKLDX
- qxK9s3g5dczEnVYZtBeEwu1LVYOupZAZWEwJtqQM8wocwBV2J+7bSG38ewQuoNyZjV2q
- oHuw==
+ d=1e100.net; s=20230601; t=1734629697; x=1735234497;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=F9Q4C68e9yW8gyyBPkqZLZg7ZZOGLbvSB7afrJbR9o8=;
+ b=EzAOzhS3gAHWI//jWeQ4vmAln4noSYkqUB6ouQRFuPDerZuikeqR09idfFOFJShcCE
+ X2dl9/tbJ2XVUosIzXhRktbLUNhEcVpTzbPGSg3lyay/b+0D8XidXBJ+5h1hHARZXW5k
+ 06hFVcrVgEwIkxBeOTxFpXhHXJltv7LiGiZ6prlh/jippMsJmfdiFItgz0GSmcWYdnQ9
+ 2CuoLlZP9Gwa9Gj588rskrLJlBxT0YRcRIbRft1b8uje/BoMD3XXyXOlPaNIsSgT2Ja7
+ /kjN9iQGNennocqdhsGUiU0ZiJ4GfyeTY2FxqFrWHPExVih5V6q/9taXSAOND673k54+
+ gDhw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWpTU/Ln7gasgaKjXoSiljB+aiGjcCehHfD1FCGsHRymtNZHTeW/213rBHZOGrV4B9TESNJHyD2nt4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YztFkuLygzfAvmi+K9GHB/I6pc65exGAWNm2Ml5aoNMhzzkefNb
- /49QiNH8Tot1l5qCzr1aBdYywmBPNWR8/AdJ8xNVy9YzgAVx3qZTbH0TinAXuEqALH/p2l0dE+8
- Gtk6waAzbWBbJJMWezC9j7il80I4=
-X-Gm-Gg: ASbGncvgM3An01/V2N5fJZZNPdDkrKAILdboVvEnEIrVgCEQDH764nNi4D11a9l24fX
- GHprRP/4HURuXsqcx/LbGltVNV0yi5JeYDVXJBQ==
-X-Google-Smtp-Source: AGHT+IHp8ABABtvQh+2yyPlFSULZ37QjpTpYXLauYn/rtYNis49Ni4sKHQpdMdeMDdPO+HGJ2/oxRYIljcvIQuXYhZ4=
-X-Received: by 2002:a05:6e02:1649:b0:3a7:c81e:825f with SMTP id
- e9e14a558f8ab-3c02e1e9aa7mr36636045ab.9.1734620460446; Thu, 19 Dec 2024
- 07:01:00 -0800 (PST)
+ AJvYcCX2xG03TLDOd4oJDo+rdny9kjd+yarADkt8SN6hvOoPWIoyenTv3HQbM6ryr1Y9VnQ+A7ifqflZss4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzAYQZJdEHHgdlfK6rYC6T8bj2Mm8+cFvYJmB5qgMgAUQqBpJum
+ mmTEG3oLzYZiIuiL5mZcnLNMACLZowOkLrbxFGyICNEDUHxhnpE4cH8vjXYF0fk=
+X-Gm-Gg: ASbGnctNo4Y291Nnp4e2uK2iRIqF+IPhytcJCQGk4hbS+BmGX9FthqcASgTLYhrhrHy
+ WRTTsKClSf1Nr14mvPmWCUdPdSeONPmIit5zUsdsfYQKyP7eQ86xEOj/x+rZXQJX2iVbQWT2/tB
+ cotrLxmUKtlmGvvljKogZuzCp/asNXxlGksHjZOA/yhOF12NVj97yvtQyK77PTQwNIpTyiJfr/4
+ zBCXDc1eQmf/wcNSRcIh0zlgglTLCmERo2cljFAl5NJ2KEjXE9T2VkqffT2U+mpVc6RKIWfznK5
+ qPHjG5ZbJrzRo7YfhXfAcMedL+jm9IJ13w==
+X-Google-Smtp-Source: AGHT+IFbbqiRcM8kQ1G5cGnyM6An6nfZaiZ5DQIelNPVbDA8s6GSu8GoB7LW1ceTAqEtfl+GEFoXpw==
+X-Received: by 2002:a05:600c:4f85:b0:434:ff08:202e with SMTP id
+ 5b1f17b1804b1-436630c620emr23031305e9.8.1734629697071; 
+ Thu, 19 Dec 2024 09:34:57 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:a0fd:4342:76af:7533?
+ ([2a01:e0a:982:cbb0:a0fd:4342:76af:7533])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c833280sm2039057f8f.40.2024.12.19.09.34.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Dec 2024 09:34:56 -0800 (PST)
+Message-ID: <af005778-0309-4c38-885b-a5b7ee2d0128@linaro.org>
+Date: Thu, 19 Dec 2024 18:34:55 +0100
 MIME-Version: 1.0
-References: <20241216171017.4881-1-robdclark@gmail.com>
- <20241219113019.GA23640@willie-the-truck>
- <41d93dac-4ef1-4cc7-a7b2-24c8289f905f@arm.com>
-In-Reply-To: <41d93dac-4ef1-4cc7-a7b2-24c8289f905f@arm.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 19 Dec 2024 07:00:48 -0800
-Message-ID: <CAF6AEGshSjOr1DE63WiXwAyH39-Tz9B3MEkKUo6sg1jpQPYZcA@mail.gmail.com>
-Subject: Re: [PATCH] iommu/arm-smmu-qcom: Only enable stall on smmu-v2
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Will Deacon <will@kernel.org>, iommu@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Akhil P Oommen <quic_akhilpo@quicinc.com>, 
- Rob Clark <robdclark@chromium.org>, Joerg Roedel <joro@8bytes.org>, 
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>, 
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH v4] drm/msm/dpu1: don't choke on disabling the writeback
+ connector
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Simona Vetter <simona.vetter@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Leonard Lausen <leonard@lausen.nl>,
+ =?UTF-8?Q?Gy=C3=B6rgy_Kurucz?= <me@kuruczgy.com>,
+ Johan Hovold <johan+linaro@kernel.org>
+References: <20241209-dpu-fix-wb-v4-1-7fe93059f9e0@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20241209-dpu-fix-wb-v4-1-7fe93059f9e0@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,50 +122,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 19, 2024 at 4:08=E2=80=AFAM Robin Murphy <robin.murphy@arm.com>=
- wrote:
->
-> On 2024-12-19 11:30 am, Will Deacon wrote:
-> > On Mon, Dec 16, 2024 at 09:10:17AM -0800, Rob Clark wrote:
-> >> From: Rob Clark <robdclark@chromium.org>
-> >>
-> >> On mmu-500, stall-on-fault seems to stall all context banks, causing t=
-he
-> >> GMU to misbehave.  So limit this feature to smmu-v2 for now.
-> >
-> > MMU-500 has public documentation so please can you dig up what the
-> > actual behaviour is rather than guess?
->
-> Yeah, I'm pretty sure that's not true as stated, especially with
-> SCTLR.HUPCF set as qcom_adreno_smmu_write_sctlr() does. However it is
-> plausible that at the system interconnect level, a sufficient number of
-> stalled transactions might backpressure other transactions from entering
-> the same TBU, even if they are destined for a different context. That's
-> more about the configuration and integration of individual SoCs than the
-> SMMU IP used.
+On 09/12/2024 11:04, Dmitry Baryshkov wrote:
+> During suspend/resume process all connectors are explicitly disabled and
+> then reenabled. However resume fails because of the connector_status check:
+> 
+> [dpu error]connector not connected 3
+> [drm:drm_mode_config_helper_resume [drm_kms_helper]] *ERROR* Failed to resume (-22)
+> 
+> It doesn't make sense to check for the Writeback connected status (and
+> other drivers don't perform such check), so drop the check.
+> 
+> It wasn't a problem before the commit 71174f362d67 ("drm/msm/dpu: move
+> writeback's atomic_check to dpu_writeback.c"), since encoder's
+> atomic_check() is called under a different conditions that the
+> connector's atomic_check() (e.g. it is not called if there is no
+> connected CRTC or if the corresponding connector is not a part of the
+> new state).
+> 
+> Fixes: 71174f362d67 ("drm/msm/dpu: move writeback's atomic_check to dpu_writeback.c")
+> Cc: stable@vger.kernel.org
+> Reported-by: Leonard Lausen <leonard@lausen.nl>
+> Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/57
+> Tested-by: Leonard Lausen <leonard@lausen.nl> # on sc7180 lazor
+> Reported-by: György Kurucz <me@kuruczgy.com>
+> Link: https://lore.kernel.org/all/b70a4d1d-f98f-4169-942c-cb9006a42b40@kuruczgy.com/
+> Reported-by: Johan Hovold <johan+linaro@kernel.org>
+> Link: https://lore.kernel.org/all/ZzyYI8KkWK36FfXf@hovoldconsulting.com/
+> Tested-by: György Kurucz <me@kuruczgy.com>
+> Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
+> Tested-by: Johan Hovold <johan+linaro@kernel.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+> Leonard Lausen reported an issue with suspend/resume of the sc7180
+> devices. Fix the WB atomic check, which caused the issue.
+> ---
+> Changes in v4:
+> - Epanded commit message (Johan)
+> - Link to v3: https://lore.kernel.org/r/20241208-dpu-fix-wb-v3-1-a1de69ce4a1b@linaro.org
+> 
+> Changes in v3:
+> - Rebased on top of msm-fixes
+> - Link to v2: https://lore.kernel.org/r/20240802-dpu-fix-wb-v2-0-7eac9eb8e895@linaro.org
+> 
+> Changes in v2:
+> - Reworked the writeback to just drop the connector->status check.
+> - Expanded commit message for the debugging patch.
+> - Link to v1: https://lore.kernel.org/r/20240709-dpu-fix-wb-v1-0-448348bfd4cb@linaro.org
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 3 ---
+>   1 file changed, 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> index 16f144cbc0c986ee266412223d9e605b01f9fb8c..8ff496082902b1ee713e806140f39b4730ed256a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> @@ -42,9 +42,6 @@ static int dpu_wb_conn_atomic_check(struct drm_connector *connector,
+>   	if (!conn_state || !conn_state->connector) {
+>   		DPU_ERROR("invalid connector state\n");
+>   		return -EINVAL;
+> -	} else if (conn_state->connector->status != connector_status_connected) {
+> -		DPU_ERROR("connector not connected %d\n", conn_state->connector->status);
+> -		return -EINVAL;
+>   	}
+>   
+>   	crtc = conn_state->crtc;
+> 
+> ---
+> base-commit: 86313a9cd152330c634b25d826a281c6a002eb77
+> change-id: 20240709-dpu-fix-wb-6cd57e3eb182
+> 
+> Best regards,
 
-I am aware of the docs and I've spent most of the last couple days
-going thru them, as well as the errata, since it would be unfortunate
-for debugging to disable this ;-)
-
-The scenario where things lock up involves at least a few thousand
-faults in rapid succession.  Disabling CFIE in the irq handler and
-re-enabling when I resume translation does stop the flood of irq's but
-not the lockup.  It might well be something about how the smmu is
-integrated with the interconnect.
-
-BR,
--R
-
-> Robin.
->
-> >> This fixes an issue with an older mesa bug taking outo the system
-> >> because of GMU going off into the year.
-> >
-> > Sorry, but I don't understand this sentence.
-> >
-> > Will
->
+Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-HDK
