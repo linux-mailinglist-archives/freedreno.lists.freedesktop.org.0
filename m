@@ -2,85 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7591C9F6F7E
-	for <lists+freedreno@lfdr.de>; Wed, 18 Dec 2024 22:34:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FB199F760E
+	for <lists+freedreno@lfdr.de>; Thu, 19 Dec 2024 08:49:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C8B610E24C;
-	Wed, 18 Dec 2024 21:34:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03F8210EC9E;
+	Thu, 19 Dec 2024 07:49:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="FdBRP8h+";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bnTbg/pU";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7244F10E13E;
- Wed, 18 Dec 2024 21:34:17 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BIGQtKv023946;
- Wed, 18 Dec 2024 21:34:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- x7h51NnDJyUD/OUOZyQAzkX/KpLa4aFP230owX2e5Uw=; b=FdBRP8h+9GccklAZ
- 4CbHZsI+vBsxceOM5Kw1Tr5nuUz+gcgqRjiK/L/om9OeqoQniVopXa0kZBcNe2Pf
- Haw7lqxncLhyNpHfqh7xSVHfoiTTM51VNNhtGwQ+X++vXTdQef6KFPy2zD+6HGn8
- bA7VeYuA01rG39wGzVIIzizgv8bT8D4M4TYooDFhoJPGXWnVH7tGth41Wh0v882A
- gRe5szdGNBp/jypuyfChjz9lzLuNHlxSHUnqztMXyxOaeQqv8ZRnzgPPfMZyMI/3
- zXB6EZH6SA6Lmq22azJLK9vZANA1uZErhi1gcca3i7h+lHrUQ0Q95hHM1szRwI8x
- FctTGQ==
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43m01gh21d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Dec 2024 21:34:14 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BILYDKi006323
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Dec 2024 21:34:13 GMT
-Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 18 Dec
- 2024 13:34:13 -0800
-Message-ID: <dbe94c6b-e981-4f40-9261-2e44b5fb73cc@quicinc.com>
-Date: Wed, 18 Dec 2024 13:33:59 -0800
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [IPv6:2607:f8b0:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BE6E10EC97
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 07:49:33 +0000 (UTC)
+Received: by mail-pl1-x62f.google.com with SMTP id
+ d9443c01a7336-218c80a97caso4466005ad.0
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Dec 2024 23:49:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1734594573; x=1735199373; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=2/Mxxt7JQ84hYIkD870zHq5o1qoiTTZ87YF88ScgcDE=;
+ b=bnTbg/pUS6XILHqOE91FOMoYJicxsfoDwYME+55kwyliPuEq5uvoIlgIT97OEEdN0Q
+ Xt9yR/CMwe9gGsDV58umpc2AW9zDixd1F0+18mf/fJrWJF32/sW0SGyJMQ/I+XqauYtX
+ rsfIqBTYgqLexEmmtGrorBEAzViUWCbhhQsfYxUklQ7z3TC8PpmQwJGGlyJ8dG0V9Yw5
+ ZhjN9z2+isnmHbHi/E68xk+EmI3M8T2jMhgqfh+MWFdhsXKZJZFblnkkAIT8Qf88lhMB
+ wu5So8DhLjYJUiX7hwHlKRUXz195yBQnN3DQhfgRtOPiB/Vj9LSJpmhJtNEnIFhjxg1r
+ u6Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734594573; x=1735199373;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=2/Mxxt7JQ84hYIkD870zHq5o1qoiTTZ87YF88ScgcDE=;
+ b=r2bkrd+r3fBaobb7Mr9pCk2VwfF1byFM5iyBBz5MVTTTKy8E9L15bST3ir9zwMxhhf
+ ENN2ZW+tEOW2fGRLP1xvvnJpDo88It6wgUyXibJjA0u5vzxdyknH+2KCLf446fH10AX4
+ kCjrVOb8ACR+hotTDcm95D0fiEn+WQRbSValpHU1j3w2fmk9eJqnllAMPbODnp/QLwVR
+ MfhFW9ylGusKPm58TIQSr6rd7/+fVs9Td5mevQ0oJwFJUzEZO4afCzqcTkiWtaFBHZMi
+ CauSTxO9yBwbHIR7vPC8yV6zio7AlxUgL8io/uWA2+z2jyLxsgwcbY0nfoK1swJHTlHB
+ pKUQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWixcC2u9/BO35mqiTJ8e0mqfE7iBaaknFEJF7TezTBaGM+tciSYCOvt5+sbKdKP1n8RxphevwaePY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzD1NV8/Edu+Hmq4JCxOvAlzKFn/+rzCIFo4LpJso1hpz0m+5qq
+ 1u4zkrrELjCA4T2QZ0U5qQZv/QhN/DKJ/Vopi1HtUiWRM9DCRT9lPN58bl4isapJbH1IguIBdff
+ h8XQK8g==
+X-Gm-Gg: ASbGncu2BPfnCcqCBAbkWgrDz0IDrCBm+FDftm38KpNOGCNeKsj4UgwqeZcu7Bkgfn8
+ PHMAJ1AruvfsFg1n1nrUA4bFnavIKDUhX+jTDItF6aaYWjQ7DrAXH9ai8MBD64Qumk2cMKWhz2V
+ TlApgGG1F63u/4F8d0W+vUqhHndiVf9EfVJ52IzKQ4peVzqcAc+eNz2FJ/skf3AbdZEwVD5rYwI
+ TqVhssrA8YOFLNXbLL8h/77ex39+ZQ6UzJSijP9WU8WAym1V0k+WA==
+X-Google-Smtp-Source: AGHT+IEh8MiBuiAY+wfmZGe08P3F4Y76Bzu8LbffXNv+nNHhutAo7IXQzLoeGJyZkYO8Cv/crpJlpA==
+X-Received: by 2002:a17:902:f549:b0:216:2259:a4bd with SMTP id
+ d9443c01a7336-218d726bd64mr84564155ad.52.1734594572962; 
+ Wed, 18 Dec 2024 23:49:32 -0800 (PST)
+Received: from [127.0.1.1] ([112.65.12.217]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-219dc97432dsm6784445ad.110.2024.12.18.23.49.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Dec 2024 23:49:32 -0800 (PST)
+From: Jun Nie <jun.nie@linaro.org>
+Subject: [PATCH v3 00/15] (no cover subject)
+Date: Thu, 19 Dec 2024 15:49:18 +0800
+Message-Id: <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-0-92c7c0a228e3@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] drm/msm/dpu: rate limit snapshot capture for mmu
- faults
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- <quic_abhinavk@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-References: <20241217-abhinavk-smmu-fault-handler-v2-0-451377666cad@quicinc.com>
- <20241217-abhinavk-smmu-fault-handler-v2-5-451377666cad@quicinc.com>
- <mbtwyyfryvltkeicgmrzrfas3u35ocathehswi4rme5tbs6r37@plcl6gzpl2ld>
-Content-Language: en-US
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <mbtwyyfryvltkeicgmrzrfas3u35ocathehswi4rme5tbs6r37@plcl6gzpl2ld>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 7y6KQiIizqm9XtIm61CgaacJPrY4NkYX
-X-Proofpoint-ORIG-GUID: 7y6KQiIizqm9XtIm61CgaacJPrY4NkYX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0
- clxscore=1015 mlxscore=0 bulkscore=0 impostorscore=0 malwarescore=0
- suspectscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412180168
+X-B4-Tracking: v=1; b=H4sIAP7PY2cC/x3NQQ6CMBBG4auQWfsndCpEvYphUZhBGlPEjhATw
+ t1tXH6b93YyzVGNbtVOWbdo8TUX+FNFwxTmhyJKMXHNZ8fuCkuXtqmxtXAeUxKIDs+QBUnM8F6
+ DYF3skzUkeAb30g/MY+O8oxJdso7x+x/eu+P4AUg3yg6AAAAA
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jun Nie <jun.nie@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1734594567; l=4394;
+ i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
+ bh=zN5HnqTuUFbHWN2xmfhJlV9TJeBXDkMJL6nQoOxSw4A=;
+ b=ow/wPrSYS0qN3Mb0AB6k1A3Gr8FCtLxfXa9/nNNTJRV7O0G9MFIp9FwyVun43XY23cyRuP5kH
+ 4xgdrFzNsEOAycx9wyYhTTOQq+M+zz2BkBFU/R566Iq8PIh722sWL6b
+X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
+ pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,93 +100,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+To: Rob Clark <robdclark@gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Sean Paul <sean@poorly.run>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+drm/msm/dpu: Support quad pipe with dual-DSI
 
+2 or more SSPPs and dual-DSI interface are need for super wide DSI panel.
+And 4 DSC are preferred for power optimal in this case. This patch set
+extend number of pipes to 4 and revise related mixer blending logic
+to support quad pipe.  All these changes depends on the virtual plane
+feature to split a super wide drm plane horizontally into 2 or more sub
+clip. Thus DMA of multiple SSPPs can share the effort of fetching the
+whole drm plane.
 
-On 12/18/2024 3:20 AM, Dmitry Baryshkov wrote:
-> On Tue, Dec 17, 2024 at 04:27:57PM -0800, Jessica Zhang wrote:
->> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>
->> There is no recovery mechanism in place yet to recover from mmu
->> faults for DPU. We can only prevent the faults by making sure there
->> is no misconfiguration.
->>
->> Rate-limit the snapshot capture for mmu faults to once per
->> msm_atomic_commit_tail() as that should be sufficient to capture
->> the snapshot for debugging otherwise there will be a lot of DPU
->> snapshots getting captured for the same fault which is redundant
->> and also might affect capturing even one snapshot accurately.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/msm_atomic.c | 2 ++
->>   drivers/gpu/drm/msm/msm_kms.c    | 5 ++++-
->>   drivers/gpu/drm/msm/msm_kms.h    | 3 +++
->>   3 files changed, 9 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
->> index 9c45d641b5212c11078ab38c13a519663d85e10a..9ad7eeb14d4336abd9d8a8eb1382bdddce80508a 100644
->> --- a/drivers/gpu/drm/msm/msm_atomic.c
->> +++ b/drivers/gpu/drm/msm/msm_atomic.c
->> @@ -228,6 +228,8 @@ void msm_atomic_commit_tail(struct drm_atomic_state *state)
->>   	if (kms->funcs->prepare_commit)
->>   		kms->funcs->prepare_commit(kms, state);
->>   
->> +	kms->fault_snapshot_capture = 0;
->> +
-> 
-> - Please move it before the prepare_commit().
-> - You are accessing the same variable from different threads / cores.
->    There should be some kind of a sync barrier.
+The first pipe pair co-work with the first mixer pair to cover the left
+half of screen and 2nd pair of pipes and mixers are for the right half
+of screen. If a plane is only for the right half of screen, only one
+or two of pipes in the 2nd pipe pair are valid, and no SSPP or mixer is
+assinged for invalid pipe.
 
-Hi Dmitry,
+For those panel that does not require quad-pipe, only 1 or 2 pipes in
+the 1st pipe pair will be used. There is no concept of right half of
+screen.
 
-Ack, will add a lock for the snapshot capture counter.
+For legacy non virtual plane mode, the first 1 or 2 pipes are used for
+the single SSPP and its multi-rect mode.
 
-Thanks,
+This patch set depends on virtual plane patch set v7:
+https://lore.kernel.org/all/20241130-dpu-virtual-wide-v7-0-991053fcf63c@linaro.org/
 
-Jessica Zhang
+Changes in v3:
+- Split change in trace into a separate patch.
+- Rebase to latest msm-next branch.
+- Reorder patch sequence to make sure valid flag is set in earlier patch
+- Rectify rewrite patch to move logic change into other patch
+- Polish commit messages and code comments.
+- Link to v2: https://lore.kernel.org/dri-devel/20241009-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-21-v2-0-76d4f5d413bf@linaro.org/
 
-> 
->>   	/*
->>   	 * Push atomic updates down to hardware:
->>   	 */
->> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
->> index 78830e446355f77154fa21a5d107635bc88ba3ed..3327caf396d4fc905dc127f09515559c12666dc8 100644
->> --- a/drivers/gpu/drm/msm/msm_kms.c
->> +++ b/drivers/gpu/drm/msm/msm_kms.c
->> @@ -168,7 +168,10 @@ static int msm_kms_fault_handler(void *arg, unsigned long iova, int flags, void
->>   {
->>   	struct msm_kms *kms = arg;
->>   
->> -	msm_disp_snapshot_state(kms->dev);
->> +	if (!kms->fault_snapshot_capture) {
->> +		msm_disp_snapshot_state(kms->dev);
->> +		kms->fault_snapshot_capture++;
->> +	}
->>   
->>   	return -ENOSYS;
->>   }
->> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
->> index e60162744c669773b6e5aef824a173647626ab4e..3ac089e26e14b824567f3cd2c62f82a1b9ea9878 100644
->> --- a/drivers/gpu/drm/msm/msm_kms.h
->> +++ b/drivers/gpu/drm/msm/msm_kms.h
->> @@ -128,6 +128,9 @@ struct msm_kms {
->>   	int irq;
->>   	bool irq_requested;
->>   
->> +	/* rate limit the snapshot capture to once per attach */
->> +	int fault_snapshot_capture;
->> +
->>   	/* mapper-id used to request GEM buffer mapped for scanout: */
->>   	struct msm_gem_address_space *aspace;
->>   
->>
->> -- 
->> 2.34.1
->>
-> 
-> -- 
-> With best wishes
-> Dmitry
+Changes in v2:
+- Revise the patch sequence with changing to 2 pipes topology first. Then
+  prepare for quad-pipe setup, then enable quad-pipe at last.
+- Split DSI patches into other patch set.
+- Link to v1: https://lore.kernel.org/all/20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org/
+
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
+---
+Jun Nie (15):
+      drm/msm/dpu: Do not fix number of DSC
+      drm/msm/dpu: configure DSC per number in use
+      drm/msm/dpu: polish log for resource allocation
+      drm/msm/dpu: decide right side per last bit
+      drm/msm/dpu: fix mixer number counter on allocation
+      drm/msm/dpu: switch RM to use crtc_id rather than enc_id for allocation
+      drm/msm/dpu: bind correct pingpong for quad pipe
+      drm/msm/dpu: handle pipes as array
+      drm/msm/dpu: split PIPES_PER_STAGE definition per plane and mixer
+      drm/msm/dpu: Add pipe as trace argument
+      drm/msm/dpu: blend pipes per mixer pairs config
+      drm/msm/dpu: support plane splitting in quad-pipe case
+      drm/msm/dpu: Support quad-pipe in SSPP checking
+      drm/msm/dpu: support SSPP assignment for quad-pipe case
+      drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI case
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         |  77 +++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      |  74 +++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h      |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h          |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c        | 403 ++++++++++++++---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h        |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c           | 219 ++++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h           |  32 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h        |  10 +-
+ 13 files changed, 511 insertions(+), 348 deletions(-)
+---
+base-commit: a9b9ea7b45d661fff0f3fd2937703a536f528cd2
+change-id: 20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-2bdbc22f5131
+
+Best regards,
+-- 
+Jun Nie <jun.nie@linaro.org>
 
