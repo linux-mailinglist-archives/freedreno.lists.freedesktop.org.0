@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 188049F877F
-	for <lists+freedreno@lfdr.de>; Thu, 19 Dec 2024 23:08:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1061B9F8784
+	for <lists+freedreno@lfdr.de>; Thu, 19 Dec 2024 23:08:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECA2A10EDEF;
-	Thu, 19 Dec 2024 22:08:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B08B210EDF1;
+	Thu, 19 Dec 2024 22:08:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MfC9Zctv";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="tu0GyCnj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E407F10EDEF
- for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 22:07:59 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-30167f4c1e3so13769721fa.3
- for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 14:07:59 -0800 (PST)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C654D10EDEF
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 22:08:51 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-3022484d4e4so14544051fa.1
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 14:08:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734646078; x=1735250878; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1734646130; x=1735250930; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=viA/NGtLT1OG0e4oWmzRxKDtBs4ah55CzLenMyIPmPk=;
- b=MfC9Zctv5O5J9T4m++QWdqT1AZoM3q28RY/kfYafns3AX+8iUQXCENpoTjzQXfi2YY
- 2h++NLHQlQMAKJcGhCl3u5PWK/0pLwJ0UH5QFBrKaQXTOc6lm4k32chXbFMJAaB87hjl
- 3z6cNmGfvStTMv+um3j/qeOX/3JCvkuKZZn243MJX/oJNcVBV2xPKbo0ysxoduBAqofz
- 9qZZAbkQp3+DENYe9yDnrEsgmU4/J2ROTuY4Y15SZa7th5mvcq8fLs76WbLVyHFMExou
- OjsxWy/guqXO+NuNRsj1EDzV5MWdsr3zuL+YQUiHlz/z6fn/Kx/IV90OjSzUhB2KuhHi
- Y1Rg==
+ bh=Lyeuu4LJqYXKJsxeS5Q3cWA20lIzMdu0VE7mLfNw2CU=;
+ b=tu0GyCnjSJRny1L21s+9eyUV3LG4Rm6DglXXWGBQ5F06i5QIf/n5E173Pgx+LwoXDJ
+ NI4Crrs+KaChZVRYWOq4rYZj0CoQ8ZSRdey8jOXut16eO3LR5IDmLJi9oJfdiNeTZvXv
+ YI2K3ZMSpufqCp5lsNd31MU8HT3fZFnDzA5ot1bjkHkSdGrjWK2kKy7rBEE5+Ra1XmVX
+ 7Jt9nLjkex+lmrMOzeL2N11r5X9xX+uCAGhg4OzCYh948l91cESTOrgCz1bMTmWh4kqa
+ d7IzvJpxrUkoL/X0QJgZ7OT30ZNJoFP31QeUpcqXLkUPJ3+v3Jt6Ofwa/p6MJzdyqsBj
+ LmXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734646078; x=1735250878;
+ d=1e100.net; s=20230601; t=1734646130; x=1735250930;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=viA/NGtLT1OG0e4oWmzRxKDtBs4ah55CzLenMyIPmPk=;
- b=Eq3uvPdD539ZUp1OPI9Yyh7pEeUyeh9S5ZMg71XjriHHIyeZYjJOkW6YqSY4rPOksV
- 1aZBnQagilvnODUydcFiFPrEY+1XbqBjy9PLXQBYBICqrpmpZnrM86uNuFK2PsSgbsjJ
- UPqL/oHMCrPxMQ5+TzdVsKh1vpCYZ/micurzMr66G1tZN8lkXu1/NLQ75KxQyF9ju+Ab
- A3WenJzIZBR1Qy/KjRVMUedR8ClKVpbIpPzKPP1CN4hRwc6QCrVMNBjv+EMLnhPIYntH
- kEQIH9eYlRh0aWefmmqSncT2pZVXIjUsQO8aV0IvAnepyn5IXeLHPls+vxaJb6KGeXjb
- S4/Q==
+ bh=Lyeuu4LJqYXKJsxeS5Q3cWA20lIzMdu0VE7mLfNw2CU=;
+ b=W65NiRS4EaSRxFQGmRMzG1e4V0YUt1dQPX++Pj3T+ivQeuZc3wPhpDCgEAGb7LpQJt
+ Z/KUQ56AchXfkoSMBQw23R5Bzc70nLRmFZSAhi8unpbTFgzGtQPdkvpTNU6TUwCQQ4lM
+ GrKtrboT4QkPYl5b4vXrlzORZtN9noq7Ku/4A1ftE0KXrQFeImCwXtbL3p4Mtsav8p5E
+ f795uiTM6UpSZ6UxJVwAUcNYzhkMBD7fYrksiS9qace/I0bYmoWr9NQGj+FrItmR7IqE
+ I8I6Dbb1yaKX0onEV7sjrvBgnXrlSZ+p/V3TlYBOaVRh2CYFbzOtof6KsHIVWCzP2t0S
+ BiQA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW+GaK4qOlafLeaHsny/v89V1QAkPjLdoOl7pH2e8HQlZfuOKuKvum5RcvTCOHxnfFJA8oha36Q6sg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywq2fpRR9GT5x+VeUiCimmNUuAaMZDCQvT7pSvOwhmH+oVFXEg+
- 3Sp5d4mqiOwtcEi/RgFEmsPqD5Ldo/UdU9AiryvWW0JprzjfHgH8mJopLHTdZr4=
-X-Gm-Gg: ASbGncvH56nXqh9dPt0dks6h75WozB4jDUgi7nUnjIlYd8jCjVATijiQTaBDLj5uBMb
- LytlCARZpOF+ng8QryPSxYctTUTDCMI6rdd6Mc3Ll+TDLSOH+adln1sgCeaTl+4AvJHKGwwTvO3
- S8jISnF436fPZyGfpqWXSAwUjyGgvrqJ36edctEGEHjR3mPlUFelm+7O5NuEeZ3YjDFx5NCq+71
- K1fznEH/Csd5vWRHDBPAl7amGdLMVIEdghdQFkao+zxAJx2YulfA5yhGciY8NJTsBuzqwZ2pT9k
- zaVUb+XhoHtMyhW0ClAHN++TEuV/1U+lvKuZ
-X-Google-Smtp-Source: AGHT+IGiQUfxAIZa99jPVEH/RCXenBQGPR3i4OaoiRPeSe75eqgtCqiGmVTEzjvTKNS/CwvdABExdg==
-X-Received: by 2002:a05:651c:1545:b0:300:de99:fcc6 with SMTP id
- 38308e7fff4ca-304685dd8e0mr1809201fa.34.1734646078188; 
- Thu, 19 Dec 2024 14:07:58 -0800 (PST)
+ AJvYcCUVsBj+mZS2jRMm+T4VM8yCNRAypxGGyFymL2qurBYBcWfcVNBRBAxdSPhzF+pb4dR85jE6pL+i4YA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzRCU4ZgPS6zeS3HJhjUaZMJwLWoHrIZLLjORMR4K8jLsxFAq3q
+ LCPjmJykhTguwX/izuK9PwDiTsSL8v7wQeu2UG953SK082xzNBIiOeK4GWCmFbk=
+X-Gm-Gg: ASbGncuYVoqLCDGcgeIo9ljklpATnh/aIS+XwJesCOpGB7oYboCYHepcbhbnNlJLUf2
+ VAvar7uRN+W4+7JWWM0j0cNxsM2D0JMJ2l2fvjt9ZuhcjnIHMCrBFAGIy37xcOdcKawe7ZC4Lxf
+ obXlLocZilqEfXG7bWlrdLiElH1FMCn6BVbS/n9yPuQdogLI96/lh2uBX0zmMtRpxZP6oQNv62N
+ DtVtdm8rW9CPzq5507sl6S38AbE7xAUD6MH6Nd8Gi7hWFqaMHsAuT4e8UwBigDVUsoBjog7MAIr
+ VU1WypfmVcgpDpoznyd/Ons84nCFY/D2bqaG
+X-Google-Smtp-Source: AGHT+IFcKO6Ujd7CnRHtc2hk0H7VRIDZhLYKvJDcgU5TwaYIn+ZggfF2HvZKmWqnYi29uXRcJLKjLw==
+X-Received: by 2002:a05:651c:4ca:b0:302:4130:e19c with SMTP id
+ 38308e7fff4ca-30468571039mr1513771fa.19.1734646130072; 
+ Thu, 19 Dec 2024 14:08:50 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3045ad99d83sm3607591fa.39.2024.12.19.14.07.55
+ 38308e7fff4ca-3045b083b4asm3402501fa.112.2024.12.19.14.08.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Dec 2024 14:07:56 -0800 (PST)
-Date: Fri, 20 Dec 2024 00:07:54 +0200
+ Thu, 19 Dec 2024 14:08:48 -0800 (PST)
+Date: Fri, 20 Dec 2024 00:08:46 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Jun Nie <jun.nie@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, 
@@ -71,14 +71,14 @@ Cc: Rob Clark <robdclark@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 03/15] drm/msm/dpu: polish log for resource allocation
-Message-ID: <hnzaxvxqg2z6g3ct3vzvvyicts2i6cdelxvekvmaili652s4ut@bsev2xwpuv2l>
+Subject: Re: [PATCH v3 01/15] drm/msm/dpu: Do not fix number of DSC
+Message-ID: <p74ehs7qyfcxh42h7245vebbkcdhy3vfkbeo3dno7judxv5xpd@l75g7pzpc3vt>
 References: <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-0-92c7c0a228e3@linaro.org>
- <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-3-92c7c0a228e3@linaro.org>
+ <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-1-92c7c0a228e3@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-3-92c7c0a228e3@linaro.org>
+In-Reply-To: <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-1-92c7c0a228e3@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,48 +94,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 19, 2024 at 03:49:21PM +0800, Jun Nie wrote:
-> Add resource type info on allocation failure.
+On Thu, Dec 19, 2024 at 03:49:19PM +0800, Jun Nie wrote:
+> If DSC is enabled, the only case is with 2 DSC engines so far. More
+> usage case will be added,
 
-Add where? Also describe why, not what.
+Can't parse this, excuse me. The patch LGTM.
 
+> such as 4 DSC in 4:4:2 topoplogy.
+> So get real number of DSCs to decide whether DSC merge is needed.
 > 
 > Signed-off-by: Jun Nie <jun.nie@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 23 +++++++++++++++++++----
->  1 file changed, 19 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> index 6dc3fa79e6425..cde3c5616f9bc 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> @@ -814,6 +814,21 @@ void dpu_rm_release_all_sspp(struct dpu_global_state *global_state,
->  		ARRAY_SIZE(global_state->sspp_to_crtc_id), crtc_id);
->  }
->  
-> +static char *dpu_hw_blk_type_name[] = {
-> +	[DPU_HW_BLK_TOP] = "TOP",
-> +	[DPU_HW_BLK_SSPP] = "SSPP",
-> +	[DPU_HW_BLK_LM] = "LM",
-> +	[DPU_HW_BLK_CTL] = "CTL",
-> +	[DPU_HW_BLK_PINGPONG] = "pingpong",
-> +	[DPU_HW_BLK_INTF] = "INTF",
-> +	[DPU_HW_BLK_WB] = "WB",
-> +	[DPU_HW_BLK_DSPP] = "DSPP",
-> +	[DPU_HW_BLK_MERGE_3D] = "merge_3d",
-> +	[DPU_HW_BLK_DSC] = "DSC",
-> +	[DPU_HW_BLK_CDM] = "CDM",
-> +	[DPU_HW_BLK_MAX] = "none",
-
-unknown or ???, not none
-
-Other than that LGTM.
-
-> +};
-> +
->  /**
->   * dpu_rm_get_assigned_resources - Get hw resources of the given type that are
->   *     assigned to this encoder
 
 -- 
 With best wishes
