@@ -1,94 +1,90 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B67C49F897C
-	for <lists+freedreno@lfdr.de>; Fri, 20 Dec 2024 02:28:57 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DB849F8A1E
+	for <lists+freedreno@lfdr.de>; Fri, 20 Dec 2024 03:32:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82C5810EE2E;
-	Fri, 20 Dec 2024 01:28:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A65C10E2BD;
+	Fri, 20 Dec 2024 02:32:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="viTYzHgp";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="W2nTvLLx";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B677510EE33
- for <freedreno@lists.freedesktop.org>; Fri, 20 Dec 2024 01:28:50 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-53e3a90336eso1457866e87.3
- for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 17:28:50 -0800 (PST)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA22A10E2BD
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Dec 2024 02:32:39 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-30037784fceso16009931fa.2
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 18:32:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734658129; x=1735262929; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=g+UxLeMEKZ0drgg5vIKf6D6FbqGDQrxrvZvv2J0cYAE=;
- b=viTYzHgpStXVqI17dPHkeoGVuxt1vhJabrZeo3mNxEz5X1rJ1ZrdFdwfNZWXH/OT/a
- Kk8HsFVqALaDpu52Pq0azF9ILGjPp3WC+Ab/BSa7HJceuKrh2f8d4wwLmlkrrJJYHsJ9
- Jb2NrQkEo3DhWJzM1lpJx46Jpra2oWUEqFuWYNUTQQSdc5vipSyGu+LpdNNArJPY96Cp
- Whpus/iRJi7ha3/NMx7zQfkgKXNlJFDmXfkC1cIsjHVK4vCTs6NG4tt4WMoAj2DF5xe3
- Cyh0RbCh/2J7O5OB29jitbNvhy4OUOVJrtRWoTzwr913DZWcPB3yFAhrZw2u5vESfe0u
- 8gvA==
+ d=linaro.org; s=google; t=1734661958; x=1735266758; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=wikVcC8YwP43NyawYqahXbzGX/uRVSr7BgXqLVuUyoI=;
+ b=W2nTvLLx3uCcoX13TZ5cuNtp8wdVP/5lT7XoXL3mPFjyt+1rJBsvaI8gf8iRpgzMcQ
+ 3iX+82GZ4QBhaV4wHGfH0C2IgqMXp7ESnymjSalKomsumdfyrptvKuHMf+Ib2ywGscYi
+ 6vhVakALzNw+vfgpKdeKUyHnpps6iwBokf/6zzB/KG21SjdxeVvDD8HJV8CX5ulHc4Ax
+ 9W6R5JMZEpbswm301+OYDWifBgatbPtv7hDiNjey81Ww9I18G20Dh7LlYWyBMG0orPdK
+ /sODZl4m04Nv7npGE9ihkXY6diHAczJViiHdtl5K+tNRAftocqoR+ju15ibEg+bfhoTo
+ 9cOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734658129; x=1735262929;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=g+UxLeMEKZ0drgg5vIKf6D6FbqGDQrxrvZvv2J0cYAE=;
- b=oKnOTV3CPZL30RbnYm0JsGF630Q3DQHBozsrpDYMUviqXjjGCPFH1eAYik0ya2i6/U
- I72YPesfp+naSh/g2Gv60IpUoMbSbNuBhc0ZjNe5y+YcmGZWn2RHIesLsEvMjLdiMjkt
- nuzmYeNyjqF81uZeNSML/XZnBLuOkKQLIiErIfgHx1nAXMSxUUQpdKwDUSU/pij7Fia/
- 6EdQZl41TKpJlIMiMi4CfM4ezWLR1DXbcY/6x0e79nfkEhCjyM67gbv5JpZIdJMtq9Ns
- dd8ekBEblEruyU+AePZIjBorJDQTP3g8NnOSHUHeql27G2kb1YBV3qftgMM6zPeLEfyh
- iBlQ==
+ d=1e100.net; s=20230601; t=1734661958; x=1735266758;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wikVcC8YwP43NyawYqahXbzGX/uRVSr7BgXqLVuUyoI=;
+ b=m/FxJy82T2KSZ+nvPszm6xPjA+txnLNdNmBaBWLP5g5IpbYW9GpNmqukEqC0+qDHcn
+ 70PAIk91caXGDOBfgTAAXQ24tkDiJBqpPC5cRMORBPS+G508jkm+OOwBvr84v7FQmzvf
+ se95QnDL6rpt7K484mGvljtuk1+aBqjBgvYOftFOWa8IrnkhEg0q+TEmwShniuXzOdiU
+ RXPGj4TzOz/duvAKPFTOS5C3FRzmQHaUbYR6y6ULJN9WM1d51Bnn/iWLa8qzzrOPn3Ps
+ GXTx6fz0Gixn8JfSWF/Yv+Yz7iK2yndFs64N8u4aPrt/oa9zlwe1a70KrmsDsM/nXKPs
+ Y7DQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVrNc8buLZnfYD5bwacWakiu7QBs/xs97YmskDzikPQwfQc5qVzi0v/qjE/2QqIraIgfbQNaKyjXj8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoeZ5aq+hiE3zdAt5bqiEmrfM/rr1/DtznaM/dGqwOiV0zw9Z8
- 85a8p5QNpQIPol3flvEqTvGEkeFknViVM26Eaath2ccTC8zyUk5WoeSEYSL9tNI=
-X-Gm-Gg: ASbGncvSc8nr42z8XTQ1sW1/o0NYOgueiczdJ4XzgOTAr72AEQfhB1lFSr2JEOCiddr
- /5zMtVElsNuGfMBF/Q2OpVro5PlGdj60z3185PdGAx+rRcynNjTdzh+4TVl6eHkG0EoQi+W9ZFZ
- QZgNg2kjVR0Rce5j5DFLHw6c+kEACBiigEQv6ftnv+C9T5oCtvAxs7MGuFMHfyeeAVYzAS4QlSF
- +bFZcYIakSDq9uDtFaVZnq1xGoIUPYBwXoFAxK0rGDKA6njIlbhhPeyp+CJ5W/2
-X-Google-Smtp-Source: AGHT+IH5Icut19CrQRKgtDSzCRG8qNy2m4CTSKGxVWKKTUEhiYw6FKBa1WmLIGAIiUsb9ae8mcxHFQ==
-X-Received: by 2002:a05:6512:1055:b0:53e:39e6:a1c1 with SMTP id
- 2adb3069b0e04-54229560360mr232733e87.43.1734658129064; 
- Thu, 19 Dec 2024 17:28:49 -0800 (PST)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54227a89c2csm170540e87.71.2024.12.19.17.28.47
+ AJvYcCVrniiqUpDIbti5/5dp4462YARxsqFzbPIKskEXH3pygogbwsyQ72wKZQVWHJscy0YYy7mIBlBno7I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyGkIdgs9h6UKIg5wvlZAoEsaQjxibIC4biWJKmBRu6ztqWlGIx
+ CR1Sg9IhBHpgbXyI/ByxyiXRnioK+v0oWSh83BpFq7/JLTc72lDsJdzawp2Z3uw=
+X-Gm-Gg: ASbGncv5KEfb5c09kB7IwENxVlcM6/wVGa92Qa5YwXEvRIAk12Sn6jemNGLwGEZ2fqD
+ jeW1V/sEKk3eZUotMXCFQFM7/mS/+7XoRh5ojx6y3tKeSJDR828n4M4Y74/41CwtgCCTwW2c7Td
+ hxZZGoDgflpg+6OjH6rQUTyjE+CwsN4p6CdW0MI3RQFQ8na7r5CQhRZvu/0v6/aSBAE3ZFpxVGg
+ nxKB9N/7w8iBr1idSsSb9h8sXIYgzy1yZTeDTKfyggbs2NKOQ9zPdaRb8xlop9bs0NzXrYL/SlG
+ 2gD2X9DHNs3hNHHf7b3kyxQ0oVRzvtN9qrOy
+X-Google-Smtp-Source: AGHT+IHeePIRvRlTa0WzSJOEaRbNYDGB0kZScBMguM6RwOqMwsGDgUW7Iqn7n7S3fRfyoGyLByO5pA==
+X-Received: by 2002:a2e:be8e:0:b0:300:3a15:8f23 with SMTP id
+ 38308e7fff4ca-304685198eemr3702051fa.7.1734661957805; 
+ Thu, 19 Dec 2024 18:32:37 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3045ad6cad7sm3857071fa.9.2024.12.19.18.32.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Dec 2024 17:28:47 -0800 (PST)
+ Thu, 19 Dec 2024 18:32:36 -0800 (PST)
+Date: Fri, 20 Dec 2024 04:32:34 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 20 Dec 2024 03:28:36 +0200
-Subject: [PATCH v2 8/8] drm/msm/dpu: link DSPP_2/_3 blocks on X1E80100
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Jessica Zhang <quic_jesszhan@quicinc.com>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ Simona Vetter <simona.vetter@ffwll.ch>, quic_ebharadw@quicinc.com,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH v4 07/25] drm/msm/dpu: move resource allocation to CRTC
+Message-ID: <y2qtp2avw7hjkweh3svfwr6ytvg54lmhqiowfjeiufnyhxiryw@vb4mwnyi2ict>
+References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
+ <20241216-concurrent-wb-v4-7-fe220297a7f0@quicinc.com>
+ <b329e872-3e1e-45e3-bff6-bf6ad2c11144@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241220-dpu-fix-catalog-v2-8-38fa961ea992@linaro.org>
-References: <20241220-dpu-fix-catalog-v2-0-38fa961ea992@linaro.org>
-In-Reply-To: <20241220-dpu-fix-catalog-v2-0-38fa961ea992@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Robert Foss <rfoss@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Abel Vesa <abel.vesa@linaro.org>, Richard Acayan <mailingradian@gmail.com>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1307;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=5058CHEvuHi6y1shjj/7LSsaLqFOGpH0zSafsGTeHak=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnZMg/RB+Fi7NOIgUKpxxiaLrBsE7s80wm6VMMl
- UTR4BMn15uJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ2TIPwAKCRCLPIo+Aiko
- 1QbaB/9MRXkpbzcxPF0Rcp5LR396dEkAkPli7KvHNg1toaDhWPRd5C5qR8G8fog0tXC0vQP8SLm
- zqaHgaRd+nheWQRf69qtmv5FXJoNt0oiyjgtNcxeokyocr3GYy07Y3hR592MYN5EJwu6aE9X+5+
- HCHKAZDNf2apKR+GPHPXPoZZ1UVJLScMigOzkAX72Sq5+kUzu2XB3OvlVhrXMQPBb0BTbvEtPCp
- rkHncfnva1A2cFkxmw5imydwNGwSq4yiGLKiiaW+cOf/jdDMnCs9KdR7a/28KDRO1a4ZxiD+oEp
- pAcUn1XMmvDK83Iy5U4XmQGl8eaE4EtvxRff50IJWybEfSH3
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b329e872-3e1e-45e3-bff6-bf6ad2c11144@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,38 +100,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Link DSPP_2 to the LM_2 and DSPP_3 to the LM_3 mixer blocks. This allows
-using colour transformation matrix (aka night mode) with more outputs at
-the same time.
+On Mon, Dec 16, 2024 at 05:47:50PM -0800, Abhinav Kumar wrote:
+> 
+> 
+> On 12/16/2024 4:43 PM, Jessica Zhang wrote:
+> > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > 
+> > All resource allocation is centered around the LMs. Then other blocks
+> > (except DSCs) are allocated basing on the LMs that was selected, and LM
+> > powers up the CRTC rather than the encoder.
+> > 
+> > Moreover if at some point the driver supports encoder cloning,
+> > allocating resources from the encoder will be incorrect, as all clones
+> > will have different encoder IDs, while LMs are to be shared by these
+> > encoders.
+> > 
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > [quic_abhinavk@quicinc.com: Refactored resource allocation for CDM]
+> > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > [quic_jesszhan@quicinc.com: Changed to grabbing exising global state]
+> > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> > ---
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  86 ++++++++++
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 256 ++++++++++------------------
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |   8 +
+> >   3 files changed, 181 insertions(+), 169 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > index 9f6ffd344693ecfb633095772a31ada5613345dc..186ed84f59f16997716fe216e635b8dce07a63a1 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > @@ -1182,6 +1182,78 @@ static bool dpu_crtc_needs_dirtyfb(struct drm_crtc_state *cstate)
+> >   	return false;
+> >   }
+> 
+> <snip>
+> 
+> > +static bool dpu_encoder_needs_dsc_merge(struct drm_encoder *drm_enc)
+> >   {
+> > -	struct dpu_crtc_state *cstate;
+> > -	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
+> > -	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
+> > -	struct dpu_hw_blk *hw_dspp[MAX_CHANNELS_PER_ENC];
+> > -	int num_lm, num_ctl, num_dspp, i;
+> > -
+> > -	cstate = to_dpu_crtc_state(crtc_state);
+> > -
+> > -	memset(cstate->mixers, 0, sizeof(cstate->mixers));
+> > -
+> > -	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > -		drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+> > -	num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > -		drm_enc->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
+> > -	num_dspp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > -		drm_enc->crtc, DPU_HW_BLK_DSPP, hw_dspp,
+> > -		ARRAY_SIZE(hw_dspp));
+> > +	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+> > +	u32 num_intf = 0;
+> > +	u32 num_dsc = 0;
+> > +	int i;
+> > -	for (i = 0; i < num_lm; i++) {
+> > -		int ctl_idx = (i < num_ctl) ? i : (num_ctl-1);
+> > +	for (i = 0; i < MAX_PHYS_ENCODERS_PER_VIRTUAL; i++)
+> > +		if (dpu_enc->phys_encs[i])
+> > +			num_intf++;
+> > -		cstate->mixers[i].hw_lm = to_dpu_hw_mixer(hw_lm[i]);
+> > -		cstate->mixers[i].lm_ctl = to_dpu_hw_ctl(hw_ctl[ctl_idx]);
+> > -		cstate->mixers[i].hw_dspp = i < num_dspp ? to_dpu_hw_dspp(hw_dspp[i]) : NULL;
+> > -	}
+> > +	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
+> > +	if (dpu_enc->dsc)
+> > +		num_dsc += 2;
+> 
+> As we requested in v3, can you please explain why we have num_dsc +=2
+> instead of just num_dsc = 2? If we are hard-coding 2:2:1, this should be
+> just num_dsc = 2.
 
-Fixes: e3b1f369db5a ("drm/msm/dpu: Add X1E80100 support")
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h | 2 ++
- 1 file changed, 2 insertions(+)
+I'll drop it while applying a first part of the series. Granted that
+num_dsc is initialized to 0 few lines above, it should be fine.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
-index d61895bb396fb4287e9b41807a3bb0cdb25d4e25..4f110be6b750d30e158d517aaa507c7b4eda0af4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h
-@@ -159,6 +159,7 @@ static const struct dpu_lm_cfg x1e80100_lm[] = {
- 		.sblk = &sdm845_lm_sblk,
- 		.lm_pair = LM_3,
- 		.pingpong = PINGPONG_2,
-+		.dspp = DSPP_2,
- 	}, {
- 		.name = "lm_3", .id = LM_3,
- 		.base = 0x47000, .len = 0x320,
-@@ -166,6 +167,7 @@ static const struct dpu_lm_cfg x1e80100_lm[] = {
- 		.sblk = &sdm845_lm_sblk,
- 		.lm_pair = LM_2,
- 		.pingpong = PINGPONG_3,
-+		.dspp = DSPP_3,
- 	}, {
- 		.name = "lm_4", .id = LM_4,
- 		.base = 0x48000, .len = 0x320,
+If later there is a need to change the lane, it can be done in a
+consequent patch.
+
 
 -- 
-2.39.5
-
+With best wishes
+Dmitry
