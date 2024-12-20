@@ -1,67 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 844BE9F8BEF
-	for <lists+freedreno@lfdr.de>; Fri, 20 Dec 2024 06:44:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 18CE59F8C03
+	for <lists+freedreno@lfdr.de>; Fri, 20 Dec 2024 06:52:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6391510EEBC;
-	Fri, 20 Dec 2024 05:44:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA93110EECD;
+	Fri, 20 Dec 2024 05:52:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ghHsurDD";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZHyrNE4O";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F4EC10EEC7
- for <freedreno@lists.freedesktop.org>; Fri, 20 Dec 2024 05:44:12 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-53e3778bffdso1674307e87.0
- for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 21:44:11 -0800 (PST)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB2310EECD
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Dec 2024 05:52:34 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-54026562221so1453544e87.1
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 21:52:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734673450; x=1735278250; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1734673953; x=1735278753; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=SFCI50HxO0YjIkrdRDdASpuN36VkzFYj3QrjgcaAwJg=;
- b=ghHsurDD9hNIhrBg1YPx2VInZbYsi8HfNi72TwnPYSumiv2CsaDhx3DBpfdeOm99h9
- bFVdxPkHCPFtYhMA2h9S+eOzJrxwSi9ZPzcx87OUOzsbF0P78uahZwlH3BCWZmBwyMn7
- S73V76Jah5UznC3Lqzk1YaOhPnwfnCtnlIDr167bxg1I1UlMFAldtqZvUlSfloL+QOxA
- D6jBlnqlxDXOk+2Ce/Pzz4O2Z7HSrJyQWtLlG7UUIfEASzCNOuV9UIb0UTXgnNCpf2hY
- 26tmyNxc7DB7yE+tey1hGYNTSfViSZwzV4+Ucm0OQZ4ZVlc/y9g6x6nmuboUnanCtGfT
- 3rdg==
+ bh=PrsCL1WIlb94zCZ6gHV9m1qClAQqxJTULwk6ciOdNEc=;
+ b=ZHyrNE4OFY4OjtZgrLPb+rEFXCQwKw51LQKmVW7em+IwOEGkt7momw7/gBOUiqIFAb
+ 0QmBfkXPQNX1T6Vein0wl/pdcGIw15ECJkaYeduhVzc4lNrFMvBiHWK/P1M4HCVLjyRB
+ 8+PU2Xey1k7UAiyxyzre+OlqgkMWp/fGTiCr8QwJJBYeXxUE5YhF3v2q/lasewUKRrGD
+ pSKmAwcwiyUJbVVl2fW0uWAtqgTHcoLE6bOCUN3UMaf4G1CPeLO0TIDNJAsVTZYWrWFS
+ Aq2k+wxO1yk4la949EPS3z4kYeZYAm1T591+DhWxzPqDtFmdX3IB/s+iax1bUdWn2/sV
+ ENAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734673450; x=1735278250;
+ d=1e100.net; s=20230601; t=1734673953; x=1735278753;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SFCI50HxO0YjIkrdRDdASpuN36VkzFYj3QrjgcaAwJg=;
- b=Q03J+EzCbbRUX87UKaIv706KgJDuzRsYhQDuK4b78wMdhypzUdk9+Ue3L1BAuTCqkU
- 1dOMn4j2xmU9SAqbk08ymJZwf3Qvh8sHIP/NLKoGvdH+clMnnTtAzagjI76Mc0JK+9JT
- TDWkgpptapQpoaRz/OTqL0Tg/qD+PTO3BGXxKxn3rj1ozGD+TLgCAu9dKq4LHk7wA28j
- t1T3uD+xV5Gm/NqflHySfg+lE1x0cibYyhS7OU17TTshwkQSgXr2VyJ+ZTkKU3PznESw
- M+IMZWKzk8mMpuaQeWTMKuCVW37hKllbU/QrWsPUQ7sX5eq4kqB4cidKQR/jrOv/n1Z1
- z6Gw==
+ bh=PrsCL1WIlb94zCZ6gHV9m1qClAQqxJTULwk6ciOdNEc=;
+ b=CzcDwdixWUQQtSPKAWvXfX0C35DAJWNeFKJWPK9AtGifYiMdX/1ZhBoiXhyJbtixkj
+ yOBpt3LRhTL9nH3RAMgL15pz7cH5pngXTkQ0eZGGKrH03RRKmg2i83Ct0aN4rPSNGCz9
+ WhjYEN8Pp544knvrmzIWNNR0FDVuwMrxe9pjpjgh9nwn++749smPalxPXEoXjW2RfjMz
+ PFcbCYXLkHaXRlcfC3G9MrA0GQlazs2F4ox+32nITcqRdVDDZqhgMH0j4BvaeMPlpyGs
+ 4sX8tvArfIKkYYwXSm/onTX38W/ItNOeWeahmVDjGxuPjQ+XO9TN5AUAArSfoK6ugmQW
+ bBqA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVdX2iy6XBVKkTdpirG7FngBiRi27rVuwOaYNjFNh+6ntl5bZnJjGPqZvA7YwUwUxDsZxc0jkEx+vg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxmU9/VczOxC9ORp8hNAbk8lVWrzVmWTXzRiyFGqHfCSAHI+r3D
- XffNJzG4d6MdE7jyk7aO1uByPznE4+jZhPiWg4kQqrUz5Ngl2puC+bwHoEBlIuQ=
-X-Gm-Gg: ASbGncszxhPwO8kRK4nxlHf4ceu4JyAOX7IRgyEQ/kLp5XDO+KxStX6ur9fMcwXjIAh
- MEudjQnKP8sqtz3MOd5TsDRMxIB5QlLRt1ow6TaCkJRXVL/8HmAL2I3m+iudn9AXD/5xRU9V7FQ
- NA5YSjOw+OVR0N7TE1oiZZl0vhI3h/TrtIGpJ+6AhmHgj6IDxYx4ZUyiIxkx9jPfH52KLuuSqBs
- XT/ASg3zqYm14CuN6Q+fQivoVREvNny7uSdf3bXwP1MaIrX3hXJh2dquyNI9f1FQNnaAb18PE6D
- rokxpK6Ow9zVQ72PW8fhJ1jLoxR3uxLv7KMK
-X-Google-Smtp-Source: AGHT+IG1bm19MGRUcfrW96Z6d6TtKC4b/8GqwGpE6HtAltw9S1z+lUZCzMntZDup7UjIvLEdtD1Wjw==
-X-Received: by 2002:a05:6512:334e:b0:542:218a:343 with SMTP id
- 2adb3069b0e04-542295989femr303192e87.52.1734673450312; 
- Thu, 19 Dec 2024 21:44:10 -0800 (PST)
+ AJvYcCVkPna/8K3KEiou790jlfi9M+X6mAXaP1m0w6FLO0N8qAb26ZvZUSmDYB/tKr6PobcAXeMo2A8uu3w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzR+gxMrPU9w+hZr7YuuznsRJqXuBtypdZjZPT/GcBrUQ7Bqex/
+ 66i2M/Qbw6XQ0JB1Y29QB2j+f23s9pZlOIkd7EGihtgLqc6CqC8Kh7GWnEH7JzI=
+X-Gm-Gg: ASbGncu0HjEM2cibPynLl6Y2KcieKB0+Q9Nuqz9Dp7rbe7DIDkJ4DF976ci6zwY5z7z
+ mLDIKqVJvUZfFChBGrJtG1Rlw6NjuJeRCYtnz6VhkpP1qzl9NTptkKkETx7+aQ0yON0umY9wrZZ
+ 7jC/pZPSr1ZqXynuheh3VKVWN0tOnFFpvVCQGLL7y9NhYLjqFadkwc3iM3MOxGcYBV3nUTft1Ek
+ XUnhOZvOWZSJwewf+6gNIlqxWvOPIEO3SkwlJ+VW+Q/X9c00TQyPZDZPfowgK+FsvUFFEBJ78wl
+ 3L8S4nOah7jh6667QNYVHbQ9ceJl99nKB4eA
+X-Google-Smtp-Source: AGHT+IExWCCDGaDuBm5lhld9UEbZy11jgAUpDlC5Wr7bUL0jQ9Ik9GGih1dg0p5/U+a2cm3HxdVWsg==
+X-Received: by 2002:a05:6512:1055:b0:53f:167e:390f with SMTP id
+ 2adb3069b0e04-5422956bd7dmr361940e87.53.1734673952612; 
+ Thu, 19 Dec 2024 21:52:32 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-542238215f2sm377633e87.199.2024.12.19.21.44.08
+ 38308e7fff4ca-3045ad6cae6sm4279521fa.23.2024.12.19.21.52.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Dec 2024 21:44:09 -0800 (PST)
-Date: Fri, 20 Dec 2024 07:44:07 +0200
+ Thu, 19 Dec 2024 21:52:31 -0800 (PST)
+Date: Fri, 20 Dec 2024 07:52:29 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Jessica Zhang <quic_jesszhan@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
@@ -75,15 +75,14 @@ Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Rob Clark <robdclark@chromium.org>, 
  Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v4 17/25] drm/msm/dpu: Fail atomic_check if CWB and CDM
- are enabled
-Message-ID: <qpy3yjnrq7ljsj7a2b2avbnd6cptyfr6vzxhm733dyaiso5lwg@txhr5zwjqtt7>
+Subject: Re: [PATCH v4 18/25] drm/msm/dpu: Reserve resources for CWB
+Message-ID: <z6pebzm5yxaqqmktu4jjjy4rojkdarrqrwo4ikmv6jzku7foyf@cc325q3dfgif>
 References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
- <20241216-concurrent-wb-v4-17-fe220297a7f0@quicinc.com>
+ <20241216-concurrent-wb-v4-18-fe220297a7f0@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241216-concurrent-wb-v4-17-fe220297a7f0@quicinc.com>
+In-Reply-To: <20241216-concurrent-wb-v4-18-fe220297a7f0@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,38 +98,285 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 16, 2024 at 04:43:28PM -0800, Jessica Zhang wrote:
-> We cannot support both CWB and CDM simultaneously as this would require
-> 2 CDM blocks and currently our hardware only supports 1 CDM block at
-> most.
-
-Why would CWB require a second CDM block? I think that YUV output over
-DP (needs_cdm = true) and RGB output over WB (cwb_enabled = true) should
-work. Am I wrong?
-
+On Mon, Dec 16, 2024 at 04:43:29PM -0800, Jessica Zhang wrote:
+> Add support for RM to reserve dedicated CWB PINGPONGs and CWB muxes
 > 
-> Thus return an error if both CWB and CDM are enabled.
+> For concurrent writeback, even-indexed CWB muxes must be assigned to
+> even-indexed LMs and odd-indexed CWB muxes for odd-indexed LMs. The same
+> even/odd rule applies for dedicated CWB PINGPONGs.
+> 
+> Track the CWB muxes in the global state and add a CWB-specific helper to
+> reserve the correct CWB muxes and dedicated PINGPONGs following the
+> even/odd rule.
 > 
 > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 4 ++++
->  1 file changed, 4 insertions(+)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 34 ++++++++++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  2 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |  1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 83 +++++++++++++++++++++++++++++
+>  4 files changed, 116 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index 9bb920d28bae2706b3892c167fe2bec3fd8857f4..a6372eee916e8aba702bbefc3615d8882ddcaad9 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1261,6 +1261,10 @@ static int dpu_crtc_assign_resources(struct drm_crtc *crtc, struct drm_crtc_stat
->  		return 0;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index a895d48fe81ccc71d265e089992786e8b6268b1b..a95dc1f0c6a422485c7ba98743e944e1a4f43539 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -2,7 +2,7 @@
+>  /*
+>   * Copyright (C) 2013 Red Hat
+>   * Copyright (c) 2014-2018, 2020-2021 The Linux Foundation. All rights reserved.
+> - * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
+> + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+>   *
+>   * Author: Rob Clark <robdclark@gmail.com>
+>   */
+> @@ -28,6 +28,7 @@
+>  #include "dpu_hw_dsc.h"
+>  #include "dpu_hw_merge3d.h"
+>  #include "dpu_hw_cdm.h"
+> +#include "dpu_hw_cwb.h"
+>  #include "dpu_formats.h"
+>  #include "dpu_encoder_phys.h"
+>  #include "dpu_crtc.h"
+> @@ -133,6 +134,9 @@ enum dpu_enc_rc_states {
+>   * @cur_slave:		As above but for the slave encoder.
+>   * @hw_pp:		Handle to the pingpong blocks used for the display. No.
+>   *			pingpong blocks can be different than num_phys_encs.
+> + * @hw_cwb:		Handle to the CWB muxes used for concurrent writeback
+> + *			display. Number of CWB muxes can be different than
+> + *			num_phys_encs.
+>   * @hw_dsc:		Handle to the DSC blocks used for the display.
+>   * @dsc_mask:		Bitmask of used DSC blocks.
+>   * @intfs_swapped:	Whether or not the phys_enc interfaces have been swapped
+> @@ -177,6 +181,7 @@ struct dpu_encoder_virt {
+>  	struct dpu_encoder_phys *cur_master;
+>  	struct dpu_encoder_phys *cur_slave;
+>  	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
+> +	struct dpu_hw_cwb *hw_cwb[MAX_CHANNELS_PER_ENC];
+>  	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
 >  
->  	topology = dpu_crtc_get_topology(crtc, dpu_kms, crtc_state);
+>  	unsigned int dsc_mask;
+> @@ -1138,7 +1143,10 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>  	struct dpu_hw_blk *hw_pp[MAX_CHANNELS_PER_ENC];
+>  	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
+>  	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
+> +	struct dpu_hw_blk *hw_cwb[MAX_CHANNELS_PER_ENC];
+>  	int num_pp, num_dsc, num_ctl;
+> +	int num_cwb = 0;
+> +	bool is_cwb_encoder;
+>  	unsigned int dsc_mask = 0;
+>  	int i;
+>  
+> @@ -1152,6 +1160,8 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>  
+>  	priv = drm_enc->dev->dev_private;
+>  	dpu_kms = to_dpu_kms(priv->kms);
+> +	is_cwb_encoder = drm_crtc_in_clone_mode(crtc_state) &&
+> +			dpu_enc->disp_info.intf_type == INTF_WB;
+>  
+>  	global_state = dpu_kms_get_existing_global_state(dpu_kms);
+>  	if (IS_ERR_OR_NULL(global_state)) {
+> @@ -1162,9 +1172,25 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>  	trace_dpu_enc_mode_set(DRMID(drm_enc));
+>  
+>  	/* Query resource that have been reserved in atomic check step. */
+> -	num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> -		drm_enc->crtc, DPU_HW_BLK_PINGPONG, hw_pp,
+> -		ARRAY_SIZE(hw_pp));
+> +	if (is_cwb_encoder) {
+> +		num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> +						       drm_enc->crtc,
+> +						       DPU_HW_BLK_DCWB_PINGPONG,
+> +						       hw_pp, ARRAY_SIZE(hw_pp));
+> +		num_cwb = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> +						       drm_enc->crtc,
+> +						       DPU_HW_BLK_CWB,
+> +						       hw_cwb, ARRAY_SIZE(hw_cwb));
+> +	} else {
+> +		num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> +						       drm_enc->crtc,
+> +						       DPU_HW_BLK_PINGPONG, hw_pp,
+> +						       ARRAY_SIZE(hw_pp));
+> +	}
 > +
-> +	if (topology.cwb_enabled && topology.needs_cdm)
-> +		return -EINVAL;
+> +	for (i = 0; i < num_cwb; i++)
+> +		dpu_enc->hw_cwb[i] = to_dpu_hw_cwb(hw_cwb[i]);
 > +
->  	ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
->  			     crtc, &topology);
->  	if (ret)
+>  	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+>  			drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+>  
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> index ba7bb05efe9b8cac01a908e53121117e130f91ec..8d820cd1b5545d247515763039b341184e814e32 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> @@ -77,12 +77,14 @@ enum dpu_hw_blk_type {
+>  	DPU_HW_BLK_LM,
+>  	DPU_HW_BLK_CTL,
+>  	DPU_HW_BLK_PINGPONG,
+> +	DPU_HW_BLK_DCWB_PINGPONG,
+>  	DPU_HW_BLK_INTF,
+>  	DPU_HW_BLK_WB,
+>  	DPU_HW_BLK_DSPP,
+>  	DPU_HW_BLK_MERGE_3D,
+>  	DPU_HW_BLK_DSC,
+>  	DPU_HW_BLK_CDM,
+> +	DPU_HW_BLK_CWB,
+>  	DPU_HW_BLK_MAX,
+>  };
+>  
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> index 48d756d8f8c6e4ab94b72bac0418320f7dc8cda8..1fc8abda927fc094b369e0d1efc795b71d6a7fcb 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> @@ -128,6 +128,7 @@ struct dpu_global_state {
+>  	uint32_t dspp_to_crtc_id[DSPP_MAX - DSPP_0];
+>  	uint32_t dsc_to_crtc_id[DSC_MAX - DSC_0];
+>  	uint32_t cdm_to_crtc_id;
+> +	uint32_t cwb_to_crtc_id[CWB_MAX - CWB_0];
+>  };
+>  
+>  struct dpu_global_state
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> index 85adaf256b2c705d2d7df378b6ffc0e578f52bc3..ead24bb0ceb5d8ec4705f0d32330294d0b45b216 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> @@ -234,6 +234,55 @@ static int _dpu_rm_get_lm_peer(struct dpu_rm *rm, int primary_idx)
+>  	return -EINVAL;
+>  }
+>  
+> +static int _dpu_rm_reserve_cwb_mux_and_pingpongs(struct dpu_rm *rm,
+> +						 struct dpu_global_state *global_state,
+> +						 uint32_t crtc_id,
+> +						 struct msm_display_topology *topology)
+> +{
+> +	int num_cwb_pp = topology->num_lm, cwb_pp_count = 0;
+> +	int cwb_pp_start_idx = PINGPONG_CWB_0 - PINGPONG_0;
+> +	int cwb_pp_idx[MAX_BLOCKS];
+> +	int cwb_mux_idx[MAX_BLOCKS];
+> +
+> +	/*
+> +	 * Reserve additional dedicated CWB PINGPONG blocks and muxes for each
+> +	 * mixer
+> +	 *
+> +	 * TODO: add support reserving resources for platforms with no
+> +	 *       PINGPONG_CWB
+
+What about doing it other way around: allocate CWBs first as required
+(even/odd, proper count, etc). Then for each of CWBs allocate a PP block
+(I think it's enough to simply make CWB blocks have a corresponding PP
+index as a property). This way the driver can handle both legacy and
+current platforms.
+
+> +	 */
+> +	for (int i = 0; i < ARRAY_SIZE(rm->mixer_blks) &&
+> +	     cwb_pp_count < num_cwb_pp; i++) {
+> +		for (int j = cwb_pp_start_idx;
+> +		     j < ARRAY_SIZE(rm->pingpong_blks); j++) {
+> +			/*
+> +			 * Odd LMs must be assigned to odd PINGPONGs and even
+> +			 * LMs with even PINGPONGs
+> +			 */
+> +			if (reserved_by_other(global_state->pingpong_to_crtc_id, j, crtc_id) ||
+> +			    i % 2 != j % 2)
+> +				continue;
+> +
+> +			cwb_pp_idx[cwb_pp_count] = j;
+> +			cwb_mux_idx[cwb_pp_count] = j - cwb_pp_start_idx;
+> +			cwb_pp_count++;
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (cwb_pp_count != num_cwb_pp) {
+> +		DPU_ERROR("Unable to reserve all CWB PINGPONGs\n");
+> +		return -ENAVAIL;
+> +	}
+> +
+> +	for (int i = 0; i < cwb_pp_count; i++) {
+> +		global_state->pingpong_to_crtc_id[cwb_pp_idx[i]] = crtc_id;
+> +		global_state->cwb_to_crtc_id[cwb_mux_idx[i]] = crtc_id;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  /**
+>   * _dpu_rm_check_lm_and_get_connected_blks - check if proposed layer mixer meets
+>   *	proposed use case requirements, incl. hardwired dependent blocks like
+> @@ -614,6 +663,12 @@ static int _dpu_rm_make_reservation(
+>  		return ret;
+>  	}
+>  
+> +	if (topology->cwb_enabled) {
+> +		ret = _dpu_rm_reserve_cwb_mux_and_pingpongs(rm, global_state,
+> +							    crtc_id, topology);
+> +		if (ret)
+> +			return ret;
+> +	}
+>  
+>  	ret = _dpu_rm_reserve_ctls(rm, global_state, crtc_id,
+>  			topology);
+> @@ -671,6 +726,8 @@ void dpu_rm_release(struct dpu_global_state *global_state,
+>  	_dpu_rm_clear_mapping(global_state->dspp_to_crtc_id,
+>  			ARRAY_SIZE(global_state->dspp_to_crtc_id), crtc_id);
+>  	_dpu_rm_clear_mapping(&global_state->cdm_to_crtc_id, 1, crtc_id);
+> +	_dpu_rm_clear_mapping(global_state->cwb_to_crtc_id,
+> +			ARRAY_SIZE(global_state->cwb_to_crtc_id), crtc_id);
+>  }
+>  
+>  /**
+> @@ -733,6 +790,7 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
+>  
+>  	switch (type) {
+>  	case DPU_HW_BLK_PINGPONG:
+> +	case DPU_HW_BLK_DCWB_PINGPONG:
+>  		hw_blks = rm->pingpong_blks;
+>  		hw_to_crtc_id = global_state->pingpong_to_crtc_id;
+>  		max_blks = ARRAY_SIZE(rm->pingpong_blks);
+> @@ -762,6 +820,11 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
+>  		hw_to_crtc_id = &global_state->cdm_to_crtc_id;
+>  		max_blks = 1;
+>  		break;
+> +	case DPU_HW_BLK_CWB:
+> +		hw_blks = rm->cwb_blks;
+> +		hw_to_crtc_id = global_state->cwb_to_crtc_id;
+> +		max_blks = ARRAY_SIZE(rm->cwb_blks);
+> +		break;
+>  	default:
+>  		DPU_ERROR("blk type %d not managed by rm\n", type);
+>  		return 0;
+> @@ -772,6 +835,20 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
+>  		if (hw_to_crtc_id[i] != crtc_id)
+>  			continue;
+>  
+> +		if (type == DPU_HW_BLK_PINGPONG) {
+> +			struct dpu_hw_pingpong *pp = to_dpu_hw_pingpong(hw_blks[i]);
+> +
+> +			if (pp->idx >= PINGPONG_CWB_0)
+> +				continue;
+> +		}
+> +
+> +		if (type == DPU_HW_BLK_DCWB_PINGPONG) {
+> +			struct dpu_hw_pingpong *pp = to_dpu_hw_pingpong(hw_blks[i]);
+> +
+> +			if (pp->idx < PINGPONG_CWB_0)
+> +				continue;
+> +		}
+> +
+>  		if (num_blks == blks_size) {
+>  			DPU_ERROR("More than %d resources assigned to crtc %d\n",
+>  				  blks_size, crtc_id);
+> @@ -847,4 +924,10 @@ void dpu_rm_print_state(struct drm_printer *p,
+>  	dpu_rm_print_state_helper(p, rm->cdm_blk,
+>  				  global_state->cdm_to_crtc_id);
+>  	drm_puts(p, "\n");
+> +
+> +	drm_puts(p, "\tcwb=");
+> +	for (i = 0; i < ARRAY_SIZE(global_state->cwb_to_crtc_id); i++)
+> +		dpu_rm_print_state_helper(p, rm->cwb_blks[i],
+> +					  global_state->cwb_to_crtc_id[i]);
+> +	drm_puts(p, "\n");
+>  }
 > 
 > -- 
 > 2.34.1
