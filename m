@@ -1,67 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC8C49F8BAE
-	for <lists+freedreno@lfdr.de>; Fri, 20 Dec 2024 06:03:13 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 97D4D9F8BC3
+	for <lists+freedreno@lfdr.de>; Fri, 20 Dec 2024 06:11:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2C6010EEBC;
-	Fri, 20 Dec 2024 05:03:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7099310EEBC;
+	Fri, 20 Dec 2024 05:11:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xGAIgjVJ";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="NBGoePnH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7333E10EEBC
- for <freedreno@lists.freedesktop.org>; Fri, 20 Dec 2024 05:03:11 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-30227ccf803so18328241fa.2
- for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 21:03:11 -0800 (PST)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB6A410EEC1
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Dec 2024 05:11:10 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-3004028c714so16950001fa.2
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 21:11:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734670990; x=1735275790; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1734671469; x=1735276269; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=m702/HGl5sKTUjvEqn+7bLtl2eVmqJKkLeGGTpjyQLw=;
- b=xGAIgjVJ02aEYVNc8MDiuq6qLpwHJ6hghvocgMpb4q81odKjewwmKnzXezdeb8D9d7
- bL/S1Mc1QsoPbdxHQGaBmPF4yMXmwSb8LcNT7HNvebLNIIRkeZw0XMcRua2QLA2hlQTy
- ypEknrsenQTPDPbVTLmxMPdY6BAVjfghpmxl3lmhR5Kh40UlDH1CK/j+QE6NI3MqfV2N
- RzLh/GoxUbJEjuiOChb2aWaFBsFMtYYyjbNUkiBlTRXB0KFY0eKmFW89Ny7v4hB46A+C
- 1PKW+tLV/yUnychxkx6piYQg4BqTLQTN2ye3RARKUcgv+Yi0E+fTt2MwrErvz33jIT5L
- piVQ==
+ bh=hOLNpmukdI9ORURYicitCjFN5XPFQVYwVfKV5O5JRv0=;
+ b=NBGoePnHRCp4qzjpBRbWrjVsznpQ+CROxF4SOzdPz+98ZYU6B5AADBE9e2wpAH5y6+
+ ryQWRFnqEyZsXDlIeqwBtuYAisRdjexttng5C6E0slLfHVEWGb0L3ynvh27jBnZMVoNi
+ oiS7tqiIHC4Kl6/UdjHH0TcLTR+FJixdkrZUBrkIxuJVb0K7+C9bgna5RfZin8BJlIn5
+ 0Vt5uFxdLSDlL1wvyFDC0ZMZK3Sn1OYRCmgzWHcuR/jVPCWl+4ht848u3hTwLXWEiY+A
+ Aq2zX+cGpWP+MMSJvGEVejHD4chbz/PGPxTtgw43rPvnvGpX3n7pvfGgszESrPIjgWz9
+ Y7Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734670990; x=1735275790;
+ d=1e100.net; s=20230601; t=1734671469; x=1735276269;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=m702/HGl5sKTUjvEqn+7bLtl2eVmqJKkLeGGTpjyQLw=;
- b=fZCwFOmJXPu/beJ94eHShZijD81/6yCbHHn6JsqHoktn8oYIbzAlQeEz1JuuLu8vV0
- T8BHD2ghjv+quYqfzEv1jMH8L/DJ/06cPiCmwlgzgiiAfrnZGN+c0i5lda9YKnSbJijU
- 1Olg7qjeLPFQ3RMjQ8TaExM8oadO5zd6vHs9I4nl+BQF93j1LTIgRePlm5AOcdPkFbj4
- fnLIIcbGbUhzmVhFN00MM+tPgaOpkbYcYZ88TkQEIp5HorGD7MLSSumrTYdW2w4FZRkx
- wReMZ5V2nadz3K2zZdRQh+M1MryM0JNaVpBPUOsjYXsGyBzxVJTUChy9k8K7qalN1wkP
- E8RQ==
+ bh=hOLNpmukdI9ORURYicitCjFN5XPFQVYwVfKV5O5JRv0=;
+ b=LuvimjuI1b0W0cLuUMohds/UZsh4EoGrHyYQwLGt8Lj3h/T7nTujaVEXIdsRLs9/WC
+ P7ycBZsMmrmKDRqbr1Y96UCKOofkvRg6AORYkEqtd0h1T0e1llKu09ENC5/IRO1Z73ua
+ g0f+Cai9DuFjvC8H5TbqUERrLbTarbXbx/UPuwb730zdhw/ouwGwfuoh7xd7Mn6zWbaY
+ O1XzdN06z7FA/hPrLzR95AZys63mR4ROXwOKTLe7MsyGfHLxAm6r/7+0KmNK0Eoj26Pl
+ Deh7dYqPk/je1AcnRPUvEjr8hU7s6avJxtG56ff8IwY4fbBnJ2kY4y/UXGNElyWR9VP4
+ +txA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXCFeunGK8GaERTfF5APSE7jbskLLHTTTbOc1RhQ0x4a72pJ9Mubg+EqnKzxyJXptqHqtdSCYNkgOg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwXNV3AFRvHk4fzyO10QCNC1kxOjGvmn1KyTKnYh5CiHVnjI2/2
- RarZLBUbO0Sy+LhAUQQ4PeE+yUoud01oSZJ7ZmsanAMbvD++fdCv2v2E0niiu48=
-X-Gm-Gg: ASbGncsG8T3ltDFsurXEnLBilLZBXMoSVIr5lpnYdujPrqUslR/4MLYIlJUVLKy1RxC
- P/zauVT5mhwhaf9L8ySfUpeC6qUyIzONlOldIikZyGVPpHAbC2LcPt2SQIKzy6qGE2tB3J75quQ
- Ox4AwIS16zNcRVuNpg5RAmeQvLEB/2g+5/njmWvcL7CZqVqff9h0gizBWxNW9Q+Xp62gMVSgCXO
- 3DtctxxDEtJ0Z1s7gYdVbdx0nf78jIqE8p+BsJtN53W2+XzyuSLPSA1ZU0yQD7+cipVYpTC6qse
- n3a7F+c36+BTxIZ+e/G+YwihkmEl2rJM1LQZ
-X-Google-Smtp-Source: AGHT+IE7AMACdhYOmI1DWAlHJNG3mIkrNXzU71mUgxUjugwDV+QiqhXSa9rYSZx7k0oSHhKzOfItNw==
-X-Received: by 2002:a05:651c:549:b0:300:1f2d:97a with SMTP id
- 38308e7fff4ca-30468556d69mr4794531fa.16.1734670989582; 
- Thu, 19 Dec 2024 21:03:09 -0800 (PST)
+ AJvYcCUfWT3LtD4fLOeFyT+WhX4WkrMN3VrxraL0XvSZMeFbJMX0Tsb1zQ2dYkH20GnsseEJRYPbwH0beT0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy+sNZAMy92QNpSq9IV6jbWd2ujoUcTbsNGJ5rgWobWDOtd/svj
+ Mw1EoVJgAHeHbkNrTeIwloVqp/YMBVZTnnPgMqGn3z+sCRTwoI8s/3lxQAdYjnc=
+X-Gm-Gg: ASbGncu1vpBuZnn/iGV03kqXD8i0e6nQwXQavTtUodQomeMHSOuFI0aHuC0D92q0YlI
+ b9yLxYll+Jj06iVBA2wzCYNoojzes0mZ0qAGIPcGATr8CHBNq5QqO7bnz8SDNMlFSdL8q4PU76S
+ 7Qce/xyWGyVR6hntDhR/V4ogap4UOuqhe/u02bdnUCp6Y8O3Q9GEyJ/A/AnTDxcHXyzYm8Ym5DP
+ 00jZR0lJarQShPW6cm5dMOsS9ABXKGbhdHojURSVEJ8UGvX/RZkEBuhb51/vIQ2k4I1T1SI1Rcj
+ vbRnAhfRdLe5bKUsYEStEgqp9tIbziAQTtwK
+X-Google-Smtp-Source: AGHT+IFC/NE5zc46pIrUc+uWu2MmiI7zMsrugsnNtqsVSjl4K0p8nbc4HXWw64vBy35DSxO5ymiXuQ==
+X-Received: by 2002:a05:651c:4cb:b0:300:1448:c526 with SMTP id
+ 38308e7fff4ca-3046861f16emr3282311fa.37.1734671468999; 
+ Thu, 19 Dec 2024 21:11:08 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3045adac5bbsm4333921fa.53.2024.12.19.21.03.07
+ 38308e7fff4ca-3045ad6c61asm4252781fa.2.2024.12.19.21.11.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Dec 2024 21:03:08 -0800 (PST)
-Date: Fri, 20 Dec 2024 07:03:06 +0200
+ Thu, 19 Dec 2024 21:11:07 -0800 (PST)
+Date: Fri, 20 Dec 2024 07:11:05 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Jessica Zhang <quic_jesszhan@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
@@ -75,14 +75,14 @@ Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Rob Clark <robdclark@chromium.org>, 
  Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v4 15/25] drm/msm/dpu: Add CWB to msm_display_topology
-Message-ID: <ki35rornnos35r3fzg5yyqzxnqua3dyfb6ewq2aefrh4u74vfi@opdnf44ntten>
+Subject: Re: [PATCH v4 00/25] drm/msm/dpu: Add Concurrent Writeback Support
+ for DPU 10.x+
+Message-ID: <kx22rzwg5464f4m24u6ybnv3wcey2hffueg5pwd6t523lpjdsp@b4wj6qgcgvmk>
 References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
- <20241216-concurrent-wb-v4-15-fe220297a7f0@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241216-concurrent-wb-v4-15-fe220297a7f0@quicinc.com>
+In-Reply-To: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,98 +98,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 16, 2024 at 04:43:26PM -0800, Jessica Zhang wrote:
-> Add the cwb_enabled flag to msm_display topology and adjust the toplogy
-> to account for concurrent writeback
+On Mon, Dec 16, 2024 at 04:43:11PM -0800, Jessica Zhang wrote:
+> DPU supports a single writeback session running concurrently with primary
+> display when the CWB mux is configured properly. This series enables
+> clone mode for DPU driver and adds support for programming the CWB mux
+> in cases where the hardware has dedicated CWB pingpong blocks. Currently,
+> the CWB hardware blocks have only been added to the SM8650
+> hardware catalog and only DSI has been exposed as a possible_clone of WB.
+> 
+> This changes are split into two parts:
+> 
+> The first part of the series will pull in Dmitry's patches to refactor
+> the DPU resource manager to be based off of CRTC instead of encoder.
+> This includes some changes (noted in the relevant commits) by me and
+> Abhinav to fix some issues with getting the global state and refactoring
+> the CDM allocation to work with Dmitry's changes.
 
-Why?
+To provide a sensible baseline for both CWB and Quad-Pipe changes I'm
+going to pull patches 5-14 (those which refactor the resource allocation
+and also those adding support for the CWB hardware block). The core DRM
+patches should probably go in through drm-misc-next.
 
 > 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> The second part of the series will add support for CWB by doing the
+> following:
+> 
+> 1) Add a DRM helper to detect if the current CRTC state is in clone mode
+>    and add an "in_clone_mode" entry to the atomic state print
+> 2) Add the CWB mux to the hardware catalog and clarify the pingpong
+>    block index enum to specifiy which pingpong blocks are dedicated to
+>    CWB only and which ones are general use pingpong blocks
+> 3) Add CWB as part of the devcoredump
+> 4) Add support for configuring the CWB mux via dpu_hw_cwb ops
+> 5) Add pending flush support for CWB
+> 6) Add support for validating clone mode in the DPU CRTC and setting up
+>    CWB within the encoder
+> 7) Adjust the encoder trigger flush, trigger start, and kickoff order to
+>    accomodate clone mode
+> 8) Adjust when the frame done timer is started for clone mode
+> 9) Define the possible clones for DPU encoders so that 
+> 
+> The feature was tested on SM8650 using IGT's kms_writeback test with the
+> following change [1] and dumping the writeback framebuffer when in clone
+> mode. I haven't gotten the chance to test it on DP yet, but I've
+> validated both single and dual LM on DSI.
+> 
+> To test CWB with IGT, you'll need to apply this series [1] and this
+> driver patch [2]. Run the following command to dump the writeback buffer:
+> 
+> IGT_FRAME_DUMP_PATH=<dump path> FRAME_PNG_FILE_NAME=<file name> \
+> ./build/tests/kms_writeback -d [--run-subtest dump-valid-clones] \
+> 
+> You can also do CRC validation by running this command:
+> 
+> ./build/tests/kms_writeback [--run-subtest dump-valid-clones]
+> 
+> [1] https://patchwork.freedesktop.org/series/137933/
+> [2] https://patchwork.freedesktop.org/series/138284/
+> 
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 11 ++++++++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c   | 10 ++++++++--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h   |  2 ++
->  3 files changed, 20 insertions(+), 3 deletions(-)
+> Changes in v4:
+> - Rebased onto latest msm-next
+> - Added kunit tests for framework changes
+> - Skip valid clone check for encoders that don't have any possible clones set
+>   (this is to avoid failing kunit tests, specifically the HDMI state helper tests)
+> - Link to v3: https://lore.kernel.org/r/20241016-concurrent-wb-v3-0-a33cf9b93835@quicinc.com
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index b4bfded3d53025853cee112ca598533ece290318..b063c8fe4c0594772d84401fa56c9c21afc0ad18 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1198,6 +1198,8 @@ static struct msm_display_topology dpu_crtc_get_topology(
->  		dpu_encoder_update_topology(drm_enc, &topology, crtc_state->state,
->  					    &crtc_state->adjusted_mode);
->  
-> +	topology.cwb_enabled = drm_crtc_in_clone_mode(crtc_state);
-> +
->  	/*
->  	 * Datapath topology selection
->  	 *
-> @@ -1209,9 +1211,16 @@ static struct msm_display_topology dpu_crtc_get_topology(
->  	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
->  	 *
->  	 * Add dspps to the reservation requirements if ctm is requested
-> +	 *
-> +	 * Only hardcode num_lm to 2 for cases where num_intf == 2 and CWB is not
-> +	 * enabled. This is because in cases where CWB is enabled, num_intf will
-> +	 * count both the WB and real-time phys encoders.
-> +	 *
-> +	 * For non-DSC CWB usecases, have the num_lm be decided by the
-> +	 * (mode->hdisplay > MAX_HDISPLAY_SPLIT) check.
->  	 */
->  
-> -	if (topology.num_intf == 2)
-> +	if (topology.num_intf == 2 && !topology.cwb_enabled)
->  		topology.num_lm = 2;
->  	else if (topology.num_dsc == 2)
->  		topology.num_lm = 2;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> index b763ef19f4c60ae8a35df6a6ffb19e8411bc63f8..85adaf256b2c705d2d7df378b6ffc0e578f52bc3 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> @@ -382,8 +382,14 @@ static int _dpu_rm_reserve_ctls(
->  	int i = 0, j, num_ctls;
->  	bool needs_split_display;
->  
-> -	/* each hw_intf needs its own hw_ctrl to program its control path */
-> -	num_ctls = top->num_intf;
-> +	/*
-> +	 * For non-CWB mode, each hw_intf needs its own hw_ctl to program its
-> +	 * control path. Hardcode num_ctls to 1 if CWB is enabled
-> +	 */
-
-Why?
-
-> +	if (top->cwb_enabled)
-> +		num_ctls = 1;
-> +	else
-> +		num_ctls = top->num_intf;
->  
->  	needs_split_display = _dpu_rm_needs_split_display(top);
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> index b061dfdab52e04ab7d777e912a30173273cb3db7..12db21a2403ec6930894c36a58e898c5d94c2568 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> @@ -46,6 +46,7 @@ struct dpu_rm {
->   * @num_dspp:     number of dspp blocks used
->   * @num_dsc:      number of Display Stream Compression (DSC) blocks used
->   * @needs_cdm:    indicates whether cdm block is needed for this display topology
-> + * @cwb_enabled:  indicates whether CWB is enabled for this display topology
->   */
->  struct msm_display_topology {
->  	u32 num_lm;
-> @@ -53,6 +54,7 @@ struct msm_display_topology {
->  	u32 num_dspp;
->  	u32 num_dsc;
->  	bool needs_cdm;
-> +	bool cwb_enabled;
->  };
->  
->  int dpu_rm_init(struct drm_device *dev,
+> Changes in v3:
+> - Dropped support for CWB on DP connectors for now
+> - Dropped unnecessary PINGPONG array in *_setup_cwb()
+> - Add a check to make sure CWB and CDM aren't supported simultaneously
+>   (Dmitry)
+> - Document cwb_enabled checks in dpu_crtc_get_topology() (Dmitry)
+> - Moved implementation of drm_crtc_in_clone_mode() to drm_crtc.c (Jani)
+> - Dropped duplicate error message for reserving CWB resources (Dmitry)
+> - Added notes in framework changes about posting a separate series to
+>   add proper KUnit tests (Maxime)
+> - Added commit message note addressing Sima's comment on handling
+>   mode_changed (Dmitry)
+> - Formatting fixes (Dmitry)
+> - Added proper kerneldocs (Dmitry)
+> - Renamed dpu_encoder_helper_get_cwb() -> *_get_cwb_mask() (Dmitry)
+> - Capitalize all instances of "pingpong" in comments (Dmitry)
+> - Link to v2: https://lore.kernel.org/r/20240924-concurrent-wb-v2-0-7849f900e863@quicinc.com
 > 
+> Changes in v2:
+> - Moved CWB hardware programming to its own dpu_hw_cwb abstraction
+>   (Dmitry)
+> - Reserve and get assigned CWB muxes using RM API and KMS global state
+>   (Dmitry)
+> - Dropped requirement to have only one CWB session at a time
+> - Moved valid clone mode check to DRM framework (Dmitry and Ville)
+> - Switch to default CWB tap point to LM as the DSPP
+> - Dropped printing clone mode status in atomic state (Dmitry)
+> - Call dpu_vbif_clear_errors() before dpu_encoder_kickoff() (Dmitry)
+> - Squashed setup_input_ctrl() and setup_input_mode() into a single
+>   dpu_hw_cwb op (Dmitry)
+> - Moved function comment docs to correct place and fixed wording of
+>   comments/commit messages (Dmitry)
+> - Grabbed old CRTC state using proper drm_atomic_state API in
+>   dpu_crtc_atomic_check() (Dmitry)
+> - Split HW catalog changes of adding the CWB mux block and changing the
+>   dedicated CWB pingpong indices into 2 separate commits (Dmitry)
+> - Moved clearing the dpu_crtc_state.num_mixers to "drm/msm/dpu: fill
+>   CRTC resources in dpu_crtc.c" (Dmitry)
+> - Fixed alignment and other formatting issues (Dmitry)
+> - Link to v1: https://lore.kernel.org/r/20240829-concurrent-wb-v1-0-502b16ae2ebb@quicinc.com
+> 
+> ---
+> Dmitry Baryshkov (4):
+>       drm/msm/dpu: get rid of struct dpu_rm_requirements
+>       drm/msm/dpu: switch RM to use crtc_id rather than enc_id for allocation
+>       drm/msm/dpu: move resource allocation to CRTC
+>       drm/msm/dpu: fill CRTC resources in dpu_crtc.c
+> 
+> Esha Bharadwaj (3):
+>       drm/msm/dpu: Add CWB entry to catalog for SM8650
+>       drm/msm/dpu: add devcoredumps for cwb registers
+>       drm/msm/dpu: add CWB support to dpu_hw_wb
+> 
+> Jessica Zhang (18):
+>       drm: add clone mode check for CRTC
+>       drm/tests: Add test for drm_crtc_in_clone_mode()
+>       drm: Add valid clones check
+>       drm/tests: Add test for drm_atomic_helper_check_modeset()
+>       drm/msm/dpu: Specify dedicated CWB pingpong blocks
+>       drm/msm/dpu: Add dpu_hw_cwb abstraction for CWB block
+>       drm/msm/dpu: Add RM support for allocating CWB
+>       drm/msm/dpu: Add CWB to msm_display_topology
+>       drm/msm/dpu: Require modeset if clone mode status changes
+>       drm/msm/dpu: Fail atomic_check if CWB and CDM are enabled
+>       drm/msm/dpu: Reserve resources for CWB
+>       drm/msm/dpu: Configure CWB in writeback encoder
+>       drm/msm/dpu: Support CWB in dpu_hw_ctl
+>       drm/msm/dpu: Adjust writeback phys encoder setup for CWB
+>       drm/msm/dpu: Start frame done timer after encoder kickoff
+>       drm/msm/dpu: Skip trigger flush and start for CWB
+>       drm/msm/dpu: Reorder encoder kickoff for CWB
+>       drm/msm/dpu: Set possible clones for all encoders
+> 
+>  drivers/gpu/drm/drm_atomic_helper.c                |  28 ++
+>  drivers/gpu/drm/drm_crtc.c                         |  20 +
+>  drivers/gpu/drm/msm/Makefile                       |   1 +
+>  .../drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h    |  29 +-
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h |   4 +-
+>  .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    |   4 +-
+>  .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h |   4 +-
+>  .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   |   4 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           | 208 ++++++++-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 463 ++++++++++++---------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  14 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |   7 +-
+>  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  16 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  13 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  30 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |  15 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cwb.c         |  73 ++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cwb.h         |  70 ++++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |  15 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          |   4 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  12 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |  13 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             | 361 +++++++++-------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h             |  13 +-
+>  drivers/gpu/drm/tests/drm_atomic_state_test.c      | 133 +++++-
+>  include/drm/drm_crtc.h                             |   2 +-
+>  26 files changed, 1172 insertions(+), 384 deletions(-)
+> ---
+> base-commit: 86313a9cd152330c634b25d826a281c6a002eb77
+> change-id: 20240618-concurrent-wb-97d62387f952
+> prerequisite-change-id: 20241209-abhinavk-modeset-fix-74864f1de08d:v3
+> prerequisite-patch-id: a197a0cd4647cb189ea20a96583ea78d0c98b638
+> prerequisite-patch-id: 112c8f1795cbed989beb02b72561854c0ccd59dd
+> 
+> Best regards,
 > -- 
-> 2.34.1
+> Jessica Zhang <quic_jesszhan@quicinc.com>
 > 
 
 -- 
