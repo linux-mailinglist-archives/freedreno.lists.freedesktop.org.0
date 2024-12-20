@@ -1,67 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E86499F8A38
-	for <lists+freedreno@lfdr.de>; Fri, 20 Dec 2024 03:50:16 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A2EC9F8A40
+	for <lists+freedreno@lfdr.de>; Fri, 20 Dec 2024 03:52:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA21210E4E8;
-	Fri, 20 Dec 2024 02:50:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58BE410EE41;
+	Fri, 20 Dec 2024 02:52:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Ybi1JurR";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="KDTyvWI9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC93210EE3B
- for <freedreno@lists.freedesktop.org>; Fri, 20 Dec 2024 02:50:14 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-3011c7b39c7so17519501fa.1
- for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 18:50:14 -0800 (PST)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 041E310EE44
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Dec 2024 02:52:50 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-3035046d4bfso13119401fa.0
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 18:52:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734663013; x=1735267813; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1734663168; x=1735267968; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=OQxnzZwa+ZnAwPhXEuB51NoHRLnVz5kTCi7LiEOiNBA=;
- b=Ybi1JurRBCUxbZKCsO+k1nWRO9OtUlrcc31wpdI+B4doBJu3Oo2jc2OJ2W/GWK68Ik
- 8LSHO77xmkgRM9AYnqc90j0zAdybvWChSeMSPjG0kiW3Yi9IN0jYUPCZdltvl9apcXMt
- SWFG96oVso3OuSTv8nIV4ThIV7Wyl6mqS0sopEJeQmAsX7aUOsypa5bIUetzSbd1VZOQ
- YOoHpLKkNMD4OmGN4xyIc4FVkDNTwjdoVwfd50TVqDuZb6WLr00LfiM4zrEkDFDcSGFI
- /qjNASsiRX2VxnU25/6sN3iPl7D15vCpyg/S1XkCyULqNFw+mZaluHlp/YYrRspLlcpf
- GXUg==
+ bh=ebM7tOJNXrOcKqbKfZBRf27LYz9fqH9eU/pGhDf6OYI=;
+ b=KDTyvWI9Vdr6JrcUCL4CiFioYQ4rEBuH8uAK4h8+Y7kDxAr75qTZzE8ERUjR9Dpm8r
+ XEw70n8m6KvOGr6SRu4tNw9hIjv+3cNGP0xnGSo1iF1e0FXbkR8yCohjqSAEX2I6D32f
+ GFPa2UcEv5REQkhniZ8lCGRV/KKY8IAn1CBStKc5SyYjDxcifssXHVXFD4ni74+MJEOQ
+ 50Iv/vEi//D5USzQk/UFx4UnyCgnuWyglUC8Fu8Zau50YrJm7a6IR9qXqn1BNx6BrjN6
+ figgDrgyW6IQf47FW5CGxEykx9KjLNGFXl4WEJcNymWwnkqbmc77T7Xg2qqVUA4Y7Jdf
+ YDyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734663013; x=1735267813;
+ d=1e100.net; s=20230601; t=1734663168; x=1735267968;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OQxnzZwa+ZnAwPhXEuB51NoHRLnVz5kTCi7LiEOiNBA=;
- b=lIhFK9qkkHISbiTbQMhUERGQhRg9QmYh11i9Ja6wWQ4ZI6zCvw8+NnQ8QclHTzW+t4
- yrg+XyRQKm5fbLVZe3RzfLtBMFic1U11LOiCFp1rkWV8MVAPb3yDDb2DH/MgWhzDToHq
- /UL6Dk62NlG0CSZ94VQQT6vEINv+Xfm1402uywv9xrEO6i6/uHJF10C0FXtl99PBXW9m
- i+IG59D/b87kchf3I7WRGXJwV1bTtFn0cibRyN6SFgz71IqpDPsLpEO3mA13b63bV0bG
- KbmgfYHc9eu8O/6R3bNsA+/kIfMsONDAMp0AS3o7NJoiSeM8HSLVfXPbxcZzsL9CTPJ0
- k/EA==
+ bh=ebM7tOJNXrOcKqbKfZBRf27LYz9fqH9eU/pGhDf6OYI=;
+ b=Wq/rSr6n2zsWABUh5/50jVb6pEYbpTGoPZA764qzktydxJ1eJlQ1ycb2MsHXGdGeri
+ PdHliuJpKgCYsqiXMgCqxZAO9PC+wKAu9lsr9V8d+lW/rWnzJx2MhZpDJFC1inu8/bTO
+ hW9ZFsdLHDHX5LUYn7kt68uNo67LUK/mbjamqLJ2ca6JS6cYhHHHvLDemnnYhZ+9U05M
+ scYgGGBlgdZ6YzHUV1CxdhI87giewtNC37MqIfYjSqDkkbPRrWtIVr9rfoZvFB3offwC
+ msweHTv5JduY4L6l1rPvb27wIczDEIV3A8bi9k42aGW77qlBBjDOZnRxE9ds/B5LrfWW
+ nDGQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVawGUEvFz5Z+TrmYZyF888M6BoItGi7hXcjhcYNJQMSRjI0nPWyKOAlU/6N3P+m6QmxWenudAXROg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxNvDuatleL9U/4QB59AihnWyuxonKyICqZgxADz3dmCcCOc9DC
- pnI3KuOW+pdWm09t/ax2uwqdyG8zeHMrKJrq2QtHBMZOIJV9OvouwI8LB2cpS4A=
-X-Gm-Gg: ASbGncsZ36fujyTdKF0b831+yKKNfYQVeSSzLA/rjEhPXGvgwlc96897LhgD7uNsfrd
- 4H20LqcYcvwcxNEPh7Z7VO3dTqWYsNfML/vFOfZSdfUyUqlq24aHDZPveQlI9IjAAHd4sj3xEyB
- f2th61DrMTlVOU/PyGk/N7U7O2V35TtCAcDd8ENEK753t96RraUab+VFSueFZ6ca9Civk+3Fbx/
- pqPMHv3HEn/fphD7a1dYVUrAhciFlf0EHDOaaCipLzDDCVGqH7dq/b4USsAJRLibxlwkVFZ1T/h
- /jCoSPP4BlKbuAjOqfVKMqBHT4Vxs5PvpMm8
-X-Google-Smtp-Source: AGHT+IHdCv0cpuv0cv13SlSAzLvj/BCq6RPapfQEGLkKmPf/kAnzx0OxyR7cOGcNzeydGUW5qnYdAQ==
-X-Received: by 2002:a05:651c:198a:b0:302:3c78:4ea4 with SMTP id
- 38308e7fff4ca-304685f7231mr3770121fa.30.1734663013096; 
- Thu, 19 Dec 2024 18:50:13 -0800 (PST)
+ AJvYcCXnwkgZCSt1Yi/fxnD835rAiEJ85a4tG8Go9Bj8/dLlVPwXTn/PTnbgvJAkvmYHgZVTzAlSUSp0KZo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEHth5pE09WsixcgUHQrvhIwi5eDJJWx4oDQO6woD0970N1X7M
+ 4S23KaPAntocVxCgHnqL/l8acuekHqO7IO0pIARW6Y+XeKWntwBy8VKFABVUllw=
+X-Gm-Gg: ASbGncuJS43WPnwqV3birfUTg8uHiZrnZ+ADCPEsNPbVgsoUEp5r/XpOTnJtaliYSlm
+ YNwFmq5vIZLy7z8OaoKSQiVZt7mmKM/jSycCV2T/4tCmphxP/eKU2QNH1jKUNKTzVFjBa3dnXB0
+ VACpZrYLsKAoauDG3zRws8+AJE6mzWn05L00Rct1aMQF6XpWP1ia2LMz7gXSEBI5ubAWS5mnAy0
+ jkevDkyosO2VPxGn1+B/lwqSPdj2TBYz2ZrsllJTwnatKIQCrtrX+1V0XK+5SI6pFpfX+AlDkJB
+ cH0B3PdW5Cb3ol6UI7EBShNkuE4tl2HROBSt
+X-Google-Smtp-Source: AGHT+IFzV02MmKGDXd0vt9D85TphrHv4eqZedjbESCKzHnuM85tjxczSguvaGOLKOyaBAMIioabuNQ==
+X-Received: by 2002:a2e:b887:0:b0:300:324e:3506 with SMTP id
+ 38308e7fff4ca-304685462d0mr3804721fa.13.1734663168283; 
+ Thu, 19 Dec 2024 18:52:48 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3045ad6c504sm4057041fa.10.2024.12.19.18.50.10
+ 38308e7fff4ca-3045adad6dcsm3964691fa.60.2024.12.19.18.52.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Dec 2024 18:50:11 -0800 (PST)
-Date: Fri, 20 Dec 2024 04:50:09 +0200
+ Thu, 19 Dec 2024 18:52:47 -0800 (PST)
+Date: Fri, 20 Dec 2024 04:52:45 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Jessica Zhang <quic_jesszhan@quicinc.com>, 
@@ -76,16 +76,16 @@ Cc: Jessica Zhang <quic_jesszhan@quicinc.com>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>,
  Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v4 07/25] drm/msm/dpu: move resource allocation to CRTC
-Message-ID: <nkb5dr5v3vs4h4rcg4q2hwy6iubjfzihrx2cafarbf2qq7axhd@qdqncv6kfwp2>
+Subject: Re: [PATCH v4 08/25] drm/msm/dpu: fill CRTC resources in dpu_crtc.c
+Message-ID: <otki3hdn7fo6rico32cxi2jkqollzl2ncl5yhukmrwgthupg5i@z66y3ykeuy3r>
 References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
- <20241216-concurrent-wb-v4-7-fe220297a7f0@quicinc.com>
- <b329e872-3e1e-45e3-bff6-bf6ad2c11144@quicinc.com>
- <y2qtp2avw7hjkweh3svfwr6ytvg54lmhqiowfjeiufnyhxiryw@vb4mwnyi2ict>
+ <20241216-concurrent-wb-v4-8-fe220297a7f0@quicinc.com>
+ <097a3d10-0992-46a4-8f89-aa54538c9776@quicinc.com>
+ <pqy2qa2ikvadchox3jtrfuimmzeauuxkuyalpelzzfjzsddk3i@htband4aqjxr>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <y2qtp2avw7hjkweh3svfwr6ytvg54lmhqiowfjeiufnyhxiryw@vb4mwnyi2ict>
+In-Reply-To: <pqy2qa2ikvadchox3jtrfuimmzeauuxkuyalpelzzfjzsddk3i@htband4aqjxr>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,92 +101,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Dec 20, 2024 at 04:32:34AM +0200, Dmitry Baryshkov wrote:
-> On Mon, Dec 16, 2024 at 05:47:50PM -0800, Abhinav Kumar wrote:
+On Fri, Dec 20, 2024 at 04:40:52AM +0200, Dmitry Baryshkov wrote:
+> On Mon, Dec 16, 2024 at 05:39:15PM -0800, Abhinav Kumar wrote:
 > > 
 > > 
 > > On 12/16/2024 4:43 PM, Jessica Zhang wrote:
 > > > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > > > 
-> > > All resource allocation is centered around the LMs. Then other blocks
-> > > (except DSCs) are allocated basing on the LMs that was selected, and LM
-> > > powers up the CRTC rather than the encoder.
-> > > 
-> > > Moreover if at some point the driver supports encoder cloning,
-> > > allocating resources from the encoder will be incorrect, as all clones
-> > > will have different encoder IDs, while LMs are to be shared by these
-> > > encoders.
+> > > Stop poking into CRTC state from dpu_encoder.c, fill CRTC HW resources
+> > > from dpu_crtc_assign_resources().
 > > > 
 > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > [quic_abhinavk@quicinc.com: Refactored resource allocation for CDM]
+> > > [quic_abhinavk@quicinc.com: cleaned up formatting]
 > > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > [quic_jesszhan@quicinc.com: Changed to grabbing exising global state]
 > > > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 > > > ---
-> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  86 ++++++++++
-> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 256 ++++++++++------------------
-> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |   8 +
-> > >   3 files changed, 181 insertions(+), 169 deletions(-)
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 29 +++++++++++++++++++++++++++++
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  4 ++--
+> > >   2 files changed, 31 insertions(+), 2 deletions(-)
 > > > 
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > index 9f6ffd344693ecfb633095772a31ada5613345dc..186ed84f59f16997716fe216e635b8dce07a63a1 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > @@ -1182,6 +1182,78 @@ static bool dpu_crtc_needs_dirtyfb(struct drm_crtc_state *cstate)
-> > >   	return false;
-> > >   }
 > > 
 > > <snip>
 > > 
-> > > +static bool dpu_encoder_needs_dsc_merge(struct drm_encoder *drm_enc)
-> > >   {
-> > > -	struct dpu_crtc_state *cstate;
-> > > -	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
-> > > -	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-> > > -	struct dpu_hw_blk *hw_dspp[MAX_CHANNELS_PER_ENC];
-> > > -	int num_lm, num_ctl, num_dspp, i;
-> > > -
-> > > -	cstate = to_dpu_crtc_state(crtc_state);
-> > > -
-> > > -	memset(cstate->mixers, 0, sizeof(cstate->mixers));
-> > > -
-> > > -	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > index 2b999a0558b2a016644ed5d25bf54ab45c38d1d9..a895d48fe81ccc71d265e089992786e8b6268b1b 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > @@ -1138,7 +1138,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+> > >   	struct dpu_hw_blk *hw_pp[MAX_CHANNELS_PER_ENC];
+> > >   	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
+> > >   	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
+> > > -	int num_ctl, num_pp, num_dsc;
+> > > +	int num_pp, num_dsc, num_ctl;
+> > >   	unsigned int dsc_mask = 0;
+> > >   	int i;
+> > > @@ -1166,7 +1166,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+> > >   		drm_enc->crtc, DPU_HW_BLK_PINGPONG, hw_pp,
+> > >   		ARRAY_SIZE(hw_pp));
+> > >   	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
 > > > -		drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
-> > > -	num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > -		drm_enc->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
-> > > -	num_dspp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > -		drm_enc->crtc, DPU_HW_BLK_DSPP, hw_dspp,
-> > > -		ARRAY_SIZE(hw_dspp));
-> > > +	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
-> > > +	u32 num_intf = 0;
-> > > +	u32 num_dsc = 0;
-> > > +	int i;
-> > > -	for (i = 0; i < num_lm; i++) {
-> > > -		int ctl_idx = (i < num_ctl) ? i : (num_ctl-1);
-> > > +	for (i = 0; i < MAX_PHYS_ENCODERS_PER_VIRTUAL; i++)
-> > > +		if (dpu_enc->phys_encs[i])
-> > > +			num_intf++;
-> > > -		cstate->mixers[i].hw_lm = to_dpu_hw_mixer(hw_lm[i]);
-> > > -		cstate->mixers[i].lm_ctl = to_dpu_hw_ctl(hw_ctl[ctl_idx]);
-> > > -		cstate->mixers[i].hw_dspp = i < num_dspp ? to_dpu_hw_dspp(hw_dspp[i]) : NULL;
-> > > -	}
-> > > +	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
-> > > +	if (dpu_enc->dsc)
-> > > +		num_dsc += 2;
+> > > +			drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+> > >   	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
+> > >   		dpu_enc->hw_pp[i] = i < num_pp ? to_dpu_hw_pingpong(hw_pp[i])
+> > > 
 > > 
-> > As we requested in v3, can you please explain why we have num_dsc +=2
-> > instead of just num_dsc = 2? If we are hard-coding 2:2:1, this should be
-> > just num_dsc = 2.
+> > This chunk of diff is unnecessary. You are just changing the order of
+> > defines and fixing alignment. Does not have to be in this change.
 > 
-> I'll drop it while applying a first part of the series. Granted that
-> num_dsc is initialized to 0 few lines above, it should be fine.
-> 
-> If later there is a need to change the lane, it can be done in a
-> consequent patch.
+> I can drop it while applying.
 
-Forgot to add:
-
-With that change,
+And with that in place:
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
