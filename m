@@ -1,88 +1,89 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CA339F8C3E
-	for <lists+freedreno@lfdr.de>; Fri, 20 Dec 2024 07:00:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 223FC9F99B6
+	for <lists+freedreno@lfdr.de>; Fri, 20 Dec 2024 19:46:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 053B310E06F;
-	Fri, 20 Dec 2024 06:00:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 021FE10E28C;
+	Fri, 20 Dec 2024 18:46:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="uAP4YjT9";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Eq5GpUu8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE2A10EECD
- for <freedreno@lists.freedesktop.org>; Fri, 20 Dec 2024 06:00:32 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-53e3a90336eso1650149e87.3
- for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 22:00:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734674430; x=1735279230; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=lztogWLUolK8A0gjuG8auzrWDWfVBR792pZiblADSI0=;
- b=uAP4YjT94G8JRuvf8F0ETy0dm9UXrwmnebyLJjHENOuTS9uoklDyRMEQ7mxHbkw5zW
- v5tejYkP3IVwm+X03sclUFipaN3iT99aKxLl4YRyj+/nXJrrSYG+AdhPOhKLZULX1jTE
- QLQm6hBEwow1vxjXJ2zgiNcsGpielZSWkddMuxMXrJkwH/3zhWaxoHPpYYEKG+ikAs3j
- fxtqReu/AnlyE4HOZyswN8gMUr3HWA2oq/U9pSgQRBaeHt45+1oq+Wf59f4pGyLr6qDH
- UnNA1NxIvKpbczfGLHWq3cpG0eG58LTyWO5sWGQUBzBtFrDv2Is7GiwNoKYsNd6VIm/y
- SBWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734674430; x=1735279230;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lztogWLUolK8A0gjuG8auzrWDWfVBR792pZiblADSI0=;
- b=dKY0IYvd/Gvlzmg9imCVekHElpETILPUY2FlNE7+uBn2BMNL5AemPL5lmGrix4MGwh
- M8XQLim99LXWZAk1zwQv7Agj29Ebbw6+dnGvTWdP7rWzpsEoNQIliCidqe5/3+WJ4XBA
- vR8SeEaPro+8rkwKE0aOL6WPJWT24WC0V3rC7fI+xkA++OsA7s4EK4v7B899tAf87IG2
- MXmTO7r1O0luRLLe6m69xiGOMrEJekIOSNwiK/ogTBNfshHWQ9NWU4PipJzHNyi/n3M9
- 4R2C0ihBgzfUjnMdw2WXuUj8ueaVHLznwTUKaqgEiCCWoHPGsJopEM8mI1ZLsLh/JwBZ
- MyfA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVT2EcgmFwPbvcqeFtFg6uA1IQAP4WUqYyvcibU4ARL0QYyJzIOUhD3dfeMuj8dHcN/qr3j9AY1otA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwYzy0cO+i1hUt6LD5pu89XJDy7icy8mpTvLk/8H0DxCt4nYr6M
- kA+4JPuEuCVEBje6+wDwW/Fm+CYIBHoz6pU6QVPqzQRx+U+VzGD9r4PInP3jdaE=
-X-Gm-Gg: ASbGncuRSPVOGfLS8nBNPfDbTH/LM4PduVeURNHZl2xoJ9e5gHkIKKJU23P4Zce4XH+
- XMKuagoFXe41ACMDGafz8Akqov5WyZVaFzHo9t+pQ9hCi/ddDjmcBo5BDF/WjelJ2JlZUUIxXww
- Oz1Xlce0oAqv+FVzwdeA0q8MLO5v1nUMDlye0jM0JZf41LJHu5lOTDj4/6oakV9fwfplDF6y1jF
- DGDJ/DTMpv7IHVAoidV2avPNFFteVNcq4tM7NdM+HiAaPLUeC1tahyQ/GCqWnQMPWppJGVPxTee
- kr2rClnINHd6sclWVkQglVQDw+xbsykaQW4/
-X-Google-Smtp-Source: AGHT+IFiEdq38m3N3tZdESWDddegsXGp5KSA4zDLDiDMTHVXrl2c04WWztsil1xL9Q1eYop5O6E+PA==
-X-Received: by 2002:a05:6512:3405:b0:542:2a8b:d56f with SMTP id
- 2adb3069b0e04-5422a8bd614mr136330e87.4.1734674430475; 
- Thu, 19 Dec 2024 22:00:30 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54223835779sm379307e87.282.2024.12.19.22.00.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Dec 2024 22:00:29 -0800 (PST)
-Date: Fri, 20 Dec 2024 08:00:26 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>, 
- quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, 
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v4 24/25] drm/msm/dpu: Reorder encoder kickoff for CWB
-Message-ID: <dszctcu5mm4hudc53gqpjklcugah5lisvvfkbmejeywgceqyl5@dqzopvt2lb7s>
-References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
- <20241216-concurrent-wb-v4-24-fe220297a7f0@quicinc.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A210A10E28C;
+ Fri, 20 Dec 2024 18:46:40 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BKEftbF004119;
+ Fri, 20 Dec 2024 18:46:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ wH9sjjTLNsednl9KvYJYyboXzZHS5O4rpgDhve2StH0=; b=Eq5GpUu8wjbYV9ms
+ o+PhSkCrSwHe5Q7v4KjPDQzpGHUrhzDnbQuCe+TJvelSkv5V681Pqi32XP0cb7Cj
+ 5nzcFAPBGvvoloqD1pjuA58TITCkdmpZX7z4+6kuT5AZB0HCD5dnnzJLrmtnf7cO
+ uiOK4gXiWWS9WuMJOYwlRvL29GuL0z/rU366/wiQoxRAnG7e+N6Cm7XSjQnhyUwz
+ 3IOnlbqYTFaXgc8y1V08v5qvOl+q7eJ5AWiFB4uOJOCD25HclhhyDusk8dVXxk/h
+ QFomQtdjguDVdtFqSuqKgugMpuVa36du3mZOXSgHbobISRa2sCNxAfwfGzlgA44a
+ S9HnpQ==
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43najt0pa8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 20 Dec 2024 18:46:32 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BKIkWmI003227
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 20 Dec 2024 18:46:32 GMT
+Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 20 Dec
+ 2024 10:46:30 -0800
+Message-ID: <07fbc2c9-900a-4a88-8af0-cbe95fa2469e@quicinc.com>
+Date: Fri, 20 Dec 2024 10:46:29 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241216-concurrent-wb-v4-24-fe220297a7f0@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/25] drm/msm/dpu: Add Concurrent Writeback Support
+ for DPU 10.x+
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>, Sean Paul
+ <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "David
+ Airlie" <airlied@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Simona Vetter <simona.vetter@ffwll.ch>, <quic_ebharadw@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ Rob Clark <robdclark@chromium.org>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>
+References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
+ <kx22rzwg5464f4m24u6ybnv3wcey2hffueg5pwd6t523lpjdsp@b4wj6qgcgvmk>
+Content-Language: en-US
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <kx22rzwg5464f4m24u6ybnv3wcey2hffueg5pwd6t523lpjdsp@b4wj6qgcgvmk>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: NNU6YpNTKzr0T8iAySDZkKyWFADho3UK
+X-Proofpoint-ORIG-GUID: NNU6YpNTKzr0T8iAySDZkKyWFADho3UK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 mlxscore=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ clxscore=1015 suspectscore=0 phishscore=0 spamscore=0 bulkscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412200151
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,36 +99,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 16, 2024 at 04:43:35PM -0800, Jessica Zhang wrote:
-> Add a helper that will handle the correct order of the encoder kickoffs
-> for concurrent writeback.
-> 
-> For concurrent writeback, the realtime encoder must always kickoff last
-> as it will call the trigger flush and start.
-> 
-> This avoids the following scenario where the writeback encoder
-> increments the pending kickoff count after the WB_DONE interrupt is
-> fired:
-> 
-> If the realtime encoder is kicked off first, the encoder kickoff will
-> flush/start the encoder and increment the pending kickoff count. The
-> WB_DONE interrupt then fires (before the writeback encoder is kicked
-> off). When the writeback encoder enters its kickoff, it will skip the
-> flush/start (due to CWB being enabled) and hit a frame done timeout
-> as the frame was kicked off (and the WB_DONE interrupt fired) without
-> the pending kickoff count being incremented.
-> 
-> In addition, the writeback timer should only start after the realtime
-> encoder is kicked off to ensure that we don't get timeouts when the
-> system has a heavy load (ex. when debug logs are enabled)
-> 
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 74 ++++++++++++++++++++++++++------
->  1 file changed, 60 insertions(+), 14 deletions(-)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
--- 
-With best wishes
-Dmitry
+On 12/19/2024 9:11 PM, Dmitry Baryshkov wrote:
+> On Mon, Dec 16, 2024 at 04:43:11PM -0800, Jessica Zhang wrote:
+>> DPU supports a single writeback session running concurrently with primary
+>> display when the CWB mux is configured properly. This series enables
+>> clone mode for DPU driver and adds support for programming the CWB mux
+>> in cases where the hardware has dedicated CWB pingpong blocks. Currently,
+>> the CWB hardware blocks have only been added to the SM8650
+>> hardware catalog and only DSI has been exposed as a possible_clone of WB.
+>>
+>> This changes are split into two parts:
+>>
+>> The first part of the series will pull in Dmitry's patches to refactor
+>> the DPU resource manager to be based off of CRTC instead of encoder.
+>> This includes some changes (noted in the relevant commits) by me and
+>> Abhinav to fix some issues with getting the global state and refactoring
+>> the CDM allocation to work with Dmitry's changes.
+> 
+> To provide a sensible baseline for both CWB and Quad-Pipe changes I'm
+> going to pull patches 5-14 (those which refactor the resource allocation
+> and also those adding support for the CWB hardware block). The core DRM
+> patches should probably go in through drm-misc-next.
+
+Ack, thanks for all the help with reviews!
+
+- Jessica Zhang
+
+> 
+>>
+>> The second part of the series will add support for CWB by doing the
+>> following:
+>>
+>> 1) Add a DRM helper to detect if the current CRTC state is in clone mode
+>>     and add an "in_clone_mode" entry to the atomic state print
+>> 2) Add the CWB mux to the hardware catalog and clarify the pingpong
+>>     block index enum to specifiy which pingpong blocks are dedicated to
+>>     CWB only and which ones are general use pingpong blocks
+>> 3) Add CWB as part of the devcoredump
+>> 4) Add support for configuring the CWB mux via dpu_hw_cwb ops
+>> 5) Add pending flush support for CWB
+>> 6) Add support for validating clone mode in the DPU CRTC and setting up
+>>     CWB within the encoder
+>> 7) Adjust the encoder trigger flush, trigger start, and kickoff order to
+>>     accomodate clone mode
+>> 8) Adjust when the frame done timer is started for clone mode
+>> 9) Define the possible clones for DPU encoders so that
+>>
+>> The feature was tested on SM8650 using IGT's kms_writeback test with the
+>> following change [1] and dumping the writeback framebuffer when in clone
+>> mode. I haven't gotten the chance to test it on DP yet, but I've
+>> validated both single and dual LM on DSI.
+>>
+>> To test CWB with IGT, you'll need to apply this series [1] and this
+>> driver patch [2]. Run the following command to dump the writeback buffer:
+>>
+>> IGT_FRAME_DUMP_PATH=<dump path> FRAME_PNG_FILE_NAME=<file name> \
+>> ./build/tests/kms_writeback -d [--run-subtest dump-valid-clones] \
+>>
+>> You can also do CRC validation by running this command:
+>>
+>> ./build/tests/kms_writeback [--run-subtest dump-valid-clones]
+>>
+>> [1] https://patchwork.freedesktop.org/series/137933/
+>> [2] https://patchwork.freedesktop.org/series/138284/
+>>
+>> ---
+>> Changes in v4:
+>> - Rebased onto latest msm-next
+>> - Added kunit tests for framework changes
+>> - Skip valid clone check for encoders that don't have any possible clones set
+>>    (this is to avoid failing kunit tests, specifically the HDMI state helper tests)
+>> - Link to v3: https://lore.kernel.org/r/20241016-concurrent-wb-v3-0-a33cf9b93835@quicinc.com
+>>
+>> Changes in v3:
+>> - Dropped support for CWB on DP connectors for now
+>> - Dropped unnecessary PINGPONG array in *_setup_cwb()
+>> - Add a check to make sure CWB and CDM aren't supported simultaneously
+>>    (Dmitry)
+>> - Document cwb_enabled checks in dpu_crtc_get_topology() (Dmitry)
+>> - Moved implementation of drm_crtc_in_clone_mode() to drm_crtc.c (Jani)
+>> - Dropped duplicate error message for reserving CWB resources (Dmitry)
+>> - Added notes in framework changes about posting a separate series to
+>>    add proper KUnit tests (Maxime)
+>> - Added commit message note addressing Sima's comment on handling
+>>    mode_changed (Dmitry)
+>> - Formatting fixes (Dmitry)
+>> - Added proper kerneldocs (Dmitry)
+>> - Renamed dpu_encoder_helper_get_cwb() -> *_get_cwb_mask() (Dmitry)
+>> - Capitalize all instances of "pingpong" in comments (Dmitry)
+>> - Link to v2: https://lore.kernel.org/r/20240924-concurrent-wb-v2-0-7849f900e863@quicinc.com
+>>
+>> Changes in v2:
+>> - Moved CWB hardware programming to its own dpu_hw_cwb abstraction
+>>    (Dmitry)
+>> - Reserve and get assigned CWB muxes using RM API and KMS global state
+>>    (Dmitry)
+>> - Dropped requirement to have only one CWB session at a time
+>> - Moved valid clone mode check to DRM framework (Dmitry and Ville)
+>> - Switch to default CWB tap point to LM as the DSPP
+>> - Dropped printing clone mode status in atomic state (Dmitry)
+>> - Call dpu_vbif_clear_errors() before dpu_encoder_kickoff() (Dmitry)
+>> - Squashed setup_input_ctrl() and setup_input_mode() into a single
+>>    dpu_hw_cwb op (Dmitry)
+>> - Moved function comment docs to correct place and fixed wording of
+>>    comments/commit messages (Dmitry)
+>> - Grabbed old CRTC state using proper drm_atomic_state API in
+>>    dpu_crtc_atomic_check() (Dmitry)
+>> - Split HW catalog changes of adding the CWB mux block and changing the
+>>    dedicated CWB pingpong indices into 2 separate commits (Dmitry)
+>> - Moved clearing the dpu_crtc_state.num_mixers to "drm/msm/dpu: fill
+>>    CRTC resources in dpu_crtc.c" (Dmitry)
+>> - Fixed alignment and other formatting issues (Dmitry)
+>> - Link to v1: https://lore.kernel.org/r/20240829-concurrent-wb-v1-0-502b16ae2ebb@quicinc.com
+>>
+>> ---
+>> Dmitry Baryshkov (4):
+>>        drm/msm/dpu: get rid of struct dpu_rm_requirements
+>>        drm/msm/dpu: switch RM to use crtc_id rather than enc_id for allocation
+>>        drm/msm/dpu: move resource allocation to CRTC
+>>        drm/msm/dpu: fill CRTC resources in dpu_crtc.c
+>>
+>> Esha Bharadwaj (3):
+>>        drm/msm/dpu: Add CWB entry to catalog for SM8650
+>>        drm/msm/dpu: add devcoredumps for cwb registers
+>>        drm/msm/dpu: add CWB support to dpu_hw_wb
+>>
+>> Jessica Zhang (18):
+>>        drm: add clone mode check for CRTC
+>>        drm/tests: Add test for drm_crtc_in_clone_mode()
+>>        drm: Add valid clones check
+>>        drm/tests: Add test for drm_atomic_helper_check_modeset()
+>>        drm/msm/dpu: Specify dedicated CWB pingpong blocks
+>>        drm/msm/dpu: Add dpu_hw_cwb abstraction for CWB block
+>>        drm/msm/dpu: Add RM support for allocating CWB
+>>        drm/msm/dpu: Add CWB to msm_display_topology
+>>        drm/msm/dpu: Require modeset if clone mode status changes
+>>        drm/msm/dpu: Fail atomic_check if CWB and CDM are enabled
+>>        drm/msm/dpu: Reserve resources for CWB
+>>        drm/msm/dpu: Configure CWB in writeback encoder
+>>        drm/msm/dpu: Support CWB in dpu_hw_ctl
+>>        drm/msm/dpu: Adjust writeback phys encoder setup for CWB
+>>        drm/msm/dpu: Start frame done timer after encoder kickoff
+>>        drm/msm/dpu: Skip trigger flush and start for CWB
+>>        drm/msm/dpu: Reorder encoder kickoff for CWB
+>>        drm/msm/dpu: Set possible clones for all encoders
+>>
+>>   drivers/gpu/drm/drm_atomic_helper.c                |  28 ++
+>>   drivers/gpu/drm/drm_crtc.c                         |  20 +
+>>   drivers/gpu/drm/msm/Makefile                       |   1 +
+>>   .../drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h    |  29 +-
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h |   4 +-
+>>   .../drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h    |   4 +-
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h |   4 +-
+>>   .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   |   4 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           | 208 ++++++++-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 463 ++++++++++++---------
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  14 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |   7 +-
+>>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  16 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  13 +
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  30 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |  15 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cwb.c         |  73 ++++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cwb.h         |  70 ++++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |  15 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          |   4 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  12 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |  13 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             | 361 +++++++++-------
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h             |  13 +-
+>>   drivers/gpu/drm/tests/drm_atomic_state_test.c      | 133 +++++-
+>>   include/drm/drm_crtc.h                             |   2 +-
+>>   26 files changed, 1172 insertions(+), 384 deletions(-)
+>> ---
+>> base-commit: 86313a9cd152330c634b25d826a281c6a002eb77
+>> change-id: 20240618-concurrent-wb-97d62387f952
+>> prerequisite-change-id: 20241209-abhinavk-modeset-fix-74864f1de08d:v3
+>> prerequisite-patch-id: a197a0cd4647cb189ea20a96583ea78d0c98b638
+>> prerequisite-patch-id: 112c8f1795cbed989beb02b72561854c0ccd59dd
+>>
+>> Best regards,
+>> -- 
+>> Jessica Zhang <quic_jesszhan@quicinc.com>
+>>
+> 
+> -- 
+> With best wishes
+> Dmitry
+
