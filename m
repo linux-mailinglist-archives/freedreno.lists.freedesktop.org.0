@@ -1,74 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6BE89F8968
-	for <lists+freedreno@lfdr.de>; Fri, 20 Dec 2024 02:28:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D1319F896B
+	for <lists+freedreno@lfdr.de>; Fri, 20 Dec 2024 02:28:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD3310E4DB;
-	Fri, 20 Dec 2024 01:28:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAEE710EE22;
+	Fri, 20 Dec 2024 01:28:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eXZr3AV1";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JtMeDirY";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD5A710E4CC
- for <freedreno@lists.freedesktop.org>; Fri, 20 Dec 2024 01:28:34 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-3003943288bso14470031fa.0
- for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 17:28:34 -0800 (PST)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B474710E008
+ for <freedreno@lists.freedesktop.org>; Fri, 20 Dec 2024 01:28:36 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-53e3a5fa6aaso2675759e87.0
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Dec 2024 17:28:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734658113; x=1735262913; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=RZqz3kYMnmiLR7o48J3cbcxBhI/4j/BPeIiFeEsL6FU=;
- b=eXZr3AV12pp4y+KSFgC36NQE0mSZ+yQWiZ3xF+wZlb+Xe1siDm5J+rfI+Ioo7WmQTY
- 4/x01rt1P7w1N3d1TQpmJVl2PQxzrGIJ6/127wO4hc5ZnhsxA28+MSjFpI2hq1IW5Pws
- TqZZqUuKyAKAvm6/F5uCLlJEz9k7zRUkOF2iTwk5BhdmvqcV9JnBXabBXUpjhDV7vI3+
- JL50j9zzxtFIiukRvsxGrstPyeFnTmL72WUfgU72To/S9EvLwwTsp7dU5ENdqsEKZ9jO
- jxtm6JOenV2B6iCgm7OlGxd0/F9++KKSAU5H6/3AKfiUKX0EXzbtg4cPdE0AraYCsfOM
- K+Ww==
+ d=linaro.org; s=google; t=1734658115; x=1735262915; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=7bHjE0IB/vPqzg640QI5Oh3Go2fZYjsbzOVZvfoGOak=;
+ b=JtMeDirYkGiK+kjn4iFrjQW3YkwwR08jnZpMAhe6PAv9hLnSr0+HKBqp3BNcYNcqX4
+ /ConfmGzB1/JcKr4RaUJ2J9vJFr33K2QW8YpmMPqTT8SyFy0X02lOrtI0H2hHb6B8pYC
+ jzEeVhNu/LSpzTfeU2i0yRkq0/7TLqTqKDa11x+3FzAvfjswCkl/jMnsHRiH9cln0ukn
+ Zsdw0HY1Jv3PIBSPVdPsRbxi70cKNze6PVCs2KnGmV8HIjPs7sjaClfheUvUHf8tYP8j
+ UEmnKKhIjHl1zPdzubJAd54Prsqpl6n6c/xZs6VWky9WYjLmUBczLj2ppysCx7CiOVX+
+ jS1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734658113; x=1735262913;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=RZqz3kYMnmiLR7o48J3cbcxBhI/4j/BPeIiFeEsL6FU=;
- b=m/UYszClkgBiCTkPt1ev07qUkOVmb1c36izUJzmtBpKwzTLW+/GMI/5vwjOA38nHi2
- YeV2v5jsoJ40lC47IDmLVb78uShoWphlY/GeV/tKD13DRwW7Kgz7IiWbMfWlWg0stNso
- zIgoR+kMXmjV350UVSlwpnfH+WeB5q9yw4HWgzsfXdj3ZjCRZWwmGiRRGvmo0MRx4r0m
- oXWzj+04FLfpTqdF/ReXE0SyCFV2X+kK8dJtRIpHvEhbKglvu2cOT5AEHFFcg07y3i07
- Lcr9E7Mens+2/c+FzS1STEFha+tyaXSVxZown+6pniXTTmCPoMCRjSyIS6/in0Yo6k+n
- Nsqw==
+ d=1e100.net; s=20230601; t=1734658115; x=1735262915;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=7bHjE0IB/vPqzg640QI5Oh3Go2fZYjsbzOVZvfoGOak=;
+ b=sd7k3pxkf4g7s/EUkNwHQDNVRFhakn3g6PtKfSlJKsKf89MQDhXd0L4uzM0Ll0BD1i
+ 6EQT0SxOSuhRjQ7PplBP0TYLa2zRUyheZBV2i5ghDhzCKf64VttCw2a/VDxNtc1tvduC
+ +2+tG5Rlp/DgHiuwgMkdW/PAwAVU5862rQqZh4CvwObAjQWXB/9dKBLvkfSWpvysJPfM
+ Z1QJ28zbcpBacp5vnijlxyokqFxkX7juLaoGuPbaYMRKH0DC3TY/Xh4tyJU2spcgUvAm
+ 6ktMhneC1X5kZ0r14M6ZRfRfi13naBHtYFg+iXojeUJpJwwu2EWITH6MlUUJwS8Tf1wT
+ sfKQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUFKuqxdggso0pugdlZ9JfV3J10SKSRf3V5EdvsiehqIxYmu0ZMg7F7TjgXBbF6lzEHWbG5icuNIVs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywv5bNoqSMXytxDYCZ9EoPNnRBbn2SRyWknsJY0s1NBi5q/8c78
- gg21axkr5sr+91V5wFCfMjQARcLSnnWkc6sMVRz09CToPNATgN10pXSS+A3wIOw=
-X-Gm-Gg: ASbGnctW7qu6MdAWum7S9zj3wRmi6ajHnSRT+LTQdXYtI6A15AzoIEmMVV4klAjv4m0
- 5oJiSUGG3EtNVHwHwlEBzltei4g7YmMDBsEsgsCWZyXTDhRsMzV7m3zxHMjOcR/Twyz3C4WEtkC
- HjAYtwCweD9YxbBlkYBY+t2cCPHRtiKcAchp8d+WCBTCdZW0EdcAo8S+JyrG2MawldbrtDPZk8J
- RJCjLFDEJX698qAJ5GnSB/d8lalJLlo4e9OuvbsyaDdDzEkLQo0c0Kbi5/ajSn1
-X-Google-Smtp-Source: AGHT+IHu7YykZPfaTuYn0jd54qZX16d6ZpG1nlsMRrSl/j+R8LpdmSPs/7qbO09uxjUjWevtudEyAA==
-X-Received: by 2002:a05:6512:15a8:b0:540:2542:6081 with SMTP id
- 2adb3069b0e04-54229533e1dmr192582e87.23.1734658113140; 
- Thu, 19 Dec 2024 17:28:33 -0800 (PST)
+ AJvYcCVp3lUa9My96nw9JxAv8DGBiQ8vhE29LLfL/hcn4MdvlT8lQ3jC10JFKYft+s0d45L8cvNIhNE+rlw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxuN4fDPpHZK0gfYFMsJbfAJU8I4VfEhmSCkp0jZuQImkyuys49
+ 57zBlSYbc+z9VShZefxaE2ArkiqdIoTsvDfJHEgfDf8TVrM/E4A7XbTeydlAgz4=
+X-Gm-Gg: ASbGncuQScUtwi0HHaPOlygBM4bE3Seg0R1mj8i5P/JgUBtJUqzB5AxmhOmxb6VTgEx
+ NfPZnXLnNbkufwfwM9jctHA3NkjirruRh9+HlR9vmBoHu3LuQ9zv2Ld/4inCIBlV7kor9AG8Iv+
+ SE1SwEGWyAqjwEFQWxp+B79VnjAXX960MhpD7dIIp6bwX6wr5CxSFxy00u+m1JwQC8GM8blktnO
+ nfZZ80UMoMz2tEWeUgHGXkSdz9gEH0qv3/cWi6q89fc2Ie4g4CA2bQt5dNogWQm
+X-Google-Smtp-Source: AGHT+IFkoQ1wDgLQWAyIiR/AcniX2onayOceXrfk5sMzc7gbQE21NuoTAbl5Sm7gK6XKGLR3lUJqKg==
+X-Received: by 2002:a05:6512:401b:b0:540:2247:ac4e with SMTP id
+ 2adb3069b0e04-542212e1035mr1554510e87.7.1734658114788; 
+ Thu, 19 Dec 2024 17:28:34 -0800 (PST)
 Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54227a89c2csm170540e87.71.2024.12.19.17.28.31
+ 2adb3069b0e04-54227a89c2csm170540e87.71.2024.12.19.17.28.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Dec 2024 17:28:32 -0800 (PST)
+ Thu, 19 Dec 2024 17:28:34 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Subject: [PATCH v2 0/8] drm/msm/dpu: catalog corrections
-Date: Fri, 20 Dec 2024 03:28:28 +0200
-Message-Id: <20241220-dpu-fix-catalog-v2-0-38fa961ea992@linaro.org>
+Date: Fri, 20 Dec 2024 03:28:29 +0200
+Subject: [PATCH v2 1/8] drm/msm/dpu: provide DSPP and correct LM config for
+ SDM670
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADzIZGcC/3WNzQ6CMBCEX4Xs2TXdVtF44j0Mh/4BmxBKWmw0p
- O9u5e7xm8l8s0PykX2CR7ND9JkTh6WCPDVgJ72MHtlVBinkhSS16NYXDvxGqzc9hxFbpZWxwhl
- FHupqjb7Wh/HZV544bSF+joNMv/S/KxMKpKsZxF3cnNHUzbzoGM4hjtCXUr4ZVf8irwAAAA==
-X-Change-ID: 20241216-dpu-fix-catalog-63a3bc0db31e
+Message-Id: <20241220-dpu-fix-catalog-v2-1-38fa961ea992@linaro.org>
+References: <20241220-dpu-fix-catalog-v2-0-38fa961ea992@linaro.org>
+In-Reply-To: <20241220-dpu-fix-catalog-v2-0-38fa961ea992@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
@@ -79,16 +78,16 @@ Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1941;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2719;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=5aSCx0k8LhOK5y8eZerRNLzFjFPkZ0DBXazZ+khNng0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnZMg+Ye5BfK9stss01rwvB80sz3ZLaspC31dvO
- nXccUP4Q5CJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ2TIPgAKCRCLPIo+Aiko
- 1b7iB/9VuVEl5ukn0DBd5Q5ABA4WuWvNSv1YPMUb1ge6CP4OYurqKos2RRNvRThDC08jflHGsdN
- I7LkL6kl6cDKWalDZv2sJt9YJnJDB0mpHPrDrgxzu66zIF/zHIJiI9RuhXL+VBz+2fFxoKNwD5Q
- mb/FoALFIPmJjPUnzePbZgj6OJ6Y7NpnmEnoAlQqmiQqVwpNMorDtLVc1HakOeHZwsc78hZRh0F
- GC0wQR4b/3lyI2ohOrBNM6/zx2Hs594/Z8VU5IyyvwEXsiTTeMLZaEh1JHXgogIqsUA0jnk7qsA
- LdC12gJgQ/cioxtCkjm5SET83js6BsVxDsvR99UZLa0POBfF
+ bh=8xOZo6SIWZxsw847lHaBi8XDboA4fhIU/Ie9tsdlCGA=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ3rKCbumdReXcE032tvX8uVtkUq/Z2LV+d0SUiebi6Ndt
+ m7iKJbqZDRmYWDkYpAVU2TxKWiZGrMpOezDjqn1MINYmUCmMHBxCsBEPudxMKycxy78X35p3YJn
+ SvLzV++eevbUwSP9647Uss0yfqXNsmPyhwdafeG2B+yaGHyYRSSMjRXLrqi/1wqU/i1ZqS3AHh5
+ kH76Nm1P6Z+z/eI64ZQ+u997bPGt2rtkE7pd2oofu5GcHOVt8sVA9JsXrviqvzqp0fwCnTsrzxX
+ PzU6oW3LVJF9nUHGIRb9VTLpUVJKAdbn/J63rnt/iSE2Uxa6Tr94SeOnJJZm5SvZ1RltjEQ61Pe
+ N7PSz35y6DthOZ23Xm/T/yKiFlYkK0494n26+SZivk/6t+xsAmyW8RN9T+hWZ5vd/7bi4mTXG6I
+ 9Wnoqd8wm250y0tXSW/NF6e9mX/TPlhJiVW8dpTV4PIEAA==
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -106,46 +105,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-After checking the DSPP units in the catalog vs the vendor devicetrees,
-link several DSPP units to the corresponding LM units. Each correction
-is submitted separately in order to be able to track and apply / skip
-them separately based on the feedback from Qualcomm. I think at this
-point only CrOS compositor actually uses CTM, so these changes do not
-need to be backported (none of the CrOS-enabled devices are touched by
-these patches).
+On SDM670 the DPU has two DSPP blocks compared to 4 DSPP blocks on
+SDM845. Currently SDM670 just reuses LMs and DSPPs from SDM845. Define
+platform-specific configuration for those blocks.
 
+Fixes: e140b7e496b7 ("drm/msm/dpu: Add hw revision 4.1 (SDM670)")
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-Changes in v2:
-- Expanded commit messages to mention the resulting effect (Johan)
-- Move the SDM670 fix to the top of the series
-- Link to v1: https://lore.kernel.org/r/20241216-dpu-fix-catalog-v1-0-15bf0807dba1@linaro.org
-
----
-Dmitry Baryshkov (8):
-      drm/msm/dpu: provide DSPP and correct LM config for SDM670
-      drm/msm/dpu: link DSPP_2/_3 blocks on SM8150
-      drm/msm/dpu: link DSPP_2/_3 blocks on SC8180X
-      drm/msm/dpu: link DSPP_2/_3 blocks on SM8250
-      drm/msm/dpu: link DSPP_2/_3 blocks on SM8350
-      drm/msm/dpu: link DSPP_2/_3 blocks on SM8550
-      drm/msm/dpu: link DSPP_2/_3 blocks on SM8650
-      drm/msm/dpu: link DSPP_2/_3 blocks on X1E80100
-
- .../drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h    |  2 +
  .../gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h | 54 +++++++++++++++++++++-
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h |  2 +
- .../drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h    |  2 +
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h |  2 +
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h |  2 +
- .../gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h |  2 +
- .../drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h   |  2 +
- 8 files changed, 66 insertions(+), 2 deletions(-)
----
-base-commit: d82c9281189d2b27642ede2760db495379503b86
-change-id: 20241216-dpu-fix-catalog-63a3bc0db31e
+ 1 file changed, 52 insertions(+), 2 deletions(-)
 
-Best regards,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
+index cbbdaebe357ec4a82a3c3d950aa13792a1fb2d6e..daef07924886a529ee30349ae80375a324bbc245 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h
+@@ -65,6 +65,54 @@ static const struct dpu_sspp_cfg sdm670_sspp[] = {
+ 	},
+ };
+ 
++static const struct dpu_lm_cfg sdm670_lm[] = {
++	{
++		.name = "lm_0", .id = LM_0,
++		.base = 0x44000, .len = 0x320,
++		.features = MIXER_SDM845_MASK,
++		.sblk = &sdm845_lm_sblk,
++		.lm_pair = LM_1,
++		.pingpong = PINGPONG_0,
++		.dspp = DSPP_0,
++	}, {
++		.name = "lm_1", .id = LM_1,
++		.base = 0x45000, .len = 0x320,
++		.features = MIXER_SDM845_MASK,
++		.sblk = &sdm845_lm_sblk,
++		.lm_pair = LM_0,
++		.pingpong = PINGPONG_1,
++		.dspp = DSPP_1,
++	}, {
++		.name = "lm_2", .id = LM_2,
++		.base = 0x46000, .len = 0x320,
++		.features = MIXER_SDM845_MASK,
++		.sblk = &sdm845_lm_sblk,
++		.lm_pair = LM_5,
++		.pingpong = PINGPONG_2,
++	}, {
++		.name = "lm_5", .id = LM_5,
++		.base = 0x49000, .len = 0x320,
++		.features = MIXER_SDM845_MASK,
++		.sblk = &sdm845_lm_sblk,
++		.lm_pair = LM_2,
++		.pingpong = PINGPONG_3,
++	},
++};
++
++static const struct dpu_dspp_cfg sdm670_dspp[] = {
++	{
++		.name = "dspp_0", .id = DSPP_0,
++		.base = 0x54000, .len = 0x1800,
++		.features = DSPP_SC7180_MASK,
++		.sblk = &sdm845_dspp_sblk,
++	}, {
++		.name = "dspp_1", .id = DSPP_1,
++		.base = 0x56000, .len = 0x1800,
++		.features = DSPP_SC7180_MASK,
++		.sblk = &sdm845_dspp_sblk,
++	},
++};
++
+ static const struct dpu_dsc_cfg sdm670_dsc[] = {
+ 	{
+ 		.name = "dsc_0", .id = DSC_0,
+@@ -88,8 +136,10 @@ const struct dpu_mdss_cfg dpu_sdm670_cfg = {
+ 	.ctl = sdm845_ctl,
+ 	.sspp_count = ARRAY_SIZE(sdm670_sspp),
+ 	.sspp = sdm670_sspp,
+-	.mixer_count = ARRAY_SIZE(sdm845_lm),
+-	.mixer = sdm845_lm,
++	.mixer_count = ARRAY_SIZE(sdm670_lm),
++	.mixer = sdm670_lm,
++	.dspp_count = ARRAY_SIZE(sdm670_dspp),
++	.dspp = sdm670_dspp,
+ 	.pingpong_count = ARRAY_SIZE(sdm845_pp),
+ 	.pingpong = sdm845_pp,
+ 	.dsc_count = ARRAY_SIZE(sdm670_dsc),
+
 -- 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+2.39.5
 
