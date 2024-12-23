@@ -2,111 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2DBE9FB077
-	for <lists+freedreno@lfdr.de>; Mon, 23 Dec 2024 16:02:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE46C9FB60A
+	for <lists+freedreno@lfdr.de>; Mon, 23 Dec 2024 22:22:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FFCC10E539;
-	Mon, 23 Dec 2024 15:02:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A1ED10E344;
+	Mon, 23 Dec 2024 21:22:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EJi1iZim";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="LMYnSVOz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3A2610E1A4
- for <freedreno@lists.freedesktop.org>; Mon, 23 Dec 2024 15:02:20 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BNCv1Mb002438
- for <freedreno@lists.freedesktop.org>; Mon, 23 Dec 2024 15:02:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39EE010E041;
+ Mon, 23 Dec 2024 21:22:53 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BNHTi6i018497;
+ Mon, 23 Dec 2024 21:22:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- jOueQRrVOdVdBWKPBRxKIz6jCEFS3rdEhZ18GsC/lhc=; b=EJi1iZimqFrk8pL4
- 0Z7jnBsgzo69O8LRaWOYiWzbsY6zNDwEWV8U/WToThuKWadCoLsOX/ZjzTlYwlRC
- +3URRnWvvH8r+fakvVOJPSHQzVXRwlTnrFzOPOJw92H+EcsroAoU9uPmJuPcMHyx
- BBymPLaPW9JWiNSd/lcOkl2f73wrZYutmfkFsttN1992BeyYRrwTpO/1ixjzM6GF
- CYTQN+FW6fHHKCCP/XU/8Bp3Ld2id0fnfqxQ+Do617U2FckWY2cqBE7VZWmTXz2i
- nw84c/FlXkiVKE9OF1Ng6hvp/qdxMAj2MqxgISDkF8f/7G56GKg2ZdC8hogN11yx
- zKrJww==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43q8ah8ckx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Mon, 23 Dec 2024 15:02:19 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-6dd0d0e0604so7559626d6.0
- for <freedreno@lists.freedesktop.org>; Mon, 23 Dec 2024 07:02:19 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734966139; x=1735570939;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jOueQRrVOdVdBWKPBRxKIz6jCEFS3rdEhZ18GsC/lhc=;
- b=ax56C842svTJXVsjhxSTpp4amKFpYyDZjLiJRdgo7AXxdwTVeXl1qbtW+FLLIpNp88
- rhjycbEbF0qbBAbSVOKCp3eVw1uqzBkBfT7ftMlKt/NFHjNyXqNiA854HAQNdPztE7K8
- +L1eVcUzzXxEwKKsx//GPTgOsN04MwSnVXehkXh48gQnsNDZtH7jFGWRiSZLjB0ucYRg
- RCk8Y/vX24wbhu4RLItXobcxpE/L4l2d+c8x0ZG/Dxoa8MOnmPAUtVyHg2acX/lo4344
- 0zsCJ36DHCXpPLNGuU2GFRAew/2BHRTENrKxDzlNL8vOKSTKIkZLE+ykQei9qzKYIybg
- jEBw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWeA+CDxNFCo/Jn6nejRW4mCqhM1zxvdWeN+Vh9vdt/ugMNRoWPjdkKbCSosNOSgIay/kyzpaNbm9Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwUyzOJd583o3gAc8V7sfTSOPsjIpkm15L32aBoXZ/qXB2QjNmO
- jZam0s7+fz/znMHwDOR4GlHfsGz/03XiUz/5cPwwTZeVfJpFdg36eKFl/9Kp8Z8LAf8iHyjs7mJ
- ecGQ/pJCZgxTX0eeyYdLHjYOVMHo0EYpIq0hHtNG6UhVwQBwn0/SuVZJ5Oe89HJY2/So=
-X-Gm-Gg: ASbGnctFGDlaHmhA/wGJoCeh+fEDiwWxzRsejw3CTKvoD7AvtEza18exn6UaM2IW/54
- nJmStE8RRZKkLTCnAqX6O7+o/3omJTsgnD7LcKHssn4Va0RSa+CH2w+jTH92hYTfxz4gWgrsCEY
- 1RmBnbvYYTCNgfVuyi/3d5V7ZGcPG0z/79PwvyWc1ogajqxa6upw0nk6/dcyvWGi3Dssv8fcNBq
- gUSzAZ6JXn48c5/YUIOc2deRputte/Dko+MOf0pSDAVirjVyNbLbWOwGv+2LhQ+a83qaTUt+uet
- OdzZprEt6zuy0zEAsCJic8jwjwhNrZfVz/k=
-X-Received: by 2002:a05:620a:2496:b0:7b6:e61b:3e60 with SMTP id
- af79cd13be357-7b9ba742c0cmr820184485a.7.1734966138868; 
- Mon, 23 Dec 2024 07:02:18 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHREjQZz+CVTbzd5TYeq0dnl7WV9RvuT6R2vxSIAg60SPUsaB/sHNZeP/tyzrWvz3trjyaRwQ==
-X-Received: by 2002:a05:620a:2496:b0:7b6:e61b:3e60 with SMTP id
- af79cd13be357-7b9ba742c0cmr820181785a.7.1734966138353; 
- Mon, 23 Dec 2024 07:02:18 -0800 (PST)
-Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aac0f012229sm525618566b.133.2024.12.23.07.02.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Dec 2024 07:02:17 -0800 (PST)
-Message-ID: <f07d9efc-fa3d-44e2-83f5-621ffeaa9f91@oss.qualcomm.com>
-Date: Mon, 23 Dec 2024 16:02:15 +0100
+ hS/Y6yW1s5W3mihcvs63v+xACZBKR+LeKoO5/HhiemY=; b=LMYnSVOz4RnYrJ2P
+ 3qmHhh/lKumW1F96KRugLHOeNDCVx0XCOYRbrW9EJLGlKK7vSPWXddp/UR0LhN96
+ LNwc5ranpiQOie+IiHZiXa8rmQ85R3I/bs9ejvT9CJEAs750VlPZ2wuphGcgiRsU
+ ZMcZwgFhVskxTlFvVjMKJrdCZzTm+l4cZaHJZPezpqrqqfi5dZoRH9nsKM5UOMpF
+ JHkgOgBa6v+iQYntgnJSykOX3gyZw5ZorVMXRnsmlAAI/3e2HKhoLrGutJEI/cEP
+ DqU4eJAo9ONklkHs5YtbFsYPwc6LI8uOowYJPeXe8P+C8QrcMfXt/LXz9xf9B/Cn
+ L97mOg==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43qca18ftj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 23 Dec 2024 21:22:47 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BNLMk2R007617
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 23 Dec 2024 21:22:46 GMT
+Received: from [10.216.35.172] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 23 Dec
+ 2024 13:22:42 -0800
+Message-ID: <7f5144e2-1c28-4e12-a9eb-1e8c8220bbcf@quicinc.com>
+Date: Tue, 24 Dec 2024 02:52:39 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/7] drm/msm: adreno: dynamically generate GMU bw table
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+Subject: Re: [PATCH v3] drm/msm/a6xx: Add support for Adreno 612
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konradybcio@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20241217-topic-sm8x50-gpu-bw-vote-v6-0-1adaf97e7310@linaro.org>
- <20241217-topic-sm8x50-gpu-bw-vote-v6-3-1adaf97e7310@linaro.org>
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ Jie Zhang <quic_jiezh@quicinc.com>
+References: <20241213-a612-gpu-support-v3-1-0e9b25570a69@quicinc.com>
+ <df25ffe5-b20c-41a7-b178-b191d332cb19@oss.qualcomm.com>
+ <jsuzytkpcs7xmsaaedypz6w5d4ia6rckxjqg2x7mp4sidxxtqk@t5ukbn3sv6oa>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20241217-topic-sm8x50-gpu-bw-vote-v6-3-1adaf97e7310@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <jsuzytkpcs7xmsaaedypz6w5d4ia6rckxjqg2x7mp4sidxxtqk@t5ukbn3sv6oa>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: uidS1yG6XFG9GsGxj7lpgn6dwbjpGPX_
-X-Proofpoint-ORIG-GUID: uidS1yG6XFG9GsGxj7lpgn6dwbjpGPX_
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: gItu9bQFWmhLTxfGFLF4gP4wsBU5_xJl
+X-Proofpoint-GUID: gItu9bQFWmhLTxfGFLF4gP4wsBU5_xJl
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- impostorscore=0 suspectscore=0 bulkscore=0 malwarescore=0 mlxlogscore=999
- mlxscore=0 clxscore=1015 adultscore=0 phishscore=0 lowpriorityscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412230134
+ malwarescore=0 adultscore=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 phishscore=0
+ mlxscore=0 suspectscore=0 mlxlogscore=999 clxscore=1015 priorityscore=1501
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2412230189
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,53 +98,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17.12.2024 3:51 PM, Neil Armstrong wrote:
-> The Adreno GPU Management Unit (GMU) can also scale the ddr
-> bandwidth along the frequency and power domain level, but for
-> now we statically fill the bw_table with values from the
-> downstream driver.
+On 12/21/2024 2:28 AM, Dmitry Baryshkov wrote:
+> On Fri, Dec 20, 2024 at 08:56:31PM +0100, Konrad Dybcio wrote:
+>> On 13.12.2024 12:46 PM, Akhil P Oommen wrote:
+>>> From: Jie Zhang <quic_jiezh@quicinc.com>
+>>>
+>>> Add support for Adreno 612 GPU found in SM6150/QCS615 chipsets.
+>>> A612 falls under ADRENO_6XX_GEN1 family and is a cut down version
+>>> of A615 GPU.
+>>>
+>>> A612 has a new IP called Reduced Graphics Management Unit or RGMU
+>>> which is a small state machine which helps to toggle GX GDSC
+>>> (connected to CX rail) to implement IFPC feature. It doesn't support
+>>> any other features of a full fledged GMU like clock control, resource
+>>> voting to rpmh etc. So we need linux clock driver support like other
+>>> gmu-wrapper implementations to control gpu core clock and gpu GX gdsc.
+>>> Since there is no benefit with enabling RGMU at the moment, RGMU is
+>>> entirely skipped in this patch.
+>>>
+>>> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
+>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>> ---
+>>
+>> So we talked offline a bit, and the RGMU requires a piece of firmware.
+>>
+>> We concluded it's best to describe that from the get-go, so that the
+>> user doesn't get surprised when a new kernel update brings new firmware
+>> requirements for previously-working hardware.
 > 
-> Only the first entry is used, which is a disable vote, so we
-> currently rely on scaling via the linux interconnect paths.
+> I'd say, please make sure that the RGMU firmware is also a part of the
+> linux-firmware from the beginning.
+
+Yes, I am working on that part. I will send another revision of this patch.
+
+-Akhil
+
 > 
-> Let's dynamically generate the bw_table with the vote values
-> previously calculated from the OPPs.
+>>
+>> Please wait for the new revision.
+>>
+>> Konrad
 > 
-> Those entries will then be used by the GMU when passing the
-> appropriate bandwidth level while voting for a gpu frequency.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
 
-[...]
-
-> +	/*
-> +	 * These are the CX (CNOC) votes - these are used by the GMU
-> +	 * The 'CN0' BCM is used on all targets, and votes are basically
-> +	 * 'off' and 'on' states with first bit to enable the path.
-> +	 */
-> +
-> +	msg->cnoc_cmds_addrs[0] = cmd_db_read_addr("CN0");
-> +	msg->cnoc_cmds_num = 1;
-> +
-> +	msg->cnoc_cmds_data[0][0] = BCM_TCS_CMD(true, false, 0, 0);
-> +	msg->cnoc_cmds_data[1][0] = BCM_TCS_CMD(true, true, 0, BIT(0));
-> +
-> +	/* Compute the wait bitmask with each BCM having the commit bit */
-> +	msg->cnoc_wait_bitmask = 0;
-> +	for (j = 0; j < msg->cnoc_cmds_num; j++)
-> +		if (msg->cnoc_cmds_data[0][j] & BCM_TCS_CMD_COMMIT_MASK)
-> +			msg->cnoc_wait_bitmask |= BIT(j);
-
-Still very much not a fan of this.
-
-I think this would be equally telling:
-
-/* Always flush on/off commands */
-msg->cnoc_wait_bitmask = BIT(0);
-
-with or without that:
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
