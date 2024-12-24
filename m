@@ -2,87 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A9679FB95F
-	for <lists+freedreno@lfdr.de>; Tue, 24 Dec 2024 06:02:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45ED99FB9DB
+	for <lists+freedreno@lfdr.de>; Tue, 24 Dec 2024 07:33:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A983310E45F;
-	Tue, 24 Dec 2024 05:02:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24E7110E170;
+	Tue, 24 Dec 2024 06:33:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FK/Fd7wc";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="kRxh3x62";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AA3C10E27D
- for <freedreno@lists.freedesktop.org>; Tue, 24 Dec 2024 05:02:16 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-5401bd6cdb4so5291875e87.2
- for <freedreno@lists.freedesktop.org>; Mon, 23 Dec 2024 21:02:16 -0800 (PST)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
+ [209.85.208.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACC9010E170
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Dec 2024 06:33:50 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id
+ 38308e7fff4ca-300392cc4caso53946801fa.3
+ for <freedreno@lists.freedesktop.org>; Mon, 23 Dec 2024 22:33:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1735016535; x=1735621335; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1735021969; x=1735626769; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=hqUplIjV+TQuDOCxd/dA3VUIf/gZpdRIKkbJK+V73kk=;
- b=FK/Fd7wc+knJlM4HVTeebs3IOPVpBIELO/mb5JIdkLHLR/D0Ivj2xMjXHYf3JmWFwi
- fEV+iE/Hmn7SyBzhSpdMutR3Gm8fYJ2WcCQLowku9Or64oRc2mD6na6v+EaquVjUiSxC
- 4mJAJUCi2ToSVg7MJhsA08nNCcP5n9wYyR9TQX7zDbF73GKhq6SxtLIcgwGU+xjsMPXh
- jrRrbZ90inUtVkduhsEAx54YKX4ozX9FbhocCvfyVbc9BqfNQImj9dB//7NGVttWrj08
- 7D8cvzUOwXXC1QY91faayQ9lffhS0oY8BhenEGuS5lKrIqu5TbqWYc1ixmaqgzCE3gUQ
- smKw==
+ bh=bincwshAYNCJ6hJiNrJokdCtTwI1ZrZprXh0S5Xi7zE=;
+ b=kRxh3x62f7LctwtpzGMequoIdMo+eGep4uGQWHCUL9njOI9GuKxQCzzP6lGL28ycGT
+ N7kHsj4ttFZQRmt0BZ0YcgpNLkypa4iGu9EXbq9vll5s2Tn4em/UsDtjfSwK+oQwQmlr
+ lGNz79NhDqIn2hgjU44ekUlmXnt91eh9CScJggXMc6oYsVKgYMQiUMWTuvjwadx+/bs8
+ chDxuWFr2s1voRPFExbv9GAiIBq/GcxpGmzvb0Qa+3ptlz4nyfQgQOajlaedzYB4XJrK
+ aFdcdmQ4jwHL3uC/qr+x/ubPuzzsstC092Waj8GH7CrLihZQU89HXyufuvVs+5z+H3E1
+ 0oAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735016535; x=1735621335;
+ d=1e100.net; s=20230601; t=1735021969; x=1735626769;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=hqUplIjV+TQuDOCxd/dA3VUIf/gZpdRIKkbJK+V73kk=;
- b=Z4pmbwWf17rpAWbONWIxCJNRQowbYZGZS9NzKNf7mRUtYabLkPsCuDl/xyQl1XTPFR
- Ns4ixP19Ot+tFdFiPXYKWWD2WyLdp2VU9KhaoiIXdCGQa9BhMMDuFSzPH/i0f/93B0oS
- TqqH0KCcFzIeGm8uM/xaFt04jhUAkFUuO/tFo5+1gBTyc25gW6sGXSVx4b3lHTEoMS0p
- x5aYxL38Xe1ob2l3+IXvJH9pFJPUZDJrWp+5O0Izxif5aukvrICenR660Ldm20y1x3uy
- 07LPOtxTE1W30xBaYT7pk/bzAqd0uMAvsr0IPLKCNHyU8bhSgvEGafdknkgPudAaBtst
- m/QQ==
+ bh=bincwshAYNCJ6hJiNrJokdCtTwI1ZrZprXh0S5Xi7zE=;
+ b=b1CI6+Vc/EUaCVFnBLuTEOw7W0v9QG+YzF+3uX/cj38yJzfA1YbijisjqGq8vYgT00
+ EeaRzg4kOJ8bwTGbWuCG1iHcgxIhJEgyt+94iIhKr5P7QHUQo/h75qwd87jEa8UVAuhA
+ 9dye0DCKE7uNnYYE7YeXCuOaEGMJVmO4b4vdDRJa/6Z/IUR3avu0L8J6bw80ksj+FkzC
+ Ymx/fa2fZj3ArwZUj2fZZ2V1/r1b/8s0qKlpTPPlB9P7KY0NzQCOMB+V1qJojWT5k2gP
+ 9YrwtTUi+jJJY6kDfxc7c9dUExmgZTRDtczxpzRJeaXLtL6DueOdTDQVTnu7SnSLvA/D
+ 5QVA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVBrPBF0RmuyDKKj5BRVH0O87AXoVjmlAe4vJN6u6YghdSRfbudXAsm+dPwlq68akildh28KiCu48g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzw7aykI1ULXIXuiB3dv6LGgx8lcorUUBOjbL1vRRvFF0iOyHFx
- Z4bbXlK+/SKbvtBWOdIBxGNURA0sIAWjjpIwAUZRo/ZNNK4Su1RRRvEZXGPhs90=
-X-Gm-Gg: ASbGncvUtyjQHBMnr5cy2eT4nf3f1KLu6mb2XI1l5m+b6RE4IEzQZwCQL4XgehEXGa0
- 8d2N+n7OD5h3HjEQo9FBvYUj876L15etXAbILd944zaA5LIbpCs6g1468NEpr6LKXt0wg7i+eY8
- 2Xt5s6UYYmgWnQEHTcDm77+LtnEF/sBGoJ+HdVr1djTOrBdNEUFcTpjnXjsPVrky1Ajc8v7+x7U
- BmoI9S7psmcLYBYByx+xq6/W3A+NLhTmvM4oQdqSyJUD1n36JurriBA4XzDzbP/Ng1iizHevTJV
- OgJJgchuYOXaz/lKuke/aIgEyUAjGnLUhs4d
-X-Google-Smtp-Source: AGHT+IHfZEYnMGS/7Hwur+um5VWcx75oAzisP8vBOaDbrUzOJjcORdmzgFv+PXWI59XIt6+NQBUEKg==
-X-Received: by 2002:a05:6512:3d10:b0:53e:350a:72a0 with SMTP id
- 2adb3069b0e04-54229598a27mr5159963e87.51.1735016534496; 
- Mon, 23 Dec 2024 21:02:14 -0800 (PST)
+ AJvYcCUJcTO6/GyaWbSUat54JbeA4lmm2vhabmOCSFx6hmothfA82JPTMMT3DJv21tixlLJVA+p1ffdzBeQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxuq10dVYAtNvAI2AAreZ6bLAZ0dSAHYePHfgZVDjoaY5X7ft8c
+ PykPb3qbwoLKgf31KmWV9ZvHPK237mg4GrYlrV/zdNomOUenRBueFE+pru5V3sY=
+X-Gm-Gg: ASbGncuLZq5xDSeVMSxZHm8eDY0qCIiaIAuudpGlcijKJT1vj+hYKEl4MfjXFxQfu6P
+ gP+LUaNJ57WBg2oT2+dk3HGQSHtrxYz6iHyuuSSXixarQ9WTcVrof9IuJPXaG0vuTlmoJ5ZZLVM
+ 0qwK+9x34cVPTqn/BLB/XJvHhrCH1MDs5w+UZL2tazphhorerxqMHLgXvyRBnwpMVRC5v/Hrh5p
+ cdtvz3ualdrDNU3fXXjAG9cV3DCpnitxAPKRsB5QMiiHy23sJW1KwBQ9vn8ZcOOM6pzU3Nrsxuj
+ 05c22EYIHqbjW+aSVkHmwthXZQHxJq+UYkmu
+X-Google-Smtp-Source: AGHT+IG2dUyPsRFhwHcHhqelrSh4mxVgYi+bc7D5YG6R7v8H+FahxoLp7u/H0DSLNi487A5ahAGY5w==
+X-Received: by 2002:a05:6512:3d22:b0:53e:39c2:f021 with SMTP id
+ 2adb3069b0e04-54229533228mr5103052e87.15.1735021968071; 
+ Mon, 23 Dec 2024 22:32:48 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-542235f66bdsm1478626e87.16.2024.12.23.21.02.12
+ 2adb3069b0e04-54223600508sm1535074e87.94.2024.12.23.22.32.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Dec 2024 21:02:13 -0800 (PST)
-Date: Tue, 24 Dec 2024 07:02:10 +0200
+ Mon, 23 Dec 2024 22:32:47 -0800 (PST)
+Date: Tue, 24 Dec 2024 08:32:44 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>, 
- quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, 
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v4 07/25] drm/msm/dpu: move resource allocation to CRTC
-Message-ID: <bvaxcfku5lwldww6qcwfe4ukv2xxd2ivaidvewylofgltba2rv@jx65h5ems67g>
-References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
- <20241216-concurrent-wb-v4-7-fe220297a7f0@quicinc.com>
+ freedreno@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>, 
+ Doug Anderson <dianders@chromium.org>, Johan Hovold <johan@kernel.org>, 
+ Bjorn Andersson <quic_bjorande@quicinc.com>
+Subject: Re: [PATCH 2/4] drm/msm/dp: remove redundant ST_DISPLAY_OFF checks
+ in msm_dp_bridge_atomic_enable()
+Message-ID: <ldcydwcuwkwwng4d3b47pjz3ndhuhwerz6t3drwmifdzh7g3nl@3y6es72w74d7>
+References: <20241202-hpd_display_off-v1-0-8d0551847753@quicinc.com>
+ <20241202-hpd_display_off-v1-2-8d0551847753@quicinc.com>
+ <f6oh3kid5dfiqe7jy7j3d4gcv4evbtztzpgiygvzfsu6qlim2j@2vsulwcau6tr>
+ <58d28874-0fcc-42f4-831d-1f304f7d9d4f@quicinc.com>
+ <orsov5jni37n7m3xm4qdiurnfzdubxy45itmrb5gwi243l2l5t@vz623b5c35n5>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241216-concurrent-wb-v4-7-fe220297a7f0@quicinc.com>
+In-Reply-To: <orsov5jni37n7m3xm4qdiurnfzdubxy45itmrb5gwi243l2l5t@vz623b5c35n5>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,510 +99,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 16, 2024 at 04:43:18PM -0800, Jessica Zhang wrote:
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On Wed, Dec 04, 2024 at 12:32:55PM +0200, Dmitry Baryshkov wrote:
+> On Tue, Dec 03, 2024 at 07:24:46PM -0800, Abhinav Kumar wrote:
+> > 
+> > 
+> > On 12/3/2024 5:53 AM, Dmitry Baryshkov wrote:
+> > > On Mon, Dec 02, 2024 at 04:39:01PM -0800, Abhinav Kumar wrote:
+> > > > The checks in msm_dp_display_prepare() for making sure that we are in
+> > > > ST_DISPLAY_OFF OR ST_MAINLINK_READY seem redundant.
+> > > > 
+> > > > DRM fwk shall not issue any commits if state is not ST_MAINLINK_READY as
+> > > > msm_dp's atomic_check callback returns a failure if state is not ST_MAINLINK_READY.
+> > > 
+> > > Can the state change between atomic_check() and atomic_commit()?
+> > > 
+> > 
+> > Good question.
+> > 
+> > I cannot deny that such a possibility does exist.
+> > 
+> > From what I can see in the state machine today, the only possibility I can
+> > think of here is if a user very quickly removes the cable as soon as they
+> > connect the cable like so fast that the connect was not yet processed before
+> > disconnect.
 > 
-> All resource allocation is centered around the LMs. Then other blocks
-> (except DSCs) are allocated basing on the LMs that was selected, and LM
-> powers up the CRTC rather than the encoder.
+> If the cable has electrical issues, it is possible even w/o user
+> intervention.
+
+And the possible desynchronisation between DRM atomic states and HPD
+state machine brings back the topic: can we get rid of the state
+machine instead of trying to fix it? I'd rather see a patchset that
+removes it completely. The link training should go to the atomic_enable,
+etc, etc. Please? Pretty please? I'd rather see imperfect solution which
+has possible issues with some of the dongles (as they can be fixed later
+on) than having the imperfect HPD state machine which is known to break
+DRM framework expectations.
+
 > 
-> Moreover if at some point the driver supports encoder cloning,
-> allocating resources from the encoder will be incorrect, as all clones
-> will have different encoder IDs, while LMs are to be shared by these
-> encoders.
+> > 
+> > Similarly, if an irq_hpd fires after atomic_check but before
+> > atomic_enable(), and moreover if we hit the sink_count == 0 case in
+> > msm_dp_display_handle_port_status_changed() during this irq_hpd,
+> > 
+> > In both these cases, then we will transition to ST_DISCONNECT_PENDING state.
+> > 
+> > Without this change, we would have bailed out in the ST_DISCONNECT_PENDING
+> > case.
+> > 
+> > But other than this, I cannot atleast think of a case where a different
+> > state transition can happen between atomic_check() and atomic_commit()
+> > because for other transitions, I think we should be still okay.
+> > 
+> > But this is purely based on theoretical observation and hypothesis.
+> > 
+> > Is it better to add a check to bail out in the DISCONNECT_PENDING case?
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> [quic_abhinavk@quicinc.com: Refactored resource allocation for CDM]
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> [quic_jesszhan@quicinc.com: Changed to grabbing exising global state]
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  86 ++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 256 ++++++++++------------------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |   8 +
->  3 files changed, 181 insertions(+), 169 deletions(-)
+> I think so, please.
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index 9f6ffd344693ecfb633095772a31ada5613345dc..186ed84f59f16997716fe216e635b8dce07a63a1 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1182,6 +1182,78 @@ static bool dpu_crtc_needs_dirtyfb(struct drm_crtc_state *cstate)
->  	return false;
->  }
->  
-> +#define MAX_HDISPLAY_SPLIT 1080
-> +
-> +static struct msm_display_topology dpu_crtc_get_topology(
-> +		struct drm_crtc *crtc,
-> +		struct dpu_kms *dpu_kms,
-> +		struct drm_crtc_state *crtc_state)
-> +{
-> +	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
-> +	struct msm_display_topology topology = {0};
-> +	struct drm_encoder *drm_enc;
-> +
-> +	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc_state->encoder_mask)
-> +		dpu_encoder_update_topology(drm_enc, &topology, crtc_state->state,
-> +					    &crtc_state->adjusted_mode);
-> +
-> +	/*
-> +	 * Datapath topology selection
-> +	 *
-> +	 * Dual display
-> +	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
-> +	 *
-> +	 * Single display
-> +	 * 1 LM, 1 INTF
-> +	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
-> +	 *
-> +	 * Add dspps to the reservation requirements if ctm is requested
-> +	 */
-> +
-> +	if (topology.num_intf == 2)
-> +		topology.num_lm = 2;
-> +	else if (topology.num_dsc == 2)
-> +		topology.num_lm = 2;
-> +	else if (dpu_kms->catalog->caps->has_3d_merge)
-> +		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
-> +	else
-> +		topology.num_lm = 1;
-> +
-> +	if (crtc_state->ctm)
-> +		topology.num_dspp = topology.num_lm;
-> +
-> +	return topology;
-> +}
-> +
-> +static int dpu_crtc_assign_resources(struct drm_crtc *crtc, struct drm_crtc_state *crtc_state)
-> +{
-> +	struct dpu_kms *dpu_kms = _dpu_crtc_get_kms(crtc);
-> +	struct dpu_global_state *global_state;
-> +	struct msm_display_topology topology;
-> +	int ret;
-> +
-> +	/*
-> +	 * Release and Allocate resources on every modeset
-> +	 * Dont allocate when enable is false.
-> +	 */
-> +	global_state = dpu_kms_get_existing_global_state(dpu_kms);
-> +	if (IS_ERR(global_state))
-> +		return PTR_ERR(global_state);
-> +
-> +	dpu_rm_release(global_state, crtc);
-> +
-> +	if (!crtc_state->enable)
-> +		return 0;
-> +
-> +	topology = dpu_crtc_get_topology(crtc, dpu_kms, crtc_state);
-> +	ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
-> +			     crtc, &topology);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
->  static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
->  		struct drm_atomic_state *state)
->  {
-> @@ -1193,10 +1265,24 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
->  	const struct drm_plane_state *pstate;
->  	struct drm_plane *plane;
->  
-> +	struct drm_encoder *drm_enc;
-> +
->  	int rc = 0;
->  
->  	bool needs_dirtyfb = dpu_crtc_needs_dirtyfb(crtc_state);
->  
-> +	/* there might be cases where encoder needs a modeset too */
-> +	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc_state->encoder_mask) {
-> +		if (dpu_encoder_needs_modeset(drm_enc, crtc_state->state))
-> +			crtc_state->mode_changed = true;
-
-I will postpone this patch for a while, pending the review of the
-drm_atomic_helper_check_modeset() series
-
-https://lore.kernel.org/dri-devel/20241222-drm-dirty-modeset-v1-0-0e76a53eceb9@linaro.org/
-
-Not to mention that this commit looks broken, see below.
-
-> +	}
-> +
-> +	if (drm_atomic_crtc_needs_modeset(crtc_state)) {
-> +		rc = dpu_crtc_assign_resources(crtc, crtc_state);
-> +		if (rc < 0)
-> +			return rc;
-> +	}
-> +
->  	if (!crtc_state->enable || !drm_atomic_crtc_effectively_active(crtc_state)) {
->  		DRM_DEBUG_ATOMIC("crtc%d -> enable %d, active %d, skip atomic_check\n",
->  				crtc->base.id, crtc_state->enable,
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index e6f930dd34566d01223823de82c922668e6be300..2b999a0558b2a016644ed5d25bf54ab45c38d1d9 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -58,8 +58,6 @@
->  
->  #define IDLE_SHORT_TIMEOUT	1
->  
-> -#define MAX_HDISPLAY_SPLIT 1080
-> -
->  /* timeout in frames waiting for frame done */
->  #define DPU_ENCODER_FRAME_DONE_TIMEOUT_FRAMES 5
->  
-> @@ -609,206 +607,127 @@ void dpu_encoder_helper_split_config(
->  	}
->  }
->  
-> -/**
-> - * dpu_encoder_use_dsc_merge - returns true if the encoder uses DSC merge topology.
-> - * @drm_enc:    Pointer to previously created drm encoder structure
-> - */
-> -bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
-> +void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
-> +				 struct msm_display_topology *topology,
-> +				 struct drm_atomic_state *state,
-> +				 const struct drm_display_mode *adj_mode)
->  {
->  	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
-> -	int i, intf_count = 0, num_dsc = 0;
-> +	struct drm_connector *connector;
-> +	struct drm_connector_state *conn_state;
-> +	struct msm_display_info *disp_info;
-> +	struct drm_framebuffer *fb;
-> +	struct msm_drm_private *priv;
-> +	int i;
->  
->  	for (i = 0; i < MAX_PHYS_ENCODERS_PER_VIRTUAL; i++)
->  		if (dpu_enc->phys_encs[i])
-> -			intf_count++;
-> +			topology->num_intf++;
->  
-> -	/* See dpu_encoder_get_topology, we only support 2:2:1 topology */
-> +	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
->  	if (dpu_enc->dsc)
-> -		num_dsc = 2;
-> -
-> -	return (num_dsc > 0) && (num_dsc > intf_count);
-> -}
-> -
-> -/**
-> - * dpu_encoder_get_dsc_config - get DSC config for the DPU encoder
-> - *   This helper function is used by physical encoder to get DSC config
-> - *   used for this encoder.
-> - * @drm_enc: Pointer to encoder structure
-> - */
-> -struct drm_dsc_config *dpu_encoder_get_dsc_config(struct drm_encoder *drm_enc)
-> -{
-> -	struct msm_drm_private *priv = drm_enc->dev->dev_private;
-> -	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
-> -	int index = dpu_enc->disp_info.h_tile_instance[0];
-> +		topology->num_dsc += 2;
->  
-> -	if (dpu_enc->disp_info.intf_type == INTF_DSI)
-> -		return msm_dsi_get_dsc_config(priv->dsi[index]);
-> +	connector = drm_atomic_get_new_connector_for_encoder(state, drm_enc);
-> +	if (!connector)
-> +		return;
-> +	conn_state = drm_atomic_get_new_connector_state(state, connector);
-> +	if (!conn_state)
-> +		return;
->  
-> -	return NULL;
-> -}
-> +	disp_info = &dpu_enc->disp_info;
->  
-> -static struct msm_display_topology dpu_encoder_get_topology(
-> -			struct dpu_encoder_virt *dpu_enc,
-> -			struct dpu_kms *dpu_kms,
-> -			struct drm_display_mode *mode,
-> -			struct drm_crtc_state *crtc_state,
-> -			struct drm_dsc_config *dsc)
-> -{
-> -	struct msm_display_topology topology = {0};
-> -	int i, intf_count = 0;
-> +	priv = drm_enc->dev->dev_private;
->  
-> -	for (i = 0; i < MAX_PHYS_ENCODERS_PER_VIRTUAL; i++)
-> -		if (dpu_enc->phys_encs[i])
-> -			intf_count++;
-> -
-> -	/* Datapath topology selection
-> -	 *
-> -	 * Dual display
-> -	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
-> -	 *
-> -	 * Single display
-> -	 * 1 LM, 1 INTF
-> -	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
-> -	 *
-> -	 * Add dspps to the reservation requirements if ctm is requested
-> +	/*
-> +	 * Use CDM only for writeback or DP at the moment as other interfaces cannot handle it.
-> +	 * If writeback itself cannot handle cdm for some reason it will fail in its atomic_check()
-> +	 * earlier.
->  	 */
-> -	if (intf_count == 2)
-> -		topology.num_lm = 2;
-> -	else if (!dpu_kms->catalog->caps->has_3d_merge)
-> -		topology.num_lm = 1;
-> -	else
-> -		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
-> -
-> -	if (crtc_state->ctm)
-> -		topology.num_dspp = topology.num_lm;
-> -
-> -	topology.num_intf = intf_count;
-> +	if (disp_info->intf_type == INTF_WB && conn_state->writeback_job) {
-> +		fb = conn_state->writeback_job->fb;
->  
-> -	if (dsc) {
-> -		/*
-> -		 * In case of Display Stream Compression (DSC), we would use
-> -		 * 2 DSC encoders, 2 layer mixers and 1 interface
-> -		 * this is power optimal and can drive up to (including) 4k
-> -		 * screens
-> -		 */
-> -		topology.num_dsc = 2;
-> -		topology.num_lm = 2;
-> -		topology.num_intf = 1;
-> +		if (fb && MSM_FORMAT_IS_YUV(msm_framebuffer_format(fb)))
-> +			topology->needs_cdm = true;
-> +	} else if (disp_info->intf_type == INTF_DP) {
-> +		if (msm_dp_is_yuv_420_enabled(priv->dp[disp_info->h_tile_instance[0]], adj_mode))
-> +			topology->needs_cdm = true;
->  	}
-> -
-> -	return topology;
->  }
->  
-> -static void dpu_encoder_assign_crtc_resources(struct dpu_kms *dpu_kms,
-> -					      struct drm_encoder *drm_enc,
-> -					      struct dpu_global_state *global_state,
-> -					      struct drm_crtc_state *crtc_state)
-> +static bool dpu_encoder_needs_dsc_merge(struct drm_encoder *drm_enc)
->  {
-> -	struct dpu_crtc_state *cstate;
-> -	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
-> -	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-> -	struct dpu_hw_blk *hw_dspp[MAX_CHANNELS_PER_ENC];
-> -	int num_lm, num_ctl, num_dspp, i;
-> -
-> -	cstate = to_dpu_crtc_state(crtc_state);
-> -
-> -	memset(cstate->mixers, 0, sizeof(cstate->mixers));
-> -
-> -	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> -		drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
-> -	num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> -		drm_enc->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
-> -	num_dspp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> -		drm_enc->crtc, DPU_HW_BLK_DSPP, hw_dspp,
-> -		ARRAY_SIZE(hw_dspp));
-> +	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
-> +	u32 num_intf = 0;
-> +	u32 num_dsc = 0;
-> +	int i;
->  
-> -	for (i = 0; i < num_lm; i++) {
-> -		int ctl_idx = (i < num_ctl) ? i : (num_ctl-1);
-> +	for (i = 0; i < MAX_PHYS_ENCODERS_PER_VIRTUAL; i++)
-> +		if (dpu_enc->phys_encs[i])
-> +			num_intf++;
->  
-> -		cstate->mixers[i].hw_lm = to_dpu_hw_mixer(hw_lm[i]);
-> -		cstate->mixers[i].lm_ctl = to_dpu_hw_ctl(hw_ctl[ctl_idx]);
-> -		cstate->mixers[i].hw_dspp = i < num_dspp ? to_dpu_hw_dspp(hw_dspp[i]) : NULL;
-> -	}
-> +	/* We only support 2 DSC mode (with 2 LM and 1 INTF) */
-> +	if (dpu_enc->dsc)
-> +		num_dsc += 2;
->  
-> -	cstate->num_mixers = num_lm;
-> +	return (num_dsc > 0) && (num_dsc > num_intf);
-
-Ok, so after all the rebases this commit removes CRTC resource
-assignment from dpu_encoder.c, but they are added to dpu_crtc.c only in
-the next commit! So after this one the tree is broken. This isn't really
-acceptable. After each commit the tree should work, otherwise git-bisect
-might return incorrect results.
-
-Historically this patch just moved the allocation to the
-dpu_crtc_atomic_check(), while cstate has been maniputated in
-dpu_encoder_virt_atomic_mode_set(). Commit 3ae133b0192b ("drm/msm/dpu:
-move CRTC resource assignment to dpu_encoder_virt_atomic_check") moved
-resource handling to the atomic_check() stage. I think at this point you
-need to take one step back, return to the previous commits, but revert
-their order: first move cstate manipulation to happen during the
-dpu_crtc_atomic_check() function call, leaving dpu_rm_release() /
-dpu_rm_reserve() out of dpu_crtc_assign_resources() (in
-dpu_encoder_virt_atomic_check() as they are now). Then can come this
-patch, which moves topology handling, resource reservation, etc. to
-dpu_crtc.c.
-
->  }
->  
-> -static int dpu_encoder_virt_atomic_check(
-> -		struct drm_encoder *drm_enc,
-> -		struct drm_crtc_state *crtc_state,
-> -		struct drm_connector_state *conn_state)
-> +bool dpu_encoder_needs_modeset(struct drm_encoder *drm_enc, struct drm_atomic_state *state)
->  {
-> -	struct dpu_encoder_virt *dpu_enc;
-> -	struct msm_drm_private *priv;
-> -	struct dpu_kms *dpu_kms;
-> -	struct drm_display_mode *adj_mode;
-> -	struct msm_display_topology topology;
-> -	struct msm_display_info *disp_info;
-> -	struct dpu_global_state *global_state;
-> +	struct drm_connector *connector;
-> +	struct drm_connector_state *conn_state;
->  	struct drm_framebuffer *fb;
-> -	struct drm_dsc_config *dsc;
-> -	int ret = 0;
-> -
-> -	if (!drm_enc || !crtc_state || !conn_state) {
-> -		DPU_ERROR("invalid arg(s), drm_enc %d, crtc/conn state %d/%d\n",
-> -				drm_enc != NULL, crtc_state != NULL, conn_state != NULL);
-> -		return -EINVAL;
-> -	}
-> -
-> -	dpu_enc = to_dpu_encoder_virt(drm_enc);
-> -	DPU_DEBUG_ENC(dpu_enc, "\n");
-> -
-> -	priv = drm_enc->dev->dev_private;
-> -	disp_info = &dpu_enc->disp_info;
-> -	dpu_kms = to_dpu_kms(priv->kms);
-> -	adj_mode = &crtc_state->adjusted_mode;
-> -	global_state = dpu_kms_get_global_state(crtc_state->state);
-> -	if (IS_ERR(global_state))
-> -		return PTR_ERR(global_state);
-> +	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
->  
-> -	trace_dpu_enc_atomic_check(DRMID(drm_enc));
-> +	if (!drm_enc || !state)
-> +		return false;
->  
-> -	dsc = dpu_encoder_get_dsc_config(drm_enc);
-> +	connector = drm_atomic_get_new_connector_for_encoder(state, drm_enc);
-> +	if (!connector)
-> +		return false;
->  
-> -	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode, crtc_state, dsc);
-> +	conn_state = drm_atomic_get_new_connector_state(state, connector);
->  
-> -	/*
-> -	 * Use CDM only for writeback or DP at the moment as other interfaces cannot handle it.
-> -	 * If writeback itself cannot handle cdm for some reason it will fail in its atomic_check()
-> -	 * earlier.
-> -	 */
-> -	if (disp_info->intf_type == INTF_WB && conn_state->writeback_job) {
-> +	if (dpu_enc->disp_info.intf_type == INTF_WB && conn_state->writeback_job) {
->  		fb = conn_state->writeback_job->fb;
-> -
-> -		if (fb && MSM_FORMAT_IS_YUV(msm_framebuffer_format(fb)))
-> -			topology.needs_cdm = true;
-> -	} else if (disp_info->intf_type == INTF_DP) {
-> -		if (msm_dp_is_yuv_420_enabled(priv->dp[disp_info->h_tile_instance[0]], adj_mode))
-> -			topology.needs_cdm = true;
-> +		if (fb && MSM_FORMAT_IS_YUV(msm_framebuffer_format(fb))) {
-> +			if (!dpu_enc->cur_master->hw_cdm)
-> +				return true;
-> +		} else {
-> +			if (dpu_enc->cur_master->hw_cdm)
-> +				return true;
-> +		}
->  	}
->  
-> -	if (topology.needs_cdm && !dpu_enc->cur_master->hw_cdm)
-> -		crtc_state->mode_changed = true;
-> -	else if (!topology.needs_cdm && dpu_enc->cur_master->hw_cdm)
-> -		crtc_state->mode_changed = true;
-> -	/*
-> -	 * Release and Allocate resources on every modeset
-> -	 * Dont allocate when active is false.
-> -	 */
-> -	if (drm_atomic_crtc_needs_modeset(crtc_state)) {
-> -		dpu_rm_release(global_state, crtc_state->crtc);
-> +	return false;
-> +}
->  
-> -		if (!crtc_state->active_changed || crtc_state->enable)
-> -			ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
-> -					crtc_state->crtc, &topology);
-> -		if (!ret)
-> -			dpu_encoder_assign_crtc_resources(dpu_kms, drm_enc,
-> -							  global_state, crtc_state);
-> -	}
-> +/**
-> + * dpu_encoder_get_dsc_config - get DSC config for the DPU encoder
-> + *   This helper function is used by physical encoder to get DSC config
-> + *   used for this encoder.
-> + * @drm_enc: Pointer to encoder structure
-> + */
-> +struct drm_dsc_config *dpu_encoder_get_dsc_config(struct drm_encoder *drm_enc)
-> +{
-> +	struct msm_drm_private *priv = drm_enc->dev->dev_private;
-> +	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
-> +	int index = dpu_enc->disp_info.h_tile_instance[0];
->  
-> -	trace_dpu_enc_atomic_check_flags(DRMID(drm_enc), adj_mode->flags);
-> +	if (dpu_enc->disp_info.intf_type == INTF_DSI)
-> +		return msm_dsi_get_dsc_config(priv->dsi[index]);
->  
-> -	return ret;
-> +	return NULL;
-> +}
-> +
-> +/**
-> + * dpu_encoder_use_dsc_merge - returns true if the encoder uses DSC merge topology.
-> + * @drm_enc:    Pointer to previously created drm encoder structure
-> + */
-> +bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
-> +{
-> +	return dpu_encoder_needs_dsc_merge(drm_enc);
->  }
->  
->  static void _dpu_encoder_update_vsync_source(struct dpu_encoder_virt *dpu_enc,
-> @@ -2627,7 +2546,6 @@ static const struct drm_encoder_helper_funcs dpu_encoder_helper_funcs = {
->  	.atomic_mode_set = dpu_encoder_virt_atomic_mode_set,
->  	.atomic_disable = dpu_encoder_virt_atomic_disable,
->  	.atomic_enable = dpu_encoder_virt_atomic_enable,
-> -	.atomic_check = dpu_encoder_virt_atomic_check,
->  };
->  
->  static const struct drm_encoder_funcs dpu_encoder_funcs = {
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> index 92b5ee390788d16e85e195a664417896a2bf1cae..3db3ea076c377ad5411ec85006bcf4cd9757eb1d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> @@ -11,6 +11,7 @@
->  
->  #include <drm/drm_crtc.h>
->  #include "dpu_hw_mdss.h"
-> +#include "dpu_kms.h"
->  
->  #define DPU_ENCODER_FRAME_EVENT_DONE			BIT(0)
->  #define DPU_ENCODER_FRAME_EVENT_ERROR			BIT(1)
-> @@ -80,6 +81,13 @@ int dpu_encoder_get_crc(const struct drm_encoder *drm_enc, u32 *crcs, int pos);
->  
->  bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc);
->  
-> +void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
-> +				 struct msm_display_topology *topology,
-> +				 struct drm_atomic_state *state,
-> +				 const struct drm_display_mode *adj_mode);
-> +
-> +bool dpu_encoder_needs_modeset(struct drm_encoder *drm_enc, struct drm_atomic_state *state);
-> +
->  void dpu_encoder_prepare_wb_job(struct drm_encoder *drm_enc,
->  		struct drm_writeback_job *job);
->  
+> > 
+> > OR document this as "To-do: Need to bail out if DISCONNECT_PENDING" because
+> > even if I add this check, I dont know if can make sure this can be validated
+> > as the check could never hit.
+> > 
+> > 
+> > > > 
+> > > > For the ST_DISPLAY_OFF check, its mainly to guard against a scenario that
+> > > > there is an atomic_enable() without a prior atomic_disable() which once again
+> > > > should not really happen.
+> > > > 
+> > > > To simplify the code, get rid of these checks.
+> > > > 
+> > > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > > > ---
+> > > >   drivers/gpu/drm/msm/dp/dp_display.c | 6 ------
+> > > >   1 file changed, 6 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > index 992184cc17e4..614fff09e5f2 100644
+> > > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > @@ -1513,12 +1513,6 @@ void msm_dp_bridge_atomic_enable(struct drm_bridge *drm_bridge,
+> > > >   		return;
+> > > >   	}
+> > > > -	state = msm_dp_display->hpd_state;
+> > > > -	if (state != ST_DISPLAY_OFF && state != ST_MAINLINK_READY) {
+> > > > -		mutex_unlock(&msm_dp_display->event_mutex);
+> > > > -		return;
+> > > > -	}
+> > > > -
+> > > >   	rc = msm_dp_display_set_mode(dp, &msm_dp_display->msm_dp_mode);
+> > > >   	if (rc) {
+> > > >   		DRM_ERROR("Failed to perform a mode set, rc=%d\n", rc);
+> > > > 
+> > > > -- 
+> > > > 2.34.1
+> > > > 
+> > > 
 > 
 > -- 
-> 2.34.1
-> 
+> With best wishes
+> Dmitry
 
 -- 
 With best wishes
