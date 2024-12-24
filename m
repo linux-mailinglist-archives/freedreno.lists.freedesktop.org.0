@@ -2,85 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5DAA9FC245
-	for <lists+freedreno@lfdr.de>; Tue, 24 Dec 2024 21:41:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ADD29FC25D
+	for <lists+freedreno@lfdr.de>; Tue, 24 Dec 2024 21:42:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA7B610E4A6;
-	Tue, 24 Dec 2024 20:41:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3C7A10E4B0;
+	Tue, 24 Dec 2024 20:42:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EUTqe2Re";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Sn2EKCFD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C849110E1B2
- for <freedreno@lists.freedesktop.org>; Tue, 24 Dec 2024 20:41:19 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-3004028c714so60722901fa.2
- for <freedreno@lists.freedesktop.org>; Tue, 24 Dec 2024 12:41:19 -0800 (PST)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 315B510E4B0
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Dec 2024 20:42:22 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-30229d5b22fso61870741fa.2
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Dec 2024 12:42:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1735072878; x=1735677678; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1735072880; x=1735677680; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OVL1dmPSr1vk7EWC2qU43PTuiWRQrYk/i8+6+hYoAwc=;
- b=EUTqe2RePBxb908w0hYGUCWV39/mlVORzEHr9Um1aSmnON1fD34xfq5qodWXR2SD8C
- GT77sI5VIZFKrgFdb4g9zD76wTonlJhLR7ySkdXNuEsFIDxQHAQf6Vzu71DKBrL6DaNo
- pfKtsxMJYvdRt/nlGRB+lLGSs/RQeLaT9XCjFYlizdwUeY+6cwzFAfhV9sWNtBEgrOYE
- vqPF2gfYLeA4m84g7EjPnOGcPCtY1DuktNHcQ6VdEgyoLGZEgHQIzomMJRnsKeHZf4T2
- esssMpEMYztgfTRb4giwOtDUcQW5V+yq/6wZjhhMgfIcR9h2oAuX87CgMR6kqAH8fGn7
- 0pHw==
+ bh=eSmx/3z/9KsMFggKELsYft98BetV5zNV0d+x+8R4lkg=;
+ b=Sn2EKCFDFWT7D3uOLNN2HJKlWBqn+HOWtgpr9vj+eao3t6onRiyFXatYDg8at4GsGX
+ epoitk8vQ6VEgsz6zSzWjVlCdpCLZ9Gj5K95g/+0ANLoa5ab2c1Ar2zGMjXDOPbcoabt
+ T3H0qWtaPQ2F6GoDeLyU3SFb/xJHcjjKV/zC3T38p7EujLv8fLH1f8PZGHVeUdvUBWv2
+ pDqIOboeWyVhK4yTuyWKx+n2n5N1tiP1nWIVTT8oG/HZ4qcqSgJuMrmyvV/ySRVZqnea
+ IBrSSv9ejscsOKbE5dqe47PeY+Lu2phBa4syYF01RCOTnNa5iq8/CWw+D4YKB8laFt/z
+ e0aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735072878; x=1735677678;
+ d=1e100.net; s=20230601; t=1735072880; x=1735677680;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OVL1dmPSr1vk7EWC2qU43PTuiWRQrYk/i8+6+hYoAwc=;
- b=SxDYytYsrxKCimhrzyk3VrtPpZYmqFlPCgfAKnR4QtNuL77uMD2HTqIhuPPT9y+ofp
- Y/bYfXQ23WIpnAsyPn1w0mpQeU2S0HkS9RkBuUAPw6ZfRd8EpD2DfObtwiwBagkJi26W
- tqDeMo/R2yVUJq260syArqSdFT65AouJBHah3E8D6D1cWdYPht2IAKVZFUgOjQ7wgYBi
- amyTXBgiqckuaYG2UR9DAvob23kV446WoafuQfUK4B7vCrRjw/wftPy6dQZ0Ob8jIU30
- ZF5+O/wB6EHVA7XUSc0QFZDz0hEU2m2uFsfRiubCev+pley7chRx12YA56xAQoAjOx6t
- FPQw==
+ bh=eSmx/3z/9KsMFggKELsYft98BetV5zNV0d+x+8R4lkg=;
+ b=MQiyv37FhrNGcJvteBmFqlPQBhybfDcKZ+w3GVSdCkRlI7i6a8RRrE4M41Ewn3ttur
+ J+awfeamN+xD/u+PaW/zmkPslZiJXERYNuAgTLLJxAjKpVFBKcXCW87rPUp23qNJgb17
+ WPDZKdvi+nJtzpIHzToTaHgOdK6kZlmNMsEBQc4l6QAxn0WGqH10LaCPDcDjTwApIG3j
+ bCz7BQg4fYBXyrpBin3wjKko0hQidDfbJ0Tn8+16mbLNnK/qv9B0HkecfHyq1g0tpL17
+ emJNR3cauQ/Bn8bu2KDkDXwNEdAwMglGFrNa2uPtLV8EbkSm0hwe2D1+JGhOPe/Xma/F
+ 6xvg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW981UkX8S1tP5QGxJlZ0ZGpgJUcZTDokt/urcZfwFWxCrgyg1XJc8vfq/UZ/XE5ePq0EFt48DBSig=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyGwrM15bBdBgKDh8/iE/hNi3TNmkXceFUakttsM4oNSWicxjfO
- qt2PkJyRI9gmzFquV6fms3LFB96qtD53RHoBALmfUr72a+0vYRKBxalyK8zJ45Y=
-X-Gm-Gg: ASbGncvmNQW/Ekhwcs5Pal8D0wvLdRALsi5X/t8NCEFOQTpQonnKFmVfvsIWobiuljZ
- lBfGLLo1ExPGvWjBp+43iW0JNoTL3TNGP234v9mB9S8ceE62/ll1IWfN+8mFbyNlO/DyT+K0I00
- NY997NHRGuQcGmbENDpVaSDNJhnFpiJLC9qgRZik2T4C2BX7lfRv94tHZWFH/QCDr0+/dhMV7r3
- o1nY/4djFrOHiCkwFsD1VU/I8s5zv8SqsQAAPRtpQNqrBnPUbV04+TsluF4E9Uyg2NOQjR6
-X-Google-Smtp-Source: AGHT+IFRqkuN0v8Twfp+3aoJNzJcDiCl9dFl3FddoHLtEBoe+bPkHlNyv3Kkk7el3kN2e8ga03/35g==
-X-Received: by 2002:a05:651c:4cb:b0:300:1448:c526 with SMTP id
- 38308e7fff4ca-3046861f16emr47329571fa.37.1735072878081; 
- Tue, 24 Dec 2024 12:41:18 -0800 (PST)
+ AJvYcCVTuypsXoMmZ16zYDp6ZvVb9sMUJAzBfJJ9t7vh+Y7Fb02qnPRy8dABOIWLs/qX19gRg4InFQ0CbwA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxEKSFhJdxc5xW15Qgwt5UF05KD5pKkwaHrI+GTm8cQVVgvd1iP
+ ZcAfTWm4uKiK9lYWn8EWwpR0Idu8s7gIiTHudHohjIeumphvq6by8Kd5DfKs1jY7XdnZsvfObpO
+ r
+X-Gm-Gg: ASbGncvUw6y/ArPdI0zxsDSt5gKvfxQpLQmgBueyQ5oXA5aAtBKHy3MAJ8/ojc55L1a
+ q4oc9Z813n8v9TFepykCqTCMyNQ7bW4/qYSCC2ob1QKFmIf6XhqjC9lIyTkfKesUUfOguqCJDpR
+ ux2J4N+gfncP1+1+AcD9vy5+krx7JpMagtuNoop12aR9bls2hZmuhkpFAfZITItwKKJu2Pf/YSW
+ ewBnizw77UIqH95Sk0gGW49/n1H5bAd9LY0hFcOWxKFsqeZJBh7dYLUYC+ROkwX+1jiTEks
+X-Google-Smtp-Source: AGHT+IGnBXUn8XrDRSk7MSHo/mbak7ZljAWLgb4oZ/IVbfIPiilmBmfXljpSRu+9hSl/CaBSMljYuQ==
+X-Received: by 2002:a2e:a6a1:0:b0:300:1e0e:48db with SMTP id
+ 38308e7fff4ca-304685722b5mr45998001fa.24.1735072880580; 
+ Tue, 24 Dec 2024 12:41:20 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.90])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3045ad9bbdesm17808361fa.44.2024.12.24.12.41.16
+ 38308e7fff4ca-3045ad9bbdesm17808361fa.44.2024.12.24.12.41.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Dec 2024 12:41:16 -0800 (PST)
+ Tue, 24 Dec 2024 12:41:19 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com,
- Sean Paul <sean@poorly.run>,
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v4 00/25] drm/msm/dpu: Add Concurrent Writeback Support
- for DPU 10.x+
-Date: Tue, 24 Dec 2024 22:41:03 +0200
-Message-Id: <173507275848.561903.10083157563956874611.b4-ty@linaro.org>
+ Sui Jingfeng <sui.jingfeng@linux.dev>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm: Check return value of of_dma_configure()
+Date: Tue, 24 Dec 2024 22:41:04 +0200
+Message-Id: <173507275849.561903.11265213822765879155.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
-References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
+In-Reply-To: <20241104090738.529848-1-sui.jingfeng@linux.dev>
+References: <20241104090738.529848-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -100,32 +94,20 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 16 Dec 2024 16:43:11 -0800, Jessica Zhang wrote:
-> DPU supports a single writeback session running concurrently with primary
-> display when the CWB mux is configured properly. This series enables
-> clone mode for DPU driver and adds support for programming the CWB mux
-> in cases where the hardware has dedicated CWB pingpong blocks. Currently,
-> the CWB hardware blocks have only been added to the SM8650
-> hardware catalog and only DSI has been exposed as a possible_clone of WB.
+On Mon, 04 Nov 2024 17:07:38 +0800, Sui Jingfeng wrote:
+> Because the of_dma_configure() will returns '-EPROBE_DEFER' if the probe
+> procedure of the specific platform IOMMU driver is not finished yet. It
+> can also return other error code for various reasons.
+> 
+> Stop pretending that it will always suceess, quit if it fail.
+> 
 > 
 > [...]
 
 Applied, thanks!
 
-[05/25] drm/msm/dpu: get rid of struct dpu_rm_requirements
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/835d10620445
-[09/25] drm/msm/dpu: Add CWB entry to catalog for SM8650
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/989412edae5b
-[10/25] drm/msm/dpu: Specify dedicated CWB pingpong blocks
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/d1fe88dd53ae
-[11/25] drm/msm/dpu: add devcoredumps for cwb registers
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/675c1edfa92d
-[12/25] drm/msm/dpu: Add dpu_hw_cwb abstraction for CWB block
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/aae8736426c6
-[13/25] drm/msm/dpu: add CWB support to dpu_hw_wb
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/a31a610fd44b
-[14/25] drm/msm/dpu: Add RM support for allocating CWB
-        https://gitlab.freedesktop.org/lumag/msm/-/commit/a5463629299b
+[1/1] drm/msm: Check return value of of_dma_configure()
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/b34a7401ffae
 
 Best regards,
 -- 
