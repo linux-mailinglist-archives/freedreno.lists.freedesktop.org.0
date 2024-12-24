@@ -2,83 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF1389FC256
-	for <lists+freedreno@lfdr.de>; Tue, 24 Dec 2024 21:42:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 632729FC250
+	for <lists+freedreno@lfdr.de>; Tue, 24 Dec 2024 21:42:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0FF710E4A4;
-	Tue, 24 Dec 2024 20:42:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F84110E4A6;
+	Tue, 24 Dec 2024 20:42:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mQ6DQdYS";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gKuAznRO";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F95610E4A4
- for <freedreno@lists.freedesktop.org>; Tue, 24 Dec 2024 20:42:09 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-53df80eeeedso5407318e87.2
- for <freedreno@lists.freedesktop.org>; Tue, 24 Dec 2024 12:42:08 -0800 (PST)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D2DE10E4A6
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Dec 2024 20:42:11 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-3003c0c43c0so60440741fa.1
+ for <freedreno@lists.freedesktop.org>; Tue, 24 Dec 2024 12:42:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1735072867; x=1735677667; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1735072870; x=1735677670; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=013fQ6OlJ/C1u33CS05E3QkAEu35dZhHmucAOsh3zcE=;
- b=mQ6DQdYSL1jgnrHJ0c0H/GDeUZ65sWRBawLl988EbKa4Gvw+K8ptzfeVyCpU66ZNyQ
- n0FGHtlEsWGdsH6RCFhTj2Thrl+FlDLSWkGzj+xgik3KyRrGE1UBdJcr+lEhGj07kDH0
- 5KQ8bMOvRrV5COyUT3RT3ic+HggcTo08Oaj0DnKrMlSVhhmJH6prXDOzR7k05oCr87jk
- xJw61cxhJo5RLRv58ebvhZyBfY+lnLhBvq9hBNjQDvm8W8wZKPpEER0qPF5KtgkL0oE+
- glNHxrkzzAMIBet6+G9PzAOAxtPcCeF+DE8OcyFpsUSxQnlYCgwBRyXo2H9dxjXKO3Xq
- rSTg==
+ bh=DJtLBAKNWX9SuSyfWJPwd50DWzglHV0KUPjPlwl/9FA=;
+ b=gKuAznROyMJ+eZcr9Y3YiRy7eBb3ZhULKeTtS9VPmX8r6n6yazDgCy7J8rGymHu3o8
+ 5FGNc30WT/A8M9BQI11iqkGBK7ZO869Igisyi4BVxgOSBi4eRyuszfrJU7OgeRVWr0p6
+ oGMznd+j2urysgQRq7qjc2MaciG2YfCfaMjCuIdD7Bx8uicIHp0t7bRX4iIkBjclQYja
+ TT8uPJgJ5Mr6NL+BqpjgICYkBRadBCWhy7c9ecoVteb//asBpWzEB7STZL+PdDhBcN+J
+ KjecFLoBXUpHfV4sVLHJHgnAyA3BrgfNG3dogH5kB2UE9qygt+cUpN1BrUw47Gwo4f+F
+ 1NZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735072867; x=1735677667;
+ d=1e100.net; s=20230601; t=1735072870; x=1735677670;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=013fQ6OlJ/C1u33CS05E3QkAEu35dZhHmucAOsh3zcE=;
- b=eXBfDllF/NLyjYsMiaTVdXx3SsgQ27pRs3jNXJj82gGshl51ZkrFHxbSth561mHwVt
- ZnxvdPjGMsN3/NbviuqZI4vxzcli19CFSrPKxtCuex3RJRPl97oqyC73nuvQMaCCqwfz
- f/coH0hqQgyf3xRK3F2imon5VbxAApIKYzL/TvKHDAGAPNBazCBH+q43hIZMpmPEL0kI
- GzUAn0zWiQ5SRZ2OVh0vfCznKxI0KwER5j+SmI628J4yi/NP2iY+95D3qoyS/T7Atbqt
- 0Z17wp+bXjODpjIP/mqIOoO7rr0fO4Y5nUO/z9lyU2AoaozdeuoLJ1v73oh0LmtRxrLJ
- pULQ==
+ bh=DJtLBAKNWX9SuSyfWJPwd50DWzglHV0KUPjPlwl/9FA=;
+ b=ahrMCwpCoCs/mfVY84W68QQver+u0xUC7+GBSA3hei4RmTbx4TkyaUbUEP1gBLc8hZ
+ +qGLuyc7yc592HXAZtLqXQ2jrdDyCUqJJyk04bNqSFbyIv7AAfQPEf3/Ae6ZPSaTg/DR
+ VWtUkshJBIH2o3kaHb1N8rRkYdSTc9o0paTErmdKMoD8mX2eNKzCEBFDErc/51QX5ggF
+ Q7ZYP/BqIrxsWRG1u7xl1Eoc7qKbByIX6My+Tqxwkt8TVuzly7gV5CEx9Dpz1H9bwH2r
+ 0YBcRdWEkaKRVBA80XH+y0xyHViiEhaZjkYFFW7BwTyVl2zt/5MxKAbkzvJEq5x/a5ZT
+ +3NA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVvyZMFspKeKEHwjc9+AzsHU96yaWTiLm5E5BGaz4P0FQpZYrMwb8FPQEHt/UzedvSVsu5/x4vOptc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwsJbjVZVBUBiZy4Sk/1b9VFJNtptEqBEHVjseWU4A9TLEJY/gD
- HUNcrnQFzFqSc6dXX1NjKKw89s3CBtP5R6WNMQCpLJwfdOPM6ZxkCMYIcVrkd08=
-X-Gm-Gg: ASbGncsGdp3UWnIHSlIn1XY7+gZivYkfR7458T5IA+EFJnp7NDMHTWLFy/BkhExpGRv
- zMwyIZi7thj68BYugjy8vE7HVaKJ6mFGOqmUsIbX2UOKDOwxqAwJEq2Rdz7XEobSkBqB14yRl8H
- YErVcVeRhRYewIt1bL76uxh95bBgfYCiBirM7jO+kX/5VS79LwRFIKv0v5kI+rJgCutK9MQ4sfO
- B4lu3ku0NTGbvrxpngX8DA2KAHatorjqVcNNCyZhXWqpMix+URPkA1/NMNXcTo837YM3ncb
-X-Google-Smtp-Source: AGHT+IH5+6vfwjy4BTw9YCLzcbedK1FJ6WQCRricdTAApVBK2Uzvp8laNd8QmgHwa+lXbQ8/PXrF7w==
-X-Received: by 2002:a05:6512:ba6:b0:540:2122:fae9 with SMTP id
- 2adb3069b0e04-54229582051mr5745971e87.46.1735072867393; 
- Tue, 24 Dec 2024 12:41:07 -0800 (PST)
+ AJvYcCVTM0+0uKHw2V/g99Si1qLZcYm8RJLmIENASbLbBVVbYF1/MUPcWAjmgHUfUqNowZbT8eqzdrCbwy4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwZJhIsxCWZVSbcad+Wlh1TMPAsxgGUFgznMmtfUQcAj241dTJF
+ xM2uYa07xyoj1M1qo+Am1Bn3u/V2iYuW/1LHvh6H6dn6w6q0Z/mw+POWAOhSeBs=
+X-Gm-Gg: ASbGncv+qp6DAhzAFI+UezU+YKcZ3DMTLv+e+c1Sg0GBK7P9/AD7OKJ0XyOLI/bRE7o
+ O3KNqaceunO7u3q5AjtE9x7a00g1RQODxh4kLH7K1EyAjAMtR8O/TkHlAa3Taix/3SPc0OWSYat
+ MQihFHn6J1BCmRxqX8BI0ZkQ9PXwZux5Vn6AbzTKHaLCMEzZEaaDK/BUZ2sDp4BfAjQmMtbgm2d
+ AxPEo3goNFHUTQrzqHRdM+pgWEWPiK/zeOg0geuUdSy4qtU1d87bGlecmhy+EwCIv8ac3Cv
+X-Google-Smtp-Source: AGHT+IFF5gVpfBOUmUazl9+O+Qp/eY4DDpdgeppZBxS/LFNrvXVCbTXqTTHO3C+XtwgPrSWhH9XBIQ==
+X-Received: by 2002:a2e:b893:0:b0:302:336a:8ada with SMTP id
+ 38308e7fff4ca-30468607f65mr55970431fa.27.1735072869982; 
+ Tue, 24 Dec 2024 12:41:09 -0800 (PST)
 Received: from umbar.unikie.fi ([192.130.178.90])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3045ad9bbdesm17808361fa.44.2024.12.24.12.41.04
+ 38308e7fff4ca-3045ad9bbdesm17808361fa.44.2024.12.24.12.41.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Dec 2024 12:41:05 -0800 (PST)
+ Tue, 24 Dec 2024 12:41:08 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Arnd Bergmann <arnd@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jinjie Ruan <ruanjinjie@huawei.com>,
- =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm: fix -Wformat-security warnings
-Date: Tue, 24 Dec 2024 22:40:58 +0200
-Message-Id: <173507275852.561903.13981702571183938186.b4-ty@linaro.org>
+Subject: Re: [PATCH 0/3] drm/msm/mdp4: fix probe deferral issues
+Date: Tue, 24 Dec 2024 22:40:59 +0200
+Message-Id: <173507275848.561903.12093741891942596753.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241216083319.1838449-1-arnd@kernel.org>
-References: <20241216083319.1838449-1-arnd@kernel.org>
+In-Reply-To: <20240420-mdp4-fixes-v1-0-96a70f64fa85@linaro.org>
+References: <20240420-mdp4-fixes-v1-0-96a70f64fa85@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -98,22 +93,19 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On Mon, 16 Dec 2024 09:33:13 +0100, Arnd Bergmann wrote:
-> Passing a variable string as a printf style format is potentially
-> dangerous that -Wformat-security can warn about if enabled. A new
-> instance just got added:
+On Sat, 20 Apr 2024 05:33:00 +0300, Dmitry Baryshkov wrote:
+> While testing MDP4 LVDS support I noticed several issues (two are
+> related to probe deferral case and last one is a c&p error in LCDC
+> part). Fix those issues.
 > 
-> drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c: In function 'dpu_kms_mdp_snapshot':
-> drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:1046:49: error: format not a string literal and no format arguments [-Werror=format-security]
->  1046 |                                             vbif->name);
->       |                                             ~~~~^~~~~~
 > 
-> [...]
 
 Applied, thanks!
 
-[1/1] drm/msm: fix -Wformat-security warnings
-      https://gitlab.freedesktop.org/lumag/msm/-/commit/49c2e01be19c
+[1/3] drm/msm: don't clean up priv->kms prematurely
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/ebc0deda3c29
+[3/3] drm/msm/mdp4: correct LCDC regulator name
+      https://gitlab.freedesktop.org/lumag/msm/-/commit/8aa337cbe7a6
 
 Best regards,
 -- 
