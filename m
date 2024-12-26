@@ -2,97 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEFBF9FCA09
-	for <lists+freedreno@lfdr.de>; Thu, 26 Dec 2024 10:43:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E15A09FCAD9
+	for <lists+freedreno@lfdr.de>; Thu, 26 Dec 2024 13:10:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A552910E812;
-	Thu, 26 Dec 2024 09:43:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C90110E049;
+	Thu, 26 Dec 2024 12:10:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="XFLOK+F5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iieaJYY2";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63B7F10E811;
- Thu, 26 Dec 2024 09:43:46 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BQ1vVCg001822;
- Thu, 26 Dec 2024 09:43:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- l9D0iGf5gfsI47OTyHusqADcAsJb13cd95a9Ia17SRI=; b=XFLOK+F54Vmqa1Hh
- jY2lmNj0bcXNo+x6mV+8fnXP37qDagMd/5+/7LFVNKneSPSJ+hjrpEGpqlQYGa+x
- fuDVpV5PN36ybAnuhe8BctgewaFT4JylFIfetdyvw+Df4L6EIo9dNVdrMVT6KLpy
- /nL0FcJE1vLo7CJVQcQNvbP9pB9Aw6fIPlQ+7Ci7HLvWK6kvUNmYJbZH2woWk4LL
- uuxI3sq6u6Uc0AD+kTulqCG0po3OT2A5Sxe+00hp0XtnI4aqLtdmuVfHT2EguKdS
- T/6J6Btp95It7rYXJbYShYwXYxe8obLv+YNW07K1L45+TgJg+z6BmXuIxHmA/R9K
- G0zLGw==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43rwxja6g2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Dec 2024 09:43:41 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BQ9he9s005334
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Dec 2024 09:43:41 GMT
-Received: from cse-cd01-lnx.ap.qualcomm.com (10.80.80.8) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Thu, 26 Dec 2024 01:43:34 -0800
-From: Yongxing Mou <quic_yongmou@quicinc.com>
-Date: Thu, 26 Dec 2024 17:40:49 +0800
-Subject: [PATCH v2 5/5] drm/msm: mdss: Add QCS8300 support
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20241226-mdssdt_qcs8300-v2-5-acba0db533ce@quicinc.com>
-References: <20241226-mdssdt_qcs8300-v2-0-acba0db533ce@quicinc.com>
-In-Reply-To: <20241226-mdssdt_qcs8300-v2-0-acba0db533ce@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBC2F10E05B
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Dec 2024 12:10:51 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-3862ca8e0bbso4895654f8f.0
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Dec 2024 04:10:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1735214990; x=1735819790; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4yE0d6/fT2fHAjzAIYMLLWaXzKg6hYqakVFryoy6JvQ=;
+ b=iieaJYY2CsLjdCc7/QLURDOjLPWQbiT9BsMn1GBf/YUGsxntQjc7WPMDtyBhUorG2E
+ TA1wLo7Ruz6fiOLYHiVfpCYyZiSqnaAiODAW1kAsuGcihmLCAT9GJIyqDlTzZerl/L6V
+ G0fHFZDMea7eDe2jT+xzWcBvZw7GfyDjEmZV0iCndjUKlCyJbkYdpjKhe1pQXbgb7Qg+
+ yfiRO2Jn2YdDoEWk3fEjnke0gxNjG50f+9VGPmpNGs64YLIqrkc8amL5j1bvjME1VmYT
+ nLzmSYnSkw2bhTV3gAf5t5j0d2M2O/qT7ISUqfLVeKQ9JvArJ7M/eLUjofzztN8AjrEd
+ b/Ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1735214990; x=1735819790;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4yE0d6/fT2fHAjzAIYMLLWaXzKg6hYqakVFryoy6JvQ=;
+ b=t2owDhARSx/aM9DqtKmmXfGOcT1Pztcis5nKTRfmJFhsmY1XpKCLWh7NS542Xonmqr
+ tKdO40QYDPggBo1cD8XmAxbqcSqBlnDc2R69Alv/oHCxDHwPW/NnIt8sL9wcqpBLuPIq
+ I+OJ46rAFqQ7OlB/Z6npQnvW+y8BHVzdD5PI0nMYXMoSAenzrwDZhMoxR4Fqp4QT1H3u
+ amvgI0AaGqpmy//6OiJIX0X23UApoNsVSRMHTi09C2OwReGFbH3ZfYVEgkFQpQKypVfN
+ /ZuAwEYlReT8J4Bcr8AQwfbKYCfFZ4ofbK5Q+mBcWtNpP2yDb+D4CO90P5a07BGlqwJT
+ ihEw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWOSOIcU2Dgla9vkc0KLfqUXpR8TyjScf+FddfLadMQiwiDUsi8jis4cfALved6RqZNBINaNOe0XnY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqTMB3Ha9608DkdyNEctNRnn9eI20Be75Fs0xthhNtliN8UNEp
+ XshXke94UlEKRYOz5XH/no8Bx7uO5p33a1k58XM36HAzpWXLazVQAPps5t8b5NE=
+X-Gm-Gg: ASbGncscArHJoj5RsFEiizrLCet1CSSN4TSkL6SWRW6adl5mJPdn03S11KFlq1vYTpY
+ nLlE2Vswl2qBJ2WiB7LNlSwZGWQo1gALB75rfdVUCkSxhlR/F19xSkkRUMJNqG4CMSkAC3aFfVG
+ S7AXNQz7iG6egUwsIX1mhQ/i+skFWAFnx6DlJzBDyoxGZ7NRnpYRPYzVrxecHBXE50yQVvsi5fk
+ RaZ/Rkycl8S8nGfkpR47e5R2dU/XOm8/bYyvvVKiBnO+ewhG9nkYgw=
+X-Google-Smtp-Source: AGHT+IE7Mzk62uTd4yycH28u5xCSB39eiD96qbQg0fIjJMfiTxkRYB+ECRA3AUQrSJ8HACLT9c1tFw==
+X-Received: by 2002:a05:6000:400b:b0:385:ee3f:5cbf with SMTP id
+ ffacd0b85a97d-38a221eab74mr22082237f8f.20.1735214990215; 
+ Thu, 26 Dec 2024 04:09:50 -0800 (PST)
+Received: from linaro.org ([82.76.168.176]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c89e1cesm19043982f8f.64.2024.12.26.04.09.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Dec 2024 04:09:48 -0800 (PST)
+Date: Thu, 26 Dec 2024 14:09:46 +0200
+From: Abel Vesa <abel.vesa@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, "Kuogee
- Hsieh" <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, "Kishon
- Vijay Abraham I" <kishon@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>
-CC: Yongxing Mou <quic_yongmou@quicinc.com>, <linux-arm-msm@vger.kernel.org>, 
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-phy@lists.infradead.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1735206183; l=1622;
- i=quic_yongmou@quicinc.com; s=20241121; h=from:subject:message-id;
- bh=T1quEqzzRYSTMr7FDeES364YwjAI1nS3gNRFG9z4HNk=;
- b=HtbY/AX2zNsrOYqZMz2lkI1joXDehgg8w211gXR5XZurJny5uq/TmLMCotqGlx9mFrX7txLmn
- EkwHWH1AnqxB5hmzcEWugBSRbfomh5Cq8OHJNPPc2HJazLPb+tvNehX
-X-Developer-Key: i=quic_yongmou@quicinc.com; a=ed25519;
- pk=zeCnFRUqtOQMeFvdwex2M5o0Yf67UHYfwCyBRQ3kFbU=
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 3chVvJ4-vkNoZcjvWDGztUvm3WrSbPDf
-X-Proofpoint-GUID: 3chVvJ4-vkNoZcjvWDGztUvm3WrSbPDf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0
- suspectscore=0 mlxscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
- priorityscore=1501 impostorscore=0 mlxlogscore=999 spamscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412260085
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v2 1/4] drm/dp: Add helper to set LTTPRs in transparent
+ mode
+Message-ID: <Z21HimmBvwwA7/KD@linaro.org>
+References: <20241211-drm-dp-msm-add-lttpr-transparent-mode-set-v2-0-d5906ed38b28@linaro.org>
+ <20241211-drm-dp-msm-add-lttpr-transparent-mode-set-v2-1-d5906ed38b28@linaro.org>
+ <o6xcm7jdcay77b6kltj7zownk6je6umqlmxsuscbbubw4jlr5v@w4zuusufajwx>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <o6xcm7jdcay77b6kltj7zownk6je6umqlmxsuscbbubw4jlr5v@w4zuusufajwx>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,46 +104,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add Mobile Display Subsystem (MDSS) support for the QCS8300 platform.
-Due to different memory type, it use different mdss_data with SA8775P
-although using the same dpu.
+On 24-12-11 21:22:00, Dmitry Baryshkov wrote:
+> On Wed, Dec 11, 2024 at 03:04:12PM +0200, Abel Vesa wrote:
+> > According to the DisplayPort standard, LTTPRs have two operating
+> > modes:
+> >  - non-transparent - it replies to DPCD LTTPR field specific AUX
+> >    requests, while passes through all other AUX requests
+> >  - transparent - it passes through all AUX requests.
+> > 
+> > Switching between this two modes is done by the DPTX by issuing
+> > an AUX write to the DPCD PHY_REPEATER_MODE register.
+> > 
+> > Add a generic helper that allows switching between these modes.
+> > 
+> > Also add a generic wrapper for the helper that handles the explicit
+> > disabling of non-transparent mode and its disable->enable sequence
+> > mentioned in the DP Standard v2.0 section 3.6.6.1. Do this in order
+> > to move this handling out of the vendor specific driver implementation
+> > into the generic framework.
+> > 
+> > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> > ---
+> >  drivers/gpu/drm/display/drm_dp_helper.c | 50 +++++++++++++++++++++++++++++++++
+> >  include/drm/display/drm_dp_helper.h     |  2 ++
+> >  2 files changed, 52 insertions(+)
+> > 
+> 
+> 
+> > +/**
+> > + * drm_dp_lttpr_init - init LTTPR transparency mode according to DP standard
+> > + *
+> > + * @aux: DisplayPort AUX channel
+> > + * @lttpr_count: Number of LTTPRs
+> > + *
+> > + * Returns 0 on success or a negative error code on failure.
+> > + */
+> > +int drm_dp_lttpr_init(struct drm_dp_aux *aux, int lttpr_count)
+> > +{
+> > +	if (!lttpr_count)
+> > +		return 0;
+> > +
+> > +	/*
+> > +	 * See DP Standard v2.0 3.6.6.1 about the explicit disabling of
+> > +	 * non-transparent mode and the disable->enable non-transparent mode
+> > +	 * sequence.
+> > +	 */
+> > +	drm_dp_lttpr_set_transparent_mode(aux, true);
+> > +
+> > +	if (lttpr_count > 0 && !drm_dp_lttpr_set_transparent_mode(aux, false))
+> > +		return 0;
+> > +
+> > +	/*
+> > +	 * Roll-back to tranparent mode if setting non-tranparent mode failed or
+> > +	 * the number of LTTPRs is invalid
+> > +	 */
+> > +	drm_dp_lttpr_set_transparent_mode(aux, true);
+> 
+> This means that if lttpr_count < 0, then there will be two requests to
+> set LTTPRs to a transparent mode. Is that expected?
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
----
- drivers/gpu/drm/msm/msm_mdss.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Yes, exactly. If counting the LTTPRs (see drm_dp_lttpr_count) results in an
+invalid number (e.g. more than 8), then according to the DP standard,
+we need to roll back to transparent mode.
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index dcb49fd30402b80edd2cb5971f95a78eaad6081f..40c8b476763b8c39434b1448008cfa8ffac7a8ea 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -582,6 +582,16 @@ static const struct msm_mdss_data qcm2290_data = {
- 	.reg_bus_bw = 76800,
- };
- 
-+static const struct msm_mdss_data qcs8300_data = {
-+	.ubwc_enc_version = UBWC_4_0,
-+	.ubwc_dec_version = UBWC_4_0,
-+	.ubwc_swizzle = 6,
-+	.ubwc_bank_spread = true,
-+	.highest_bank_bit = 3,
-+	.macrotile_mode = true,
-+	.reg_bus_bw = 74000,
-+};
-+
- static const struct msm_mdss_data sa8775p_data = {
- 	.ubwc_enc_version = UBWC_4_0,
- 	.ubwc_dec_version = UBWC_4_0,
-@@ -737,6 +747,7 @@ static const struct of_device_id mdss_dt_match[] = {
- 	{ .compatible = "qcom,mdss" },
- 	{ .compatible = "qcom,msm8998-mdss", .data = &msm8998_data },
- 	{ .compatible = "qcom,qcm2290-mdss", .data = &qcm2290_data },
-+	{ .compatible = "qcom,qcs8300-mdss", .data = &qcs8300_data },
- 	{ .compatible = "qcom,sa8775p-mdss", .data = &sa8775p_data },
- 	{ .compatible = "qcom,sdm670-mdss", .data = &sdm670_data },
- 	{ .compatible = "qcom,sdm845-mdss", .data = &sdm845_data },
+Do you think I need to re-word the comment above more to make it more
+clearer?
 
--- 
-2.34.1
+> 
+> > +
+> > +	return -EINVAL;
+> > +}
+> > +EXPORT_SYMBOL(drm_dp_lttpr_init);
+> > +
+> 
+> -- 
+> With best wishes
+> Dmitry
 
+Thanks for reviewing,
+Abel
