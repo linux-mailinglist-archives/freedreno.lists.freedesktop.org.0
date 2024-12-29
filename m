@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15B3D9FDD52
-	for <lists+freedreno@lfdr.de>; Sun, 29 Dec 2024 05:49:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64E5F9FDD53
+	for <lists+freedreno@lfdr.de>; Sun, 29 Dec 2024 05:50:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E151A10E25E;
-	Sun, 29 Dec 2024 04:49:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4107D10E25E;
+	Sun, 29 Dec 2024 04:50:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ng2GnJfr";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AF+2wEcL";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7905210E25E
- for <freedreno@lists.freedesktop.org>; Sun, 29 Dec 2024 04:49:53 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-540201cfedbso8671458e87.3
- for <freedreno@lists.freedesktop.org>; Sat, 28 Dec 2024 20:49:53 -0800 (PST)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4264E10E25E
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Dec 2024 04:50:51 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3bdccba49so14743716a12.1
+ for <freedreno@lists.freedesktop.org>; Sat, 28 Dec 2024 20:50:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1735447732; x=1736052532; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1735447790; x=1736052590; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=49KnvXyqtzHNP5zpXwkwN+VDBQ2sz7fI/cBjo8ecRUM=;
- b=ng2GnJfra818x8jXRdCnjEY4DTEuid5PExopiTZWYdmhLJexz844aWvtz10kmUTU2E
- EvKVGTYLEUEzPM1S56LsZZxv45HrhIs0LzO0i0m74a/K3L/YdG4Sevp1JB4ztCmHjx8x
- YwK5kvdgHm0XPkmOx4ml51CiA0vp20fOPJmZbdmv6/91HvQgDy2UVwMJsVbaYVDE9BGK
- oXzBpSBj3H4GRf7VLqtsifZP05G6b3UXiWvK8uAN+96CLV69MammtpzQVESGQkfNZ9Dq
- EBmGhw/kGzS7CweimFf/hh07TjGDijffM0oWaXMpmWGNTrxBvLG18MF0H3eT2/XZNjXn
- lFYw==
+ bh=chdPQNE/j8Xw45cOV5VKgoIPj08nYhEDdCs+/0/t6qw=;
+ b=AF+2wEcL4pxlkhRdHlFKp7hYwbuZAnuCOdOVOs0cRY6BA0EARqHn8M+SMOv5vwo8Of
+ qIw814Be1lBF4r+4w5l2OsRBlPy+J8W64pDly5HUrG2JqqIP3H9oOkuIeW+aWTB02Gr+
+ RrAI2enCJQm3Jhk9mLaWYH8dofum89lwqbJsQiSTL/Zlz/ns+WpTBdXeSgW3NLxbMT1/
+ uWwWXpnSSgh/Fp4NSjjgidXpf1c9h+mCLIkvWUDFPOJaY2m+8si9Z1vENMoBqP3WcKHd
+ NSOtFTE/G5P9p6/VpXBHA8WjtA4OItltHbRi/ABuDUNJTjJLB/c0uwnROZE6cREQTY3O
+ dSgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735447732; x=1736052532;
+ d=1e100.net; s=20230601; t=1735447790; x=1736052590;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=49KnvXyqtzHNP5zpXwkwN+VDBQ2sz7fI/cBjo8ecRUM=;
- b=ickyxoqk9jXns0Yc0IouLsCd3j2v4IUqgi3fX7GKCwrcjVcsmVc12+Z6GhyP/461tO
- KrX1MOz/jgT0YN18kqIMSmzcN2Argbf/2ylLbz8X+AniHn5yHdHdlCvDhh1dHz4AkK28
- zKjBHr/ufPTvP5e2bJ5cM0YsyVEperAPNr+rYi2i76W4V8MmGrI97ryEc2KqCxYasyi8
- 7pPntvVH6omMW+BkxM4FNQ4zLqgj7hZ/ihJsHHBONjKPdrxBiUpO7/jsCm6GS6Pj6EJv
- NH52LTjeYs9p3PSgdrPyIOrCFuDiJoZY40Hxhl/FEhq4arBWLUdBrHoGTc5r8H4PAGjK
- VYuw==
+ bh=chdPQNE/j8Xw45cOV5VKgoIPj08nYhEDdCs+/0/t6qw=;
+ b=bHYoTp7uxgmXcmX4tzI0/m8StkbogTTznNDueWZzzqc3smQZykDKk5YhEtZjCRG2LP
+ 9oRO1YnJEugA4rRxeKk0arEFJXv4hLJGxLESu8IavGnMHRi2gjfcVdNht/2gyd6EtbkJ
+ LCGD83YoYwBWyZB5F6zMJSoKavyPKQT6uTa8L7Rje7y8Mwh5ud0GG3O23UsjKvulvsqx
+ AcfRttIQg7KjLSiWqsP850AiN57McXOGHgJ2xIyd5IaGB9Olwws4DqiUI3mbDqPnzQf/
+ xxmc9gYw3NMidHjTSGjpQrz6fBpfF3lVoEnWhNRCVFE+/DXd7Ix88ePyckeFdFiYo9vF
+ JSYw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUZ5cIROdKiudNfH5dFgDXzS84uUWx4Vjw6rhuqVt7kUqp0yrKQ7KWQwy8+EiAtI/IhItDafQoIVhU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx1gSM/5L2aKUjjOOIJMmiHtsoG0NXeJBSGsxiH24nrdL1i/K/C
- YbtFnDfLqN1yRz2l+zb8XKzOMRrd5sbPpqb8x5A8Ll1OFonxYBB2JBqXtf5Aw7arhACYCPVX9P2
- D
-X-Gm-Gg: ASbGncvDYQ71MWRom1YPw0NuoTUkROtTLIWGsuxBU/U3DSkPlkAsnDAKVLXAP9lexcI
- VJbs65wReU7papw+fevMN+EahXcB+NDj/DiOSEaWBzdOupPKDPN9WMN+xsA8ndEsiXh9uikG6Me
- d8yXA1efz8JLPXRaK7EUxqA6Ezt5JIroN5GJzFz0STUwccWbhjVzMJb4Ee6e1KDEuM+EO2jeNey
- xCYk6ISzUmfSAdMhS3j/mDqb8l2oVNXf8HiPh7npz1lFbinoniONtg5pkwe/TcLOgwVt3hD7qts
- UEkf/kOEy5k8AZGf2GgZZ2C4KV/aH/eglqaF
-X-Google-Smtp-Source: AGHT+IHofLwFYxWucuHyLIawAriYNYKQ/SrKehOlm3Ec2J5KACyiss5kzgeMpgISL832D3TRqtyLHg==
-X-Received: by 2002:a05:6512:3e23:b0:53e:12dc:e805 with SMTP id
- 2adb3069b0e04-54229582252mr9675190e87.45.1735447364447; 
- Sat, 28 Dec 2024 20:42:44 -0800 (PST)
+ AJvYcCXXPs/3dwtkQ+xuNGXaUMB2PbBqpOuFqQvIF2djlUGAXp+FGG2qHTlw89hhs2igSg/hoOHoiWP9/1U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzuHrWnJ8L3JuPbm5gPxpb/IrUvHK3VRfswrRRnNtWigZDtXY7f
+ mqvNpCRgAhbxmzmadVZn38isP9AhuUKYfdbAR1OQo846XkOfZ10+AtDE7j4BUaoEpokiGCqIZCD
+ d
+X-Gm-Gg: ASbGncv+lJm6T5acBlexzGlqGAQ/MKXC66sy1JP2MooD7Ou31jWqR/di2Fzl5WvkHn0
+ kln7x2M15/0uTeaHsOKq4A76EjEHlSUVsJ517CtX5GpTV7oV1mfjqNam403DS6/52sL5nFtZO75
+ 1jwNcm6pYLXjp2yxFODnqvo4cuJjELDEh0V81QUCOmqyYigmLv+xyC1GSIXcODV1EHBt+zlru/J
+ /HT4AON0zx8zij33NP9gGvERFGOu4r8ipV4g0zFCRxyVNCiOEEu5cEsIVRkagnFvOsJaB3w2O7S
+ 2QViVjaxC3RxxxePFc4Ug8TA2XqNfdEzbWl3
+X-Google-Smtp-Source: AGHT+IEqnOJCZfEtqq/hxEXbpXGiUtUrPmZ/EuQZbNs9DkS0CE7apf881FhBeAE8931EuWeeqm9PqA==
+X-Received: by 2002:a05:651c:60e:b0:300:360b:bc36 with SMTP id
+ 38308e7fff4ca-30468579f57mr84634791fa.23.1735447478652; 
+ Sat, 28 Dec 2024 20:44:38 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-542238301e0sm2834926e87.248.2024.12.28.20.42.42
+ 38308e7fff4ca-3045adad6dcsm30120291fa.60.2024.12.28.20.44.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Dec 2024 20:42:43 -0800 (PST)
-Date: Sun, 29 Dec 2024 06:42:40 +0200
+ Sat, 28 Dec 2024 20:44:37 -0800 (PST)
+Date: Sun, 29 Dec 2024 06:44:34 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Yongxing Mou <quic_yongmou@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, 
@@ -80,15 +80,14 @@ Cc: Rob Clark <robdclark@gmail.com>,
  freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-phy@lists.infradead.org
-Subject: Re: [PATCH v2 4/5] dt-bindings: phy: Add eDP PHY compatible for
- QCS8300
-Message-ID: <kz5qakmiy7n72p5yrrkgcjrmtvwl7knnkbzmh44g6cfunpjxad@3titlwwt32ux>
+Subject: Re: [PATCH v2 0/5] Display enablement changes for Qualcomm QCS8300
+ platform
+Message-ID: <mha5mg3yyco2dm6g4nw5xfufuhqataoyiw6arkjalsu5caswth@vblodqj3ldcp>
 References: <20241226-mdssdt_qcs8300-v2-0-acba0db533ce@quicinc.com>
- <20241226-mdssdt_qcs8300-v2-4-acba0db533ce@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241226-mdssdt_qcs8300-v2-4-acba0db533ce@quicinc.com>
+In-Reply-To: <20241226-mdssdt_qcs8300-v2-0-acba0db533ce@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,52 +103,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 26, 2024 at 05:40:48PM +0800, Yongxing Mou wrote:
-> Add compatible string for the supported eDP PHY on QCS8300 platform.
-> QCS8300 have the same eDP PHY with SA8775P.
+On Thu, Dec 26, 2024 at 05:40:44PM +0800, Yongxing Mou wrote:
+> This series introduces support to enable the Mobile Display Subsystem (MDSS)
+> , Display Processing Unit (DPU), DisplayPort controller and eDP PHY for 
+> the Qualcomm QCS8300 target. It includes the addition of the hardware catalog,
+> compatible string, and their YAML bindings.
 > 
 > Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
 > ---
->  .../devicetree/bindings/phy/qcom,edp-phy.yaml         | 19 ++++++++++++-------
->  1 file changed, 12 insertions(+), 7 deletions(-)
+> This series depends on following series:
+> https://lore.kernel.org/all/20241203-qcs8300_initial_dtsi-v4-2-d7c953484024@quicinc.com/
+> https://lore.kernel.org/all/20241106-qcs8300-mm-patches-v3-0-f611a8f87f15@quicinc.com/
+> https://lore.kernel.org/all/20241114-qcs8300-mm-cc-dt-patch-v1-1-7a974508c736@quicinc.com/
+> https://lore.kernel.org/all/20241024-defconfig_sa8775p_clock_controllers-v2-1-a9e1cdaed785@quicinc.com/
 
-Everything else is display, this one is PHY. Consider separating this
-one to a separate series.
+How does it depend on all those series? Does it have any intersection
+point at all? You should have decoupled all bindings from those series.
+If you did, please update your cover letter. If you didn't, please do
+your home work.
 
+> ---
+> Changes in v2:Fixed review comments from Krzysztof, Dmitry, Rob.
+> - Decouple the devicetree changes from this series.[Dmitry][Krzysztof]
+> - Drop the dpu driver changes and reuse SA8775P DPU driver.[Dmitry]
+> - Fix compilation issues in MDSS bindings.[Rob][Krzysztof]
+> - Correct formatting errors and remove unnecessary status in MDSS
+>   bindings.[Krzysztof]
+> - Add the the necessary information in MDSS changes commit msg.[Dmitry]
+> - Rebase MDSS driver changes to https://lore.kernel.org/dri-devel/
+>   20241127-msm-mdss-ubwc-v3-0-9782a7c2b023@linaro.org/.[Dmitry]
+> - Package the DisplayPort controller and eDP PHY bindings document to
+>   this patch series.
+> - Collecting MDSS changes reviewd-by Dmitry.
+> - Reuse the sa8775p eDP PHY as a fallback compat.[Dmitry]
+> - Reuse the sm8650 DP controller as a fallback compat.[Dmitry]
+> - Link to v1: https://lore.kernel.org/r/20241127-mdss_qcs8300-v1-0-29b2c3ee95b8@quicinc.com
+> ~
 > 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> index 293fb6a9b1c330438bceba15226c91e392c840fb..eb97181cbb9579893b4ee26a39c3559ad87b2fba 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> @@ -16,13 +16,18 @@ description:
->  
->  properties:
->    compatible:
-> -    enum:
-> -      - qcom,sa8775p-edp-phy
-> -      - qcom,sc7280-edp-phy
-> -      - qcom,sc8180x-edp-phy
-> -      - qcom,sc8280xp-dp-phy
-> -      - qcom,sc8280xp-edp-phy
-> -      - qcom,x1e80100-dp-phy
-> +    oneOf:
-> +      - enum:
-> +          - qcom,sa8775p-edp-phy
-> +          - qcom,sc7280-edp-phy
-> +          - qcom,sc8180x-edp-phy
-> +          - qcom,sc8280xp-dp-phy
-> +          - qcom,sc8280xp-edp-phy
-> +          - qcom,x1e80100-dp-phy
-> +      - items:
-> +          - enum:
-> +              - qcom,qcs8300-edp-phy
-> +          - const: qcom,sa8775p-edp-phy
->  
->    reg:
->      items:
+> ---
+> Yongxing Mou (5):
+>       dt-bindings: display/msm: Document the DPU for QCS8300
+>       dt-bindings: display: msm: dp-controller: document QCS8300 compatible
+>       dt-bindings: display/msm: Document MDSS on QCS8300
+>       dt-bindings: phy: Add eDP PHY compatible for QCS8300
+>       drm/msm: mdss: Add QCS8300 support
 > 
+>  .../bindings/display/msm/dp-controller.yaml        |   4 +
+>  .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 244 +++++++++++++++++++++
+>  .../bindings/display/msm/qcom,sm8650-dpu.yaml      |  13 +-
+>  .../devicetree/bindings/phy/qcom,edp-phy.yaml      |  19 +-
+>  drivers/gpu/drm/msm/msm_mdss.c                     |  11 +
+>  5 files changed, 280 insertions(+), 11 deletions(-)
+> ---
+> base-commit: 8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2
+> change-id: 20241224-mdssdt_qcs8300-11b7883dc60b
+> prerequisite-message-id: <20241203-qcs8300_initial_dtsi-v4-2-d7c953484024@quicinc.com>
+> prerequisite-patch-id: 33f2488a8eb133431f200e17aac743598508dcf3
+> prerequisite-patch-id: 7b653ebeaf1ca3f87620ccf7d876e3d1fe496c4a
+> prerequisite-patch-id: e1b60af8a64332e5f0ecbd3a4ea2b6e090bd97cf
+> prerequisite-patch-id: b823d744d2fb302e2496eaf0cf0c9c66312dcf2a
+> prerequisite-message-id: <20241106-qcs8300-mm-patches-v3-0-f611a8f87f15@quicinc.com>
+> prerequisite-patch-id: 367d9c742fe5087cfa6fb8e7b05ebe9bc78d68f3
+> prerequisite-patch-id: ee0513c070ab96e63766d235b38ee53ca9b19181
+> prerequisite-patch-id: 970974160bcdc837ccbe5ea3b5dcac582e90bc0d
+> prerequisite-patch-id: 5b2bd9cc44a529b0b9e5d73128dca5d2ff9f2f44
+> prerequisite-patch-id: 6a0a81242e1d0f051e3102533bf0191615c6e96b
+> prerequisite-patch-id: 322540ce6d45c32f813ecef50e5135c6f08d9019
+> prerequisite-message-id: <20241114-qcs8300-mm-cc-dt-patch-v1-1-7a974508c736@quicinc.com>
+> prerequisite-patch-id: 8faad5c6d8ca255935d3e4d317dcbcc32b8261ff
+> prerequisite-message-id: <20241024-defconfig_sa8775p_clock_controllers-v2-1-a9e1cdaed785@quicinc.com>
+> prerequisite-patch-id: 81378ec66ab6e569bd828401c43c4f5af55db32c
+> 
+> Best regards,
 > -- 
-> 2.34.1
+> Yongxing Mou <quic_yongmou@quicinc.com>
 > 
 
 -- 
