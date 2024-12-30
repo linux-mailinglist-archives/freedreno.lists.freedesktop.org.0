@@ -2,92 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E2109FDD6F
-	for <lists+freedreno@lfdr.de>; Sun, 29 Dec 2024 06:56:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB0C39FE22A
+	for <lists+freedreno@lfdr.de>; Mon, 30 Dec 2024 04:10:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD65C10E190;
-	Sun, 29 Dec 2024 05:56:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5465710E357;
+	Mon, 30 Dec 2024 03:10:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="IoxyJ3A2";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ogZmG4aK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55A3E10E190
- for <freedreno@lists.freedesktop.org>; Sun, 29 Dec 2024 05:56:00 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-5d414b8af7bso16198270a12.0
- for <freedreno@lists.freedesktop.org>; Sat, 28 Dec 2024 21:56:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1735451699; x=1736056499; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ZJc4muwRBkxyMbOj5l9DkGAvgRseaCzl9LeQVP53Y3w=;
- b=IoxyJ3A2Kv4sTeiKPxjKCPvNYFOZCHQgOcDibXzrWIN8uaG2QGJY3AudY/rtoHmRIM
- x1zG6hEDye7Kqb6LXKytva7TqCx8WnLFseITs2OH4yETahov4HmTPZmS7N3JPoVpXJ2+
- 2SQbF7EGz3rzSjQmUaZ5CZMoEW8B3jlOyk4LPUD6CN7uezx7qzXXVI2ySzS6jCMIy3Ao
- 9IH4uSoCVeZpsj6ZFqdPryIqAMo8/Dr84auHW3fLEdHdowbV6C1K1tQrq40VlPtf7pQX
- eC66W9kvZYKwaJdW0jUvYFqMF5UPUdvW43GBIC4b6vABtJ5QKI0R+qjUrN2nG0TRrm87
- DnVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735451699; x=1736056499;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZJc4muwRBkxyMbOj5l9DkGAvgRseaCzl9LeQVP53Y3w=;
- b=gmiq/a3OZXr9KQAc0Hdq7YXJjPPjUNbpvemh9eIBQjsQr5fh+e2hRuNficnJSu+LCp
- 3kWsSkFLr3nBAmwHx0E9MhHSmrroOVI/XJBMjynCCU9bbcbprh4X9Jp1joYyNHgMOWek
- TTDhwsudvLIJ29L2ejnV2kbMdEb7sEjNsEWParC5eYPtnuFQ7tDwfpySD1ZQfWjVavAl
- auPjqGiBWUG2Vi3g+tAlcKMoXtQGZtKToL3nglPBzYBOiXGsmC3kKRNuSbb2jL8PpD/7
- fuSEGP2UAQSoB+KPMX3HxnQCDM+lUI22gDMA4jXywW6PgIfpArdsRe8We+Xl+02149be
- a5LQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWxlzQzfCuuH4Mj5BJBiP9NWWz/ZBoVVGzlZ6IjY/2yA5oyt0sjf7Uzjh7/QHEX4Zi7HdAlFmbjg8Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwZj605RJVFgNzGnQTsbhgn8mOGYsd2s6QyPRG7VS+Ur1kPfNuM
- 8lDncOqWzXy6lP+rZp/mrulJtpo7BS7rAxzrwOJCd6fKaJsJ/C1snL+5+uTGnPckOUnjKMv5FwR
- b
-X-Gm-Gg: ASbGncuqtVjnNRM3n1yoZ5oYvf6xktFqigPHsBsGQuEh000oKT0CgCGZGelmFBwQfO0
- r9+su9KZpM6nJSwuRR2jC5hZJh4OMXltTkz1rJ72t2OYcnWvoRYaCQh5aKg31YrT8VGnhTuFJK8
- Tm5OIFyW/q81LU9mOZNh2ljq0lRNhnkGfMfyHaGuL6Ice6HfCLMYT3DKf7ww8lgUHDIrSXkb2vJ
- sMYbFbHEzUwLToXvm9JEPrudDWQJ9Hcn6mv8KHvm1lrhaltcloWtwUxGzI08CWjCnq4t7eL86XL
- k7WAwvi2HBTDqdqFeei6Zfv4outXhnwRDDJo
-X-Google-Smtp-Source: AGHT+IHX6aaByf0LSe07w0VxUCbJ8VSAHpvOaEeLYBwJPWsRTvg0+34fCnSQJm57ezrdAK6msyIqQg==
-X-Received: by 2002:a05:6512:10d2:b0:53e:39e6:a1c5 with SMTP id
- 2adb3069b0e04-54229562a91mr11004652e87.41.1735447625891; 
- Sat, 28 Dec 2024 20:47:05 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-542238214b5sm2804959e87.187.2024.12.28.20.47.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Dec 2024 20:47:04 -0800 (PST)
-Date: Sun, 29 Dec 2024 06:47:02 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>, 
- quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, 
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v4 18/25] drm/msm/dpu: Reserve resources for CWB
-Message-ID: <jtovhd4zsaumm27gzwlkufqywyr2he36rmo6jjm2vnchkjeugd@fdpws67sjlfx>
-References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
- <20241216-concurrent-wb-v4-18-fe220297a7f0@quicinc.com>
- <z6pebzm5yxaqqmktu4jjjy4rojkdarrqrwo4ikmv6jzku7foyf@cc325q3dfgif>
- <ddd1db49-39d8-44b6-b658-b30fe8ba4428@quicinc.com>
- <pp2uifxzgqmg3ske3mmlgznzb76eovxvgv6y6kfafk5wvoq3ou@5x7bwdkipius>
- <5f054c0a-8f1f-4b13-bb5d-505ce4dbfb34@quicinc.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 043AE10E34A;
+ Mon, 30 Dec 2024 03:10:50 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BTNxsqg002111;
+ Mon, 30 Dec 2024 03:10:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 8LeX0SNVKwnDuC1hXzbI3e9fwo7//cOwzWCPxtzD+es=; b=ogZmG4aKt6mAUt6n
+ uMsgbQel97tcRNY6okwF73LMWQT9QfWygZ7/oFohmIat8rSNJqxm7eFfNdr4+0Jc
+ l+cxZKSo2vMbydCq1Q5Yu6mCOJboVDIrw2MPMV45CsAuoRpJHTmN6gBk6NQROxz6
+ k/Fmeq75ajmAtlHxsk2wAuSMiFxNAydsBoE8c2bpuXBGCnRW741BUXWMEML7VtdM
+ /a+hxFp0qX9zJy0sMJfbTmTZSvnap63O8XgcRNcIvfl2042Yj/27oIIoJu5ocPQY
+ dcyThOb1oQ0wAXoMQ7zieV4RjAFiwqtSCF5lN6qC0g3V8eLkl2FFNHedgh+SLx46
+ hZxZVA==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43u6u2gw5j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 30 Dec 2024 03:10:43 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BU3Ag0V013582
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 30 Dec 2024 03:10:42 GMT
+Received: from [10.64.16.151] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 29 Dec
+ 2024 19:10:35 -0800
+Message-ID: <aaff0c15-db88-48fd-8bba-ef5cb88dd5c9@quicinc.com>
+Date: Mon, 30 Dec 2024 11:10:32 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5f054c0a-8f1f-4b13-bb5d-505ce4dbfb34@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/9] Add display support for QCS615 platform
+To: Bjorn Andersson <andersson@kernel.org>
+CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, Liu Li <quic_lliu6@quicinc.com>,
+ Xiangxu Yin <quic_xiangxuy@quicinc.com>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Krzysztof
+ Kozlowski" <krzysztof.kozlowski@linaro.org>
+References: <20241210-add-display-support-for-qcs615-platform-v4-0-2d875a67602d@quicinc.com>
+ <eqlps3dslxiq2vogelt4cl6edkyljim5yxhioo4qry3ryetxen@42lyv7pjzzfz>
+Content-Language: en-US
+From: fange zhang <quic_fangez@quicinc.com>
+In-Reply-To: <eqlps3dslxiq2vogelt4cl6edkyljim5yxhioo4qry3ryetxen@42lyv7pjzzfz>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: ByuFe9F9b35sQmZcFjxluvZiikS7HJzz
+X-Proofpoint-ORIG-GUID: ByuFe9F9b35sQmZcFjxluvZiikS7HJzz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0
+ clxscore=1015 spamscore=0 malwarescore=0 lowpriorityscore=0 bulkscore=0
+ mlxlogscore=999 suspectscore=0 phishscore=0 priorityscore=1501 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2412300023
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,222 +103,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 26, 2024 at 02:49:28PM -0800, Jessica Zhang wrote:
-> 
-> 
-> On 12/20/2024 5:07 PM, Dmitry Baryshkov wrote:
-> > On Fri, Dec 20, 2024 at 04:12:29PM -0800, Jessica Zhang wrote:
-> > > 
-> > > 
-> > > On 12/19/2024 9:52 PM, Dmitry Baryshkov wrote:
-> > > > On Mon, Dec 16, 2024 at 04:43:29PM -0800, Jessica Zhang wrote:
-> > > > > Add support for RM to reserve dedicated CWB PINGPONGs and CWB muxes
-> > > > > 
-> > > > > For concurrent writeback, even-indexed CWB muxes must be assigned to
-> > > > > even-indexed LMs and odd-indexed CWB muxes for odd-indexed LMs. The same
-> > > > > even/odd rule applies for dedicated CWB PINGPONGs.
-> > > > > 
-> > > > > Track the CWB muxes in the global state and add a CWB-specific helper to
-> > > > > reserve the correct CWB muxes and dedicated PINGPONGs following the
-> > > > > even/odd rule.
-> > > > > 
-> > > > > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> > > > > ---
-> > > > >    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 34 ++++++++++--
-> > > > >    drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h |  2 +
-> > > > >    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |  1 +
-> > > > >    drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 83 +++++++++++++++++++++++++++++
-> > > > >    4 files changed, 116 insertions(+), 4 deletions(-)
-> > > > > 
-> > > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > > > > index a895d48fe81ccc71d265e089992786e8b6268b1b..a95dc1f0c6a422485c7ba98743e944e1a4f43539 100644
-> > > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > > > > @@ -2,7 +2,7 @@
-> > > > >    /*
-> > > > >     * Copyright (C) 2013 Red Hat
-> > > > >     * Copyright (c) 2014-2018, 2020-2021 The Linux Foundation. All rights reserved.
-> > > > > - * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
-> > > > > + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
-> > > > >     *
-> > > > >     * Author: Rob Clark <robdclark@gmail.com>
-> > > > >     */
-> > > > > @@ -28,6 +28,7 @@
-> > > > >    #include "dpu_hw_dsc.h"
-> > > > >    #include "dpu_hw_merge3d.h"
-> > > > >    #include "dpu_hw_cdm.h"
-> > > > > +#include "dpu_hw_cwb.h"
-> > > > >    #include "dpu_formats.h"
-> > > > >    #include "dpu_encoder_phys.h"
-> > > > >    #include "dpu_crtc.h"
-> > > > > @@ -133,6 +134,9 @@ enum dpu_enc_rc_states {
-> > > > >     * @cur_slave:		As above but for the slave encoder.
-> > > > >     * @hw_pp:		Handle to the pingpong blocks used for the display. No.
-> > > > >     *			pingpong blocks can be different than num_phys_encs.
-> > > > > + * @hw_cwb:		Handle to the CWB muxes used for concurrent writeback
-> > > > > + *			display. Number of CWB muxes can be different than
-> > > > > + *			num_phys_encs.
-> > > > >     * @hw_dsc:		Handle to the DSC blocks used for the display.
-> > > > >     * @dsc_mask:		Bitmask of used DSC blocks.
-> > > > >     * @intfs_swapped:	Whether or not the phys_enc interfaces have been swapped
-> > > > > @@ -177,6 +181,7 @@ struct dpu_encoder_virt {
-> > > > >    	struct dpu_encoder_phys *cur_master;
-> > > > >    	struct dpu_encoder_phys *cur_slave;
-> > > > >    	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
-> > > > > +	struct dpu_hw_cwb *hw_cwb[MAX_CHANNELS_PER_ENC];
-> > > > >    	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
-> > > > >    	unsigned int dsc_mask;
-> > > > > @@ -1138,7 +1143,10 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
-> > > > >    	struct dpu_hw_blk *hw_pp[MAX_CHANNELS_PER_ENC];
-> > > > >    	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
-> > > > >    	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
-> > > > > +	struct dpu_hw_blk *hw_cwb[MAX_CHANNELS_PER_ENC];
-> > > > >    	int num_pp, num_dsc, num_ctl;
-> > > > > +	int num_cwb = 0;
-> > > > > +	bool is_cwb_encoder;
-> > > > >    	unsigned int dsc_mask = 0;
-> > > > >    	int i;
-> > > > > @@ -1152,6 +1160,8 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
-> > > > >    	priv = drm_enc->dev->dev_private;
-> > > > >    	dpu_kms = to_dpu_kms(priv->kms);
-> > > > > +	is_cwb_encoder = drm_crtc_in_clone_mode(crtc_state) &&
-> > > > > +			dpu_enc->disp_info.intf_type == INTF_WB;
-> > > > >    	global_state = dpu_kms_get_existing_global_state(dpu_kms);
-> > > > >    	if (IS_ERR_OR_NULL(global_state)) {
-> > > > > @@ -1162,9 +1172,25 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
-> > > > >    	trace_dpu_enc_mode_set(DRMID(drm_enc));
-> > > > >    	/* Query resource that have been reserved in atomic check step. */
-> > > > > -	num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > > > -		drm_enc->crtc, DPU_HW_BLK_PINGPONG, hw_pp,
-> > > > > -		ARRAY_SIZE(hw_pp));
-> > > > > +	if (is_cwb_encoder) {
-> > > > > +		num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > > > +						       drm_enc->crtc,
-> > > > > +						       DPU_HW_BLK_DCWB_PINGPONG,
-> > > > > +						       hw_pp, ARRAY_SIZE(hw_pp));
-> > > > > +		num_cwb = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > > > +						       drm_enc->crtc,
-> > > > > +						       DPU_HW_BLK_CWB,
-> > > > > +						       hw_cwb, ARRAY_SIZE(hw_cwb));
-> > > > > +	} else {
-> > > > > +		num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > > > +						       drm_enc->crtc,
-> > > > > +						       DPU_HW_BLK_PINGPONG, hw_pp,
-> > > > > +						       ARRAY_SIZE(hw_pp));
-> > > > > +	}
-> > > > > +
-> > > > > +	for (i = 0; i < num_cwb; i++)
-> > > > > +		dpu_enc->hw_cwb[i] = to_dpu_hw_cwb(hw_cwb[i]);
-> > > > > +
-> > > > >    	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> > > > >    			drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
-> > > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > > > > index ba7bb05efe9b8cac01a908e53121117e130f91ec..8d820cd1b5545d247515763039b341184e814e32 100644
-> > > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > > > > @@ -77,12 +77,14 @@ enum dpu_hw_blk_type {
-> > > > >    	DPU_HW_BLK_LM,
-> > > > >    	DPU_HW_BLK_CTL,
-> > > > >    	DPU_HW_BLK_PINGPONG,
-> > > > > +	DPU_HW_BLK_DCWB_PINGPONG,
-> > > > >    	DPU_HW_BLK_INTF,
-> > > > >    	DPU_HW_BLK_WB,
-> > > > >    	DPU_HW_BLK_DSPP,
-> > > > >    	DPU_HW_BLK_MERGE_3D,
-> > > > >    	DPU_HW_BLK_DSC,
-> > > > >    	DPU_HW_BLK_CDM,
-> > > > > +	DPU_HW_BLK_CWB,
-> > > > >    	DPU_HW_BLK_MAX,
-> > > > >    };
-> > > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> > > > > index 48d756d8f8c6e4ab94b72bac0418320f7dc8cda8..1fc8abda927fc094b369e0d1efc795b71d6a7fcb 100644
-> > > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> > > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> > > > > @@ -128,6 +128,7 @@ struct dpu_global_state {
-> > > > >    	uint32_t dspp_to_crtc_id[DSPP_MAX - DSPP_0];
-> > > > >    	uint32_t dsc_to_crtc_id[DSC_MAX - DSC_0];
-> > > > >    	uint32_t cdm_to_crtc_id;
-> > > > > +	uint32_t cwb_to_crtc_id[CWB_MAX - CWB_0];
-> > > > >    };
-> > > > >    struct dpu_global_state
-> > > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > > > > index 85adaf256b2c705d2d7df378b6ffc0e578f52bc3..ead24bb0ceb5d8ec4705f0d32330294d0b45b216 100644
-> > > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > > > > @@ -234,6 +234,55 @@ static int _dpu_rm_get_lm_peer(struct dpu_rm *rm, int primary_idx)
-> > > > >    	return -EINVAL;
-> > > > >    }
-> > > > > +static int _dpu_rm_reserve_cwb_mux_and_pingpongs(struct dpu_rm *rm,
-> > > > > +						 struct dpu_global_state *global_state,
-> > > > > +						 uint32_t crtc_id,
-> > > > > +						 struct msm_display_topology *topology)
-> > > > > +{
-> > > > > +	int num_cwb_pp = topology->num_lm, cwb_pp_count = 0;
-> > > > > +	int cwb_pp_start_idx = PINGPONG_CWB_0 - PINGPONG_0;
-> > > > > +	int cwb_pp_idx[MAX_BLOCKS];
-> > > > > +	int cwb_mux_idx[MAX_BLOCKS];
-> > > > > +
-> > > > > +	/*
-> > > > > +	 * Reserve additional dedicated CWB PINGPONG blocks and muxes for each
-> > > > > +	 * mixer
-> > > > > +	 *
-> > > > > +	 * TODO: add support reserving resources for platforms with no
-> > > > > +	 *       PINGPONG_CWB
-> > > > 
-> > > > What about doing it other way around: allocate CWBs first as required
-> > > > (even/odd, proper count, etc). Then for each of CWBs allocate a PP block
-> > > > (I think it's enough to simply make CWB blocks have a corresponding PP
-> > > > index as a property). This way the driver can handle both legacy and
-> > > > current platforms.
-> > > 
-> > > Hi Dmitry,
-> > > 
-> > > Sorry if I'm misunderstanding your suggestion, but the main change needed to
-> > > support platforms with no dedicated PINGPONG_CWB is where in the
-> > > rm->pingpong_blks list to start assigning pingpong blocks for the CWB mux.
-> > > I'm not sure how changing the order in which CWBs and the pingpong blocks
-> > > are assigned will address that.
-> > > 
-> > > (FWIW, the only change necessary to add support for non-dedicated
-> > > PINGPONG_CWBs platforms for this function should just be changing the
-> > > initialization value of cwb_pp_start_idx)
-> > 
-> > If I remember correctly, we have identified several generations of DPU
-> > wrt. CWB handling:
-> > - 8.1+ (or 8.0+?), DCWB, dedicated PP blocks
-> > - 7.2, dedicated PP_1?
-> > - 5.0+, shared PP blocks
-> > - older DPUs, special handling of PP
-> > 
-> > If the driver allocates PP first and then first it has to allocated PP
-> > (in a platform-specific way) and then go from PINGPONG to CWB (in a
-> > platform-specific way). If CWB is allocated first, then you have only
-> > one platform-specific piece of code that gets PINGPONG for the CWB (and
-> > as this function is called after the CWB allocation, the major part of
-> > the CWB / PP allocation is generic).
-> 
-> The issue with breaking this into separate helpers/functions is that the CWB
-> mux and PPB indices are dependent on each other. But I agree that we can
-> reserve CWB mux and the PPBs in 2 separate loops within this helper to
-> minimize the special platform-specific handling.
-
-Doesn't it just PPB depend on CWB?
 
 
+On 2024/12/26 13:18, Bjorn Andersson wrote:
+> On Tue, Dec 10, 2024 at 02:53:51PM +0800, Fange Zhang wrote:
+>> This series aims to enable display on the QCS615 platform
+>>
+>> 1.Add MDSS & DPU support for QCS615
+>> 2.Add DSI support for QCS615
+>>
+>> QCS615 platform supports DisplayPort, and this feature will be added in a future patch
+>>
+>> Only dts part of this patch series depends on the following patch series
+>> The other dependency patches have already been merged into linux-next
+>> - dispcc
+>> https://lore.kernel.org/all/20241108-qcs615-mm-clockcontroller-v3-0-7d3b2d235fdf@quicinc.com/
+>> - dispcc dts
+>> https://lore.kernel.org/lkml/20241108-qcs615-mm-dt-nodes-v1-0-b2669cac0624@quicinc.com/
+>>
 > 
-> Also wanted to note that the comment doc on the PPB odd/even rule is
-> inaccurate -- technically the odd/even rule applies specifically to the CWB
-> mux as odd/even LMs are hardwired to their respective CWB muxes. Will
-> correct the comment doc to be more accurate.
+> I don't understand why you send patches to the list with dependencies on
+> patches that has received feedback and requests for changes. Now you're
+> forcing me to go see if perhaps there was a new version of that series
+> that I have merged.
+> 
+> I can't find a v2 of that series, so your series is spam in my inbox.
+sorry, got it, will update patch once the dependency patch is picked.
+> 
+>> Signed-off-by: Li Liu <quic_lliu6@quicinc.com>
+>> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
+>> ---
+>> Changes in v4:
+>> - Add dp-connector node for anx_7625_out [Dmitry]
+>> - Add missing qcom,sm6150-dsi-ctrl for dsi-controller-main.yaml [Krzysztof]
+>> - Change VIG_SDM845_MASK to VIG_SDM845_MASK_SDMA for sm6150_sspp [Abhinav]
+>> - Change DMA_SDM845_MASK to DMA_SDM845_MASK_SDMA for sm6150_sspp [Abhinav]
+>> - Remove redundant annotation from sdm845_dsi_cfg [Dmitry]
+>> - Remove redundant blocks from sm6150_intf [Dmitry]
+>> - Update mdp_opp_table opp clk to correct value
+>> - Link to v3: https://lore.kernel.org/r/20241122-add-display-support-for-qcs615-platform-v3-0-35252e3a51fe@quicinc.com
+>>
+>> Changes in v3:
+>> - Add reg_bus_bw for sm6150_data [Dmitry]
+>> - Remove patch for SX150X defconfig [Dmitry]
+>> - Remove dsi0_hpd_cfg_pins from ioexp [Dmitry]
+>> - Remove dsi0_cdet_cfg_pins from ioexpa [Dmitry]
+>> - Remove tlmm node for ioexp_intr_active and ioAexp_reset_active [Dmitry]
+>> - Remove qcs615_dsi_regulators and reuse sdm845_dsi_cfg [Dmitry, Konrad]
+>> - Rename qcs615/QCS615 to sm6150/SM6150 for whole patch [Dmitry]
+>> - Rename qcom,dsi-phy-14nm-615 to qcom,sm6150-dsi-phy-14nm [Dmitry]
+>> - Rename qcom,qcs615-dsi-ctrl to qcom,sm6150-dsi-ctrl [Dmitry]
+>> - Rename qcom,qcs615-dpu to qcom,sm6150-dpu [Dmitry]
+>> - Rename qcom,qcs615-mdss to qcom,sm6150-mdss [Dmitry]
+>> - Split drm dsi patch to dsi and dsi phy [Dmitry]
+>> - Update yaml clocks node with ephemeral nodes and remove unsed include [Dmitry, Rob]
+>> - Link to v2: https://lore.kernel.org/r/20241113-add-display-support-for-qcs615-platform-v2-0-2873eb6fb869@quicinc.com
+>>
+>> Changes in v2:
+>> - Add QCS615 DP controller comment in commit message [Dmitry]
+>> - Add comments for dsi_dp_hpd_cfg_pins and dsi_dp_cdet_cfg_pins [Dmitry]
+>> - Add missing port@1 for connector for anx7625 [Dmitry]
+>> - Change 0 to QCOM_ICC_TAG_ALWAYS for mdss interconnects [Dmitry]
+>> - Change 0 to GPIO_ACTIVE_HIGH for GPIO flags [Dmitry]
+>> - Move anx_7625 to same node [Dmitry]
+>> - Move status to last in mdss_dsi0 [Dmitry]
+>> - Rename dsi0_hpd_cfg_pins to dsi_dp_hpd_cfg_pins in ioexp [Dmitry]
+>> - Rename dsi0_cdet_cfg_pins to dsi_dp_cdet_cfg_pins in ioexp [Dmitry]
+>> - Rename anx_7625_1 to dsi_anx_7625 in ioexp [Dmitry]
+>> - Remove absent block in qcs615_lm [Dmitry]
+>> - Remove merge_3d value in qcs615_pp [Dmitry]
+>> - Remove redundant annotation in qcs615_sspp [Dmitry]
+>> - Remove unsupported dsi clk from dsi0_opp_table [Dmitry]
+>> - Remove dp_hpd_cfg_pins node from ioexp [Dmitry]
+>> - Splite drm driver patches to mdss, dpu and dsi [Dmitry]
+>> - Link to v1: https://lore.kernel.org/r/20241014-add_display_support_for_qcs615-v1-0-4efa191dbdd4@quicinc.com
+>>
+>> ---
+>> Li Liu (9):
+>>        dt-bindings: display/msm: Add SM6150 DSI phy
+>>        dt-bindings: display/msm: dsi-controller-main: Document SM6150
+>>        dt-bindings: display/msm: Add SM6150 MDSS & DPU
+>>        drm/msm: mdss: Add SM6150 support
+>>        drm/msm/dpu: Add SM6150 support
+>>        drm/msm/dsi: Add dsi phy support for SM6150
+>>        drm/msm/dsi: Add support for SM6150
+>>        arm64: dts: qcom: Add display support for QCS615
+>>        arm64: dts: qcom: Add display support for QCS615 RIDE board
+> 
+> Don't write "..for <soc>", use the same format as all other changes to
+> such files: "arm64: dts: qcom: <soc>[-board]: change subject"
+Got it, will fix them in next patch.
+- arm64: dts: qcom: Add display support for QCS615
+- arm64: dts: qcom: Add display support for QCS615 RIDE board
++ arm64: dts: qcom: qcs615: Add display support
++ arm64: dts: qcom: qcs615-ride: Add display support for QCS615
+> 
+> Regards,
+> Bjorn
+>>
+>>   .../bindings/display/msm/dsi-controller-main.yaml  |   2 +
+>>   .../bindings/display/msm/dsi-phy-14nm.yaml         |   1 +
+>>   .../bindings/display/msm/qcom,sm6150-dpu.yaml      | 108 +++++++++
+>>   .../bindings/display/msm/qcom,sm6150-mdss.yaml     | 245 ++++++++++++++++++++
+>>   arch/arm64/boot/dts/qcom/qcs615-ride.dts           |  89 ++++++++
+>>   arch/arm64/boot/dts/qcom/qcs615.dtsi               | 181 ++++++++++++++-
+>>   .../gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h | 254 +++++++++++++++++++++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+>>   drivers/gpu/drm/msm/dsi/dsi_cfg.c                  |   2 +
+>>   drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |   1 +
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   1 +
+>>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c         |  21 ++
+>>   drivers/gpu/drm/msm/msm_mdss.c                     |   8 +
+>>   16 files changed, 917 insertions(+), 1 deletion(-)
+>> ---
+>> base-commit: 1031240d9d007339c6661dddfbe2efda0b3859e9
+>> change-id: 20241209-add-display-support-for-qcs615-platform-22b8e8848f87
+>>
+>> Best regards,
+>> -- 
+>> fangez <quic_fangez@quicinc.com>
+>>
 
-Yes, please fix that.
-
-> 
-> Thanks,
-> 
-> Jessica Zhang
-> 
-
--- 
-With best wishes
-Dmitry
