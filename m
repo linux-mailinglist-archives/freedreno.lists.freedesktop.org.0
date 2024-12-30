@@ -2,95 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B92269FE6A4
-	for <lists+freedreno@lfdr.de>; Mon, 30 Dec 2024 14:45:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A61209FE8E8
+	for <lists+freedreno@lfdr.de>; Mon, 30 Dec 2024 17:08:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E6E410E4D9;
-	Mon, 30 Dec 2024 13:45:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A220310E51C;
+	Mon, 30 Dec 2024 16:08:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="b5HRTxl4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JvL2jUOn";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 878E110E4AA
- for <freedreno@lists.freedesktop.org>; Mon, 30 Dec 2024 13:45:48 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-30033e07ef3so60677901fa.0
- for <freedreno@lists.freedesktop.org>; Mon, 30 Dec 2024 05:45:48 -0800 (PST)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2941210E139;
+ Mon, 30 Dec 2024 16:08:35 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-4679fc9b5f1so71367351cf.1; 
+ Mon, 30 Dec 2024 08:08:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1735566287; x=1736171087; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=UfDexyA0DqveLsLqtnhae+vl3u+416UboJrWSd6o/F8=;
- b=b5HRTxl4PaMnLHpmt4oLauDDY4RBxZUkRQfZQU/wiDV6WHR9HRiUAHl2pnaJt+toyZ
- gyzO4TFj8T/4eS5jKnC4Cp4vxLZcEsBvj5ouRQ+mUHyoGvPV/ijXtyQIMyVgNjVauVQ4
- 1v70/N3iHHqILWGSr/fw2ZspPntiJFghs8da4+axmpfR78ACk2sA4q6oZ9Q3wqt95JLg
- in8WXvB/+i3INyFIfqAciWjUWcddBZHnzd+mjA/koY+7Zqn4eGczpBcHD42p0vQoJvCy
- hdVxqOT29mQamAqOxq5IrSOIp0B+PVCMEyIwBDfKF4YjdDg1JCiWIQ6GjxUCfwQFfttK
- znjQ==
+ d=gmail.com; s=20230601; t=1735574854; x=1736179654; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=rw2qhEeWF8EKPuIlkCzX1vHefU6AfjZuuyxhrGBFfGQ=;
+ b=JvL2jUOnDYNcuHbPBxAp7H1XrLy/EFALMqwzc/gO+JkJ32SSSWLY2B7KVXmmUAvThP
+ 5uK3rjKZreMwsDMYh4Pabx0/vQbS2IFdnrlk3vVkroyKNqn+RM5K0a0BTRJoHCkQTq0e
+ WXBD/8VGdqU4SELIV5E9s33Sy+al+I2io8VLvxYGqC98IcEngJvI9Vg988wUwSIF+W48
+ Rt1AcDqtvfkE//ZoGwLBBuhwjp+wH3ACc+uUyyrVc/vg+bQgLxmYUUhzauO/el17lrz/
+ wg4ZEBfRgnrnoRYCSmc35jh6nBa1oEdq16OHhGNF31wOmUAKBz7OAwRq8QKxC2ROuakB
+ pmKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735566287; x=1736171087;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UfDexyA0DqveLsLqtnhae+vl3u+416UboJrWSd6o/F8=;
- b=ekzAa0GTMYlyWts2CI7zdMfTMqseN0L6Z56dg/p1l92mahvtkSblGg8a5xwGNF/70d
- QyoZmxmUa8mqzHKgq+p55TOSVmK/rc05EJK/zEppxCzTNiZrvpWc003aOYdiuulehsMc
- o9KSD55ZY4q//VfjZahN74Pi/sKNZ12uGZH7pyZoKuomtvgaSTBoyjHUjkEJMNNKaieE
- 84ttBup+J+c/SoZdAfkrMb7l9lwwQ2vHzagJTWtnvteurfn1+w3JY4f8PsxMMWDtDT4R
- 4PCKCcIkZkUmV9T8O61Z/ftbIBU6DYaJP+9FnRSi/134uypeu/MmA/EYrl2wfAr1U4r2
- AfJA==
+ d=1e100.net; s=20230601; t=1735574854; x=1736179654;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=rw2qhEeWF8EKPuIlkCzX1vHefU6AfjZuuyxhrGBFfGQ=;
+ b=HA6tL1upxPKG7FLjdg4A2FMN9wtYb4rDwAhf0X+1hWQ1G+KBuWwRr0dvhi7q6ccBlB
+ kLuDLnUxy06CTTzarvU53ZPxv8PUEKMmxf2t6fVcoavumkzUIHvSGFbuPfPNH1yl1Tbo
+ RtgQrDZH4ToSheRkrgGUvujJtmaZuhJ96IFshq5vo4YWYun/PugyKrYYSMGgB7C8pXkJ
+ lPu2cr7WJuYN5kQTnGYg6cqKiG0yWFmOSJqlmGJGCS9Cnq3mkoMT/CVfbSpgK8bjrS9S
+ m/UbOhs3mNkvFOiaMlekyCVTq4//BYObzk2PoDOJcaqKHQA40BgDaRH0NLOXkKmAs0mZ
+ rcDA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUsAMQb45EYMOnaR7Uhz9XAqmrvsttxBhxfbVi/JpWG383IEOG0VWawu7gflshIGZsiGHCRS/+CslQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzICaiiMt7HGUtfdP4HuK9UVIvTCCpGQqTK9AsbvoJ+6n3X2dTD
- 3ZjQ5F+rc6dd9DUtvD67pJ7fTS6AMRq6iTWuXuO3MX6a+bgZlOCTmU66+qQJT0s=
-X-Gm-Gg: ASbGncu7xt7MIVuI6rJWNy868G2xV9RwuA7AEXfueDQMPT0IHekXaEZfYZl10pkJUdX
- xUjeLZ3kh8Jw5+HY+/XHRt0iMNZnMfC42c/mpbBtvnDPCADIHjlcbexjfUOj1fBhV9JlGgl26Nt
- J6ZGgkiwnae6GJImPgb4jx2572NpFR0azcbskJUVi7aCOElXs5cYIojwOrZ26UFfQvKQ+uhzDpj
- Y+XVGgd64iqhvDtSGAjFymPlCN+rtBqXnKt031FtfaIUL/K4eh4eLrBX2QWjPLVsPOkDgFhsbl3
- tua6mFfkm8DC7Y5Te8NTaHTyZPD2toXJ08WU
-X-Google-Smtp-Source: AGHT+IHpedEDXvGR6WWPSvUrtH/iHawQ5u1rIIGMmoB8TGBeVGZEVGcJvivwA+rB6+81ya8nOnGl3w==
-X-Received: by 2002:a05:651c:2118:b0:302:23bd:354b with SMTP id
- 38308e7fff4ca-30458337837mr126671731fa.1.1735566286830; 
- Mon, 30 Dec 2024 05:44:46 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ AJvYcCWiytSG83YxaHnm3DsMQ3AxOqIQBRQ1z+mPntlHzPMsbT1ILUO+j5efUNghAkpGB35Zcnn5D5LfM6k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywmb6K8bqMZrHpGNhnZsHXHkEMjuRn/3CXTcs0tN5EulTO3UmrF
+ 66iUgWVR4PgRcAT8miudi7l7CgtCw8xKkZT9Q9F7z/4z9EQZFJT5iKm8MQ==
+X-Gm-Gg: ASbGnctGX+T8PxZ/YDVsLM1gs/o+d9cyp23giGWA+NLRum8epPP1BydNURyIpCBRmD/
+ ZuS2/QgH5oKJ///+dPhKwpWfn66QG3BJ3aQPtCpWs9cZvjK+qTMY1xzFu8eR+ybSu+eeth1v2ZN
+ 1c3R53FEO5xpILlZhBXloX8hepvgW0PRGvFXEMJhvK2hA0JYGXU4dnSSpdPmDZtv7pIvi5gK6Cs
+ tXGeHBaUGR1c0vkW3EnRfdBz+xVjmY3P1F4Vghb+88lyvAFl9glYKJ5xdn/BttqoIZCGc1qpTpF
+ ilo0gj/VU17r7WU=
+X-Google-Smtp-Source: AGHT+IGnJDI9fJCq04/XNRAWXlJIw5eNdmQkzt5dnV2dws6HoSTqAvJiJehNzHSsGQpLiFdcrnA/Sg==
+X-Received: by 2002:a17:902:ccc8:b0:216:2a5a:89d3 with SMTP id
+ d9443c01a7336-219e6ebc7d4mr515815335ad.25.1735574439586; 
+ Mon, 30 Dec 2024 08:00:39 -0800 (PST)
+Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3045b082d56sm34889051fa.106.2024.12.30.05.44.44
+ d9443c01a7336-219dc9f731dsm176479005ad.200.2024.12.30.08.00.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Dec 2024 05:44:45 -0800 (PST)
-Date: Mon, 30 Dec 2024 15:44:43 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Abel Vesa <abel.vesa@linaro.org>, Johan Hovold <johan@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Karol Herbst <kherbst@redhat.com>,
- Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- nouveau@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v2 1/4] drm/dp: Add helper to set LTTPRs in transparent
- mode
-Message-ID: <lnbvudvkvgifbjmscgrvv5hkuescyqz57y6m2pydphyq2ubrhg@aynvaqlu7jz3>
-References: <20241211-drm-dp-msm-add-lttpr-transparent-mode-set-v2-0-d5906ed38b28@linaro.org>
- <20241211-drm-dp-msm-add-lttpr-transparent-mode-set-v2-1-d5906ed38b28@linaro.org>
- <Z1mk08SHEd5_vc99@hovoldconsulting.com>
- <Z21VD82XCOVgVJUh@linaro.org> <877c7hpavo.fsf@intel.com>
+ Mon, 30 Dec 2024 08:00:38 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] drm/msm: UAPI error reporting
+Date: Mon, 30 Dec 2024 08:00:33 -0800
+Message-ID: <20241230160034.18671-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <877c7hpavo.fsf@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,59 +91,352 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Dec 30, 2024 at 03:18:35PM +0200, Jani Nikula wrote:
-> On Thu, 26 Dec 2024, Abel Vesa <abel.vesa@linaro.org> wrote:
-> > On 24-12-11 15:42:27, Johan Hovold wrote:
-> >> On Wed, Dec 11, 2024 at 03:04:12PM +0200, Abel Vesa wrote:
-> >>  
-> >> > +/**
-> >> > + * drm_dp_lttpr_set_transparent_mode - set the LTTPR in transparent mode
-> >> > + * @aux: DisplayPort AUX channel
-> >> > + * @enable: Enable or disable transparent mode
-> >> > + *
-> >> > + * Returns 0 on success or a negative error code on failure.
-> >> > + */
-> >> > +int drm_dp_lttpr_set_transparent_mode(struct drm_dp_aux *aux, bool enable)
-> >> > +{
-> >> > +	u8 val = enable ? DP_PHY_REPEATER_MODE_TRANSPARENT :
-> >> > +			  DP_PHY_REPEATER_MODE_NON_TRANSPARENT;
-> >> > +	int ret = drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE, val);
-> >> > +
-> >> > +	return ret == 1 ? 0 : ret;
-> >> 
-> >> This looks correct, but I had to go look at drm_dp_dpcd_writeb() to make
-> >> sure it never returns 0 (for short transfers).
-> >
-> > Will follow Dmitry's proposal here.
-> >
-> > 	if (ret < 0)
-> >         	return ret;
-> >
-> > 	return (ret == 1) ? 0 : -EIO;
-> 
-> Arguably this (well, with ret == len) is what we should've done with
-> *all* of the drm_dp_dpcd_*() functions. I don't think there's a single
-> case where we'd actually need to know that some but not all data was
-> transferred. And if there are, they could be special cased. Now we have
-> hundreds of cases where we check against length and it's just cumbersome
-> all over the place.
-> 
-> The question is, how confusing is it going to be to have some of the new
-> functions return 0 instead of len? Very? Extremely?
-> 
-> As painful as it would be, I'd be in favor of changing them all to
-> return 0 on ret == len. If we find a volunteer.
+From: Rob Clark <robdclark@chromium.org>
 
-Maybe a correct Coccinelle script can do a significant part of such a
-conversion for us?
+Debugging incorrect UAPI usage tends to be a bit painful, so add a
+helper macro to make it easier to add debug logging which can be enabled
+at runtime via drm.debug.
 
-Anyway, I think it a right thing to do. Could you possibly add a new set
-of API and use it inside i915 driver? Then during the next cycle we can
-start using new functions for all other drivers. Or would you rather add
-new API through drm-misc? Then we can concert e.g. existing helpers in
-the first place and then start working on the drivers.
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++----
+ drivers/gpu/drm/msm/msm_drv.c           |  2 +-
+ drivers/gpu/drm/msm/msm_drv.h           |  7 +++
+ drivers/gpu/drm/msm/msm_gem_submit.c    | 64 +++++++++++--------------
+ drivers/gpu/drm/msm/msm_submitqueue.c   |  2 +-
+ 5 files changed, 47 insertions(+), 49 deletions(-)
 
-
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 076be0473eb5..9649c0bd0a38 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -310,10 +310,11 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+ 		     uint32_t param, uint64_t *value, uint32_t *len)
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
++	struct drm_device *drm = gpu->dev;
+ 
+ 	/* No pointer params yet */
+ 	if (*len != 0)
+-		return -EINVAL;
++		return UERR(EINVAL, drm, "invalid len");
+ 
+ 	switch (param) {
+ 	case MSM_PARAM_GPU_ID:
+@@ -365,12 +366,12 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+ 		return 0;
+ 	case MSM_PARAM_VA_START:
+ 		if (ctx->aspace == gpu->aspace)
+-			return -EINVAL;
++			return UERR(EINVAL, drm, "requires per-process pgtables");
+ 		*value = ctx->aspace->va_start;
+ 		return 0;
+ 	case MSM_PARAM_VA_SIZE:
+ 		if (ctx->aspace == gpu->aspace)
+-			return -EINVAL;
++			return UERR(EINVAL, drm, "requires per-process pgtables");
+ 		*value = ctx->aspace->va_size;
+ 		return 0;
+ 	case MSM_PARAM_HIGHEST_BANK_BIT:
+@@ -386,14 +387,15 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+ 		*value = adreno_gpu->ubwc_config.macrotile_mode;
+ 		return 0;
+ 	default:
+-		DBG("%s: invalid param: %u", gpu->name, param);
+-		return -EINVAL;
++		return UERR(EINVAL, drm, "%s: invalid param: %u", gpu->name, param);
+ 	}
+ }
+ 
+ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+ 		     uint32_t param, uint64_t value, uint32_t len)
+ {
++	struct drm_device *drm = gpu->dev;
++
+ 	switch (param) {
+ 	case MSM_PARAM_COMM:
+ 	case MSM_PARAM_CMDLINE:
+@@ -401,11 +403,11 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+ 		 * that should be a reasonable upper bound
+ 		 */
+ 		if (len > PAGE_SIZE)
+-			return -EINVAL;
++			return UERR(EINVAL, drm, "invalid len");
+ 		break;
+ 	default:
+ 		if (len != 0)
+-			return -EINVAL;
++			return UERR(EINVAL, drm, "invalid len");
+ 	}
+ 
+ 	switch (param) {
+@@ -434,11 +436,10 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+ 	}
+ 	case MSM_PARAM_SYSPROF:
+ 		if (!capable(CAP_SYS_ADMIN))
+-			return -EPERM;
++			return UERR(EPERM, drm, "invalid permissions");
+ 		return msm_file_private_set_sysprof(ctx, gpu, value);
+ 	default:
+-		DBG("%s: invalid param: %u", gpu->name, param);
+-		return -EINVAL;
++		return UERR(EINVAL, drm, "%s: invalid param: %u", gpu->name, param);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index c2dd8ef6d6dc..2aefb8becda0 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -538,7 +538,7 @@ static int msm_ioctl_gem_info_set_iova(struct drm_device *dev,
+ 
+ 	/* Only supported if per-process address space is supported: */
+ 	if (priv->gpu->aspace == ctx->aspace)
+-		return -EOPNOTSUPP;
++		return UERR(EOPNOTSUPP, dev, "requires per-process pgtables");
+ 
+ 	if (should_fail(&fail_gem_iova, obj->size))
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index d8c9a1b19263..fee31680a6d5 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -28,6 +28,7 @@
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/display/drm_dsc.h>
+ #include <drm/msm_drm.h>
+@@ -506,6 +507,12 @@ void msm_hrtimer_work_init(struct msm_hrtimer_work *work,
+ 			   clockid_t clock_id,
+ 			   enum hrtimer_mode mode);
+ 
++/* Helper for returning a UABI error with optional logging which can make
++ * it easier for userspace to understand what it is doing wrong.
++ */
++#define UERR(err, drm, fmt, ...) \
++	({ DRM_DEV_DEBUG_DRIVER((drm)->dev, fmt, ##__VA_ARGS__); -(err); })
++
+ #define DBG(fmt, ...) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
+ #define VERB(fmt, ...) if (0) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index fba78193127d..be6e793f34bd 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -20,8 +20,8 @@
+ /* For userspace errors, use DRM_UT_DRIVER.. so that userspace can enable
+  * error msgs for debugging, but we don't spam dmesg by default
+  */
+-#define SUBMIT_ERROR(submit, fmt, ...) \
+-	DRM_DEV_DEBUG_DRIVER((submit)->dev->dev, fmt, ##__VA_ARGS__)
++#define SUBMIT_ERROR(err, submit, fmt, ...) \
++	UERR(err, (submit)->dev, fmt, ##__VA_ARGS__)
+ 
+ /*
+  * Cmdstream submission:
+@@ -142,8 +142,7 @@ static int submit_lookup_objects(struct msm_gem_submit *submit,
+ 
+ 		if ((submit_bo.flags & ~MSM_SUBMIT_BO_FLAGS) ||
+ 			!(submit_bo.flags & MANDATORY_FLAGS)) {
+-			SUBMIT_ERROR(submit, "invalid flags: %x\n", submit_bo.flags);
+-			ret = -EINVAL;
++			ret = SUBMIT_ERROR(EINVAL, submit, "invalid flags: %x\n", submit_bo.flags);
+ 			i = 0;
+ 			goto out;
+ 		}
+@@ -162,8 +161,7 @@ static int submit_lookup_objects(struct msm_gem_submit *submit,
+ 		 */
+ 		obj = idr_find(&file->object_idr, submit->bos[i].handle);
+ 		if (!obj) {
+-			SUBMIT_ERROR(submit, "invalid handle %u at index %u\n", submit->bos[i].handle, i);
+-			ret = -EINVAL;
++			ret = SUBMIT_ERROR(EINVAL, submit, "invalid handle %u at index %u\n", submit->bos[i].handle, i);
+ 			goto out_unlock;
+ 		}
+ 
+@@ -206,14 +204,12 @@ static int submit_lookup_cmds(struct msm_gem_submit *submit,
+ 		case MSM_SUBMIT_CMD_CTX_RESTORE_BUF:
+ 			break;
+ 		default:
+-			SUBMIT_ERROR(submit, "invalid type: %08x\n", submit_cmd.type);
+-			return -EINVAL;
++			return SUBMIT_ERROR(EINVAL, submit, "invalid type: %08x\n", submit_cmd.type);
+ 		}
+ 
+ 		if (submit_cmd.size % 4) {
+-			SUBMIT_ERROR(submit, "non-aligned cmdstream buffer size: %u\n",
+-				     submit_cmd.size);
+-			ret = -EINVAL;
++			ret = SUBMIT_ERROR(EINVAL, submit, "non-aligned cmdstream buffer size: %u\n",
++					   submit_cmd.size);
+ 			goto out;
+ 		}
+ 
+@@ -371,9 +367,8 @@ static int submit_bo(struct msm_gem_submit *submit, uint32_t idx,
+ 		struct drm_gem_object **obj, uint64_t *iova)
+ {
+ 	if (idx >= submit->nr_bos) {
+-		SUBMIT_ERROR(submit, "invalid buffer index: %u (out of %u)\n",
+-			     idx, submit->nr_bos);
+-		return -EINVAL;
++		return SUBMIT_ERROR(EINVAL, submit, "invalid buffer index: %u (out of %u)\n",
++				    idx, submit->nr_bos);
+ 	}
+ 
+ 	if (obj)
+@@ -392,10 +387,8 @@ static int submit_reloc(struct msm_gem_submit *submit, struct drm_gem_object *ob
+ 	uint32_t *ptr;
+ 	int ret = 0;
+ 
+-	if (offset % 4) {
+-		SUBMIT_ERROR(submit, "non-aligned cmdstream buffer: %u\n", offset);
+-		return -EINVAL;
+-	}
++	if (offset % 4)
++		return SUBMIT_ERROR(EINVAL, submit, "non-aligned cmdstream buffer: %u\n", offset);
+ 
+ 	/* For now, just map the entire thing.  Eventually we probably
+ 	 * to do it page-by-page, w/ kmap() if not vmap()d..
+@@ -414,9 +407,8 @@ static int submit_reloc(struct msm_gem_submit *submit, struct drm_gem_object *ob
+ 		uint64_t iova;
+ 
+ 		if (submit_reloc.submit_offset % 4) {
+-			SUBMIT_ERROR(submit, "non-aligned reloc offset: %u\n",
+-				     submit_reloc.submit_offset);
+-			ret = -EINVAL;
++			ret = SUBMIT_ERROR(EINVAL, submit, "non-aligned reloc offset: %u\n",
++					   submit_reloc.submit_offset);
+ 			goto out;
+ 		}
+ 
+@@ -425,8 +417,7 @@ static int submit_reloc(struct msm_gem_submit *submit, struct drm_gem_object *ob
+ 
+ 		if ((off >= (obj->size / 4)) ||
+ 				(off < last_offset)) {
+-			SUBMIT_ERROR(submit, "invalid offset %u at reloc %u\n", off, i);
+-			ret = -EINVAL;
++			ret = SUBMIT_ERROR(EINVAL, submit, "invalid offset %u at reloc %u\n", off, i);
+ 			goto out;
+ 		}
+ 
+@@ -513,12 +504,12 @@ static struct drm_syncobj **msm_parse_deps(struct msm_gem_submit *submit,
+ 
+ 		if (syncobj_desc.point &&
+ 		    !drm_core_check_feature(submit->dev, DRIVER_SYNCOBJ_TIMELINE)) {
+-			ret = -EOPNOTSUPP;
++			ret = SUBMIT_ERROR(EOPNOTSUPP, submit, "syncobj timeline unsupported");
+ 			break;
+ 		}
+ 
+ 		if (syncobj_desc.flags & ~MSM_SUBMIT_SYNCOBJ_FLAGS) {
+-			ret = -EINVAL;
++			ret = -SUBMIT_ERROR(EINVAL, submit, "invalid syncobj flags");
+ 			break;
+ 		}
+ 
+@@ -531,7 +522,7 @@ static struct drm_syncobj **msm_parse_deps(struct msm_gem_submit *submit,
+ 			syncobjs[i] =
+ 				drm_syncobj_find(file, syncobj_desc.handle);
+ 			if (!syncobjs[i]) {
+-				ret = -EINVAL;
++				ret = SUBMIT_ERROR(EINVAL, submit, "invalid syncobj handle");
+ 				break;
+ 			}
+ 		}
+@@ -588,14 +579,14 @@ static struct msm_submit_post_dep *msm_parse_post_deps(struct drm_device *dev,
+ 		post_deps[i].point = syncobj_desc.point;
+ 
+ 		if (syncobj_desc.flags) {
+-			ret = -EINVAL;
++			ret = UERR(EINVAL, dev, "invalid syncobj flags");
+ 			break;
+ 		}
+ 
+ 		if (syncobj_desc.point) {
+ 			if (!drm_core_check_feature(dev,
+ 			                            DRIVER_SYNCOBJ_TIMELINE)) {
+-				ret = -EOPNOTSUPP;
++				ret = UERR(EOPNOTSUPP, dev, "syncobj timeline unsupported");
+ 				break;
+ 			}
+ 
+@@ -609,7 +600,7 @@ static struct msm_submit_post_dep *msm_parse_post_deps(struct drm_device *dev,
+ 		post_deps[i].syncobj =
+ 			drm_syncobj_find(file, syncobj_desc.handle);
+ 		if (!post_deps[i].syncobj) {
+-			ret = -EINVAL;
++			ret = UERR(EINVAL, dev, "invalid syncobj handle");
+ 			break;
+ 		}
+ 	}
+@@ -677,10 +668,10 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 	 * be more clever to dispatch to appropriate gpu module:
+ 	 */
+ 	if (MSM_PIPE_ID(args->flags) != MSM_PIPE_3D0)
+-		return -EINVAL;
++		return UERR(EINVAL, dev, "invalid pipe");
+ 
+ 	if (MSM_PIPE_FLAGS(args->flags) & ~MSM_SUBMIT_FLAGS)
+-		return -EINVAL;
++		return UERR(EINVAL, dev, "invalid flags");
+ 
+ 	if (args->flags & MSM_SUBMIT_SUDO) {
+ 		if (!IS_ENABLED(CONFIG_DRM_MSM_GPU_SUDO) ||
+@@ -724,7 +715,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 		in_fence = sync_file_get_fence(args->fence_fd);
+ 
+ 		if (!in_fence) {
+-			ret = -EINVAL;
++			ret = UERR(EINVAL, dev, "invalid in-fence");
+ 			goto out_unlock;
+ 		}
+ 
+@@ -789,8 +780,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 		if (!submit->cmd[i].size ||
+ 			((submit->cmd[i].size + submit->cmd[i].offset) >
+ 				obj->size / 4)) {
+-			SUBMIT_ERROR(submit, "invalid cmdstream size: %u\n", submit->cmd[i].size * 4);
+-			ret = -EINVAL;
++			ret = UERR(EINVAL, dev, "invalid cmdstream size: %u\n",
++				   submit->cmd[i].size * 4);
+ 			goto out;
+ 		}
+ 
+@@ -800,8 +791,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 			continue;
+ 
+ 		if (!gpu->allow_relocs) {
+-			SUBMIT_ERROR(submit, "relocs not allowed\n");
+-			ret = -EINVAL;
++			ret = UERR(EINVAL, dev, "relocs not allowed\n");
+ 			goto out;
+ 		}
+ 
+@@ -827,7 +817,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 			(!args->fence || idr_find(&queue->fence_idr, args->fence))) {
+ 		spin_unlock(&queue->idr_lock);
+ 		idr_preload_end();
+-		ret = -EINVAL;
++		ret = UERR(EINVAL, dev, "invalid in-fence-sn");
+ 		goto out;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
+index 2fc3eaf81f44..7fed1de63b5d 100644
+--- a/drivers/gpu/drm/msm/msm_submitqueue.c
++++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+@@ -18,7 +18,7 @@ int msm_file_private_set_sysprof(struct msm_file_private *ctx,
+ 
+ 	switch (sysprof) {
+ 	default:
+-		return -EINVAL;
++		return UERR(EINVAL, gpu->dev, "Invalid sysprof: %d", sysprof);
+ 	case 2:
+ 		pm_runtime_get_sync(&gpu->pdev->dev);
+ 		fallthrough;
 -- 
-With best wishes
-Dmitry
+2.47.1
+
