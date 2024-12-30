@@ -2,97 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D6389FEAEB
-	for <lists+freedreno@lfdr.de>; Mon, 30 Dec 2024 22:12:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 920159FEB49
+	for <lists+freedreno@lfdr.de>; Mon, 30 Dec 2024 23:25:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2687D10E58E;
-	Mon, 30 Dec 2024 21:12:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35E9C10E4D5;
+	Mon, 30 Dec 2024 22:25:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="mw1sIOKi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ANOEQYIC";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 789B510E58D;
- Mon, 30 Dec 2024 21:12:04 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BUIrfq9019929;
- Mon, 30 Dec 2024 21:12:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- bgdK/mxKjEx2nxpeFifwgiDucKrI/TtfYPsCtwMew2I=; b=mw1sIOKiV/1dhq1s
- d8OLfsExWtxLDg4qnOLuCoALKCdvMYPVE+U0emrm2tnxgXQ85twGAjPM1MODmmLB
- GjacJln3Z0XpcsILZdBBqSUifgucT3J4N2FTVvtPaEKnVBHI3jOfi59o4CHGirec
- Zvq8YzHU1AuA/x8Br/u5Hd/rCwvFocR17e2+NZNsah5MS+SD0yK3TEXgoRggumWs
- Pp3rwUVu72oAxOomVcQ5kmJlzjWbaXN3VggRNdyF01cnFP+IaHlqt5fRu7tkKAwh
- jwVoHpl0meX0GgG6xW/K6Zlr7tfp30XLvFOdDA2qSMpz6oCqJiZbGvM2AiBgTXsq
- rhWBow==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43v16t86bp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 30 Dec 2024 21:12:00 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BULBxF7031433
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 30 Dec 2024 21:11:59 GMT
-Received: from [10.213.111.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 30 Dec
- 2024 13:11:53 -0800
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Date: Tue, 31 Dec 2024 02:41:07 +0530
-Subject: [PATCH v3 6/6] arm64: dts: qcom: x1e80100: Add OPPs up to Turbo L3
- for GPU
-MIME-Version: 1.0
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9804110E447;
+ Mon, 30 Dec 2024 22:25:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8C9D25C5F8D;
+ Mon, 30 Dec 2024 22:25:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74186C4CED0;
+ Mon, 30 Dec 2024 22:25:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1735597548;
+ bh=seSfdDx4urL0UaGKOK2Me2hdCtSftuthkBmEb9T7lZQ=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=ANOEQYICVHhXohQQekYt8/6lY9XvBPzzYfiSUkCf0hmSmqq9CoKFIpNGQPlsHXYGE
+ dS+38Y8sTewF26Z+ysMuYKDkNN9haQ9NdGhrLzp4+2CaF9xLTgMIvNAvnwZyPvUDBu
+ OD9IKo2CRbmoSkA8NzERg/naoSNh9MSrCldmtyHlrjY/xuLEVk+pAHSjc8ECeclHJm
+ D1+/2vNat6s+9s0CLaZy+guUl0x8CMGeJq5nkT+U8stCB9tEXNllCIngFNNiKX2mQh
+ +UUTmEvHARYVCLHJTF4ke8CQabO8AKbWV0oasIpGBIkosJ6l6JqlsZpubp4sFbchsl
+ DZYalSK3Vb3cA==
+Date: Mon, 30 Dec 2024 16:25:47 -0600
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20241231-gpu-acd-v3-6-3ba73660e9ca@quicinc.com>
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Nishanth Menon <nm@ti.com>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, devicetree@vger.kernel.org, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Simona Vetter <simona@ffwll.ch>, Sean Paul <sean@poorly.run>, 
+ freedreno@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>, 
+ linux-pm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Viresh Kumar <vireshk@kernel.org>, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>, 
+ Rob Clark <robdclark@gmail.com>, linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konradybcio@kernel.org>, David Airlie <airlied@gmail.com>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <20241231-gpu-acd-v3-4-3ba73660e9ca@quicinc.com>
 References: <20241231-gpu-acd-v3-0-3ba73660e9ca@quicinc.com>
-In-Reply-To: <20241231-gpu-acd-v3-0-3ba73660e9ca@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
- Dybcio" <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Bjorn Andersson
- <andersson@kernel.org>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1735593076; l=1193;
- i=quic_akhilpo@quicinc.com; s=20240726; h=from:subject:message-id;
- bh=sjQ6AQqTrV2rQKu5TT8e3XNqJKk8DNi/FMTskLJkUYg=;
- b=mGOky1KlbLhralFvRZhTtDzgvu+KsX7Vi+FhNj0iXv5OhBo/3qToKLWtzmHRmhoCYwTk9Y3BO
- Jy32XUR4CLKBbw5AfLzR0JetsbYm299qvYwfzbwng/JkebIiCRr9OT6
-X-Developer-Key: i=quic_akhilpo@quicinc.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: ShJPF4g5Zqzw2P0eV6q1ytWJkLS0zthI
-X-Proofpoint-ORIG-GUID: ShJPF4g5Zqzw2P0eV6q1ytWJkLS0zthI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- mlxlogscore=860 impostorscore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 clxscore=1015 mlxscore=0 suspectscore=0 priorityscore=1501
- spamscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412300182
+ <20241231-gpu-acd-v3-4-3ba73660e9ca@quicinc.com>
+Message-Id: <173559754709.2660868.7488137827927170444.robh@kernel.org>
+Subject: Re: [PATCH v3 4/6] dt-bindings: opp: Add v2-qcom-adreno vendor
+ bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,40 +68,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Now that we have ACD support for GPU, add additional OPPs up to
-Turbo L3 which are supported across all existing SKUs.
 
-Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
----
- arch/arm64/boot/dts/qcom/x1e80100.dtsi | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+On Tue, 31 Dec 2024 02:41:05 +0530, Akhil P Oommen wrote:
+> Add a new schema which extends opp-v2 to support a new vendor specific
+> property required for Adreno GPUs found in Qualcomm's SoCs. The new
+> property called "qcom,opp-acd-level" carries a u32 value recommended
+> for each opp needs to be shared to GMU during runtime.
+> 
+> Also, update MAINTAINERS file include the new opp-v2-qcom-adreno.yaml.
+> 
+> Cc: Rob Clark <robdclark@gmail.com>
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
+>  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 97 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  1 +
+>  2 files changed, 98 insertions(+)
+> 
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100.dtsi b/arch/arm64/boot/dts/qcom/x1e80100.dtsi
-index 2cf16f904aaa..2e03afb85822 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1e80100.dtsi
-@@ -3337,6 +3337,20 @@ zap-shader {
- 			gpu_opp_table: opp-table {
- 				compatible = "operating-points-v2-adreno", "operating-points-v2";
- 
-+				opp-1250000000 {
-+					opp-hz = /bits/ 64 <1250000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L3>;
-+					opp-peak-kBps = <16500000>;
-+					qcom,opp-acd-level = <0xa82a5ffd>;
-+				};
-+
-+				opp-1175000000 {
-+					opp-hz = /bits/ 64 <1175000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L2>;
-+					opp-peak-kBps = <14398438>;
-+					qcom,opp-acd-level = <0xa82a5ffd>;
-+				};
-+
- 				opp-1100000000 {
- 					opp-hz = /bits/ 64 <1100000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
+My bot found errors running 'make dt_binding_check' on your patch:
 
--- 
-2.45.2
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml: ignoring, error parsing file
+Traceback (most recent call last):
+  File "/usr/bin/yamllint", line 33, in <module>
+    sys.exit(load_entry_point('yamllint==1.29.0', 'console_scripts', 'yamllint')())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/yamllint/cli.py", line 228, in run
+    prob_level = show_problems(problems, file, args_format=args.format,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/yamllint/cli.py", line 113, in show_problems
+    for problem in problems:
+  File "/usr/lib/python3/dist-packages/yamllint/linter.py", line 200, in _run
+    for problem in get_cosmetic_problems(buffer, conf, filepath):
+  File "/usr/lib/python3/dist-packages/yamllint/linter.py", line 137, in get_cosmetic_problems
+    for problem in rule.check(rule_conf,
+  File "/usr/lib/python3/dist-packages/yamllint/rules/indentation.py", line 583, in check
+    yield from _check(conf, token, prev, next, nextnext, context)
+  File "/usr/lib/python3/dist-packages/yamllint/rules/indentation.py", line 344, in _check
+    if expected < 0:
+       ^^^^^^^^^^^^
+TypeError: '<' not supported between instances of 'NoneType' and 'int'
+./Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml:97:1: did not find expected key
+make[2]: *** Deleting file 'Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.example.dts'
+Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml:97:1: did not find expected key
+make[2]: *** [Documentation/devicetree/bindings/Makefile:26: Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.example.dts] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1506: dt_binding_check] Error 2
+make: *** [Makefile:251: __sub-make] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20241231-gpu-acd-v3-4-3ba73660e9ca@quicinc.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
