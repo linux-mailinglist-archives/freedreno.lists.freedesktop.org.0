@@ -2,73 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 938CC9FEE99
-	for <lists+freedreno@lfdr.de>; Tue, 31 Dec 2024 10:49:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A35B9FEEB8
+	for <lists+freedreno@lfdr.de>; Tue, 31 Dec 2024 11:32:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE7A10E62E;
-	Tue, 31 Dec 2024 09:49:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF5210E632;
+	Tue, 31 Dec 2024 10:32:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qMawAHvU";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eRV3D+PJ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0759410E62D
- for <freedreno@lists.freedesktop.org>; Tue, 31 Dec 2024 09:49:05 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-43622267b2eso104684355e9.0
- for <freedreno@lists.freedesktop.org>; Tue, 31 Dec 2024 01:49:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1735638483; x=1736243283; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=HeRwnqhfF+7/JAAgCsoF3hFLXg3W1APinrWGayK28XY=;
- b=qMawAHvU8GjtGDJ7fWIeIN4UmwjiMKR6c6iVf8PyLcED2pkcIXjZIrZGPu67tSij17
- XOk75YqxeSuunSd7RmjDdZPzkyjJIJTyPt0d3h2P7azoNu4nftfFyHkE2SocNR5f/cmk
- K6PZTlpFKPuFzUgMrZfh5Gx6NOllk8AjF7PZCL/mTiaLEg1m0/u/x71cWlqY2DsHb+7g
- DFH3yoa9cjoXhJfj+YwIJMfDjPrH7WYttEKtK6we59YIa8qSy3tO+QLieee9sKfX3hVq
- 4l9XpQQvmlNMf4HIJgIiDDrVklurz5ioWlEYku/olSYKJ6QaRCcsU34jVw3sshcbI3ml
- IqLw==
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FEAF10E15A
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Dec 2024 10:32:54 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BV9WghA031798
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Dec 2024 10:32:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ YSJC+oAIYFHch5VxryaXW7jbaxZD9NOaWfHg11T19a0=; b=eRV3D+PJpj8fjCSy
+ 4aNxjO6gdNimMFRQClI4GqQiDZDfLWbWRmh5OedZm1oLQq2O/n4iRq42KeKiwucL
+ /j/igHgVdWOsb/VqNKSKmdHaWxip6OoXFhZDeLXb5n/MzCtYK9TXl+GVpqz+rC+e
+ zKR4gD6LK833S65OyH6bqRI8xNiHzfLjoiUZAhCzy3+nfofk+5RkweAn/gbQwl6e
+ vAmYnsEbkQA3enoc5ZGShgD/py/eto+2IQJMiEyMtzm65r6v77dNRD4D0gwIJvQn
+ SUFoTaV8bBrGUY1Ce6WtkwyMXuxDIjy4cy/n8FLRrRy2fsVgBoLOp+qpGLIuA/FX
+ ERzVXA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43ve2vr40b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Dec 2024 10:32:52 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7b70df784cdso55112985a.2
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Dec 2024 02:32:52 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735638483; x=1736243283;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=HeRwnqhfF+7/JAAgCsoF3hFLXg3W1APinrWGayK28XY=;
- b=rNw0INLpte0vS9HOWaBkKaLv5RfTBHWtJEA/G0VSHHPiDShnB4jUQSWk7XAKjuyjaX
- CXoL/ML31YSkiz4kV9pKG7q98F74uth00aVjm+35a9rD8J/rATo7XOPL6CEVJI/8x4Tw
- Q4kxB4+C1RECXMn9yn/dbZXJJVfefhHzAJ7WwW7R7mntaKHWcV99n4IROkcSD0iqi6Ep
- 1Xi7CdDTtF34QCwHe/hTJunotnxRIQDLD3xOz3Y1Dwy+c15t2dZS1d820DrtT2YF/D5i
- MBOEC7K7zLVgutAIy17+/XImIPguiObsM47K8O7XWurQMXPEnS+dQsBX5Kj3A6Hro2bM
- 4/Gg==
+ d=1e100.net; s=20230601; t=1735641172; x=1736245972;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=YSJC+oAIYFHch5VxryaXW7jbaxZD9NOaWfHg11T19a0=;
+ b=oQq2MbWJ7QdpeUFyGPMUdxNFgZuq8U7hZ/4KdQBobQr0eT1xByb31ZrD77ArC9Aqt6
+ X1r6c//DKBx5jH9IP5si8ss06OcJ2oN+VrIEQ+psOdtUa1ZGNKyfUWw3WYjludZ23z1S
+ WXA8JHKfu20GFsKPKlw1XRkmtVIxhSujjh4jfyaubMiicW7liopl5tMBzmbMEvgX7dOZ
+ E6fCpXp/WM06DNM0Z+qouk709KS/iGkFfk88j2tm0OOOCVl94zP5ZX9k/jQgbAve2JPR
+ 03+P3TYclahmk8kAv4ElBvQ6naPQzihFPzphK4PuAClzkz8NORLPacitasp04tusFr6z
+ zuSA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUgJQAi6WhtcEgy6fGKNwjjGV6NwkOJ6jiovC+wTaUjvvu+0/pw06kyCqocd+ipm3CwnXtDowCotd0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzwyd4BanCAdv8aDimCoXtrtFP5axKTkT4JudOjKga94UDg2HCS
- mmMdjH1FBsepkxfSli69fQUHglv020KgBQq+wML0yvkj4fMnSFBCENYcXQqOztQ=
-X-Gm-Gg: ASbGncsP/TVQm/3jowHra3TD/znciHDkuWaUPGf1g178uq16wsEkS2QY0Rj0/Hf8QAn
- BZemVRPjQT3G23rwgmtcTSvlmT8DjBqo4iePuV+B5kMImBq8s00RW7KP2Dmt83gSghnpJ8oSbn+
- YKTN7UO/JHXO44T4lluVJZ8aT20RP+tpgDjkcKcc2++n0TZ5ULHC7g08prnkYRv2mIVKnKN2flF
- nzUojfZS0h6xs4nBl8Cj4fahGFhaeCxk4T5m+Qsgm25/mSvRWoBlbCj3bLw8KNZ8mFKfias+Juf
- UtZtPFHFXasWlhUfwQSJdIaA+zUMnTwTpw==
-X-Google-Smtp-Source: AGHT+IEGg6YSZQT43oiZ32HhVcPdM98GCfS5GJPSKrOlCvZn4fYTA3U+3B7+/7dEhUB5UITV+Oy6hA==
-X-Received: by 2002:a05:600c:35cb:b0:434:a386:6cf with SMTP id
- 5b1f17b1804b1-43668548b49mr298952635e9.2.1735638482765; 
- Tue, 31 Dec 2024 01:48:02 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:add3:e25d:7204:9ee5?
- ([2a01:e0a:982:cbb0:add3:e25d:7204:9ee5])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4366127c4b0sm383297725e9.35.2024.12.31.01.48.00
+ AJvYcCWmhmeKUJbgYLzILldd7+GkEEF7zlNY2H+xnwhK1PYwMDQPqoMbvHjXEtl9At3KLJprH9QSOT8b9dA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YywO6H0ycHUIYpkdJ+Ze0EwALHD6FEHo20UZyJIdLxQeEtADddE
+ 7FeORuS9l2moWnfB7CVXqPQ87pmZgK977zHjv1OvkS75aZw1hmOo7r/LBz+HuGQgIDLwYYdQE2s
+ XqZU8fthkq/e5umfqgeVveDAZ8PM5FtoAGMzTp67WuxCV+V9CFyoSq74x6Tofgre1sws=
+X-Gm-Gg: ASbGnctY6Ge30igJQz9rzcPC19js53z/TtekjyowZiivTk1xVM3T+BLv78XEyQ63mjM
+ STMc7WDA8ZLUKsaGjZfQRZA8yAWhvWiw6HPnkmmvqKwWp8xFVl5e+EXpH7lzGtjc2to/mGjtfwL
+ i09csJ/WAaZbou+SaZvlOieyfGg8BMLnO5B6KEnSaorpl4GBIVr1Gv0xp2zyVJmxf3BFykwNPCq
+ M3dhLTChFsemZZI9VpvDa7v+ucMUM7KyJew+ARv2MIlOoFOnjegoEiR5CEQD1oPlu/inEz3Dhau
+ U5vjeEmJECIkub0pVWMmZTlvsXXyo6eQiLE=
+X-Received: by 2002:a05:622a:15d4:b0:467:6283:3c99 with SMTP id
+ d75a77b69052e-46a4a8cdd7bmr241338491cf.4.1735641172149; 
+ Tue, 31 Dec 2024 02:32:52 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHev8rES9N0OrYAIAyswBL66viX51APNE3D7v2N9ryEeR9n7vvKglxjk0UBQxLmkedJMPFHTQ==
+X-Received: by 2002:a05:622a:15d4:b0:467:6283:3c99 with SMTP id
+ d75a77b69052e-46a4a8cdd7bmr241338221cf.4.1735641171775; 
+ Tue, 31 Dec 2024 02:32:51 -0800 (PST)
+Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aac0e830af1sm1560481466b.14.2024.12.31.02.32.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Dec 2024 01:48:01 -0800 (PST)
-Message-ID: <ae360497-84d5-4153-8bc4-b3943fb30dc5@linaro.org>
-Date: Tue, 31 Dec 2024 10:48:00 +0100
+ Tue, 31 Dec 2024 02:32:50 -0800 (PST)
+Message-ID: <3f33a94e-3fb2-4df2-91f5-59a92f5094f0@oss.qualcomm.com>
+Date: Tue, 31 Dec 2024 11:32:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH v3 1/6] drm/msm/adreno: Add support for ACD
+Subject: Re: [PATCH v3 3/6] drm/msm/adreno: Add module param to disable ACD
 To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konradybcio@kernel.org>,
@@ -84,36 +91,23 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-pm@vger.kernel.org, devicetree@vger.kernel.org
 References: <20241231-gpu-acd-v3-0-3ba73660e9ca@quicinc.com>
- <20241231-gpu-acd-v3-1-3ba73660e9ca@quicinc.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20241231-gpu-acd-v3-1-3ba73660e9ca@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <20241231-gpu-acd-v3-3-3ba73660e9ca@quicinc.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20241231-gpu-acd-v3-3-3ba73660e9ca@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 1zxqOyDr02KyvRR2zJV4FUmESIOn8qJM
+X-Proofpoint-GUID: 1zxqOyDr02KyvRR2zJV4FUmESIOn8qJM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=870
+ impostorscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ phishscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 bulkscore=0
+ mlxscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412310088
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,257 +120,19 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/12/2024 22:11, Akhil P Oommen wrote:
-> ACD a.k.a Adaptive Clock Distribution is a feature which helps to reduce
-> the power consumption. In some chipsets, it is also a requirement to
-> support higher GPU frequencies. This patch adds support for GPU ACD by
-> sending necessary data to GMU and AOSS. The feature support for the
-> chipset is detected based on devicetree data.
+On 30.12.2024 10:11 PM, Akhil P Oommen wrote:
+> Add a module param to disable ACD which will help to quickly rule it
+> out for any GPU issues.
 > 
 > Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 84 ++++++++++++++++++++++++++++++-----
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
->   drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 36 +++++++++++++++
->   drivers/gpu/drm/msm/adreno/a6xx_hfi.h | 21 +++++++++
->   4 files changed, 132 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 14db7376c712..2689e79aefa5 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -1021,14 +1021,6 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
->   
->   	gmu->hung = false;
->   
-> -	/* Notify AOSS about the ACD state (unimplemented for now => disable it) */
-> -	if (!IS_ERR(gmu->qmp)) {
-> -		ret = qmp_send(gmu->qmp, "{class: gpu, res: acd, val: %d}",
-> -			       0 /* Hardcode ACD to be disabled for now */);
-> -		if (ret)
-> -			dev_err(gmu->dev, "failed to send GPU ACD state\n");
-> -	}
-> -
->   	/* Turn on the resources */
->   	pm_runtime_get_sync(gmu->dev);
->   
-> @@ -1476,6 +1468,68 @@ static int a6xx_gmu_pwrlevels_probe(struct a6xx_gmu *gmu)
->   	return a6xx_gmu_rpmh_votes_init(gmu);
->   }
->   
-> +static int a6xx_gmu_acd_probe(struct a6xx_gmu *gmu)
-> +{
-> +	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-> +	struct a6xx_hfi_acd_table *cmd = &gmu->acd_table;
-> +	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-> +	struct msm_gpu *gpu = &adreno_gpu->base;
-> +	int ret, i, cmd_idx = 0;
-> +
-> +	cmd->version = 1;
-> +	cmd->stride = 1;
-> +	cmd->enable_by_level = 0;
-> +
-> +	/* Skip freq = 0 and parse acd-level for rest of the OPPs */
-> +	for (i = 1; i < gmu->nr_gpu_freqs; i++) {
-> +		struct dev_pm_opp *opp;
-> +		struct device_node *np;
-> +		unsigned long freq;
-> +		u32 val;
-> +
-> +		freq = gmu->gpu_freqs[i];
-> +		opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, freq, true);
-> +		np = dev_pm_opp_get_of_node(opp);
-> +
-> +		ret = of_property_read_u32(np, "qcom,opp-acd-level", &val);
-> +		of_node_put(np);
-> +		dev_pm_opp_put(opp);
-> +		if (ret == -EINVAL)
-> +			continue;
-> +		else if (ret) {
-> +			DRM_DEV_ERROR(gmu->dev, "Unable to read acd level for freq %lu\n", freq);
-> +			return ret;
-> +		}
-> +
-> +		cmd->enable_by_level |= BIT(i);
-> +		cmd->data[cmd_idx++] = val;
-> +	}
-> +
-> +	cmd->num_levels = cmd_idx;
-> +
-> +	/* It is a problem if qmp node is unavailable when ACD is required */
-> +	if (cmd->enable_by_level && IS_ERR_OR_NULL(gmu->qmp)) {
-> +		DRM_DEV_ERROR(gmu->dev, "Unable to send ACD state to AOSS\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* Otherwise, nothing to do if qmp is unavailable */
-> +	if (IS_ERR_OR_NULL(gmu->qmp))
-> +		return 0;
-> +
-> +	/*
-> +	 * Notify AOSS about the ACD state. AOSS is supposed to assume that ACD is disabled on
-> +	 * system reset. So it is harmless if we couldn't notify 'OFF' state
-> +	 */
-> +	ret = qmp_send(gmu->qmp, "{class: gpu, res: acd, val: %d}", !!cmd->enable_by_level);
-> +	if (ret && cmd->enable_by_level) {
-> +		DRM_DEV_ERROR(gmu->dev, "Failed to send ACD state to AOSS\n");
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static int a6xx_gmu_clocks_probe(struct a6xx_gmu *gmu)
->   {
->   	int ret = devm_clk_bulk_get_all(gmu->dev, &gmu->clocks);
-> @@ -1793,7 +1847,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
->   	gmu->qmp = qmp_get(gmu->dev);
->   	if (IS_ERR(gmu->qmp) && adreno_is_a7xx(adreno_gpu)) {
->   		ret = PTR_ERR(gmu->qmp);
-> -		goto remove_device_link;
-> +		goto detach_gxpd;
->   	}
->   
->   	init_completion(&gmu->pd_gate);
-> @@ -1809,6 +1863,10 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
->   	/* Get the power levels for the GMU and GPU */
->   	a6xx_gmu_pwrlevels_probe(gmu);
->   
-> +	ret = a6xx_gmu_acd_probe(gmu);
-> +	if (ret)
-> +		goto detach_gxpd;
-> +
->   	/* Set up the HFI queues */
->   	a6xx_hfi_init(gmu);
->   
-> @@ -1819,7 +1877,13 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
->   
->   	return 0;
->   
-> -remove_device_link:
-> +detach_gxpd:
-> +	if (!IS_ERR_OR_NULL(gmu->gxpd))
-> +		dev_pm_domain_detach(gmu->gxpd, false);
-> +
-> +	if (!IS_ERR_OR_NULL(gmu->qmp))
-> +		qmp_put(gmu->qmp);
-> +
->   	device_link_del(link);
->   
->   detach_cxpd:
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> index b4a79f88ccf4..87d225b08e9b 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> @@ -81,6 +81,7 @@ struct a6xx_gmu {
->   	int nr_gpu_freqs;
->   	unsigned long gpu_freqs[16];
->   	u32 gx_arc_votes[16];
-> +	struct a6xx_hfi_acd_table acd_table;
->   
->   	int nr_gmu_freqs;
->   	unsigned long gmu_freqs[4];
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-> index cb8844ed46b2..3c183c1c6266 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-> @@ -702,6 +702,38 @@ static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
->   		NULL, 0);
->   }
->   
-> +#define HFI_FEATURE_ACD 12
-> +
-> +static int a6xx_hfi_enable_acd(struct a6xx_gmu *gmu)
-> +{
-> +	struct a6xx_hfi_acd_table *acd_table = &gmu->acd_table;
-> +	struct a6xx_hfi_msg_feature_ctrl msg = {
-> +		.feature = HFI_FEATURE_ACD,
-> +		.enable = 1,
-> +		.data = 0,
-> +	};
-> +	int ret;
-> +
-> +	if (!acd_table->enable_by_level)
-> +		return 0;
-> +
-> +	/* Enable ACD feature at GMU */
-> +	ret = a6xx_hfi_send_msg(gmu, HFI_H2F_FEATURE_CTRL, &msg, sizeof(msg), NULL, 0);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(gmu->dev, "Unable to enable ACD (%d)\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* Send ACD table to GMU */
-> +	ret = a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_ACD, &msg, sizeof(msg), NULL, 0);
 
+Is that something useful during internal development, or do we
+see ACD causing issues in the wild?
 
-Seems you still don't send the proper acd_table
+If the latter, would that be caused by e.g. outdated firmware?
 
-Neil
-
-> +	if (ret) {
-> +		DRM_DEV_ERROR(gmu->dev, "Unable to ACD table (%d)\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static int a6xx_hfi_send_test(struct a6xx_gmu *gmu)
->   {
->   	struct a6xx_hfi_msg_test msg = { 0 };
-> @@ -799,6 +831,10 @@ int a6xx_hfi_start(struct a6xx_gmu *gmu, int boot_state)
->   	if (ret)
->   		return ret;
->   
-> +	ret = a6xx_hfi_enable_acd(gmu);
-> +	if (ret)
-> +		return ret;
-> +
->   	ret = a6xx_hfi_send_core_fw_start(gmu);
->   	if (ret)
->   		return ret;
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-> index 528110169398..51864c8ad0e6 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-> @@ -151,12 +151,33 @@ struct a6xx_hfi_msg_test {
->   	u32 header;
->   };
->   
-> +#define HFI_H2F_MSG_ACD 7
-> +#define MAX_ACD_STRIDE 2
-> +
-> +struct a6xx_hfi_acd_table {
-> +	u32 header;
-> +	u32 version;
-> +	u32 enable_by_level;
-> +	u32 stride;
-> +	u32 num_levels;
-> +	u32 data[16 * MAX_ACD_STRIDE];
-> +};
-> +
->   #define HFI_H2F_MSG_START 10
->   
->   struct a6xx_hfi_msg_start {
->   	u32 header;
->   };
->   
-> +#define HFI_H2F_FEATURE_CTRL 11
-> +
-> +struct a6xx_hfi_msg_feature_ctrl {
-> +	u32 header;
-> +	u32 feature;
-> +	u32 enable;
-> +	u32 data;
-> +};
-> +
->   #define HFI_H2F_MSG_CORE_FW_START 14
->   
->   struct a6xx_hfi_msg_core_fw_start {
-> 
-
+Konrad
