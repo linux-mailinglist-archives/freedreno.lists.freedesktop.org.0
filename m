@@ -2,89 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 144719FEF2E
-	for <lists+freedreno@lfdr.de>; Tue, 31 Dec 2024 12:56:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D75F9FEFFE
+	for <lists+freedreno@lfdr.de>; Tue, 31 Dec 2024 15:34:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3A5910E666;
-	Tue, 31 Dec 2024 11:56:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D60E210E089;
+	Tue, 31 Dec 2024 14:34:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="AAuC4ADd";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="sui7PozA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF23C10E668
- for <freedreno@lists.freedesktop.org>; Tue, 31 Dec 2024 11:56:34 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-436637e8c8dso100816225e9.1
- for <freedreno@lists.freedesktop.org>; Tue, 31 Dec 2024 03:56:34 -0800 (PST)
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com
+ [209.85.219.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E82E10E089
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Dec 2024 14:34:56 +0000 (UTC)
+Received: by mail-qv1-f48.google.com with SMTP id
+ 6a1803df08f44-6dcdd9a3e54so101047856d6.3
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Dec 2024 06:34:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1735646133; x=1736250933;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kZ0cCTCCRfld4Ulk+wiogAmP056IVjuCCQi0SFVFq28=;
- b=AAuC4ADd1IqcqGflOcjA67Wl+oR1RVAvT8liSsRIw9kiffxnjajkbwn6Ssp3gkCGmi
- hHh9B7UmFoaRqSH0b2bMaoEOqGclOGekeEuD7cdouaOxoTFZlsgQu7RtxeUAPrgCsCwF
- UE8X59q7orcEMW7Sx93svzHJNIe/8AIrqux/4NeN3IsIYhVSp338NmjO1Qz+2NxtypDN
- Mf0NqXZPK9dXuwwOHQJdIXK8s8Z5CENGC0cOhw6s9pcLODqsbTriPBrCT2q+w4/0Zw90
- dGfMpwRsBo1+zwAbRgOJGEhdV+kHEvcDV2Yf+HXqya3RHKwq1SvNoK8H6ykzV+9UTGA5
- 2iMg==
+ d=linaro.org; s=google; t=1735655635; x=1736260435; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rL17eu52TPn+FxCKD51YSXrmc7q5Hp1A9+hdV9KvlH0=;
+ b=sui7PozARhx0i4ok5GXlFwHgh246/TSNMHsJU/FnIL+pjoVU/jGb+TDFMAe8soi6ia
+ rwTdRDpFzqh311bDcL1rqY3y/X46BI/QjyjNoHY7GNMtVxJ6bvdfxgTHZ3doZD3FzAG4
+ sXd1ge301YFrG8ZDo53M8SzTmYPmr4hTB/sVcQzptJwNS/CgfPwRmIzepl3qWvK3jpHT
+ /sT2qxektbK6szVqVffWpAwlO4SklG3MKKSRFM0vDiIZWf70LG3ri5El1pUoUbIU6Z7y
+ tGk7vPUjUuFQBe7ZJK7omILy4iuuxPCJiN3uyYOqcrmZv7na5GPUFnwOchd0z/7KbW4U
+ n6uQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735646133; x=1736250933;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kZ0cCTCCRfld4Ulk+wiogAmP056IVjuCCQi0SFVFq28=;
- b=bd5P5UDUSKtk/mmc2fbv763xpQC/SJGqYwlDLLTUMCs7zxph6YcSYLqR5wGfCuXuKD
- aLgvL43mrdqhzpN4XAA6WMVCpIGmbl4cuyMmRweFP7NJA2zOV9C/zpJyWZOzbEtWcE1z
- kF+Eg7orOu5dv4uviazodLL+As5SqHuvVpeXJhWHd3dbTNUwI9k3UuwgoLdBDknRqQvY
- n3QQZutqWCY3VYeHXA4JLSpjELMQvk9pr56pZlcIgvV9LbfL28amJJgOzk+ExbK7uXxL
- iX/WeKRtoAvHyK0zdFbij5Dy1L1LA3neelUz0nPN6iMBM02jkJxNDJP2tX0TyN02K+4q
- RGwQ==
+ d=1e100.net; s=20230601; t=1735655635; x=1736260435;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rL17eu52TPn+FxCKD51YSXrmc7q5Hp1A9+hdV9KvlH0=;
+ b=FrsCwbGKq3XBXzdnt2XnXvCZwB/zfVigno59+5EYrFiltBJZIGQ+L7WIzi4oyBfuVi
+ UM4aaPFdTrk+iq0qApjILUTSU0tTLVvFejS9Fz4I+iVDINGZ4p91gd8mLXxoObqivR3h
+ J4zr8y1tFMZ8s/Cns3NXzNnkA5c0iOWwrqwKdCkyO8Tf2kcsxcAe1W2NiM24ZLgMHXR5
+ nS1RAsrFdDwCK+6sERK1OnsTHa/lEVObq0nETRUTBEsyTVCMsomlryE4EOmBtWqE+Vtf
+ fhwVmWP1aRNA1eNoYTHogXPtdLD9uoFXHvxHXjHUakyBlamzNFFz/RYnBfghl1HmUm0q
+ 5hjQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX70SSowTvAmFLtr5LhrLyyA/0xn0WzOAYsbcbzOmfZY+l7oUgUHJXQ6YxNi2IXHEHaoQvL0xrjoRc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxo5dKm2zTEkWcxfeetyUsdar9CiOK4A1+WrLAz2qKyX2o2NBYZ
- QThSWf3V77nia1mQ3E0JTdb7k2I8h4MWZfxEdV4MR0NusIqkqgswYDagDE9Cx2uBH4tbVoCWwgc
- J
-X-Gm-Gg: ASbGnctpthaBg8F+ejL8OIs0WA0nhBiqMcXAh3SXTzcF/rb4EXWaGtcw2a3Adh9Yc9i
- nS3HdbjQQq63pQiz8ZyLYeCDxQp5phQ6ndepYATdVCMUGJT4X4LK3hjfTqcN9szyx8ZmGX0s9JL
- QvurumzTS+qrqMf3eGB1pWc+y2bZ7xVr6boC/eeH3r/OE3YXzma5PL+sFXf4KWXkM80W8nAuXbU
- 2k3/OHExJYIkf4KCutgcFNoUOa8Mu/kkL6rvU59bjGmEZNqV4Ff/2ZRbK4QU7maQlaItKTD
-X-Google-Smtp-Source: AGHT+IEonJCQkKfmUZRTTcQxMpQNh8v+hJ8WjpocKj3WTxQpFwWxDIM9bcA7O43AFVEzFIMvitFZLg==
-X-Received: by 2002:a05:600c:4748:b0:434:f804:a9b0 with SMTP id
- 5b1f17b1804b1-43668b78818mr314536595e9.29.1735646132934; 
- Tue, 31 Dec 2024 03:55:32 -0800 (PST)
-Received: from [192.168.0.101] ([90.241.98.187])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436611ea3e0sm390817235e9.7.2024.12.31.03.55.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Dec 2024 03:55:32 -0800 (PST)
-Message-ID: <1b5a3555-1094-404c-8b71-49dd07f59ac9@ursulin.net>
-Date: Tue, 31 Dec 2024 11:55:31 +0000
+ AJvYcCUFRagc5TcEuJD0TWZlBwvEm+OOvbzMopBaKuy73NdlWyck5cGLYBgbos3p+cwSCriYKOKY2vFpRCU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw429Ryl6jrYipBvUYg5305N6SquxKtL2YvGbdIoRoJItlaB98C
+ h6U6MqOtG/CnjzEwZNxVU35hOeYsdRA4oGZjpx7Mntt3gReV8UHflLOXoR5uNxzdoAtio542xH2
+ xZ/Cdrv15A3QzEcpk6rlMEfT/RquWM5kWf7VTRLbYflLviUdP
+X-Gm-Gg: ASbGncscK/dNmQ2h0LqWX3VZ8vADGBcSuVCHO08zfZOMTefF1HexS7Fa2RRCFW4rgl/
+ b9t7jjN+JLm66FhC9xZ9mn7jILsiPzCKDj8rpeAmPCkMsLGxZsq7PjYFUi28FuTkoEQmWV28=
+X-Google-Smtp-Source: AGHT+IHu5RvYyC4nB2qf+XDJ+++3gqSi2Op4GcMB04A2jw0fnQSrmJDmXEVSJBJcKxrFc2tdYxydWafdNf7U76/hxNI=
+X-Received: by 2002:a05:690c:113:b0:6ef:96f8:b609 with SMTP id
+ 00721157ae682-6f3f821a21dmr343989677b3.31.1735653873018; Tue, 31 Dec 2024
+ 06:04:33 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm: UAPI error reporting
-To: Rob Clark <robdclark@gmail.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Rob Clark <robdclark@chromium.org>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+References: <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-0-92c7c0a228e3@linaro.org>
+ <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-10-92c7c0a228e3@linaro.org>
+ <zaz73zvyczdvrhwdo32el5seefuo2ocgst2jnh2rjsfz42vyy3@pkebgkbo5xd3>
+ <CABymUCPDTxR7drbanHpjYmVgQyHqWSWwL-_rsFWZ9=uOFj2kPQ@mail.gmail.com>
+In-Reply-To: <CABymUCPDTxR7drbanHpjYmVgQyHqWSWwL-_rsFWZ9=uOFj2kPQ@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 31 Dec 2024 16:04:22 +0200
+Message-ID: <CAA8EJpp-sRDLWMYHO_m6J=iFQArqiRF143QEj-KzntQXgyc0ow@mail.gmail.com>
+Subject: Re: [PATCH v3 10/15] drm/msm/dpu: Add pipe as trace argument
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-References: <20241121164858.457921-1-robdclark@gmail.com>
- <54601d79-4156-41f4-b1b7-250c5c970641@oss.qualcomm.com>
- <CAF6AEGtafQM7-mYy163Krry3OHgPNH3e9A=9VEhBpiQTADtULQ@mail.gmail.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <CAF6AEGtafQM7-mYy163Krry3OHgPNH3e9A=9VEhBpiQTADtULQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,63 +88,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, 31 Dec 2024 at 15:24, Jun Nie <jun.nie@linaro.org> wrote:
+>
+> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2024=E5=B9=B412=
+=E6=9C=8820=E6=97=A5=E5=91=A8=E4=BA=94 06:29=E5=86=99=E9=81=93=EF=BC=9A
+>
+>
+> >
+> > On Thu, Dec 19, 2024 at 03:49:28PM +0800, Jun Nie wrote:
+> > > Add pipe as trace argument to ease converting pipe into
+> > > pipe array later.
+> >
+> > Isn't it already converted in on of the previous patches? Also you are
+> > adding it to a particular trace function, trace_dpu_crtc_setup_mixer().
+>
+> It is converted in this patch. But this patch should be earlier than
+> the patch to
+> convert pipe into array actually. Will reverse the sequence in next versi=
+on.
+> Yes, I am adding it to a particular trace function. Do you mean I should =
+mention
+> the specific function in title?
 
-On 22/11/2024 15:51, Rob Clark wrote:
-> On Fri, Nov 22, 2024 at 4:21 AM Konrad Dybcio
-> <konrad.dybcio@oss.qualcomm.com> wrote:
->>
->> On 21.11.2024 5:48 PM, Rob Clark wrote:
->>> From: Rob Clark <robdclark@chromium.org>
->>>
->>> Debugging incorrect UAPI usage tends to be a bit painful, so add a
->>> helper macro to make it easier to add debug logging which can be enabled
->>> at runtime via drm.debug.
->>>
->>> Signed-off-by: Rob Clark <robdclark@chromium.org>
->>> ---
->>
->> [...]
->>
->>> +/* Helper for returning a UABI error with optional logging which can make
->>> + * it easier for userspace to understand what it is doing wrong.
->>> + */
->>> +#define UERR(err, drm, fmt, ...) \
->>> +     ({ DRM_DEV_DEBUG_DRIVER((drm)->dev, fmt, ##__VA_ARGS__); -(err); })
->>> +
->>>   #define DBG(fmt, ...) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
->>>   #define VERB(fmt, ...) if (0) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
->>
->> I'm generally not a fan of adding driver-specific debug prints..
->>
->> Maybe that's something that could be pushed to the drm-common layer
->> or even deeper down the stack?
-> 
-> Even if we had something like DRM_DBG_UABI_ERROR() I'd probably still
-> just #define UERR() to be a wrapper for it, since line length/wrapping
-> tends to be a bit of a challenge.  And I have a fairly substantial
-> patch stack on top of this adding sparse/vm_bind support.  (Debugging
-> that was actually the motivation for this patch.)
-> 
-> I noticed that xe has something similar, but slightly different shape,
-> in the form of XE_IOCTL_DBG().. but that kinda just moves the line
-> length problem into the if() conditional.  (And doesn't provide the
-> benefit of being able to display the incorrect param.)
+Mentioning it in the commit message is enough.
 
-FWIW there is also a debug only builds hack in i915:
+>
+> >
+> > >
+> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > > ---
+> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  2 +-
+> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h | 10 +++++-----
+> > >  2 files changed, 6 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/d=
+rm/msm/disp/dpu1/dpu_crtc.c
+> > > index 72ed8749cd716..6841d0504d450 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > @@ -411,7 +411,7 @@ static void _dpu_crtc_blend_setup_pipe(struct drm=
+_crtc *crtc,
+> > >
+> > >       trace_dpu_crtc_setup_mixer(DRMID(crtc), DRMID(plane),
+> > >                                  state, to_dpu_plane_state(state), st=
+age_idx,
+> > > -                                format->pixel_format,
+> > > +                                format->pixel_format, pipe,
+> > >                                  modifier);
+> > >
+> > >       DRM_DEBUG_ATOMIC("crtc %d stage:%d - plane %d sspp %d fb %d mul=
+tirect_idx %d\n",
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h b/drivers/gpu/=
+drm/msm/disp/dpu1/dpu_trace.h
+> > > index 5307cbc2007c5..cb24ad2a6d8d3 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
+> > > @@ -651,9 +651,9 @@ TRACE_EVENT(dpu_crtc_setup_mixer,
+> > >       TP_PROTO(uint32_t crtc_id, uint32_t plane_id,
+> > >                struct drm_plane_state *state, struct dpu_plane_state =
+*pstate,
+> > >                uint32_t stage_idx, uint32_t pixel_format,
+> > > -              uint64_t modifier),
+> > > +              struct dpu_sw_pipe *pipe, uint64_t modifier),
+> > >       TP_ARGS(crtc_id, plane_id, state, pstate, stage_idx,
+> > > -             pixel_format, modifier),
+> > > +             pixel_format, pipe, modifier),
+> > >       TP_STRUCT__entry(
+> > >               __field(        uint32_t,               crtc_id        =
+ )
+> > >               __field(        uint32_t,               plane_id       =
+ )
+> > > @@ -676,9 +676,9 @@ TRACE_EVENT(dpu_crtc_setup_mixer,
+> > >               __entry->dst_rect =3D drm_plane_state_dest(state);
+> > >               __entry->stage_idx =3D stage_idx;
+> > >               __entry->stage =3D pstate->stage;
+> > > -             __entry->sspp =3D pstate->pipe.sspp->idx;
+> > > -             __entry->multirect_idx =3D pstate->pipe.multirect_index=
+;
+> > > -             __entry->multirect_mode =3D pstate->pipe.multirect_mode=
+;
+> > > +             __entry->sspp =3D pipe->sspp->idx;
+> > > +             __entry->multirect_idx =3D pipe->multirect_index;
+> > > +             __entry->multirect_mode =3D pipe->multirect_mode;
+> > >               __entry->pixel_format =3D pixel_format;
+> > >               __entry->modifier =3D modifier;
+> > >       ),
+> > >
+> > > --
+> > > 2.34.1
+> > >
+> >
+> > --
+> > With best wishes
+> > Dmitry
 
-/* Catch emission of unexpected errors for CI! */
-#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
-#undef EINVAL
-#define EINVAL ({ \
-	DRM_DEBUG_DRIVER("EINVAL at %s:%d\n", __func__, __LINE__); \
-	22; \
-})
-#endif
 
-UERR functionality wise looks quite good to me. Better than the other 
-two. The name is not scoped but I appreciate the readability line length 
-challenges.
 
-Regards,
-
-Tvrtko
+--=20
+With best wishes
+Dmitry
