@@ -2,70 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F27D5A0099C
-	for <lists+freedreno@lfdr.de>; Fri,  3 Jan 2025 13:59:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A3B5A0099F
+	for <lists+freedreno@lfdr.de>; Fri,  3 Jan 2025 13:59:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB17310E8AD;
-	Fri,  3 Jan 2025 12:59:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB8E110E8AE;
+	Fri,  3 Jan 2025 12:59:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YT86xBoh";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="j2vWPV95";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9268B10E8AA
- for <freedreno@lists.freedesktop.org>; Fri,  3 Jan 2025 12:59:50 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-385de59c1a0so7466080f8f.2
- for <freedreno@lists.freedesktop.org>; Fri, 03 Jan 2025 04:59:50 -0800 (PST)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D58EB10E8B2
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Jan 2025 12:59:52 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-436345cc17bso88954925e9.0
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Jan 2025 04:59:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1735909129; x=1736513929; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1735909131; x=1736513931; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=OKAq3a0q8ySBqrMfqf9zRs6QOpHzCqi3UnYgQ6KB45c=;
- b=YT86xBoh7w0cs1t20nkbVEbGn1Wtlh0Oc/yjwxBGeBpK4mdhA+WCnTsptXSZg4kCVn
- wK7X6BGunV7e2m05UAaFcQIrNnf+wN99hn9FmOGGQdNbw8iBNKId1IWAHIAb5pS0YZTf
- F4I79NRTFXm7+i69ZfihryIziTvb/q7abnc4st1wq1TlcsdjzjOmnIijIWqOWL0JSuET
- zWNVBmnuJ0OjPPqL7bwivbMbS7KorWjEXbBl5p8QAxPhCGMktUNcp4tK+W3gSe160kT9
- Lcinxd+UWP133QxdPsiZhbY20MiZKt14PL2O34Lt3aMlu11vRGzjKu2s4AeG4MlYHgjH
- AldQ==
+ :reply-to; bh=8ja7AsPHVhh/ztffyEqltS3S3NOI8MWwC75cFS3zUfQ=;
+ b=j2vWPV95WWCU00IyxNzOWoWD5Pf58RTK6TtxPlL3VnWxNwD2sQMQfotdtVX7Pcbrkz
+ 2bSq9JEGV66xsL5uHOakfUAr6fwpFD+DIr3+GTWI2if7LapFBv/1R9btZSJBAnLYC/4j
+ RbY8yYHVCL2D57CtMR1dX97rGd/FdtVb+bFwrs0TcC/pBxBkhiuQcp8JqpU/qAc2Tw+Y
+ B5yz4KfcxoLa3BwLryxH4PaZI5C7AqFcDLiOhZCZ52bWS1mliTyLpb/cAYvmIefM7uDh
+ 6/7Wmw7peuBGt5A2/7gVXdQpyNy9KGhxNq/4O0FQbfu9L6MLW3W8GRareIbg8ovmyhGX
+ cWhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735909129; x=1736513929;
+ d=1e100.net; s=20230601; t=1735909131; x=1736513931;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OKAq3a0q8ySBqrMfqf9zRs6QOpHzCqi3UnYgQ6KB45c=;
- b=GRgPXKTI1d8LbatexYFi2F5Eaun6pc8S1ODx3nIL9eOtBLE6ZMXsPAt2Nrk5Y0sLB8
- YZolyvdivcdvijiYOPZmZkEFt0efBhRx4Xwx/+N3VGgFO0z+v00KrrTG0z6+5gRBu1Ce
- ORVKmm6cMWy6H8eeHXvmlfu3RX/mnwBlfrErlV9y27xqF8fi5PK+AWyQR2V274KQoI3e
- 5Jz6DFhjfRSvmECE5pwSk1bHCHamSFme6lixRapUWSyO2bXSuRBw4S0diMKbvgOHLgL3
- ZqiF3D0yXIhUZVCS7oNac+xEEtqg9N01mvWfQPiqNoZNs2LONMV65CXuUtgUHd2tYKaM
- zMdA==
+ bh=8ja7AsPHVhh/ztffyEqltS3S3NOI8MWwC75cFS3zUfQ=;
+ b=Va8Nox2DtjetsXZ+hDKGzGjBipJvKUyi/Jxp6eIHjiJHpWDVQiCc8OhfQp563+yNw8
+ /BR4cyWd8rMbVHjwlRPPVCwTviPJU6DKf7M2dEbQevvll85zVIr09ujZTUmXnB+ZQBrK
+ 1wvy3d1dsADOSmiBmhBab9cy/GRCmFZbRlZSwbyGfY9tGuKnpUJe76XlsLJmuqr7Xwgz
+ SzRs8nBFlPaWj1PwAAqCWVMIEgdskhQQLIKLitDbx67C3vpAQLCxpVV9o75xFDi0fdvP
+ 7QpK99MCdpfUdMTfirhh+5MceZinkMOBSDHv9cHQ4Vz24R0gOhWWR7SpbyD3ZY4RsjqE
+ Wmeg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVUzFnB8hGmvIB6ezF7RdHzy//95bTEZ1pYGc8n1EYOjPq/00ke56Ff3LN4RXreFsYxPk3DO/y18Nc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzi1/QD4BT/w2qA9vjFu/ljfVv/ubk4hw10WKw5ZMOVjSZSgNA1
- MG4tmR2TI9JBXGWBdEYMAHVW0qcPTlt7ISyH+U1rje4Jb0Zy0clvrrzXC82XsFY=
-X-Gm-Gg: ASbGncuFJmOMrwH0opc/37Pox4N8E6sD5ieHb0wxUiad5wHW0P5n16lAuIbELYevvUt
- 3XXF/4cKFda23Z03hbi/tVEqUPAm6JK2Zs+tt3ViEo8kpf3MdbQb0Yq/52uj2oh+q3u0aLq/lT8
- mqM9aGHbkpK6ANOao08zwNpQ5jOZgwJRnf/V8xnmScozFf2F36bVhqPhELz47E3o1mLTsU1gddW
- Y/aFPmML+w4/gmlwewms0UajMhgkzsBFpUMvah5rG4ZWZtgU/0ioHFY
-X-Google-Smtp-Source: AGHT+IHD8YK70XCWsS7Q8xW846WSlCt8IGnNQia/YfnRwEzKk1+3N50SwVA3xTK+T6w7X+CkkhvEfw==
-X-Received: by 2002:adf:b30c:0:b0:38a:4b8b:1ba with SMTP id
- ffacd0b85a97d-38a4b8b01d1mr16138981f8f.14.1735909129150; 
- Fri, 03 Jan 2025 04:58:49 -0800 (PST)
+ AJvYcCVJRgbVb9uP1fTFRuvArPEhbeCpv2MwO7QL8VdYRSaljky7AYOgJ+hs0KmSSf3OXgI/zwCc1S0iy2I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzi83DMbV6fZ8SemjbIlhL2K0HczOoJU6kiuTT621FRmpUjSLPm
+ E8hFTJPudJJytAkf8bukjQ2EUaloA3AoSiVx+Q0N2tsqV0Ah8M9WIi35gR+ry74=
+X-Gm-Gg: ASbGncvbu12sjPT7ZzSIroCfrWXYei0I4Iofe5B34WmJ/L9hz8WPEUkONUIDysInuMd
+ UbjV1bklj7wqlNjhZeTh0iJ35rJZbdXPowG+Ux7Lk53HejWGCDHyvj2BfL4BMrkn0cBKP5tBALy
+ R1Hh6B3m7ECFFz8ueRV849UWaMJUdMqXEG78VUc/pMnweiL+JKLPqIrN5AnftOegl9qN+mRd/xH
+ enSaeXj+9uSArwfudFNJRYDQFRYPBRWgrNuDUE/XHfYqQX2FbZKPF2U
+X-Google-Smtp-Source: AGHT+IHuqDHnHcd3WF9fZflWdy+Epup29qUDvzgDke+6NvPjnNnt0l09UcQvUzjj7ALc15cgq9nQ7g==
+X-Received: by 2002:a05:6000:186e:b0:386:378c:b7ec with SMTP id
+ ffacd0b85a97d-38a22405d3emr42892574f8f.58.1735909131268; 
+ Fri, 03 Jan 2025 04:58:51 -0800 (PST)
 Received: from [127.0.1.1] ([86.121.162.10]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c8acadcsm40225591f8f.105.2025.01.03.04.58.47
+ ffacd0b85a97d-38a1c8acadcsm40225591f8f.105.2025.01.03.04.58.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jan 2025 04:58:48 -0800 (PST)
+ Fri, 03 Jan 2025 04:58:50 -0800 (PST)
 From: Abel Vesa <abel.vesa@linaro.org>
-Date: Fri, 03 Jan 2025 14:58:15 +0200
-Subject: [PATCH v3 1/4] drm/dp: Add helper to set LTTPRs in transparent
- mode
+Date: Fri, 03 Jan 2025 14:58:16 +0200
+Subject: [PATCH v3 2/4] drm/nouveau/dp: Use the generic helper to control
+ LTTPR transparent mode
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-1-5c367f4b0763@linaro.org>
+Message-Id: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-2-5c367f4b0763@linaro.org>
 References: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-0-5c367f4b0763@linaro.org>
 In-Reply-To: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-0-5c367f4b0763@linaro.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -85,24 +85,23 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
  intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Abel Vesa <abel.vesa@linaro.org>, 
- Johan Hovold <johan+linaro@kernel.org>
+ freedreno@lists.freedesktop.org, Abel Vesa <abel.vesa@linaro.org>
 X-Mailer: b4 0.15-dev-dedf8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4243; i=abel.vesa@linaro.org; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1634; i=abel.vesa@linaro.org; 
  h=from:subject:message-id;
- bh=IAGUczkW072b8mGGChIWkavp4t+w24yTtaDV/z14qGY=; 
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBnd98AKCbN6HYV2+NFqGW7h5ppSXp32Xa6J/RTD
- a0btqWjPhuJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZ3ffAAAKCRAbX0TJAJUV
- VggyD/4r5JoRIbCRjEq+MPJyTb4GwkaPFIb5NyhhsBjJZXXCUuYCS09PW1MGmb4pKaO5I1vX+fW
- a+a3Vh8RMMU0dR7yFgi/LATU68/SniAxsC3OBbPDECwT6XdIusMV77aoFVKyipSJ9gflsiBUN7U
- huB+z6rK663s0CGIOVrFtCSTuuB+ibyRD2VHWDx8ZyPBAdM6yv15S6u7MrLCGvcRZfX2/jMeJl1
- 3D70KtIzVXqXNy/CYN7H6DMWbu99oXMANZCHdYTQWGtxb6ODdhhXCl7n5iSUBSbX9gfX8/KEph+
- v/tENqZ7PBV49JJ8WSrn2J4HZUePGn4He0aRdoKFbsRU1GfAnrpxDwSqlC2FAl/wp/eCVcRN7ZI
- PFbEKVvndTc2HUkKxUVOw74s63TDSBInqXXqjBH2/oUKNz4uB/NywN1Hg5IL8WBWtLiBjJG1Cmb
- DdTSbvbSkS1sTEFE8H1SM5bGxv2RBEPUoKOlJiYarux3+clnIZrJLhOicKyhLCA0E9C96Q+93CW
- pVnYkyYFN/aI/d06XbqYzEaONTNjir8o1GVo7O4WCjmKEk1LCPoso7V9sJ77ZVwdI3wLcqrWS4o
- t2k0YpThtHc0CkG2sXGtKyZXmYUEgDS2aromcAXcu/wjaguuahZIYnGMNUkERlL4ZT3ZnIsBa8o
- ZSsvi4Ypj24qAAw==
+ bh=zSpYhtCfdoGV8lx5sZ6QJCKOEoZaxgqNtvMuGie1uZU=; 
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBnd98By7+7V5W8HMUxlKldGyiQrYwuq4jO5Of1X
+ B3VQSkyoXKJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZ3ffAQAKCRAbX0TJAJUV
+ VuApD/4qJrXPMuVFlu1Y3C0w2QBGNOwC8Kd1/O1an/dVPfDmHFzp1BN4X5XeV54FXsFUPl7z/Yv
+ CLx7tlv9WL2kvIqM/n93QJkE67uOATYU1pcOPkmnQc8HZ+x5JN2QZgyD3saXpcv2UUEzEMlcxY/
+ KeZHgN4TKA7G4LZHG79/0tYd26xSR0HgOOpjD+ltQ8LCD9rF6zY4TAgCy3HgzrbQvBG8c++rQRA
+ He8crsrdI25Xh1uXL+YuieNyNP6OwxpYfxbUcJNEbmfK66CDf7vHcbM8uyzR6+dq4DHof8D/VRv
+ LL7F5L7VHvN5ysvlCRTuEBRaZ+k41TLkkCW2C2QABpXk/NE1Nc6honOz8l0kOnfxuKK6xqg+tgk
+ 5h39FDZEaMvbkcz2JD/Cu6KfhgNiqMeY/UzReYHNDVoK71OdB2ogBcdujH8tCQAhHoE1t06Civ+
+ /x4fsT3oyE6IKfInlIDQq0rpK+4F6eDNwHFBJCCp0lIY6XWmTk1ehHrySv6zH3z2MbUJBNZsKQ2
+ GKQO9QF7w9OgfciGKtoKNptEilU9MO/yIyih95mVXG97xYdGt1QwZqD+MjLVoihfhl9SiavHziH
+ VbIalr2poTpXTXVQZ67PSqmogwtYx5ba2nwdNhrOm9hu8tu2/sXkpgUb5g86pQo3WI98DUoS2ak
+ dzODu9EtTIz9otA==
 X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
  fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -120,115 +119,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-According to the DisplayPort standard, LTTPRs have two operating
-modes:
- - non-transparent - it replies to DPCD LTTPR field specific AUX
-   requests, while passes through all other AUX requests
- - transparent - it passes through all AUX requests.
+LTTPRs operating modes are defined by the DisplayPort standard and the
+generic framework now provides a helper to switch between them, which
+is handling the explicit disabling of non-transparent mode and its
+disable->enable sequence mentioned in the DP Standard v2.0 section
+3.6.6.1.
 
-Switching between this two modes is done by the DPTX by issuing
-an AUX write to the DPCD PHY_REPEATER_MODE register.
+So use the new drm generic helper instead as it makes the code a bit
+cleaner.
 
-Add a generic helper that allows switching between these modes.
-
-Also add a generic wrapper for the helper that handles the explicit
-disabling of non-transparent mode and its disable->enable sequence
-mentioned in the DP Standard v2.0 section 3.6.6.1. Do this in order
-to move this handling out of the vendor specific driver implementation
-into the generic framework.
-
-Tested-by: Johan Hovold <johan+linaro@kernel.org>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 61 +++++++++++++++++++++++++++++++++
- include/drm/display/drm_dp_helper.h     |  2 ++
- 2 files changed, 63 insertions(+)
+ drivers/gpu/drm/nouveau/nouveau_dp.c | 17 ++---------------
+ 1 file changed, 2 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index da3c8521a7fa7d3c9761377363cdd4b44ab1106e..0f665d9adf02cfd16f0c250eb7ae8fe0461f8fdd 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2817,6 +2817,67 @@ int drm_dp_lttpr_max_link_rate(const u8 caps[DP_LTTPR_COMMON_CAP_SIZE])
- }
- EXPORT_SYMBOL(drm_dp_lttpr_max_link_rate);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
+index bcda0105160f1450df855281e0d932606a5095dd..55691ec44abaa53c84e73358e33df1949bb1e35c 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_dp.c
++++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
+@@ -79,21 +79,8 @@ nouveau_dp_probe_dpcd(struct nouveau_connector *nv_connector,
+ 	    !drm_dp_read_lttpr_common_caps(aux, dpcd, outp->dp.lttpr.caps)) {
+ 		int nr = drm_dp_lttpr_count(outp->dp.lttpr.caps);
  
-+/**
-+ * drm_dp_lttpr_set_transparent_mode - set the LTTPR in transparent mode
-+ * @aux: DisplayPort AUX channel
-+ * @enable: Enable or disable transparent mode
-+ *
-+ * Returns 0 on success or a negative error code on failure.
-+ */
-+int drm_dp_lttpr_set_transparent_mode(struct drm_dp_aux *aux, bool enable)
-+{
-+	u8 val = enable ? DP_PHY_REPEATER_MODE_TRANSPARENT :
-+			  DP_PHY_REPEATER_MODE_NON_TRANSPARENT;
-+	int ret = drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE, val);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	return (ret == 1) ? 0 : -EIO;
-+}
-+EXPORT_SYMBOL(drm_dp_lttpr_set_transparent_mode);
-+
-+/**
-+ * drm_dp_lttpr_init - init LTTPR transparency mode according to DP standard
-+ *
-+ * @aux: DisplayPort AUX channel
-+ * @lttpr_count: Number of LTTPRs. Between 0 and 8, according to DP standard.
-+ *               Negative error code for any non-valid number.
-+ *               See drm_dp_lttpr_count().
-+ *
-+ * Returns 0 on success or a negative error code on failure.
-+ */
-+int drm_dp_lttpr_init(struct drm_dp_aux *aux, int lttpr_count)
-+{
-+	int ret;
-+
-+	if (!lttpr_count)
-+		return 0;
-+
-+	/*
-+	 * See DP Standard v2.0 3.6.6.1 about the explicit disabling of
-+	 * non-transparent mode and the disable->enable non-transparent mode
-+	 * sequence.
-+	 */
-+	ret = drm_dp_lttpr_set_transparent_mode(aux, true);
-+	if (ret)
-+		return ret;
-+
-+	if (lttpr_count < 0)
-+		return -ENODEV;
-+
-+	/*
-+	 * Roll-back to tranparent mode if setting non-tranparent mode failed
-+	 */
-+	if (drm_dp_lttpr_set_transparent_mode(aux, false)) {
-+		drm_dp_lttpr_set_transparent_mode(aux, true);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_dp_lttpr_init);
-+
- /**
-  * drm_dp_lttpr_max_lane_count - get the maximum lane count supported by all LTTPRs
-  * @caps: LTTPR common capabilities
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index 8f4054a560396a43750570a8c2e95624039ab8ad..3311df3b58255cf0620391d0948ccf6b569a8a34 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -630,6 +630,8 @@ int drm_dp_read_lttpr_phy_caps(struct drm_dp_aux *aux,
- 			       u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
- int drm_dp_lttpr_count(const u8 cap[DP_LTTPR_COMMON_CAP_SIZE]);
- int drm_dp_lttpr_max_link_rate(const u8 caps[DP_LTTPR_COMMON_CAP_SIZE]);
-+int drm_dp_lttpr_set_transparent_mode(struct drm_dp_aux *aux, bool enable);
-+int drm_dp_lttpr_init(struct drm_dp_aux *aux, int lttpr_count);
- int drm_dp_lttpr_max_lane_count(const u8 caps[DP_LTTPR_COMMON_CAP_SIZE]);
- bool drm_dp_lttpr_voltage_swing_level_3_supported(const u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
- bool drm_dp_lttpr_pre_emphasis_level_3_supported(const u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
+-		if (nr) {
+-			drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE,
+-						DP_PHY_REPEATER_MODE_TRANSPARENT);
+-
+-			if (nr > 0) {
+-				ret = drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE,
+-							      DP_PHY_REPEATER_MODE_NON_TRANSPARENT);
+-				if (ret != 1) {
+-					drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE,
+-								DP_PHY_REPEATER_MODE_TRANSPARENT);
+-				} else {
+-					outp->dp.lttpr.nr = nr;
+-				}
+-			}
+-		}
++		if (!drm_dp_lttpr_init(aux, nr))
++			outp->dp.lttpr.nr = nr;
+ 	}
+ 
+ 	ret = drm_dp_read_dpcd_caps(aux, dpcd);
 
 -- 
 2.34.1
