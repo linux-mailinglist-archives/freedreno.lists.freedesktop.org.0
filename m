@@ -2,93 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C5C1A00D76
-	for <lists+freedreno@lfdr.de>; Fri,  3 Jan 2025 19:13:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C66A2A00D97
+	for <lists+freedreno@lfdr.de>; Fri,  3 Jan 2025 19:23:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B58210E90C;
-	Fri,  3 Jan 2025 18:13:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A568810E918;
+	Fri,  3 Jan 2025 18:23:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="aUtoFyF4";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cIrLI3iB";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
- [209.85.208.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 183BE10E90C
- for <freedreno@lists.freedesktop.org>; Fri,  3 Jan 2025 18:13:19 +0000 (UTC)
-Received: by mail-lj1-f180.google.com with SMTP id
- 38308e7fff4ca-30034ad2ca3so118230921fa.1
- for <freedreno@lists.freedesktop.org>; Fri, 03 Jan 2025 10:13:18 -0800 (PST)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34FE110E918
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Jan 2025 18:23:31 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-5401c52000fso12752952e87.2
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Jan 2025 10:23:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1735927937; x=1736532737; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1735928550; x=1736533350; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=a4NhGUz7I3CAC37MMfl5it+wA4D/a3jTss78eeeM00E=;
- b=aUtoFyF4atmXkh8afGH/mufGsyPMa2oFR+r94e4XuBDzl83U7/cj3CUdkciM90NO0x
- CXVfmpWF0OWkn9e75O+o5CXwLObMPwlIJHWKTJzDCIIYTmCI46hJrtpHAtarnXsxMLv9
- F6qubo0xmr0/CizKvNL0rgCV0cYSD5QpaEeQ6TFT8LFf8qyxG4J6sBZoU4OJqwSgv0hK
- VZ2LQwyANg18HtGNJRV67kK4OpcImv+xHpl1v8jpuSYEq+0C50fwgpYf8JxJH73hMRGd
- KSiaq1kNgCC3J71XIeWfg8HYa8cj5rq9+MijCGpaHAmv3W/9Hj1eCkY+mwH4jlExxbkd
- Ancw==
+ bh=CEJ8oonqtcvJ6IAkiqfllwsDWGyyWC08rfpdJ62V49g=;
+ b=cIrLI3iB2gwTKbQpZ203f0b0gv9RSLGBVoX0ynez8YVCwi7XqbSHoXi0cK4U82WJc8
+ 6cqoh+y0jbXMg8oR+ZCpzB294HcdkcZlAoTaSXykbfzcFH5usZhXuXG+CNZlgP0tRgwg
+ vYYmJrKZkVwlzhUg/1S/jnm1k4C450bBYXH0m37RtmxdXwrDsLTcA4sKTHEVHHKJMRri
+ LJimO6e17xxm1MLDtwMr9JVWk5LFpQyDRLAN3G2ai0EAiKMBeiDQ9qLruOQRKMVMC2DC
+ k+8/rrdk9gvvhbd9H9iOR3mAbWA1nx/NZh2GvKJf3YpSp/wjXbwkxpRVhsoms60Z6uSp
+ NUvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735927937; x=1736532737;
+ d=1e100.net; s=20230601; t=1735928550; x=1736533350;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=a4NhGUz7I3CAC37MMfl5it+wA4D/a3jTss78eeeM00E=;
- b=mud6qlVdLGDKcmURYxXKIbzValQVCy8JKKt9QlogSR+s9vaRCccXb6PfENLf+UrDmq
- XSmoForFRn9HtolKCUMQZ0F6qP62d49etHAPLispr/+ZODoIWgta7nqwjPPqNg4l1PVk
- Jw/GMFp4naIrpuqY+1N8A6UhyWXUtwJLvvlCfzgNQNHAvfIc4wtkVUHcxXbQoU98doCt
- liWa+8oDxMOCLGVjHz4789k6DMsqklRhZ9NDBsKkJFaQe7K6ookiwlKXOf/P0mWSRw2y
- bdipqicifM0as4C3b3E7AZdeID+aIAj0vqbKRsj+85QgXQYmg44CPcnRDst8IfrxjAYa
- J2aA==
+ bh=CEJ8oonqtcvJ6IAkiqfllwsDWGyyWC08rfpdJ62V49g=;
+ b=NXgws2BN36zZZVlgYUNSyNE6guwgp8F8JAIqHtim4lAe+VPgAPioOY62XM0jqD7soM
+ XVX9R0MI8J4YlaogZxBq0os3c+NuZbCsYAfbtjpqrjFFgVCrwYGgaEq9LRfts8+g6umi
+ SHoACmu4fxVILn0+aIBELkt9JOUSLaHMwWy4JHMxz9+PvtT17N2gZFD/EgX7i1gRCpMH
+ zRcByluHCQsazUH2jIC2Iep9fW2vZebGDQBHen7cJ/r7I/UB623gu8lgeX/zz0mn51Y/
+ BmasIJGwO8VFpVAk9CpkbL3DrbqRTcc5hOyPfZngRC2kcRzxc/MMmBauUFJEOXUHRJbq
+ IrNA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVprq+CTSL8+iXqQcnAyizdYix/cWDrbB8kxEVBnmTssUHFpNlaI2DE8chfWZ6PwgCo8AfdRptUkHU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz3NBkOxfpouiawZrSraHto5vzh4BfMyE6bjRPQuIuTqUaG1x1v
- Pwpdf+eKgKesfQFi02QC3X+y5D8dgtC0ymFxPV717Zp8UyJavblk3XsztJ7WI7k=
-X-Gm-Gg: ASbGncsp2Y/JLzhsQqolYVxOzXSCv1GHOxXRtqMfjVdsGXLeQX1AFn6MQeNng8DGsAv
- 1/11AOzOa9+1uLh6svXdE/gAk2iS0j4OpfsTx8d0vl6D/cq3krL0NuGopSxG27wLNK13LrsgPUE
- rhPkYhdagrMI8rV94aw9A6/UV6cH/+jqjD9adYgayFPPAbP3zkAybx7DAtm0LHx/o85/grzMC6l
- 2q1RDdGvXu37muBJ6HvYBRLfz/YEwvL+Zdk+BdpnIbvrJ2TUhBWcvk6hF7ewyMuqzm0UcZi2GVm
- SLyOPdyKF94kh9KxkPDIxKOEQyrjEfE/VvYS
-X-Google-Smtp-Source: AGHT+IHkyk31lkzWD+THb2q0kv0bZe0UEvMvlsqPvrWF0mIfBuAWDJmkYgVUK9JyXm1uBZasD7+P3A==
-X-Received: by 2002:a05:651c:502:b0:300:3a15:8f2d with SMTP id
- 38308e7fff4ca-304685dff04mr196263781fa.34.1735927937405; 
- Fri, 03 Jan 2025 10:12:17 -0800 (PST)
+ AJvYcCWJudWR2sJ7lvH53jvJ0zIWjY8Zay1S3zFoWNpTejzWrXm3qsax3YHQUSKWWZMpHCacnf1/SJvdGoU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw7T/WuRQ79uSTuEWAa0bH0uLrtQN/MUXfIkJ4Rx1JWd0LEYb+i
+ tTP+VmSLEspA1CipSEVv+58esxiCGrcPmZSMKM5kF9ZrzXTjYubPsA4csjPoiSNlfHUT8i6Z2Ui
+ nsgM=
+X-Gm-Gg: ASbGncv5SOjXj+XlWa/wfTWz5cyN5BUJ4gL0TLPZWUmAHW6FLj9B4Yu+t9fFvMlqog1
+ ASdEb1zVlpRp32YNYlWtA4MjIbWYyFEDpxE/jQ9uYl+YPgEXi2jOOQDLl9WExhHX204wOPRxmxS
+ GqaYBsO7EAUgVqOGxsmusEfe4e+rRlyvZZdO7gJzEsbRsjJDzAYn5OE71qCjKOP5aHOvveZ7RpM
+ P1O9UNSX7wyUyn+PNjjKiM6puWEZl2rd4Sw7899hIiDmOFI22bDBoeYPFEEO0U2TeBspL+dF3s3
+ hobV/CI+/HEaFBgT9FXxnMsi9b7BEe5AE5WQ
+X-Google-Smtp-Source: AGHT+IEvvepfOBU+EsQDIAwIOdIqeI1ZlSV0iPdxp215z+zkJx6XJtR+bJJEVpMxCwPG4qFEfl+uKQ==
+X-Received: by 2002:a05:6512:23a0:b0:540:75d3:95a4 with SMTP id
+ 2adb3069b0e04-54229538b24mr15437986e87.17.1735928191141; 
+ Fri, 03 Jan 2025 10:16:31 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3045b083ebbsm47714751fa.115.2025.01.03.10.12.15
+ 2adb3069b0e04-54223813692sm4128190e87.125.2025.01.03.10.16.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jan 2025 10:12:16 -0800 (PST)
-Date: Fri, 3 Jan 2025 20:12:13 +0200
+ Fri, 03 Jan 2025 10:16:29 -0800 (PST)
+Date: Fri, 3 Jan 2025 20:16:27 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abel Vesa <abel.vesa@linaro.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@redhat.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>, 
+ quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Johan Hovold <johan+linaro@kernel.org>
-Subject: Re: [PATCH v3 4/4] drm/msm/dp: Add support for LTTPR handling
-Message-ID: <qsmcpai2uqfhmy6y5wks55p4fyqigndfzqfnapvdjf35gu4wg3@5aowfh3xaydn>
-References: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-0-5c367f4b0763@linaro.org>
- <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-4-5c367f4b0763@linaro.org>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, 
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH v4 15/25] drm/msm/dpu: Add CWB to msm_display_topology
+Message-ID: <a4akor2liqafta53zeev22x2pkqwzo5szwidr2ruzdvttvze5h@jtio3jue7ez3>
+References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
+ <20241216-concurrent-wb-v4-15-fe220297a7f0@quicinc.com>
+ <ki35rornnos35r3fzg5yyqzxnqua3dyfb6ewq2aefrh4u74vfi@opdnf44ntten>
+ <4069bd6a-c37f-4dbe-bbd6-5b333ee54ad8@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250103-drm-dp-msm-add-lttpr-transparent-mode-set-v3-4-5c367f4b0763@linaro.org>
+In-Reply-To: <4069bd6a-c37f-4dbe-bbd6-5b333ee54ad8@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,49 +101,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jan 03, 2025 at 02:58:18PM +0200, Abel Vesa wrote:
-> Link Training Tunable PHY Repeaters (LTTPRs) are defined in DisplayPort
-> 1.4a specification. As the name suggests, these PHY repeaters are
-> capable of adjusting their output for link training purposes.
+On Fri, Jan 03, 2025 at 10:03:35AM -0800, Jessica Zhang wrote:
 > 
-> According to the DisplayPort standard, LTTPRs have two operating
-> modes:
->  - non-transparent - it replies to DPCD LTTPR field specific AUX
->    requests, while passes through all other AUX requests
->  - transparent - it passes through all AUX requests.
 > 
-> Switching between this two modes is done by the DPTX by issuing
-> an AUX write to the DPCD PHY_REPEATER_MODE register.
+> On 12/19/2024 9:03 PM, Dmitry Baryshkov wrote:
+> > On Mon, Dec 16, 2024 at 04:43:26PM -0800, Jessica Zhang wrote:
+> > > Add the cwb_enabled flag to msm_display topology and adjust the toplogy
+> > > to account for concurrent writeback
+> > 
+> > Why?
 > 
-> The msm DP driver is currently lacking any handling of LTTPRs.
-> This means that if at least one LTTPR is found between DPTX and DPRX,
-> the link training would fail if that LTTPR was not already configured
-> in transparent mode.
+> Hi Dmitry,
 > 
-> The section 3.6.6.1 from the DisplayPort v2.0 specification mandates
-> that before link training with the LTTPR is started, the DPTX may place
-> the LTTPR in non-transparent mode by first switching to transparent mode
-> and then to non-transparent mode. This operation seems to be needed only
-> on first link training and doesn't need to be done again until device is
-> unplugged.
-> 
-> It has been observed on a few X Elite-based platforms which have
-> such LTTPRs in their board design that the DPTX needs to follow the
-> procedure described above in order for the link training to be successful.
-> 
-> So add support for reading the LTTPR DPCD caps to figure out the number
-> of such LTTPRs first. Then, for platforms (or Type-C dongles) that have
-> at least one such an LTTPR, set its operation mode to transparent mode
-> first and then to non-transparent, just like the mentioned section of
-> the specification mandates.
-> 
-> Tested-by: Johan Hovold <johan+linaro@kernel.org>
-> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
+> This flag is necessary to specify that CWB mux(es) need to be assigned for
+> the given reqeusted topology.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Why is necessary? Please rephrase your statement (we need foo bar, so do
+baz).
+
+> 
+> > 
+> > > 
+> > > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> > > ---
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 11 ++++++++++-
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c   | 10 ++++++++--
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h   |  2 ++
+> > >   3 files changed, 20 insertions(+), 3 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > index b4bfded3d53025853cee112ca598533ece290318..b063c8fe4c0594772d84401fa56c9c21afc0ad18 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> > > @@ -1198,6 +1198,8 @@ static struct msm_display_topology dpu_crtc_get_topology(
+> > >   		dpu_encoder_update_topology(drm_enc, &topology, crtc_state->state,
+> > >   					    &crtc_state->adjusted_mode);
+> > > +	topology.cwb_enabled = drm_crtc_in_clone_mode(crtc_state);
+> > > +
+> > >   	/*
+> > >   	 * Datapath topology selection
+> > >   	 *
+> > > @@ -1209,9 +1211,16 @@ static struct msm_display_topology dpu_crtc_get_topology(
+> > >   	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
+> > >   	 *
+> > >   	 * Add dspps to the reservation requirements if ctm is requested
+> > > +	 *
+> > > +	 * Only hardcode num_lm to 2 for cases where num_intf == 2 and CWB is not
+> > > +	 * enabled. This is because in cases where CWB is enabled, num_intf will
+> > > +	 * count both the WB and real-time phys encoders.
+> > > +	 *
+> > > +	 * For non-DSC CWB usecases, have the num_lm be decided by the
+> > > +	 * (mode->hdisplay > MAX_HDISPLAY_SPLIT) check.
+> > >   	 */
+> > > -	if (topology.num_intf == 2)
+> > > +	if (topology.num_intf == 2 && !topology.cwb_enabled)
+> > >   		topology.num_lm = 2;
+> > >   	else if (topology.num_dsc == 2)
+> > >   		topology.num_lm = 2;
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> > > index b763ef19f4c60ae8a35df6a6ffb19e8411bc63f8..85adaf256b2c705d2d7df378b6ffc0e578f52bc3 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> > > @@ -382,8 +382,14 @@ static int _dpu_rm_reserve_ctls(
+> > >   	int i = 0, j, num_ctls;
+> > >   	bool needs_split_display;
+> > > -	/* each hw_intf needs its own hw_ctrl to program its control path */
+> > > -	num_ctls = top->num_intf;
+> > > +	/*
+> > > +	 * For non-CWB mode, each hw_intf needs its own hw_ctl to program its
+> > > +	 * control path. Hardcode num_ctls to 1 if CWB is enabled
+> > > +	 */
+> > 
+> > Why?
+> 
+> This is because num_intf is based on the number of phys_encs. Since in the
+> CWB case, the WB and real-time encoders will be driven by the same CTL. I
+> can add this to the comment doc.
+
+Why are they driven by the same CTL? Is it also the case for platforms
+before DPU 5.x?
+
+> 
+> Thanks,
+> 
+> Jessica Zhang
+> 
+> > 
+> > > +	if (top->cwb_enabled)
+> > > +		num_ctls = 1;
+> > > +	else
+> > > +		num_ctls = top->num_intf;
+> > >   	needs_split_display = _dpu_rm_needs_split_display(top);
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> > > index b061dfdab52e04ab7d777e912a30173273cb3db7..12db21a2403ec6930894c36a58e898c5d94c2568 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> > > @@ -46,6 +46,7 @@ struct dpu_rm {
+> > >    * @num_dspp:     number of dspp blocks used
+> > >    * @num_dsc:      number of Display Stream Compression (DSC) blocks used
+> > >    * @needs_cdm:    indicates whether cdm block is needed for this display topology
+> > > + * @cwb_enabled:  indicates whether CWB is enabled for this display topology
+> > >    */
+> > >   struct msm_display_topology {
+> > >   	u32 num_lm;
+> > > @@ -53,6 +54,7 @@ struct msm_display_topology {
+> > >   	u32 num_dspp;
+> > >   	u32 num_dsc;
+> > >   	bool needs_cdm;
+> > > +	bool cwb_enabled;
+> > >   };
+> > >   int dpu_rm_init(struct drm_device *dev,
+> > > 
+> > > -- 
+> > > 2.34.1
+> > > 
+> > 
+> > -- 
+> > With best wishes
+> > Dmitry
+> 
 
 -- 
 With best wishes
