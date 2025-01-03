@@ -2,80 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24190A0095A
-	for <lists+freedreno@lfdr.de>; Fri,  3 Jan 2025 13:39:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B9F1A00968
+	for <lists+freedreno@lfdr.de>; Fri,  3 Jan 2025 13:42:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECA2310E434;
-	Fri,  3 Jan 2025 12:39:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B45D10E89F;
+	Fri,  3 Jan 2025 12:42:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cJ6t4GHI";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nnRMaVB8";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88BEB10E434
- for <freedreno@lists.freedesktop.org>; Fri,  3 Jan 2025 12:39:43 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5033qSVb015576
- for <freedreno@lists.freedesktop.org>; Fri, 3 Jan 2025 12:39:41 GMT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9027B10E3CD
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Jan 2025 12:42:41 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50376OGW032123
+ for <freedreno@lists.freedesktop.org>; Fri, 3 Jan 2025 12:42:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- lZwRh4PseLrHdLpqPBaflijRPt0Pr7IOxsOt0iWXhpA=; b=cJ6t4GHI6o5SsFAB
- OBjd647yfxLWmY4GJSY2O2f8qhUwSfZbY3ruB4AVdGlNPvsoBhppAywvPQpDZaSI
- CqSpjYTJScad1Sp7Mz5iXOfFgvgRPj4sEm0xfwu0wsXshr9xkLSgg64Zw1KK64Lj
- 11ALx/y/01RtDaO7cDYBr9+Iz9SGdjcryeLbbc6zrgatqQuQsuacbT2MN3Aextji
- W4YRs1WWNYaZkA0QEvkAL3rRLiLCgE1N6sYY6q/uJh6LudBuRSsWqZCujNggP7NB
- VFzRNcOfBSj3c7quArXxaKT0Bp5zX5ISVCyxtobAyZWqkz2IpftwlxnttwteFRjr
- CJlqUg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43x8c0h2bh-1
+ TZARMRNqfJJBSi0ZuqSgSannpryoCZUFZtAwwKozzXI=; b=nnRMaVB8anTGzIqz
+ Z/SV7YYBtvPCSwx+azpasLMav06W23ogMLE8zV0C4njs/pYmJ48Ker3/HAmLb/JG
+ q5u5uOfXelWitjaizImhNyKYHrSGBkP2yf/5M/B4VCAGsv80cJTZXeqdyULd2wZK
+ vzfR4OHtp6JkfgRU03rsKxHwZQEINku3b/ZTo2PFxOg2a3SbrZlIdT/3g+k8s81u
+ owpnsWZDssYTJkB0Jm8oRLvxa7pofQHY9p4DcdWNhEud219evO6s67WppPX5D8kC
+ X5+uox+vguhsiTdYQeT/f8MCMnIQSR3rTfMYLua1ovIaWQeLf0veDi5OXhieXpQv
+ YGrRqA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43xb700psr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Fri, 03 Jan 2025 12:39:41 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7b700506e64so27631985a.0
- for <freedreno@lists.freedesktop.org>; Fri, 03 Jan 2025 04:39:40 -0800 (PST)
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Jan 2025 12:42:40 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-46a32c5cdbdso8046871cf.1
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Jan 2025 04:42:40 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735907980; x=1736512780;
+ d=1e100.net; s=20230601; t=1735908160; x=1736512960;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=lZwRh4PseLrHdLpqPBaflijRPt0Pr7IOxsOt0iWXhpA=;
- b=oiUO14qUMvSWuyKpTNtwAJAhLbKG28kmO+ok6aEr1xF+YSj3NRIXbre6nEhhvkr9GM
- mO+dgwUf/85QjhrW6mZdGQZqgy9hi7cmdhX6RyKJVxdQq2yMd5Hl56v3YNW2HEBrM88Q
- 4XbIPOF/VHtwuDTdrUqRPk4DT9cSgS0Y5dEBYvkatQOmlSdlITeeGtA5/I3Mkqvf2QdQ
- U1uuKSqeoiFppawLQpeIqjNAgZ3qLyZa8rPQUck+FQ5FjvdugOp71nNyg2rA3aIHElHn
- c52Z3splK+sEJyAOVtQHJQ6EbBUQ/MVN9h3cCoiBSNQTHk7BbqV0p1EAG4QoOOZw+n1a
- 48fQ==
+ bh=TZARMRNqfJJBSi0ZuqSgSannpryoCZUFZtAwwKozzXI=;
+ b=NPraQtR/A4KFmkecR+OkqXvpeoYFIkg7klcYUnv6PgSZMye8GsrhYYTPdAPjZ00E1Y
+ wCcAYGC4QKAP3klxNpkmV+029Y43NBlyxdgxTl+eoGg8cROKFgXSIlSgtpgBa1TjIjxN
+ o/v6kt1kuMuwwCF70Wr5c50ZTquATGpVK2eZ+Bpex8ribI2GDPlUFoS3xTQ7TzVeQZIP
+ YRgX6vf6Cds6GpL8EXjsvPq5fUvd31O7LMkflquWsX+sby/xAja6Duuz6oDqQAUtGYLr
+ 2Oga+FCgRVBiCq5Tgpt/Q6vNcsuxyjs89AAHGJ78BzQQMXttPLxjG0VVtaUYtAft4rAS
+ Qr4A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVEPdlhZnovklvLkdZHU2i5hCMwnZhHyU4m9vkc8ecbz363lsl3X94hnHE/UnpLSi/LLp7JSW9IUog=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzHfUlLYtQU/Lr9BhX7I2tABwY99Rh+owrfFfCHJwjIQrsyTV+J
- 1krDKQwntSk0ETjW3EWkg+StR3aEq4NsRzZUwPJgpIYC1HitCia3Y8LYsYGQ7FmJ8idx3uPnIJV
- J0Vo3/7cJ6aIzvYU78RLf1udSrW5Cev/2hqMwn1xAPhQuwCFIQqIpdhsYK4aF+9OSVHY=
-X-Gm-Gg: ASbGnculMq50pr6jhkQOtZ11yz7NpDRyFzVp/aHhUFpOoQYbqrCWkjlaHcKbqRbd8vr
- rIw1G5/DKmC7zQaCtXIbcxh7FszUTZBr7bk94srrPCpJjYKD2tBLQdqOy37i+bNXjIAfQNEAw0d
- 1pCYzcNRSG55n9UXTAVqvtKXfrcC9h+pQBH5sOeuQ4Lfg5zaOY8SXfGds1+LcXGJKfgVJcGbnGs
- 6ryPsQuz9s1NE2z//2o9PdSLoLGgFK8bs9IORJchO6iQDz2FgmiVA92/S/VsVtGJpErMGHhpWtc
- V7JL3kwPyDMQGxSqrztDkQo5MQ9eeZhLEx8=
-X-Received: by 2002:ac8:7fc1:0:b0:462:b46b:8bf8 with SMTP id
- d75a77b69052e-46a4a9b7558mr309385411cf.14.1735907979737; 
- Fri, 03 Jan 2025 04:39:39 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH9T35sLA9E07WaPbgvB2yIVdP5SW11rIxHrqYYRBRo/hP/Iuy8WbY9t+3R/LoFsXxymado1w==
-X-Received: by 2002:ac8:7fc1:0:b0:462:b46b:8bf8 with SMTP id
- d75a77b69052e-46a4a9b7558mr309385091cf.14.1735907979439; 
- Fri, 03 Jan 2025 04:39:39 -0800 (PST)
+ AJvYcCXBt1flsaJ0i9qhkFtpzI0Wx4ERHT7WArVdtfFCAkBdwWOCIGP4RFfyR2P7rZUj0l4gOjsrkurgqoo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzPoQsrP0Y6GRGuBF5OPN4FYGj95/o0z/nwuN4/eE6Ysz8aTRTG
+ URtguB6kxSE4JsVOJ/AgQkXWoW1uikB6rbzDOFsR8XXi/tv5RwuKMuQfsdedNp8VN3qkK2ojEUM
+ MBd5/02Fr7dFIS4KgAo1LKIEXPrsJhfxw/8NUHOjE/R0BfhQ6iX0s2QpoLBVxEw8beP4=
+X-Gm-Gg: ASbGncsSnnGie9gP6ywMwmg+KE3kQoyaO+tm7397ffHqnhXBybLpkwg/DUXxBlBHYOA
+ njGYVLOB4pmKvBdh5s9nyE0bDhz0mBN3QrNPCLhr80/eir3BeKj7a8xais7/mRn+MCKFIaOzHXm
+ 8Drxzr0op2KzACdUWARuYq7hCZZXdIEo9RLJc1LgHZFT/wn3jLe+tceIMOdUv0shnN2z4zgF61t
+ 1/M8H6O+4uLArncrvRQPhpwPfG5keyqfsCNQTz6/TYgigD5smxxDkHyaStGDBE1JYm3TapfImRm
+ LQxEJMYlEk35QhCUrR89/QwLRKBxfTBRFYg=
+X-Received: by 2002:a05:622a:1183:b0:460:900d:6052 with SMTP id
+ d75a77b69052e-46a4a9a34c7mr310086231cf.14.1735908159817; 
+ Fri, 03 Jan 2025 04:42:39 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEcALt0LJyqknH0pa/OzeBKOkJJU1g2a9f/TCjCM+WwWX2eXlLse+id4suQvcMJE43uhj1+Eg==
+X-Received: by 2002:a05:622a:1183:b0:460:900d:6052 with SMTP id
+ d75a77b69052e-46a4a9a34c7mr310085941cf.14.1735908159459; 
+ Fri, 03 Jan 2025 04:42:39 -0800 (PST)
 Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aac0efe41a6sm1914071966b.102.2025.01.03.04.39.36
+ 4fb4d7f45d1cf-5d806fedaf9sm20087153a12.56.2025.01.03.04.42.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Jan 2025 04:39:39 -0800 (PST)
-Message-ID: <da74c183-9f4a-4b11-b747-35fc21252a4d@oss.qualcomm.com>
-Date: Fri, 3 Jan 2025 13:39:35 +0100
+ Fri, 03 Jan 2025 04:42:38 -0800 (PST)
+Message-ID: <78979ab6-0ce6-47c4-abe2-d4d2d9d50480@oss.qualcomm.com>
+Date: Fri, 3 Jan 2025 13:42:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] drm/msm: a6x: Rework qmp_get() error handling
+Subject: Re: [PATCH v3 6/6] arm64: dts: qcom: x1e80100: Add OPPs up to Turbo
+ L3 for GPU
 To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Konrad Dybcio <konradybcio@kernel.org>,
@@ -91,23 +92,23 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-pm@vger.kernel.org, devicetree@vger.kernel.org
 References: <20241231-gpu-acd-v3-0-3ba73660e9ca@quicinc.com>
- <20241231-gpu-acd-v3-2-3ba73660e9ca@quicinc.com>
+ <20241231-gpu-acd-v3-6-3ba73660e9ca@quicinc.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20241231-gpu-acd-v3-2-3ba73660e9ca@quicinc.com>
+In-Reply-To: <20241231-gpu-acd-v3-6-3ba73660e9ca@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: E73_MxP1u5j83jJCvgD-pHK42LE2na0x
-X-Proofpoint-ORIG-GUID: E73_MxP1u5j83jJCvgD-pHK42LE2na0x
+X-Proofpoint-ORIG-GUID: XhcZc1ndAReYV6DxsaughbN2M-2m71aA
+X-Proofpoint-GUID: XhcZc1ndAReYV6DxsaughbN2M-2m71aA
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- malwarescore=0 bulkscore=0 clxscore=1015 phishscore=0 impostorscore=0
- adultscore=0 mlxlogscore=845 priorityscore=1501 mlxscore=0 spamscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501030111
+ clxscore=1015 adultscore=0
+ phishscore=0 bulkscore=0 mlxscore=0 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 spamscore=0 mlxlogscore=767 malwarescore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2501030112
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,16 +125,11 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 30.12.2024 10:11 PM, Akhil P Oommen wrote:
-> Fix the following for qmp_get() errors:
-> 
-> 1. Correctly handle probe defer for A6x GPUs
-> 2. Ignore other errors because those are okay when GPU ACD is
-> not required. They are checked again during gpu acd probe.
+> Now that we have ACD support for GPU, add additional OPPs up to
+> Turbo L3 which are supported across all existing SKUs.
 > 
 > Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 > ---
-
-I think this looks right
 
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
