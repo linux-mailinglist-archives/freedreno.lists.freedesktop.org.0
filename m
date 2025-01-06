@@ -2,93 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEF9DA01E0E
-	for <lists+freedreno@lfdr.de>; Mon,  6 Jan 2025 04:09:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0126A01F49
+	for <lists+freedreno@lfdr.de>; Mon,  6 Jan 2025 07:40:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 696BE10E565;
-	Mon,  6 Jan 2025 03:09:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A9810E1C8;
+	Mon,  6 Jan 2025 06:40:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bntuE3f7";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="PMNhdJME";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89C6B10E566
- for <freedreno@lists.freedesktop.org>; Mon,  6 Jan 2025 03:09:01 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-53e3a227b82so12894950e87.0
- for <freedreno@lists.freedesktop.org>; Sun, 05 Jan 2025 19:09:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736132880; x=1736737680; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=XukaOp5kKwWAqg5NiIi7HtnqJ9SLo3eszJ1zykIQEx4=;
- b=bntuE3f7X5/cgKzwSxLyzCXiJhAUnEnpkCnDa9Jv7nY2JFvpaQyXup0OByIedV9YQQ
- MH4xF0aMLldeoc7B3t9zBWdF1Xp1TjeNG4G2ghjevytIufFauvLOluf05DN3dku8KEYp
- povMlbe6INAk8ieqoLZdfQaTB2/KwuYVETMtAsKBJEhs3/9Dcefsy1zARua+51NHsp8s
- dC1Bd49SKYc1x9GmE5jQRSc0SRYjJZzEAXqJk2hLmvpRVqQLcjxFhBQGWRlO2MxCL8VV
- rhMYW4qgvlGRBru4P5m3OndkkUYoSYR5uycJzyCyxuhT+KWC68Rk1ASUtKK0XRzbFXZ8
- vEUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736132880; x=1736737680;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XukaOp5kKwWAqg5NiIi7HtnqJ9SLo3eszJ1zykIQEx4=;
- b=SRHFm4tI6MwJdcNZPLuSk3CLQkRqg2/lO6J815n+Sogw6taCkTVfcFjcuFbp+mhaVn
- /eIxzrRiNQYkx41Ia1/zhOgZvNaS0CAbNIbE++d9thJt5howKc7uICzQZnPmhtRrxhwT
- jcG8KHG2aXayPtYP+cr4D9SaLGqlpbYlapIAR5TMd6q9Iml+quaMPB8PcJmMx1kw0EzQ
- 46EOa47j1COy4V5kBvHp/4+yPCXbQzunC66hsP/900qQ1yIbnHDCLX/flvR1LdVm+75c
- Ntv1KXSjehZ2wyELqWjk5sjVJiBfO6+sUEEwkQmPY1DF8oSq7awdj+6RNxyHcUMCBlPQ
- MtWQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVi9FrFew1rPkesAG5rVR6+l/MYq6xBTOIL7BjsegwKHH7s45dRBtrwlSZ+Uhsvm47DTAwnz0QzBIU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxxjtafjwm5g+lPjchOLJqBlbCr3lrGdG1RM957wnfatT+cUizW
- S1gV8XZ8rBK40+DOXqTUzyLkwPq6wm9JHQjiWbaaoxfujJCBBb+6cr9H10v7y+U=
-X-Gm-Gg: ASbGncvs79/CosJ089t4aA9cbb+JnPUER5zpYBDUiDNRhb2qBAF9E6CAIMihUBodll2
- SDdrwo0fmWK0J9GCNRRDMXedcm9gahzX3Sm6b97VwbDW75fKrfHsC7uRhbUXyu9wNdY05ilYxcw
- ws7Gej/O96VWp0SgzjK5OFKd5bDhkTNavEX/S4809U4gm3Im5He+0prXonQvHYSpiDsf3JmAKKy
- Qzbm+W+cI/UjD8iTDhcnINGjxWCBrBkz2f4MOqblwy67ktpfKbT10xiLxbtfPjY
-X-Google-Smtp-Source: AGHT+IEkdMFrx+gMaYrx+eU+YMeJPPbOTnZsUuE+YoLKhJrZxYZeIybum6/sNXmAaVyK/0mdIZnONA==
-X-Received: by 2002:a05:6512:b86:b0:542:1b63:2e52 with SMTP id
- 2adb3069b0e04-542295229f2mr16665749e87.6.1736132879923; 
- Sun, 05 Jan 2025 19:07:59 -0800 (PST)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-542238301efsm4869016e87.247.2025.01.05.19.07.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Jan 2025 19:07:58 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 06 Jan 2025 05:07:43 +0200
-Subject: [PATCH v4 9/9] drm/msm/dpu: drop dpu_core_perf_params::max_per_pipe_ib
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C896B10E1C8;
+ Mon,  6 Jan 2025 06:40:16 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5062vjl2029009;
+ Mon, 6 Jan 2025 06:40:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=n/pG5IDsP2kclGvx+4D9gO
+ hKpamdzlb0gWNtuhEd1qQ=; b=PMNhdJME1SlidsU2jSEgBqr55gHXMIgQTKrzL0
+ jiaSKkpbr75Qhy+zhm5xbsIMOgrBL0JsswRoVlTxzzQeowdB/eJNIGdXa/7N/3YI
+ DJC3t0IXbfufPGo+c1e7URaJ1mCFQb8JB355n6rku64zLw7B1uJZb6Nj19TeEv/e
+ TX0NMsZLAlsF4djrD1nFBvxd4bZ89IcULlAh39RkTZiz83soCMYBHgNwgtKRCBig
+ jOz6AqeAvmYJQ/ZLtKrxUrYDfShfgIcxTM9IJqwINCI/3vnqePG24kng+anMt45R
+ 5/OXeXGE1OnnodpRmm+nbOOHZZLJLxbm7cZL1QAbeYIc8SBA==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4406ur0d7r-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 06 Jan 2025 06:40:12 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5066eBDS003923
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 6 Jan 2025 06:40:11 GMT
+Received: from szioemm-lnxbld002.qualcomm.com (10.80.80.8) by
+ nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Sun, 5 Jan 2025 22:40:07 -0800
+From: Fange Zhang <quic_fangez@quicinc.com>
+Date: Mon, 6 Jan 2025 14:39:09 +0800
+Subject: [PATCH] drm/msm/dpu: Add writeback support for SM6150
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250106-dpu-perf-rework-v4-9-00b248349476@linaro.org>
-References: <20250106-dpu-perf-rework-v4-0-00b248349476@linaro.org>
-In-Reply-To: <20250106-dpu-perf-rework-v4-0-00b248349476@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Stephen Boyd <swboyd@chromium.org>, 
- Simona Vetter <simona.vetter@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
+Message-ID: <20250106-add-writeback-support-for-sm6150-v1-1-1d2d69fc4bae@quicinc.com>
+X-B4-Tracking: v=1; b=H4sIAI16e2cC/03OQQ6CMBAF0Ks0XdukJaGoOw/gSneGxdCO0Ii0t
+ kVMCHe3gDEks/k/kzcz0oDeYKBHMlKPbxOM7VIQO0JVA12NzOiUacaznAsuGWjNBm8iVqAeLPT
+ OWR/Z3XoWnlLknFVQyLwQB4mwp4lxHu/ms5y4lWv2+OrTpbiW9KQ1+ZPkR5JEkst5Jmfl2phA0
+ kDq29YOvSMOomqWtfST6eqNoSBCa+utUU7TF38KDs3tAAAA
+X-Change-ID: 20250106-add-writeback-support-for-sm6150-ba7657196ea8
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, Li Liu
+ <quic_lliu6@quicinc.com>, Xiangxu Yin <quic_xiangxuy@quicinc.com>, "Fange
+ Zhang" <quic_fangez@quicinc.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4335;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=oxkaR0JZPrIZxqN448X3RF02D4PAZKi9Fntcg0zH3oQ=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBne0j6o/3hLawn8SE5xGF3Cxo+0quVgwdVB4hEV
- r7+b303Z0+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ3tI+gAKCRCLPIo+Aiko
- 1WOHB/sGxZ3bsc5J6lsIkxoTOJ/FYTMoXYRfiGeMAzqx2U+QcRjiElnxMixlkbd0BY3RC+swG9g
- sHNZnMOM4mPJ22MwFJscMYiTp+z65LT1DAzUegjYwGjmTCmUW2CsgiMlZyrGnF0FSOJb3N/x7Iu
- NpV6luraN/VtA9x57AAWzWkwmg7QfWV97KjQnFUqz2BkIs1MH8G7pltviJB845n6kdUy+0B6oRE
- 7VxOvJk8poM/0jND349kMAxh2XxarpjXmiwTzQeKvC10punUFxH/IOUNn2govwpFpH6PVmoxwH9
- d4yKa0oqrNq5emyCw0YWEXHzQ8Wo1Fym2DwAVYvqlptEyTPD
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1736145606; l=2114;
+ i=quic_fangez@quicinc.com; s=20250106; h=from:subject:message-id;
+ bh=jfL+3oBZpQi6xfpX7Vyf73sz0ueYJR/79b3ltOPkiIs=;
+ b=E/jV/kYCVXz4hkmbu8/l4IKhvaPCEFrqRaT3Z+FEXUnIoukca1YlvZHsT/8C+uKFizEg/SY9U
+ PZGcgEHy/l1CH/WaXCsjDkaSmR+F4+EK5J9kuJjC7Gne2WoPL+v5ePz
+X-Developer-Key: i=quic_fangez@quicinc.com; a=ed25519;
+ pk=eVr/gwhy9iaqhzLeBg7K/L0fI2IbsMNzlJnwKdnGExc=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: fd7qHdiWw97EhH8ZtWy_pAE3w2AX6xXV
+X-Proofpoint-ORIG-GUID: fd7qHdiWw97EhH8ZtWy_pAE3w2AX6xXV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=809
+ priorityscore=1501 lowpriorityscore=0 mlxscore=0 phishscore=0 spamscore=0
+ bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015 suspectscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2501060057
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,105 +103,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The max_per_pipe_ib is a constant across all CRTCs and is read from the
-catalog. The override value is also applied at the
-_dpu_core_perf_crtc_update_bus() time. Drop corresponding calculations
-and read the value directly at icc_set_bw() time.
+On the SM6150 platform there is WB_2 block. Add it to the SM6150 catalog.
 
-Suggested-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 16 ++++------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  2 --
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  2 --
- 3 files changed, 4 insertions(+), 16 deletions(-)
+A followup patch to add writeback configuration for the SM6150 catalog
+---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-index 913eb4c01abe10c1ed84215fbbee50abd69e9317..62dab5883513dc570076da5a64e32e502dd4320b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-@@ -105,12 +105,10 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
- 	}
- 
- 	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
--	perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
- 	perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
- 	DRM_DEBUG_ATOMIC(
--		"crtc=%d clk_rate=%llu core_ib=%u core_ab=%u\n",
-+		"crtc=%d clk_rate=%llu core_ab=%u\n",
- 			crtc->base.id, perf->core_clk_rate,
--			perf->max_per_pipe_ib,
- 			(u32)DIV_ROUND_UP_ULL(perf->bw_ctl, 1000));
- }
- 
-@@ -126,9 +124,6 @@ static void dpu_core_perf_aggregate(struct drm_device *ddev,
- 		    curr_client_type == dpu_crtc_get_client_type(tmp_crtc)) {
- 			dpu_cstate = to_dpu_crtc_state(tmp_crtc->state);
- 
--			perf->max_per_pipe_ib = max(perf->max_per_pipe_ib,
--						    dpu_cstate->new_perf.max_per_pipe_ib);
--
- 			perf->bw_ctl += dpu_cstate->new_perf.bw_ctl;
- 
- 			DRM_DEBUG_ATOMIC("crtc=%d bw=%llu\n",
-@@ -204,7 +199,7 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
- 	dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
- 
- 	avg_bw = div_u64(perf.bw_ctl, 1000); /*Bps_to_icc*/
--	peak_bw = perf.max_per_pipe_ib;
-+	peak_bw = kms->catalog->perf->min_dram_ib;
- 
- 	if (kms->perf.fix_core_ab_vote)
- 		avg_bw = kms->perf.fix_core_ab_vote;
-@@ -315,15 +310,12 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
- 		 * 2. new bandwidth vote - "ab or ib vote" is lower
- 		 *    than current vote at end of commit or stop.
- 		 */
--		if ((params_changed && ((new->bw_ctl > old->bw_ctl) ||
--			(new->max_per_pipe_ib > old->max_per_pipe_ib)))	||
--			(!params_changed && ((new->bw_ctl < old->bw_ctl) ||
--			(new->max_per_pipe_ib < old->max_per_pipe_ib)))) {
-+		if ((params_changed && new->bw_ctl > old->bw_ctl) ||
-+		    (!params_changed && new->bw_ctl < old->bw_ctl)) {
- 			DRM_DEBUG_ATOMIC("crtc=%d p=%d new_bw=%llu,old_bw=%llu\n",
- 				crtc->base.id, params_changed,
- 				new->bw_ctl, old->bw_ctl);
- 			old->bw_ctl = new->bw_ctl;
--			old->max_per_pipe_ib = new->max_per_pipe_ib;
- 			update_bus = true;
- 		}
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-index 9d8516ca32d162b1e277ec88067e5c21abeb2017..863a6fc1f30c21cf2030a30be5fe62b024b3b820 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-@@ -14,12 +14,10 @@
- 
- /**
-  * struct dpu_core_perf_params - definition of performance parameters
-- * @max_per_pipe_ib: maximum instantaneous bandwidth request
-  * @bw_ctl: arbitrated bandwidth request
-  * @core_clk_rate: core clock rate request
-  */
- struct dpu_core_perf_params {
--	u32 max_per_pipe_ib;
- 	u64 bw_ctl;
- 	u64 core_clk_rate;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
+index 621a2140f675fa28b3a7fcd8573e59b306cd6832..6d32deead77728264b6de6d5fd2843a81afdf355 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
+@@ -27,6 +27,7 @@ static const struct dpu_mdp_cfg sm6150_mdp = {
+ 		[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
+ 		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2bc, .bit_off = 8 },
+ 		[DPU_CLK_CTRL_DMA3] = { .reg_off = 0x2c4, .bit_off = 8 },
++		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x3b8, .bit_off = 24 },
+ 	},
  };
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index ac3c6c5ad1cec3856f0eff2ed71153d3c2dc279e..cc240d3c7faa89254a575237634d0d0fa8f04f73 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1488,8 +1488,6 @@ static int dpu_crtc_debugfs_state_show(struct seq_file *s, void *v)
- 			dpu_crtc->cur_perf.core_clk_rate);
- 	seq_printf(s, "bw_ctl: %uk\n",
- 		   (u32)DIV_ROUND_UP_ULL(dpu_crtc->cur_perf.bw_ctl, 1000));
--	seq_printf(s, "max_per_pipe_ib: %u\n",
--				dpu_crtc->cur_perf.max_per_pipe_ib);
  
- 	return 0;
- }
+@@ -164,6 +165,21 @@ static const struct dpu_pingpong_cfg sm6150_pp[] = {
+ 	},
+ };
+ 
++static const struct dpu_wb_cfg sm6150_wb[] = {
++	{
++		.name = "wb_2", .id = WB_2,
++		.base = 0x66000, .len = 0x2c8,
++		.features = WB_SM8250_MASK,
++		.format_list = wb2_formats_rgb,
++		.num_formats = ARRAY_SIZE(wb2_formats_rgb),
++		.clk_ctrl = DPU_CLK_CTRL_WB2,
++		.xin_id = 6,
++		.vbif_idx = VBIF_RT,
++		.maxlinewidth = 2160,
++		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
++	},
++};
++
+ static const struct dpu_intf_cfg sm6150_intf[] = {
+ 	{
+ 		.name = "intf_0", .id = INTF_0,
+@@ -244,6 +260,8 @@ const struct dpu_mdss_cfg dpu_sm6150_cfg = {
+ 	.dspp = sm6150_dspp,
+ 	.pingpong_count = ARRAY_SIZE(sm6150_pp),
+ 	.pingpong = sm6150_pp,
++	.wb_count = ARRAY_SIZE(sm6150_wb),
++	.wb = sm6150_wb,
+ 	.intf_count = ARRAY_SIZE(sm6150_intf),
+ 	.intf = sm6150_intf,
+ 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
 
+---
+base-commit: 8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2
+change-id: 20250106-add-writeback-support-for-sm6150-ba7657196ea8
+
+Best regards,
 -- 
-2.39.5
+Fange Zhang <quic_fangez@quicinc.com>
 
