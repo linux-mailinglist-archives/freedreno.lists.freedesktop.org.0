@@ -2,98 +2,102 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03DD0A02122
-	for <lists+freedreno@lfdr.de>; Mon,  6 Jan 2025 09:50:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55AF4A02132
+	for <lists+freedreno@lfdr.de>; Mon,  6 Jan 2025 09:55:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4D3B10E5D8;
-	Mon,  6 Jan 2025 08:50:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2580010E5CB;
+	Mon,  6 Jan 2025 08:55:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="J9bp3k4U";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AqJv2SZ9";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE48D10E5CB
- for <freedreno@lists.freedesktop.org>; Mon,  6 Jan 2025 08:50:20 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-aa6b500a685so175998366b.2
- for <freedreno@lists.freedesktop.org>; Mon, 06 Jan 2025 00:50:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736153359; x=1736758159; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=1OTbFFc/LXvyixbtCvH1lSFOmelihjhQMXdOHvfDhy0=;
- b=J9bp3k4UlfbVF71AkOaYenZe6Bu7SnaPJXTHDmplq0BnOTbHGGIY6l75j/qHFw1E08
- MQzOQ4rjr9tjAhNtZFADtCmbvl1iFgfZK5H31OHW3MAWmECtGVrTd3yoddlhyXnxCyqD
- +vh6EDJ3f4PcMUJTeeMB+WE0Ikj86SlUPWVErXS2Covg+wwt83b5QTKhcljITg99CW9S
- 2EEDDzitokjfaNPUI5J5plHINp6l9+re+DQlHCaUGpVTbUS0s1MAO4xd4jqdAsQuA8PL
- kAUIcIYuIONHFe+8q/WNtXGth0hoLa8XfSfape6IpieAdiU4xbVR5fWG37Vq3zeGyudw
- 3SBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736153359; x=1736758159;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1OTbFFc/LXvyixbtCvH1lSFOmelihjhQMXdOHvfDhy0=;
- b=wYqRQuavNQDGqNjrEeMj2UhikA1nRnEOXNzUPrdP41FrznvxZLuE3wPH+xF8FpOlRj
- J1Piizm4CLsuUOlZOxRhnEfQAVR3EOnCo8M0F/VAitzUQ0svocGJBA2eglSAS6BbgS2u
- 3+anD9bJ0p5+MHkNAYFwMMM7SOf86PfHI2oLhQ8PUGlKKmO/3lOmjD2HF/NnWMqusdNy
- c52fpP8DFkF7oBz0vz5tFOPOkTy+vjyhOMCkUTb3RKoExkK2ocED7UbXs+Aha2PCnkDn
- f4uD/xZV4nx++dvckz7cDnjN1JUZTlJOfBxMseJqOiJ4Ugv2KlDd48rGDQk1y0pUlu3x
- YQZw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWkte+hYrTnCH92Yn3jphEem47BAmQw/ORbdPIZDrdMeb/HA3ZnUuRhC+3B5kxYih3iH2RkGmso4Zw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx88ZuyKH4KeP4FfTeBNmmjIC1PXFTjFuUXbmA/ZRFY+u+DmusD
- b3f78sH2z/6SzTOMubm/uqVzqQ+tYDZuynXxqOSlffIkRyM/up14UVOE9BkYXc4=
-X-Gm-Gg: ASbGncvigemD4cus4gaGdFdwND6bBfGllmtvipwiN3Hbq8lHUcevTMgt0xU7icX7xdE
- es84fkOvwjAckeFkoXVEY75wfrhFbQ2wa2aXwwUVfzpElmTQ0+osU/efFydK+pocdCnhOWYd8kV
- LkCauL+galJb2BhoZqHhS7jnJn9CQMJoc212nHxEfPCKiMEaeSoKqVGaXPpA5vxPkwj99tYuCD2
- 5p/THhZ2GdnEJe7WH0A2Un0iMHzmEqCaE+FhUs4wtnUp+nI+iJz38o6yibNGlk5zfSxdcZ2
-X-Google-Smtp-Source: AGHT+IFIUVGQua1Xw3vRS6huyRc0JaTlrVfc5UE7MBVZ/n19b0POGxtnLkoCKWi3gDrpntvSQ/EKdw==
-X-Received: by 2002:a17:907:d15:b0:a9a:2a56:b54 with SMTP id
- a640c23a62f3a-aac2b0a5754mr2065982266b.5.1736153359387; 
- Mon, 06 Jan 2025 00:49:19 -0800 (PST)
-Received: from [127.0.1.1] ([178.197.223.165])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aac0e82f1d2sm2222112466b.11.2025.01.06.00.49.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jan 2025 00:49:18 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Mon, 06 Jan 2025 09:49:07 +0100
-Subject: [PATCH 4/4] drm/msm/dsi: Drop unnecessary -ENOMEM message
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8498B10E5CB;
+ Mon,  6 Jan 2025 08:55:53 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 4E1F9A41296;
+ Mon,  6 Jan 2025 08:54:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D5F5C4CED2;
+ Mon,  6 Jan 2025 08:55:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1736153751;
+ bh=gG4SiTyR1rjNKpTSl7F5DKYKTnsEbd9XXx+wOP8RmzQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=AqJv2SZ9q16OyArWqElTwLOPNwqTm/ShNQQWffb96q1lj4AqFBu2S8K57PHmnRH7/
+ xzupTm63UbfD3+7hQmj/mjtk7Ni2a3mv4rg5ZyC7gx0mF08AN7kqGfWIqKC458mCKN
+ gwQp1eC6iRJnKLYxcKdFS5a/G+MvmBRmjaM6UcbaHc3qmp9xl3044q8FgfIkpESvIn
+ ifJDNyYD52oEbg9I7c1Dg0+YMil4dxoxeB9GxG9BEJ3g21c7PaizTkseSF5f+HfCFD
+ c/9goNwKH4U8aSo3khRGr2Y22RbMLY00xLu/mzuLGW5AwAZLSwqWV1X5wYZD2lVzu1
+ C6+ttlxaCH/rg==
+Date: Mon, 6 Jan 2025 09:55:49 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Karol Herbst <kherbst@redhat.com>,
+ Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Peter Senna Tschudin <peter.senna@gmail.com>, Ian Ray <ian.ray@ge.com>, 
+ Martyn Welch <martyn.welch@collabora.co.uk>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Stefan Agner <stefan@agner.ch>, Alison Wang <alison.wang@nxp.com>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>, 
+ Samuel Holland <samuel@sholland.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ nouveau@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ spice-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Jani Nikula <jani.nikula@intel.com>
+Subject: Re: [PATCH v2 0/5] drm/connector: make mode_valid() callback accept
+ const mode pointer
+Message-ID: <20250106-passionate-lorikeet-of-apotheosis-c62ff1@houat>
+References: <20241214-drm-connector-mode-valid-const-v2-0-4f9498a4c822@linaro.org>
+ <76ho36jqcraehnsgpjralpye52w7ryshhgizekn4qqfsikiojd@3yyorbvjkc7b>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250106-drm-msm-cleanups-v1-4-271ff1c00795@linaro.org>
-References: <20250106-drm-msm-cleanups-v1-0-271ff1c00795@linaro.org>
-In-Reply-To: <20250106-drm-msm-cleanups-v1-0-271ff1c00795@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1024;
- i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=nandoTBlk2Y45lzh0OGLLD7YfL+lOntjDjuGTghJ18A=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBne5kHtIEraO4MOoEqSxz6JNQXpGpHLSrNWQfEX
- iZDY+GUnhCJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ3uZBwAKCRDBN2bmhouD
- 1+pED/0THA/VJeshxpTNG9Q9JUM5ne/rmPhAfuMC36rcRts0nb3XRM2iJl8ZrqdhFYwziOdXoS3
- GRJTa3s1Eeeqfx1JNNOnuMW9YsZfTCUgkhFzjIhFKjMbkcAEZ0Y6zCyzL7Ey7ew/f6aWWrBxRS4
- pPbOMMtTaJNNfNyBhKOXy+hsriEseN/h6V+T4YCHsyxNnzy0HoIo3rKXnVLXzxSBFdxnG0uyDe5
- yXGCG0QKaz11TvN1/7TQlHPBoBdSxcJQizikrKJroAvaxgBYELQ3x4nGwfUPMx/twJHbFMKOvE4
- kMuxbk/t7dG/vWsm018wcK55Ae4+qlTx2IpL4zeP8YH/rdw2PBcaW2B0XsURYguU/i2EP+KdKc+
- pcUT/cN2UgCuRcGQsK3E5h+X2SitLjIZ0MRsJ3my29iq+WqiPc6DHUsMcaoO+PAqHwS4FXGWeKg
- 3v+8gyd7mq6FTii7t73DOWxncRQxn6IzEcNoTs96DIw6iRwMcC5VpS+Ot8nTlUDQOLGrqaaHED2
- K5BchCderk1lOcNzZnjMDIedb30NjdC54RfgLsO7vHRypJfOx0RgPvtBrGkR63epFmoYTCYPkID
- mN6AlEF28DCjSSJbuWWOxwRS+V88wvWAcqx2k72/pPjLLIRyiDYSMYSd0pShYQ8/4TcgQwS11D0
- mNDGUnoEj02fbUQ==
-X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="7fhp4op5b7mhfhd4"
+Content-Disposition: inline
+In-Reply-To: <76ho36jqcraehnsgpjralpye52w7ryshhgizekn4qqfsikiojd@3yyorbvjkc7b>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,31 +113,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Kernel core already prints detailed report about memory allocation
-failures, so drivers should not have their own error messages.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+--7fhp4op5b7mhfhd4
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 0/5] drm/connector: make mode_valid() callback accept
+ const mode pointer
+MIME-Version: 1.0
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index a3c344b75fc2e90923cd6d26df87b7c05208f736..ab5d6fd53972f62307b0c5b801cca8b2394c5556 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1910,10 +1910,8 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
- 		return dev_err_probe(&pdev->dev, ret, "%s: unable to initialize dsi clks\n", __func__);
- 
- 	msm_host->rx_buf = devm_kzalloc(&pdev->dev, SZ_4K, GFP_KERNEL);
--	if (!msm_host->rx_buf) {
--		pr_err("%s: alloc rx temp buf failed\n", __func__);
-+	if (!msm_host->rx_buf)
- 		return -ENOMEM;
--	}
- 
- 	ret = devm_pm_opp_set_clkname(&pdev->dev, "byte");
- 	if (ret)
+On Mon, Jan 06, 2025 at 12:47:07AM +0200, Dmitry Baryshkov wrote:
+> On Sat, Dec 14, 2024 at 03:37:04PM +0200, Dmitry Baryshkov wrote:
+> > While working on the generic mode_valid() implementation for the HDMI
+> > Connector framework I noticed that unlike other DRM objects
+> > drm_connector accepts non-const pointer to struct drm_display_mode,
+> > while obviously mode_valid() isn't expected to modify the argument.
+> >=20
+> > Mass-change the DRM framework code to pass const argument to that
+> > callback.
+> >=20
+> > The series has been compile-tested with defconfig for x86-64, arm and
+> > arm64.
+> >=20
+> > Note: yes, I understand that this change might be hard to review and
+> > merge. The only viable option that I foresee is to add new callback,
+> > having the const argument and migrate drivers into using it one by one.
+>=20
+> Colleagues, I'd like to graciously ping regarding this series. Should it
+> be merged as is (possibly requiring more R-B's)? Or should I rework it
+> adding something like .mode_valid_new() callback which takes const
+> argument?
 
--- 
-2.43.0
+I think your patch is fine, and you can add my
 
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+
+We seem to lack an Acked-by for amdgpu though?
+
+Maxime
+
+--7fhp4op5b7mhfhd4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ3ualAAKCRAnX84Zoj2+
+ds65AYCm0HY0VDiw9/7lDbcyH0YuzRQu/+7FuV8GS6p+ubfGmvGVGOS+07oCUheK
+PN/gOxwBgOc9gl1vmxFUVrfM3LjcOixdshbfH49V0dlOMzIZO3m/L5caQ4O6jchE
+p0sk4xSGUQ==
+=4eTB
+-----END PGP SIGNATURE-----
+
+--7fhp4op5b7mhfhd4--
