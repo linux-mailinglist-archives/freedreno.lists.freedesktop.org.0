@@ -2,70 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11476A0211F
-	for <lists+freedreno@lfdr.de>; Mon,  6 Jan 2025 09:50:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03DD0A02122
+	for <lists+freedreno@lfdr.de>; Mon,  6 Jan 2025 09:50:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCE8110E5D0;
-	Mon,  6 Jan 2025 08:50:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4D3B10E5D8;
+	Mon,  6 Jan 2025 08:50:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mCMOh4js";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="J9bp3k4U";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C99510E5CB
- for <freedreno@lists.freedesktop.org>; Mon,  6 Jan 2025 08:50:19 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-aa6647a7556so259280066b.2
- for <freedreno@lists.freedesktop.org>; Mon, 06 Jan 2025 00:50:19 -0800 (PST)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE48D10E5CB
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Jan 2025 08:50:20 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-aa6b500a685so175998366b.2
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Jan 2025 00:50:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736153358; x=1736758158; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1736153359; x=1736758159; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=FqYqpE74NSCIuQ6we8Kew8vkG28Edsdn09mE/ypD+oI=;
- b=mCMOh4js717+pj2S9+20ZF+xDaH97nbZ4LJu/rEL+dUWVe5t9e+E6DM5lbXEz2tG/6
- eNXr/xKmrJYMq45kwwPVq5XNPgJO7Aco3W4yA9N5Uy//DNx7AJ/jsd2UyMLd2s43F7e1
- BWVmptVymGXh28udODqJpUDbL8wk1aWP5Vxk1pwKwiIzrrJgqPhhbPsdsiH7OI5fOPGR
- +yme3ny9bVN+Avf6aipTIx149mwGagAECVuDqnnoBePZmWXSvAcizcWLrlP/G9vsALth
- huZz8TNky2GCroY8CALXw+XgQ+JMTDLlE5c8FORQ1QdK4Vf9dRTs9z8euK0f9kNH5iXw
- Au0w==
+ :reply-to; bh=1OTbFFc/LXvyixbtCvH1lSFOmelihjhQMXdOHvfDhy0=;
+ b=J9bp3k4UlfbVF71AkOaYenZe6Bu7SnaPJXTHDmplq0BnOTbHGGIY6l75j/qHFw1E08
+ MQzOQ4rjr9tjAhNtZFADtCmbvl1iFgfZK5H31OHW3MAWmECtGVrTd3yoddlhyXnxCyqD
+ +vh6EDJ3f4PcMUJTeeMB+WE0Ikj86SlUPWVErXS2Covg+wwt83b5QTKhcljITg99CW9S
+ 2EEDDzitokjfaNPUI5J5plHINp6l9+re+DQlHCaUGpVTbUS0s1MAO4xd4jqdAsQuA8PL
+ kAUIcIYuIONHFe+8q/WNtXGth0hoLa8XfSfape6IpieAdiU4xbVR5fWG37Vq3zeGyudw
+ 3SBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736153358; x=1736758158;
+ d=1e100.net; s=20230601; t=1736153359; x=1736758159;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FqYqpE74NSCIuQ6we8Kew8vkG28Edsdn09mE/ypD+oI=;
- b=PN4Hr1CeWN+PQq0OrQcqcUHYqExtGXKfc9OzrrFjPXnvQmtCFPXOv8YoYLfCCJYyRm
- /JFb9LUpAJBNl6mM+rHiMqSk2NkHJS8yytMNP7cjU42jf/JMqThci/IB5VzPXc8RenKq
- /w+q/JTO0Ft3weomfDLdbbPcSGbSnlndzt/KDRvg5b1XS23AjrwHBVYwEtzAqYJcU2uw
- PSyh3iat75ImXRjBzp0kCoh80Gluoqsh2UzmrPzwIaxXv888f84qAQOc2r5EHul/vp2E
- RGl+AOMl96n58zoC/Ok6TlPrsFs8xfm6VbNAkGcjsP8Fpjt2ItqvkJCwzANf9Iw6gfg/
- 3q/Q==
+ bh=1OTbFFc/LXvyixbtCvH1lSFOmelihjhQMXdOHvfDhy0=;
+ b=wYqRQuavNQDGqNjrEeMj2UhikA1nRnEOXNzUPrdP41FrznvxZLuE3wPH+xF8FpOlRj
+ J1Piizm4CLsuUOlZOxRhnEfQAVR3EOnCo8M0F/VAitzUQ0svocGJBA2eglSAS6BbgS2u
+ 3+anD9bJ0p5+MHkNAYFwMMM7SOf86PfHI2oLhQ8PUGlKKmO/3lOmjD2HF/NnWMqusdNy
+ c52fpP8DFkF7oBz0vz5tFOPOkTy+vjyhOMCkUTb3RKoExkK2ocED7UbXs+Aha2PCnkDn
+ f4uD/xZV4nx++dvckz7cDnjN1JUZTlJOfBxMseJqOiJ4Ugv2KlDd48rGDQk1y0pUlu3x
+ YQZw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW71BDZ0uERga0xFWq0XT0rSKw/oJlmn8HRVSPU21roZeSWmdfSB31v92lzJDaEzCYQs0kfqmCZxYg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2sZalBksTlTksD0HTpIejSkFgpAML65oEoohST+wvs7fYFe9o
- gT9+qySJGWbAeKW31FoAIpAg6NZ4LUXtsMM4XuPyoo/FfJXGyoLejMPBwr27Jrc=
-X-Gm-Gg: ASbGncs3twCxj+R369rZEvcTgRat3J/VWkdwArcUvvVOnZPT4fkZU+sY25jvgkWGBxd
- PKUUfwBWika8VGxtFBCjV8I48r1Ic7YUudutZlU9APt4hiF2d2TokDjYLrhC17Web+zYpCNBohY
- DBKdhfk6NU+7QFJXYErx9RkWl/8OCBKYH9jaJu39p7qXSkvxvD632AKC4ywjtKBD93r3GSR3v4D
- FPJXFTiS073S3Vp5gSWkLwHhgz9FFDDuO9q/PlopYie3A0wkHzCqFBCdlpUN4/ApHrpHE4n
-X-Google-Smtp-Source: AGHT+IH+pwK330xaahhvQucFSZxUuXVT0b0dCvqw2hihR/wXtnoUMiZ/CIdtEfAi9ckdZ9cr0u7txw==
-X-Received: by 2002:a17:907:3d86:b0:aa5:3e81:5abc with SMTP id
- a640c23a62f3a-aac2714ad32mr2069989566b.1.1736153357678; 
- Mon, 06 Jan 2025 00:49:17 -0800 (PST)
+ AJvYcCWkte+hYrTnCH92Yn3jphEem47BAmQw/ORbdPIZDrdMeb/HA3ZnUuRhC+3B5kxYih3iH2RkGmso4Zw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx88ZuyKH4KeP4FfTeBNmmjIC1PXFTjFuUXbmA/ZRFY+u+DmusD
+ b3f78sH2z/6SzTOMubm/uqVzqQ+tYDZuynXxqOSlffIkRyM/up14UVOE9BkYXc4=
+X-Gm-Gg: ASbGncvigemD4cus4gaGdFdwND6bBfGllmtvipwiN3Hbq8lHUcevTMgt0xU7icX7xdE
+ es84fkOvwjAckeFkoXVEY75wfrhFbQ2wa2aXwwUVfzpElmTQ0+osU/efFydK+pocdCnhOWYd8kV
+ LkCauL+galJb2BhoZqHhS7jnJn9CQMJoc212nHxEfPCKiMEaeSoKqVGaXPpA5vxPkwj99tYuCD2
+ 5p/THhZ2GdnEJe7WH0A2Un0iMHzmEqCaE+FhUs4wtnUp+nI+iJz38o6yibNGlk5zfSxdcZ2
+X-Google-Smtp-Source: AGHT+IFIUVGQua1Xw3vRS6huyRc0JaTlrVfc5UE7MBVZ/n19b0POGxtnLkoCKWi3gDrpntvSQ/EKdw==
+X-Received: by 2002:a17:907:d15:b0:a9a:2a56:b54 with SMTP id
+ a640c23a62f3a-aac2b0a5754mr2065982266b.5.1736153359387; 
+ Mon, 06 Jan 2025 00:49:19 -0800 (PST)
 Received: from [127.0.1.1] ([178.197.223.165])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aac0e82f1d2sm2222112466b.11.2025.01.06.00.49.16
+ a640c23a62f3a-aac0e82f1d2sm2222112466b.11.2025.01.06.00.49.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jan 2025 00:49:17 -0800 (PST)
+ Mon, 06 Jan 2025 00:49:18 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Mon, 06 Jan 2025 09:49:06 +0100
-Subject: [PATCH 3/4] drm/msm/dsi: Minor whitespace and style cleanup
+Date: Mon, 06 Jan 2025 09:49:07 +0100
+Subject: [PATCH 4/4] drm/msm/dsi: Drop unnecessary -ENOMEM message
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250106-drm-msm-cleanups-v1-3-271ff1c00795@linaro.org>
+Message-Id: <20250106-drm-msm-cleanups-v1-4-271ff1c00795@linaro.org>
 References: <20250106-drm-msm-cleanups-v1-0-271ff1c00795@linaro.org>
 In-Reply-To: <20250106-drm-msm-cleanups-v1-0-271ff1c00795@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -77,21 +77,21 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4972;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1024;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=/a3blq7uTO7fUJvEaGIXSRTJ4dpfb7qJYZHpImk2dVY=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBne5kGPLcMDXTAFLB7FrGzq2KBwobfDoM2Axvrj
- aejM+xFPaCJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ3uZBgAKCRDBN2bmhouD
- 12suD/9plZkSR1GSSGcpRhCfw5+T70v5pcFayEvEVJBIDykDJm8lIN92LDQE5NBumEO11lwWxPC
- CZ4f/waCUhmh3Loap2GjCt4/4TxZBM1+aMK0//cTiLj7LoTR0mYfUSIjZ11gIsOPOaQwsh1CeXC
- yUvvzhwKVTJCm+oHioyAbm3GexCFBEn7GRx6yLHqtto5VOgMlaFh0GsUry3e6LIpIkevjZmCpGz
- cS+TaFatdkNFN77I2PGoi1aw3iIR82bKz7Aeu+K09XcJuNuCDZbTcgZlyRae6i4lveD+Pl7U5ir
- jiulukBPI60UsavcKrcTuTLAk4HCe5/t7gkYg1vhOV5ZoCe1xpxZEr15oMtZki6S9y9bSpjycyG
- ha3tev3HEVuUFIQhikzEOfOHkrCu0k9LgY+UZ77Lv5alOKdF6SIVlWICmhlhe5oOZTLKZPJKYlJ
- byShuxZrJF71LQzuuRgkWc4rr2CCgNVIdhSDA45ohfZCR98soas9LngZ/suxJdM19rW8C4tzeR7
- pdkdcCPWQH3djhjBFye1+bjsiynZ/HPhGOijgIGeDZxLiFnTM0m0lmZmlWsbRANHQ//cOXMvMhu
- i3mvlotSNMgX/cEKm8c19rqHws8FkfadXTX6VfvoaxLTQMTwRGHBmpF/j3HxbxwdRoWxLoXOvfO
- bpSXOzVQ17OSjcA==
+ bh=nandoTBlk2Y45lzh0OGLLD7YfL+lOntjDjuGTghJ18A=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBne5kHtIEraO4MOoEqSxz6JNQXpGpHLSrNWQfEX
+ iZDY+GUnhCJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ3uZBwAKCRDBN2bmhouD
+ 1+pED/0THA/VJeshxpTNG9Q9JUM5ne/rmPhAfuMC36rcRts0nb3XRM2iJl8ZrqdhFYwziOdXoS3
+ GRJTa3s1Eeeqfx1JNNOnuMW9YsZfTCUgkhFzjIhFKjMbkcAEZ0Y6zCyzL7Ey7ew/f6aWWrBxRS4
+ pPbOMMtTaJNNfNyBhKOXy+hsriEseN/h6V+T4YCHsyxNnzy0HoIo3rKXnVLXzxSBFdxnG0uyDe5
+ yXGCG0QKaz11TvN1/7TQlHPBoBdSxcJQizikrKJroAvaxgBYELQ3x4nGwfUPMx/twJHbFMKOvE4
+ kMuxbk/t7dG/vWsm018wcK55Ae4+qlTx2IpL4zeP8YH/rdw2PBcaW2B0XsURYguU/i2EP+KdKc+
+ pcUT/cN2UgCuRcGQsK3E5h+X2SitLjIZ0MRsJ3my29iq+WqiPc6DHUsMcaoO+PAqHwS4FXGWeKg
+ 3v+8gyd7mq6FTii7t73DOWxncRQxn6IzEcNoTs96DIw6iRwMcC5VpS+Ot8nTlUDQOLGrqaaHED2
+ K5BchCderk1lOcNzZnjMDIedb30NjdC54RfgLsO7vHRypJfOx0RgPvtBrGkR63epFmoYTCYPkID
+ mN6AlEF28DCjSSJbuWWOxwRS+V88wvWAcqx2k72/pPjLLIRyiDYSMYSd0pShYQ8/4TcgQwS11D0
+ mNDGUnoEj02fbUQ==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -109,161 +109,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Cleanup few obvious kernel coding style violations: missing or
-unnecessary braces in 'if-else', unnecessary break lines, incorrect
-breaking of long function declarations, unnecessary 'else' after a
-'return'.  No functional impact expected.
+Kernel core already prints detailed report about memory allocation
+failures, so drivers should not have their own error messages.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 51 +++++++++++++++++++-------------------
- 1 file changed, 26 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 4a2ad04eea7359545a088bdc63907f6b3e5615bd..a3c344b75fc2e90923cd6d26df87b7c05208f736 100644
+index a3c344b75fc2e90923cd6d26df87b7c05208f736..ab5d6fd53972f62307b0c5b801cca8b2394c5556 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
 +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -179,18 +179,18 @@ struct msm_dsi_host {
- 	int irq;
- };
+@@ -1910,10 +1910,8 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
+ 		return dev_err_probe(&pdev->dev, ret, "%s: unable to initialize dsi clks\n", __func__);
  
--
- static inline u32 dsi_read(struct msm_dsi_host *msm_host, u32 reg)
- {
- 	return readl(msm_host->ctrl_base + reg);
- }
-+
- static inline void dsi_write(struct msm_dsi_host *msm_host, u32 reg, u32 data)
- {
- 	writel(data, msm_host->ctrl_base + reg);
- }
- 
--static const struct msm_dsi_cfg_handler *dsi_get_config(
--						struct msm_dsi_host *msm_host)
-+static const struct msm_dsi_cfg_handler *
-+dsi_get_config(struct msm_dsi_host *msm_host)
- {
- 	const struct msm_dsi_cfg_handler *cfg_hnd = NULL;
- 	struct device *dev = &msm_host->pdev->dev;
-@@ -370,7 +370,6 @@ int dsi_link_clk_set_rate_6g(struct msm_dsi_host *msm_host)
- 	return 0;
- }
- 
--
- int dsi_link_clk_enable_6g(struct msm_dsi_host *msm_host)
- {
- 	int ret;
-@@ -588,7 +587,6 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 
- 	DBG("pclk=%lu, bclk=%lu", msm_host->pixel_clk_rate,
- 				msm_host->byte_clk_rate);
--
- }
- 
- int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
-@@ -677,8 +675,8 @@ static inline enum dsi_traffic_mode dsi_get_traffic_mode(const u32 mode_flags)
- 	return NON_BURST_SYNCH_EVENT;
- }
- 
--static inline enum dsi_vid_dst_format dsi_get_vid_fmt(
--				const enum mipi_dsi_pixel_format mipi_fmt)
-+static inline enum dsi_vid_dst_format
-+dsi_get_vid_fmt(const enum mipi_dsi_pixel_format mipi_fmt)
- {
- 	switch (mipi_fmt) {
- 	case MIPI_DSI_FMT_RGB888:	return VID_DST_FORMAT_RGB888;
-@@ -689,8 +687,8 @@ static inline enum dsi_vid_dst_format dsi_get_vid_fmt(
- 	}
- }
- 
--static inline enum dsi_cmd_dst_format dsi_get_cmd_fmt(
--				const enum mipi_dsi_pixel_format mipi_fmt)
-+static inline enum dsi_cmd_dst_format
-+dsi_get_cmd_fmt(const enum mipi_dsi_pixel_format mipi_fmt)
- {
- 	switch (mipi_fmt) {
- 	case MIPI_DSI_FMT_RGB888:	return CMD_DST_FORMAT_RGB888;
-@@ -1282,14 +1280,15 @@ static int dsi_cmd_dma_add(struct msm_dsi_host *msm_host,
- static int dsi_short_read1_resp(u8 *buf, const struct mipi_dsi_msg *msg)
- {
- 	u8 *data = msg->rx_buf;
-+
- 	if (data && (msg->rx_len >= 1)) {
- 		*data = buf[1]; /* strip out dcs type */
- 		return 1;
--	} else {
--		pr_err("%s: read data does not match with rx_buf len %zu\n",
--			__func__, msg->rx_len);
--		return -EINVAL;
- 	}
-+
-+	pr_err("%s: read data does not match with rx_buf len %zu\n",
-+		__func__, msg->rx_len);
-+	return -EINVAL;
- }
- 
- /*
-@@ -1298,15 +1297,16 @@ static int dsi_short_read1_resp(u8 *buf, const struct mipi_dsi_msg *msg)
- static int dsi_short_read2_resp(u8 *buf, const struct mipi_dsi_msg *msg)
- {
- 	u8 *data = msg->rx_buf;
-+
- 	if (data && (msg->rx_len >= 2)) {
- 		data[0] = buf[1]; /* strip out dcs type */
- 		data[1] = buf[2];
- 		return 2;
--	} else {
--		pr_err("%s: read data does not match with rx_buf len %zu\n",
--			__func__, msg->rx_len);
--		return -EINVAL;
- 	}
-+
-+	pr_err("%s: read data does not match with rx_buf len %zu\n",
-+		__func__, msg->rx_len);
-+	return -EINVAL;
- }
- 
- static int dsi_long_read_resp(u8 *buf, const struct mipi_dsi_msg *msg)
-@@ -1366,8 +1366,9 @@ static int dsi_cmd_dma_tx(struct msm_dsi_host *msm_host, int len)
- 			ret = -ETIMEDOUT;
- 		else
- 			ret = len;
--	} else
-+	} else {
- 		ret = len;
-+	}
- 
- 	return ret;
- }
-@@ -1435,11 +1436,12 @@ static int dsi_cmds2buf_tx(struct msm_dsi_host *msm_host,
- 		return len;
- 	}
- 
--	/* for video mode, do not send cmds more than
--	* one pixel line, since it only transmit it
--	* during BLLP.
--	*/
--	/* TODO: if the command is sent in LP mode, the bit rate is only
-+	/*
-+	 * for video mode, do not send cmds more than
-+	 * one pixel line, since it only transmit it
-+	 * during BLLP.
-+	 *
-+	 * TODO: if the command is sent in LP mode, the bit rate is only
- 	 * half of esc clk rate. In this case, if the video is already
- 	 * actively streaming, we need to check more carefully if the
- 	 * command can be fit into one BLLP.
-@@ -1864,9 +1866,8 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
- 	int ret;
- 
- 	msm_host = devm_kzalloc(&pdev->dev, sizeof(*msm_host), GFP_KERNEL);
--	if (!msm_host) {
-+	if (!msm_host)
+ 	msm_host->rx_buf = devm_kzalloc(&pdev->dev, SZ_4K, GFP_KERNEL);
+-	if (!msm_host->rx_buf) {
+-		pr_err("%s: alloc rx temp buf failed\n", __func__);
++	if (!msm_host->rx_buf)
  		return -ENOMEM;
 -	}
  
- 	msm_host->pdev = pdev;
- 	msm_dsi->host = &msm_host->base;
+ 	ret = devm_pm_opp_set_clkname(&pdev->dev, "byte");
+ 	if (ret)
 
 -- 
 2.43.0
