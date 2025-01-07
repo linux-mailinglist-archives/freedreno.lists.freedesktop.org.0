@@ -2,81 +2,104 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0BCAA05D0D
+	by mail.lfdr.de (Postfix) with ESMTPS id E9F74A05D0E
 	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 14:41:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A465C10E2BB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A386210E06A;
 	Wed,  8 Jan 2025 13:41:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QmovjQTi";
+	dkim=pass (2048-bit key; unprotected) header.d=googlemail.com header.i=@googlemail.com header.b="WR3wzyoD";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com
- [209.85.219.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64A4810E0AE;
- Sun,  5 Jan 2025 18:03:06 +0000 (UTC)
-Received: by mail-qv1-f53.google.com with SMTP id
- 6a1803df08f44-6d8e8445219so121854356d6.0; 
- Sun, 05 Jan 2025 10:03:06 -0800 (PST)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03BF110E31D;
+ Tue,  7 Jan 2025 20:37:31 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-21a7ed0155cso16557655ad.3; 
+ Tue, 07 Jan 2025 12:37:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736100125; x=1736704925; darn=lists.freedesktop.org;
+ d=googlemail.com; s=20230601; t=1736282191; x=1736886991;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5XxNEftZua09LK0hM2esB8aQB+qauXYBXnPyeQF/u7M=;
- b=QmovjQTiTvsfBGA2BKNBSwINSA1z98zvB9R7USZf8axsVOJ6Jyn1QOgdxPGHJN8dBj
- jmyedCDd732XCSNYkgWh80aueswiSSjD+T+9lUCPCEHaaY1J5YP4Y/XKjL/+lLUALQMu
- vsm8iUGmC8MvPLBL6IiI9em/lpdCcNcjQni/UI2IupIHeFYctN42aACdr40m9sr/ZQjO
- 6n/m1mfPxZ39IyM6cVPhGxmulQyhE9NIngoi+jU2GyUvBdIZQ5yLn8quTKgjbWHB7/YU
- 37InEH3JH9NAHv1x0NLeB8QgIz9cfxZr3Z12IKaC+f3i+LTazouZ+hXtwvjzPKe+BGCp
- mfeA==
+ bh=k5J+gh+iXgRwyFdRk/bfAnhtBt/J24ElglqD+pzBrcM=;
+ b=WR3wzyoD4suiq5fMpxCXN9gg4no2Mu2QIZkG1UZm5+dUqAdN/6UX1NX6oGRu6D6Bmn
+ tn2vt4poX5QLmdmbl8ngUqcwgiW2pnb4+KAq59+N+IV6P5RQZB4VeOY5SGlvDDSGdaPj
+ dDRL0P47Q4CdopGTfpMQMEKSUvalbNgD7Xge+DybcFZWu5MgaqyhV2ukZJPTjbLR+Ge2
+ Px//GShLBK7Y0VF50d+HrioEIlg5eDi/RhPWno/k5cXQ7JdJ4S1XsNoBPbok50c9xbrP
+ LLNw8rYY1jOe2ApCOy66e/VxsuBDVhhn4NMnTMcSxsPA/pU+TojFpvtAhPEZTJngE2w6
+ n/Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736100125; x=1736704925;
+ d=1e100.net; s=20230601; t=1736282191; x=1736886991;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5XxNEftZua09LK0hM2esB8aQB+qauXYBXnPyeQF/u7M=;
- b=wuJeT43jT6a2j+AkdnV0wsDKZdGLCCwFpI8fFPb9dxq1bPsLWeKJywasOho6hWJsyg
- ffRX9vJLeVZMnt4qvxMLwxN9kyjdIWXAuNevJ05EX89gMDgMWg8aym968DYnyiXnBdAk
- SYk4HmImBVPTRPUCB/xagH4kznMV9cbd9qkCps76NVnE/EeYVaztBSJyuV06YTsjUF00
- Ro43TU0PUcF16/O5Dw9tyJsj9IdslhyTRSVqPMKycqRIXd81p8Vp2iVonJj6WD5Uk6KP
- zDL93lV5RJx7BF/Vgn1N6y+voY/3H8V4Tnka7GjVoYnQkI0JlE+XBtu9ViX9Yb1oQcY8
- ZzOw==
+ bh=k5J+gh+iXgRwyFdRk/bfAnhtBt/J24ElglqD+pzBrcM=;
+ b=fN0Hv3rby2xwyuzDnHlTNT3d1AP8tUjZ/o+2IX6jBQxiVqopqSXH7QARy8jsTygWU3
+ z4x5edHE3+Am2UiqB3fIszTdJje0Caji4IO44zhnIUm+lA1iTh9wkBS0tv/zKxWvk63v
+ kdP2NzcNtHDxHVQDYkVDaa1riYm3jUGsqgqZeIzKPjYwqTqtK4rcJA1DBqLK/oKq3Hnz
+ yuynRicDADzJPvLex3Ag78QoLL3XGD5x8k/03vOlKmqU1yIKYd/YlKJRfRMGp+EPYxAV
+ IRbiIVW8/HmJ2jFJThk9BJsx8j6lJHnHRDi1n/IRS/q/vnRHkXLQybMemoTPmGwrWoSf
+ EpDA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUyOn13ujtyj2P+QK9bWgAjtpxCG73C213FPzohI1MwMSVzOROzqqxXeel5+lUm5mkqbf2S+4ea4tv1@lists.freedesktop.org,
- AJvYcCXm5XRX68F0d6ForO9oyGP8jmwwQ02kwaNJskppAZwWnvjBKd/4vDh9g/OMrh8SEhCmFs4aTDkDKwc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5zWzrmf3T3lZ4bMuoYTdQcIM0HRJXByaXua18Refydd0YfYaR
- 31+anDHWsd9VIpEzvUJaR9C7gJ6e010HZO+ZKDE3rBFKd9KMmEIT/7+6ceNhlasJa15DYagn69y
- 9rcYYuNDpC6OuEMZwbKb/UTk16cXC3Pr9kwE=
-X-Gm-Gg: ASbGncuCQpFvDBTUUOBvrTS1wI2M6Vu5hmdWydyOrUSe6QtrnLSKTNg/GMsrEkjftJS
- 62mOxFVhJU41OFMQw13APnuvFXo0mDlCOEDY169L46KitjTqjWXC0/YlquW0yZxALo9CTtSD8
-X-Google-Smtp-Source: AGHT+IHvCPNMz64lZgikf9PqNcOhvTMRwGCdjgxlvaOeMmuPREPE2VatSotMqePlInthqSEKKYUwoJA15I6O4EM0eaU=
-X-Received: by 2002:a05:6870:20d:b0:29e:32e7:5f17 with SMTP id
- 586e51a60fabf-2a7fb4b7bb3mr25812289fac.28.1736099781938; Sun, 05 Jan 2025
- 09:56:21 -0800 (PST)
+ AJvYcCV6vbUwfGillDWYhJz1d1bWT4vN2C5ytrzrh+KmsCsxdO/VZlQ4PVKuo3mDSihYz2HSKqBeJWyz7f2z@lists.freedesktop.org,
+ AJvYcCXGXiTvlrsveqe/wqNs67XsfDxDzI972l605FaHl9W8JJij39jwwkZorbX48zQZI3nRyjeBjTgrXbw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwDYEBJ4V2kl8FKMvTpRibxPxAMFofCX4dxFcagXI5KizO2ztbF
+ aBafim7kWqWrM5sAhdbxUt55aAobKWbmvDdF6Uqqnsy9Ps4As2j8hiEHA/9aPZugG5BgGxWwDfp
+ N08FC4HrJxBgkYIiFa2Cdby+Cwxs=
+X-Gm-Gg: ASbGncvK2gDJfBzhrp+Njq+jXXUyyEN3zgTi0v0OIGO7mfeAN1tt7/DvWQ9pXIU/e0y
+ bsTvW0Llwx+X1aB0SnncBMCcudiHSYRyUEItyODhivPyNuJS3hHeU
+X-Google-Smtp-Source: AGHT+IHgiQDN0G5/PdDd430gJpVrEIqkV02owORB8V1V6tlHZDq0VmXjlHDjVTSTRjC3ezsidQtyveZkFyttC72Msfc=
+X-Received: by 2002:a17:902:f70a:b0:216:8319:2949 with SMTP id
+ d9443c01a7336-21a84000ae2mr5997805ad.56.1736282191527; Tue, 07 Jan 2025
+ 12:36:31 -0800 (PST)
 MIME-Version: 1.0
-References: <20241231-gpu-acd-v3-0-3ba73660e9ca@quicinc.com>
-In-Reply-To: <20241231-gpu-acd-v3-0-3ba73660e9ca@quicinc.com>
-From: Maya Matuszczyk <maccraft123mc@gmail.com>
-Date: Sun, 5 Jan 2025 18:55:46 +0100
-Message-ID: <CAO_MupJ21kOQPZG_=87mC-fQKmL=-K9AgOjriWR=wXCKU0897w@mail.gmail.com>
-Subject: Re: [PATCH v3 0/6] Support for GPU ACD feature on Adreno X1-85
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+References: <20250107125854.227233-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20250107125854.227233-1-krzysztof.kozlowski@linaro.org>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Tue, 7 Jan 2025 21:36:20 +0100
+X-Gm-Features: AbW1kvat2n17hvPwDrGQUj8U_8QFAMpbYP8hJMpXB_xRYGmIfR0aXMkOm1WMYyw
+Message-ID: <CAFBinCCqekcg75YPnck5NEiLftpiDR5KhX7Ngc2xuRKpbMik+A@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: display: Correct indentation and style in
+ DTS example
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Viresh Kumar <vireshk@kernel.org>,
- Nishanth Menon <nm@ti.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Lucas Stach <l.stach@pengutronix.de>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Jonathan Marek <jonathan@marek.ca>, Mahadevan <quic_mahap@quicinc.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Jacopo Mondi <jacopo+renesas@jmondi.org>, dri-devel@lists.freedesktop.org, 
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-mediatek@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ linux-renesas-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 08 Jan 2025 13:41:31 +0000
@@ -95,91 +118,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-I've applied this series for testing, and I've no performance
-increase, and some screen corruption, there's some lines(mostly white)
-on my yoga slim 7x that appear on the bottom of the screen. When I
-move my cursor in swaywm over it, the lines get occluded by the cursor
-and screenshots don't show these lines.
-
-Best Regards,
-Maya Matuszczyk
-
-pon., 30 gru 2024 o 22:11 Akhil P Oommen <quic_akhilpo@quicinc.com> napisa=
-=C5=82(a):
+On Tue, Jan 7, 2025 at 1:58=E2=80=AFPM Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
 >
-> This series adds support for ACD feature for Adreno GPU which helps to
-> lower the power consumption on GX rail and also sometimes is a requiremen=
-t
-> to enable higher GPU frequencies. At high level, following are the
-> sequences required for ACD feature:
->         1. Identify the ACD level data for each regulator corner
->         2. Send a message to AOSS to switch voltage plan
->         3. Send a table with ACD level information to GMU during every
->         gpu wake up
+> DTS example in the bindings should be indented with 2- or 4-spaces and
+> aligned with opening '- |', so correct any differences like 3-spaces or
+> mixtures 2- and 4-spaces in one binding.
 >
-> For (1), it is better to keep ACD level data in devicetree because this
-> value depends on the process node, voltage margins etc which are
-> chipset specific. For instance, same GPU HW IP on a different chipset
-> would have a different set of values. So, a new schema which extends
-> opp-v2 is created to add a new property called "qcom,opp-acd-level".
+> No functional changes here, but saves some comments during reviews of
+> new patches built on existing code.
 >
-> ACD support is dynamically detected based on the presence of
-> "qcom,opp-acd-level" property in GPU's opp table. Also, qmp node should b=
-e
-> present under GMU node in devicetree for communication with AOSS.
->
-> The devicetree patch in this series adds the acd-level data for X1-85
-> GPU present in Snapdragon X1 Elite chipset.
->
-> The last two devicetree patches are for Bjorn and all the rest for
-> Rob Clark.
->
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
-> Changes in v3:
-> - Rebased on top of v6.13-rc4 since X1E doesn't boot properly with msm-ne=
-xt
-> - Update patternProperties regex (Krzysztof)
-> - Update MAINTAINERS file include the new opp-v2-qcom-adreno.yaml
-> - Update the new dt properties' description
-> - Do not move qmp_get() to acd probe (Konrad)
-> - New patches: patch#2, #3 and #6
-> - Link to v2: https://lore.kernel.org/r/20241021-gpu-acd-v2-0-9c25a62803b=
-c@quicinc.com
->
-> Changes in v2:
-> - Removed RFC tag for the series
-> - Improve documentation for the new dt bindings (Krzysztof)
-> - Add fallback compatible string for opp-table (Krzysztof)
-> - Link to v1: https://lore.kernel.org/r/20241012-gpu-acd-v1-0-1e5e91aa95b=
-6@quicinc.com
->
-> ---
-> Akhil P Oommen (6):
->       drm/msm/adreno: Add support for ACD
->       drm/msm: a6x: Rework qmp_get() error handling
->       drm/msm/adreno: Add module param to disable ACD
->       dt-bindings: opp: Add v2-qcom-adreno vendor bindings
->       arm64: dts: qcom: x1e80100: Add ACD levels for GPU
->       arm64: dts: qcom: x1e80100: Add OPPs up to Turbo L3 for GPU
->
->  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 97 ++++++++++++++++=
-++++++
->  MAINTAINERS                                        |  1 +
->  arch/arm64/boot/dts/qcom/x1e80100.dtsi             | 25 +++++-
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 96 ++++++++++++++++=
-++---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |  1 +
->  drivers/gpu/drm/msm/adreno/a6xx_hfi.c              | 36 ++++++++
->  drivers/gpu/drm/msm/adreno/a6xx_hfi.h              | 21 +++++
->  drivers/gpu/drm/msm/adreno/adreno_device.c         |  4 +
->  8 files changed, 268 insertions(+), 13 deletions(-)
-> ---
-> base-commit: dbfac60febfa806abb2d384cb6441e77335d2799
-> change-id: 20240724-gpu-acd-6c1dc5dcf516
->
-> Best regards,
-> --
-> Akhil P Oommen <quic_akhilpo@quicinc.com>
->
->
+>  .../display/amlogic,meson-dw-hdmi.yaml        |  8 +-
+For amlogic,meson-dw-hdmi.yaml:
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
