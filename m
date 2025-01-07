@@ -2,81 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A2A0A035C6
-	for <lists+freedreno@lfdr.de>; Tue,  7 Jan 2025 04:17:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63F17A03720
+	for <lists+freedreno@lfdr.de>; Tue,  7 Jan 2025 05:50:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8198110EA6A;
-	Tue,  7 Jan 2025 03:17:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA30110EA6A;
+	Tue,  7 Jan 2025 04:50:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="cSGXOWLR";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="gm6mMTsj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4FF710E1D8;
- Tue,  7 Jan 2025 03:17:44 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 506E4cIQ018475;
- Tue, 7 Jan 2025 03:17:43 GMT
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E33810EA6A;
+ Tue,  7 Jan 2025 04:50:35 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5073PmJO006516;
+ Tue, 7 Jan 2025 04:50:32 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ifIpgw8A18RCwWHSwoBDybbkMlmOGqYXmZUZa5CmlPo=; b=cSGXOWLRRgrtpBjO
- RGksvp/3d0sN31Nw+wFsW91I7cqwW2AxB65fX/Eei7ivcEWTucfwcVeGy2LOvoI0
- 3Lx22sZON3BNN03cuAe5PCj8LF7ww+w9CZCtgJArVmoLfiExeYN9XZYrPiFaBIUY
- StIM9rG8/VuAVI5vhvLNc/EtgIkZC7/7NYthk7kXQqDb3eC5uAhewwIenCX/lW66
- T3vugGPnTAGSQKSKwOq7frd9/5/IRN6UyIF6NYLHGHdtagccLGcQtxmWznVH42eV
- JnSidT5tosloDbgklUwHxNJh3cF9RNRX1aeZOMnGjTffihruNDCGIzcCyAlH+CQN
- OzF/EA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ /WpkrPrWawUtuFQj866JPaYVpcE429Endl8YKxCDDzg=; b=gm6mMTsjGnaLhdA1
+ UDLaBE0T4YqF57tfKPZvt+IRCnlNbf+oqYp8eFN9D2qIO+wjsh11GVMj02+IFWfw
+ lfv8h5u8EOuoKxSZbqRNEiXjtOuJeGtr1gb3skBbYp35S9T6MNdagohgcuv0NnCE
+ +aQ2v/eCof9iDKzIM6likcYO0yBvmEEFiTIVGBjfqSV5WI0AAvLiwvsZaCVvSxh2
+ xPmzVxgrdz+cukBSVJPxe/HtlL/wZWLPc5nQdOZu47QcTJYWZ4W22z7xueCY38p4
+ UBMiF+eTH3PnPX5VpALc5SiFwcZwXMVRGnmhAq+ahyc+0gRlXbn85uDVrv4YpzWc
+ 1TUbQA==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 440gmc1k5u-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 440vbu0515-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Jan 2025 03:17:42 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5073HfXN013541
+ Tue, 07 Jan 2025 04:50:32 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5074oVMv030536
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 7 Jan 2025 03:17:41 GMT
-Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ Tue, 7 Jan 2025 04:50:31 GMT
+Received: from [10.64.16.151] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 6 Jan 2025
- 19:17:41 -0800
-Message-ID: <92ba142e-0793-4a47-a8b4-115050114132@quicinc.com>
-Date: Mon, 6 Jan 2025 19:17:40 -0800
+ 20:50:27 -0800
+Message-ID: <aeb30048-cdcd-4746-9e86-11beaa2b0cad@quicinc.com>
+Date: Tue, 7 Jan 2025 12:50:25 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] drm/msm/dpu: enable CDM for all supported platforms
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH] drm/msm/dpu: Add writeback support for SM6150
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, "Sean
+ Paul" <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ "David Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20241224-dpu-add-cdm-v1-0-7aabfcb58246@linaro.org>
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, Li Liu
+ <quic_lliu6@quicinc.com>,
+ Xiangxu Yin <quic_xiangxuy@quicinc.com>, <quic_fangez@quicinc.com>
+References: <20250106-add-writeback-support-for-sm6150-v1-1-1d2d69fc4bae@quicinc.com>
+ <acd91ca7-1951-4711-b76a-afe583eb0b27@quicinc.com>
 Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20241224-dpu-add-cdm-v1-0-7aabfcb58246@linaro.org>
+From: fange zhang <quic_fangez@quicinc.com>
+In-Reply-To: <acd91ca7-1951-4711-b76a-afe583eb0b27@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+ nalasex01b.na.qualcomm.com (10.47.209.197)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: jDbv2ohrkIaSev97iVAmHFV-_25cghCm
-X-Proofpoint-ORIG-GUID: jDbv2ohrkIaSev97iVAmHFV-_25cghCm
+X-Proofpoint-ORIG-GUID: ypFGH6d-1VmqEZ6L-Ye_4N5rySz3Yx81
+X-Proofpoint-GUID: ypFGH6d-1VmqEZ6L-Ye_4N5rySz3Yx81
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0
- phishscore=0 adultscore=0 mlxlogscore=901 mlxscore=0 suspectscore=0
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501070023
+ mlxlogscore=999
+ lowpriorityscore=0 phishscore=0 malwarescore=0 impostorscore=0 bulkscore=0
+ adultscore=0 clxscore=1015 mlxscore=0 priorityscore=1501 spamscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2501070035
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,57 +97,80 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 12/23/2024 8:25 PM, Dmitry Baryshkov wrote:
-> Enable CDM block on all the platforms where it is supposed to be
-> present. Notably, from the platforms being supported by the DPU driver
-> it is not enabled for SM6115 (DPU 6.3), QCM2290 (DPU 6.5) and SM6375
-> (DPU 6.9)
+On 2025/1/7 3:15, Abhinav Kumar wrote:
 > 
-
-Thanks for enabling it, but can you also explain on which of these has 
-validation already been done and on which ones you need Tested-by from 
-the community?
-
-Is it fair to assume that changes (3) and (4) were sent out separately 
-and not squashed into (2) because they are pending validation?
-
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-> Dmitry Baryshkov (4):
->        drm/msm/dpu: rename CDM block definition
->        drm/msm/dpu: enable CDM_0 for all DPUs which are known to have it
->        drm/msm/dpu: enable CDM_0 for SC8280XP platform
->        drm/msm/dpu: enable CDM_0 for X Elite platform
 > 
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h  | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h  | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h  | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h  | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h   | 2 +-
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h   | 2 +-
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h  | 2 +-
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h   | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h | 1 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c           | 2 +-
->   26 files changed, 26 insertions(+), 4 deletions(-)
-> ---
-> base-commit: 8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2
-> change-id: 20241215-dpu-add-cdm-0b5b9283ffa8
+> On 1/5/2025 10:39 PM, Fange Zhang wrote:
+>> On the SM6150 platform there is WB_2 block. Add it to the SM6150 catalog.
+>>
+>> Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
+>> ---
+>> A followup patch to add writeback configuration for the SM6150 catalog
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h | 18 ++++++++ 
+>> ++++++++++
+>>   1 file changed, 18 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h b/ 
+>> drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
+>> index 
+>> 621a2140f675fa28b3a7fcd8573e59b306cd6832..6d32deead77728264b6de6d5fd2843a81afdf355 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
+>> @@ -27,6 +27,7 @@ static const struct dpu_mdp_cfg sm6150_mdp = {
+>>           [DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
+>>           [DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2bc, .bit_off = 8 },
+>>           [DPU_CLK_CTRL_DMA3] = { .reg_off = 0x2c4, .bit_off = 8 },
+>> +        [DPU_CLK_CTRL_WB2] = { .reg_off = 0x3b8, .bit_off = 24 },
+>>       },
+>>   };
+>> @@ -164,6 +165,21 @@ static const struct dpu_pingpong_cfg sm6150_pp[] = {
+>>       },
+>>   };
+>> +static const struct dpu_wb_cfg sm6150_wb[] = {
+>> +    {
+>> +        .name = "wb_2", .id = WB_2,
+>> +        .base = 0x66000, .len = 0x2c8,
 > 
-> Best regards,
+> This is not correct.
+> 
+> WB_2 offset is at 0x66000. However, MDP base address accounts for the 
+> 0x1000 offset. So this should still be 0x65000.
+> 
+> Why is 0x66000 used here? It does not match the docs.
+sorry, missed it, yes it should be 0x65000, will fix it in next patch.
+> 
+> How was this change verified?
+i checked drm state, and found the new writeback connector is loaded 
+successfully.
+> 
+>> +        .features = WB_SM8250_MASK,
+>> +        .format_list = wb2_formats_rgb,
+>> +        .num_formats = ARRAY_SIZE(wb2_formats_rgb),
+>> +        .clk_ctrl = DPU_CLK_CTRL_WB2,
+>> +        .xin_id = 6,
+>> +        .vbif_idx = VBIF_RT,
+>> +        .maxlinewidth = 2160,
+>> +        .intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
+>> +    },
+>> +};
+>> +
+>>   static const struct dpu_intf_cfg sm6150_intf[] = {
+>>       {
+>>           .name = "intf_0", .id = INTF_0,
+>> @@ -244,6 +260,8 @@ const struct dpu_mdss_cfg dpu_sm6150_cfg = {
+>>       .dspp = sm6150_dspp,
+>>       .pingpong_count = ARRAY_SIZE(sm6150_pp),
+>>       .pingpong = sm6150_pp,
+>> +    .wb_count = ARRAY_SIZE(sm6150_wb),
+>> +    .wb = sm6150_wb,
+>>       .intf_count = ARRAY_SIZE(sm6150_intf),
+>>       .intf = sm6150_intf,
+>>       .vbif_count = ARRAY_SIZE(sdm845_vbif),
+>>
+>> ---
+>> base-commit: 8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2
+>> change-id: 20250106-add-writeback-support-for-sm6150-ba7657196ea8
+>>
+>> Best regards,
+
