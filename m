@@ -2,35 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 612B1A0342A
-	for <lists+freedreno@lfdr.de>; Tue,  7 Jan 2025 01:52:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62386A03435
+	for <lists+freedreno@lfdr.de>; Tue,  7 Jan 2025 01:55:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37B9F10EA45;
-	Tue,  7 Jan 2025 00:52:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D27810EA45;
+	Tue,  7 Jan 2025 00:55:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QPXvkd9j";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HkAjYNMQ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 494A310EA45;
- Tue,  7 Jan 2025 00:52:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72D0010EA41;
+ Tue,  7 Jan 2025 00:55:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 449E2A41FFB;
- Tue,  7 Jan 2025 00:50:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0C30C4CED2;
- Tue,  7 Jan 2025 00:52:27 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id C558CA42015;
+ Tue,  7 Jan 2025 00:53:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F408C4CED2;
+ Tue,  7 Jan 2025 00:55:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1736211149;
- bh=7+6DdqgteBZqLCvaUC8715Bkx+RkdSf5/LheljtHJ3U=;
+ s=k20201202; t=1736211308;
+ bh=itpT8lj+lNIgywLNl4oQSfKmBGz6ZnJFx9B6ZC+ljLU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QPXvkd9jpxmoV6klGXjFaCXtubKqLSACiQp/Tlyi12uFdfzolIm4wROPLIGrqvBSI
- POytWCasMqxsBJTk/wsIrNAg4pBh+paVPjMkuwj3+BSV/EJQxpQf4PhM9eLCf05IE6
- jaJwH1zhD+aR9kdqufx3VaujwPO0uokFfL+U00ELAnXtSR+4gEbC6dK8/HMrIcYuId
- EzlYsWjZCxWje9SyyR1zH5YAYY79+jxsJjp1Aqm0L0aWHjuDRzrmLU+JWLsZ9AZSTY
- z8B6QJm8WZhuwDt1GDpG1h5FKgxEyn7HB55r4XXA+LQgSCLc8Ntb4CAazN6FrjwzBa
- qxiDuP9xJ5xcA==
-Date: Mon, 6 Jan 2025 18:52:26 -0600
+ b=HkAjYNMQIt1Y3Disc0kT2+T01kw3dPkZz/I2a11LIGWqBNwTcgc81F9rHcmshaVkY
+ xzXN01gHUYajLV8UJRAObHhUP1TS4EoJzc84u2dN9VL8xGIqiAmZUzNuz+VMu0KXSx
+ 08jgASgpWlyMv6UE1qKFoSlPrb0lQT4XY5m8bKnGb8jeHbMywYWxIRlcEfBf3XHLoC
+ XSvXM/TiqvzB8H/9nlFgn0c2cJXO02QwCTN8ZPrzFI7sYXVMVy5b8rH4vKz7RNnu2K
+ Jy65E6HRDlLHw1BEtfKaza9flEh+iKKLqS2H8aN9FUswErs+t/bdqrlG+OlX4ZR56U
+ HvAscmUEnTiiA==
+Date: Mon, 6 Jan 2025 18:55:04 -0600
 From: Bjorn Andersson <andersson@kernel.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, 
@@ -47,17 +47,15 @@ Cc: Rob Clark <robdclark@gmail.com>,
  freedreno@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  Jessica Zhang <quic_jesszhan@quicinc.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Yongxing Mou <quic_yongmou@quicinc.com>
-Subject: Re: [PATCH 44/45] arm64: dts: qcom: add mst support for pixel stream
- clk for DP0
-Message-ID: <rqezansr45u4qu6xmrmqtugi5y2tjfuq4embv6ofeoatmc6be4@4lzsywehfk63>
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: Re: [PATCH 03/45] drm/msm/dp: fix the intf_type of MST interfaces
+Message-ID: <da2aviya67nogkkkhsbvqcgo3gvmk7uv5vb2dbdemzh6xonoo5@oqtgwgwgshmr>
 References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
- <20241205-dp_mst-v1-44-f8618d42a99a@quicinc.com>
+ <20241205-dp_mst-v1-3-f8618d42a99a@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241205-dp_mst-v1-44-f8618d42a99a@quicinc.com>
+In-Reply-To: <20241205-dp_mst-v1-3-f8618d42a99a@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,63 +71,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 05, 2024 at 08:32:15PM -0800, Abhinav Kumar wrote:
-> From: Yongxing Mou <quic_yongmou@quicinc.com>
+On Thu, Dec 05, 2024 at 08:31:34PM -0800, Abhinav Kumar wrote:
+> Interface type of MST interfaces is currently INTF_NONE.
+> Fix this to INTF_DP.
 > 
 
-I'd expect "sa8775p" in the subject prefix.
-
-> Populate the pixel clock for stream 1 for DP0 for sa8775p DP controller.
-
-Please write your commit messages in the style expressed in
-https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
-
-Use the commit message to document why the code/dt looks like it does.
-Describe the problem your solving and why.
-
-> 
-> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->  arch/arm64/boot/dts/qcom/sa8775p.dtsi | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sa8775p.dtsi b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-> index 0dbaa17e5e3f06c61b2aa777e45b73a48e50e66b..0150ce27b98e9894fa9ee6cccd020528d716f543 100644
-> --- a/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-> @@ -3944,16 +3944,20 @@ mdss0_dp0: displayport-controller@af54000 {
->  					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_AUX_CLK>,
->  					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_LINK_CLK>,
->  					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
-> -					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
-> +					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
-> +					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL1_CLK>;
->  				clock-names = "core_iface",
->  					      "core_aux",
->  					      "ctrl_link",
->  					      "ctrl_link_iface",
-> -					      "stream_pixel";
-> +					      "stream_pixel",
-> +					      "stream_1_pixel";
-
-I don't see this being a valid clock-names in the DT binding, does this
-pass dtbs_check?
+Wouldn't it make sense to introduce this later in the series, once the
+implementation would actually handle this case? Or could/should we have
+left these INTF_DP from the start?
 
 Regards,
 Bjorn
 
->  				assigned-clocks = <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
-> -						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
-> -				assigned-clock-parents = <&mdss0_dp0_phy 0>, <&mdss0_dp0_phy 1>;
-> +						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>,
-> +						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL1_CLK_SRC>;
-> +				assigned-clock-parents = <&mdss0_dp0_phy 0>, <&mdss0_dp0_phy 1>, <&mdss0_dp0_phy 1>;
->  				phys = <&mdss0_dp0_phy>;
-> +
->  				phy-names = "dp";
->  
->  				operating-points-v2 = <&dp_opp_table>;
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
+> index 907b4d7ceb470b0391d2bbbab3ce520efa2b3263..2509e28e3d6b582cd837c6aea167b3f4ad877383 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h
+> @@ -375,7 +375,7 @@ static const struct dpu_intf_cfg sa8775p_intf[] = {
+>  		.name = "intf_3", .id = INTF_3,
+>  		.base = 0x37000, .len = 0x280,
+>  		.features = INTF_SC7280_MASK,
+> -		.type = INTF_NONE,
+> +		.type = INTF_DP,
+>  		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
+>  		.prog_fetch_lines_worst_case = 24,
+>  		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
+> @@ -393,7 +393,7 @@ static const struct dpu_intf_cfg sa8775p_intf[] = {
+>  		.name = "intf_6", .id = INTF_6,
+>  		.base = 0x3A000, .len = 0x280,
+>  		.features = INTF_SC7280_MASK,
+> -		.type = INTF_NONE,
+> +		.type = INTF_DP,
+>  		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
+>  		.prog_fetch_lines_worst_case = 24,
+>  		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 17),
+> @@ -402,7 +402,7 @@ static const struct dpu_intf_cfg sa8775p_intf[] = {
+>  		.name = "intf_7", .id = INTF_7,
+>  		.base = 0x3b000, .len = 0x280,
+>  		.features = INTF_SC7280_MASK,
+> -		.type = INTF_NONE,
+> +		.type = INTF_DP,
+>  		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
+>  		.prog_fetch_lines_worst_case = 24,
+>  		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 18),
+> @@ -411,7 +411,7 @@ static const struct dpu_intf_cfg sa8775p_intf[] = {
+>  		.name = "intf_8", .id = INTF_8,
+>  		.base = 0x3c000, .len = 0x280,
+>  		.features = INTF_SC7280_MASK,
+> -		.type = INTF_NONE,
+> +		.type = INTF_DP,
+>  		.controller_id = MSM_DP_CONTROLLER_1,	/* pair with intf_4 for DP MST */
+>  		.prog_fetch_lines_worst_case = 24,
+>  		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12),
 > 
 > -- 
 > 2.34.1
