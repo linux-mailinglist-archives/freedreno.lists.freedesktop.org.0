@@ -2,76 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32213A031D6
-	for <lists+freedreno@lfdr.de>; Mon,  6 Jan 2025 22:08:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 612B1A0342A
+	for <lists+freedreno@lfdr.de>; Tue,  7 Jan 2025 01:52:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D22010E647;
-	Mon,  6 Jan 2025 21:08:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37B9F10EA45;
+	Tue,  7 Jan 2025 00:52:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CcX4Z7Do";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QPXvkd9j";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FF9F10E647
- for <freedreno@lists.freedesktop.org>; Mon,  6 Jan 2025 21:08:09 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id
- d75a77b69052e-4679ea3b13bso111188821cf.1
- for <freedreno@lists.freedesktop.org>; Mon, 06 Jan 2025 13:08:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736197628; x=1736802428; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nOzmxccnce1E7CXNiUs8eoUX3tWPwgiUu+2R9Zn1q5U=;
- b=CcX4Z7DorhSZW5aDBdIA1xCHt9fJxCe4nzZSw1PB9OuZDaErG03P5UhQL5x5dwqp4I
- jw7TrrsHeGtRz0txUDrJCkVkUq3J1aBelTvKsaRsK4jhzw3KkV5Gi83uOi5Sf1U9J5pR
- mxagd8+Dqrli6J37Zwd3NXvcJD+CbVjm/iik1Cba2OgVx4IJVabCqPLc35V8ufMyKie2
- tjBqQZfUfSZON4s2kr4sdCY/5o2wHdSJI4HUQw/pMiYWtIMAmqYSSjYCNcuMNSwYPEdS
- PunJ8H1eVz0cMC8JkPku6kIqQQbFNbiERKUkOPdZMAkXaPFaFBC2YwGz4M1bH6Vp/uOd
- hhCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736197628; x=1736802428;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nOzmxccnce1E7CXNiUs8eoUX3tWPwgiUu+2R9Zn1q5U=;
- b=fszyoZADWi7GR7n8FRG+vBVUI3wOJ34p0N1igiSe2zPnwkckWycjdhxKmH9JPMZsXB
- r9ULlusWWh+L3gZ2wOh05F6jD02pGRDM7JI70pH2teFCsV2lLwZxbcCMIS9bVClgzFxk
- Q30klwLrAq+y71mm8UQjRxpUlYvu6DUP3TK/i1waxLkXOXupShpqspk6ZQ7+q02V4EA5
- 7HZPeTYHt/JoaS7w9t1R1QpFs1Xf03SWRxI0rQZ8AZLLX/7csuyxnIgcQJjbcyhlGsZE
- TCbqFMuJYYFMKk0xsRClBaJzutddoIAk1wxDZzuINbUJKi2wqX/ASFRTeQYIAee/8u77
- mvYg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWc81yqdVofQ+SwA8FKP4nU3wn9fwNMw59c5bS0rbQUu5n4U2errHbB5m8+/8Lw0IldkLkpAmY0Uac=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwPGZpMHwaf7vyOyHSasgr3i4CGIMInYTdxWK4yldPVsle4qlPd
- paiR5CvJY3TR+30ZLkIrigEE6/hplhWLrw3xQ7NBN4/kKFBWVYYDxiQgyDErtt9deZ48YU1YTcP
- NfjgnED8IK9lagHxf1RijHO1lX1LsrA==
-X-Gm-Gg: ASbGncs8KxZciTFn09WYkTZZdhYge+wy2iCxGRgvSHyqcvesXWfpYjXQeBEX189aX/+
- 4f1G5ZrmweFG5pL1J21+D4gBJ8hwY5pzNIcO3KqKWm3Hm6/vV/xWef9X9rejUeHJGvBTO
-X-Google-Smtp-Source: AGHT+IHqQnod+WLMTaza+oYE9/HZ2z8HLcXB/MzbtBLsKVq4Jqi09Mbkpt4Wcf/3+HNCWqrXskcu8GZwWbHmP3/D/R8=
-X-Received: by 2002:a05:6e02:18cd:b0:3a7:81a4:a557 with SMTP id
- e9e14a558f8ab-3c2d65e508dmr468450635ab.24.1736197263407; Mon, 06 Jan 2025
- 13:01:03 -0800 (PST)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 494A310EA45;
+ Tue,  7 Jan 2025 00:52:31 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 449E2A41FFB;
+ Tue,  7 Jan 2025 00:50:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0C30C4CED2;
+ Tue,  7 Jan 2025 00:52:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1736211149;
+ bh=7+6DdqgteBZqLCvaUC8715Bkx+RkdSf5/LheljtHJ3U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QPXvkd9jpxmoV6klGXjFaCXtubKqLSACiQp/Tlyi12uFdfzolIm4wROPLIGrqvBSI
+ POytWCasMqxsBJTk/wsIrNAg4pBh+paVPjMkuwj3+BSV/EJQxpQf4PhM9eLCf05IE6
+ jaJwH1zhD+aR9kdqufx3VaujwPO0uokFfL+U00ELAnXtSR+4gEbC6dK8/HMrIcYuId
+ EzlYsWjZCxWje9SyyR1zH5YAYY79+jxsJjp1Aqm0L0aWHjuDRzrmLU+JWLsZ9AZSTY
+ z8B6QJm8WZhuwDt1GDpG1h5FKgxEyn7HB55r4XXA+LQgSCLc8Ntb4CAazN6FrjwzBa
+ qxiDuP9xJ5xcA==
+Date: Mon, 6 Jan 2025 18:52:26 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>, 
+ Chandan Uddaraju <chandanu@codeaurora.org>, Guenter Roeck <groeck@chromium.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Vara Reddy <quic_varar@quicinc.com>, 
+ Rob Clark <robdclark@chromium.org>, Tanmay Shah <tanmay@codeaurora.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Yongxing Mou <quic_yongmou@quicinc.com>
+Subject: Re: [PATCH 44/45] arm64: dts: qcom: add mst support for pixel stream
+ clk for DP0
+Message-ID: <rqezansr45u4qu6xmrmqtugi5y2tjfuq4embv6ofeoatmc6be4@4lzsywehfk63>
+References: <20241205-dp_mst-v1-0-f8618d42a99a@quicinc.com>
+ <20241205-dp_mst-v1-44-f8618d42a99a@quicinc.com>
 MIME-Version: 1.0
-References: <20250102183232.115279-1-robdclark@gmail.com>
- <76b822f0-c4c5-4d47-8e0b-c1eee513e228@quicinc.com>
- <48373519-2867-419d-9f51-e7bd330b311c@quicinc.com>
-In-Reply-To: <48373519-2867-419d-9f51-e7bd330b311c@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 6 Jan 2025 13:00:51 -0800
-Message-ID: <CAF6AEGtNBoWnLA_dBBC-4U7DrWLO+hM_-9iraXgc45Aj885nCQ@mail.gmail.com>
-Subject: Re: [PATCH v2] iommu/arm-smmu-qcom: Only enable stall on smmu-v2
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Robin Murphy <robin.murphy@arm.com>, 
- Will Deacon <will@kernel.org>, Rob Clark <robdclark@chromium.org>,
- Joerg Roedel <joro@8bytes.org>, 
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>, 
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241205-dp_mst-v1-44-f8618d42a99a@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,37 +73,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 6, 2025 at 12:11=E2=80=AFPM Akhil P Oommen <quic_akhilpo@quicin=
-c.com> wrote:
->
-> On 1/3/2025 1:00 AM, Akhil P Oommen wrote:
-> > On 1/3/2025 12:02 AM, Rob Clark wrote:
-> >> From: Rob Clark <robdclark@chromium.org>
-> >>
-> >> On mmu-500, stall-on-fault seems to stall all context banks, causing t=
-he
-> >> GMU to misbehave.  So limit this feature to smmu-v2 for now.
-> >>
-> >> This fixes an issue with an older mesa bug taking outo the system
-> >> because of GMU going off into the weeds.
-> >>
-> >> What we _think_ is happening is that, if the GPU generates 1000's of
-> >> faults at ~once (which is something that GPUs can be good at), it can
-> >> result in a sufficient number of stalled translations preventing other
-> >> transactions from entering the same TBU.
-> >>
-> >> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> >
-> > Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> >
->
-> Btw, if stall is not enabled, I think there is no point in capturing
-> coredump from adreno pagefault handler. By the time we start coredump,
-> gpu might have switched context.
+On Thu, Dec 05, 2024 at 08:32:15PM -0800, Abhinav Kumar wrote:
+> From: Yongxing Mou <quic_yongmou@quicinc.com>
+> 
 
-Hmm, we do at least capture ttbr0 both in fault info and from the
-current submit, so it would at least be possible to tell if you are
-looking at the wrong context.
+I'd expect "sa8775p" in the subject prefix.
 
-BR,
--R
+> Populate the pixel clock for stream 1 for DP0 for sa8775p DP controller.
+
+Please write your commit messages in the style expressed in
+https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
+
+Use the commit message to document why the code/dt looks like it does.
+Describe the problem your solving and why.
+
+> 
+> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>  arch/arm64/boot/dts/qcom/sa8775p.dtsi | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sa8775p.dtsi b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> index 0dbaa17e5e3f06c61b2aa777e45b73a48e50e66b..0150ce27b98e9894fa9ee6cccd020528d716f543 100644
+> --- a/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> @@ -3944,16 +3944,20 @@ mdss0_dp0: displayport-controller@af54000 {
+>  					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_AUX_CLK>,
+>  					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_LINK_CLK>,
+>  					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_LINK_INTF_CLK>,
+> -					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK>;
+> +					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK>,
+> +					 <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL1_CLK>;
+>  				clock-names = "core_iface",
+>  					      "core_aux",
+>  					      "ctrl_link",
+>  					      "ctrl_link_iface",
+> -					      "stream_pixel";
+> +					      "stream_pixel",
+> +					      "stream_1_pixel";
+
+I don't see this being a valid clock-names in the DT binding, does this
+pass dtbs_check?
+
+Regards,
+Bjorn
+
+>  				assigned-clocks = <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_LINK_CLK_SRC>,
+> -						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>;
+> -				assigned-clock-parents = <&mdss0_dp0_phy 0>, <&mdss0_dp0_phy 1>;
+> +						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL0_CLK_SRC>,
+> +						  <&dispcc0 MDSS_DISP_CC_MDSS_DPTX0_PIXEL1_CLK_SRC>;
+> +				assigned-clock-parents = <&mdss0_dp0_phy 0>, <&mdss0_dp0_phy 1>, <&mdss0_dp0_phy 1>;
+>  				phys = <&mdss0_dp0_phy>;
+> +
+>  				phy-names = "dp";
+>  
+>  				operating-points-v2 = <&dp_opp_table>;
+> 
+> -- 
+> 2.34.1
+> 
