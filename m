@@ -2,134 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A73FA03DC7
-	for <lists+freedreno@lfdr.de>; Tue,  7 Jan 2025 12:32:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 282A1A03F9D
+	for <lists+freedreno@lfdr.de>; Tue,  7 Jan 2025 13:47:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8207610E432;
-	Tue,  7 Jan 2025 11:32:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04B4310E321;
+	Tue,  7 Jan 2025 12:47:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="R5HlCX9P";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zCt/Tf+/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA14210E432
- for <freedreno@lists.freedesktop.org>; Tue,  7 Jan 2025 11:32:34 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-53f22fd6832so17033381e87.1
- for <freedreno@lists.freedesktop.org>; Tue, 07 Jan 2025 03:32:34 -0800 (PST)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F01D110E321
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Jan 2025 12:47:18 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-304d760f118so39245711fa.0
+ for <freedreno@lists.freedesktop.org>; Tue, 07 Jan 2025 04:47:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736249493; x=1736854293; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=G3N5s5fdL2YNf7soMuvHTeYgJ8vy52pHoEfk/tcGSD8=;
- b=R5HlCX9P2+IGbW3aQGV6h+SpZEdmyeGZPruuB5C0nX7QtXnh5uBl4Cf9cg9TqezUuS
- GbEdiF1M3qxqdSk8JPJCqv86EJjI14TnJEmjNy0GBpxgis4h1cHbsdvkTr5D3hdoNbw3
- R5GCqh+/uXz4eOb6qRmUPH/aVfqYRnd337qs1sqqEeVdUfwrgfxShOtTCqKq5wFKimgI
- ZGnQfja2tN95ZydphVDeEvKgBggkkbvPjql5BoXSo/4r9iLkHJZmpS5RUaFrgLgzhdwi
- KnX9hKWQQDnqySmG9tEOxWN3b3BW0yVJi+Yu/unG+jcqDqxq5euOtAL2FZ+GaHBFwsLe
- FYXw==
+ d=linaro.org; s=google; t=1736253977; x=1736858777; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=MBYCXiNUmP+NS1TJr5/lQJkltRhghdhyfGgha2+EzJU=;
+ b=zCt/Tf+/CpYwI7C5xQYQ0KapApPDE5tZkAcgas6xXRNB3YkB46veSCaummdUS79uwe
+ M8cY+lxV7Q9pOlnaaja6YmLWJoVr+qhfnGq8YKwM7h3QyMTX9kYw806vwidAYq95cBNl
+ bJQxFhS8X4O8IlmBRrASzOcyoInUWT4xx9XhPDnTTN1j/ErG/mSPN7kKILA7DH6UWX+a
+ OMbFxvxbxrJmNl8evvqur8UjUujYeon5HUL0Z+/aNAvWsYa/jDI6lepccp0EqU4J/bRJ
+ icpOwC2sftXX7hMWKV93Yll4emYwBkDDvWOCl0/FKK1JL1pfOdv/7IDvEzNFVZyNkm2D
+ 0EaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736249493; x=1736854293;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=G3N5s5fdL2YNf7soMuvHTeYgJ8vy52pHoEfk/tcGSD8=;
- b=ZfPp1Z7qUKCHy4A4BC8wSqhR9Qqym86DnJ6iqPJlsZltVkxQwP6WIBHwciMPVB5M4Y
- Wm07+DC4W27p/5DWz6eIImf+JVZwqc/TXXN5CHCBnXtgx70C1gXpPGkTJY2XVKpd9sNZ
- h4BVhU52cTCDRSMCun/1Z+vsyjV4kjsrOqc0+g5AOcAuoQTZ6pSPu4CoddN0I5R8dD/i
- elvClxjj/Lz6w0JQxgQXIBPECkau/F+i3EgqbG5tzWzxzyE16cn/ckm6T6LFhjxGKq8P
- mG1mZVkNSKfcxZ8dPnJ+XdJR7gbOI6+bwwnAZTRm+rWPxIY7aumWtoWkHO/BVz3rzQ2/
- F+yw==
+ d=1e100.net; s=20230601; t=1736253977; x=1736858777;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=MBYCXiNUmP+NS1TJr5/lQJkltRhghdhyfGgha2+EzJU=;
+ b=mVVIY0inMH6OIt5d2YFNTL5+zeSV6QoRO5MRRq48wdYbiEBPIVD/mwSHJPhrWJ53xR
+ L4xdzNC8GCcURdUJ/WWQB/q0LGJfUlvzoVFp0PNosTSiLVQz6I/1MRjFYNafIkDXvQdD
+ OwaKUbA7lI7qK+7HS6Q7nbp4S7lTRWfmUykVmGSVZoWtxCoNxWQRhQg5lXBXrA/t/zBW
+ pUn57DAtS5SOSB0Y9UX9yDovfzzYDnVCVyHa9y2XzZE5YdcV3srXAkcOeaI+SBfQyGOY
+ JJ6CFw93dF7gdDN6gxVqVfDYSdFo6DYuadckoRglj0TuszPebSu9Ijkgl1lFymyVhiGj
+ 3NIw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXnHGRj8Ihs+L+AfSlwrg1Inp0wn0kpkXVpmw33cDa2zNUGa9Nq/DhuoISOyulQ2gIBdOosPfQOUsY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxdwm5c3yyGx62kx9u6kJ7DK5nisY/ks/7FZwwOtPCVhkL2mCN+
- FeFPLkmtNyGK8/fSeflYySRacptwlvtzncp47ZyqNZUiOqueBENzZcthMUgy3Lk=
-X-Gm-Gg: ASbGncsMNVZ5/iGK7P5JUkJ4X7877/8vVRvLQTPCf5Q5oKzw9WtMHcFL4dp4F/gWmxQ
- IMRANCFUr8nyOct+0NESKupyThXi466c3N3cQPaIUBIQ6Wo44pyQn1xnfIeQkzIvZT7l4MSPzBH
- p6jxk/6Q6iBU16kvyq0t5yhaDXW8XyMtwnGaNQS3yh9w8AfeEa/RX20MooCgrOPuydvxe/ygiWc
- 6fgyo8y6/w9B8sfOecq/8VvN0z4PJRy2192Nq38yVO0T39zM5nDCiAL/ybJzvAkUqlVAsKWp1nb
- Gc6sI4C1uVM1hWRMzT3RKSTK
-X-Google-Smtp-Source: AGHT+IENf5iIM0eyUUKKI+rIQnGA5rELVSy2jGiVzJtZlwGnyitqzrPGGRO+n/bqFHmHqnjQEDg7ZA==
-X-Received: by 2002:ac2:4c4c:0:b0:542:7217:361a with SMTP id
- 2adb3069b0e04-54272173890mr3514721e87.10.1736249493006; 
- Tue, 07 Jan 2025 03:31:33 -0800 (PST)
-Received: from eriador.lan (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00::b8c]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-542235f658csm5169219e87.44.2025.01.07.03.31.30
+ AJvYcCW/x5c3ypCcVtmuGm6sV8C1c22Mur1p5N7aKF7zWe1VuSvu5HZADoHwBTV3lY+nfv/imM3xFPUFc5M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzQL1gH00IAdZBFYLtew+bPo4o433BIFVwEyw8X0UEndWdINpEv
+ pxdYLWduodaI1Yp3Sx+VIwZmSJ3s1lHIdMImOGVIxXThh45xgrCO91r9FpHtvumSxOFLquX6osR
+ B9uE=
+X-Gm-Gg: ASbGncs1RubuteC3riiPtKT0NxEQZwBOzOyt3r74pi/48tTOmMUreEhocdDxqX6qgHM
+ 19feAriPZdN4x4qfQjUF0GzwZpbuvNnIHuHwA5Ch7BMo+gavlznWxthqSwwasxIgdBBGtyFJF+e
+ 4vnBADd2c5jXvKwNKqHk8bL5UlEjUYWt/ibZmkUIJu7qIkWwcaqA4RvSfW9EhjE0JW07SXu8CA/
+ GxiIMOvD7neUoXQGMD/zQf7Vip1DCAuE8qYDdau/DW7XrFtGRHGqVTqTIQ9Ee1kKxN+BBcF2LHg
+ bjYrL8fhY2RuTb0N/K48Ry9JeoZFjHYrbuwU
+X-Google-Smtp-Source: AGHT+IHc6EgVBLn9/SQM53EGhpryw3Dq5lMmYc0JINGrSFhjD24qHjoSL/GI445hMcy9tZWQjpzLZA==
+X-Received: by 2002:a05:651c:1a0c:b0:302:3534:1fba with SMTP id
+ 38308e7fff4ca-30468547e32mr208884401fa.17.1736250399600; 
+ Tue, 07 Jan 2025 03:46:39 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3045b082e01sm58637631fa.98.2025.01.07.03.46.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jan 2025 03:31:31 -0800 (PST)
+ Tue, 07 Jan 2025 03:46:38 -0800 (PST)
+Date: Tue, 7 Jan 2025 13:46:36 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Karol Herbst <kherbst@redhat.com>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@redhat.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Peter Senna Tschudin <peter.senna@gmail.com>, Ian Ray <ian.ray@ge.com>,
- Martyn Welch <martyn.welch@collabora.co.uk>,
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Stefan Agner <stefan@agner.ch>,
- Alison Wang <alison.wang@nxp.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+To: neil.armstrong@linaro.org
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>,
- Samuel Holland <samuel@sholland.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [PATCH v2 0/5] drm/connector: make mode_valid() callback accept
- const mode pointer
-Date: Tue,  7 Jan 2025 13:31:28 +0200
-Message-ID: <173624946815.1500596.321177900833598022.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20241214-drm-connector-mode-valid-const-v2-0-4f9498a4c822@linaro.org>
-References: <20241214-drm-connector-mode-valid-const-v2-0-4f9498a4c822@linaro.org>
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] drm/msm/dpu: enable CDM for all supported platforms
+Message-ID: <6etymzv5vziexe6kcgzas6pr2qgxbgsw3weobydwst7np77col@jszgjhnvcsy7>
+References: <20241224-dpu-add-cdm-v1-0-7aabfcb58246@linaro.org>
+ <1cb0b1f4-b445-471d-a7e1-660e3b82dacc@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1cb0b1f4-b445-471d-a7e1-660e3b82dacc@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,32 +95,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 14 Dec 2024 15:37:04 +0200, Dmitry Baryshkov wrote:
-> While working on the generic mode_valid() implementation for the HDMI
-> Connector framework I noticed that unlike other DRM objects
-> drm_connector accepts non-const pointer to struct drm_display_mode,
-> while obviously mode_valid() isn't expected to modify the argument.
+On Tue, Jan 07, 2025 at 09:16:21AM +0100, neil.armstrong@linaro.org wrote:
+> On 24/12/2024 05:25, Dmitry Baryshkov wrote:
+> > Enable CDM block on all the platforms where it is supposed to be
+> > present. Notably, from the platforms being supported by the DPU driver
+> > it is not enabled for SM6115 (DPU 6.3), QCM2290 (DPU 6.5) and SM6375
+> > (DPU 6.9)
 > 
-> Mass-change the DRM framework code to pass const argument to that
-> callback.
 > 
-> [...]
+> Can you specify how to validate this ?
 
-Applied to drm-misc-next, thanks!
+Use YUV for Writeback or DP output.
 
-[1/5] drm/encoder_slave: make mode_valid accept const struct drm_display_mode
-      commit: 7a5cd45fab0a2671aa4ea6d8fb80cea268387176
-[2/5] drm/amdgpu: don't change mode in amdgpu_dm_connector_mode_valid()
-      commit: b255ce4388e09f14311e7912d0ccd45a14a08d66
-[3/5] drm/sti: hda: pass const struct drm_display_mode* to hda_get_mode_idx()
-      commit: 5f011b442006ccb29044263df10843de80fc0b14
-[4/5] drm/connector: make mode_valid_ctx take a const struct drm_display_mode
-      commit: 66df9debcb29d14802912ed79a9cf9ba721b51a4
-[5/5] drm/connector: make mode_valid take a const struct drm_display_mode
-      commit: 26d6fd81916e62d2b0568d9756e5f9c33f0f9b7a
+> 
+> Thanks,
+> Neil
+> 
+> > 
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> > Dmitry Baryshkov (4):
+> >        drm/msm/dpu: rename CDM block definition
+> >        drm/msm/dpu: enable CDM_0 for all DPUs which are known to have it
+> >        drm/msm/dpu: enable CDM_0 for SC8280XP platform
+> >        drm/msm/dpu: enable CDM_0 for X Elite platform
+> > 
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_0_sm8650.h  | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_14_msm8937.h | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_15_msm8917.h | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_16_msm8953.h | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_1_7_msm8996.h  | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_0_msm8998.h  | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_2_sdm660.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_3_3_sdm630.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_0_sdm845.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_4_1_sdm670.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_0_sm8150.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h  | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_2_sm7150.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_4_sm6125.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_0_sm8250.h   | 2 +-
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_2_sc7180.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_6_4_sm6350.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_0_sm8350.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_7_2_sc7280.h   | 2 +-
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_0_sc8280xp.h | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_1_sm8450.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_8_4_sa8775p.h  | 2 +-
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_0_sm8550.h   | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_9_2_x1e80100.h | 1 +
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c           | 2 +-
+> >   26 files changed, 26 insertions(+), 4 deletions(-)
+> > ---
+> > base-commit: 8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2
+> > change-id: 20241215-dpu-add-cdm-0b5b9283ffa8
+> > 
+> > Best regards,
+> 
 
-Best regards,
 -- 
 With best wishes
 Dmitry
-
