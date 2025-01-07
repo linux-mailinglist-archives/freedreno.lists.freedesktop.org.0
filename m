@@ -2,84 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 282A1A03F9D
-	for <lists+freedreno@lfdr.de>; Tue,  7 Jan 2025 13:47:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12377A03E46
+	for <lists+freedreno@lfdr.de>; Tue,  7 Jan 2025 12:55:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04B4310E321;
-	Tue,  7 Jan 2025 12:47:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 758FF10E423;
+	Tue,  7 Jan 2025 11:55:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="zCt/Tf+/";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="n9Ud07rz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F01D110E321
- for <freedreno@lists.freedesktop.org>; Tue,  7 Jan 2025 12:47:18 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-304d760f118so39245711fa.0
- for <freedreno@lists.freedesktop.org>; Tue, 07 Jan 2025 04:47:18 -0800 (PST)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 269DE10E6BC
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Jan 2025 11:55:37 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-53f22fd6887so14237463e87.2
+ for <freedreno@lists.freedesktop.org>; Tue, 07 Jan 2025 03:55:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736253977; x=1736858777; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1736250875; x=1736855675; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=MBYCXiNUmP+NS1TJr5/lQJkltRhghdhyfGgha2+EzJU=;
- b=zCt/Tf+/CpYwI7C5xQYQ0KapApPDE5tZkAcgas6xXRNB3YkB46veSCaummdUS79uwe
- M8cY+lxV7Q9pOlnaaja6YmLWJoVr+qhfnGq8YKwM7h3QyMTX9kYw806vwidAYq95cBNl
- bJQxFhS8X4O8IlmBRrASzOcyoInUWT4xx9XhPDnTTN1j/ErG/mSPN7kKILA7DH6UWX+a
- OMbFxvxbxrJmNl8evvqur8UjUujYeon5HUL0Z+/aNAvWsYa/jDI6lepccp0EqU4J/bRJ
- icpOwC2sftXX7hMWKV93Yll4emYwBkDDvWOCl0/FKK1JL1pfOdv/7IDvEzNFVZyNkm2D
- 0EaQ==
+ bh=1BZ9YGNo2SXE7kqR3kflhucDH3azbi8G4Q6AF5m/Ioc=;
+ b=n9Ud07rzAV7uSHP8qP3WO/7GcJ31lo75yzJ7gD+PQCT4R7hOEOFBsGcIZdSnWC5387
+ w31IxJY5UJ4kiRmjKmz70lZ9NM/p5zT0bLkiOE+8WTCa7Sgdu4dUofoNk8foRI1oyfLY
+ C3W6rz3IxMdnseCfK/3leH6fbdFl9c6QvUjv03lm8bdi9ebASLNMCuYsmQ9Lg2WwThGc
+ f/8be14kTofIGYq9kehj2nU7BTllwipabiNSAFTUkPQ47oVO3oWHJ7yJYKW4KNmhR2jh
+ gW6V+N4DhFwo2PH6L5qzWeDR04nPqvtRmsNlelzKzAB64Sgo+ejdcTL7Tj3fvePRXF+B
+ kIfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736253977; x=1736858777;
+ d=1e100.net; s=20230601; t=1736250875; x=1736855675;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=MBYCXiNUmP+NS1TJr5/lQJkltRhghdhyfGgha2+EzJU=;
- b=mVVIY0inMH6OIt5d2YFNTL5+zeSV6QoRO5MRRq48wdYbiEBPIVD/mwSHJPhrWJ53xR
- L4xdzNC8GCcURdUJ/WWQB/q0LGJfUlvzoVFp0PNosTSiLVQz6I/1MRjFYNafIkDXvQdD
- OwaKUbA7lI7qK+7HS6Q7nbp4S7lTRWfmUykVmGSVZoWtxCoNxWQRhQg5lXBXrA/t/zBW
- pUn57DAtS5SOSB0Y9UX9yDovfzzYDnVCVyHa9y2XzZE5YdcV3srXAkcOeaI+SBfQyGOY
- JJ6CFw93dF7gdDN6gxVqVfDYSdFo6DYuadckoRglj0TuszPebSu9Ijkgl1lFymyVhiGj
- 3NIw==
+ bh=1BZ9YGNo2SXE7kqR3kflhucDH3azbi8G4Q6AF5m/Ioc=;
+ b=iogr8xjEfxv+eDn+DX6IwCFdRe7Rsr9MQ9cmWArSeNF4B2SXzXweao44x0k9ZPviSB
+ pAHHzEJV68BYEg1TkQbhEo1CmMpcpTfVdmt3Z5d9Kw67amafzq8FJZH0m+J6RC33K1et
+ 6jPHGAaSakP+EbMfb0JLnd7piRVaTkswgFVf8e3KVIN2GQ06uD6lwxZRZWZdkKQ4stuY
+ WyYFJv8bCeOWFad7wn8OH8KOaiEpvmxqbqDYr9z7z7dZjOXMfzXGCUfbd3ExT4JTDiJ8
+ qt/Ww7/ffd3JpfoYVI56rRqYr3iauEvnNaQcjARFBl+Oj3auT/DmXwG0NDNyNv7buUtm
+ gtLw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW/x5c3ypCcVtmuGm6sV8C1c22Mur1p5N7aKF7zWe1VuSvu5HZADoHwBTV3lY+nfv/imM3xFPUFc5M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzQL1gH00IAdZBFYLtew+bPo4o433BIFVwEyw8X0UEndWdINpEv
- pxdYLWduodaI1Yp3Sx+VIwZmSJ3s1lHIdMImOGVIxXThh45xgrCO91r9FpHtvumSxOFLquX6osR
- B9uE=
-X-Gm-Gg: ASbGncs1RubuteC3riiPtKT0NxEQZwBOzOyt3r74pi/48tTOmMUreEhocdDxqX6qgHM
- 19feAriPZdN4x4qfQjUF0GzwZpbuvNnIHuHwA5Ch7BMo+gavlznWxthqSwwasxIgdBBGtyFJF+e
- 4vnBADd2c5jXvKwNKqHk8bL5UlEjUYWt/ibZmkUIJu7qIkWwcaqA4RvSfW9EhjE0JW07SXu8CA/
- GxiIMOvD7neUoXQGMD/zQf7Vip1DCAuE8qYDdau/DW7XrFtGRHGqVTqTIQ9Ee1kKxN+BBcF2LHg
- bjYrL8fhY2RuTb0N/K48Ry9JeoZFjHYrbuwU
-X-Google-Smtp-Source: AGHT+IHc6EgVBLn9/SQM53EGhpryw3Dq5lMmYc0JINGrSFhjD24qHjoSL/GI445hMcy9tZWQjpzLZA==
-X-Received: by 2002:a05:651c:1a0c:b0:302:3534:1fba with SMTP id
- 38308e7fff4ca-30468547e32mr208884401fa.17.1736250399600; 
- Tue, 07 Jan 2025 03:46:39 -0800 (PST)
+ AJvYcCVIqkiW4vwPBq0a56tlePZvMOHPuxTRrw6JNDl4H5upFNo3oA6xowkzgiO7BQA4k031tXm9MrZD9MA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzOswkP2vhbFPFePeSAQ0MKTRF0bVb5FnKE2ufgyt1WkwWfUD2Y
+ /Jwm8PPY2YyUCB9AshDQPx7rCxitMEKlytv7LyUruRijKuyUtZJrlqfcSWbxP8Udpu6LN47R8ad
+ T9cY=
+X-Gm-Gg: ASbGnctNCOlnsR+VGCGLm7y7Nq69CCiJstd/yigf6HDwuO6VPlMhgpYW3P22a58WpWL
+ C32hraLlad54tuRIW0m2DL3g/AQ1+LxPxk72D0BoPBLGuA2fZ3Ly3drB9/wsvzzE0EXJY/8u8su
+ 0v5J19RvSzLq5zcXSjy0qJuIxNMQVKbp8FibKzAo7Zfvy4X1kIWtrLKJyPRSN9LhinY/QztaNcL
+ ECt3vsDAulw2z/yfgtnJDfJHiQo/D5CzVBQScXLsT0xfwvJ08iRhOpFTWfEXzh4Qpq2BzKlrabR
+ Q5dQhLkQ0E8ZB/a7CsAReAnyDqgnP4sLI9/P
+X-Google-Smtp-Source: AGHT+IF/JNesMMW9YpGdlDaPx32nw8jUIyI7gzybSiownU+qrpr62y2ro0G/5CclxAQbTzS55DGgEA==
+X-Received: by 2002:a05:6512:318c:b0:542:2943:db06 with SMTP id
+ 2adb3069b0e04-54229547836mr17722319e87.33.1736250487515; 
+ Tue, 07 Jan 2025 03:48:07 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3045b082e01sm58637631fa.98.2025.01.07.03.46.37
+ 2adb3069b0e04-54223832002sm5244113e87.264.2025.01.07.03.48.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jan 2025 03:46:38 -0800 (PST)
-Date: Tue, 7 Jan 2025 13:46:36 +0200
+ Tue, 07 Jan 2025 03:48:06 -0800 (PST)
+Date: Tue, 7 Jan 2025 13:48:03 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: neil.armstrong@linaro.org
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH 0/4] drm/msm/dpu: enable CDM for all supported platforms
-Message-ID: <6etymzv5vziexe6kcgzas6pr2qgxbgsw3weobydwst7np77col@jszgjhnvcsy7>
+Message-ID: <t2pun2bz73aq426jokjlyeweknln74ygf5xj44tnmsoxowvnku@qtxqjruhfkju>
 References: <20241224-dpu-add-cdm-v1-0-7aabfcb58246@linaro.org>
- <1cb0b1f4-b445-471d-a7e1-660e3b82dacc@linaro.org>
+ <92ba142e-0793-4a47-a8b4-115050114132@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1cb0b1f4-b445-471d-a7e1-660e3b82dacc@linaro.org>
+In-Reply-To: <92ba142e-0793-4a47-a8b4-115050114132@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,23 +94,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jan 07, 2025 at 09:16:21AM +0100, neil.armstrong@linaro.org wrote:
-> On 24/12/2024 05:25, Dmitry Baryshkov wrote:
+On Mon, Jan 06, 2025 at 07:17:40PM -0800, Abhinav Kumar wrote:
+> 
+> 
+> On 12/23/2024 8:25 PM, Dmitry Baryshkov wrote:
 > > Enable CDM block on all the platforms where it is supposed to be
 > > present. Notably, from the platforms being supported by the DPU driver
 > > it is not enabled for SM6115 (DPU 6.3), QCM2290 (DPU 6.5) and SM6375
 > > (DPU 6.9)
-> 
-> 
-> Can you specify how to validate this ?
-
-Use YUV for Writeback or DP output.
-
-> 
-> Thanks,
-> Neil
-> 
 > > 
+> 
+> Thanks for enabling it, but can you also explain on which of these has
+> validation already been done and on which ones you need Tested-by from the
+> community?
+
+Actually none :D It is purely based on your CDM support and existing
+vendor DT trees. Maybe we should spend some time validating it.
+
+> 
+> Is it fair to assume that changes (3) and (4) were sent out separately and
+> not squashed into (2) because they are pending validation?
+
+No, it's because I don't have DT (and so I didn't have reference) for
+SC8280XP or X Elite.
+
+> 
 > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > > ---
 > > Dmitry Baryshkov (4):
@@ -152,7 +159,6 @@ Use YUV for Writeback or DP output.
 > > change-id: 20241215-dpu-add-cdm-0b5b9283ffa8
 > > 
 > > Best regards,
-> 
 
 -- 
 With best wishes
