@@ -2,85 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D61A5A04C94
-	for <lists+freedreno@lfdr.de>; Tue,  7 Jan 2025 23:44:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 930FFA04D5B
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 00:20:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B091110E3F9;
-	Tue,  7 Jan 2025 22:44:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5497F10E041;
+	Tue,  7 Jan 2025 23:20:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="gBRsTH9l";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="aX12G3BI";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
- [209.85.208.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E15ED10E3F9
- for <freedreno@lists.freedesktop.org>; Tue,  7 Jan 2025 22:44:33 +0000 (UTC)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-3002c324e7eso181312221fa.3
- for <freedreno@lists.freedesktop.org>; Tue, 07 Jan 2025 14:44:33 -0800 (PST)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAD9E10E041
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Jan 2025 23:20:33 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-aaf57c2e0beso1348728466b.3
+ for <freedreno@lists.freedesktop.org>; Tue, 07 Jan 2025 15:20:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736289812; x=1736894612; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1736291972; x=1736896772; darn=lists.freedesktop.org;
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:message-id:subject:cc:to:from:date:from:to
  :cc:subject:date:message-id:reply-to;
- bh=pa3RqmxudYJyFQPRnw18vNuYTg6IZacGgInKXmkuvPY=;
- b=gBRsTH9lYdJathrLq2CWKQvNc/l3kych6iYn5n53DB0AvcharS7NrSkQE+O3fPbpE3
- yK0tXqx7yV525yikALcvFOroo8VHM48p96NW+HlmJVYi1M1xxcP5B2tfg47sEVpkaWa7
- QRbJeJnFHTznjVW9KFEIvIrKMseuby4lCyYFounC35dQKnId15HgUIh7IVYNHbZeu8GR
- 4h92HZJBRJm8XiN7My/UoMee4jGPaTM7K45vH7hxckggqbQlvHX3S+w4Ke4+xt2OF+Hn
- oPkCbqR6oSdlXeZLakGdbTUcNafdigl3up6ctTq+GkoB80jPaBwhv8D7pPnek08z10vM
- Ne4w==
+ bh=mMn+z48n5sDePMLHOThKGK3HUHhS6YpHtjLFF5FzZzw=;
+ b=aX12G3BISLkrOiB/iRPBnFTjGo5RYOKZEOs4zry0WCs3d5OalzBDws2LF62PobKap0
+ E3pWiRRUGghllpNOEzRWqFFRWY+QBfowzZxquTAYlmicOfE/NH1XQPaf9sS6+i8aoUWu
+ DcZkZwFilql9FFj/5mobzCCSt2Bjr51MF8sEkzcmLX5GZdREaDFWW1fDKlaSw2PGVIcQ
+ 4Qfs1SOJ+UYW9MFnZPd65CutFpcEYDyEemMgdoqQpyiugA/Yy0VEERWiPVsvgBr4YauQ
+ HQMU3QHL3uXqH0jwaQUOkcTNtkrXs7mGMhWf7PgffjMrQCQQrnd20xsPbuf4oGJbKW2g
+ aw1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736289812; x=1736894612;
+ d=1e100.net; s=20230601; t=1736291972; x=1736896772;
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pa3RqmxudYJyFQPRnw18vNuYTg6IZacGgInKXmkuvPY=;
- b=Trpxwv0C9ELZr9YMkhYX7uoMuj5qmMu2P5+ta4vtRwa/M2tmWrvSxtG8pxxrjR2PqJ
- POPLZkeuyS6t+9gZPNQpi3M9O0Ah+cu8jEnIuIGrmO4N8XM3dgLMV1yZt7+Cm2+1I8Qv
- e79Qs+rapU8Uinu6TczzxW7obDWKCxNcO8POOX1UBLfPNyTj7950vcu1A0+cuFR6lMe6
- DXVsBQwR8jsWx/go0eFx4Z96gPlY9O7ghNkNdLx6RvumIiF/GtkoJQrFtd/eRihXNOvk
- hgLesK6u+o+O/+1I1RYIqzTNvsoBfZez7xGZr7bkBc0KXD/qj1Hf2kzfe7lLLwGd75Ws
- xhlA==
+ bh=mMn+z48n5sDePMLHOThKGK3HUHhS6YpHtjLFF5FzZzw=;
+ b=pQYfeCy5GmnFgSg4qy1cfflpErievwP8OMhDIJ2AeBP2UzNDfk5NCSWiyWg71sB6pW
+ wwjaeX0Bxc8vnD2B8o4SNRaFR1kXs9MgORaMEyFGLt/jUEzx6bIl4DsJaTJNZaCwbnR8
+ t2bpEa97aW7tzDH/95UhJIH/PXs4pjQbXH+kIBG7qBN1JPBOw6Zvthpk6iqp3vPfV2mn
+ Q7LrpSEySdNMmTB4AiqM7wUzmutAn6KAusfzpHt1ABgRP6hXLAh5iUPZvnLKkWA8rhh1
+ S5mrzUKvnwqBIqUIcBqnEIuNMAo7oC5xPGqX9Xm3HDy+KWcJaV5c2DSS3Pt6LwCYLZTA
+ /ruQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXcFN0FEJszDVqjLw9u0FZ+k+oc62CGTha82vyNfq2dQPEqcu3pLgc7bWFhbp1ZyIdgBpeo21zzefc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyM+H+hA75nj4sBxevYxU3fhuKufhT3tt4tmzykhkreaB3nBt8E
- iZ5sXy3t+v4hsjdAYDEMRU3v+6IK4HAa/GkyWtERQ94cCMgRSehpOGUw7ldCiHY=
-X-Gm-Gg: ASbGncujkd2iN8RcxbN3JS+iik4IsBXWqFxsYqekA6PCTcfK2UXjQeA9+ZsuAGKC88o
- 89UaR7z+DFnRyUQvXcXPqPCN7+6uvK+JGT1LoqwhIk8hM8T1npMJ2hG52wtflJ7oTyEC+frGMhZ
- 46lDif3PgdCUrd34hqhYWpW2pdTI4n4B9rCCixifufiraEeU48uiDuOcuf7EsoQvE96iYxvtArB
- oDD2gTZYBxqHUiEQtphZqLRKEe8p7f/S7AkspADof5fHWLiSnjbiulH1Gp6E5ZR95oo5Ddlp7JV
- iBMCBc4yD8TJxpKYfdHl26SU5soIytNxnPKn
-X-Google-Smtp-Source: AGHT+IHy5V27gDH+by9fnJ68iOhPGvEIJqeaut59nvgCwr8FXp2+T/5yYWYjCX3jT2mFaBHiG+I4UA==
-X-Received: by 2002:a2e:bea8:0:b0:302:1b18:2c09 with SMTP id
- 38308e7fff4ca-305f45ba080mr1149561fa.27.1736289812296; 
- Tue, 07 Jan 2025 14:43:32 -0800 (PST)
+ AJvYcCUtIYKTN0ht31JuCJlVvpEeuCfBiu1qfW7L8h0l88GCcEpFveNOu/VoQXf5y3Or4qUyYfjHOSICxwQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YynnuQte1yjCFyHBYzVwk1oCb8jCpaGH8r/UHIEhbfmLLiOptIR
+ D2zFcxNOfaY8Mc7GaLyAFXKpl1N2zLXlQQRd7o2hyrbOfzplCA5icr7pyC1NihLcmorEOCce+mX
+ 2
+X-Gm-Gg: ASbGncv8Ub1FqshWwQ/zEcDsfp3B91hkMYYruA8ar/uZKAsDLe36SEBDxy0sl45/bbw
+ bMcI6e2kTuQEhrtdxoPfALby1PCPWc30vAXgMYq09nYr1coSLAt2/b5+5G1axTWsQ2FQWX1Z286
+ qMSNBbHGc1Wmv+x5FqEPSqi5FGk5E0DlMVy5YPCp21nsCkWDGRQBax7K2Ev8SAermp1z83w/UNf
+ TeTR3uu/DMfK7OLVsKAyIOhAodmTQcvR5m7tROoZlhru1Rceg7VSn/HHDEco55rSrsiYn2l6zXo
+ l4YVpnAR+cM7YMm8Rp4x08d65/1J26szy9cF
+X-Google-Smtp-Source: AGHT+IFCpSE+6bYHg6NHBaB8kARffXJeZAVotzbF1jSuppzcHd7AtPj85AqoS/RBH5MSht9AXr1DdA==
+X-Received: by 2002:a05:6512:2803:b0:542:29b6:9c26 with SMTP id
+ 2adb3069b0e04-542848108femr117742e87.47.1736288750743; 
+ Tue, 07 Jan 2025 14:25:50 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3045ad9b9c4sm61091001fa.31.2025.01.07.14.43.30
+ 2adb3069b0e04-542235f6002sm5357569e87.36.2025.01.07.14.25.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jan 2025 14:43:31 -0800 (PST)
-Date: Wed, 8 Jan 2025 00:43:29 +0200
+ Tue, 07 Jan 2025 14:25:49 -0800 (PST)
+Date: Wed, 8 Jan 2025 00:25:47 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Cc: Will Deacon <will@kernel.org>, iommu@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- Robin Murphy <robin.murphy@arm.com>, Rob Clark <robdclark@chromium.org>, 
- Joerg Roedel <joro@8bytes.org>, 
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] iommu/arm-smmu-qcom: Only enable stall on smmu-v2
-Message-ID: <fipxf3vf3nrbiqgwtu7z4vqcyt52dludehdvqc2cnfbal6poyv@uj4hxrlhnqeg>
-References: <20250102183232.115279-1-robdclark@gmail.com>
- <20250107125738.GA6991@willie-the-truck>
- <CAF6AEGtZSOMi-=AOmjoXSVkwfyvKOymSuRRMZ7jOcM2wyhu5qg@mail.gmail.com>
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 15/15] drm/msm/dpu: Enable quad-pipe for DSC and
+ dual-DSI case
+Message-ID: <mo45zzcmr56grnj42o5rc57t2xdj3rq27chryaqbiwzcbzhjdh@4cvk6er7fr3g>
+References: <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-0-92c7c0a228e3@linaro.org>
+ <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-15-92c7c0a228e3@linaro.org>
+ <etci547cjykqlqfswhkzdbdfx7cuyrszzswxv2qaghzu2fnu3y@fgitftlhe3oh>
+ <CABymUCNxSKAzNq34evjOdWQy5EmRLg96_S=2O1EUguNFztFgVw@mail.gmail.com>
+ <eshnauruu4sybpgsfrrwlvk3cpb2zg4mykg4agwong3dbiduic@nvupoe6aoyzu>
+ <CABymUCPXnXYgwemODHOP-Ez3TpGfX3X8ZrOWx7j1a81XzNSjSA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGtZSOMi-=AOmjoXSVkwfyvKOymSuRRMZ7jOcM2wyhu5qg@mail.gmail.com>
+In-Reply-To: <CABymUCPXnXYgwemODHOP-Ez3TpGfX3X8ZrOWx7j1a81XzNSjSA@mail.gmail.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,50 +102,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jan 07, 2025 at 07:26:44AM -0800, Rob Clark wrote:
-> On Tue, Jan 7, 2025 at 4:57 AM Will Deacon <will@kernel.org> wrote:
+On Mon, Jan 06, 2025 at 04:21:43PM +0800, Jun Nie wrote:
+> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> 于2025年1月4日周六 01:51写道：
 > >
-> > On Thu, Jan 02, 2025 at 10:32:31AM -0800, Rob Clark wrote:
-> > > From: Rob Clark <robdclark@chromium.org>
+> > On Fri, Jan 03, 2025 at 11:49:07PM +0800, Jun Nie wrote:
+> > > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> 于2024年12月20日周五 07:46写道：
+> > > >
+> > > > On Thu, Dec 19, 2024 at 03:49:33PM +0800, Jun Nie wrote:
+> > > >
+> > > > >  #ifndef DPU_MAX_DE_CURVES
+> > > > >  #define DPU_MAX_DE_CURVES            3
+> > > > >  #endif
+> > > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > > > > index 57ccb73c45683..b5c1ad2a75594 100644
+> > > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > > > > @@ -1474,7 +1474,7 @@ static void _dpu_plane_atomic_disable(struct drm_plane *plane)
+> > > > >               trace_dpu_plane_disable(DRMID(plane), false,
+> > > > >                                       pstate->pipe[i].multirect_mode);
+> > > > >
+> > > > > -             if (pipe->sspp && i == 1) {
+> > > > > +             if (pipe->sspp && pipe->multirect_index == DPU_SSPP_RECT_1) {
+> > > >
+> > > > Separate change, please. Also I'm not sure how does that work with the
+> > > > shared SSPP case that I pointed to in one of the previous replies.
 > > >
-> > > On mmu-500, stall-on-fault seems to stall all context banks, causing the
-> > > GMU to misbehave.  So limit this feature to smmu-v2 for now.
-> > >
-> > > This fixes an issue with an older mesa bug taking outo the system
-> > > because of GMU going off into the weeds.
-> > >
-> > > What we _think_ is happening is that, if the GPU generates 1000's of
-> > > faults at ~once (which is something that GPUs can be good at), it can
-> > > result in a sufficient number of stalled translations preventing other
-> > > transactions from entering the same TBU.
+> > > Maybe we can add a peer member in the pipe to reference each other, then we have
+> > > chance to use multirect across all pipes in all planes.
 > >
-> > MMU-500 is an implementation of the SMMUv2 architecture, so this feels
-> > upside-down to me. That is, it should always be valid to probe with
-> > the less specific "SMMUv2" compatible string (modulo hardware errata)
-> > and be limited to the architectural behaviour.
+> > I'd rather not. We have pairs of pipes. I'd rather see the code stay the
+> > same way: processing one pair at the same time.
 > 
-> I should have been more specific and referred to qcom,smmu-v2
-> 
-> > So what is about MMU-500 that means stalling doesn't work when compared
-> > to any other SMMUv2 implementation?
-> 
-> Well, I have a limited # of data points, in the sense that there
-> aren't too many a6xx devices prior to the switch to qcom,smmu-500..
-> but I have access to crash metrics for a lot of sc7180 devices
-> (qcom,smmu-v2), and I've been unable to find any signs of this sort of
-> stall related issue.
-> 
-> So maybe I can't 100% say this is qcom,smmu-500 vs qcom,smmu-v2, vs
-> some other change in later gens that used qcom,smmu-500 or some other
-> factor, I'm not sure what other conclusion to draw.
+> I mean only use the peer only when the SSPP multi-rect pips cross
+> planes. This shall not change
+> too much to current SSPP management.
 
-Might it be that v2 was an actual hw, but mmu-500 is somehow
-virtualized? And as such by these stalls we might be observing some kind
-of FW bug in hyp?
+Still no. Please please don't add extra 'peer' member. There should be
+no need to have one.
 
-> 
-> BR,
-> -R
+
+> >
+> > >
+> > >
+> > > >
+> > > > >                       pipe->multirect_index = DPU_SSPP_RECT_SOLO;
+> > > > >                       pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+> > > > >
 
 -- 
 With best wishes
