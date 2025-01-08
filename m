@@ -2,107 +2,99 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D173A06642
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 21:39:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C82BA06647
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 21:40:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C12C10E442;
-	Wed,  8 Jan 2025 20:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30F9110E5CF;
+	Wed,  8 Jan 2025 20:40:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="OOk20RzG";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ketGsGW/";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31AA610E326
- for <freedreno@lists.freedesktop.org>; Wed,  8 Jan 2025 20:39:41 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-43618283dedso2439265e9.3
- for <freedreno@lists.freedesktop.org>; Wed, 08 Jan 2025 12:39:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1736368719; x=1736973519; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ZmdWrs2jHDEmmEMkasPJyPoJ7fSCFbpJIamlNm9Sk5M=;
- b=OOk20RzG2j+2HD5se+WzyzfzLLCxwn8VS33hE4l25XRaBELEewEid7BOOwoATv3+gs
- KDbYvUjF+xNmy6/c6vYZztuoyuP9+LOdaMOjRBfWzKSeiXWYQ+i300c+4KEu+5C50Dz1
- lLwwUqdQ4pd8t/I/92C2QglNXKiE7HARRDzS4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736368719; x=1736973519;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZmdWrs2jHDEmmEMkasPJyPoJ7fSCFbpJIamlNm9Sk5M=;
- b=cUzj8HpzszJWZ32EgF4zFDGmgBVTKGZoh/iTeTN5l1FnooBsvGsWLKtKMVkliI6Jrj
- a9el+yrLWJpzRJj0L8kPtqtV8OQxz3TO3qJQAdXkToAa3ITjtjmkv10g9GJP3uX0hiLZ
- +6QwRejO0Jpic/xicr7CGFWKjh+mdX/5Rwf8bCMQ9yLZ2MNc1xdjJb1eOIcfyVDPEZ5h
- 643KvYJjmPi/UJPp5CJI8mORNATPBX4Fhva52AdzQ0WntLB96VGhiBtrmpV2NMuwCwAe
- 9cMI18+4YQv1U5TWkUavCKQGkCdAp8DS1FKfnnaMvx25I84037u3AeCT94BCBZx/cnMK
- YeYw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU0tNrs0lubhQACS2K7ymy8cFNx01BlbeN8CIFzmTE+kUkxQ22HtDLtiXQMvQsYStvm3ocW8D4Yr+Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwuXwvMFSh9HKIhvoYCSmvoEdZysNDEQ2f5DXhy60GnFYbVY3H4
- 3Gx+Cg4Yrw590wp37usbSkxYK+QUUa+gcWDWwED+dq3bD+pU/OudydVhpv10JsC85YxMs7CU7Q/
- f
-X-Gm-Gg: ASbGncu5D8G0V2t0IAekzL/teMlq7quYqtYDJW2dtU+YOvlJkl3KhLG0CQJmiDyRsO6
- tj1Ufy1Rbu7XtsyGAGiZ4YmO4bDMlCKOzcppaM0C3uZfd/LggEbPVWnt0Bz+crOt6fj8RGsx6xB
- WmXG93YqmCw07RaMI9DiSlzFeP/6mYkgUIceWPM3H+8+LYupwaEQm2wn0i6awI1EbSsQ5phKhNU
- c7mYn9upl3evlfhKGOmvgXJwBnfRf8vr7Z9Zs3MIIw0+lj4MQTwQKyADusY05c5zVUJ
-X-Google-Smtp-Source: AGHT+IESGumvopPHwdo16lhCKZSlZSATyddXlTtzfFDd2Vbs39HCO1l7Kd+MplsNzinHv34TBxZd3w==
-X-Received: by 2002:a05:6000:4b04:b0:386:4a24:1916 with SMTP id
- ffacd0b85a97d-38a87317c6dmr2835622f8f.55.1736358833954; 
- Wed, 08 Jan 2025 09:53:53 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c84705esm53745644f8f.44.2025.01.08.09.53.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jan 2025 09:53:53 -0800 (PST)
-Date: Wed, 8 Jan 2025 18:53:51 +0100
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Sravanthi Kollukuduru <skolluku@codeaurora.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Archit Taneja <architt@codeaurora.org>,
- Rajesh Yadav <ryadav@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Simona Vetter <simona.vetter@ffwll.ch>
-Subject: Re: [PATCH 2/6] drm/atomic: prepare to check that drivers follow
- restrictions for needs_modeset
-Message-ID: <Z367rzpzt00F0sK9@phenom.ffwll.local>
-Mail-Followup-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Sravanthi Kollukuduru <skolluku@codeaurora.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Archit Taneja <architt@codeaurora.org>,
- Rajesh Yadav <ryadav@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-References: <20241222-drm-dirty-modeset-v1-0-0e76a53eceb9@linaro.org>
- <20241222-drm-dirty-modeset-v1-2-0e76a53eceb9@linaro.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C597010E326;
+ Wed,  8 Jan 2025 20:40:33 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 508GceHs002463;
+ Wed, 8 Jan 2025 20:40:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=MmmVej/51Kjt6A9bkZeUhE
+ Uoj/xUWewiMnEyfTP8uHU=; b=ketGsGW/7g7BNx+C9fQF9thQ6l8uQn0HeyLyhH
+ DaJDWazvpsnYJ/B5Vh7GcXMc+BJDy9XnB46iko7KDlM7cH9xlaPOWG0nmxG9p6Ry
+ pH6iISd7minOH560ohjDS+arH8nFsIGsca9wUh3qJH5+7QLUMGStZAjNowi1WkF8
+ WOrN9EZLszbb28WGGrPTUZ6dWJ+aUfCiuYFXGSzJLlNNnR5PfaE9vQ3acRkHD962
+ 09S6IV08ClSBn1VheJF1GF+t4Qhd4FRzOM9mEB+XEHmLxSXcZwrg/OULMM1le0jm
+ XKG+X5qkEXMeg/A2ap6QSsS1j8O4jzBfT568Lq+G0V/RXw5A==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 441w2j8jde-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Jan 2025 20:40:28 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 508KeRPd020787
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 8 Jan 2025 20:40:27 GMT
+Received: from [10.213.111.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 8 Jan 2025
+ 12:40:21 -0800
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Subject: [PATCH v4 0/7] Support for GPU ACD feature on Adreno X1-85
+Date: Thu, 9 Jan 2025 02:09:56 +0530
+Message-ID: <20250109-gpu-acd-v4-0-08a5efaf4a23@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241222-drm-dirty-modeset-v1-2-0e76a53eceb9@linaro.org>
-X-Operating-System: Linux phenom 6.12.3-amd64 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJzifmcC/2WQwW7CMAyGX6XKeUGxk6aU095j2sF1XciBFpISb
+ UK8+1LQYNWOv+3vs+yrShKDJLWrripKDilMYwnurVJ8oHEvOvQlKzToTINO708XTdxrz9Bz3fN
+ Qg1dl+hRlCF9308dnyYeQ5il+38UZluqvwz8dGbTRjSNLzeCc9dv38yVwGHnD03GRLgQYwDUBU
+ ksLRG3d+RWx7M343AUG4UViIVvGmjxuje34P2lfJNo/pC2k7aix3htpmdbk7XF8lFJNYX58QHW
+ URJf+Mcy7KvsNWB3ZlenbDxphfpxzAQAA
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
+ Dybcio" <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>,
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Bjorn Andersson
+ <andersson@kernel.org>, Maya Matuszczyk <maccraft123mc@gmail.com>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1736368821; l=3340;
+ i=quic_akhilpo@quicinc.com; s=20240726; h=from:subject:message-id;
+ bh=mP3e4YZddAGvahjk2HZAAOT5Oq0VSXTNEvcaAQbl2gU=;
+ b=z2iX7nYDuxdiuqdLRXdB70QhHyJvtPGOgchmS96OVXtTZRSrOVQ45cUgZU78qZUu/ir+jh67w
+ HjPx8ibGw7qCs/l0tEWDXDdIsiVILnxDc1Ls43h09+maI+Nw+kHJfKX
+X-Developer-Key: i=quic_akhilpo@quicinc.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Qm6GXnLTgCEs5lfsie021mzlXrIK4uBf
+X-Proofpoint-ORIG-GUID: Qm6GXnLTgCEs5lfsie021mzlXrIK4uBf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 mlxlogscore=999
+ clxscore=1015 impostorscore=0 phishscore=0 spamscore=0 suspectscore=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2501080168
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,258 +110,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Dec 22, 2024 at 07:00:42AM +0200, Dmitry Baryshkov wrote:
-> Some drivers might fail to follow the restrictions documented for
-> drm_atomic_helper_check_modesets(). In order to catch such an issues,
-> add the drm_atomic_state->dirty_needs_modeset field and check it in
-> drm_atomic_check_only(). Make sure that neither of atomic_check()
-> callbacks can set that field without calling
-> drm_atomic_helper_check_modesets() again.
-> 
-> Suggested-by: Simona Vetter <simona.vetter@ffwll.ch>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+This series adds support for ACD feature for Adreno GPU which helps to
+lower the power consumption on GX rail and also sometimes is a requirement
+to enable higher GPU frequencies. At high level, following are the
+sequences required for ACD feature:
+	1. Identify the ACD level data for each regulator corner
+	2. Send a message to AOSS to switch voltage plan
+	3. Send a table with ACD level information to GMU during every
+	gpu wake up
 
-Thanks a lot of creating this patch. But looking at it I'm not so sure I
-actually had a good idea, since there's still lots of ways for drivers to
-change drm_atomic_crtc_needs_modeset() that we miss. And trying to use an
-inverted bitfield of all crtc that we've run through in check_modeset, and
-then in atomic_check_only compare it against all crtc that need a modeset
-also has corner cases it gets wrong I think, like just not using the
-helpers in specific case, I think something like i915's fastset would trip
-that.
+For (1), it is better to keep ACD level data in devicetree because this
+value depends on the process node, voltage margins etc which are
+chipset specific. For instance, same GPU HW IP on a different chipset
+would have a different set of values. So, a new schema which extends
+opp-v2 is created to add a new property called "qcom,opp-acd-level".
 
-Plus there's lots more corners that drivers have gotten creatively wrong,
-so I feel like really clear docs is the best we can do.
+ACD support is dynamically detected based on the presence of
+"qcom,opp-acd-level" property in GPU's opp table. Also, qmp node should be
+present under GMU node in devicetree for communication with AOSS.
 
-So unless you think it was really useful to fix msm I feel like best to
-skip this. Apologies for making you put work in here :-/
--Sima
+The devicetree patch in this series adds the acd-level data for X1-85
+GPU present in Snapdragon X1 Elite chipset.
 
-> ---
->  drivers/gpu/drm/drm_atomic.c        |  3 ++
->  drivers/gpu/drm/drm_atomic_helper.c | 77 +++++++++++++++++++++++++++++++++----
->  include/drm/drm_atomic.h            | 10 +++++
->  3 files changed, 82 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 9ea2611770f43ce7ccba410406d5f2c528aab022..202e4e64bd31921d0a4d4b86605b501311e14c33 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -1449,6 +1449,9 @@ int drm_atomic_check_only(struct drm_atomic_state *state)
->  		}
->  	}
->  
-> +	WARN_RATELIMIT(state->dirty_needs_modeset,
-> +		       "Driver changed needs_modeset under drm_atomic_helper_check_modeset()");
-> +
->  	if (!state->allow_modeset) {
->  		for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
->  			if (drm_atomic_crtc_needs_modeset(new_crtc_state)) {
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index f26887c3fe8b194137200f9f2426653274c50fda..2c62840416f4b807d6a880b5c30ae024a16af528 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -433,6 +433,7 @@ mode_fixup(struct drm_atomic_state *state)
->  
->  	for_each_new_connector_in_state(state, connector, new_conn_state, i) {
->  		const struct drm_encoder_helper_funcs *funcs;
-> +		bool old_needs_modeset = false;
->  		struct drm_encoder *encoder;
->  		struct drm_bridge *bridge;
->  
-> @@ -451,6 +452,9 @@ mode_fixup(struct drm_atomic_state *state)
->  		encoder = new_conn_state->best_encoder;
->  		funcs = encoder->helper_private;
->  
-> +		if (new_crtc_state)
-> +			old_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
-> +
->  		bridge = drm_bridge_chain_get_first_bridge(encoder);
->  		ret = drm_atomic_bridge_chain_check(bridge,
->  						    new_crtc_state,
-> @@ -479,6 +483,12 @@ mode_fixup(struct drm_atomic_state *state)
->  				return -EINVAL;
->  			}
->  		}
-> +
-> +		if (new_crtc_state) {
-> +			bool new_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
-> +
-> +			state->dirty_needs_modeset |= (new_needs_modeset != old_needs_modeset);
-> +		}
->  	}
->  
->  	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
-> @@ -574,6 +584,36 @@ mode_valid(struct drm_atomic_state *state)
->  	return 0;
->  }
->  
-> +static int
-> +connector_atomic_check(struct drm_atomic_state *state,
-> +		       struct drm_connector *connector,
-> +		       struct drm_connector_state *old_connector_state,
-> +		       struct drm_connector_state *new_connector_state)
-> +{
-> +	const struct drm_connector_helper_funcs *funcs = connector->helper_private;
-> +	struct drm_crtc_state *new_crtc_state;
-> +	bool old_needs_modeset = false;
-> +	int ret;
-> +
-> +	if (new_connector_state->crtc)
-> +		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_connector_state->crtc);
-> +	if (new_crtc_state)
-> +		old_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
-> +
-> +	if (funcs->atomic_check)
-> +		ret = funcs->atomic_check(connector, state);
-> +	else
-> +		ret = 0;
-> +
-> +	if (new_crtc_state) {
-> +		bool new_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
-> +
-> +		state->dirty_needs_modeset |= (new_needs_modeset != old_needs_modeset);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
->  /**
->   * drm_atomic_helper_check_modeset - validate state object for modeset changes
->   * @dev: DRM device
-> @@ -628,6 +668,8 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
->  	int i, ret;
->  	unsigned int connectors_mask = 0, user_connectors_mask = 0;
->  
-> +	state->dirty_needs_modeset = false;
-> +
->  	for_each_oldnew_connector_in_state(state, connector, old_connector_state, new_connector_state, i)
->  		user_connectors_mask |= BIT(i);
->  
-> @@ -683,8 +725,6 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
->  		return ret;
->  
->  	for_each_oldnew_connector_in_state(state, connector, old_connector_state, new_connector_state, i) {
-> -		const struct drm_connector_helper_funcs *funcs = connector->helper_private;
-> -
->  		WARN_ON(!drm_modeset_is_locked(&dev->mode_config.connection_mutex));
->  
->  		/*
-> @@ -710,8 +750,8 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
->  				new_crtc_state->connectors_changed = true;
->  		}
->  
-> -		if (funcs->atomic_check)
-> -			ret = funcs->atomic_check(connector, state);
-> +		ret = connector_atomic_check(state, connector,
-> +					     old_connector_state, new_connector_state);
->  		if (ret) {
->  			drm_dbg_atomic(dev,
->  				       "[CONNECTOR:%d:%s] driver check failed\n",
-> @@ -752,13 +792,11 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
->  	 * has been called on them when a modeset is forced.
->  	 */
->  	for_each_oldnew_connector_in_state(state, connector, old_connector_state, new_connector_state, i) {
-> -		const struct drm_connector_helper_funcs *funcs = connector->helper_private;
-> -
->  		if (connectors_mask & BIT(i))
->  			continue;
->  
-> -		if (funcs->atomic_check)
-> -			ret = funcs->atomic_check(connector, state);
-> +		ret = connector_atomic_check(state, connector,
-> +					     old_connector_state, new_connector_state);
->  		if (ret) {
->  			drm_dbg_atomic(dev,
->  				       "[CONNECTOR:%d:%s] driver check failed\n",
-> @@ -994,6 +1032,7 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
->  
->  	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
->  		const struct drm_plane_helper_funcs *funcs;
-> +		bool old_needs_modeset = false;
->  
->  		WARN_ON(!drm_modeset_is_locked(&plane->mutex));
->  
-> @@ -1006,6 +1045,12 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
->  		if (!funcs || !funcs->atomic_check)
->  			continue;
->  
-> +		if (new_plane_state->crtc)
-> +			new_crtc_state = drm_atomic_get_new_crtc_state(state,
-> +								       new_plane_state->crtc);
-> +		if (new_crtc_state)
-> +			old_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
-> +
->  		ret = funcs->atomic_check(plane, state);
->  		if (ret) {
->  			drm_dbg_atomic(plane->dev,
-> @@ -1013,16 +1058,26 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
->  				       plane->base.id, plane->name);
->  			return ret;
->  		}
-> +
-> +		if (new_crtc_state) {
-> +			bool new_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
-> +
-> +			state->dirty_needs_modeset |= (new_needs_modeset != old_needs_modeset);
-> +		}
->  	}
->  
->  	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
->  		const struct drm_crtc_helper_funcs *funcs;
-> +		bool old_needs_modeset = false;
->  
->  		funcs = crtc->helper_private;
->  
->  		if (!funcs || !funcs->atomic_check)
->  			continue;
->  
-> +		if (new_crtc_state)
-> +			old_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
-> +
->  		ret = funcs->atomic_check(crtc, state);
->  		if (ret) {
->  			drm_dbg_atomic(crtc->dev,
-> @@ -1030,6 +1085,12 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
->  				       crtc->base.id, crtc->name);
->  			return ret;
->  		}
-> +
-> +		if (new_crtc_state) {
-> +			bool new_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
-> +
-> +			state->dirty_needs_modeset |= (new_needs_modeset != old_needs_modeset);
-> +		}
->  	}
->  
->  	return ret;
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index 31ca88deb10d262fb3a3f8e14d2afe24f8410cb1..7b0dbd3c8a3df340399a458aaf79263f0fdc24e5 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -408,6 +408,16 @@ struct drm_atomic_state {
->  	 */
->  	bool duplicated : 1;
->  
-> +	/**
-> +	 * @dirty_needs_modeset:
-> +	 *
-> +	 * Indicates whether the drm_atomic_crtc_needs_modeset() changed in an
-> +	 * unexpected way. Usually this means that driver implements atomic
-> +	 * helpers using drm_atomic_crtc_needs_modeset(), but mode_changed has
-> +	 * toggled by one of its atomic_check() callbacks.
-> +	 */
-> +	bool dirty_needs_modeset : 1;
-> +
->  	/**
->  	 * @planes:
->  	 *
-> 
-> -- 
-> 2.39.5
-> 
+The last two devicetree patches are for Bjorn and all the rest for
+Rob Clark.
 
+---
+Changes in v4:
+- Send correct acd data via hfi (Neil)
+- Fix dt-bindings error
+- Fix IB vote for the 1.1Ghz OPP
+- New patch#2 to fix the HFI timeout error seen when ACD is enabled
+- Link to v3: https://lore.kernel.org/r/20241231-gpu-acd-v3-0-3ba73660e9ca@quicinc.com
+
+Changes in v3:
+- Rebased on top of v6.13-rc4 since X1E doesn't boot properly with msm-next
+- Update patternProperties regex (Krzysztof)
+- Update MAINTAINERS file include the new opp-v2-qcom-adreno.yaml
+- Update the new dt properties' description
+- Do not move qmp_get() to acd probe (Konrad)
+- New patches: patch#2, #3 and #6
+- Link to v2: https://lore.kernel.org/r/20241021-gpu-acd-v2-0-9c25a62803bc@quicinc.com
+
+Changes in v2:
+- Removed RFC tag for the series
+- Improve documentation for the new dt bindings (Krzysztof)
+- Add fallback compatible string for opp-table (Krzysztof)
+- Link to v1: https://lore.kernel.org/r/20241012-gpu-acd-v1-0-1e5e91aa95b6@quicinc.com
+
+---
+Akhil P Oommen (7):
+      drm/msm/adreno: Add support for ACD
+      drm/msm/a6xx: Increase HFI response timeout
+      drm/msm: a6x: Rework qmp_get() error handling
+      drm/msm/adreno: Add module param to disable ACD
+      dt-bindings: opp: Add v2-qcom-adreno vendor bindings
+      arm64: dts: qcom: x1e80100: Add ACD levels for GPU
+      arm64: dts: qcom: x1e80100: Add OPPs up to Turbo L3 for GPU
+
+ .../bindings/opp/opp-v2-qcom-adreno.yaml           | 97 ++++++++++++++++++++++
+ MAINTAINERS                                        |  1 +
+ arch/arm64/boot/dts/qcom/x1e80100.dtsi             | 27 +++++-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 96 ++++++++++++++++++---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c              | 38 ++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.h              | 21 +++++
+ drivers/gpu/drm/msm/adreno/adreno_device.c         |  4 +
+ 8 files changed, 270 insertions(+), 15 deletions(-)
+---
+base-commit: dbfac60febfa806abb2d384cb6441e77335d2799
+change-id: 20240724-gpu-acd-6c1dc5dcf516
+
+Best regards,
 -- 
-Simona Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Akhil P Oommen <quic_akhilpo@quicinc.com>
+
