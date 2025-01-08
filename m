@@ -2,92 +2,94 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2D73A068B5
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 23:46:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EA89A06909
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 23:57:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9FAE10ECAB;
-	Wed,  8 Jan 2025 22:46:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A58410ECB3;
+	Wed,  8 Jan 2025 22:57:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="OUjVmmwb";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="BLeO7cJS";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B5B310ECAB;
- Wed,  8 Jan 2025 22:46:01 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 508IgkAZ007921;
- Wed, 8 Jan 2025 22:45:54 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3008F10ECA5;
+ Wed,  8 Jan 2025 22:57:52 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 508HbYAi011058;
+ Wed, 8 Jan 2025 22:57:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- bur4ZcCFZ2/H4vqAdIWDy5aNtTYuEzsSM7ryaZvbGH0=; b=OUjVmmwbSwwfy+gP
- TQrVN9iwLkTz+lh++h8t8cN0O1zldCRtWB2Snr6fDdBgan2Bv5p3QO6G+bRR/hv5
- KWtdiqSvuGJs8LW6yxKePGOqXHbCRUOQeS5NQ/73V/RWLqpvWEoTXR+jTjaX9FCs
- aJ5UZw1xEwBU81iK+mrCWNgOvmPEQZ3Mm1NNTkM2nyMuIcRbppmdIm6WC24pW6bP
- E05kxHTryEuwctyCK41g1Op3R5sxdI8EMXCvxWLknYIuHza0BYFy6hs7w92llaYx
- 0RV4GVrbjosBdnzIv/5Bv8yuWRokaN6BlnoVJZIf4lNQzywykoHfw9sX2tiJWLjR
- ftBXxQ==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ p98cCh83eXBRhgvDaok/nnFwHA9Icwt64miGgMekXZM=; b=BLeO7cJSOg6gTFX4
+ SfunO55HcspLg9W3HCK5BW8SSXTrQB8L3Kqo9Gcqj1kyJBs233d9cKeyJdZKc6Da
+ NFqCk0oeI2xrEoUk39YBUdrYYkGj+d21ttG9SrO14OkizfnDGEBJfL02TDhb2id4
+ vbfLCfUF59H6RvJmkufpXADvWivAiz4KP6AAYD8O0hWsLAOHD2t3/inKA66rXbl3
+ pzzAPiC21GgWuScqs/SJrtHvGmZsm5ynSg7SOcuxF5jdwPUkvk3SXanJBL1ubTSS
+ YNQIPM8Dm5gOotKcmbAmesGMq3BB2/DobqSgdgETI2yZta/P7b0mkCcdVaBHrpMm
+ EnE+Kg==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 441xvnrfxr-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 441wx60p1x-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Jan 2025 22:45:54 +0000 (GMT)
+ Wed, 08 Jan 2025 22:57:43 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 508Mjrbe029304
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 508MvgS5001751
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 8 Jan 2025 22:45:53 GMT
-Received: from [10.216.24.147] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ Wed, 8 Jan 2025 22:57:42 GMT
+Received: from [10.71.108.79] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 8 Jan 2025
- 14:45:44 -0800
-Message-ID: <aa1695ed-729a-4612-b322-3e9d6571264b@quicinc.com>
-Date: Thu, 9 Jan 2025 04:15:41 +0530
+ 14:57:41 -0800
+Message-ID: <feb4f780-8fe6-426b-9ba4-ab1fb102ac27@quicinc.com>
+Date: Wed, 8 Jan 2025 14:57:41 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v2 3/4] arm64: dts: qcom: qcs615: Add gpu and gmu
- nodes
-To: Bjorn Andersson <andersson@kernel.org>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Konrad
- Dybcio" <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Marijn Suijten
- <marijn.suijten@somainline.org>, Maarten Lankhorst
+Subject: Re: [PATCH v4 4/4] drm/msm/dp: Add support for LTTPR handling
+To: Abel Vesa <abel.vesa@linaro.org>, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- Jie Zhang <quic_jiezh@quicinc.com>
-References: <20241213-qcs615-gpu-dt-v2-0-47f3b312b178@quicinc.com>
- <20241213-qcs615-gpu-dt-v2-3-47f3b312b178@quicinc.com>
- <y7rf2klosrpvr5foroilgma5rwmlyq4ux5zymxd5cen7d6yu42@xig34xs6whtg>
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@redhat.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>
+CC: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+ <konradybcio@kernel.org>,
+ Johan Hovold <johan@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <nouveau@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ Johan Hovold <johan+linaro@kernel.org>
+References: <20250108-drm-dp-msm-add-lttpr-transparent-mode-set-v4-0-918949bc2e3a@linaro.org>
+ <20250108-drm-dp-msm-add-lttpr-transparent-mode-set-v4-4-918949bc2e3a@linaro.org>
 Content-Language: en-US
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <y7rf2klosrpvr5foroilgma5rwmlyq4ux5zymxd5cen7d6yu42@xig34xs6whtg>
-Content-Type: text/plain; charset="UTF-8"
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20250108-drm-dp-msm-add-lttpr-transparent-mode-set-v4-4-918949bc2e3a@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: AxPjlFkWxZbrL_x6PjbLuB__Y9aoFei4
-X-Proofpoint-ORIG-GUID: AxPjlFkWxZbrL_x6PjbLuB__Y9aoFei4
+X-Proofpoint-GUID: tnfjmy_HVMVoRj9bM5AAf9LrVJSbltAO
+X-Proofpoint-ORIG-GUID: tnfjmy_HVMVoRj9bM5AAf9LrVJSbltAO
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- mlxlogscore=929 priorityscore=1501 spamscore=0 malwarescore=0 adultscore=0
- mlxscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501080186
+ lowpriorityscore=0
+ impostorscore=0 adultscore=0 mlxscore=0 spamscore=0 suspectscore=0
+ clxscore=1015 mlxlogscore=999 phishscore=0 malwarescore=0
+ priorityscore=1501 bulkscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2411120000 definitions=main-2501080186
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,138 +105,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 1/9/2025 4:03 AM, Bjorn Andersson wrote:
-> On Fri, Dec 13, 2024 at 05:01:05PM +0530, Akhil P Oommen wrote:
->> From: Jie Zhang <quic_jiezh@quicinc.com>
->>
->> Add gpu and gmu nodes for qcs615 chipset.
->>
+
+
+On 1/8/2025 6:31 AM, Abel Vesa wrote:
+> Link Training Tunable PHY Repeaters (LTTPRs) are defined in DisplayPort
+> 1.4a specification. As the name suggests, these PHY repeaters are
+> capable of adjusting their output for link training purposes.
 > 
-> Please resubmit this in a series together with the gpucc patch.
-
-Sure. I will send a new revision.
-
--Akhil.
-
+> According to the DisplayPort standard, LTTPRs have two operating
+> modes:
+>   - non-transparent - it replies to DPCD LTTPR field specific AUX
+>     requests, while passes through all other AUX requests
+>   - transparent - it passes through all AUX requests.
 > 
-> Regards,
-> Bjorn
+> Switching between this two modes is done by the DPTX by issuing
+> an AUX write to the DPCD PHY_REPEATER_MODE register.
 > 
->> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
->> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>  arch/arm64/boot/dts/qcom/qcs615.dtsi | 88 ++++++++++++++++++++++++++++++++++++
->>  1 file changed, 88 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/qcs615.dtsi b/arch/arm64/boot/dts/qcom/qcs615.dtsi
->> index 8df26efde3fd6c0f85b9bcddb461fae33687dc75..dee5d3be4aa34dd64864b6fe32ad589abac99bb7 100644
->> --- a/arch/arm64/boot/dts/qcom/qcs615.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/qcs615.dtsi
->> @@ -387,6 +387,11 @@ smem_region: smem@86000000 {
->>  			no-map;
->>  			hwlocks = <&tcsr_mutex 3>;
->>  		};
->> +
->> +		pil_gpu_mem: pil-gpu@97715000 {
->> +			reg = <0x0 0x97715000 0x0 0x2000>;
->> +			no-map;
->> +		};
->>  	};
->>  
->>  	soc: soc@0 {
->> @@ -508,6 +513,89 @@ qup_uart0_rx: qup-uart0-rx-state {
->>  			};
->>  		};
->>  
->> +		gpu: gpu@5000000 {
->> +			compatible = "qcom,adreno-612.0", "qcom,adreno";
->> +			reg = <0x0 0x05000000 0x0 0x90000>;
->> +			reg-names = "kgsl_3d0_reg_memory";
->> +
->> +			clocks = <&gpucc GPU_CC_GX_GFX3D_CLK>,
->> +				 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
->> +				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
->> +				 <&gpucc GPU_CC_CX_GMU_CLK>,
->> +				 <&gpucc GPU_CC_CXO_CLK>;
->> +			clock-names = "core",
->> +				      "mem_iface",
->> +				      "alt_mem_iface",
->> +				      "gmu",
->> +				      "xo";
->> +
->> +			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
->> +
->> +			interconnects = <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
->> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
->> +			interconnect-names = "gfx-mem";
->> +
->> +			iommus = <&adreno_smmu 0x0 0x401>;
->> +			operating-points-v2 = <&gpu_opp_table>;
->> +			power-domains = <&rpmhpd RPMHPD_CX>;
->> +			qcom,gmu = <&rgmu>;
->> +
->> +			#cooling-cells = <2>;
->> +
->> +			status = "disabled";
->> +
->> +			gpu_zap_shader: zap-shader {
->> +				memory-region = <&pil_gpu_mem>;
->> +			};
->> +
->> +			gpu_opp_table: opp-table {
->> +				compatible = "operating-points-v2";
->> +
->> +				opp-435000000 {
->> +					opp-hz = /bits/ 64 <435000000>;
->> +					required-opps = <&rpmhpd_opp_svs>;
->> +					opp-peak-kBps = <3000000>;
->> +				};
->> +
->> +				opp-500000000 {
->> +					opp-hz = /bits/ 64 <500000000>;
->> +					required-opps = <&rpmhpd_opp_svs_l1>;
->> +					opp-peak-kBps = <3975000>;
->> +				};
->> +
->> +				opp-650000000 {
->> +					opp-hz = /bits/ 64 <650000000>;
->> +					required-opps = <&rpmhpd_opp_nom>;
->> +					opp-peak-kBps = <5287500>;
->> +				};
->> +
->> +				opp-745000000 {
->> +					opp-hz = /bits/ 64 <745000000>;
->> +					required-opps = <&rpmhpd_opp_nom_l1>;
->> +					opp-peak-kBps = <6075000>;
->> +				};
->> +
->> +				opp-845000000 {
->> +					opp-hz = /bits/ 64 <845000000>;
->> +					required-opps = <&rpmhpd_opp_turbo>;
->> +					opp-peak-kBps = <7050000>;
->> +				};
->> +			};
->> +		};
->> +
->> +		rgmu: rgmu@506a000 {
->> +			compatible = "qcom,adreno-rgmu";
->> +			reg = <0x0 0x0506a000 0x0 0x34000>;
->> +			reg-names = "gmu";
->> +			power-domains = <&gpucc CX_GDSC>,
->> +					<&gpucc GX_GDSC>;
->> +			power-domain-names = "cx", "gx";
->> +
->> +			interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
->> +			interrupt-names = "hfi", "gmu";
->> +		};
->> +
->>  		gpucc: clock-controller@5090000 {
->>  			compatible = "qcom,qcs615-gpucc";
->>  			reg = <0 0x5090000 0 0x9000>;
->>
->> -- 
->> 2.45.2
->>
+> The msm DP driver is currently lacking any handling of LTTPRs.
+> This means that if at least one LTTPR is found between DPTX and DPRX,
+> the link training would fail if that LTTPR was not already configured
+> in transparent mode.
+> 
+> The section 3.6.6.1 from the DisplayPort v2.0 specification mandates
+> that before link training with the LTTPR is started, the DPTX may place
+> the LTTPR in non-transparent mode by first switching to transparent mode
+> and then to non-transparent mode. This operation seems to be needed only
+> on first link training and doesn't need to be done again until device is
+> unplugged.
+> 
+> It has been observed on a few X Elite-based platforms which have
+> such LTTPRs in their board design that the DPTX needs to follow the
+> procedure described above in order for the link training to be successful.
+> 
+> So add support for reading the LTTPR DPCD caps to figure out the number
+> of such LTTPRs first. Then, for platforms (or Type-C dongles) that have
+> at least one such an LTTPR, set its operation mode to transparent mode
+> first and then to non-transparent, just like the mentioned section of
+> the specification mandates.
+> 
+> Tested-by: Johan Hovold <johan+linaro@kernel.org>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
+> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_display.c | 17 +++++++++++++++++
+>   1 file changed, 17 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 24dd37f1682bf5016bb0efbeb44489061deff060..ad09daa4c8ab5c0eb67890509b94e72820bab870 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -107,6 +107,8 @@ struct msm_dp_display_private {
+>   	struct msm_dp_event event_list[DP_EVENT_Q_MAX];
+>   	spinlock_t event_lock;
+>   
+> +	u8 lttpr_caps[DP_LTTPR_COMMON_CAP_SIZE];
+> +
 
+The reason downstream stored it panel is to read it first in dp_panel's 
+read_sink_caps and call lttpr_init if drm_dp_lttpr_count() is non-zero.
+
+But here it looks like  msm_dp_display_lttpr_init() internally handles 
+this for us. So no need to store this?
+
+>   	bool wide_bus_supported;
+>   
+>   	struct msm_dp_audio *audio;
+> @@ -367,12 +369,27 @@ static int msm_dp_display_send_hpd_notification(struct msm_dp_display_private *d
+>   	return 0;
+>   }
+>   
+> +static void msm_dp_display_lttpr_init(struct msm_dp_display_private *dp)
+> +{
+> +	int rc;
+> +
+> +	if (drm_dp_read_lttpr_common_caps(dp->aux, dp->panel->dpcd,
+> +					  dp->lttpr_caps))
+> +		return;
+> +
+> +	rc = drm_dp_lttpr_init(dp->aux, drm_dp_lttpr_count(dp->lttpr_caps));
+> +	if (rc)
+> +		DRM_ERROR("failed to set LTTPRs transparency mode, rc=%d\n", rc);
+> +}
+> +
+>   static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+>   {
+>   	struct drm_connector *connector = dp->msm_dp_display.connector;
+>   	const struct drm_display_info *info = &connector->display_info;
+>   	int rc = 0;
+>   
+> +	msm_dp_display_lttpr_init(dp);
+> +
+
+Can you pls move this call after msm_dp_panel_read_sink_caps()?
+
+If msm_dp_panel_read_sink_caps() fails there is no need to call 
+msm_dp_display_lttpr_init().
+
+
+>   	rc = msm_dp_panel_read_sink_caps(dp->panel, connector);
+>   	if (rc)
+>   		goto end;
+> 
