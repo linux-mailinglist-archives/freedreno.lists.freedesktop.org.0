@@ -2,89 +2,86 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9FD3A04DE7
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 00:51:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A10CA04F9A
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 02:34:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7241010E40D;
-	Tue,  7 Jan 2025 23:51:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C05AF10E7D0;
+	Wed,  8 Jan 2025 01:34:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="CyAyjVAu";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Y8G71y0e";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0410110E415
- for <freedreno@lists.freedesktop.org>; Tue,  7 Jan 2025 23:51:51 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-5401c68b89eso353803e87.0
- for <freedreno@lists.freedesktop.org>; Tue, 07 Jan 2025 15:51:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736293850; x=1736898650; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mzA8ULDWK+L6lzlTxbv+SOWG/fbWpGETGTXU33lZ5cE=;
- b=CyAyjVAuGwJKg30IBkalmua9yue2ZKRpznAkCtVsWY/tSNKQlOSKkB6m92mDGIcVhV
- jAYcVhclNKu5Qm6r3aI9IeY71Dl581o7l6QzN9KV0YES5pcX4jtI825Y9IavFcFzhcoN
- nRUro9CLREzxK6J9nnpQvbY8zS7xJs1xbmrgfPn6Pvl/86g/7MXfrTk/LxvEvSTisOzF
- Az4Wxpt6CCnUtkpzv2Sa+vOK8PgnniqeZp+/O9+8+EOIrOlKpQE0H7UiiR0hBYeg/J5F
- bSOwkz51cO7MSEESkFS7yXEAVIF3jX8araioEiSvb+wkQQ1KasPpT2yU/HeTKqZoD5vc
- EerQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736293850; x=1736898650;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mzA8ULDWK+L6lzlTxbv+SOWG/fbWpGETGTXU33lZ5cE=;
- b=g555F8MKbgMaWArYa/raQ3Azk60SeXSaa55tGoFqyoAKMFeLOArvu1u8wjaFdb+9IB
- MlAMBtHul9uRrAq1LiYI52w+8R5b1e12kJw/Pl1QZcIyMAfkR6Qca7CDkBrXQW+Juzt/
- 4JmcTb/3+WkkH7ixT2//X/8WKWh/mXdkGUz13yG+aMJjB4G1q8snqFhGc72fdzBq7KYm
- RFD2tQjcwrfm2ftdq8V6yC99XyFvedMcvF2FjVRpGjTfAaAA/fpPcApKJc8XmRsnlxWE
- 5g1THfrHpQEbcpb7oCCg/vr6SPirBfMoPLaJ7h+CuHV8DXd0tts64uzlc/Bjkrs+n1vA
- 1+cw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUqjKK5bPP4+cLlFQBsmfuMxQv38JLJpf15yzS1IHKpo3EtsQwtJXZ4G23AIdrQgt8mNjhfP6aGPlE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzRnWEYHmO9N2XQMs2BOmUE4XFdKDjhYsPcuqJJs8ZSkRkw4ihd
- t9N158v3pFOMraxkMq3R6x3ivLVe+FTNQH8+a1Cj8/A9s/yhW1N5Fu78NCB8kbA=
-X-Gm-Gg: ASbGncvTF8FGTnY50O8By2vQuIkUZUSYCm3Gpgau/RToux37dyAkUWrWWeNZLLbTFUn
- QazlbrksYJ5+5PloCAjS5OohzFMTGfRjCknoMcwKDcTAV/8X79VIYjZCzrqSmaz/lJr9nVaOqk6
- XhFI5MBi1aHMdXtEfKtHxKZSAHppbwmyJqSHkL4lDz/f+RsMLtmgkr0tOZgton06Mvi3doXdSfx
- OuMSr4V7nzsXl2zzpXsgvU8wX5RV/P3V+GkosZppYydpTQYsXaUjgVZq2kdLlzbmb5oQArJLc5p
- F3qrCNxFbBrF7fs+DpFDjd6t
-X-Google-Smtp-Source: AGHT+IEq/n/Tfq7aT4FpmCEZdmi1g3GO0mqtL7fWEuY6dUSLlQYwrreN3n6ytarFegj9TLUJkrf0bw==
-X-Received: by 2002:a05:6512:334e:b0:542:7fb2:4098 with SMTP id
- 2adb3069b0e04-5427fb240dbmr964465e87.26.1736293850322; 
- Tue, 07 Jan 2025 15:50:50 -0800 (PST)
-Received: from eriador.lan (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00::b8c]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-542235f5d5asm5409976e87.45.2025.01.07.15.50.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jan 2025 15:50:49 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>
-Cc: quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@chromium.org>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: Re: (subset) [PATCH v4 00/25] drm/msm/dpu: Add Concurrent Writeback
- Support for DPU 10.x+
-Date: Wed,  8 Jan 2025 01:50:46 +0200
-Message-ID: <173629378661.1569938.10235663597211043453.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
-References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9C0310E262;
+ Wed,  8 Jan 2025 01:34:24 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 507IrjYI017696;
+ Wed, 8 Jan 2025 01:34:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ wHT9ixZI79Ftshy/iOaYNQLz/O4FR1Krr6lgA/qIRBo=; b=Y8G71y0eaG8bOVas
+ ndQc5ulFZJYjMrcTflmSHKNZg6alq/RDMIpC0hldttsFmz0MlpSOliLliqhuYZnV
+ Lwf62IcP/ErHV17WMJcGkwsP6IHTyzoczz6hkYlMqsgDj5adjxaBiQG1ctNbvq9m
+ b8VoqXKGgf90AQEhSP4ePkoAbFGcRqhkJ7i4Y6cRWEkxJKB0GQb1j8c6D1E2SXOm
+ X6Lnt1bXrjaG4AVijx2qSdQsBoi9v0Hth00Pm43s/HxWoXCgG4t8SqBadSfAtwsj
+ IFakeBH6okzC6Glz0d525d7OwnoenmembxPBj++UTO2D3thkgCDzeUsCxGm9jyGa
+ RK8gYQ==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4419xurq97-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Jan 2025 01:34:21 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5081YLAU031224
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 8 Jan 2025 01:34:21 GMT
+Received: from [10.134.71.247] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 7 Jan 2025
+ 17:34:20 -0800
+Message-ID: <842c9230-d95a-43b8-83ed-0bfb286ee334@quicinc.com>
+Date: Tue, 7 Jan 2025 17:34:20 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/5] drm/msm/dpu: rate limit snapshot capture for mmu
+ faults
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20241217-abhinavk-smmu-fault-handler-v2-0-451377666cad@quicinc.com>
+ <20241217-abhinavk-smmu-fault-handler-v2-5-451377666cad@quicinc.com>
+ <mbtwyyfryvltkeicgmrzrfas3u35ocathehswi4rme5tbs6r37@plcl6gzpl2ld>
+ <dbe94c6b-e981-4f40-9261-2e44b5fb73cc@quicinc.com>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <dbe94c6b-e981-4f40-9261-2e44b5fb73cc@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: WXqXdxY5x0QJGiQ2Mmgfz4GIO1czaNLf
+X-Proofpoint-GUID: WXqXdxY5x0QJGiQ2Mmgfz4GIO1czaNLf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ impostorscore=0 clxscore=1015 spamscore=0 bulkscore=0 malwarescore=0
+ adultscore=0 mlxlogscore=999 suspectscore=0 lowpriorityscore=0
+ phishscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2501080009
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,29 +97,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 16 Dec 2024 16:43:11 -0800, Jessica Zhang wrote:
-> DPU supports a single writeback session running concurrently with primary
-> display when the CWB mux is configured properly. This series enables
-> clone mode for DPU driver and adds support for programming the CWB mux
-> in cases where the hardware has dedicated CWB pingpong blocks. Currently,
-> the CWB hardware blocks have only been added to the SM8650
-> hardware catalog and only DSI has been exposed as a possible_clone of WB.
+
+
+On 12/18/2024 1:33 PM, Jessica Zhang wrote:
 > 
-> [...]
+> 
+> On 12/18/2024 3:20 AM, Dmitry Baryshkov wrote:
+>> On Tue, Dec 17, 2024 at 04:27:57PM -0800, Jessica Zhang wrote:
+>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>
+>>> There is no recovery mechanism in place yet to recover from mmu
+>>> faults for DPU. We can only prevent the faults by making sure there
+>>> is no misconfiguration.
+>>>
+>>> Rate-limit the snapshot capture for mmu faults to once per
+>>> msm_atomic_commit_tail() as that should be sufficient to capture
+>>> the snapshot for debugging otherwise there will be a lot of DPU
+>>> snapshots getting captured for the same fault which is redundant
+>>> and also might affect capturing even one snapshot accurately.
+>>>
+>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>>> ---
+>>>   drivers/gpu/drm/msm/msm_atomic.c | 2 ++
+>>>   drivers/gpu/drm/msm/msm_kms.c    | 5 ++++-
+>>>   drivers/gpu/drm/msm/msm_kms.h    | 3 +++
+>>>   3 files changed, 9 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/msm_atomic.c 
+>>> b/drivers/gpu/drm/msm/msm_atomic.c
+>>> index 
+>>> 9c45d641b5212c11078ab38c13a519663d85e10a..9ad7eeb14d4336abd9d8a8eb1382bdddce80508a 100644
+>>> --- a/drivers/gpu/drm/msm/msm_atomic.c
+>>> +++ b/drivers/gpu/drm/msm/msm_atomic.c
+>>> @@ -228,6 +228,8 @@ void msm_atomic_commit_tail(struct 
+>>> drm_atomic_state *state)
+>>>       if (kms->funcs->prepare_commit)
+>>>           kms->funcs->prepare_commit(kms, state);
+>>> +    kms->fault_snapshot_capture = 0;
+>>> +
+>>
+>> - Please move it before the prepare_commit().
+>> - You are accessing the same variable from different threads / cores.
+>>    There should be some kind of a sync barrier.
+> 
+> Hi Dmitry,
+> 
+> Ack, will add a lock for the snapshot capture counter.
+> 
+> Thanks,
+> 
+> Jessica Zhang
+> 
 
-Applied to drm-misc-next, thanks!
+We cannot have a mutex lock because msm_kms_fault_handler cannot hold a 
+mutex. So we need an atomic variable in this case.
 
-[01/25] drm: add clone mode check for CRTC
-        commit: eee0912a7185d5dc0a700d48f7ff620bb7f5389b
-[02/25] drm/tests: Add test for drm_crtc_in_clone_mode()
-        commit: 5a6e8c369486a79493ab300a1987cc6aad16cf6a
-[03/25] drm: Add valid clones check
-        commit: 41b4b11da02157c7474caf41d56baae0e941d01a
-[04/25] drm/tests: Add test for drm_atomic_helper_check_modeset()
-        commit: 88849f24e2abba8a8951aa76ea60a72fba916afe
-
-Best regards,
--- 
-With best wishes
-Dmitry
-
+>>
+>>>       /*
+>>>        * Push atomic updates down to hardware:
+>>>        */
+>>> diff --git a/drivers/gpu/drm/msm/msm_kms.c 
+>>> b/drivers/gpu/drm/msm/msm_kms.c
+>>> index 
+>>> 78830e446355f77154fa21a5d107635bc88ba3ed..3327caf396d4fc905dc127f09515559c12666dc8 100644
+>>> --- a/drivers/gpu/drm/msm/msm_kms.c
+>>> +++ b/drivers/gpu/drm/msm/msm_kms.c
+>>> @@ -168,7 +168,10 @@ static int msm_kms_fault_handler(void *arg, 
+>>> unsigned long iova, int flags, void
+>>>   {
+>>>       struct msm_kms *kms = arg;
+>>> -    msm_disp_snapshot_state(kms->dev);
+>>> +    if (!kms->fault_snapshot_capture) {
+>>> +        msm_disp_snapshot_state(kms->dev);
+>>> +        kms->fault_snapshot_capture++;
+>>> +    }
+>>>       return -ENOSYS;
+>>>   }
+>>> diff --git a/drivers/gpu/drm/msm/msm_kms.h 
+>>> b/drivers/gpu/drm/msm/msm_kms.h
+>>> index 
+>>> e60162744c669773b6e5aef824a173647626ab4e..3ac089e26e14b824567f3cd2c62f82a1b9ea9878 100644
+>>> --- a/drivers/gpu/drm/msm/msm_kms.h
+>>> +++ b/drivers/gpu/drm/msm/msm_kms.h
+>>> @@ -128,6 +128,9 @@ struct msm_kms {
+>>>       int irq;
+>>>       bool irq_requested;
+>>> +    /* rate limit the snapshot capture to once per attach */
+>>> +    int fault_snapshot_capture;
+>>> +
+>>>       /* mapper-id used to request GEM buffer mapped for scanout: */
+>>>       struct msm_gem_address_space *aspace;
+>>>
+>>> -- 
+>>> 2.34.1
+>>>
+>>
+>> -- 
+>> With best wishes
+>> Dmitry
+> 
