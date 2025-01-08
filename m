@@ -2,91 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DDD4A06504
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 20:03:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCF9AA064FD
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 20:01:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49D1E10E105;
-	Wed,  8 Jan 2025 19:03:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9809B10E91E;
+	Wed,  8 Jan 2025 19:01:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BbLvVfMg";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="d3fyu6Wp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1B3410E105
- for <freedreno@lists.freedesktop.org>; Wed,  8 Jan 2025 19:03:06 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-aae81f4fdc4so36654166b.0
- for <freedreno@lists.freedesktop.org>; Wed, 08 Jan 2025 11:03:06 -0800 (PST)
+Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
+ [209.85.166.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 443A410E91E
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Jan 2025 19:01:52 +0000 (UTC)
+Received: by mail-il1-f181.google.com with SMTP id
+ e9e14a558f8ab-3a81324bbdcso294845ab.1
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Jan 2025 11:01:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736362925; x=1736967725; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=0T+0mL7iv46IwFlcF+LpDNgC3tlPvqLC5ee3E8FWwhI=;
- b=BbLvVfMgDO0IvOr2T40F0gpOCUwjMsQgvMin4jiB9ja7bhB37bXR6Ac41YFw6w5mhn
- pCQCz0mjCM5g5d8RXmdpj4NuZKh0mTPxgw3x0P928tbycKTWA/27Pt0XgOUm1BEQBUsA
- 9MVDSxmFb3fCNkNtgXOJUYRRkSHkrbj54W2rixnKjNvS/Z3Gkt6zQIUzjPncXCDGIxL3
- BwrpAIVp9+1shDTwQsggsAC/Ff/f4PFwSJKdGjUxk8+cMyMqLw9nYO76EreFv/jahORk
- FEKKCN6bz+dFTu+nuAIFfly7okR3/a7mzJy+rCp7jFcswwrLyWBhh/aqozmmp094YxEo
- in2g==
+ d=linaro.org; s=google; t=1736362851; x=1736967651; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=jlshKN5Gn8cp8iVZ5vNpFSVdJvIsZlNt8r7MKOIYXsU=;
+ b=d3fyu6Wp1+Gw3EROuWEv7dyGq4y1uwuooqtNxCSj9BojFCzkBBmoJcG7U7fC6Lpgi/
+ ViqUAjWQhd+/BiCvhZKHluzfR44xzr+4bMXAMxJ0hoL9NjRYBJ7plaodjVJOj7wiawVL
+ rF88yxUNv8YUsSARpk/27X3eOYysKGxUgOHrxi0Aag3Cff/C4bCIBKRkgrxHQCyS/+nc
+ RXT6L6gdN7IAdsn0Zn8Gijp3rUTeiKs3Ohh+IxUKt3wqgwtL7gVRGPQaKVxsQBtrl3S4
+ zOLDtrqtfC1CTWEY5EbOfx4HXlC8knZWvrr6Kn/y09Hyki3cticNt1UhrmzLpjzVWCqt
+ p2JA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736362925; x=1736967725;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0T+0mL7iv46IwFlcF+LpDNgC3tlPvqLC5ee3E8FWwhI=;
- b=LJxVyVHwhu3jY6NXwJUzwnRkU2dt/JIT5r+UPaoPnt3nfHcnamAqkFi3c9DcyUb2rA
- 4Pe3eTV50czT988YjYF2m5F36+9ru+NVwVf6SZ7RVZ0Tju/Tsk8K4pnRJ88ZNiq32x8R
- Twk1iTQaM8wxhYOEKr/1xP45i32bbRU46jooX67msUCAF1/eST7aMDpY4Q7xydIb5A8y
- jnw0uw3JGLlkJuaUphhPkHw2EI6GHIQlz//TWFIpe+6OmZGhs9BtJHQJsaZNmT27uH6W
- uO8rPaBtaX7HUf5C1zMPeQ52Lhb/ijFhq7fN5fxQw2snaKqDoVs7HIY5PdFIZQ4756Nd
- SeSw==
+ d=1e100.net; s=20230601; t=1736362851; x=1736967651;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=jlshKN5Gn8cp8iVZ5vNpFSVdJvIsZlNt8r7MKOIYXsU=;
+ b=V+AzsqES0n6IzVIgPSkS1ZD7s62Totyxg7yAVfR+dd5SBhNBjUuti11e9f9/J3Dv8a
+ emXdzuJM9ds3a3//BaXbGdlmOdvwCSXsSsKIS5KjrJj39FTJRHcHSbmAVEH/OFTezLPO
+ bhSB9s7c3EaBRa0MObfMDI6CqdR5wlRahoA0niayrC618K7QpJG71xiGoxEKmHpPjLON
+ QktfNpDAs3ur1A5oZUTQ1zReyFMusJbPTURzw2pH7IaXHwgVgmYD80JCzaeE/1n/1xF2
+ r5RYMNO5AjdYI3DofH/sr4t4pQC3M6MVyc5kroKCVzwOfUnFgK7eKMCUOsxC9D2ZEU94
+ qu+w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWKXjLqwx9CRpm0tqzX5iHd5huFOsfhaA8pRXjXvadV0NEouxIFQVmWDfhqenZVP7M82HxrH2dxtZA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxy1ug0w29fuTr7Py96/IdDZre11ZCouwW34qUxV6QeFWach5fm
- Kpz4GQD8lt0uzgH0dBl5Y52Vag9QNOoNhP/tus9I7HCAP+XGUgvU/z6cSr8HR+sOgI1Er5ue1dR
- X
-X-Gm-Gg: ASbGncvpoZBiy5bI/uN/J22d7by/ter41WKpYKH7iXdbkxSJ80eM8aXUOPxZ1mSNvpS
- SiOXEJrVHkFjKISgX3s00pLJYP5ik1bvYjtS/a6MR+c8CxvQNPAIHd2yX1oMN0Fyfz2Aar199r+
- Tkw0VaSwn29Y2fzbfon4eyarKXXAt8htAzsPS0LJBfU2yuwDQW/8MPUoWipBdj/AaBvVMrxZ3eM
- Ee3maRhDdkGxOls15GAR1WPFzeQs8qzBBNEaPxRYIaNIRWF1wPNSwBMIY1lgL/WnBLScLXJVNao
- cJUrDTTZuhbZIMDKIgLzeg01sZgyHE3/R8ye
-X-Google-Smtp-Source: AGHT+IG1xpbnZieMEXVc7bFuqI0b6Whc2XStjuLNuTmGUWrDF/JGwR78uXx5jK01HIrhoMocaKNhAQ==
-X-Received: by 2002:a05:651c:556:b0:302:3356:7c55 with SMTP id
- 38308e7fff4ca-305f454741fmr8733161fa.10.1736361149182; 
- Wed, 08 Jan 2025 10:32:29 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3045b06a467sm63142631fa.90.2025.01.08.10.32.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jan 2025 10:32:27 -0800 (PST)
-Date: Wed, 8 Jan 2025 20:32:25 +0200
+ AJvYcCUirKczTN9zYr5xvLYkq/K5nlWKKBTyvsNhp+7x+s2UCYFwH276q9aBsFYc819psg0w+aS1SZjipRg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw8uHQgxgii+uzN/M2XPR3WNLDTADBV0XBxCEaZ2gFDmWUrdPfE
+ EFrO9YHBlyeJ8BTDu9fzgFxXEfUes1r0ERnojtacWk2SeOEBjHAjy/td93gHUIE0CxvxHUgnUXF
+ XW2MI2xSLOlKN1v3H8ZJ5g35LTKsjz2Ew1HznlzztYjvKrqKC
+X-Gm-Gg: ASbGnctAYAvCYqzwUmZPU1Txakiaeg6KB+3oqEcu5ZTzcTnP8oL22g8Xask1dUn/H3+
+ u8xxbTGv1HZK2ouUk9OK33brcbnSdm+P6Iwr+B180cToji4nYT3Qs
+X-Google-Smtp-Source: AGHT+IGCQKYuDks36lEW7LfUR0RTlFnjVtPyV5b1DfwCfISBtLKMZR4JarGq4WzUUljFPWnd4OgrkeNSFJt4Zl0kPcM=
+X-Received: by 2002:a05:690c:b98:b0:6ef:5ab8:2c53 with SMTP id
+ 00721157ae682-6f5312372e9mr29504387b3.19.1736362527823; Wed, 08 Jan 2025
+ 10:55:27 -0800 (PST)
+MIME-Version: 1.0
+References: <20241222-drm-dirty-modeset-v1-0-0e76a53eceb9@linaro.org>
+ <20241222-drm-dirty-modeset-v1-6-0e76a53eceb9@linaro.org>
+ <Z368DnfCrpYOPbav@phenom.ffwll.local>
+In-Reply-To: <Z368DnfCrpYOPbav@phenom.ffwll.local>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>, 
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, 
- Sravanthi Kollukuduru <skolluku@codeaurora.org>,
+Date: Wed, 8 Jan 2025 20:55:15 +0200
+X-Gm-Features: AbW1kvYkDuo0fgTyjfi9JWk1Z4qEJORC7SkYtKmOVmKhmXayQkiFPInip7x-ydo
+Message-ID: <CAA8EJppDB-LTiUF1_-2gX8DjGC99Xze9OFFJZEn0VwaJBAAMpQ@mail.gmail.com>
+Subject: Re: [PATCH 6/6] drm/msm/dpu: don't set crtc_state->mode_changed from
+ atomic_check()
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Chandan Uddaraju <chandanu@codeaurora.org>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>, 
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Archit Taneja <architt@codeaurora.org>, Rajesh Yadav <ryadav@codeaurora.org>, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 2/6] drm/atomic: prepare to check that drivers follow
- restrictions for needs_modeset
-Message-ID: <qiqmaotvdfnq66oth6eqcun5n7stmfyw7zyyjxxlh72gst722a@t6zb764t2ttz>
-References: <20241222-drm-dirty-modeset-v1-0-0e76a53eceb9@linaro.org>
- <20241222-drm-dirty-modeset-v1-2-0e76a53eceb9@linaro.org>
- <Z367rzpzt00F0sK9@phenom.ffwll.local>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Z367rzpzt00F0sK9@phenom.ffwll.local>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,274 +95,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 08, 2025 at 06:53:51PM +0100, Simona Vetter wrote:
-> On Sun, Dec 22, 2024 at 07:00:42AM +0200, Dmitry Baryshkov wrote:
-> > Some drivers might fail to follow the restrictions documented for
-> > drm_atomic_helper_check_modesets(). In order to catch such an issues,
-> > add the drm_atomic_state->dirty_needs_modeset field and check it in
-> > drm_atomic_check_only(). Make sure that neither of atomic_check()
-> > callbacks can set that field without calling
-> > drm_atomic_helper_check_modesets() again.
-> > 
-> > Suggested-by: Simona Vetter <simona.vetter@ffwll.ch>
+On Wed, 8 Jan 2025 at 19:55, Simona Vetter <simona.vetter@ffwll.ch> wrote:
+>
+> On Sun, Dec 22, 2024 at 07:00:46AM +0200, Dmitry Baryshkov wrote:
+> > The MSM driver uses drm_atomic_helper_check() which mandates that none
+> > of the atomic_check() callbacks toggles crtc_state->mode_changed.
+> > Perform corresponding check before calling the drm_atomic_helper_check()
+> > function.
+> >
+> > Fixes: 8b45a26f2ba9 ("drm/msm/dpu: reserve cdm blocks for writeback in case of YUV output")
+> > Reported-by: Simona Vetter <simona.vetter@ffwll.ch>
+> > Closes: https://lore.kernel.org/dri-devel/ZtW_S0j5AEr4g0QW@phenom.ffwll.local/
 > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> Thanks a lot of creating this patch. But looking at it I'm not so sure I
-> actually had a good idea, since there's still lots of ways for drivers to
-> change drm_atomic_crtc_needs_modeset() that we miss. And trying to use an
-> inverted bitfield of all crtc that we've run through in check_modeset, and
-> then in atomic_check_only compare it against all crtc that need a modeset
-> also has corner cases it gets wrong I think, like just not using the
-> helpers in specific case, I think something like i915's fastset would trip
-> that.
-
-I think we should try to get something merged. I mean, the documentation
-was there, but it didn't prevent driver authors from being creative, as
-you wrote. So, having false negatives should be fine. We just have not
-to trigger false warning reports. I will try giving it another tought.
-
-> 
-> Plus there's lots more corners that drivers have gotten creatively wrong,
-> so I feel like really clear docs is the best we can do.
-> 
-> So unless you think it was really useful to fix msm I feel like best to
-> skip this. Apologies for making you put work in here :-/
-
-I think it's useful to prevent us (authors) from doing nasty things :-/
-
-> -Sima
-> 
 > > ---
-> >  drivers/gpu/drm/drm_atomic.c        |  3 ++
-> >  drivers/gpu/drm/drm_atomic_helper.c | 77 +++++++++++++++++++++++++++++++++----
-> >  include/drm/drm_atomic.h            | 10 +++++
-> >  3 files changed, 82 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> > index 9ea2611770f43ce7ccba410406d5f2c528aab022..202e4e64bd31921d0a4d4b86605b501311e14c33 100644
-> > --- a/drivers/gpu/drm/drm_atomic.c
-> > +++ b/drivers/gpu/drm/drm_atomic.c
-> > @@ -1449,6 +1449,9 @@ int drm_atomic_check_only(struct drm_atomic_state *state)
-> >  		}
-> >  	}
-> >  
-> > +	WARN_RATELIMIT(state->dirty_needs_modeset,
-> > +		       "Driver changed needs_modeset under drm_atomic_helper_check_modeset()");
-> > +
-
-Maybe it should be drm_warn or drm_info for now, instead of full WARN().
-
-> >  	if (!state->allow_modeset) {
-> >  		for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
-> >  			if (drm_atomic_crtc_needs_modeset(new_crtc_state)) {
-> > diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> > index f26887c3fe8b194137200f9f2426653274c50fda..2c62840416f4b807d6a880b5c30ae024a16af528 100644
-> > --- a/drivers/gpu/drm/drm_atomic_helper.c
-> > +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> > @@ -433,6 +433,7 @@ mode_fixup(struct drm_atomic_state *state)
-> >  
-> >  	for_each_new_connector_in_state(state, connector, new_conn_state, i) {
-> >  		const struct drm_encoder_helper_funcs *funcs;
-> > +		bool old_needs_modeset = false;
-> >  		struct drm_encoder *encoder;
-> >  		struct drm_bridge *bridge;
-> >  
-> > @@ -451,6 +452,9 @@ mode_fixup(struct drm_atomic_state *state)
-> >  		encoder = new_conn_state->best_encoder;
-> >  		funcs = encoder->helper_private;
-> >  
-> > +		if (new_crtc_state)
-> > +			old_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
-> > +
-> >  		bridge = drm_bridge_chain_get_first_bridge(encoder);
-> >  		ret = drm_atomic_bridge_chain_check(bridge,
-> >  						    new_crtc_state,
-> > @@ -479,6 +483,12 @@ mode_fixup(struct drm_atomic_state *state)
-> >  				return -EINVAL;
-> >  			}
-> >  		}
-> > +
-> > +		if (new_crtc_state) {
-> > +			bool new_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
-> > +
-> > +			state->dirty_needs_modeset |= (new_needs_modeset != old_needs_modeset);
-> > +		}
-> >  	}
-> >  
-> >  	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
-> > @@ -574,6 +584,36 @@ mode_valid(struct drm_atomic_state *state)
-> >  	return 0;
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 32 +++++++++++++++++++++++++----
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 ++++
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 26 +++++++++++++++++++++++
+> >  drivers/gpu/drm/msm/msm_atomic.c            | 13 +++++++++++-
+> >  drivers/gpu/drm/msm/msm_kms.h               |  7 +++++++
+> >  5 files changed, 77 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > index 209e6fb605b2d8724935b62001032e7d39540366..b7c3aa8d0e2ca58091deacdeaccb0819d2bf045c 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > @@ -753,6 +753,34 @@ static void dpu_encoder_assign_crtc_resources(struct dpu_kms *dpu_kms,
+> >       cstate->num_mixers = num_lm;
 > >  }
-> >  
-> > +static int
-> > +connector_atomic_check(struct drm_atomic_state *state,
-> > +		       struct drm_connector *connector,
-> > +		       struct drm_connector_state *old_connector_state,
-> > +		       struct drm_connector_state *new_connector_state)
+> >
+> > +/**
+> > + * dpu_encoder_virt_check_mode_changed: check if full modeset is required
+> > + * @drm_enc:    Pointer to drm encoder structure
+> > + * @crtc_state:      Corresponding CRTC state to be checked
+> > + * @conn_state: Corresponding Connector's state to be checked
+> > + *
+> > + * Check if the changes in the object properties demand full mode set.
+> > + */
+> > +int dpu_encoder_virt_check_mode_changed(struct drm_encoder *drm_enc,
+> > +                                     struct drm_crtc_state *crtc_state,
+> > +                                     struct drm_connector_state *conn_state)
 > > +{
-> > +	const struct drm_connector_helper_funcs *funcs = connector->helper_private;
-> > +	struct drm_crtc_state *new_crtc_state;
-> > +	bool old_needs_modeset = false;
-> > +	int ret;
+> > +     struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+> > +     struct msm_display_topology topology;
 > > +
-> > +	if (new_connector_state->crtc)
-> > +		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_connector_state->crtc);
-> > +	if (new_crtc_state)
-> > +		old_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
+> > +     DPU_DEBUG_ENC(dpu_enc, "\n");
 > > +
-> > +	if (funcs->atomic_check)
-> > +		ret = funcs->atomic_check(connector, state);
-> > +	else
-> > +		ret = 0;
+> > +     /* Using mode instead of adjusted_mode as it wasn't computed yet */
+> > +     topology = dpu_encoder_get_topology(dpu_enc, &crtc_state->mode, crtc_state, conn_state);
 > > +
-> > +	if (new_crtc_state) {
-> > +		bool new_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
+> > +     if (topology.needs_cdm && !dpu_enc->cur_master->hw_cdm)
+> > +             crtc_state->mode_changed = true;
+> > +     else if (!topology.needs_cdm && dpu_enc->cur_master->hw_cdm)
+> > +             crtc_state->mode_changed = true;
 > > +
-> > +		state->dirty_needs_modeset |= (new_needs_modeset != old_needs_modeset);
-> > +	}
-> > +
-> > +	return ret;
+> > +     return 0;
 > > +}
 > > +
-> >  /**
-> >   * drm_atomic_helper_check_modeset - validate state object for modeset changes
-> >   * @dev: DRM device
-> > @@ -628,6 +668,8 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
-> >  	int i, ret;
-> >  	unsigned int connectors_mask = 0, user_connectors_mask = 0;
-> >  
-> > +	state->dirty_needs_modeset = false;
+> >  static int dpu_encoder_virt_atomic_check(
+> >               struct drm_encoder *drm_enc,
+> >               struct drm_crtc_state *crtc_state,
+> > @@ -786,10 +814,6 @@ static int dpu_encoder_virt_atomic_check(
+> >
+> >       topology = dpu_encoder_get_topology(dpu_enc, adj_mode, crtc_state, conn_state);
+> >
+> > -     if (topology.needs_cdm && !dpu_enc->cur_master->hw_cdm)
+> > -             crtc_state->mode_changed = true;
+> > -     else if (!topology.needs_cdm && dpu_enc->cur_master->hw_cdm)
+> > -             crtc_state->mode_changed = true;
+> >       /*
+> >        * Release and Allocate resources on every modeset
+> >        */
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> > index 92b5ee390788d16e85e195a664417896a2bf1cae..da133ee4701a329f566f6f9a7255f2f6d050f891 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> > @@ -88,4 +88,8 @@ void dpu_encoder_cleanup_wb_job(struct drm_encoder *drm_enc,
+> >
+> >  bool dpu_encoder_is_valid_for_commit(struct drm_encoder *drm_enc);
+> >
+> > +int dpu_encoder_virt_check_mode_changed(struct drm_encoder *drm_enc,
+> > +                                     struct drm_crtc_state *crtc_state,
+> > +                                     struct drm_connector_state *conn_state);
 > > +
-> >  	for_each_oldnew_connector_in_state(state, connector, old_connector_state, new_connector_state, i)
-> >  		user_connectors_mask |= BIT(i);
-> >  
-> > @@ -683,8 +725,6 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
-> >  		return ret;
-> >  
-> >  	for_each_oldnew_connector_in_state(state, connector, old_connector_state, new_connector_state, i) {
-> > -		const struct drm_connector_helper_funcs *funcs = connector->helper_private;
-> > -
-> >  		WARN_ON(!drm_modeset_is_locked(&dev->mode_config.connection_mutex));
-> >  
-> >  		/*
-> > @@ -710,8 +750,8 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
-> >  				new_crtc_state->connectors_changed = true;
-> >  		}
-> >  
-> > -		if (funcs->atomic_check)
-> > -			ret = funcs->atomic_check(connector, state);
-> > +		ret = connector_atomic_check(state, connector,
-> > +					     old_connector_state, new_connector_state);
-> >  		if (ret) {
-> >  			drm_dbg_atomic(dev,
-> >  				       "[CONNECTOR:%d:%s] driver check failed\n",
-> > @@ -752,13 +792,11 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
-> >  	 * has been called on them when a modeset is forced.
-> >  	 */
-> >  	for_each_oldnew_connector_in_state(state, connector, old_connector_state, new_connector_state, i) {
-> > -		const struct drm_connector_helper_funcs *funcs = connector->helper_private;
-> > -
-> >  		if (connectors_mask & BIT(i))
-> >  			continue;
-> >  
-> > -		if (funcs->atomic_check)
-> > -			ret = funcs->atomic_check(connector, state);
-> > +		ret = connector_atomic_check(state, connector,
-> > +					     old_connector_state, new_connector_state);
-> >  		if (ret) {
-> >  			drm_dbg_atomic(dev,
-> >  				       "[CONNECTOR:%d:%s] driver check failed\n",
-> > @@ -994,6 +1032,7 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
-> >  
-> >  	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
-> >  		const struct drm_plane_helper_funcs *funcs;
-> > +		bool old_needs_modeset = false;
-> >  
-> >  		WARN_ON(!drm_modeset_is_locked(&plane->mutex));
-> >  
-> > @@ -1006,6 +1045,12 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
-> >  		if (!funcs || !funcs->atomic_check)
-> >  			continue;
-> >  
-> > +		if (new_plane_state->crtc)
-> > +			new_crtc_state = drm_atomic_get_new_crtc_state(state,
-> > +								       new_plane_state->crtc);
-> > +		if (new_crtc_state)
-> > +			old_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
+> >  #endif /* __DPU_ENCODER_H__ */
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > index dae8a94d3366abfb8937d5f44d8968f1d0691c2d..e2d822f7d785dc0debcb28595029a3e2050b0cf4 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > @@ -446,6 +446,31 @@ static void dpu_kms_disable_commit(struct msm_kms *kms)
+> >       pm_runtime_put_sync(&dpu_kms->pdev->dev);
+> >  }
+> >
+> > +static int dpu_kms_check_mode_changed(struct msm_kms *kms, struct drm_atomic_state *state)
+> > +{
+> > +     struct drm_crtc_state *new_crtc_state;
+> > +     struct drm_connector *connector;
+> > +     struct drm_connector_state *new_conn_state;
+> > +     int i;
 > > +
-> >  		ret = funcs->atomic_check(plane, state);
-> >  		if (ret) {
-> >  			drm_dbg_atomic(plane->dev,
-> > @@ -1013,16 +1058,26 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
-> >  				       plane->base.id, plane->name);
-> >  			return ret;
-> >  		}
+> > +     for_each_new_connector_in_state(state, connector, new_conn_state, i) {
+> > +             struct drm_encoder *encoder;
 > > +
-> > +		if (new_crtc_state) {
-> > +			bool new_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
+> > +             WARN_ON(!!new_conn_state->best_encoder != !!new_conn_state->crtc);
 > > +
-> > +			state->dirty_needs_modeset |= (new_needs_modeset != old_needs_modeset);
-> > +		}
-> >  	}
-> >  
-> >  	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
-> >  		const struct drm_crtc_helper_funcs *funcs;
-> > +		bool old_needs_modeset = false;
-> >  
-> >  		funcs = crtc->helper_private;
-> >  
-> >  		if (!funcs || !funcs->atomic_check)
-> >  			continue;
-> >  
-> > +		if (new_crtc_state)
-> > +			old_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
+> > +             if (!new_conn_state->crtc || !new_conn_state->best_encoder)
+> > +                     continue;
 > > +
-> >  		ret = funcs->atomic_check(crtc, state);
-> >  		if (ret) {
-> >  			drm_dbg_atomic(crtc->dev,
-> > @@ -1030,6 +1085,12 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
-> >  				       crtc->base.id, crtc->name);
-> >  			return ret;
-> >  		}
+> > +             new_crtc_state = drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);
 > > +
-> > +		if (new_crtc_state) {
-> > +			bool new_needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
+> > +             encoder = new_conn_state->best_encoder;
 > > +
-> > +			state->dirty_needs_modeset |= (new_needs_modeset != old_needs_modeset);
-> > +		}
-> >  	}
-> >  
-> >  	return ret;
-> > diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> > index 31ca88deb10d262fb3a3f8e14d2afe24f8410cb1..7b0dbd3c8a3df340399a458aaf79263f0fdc24e5 100644
-> > --- a/include/drm/drm_atomic.h
-> > +++ b/include/drm/drm_atomic.h
-> > @@ -408,6 +408,16 @@ struct drm_atomic_state {
-> >  	 */
-> >  	bool duplicated : 1;
-> >  
-> > +	/**
-> > +	 * @dirty_needs_modeset:
-> > +	 *
-> > +	 * Indicates whether the drm_atomic_crtc_needs_modeset() changed in an
-> > +	 * unexpected way. Usually this means that driver implements atomic
-> > +	 * helpers using drm_atomic_crtc_needs_modeset(), but mode_changed has
-> > +	 * toggled by one of its atomic_check() callbacks.
-> > +	 */
-> > +	bool dirty_needs_modeset : 1;
+> > +             dpu_encoder_virt_check_mode_changed(encoder, new_crtc_state, new_conn_state);
+> > +     }
 > > +
-> >  	/**
-> >  	 * @planes:
-> >  	 *
-> > 
-> > -- 
+> > +     return 0;
+> > +}
+> > +
+> >  static void dpu_kms_flush_commit(struct msm_kms *kms, unsigned crtc_mask)
+> >  {
+> >       struct dpu_kms *dpu_kms = to_dpu_kms(kms);
+> > @@ -1049,6 +1074,7 @@ static const struct msm_kms_funcs kms_funcs = {
+> >       .irq             = dpu_core_irq,
+> >       .enable_commit   = dpu_kms_enable_commit,
+> >       .disable_commit  = dpu_kms_disable_commit,
+> > +     .check_mode_changed = dpu_kms_check_mode_changed,
+> >       .flush_commit    = dpu_kms_flush_commit,
+> >       .wait_flush      = dpu_kms_wait_flush,
+> >       .complete_commit = dpu_kms_complete_commit,
+> > diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+> > index a7a2384044ffdb13579cc9a10f56f8de9beca761..364df245e3a209094782ca1b47b752a729b32a5b 100644
+> > --- a/drivers/gpu/drm/msm/msm_atomic.c
+> > +++ b/drivers/gpu/drm/msm/msm_atomic.c
+> > @@ -183,10 +183,16 @@ static unsigned get_crtc_mask(struct drm_atomic_state *state)
+> >
+> >  int msm_atomic_check(struct drm_device *dev, struct drm_atomic_state *state)
+> >  {
+> > +     struct msm_drm_private *priv = dev->dev_private;
+> > +     struct msm_kms *kms = priv->kms;
+> >       struct drm_crtc_state *old_crtc_state, *new_crtc_state;
+> >       struct drm_crtc *crtc;
+> > -     int i;
+> > +     int i, ret = 0;
+> >
+> > +     /*
+> > +      * FIXME: stop setting allow_modeset and move this check to the DPU
+> > +      * driver.
+> > +      */
+>
+> I guess there's more work to stop setting allow_modeset? Or was the issue
+> there that it breaks userspace that expects ctm changes to be doable
+> without modesets?
+
+Yes. And I currently have no way to check that userspace, so for me
+it's easier to add a TODO rather than to risk breaking it.
+And with your patch going in I think we should add a check that the
+allow_modeset flag hasn't been tampered with.
+
+>
+> Either way msm patches lgtm, but don't feel confident enough for acks
+> except on the first one that reworks the active_change logic to use
+> crtc->enable instead for resource allocation.
+> -Sima
+>
+> >       for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+> >                                     new_crtc_state, i) {
+> >               if ((old_crtc_state->ctm && !new_crtc_state->ctm) ||
+> > @@ -196,6 +202,11 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_state *state)
+> >               }
+> >       }
+> >
+> > +     if (kms && kms->funcs && kms->funcs->check_mode_changed)
+> > +             ret = kms->funcs->check_mode_changed(kms, state);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> >       return drm_atomic_helper_check(dev, state);
+> >  }
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+> > index e60162744c669773b6e5aef824a173647626ab4e..ec2a75af89b09754faef1a07adc9338f7d78161e 100644
+> > --- a/drivers/gpu/drm/msm/msm_kms.h
+> > +++ b/drivers/gpu/drm/msm/msm_kms.h
+> > @@ -59,6 +59,13 @@ struct msm_kms_funcs {
+> >       void (*enable_commit)(struct msm_kms *kms);
+> >       void (*disable_commit)(struct msm_kms *kms);
+> >
+> > +     /**
+> > +      * @check_mode_changed:
+> > +      *
+> > +      * Verify if the commit requires a full modeset on one of CRTCs.
+> > +      */
+> > +     int (*check_mode_changed)(struct msm_kms *kms, struct drm_atomic_state *state);
+> > +
+> >       /**
+> >        * Prepare for atomic commit.  This is called after any previous
+> >        * (async or otherwise) commit has completed.
+> >
+> > --
 > > 2.39.5
-> > 
-> 
-> -- 
+> >
+>
+> --
 > Simona Vetter
 > Software Engineer, Intel Corporation
 > http://blog.ffwll.ch
+
+
 
 -- 
 With best wishes
