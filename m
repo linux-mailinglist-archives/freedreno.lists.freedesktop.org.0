@@ -2,60 +2,89 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE3F5A0685D
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 23:33:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89259A0687D
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 23:41:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B310A10E43E;
-	Wed,  8 Jan 2025 22:33:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43F2B10E964;
+	Wed,  8 Jan 2025 22:41:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X4yREZda";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="ONeQOGpi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B04410E43E;
- Wed,  8 Jan 2025 22:33:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 7BACAA41CDF;
- Wed,  8 Jan 2025 22:32:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BC86C4CED3;
- Wed,  8 Jan 2025 22:33:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1736375634;
- bh=zhMeq6e9p3UZO4+kqRySehHwx4EOWlJy8VBJhzApWkg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=X4yREZda6O3jHCglBv/wiKX/kB6CRC0KtzK/2M4ULMwu/lOo0YJVDq/vH+fFMCye3
- AdN7TiJQGTq4A8qAlVmyqOE702xPRUxBvI+cfmGKAf7l0qVEEwzLOYVUGmTm/+VClY
- 5JwdVurCc7ksCFIjX/TTpohVL23o2HWieNPLpkRbad/Y7MUHOqkVnuKEDP+uAFH/HD
- VzCRhdz6iGwAMbF33lyqir3erSgtdupge+46/gjSE5aM9kSDwx+bBj5sn3sZX3Kk+a
- 4qqn+Bkd4xGqPR3SO+GnGxxHADROUg+aNi1+J76/Oqw+sE7XZofuC9ZdK/NnG8+yF4
- OoPDZnlvNB0Jg==
-Date: Wed, 8 Jan 2025 16:33:51 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jie Zhang <quic_jiezh@quicinc.com>
-Subject: Re: [PATCH RESEND v2 3/4] arm64: dts: qcom: qcs615: Add gpu and gmu
- nodes
-Message-ID: <y7rf2klosrpvr5foroilgma5rwmlyq4ux5zymxd5cen7d6yu42@xig34xs6whtg>
-References: <20241213-qcs615-gpu-dt-v2-0-47f3b312b178@quicinc.com>
- <20241213-qcs615-gpu-dt-v2-3-47f3b312b178@quicinc.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13F6E10E964;
+ Wed,  8 Jan 2025 22:41:24 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 508Igaaw007885;
+ Wed, 8 Jan 2025 22:41:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=5TcPL8L9MCetsP4xQlnAFz
+ YYzHUR76FXshbTlJ5if2Q=; b=ONeQOGpiDiv7D0e6LLkxXO1WNsxrsxg3HI7Ia7
+ WzQMrObfF2VAuVbXenYgIGMKtJEpN7doogcFxejXC2z5G3P1Gf3IgR4jmi/9wQpc
+ PbS11wSG6FHAlATwSFPWN5dUCklmjgxsHdP1kq/XHNIdpGOP0DmVGqXXJ5ZtujKT
+ eYA7OyIzj2b5OI+vUMwsRUj+ydTs6wqKG7uukj7cOFqlt8zwlcBd+Ri/dhR9b2hO
+ 77weOoLbkJ2LWfYCVZEk6hh5Dvldyzxtk+CwmjfXOjlGI9LEhAEHNJ+v7SDwwPvq
+ SgyRabXg1AS8BLjLLf8+LQr15z3Mx/xq4X6mPNDDK4wm+PVw==
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 441xvnrfmq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Jan 2025 22:41:21 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 508Mf672003593
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 8 Jan 2025 22:41:06 GMT
+Received: from jesszhan-linux.qualcomm.com (10.80.80.8) by
+ nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Wed, 8 Jan 2025 14:41:05 -0800
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+Subject: [PATCH 0/2] drm/msm/dpu: Minor virtual planes fixes
+Date: Wed, 8 Jan 2025 14:40:46 -0800
+Message-ID: <20250108-virtual-planes-fixes-v1-0-420cb36df94a@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241213-qcs615-gpu-dt-v2-3-47f3b312b178@quicinc.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAO7+fmcC/x2LWwqAIBAArxL7naBL0eMq0cdiay2EhZYE0d2zf
+ gaGYW6IHIQj9MUNgZNE2XwWUxZgF/IzK5myA2qstdGtShKOk1a1r+Q5KifXx8qwww6RbAN53QP
+ /IZ/D+DwvWGSEc2YAAAA=
+X-Change-ID: 20250108-virtual-planes-fixes-f41ef2922ac7
+To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>
+CC: <quic_abhinavk@quicinc.com>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>
+X-Mailer: b4 0.15-dev-1b0d6
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1736376065; l=1038;
+ i=quic_jesszhan@quicinc.com; s=20230329; h=from:subject:message-id;
+ bh=+iay958krtRqU2ep2SDQFCVEnxEbjSddMCAaPd9dG9I=;
+ b=6PkDfh1YlEJmxKKfmNpLpFeLOqaMDh1iGCJi5TRdz+2b7zavrwzMS/d2Jls7FK9VkRX69FPBT
+ KDMOIxpjmPKD26ub24sH0g0xIczacO2TMU01Vwnkeb9hbFbUkuyuKvE
+X-Developer-Key: i=quic_jesszhan@quicinc.com; a=ed25519;
+ pk=gAUCgHZ6wTJOzQa3U0GfeCDH7iZLlqIEPo4rrjfDpWE=
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: PtG3g32k4_ehjr973dFK2e5PHXIBV6y2
+X-Proofpoint-ORIG-GUID: PtG3g32k4_ehjr973dFK2e5PHXIBV6y2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ mlxlogscore=954 priorityscore=1501 spamscore=0 malwarescore=0 adultscore=0
+ mlxscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2501080186
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,131 +100,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Dec 13, 2024 at 05:01:05PM +0530, Akhil P Oommen wrote:
-> From: Jie Zhang <quic_jiezh@quicinc.com>
-> 
-> Add gpu and gmu nodes for qcs615 chipset.
-> 
+This series adds the following fixes related to the virtual planes code
+changes:
 
-Please resubmit this in a series together with the gpucc patch.
+1) Initialize the return value of dpu_assign_plane_resources() so that
+   the function doesn't return a garbage value if all planes are
+   disabled/otherwise not visible.
+2) Remove extraneous return value for dpu_crtc_reassign_planes()
 
-Regards,
-Bjorn
+These were discovered when setting `msm.dpu_use_virtual_planes=1` in the
+command line arguments, but not forcing virtual planes to be used.
 
-> Signed-off-by: Jie Zhang <quic_jiezh@quicinc.com>
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  arch/arm64/boot/dts/qcom/qcs615.dtsi | 88 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 88 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs615.dtsi b/arch/arm64/boot/dts/qcom/qcs615.dtsi
-> index 8df26efde3fd6c0f85b9bcddb461fae33687dc75..dee5d3be4aa34dd64864b6fe32ad589abac99bb7 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs615.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/qcs615.dtsi
-> @@ -387,6 +387,11 @@ smem_region: smem@86000000 {
->  			no-map;
->  			hwlocks = <&tcsr_mutex 3>;
->  		};
-> +
-> +		pil_gpu_mem: pil-gpu@97715000 {
-> +			reg = <0x0 0x97715000 0x0 0x2000>;
-> +			no-map;
-> +		};
->  	};
->  
->  	soc: soc@0 {
-> @@ -508,6 +513,89 @@ qup_uart0_rx: qup-uart0-rx-state {
->  			};
->  		};
->  
-> +		gpu: gpu@5000000 {
-> +			compatible = "qcom,adreno-612.0", "qcom,adreno";
-> +			reg = <0x0 0x05000000 0x0 0x90000>;
-> +			reg-names = "kgsl_3d0_reg_memory";
-> +
-> +			clocks = <&gpucc GPU_CC_GX_GFX3D_CLK>,
-> +				 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
-> +				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-> +				 <&gpucc GPU_CC_CX_GMU_CLK>,
-> +				 <&gpucc GPU_CC_CXO_CLK>;
-> +			clock-names = "core",
-> +				      "mem_iface",
-> +				      "alt_mem_iface",
-> +				      "gmu",
-> +				      "xo";
-> +
-> +			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +			interconnects = <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
-> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-> +			interconnect-names = "gfx-mem";
-> +
-> +			iommus = <&adreno_smmu 0x0 0x401>;
-> +			operating-points-v2 = <&gpu_opp_table>;
-> +			power-domains = <&rpmhpd RPMHPD_CX>;
-> +			qcom,gmu = <&rgmu>;
-> +
-> +			#cooling-cells = <2>;
-> +
-> +			status = "disabled";
-> +
-> +			gpu_zap_shader: zap-shader {
-> +				memory-region = <&pil_gpu_mem>;
-> +			};
-> +
-> +			gpu_opp_table: opp-table {
-> +				compatible = "operating-points-v2";
-> +
-> +				opp-435000000 {
-> +					opp-hz = /bits/ 64 <435000000>;
-> +					required-opps = <&rpmhpd_opp_svs>;
-> +					opp-peak-kBps = <3000000>;
-> +				};
-> +
-> +				opp-500000000 {
-> +					opp-hz = /bits/ 64 <500000000>;
-> +					required-opps = <&rpmhpd_opp_svs_l1>;
-> +					opp-peak-kBps = <3975000>;
-> +				};
-> +
-> +				opp-650000000 {
-> +					opp-hz = /bits/ 64 <650000000>;
-> +					required-opps = <&rpmhpd_opp_nom>;
-> +					opp-peak-kBps = <5287500>;
-> +				};
-> +
-> +				opp-745000000 {
-> +					opp-hz = /bits/ 64 <745000000>;
-> +					required-opps = <&rpmhpd_opp_nom_l1>;
-> +					opp-peak-kBps = <6075000>;
-> +				};
-> +
-> +				opp-845000000 {
-> +					opp-hz = /bits/ 64 <845000000>;
-> +					required-opps = <&rpmhpd_opp_turbo>;
-> +					opp-peak-kBps = <7050000>;
-> +				};
-> +			};
-> +		};
-> +
-> +		rgmu: rgmu@506a000 {
-> +			compatible = "qcom,adreno-rgmu";
-> +			reg = <0x0 0x0506a000 0x0 0x34000>;
-> +			reg-names = "gmu";
-> +			power-domains = <&gpucc CX_GDSC>,
-> +					<&gpucc GX_GDSC>;
-> +			power-domain-names = "cx", "gx";
-> +
-> +			interrupts = <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "hfi", "gmu";
-> +		};
-> +
->  		gpucc: clock-controller@5090000 {
->  			compatible = "qcom,qcs615-gpucc";
->  			reg = <0 0x5090000 0 0x9000>;
-> 
-> -- 
-> 2.45.2
-> 
+Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+---
+Jessica Zhang (2):
+      drm/msm/dpu: Initialize return value for dpu_assign_plane_resources()
+      drm/msm/dpu: Drop extraneous return in dpu_crtc_reassign_planes()
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 2 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 +-
+ 2 files changed, 1 insertion(+), 3 deletions(-)
+---
+base-commit: 866e43b945bf98f8e807dfa45eca92f931f3a032
+change-id: 20250108-virtual-planes-fixes-f41ef2922ac7
+
+Best regards,
+-- 
+Jessica Zhang <quic_jesszhan@quicinc.com>
+
