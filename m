@@ -2,109 +2,106 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACDC9A06088
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 16:46:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E3A6A06354
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 18:27:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AD1710E8EB;
-	Wed,  8 Jan 2025 15:46:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CC8710E1DF;
+	Wed,  8 Jan 2025 17:27:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="kZW7+Zm8";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="WjiXP2vs";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
- [209.85.208.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1372810E8EB
- for <freedreno@lists.freedesktop.org>; Wed,  8 Jan 2025 15:46:13 +0000 (UTC)
-Received: by mail-lj1-f172.google.com with SMTP id
- 38308e7fff4ca-30034ad2ca3so153506201fa.1
- for <freedreno@lists.freedesktop.org>; Wed, 08 Jan 2025 07:46:12 -0800 (PST)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 165BA10EC2E
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Jan 2025 17:27:21 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-38789e5b6a7so15233f8f.1
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Jan 2025 09:27:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736351111; x=1736955911; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=8ja7AsPHVhh/ztffyEqltS3S3NOI8MWwC75cFS3zUfQ=;
- b=kZW7+Zm8jiemg6dmalQnpTX7nXb+3YdAFrYm6SW4WtAmfLh9+wXjGLhCjxZEv8Cq3/
- +//3hBj7MANkQuN7P8pf9eueiN1lFHuKvbazLzuKwxSpOdN3OrQBCKsu7osFVZMDsTs6
- TUprXTQNvIPA/2UAeUvNKjIQkxeggQmwunhmkHgSpP5wWiLD/7yUkaykUtVj0Qod5PjK
- wekcOro5+qDNSDe/TFaI8v4Cr9LGKlzmu9uxuioIIP6pT2k2ViXGxUHrYLtOIU8ft/dt
- lfRXmGAoo2w9LGhHwNK3CXSEDJuRAa7BRzyLF8Eg/H7aqys/fNCTKgu9spYXqFrfpEBs
- /rbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736351111; x=1736955911;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ d=ffwll.ch; s=google; t=1736357180; x=1736961980; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8ja7AsPHVhh/ztffyEqltS3S3NOI8MWwC75cFS3zUfQ=;
- b=G+goFbnqGkQPxKgZYHMl7ZZTVJftp6UJK5lcI17DLuMdJf/uMOiPO7FETHwIyf3WRW
- M4DQou0TVWfC9nfc4umV/LP7FOHyE73AuGsSFhyxRrpUV4NTYjZK7Iq8aa2E5cncHsyE
- BHcOw+zS80n4TEsgLx4CT+YuIQseyrnAU491816sm9tcI/L5ToY+2gY8BLmVVi233jLK
- K1N35sd5cPxgvYRY79/7j5NP/fmkoqRqTZj+dFd3yf1ZRHYWIoEY1qmV6ouuF69Xioye
- 8d/l1SiEESFBeWuvfuysO4aOGii0H1joSxlC3mtIV+Xe5EZtT3QcfsvEoOmaX/Id7jVA
- PYpA==
+ bh=bI5BkTsr1Rej7kPzTQ7NrBrtLjPHANabm0Md7VMapXI=;
+ b=WjiXP2vsOQo23gE+hvSUFDZLpIOBbclw9tqghJ56MPIDsHo0i3g4vwO29T5rZG047b
+ RYbdcO7FQz2qjj3zKUrv8WEbDVsCWw8iAzJzDC7Tg9S7QiEaCHu3IKxACp4AD2Ke9YdY
+ 5UR2t27WGrhOmc13Tk6HPdC6iUgxiLBhrZPoY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736357180; x=1736961980;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=bI5BkTsr1Rej7kPzTQ7NrBrtLjPHANabm0Md7VMapXI=;
+ b=ZhZOm7UE/N7lPagb5/YWG4uP68FoX3M472NVGaU3seZnzndc+raym/cvhpN3REuI3g
+ WoidO1mfMPQMBroQtDOdpCsmtt4i2HrUZWkTaaC14hFKm1sYT5rsohitfzJCi1jUfp5z
+ Dg9NV5wlMjvWm+PKditr/YSDHoqZB+/VQbEdJ6il0xLuY9vblXCkQJeTCS84XtktoeIQ
+ W7kINDX20Vr+gzpac4sitmJ1eZ6WNFlRolXGK7H2UmgR81l4mKyyJxY+WwxkbbO+UTED
+ HX9tErYUOqqpqMi4NWoBfnjXPWH3Lp7ck8L4OB76+lwmQUUXUb+dtv2t4+SVM4b/bl03
+ l3bQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUXjHLF5M62GXeVH0MZlETDHoF4Mgyt7/9hKAf8D4jrYJxx2ggSJyogVENJPBBJqGOabJLZdnT2h2c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzzB7StPCliDqT1rbbfgeL3/wuCZS/R4gsA5iDE4sHWVEkK71GA
- SMJiPO5O9snWgg80tGNLe9Wv6cD3BZkujYhJS5CIhwaA7wPfYYfJmdDJq2U9aD8nZ/8MiwODkUA
- H
-X-Gm-Gg: ASbGncstCq/fC/K0fVWBNXmk+XQlUN6Y91ZWrmBB7kBl1O1gJ6OcPPvK4c76k62hdXo
- MB7LnXtEextpnvyg09bh1bNs97yod64Bm6gd3GThtIxGtrS2+s7LKnXYsp8vg40sQlTeQymkS91
- m/RHkUyxaDe/8vZFZg8mrtfcUgw00C3v1BftKa3NgnkFH1ACn356ALyZek/BiLVlnFBQFrI8orh
- bdBghTFM/2TPZJtX9njjfc2Lb5aN7vbN7XBDVA9DWTwiSGHRC4rXn/u
-X-Google-Smtp-Source: AGHT+IEeHzOxvdMOGmcpEKHTmCQ1xR9X2mBdhrRAs090fw105gW9jWt3zL5YMm4BKVnJtfcnbPIJ6g==
-X-Received: by 2002:a05:600c:1c1d:b0:431:4f29:9539 with SMTP id
- 5b1f17b1804b1-436e26fbaa6mr23365835e9.32.1736346727258; 
- Wed, 08 Jan 2025 06:32:07 -0800 (PST)
-Received: from [127.0.1.1] ([86.121.162.10]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e2e89e14sm22741445e9.33.2025.01.08.06.32.05
+ AJvYcCUCkNXz8PsYVT1AG0pK3pr5MbFOMHELXzaQxHAFblmyrzsdzlrZRfmln+dDUdYcEj2Gq4ILsyxy/Y8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzJSqSRLEFw6Vizu8KZ8VQIcbkktQi/X3xg8DhmQrtjEuUvs7aD
+ 6QFuBlU6VjGHAvvu0owACZCGfH6pT3fCHbO8PjS69GBtYF2A+/G3ZGW0CoofqlA=
+X-Gm-Gg: ASbGncv0TCLu2zJSpIP+ByEL86laPnzdwlXQis7GlOL1O3lL4N2pQSXjjKVK58uUJ++
+ KgOuv0o0S26dHcQFnPanOK7yF8eGUUWzJzJ/98P0YH64dqV7fX3dQI/FcEm424uzCm15uayVyyP
+ DKG+rQH92ZfLnmvK5nCEK32bIc6pEuqgqk9d3DAi98yukJPw1SNvvIT3A+gfgsCu+eciAX7umqY
+ TnqkKg7f30KRDTdF7S5yaddcJeqJFuXi9ITbEa5Qb01hzQ0661oo0DIMj6ZyXyRz3z4
+X-Google-Smtp-Source: AGHT+IHIG8gIkIZLnGTj2vm2ov4/i2vQzdBqNMlxt0wme6qkxMsRJFFigfl4B+bpgLZ7xuYAvDMDEg==
+X-Received: by 2002:a05:6000:1446:b0:385:d7f9:f169 with SMTP id
+ ffacd0b85a97d-38a872f6d09mr3033928f8f.12.1736357179644; 
+ Wed, 08 Jan 2025 09:26:19 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c8334aasm53404544f8f.41.2025.01.08.09.26.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jan 2025 06:32:06 -0800 (PST)
-From: Abel Vesa <abel.vesa@linaro.org>
-Date: Wed, 08 Jan 2025 16:31:44 +0200
-Subject: [PATCH v4 2/4] drm/nouveau/dp: Use the generic helper to control
- LTTPR transparent mode
+ Wed, 08 Jan 2025 09:26:19 -0800 (PST)
+Date: Wed, 8 Jan 2025 18:26:17 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Archit Taneja <architt@codeaurora.org>,
+ Rajesh Yadav <ryadav@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Simona Vetter <simona.vetter@ffwll.ch>
+Subject: Re: [PATCH 1/6] drm/atomic-helper: document
+ drm_atomic_helper_check() restrictions
+Message-ID: <Z361OTdcwtPvN17P@phenom.ffwll.local>
+Mail-Followup-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>,
+ Jeykumar Sankaran <jsanka@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Archit Taneja <architt@codeaurora.org>,
+ Rajesh Yadav <ryadav@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+References: <20241222-drm-dirty-modeset-v1-0-0e76a53eceb9@linaro.org>
+ <20241222-drm-dirty-modeset-v1-1-0e76a53eceb9@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250108-drm-dp-msm-add-lttpr-transparent-mode-set-v4-2-918949bc2e3a@linaro.org>
-References: <20250108-drm-dp-msm-add-lttpr-transparent-mode-set-v4-0-918949bc2e3a@linaro.org>
-In-Reply-To: <20250108-drm-dp-msm-add-lttpr-transparent-mode-set-v4-0-918949bc2e3a@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@redhat.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, Abel Vesa <abel.vesa@linaro.org>
-X-Mailer: b4 0.15-dev-dedf8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1634; i=abel.vesa@linaro.org; 
- h=from:subject:message-id;
- bh=zSpYhtCfdoGV8lx5sZ6QJCKOEoZaxgqNtvMuGie1uZU=; 
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBnfoxd1zaADCiqyAG6sqqGiZaCSMDvAko7Z/RAB
- qnzYaAuP/uJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCZ36MXQAKCRAbX0TJAJUV
- VsotEACKVYOAT4FX0Zl5/UtLfxszK6yqfSpvZBETDmfriJH3iARfEmyFCwzxT5krleGndSDwyWo
- muThvi9bmeveOffXwjS8yLtngaQQXm823SZWXLksm4rnDrgYtt8neXuYFKlkIwT7bLnydJ0DaJN
- JHTd3qWl1JqaA2voGitbWcjHGm+pQsyLr2qPugi3oVy0SbKleIX4uOHpcF/bie7veTJF4NIZIwn
- 78+SUdHeJnvW0KMTl+Lx3YB+0kuMf0lzwSSFNiMZh8gAngpJQRE83FncDSI9g3RDXdaIX1VHmZ5
- cx/PkZKSloNzdooFCZWaHCeEShwsSeLD2xPGWA9JRf49cKwyEso50jtquK264rKvDzrAAvWV2QT
- 6XXoLhrTkffqBoOqgbrc2WQbCpi2K6lIsWiqcKWPqfpr3XSUYpRNbvq+b0xwy42+D+LgpfbhUXJ
- dpM7NrjpU5qwl3BcPEHj+6IrytmW2bX4R5o9NArIQIi1rxnExJtr5XP9GGI7U3rHuW1wnciXJJx
- ogtweTyXXFCBIQXSAf4Uxwu+GkVziAZ1KkCB0OX5wDzOScajLIhPmr0Pt05vMOZbglN4KM2y+Rl
- esuSrBYIrshvVYjjyJ5H+uB0nipBl+fsNU0e9efycXuEOiA/7n2y7TeXx2vsg422BzYLPp0aHam
- l+vjJUlVNxarFVw==
-X-Developer-Key: i=abel.vesa@linaro.org; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241222-drm-dirty-modeset-v1-1-0e76a53eceb9@linaro.org>
+X-Operating-System: Linux phenom 6.12.3-amd64 
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,50 +117,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-LTTPRs operating modes are defined by the DisplayPort standard and the
-generic framework now provides a helper to switch between them, which
-is handling the explicit disabling of non-transparent mode and its
-disable->enable sequence mentioned in the DP Standard v2.0 section
-3.6.6.1.
+On Sun, Dec 22, 2024 at 07:00:41AM +0200, Dmitry Baryshkov wrote:
+> The drm_atomic_helper_check() calls drm_atomic_helper_check_modeset()
+> insternally. Document that corresponding restrictions also apply to the
+> drivers that call the former function (as it's easy to miss the
+> documentation for the latter function).
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-So use the new drm generic helper instead as it makes the code a bit
-cleaner.
+Reviewed-by: Simona Vetter <simona.vetter@ffwll.ch>
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
----
- drivers/gpu/drm/nouveau/nouveau_dp.c | 17 ++---------------
- 1 file changed, 2 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nouveau_dp.c b/drivers/gpu/drm/nouveau/nouveau_dp.c
-index bcda0105160f1450df855281e0d932606a5095dd..55691ec44abaa53c84e73358e33df1949bb1e35c 100644
---- a/drivers/gpu/drm/nouveau/nouveau_dp.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_dp.c
-@@ -79,21 +79,8 @@ nouveau_dp_probe_dpcd(struct nouveau_connector *nv_connector,
- 	    !drm_dp_read_lttpr_common_caps(aux, dpcd, outp->dp.lttpr.caps)) {
- 		int nr = drm_dp_lttpr_count(outp->dp.lttpr.caps);
- 
--		if (nr) {
--			drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE,
--						DP_PHY_REPEATER_MODE_TRANSPARENT);
--
--			if (nr > 0) {
--				ret = drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE,
--							      DP_PHY_REPEATER_MODE_NON_TRANSPARENT);
--				if (ret != 1) {
--					drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE,
--								DP_PHY_REPEATER_MODE_TRANSPARENT);
--				} else {
--					outp->dp.lttpr.nr = nr;
--				}
--			}
--		}
-+		if (!drm_dp_lttpr_init(aux, nr))
-+			outp->dp.lttpr.nr = nr;
- 	}
- 
- 	ret = drm_dp_read_dpcd_caps(aux, dpcd);
+> ---
+>  drivers/gpu/drm/drm_atomic_helper.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> index 5186d2114a503701e228e382cc45180b0c578d0c..f26887c3fe8b194137200f9f2426653274c50fda 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -1059,6 +1059,15 @@ EXPORT_SYMBOL(drm_atomic_helper_check_planes);
+>   * For example enable/disable of a cursor plane which have fixed zpos value
+>   * would trigger all other enabled planes to be forced to the state change.
+>   *
+> + * IMPORTANT:
+> + *
+> + * As this function calls drm_atomic_helper_check_modeset() internally, its
+> + * restrictions also apply:
+> + * Drivers which set &drm_crtc_state.mode_changed (e.g. in their
+> + * &drm_plane_helper_funcs.atomic_check hooks if a plane update can't be done
+> + * without a full modeset) _must_ call drm_atomic_helper_check_modeset()
+> + * function again after that change.
+> + *
+>   * RETURNS:
+>   * Zero for success or -errno
+>   */
+> 
+> -- 
+> 2.39.5
+> 
 
 -- 
-2.34.1
-
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
