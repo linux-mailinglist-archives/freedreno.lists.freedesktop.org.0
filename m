@@ -2,58 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2550A06720
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 22:24:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38D95A0680B
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jan 2025 23:17:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC9F710E1DF;
-	Wed,  8 Jan 2025 21:24:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12C7410E43E;
+	Wed,  8 Jan 2025 22:17:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sk2w2P+q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hg9TDY1x";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C742410E1DF;
- Wed,  8 Jan 2025 21:23:59 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4268910E43E;
+ Wed,  8 Jan 2025 22:17:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 475405C011A;
- Wed,  8 Jan 2025 21:23:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2739C4CED3;
- Wed,  8 Jan 2025 21:23:56 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 54D15A41C75;
+ Wed,  8 Jan 2025 22:16:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76C13C4CED3;
+ Wed,  8 Jan 2025 22:17:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1736371437;
- bh=B8bTJ4Op1IrfR6WvZO4ell/Npf93u8IsXGGibHmEDrw=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=Sk2w2P+qJsoxgnWW1BfBKqg9Vm0U6Gvtk0Tz9s9zhpOj4Bsm1rAIYXfAI430AYyxE
- mWkPPBNS34rOHqjg56f38yz2OxpoZdaPTrKJuNvTOAc6kvTKiuYLaCJnkoInO9ZbMI
- eCkHBrBRo1JhoeqSqRy2vZ2nFAxBwFuoOp9rB0h+Q4kNI8y21h0egeJogVCF8r3IFe
- aplB/okE5PyfR58jpE/TFfMRyOlIeWyDQimcB6kbMxjqjwbqB37yYbZ9HIdN7YDCVz
- v04gQVDECRTWsZV0JPD0cJzfRWFGY/ztGGJeG8hmzDlFr7dUS89eKNAe6gCJrKb/ww
- U1pJqEcPB26Gg==
-Date: Wed, 08 Jan 2025 15:23:55 -0600
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ s=k20201202; t=1736374671;
+ bh=kPEj6/SUZEeHs4OcQvx3Fcoy7dnil6NFBN9jWICpb4c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hg9TDY1xVbWLfVM/QQl5JnnrGeEnip9IwJ4zjh5PRL1RzB6+wsmV2An9U7aOiAcnj
+ 7hz3inVSSOrF2No8AC99ZcMbtHh84bmerQvv/Eq8EtdlIgbxjM8RpqeTbJcywBlAdB
+ 2zRtfKdz027AHGl2oo2BGT/DCylTGxf8gfzV892td5HK9NewY4X14B4v0pNnw6f7Rt
+ J7mswe38PfmuEQQ9iM19Vx0TfG/XyKZg3M/rusGoUH/uwMmnfTDixlgSBHBoPxbknu
+ p8L7Qv/LiPhfbP4IYyRYx2b59/9UFcM0ceiitHLrwCB94T4sm32aortNYW3HQYKjYr
+ ynOoskg5ndaVg==
+Date: Wed, 8 Jan 2025 16:17:47 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Abel Vesa <abel.vesa@linaro.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Johan Hovold <johan@kernel.org>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Johan Hovold <johan+linaro@kernel.org>
+Subject: Re: [PATCH v4 1/4] drm/dp: Add helper to set LTTPRs in transparent
+ mode
+Message-ID: <b4z2o4sgyjyh7wqbybtifi5evhh7b3tgfujson6l5ajmjdwt3f@x2xz6iod54vz>
+References: <20250108-drm-dp-msm-add-lttpr-transparent-mode-set-v4-0-918949bc2e3a@linaro.org>
+ <20250108-drm-dp-msm-add-lttpr-transparent-mode-set-v4-1-918949bc2e3a@linaro.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, David Airlie <airlied@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Maya Matuszczyk <maccraft123mc@gmail.com>, 
- Viresh Kumar <vireshk@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, 
- Rob Clark <robdclark@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
- freedreno@lists.freedesktop.org, Konrad Dybcio <konradybcio@kernel.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <20250109-gpu-acd-v4-5-08a5efaf4a23@quicinc.com>
-References: <20250109-gpu-acd-v4-0-08a5efaf4a23@quicinc.com>
- <20250109-gpu-acd-v4-5-08a5efaf4a23@quicinc.com>
-Message-Id: <173637143564.1057127.5997544431977689674.robh@kernel.org>
-Subject: Re: [PATCH v4 5/7] dt-bindings: opp: Add v2-qcom-adreno vendor
- bindings
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250108-drm-dp-msm-add-lttpr-transparent-mode-set-v4-1-918949bc2e3a@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,926 +74,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-On Thu, 09 Jan 2025 02:10:01 +0530, Akhil P Oommen wrote:
-> Add a new schema which extends opp-v2 to support a new vendor specific
-> property required for Adreno GPUs found in Qualcomm's SoCs. The new
-> property called "qcom,opp-acd-level" carries a u32 value recommended
-> for each opp needs to be shared to GMU during runtime.
+On Wed, Jan 08, 2025 at 04:31:43PM +0200, Abel Vesa wrote:
+> According to the DisplayPort standard, LTTPRs have two operating
+> modes:
+>  - non-transparent - it replies to DPCD LTTPR field specific AUX
+>    requests, while passes through all other AUX requests
+>  - transparent - it passes through all AUX requests.
 > 
-> Also, update MAINTAINERS file include the new opp-v2-qcom-adreno.yaml.
+> Switching between this two modes is done by the DPTX by issuing
+> an AUX write to the DPCD PHY_REPEATER_MODE register.
 > 
-> Cc: Rob Clark <robdclark@gmail.com>
-> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> Add a generic helper that allows switching between these modes.
+> 
+> Also add a generic wrapper for the helper that handles the explicit
+> disabling of non-transparent mode and its disable->enable sequence
+> mentioned in the DP Standard v2.0 section 3.6.6.1. Do this in order
+> to move this handling out of the vendor specific driver implementation
+> into the generic framework.
+> 
+> Tested-by: Johan Hovold <johan+linaro@kernel.org>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
+> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
 > ---
->  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 97 ++++++++++++++++++++++
->  MAINTAINERS                                        |  1 +
->  2 files changed, 98 insertions(+)
+>  drivers/gpu/drm/display/drm_dp_helper.c | 62 +++++++++++++++++++++++++++++++++
+>  include/drm/display/drm_dp_helper.h     |  2 ++
+>  2 files changed, 64 insertions(+)
 > 
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index da3c8521a7fa7d3c9761377363cdd4b44ab1106e..fa7eff94d408718a1762834597f0cd51376d2596 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -2817,6 +2817,68 @@ int drm_dp_lttpr_max_link_rate(const u8 caps[DP_LTTPR_COMMON_CAP_SIZE])
+>  }
+>  EXPORT_SYMBOL(drm_dp_lttpr_max_link_rate);
+>  
+> +/**
+> + * drm_dp_lttpr_set_transparent_mode - set the LTTPR in transparent mode
 
-My bot found errors running 'make dt_binding_check' on your patch:
+kernel-doc functions should have () suffix
 
-yamllint warnings/errors:
+> + * @aux: DisplayPort AUX channel
+> + * @enable: Enable or disable transparent mode
+> + *
+> + * Returns 0 on success or a negative error code on failure.
 
-dtschema/dtc warnings/errors:
-Warning: Duplicate compatible "operating-points-v2" found in schemas matching "$id":
-	http://devicetree.org/schemas/opp/opp-v2.yaml#
-	http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.example.dtb: opp-table: opp-300000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.example.dtb: opp-table: opp-400000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.example.dtb: opp-table: opp-400000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-533000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-533000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-450000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-450000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-400000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-400000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-350000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-350000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-266000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-266000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-160000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-160000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-100000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-midgard.example.dtb: opp-table: opp-100000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-533000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-533000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-450000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-450000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-400000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-400000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-350000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-350000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-266000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-266000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-160000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-160000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-100000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/gpu/arm,mali-bifrost.example.dtb: opp-table: opp-100000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpufreq/apple,cluster-cpufreq.example.dtb: opp-table-0: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpufreq/apple,cluster-cpufreq.example.dtb: opp-table-0: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpufreq/apple,cluster-cpufreq.example.dtb: opp-table-0: 'opp-shared', 'opp01', 'opp02' do not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpufreq/apple,cluster-cpufreq.example.dtb: opp-table-1: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpufreq/apple,cluster-cpufreq.example.dtb: opp-table-1: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpufreq/apple,cluster-cpufreq.example.dtb: opp-table-1: 'opp-shared', 'opp01', 'opp02' do not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-1000000000: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt', 'opp-suspend' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-1000000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-1100000000: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-1100000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-1200000000: 'clock-latency-ns', 'opp-microvolt', 'turbo-mode' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-1200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: 'opp-shared' does not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-1000000000: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt', 'opp-suspend' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-1000000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-1100000000: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-1100000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-1200000000: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt', 'turbo-mode' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-1200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1000000000: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt', 'opp-suspend' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1000000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1100000000: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1100000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1200000000: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt', 'turbo-mode' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: 'opp-shared' does not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-1: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-1: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-1: opp-1300000000: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt', 'opp-suspend' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-1: opp-1300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-1: opp-1400000000: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-1: opp-1400000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-1: opp-1500000000: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt', 'turbo-mode' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-1: opp-1500000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-1: 'opp-shared' does not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1000000000: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1000000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1000000001: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1000000001: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1000000002: 'clock-latency-ns', 'opp-microamp', 'opp-microvolt' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1000000002: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: 'opp-shared' does not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-600000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-800000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: opp-900000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table: 'opp-shared' does not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1000000000: 'opp-microamp-fast', 'opp-microamp-slow', 'opp-microvolt-fast', 'opp-microvolt-slow' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1000000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1200000000: 'opp-microamp', 'opp-microvolt-fast', 'opp-microvolt-slow' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: opp-1200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: 'opp-shared' does not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-0: 'opp-shared' does not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-1: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-1: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/opp/opp-v2.example.dtb: opp-table-1: 'opp-shared' does not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mmc/sdhci-msm.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mmc/sdhci-msm.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mmc/sdhci-msm.example.dtb: opp-table: opp-19200000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mmc/sdhci-msm.example.dtb: opp-table: opp-19200000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mmc/sdhci-msm.example.dtb: opp-table: opp-50000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mmc/sdhci-msm.example.dtb: opp-table: opp-50000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mmc/sdhci-msm.example.dtb: opp-table: opp-100000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mmc/sdhci-msm.example.dtb: opp-table: opp-100000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mmc/sdhci-msm.example.dtb: opp-table: opp-202000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mmc/sdhci-msm.example.dtb: opp-table: opp-202000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-171428571: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-171428571: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-300000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-345000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-345000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-460000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-460000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-187500000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-187500000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-300000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-358000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.example.dtb: opp-table: opp-358000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.example.dtb: opp-table: opp-200000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.example.dtb: opp-table: opp-200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.example.dtb: opp-table: opp-325000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.example.dtb: opp-table: opp-325000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.example.dtb: opp-table: opp-375000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.example.dtb: opp-table: opp-375000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.example.dtb: opp-table: opp-514000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.example.dtb: opp-table: opp-514000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-200000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-325000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-325000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-375000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-375000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-514000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-514000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-160000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-160000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-270000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-270000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-540000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-540000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-810000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,x1e80100-mdss.example.dtb: opp-table: opp-810000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: opp-table: opp-200000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: opp-table: opp-200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: opp-table: opp-300000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: opp-table: opp-345000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: opp-table: opp-345000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: opp-table: opp-460000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.example.dtb: opp-table: opp-460000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb: opp-table: opp-19200000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb: opp-table: opp-19200000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb: opp-table: opp-200000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb: opp-table: opp-200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb: opp-table: opp-300000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb: opp-table: opp-344000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb: opp-table: opp-344000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb: opp-table: opp-430000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-dpu.example.dtb: opp-table: opp-430000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-375000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-375000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-500000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-500000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-575000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-575000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-650000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-650000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-160000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-160000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-270000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-270000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-540000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-540000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-810000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.example.dtb: opp-table: opp-810000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/gpu.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/gpu.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-200000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-300000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-345000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-345000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-460000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-460000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-187500000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-187500000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-300000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-358000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.example.dtb: opp-table: opp-358000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-19200000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-19200000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-200000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-300000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-344000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-344000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-430000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-430000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-180000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-180000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-275000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-275000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-358000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-358000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-160000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-160000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-270000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-270000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-540000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-540000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-810000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.example.dtb: opp-table: opp-810000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-187500000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-187500000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-300000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-358000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-358000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-160000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-160000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-270000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-270000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-540000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-540000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-810000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-810000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-160000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-160000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-270000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-270000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-540000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-540000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-810000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.example.dtb: opp-table: opp-810000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-200000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-325000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-325000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-375000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-375000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-514000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-514000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-187500000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-187500000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-300000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-358000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.example.dtb: opp-table: opp-358000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-172000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-172000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-200000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-325000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-325000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-375000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-375000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-500000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-500000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-160310000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-160310000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-187500000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-187500000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-300000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-358000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.example.dtb: opp-table: opp-358000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-187500000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-187500000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-300000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-358000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-358000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-160000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-160000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-270000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-270000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-540000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-540000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-810000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.example.dtb: opp-table: opp-810000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-200000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-325000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-325000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-375000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-375000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-514000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-514000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-187500000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-187500000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-300000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-300000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-358000000: 'required-opps' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.example.dtb: opp-table: opp-358000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/qcom,rpmpd.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/qcom,rpmpd.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/qcom,rpmpd.example.dtb: opp-table: 'opp1', 'opp10', 'opp2', 'opp3', 'opp4', 'opp5', 'opp6', 'opp7', 'opp8', 'opp9' do not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/qcom,rpmpd.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/qcom,rpmpd.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/qcom,rpmpd.example.dtb: opp-table: 'opp1', 'opp2', 'opp3', 'opp4', 'opp5', 'opp6' do not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/qcom,rpmpd.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/qcom,rpmpd.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/qcom,rpmpd.example.dtb: opp-table: 'opp1', 'opp2', 'opp3', 'opp4' do not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/soc/qcom/qcom,rpmh-rsc.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/soc/qcom/qcom,rpmh-rsc.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/soc/qcom/qcom,rpmh-rsc.example.dtb: opp-table: 'opp1', 'opp10', 'opp2', 'opp3', 'opp4', 'opp5', 'opp6', 'opp7', 'opp8', 'opp9' do not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/soc/qcom/qcom,smd-rpm.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/soc/qcom/qcom,smd-rpm.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/soc/qcom/qcom,smd-rpm.example.dtb: opp-table: opp-1: 'opp-hz' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/soc/qcom/qcom,smd-rpm.example.dtb: opp-table: opp-2: 'opp-hz' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-273000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-273000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-338000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-338000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-403000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-403000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-463000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-463000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-546000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-546000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-624000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-624000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-689000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-689000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-767000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-767000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-845000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-845000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-871000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-871000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-923000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-923000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-962000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-962000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-1027000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-1027000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-1092000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-1092000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-1144000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-1144000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-1196000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: opp-1196000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/mediatek,cci.example.dtb: opp-table-cci: 'opp-shared' does not match any of the regexes: '^opp-[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/fsl,imx8m-noc.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/fsl,imx8m-noc.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/fsl,imx8m-noc.example.dtb: opp-table: opp-133333333: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/fsl,imx8m-noc.example.dtb: opp-table: opp-800000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.example.dtb: opp-table: opp-0: 'opp-hz' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.example.dtb: opp-table: opp-0: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.example.dtb: opp-table: opp-1: 'opp-hz' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.example.dtb: opp-table: opp-1: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.example.dtb: opp-table: opp-2: 'opp-hz' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.example.dtb: opp-table: opp-2: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.example.dtb: opp-table: opp-3: 'opp-hz' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.example.dtb: opp-table: opp-3: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.example.dtb: opp-table: opp-4: 'opp-hz' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.example.dtb: opp-table: opp-4: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/samsung,exynos-bus.example.dtb: opp-table: compatible:0: 'operating-points-v2-adreno' was expected
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/samsung,exynos-bus.example.dtb: opp-table: compatible: ['operating-points-v2'] is too short
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/samsung,exynos-bus.example.dtb: opp-table: opp-50000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/samsung,exynos-bus.example.dtb: opp-table: opp-50000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/samsung,exynos-bus.example.dtb: opp-table: opp-100000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/samsung,exynos-bus.example.dtb: opp-table: opp-100000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/samsung,exynos-bus.example.dtb: opp-table: opp-134000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/samsung,exynos-bus.example.dtb: opp-table: opp-134000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/samsung,exynos-bus.example.dtb: opp-table: opp-200000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/samsung,exynos-bus.example.dtb: opp-table: opp-200000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/samsung,exynos-bus.example.dtb: opp-table: opp-400000000: 'opp-microvolt' does not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/interconnect/samsung,exynos-bus.example.dtb: opp-table: opp-400000000: 'opp-level' is a required property
-	from schema $id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
+And this should be "Return: ...".
 
-doc reference errors (make refcheckdocs):
+> + */
+> +int drm_dp_lttpr_set_transparent_mode(struct drm_dp_aux *aux, bool enable)
+> +{
+> +	u8 val = enable ? DP_PHY_REPEATER_MODE_TRANSPARENT :
+> +			  DP_PHY_REPEATER_MODE_NON_TRANSPARENT;
+> +	int ret = drm_dp_dpcd_writeb(aux, DP_PHY_REPEATER_MODE, val);
+> +
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return (ret == 1) ? 0 : -EIO;
+> +}
+> +EXPORT_SYMBOL(drm_dp_lttpr_set_transparent_mode);
+> +
+> +/**
+> + * drm_dp_lttpr_init - init LTTPR transparency mode according to DP standard
+> + *
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20250109-gpu-acd-v4-5-08a5efaf4a23@quicinc.com
+Documentation also explicitly says not to leave a blank line here...
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+Regards,
+Bjorn
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+> + * @aux: DisplayPort AUX channel
+> + * @lttpr_count: Number of LTTPRs. Between 0 and 8, according to DP standard.
+> + *               Negative error code for any non-valid number.
+> + *               See drm_dp_lttpr_count().
+> + *
+> + * Returns 0 on success or a negative error code on failure.
+> + */
+> +int drm_dp_lttpr_init(struct drm_dp_aux *aux, int lttpr_count)
+> +{
+> +	int ret;
+> +
+> +	if (!lttpr_count)
+> +		return 0;
+> +
+> +	/*
+> +	 * See DP Standard v2.0 3.6.6.1 about the explicit disabling of
+> +	 * non-transparent mode and the disable->enable non-transparent mode
+> +	 * sequence.
+> +	 */
+> +	ret = drm_dp_lttpr_set_transparent_mode(aux, true);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (lttpr_count < 0)
+> +		return -ENODEV;
+> +
+> +	if (drm_dp_lttpr_set_transparent_mode(aux, false)) {
+> +		/*
+> +		 * Roll-back to transparent mode if setting non-transparent
+> +		 * mode has failed
+> +		 */
+> +		drm_dp_lttpr_set_transparent_mode(aux, true);
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_dp_lttpr_init);
+> +
+>  /**
+>   * drm_dp_lttpr_max_lane_count - get the maximum lane count supported by all LTTPRs
+>   * @caps: LTTPR common capabilities
+> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> index 8f4054a560396a43750570a8c2e95624039ab8ad..3311df3b58255cf0620391d0948ccf6b569a8a34 100644
+> --- a/include/drm/display/drm_dp_helper.h
+> +++ b/include/drm/display/drm_dp_helper.h
+> @@ -630,6 +630,8 @@ int drm_dp_read_lttpr_phy_caps(struct drm_dp_aux *aux,
+>  			       u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
+>  int drm_dp_lttpr_count(const u8 cap[DP_LTTPR_COMMON_CAP_SIZE]);
+>  int drm_dp_lttpr_max_link_rate(const u8 caps[DP_LTTPR_COMMON_CAP_SIZE]);
+> +int drm_dp_lttpr_set_transparent_mode(struct drm_dp_aux *aux, bool enable);
+> +int drm_dp_lttpr_init(struct drm_dp_aux *aux, int lttpr_count);
+>  int drm_dp_lttpr_max_lane_count(const u8 caps[DP_LTTPR_COMMON_CAP_SIZE]);
+>  bool drm_dp_lttpr_voltage_swing_level_3_supported(const u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
+>  bool drm_dp_lttpr_pre_emphasis_level_3_supported(const u8 caps[DP_LTTPR_PHY_CAP_SIZE]);
+> 
+> -- 
+> 2.34.1
+> 
