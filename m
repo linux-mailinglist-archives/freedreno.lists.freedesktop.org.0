@@ -2,66 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AA48A069C2
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 01:07:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD007A069CE
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 01:14:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF55E10E246;
-	Thu,  9 Jan 2025 00:06:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A949810E445;
+	Thu,  9 Jan 2025 00:14:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="H8caAM1B";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vB0L5w+D";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E12F10E445
- for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 00:06:57 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-53e28cf55cdso285217e87.3
- for <freedreno@lists.freedesktop.org>; Wed, 08 Jan 2025 16:06:57 -0800 (PST)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A4CB10E445
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 00:14:01 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-3003943288bso2159531fa.0
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Jan 2025 16:14:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736381156; x=1736985956; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1736381580; x=1736986380; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=HIgUgl4N79dadeiXZRtpkyo/N44P164pFj//QzRGV20=;
- b=H8caAM1BJgxvmP9tvuaZsy+qxwf/IhwiRCS9n3SM4BVlgx5s323O2Z2zpamx01+MAv
- SbhI4IunrujxqK8ssU0UThA1aJcb9GnMpvDu1sbnhPGmPgnZ3dWJ5mglrCCjbApMZc0m
- 25y+ay1f5+zFYiVUovyAi8WHNFZOajNbsTSDUuzzikJc6pXG5mabaXW4yp5lEcJJQgc/
- bX/Rhghlw/gSJRcmRSIAxJvLEV8qDWKsK0BMc4J5gPPFpI0dQM6SQDu8+kJtGr6oEsbo
- d6ZdP7B71EMmhUcnRkdpaDOKAMT7GnKYFazkqsIopes3Q7FX3aZw3vvPlq4Guo4cfi6m
- DMbA==
+ bh=bpDkH3lxJ4g2GFbV3coZXIbv+IWPbixM4fhCIhYbzhU=;
+ b=vB0L5w+D7svDVog6orQDRBxUywhIN0vAzRI4AEOv4M7ed5FESdYI8NV1IPbv+vmaWV
+ Xs1X2Qc7L1GB8x+luUI7TNKwlDAvjLGHKlukyMMG/9EwLD/NEc7KIchgDbU5NKgRSbE3
+ mTQyJGsLsLGl/QTVXHwmDgd+apAqy7KAriuT5egbfzDR7D2vKTmgG9gy7LHtKyOqr3tp
+ HChKZso8pj6rMf08a65lcnMvUi4HX1NxO2ebbupWDPd3Yyj38IzMR62LCma/2vTWfSUG
+ Djl/KI350A9w7OExd9/km/CMmQNaUKogTRsYDMZqSmuLd02nmesYjrVCsrTjXZl4VBCh
+ 7epQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736381156; x=1736985956;
+ d=1e100.net; s=20230601; t=1736381580; x=1736986380;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HIgUgl4N79dadeiXZRtpkyo/N44P164pFj//QzRGV20=;
- b=p/w4XjvGkBJhdQ7N80HI41Z3+LBXxSGDgEKdVNx5tpNrOEKcK8p0F/MvHQZKF5xPpY
- 2PeAyyxxZV0oSoASlHhh38Bj+mbJQpOdQ/0hqlHjvi1jZ/tER2S3DX+KtIietiyqZrTV
- ytLCywOAgR8BEryrcYped5PHe88JTgFSKLEZVaZroouxfN/DwoXLGvtJcxHGHqdTeVr/
- rdtLnT6lzSbMKDszje1JWFrdulc7E3MZRzE/JdNXvj5FHG9sFSyUJJSNyhsE26FADIoa
- T3tQYYRTSjJW5ZzIV6ZW/9nn1vPpXGUMQ9ESrbMytiFRB9IaIUjWm+HnRFxdXl3uwtik
- AVMA==
+ bh=bpDkH3lxJ4g2GFbV3coZXIbv+IWPbixM4fhCIhYbzhU=;
+ b=MFBvk7yqvQbW514OEATD1hbljRv8krt58E9AFROe4RLPsOpfj0G8VqQhkItNX8xXdo
+ CEkG7+jVti0Y8jeG6nFChAuEdkPoYM70IPIxP82nS4E/zfbEjtDR7Sz9fFE1sN/8b/V1
+ EfThRfSHzWyqxZN0eeSJDEleyD5JIj02ATSKLt8f8JWSEHGpH20xoGazMG15AtJ6MqKQ
+ TMxRjno285mL73wrefeGMQ4PD+IsHJAtljtyOBs6WZmOO9sVM6QEk+xh31bbnpdU+mOS
+ rl0CQimkML4THe9ZQH4FOvjXZF4J/9U23U2KADBunmatcJ9GGPCptbDfSotlkxVgcWEG
+ rZXg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW9VWrpkgQvuZhs/EeLsclFVDLyv/FZ5USbr/hnfxpk5lqCRozmjxaAIIh6q2uz5ZFY97AWqbvvphQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzw0tj9XxfqAo4b6Lo7ePiVNrRZGA93C/Llem3tgzbKKdpjyEfG
- CIM+841ig1zFLv3lSj8yB0+1xnu7LMg7DJtdsUx5tR9IwlJ00VsudAlBPD7Ll+I=
-X-Gm-Gg: ASbGncs578ERtJW45dpxZl6VnEWQpLpysm80JKWava7DQCyeul86otVuj6q/wBQcMG4
- QhKlW7geGWWybsIrsmDwE/jvqvK2Mr31ZN2SV/B+IkantLuMfkqly2Ru2EYh//JTbjNyr8CUyA5
- 97f5HzrY81qi+ipBde7KzOponp2OmJI6wI1CHkThkAG1bfEQuVFd2AihEqX9kkeYjhFscvcLNTN
- AfqT7JhqJepF2v/tKEIMKRujcCKh7DvnDYz359RWRsnJueLdy2t2tDM3PC5kHahfpBXMZ6s0dYh
- 6IITGsjju93tE56IPCvYlcc9OksBYiPzpuYN
-X-Google-Smtp-Source: AGHT+IELUqPRnCGpQ4QsIILyGi10OQNYGAtMxjnWsGZVt+RoeZcTFjHg8GOZFcw/nz8qgnwgQ+uKZw==
-X-Received: by 2002:a05:6512:b0f:b0:540:3566:985c with SMTP id
- 2adb3069b0e04-542845d1495mr1192732e87.26.1736381155638; 
- Wed, 08 Jan 2025 16:05:55 -0800 (PST)
+ AJvYcCU9CwxdKaL5ZDlE37YEAT+Gr38LlULMrXHvo4I7gipEbk5e7TOfH5IVQAN+QfKrefzSqgCKofZdv2Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzBIM/HmC8AsPHl8nsDXVcJtNmjVDElRT1wIPRDUfRJLDwj09ia
+ s21BgFuD6Y3Xf1GUsFMtG3I9m3FotL5B+TV6H4D45TK3VU00AQQZbsv9DGY29fTAJ+ZtO44Y0Pq
+ r
+X-Gm-Gg: ASbGncuOKCeV4VNc29c0SCUIBkrFAzH+lCxkM0klAoE4Fhe/lg5PPtSt0zGyEhJSzad
+ UqBg26j8WzuqBxw8L/znkye3B81uYHu4VJvdPCi1DQpNRtMXsl0X0P7oLzNX5vnjkmQaXBCCPRW
+ p6IjQmY3oIGlhkQf9sTOtpN/PS7VvRinFVcAr6csc2SL1gMuLUSeEGVAQDmfVmD7fFBNIUaj3TY
+ 3RX5YFymYzq90EaZLYOlYWX7V9PFFHXP0qj2XNu0mGHwbCL7HhJCLnVbDmf+PnGDX7SmJFz9nhH
+ /AxrsrZFzZtZcA+ELjtUeEYcDeKw4GaAbDHG
+X-Google-Smtp-Source: AGHT+IF/y9uUzQydethAVpmH3oNgkVrcF2saaYHkqvOZukLpQEeojH3C6FDQnmUp2JA4G+6GtEX36w==
+X-Received: by 2002:a05:6512:3ba3:b0:53e:2f9d:6a73 with SMTP id
+ 2adb3069b0e04-542844a8f6amr1336553e87.0.1736381184452; 
+ Wed, 08 Jan 2025 16:06:24 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428be49a28sm30057e87.42.2025.01.08.16.05.53
+ 2adb3069b0e04-5428beaaaa0sm29573e87.175.2025.01.08.16.06.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jan 2025 16:05:54 -0800 (PST)
-Date: Thu, 9 Jan 2025 02:05:51 +0200
+ Wed, 08 Jan 2025 16:06:23 -0800 (PST)
+Date: Thu, 9 Jan 2025 02:06:20 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Jessica Zhang <quic_jesszhan@quicinc.com>
 Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
@@ -71,15 +72,15 @@ Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] drm/msm/dpu: Initialize return value for
- dpu_assign_plane_resources()
-Message-ID: <nlxhx5dlc6y4m5htbfv6l27ms66jpse4umj4c42fzrcctnvy6a@5dbsjmuqsjwn>
+Subject: Re: [PATCH 2/2] drm/msm/dpu: Drop extraneous return in
+ dpu_crtc_reassign_planes()
+Message-ID: <5m2t3srguv7vha4e7np2tmd6tm4ajlk2dzc2vruut6krern7vx@ylmjghtj2kbu>
 References: <20250108-virtual-planes-fixes-v1-0-420cb36df94a@quicinc.com>
- <20250108-virtual-planes-fixes-v1-1-420cb36df94a@quicinc.com>
+ <20250108-virtual-planes-fixes-v1-2-420cb36df94a@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250108-virtual-planes-fixes-v1-1-420cb36df94a@quicinc.com>
+In-Reply-To: <20250108-virtual-planes-fixes-v1-2-420cb36df94a@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,17 +96,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 08, 2025 at 02:40:47PM -0800, Jessica Zhang wrote:
-> Initialize the return value so that the dpu_crtc_atomic_check() doesn't
-> fail if the virtual planes command line parameter is enabled and no planes
-> are visible.
+On Wed, Jan 08, 2025 at 02:40:48PM -0800, Jessica Zhang wrote:
+> Drop extra return at the end of dpu_crtc_reassign_planes()
 > 
 > Fixes: 774bcfb73176 ("drm/msm/dpu: add support for virtual planes")
 > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 2 --
+>  1 file changed, 2 deletions(-)
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
