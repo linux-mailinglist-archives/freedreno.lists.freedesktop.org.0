@@ -2,85 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49548A06994
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 00:41:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AA48A069C2
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 01:07:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E78FB10E971;
-	Wed,  8 Jan 2025 23:41:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF55E10E246;
+	Thu,  9 Jan 2025 00:06:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="B/fe4x3b";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="H8caAM1B";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E417510E971;
- Wed,  8 Jan 2025 23:41:11 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 508JsehX017399;
- Wed, 8 Jan 2025 23:41:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- UFsrE6vhX1PZrq0qLvy4LKF/eCeRlAc7e7f74Vt1w10=; b=B/fe4x3bhxAweZzd
- 9yoBlGS/gtonCFrrMvlVKNmSUNcrSoU/FGT3mGzS7N7mdapWhKUi2RC0srNZB87M
- SZTgtSIRmqbkrjbpPumR/8eUZUI332x0iACZYFDKqnL19HA9rS0iwts/1LQvBg6E
- 0SDzZfeCXksPNE3M9nG2fSa74dvrxkEyBogGBMi6AmN+GjNl3dqAht1geWM0uFmk
- 6O/9C8B+plrrzkNmTMXFF9zjwq2nkxJ2P4Y6l19msk0GZzEZ22T3mRhFYb6xxV6J
- 6/yXdE4Dq9sIoOt5TU1HCH6bi73TVY4bQNf4jMjBNATc1trVpt8zxD4/qDIRWm9f
- d8u+vQ==
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 441yxfge00-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Jan 2025 23:41:09 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 508Nf8le019978
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 8 Jan 2025 23:41:08 GMT
-Received: from [10.134.70.212] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 8 Jan 2025
- 15:41:08 -0800
-Message-ID: <95b83e6f-e455-4df0-b121-a1d900de0a56@quicinc.com>
-Date: Wed, 8 Jan 2025 15:41:07 -0800
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E12F10E445
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 00:06:57 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-53e28cf55cdso285217e87.3
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Jan 2025 16:06:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1736381156; x=1736985956; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=HIgUgl4N79dadeiXZRtpkyo/N44P164pFj//QzRGV20=;
+ b=H8caAM1BJgxvmP9tvuaZsy+qxwf/IhwiRCS9n3SM4BVlgx5s323O2Z2zpamx01+MAv
+ SbhI4IunrujxqK8ssU0UThA1aJcb9GnMpvDu1sbnhPGmPgnZ3dWJ5mglrCCjbApMZc0m
+ 25y+ay1f5+zFYiVUovyAi8WHNFZOajNbsTSDUuzzikJc6pXG5mabaXW4yp5lEcJJQgc/
+ bX/Rhghlw/gSJRcmRSIAxJvLEV8qDWKsK0BMc4J5gPPFpI0dQM6SQDu8+kJtGr6oEsbo
+ d6ZdP7B71EMmhUcnRkdpaDOKAMT7GnKYFazkqsIopes3Q7FX3aZw3vvPlq4Guo4cfi6m
+ DMbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736381156; x=1736985956;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HIgUgl4N79dadeiXZRtpkyo/N44P164pFj//QzRGV20=;
+ b=p/w4XjvGkBJhdQ7N80HI41Z3+LBXxSGDgEKdVNx5tpNrOEKcK8p0F/MvHQZKF5xPpY
+ 2PeAyyxxZV0oSoASlHhh38Bj+mbJQpOdQ/0hqlHjvi1jZ/tER2S3DX+KtIietiyqZrTV
+ ytLCywOAgR8BEryrcYped5PHe88JTgFSKLEZVaZroouxfN/DwoXLGvtJcxHGHqdTeVr/
+ rdtLnT6lzSbMKDszje1JWFrdulc7E3MZRzE/JdNXvj5FHG9sFSyUJJSNyhsE26FADIoa
+ T3tQYYRTSjJW5ZzIV6ZW/9nn1vPpXGUMQ9ESrbMytiFRB9IaIUjWm+HnRFxdXl3uwtik
+ AVMA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW9VWrpkgQvuZhs/EeLsclFVDLyv/FZ5USbr/hnfxpk5lqCRozmjxaAIIh6q2uz5ZFY97AWqbvvphQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzw0tj9XxfqAo4b6Lo7ePiVNrRZGA93C/Llem3tgzbKKdpjyEfG
+ CIM+841ig1zFLv3lSj8yB0+1xnu7LMg7DJtdsUx5tR9IwlJ00VsudAlBPD7Ll+I=
+X-Gm-Gg: ASbGncs578ERtJW45dpxZl6VnEWQpLpysm80JKWava7DQCyeul86otVuj6q/wBQcMG4
+ QhKlW7geGWWybsIrsmDwE/jvqvK2Mr31ZN2SV/B+IkantLuMfkqly2Ru2EYh//JTbjNyr8CUyA5
+ 97f5HzrY81qi+ipBde7KzOponp2OmJI6wI1CHkThkAG1bfEQuVFd2AihEqX9kkeYjhFscvcLNTN
+ AfqT7JhqJepF2v/tKEIMKRujcCKh7DvnDYz359RWRsnJueLdy2t2tDM3PC5kHahfpBXMZ6s0dYh
+ 6IITGsjju93tE56IPCvYlcc9OksBYiPzpuYN
+X-Google-Smtp-Source: AGHT+IELUqPRnCGpQ4QsIILyGi10OQNYGAtMxjnWsGZVt+RoeZcTFjHg8GOZFcw/nz8qgnwgQ+uKZw==
+X-Received: by 2002:a05:6512:b0f:b0:540:3566:985c with SMTP id
+ 2adb3069b0e04-542845d1495mr1192732e87.26.1736381155638; 
+ Wed, 08 Jan 2025 16:05:55 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5428be49a28sm30057e87.42.2025.01.08.16.05.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jan 2025 16:05:54 -0800 (PST)
+Date: Thu, 9 Jan 2025 02:05:51 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, quic_abhinavk@quicinc.com,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm/msm/dpu: Initialize return value for
+ dpu_assign_plane_resources()
+Message-ID: <nlxhx5dlc6y4m5htbfv6l27ms66jpse4umj4c42fzrcctnvy6a@5dbsjmuqsjwn>
+References: <20250108-virtual-planes-fixes-v1-0-420cb36df94a@quicinc.com>
+ <20250108-virtual-planes-fixes-v1-1-420cb36df94a@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/15] drm/msm/dpu: decide right side per last bit
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jun Nie
- <jun.nie@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-0-92c7c0a228e3@linaro.org>
- <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-4-92c7c0a228e3@linaro.org>
- <yqbze4h6obiwulmvh64r62slaiih75hzescf5tjwqgtmhqy3wi@y4uedbo5jrzu>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <yqbze4h6obiwulmvh64r62slaiih75hzescf5tjwqgtmhqy3wi@y4uedbo5jrzu>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: pyMOUFmsfgHlToR0dnDDRq_ViYiSFPgN
-X-Proofpoint-GUID: pyMOUFmsfgHlToR0dnDDRq_ViYiSFPgN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 spamscore=0 mlxscore=0
- impostorscore=0 priorityscore=1501 adultscore=0 mlxlogscore=999
- clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501080194
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250108-virtual-planes-fixes-v1-1-420cb36df94a@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,64 +95,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 12/19/2024 2:09 PM, Dmitry Baryshkov wrote:
-> On Thu, Dec 19, 2024 at 03:49:22PM +0800, Jun Nie wrote:
->> decide right side of a pair per last bit, in case of multiple
->> mixer pairs.
+On Wed, Jan 08, 2025 at 02:40:47PM -0800, Jessica Zhang wrote:
+> Initialize the return value so that the dpu_crtc_atomic_check() doesn't
+> fail if the virtual planes command line parameter is enabled and no planes
+> are visible.
 > 
-> Proper English sentences, please. Also describe why, not what.
-
-Hi Jun,
-
-Can we also add a note in the commit message on why the last bit check 
-works?
-
-Thanks,
-
-Jessica Zhang
-
+> Fixes: 774bcfb73176 ("drm/msm/dpu: add support for virtual planes")
+> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
->>
->> Signed-off-by: Jun Nie <jun.nie@linaro.org>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 5 ++---
->>   1 file changed, 2 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> index 7191b1a6d41b3..41c9d3e3e3c7c 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> @@ -369,11 +369,10 @@ static void _dpu_crtc_setup_blend_cfg(struct dpu_crtc_mixer *mixer,
->>   static void _dpu_crtc_program_lm_output_roi(struct drm_crtc *crtc)
->>   {
->>   	struct dpu_crtc_state *crtc_state;
->> -	int lm_idx, lm_horiz_position;
->> +	int lm_idx;
->>   
->>   	crtc_state = to_dpu_crtc_state(crtc->state);
->>   
->> -	lm_horiz_position = 0;
->>   	for (lm_idx = 0; lm_idx < crtc_state->num_mixers; lm_idx++) {
->>   		const struct drm_rect *lm_roi = &crtc_state->lm_bounds[lm_idx];
->>   		struct dpu_hw_mixer *hw_lm = crtc_state->mixers[lm_idx].hw_lm;
->> @@ -384,7 +383,7 @@ static void _dpu_crtc_program_lm_output_roi(struct drm_crtc *crtc)
->>   
->>   		cfg.out_width = drm_rect_width(lm_roi);
->>   		cfg.out_height = drm_rect_height(lm_roi);
->> -		cfg.right_mixer = lm_horiz_position++;
->> +		cfg.right_mixer = lm_idx & 0x1;
->>   		cfg.flags = 0;
->>   		hw_lm->ops.setup_mixer_out(hw_lm, &cfg);
->>   	}
->>
->> -- 
->> 2.34.1
->>
-> 
-> -- 
-> With best wishes
-> Dmitry
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+-- 
+With best wishes
+Dmitry
