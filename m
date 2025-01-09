@@ -2,66 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DC5DA06CE6
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 05:25:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB3D4A06CF5
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 05:27:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CC0A10ECDB;
-	Thu,  9 Jan 2025 04:25:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C15C810E034;
+	Thu,  9 Jan 2025 04:27:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="sHi89LjE";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YQEcrxNa";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA2F10ECDB
- for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 04:25:23 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-5401c68b89eso540640e87.0
- for <freedreno@lists.freedesktop.org>; Wed, 08 Jan 2025 20:25:22 -0800 (PST)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AD0310E034
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 04:27:48 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-3003d7ca01cso4370011fa.0
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Jan 2025 20:27:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736396661; x=1737001461; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=RI105FXbZ+6c9MUX+ILr2CPbzR00w0PPtPZAHqBYykY=;
- b=sHi89LjEqgk4fYYAeQ40LmQruqMi4INrEYnCyZYE+ribYCygCKUh4Zn6dWD5ZQg84R
- ey02oRf38wKee3PuQC7Jijq7Ngpm5tW1ECeI0UWnMS3EjxSAOX4h5Myuj++5VjgoYQPJ
- gNcmANMjYYT1DpmQT4Yd+cr3U9ozgObBSO0eHumh0kuR9YuQr6s+UuHs8NMoMYo5BVc7
- G6tPfnlaCL4HSpw0sZIOLgIyX4of0O06JqGVk7kMPZ8ftN4dgr1WnSUANWCmCkYLQ9GX
- g7xdC1DtXzAvHm/nZ0Ffr2WgFkMjNkHJG0JOxQfnsJfqjMtrbopicrShSL5RD1KlOpAQ
- UoxA==
+ d=linaro.org; s=google; t=1736396806; x=1737001606; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=8/Om4C21cxOdacF9bVr34DOZ7Jn+auy/uMpOh19Wfhk=;
+ b=YQEcrxNamP+e06hM3jVPZSBPjKEsnGc4a5le32zIJRprfhMUsnHbd2niz2b4QNykKW
+ 6yCQngkeKJDhEDbH9EKUnlZNnJM6a8I8uzEvmm06lVMlWZHppKNGMswp8/jyvwvJiOWo
+ BpAoZA9l8OrhhvzQdMpaPLe5zkpIuK+8fAHt4h56Unsk/KFab5ClH1v3CPPpqkKTCvmW
+ BQplhOdpPhmjzXpU0lr/YiLlV80PrdHKyo9kAZrB0tVdd5G3DS0BU7RVsehrRJdBxofr
+ mM5T6uL0FcNBLs6k1n4QoTLOn4S5Jg9n8KbJusT6zZn47KZAn1sneQggZN69ihf/0ezk
+ utnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736396661; x=1737001461;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RI105FXbZ+6c9MUX+ILr2CPbzR00w0PPtPZAHqBYykY=;
- b=sYl+biEaYq43xG3YH4vn7ju3qORKYgONzRq9epEumpM7EQq0Ldi1JpiB4tIeivBV1+
- SuSmj7PKxsVng7+Et77b+BBJ4aSwJrp566SgX8zdDjgHtNsVAj4I09Rx7nBrdFbeinic
- h3LZzis8SgPPDsD93M+3d5MFtRY1QCaM572xBdFq2EKgeFWNP2Y2yT+ii4NAif4XCvJ0
- lmvXOfd9MhxOpMfZH/YrtfjTzTHRC3sJPZrnIi6ERN0oH9/DDNqi8TV1f7l9/lc8D4jG
- oaw9IAL37o/HlPjzLqkvXjXYx2vWNUoc9J2texpIWdeVtE7WCXjmjj0EqkoOAmvVK0gl
- vXXg==
+ d=1e100.net; s=20230601; t=1736396806; x=1737001606;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=8/Om4C21cxOdacF9bVr34DOZ7Jn+auy/uMpOh19Wfhk=;
+ b=ANxeelPj39k82Q0HdGMJUZEvQ9BQb3nbICDyOmrEMKmlm5E60E+wX1DD6NBW6iR5tv
+ dPxS1nvUV3DtEHiaN0bM06Co1NWa+ZqpHoND3DdOcie2TzJ3aR3nijPAiW1qisgKygvW
+ B6rFfkBqVqxiBN0JmM6e7NRfnL69hM3+sBcRSFpsunUYsxux0Vtw9lIvOZkcww3Ok6Yu
+ 4w1klXnLXXe9xxMpjGOixieQ3n0a5bb4GSvz6AOcxxpOp/OHjL7CVEMYCM1gQkicGt0Z
+ wTk1jg+cfI+SBE2Y/iJkeEkEm0Hrm9pRCbt9n9jJZ4dBLLhr1jjwzknsOU1Z5tuYIhgc
+ JFjQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWnfe9+OZiho+w8+JE+A8anqW5WHSKRyDTGmWDuNQiT1k6glkfmtE7yPjRx4H/mZWJUpOsYBw1Tl7o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy0mR2XoA9umQC3A9ddcUlBYYOxvxSM6MRy2tIE19ccIvOF0c1R
- REN0Eg9eFCdUnS1g227TkdPf9Nxva1K/0Yi0OcVws6F18i7nQ+hKyWaC4jCCZ+Y=
-X-Gm-Gg: ASbGncv1zzn06uS8C3QkqYyTpp9biicTAq3IvoaIDITA6QqNwm7g0HPPm3uT6Wc74gA
- R52xDLita73+LqBnON28aicXzYIgLXETeTo7lMezNUy/oDxgL9zbdH50VOR+uHMfk+KwYvugzsa
- pdOHJRQSP3DoqujhXEF5J6bu99js4Tt6viicZXKf4IWTzIu42y+r3lrryNhQnm5HV3Q+GbTT8dL
- ym8qLeAutisE8MgJ6Lg5rzFkgQU2ibUGyqnJXERo/M+CuCDC49Q2XgAt8T1kTo6k+bjq1I6F+JL
- /mvN2qaAtVMyKZwbVOVUvbYwGC5ssK/IX509
-X-Google-Smtp-Source: AGHT+IHEZuHRIaKqakNLtv5UXX2C9mvMRn31Oci3NY2kR1ylrkyMAvDePp+/dCdXLT4ozAK/6FWpMw==
-X-Received: by 2002:ac2:4c4a:0:b0:542:7f34:4df8 with SMTP id
- 2adb3069b0e04-5428c1cfe56mr228114e87.2.1736396661334; 
- Wed, 08 Jan 2025 20:24:21 -0800 (PST)
+ AJvYcCX8jI7Tl4EKIBWNUzHeYSFHrNOP0NDW9XbIVee7d/Ya5DKd/fjfDRnH/ASQHKt8LHxIGRWh9+8YC5w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxV6Se0o+ivjJdUfiY2/M/SYUzwull5X6sWwhNy1zckVNbZvygh
+ p0drMJEoiAcpDqhYPxtdz7Nf/7eBj95nGDSvfuWPhfm0fZ2+iGe/7gBYFZ+sC6g=
+X-Gm-Gg: ASbGnctYQAmAvQrEm4jZQghJPOXkfsVXIZj4Ygk9rNQM/KXak3TqZjOipkbyTFUF6p/
+ hn7u6CrG0r1T5kDa7nD+zjyS1rKffErHpSmyLV3pvnJhfAEvpMaIVQFIgT4kVwStsTePzcv4KWY
+ a74aYXDKdHHy2RjikW9roEwIQFHHc1aIOsSlqiZKkjlVFvVmIiOuUysEuvmiWsyTsArjdW4tIIa
+ 5yc+8hDihY6Yop+OIxsG1NPovcBWDD9GJ7fBLJD1xdkn6f8WyodmE3z/W+N8t9kg9E9FDQdgqqj
+ CN7VotfeNcB7U8E3XKfdcwMrzDe9+jhoaWtT
+X-Google-Smtp-Source: AGHT+IHHq4gspYEdhTHMyXcmezEY1+Djfi+48+qomerqe9AIj5PpdcpYlixd2t1tkYNF4w8cqaCEbg==
+X-Received: by 2002:a2e:809:0:b0:302:4130:e19c with SMTP id
+ 38308e7fff4ca-305f458cfc4mr11016961fa.19.1736396806486; 
+ Wed, 08 Jan 2025 20:26:46 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428be4a029sm71282e87.54.2025.01.08.20.24.18
+ 38308e7fff4ca-305ff1c7aaasm632581fa.70.2025.01.08.20.26.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jan 2025 20:24:20 -0800 (PST)
-Date: Thu, 9 Jan 2025 06:24:17 +0200
+ Wed, 08 Jan 2025 20:26:45 -0800 (PST)
+Date: Thu, 9 Jan 2025 06:26:42 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -79,14 +80,16 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Simona Vetter <simona.vetter@ffwll.ch>
 Subject: Re: [PATCH 6/6] drm/msm/dpu: don't set crtc_state->mode_changed from
  atomic_check()
-Message-ID: <ag7drc3bwzlmktbknoo2gzulaziva2mj7d2ze4wc26ng23336k@f5o6ue2skit5>
+Message-ID: <2i5vun3pabozzqxjnciylahfx7jljtdmowjo625ida44e37djm@2axmuodlaqtk>
 References: <20241222-drm-dirty-modeset-v1-0-0e76a53eceb9@linaro.org>
  <20241222-drm-dirty-modeset-v1-6-0e76a53eceb9@linaro.org>
  <91dff265-5e13-45db-b46d-0eef4a95f5f6@quicinc.com>
+ <a6fa4aa2-d90b-4b5e-92fd-db3912ed248a@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <91dff265-5e13-45db-b46d-0eef4a95f5f6@quicinc.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a6fa4aa2-d90b-4b5e-92fd-db3912ed248a@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,86 +105,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 08, 2025 at 06:27:13PM -0800, Abhinav Kumar wrote:
+On Wed, Jan 08, 2025 at 08:11:27PM -0800, Abhinav Kumar wrote:
 > 
 > 
-> On 12/21/2024 9:00 PM, Dmitry Baryshkov wrote:
-> > The MSM driver uses drm_atomic_helper_check() which mandates that none
-> > of the atomic_check() callbacks toggles crtc_state->mode_changed.
-> > Perform corresponding check before calling the drm_atomic_helper_check()
-> > function.
+> On 1/8/2025 6:27 PM, Abhinav Kumar wrote:
 > > 
-> > Fixes: 8b45a26f2ba9 ("drm/msm/dpu: reserve cdm blocks for writeback in case of YUV output")
-> > Reported-by: Simona Vetter <simona.vetter@ffwll.ch>
-> > Closes: https://lore.kernel.org/dri-devel/ZtW_S0j5AEr4g0QW@phenom.ffwll.local/
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 32 +++++++++++++++++++++++++----
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 ++++
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 26 +++++++++++++++++++++++
-> >   drivers/gpu/drm/msm/msm_atomic.c            | 13 +++++++++++-
-> >   drivers/gpu/drm/msm/msm_kms.h               |  7 +++++++
-> >   5 files changed, 77 insertions(+), 5 deletions(-)
 > > 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > index 209e6fb605b2d8724935b62001032e7d39540366..b7c3aa8d0e2ca58091deacdeaccb0819d2bf045c 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > @@ -753,6 +753,34 @@ static void dpu_encoder_assign_crtc_resources(struct dpu_kms *dpu_kms,
-> >   	cstate->num_mixers = num_lm;
-> >   }
-> > +/**
-> > + * dpu_encoder_virt_check_mode_changed: check if full modeset is required
-> > + * @drm_enc:    Pointer to drm encoder structure
-> > + * @crtc_state:	Corresponding CRTC state to be checked
-> > + * @conn_state: Corresponding Connector's state to be checked
-> > + *
-> > + * Check if the changes in the object properties demand full mode set.
-> > + */
-> > +int dpu_encoder_virt_check_mode_changed(struct drm_encoder *drm_enc,
-> > +					struct drm_crtc_state *crtc_state,
-> > +					struct drm_connector_state *conn_state)
-> > +{
-> > +	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
-> > +	struct msm_display_topology topology;
-> > +
-> > +	DPU_DEBUG_ENC(dpu_enc, "\n");
-> > +
-> > +	/* Using mode instead of adjusted_mode as it wasn't computed yet */
-> > +	topology = dpu_encoder_get_topology(dpu_enc, &crtc_state->mode, crtc_state, conn_state);
-> > +
-> > +	if (topology.needs_cdm && !dpu_enc->cur_master->hw_cdm)
-> > +		crtc_state->mode_changed = true;
-> > +	else if (!topology.needs_cdm && dpu_enc->cur_master->hw_cdm)
-> > +		crtc_state->mode_changed = true;
-> > +
-> > +	return 0;
-> > +}
+> > On 12/21/2024 9:00 PM, Dmitry Baryshkov wrote:
+> > > The MSM driver uses drm_atomic_helper_check() which mandates that none
+> > > of the atomic_check() callbacks toggles crtc_state->mode_changed.
+> > > Perform corresponding check before calling the drm_atomic_helper_check()
+> > > function.
+> > > 
+> > > Fixes: 8b45a26f2ba9 ("drm/msm/dpu: reserve cdm blocks for writeback
+> > > in case of YUV output")
+> > > Reported-by: Simona Vetter <simona.vetter@ffwll.ch>
+> > > Closes:
+> > > https://lore.kernel.org/dri-devel/ZtW_S0j5AEr4g0QW@phenom.ffwll.local/
+> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > ---
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 32
+> > > +++++++++++++++++++++++++----
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 ++++
+> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 26
+> > > +++++++++++++++++++++++
+> > >   drivers/gpu/drm/msm/msm_atomic.c            | 13 +++++++++++-
+> > >   drivers/gpu/drm/msm/msm_kms.h               |  7 +++++++
+> > >   5 files changed, 77 insertions(+), 5 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > index 209e6fb605b2d8724935b62001032e7d39540366..b7c3aa8d0e2ca58091deacdeaccb0819d2bf045c
+> > > 100644
+> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > @@ -753,6 +753,34 @@ static void
+> > > dpu_encoder_assign_crtc_resources(struct dpu_kms *dpu_kms,
+> > >       cstate->num_mixers = num_lm;
+> > >   }
+> > > +/**
+> > > + * dpu_encoder_virt_check_mode_changed: check if full modeset is
+> > > required
+> > > + * @drm_enc:    Pointer to drm encoder structure
+> > > + * @crtc_state:    Corresponding CRTC state to be checked
+> > > + * @conn_state: Corresponding Connector's state to be checked
+> > > + *
+> > > + * Check if the changes in the object properties demand full mode set.
+> > > + */
+> > > +int dpu_encoder_virt_check_mode_changed(struct drm_encoder *drm_enc,
+> > > +                    struct drm_crtc_state *crtc_state,
+> > > +                    struct drm_connector_state *conn_state)
+> > > +{
+> > > +    struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+> > > +    struct msm_display_topology topology;
+> > > +
+> > > +    DPU_DEBUG_ENC(dpu_enc, "\n");
+> > > +
+> > > +    /* Using mode instead of adjusted_mode as it wasn't computed yet */
+> > > +    topology = dpu_encoder_get_topology(dpu_enc, &crtc_state->mode,
+> > > crtc_state, conn_state);
+> > > +
+> > > +    if (topology.needs_cdm && !dpu_enc->cur_master->hw_cdm)
+> > > +        crtc_state->mode_changed = true;
+> > > +    else if (!topology.needs_cdm && dpu_enc->cur_master->hw_cdm)
+> > > +        crtc_state->mode_changed = true;
+> > > +
+> > > +    return 0;
+> > > +}
+> > 
+> > How will this work exactly?
+> > 
+> > needs_cdm is set in the encoder's atomic_check which is called inside
+> > drm_atomic_helper_check(). But this function is called before that.
+> > 
+> > So needs_cdm will never hit.
+> > 
 > 
-> How will this work exactly?
+> Sorry, my bad. after change (4) of this series needs_cdm is also populated
+> within  dpu_encoder_get_topology().
 > 
-> needs_cdm is set in the encoder's atomic_check which is called inside
-> drm_atomic_helper_check(). But this function is called before that.
+> To follow up on https://patchwork.freedesktop.org/patch/629231/?series=137975&rev=4#comment_1148651
 > 
-> So needs_cdm will never hit.
-> 
+> So is the plan for CWB to add a dpu_crtc_check_mode_changed() like
+> dpu_encoder's and call it?
 
-Please refer to the previous patch, it should answer your question.
+I think dpu_encoder_virt_check_mode_changed() would transform into the
+dpu_crtc_check_mode_changed() together with one of the patches that
+moves resource allocation and refactors topology handling.
 
 > 
-> > +
-> >   static int dpu_encoder_virt_atomic_check(
-> >   		struct drm_encoder *drm_enc,
-> >   		struct drm_crtc_state *crtc_state,
-> > @@ -786,10 +814,6 @@ static int dpu_encoder_virt_atomic_check(
-> >   	topology = dpu_encoder_get_topology(dpu_enc, adj_mode, crtc_state, conn_state);
-> > -	if (topology.needs_cdm && !dpu_enc->cur_master->hw_cdm)
-> > -		crtc_state->mode_changed = true;
-> > -	else if (!topology.needs_cdm && dpu_enc->cur_master->hw_cdm)
-> > -		crtc_state->mode_changed = true;
-> >   	/*
-> >   	 * Release and Allocate resources on every modeset
-> >   	 */
+> 
+> > 
+> > > +
+> > >   static int dpu_encoder_virt_atomic_check(
+> > >           struct drm_encoder *drm_enc,
+> > >           struct drm_crtc_state *crtc_state,
 
 -- 
 With best wishes
