@@ -2,75 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAC10A07685
+	by mail.lfdr.de (Postfix) with ESMTPS id DE76EA07686
 	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 14:08:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29D6310EDB7;
-	Thu,  9 Jan 2025 13:08:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B68DF10EDC1;
+	Thu,  9 Jan 2025 13:08:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JWZuvrcF";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="aTInBtFk";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECF9310EDB7
- for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 13:08:45 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43637977fa4so924805e9.3
- for <freedreno@lists.freedesktop.org>; Thu, 09 Jan 2025 05:08:45 -0800 (PST)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5C7410EDBD
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 13:08:47 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-43658c452f5so1374605e9.0
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Jan 2025 05:08:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736428124; x=1737032924; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=fuLlOiXUXKnRhH1On0PX1rvgW+QHGgHGX18PUfH8Sfk=;
- b=JWZuvrcFRuUy97VipHMoGNSzVwq8OME3FFrlpCXXXMxsh+iX5H7RgzehFSigGKHzGa
- fUn47Hy90NsU9CzEZwwcoK87CSGRfzva5OTLFUEmf0szjRw543jCzz4qY30XpVUZJu/T
- I626RlJILQfkUtR8Lwp6TOuodjpS8Z6nvJH8Mcv89u9gRSqI+njY0a8OiVouX017leGZ
- MnOaUuXWxLI5HNiu7iAWdz7Qz94HUzFpp48+dO8I3GVUID9c213FDKeu8uDpUWKk9c/f
- zNewQWnp9w3XcYVyOwK7brUlh2RYvqFbSwJ+b1/M0uK6PwKO4EWgE7s/JDGK5aE1b0ic
- cWaA==
+ d=linaro.org; s=google; t=1736428126; x=1737032926; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=uHRWkFVUYJcbnQ4lEEkkpM4EW1jEFq6Ihd+cartFoEo=;
+ b=aTInBtFk6fgVxAGVxvetj9l58IlGVKRHgOcC4VinzkLYr7B2V9C2m6HpT0j4Rl8ygW
+ jR/D+G7v3Zj4dq3eMny4JcLIJLNJ0n/Vvz4F6SyjPm/IE9t+1qQJjzLGhPnhXgIaXe9k
+ 9bSy8Qo16YG1GoDLJlRMfY34heiKW5NvfnapaD8y2wOFHBv21vPIf1AYn8rZE1A3vqgW
+ X+W3GMBJLYWe/uqU1/ppBYt+cMTjg0CFUTDoNEDn2GanHNlMwCydJCzqaszoMC7TNJPL
+ htmfU4uSyeEc2fqjK9HildgnaRw0nx2nUM2k0D+c3hR1qq4AmvrVm6gEzsVf/LzdyQW6
+ HwVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736428124; x=1737032924;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=fuLlOiXUXKnRhH1On0PX1rvgW+QHGgHGX18PUfH8Sfk=;
- b=Yye6LD5Se5p7Ej/iM1zffn8yq8mtxx8GjCDUIPDuZ9yHeduOfHnlfG3y+JQe+E3WwR
- MWDP25m+vyAXrLcwuDrJLbpi70ub5rSUYrfQ1gc2VvGkQeuX6CQcACFaRt803SewGYbL
- 4RYSEf1P4aMgEW1GM8vU9Uvc/rp+PZbPi/LqUAVBXPuxK0BB+eajR9zAIg1X5QCdZmKP
- BtYMFDPuaef1ItTBgwmv3KuWRyItTzn/a1VHllhbDwzn4rJkyNkDPIVXqoyBYOgUd0SX
- HK88uxEwejEdriFFJpZoYdFjkbeTXNCD2qa0ueZAv9c73hSIVCsn9ZrQp3luM9VUarXE
- OzGw==
+ d=1e100.net; s=20230601; t=1736428126; x=1737032926;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=uHRWkFVUYJcbnQ4lEEkkpM4EW1jEFq6Ihd+cartFoEo=;
+ b=J/Vtd6CnD/0++M1w5aFJWVqDQCaRUuApzSR6T0g6qy855zKhp/9qjCUbHT0AFnAEHe
+ hD5feQV17oEybNN78rpDt51hhXC370b0ZYsob/bF2z430V2LRPW3GLZNRAi5guW+Ozvf
+ EDir9Zw27DwigP9QvjihAIDJrS10dhqSVOcUDUD8JT1/XaLi9i6E4lE2udegCmbbB+UT
+ wj12w1PDTkgxARCVfLRPHP2dK1dZdRLfudMIz8DyqeUYxWFnMna32uJnYEf+QkFtV0dO
+ muqRpg00saixfOc0rkVITSPv/IlllO/SQVJat+2A58jgEA0Y/vwy/FpqIEPwnviuUHkj
+ IFxQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXksOo1hlZUKVYpm1Y17MSA2YC5k3RbqCLVft2eeVA1CniAzl4s/OgcFI1VBkj+LCRHwHebucDzX/8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzph/y6taM3kP2tazrHrMMPOJ9AT6UoFJyEfL8VXsPlrXGbgIVu
- 0WEFT7ECAu1Tl9lzjgovnIgS26TEAFggU+DXVWop1PSw/D3gmPKqZj+C1m2j3gaKR02SVq+8y5m
- u
-X-Gm-Gg: ASbGncu4SkKJbLROqRNHDtOT0De0wKu6ec9XQS0QkUElCd2i/Ke0KAkCyCZiUe8pp0I
- G1ucjBH3mZcUmcWYUWXLb+DGkuFuPklHXjEoZuL04lA1uUgiSxKSCTK3zlVem85QMFsyWgHN+jC
- qT70bmuDg3rkOT3AZUQ7u/wZYgS1rJOyqPJ6Y4xqjGjR2UvJNN6H0kawZcbu8a2DaWwx3rC/GnO
- +/6u5UFlC1uGBbqIWSevCKbQ3JnGZPZZDnhdkjBtuky4xNiMh81qbsbe9rbFIH8lagecvgf
-X-Google-Smtp-Source: AGHT+IFHSrO/z2IrsdPv1zlsY4eaxotZ8IucbvWgCMwW9PfHOa6zyCWKyMdvewg6jasNjfGQd9IjHQ==
-X-Received: by 2002:a05:600c:4e52:b0:434:a339:ec67 with SMTP id
- 5b1f17b1804b1-436eba35780mr7441695e9.3.1736428124428; 
- Thu, 09 Jan 2025 05:08:44 -0800 (PST)
+ AJvYcCWvYQGhlXmQv9R65D3BhITuUTK6XTaZ+zg8lPqhvbkq/zom+v0FLOl5hWye+BY0E36OoXdECN+1vGE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy0pdegMQj0aa1LYR93/7U6RePtQLup2YwwfwwpfRX3SH9qz8o6
+ zc2NLkgm82lQzMCDyqVHyaAI16YYEwF3zzH/8bB6r6nwgkOo93wENy2OLqdBOo0=
+X-Gm-Gg: ASbGncsR0QRAnFTJ+/5nSAeAX0FmsyM9aFp+go6X6Ec/EB1igH3Goz++TjHJn8LPVNI
+ ozHAP5Oa3/+KchGmQ+7HW7viicLhLTKJIQVx+0OGrlc4CgLXK45iC0IwOJC+CXBGUySdOKIAil/
+ jDzP9NUAdmkqshovN6ITnyjNNlTek5MU92eUmRyPXSMgF0Y4z9Xy5pV/kbXenF4AEwr37DUJbbU
+ AWdReL24GMCRLwXF6D23yZm8Jvx94B9YT6YP5b5JrIpB8bXcv2wtmDPv1jK7khePgRAq59P
+X-Google-Smtp-Source: AGHT+IEF9iEco/3jygfFz2+wsWwY9iuB08FDT1mjl5kd6+TgpEtqRc7b7CFjp+6LWzrgMy9hb42Jlw==
+X-Received: by 2002:a05:600c:5027:b0:434:a30b:5433 with SMTP id
+ 5b1f17b1804b1-436e26ff752mr25586615e9.5.1736428126203; 
+ Thu, 09 Jan 2025 05:08:46 -0800 (PST)
 Received: from [127.0.1.1] ([178.197.223.165])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a8e4b8124sm1789167f8f.81.2025.01.09.05.08.42
+ ffacd0b85a97d-38a8e4b8124sm1789167f8f.81.2025.01.09.05.08.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jan 2025 05:08:43 -0800 (PST)
+ Thu, 09 Jan 2025 05:08:45 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [RFC PATCH 00/11] drm/msm: Add support for SM8750
-Date: Thu, 09 Jan 2025 14:08:27 +0100
-Message-Id: <20250109-b4-sm8750-display-v1-0-b3f15faf4c97@linaro.org>
+Date: Thu, 09 Jan 2025 14:08:28 +0100
+Subject: [PATCH RFC 01/11] dt-bindings: display/msm: dsi-controller-main:
+ Combine if:then: entries
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAEvKf2cC/x3MTQ5AMBBA4avIrE3S0iquIhbFYBJ/6SRCxN01l
- t/ivQeEApNAnTwQ6GThfYvQaQL97LeJkIdoyFRmlVYVdgZlLZ1VOLAci7+xIG9z56zxo4bYHYF
- Gvv5n077vB5Y+EIJjAAAA
-X-Change-ID: 20250109-b4-sm8750-display-6ea537754af1
+Message-Id: <20250109-b4-sm8750-display-v1-1-b3f15faf4c97@linaro.org>
+References: <20250109-b4-sm8750-display-v1-0-b3f15faf4c97@linaro.org>
+In-Reply-To: <20250109-b4-sm8750-display-v1-0-b3f15faf4c97@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
  Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
@@ -89,21 +87,21 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
  Srini Kandagatla <srinivas.kandagatla@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2797;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2973;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=V/rvpjKAc8KwegpBEpR0XfRNaqLlpjQvs3AFkc0+3mc=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBnf8pNMxOxDm6xY/QOvdYu5+akyHTu8VgNfBwAe
- 6VwNxI77hiJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ3/KTQAKCRDBN2bmhouD
- 17uHEACGj8f29cWYZih4RbFvhERvA/L+duReJZfq9d9CgKJ7xas6I5SlG3ngq/xKmzoZaWRG/Oh
- ZW9Ao9yofp80d3R25rnB0Jz4XwNRnHklzWylNjvODP7eQ5MRLpAt6BS8S31ePLTYle+NmBwtGXR
- ycK8CgHKhWqz8WXSE303J+8L8LVbzha8kIAi3sj4zC6PiPK1kY5wdaFqWpRveLvujsmL8MWXSUu
- CiqohhGM1lmH+YbAiYh18t5bWc9bhRaUp0xzFueO48cJ1RjEJV9vd3tUVkVyG62LQIVsgF6lUAI
- ft0HqSi76fSvEusD8WciL8L7sijeBOn7xYndPVXNXrVVSk5k9Ng6V191HCGGrm6YplGd/v8Di1E
- rDY0bkVSvvaCR2bt+P8gXXkvCZtbXGV68dt2J3XHDzUNsnQVrXYlMYpf3WUZwRcXgjIGn5oNaNj
- q8WdA3+BMXEYel7b27RvkafsQ0DOB8jOgKy2PZkZWfqgb6+oe6l4+Sr38iAxn5KbFgXomNmwinS
- Jy5g3bE5XhA4b9b808dzhzXQ2WRHuC9SvBuNwjd8o1M4w+Y2QhNNAVRuEHGCty5fBIGVyBtnWot
- v1go/IG7wfraVukYcisvNcE0EIhsuVkz9vNJPh560JzAppkbdcYSlgkiwlfb8+RisYzDjP2tAMI
- wFeIluQPFV4IrLA==
+ bh=IfZcYabdsZFdNzsj0O/kJeMDTVSlCJN19MOBQa68Yvo=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBnf8pRvAVm7n8iqcOs0PLBF+zrL6Wo3H3RqAvMO
+ PB74U/ANkqJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ3/KUQAKCRDBN2bmhouD
+ 16wsEACVeHta1watLdItGSKKdsZJrWq+PIVjOq7NatwSmdBQ2MNeaHRvqntEMifiX9j0PKHUQBu
+ u3lc/mq9QInohThDto7mc++GeuSCAy/U0911WnxWo4anPLdEnY+byETdnnR1mkRY3pqgArBSNmG
+ RzbuOMZfKryR8gcSsrVhtweagmQTCVReR/Akx58KYimbd4cJI9zKzhxkzI3jBGYaFbeA2S+39IE
+ VcUzWQn77+s1V/13WwPfbaMoMH+4hgoSIF/2R3EGVHS+1Aq4jj8NzD3Cdzl208hS7xde/a1/a7X
+ cIyLitYR3k98kCbIwBekUjJWjU5b2fWVl7pNoq+VXi/kMyFv6r7AQsow0byPQoTzDTSSWr7+l9U
+ dii1lywm7opZdmJqKkFx3ERN/vJdHFhqUDe0NPKt3e4zNxVFsjEtG2109ZWbldhCmzUuxO68q9L
+ lIK92rDrn9kkh4bbbeKh/FBYXvtQy5Q2nkZFVVW1lEbTAX4Dmnfx2fqQ7G6r010qr0mV9wvFSlD
+ zfpXzfhPhD8uS3JmS1nCYdvUtrgMftvXH3fSj+vBNXQ42/yIgmnOahqZ0s8JONl+xF2WvJTZEt/
+ hiIAhRJfk9sdZ8DyZQvzmvq/TDvS7WCCmAjnBOQdJV7ut6HLgmStFWEPR8okSkmpAsvdl9kk/Sk
+ HaoE/75ZdBL+zNQ==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -121,64 +119,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Several devices have the same clock inputs, thus they can be in the same
+if:then: clause, making everything smaller.  No functional impact.
 
-RFC or WIP: support is not yet finished because of two important
-differences not yet implemented.
-1. DPU_CTL_NO_LAYER_EXT: see last commit
-2. SDE_MIXER_X_SRC_SEL: LM crossbar: also hardware changes requiring
-   each pipe rectangle to be programmed separately in X_SRC_SEL blend
-   stage. Downstream patch is bigger than above (1).
-
-Sending this early, to gather comments or maybe find volunteers for
-implementing above missing pieces. :)
-
-The hardware catalog and DSI parts should be finished.
-
-Best regards,
-Krzysztof
-
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
-Krzysztof Kozlowski (11):
-      dt-bindings: display/msm: dsi-controller-main: Combine if:then: entries
-      dt-bindings: display/msm: dsi-controller-main: Add missing minItems
-      dt-bindings: display/msm: dsi-phy-7nm: Add SM8750
-      dt-bindings: display/msm: dsi-controller-main: Add SM8750
-      dt-bindings: display/msm: dp-controller: Add SM8750
-      dt-bindings: display/msm: qcom,sm8650-dpu: Add SM8750
-      dt-bindings: display/msm: qcom,sm8750-mdss: Add SM8750
-      drm/msm/dsi: Add support for SM8750
-      drm/msm/dpu: Add support for SM8750
-      drm/msm/mdss: Add support for SM8750
-      [RFC / WIP] drm/msm/dpu: WIP: CTL_LAYER_EXT is gone
+ .../bindings/display/msm/dsi-controller-main.yaml  | 64 ++--------------------
+ 1 file changed, 5 insertions(+), 59 deletions(-)
 
- .../bindings/display/msm/dp-controller.yaml        |   4 +
- .../bindings/display/msm/dsi-controller-main.yaml  | 124 +++--
- .../bindings/display/msm/dsi-phy-7nm.yaml          |   1 +
- .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   1 +
- .../bindings/display/msm/qcom,sm8750-mdss.yaml     | 460 ++++++++++++++++++
- .../drm/msm/disp/dpu1/catalog/dpu_12_0_sm8750.h    | 522 +++++++++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  38 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   4 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  16 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   6 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
- drivers/gpu/drm/msm/dsi/dsi.h                      |   2 +
- drivers/gpu/drm/msm/dsi/dsi_cfg.c                  |  25 +
- drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |   1 +
- drivers/gpu/drm/msm/dsi/dsi_host.c                 |  80 ++++
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   1 +
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          |  78 ++-
- drivers/gpu/drm/msm/msm_mdss.c                     |  33 ++
- drivers/gpu/drm/msm/msm_mdss.h                     |   1 +
- .../gpu/drm/msm/registers/display/dsi_phy_7nm.xml  |  14 +
- 21 files changed, 1335 insertions(+), 79 deletions(-)
----
-base-commit: c38a35d266317199e72729fbbca5b2337c20a6d9
-change-id: 20250109-b4-sm8750-display-6ea537754af1
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+index a9636b76854d0f781923e06b90503dec11b25763..a90255f60d9e31c9c7ed94816284fa8f0d71d392 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+@@ -248,24 +248,6 @@ allOf:
+           contains:
+             enum:
+               - qcom,msm8916-dsi-ctrl
+-    then:
+-      properties:
+-        clocks:
+-          maxItems: 6
+-        clock-names:
+-          items:
+-            - const: mdp_core
+-            - const: iface
+-            - const: bus
+-            - const: byte
+-            - const: pixel
+-            - const: core
+-
+-  - if:
+-      properties:
+-        compatible:
+-          contains:
+-            enum:
+               - qcom,msm8953-dsi-ctrl
+               - qcom,msm8976-dsi-ctrl
+     then:
+@@ -328,28 +310,13 @@ allOf:
+           contains:
+             enum:
+               - qcom,msm8998-dsi-ctrl
+-              - qcom,sm6125-dsi-ctrl
+-              - qcom,sm6350-dsi-ctrl
+-    then:
+-      properties:
+-        clocks:
+-          maxItems: 6
+-        clock-names:
+-          items:
+-            - const: byte
+-            - const: byte_intf
+-            - const: pixel
+-            - const: core
+-            - const: iface
+-            - const: bus
+-
+-  - if:
+-      properties:
+-        compatible:
+-          contains:
+-            enum:
+               - qcom,sc7180-dsi-ctrl
+               - qcom,sc7280-dsi-ctrl
++              - qcom,sdm845-dsi-ctrl
++              - qcom,sm6115-dsi-ctrl
++              - qcom,sm6125-dsi-ctrl
++              - qcom,sm6350-dsi-ctrl
++              - qcom,sm6375-dsi-ctrl
+               - qcom,sm6150-dsi-ctrl
+               - qcom,sm7150-dsi-ctrl
+               - qcom,sm8150-dsi-ctrl
+@@ -393,27 +360,6 @@ allOf:
+             - const: pixel
+             - const: core
+ 
+-  - if:
+-      properties:
+-        compatible:
+-          contains:
+-            enum:
+-              - qcom,sdm845-dsi-ctrl
+-              - qcom,sm6115-dsi-ctrl
+-              - qcom,sm6375-dsi-ctrl
+-    then:
+-      properties:
+-        clocks:
+-          maxItems: 6
+-        clock-names:
+-          items:
+-            - const: byte
+-            - const: byte_intf
+-            - const: pixel
+-            - const: core
+-            - const: iface
+-            - const: bus
+-
+ unevaluatedProperties: false
+ 
+ examples:
 
-Best regards,
 -- 
-Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+2.43.0
 
