@@ -2,88 +2,110 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46443A0757C
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 13:16:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAC10A07685
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 14:08:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 278F410ED97;
-	Thu,  9 Jan 2025 12:16:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29D6310EDB7;
+	Thu,  9 Jan 2025 13:08:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EZNOV9Hh";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JWZuvrcF";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA1AB10ED93
- for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 12:16:54 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-5401bd6ccadso843527e87.2
- for <freedreno@lists.freedesktop.org>; Thu, 09 Jan 2025 04:16:54 -0800 (PST)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECF9310EDB7
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 13:08:45 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43637977fa4so924805e9.3
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Jan 2025 05:08:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736424953; x=1737029753; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=51fiBQGJpPcUuo5vlJJmT51EBH56olvKE7bUWMTUTdc=;
- b=EZNOV9HhnPdsIxxbnUMofwGlfh2rt79E4wT3IYRJQ9X5U7/0td7VJd9F7l0mDsQOlY
- nGtn9lqObad7PrHjMhcGGil3fxGSHhYqNi81EsrbPEEbuOsMVxVY+wZOynNcXYj/n6iV
- 5kA29A4ABM2Y+fQ2ANk8H8cSaELK8gP0syobsNJgl5v8FgiOBquZIw0gWkI68pOhd/m9
- dehMELLN21YmG7hsgGfkZh1X3gBYsehYexMvUrMylVxpULChUQnVtEaCfkRK+OHA4H3o
- SPLG+jmka3JaVAZBEhsoztMkwrRzn1Sbq4c+856w8XnjAOXcQ7qgCeh4nPhvMyCjBlXN
- PEoA==
+ d=linaro.org; s=google; t=1736428124; x=1737032924; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=fuLlOiXUXKnRhH1On0PX1rvgW+QHGgHGX18PUfH8Sfk=;
+ b=JWZuvrcFRuUy97VipHMoGNSzVwq8OME3FFrlpCXXXMxsh+iX5H7RgzehFSigGKHzGa
+ fUn47Hy90NsU9CzEZwwcoK87CSGRfzva5OTLFUEmf0szjRw543jCzz4qY30XpVUZJu/T
+ I626RlJILQfkUtR8Lwp6TOuodjpS8Z6nvJH8Mcv89u9gRSqI+njY0a8OiVouX017leGZ
+ MnOaUuXWxLI5HNiu7iAWdz7Qz94HUzFpp48+dO8I3GVUID9c213FDKeu8uDpUWKk9c/f
+ zNewQWnp9w3XcYVyOwK7brUlh2RYvqFbSwJ+b1/M0uK6PwKO4EWgE7s/JDGK5aE1b0ic
+ cWaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736424953; x=1737029753;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=51fiBQGJpPcUuo5vlJJmT51EBH56olvKE7bUWMTUTdc=;
- b=VQgWP7UsDi+ccG93VFzi8wzsYLfH2uMzCCq9rVxG0BNKWgNhe12DLYX+NQC17uUDFo
- md/iLZjPz6pmdjMk5D7alw2jd57mlJbinftntW8luSegiveewYGacd9P5lOiEi/CgM5O
- NexQvcr+EvDm+U3tULt0tnN7vDOI1vNXHAZtQTmO78AQq7d8Wyv9JjMAufN4DDFQP1ru
- 8bPP1rqY7B2WMvCRKUWoIQEr4Tt9wbEFMYcZ9EVJu5IbyBIffmDZZRWf1xE0+/TPXfnV
- 3/9X4GD6kWhICqxhDCodoFGKilSl2jXks3EVOQhO6kLATd0a03guUVZFrArYj1CruWOm
- lhCw==
+ d=1e100.net; s=20230601; t=1736428124; x=1737032924;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=fuLlOiXUXKnRhH1On0PX1rvgW+QHGgHGX18PUfH8Sfk=;
+ b=Yye6LD5Se5p7Ej/iM1zffn8yq8mtxx8GjCDUIPDuZ9yHeduOfHnlfG3y+JQe+E3WwR
+ MWDP25m+vyAXrLcwuDrJLbpi70ub5rSUYrfQ1gc2VvGkQeuX6CQcACFaRt803SewGYbL
+ 4RYSEf1P4aMgEW1GM8vU9Uvc/rp+PZbPi/LqUAVBXPuxK0BB+eajR9zAIg1X5QCdZmKP
+ BtYMFDPuaef1ItTBgwmv3KuWRyItTzn/a1VHllhbDwzn4rJkyNkDPIVXqoyBYOgUd0SX
+ HK88uxEwejEdriFFJpZoYdFjkbeTXNCD2qa0ueZAv9c73hSIVCsn9ZrQp3luM9VUarXE
+ OzGw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX+t6fCNYHP4ovEOSNNLY7jToy92YqMPmzRfGEoDp+XGvhD8O/jdiucX3LSO1iDZU8ovgHDdpv5al8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyRbg1I/XQ/SZiDdj3QTZgX8QsFHGmlPmaEi9rdO3SSJaBq9Oml
- ctUSoQMBIZGapoofQJEhPpPe+gDusc2HoQQynuVNKOTqBO2gy67xXc1e8zrDh0A=
-X-Gm-Gg: ASbGncsWL71YnU+23XCrAkhFKDZsEqwYY/W4zBexmdMaJ0lvZGbz7RPPIJxOubGzKx/
- nRunKSvK/1vaS68VRfLQCzM84Tg+28nsBUirIw6LQCad6Rb8bdu+cMIyNieZJLA7tjJ4P9kx5QI
- DNIOcB/LG5WTi76I1ITbNlhicKqiOX5AVwynp9647HefBrwnxINHqWKYViqBEojaMVgAbS23JTP
- hxKo6wPngLHuzMkWpq1kK6q3u53pWx/wxcUmkkYfNkhdV58tHLIf12PorE/bP/GsRjzugm2GXWH
- 7srQxC09YQz8Ey/6sjolCimK9L5qqbbIUEaa
-X-Google-Smtp-Source: AGHT+IH5j6fZ8mHbuQ1cCJLcbUHN8wITNN/T+GeApB/Zpmg3LUDNE3p8F7Pix0g3oCHAp6x7GNOU5w==
-X-Received: by 2002:a05:6512:2351:b0:542:2192:3eb6 with SMTP id
- 2adb3069b0e04-542845c08a7mr1977249e87.52.1736424953245; 
- Thu, 09 Jan 2025 04:15:53 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ AJvYcCXksOo1hlZUKVYpm1Y17MSA2YC5k3RbqCLVft2eeVA1CniAzl4s/OgcFI1VBkj+LCRHwHebucDzX/8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzph/y6taM3kP2tazrHrMMPOJ9AT6UoFJyEfL8VXsPlrXGbgIVu
+ 0WEFT7ECAu1Tl9lzjgovnIgS26TEAFggU+DXVWop1PSw/D3gmPKqZj+C1m2j3gaKR02SVq+8y5m
+ u
+X-Gm-Gg: ASbGncu4SkKJbLROqRNHDtOT0De0wKu6ec9XQS0QkUElCd2i/Ke0KAkCyCZiUe8pp0I
+ G1ucjBH3mZcUmcWYUWXLb+DGkuFuPklHXjEoZuL04lA1uUgiSxKSCTK3zlVem85QMFsyWgHN+jC
+ qT70bmuDg3rkOT3AZUQ7u/wZYgS1rJOyqPJ6Y4xqjGjR2UvJNN6H0kawZcbu8a2DaWwx3rC/GnO
+ +/6u5UFlC1uGBbqIWSevCKbQ3JnGZPZZDnhdkjBtuky4xNiMh81qbsbe9rbFIH8lagecvgf
+X-Google-Smtp-Source: AGHT+IFHSrO/z2IrsdPv1zlsY4eaxotZ8IucbvWgCMwW9PfHOa6zyCWKyMdvewg6jasNjfGQd9IjHQ==
+X-Received: by 2002:a05:600c:4e52:b0:434:a339:ec67 with SMTP id
+ 5b1f17b1804b1-436eba35780mr7441695e9.3.1736428124428; 
+ Thu, 09 Jan 2025 05:08:44 -0800 (PST)
+Received: from [127.0.1.1] ([178.197.223.165])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428be4996fsm182328e87.56.2025.01.09.04.15.50
+ ffacd0b85a97d-38a8e4b8124sm1789167f8f.81.2025.01.09.05.08.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jan 2025 04:15:52 -0800 (PST)
-Date: Thu, 9 Jan 2025 14:15:49 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Jessica Zhang <quic_jesszhan@quicinc.com>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 05/15] drm/msm/dpu: fix mixer number counter on
- allocation
-Message-ID: <k2tf3tnaquagm7stxho7lrqj5oylbti4jisenm6t53hj5kvyhs@degtp25bmkj5>
-References: <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-0-92c7c0a228e3@linaro.org>
- <20241219-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-32-v3-5-92c7c0a228e3@linaro.org>
- <da270bd6-3f7a-4100-8352-acbf14b62db5@quicinc.com>
- <CABymUCPm-+RYVGx6aXXPqgEcg+x7vhrN_HanJvvNrFkJj6o5Aw@mail.gmail.com>
+ Thu, 09 Jan 2025 05:08:43 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [RFC PATCH 00/11] drm/msm: Add support for SM8750
+Date: Thu, 09 Jan 2025 14:08:27 +0100
+Message-Id: <20250109-b4-sm8750-display-v1-0-b3f15faf4c97@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCPm-+RYVGx6aXXPqgEcg+x7vhrN_HanJvvNrFkJj6o5Aw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEvKf2cC/x3MTQ5AMBBA4avIrE3S0iquIhbFYBJ/6SRCxN01l
+ t/ivQeEApNAnTwQ6GThfYvQaQL97LeJkIdoyFRmlVYVdgZlLZ1VOLAci7+xIG9z56zxo4bYHYF
+ Gvv5n077vB5Y+EIJjAAAA
+X-Change-ID: 20250109-b4-sm8750-display-6ea537754af1
+To: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2797;
+ i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
+ bh=V/rvpjKAc8KwegpBEpR0XfRNaqLlpjQvs3AFkc0+3mc=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBnf8pNMxOxDm6xY/QOvdYu5+akyHTu8VgNfBwAe
+ 6VwNxI77hiJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ3/KTQAKCRDBN2bmhouD
+ 17uHEACGj8f29cWYZih4RbFvhERvA/L+duReJZfq9d9CgKJ7xas6I5SlG3ngq/xKmzoZaWRG/Oh
+ ZW9Ao9yofp80d3R25rnB0Jz4XwNRnHklzWylNjvODP7eQ5MRLpAt6BS8S31ePLTYle+NmBwtGXR
+ ycK8CgHKhWqz8WXSE303J+8L8LVbzha8kIAi3sj4zC6PiPK1kY5wdaFqWpRveLvujsmL8MWXSUu
+ CiqohhGM1lmH+YbAiYh18t5bWc9bhRaUp0xzFueO48cJ1RjEJV9vd3tUVkVyG62LQIVsgF6lUAI
+ ft0HqSi76fSvEusD8WciL8L7sijeBOn7xYndPVXNXrVVSk5k9Ng6V191HCGGrm6YplGd/v8Di1E
+ rDY0bkVSvvaCR2bt+P8gXXkvCZtbXGV68dt2J3XHDzUNsnQVrXYlMYpf3WUZwRcXgjIGn5oNaNj
+ q8WdA3+BMXEYel7b27RvkafsQ0DOB8jOgKy2PZkZWfqgb6+oe6l4+Sr38iAxn5KbFgXomNmwinS
+ Jy5g3bE5XhA4b9b808dzhzXQ2WRHuC9SvBuNwjd8o1M4w+Y2QhNNAVRuEHGCty5fBIGVyBtnWot
+ v1go/IG7wfraVukYcisvNcE0EIhsuVkz9vNJPh560JzAppkbdcYSlgkiwlfb8+RisYzDjP2tAMI
+ wFeIluQPFV4IrLA==
+X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,81 +121,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 09, 2025 at 12:40:23PM +0800, Jun Nie wrote:
-> Jessica Zhang <quic_jesszhan@quicinc.com> 于2025年1月9日周四 09:29写道：
-> >
-> >
-> >
-> > On 12/18/2024 11:49 PM, Jun Nie wrote:
-> > > Add the case to reserve multiple pairs mixers for high resolution.
-> > > Current code only supports one pair of mixer usage case. To support
-> > > quad-pipe usage case, two pairs of mixers are needed.
-> > >
-> > > Current code resets number of mixer on failure of pair's peer test and
-> > > retry on another pair. If two pairs are needed, the failure on the test
-> > > of 2nd pair results clearing to the 1st pair. This patch only clear the
-> > > bit for the 2nd pair allocation before retry on another pair.
-> >
-> > Hi Jun,
-> >
-> > I think the commit message wording is a bit unclear. Maybe something
-> > like "Reset the current lm_count to an even number instead of completely
-> > clearing it. This prevents all pairs from being cleared in cases where
-> > multiple LM pairs are needed"
-> 
-> Thanks for the suggestion! Will adopt it.
-> >
-> > >
-> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > ---
-> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 6 +++++-
-> > >   1 file changed, 5 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > > index cde3c5616f9bc..a8b01b78c02c7 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> > > @@ -316,7 +316,11 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
-> > >               if (!rm->mixer_blks[i])
-> > >                       continue;
-> > >
-> > > -             lm_count = 0;
-> > > +             /*
-> > > +              * Clear the last bit to drop the previous primary mixer if
-> > > +              * fail to find its peer.
-> >
-> > Same here can we reword it to something like "Reset lm_count to an even
-> > index. This will drop the previous primary mixer if ..."
-> 
-> Will do.
-> 
-> >
-> > > +              */
-> > > +             lm_count &= 0xfe;
-> >
-> > Nit: Can we directly clear the first bit instead of doing an 8-bit bitmask?
-> 
-> Could you elaborate on it? Or you are suggesting to mask 0xFFFFFFFE?
+Hi,
 
-I assume it is &= ~1
+RFC or WIP: support is not yet finished because of two important
+differences not yet implemented.
+1. DPU_CTL_NO_LAYER_EXT: see last commit
+2. SDE_MIXER_X_SRC_SEL: LM crossbar: also hardware changes requiring
+   each pipe rectangle to be programmed separately in X_SRC_SEL blend
+   stage. Downstream patch is bigger than above (1).
 
-> 
-> - Jun
-> 
-> >
-> > Thanks,
-> >
-> > Jessica Zhang
-> >
-> > >               lm_idx[lm_count] = i;
-> > >
-> > >               if (!_dpu_rm_check_lm_and_get_connected_blks(rm, global_state,
-> > >
-> > > --
-> > > 2.34.1
-> > >
-> >
+Sending this early, to gather comments or maybe find volunteers for
+implementing above missing pieces. :)
 
+The hardware catalog and DSI parts should be finished.
+
+Best regards,
+Krzysztof
+
+---
+Krzysztof Kozlowski (11):
+      dt-bindings: display/msm: dsi-controller-main: Combine if:then: entries
+      dt-bindings: display/msm: dsi-controller-main: Add missing minItems
+      dt-bindings: display/msm: dsi-phy-7nm: Add SM8750
+      dt-bindings: display/msm: dsi-controller-main: Add SM8750
+      dt-bindings: display/msm: dp-controller: Add SM8750
+      dt-bindings: display/msm: qcom,sm8650-dpu: Add SM8750
+      dt-bindings: display/msm: qcom,sm8750-mdss: Add SM8750
+      drm/msm/dsi: Add support for SM8750
+      drm/msm/dpu: Add support for SM8750
+      drm/msm/mdss: Add support for SM8750
+      [RFC / WIP] drm/msm/dpu: WIP: CTL_LAYER_EXT is gone
+
+ .../bindings/display/msm/dp-controller.yaml        |   4 +
+ .../bindings/display/msm/dsi-controller-main.yaml  | 124 +++--
+ .../bindings/display/msm/dsi-phy-7nm.yaml          |   1 +
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      |   1 +
+ .../bindings/display/msm/qcom,sm8750-mdss.yaml     | 460 ++++++++++++++++++
+ .../drm/msm/disp/dpu1/catalog/dpu_12_0_sm8750.h    | 522 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  38 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   4 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  16 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   6 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/dsi/dsi.h                      |   2 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c                  |  25 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h                  |   1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |  80 ++++
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              |   2 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              |   1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c          |  78 ++-
+ drivers/gpu/drm/msm/msm_mdss.c                     |  33 ++
+ drivers/gpu/drm/msm/msm_mdss.h                     |   1 +
+ .../gpu/drm/msm/registers/display/dsi_phy_7nm.xml  |  14 +
+ 21 files changed, 1335 insertions(+), 79 deletions(-)
+---
+base-commit: c38a35d266317199e72729fbbca5b2337c20a6d9
+change-id: 20250109-b4-sm8750-display-6ea537754af1
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
