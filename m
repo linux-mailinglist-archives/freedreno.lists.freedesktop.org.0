@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1096AA07513
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 12:50:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AACCBA0755D
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 13:11:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1AE410ED7B;
-	Thu,  9 Jan 2025 11:50:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E0FD10ED81;
+	Thu,  9 Jan 2025 12:11:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="i1HueGXP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VfkpfpvK";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1919D10ED7C
- for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 11:50:15 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4361f664af5so10219805e9.1
- for <freedreno@lists.freedesktop.org>; Thu, 09 Jan 2025 03:50:14 -0800 (PST)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5665910ED86
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 12:11:20 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4368a293339so10350815e9.3
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Jan 2025 04:11:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736423413; x=1737028213; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1736424619; x=1737029419; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=SBUIkyq8HThi2u/QbO+9Ek4VXanc8mg0IJge15zLjYc=;
- b=i1HueGXPRAqV4nwUNppXRQUm28V4fYI/SqF0aHr5fzbW7MoMYKC6ipU/9Ltq4pV+Gq
- uWqG+Gxvo87jtQSlh7hMtAP/xTEvrfsngpDnamE/6NAr1/nNWiFYUxJLSQujvvW2vevw
- /4zQc7XIobLhDq/KsJledq5B2nItZVLV9Dg9+wGT0vHidsovFNzJaNZXRTbHdP7eoxUz
- 1cYdt5a+ZOJk84lRBitKHmwZTE6ldNHNIX4llHqlNvvNC6bPvVHa0j7/kUMbT9Chp1V6
- WAzj8YQgQlF6zgncT8Rr1mybOk/HKp/nwg3rpSX1PdFoSuRKoLE5NxBoEBVPU8RZXwO0
- jD3Q==
+ bh=ScDEvNBMi9Yu3n8HTIx1zSceI6fYU9kCdn5rYgIhGU8=;
+ b=VfkpfpvK5wDzWi2Kh1DxFsQYa/rLiILXejpqQiiWkfy1Q7hdC8ePQKa4A2l9QSj54m
+ SXJAaD6y8Hf7mnGNUFSR/1B+i1ssOfv5X3x2ilqd6vMozgjTOZnnyfQdfhRZniU40VP+
+ B4LUdHQT8uAj1mT9mHsBhP2v/zrTRp8fSiArMH5VZpc8s8vuhQqZwcImXiD+7gwl5v9I
+ 8w7gv4UVIU9DmFBSAHUeCy5GlaPFsslc9SG7L3YiyaTEsDm2Xm1//e/Z70a68f4/jYMV
+ 5J5m7nUCLFno0pdGwn1ybrhxZCQjNC5SMimqPFODiMc8xFMGuePFhyTap/ItC9VEtuq3
+ BByQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736423413; x=1737028213;
+ d=1e100.net; s=20230601; t=1736424619; x=1737029419;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SBUIkyq8HThi2u/QbO+9Ek4VXanc8mg0IJge15zLjYc=;
- b=OycNt5nyNS+F+sziD4qvGnkKP8hDV/rPkCIzzou1HRr0hvadgdrD6JH4PGhWF/ZEj7
- RC3fk6+T86gKCuOLikAMCRZV0pTp8mkoUb7kWCwKKtCCujc+copmC+pKwMlQVz0bzlLm
- ZNw84bHZ8V8GwFwKpIws7N1KyW35avs8lvW7qUFfD8YpSBOMJIXSv4wu1OL6Pq2mjec6
- VXoapY1isq78tuKR45L8tiR1s0DTMoRiyRFhN6q4L/0rCfAY84BzTVAP9NJyhOH45U2T
- 2KJxcIy9zyA3sHZRbFTzLfrAneC36e71/6yVKqyIngaTBlfotNqSMoXk2NCgkJDD3LiU
- 0UMw==
+ bh=ScDEvNBMi9Yu3n8HTIx1zSceI6fYU9kCdn5rYgIhGU8=;
+ b=E3aoUZ432d8fgFEAihfvJb3gPCm41zg0vYBYiCtEvqaoAGH+WxoQAmsrIcpSmz5/Tb
+ HzRF+6LugKoo3SQtJdKWB4iQYgKfzn9XfTAVvcz648CnkDxI6E1I2Ca+Bcmk7t3En3Gp
+ akEoRVB/U0odySTnaJVGcNOi8XzVz1jo6Xz22s6c6hKnacsghuRnfNMk5Gy2900S/j3O
+ Cuq8UFJkZOARkOcamDuqqLepqlCHbbKk+DWegCbWXMlGLLBmFeYXt2QR6Amn2CTVizg3
+ 91PwA2/6Qvz0hwN0D2ZkHIOf5F+N4vgSKGm6YCai+QJhqPLBFJ13DMpJQY4gw+D6wPxf
+ Mp0Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUgkQquOoc00GnFgbGNiFG0TIhJF7EwEJTcZx5GV7/YGITossj/MfMS+PTHfc3O/OQlnHuOvTN5bHw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxMkFr02jBI4ahbnpdWAl/MqbqcTRAFi6cEy/tSeoaePUlAuOsi
- j/j+uJ2VX1PBugmllRuNEA03/uQjheBhDWVnTtm9vKO45/2mdAc5H4zoKFohKsw=
-X-Gm-Gg: ASbGncvDeIS2bHlY3g4MPx/qn9bEOlUXjPKCLMg737I/H0us+e8fdL2dSknR96NQRCn
- gHii1zzPG+6M4f85swP/Zlb4WcbI0huwbQ/fpRruQ+Ssb6AICOaIhnoaP6ARg5MMYLXmnM5N7nR
- 5vC7ci8WfIV6xFRIBEzbx0r5vYwzybbqZu7PFY4IwvROGp5WxS36zgrGy/KrmD9u6zUIt3ZzWo2
- J+LcoSeeGa3ySlmA4/xvlg03fpYJyQPMzodgiIvFe51/WMBB9EWZNk=
-X-Google-Smtp-Source: AGHT+IE6bPuwfgpmvhR0wnVywkO+uV/zmxqYUYfEIWBePuS9J7kF881P4MIK7Z1l4XbIG4X4Nze9zA==
-X-Received: by 2002:a05:600c:3152:b0:434:f9e1:5cf8 with SMTP id
- 5b1f17b1804b1-436e271d3a2mr66267645e9.31.1736423413467; 
- Thu, 09 Jan 2025 03:50:13 -0800 (PST)
+ AJvYcCVIo2ktQNGmk6YaHqkHLiMd3dGl7YNrCjm7cx6QJ+zFvBjx7wC9WstaF++KKf+AGkv7ri3mL5a8ji0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzY8BTDshdWkDTSpOh/zwwD0llBImdKJ+hEifsylcTHXFGztdoK
+ dpcwxd+FItLcXzE8zSL6FbcDmMCs3+/lhxNm2y6R3lyfP+bi/sq1whGpanWp8L8=
+X-Gm-Gg: ASbGncsaDsijCWBtD9uWA5OGd39/pIqk1sweVCvPyAxmEWQRqm3ei+P5smW8JLPIK5O
+ x8USTunLhuLffNx8BWeS+B2m6/6rN52/V8YByUX2Wio++TCzhiiKAaybTAq6pUKy+HpBncaw17U
+ fol68vKzaEVuGnlPagm+GMEDJ9CD8XIqUH9cew0xJWTzd1OcnoqJ3OytG+MaYKXEJruiIAifdJO
+ prkf1/IK/ioiHDrniV9SZAhMRtSMXcaO5S2IQKQQNTFfWyQNcHFARc=
+X-Google-Smtp-Source: AGHT+IG8rp+QX8v4S4fqKATVXk+QD/aEvAPXmO9Bulu0mN6QuKMDbLW3pqUmFSzB7pw+E5Uf11Sy2A==
+X-Received: by 2002:a05:600c:46ce:b0:436:6ddf:7a27 with SMTP id
+ 5b1f17b1804b1-436e27072a7mr53497435e9.23.1736424618831; 
+ Thu, 09 Jan 2025 04:10:18 -0800 (PST)
 Received: from linaro.org ([86.121.162.10]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a8e3838a3sm1628874f8f.33.2025.01.09.03.50.11
+ 5b1f17b1804b1-436e2da63eesm53042595e9.3.2025.01.09.04.10.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jan 2025 03:50:12 -0800 (PST)
-Date: Thu, 9 Jan 2025 13:50:10 +0200
+ Thu, 09 Jan 2025 04:10:18 -0800 (PST)
+Date: Thu, 9 Jan 2025 14:10:16 +0200
 From: Abel Vesa <abel.vesa@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
@@ -71,10 +71,10 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
@@ -82,14 +82,14 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Johan Hovold <johan+linaro@kernel.org>
 Subject: Re: [PATCH v4 4/4] drm/msm/dp: Add support for LTTPR handling
-Message-ID: <Z3+38i2MTgwNGKSU@linaro.org>
+Message-ID: <Z3+8qDc19zicI6vQ@linaro.org>
 References: <20250108-drm-dp-msm-add-lttpr-transparent-mode-set-v4-0-918949bc2e3a@linaro.org>
  <20250108-drm-dp-msm-add-lttpr-transparent-mode-set-v4-4-918949bc2e3a@linaro.org>
- <zfyl7xvkackpv2tfabvcjqt6e3uxxgyxwg6t4fvjrlzeg5m6nf@wc5suvzcm54u>
+ <feb4f780-8fe6-426b-9ba4-ab1fb102ac27@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <zfyl7xvkackpv2tfabvcjqt6e3uxxgyxwg6t4fvjrlzeg5m6nf@wc5suvzcm54u>
+In-Reply-To: <feb4f780-8fe6-426b-9ba4-ab1fb102ac27@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,17 +105,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25-01-08 16:25:31, Bjorn Andersson wrote:
-> On Wed, Jan 08, 2025 at 04:31:46PM +0200, Abel Vesa wrote:
+On 25-01-08 14:57:41, Abhinav Kumar wrote:
+> 
+> 
+> On 1/8/2025 6:31 AM, Abel Vesa wrote:
 > > Link Training Tunable PHY Repeaters (LTTPRs) are defined in DisplayPort
 > > 1.4a specification. As the name suggests, these PHY repeaters are
 > > capable of adjusting their output for link training purposes.
 > > 
 > > According to the DisplayPort standard, LTTPRs have two operating
 > > modes:
-> >  - non-transparent - it replies to DPCD LTTPR field specific AUX
-> >    requests, while passes through all other AUX requests
-> >  - transparent - it passes through all AUX requests.
+> >   - non-transparent - it replies to DPCD LTTPR field specific AUX
+> >     requests, while passes through all other AUX requests
+> >   - transparent - it passes through all AUX requests.
 > > 
 > > Switching between this two modes is done by the DPTX by issuing
 > > an AUX write to the DPCD PHY_REPEATER_MODE register.
@@ -147,38 +149,71 @@ On 25-01-08 16:25:31, Bjorn Andersson wrote:
 > > Reviewed-by: Johan Hovold <johan+linaro@kernel.org>
 > > Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
 > > ---
-> >  drivers/gpu/drm/msm/dp/dp_display.c | 17 +++++++++++++++++
-> >  1 file changed, 17 insertions(+)
+> >   drivers/gpu/drm/msm/dp/dp_display.c | 17 +++++++++++++++++
+> >   1 file changed, 17 insertions(+)
 > > 
 > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
 > > index 24dd37f1682bf5016bb0efbeb44489061deff060..ad09daa4c8ab5c0eb67890509b94e72820bab870 100644
 > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
 > > @@ -107,6 +107,8 @@ struct msm_dp_display_private {
-> >  	struct msm_dp_event event_list[DP_EVENT_Q_MAX];
-> >  	spinlock_t event_lock;
-> >  
+> >   	struct msm_dp_event event_list[DP_EVENT_Q_MAX];
+> >   	spinlock_t event_lock;
 > > +	u8 lttpr_caps[DP_LTTPR_COMMON_CAP_SIZE];
+> > +
 > 
-> As far as I can see these 8 bytes are read and acted upon only within
-> msm_dp_display_lttpr_init() below. Any particular reason why you don't
-> just put them on the stack?
+> The reason downstream stored it panel is to read it first in dp_panel's
+> read_sink_caps and call lttpr_init if drm_dp_lttpr_count() is non-zero.
+> 
+> But here it looks like  msm_dp_display_lttpr_init() internally handles this
+> for us. So no need to store this?
 
-Sure, I can do that. My rationale here was that this caps hold more than
-just LTTPRs count. Thinks like max lane count or max link rate are part of
-the LTTPR common caps. There are drm generic helpers for each one where
-you need to pass on these caps. Yes, at this point they are not used in
-the drm/msm, but looking at the i915 and nouveau, they seem to be
-useful at some point. This is why I followed the i915 to safekeep them
-in this container struct.
+Replied to Bjorn already about this and why I thought it was a good idea
+to add it.
 
-Anyway, I'll drop them from here and put them on stack.
+But will drop in the next version.
 
 > 
-> Regards,
-> Bjorn
+> >   	bool wide_bus_supported;
+> >   	struct msm_dp_audio *audio;
+> > @@ -367,12 +369,27 @@ static int msm_dp_display_send_hpd_notification(struct msm_dp_display_private *d
+> >   	return 0;
+> >   }
+> > +static void msm_dp_display_lttpr_init(struct msm_dp_display_private *dp)
+> > +{
+> > +	int rc;
+> > +
+> > +	if (drm_dp_read_lttpr_common_caps(dp->aux, dp->panel->dpcd,
+> > +					  dp->lttpr_caps))
+> > +		return;
+> > +
+> > +	rc = drm_dp_lttpr_init(dp->aux, drm_dp_lttpr_count(dp->lttpr_caps));
+> > +	if (rc)
+> > +		DRM_ERROR("failed to set LTTPRs transparency mode, rc=%d\n", rc);
+> > +}
+> > +
+> >   static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+> >   {
+> >   	struct drm_connector *connector = dp->msm_dp_display.connector;
+> >   	const struct drm_display_info *info = &connector->display_info;
+> >   	int rc = 0;
+> > +	msm_dp_display_lttpr_init(dp);
+> > +
+> 
+> Can you pls move this call after msm_dp_panel_read_sink_caps()?
+> 
+> If msm_dp_panel_read_sink_caps() fails there is no need to call
+> msm_dp_display_lttpr_init().
+
+Sure.
+
+> 
+> 
+> >   	rc = msm_dp_panel_read_sink_caps(dp->panel, connector);
+> >   	if (rc)
+> >   		goto end;
+> > 
 
 Thanks for reviewing!
 
 Abel
-
