@@ -2,111 +2,114 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FBCEA0784B
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 14:57:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E13CA07A88
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 16:03:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCBFA10EDE9;
-	Thu,  9 Jan 2025 13:57:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08DE210EE67;
+	Thu,  9 Jan 2025 15:03:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="O+Jrucou";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="mcNhyiMP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gptbxtyj";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mcNhyiMP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gptbxtyj";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0573910EDE9
- for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 13:57:43 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5094i87O020566
- for <freedreno@lists.freedesktop.org>; Thu, 9 Jan 2025 13:57:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- JF0AHoOXM/Omt1W9DsxEmuSnjvh5YmVttxjnDNqIHSw=; b=O+Jrucou7GQu6Gk8
- mvpM9O/P0I3Sbm5plAmC7W03BZ1Gauf7CMtg0qxbezqhR5tcGQCkpc+fMCcX3fVW
- 4i8m+zkaJML/2nY4S6q0DS+QVzeEJowQ4gpWETycY3wpKmD6rYekopUif8T/cQY3
- Er6F9Tck6BoHpM8BCQ3EpJ6RgSGuOqmin3KezBzJ7T0dRwb3313khvtHcGBJd/Bn
- fofgLlZs86NQb3hjMr9rMHt4nY2BUycz5Df/KCfJdHCrFVVUIezdcGIYix3XZ2Je
- MFUxVyTBaQCPAZI+4420D3gDLh70kI41KJL6vU0Jc1ZZuiUSKMgTQeeoX+JUw0af
- mt+pvA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4427nws82p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <freedreno@lists.freedesktop.org>; Thu, 09 Jan 2025 13:57:41 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7b704c982eeso21955585a.1
- for <freedreno@lists.freedesktop.org>; Thu, 09 Jan 2025 05:57:40 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736431060; x=1737035860;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=JF0AHoOXM/Omt1W9DsxEmuSnjvh5YmVttxjnDNqIHSw=;
- b=X3t7H91caIXPC0eBxh0KcWWaB/XuTtTQkH2Q641Lfu4Q5kW0uksEmm3vTYuc2GEM9A
- 9Kb9BLjEp/k3xm1GZXcvaYrZ2TnGZloWMdCDf6CRSi2ao6cERWIh76tE4ykioepQed6v
- cuxgwtbSllgCanbTy+7197/tBwzxI4BvT+0c/jFLOddpSyHK8MHfnWx7NMkL7xau07pd
- XUWVKXz1ZurJ6Fu8/yY6p4UjztBspji37eO3mLF2/YHrv02i37Z3vB8qS07tMgCM49pV
- 9hofkTC1LfFz0uuKmO7+Wk4eE4WQ8yW69IbS+2WtrPGk69JPAJDa0v2a1tLU0qFY8Ec3
- dbzw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUd7tv0PxluONCpMazVrq7GZpLqBrVS0ryS2Nkp7Fq4C4m/yAeyyzgvTZQOzQCrqoGskPtplTV8Lt0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywb8M/cT7G8ZG9epKI6bt25AS5xo9zGHxRP9rKNLEQpq3U73QCR
- vsMX1U5Kqd5Fz/5Z+I3gqq/fAOZelx/pOu819JLBsb5gyvkG46MiRxXKPDNWJTQMQXU0iSO/ym/
- aejdFNQaSEAaYF38FovsnQkF/ErwLLiDrSDr/wCqpFF+isn7pmcE7yg4h20xaM2/ZV0k=
-X-Gm-Gg: ASbGncsc67R9mM/O9QQEESoJ3AIBFieTZzOZE6NHBYoA7EcTE0EiiFF3gMRskodRTc+
- 1DPhB1u7YLEel8yDlr8ilB6KeCYwA5WlWkSgGZVgT0c6GqJFt6mgsH+ZDTFfGF17klTkjhfAaUy
- DMZ9PqArzSrwHO/8OYHiqORw1SV6OoG5WSD5IpG8pS97l1Px69qtAyR+kMWZPUbU0909nRu6JU9
- KXwsj68SRoXS9OWfsFkpdDnawuDMDAREQsXpAC7ofoVCP6j70GlKKalKwtgoIcmcOWmqI+jiNYf
- Q3/oc3n8o+UwikjXFtM7asn+du3rHZkTc+M=
-X-Received: by 2002:a05:620a:40c1:b0:7b6:dc4e:44a5 with SMTP id
- af79cd13be357-7bcd973a062mr387281885a.5.1736431060090; 
- Thu, 09 Jan 2025 05:57:40 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEvEFQOSMjPEdcmaa6JUHa/5+PkuCwquAgHnceMKaOpZSDG8+5Zh8OYxiwJczUZrYpLlO5jQA==
-X-Received: by 2002:a05:620a:40c1:b0:7b6:dc4e:44a5 with SMTP id
- af79cd13be357-7bcd973a062mr387278285a.5.1736431059674; 
- Thu, 09 Jan 2025 05:57:39 -0800 (PST)
-Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d99008c3b5sm641951a12.12.2025.01.09.05.57.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Jan 2025 05:57:39 -0800 (PST)
-Message-ID: <356986fa-e66c-4e78-ab92-2593b037ab9a@oss.qualcomm.com>
-Date: Thu, 9 Jan 2025 14:57:35 +0100
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 525B010EE3A;
+ Thu,  9 Jan 2025 15:03:46 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0B36C21173;
+ Thu,  9 Jan 2025 15:03:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1736434995; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ayMP9fgai3U2SRutfILrxld66PrmIAS8Xan8q+cw9vU=;
+ b=mcNhyiMPnM+4j1AopsnKFUXAyXxBjIEzkwkM4SaRb6QPomPzcXjJDSMydwiTkaeendLYuu
+ onTUMYPgd6lz099mNddFue/NFvbfZw/FP74gYFtSuDhctKd0uALTn8tGhNEcH/JRxCAJnv
+ JMpR9FHiaNMB4stMe8C0ZyObftX5iQM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1736434995;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ayMP9fgai3U2SRutfILrxld66PrmIAS8Xan8q+cw9vU=;
+ b=gptbxtyjgUS1zD900ZGA6biMREqapnx6iFpYtdoWkt0TK2hXPI337A2feZfbCYmSM5mS2P
+ no98HSzI83Q0NVCA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mcNhyiMP;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=gptbxtyj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1736434995; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ayMP9fgai3U2SRutfILrxld66PrmIAS8Xan8q+cw9vU=;
+ b=mcNhyiMPnM+4j1AopsnKFUXAyXxBjIEzkwkM4SaRb6QPomPzcXjJDSMydwiTkaeendLYuu
+ onTUMYPgd6lz099mNddFue/NFvbfZw/FP74gYFtSuDhctKd0uALTn8tGhNEcH/JRxCAJnv
+ JMpR9FHiaNMB4stMe8C0ZyObftX5iQM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1736434995;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ayMP9fgai3U2SRutfILrxld66PrmIAS8Xan8q+cw9vU=;
+ b=gptbxtyjgUS1zD900ZGA6biMREqapnx6iFpYtdoWkt0TK2hXPI337A2feZfbCYmSM5mS2P
+ no98HSzI83Q0NVCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 84E9E139AB;
+ Thu,  9 Jan 2025 15:03:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 8o8oHzLlf2c1awAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 09 Jan 2025 15:03:14 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 00/25] drm/dumb-buffers: Fix and improve buffer-size
+ calculation
+Date: Thu,  9 Jan 2025 15:56:54 +0100
+Message-ID: <20250109150310.219442-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/4] drm/msm/adreno: Add speedbin support for X1-85
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20250109-x1e-speedbin-b4-v1-0-009e812b7f2a@quicinc.com>
- <20250109-x1e-speedbin-b4-v1-1-009e812b7f2a@quicinc.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250109-x1e-speedbin-b4-v1-1-009e812b7f2a@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: OfD3gJ0kDm-JM1ex8T5-UndShJqpMU_h
-X-Proofpoint-GUID: OfD3gJ0kDm-JM1ex8T5-UndShJqpMU_h
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- suspectscore=0 phishscore=0 bulkscore=0 adultscore=0 mlxlogscore=999
- mlxscore=0 clxscore=1015 impostorscore=0 spamscore=0 priorityscore=1501
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501090112
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 0B36C21173
+X-Spam-Score: -2.01
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ASN(0.00)[asn:25478, ipnet:::/0, country:RU]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ RCVD_COUNT_TWO(0.00)[2]; DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
+X-Spam-Level: 
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,59 +125,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 8.01.2025 11:42 PM, Akhil P Oommen wrote:
-> Adreno X1-85 has an additional bit which is at a non-contiguous
-> location in qfprom. Add support for this new "hi" bit along with
-> the speedbin mappings.
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_catalog.c |  5 +++++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c   | 15 ++++++++++++++-
->  2 files changed, 19 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> index 0c560e84ad5a53bb4e8a49ba4e153ce9cf33f7ae..e2261f50aabc6a2f931d810f3637dfdba5695f43 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> @@ -1412,6 +1412,11 @@ static const struct adreno_info a7xx_gpus[] = {
->  			.gmu_cgc_mode = 0x00020202,
->  		},
->  		.address_space_size = SZ_256G,
-> +		.speedbins = ADRENO_SPEEDBINS(
-> +			{ 0,   0 },
-> +			{ 263, 1 },
-> +			{ 315, 0 },
-> +		),
->  		.preempt_record_size = 4192 * SZ_1K,
->  	}, {
->  		.chip_ids = ADRENO_CHIP_IDS(0x43051401), /* "C520v2" */
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 75f5367e73caace4648491b041f80b7c4d26bf89..7b31379eff444cf3f8ed0dcfd23c14920c13ee9d 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -1078,7 +1078,20 @@ void adreno_gpu_ocmem_cleanup(struct adreno_ocmem *adreno_ocmem)
->  
->  int adreno_read_speedbin(struct device *dev, u32 *speedbin)
->  {
-> -	return nvmem_cell_read_variable_le_u32(dev, "speed_bin", speedbin);
-> +	u32 hi_bits = 0;
-> +	int ret;
-> +
-> +	ret = nvmem_cell_read_variable_le_u32(dev, "speed_bin", speedbin);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Some chipsets have MSB bits (BIT(8) and above) at a non-contiguous location */
-> +	ret = nvmem_cell_read_variable_le_u32(dev, "speed_bin_hi", &hi_bits);
-> +	if (ret != -ENOENT)
-> +		return ret;
-> +
-> +	*speedbin |= (hi_bits << 8);
+Dumb-buffer pitch and size is specified by width, height, bits-per-pixel
+plus various hardware-specific alignments. The calculation of these
+values is inconsistent and duplicated among drivers. The results for
+formats with bpp < 8 are incorrect.
 
-Now that we're overwriting speedbin, we should probably have some checks in
-order to make sure somebody passing a too-wide cell to one of these won't
-result in cripplingly-untraceable value corruption
+This series fixes this for most drivers. Default scanline pitch and
+buffer size are now calculated with the existing 4CC helpers. There is
+a new helper drm_mode_size_dumb() that calculates scanline pitch and
+buffer size according to driver requirements.
 
-I guess we could just introduce nvmem_cell_read_variable_le_u8() and call it
-a day?
+The series fixes the common GEM implementations for DMA, SHMEM and
+VRAM. It further changes most implementations of dumb_create to use
+the new helper. A small number of  drivers has more complicated
+calculations and will be updated by a later patches.
 
-Konrad
+v2:
+- rewrite series
+- convert many individual drivers besides the shared GEM helpers
+
+Thomas Zimmermann (25):
+  drm/dumb-buffers: Sanitize output on errors
+  drm/dumb-buffers: Provide helper to set pitch and size
+  drm/gem-dma: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/gem-shmem: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/gem-vram: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/armada: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/exynos: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/gma500: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/hibmc: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/imx/ipuv3: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/loongson: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/mediatek: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/msm: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/nouveau: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/omapdrm: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/qxl: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/renesas/rcar-du: Compute dumb-buffer sizes with
+    drm_mode_size_dumb()
+  drm/renesas/rz-du: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/rockchip: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/tegra: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/virtio: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/vmwgfx: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/xe: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/xen: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/xlnx: Compute dumb-buffer sizes with drm_mode_size_dumb()
+
+ drivers/gpu/drm/armada/armada_gem.c           |  16 +--
+ drivers/gpu/drm/drm_dumb_buffers.c            | 133 ++++++++++++++++--
+ drivers/gpu/drm/drm_gem_dma_helper.c          |   7 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c        |  16 +--
+ drivers/gpu/drm/drm_gem_vram_helper.c         |  89 +++---------
+ drivers/gpu/drm/exynos/exynos_drm_gem.c       |   8 +-
+ drivers/gpu/drm/gma500/gem.c                  |  21 +--
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  25 +++-
+ drivers/gpu/drm/imx/ipuv3/imx-drm-core.c      |  29 +++-
+ drivers/gpu/drm/loongson/lsdc_gem.c           |  29 ++--
+ drivers/gpu/drm/mediatek/mtk_gem.c            |  13 +-
+ drivers/gpu/drm/msm/msm_gem.c                 |  27 +++-
+ drivers/gpu/drm/nouveau/nouveau_display.c     |   7 +-
+ drivers/gpu/drm/omapdrm/omap_gem.c            |  15 +-
+ drivers/gpu/drm/qxl/qxl_dumb.c                |  17 ++-
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c |   7 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c  |   7 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |  12 +-
+ drivers/gpu/drm/tegra/gem.c                   |   8 +-
+ drivers/gpu/drm/virtio/virtgpu_gem.c          |  11 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c       |  21 +--
+ drivers/gpu/drm/xe/xe_bo.c                    |   8 +-
+ drivers/gpu/drm/xen/xen_drm_front.c           |   7 +-
+ drivers/gpu/drm/xlnx/zynqmp_kms.c             |   7 +-
+ include/drm/drm_dumb_buffers.h                |  14 ++
+ include/drm/drm_gem_vram_helper.h             |   6 -
+ 26 files changed, 333 insertions(+), 227 deletions(-)
+ create mode 100644 include/drm/drm_dumb_buffers.h
+
+
+base-commit: f06efdfad9d0e9f5cb74404ac98e1a5b3b246567
+prerequisite-patch-id: 0aa359f6144c4015c140c8a6750be19099c676fb
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: cbc453ee02fae02af22fbfdce56ab732c7a88c36
+-- 
+2.47.1
+
