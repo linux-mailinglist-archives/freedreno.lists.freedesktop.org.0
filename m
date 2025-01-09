@@ -2,92 +2,120 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43F5CA06DA4
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 06:38:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3EC9A06FA3
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 09:02:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 185AF10ECE7;
-	Thu,  9 Jan 2025 05:38:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1B1510E44A;
+	Thu,  9 Jan 2025 08:02:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="EgpBfsU/";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OZM13h4z";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98EE810ECE5;
- Thu,  9 Jan 2025 05:38:30 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 508IhbSs009782;
- Thu, 9 Jan 2025 05:37:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 7bcBrUGZU3oSdj+RMaXnYeauDYK8CRFSZRzCt4FDK1I=; b=EgpBfsU/C3jN/B5v
- fYppFGu5YCVrrgc9y8amuepa2B5u5ST0gJTxR9Nr2f4u9t1F+Et+xf8gWeUfPgku
- NFcDLuM2YyVQMhDvI+gR7Ipd9jZNNAh1AsSGtDwsf1H/rpA2pQULvCYyAlxC3pdo
- PJVpueiH3dGBvQeg/MsobWs7oJ9O+Af5Z5zpIYFjeTSu2guafKBhg141booOmVEY
- ed0G5ld+HnVR7ks3uFJr5vbJcic6V/dFS29E4MjQRMFqszWrOYc/dE+qs0cXA5SX
- YZT7KIoeMSvWEy/7NoYNFu0v5gkeXLYHwOm9fdcWo6La+bpa7mdfgRpptOvzLs7K
- XsTKfA==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 441xvns8bg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 09 Jan 2025 05:37:25 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5095bPpn026692
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 9 Jan 2025 05:37:25 GMT
-Received: from [10.110.60.159] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 8 Jan 2025
- 21:37:24 -0800
-Message-ID: <a8159ad0-3d33-4331-899c-6728862a728a@quicinc.com>
-Date: Wed, 8 Jan 2025 21:37:23 -0800
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 140D010E44A
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Jan 2025 08:02:12 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-aa6a92f863cso142206766b.1
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Jan 2025 00:02:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1736409671; x=1737014471; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=pYwrTFYhQZWChYoXnnLgK+gBgeb8rrd8GmS0pqeHRkQ=;
+ b=OZM13h4z22sHdevnUXREFD2P+rK4ZC+foyVmWFc+reNrt8aQ8GbvIXBDbG7hL6iJbM
+ 3oumYy9Pps586BYd4fu+ZrZJB1yFAmlQWRDZG8Lg9SvXU3RPaVFmD/hlBxk5PtMYrOO8
+ m0Tp3iIxrerpcPsOTFmBL+Nn2mcSK5CzRtuq0PahAcfjQKqMH3EqvVf1yzcp+ojKOAEh
+ S04D6zIgZtZMK9WZQ4a87+el88tgsK3oyT02CYU/DE4Gm3C32dRa1D5Anq9L9myPvWWc
+ nvg1giGw6+q4+oR8SZ/CTPvzbHv0XvMhxr8m2Emquvl8VgKMKxXZI7IurQf7Plcl7OIa
+ AMnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736409671; x=1737014471;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=pYwrTFYhQZWChYoXnnLgK+gBgeb8rrd8GmS0pqeHRkQ=;
+ b=pvF0rgKioNqap3vkKEv0+4UzW8mrNO1NCJKe4U5o+SoVf28vtTJI/dXO20fDyt8mox
+ 9t6De+mR/DIq3Gk1stutFQ1a3APSJzG/3WwMOXPSkKGiAefO1FbwqDPfocFeTOb3dMNl
+ hugr26WMJ3Bxb8XdXP1LHb4EcVDaaMRmblAn/tl7MoGLrJCaG5m0DNEsguK44C+NRbCA
+ j17des+S+PluhT/UzOrXTdMF4SkiUsq5jlfWjPKoe/VlHnP7cMhZ0iqMsGBEI16cjtgu
+ x4HAwApJ5EU+yocSrfZSRoPiyCXte6b8zjcQBr+ahJHSOafZnCJUh8FXtAI03KH+9Td0
+ mEtQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWv4UZDIH4ElV0LTDZeGHRqDlkaXnkjQ5hZm7Wp1YtEzt1SnqJbqXjL+oFXifEh3fTMvbEARMY8BiA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxEjGYgXP7qFGcehRlId+ZnyYWR32oBfgMHw21dwaXIEQ/EvvAQ
+ D1SvWMJ0VDWZQh6ynk1bxGrbX7mKhd5tQpFKtVvq/QYeDM0gsDbFiXAFxqhmz+KXQNc38WZsu+f
+ +
+X-Gm-Gg: ASbGncspN1jDPjcMe2SIXTEEtJzMgHqp21Q8AAwQ7XTelMNC4AISFCnA2mnsLvEGAas
+ np9kdRobzMFCVTOke9zE6LhHQHLlM/c+8QhGdbXe6fJTp7Og9w80UewZSBva7F6yf3ufDigJwUs
+ 5QHQEbjYws3tpbfMKhWXZ0hX5AMKG+04oUi4ijcU57Msk90ogaxhxC3+9Brzp3DqYDBWou/HW77
+ Sj+TDTyN56PTR6+BVCVMMkDHeIBB+uL49FkTRoXuhT3f5gbDcqZhJK3Gs/66I2NBp5xmXCssDNG
+ uz2x+3vUK+bvzgl5Lyt3fkLq6OZ8+nD7ZQ==
+X-Google-Smtp-Source: AGHT+IFlMDqZ1mwhTw65CziPYf+WzQqjwBtxBF1bx8FyjDt1mZKxdZTeMQjICpEpyRf86THO25H/Bg==
+X-Received: by 2002:a5d:5f85:0:b0:387:86cf:4e87 with SMTP id
+ ffacd0b85a97d-38a872deb33mr5392030f8f.15.1736409232106; 
+ Wed, 08 Jan 2025 23:53:52 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:688f:e09e:ce30:f1b2?
+ ([2a01:e0a:982:cbb0:688f:e09e:ce30:f1b2])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-436e2e89df1sm45491345e9.27.2025.01.08.23.53.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Jan 2025 23:53:51 -0800 (PST)
+Message-ID: <5ace1905-cce0-4d32-9e38-5451e9466c88@linaro.org>
+Date: Thu, 9 Jan 2025 08:53:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] drm/msm/dpu: don't use active in atomic_check()
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>, Jordan Crouse
- <jordan@cosmicpenguin.net>,
- Sravanthi Kollukuduru <skolluku@codeaurora.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, Archit
- Taneja <architt@codeaurora.org>,
- Rajesh Yadav <ryadav@codeaurora.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, Simona Vetter <simona.vetter@ffwll.ch>
-References: <20241222-drm-dirty-modeset-v1-0-0e76a53eceb9@linaro.org>
- <20241222-drm-dirty-modeset-v1-3-0e76a53eceb9@linaro.org>
- <b4f1d7c2-c9eb-4b9a-b8b7-f335910601d8@quicinc.com>
- <vhqmcb6fu6mfmbjo3jyjdhzpowhvnxbtxg2osk42xwogrsylku@5hvs6mtizqcr>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <vhqmcb6fu6mfmbjo3jyjdhzpowhvnxbtxg2osk42xwogrsylku@5hvs6mtizqcr>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH v4 1/7] drm/msm/adreno: Add support for ACD
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Maya Matuszczyk <maccraft123mc@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org
+References: <20250109-gpu-acd-v4-0-08a5efaf4a23@quicinc.com>
+ <20250109-gpu-acd-v4-1-08a5efaf4a23@quicinc.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20250109-gpu-acd-v4-1-08a5efaf4a23@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: K-77J62A8fTO3UPPxfgqcT_bmKbYGZbG
-X-Proofpoint-ORIG-GUID: K-77J62A8fTO3UPPxfgqcT_bmKbYGZbG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- mlxlogscore=999 priorityscore=1501 spamscore=0 malwarescore=0 adultscore=0
- mlxscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501090044
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,84 +128,256 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 1/8/2025 8:22 PM, Dmitry Baryshkov wrote:
-> On Wed, Jan 08, 2025 at 05:19:40PM -0800, Abhinav Kumar wrote:
->>
->>
->> On 12/21/2024 9:00 PM, Dmitry Baryshkov wrote:
->>> The driver isn't supposed to consult crtc_state->active/active_check for
->>> resource allocation. Instead all resources should be allocated if
->>> crtc_state->enabled is set. Stop consulting active / active_changed in
->>> order to determine whether the hardware resources should be
->>> (re)allocated.
->>>
->>> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
->>> Reported-by: Simona Vetter <simona.vetter@ffwll.ch>
->>> Closes: https://lore.kernel.org/dri-devel/ZtW_S0j5AEr4g0QW@phenom.ffwll.local/
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 4 ----
->>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 3 +--
->>>    2 files changed, 1 insertion(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>> index 7191b1a6d41b3a96f956d199398f12b2923e8c82..65e33eba61726929b740831c95330756b2817e28 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>> @@ -1264,10 +1264,6 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
->>>    	DRM_DEBUG_ATOMIC("%s: check\n", dpu_crtc->name);
->>> -	/* force a full mode set if active state changed */
->>> -	if (crtc_state->active_changed)
->>> -		crtc_state->mode_changed = true;
->>> -
->>>    	if (cstate->num_mixers) {
->>>    		rc = _dpu_crtc_check_and_setup_lm_bounds(crtc, crtc_state);
->>>    		if (rc)
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>> index 83de7564e2c1fe14fcf8c4f82335cafc937e1b99..d1ccdca6044353f110bf5b507788efe368f223a3 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>> @@ -793,12 +793,11 @@ static int dpu_encoder_virt_atomic_check(
->>>    		crtc_state->mode_changed = true;
->>>    	/*
->>>    	 * Release and Allocate resources on every modeset
->>> -	 * Dont allocate when active is false.
->>>    	 */
->>>    	if (drm_atomic_crtc_needs_modeset(crtc_state)) {
->>>    		dpu_rm_release(global_state, drm_enc);
->>> -		if (!crtc_state->active_changed || crtc_state->enable)
->>
->> I think this was leftover code.
->>
->> What happened was, we used to have dpu_rm_reserve() both in dpu_encoder's
->> atomic_check and mode_set. Hence this is checking !active_changed because
->> that case was expected to get handled in mode_set to avoid duplicate
->> dpu_rm_reserve() calls. Code has progressed since then to drop the
->> dpu_rm_reserve() from mode_set and only use atomic_check.
->>
->> So the correct fixes tag for this should be:
->>
->> Fixes: de3916c70a24 ("drm/msm/dpu: Track resources in global state")
+On 08/01/2025 21:39, Akhil P Oommen wrote:
+> ACD a.k.a Adaptive Clock Distribution is a feature which helps to reduce
+> the power consumption. In some chipsets, it is also a requirement to
+> support higher GPU frequencies. This patch adds support for GPU ACD by
+> sending necessary data to GMU and AOSS. The feature support for the
+> chipset is detected based on devicetree data.
 > 
-> Actually it should be:
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 84 ++++++++++++++++++++++++++++++-----
+>   drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
+>   drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 36 +++++++++++++++
+>   drivers/gpu/drm/msm/adreno/a6xx_hfi.h | 21 +++++++++
+>   4 files changed, 132 insertions(+), 10 deletions(-)
 > 
-> Fixes: ccc862b957c6 ("drm/msm/dpu: Fix reservation failures in modeset")
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 14db7376c712..2689e79aefa5 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -1021,14 +1021,6 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
+>   
+>   	gmu->hung = false;
+>   
+> -	/* Notify AOSS about the ACD state (unimplemented for now => disable it) */
+> -	if (!IS_ERR(gmu->qmp)) {
+> -		ret = qmp_send(gmu->qmp, "{class: gpu, res: acd, val: %d}",
+> -			       0 /* Hardcode ACD to be disabled for now */);
+> -		if (ret)
+> -			dev_err(gmu->dev, "failed to send GPU ACD state\n");
+> -	}
+> -
+>   	/* Turn on the resources */
+>   	pm_runtime_get_sync(gmu->dev);
+>   
+> @@ -1476,6 +1468,68 @@ static int a6xx_gmu_pwrlevels_probe(struct a6xx_gmu *gmu)
+>   	return a6xx_gmu_rpmh_votes_init(gmu);
+>   }
+>   
+> +static int a6xx_gmu_acd_probe(struct a6xx_gmu *gmu)
+> +{
+> +	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
+> +	struct a6xx_hfi_acd_table *cmd = &gmu->acd_table;
+> +	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+> +	struct msm_gpu *gpu = &adreno_gpu->base;
+> +	int ret, i, cmd_idx = 0;
+> +
+> +	cmd->version = 1;
+> +	cmd->stride = 1;
+> +	cmd->enable_by_level = 0;
+> +
+> +	/* Skip freq = 0 and parse acd-level for rest of the OPPs */
+> +	for (i = 1; i < gmu->nr_gpu_freqs; i++) {
+> +		struct dev_pm_opp *opp;
+> +		struct device_node *np;
+> +		unsigned long freq;
+> +		u32 val;
+> +
+> +		freq = gmu->gpu_freqs[i];
+> +		opp = dev_pm_opp_find_freq_exact(&gpu->pdev->dev, freq, true);
+> +		np = dev_pm_opp_get_of_node(opp);
+> +
+> +		ret = of_property_read_u32(np, "qcom,opp-acd-level", &val);
+> +		of_node_put(np);
+> +		dev_pm_opp_put(opp);
+> +		if (ret == -EINVAL)
+> +			continue;
+> +		else if (ret) {
+> +			DRM_DEV_ERROR(gmu->dev, "Unable to read acd level for freq %lu\n", freq);
+> +			return ret;
+> +		}
+> +
+> +		cmd->enable_by_level |= BIT(i);
+> +		cmd->data[cmd_idx++] = val;
+> +	}
+> +
+> +	cmd->num_levels = cmd_idx;
+> +
+> +	/* It is a problem if qmp node is unavailable when ACD is required */
+> +	if (cmd->enable_by_level && IS_ERR_OR_NULL(gmu->qmp)) {
+> +		DRM_DEV_ERROR(gmu->dev, "Unable to send ACD state to AOSS\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* Otherwise, nothing to do if qmp is unavailable */
+> +	if (IS_ERR_OR_NULL(gmu->qmp))
+> +		return 0;
+> +
+> +	/*
+> +	 * Notify AOSS about the ACD state. AOSS is supposed to assume that ACD is disabled on
+> +	 * system reset. So it is harmless if we couldn't notify 'OFF' state
+> +	 */
+> +	ret = qmp_send(gmu->qmp, "{class: gpu, res: acd, val: %d}", !!cmd->enable_by_level);
+> +	if (ret && cmd->enable_by_level) {
+> +		DRM_DEV_ERROR(gmu->dev, "Failed to send ACD state to AOSS\n");
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static int a6xx_gmu_clocks_probe(struct a6xx_gmu *gmu)
+>   {
+>   	int ret = devm_clk_bulk_get_all(gmu->dev, &gmu->clocks);
+> @@ -1793,7 +1847,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+>   	gmu->qmp = qmp_get(gmu->dev);
+>   	if (IS_ERR(gmu->qmp) && adreno_is_a7xx(adreno_gpu)) {
+>   		ret = PTR_ERR(gmu->qmp);
+> -		goto remove_device_link;
+> +		goto detach_gxpd;
+>   	}
+>   
+>   	init_completion(&gmu->pd_gate);
+> @@ -1809,6 +1863,10 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+>   	/* Get the power levels for the GMU and GPU */
+>   	a6xx_gmu_pwrlevels_probe(gmu);
+>   
+> +	ret = a6xx_gmu_acd_probe(gmu);
+> +	if (ret)
+> +		goto detach_gxpd;
+> +
+>   	/* Set up the HFI queues */
+>   	a6xx_hfi_init(gmu);
+>   
+> @@ -1819,7 +1877,13 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+>   
+>   	return 0;
+>   
+> -remove_device_link:
+> +detach_gxpd:
+> +	if (!IS_ERR_OR_NULL(gmu->gxpd))
+> +		dev_pm_domain_detach(gmu->gxpd, false);
+> +
+> +	if (!IS_ERR_OR_NULL(gmu->qmp))
+> +		qmp_put(gmu->qmp);
+> +
+>   	device_link_del(link);
+>   
+>   detach_cxpd:
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> index b4a79f88ccf4..87d225b08e9b 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> @@ -81,6 +81,7 @@ struct a6xx_gmu {
+>   	int nr_gpu_freqs;
+>   	unsigned long gpu_freqs[16];
+>   	u32 gx_arc_votes[16];
+> +	struct a6xx_hfi_acd_table acd_table;
+>   
+>   	int nr_gmu_freqs;
+>   	unsigned long gmu_freqs[4];
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> index cb8844ed46b2..3c183c1c6266 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> @@ -702,6 +702,38 @@ static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
+>   		NULL, 0);
+>   }
+>   
+> +#define HFI_FEATURE_ACD 12
+> +
+> +static int a6xx_hfi_enable_acd(struct a6xx_gmu *gmu)
+> +{
+> +	struct a6xx_hfi_acd_table *acd_table = &gmu->acd_table;
+> +	struct a6xx_hfi_msg_feature_ctrl msg = {
+> +		.feature = HFI_FEATURE_ACD,
+> +		.enable = 1,
+> +		.data = 0,
+> +	};
+> +	int ret;
+> +
+> +	if (!acd_table->enable_by_level)
+> +		return 0;
+> +
+> +	/* Enable ACD feature at GMU */
+> +	ret = a6xx_hfi_send_msg(gmu, HFI_H2F_FEATURE_CTRL, &msg, sizeof(msg), NULL, 0);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(gmu->dev, "Unable to enable ACD (%d)\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	/* Send ACD table to GMU */
+> +	ret = a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_ACD, &msg, sizeof(msg), NULL, 0);
+
+It seems you still don't send the acd_table!
+
+Neil
+
+> +	if (ret) {
+> +		DRM_DEV_ERROR(gmu->dev, "Unable to ACD table (%d)\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static int a6xx_hfi_send_test(struct a6xx_gmu *gmu)
+>   {
+>   	struct a6xx_hfi_msg_test msg = { 0 };
+> @@ -799,6 +831,10 @@ int a6xx_hfi_start(struct a6xx_gmu *gmu, int boot_state)
+>   	if (ret)
+>   		return ret;
+>   
+> +	ret = a6xx_hfi_enable_acd(gmu);
+> +	if (ret)
+> +		return ret;
+> +
+>   	ret = a6xx_hfi_send_core_fw_start(gmu);
+>   	if (ret)
+>   		return ret;
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
+> index 528110169398..51864c8ad0e6 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
+> @@ -151,12 +151,33 @@ struct a6xx_hfi_msg_test {
+>   	u32 header;
+>   };
+>   
+> +#define HFI_H2F_MSG_ACD 7
+> +#define MAX_ACD_STRIDE 2
+> +
+> +struct a6xx_hfi_acd_table {
+> +	u32 header;
+> +	u32 version;
+> +	u32 enable_by_level;
+> +	u32 stride;
+> +	u32 num_levels;
+> +	u32 data[16 * MAX_ACD_STRIDE];
+> +};
+> +
+>   #define HFI_H2F_MSG_START 10
+>   
+>   struct a6xx_hfi_msg_start {
+>   	u32 header;
+>   };
+>   
+> +#define HFI_H2F_FEATURE_CTRL 11
+> +
+> +struct a6xx_hfi_msg_feature_ctrl {
+> +	u32 header;
+> +	u32 feature;
+> +	u32 enable;
+> +	u32 data;
+> +};
+> +
+>   #define HFI_H2F_MSG_CORE_FW_START 14
+>   
+>   struct a6xx_hfi_msg_core_fw_start {
 > 
 
-Ack.
-
->> With that addressed, this is
->>
->> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>
->>> +		if (crtc_state->enable)
->>>    			ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
->>>    					drm_enc, crtc_state, topology);
->>>    		if (!ret)
->>>
-> 
