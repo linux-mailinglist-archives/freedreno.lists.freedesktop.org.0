@@ -2,83 +2,107 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EB39A07C32
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 16:44:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B224A07D1F
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jan 2025 17:15:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A1C110EEC1;
-	Thu,  9 Jan 2025 15:44:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BB5F10EEE2;
+	Thu,  9 Jan 2025 16:15:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O2tH1iUn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LAG8oDTW";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
- [IPv6:2607:f8b0:4864:20::d2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00A0410EEC7;
- Thu,  9 Jan 2025 15:44:36 +0000 (UTC)
-Received: by mail-io1-xd2f.google.com with SMTP id
- ca18e2360f4ac-844e1eb50e2so32619539f.0; 
- Thu, 09 Jan 2025 07:44:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736437476; x=1737042276; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RyvHFgAQemGUxOtGmKefldysG5aDz/1ceoYMUjX+3Nc=;
- b=O2tH1iUn4Wbd/DWy91kUlufnuxg7uERPbJ0PCZ7kiqtnmb8ByrFy/TRXpARyo6IKl0
- yGepvF75sBSTbC7gMw3msD8W7NY/6qlkSuTEOvxIEa3iyiDiCR3hB2pVVdY+CzGrKzJs
- cJ+LA9P725JWexMY+NY+k8fxfPpQycG7QUVnfXCcY/CRGTqIrtp4P2s1+QfQ5x5SMNvy
- jKhNVLL/IF2jT8enTlg1APKhw8gRUGtaGDISRf2MfiN9242EPxaAioVKv4EGIFuyp0N1
- fey894E1UimZgh97C6+Dk9Y4SuZzyIMLFn6P6rSPpTjBpBMXNCOyjhoKu5D/L96+utw5
- uvsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736437476; x=1737042276;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=RyvHFgAQemGUxOtGmKefldysG5aDz/1ceoYMUjX+3Nc=;
- b=jcjb8LPUaJ1v63sQjXLbLiq+EVX9xuZDqu+lNDOHhzQ5hi/Ozt+tgbnefGmc1S1boa
- 4Nb/pE2foYAjaclUneN1framm6ztwnzBU4MwSo00HpVDk5BajYot740i93ocbXCuDxCN
- 0GFzkMQiyDrGggGI8JaXnsGtUfFRFKPjaNgOBhm701O5zRo7GI+QZ9+Gj2IycAXOqn8E
- PWQFWG4xAH5wajlDLy8DDnIJ+mi4HYDyKOLp9s86XqR64jvPBy4tIHR6rtU6AjbnQR7D
- r1+dHm9PU4nWuTgeGX514g7k9u0yOicYWiHb+aGv+/abnpsPOxO2FtsRu0WSUqeOxfw4
- BuyQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVLTk1mWoRja9w2f4QVpXuGaLA+SRgNdY1XdYhHnqA7WyYTzwW4XhkoveV15NU6wgOYBxggWMS6XpQ=@lists.freedesktop.org,
- AJvYcCWT7H2N1ltVIXhnWX+BYW3I11+PlTqoWi9rCbThIHQJDfdcpvuh495gkC5hnxdYTyJU2NrOD52wrfDw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzi3k3iQr3zdPKuYesFsWZxGXgbftXR19tbxDFsFR9jxLS4rMew
- UIlz5Vz28T+bYade3O7hNTmx/FjUMjtI5RDK0oJEnO7mDRiXCd84kfeF2IFleyBgo0x4+5DVEhg
- nZ0KHV7Kccx0q7PUJd4O/KEvO2wM=
-X-Gm-Gg: ASbGnctiinP2veFZEeudrBcY+B3BCW8KHWaw+wGt05BpIueJ6hlcRLlYoEXLf//H2VN
- YnmnFBv6O3NMJpUDXOl9YdFE8Qf3eabmqNjhWebiu9xDWLWmwy6A1kpw7JWbLilnNi9Tl
-X-Google-Smtp-Source: AGHT+IH1uHRChV+q9fG3nQmU9PjOCTRBD0DeSzOQ4/o+oVqmyFmooEnJ9LKjoMSqbPXYgcjXxVq5cgZ+OAqRKJgySXs=
-X-Received: by 2002:a05:6e02:1d84:b0:3a7:6c5c:9aa4 with SMTP id
- e9e14a558f8ab-3ce3a888392mr56333685ab.12.1736437476062; Thu, 09 Jan 2025
- 07:44:36 -0800 (PST)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED06C10EEDB;
+ Thu,  9 Jan 2025 16:15:21 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2A3005C5C38;
+ Thu,  9 Jan 2025 16:14:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34F0C4CED3;
+ Thu,  9 Jan 2025 16:15:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1736439320;
+ bh=IF+rz2PvsBQx52Qdi1CL3g27mHqZQX9cudkC8UuiDoA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=LAG8oDTWFUUe6/Sir0/NEC3wffDjChHNhzI/3k1cq8BTu48yngQtRSAePzF36xjpl
+ NtEFVZXU4xjC4zTKqdm91vqG8O1NTDLIowkJ7r1TVEVU5ttrJANAZvOTuPIGh5QXEd
+ 5W1bXyT3hl0ut/7P9cDbDWy8KqBW47YOEdYFlnIDAueewJaQpUu9fvgfUD5n6TQEbs
+ iUluazbhWpQNclNXQX076jbuIYffpTmIymmePW62HC2eJCmOU0B+ECFBVTR5mHc4WB
+ 84y2hYnyUlePZVb+J6ak2JUfs9lj6SXeDCIvUCkTsfB05+DEGHp+mF5u+RoTlJiogu
+ ZY4e7Mdv9igMw==
+Message-ID: <6ca8eb52-7538-47c0-afb5-e4a91322539b@kernel.org>
+Date: Thu, 9 Jan 2025 17:15:08 +0100
 MIME-Version: 1.0
-References: <20250108-async-disable-fix-v1-1-3f93eb600a3a@quicinc.com>
- <CAF6AEGtksLq5jpizGMj4t248rbNScgDvrxpxv09==b3DmpkLuQ@mail.gmail.com>
- <CAA8EJpqPZc7DNOb6WcRVtH0cFs9mUziL-dPgyakEJGO73=B6gA@mail.gmail.com>
- <58d9c139-c811-47aa-a527-4b1af110337c@quicinc.com>
- <CAF6AEGuFTW4hVursv-EKQ7GfVuUDJ4C0qWS0F+j1jPi+mP_xnA@mail.gmail.com>
- <f9863c54-ca35-476b-b6aa-0eb1c18ec29e@quicinc.com>
-In-Reply-To: <f9863c54-ca35-476b-b6aa-0eb1c18ec29e@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 9 Jan 2025 07:44:24 -0800
-X-Gm-Features: AbW1kvZyFraHcis8-8bS-LzWqZzHknSnK9_IGXuJYlkQtzj04wvflqCRVla3TE4
-Message-ID: <CAF6AEGu26n2LELtkGYJnUNahNqvwhZnUDeoyZaSC3dPRg75K+w@mail.gmail.com>
-Subject: Re: [PATCH] drm/msm/dpu: Force disabling commits to take non-async
- path
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/7] dt-bindings: opp: Add v2-qcom-adreno vendor
+ bindings
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robdclark@chromium.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Maya Matuszczyk <maccraft123mc@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20250109-gpu-acd-v4-0-08a5efaf4a23@quicinc.com>
+ <20250109-gpu-acd-v4-5-08a5efaf4a23@quicinc.com>
+ <67mvekrysu2ms5dsvjyh37wbl5dmcnk2r3xnow2e5xeeqahhrr@ar5zsq3wzip3>
+ <d23fe626-4025-4a6c-8916-1771641b2a78@quicinc.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <d23fe626-4025-4a6c-8916-1771641b2a78@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,213 +118,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jan 8, 2025 at 7:14=E2=80=AFPM Abhinav Kumar <quic_abhinavk@quicinc=
-.com> wrote:
->
->
->
-> On 1/8/2025 7:04 PM, Rob Clark wrote:
-> > On Wed, Jan 8, 2025 at 6:22=E2=80=AFPM Abhinav Kumar <quic_abhinavk@qui=
-cinc.com> wrote:
-> >>
-> >>
-> >>
-> >> On 1/8/2025 6:14 PM, Dmitry Baryshkov wrote:
-> >>> On Thu, 9 Jan 2025 at 03:45, Rob Clark <robdclark@gmail.com> wrote:
-> >>>>
-> >>>> On Wed, Jan 8, 2025 at 2:58=E2=80=AFPM Jessica Zhang <quic_jesszhan@=
-quicinc.com> wrote:
-> >>>>>
-> >>>>> Force commit that are disabling a plane in the async_crtc to take t=
-he
-> >>>>> non-async commit tail path.
-> >>>>>
-> >>>>> In cases where there are two consecutive async cursor updates (one
-> >>>>> regular non-NULL update followed by a disabling NULL FB update), it=
- is
-> >>>>> possible for the second NULL update to not be queued (due to the
-> >>>>> pending_crtc_mask check) or otherwise not be run before the cursor =
-FB is
-> >>>>> deallocated by drm_atomic_helper_cleanup_planes(). This would cause=
- a
-> >>>>> context fault since the hardware would try to fetch the old plane s=
-tate
-> >>>>> with the stale FB address.
-> >>>>>
-> >>>>> Avoid this issue by forcing cursor updates that will disable the cu=
-rsor
-> >>>>> plane to be blocking commits. This will ensure that hardware clears=
- and
-> >>>>> stops fetching the FB source address before the driver deallocates =
-the FB
-> >>>>>
-> >>>>> Fixes: 2d99ced787e3 ("drm/msm: async commit support")
-> >>>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> >>>>> ---
-> >>>>>    drivers/gpu/drm/msm/msm_atomic.c | 13 +++++++++++++
-> >>>>>    1 file changed, 13 insertions(+)
-> >>>>>
-> >>>>> diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm=
-/msm_atomic.c
-> >>>>> index 9c45d641b5212c11078ab38c13a519663d85e10a..ddc74c68148c643d34c=
-a631dd28d4cdc2b8c7dc0 100644
-> >>>>> --- a/drivers/gpu/drm/msm/msm_atomic.c
-> >>>>> +++ b/drivers/gpu/drm/msm/msm_atomic.c
-> >>>>> @@ -142,6 +142,7 @@ static bool can_do_async(struct drm_atomic_stat=
-e *state,
-> >>>>>           struct drm_connector_state *connector_state;
-> >>>>>           struct drm_connector *connector;
-> >>>>>           struct drm_crtc_state *crtc_state;
-> >>>>> +       struct drm_plane_state *plane_state;
-> >>>>>           struct drm_crtc *crtc;
-> >>>>>           int i, num_crtcs =3D 0;
-> >>>>>
-> >>>>> @@ -162,6 +163,18 @@ static bool can_do_async(struct drm_atomic_sta=
-te *state,
-> >>>>>                   *async_crtc =3D crtc;
-> >>>>>           }
-> >>>>>
-> >>>>> +       /*
-> >>>>> +        * Force a blocking commit if the cursor is being disabled.=
- This is to
-> >>>>> +        * ensure that the registers are cleared and hardware doesn=
-'t try to
-> >>>>> +        * fetch from a stale address.
-> >>>>> +        */
-> >>>>> +       if (*async_crtc) {
-> >>>>> +               plane_state =3D drm_atomic_get_new_plane_state(stat=
-e,
-> >>>>> +                                                            (*asyn=
-c_crtc)->cursor);
-> >>>>> +               if (plane_state && !plane_state->fb)
-> >>>>> +                       return false;
-> >>>>
-> >>>> hmm, I suppose we want the same even if the fb changes?  Or
-> >>>> alternatively somewhere hold an extra ref to the backing obj until h=
-w
-> >>>> has finished scanout?
-> >>>
-> >>
-> >> Hi Rob
-> >>
-> >> Do you mean we need to also check if old_plane_state->fb !=3D
-> >> new_plane_state->fb, then use blocking commit?
-> >
-> > yeah, basically.. if we release any outgoing fb the backing bo could
-> > be potentially freed+unmapped leading to the same problem.
-> >
->
-> Yeah true, this case also we can hit this. Will add it and check.
->
-> > idk if this more conservative approach would cause fps issues..
-> > holding an extra ref would avoid potential issues, but offhand I'm not
-> > sure if it would be a perf problem in practice.  Maybe with animated
-> > cursors?
-> >
->
-> hmmm.... we did not see any significant lags or drops when we tested
-> this (that was also our major concern to make sure we dont)
+On 09/01/2025 14:13, Akhil P Oommen wrote:
+> On 1/9/2025 1:36 PM, Krzysztof Kozlowski wrote:
+>> On Thu, Jan 09, 2025 at 02:10:01AM +0530, Akhil P Oommen wrote:
+>>> Add a new schema which extends opp-v2 to support a new vendor specific
+>>> property required for Adreno GPUs found in Qualcomm's SoCs. The new
+>>> property called "qcom,opp-acd-level" carries a u32 value recommended
+>>> for each opp needs to be shared to GMU during runtime.
+>>>
+>>> Also, update MAINTAINERS file include the new opp-v2-qcom-adreno.yaml.
+>>>
+>>> Cc: Rob Clark <robdclark@gmail.com>
+>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>> ---
+>>>  .../bindings/opp/opp-v2-qcom-adreno.yaml           | 97 ++++++++++++++++++++++
+>>>  MAINTAINERS                                        |  1 +
+>>>  2 files changed, 98 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+>>> new file mode 100644
+>>> index 000000000000..de1f7c6c4f0e
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/opp/opp-v2-qcom-adreno.yaml
+>>> @@ -0,0 +1,97 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/opp/opp-v2-qcom-adreno.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Qualcomm Adreno compatible OPP supply
+>>> +
+>>> +description:
+>>> +  Adreno GPUs present in Qualcomm's Snapdragon chipsets uses an OPP specific
+>>> +  ACD related information tailored for the specific chipset. This binding
+>>> +  provides the information needed to describe such a hardware value.
+>>> +
+>>> +maintainers:
+>>> +  - Rob Clark <robdclark@gmail.com>
+>>> +
+>>
+>> You need select: here. See bot's warnings and other schemas, like
+>> primecell, how they do it.
+> 
+> Somehow this error is not reproducible on my setup. I have upgraded both
+> Dtschema (2024.11) and and yamllint.
 
-It's tricky because it is very much at the mercy of what userspace
-does.. and different userspace does different things.
 
-I remember issues back in the gtk2 days with something (gdm?) trying
-to update a spinning cursor at 1000fps.  When that was clamped at
-60fps it would literally take 5min to login!
+You probably need to test all bindings, so skipping DT_SCHEMA_FILES
 
-> If we do have to hold an extra ref, we will have to do something like bel=
-ow:
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 098abc2c0003..97d9e056038c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -649,8 +649,10 @@ static int dpu_plane_prepare_fb(struct drm_plane
-> *plane,
->          struct dpu_kms *kms =3D _dpu_plane_get_kms(&pdpu->base);
->          int ret;
->
-> -       if (!new_state->fb)
-> +       if (!new_state->fb) {
-> +               refcount_inc(&msm_fb->dirtyfb);
->                  return 0;
-> +       }
->
->          DPU_DEBUG_PLANE(pdpu, "FB[%u]\n", fb->base.id);
->
-> @@ -682,8 +684,10 @@ static void dpu_plane_cleanup_fb(struct drm_plane
-> *plane,
->          struct dpu_plane *pdpu =3D to_dpu_plane(plane);
->          struct dpu_plane_state *old_pstate;
->
-> -       if (!old_state || !old_state->fb)
-> +       if (!old_state || !old_state->fb) {
-> +               refcount_dec(&msm_fb->dirtyfb);
->                  return;
-> +       }
->
->          old_pstate =3D to_dpu_plane_state(old_state);
->
-> I dont know if this is clean though. WDYT?
+> Anyway, could you please confirm if the below addition would be sufficient?
+> 
+> select:
+>   required:
+>     - compatible
+>   properties:
+>     compatible:
+>       contains:
+>         const: operating-points-v2-adreno
 
-The dirtyfb ref is not what you want.  It is tracking if any attached
-display changes need dirtyfb to flush changes to the panel.  See [1]
 
-The other issue is that cleanup_fb will be called when drm core
-_thinks_ the atomic commit is completed, not when it _actually_ has.
+For this binding yes, but if the warning persist, then you might need to
+update operating-points-v2 as well, with a similar select but without
+"contains:".
 
-Probably the dpu_plane should hold a ref of the scanout bo until
-vblank, rather than rely on the plane state holding a ref to the fb
-(which holds a ref to the bo)?  drm_flip_work might be helpful for
-this sort of thing.
 
-BR,
--R
-
-[1] https://lore.kernel.org/all/20220223191118.881321-1-robdclark@gmail.com=
-/
-
->
->
-> > BR,
-> > -R
-> >
-> >> We can try that out.
-> >>
-> >> holding extra ref gets tricky IMO. In this way, the calls are balanced
-> >> in places we know.
-> >>
-> >>> I think a more correct approach would be to run a worker, waiting for
-> >>> the commit to happen and then freeing the FBs.
-> >>>
-> >>
-> >> Hi Dmitry
-> >>
-> >> This option was tried . It gets very messy to handle it this way. Then
-> >> we realized that, the worker is going to try to do the same thing a
-> >> blocking commit does which is to wait for hw to finish scanout and the=
-n
-> >> cleanup planes. Hence this was preferred and is better IMO.
-> >>
-> >>>>
-> >>>> BR,
-> >>>> -R
-> >>>>
-> >>>>> +       }
-> >>>>> +
-> >>>>>           return true;
-> >>>>>    }
-> >>>>>
-> >>>>>
-> >>>>> ---
-> >>>>> base-commit: 866e43b945bf98f8e807dfa45eca92f931f3a032
-> >>>>> change-id: 20250108-async-disable-fix-cc1b9a1d5b19
-> >>>>>
-> >>>>> Best regards,
-> >>>>> --
-> >>>>> Jessica Zhang <quic_jesszhan@quicinc.com>
-> >>>>>
-> >>>
-> >>>
-> >>>
+Best regards,
+Krzysztof
