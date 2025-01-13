@@ -2,92 +2,93 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08C8AA0B22F
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2025 10:02:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B95B8A0B2BE
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2025 10:27:14 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAB6E10E137;
-	Mon, 13 Jan 2025 09:02:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 972AB10E5DF;
+	Mon, 13 Jan 2025 09:27:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="B8zUODNH";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="O1dn8fNA";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 845FE10E243
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 09:02:48 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-540201cfedbso3641924e87.3
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 01:02:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736758967; x=1737363767; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=VYkQdxTA3vBXlKKUBFkrgSmL9ucWyZWWWLZyZzkAa3w=;
- b=B8zUODNH8FpEF2v9GqC/1hQpTgkl2uGoKdCkc0I2r3+Lpr5Dunybcnxdx4Rkjp2FVD
- Bt28J6glAXVJbWGqEgqA8XURRuJJXYH/sVvNwe61ocC920X/B6ZQnitGgohrYt4JQ089
- FwURZQ90C0Ufh2e0s0uppJ5SaplzhxXVIt0LQwa2XL9ujqixnQmoHBU4YumaEBUyggCY
- YRrg+CkBXQAFd/c2kT2PTjq/+JjkZk6mDOY7qlfgXVdM57Xy9keaMtn3On0VxC9lQdCV
- Hvh426/BgxEF4CtnUp7lY9ZvHT31XHJ1kxaFVe4817fFnqmEiaKs9szgRxz1O2ueulOQ
- FUbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736758967; x=1737363767;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VYkQdxTA3vBXlKKUBFkrgSmL9ucWyZWWWLZyZzkAa3w=;
- b=YUjnfxUQ9Ui1I4zTi+RvFokC9bHmSWnGuPrMYlFAJ8vkiRcAWTp+Ji3JdgSNOKXOK/
- vkZrP1sYnyt13Y457T3LZJmmp0P5sRtXRbqfVugYnMB+kH/a332Rbs6k1bks6tNCACvn
- 9EUckxVP23Lz9Azb9BWigVNhLUrhCS9KDyRV+iH9SxqSLXeAEOiWy/xCd9kihhf+ehwJ
- a6s9zzNRJ+BDLnM5VLdTChFHah5j+7SWRHb8fAKL24Ps1o9U5YJdcvJM5Tck4w3fTUzF
- HzUAAvD6xahN8FCfZrWnxmbezaIv3Ad1g0goe38FNwP2v2zEAQbSMN6hJV2ZqhkvHFKK
- ZHQg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXNSafQr3Bvg7f7N+O0TBy8RZT6QWmkkls6alZimY9xb9lqz1Le/wtGqrASRhisaFonrfsC5cVO2aQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyejvRUTikx5lXx2EFAIOzMKS+GrnbNL8FFqQcgvyKJuX8rtwTa
- A2ddQTKrubMrDL8yPeRj0C1Bj+STAdP81VKuy9viaTt68akJVPXoPYDrT7Z2Dxs=
-X-Gm-Gg: ASbGncsjk1NcCfZnRv10gGQfNNxfksU9uaBYj+DSUnjNH0ms9bV0L8IwBPJaGMSWtW9
- cNbGEkVjwyDp/XJJ+Sx5HmXsf16zTrR3regsqpN3gwtOVQ3kecb9AshYM5W7JbAxPl+tgL953IH
- bIqXPIUGYcEP9wVsnH/WRAQ+fxydmnOvA6Q7L1wUtQSBv7El6hgOBzEk7PdcVWc+BeTFar+rYSb
- tJM+nHMzc4uNw1Eb1b7W1QhnXuVlFLk9Pm3ZRNUksQ5HDBKuN7RI/gULejW2JdqvQ3KV5qdsB5K
- DRnlWGBrN9LI6Lqsd7nwl3RQM9NXkqLqv3Gg
-X-Google-Smtp-Source: AGHT+IHowqb7rFqBBDpRnlzRpSHyTMrFA26GRZ+fcN9JLnlQvPTm5oxedl6vvT+6rf1rsSPJNSIUoA==
-X-Received: by 2002:a05:6512:3e17:b0:53d:ed69:a593 with SMTP id
- 2adb3069b0e04-542845282a5mr6463480e87.22.1736758965311; 
- Mon, 13 Jan 2025 01:02:45 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428be5483bsm1300830e87.105.2025.01.13.01.02.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jan 2025 01:02:44 -0800 (PST)
-Date: Mon, 13 Jan 2025 11:02:43 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Yongxing Mou <quic_yongmou@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A36AD10E5DF;
+ Mon, 13 Jan 2025 09:27:12 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50D6glEL024409;
+ Mon, 13 Jan 2025 09:27:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ MOfjFAH+CybZ33SMwzfNlmQyC6CmVOKixDLWbRV01BM=; b=O1dn8fNAabIUgm/j
+ 3BKm3WVSMnTh8LSexcu482RLtmKRfjcX2yK8sjt8q42vfX2+VXSRqG7xFdhKQVaa
+ artSSdfyh6Gj+qf21EcNSQAhLTnC40CAxedR5HFvby7u1Lyt0+TXaYbCoZOEW5e5
+ UT50Ggril+HHlopK9d5ivvzrz6h535htRps9WdtXoZHukccPtd5yow2efJ67H4j7
+ nyA1dkF3C0P6YC9XgjWIzgOsH4HjKPiC5uBZ5/P43vTTRZNc2EdmIZ/BWu8NuC/i
+ h08Dfgg5OScI6Lw4grVeS6tDMW9pcNODeNc5z4emleqhAYZI+MYX2bXu0b9FkaHv
+ ZZXj7w==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 444wt4rd06-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 13 Jan 2025 09:27:06 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50D9R57H029576
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 13 Jan 2025 09:27:05 GMT
+Received: from [10.64.68.119] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 13 Jan
+ 2025 01:26:59 -0800
+Message-ID: <9a87724c-1906-4a9b-bf01-e603b310e47a@quicinc.com>
+Date: Mon, 13 Jan 2025 17:26:56 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 0/4] Display enablement changes for Qualcomm QCS8300
  platform
-Message-ID: <qsq5so5i7fy3r7xcjtcr7aq2vtbywh57j3b3e7ddbsmmeu5qwy@pgcntgxknuul>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Kuogee Hsieh
+ <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, "Kishon Vijay
+ Abraham I" <kishon@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-phy@lists.infradead.org>, "Krzysztof
+ Kozlowski" <krzysztof.kozlowski@linaro.org>
 References: <20250113-mdssdt_qcs8300-v3-0-6c8e93459600@quicinc.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250113-mdssdt_qcs8300-v3-0-6c8e93459600@quicinc.com>
+ <qsq5so5i7fy3r7xcjtcr7aq2vtbywh57j3b3e7ddbsmmeu5qwy@pgcntgxknuul>
+Content-Language: en-US
+From: Yongxing Mou <quic_yongmou@quicinc.com>
+In-Reply-To: <qsq5so5i7fy3r7xcjtcr7aq2vtbywh57j3b3e7ddbsmmeu5qwy@pgcntgxknuul>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: FZvTmcrhQQEHUT1SOKIGh2bA7JiNFdyI
+X-Proofpoint-GUID: FZvTmcrhQQEHUT1SOKIGh2bA7JiNFdyI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ clxscore=1015 impostorscore=0 malwarescore=0 phishscore=0 mlxlogscore=999
+ suspectscore=0 bulkscore=0 priorityscore=1501 mlxscore=0 adultscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2501130080
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,62 +104,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 13, 2025 at 04:03:07PM +0800, Yongxing Mou wrote:
-> This series introduces support to enable the Mobile Display Subsystem (MDSS)
-> , Display Processing Unit (DPU), DisplayPort controller for the Qualcomm 
-> QCS8300 target. It includes the addition of the hardware catalog, compatible
-> string, and their YAML bindings.
-> 
-> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
-> ---
-> Changes in v3:Fixed review comments from Krzysztof, Dmitry.
-> - Fix the missing space issue in commit message.[Krzysztof]
-> - Separate the patch for the phy from this series.[Dmitry]
-> - Remove unused dependencies and update in the cover letter.[Dmitry][Krzysztof]
-> - Link to v2: https://lore.kernel.org/r/20241226-mdssdt_qcs8300-v2-0-acba0db533ce@quicinc.com
-> 
-> Changes in v2:Fixed review comments from Krzysztof, Dmitry, Rob.
-> - Decouple the devicetree changes from this series.[Dmitry][Krzysztof]
-> - Drop the dpu driver changes and reuse SA8775P DPU driver.[Dmitry]
-> - Fix compilation issues in MDSS bindings.[Rob][Krzysztof]
-> - Correct formatting errors and remove unnecessary status in MDSS
->   bindings.[Krzysztof]
-> - Add the the necessary information in MDSS changes commit msg.[Dmitry]
-> - Rebase MDSS driver changes to https://lore.kernel.org/dri-devel/
->   20241127-msm-mdss-ubwc-v3-0-9782a7c2b023@linaro.org/.[Dmitry]
-> - Package the DisplayPort controller and eDP PHY bindings document to
->   this patch series.
-> - Collecting MDSS changes reviewd-by Dmitry.
-> - Reuse the sa8775p eDP PHY as a fallback compat.[Dmitry]
-> - Reuse the sm8650 DP controller as a fallback compat.[Dmitry]
-> - Link to v1: https://lore.kernel.org/r/20241127-mdss_qcs8300-v1-0-29b2c3ee95b8@quicinc.com
-> ~
-> 
-> ---
-> Yongxing Mou (4):
->       dt-bindings: display/msm: Document the DPU for QCS8300
->       dt-bindings: display: msm: dp-controller: document QCS8300 compatible
->       dt-bindings: display/msm: Document MDSS on QCS8300
 
-Is there any reason for not using a common style for these three
-commits?
 
->       drm/msm: mdss: Add QCS8300 support
+On 2025/1/13 17:02, Dmitry Baryshkov wrote:
+> On Mon, Jan 13, 2025 at 04:03:07PM +0800, Yongxing Mou wrote:
+>> This series introduces support to enable the Mobile Display Subsystem (MDSS)
+>> , Display Processing Unit (DPU), DisplayPort controller for the Qualcomm
+>> QCS8300 target. It includes the addition of the hardware catalog, compatible
+>> string, and their YAML bindings.
+>>
+>> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
+>> ---
+>> Changes in v3:Fixed review comments from Krzysztof, Dmitry.
+>> - Fix the missing space issue in commit message.[Krzysztof]
+>> - Separate the patch for the phy from this series.[Dmitry]
+>> - Remove unused dependencies and update in the cover letter.[Dmitry][Krzysztof]
+>> - Link to v2: https://lore.kernel.org/r/20241226-mdssdt_qcs8300-v2-0-acba0db533ce@quicinc.com
+>>
+>> Changes in v2:Fixed review comments from Krzysztof, Dmitry, Rob.
+>> - Decouple the devicetree changes from this series.[Dmitry][Krzysztof]
+>> - Drop the dpu driver changes and reuse SA8775P DPU driver.[Dmitry]
+>> - Fix compilation issues in MDSS bindings.[Rob][Krzysztof]
+>> - Correct formatting errors and remove unnecessary status in MDSS
+>>    bindings.[Krzysztof]
+>> - Add the the necessary information in MDSS changes commit msg.[Dmitry]
+>> - Rebase MDSS driver changes to https://lore.kernel.org/dri-devel/
+>>    20241127-msm-mdss-ubwc-v3-0-9782a7c2b023@linaro.org/.[Dmitry]
+>> - Package the DisplayPort controller and eDP PHY bindings document to
+>>    this patch series.
+>> - Collecting MDSS changes reviewd-by Dmitry.
+>> - Reuse the sa8775p eDP PHY as a fallback compat.[Dmitry]
+>> - Reuse the sm8650 DP controller as a fallback compat.[Dmitry]
+>> - Link to v1: https://lore.kernel.org/r/20241127-mdss_qcs8300-v1-0-29b2c3ee95b8@quicinc.com
+>> ~
+>>
+>> ---
+>> Yongxing Mou (4):
+>>        dt-bindings: display/msm: Document the DPU for QCS8300
+>>        dt-bindings: display: msm: dp-controller: document QCS8300 compatible
+>>        dt-bindings: display/msm: Document MDSS on QCS8300
 > 
->  .../bindings/display/msm/dp-controller.yaml        |   4 +
->  .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 244 +++++++++++++++++++++
->  .../bindings/display/msm/qcom,sm8650-dpu.yaml      |  13 +-
->  drivers/gpu/drm/msm/msm_mdss.c                     |  11 +
->  4 files changed, 268 insertions(+), 4 deletions(-)
-> ---
-> base-commit: 2b88851f583d3c4e40bcd40cfe1965241ec229dd
-> change-id: 20241224-mdssdt_qcs8300-11b7883dc60b
+> Is there any reason for not using a common style for these three
+> commits?
 > 
-> Best regards,
-> -- 
-> Yongxing Mou <quic_yongmou@quicinc.com>
+Hi，actually, for the dp-controller.yamel file, I just noticed that the 
+previous platforms added the dt-binding files using this format. So, I 
+followed their format to write the commit message. Such as dt-bindings 
+for sm8650/sm8150/sm8250...
+>>        drm/msm: mdss: Add QCS8300 support
+>>
+>>   .../bindings/display/msm/dp-controller.yaml        |   4 +
+>>   .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 244 +++++++++++++++++++++
+>>   .../bindings/display/msm/qcom,sm8650-dpu.yaml      |  13 +-
+>>   drivers/gpu/drm/msm/msm_mdss.c                     |  11 +
+>>   4 files changed, 268 insertions(+), 4 deletions(-)
+>> ---
+>> base-commit: 2b88851f583d3c4e40bcd40cfe1965241ec229dd
+>> change-id: 20241224-mdssdt_qcs8300-11b7883dc60b
+>>
+>> Best regards,
+>> -- 
+>> Yongxing Mou <quic_yongmou@quicinc.com>
+>>
 > 
 
--- 
-With best wishes
-Dmitry
