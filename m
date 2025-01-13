@@ -2,94 +2,111 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03591A0B1A0
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2025 09:48:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBF0AA0B22D
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2025 10:02:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D567E10E5CB;
-	Mon, 13 Jan 2025 08:48:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9CFA10E5D8;
+	Mon, 13 Jan 2025 09:02:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PjQBeDlL";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QCmXJkhz";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F03B10E5CB
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 08:48:37 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-54020b0dcd2so4908106e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 00:48:37 -0800 (PST)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 094C310E5E9
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 09:02:25 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-540254357c8so3678780e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 01:02:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736758055; x=1737362855; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1736758883; x=1737363683; darn=lists.freedesktop.org;
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:message-id:subject:cc:to:from:date:from:to
  :cc:subject:date:message-id:reply-to;
- bh=IbA7N28Us7Vr+7VJn+xTT4k5t5lfn0IEvogilmiRnfA=;
- b=PjQBeDlLOwJEpslqKpk0qF9VKsUD82Y/7By7kqD7NoLookG0OrEKwenDJ3dZG3cAKc
- IqQV2v9WdgLdy5c+lcPf+mSr0XzlluiAK+AZHBIr/0NGSqv8JGK47oB0F+UGI7LobCo3
- GEqIZH32g+2c2yEDNflRvqxZWyxUiFYkbsXHH6pje66+8w53W7IU7CDEuplaFgWgt0lp
- SV+XEHArB2REM52hOI7r6bBkxvecGMIBudO+gMSYCmbtHComfT+Bhx42jN9hCOCiHv1R
- IQvMPILUu+W2YlBXYoZLaGfKXwRnqnON/J0GBvDSlImR/tuY56Q0oaCvBF72SqTVd5OO
- 2T0w==
+ bh=gVmv06UiciOif9n0zEXjWMnBVceV6C66Mfpmv3QehtQ=;
+ b=QCmXJkhzztEci3cfudHXMJMChqDgbD7vg+PcCUnhusx/qVwo9pEEWa6raxrYBSL36A
+ bqsa4ZPiIksf2oZM9el4jvOJR8e6bs3fodlFICHbguRkR0Z7QTQ24eezVuIYuh9Iwsec
+ FMJH/fPRgwzSGEItDrXkKdyAvyKh1bI2O1KOthIwb9pQSTCaq98E4VmZstWLRRVDMCfU
+ ecdTH2IURxjXp9Hu8dWwezEcO19RWmmIhSxqj0P+GFAtsjYXxDm2J29V5doyMa0Uc6E1
+ PDBZ+86UBaimQGyd+stRbs6NHpHFjJBFMPG/Bc/mZfDQPpiY3J0bGsvL2+nCQm2rP4Eu
+ b1Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736758055; x=1737362855;
+ d=1e100.net; s=20230601; t=1736758883; x=1737363683;
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=IbA7N28Us7Vr+7VJn+xTT4k5t5lfn0IEvogilmiRnfA=;
- b=eH4bNibnMYFkU8ypRJHca/q5F7xRCrkUQDCPKmnOO/kmMHXbc0V8o1b1cC0VSrqIqt
- i+Gk1GeLrHLHYJqyRvUnOY/zbjP2AsX7HBgMgSwqIZPmPVWV6DVqsAeC6RsJYXQlE9eC
- uZrZu0QtY3/Eq7II+R9zzK18BmawSoON8SxwpAMBtK19AN3NXLnbGImMGJInulLVvbAn
- lArxUmCe5J+agpYDSBfjZkPNeYWZqwnm5qW7I5GhOBQ9Lcb4oB0oYQXcJCzn/9vKfhBq
- 3+GKCI08YqIcTtyz5aACOdopDF/mkCuj8Sd+DWH5hgGi8WZURWRDGUspw9jdr6uW6n39
- kWlw==
+ bh=gVmv06UiciOif9n0zEXjWMnBVceV6C66Mfpmv3QehtQ=;
+ b=r9jKrTxFM4nLfoNjrpKac3BIkeJ30xA8GJ4unWFxs6DXMFrEZCIBe+gD2mWUQLFEsK
+ 1Y9k2ai61bGs2L2W+4WmJEI3unb8nOY0SjohxcwgSn1DKyYc+4qS2zvmGphzoMgB14sr
+ BvSO197w3+aVcVYnc+RxPX9Id8sR/dhkZUCTx2/2oo9Tiwut0sjH0xmnGUTb3Dpgxj6V
+ nfELbT+fuamab7XJzBkGWIv1y7rArelhyTyINL12wmuuRKhiidhav5hmnNDbrtlNmE78
+ en2sBsRmFLEvoBz5fcTgkAnmWNdj478xwPrufXoH/2+b83qOIxyI6fOBJRlKs6ZcSEGM
+ B+/w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXsnKnI71kIbpCauRyBI3BqH6ZJr/gC0xtXsKwf41DJfk8zJALUd4KePZlcZbZvScShCsPillnFvLU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx4Khi8n9w2NEI+b1i2N6qo1ByaJhbEM+X0UD9Ud0Q95PdWmA2t
- iNH/lXN8p0Gn8dE/3NR/pI05BTEPnnBDRwRemdLLOwhzg5w+Ykfrp9DTwp6EB2I=
-X-Gm-Gg: ASbGnculqbvux3Rx3cd0PXdgpaUj9TLF+o8zIMQSXWyhmLX/QVjFFP0dh2R6iz/S7Ol
- 8j3uUyuEWu99CEAEgmSXL5C/HC2viWa2fHt1pfYoPRPem5mvMiK3/xyLwIOHFhbS2Y3ergAz/wu
- lwnG4mDANe2MpAMDoD3GYT0bsR9tnNQVPveo3Gi2+xrpAAzTkNjBfM7VF4FmCM6rGCHMzyrCvsi
- fPLw+WNyqsR4XYiTW3Uu8TgiblZyVHS913P6pnuwUns0ROrscHrahPYmu1k85gpQO7IgqJ64cl9
- RLEYap/4lpHidI8NncWMW/2UIJ80DKwmQ+VS
-X-Google-Smtp-Source: AGHT+IECnRlWJYygMd3OjI6hYNyjvQCPtRVHR3YG5DLTJEoxW1qbQ3tX1+uH0zp6a8djtx9mw2QjYA==
-X-Received: by 2002:a05:6512:3d19:b0:540:20c5:f847 with SMTP id
- 2adb3069b0e04-5428c2df79bmr5063496e87.22.1736758055509; 
- Mon, 13 Jan 2025 00:47:35 -0800 (PST)
+ AJvYcCX6P4qCP+c6QuInkiCZ+hqpLEn/YT+lJXshKbb3h6L8yKmJbUzIaZbnsUAHvctXSK02CwE+6wJTn74=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw1oSfNuNzz38y6W8aXRCVbRzJpkUKUiB2r767SPIB3S+hBGqeX
+ fx80OZFYHbkOi5huhGRc24fC4g5saDMvEbUCtHC15zMxgSxIniWpcrz/Ay95a2A=
+X-Gm-Gg: ASbGncvR8OP5qdHNtF0Jk2C9BBNtdUrEDy3Km4ssL5O90//dxZ2kMCKu4WEns2qV0wX
+ Uqoa/T0RdRm20DONf+JrkkIRsgK4fvaWDs9Z+GVIaIqIWcNPUZDpvWzYEoSQriLxJdFFadD3ts6
+ HJcvZAwUS0m6RKK3/Hs6YtfmCSuxoEJBtQAmGZvNY2U1OTsJFK0rzCRWE22AjC6GBYWzy/gpcpr
+ Aj4gj7WF2f40fLaSgzkj9Y3jryYVGWGg1BTTANc33u2Q01cRKaEkq0O8pP5EMilDowDXgmjBmXk
+ PQrE41p65QYugzdmvUlhvwG+rrG9RGlVBGae
+X-Google-Smtp-Source: AGHT+IGcTFUXjIwHW9lpVqJAyyIcRCFXMgiGOEb3ziE970UiReLi1TBQykdVRRw2foBrKdh4TrGJCQ==
+X-Received: by 2002:a05:6512:2214:b0:542:29e5:731c with SMTP id
+ 2adb3069b0e04-542844f649cmr6246866e87.11.1736758883364; 
+ Mon, 13 Jan 2025 01:01:23 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428becb15dsm1251610e87.238.2025.01.13.00.47.33
+ 2adb3069b0e04-5428be49d7esm1279018e87.19.2025.01.13.01.01.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jan 2025 00:47:34 -0800 (PST)
-Date: Mon, 13 Jan 2025 10:47:31 +0200
+ Mon, 13 Jan 2025 01:01:22 -0800 (PST)
+Date: Mon, 13 Jan 2025 11:01:20 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>, 
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, 
- Sravanthi Kollukuduru <skolluku@codeaurora.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Archit Taneja <architt@codeaurora.org>, Rajesh Yadav <ryadav@codeaurora.org>, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- Simona Vetter <simona.vetter@ffwll.ch>
-Subject: Re: [PATCH 0/6] drm: enforce rules for
- drm_atomic_helper_check_modeset()
-Message-ID: <kwain2xevvf35wxf5xyes4jdpfk6mdblhjg7cwc64t3tedbrxm@cegm7ixqaasq>
-References: <20241222-drm-dirty-modeset-v1-0-0e76a53eceb9@linaro.org>
- <e1a1fc68-cb8d-4fb0-879f-a84e679f6b2b@suse.de>
- <t7ga7l7hi5y634hc6sklp6mzae3jfqs66nkalviojrzrgez3kf@b4h4ue6fdj7j>
- <29dcf748-c571-4c91-92b7-481be5a43ff5@suse.de>
+To: "maxime@cerno.tech" <maxime@cerno.tech>
+Cc: Jason-JH Lin =?utf-8?B?KOael+edv+elpSk=?= <Jason-JH.Lin@mediatek.com>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "michel@daenzer.net" <michel@daenzer.net>, 
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>, 
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "mikita.lipski@amd.com" <mikita.lipski@amd.com>, 
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "daniel.vetter@intel.com" <daniel.vetter@intel.com>, 
+ "nicholas.kazlauskas@amd.com" <nicholas.kazlauskas@amd.com>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>, 
+ Project_Global_Chrome_Upstream_Group
+ <Project_Global_Chrome_Upstream_Group@mediatek.com>,
+ "manasi.d.navare@intel.com" <manasi.d.navare@intel.com>, 
+ "lucas.demarchi@intel.com" <lucas.demarchi@intel.com>,
+ "sean@poorly.run" <sean@poorly.run>, 
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "dmitry.osipenko@collabora.com" <dmitry.osipenko@collabora.com>, 
+ "fshao@chromium.org" <fshao@chromium.org>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "jani.nikula@intel.com" <jani.nikula@intel.com>, 
+ "angelogioacchino.delregno@collabora.com"
+ <angelogioacchino.delregno@collabora.com>, 
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/atomic-helpers: remove legacy_cursor_update hacks
+Message-ID: <4getu2xtlxudcy53emipvtfxjnxg2mrupwfcekdjizjdtbk3k7@nlii76skfuh4>
+References: <20230216111214.3489223-1-daniel.vetter@ffwll.ch>
+ <20230307145613.xvhru3fpcudlpazt@houat>
+ <aac416742920953999a9ce230ac68139bf5b9790.camel@mediatek.com>
+ <ZbKlsTEvGPiGtzS3@phenom.ffwll.local>
+ <1349365de499bae53a8c868738c7270fc16813d5.camel@mediatek.com>
+ <ZboOp7JOp5teV1Cs@phenom.ffwll.local>
+ <CAA8EJpqAU=RvqJUPmPO2LCJ+6KMOT8Pi2WrkPq8YHzhyRVxHeg@mail.gmail.com>
+ <Zbou-y7eNhQTMpKo@phenom.ffwll.local>
+ <20250113-melodic-cuckoo-of-experience-bb6ac7@houat>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <29dcf748-c571-4c91-92b7-481be5a43ff5@suse.de>
+In-Reply-To: <20250113-melodic-cuckoo-of-experience-bb6ac7@houat>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,119 +122,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Jan 10, 2025 at 02:30:55PM +0100, Thomas Zimmermann wrote:
-> Hi
+On Mon, Jan 13, 2025 at 09:28:36AM +0100, maxime@cerno.tech wrote:
+> Hi Dmitry,
 > 
-> 
-> Am 10.01.25 um 00:57 schrieb Dmitry Baryshkov:
-> > On Thu, Jan 09, 2025 at 02:53:16PM +0100, Thomas Zimmermann wrote:
-> > > Hi
+> On Wed, Jan 31, 2024 at 12:28:59PM +0100, Daniel Vetter wrote:
+> > On Wed, Jan 31, 2024 at 12:26:45PM +0200, Dmitry Baryshkov wrote:
+> > > On Wed, 31 Jan 2024 at 11:11, Daniel Vetter <daniel@ffwll.ch> wrote:
+> > > >
+> > > > On Wed, Jan 31, 2024 at 05:17:08AM +0000, Jason-JH Lin (æž—ç¿ç¥¥) wrote:
+> > > > > On Thu, 2024-01-25 at 19:17 +0100, Daniel Vetter wrote:
+> > > > > >
+> > > > > > External email : Please do not click links or open attachments until
+> > > > > > you have verified the sender or the content.
+> > > > > >  On Tue, Jan 23, 2024 at 06:09:05AM +0000, Jason-JH Lin (æž—ç¿ç¥¥) wrote:
+> > > > > > > Hi Maxime, Daniel,
+> > > > > > >
+> > > > > > > We encountered similar issue with mediatek SoCs.
+> > > > > > >
+> > > > > > > We have found that in drm_atomic_helper_commit_rpm(), when
+> > > > > > disabling
+> > > > > > > the cursor plane, the old_state->legacy_cursor_update in
+> > > > > > > drm_atomic_wait_for_vblank() is set to true.
+> > > > > > > As the result, we are not actually waiting for a vlbank to wait for
+> > > > > > our
+> > > > > > > hardware to close the cursor plane. Subsequently, the execution
+> > > > > > > proceeds to drm_atomic_helper_cleanup_planes() to  free the cursor
+> > > > > > > buffer. This can lead to use-after-free issues with our hardware.
+> > > > > > >
+> > > > > > > Could you please apply this patch to fix our problem?
+> > > > > > > Or are there any considerations for not applying this patch?
+> > > > > >
+> > > > > > Mostly it needs someone to collect a pile of acks/tested-by and then
+> > > > > > land
+> > > > > > it.
+> > > > > >
+> > > > >
+> > > > > Got it. I would add tested-by tag for mediatek SoC.
+> > > > >
+> > > > > > I'd be _very_ happy if someone else can take care of that ...
+> > > > > >
+> > > > > > There's also the potential issue that it might slow down some of the
+> > > > > > legacy X11 use-cases that really needed a non-blocking cursor, but I
+> > > > > > think
+> > > > > > all the drivers where this matters have switched over to the async
+> > > > > > plane
+> > > > > > update stuff meanwhile. So hopefully that's good.
+> > > > > >
+> > > > >
+> > > > > I think all the drivers should have switched to async plane update.
+> > > > >
+> > > > > Can we add the checking condition to see if atomic_async_update/check
+> > > > > function are implemented?
+> > > >
+> > > > Pretty sure not all have done that, so really it boils down to whether we
+> > > > break a real user's use-case. Which pretty much can only be checked by
+> > > > merging the patch (hence the requirement to get as many acks as possible
+> > > > from display drivers) and then being willing to handle any fallout that's
+> > > > reported as regressions for a specific driver.
+> > > >
+> > > > It's a pile of work, at least when it goes south, that's why I'm looking
+> > > > for volunteers.
 > > > 
+> > > I can check this on all sensible msm generations, including mdp4, but
+> > > it will be next week, after the FOSDEM.
 > > > 
-> > > Am 22.12.24 um 06:00 schrieb Dmitry Baryshkov:
-> > > > As pointed out by Simona, the drm_atomic_helper_check_modeset() and
-> > > > drm_atomic_helper_check() require the former function is rerun if the
-> > > > driver's callbacks modify crtc_state->mode_changed. MSM is one of the
-> > > > drivers which failed to follow this requirement.
-> > > I'm concerned about the implications of this series. How does a driver
-> > > upgrade from simple pageflip to full modeset if necessary? The solution in
-> > > msm appears to be to run the related test before drm_atomic_helper_check().
-> > > (Right?)
-> > > 
-> > > My corner case is in mgag200, which has to reprogram the PLL if the color
-> > > mode changes. So it sets mode_changed to true in the primary plane's
-> > > atomic_check. [1] This works in practice because the plane checks run before
-> > > the CRTC checks. So the CRTC code will do the correct thing. Reprogramming
-> > > the PLL means to disable the display at some point. So it comes down to a
-> > > full modeset.
-> > > 
-> > > You mention that drm_atomic_helper_check() needs to rerun if mode_changed
-> > > flips. Would it be possible to implement this instead within the helper?
-> > I think this should be a driver's decision. For MSM it was easier to
-> > move the mode_changed changes and to isolate that before calling into
-> > the drm_atomic_helper_check_modeset() code. Other drivers might prefer
-> > to rerun the helper.
-> 
-> Is it legal to do something like
-> 
-> int atomic_check(state)
-> {
->   ret = drm_atomic_helper_check(state)
->   if (state->dirty_needs_modeset)
->     ret = drm_atomic_helper_check(state)
->   return ret;
-> }
-> 
-> within the driver ? It appears that the atomic helpers warn then.
-
-No, it is legal if I understand it correctly. The warning comes up if
-the dirty_needs_modeset is set after the driver returns from its
-atomic_check() callback, see drm_atomic_check_only() patched in the
-second patch.
-
-> 
-> Best regards
-> Thomas
-> 
+> > > BTW, for technical reasons one of the msm platforms still has the
+> > > legacy cursor implementation might it be related?
 > > 
-> > > Best regards
-> > > Thomas
-> > > 
-> > > [1] https://elixir.bootlin.com/linux/v6.12/source/drivers/gpu/drm/mgag200/mgag200_mode.c#L493
-> > > 
-> > > > As suggested by Simona, implement generic code to verify that the
-> > > > drivers abide to those requirement and rework MSM driver to follow that
-> > > > restrictions.
-> > > > 
-> > > > There are no dependencies between core and MSM parts, so they can go
-> > > > separately via corresponding trees.
-> > > > 
-> > > > Reported-by: Simona Vetter <simona.vetter@ffwll.ch>
-> > > > Link: https://lore.kernel.org/dri-devel/ZtW_S0j5AEr4g0QW@phenom.ffwll.local/
-> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > ---
-> > > > Dmitry Baryshkov (6):
-> > > >         drm/atomic-helper: document drm_atomic_helper_check() restrictions
-> > > >         drm/atomic: prepare to check that drivers follow restrictions for needs_modeset
-> > > >         drm/msm/dpu: don't use active in atomic_check()
-> > > >         drm/msm/dpu: move needs_cdm setting to dpu_encoder_get_topology()
-> > > >         drm/msm/dpu: simplify dpu_encoder_get_topology() interface
-> > > >         drm/msm/dpu: don't set crtc_state->mode_changed from atomic_check()
-> > > > 
-> > > >    drivers/gpu/drm/drm_atomic.c                |  3 +
-> > > >    drivers/gpu/drm/drm_atomic_helper.c         | 86 ++++++++++++++++++++++++++---
-> > > >    drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  4 --
-> > > >    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 82 +++++++++++++++++----------
-> > > >    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 ++
-> > > >    drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 26 +++++++++
-> > > >    drivers/gpu/drm/msm/msm_atomic.c            | 13 ++++-
-> > > >    drivers/gpu/drm/msm/msm_kms.h               |  7 +++
-> > > >    include/drm/drm_atomic.h                    | 10 ++++
-> > > >    9 files changed, 192 insertions(+), 43 deletions(-)
-> > > > ---
-> > > > base-commit: b72747fdde637ebf52e181671bf6f41cd773b3e1
-> > > > change-id: 20241222-drm-dirty-modeset-88079bd27ae6
-> > > > 
-> > > > Best regards,
-> > > -- 
-> > > --
-> > > Thomas Zimmermann
-> > > Graphics Driver Developer
-> > > SUSE Software Solutions Germany GmbH
-> > > Frankenstrasse 146, 90461 Nuernberg, Germany
-> > > GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-> > > HRB 36809 (AG Nuernberg)
-> > > 
+> > Yeah, msm is one of the drivers I had to change with some hacks to avoid
+> > really bad fallout. It should still work like before, but that's one that
+> > definitely needs testing.
 > 
-> -- 
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstrasse 146, 90461 Nuernberg, Germany
-> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-> HRB 36809 (AG Nuernberg)
-> 
+> Since it looks like you're in a mood to deal with kms reworks vs msm, we
+> still have this one to address too :)
+
+And of course this has falled of my radar into the memory blackhole. I
+will take a look in one of the forcoming weeks, thanks for the reminder.
 
 -- 
 With best wishes
