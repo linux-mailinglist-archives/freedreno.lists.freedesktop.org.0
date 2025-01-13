@@ -2,97 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE32AA0B08F
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2025 09:06:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A8B4A0B104
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2025 09:26:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6A0B10E432;
-	Mon, 13 Jan 2025 08:06:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F49310E4DB;
+	Mon, 13 Jan 2025 08:26:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="MUVcNz7j";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hiVqacxi";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E12F110E432;
- Mon, 13 Jan 2025 08:06:14 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50CNKDiD015594;
- Mon, 13 Jan 2025 08:06:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- l9D0iGf5gfsI47OTyHusqADcAsJb13cd95a9Ia17SRI=; b=MUVcNz7juBVJDZH1
- WIrOVjbn81Nod5I/x6GBMLuBScLIp5DzBqg2Lcjb8jPJC26uZlQpgPhpxcFVBuGY
- QLas7U4ITxsP0hHKNeAz1DnWDnR7ZxbuPJ77fuH93lpxRpmaXF4JefkTjnALH/Pv
- OqWZVA5DvD8OucqQAOapTrstq75wzU+hN93S7I9G3jACXtBmwqovc1oUX2XUxzdE
- ITVwj/zRfK+Qka7bL6XZtT32ck/lNDcc9Qeh+e0fNDXkZKCN/kyt4GYjYJp4te2b
- yVzICLYplQDTnV6je/DxhPpO2rKy0OQTcvN10woQjMtatNk0k9kVppHkiXQ40zmq
- c+46Xg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 444f5bhhj8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Jan 2025 08:06:10 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50D86Aok008249
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Jan 2025 08:06:10 GMT
-Received: from cse-cd01-lnx.ap.qualcomm.com (10.80.80.8) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Mon, 13 Jan 2025 00:06:02 -0800
-From: Yongxing Mou <quic_yongmou@quicinc.com>
-Date: Mon, 13 Jan 2025 16:03:11 +0800
-Subject: [PATCH v3 4/4] drm/msm: mdss: Add QCS8300 support
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4907410E4D6
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 08:26:14 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-54025432becso3693228e87.1
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 00:26:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1736756713; x=1737361513; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=HsOOejTFjVwFwvDCfWyTG69OVT7YoO10LJVJy5N++GA=;
+ b=hiVqacxis646nluQSlcULkOd6N3WEai1ty5erEMJToixb8wsJ7WAfHeN6hYV7JxD5X
+ 5GLuhFwJAOfY5r4XQHDJh7nvzf1EXmzTJm4SzNxIkU19BtBdoLApxM+wB7w8NvIeJ5pH
+ JT5QxgwX/FKDmuGA6F1d5ZOmpdbyy67hS/E0YCoNg2FwHRi6Rg9gDKRBsEWUJyHkMf4A
+ Ch33Ea6ll7StVHNfhY4q1keqv+fwjC04vgmTCLwcmyX2B2Tfa1KQimwDnDExdGP5yV6Z
+ +Y+r3jfYr5lwBPuWzYkK8PL7qWA/XSlNkaDjV2hsoMpBRbN86SrmbZJt+yZhrZuiK0E/
+ zS/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736756713; x=1737361513;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HsOOejTFjVwFwvDCfWyTG69OVT7YoO10LJVJy5N++GA=;
+ b=vDKnqOxwCiKKPkAcmo4m8mnRvoJ9rxt2B3svDmVT2pAdk3Q0Wqz6jDAPCtBLv26SHH
+ QCNgMpLnZ9cma/m4GEE1L9wF/ozasIl5Cop3RGuRMDVYICaqUSXAqlsuSI9BFMWNAhh5
+ 0iDih91wFzn4Wmo83GLYgRKIhU77vFdtMOPZKk1o/iD9u/7VDQR/KsMyz6y1yXzbMkU5
+ znuFGbe/FS051P7LVggcJVmbiAfDkiOk1T3xnpMRSNr6ec2ihBU7QkLSkNbppvljbCth
+ TJccDh5iuc66+ZcamavveL6+WDU9t4VwgqmNJb8FUk2ZkgIwInWakPeA0HZiGxO+I8FO
+ SlmQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWCXSVyXiThvTqAifbshCuEs1ObCCTyZwMz44DZfno4QOJdmGAv2ginFVxWlsGgQgRibpD+UT3fGQM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx21ghgjOpHq7N9gey02hEx5qCIKJi9mvQJ87kGD4VuOyBn5SiA
+ AMU7ko6wBeU3SYIrNVJwP4Ro6UbnKzIyADRLFqEXGFmf6YlzCM4rwkP91BWc1fc=
+X-Gm-Gg: ASbGncvEqr3j03h7+Cc+WAAAzeu6ykm7QvIKMlYtBeVvgkIx3PLY7BeDdoBnjXnY9Zx
+ 6PBRMrFNbTcIaAs30fIMFd3SxPbqJHwvKYVXYPwJd/pp40M4Or8oNciXFL4rr/lvD6V7DL8wU04
+ IdeBp/Z3jHK83yY+AbXUzMo3yYiKs3YgZS6rtGIMwsOIv/Jf1fIygB0u1rKUYfdoM9doJQkv0Xt
+ 2jYSDSF0LnaGpv9+nHMB7s2Elnqn7UIvmWVbl+/09eUQgCpXHu4aJ7c6vBv1WO2OP10dM2pGGpK
+ rEHj4nt8GgApNwEzvm6OujSA7jMdaTR+06At
+X-Google-Smtp-Source: AGHT+IERZWZtkZrsbkHThnFiBHKfz//tsYW/urMLTgJODZNi9Tp473Grr1NqQ4M0NySCRCOoV5n3Rw==
+X-Received: by 2002:a05:6512:138c:b0:540:2188:763c with SMTP id
+ 2adb3069b0e04-542845b0b55mr6338144e87.37.1736756712614; 
+ Mon, 13 Jan 2025 00:25:12 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5428bec0659sm1286326e87.185.2025.01.13.00.25.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Jan 2025 00:25:11 -0800 (PST)
+Date: Mon, 13 Jan 2025 10:25:09 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, 
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>
+Subject: Re: [PATCH v2 13/25] drm/msm: Compute dumb-buffer sizes with
+ drm_mode_size_dumb()
+Message-ID: <bbw2n4ccn5jlq7q7lsw3xdnbieazgexkwkycrqvk5aoiq5q3wx@nz6gd3unwkg4>
+References: <20250109150310.219442-1-tzimmermann@suse.de>
+ <20250109150310.219442-14-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20250113-mdssdt_qcs8300-v3-4-6c8e93459600@quicinc.com>
-References: <20250113-mdssdt_qcs8300-v3-0-6c8e93459600@quicinc.com>
-In-Reply-To: <20250113-mdssdt_qcs8300-v3-0-6c8e93459600@quicinc.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, "Kuogee
- Hsieh" <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, "Kishon
- Vijay Abraham I" <kishon@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>
-CC: Yongxing Mou <quic_yongmou@quicinc.com>, <linux-arm-msm@vger.kernel.org>, 
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-phy@lists.infradead.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1736755533; l=1622;
- i=quic_yongmou@quicinc.com; s=20241121; h=from:subject:message-id;
- bh=T1quEqzzRYSTMr7FDeES364YwjAI1nS3gNRFG9z4HNk=;
- b=ljJ0cP7JFFhoUGuXR7JwcD0ZMUlNHDw50Vc2gyWbDNpmj+aAWJiF24Brh6CW1s9/13/6JeiA/
- R10BANn715VAhiXp+8k7NygBIkds/+7wSJlUp8QIuKxyJhijxe0ySmM
-X-Developer-Key: i=quic_yongmou@quicinc.com; a=ed25519;
- pk=zeCnFRUqtOQMeFvdwex2M5o0Yf67UHYfwCyBRQ3kFbU=
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: JTN-yISy4_L2_Y1OE7eGCgUqeflRbD78
-X-Proofpoint-ORIG-GUID: JTN-yISy4_L2_Y1OE7eGCgUqeflRbD78
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxscore=0
- mlxlogscore=999 malwarescore=0 clxscore=1015 impostorscore=0
- priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0 spamscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501130068
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250109150310.219442-14-tzimmermann@suse.de>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,46 +101,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add Mobile Display Subsystem (MDSS) support for the QCS8300 platform.
-Due to different memory type, it use different mdss_data with SA8775P
-although using the same dpu.
+On Thu, Jan 09, 2025 at 03:57:07PM +0100, Thomas Zimmermann wrote:
+> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
+> buffer size. The hardware requires the scnaline pitch to be a multiple
+> of 32 pixels. Therefore compute the byte size of 32 pixels in the given
+> color mode and align the pitch accordingly.
+
+- scanline, not scnaline
+- the statement about 32-pixel alignment needs an explanation that it is
+  being currently handled by align_pitch().
+
+With that in mind:
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
----
- drivers/gpu/drm/msm/msm_mdss.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index dcb49fd30402b80edd2cb5971f95a78eaad6081f..40c8b476763b8c39434b1448008cfa8ffac7a8ea 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -582,6 +582,16 @@ static const struct msm_mdss_data qcm2290_data = {
- 	.reg_bus_bw = 76800,
- };
- 
-+static const struct msm_mdss_data qcs8300_data = {
-+	.ubwc_enc_version = UBWC_4_0,
-+	.ubwc_dec_version = UBWC_4_0,
-+	.ubwc_swizzle = 6,
-+	.ubwc_bank_spread = true,
-+	.highest_bank_bit = 3,
-+	.macrotile_mode = true,
-+	.reg_bus_bw = 74000,
-+};
-+
- static const struct msm_mdss_data sa8775p_data = {
- 	.ubwc_enc_version = UBWC_4_0,
- 	.ubwc_dec_version = UBWC_4_0,
-@@ -737,6 +747,7 @@ static const struct of_device_id mdss_dt_match[] = {
- 	{ .compatible = "qcom,mdss" },
- 	{ .compatible = "qcom,msm8998-mdss", .data = &msm8998_data },
- 	{ .compatible = "qcom,qcm2290-mdss", .data = &qcm2290_data },
-+	{ .compatible = "qcom,qcs8300-mdss", .data = &qcs8300_data },
- 	{ .compatible = "qcom,sa8775p-mdss", .data = &sa8775p_data },
- 	{ .compatible = "qcom,sdm670-mdss", .data = &sdm670_data },
- 	{ .compatible = "qcom,sdm845-mdss", .data = &sdm845_data },
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Marijn Suijten <marijn.suijten@somainline.org>
+> ---
+>  drivers/gpu/drm/msm/msm_gem.c | 27 +++++++++++++++++++++++++--
+>  1 file changed, 25 insertions(+), 2 deletions(-)
+> 
 
 -- 
-2.34.1
-
+With best wishes
+Dmitry
