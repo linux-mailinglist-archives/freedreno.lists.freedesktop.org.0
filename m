@@ -2,97 +2,78 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57FD6A0B680
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2025 13:14:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B9C6A0BC87
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2025 16:48:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 272C410E665;
-	Mon, 13 Jan 2025 12:14:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19A4C10E6F7;
+	Mon, 13 Jan 2025 15:48:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Kd2nCSrX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="acf4BC3a";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FC6F10E665
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 12:14:13 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-53f22fd6832so4274032e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 04:14:13 -0800 (PST)
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B1E810E6F1;
+ Mon, 13 Jan 2025 15:48:46 +0000 (UTC)
+Received: by mail-pj1-x102d.google.com with SMTP id
+ 98e67ed59e1d1-2ee67e9287fso7513246a91.0; 
+ Mon, 13 Jan 2025 07:48:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736770392; x=1737375192; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ggEttB+Ig+Bz7ybwolYRC3yeEiYX+HeeyppyvsOBIZc=;
- b=Kd2nCSrXgFun/pT3s9xlXf7rtL4bgqkQi/JaLlwyWib15Uat0/uG1GikOMrXefGclB
- 4GgM4REhK8mp6JCYUP5W3HtkQymE1dr+0YVbZK+fnByXLO8jCGG8886uWgOhaefyJlso
- VrmwBE3RU652+JnlEDwsAVJ3UJDaO3qLcMNmQJrj4yMhglAw+q7ptoGt699wJD6+7hqV
- u3zGgWZjMYafF61bsz3K0zpry/4RcJJQBywgxNeMdHHYVaS0Yny78cIV9HGBqYqu0Nmp
- ehFx/06UGpGjNWvIOR5V4jCVdBHAA9gyGrWxSlStGCIwl9g+nBaGPNl3sAnGo6dbBhD8
- O2iA==
+ d=gmail.com; s=20230601; t=1736783325; x=1737388125; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=GOWQXV4O4PW3a432Gu/+8jRdielqIfGd4MIzjAae258=;
+ b=acf4BC3aiP4hHTYNkkKqbbzd1ov2X+wlLtqtTHg8igH/Ec6XKuwpvBt1BxJbIuMQfu
+ ey+UIQ1GqU5VhNvxU/1Her9O+aNX7SGl25xKiCGFQvjkOjbSNpZjJ2Kb3mTvXLxeucpy
+ 0bNVzE4DEAcpxdwNai4GzyyFYcL+rwSuKkZCRsCgAutBi5ZB4Oz0TMX6s9Fo6l4sVZQg
+ MGgc7TgCdK5MQYLKsBz1IUUn54nIshMuGZRNU/PeTIvYF0hqzajEmd8tumv7+4xEX1Q2
+ ZAZXAJlKbKFjnvSfl+GPdh+9iXbv0Sjdr4aLxI33oLY0DZf0zdqnKLYI9GWO3HtFnM1n
+ 9pwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736770392; x=1737375192;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ggEttB+Ig+Bz7ybwolYRC3yeEiYX+HeeyppyvsOBIZc=;
- b=UgVZzGHvVFjJs4M2pqk8mkdKKujBQeoQLkt1PqyzDRw/sIgSGoH4d/79R9iV08gib0
- p1ESIDaEOBsKV0ldrhSIdXe0UwklypQjnG5LfrQ333MHHX6JXQr/jNlUzXfR1HwZXntn
- eCZYbrJBM+BcMnfvLuM1fh1q4LGAEx356A3zM12cTX4hvDB7b2yfG1modrtn16LSfq52
- OP4F2ngy46KueB1darLT1dNXWQvgqeimQW2iHgT5B9EoTpWWC0vdlfMxXE7DSzWYRueu
- r5mbQN8fV9y3YFDNRkjosuuxRn38zsTdLAAu6HSk3m1swR9pn/bSwZVo9QrZJqHH0Xs8
- 8xRQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUFDga6WC4hJhWTOKNRaFxCi7kuNbP+NvmhE7luus1Vo2IqtL1MKub7zVwzOnkPszSCgFGiOBHSycw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwT0ffxIxuP/0GSi+V7OzOGwPHfmEP97VlloE/9wxnBfKBmRznJ
- 3lrmPy23np7Onz3iHwv7MESfoWJ2Ci7r7TU4cnjopp+zJ8AVHwSmYgFoqnNmMr4=
-X-Gm-Gg: ASbGncu8oYrnRQ2enn3MMs8fy4vcXYtyqXJ7UBHRt+jmRI49aa4N0ABplcAx2sZGOWM
- DIXisMBkOIPiF/vdXJ+TsiuW87l1y9ITp9Y0MFQdvgIXg7aQlYQKWa9ITKgIAiBfRtO6TNioiu0
- da+Ltzn9zHpt7iEj9Pbk4zDPH1gor2jrQl81eMX7D/onXr/mfa+gODrL5fJOjYIcnBysQQrgvNF
- Ykhq1/a6ABmWzMRz6Iu2i5z9z2y2ATjgf9g8/qnYYfD6XPqAb9BxUXpm7ToztTEmH1Pmi1Wml8S
- 5kUB8FwCuF7J4457EDU1FyRJnFTlKY+Oiaz5
-X-Google-Smtp-Source: AGHT+IHCGa5rn9lWyMqh8mQVDrsEl9vr/KAqV5tVASicZai5lykFeCgDGNkiRJea/sc3hviUH+ycOg==
-X-Received: by 2002:a05:6512:1256:b0:540:1f2f:6ac8 with SMTP id
- 2adb3069b0e04-542845d61famr6629822e87.33.1736770391761; 
- Mon, 13 Jan 2025 04:13:11 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ d=1e100.net; s=20230601; t=1736783325; x=1737388125;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GOWQXV4O4PW3a432Gu/+8jRdielqIfGd4MIzjAae258=;
+ b=u05tdOCxrrV2G3wCseHwE21EMPxKgSiVmOuReBmvL8c265uKVbwciT43KTcC0AGKPe
+ hTWzPr1eDt06Wno9r202MXjr68q3GmW8pdNv4HuEGNWmrW2cv3bfPPOHE6hfNyNeTjRh
+ YwWpHugGgg7X5Ps6bJ3LFGUEKk6mxRV7Vj2W3wcWr1H0/r9qHtxPIemZUuVD8mcz8ADf
+ DG7NkG71SEy1Ta/sMYvc8K685MbG+fdWyBpITn56s94ipu48UdCzvwyPsip3Eebd+w3O
+ C9q46KiXt3+M4RfuE+9RcodtS+rkk8HvJKoEEUO5eugiznKI5IBOYqg5kPFOGguqlIKr
+ NNUg==
+X-Gm-Message-State: AOJu0YxOOFzLGUaCnvri7TRtTjCJFtLShkDWjE2Bf6dJBKF2l5OlAGNT
+ jieROIBBTW+c9smWmovzOZsb4j0JPWKq49m/5xTKarzdYLm3eRBXzQnMIQ==
+X-Gm-Gg: ASbGncsieqa0RidV0PX5hqosZUErb2zHX+qiTH8b0mQFU7Lu8ElVSPmL+dyc5T6r8QE
+ +G5VscBDr/HkJJVU545Ksz3PQXeMXmMsh2+BzRu08iQynFSEl8EG5unxZQq08WulddDhEWPlSNY
+ +hDjDpSB+XNowbDnFQKe1QWNLwfXJ6dnFdpgBdL7vWuK+26vUd3ESCOLjYLMp7Nv2BPiZJwIB1R
+ GvSkrUn0GbqJ1N5iii5tjMeI8C7VcsjOV26QMyb1hMhoz+h5PvN9NE9V3hkSSbHnrMqrba7lz54
+ KAGXV4R0+v1dgRyT5rdEq6cZ/tGhHSg=
+X-Google-Smtp-Source: AGHT+IEB4HRVmV2UtNPCt3Qi11rnIt16AZGSceKAxCUp6976MdfO5rkvSpatyjjYH6n4suj+mkjZ5w==
+X-Received: by 2002:a17:90b:6c3:b0:2ee:c918:cd42 with SMTP id
+ 98e67ed59e1d1-2f548ecf156mr26272101a91.22.1736783325480; 
+ Mon, 13 Jan 2025 07:48:45 -0800 (PST)
+Received: from localhost ([2a00:79e1:2e00:1301:12e9:d196:a1e9:ab67])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428be4a010sm1325391e87.35.2025.01.13.04.13.09
+ d9443c01a7336-21a9f22ee14sm54595935ad.186.2025.01.13.07.48.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jan 2025 04:13:10 -0800 (PST)
-Date: Mon, 13 Jan 2025 14:13:07 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Mon, 13 Jan 2025 07:48:44 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Jonathan Marek <jonathan@marek.ca>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- Srini Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH RFC 08/11] drm/msm/dsi: Add support for SM8750
-Message-ID: <5irzvm4socrdjx3zqdxnogpai3bmfb52f63ddr3pisn5aa4jgf@mbc42kb3gyqd>
-References: <20250109-b4-sm8750-display-v1-0-b3f15faf4c97@linaro.org>
- <20250109-b4-sm8750-display-v1-8-b3f15faf4c97@linaro.org>
- <3p7kjok5jzwvgt7dxuad26xgdkjd52v4gbtuudvgkeoj33skqn@afl2ddtsq7s2>
- <4fc7fdd5-36cd-42e6-af4a-e0e429f9f50b@linaro.org>
- <7eupqawhdrbjgsj2p7e3ky7uj62m252i6dzkb6y23btocedp3q@qmw72nmbk2c4>
- <6ee02d22-7a00-4c7c-a5e9-63e91d7d84ba@linaro.org>
- <uyidfuh5ul5kcg4keeev6yagmjc5ksun626dyb6kdgwegc76d7@iu7ggdhgt5qr>
- <7255ae24-983d-452c-bd6d-85804c367f8f@linaro.org>
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] drm/msm: Avoid rounding up to one jiffy
+Date: Mon, 13 Jan 2025 07:48:41 -0800
+Message-ID: <20250113154841.129521-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7255ae24-983d-452c-bd6d-85804c367f8f@linaro.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,76 +89,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 13, 2025 at 12:02:54PM +0100, Krzysztof Kozlowski wrote:
-> On 13/01/2025 09:29, Dmitry Baryshkov wrote:
-> > On Fri, Jan 10, 2025 at 01:43:28PM +0100, Krzysztof Kozlowski wrote:
-> >> On 10/01/2025 10:17, Dmitry Baryshkov wrote:
-> >>> On Fri, Jan 10, 2025 at 09:59:26AM +0100, Krzysztof Kozlowski wrote:
-> >>>> On 10/01/2025 00:18, Dmitry Baryshkov wrote:
-> >>>>> On Thu, Jan 09, 2025 at 02:08:35PM +0100, Krzysztof Kozlowski wrote:
-> >>>>>> Add support for DSI PHY v7.0 on Qualcomm SM8750 SoC which comes with two
-> >>>>>> differences worth noting:
-> >>>>>>
-> >>>>>> 1. ICODE_ACCUM_STATUS_LOW and ALOG_OBSV_BUS_STATUS_1 registers - their
-> >>>>>>    offsets were just switched.  Currently these registers are not used
-> >>>>>>    in the driver, so the easiest is to document both but keep them
-> >>>>>>    commented out to avoid conflict.
-> >>>>>>
-> >>>>>> 2. DSI PHY PLLs, the parents of pixel and byte clocks, cannot be used as
-> >>>>>>    parents before they are prepared and initial rate is set.  Therefore
-> >>>>>>    assigned-clock-parents are not working here and driver is responsible
-> >>>>>>    for reparenting clocks with proper procedure: see dsi_clk_init_6g_v2_9().
-> >>>>>
-> >>>>> Isn't it a description of CLK_SET_PARENT_GATE and/or
-> >>>>
-> >>>> No - must be gated accross reparent - so opposite.
-> >>>>
-> >>>>> CLK_OPS_PARENT_ENABLE ?
-> >>>>
-> >>>> Yes, but does not work. Probably enabling parent, before
-> >>>> assigned-clocks-parents, happens still too early:
-> >>>>
-> >>>> [    1.623554] DSI PLL(0) lock failed, status=0x00000000
-> >>>> [    1.623556] PLL(0) lock failed
-> >>>> [    1.624650] ------------[ cut here ]------------
-> >>>> [    1.624651] disp_cc_mdss_byte0_clk_src: rcg didn't update its
-> >>>> configuration.
-> >>>>
-> >>>> Or maybe something is missing in the DSI PHY PLL driver?
-> >>>
-> >>> Do you have the no-zero-freq workaround?
-> >>
-> >> Yes, it is necessary also for my variant. I did not include it here, but
-> >> I should mention it in the cover letter.
-> > 
-> > Could you please possibly backtrace the corresponding enable() calls?
-> 
-> 
-> It's the same backtrace I shared some time ago in internal discussions:
-> https://pastebin.com/kxUFgzD9
-> Unless you ask for some other backtrace?
-> 
-> > I'd let Stephen and/or Bjorn or Konrad to correct me, but I think that
-> > such requirement should be handled by the framework instead of having
-> > the drivers to manually reparent the clocks.
-> 
-> I don't know how exactly you would like to solve it. The clocks can be
-> reparented only after some other device specific enable sequence. It's
-> the third device here, but not reflected in the clocks hierarchy. Maybe
-> it's the result how entire Display device nodes were designed in the
-> first place?
-> 
-> Assigned clocks are between DSI PHY and DISP cc, but they are a property
-> of DSI controller. This looks exactly too specific for core to handle
-> and drivers, not framework, should manually reparent such clocks.
-> Otherwise we need
-> "clk_pre_prepare_callback_if_we_are_called_when_phy_is_disabled" sort of
-> callback.
+From: Rob Clark <robdclark@chromium.org>
 
-What kind of PHY programming is required? Is enabling the PLL enough or
-does it need anything else? Are the PLL supplies properly enabled at
-this point?
+If userspace is trying to achieve a timeout of zero, let 'em have it.
+Only round up if the timeout is greater than zero.
 
+Fixes: 4969bccd5f4e ("drm/msm: Avoid rounding down to zero jiffies")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_drv.h | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index fee31680a6d5..a65077855201 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -537,15 +537,12 @@ static inline int align_pitch(int width, int bpp)
+ static inline unsigned long timeout_to_jiffies(const ktime_t *timeout)
+ {
+ 	ktime_t now = ktime_get();
+-	s64 remaining_jiffies;
+ 
+-	if (ktime_compare(*timeout, now) < 0) {
+-		remaining_jiffies = 0;
+-	} else {
+-		ktime_t rem = ktime_sub(*timeout, now);
+-		remaining_jiffies = ktime_divns(rem, NSEC_PER_SEC / HZ);
+-	}
++	if (ktime_compare(*timeout, now) <= 0)
++		return 0;
+ 
++	ktime_t rem = ktime_sub(*timeout, now);
++	s64 remaining_jiffies = ktime_divns(rem, NSEC_PER_SEC / HZ);
+ 	return clamp(remaining_jiffies, 1LL, (s64)INT_MAX);
+ }
+ 
 -- 
-With best wishes
-Dmitry
+2.47.1
+
