@@ -2,111 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBF0AA0B22D
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2025 10:02:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08C8AA0B22F
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jan 2025 10:02:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9CFA10E5D8;
-	Mon, 13 Jan 2025 09:02:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAB6E10E137;
+	Mon, 13 Jan 2025 09:02:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QCmXJkhz";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="B8zUODNH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 094C310E5E9
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 09:02:25 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-540254357c8so3678780e87.1
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 01:02:24 -0800 (PST)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 845FE10E243
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 09:02:48 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-540201cfedbso3641924e87.3
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Jan 2025 01:02:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736758883; x=1737363683; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=gVmv06UiciOif9n0zEXjWMnBVceV6C66Mfpmv3QehtQ=;
- b=QCmXJkhzztEci3cfudHXMJMChqDgbD7vg+PcCUnhusx/qVwo9pEEWa6raxrYBSL36A
- bqsa4ZPiIksf2oZM9el4jvOJR8e6bs3fodlFICHbguRkR0Z7QTQ24eezVuIYuh9Iwsec
- FMJH/fPRgwzSGEItDrXkKdyAvyKh1bI2O1KOthIwb9pQSTCaq98E4VmZstWLRRVDMCfU
- ecdTH2IURxjXp9Hu8dWwezEcO19RWmmIhSxqj0P+GFAtsjYXxDm2J29V5doyMa0Uc6E1
- PDBZ+86UBaimQGyd+stRbs6NHpHFjJBFMPG/Bc/mZfDQPpiY3J0bGsvL2+nCQm2rP4Eu
- b1Yw==
+ d=linaro.org; s=google; t=1736758967; x=1737363767; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=VYkQdxTA3vBXlKKUBFkrgSmL9ucWyZWWWLZyZzkAa3w=;
+ b=B8zUODNH8FpEF2v9GqC/1hQpTgkl2uGoKdCkc0I2r3+Lpr5Dunybcnxdx4Rkjp2FVD
+ Bt28J6glAXVJbWGqEgqA8XURRuJJXYH/sVvNwe61ocC920X/B6ZQnitGgohrYt4JQ089
+ FwURZQ90C0Ufh2e0s0uppJ5SaplzhxXVIt0LQwa2XL9ujqixnQmoHBU4YumaEBUyggCY
+ YRrg+CkBXQAFd/c2kT2PTjq/+JjkZk6mDOY7qlfgXVdM57Xy9keaMtn3On0VxC9lQdCV
+ Hvh426/BgxEF4CtnUp7lY9ZvHT31XHJ1kxaFVe4817fFnqmEiaKs9szgRxz1O2ueulOQ
+ FUbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736758883; x=1737363683;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gVmv06UiciOif9n0zEXjWMnBVceV6C66Mfpmv3QehtQ=;
- b=r9jKrTxFM4nLfoNjrpKac3BIkeJ30xA8GJ4unWFxs6DXMFrEZCIBe+gD2mWUQLFEsK
- 1Y9k2ai61bGs2L2W+4WmJEI3unb8nOY0SjohxcwgSn1DKyYc+4qS2zvmGphzoMgB14sr
- BvSO197w3+aVcVYnc+RxPX9Id8sR/dhkZUCTx2/2oo9Tiwut0sjH0xmnGUTb3Dpgxj6V
- nfELbT+fuamab7XJzBkGWIv1y7rArelhyTyINL12wmuuRKhiidhav5hmnNDbrtlNmE78
- en2sBsRmFLEvoBz5fcTgkAnmWNdj478xwPrufXoH/2+b83qOIxyI6fOBJRlKs6ZcSEGM
- B+/w==
+ d=1e100.net; s=20230601; t=1736758967; x=1737363767;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VYkQdxTA3vBXlKKUBFkrgSmL9ucWyZWWWLZyZzkAa3w=;
+ b=YUjnfxUQ9Ui1I4zTi+RvFokC9bHmSWnGuPrMYlFAJ8vkiRcAWTp+Ji3JdgSNOKXOK/
+ vkZrP1sYnyt13Y457T3LZJmmp0P5sRtXRbqfVugYnMB+kH/a332Rbs6k1bks6tNCACvn
+ 9EUckxVP23Lz9Azb9BWigVNhLUrhCS9KDyRV+iH9SxqSLXeAEOiWy/xCd9kihhf+ehwJ
+ a6s9zzNRJ+BDLnM5VLdTChFHah5j+7SWRHb8fAKL24Ps1o9U5YJdcvJM5Tck4w3fTUzF
+ HzUAAvD6xahN8FCfZrWnxmbezaIv3Ad1g0goe38FNwP2v2zEAQbSMN6hJV2ZqhkvHFKK
+ ZHQg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX6P4qCP+c6QuInkiCZ+hqpLEn/YT+lJXshKbb3h6L8yKmJbUzIaZbnsUAHvctXSK02CwE+6wJTn74=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw1oSfNuNzz38y6W8aXRCVbRzJpkUKUiB2r767SPIB3S+hBGqeX
- fx80OZFYHbkOi5huhGRc24fC4g5saDMvEbUCtHC15zMxgSxIniWpcrz/Ay95a2A=
-X-Gm-Gg: ASbGncvR8OP5qdHNtF0Jk2C9BBNtdUrEDy3Km4ssL5O90//dxZ2kMCKu4WEns2qV0wX
- Uqoa/T0RdRm20DONf+JrkkIRsgK4fvaWDs9Z+GVIaIqIWcNPUZDpvWzYEoSQriLxJdFFadD3ts6
- HJcvZAwUS0m6RKK3/Hs6YtfmCSuxoEJBtQAmGZvNY2U1OTsJFK0rzCRWE22AjC6GBYWzy/gpcpr
- Aj4gj7WF2f40fLaSgzkj9Y3jryYVGWGg1BTTANc33u2Q01cRKaEkq0O8pP5EMilDowDXgmjBmXk
- PQrE41p65QYugzdmvUlhvwG+rrG9RGlVBGae
-X-Google-Smtp-Source: AGHT+IGcTFUXjIwHW9lpVqJAyyIcRCFXMgiGOEb3ziE970UiReLi1TBQykdVRRw2foBrKdh4TrGJCQ==
-X-Received: by 2002:a05:6512:2214:b0:542:29e5:731c with SMTP id
- 2adb3069b0e04-542844f649cmr6246866e87.11.1736758883364; 
- Mon, 13 Jan 2025 01:01:23 -0800 (PST)
+ AJvYcCXNSafQr3Bvg7f7N+O0TBy8RZT6QWmkkls6alZimY9xb9lqz1Le/wtGqrASRhisaFonrfsC5cVO2aQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyejvRUTikx5lXx2EFAIOzMKS+GrnbNL8FFqQcgvyKJuX8rtwTa
+ A2ddQTKrubMrDL8yPeRj0C1Bj+STAdP81VKuy9viaTt68akJVPXoPYDrT7Z2Dxs=
+X-Gm-Gg: ASbGncsjk1NcCfZnRv10gGQfNNxfksU9uaBYj+DSUnjNH0ms9bV0L8IwBPJaGMSWtW9
+ cNbGEkVjwyDp/XJJ+Sx5HmXsf16zTrR3regsqpN3gwtOVQ3kecb9AshYM5W7JbAxPl+tgL953IH
+ bIqXPIUGYcEP9wVsnH/WRAQ+fxydmnOvA6Q7L1wUtQSBv7El6hgOBzEk7PdcVWc+BeTFar+rYSb
+ tJM+nHMzc4uNw1Eb1b7W1QhnXuVlFLk9Pm3ZRNUksQ5HDBKuN7RI/gULejW2JdqvQ3KV5qdsB5K
+ DRnlWGBrN9LI6Lqsd7nwl3RQM9NXkqLqv3Gg
+X-Google-Smtp-Source: AGHT+IHowqb7rFqBBDpRnlzRpSHyTMrFA26GRZ+fcN9JLnlQvPTm5oxedl6vvT+6rf1rsSPJNSIUoA==
+X-Received: by 2002:a05:6512:3e17:b0:53d:ed69:a593 with SMTP id
+ 2adb3069b0e04-542845282a5mr6463480e87.22.1736758965311; 
+ Mon, 13 Jan 2025 01:02:45 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428be49d7esm1279018e87.19.2025.01.13.01.01.21
+ 2adb3069b0e04-5428be5483bsm1300830e87.105.2025.01.13.01.02.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jan 2025 01:01:22 -0800 (PST)
-Date: Mon, 13 Jan 2025 11:01:20 +0200
+ Mon, 13 Jan 2025 01:02:44 -0800 (PST)
+Date: Mon, 13 Jan 2025 11:02:43 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: "maxime@cerno.tech" <maxime@cerno.tech>
-Cc: Jason-JH Lin =?utf-8?B?KOael+edv+elpSk=?= <Jason-JH.Lin@mediatek.com>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "michel@daenzer.net" <michel@daenzer.net>, 
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>, 
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "mikita.lipski@amd.com" <mikita.lipski@amd.com>, 
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "daniel.vetter@intel.com" <daniel.vetter@intel.com>, 
- "nicholas.kazlauskas@amd.com" <nicholas.kazlauskas@amd.com>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>, 
- Project_Global_Chrome_Upstream_Group
- <Project_Global_Chrome_Upstream_Group@mediatek.com>,
- "manasi.d.navare@intel.com" <manasi.d.navare@intel.com>, 
- "lucas.demarchi@intel.com" <lucas.demarchi@intel.com>,
- "sean@poorly.run" <sean@poorly.run>, 
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "dmitry.osipenko@collabora.com" <dmitry.osipenko@collabora.com>, 
- "fshao@chromium.org" <fshao@chromium.org>, 
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "jani.nikula@intel.com" <jani.nikula@intel.com>, 
- "angelogioacchino.delregno@collabora.com"
- <angelogioacchino.delregno@collabora.com>, 
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/atomic-helpers: remove legacy_cursor_update hacks
-Message-ID: <4getu2xtlxudcy53emipvtfxjnxg2mrupwfcekdjizjdtbk3k7@nlii76skfuh4>
-References: <20230216111214.3489223-1-daniel.vetter@ffwll.ch>
- <20230307145613.xvhru3fpcudlpazt@houat>
- <aac416742920953999a9ce230ac68139bf5b9790.camel@mediatek.com>
- <ZbKlsTEvGPiGtzS3@phenom.ffwll.local>
- <1349365de499bae53a8c868738c7270fc16813d5.camel@mediatek.com>
- <ZboOp7JOp5teV1Cs@phenom.ffwll.local>
- <CAA8EJpqAU=RvqJUPmPO2LCJ+6KMOT8Pi2WrkPq8YHzhyRVxHeg@mail.gmail.com>
- <Zbou-y7eNhQTMpKo@phenom.ffwll.local>
- <20250113-melodic-cuckoo-of-experience-bb6ac7@houat>
+To: Yongxing Mou <quic_yongmou@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v3 0/4] Display enablement changes for Qualcomm QCS8300
+ platform
+Message-ID: <qsq5so5i7fy3r7xcjtcr7aq2vtbywh57j3b3e7ddbsmmeu5qwy@pgcntgxknuul>
+References: <20250113-mdssdt_qcs8300-v3-0-6c8e93459600@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250113-melodic-cuckoo-of-experience-bb6ac7@houat>
+In-Reply-To: <20250113-mdssdt_qcs8300-v3-0-6c8e93459600@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,82 +103,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 13, 2025 at 09:28:36AM +0100, maxime@cerno.tech wrote:
-> Hi Dmitry,
+On Mon, Jan 13, 2025 at 04:03:07PM +0800, Yongxing Mou wrote:
+> This series introduces support to enable the Mobile Display Subsystem (MDSS)
+> , Display Processing Unit (DPU), DisplayPort controller for the Qualcomm 
+> QCS8300 target. It includes the addition of the hardware catalog, compatible
+> string, and their YAML bindings.
 > 
-> On Wed, Jan 31, 2024 at 12:28:59PM +0100, Daniel Vetter wrote:
-> > On Wed, Jan 31, 2024 at 12:26:45PM +0200, Dmitry Baryshkov wrote:
-> > > On Wed, 31 Jan 2024 at 11:11, Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > >
-> > > > On Wed, Jan 31, 2024 at 05:17:08AM +0000, Jason-JH Lin (林睿祥) wrote:
-> > > > > On Thu, 2024-01-25 at 19:17 +0100, Daniel Vetter wrote:
-> > > > > >
-> > > > > > External email : Please do not click links or open attachments until
-> > > > > > you have verified the sender or the content.
-> > > > > >  On Tue, Jan 23, 2024 at 06:09:05AM +0000, Jason-JH Lin (林睿祥) wrote:
-> > > > > > > Hi Maxime, Daniel,
-> > > > > > >
-> > > > > > > We encountered similar issue with mediatek SoCs.
-> > > > > > >
-> > > > > > > We have found that in drm_atomic_helper_commit_rpm(), when
-> > > > > > disabling
-> > > > > > > the cursor plane, the old_state->legacy_cursor_update in
-> > > > > > > drm_atomic_wait_for_vblank() is set to true.
-> > > > > > > As the result, we are not actually waiting for a vlbank to wait for
-> > > > > > our
-> > > > > > > hardware to close the cursor plane. Subsequently, the execution
-> > > > > > > proceeds to drm_atomic_helper_cleanup_planes() to  free the cursor
-> > > > > > > buffer. This can lead to use-after-free issues with our hardware.
-> > > > > > >
-> > > > > > > Could you please apply this patch to fix our problem?
-> > > > > > > Or are there any considerations for not applying this patch?
-> > > > > >
-> > > > > > Mostly it needs someone to collect a pile of acks/tested-by and then
-> > > > > > land
-> > > > > > it.
-> > > > > >
-> > > > >
-> > > > > Got it. I would add tested-by tag for mediatek SoC.
-> > > > >
-> > > > > > I'd be _very_ happy if someone else can take care of that ...
-> > > > > >
-> > > > > > There's also the potential issue that it might slow down some of the
-> > > > > > legacy X11 use-cases that really needed a non-blocking cursor, but I
-> > > > > > think
-> > > > > > all the drivers where this matters have switched over to the async
-> > > > > > plane
-> > > > > > update stuff meanwhile. So hopefully that's good.
-> > > > > >
-> > > > >
-> > > > > I think all the drivers should have switched to async plane update.
-> > > > >
-> > > > > Can we add the checking condition to see if atomic_async_update/check
-> > > > > function are implemented?
-> > > >
-> > > > Pretty sure not all have done that, so really it boils down to whether we
-> > > > break a real user's use-case. Which pretty much can only be checked by
-> > > > merging the patch (hence the requirement to get as many acks as possible
-> > > > from display drivers) and then being willing to handle any fallout that's
-> > > > reported as regressions for a specific driver.
-> > > >
-> > > > It's a pile of work, at least when it goes south, that's why I'm looking
-> > > > for volunteers.
-> > > 
-> > > I can check this on all sensible msm generations, including mdp4, but
-> > > it will be next week, after the FOSDEM.
-> > > 
-> > > BTW, for technical reasons one of the msm platforms still has the
-> > > legacy cursor implementation might it be related?
-> > 
-> > Yeah, msm is one of the drivers I had to change with some hacks to avoid
-> > really bad fallout. It should still work like before, but that's one that
-> > definitely needs testing.
+> Signed-off-by: Yongxing Mou <quic_yongmou@quicinc.com>
+> ---
+> Changes in v3:Fixed review comments from Krzysztof, Dmitry.
+> - Fix the missing space issue in commit message.[Krzysztof]
+> - Separate the patch for the phy from this series.[Dmitry]
+> - Remove unused dependencies and update in the cover letter.[Dmitry][Krzysztof]
+> - Link to v2: https://lore.kernel.org/r/20241226-mdssdt_qcs8300-v2-0-acba0db533ce@quicinc.com
 > 
-> Since it looks like you're in a mood to deal with kms reworks vs msm, we
-> still have this one to address too :)
+> Changes in v2:Fixed review comments from Krzysztof, Dmitry, Rob.
+> - Decouple the devicetree changes from this series.[Dmitry][Krzysztof]
+> - Drop the dpu driver changes and reuse SA8775P DPU driver.[Dmitry]
+> - Fix compilation issues in MDSS bindings.[Rob][Krzysztof]
+> - Correct formatting errors and remove unnecessary status in MDSS
+>   bindings.[Krzysztof]
+> - Add the the necessary information in MDSS changes commit msg.[Dmitry]
+> - Rebase MDSS driver changes to https://lore.kernel.org/dri-devel/
+>   20241127-msm-mdss-ubwc-v3-0-9782a7c2b023@linaro.org/.[Dmitry]
+> - Package the DisplayPort controller and eDP PHY bindings document to
+>   this patch series.
+> - Collecting MDSS changes reviewd-by Dmitry.
+> - Reuse the sa8775p eDP PHY as a fallback compat.[Dmitry]
+> - Reuse the sm8650 DP controller as a fallback compat.[Dmitry]
+> - Link to v1: https://lore.kernel.org/r/20241127-mdss_qcs8300-v1-0-29b2c3ee95b8@quicinc.com
+> ~
+> 
+> ---
+> Yongxing Mou (4):
+>       dt-bindings: display/msm: Document the DPU for QCS8300
+>       dt-bindings: display: msm: dp-controller: document QCS8300 compatible
+>       dt-bindings: display/msm: Document MDSS on QCS8300
 
-And of course this has falled of my radar into the memory blackhole. I
-will take a look in one of the forcoming weeks, thanks for the reminder.
+Is there any reason for not using a common style for these three
+commits?
+
+>       drm/msm: mdss: Add QCS8300 support
+> 
+>  .../bindings/display/msm/dp-controller.yaml        |   4 +
+>  .../bindings/display/msm/qcom,qcs8300-mdss.yaml    | 244 +++++++++++++++++++++
+>  .../bindings/display/msm/qcom,sm8650-dpu.yaml      |  13 +-
+>  drivers/gpu/drm/msm/msm_mdss.c                     |  11 +
+>  4 files changed, 268 insertions(+), 4 deletions(-)
+> ---
+> base-commit: 2b88851f583d3c4e40bcd40cfe1965241ec229dd
+> change-id: 20241224-mdssdt_qcs8300-11b7883dc60b
+> 
+> Best regards,
+> -- 
+> Yongxing Mou <quic_yongmou@quicinc.com>
+> 
 
 -- 
 With best wishes
