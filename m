@@ -2,95 +2,97 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C770A10532
-	for <lists+freedreno@lfdr.de>; Tue, 14 Jan 2025 12:21:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1176DA10867
+	for <lists+freedreno@lfdr.de>; Tue, 14 Jan 2025 15:04:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE14A10E1A1;
-	Tue, 14 Jan 2025 11:21:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFC7D10E2DB;
+	Tue, 14 Jan 2025 14:04:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="Am4SVgIn";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="VUmMPz/T";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83A3C10E186;
- Tue, 14 Jan 2025 11:21:46 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50E86JpM020662;
- Tue, 14 Jan 2025 11:21:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- QlOdxO3OmanBBTk+Gz46nfFMr/I29UEEjRPNmLHpDK0=; b=Am4SVgInlAdYnbXR
- V9vS3ytz5xm/h0T/VT9tW8DlN/fCUohj21Q1eotZeEXE42PlC6lX9OG4cO3iJxmp
- pd5Vn806SuAYnNt0PaeqVQvaP3Z5E9jqqZLHx7MoNnubq93b1LXVh0ZxH8qCECt9
- Oq3/2uBb64LPt2BJIxQw8Wus0F2CUyqJ4KuK/odspnwCOVsYbklX9Y/2JWzVZqok
- AhIukKctfiuv585h1szbhJRc5rE/jdYWFEx3NVMSrdmNglpWiq7VI0e3SO1qaUVa
- bNVK1Q1lkHtLCOB2GwH7dfloFcuo1UNaMPeitKhGWu6QQui/TQH3mxNRc3BJerrc
- Ji8xag==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 445m42gdt0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 14 Jan 2025 11:21:38 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50EBLbxk005570
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 14 Jan 2025 11:21:37 GMT
-Received: from [10.64.68.119] (10.80.80.8) by nalasex01c.na.qualcomm.com
- (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 14 Jan
- 2025 03:21:31 -0800
-Message-ID: <cf223355-3d9f-423a-acbe-55993ce9fcfc@quicinc.com>
-Date: Tue, 14 Jan 2025 19:21:28 +0800
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B41B10E2BF;
+ Tue, 14 Jan 2025 14:04:06 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 31F9BD21;
+ Tue, 14 Jan 2025 15:03:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1736863387;
+ bh=jBGGjiAjYD2JOnPDqBA/PIwuCRksQV5KpdLlTR77h4U=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=VUmMPz/TKALedLGdjaIw/OWv6jEHfDPMa8xt4ELJX5I8SbEMhIAPnQ7LMaQ/pxC0d
+ yctQn2J+9Ex5RD5bSpotgdbZkvyy/groI/l05HXur2OCULVTYWkAA3caibRw5fOAxJ
+ rPavCX5KpuNQwwNzE4HXGXO6RbtvlTGy6+Ypgri4=
+Message-ID: <c303dcb4-fee9-45d0-aaff-0f5f1fef07f7@ideasonboard.com>
+Date: Tue, 14 Jan 2025 16:04:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] dt-bindings: display/msm: Document MDSS on QCS8300
-To: Krzysztof Kozlowski <krzk@kernel.org>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>
-CC: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>, "Kishon Vijay
- Abraham I" <kishon@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-phy@lists.infradead.org>
-References: <20250113-mdssdt_qcs8300-v3-0-6c8e93459600@quicinc.com>
- <20250113-mdssdt_qcs8300-v3-3-6c8e93459600@quicinc.com>
- <lyv4bopv3zw62qll5cjjx46ejdjjmssvhabdxj2uq23mcmwqpb@lld6hynsiwfe>
- <CAA8EJppUEB-c5LbWN5dJoRh+6+nNFH3G9h_uwbuTo=B8kp_9oA@mail.gmail.com>
- <bda8dd18-3bed-427a-bd19-9cb011256c93@kernel.org>
+Subject: Re: [PATCH v2 15/25] drm/omapdrm: Compute dumb-buffer sizes with
+ drm_mode_size_dumb()
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+References: <20250109150310.219442-1-tzimmermann@suse.de>
+ <20250109150310.219442-16-tzimmermann@suse.de>
 Content-Language: en-US
-From: Yongxing Mou <quic_yongmou@quicinc.com>
-In-Reply-To: <bda8dd18-3bed-427a-bd19-9cb011256c93@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <20250109150310.219442-16-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 8G77iWHE67xKFMIAseGtqeUg1yLxU39T
-X-Proofpoint-GUID: 8G77iWHE67xKFMIAseGtqeUg1yLxU39T
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 mlxlogscore=999
- clxscore=1011 lowpriorityscore=0 impostorscore=0 mlxscore=0
- priorityscore=1501 malwarescore=0 adultscore=0 spamscore=0 suspectscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501140095
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,64 +108,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
 
+On 09/01/2025 16:57, Thomas Zimmermann wrote:
+> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
+> buffer size. Align the pitch to a multiple of 8.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> ---
+>   drivers/gpu/drm/omapdrm/omap_gem.c | 15 +++++++--------
+>   1 file changed, 7 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/omapdrm/omap_gem.c b/drivers/gpu/drm/omapdrm/omap_gem.c
+> index b9c67e4ca360..b8413a2dcdeb 100644
+> --- a/drivers/gpu/drm/omapdrm/omap_gem.c
+> +++ b/drivers/gpu/drm/omapdrm/omap_gem.c
+> @@ -11,6 +11,7 @@
+>   #include <linux/pfn_t.h>
+>   #include <linux/vmalloc.h>
+>   
+> +#include <drm/drm_dumb_buffers.h>
+>   #include <drm/drm_prime.h>
+>   #include <drm/drm_vma_manager.h>
+>   
+> @@ -583,15 +584,13 @@ static int omap_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struc
+>   int omap_gem_dumb_create(struct drm_file *file, struct drm_device *dev,
+>   		struct drm_mode_create_dumb *args)
+>   {
+> -	union omap_gem_size gsize;
+> -
+> -	args->pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
+> -
+> -	args->size = PAGE_ALIGN(args->pitch * args->height);
+> +	union omap_gem_size gsize = { };
+> +	int ret;
+>   
+> -	gsize = (union omap_gem_size){
+> -		.bytes = args->size,
+> -	};
+> +	ret = drm_mode_size_dumb(dev, args, SZ_8, 0);
+> +	if (ret)
+> +		return ret;
+> +	gsize.bytes = args->size;
+>   
+>   	return omap_gem_new_handle(dev, file, gsize,
+>   			OMAP_BO_SCANOUT | OMAP_BO_WC, &args->handle);
 
-On 2025/1/14 18:11, Krzysztof Kozlowski wrote:
-> On 14/01/2025 11:00, Dmitry Baryshkov wrote:
->> On Tue, 14 Jan 2025 at 09:57, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>
->>> On Mon, Jan 13, 2025 at 04:03:10PM +0800, Yongxing Mou wrote:
->>>> +patternProperties:
->>>> +  "^display-controller@[0-9a-f]+$":
->>>> +    type: object
->>>> +    additionalProperties: true
->>>> +
->>>> +    properties:
->>>> +      compatible:
->>>> +        items:
->>>> +          - const: qcom,qcs8300-dpu
->>>> +          - const: qcom,sa8775p-dpu
->>>> +
->>>> +  "^displayport-controller@[0-9a-f]+$":
->>>> +    type: object
->>>> +    additionalProperties: true
->>>> +
->>>> +    properties:
->>>> +      compatible:
->>>> +        items:
->>>> +          - const: qcom,qcs8300-dp
->>>> +          - const: qcom,sm8650-dp
->>>
->>> Parts of qcs8300 display are compatible with sa8775p, other parts with
->>> sm8650. That's odd or even not correct. Assuming it is actually correct,
->>> it deserves explanation in commit msg.
->>
->> It seems to be correct. These are two different IP blocks with
->> different modifications. QCS8300's DP configuration matches the SM8650
->> ([1]), though the DPU is the same as the one on the SA8775P platform.
->>
->> [1] https://lore.kernel.org/dri-devel/411626da-7563-48fb-ac7c-94f06e73e4b8@quicinc.com/
-> 
-> That's the driver, so you claim that qcs8300, which is a sa8775p, is not
-> compatible with sa8775p because of current driver code? You see the
-> contradiction? sa8775p is not compatible with sa8775p because of current
-> driver patch?
-> 
-> I don't think it is correct, but let's repeat: if you think otherwise,
-> this should be explain in commit msg.
-> 
-> Best regards,
-> Krzysztof
+Tested on dra76 evm.
 
-Hi,let me explain this: qcs8300 uses the same DPU as sa8775p, which is 
-DPU_8_4. Therefore, for the DPU driver, qcs8300 reuses the driver of 
-sa8775p. However, for the DisplayPort controller of qcs8300, it's 
-different with sa8775p. qcs8300 only supports one DisplayPort output 
-port, while sa8775p has two DPUs and supports four DisplayPort outputs. 
-Therefore, the DisplayPort controller driver of sa8775p cannot be reused 
-for qcs8300. Additionally, the base offset of qcs8300's DisplayPort 
-controller is the same as that of sm8650, so the DisplayPort controller 
-reuses "qcom,sm8650-dp". I explained this in the commit messages of the 
-previous two bindings, but it might not have been explained in the 
-commit message of this patch.i will update the commit msg in next patchset.
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+
+  Tomi
 
