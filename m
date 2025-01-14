@@ -2,93 +2,84 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7A9BA10273
-	for <lists+freedreno@lfdr.de>; Tue, 14 Jan 2025 09:56:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E2E0A1038B
+	for <lists+freedreno@lfdr.de>; Tue, 14 Jan 2025 11:02:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFC5F10E88E;
-	Tue, 14 Jan 2025 08:56:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D25D210E05A;
+	Tue, 14 Jan 2025 10:01:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="HQ0LC2uO";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XS/jC6bZ";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D67D10E88C;
- Tue, 14 Jan 2025 08:56:40 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50E8Cftg028752;
- Tue, 14 Jan 2025 08:56:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=teIRJ17yWtqpF23vzj2ZO+
- pTMPI8o829wxrSPF4J0D4=; b=HQ0LC2uO/CraAoLYsLFSloqpzlqckFPozTKdmT
- qNMKiGn4CjS8wSL1MMKbj4jKVyNoJGIDTjVFgZjnX9vDIJblos5HrQViIAllYTVU
- iskUmSkm++eTntmIeypK6t8v7cslPdsqGdpyUjZ+au3b371iyAjIImqZbCXUuMCr
- 8wvZTvr9osxsG1M2fnSlZPqeyoIWEodzjDJAzK5glODU8dqKYrNR2RcBy2ZTvvSF
- pUbgLZTF9upVByAb4OvY7PFiEQ8bk1lClsQQYxbwtyLch6cZpHapRjEsWppqZBlX
- xyhbUnTmx4gvcWXN65na8F9B5OeIC9gQvT2+bXdGvDWy4xPQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 445m7b034r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 14 Jan 2025 08:56:37 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50E8ubcw021105
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 14 Jan 2025 08:56:37 GMT
-Received: from szioemm-lnxbld002.qualcomm.com (10.80.80.8) by
- nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 14 Jan 2025 00:56:32 -0800
-From: Fange Zhang <quic_fangez@quicinc.com>
-Date: Tue, 14 Jan 2025 16:55:24 +0800
-Subject: [PATCH v2] drm/msm/dpu: Add writeback support for SM6150
+Received: from mail-yb1-f181.google.com (mail-yb1-f181.google.com
+ [209.85.219.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F8B410E05A
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Jan 2025 10:01:54 +0000 (UTC)
+Received: by mail-yb1-f181.google.com with SMTP id
+ 3f1490d57ef6-e549a71dd3dso9751597276.0
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Jan 2025 02:01:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1736848853; x=1737453653; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=zWOy0FR11Ww9vPXXYRtiZR0MXnoxIhe7Rlp3oaSMe0o=;
+ b=XS/jC6bZL+M37kcJ7KVqPu3GeoOVKHZR3l7Oh3gsRUpePQJvHV4Zj9w8GrSWLEpBSe
+ tJHQq/xn1bIwWGHn54io7p/2SkWOZGgeAdgCnQ/2ZxCYHVCFBvXpNPzs88oZmKZgx+J8
+ oy73Tam/UFYow9hSJ3Dk/c2hymCsU0kaVGOC+lwKevgQTuv2Zc+Fz19pKJxJerAhxVzx
+ YQmx8WjY4//f9xiyZnNrH4HrkkVcRweFPwGBfEt+otXQ0aerT/+XlZxBmqVM9tuSeJu3
+ RqehHNF9/b4MXI/L8ZmdtpsFdzGDBGNN7hOP8cu08zjYW6l6mvk9xwgt6iTo8wcH/S8s
+ DQDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736848853; x=1737453653;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zWOy0FR11Ww9vPXXYRtiZR0MXnoxIhe7Rlp3oaSMe0o=;
+ b=UJ7xLwfzAkURk3v3g5iKzbYkoLGhJM9GZGzJCnS+00aPJb6BozcwuKS1FMK4w4b+c1
+ ch4r7N/FmAsC0i/ryH3wNdFACyHdkEhQ6rjFJPrNsSIyIbPYUkLlAvvFC7brler58CUI
+ VzK6loZU79k/W0M1iO21SkLpJ2Gfftf2glpUs62Sj/dTCnCpfUoUY3QwzTzcIwIyucpS
+ OHtlEYduDhKPK1Z3riR+u1Xwl7lYq/BQ1fiqYubHfsVQimOLZDYNy8OWIyt749/7HHMA
+ pAvdOStxiCWfPl2vXG8sF4w9AtqGuKuX5H910QCIzLlov2ApHQYf5fiNx4dn2+sqKkRM
+ pEWQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWBjM/2y7trGY5Mxo4vis7JkoPuP7hedFJ7RpAlOV9b8oKBdk8EU5Cfq/Evgo95VZX0gCxMv8mD1ms=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5nXUV3unKEQpfmoTdmhmmrvJzOH7rSJtyxeloQwJG+HL1i+nl
+ oEdep2IT/iZRY9HoyVubVrUSOOA+Y+X6OGqYDgIqPLDI3nVkn+FY0mfvONsDJR7YMw3a3OGsghC
+ rdGKaK61TM443g4GbsvigeJfpBBgouoXN/GBflw==
+X-Gm-Gg: ASbGncuPnpyKijdcIoIH8B0pzCmUlZ/8gE/aHz3pWoruj7uFxqs6WBIWrs32yGVVM8q
+ Ypn/BAKXt5e6Cp2/Qk16nBmCEAfwg+X/p04bMqNAwTO3J0odabwB8/ZPevauikiESPX+F/A==
+X-Google-Smtp-Source: AGHT+IF4wP/wzyfnOnwOTA26chuSzZpOuq04s/LPV2Ds23nxlvigRRrAhav3w7FnByCkwW8F4IVHPh28usUdiKj24SY=
+X-Received: by 2002:a25:1ec4:0:b0:e38:a031:bbd3 with SMTP id
+ 3f1490d57ef6-e54ee212481mr14127208276.39.1736848853117; Tue, 14 Jan 2025
+ 02:00:53 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20250114-add-writeback-support-for-sm6150-v2-1-d707b31aad5c@quicinc.com>
-X-B4-Tracking: v=1; b=H4sIAHwmhmcC/42PsW7DMAxEf0XQXBWWUStNp+QDOrVbkYGWaJuIY
- 6mS7CQI/O+lnaLIWJDLHYh3vJtMGAmTfBM3GXGiRH5gUT4JaTsYWlTkWMuyKKtCF0aBc+ocKWM
- N9qjSGIKPWTU+qnQyuipUDRtTbfTWILxKxoSIDV3WiK/DXUf8Hjkp3025d078IcUvUjBSfLwvy
- IXy2VESvMB+3/vzGESAbLv1jH+ioX1gWMjQ+/aRsUQzI/t4XctOes3+f69JKx5XOrNt7EsNuOM
- Slgb7bP1JHuZ5/gFWNzlDTQEAAA==
-X-Change-ID: 20250106-add-writeback-support-for-sm6150-ba7657196ea8
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>,
+References: <20250113-mdssdt_qcs8300-v3-0-6c8e93459600@quicinc.com>
+ <20250113-mdssdt_qcs8300-v3-3-6c8e93459600@quicinc.com>
+ <lyv4bopv3zw62qll5cjjx46ejdjjmssvhabdxj2uq23mcmwqpb@lld6hynsiwfe>
+In-Reply-To: <lyv4bopv3zw62qll5cjjx46ejdjjmssvhabdxj2uq23mcmwqpb@lld6hynsiwfe>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 14 Jan 2025 12:00:42 +0200
+X-Gm-Features: AbW1kvbmJDFUCdKe5fDxImchUIrbs_EWdal_GJUHhskaFb5gnzYKEg5u3ybPka8
+Message-ID: <CAA8EJppUEB-c5LbWN5dJoRh+6+nNFH3G9h_uwbuTo=B8kp_9oA@mail.gmail.com>
+Subject: Re: [PATCH v3 3/4] dt-bindings: display/msm: Document MDSS on QCS8300
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Yongxing Mou <quic_yongmou@quicinc.com>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, Li Liu
- <quic_lliu6@quicinc.com>, Xiangxu Yin <quic_xiangxuy@quicinc.com>, "Fange
- Zhang" <quic_fangez@quicinc.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1736844992; l=2527;
- i=quic_fangez@quicinc.com; s=20250106; h=from:subject:message-id;
- bh=u3HNhLt63zkv/PJhmytMgy5VSVAb/fxhCMn0nl5XVBw=;
- b=tiuj5Og+ps3R2u44Etm7bbG+KmX6ZTgnQlfs5qEnGIzTOz0GeoP1fPwWobERGH0/coOhxkLFw
- YpgAXAwYfzWA2HWIJMmHU0xFfTvDWHkL1vGRxm7kXpwTMdpeZKhdfxV
-X-Developer-Key: i=quic_fangez@quicinc.com; a=ed25519;
- pk=eVr/gwhy9iaqhzLeBg7K/L0fI2IbsMNzlJnwKdnGExc=
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: w3nHKtugrM20uNem8H2Z6JZa2sGwui9i
-X-Proofpoint-GUID: w3nHKtugrM20uNem8H2Z6JZa2sGwui9i
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0
- malwarescore=0 clxscore=1015 mlxscore=0 mlxlogscore=999 adultscore=0
- lowpriorityscore=0 suspectscore=0 impostorscore=0 spamscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501140074
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-phy@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,73 +95,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On the SM6150 platform there is WB_2 block. Add it to the SM6150 catalog.
+On Tue, 14 Jan 2025 at 09:57, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On Mon, Jan 13, 2025 at 04:03:10PM +0800, Yongxing Mou wrote:
+> > +patternProperties:
+> > +  "^display-controller@[0-9a-f]+$":
+> > +    type: object
+> > +    additionalProperties: true
+> > +
+> > +    properties:
+> > +      compatible:
+> > +        items:
+> > +          - const: qcom,qcs8300-dpu
+> > +          - const: qcom,sa8775p-dpu
+> > +
+> > +  "^displayport-controller@[0-9a-f]+$":
+> > +    type: object
+> > +    additionalProperties: true
+> > +
+> > +    properties:
+> > +      compatible:
+> > +        items:
+> > +          - const: qcom,qcs8300-dp
+> > +          - const: qcom,sm8650-dp
+>
+> Parts of qcs8300 display are compatible with sa8775p, other parts with
+> sm8650. That's odd or even not correct. Assuming it is actually correct,
+> it deserves explanation in commit msg.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Fange Zhang <quic_fangez@quicinc.com>
----
-A followup patch to add writeback configuration for the SM6150 catalog
+It seems to be correct. These are two different IP blocks with
+different modifications. QCS8300's DP configuration matches the SM8650
+([1]), though the DPU is the same as the one on the SA8775P platform.
 
-test passed using kms_writeback
----
-Changes in v2:
-- Change reg_off from 0x3b8 to 0x2bc for sm6150_mdp [Abhinav]
-- Change bit_off from 24 to 16 for sm6150_mdp [Abninav]
-- Change base from 0x66000 to 0x65000 for sm6150_wb [Abninav]
-- Link to v1: https://lore.kernel.org/r/20250106-add-writeback-support-for-sm6150-v1-1-1d2d69fc4bae@quicinc.com
----
- drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+[1] https://lore.kernel.org/dri-devel/411626da-7563-48fb-ac7c-94f06e73e4b8@quicinc.com/
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
-index 621a2140f675fa28b3a7fcd8573e59b306cd6832..ae4cff2201bdc235a93693b3aff9dcc38c3129c0 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_3_sm6150.h
-@@ -27,6 +27,7 @@ static const struct dpu_mdp_cfg sm6150_mdp = {
- 		[DPU_CLK_CTRL_DMA1] = { .reg_off = 0x2b4, .bit_off = 8 },
- 		[DPU_CLK_CTRL_DMA2] = { .reg_off = 0x2bc, .bit_off = 8 },
- 		[DPU_CLK_CTRL_DMA3] = { .reg_off = 0x2c4, .bit_off = 8 },
-+		[DPU_CLK_CTRL_WB2] = { .reg_off = 0x2bc, .bit_off = 16 },
- 	},
- };
- 
-@@ -164,6 +165,21 @@ static const struct dpu_pingpong_cfg sm6150_pp[] = {
- 	},
- };
- 
-+static const struct dpu_wb_cfg sm6150_wb[] = {
-+	{
-+		.name = "wb_2", .id = WB_2,
-+		.base = 0x65000, .len = 0x2c8,
-+		.features = WB_SM8250_MASK,
-+		.format_list = wb2_formats_rgb,
-+		.num_formats = ARRAY_SIZE(wb2_formats_rgb),
-+		.clk_ctrl = DPU_CLK_CTRL_WB2,
-+		.xin_id = 6,
-+		.vbif_idx = VBIF_RT,
-+		.maxlinewidth = 2160,
-+		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
-+	},
-+};
-+
- static const struct dpu_intf_cfg sm6150_intf[] = {
- 	{
- 		.name = "intf_0", .id = INTF_0,
-@@ -244,6 +260,8 @@ const struct dpu_mdss_cfg dpu_sm6150_cfg = {
- 	.dspp = sm6150_dspp,
- 	.pingpong_count = ARRAY_SIZE(sm6150_pp),
- 	.pingpong = sm6150_pp,
-+	.wb_count = ARRAY_SIZE(sm6150_wb),
-+	.wb = sm6150_wb,
- 	.intf_count = ARRAY_SIZE(sm6150_intf),
- 	.intf = sm6150_intf,
- 	.vbif_count = ARRAY_SIZE(sdm845_vbif),
 
----
-base-commit: f0a810be07f92801d5e489941cc0902532eeb656
-change-id: 20250106-add-writeback-support-for-sm6150-ba7657196ea8
-
-Best regards,
 -- 
-Fange Zhang <quic_fangez@quicinc.com>
-
+With best wishes
+Dmitry
