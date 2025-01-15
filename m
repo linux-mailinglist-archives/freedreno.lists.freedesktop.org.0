@@ -2,90 +2,83 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7EB5A12615
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jan 2025 15:34:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ACAFA12B98
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jan 2025 20:15:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90ED910E70A;
-	Wed, 15 Jan 2025 14:34:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D0AB10E519;
+	Wed, 15 Jan 2025 19:15:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.b="O4g749Sj";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="dxO4Cu82";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
- [IPv6:2607:f8b0:4864:20::f35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C61B710E701
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 14:34:38 +0000 (UTC)
-Received: by mail-qv1-xf35.google.com with SMTP id
- 6a1803df08f44-6d92cd1e811so8074866d6.1
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 06:34:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1736951678; x=1737556478;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=wgpCbUXuk0fjx7PlpFBa3YSbnvvXmj+DNx/eEdB8F5M=;
- b=O4g749SjtyerKr7EPw+zPQwu+AILrPNMVGq7ELv6hUdJVx4deOL31ateAd+NMM6mIK
- t0VtPk5B7weSxoVj0mU/TGaUwUTVS3myRwT/YQAr1QLPfA0hF7FDQjmUxM9sC3n4LR3k
- x2II4LCVVCXNjjV++vThZyIx9hANm3H6lHHLQ9yXIBCpMChZ8+kPROx+PmtQCatgSUba
- 1Dtae+GgmC31y0M4GEvNTguvjBLlJON/+GHeCp21AVCoQsGGBlA3YWHgaoJ8BPm8eAE0
- LIHC74D0vq7YyEgw2P+kT+7WhCvX4D1vDDXBCxc0RiQs02oosInt+qchgm+IAN8+zkV8
- jJfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736951678; x=1737556478;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=wgpCbUXuk0fjx7PlpFBa3YSbnvvXmj+DNx/eEdB8F5M=;
- b=odvcITCaAVA36M62l3AoD4AtT0o8WD/DFaZGw0JK52smcdpg4LNYbaHf3aSQ/vpp7V
- ZT6m6dJToBTXixsx1XyN5ZJkmhfAqqmcGDNyk+2lPS/mHn6kFhFBdkgSSQ6mSV5TSzQH
- eRWaAkRT+g47DDbB7IeWrEgPVzE854oRpK/FxaGkbHqmzruftfNrKSLAgdBoJPHGIUDN
- 4uSqEtGhxdoa5yeA2jfT88W/C5fL8JTsn80pE97wK6Sh50NPMDJf7FZq/ABqVi8+LQTP
- dEVP7YJlGzP/oCCGK9M6zKekQ/+KzZzi1SoggXmCa1tYuyq1lYGXdnAYn9DCMoH2c+b6
- 0kuw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUjIOJhVLYWGDo55HCcj/0ifYJ8mLrsWVMuEUfSwJuMl04d/SWglpp7XRLzZFS6KMcELrfOA8zxoHY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzYEFVSY5vqQoBBs7RqGmbPJkA33uqrCqic+4V9i2uLxut7zvAk
- pLJJWjKvwnnu1udw6+vBMNbprgIlSeFSbgZcI6/gt8OzlFFg3m7GIZrgKt9fOwNgOMdu0LN/ReK
- 2RjbW6cH6mVG/syv9UXg8WFQCeoSTB5izkuUN7A==
-X-Gm-Gg: ASbGncvSzFS3HZIbljtwbd9EZj1Q8kbZYBYcZ7lm+NpoQZgqLrSi/GeE3SQMM0asZBo
- IYio0j599emOi09Xc62Ci49xkS9zIDpZVZIY=
-X-Google-Smtp-Source: AGHT+IFPz9fbMcvhhyZZGYYuWLUwXCRTy8s+kBCbi69J2hIRU1+TB7begqOpM0+xy1s6GqB+nx1X6ZJAR0totDSXOwo=
-X-Received: by 2002:a05:6214:486:b0:6d8:e7c9:ffa0 with SMTP id
- 6a1803df08f44-6e192c73ef5mr43851476d6.19.1736951677902; Wed, 15 Jan 2025
- 06:34:37 -0800 (PST)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DE5910E514;
+ Wed, 15 Jan 2025 19:15:01 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50FIonKn007916;
+ Wed, 15 Jan 2025 19:14:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ qF2OFxTNjfo0KI4OnFQetCRNQSzKzOLHEGxXZ+YTFUM=; b=dxO4Cu82N6z8Nno4
+ xYiwebP9K7iEHGB5iv7EVFoSGs6jremvoWt27oSzkFqY+9WVVf5C4H72pbLjTnGD
+ aFVVHk58blJG/2mdtu0+SFyb92w+sryrmD452HpR59kxIlppauA9p6eAL6Kp4ACp
+ TahngFcg3tPZj7MW5jkZhn6G5B0fGVSqQ1xyxDfxN+8MrAhoyQSM6tzx/IVoy+8F
+ a6MRJV9qjgriJlFrkLUtM4yGBnzAS3dweGN6+XlWwQtcpo9Hwq0Dlc85iK2oGuHJ
+ RNjnSTJDH00ntBlV0iMIA8vSjg1hlRGxlWuTIUyydkVLWQsQlCvaeh1RCCc96z2f
+ 2xJiDg==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 446jndr1y9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Jan 2025 19:14:57 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50FJEuj7028666
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Jan 2025 19:14:56 GMT
+Received: from [10.216.6.163] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 15 Jan
+ 2025 11:14:52 -0800
+Message-ID: <4f0ca15e-770e-4192-b390-a3039c68e4b4@quicinc.com>
+Date: Thu, 16 Jan 2025 00:44:48 +0530
 MIME-Version: 1.0
-References: <20250109150310.219442-1-tzimmermann@suse.de>
- <20250109150310.219442-26-tzimmermann@suse.de>
- <cdbe483d-0895-47aa-8c83-1c28220f4a02@ideasonboard.com>
- <bc97b92e-7f8a-4b92-af8a-20fa165ead55@suse.de>
- <f3ba05c7-6e49-4641-a3f9-ba418ebdb7c3@ideasonboard.com>
- <c6735280-7c32-4319-8ca9-a7305d8117c3@suse.de>
- <d67adb03-5cd0-4ac9-af58-cf4446dacee3@ideasonboard.com>
- <0ea6be58-0e04-4172-87cd-064a3e4a43bc@suse.de>
- <f35cb350-6be9-48ca-ad7e-e9dd418281d5@ideasonboard.com>
- <4af0b6a7-c16a-4187-bbf5-365a9c86de21@suse.de>
- <e327ad84-b5c9-4480-b873-dc3aca605538@ideasonboard.com>
-In-Reply-To: <e327ad84-b5c9-4480-b873-dc3aca605538@ideasonboard.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Wed, 15 Jan 2025 14:34:26 +0000
-X-Gm-Features: AbW1kvZOqZIfsgr5MQqIuf1jKNJtcUmkb-2ddanRpBEhDxEw_Wl931RGN2rzkA8
-Message-ID: <CAPj87rOn=RQ615zyaEdFT2ADfPztU7+heVi0G34Rdg-=QO1cCw@mail.gmail.com>
-Subject: Re: [PATCH v2 25/25] drm/xlnx: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch, 
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org, 
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andy Yan <andyshrk@163.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/msm: Avoid rounding up to one jiffy
+To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
+CC: <freedreno@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, "Rob
+ Clark" <robdclark@chromium.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, open list
+ <linux-kernel@vger.kernel.org>
+References: <20250113154841.129521-1-robdclark@gmail.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <20250113154841.129521-1-robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: OH4jFaUGXf9XGq9BgEO47aylFhahrsl6
+X-Proofpoint-ORIG-GUID: OH4jFaUGXf9XGq9BgEO47aylFhahrsl6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-01-15_09,2025-01-15_02,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ priorityscore=1501 mlxscore=0 suspectscore=0 bulkscore=0 impostorscore=0
+ phishscore=0 adultscore=0 spamscore=0 malwarescore=0 clxscore=1015
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2501150140
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,28 +94,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 15 Jan 2025 at 14:20, Tomi Valkeinen
-<tomi.valkeinen@ideasonboard.com> wrote:
-> No disagreement there, we need CREATE_DUMB2.
->
-> My point is that we have the current UAPI, and we have userspace using
-> it, but we don't have clear rules what the ioctl does with specific
-> parameters, and we don't document how it has to be used.
->
-> Perhaps the situation is bad, and all we can really say is that
-> CREATE_DUMB only works for use with simple RGB formats, and the behavior
-> for all other formats is platform specific. But I think even that would
-> be valuable in the UAPI docs.
+On 1/13/2025 9:18 PM, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> If userspace is trying to achieve a timeout of zero, let 'em have it.
+> Only round up if the timeout is greater than zero.
+> 
+> Fixes: 4969bccd5f4e ("drm/msm: Avoid rounding down to zero jiffies")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
-Yeah, CREATE_DUMB only works for use with simple RGB formats in a
-linear layout. Not monochrome or YUV or tiled or displayed rotated or
-whatever.
+Reviewed-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 
-If it happens to accidentally work for other uses, that's fine, but
-it's not generically reliable for anything other than simple linear
-RGB. It's intended to let you do splash screens, consoles, recovery
-password entries, and software-rendered compositors if you really
-want. Anything more than that isn't 'dumb'.
+-Akhil
 
-Cheers,
-Daniel
+> ---
+>  drivers/gpu/drm/msm/msm_drv.h | 11 ++++-------
+>  1 file changed, 4 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index fee31680a6d5..a65077855201 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -537,15 +537,12 @@ static inline int align_pitch(int width, int bpp)
+>  static inline unsigned long timeout_to_jiffies(const ktime_t *timeout)
+>  {
+>  	ktime_t now = ktime_get();
+> -	s64 remaining_jiffies;
+>  
+> -	if (ktime_compare(*timeout, now) < 0) {
+> -		remaining_jiffies = 0;
+> -	} else {
+> -		ktime_t rem = ktime_sub(*timeout, now);
+> -		remaining_jiffies = ktime_divns(rem, NSEC_PER_SEC / HZ);
+> -	}
+> +	if (ktime_compare(*timeout, now) <= 0)
+> +		return 0;
+>  
+> +	ktime_t rem = ktime_sub(*timeout, now);
+> +	s64 remaining_jiffies = ktime_divns(rem, NSEC_PER_SEC / HZ);
+>  	return clamp(remaining_jiffies, 1LL, (s64)INT_MAX);
+>  }
+>  
+
