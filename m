@@ -2,62 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1940EA12D77
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jan 2025 22:15:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 273EEA12E02
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jan 2025 23:01:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D28FF10E535;
-	Wed, 15 Jan 2025 21:15:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F186A10E823;
+	Wed, 15 Jan 2025 22:01:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="GnQxberT";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="PVJ67QqE";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCEEA10E535;
- Wed, 15 Jan 2025 21:15:31 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50FGnPss023940;
- Wed, 15 Jan 2025 21:15:28 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E810110E82B;
+ Wed, 15 Jan 2025 22:01:20 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50FGn7Tb014015;
+ Wed, 15 Jan 2025 22:01:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- W3nTy/lcFyHXXQbO1F0oZHribXSjAbymZq95+TFMwUg=; b=GnQxberTyf5IVELT
- XROb9DGhzc7DhOYL64L8GfhnsTLupHbO7HLBAdE9yMRqC+vVVLUZ0R8JVcKL3JmJ
- RRWHZoiHqbspGrJfsTEF2LoLxQabSzm+ygITzGZ4b/sj8Q5AsSanMrj+wESRqVl5
- LPQ8QgqzRaoHSwTwXALpyEWXi83yEQmDXDS9rs6YAqAyFAXtErcJWNLzGzZz05JH
- JD+tbn/nFT243hLLlnHwC0EFz5PFYmlmzgfspy0tc9FhfaWJ3Mt85LeTIuh46xnX
- iIfXTOdDFXrm1iC5bNWchG+o60MV3SPDFkuCFqOW3rMdEN5EsE97ccJGM96Q+k2j
- XD9UFw==
+ L1ePOnVq75Z40ohb+hqhXuwBLTL/7HuyM4mXKJfQo7o=; b=PVJ67QqEoZzFy0VW
+ XbNflQdvzXM/EXr7fATODu3fhSUAlUVx8EglZSkChtxD+JlOV18wzr7RHyAROa6t
+ l7K76jtEwNcqxuRRYUZwYADpWrcnhb54kpzZHvvebjSUKwan6pSSDVhkoRiFbLp8
+ Bh4Lz8kHZlJEHkKA0n2rBOEhsSnBVbwSv5UGDlSOHUEcAhYyGmcveykdxJEcItTY
+ YU5YS0U3n0zhlP5zflnWQXrVX+XFWut3wys4LF1efWocZoPSoygpxHemW5PDDFHi
+ tqToo8hBrctR4i7xf3m8AyzVv7HYkeGFxceGmFC/w83H0nXh8+6VhySNgZruB8SF
+ qwXFzQ==
 Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 446fpcgth2-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 446fh20wey-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Jan 2025 21:15:27 +0000 (GMT)
+ Wed, 15 Jan 2025 22:01:16 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50FLFR9h002386
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50FM1BDM027653
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Jan 2025 21:15:27 GMT
+ Wed, 15 Jan 2025 22:01:11 GMT
 Received: from [10.71.108.79] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 15 Jan
- 2025 13:15:26 -0800
-Message-ID: <b2f8e0b4-b8f1-4e90-be2d-715fbd89a1e3@quicinc.com>
-Date: Wed, 15 Jan 2025 13:15:26 -0800
+ 2025 14:01:10 -0800
+Message-ID: <a34de60c-f410-4d16-b521-2665d86c2a64@quicinc.com>
+Date: Wed, 15 Jan 2025 14:01:10 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm: Use str_enable_disable-like helpers
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean
- Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+Subject: Re: [PATCH 01/35] drm/msm/dpu: skip watchdog timer programming
+ through TOP on >= SM8450
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Vinod Koul <vkoul@kernel.org>, Konrad Dybcio
+ <konradybcio@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20250114191724.861601-1-krzysztof.kozlowski@linaro.org>
+References: <20241214-dpu-drop-features-v1-0-988f0662cb7e@linaro.org>
+ <20241214-dpu-drop-features-v1-1-988f0662cb7e@linaro.org>
 Content-Language: en-US
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20250114191724.861601-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20241214-dpu-drop-features-v1-1-988f0662cb7e@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
@@ -66,17 +69,17 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: QstY7v729ZTJ7B2fNWKnZV4XNfEP87PM
-X-Proofpoint-ORIG-GUID: QstY7v729ZTJ7B2fNWKnZV4XNfEP87PM
+X-Proofpoint-ORIG-GUID: ffAy3NO9ClGfGyFEZsl2zmshw-KHy7Fx
+X-Proofpoint-GUID: ffAy3NO9ClGfGyFEZsl2zmshw-KHy7Fx
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-01-15_09,2025-01-15_02,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 adultscore=0
- lowpriorityscore=0 mlxlogscore=779 clxscore=1015 suspectscore=0
- impostorscore=0 priorityscore=1501 spamscore=0 phishscore=0 malwarescore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501150152
+ mlxlogscore=999 clxscore=1015
+ lowpriorityscore=0 suspectscore=0 phishscore=0 impostorscore=0 spamscore=0
+ priorityscore=1501 adultscore=0 mlxscore=0 bulkscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2501150157
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,29 +97,38 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 1/14/2025 11:17 AM, Krzysztof Kozlowski wrote:
-> Replace ternary (condition ? "enable" : "disable") syntax with helpers
-> from string_choices.h because:
-> 1. Simple function call with one argument is easier to read.  Ternary
->     operator has three arguments and with wrapping might lead to quite
->     long code.
-> 2. Is slightly shorter thus also easier to read.
-> 3. It brings uniformity in the text - same string.
-> 4. Allows deduping by the linker, which results in a smaller binary
->     file.
+On 12/13/2024 2:14 PM, Dmitry Baryshkov wrote:
+> The SM8450 and later chips have DPU_MDP_PERIPH_0_REMOVED feature bit
+> set, which means that those platforms have dropped some of the
+> registers, including the WD TIMER-related ones. Stop providing the
+> callback to program WD timer on those platforms.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Fixes: 100d7ef6995d ("drm/msm/dpu: add support for SM8450")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  5 ++--
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c      |  3 ++-
->   drivers/gpu/drm/msm/dp/dp_ctrl.c              | 25 ++++++++++---------
->   drivers/gpu/drm/msm/dp/dp_display.c           |  4 +--
->   drivers/gpu/drm/msm/dp/dp_drm.c               |  5 ++--
->   5 files changed, 23 insertions(+), 19 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
+> index ad19330de61abd66762671cf253276695b303b32..562a3f4c5238a3ad6c8c1fa4d285b9165ada3cfd 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c
+> @@ -272,7 +272,7 @@ static void _setup_mdp_ops(struct dpu_hw_mdp_ops *ops,
+>   
+>   	if (cap & BIT(DPU_MDP_VSYNC_SEL))
+>   		ops->setup_vsync_source = dpu_hw_setup_vsync_sel;
+> -	else
+> +	else if (!(cap & BIT(DPU_MDP_PERIPH_0_REMOVED)))
+>   		ops->setup_vsync_source = dpu_hw_setup_wd_timer;
+>   
+>   	ops->get_safe_status = dpu_hw_get_safe_status;
 
-Interesting helper str_true_false :)
 
-LGTM,
+Yes, this has also moved to INTF starting sm8450.
+
+Note : wd timer programming in interface is missing, so that support 
+needs to be added as well
+
+For this change,
 
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
