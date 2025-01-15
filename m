@@ -2,91 +2,81 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FBEEA12C27
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jan 2025 21:00:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1940EA12D77
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jan 2025 22:15:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC3A10E7D4;
-	Wed, 15 Jan 2025 20:00:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D28FF10E535;
+	Wed, 15 Jan 2025 21:15:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Lr934DBR";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="GnQxberT";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
- [209.85.208.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DECD210E7D4
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 20:00:40 +0000 (UTC)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-30613802a04so1908301fa.2
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 12:00:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736971179; x=1737575979; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=x37MGVTi+7LLCYAbiXmT4g42J1cDZJlwMsnlJFXjsC8=;
- b=Lr934DBRSkFtuY6wujOt9iUKComXCnS3hBMlVQmO/LHWU0LWw6qktpu+mytry3mvgQ
- d3ruOukSvJZcm54yyYXoFdanm+l5u+6emlCMX6a1TuLdnXsUf4MgLOXm2C5cB7i65jWZ
- KTRwyD9szkwsu8nVuPk7LS5xr3uGXk6wBSDdfU4VHec7Ms3L7l/jDqDl/ZAXhSzEmZCh
- A90atuwtAJUFCfKki8lIXgI37Q7tU47C+zgIFzskpXinY2uIuD/E3vh1ZUAG++eC7YzD
- /BqvtWzL+9vXcMzLBsomDdxnRZRd+KyAmDNFbHRpOG0eZJkHbos1Z5nfF3iyydR653Kl
- 1aOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736971179; x=1737575979;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=x37MGVTi+7LLCYAbiXmT4g42J1cDZJlwMsnlJFXjsC8=;
- b=NNUsP5KOrSSRBxo+G6ENv4ZXhYGsUqiGau2szqBByipKQ8mincxY3cB5PxGGdZtODk
- u1UCR1uTHsycJXTeeIfClWHqYoLDkAxUV0qXiJATk7hmbWxPXcqrsOrzSGhttV1H24vc
- qd1nnEZMkvwDdP+iK7q5tTboRF5th6hu85YaBtLpl30/J+e2SgVsp538wWWosilYKD6o
- A89LkZ6H46W+dy7OIxMpUFOa/uwJaHGYeOkfU3rsJa5hLA2dl/tAYzFawk+1dF087otb
- 49cdehH6KouKVU1TDw1tpk658U1zbJ49m4XTq9fPuUWH8VNXKBFSbeAUupubc5+5Inx3
- +SjA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWZAOH7frjBBkQ1tCtrDH2ExuL7zbxRQGdP50rvJfibm3Z9XvYdGCV+Id4cCk/OR+WJs+Ob00vJ4AY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyskwmDry7pexvNca5X29zcjOOrPYxuaB/aUtC3D5SGIuZONIID
- 8CtZcIhQyqiMdt5oHO7Q2+GzubVs3pYzGleC2P2aKWj1WG0mQyI6+dS/vYNCXUY=
-X-Gm-Gg: ASbGncvWAOyDjyWCGw74AiPb8hrxIu0rI71RDRwDBGjNQui5ZYTz5Up1PXZQgz4mTeS
- XQKJ+YmYMs5Ox+u5am1dLz8WstI1AayNppwFV//nd05Gn531DkZEzbn7k8MOX0b5wow5Rea+GTq
- GrwxH0VoGN9xjngxXtc0iaFYpMGaJd1HqX1nbvkGpj0LoCldF3hfQ5dccWriD/HR3ZEKKzU8um8
- JUyI4xKAcmmTrWuDUgTBMo3J0zgnydAxbVbzNOioeCgF5tlQbB4eN2X6zB6lb3llhLroaTtLj3g
- OPohqVa2cBBHCbg6gLrjQDz06ZX+ZcOVNPFd
-X-Google-Smtp-Source: AGHT+IEgsaKsijQtzxn7rCfFidNVZj0/9WmlBcq9snlTFjWsJkPsdGTXxyCiCkpWSsFsl61eUySb8g==
-X-Received: by 2002:a05:6512:1055:b0:542:91a5:1d5c with SMTP id
- 2adb3069b0e04-54291a51db8mr6711480e87.8.1736971179233; 
- Wed, 15 Jan 2025 11:59:39 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428be499fcsm2104336e87.8.2025.01.15.11.59.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2025 11:59:37 -0800 (PST)
-Date: Wed, 15 Jan 2025 21:59:35 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 1/4] drm/msm/adreno: Add speedbin support for X1-85
-Message-ID: <enykcipequ4xjykcjbkpnmtlclrbbmkhncj7fx3zy4sgmo3h4n@y3k7xgjscpfc>
-References: <20250109-x1e-speedbin-b4-v1-0-009e812b7f2a@quicinc.com>
- <20250109-x1e-speedbin-b4-v1-1-009e812b7f2a@quicinc.com>
- <356986fa-e66c-4e78-ab92-2593b037ab9a@oss.qualcomm.com>
- <837602a7-bbd5-4436-ab9f-2b101bdcaac2@quicinc.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCEEA10E535;
+ Wed, 15 Jan 2025 21:15:31 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50FGnPss023940;
+ Wed, 15 Jan 2025 21:15:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ W3nTy/lcFyHXXQbO1F0oZHribXSjAbymZq95+TFMwUg=; b=GnQxberTyf5IVELT
+ XROb9DGhzc7DhOYL64L8GfhnsTLupHbO7HLBAdE9yMRqC+vVVLUZ0R8JVcKL3JmJ
+ RRWHZoiHqbspGrJfsTEF2LoLxQabSzm+ygITzGZ4b/sj8Q5AsSanMrj+wESRqVl5
+ LPQ8QgqzRaoHSwTwXALpyEWXi83yEQmDXDS9rs6YAqAyFAXtErcJWNLzGzZz05JH
+ JD+tbn/nFT243hLLlnHwC0EFz5PFYmlmzgfspy0tc9FhfaWJ3Mt85LeTIuh46xnX
+ iIfXTOdDFXrm1iC5bNWchG+o60MV3SPDFkuCFqOW3rMdEN5EsE97ccJGM96Q+k2j
+ XD9UFw==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 446fpcgth2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Jan 2025 21:15:27 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50FLFR9h002386
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Jan 2025 21:15:27 GMT
+Received: from [10.71.108.79] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 15 Jan
+ 2025 13:15:26 -0800
+Message-ID: <b2f8e0b4-b8f1-4e90-be2d-715fbd89a1e3@quicinc.com>
+Date: Wed, 15 Jan 2025 13:15:26 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <837602a7-bbd5-4436-ab9f-2b101bdcaac2@quicinc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm: Use str_enable_disable-like helpers
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean
+ Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20250114191724.861601-1-krzysztof.kozlowski@linaro.org>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20250114191724.861601-1-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: QstY7v729ZTJ7B2fNWKnZV4XNfEP87PM
+X-Proofpoint-ORIG-GUID: QstY7v729ZTJ7B2fNWKnZV4XNfEP87PM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-01-15_09,2025-01-15_02,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 adultscore=0
+ lowpriorityscore=0 mlxlogscore=779 clxscore=1015 suspectscore=0
+ impostorscore=0 priorityscore=1501 spamscore=0 phishscore=0 malwarescore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2501150152
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,77 +92,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 16, 2025 at 01:07:17AM +0530, Akhil P Oommen wrote:
-> On 1/9/2025 7:27 PM, Konrad Dybcio wrote:
-> > On 8.01.2025 11:42 PM, Akhil P Oommen wrote:
-> >> Adreno X1-85 has an additional bit which is at a non-contiguous
-> >> location in qfprom. Add support for this new "hi" bit along with
-> >> the speedbin mappings.
-> >> ---
-> >>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c |  5 +++++
-> >>  drivers/gpu/drm/msm/adreno/adreno_gpu.c   | 15 ++++++++++++++-
-> >>  2 files changed, 19 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> >> index 0c560e84ad5a53bb4e8a49ba4e153ce9cf33f7ae..e2261f50aabc6a2f931d810f3637dfdba5695f43 100644
-> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> >> @@ -1412,6 +1412,11 @@ static const struct adreno_info a7xx_gpus[] = {
-> >>  			.gmu_cgc_mode = 0x00020202,
-> >>  		},
-> >>  		.address_space_size = SZ_256G,
-> >> +		.speedbins = ADRENO_SPEEDBINS(
-> >> +			{ 0,   0 },
-> >> +			{ 263, 1 },
-> >> +			{ 315, 0 },
-> >> +		),
-> >>  		.preempt_record_size = 4192 * SZ_1K,
-> >>  	}, {
-> >>  		.chip_ids = ADRENO_CHIP_IDS(0x43051401), /* "C520v2" */
-> >> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> >> index 75f5367e73caace4648491b041f80b7c4d26bf89..7b31379eff444cf3f8ed0dcfd23c14920c13ee9d 100644
-> >> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> >> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> >> @@ -1078,7 +1078,20 @@ void adreno_gpu_ocmem_cleanup(struct adreno_ocmem *adreno_ocmem)
-> >>  
-> >>  int adreno_read_speedbin(struct device *dev, u32 *speedbin)
-> >>  {
-> >> -	return nvmem_cell_read_variable_le_u32(dev, "speed_bin", speedbin);
-> >> +	u32 hi_bits = 0;
-> >> +	int ret;
-> >> +
-> >> +	ret = nvmem_cell_read_variable_le_u32(dev, "speed_bin", speedbin);
-> >> +	if (ret)
-> >> +		return ret;
-> >> +
-> >> +	/* Some chipsets have MSB bits (BIT(8) and above) at a non-contiguous location */
-> >> +	ret = nvmem_cell_read_variable_le_u32(dev, "speed_bin_hi", &hi_bits);
-> >> +	if (ret != -ENOENT)
-> >> +		return ret;
-> >> +
-> >> +	*speedbin |= (hi_bits << 8);
-> > 
-> > Now that we're overwriting speedbin, we should probably have some checks in
-> > order to make sure somebody passing a too-wide cell to one of these won't
-> > result in cripplingly-untraceable value corruption
-> > 
-> > I guess we could just introduce nvmem_cell_read_variable_le_u8() and call it
-> > a day?
-> 
-> X1E is an outlier here, because this was fixed from the next chipset
-> onward. For newer chipsets, we can use just the "speed_bin" node, which
-> represents a contiguous 9 bits. So, just do a "WARN_ON(fls(speedbin) >
-> 8)" here?
 
-Or extend nvmem core to support non-contiguous fields.
 
+On 1/14/2025 11:17 AM, Krzysztof Kozlowski wrote:
+> Replace ternary (condition ? "enable" : "disable") syntax with helpers
+> from string_choices.h because:
+> 1. Simple function call with one argument is easier to read.  Ternary
+>     operator has three arguments and with wrapping might lead to quite
+>     long code.
+> 2. Is slightly shorter thus also easier to read.
+> 3. It brings uniformity in the text - same string.
+> 4. Allows deduping by the linker, which results in a smaller binary
+>     file.
 > 
-> -Akhil.
-> 
-> > 
-> > Konrad
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>   .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  5 ++--
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_ctl.c      |  3 ++-
+>   drivers/gpu/drm/msm/dp/dp_ctrl.c              | 25 ++++++++++---------
+>   drivers/gpu/drm/msm/dp/dp_display.c           |  4 +--
+>   drivers/gpu/drm/msm/dp/dp_drm.c               |  5 ++--
+>   5 files changed, 23 insertions(+), 19 deletions(-)
 > 
 
--- 
-With best wishes
-Dmitry
+Interesting helper str_true_false :)
+
+LGTM,
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
