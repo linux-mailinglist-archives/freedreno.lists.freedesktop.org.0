@@ -2,84 +2,91 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39B3DA11C3E
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jan 2025 09:42:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7512A11EB4
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jan 2025 10:57:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1531410E56C;
-	Wed, 15 Jan 2025 08:42:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4BEE10E5AF;
+	Wed, 15 Jan 2025 09:57:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="dlfzgOMg";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AS8S9XUy";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 181E410E56C
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 08:42:30 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-53e3c47434eso6039036e87.3
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 00:42:29 -0800 (PST)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6051910E5AF
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 09:57:36 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-303548a9361so46133441fa.0
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 01:57:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736930548; x=1737535348; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1736934994; x=1737539794; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=lZk/iR/++ahrsJFkMAeCydXncYIA/yDJCJs2b060X04=;
- b=dlfzgOMgOPZxITpLlG8/dI+0fxN+CjjqglluTfJKyTSktXee/J4qQ0IA4owetcnbRE
- Q9e2fYcZcmatcjN7K4tmyqQ6+saxwfXVUQMRTS27DfRAVntjhdve7gs/s9OJ3js0NZgG
- VMk6awY6vJAQbRtPYIWPTVBaxpY1huUBkpYCeUlN9wcXzK4ZWbpU9ns/rtGXJ9GhO7pz
- zTZk7eX2O0BCHBueq2VHhHhKU/I2md29B46UJW8NetcyKvy7KqyiMLcnnWvh7+dLfPYg
- JEVnAa2o2VW+32bXNfoDJgakNCccbD2n/mN9KZoW+iiUnGJTS4jdw3QAEqLuCMdoxkF4
- fNng==
+ bh=4NbaAPA4KZidZN9igMvvUhEuUYQkMPdFpA4C+Rcz3WU=;
+ b=AS8S9XUyF97KnfgIwg2yesHTDqZx/UVbJCHCnrIndnIoIU2MuKJtcUtYHY/kMb0zrQ
+ EULzY72y12tC3vTHJYGG6+VCi8z4DwhG/yzsJ6eng98evER1ItZ/AcJpJL69kQz3IYJN
+ waKiXMyoe67cEk2NvJkDW2H2kCTel0PpRVTrSWYw0qoaigyPpLeaHfiR+CiXX4UwdOCh
+ 1gumbw11R/QFvyrenvSLsqK8MubmNlgLVq8J/z7/AvRTUPxDuSAamyRvx5uNB9mnRHEb
+ vYRPhyeQEQ7/YuUwRdtB/2EDG7cYxKsUlnjkdL/6qQ1bAEbymjwUk5dzUhdAcfpA5TNK
+ NJ4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736930548; x=1737535348;
+ d=1e100.net; s=20230601; t=1736934994; x=1737539794;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lZk/iR/++ahrsJFkMAeCydXncYIA/yDJCJs2b060X04=;
- b=eUuzJuuFQ9kcx/8A2lqH2IJnlx9Jdf1XN+jLTpeV7X7vGEORtW3Qai3Er5ZtI5ymZu
- 5Brbrw0tNQTihih1ELrV3JCqh8m9uSm0lS75AqoRGJ2e2SD7EaDcL9J4/ie8yXy3aCbb
- nn319I0csDQWyN+0Gfg4ML31c8U7KDxrizIQy4x9kTH3vsPjup+tq44c24j34mkN6LMO
- gUJDrZ3xouPG1Y3xU3TC0z0/ZGvSTCtbLCiTq6RxhWFVLyRum0firRNk23rSlBw0Y9Zc
- +UTZoFywbQjr25a8kZpAxZ6UfAPx9ZiiM2RvVH1uAX12Ry/bq7Z1hlV03p8ypfuYtQpS
- wUpQ==
+ bh=4NbaAPA4KZidZN9igMvvUhEuUYQkMPdFpA4C+Rcz3WU=;
+ b=tT9DrMDev9Mu8MADzrLtA+FC37r4jORGglWGK6J+GNqvKscM74NAxW36YSLBljVIZH
+ MTCmjoNg+hEa8rHYJv5MF6wG6883mM8AJt87kRluDDh83BUJJWxQESXiZaLnNU+X/9hx
+ NCM3j7ixTtKZnEmX810s82si04Ic6vfu31RIggT9omgBLZbrvDrLqmVcN+ZPCL7ZtrQx
+ +BDRusQxZfXtOcy37IJzvXwZ+sHUsG01jbf95JXdMLb84WZKft3emXc72+TR6G32DNzc
+ lsvqO1dhqquaODUI2Cd+6GF5knQxeNvB03CDyhKLraBzyHvxAt5urIRv+SGYLRnL8/Xo
+ V8WQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWKHYtvnOdXhHLvJTG1oaqFuKOITosuGBX3e/i+/ROwBt2mVFGurkQ6C/IAqfOAFpc67RYhzPnQxlA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzk2r8TXUEq+Vs5N8WBtMt+MR4eCskzuksozHXERiivUU6/76fh
- IRhM0BGrUrG0JhM3RjTpOeFF7e42gSZ9s3hfI946yKizVPqnXsPeiCWmAhyTKj8=
-X-Gm-Gg: ASbGncsSjrQOdrBHW1hSDeZ29FSlFhxOn9PhZ1tT477jF2mp5WJNVREQ71xYDBcVmh2
- nGV0CfSHTdIk+rPXowtRTIf412NqiKyFrc0q5N4PsoBgWlalsPHR115LyWYrQeEH40c/sGAx9Oa
- bcYog+QVey+fLXmbxZF1UeThp9ixZ7xHyyxVkFPdVGAORja+v48Pt38fGw9E4YRB0IdQe9pHp+H
- kM0OFM7/sNILoqe7jFbqyI+43jPLz7XdiuKfjoV5PqH2vKgLsKr6Uq+Gec7d9ILt8Ufcrz2DBPb
- parU+0dljWSAfbyjIzAmcTsPhmTAWPw7Fzn6
-X-Google-Smtp-Source: AGHT+IHxu2bWsq5LOpgqWeFg+x5QNIImak2VP0xFnPhyWJs6nSmCqpRMYEK49XiKqJfZCWCXlCW9lw==
-X-Received: by 2002:a05:6512:a8e:b0:542:2990:722e with SMTP id
- 2adb3069b0e04-542845ba7b6mr9152754e87.15.1736930548306; 
- Wed, 15 Jan 2025 00:42:28 -0800 (PST)
+ AJvYcCVl2GDgVXar91F6aJvvvBKcZ9CBdzUjCyuSk0BcrCJKPQ9L4jmY5cqjGzL77V8PwvxwKZbI0z03qu8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwqfWe+RiiJ73ixDhgnwWE1IzVHN+LtuyUjFfPCGoP6wmbLHRjy
+ 4qHxQZRlnAz1q08qg10Qbjv4o2mlLqPq1JNIIot8cjjfMGzbGGhQvPfFSk2oFfs=
+X-Gm-Gg: ASbGncu02MRcKJDc4nrp6Y5v2y9GRWLX+eSnSQTjsuAlRDWqWvIkKT8xgPCpA3ZYEfJ
+ bXOkFVhIn2YzyGCeBqJqjJFO8lRhL9ieT4QHBXzkVy01YswhVf6TxS5rKu3zYWWBEcfucdGrNVy
+ crsID0SdLfBvrfDIDblI49OP05fGichLWQq1nvHnECfg/vI1NfGjBrVHSO1R76CuNF9Koq0cjbG
+ CX6wHJNcVIMvodOccprblhMBEGUhbEXznG3ETg147HJd0nchgVtqD5llPHEEgtXBc1M9hWtlJ8L
+ JD43p5YKAVchqiVoDDZmj353S3NPOE+Apb4q
+X-Google-Smtp-Source: AGHT+IGdcAOdUG5fgly7YfptG6CNNweisHhi/hZNftHi4OvJxWiB8xY4glhYK6kEsCdx9Iy4Jw5dDw==
+X-Received: by 2002:a05:651c:4cb:b0:304:4e03:f9d9 with SMTP id
+ 38308e7fff4ca-305f45e84b9mr95164771fa.28.1736934994161; 
+ Wed, 15 Jan 2025 01:56:34 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-305ff1c7bd4sm20361321fa.80.2025.01.15.00.42.26
+ 38308e7fff4ca-305ff1c7d9asm21725061fa.77.2025.01.15.01.56.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2025 00:42:27 -0800 (PST)
-Date: Wed, 15 Jan 2025 10:42:24 +0200
+ Wed, 15 Jan 2025 01:56:32 -0800 (PST)
+Date: Wed, 15 Jan 2025 11:56:30 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Stephen Boyd <swboyd@chromium.org>, Simona Vetter <simona.vetter@ffwll.ch>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Konrad Dybcio <konradybcio@kernel.org>
-Subject: Re: [PATCH v4 9/9] drm/msm/dpu: drop
- dpu_core_perf_params::max_per_pipe_ib
-Message-ID: <5wmq4j2wh4eflsqanfladxh3wnbqcmxfezvxfs6kwmfu4iw5mi@rnemw3o52qkx>
-References: <20250106-dpu-perf-rework-v4-0-00b248349476@linaro.org>
- <20250106-dpu-perf-rework-v4-9-00b248349476@linaro.org>
- <0fcc05ba-a126-4214-8a3d-9586cd5e8d88@quicinc.com>
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+Cc: Rob Clark <robdclark@gmail.com>, quic_abhinavk@quicinc.com, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Simona Vetter <simona@ffwll.ch>, Simona Vetter <simona.vetter@ffwll.ch>, 
+ quic_ebharadw@quicinc.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, 
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH v4 06/25] drm/msm/dpu: switch RM to use crtc_id rather
+ than enc_id for allocation
+Message-ID: <sh5b25yj5down5udxyqh6c3zv3iqboy2z7woapzkmf4or2kcad@y2e3vb7oae2g>
+References: <20241216-concurrent-wb-v4-0-fe220297a7f0@quicinc.com>
+ <20241216-concurrent-wb-v4-6-fe220297a7f0@quicinc.com>
+ <c5zetpm7kdonvkmzvuun3b6omcplyet3xjtrdjm6rcsnzqnaxd@qvdeobkzanw2>
+ <ymmjih5imrh7rrvgylolrerdqffqz57qcuvyj6dyb2ak367f3t@nfoqwt6hxy34>
+ <7beaf677-d1b9-4342-ad62-90eb4a1df17c@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <0fcc05ba-a126-4214-8a3d-9586cd5e8d88@quicinc.com>
+In-Reply-To: <7beaf677-d1b9-4342-ad62-90eb4a1df17c@quicinc.com>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,124 +102,688 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jan 14, 2025 at 04:53:10PM -0800, Abhinav Kumar wrote:
+On Tue, Jan 14, 2025 at 09:28:50PM -0800, Jessica Zhang wrote:
 > 
 > 
-> On 1/5/2025 7:07 PM, Dmitry Baryshkov wrote:
-> > The max_per_pipe_ib is a constant across all CRTCs and is read from the
-> > catalog. The override value is also applied at the
-> > _dpu_core_perf_crtc_update_bus() time. Drop corresponding calculations
-> > and read the value directly at icc_set_bw() time.
+> On 12/24/2024 12:00 PM, Dmitry Baryshkov wrote:
+> > On Tue, Dec 24, 2024 at 06:45:07AM +0200, Dmitry Baryshkov wrote:
+> > > On Mon, Dec 16, 2024 at 04:43:17PM -0800, Jessica Zhang wrote:
+> > > > From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > > 
+> > > > Up to now the driver has been using encoder to allocate hardware
+> > > > resources. Switch it to use CRTC id in preparation for the next step.
+> > > > 
+> > > > Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > > > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> > > > ---
+> > > > Changes in v4 (due to rebase):
+> > > > 
+> > > > - moved *_get_assigned_resources() changes for DSPP and LM from
+> > > >    encoder *_virt_atomic_mode_set() to *_assign_crtc_resources()
+> > > > ---
+> > > >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  20 +--
+> > > >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |  12 +-
+> > > >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 189 ++++++++++++++--------------
+> > > >   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h      |   7 +-
+> > > >   4 files changed, 110 insertions(+), 118 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > > index 5172ab4dea995a154cd88d05c3842d7425fc34ce..e6f930dd34566d01223823de82c922668e6be300 100644
+> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > > > @@ -715,11 +715,11 @@ static void dpu_encoder_assign_crtc_resources(struct dpu_kms *dpu_kms,
+> > > >   	memset(cstate->mixers, 0, sizeof(cstate->mixers));
+> > > >   	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > > > -		drm_enc->base.id, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+> > > > +		drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+> > > 
+> > > And this crashes because drm_enc->crtc isn't set yet. Was this commit
+> > > tested? Or was it only tested as a part of the patchset, after this code
+> > > has been rewritten by the subsequent patches? I will replace this with
+> > > crtc_state->crtc, but generatlly this looks bad.
 > > 
-> > Suggested-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 16 ++++------------
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  2 --
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  2 --
-> >   3 files changed, 4 insertions(+), 16 deletions(-)
+> > Even with this in place, it fails the kms_color@ctm-max for pipe-B-eDP-1
+> > on SC7180 (pipe-A-eDP-1 succeeds). See job log at [1].
 > > 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> > index 913eb4c01abe10c1ed84215fbbee50abd69e9317..62dab5883513dc570076da5a64e32e502dd4320b 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> > @@ -105,12 +105,10 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
-> >   	}
-> >   	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
-> > -	perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
-> >   	perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
-> >   	DRM_DEBUG_ATOMIC(
-> > -		"crtc=%d clk_rate=%llu core_ib=%u core_ab=%u\n",
-> > +		"crtc=%d clk_rate=%llu core_ab=%u\n",
-> >   			crtc->base.id, perf->core_clk_rate,
-> > -			perf->max_per_pipe_ib,
-> >   			(u32)DIV_ROUND_UP_ULL(perf->bw_ctl, 1000));
-> >   }
-> > @@ -126,9 +124,6 @@ static void dpu_core_perf_aggregate(struct drm_device *ddev,
-> >   		    curr_client_type == dpu_crtc_get_client_type(tmp_crtc)) {
-> >   			dpu_cstate = to_dpu_crtc_state(tmp_crtc->state);
-> > -			perf->max_per_pipe_ib = max(perf->max_per_pipe_ib,
-> > -						    dpu_cstate->new_perf.max_per_pipe_ib);
+> > corresponding excerpt from the log:
+> > 
+> > [IGT] kms_color: starting dynamic subtest pipe-B-eDP-1
+> > [drm:_dpu_rm_check_lm_and_get_connected_blks] [dpu error]failed to get dspp on lm 0
+> > [drm:_dpu_rm_make_reservation] [dpu error]unable to find appropriate mixers
+> > [drm:dpu_rm_reserve] [dpu error]failed to reserve hw resources: -119
+> > [IGT] kms_color: finished subtest pipe-B-eDP-1, FAIL
+> > 
+> > FWIW it looks like during an attempt to use second CRTC the driver
+> > doesn't release resources for the first one. I'll drop this patch for
+> > now, leaving just HW_CWB patches in.
+> > 
+> > [1] https://gitlab.freedesktop.org/drm/msm/-/jobs/68614460/viewer
 > 
-> During the enabled cases, this is fine since even if one crtc is enabled,
-> its going to use the same value.
+> Hi Dmitry,
 > 
-> During disable to enable and enable to disable transitions, we do need to
-> make it 0 right?
+> Thanks for catching this -- it seems like the issue is because a disabling
+> commit will not call into the encoder atomic check.
+> 
+> During the disabling commit at the end of the IGT test [2], the connector is
+> detached from the crtc it was testing on. Because of this, we end up
+> skipping over any connector that doesn't have the best_encoder or crtc set
+> [1] within mode_fixup().
+> 
+> So we'll never release the dspp block from the pipe-A/crtc-0 subtest, which
+> will cause the "failed to reserve hw resources" error for pipe-b/crtc-1.
 
-Good point, I will check that later.
+And currently the test works because the encoder isn't changed, so all
+resources are kept from the previous run, even though the routing has
+changed from CRTC 0 to 1. Fun.
+
+> Overall, I think the issue stems from the fact that we're trying to update a
+> crtc-based component within an encoder-specific callback. Maybe the right
+> call here would be to squash this commit with "drm/msm/dpu: move resource
+> allocation to CRTC".
+
+I'd rather not. Those two changes are big enough and independent. Can
+you change the order of those two commits instead?
 
 > 
-> OR if its already being made 0, we need to make sure it gets updated by
-> forcing update_bus to true?
+> What do you think?
 > 
-> Is this part being handled by this block dpu_core_perf_crtc_update()?
+> Thanks,
 > 
->         } else {
->                 DRM_DEBUG_ATOMIC("crtc=%d disable\n", crtc->base.id);
->                 memset(old, 0, sizeof(*old));
->                 update_bus = true;
->                 update_clk = true;
->         }
+> Jessica Zhang
 > 
-> Please confirm this, I am fine with this change otherwise.
+> [1] https://elixir.bootlin.com/linux/v6.12.6/source/drivers/gpu/drm/drm_atomic_helper.c#L441
+> [2] https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/kms_color.c#L603
 > 
-> > -
-> >   			perf->bw_ctl += dpu_cstate->new_perf.bw_ctl;
-> >   			DRM_DEBUG_ATOMIC("crtc=%d bw=%llu\n",
-> > @@ -204,7 +199,7 @@ static int _dpu_core_perf_crtc_update_bus(struct dpu_kms *kms,
-> >   	dpu_core_perf_aggregate(crtc->dev, dpu_crtc_get_client_type(crtc), &perf);
-> >   	avg_bw = div_u64(perf.bw_ctl, 1000); /*Bps_to_icc*/
-> > -	peak_bw = perf.max_per_pipe_ib;
-> > +	peak_bw = kms->catalog->perf->min_dram_ib;
-> >   	if (kms->perf.fix_core_ab_vote)
-> >   		avg_bw = kms->perf.fix_core_ab_vote;
-> > @@ -315,15 +310,12 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
-> >   		 * 2. new bandwidth vote - "ab or ib vote" is lower
-> >   		 *    than current vote at end of commit or stop.
-> >   		 */
-> > -		if ((params_changed && ((new->bw_ctl > old->bw_ctl) ||
-> > -			(new->max_per_pipe_ib > old->max_per_pipe_ib)))	||
-> > -			(!params_changed && ((new->bw_ctl < old->bw_ctl) ||
-> > -			(new->max_per_pipe_ib < old->max_per_pipe_ib)))) {
-> > +		if ((params_changed && new->bw_ctl > old->bw_ctl) ||
-> > +		    (!params_changed && new->bw_ctl < old->bw_ctl)) {
-> >   			DRM_DEBUG_ATOMIC("crtc=%d p=%d new_bw=%llu,old_bw=%llu\n",
-> >   				crtc->base.id, params_changed,
-> >   				new->bw_ctl, old->bw_ctl);
-> >   			old->bw_ctl = new->bw_ctl;
-> > -			old->max_per_pipe_ib = new->max_per_pipe_ib;
-> >   			update_bus = true;
-> >   		}
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> > index 9d8516ca32d162b1e277ec88067e5c21abeb2017..863a6fc1f30c21cf2030a30be5fe62b024b3b820 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
-> > @@ -14,12 +14,10 @@
-> >   /**
-> >    * struct dpu_core_perf_params - definition of performance parameters
-> > - * @max_per_pipe_ib: maximum instantaneous bandwidth request
-> >    * @bw_ctl: arbitrated bandwidth request
-> >    * @core_clk_rate: core clock rate request
-> >    */
-> >   struct dpu_core_perf_params {
-> > -	u32 max_per_pipe_ib;
-> >   	u64 bw_ctl;
-> >   	u64 core_clk_rate;
-> >   };
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > index ac3c6c5ad1cec3856f0eff2ed71153d3c2dc279e..cc240d3c7faa89254a575237634d0d0fa8f04f73 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > @@ -1488,8 +1488,6 @@ static int dpu_crtc_debugfs_state_show(struct seq_file *s, void *v)
-> >   			dpu_crtc->cur_perf.core_clk_rate);
-> >   	seq_printf(s, "bw_ctl: %uk\n",
-> >   		   (u32)DIV_ROUND_UP_ULL(dpu_crtc->cur_perf.bw_ctl, 1000));
-> > -	seq_printf(s, "max_per_pipe_ib: %u\n",
-> > -				dpu_crtc->cur_perf.max_per_pipe_ib);
-> >   	return 0;
-> >   }
 > > 
+> > > 
+> > > >   	num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > > > -		drm_enc->base.id, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
+> > > > +		drm_enc->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
+> > > >   	num_dspp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > > > -		drm_enc->base.id, DPU_HW_BLK_DSPP, hw_dspp,
+> > > > +		drm_enc->crtc, DPU_HW_BLK_DSPP, hw_dspp,
+> > > 
+> > > 
+> > > >   		ARRAY_SIZE(hw_dspp));
+> > > >   	for (i = 0; i < num_lm; i++) {
+> > > > @@ -796,11 +796,11 @@ static int dpu_encoder_virt_atomic_check(
+> > > >   	 * Dont allocate when active is false.
+> > > >   	 */
+> > > >   	if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+> > > > -		dpu_rm_release(global_state, drm_enc);
+> > > > +		dpu_rm_release(global_state, crtc_state->crtc);
+> > > >   		if (!crtc_state->active_changed || crtc_state->enable)
+> > > >   			ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
+> > > > -					drm_enc, crtc_state, &topology);
+> > > > +					crtc_state->crtc, &topology);
+> > > >   		if (!ret)
+> > > >   			dpu_encoder_assign_crtc_resources(dpu_kms, drm_enc,
+> > > >   							  global_state, crtc_state);
+> > > > @@ -1244,17 +1244,17 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+> > > >   	/* Query resource that have been reserved in atomic check step. */
+> > > >   	num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > > > -		drm_enc->base.id, DPU_HW_BLK_PINGPONG, hw_pp,
+> > > > +		drm_enc->crtc, DPU_HW_BLK_PINGPONG, hw_pp,
+> > > >   		ARRAY_SIZE(hw_pp));
+> > > >   	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > > > -		drm_enc->base.id, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+> > > > +		drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+> > > >   	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
+> > > >   		dpu_enc->hw_pp[i] = i < num_pp ? to_dpu_hw_pingpong(hw_pp[i])
+> > > >   						: NULL;
+> > > >   	num_dsc = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > > > -						drm_enc->base.id, DPU_HW_BLK_DSC,
+> > > > +						drm_enc->crtc, DPU_HW_BLK_DSC,
+> > > >   						hw_dsc, ARRAY_SIZE(hw_dsc));
+> > > >   	for (i = 0; i < num_dsc; i++) {
+> > > >   		dpu_enc->hw_dsc[i] = to_dpu_hw_dsc(hw_dsc[i]);
+> > > > @@ -1268,7 +1268,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+> > > >   		struct dpu_hw_blk *hw_cdm = NULL;
+> > > >   		dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+> > > > -					      drm_enc->base.id, DPU_HW_BLK_CDM,
+> > > > +					      drm_enc->crtc, DPU_HW_BLK_CDM,
+> > > >   					      &hw_cdm, 1);
+> > > >   		dpu_enc->cur_master->hw_cdm = hw_cdm ? to_dpu_hw_cdm(hw_cdm) : NULL;
+> > > >   	}
+> > > > @@ -2189,7 +2189,7 @@ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
+> > > >   	global_state = dpu_kms_get_existing_global_state(phys_enc->dpu_kms);
+> > > >   	num_lm = dpu_rm_get_assigned_resources(&phys_enc->dpu_kms->rm, global_state,
+> > > > -		phys_enc->parent->base.id, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
+> > > > +		phys_enc->parent->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
+> > > >   	for (i = 0; i < num_lm; i++) {
+> > > >   		hw_mixer[i] = to_dpu_hw_mixer(hw_lm[i]);
+> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> > > > index 88d64d43ea1a8226b414f04bf76551f7dda94ef6..48d756d8f8c6e4ab94b72bac0418320f7dc8cda8 100644
+> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> > > > @@ -122,12 +122,12 @@ struct dpu_global_state {
+> > > >   	struct dpu_rm *rm;
+> > > > -	uint32_t pingpong_to_enc_id[PINGPONG_MAX - PINGPONG_0];
+> > > > -	uint32_t mixer_to_enc_id[LM_MAX - LM_0];
+> > > > -	uint32_t ctl_to_enc_id[CTL_MAX - CTL_0];
+> > > > -	uint32_t dspp_to_enc_id[DSPP_MAX - DSPP_0];
+> > > > -	uint32_t dsc_to_enc_id[DSC_MAX - DSC_0];
+> > > > -	uint32_t cdm_to_enc_id;
+> > > > +	uint32_t pingpong_to_crtc_id[PINGPONG_MAX - PINGPONG_0];
+> > > > +	uint32_t mixer_to_crtc_id[LM_MAX - LM_0];
+> > > > +	uint32_t ctl_to_crtc_id[CTL_MAX - CTL_0];
+> > > > +	uint32_t dspp_to_crtc_id[DSPP_MAX - DSPP_0];
+> > > > +	uint32_t dsc_to_crtc_id[DSC_MAX - DSC_0];
+> > > > +	uint32_t cdm_to_crtc_id;
+> > > >   };
+> > > >   struct dpu_global_state
+> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> > > > index cd5960af4a151428cc6fb7154c3ffdb65ebcf287..2f227e6826b5f90bdab508bd1e87075d8b4274fd 100644
+> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+> > > > @@ -22,9 +22,9 @@
+> > > >   static inline bool reserved_by_other(uint32_t *res_map, int idx,
+> > > > -				     uint32_t enc_id)
+> > > > +				     uint32_t crtc_id)
+> > > >   {
+> > > > -	return res_map[idx] && res_map[idx] != enc_id;
+> > > > +	return res_map[idx] && res_map[idx] != crtc_id;
+> > > >   }
+> > > >   /**
+> > > > @@ -226,7 +226,7 @@ static int _dpu_rm_get_lm_peer(struct dpu_rm *rm, int primary_idx)
+> > > >    *	pingpong
+> > > >    * @rm: dpu resource manager handle
+> > > >    * @global_state: resources shared across multiple kms objects
+> > > > - * @enc_id: encoder id requesting for allocation
+> > > > + * @crtc_id: crtc id requesting for allocation
+> > > >    * @lm_idx: index of proposed layer mixer in rm->mixer_blks[], function checks
+> > > >    *      if lm, and all other hardwired blocks connected to the lm (pp) is
+> > > >    *      available and appropriate
+> > > > @@ -239,14 +239,14 @@ static int _dpu_rm_get_lm_peer(struct dpu_rm *rm, int primary_idx)
+> > > >    */
+> > > >   static bool _dpu_rm_check_lm_and_get_connected_blks(struct dpu_rm *rm,
+> > > >   		struct dpu_global_state *global_state,
+> > > > -		uint32_t enc_id, int lm_idx, int *pp_idx, int *dspp_idx,
+> > > > +		uint32_t crtc_id, int lm_idx, int *pp_idx, int *dspp_idx,
+> > > >   		struct msm_display_topology *topology)
+> > > >   {
+> > > >   	const struct dpu_lm_cfg *lm_cfg;
+> > > >   	int idx;
+> > > >   	/* Already reserved? */
+> > > > -	if (reserved_by_other(global_state->mixer_to_enc_id, lm_idx, enc_id)) {
+> > > > +	if (reserved_by_other(global_state->mixer_to_crtc_id, lm_idx, crtc_id)) {
+> > > >   		DPU_DEBUG("lm %d already reserved\n", lm_idx + LM_0);
+> > > >   		return false;
+> > > >   	}
+> > > > @@ -258,7 +258,7 @@ static bool _dpu_rm_check_lm_and_get_connected_blks(struct dpu_rm *rm,
+> > > >   		return false;
+> > > >   	}
+> > > > -	if (reserved_by_other(global_state->pingpong_to_enc_id, idx, enc_id)) {
+> > > > +	if (reserved_by_other(global_state->pingpong_to_crtc_id, idx, crtc_id)) {
+> > > >   		DPU_DEBUG("lm %d pp %d already reserved\n", lm_cfg->id,
+> > > >   				lm_cfg->pingpong);
+> > > >   		return false;
+> > > > @@ -274,7 +274,7 @@ static bool _dpu_rm_check_lm_and_get_connected_blks(struct dpu_rm *rm,
+> > > >   		return false;
+> > > >   	}
+> > > > -	if (reserved_by_other(global_state->dspp_to_enc_id, idx, enc_id)) {
+> > > > +	if (reserved_by_other(global_state->dspp_to_crtc_id, idx, crtc_id)) {
+> > > >   		DPU_DEBUG("lm %d dspp %d already reserved\n", lm_cfg->id,
+> > > >   				lm_cfg->dspp);
+> > > >   		return false;
+> > > > @@ -286,7 +286,7 @@ static bool _dpu_rm_check_lm_and_get_connected_blks(struct dpu_rm *rm,
+> > > >   static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
+> > > >   			       struct dpu_global_state *global_state,
+> > > > -			       uint32_t enc_id,
+> > > > +			       uint32_t crtc_id,
+> > > >   			       struct msm_display_topology *topology)
+> > > >   {
+> > > > @@ -310,7 +310,7 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
+> > > >   		lm_idx[lm_count] = i;
+> > > >   		if (!_dpu_rm_check_lm_and_get_connected_blks(rm, global_state,
+> > > > -				enc_id, i, &pp_idx[lm_count],
+> > > > +				crtc_id, i, &pp_idx[lm_count],
+> > > >   				&dspp_idx[lm_count], topology)) {
+> > > >   			continue;
+> > > >   		}
+> > > > @@ -329,7 +329,7 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
+> > > >   				continue;
+> > > >   			if (!_dpu_rm_check_lm_and_get_connected_blks(rm,
+> > > > -					global_state, enc_id, j,
+> > > > +					global_state, crtc_id, j,
+> > > >   					&pp_idx[lm_count], &dspp_idx[lm_count],
+> > > >   					topology)) {
+> > > >   				continue;
+> > > > @@ -346,12 +346,12 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
+> > > >   	}
+> > > >   	for (i = 0; i < lm_count; i++) {
+> > > > -		global_state->mixer_to_enc_id[lm_idx[i]] = enc_id;
+> > > > -		global_state->pingpong_to_enc_id[pp_idx[i]] = enc_id;
+> > > > -		global_state->dspp_to_enc_id[dspp_idx[i]] =
+> > > > -			topology->num_dspp ? enc_id : 0;
+> > > > +		global_state->mixer_to_crtc_id[lm_idx[i]] = crtc_id;
+> > > > +		global_state->pingpong_to_crtc_id[pp_idx[i]] = crtc_id;
+> > > > +		global_state->dspp_to_crtc_id[dspp_idx[i]] =
+> > > > +			topology->num_dspp ? crtc_id : 0;
+> > > > -		trace_dpu_rm_reserve_lms(lm_idx[i] + LM_0, enc_id,
+> > > > +		trace_dpu_rm_reserve_lms(lm_idx[i] + LM_0, crtc_id,
+> > > >   					 pp_idx[i] + PINGPONG_0);
+> > > >   	}
+> > > > @@ -361,7 +361,7 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
+> > > >   static int _dpu_rm_reserve_ctls(
+> > > >   		struct dpu_rm *rm,
+> > > >   		struct dpu_global_state *global_state,
+> > > > -		uint32_t enc_id,
+> > > > +		uint32_t crtc_id,
+> > > >   		const struct msm_display_topology *top)
+> > > >   {
+> > > >   	int ctl_idx[MAX_BLOCKS];
+> > > > @@ -380,7 +380,7 @@ static int _dpu_rm_reserve_ctls(
+> > > >   		if (!rm->ctl_blks[j])
+> > > >   			continue;
+> > > > -		if (reserved_by_other(global_state->ctl_to_enc_id, j, enc_id))
+> > > > +		if (reserved_by_other(global_state->ctl_to_crtc_id, j, crtc_id))
+> > > >   			continue;
+> > > >   		ctl = to_dpu_hw_ctl(rm->ctl_blks[j]);
+> > > > @@ -404,8 +404,8 @@ static int _dpu_rm_reserve_ctls(
+> > > >   		return -ENAVAIL;
+> > > >   	for (i = 0; i < ARRAY_SIZE(ctl_idx) && i < num_ctls; i++) {
+> > > > -		global_state->ctl_to_enc_id[ctl_idx[i]] = enc_id;
+> > > > -		trace_dpu_rm_reserve_ctls(i + CTL_0, enc_id);
+> > > > +		global_state->ctl_to_crtc_id[ctl_idx[i]] = crtc_id;
+> > > > +		trace_dpu_rm_reserve_ctls(i + CTL_0, crtc_id);
+> > > >   	}
+> > > >   	return 0;
+> > > > @@ -413,12 +413,12 @@ static int _dpu_rm_reserve_ctls(
+> > > >   static int _dpu_rm_pingpong_next_index(struct dpu_global_state *global_state,
+> > > >   				       int start,
+> > > > -				       uint32_t enc_id)
+> > > > +				       uint32_t crtc_id)
+> > > >   {
+> > > >   	int i;
+> > > >   	for (i = start; i < (PINGPONG_MAX - PINGPONG_0); i++) {
+> > > > -		if (global_state->pingpong_to_enc_id[i] == enc_id)
+> > > > +		if (global_state->pingpong_to_crtc_id[i] == crtc_id)
+> > > >   			return i;
+> > > >   	}
+> > > > @@ -439,7 +439,7 @@ static int _dpu_rm_pingpong_dsc_check(int dsc_idx, int pp_idx)
+> > > >   static int _dpu_rm_dsc_alloc(struct dpu_rm *rm,
+> > > >   			     struct dpu_global_state *global_state,
+> > > > -			     uint32_t enc_id,
+> > > > +			     uint32_t crtc_id,
+> > > >   			     const struct msm_display_topology *top)
+> > > >   {
+> > > >   	int num_dsc = 0;
+> > > > @@ -452,10 +452,10 @@ static int _dpu_rm_dsc_alloc(struct dpu_rm *rm,
+> > > >   		if (!rm->dsc_blks[dsc_idx])
+> > > >   			continue;
+> > > > -		if (reserved_by_other(global_state->dsc_to_enc_id, dsc_idx, enc_id))
+> > > > +		if (reserved_by_other(global_state->dsc_to_crtc_id, dsc_idx, crtc_id))
+> > > >   			continue;
+> > > > -		pp_idx = _dpu_rm_pingpong_next_index(global_state, pp_idx, enc_id);
+> > > > +		pp_idx = _dpu_rm_pingpong_next_index(global_state, pp_idx, crtc_id);
+> > > >   		if (pp_idx < 0)
+> > > >   			return -ENAVAIL;
+> > > > @@ -463,7 +463,7 @@ static int _dpu_rm_dsc_alloc(struct dpu_rm *rm,
+> > > >   		if (ret)
+> > > >   			return -ENAVAIL;
+> > > > -		global_state->dsc_to_enc_id[dsc_idx] = enc_id;
+> > > > +		global_state->dsc_to_crtc_id[dsc_idx] = crtc_id;
+> > > >   		num_dsc++;
+> > > >   		pp_idx++;
+> > > >   	}
+> > > > @@ -479,7 +479,7 @@ static int _dpu_rm_dsc_alloc(struct dpu_rm *rm,
+> > > >   static int _dpu_rm_dsc_alloc_pair(struct dpu_rm *rm,
+> > > >   				  struct dpu_global_state *global_state,
+> > > > -				  uint32_t enc_id,
+> > > > +				  uint32_t crtc_id,
+> > > >   				  const struct msm_display_topology *top)
+> > > >   {
+> > > >   	int num_dsc = 0;
+> > > > @@ -494,11 +494,11 @@ static int _dpu_rm_dsc_alloc_pair(struct dpu_rm *rm,
+> > > >   			continue;
+> > > >   		/* consective dsc index to be paired */
+> > > > -		if (reserved_by_other(global_state->dsc_to_enc_id, dsc_idx, enc_id) ||
+> > > > -		    reserved_by_other(global_state->dsc_to_enc_id, dsc_idx + 1, enc_id))
+> > > > +		if (reserved_by_other(global_state->dsc_to_crtc_id, dsc_idx, crtc_id) ||
+> > > > +		    reserved_by_other(global_state->dsc_to_crtc_id, dsc_idx + 1, crtc_id))
+> > > >   			continue;
+> > > > -		pp_idx = _dpu_rm_pingpong_next_index(global_state, pp_idx, enc_id);
+> > > > +		pp_idx = _dpu_rm_pingpong_next_index(global_state, pp_idx, crtc_id);
+> > > >   		if (pp_idx < 0)
+> > > >   			return -ENAVAIL;
+> > > > @@ -508,7 +508,7 @@ static int _dpu_rm_dsc_alloc_pair(struct dpu_rm *rm,
+> > > >   			continue;
+> > > >   		}
+> > > > -		pp_idx = _dpu_rm_pingpong_next_index(global_state, pp_idx + 1, enc_id);
+> > > > +		pp_idx = _dpu_rm_pingpong_next_index(global_state, pp_idx + 1, crtc_id);
+> > > >   		if (pp_idx < 0)
+> > > >   			return -ENAVAIL;
+> > > > @@ -518,8 +518,8 @@ static int _dpu_rm_dsc_alloc_pair(struct dpu_rm *rm,
+> > > >   			continue;
+> > > >   		}
+> > > > -		global_state->dsc_to_enc_id[dsc_idx] = enc_id;
+> > > > -		global_state->dsc_to_enc_id[dsc_idx + 1] = enc_id;
+> > > > +		global_state->dsc_to_crtc_id[dsc_idx] = crtc_id;
+> > > > +		global_state->dsc_to_crtc_id[dsc_idx + 1] = crtc_id;
+> > > >   		num_dsc += 2;
+> > > >   		pp_idx++;	/* start for next pair */
+> > > >   	}
+> > > > @@ -535,11 +535,9 @@ static int _dpu_rm_dsc_alloc_pair(struct dpu_rm *rm,
+> > > >   static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
+> > > >   			       struct dpu_global_state *global_state,
+> > > > -			       struct drm_encoder *enc,
+> > > > +			       uint32_t crtc_id,
+> > > >   			       const struct msm_display_topology *top)
+> > > >   {
+> > > > -	uint32_t enc_id = enc->base.id;
+> > > > -
+> > > >   	if (!top->num_dsc || !top->num_intf)
+> > > >   		return 0;
+> > > > @@ -555,16 +553,16 @@ static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
+> > > >   	/* num_dsc should be either 1, 2 or 4 */
+> > > >   	if (top->num_dsc > top->num_intf)	/* merge mode */
+> > > > -		return _dpu_rm_dsc_alloc_pair(rm, global_state, enc_id, top);
+> > > > +		return _dpu_rm_dsc_alloc_pair(rm, global_state, crtc_id, top);
+> > > >   	else
+> > > > -		return _dpu_rm_dsc_alloc(rm, global_state, enc_id, top);
+> > > > +		return _dpu_rm_dsc_alloc(rm, global_state, crtc_id, top);
+> > > >   	return 0;
+> > > >   }
+> > > >   static int _dpu_rm_reserve_cdm(struct dpu_rm *rm,
+> > > >   			       struct dpu_global_state *global_state,
+> > > > -			       struct drm_encoder *enc)
+> > > > +			       uint32_t crtc_id)
+> > > >   {
+> > > >   	/* try allocating only one CDM block */
+> > > >   	if (!rm->cdm_blk) {
+> > > > @@ -572,12 +570,12 @@ static int _dpu_rm_reserve_cdm(struct dpu_rm *rm,
+> > > >   		return -EIO;
+> > > >   	}
+> > > > -	if (global_state->cdm_to_enc_id) {
+> > > > +	if (global_state->cdm_to_crtc_id) {
+> > > >   		DPU_ERROR("CDM_0 is already allocated\n");
+> > > >   		return -EIO;
+> > > >   	}
+> > > > -	global_state->cdm_to_enc_id = enc->base.id;
+> > > > +	global_state->cdm_to_crtc_id = crtc_id;
+> > > >   	return 0;
+> > > >   }
+> > > > @@ -585,30 +583,31 @@ static int _dpu_rm_reserve_cdm(struct dpu_rm *rm,
+> > > >   static int _dpu_rm_make_reservation(
+> > > >   		struct dpu_rm *rm,
+> > > >   		struct dpu_global_state *global_state,
+> > > > -		struct drm_encoder *enc,
+> > > > +		uint32_t crtc_id,
+> > > >   		struct msm_display_topology *topology)
+> > > >   {
+> > > >   	int ret;
+> > > > -	ret = _dpu_rm_reserve_lms(rm, global_state, enc->base.id, topology);
+> > > > +	ret = _dpu_rm_reserve_lms(rm, global_state, crtc_id, topology);
+> > > >   	if (ret) {
+> > > >   		DPU_ERROR("unable to find appropriate mixers\n");
+> > > >   		return ret;
+> > > >   	}
+> > > > -	ret = _dpu_rm_reserve_ctls(rm, global_state, enc->base.id,
+> > > > +
+> > > > +	ret = _dpu_rm_reserve_ctls(rm, global_state, crtc_id,
+> > > >   			topology);
+> > > >   	if (ret) {
+> > > >   		DPU_ERROR("unable to find appropriate CTL\n");
+> > > >   		return ret;
+> > > >   	}
+> > > > -	ret  = _dpu_rm_reserve_dsc(rm, global_state, enc, topology);
+> > > > +	ret  = _dpu_rm_reserve_dsc(rm, global_state, crtc_id, topology);
+> > > >   	if (ret)
+> > > >   		return ret;
+> > > >   	if (topology->needs_cdm) {
+> > > > -		ret = _dpu_rm_reserve_cdm(rm, global_state, enc);
+> > > > +		ret = _dpu_rm_reserve_cdm(rm, global_state, crtc_id);
+> > > >   		if (ret) {
+> > > >   			DPU_ERROR("unable to find CDM blk\n");
+> > > >   			return ret;
+> > > > @@ -619,12 +618,12 @@ static int _dpu_rm_make_reservation(
+> > > >   }
+> > > >   static void _dpu_rm_clear_mapping(uint32_t *res_mapping, int cnt,
+> > > > -				  uint32_t enc_id)
+> > > > +				  uint32_t crtc_id)
+> > > >   {
+> > > >   	int i;
+> > > >   	for (i = 0; i < cnt; i++) {
+> > > > -		if (res_mapping[i] == enc_id)
+> > > > +		if (res_mapping[i] == crtc_id)
+> > > >   			res_mapping[i] = 0;
+> > > >   	}
+> > > >   }
+> > > > @@ -633,23 +632,25 @@ static void _dpu_rm_clear_mapping(uint32_t *res_mapping, int cnt,
+> > > >    * dpu_rm_release - Given the encoder for the display chain, release any
+> > > >    *	HW blocks previously reserved for that use case.
+> > > >    * @global_state: resources shared across multiple kms objects
+> > > > - * @enc: DRM Encoder handle
+> > > > + * @crtc: DRM CRTC handle
+> > > >    * @return: 0 on Success otherwise -ERROR
+> > > >    */
+> > > >   void dpu_rm_release(struct dpu_global_state *global_state,
+> > > > -		    struct drm_encoder *enc)
+> > > > +		    struct drm_crtc *crtc)
+> > > >   {
+> > > > -	_dpu_rm_clear_mapping(global_state->pingpong_to_enc_id,
+> > > > -		ARRAY_SIZE(global_state->pingpong_to_enc_id), enc->base.id);
+> > > > -	_dpu_rm_clear_mapping(global_state->mixer_to_enc_id,
+> > > > -		ARRAY_SIZE(global_state->mixer_to_enc_id), enc->base.id);
+> > > > -	_dpu_rm_clear_mapping(global_state->ctl_to_enc_id,
+> > > > -		ARRAY_SIZE(global_state->ctl_to_enc_id), enc->base.id);
+> > > > -	_dpu_rm_clear_mapping(global_state->dsc_to_enc_id,
+> > > > -		ARRAY_SIZE(global_state->dsc_to_enc_id), enc->base.id);
+> > > > -	_dpu_rm_clear_mapping(global_state->dspp_to_enc_id,
+> > > > -		ARRAY_SIZE(global_state->dspp_to_enc_id), enc->base.id);
+> > > > -	_dpu_rm_clear_mapping(&global_state->cdm_to_enc_id, 1, enc->base.id);
+> > > > +	uint32_t crtc_id = crtc->base.id;
+> > > > +
+> > > > +	_dpu_rm_clear_mapping(global_state->pingpong_to_crtc_id,
+> > > > +			ARRAY_SIZE(global_state->pingpong_to_crtc_id), crtc_id);
+> > > > +	_dpu_rm_clear_mapping(global_state->mixer_to_crtc_id,
+> > > > +			ARRAY_SIZE(global_state->mixer_to_crtc_id), crtc_id);
+> > > > +	_dpu_rm_clear_mapping(global_state->ctl_to_crtc_id,
+> > > > +			ARRAY_SIZE(global_state->ctl_to_crtc_id), crtc_id);
+> > > > +	_dpu_rm_clear_mapping(global_state->dsc_to_crtc_id,
+> > > > +			ARRAY_SIZE(global_state->dsc_to_crtc_id), crtc_id);
+> > > > +	_dpu_rm_clear_mapping(global_state->dspp_to_crtc_id,
+> > > > +			ARRAY_SIZE(global_state->dspp_to_crtc_id), crtc_id);
+> > > > +	_dpu_rm_clear_mapping(&global_state->cdm_to_crtc_id, 1, crtc_id);
+> > > >   }
+> > > >   /**
+> > > > @@ -661,42 +662,33 @@ void dpu_rm_release(struct dpu_global_state *global_state,
+> > > >    *	HW Reservations should be released via dpu_rm_release_hw.
+> > > >    * @rm: DPU Resource Manager handle
+> > > >    * @global_state: resources shared across multiple kms objects
+> > > > - * @enc: DRM Encoder handle
+> > > > - * @crtc_state: Proposed Atomic DRM CRTC State handle
+> > > > + * @crtc: DRM CRTC handle
+> > > >    * @topology: Pointer to topology info for the display
+> > > >    * @return: 0 on Success otherwise -ERROR
+> > > >    */
+> > > >   int dpu_rm_reserve(
+> > > >   		struct dpu_rm *rm,
+> > > >   		struct dpu_global_state *global_state,
+> > > > -		struct drm_encoder *enc,
+> > > > -		struct drm_crtc_state *crtc_state,
+> > > > +		struct drm_crtc *crtc,
+> > > >   		struct msm_display_topology *topology)
+> > > >   {
+> > > >   	int ret;
+> > > > -	/* Check if this is just a page-flip */
+> > > > -	if (!drm_atomic_crtc_needs_modeset(crtc_state))
+> > > > -		return 0;
+> > > > -
+> > > >   	if (IS_ERR(global_state)) {
+> > > >   		DPU_ERROR("failed to global state\n");
+> > > >   		return PTR_ERR(global_state);
+> > > >   	}
+> > > > -	DRM_DEBUG_KMS("reserving hw for enc %d crtc %d\n",
+> > > > -		      enc->base.id, crtc_state->crtc->base.id);
+> > > > +	DRM_DEBUG_KMS("reserving hw for crtc %d\n", crtc->base.id);
+> > > >   	DRM_DEBUG_KMS("num_lm: %d num_dsc: %d num_intf: %d\n",
+> > > >   		      topology->num_lm, topology->num_dsc,
+> > > >   		      topology->num_intf);
+> > > > -	ret = _dpu_rm_make_reservation(rm, global_state, enc, topology);
+> > > > +	ret = _dpu_rm_make_reservation(rm, global_state, crtc->base.id, topology);
+> > > >   	if (ret)
+> > > >   		DPU_ERROR("failed to reserve hw resources: %d\n", ret);
+> > > > -
+> > > > -
+> > > >   	return ret;
+> > > >   }
+> > > > @@ -705,48 +697,49 @@ int dpu_rm_reserve(
+> > > >    *     assigned to this encoder
+> > > >    * @rm: DPU Resource Manager handle
+> > > >    * @global_state: resources shared across multiple kms objects
+> > > > - * @enc_id: encoder id requesting for allocation
+> > > > + * @crtc: DRM CRTC handle
+> > > >    * @type: resource type to return data for
+> > > >    * @blks: pointer to the array to be filled by HW resources
+> > > >    * @blks_size: size of the @blks array
+> > > >    */
+> > > >   int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
+> > > > -	struct dpu_global_state *global_state, uint32_t enc_id,
+> > > > +	struct dpu_global_state *global_state, struct drm_crtc *crtc,
+> > > >   	enum dpu_hw_blk_type type, struct dpu_hw_blk **blks, int blks_size)
+> > > >   {
+> > > > +	uint32_t crtc_id = crtc->base.id;
+> > > >   	struct dpu_hw_blk **hw_blks;
+> > > > -	uint32_t *hw_to_enc_id;
+> > > > +	uint32_t *hw_to_crtc_id;
+> > > >   	int i, num_blks, max_blks;
+> > > >   	switch (type) {
+> > > >   	case DPU_HW_BLK_PINGPONG:
+> > > >   		hw_blks = rm->pingpong_blks;
+> > > > -		hw_to_enc_id = global_state->pingpong_to_enc_id;
+> > > > +		hw_to_crtc_id = global_state->pingpong_to_crtc_id;
+> > > >   		max_blks = ARRAY_SIZE(rm->pingpong_blks);
+> > > >   		break;
+> > > >   	case DPU_HW_BLK_LM:
+> > > >   		hw_blks = rm->mixer_blks;
+> > > > -		hw_to_enc_id = global_state->mixer_to_enc_id;
+> > > > +		hw_to_crtc_id = global_state->mixer_to_crtc_id;
+> > > >   		max_blks = ARRAY_SIZE(rm->mixer_blks);
+> > > >   		break;
+> > > >   	case DPU_HW_BLK_CTL:
+> > > >   		hw_blks = rm->ctl_blks;
+> > > > -		hw_to_enc_id = global_state->ctl_to_enc_id;
+> > > > +		hw_to_crtc_id = global_state->ctl_to_crtc_id;
+> > > >   		max_blks = ARRAY_SIZE(rm->ctl_blks);
+> > > >   		break;
+> > > >   	case DPU_HW_BLK_DSPP:
+> > > >   		hw_blks = rm->dspp_blks;
+> > > > -		hw_to_enc_id = global_state->dspp_to_enc_id;
+> > > > +		hw_to_crtc_id = global_state->dspp_to_crtc_id;
+> > > >   		max_blks = ARRAY_SIZE(rm->dspp_blks);
+> > > >   		break;
+> > > >   	case DPU_HW_BLK_DSC:
+> > > >   		hw_blks = rm->dsc_blks;
+> > > > -		hw_to_enc_id = global_state->dsc_to_enc_id;
+> > > > +		hw_to_crtc_id = global_state->dsc_to_crtc_id;
+> > > >   		max_blks = ARRAY_SIZE(rm->dsc_blks);
+> > > >   		break;
+> > > >   	case DPU_HW_BLK_CDM:
+> > > >   		hw_blks = &rm->cdm_blk;
+> > > > -		hw_to_enc_id = &global_state->cdm_to_enc_id;
+> > > > +		hw_to_crtc_id = &global_state->cdm_to_crtc_id;
+> > > >   		max_blks = 1;
+> > > >   		break;
+> > > >   	default:
+> > > > @@ -756,17 +749,17 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
+> > > >   	num_blks = 0;
+> > > >   	for (i = 0; i < max_blks; i++) {
+> > > > -		if (hw_to_enc_id[i] != enc_id)
+> > > > +		if (hw_to_crtc_id[i] != crtc_id)
+> > > >   			continue;
+> > > >   		if (num_blks == blks_size) {
+> > > > -			DPU_ERROR("More than %d resources assigned to enc %d\n",
+> > > > -				  blks_size, enc_id);
+> > > > +			DPU_ERROR("More than %d resources assigned to crtc %d\n",
+> > > > +				  blks_size, crtc_id);
+> > > >   			break;
+> > > >   		}
+> > > >   		if (!hw_blks[i]) {
+> > > > -			DPU_ERROR("Allocated resource %d unavailable to assign to enc %d\n",
+> > > > -				  type, enc_id);
+> > > > +			DPU_ERROR("Allocated resource %d unavailable to assign to crtc %d\n",
+> > > > +				  type, crtc_id);
+> > > >   			break;
+> > > >   		}
+> > > >   		blks[num_blks++] = hw_blks[i];
+> > > > @@ -801,37 +794,37 @@ void dpu_rm_print_state(struct drm_printer *p,
+> > > >   	drm_puts(p, "resource mapping:\n");
+> > > >   	drm_puts(p, "\tpingpong=");
+> > > > -	for (i = 0; i < ARRAY_SIZE(global_state->pingpong_to_enc_id); i++)
+> > > > +	for (i = 0; i < ARRAY_SIZE(global_state->pingpong_to_crtc_id); i++)
+> > > >   		dpu_rm_print_state_helper(p, rm->pingpong_blks[i],
+> > > > -					  global_state->pingpong_to_enc_id[i]);
+> > > > +					  global_state->pingpong_to_crtc_id[i]);
+> > > >   	drm_puts(p, "\n");
+> > > >   	drm_puts(p, "\tmixer=");
+> > > > -	for (i = 0; i < ARRAY_SIZE(global_state->mixer_to_enc_id); i++)
+> > > > +	for (i = 0; i < ARRAY_SIZE(global_state->mixer_to_crtc_id); i++)
+> > > >   		dpu_rm_print_state_helper(p, rm->mixer_blks[i],
+> > > > -					  global_state->mixer_to_enc_id[i]);
+> > > > +					  global_state->mixer_to_crtc_id[i]);
+> > > >   	drm_puts(p, "\n");
+> > > >   	drm_puts(p, "\tctl=");
+> > > > -	for (i = 0; i < ARRAY_SIZE(global_state->ctl_to_enc_id); i++)
+> > > > +	for (i = 0; i < ARRAY_SIZE(global_state->ctl_to_crtc_id); i++)
+> > > >   		dpu_rm_print_state_helper(p, rm->ctl_blks[i],
+> > > > -					  global_state->ctl_to_enc_id[i]);
+> > > > +					  global_state->ctl_to_crtc_id[i]);
+> > > >   	drm_puts(p, "\n");
+> > > >   	drm_puts(p, "\tdspp=");
+> > > > -	for (i = 0; i < ARRAY_SIZE(global_state->dspp_to_enc_id); i++)
+> > > > +	for (i = 0; i < ARRAY_SIZE(global_state->dspp_to_crtc_id); i++)
+> > > >   		dpu_rm_print_state_helper(p, rm->dspp_blks[i],
+> > > > -					  global_state->dspp_to_enc_id[i]);
+> > > > +					  global_state->dspp_to_crtc_id[i]);
+> > > >   	drm_puts(p, "\n");
+> > > >   	drm_puts(p, "\tdsc=");
+> > > > -	for (i = 0; i < ARRAY_SIZE(global_state->dsc_to_enc_id); i++)
+> > > > +	for (i = 0; i < ARRAY_SIZE(global_state->dsc_to_crtc_id); i++)
+> > > >   		dpu_rm_print_state_helper(p, rm->dsc_blks[i],
+> > > > -					  global_state->dsc_to_enc_id[i]);
+> > > > +					  global_state->dsc_to_crtc_id[i]);
+> > > >   	drm_puts(p, "\n");
+> > > >   	drm_puts(p, "\tcdm=");
+> > > >   	dpu_rm_print_state_helper(p, rm->cdm_blk,
+> > > > -				  global_state->cdm_to_enc_id);
+> > > > +				  global_state->cdm_to_crtc_id);
+> > > >   	drm_puts(p, "\n");
+> > > >   }
+> > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> > > > index 2240275080c4e97e91f52eae329a3457ec2bc538..893344bf1141046a45f32a1834f857a56aa2b9b6 100644
+> > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> > > > @@ -61,15 +61,14 @@ int dpu_rm_init(struct drm_device *dev,
+> > > >   int dpu_rm_reserve(struct dpu_rm *rm,
+> > > >   		struct dpu_global_state *global_state,
+> > > > -		struct drm_encoder *drm_enc,
+> > > > -		struct drm_crtc_state *crtc_state,
+> > > > +		struct drm_crtc *crtc,
+> > > >   		struct msm_display_topology *topology);
+> > > >   void dpu_rm_release(struct dpu_global_state *global_state,
+> > > > -		struct drm_encoder *enc);
+> > > > +		struct drm_crtc *crtc);
+> > > >   int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
+> > > > -	struct dpu_global_state *global_state, uint32_t enc_id,
+> > > > +	struct dpu_global_state *global_state, struct drm_crtc *crtc,
+> > > >   	enum dpu_hw_blk_type type, struct dpu_hw_blk **blks, int blks_size);
+> > > >   void dpu_rm_print_state(struct drm_printer *p,
+> > > > 
+> > > > -- 
+> > > > 2.34.1
+> > > > 
+> > > 
+> > > -- 
+> > > With best wishes
+> > > Dmitry
+> > 
+> > -- 
+> > With best wishes
+> > Dmitry
+> 
 
 -- 
 With best wishes
