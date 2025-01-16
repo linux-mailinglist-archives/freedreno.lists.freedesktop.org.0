@@ -2,79 +2,115 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 503D0A13DD2
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 16:37:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ACDBA143E0
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 22:16:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B10310E5A1;
-	Thu, 16 Jan 2025 15:37:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1546510E2EC;
+	Thu, 16 Jan 2025 21:16:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="CUNqGxVL";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FIsuU5rR";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
- [209.85.219.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 954E510E9B0
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 15:37:32 +0000 (UTC)
-Received: by mail-yb1-f182.google.com with SMTP id
- 3f1490d57ef6-e3983426f80so1684159276.1
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 07:37:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737041792; x=1737646592; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gu0YL2cR5qf4RDKaSc6EL4rrNDHMX6AlalCb9gr7/tY=;
- b=CUNqGxVLp40psuBp6/z3TATwQSl01gQMzRaCqUVF+gnkiT9PBYuDCHaSmylyRftn6t
- 7m6nSjdJIvu340D5DpfiaAOemdprn/kigj+arlBvNqwjS39P9vHKCd1snJCai2R16d70
- 9X0s2PQZdbodF7fdGGaKAjFObzY0bdUpkTKJCbJtX1zDPD3zsRRBfRSxMtxeO/spTgbO
- 0txTs4/M51zbp8nbM1laSs4WxbL8HHKWUwGDC+u26TGyIuPmuHjM6bBTt0dxnsOk1TK1
- F2ZJ7k9/Kf/fCIOTH7Cl0FoZr9/HHl5COEmX8ThDmv38OT5IjqQ2MY815xq2iTQ5paOy
- 3kZw==
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 663A610E2EC
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 21:16:33 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50GEHxdg012029
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 21:16:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ duEqSVZt1k43PZMd9QMDtaw8IMhjbIVlsCKvYGvC+i8=; b=FIsuU5rRT6YkcKNR
+ zEfcrLMCxkV4jTXAlza1eF5pivhNGt00bJhnqLjV+yoFCKVz1GJD1RuSjuUAPMVp
+ Cn2YC9MAWwoHpTFUuFAGPiTdMQ0MOLkX/IPuZBS4sJc1FWKKme2jDkqyEverr2CL
+ 6jXKsEgsqtPyDo/IvRf7uJrnajnDRL5f848A3xBSPSTAQYeDQtjyiPxE0ou8Oy+B
+ EEuInlZjHTqDxNXx6HwoxhQPKgaWv0ZSdNvpinBQomGbExXyDywgLJ0rfKhB7sts
+ IwfSPu5+9N6rPUS+tCkPUFwr+DIA1zkRl5jqbz5JpxFcuBHaBshZFxdihjyBnCfj
+ 3tlO5Q==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4473res0t4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 21:16:31 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-467975f1b53so3695651cf.3
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 13:16:31 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737041792; x=1737646592;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gu0YL2cR5qf4RDKaSc6EL4rrNDHMX6AlalCb9gr7/tY=;
- b=HpsDyM34d1HOXCf3aSMk5mhj78dXILdx0QYJuq5geM13/CjIgEDneqGTDN/TM2laWj
- lGYKovOOfUJOKeoNDroBrHl2Xr6QYDT2IVBNAQP9adU4nzHNUS8WgK5RttM01BfsR23d
- 2cY7gGXO8ItLdHYE/bwz6/YLiEF0XY3obAWjqa7teXGURdxSJZ2t4rd5klXrcCNmqE3k
- DQ+uDsPkw4/LsFY9jFMJpjwwqajWyaSvB3QRsmvwAhUaS8v7ykA+ikb20cd6sN42/LcZ
- wubQ52QNokYE+BWeqkM83047a/mMhwY9+xH20rtm1onVhSUc49mVrHY7O9JRd8N4nUBO
- xqJw==
+ d=1e100.net; s=20230601; t=1737062190; x=1737666990;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=duEqSVZt1k43PZMd9QMDtaw8IMhjbIVlsCKvYGvC+i8=;
+ b=rNpHolpwfXoTF58S9QpX2L+xopDusIpfMkBjvv49E10sqk+QiRF4hUGWjheVMCPvYx
+ m/1lFCQoa/fWbWITsJLTgn46Tsp1vaNZ+Vqd92ITqkchIbF9URaimR61WclKeUzAIT4J
+ 25U4HxfTVPcp1vFGCRi4XPJ70HAsnKtixIcZ7ng21Y7T1UQblpGMR4Fa+YoM0jxcsH7y
+ 0Uow7j5yVuZKIDMXvz3OnXpkYawmyqJbN/PjI5DSYSBURR6MokaXjQ/DmhrN3/QDYXHT
+ sJ2M39fn7U3QAZo6wuZqpa2O7JX8CnZG5cF1QUqYFjQ/ZqvpEqi/6kMNJSc/K6kfk5ud
+ PoeA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXhqbtNJWqmJrevk4u4Mt4uiX/JnrDzR8ptMZmnB6oT0XL19daeFtm7G9aWuYngH3p35vIv1ctXMOs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywbt2bnRVJSrPyftmWp2JQgzJOLpCpAj8+LF23o7cBEBQrW8gss
- 2D+kWvdwUXjI346R4376bRmO9sxBXWIasd+OlXTyYYP2Szl0BzuaSwyxZN+DXeiGlhBFR1+chzw
- se6uJyrzHqH7b/zNy6mXH1cz+nKUTn6RyhuXjGg==
-X-Gm-Gg: ASbGncs18W1QVboyYFi8pxx/K+hfbZ0YCZwUwzetLqNJHwgPmGRZDQspgZEZynHmmg3
- PjKX8N66R/W22LCWKZ6EpbA7FXOQwpdTW/w+vng==
-X-Google-Smtp-Source: AGHT+IE2lu1RJ+81fEpNx2WS29TXGJpZrv6nZSZo1ywtrcEHqUGGQ7ZOJqu97lvj99DQhbFcEkOqg4s+u5+aR73vUwE=
-X-Received: by 2002:a05:6902:1502:b0:e4b:25c6:54f1 with SMTP id
- 3f1490d57ef6-e54ee1ece4fmr27894249276.33.1737041791741; Thu, 16 Jan 2025
- 07:36:31 -0800 (PST)
+ AJvYcCWWpCfUwZkW2udUOOPIInGEtUcUI7Arj7HeWwoJOeQnHTYze6PZPwlKcUrpLQKPQsfa1uAES2qpTY0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy06LSZh+JspTfSrGuXHzjcqS0z6/m1gd06kSdnykXwoEQvFvUc
+ vyPJq/CXyIpEg6UE/pcVhEr9RQSMrRKkbxZpzd2Ux43YsBaWx8R+WLoLvLTdylz5IBeGm926oYa
+ Nytlw6foOCc76T9h0PcftT0gEKHsBAoSollV6/Dixqgg9bkS4yy8eGBvYt6uyqy+P0OQ=
+X-Gm-Gg: ASbGncumZBEAl/JUB2lXM4g/fUZ4OKFbeMOipAHp3+dgkkGynIMiqdLhVaDydTxiq26
+ O6cAVGPpjGyoVDJ0HJYqt6jiR5s49SEVoRzzHlvAFv+a+jS8Qgnc4A92T2b90xif43VG6++iTjO
+ z7f2J72lSgi17N9Hkx94kRaTObGwoxNPjfXhlNKZoMAQnp7t17Q8U9/dIVG9TR9npqswi5OVYIT
+ K2PDEtFGPJs8WNqFp8HbYi6KCKVS7ISO1KxzFoin1IBuXe9GsZg5jvVwA/brO+4jIY3nMmc1rzg
+ aPXr3qvD3Mu59dzuYHY4QYlPOXNt8S48PEc=
+X-Received: by 2002:a05:622a:1922:b0:464:889f:a41e with SMTP id
+ d75a77b69052e-46e12a15fbfmr1292731cf.1.1737062190372; 
+ Thu, 16 Jan 2025 13:16:30 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFXt5NyVoWry2QOdDSRLx9F2O47PKP+nxPyccur8tm4EUjeKajrh/vfeX3iMMizXWvAQI/zsA==
+X-Received: by 2002:a05:622a:1922:b0:464:889f:a41e with SMTP id
+ d75a77b69052e-46e12a15fbfmr1292411cf.1.1737062189895; 
+ Thu, 16 Jan 2025 13:16:29 -0800 (PST)
+Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5db736428e3sm437703a12.14.2025.01.16.13.16.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 Jan 2025 13:16:28 -0800 (PST)
+Message-ID: <404e8b7d-30ef-47f2-8a44-927b201d60ec@oss.qualcomm.com>
+Date: Thu, 16 Jan 2025 22:16:25 +0100
 MIME-Version: 1.0
-References: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org>
- <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-10-74749c6eba33@linaro.org>
- <l6z2skrj2tvlnqok44yepqs32keuz3wsfpgsacesrxi3q4s4xb@oiicfia3tkef>
- <CABymUCOdtePUgcbtY3Xtf9detcfwm=RjG1D_sfDOSbSP-EjwXA@mail.gmail.com>
- <gj6lxrclgabwuww3rl2ynw5qmaq4lx6xycxrazcwnnf5fbezjb@oijoszqsrdps>
-In-Reply-To: <gj6lxrclgabwuww3rl2ynw5qmaq4lx6xycxrazcwnnf5fbezjb@oijoszqsrdps>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 16 Jan 2025 23:36:21 +0800
-X-Gm-Features: AbW1kvYXwuBEDYTg5kJTxrLDV19dmEanvAhgmxnLYFZRVVWyY8KWs11jybEQtzk
-Message-ID: <CABymUCPa_k7OriJcDNZmCER9zhK-vk78NaK5HpV8-+Ta+MQQMg@mail.gmail.com>
-Subject: Re: [PATCH v4 10/16] drm/msm/dpu: handle pipes as array
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 1/4] drm/msm/adreno: Add speedbin support for X1-85
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20250109-x1e-speedbin-b4-v1-0-009e812b7f2a@quicinc.com>
+ <20250109-x1e-speedbin-b4-v1-1-009e812b7f2a@quicinc.com>
+ <356986fa-e66c-4e78-ab92-2593b037ab9a@oss.qualcomm.com>
+ <837602a7-bbd5-4436-ab9f-2b101bdcaac2@quicinc.com>
+ <enykcipequ4xjykcjbkpnmtlclrbbmkhncj7fx3zy4sgmo3h4n@y3k7xgjscpfc>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <enykcipequ4xjykcjbkpnmtlclrbbmkhncj7fx3zy4sgmo3h4n@y3k7xgjscpfc>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: uPJuheYRLQ1YLMj78cCniexNEBT0qIx0
+X-Proofpoint-GUID: uPJuheYRLQ1YLMj78cCniexNEBT0qIx0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-01-16_09,2025-01-16_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 mlxscore=0 bulkscore=0 mlxlogscore=999
+ impostorscore=0 spamscore=0 clxscore=1015 adultscore=0 phishscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2501160157
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,127 +126,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2025=E5=B9=B41=E6=
-=9C=8816=E6=97=A5=E5=91=A8=E5=9B=9B 18:08=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Thu, Jan 16, 2025 at 05:49:43PM +0800, Jun Nie wrote:
-> > Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2025=E5=B9=B41=
-=E6=9C=8816=E6=97=A5=E5=91=A8=E5=9B=9B 16:00=E5=86=99=E9=81=93=EF=BC=9A
-> > >
-> > > On Thu, Jan 16, 2025 at 03:25:59PM +0800, Jun Nie wrote:
-> > > > Store pipes in array with removing dedicated r_pipe. There are
-> > > > 2 pipes in a drm plane at most currently, while 4 pipes are
-> > > > required for quad-pipe case. Generalize the handling to pipe pair
-> > > > and ease handling to another pipe pair later.
-> > >
-> > > With the first sentence being moved to the end of the commit message:
-> > >
-> > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > >
-> > > Minor issues below, please address them in the next version.
-> > >
-> > > >
-> > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > > ---
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  35 +++----
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 167 +++++++++++++++++-=
-------------
-> > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  12 +--
-> > > >  3 files changed, 112 insertions(+), 102 deletions(-)
-> > >
-> > > > @@ -853,6 +855,9 @@ static int dpu_plane_atomic_check_nosspp(struct=
- drm_plane *plane,
-> > > >               return -EINVAL;
-> > > >       }
-> > > >
-> > > > +     /* move the assignment here, to ease handling to another pair=
-s later */
-> > >
-> > > Is it a TODO comment? It reads like an order.
-> > >
-> > > > +     pipe_cfg =3D &pstate->pipe_cfg[0];
-> > > > +     r_pipe_cfg =3D &pstate->pipe_cfg[1];
-> > > >       /* state->src is 16.16, src_rect is not */
-> > > >       drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src=
-);
-> > > >
-> > >
-> > > > @@ -1387,17 +1394,28 @@ static void _dpu_plane_atomic_disable(struc=
-t drm_plane *plane)
-> > > >  {
-> > > >       struct drm_plane_state *state =3D plane->state;
-> > > >       struct dpu_plane_state *pstate =3D to_dpu_plane_state(state);
-> > > > -     struct dpu_sw_pipe *r_pipe =3D &pstate->r_pipe;
-> > > > +     struct dpu_sw_pipe *pipe;
-> > > > +     int i;
-> > > >
-> > > > -     trace_dpu_plane_disable(DRMID(plane), false,
-> > > > -                             pstate->pipe.multirect_mode);
-> > > > +     for (i =3D 0; i < PIPES_PER_STAGE; i +=3D 1) {
-> > > > +             pipe =3D &pstate->pipe[i];
-> > > > +             if (!pipe->sspp)
-> > > > +                     continue;
-> > > >
-> > > > -     if (r_pipe->sspp) {
-> > > > -             r_pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
-> > > > -             r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
-> > > > +             trace_dpu_plane_disable(DRMID(plane), false,
-> > > > +                                     pstate->pipe[i].multirect_mod=
-e);
-> > > >
-> > > > -             if (r_pipe->sspp->ops.setup_multirect)
-> > > > -                     r_pipe->sspp->ops.setup_multirect(r_pipe);
-> > > > +             /*
-> > > > +              * clear multirect for the right pipe so that the SSP=
-P
-> > > > +              * can be further reused in the solo mode
-> > > > +              */
-> > > > +             if (pipe->sspp && i =3D=3D 1) {
-> > >
-> > > Wouldn't it be better to `&& i % 2 !=3D 0`? Then, I think, this condi=
-tion
-> > > can stay even in quad-pipe case.
-> >
-> > If all pipes are in solo mode, there is no need to test ' i %2 !=3D 0 '=
-. Below
-> > test shall be better, right?
-> > if (pipe->sspp && pipe->multirect_index =3D=3D DPU_SSPP_RECT_1)
->
-> Again, this will not work as expected for the SSPP-sharing case as it
-> will then clear pipe 0 for the sharing planes.
->
-> Let me think a bit... This code resets multirect for right pipes. It was
-> added back in 4.9 to fix the case of 'master' aka RECT_0 not being a
-> part of the atomic update. However I don't think this is applicable
-> anymore. We use z_pos normalization, so all planes for a CRTC are added
-> to the commit. Please drop this piece in a separate commit.
+On 15.01.2025 8:59 PM, Dmitry Baryshkov wrote:
+> On Thu, Jan 16, 2025 at 01:07:17AM +0530, Akhil P Oommen wrote:
+>> On 1/9/2025 7:27 PM, Konrad Dybcio wrote:
+>>> On 8.01.2025 11:42 PM, Akhil P Oommen wrote:
+>>>> Adreno X1-85 has an additional bit which is at a non-contiguous
+>>>> location in qfprom. Add support for this new "hi" bit along with
+>>>> the speedbin mappings.
+>>>> ---
+>>>>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c |  5 +++++
+>>>>  drivers/gpu/drm/msm/adreno/adreno_gpu.c   | 15 ++++++++++++++-
+>>>>  2 files changed, 19 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>> index 0c560e84ad5a53bb4e8a49ba4e153ce9cf33f7ae..e2261f50aabc6a2f931d810f3637dfdba5695f43 100644
+>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+>>>> @@ -1412,6 +1412,11 @@ static const struct adreno_info a7xx_gpus[] = {
+>>>>  			.gmu_cgc_mode = 0x00020202,
+>>>>  		},
+>>>>  		.address_space_size = SZ_256G,
+>>>> +		.speedbins = ADRENO_SPEEDBINS(
+>>>> +			{ 0,   0 },
+>>>> +			{ 263, 1 },
+>>>> +			{ 315, 0 },
+>>>> +		),
+>>>>  		.preempt_record_size = 4192 * SZ_1K,
+>>>>  	}, {
+>>>>  		.chip_ids = ADRENO_CHIP_IDS(0x43051401), /* "C520v2" */
+>>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>>>> index 75f5367e73caace4648491b041f80b7c4d26bf89..7b31379eff444cf3f8ed0dcfd23c14920c13ee9d 100644
+>>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>>>> @@ -1078,7 +1078,20 @@ void adreno_gpu_ocmem_cleanup(struct adreno_ocmem *adreno_ocmem)
+>>>>  
+>>>>  int adreno_read_speedbin(struct device *dev, u32 *speedbin)
+>>>>  {
+>>>> -	return nvmem_cell_read_variable_le_u32(dev, "speed_bin", speedbin);
+>>>> +	u32 hi_bits = 0;
+>>>> +	int ret;
+>>>> +
+>>>> +	ret = nvmem_cell_read_variable_le_u32(dev, "speed_bin", speedbin);
+>>>> +	if (ret)
+>>>> +		return ret;
+>>>> +
+>>>> +	/* Some chipsets have MSB bits (BIT(8) and above) at a non-contiguous location */
+>>>> +	ret = nvmem_cell_read_variable_le_u32(dev, "speed_bin_hi", &hi_bits);
+>>>> +	if (ret != -ENOENT)
+>>>> +		return ret;
+>>>> +
+>>>> +	*speedbin |= (hi_bits << 8);
+>>>
+>>> Now that we're overwriting speedbin, we should probably have some checks in
+>>> order to make sure somebody passing a too-wide cell to one of these won't
+>>> result in cripplingly-untraceable value corruption
+>>>
+>>> I guess we could just introduce nvmem_cell_read_variable_le_u8() and call it
+>>> a day?
+>>
+>> X1E is an outlier here, because this was fixed from the next chipset
+>> onward. For newer chipsets, we can use just the "speed_bin" node, which
+>> represents a contiguous 9 bits. So, just do a "WARN_ON(fls(speedbin) >
+>> 8)" here?
+> 
+> Or extend nvmem core to support non-contiguous fields.
 
-You mean only testing sspp as below? We have to handle the default
- non-shared case as existing implementation. Maybe we add a flag after
-sharing SSPP among planes? Otherwise, how to distinct the shared
-SSPP case and disable multi-rect mode in non-shared case?
+This sounds more desirable, as we surely aren't the only ones with
+such a "feature"..
 
-               if (pipe->sspp) {
-
->
-> >
-> > >
-> > > > +                     pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
-> > > > +                     pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_N=
-ONE;
-> > > > +
-> > > > +                     if (pipe->sspp->ops.setup_multirect)
-> > > > +                             pipe->sspp->ops.setup_multirect(pipe)=
-;
-> > > > +             }
-> > > >       }
-> > > >
-> > > >       pstate->pending =3D true;
-> > >
-> > > --
-> > > With best wishes
-> > > Dmitry
->
-> --
-> With best wishes
-> Dmitry
+Konrad
