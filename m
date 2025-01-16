@@ -2,66 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D149A13455
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 08:52:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1947BA1345D
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 08:54:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B51410E8C6;
-	Thu, 16 Jan 2025 07:52:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E033810E8C6;
+	Thu, 16 Jan 2025 07:54:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="erJjSonC";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eoghUWyp";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F6BA10E55C
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 07:52:53 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-53ffaaeeb76so687301e87.0
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 23:52:53 -0800 (PST)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 116DF10E8C9
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 07:54:50 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-5401ab97206so643326e87.3
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 23:54:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737013912; x=1737618712; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1737014088; x=1737618888; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=9KeTcvRzSBRZoETGqvAsD3cwrr3v6t0G+jUydDVDOWE=;
- b=erJjSonCUDa4mH2MfTH6yh0Tsmnjlyb1WFIkfSHkO5DO6Uu8LKtTm7oHfJLZ1WvqXW
- FNLTn5aiQTg+olvPqIS8VHE1CvdOZ/u0cBo6ysQf9JqTf7gJfo5DwxRFVrcCr/iUB0tZ
- tbhzY65dOvRPu0tge8ic52NY98McvMZ80vr4UAXTV8TAtWpyqd/k9TdoxVnJBmTwH7cj
- jLYm2WJt99ewcdLy55rOrlwgNJVOHIfU8eSgJ18jaCXd1L1f7k5LQcuJUayCmUfyCvh+
- fBVquHJzpHcekYjU0w0io4wWbf2svWO9TZTGaLwkgqVuJkePo8t0nnZUOYYaAP5/wR7w
- DUYw==
+ bh=+Jjg1mbduj57rKOjNRlVksmRWcTyDNvupEP5TEf++8E=;
+ b=eoghUWyp0qCmmzRUFO5K6pDeRXm/ZJmkWO1P5HlGD+4T7u0DwDFdXhBCadpI/MwGu9
+ 9ZBIgeysADVSx1pZ6rYNhmo8ljJKVgEEXJ51G+EW1toLFPFXtdX84Z0a/aVDNwqgOOB2
+ UFW5MqpN0lbowb0CD5b18R68YYYQg2+V51lD4Afyocq564xASHQuPpCDMUNjYelCz+Ei
+ m0tiuIgd4ATCOWi2heo4YGNXP9IAHmofa2y3WYFeTpQrvT2cZG/nk+1sltp6oY0iNk3+
+ g2Zw/00Y7lUG2E38F7H4MWvsmCbENEqWHyY/DbbEEjbyjWnv5oBXBt2hWTyuOpbak9hm
+ I3aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737013912; x=1737618712;
+ d=1e100.net; s=20230601; t=1737014088; x=1737618888;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9KeTcvRzSBRZoETGqvAsD3cwrr3v6t0G+jUydDVDOWE=;
- b=jvHPg3gsOMdPbyYZ+FFE3SHFnFXhGMlTG4ZuPpeoYbsj2swP27ePrNgQHnWdY1iD7E
- BfmHMI6ZaRoYS3VhjgUP8IdcAr2FCds5fJHhCk5tiUTzkgH+kEwWehTDKMdS4BqtYv7C
- QOJIo9pjsWgfu4cWwUhCsOMeTwVmoZz3RKopFZpsUn8PYFA5tPIee+keVfz58EX0rXKw
- hGJuSoNC+sKcHv+77XHpm8x3HgmNfqNo553j0OsahuWZR1+7V7r8poPoquJgP3oVDtOD
- kULc4z7Wg8lvHEdKA883W1DXa0gAsJxEzQ9Mh/W31q5l0d7V30CzGeIuT9tBJCNbIudq
- sSig==
+ bh=+Jjg1mbduj57rKOjNRlVksmRWcTyDNvupEP5TEf++8E=;
+ b=MYQPPxHtzlb+zLByTU48iX99T7+Nls8Ypx5oOP0MQ9RTlu7PCM+FbBv9t+H+xBB+8M
+ fZgqnbliPLYbk67Ft7zWdnYWjUo2sZadQFhhmh3DlslanRisZoUDZauTO7tM56dUHVoJ
+ Tca7YlDq8tHHjTpDGad340eeBpczvapXZRmIPnTR/HokPmrbAp6k8wbLB9MmZ0Yl/r1i
+ hgLTqq6LA7D3X3N2Bpzf2ASyUzej/pYTaIIiVzZKnUYvGriSswsKAkxHGA0WTxw6HAnY
+ UAJulGYqT962bO8MRBJ90VcKSN4IhWDYcNO9CAYi0j+/Whk/ST57LBN3UjGK05O1bq26
+ JnbA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXOTLpu7OYb1TVRIijRtFrBQkx5LSF/jVyM/R8h/MQqID6QdXlYU7MFrNhOfFIijBKRFMiphHm1LZQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywt19VGMJR2/XZjPIlbdr8ShAnzk8LOItf+hlNsEOPS3/5k8iQa
- z/FsRXyU92fTXQCIPcXh6loaaE+33mESzqiGxOyLhc0I54x5wtnwSl3m2DExlkE=
-X-Gm-Gg: ASbGncvx6YLfSOqUbBV1lszsSjWwrDiVd5RfFP3czLWsfSBg+x2sDM3UpE7p0JPjUs3
- krDSrTVINEpQvFkyojjAmkFNReXvWZe09v6g6ItEbezvjvw0oovn8hwhwZZn8SiDvB5tGKuwh1k
- 8yZrziVH/FNlCb9xqBsMM1CwBryd3/LnIwV/5ZCEATaDktvWFnZaSrz7IWabvKOgrwGjgvg74yB
- lXi/9AZuZW/8/tWMuWg0qc+D2SvdAF/k8Jk+AjykI2keLZ56OSDwHX2JSjMJIz0LDUSLPzby59C
- LoVkbizxBkLOgdWQ/Au/ue39f3sWDCWLOc5W
-X-Google-Smtp-Source: AGHT+IGPJCJqYj/cimGurDWfRa4t15Cl982J3dR8pYm0UoxlgQOAe+YlDndj4ssRizqsQTlDi67H9A==
-X-Received: by 2002:a05:6512:3e19:b0:542:986c:11ef with SMTP id
- 2adb3069b0e04-542986c134emr6310487e87.5.1737013911933; 
- Wed, 15 Jan 2025 23:51:51 -0800 (PST)
+ AJvYcCUFJzReHQwo8z+Lz1di5wa2eNpIm9sp5iBvSbyOXoYZTUum8a86fhSRdb3lhBxjYpDUbQ/2r1cXupE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzTkT83qEtRdTzdrHPfa+Tg7Xsl9g0jOZE26qNWd7aAH6+JmtRW
+ JOKM2m29MNDFlnJSPjdWDICut12jVLuCGFMoIYTHKMrI9D7gH0j1ozQN5hLA9hU=
+X-Gm-Gg: ASbGncuSKmjTeLz1aGCr1RKojloJmsGVM/2A7YZFfgc29z8Leb7HERNTxaFy7f3uoNK
+ U3mX1km/7HuFxUto8ZtFZPX9EsuxBqIdnGLuBIXtemiU1J4CD5bOm3M335r1ad0hop1gMjzrjo7
+ FRE9En5weXe3vxTGAmS9qQmN7Pl1XW3LwKoHo6LxL8uXGVFcHkPWEOfOSdrNwGA1CALymCUq2Wq
+ Qx7XRbwFxwIO1Dn4H0E32fj/FlUh5llzCCaLOEQdjDwXLuc/d7vUsas+jzMZ4ID6NeRKALAiky+
+ s3e7nKAbHRn8yTs45a+Fvs8Jf0BCf4wmbYGC
+X-Google-Smtp-Source: AGHT+IGWSf/yOZvfXpZLF9q6SysUzRLStDO6lKJGlRWpgWwJ6ksytVOsuvgX8Usotsu+jYmZJps9Bg==
+X-Received: by 2002:a05:6512:3c82:b0:542:622f:124 with SMTP id
+ 2adb3069b0e04-5428444d202mr11223288e87.0.1737014088248; 
+ Wed, 15 Jan 2025 23:54:48 -0800 (PST)
 Received: from eriador.lumag.spb.ru
  (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428bea6acasm2225579e87.117.2025.01.15.23.51.49
+ 2adb3069b0e04-5428be49f0bsm2221108e87.36.2025.01.15.23.54.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2025 23:51:50 -0800 (PST)
-Date: Thu, 16 Jan 2025 09:51:48 +0200
+ Wed, 15 Jan 2025 23:54:47 -0800 (PST)
+Date: Thu, 16 Jan 2025 09:54:45 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Jun Nie <jun.nie@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, 
@@ -71,14 +71,15 @@ Cc: Rob Clark <robdclark@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 04/16] drm/msm/dpu: polish log for resource allocation
-Message-ID: <cjtwvbnpqqkcrqs3f2elol5s5wcdxtk5yeevgtf6zj4gvypqth@dcg3ydqk3v4r>
+Subject: Re: [PATCH v4 06/16] drm/msm/dpu: fix mixer number counter on
+ allocation
+Message-ID: <lyl74bqxrc46ygtkhawdmmjrfrl3jnxmmkoyjtlhjmghmztqvt@c3zlpfxcz4st>
 References: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org>
- <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-4-74749c6eba33@linaro.org>
+ <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-6-74749c6eba33@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-4-74749c6eba33@linaro.org>
+In-Reply-To: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-6-74749c6eba33@linaro.org>
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,70 +95,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 16, 2025 at 03:25:53PM +0800, Jun Nie wrote:
-> Add resource type info on allocation failure to ease debug. Because
-> more resources are required in new usage cases, such as quad-pipe case.
-> It is more likely that resource allocation may fail than existing usage
-> cases.
+On Thu, Jan 16, 2025 at 03:25:55PM +0800, Jun Nie wrote:
+> Add the case to reserve multiple pairs mixers for high resolution.
+> Current code only supports one pair of mixer usage case. To support
+> quad-pipe usage case, two pairs of mixers are needed.
+> 
+> Reset the current lm_count to an even number instead of completely
+> clearing it. This prevents all pairs from being cleared in cases
+> where multiple LM pairs are needed.
 
-- Problem description
-- Analysis
-- Resolution
-
-The patch LGTM, the commit message doesn't. Please work with one of your
-colleagues to make your patch descriptions understandable. You are
-putting the cart before the horse.
+- The pairs are not being cleared here.
+- Problem description before solution.
 
 > 
 > Signed-off-by: Jun Nie <jun.nie@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 23 +++++++++++++++++++----
->  1 file changed, 19 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> index a67ad58acd99f..24e085437039e 100644
+> index 24e085437039e..3b3660d0b166d 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> @@ -802,6 +802,21 @@ void dpu_rm_release_all_sspp(struct dpu_global_state *global_state,
->  		ARRAY_SIZE(global_state->sspp_to_crtc_id), crtc_id);
->  }
->  
-> +static char *dpu_hw_blk_type_name[] = {
-> +	[DPU_HW_BLK_TOP] = "TOP",
-> +	[DPU_HW_BLK_SSPP] = "SSPP",
-> +	[DPU_HW_BLK_LM] = "LM",
-> +	[DPU_HW_BLK_CTL] = "CTL",
-> +	[DPU_HW_BLK_PINGPONG] = "pingpong",
-> +	[DPU_HW_BLK_INTF] = "INTF",
-> +	[DPU_HW_BLK_WB] = "WB",
-> +	[DPU_HW_BLK_DSPP] = "DSPP",
-> +	[DPU_HW_BLK_MERGE_3D] = "merge_3d",
-> +	[DPU_HW_BLK_DSC] = "DSC",
-> +	[DPU_HW_BLK_CDM] = "CDM",
-> +	[DPU_HW_BLK_MAX] = "unknown",
-> +};
-> +
->  /**
->   * dpu_rm_get_assigned_resources - Get hw resources of the given type that are
->   *     assigned to this encoder
-> @@ -862,13 +877,13 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
+> @@ -321,7 +321,11 @@ static int _dpu_rm_reserve_lms(struct dpu_rm *rm,
+>  		if (!rm->mixer_blks[i])
 >  			continue;
 >  
->  		if (num_blks == blks_size) {
-> -			DPU_ERROR("More than %d resources assigned to enc %d\n",
-> -				  blks_size, enc_id);
-> +			DPU_ERROR("More than %d %s assigned to enc %d\n",
-> +				  blks_size, dpu_hw_blk_type_name[type], enc_id);
->  			break;
->  		}
->  		if (!hw_blks[i]) {
-> -			DPU_ERROR("Allocated resource %d unavailable to assign to enc %d\n",
-> -				  type, enc_id);
-> +			DPU_ERROR("%s unavailable to assign to enc %d\n",
-> +				  dpu_hw_blk_type_name[type], enc_id);
->  			break;
->  		}
->  		blks[num_blks++] = hw_blks[i];
+> -		lm_count = 0;
+> +		/*
+> +		 * Reset lm_count to an even index. This will drop the previous
+> +		 * primary mixer if failed to find its peer.
+> +		 */
+> +		lm_count &= ~1;
+>  		lm_idx[lm_count] = i;
+>  
+>  		if (!_dpu_rm_check_lm_and_get_connected_blks(rm, global_state,
 > 
 > -- 
 > 2.34.1
