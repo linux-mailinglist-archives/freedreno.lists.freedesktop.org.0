@@ -2,88 +2,95 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E329A13817
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 11:38:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E8F6A139EA
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 13:26:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D3B710E930;
-	Thu, 16 Jan 2025 10:38:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7345110E583;
+	Thu, 16 Jan 2025 12:26:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hZeNJLjZ";
+	dkim=pass (2048-bit key; unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.b="o9PpJ35b";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D80C010E930
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 10:38:44 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-53e3a37ae07so894158e87.3
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 02:38:44 -0800 (PST)
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
+ [209.85.219.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE69510E581
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 12:25:59 +0000 (UTC)
+Received: by mail-qv1-f47.google.com with SMTP id
+ 6a1803df08f44-6d8f99cb0d9so7072496d6.0
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 04:25:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737023863; x=1737628663; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=Ej4Zc7uXIgXJxD3C2iLeGE3+l4IPsZm0sPJBi+11PIU=;
- b=hZeNJLjZ3mgf1M2mSVHx/0gqKFInqjCl20fyqew5T0sYYliNO3oKBa3Kk4CYlrv9bH
- 2DB73Cw0+XjefL5GwATSiGK0Q2rLjjPKekNpDC7oeT70iYOzBjY5fEBM1uf0+3PQU3bj
- dwx2/lynzREyKCtILjQd2vLtFcjFIOMsIgHlNGQnbHyJfwvDaz/niElpxEveOxA46IcD
- FsX9mw+2YHzIhCpErMa8mWQSfRI7oPusQgVIDlU+pgJyVJ186897fuRlIgaxa1Mv/vSN
- CQIV6ijsu0nyKuns5bUrVPDfifn/3lKtSPihZ1Ow8p/N3xsU06e+ABq8Kpi1u8RG5Wm5
- xI8Q==
+ d=fooishbar.org; s=google; t=1737030299; x=1737635099;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GBwF2KOXlFDp1MGeRltem3iAJtpX3AYE0x8w+f0gonM=;
+ b=o9PpJ35b49a8+Ar0WHRHCRBYskVDPbovO68pOGVMXqWrpEfOKwO+1TF8h6h0cnLE9T
+ JSO5TZZiHYVsWojUp1Bkpr6OTZ2lsU4fHenqsG7BVA/9QeQHv5kRp7w5y+KeeVQZk5ci
+ +0RxRBNOCHjhB5tojqd/kGdDJDYOu98KHLZ4stSJ9Wjs358j0rsPjKzSVgMYSmxQmmCr
+ a5k84vHMT4Dl51DKNBmm9QVsm8e2/mfa8BPgH6L2oETGPmLq7zT6ItMJKjY72HPUV08w
+ v3E734iJ8VxjR0Mt3YhC3rjFoSX91sXz3ZscPudRRa55tFHoLdTHwaPXuMEBiE6JaZYE
+ 7p5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737023863; x=1737628663;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Ej4Zc7uXIgXJxD3C2iLeGE3+l4IPsZm0sPJBi+11PIU=;
- b=s85K9h4u3VHJAKKaICUqkL9lLk2SELjbADePOwY0Q88tTSvP1OdQE8QEMaQVK8fJTa
- M9Hn/mkcYv1SPxBW+aa4jtTciSIMtuC7PgbwZwZXkMgRbS4tEeGBrUIifq7+1CJE49Fp
- WgBmIS5p8DdfeypuoypRVichjCeW4WuSNzmHrrdBSD22+QhMLGz5LJjgLKpjp03ApU/n
- ZsdrhVcSnw5IIsLynFgKQ/n9IU9yy4g8T5njIbMj4wTlHb6UfIdLy3MxVl7oqb/iHVFH
- zleMaEfeSq7saA9ZSzJgH4MlbzU2rPnZqe230kV+Vs8V5XIgfc4mH9GpftLe7HC4oAYY
- ZbeQ==
+ d=1e100.net; s=20230601; t=1737030299; x=1737635099;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=GBwF2KOXlFDp1MGeRltem3iAJtpX3AYE0x8w+f0gonM=;
+ b=AnN4o7usIACazQD79DHIHf4BtZz5LcIvz51KKKfY7TfDxt5Q6Ya/ehrPbDro/4KpUw
+ GQ9rhm0J0MzqXQL7nvkrJYbkFbFNZ+FE6YkI0S7qPIPFDyqgA95gPwJSoeRD4zc53AK8
+ /wemSQ8VmbSCQaeSCW8+GicfQOD2b5KkMcp90d5+dFsAxteywUymOlJm+oyuOOmm/xNu
+ /4wqr7PTGX0H/6lNpa/uxB7r0sWGhK3Gqz0ZhkRXU2EbrXBrKqury9BnNF/O9eGbydM5
+ Ve8rZs7UH3Xz2rNNZhIblvvoIX7tMAlYakIM+Bh0d9T18FMRuQQl4WHFSiPPCLgXhj+H
+ DSqQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV9XzuN+yIbrBzl/+vmxMTzvk2FlR70NfBhNanTwwQ9EEgectQxAuUbkgvmDQk7A7UuarhbgbaddxM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1KeJWIAcyeqqkXWRw6AIGeut86tZleZ5oxGDPz9gxZDwhX3Dh
- 6waO65ID/TXrjjQtbRihlaB4MBImvug7INAz0xtF4qDTM2jAFNIYDAVcpvD6tSU=
-X-Gm-Gg: ASbGnctL1gvhJ7t/00RBArrVwIIbf0I4mjAv4kqk/ORGiGjCHegvOBVCQTEn9MROacV
- W3iYM5NdHG+jL2+50J6cLhLIrBuC7Ly4gs9XsGz7eDnqeH7kLeaIq1p0MP29T2TY1gJTRMwpHR+
- WT8ozARgIZtnNNSUtGWMCmg5sTYmxfmiTx3KqKC85uBrJxMT6qwfDFQFN54KtF7NiMykvRDFBix
- 4FU4/aKOcxByu01m/SNdaeNuGvxZdmsFQ42nG3Tcq4/URd9R1DdnrTJVgzmdiVQhlgeaRNTqJEe
- /zP871+5f+3uM8QKbXFitPAzWVVhzk35eGhN
-X-Google-Smtp-Source: AGHT+IGdM1ckswIauyESjkiC4TPlvzuRzEiaLifuPz/Iq9QNmkNfUelTdfgO8GMyFEdfJVi5aMvqJA==
-X-Received: by 2002:a05:6512:b03:b0:542:2ef4:4884 with SMTP id
- 2adb3069b0e04-542845bf063mr10563279e87.19.1737023863189; 
- Thu, 16 Jan 2025 02:37:43 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428bea693csm2273496e87.169.2025.01.16.02.37.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jan 2025 02:37:41 -0800 (PST)
-Date: Thu, 16 Jan 2025 12:37:39 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 13/16] drm/msm/dpu: support plane splitting in
- quad-pipe case
-Message-ID: <fbw4ehm6e7hq6wv2ek2zokwzgr2vhnpece3iy2y67qe54z7lyb@uncyoewqjydv>
-References: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org>
- <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-13-74749c6eba33@linaro.org>
- <ohq35qtnnas5oqiqycn3floji3auuvwitdy43geve6nce5xxq4@4gsyikmqbbh3>
- <CABymUCNMe7egDjOfExA8AOqjtkjHHLPspibG6OZMhzHmvn6W+g@mail.gmail.com>
+ AJvYcCVGgG+gZeMYBMOZ1PK6mWjjfiZJZwJ4XIgKZPR/jmIFCc0TYou4iwkUMCrLR2LNvGKfhvILAhLvmlU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzwMlr/fZ1U1oZx1kp3WR5DwOUIFXNtGR+M+7q5KI8mvjW5IKjW
+ aKpNirdRuLrEFzikY3PeqbM6i1tSdSxY0i5wjxMOMApg6Le6H7qVBwfDa3dYzqDakGrqrFoZJMS
+ S3iWlbXVV/fcS0tcHoSc3SI7uBsNImkne7kgQZw==
+X-Gm-Gg: ASbGncu+PFF8KN4gVGi3Q9TgOKLrtcDl1rzP1QQx0oF2d4mOpaRnYmyfXnPBsmTy1hI
+ Bsc87bgMkqN19CXMkZ42RQLiDGpHYVCssZms=
+X-Google-Smtp-Source: AGHT+IHYPoThOqCGG0mIrocl9o1givl0D/RoYwWOKY0kUiZ64KPF9cSvP+6N1Rd6ke2PYtdS9xOibflODkJbaGvT990=
+X-Received: by 2002:a05:6214:528e:b0:6d9:3016:d0e7 with SMTP id
+ 6a1803df08f44-6df9b2b1a21mr442378366d6.29.1737030298608; Thu, 16 Jan 2025
+ 04:24:58 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCNMe7egDjOfExA8AOqjtkjHHLPspibG6OZMhzHmvn6W+g@mail.gmail.com>
+References: <f3ba05c7-6e49-4641-a3f9-ba418ebdb7c3@ideasonboard.com>
+ <c6735280-7c32-4319-8ca9-a7305d8117c3@suse.de>
+ <d67adb03-5cd0-4ac9-af58-cf4446dacee3@ideasonboard.com>
+ <0ea6be58-0e04-4172-87cd-064a3e4a43bc@suse.de>
+ <f35cb350-6be9-48ca-ad7e-e9dd418281d5@ideasonboard.com>
+ <4af0b6a7-c16a-4187-bbf5-365a9c86de21@suse.de>
+ <e327ad84-b5c9-4480-b873-dc3aca605538@ideasonboard.com>
+ <a2bbeb47-2569-4ee0-9265-92bab139bdc6@suse.de>
+ <f3833771-fcd7-45dc-9019-1525fef34429@ideasonboard.com>
+ <CAMuHMdXxYa+Na3XxpLTy=-eUL_zQ9kAiUKYu-E04u3KWApusSA@mail.gmail.com>
+ <xz5ncq67bgmdase2jg3cfvyaxpiwhol2eqpfzow6dqpauvslo5@2w3rw27lhnxo>
+In-Reply-To: <xz5ncq67bgmdase2jg3cfvyaxpiwhol2eqpfzow6dqpauvslo5@2w3rw27lhnxo>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Thu, 16 Jan 2025 12:24:47 +0000
+X-Gm-Features: AbW1kvarRJv1VyJjUo1t8ScK0brJ2o4-Qq6ABYK10edUo6rgOW2PAccCb4uQWlM
+Message-ID: <CAPj87rNS7quwfqDmxyrW8_vQ6tnrcfWUn=81aTduDXtmdVkkAg@mail.gmail.com>
+Subject: Re: [PATCH v2 25/25] drm/xlnx: Compute dumb-buffer sizes with
+ drm_mode_size_dumb()
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, 
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, imx@lists.linux.dev, 
+ linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-tegra@vger.kernel.org, intel-xe@lists.freedesktop.org, 
+ xen-devel@lists.xenproject.org, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andy Yan <andyshrk@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,174 +106,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 16, 2025 at 06:20:48PM +0800, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@linaro.org> 于2025年1月16日周四 16:14写道：
+On Thu, 16 Jan 2025 at 10:35, Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+> On Thu, Jan 16, 2025 at 11:17:50AM +0100, Geert Uytterhoeven wrote:
+> > On Thu, Jan 16, 2025 at 11:03=E2=80=AFAM Tomi Valkeinen
+> > <tomi.valkeinen@ideasonboard.com> wrote:
+> > > On the platforms I have been using (omap, tidss, xilinx, rcar) the du=
+mb
+> > > buffers are the only buffers you can get from the DRM driver. The dum=
+b
+> > > buffers have been used to allocate linear and multiplanar YUV buffers
+> > > for a very long time on those platforms.
+> > >
+> > > I tried to look around, but I did not find any mentions that CREATE_D=
+UMB
+> > > should only be used for RGB buffers. Is anyone outside the core
+> > > developers even aware of it?
+> > >
+> > > If we don't use dumb buffers there, where do we get the buffers? Mayb=
+e
+> > > from a v4l2 device or from a gpu device, but often you don't have tho=
+se.
+> > > DMA_HEAP is there, of course.
 > >
-> > On Thu, Jan 16, 2025 at 03:26:02PM +0800, Jun Nie wrote:
-> > > The content of every half of screen is sent out via one interface in
-> > > dual-DSI case. The content for every interface is blended by a LM
-> > > pair in quad-pipe case, thus a LM pair should not blend any content
-> > > that cross the half of screen in this case. Clip plane into pipes per
-> > > left and right half screen ROI if topology is quad pipe case.
-> > >
-> > > The clipped rectangle on every half of screen will be split further
-> > > by half if its width still exceeds limit.
-> >
-> > futher handled by two pipes if its width exceeds a limit for a single
-> > pipe.
-> 
-> Accepted.
-> >
-> > >
-> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > ---
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  11 +++
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |   2 +
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h |   2 +
-> > >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 138 +++++++++++++++++++---------
-> > >  4 files changed, 112 insertions(+), 41 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > index 5ae640da53fbf..a900220deeb35 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > > @@ -1361,6 +1361,17 @@ int dpu_crtc_vblank(struct drm_crtc *crtc, bool en)
-> > >       return 0;
-> > >  }
-> > >
-> > > +/**
-> > > + * dpu_crtc_get_num_lm - Get mixer number in this CRTC pipeline
-> > > + * @state: Pointer to drm crtc state object
-> > > + */
-> > > +unsigned int dpu_crtc_get_num_lm(const struct drm_crtc_state *state)
-> > > +{
-> > > +     struct dpu_crtc_state *cstate = to_dpu_crtc_state(state);
-> > > +
-> > > +     return cstate->num_mixers;
-> > > +}
-> > > +
-> > >  #ifdef CONFIG_DEBUG_FS
-> > >  static int _dpu_debugfs_status_show(struct seq_file *s, void *data)
-> > >  {
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> > > index 0b148f3ce0d7a..b14bab2754635 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> > > @@ -264,4 +264,6 @@ static inline enum dpu_crtc_client_type dpu_crtc_get_client_type(
-> > >
-> > >  void dpu_crtc_frame_event_cb(struct drm_crtc *crtc, u32 event);
-> > >
-> > > +unsigned int dpu_crtc_get_num_lm(const struct drm_crtc_state *state);
-> > > +
-> > >  #endif /* _DPU_CRTC_H_ */
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> > > index 56a0edf2a57c6..39fe338e76691 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> > > @@ -145,11 +145,13 @@ struct dpu_hw_pixel_ext {
-> > >   *             such as decimation, flip etc to program this field
-> > >   * @dest_rect: destination ROI.
-> > >   * @rotation: simplified drm rotation hint
-> > > + * @valid: notify that this pipe and config is in use
-> > >   */
-> > >  struct dpu_sw_pipe_cfg {
-> > >       struct drm_rect src_rect;
-> > >       struct drm_rect dst_rect;
-> > >       unsigned int rotation;
-> > > +     bool valid;
-> >
-> > Commit message doesn't describe why this is necessary at all. Why isn't
-> > it enough to check pipe->sspp as the code has been doing up to this
-> > point?
-> 
-> We test non-zero width of r_pipe or check pipe->sspp to decide whether
-> to allocate SSPP and go thru the routine for the r_pipe when we have 2
-> pipes at most. With 4 pipes, it is a bit complex to handle it this way because
-> the 2rd and the 4th pipes may be not valid when splitting the plane. A valid
-> flag is more straightforward for later handling.
+> > Why can't there be a variant that takes a proper fourcc format instead =
+of
+> > an imprecise bpp value?
+>
+> Backwards compatibility. We can add an IOCTL for YUV / etc. But
+> userspace must be able to continue allocating YUV buffers through
+> CREATE_DUMB.
 
-Why? Even for 4-pipe case we need to allocate SSPP rect if
-drm_rect_width is non-0, that's for the atomic_check() function. And
-later we should be using pipe->sspp to check if it is valid or not.
-Adding extra flag complicates code because it can easily become unsync
-with the rest of the pipe configuration.
+Right. If allocating YUYV dumb buffers works on AM68 today, then we
+need to keep that working. But it doesn't mean we should go out of our
+way to make CREATE_DUMB work for every YUV format on every device.
 
-> 
-> >
-> > >  };
-> > >
-> > >  /**
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > > index 3795576e2eedd..4bcd7b1a05c16 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> > > @@ -831,8 +831,12 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
-> > >       struct dpu_plane_state *pstate = to_dpu_plane_state(new_plane_state);
-> > >       struct dpu_sw_pipe_cfg *pipe_cfg;
-> > >       struct dpu_sw_pipe_cfg *r_pipe_cfg;
-> > > +     struct dpu_sw_pipe_cfg init_pipe_cfg;
-> > >       struct drm_rect fb_rect = { 0 };
-> > > +     const struct drm_display_mode *mode = &crtc_state->adjusted_mode;
-> > >       uint32_t max_linewidth;
-> > > +     u32 num_lm;
-> > > +     int stage_id, num_stages;
-> > >
-> > >       min_scale = FRAC_16_16(1, MAX_UPSCALE_RATIO);
-> > >       max_scale = MAX_DOWNSCALE_RATIO << 16;
-> > > @@ -855,13 +859,10 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
-> > >               return -EINVAL;
-> > >       }
-> > >
-> > > -     /* move the assignment here, to ease handling to another pairs later */
-> > > -     pipe_cfg = &pstate->pipe_cfg[0];
-> > > -     r_pipe_cfg = &pstate->pipe_cfg[1];
-> > > -     /* state->src is 16.16, src_rect is not */
-> > > -     drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
-> > > +     num_lm = dpu_crtc_get_num_lm(crtc_state);
-> > >
-> > > -     pipe_cfg->dst_rect = new_plane_state->dst;
-> > > +     /* state->src is 16.16, src_rect is not */
-> > > +     drm_rect_fp_to_int(&init_pipe_cfg.src_rect, &new_plane_state->src);
-> > >
-> > >       fb_rect.x2 = new_plane_state->fb->width;
-> > >       fb_rect.y2 = new_plane_state->fb->height;
-> > > @@ -886,35 +887,93 @@ static int dpu_plane_atomic_check_nosspp(struct drm_plane *plane,
-> > >
-> > >       max_linewidth = pdpu->catalog->caps->max_linewidth;
-> > >
-> > > -     drm_rect_rotate(&pipe_cfg->src_rect,
-> > > +     drm_rect_rotate(&init_pipe_cfg.src_rect,
-> > >                       new_plane_state->fb->width, new_plane_state->fb->height,
-> > >                       new_plane_state->rotation);
-> > >
-> > > -     if ((drm_rect_width(&pipe_cfg->src_rect) > max_linewidth) ||
-> > > -          _dpu_plane_calc_clk(&crtc_state->adjusted_mode, pipe_cfg) > max_mdp_clk_rate) {
-> > > -             if (drm_rect_width(&pipe_cfg->src_rect) > 2 * max_linewidth) {
-> > > -                     DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
-> > > -                                     DRM_RECT_ARG(&pipe_cfg->src_rect), max_linewidth);
-> > > -                     return -E2BIG;
-> > > +     /*
-> > > +      * We have 1 mixer pair cfg for 1:1:1 and 2:2:1 topology, 2 mixer pair
-> > > +      * configs for left and right half screen in case of 4:4:2 topology.
-> > > +      * But we may have 2 rect to split wide plane that exceeds limit with 1
-> > > +      * config for 2:2:1. So need to handle both wide plane splitting, and
-> > > +      * plane on right half for quad-pipe case. Check dest rectangle
-> >
-> > only on the right side?
-> 
-> Yeah, below shall be better.
-> So need to handle both wide plane splitting, and two halves of screen splitting
-> for quad-pipe case.
-> >
-> > > +      * left/right clipping first, then check wide rectangle splitting in
-> > > +      * every half next.
-> > > +      */
-> > > +     num_stages = (num_lm + 1) / 2;
-> >
-> > --
-> > With best wishes
-> > Dmitry
+Currently, drivers are free to implement their own ioctls for anything
+specific they have. But like Laurent said, standardising on heaps and
+how to communicate requirements to userspace wrt heap selection / size
+/ alignment / etc is imo a better path forward for something generic.
 
--- 
-With best wishes
-Dmitry
+Cheers,
+Daniel
