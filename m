@@ -2,70 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D31CA133BE
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 08:26:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86126A133C4
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 08:27:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FBC610E8CC;
-	Thu, 16 Jan 2025 07:26:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4328A10E8C6;
+	Thu, 16 Jan 2025 07:27:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ypuETJdv";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fPLSoAC3";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC1B410E8CA
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 07:26:57 +0000 (UTC)
-Received: by mail-pl1-x62f.google.com with SMTP id
- d9443c01a7336-21670dce0a7so12551915ad.1
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 23:26:57 -0800 (PST)
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [IPv6:2607:f8b0:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 747D510E8C6
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 07:27:03 +0000 (UTC)
+Received: by mail-pl1-x634.google.com with SMTP id
+ d9443c01a7336-21644aca3a0so12274915ad.3
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 23:27:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737012417; x=1737617217; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1737012423; x=1737617223; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Dz3TwZBuqS+A85PwaZAckZmjEANP7y/gVyTC1yHyCV4=;
- b=ypuETJdvEyuvrdbB39UHsyweMi0/IoL+BobmW3zONyYRZzmJauivnsHWDNVqhn+2K1
- qkCQX7EGQVISqlKtYjutqKTnFT3xfQfTYODcRK3F7c/7tHMOHwuwmd4J28AMiSIyfh+T
- sWJqOATQGNX4nIxtf+h1D75w91LIF6JDGtM1CstvZzQHBwXdiupNj3kyS4hti8psvj4h
- A9Hgqzc9I37OciH0Hl3fNvhCjR1Px3RM8PAnwjK/w51pInqx4MFLplcJaZu6X9qTN9kR
- Spz9nEUBEeoCRyqTeax97HeFf6pgJeMQtNEnTfaT7XRu7wo1UTxgscK8YEtluvMibbCy
- dhbA==
+ :reply-to; bh=1HYLeiZyIOvA21Dgt9YqH8OCYcim7YKyut+u6v2ZNUc=;
+ b=fPLSoAC38212FpdPsvvhTUitCx8Ap8jP5pvxxCnBOVx96sscAjWq7ilE5ACpi6qxZC
+ nkpZ+PBWfPYeuLhuKDUcT+EuubKIJ9kVAQlwZ3Iz4QT3Zibmn8rOaO9rVAUgBiWQRyZ+
+ EDHznqmNLweUmGU0O1MB2BEo+Ycom0UTTZ0Aisu75iCoCzT2itdFh3NFQn+5DNigfT4c
+ i8WvYWhPx54YqPI2jW50hF5OkGGhBVnf5hcymp0/ZumzaGaT+I9b2xJRcWz8jtuGQimA
+ 5T4ul0JqpUaYnpROppK2l+17uB7EyWVbrBwFTis0lstxuknxFvA5VZqZuaDdb8Rw10Ov
+ pSAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737012417; x=1737617217;
+ d=1e100.net; s=20230601; t=1737012423; x=1737617223;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Dz3TwZBuqS+A85PwaZAckZmjEANP7y/gVyTC1yHyCV4=;
- b=ptFyjQA3abSSwxlhzuEP41qQiPLmNgYXA81x5SNRyv3ce2dt1NBtDId7ad4rgV5zO1
- QRKb1hfug7dS7EJGnO1g6YavGWsHO08djuQVnlxw3n+scggJhmParPCwIIut7+JuY66x
- 2lEzh9Rl+JI8L8eDa59j20oFS/QsxVqR878RgBDT/k823017BzO4Qxgcfp7qEBa6l59U
- WUQst1z5+HO4jinSE0cED+rRNomd9X1+NG71Y2e8o3rmkIetwLZMq8OOmll4oS8TbM02
- 42nWU2mvtMqjvUsSOWgBXS0LdktgCbz+e8CGJsrsKtt+6rj+I/6fNgwC3/wX7BsJ3dC7
- pN1Q==
+ bh=1HYLeiZyIOvA21Dgt9YqH8OCYcim7YKyut+u6v2ZNUc=;
+ b=sfPodGuuZfLmhKAHW1UVpFnwbqijNdjiCE4pgMybRvGPC5OkWEBGzWOr4OnJk9SPaf
+ PSnxL5KTL4BaLOHG+1f3ssodteDks4J8C6rznG7W9nMNNA/FB9OMv//R3RD4689clWtQ
+ 9cxFeUmR8WCokcDF3AXy50F2KAXHScyjlMgACkBy2YO8X55chDHli169f+OOOkIpovqh
+ KAsDlEGe8m641LZJsYYVwaGcc54sz+4dAICvj6eWzHyCrlpP743vCEdznRSbR16je8wk
+ SEtVXOUoOjjeubFXfFTJVD1IN4aposiio/MpkKXHEsUPbc7Rvn+MYCvBcAni/Yfm+jdE
+ fN2Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVox98h5RrQvpk2awseYx+lxCT6RE7Cyg0gJUxt8RZ8nEFLAGpnIs5RGpC2JKzYylVjGVx0y9uOuvY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxcrLKKA2Qd4g1J5+az7gFRf+ZGi9VguX/WK7PoqFjLUTyXMSJ3
- rV/uu2kP9P9mcnzXc5QsMeZ70aStgzDAHC0Bxsy6GZMgApYqvPRAJEnSjQD+i6Jmrt/ll0WMeHY
- OoTq4xA==
-X-Gm-Gg: ASbGncvMqYXVK2cj3xC7vUOLptGfYQgGSK/l52qqVWIVJInt64D6py7nfF183XIXWtT
- E3uqCjgYJI0lIcVi9zBfpgIAnikR6pEUp36eBEVu29i2mF5jgx217V815V7hx2K5czLAEtW6Q0r
- D2uPVP104zzl33gDe47Nb9OQm2/hr3eCPgHu5gsazXa4GILH/I4SWbDzcoZ8TNHZpPXeEQUV6Y1
- KWdvf0Eztg4Z2SEwWX20KG+Qaf01T1igraE//IfKp+bUpxrWXDg3w==
-X-Google-Smtp-Source: AGHT+IGtMdMvQChRYDu6ipGP81wNRXfxlja92a5bcTceBrSH3LTru10XcvFatgNuBJMIKEk3mvL9KA==
-X-Received: by 2002:a05:6a00:e83:b0:725:b7dd:e668 with SMTP id
- d2e1a72fcca58-72d2201700cmr41671382b3a.17.1737012417519; 
- Wed, 15 Jan 2025 23:26:57 -0800 (PST)
+ AJvYcCV3/imI76ybYBypafkbVPDVOgJC6u8sFqgs4XilCJ9ZMTjIIr5gwpvaeMwGKRv0i/i5w8tmBHwIe9w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxyqhNBhIxjkKaei+NanUI1OexswdEPsQGkBM3ExojpSm7wGrqe
+ 8thn5U9/7b5BiWxMKKPT0mYTXeyaMRdw2YyelmsdAIRYLr5/FkCwGhwfvVOdtKg=
+X-Gm-Gg: ASbGnct9ZY5Toj7K5iVOqGSy47g3pHQPFDNBAxEr7HcScgI/KU6qBZr3nhO+eRW+5h1
+ A+ydRoKo+s1XkkMmubIshn5usqT5upiSL+7EMgs6VDJR9LyZHN9zZm3AuN16ECaHSKeBCVT3ipe
+ qsvc9ZfiHU69TZHO6wBNNUCocZscwpysH/WhwaGbrMCIzt6A9xvoo0XxOC29SXiXznrED4fnMhu
+ 3MARDNtRN4+lMtdL/AgON8rE/4l/Wa1U/gOCfEm/jQsWl+Dkd7KEQ==
+X-Google-Smtp-Source: AGHT+IFMlqohE+m+oB2xKB2qyt7+cZY18igkkgu1BKdnZzBDVn/mcglu8dUjGlFiuAFhzV2EFU9N3Q==
+X-Received: by 2002:a05:6a00:2e8f:b0:727:3cd0:122f with SMTP id
+ d2e1a72fcca58-72d21f62d51mr41568525b3a.9.1737012422904; 
+ Wed, 15 Jan 2025 23:27:02 -0800 (PST)
 Received: from [127.0.1.1] ([112.65.12.217]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-72d4059485bsm10164583b3a.83.2025.01.15.23.26.51
+ d2e1a72fcca58-72d4059485bsm10164583b3a.83.2025.01.15.23.26.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2025 23:26:57 -0800 (PST)
+ Wed, 15 Jan 2025 23:27:02 -0800 (PST)
 From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 16 Jan 2025 15:25:57 +0800
-Subject: [PATCH v4 08/16] drm/msm/dpu: bind correct pingpong for quad pipe
+Date: Thu, 16 Jan 2025 15:25:58 +0800
+Subject: [PATCH v4 09/16] drm/msm/dpu: Add pipe as trace argument
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-8-74749c6eba33@linaro.org>
+Message-Id: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-9-74749c6eba33@linaro.org>
 References: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org>
 In-Reply-To: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -75,13 +74,13 @@ To: Rob Clark <robdclark@gmail.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jun Nie <jun.nie@linaro.org>, Jessica Zhang <quic_jesszhan@quicinc.com>
+ Jun Nie <jun.nie@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1737012353; l=1981;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1737012353; l=2262;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=fkwBKTtkClcI8zzn1B9oiPX8S9btYMX+2rqgtJiEZXE=;
- b=80/re1ViVNpyAQG3L20/2X75joL5lrM9EVkvlA8YAUQBWQimA7nvNtD3KQVN0iYfWhEtLtu48
- w9oiV09z4p7Ax1m/RcCwDtdvkkhyvZL6zeMtSGUKAGlnIhfbXByaNMe
+ bh=YkPGu9nozT3vAqexZbO9/ANJwzFKO7zuAWrFHDipIGc=;
+ b=oPBsKlFEkzdUaf+A8gqoC80xWLR2JyXkDOfTow5etF4pnPb7ua0+DzufxgYFYVrbaKCImULk1
+ qnAQcnwodqNAygfFJaJyTfFvUlbRh9ygb4QmBy74CDwXn8stKdaMziW
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -99,53 +98,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There are 2 interfaces and 4 pingpong in quad pipe. Map the 2nd
-interface to 3rd PP instead of the 2nd PP.
+Add pipe as trace argument in trace_dpu_crtc_setup_mixer() to ease
+converting pipe into pipe array later.
 
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h | 10 +++++-----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 42aa685e421c7..1f3054792a228 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1220,7 +1220,8 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
- 	struct dpu_hw_blk *hw_pp[MAX_CHANNELS_PER_ENC];
- 	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
- 	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
--	int num_ctl, num_pp, num_dsc;
-+	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
-+	int num_lm, num_ctl, num_pp, num_dsc, num_pp_per_intf;
- 	unsigned int dsc_mask = 0;
- 	int i;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 41c9d3e3e3c7c..05abe2d05d8d8 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -411,7 +411,7 @@ static void _dpu_crtc_blend_setup_pipe(struct drm_crtc *crtc,
  
-@@ -1275,11 +1276,21 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
- 		dpu_enc->cur_master->hw_cdm = hw_cdm ? to_dpu_hw_cdm(hw_cdm) : NULL;
- 	}
+ 	trace_dpu_crtc_setup_mixer(DRMID(crtc), DRMID(plane),
+ 				   state, to_dpu_plane_state(state), stage_idx,
+-				   format->pixel_format,
++				   format->pixel_format, pipe,
+ 				   modifier);
  
-+	num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-+		drm_enc->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
-+
-+
-+	/*
-+	 * There may be 4 PP and 2 INTF for quad pipe case, so INTF is not
-+	 * mapped to PP 1:1. Let's calculate the stride with pipe/INTF
-+	 */
-+	num_pp_per_intf = num_lm / dpu_enc->num_phys_encs;
-+
- 	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
- 		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
- 		struct dpu_hw_ctl *ctl0 = to_dpu_hw_ctl(hw_ctl[0]);
- 
--		phys->hw_pp = dpu_enc->hw_pp[i];
-+		phys->hw_pp = dpu_enc->hw_pp[num_pp_per_intf * i];
- 		if (!phys->hw_pp) {
- 			DPU_ERROR_ENC(dpu_enc,
- 				"no pp block assigned at idx: %d\n", i);
+ 	DRM_DEBUG_ATOMIC("crtc %d stage:%d - plane %d sspp %d fb %d multirect_idx %d\n",
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
+index 5307cbc2007c5..cb24ad2a6d8d3 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
+@@ -651,9 +651,9 @@ TRACE_EVENT(dpu_crtc_setup_mixer,
+ 	TP_PROTO(uint32_t crtc_id, uint32_t plane_id,
+ 		 struct drm_plane_state *state, struct dpu_plane_state *pstate,
+ 		 uint32_t stage_idx, uint32_t pixel_format,
+-		 uint64_t modifier),
++		 struct dpu_sw_pipe *pipe, uint64_t modifier),
+ 	TP_ARGS(crtc_id, plane_id, state, pstate, stage_idx,
+-		pixel_format, modifier),
++		pixel_format, pipe, modifier),
+ 	TP_STRUCT__entry(
+ 		__field(	uint32_t,		crtc_id		)
+ 		__field(	uint32_t,		plane_id	)
+@@ -676,9 +676,9 @@ TRACE_EVENT(dpu_crtc_setup_mixer,
+ 		__entry->dst_rect = drm_plane_state_dest(state);
+ 		__entry->stage_idx = stage_idx;
+ 		__entry->stage = pstate->stage;
+-		__entry->sspp = pstate->pipe.sspp->idx;
+-		__entry->multirect_idx = pstate->pipe.multirect_index;
+-		__entry->multirect_mode = pstate->pipe.multirect_mode;
++		__entry->sspp = pipe->sspp->idx;
++		__entry->multirect_idx = pipe->multirect_index;
++		__entry->multirect_mode = pipe->multirect_mode;
+ 		__entry->pixel_format = pixel_format;
+ 		__entry->modifier = modifier;
+ 	),
 
 -- 
 2.34.1
