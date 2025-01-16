@@ -2,93 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E8F6A139EA
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 13:26:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D092A13C08
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 15:22:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7345110E583;
-	Thu, 16 Jan 2025 12:26:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBA0310E983;
+	Thu, 16 Jan 2025 14:22:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.b="o9PpJ35b";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="smpJYcZs";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
- [209.85.219.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE69510E581
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 12:25:59 +0000 (UTC)
-Received: by mail-qv1-f47.google.com with SMTP id
- 6a1803df08f44-6d8f99cb0d9so7072496d6.0
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 04:25:59 -0800 (PST)
+Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
+ [IPv6:2607:f8b0:4864:20::b30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 336A410E983
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 14:22:19 +0000 (UTC)
+Received: by mail-yb1-xb30.google.com with SMTP id
+ 3f1490d57ef6-e3978c00a5aso1588261276.1
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 06:22:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1737030299; x=1737635099;
- darn=lists.freedesktop.org; 
+ d=linaro.org; s=google; t=1737037338; x=1737642138; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=GBwF2KOXlFDp1MGeRltem3iAJtpX3AYE0x8w+f0gonM=;
- b=o9PpJ35b49a8+Ar0WHRHCRBYskVDPbovO68pOGVMXqWrpEfOKwO+1TF8h6h0cnLE9T
- JSO5TZZiHYVsWojUp1Bkpr6OTZ2lsU4fHenqsG7BVA/9QeQHv5kRp7w5y+KeeVQZk5ci
- +0RxRBNOCHjhB5tojqd/kGdDJDYOu98KHLZ4stSJ9Wjs358j0rsPjKzSVgMYSmxQmmCr
- a5k84vHMT4Dl51DKNBmm9QVsm8e2/mfa8BPgH6L2oETGPmLq7zT6ItMJKjY72HPUV08w
- v3E734iJ8VxjR0Mt3YhC3rjFoSX91sXz3ZscPudRRa55tFHoLdTHwaPXuMEBiE6JaZYE
- 7p5g==
+ bh=CbuGDZY9OMcPNxDGGBghCFG72kiSYqjW874tNYrUfyE=;
+ b=smpJYcZsKbSuyn8aWf0Rm1on+tpiMP6soapjBW65GKbZI9tm96R8o5m6Fsv/1BkunI
+ ZgD6uzwFckAUzWcJckuXHExgZbaLxVz47H9Vt4aW4b8sGQJg66HdNyvCXySV22D1m5Oa
+ 6qHI6z/cP5Xi4+DE/As/ZGaGK7R1pvL9PxzGh+ii1gMK+lYuBpZCauWJ+EgggLgBOwRA
+ rL8VSzBm9sSXl+jDEYt1+J0nJiXV1EBenCxbS/1dsuy8V7BXp8sjIxMD45jD99zgaMMn
+ 5Fpggo/4bFHPwU+qPhlFEpLjHHB7zCLxl+HpXX8/UrgpM7CHS+8REbWXvWtZsqwvbf04
+ KYhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737030299; x=1737635099;
+ d=1e100.net; s=20230601; t=1737037338; x=1737642138;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=GBwF2KOXlFDp1MGeRltem3iAJtpX3AYE0x8w+f0gonM=;
- b=AnN4o7usIACazQD79DHIHf4BtZz5LcIvz51KKKfY7TfDxt5Q6Ya/ehrPbDro/4KpUw
- GQ9rhm0J0MzqXQL7nvkrJYbkFbFNZ+FE6YkI0S7qPIPFDyqgA95gPwJSoeRD4zc53AK8
- /wemSQ8VmbSCQaeSCW8+GicfQOD2b5KkMcp90d5+dFsAxteywUymOlJm+oyuOOmm/xNu
- /4wqr7PTGX0H/6lNpa/uxB7r0sWGhK3Gqz0ZhkRXU2EbrXBrKqury9BnNF/O9eGbydM5
- Ve8rZs7UH3Xz2rNNZhIblvvoIX7tMAlYakIM+Bh0d9T18FMRuQQl4WHFSiPPCLgXhj+H
- DSqQ==
+ bh=CbuGDZY9OMcPNxDGGBghCFG72kiSYqjW874tNYrUfyE=;
+ b=lXnUMWJhQ3YbNeMTsW4H75lMrqDblUijE18BW/rExWDXJ/as/u4pnvjO+PaLP1uLgx
+ nI6On1G/G+Y5yB5scUVX5rZ8fXJS2AYzF9CFGHN9mdgrH3xUUShyEjoTh7ic5AO79KKI
+ m8gZZPOe2O5dl5in9cBJ7K51hditnUgyfdyqMoOOlL9y86kjwk41SOB6QjV0XwucfSq8
+ 5eHnCxR8vGF7QAWf6iXwpMQ8ySNYneNNevgB6NrcMHeQFCzGEIWboUDGfoSYQ7kuARgU
+ zEld8oHMs4BNeU0ply3IiH0jcSUHOr4QTVryTiSqVR1pY7qLcaQGSmCoWflfZ3MIF6aV
+ khGg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVGgG+gZeMYBMOZ1PK6mWjjfiZJZwJ4XIgKZPR/jmIFCc0TYou4iwkUMCrLR2LNvGKfhvILAhLvmlU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzwMlr/fZ1U1oZx1kp3WR5DwOUIFXNtGR+M+7q5KI8mvjW5IKjW
- aKpNirdRuLrEFzikY3PeqbM6i1tSdSxY0i5wjxMOMApg6Le6H7qVBwfDa3dYzqDakGrqrFoZJMS
- S3iWlbXVV/fcS0tcHoSc3SI7uBsNImkne7kgQZw==
-X-Gm-Gg: ASbGncu+PFF8KN4gVGi3Q9TgOKLrtcDl1rzP1QQx0oF2d4mOpaRnYmyfXnPBsmTy1hI
- Bsc87bgMkqN19CXMkZ42RQLiDGpHYVCssZms=
-X-Google-Smtp-Source: AGHT+IHYPoThOqCGG0mIrocl9o1givl0D/RoYwWOKY0kUiZ64KPF9cSvP+6N1Rd6ke2PYtdS9xOibflODkJbaGvT990=
-X-Received: by 2002:a05:6214:528e:b0:6d9:3016:d0e7 with SMTP id
- 6a1803df08f44-6df9b2b1a21mr442378366d6.29.1737030298608; Thu, 16 Jan 2025
- 04:24:58 -0800 (PST)
+ AJvYcCV5FVFDN3NSWYmsm8mdg4Onw5RVj5sTEFgomjJgfXXyFJw04cV+XCPbG5IBrPnmZjyLMUbT9xYLWHU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzKX5e4Ee/WagJwemwSDfbkvNS+4crBcWu943lL6aSpgB0M2+LL
+ GyZ8SyhA75vr4xA1ywsa7pH32MwQc1l/wUxLfyYe3tpQNeClIb87u/HwFFtgF7ef2iPg8mmRj/e
+ Ez9vGR08o5bMbO7fWcqinhLn21kHo+Wtftypuew==
+X-Gm-Gg: ASbGncu/8jR3kPJzZPagysRJ9ZKqf1Uy1iiGXVUnulX5zGVtJwSh9j/QQQhbJB7NKXk
+ N7hotwSU11udax0QAJIS4ySIVjL1v5h3WmMP2Pg==
+X-Google-Smtp-Source: AGHT+IHpVHqUtQvPALKWxgEbVerYIcWLhBHU/N9iKLPyTQmVZmgA6sC1QD/jrIZf+QH/2MqpX2ZsNueHigREXGRNnaY=
+X-Received: by 2002:a05:6902:2e0e:b0:e56:c350:5977 with SMTP id
+ 3f1490d57ef6-e56c350607emr18592868276.49.1737037338327; Thu, 16 Jan 2025
+ 06:22:18 -0800 (PST)
 MIME-Version: 1.0
-References: <f3ba05c7-6e49-4641-a3f9-ba418ebdb7c3@ideasonboard.com>
- <c6735280-7c32-4319-8ca9-a7305d8117c3@suse.de>
- <d67adb03-5cd0-4ac9-af58-cf4446dacee3@ideasonboard.com>
- <0ea6be58-0e04-4172-87cd-064a3e4a43bc@suse.de>
- <f35cb350-6be9-48ca-ad7e-e9dd418281d5@ideasonboard.com>
- <4af0b6a7-c16a-4187-bbf5-365a9c86de21@suse.de>
- <e327ad84-b5c9-4480-b873-dc3aca605538@ideasonboard.com>
- <a2bbeb47-2569-4ee0-9265-92bab139bdc6@suse.de>
- <f3833771-fcd7-45dc-9019-1525fef34429@ideasonboard.com>
- <CAMuHMdXxYa+Na3XxpLTy=-eUL_zQ9kAiUKYu-E04u3KWApusSA@mail.gmail.com>
- <xz5ncq67bgmdase2jg3cfvyaxpiwhol2eqpfzow6dqpauvslo5@2w3rw27lhnxo>
-In-Reply-To: <xz5ncq67bgmdase2jg3cfvyaxpiwhol2eqpfzow6dqpauvslo5@2w3rw27lhnxo>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Thu, 16 Jan 2025 12:24:47 +0000
-X-Gm-Features: AbW1kvarRJv1VyJjUo1t8ScK0brJ2o4-Qq6ABYK10edUo6rgOW2PAccCb4uQWlM
-Message-ID: <CAPj87rNS7quwfqDmxyrW8_vQ6tnrcfWUn=81aTduDXtmdVkkAg@mail.gmail.com>
-Subject: Re: [PATCH v2 25/25] drm/xlnx: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
+References: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org>
+ <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-14-74749c6eba33@linaro.org>
+ <kqrea3es5bwyofk3p3l26wj2iswvfqadwehusfpj4mssgawdos@wombtx67llyc>
+In-Reply-To: <kqrea3es5bwyofk3p3l26wj2iswvfqadwehusfpj4mssgawdos@wombtx67llyc>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Thu, 16 Jan 2025 22:22:07 +0800
+X-Gm-Features: AbW1kvbNYMvnvklmfvw1tMEdJlgZxWihb_2YnyoIX0fWNnPoBLq0Dgu08ZgKo4I
+Message-ID: <CABymUCPn=u8jr_OTFwB-WBjj2nNgBeTyH5b=PvF5vLrDhCxr3Q@mail.gmail.com>
+Subject: Re: [PATCH v4 14/16] drm/msm/dpu: support SSPP assignment for
+ quad-pipe case
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, 
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
- linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, imx@lists.linux.dev, 
- linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org, 
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org, 
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-tegra@vger.kernel.org, intel-xe@lists.freedesktop.org, 
- xen-devel@lists.xenproject.org, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andy Yan <andyshrk@163.com>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -106,45 +89,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 16 Jan 2025 at 10:35, Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
-> On Thu, Jan 16, 2025 at 11:17:50AM +0100, Geert Uytterhoeven wrote:
-> > On Thu, Jan 16, 2025 at 11:03=E2=80=AFAM Tomi Valkeinen
-> > <tomi.valkeinen@ideasonboard.com> wrote:
-> > > On the platforms I have been using (omap, tidss, xilinx, rcar) the du=
-mb
-> > > buffers are the only buffers you can get from the DRM driver. The dum=
-b
-> > > buffers have been used to allocate linear and multiplanar YUV buffers
-> > > for a very long time on those platforms.
-> > >
-> > > I tried to look around, but I did not find any mentions that CREATE_D=
-UMB
-> > > should only be used for RGB buffers. Is anyone outside the core
-> > > developers even aware of it?
-> > >
-> > > If we don't use dumb buffers there, where do we get the buffers? Mayb=
-e
-> > > from a v4l2 device or from a gpu device, but often you don't have tho=
-se.
-> > > DMA_HEAP is there, of course.
-> >
-> > Why can't there be a variant that takes a proper fourcc format instead =
-of
-> > an imprecise bpp value?
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2025=E5=B9=B41=E6=
+=9C=8816=E6=97=A5=E5=91=A8=E5=9B=9B 16:18=E5=86=99=E9=81=93=EF=BC=9A
 >
-> Backwards compatibility. We can add an IOCTL for YUV / etc. But
-> userspace must be able to continue allocating YUV buffers through
-> CREATE_DUMB.
+> On Thu, Jan 16, 2025 at 03:26:03PM +0800, Jun Nie wrote:
+> > Support SSPP assignment for quad-pipe case with unified method.
+> > The first 2 pipes can share a set of mixer config and enable
+> > multi-rect mode if condition is met. It is also the case for
+> > the later 2 pipes.
+>
+> Missing problem description.
 
-Right. If allocating YUYV dumb buffers works on AM68 today, then we
-need to keep that working. But it doesn't mean we should go out of our
-way to make CREATE_DUMB work for every YUV format on every device.
+Is this OK?
+    SSPP are assigned for 2 pipes at most with current implementation,
+    while 4 pipes are required in quad-pipe usage case with involving
+    configuration of 2 stages. Assign SSPPs for pipes of a stage in a
+    loop with unified method. The first 2 pipes can shar a set of mixer
+    config and enable multi-rect mode if condition is met. It is also the
+    case for the later 2 pipes.
 
-Currently, drivers are free to implement their own ioctls for anything
-specific they have. But like Laurent said, standardising on heaps and
-how to communicate requirements to userspace wrt heap selection / size
-/ alignment / etc is imo a better path forward for something generic.
+>
+> Also, shouldn't this patch come before the previous one?
+>
+Yeah, it is reasonable to prepare the assignment capability, then
+enable the plane splitting into 4 pipes. It does not hurt actually
+because quad-pipe is not enabled in data structure side.
+Will reverse the sequence in next version anyway.
 
-Cheers,
-Daniel
+Jun
