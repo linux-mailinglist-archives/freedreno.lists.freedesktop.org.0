@@ -2,70 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AD46A13454
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 08:52:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2BB5A13453
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 08:52:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA44510E8C6;
-	Thu, 16 Jan 2025 07:27:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52DC210E8C9;
+	Thu, 16 Jan 2025 07:27:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BOu25DpI";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LPuHOSGH";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48E6F10E8C6
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 07:27:44 +0000 (UTC)
-Received: by mail-pl1-x631.google.com with SMTP id
- d9443c01a7336-216634dd574so5881705ad.2
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 23:27:44 -0800 (PST)
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B935B10E8CD
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 07:27:51 +0000 (UTC)
+Received: by mail-pl1-x629.google.com with SMTP id
+ d9443c01a7336-2165cb60719so9186185ad.0
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jan 2025 23:27:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737012464; x=1737617264; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1737012471; x=1737617271; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Cu15j2NJTtLjV9+MVFGzHMBk+ND2a5wSao3sFlDFfjM=;
- b=BOu25DpIJ5q5FSZyWazRLblo+x0E8DAPTbEdae2WC+VodGIMIbu/zR2e+GhqJFZW69
- rit+GfwcIlMCqORSh8ZTFIlseNctbsstv7wVLtIBEFTJ1nGAB2kLGCvl2ebFO85a3OrG
- IFGT3DG/iqFnXzZoIDRtliLE3c9GAaEnBz3Z9ScU4ouMUbIFLW2CR5KhVRV8tE/ODBd9
- Om9wfC4B5Sx6XyzdGa0Os4qn02BjnRq2zEJJI5E5YNnD63u7fjyKrGv1qR5YBC0Exyo7
- TmowElfxQEw2CEUyWcl8Bd2YrqE/5s+CtevmvaC1Exy2qrOn6VPBHiGxFd/PhsqbV42j
- O7EQ==
+ :reply-to; bh=e3p4IrXJLa2akZc/exUIig8oznH8M83r0nH6KiRhlZU=;
+ b=LPuHOSGHfaJi1G+F5orNfPH8ywk7TcXSEvTzh9T2L7HyDWSmygxeLS19sCP0EQGQGO
+ cLWwbozUh+buLT6a5oqQ7xZatRcl/Jm36afyDNjtdS5mHX0UG9F/QE2CBwD+tn+oLorV
+ 4wz6SydxJ/5YDCEslCv+8WxqSCftcael8mU9fZv+DJYDYDrjdNrMqI6le9NmB1iqa0Rq
+ 8TEMGbYFBY5ffKFuLiwXCqunT48dWnEXSj15ZHCu2aJ1GTLJzFw0pMZOyj5QtZ12Segx
+ +0gJ0UYplq+M7jIbVqPSkEas8Ta2rBr208DoPrwruiTXEVYKC7v1xqO5dVzxcSTT5oeg
+ 7mmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737012464; x=1737617264;
+ d=1e100.net; s=20230601; t=1737012471; x=1737617271;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Cu15j2NJTtLjV9+MVFGzHMBk+ND2a5wSao3sFlDFfjM=;
- b=Pno6w1EVuOu+965ZRznWkhzXP7HO1vIpcJqj84/FThpvv/yJZ5F0Yxu77XSJpsGNbO
- RvHntNLWXCJ5jthh0XxvXWbCUjU5HpA6ne4hCmdyY8anzvLv9Jy87PphZTG/Frh6o5R2
- GadUW6+6PPnMFUNMEg5S52VPqEpblBjJ+0RHNcUF/bpF/oK2tXjg0ijyWoeAvcJY0nW3
- T2p1HB9vGWWC2KKOQUKGsO7tcXgjgO2MAmlQah9hDjSUu49ha3SZqo1Z7HI5M50XteXk
- V2bDOs19OmL+jngiRl/ZIh8gGfmv9+5neEJoYt326b0LUmVji9YDgkkuMJQ95ATl7Jw6
- dmWg==
+ bh=e3p4IrXJLa2akZc/exUIig8oznH8M83r0nH6KiRhlZU=;
+ b=CltRc8WuZjKn7sJ7Pj6q98yZHnv/2oiQR3Wm2OeY3F3ssBEaIHy9PfAzwuY+ha/w9L
+ eamdcUrAtRYc0DLxHrJSkinC4M8DA5b3wnf685y1cMt+95UbhpvQeT1KhYAisTVyWPFT
+ Rd4Tm9nnFR/1xhsD1SWLHQ2lMu0E09DSSukp5WINcEEoLhtQjsDiiajGWJrYfIr8pI1y
+ dA7ta22aBdKiFKyBEzJWCfBr1N9DuT4r5tCnFo+QQ5+Xb1BLoP1VEjZCMz9AAOuH/yr8
+ FToP9jWti1zexDr64avPYUccPMFb7qJSanCu0gTF9oJ/drNHzPOQvqgCLm74kjxR4wlw
+ 1IXw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU5jKiOWUG7htNpuXTEVdEtfFMfDs8XI5wFLHtTo5CEmLpfEoQ5WD4iXqXebQLiSHMRDdO71aOHRaI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yytm7Bxvx6OF4Bjwnm0VGeXvXqwcgIo8bGIOLw6+DdleiSj+jB0
- k8kP5mVhPNli+iqMzF79uuJm7PA7cKejpzrlCdvFD8tIZNeuOBe9zgP3oNzy7VI=
-X-Gm-Gg: ASbGnctp2fnHURiBCIuBdKghz9INrvPRLrjOevn2ORe050V1SUGT27gjuY3EP4dHzQR
- 7BiX21YLZBnbT0LI6bxGaqu7YSo3uLvw1TerxQKkCwxj76ZJYsPEhpc+qwK+8M3xY/yxpeg7icL
- SbDwW0qCGUxW4cL++RY/HVnvTnNUlK5kk5kEZuZ71Shs7xRvsAYgs9t2ZiQwD/+6NJiPWLAKmee
- vZu/xKcHM5Vtw1B7RiqQomNgny6W0FIoVxNd0tEdQyG3heW3Lo1BA==
-X-Google-Smtp-Source: AGHT+IFm84hxYMVEr0+ywyZZl87XBL/i+rgyjayVVPS3fcbervFdbTiM7rDGmDOi8kZxi6bOUnUopw==
-X-Received: by 2002:a05:6a21:2c15:b0:1e0:9cc2:84b1 with SMTP id
- adf61e73a8af0-1e88d09e13emr58284163637.30.1737012463853; 
- Wed, 15 Jan 2025 23:27:43 -0800 (PST)
+ AJvYcCV18Jn7W4z4hp2qLpFHOtuuHi3Xh4+Rx/0WTt66pKJYOVzeHHgSTS0ecEvimKBqm00qODQjTNspc98=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yym6kMasoKu5NAQK1NvgzeQD1GDKBWRofnSHGhjLw/vD3vxpaIo
+ 0dReZcjXLova1tHZOb2X1yxZu2vJBV9NCb6J1QXY1LFVQJAsIST68jcOUYJMC+o=
+X-Gm-Gg: ASbGncuPn8ovpwbytrDV29yB0ZBaARDgjfaIPUqjhMOgb7fquwtEFrrWhi7JQHNMYDK
+ yLff6rV3J6VWVAac8yUeoPjTf0WzqGcMHthd/dIXbwf0Otu3iSUEUko9TokX6tA/ay+0OUqvyir
+ k9bJpdsp+Q6a7ugQy79mQCX/9MH53gMVx5I/Lccqs7aeNoP0imjtVtwDNzmsn7y5vF8GE0BxwuE
+ VQkZFZHU0LItNzvyEJ9syFTG0IW0dI3VcaTP7YTezHjFhYyuDO65Q==
+X-Google-Smtp-Source: AGHT+IH6sMEL6GX1kbpB8tlkmwGkWmBcolv5ZrUWSyKJAZnVbbsPEjoI8z6Hwtt366GLlL4hyvvDjg==
+X-Received: by 2002:a05:6a00:399a:b0:725:f1ca:fd8a with SMTP id
+ d2e1a72fcca58-72d21fb1dfcmr52232905b3a.19.1737012471334; 
+ Wed, 15 Jan 2025 23:27:51 -0800 (PST)
 Received: from [127.0.1.1] ([112.65.12.217]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-72d4059485bsm10164583b3a.83.2025.01.15.23.27.38
+ d2e1a72fcca58-72d4059485bsm10164583b3a.83.2025.01.15.23.27.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2025 23:27:43 -0800 (PST)
+ Wed, 15 Jan 2025 23:27:51 -0800 (PST)
 From: Jun Nie <jun.nie@linaro.org>
-Date: Thu, 16 Jan 2025 15:26:04 +0800
-Subject: [PATCH v4 15/16] drm/msm/dpu: Disable SSPP multi-rect mode for
- every pair
+Date: Thu, 16 Jan 2025 15:26:05 +0800
+Subject: [PATCH v4 16/16] drm/msm/dpu: Enable quad-pipe for DSC and
+ dual-DSI case
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-15-74749c6eba33@linaro.org>
+Message-Id: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-16-74749c6eba33@linaro.org>
 References: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org>
 In-Reply-To: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, 
@@ -77,11 +77,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Jun Nie <jun.nie@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1737012353; l=1058;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1737012353; l=5963;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=a64yZUVbmjveaxw7MvfAQcSIf9K7WyhFoHvJmze3ZhI=;
- b=LoRxm2CbOnuyS1YwLYTxXBpcl8r2bdQkUNXgYvF+hft9P5kfaGuNni01PeJrfTD4ZqL9BRGpw
- br3iGNDQUQeBxgmEr7nhgvZ5pnPUIL5foVNY1SR8XTgMkoKii2K+cWc
+ bh=RbKPuq803+NiCMGe/UJ/U7W3A07kesdKTJCDbtqd0sE=;
+ b=hEdfNz5hHuGh4b0RzMcBCXUrqAGiJZ5UBCDEi/2MsEYrRR4ciTLPVA9sh0uZF7TTKrAk9Uh5Y
+ uomWzZumYCzBR0tMPVdXJsFb5TtgG/9NcElr3WNO1k0JX5qRP94alHw
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -99,29 +99,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently, 2 pipes are supported at most. It is enough to check id to
-know which pipe is in multi-rect mode and disable it. Multiple pairs
-are used and need to check multirect_index to decide what pipes are in
-multi-rect mode to disable them.
+Request 4 mixers and 4 DSC for the case that both dual-DSI and DSC are
+enabled. 4 pipes are preferred for dual DSI case for it is power optimal
+for DSC.
 
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 ++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 29 ++++++++++++++++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
+ 6 files changed, 29 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index d96f4405a4c26..d2e0fcfbc30cd 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -1480,7 +1480,7 @@ static void _dpu_plane_atomic_disable(struct drm_plane *plane)
- 		 * clear multirect for the right pipe so that the SSPP
- 		 * can be further reused in the solo mode
- 		 */
--		if (pipe->sspp && i == 1) {
-+		if (pipe->sspp && pipe->multirect_index == DPU_SSPP_RECT_1) {
- 			pipe->multirect_index = DPU_SSPP_RECT_SOLO;
- 			pipe->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index a900220deeb35..5e96c309fabb8 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -200,7 +200,7 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc,
+ 		struct dpu_crtc_state *crtc_state)
+ {
+ 	struct dpu_crtc_mixer *m;
+-	u32 crcs[CRTC_DUAL_MIXERS];
++	u32 crcs[CRTC_QUAD_MIXERS];
  
+ 	int rc = 0;
+ 	int i;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+index b14bab2754635..38820d05edb8b 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+@@ -210,7 +210,7 @@ struct dpu_crtc_state {
+ 
+ 	bool bw_control;
+ 	bool bw_split_vote;
+-	struct drm_rect lm_bounds[CRTC_DUAL_MIXERS];
++	struct drm_rect lm_bounds[CRTC_QUAD_MIXERS];
+ 
+ 	uint64_t input_fence_timeout_ns;
+ 
+@@ -218,10 +218,10 @@ struct dpu_crtc_state {
+ 
+ 	/* HW Resources reserved for the crtc */
+ 	u32 num_mixers;
+-	struct dpu_crtc_mixer mixers[CRTC_DUAL_MIXERS];
++	struct dpu_crtc_mixer mixers[CRTC_QUAD_MIXERS];
+ 
+ 	u32 num_ctls;
+-	struct dpu_hw_ctl *hw_ctls[CRTC_DUAL_MIXERS];
++	struct dpu_hw_ctl *hw_ctls[CRTC_QUAD_MIXERS];
+ 
+ 	enum dpu_crtc_crc_source crc_source;
+ 	int crc_frame_skip_count;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 1f3054792a228..fdb7bfcb4119c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -54,7 +54,7 @@
+ #define MAX_PHYS_ENCODERS_PER_VIRTUAL \
+ 	(MAX_H_TILES_PER_DISPLAY * NUM_PHYS_ENCODER_TYPES)
+ 
+-#define MAX_CHANNELS_PER_ENC 2
++#define MAX_CHANNELS_PER_ENC 4
+ 
+ #define IDLE_SHORT_TIMEOUT	1
+ 
+@@ -664,15 +664,20 @@ static struct msm_display_topology dpu_encoder_get_topology(
+ 
+ 	/* Datapath topology selection
+ 	 *
+-	 * Dual display
++	 * Dual display without DSC
+ 	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
+ 	 *
++	 * Dual display with DSC
++	 * 2 LM, 2 INTF ( Split display using 2 interfaces)
++	 * 4 LM, 2 INTF ( Split display using 2 interfaces)
++	 *
+ 	 * Single display
+ 	 * 1 LM, 1 INTF
+ 	 * 2 LM, 1 INTF (stream merge to support high resolution interfaces)
+ 	 *
+ 	 * Add dspps to the reservation requirements if ctm is requested
+ 	 */
++
+ 	if (intf_count == 2)
+ 		topology.num_lm = 2;
+ 	else if (!dpu_kms->catalog->caps->has_3d_merge)
+@@ -691,10 +696,20 @@ static struct msm_display_topology dpu_encoder_get_topology(
+ 		 * 2 DSC encoders, 2 layer mixers and 1 interface
+ 		 * this is power optimal and can drive up to (including) 4k
+ 		 * screens
++		 * But for dual display case, we prefer 4 layer mixers. Because
++		 * the resolution is always high in the case and 4 DSCs are more
++		 * power optimal.
+ 		 */
+-		topology.num_dsc = 2;
+-		topology.num_lm = 2;
+-		topology.num_intf = 1;
++
++		if (intf_count == 2) {
++			topology.num_dsc = dpu_kms->catalog->dsc_count >= 4 ? 4 : 2;
++			topology.num_lm = topology.num_dsc;
++			topology.num_intf = 2;
++		} else {
++			topology.num_dsc = 2;
++			topology.num_lm = 2;
++			topology.num_intf = 1;
++		}
+ 	}
+ 
+ 	return topology;
+@@ -2194,8 +2209,8 @@ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
+ 	struct dpu_hw_mixer_cfg mixer;
+ 	int i, num_lm;
+ 	struct dpu_global_state *global_state;
+-	struct dpu_hw_blk *hw_lm[2];
+-	struct dpu_hw_mixer *hw_mixer[2];
++	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
++	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
+ 
+ 	memset(&mixer, 0, sizeof(mixer));
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+index 63f09857025c2..a9e122243dce9 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+@@ -302,7 +302,7 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
+ 
+ 	/* Use merge_3d unless DSC MERGE topology is used */
+ 	if (phys_enc->split_role == ENC_ROLE_SOLO &&
+-	    dpu_cstate->num_mixers == CRTC_DUAL_MIXERS &&
++	    (dpu_cstate->num_mixers != 1) &&
+ 	    !dpu_encoder_use_dsc_merge(phys_enc->parent))
+ 		return BLEND_3D_H_ROW_INT;
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index 4cea19e1a2038..77a7a5375d545 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -24,7 +24,7 @@
+ #define DPU_MAX_IMG_WIDTH 0x3fff
+ #define DPU_MAX_IMG_HEIGHT 0x3fff
+ 
+-#define CRTC_DUAL_MIXERS	2
++#define CRTC_QUAD_MIXERS	4
+ 
+ #define MAX_XIN_COUNT 16
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+index 64e220987be56..804858e69e7da 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+@@ -35,8 +35,8 @@
+ #endif
+ 
+ #define STAGES_PER_PLANE		2
+-#define PIPES_PER_PLANE			2
+ #define PIPES_PER_STAGE			2
++#define PIPES_PER_PLANE			(PIPES_PER_STAGE * STAGES_PER_PLANE)
+ #ifndef DPU_MAX_DE_CURVES
+ #define DPU_MAX_DE_CURVES		3
+ #endif
 
 -- 
 2.34.1
