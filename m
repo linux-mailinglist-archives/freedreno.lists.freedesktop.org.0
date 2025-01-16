@@ -2,62 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13AB3A136C6
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 10:39:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AC9FA136EF
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jan 2025 10:49:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D31E10E918;
-	Thu, 16 Jan 2025 09:39:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3658810E91B;
+	Thu, 16 Jan 2025 09:49:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="n0BH+gjP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="K4Fuqnhd";
 	dkim-atps=neutral
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C488F10E90C;
- Thu, 16 Jan 2025 09:39:00 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (unknown [193.209.96.36])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 12F276B5;
- Thu, 16 Jan 2025 10:38:01 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1737020281;
- bh=Sz7XGsB0jJiCVcgAYNC5ZZi+VkFA4hXqTcdj3HBGvi4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=n0BH+gjPklcJM4K7npyiN+OizL+So166OYOAFCGwmyI31sasdC0hnhksHO/5bLnfw
- HMc/eoseS5N2gVokQXXsjM5itCkOuGjpNUxwyWy3Ek6SdEbjqi0yC6yW0imGRrqVj1
- 1fRnvPVpWPsdUJLy5MKa4eyuKZRKjUpaQVwa4Knc=
-Date: Thu, 16 Jan 2025 11:38:54 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Daniel Stone <daniel@fooishbar.org>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, imx@lists.linux.dev,
- linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Andy Yan <andyshrk@163.com>
-Subject: Re: [PATCH v2 25/25] drm/xlnx: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-Message-ID: <20250116093854.GG6754@pendragon.ideasonboard.com>
-References: <bc97b92e-7f8a-4b92-af8a-20fa165ead55@suse.de>
- <f3ba05c7-6e49-4641-a3f9-ba418ebdb7c3@ideasonboard.com>
- <c6735280-7c32-4319-8ca9-a7305d8117c3@suse.de>
- <d67adb03-5cd0-4ac9-af58-cf4446dacee3@ideasonboard.com>
- <0ea6be58-0e04-4172-87cd-064a3e4a43bc@suse.de>
- <f35cb350-6be9-48ca-ad7e-e9dd418281d5@ideasonboard.com>
- <4af0b6a7-c16a-4187-bbf5-365a9c86de21@suse.de>
- <e327ad84-b5c9-4480-b873-dc3aca605538@ideasonboard.com>
- <CAPj87rOn=RQ615zyaEdFT2ADfPztU7+heVi0G34Rdg-=QO1cCw@mail.gmail.com>
- <20250116084340.GF6754@pendragon.ideasonboard.com>
+Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com
+ [IPv6:2607:f8b0:4864:20::b32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6FA410E91B
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 09:49:54 +0000 (UTC)
+Received: by mail-yb1-xb32.google.com with SMTP id
+ 3f1490d57ef6-e3983426f80so1131951276.1
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jan 2025 01:49:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1737020994; x=1737625794; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rpI6PkeKxs4La2peZtwi+NZrR6YCbXN2P1PW0muNPlo=;
+ b=K4Fuqnhd7uxWFkIOyWS39bkk2mgLyEtHDBUFGS5muI/Mhy0qn3VXpWY4OVZ6LLfpFa
+ 906K+fY0hq94ZgRHI5s6JHgDNSXUlEEA2b4huDPb2/rpD90W4DP8BBIW+VQDmnhRL8Hk
+ HEK5M45rosDDa0X8e1f1YdiXJt8vPWpF/PkPuqSycYSERyZBP26GqOBMZ89hGf2xOFI7
+ KR7eBTC6Wz9blgBwLoBy2Dj55qIx68Jbm884rQByZ5x6ASJQONolCPoWl4ul26MLEisg
+ ahrPvl5gqxCpUBQlL4Yo0/SuPmIZg49blRt9U2OrYOf1gk3YrwihdPMCuulXQpzEQ9Qf
+ +Uww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737020994; x=1737625794;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rpI6PkeKxs4La2peZtwi+NZrR6YCbXN2P1PW0muNPlo=;
+ b=FBcb8twshbLQj7RLhCsolYfNL+FnRULKqIKXMVvntz4YXN0Kd6QV3Vb4q0Q6J6SVgI
+ mXqndLMjzlYDEkz6GT7t0sNrp0A5B68ttcQBk+zFbsc+OEoOQwXhw34prRMvclE/epz+
+ c6FDKVDIri3qkUymurDoULd+ggjGqSVhKSDrzWiPaKL3/QpGG76ludVieV2IWDSva/Wc
+ p86BhssV/2Sw9tr947pWUp/P45Fe6LTqCw4LvbvmdcuVf5ObkLG6bd2jjDu9wie1ha1j
+ UoN7UuGjSM62qJGtaHQ4PNKuh80v6oHpJh6jMk+bZZg7fcbwWazFpZCEt1u/HXTXbufb
+ f7fA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXvdp3PCBPFuxUKxmSm4oXjsHtKYPKlbexarLBhVZV+NAVd5TO1b30tghcmpwTYZ+79WcWcOBLj/wE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyE+eqcFkSdHD2a5K6WerLXRFK4rUXbaCxsR87an9SPmtRIO7ex
+ dC1wJN1CayRKqRDonUXAc7Y7hRDzcSRfg1apZvKMlrS6keU95ZjFDwQmf3Cc9PcTtmOA1UbuoRa
+ /QMDgmGLzR5hBbVGxINC/YvBDlgo5Jgvwa7Jc3A==
+X-Gm-Gg: ASbGnctA4mw1MXYaTRgKIg68jZZAiw6Rja8Hz2J1TDefKzro6187UPM7QwV6wGfIA2n
+ nlVLJPWmGwImh7W7FMC9Xqub6Vxg7ewaCOxIwrA==
+X-Google-Smtp-Source: AGHT+IHsUYmbTKsUERg4PfYdjvqQT5L0zUvj7zKKOodZZe9rrGFoJnyZOZnpy+8qKbTSyrG2OPRnZ2rr1I1fJULeFAw=
+X-Received: by 2002:a05:6902:1209:b0:e57:8814:1399 with SMTP id
+ 3f1490d57ef6-e5788141813mr6478134276.44.1737020993767; Thu, 16 Jan 2025
+ 01:49:53 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250116084340.GF6754@pendragon.ideasonboard.com>
+References: <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-0-74749c6eba33@linaro.org>
+ <20250116-sm8650-v6-13-hmd-deckard-mdss-quad-upstream-33-v4-10-74749c6eba33@linaro.org>
+ <l6z2skrj2tvlnqok44yepqs32keuz3wsfpgsacesrxi3q4s4xb@oiicfia3tkef>
+In-Reply-To: <l6z2skrj2tvlnqok44yepqs32keuz3wsfpgsacesrxi3q4s4xb@oiicfia3tkef>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Thu, 16 Jan 2025 17:49:43 +0800
+X-Gm-Features: AbW1kvaD57nyzT6yujFT9rwov5zHgBxS9AhICFkcPyff2wmU_ZFd8JowLM7kwEE
+Message-ID: <CABymUCOdtePUgcbtY3Xtf9detcfwm=RjG1D_sfDOSbSP-EjwXA@mail.gmail.com>
+Subject: Re: [PATCH v4 10/16] drm/msm/dpu: handle pipes as array
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,42 +88,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jan 16, 2025 at 10:43:40AM +0200, Laurent Pinchart wrote:
-> On Wed, Jan 15, 2025 at 02:34:26PM +0000, Daniel Stone wrote:
-> > On Wed, 15 Jan 2025 at 14:20, Tomi Valkeinen wrote:
-> > > No disagreement there, we need CREATE_DUMB2.
-> > >
-> > > My point is that we have the current UAPI, and we have userspace using
-> > > it, but we don't have clear rules what the ioctl does with specific
-> > > parameters, and we don't document how it has to be used.
-> > >
-> > > Perhaps the situation is bad, and all we can really say is that
-> > > CREATE_DUMB only works for use with simple RGB formats, and the behavior
-> > > for all other formats is platform specific. But I think even that would
-> > > be valuable in the UAPI docs.
-> > 
-> > Yeah, CREATE_DUMB only works for use with simple RGB formats in a
-> > linear layout. Not monochrome or YUV or tiled or displayed rotated or
-> > whatever.
-> > 
-> > If it happens to accidentally work for other uses, that's fine, but
-> > it's not generically reliable for anything other than simple linear
-> > RGB. It's intended to let you do splash screens, consoles, recovery
-> > password entries, and software-rendered compositors if you really
-> > want. Anything more than that isn't 'dumb'.
-> 
-> We have lots of software out there that rely on CREATE_DUMB supporting
-> YUV linear formats, and lots of drivers (mostly on Arm I suppose) that
-> implement YUV support in CREATE_DUMB. I'm fine replacing it with
-> something better, but I think we need a standard ioctl that can create
-> linear YUV buffers. I've been told many times that DRM doesn't want to
-> standardize buffer allocation further than what CREATE_DUMB is made for.
-> Can we reconsider this rule then ?
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org> =E4=BA=8E2025=E5=B9=B41=E6=
+=9C=8816=E6=97=A5=E5=91=A8=E5=9B=9B 16:00=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Thu, Jan 16, 2025 at 03:25:59PM +0800, Jun Nie wrote:
+> > Store pipes in array with removing dedicated r_pipe. There are
+> > 2 pipes in a drm plane at most currently, while 4 pipes are
+> > required for quad-pipe case. Generalize the handling to pipe pair
+> > and ease handling to another pipe pair later.
+>
+> With the first sentence being moved to the end of the commit message:
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+> Minor issues below, please address them in the next version.
+>
+> >
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  35 +++----
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 167 +++++++++++++++++-----=
+--------
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  12 +--
+> >  3 files changed, 112 insertions(+), 102 deletions(-)
+>
+> > @@ -853,6 +855,9 @@ static int dpu_plane_atomic_check_nosspp(struct drm=
+_plane *plane,
+> >               return -EINVAL;
+> >       }
+> >
+> > +     /* move the assignment here, to ease handling to another pairs la=
+ter */
+>
+> Is it a TODO comment? It reads like an order.
+>
+> > +     pipe_cfg =3D &pstate->pipe_cfg[0];
+> > +     r_pipe_cfg =3D &pstate->pipe_cfg[1];
+> >       /* state->src is 16.16, src_rect is not */
+> >       drm_rect_fp_to_int(&pipe_cfg->src_rect, &new_plane_state->src);
+> >
+>
+> > @@ -1387,17 +1394,28 @@ static void _dpu_plane_atomic_disable(struct dr=
+m_plane *plane)
+> >  {
+> >       struct drm_plane_state *state =3D plane->state;
+> >       struct dpu_plane_state *pstate =3D to_dpu_plane_state(state);
+> > -     struct dpu_sw_pipe *r_pipe =3D &pstate->r_pipe;
+> > +     struct dpu_sw_pipe *pipe;
+> > +     int i;
+> >
+> > -     trace_dpu_plane_disable(DRMID(plane), false,
+> > -                             pstate->pipe.multirect_mode);
+> > +     for (i =3D 0; i < PIPES_PER_STAGE; i +=3D 1) {
+> > +             pipe =3D &pstate->pipe[i];
+> > +             if (!pipe->sspp)
+> > +                     continue;
+> >
+> > -     if (r_pipe->sspp) {
+> > -             r_pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> > -             r_pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
+> > +             trace_dpu_plane_disable(DRMID(plane), false,
+> > +                                     pstate->pipe[i].multirect_mode);
+> >
+> > -             if (r_pipe->sspp->ops.setup_multirect)
+> > -                     r_pipe->sspp->ops.setup_multirect(r_pipe);
+> > +             /*
+> > +              * clear multirect for the right pipe so that the SSPP
+> > +              * can be further reused in the solo mode
+> > +              */
+> > +             if (pipe->sspp && i =3D=3D 1) {
+>
+> Wouldn't it be better to `&& i % 2 !=3D 0`? Then, I think, this condition
+> can stay even in quad-pipe case.
 
-Actually... Instead of adding a CREATE_DUMB2, it would be best on trying
-to leverage DMA heaps and deprecate allocating from the KMS device.
+If all pipes are in solo mode, there is no need to test ' i %2 !=3D 0 '. Be=
+low
+test shall be better, right?
+if (pipe->sspp && pipe->multirect_index =3D=3D DPU_SSPP_RECT_1)
 
--- 
-Regards,
-
-Laurent Pinchart
+>
+> > +                     pipe->multirect_index =3D DPU_SSPP_RECT_SOLO;
+> > +                     pipe->multirect_mode =3D DPU_SSPP_MULTIRECT_NONE;
+> > +
+> > +                     if (pipe->sspp->ops.setup_multirect)
+> > +                             pipe->sspp->ops.setup_multirect(pipe);
+> > +             }
+> >       }
+> >
+> >       pstate->pending =3D true;
+>
+> --
+> With best wishes
+> Dmitry
